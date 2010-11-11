@@ -28,13 +28,48 @@ import sip
 sip.setapi("QString", 2)
 sip.setapi("QVariant", 2)
 
+# Construct QApplication
 from PyQt4.QtGui import QApplication
-app = QApplication(sys.argv)
+qapp = QApplication(sys.argv)
 
 import info
-app.setApplicationName(info.name)
-app.setApplicationVersion(info.version)
-app.setOrganizationName(info.description)
-app.setOrganizationDomain(info.url)
-print app.arguments()
+QApplication.setApplicationName(info.name)
+QApplication.setApplicationVersion(info.version)
+QApplication.setOrganizationName(info.description)
+QApplication.setOrganizationDomain(info.url)
 
+# Setup language
+import po
+
+import app
+
+if qapp.isSessionRestored():
+    # Restore session, we are started by the session manager
+    pass
+else:
+    import mainwindow
+    mainwindow.MainWindow().show()
+    
+    # Parse command line arguments
+    import optparse
+    parser = optparse.OptionParser(
+        usage = _("usage: {appname} [options] file ...").format(appname=info.name),
+        version = "{0} {1}".format(info.name, info.version))
+    parser.add_option('-e', '--encoding', metavar=_("ENC"),
+        help=_("Encoding to use"))
+    parser.add_option('-l', '--line', type="int", metavar=_("NUM"),
+        help=_("Line number to go to, starting at 1"))
+    parser.add_option('-c', '--column', type="int", metavar=_("NUM"),
+        help=_("Column to go to, starting at 0"))
+    parser.add_option('--start', metavar=_("NAME"),
+        help=_("Session to start"), dest="session")
+
+    options, files = parser.parse_args(QApplication.arguments()[1:])
+
+    if options.session:
+        app.startSession(options.session)
+    docs = [app.openUrl(name, options.encoding) for name in files]
+    if docs and options.line is not None:
+        docs[-1].setCursorPosition(options.line, options.column or 0)
+
+app.run()

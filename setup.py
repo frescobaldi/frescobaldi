@@ -5,11 +5,15 @@ setup(
     scripts = ['frescobaldi'],
     packages = [
         'frescobaldi_app',
+        'frescobaldi_app.po',
         #'frescobaldi_app.ly',
         #'frescobaldi_app.app',
         #'frescobaldi_app.util',
         #'frescobaldi_app.data',
     ],
+    package_data = {
+        'frescobaldi_app.po': ['*.mo'],
+    },
     classifiers = [
         'Development Status :: 3 - Alpha',
         'Intended Audience :: End Users/Desktop',
