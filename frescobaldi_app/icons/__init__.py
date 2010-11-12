@@ -30,8 +30,8 @@ QDir.setSearchPaths("icons", __path__)
 
 _cache = {}
 
-def get(name, themed = False):
-    if themed and QIcon.hasThemeIcon(name):
+def get(name):
+    if QIcon.hasThemeIcon(name):
         return QIcon.fromTheme(name)
     try:
         return _cache[name]

@@ -24,7 +24,7 @@ Frescobaldi Main Window.
 """
 import itertools
 
-from PyQt4.QtGui import QAction, QMainWindow
+from PyQt4.QtGui import *
 
 import app
 import icons
@@ -62,19 +62,85 @@ class MainWindow(QMainWindow):
         self.translateMenus()
         
     def createActions(self):
-        self.fileNew = QAction(icons.get('file-new'), '', self)
-        self.fileOpen = QAction(icons.get('file-open'), '', self)
+        self.file_new = QAction(self)
+        self.file_open = QAction(self)
+        self.file_open_recent = QAction(self)
+        self.file_open_current_directory = QAction(self)
+        self.file_save = QAction(self)
+        self.file_save_as = QAction(self)
+        self.file_save_all = QAction(self)
+        self.file_print_source = QAction(self)
+        self.file_print_music = QAction(self)
+        self.file_close = QAction(self)
+        self.file_close_other = QAction(self)
+        self.file_quit = QAction(self)
+        
+        # recent files
+        self.menu_recent_files = m = QMenu()
+        self.file_open_recent.setMenu(m)
+        
+        # icons
+        self.file_new.setIcon(icons.get('document-new'))
+        self.file_open.setIcon(icons.get('document-open'))
+        self.file_open_recent.setIcon(icons.get('document-open-recent'))
+        self.file_open_current_directory.setIcon(icons.get('document-open-folder'))
+        self.file_save.setIcon(icons.get('document-save'))
+        self.file_save_as.setIcon(icons.get('document-save-as'))
+        self.file_save_all.setIcon(icons.get('document-save-all'))
+        self.file_print_source.setIcon(icons.get('document-print'))
+        self.file_print_music.setIcon(icons.get('document-print'))
+        self.file_close.setIcon(icons.get('document-close'))
+        self.file_quit.setIcon(icons.get('application-exit'))
+        
+        # shortcuts
+        self.file_new.setShortcuts(QKeySequence.New)
+        self.file_open.setShortcuts(QKeySequence.Open)
+        self.file_save.setShortcuts(QKeySequence.Save)
+        self.file_save_as.setShortcuts(QKeySequence.SaveAs)
+        self.file_print_music.setShortcuts(QKeySequence.Print)
+        self.file_close.setShortcuts(QKeySequence.Close)
+        self.file_quit.setShortcuts(QKeySequence.Quit)
+        
+        # connections
+        self.file_quit.triggered.connect(self.close)
         
     def translateActions(self):
-        self.fileNew.setText(_("&New"))
-        self.fileOpen.setText(_("&Open"))
+        self.file_new.setText(_("&New"))
+        self.file_open.setText(_("&Open..."))
+        self.file_open_recent.setText(_("Open &Recent"))
+        self.file_open_current_directory.setText(_("Open Current Directory"))
+        self.file_save.setText(_("&Save"))
+        self.file_save_as.setText(_("Save &As..."))
+        self.file_save_all.setText(_("Save All"))
+        self.file_print_music.setText(_("&Print &Music..."))
+        self.file_print_source.setText(_("Print Source..."))
+        self.file_close.setText(_("&Close"))
+        self.file_close_other.setText(_("Close Other Documents"))
+        self.file_quit.setText(_("&Quit"))
         
     def createMenus(self):
-        self.fileMenu = m = self.menuBar().addMenu('')
-        m.addAction(self.fileNew)
-        m.addAction(self.fileOpen)
+        self.menu_file = m = self.menuBar().addMenu('')
+        m.addAction(self.file_new)
         m.addSeparator()
+        m.addAction(self.file_open)
+        m.addAction(self.file_open_recent)
+        m.addAction(self.file_open_current_directory)
+        m.addSeparator()
+        m.addAction(self.file_save)
+        m.addAction(self.file_save_as)
+        m.addSeparator()
+        m.addAction(self.file_save_all)
+        m.addSeparator()
+        m.addAction(self.file_print_music)
+        m.addAction(self.file_print_source)
+        m.addSeparator()
+        m.addAction(self.file_close)
+        m.addAction(self.file_close_other)
+        m.addSeparator()
+        m.addAction(self.file_quit)
         
     def translateMenus(self):
-        self.fileMenu.setTitle(_('&File'))
+        self.menu_file.setTitle(_('&File'))
         
+
+
