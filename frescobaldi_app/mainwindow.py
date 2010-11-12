@@ -56,28 +56,58 @@ class MainWindow(QMainWindow):
 
     def queryClose(self):
         return True
-    
-    def translateUI(self):
-        self.translateActions()
-        self.translateMenus()
-        
+
     def createActions(self):
-        self.file_new = QAction(self)
-        self.file_open = QAction(self)
-        self.file_open_recent = QAction(self)
-        self.file_open_current_directory = QAction(self)
-        self.file_save = QAction(self)
-        self.file_save_as = QAction(self)
-        self.file_save_all = QAction(self)
-        self.file_print_source = QAction(self)
-        self.file_print_music = QAction(self)
-        self.file_close = QAction(self)
-        self.file_close_other = QAction(self)
-        self.file_quit = QAction(self)
+        self.actionCollection = ac = ActionCollection(self)
         
         # recent files
         self.menu_recent_files = m = QMenu()
-        self.file_open_recent.setMenu(m)
+        ac.file_open_recent.setMenu(m)
+        
+        # connections
+        ac.file_quit.triggered.connect(self.close)
+        
+    def createMenus(self):
+        ac = self.actionCollection
+        self.menu_file = m = self.menuBar().addMenu('')
+        m.addAction(ac.file_new)
+        m.addSeparator()
+        m.addAction(ac.file_open)
+        m.addAction(ac.file_open_recent)
+        m.addAction(ac.file_open_current_directory)
+        m.addSeparator()
+        m.addAction(ac.file_save)
+        m.addAction(ac.file_save_as)
+        m.addSeparator()
+        m.addAction(ac.file_save_all)
+        m.addSeparator()
+        m.addAction(ac.file_print_music)
+        m.addAction(ac.file_print_source)
+        m.addSeparator()
+        m.addAction(ac.file_close)
+        m.addAction(ac.file_close_other)
+        m.addSeparator()
+        m.addAction(ac.file_quit)
+        
+    def translateUI(self):
+        self.actionCollection.translate()
+        self.menu_file.setTitle(_('&File'))
+        
+
+class ActionCollection:
+    def __init__(self, mainwindow):
+        self.file_new = QAction(mainwindow)
+        self.file_open = QAction(mainwindow)
+        self.file_open_recent = QAction(mainwindow)
+        self.file_open_current_directory = QAction(mainwindow)
+        self.file_save = QAction(mainwindow)
+        self.file_save_as = QAction(mainwindow)
+        self.file_save_all = QAction(mainwindow)
+        self.file_print_source = QAction(mainwindow)
+        self.file_print_music = QAction(mainwindow)
+        self.file_close = QAction(mainwindow)
+        self.file_close_other = QAction(mainwindow)
+        self.file_quit = QAction(mainwindow)
         
         # icons
         self.file_new.setIcon(icons.get('document-new'))
@@ -100,11 +130,8 @@ class MainWindow(QMainWindow):
         self.file_print_music.setShortcuts(QKeySequence.Print)
         self.file_close.setShortcuts(QKeySequence.Close)
         self.file_quit.setShortcuts(QKeySequence.Quit)
-        
-        # connections
-        self.file_quit.triggered.connect(self.close)
-        
-    def translateActions(self):
+
+    def translate(self):
         self.file_new.setText(_("&New"))
         self.file_open.setText(_("&Open..."))
         self.file_open_recent.setText(_("Open &Recent"))
@@ -117,30 +144,5 @@ class MainWindow(QMainWindow):
         self.file_close.setText(_("&Close"))
         self.file_close_other.setText(_("Close Other Documents"))
         self.file_quit.setText(_("&Quit"))
-        
-    def createMenus(self):
-        self.menu_file = m = self.menuBar().addMenu('')
-        m.addAction(self.file_new)
-        m.addSeparator()
-        m.addAction(self.file_open)
-        m.addAction(self.file_open_recent)
-        m.addAction(self.file_open_current_directory)
-        m.addSeparator()
-        m.addAction(self.file_save)
-        m.addAction(self.file_save_as)
-        m.addSeparator()
-        m.addAction(self.file_save_all)
-        m.addSeparator()
-        m.addAction(self.file_print_music)
-        m.addAction(self.file_print_source)
-        m.addSeparator()
-        m.addAction(self.file_close)
-        m.addAction(self.file_close_other)
-        m.addSeparator()
-        m.addAction(self.file_quit)
-        
-    def translateMenus(self):
-        self.menu_file.setTitle(_('&File'))
-        
 
 
