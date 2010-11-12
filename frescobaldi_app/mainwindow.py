@@ -24,9 +24,10 @@ Frescobaldi Main Window.
 """
 import itertools
 
-from PyQt4.QtGui import QMainWindow
+from PyQt4.QtGui import QAction, QMainWindow
 
 import app
+import icons
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -39,9 +40,13 @@ class MainWindow(QMainWindow):
             if name not in names:
                 self.setObjectName(name)
                 break
-        
+        self.setWindowIcon(icons.get('frescobaldi'))
         app.windows.append(self)
-    
+        self.createActions()
+        self.createMenus()
+        
+        self.translateUI()
+        
     def closeEvent(self, ev):
         if self.queryClose():
             ev.accept()
@@ -52,4 +57,24 @@ class MainWindow(QMainWindow):
     def queryClose(self):
         return True
     
-    
+    def translateUI(self):
+        self.translateActions()
+        self.translateMenus()
+        
+    def createActions(self):
+        self.fileNew = QAction(icons.get('file-new'), '', self)
+        self.fileOpen = QAction(icons.get('file-open'), '', self)
+        
+    def translateActions(self):
+        self.fileNew.setText(_("&New"))
+        self.fileOpen.setText(_("&Open"))
+        
+    def createMenus(self):
+        self.fileMenu = m = self.menuBar().addMenu('')
+        m.addAction(self.fileNew)
+        m.addAction(self.fileOpen)
+        m.addSeparator()
+        
+    def translateMenus(self):
+        self.fileMenu.setTitle(_('&File'))
+        

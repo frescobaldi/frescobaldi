@@ -1,0 +1,21 @@
+[Desktop Entry]
+GenericName=LilyPond Music Editor
+GenericName[nl]=Muziek-editor voor LilyPond
+GenericName[es]=Editor de música para LilyPond
+GenericName[it]=Editor musicale per LilyPond
+GenericName[ru]=Музыкальный нотатор LilyPond
+GenericName[cs]=LilyPond hudební editor
+GenericName[tr]=LilyPond Müzik Düzenleyicisi
+GenericName[pl]=Edytor nutowy LilyPond
+GenericName[fr]=Éditeur de musique LilyPond
+GenericName[de]=LilyPond Musik-Editor
+Name=Frescobaldi
+MimeType=text/x-lilypond;
+Exec=frescobaldi %U
+X-KDE-StartupNotify=true
+Icon=frescobaldi
+Type=Application
+Terminal=false
+InitialPreference=8
+Categories=Qt;AudioVideo;Music;Utility;TextEditor;
+X-Accepts-TextEditUrl=True

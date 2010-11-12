@@ -1,0 +1,4 @@
+include README COPYING
+include frescobaldi.desktop
+recursive-include frescobaldi_app *.png *.svg
+recursive-include frescobaldi_app *.po *.mo
