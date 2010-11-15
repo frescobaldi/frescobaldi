@@ -24,6 +24,7 @@ Frescobaldi Main Window.
 """
 import itertools
 
+from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
@@ -48,7 +49,7 @@ class MainWindow(QMainWindow):
         self.translateUI()
         
     def closeEvent(self, ev):
-        if self.queryClose():
+        if len(app.windows) > 1 or self.queryClose():
             ev.accept()
             app.windows.remove(self)
         else:
@@ -89,9 +90,43 @@ class MainWindow(QMainWindow):
         m.addSeparator()
         m.addAction(ac.file_quit)
         
+        self.menu_edit = m = self.menuBar().addMenu('')
+        m.addAction(ac.edit_undo)
+        m.addAction(ac.edit_redo)
+        m.addSeparator()
+        m.addAction(ac.edit_cut_assign)
+        m.addAction(ac.edit_cut)
+        m.addAction(ac.edit_copy)
+        m.addAction(ac.edit_paste)
+        m.addSeparator()
+        m.addAction(ac.edit_select_all)
+        m.addAction(ac.edit_select_current_toplevel)
+        m.addAction(ac.edit_select_none)
+        m.addSeparator()
+        m.addAction(ac.edit_find)
+        m.addAction(ac.edit_find_next)
+        m.addAction(ac.edit_find_previous)
+        m.addAction(ac.edit_replace)
+        m.addSeparator()
+        m.addAction(ac.edit_preferences)
+        
+        self.menu_view = m = self.menuBar().addMenu('')
+        self.menu_lilypond = m = self.menuBar().addMenu('')
+        self.menu_tools = m = self.menuBar().addMenu('')
+        self.menu_window = m = self.menuBar().addMenu('')
+        self.menu_sessions = m = self.menuBar().addMenu('')
+        self.menu_help = m = self.menuBar().addMenu('')
+        
     def translateUI(self):
         self.actionCollection.translate()
         self.menu_file.setTitle(_('&File'))
+        self.menu_edit.setTitle(_('&Edit'))
+        self.menu_view.setTitle(_('&View'))
+        self.menu_lilypond.setTitle(_('&LilyPond'))
+        self.menu_tools.setTitle(_('&Tools'))
+        self.menu_window.setTitle(_('&Window'))
+        self.menu_sessions.setTitle(_('&Sessions'))
+        self.menu_help.setTitle(_('&Help'))
         
 
 class ActionCollection:
@@ -109,6 +144,22 @@ class ActionCollection:
         self.file_close_other = QAction(mainwindow)
         self.file_quit = QAction(mainwindow)
         
+        self.edit_undo = QAction(mainwindow)
+        self.edit_redo = QAction(mainwindow)
+        self.edit_cut_assign = QAction(mainwindow)
+        self.edit_cut = QAction(mainwindow)
+        self.edit_copy = QAction(mainwindow)
+        self.edit_paste = QAction(mainwindow)
+        self.edit_select_all = QAction(mainwindow)
+        self.edit_select_current_toplevel = QAction(mainwindow)
+        self.edit_select_none = QAction(mainwindow)
+        self.edit_find = QAction(mainwindow)
+        self.edit_find_next = QAction(mainwindow)
+        self.edit_find_previous = QAction(mainwindow)
+        self.edit_replace = QAction(mainwindow)
+        self.edit_preferences = QAction(mainwindow)
+        
+        
         # icons
         self.file_new.setIcon(icons.get('document-new'))
         self.file_open.setIcon(icons.get('document-open'))
@@ -122,6 +173,20 @@ class ActionCollection:
         self.file_close.setIcon(icons.get('document-close'))
         self.file_quit.setIcon(icons.get('application-exit'))
         
+        self.edit_undo.setIcon(icons.get('edit-undo'))
+        self.edit_redo.setIcon(icons.get('edit-redo'))
+        self.edit_cut_assign.setIcon(icons.get('edit-cut'))
+        self.edit_cut.setIcon(icons.get('edit-cut'))
+        self.edit_copy.setIcon(icons.get('edit-copy'))
+        self.edit_paste.setIcon(icons.get('edit-paste'))
+        self.edit_select_all.setIcon(icons.get('edit-select-all'))
+        self.edit_select_current_toplevel.setIcon(icons.get('edit-select'))
+        self.edit_find.setIcon(icons.get('edit-find'))
+        self.edit_find_next.setIcon(icons.get('go-down-search'))
+        self.edit_find_previous.setIcon(icons.get('go-up-search'))
+        self.edit_replace.setIcon(icons.get('edit-find-replace'))
+        self.edit_preferences.setIcon(icons.get('configure'))
+        
         # shortcuts
         self.file_new.setShortcuts(QKeySequence.New)
         self.file_open.setShortcuts(QKeySequence.Open)
@@ -130,6 +195,20 @@ class ActionCollection:
         self.file_print_music.setShortcuts(QKeySequence.Print)
         self.file_close.setShortcuts(QKeySequence.Close)
         self.file_quit.setShortcuts(QKeySequence.Quit)
+        
+        self.edit_undo.setShortcuts(QKeySequence.Undo)
+        self.edit_redo.setShortcuts(QKeySequence.Redo)
+        self.edit_cut_assign.setShortcut(QKeySequence(Qt.SHIFT + Qt.CTRL + Qt.Key_C))
+        self.edit_cut.setShortcuts(QKeySequence.Cut)
+        self.edit_copy.setShortcuts(QKeySequence.Copy)
+        self.edit_paste.setShortcuts(QKeySequence.Paste)
+        self.edit_select_all.setShortcuts(QKeySequence.SelectAll)
+        self.edit_select_current_toplevel.setShortcut(QKeySequence(Qt.SHIFT+Qt.CTRL+Qt.Key_B))
+        self.edit_select_none.setShortcut(QKeySequence(Qt.SHIFT + Qt.CTRL + Qt.Key_A))
+        self.edit_find.setShortcuts(QKeySequence.Find)
+        self.edit_find_next.setShortcuts(QKeySequence.FindNext)
+        self.edit_find_previous.setShortcuts(QKeySequence.FindPrevious)
+        self.edit_replace.setShortcuts(QKeySequence.Replace)
 
     def translate(self):
         self.file_new.setText(_("&New"))
@@ -145,4 +224,19 @@ class ActionCollection:
         self.file_close_other.setText(_("Close Other Documents"))
         self.file_quit.setText(_("&Quit"))
 
-
+        self.edit_undo.setText(_("&Undo"))
+        self.edit_redo.setText(_("Re&do"))
+        self.edit_cut_assign.setText(_("Cut and Assign..."))
+        self.edit_cut.setText(_("Cu&t"))
+        self.edit_copy.setText(_("&Copy"))
+        self.edit_paste.setText(_("&Paste"))
+        self.edit_select_all.setText(_("Select &All"))
+        self.edit_select_current_toplevel.setText(_("Select &Block"))
+        self.edit_select_none.setText(_("Select &None"))
+        self.edit_find.setText(_("&Find..."))
+        self.edit_find_next.setText(_("Find Ne&xt"))
+        self.edit_find_previous.setText(_("Find Pre&vious"))
+        self.edit_replace.setText(_("&Replace..."))
+        self.edit_preferences.setText(_("&Preferences..."))
+        
+        
