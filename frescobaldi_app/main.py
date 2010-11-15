@@ -35,20 +35,20 @@ qapp = QApplication(sys.argv)
 import info
 QApplication.setApplicationName(info.name)
 QApplication.setApplicationVersion(info.version)
-QApplication.setOrganizationName(info.description)
+QApplication.setOrganizationName(info.name)
 QApplication.setOrganizationDomain(info.url)
 
 # Setup language
 import po
 
 import app
+import mainwindow
 
 if qapp.isSessionRestored():
     # Restore session, we are started by the session manager
-    pass
+    app.restoreSession()
 else:
-    import mainwindow
-    mainwindow.MainWindow().show()
+    mainwindow.MainWindow()
     
     # Parse command line arguments
     import optparse

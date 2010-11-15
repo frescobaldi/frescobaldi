@@ -25,7 +25,11 @@ The global things in Frescobaldi.
 
 import sys
 
-from PyQt4.QtGui import QApplication
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
+
+import info
+
 qApp = QApplication.instance()
 
 windows = []
@@ -52,3 +56,29 @@ def startSession(name):
     """Switches to the given session."""
     
 
+def restoreSession():
+    """Restore a session saved by the session manager."""
+    import mainwindow
+    settings = QSettings(info.name, 'sessiondata')
+    settings.beginGroup(qApp.sessionId())
+    for index in range(settings.value('numwindows', 1)):
+        settings.beginGroup("mainwindow{0}".format(index))
+        win = mainwindow.MainWindow(name = settings.value('name', '') or None)
+        win.restoreGeometry(settings.value('geometry', QByteArray()))
+        settings.endGroup()
+    settings.endGroup()
+
+def saveSession(manager):
+    """Save a session on behalf of the session manager."""
+    settings = QSettings(info.name, 'sessiondata')
+    settings.beginGroup(qApp.sessionId())
+    settings.setValue('numwindows', len(windows))
+    for index, win in enumerate(windows):
+        settings.beginGroup("mainwindow{0}".format(index))
+        settings.setValue('name', win.objectName())
+        settings.setValue('geometry', win.saveGeometry())
+        settings.endGroup()
+    settings.endGroup()
+    settings.sync()
+    
+qApp.saveStateRequest.connect(saveSession, Qt.DirectConnection)

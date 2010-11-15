@@ -22,42 +22,78 @@ from __future__ import unicode_literals
 """
 Frescobaldi Main Window.
 """
+
 import itertools
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import info
 import icons
 
 class MainWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, other=None, name=None):
+        """Creates a new MainWindow.
+        
+        It adds itself to app.windows to keep a reference.
+        It shares the documents list with all other MainWindows. It copies
+        some info (like the currently active document) from the 'other' window,
+        if given.
+        
+        """
         QMainWindow.__init__(self)
         
-        # find an unused objectName
-        names = set(win.objectName() for win in app.windows)
-        for num in itertools.count(1):
-            name = "MainWindow{0}".format(num)
-            if name not in names:
-                self.setObjectName(name)
-                break
+        if name is None:
+            # find an unused objectName
+            names = set(win.objectName() for win in app.windows)
+            for num in itertools.count(1):
+                name = "MainWindow{0}".format(num)
+                if name not in names:
+                    break
+        self.setObjectName(name)
         self.setWindowIcon(icons.get('frescobaldi'))
         app.windows.append(self)
         self.createActions()
         self.createMenus()
+        self.createToolBars()
         
         self.translateUI()
+        self.readSettings()
+        self.show()
         
     def closeEvent(self, ev):
-        if len(app.windows) > 1 or self.queryClose():
+        lastWindow = len(app.windows) == 1
+        if not lastWindow or self.queryClose():
             ev.accept()
             app.windows.remove(self)
+            if lastWindow:
+                self.writeSettings()
         else:
             ev.ignore()
 
     def queryClose(self):
         return True
 
+    def readSettings(self):
+        settings = QSettings()
+        defaultSize = QApplication.desktop().screen().size() * 2 / 3
+        self.resize(settings.value("size", defaultSize))
+        
+    def writeSettings(self):
+        settings = QSettings()
+        if not self.isFullScreen():
+            settings.setValue("size", self.size())
+        
+    def toggleFullScreen(self, enabled):
+        if enabled:
+            self._maximized = self.isMaximized()
+            self.showFullScreen()
+        else:
+            self.showNormal()
+            if self._maximized:
+                self.showMaximized()
+    
     def createActions(self):
         self.actionCollection = ac = ActionCollection(self)
         
@@ -65,8 +101,15 @@ class MainWindow(QMainWindow):
         self.menu_recent_files = m = QMenu()
         ac.file_open_recent.setMenu(m)
         
+        # documents submenu
+        self.menu_documents = m = QMenu()
+        ac.view_document.setMenu(m)
+        
         # connections
         ac.file_quit.triggered.connect(self.close)
+        ac.window_new.triggered.connect(lambda: MainWindow(self))
+        ac.window_fullscreen.toggled.connect(self.toggleFullScreen)
+        ac.help_whatsthis.triggered.connect(QWhatsThis.enterWhatsThisMode)
         
     def createMenus(self):
         ac = self.actionCollection
@@ -111,11 +154,63 @@ class MainWindow(QMainWindow):
         m.addAction(ac.edit_preferences)
         
         self.menu_view = m = self.menuBar().addMenu('')
+        m.addAction(ac.view_next_document)
+        m.addAction(ac.view_previous_document)
+        m.addAction(ac.view_document)
+        m.addSeparator()
+        m.addAction(ac.view_bookmark)
+        m.addAction(ac.view_clear_error_marks)
+        m.addAction(ac.view_clear_all_marks)
+        
         self.menu_lilypond = m = self.menuBar().addMenu('')
+        m.addAction(ac.lilypond_run_preview)
+        m.addAction(ac.lilypond_run_publish)
+        m.addAction(ac.lilypond_run_custom)
+        m.addAction(ac.lilypond_cancel)
+        
         self.menu_tools = m = self.menuBar().addMenu('')
+        
         self.menu_window = m = self.menuBar().addMenu('')
+        m.addAction(ac.window_new)
+        m.addSeparator()
+        m.addAction(ac.window_split_horizontal)
+        m.addAction(ac.window_split_vertical)
+        m.addAction(ac.window_close_view)
+        m.addAction(ac.window_next_view)
+        m.addAction(ac.window_previous_view)
+        m.addSeparator()
+        m.addAction(ac.window_fullscreen)
+        
         self.menu_sessions = m = self.menuBar().addMenu('')
+        m.addAction(ac.session_new)
+        m.addAction(ac.session_save)
+        m.addSeparator()
+        m.addAction(ac.session_manage)
+        m.addSeparator()
+        m.addAction(ac.session_none)
+        
         self.menu_help = m = self.menuBar().addMenu('')
+        m.addAction(ac.help_manual)
+        m.addAction(ac.help_whatsthis)
+        m.addSeparator()
+        m.addAction(ac.help_bugreport)
+        m.addSeparator()
+        m.addAction(ac.help_about)
+        
+    def createToolBars(self):
+        ac = self.actionCollection
+        self.toolbar_main = t = self.addToolBar('')
+        t.addAction(ac.file_new)
+        t.addAction(ac.file_open)
+        t.addSeparator()
+        t.addAction(ac.file_save)
+        t.addAction(ac.file_save_as)
+        t.addSeparator()
+        t.addAction(ac.edit_undo)
+        t.addAction(ac.edit_redo)
+        t.addSeparator()
+        t.addAction(ac.lilypond_runner)
+        t.addAction(ac.file_print_music)
         
     def translateUI(self):
         self.actionCollection.translate()
@@ -127,8 +222,10 @@ class MainWindow(QMainWindow):
         self.menu_window.setTitle(_('&Window'))
         self.menu_sessions.setTitle(_('&Sessions'))
         self.menu_help.setTitle(_('&Help'))
+        self.toolbar_main.setWindowTitle(_("Main Toolbar"))
         
-
+       
+    
 class ActionCollection:
     def __init__(self, mainwindow):
         self.file_new = QAction(mainwindow)
@@ -159,6 +256,38 @@ class ActionCollection:
         self.edit_replace = QAction(mainwindow)
         self.edit_preferences = QAction(mainwindow)
         
+        self.view_next_document = QAction(mainwindow)
+        self.view_previous_document = QAction(mainwindow)
+        self.view_document = QAction(mainwindow)
+        self.view_bookmark = QAction(mainwindow)
+        self.view_bookmark.setCheckable(True)
+        self.view_clear_error_marks = QAction(mainwindow)
+        self.view_clear_all_marks = QAction(mainwindow)
+        
+        self.lilypond_runner = QAction(mainwindow)
+        self.lilypond_run_preview = QAction(mainwindow)
+        self.lilypond_run_publish = QAction(mainwindow)
+        self.lilypond_run_custom = QAction(mainwindow)
+        self.lilypond_cancel = QAction(mainwindow)
+        
+        self.window_new = QAction(mainwindow)
+        self.window_split_horizontal = QAction(mainwindow)
+        self.window_split_vertical = QAction(mainwindow)
+        self.window_close_view = QAction(mainwindow)
+        self.window_next_view = QAction(mainwindow)
+        self.window_previous_view = QAction(mainwindow)
+        self.window_fullscreen = QAction(mainwindow)
+        self.window_fullscreen.setCheckable(True)
+        
+        self.session_new = QAction(mainwindow)
+        self.session_save = QAction(mainwindow)
+        self.session_manage = QAction(mainwindow)
+        self.session_none = QAction(mainwindow)
+        
+        self.help_manual = QAction(mainwindow)
+        self.help_whatsthis = QAction(mainwindow)
+        self.help_about = QAction(mainwindow)
+        self.help_bugreport = QAction(mainwindow)
         
         # icons
         self.file_new.setIcon(icons.get('document-new'))
@@ -187,6 +316,33 @@ class ActionCollection:
         self.edit_replace.setIcon(icons.get('edit-find-replace'))
         self.edit_preferences.setIcon(icons.get('configure'))
         
+        self.view_next_document.setIcon(icons.get('go-next'))
+        self.view_previous_document.setIcon(icons.get('go-previous'))
+        self.view_bookmark.setIcon(icons.get('bookmark-new'))
+        
+        self.lilypond_runner.setIcon(icons.get('lilypond-run'))
+        self.lilypond_run_preview.setIcon(icons.get('lilypond-run'))
+        self.lilypond_run_publish.setIcon(icons.get('lilypond-run'))
+        self.lilypond_run_custom.setIcon(icons.get('lilypond-run'))
+        self.lilypond_cancel.setIcon(icons.get('process-stop'))
+        
+        self.window_new.setIcon(icons.get('window-new'))
+        self.window_split_horizontal.setIcon(icons.get('view-split-top-bottom'))
+        self.window_split_vertical.setIcon(icons.get('view-split-left-right'))
+        self.window_close_view.setIcon(icons.get('view-close'))
+        self.window_next_view.setIcon(icons.get('go-next-view'))
+        self.window_previous_view.setIcon(icons.get('go-previous-view'))
+        self.window_fullscreen.setIcon(icons.get('view-fullscreen'))
+        
+        self.session_new.setIcon(icons.get('document-new'))
+        self.session_save.setIcon(icons.get('document-save'))
+        self.session_manage.setIcon(icons.get('view-choose'))
+        
+        self.help_manual.setIcon(icons.get('help-contents'))
+        self.help_whatsthis.setIcon(icons.get('help-contextual'))
+        self.help_bugreport.setIcon(icons.get('tools-report-bug'))
+        self.help_about.setIcon(icons.get('help-about'))
+        
         # shortcuts
         self.file_new.setShortcuts(QKeySequence.New)
         self.file_open.setShortcuts(QKeySequence.Open)
@@ -209,7 +365,23 @@ class ActionCollection:
         self.edit_find_next.setShortcuts(QKeySequence.FindNext)
         self.edit_find_previous.setShortcuts(QKeySequence.FindPrevious)
         self.edit_replace.setShortcuts(QKeySequence.Replace)
-
+        self.edit_preferences.setShortcuts(QKeySequence.Preferences)
+        
+        self.view_next_document.setShortcuts(QKeySequence.Forward)
+        self.view_previous_document.setShortcuts(QKeySequence.Back)
+        self.view_bookmark.setShortcut(Qt.CTRL + Qt.Key_B)
+        
+        self.lilypond_run_preview.setShortcut(Qt.CTRL + Qt.Key_M)
+        self.lilypond_run_publish.setShortcut(Qt.CTRL + Qt.SHIFT + Qt.Key_P)
+        self.lilypond_run_custom.setShortcut(Qt.CTRL + Qt.SHIFT + Qt.Key_M)
+        
+        self.window_next_view.setShortcuts(QKeySequence.NextChild)
+        self.window_previous_view.setShortcuts(QKeySequence.PreviousChild)
+        self.window_fullscreen.setShortcut(Qt.CTRL + Qt.SHIFT + Qt.Key_F)
+        
+        self.help_manual.setShortcuts(QKeySequence.HelpContents)
+        self.help_whatsthis.setShortcuts(QKeySequence.WhatsThis)
+        
     def translate(self):
         self.file_new.setText(_("&New"))
         self.file_open.setText(_("&Open..."))
@@ -239,4 +411,35 @@ class ActionCollection:
         self.edit_replace.setText(_("&Replace..."))
         self.edit_preferences.setText(_("&Preferences..."))
         
+        self.view_next_document.setText(_("&Next Document"))
+        self.view_previous_document.setText(_("&Previous Document"))
+        self.view_document.setText(_("&Document"))
+        self.view_bookmark.setText(_("&Mark Current Line"))
+        self.view_clear_error_marks.setText(_("Clear &Error Marks"))
+        self.view_clear_all_marks.setText(_("Clear &All Marks"))
         
+        self.lilypond_runner.setText(_("LilyPond"))
+        self.lilypond_run_preview.setText(_("Run &LilyPond (preview)"))
+        self.lilypond_run_publish.setText(_("Run LilyPond (&publish)"))
+        self.lilypond_run_custom.setText(_("Run LilyPond (&custom)"))
+        self.lilypond_cancel.setText(_("Interrupt LilyPond &Job"))
+        
+        self.window_new.setText(_("&New Window"))
+        self.window_split_horizontal.setText(_("Split &Horizontally"))
+        self.window_split_vertical.setText(_("Split &Vertically"))
+        self.window_close_view.setText(_("&Close Current View"))
+        self.window_next_view.setText(_("&Next View"))
+        self.window_previous_view.setText(_("&Previous View"))
+        self.window_fullscreen.setText(_("&Fullscreen"))
+        
+        self.session_new.setText(_("&New..."))
+        self.session_save.setText(_("&Save"))
+        self.session_manage.setText(_("&Manage..."))
+        self.session_none.setText(_("None"))
+        
+        self.help_manual.setText(_("&User Guide"))
+        self.help_whatsthis.setText(_("&What's This?"))
+        self.help_bugreport.setText(_("Report a &Bug..."))
+        self.help_about.setText(_("&About {name}").format(name=info.description))
+        
+
