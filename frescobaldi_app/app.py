@@ -23,6 +23,7 @@ from __future__ import unicode_literals
 The global things in Frescobaldi.
 """
 
+import os
 import sys
 
 from PyQt4.QtCore import *
@@ -31,7 +32,7 @@ from PyQt4.QtGui import *
 import info
 import mainwindow
 
-qApp = QApplication(sys.argv)
+qApp = QApplication([os.path.abspath(sys.argv[0])] + sys.argv[1:])
 QApplication.setApplicationName(info.name)
 QApplication.setApplicationVersion(info.version)
 QApplication.setOrganizationName(info.name)
