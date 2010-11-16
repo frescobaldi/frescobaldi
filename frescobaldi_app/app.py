@@ -23,15 +23,20 @@ from __future__ import unicode_literals
 The global things in Frescobaldi.
 """
 
-import os
 import sys
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+import info
 import mainwindow
 
-qApp = QApplication.instance()
+qApp = QApplication(sys.argv)
+QApplication.setApplicationName(info.name)
+QApplication.setApplicationVersion(info.version)
+QApplication.setOrganizationName(info.name)
+QApplication.setOrganizationDomain(info.url)
+
 
 windows = []
 documents = []
@@ -59,8 +64,4 @@ def quit():
 def startSession(name):
     """Switches to the given session."""
     
-
-
-
-
 

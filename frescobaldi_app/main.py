@@ -23,34 +23,25 @@ from __future__ import unicode_literals
 Entry point of Frescobaldi.
 """
 
-import sys
 import sip
 sip.setapi("QString", 2)
 sip.setapi("QVariant", 2)
 
-# Construct QApplication
-from PyQt4.QtGui import *
-qapp = QApplication(sys.argv)
+from PyQt4.QtGui import QApplication
 
-import info
-QApplication.setApplicationName(info.name)
-QApplication.setApplicationVersion(info.version)
-QApplication.setOrganizationName(info.name)
-QApplication.setOrganizationDomain(info.url)
+import info             # Information about our application
+import app              # Construct QApplication
+import po               # Setup language
+import mainwindow       # contains MainWindow class
+import session          # Initialize QSessionManager support
 
-# Setup language
-import po
-
-import app
-import mainwindow
-
-# Initialize QSessionManager support
-import session
-
-if qapp.isSessionRestored():
+if app.qApp.isSessionRestored():
     # Restore session, we are started by the session manager
+    with open('/home/wilbert/frescobaldi.log', 'w') as f:
+        f.write("RESTORE SESSION\n")
     session.restoreSession()
 else:
+    # Just create one MainWindow
     mainwindow.MainWindow().show()
     # Parse command line arguments
     import optparse

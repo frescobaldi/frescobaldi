@@ -21,8 +21,9 @@
 Internationalisation.
 """
 
-import os
 import __builtin__
+import gettext
+import os
 
 # By default, just return the strings unchanged
 def _default(msg, plur=None, count=0):

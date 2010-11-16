@@ -48,30 +48,32 @@ if __name__ == '__main__':
     settings.remove(sys.argv[-1])
     sys.exit(0)
 
+
 ### Continued here if normally imported
 
-from app import qApp
+import app
 import mainwindow
 
-# Command used to restart our session
-sessionRestartCommand = [
-    sys.executable, os.path.abspath(sys.argv[0]), '-session', qApp.sessionId()]
-
-# Command to discard our session data
-sessionDiscardCommand = [sys.executable, __file__, qApp.sessionId()]
 
 def saveState(sm):
     """Save session state on behalf of the session manager."""
-    sm.setRestartCommand(sessionRestartCommand)
     sm.setRestartHint(QSessionManager.RestartIfRunning)
-    #sm.setDiscardCommand(sessionDiscardCommand)
+
+    restartCommand = [
+        sys.executable, os.path.abspath(sys.argv[0]), '-session',
+        '{0}_{1}'.format(app.qApp.sessionId(), app.qApp.sessionKey())]
+    sm.setRestartCommand(restartCommand)
+    
+    discardCommand = [sys.executable, __file__, app.qApp.sessionId()]
+    sm.setDiscardCommand(discardCommand)
 
 def commitData(sm):
     """Save a session on behalf of the session manager."""
     if not sm.allowsInteraction():
         pass # TODO: can implement saving unsaved/unnamed docs to cache buffers
+    saveState(sm)
     settings = sessionSettings()
-    settings.beginGroup(qApp.sessionId())
+    settings.beginGroup(app.qApp.sessionId())
     settings.setValue('numwindows', len(app.windows))
     for index, win in enumerate(app.windows):
         settings.beginGroup("mainwindow{0}".format(index))
@@ -83,7 +85,7 @@ def commitData(sm):
 def restoreSession():
     """Restore a session saved by the session manager."""
     settings = sessionSettings()
-    settings.beginGroup(qApp.sessionId())
+    settings.beginGroup(app.qApp.sessionId())
     for index in range(int(settings.value('numwindows', 0))):
         settings.beginGroup("mainwindow{0}".format(index))
         win = mainwindow.MainWindow()
@@ -92,6 +94,6 @@ def restoreSession():
         settings.endGroup()
     settings.endGroup()
 
-qApp.saveStateRequest.connect(saveState, Qt.DirectConnection)
-qApp.commitDataRequest.connect(commitData, Qt.DirectConnection)
+app.qApp.saveStateRequest.connect(saveState, Qt.DirectConnection)
+app.qApp.commitDataRequest.connect(commitData, Qt.DirectConnection)
 
