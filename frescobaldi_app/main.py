@@ -37,8 +37,6 @@ import session          # Initialize QSessionManager support
 
 if app.qApp.isSessionRestored():
     # Restore session, we are started by the session manager
-    with open('/home/wilbert/frescobaldi.log', 'w') as f:
-        f.write("RESTORE SESSION\n")
     session.restoreSession()
 else:
     # Just create one MainWindow
