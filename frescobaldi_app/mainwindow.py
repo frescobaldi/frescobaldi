@@ -33,7 +33,7 @@ import info
 import icons
 
 class MainWindow(QMainWindow):
-    def __init__(self, other=None, name=None):
+    def __init__(self, other=None):
         """Creates a new MainWindow.
         
         It adds itself to app.windows to keep a reference.
@@ -44,14 +44,14 @@ class MainWindow(QMainWindow):
         """
         QMainWindow.__init__(self)
         
-        if name is None:
-            # find an unused objectName
-            names = set(win.objectName() for win in app.windows)
-            for num in itertools.count(1):
-                name = "MainWindow{0}".format(num)
-                if name not in names:
-                    break
-        self.setObjectName(name)
+        # find an unused objectName
+        names = set(win.objectName() for win in app.windows)
+        for num in itertools.count(1):
+            name = "MainWindow{0}".format(num)
+            if name not in names:
+                self.setObjectName(name)
+                break
+        
         self.setWindowIcon(icons.get('frescobaldi'))
         app.windows.append(self)
         self.createActions()
@@ -60,7 +60,6 @@ class MainWindow(QMainWindow):
         
         self.translateUI()
         self.readSettings()
-        self.show()
         
     def closeEvent(self, ev):
         lastWindow = len(app.windows) == 1
@@ -76,15 +75,40 @@ class MainWindow(QMainWindow):
         return True
 
     def readSettings(self):
+        """ Read a few settings from the application global config. """
         settings = QSettings()
         defaultSize = QApplication.desktop().screen().size() * 2 / 3
         self.resize(settings.value("size", defaultSize))
         
     def writeSettings(self):
+        """ Write a few settings to the application global config. """
         settings = QSettings()
         if not self.isFullScreen():
             settings.setValue("size", self.size())
         
+    def readSessionSettings(self, settings):
+        """Restore ourselves from session manager settings.
+        
+        These methods store much more information than the readSettings and
+        writeSettings methods. This method tries to restore window size and
+        position. Also the objectName() is set, so that the window manager can
+        preserve stacking order, etc.
+        
+        """
+        name = settings.value('name', '')
+        if name:
+            self.setObjectName(name)
+        self.restoreGeometry(settings.value('geometry', QByteArray()))
+        
+    def writeSessionSettings(self, settings):
+        """Write our state to the session manager settings.
+        
+        See readSessionSettings().
+        
+        """
+        settings.setValue('name', self.objectName())
+        settings.setValue('geometry', self.saveGeometry())
+
     def toggleFullScreen(self, enabled):
         if enabled:
             self._maximized = self.isMaximized()
@@ -107,7 +131,7 @@ class MainWindow(QMainWindow):
         
         # connections
         ac.file_quit.triggered.connect(self.close)
-        ac.window_new.triggered.connect(lambda: MainWindow(self))
+        ac.window_new.triggered.connect(lambda: MainWindow(self).show())
         ac.window_fullscreen.toggled.connect(self.toggleFullScreen)
         ac.help_whatsthis.triggered.connect(QWhatsThis.enterWhatsThisMode)
         

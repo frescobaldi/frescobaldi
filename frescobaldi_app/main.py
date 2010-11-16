@@ -29,7 +29,7 @@ sip.setapi("QString", 2)
 sip.setapi("QVariant", 2)
 
 # Construct QApplication
-from PyQt4.QtGui import QApplication
+from PyQt4.QtGui import *
 qapp = QApplication(sys.argv)
 
 import info
@@ -44,12 +44,14 @@ import po
 import app
 import mainwindow
 
+# Initialize QSessionManager support
+import session
+
 if qapp.isSessionRestored():
     # Restore session, we are started by the session manager
-    app.restoreSession()
+    session.restoreSession()
 else:
-    mainwindow.MainWindow()
-    
+    mainwindow.MainWindow().show()
     # Parse command line arguments
     import optparse
     parser = optparse.OptionParser(
