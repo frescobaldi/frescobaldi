@@ -73,6 +73,7 @@ def commitData(sm):
     """Save a session on behalf of the session manager."""
     if not sm.allowsInteraction():
         pass # TODO: can implement saving unsaved/unnamed docs to cache buffers
+    sm.release()
     saveState(sm)
     settings = sessionSettings()
     settings.beginGroup(sessionKey())
