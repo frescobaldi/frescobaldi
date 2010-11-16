@@ -54,17 +54,19 @@ if __name__ == '__main__':
 import app
 import mainwindow
 
+def sessionKey():
+    """ Returns the full session key. """
+    return '{0}_{1}'.format(app.qApp.sessionId(), app.qApp.sessionKey())
 
 def saveState(sm):
     """Save session state on behalf of the session manager."""
     sm.setRestartHint(QSessionManager.RestartIfRunning)
 
-    restartCommand = [
-        sys.executable, os.path.abspath(sys.argv[0]), '-session',
-        '{0}_{1}'.format(app.qApp.sessionId(), app.qApp.sessionKey())]
+    key = sessionKey()
+    restartCommand = [sys.executable, os.path.abspath(sys.argv[0]), '-session', key]
     sm.setRestartCommand(restartCommand)
     
-    discardCommand = [sys.executable, __file__, app.qApp.sessionId()]
+    discardCommand = [sys.executable, __file__, key]
     sm.setDiscardCommand(discardCommand)
 
 def commitData(sm):
@@ -73,7 +75,7 @@ def commitData(sm):
         pass # TODO: can implement saving unsaved/unnamed docs to cache buffers
     saveState(sm)
     settings = sessionSettings()
-    settings.beginGroup(app.qApp.sessionId())
+    settings.beginGroup(sessionKey())
     settings.setValue('numwindows', len(app.windows))
     for index, win in enumerate(app.windows):
         settings.beginGroup("mainwindow{0}".format(index))
@@ -85,7 +87,7 @@ def commitData(sm):
 def restoreSession():
     """Restore a session saved by the session manager."""
     settings = sessionSettings()
-    settings.beginGroup(app.qApp.sessionId())
+    settings.beginGroup(sessionKey())
     for index in range(int(settings.value('numwindows', 0))):
         settings.beginGroup("mainwindow{0}".format(index))
         win = mainwindow.MainWindow()
