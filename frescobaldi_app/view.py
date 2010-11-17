@@ -82,4 +82,43 @@ class View(QWidget):
             
             
         
+
+class ViewManager(QSplitter):
+    def __init__(self, parent=None):
+        super(ViewManager, self).__init__(parent)
         
+        
+    def splitView(self, view, orientation):
+        """Split the given view.
+        
+        If orientation == Qt.Horizontal, adds a new view to the right.
+        If orientation == Qt.Vertical, adds a new view to the bottom.
+        
+        """
+        
+    def closeView(self, view):
+        """Closes the given view."""
+        
+        stack = view.parent()  # View has a QStackedWidget as parent
+        splitter = stack.parent()
+        
+        if splitter is self:
+            if splitter.count() > 1:
+                stack.deleteLater()
+            return # can't delete the last view
+        
+        if splitter.count() > 2:
+            stack.deleteLater()
+            return
+            
+        # there is only one view left, add it to the parent splitter
+        other = splitter.widget(1 - splitter.indexOf(stack))
+        parent = splitter.parent()
+        parent.insertWidget(parent.indexOf(splitter), other)
+        stack.deleteLater()
+        splitter.deleteLater()
+        
+    def canCloseView(self):
+        return bool(self.count() > 1)
+        
+    

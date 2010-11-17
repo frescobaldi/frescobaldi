@@ -1,4 +1,39 @@
-INSTALL for Frescobaldi 2.0
+INSTALL for Frescobaldi 2.0.
+============================
 
-Frescobaldi 2.0 depends on Qt4.7 and PyQt4.8.
+You can run Frescobaldi without installing:
+
+  python frescobaldi
+
+
+The Frescobaldi package is based on distutils. To install in the default
+location:
+
+  sudo python setup.py install
+
+
+To run Frescobaldi, then simply type
+
+  frescobaldi
+
+
+If you want to install into /usr instead of /usr/local:
+
+  python setup.py install --prefix=/usr
+
+
+If you have a Debian-based system such as Ubuntu, and you get the error
+message "ImportError: No module named frescobaldi_app.main", try:
+
+  python setup.py install --install-layout=deb
+
+
+See the distutils documentation for more install options.
+
+
+Dependencies:
+=============
+
+Frescobaldi 2.0 depends on Qt4.7 and PyQt4.8, and uses the python-poppler-qt4
+for the PDF preview.
 
