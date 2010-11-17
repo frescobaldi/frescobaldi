@@ -32,6 +32,8 @@ import app
 import info
 import icons
 
+import view # TEMP
+
 class MainWindow(QMainWindow):
     def __init__(self, other=None):
         """Creates a new MainWindow.
@@ -60,6 +62,10 @@ class MainWindow(QMainWindow):
         
         self.translateUI()
         self.readSettings()
+        
+        # TEMP
+        self.view = view.View(self)
+        self.setCentralWidget(self.view)
         
     def closeEvent(self, ev):
         lastWindow = len(app.windows) == 1
