@@ -20,57 +20,25 @@
 from __future__ import unicode_literals
 
 """
-The global things in Frescobaldi.
+A Frescobaldi (LilyPond) document.
 """
-
-import os
-import sys
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-import info
-import mainwindow
-import document
-from signals import SignalInstance
-
-qApp = QApplication([os.path.abspath(sys.argv[0])] + sys.argv[1:])
-QApplication.setApplicationName(info.name)
-QApplication.setApplicationVersion(info.version)
-QApplication.setOrganizationName(info.name)
-QApplication.setOrganizationDomain(info.url)
+import app
 
 
-windows = []
-documents = []
+class Document(QTextDocument):
+    def __init__(self):
+        super(Document, self).__init__()
+        self.setDocumentLayout(QPlainTextDocumentLayout(self))
+        app.documents.append(self)
+        app.documentCreated(self)
+        
+        
+    def close(self):
+        app.documents.remove(self)
+        app.documentClosed(self)
 
-
-# signals
-documentCreated = SignalInstance()
-
-
-def openUrl(url, encoding=None):
-    """Opens the specified url or activates it if already opened.
-    
-    Always returns a Document instance.
-    
-    """
-    pass
-
-def run():
-    """Enter the Qt event loop."""
-    if not documents:
-        document.Document()
-    if not windows:
-        mainwindow.MainWindow().show()
-    sys.exit(qApp.exec_())
-    
-def quit():
-    for window in windows:
-        if not window.close():
-            break
-
-def startSession(name):
-    """Switches to the given session."""
-    
 

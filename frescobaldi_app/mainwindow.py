@@ -56,6 +56,11 @@ class MainWindow(QMainWindow):
         
         self.setWindowIcon(icons.get('frescobaldi'))
         app.windows.append(self)
+        
+        # TEMP
+        self.viewManager = view.ViewManager(self)
+        self.setCentralWidget(self.viewManager)
+        
         self.createActions()
         self.createMenus()
         self.createToolBars()
@@ -63,9 +68,10 @@ class MainWindow(QMainWindow):
         self.translateUI()
         self.readSettings()
         
-        # TEMP
-        self.view = view.View(self)
-        self.setCentralWidget(self.view)
+        self.actionCollection.window_close_view.setEnabled(False)
+        #TEMP
+        import document
+        self.viewManager.showDocument(document.Document())
         
     def closeEvent(self, ev):
         lastWindow = len(app.windows) == 1
@@ -124,6 +130,21 @@ class MainWindow(QMainWindow):
             if self._maximized:
                 self.showMaximized()
     
+    def splitVertical(self):
+        cur = self.viewManager.activeViewSpace()
+        self.viewManager.splitViewSpace(cur, Qt.Horizontal)
+        self.actionCollection.window_close_view.setEnabled(self.viewManager.canCloseViewSpace())
+        
+    def splitHorizontal(self):
+        cur = self.viewManager.activeViewSpace()
+        self.viewManager.splitViewSpace(cur, Qt.Vertical)
+        self.actionCollection.window_close_view.setEnabled(self.viewManager.canCloseViewSpace())
+    
+    def closeCurrent(self):
+        cur = self.viewManager.activeViewSpace()
+        self.viewManager.closeViewSpace(cur)
+        self.actionCollection.window_close_view.setEnabled(self.viewManager.canCloseViewSpace())
+        
     def createActions(self):
         self.actionCollection = ac = ActionCollection(self)
         
@@ -140,6 +161,12 @@ class MainWindow(QMainWindow):
         ac.window_new.triggered.connect(lambda: MainWindow(self).show())
         ac.window_fullscreen.toggled.connect(self.toggleFullScreen)
         ac.help_whatsthis.triggered.connect(QWhatsThis.enterWhatsThisMode)
+        
+        ac.window_split_horizontal.triggered.connect(self.splitHorizontal)
+        ac.window_split_vertical.triggered.connect(self.splitVertical)
+        ac.window_close_view.triggered.connect(self.closeCurrent)
+        ac.window_next_view.triggered.connect(lambda: self.viewManager.focusNextChild())
+        ac.window_previous_view.triggered.connect(lambda: self.viewManager.focusPreviousChild())
         
     def createMenus(self):
         ac = self.actionCollection
