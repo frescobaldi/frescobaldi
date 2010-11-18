@@ -27,6 +27,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import view
 
 
 class Document(QTextDocument):
@@ -41,4 +42,17 @@ class Document(QTextDocument):
         app.documents.remove(self)
         app.documentClosed(self)
 
+    def materialize(self):
+        """Really load and instantiate ourselves.
+        
+        Makes lazy-loading lots of documents possible.
+        
+        """
+        pass
 
+    def createView(self):
+        """Returns a new View on our document."""
+        self.materialize()
+        return view.View(self)
+        
+    

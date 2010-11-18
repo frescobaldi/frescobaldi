@@ -32,8 +32,8 @@ import app
 import info
 import icons
 import actioncollection
+import viewmanager
 
-import view # TEMP
 
 class MainWindow(QMainWindow):
     def __init__(self, other=None):
@@ -48,6 +48,7 @@ class MainWindow(QMainWindow):
         QMainWindow.__init__(self)
         
         self._currentDocument = None
+        self._currentView = None
         
         # find an unused objectName
         names = set(win.objectName() for win in app.windows)
@@ -61,7 +62,7 @@ class MainWindow(QMainWindow):
         app.windows.append(self)
         
         self.createActions()
-        self.viewManager = view.ViewManager(self)
+        self.viewManager = viewmanager.ViewManager(self)
         self.setCentralWidget(self.viewManager)
 
         # create other stuff that have their own actions
@@ -81,37 +82,62 @@ class MainWindow(QMainWindow):
         self.setCurrentDocument(document.Document())
     
     def slotViewChanged(self, view):
+        cur = self._currentView
+        if cur:
+            if cur is view:
+                return
+            cur.copyAvailable.disconnect(self.updateViewActions)
+            cur.selectionChanged.disconnect(self.updateViewActions)
+        view.copyAvailable.connect(self.updateViewActions)
+        view.selectionChanged.connect(self.updateViewActions)
+        self._currentView = view
+        self.updateViewActions()
         self.setCurrentDocument(view.document())
+    
+    def currentView(self):
+        return self._currentView
         
     def currentDocument(self):
         return self._currentDocument
         
-    def setCurrentDocument(self, doc):
-        if self._currentDocument:
-            if self._currentDocument is doc:
+    def setCurrentDocument(self, doc, findOpenView=False):
+        cur = self._currentDocument
+        if cur:
+            if cur is doc:
                 return
-            else:
-                self.connectDocument(self._currentDocument, False)
+            cur.undoAvailable.disconnect(self.updateDocActions)
+            cur.redoAvailable.disconnect(self.updateDocActions)
+            cur.modificationChanged.disconnect(self.updateDocStatus)
+        doc.undoAvailable.connect(self.updateDocActions)
+        doc.redoAvailable.connect(self.updateDocActions)
+        doc.modificationChanged.connect(self.updateDocStatus)
         self._currentDocument = doc
-        self.connectDocument(doc)
-        self.updateActions()
-        self.viewManager.showDocument(doc)
+        self.updateDocActions()
+        self.updateDocStatus()
+        self.viewManager.showDocument(doc, findOpenView)
 
-    def connectDocument(self, doc, connect=True):
-        if connect:
-            doc.undoAvailable.connect(self.updateActions)
-            doc.redoAvailable.connect(self.updateActions)
-        else:
-            doc.undoAvailable.disconnect(self.updateActions)
-            doc.redoAvailable.disconnect(self.updateActions)
-            
-    def updateActions(self):
+    def updateViewActions(self):
+        view = self._currentView
+        ac = self.actionCollection
+        selection = view.textCursor().hasSelection()
+        ac.edit_copy.setEnabled(selection)
+        ac.edit_cut.setEnabled(selection)
+        ac.edit_cut_assign.setEnabled(selection)
+        ac.edit_select_none.setEnabled(selection)
+    
+    def updateDocActions(self):
         doc = self._currentDocument
         ac = self.actionCollection
         ac.edit_undo.setEnabled(doc.isUndoAvailable())
         ac.edit_redo.setEnabled(doc.isRedoAvailable())
         
-            
+    def updateDocStatus(self):
+        doc = self._currentDocument
+        #TEMP
+        if doc.isModified():
+            self.setWindowTitle("modified")
+        else:
+            self.setWindowTitle("not modified")
         
     def closeEvent(self, ev):
         lastWindow = len(app.windows) == 1
@@ -170,6 +196,11 @@ class MainWindow(QMainWindow):
             if self._maximized:
                 self.showMaximized()
     
+    def selectNone(self):
+        cursor = self.currentView().textCursor()
+        cursor.clearSelection()
+        self.currentView().setTextCursor(cursor)
+        
     def createActions(self):
         self.actionCollection = ac = ActionCollection(self)
         
@@ -185,6 +216,8 @@ class MainWindow(QMainWindow):
         ac.file_quit.triggered.connect(self.close)
         ac.edit_undo.triggered.connect(lambda: self.currentDocument().undo())
         ac.edit_redo.triggered.connect(lambda: self.currentDocument().redo())
+        ac.edit_select_all.triggered.connect(lambda: self.currentView().selectAll())
+        ac.edit_select_none.triggered.connect(self.selectNone)
         ac.window_new.triggered.connect(lambda: MainWindow(self).show())
         ac.window_fullscreen.toggled.connect(self.toggleFullScreen)
         ac.help_whatsthis.triggered.connect(QWhatsThis.enterWhatsThisMode)
@@ -476,7 +509,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.edit_find_next.setText(_("Find Ne&xt"))
         self.edit_find_previous.setText(_("Find Pre&vious"))
         self.edit_replace.setText(_("&Replace..."))
-        self.edit_preferences.setText(_("&Preferences..."))
+        self.edit_preferences.setText(_("Pr&eferences..."))
         
         self.view_next_document.setText(_("&Next Document"))
         self.view_previous_document.setText(_("&Previous Document"))
