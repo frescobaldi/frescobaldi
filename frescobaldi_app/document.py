@@ -34,6 +34,7 @@ class Document(QTextDocument):
     def __init__(self):
         super(Document, self).__init__()
         self.setDocumentLayout(QPlainTextDocumentLayout(self))
+        self._materialized = False
         app.documents.append(self)
         app.documentCreated(self)
         
@@ -48,11 +49,15 @@ class Document(QTextDocument):
         Makes lazy-loading lots of documents possible.
         
         """
-        pass
+        if self._materialized:
+            return
+        ### Implement
+        app.documentMaterialized(self)
+        self._materialized = True
 
     def createView(self):
         """Returns a new View on our document."""
         self.materialize()
-        return view.View(self)
-        
+        newview = view.View(self)
+        return newview
     

@@ -32,10 +32,14 @@ import app
 import info
 import icons
 import actioncollection
+import document
 import viewmanager
 
 
 class MainWindow(QMainWindow):
+    
+    currentDocumentChanged = pyqtSignal(document.Document)
+    
     def __init__(self, other=None):
         """Creates a new MainWindow.
         
@@ -62,8 +66,17 @@ class MainWindow(QMainWindow):
         app.windows.append(self)
         
         self.createActions()
+        
+        mainwidget = QWidget()
+        self.setCentralWidget(mainwidget)
+        layout = QVBoxLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(0)
+        mainwidget.setLayout(layout)
+        self.tabBar = TabBar(self)
         self.viewManager = viewmanager.ViewManager(self)
-        self.setCentralWidget(self.viewManager)
+        layout.addWidget(self.tabBar)
+        layout.addWidget(self.viewManager)
 
         # create other stuff that have their own actions
         
@@ -76,11 +89,13 @@ class MainWindow(QMainWindow):
         self.readSettings()
         
         self.viewManager.viewChanged.connect(self.slotViewChanged)
+        self.tabBar.currentDocumentChanged.connect(self.setCurrentDocument)
         
         #TEMP
         import document
         self.setCurrentDocument(document.Document())
-    
+        document.Document()
+        
     def slotViewChanged(self, view):
         cur = self._currentView
         if cur:
@@ -114,6 +129,7 @@ class MainWindow(QMainWindow):
         self._currentDocument = doc
         self.updateDocActions()
         self.updateDocStatus()
+        self.currentDocumentChanged.emit(doc)
         self.viewManager.showDocument(doc, findOpenView)
 
     def updateViewActions(self):
@@ -337,7 +353,77 @@ class MainWindow(QMainWindow):
         self.toolbar_main.setWindowTitle(_("Main Toolbar"))
         
        
+class TabBar(QTabBar):
+    """The tabbar above the editor window."""
     
+    currentDocumentChanged = pyqtSignal(document.Document)
+    
+    def __init__(self, parent=None):
+        super(TabBar, self).__init__(parent)
+        
+        mainwin = self.window()
+        self.docs = []
+        for doc in app.documents:
+            self.addDocument(doc)
+            if doc is mainwin.currentDocument():
+                self.setCurrentDocument(doc)
+        
+        app.documentCreated.connect(self.addDocument)
+        app.documentClosed.connect(self.removeDocument)
+        mainwin.currentDocumentChanged.connect(self.setCurrentDocument)
+        self.currentChanged.connect(self.slotCurrentChanged)
+        self.tabMoved.connect(self.slotTabMoved)
+        self.setTabsClosable(True) # TODO: make configurable
+        self.setMovable(True)      # TODO: make configurable
+        self.setExpanding(False)
+        
+    def addDocument(self, doc):
+        if doc not in self.docs:
+            self.docs.append(doc)
+            self.blockSignals(True)
+            self.addTab('')
+            self.blockSignals(False)
+            self.setDocumentStatus(doc)
+            #doc.urlChanged.connect(self.setDocumentStatus)
+            #doc.captionChanged.connect(self.setDocumentStatus)
+
+    def removeDocument(self, doc):
+        if doc in self.docs:
+            index = self.docs.index(doc)
+            self.docs.remove(doc)
+            self.blockSignals(True)
+            self.removeTab(index)
+            self.blockSignals(False)
+
+    def setDocumentStatus(self, doc):
+        if doc in self.docs:
+            index = self.docs.index(doc)
+            self.setTabIcon(index, icons.get('text-plain'))
+            self.setTabText(index, str(id(doc))) #TEMP: doc.documentName())
+    
+    def setCurrentDocument(self, doc):
+        """ Raise the tab belonging to this document."""
+        if doc in self.docs:
+            index = self.docs.index(doc)
+            self.blockSignals(True)
+            self.setCurrentIndex(index)
+            self.blockSignals(False)
+
+    def slotCurrentChanged(self, index):
+        """ Called when the user clicks a tab. """
+        self.currentDocumentChanged.emit(self.docs[index])
+    
+    def slotTabCloseRequested(self, index):
+        """ Called when the user clicks the close button. """
+        self.docs[index].close()
+    
+    def slotTabMoved(self, index_from, index_to):
+        """ Called when the user moved a tab. """
+        doc = self.docs.pop(index_from)
+        self.docs.insert(index_to, doc)
+        
+        
+
 class ActionCollection(actioncollection.ActionCollection):
     def __init__(self, mainwindow):
         self.file_new = QAction(mainwindow)

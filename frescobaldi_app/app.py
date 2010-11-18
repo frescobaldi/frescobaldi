@@ -47,6 +47,7 @@ documents = []
 
 # signals
 documentCreated = SignalInstance()
+documentMaterialized = SignalInstance()
 documentClosed = SignalInstance()
 languageChanged = SignalInstance()
 
