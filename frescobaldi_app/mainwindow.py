@@ -47,6 +47,8 @@ class MainWindow(QMainWindow):
         """
         QMainWindow.__init__(self)
         
+        self._currentDocument = None
+        
         # find an unused objectName
         names = set(win.objectName() for win in app.windows)
         for num in itertools.count(1):
@@ -72,9 +74,44 @@ class MainWindow(QMainWindow):
         
         self.readSettings()
         
+        self.viewManager.viewChanged.connect(self.slotViewChanged)
+        
         #TEMP
         import document
-        self.viewManager.showDocument(document.Document())
+        self.setCurrentDocument(document.Document())
+    
+    def slotViewChanged(self, view):
+        self.setCurrentDocument(view.document())
+        
+    def currentDocument(self):
+        return self._currentDocument
+        
+    def setCurrentDocument(self, doc):
+        if self._currentDocument:
+            if self._currentDocument is doc:
+                return
+            else:
+                self.connectDocument(self._currentDocument, False)
+        self._currentDocument = doc
+        self.connectDocument(doc)
+        self.updateActions()
+        self.viewManager.showDocument(doc)
+
+    def connectDocument(self, doc, connect=True):
+        if connect:
+            doc.undoAvailable.connect(self.updateActions)
+            doc.redoAvailable.connect(self.updateActions)
+        else:
+            doc.undoAvailable.disconnect(self.updateActions)
+            doc.redoAvailable.disconnect(self.updateActions)
+            
+    def updateActions(self):
+        doc = self._currentDocument
+        ac = self.actionCollection
+        ac.edit_undo.setEnabled(doc.isUndoAvailable())
+        ac.edit_redo.setEnabled(doc.isRedoAvailable())
+        
+            
         
     def closeEvent(self, ev):
         lastWindow = len(app.windows) == 1
@@ -133,18 +170,6 @@ class MainWindow(QMainWindow):
             if self._maximized:
                 self.showMaximized()
     
-    def splitVertical(self):
-        cur = self.viewManager.activeViewSpace()
-        self.viewManager.splitViewSpace(cur, Qt.Horizontal)
-        
-    def splitHorizontal(self):
-        cur = self.viewManager.activeViewSpace()
-        self.viewManager.splitViewSpace(cur, Qt.Vertical)
-    
-    def closeCurrent(self):
-        cur = self.viewManager.activeViewSpace()
-        self.viewManager.closeViewSpace(cur)
-        
     def createActions(self):
         self.actionCollection = ac = ActionCollection(self)
         
@@ -158,6 +183,8 @@ class MainWindow(QMainWindow):
         
         # connections
         ac.file_quit.triggered.connect(self.close)
+        ac.edit_undo.triggered.connect(lambda: self.currentDocument().undo())
+        ac.edit_redo.triggered.connect(lambda: self.currentDocument().redo())
         ac.window_new.triggered.connect(lambda: MainWindow(self).show())
         ac.window_fullscreen.toggled.connect(self.toggleFullScreen)
         ac.help_whatsthis.triggered.connect(QWhatsThis.enterWhatsThisMode)

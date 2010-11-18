@@ -151,15 +151,15 @@ class ViewSpace(QWidget):
         self.connectView(view)
         self.updateStatusBar()
         
-    def connectView(self, view, disconnect=False):
-        if disconnect:
-            view.cursorPositionChanged.disconnect(self.updateStatusBar)
-            view.modificationChanged.disconnect(self.updateStatusBar)
-            view.focusIn.disconnect(self.setActiveViewSpace)
-        else:
+    def connectView(self, view, connect=True):
+        if connect:
             view.cursorPositionChanged.connect(self.updateStatusBar)
             view.modificationChanged.connect(self.updateStatusBar)
             view.focusIn.connect(self.setActiveViewSpace)
+        else:
+            view.cursorPositionChanged.disconnect(self.updateStatusBar)
+            view.modificationChanged.disconnect(self.updateStatusBar)
+            view.focusIn.disconnect(self.setActiveViewSpace)
     
     def setActiveViewSpace(self, view):
         self.manager.setActiveViewSpace(self)
@@ -194,7 +194,7 @@ class ViewSpace(QWidget):
 
 class ViewManager(QSplitter):
     
-    documentChanged = pyqtSignal(document.Document)
+    viewChanged = pyqtSignal(View)
     
     def __init__(self, parent=None):
         super(ViewManager, self).__init__(parent)
@@ -243,9 +243,8 @@ class ViewManager(QSplitter):
             prev.status.setEnabled(False)
             space.status.setEnabled(True)
             newdoc = space.activeView().document()
-            if prev.activeView().document() is not newdoc:
-                self.documentChanged.emit(newdoc)
             space.activeView().setFocus()
+            self.viewChanged.emit(space.activeView())
 
     @contextlib.contextmanager
     def focusChangesBlocked(self):
@@ -286,7 +285,8 @@ class ViewManager(QSplitter):
                 newsplitter.addWidget(newspace)
                 newsplitter.setSizes([size / 2, size / 2])
         self._viewSpaces.insert(0, newspace)
-        newview = View(viewspace.activeView().document())
+        #newview = View(viewspace.activeView().document())
+        newview = View(document.Document())
         newspace.addView(newview)
         newspace.setActiveView(newview)
         if active:
@@ -352,7 +352,7 @@ class ViewManager(QSplitter):
         if view and view.document() is doc:
             return
         self.activeViewSpace().showDocument(doc)
-        self.documentChanged.emit(doc)
+        self.viewChanged.emit(self.activeView())
 
 
 class ViewActions(actioncollection.ActionCollection):
