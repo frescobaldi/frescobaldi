@@ -27,7 +27,7 @@ ViewManager is a QSplitter containing sub-splitters to display multiple
 ViewSpaces.
 """
 
-import weakref
+import contextlib
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -76,6 +76,36 @@ class ViewStatusBar(QWidget):
         self.progress.setFixedHeight(14)
         layout.addWidget(self.progress, 1)
         
+        self.installEventFilter(self)
+        
+    def eventFilter(self, obj, ev):
+        if ev.type() == QEvent.MouseButtonPress:
+            if ev.button() == Qt.RightButton:
+                self.showContextMenu(ev.globalPos())
+            else:
+                self.parent().activeView().setFocus()
+            return True
+        return False
+
+    def showContextMenu(self, pos):
+        menu = QMenu(self)
+        menu.aboutToHide.connect(menu.deleteLater)
+        viewspace = self.parent()
+        manager = viewspace.manager
+        
+        a = QAction(icons.get('view-split-top-bottom'), _("Split &Horizontally"), menu)
+        menu.addAction(a)
+        a.triggered.connect(lambda: manager.splitViewSpace(viewspace, Qt.Vertical))
+        a = QAction(icons.get('view-split-left-right'), _("Split &Vertically"), menu)
+        menu.addAction(a)
+        a.triggered.connect(lambda: manager.splitViewSpace(viewspace, Qt.Horizontal))
+        menu.addSeparator()
+        a = QAction(icons.get('view-close'), _("&Close View"), menu)
+        a.triggered.connect(lambda: manager.closeViewSpace(viewspace))
+        a.setEnabled(manager.canCloseViewSpace())
+        menu.addAction(a)
+        
+        menu.exec_(pos)
 
 
 class ViewSpace(QWidget):
@@ -91,6 +121,7 @@ class ViewSpace(QWidget):
         self.stack = QStackedWidget(self)
         layout.addWidget(self.stack)
         self.status = ViewStatusBar(self)
+        self.status.setEnabled(False)
         layout.addWidget(self.status)
         
     def activeView(self):
@@ -114,7 +145,7 @@ class ViewSpace(QWidget):
         self._activeView = view
         self.connectView(view)
         self.updateStatusBar()
-    
+        
     def connectView(self, view, disconnect=False):
         if disconnect:
             view.cursorPositionChanged.disconnect(self.updateStatusBar)
@@ -152,7 +183,6 @@ class ViewSpace(QWidget):
             view = View(doc)
             self.addView(view)
         self.setActiveView(view)
-        
 
 
 
@@ -164,11 +194,12 @@ class ViewManager(QSplitter):
     def __init__(self, parent=None):
         super(ViewManager, self).__init__(parent)
         self._viewSpaces = []
+        self._blockFocusChanges = False
         
         viewspace = ViewSpace(self)
+        viewspace.status.setEnabled(True)
         self.addWidget(viewspace)
         self._viewSpaces.append(viewspace)
-        print self._viewSpaces
 
     
     def activeViewSpace(self):
@@ -178,19 +209,27 @@ class ViewManager(QSplitter):
         return self.activeViewSpace().activeView()
     
     def setActiveViewSpace(self, space):
-        prev = self.activeViewSpace()
-        if space is prev:
-            return
-        self._viewSpaces.remove(space)
-        self._viewSpaces.append(space)
-        
-        prev.status.setEnabled(False)
-        space.status.setEnabled(True)
-        newdoc = space.activeView().document()
-        if prev.activeView().document() is not newdoc:
-            self.documentChanged.emit(newdoc)
-        space.activeView().setFocus()
+        if not self._blockFocusChanges:
+            prev = self._viewSpaces[-1]
+            if space is prev:
+                return
+            self._viewSpaces.remove(space)
+            self._viewSpaces.append(space)
+            
+            prev.status.setEnabled(False)
+            space.status.setEnabled(True)
+            newdoc = space.activeView().document()
+            if prev.activeView().document() is not newdoc:
+                self.documentChanged.emit(newdoc)
+            space.activeView().setFocus()
 
+    @contextlib.contextmanager
+    def focusChangesBlocked(self):
+        self._blockFocusChanges = True
+        yield
+        self.activeView().setFocus()
+        self._blockFocusChanges = False
+        
     def splitViewSpace(self, viewspace, orientation):
         """Split the given view.
         
@@ -214,16 +253,17 @@ class ViewManager(QSplitter):
             sizes[index:index+1] = [sizes[index] / 2, sizes[index] / 2]
             splitter.setSizes(sizes)
         else:
-            index = splitter.indexOf(viewspace)
-            newsplitter = QSplitter()
-            newsplitter.setOrientation(orientation)
-            sizes = splitter.sizes()
-            splitter.insertWidget(index, newsplitter)
-            newsplitter.addWidget(viewspace)
-            splitter.setSizes(sizes)
-            size = newsplitter.sizes()[0]
-            newsplitter.addWidget(newspace)
-            newsplitter.setSizes([size / 2, size / 2])
+            with self.focusChangesBlocked():
+                index = splitter.indexOf(viewspace)
+                newsplitter = QSplitter()
+                newsplitter.setOrientation(orientation)
+                sizes = splitter.sizes()
+                splitter.insertWidget(index, newsplitter)
+                newsplitter.addWidget(viewspace)
+                splitter.setSizes(sizes)
+                size = newsplitter.sizes()[0]
+                newsplitter.addWidget(newspace)
+                newsplitter.setSizes([size / 2, size / 2])
         self._viewSpaces.insert(0, newspace)
         newview = View(viewspace.activeView().document())
         newspace.addView(newview)
@@ -236,49 +276,50 @@ class ViewManager(QSplitter):
         active = viewspace is self.activeViewSpace()
         if active:
             self.setActiveViewSpace(self._viewSpaces[-2])
-        splitter = viewspace.parentWidget()
-        if splitter.count() > 2:
-            viewspace.setParent(None)
-            viewspace.deleteLater()
-        elif splitter is self:
-            if self.count() < 2:
-                return
-            # we contain only one other widget.
-            # if that is a QSplitter, add all its children to ourselves
-            # and copy the sizes and orientation.
-            other = self.widget(1 - self.indexOf(viewspace))
-            viewspace.setParent(None)
-            viewspace.deleteLater()
-            if isinstance(other, QSplitter):
-                sizes = other.sizes()
-                self.setOrientation(other.orientation())
-                while other.count():
-                    self.insertWidget(0, other.widget(other.count()-1))
-                other.setParent(None)
-                other.deleteLater()
-                self.setSizes(sizes)
-        else:
-            # this splitter contains only one other widget.
-            # if that is a ViewSpace, just add it to the parent splitter.
-            # if it is a splitter, add all widgets to the parent splitter.
-            other = splitter.widget(1 - splitter.indexOf(viewspace))
-            parent = splitter.parentWidget()
-            sizes = parent.sizes()
-            index = parent.indexOf(splitter)
-            
-            if isinstance(other, ViewSpace):
-                parent.insertWidget(index, other)
+        with self.focusChangesBlocked():
+            splitter = viewspace.parentWidget()
+            if splitter.count() > 2:
+                viewspace.setParent(None)
+                viewspace.deleteLater()
+            elif splitter is self:
+                if self.count() < 2:
+                    return
+                # we contain only one other widget.
+                # if that is a QSplitter, add all its children to ourselves
+                # and copy the sizes and orientation.
+                other = self.widget(1 - self.indexOf(viewspace))
+                viewspace.setParent(None)
+                viewspace.deleteLater()
+                if isinstance(other, QSplitter):
+                    sizes = other.sizes()
+                    self.setOrientation(other.orientation())
+                    while other.count():
+                        self.insertWidget(0, other.widget(other.count()-1))
+                    other.setParent(None)
+                    other.deleteLater()
+                    self.setSizes(sizes)
             else:
-                #QSplitter
-                sizes[index:index+1] = other.sizes()
-                while other.count():
-                    parent.insertWidget(index, other.widget(other.count()-1))
-            viewspace.setParent(None)
-            splitter.setParent(None)
-            viewspace.deleteLater()
-            splitter.deleteLater()
-            parent.setSizes(sizes)
-        self._viewSpaces.remove(viewspace)
+                # this splitter contains only one other widget.
+                # if that is a ViewSpace, just add it to the parent splitter.
+                # if it is a splitter, add all widgets to the parent splitter.
+                other = splitter.widget(1 - splitter.indexOf(viewspace))
+                parent = splitter.parentWidget()
+                sizes = parent.sizes()
+                index = parent.indexOf(splitter)
+                
+                if isinstance(other, ViewSpace):
+                    parent.insertWidget(index, other)
+                else:
+                    #QSplitter
+                    sizes[index:index+1] = other.sizes()
+                    while other.count():
+                        parent.insertWidget(index, other.widget(other.count()-1))
+                viewspace.setParent(None)
+                splitter.setParent(None)
+                viewspace.deleteLater()
+                splitter.deleteLater()
+                parent.setSizes(sizes)
+            self._viewSpaces.remove(viewspace)
         
     def canCloseViewSpace(self):
         return bool(self.count() > 1)
