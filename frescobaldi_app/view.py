@@ -35,6 +35,7 @@ class View(QPlainTextEdit):
     def __init__(self, document):
         super(View, self).__init__()
         self.setDocument(document)
+        self.setCursorWidth(2)
         
     def focusInEvent(self, ev):
         super(View, self).focusInEvent(ev)
