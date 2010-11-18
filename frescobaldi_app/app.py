@@ -47,6 +47,7 @@ documents = []
 
 # signals
 documentCreated = SignalInstance()
+languageChanged = SignalInstance()
 
 
 def openUrl(url, encoding=None):

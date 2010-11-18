@@ -31,6 +31,7 @@ from PyQt4.QtGui import *
 import app
 import info
 import icons
+import actioncollection
 
 import view # TEMP
 
@@ -57,18 +58,20 @@ class MainWindow(QMainWindow):
         self.setWindowIcon(icons.get('frescobaldi'))
         app.windows.append(self)
         
-        # TEMP
+        self.createActions()
         self.viewManager = view.ViewManager(self)
         self.setCentralWidget(self.viewManager)
+
+        # create other stuff that have their own actions
         
-        self.createActions()
         self.createMenus()
         self.createToolBars()
         
         self.translateUI()
+        app.languageChanged.connect(self.translateUI)
+        
         self.readSettings()
         
-        self.actionCollection.window_close_view.setEnabled(False)
         #TEMP
         import document
         self.viewManager.showDocument(document.Document())
@@ -133,17 +136,14 @@ class MainWindow(QMainWindow):
     def splitVertical(self):
         cur = self.viewManager.activeViewSpace()
         self.viewManager.splitViewSpace(cur, Qt.Horizontal)
-        self.actionCollection.window_close_view.setEnabled(self.viewManager.canCloseViewSpace())
         
     def splitHorizontal(self):
         cur = self.viewManager.activeViewSpace()
         self.viewManager.splitViewSpace(cur, Qt.Vertical)
-        self.actionCollection.window_close_view.setEnabled(self.viewManager.canCloseViewSpace())
     
     def closeCurrent(self):
         cur = self.viewManager.activeViewSpace()
         self.viewManager.closeViewSpace(cur)
-        self.actionCollection.window_close_view.setEnabled(self.viewManager.canCloseViewSpace())
         
     def createActions(self):
         self.actionCollection = ac = ActionCollection(self)
@@ -161,12 +161,6 @@ class MainWindow(QMainWindow):
         ac.window_new.triggered.connect(lambda: MainWindow(self).show())
         ac.window_fullscreen.toggled.connect(self.toggleFullScreen)
         ac.help_whatsthis.triggered.connect(QWhatsThis.enterWhatsThisMode)
-        
-        ac.window_split_horizontal.triggered.connect(self.splitHorizontal)
-        ac.window_split_vertical.triggered.connect(self.splitVertical)
-        ac.window_close_view.triggered.connect(self.closeCurrent)
-        ac.window_next_view.triggered.connect(lambda: self.viewManager.focusNextChild())
-        ac.window_previous_view.triggered.connect(lambda: self.viewManager.focusPreviousChild())
         
     def createMenus(self):
         ac = self.actionCollection
@@ -228,13 +222,14 @@ class MainWindow(QMainWindow):
         self.menu_tools = m = self.menuBar().addMenu('')
         
         self.menu_window = m = self.menuBar().addMenu('')
+        vm = self.viewManager.actionCollection
         m.addAction(ac.window_new)
         m.addSeparator()
-        m.addAction(ac.window_split_horizontal)
-        m.addAction(ac.window_split_vertical)
-        m.addAction(ac.window_close_view)
-        m.addAction(ac.window_next_view)
-        m.addAction(ac.window_previous_view)
+        m.addAction(vm.window_split_horizontal)
+        m.addAction(vm.window_split_vertical)
+        m.addAction(vm.window_close_view)
+        m.addAction(vm.window_next_view)
+        m.addAction(vm.window_previous_view)
         m.addSeparator()
         m.addAction(ac.window_fullscreen)
         
@@ -270,7 +265,7 @@ class MainWindow(QMainWindow):
         t.addAction(ac.file_print_music)
         
     def translateUI(self):
-        self.actionCollection.translate()
+        self.actionCollection.translateUI()
         self.menu_file.setTitle(_('&File'))
         self.menu_edit.setTitle(_('&Edit'))
         self.menu_view.setTitle(_('&View'))
@@ -283,7 +278,7 @@ class MainWindow(QMainWindow):
         
        
     
-class ActionCollection:
+class ActionCollection(actioncollection.ActionCollection):
     def __init__(self, mainwindow):
         self.file_new = QAction(mainwindow)
         self.file_open = QAction(mainwindow)
@@ -328,11 +323,6 @@ class ActionCollection:
         self.lilypond_cancel = QAction(mainwindow)
         
         self.window_new = QAction(mainwindow)
-        self.window_split_horizontal = QAction(mainwindow)
-        self.window_split_vertical = QAction(mainwindow)
-        self.window_close_view = QAction(mainwindow)
-        self.window_next_view = QAction(mainwindow)
-        self.window_previous_view = QAction(mainwindow)
         self.window_fullscreen = QAction(mainwindow)
         self.window_fullscreen.setCheckable(True)
         
@@ -384,11 +374,6 @@ class ActionCollection:
         self.lilypond_cancel.setIcon(icons.get('process-stop'))
         
         self.window_new.setIcon(icons.get('window-new'))
-        self.window_split_horizontal.setIcon(icons.get('view-split-top-bottom'))
-        self.window_split_vertical.setIcon(icons.get('view-split-left-right'))
-        self.window_close_view.setIcon(icons.get('view-close'))
-        self.window_next_view.setIcon(icons.get('go-next-view'))
-        self.window_previous_view.setIcon(icons.get('go-previous-view'))
         self.window_fullscreen.setIcon(icons.get('view-fullscreen'))
         
         self.session_new.setIcon(icons.get('document-new'))
@@ -432,14 +417,12 @@ class ActionCollection:
         self.lilypond_run_publish.setShortcut(Qt.CTRL + Qt.SHIFT + Qt.Key_P)
         self.lilypond_run_custom.setShortcut(Qt.CTRL + Qt.SHIFT + Qt.Key_M)
         
-        self.window_next_view.setShortcuts(QKeySequence.NextChild)
-        self.window_previous_view.setShortcuts(QKeySequence.PreviousChild)
         self.window_fullscreen.setShortcut(Qt.CTRL + Qt.SHIFT + Qt.Key_F)
         
         self.help_manual.setShortcuts(QKeySequence.HelpContents)
         self.help_whatsthis.setShortcuts(QKeySequence.WhatsThis)
         
-    def translate(self):
+    def translateUI(self):
         self.file_new.setText(_("&New"))
         self.file_open.setText(_("&Open..."))
         self.file_open_recent.setText(_("Open &Recent"))
@@ -482,11 +465,6 @@ class ActionCollection:
         self.lilypond_cancel.setText(_("Interrupt LilyPond &Job"))
         
         self.window_new.setText(_("&New Window"))
-        self.window_split_horizontal.setText(_("Split &Horizontally"))
-        self.window_split_vertical.setText(_("Split &Vertically"))
-        self.window_close_view.setText(_("&Close Current View"))
-        self.window_next_view.setText(_("&Next View"))
-        self.window_previous_view.setText(_("&Previous View"))
         self.window_fullscreen.setText(_("&Fullscreen"))
         
         self.session_new.setText(_("&New..."))

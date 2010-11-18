@@ -35,7 +35,7 @@ from PyQt4.QtGui import *
 import app
 import icons
 import document
-
+import actioncollection
 
 class View(QPlainTextEdit):
     
@@ -61,8 +61,6 @@ class ViewStatusBar(QWidget):
         layout.setSpacing(4)
         self.setLayout(layout)
         self.pos = QLabel()
-        text = _("Line: {line}, Col: {column}").format(line=9999, column=99)
-        self.pos.setMinimumWidth(self.pos.fontMetrics().width(text))
         layout.addWidget(self.pos)
         
         self.state = QLabel()
@@ -77,7 +75,13 @@ class ViewStatusBar(QWidget):
         layout.addWidget(self.progress, 1)
         
         self.installEventFilter(self)
+        self.translateUI()
+        app.languageChanged.connect(self.translateUI)
         
+    def translateUI(self):
+        text = _("Line: {line}, Col: {column}").format(line=9999, column=99)
+        self.pos.setMinimumWidth(self.pos.fontMetrics().width(text))
+    
     def eventFilter(self, obj, ev):
         if ev.type() == QEvent.MouseButtonPress:
             if ev.button() == Qt.RightButton:
@@ -123,6 +127,7 @@ class ViewSpace(QWidget):
         self.status = ViewStatusBar(self)
         self.status.setEnabled(False)
         layout.addWidget(self.status)
+        app.languageChanged.connect(self.updateStatusBar)
         
     def activeView(self):
         return self._activeView
@@ -200,7 +205,26 @@ class ViewManager(QSplitter):
         viewspace.status.setEnabled(True)
         self.addWidget(viewspace)
         self._viewSpaces.append(viewspace)
-
+        
+        self.createActions()
+        self.translateUI()
+        app.languageChanged.connect(self.translateUI)
+    
+    def createActions(self):
+        self.actionCollection = ac = ViewActions(self)
+        # connections
+        ac.window_close_view.setEnabled(False)
+        ac.window_split_horizontal.triggered.connect(
+            lambda: self.splitViewSpace(self.activeViewSpace(), Qt.Vertical))
+        ac.window_split_vertical.triggered.connect(
+            lambda: self.splitViewSpace(self.activeViewSpace(), Qt.Horizontal))
+        ac.window_close_view.triggered.connect(
+            lambda: self.closeViewSpace(self.activeViewSpace()))
+        ac.window_next_view.triggered.connect(lambda: self.focusNextChild())
+        ac.window_previous_view.triggered.connect(lambda: self.focusPreviousChild())
+    
+    def translateUI(self):
+        self.actionCollection.translateUI()
     
     def activeViewSpace(self):
         return self._viewSpaces[-1]
@@ -248,10 +272,7 @@ class ViewManager(QSplitter):
             splitter.setSizes([size / 2, size / 2])
         elif splitter.orientation() == orientation:
             index = splitter.indexOf(viewspace)
-            sizes = splitter.sizes()
             splitter.insertWidget(index + 1, newspace)
-            sizes[index:index+1] = [sizes[index] / 2, sizes[index] / 2]
-            splitter.setSizes(sizes)
         else:
             with self.focusChangesBlocked():
                 index = splitter.indexOf(viewspace)
@@ -270,6 +291,7 @@ class ViewManager(QSplitter):
         newspace.setActiveView(newview)
         if active:
             self.setActiveViewSpace(newspace)
+        self.actionCollection.window_close_view.setEnabled(self.canCloseViewSpace())
         
     def closeViewSpace(self, viewspace):
         """Closes the given view."""
@@ -320,6 +342,7 @@ class ViewManager(QSplitter):
                 splitter.deleteLater()
                 parent.setSizes(sizes)
             self._viewSpaces.remove(viewspace)
+        self.actionCollection.window_close_view.setEnabled(self.canCloseViewSpace())
         
     def canCloseViewSpace(self):
         return bool(self.count() > 1)
@@ -332,3 +355,30 @@ class ViewManager(QSplitter):
         self.documentChanged.emit(doc)
 
 
+class ViewActions(actioncollection.ActionCollection):
+    def __init__(self, parent):
+        self.window_split_horizontal = QAction(parent)
+        self.window_split_vertical = QAction(parent)
+        self.window_close_view = QAction(parent)
+        self.window_next_view = QAction(parent)
+        self.window_previous_view = QAction(parent)
+        
+        # icons
+        self.window_split_horizontal.setIcon(icons.get('view-split-top-bottom'))
+        self.window_split_vertical.setIcon(icons.get('view-split-left-right'))
+        self.window_close_view.setIcon(icons.get('view-close'))
+        self.window_next_view.setIcon(icons.get('go-next-view'))
+        self.window_previous_view.setIcon(icons.get('go-previous-view'))
+        
+        # shortcuts
+        self.window_next_view.setShortcuts(QKeySequence.NextChild)
+        self.window_previous_view.setShortcuts(QKeySequence.PreviousChild)
+
+    def translateUI(self):
+        self.window_split_horizontal.setText(_("Split &Horizontally"))
+        self.window_split_vertical.setText(_("Split &Vertically"))
+        self.window_close_view.setText(_("&Close Current View"))
+        self.window_next_view.setText(_("&Next View"))
+        self.window_previous_view.setText(_("&Previous View"))
+    
+        
