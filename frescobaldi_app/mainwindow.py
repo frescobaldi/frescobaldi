@@ -76,6 +76,8 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.tabBar)
         layout.addWidget(self.viewManager)
 
+        self.documentActions = DocumentActionGroup(self)
+
         self.createActions()
         
         # create other stuff that have their own actions
@@ -242,14 +244,9 @@ class MainWindow(QMainWindow):
         ac.help_whatsthis.triggered.connect(QWhatsThis.enterWhatsThisMode)
         
     def populateDocumentsMenu(self):
-        m = self.menu_documents
-        m.clear()
-        for d in self.tabBar.documents():
-            a = QAction(d.documentName(), self.menu_documents)
-            a.setCheckable(True)
-            a.setChecked(d is self.currentDocument())
+        self.menu_documents.clear()
+        for a in self.documentActions.actions():
             self.menu_documents.addAction(a)
-            a.triggered.connect(lambda: self.setCurrentDocument(d))
             
     def createMenus(self):
         ac = self.actionCollection
@@ -365,7 +362,53 @@ class MainWindow(QMainWindow):
         self.menu_help.setTitle(_('&Help'))
         self.toolbar_main.setWindowTitle(_("Main Toolbar"))
         
-       
+
+class DocumentActionGroup(QActionGroup):
+    """Maintains a list of actions to set the current document.
+    
+    The actions are added to the View->Documents menu in the order
+    of the tabbar.
+    
+    """
+    def __init__(self, parent):
+        super(DocumentActionGroup, self).__init__(parent)
+        self._acts = {}
+        self.setExclusive(True)
+        for d in app.documents:
+            self.addDocument(d)
+        app.documentCreated.connect(self.addDocument)
+        app.documentClosed.connect(self.removeDocument)
+        app.documentUrlChanged.connect(self.setDocumentStatus)
+        app.documentModificationChanged.connect(self.setDocumentStatus)
+        parent.currentDocumentChanged.connect(self.setCurrentDocument)
+        self.triggered.connect(self.slotTriggered)
+    
+    def actions(self):
+        return [self._acts[doc] for doc in self.parent().tabBar.documents()]
+
+    def addDocument(self, doc):
+        a = QAction(self)
+        a.setCheckable(True)
+        if doc is self.parent().currentDocument():
+            a.setChecked(True)
+        self._acts[doc] = a
+        self.setDocumentStatus(doc)
+        
+    def removeDocument(self, doc):
+        self._acts[doc].deleteLater()
+        del self._acts[doc]
+        
+    def setCurrentDocument(self, doc):
+        self._acts[doc].setChecked(True)
+
+    def setDocumentStatus(self, doc):
+        self._acts[doc].setText(doc.documentName())
+        self._acts[doc].setIcon(icons.get('document-save') if doc.isModified() else QIcon())
+    
+    def slotTriggered(self, action):
+        self.parent().setCurrentDocument(self._acts.keys()[self._acts.values().index(action)])
+
+
 class TabBar(QTabBar):
     """The tabbar above the editor window."""
     
@@ -388,6 +431,8 @@ class TabBar(QTabBar):
         
         app.documentCreated.connect(self.addDocument)
         app.documentClosed.connect(self.removeDocument)
+        app.documentUrlChanged.connect(self.setDocumentStatus)
+        app.documentModificationChanged.connect(self.setDocumentStatus)
         mainwin.currentDocumentChanged.connect(self.setCurrentDocument)
         self.currentChanged.connect(self.slotCurrentChanged)
         self.tabMoved.connect(self.slotTabMoved)
@@ -402,9 +447,6 @@ class TabBar(QTabBar):
             self.addTab('')
             self.blockSignals(False)
             self.setDocumentStatus(doc)
-            doc.urlChanged.connect(lambda: self.setDocumentStatus(doc))
-            doc.modificationChanged.connect(lambda: self.setDocumentStatus(doc))
-            #doc.captionChanged.connect(self.setDocumentStatus)
 
     def removeDocument(self, doc):
         if doc in self.docs:

@@ -35,6 +35,7 @@ import view
 class Document(QTextDocument):
     
     urlChanged = pyqtSignal()
+    closed = pyqtSignal()
     
     def __init__(self):
         super(Document, self).__init__()
@@ -43,12 +44,16 @@ class Document(QTextDocument):
         self._materialized = False
         self._url = None
         self.setUrl(None)
+        self.modificationChanged.connect(lambda: app.documentModificationChanged(self))
+        
+        
         app.documents.append(self)
         app.documentCreated(self)
         
         
     def close(self):
         app.documents.remove(self)
+        self.closed.emit()
         app.documentClosed(self)
 
     def materialize(self):
@@ -83,15 +88,17 @@ class Document(QTextDocument):
             self._num = max(nums) + 1
         else:
             self._num = 0
-        changed and self.urlChanged.emit()
+        if changed:
+            self.urlChanged.emit()
+            app.documentUrlChanged(self)
         
     def documentName(self):
         """ Returns a suitable name for this document. """
         if self._url.isEmpty():
             if self._num == 1:
-                return _("Nameless")
+                return _("Untitled")
             else:
-                return _("Nameless [{num}]").format(num=self._num)
+                return _("Untitled ({num})").format(num=self._num)
         else:
             return os.path.basename(self._url.path())
             

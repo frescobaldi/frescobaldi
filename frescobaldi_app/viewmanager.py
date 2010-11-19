@@ -134,9 +134,11 @@ class ViewSpace(QWidget):
             cur.cursorPositionChanged.disconnect(self.updateStatusBar)
             cur.modificationChanged.disconnect(self.updateStatusBar)
             cur.focusIn.disconnect(self.setActiveViewSpace)
+            cur.document().urlChanged.disconnect(self.updateStatusBar)
         view.cursorPositionChanged.connect(self.updateStatusBar)
         view.modificationChanged.connect(self.updateStatusBar)
         view.focusIn.connect(self.setActiveViewSpace)
+        view.document().urlChanged.connect(self.updateStatusBar)
         self._activeView = view
         self.stack.setCurrentWidget(view)
         self.updateStatusBar()
@@ -156,6 +158,7 @@ class ViewSpace(QWidget):
             else:
                 pixmap = QPixmap()
             self.status.state.setPixmap(pixmap)
+            self.status.info.setText(view.document().documentName())
             
     def views(self):
         return map(self.stack.widget, range(self.stack.count()))

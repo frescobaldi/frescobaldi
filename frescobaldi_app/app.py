@@ -46,10 +46,12 @@ documents = []
 
 
 # signals
-documentCreated = SignalInstance()
-documentMaterialized = SignalInstance()
-documentClosed = SignalInstance()
-languageChanged = SignalInstance()
+documentCreated = SignalInstance()      # Document
+documentMaterialized = SignalInstance() # Document
+documentUrlChanged = SignalInstance()   # Document
+documentModificationChanged = SignalInstance() # Document
+documentClosed = SignalInstance()       # Document
+languageChanged = SignalInstance()      # (no arguments)
 
 
 def openUrl(url, encoding=None):
