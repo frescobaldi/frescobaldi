@@ -53,7 +53,7 @@ class MainWindow(QMainWindow):
         """
         QMainWindow.__init__(self)
         
-        self._documents = list(other._documents if other else app.documents)
+        self._currentDocument = None
         self._currentView = lambda: None
         
         # find an unused objectName
@@ -92,48 +92,32 @@ class MainWindow(QMainWindow):
         
         self.readSettings()
         
+        self.historyManager = HistoryManager(self, other.historyManager if other else None)
         self.viewManager.viewChanged.connect(self.slotViewChanged)
         self.tabBar.currentDocumentChanged.connect(self.setCurrentDocument)
 
-        app.documentCreated.connect(self.addDocument)
-        app.documentClosed.connect(self.removeDocument)
-        
-        #TEMP
-        import document
-        document.Document()
-    
-    def addDocument(self, doc):
-        if not self._documents:
-            # initial insert, does also the append
-            self.setCurrentDocument(doc)
+        if other:
+            self.setCurrentDocument(other.currentDocument())
         else:
-            self._documents.insert(-1, doc)
-
-    def removeDocument(self, doc):
-        active = doc is self._documents[-1]
-        if active and len(self._documents) > 1:
-            self.setCurrentDocument(self._documents[-2])
-        self._documents.remove(doc)
-            
+            #TEMP
+            import document
+            document.Document()
+    
     def currentDocument(self):
-        try:
-            return self._documents[-1]
-        except IndexError:
-            return None
+        return self._currentDocument
         
     def setCurrentDocument(self, doc, findOpenView=False):
-        if self._documents:
-            cur = self._documents[-1]
+        cur = self._currentDocument
+        if cur:
             if cur is doc:
                 return
             cur.undoAvailable.disconnect(self.updateDocActions)
             cur.redoAvailable.disconnect(self.updateDocActions)
             cur.modificationChanged.disconnect(self.updateDocStatus)
-            self._documents.remove(doc)
         doc.undoAvailable.connect(self.updateDocActions)
         doc.redoAvailable.connect(self.updateDocActions)
         doc.modificationChanged.connect(self.updateDocStatus)
-        self._documents.append(doc)
+        self._currentDocument = doc
         self.updateDocActions()
         self.updateDocStatus()
         self.currentDocumentChanged.emit(doc)
@@ -302,6 +286,10 @@ class MainWindow(QMainWindow):
             if self._maximized:
                 self.showMaximized()
     
+    def newWindow(self):
+        """Opens a new MainWindow."""
+        MainWindow(self).show()
+
     def createActions(self):
         self.actionCollection = ac = ActionCollection(self)
         
@@ -329,7 +317,7 @@ class MainWindow(QMainWindow):
         ac.edit_select_none.triggered.connect(self.selectNone)
         ac.view_next_document.triggered.connect(self.tabBar.nextDocument)
         ac.view_previous_document.triggered.connect(self.tabBar.previousDocument)
-        ac.window_new.triggered.connect(lambda: MainWindow(self).show())
+        ac.window_new.triggered.connect(self.newWindow)
         ac.window_fullscreen.toggled.connect(self.toggleFullScreen)
         ac.help_whatsthis.triggered.connect(QWhatsThis.enterWhatsThisMode)
         
@@ -454,30 +442,28 @@ class MainWindow(QMainWindow):
         
 
 class HistoryManager(object):
-    
-    def __init__(self, mainwin):
+    def __init__(self, mainwin, othermanager=None):
         self.mainwin = mainwin
-        self._documents = list(app.documents)
+        self._documents = list(othermanager._documents if othermanager else app.documents)
+        mainwin.currentDocumentChanged.connect(self.setCurrentDocument)
         app.documentCreated.connect(self.addDocument)
         app.documentClosed.connect(self.removeDocument)
-        mainwin.currentDocumentChanged.connect(self.setCurrentDocument)
-
-    def addDocument(self, doc):
-        if not self._documents:
-            self.mainwin.setCurrentDocument(doc)
-        self._documents.insert(-1, doc)
         
-    def removeDocument(self, doc):
-        active = doc is self._documents[-1] # was this the active document?
-        self._documents.remove(doc)
-        if active and self._documents:
-            self.mainwin.setCurrentDocument(self._documents[-1])
+    def addDocument(self, doc):
+        self._documents.insert(-1, doc)
+        if len(self._documents) == 1:
+            QTimer.singleShot(0, lambda: self.mainwin.setCurrentDocument(doc))
 
+    def removeDocument(self, doc):
+        active = doc is self._documents[-1]
+        if active and len(self._documents) > 1:
+            newdoc = self._documents[-2]
+            QTimer.singleShot(0, lambda: self.mainwin.setCurrentDocument(newdoc))
+        self._documents.remove(doc)
+    
     def setCurrentDocument(self, doc):
         self._documents.remove(doc)
         self._documents.append(doc)
-        
-
     
 
 class DocumentActionGroup(QActionGroup):
