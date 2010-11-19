@@ -24,6 +24,7 @@ Frescobaldi Main Window.
 """
 
 import itertools
+import weakref
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -205,6 +206,71 @@ class MainWindow(QMainWindow):
         settings.setValue('name', self.objectName())
         settings.setValue('geometry', self.saveGeometry())
 
+    
+    ##
+    # Implementations of menu actions
+    ##
+    
+    def newDocument(self):
+        """ Creates a new, empty document. """
+        self.setCurrentDocument(document.Document())
+        
+    def openDocument(self):
+        """ Displays an open dialog to open one or more documents. """
+        
+    def saveDocument(self, doc):
+        """ Saves the document, asking for a name if necessary.
+        
+        Returns true if saving succeeded.
+        
+        """
+        
+    def saveDocumentAs(self, doc):
+        """ Saves the document, always asking for a name.
+        
+        Returns true if saving succeeded.
+        
+        """
+        
+    def closeDocument(self, doc):
+        """ Closes the document, asking for saving if modified.
+        
+        Returns True if closing succeeded.
+        
+        """
+        ##TODO: ask for saving if modified
+        doc.close()
+    
+    def saveCurrentDocument(self):
+        return self.saveDocument(self.currentDocument())
+    
+    def saveCurrentDocumentAs(self):
+        return self.saveDocumentAs(self.currentDocument())
+        
+    def closeCurrentDocument(self):
+        return self.closeDocument(self.currentDocument())
+    
+    def saveAllDocuments(self):
+        """ Saves all documents.
+        
+        Returns True if all documents were saved.
+        If one document failed or was cancelled the whole operation is cancelled
+        and this function returns False.
+        
+        """
+        
+    def closeOtherDocuments(self):
+        """ Closes all documents that are not the current document.
+        
+        Returns True if all documents were closed.
+        
+        """
+        
+    def selectNone(self):
+        cursor = self.currentView().textCursor()
+        cursor.clearSelection()
+        self.currentView().setTextCursor(cursor)
+        
     def toggleFullScreen(self, enabled):
         if enabled:
             self._maximized = self.isMaximized()
@@ -214,11 +280,6 @@ class MainWindow(QMainWindow):
             if self._maximized:
                 self.showMaximized()
     
-    def selectNone(self):
-        cursor = self.currentView().textCursor()
-        cursor.clearSelection()
-        self.currentView().setTextCursor(cursor)
-        
     def createActions(self):
         self.actionCollection = ac = ActionCollection(self)
         
@@ -233,6 +294,13 @@ class MainWindow(QMainWindow):
         
         # connections
         ac.file_quit.triggered.connect(self.close)
+        ac.file_new.triggered.connect(self.newDocument)
+        ac.file_open.triggered.connect(self.openDocument)
+        ac.file_save.triggered.connect(self.saveCurrentDocument)
+        ac.file_save_as.triggered.connect(self.saveCurrentDocumentAs)
+        ac.file_save_all.triggered.connect(self.saveAllDocuments)
+        ac.file_close.triggered.connect(self.closeCurrentDocument)
+        ac.file_close_other.triggered.connect(self.closeOtherDocuments)
         ac.edit_undo.triggered.connect(lambda: self.currentDocument().undo())
         ac.edit_redo.triggered.connect(lambda: self.currentDocument().redo())
         ac.edit_select_all.triggered.connect(lambda: self.currentView().selectAll())
@@ -367,12 +435,14 @@ class DocumentActionGroup(QActionGroup):
     """Maintains a list of actions to set the current document.
     
     The actions are added to the View->Documents menu in the order
-    of the tabbar.
+    of the tabbar. The actions also get accelerators that are kept
+    during the lifetime of a document.
     
     """
     def __init__(self, parent):
         super(DocumentActionGroup, self).__init__(parent)
         self._acts = {}
+        self._accels = {}
         self.setExclusive(True)
         for d in app.documents:
             self.addDocument(d)
@@ -397,12 +467,23 @@ class DocumentActionGroup(QActionGroup):
     def removeDocument(self, doc):
         self._acts[doc].deleteLater()
         del self._acts[doc]
+        del self._accels[doc]
         
     def setCurrentDocument(self, doc):
         self._acts[doc].setChecked(True)
 
     def setDocumentStatus(self, doc):
-        self._acts[doc].setText(doc.documentName())
+        # create accels
+        accels = [self._accels[d] for d in self._accels if d is not doc]
+        name = doc.documentName().replace('&', '&&')
+        for index, char in enumerate(name):
+            if char.isalnum() and char.lower() not in accels:
+                name = name[:index] + '&' + name[index:]
+                self._accels[doc] = char.lower()
+                break
+        else:
+            self._accels[doc] = ''
+        self._acts[doc].setText(name)
         self._acts[doc].setIcon(icons.get('document-save') if doc.isModified() else QIcon())
     
     def slotTriggered(self, action):
@@ -436,6 +517,7 @@ class TabBar(QTabBar):
         mainwin.currentDocumentChanged.connect(self.setCurrentDocument)
         self.currentChanged.connect(self.slotCurrentChanged)
         self.tabMoved.connect(self.slotTabMoved)
+        self.tabCloseRequested.connect(self.slotTabCloseRequested)
         
     def documents(self):
         return list(self.docs)
@@ -462,6 +544,10 @@ class TabBar(QTabBar):
             icon = 'document-save' if doc.isModified() else 'text-plain'
             self.setTabIcon(index, icons.get(icon))
             self.setTabText(index, doc.documentName())
+            tooltip = None
+            if not doc.url().isEmpty():
+                tooltip = doc.url().toString(QUrl.RemoveUserInfo)
+            self.setTabToolTip(index, tooltip)
     
     def setCurrentDocument(self, doc):
         """ Raise the tab belonging to this document."""
@@ -497,7 +583,51 @@ class TabBar(QTabBar):
             index = self.count() - 1
         self.setCurrentIndex(index)
     
+    def contextMenuEvent(self, ev):
+        index = self.tabAt(ev.pos())
+        if index >= 0:
+            self.contextMenu().exec_(self.docs[index], ev.globalPos())
+
+    def contextMenu(self):
+        try:
+            return self._contextMenu
+        except AttributeError:
+            self._contextMenu = TabContextMenu(self)
+        return self._contextMenu
+
+
+class TabContextMenu(QMenu):
+    def __init__(self, parent):
+        super(TabContextMenu, self).__init__(parent)
+        self.doc_save = self.addAction(icons.get('document-save'), '')
+        self.doc_save_as = self.addAction(icons.get('document-save-as'), '')
+        self.addSeparator()
+        self.doc_close = self.addAction(icons.get('document-close'), '')
         
+        self.doc_save.triggered.connect(self.docSave)
+        self.doc_save_as.triggered.connect(self.docSaveAs)
+        self.doc_close.triggered.connect(self.docClose)
+        app.languageChanged.connect(self.translateUI)
+        self.translateUI()
+    
+    def translateUI(self):
+        self.doc_save.setText(_("&Save"))
+        self.doc_save_as.setText(_("Save &As..."))
+        self.doc_close.setText(_("&Close"))
+        
+    def exec_(self, document, pos):
+        self._doc = weakref.ref(document)
+        super(TabContextMenu, self).exec_(pos)
+    
+    def docSave(self):
+        self.parent().window().saveDocument(self._doc())
+    
+    def docSaveAs(self):
+        self.parent().window().saveDocumentAs(self._doc())
+    
+    def docClose(self):
+        self.parent().window().closeDocument(self._doc())
+
 
 class ActionCollection(actioncollection.ActionCollection):
     def __init__(self, mainwindow):
