@@ -23,6 +23,8 @@ from __future__ import unicode_literals
 A Frescobaldi (LilyPond) document.
 """
 
+import os
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
@@ -31,10 +33,16 @@ import view
 
 
 class Document(QTextDocument):
+    
+    urlChanged = pyqtSignal()
+    
     def __init__(self):
         super(Document, self).__init__()
         self.setDocumentLayout(QPlainTextDocumentLayout(self))
+        
         self._materialized = False
+        self._url = None
+        self.setUrl(None)
         app.documents.append(self)
         app.documentCreated(self)
         
@@ -61,3 +69,30 @@ class Document(QTextDocument):
         newview = view.View(self)
         return newview
     
+    def url(self):
+        return self._url
+        
+    def setUrl(self, url):
+        """ Change the url for this document. """
+        changed = self._url != url
+        self._url = url or QUrl()
+        # number for nameless documents
+        if self._url.isEmpty():
+            nums = [0]
+            nums.extend(doc._num for doc in app.documents if doc is not self)
+            self._num = max(nums) + 1
+        else:
+            self._num = 0
+        changed and self.urlChanged.emit()
+        
+    def documentName(self):
+        """ Returns a suitable name for this document. """
+        if self._url.isEmpty():
+            if self._num == 1:
+                return _("Nameless")
+            else:
+                return _("Nameless [{num}]").format(num=self._num)
+        else:
+            return os.path.basename(self._url.path())
+            
+

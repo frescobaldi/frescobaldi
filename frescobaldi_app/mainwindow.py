@@ -65,8 +65,6 @@ class MainWindow(QMainWindow):
         self.setWindowIcon(icons.get('frescobaldi'))
         app.windows.append(self)
         
-        self.createActions()
-        
         mainwidget = QWidget()
         self.setCentralWidget(mainwidget)
         layout = QVBoxLayout()
@@ -78,6 +76,8 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.tabBar)
         layout.addWidget(self.viewManager)
 
+        self.createActions()
+        
         # create other stuff that have their own actions
         
         self.createMenus()
@@ -227,6 +227,7 @@ class MainWindow(QMainWindow):
         # documents submenu
         self.menu_documents = m = QMenu()
         ac.view_document.setMenu(m)
+        m.aboutToShow.connect(self.populateDocumentsMenu)
         
         # connections
         ac.file_quit.triggered.connect(self.close)
@@ -234,10 +235,22 @@ class MainWindow(QMainWindow):
         ac.edit_redo.triggered.connect(lambda: self.currentDocument().redo())
         ac.edit_select_all.triggered.connect(lambda: self.currentView().selectAll())
         ac.edit_select_none.triggered.connect(self.selectNone)
+        ac.view_next_document.triggered.connect(self.tabBar.nextDocument)
+        ac.view_previous_document.triggered.connect(self.tabBar.previousDocument)
         ac.window_new.triggered.connect(lambda: MainWindow(self).show())
         ac.window_fullscreen.toggled.connect(self.toggleFullScreen)
         ac.help_whatsthis.triggered.connect(QWhatsThis.enterWhatsThisMode)
         
+    def populateDocumentsMenu(self):
+        m = self.menu_documents
+        m.clear()
+        for d in self.tabBar.documents():
+            a = QAction(d.documentName(), self.menu_documents)
+            a.setCheckable(True)
+            a.setChecked(d is self.currentDocument())
+            self.menu_documents.addAction(a)
+            a.triggered.connect(lambda: self.setCurrentDocument(d))
+            
     def createMenus(self):
         ac = self.actionCollection
         self.menu_file = m = self.menuBar().addMenu('')
@@ -361,6 +374,11 @@ class TabBar(QTabBar):
     def __init__(self, parent=None):
         super(TabBar, self).__init__(parent)
         
+        self.setFocusPolicy(Qt.NoFocus)
+        self.setTabsClosable(True) # TODO: make configurable
+        self.setMovable(True)      # TODO: make configurable
+        self.setExpanding(False)
+        
         mainwin = self.window()
         self.docs = []
         for doc in app.documents:
@@ -373,9 +391,9 @@ class TabBar(QTabBar):
         mainwin.currentDocumentChanged.connect(self.setCurrentDocument)
         self.currentChanged.connect(self.slotCurrentChanged)
         self.tabMoved.connect(self.slotTabMoved)
-        self.setTabsClosable(True) # TODO: make configurable
-        self.setMovable(True)      # TODO: make configurable
-        self.setExpanding(False)
+        
+    def documents(self):
+        return list(self.docs)
         
     def addDocument(self, doc):
         if doc not in self.docs:
@@ -384,7 +402,8 @@ class TabBar(QTabBar):
             self.addTab('')
             self.blockSignals(False)
             self.setDocumentStatus(doc)
-            #doc.urlChanged.connect(self.setDocumentStatus)
+            doc.urlChanged.connect(lambda: self.setDocumentStatus(doc))
+            doc.modificationChanged.connect(lambda: self.setDocumentStatus(doc))
             #doc.captionChanged.connect(self.setDocumentStatus)
 
     def removeDocument(self, doc):
@@ -398,8 +417,9 @@ class TabBar(QTabBar):
     def setDocumentStatus(self, doc):
         if doc in self.docs:
             index = self.docs.index(doc)
-            self.setTabIcon(index, icons.get('text-plain'))
-            self.setTabText(index, str(id(doc))) #TEMP: doc.documentName())
+            icon = 'document-save' if doc.isModified() else 'text-plain'
+            self.setTabIcon(index, icons.get(icon))
+            self.setTabText(index, doc.documentName())
     
     def setCurrentDocument(self, doc):
         """ Raise the tab belonging to this document."""
@@ -422,6 +442,19 @@ class TabBar(QTabBar):
         doc = self.docs.pop(index_from)
         self.docs.insert(index_to, doc)
         
+    def nextDocument(self):
+        """ Switches to the next document. """
+        index = self.currentIndex() + 1
+        if index == self.count():
+            index = 0
+        self.setCurrentIndex(index)
+        
+    def previousDocument(self):
+        index = self.currentIndex() - 1
+        if index < 0:
+            index = self.count() - 1
+        self.setCurrentIndex(index)
+    
         
 
 class ActionCollection(actioncollection.ActionCollection):
