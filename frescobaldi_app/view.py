@@ -41,4 +41,3 @@ class View(QPlainTextEdit):
         super(View, self).focusInEvent(ev)
         self.focusIn.emit(self)
         
-

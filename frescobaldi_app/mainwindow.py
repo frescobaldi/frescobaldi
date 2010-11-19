@@ -35,6 +35,7 @@ import icons
 import actioncollection
 import document
 import viewmanager
+import signals
 
 
 class MainWindow(QMainWindow):
@@ -52,8 +53,8 @@ class MainWindow(QMainWindow):
         """
         QMainWindow.__init__(self)
         
-        self._currentDocument = None
-        self._currentView = None
+        self._documents = list(other._documents if other else app.documents)
+        self._currentView = lambda: None
         
         # find an unused objectName
         names = set(win.objectName() for win in app.windows)
@@ -78,7 +79,7 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.viewManager)
 
         self.documentActions = DocumentActionGroup(self)
-
+        
         self.createActions()
         
         # create other stuff that have their own actions
@@ -93,14 +94,53 @@ class MainWindow(QMainWindow):
         
         self.viewManager.viewChanged.connect(self.slotViewChanged)
         self.tabBar.currentDocumentChanged.connect(self.setCurrentDocument)
+
+        app.documentCreated.connect(self.addDocument)
+        app.documentClosed.connect(self.removeDocument)
         
         #TEMP
         import document
-        self.setCurrentDocument(document.Document())
         document.Document()
+    
+    def addDocument(self, doc):
+        if not self._documents:
+            # initial insert, does also the append
+            self.setCurrentDocument(doc)
+        else:
+            self._documents.insert(-1, doc)
+
+    def removeDocument(self, doc):
+        active = doc is self._documents[-1]
+        if active and len(self._documents) > 1:
+            self.setCurrentDocument(self._documents[-2])
+        self._documents.remove(doc)
+            
+    def currentDocument(self):
+        try:
+            return self._documents[-1]
+        except IndexError:
+            return None
         
+    def setCurrentDocument(self, doc, findOpenView=False):
+        if self._documents:
+            cur = self._documents[-1]
+            if cur is doc:
+                return
+            cur.undoAvailable.disconnect(self.updateDocActions)
+            cur.redoAvailable.disconnect(self.updateDocActions)
+            cur.modificationChanged.disconnect(self.updateDocStatus)
+            self._documents.remove(doc)
+        doc.undoAvailable.connect(self.updateDocActions)
+        doc.redoAvailable.connect(self.updateDocActions)
+        doc.modificationChanged.connect(self.updateDocStatus)
+        self._documents.append(doc)
+        self.updateDocActions()
+        self.updateDocStatus()
+        self.currentDocumentChanged.emit(doc)
+        self.viewManager.showDocument(doc, findOpenView)
+
     def slotViewChanged(self, view):
-        cur = self._currentView
+        cur = self._currentView()
         if cur:
             if cur is view:
                 return
@@ -108,35 +148,15 @@ class MainWindow(QMainWindow):
             cur.selectionChanged.disconnect(self.updateViewActions)
         view.copyAvailable.connect(self.updateViewActions)
         view.selectionChanged.connect(self.updateViewActions)
-        self._currentView = view
+        self._currentView = weakref.ref(view)
         self.updateViewActions()
         self.setCurrentDocument(view.document())
     
     def currentView(self):
-        return self._currentView
+        return self._currentView()
         
-    def currentDocument(self):
-        return self._currentDocument
-        
-    def setCurrentDocument(self, doc, findOpenView=False):
-        cur = self._currentDocument
-        if cur:
-            if cur is doc:
-                return
-            cur.undoAvailable.disconnect(self.updateDocActions)
-            cur.redoAvailable.disconnect(self.updateDocActions)
-            cur.modificationChanged.disconnect(self.updateDocStatus)
-        doc.undoAvailable.connect(self.updateDocActions)
-        doc.redoAvailable.connect(self.updateDocActions)
-        doc.modificationChanged.connect(self.updateDocStatus)
-        self._currentDocument = doc
-        self.updateDocActions()
-        self.updateDocStatus()
-        self.currentDocumentChanged.emit(doc)
-        self.viewManager.showDocument(doc, findOpenView)
-
     def updateViewActions(self):
-        view = self._currentView
+        view = self._currentView()
         ac = self.actionCollection
         selection = view.textCursor().hasSelection()
         ac.edit_copy.setEnabled(selection)
@@ -145,13 +165,13 @@ class MainWindow(QMainWindow):
         ac.edit_select_none.setEnabled(selection)
     
     def updateDocActions(self):
-        doc = self._currentDocument
+        doc = self.currentDocument()
         ac = self.actionCollection
         ac.edit_undo.setEnabled(doc.isUndoAvailable())
         ac.edit_redo.setEnabled(doc.isRedoAvailable())
         
     def updateDocStatus(self):
-        doc = self._currentDocument
+        doc = self.currentDocument()
         #TEMP
         if doc.isModified():
             self.setWindowTitle("modified")
@@ -240,6 +260,8 @@ class MainWindow(QMainWindow):
         """
         ##TODO: ask for saving if modified
         doc.close()
+        if not app.documents:
+            document.Document()
     
     def saveCurrentDocument(self):
         return self.saveDocument(self.currentDocument())
@@ -431,6 +453,33 @@ class MainWindow(QMainWindow):
         self.toolbar_main.setWindowTitle(_("Main Toolbar"))
         
 
+class HistoryManager(object):
+    
+    def __init__(self, mainwin):
+        self.mainwin = mainwin
+        self._documents = list(app.documents)
+        app.documentCreated.connect(self.addDocument)
+        app.documentClosed.connect(self.removeDocument)
+        mainwin.currentDocumentChanged.connect(self.setCurrentDocument)
+
+    def addDocument(self, doc):
+        if not self._documents:
+            self.mainwin.setCurrentDocument(doc)
+        self._documents.insert(-1, doc)
+        
+    def removeDocument(self, doc):
+        active = doc is self._documents[-1] # was this the active document?
+        self._documents.remove(doc)
+        if active and self._documents:
+            self.mainwin.setCurrentDocument(self._documents[-1])
+
+    def setCurrentDocument(self, doc):
+        self._documents.remove(doc)
+        self._documents.append(doc)
+        
+
+    
+
 class DocumentActionGroup(QActionGroup):
     """Maintains a list of actions to set the current document.
     
@@ -563,7 +612,7 @@ class TabBar(QTabBar):
     
     def slotTabCloseRequested(self, index):
         """ Called when the user clicks the close button. """
-        self.docs[index].close()
+        self.window().closeDocument(self.docs[index])
     
     def slotTabMoved(self, index_from, index_to):
         """ Called when the user moved a tab. """

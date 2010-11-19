@@ -122,7 +122,7 @@ class ViewSpace(QWidget):
         
     def removeView(self, view):
         if view is self._activeView:
-            self.connectView(view, False)
+            self.disconnectView(view)
             self._activeView = None
         self.stack.removeWidget(view)
         
@@ -131,17 +131,23 @@ class ViewSpace(QWidget):
         if view is cur:
             return
         if cur:
-            cur.cursorPositionChanged.disconnect(self.updateStatusBar)
-            cur.modificationChanged.disconnect(self.updateStatusBar)
-            cur.focusIn.disconnect(self.setActiveViewSpace)
-            cur.document().urlChanged.disconnect(self.updateStatusBar)
+            self.disconnectView(cur)
+        self.connectView(view)
+        self._activeView = view
+        self.stack.setCurrentWidget(view)
+        self.updateStatusBar()
+    
+    def connectView(self, view):
         view.cursorPositionChanged.connect(self.updateStatusBar)
         view.modificationChanged.connect(self.updateStatusBar)
         view.focusIn.connect(self.setActiveViewSpace)
         view.document().urlChanged.connect(self.updateStatusBar)
-        self._activeView = view
-        self.stack.setCurrentWidget(view)
-        self.updateStatusBar()
+
+    def disconnectView(self, view):
+        view.cursorPositionChanged.disconnect(self.updateStatusBar)
+        view.modificationChanged.disconnect(self.updateStatusBar)
+        view.focusIn.disconnect(self.setActiveViewSpace)
+        view.document().urlChanged.disconnect(self.updateStatusBar)
         
     def setActiveViewSpace(self, view):
         self.manager.setActiveViewSpace(self)
@@ -192,6 +198,7 @@ class ViewManager(QSplitter):
         self.createActions()
         self.translateUI()
         app.languageChanged.connect(self.translateUI)
+        app.documentClosed.connect(self.slotDocumentClosed)
     
     def createActions(self):
         self.actionCollection = ac = ViewActions(self)
@@ -348,7 +355,13 @@ class ViewManager(QSplitter):
         self.activeViewSpace().showDocument(doc)
         self.viewChanged.emit(self.activeView())
                     
-                    
+    def slotDocumentClosed(self, doc):
+        for space in self._viewSpaces[::]:
+            for view in space.views():
+                if view.document() is doc:
+                    space.removeView(view)
+                    view.setParent(None)
+            
 
 
 class ViewActions(actioncollection.ActionCollection):
