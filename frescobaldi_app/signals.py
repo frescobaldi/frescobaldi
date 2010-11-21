@@ -162,11 +162,11 @@ class ListenerBase(object):
         except AttributeError:
             self.argslice = slice(0, None)
         else:
-            self.argslice = slice(0, nargs + self.removeargs)
+            self.argslice = slice(0, nargs - self.removeargs)
 
 
 class MethodListener(ListenerBase):
-    removeargs = -1
+    removeargs = 1
     def __init__(self, meth):
         self.obj = meth.im_self
         self.objid = id(meth.im_self)
