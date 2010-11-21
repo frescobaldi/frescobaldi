@@ -442,23 +442,28 @@ class MainWindow(QMainWindow):
         
 
 class HistoryManager(object):
+    """Keeps the history of document switches by the user.
+    
+    If a document is closed, the previously active document is set active.
+    If a document is created and it is the first one, it is also set active.
+    
+    """
     def __init__(self, mainwin, othermanager=None):
         self.mainwin = mainwin
         self._documents = list(othermanager._documents if othermanager else app.documents)
         mainwin.currentDocumentChanged.connect(self.setCurrentDocument)
-        app.documentCreated.connect(self.addDocument)
-        app.documentClosed.connect(self.removeDocument)
+        app.documentCreated.connect(self.addDocument, 1)
+        app.documentClosed.connect(self.removeDocument, 1)
         
     def addDocument(self, doc):
         self._documents.insert(-1, doc)
         if len(self._documents) == 1:
-            QTimer.singleShot(0, lambda: self.mainwin.setCurrentDocument(doc))
+            self.mainwin.setCurrentDocument(doc)
 
     def removeDocument(self, doc):
         active = doc is self._documents[-1]
         if active and len(self._documents) > 1:
-            newdoc = self._documents[-2]
-            QTimer.singleShot(0, lambda: self.mainwin.setCurrentDocument(newdoc))
+            self.mainwin.setCurrentDocument(self._documents[-2])
         self._documents.remove(doc)
     
     def setCurrentDocument(self, doc):

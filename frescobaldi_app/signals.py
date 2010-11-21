@@ -21,122 +21,36 @@
 A simple signal/slot implementation.
 """
 
-import inspect, weakref
+import bisect
+import contextlib
+import types
+import weakref
 
 
-class SignalInstance(object):
-    """
-    A simple implementation of the Signal/Slot pattern.
+class Signal(object):
+    """Use the Signal object at the class definition level:
     
-    To use, simply create a Signal instance. The instance may be a member
-    of a class, a global, or a local; it makes no difference what scope
-    it resides within. Connect slots to the signal using the "connect()"
-    method. The slot may be a member of a class or a simple function.
+    class MyObject:
     
-    If the slot is a member of a class, Signal will automatically detect
-    when the method's class instance has been deleted and remove it
-    from its list of connected slots.
-    
-    Emit the signal (to call all connected slots) by simply invoking it.
-    The order in which the slots are called is undetermined.
-    """
-    def __init__(self):
-        self.functions = set()
-        self.objects = weakref.WeakKeyDictionary()
-
-    def __call__(self, *args, **kwargs):
-        """ call all connected slots """
-        # make copies because the sets might change...
-        for func in set(self.functions):
-            # if possible determine the number of arguments the function 
-            # expects, and discard the superfluous arguments.
-            try:
-                func.func_code.co_argcount
-            except AttributeError:
-                func(*args, **kwargs)
-            else:
-                func(*args[:func.func_code.co_argcount], **kwargs)
-        for obj, methods in self.objects.items():
-            for func in set(methods):
-                try:
-                    func.func_code.co_argcount
-                except AttributeError:
-                    func(obj, *args, **kwargs)
-                else:
-                    func(obj, *args[:func.func_code.co_argcount-1], **kwargs)
-            
-    def connect(self, func):
-        if inspect.ismethod(func):
-            self.objects.setdefault(func.im_self, set()).add(func.im_func)
-        else:
-            self.functions.add(func)
-
-    def disconnect(self, func):
-        if inspect.ismethod(func):
-            s = self.objects.get(func.im_self)
-            if s is not None:
-                s.discard(func.im_func)
-        else:
-            self.functions.discard(func)
-
-    def clear(self):
-        self.functions.clear()
-        self.objects.clear()
-
-    def disconnectObject(self, obj):
-        """ Remove all connections that are methods of given object obj """
-        try:
-            del self.objects[obj]
-        except KeyError:
-            pass
-
-
-class SignalInstanceFireOnce(SignalInstance):
-    """
-    Clears all connections after being invoked.
-    """
-    def __call__(self, *args, **kwargs):
-        SignalInstance.__call__(self, *args, **kwargs)
-        self.clear()
-
-
-class SignalProxyInstance(object):
-    """
-    A Signal that dispatches method calls to connected objects.
-    
-    Call methods on this proxy object and the same method will be called
-    on all connected objects with the same arguments.
-    
-    Attributes other than methods are not supported.
-    Methods can't be named 'connect' or 'disconnect'.
-    Return values are discarded.
-    A SignalProxy keeps weak references to connected objects.
-    """
-    def __init__(self):
-        self._objects = weakref.WeakKeyDictionary()
-    
-    def connect(self, obj):
-        self._objects[obj] = True
+        somethingChanged = Signal()
         
-    def disconnect(self, obj):
-        try:
-            del self._objects[obj]
-        except KeyError:
-            pass
-
-    def __getattr__(self, attr):
-        def func(*args, **kwargs):
-            for obj in self._objects:
-                getattr(obj, attr)(*args, **kwargs)
-        func.func_name = attr
-        setattr(self, attr, func)
-        return func
-
-
-class SignalBase(object):
-    """Abstract base class for class level Signal and SignalProxy classes."""
-    def __init__(self, doc=None):
-        self.__doc__ = doc
+        def __init__(self):
+            pass # etc
+    
+    def receiver(arg):
+        print "Received message:", arg
+    
+    o = MyObject()
+    o.somethingChanged.connect(receiver)
+    o.somethingChanged.emit("Hi there")
+    
+    When the somethingChanged attribute is accessed for the first time through
+    an instance, a SignalInstance object is created that provides the signal/
+    slot implementation.
+    
+    """
+    
+    def __init__(self):
         self.instances = weakref.WeakKeyDictionary()
         
     def __get__(self, instance, owner):
@@ -145,34 +59,138 @@ class SignalBase(object):
         try:
             return self.instances[instance]
         except KeyError:
-            ret = self.instances[instance] = self.signalType()
-            return ret
+            ret = self.instances[instance] = SignalInstance()
 
 
-class Signal(SignalBase):
-    """A class level Signal/Slot mechanism.
+class SignalInstance(object):
+    """The SignalInstance object can be used as a signal that receivers (slots)
+    can be connected to.
     
-    Use an instance of Signal() as a class attribute, and it will automatically
-    work on instances as soon as the attribute is accessed via the instance.
+    The signal is emitted by the emit() method or by simply invoking it.  Use
+    the connect() method to connect functions to it that are called with the
+    same arguments as used when emitting the signal.  Currently no argument type
+    checking is provided. You can set the priority to influence the order the
+    connected slots are called.  The default priority is 0, if you want to have
+    a connected slot called before all the others, use e.g. -1, and when you
+    want to have a connected slot called after others, use 1 or higher.
     
-    If you create the Signal with fireOnce=True, all connections to the
-    signal of the object instance will be cleared after being invoked.
+    If an instance method is connected, the SignalInstance keeps no reference
+    to the object the method belongs to. So if the object is garbage collected,
+    the signal is automatically disconnected.
     
-    See SignalInstance and SignalInstanceFireOnce.
+    If a normal or lambda function is connected, the SignalInstance will keep
+    a reference to the function.  If you want to have the function disconnected
+    automatically when some object dies, provide that object through the owner
+    argument.  Be sure that the connected function does not keep a reference to
+    that object though!
+    
+    You can't connect the same function or method twice, but no exception will
+    be raised.
+    
+    The disconnect() method will disconnect an instance method or function.
+    If it wasn't connected no exception is raised.
+    
+    The clear() method simply disconnects all connected slots.
+    
+    The blocked() method returns a contextmanager that will block the signals
+    as long as it exists:
+    
+    s = SignalInstance()
+    s.connect(receiver)
+    with s.blocked():
+        doSomething() # code that would cause s to emit a signal
+    
     """
-    def __init__(self, doc=None, fireOnce=False):
-        super(Signal, self).__init__(doc)
-        self.signalType = SignalInstanceFireOnce if fireOnce else SignalInstance
-
-
-class SignalProxy(SignalBase):
-    """A class level Signal proxy.
     
-    Add as a class attribute to a class and access it via an instance.
-    A SignalProxyInstance instance will then be returned.
+    def __init__(self):
+        self.listeners = []
+        self._blocked = False
+        
+    def connect(self, func, priority=0, owner=None):
+        key = makeListener(func, owner)
+        if key not in self.listeners:
+            key.add(self, priority)
+            
+    def disconnect(self, func):
+        key = makeListener(func)
+        try:
+            self.listeners.remove(key)
+        except ValueError:
+            pass
     
-    See SignalProxyInstance.
-    """
-    signalType = SignalProxyInstance
+    def clear(self):
+        del self.listeners[:]
+    
+    @contextlib.contextmanager
+    def blocked(self):
+        blocked, self._blocked = self._blocked, True
+        try:
+            yield
+        finally:
+            self._blocked = blocked
 
+    def emit(self, *args, **kwargs):
+        if not self._blocked:
+            for l in self.listeners:
+                l.call(args, kwargs)
+    
+    __call__ = emit
+
+
+def makeListener(func, owner=None):
+    if isinstance(func, types.MethodType):
+        return MethodListener(func)
+    else:
+        return FunctionListener(func, owner)
+
+
+class ListenerBase(object):
+    def __lt__(self, other):
+        return self.priority < other.priority
+    
+    def add(self, signal, priority):
+        self.priority = priority
+        bisect.insort_right(signal.listeners, self)
+        if self.obj is not None:
+            def remove(wr, selfref=weakref.ref(self), sigref=weakref.ref(signal)):
+                self, signal = selfref(), sigref()
+                if self and signal:
+                    signal.listeners.remove(self)
+            self.obj = weakref.ref(self.obj, remove)
+
+
+class MethodListener(ListenerBase):
+    def __init__(self, meth):
+        self.obj = meth.im_self
+        self.objid = id(meth.im_self)
+        self.func = meth.im_func
+        try:
+            self.argslice = slice(0, self.func.func_code.co_argcount - 1)
+        except AttributeError:
+            self.argslice = slice(0, None)
+            
+    def __eq__(self, other):
+        return self.__class__ is other.__class__ and self.objid == other.objid and self.func is other.func
+
+    def call(self, args, kwargs):
+        obj = self.obj()
+        if obj is not None:
+            self.func(obj, *args[self.argslice], **kwargs)
+
+
+class FunctionListener(ListenerBase):
+    def __init__(self, func, owner=None):
+        self.obj = owner
+        self.func = func
+        try:
+            self.argslice = slice(0, self.func.func_code.co_argcount)
+        except AttributeError:
+            self.argslice = slice(0, None)
+
+    def __eq__(self, other):
+        return self.__class__ is other.__class__ and self.func is other.func
+
+    def call(self, args, kwargs):
+        self.func(*args[self.argslice], **kwargs)
+        
 
