@@ -27,6 +27,9 @@ import types
 import weakref
 
 
+__all__ = ["Signal", "SignalInstance"]
+
+
 class Signal(object):
     """Use the Signal object at the class definition level:
     
