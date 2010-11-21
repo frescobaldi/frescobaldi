@@ -157,17 +157,20 @@ class ListenerBase(object):
                 if self and signal:
                     signal.listeners.remove(self)
             self.obj = weakref.ref(self.obj, remove)
+        try:
+            nargs = self.func.func_code.co_argcount
+        except AttributeError:
+            self.argslice = slice(0, None)
+        else:
+            self.argslice = slice(0, nargs + self.removeargs)
 
 
 class MethodListener(ListenerBase):
+    removeargs = -1
     def __init__(self, meth):
         self.obj = meth.im_self
         self.objid = id(meth.im_self)
         self.func = meth.im_func
-        try:
-            self.argslice = slice(0, self.func.func_code.co_argcount - 1)
-        except AttributeError:
-            self.argslice = slice(0, None)
             
     def __eq__(self, other):
         return self.__class__ is other.__class__ and self.objid == other.objid and self.func is other.func
@@ -179,13 +182,10 @@ class MethodListener(ListenerBase):
 
 
 class FunctionListener(ListenerBase):
+    removeargs = 0
     def __init__(self, func, owner=None):
         self.obj = owner
         self.func = func
-        try:
-            self.argslice = slice(0, self.func.func_code.co_argcount)
-        except AttributeError:
-            self.argslice = slice(0, None)
 
     def __eq__(self, other):
         return self.__class__ is other.__class__ and self.func is other.func
