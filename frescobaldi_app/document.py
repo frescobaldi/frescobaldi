@@ -37,11 +37,12 @@ class Document(QTextDocument):
     urlChanged = pyqtSignal()
     closed = pyqtSignal()
     
-    def __init__(self, url=None):
+    def __init__(self, url=None, encoding=None):
         super(Document, self).__init__()
         self.setDocumentLayout(QPlainTextDocumentLayout(self))
         
         self._materialized = False
+        self._encoding = encoding
         self._url = url
         self.setUrl(url)
         self.modificationChanged.connect(self.slotModificationChanged)
