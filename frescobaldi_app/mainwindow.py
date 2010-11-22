@@ -639,6 +639,7 @@ class TabBar(QTabBar):
 class TabContextMenu(QMenu):
     def __init__(self, parent):
         super(TabContextMenu, self).__init__(parent)
+        self._doc = lambda: None
         self.doc_save = self.addAction(icons.get('document-save'), '')
         self.doc_save_as = self.addAction(icons.get('document-save-as'), '')
         self.addSeparator()
@@ -660,13 +661,19 @@ class TabContextMenu(QMenu):
         super(TabContextMenu, self).exec_(pos)
     
     def docSave(self):
-        self.parent().window().saveDocument(self._doc())
+        doc = self._doc()
+        if doc:
+            self.parent().window().saveDocument(doc)
     
     def docSaveAs(self):
-        self.parent().window().saveDocumentAs(self._doc())
+        doc = self._doc()
+        if doc:
+            self.parent().window().saveDocumentAs(doc)
     
     def docClose(self):
-        self.parent().window().closeDocument(self._doc())
+        doc = self._doc()
+        if doc:
+            self.parent().window().closeDocument(doc)
 
 
 class ActionCollection(actioncollection.ActionCollection):

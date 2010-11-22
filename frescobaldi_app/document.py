@@ -37,20 +37,22 @@ class Document(QTextDocument):
     urlChanged = pyqtSignal()
     closed = pyqtSignal()
     
-    def __init__(self):
+    def __init__(self, url=None):
         super(Document, self).__init__()
         self.setDocumentLayout(QPlainTextDocumentLayout(self))
         
         self._materialized = False
-        self._url = None
-        self.setUrl(None)
-        self.modificationChanged.connect(lambda: app.documentModificationChanged(self))
+        self._url = url
+        self.setUrl(url)
+        self.modificationChanged.connect(self.slotModificationChanged)
         
         
         app.documents.append(self)
         app.documentCreated(self)
         
-        
+    def slotModificationChanged(self):
+        app.documentModificationChanged(self)
+
     def close(self):
         app.documents.remove(self)
         self.closed.emit()
@@ -102,4 +104,7 @@ class Document(QTextDocument):
         else:
             return os.path.basename(self._url.path())
             
+    def __del__(self):
+        print "Bye Document!"
+
 
