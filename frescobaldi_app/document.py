@@ -104,7 +104,4 @@ class Document(QTextDocument):
         else:
             return os.path.basename(self._url.path())
             
-    def __del__(self):
-        print "Bye Document!"
-
 
