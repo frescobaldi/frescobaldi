@@ -63,7 +63,18 @@ def openUrl(url, encoding=None):
     for d in documents:
         if url == d.url():
             return d
+    if len(documents) == 1:
+        # special case if there is only one document:
+        # if that is empty and unedited, use it.
+        d = documents[0]
+        if (d.url().isEmpty() and d.isEmpty()
+                and not d.isUndoAvailable() and not d.isRedoAvailable()):
+            d.setUrl(url)
+            d.setEncoding(encoding)
+            d.load()
+            return d
     return document.Document(url, encoding)
+    
 
 def run():
     """Enter the Qt event loop."""

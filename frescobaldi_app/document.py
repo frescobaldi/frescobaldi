@@ -67,9 +67,29 @@ class Document(QTextDocument):
         """
         if self._materialized:
             return
-        ### Implement
+        self.load()
         app.documentMaterialized(self)
         self._materialized = True
+
+    def load(self):
+        """Loads the current url."""
+        if not self.url().isEmpty():
+            with file(self.url().toLocalFile()) as f:
+                data = f.read()
+            encodings = ['utf8', 'latin1']
+            if self._encoding:
+                encodings.insert(0, self._encoding)
+            for encoding in encodings:
+                try:
+                    text = data.decode(encoding)
+                except UnicodeError:
+                    continue
+                else:
+                    break
+            else:
+                text = data.decode('utf8', 'replace')
+            self.setPlainText(data.decode('UTF-8'))
+            self.setModified(False)
 
     def createView(self):
         """Returns a new View on our document."""
@@ -94,6 +114,12 @@ class Document(QTextDocument):
         if changed:
             self.urlChanged.emit()
             app.documentUrlChanged(self)
+    
+    def encoding(self):
+        return self._encoding
+        
+    def setEncoding(self, encoding):
+        self._encoding = encoding
         
     def documentName(self):
         """ Returns a suitable name for this document. """
