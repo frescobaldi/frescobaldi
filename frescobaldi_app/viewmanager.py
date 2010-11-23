@@ -163,14 +163,6 @@ class ViewSpace(QWidget):
             self.stack.setCurrentWidget(self.views[-1])
             self.updateStatusBar()
     
-    def clear(self):
-        """Removes all views."""
-        if self.views:
-            self.disconnectView(self.views[-1])
-        for view in self.views:
-            view.deleteLater()
-        self.views = []
-
     def connectView(self, view):
         view.cursorPositionChanged.connect(self.updateStatusBar)
         view.modificationChanged.connect(self.updateStatusBar)
@@ -329,7 +321,6 @@ class ViewManager(QSplitter):
             self.setActiveViewSpace(self._viewSpaces[-2])
         splitter = viewspace.parentWidget()
         if splitter.count() > 2:
-            viewspace.clear()
             viewspace.setParent(None)
             viewspace.deleteLater()
         elif splitter is self:
@@ -339,7 +330,6 @@ class ViewManager(QSplitter):
             # if that is a QSplitter, add all its children to ourselves
             # and copy the sizes and orientation.
             other = self.widget(1 - self.indexOf(viewspace))
-            viewspace.clear()
             viewspace.setParent(None)
             viewspace.deleteLater()
             if isinstance(other, QSplitter):
@@ -366,7 +356,6 @@ class ViewManager(QSplitter):
                 sizes[index:index+1] = other.sizes()
                 while other.count():
                     parent.insertWidget(index, other.widget(other.count()-1))
-            viewspace.clear()
             viewspace.setParent(None)
             splitter.setParent(None)
             viewspace.deleteLater()
