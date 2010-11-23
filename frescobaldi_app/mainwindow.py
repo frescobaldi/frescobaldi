@@ -156,11 +156,13 @@ class MainWindow(QMainWindow):
         
     def updateDocStatus(self):
         doc = self.currentDocument()
-        #TEMP
+        name = []
+        name.append(doc.url().path() or doc.documentName())
         if doc.isModified():
-            self.setWindowTitle("modified")
-        else:
-            self.setWindowTitle("not modified")
+            name.append(_("[modified]"))
+        name.append("\u2013")
+        name.append(info.description)
+        self.setWindowTitle(" ".join(name))
         
     def closeEvent(self, ev):
         lastWindow = len(app.windows) == 1
