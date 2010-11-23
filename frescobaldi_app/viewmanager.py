@@ -260,23 +260,32 @@ class ViewManager(QSplitter):
         self.actionCollection = ac = ViewActions(self)
         # connections
         ac.window_close_view.setEnabled(False)
-        ac.window_split_horizontal.triggered.connect(
-            lambda: self.splitViewSpace(self.activeViewSpace(), Qt.Vertical))
-        ac.window_split_vertical.triggered.connect(
-            lambda: self.splitViewSpace(self.activeViewSpace(), Qt.Horizontal))
-        ac.window_close_view.triggered.connect(
-            lambda: self.closeViewSpace(self.activeViewSpace()))
-        ac.window_next_view.triggered.connect(lambda: self.focusNextChild())
-        ac.window_previous_view.triggered.connect(lambda: self.focusPreviousChild())
-    
+        ac.window_split_horizontal.triggered.connect(self.splitCurrentVertical)
+        ac.window_split_vertical.triggered.connect(self.splitCurrentHorizontal)
+        ac.window_close_view.triggered.connect(self.closeCurrent)
+        ac.window_next_view.triggered.connect(self.nextViewSpace)
+        ac.window_previous_view.triggered.connect(self.previousViewSpace)
+
+    def splitCurrentVertical(self):
+        self.splitViewSpace(self.activeViewSpace(), Qt.Vertical)
+        
+    def splitCurrentHorizontal(self):
+        self.splitViewSpace(self.activeViewSpace(), Qt.Horizontal)
+        
+    def closeCurrent(self):
+        self.closeViewSpace(self.activeViewSpace())
+        
+    def nextViewSpace(self):
+        self.focusNextChild()
+        
+    def previousViewSpace(self):
+        self.focusPreviousChild()
+        
     def translateUI(self):
         self.actionCollection.translateUI()
     
     def activeViewSpace(self):
         return self._viewSpaces[-1]
-        
-    def activeView(self):
-        return self.activeViewSpace().activeView()
     
     def splitViewSpace(self, viewspace, orientation):
         """Split the given view.
