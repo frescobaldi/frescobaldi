@@ -223,6 +223,19 @@ class MainWindow(QMainWindow):
         
     def openDocument(self):
         """ Displays an open dialog to open one or more documents. """
+        filter = ";;".join((
+            "{0} (*.ly *.lyi *.ily)".format(_("LilyPond Files")),
+            "{0} (*.tex *.lytex)".format(_("LaTeX Files")),
+            "{0} (*.docbook)".format(_("DocBook Files")),
+            "{0} (*.html)".format(_("HTML Files")),
+            "{0} (*)".format(_("All Files")),
+            ))
+        caption = "{0} \u2013 {1}".format(_("Open File"), info.description)
+        directory = ""
+        files = QFileDialog.getOpenFileNames(self, caption, directory, filter)
+        docs = [app.openUrl(QUrl.fromLocalFile(f)) for f in files]
+        if docs:
+            self.setCurrentDocument(docs[-1])
         
     def saveDocument(self, doc):
         """ Saves the document, asking for a name if necessary.

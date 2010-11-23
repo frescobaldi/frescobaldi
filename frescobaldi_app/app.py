@@ -60,7 +60,10 @@ def openUrl(url, encoding=None):
     Always returns a Document instance.
     
     """
-    pass
+    for d in documents:
+        if url == d.url():
+            return d
+    return document.Document(url, encoding)
 
 def run():
     """Enter the Qt event loop."""
