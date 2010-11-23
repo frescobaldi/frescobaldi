@@ -98,10 +98,11 @@ class ViewStatusBar(QWidget):
 
 
 class ViewSpace(QWidget):
+    
     def __init__(self, manager, parent=None):
         super(ViewSpace, self).__init__(parent)
         self.manager = manager
-        self._activeView = None
+        self.views = []
         
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
@@ -115,28 +116,61 @@ class ViewSpace(QWidget):
         app.languageChanged.connect(self.updateStatusBar)
         
     def activeView(self):
-        return self._activeView
+        if self.views:
+            return self.views[-1]
 
-    def addView(self, view):
-        self.stack.addWidget(view)
+    def document(self):
+        """Returns the currently active document in this space.
         
-    def removeView(self, view):
-        if view is self._activeView:
-            self.disconnectView(view)
-            self._activeView = None
-        self.stack.removeWidget(view)
+        If there are no views, returns None.
         
-    def setActiveView(self, view):
-        cur = self._activeView
-        if view is cur:
+        """
+        if self.views:
+            return self.views[-1].document()
+    
+    def showDocument(self, doc):
+        """Shows the document, creating a View if necessary."""
+        if doc is self.document():
             return
+        cur = self.activeView()
+        for view in self.views[:-1]:
+            if doc is view.document():
+                self.views.remove(view)
+                break
+        else:
+            view = doc.createView()
+            self.stack.addWidget(view)
+        self.views.append(view)
         if cur:
             self.disconnectView(cur)
         self.connectView(view)
-        self._activeView = view
         self.stack.setCurrentWidget(view)
         self.updateStatusBar()
+        
+    def removeDocument(self, doc):
+        active = doc is self.document()
+        if active:
+            self.disconnectView(self.activeView())
+        for view in self.views:
+            if doc is view.document():
+                self.views.remove(view)
+                view.deleteLater()
+                break
+        else:
+            return
+        if active and self.views:
+            self.connectView(self.views[-1])
+            self.stack.setCurrentWidget(self.views[-1])
+            self.updateStatusBar()
     
+    def clear(self):
+        """Removes all views."""
+        if self.views:
+            self.disconnectView(self.views[-1])
+        for view in self.views:
+            view.deleteLater()
+        self.views = []
+
     def connectView(self, view):
         view.cursorPositionChanged.connect(self.updateStatusBar)
         view.modificationChanged.connect(self.updateStatusBar)
@@ -148,8 +182,8 @@ class ViewSpace(QWidget):
         view.modificationChanged.disconnect(self.updateStatusBar)
         view.focusIn.disconnect(self.setActiveViewSpace)
         view.document().urlChanged.disconnect(self.updateStatusBar)
-        
-    def setActiveViewSpace(self, view):
+    
+    def setActiveViewSpace(self):
         self.manager.setActiveViewSpace(self)
         
     def updateStatusBar(self):
@@ -166,17 +200,6 @@ class ViewSpace(QWidget):
             self.status.state.setPixmap(pixmap)
             self.status.info.setText(view.document().documentName())
             
-    def views(self):
-        return map(self.stack.widget, range(self.stack.count()))
-        
-    def showDocument(self, doc):
-        for view in self.views():
-            if view.document() is doc:
-                break
-        else:
-            view = doc.createView()
-            self.addView(view)
-        self.setActiveView(view)
 
 
 
@@ -188,7 +211,6 @@ class ViewManager(QSplitter):
     def __init__(self, parent=None):
         super(ViewManager, self).__init__(parent)
         self._viewSpaces = []
-        self._blockFocusChanges = False
         
         viewspace = ViewSpace(self)
         viewspace.status.setEnabled(True)
@@ -200,6 +222,48 @@ class ViewManager(QSplitter):
         app.languageChanged.connect(self.translateUI)
         app.documentClosed.connect(self.slotDocumentClosed)
     
+    def setCurrentDocument(self, doc, findOpenView=False):
+        if doc is not self.activeViewSpace().document():
+            done = False
+            if findOpenView:
+                for space in self._viewSpaces[-2::-1]:
+                    if doc is space.document():
+                        done = True
+                        self.setActiveViewSpace(space)
+                        break
+            if not done:
+                self.activeViewSpace().showDocument(doc)
+        # the active space now displays the requested document
+        # now also set this document in spaces that are empty
+        for space in self._viewSpaces[:-1]:
+            if not space.document():
+                space.showDocument(doc)
+        self.focusActiveView()
+        
+    def focusActiveView(self):
+        self.activeViewSpace().activeView().setFocus()
+        
+    def setActiveViewSpace(self, space):
+        prev = self._viewSpaces[-1]
+        if space is prev:
+            return
+        self._viewSpaces.remove(space)
+        self._viewSpaces.append(space)
+        prev.status.setEnabled(False)
+        space.status.setEnabled(True)
+        self.viewChanged.emit(space.activeView())
+
+    def slotDocumentClosed(self, doc):
+        activeDocument = self.activeViewSpace().document()
+        for space in self._viewSpaces:
+            space.removeDocument(doc)
+        if doc is not activeDocument:
+            # setCurrentDocument will not be called, fill empty spaces with our
+            # document.
+            for space in self._viewSpaces[:-1]:
+                if not space.document():
+                    space.showDocument(activeDocument)
+        
     def createActions(self):
         self.actionCollection = ac = ViewActions(self)
         # connections
@@ -222,27 +286,6 @@ class ViewManager(QSplitter):
     def activeView(self):
         return self.activeViewSpace().activeView()
     
-    def setActiveViewSpace(self, space):
-        if not self._blockFocusChanges:
-            prev = self._viewSpaces[-1]
-            if space is prev:
-                return
-            self._viewSpaces.remove(space)
-            self._viewSpaces.append(space)
-            
-            prev.status.setEnabled(False)
-            space.status.setEnabled(True)
-            newdoc = space.activeView().document()
-            space.activeView().setFocus()
-            self.viewChanged.emit(space.activeView())
-
-    @contextlib.contextmanager
-    def focusChangesBlocked(self):
-        self._blockFocusChanges = True
-        yield
-        self.activeView().setFocus()
-        self._blockFocusChanges = False
-        
     def splitViewSpace(self, viewspace, orientation):
         """Split the given view.
         
@@ -263,23 +306,20 @@ class ViewManager(QSplitter):
             index = splitter.indexOf(viewspace)
             splitter.insertWidget(index + 1, newspace)
         else:
-            with self.focusChangesBlocked():
-                index = splitter.indexOf(viewspace)
-                newsplitter = QSplitter()
-                newsplitter.setOrientation(orientation)
-                sizes = splitter.sizes()
-                splitter.insertWidget(index, newsplitter)
-                newsplitter.addWidget(viewspace)
-                splitter.setSizes(sizes)
-                size = newsplitter.sizes()[0]
-                newsplitter.addWidget(newspace)
-                newsplitter.setSizes([size / 2, size / 2])
+            index = splitter.indexOf(viewspace)
+            newsplitter = QSplitter()
+            newsplitter.setOrientation(orientation)
+            sizes = splitter.sizes()
+            splitter.insertWidget(index, newsplitter)
+            newsplitter.addWidget(viewspace)
+            splitter.setSizes(sizes)
+            size = newsplitter.sizes()[0]
+            newsplitter.addWidget(newspace)
+            newsplitter.setSizes([size / 2, size / 2])
         self._viewSpaces.insert(0, newspace)
-        newview = viewspace.activeView().document().createView()
-        newspace.addView(newview)
-        newspace.setActiveView(newview)
+        newspace.showDocument(viewspace.document())
         if active:
-            self.setActiveViewSpace(newspace)
+            newspace.activeView().setFocus()
         self.actionCollection.window_close_view.setEnabled(self.canCloseViewSpace())
         
     def closeViewSpace(self, viewspace):
@@ -287,80 +327,57 @@ class ViewManager(QSplitter):
         active = viewspace is self.activeViewSpace()
         if active:
             self.setActiveViewSpace(self._viewSpaces[-2])
-        with self.focusChangesBlocked():
-            splitter = viewspace.parentWidget()
-            if splitter.count() > 2:
-                viewspace.setParent(None)
-                viewspace.deleteLater()
-            elif splitter is self:
-                if self.count() < 2:
-                    return
-                # we contain only one other widget.
-                # if that is a QSplitter, add all its children to ourselves
-                # and copy the sizes and orientation.
-                other = self.widget(1 - self.indexOf(viewspace))
-                viewspace.setParent(None)
-                viewspace.deleteLater()
-                if isinstance(other, QSplitter):
-                    sizes = other.sizes()
-                    self.setOrientation(other.orientation())
-                    while other.count():
-                        self.insertWidget(0, other.widget(other.count()-1))
-                    other.setParent(None)
-                    other.deleteLater()
-                    self.setSizes(sizes)
+        splitter = viewspace.parentWidget()
+        if splitter.count() > 2:
+            viewspace.clear()
+            viewspace.setParent(None)
+            viewspace.deleteLater()
+        elif splitter is self:
+            if self.count() < 2:
+                return
+            # we contain only one other widget.
+            # if that is a QSplitter, add all its children to ourselves
+            # and copy the sizes and orientation.
+            other = self.widget(1 - self.indexOf(viewspace))
+            viewspace.clear()
+            viewspace.setParent(None)
+            viewspace.deleteLater()
+            if isinstance(other, QSplitter):
+                sizes = other.sizes()
+                self.setOrientation(other.orientation())
+                while other.count():
+                    self.insertWidget(0, other.widget(other.count()-1))
+                other.setParent(None)
+                other.deleteLater()
+                self.setSizes(sizes)
+        else:
+            # this splitter contains only one other widget.
+            # if that is a ViewSpace, just add it to the parent splitter.
+            # if it is a splitter, add all widgets to the parent splitter.
+            other = splitter.widget(1 - splitter.indexOf(viewspace))
+            parent = splitter.parentWidget()
+            sizes = parent.sizes()
+            index = parent.indexOf(splitter)
+            
+            if isinstance(other, ViewSpace):
+                parent.insertWidget(index, other)
             else:
-                # this splitter contains only one other widget.
-                # if that is a ViewSpace, just add it to the parent splitter.
-                # if it is a splitter, add all widgets to the parent splitter.
-                other = splitter.widget(1 - splitter.indexOf(viewspace))
-                parent = splitter.parentWidget()
-                sizes = parent.sizes()
-                index = parent.indexOf(splitter)
-                
-                if isinstance(other, ViewSpace):
-                    parent.insertWidget(index, other)
-                else:
-                    #QSplitter
-                    sizes[index:index+1] = other.sizes()
-                    while other.count():
-                        parent.insertWidget(index, other.widget(other.count()-1))
-                viewspace.setParent(None)
-                splitter.setParent(None)
-                viewspace.deleteLater()
-                splitter.deleteLater()
-                parent.setSizes(sizes)
-            self._viewSpaces.remove(viewspace)
+                #QSplitter
+                sizes[index:index+1] = other.sizes()
+                while other.count():
+                    parent.insertWidget(index, other.widget(other.count()-1))
+            viewspace.clear()
+            viewspace.setParent(None)
+            splitter.setParent(None)
+            viewspace.deleteLater()
+            splitter.deleteLater()
+            parent.setSizes(sizes)
+        self._viewSpaces.remove(viewspace)
         self.actionCollection.window_close_view.setEnabled(self.canCloseViewSpace())
         
     def canCloseViewSpace(self):
         return bool(self.count() > 1)
         
-    def showDocument(self, doc, findOpenView=False):
-        """Shows the document in the currently active view.
-        
-        if findOpenView is True, tries to find a viewspace
-        that has the document in view, and then switches to that viewspace.
-        
-        """
-        view = self.activeView()
-        if view and view.document() is doc:
-            return
-        if findOpenView:
-            for viewspace in self._viewSpaces[::-1]:
-                view = viewspace.activeView()
-                if view.document() is doc:
-                    view.setFocus()
-                    return
-        self.activeViewSpace().showDocument(doc)
-        self.viewChanged.emit(self.activeView())
-                    
-    def slotDocumentClosed(self, doc):
-        for space in self._viewSpaces[::]:
-            for view in space.views():
-                if view.document() is doc:
-                    space.removeView(view)
-                    view.setParent(None)
             
 
 
@@ -380,6 +397,7 @@ class ViewActions(actioncollection.ActionCollection):
         self.window_previous_view.setIcon(icons.get('go-previous-view'))
         
         # shortcuts
+        self.window_close_view.setShortcut(Qt.CTRL + Qt.SHIFT + Qt.Key_W)
         self.window_next_view.setShortcuts(QKeySequence.NextChild)
         self.window_previous_view.setShortcuts(QKeySequence.PreviousChild)
 

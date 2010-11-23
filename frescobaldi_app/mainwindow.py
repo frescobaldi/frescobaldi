@@ -121,7 +121,7 @@ class MainWindow(QMainWindow):
         self.updateDocActions()
         self.updateDocStatus()
         self.currentDocumentChanged.emit(doc)
-        self.viewManager.showDocument(doc, findOpenView)
+        self.viewManager.setCurrentDocument(doc, findOpenView)
 
     def slotViewChanged(self, view):
         cur = self._currentView()
