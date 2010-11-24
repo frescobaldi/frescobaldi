@@ -43,7 +43,8 @@ if app.qApp.isSessionRestored():
     session.restoreSession()
 else:
     # Just create one MainWindow
-    mainwindow.MainWindow().show()
+    win = mainwindow.MainWindow()
+    
     # Parse command line arguments
     import optparse
     parser = optparse.OptionParser(
@@ -62,17 +63,12 @@ else:
 
     if options.session:
         app.startSession(options.session)
-    # make urls
-    urls = []
-    for arg in files:
-        url = QUrl(arg)
-        if os.path.isabs(arg):
-            url = QUrl.fromLocalFile(arg)
-        elif os.path.exists(arg) or url.isRelative():
-            url = QUrl.fromLocalFile(os.path.abspath(arg))
-        urls.append(url)
-        
-    docs = [app.openUrl(url, options.encoding) for url in urls]
+    
+    win.show()
+    
+    # make urls, currently we only interprete filenames.
+    urls = map(QUrl.fromLocalFile, map(os.path.abspath, files))
+    docs = [win.openUrl(url, options.encoding) for url in urls]
     if docs and options.line is not None:
         docs[-1].setCursorPosition(options.line, options.column or 0)
 

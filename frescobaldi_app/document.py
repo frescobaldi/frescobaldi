@@ -72,10 +72,20 @@ class Document(QTextDocument):
         self._materialized = True
 
     def load(self):
-        """Loads the current url."""
-        if not self.url().isEmpty():
-            with file(self.url().toLocalFile()) as f:
-                data = f.read()
+        """Loads the current url.
+        
+        Returns True if loading succeeded, False if an error occurred,
+        and None when the current url is empty or non-local.
+        Currently only local files are supported.
+        
+        """
+        fileName = self.url().toLocalFile()
+        if fileName:
+            try:
+                with file(fileName) as f:
+                    data = f.read()
+            except IOError, OSError:
+                return False # errors are caught in MainWindow.openUrl()
             encodings = ['utf8', 'latin1']
             if self._encoding:
                 encodings.insert(0, self._encoding)
@@ -88,8 +98,28 @@ class Document(QTextDocument):
                     break
             else:
                 text = data.decode('utf8', 'replace')
-            self.setPlainText(data.decode('UTF-8'))
+            self.setPlainText(text)
             self.setModified(False)
+            return True
+            
+    def save(self):
+        """Saves the document to the current url.
+        
+        Returns True if saving succeeded, False if an error occurred,
+        and None when the current url is empty or non-local.
+        Currently only local files are supported.
+        
+        """
+        fileName = self.url().toLocalFile()
+        if fileName:
+            data = self.toPlainText().encode(self._encoding or 'utf8')
+            try:
+                with file(fileName, "w") as f:
+                    f.write(data)
+            except IOError, OSError:
+                return False
+            self.setModified(False)
+            return True
 
     def createView(self):
         """Returns a new View on our document."""

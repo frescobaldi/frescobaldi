@@ -24,6 +24,8 @@ Frescobaldi Main Window.
 """
 
 import itertools
+import os
+import re
 import weakref
 
 from PyQt4.QtCore import *
@@ -36,6 +38,7 @@ import actioncollection
 import document
 import viewmanager
 import signals
+import recentfiles
 
 
 class MainWindow(QMainWindow):
@@ -110,9 +113,11 @@ class MainWindow(QMainWindow):
             cur.undoAvailable.disconnect(self.updateDocActions)
             cur.redoAvailable.disconnect(self.updateDocActions)
             cur.modificationChanged.disconnect(self.updateDocStatus)
+            cur.urlChanged.disconnect(self.updateDocStatus)
         doc.undoAvailable.connect(self.updateDocActions)
         doc.redoAvailable.connect(self.updateDocActions)
         doc.modificationChanged.connect(self.updateDocStatus)
+        doc.urlChanged.connect(self.updateDocStatus)
         self._currentDocument = doc
         self.updateDocActions()
         self.updateDocStatus()
@@ -156,9 +161,7 @@ class MainWindow(QMainWindow):
         name.append(doc.url().path() or doc.documentName())
         if doc.isModified():
             name.append(_("[modified]"))
-        name.append("\u2013")
-        name.append(info.description)
-        self.setWindowTitle(" ".join(name))
+        self.setWindowTitle(app.caption(" ".join(name)))
         
     def closeEvent(self, ev):
         lastWindow = len(app.windows) == 1
@@ -208,7 +211,23 @@ class MainWindow(QMainWindow):
         settings.setValue('name', self.objectName())
         settings.setValue('geometry', self.saveGeometry())
 
-    
+    def openUrl(self, url, encoding=None):
+        """Same as app.openUrl but with some error checking and recent files."""
+        fileName = url.toLocalFile()
+        if not fileName:
+            # we only support local files
+            QMessageBox.warning(self, app.caption(_("Warning")),
+                _("Can't load non-local document:\n\n{url}").format(
+                    url=url.toString()))
+        elif not os.access(fileName, os.R_OK):
+            # Can't read from file
+            QMessageBox.warning(self, app.caption(_("Error")),
+                _("Can't access document:\n\n{filename}").format(
+                    filename=fileName))
+        else:
+            recentfiles.add(url)
+        return app.openUrl(url, encoding)
+        
     ##
     # Implementations of menu actions
     ##
@@ -219,33 +238,55 @@ class MainWindow(QMainWindow):
         
     def openDocument(self):
         """ Displays an open dialog to open one or more documents. """
-        filter = ";;".join((
-            "{0} (*.ly *.lyi *.ily)".format(_("LilyPond Files")),
-            "{0} (*.tex *.lytex)".format(_("LaTeX Files")),
-            "{0} (*.docbook)".format(_("DocBook Files")),
-            "{0} (*.html)".format(_("HTML Files")),
-            "{0} (*)".format(_("All Files")),
-            ))
-        caption = "{0} \u2013 {1}".format(_("Open File"), info.description)
-        directory = ""
-        files = QFileDialog.getOpenFileNames(self, caption, directory, filter)
-        docs = [app.openUrl(QUrl.fromLocalFile(f)) for f in files]
+        filetypes = app.filetypes()
+        caption = app.caption(_("Open File"))
+        directory = os.path.dirname(self.currentDocument().url().toLocalFile())
+        files = QFileDialog.getOpenFileNames(self, caption, directory, filetypes)
+        docs = [self.openUrl(QUrl.fromLocalFile(f)) for f in files]
         if docs:
             self.setCurrentDocument(docs[-1])
         
     def saveDocument(self, doc):
         """ Saves the document, asking for a name if necessary.
         
-        Returns true if saving succeeded.
+        Returns True if saving succeeded.
         
         """
-        
+        if doc.url().isEmpty():
+            return self.saveDocumentAs(doc)
+        filename = dest = doc.url().toLocalFile()
+        if not filename:
+            dest = doc.url().toString()
+        if not app.iswritable(filename):
+            QMessageBox.warning(self, app.caption(_("Error")),
+                _("Can't write to destination:\n\n{url}").format(url=dest))
+            return False
+        success = doc.save()
+        if not success:
+            QMessageBox.warning(self, app.caption(_("Error")),
+                _("Can't write to destination:\n\n{url}").format(url=filename))
+        return success
+            
     def saveDocumentAs(self, doc):
         """ Saves the document, always asking for a name.
         
-        Returns true if saving succeeded.
+        Returns True if saving succeeded.
         
         """
+        filetypes = app.filetypes()
+        caption = app.caption(_("Save File"))
+        filename = os.path.dirname(doc.url().toLocalFile())
+        filename = QFileDialog.getSaveFileName(self, caption, filename, filetypes)
+        if not filename:
+            return False # cancelled
+        if not app.iswritable(filename):
+            QMessageBox.warning(self, app.caption(_("Error")),
+                _("Can't write to destination:\n\n{url}").format(url=filename))
+            return False
+        url = QUrl.fromLocalFile(filename)
+        doc.setUrl(url)
+        recentfiles.add(url)
+        return self.saveDocument(doc)
         
     def closeDocument(self, doc):
         """ Closes the document, asking for saving if modified.
@@ -282,11 +323,20 @@ class MainWindow(QMainWindow):
         Returns True if all documents were closed.
         
         """
+    
+    def undo(self):
+        self.currentDocument().undo()
+        
+    def redo(self):
+        self.currentDocument().redo()
         
     def selectNone(self):
         cursor = self.currentView().textCursor()
         cursor.clearSelection()
         self.currentView().setTextCursor(cursor)
+    
+    def selectAll(self):
+        self.currentView().selectAll()
         
     def toggleFullScreen(self, enabled):
         if enabled:
@@ -307,6 +357,8 @@ class MainWindow(QMainWindow):
         # recent files
         self.menu_recent_files = m = QMenu()
         ac.file_open_recent.setMenu(m)
+        m.aboutToShow.connect(self.populateRecentFilesMenu)
+        m.triggered.connect(self.slotRecentFilesAction)
         
         # documents submenu
         self.menu_documents = m = QMenu()
@@ -322,9 +374,9 @@ class MainWindow(QMainWindow):
         ac.file_save_all.triggered.connect(self.saveAllDocuments)
         ac.file_close.triggered.connect(self.closeCurrentDocument)
         ac.file_close_other.triggered.connect(self.closeOtherDocuments)
-        ac.edit_undo.triggered.connect(lambda: self.currentDocument().undo())
-        ac.edit_redo.triggered.connect(lambda: self.currentDocument().redo())
-        ac.edit_select_all.triggered.connect(lambda: self.currentView().selectAll())
+        ac.edit_undo.triggered.connect(self.undo)
+        ac.edit_redo.triggered.connect(self.redo)
+        ac.edit_select_all.triggered.connect(self.selectAll)
         ac.edit_select_none.triggered.connect(self.selectNone)
         ac.view_next_document.triggered.connect(self.tabBar.nextDocument)
         ac.view_previous_document.triggered.connect(self.tabBar.previousDocument)
@@ -336,7 +388,31 @@ class MainWindow(QMainWindow):
         self.menu_documents.clear()
         for a in self.documentActions.actions():
             self.menu_documents.addAction(a)
+    
+    def populateRecentFilesMenu(self):
+        self.menu_recent_files.clear()
+        used = []
+        for url in recentfiles.urls():
+            f = url.toLocalFile()
+            dirname, basename = os.path.split(f)
+            text = "{0} ({1})".format(basename, dirname)
             
+            # add accelerators
+            text = text.replace('&', '&&')
+            for m in itertools.chain(re.finditer(r'\b\w', text),
+                                     re.finditer(r'\B\w', text)):
+                if m.group().lower() not in used:
+                    used.append(m.group().lower())
+                    text = text[:m.start()] + '&' + text[m.start():]
+                    break
+
+            self.menu_recent_files.addAction(text).url = url
+    
+    def slotRecentFilesAction(self, action):
+        """Called when a recent files menu action is triggered."""
+        doc = self.openUrl(action.url)
+        self.setCurrentDocument(doc)
+
     def createMenus(self):
         ac = self.actionCollection
         self.menu_file = m = self.menuBar().addMenu('')

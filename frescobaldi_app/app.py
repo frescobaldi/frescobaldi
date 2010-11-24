@@ -92,4 +92,22 @@ def quit():
 def startSession(name):
     """Switches to the given session."""
     
+def caption(title):
+    """Returns a nice dialog or window title with appname appended."""
+    return "{0} \u2013 {1}".format(title, info.description)
+
+def filetypes():
+    """Returns a list of supported filetypes."""
+    return ";;".join((
+        "{0} (*.ly *.lyi *.ily)".format(_("LilyPond Files")),
+        "{0} (*.tex *.lytex)".format(_("LaTeX Files")),
+        "{0} (*.docbook)".format(_("DocBook Files")),
+        "{0} (*.html)".format(_("HTML Files")),
+        "{0} (*)".format(_("All Files")),
+        ))
+
+def iswritable(path):
+    """Returns True if the path can be written to or created."""
+    return ((os.path.exists(path) and os.access(path, os.W_OK))
+            or os.access(os.path.dirname(path), os.W_OK))
 
