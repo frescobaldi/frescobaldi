@@ -55,9 +55,9 @@ languageChanged = SignalInstance()      # (no arguments)
 
 
 def openUrl(url, encoding=None):
-    """Opens the specified url or activates it if already opened.
+    """Returns a Document instance for the given url.
     
-    Always returns a Document instance.
+    If there is already a document with that url, it is returned.
     
     """
     for d in documents:

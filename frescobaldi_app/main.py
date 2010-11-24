@@ -27,6 +27,9 @@ import sip
 sip.setapi("QString", 2)
 sip.setapi("QVariant", 2)
 
+import os
+
+from PyQt4.QtCore import QUrl
 from PyQt4.QtGui import QApplication
 
 import info             # Information about our application
@@ -59,7 +62,17 @@ else:
 
     if options.session:
         app.startSession(options.session)
-    docs = [app.openUrl(name, options.encoding) for name in files]
+    # make urls
+    urls = []
+    for arg in files:
+        url = QUrl(arg)
+        if os.path.isabs(arg):
+            url = QUrl.fromLocalFile(arg)
+        elif os.path.exists(arg) or url.isRelative():
+            url = QUrl.fromLocalFile(os.path.abspath(arg))
+        urls.append(url)
+        
+    docs = [app.openUrl(url, options.encoding) for url in urls]
     if docs and options.line is not None:
         docs[-1].setCursorPosition(options.line, options.column or 0)
 

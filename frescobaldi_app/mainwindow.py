@@ -98,10 +98,6 @@ class MainWindow(QMainWindow):
 
         if other:
             self.setCurrentDocument(other.currentDocument())
-        else:
-            #TEMP
-            import document
-            document.Document()
     
     def currentDocument(self):
         return self._currentDocument
