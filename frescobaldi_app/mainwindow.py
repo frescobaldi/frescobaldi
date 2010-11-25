@@ -158,7 +158,12 @@ class MainWindow(QMainWindow):
     def updateDocStatus(self):
         doc = self.currentDocument()
         name = []
-        name.append(doc.url().path() or doc.documentName())
+        if doc.url().isEmpty():
+            name.append(doc.documentName())
+        elif doc.url().toLocalFile():
+            name.append(doc.url().toLocalFile())
+        else:
+            name.append(doc.url().toString())
         if doc.isModified():
             name.append(_("[modified]"))
         self.setWindowTitle(app.caption(" ".join(name)))
@@ -174,6 +179,10 @@ class MainWindow(QMainWindow):
             ev.ignore()
 
     def queryClose(self):
+        """Tries to close all documents, returns True if succeeded."""
+        for doc in self.historyManager.documents():
+            if not self.queryCloseDocument(doc):
+                return False
         return True
 
     def readSettings(self):
@@ -213,17 +222,11 @@ class MainWindow(QMainWindow):
 
     def openUrl(self, url, encoding=None):
         """Same as app.openUrl but with some error checking and recent files."""
-        fileName = url.toLocalFile()
-        if not fileName:
+        if not url.toLocalFile():
             # we only support local files
             QMessageBox.warning(self, app.caption(_("Warning")),
                 _("Can't load non-local document:\n\n{url}").format(
                     url=url.toString()))
-        elif not os.access(fileName, os.R_OK):
-            # Can't read from file
-            QMessageBox.warning(self, app.caption(_("Error")),
-                _("Can't access document:\n\n{filename}").format(
-                    filename=fileName))
         else:
             recentfiles.add(url)
         return app.openUrl(url, encoding)
@@ -294,11 +297,31 @@ class MainWindow(QMainWindow):
         Returns True if closing succeeded.
         
         """
-        ##TODO: ask for saving if modified
-        doc.close()
-        if not app.documents:
-            document.Document()
-    
+        close = self.queryCloseDocument(doc)
+        if close:
+            doc.close()
+            # keep one document
+            if not app.documents:
+                document.Document()
+        return close
+        
+    def queryCloseDocument(self, doc):
+        """Returns whether a document can be closed.
+        
+        If modified, asks the user. The document is not closed.
+        """
+        if not doc.isModified():
+            return True
+        self.setCurrentDocument(doc, findOpenView=True)
+        res = QMessageBox.question(self, _("Close Document"),
+            _("The document \"{name}\" has been modified.\n"
+            "Do you want to save your changes or discard them?").format(name=doc.documentName()),
+            QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel)
+        if res == QMessageBox.Save:
+            return self.saveDocument(doc)
+        else:
+            return res == QMessageBox.Discard
+        
     def saveCurrentDocument(self):
         return self.saveDocument(self.currentDocument())
     
@@ -316,13 +339,34 @@ class MainWindow(QMainWindow):
         and this function returns False.
         
         """
-        
+        cur = self.currentDocument()
+        for doc in self.historyManager.documents():
+            if doc.isModified():
+                if doc.url().isEmpty():
+                    self.setCurrentDocument(doc, findOpenView=True)
+                    res = self.saveDocumentAs(doc)
+                else:
+                    res = self.saveDocument(doc)
+                if not res:
+                    return False
+        self.setCurrentDocument(cur, findOpenView=True)
+        return True
+                    
     def closeOtherDocuments(self):
         """ Closes all documents that are not the current document.
         
         Returns True if all documents were closed.
         
         """
+        cur = self.currentDocument()
+        docs = [doc for doc in self.historyManager.documents() if doc is not cur]
+        for doc in docs:
+            if not self.queryCloseDocument(doc):
+                self.setCurrentDocument(cur, findOpenView=True)
+                return False
+        for doc in docs:
+            doc.close()
+        return True
     
     def undo(self):
         self.currentDocument().undo()
@@ -557,6 +601,10 @@ class HistoryManager(object):
         self._documents.remove(doc)
         self._documents.append(doc)
     
+    def documents(self):
+        """Returns the documents in order of most recent been active."""
+        return self._documents[::-1]
+
 
 class DocumentActionGroup(QActionGroup):
     """Maintains a list of actions to set the current document.

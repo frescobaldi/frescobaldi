@@ -39,17 +39,17 @@ class Document(QTextDocument):
     
     def __init__(self, url=None, encoding=None):
         super(Document, self).__init__()
-        self.setDocumentLayout(QPlainTextDocumentLayout(self))
         
         self._materialized = False
         self._encoding = encoding
-        self._url = url
+        self._url = url # avoid urlChanged on init
         self.setUrl(url)
         self.modificationChanged.connect(self.slotModificationChanged)
         
         
         app.documents.append(self)
         app.documentCreated(self)
+        self.load()
         
     def slotModificationChanged(self):
         app.documentModificationChanged(self)
@@ -58,18 +58,6 @@ class Document(QTextDocument):
         app.documents.remove(self)
         self.closed.emit()
         app.documentClosed(self)
-
-    def materialize(self):
-        """Really load and instantiate ourselves.
-        
-        Makes lazy-loading lots of documents possible.
-        
-        """
-        if self._materialized:
-            return
-        self.load()
-        app.documentMaterialized(self)
-        self._materialized = True
 
     def load(self):
         """Loads the current url.
@@ -123,9 +111,11 @@ class Document(QTextDocument):
 
     def createView(self):
         """Returns a new View on our document."""
-        self.materialize()
-        newview = view.View(self)
-        return newview
+        if not self._materialized:
+            self.setDocumentLayout(QPlainTextDocumentLayout(self))
+            
+            self._materialized = True
+        return view.View(self)
     
     def url(self):
         return self._url

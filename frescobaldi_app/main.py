@@ -28,6 +28,7 @@ sip.setapi("QString", 2)
 sip.setapi("QVariant", 2)
 
 import os
+import re
 
 from PyQt4.QtCore import QUrl
 from PyQt4.QtGui import QApplication
@@ -66,8 +67,19 @@ else:
     
     win.show()
     
-    # make urls, currently we only interprete filenames.
-    urls = map(QUrl.fromLocalFile, map(os.path.abspath, files))
+    # make urls
+    urls = []
+    for arg in files:
+        if re.match(r'^(https?|s?ftp)://', arg):
+            url = QUrl(arg)
+        elif arg.startswith('file://'):
+            url = QUrl.fromLocalFile(arg[7:])
+        elif arg.startswith('file:'):
+            url = QUrl.fromLocalFile(os.path.abspath(arg[5:]))
+        else:
+            url = QUrl.fromLocalFile(os.path.abspath(arg))
+        urls.append(url)
+    
     docs = [win.openUrl(url, options.encoding) for url in urls]
     if docs and options.line is not None:
         docs[-1].setCursorPosition(options.line, options.column or 0)

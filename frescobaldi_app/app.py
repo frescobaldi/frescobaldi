@@ -47,7 +47,6 @@ documents = []
 
 # signals
 documentCreated = SignalInstance()      # Document
-documentMaterialized = SignalInstance() # Document
 documentUrlChanged = SignalInstance()   # Document
 documentModificationChanged = SignalInstance() # Document
 documentClosed = SignalInstance()       # Document
