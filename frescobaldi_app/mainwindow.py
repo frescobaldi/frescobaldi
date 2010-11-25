@@ -368,6 +368,10 @@ class MainWindow(QMainWindow):
             doc.close()
         return True
     
+    def openCurrentDirectory(self):
+        directory = os.path.dirname(self.currentDocument().url().toLocalFile()) or os.getcwdu()
+        QDesktopServices.openUrl(QUrl.fromLocalFile(directory))
+    
     def undo(self):
         self.currentDocument().undo()
         
@@ -413,6 +417,7 @@ class MainWindow(QMainWindow):
         ac.file_quit.triggered.connect(self.close)
         ac.file_new.triggered.connect(self.newDocument)
         ac.file_open.triggered.connect(self.openDocument)
+        ac.file_open_current_directory.triggered.connect(self.openCurrentDirectory)
         ac.file_save.triggered.connect(self.saveCurrentDocument)
         ac.file_save_as.triggered.connect(self.saveCurrentDocumentAs)
         ac.file_save_all.triggered.connect(self.saveAllDocuments)
@@ -963,7 +968,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_save.setText(_("&Save"))
         self.file_save_as.setText(_("Save &As..."))
         self.file_save_all.setText(_("Save All"))
-        self.file_print_music.setText(_("&Print &Music..."))
+        self.file_print_music.setText(_("&Print Music..."))
         self.file_print_source.setText(_("Print Source..."))
         self.file_close.setText(_("&Close"))
         self.file_close_other.setText(_("Close Other Documents"))
@@ -997,7 +1002,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.lilypond_run_custom.setText(_("Run LilyPond (&custom)"))
         self.lilypond_cancel.setText(_("Interrupt LilyPond &Job"))
         
-        self.window_new.setText(_("&New Window"))
+        self.window_new.setText(_("New &Window"))
         self.window_fullscreen.setText(_("&Fullscreen"))
         
         self.session_new.setText(_("&New..."))
