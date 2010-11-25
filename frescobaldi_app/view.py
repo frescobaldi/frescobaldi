@@ -42,23 +42,27 @@ class View(QPlainTextEdit):
         self.focusIn.emit(self)
 
     def dragEnterEvent(self, ev):
+        """Reimplemented to avoid showing the cursor when dropping URLs."""
         if ev.mimeData().hasUrls():
             ev.accept()
         else:
             super(View, self).dragEnterEvent(ev)
         
     def dragMoveEvent(self, ev):
+        """Reimplemented to avoid showing the cursor when dropping URLs."""
         if ev.mimeData().hasUrls():
             ev.accept()
         else:
             super(View, self).dragMoveEvent(ev)
         
     def dropEvent(self, ev):
+        """Called when something is dropped.
+        
+        Calls dropEvent() of MainWindow if URLs are dropped.
+        
+        """
         if ev.mimeData().hasUrls():
-            ev.accept()
-            docs = [self.window().openUrl(url) for url in ev.mimeData().urls()]
-            if docs:
-                self.window().setCurrentDocument(docs[-1])
+            self.window().dropEvent(ev)
         else:
             super(View, self).dropEvent(ev)
 

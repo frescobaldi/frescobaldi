@@ -98,7 +98,7 @@ class MainWindow(QMainWindow):
         self.historyManager = HistoryManager(self, other.historyManager if other else None)
         self.viewManager.viewChanged.connect(self.slotViewChanged)
         self.tabBar.currentDocumentChanged.connect(self.setCurrentDocument)
-
+        self.setAcceptDrops(True)
         if other:
             self.setCurrentDocument(other.currentDocument())
     
@@ -167,6 +167,17 @@ class MainWindow(QMainWindow):
         if doc.isModified():
             name.append(_("[modified]"))
         self.setWindowTitle(app.caption(" ".join(name)))
+    
+    def dropEvent(self, ev):
+        if ev.mimeData().hasUrls():
+            ev.accept()
+            docs = [self.openUrl(url) for url in ev.mimeData().urls()]
+            if docs:
+                self.window().setCurrentDocument(docs[-1])
+        
+    def dragEnterEvent(self, ev):
+        if ev.mimeData().hasUrls():
+            ev.accept()
         
     def closeEvent(self, ev):
         lastWindow = len(app.windows) == 1
