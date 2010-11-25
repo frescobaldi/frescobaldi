@@ -41,3 +41,25 @@ class View(QPlainTextEdit):
         super(View, self).focusInEvent(ev)
         self.focusIn.emit(self)
 
+    def dragEnterEvent(self, ev):
+        if ev.mimeData().hasUrls():
+            ev.accept()
+        else:
+            super(View, self).dragEnterEvent(ev)
+        
+    def dragMoveEvent(self, ev):
+        if ev.mimeData().hasUrls():
+            ev.accept()
+        else:
+            super(View, self).dragMoveEvent(ev)
+        
+    def dropEvent(self, ev):
+        if ev.mimeData().hasUrls():
+            ev.accept()
+            docs = [self.window().openUrl(url) for url in ev.mimeData().urls()]
+            if docs:
+                self.window().setCurrentDocument(docs[-1])
+        else:
+            super(View, self).dropEvent(ev)
+
+
