@@ -287,7 +287,8 @@ class MainWindow(QMainWindow):
         Returns True if saving succeeded.
         
         """
-        filetypes = app.filetypes()
+        filename = doc.url().toLocalFile()
+        filetypes = app.filetypes(os.path.splitext(filename)[1])
         caption = app.caption(_("Save File"))
         filename = doc.url().toLocalFile()
         filename = QFileDialog.getSaveFileName(self, caption, filename, filetypes)
@@ -370,7 +371,7 @@ class MainWindow(QMainWindow):
         
         """
         cur = self.currentDocument()
-        docs = [doc for doc in self.historyManager.documents() if doc is not cur]
+        docs = self.historyManager.documents()[1:]
         for doc in docs:
             if not self.queryCloseDocument(doc):
                 self.setCurrentDocument(cur, findOpenView=True)
@@ -410,6 +411,16 @@ class MainWindow(QMainWindow):
         """Opens a new MainWindow."""
         MainWindow(self).show()
 
+    def scrollUp(self):
+        """Scroll up without moving the cursor"""
+        sb = self.currentView().verticalScrollBar()
+        sb.setValue(sb.value() - 1 if sb.value() else 0)
+        
+    def scrollDown(self):
+        """Scroll down without moving the cursor"""
+        sb = self.currentView().verticalScrollBar()
+        sb.setValue(sb.value() + 1)
+        
     def createActions(self):
         self.actionCollection = ac = ActionCollection(self)
         
@@ -440,6 +451,8 @@ class MainWindow(QMainWindow):
         ac.edit_select_none.triggered.connect(self.selectNone)
         ac.view_next_document.triggered.connect(self.tabBar.nextDocument)
         ac.view_previous_document.triggered.connect(self.tabBar.previousDocument)
+        ac.view_scroll_up.triggered.connect(self.scrollUp)
+        ac.view_scroll_down.triggered.connect(self.scrollDown)
         ac.window_new.triggered.connect(self.newWindow)
         ac.window_fullscreen.toggled.connect(self.toggleFullScreen)
         ac.help_whatsthis.triggered.connect(QWhatsThis.enterWhatsThisMode)
@@ -559,6 +572,10 @@ class MainWindow(QMainWindow):
         m.addAction(ac.help_bugreport)
         m.addSeparator()
         m.addAction(ac.help_about)
+        
+        # actions that are not in menus
+        self.addAction(ac.view_scroll_up)
+        self.addAction(ac.view_scroll_down)
         
     def createToolBars(self):
         ac = self.actionCollection
@@ -864,6 +881,8 @@ class ActionCollection(actioncollection.ActionCollection):
         self.view_bookmark.setCheckable(True)
         self.view_clear_error_marks = QAction(mainwindow)
         self.view_clear_all_marks = QAction(mainwindow)
+        self.view_scroll_up = QAction(mainwindow)
+        self.view_scroll_down = QAction(mainwindow)
         
         self.lilypond_runner = QAction(mainwindow)
         self.lilypond_run_preview = QAction(mainwindow)
@@ -961,6 +980,8 @@ class ActionCollection(actioncollection.ActionCollection):
         self.view_next_document.setShortcuts(QKeySequence.Forward)
         self.view_previous_document.setShortcuts(QKeySequence.Back)
         self.view_bookmark.setShortcut(Qt.CTRL + Qt.Key_B)
+        self.view_scroll_up.setShortcut(Qt.CTRL + Qt.Key_Up)
+        self.view_scroll_down.setShortcut(Qt.CTRL + Qt.Key_Down)
         
         self.lilypond_run_preview.setShortcut(Qt.CTRL + Qt.Key_M)
         self.lilypond_run_publish.setShortcut(Qt.CTRL + Qt.SHIFT + Qt.Key_P)
@@ -1006,6 +1027,8 @@ class ActionCollection(actioncollection.ActionCollection):
         self.view_bookmark.setText(_("&Mark Current Line"))
         self.view_clear_error_marks.setText(_("Clear &Error Marks"))
         self.view_clear_all_marks.setText(_("Clear &All Marks"))
+        self.view_scroll_up.setText(_("Scroll Up"))
+        self.view_scroll_down.setText(_("Scroll Down"))
         
         self.lilypond_runner.setText(_("LilyPond"))
         self.lilypond_run_preview.setText(_("Run &LilyPond (preview)"))

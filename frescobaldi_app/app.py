@@ -51,10 +51,11 @@ documentUrlChanged = SignalInstance()   # Document
 documentModificationChanged = SignalInstance() # Document
 documentClosed = SignalInstance()       # Document
 languageChanged = SignalInstance()      # (no arguments)
+settingsChanged = SignalInstance()      # (no arguments)
 
 
 def openUrl(url, encoding=None):
-    """Returns a Document instance for the given url.
+    """Returns a Document instance for the given QUrl.
     
     If there is already a document with that url, it is returned.
     
@@ -95,15 +96,25 @@ def caption(title):
     """Returns a nice dialog or window title with appname appended."""
     return "{0} \u2013 {1}".format(title, info.description)
 
-def filetypes():
-    """Returns a list of supported filetypes."""
-    return ";;".join((
-        "{0} (*.ly *.lyi *.ily)".format(_("LilyPond Files")),
-        "{0} (*.tex *.lytex)".format(_("LaTeX Files")),
-        "{0} (*.docbook)".format(_("DocBook Files")),
-        "{0} (*.html)".format(_("HTML Files")),
-        "{0} (*)".format(_("All Files")),
-        ))
+def filetypes(extension=None):
+    """Returns a list of supported filetypes.
+    
+    If a type matches extension, it is placed first.
+    
+    """
+    l = []
+    for patterns, name in (
+            ("{0} (*.ly *.lyi *.ily)", _("LilyPond Files")),
+            ("{0} (*.tex *.lytex)",    _("LaTeX Files")),
+            ("{0} (*.docbook)",        _("DocBook Files")),
+            ("{0} (*.html)",           _("HTML Files")),
+            ("{0} (*)",                _("All Files")),
+            ):
+        if extension and extension in patterns:
+            l.insert(0, patterns.format(name))
+        else:
+            l.append(patterns.format(name))
+    return ";;".join(l)
 
 def iswritable(path):
     """Returns True if the path can be written to or created."""

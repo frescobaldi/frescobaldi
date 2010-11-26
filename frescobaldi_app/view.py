@@ -38,13 +38,20 @@ class View(QPlainTextEdit):
         self.setLineWrapMode(QPlainTextEdit.NoWrap)
         self.setCursorWidth(2)
         self.cursorPositionChanged.connect(self.updateCursor)
+        app.settingsChanged.connect(self.readSettings)
         self.readSettings()
         self.updateCursor()
     
     def readSettings(self):
+        s = QSettings()
+        s.beginGroup("Editor")
         font = self.font()
-        font.setFamily("Monospace")
+        font.setFamily(s.value("fontfamily", "Monospace"))
+        font.setPointSizeF(float(s.value("pointsize", font.pointSizeF())))
         self.setFont(font)
+        metrics = QFontMetrics(font)
+        tabwidth = metrics.width(" ") * int(s.value("tabwidth", 8))
+        self.setTabStopWidth(tabwidth)
         
     def focusInEvent(self, ev):
         super(View, self).focusInEvent(ev)
