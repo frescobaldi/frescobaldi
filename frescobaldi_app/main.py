@@ -31,7 +31,7 @@ import os
 import re
 
 from PyQt4.QtCore import QUrl
-from PyQt4.QtGui import QApplication
+from PyQt4.QtGui import QApplication, QTextCursor
 
 import info             # Information about our application
 import app              # Construct QApplication
@@ -81,7 +81,12 @@ else:
         urls.append(url)
     
     docs = [win.openUrl(url, options.encoding) for url in urls]
-    if docs and options.line is not None:
-        docs[-1].setCursorPosition(options.line, options.column or 0)
+    if docs:
+        doc = docs[-1]
+        win.setCurrentDocument(doc)
+        if options.line is not None:
+            cursor = QTextCursor(doc)
+            cursor.setPosition(doc.findBlockByNumber(options.line - 1).position() + (options.column or 0))
+            win.currentView().setTextCursor(cursor)
 
 app.run()

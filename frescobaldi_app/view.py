@@ -36,6 +36,8 @@ class View(QPlainTextEdit):
         super(View, self).__init__()
         self.setDocument(document)
         self.setCursorWidth(2)
+        self.cursorPositionChanged.connect(self.updateCursor)
+        self.updateCursor()
         
     def focusInEvent(self, ev):
         super(View, self).focusInEvent(ev)
@@ -65,5 +67,15 @@ class View(QPlainTextEdit):
             self.window().dropEvent(ev)
         else:
             super(View, self).dropEvent(ev)
+
+    def updateCursor(self):
+        """Called when the textCursor has moved."""
+        # highlight current line
+        es = QTextEdit.ExtraSelection()
+        es.cursor = self.textCursor()
+        es.cursor.clearSelection()
+        es.format.setBackground(QColor(255, 255, 127)) # TODO: make configurable
+        es.format.setProperty(QTextFormat.FullWidthSelection, True)
+        self.setExtraSelections([es])
 
 
