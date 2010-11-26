@@ -35,13 +35,19 @@ class View(QPlainTextEdit):
     def __init__(self, document):
         super(View, self).__init__()
         self.setDocument(document)
+        self.setLineWrapMode(QPlainTextEdit.NoWrap)
         self.setCursorWidth(2)
         self.cursorPositionChanged.connect(self.updateCursor)
         self.updateCursor()
         
     def focusInEvent(self, ev):
         super(View, self).focusInEvent(ev)
+        self.updateCursor()
         self.focusIn.emit(self)
+        
+    def focusOutEvent(self, ev):
+        super(View, self).focusOutEvent(ev)
+        self.updateCursor()
 
     def dragEnterEvent(self, ev):
         """Reimplemented to avoid showing the cursor when dropping URLs."""
@@ -74,7 +80,10 @@ class View(QPlainTextEdit):
         es = QTextEdit.ExtraSelection()
         es.cursor = self.textCursor()
         es.cursor.clearSelection()
-        es.format.setBackground(QColor(255, 255, 127)) # TODO: make configurable
+        color = QColor(255, 255, 127)
+        if not self.hasFocus():
+            color.setAlpha(100)
+        es.format.setBackground(color) # TODO: make configurable
         es.format.setProperty(QTextFormat.FullWidthSelection, True)
         self.setExtraSelections([es])
 
