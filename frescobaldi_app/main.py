@@ -57,7 +57,7 @@ else:
     parser.add_option('-l', '--line', type="int", metavar=_("NUM"),
         help=_("Line number to go to, starting at 1"))
     parser.add_option('-c', '--column', type="int", metavar=_("NUM"),
-        help=_("Column to go to, starting at 0"))
+        help=_("Column to go to, starting at 0"), default=0)
     parser.add_option('--start', metavar=_("NAME"),
         help=_("Session to start"), dest="session")
 
@@ -87,8 +87,9 @@ else:
         doc = docs[-1]
         win.setCurrentDocument(doc)
         if options.line is not None:
+            pos = doc.findBlockByNumber(options.line - 1).position() + options.column
             cursor = QTextCursor(doc)
-            cursor.setPosition(doc.findBlockByNumber(options.line - 1).position() + (options.column or 0))
+            cursor.setPosition(pos)
             win.currentView().setTextCursor(cursor)
     else:
         # just create one empty and nameless document
