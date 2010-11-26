@@ -38,6 +38,7 @@ import app              # Construct QApplication
 import po               # Setup language
 import mainwindow       # contains MainWindow class
 import session          # Initialize QSessionManager support
+import document
 
 if app.qApp.isSessionRestored():
     # Restore session, we are started by the session manager
@@ -82,11 +83,15 @@ else:
     
     docs = [win.openUrl(url, options.encoding) for url in urls]
     if docs:
+        # set the last document active and apply navigation if requested
         doc = docs[-1]
         win.setCurrentDocument(doc)
         if options.line is not None:
             cursor = QTextCursor(doc)
             cursor.setPosition(doc.findBlockByNumber(options.line - 1).position() + (options.column or 0))
             win.currentView().setTextCursor(cursor)
+    else:
+        # just create one empty and nameless document
+        win.setCurrentDocument(document.Document())
 
 app.run()

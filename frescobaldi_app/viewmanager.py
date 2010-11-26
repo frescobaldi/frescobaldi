@@ -225,6 +225,7 @@ class ViewManager(QSplitter):
                         break
             if not done:
                 self.activeViewSpace().showDocument(doc)
+                self.viewChanged.emit(self.activeViewSpace().activeView())
         # the active space now displays the requested document
         # now also set this document in spaces that are empty
         for space in self._viewSpaces[:-1]:

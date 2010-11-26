@@ -80,10 +80,9 @@ class View(QPlainTextEdit):
         es = QTextEdit.ExtraSelection()
         es.cursor = self.textCursor()
         es.cursor.clearSelection()
-        color = QColor(255, 255, 127)
-        if not self.hasFocus():
-            color.setAlpha(100)
-        es.format.setBackground(color) # TODO: make configurable
+        color = QColor(255, 255, 127) # TODO: make configurable
+        self.hasFocus() or color.setAlpha(100)
+        es.format.setBackground(color)
         es.format.setProperty(QTextFormat.FullWidthSelection, True)
         self.setExtraSelections([es])
 

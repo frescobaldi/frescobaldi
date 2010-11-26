@@ -121,8 +121,8 @@ class MainWindow(QMainWindow):
         self._currentDocument = doc
         self.updateDocActions()
         self.updateDocStatus()
-        self.currentDocumentChanged.emit(doc)
         self.viewManager.setCurrentDocument(doc, findOpenView)
+        self.currentDocumentChanged.emit(doc)
 
     def slotViewChanged(self, view):
         cur = self._currentView()
@@ -289,7 +289,7 @@ class MainWindow(QMainWindow):
         """
         filetypes = app.filetypes()
         caption = app.caption(_("Save File"))
-        filename = os.path.dirname(doc.url().toLocalFile())
+        filename = doc.url().toLocalFile()
         filename = QFileDialog.getSaveFileName(self, caption, filename, filetypes)
         if not filename:
             return False # cancelled
