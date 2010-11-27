@@ -36,6 +36,7 @@ import info
 import icons
 import actioncollection
 import document
+import view
 import viewmanager
 import signals
 import recentfiles
@@ -43,7 +44,9 @@ import recentfiles
 
 class MainWindow(QMainWindow):
     
-    currentDocumentChanged = pyqtSignal(document.Document)
+    # both signals emit (current, previous)
+    currentDocumentChanged = pyqtSignal(document.Document, document.Document)
+    currentViewChanged = pyqtSignal(view.View, view.View)
     
     def __init__(self, other=None):
         """Creates a new MainWindow.
@@ -122,7 +125,7 @@ class MainWindow(QMainWindow):
         self.updateDocActions()
         self.updateDocStatus()
         self.viewManager.setCurrentDocument(doc, findOpenView)
-        self.currentDocumentChanged.emit(doc)
+        self.currentDocumentChanged.emit(doc, cur)
 
     def slotViewChanged(self, view):
         cur = self._currentView()
@@ -136,6 +139,7 @@ class MainWindow(QMainWindow):
         self._currentView = weakref.ref(view)
         self.updateViewActions()
         self.setCurrentDocument(view.document())
+        self.currentViewChanged.emit(view, cur)
     
     def currentView(self):
         return self._currentView()

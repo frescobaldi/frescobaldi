@@ -320,7 +320,6 @@ class ViewManager(QSplitter):
             newsplitter.setSizes([size / 2, size / 2])
         self._viewSpaces.insert(0, newspace)
         newspace.showDocument(viewspace.document())
-        newspace.activeView().setTextCursor(viewspace.activeView().textCursor())
         if active:
             newspace.activeView().setFocus()
         self.actionCollection.window_close_view.setEnabled(self.canCloseViewSpace())

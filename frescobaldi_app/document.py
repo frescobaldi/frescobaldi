@@ -36,6 +36,7 @@ class Document(QTextDocument):
     
     urlChanged = pyqtSignal()
     closed = pyqtSignal()
+    loaded = pyqtSignal()
     
     def __init__(self, url=None, encoding=None):
         super(Document, self).__init__()
@@ -88,6 +89,7 @@ class Document(QTextDocument):
                 text = data.decode('utf8', 'replace')
             self.setPlainText(text)
             self.setModified(False)
+            self.loaded.emit()
             return True
             
     def save(self):

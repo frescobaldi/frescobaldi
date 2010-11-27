@@ -40,11 +40,7 @@ import mainwindow       # contains MainWindow class
 import session          # Initialize QSessionManager support
 import document
 
-if app.qApp.isSessionRestored():
-    # Restore session, we are started by the session manager
-    session.restoreSession()
-else:
-    # Parse command line arguments
+def startmain():
     import optparse
     parser = optparse.OptionParser(
         usage = _("usage: {appname} [options] file ...").format(appname=info.name),
@@ -90,8 +86,16 @@ else:
             cursor = QTextCursor(doc)
             cursor.setPosition(pos)
             win.currentView().setTextCursor(cursor)
+            win.currentView().centerCursor()
     else:
         # just create one empty and nameless document
         win.setCurrentDocument(document.Document())
 
+if app.qApp.isSessionRestored():
+    # Restore session, we are started by the session manager
+    session.restoreSession()
+else:
+    # Parse command line arguments
+    startmain()
 app.run()
+

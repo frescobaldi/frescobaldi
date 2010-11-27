@@ -30,9 +30,6 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import info
-import mainwindow
-import document
-from signals import SignalInstance
 
 qApp = QApplication([os.path.abspath(sys.argv[0])] + sys.argv[1:])
 QApplication.setApplicationName(info.name)
@@ -40,10 +37,10 @@ QApplication.setApplicationVersion(info.version)
 QApplication.setOrganizationName(info.name)
 QApplication.setOrganizationDomain(info.url)
 
-
 windows = []
 documents = []
 
+from signals import SignalInstance
 
 # signals
 documentCreated = SignalInstance()      # Document
@@ -52,6 +49,9 @@ documentModificationChanged = SignalInstance() # Document
 documentClosed = SignalInstance()       # Document
 languageChanged = SignalInstance()      # (no arguments)
 settingsChanged = SignalInstance()      # (no arguments)
+
+import mainwindow
+import document
 
 
 def openUrl(url, encoding=None):

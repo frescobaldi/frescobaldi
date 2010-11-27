@@ -27,6 +27,8 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import metainfo
+
 
 class View(QPlainTextEdit):
     
@@ -37,9 +39,13 @@ class View(QPlainTextEdit):
         self.setDocument(document)
         self.setLineWrapMode(QPlainTextEdit.NoWrap)
         self.setCursorWidth(2)
-        self.cursorPositionChanged.connect(self.updateCursor)
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
+        # restore saved cursor position (defaulting to 0)
+        document.loaded.connect(self.restoreCursor)
+        document.closed.connect(self.slotDocumentClosed)
+        self.restoreCursor()
+        self.cursorPositionChanged.connect(self.updateCursor)
         self.updateCursor()
     
     def readSettings(self):
@@ -61,6 +67,7 @@ class View(QPlainTextEdit):
     def focusOutEvent(self, ev):
         super(View, self).focusOutEvent(ev)
         self.updateCursor()
+        self.storeCursor()
 
     def dragEnterEvent(self, ev):
         """Reimplemented to avoid showing the cursor when dropping URLs."""
@@ -87,6 +94,21 @@ class View(QPlainTextEdit):
         else:
             super(View, self).dropEvent(ev)
 
+    def slotDocumentClosed(self):
+        if self.hasFocus():
+            self.storeCursor()
+            
+    def restoreCursor(self):
+        """Places the cursor on the position saved in metainfo."""
+        cursor = QTextCursor(self.document())
+        cursor.setPosition(metainfo.info(self.document()).position)
+        self.setTextCursor(cursor)
+        QTimer.singleShot(0, self.ensureCursorVisible)
+    
+    def storeCursor(self):
+        """Stores our cursor position in the metainfo."""
+        metainfo.info(self.document()).position = self.textCursor().position()
+
     def updateCursor(self):
         """Called when the textCursor has moved."""
         # highlight current line
@@ -98,5 +120,7 @@ class View(QPlainTextEdit):
         es.format.setBackground(color)
         es.format.setProperty(QTextFormat.FullWidthSelection, True)
         self.setExtraSelections([es])
+        
+
 
 
