@@ -60,7 +60,7 @@ class MetaInfo(object):
 def settingsGroup(url, s=None):
     """Returns a contextmanager which is the group metainfo can be saved to."""
     if s is None:
-        s = settings()
+        s = app.settings('metainfo')
     name = url.toString().replace('\\', '_').replace('/', '_')
     s.beginGroup(name)
     try:
@@ -85,14 +85,10 @@ def info(document):
             res.load(url)
         return res
 
-def settings():
-    """Returns a QSettings instance for the metainfo store."""
-    return QSettings(app.info.name, 'metainfo')
-
 @app.qApp.aboutToQuit.connect
 def saveMetaInfo():
     """Saves all not yet saved meta information."""
-    s = settings()
+    s = app.settings('metainfo')
     for url, info in _urlinfo.items():
         info.save(url, s)
     # prune old stuff

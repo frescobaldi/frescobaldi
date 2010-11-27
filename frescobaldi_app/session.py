@@ -33,8 +33,8 @@ to the QApplication signals.
 import os
 import sys
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QSettings, Qt
+from PyQt4.QtGui import QApplication, QSessionManager
 
 import info
 
