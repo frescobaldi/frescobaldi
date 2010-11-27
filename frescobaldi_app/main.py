@@ -44,9 +44,6 @@ if app.qApp.isSessionRestored():
     # Restore session, we are started by the session manager
     session.restoreSession()
 else:
-    # Just create one MainWindow
-    win = mainwindow.MainWindow()
-    
     # Parse command line arguments
     import optparse
     parser = optparse.OptionParser(
@@ -66,6 +63,8 @@ else:
     if options.session:
         app.startSession(options.session)
     
+    # Just create one MainWindow
+    win = mainwindow.MainWindow()
     win.show()
     
     # make urls

@@ -60,21 +60,32 @@ def openUrl(url, encoding=None):
     If there is already a document with that url, it is returned.
     
     """
-    for d in documents:
-        if url == d.url():
-            return d
-    if len(documents) == 1:
+    d = findDocument(url)
+    if not d:
         # special case if there is only one document:
         # if that is empty and unedited, use it.
-        d = documents[0]
-        if (d.url().isEmpty() and d.isEmpty()
-                and not d.isUndoAvailable() and not d.isRedoAvailable()):
+        if (len(documents) == 1
+            and documents[0].url().isEmpty()
+            and documents[0].isEmpty()
+            and not documents[0].isUndoAvailable()
+            and not documents[0].isRedoAvailable()):
+            d = documents[0]
             d.setUrl(url)
             d.setEncoding(encoding)
             d.load()
-            return d
-    return document.Document(url, encoding)
+        else:
+            d = document.Document(url, encoding)
+    return d
+
+def findDocument(url):
+    """Returns a Document instance for the given QUrl if already loaded.
     
+    Returns None if no document with given url exists.
+    
+    """
+    for d in documents:
+        if url == d.url():
+            return d
 
 def run():
     """Enter the Qt event loop."""

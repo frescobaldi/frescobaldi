@@ -173,7 +173,7 @@ class MainWindow(QMainWindow):
             ev.accept()
             docs = [self.openUrl(url) for url in ev.mimeData().urls()]
             if docs:
-                self.window().setCurrentDocument(docs[-1])
+                self.setCurrentDocument(docs[-1])
         
     def dragEnterEvent(self, ev):
         if ev.mimeData().hasUrls():
