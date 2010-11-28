@@ -24,13 +24,57 @@ ActionCollection is a class to keep a list of actions as attributes.
 """
 
 
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
+
+import app
+
+
 class ActionCollection:
     
-    def __init__(self, actionParent):
+    def __init__(self, parent=None):
         """Should define all actions in this collection as instance attributes."""
+        self.createActions(parent)
+        self._actions = dict(self.__dict__)
+        self.storeDefaults()
+        self.translateUI()
+        app.languageChanged.connect(self.translateUI)
+        
+    def createActions(self, parent=None):
+        """Should add actions as instance attributes.
+        
+        The QActions should get icons and shortcuts. Texts should be set
+        in translateUI().
+        
+        """
+        pass
 
     def translateUI(self):
         """Should (re)translate all the titles of the actions."""
         pass
     
+    def storeDefaults(self):
+        """Should preset default QKeySequence values for actions.
         
+        The default implementation just reads the shortcuts set in
+        createActions().
+        
+        """
+        self._defaults = dict(
+            (name, action.shortcuts())
+            for name, action in self._actions.items()
+            if action.shortcuts())
+
+    def load(self, settings):
+        """Reads keyboard shortcuts from a QSettings object."""
+        settings.begingroup(self.name)
+        keys = settings.allKeys()
+        for name in self._actions:
+            if name in keys:
+                shortcuts = [QKeySequence(s) for s in settings.value(name) or []]
+            else:
+                shortcuts = self._defaults.get(name) or []
+            self._actions[name].setShortcuts(shortcuts)
+        settings.endgroup()
+
+

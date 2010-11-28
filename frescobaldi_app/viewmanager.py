@@ -210,8 +210,6 @@ class ViewManager(QSplitter):
         self._viewSpaces.append(viewspace)
         
         self.createActions()
-        self.translateUI()
-        app.languageChanged.connect(self.translateUI)
         app.documentClosed.connect(self.slotDocumentClosed)
     
     def setCurrentDocument(self, doc, findOpenView=False):
@@ -258,7 +256,7 @@ class ViewManager(QSplitter):
                     space.showDocument(activeDocument)
         
     def createActions(self):
-        self.actionCollection = ac = ViewActions(self)
+        self.actionCollection = ac = ViewActions()
         # connections
         ac.window_close_view.setEnabled(False)
         ac.window_close_others.setEnabled(False)
@@ -288,9 +286,6 @@ class ViewManager(QSplitter):
     def previousViewSpace(self):
         self.focusPreviousChild()
         
-    def translateUI(self):
-        self.actionCollection.translateUI()
-    
     def activeViewSpace(self):
         return self._viewSpaces[-1]
     
@@ -389,7 +384,7 @@ class ViewManager(QSplitter):
 
 
 class ViewActions(actioncollection.ActionCollection):
-    def __init__(self, parent):
+    def createActions(self, parent=None):
         self.window_split_horizontal = QAction(parent)
         self.window_split_vertical = QAction(parent)
         self.window_close_view = QAction(parent)
