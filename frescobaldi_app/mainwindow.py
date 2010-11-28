@@ -556,6 +556,7 @@ class MainWindow(QMainWindow):
         m.addAction(vm.window_split_horizontal)
         m.addAction(vm.window_split_vertical)
         m.addAction(vm.window_close_view)
+        m.addAction(vm.window_close_others)
         m.addAction(vm.window_next_view)
         m.addAction(vm.window_previous_view)
         m.addSeparator()

@@ -261,9 +261,11 @@ class ViewManager(QSplitter):
         self.actionCollection = ac = ViewActions(self)
         # connections
         ac.window_close_view.setEnabled(False)
+        ac.window_close_others.setEnabled(False)
         ac.window_split_horizontal.triggered.connect(self.splitCurrentVertical)
         ac.window_split_vertical.triggered.connect(self.splitCurrentHorizontal)
         ac.window_close_view.triggered.connect(self.closeCurrent)
+        ac.window_close_others.triggered.connect(self.closeOthers)
         ac.window_next_view.triggered.connect(self.nextViewSpace)
         ac.window_previous_view.triggered.connect(self.previousViewSpace)
 
@@ -275,7 +277,11 @@ class ViewManager(QSplitter):
         
     def closeCurrent(self):
         self.closeViewSpace(self.activeViewSpace())
-        
+    
+    def closeOthers(self):
+        for space in self._viewSpaces[-2::-1]:
+            self.closeViewSpace(space)
+    
     def nextViewSpace(self):
         self.focusNextChild()
         
@@ -323,6 +329,7 @@ class ViewManager(QSplitter):
         if active:
             newspace.activeView().setFocus()
         self.actionCollection.window_close_view.setEnabled(self.canCloseViewSpace())
+        self.actionCollection.window_close_others.setEnabled(self.canCloseViewSpace())
         
     def closeViewSpace(self, viewspace):
         """Closes the given view."""
@@ -373,6 +380,7 @@ class ViewManager(QSplitter):
             parent.setSizes(sizes)
         self._viewSpaces.remove(viewspace)
         self.actionCollection.window_close_view.setEnabled(self.canCloseViewSpace())
+        self.actionCollection.window_close_others.setEnabled(self.canCloseViewSpace())
         
     def canCloseViewSpace(self):
         return bool(self.count() > 1)
@@ -385,6 +393,7 @@ class ViewActions(actioncollection.ActionCollection):
         self.window_split_horizontal = QAction(parent)
         self.window_split_vertical = QAction(parent)
         self.window_close_view = QAction(parent)
+        self.window_close_others = QAction(parent)
         self.window_next_view = QAction(parent)
         self.window_previous_view = QAction(parent)
         
@@ -404,6 +413,7 @@ class ViewActions(actioncollection.ActionCollection):
         self.window_split_horizontal.setText(_("Split &Horizontally"))
         self.window_split_vertical.setText(_("Split &Vertically"))
         self.window_close_view.setText(_("&Close Current View"))
+        self.window_close_others.setText(_("Close &Other Views"))
         self.window_next_view.setText(_("&Next View"))
         self.window_previous_view.setText(_("&Previous View"))
     
