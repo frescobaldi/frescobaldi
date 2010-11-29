@@ -2,6 +2,15 @@ from distutils.core import setup
 from frescobaldi_app import info
 
 setup(
+    name = info.name,
+    version = info.version,
+    description = info.description,
+    long_description = info.long_description,
+    maintainer = info.maintainer,
+    maintainer_email = info.maintainer_email,
+    url = info.url,
+    license = info.license,
+    
     scripts = ['frescobaldi'],
     packages = [
         'frescobaldi_app',
@@ -30,5 +39,4 @@ setup(
         'Topic :: Multimedia :: Sound/Audio',
         'Topic :: Multimedia :: Graphics',
     ],
-    **dict((k, getattr(info, k)) for k in dir(info) if not k.startswith('_'))
 )

@@ -105,7 +105,7 @@ def startSession(name):
     
 def caption(title):
     """Returns a nice dialog or window title with appname appended."""
-    return "{0} \u2013 {1}".format(title, info.description)
+    return "{0} \u2013 {1}".format(title, info.appname)
 
 def filetypes(extension=None):
     """Returns a list of supported filetypes.

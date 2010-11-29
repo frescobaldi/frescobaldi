@@ -21,11 +21,18 @@
 Information about the Frescobaldi application.
 """
 
+# these variables are also used by the distutils setup
 name = "frescobaldi"
 version = "1.9.0"
-description = "Frescobaldi"
-long_description = "LilyPond Music Editor"
+description = "LilyPond Music Editor"
+long_description = \
+    "Frescobaldi is an advanced text editor to edit LilyPond sheet music files. " \
+    "Features include an integrated PDF preview and a powerful Score Wizard."
 maintainer = "Wilbert Berendsen"
 maintainer_email = "info@frescobaldi.org"
 url = "http://www.frescobaldi.org/"
 license = "GPL"
+
+# these are used in the application
+appname = "Frescobaldi"
+

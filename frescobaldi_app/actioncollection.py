@@ -24,8 +24,8 @@ ActionCollection is a class to keep a list of actions as attributes.
 """
 
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QSettings
+from PyQt4.QtGui import QKeySequence
 
 import app
 

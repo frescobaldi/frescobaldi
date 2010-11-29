@@ -1052,6 +1052,6 @@ class ActionCollection(actioncollection.ActionCollection):
         self.help_manual.setText(_("&User Guide"))
         self.help_whatsthis.setText(_("&What's This?"))
         self.help_bugreport.setText(_("Report a &Bug..."))
-        self.help_about.setText(_("&About {name}").format(name=info.description))
+        self.help_about.setText(_("&About {name}").format(name=info.appname))
         
 
