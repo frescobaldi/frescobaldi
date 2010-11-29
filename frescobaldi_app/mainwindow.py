@@ -402,6 +402,12 @@ class MainWindow(QMainWindow):
     def selectAll(self):
         self.currentView().selectAll()
         
+    def showPreferences(self):
+        import preferences
+        dlg = preferences.PreferencesDialog(self)
+        dlg.exec_()
+        dlg.deleteLater()
+        
     def toggleFullScreen(self, enabled):
         if enabled:
             self._maximized = self.isMaximized()
@@ -453,6 +459,7 @@ class MainWindow(QMainWindow):
         ac.edit_redo.triggered.connect(self.redo)
         ac.edit_select_all.triggered.connect(self.selectAll)
         ac.edit_select_none.triggered.connect(self.selectNone)
+        ac.edit_preferences.triggered.connect(self.showPreferences)
         ac.view_next_document.triggered.connect(self.tabBar.nextDocument)
         ac.view_previous_document.triggered.connect(self.tabBar.previousDocument)
         ac.view_scroll_up.triggered.connect(self.scrollUp)
