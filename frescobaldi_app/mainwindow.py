@@ -849,6 +849,7 @@ class TabContextMenu(QMenu):
 
 
 class ActionCollection(actioncollection.ActionCollection):
+    name = "main"
     def createActions(self, parent=None):
         self.file_new = QAction(parent)
         self.file_open = QAction(parent)

@@ -384,6 +384,7 @@ class ViewManager(QSplitter):
 
 
 class ViewActions(actioncollection.ActionCollection):
+    name = "view"
     def createActions(self, parent=None):
         self.window_split_horizontal = QAction(parent)
         self.window_split_vertical = QAction(parent)

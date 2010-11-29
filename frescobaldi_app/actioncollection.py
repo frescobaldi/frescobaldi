@@ -37,8 +37,10 @@ class ActionCollection:
         self.createActions(parent)
         self._actions = dict(self.__dict__)
         self.storeDefaults()
+        self.load(False) # load without resettings defaults
         self.translateUI()
         app.languageChanged.connect(self.translateUI)
+        app.settingsChanged.connect(self.load)
         
     def createActions(self, parent=None):
         """Should add actions as instance attributes.
@@ -65,16 +67,38 @@ class ActionCollection:
             for name, action in self._actions.items()
             if action.shortcuts())
 
-    def load(self, settings):
-        """Reads keyboard shortcuts from a QSettings object."""
-        settings.begingroup(self.name)
+    def settingsGroup(self):
+        """Returns settings group to load shortcuts from."""
+        s = QSettings()
+        scheme = s.value("shortcut_scheme", "default")
+        s.beginGroup("shortcuts/{0}/{1}".format(scheme, self.name))
+        return s
+        
+    def load(self, restoreDefaults=True):
+        """Reads keyboard shortcuts from the settings.
+        
+        If restoreDefaults == True, resets the other shortcuts to their default
+        values. If restoreDefaults == False, does not touch the other shortcuts.
+        
+        """
+        settings = self.settingsGroup()
         keys = settings.allKeys()
-        for name in self._actions:
-            if name in keys:
-                shortcuts = [QKeySequence(s) for s in settings.value(name) or []]
-            else:
-                shortcuts = self._defaults.get(name) or []
-            self._actions[name].setShortcuts(shortcuts)
-        settings.endgroup()
+        for name in keys:
+            try:
+                self._actions[name].setShortcuts([QKeySequence(s) for s in settings.value(name) or []])
+            except KeyError:
+                settings.remove(name)
+        if restoreDefaults:
+            for name in self._actions:
+                if name not in keys:
+                    self._actions[name].setShortcuts(self._defaults.get(name) or [])
+        
+    def text(self, name):
+        """Returns the text of the named action, with ampersands removed."""
+        return self._actions[name].text().replace('&&', '\0').replace('&', '').replace('\0', '&')
+
+    def icon(self, name):
+        """Returns the icon of the named action"""
+        return self._actions[name].icon()
 
 
