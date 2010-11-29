@@ -27,35 +27,35 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 
-import app
+from .. import app
 
 
 class PreferencesDialog(QDialog):
-    pass
-    #def __init__(self, parent=None):
-        #super(PreferencesDialog, self).__init__(parent)
+    
+    def __init__(self, parent=None):
+        super(PreferencesDialog, self).__init__(parent)
         
-        #layout = QVBoxLayout()
-        #self.setLayout(layout)
+        layout = QVBoxLayout()
+        self.setLayout(layout)
         
         
-        ## listview to the left, stacked widget to the right
-        ##top = QHBoxLayout()
-        ##layout.addLayout(top)
+        # listview to the left, stacked widget to the right
+        top = QHBoxLayout()
+        layout.addLayout(top)
         
-        ##self.pagelist = QListView(self)
-        ##self.stack = QStackedWidget(self)
-        ##top.addWidget(self.pagelist)
-        ##top.addWidget(self.stack)
+        self.pagelist = QListView(self)
+        self.stack = QStackedWidget(self)
+        top.addWidget(self.pagelist)
+        top.addWidget(self.stack)
         
-        #b = self.buttons = QDialogButtonBox(self)
-        #b.setStandardButtons(
-            #QDialogButtonBox.Ok
-            #| QDialogButtonBox.Cancel
-            #| QDialogButtonBox.Apply
-            #| QDialogButtonBox.Reset
-            #| QDialogButtonBox.Help)
+        b = self.buttons = QDialogButtonBox(self)
+        b.setStandardButtons(
+            QDialogButtonBox.Ok
+            | QDialogButtonBox.Cancel
+            | QDialogButtonBox.Apply
+            | QDialogButtonBox.Reset
+            | QDialogButtonBox.Help)
             
-        #layout.addWidget(self.buttons)
+        layout.addWidget(self.buttons)
         
         

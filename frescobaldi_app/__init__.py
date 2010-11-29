@@ -20,9 +20,3 @@
 """
 Frescobaldi, a LilyPond sheet music editor.
 """
-
-import sys
-
-# make the modules in this directory available as toplevel modules
-sys.path[:0] = __path__
-
