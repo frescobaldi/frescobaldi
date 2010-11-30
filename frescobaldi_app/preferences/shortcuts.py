@@ -154,6 +154,7 @@ class Shortcuts(preferences.Page):
         
     def slotSchemeChanged(self, index):
         """Called when the Scheme combobox is changed."""
+        self.remove.setEnabled(bool(index))
         for item in self.items():
             item.switchScheme(self._schemes[index])
             

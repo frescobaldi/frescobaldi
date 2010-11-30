@@ -21,6 +21,9 @@ from __future__ import unicode_literals
 
 """
 A widget to enter a keyboard shortcut.
+
+Loosely based on kkeysequencewidget.cpp from KDE :-)
+
 """
 
 from PyQt4.QtCore import *
@@ -134,16 +137,21 @@ class KeySequenceButton(QPushButton):
         
         key = ev.key()
         
-        # check if key is a modifier or a character key without modifier
-        if (key not in (-1, Qt.Key_AltGr, Qt.Key_Shift, Qt.Key_Control, Qt.Key_Alt, Qt.Key_Meta, Qt.Key_Menu)
+        # check if key is a modifier or a character key without modifier (and if that is allowed)
+        if (
+            # don't append the key if the key is -1 (garbage) or a modifier ...
+            key not in (-1, Qt.Key_AltGr, Qt.Key_Shift, Qt.Key_Control, Qt.Key_Alt, Qt.Key_Meta, Qt.Key_Menu)
+            # or if this is the first key and without modifier and modifierless keys are not allowed
             and (self._modifierlessAllowed
                  or self._recseq.count() > 0
                  or modifiers & ~Qt.SHIFT
                  or not (ev.text() or key in (Qt.Key_Return, Qt.Key_Space, Qt.Key_Tab, Qt.Key_Backtab,
                                               Qt.Key_Backspace, Qt.Key_Delete)))):
             
+            # change Shift+Backtab into Shift+Tab
             if key == Qt.Key_Backtab and modifiers & Qt.SHIFT:
                 key = Qt.Key_Tab | modifiers
+            # remove the Shift modifier if it doen't make sense
             elif (Qt.Key_F1 <= key <= Qt.Key_F35
                   or (ev.text() and ev.text().isalpha())
                   or key in (
@@ -169,17 +177,11 @@ class KeySequenceButton(QPushButton):
             else:
                 key = key | (modifiers & ~Qt.SHIFT)
             
-            if self._recseq.count() == 0:
-                self._recseq = QKeySequence(key)
-            elif self._recseq.count() == 1:
-                self._recseq = QKeySequence(self._recseq[0], key)
-            elif self._recseq.count() == 2:
-                self._recseq = QKeySequence(self._recseq[0], self._recseq[1], key)
-            elif self._recseq.count() == 3:
-                self._recseq = QKeySequence(self._recseq[0], self._recseq[1], self._recseq[2], key)
-            
-                
-            
+            # append max. 4 keystrokes
+            if self._recseq.count() < 4:
+                l = list(self._recseq)
+                l.append(key)
+                self._recseq = QKeySequence(*l)
         
         self._modifiers = modifiers
         self.controlTimer()

@@ -33,6 +33,9 @@ from .. import (
     )
 
 
+_prefsindex = 0 # global setting for selected prefs page but not saved on exit
+
+
 class PreferencesDialog(QDialog):
     
     def __init__(self, mainwindow):
@@ -68,7 +71,6 @@ class PreferencesDialog(QDialog):
         
         # fill the pagelist
         self.pagelist.setIconSize(QSize(32, 32))
-        self.pagelist.currentItemChanged.connect(self.slotCurrentItemChanged)
         self.pages = []
         for item in (
             General,
@@ -77,11 +79,18 @@ class PreferencesDialog(QDialog):
                 ):
             self.pagelist.addItem(item())
         self.pagelist.setFixedWidth(self.pagelist.sizeHintForColumn(0) + 12)
-        self.resize(QSettings().value("prefsize", QSize(500, 300)))
+        self.pagelist.currentItemChanged.connect(self.slotCurrentItemChanged)
         
+        # read our size and selected page
+        self.resize(QSettings().value("prefsize", QSize(500, 300)))
+        self.pagelist.setCurrentRow(_prefsindex)
+            
     def done(self, result):
         if result:
             self.saveSettings()
+        # save our size and selected page
+        global _prefsindex
+        _prefsindex = self.pagelist.currentRow()
         QSettings().setValue("prefsize", self.size())
         super(PreferencesDialog, self).done(result)
         
