@@ -93,6 +93,18 @@ class ActionCollection:
                 if name not in keys:
                     self._actions[name].setShortcuts(self._defaults.get(name) or [])
         
+    def actions(self):
+        """Returns the dictionary with actions."""
+        return self._actions
+        
+    def defaults(self):
+        """Returns the dictionary with actions that have a default shortcut."""
+        return self._defaults
+        
+    def names(self):
+        """Returns the names of all actions."""
+        return self._actions.keys()
+        
     def text(self, name):
         """Returns the text of the named action, with ampersands removed."""
         return self._actions[name].text().replace('&&', '\0').replace('&', '').replace('\0', '&')

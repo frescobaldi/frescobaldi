@@ -27,14 +27,19 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 
-from .. import app
+from .. import (
+    app,
+    icons,
+    )
 
 
 class PreferencesDialog(QDialog):
     
-    def __init__(self, parent=None):
-        super(PreferencesDialog, self).__init__(parent)
+    def __init__(self, mainwindow):
+        super(PreferencesDialog, self).__init__(mainwindow)
+        self.mainwindow = mainwindow
         
+        self.setWindowTitle(app.caption(_("Preferences")))
         layout = QVBoxLayout()
         self.setLayout(layout)
         
@@ -43,10 +48,10 @@ class PreferencesDialog(QDialog):
         top = QHBoxLayout()
         layout.addLayout(top)
         
-        self.pagelist = QListView(self)
+        self.pagelist = QListWidget(self)
         self.stack = QStackedWidget(self)
-        top.addWidget(self.pagelist)
-        top.addWidget(self.stack)
+        top.addWidget(self.pagelist, 0)
+        top.addWidget(self.stack, 2)
         
         b = self.buttons = QDialogButtonBox(self)
         b.setStandardButtons(
@@ -55,7 +60,104 @@ class PreferencesDialog(QDialog):
             | QDialogButtonBox.Apply
             | QDialogButtonBox.Reset
             | QDialogButtonBox.Help)
-            
-        layout.addWidget(self.buttons)
+        layout.addWidget(b)
+        b.accepted.connect(self.accept)
+        b.rejected.connect(self.reject)
+        b.button(QDialogButtonBox.Apply).clicked.connect(self.saveSettings)
+        b.button(QDialogButtonBox.Reset).clicked.connect(self.loadSettings)
         
+        # fill the pagelist
+        self.pagelist.setIconSize(QSize(32, 32))
+        self.pagelist.currentItemChanged.connect(self.slotCurrentItemChanged)
+        self.pages = []
+        for item in (
+            General,
+            LilyPond,
+            Shortcuts,
+                ):
+            self.pagelist.addItem(item())
+        self.pagelist.setFixedWidth(self.pagelist.sizeHintForColumn(0) + 12)
+        self.resize(QSettings().value("prefsize", QSize(500, 300)))
+        
+    def done(self, result):
+        if result:
+            self.saveSettings()
+        QSettings().setValue("prefsize", self.size())
+        super(PreferencesDialog, self).done(result)
+        
+    def loadSettings(self):
+        """Loads the settings on init or reset."""
+        for page in self.pages:
+            page.loadSettings()
+            
+    def saveSettings(self):
+        """Saves the settings and applies them."""
+        for page in self.pages:
+            page.saveSettings()
+        
+        # emit the signal
+        app.settingsChanged()
+    
+    def slotCurrentItemChanged(self, item):
+        item.activate()
+        
+
+class PrefsItemBase(QListWidgetItem):
+    def __init__(self):
+        super(PrefsItemBase, self).__init__()
+        self._widget = None
+        self.setup()
+    
+    def activate(self):
+        dlg = self.listWidget().parentWidget()
+        if self._widget is None:
+            self._widget = self.widget(dlg)
+            dlg.stack.addWidget(self._widget)
+            self._widget.loadSettings()
+        dlg.stack.setCurrentWidget(self._widget)
+
+
+class General(PrefsItemBase):
+    def setup(self):
+        self.setText(_("General Preferences"))
+        self.setIcon(icons.get("configure"))
+
+    def widget(self, dlg):
+        return QLabel("General prefs,\nto be implemented")
+        
+
+class LilyPond(PrefsItemBase):
+    def setup(self):
+        self.setText(_("LilyPond Preferences"))
+        self.setIcon(icons.get("lilypond-run"))
+        
+    def widget(self, dlg):
+        return QLabel("LilyPond prefs,\nto be implemented")
+
+
+class Shortcuts(PrefsItemBase):
+    def setup(self):
+        self.setText(_("Keyboard Shortcuts"))
+        self.setIcon(icons.get("configure-shortcuts"))
+        
+    def widget(self, dlg):
+        import shortcuts
+        return shortcuts.Shortcuts(dlg)
+        
+
+class Page(QWidget):
+    """Base class for settings pages."""
+    def __init__(self, dialog):
+        QWidget.__init__(self)
+        self.dialog = dialog
+        dialog.pages.append(self)
+        
+    def loadSettings(self):
+        """Should load settings from config into our widget."""
+        
+    def saveSettings(self):
+        """Should write settings from our widget to config."""
+    
+    
+    
         
