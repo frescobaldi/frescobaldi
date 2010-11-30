@@ -50,7 +50,6 @@ class KeySequenceWidget(QWidget):
         layout.addWidget(self.button)
         layout.addWidget(self.clearButton)
         
-        self.button.clicked.connect(self.keySequenceChanged) # TEMP
         self.clearButton.clicked.connect(self.clear)
         self.translateUI()
         
@@ -74,11 +73,59 @@ class KeySequenceButton(QPushButton):
         super(KeySequenceButton, self).__init__(parent)
         self.setIcon(icons.get("edit-configure"))
         self._seq = QKeySequence()
-        
+        self._timer = QTimer()
+        self._isrecording = False
+        self.clicked.connect(self.startRecording)
+
     def setKeySequence(self, seq):
         self._seq = seq
-        self.setText(seq.toString())
+        self.updateDisplay()
 
     def keySequence(self):
         return self._seq
+    
+    def updateDisplay(self):
+        if self._isrecording:
+            s = self._recseq.toString().replace('&', '&&')
+            if self._modifiers:
+                if s: s += ","
+                if self._modifiers & Qt.META:  s += "Meta+"
+                if self._modifiers & Qt.CTRL:  s += "Ctrl+"
+                if self._modifiers & Qt.ALT:   s += "Alt+"
+                if self._modifiers & Qt.SHIFT: s += "Shift+"
+            elif self._recseq.isEmpty():
+                s = _("Input")
+            s += " ..."
+        else:
+            s = self._seq.toString().replace('&', '&&')
+        self.setText(s if s else _("(none)"))
+
+
+    def event(self, ev):
+        if self._isrecording:
+            # prevent Qt from special casing Tab and Backtab
+            if ev.type() == QEvent.KeyPress:
+                self.keyPressEvent(ev)
+                return True
+        return super(KeySequenceButton, self).event(ev)
+        
+    def keyPressEvent(self, ev):
+        if not self._isrecording:
+            return super(KeySequenceButton, self).keyPressEvent(ev)
+        modifiers = ev.modifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META)
+        ev.accept()
+        
+        self._modifiers = modifiers
+        self.updateDisplay()
+        print ev.key(), ev.text()
+        
+    def keyReleaseEvent(self, ev):
+        if not self._isrecording:
+            return super(KeySequenceButton, self).keyReleaseEvent(ev)
+    
+    def startRecording(self):
+        self.setDown(True)
+        self._isrecording = True
+        self._recseq = QKeySequence()
+        self.grabKeyboard()
         
