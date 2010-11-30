@@ -204,7 +204,6 @@ class ShortcutItem(QTreeWidgetItem):
         return action
     
     def setShortcuts(self, shortcuts, scheme):
-        print shortcuts, self.defaultShortcuts()
         default = shortcuts == self.defaultShortcuts()
         self.shortcuts[scheme] = (shortcuts, default)
         self.display(scheme)
@@ -249,9 +248,10 @@ class ShortcutEditDialog(QDialog):
     
     def __init__(self, parent=None):
         super(ShortcutEditDialog, self).__init__(parent)
-        
+        self.setMinimumWidth(400)
         # create gui
         layout = QGridLayout()
+        layout.setColumnStretch(1, 2)
         self.setLayout(layout)
         l = self.toplabel = QLabel()
         l.setWordWrap(True)
@@ -261,9 +261,9 @@ class ShortcutEditDialog(QDialog):
         self.buttonDefault = QRadioButton(self)
         self.buttonNone = QRadioButton(_("No shortcut"), self)
         self.buttonCustom = QRadioButton(_("Use a custom shortcut:"), self)
-        layout.addWidget(self.buttonDefault, 1, 0)
-        layout.addWidget(self.buttonNone, 2, 0)
-        layout.addWidget(self.buttonCustom, 3, 0)
+        layout.addWidget(self.buttonDefault, 1, 0, 1, 2)
+        layout.addWidget(self.buttonNone, 2, 0, 1, 2)
+        layout.addWidget(self.buttonCustom, 3, 0, 1, 2)
         
         self.keybuttons = []
         for num in range(4):
@@ -318,8 +318,9 @@ class ShortcutEditDialog(QDialog):
                 shortcuts = self._default
             elif self.buttonCustom.isChecked():
                 for num in range(4):
-                    if self.keybuttons[num].text() != "(empty)": # TEMP
-                        shortcuts.append(QKeySequence(self.keybuttons[num].text()))
+                    seq = self.keybuttons[num].shortcut()
+                    if not seq.isEmpty():
+                        shortcuts.append(seq)
             self._action.setShortcuts(shortcuts)
         super(ShortcutEditDialog, self).done(result)
 

@@ -59,23 +59,38 @@ class KeySequenceWidget(QWidget):
     def setShortcut(self, shortcut):
         """Sets the initial shortcut to display."""
         self.button.setKeySequence(shortcut)
+    
+    def shortcut(self):
+        """Returns the currently set key sequence."""
+        return self.button.keySequence()
         
     def clear(self):
         """Empties the displayed shortcut."""
+        if self.button.isRecording():
+            self.button.cancelRecording()
         if not self.button.keySequence().isEmpty():
             self.button.setKeySequence(QKeySequence())
             self.keySequenceChanged.emit()
+
+    def setModifierlessAllowed(self, allow):
+        self.button._modifierlessAllowed = allow
+        
+    def isModifierlessAllowed(self):
+        return self.button._modifierlessAllowed
 
 
 class KeySequenceButton(QPushButton):
     
     def __init__(self, parent=None):
         super(KeySequenceButton, self).__init__(parent)
-        self.setIcon(icons.get("edit-configure"))
+        self.setIcon(icons.get("configure"))
+        self._modifierlessAllowed = False
         self._seq = QKeySequence()
         self._timer = QTimer()
+        self._timer.setSingleShot(True)
         self._isrecording = False
         self.clicked.connect(self.startRecording)
+        self._timer.timeout.connect(self.doneRecording)
 
     def setKeySequence(self, seq):
         self._seq = seq
@@ -98,9 +113,11 @@ class KeySequenceButton(QPushButton):
             s += " ..."
         else:
             s = self._seq.toString().replace('&', '&&')
-        self.setText(s if s else _("(none)"))
+        self.setText(s)
 
-
+    def isRecording(self):
+        return self._isrecording
+        
     def event(self, ev):
         if self._isrecording:
             # prevent Qt from special casing Tab and Backtab
@@ -112,20 +129,106 @@ class KeySequenceButton(QPushButton):
     def keyPressEvent(self, ev):
         if not self._isrecording:
             return super(KeySequenceButton, self).keyPressEvent(ev)
-        modifiers = ev.modifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META)
+        modifiers = int(ev.modifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
         ev.accept()
         
+        key = ev.key()
+        
+        # check if key is a modifier or a character key without modifier
+        if (key not in (-1, Qt.Key_AltGr, Qt.Key_Shift, Qt.Key_Control, Qt.Key_Alt, Qt.Key_Meta, Qt.Key_Menu)
+            and (self._modifierlessAllowed
+                 or self._recseq.count() > 0
+                 or modifiers & ~Qt.SHIFT
+                 or not (ev.text() or key in (Qt.Key_Return, Qt.Key_Space, Qt.Key_Tab, Qt.Key_Backtab,
+                                              Qt.Key_Backspace, Qt.Key_Delete)))):
+            
+            if key == Qt.Key_Backtab and modifiers & Qt.SHIFT:
+                key = Qt.Key_Tab | modifiers
+            elif (Qt.Key_F1 <= key <= Qt.Key_F35
+                  or (ev.text() and ev.text().isalpha())
+                  or key in (
+                        Qt.Key_Return,
+                        Qt.Key_Space,
+                        Qt.Key_Backspace,
+                        Qt.Key_Escape,
+                        Qt.Key_Print,
+                        Qt.Key_ScrollLock,
+                        Qt.Key_Pause,
+                        Qt.Key_PageUp,
+                        Qt.Key_PageDown,
+                        Qt.Key_Insert,
+                        Qt.Key_Delete,
+                        Qt.Key_Home,
+                        Qt.Key_End,
+                        Qt.Key_Up,
+                        Qt.Key_Down,
+                        Qt.Key_Left,
+                        Qt.Key_Right,
+                    )):
+                key = key | modifiers
+            else:
+                key = key | (modifiers & ~Qt.SHIFT)
+            
+            if self._recseq.count() == 0:
+                self._recseq = QKeySequence(key)
+            elif self._recseq.count() == 1:
+                self._recseq = QKeySequence(self._recseq[0], key)
+            elif self._recseq.count() == 2:
+                self._recseq = QKeySequence(self._recseq[0], self._recseq[1], key)
+            elif self._recseq.count() == 3:
+                self._recseq = QKeySequence(self._recseq[0], self._recseq[1], self._recseq[2], key)
+            
+                
+            
+        
         self._modifiers = modifiers
+        self.controlTimer()
         self.updateDisplay()
-        print ev.key(), ev.text()
+        
         
     def keyReleaseEvent(self, ev):
         if not self._isrecording:
             return super(KeySequenceButton, self).keyReleaseEvent(ev)
+        modifiers = int(ev.modifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
+        ev.accept()
+        
+        self._modifiers = modifiers
+        self.controlTimer()
+        self.updateDisplay()
+    
+    def hideEvent(self, ev):
+        if self._isrecording:
+            self.cancelRecording()
+        super(KeySequenceButton, self).hideEvent(ev)
+        
+    def controlTimer(self):
+        if self._modifiers or self._recseq.isEmpty():
+            self._timer.stop()
+        else:
+            self._timer.start(600)
     
     def startRecording(self):
         self.setDown(True)
+        self.setStyleSheet("QPushButton { text-align: left; }")
         self._isrecording = True
         self._recseq = QKeySequence()
+        self._modifiers = int(QApplication.keyboardModifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
         self.grabKeyboard()
+        self.updateDisplay()
         
+    def doneRecording(self):
+        self._seq = self._recseq
+        self.cancelRecording()
+        self.parentWidget().keySequenceChanged.emit()
+        
+    def cancelRecording(self):
+        if not self._isrecording:
+            return
+        self.setDown(False)
+        self.setStyleSheet(None)
+        self._isrecording = False
+        self.releaseKeyboard()
+        self.updateDisplay()
+
+
+    
