@@ -270,6 +270,7 @@ class ShortcutEditDialog(QDialog):
             l = QLabel(_("Alternative #{num}:").format(num=num) if num else _("Primary shortcut:"))
             l.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
             b = KeySequenceWidget(self)
+            b.keySequenceChanged.connect(self.slotKeySequenceChanged)
             l.setBuddy(b)
             self.keybuttons.append(b)
             layout.addWidget(l, num+4, 0)
@@ -280,6 +281,10 @@ class ShortcutEditDialog(QDialog):
         layout.addWidget(b, 8, 0, 1, 2)
         b.accepted.connect(self.accept)
         b.rejected.connect(self.reject)
+    
+    def slotKeySequenceChanged(self):
+        """Called when one of the keysequence buttons has changed."""
+        self.buttonCustom.setChecked(True)
         
     def editAction(self, action, default=None):
         # load the action

@@ -33,6 +33,9 @@ from .. import (
 )
 
 class KeySequenceWidget(QWidget):
+
+    keySequenceChanged = pyqtSignal()
+    
     def __init__(self, parent=None):
         super(KeySequenceWidget, self).__init__(parent)
         
@@ -47,6 +50,7 @@ class KeySequenceWidget(QWidget):
         layout.addWidget(self.button)
         layout.addWidget(self.clearButton)
         
+        self.button.clicked.connect(self.keySequenceChanged) # TEMP
         self.clearButton.clicked.connect(self.clear)
         self.translateUI()
         
@@ -59,13 +63,22 @@ class KeySequenceWidget(QWidget):
         
     def clear(self):
         """Empties the displayed shortcut."""
-        self.button.setKeySequence(QKeySequence())
+        if not self.button.keySequence().isEmpty():
+            self.button.setKeySequence(QKeySequence())
+            self.keySequenceChanged.emit()
+
 
 class KeySequenceButton(QPushButton):
+    
     def __init__(self, parent=None):
         super(KeySequenceButton, self).__init__(parent)
         self.setIcon(icons.get("edit-configure"))
-
+        self._seq = QKeySequence()
+        
     def setKeySequence(self, seq):
+        self._seq = seq
         self.setText(seq.toString())
 
+    def keySequence(self):
+        return self._seq
+        
