@@ -31,7 +31,9 @@ from .. import (
     app,
     icons,
     preferences,
-    )
+)
+
+from ..widgets.keysequencewidget import KeySequenceWidget
 
 
 
@@ -257,8 +259,8 @@ class ShortcutEditDialog(QDialog):
         layout.addWidget(l, 0, 0, 1, 2)
         
         self.buttonDefault = QRadioButton(self)
-        self.buttonNone = QRadioButton(_("No Shortcut"), self)
-        self.buttonCustom = QRadioButton(_("Custom Shortcut:"), self)
+        self.buttonNone = QRadioButton(_("No shortcut"), self)
+        self.buttonCustom = QRadioButton(_("Use a custom shortcut:"), self)
         layout.addWidget(self.buttonDefault, 1, 0)
         layout.addWidget(self.buttonNone, 2, 0)
         layout.addWidget(self.buttonCustom, 3, 0)
@@ -267,7 +269,7 @@ class ShortcutEditDialog(QDialog):
         for num in range(4):
             l = QLabel(_("Alternative #{num}:").format(num=num) if num else _("Primary shortcut:"))
             l.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
-            b = QPushButton(self) # TEMP
+            b = KeySequenceWidget(self)
             l.setBuddy(b)
             self.keybuttons.append(b)
             layout.addWidget(l, num+4, 0)
@@ -296,9 +298,9 @@ class ShortcutEditDialog(QDialog):
         else:
             self.buttonNone.setChecked(True)
         for num, key in enumerate(shortcuts[:4]):
-            self.keybuttons[num].setText(key.toString())
+            self.keybuttons[num].setShortcut(key)
         for num in range(len(shortcuts), 4):
-            self.keybuttons[num].setText("(empty)") # TEMP
+            self.keybuttons[num].clear()
         ds = _("none") if not default else "; ".join(key.toString() for key in default)
         self.buttonDefault.setText(_("Use default shortcut ({name})").format(name=ds))
         
