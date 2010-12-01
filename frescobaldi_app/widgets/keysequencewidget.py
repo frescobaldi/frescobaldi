@@ -155,30 +155,11 @@ class KeySequenceButton(QPushButton):
             if key == Qt.Key_Backtab and modifiers & Qt.SHIFT:
                 key = Qt.Key_Tab | modifiers
             # remove the Shift modifier if it doen't make sense
-            elif (Qt.Key_F1 <= key <= Qt.Key_F35
-                  or (ev.text() and ev.text().isalpha())
-                  or key in (
-                        Qt.Key_Return,
-                        Qt.Key_Space,
-                        Qt.Key_Backspace,
-                        Qt.Key_Escape,
-                        Qt.Key_Print,
-                        Qt.Key_ScrollLock,
-                        Qt.Key_Pause,
-                        Qt.Key_PageUp,
-                        Qt.Key_PageDown,
-                        Qt.Key_Insert,
-                        Qt.Key_Delete,
-                        Qt.Key_Home,
-                        Qt.Key_End,
-                        Qt.Key_Up,
-                        Qt.Key_Down,
-                        Qt.Key_Left,
-                        Qt.Key_Right,
-                    )):
-                key = key | modifiers
-            else:
+            elif (Qt.Key_Exclam <= key <= Qt.Key_At
+                  or Qt.Key_Z < key <= 0x0ff):
                 key = key | (modifiers & ~Qt.SHIFT)
+            else:
+                key = key | modifiers
             
             # append max. 4 keystrokes
             if self._recseq.count() < 4:
