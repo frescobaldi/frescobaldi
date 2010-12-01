@@ -30,6 +30,7 @@ from PyQt4.QtGui import *
 from .. import (
     app,
     icons,
+    widgets,
     )
 
 
@@ -44,6 +45,7 @@ class PreferencesDialog(QDialog):
         
         self.setWindowTitle(app.caption(_("Preferences")))
         layout = QVBoxLayout()
+        layout.setSpacing(10)
         self.setLayout(layout)
         
         
@@ -55,6 +57,8 @@ class PreferencesDialog(QDialog):
         self.stack = QStackedWidget(self)
         top.addWidget(self.pagelist, 0)
         top.addWidget(self.stack, 2)
+        
+        layout.addWidget(widgets.Separator(self))
         
         b = self.buttons = QDialogButtonBox(self)
         b.setStandardButtons(
@@ -84,7 +88,7 @@ class PreferencesDialog(QDialog):
         # read our size and selected page
         self.resize(QSettings().value("prefsize", QSize(500, 300)))
         self.pagelist.setCurrentRow(_prefsindex)
-            
+        
     def done(self, result):
         if result:
             self.saveSettings()

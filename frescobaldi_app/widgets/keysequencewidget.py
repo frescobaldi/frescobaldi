@@ -26,12 +26,12 @@ Loosely based on kkeysequencewidget.cpp from KDE :-)
 
 """
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QEvent, Qt, QTimer, pyqtSignal
+from PyQt4.QtGui import (
+    QApplication, QHBoxLayout, QKeySequence, QPushButton, QToolButton, QWidget)
 
 
 from .. import (
-    app,
     icons,
 )
 
@@ -57,7 +57,8 @@ class KeySequenceWidget(QWidget):
         self.translateUI()
         
     def translateUI(self):
-        self.clearButton.setToolTip(_("Click to clear the key sequence."))
+        self.button.setToolTip(_("Start recording a key sequence."))
+        self.clearButton.setToolTip(_("Clear the key sequence."))
         
     def setShortcut(self, shortcut):
         """Sets the initial shortcut to display."""
@@ -194,7 +195,7 @@ class KeySequenceButton(QPushButton):
     
     def startRecording(self):
         self.setDown(True)
-        self.setStyleSheet("QPushButton { text-align: left; }")
+        self.setStyleSheet("text-align: left;")
         self._isrecording = True
         self._recseq = QKeySequence()
         self._modifiers = int(QApplication.keyboardModifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))

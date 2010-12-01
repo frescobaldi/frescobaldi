@@ -17,7 +17,35 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
+from __future__ import unicode_literals
+
 """
 All kinds of more or less generally usable widgets.
 """
+
+from PyQt4.QtCore import Qt
+from PyQt4.QtGui import QFrame
+
+
+
+class Separator(QFrame):
+    def __init__(self, *args, **kwargs):
+        QFrame.__init__(self, *args, **kwargs)
+        self.setLineWidth(1)
+        self.setMidLineWidth(0)
+        self.setOrientation(Qt.Horizontal)
+        
+    def setOrientation(self, orientation):
+        if orientation == Qt.Vertical:
+            self.setFrameShape(QFrame.VLine)
+            self.setFrameShadow(QFrame.Sunken)
+            self.setMinimumSize(2, 0)
+        else:
+            self.setFrameShape(QFrame.HLine)
+            self.setFrameShadow(QFrame.Sunken)
+            self.setMinimumSize(0, 2)
+        self.updateGeometry()
+        
+    def orientation(self):
+        return Qt.Vertical if self.frameStyle() & QFrame.VLine == QFrame.VLine else Qt.Horizontal
 

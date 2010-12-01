@@ -23,8 +23,10 @@ from __future__ import unicode_literals
 Keyboard shortcuts settings page.
 """
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QSettings, Qt
+from PyQt4.QtGui import (
+    QAction, QComboBox, QHBoxLayout, QInputDialog, QKeySequence, QLabel,
+    QPushButton, QTreeWidget, QTreeWidgetItem, QVBoxLayout)
 
 
 from .. import (
@@ -33,8 +35,7 @@ from .. import (
     preferences,
 )
 
-from ..widgets.keysequencewidget import KeySequenceWidget
-
+from ..widgets.shortcuteditdialog import ShortcutEditDialog
 
 
 class Shortcuts(preferences.Page):
@@ -129,8 +130,27 @@ class Shortcuts(preferences.Page):
             for j in range(top.childCount()):
                 yield top.child(j)
     
-    def loadSettings(self):
+    def saveSettings(self):
+        # first save new scheme names
+        s = QSettings()
+        for scheme, name in zip(self._schemes, self._schemeNames)[1:]:
+            s.setValue("shortcut_schemes/" + scheme, name)
+        # then save all the actions in all schemes
+        for scheme in self._schemes:
+            for item in self.items():
+                item.save(scheme)
+        # then remove removed schemes
+        for scheme in self._schemesToRemove:
+            s.remove("shortcut_schemes/" + scheme)
+            s.remove("shortcuts/" + scheme)
+        # then save current
+        s.setValue("shortcut_scheme", self._schemes[self.scheme.currentIndex()])
+        # clean up
+        self._schemesToRemove = set()
+        for item in self.items():
+            item.clearSettings()
         
+    def loadSettings(self):
         # dont mark schemes for removal anymore
         self._schemesToRemove = set()
         
@@ -253,12 +273,24 @@ class ShortcutItem(QTreeWidgetItem):
             s = QSettings()
             key = "shortcuts/{0}/{1}/{2}".format(scheme, self.collection.name, self.name)
             if s.contains(key):
-                self.shortcuts[scheme] = (s.value(key) or [], False)
+                self.shortcuts[scheme] = ([QKeySequence(v) for v in s.value(key) or []], False)
             else:
                 # default
                 self.shortcuts[scheme] = (self.defaultShortcuts(), True)
         self.display(scheme)
-        
+    
+    def save(self, scheme):
+        try:
+            shortcuts, default = self.shortcuts[scheme]
+        except KeyError:
+            return
+        s =QSettings()
+        key = "shortcuts/{0}/{1}/{2}".format(scheme, self.collection.name, self.name)
+        if default:
+            s.remove(key)
+        else:
+            s.setValue(key, shortcuts)
+            
     def display(self, scheme):
         text = ''
         shortcuts, default = self.shortcuts[scheme]
@@ -267,92 +299,11 @@ class ShortcutItem(QTreeWidgetItem):
             if len(shortcuts) > 1:
                 text += "..."
             if default:
-                text += " " + _("(default)")
+                text += "  " + _("(default)")
         self.setText(1, text)
         
         
 def removeAccels(s):
     return s.replace('&&', '\0').replace('&', '').replace('\0', '&')
 
-
-class ShortcutEditDialog(QDialog):
-    """A modal dialog to view and/or edit keyboard shortcuts."""
-    
-    def __init__(self, parent=None):
-        super(ShortcutEditDialog, self).__init__(parent)
-        self.setMinimumWidth(400)
-        # create gui
-        layout = QGridLayout()
-        layout.setColumnStretch(1, 2)
-        self.setLayout(layout)
-        l = self.toplabel = QLabel()
-        l.setWordWrap(True)
-        l.setAlignment(Qt.AlignCenter)
-        layout.addWidget(l, 0, 0, 1, 2)
-        
-        self.buttonDefault = QRadioButton(self)
-        self.buttonNone = QRadioButton(_("No shortcut"), self)
-        self.buttonCustom = QRadioButton(_("Use a custom shortcut:"), self)
-        layout.addWidget(self.buttonDefault, 1, 0, 1, 2)
-        layout.addWidget(self.buttonNone, 2, 0, 1, 2)
-        layout.addWidget(self.buttonCustom, 3, 0, 1, 2)
-        
-        self.keybuttons = []
-        for num in range(4):
-            l = QLabel(_("Alternative #{num}:").format(num=num) if num else _("Primary shortcut:"))
-            l.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
-            b = KeySequenceWidget(self)
-            b.keySequenceChanged.connect(self.slotKeySequenceChanged)
-            l.setBuddy(b)
-            self.keybuttons.append(b)
-            layout.addWidget(l, num+4, 0)
-            layout.addWidget(b, num+4, 1)
-        
-        b = QDialogButtonBox(self)
-        b.setStandardButtons(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        layout.addWidget(b, 8, 0, 1, 2)
-        b.accepted.connect(self.accept)
-        b.rejected.connect(self.reject)
-    
-    def slotKeySequenceChanged(self):
-        """Called when one of the keysequence buttons has changed."""
-        self.buttonCustom.setChecked(True)
-        
-    def editAction(self, action, default=None):
-        # load the action
-        self._action = action
-        self._default = default
-        self.setWindowTitle(app.caption(
-            _("Shortcut for \"{name}\"").format(name=action.text())))
-        self.toplabel.setText(_(
-            "Here you can view and/or edit the keyboard shortcuts "
-            "for \"{name}\".").format(name=action.text()))
-        shortcuts = action.shortcuts()
-        if default is not None and shortcuts == default:
-            self.buttonDefault.setChecked(True)
-        elif shortcuts:
-            self.buttonCustom.setChecked(True)
-        else:
-            self.buttonNone.setChecked(True)
-        for num, key in enumerate(shortcuts[:4]):
-            self.keybuttons[num].setShortcut(key)
-        for num in range(len(shortcuts), 4):
-            self.keybuttons[num].clear()
-        ds = _("none") if not default else "; ".join(key.toString() for key in default)
-        self.buttonDefault.setText(_("Use default shortcut ({name})").format(name=ds))
-        
-        return self.exec_()
-        
-    def done(self, result):
-        if result:
-            shortcuts = []
-            if self.buttonDefault.isChecked():
-                shortcuts = self._default
-            elif self.buttonCustom.isChecked():
-                for num in range(4):
-                    seq = self.keybuttons[num].shortcut()
-                    if not seq.isEmpty():
-                        shortcuts.append(seq)
-            self._action.setShortcuts(shortcuts)
-        super(ShortcutEditDialog, self).done(result)
 
