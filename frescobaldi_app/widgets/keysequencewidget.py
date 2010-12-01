@@ -148,8 +148,9 @@ class KeySequenceButton(QPushButton):
                  or self._recseq.count() > 0
                  or modifiers & ~Qt.SHIFT
                  or not ev.text()
-                 or key not in (Qt.Key_Return, Qt.Key_Space, Qt.Key_Tab, Qt.Key_Backtab,
-                                Qt.Key_Backspace, Qt.Key_Delete))):
+                 or (modifiers & Qt.SHIFT
+                     and key in (Qt.Key_Return, Qt.Key_Space, Qt.Key_Tab, Qt.Key_Backtab,
+                                 Qt.Key_Backspace, Qt.Key_Delete, Qt.Key_Escape)))):
             # change Shift+Backtab into Shift+Tab
             if key == Qt.Key_Backtab and modifiers & Qt.SHIFT:
                 key = Qt.Key_Tab | modifiers
