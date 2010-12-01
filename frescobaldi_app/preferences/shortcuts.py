@@ -71,6 +71,8 @@ class Shortcuts(preferences.Page):
         self.tree.currentItemChanged.connect(self.slotCurrentItemChanged)
         self.tree.itemDoubleClicked.connect(self.editCurrentItem)
         self.edit.clicked.connect(self.editCurrentItem)
+        self.add.clicked.connect(self.addClicked)
+        self.remove.clicked.connect(self.removeClicked)
         
         # make a dict of all actions with the actions as key and the names as
         # value, with the collection prepended (for loading/saving)
@@ -128,6 +130,10 @@ class Shortcuts(preferences.Page):
                 yield top.child(j)
     
     def loadSettings(self):
+        
+        # dont mark schemes for removal anymore
+        self._schemesToRemove = set()
+        
         s = QSettings()
         cur = s.value("shortcut_scheme", "default")
         
@@ -181,7 +187,32 @@ class Shortcuts(preferences.Page):
         if dlg.editAction(action, default):
             item.setShortcuts(action.shortcuts(), scheme)
 
-
+    def removeClicked(self):
+        index = self.scheme.currentIndex()
+        if index == 0:
+            return # default can not be removed
+        
+        self._schemesToRemove.add(self._schemes[index])
+        del self._schemes[index]
+        del self._schemeNames[index]
+        self.scheme.removeItem(index)
+    
+    def addClicked(self):
+        name, ok = QInputDialog.getText(self,
+            app.caption("Add Scheme"),
+            _("Please enter a name for the new scheme:"))
+        if not ok:
+            return
+        num, key = 1, 'user1'
+        while key in self._schemes or key in self._schemesToRemove:
+            num += 1
+            key = 'user{0}'.format(num)
+        self._schemes.append(key)
+        self._schemeNames.append(name)
+        self.scheme.addItem(name)
+        self.scheme.setCurrentIndex(self.scheme.count() - 1)
+        
+        
 class ShortcutItem(QTreeWidgetItem):
     def __init__(self, action, collection, name):
         QTreeWidgetItem.__init__(self)
