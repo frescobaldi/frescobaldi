@@ -41,7 +41,6 @@ class ShortcutEditDialog(QDialog):
         super(ShortcutEditDialog, self).__init__(parent)
         self.setMinimumWidth(400)
         # create gui
-        self.setWindowTitle(app.caption(_("Edit Shortcut")))
         layout = QGridLayout()
         layout.setColumnStretch(1, 2)
         self.setLayout(layout)
@@ -55,20 +54,22 @@ class ShortcutEditDialog(QDialog):
         layout.addLayout(top, 0, 0, 1, 2)
         
         self.buttonDefault = QRadioButton(self)
-        self.buttonNone = QRadioButton(_("&No shortcut"), self)
-        self.buttonCustom = QRadioButton(_("Use a &custom shortcut:"), self)
+        self.buttonNone = QRadioButton(self)
+        self.buttonCustom = QRadioButton(self)
         layout.addWidget(self.buttonDefault, 1, 0, 1, 2)
         layout.addWidget(self.buttonNone, 2, 0, 1, 2)
         layout.addWidget(self.buttonCustom, 3, 0, 1, 2)
         
         self.keybuttons = []
+        self.keylabels = []
         for num in range(4):
-            l = QLabel(_("Alternative #{num}:").format(num=num) if num else _("Primary shortcut:"))
+            l = QLabel(self)
             l.setStyleSheet("margin-left: 2em;")
             l.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
             b = KeySequenceWidget(self)
             b.keySequenceChanged.connect(self.slotKeySequenceChanged)
             l.setBuddy(b)
+            self.keylabels.append(l)
             self.keybuttons.append(b)
             layout.addWidget(l, num+4, 0)
             layout.addWidget(b, num+4, 1)
@@ -80,6 +81,15 @@ class ShortcutEditDialog(QDialog):
         layout.addWidget(b, 9, 0, 1, 2)
         b.accepted.connect(self.accept)
         b.rejected.connect(self.reject)
+        app.languageChanged.connect(self.translateUI)
+        self.translateUI()
+    
+    def translateUI(self):
+        self.setWindowTitle(app.caption(_("Edit Shortcut")))
+        self.buttonNone.setText(_("&No shortcut"))
+        self.buttonCustom.setText(_("Use a &custom shortcut:"))
+        for num in range(4):
+            self.keylabels[num].setText(_("Alternative #{num}:").format(num=num) if num else _("Primary shortcut:"))
     
     def slotKeySequenceChanged(self):
         """Called when one of the keysequence buttons has changed."""

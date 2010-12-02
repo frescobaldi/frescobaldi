@@ -32,6 +32,7 @@ from PyQt4.QtGui import (
 
 
 from .. import (
+    app,
     icons,
 )
 
@@ -54,6 +55,7 @@ class KeySequenceWidget(QWidget):
         layout.addWidget(self.clearButton)
         
         self.clearButton.clicked.connect(self.clear)
+        app.languageChanged.connect(self.translateUI)
         self.translateUI()
         
     def translateUI(self):
@@ -202,6 +204,7 @@ class KeySequenceButton(QPushButton):
     def doneRecording(self):
         self._seq = self._recseq
         self.cancelRecording()
+        self.clearFocus()
         self.parentWidget().keySequenceChanged.emit()
         
     def cancelRecording(self):

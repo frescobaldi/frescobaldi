@@ -40,6 +40,9 @@ from .. import (
 from ..widgets.shortcuteditdialog import ShortcutEditDialog
 
 
+_lastaction = '' # last selected action name (saved during running but not on exit)
+
+
 class Shortcuts(preferences.Page):
     def __init__(self, dialog):
         super(Shortcuts, self).__init__(dialog)
@@ -124,7 +127,14 @@ class Shortcuts(preferences.Page):
             item.setExpanded(True)
             item.setFlags(Qt.ItemIsEnabled) # disable selection
         
-        self.tree.setCurrentItem(self.tree.topLevelItem(0).child(0))
+        item = self.tree.topLevelItem(0).child(0)
+        if _lastaction:
+            # find the previously selected item
+            for i in self.items():
+                if i.name == _lastaction:
+                    item = i
+                    break
+        self.tree.setCurrentItem(item)
         self.tree.resizeColumnToContents(0)
         
     def items(self):
@@ -198,6 +208,8 @@ class Shortcuts(preferences.Page):
             self.edit.setText(
                 "&Edit Shortcut for \"{name}\"".format(name=item.text(0)))
             self.edit.setEnabled(True)
+            global _lastaction
+            _lastaction = item.name
         else:
             self.edit.setText(_("(no shortcut)"))
             self.edit.setEnabled(False)
@@ -214,12 +226,12 @@ class Shortcuts(preferences.Page):
         action = item.action(scheme)
         default = item.defaultShortcuts()
         if dlg.editAction(action, default):
-            
+            shortcuts = action.shortcuts()
             # check for conflicts
             conflicting = []
             for i in self.items():
                 if i is not item:
-                    for s1, s2 in itertools.product(i.shortcuts(scheme), action.shortcuts()):
+                    for s1, s2 in itertools.product(i.shortcuts(scheme), shortcuts):
                         if s1.matches(s2) or s2.matches(s1):
                             conflicting.append(i)
             if conflicting:
@@ -237,23 +249,21 @@ class Shortcuts(preferences.Page):
                     for i in conflicting:
                         l = i.shortcuts(scheme)
                         for s1 in list(l): # copy
-                            for s2 in action.shortcuts():
+                            for s2 in shortcuts:
                                 if s1.matches(s2) or s2.matches(s1):
                                     l.remove(s1)
                         i.setShortcuts(l, scheme)
                 elif res == QMessageBox.No:
                     # remove from ourselves
-                    l = action.shortcuts()
                     for i in conflicting:
-                        for s1 in list(l): # copy
+                        for s1 in list(shortcuts): # copy
                             for s2 in i.shortcuts(scheme):
                                 if s1.matches(s2) or s2.matches(s1):
-                                    l.remove(s1)
-                    action.setShortcuts(l)
+                                    shortcuts.remove(s1)
                 else:
                     return # cancelled
             # store the shortcut
-            item.setShortcuts(action.shortcuts(), scheme)
+            item.setShortcuts(shortcuts, scheme)
             self.changed()
 
     def removeClicked(self):
@@ -291,10 +301,10 @@ class ShortcutItem(QTreeWidgetItem):
         self.name = name
         self.setIcon(0, action.icon())
         self.setText(0, removeAccels(action.text()))
-        self.clearSettings()
+        self._shortcuts = {}
         
     def clearSettings(self):
-        self._shortcuts = {}
+        self._shortcuts.clear()
     
     def action(self, scheme):
         """Returns a new QAction that represents our item.
