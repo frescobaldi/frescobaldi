@@ -23,10 +23,12 @@ from __future__ import unicode_literals
 Keyboard shortcuts settings page.
 """
 
+import itertools
+
 from PyQt4.QtCore import QSettings, Qt
 from PyQt4.QtGui import (
     QAction, QComboBox, QHBoxLayout, QInputDialog, QKeySequence, QLabel,
-    QPushButton, QTreeWidget, QTreeWidgetItem, QVBoxLayout)
+    QMessageBox, QPushButton, QTreeWidget, QTreeWidgetItem, QVBoxLayout)
 
 
 from .. import (
@@ -210,6 +212,45 @@ class Shortcuts(preferences.Page):
         action = item.action(scheme)
         default = item.defaultShortcuts()
         if dlg.editAction(action, default):
+            
+            # check for conflicts
+            conflicting = []
+            for i in self.items():
+                if i is not item:
+                    for s1, s2 in itertools.product(i.shortcuts(scheme), action.shortcuts()):
+                        if s1.matches(s2) or s2.matches(s1):
+                            conflicting.append(i)
+            if conflicting:
+                # show a question dialog
+                msg = [_("This shortcut conflicts with the following command:",
+                        "This shortcut conflicts with the following commands:", len(conflicting))]
+                msg.append('<br/>'.join(i.text(0) for i in conflicting))
+                msg.append(_("Remove the shortcut from that command?",
+                             "Remove the shortcut from those commands?", len(conflicting)))
+                msg = '<p>{0}</p>'.format('</p><p>'.join(msg))
+                res = QMessageBox.warning(self, _("Shortcut Conflict"), msg,
+                        QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel)
+                if res == QMessageBox.Yes:
+                    # remove from conflicting
+                    for i in conflicting:
+                        l = i.shortcuts(scheme)
+                        for s1 in list(l): # copy
+                            for s2 in action.shortcuts():
+                                if s1.matches(s2) or s2.matches(s1):
+                                    l.remove(s1)
+                        i.setShortcuts(l, scheme)
+                elif res == QMessageBox.No:
+                    # remove from ourselves
+                    l = action.shortcuts()
+                    for i in conflicting:
+                        for s1 in list(l): # copy
+                            for s2 in i.shortcuts(scheme):
+                                if s1.matches(s2) or s2.matches(s1):
+                                    l.remove(s1)
+                    action.setShortcuts(l)
+                else:
+                    return # cancelled
+            # store the shortcut
             item.setShortcuts(action.shortcuts(), scheme)
             self.changed()
 
@@ -251,7 +292,7 @@ class ShortcutItem(QTreeWidgetItem):
         self.clearSettings()
         
     def clearSettings(self):
-        self.shortcuts = {}
+        self._shortcuts = {}
     
     def action(self, scheme):
         """Returns a new QAction that represents our item.
@@ -259,13 +300,17 @@ class ShortcutItem(QTreeWidgetItem):
         The action contains the text, icon and current shortcut.
         
         """
-        action = QAction(self.icon(0), self.text(0), None)
-        action.setShortcuts(self.shortcuts[scheme][0])
+        action = QAction(self.icon(0), self.text(0).replace('&', '&&'), None)
+        action.setShortcuts(self._shortcuts[scheme][0])
         return action
     
+    def shortcuts(self, scheme):
+        """Returns the list of shortcuts currently set for scheme."""
+        return list(self._shortcuts[scheme][0])
+        
     def setShortcuts(self, shortcuts, scheme):
         default = shortcuts == self.defaultShortcuts()
-        self.shortcuts[scheme] = (shortcuts, default)
+        self._shortcuts[scheme] = (shortcuts, default)
         self.display(scheme)
         
     def defaultShortcuts(self):
@@ -277,19 +322,19 @@ class ShortcutItem(QTreeWidgetItem):
         return self.collection.defaults().get(self.name, [])
         
     def switchScheme(self, scheme):
-        if scheme not in self.shortcuts:
+        if scheme not in self._shortcuts:
             s = QSettings()
             key = "shortcuts/{0}/{1}/{2}".format(scheme, self.collection.name, self.name)
             if s.contains(key):
-                self.shortcuts[scheme] = ([QKeySequence(v) for v in s.value(key) or []], False)
+                self._shortcuts[scheme] = ([QKeySequence(v) for v in s.value(key) or []], False)
             else:
                 # default
-                self.shortcuts[scheme] = (self.defaultShortcuts(), True)
+                self._shortcuts[scheme] = (self.defaultShortcuts(), True)
         self.display(scheme)
     
     def save(self, scheme):
         try:
-            shortcuts, default = self.shortcuts[scheme]
+            shortcuts, default = self._shortcuts[scheme]
         except KeyError:
             return
         s =QSettings()
@@ -301,7 +346,7 @@ class ShortcutItem(QTreeWidgetItem):
             
     def display(self, scheme):
         text = ''
-        shortcuts, default = self.shortcuts[scheme]
+        shortcuts, default = self._shortcuts[scheme]
         if shortcuts:
             text = shortcuts[0].toString()
             if len(shortcuts) > 1:
