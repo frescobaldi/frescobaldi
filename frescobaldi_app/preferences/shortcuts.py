@@ -147,11 +147,13 @@ class Shortcuts(preferences.Page):
             s.remove("shortcut_schemes/" + scheme)
             s.remove("shortcuts/" + scheme)
         # then save current
-        s.setValue("shortcut_scheme", self._schemes[self.scheme.currentIndex()])
+        scheme = self._schemes[self.scheme.currentIndex()]
+        s.setValue("shortcut_scheme", scheme)
         # clean up
         self._schemesToRemove = set()
         for item in self.items():
             item.clearSettings()
+            item.switchScheme(scheme)
         
     def loadSettings(self):
         # dont mark schemes for removal anymore
