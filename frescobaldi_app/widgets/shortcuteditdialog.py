@@ -54,8 +54,8 @@ class ShortcutEditDialog(QDialog):
         layout.addLayout(top, 0, 0, 1, 2)
         
         self.buttonDefault = QRadioButton(self)
-        self.buttonNone = QRadioButton(_("No shortcut"), self)
-        self.buttonCustom = QRadioButton(_("Use a custom shortcut:"), self)
+        self.buttonNone = QRadioButton(_("&No shortcut"), self)
+        self.buttonCustom = QRadioButton(_("Use a &custom shortcut:"), self)
         layout.addWidget(self.buttonDefault, 1, 0, 1, 2)
         layout.addWidget(self.buttonNone, 2, 0, 1, 2)
         layout.addWidget(self.buttonCustom, 3, 0, 1, 2)
@@ -105,7 +105,7 @@ class ShortcutEditDialog(QDialog):
         for num in range(len(shortcuts), 4):
             self.keybuttons[num].clear()
         ds = _("none") if not default else "; ".join(key.toString() for key in default)
-        self.buttonDefault.setText(_("Use default shortcut ({name})").format(name=ds))
+        self.buttonDefault.setText(_("Use &default shortcut ({name})").format(name=ds))
         
         return self.exec_()
         

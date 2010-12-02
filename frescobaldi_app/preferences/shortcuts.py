@@ -62,6 +62,7 @@ class Shortcuts(preferences.Page):
         self.tree.setRootIsDecorated(False)
         self.tree.setColumnCount(2)
         self.tree.setAllColumnsShowFocus(True)
+        self.tree.setAnimated(True)
         layout.addWidget(self.tree)
         
         self.edit = QPushButton(icons.get("configure-shortcuts"), '')
