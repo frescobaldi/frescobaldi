@@ -72,6 +72,7 @@ class PreferencesDialog(QDialog):
         b.rejected.connect(self.reject)
         b.button(QDialogButtonBox.Apply).clicked.connect(self.saveSettings)
         b.button(QDialogButtonBox.Reset).clicked.connect(self.loadSettings)
+        b.button(QDialogButtonBox.Apply).setEnabled(False)
         
         # fill the pagelist
         self.pagelist.setIconSize(QSize(32, 32))
@@ -99,14 +100,16 @@ class PreferencesDialog(QDialog):
         super(PreferencesDialog, self).done(result)
         
     def loadSettings(self):
-        """Loads the settings on init or reset."""
+        """Loads the settings on reset."""
         for page in self.pages:
             page.loadSettings()
+        self.buttons.button(QDialogButtonBox.Apply).setEnabled(False)
             
     def saveSettings(self):
         """Saves the settings and applies them."""
         for page in self.pages:
             page.saveSettings()
+        self.buttons.button(QDialogButtonBox.Apply).setEnabled(False)
         
         # emit the signal
         app.settingsChanged()
@@ -114,6 +117,10 @@ class PreferencesDialog(QDialog):
     def slotCurrentItemChanged(self, item):
         item.activate()
         
+    def changed(self):
+        """Call this to enable the Apply button."""
+        self.buttons.button(QDialogButtonBox.Apply).setEnabled(True)
+
 
 class PrefsItemBase(QListWidgetItem):
     def __init__(self):
@@ -166,6 +173,10 @@ class Page(QWidget):
         QWidget.__init__(self)
         self.dialog = dialog
         dialog.pages.append(self)
+    
+    def changed(self):
+        """Call this to enable the Apply button in the dialog."""
+        self.dialog.changed()
         
     def loadSettings(self):
         """Should load settings from config into our widget."""

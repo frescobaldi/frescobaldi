@@ -165,26 +165,30 @@ class Shortcuts(preferences.Page):
         for key in s.childKeys():
             self._schemes.append(key)
             self._schemeNames.append(s.value(key, key))
+        block = self.scheme.blockSignals(True)
         self.scheme.clear()
         self.scheme.addItems(self._schemeNames)
         s.endGroup()
         
+        # find out index
+        index = self._schemes.index(cur) if cur in self._schemes else 0
+        self.remove.setEnabled(bool(index))
+        
         # clear the settings in all the items
         for item in self.items():
             item.clearSettings()
+            item.switchScheme(self._schemes[index])
         
-        index = self._schemes.index(cur) if cur in self._schemes else 0
-        block = self.scheme.blockSignals(True)
         self.scheme.setCurrentIndex(index)
         self.scheme.blockSignals(block)
-        self.slotSchemeChanged(index)
         
     def slotSchemeChanged(self, index):
-        """Called when the Scheme combobox is changed."""
+        """Called when the Scheme combobox is changed by the user."""
         self.remove.setEnabled(bool(index))
         for item in self.items():
             item.switchScheme(self._schemes[index])
-            
+        self.changed()
+        
     def slotCurrentItemChanged(self, item):
         if isinstance(item, ShortcutItem):
             self.edit.setText(
@@ -207,6 +211,7 @@ class Shortcuts(preferences.Page):
         default = item.defaultShortcuts()
         if dlg.editAction(action, default):
             item.setShortcuts(action.shortcuts(), scheme)
+            self.changed()
 
     def removeClicked(self):
         index = self.scheme.currentIndex()
@@ -217,6 +222,7 @@ class Shortcuts(preferences.Page):
         del self._schemes[index]
         del self._schemeNames[index]
         self.scheme.removeItem(index)
+        self.changed()
     
     def addClicked(self):
         name, ok = QInputDialog.getText(self,
@@ -232,6 +238,7 @@ class Shortcuts(preferences.Page):
         self._schemeNames.append(name)
         self.scheme.addItem(name)
         self.scheme.setCurrentIndex(self.scheme.count() - 1)
+        self.changed()
         
         
 class ShortcutItem(QTreeWidgetItem):
