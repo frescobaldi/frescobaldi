@@ -25,7 +25,8 @@ A dialog to edit the keyboard shortcuts for an action.
 
 from PyQt4.QtCore import Qt
 from PyQt4.QtGui import (
-    QDialog, QDialogButtonBox, QGridLayout, QHBoxLayout, QLabel, QRadioButton)
+    QDialog, QDialogButtonBox, QGridLayout, QHBoxLayout, QKeySequence, QLabel,
+    QRadioButton)
 
 
 from .. import app
@@ -104,7 +105,7 @@ class ShortcutEditDialog(QDialog):
             self.keybuttons[num].setShortcut(key)
         for num in range(len(shortcuts), 4):
             self.keybuttons[num].clear()
-        ds = _("none") if not default else "; ".join(key.toString() for key in default)
+        ds = _("none") if not default else "; ".join(key.toString(QKeySequence.NativeText) for key in default)
         self.buttonDefault.setText(_("Use &default shortcut ({name})").format(name=ds))
         
         return self.exec_()

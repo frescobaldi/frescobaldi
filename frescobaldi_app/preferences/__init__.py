@@ -136,7 +136,8 @@ class General(PrefsItemBase):
         self.setIcon(icons.get("configure"))
 
     def widget(self, dlg):
-        return QLabel("General prefs,\nto be implemented")
+        import general
+        return general.GeneralPrefs(dlg)
         
 
 class LilyPond(PrefsItemBase):
@@ -145,7 +146,8 @@ class LilyPond(PrefsItemBase):
         self.setIcon(icons.get("lilypond-run"))
         
     def widget(self, dlg):
-        return QLabel("LilyPond prefs,\nto be implemented")
+        import lilypond
+        return lilypond.LilyPondPrefs(dlg)
 
 
 class Shortcuts(PrefsItemBase):
