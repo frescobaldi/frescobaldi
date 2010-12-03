@@ -103,6 +103,8 @@ class KeySequenceButton(QPushButton):
         self.updateDisplay()
 
     def keySequence(self):
+        if self._isrecording:
+            self.doneRecording()
         return self._seq
     
     def updateDisplay(self):

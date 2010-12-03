@@ -114,3 +114,13 @@ class ActionCollection:
         return self._actions[name].icon()
 
 
+def removeShortcut(action, key):
+    """Removes a keysequence from the list of shortcuts of the action."""
+    key = QKeySequence(key)
+    shortcuts = action.shortcuts()
+    for s in action.shortcuts():
+        if key.matches(s) or s.matches(key):
+            shortcuts.remove(s)
+    action.setShortcuts(shortcuts)
+
+
