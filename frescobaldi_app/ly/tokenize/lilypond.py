@@ -23,7 +23,7 @@ from __future__ import unicode_literals
 Parses and tokenizes LilyPond input.
 """
 
-from . import Parser, Token, makePattern
+from . import Parser, Token, Space, makePattern
 
 
 
@@ -42,6 +42,7 @@ class Command(Token):
 
 class LilyPondParser(Parser):
     pattern = makePattern(
+        Space,
         Command,
     )
     
