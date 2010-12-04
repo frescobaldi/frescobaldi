@@ -23,8 +23,14 @@ from __future__ import unicode_literals
 Parses and tokenizes HTML input, recognizing LilyPond in HTML.
 """
 
-from . import Parser, Token, Space, Leaver
-from . import String as _String, StringParser
+from . import (
+    Parser,
+    Token,
+    Space,
+    Leaver,
+    String as _String,
+    StringParser,
+)
 
 
 

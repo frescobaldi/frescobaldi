@@ -26,10 +26,14 @@ Parses and tokenizes Scheme input.
 from . import (
     Parser,
     Token,
+    Item,
     Space,
     Increaser,
     Decreaser,
 )
+
+import lilypond
+
 
 class Scheme(Token):
     """Baseclass for Scheme tokens."""
@@ -42,6 +46,18 @@ class OpenParen(Scheme, Increaser):
 class CloseParen(Scheme, Decreaser):
     rx = r"\)"
 
+class Quote(Token):
+    rx = r"[',`]"
+    
+class Bool(Item):
+    rx = r"#[bf]\b"
+    
+class Char(Item):
+    rx = r"#\\([a-z]+|.)"
+
+class Word(Item):
+    rx = r'[^()"{}\s]+'
+
 
 class SchemeParser(Parser):
     argcount = 1
@@ -49,6 +65,12 @@ class SchemeParser(Parser):
         Space,
         OpenParen,
         CloseParen,
+        Bool,
+        Char,
+        Quote,
+        Word,
+        lilypond.StringQuoted,
+        lilypond.StringQuotedStart,
     )
     
     

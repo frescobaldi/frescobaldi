@@ -23,7 +23,11 @@ from __future__ import unicode_literals
 Parses and tokenizes DocBook input, recognizing LilyPond in DocBook.
 """
 
-from . import Parser, Token, Space
+from . import (
+    Parser,
+    Token,
+    Space,
+)
 
 
 

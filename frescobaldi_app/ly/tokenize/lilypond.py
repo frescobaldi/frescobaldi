@@ -25,6 +25,7 @@ Parses and tokenizes LilyPond input.
 
 from . import (
     Token,
+    Item,
     Leaver,
     Space,
     String as _String,
@@ -47,7 +48,7 @@ class Scheme(Token):
         state.enter(scheme.SchemeParser)
 
 
-class StringQuoted(_String):
+class StringQuoted(_String, Item):
     rx = r'"(\\[\\"]|[^"\n\\]|\\(?![\\"]))*"'
     
 
@@ -75,6 +76,7 @@ class LilyPondParser(Parser):
     )
     
 class StringParser(_StringParser):
+    argcount = 1
     items = (
         StringQuotedEnd,
         StringQuoteEscape,

@@ -23,7 +23,11 @@ from __future__ import unicode_literals
 Parses and tokenizes Texinfo input, recognizing LilyPond in Texinfo.
 """
 
-from . import Parser, Token, Space
+from . import (
+    Parser,
+    Token,
+    Space
+)
 
 
 class Keyword(Token):
