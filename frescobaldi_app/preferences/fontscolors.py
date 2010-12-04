@@ -33,8 +33,36 @@ from .. import (
     preferences,
 )
 
+from ..widgets.schemeselector import SchemeSelector
+
 
 class FontsColors(preferences.Page):
     def __init__(self, dialog):
         super(FontsColors, self).__init__(dialog)
 
+        layout = QVBoxLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
+        self.setLayout(layout)
+        
+        self.scheme = SchemeSelector(self)
+        layout.addWidget(self.scheme)
+        
+        hbox = QHBoxLayout()
+        self.tree = QTreeWidget(self)
+        self.tree.setHeaderHidden(True)
+        self.tree.setRootIsDecorated(False)
+        self.tree.setAnimated(True)
+        self.stack = QStackedWidget(self)
+        hbox.addWidget(self.tree)
+        hbox.addWidget(self.stack)
+        layout.addLayout(hbox)
+        
+        self.fontButton = QPushButton(_("Change Font..."))
+        layout.addWidget(self.fontButton)
+        
+    def loadSettings(self):
+        self.scheme.loadSettings("editor_scheme", "editor_schemes")
+        
+    def saveSettings(self):
+        self.scheme.saveSettings("editor_scheme", "editor_schemes", "fontscolor")
+        
