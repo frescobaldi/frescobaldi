@@ -23,3 +23,32 @@ from __future__ import unicode_literals
 Parses and tokenizes Scheme input.
 """
 
+from . import (
+    Parser,
+    Token,
+    Space,
+    Increaser,
+    Decreaser,
+)
+
+class Scheme(Token):
+    """Baseclass for Scheme tokens."""
+    pass
+
+
+class OpenParen(Scheme, Increaser):
+    rx = r"\("
+    
+class CloseParen(Scheme, Decreaser):
+    rx = r"\)"
+
+
+class SchemeParser(Parser):
+    argcount = 1
+    items = (
+        Space,
+        OpenParen,
+        CloseParen,
+    )
+    
+    

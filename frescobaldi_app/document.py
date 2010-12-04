@@ -30,6 +30,7 @@ from PyQt4.QtGui import *
 
 import app
 import view
+import highlighter
 
 
 class Document(QTextDocument):
@@ -115,6 +116,7 @@ class Document(QTextDocument):
         """Returns a new View on our document."""
         if not self._materialized:
             self.setDocumentLayout(QPlainTextDocumentLayout(self))
+            self.highlighter = highlighter.Highlighter(self)
             
             self._materialized = True
         return view.View(self)

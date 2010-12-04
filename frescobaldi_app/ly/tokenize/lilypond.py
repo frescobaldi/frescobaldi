@@ -23,7 +23,16 @@ from __future__ import unicode_literals
 Parses and tokenizes LilyPond input.
 """
 
-from . import Parser, Token, Space, makePattern
+from . import (
+    Token,
+    Leaver,
+    Space,
+    String as _String,
+    Escape,
+    Parser,
+    StringParser as _StringParser,
+)
+
 
 
 
@@ -31,19 +40,43 @@ class Command(Token):
     rx = r"\\[a-zA-Z]+"
     
 
+class Scheme(Token):
+    rx = "#"
+    def __init__(self, matchObj, state):
+        import scheme
+        state.enter(scheme.SchemeParser)
 
 
+class StringQuoted(_String):
+    rx = r'"(\\[\\"]|[^"\n\\]|\\(?![\\"]))*"'
+    
 
+class StringQuotedStart(_String):
+    rx = r'"'
+    def __init__(self, matchObj, state):
+        state.enter(StringParser)
+        
 
+class StringQuotedEnd(_String, Leaver):
+    rx = r'"'
+    
 
-
-
+class StringQuoteEscape(_String, Escape):
+    rx = r'\\[\\"]'
 
 
 class LilyPondParser(Parser):
-    pattern = makePattern(
+    items = (
         Space,
+        Scheme,
+        StringQuoted,
+        StringQuotedStart,
         Command,
     )
     
+class StringParser(_StringParser):
+    items = (
+        StringQuotedEnd,
+        StringQuoteEscape,
+    )
     

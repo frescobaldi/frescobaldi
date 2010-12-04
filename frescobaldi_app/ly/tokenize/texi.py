@@ -20,6 +20,19 @@
 from __future__ import unicode_literals
 
 """
-Parses and tokenizes TexInfo input, recognizing LilyPond in TexInfo.
+Parses and tokenizes Texinfo input, recognizing LilyPond in Texinfo.
 """
+
+from . import Parser, Token, Space
+
+
+class Keyword(Token):
+    rx = r"\b@[a-z][A-Z]+\b"
+
+
+class TexinfoParser(Parser):
+    items = (
+        Space,
+        Keyword,
+    )
 

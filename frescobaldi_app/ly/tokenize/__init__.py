@@ -29,6 +29,8 @@ LilyPond (and vice versa).
 
 import re
 
+from .. import guessType
+
 _classlist = []
 
 
@@ -44,19 +46,21 @@ def tokens(text, state=None, pos=0):
     
     """
     if state is None:
-        state = guessState(text)
-    m = state.parser().parse(text, pos)
+        state = State(text)
+    parser = state.parser()
+    m = parser.parse(text, pos)
     while m:
         if pos < m.start():
-            yield Unparsed(text[pos:m.start()], pos)
+            yield parser.default(text[pos:m.start()], pos)
         yield _classlist[int(m.lastgroup[1:])](m, state)
         pos = m.end()
-        m = state.parser().parse(text, pos)
+        parser = state.parser()
+        m = parser.parse(text, pos)
     if pos < len(text):
-        yield Unparsed(text[pos:], pos)
+        yield parser.default(text[pos:], pos)
     
 
-def makePattern(*classes):
+def _makePattern(classes):
     """Builds a regular expression to parse a text for the given token classes.
     
     Expects a list of classes representing LilyPond input atoms. Returns a
@@ -81,9 +85,18 @@ class State(object):
     Basically, you create a State object and then use it with the tokens()
     generator to tokenize a text string of LilyPond input.
     
+    The constructor accepts one parameter that can be one of two things:
+    If it is a Parser subclass, it will be used as initial parser (defaulting
+    to lilypond.LilyPondParser). If it is a string, the initial parser will
+    be guessed from the contents of the string.
+    
     """
-    def __init__(self, initialParserClass):
-        self.state = [initialParserClass()]
+    def __init__(self, init=None):
+        if not init:
+            init = lilypond.LilyPondParser
+        elif isinstance(init, basestring):
+            init = guessState(init)
+        self.state = [init()]
         self.language = 'nederlands' # LilyPond pitch name language
     
     def freeze(self):
@@ -167,22 +180,19 @@ class State(object):
         return len(self.state), self.state[-1].level
 
 
-
-class Parser(object):
-    """Abstract base class for parsers.  Must be subclassed."""
-    argcount = 0
+class _makePatternMeta(type):
+    """Metaclass for Parser subclasses.
     
-    # if you use the default parse() method, this must be defined to be a
-    # compiled regular expression
-    pattern = None
+    Reads the items class attribute and create a compiled regex pattern
+    to parse text for those items.
     
-    def __init__(self, argcount = None):
-        self.level = 0
-        if argcount is not None:
-            self.argcount = argcount
-
-    def parse(self, text, pos):
-        return self.pattern.search(text, pos)
+    """
+    def __new__(cls, name, bases, attrd):
+        try:
+            attrd['pattern'] = _makePattern(attrd['items'])
+        except KeyError:
+            pass # in abstract classes there is no items attribute
+        return type.__new__(cls, name, bases, attrd)
 
 
 class Token(unicode):
@@ -201,21 +211,15 @@ class Token(unicode):
         
         
 class Unparsed(Token):
-    """Represents an unparsed piece of LilyPond text.
-    
-    Needs to be given a value and a position (where the string was found).
-    
-    """
-    def __new__(cls, value, pos):
-        obj = unicode.__new__(cls, value)
-        obj.pos = pos
-        obj.end = pos + len(obj)
-        return obj
+    """Represents an unparsed piece of LilyPond text."""
+    pass
 
 
 # some base types that should be inherited:
 class Comment(Token): pass
 class String(Token): pass
+class Escape(Token): pass
+
 
 class Item(Token):
     """A token that decreases the argument count of the current parser."""
@@ -243,6 +247,39 @@ class Space(Token): rx = r'\s+'
 class Newline(Token): rx = r'\n'
 
 
+# Parsers:
+class Parser(object):
+    """Abstract base class for parsers.  Must be subclassed."""
+    __metaclass__ = _makePatternMeta
+    argcount = 0
+    defaultClass = Unparsed
+    
+    def __init__(self, argcount = None):
+        self.level = 0
+        if argcount is not None:
+            self.argcount = argcount
+
+    def parse(self, text, pos):
+        return self.pattern.search(text, pos)
+
+    def default(self, text, pos):
+        """Return a default token for unparsed content.
+        
+        The default implementation returns a token of type
+        self.defaultClass (without calling its constructor).
+        
+        """
+        obj = unicode.__new__(self.defaultClass, text)
+        obj.pos = pos
+        obj.end = pos + len(text)
+        return obj
+    
+
+class StringParser(Parser):
+    """A Base class for parsers that parse quoted strings."""
+    defaultClass = String
+
+
 
 
 def guessState(text):
@@ -251,28 +288,21 @@ def guessState(text):
     Returns the state class that can be used to parse it.
     
     """
-    text = text.lstrip()
-    if text.startswith(('%', '\\')) and "\\documentclass" in text or "\\section" in text:
-        return latex.LaTeXParser
-    elif text.startswith("<<"):
-        return lilypond.LilyPondParser
-    elif text.startswith("<"):
-        if 'DOCTYPE book' in text or "<programlisting" in text:
-            return docbook.DocBookParser
-        else:
-            return html.HTMLParser
-    elif text.startswith(("#!", ";", "(")):
-        return scheme.SchemeParser
-    elif text.startswith('@'):
-        return texi.TexinfoParser
-    else:
-        return lilypond.LilyPondParser
+    return {
+        'lilypond': lilypond.LilyPondParser,
+        'scheme':   scheme.SchemeParser,
+        'docbook':  docbook.DocBookParser,
+        'latex':    latex.LaTeXParser,
+        'texi':     texi.TexinfoParser,
+        'html':     html.HTMLParser,
+        }[guessType(text)]
+        
 
 
-import docbook
-import html
-import latex
 import lilypond
 import scheme
+import docbook
+import latex
 import texi
+import html
 

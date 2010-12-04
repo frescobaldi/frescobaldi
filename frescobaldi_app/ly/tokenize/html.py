@@ -23,3 +23,88 @@ from __future__ import unicode_literals
 Parses and tokenizes HTML input, recognizing LilyPond in HTML.
 """
 
+from . import Parser, Token, Space, Leaver
+from . import String as _String, StringParser
+
+
+
+class TagStart(Token):
+    rx = r"</?\w[-_:\w]+\b"
+    def __init__(self, matchObj, state):
+        state.enter(AttrParser)
+        
+
+class TagEnd(Leaver):
+    rx = r"/?>"
+    
+
+class AttrName(Token):
+    rx = r"\w+([-_:]\w+)?"
+    
+    
+class EqualSign(Token):
+    rx = "="
+
+
+class StringDQStart(_String):
+    rx = r'"'
+    def __init__(self, matchObj, state):
+        state.enter(StringDQParser)
+
+
+class StringSQStart(_String):
+    rx = r"'"
+    def __init__(self, matchObj, state):
+        state.enter(StringSQParser)
+    
+
+class StringEnd(_String, Leaver):
+    pass
+
+
+class StringDQEnd(StringEnd):
+    rx = r'"'
+    
+
+class StringSQEnd(StringEnd):
+    rx = r"'"
+
+
+class EntityRef(Token):
+    rx = r"\&(#\d+|#[xX][0-9A-Fa-f]+|[A-Za-z_:][\w.:_-]*);"
+
+# Parsers:
+
+class HTMLParser(Parser):
+    items = (
+        Space,
+        TagStart,
+        EntityRef,
+    )
+
+
+class AttrParser(Parser):
+    items = (
+        Space,
+        TagEnd,
+        AttrName,
+        EqualSign,
+        StringDQStart,
+        StringSQStart,
+    )
+
+
+class StringDQParser(StringParser):
+    items = (
+        StringDQEnd,
+        EntityRef,
+    )
+    
+
+class StringSQParser(StringParser):
+    items = (
+        StringSQEnd,
+        EntityRef,
+    )
+    
+
