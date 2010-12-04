@@ -81,6 +81,7 @@ class PreferencesDialog(QDialog):
             General,
             LilyPond,
             Shortcuts,
+            FontsColors,
                 ):
             self.pagelist.addItem(item())
         self.pagelist.setFixedWidth(self.pagelist.sizeHintForColumn(0) + 12)
@@ -166,6 +167,16 @@ class Shortcuts(PrefsItemBase):
         import shortcuts
         return shortcuts.Shortcuts(dlg)
         
+
+class FontsColors(PrefsItemBase):
+    def setup(self):
+        self.setText(_("Fonts & Colors"))
+        self.setIcon(icons.get("fill-color"))
+        
+    def widget(self, dlg):
+        import fontscolors
+        return fontscolors.FontsColors(dlg)
+
 
 class Page(QWidget):
     """Base class for settings pages."""
