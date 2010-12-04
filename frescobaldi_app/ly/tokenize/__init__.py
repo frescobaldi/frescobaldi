@@ -213,29 +213,66 @@ class Unparsed(Token):
         return obj
 
 
-class Space(Token): rx = r'\s+'
+# some base types that should be inherited:
+class Comment(Token): pass
+class String(Token): pass
 
+class Item(Token):
+    """A token that decreases the argument count of the current parser."""
+    def __init__(self, matchObj, state):
+        state.endArgument()
+
+class Increaser(Token):
+    """A token that increases the level of the current parser."""
+    def __init__(self, matchObj, state):
+        state.inc()
+        
+class Decreaser(Token):
+    """A token that decreases the level of the current parser."""
+    def __init__(self, matchObj, state):
+        state.dec()
+
+class Leaver(Token):
+    """A token that leaves the current parser."""
+    def __init__(self, matchObj, state):
+        state.leave()
+
+
+# some generic types:
+class Space(Token): rx = r'\s+'
+class Newline(Token): rx = r'\n'
+
+
+
+##
+# These tokens and the Guesser parser are only used for guessing the
+# type of input.  This can also be done earlier by looking at the whole
+# document text or filename extension and then manually start the state
+# with the correct parser.
 
 class HTML(Token):
     rx = r'(?=<(!DOCTYPE|HTML|html|\?xml))'
     def __init__(self, matchObj, state):
-        import html
         state.replace(html.HTMLParser)
         
 
 class Scheme(Token):
     rx = r'(?=(#!|;|\())'
     def __init__(self, matchObj, state):
-        import scheme
         state.replace(scheme.SchemeParser)
         
 
 class LilyPond(Token):
     rx = r'(?=(\\|\{|<<|[a-zA-Z]|#[^!]|%))'
     def __init__(self, matchObj, state):
-        import lilypond
         state.replace(lilypond.LilyPondParser)
     
+
+class LaTeX(Token):
+    rx = r'(?=(\\(documentclass|section)\b))'
+    def __init__(self, matchObj, state):
+        state.replace(latex.LaTeXParser)
+
 
 class Guesser(Parser):
     """A Parser that tries to guess the type of input.
@@ -247,6 +284,14 @@ class Guesser(Parser):
         HTML,
         Scheme,
         LilyPond,
+        LaTeX,
     )
 
+
+import docbook
+import html
+import latex
+import lilypond
+import scheme
+import texi
 
