@@ -28,14 +28,28 @@ from . import (
     Item,
     Leaver,
     Space,
-    String as _String,
-    Escape,
+    
+    CommentBase,
+    StringBase,
+    EscapeBase,
     Parser,
-    StringParser as _StringParser,
+    StringParserBase,
 )
 
 
+class BlockCommentStart(CommentBase):
+    rx = r"%{"
+    def __init__(self, matchObj, state):
+        state.enter(BlockCommentParser)
 
+
+class BlockCommentEnd(CommentBase, Leaver):
+    rx = r"%}"
+
+
+class LineComment(CommentBase):
+    rx = r"%.*$"
+    
 
 class Command(Token):
     rx = r"\\[a-zA-Z]+"
@@ -48,37 +62,47 @@ class Scheme(Token):
         state.enter(scheme.SchemeParser)
 
 
-class StringQuoted(_String, Item):
+class StringQuoted(StringBase, Item):
     rx = r'"(\\[\\"]|[^"\n\\]|\\(?![\\"]))*"'
     
 
-class StringQuotedStart(_String):
+class StringQuotedStart(StringBase):
     rx = r'"'
     def __init__(self, matchObj, state):
         state.enter(StringParser)
         
 
-class StringQuotedEnd(_String, Leaver):
+class StringQuotedEnd(StringBase, Leaver):
     rx = r'"'
     
 
-class StringQuoteEscape(_String, Escape):
+class StringQuoteEscape(StringBase, EscapeBase):
     rx = r'\\[\\"]'
 
 
 class LilyPondParser(Parser):
     items = (
         Space,
+        BlockCommentStart,
+        LineComment,
         Scheme,
         StringQuoted,
         StringQuotedStart,
         Command,
     )
     
-class StringParser(_StringParser):
+
+class StringParser(StringParserBase):
     argcount = 1
     items = (
         StringQuotedEnd,
         StringQuoteEscape,
     )
     
+
+class BlockCommentParser(Parser):
+    defaultClass = CommentBase
+    items = (
+        BlockCommentEnd,
+    )
+

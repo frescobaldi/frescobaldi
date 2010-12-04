@@ -30,6 +30,9 @@ from . import (
     Space,
     Increaser,
     Decreaser,
+    Leaver,
+    NumericBase,
+    CommentBase,
 )
 
 import lilypond
@@ -39,6 +42,17 @@ class Scheme(Token):
     """Baseclass for Scheme tokens."""
     pass
 
+
+class LineComment(CommentBase):
+    rx = r";.*$"
+    
+class BlockCommentStart(CommentBase):
+    rx = r"#!"
+    def __init__(self, matchObj, state):
+        state.enter(BlockCommentParser)
+        
+class BlockCommentEnd(CommentBase, Leaver):
+    rx = "!#"
 
 class OpenParen(Scheme, Increaser):
     rx = r"\("
@@ -50,7 +64,7 @@ class Quote(Token):
     rx = r"[',`]"
     
 class Bool(Item):
-    rx = r"#[bf]\b"
+    rx = r"#[tf]\b"
     
 class Char(Item):
     rx = r"#\\([a-z]+|.)"
@@ -58,6 +72,23 @@ class Char(Item):
 class Word(Item):
     rx = r'[^()"{}\s]+'
 
+class Number(Item, NumericBase):
+    rx = r"\d+|#(b[0-1]+|o[0-7]+|x[0-9a-fA-F]+)"
+    
+class Fraction(Number):
+    rx = r"\d+/\d+"
+
+class Float(Number):
+    rx = r"\d+E\d+|\d+\.\d*|\d*\.\d+"
+
+class LilyPondStart(Token): # TODO: which base(s)?
+    rx = r"#{"
+    def __init__(self, matchObj, state):
+        state.enter(LilyPondParser)
+        
+class LilyPondEnd(Leaver):
+    rx = r"#}"
+    
 
 class SchemeParser(Parser):
     argcount = 1
@@ -65,12 +96,28 @@ class SchemeParser(Parser):
         Space,
         OpenParen,
         CloseParen,
+        LineComment,
+        BlockCommentStart,
+        LilyPondStart,
         Bool,
         Char,
         Quote,
+        Fraction,
+        Float,
+        Number,
         Word,
         lilypond.StringQuoted,
         lilypond.StringQuotedStart,
     )
     
     
+class BlockCommentParser(Parser):
+    defaultClass = CommentBase
+    items = (
+        BlockCommentEnd,
+    )
+
+
+class LilyPondParser(lilypond.LilyPondParser):
+    items = (LilyPondEnd,) + lilypond.LilyPondParser.items
+

@@ -28,8 +28,8 @@ from . import (
     Token,
     Space,
     Leaver,
-    String as _String,
-    StringParser,
+    StringBase,
+    StringParserBase,
 )
 
 
@@ -52,19 +52,19 @@ class EqualSign(Token):
     rx = "="
 
 
-class StringDQStart(_String):
+class StringDQStart(StringBase):
     rx = r'"'
     def __init__(self, matchObj, state):
         state.enter(StringDQParser)
 
 
-class StringSQStart(_String):
+class StringSQStart(StringBase):
     rx = r"'"
     def __init__(self, matchObj, state):
         state.enter(StringSQParser)
     
 
-class StringEnd(_String, Leaver):
+class StringEnd(StringBase, Leaver):
     pass
 
 
@@ -100,14 +100,14 @@ class AttrParser(Parser):
     )
 
 
-class StringDQParser(StringParser):
+class StringDQParser(StringParserBase):
     items = (
         StringDQEnd,
         EntityRef,
     )
     
 
-class StringSQParser(StringParser):
+class StringSQParser(StringParserBase):
     items = (
         StringSQEnd,
         EntityRef,

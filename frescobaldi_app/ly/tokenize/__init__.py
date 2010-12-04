@@ -211,16 +211,11 @@ class Token(unicode):
         
         
 class Unparsed(Token):
-    """Represents an unparsed piece of LilyPond text."""
+    """Represents an unparsed piece of input text."""
     pass
 
 
-# some base types that should be inherited:
-class Comment(Token): pass
-class String(Token): pass
-class Escape(Token): pass
-
-
+# some token types with special behaviour:
 class Item(Token):
     """A token that decreases the argument count of the current parser."""
     def __init__(self, matchObj, state):
@@ -245,6 +240,13 @@ class Leaver(Token):
 # some generic types:
 class Space(Token): rx = r'\s+'
 class Newline(Token): rx = r'\n'
+
+
+# some base types that should be inherited:
+class CommentBase(Token): pass
+class StringBase(Token): pass
+class EscapeBase(Token): pass
+class NumericBase(Token): pass
 
 
 # Parsers:
@@ -275,9 +277,9 @@ class Parser(object):
         return obj
     
 
-class StringParser(Parser):
+class StringParserBase(Parser):
     """A Base class for parsers that parse quoted strings."""
-    defaultClass = String
+    defaultClass = StringBase
 
 
 

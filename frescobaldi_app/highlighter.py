@@ -52,10 +52,15 @@ class Highlighter(QSyntaxHighlighter):
                 setFormat(command)
             elif isinstance(token, ly.tokenize.html.EntityRef):
                 setFormat(command)
-            elif isinstance(token, ly.tokenize.Escape):
+            elif isinstance(token, ly.tokenize.EscapeBase):
                 setFormat(escape)
-            elif isinstance(token, ly.tokenize.String):
+            elif isinstance(token, ly.tokenize.StringBase):
                 setFormat(string)
+            elif isinstance(token, ly.tokenize.NumericBase):
+                setFormat(value)
+            elif isinstance(token, ly.tokenize.CommentBase):
+                setFormat(comment)
+                
                 
         cur = state.freeze()
         try:
@@ -75,3 +80,10 @@ string.setForeground(QBrush(QColor(172, 0, 0)))
 escape = QTextCharFormat()
 escape.setFontWeight(QFont.Bold)
 escape.setForeground(QBrush(QColor(255, 60, 60)))
+
+value = QTextCharFormat()
+value.setForeground(QBrush(QColor(220, 176, 57)))
+
+comment = QTextCharFormat()
+comment.setFontItalic(True)
+comment.setForeground(QBrush(QColor(170, 170, 170)))
