@@ -35,5 +35,6 @@ Dependencies:
 =============
 
 Frescobaldi 2.0 depends on Qt4.7 and PyQt4.8, and uses the python-poppler-qt4
-for the PDF preview.
+package[1] for the built-in PDF preview.
 
+[1] http://python-poppler-qt4.googlecode.com/

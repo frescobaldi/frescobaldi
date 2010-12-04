@@ -23,7 +23,7 @@ from __future__ import unicode_literals
 Parses and tokenizes LilyPond input.
 
 Also supports LilyPond embedded in HTML, LaTeX, DocBook and Scheme embedded in
-Lilypond (and vice versa).
+LilyPond (and vice versa).
 """
 
 
@@ -44,7 +44,7 @@ def tokens(text, state=None, pos=0):
     
     """
     if state is None:
-        state = State()
+        state = guessState(text)
     m = state.parser().parse(text, pos)
     while m:
         if pos < m.start():
@@ -59,20 +59,20 @@ def tokens(text, state=None, pos=0):
 def makePattern(*classes):
     """Builds a regular expression to parse a text for the given token classes.
     
-    Expects a list of classes representing LilyPond input atoms. Returns
+    Expects a list of classes representing LilyPond input atoms. Returns a
     compiled regular expression with named groups, to match input of the listed
     types. Reads the rx class attribute of the given classes.
     
     """
-    rx = []
-    for cls in classes:
-        try:
-            index = _classlist.index(cls)
-        except ValueError:
-            index = len(_classlist)
-            _classlist.append(cls)
-        rx.append("(?P<g{0}>{1})".format(index, cls.rx))
-    return re.compile("|".join(rx))
+    def patterns():
+        for cls in classes:
+            try:
+                index = _classlist.index(cls)
+            except ValueError:
+                index = len(_classlist)
+                _classlist.append(cls)
+            yield "(?P<g{0}>{1})".format(index, cls.rx)
+    return re.compile("|".join(patterns()))
 
 
 class State(object):
@@ -82,8 +82,8 @@ class State(object):
     generator to tokenize a text string of LilyPond input.
     
     """
-    def __init__(self, initialParserClass=None):
-        self.state = [(initialParserClass or Guesser)()]
+    def __init__(self, initialParserClass):
+        self.state = [initialParserClass()]
         self.language = 'nederlands' # LilyPond pitch name language
     
     def freeze(self):
@@ -244,48 +244,29 @@ class Newline(Token): rx = r'\n'
 
 
 
-##
-# These tokens and the Guesser parser are only used for guessing the
-# type of input.  This can also be done earlier by looking at the whole
-# document text or filename extension and then manually start the state
-# with the correct parser.
 
-class HTML(Token):
-    rx = r'(?=<(!DOCTYPE|HTML|html|\?xml))'
-    def __init__(self, matchObj, state):
-        state.replace(html.HTMLParser)
-        
-
-class Scheme(Token):
-    rx = r'(?=(#!|;|\())'
-    def __init__(self, matchObj, state):
-        state.replace(scheme.SchemeParser)
-        
-
-class LilyPond(Token):
-    rx = r'(?=(\\|\{|<<|[a-zA-Z]|#[^!]|%))'
-    def __init__(self, matchObj, state):
-        state.replace(lilypond.LilyPondParser)
+def guessState(text):
+    """Tries to guess the type of the input text.
     
-
-class LaTeX(Token):
-    rx = r'(?=(\\(documentclass|section)\b))'
-    def __init__(self, matchObj, state):
-        state.replace(latex.LaTeXParser)
-
-
-class Guesser(Parser):
-    """A Parser that tries to guess the type of input.
-    
-    Then enters the correct parser, which will never return.
+    Returns the state class that can be used to parse it.
     
     """
-    pattern = makePattern(
-        HTML,
-        Scheme,
-        LilyPond,
-        LaTeX,
-    )
+    text = text.lstrip()
+    if text.startswith(('%', '\\')) and "\\documentclass" in text or "\\section" in text:
+        return latex.LaTeXParser
+    elif text.startswith("<<"):
+        return lilypond.LilyPondParser
+    elif text.startswith("<"):
+        if 'DOCTYPE book' in text or "<programlisting" in text:
+            return docbook.DocBookParser
+        else:
+            return html.HTMLParser
+    elif text.startswith(("#!", ";", "(")):
+        return scheme.SchemeParser
+    elif text.startswith('@'):
+        return texi.TexinfoParser
+    else:
+        return lilypond.LilyPondParser
 
 
 import docbook
