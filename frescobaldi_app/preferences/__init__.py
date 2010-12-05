@@ -23,8 +23,10 @@ from __future__ import unicode_literals
 The Preferences Dialog.
 """
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QSettings, QSize
+from PyQt4.QtGui import (
+    QDialog, QDialogButtonBox, QHBoxLayout, QListWidget, QListWidgetItem,
+    QStackedWidget, QVBoxLayout, QWidget)
 
 
 from .. import (
@@ -197,4 +199,3 @@ class Page(QWidget):
     
     
     
-        
