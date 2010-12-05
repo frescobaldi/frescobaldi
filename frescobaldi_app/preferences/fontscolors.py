@@ -33,7 +33,9 @@ from .. import (
     preferences,
 )
 
+from ..widgets import ClearButton
 from ..widgets.schemeselector import SchemeSelector
+from ..widgets.colorbutton import ColorButton
 
 
 class FontsColors(preferences.Page):
@@ -94,8 +96,7 @@ class BaseColors(QGroupBox):
             grid.addWidget(l, row, 0)
             grid.addWidget(c, row, 1)
         
-        app.languageChanged.connect(self.translateUI)
-        self.translateUI()
+        app.translateUI(self)
         
     def translateUI(self):
         self.setTitle(_("Base Colors"))
@@ -116,32 +117,58 @@ class CustomAttributes(QGroupBox):
     def __init__(self, parent=None):
         super(CustomAttributes, self).__init__(parent)
         grid = QGridLayout()
+        self.setLayout(grid)
         
-        l = self.inheritsLabel = QLabel()
-        c = self.inheritsCombo = QComboBox()
-        l.setBuddy(c)
-        row = grid.rowCount()
-        grid.addWidget(l, row, 0)
-        grid.addWidget(c, row, 1)
-        c.addItems([''] * (len(defaultStyles()) + 1))
+        self.toplabel = QLabel()
+        grid.addWidget(self.toplabel, 0, 0, 1, 3)
+        
+        self.textColor = ColorButton()
+        l = self.textLabel = QLabel()
+        l.setBuddy(self.textColor)
+        grid.addWidget(l, 1, 0)
+        grid.addWidget(self.textColor, 1, 1)
+        c = ClearButton()
+        c.clicked.connect(self.textColor.clear)
+        grid.addWidget(c, 1, 2)
+        
+        self.backgroundColor = ColorButton()
+        l = self.backgroundLabel = QLabel()
+        l.setBuddy(self.backgroundColor)
+        grid.addWidget(l, 2, 0)
+        grid.addWidget(self.backgroundColor, 2, 1)
+        c = ClearButton()
+        c.clicked.connect(self.backgroundColor.clear)
+        grid.addWidget(c, 2, 2)
+        
+        self.bold = QCheckBox()
+        self.italic = QCheckBox()
+        self.underline = QCheckBox()
+        grid.addWidget(self.bold, 3, 0)
+        grid.addWidget(self.italic, 4, 0)
+        grid.addWidget(self.underline, 5, 0)
+        
+        self.underlineColor = ColorButton()
+        grid.addWidget(self.underlineColor, 5, 1)
+        c = ClearButton()
+        c.clicked.connect(self.underlineColor.clear)
+        grid.addWidget(c, 5, 2)
         
         
-        app.languageChanged.connect(self.translateUI)
-        self.translateUI()
+        app.translateUI(self)
         
     def translateUI(self):
-        self.inheritsLabel.setText(_("Inherits:"))
-        styles = defaultStyles()
-        for index, (name, title) in enumerate(styles):
-            self.inheritsCombo.setItemText(index, title)
-        self.inheritsCombo.setItemText(len(styles), _("Custom:"))
-
-
-
+        self.textLabel.setText(_("Text"))
+        self.backgroundLabel.setText(_("Background"))
+        self.bold.setText(_("Bold"))
+        self.italic.setText(_("Italic"))
+        self.underline.setText(_("Underline"))
+        
+        
 
 def defaultStyles():
     return (
         ('keyword', _("Keyword")),
+        ('function', _("Function")),
         ('variable', _("Variable")),
         ('value', _("Value")),
         ('string', _("String")),

@@ -36,6 +36,10 @@ from .. import (
     icons,
 )
 
+
+from . import ClearButton
+
+
 class KeySequenceWidget(QWidget):
 
     keySequenceChanged = pyqtSignal()
@@ -49,14 +53,12 @@ class KeySequenceWidget(QWidget):
         self.setLayout(layout)
         
         self.button = KeySequenceButton(self)
-        self.clearButton = QToolButton(self)
-        self.clearButton.setIcon(icons.get("edit-clear-locationbar-rtl"))
+        self.clearButton = ClearButton(self)
         layout.addWidget(self.button)
         layout.addWidget(self.clearButton)
         
         self.clearButton.clicked.connect(self.clear)
-        app.languageChanged.connect(self.translateUI)
-        self.translateUI()
+        app.translateUI(self)
         
     def translateUI(self):
         self.button.setToolTip(_("Start recording a key sequence."))

@@ -24,8 +24,8 @@ A button to select a color.
 """
 
 
-from PyQt4.QtCore import pyqtSignal
-from PyQt4.QtGui import QColor, QColorDialog, QPalette, QPushButton
+from PyQt4.QtCore import Qt, pyqtSignal
+from PyQt4.QtGui import QApplication, QColor, QColorDialog, QPalette, QPushButton
 
 
 from .. import (
@@ -41,8 +41,7 @@ class ColorButton(QPushButton):
         super(ColorButton, self).__init__(parent)
         
         self.setFixedSize(self.sizeHint())
-        app.languageChanged.connect(self.translateUI)
-        self.translateUI()
+        app.translateUI(self)
         self._color = QColor()
         self.clicked.connect(self.openDialog)
     
@@ -54,12 +53,17 @@ class ColorButton(QPushButton):
     
     def setColor(self, color):
         self._color = color
-        p = self.palette()
-        p.setColor(QPalette.Button, color)
+        p = QApplication.palette()
+        if color.isValid():
+            p.setColor(QPalette.Button, color)
         self.setPalette(p)
 
+    def clear(self):
+        self.setColor(QColor())
+        
     def openDialog(self):
-        color = QColorDialog.getColor(self._color, self)
+        color = self._color if self._color.isValid() else QColor(Qt.white)
+        color = QColorDialog.getColor(color, self)
         if color.isValid():
             self.setColor(color)
             self.colorChanged.emit()

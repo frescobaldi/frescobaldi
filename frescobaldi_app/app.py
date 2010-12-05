@@ -100,6 +100,17 @@ def quit():
         if not window.close():
             break
 
+def translateUI(obj):
+    """Translates texts in the object.
+    
+    Texts are translated again if the language is changed.
+    The object must have a translateUI() method.  It is
+    also called by this function.
+    
+    """
+    languageChanged.connect(obj.translateUI)
+    obj.translateUI()
+
 def startSession(name):
     """Switches to the given session."""
     

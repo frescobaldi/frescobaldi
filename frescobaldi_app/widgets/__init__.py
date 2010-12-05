@@ -21,11 +21,16 @@ from __future__ import unicode_literals
 
 """
 All kinds of more or less generally usable widgets.
+
+Some very simple ones are in this file, others in their own files.
 """
 
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QFrame
+from PyQt4.QtCore import QSize, Qt
+from PyQt4.QtGui import QFrame, QToolButton
 
+from .. import (
+    icons,
+)
 
 
 class Separator(QFrame):
@@ -48,4 +53,10 @@ class Separator(QFrame):
         
     def orientation(self):
         return Qt.Vertical if self.frameStyle() & QFrame.VLine == QFrame.VLine else Qt.Horizontal
+
+
+class ClearButton(QToolButton):
+    def __init__(self, *args, **kwargs):
+        QToolButton.__init__(self, *args, **kwargs)
+        self.setIcon(icons.get("edit-clear-locationbar-rtl"))
 

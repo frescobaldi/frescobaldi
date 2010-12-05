@@ -50,8 +50,8 @@ class SchemeSelector(QWidget):
         self.label = QLabel(_("Scheme:"))
         self.scheme = QComboBox()
         self.label.setBuddy(self.scheme)
-        self.add = QPushButton(icons.get('list-add'), _("&New..."))
-        self.remove = QPushButton(icons.get('list-remove'), _("&Remove"))
+        self.add = QPushButton(icons.get('list-add'), '')
+        self.remove = QPushButton(icons.get('list-remove'), '')
         layout.addWidget(self.label)
         layout.addWidget(self.scheme)
         layout.addWidget(self.add)
@@ -59,9 +59,12 @@ class SchemeSelector(QWidget):
         self.scheme.currentIndexChanged.connect(self.slotSchemeChanged)
         self.add.clicked.connect(self.addClicked)
         self.remove.clicked.connect(self.removeClicked)
-
-    def setLabelText(self, text):
-        self.label.setText(text)
+        app.translateUI(self)
+        
+    def translateUI(self):
+        self.label.setText(_("Scheme:"))
+        self.add.setText(_("&New..."))
+        self.remove.setText(_("&Remove"))
         
     def slotSchemeChanged(self, index):
         """Called when the Scheme combobox is changed by the user."""
