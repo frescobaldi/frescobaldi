@@ -119,6 +119,7 @@ def filetypes(extension=None):
             ("{0} (*.tex *.lytex)",    _("LaTeX Files")),
             ("{0} (*.docbook)",        _("DocBook Files")),
             ("{0} (*.html)",           _("HTML Files")),
+            ("{0} (*.scm)",            _("Scheme Files")),
             ("{0} (*)",                _("All Files")),
             ):
         if extension and extension in patterns:
