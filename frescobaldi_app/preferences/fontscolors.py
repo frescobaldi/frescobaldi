@@ -59,10 +59,94 @@ class FontsColors(preferences.Page):
         
         self.fontButton = QPushButton(_("Change Font..."))
         layout.addWidget(self.fontButton)
-        
+    
+    
     def loadSettings(self):
         self.scheme.loadSettings("editor_scheme", "editor_schemes")
         
     def saveSettings(self):
         self.scheme.saveSettings("editor_scheme", "editor_schemes", "fontscolor")
         
+
+class BaseColors(QGroupBox):
+    def __init__(self, parent=None):
+        super(BaseColors, self).__init__(parent)
+        
+        grid = QGridLayout()
+        self.setLayout(grid)
+        
+        self.color = {}
+        self.labels = {}
+        for name in (
+            'text',
+            'background',
+            'selectiontext',
+            'selectionbackground',
+            'current',
+            'mark',
+            'error',
+            'search',
+                ):
+            c = self.color[name] = ColorButton(self)
+            l = self.labels[name] = QLabel()
+            l.setBuddy(c)
+            row = grid.rowCount()
+            grid.addWidget(l, row, 0)
+            grid.addWidget(c, row, 1)
+        
+        app.languageChanged.connect(self.translateUI)
+        self.translateUI()
+        
+    def translateUI(self):
+        self.setTitle(_("Base Colors"))
+        for name, title in (
+            ('text', _("Text")),
+            ('background', _("Background")),
+            ('selectiontext', _("Selected Text")),
+            ('selectionbackground', _("Selection Background")),
+            ('current', _("Current Line")),
+            ('mark', _("Marked Line")),
+            ('error', _("Error Line")),
+            ('search', _("Search Result")),
+            ):
+            self.labels[name].setText(title)
+
+
+class CustomAttributes(QGroupBox):
+    def __init__(self, parent=None):
+        super(CustomAttributes, self).__init__(parent)
+        grid = QGridLayout()
+        
+        l = self.inheritsLabel = QLabel()
+        c = self.inheritsCombo = QComboBox()
+        l.setBuddy(c)
+        row = grid.rowCount()
+        grid.addWidget(l, row, 0)
+        grid.addWidget(c, row, 1)
+        c.addItems([''] * (len(defaultStyles()) + 1))
+        
+        
+        app.languageChanged.connect(self.translateUI)
+        self.translateUI()
+        
+    def translateUI(self):
+        self.inheritsLabel.setText(_("Inherits:"))
+        styles = defaultStyles()
+        for index, (name, title) in enumerate(styles):
+            self.inheritsCombo.setItemText(index, title)
+        self.inheritsCombo.setItemText(len(styles), _("Custom:"))
+
+
+
+
+def defaultStyles():
+    return (
+        ('keyword', _("Keyword")),
+        ('variable', _("Variable")),
+        ('value', _("Value")),
+        ('string', _("String")),
+        ('escape', _("Escape")), # TODO: better translatable name
+        ('comment', _("Comment")),
+        ('error', _("Error")),
+    )
+
