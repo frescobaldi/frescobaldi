@@ -60,6 +60,7 @@ class ColorButton(QPushButton):
 
     def clear(self):
         self.setColor(QColor())
+        self.colorChanged.emit()
         
     def openDialog(self):
         color = self._color if self._color.isValid() else QColor(Qt.white)

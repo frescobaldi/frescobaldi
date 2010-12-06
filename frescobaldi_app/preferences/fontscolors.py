@@ -97,6 +97,7 @@ class FontsColors(preferences.Page):
         self.tree.currentItemChanged.connect(self.currentItemChanged)
         self.tree.setCurrentItem(self.baseColorsItem)
         self.scheme.currentChanged.connect(self.currentSchemeChanged)
+        self.scheme.changed.connect(self.changed)
         self.baseColorsWidget.changed.connect(self.baseColorsChanged)
         app.translateUI(self)
         
@@ -136,13 +137,22 @@ class FontsColors(preferences.Page):
         # update base colors
         for name in baseColors:
             self.baseColorsWidget.color[name].setColor(data.baseColors[name])
-
-    def baseColorsChanged(self):
+        # update base colors for whole treewidget
+        p = QApplication.palette()
+        p.setColor(QPalette.Base, data.baseColors['background'])
+        p.setColor(QPalette.Text, data.baseColors['text'])
+        p.setColor(QPalette.Highlight, data.baseColors['selectionbackground'])
+        p.setColor(QPalette.HighlightedText, data.baseColors['selectiontext'])
+        self.tree.setPalette(p)
+        
+        
+    def baseColorsChanged(self, name):
         # keep data up to date with base colors
         data = self.data[self.scheme.currentScheme()]
-        for name in baseColors:
-            data.baseColors[name] = self.baseColorsWidget.color[name].color()
-    
+        data.baseColors[name] = self.baseColorsWidget.color[name].color()
+        self.updateDisplay()
+        self.changed()
+        
     def loadSettings(self):
         self.data = {} # holds all data with scheme as key
         self.scheme.loadSettings("editor_scheme", "editor_schemes")
@@ -155,7 +165,7 @@ class FontsColors(preferences.Page):
 
 class BaseColors(QGroupBox):
     
-    changed = pyqtSignal()
+    changed = pyqtSignal(unicode)
     
     def __init__(self, parent=None):
         super(BaseColors, self).__init__(parent)
@@ -167,7 +177,7 @@ class BaseColors(QGroupBox):
         self.labels = {}
         for name in baseColors:
             c = self.color[name] = ColorButton(self)
-            c.colorChanged.connect(self.changed)
+            c.colorChanged.connect((lambda name: lambda: self.changed.emit(name))(name))
             l = self.labels[name] = QLabel()
             l.setBuddy(c)
             row = grid.rowCount()
@@ -181,12 +191,12 @@ class BaseColors(QGroupBox):
         self.setTitle(_("Base Colors"))
         for name in baseColors:
             self.labels[name].setText(baseColorNames[name]())
-    
-    def __del__(self):
-        print "Bye!"
         
 
 class CustomAttributes(QGroupBox):
+    
+    changed = pyqtSignal()
+    
     def __init__(self, parent=None):
         super(CustomAttributes, self).__init__(parent)
         grid = QGridLayout()
@@ -226,6 +236,13 @@ class CustomAttributes(QGroupBox):
         c.clicked.connect(self.underlineColor.clear)
         grid.addWidget(c, 5, 2)
         grid.setRowStretch(6, 2)
+        
+        self.textColor.colorChanged.connect(self.changed)
+        self.backgroundColor.colorChanged.connect(self.changed)
+        self.underlineColor.colorChanged.connect(self.changed)
+        self.bold.stateChanged.connect(self.changed)
+        self.italic.stateChanged.connect(self.changed)
+        self.underline.stateChanged.connect(self.changed)
         
         app.translateUI(self)
         
