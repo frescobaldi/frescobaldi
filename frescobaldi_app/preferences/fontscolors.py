@@ -187,6 +187,7 @@ class FontsColors(preferences.Page):
         else:
             pass # a custum style has been changed
         self.updateDisplay()
+        self.changed()
         
     def loadSettings(self):
         self.data = {} # holds all data with scheme as key
