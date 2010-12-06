@@ -52,7 +52,7 @@ class FontsColors(preferences.Page):
         hbox = QHBoxLayout()
         self.tree = QTreeWidget(self)
         self.tree.setHeaderHidden(True)
-        self.tree.setRootIsDecorated(False)
+        #self.tree.setRootIsDecorated(False)
         self.tree.setAnimated(True)
         self.stack = QStackedWidget(self)
         hbox.addWidget(self.tree)
@@ -61,7 +61,53 @@ class FontsColors(preferences.Page):
         
         self.fontButton = QPushButton(_("Change Font..."))
         layout.addWidget(self.fontButton)
-    
+        
+        # add the items to our list
+        self.baseColorsItem = i = QTreeWidgetItem()
+        self.tree.addTopLevelItem(i)
+        self.defaultStylesItem = i = QTreeWidgetItem()
+        self.tree.addTopLevelItem(i)
+        
+        self.defaultStyles = {}
+        for name, title in defaultStyles():
+            self.defaultStyles[name] = i = QTreeWidgetItem()
+            self.defaultStylesItem.addChild(i)
+            i.name = name
+        self.defaultStylesItem.setExpanded(True)
+        
+        self.allStyles = {}
+        for group, title, styles in allStyles():
+            self.allStyles[group] = i = QTreeWidgetItem()
+            self.tree.addTopLevelItem(i)
+            i.group = group
+            i.setText(0, title) # TEMP
+            for name, title in styles:
+                j = QTreeWidgetItem()
+                j.name = name
+                j.setText(0, title) # TEMP
+                i.addChild(j)
+        
+        self.baseColorsWidget = BaseColors(self)
+        self.customAttributesWidget = CustomAttributes(self)
+        self.stack.addWidget(self.baseColorsWidget)
+        self.stack.addWidget(self.customAttributesWidget)
+        
+        self.tree.currentItemChanged.connect(self.currentItemChanged)
+        self.currentItemChanged(self.baseColorsItem)
+        app.translateUI(self)
+        
+    def translateUI(self):
+        self.baseColorsItem.setText(0, _("Base Colors"))
+        self.defaultStylesItem.setText(0, _("Default Styles"))
+        for name, title in defaultStyles():
+            self.defaultStyles[name].setText(0, title)
+            
+    def currentItemChanged(self, item):
+        if item is self.baseColorsItem:
+            self.stack.setCurrentWidget(self.baseColorsWidget)
+        else:
+            self.stack.setCurrentWidget(self.customAttributesWidget)
+            
     
     def loadSettings(self):
         self.scheme.loadSettings("editor_scheme", "editor_schemes")
@@ -96,6 +142,7 @@ class BaseColors(QGroupBox):
             grid.addWidget(l, row, 0)
             grid.addWidget(c, row, 1)
         
+        grid.setRowStretch(grid.rowCount(), 2)
         app.translateUI(self)
         
     def translateUI(self):
@@ -152,7 +199,7 @@ class CustomAttributes(QGroupBox):
         c = ClearButton()
         c.clicked.connect(self.underlineColor.clear)
         grid.addWidget(c, 5, 2)
-        
+        grid.setRowStretch(6, 2)
         
         app.translateUI(self)
         
@@ -177,3 +224,28 @@ def defaultStyles():
         ('error', _("Error")),
     )
 
+
+def allStyles():
+    return (
+        ('lilypond', _("LilyPond"), (
+            ('pitch', _("Pitch")),
+            ('duration', _("Duration")),
+            ('slur', _("Slur")),
+            ('dynamic', _("Dynamic")),
+            ('articulation', _("Articulation")),
+            ('chord', _("Chord")),
+            ('beam', _("Beam")),
+            ('check', _("Check")),
+            ('repeat', _("Repeat")),
+            ('keyword', _("Keyword")),
+            ('command', _("Command")),
+            ('usercommand', _("User Command")),
+            ('context', _("Context")),
+            ('grob', _("Layout Object")),
+            ('property', _("Property")),
+        )),
+    )
+
+
+            
+        
