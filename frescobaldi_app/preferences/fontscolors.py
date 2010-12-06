@@ -68,7 +68,7 @@ class FontsColors(preferences.Page):
         self.tree.addTopLevelItem(i)
         
         self.defaultStyles = {}
-        for name, title in defaultStyles():
+        for name in defaultStyles:
             self.defaultStyles[name] = i = QTreeWidgetItem()
             self.defaultStylesItem.addChild(i)
             i.name = name
@@ -99,13 +99,15 @@ class FontsColors(preferences.Page):
         self.scheme.currentChanged.connect(self.currentSchemeChanged)
         self.scheme.changed.connect(self.changed)
         self.baseColorsWidget.changed.connect(self.baseColorsChanged)
+        self.customAttributesWidget.changed.connect(self.customAttributesChanged)
+        
         app.translateUI(self)
         
     def translateUI(self):
         self.baseColorsItem.setText(0, _("Base Colors"))
         self.defaultStylesItem.setText(0, _("Default Styles"))
-        for name, title in defaultStyles():
-            self.defaultStyles[name].setText(0, title)
+        for name in defaultStyles:
+            self.defaultStyles[name].setText(0, defaultStyleNames[name]())
         for group, title, styles in allStyles():
             self.allStyles[group][0].setText(0, title)
             for name, title in styles:
@@ -152,6 +154,17 @@ class FontsColors(preferences.Page):
         data.baseColors[name] = self.baseColorsWidget.color[name].color()
         self.updateDisplay()
         self.changed()
+    
+    def customAttributesChanged(self):
+        item = self.tree.currentItem()
+        if not item or not item.parent():
+            return
+        data = self.data[self.scheme.currentScheme()]
+        if item.parent() is self.defaultStylesItem:
+            pass # a default style has been changed
+        else:
+            pass # a custum style has been changed
+        self.updateDisplay()
         
     def loadSettings(self):
         self.data = {} # holds all data with scheme as key
@@ -260,6 +273,7 @@ class Data(object):
     def __init__(self, scheme):
         """Loads the data from scheme."""
         self.baseColors = {}
+        self.defaultStyles = {}
         self.load(scheme)
         
     def load(self, scheme):
@@ -269,7 +283,8 @@ class Data(object):
         # load base colors
         for name in baseColors:
             self.baseColors[name] = s.value("basecolors/"+name, baseColorsDefaults[name]())
-    
+        # load default styles
+            
     def save(self, scheme):
         s = QSettings()
         s.beginGroup("fontscolors/" + scheme)
@@ -317,17 +332,27 @@ baseColorsDefaults = dict(
 
 
 
-def defaultStyles():
-    return (
-        ('keyword', _("Keyword")),
-        ('function', _("Function")),
-        ('variable', _("Variable")),
-        ('value', _("Value")),
-        ('string', _("String")),
-        ('escape', _("Escape")), # TODO: better translatable name
-        ('comment', _("Comment")),
-        ('error', _("Error")),
-    )
+defaultStyles = (
+    'keyword',
+    'function',
+    'variable',
+    'value',
+    'string',
+    'escape',
+    'comment',
+    'error',
+)
+
+defaultStyleNames = dict(
+    keyword =   lambda: _("Keyword"),
+    function =  lambda: _("Function"),
+    variable =  lambda: _("Variable"),
+    value =     lambda: _("Value"),
+    string =    lambda: _("String"),
+    escape =    lambda: _("Escape"), # TODO: better translatable name
+    comment =   lambda: _("Comment"),
+    error =     lambda: _("Error"),
+)
 
 
 def allStyles():
