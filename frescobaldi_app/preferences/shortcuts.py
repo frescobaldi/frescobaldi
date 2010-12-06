@@ -73,7 +73,7 @@ class Shortcuts(preferences.Page):
         
         # make a dict of all actions with the actions as key and the names as
         # value, with the collection prepended (for loading/saving)
-        win = dialog.mainwindow
+        win = dialog.parent()
         allactions = {}
         for collection in (
                 win.actionCollection,

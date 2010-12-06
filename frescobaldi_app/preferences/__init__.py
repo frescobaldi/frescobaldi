@@ -43,7 +43,6 @@ class PreferencesDialog(QDialog):
     
     def __init__(self, mainwindow):
         super(PreferencesDialog, self).__init__(mainwindow)
-        self.mainwindow = mainwindow
         
         self.setWindowTitle(app.caption(_("Preferences")))
         layout = QVBoxLayout()
@@ -184,12 +183,11 @@ class Page(QWidget):
     """Base class for settings pages."""
     def __init__(self, dialog):
         QWidget.__init__(self)
-        self.dialog = dialog
         dialog.pages.append(self)
     
     def changed(self):
         """Call this to enable the Apply button in the dialog."""
-        self.dialog.changed()
+        self.window().changed()
         
     def loadSettings(self):
         """Should load settings from config into our widget."""

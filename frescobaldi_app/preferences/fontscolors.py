@@ -52,7 +52,6 @@ class FontsColors(preferences.Page):
         hbox = QHBoxLayout()
         self.tree = QTreeWidget(self)
         self.tree.setHeaderHidden(True)
-        #self.tree.setRootIsDecorated(False)
         self.tree.setAnimated(True)
         self.stack = QStackedWidget(self)
         hbox.addWidget(self.tree)
@@ -77,23 +76,28 @@ class FontsColors(preferences.Page):
         
         self.allStyles = {}
         for group, title, styles in allStyles():
-            self.allStyles[group] = i = QTreeWidgetItem()
+            i = QTreeWidgetItem()
+            children = {}
+            self.allStyles[group] = (i, children)
             self.tree.addTopLevelItem(i)
             i.group = group
-            i.setText(0, title) # TEMP
             for name, title in styles:
                 j = QTreeWidgetItem()
                 j.name = name
-                j.setText(0, title) # TEMP
                 i.addChild(j)
+                children[name] = j
         
         self.baseColorsWidget = BaseColors(self)
         self.customAttributesWidget = CustomAttributes(self)
+        self.emptyWidget = QWidget(self)
         self.stack.addWidget(self.baseColorsWidget)
         self.stack.addWidget(self.customAttributesWidget)
+        self.stack.addWidget(self.emptyWidget)
         
         self.tree.currentItemChanged.connect(self.currentItemChanged)
-        self.currentItemChanged(self.baseColorsItem)
+        self.tree.setCurrentItem(self.baseColorsItem)
+        self.scheme.currentChanged.connect(self.currentSchemeChanged)
+        self.baseColorsWidget.changed.connect(self.baseColorsChanged)
         app.translateUI(self)
         
     def translateUI(self):
@@ -101,22 +105,58 @@ class FontsColors(preferences.Page):
         self.defaultStylesItem.setText(0, _("Default Styles"))
         for name, title in defaultStyles():
             self.defaultStyles[name].setText(0, title)
+        for group, title, styles in allStyles():
+            self.allStyles[group][0].setText(0, title)
+            for name, title in styles:
+                self.allStyles[group][1][name].setText(0, title)
             
-    def currentItemChanged(self, item):
+    def currentItemChanged(self, item, previous):
         if item is self.baseColorsItem:
             self.stack.setCurrentWidget(self.baseColorsWidget)
+        elif not item.parent():
+            self.stack.setCurrentWidget(self.emptyWidget)
         else:
-            self.stack.setCurrentWidget(self.customAttributesWidget)
-            
+            w = self.customAttributesWidget
+            self.stack.setCurrentWidget(w)
+            if item.parent() is self.defaultStylesItem:
+                # default style
+                w.setTitle(item.text(0))
+            else:
+                # specific style of specific group
+                w.setTitle("{0}: {1}".format(item.parent().text(0), item.text(0)))
+                
+    def currentSchemeChanged(self):
+        scheme = self.scheme.currentScheme()
+        if scheme not in self.data:
+            self.data[scheme] = Data(scheme)
+        self.updateDisplay()
+        
+    def updateDisplay(self):
+        data = self.data[self.scheme.currentScheme()]
+        # update base colors
+        for name in baseColors:
+            self.baseColorsWidget.color[name].setColor(data.baseColors[name])
+
+    def baseColorsChanged(self):
+        # keep data up to date with base colors
+        data = self.data[self.scheme.currentScheme()]
+        for name in baseColors:
+            data.baseColors[name] = self.baseColorsWidget.color[name].color()
     
     def loadSettings(self):
+        self.data = {} # holds all data with scheme as key
         self.scheme.loadSettings("editor_scheme", "editor_schemes")
         
     def saveSettings(self):
-        self.scheme.saveSettings("editor_scheme", "editor_schemes", "fontscolor")
-        
+        self.scheme.saveSettings("editor_scheme", "editor_schemes", "fontscolors")
+        for scheme in self.data:
+            self.data[scheme].save(scheme)
+
 
 class BaseColors(QGroupBox):
+    
+    changed = pyqtSignal()
+    
     def __init__(self, parent=None):
         super(BaseColors, self).__init__(parent)
         
@@ -125,17 +165,9 @@ class BaseColors(QGroupBox):
         
         self.color = {}
         self.labels = {}
-        for name in (
-            'text',
-            'background',
-            'selectiontext',
-            'selectionbackground',
-            'current',
-            'mark',
-            'error',
-            'search',
-                ):
+        for name in baseColors:
             c = self.color[name] = ColorButton(self)
+            c.colorChanged.connect(self.changed)
             l = self.labels[name] = QLabel()
             l.setBuddy(c)
             row = grid.rowCount()
@@ -147,18 +179,12 @@ class BaseColors(QGroupBox):
         
     def translateUI(self):
         self.setTitle(_("Base Colors"))
-        for name, title in (
-            ('text', _("Text")),
-            ('background', _("Background")),
-            ('selectiontext', _("Selected Text")),
-            ('selectionbackground', _("Selection Background")),
-            ('current', _("Current Line")),
-            ('mark', _("Marked Line")),
-            ('error', _("Error Line")),
-            ('search', _("Search Result")),
-            ):
-            self.labels[name].setText(title)
-
+        for name in baseColors:
+            self.labels[name].setText(baseColorNames[name]())
+    
+    def __del__(self):
+        print "Bye!"
+        
 
 class CustomAttributes(QGroupBox):
     def __init__(self, parent=None):
@@ -211,6 +237,68 @@ class CustomAttributes(QGroupBox):
         self.underline.setText(_("Underline"))
         
         
+    
+class Data(object):
+    """Encapsulates all settings in the Fonts & Colors page for a scheme."""
+    def __init__(self, scheme):
+        """Loads the data from scheme."""
+        self.baseColors = {}
+        self.load(scheme)
+        
+    def load(self, scheme):
+        s = QSettings()
+        s.beginGroup("fontscolors/" + scheme)
+        
+        # load base colors
+        for name in baseColors:
+            self.baseColors[name] = s.value("basecolors/"+name, baseColorsDefaults[name]())
+    
+    def save(self, scheme):
+        s = QSettings()
+        s.beginGroup("fontscolors/" + scheme)
+        
+        # save base colors
+        for name in baseColors:
+            s.setValue("basecolors/"+name, self.baseColors[name])
+
+
+
+
+
+baseColors = (
+    'text',
+    'background',
+    'selectiontext',
+    'selectionbackground',
+    'current',
+    'mark',
+    'error',
+    'search',
+)
+
+baseColorNames = dict(
+    text =                lambda: _("Text"),
+    background =          lambda: _("Background"),
+    selectiontext =       lambda: _("Selected Text"),
+    selectionbackground = lambda: _("Selection Background"),
+    current =             lambda: _("Current Line"),
+    mark =                lambda: _("Marked Line"),
+    error =               lambda: _("Error Line"),
+    search =              lambda: _("Search Result"),
+)
+
+baseColorsDefaults = dict(
+    text =                lambda: QApplication.palette().color(QPalette.Text),
+    background =          lambda: QApplication.palette().color(QPalette.Base),
+    selectiontext =       lambda: QApplication.palette().color(QPalette.HighlightedText),
+    selectionbackground = lambda: QApplication.palette().color(QPalette.Highlight),
+    current =             lambda: QColor(255, 252, 149),
+    mark =                lambda: QColor(192, 192, 255),
+    error =               lambda: QColor(255, 192, 192),
+    search =              lambda: QColor(192, 255, 192),
+)
+
+
 
 def defaultStyles():
     return (
