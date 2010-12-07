@@ -124,20 +124,20 @@ def filetypes(extension=None):
     If a type matches extension, it is placed first.
     
     """
-    l = []
+    have, havenot = [], []
     for patterns, name in (
-            ("{0} (*.ly *.lyi *.ily)", _("LilyPond Files")),
-            ("{0} (*.tex *.lytex)",    _("LaTeX Files")),
-            ("{0} (*.docbook)",        _("DocBook Files")),
-            ("{0} (*.html)",           _("HTML Files")),
-            ("{0} (*.scm)",            _("Scheme Files")),
-            ("{0} (*)",                _("All Files")),
+            ("{0} (*.ly *.lyi *.ily)",          _("LilyPond Files")),
+            ("{0} (*.tex *.lytex *.latex)",     _("LaTeX Files")),
+            ("{0} (*.docbook)",                 _("DocBook Files")),
+            ("{0} (*.html)",                    _("HTML Files")),
+            ("{0} (*.scm)",                     _("Scheme Files")),
+            ("{0} (*)",                         _("All Files")),
             ):
         if extension and extension in patterns:
-            l.insert(0, patterns.format(name))
+            have.append(patterns.format(name))
         else:
-            l.append(patterns.format(name))
-    return ";;".join(l)
+            havenot.append(patterns.format(name))
+    return ";;".join(have + havenot)
 
 def settings(name):
     """Returns a QSettings object referring a file in ~/.config/frescobaldi/"""

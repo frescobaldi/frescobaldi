@@ -37,17 +37,21 @@ from . import (
 )
 
 
-class BlockCommentStart(CommentBase):
+class Comment(CommentBase):
+    pass
+
+
+class BlockCommentStart(Comment):
     rx = r"%{"
     def __init__(self, matchObj, state):
         state.enter(BlockCommentParser)
 
 
-class BlockCommentEnd(CommentBase, Leaver):
+class BlockCommentEnd(Comment, Leaver):
     rx = r"%}"
 
 
-class LineComment(CommentBase):
+class LineComment(Comment):
     rx = r"%.*$"
     
 
@@ -62,21 +66,25 @@ class Scheme(Token):
         state.enter(scheme.SchemeParser)
 
 
-class StringQuoted(StringBase, Item):
+class String(StringBase):
+    pass
+
+
+class StringQuoted(String, Item):
     rx = r'"(\\[\\"]|[^"\n\\]|\\(?![\\"]))*"'
     
 
-class StringQuotedStart(StringBase):
+class StringQuotedStart(String):
     rx = r'"'
     def __init__(self, matchObj, state):
         state.enter(StringParser)
         
 
-class StringQuotedEnd(StringBase, Leaver):
+class StringQuotedEnd(String, Leaver):
     rx = r'"'
     
 
-class StringQuoteEscape(StringBase, EscapeBase):
+class StringQuoteEscape(String, EscapeBase):
     rx = r'\\[\\"]'
 
 
@@ -93,6 +101,7 @@ class LilyPondParser(Parser):
     
 
 class StringParser(StringParserBase):
+    defaultClass = String
     argcount = 1
     items = (
         StringQuotedEnd,
@@ -101,7 +110,7 @@ class StringParser(StringParserBase):
     
 
 class BlockCommentParser(Parser):
-    defaultClass = CommentBase
+    defaultClass = Comment
     items = (
         BlockCommentEnd,
     )

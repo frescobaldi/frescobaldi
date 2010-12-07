@@ -30,6 +30,46 @@ from PyQt4.QtGui import *
 
 
 import ly.tokenize
+import app
+import textformats
+
+
+_highlightFormats = None
+
+def highlightFormats():
+    global _highlightFormats
+    if _highlightFormats is None:
+        _highlightFormats = makeHighlightFormats()
+    return _highlightFormats
+    
+def _resetHighlightFormats():
+    global _highlightFormats
+    _highlightFormats = None
+
+app.settingsChanged.connect(_resetHighlightFormats, -100) # before all others
+
+
+def makeHighlightFormats():
+    """Returns a dictionary with all highlightformats coupled to token types."""
+    d = {}
+    data = textformats.textFormatData()
+    
+    # LilyPond
+    d[ly.tokenize.lilypond.Comment] = data.textFormat('lilypond', 'comment')
+    d[ly.tokenize.lilypond.String] = data.textFormat('lilypond', 'string')
+    
+    # HTML
+    d[ly.tokenize.html.TagStart] = data.textFormat('html', 'tag')
+    d[ly.tokenize.html.TagEnd] = d[ly.tokenize.html.TagStart]
+    d[ly.tokenize.html.AttrName] = data.textFormat('html', 'attribute')
+    d[ly.tokenize.html.String] = data.textFormat('html', 'string')
+    d[ly.tokenize.html.EntityRef] = data.textFormat('html', 'entityref')
+    d[ly.tokenize.html.Comment] = data.textFormat('html', 'comment')
+    
+    
+    return d
+    
+        
 
 
 class Highlighter(QSyntaxHighlighter):
@@ -37,6 +77,7 @@ class Highlighter(QSyntaxHighlighter):
         QSyntaxHighlighter.__init__(self, document)
         self.setDocument(document)
         self._states = []
+        app.settingsChanged.connect(self.rehighlight)
         
     def highlightBlock(self, text):
         prev = self.previousBlockState()
@@ -45,22 +86,17 @@ class Highlighter(QSyntaxHighlighter):
         else:
             state = ly.tokenize.State(text)
         
-        def setFormat(f): self.setFormat(token.pos, len(token), f)
+        setFormat = lambda f: self.setFormat(token.pos, len(token), f)
         
+        formats = highlightFormats()
         for token in ly.tokenize.tokens(text, state):
-            if isinstance(token, ly.tokenize.lilypond.Command):
-                setFormat(command)
-            elif isinstance(token, ly.tokenize.html.EntityRef):
-                setFormat(command)
-            elif isinstance(token, ly.tokenize.EscapeBase):
-                setFormat(escape)
-            elif isinstance(token, ly.tokenize.StringBase):
-                setFormat(string)
-            elif isinstance(token, ly.tokenize.NumericBase):
-                setFormat(value)
-            elif isinstance(token, ly.tokenize.CommentBase):
-                setFormat(comment)
-                
+            for cls in token.__class__.__mro__:
+                if cls is not ly.tokenize.Token:
+                    try:
+                        setFormat(formats[cls])
+                    except KeyError:
+                        continue
+                break
                 
         cur = state.freeze()
         try:
@@ -69,21 +105,3 @@ class Highlighter(QSyntaxHighlighter):
             self.setCurrentBlockState(len(self._states))
             self._states.append(cur)
 
-
-command = QTextCharFormat()
-command.setFontWeight(QFont.Bold)
-command.setForeground(QBrush(QColor(0, 0, 255)))
-
-string = QTextCharFormat()
-string.setForeground(QBrush(QColor(172, 0, 0)))
-
-escape = QTextCharFormat()
-escape.setFontWeight(QFont.Bold)
-escape.setForeground(QBrush(QColor(255, 60, 60)))
-
-value = QTextCharFormat()
-value.setForeground(QBrush(QColor(220, 176, 57)))
-
-comment = QTextCharFormat()
-comment.setFontItalic(True)
-comment.setForeground(QBrush(QColor(170, 170, 170)))

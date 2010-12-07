@@ -30,12 +30,30 @@ from . import (
     Leaver,
     StringBase,
     StringParserBase,
+    CommentBase,
 )
 
 
+class Comment(CommentBase):
+    pass
+
+
+class CommentStart(Comment):
+    rx = r"<!--"
+    def __init__(self, matchObj, state):
+        state.enter(CommentParser)
+        
+        
+class CommentEnd(Comment, Leaver):
+    rx = r"-->"
+
+
+class String(StringBase):
+    pass
+
 
 class TagStart(Token):
-    rx = r"</?\w[-_:\w]+\b"
+    rx = r"</?\w[-_:\w]*\b"
     def __init__(self, matchObj, state):
         state.enter(AttrParser)
         
@@ -52,19 +70,19 @@ class EqualSign(Token):
     rx = "="
 
 
-class StringDQStart(StringBase):
+class StringDQStart(String):
     rx = r'"'
     def __init__(self, matchObj, state):
         state.enter(StringDQParser)
 
 
-class StringSQStart(StringBase):
+class StringSQStart(String):
     rx = r"'"
     def __init__(self, matchObj, state):
         state.enter(StringSQParser)
     
 
-class StringEnd(StringBase, Leaver):
+class StringEnd(String, Leaver):
     pass
 
 
@@ -84,6 +102,7 @@ class EntityRef(Token):
 class HTMLParser(Parser):
     items = (
         Space,
+        CommentStart,
         TagStart,
         EntityRef,
     )
@@ -101,6 +120,7 @@ class AttrParser(Parser):
 
 
 class StringDQParser(StringParserBase):
+    defaultClass = String
     items = (
         StringDQEnd,
         EntityRef,
@@ -108,9 +128,17 @@ class StringDQParser(StringParserBase):
     
 
 class StringSQParser(StringParserBase):
+    defaultClass = String
     items = (
         StringSQEnd,
         EntityRef,
     )
     
+
+class CommentParser(Parser):
+    defaultClass = Comment
+    items = (
+        CommentEnd,
+    )
+
 

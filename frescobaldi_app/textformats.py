@@ -96,7 +96,6 @@ class TextFormatData(object):
                 s.endGroup()
             s.endGroup()
         s.endGroup()
-            
         
     def save(self, scheme):
         s = QSettings()
@@ -129,6 +128,12 @@ class TextFormatData(object):
             s.endGroup()
         s.endGroup()
 
+    def textFormat(self, group, name):
+        inherit = inherits[group].get(name)
+        f = QTextCharFormat(self.defaultStyles[inherit]) if inherit else QTextCharFormat()
+        f.merge(self.allStyles[group][name])
+        return f
+        
 
 def saveTextFormat(fmt, settings):
     if fmt.hasProperty(QTextFormat.FontWeight):
