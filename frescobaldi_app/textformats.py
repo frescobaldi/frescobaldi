@@ -52,6 +52,7 @@ class TextFormatData(object):
     """Encapsulates all settings in the Fonts & Colors page for a scheme."""
     def __init__(self, scheme):
         """Loads the data from scheme."""
+        self.font = None
         self.baseColors = {}
         self.defaultStyles = {}
         self.allStyles = {}
@@ -60,6 +61,10 @@ class TextFormatData(object):
     def load(self, scheme):
         s = QSettings()
         s.beginGroup("fontscolors/" + scheme)
+        
+        # load font
+        self.font = QFont(s.value("fontfamily", "monospace"))
+        self.font.setPointSizeF(float(s.value("fontsize", 10.0)))
         
         # load base colors
         s.beginGroup("basecolors")
@@ -96,6 +101,10 @@ class TextFormatData(object):
     def save(self, scheme):
         s = QSettings()
         s.beginGroup("fontscolors/" + scheme)
+        
+        # save font
+        s.setValue("fontfamily", self.font.family())
+        s.setValue("fontsize", self.font.pointSizeF())
         
         # save base colors
         for name in baseColors:

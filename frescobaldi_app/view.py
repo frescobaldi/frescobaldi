@@ -52,15 +52,13 @@ class View(QPlainTextEdit):
     def readSettings(self):
         s = QSettings()
         s.beginGroup("Editor")
-        font = self.font()
-        font.setFamily(s.value("fontfamily", "Monospace"))
-        font.setPointSizeF(float(s.value("pointsize", font.pointSizeF())))
-        self.setFont(font)
-        metrics = QFontMetrics(font)
+        
+        data = textformats.textFormatData()
+        self.setFont(data.font)
+        metrics = QFontMetrics(data.font)
         tabwidth = metrics.width(" ") * int(s.value("tabwidth", 8))
         self.setTabStopWidth(tabwidth)
         
-        data = textformats.textFormatData()
         p = QApplication.palette()
         p.setColor(QPalette.Text, data.baseColors['text'])
         p.setColor(QPalette.Base, data.baseColors['background'])

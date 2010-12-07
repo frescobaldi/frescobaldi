@@ -23,9 +23,10 @@ from __future__ import unicode_literals
 Fonts and Colors preferences page.
 """
 
+import contextlib
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-
 
 from .. import (
     app,
@@ -59,8 +60,17 @@ class FontsColors(preferences.Page):
         hbox.addWidget(self.stack)
         layout.addLayout(hbox)
         
-        self.fontButton = QPushButton(_("Change Font..."))
-        layout.addWidget(self.fontButton)
+        hbox = QHBoxLayout()
+        self.fontLabel = QLabel()
+        self.fontChooser = QFontComboBox()
+        self.fontSize = QDoubleSpinBox()
+        self.fontSize.setRange(6.0, 32.0)
+        self.fontSize.setSingleStep(0.5)
+        self.fontSize.setDecimals(1)
+        hbox.addWidget(self.fontLabel)
+        hbox.addWidget(self.fontChooser, 1)
+        hbox.addWidget(self.fontSize)
+        layout.addLayout(hbox)
         
         # add the items to our list
         self.baseColorsItem = i = QTreeWidgetItem()
@@ -101,10 +111,13 @@ class FontsColors(preferences.Page):
         self.scheme.changed.connect(self.changed)
         self.baseColorsWidget.changed.connect(self.baseColorsChanged)
         self.customAttributesWidget.changed.connect(self.customAttributesChanged)
+        self.fontChooser.currentFontChanged.connect(self.fontChanged)
+        self.fontSize.valueChanged.connect(self.fontChanged)
         
         app.translateUI(self)
         
     def translateUI(self):
+        self.fontLabel.setText(_("Font:"))
         self.baseColorsItem.setText(0, _("Base Colors"))
         self.defaultStylesItem.setText(0, _("Default Styles"))
         
@@ -137,11 +150,11 @@ class FontsColors(preferences.Page):
                 # specific style of specific group
                 group, name = item.parent().group, item.name
                 w.setTitle("{0}: {1}".format(item.parent().text(0), item.text(0)))
-                w.setTristate(True)
-                w.setTextFormat(data.allStyles[group][name])
                 inherit = textformats.inherits[group].get(name)
                 if inherit:
                     toptext = _("(Inherits: {0})").format(self.defaultStyleNames[inherit])
+                w.setTristate(bool(inherit))
+                w.setTextFormat(data.allStyles[group][name])
             w.setTopText(toptext)
     
     def currentSchemeChanged(self):
@@ -149,9 +162,21 @@ class FontsColors(preferences.Page):
         if scheme not in self.data:
             self.data[scheme] = textformats.TextFormatData(scheme)
         self.updateDisplay()
+    
+    def fontChanged(self):
+        data = self.data[self.scheme.currentScheme()]
+        data.font = self.fontChooser.currentFont()
+        data.font.setPointSizeF(self.fontSize.value())
+        self.updateDisplay()
+        self.changed()
         
     def updateDisplay(self):
         data = self.data[self.scheme.currentScheme()]
+        
+        with signalsBlocked(self.fontChooser, self.fontSize):
+            self.fontChooser.setCurrentFont(data.font)
+            self.fontSize.setValue(data.font.pointSizeF())
+        
         # update base colors
         for name in textformats.baseColors:
             self.baseColorsWidget.color[name].setColor(data.baseColors[name])
@@ -163,10 +188,8 @@ class FontsColors(preferences.Page):
         p.setColor(QPalette.HighlightedText, data.baseColors['selectiontext'])
         self.tree.setPalette(p)
         
-        baseFont = self.tree.font() # TEMP
-        
         def setItemTextFormat(item, f):
-            font = QFont(baseFont)
+            font = QFont(data.font)
             if f.hasProperty(QTextFormat.ForegroundBrush):
                 item.setForeground(0, f.foreground().color())
             else:
@@ -430,4 +453,14 @@ def allStyleNames():
             'string':       _("String"),
         }),
     }
+
+
+@contextlib.contextmanager
+def signalsBlocked(*objs):
+    blocks = [obj.blockSignals(True) for obj in objs]
+    try:
+        yield
+    finally:
+        for obj, block in zip(objs, blocks):
+            obj.blockSignals(block)
 
