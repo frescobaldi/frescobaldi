@@ -40,14 +40,13 @@ class View(QPlainTextEdit):
         self.setDocument(document)
         self.setLineWrapMode(QPlainTextEdit.NoWrap)
         self.setCursorWidth(2)
-        app.settingsChanged.connect(self.readSettings)
-        self.readSettings()
         # restore saved cursor position (defaulting to 0)
         document.loaded.connect(self.restoreCursor)
         document.closed.connect(self.slotDocumentClosed)
         self.restoreCursor()
         self.cursorPositionChanged.connect(self.updateCursor)
-        self.updateCursor()
+        app.settingsChanged.connect(self.readSettings)
+        self.readSettings() # will also call updateCursor
     
     def readSettings(self):
         s = QSettings()
@@ -66,6 +65,7 @@ class View(QPlainTextEdit):
         p.setColor(QPalette.Highlight, data.baseColors['selectionbackground'])
         self.setPalette(p)
         self._currentLineColor = data.baseColors['current']
+        self.updateCursor()
         
     def focusInEvent(self, ev):
         super(View, self).focusInEvent(ev)

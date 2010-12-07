@@ -255,12 +255,9 @@ class FontsColors(preferences.Page):
         self.changed()
         
     def loadSettings(self):
-        self._printScheme = None
         self.data = {} # holds all data with scheme as key
+        self._printScheme = QSettings().value("Editor/printscheme", "default")
         self.scheme.loadSettings("editor_scheme", "editor_schemes")
-        printScheme = QSettings().value("Editor/printscheme", "default")
-        if printScheme in self.scheme.schemes():
-            self._printScheme = printScheme
         
     def saveSettings(self):
         self.scheme.saveSettings("editor_scheme", "editor_schemes", "fontscolors")
