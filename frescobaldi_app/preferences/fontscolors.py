@@ -76,13 +76,13 @@ class FontsColors(preferences.Page):
         self.defaultStylesItem.setExpanded(True)
         
         self.allStyles = {}
-        for group, title, styles in textformats.allStyles():
+        for group, styles in textformats.allStyles:
             i = QTreeWidgetItem()
             children = {}
             self.allStyles[group] = (i, children)
             self.tree.addTopLevelItem(i)
             i.group = group
-            for name, title in styles:
+            for name in styles:
                 j = QTreeWidgetItem()
                 j.name = name
                 i.addChild(j)
@@ -107,12 +107,16 @@ class FontsColors(preferences.Page):
     def translateUI(self):
         self.baseColorsItem.setText(0, _("Base Colors"))
         self.defaultStylesItem.setText(0, _("Default Styles"))
+        
+        self.defaultStyleNames = defaultStyleNames()
+        self.allStyleNames = allStyleNames()
+        
         for name in textformats.defaultStyles:
-            self.defaultStyles[name].setText(0, textformats.defaultStyleNames[name]())
-        for group, title, styles in textformats.allStyles():
-            self.allStyles[group][0].setText(0, title)
-            for name, title in styles:
-                self.allStyles[group][1][name].setText(0, title)
+            self.defaultStyles[name].setText(0, self.defaultStyleNames[name])
+        for group, styles in textformats.allStyles:
+            self.allStyles[group][0].setText(0, self.allStyleNames[group][0])
+            for name in styles:
+                self.allStyles[group][1][name].setText(0, self.allStyleNames[group][1][name])
             
     def currentItemChanged(self, item, previous):
         if item is self.baseColorsItem:
@@ -123,6 +127,7 @@ class FontsColors(preferences.Page):
             data = self.data[self.scheme.currentScheme()]
             w = self.customAttributesWidget
             self.stack.setCurrentWidget(w)
+            top = ''
             if item.parent() is self.defaultStylesItem:
                 # default style
                 w.setTitle(item.text(0))
@@ -130,9 +135,14 @@ class FontsColors(preferences.Page):
                 w.setTextFormat(data.defaultStyles[item.name])
             else:
                 # specific style of specific group
+                group, name = item.parent().group, item.name
                 w.setTitle("{0}: {1}".format(item.parent().text(0), item.text(0)))
                 w.setTristate(True)
-                
+                inherit = textformats.inherits[group].get(name)
+                if inherit:
+                    top = _("Inherits \"{0}\"").format(self.defaultStyleNames[inherit])
+            w.setTopText(top)
+    
     def currentSchemeChanged(self):
         scheme = self.scheme.currentScheme()
         if scheme not in self.data:
@@ -292,6 +302,9 @@ class CustomAttributes(QGroupBox):
         self.italic.setText(_("Italic"))
         self.underline.setText(_("Underline"))
     
+    def setTopText(self, text):
+        self.toplabel.setText(text)
+        
     def setTristate(self, enable):
         self._tristate = enable
         self.bold.setTristate(enable)
@@ -353,4 +366,53 @@ class CustomAttributes(QGroupBox):
             self.underlineColor.setColor(QColor())
         self.blockSignals(block)
 
+
+
+
+def defaultStyleNames():
+    return dict(
+        keyword =  _("Keyword"),
+        function = _("Function"),
+        variable = _("Variable"),
+        value =    _("Value"),
+        string =   _("String"),
+        escape =   _("Escape"), # TODO: better translatable name
+        comment =  _("Comment"),
+        error =    _("Error"),
+    )
+
+
+def allStyleNames():
+    return dict(
+        lilypond = (_("LilyPond"),
+            dict(
+                pitch =        _("Pitch"),
+                duration =     _("Duration"),
+                slur =         _("Slur"),
+                dynamic =      _("Dynamic"),
+                articulation = _("Articulation"),
+                chord =        _("Chord"),
+                beam =         _("Beam"),
+                check =        _("Check"),
+                repeat =       _("Repeat"),
+                keyword =      _("Keyword"),
+                command =      _("Command"),
+                usercommand =  _("User Command"),
+                context =      _("Context"),
+                grob =         _("Layout Object"),
+                property =     _("Property"),
+                comment =      _("Comment"),
+                string =       _("String"),
+            )),
+        html = (_("HTML"),
+            dict(
+                tag =          _("Tag"),
+                lilypondtag =  _("LilyPond Tag"),
+                attribute =    _("Attribute"),
+                value =        _("Value"),
+                entityref =    _("Entity Reference"),
+                comment =      _("Comment"),
+                string =       _("String"),
+            )),
+    )
 

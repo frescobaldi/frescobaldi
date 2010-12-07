@@ -70,7 +70,7 @@ class TextFormatData(object):
         s.endGroup()
         # load default styles
         s.beginGroup("defaultstyles")
-        for name in defaultStyleNames:
+        for name in defaultStyles:
             self.defaultStyles[name] = d = QTextCharFormat(defaultStyleDefaults[name])
             s.beginGroup(name)
             loadTextFormat(d, s)
@@ -86,7 +86,7 @@ class TextFormatData(object):
             s.setValue("basecolors/"+name, self.baseColors[name].name())
         # save default styles
         s.beginGroup("defaultstyles")
-        for name in defaultStyleNames:
+        for name in defaultStyles:
             s.beginGroup(name)
             saveTextFormat(self.defaultStyles[name], s)
             s.endGroup()
@@ -180,17 +180,6 @@ defaultStyles = (
     'error',
 )
 
-defaultStyleNames = dict(
-    keyword =   lambda: _("Keyword"),
-    function =  lambda: _("Function"),
-    variable =  lambda: _("Variable"),
-    value =     lambda: _("Value"),
-    string =    lambda: _("String"),
-    escape =    lambda: _("Escape"), # TODO: better translatable name
-    comment =   lambda: _("Comment"),
-    error =     lambda: _("Error"),
-)
-
 
 def _defaultStyleDefaults():
     keyword = QTextCharFormat()
@@ -226,26 +215,55 @@ defaultStyleDefaults = _defaultStyleDefaults()
 del _defaultStyleDefaults
 
 
-def allStyles():
-    return (
-        ('lilypond', _("LilyPond"), (
-            ('pitch', _("Pitch")),
-            ('duration', _("Duration")),
-            ('slur', _("Slur")),
-            ('dynamic', _("Dynamic")),
-            ('articulation', _("Articulation")),
-            ('chord', _("Chord")),
-            ('beam', _("Beam")),
-            ('check', _("Check")),
-            ('repeat', _("Repeat")),
-            ('keyword', _("Keyword")),
-            ('command', _("Command")),
-            ('usercommand', _("User Command")),
-            ('context', _("Context")),
-            ('grob', _("Layout Object")),
-            ('property', _("Property")),
+allStyles = (
+    ('lilypond', (
+        'pitch',
+        'duration',
+        'slur',
+        'dynamic',
+        'articulation',
+        'chord',
+        'beam',
+        'check',
+        'repeat',
+        'keyword',
+        'command',
+        'usercommand',
+        'context',
+        'grob',
+        'property',
+        'string',
+        'comment',
         )),
-    )
+    ('html', (
+        'tag',
+        'lilypondtag',
+        'attribute',
+        'value',
+        'entityref',
+        'string',
+        'comment',
+        )),
+)
 
 
-            
+inherits = {
+    'lilypond': {
+        'keyword': 'keyword',
+        'string': 'string',
+        'comment': 'comment',
+    },
+    'html' : {
+        'tag': 'keyword',
+        'lilypondtag': 'keyword',
+        'attribute': 'variable',
+        'value': 'value',
+        'entityref': 'escape',
+        'string': 'string',
+        'comment': 'comment',
+    },
+}
+
+
+        
+    
