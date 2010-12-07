@@ -31,6 +31,7 @@ from .. import (
     app,
     icons,
     preferences,
+    textformats,
 )
 
 from ..widgets import ClearButton
@@ -68,14 +69,14 @@ class FontsColors(preferences.Page):
         self.tree.addTopLevelItem(i)
         
         self.defaultStyles = {}
-        for name in defaultStyles:
+        for name in textformats.defaultStyles:
             self.defaultStyles[name] = i = QTreeWidgetItem()
             self.defaultStylesItem.addChild(i)
             i.name = name
         self.defaultStylesItem.setExpanded(True)
         
         self.allStyles = {}
-        for group, title, styles in allStyles():
+        for group, title, styles in textformats.allStyles():
             i = QTreeWidgetItem()
             children = {}
             self.allStyles[group] = (i, children)
@@ -106,9 +107,9 @@ class FontsColors(preferences.Page):
     def translateUI(self):
         self.baseColorsItem.setText(0, _("Base Colors"))
         self.defaultStylesItem.setText(0, _("Default Styles"))
-        for name in defaultStyles:
-            self.defaultStyles[name].setText(0, defaultStyleNames[name]())
-        for group, title, styles in allStyles():
+        for name in textformats.defaultStyles:
+            self.defaultStyles[name].setText(0, textformats.defaultStyleNames[name]())
+        for group, title, styles in textformats.allStyles():
             self.allStyles[group][0].setText(0, title)
             for name, title in styles:
                 self.allStyles[group][1][name].setText(0, title)
@@ -125,21 +126,23 @@ class FontsColors(preferences.Page):
             if item.parent() is self.defaultStylesItem:
                 # default style
                 w.setTitle(item.text(0))
-                w.setStyleData(data.defaultStyles[item.name])
+                w.setTristate(False)
+                w.setTextFormat(data.defaultStyles[item.name])
             else:
                 # specific style of specific group
                 w.setTitle("{0}: {1}".format(item.parent().text(0), item.text(0)))
+                w.setTristate(True)
                 
     def currentSchemeChanged(self):
         scheme = self.scheme.currentScheme()
         if scheme not in self.data:
-            self.data[scheme] = Data(scheme)
+            self.data[scheme] = textformats.TextFormatData(scheme)
         self.updateDisplay()
         
     def updateDisplay(self):
         data = self.data[self.scheme.currentScheme()]
         # update base colors
-        for name in baseColors:
+        for name in textformats.baseColors:
             self.baseColorsWidget.color[name].setColor(data.baseColors[name])
         # update base colors for whole treewidget
         p = QApplication.palette()
@@ -152,21 +155,21 @@ class FontsColors(preferences.Page):
         baseFont = self.tree.font() # TEMP
         
         # update looks of default styles
-        for name in defaultStyles:
+        for name in textformats.defaultStyles:
             item = self.defaultStyles[name]
-            d = data.defaultStyles[name]
+            f = data.defaultStyles[name]
             font = QFont(baseFont)
-            if d.textColor.isValid():
-                item.setForeground(0, d.textColor)
+            if f.hasProperty(QTextFormat.ForegroundBrush):
+                item.setForeground(0, f.foreground().color())
             else:
                 item.setForeground(0, data.baseColors['text'])
-            if d.backgroundColor.isValid():
-                item.setBackground(0, d.backgroundColor)
+            if f.hasProperty(QTextFormat.BackgroundBrush):
+                item.setBackground(0, f.background().color())
             else:
                 item.setBackground(0, QBrush())
-            font.setWeight(QFont.Bold if d.bold else QFont.Normal)
-            font.setItalic(d.italic or False)
-            font.setUnderline(d.underline or False)
+            font.setWeight(f.fontWeight())
+            font.setItalic(f.fontItalic())
+            font.setUnderline(f.fontUnderline())
             item.setFont(0, font)
         
     def baseColorsChanged(self, name):
@@ -183,7 +186,7 @@ class FontsColors(preferences.Page):
         data = self.data[self.scheme.currentScheme()]
         if item.parent() is self.defaultStylesItem:
             # a default style has been changed
-            data.defaultStyles[item.name] = self.customAttributesWidget.styleData()
+            data.defaultStyles[item.name] = self.customAttributesWidget.textFormat()
         else:
             pass # a custum style has been changed
         self.updateDisplay()
@@ -211,7 +214,7 @@ class BaseColors(QGroupBox):
         
         self.color = {}
         self.labels = {}
-        for name in baseColors:
+        for name in textformats.baseColors:
             c = self.color[name] = ColorButton(self)
             c.colorChanged.connect((lambda name: lambda: self.changed.emit(name))(name))
             l = self.labels[name] = QLabel()
@@ -225,8 +228,8 @@ class BaseColors(QGroupBox):
         
     def translateUI(self):
         self.setTitle(_("Base Colors"))
-        for name in baseColors:
-            self.labels[name].setText(baseColorNames[name]())
+        for name in textformats.baseColors:
+            self.labels[name].setText(textformats.baseColorNames[name]())
         
 
 class CustomAttributes(QGroupBox):
@@ -288,261 +291,66 @@ class CustomAttributes(QGroupBox):
         self.bold.setText(_("Bold"))
         self.italic.setText(_("Italic"))
         self.underline.setText(_("Underline"))
-        
-    def styleData(self):
-        """Returns our settings as a StyleData object."""
-        d = StyleData()
-        fnt = [False, None, True]
-        d.bold = fnt[self.bold.checkState()]
-        d.italic = fnt[self.italic.checkState()]
-        d.underline = fnt[self.underline.checkState()]
-        d.textColor = self.textColor.color()
-        d.backgroundColor = self.backgroundColor.color()
-        d.underlineColor = self.underlineColor.color()
-        return d
-        
-    def setStyleData(self, d):
-        """Sets our widget to the StyleData settings."""
-        state = lambda value: {False: 0, True: 2}.get(value, 1)
+    
+    def setTristate(self, enable):
+        self._tristate = enable
+        self.bold.setTristate(enable)
+        self.italic.setTristate(enable)
+        self.underline.setTristate(enable)
+    
+    def textFormat(self):
+        """Returns our settings as a QTextCharFormat object."""
+        f = QTextCharFormat()
+        if self._tristate:
+            value = lambda checkbox: [False, None, True][checkbox.checkState()]
+        else:
+            value = lambda checkbox: checkbox.isChecked()
+        res = value(self.bold)
+        if res is not None:
+            f.setFontWeight(QFont.Bold if res else QFont.Normal)
+        res = value(self.italic)
+        if res is not None:
+            f.setFontItalic(res)
+        res = value(self.underline)
+        if res is not None:
+            f.setFontUnderline(res)
+        if self.textColor.color().isValid():
+            f.setForeground(self.textColor.color())
+        if self.backgroundColor.color().isValid():
+            f.setBackground(self.backgroundColor.color())
+        if self.underlineColor.color().isValid():
+            f.setUnderlineColor(self.underlineColor.color())
+        return f
+
+    def setTextFormat(self, f):
+        """Sets our widget to the QTextCharFormat settings."""
         block = self.blockSignals(True)
-        self.bold.setCheckState(state(d.bold))
-        self.italic.setCheckState(state(d.italic))
-        self.underline.setCheckState(state(d.underline))
-        self.textColor.setColor(d.textColor)
-        self.backgroundColor.setColor(d.backgroundColor)
-        self.underlineColor.setColor(d.underlineColor)
+        absent = Qt.PartiallyChecked if self._tristate else Qt.Unchecked
+        if f.hasProperty(QTextFormat.FontWeight):
+            self.bold.setChecked(f.fontWeight() >= QFont.Bold)
+        else:
+            self.bold.setCheckState(absent)
+        if f.hasProperty(QTextFormat.FontItalic):
+            self.italic.setChecked(f.fontItalic())
+        else:
+            self.italic.setCheckState(absent)
+        if f.hasProperty(QTextFormat.TextUnderlineStyle):
+            self.underline.setChecked(f.fontUnderline())
+        else:
+            self.underline.setCheckState(absent)
+        
+        if f.hasProperty(QTextFormat.ForegroundBrush):
+            self.textColor.setColor(f.foreground().color())
+        else:
+            self.textColor.setColor(QColor())
+        if f.hasProperty(QTextFormat.BackgroundBrush):
+            self.backgroundColor.setColor(f.background().color())
+        else:
+            self.backgroundColor.setColor(QColor())
+        if f.hasProperty(QTextFormat.TextUnderlineColor):
+            self.underlineColor.setColor(f.underlineColor())
+        else:
+            self.underlineColor.setColor(QColor())
         self.blockSignals(block)
-        
-
-class Data(object):
-    """Encapsulates all settings in the Fonts & Colors page for a scheme."""
-    def __init__(self, scheme):
-        """Loads the data from scheme."""
-        self.baseColors = {}
-        self.defaultStyles = {}
-        self.load(scheme)
-        
-    def load(self, scheme):
-        s = QSettings()
-        s.beginGroup("fontscolors/" + scheme)
-        
-        # load base colors
-        s.beginGroup("basecolors")
-        for name in baseColors:
-            if s.contains(name):
-                self.baseColors[name] = QColor(s.value(name))
-            else:
-                self.baseColors[name] = baseColorDefaults[name]()
-        s.endGroup()
-        # load default styles
-        s.beginGroup("defaultstyles")
-        for name in defaultStyleNames:
-            self.defaultStyles[name] = d = StyleData(defaultStyleDefaults[name])
-            s.beginGroup(name)
-            d.load(s)
-            s.endGroup()
-        s.endGroup()
-        
-    def save(self, scheme):
-        s = QSettings()
-        s.beginGroup("fontscolors/" + scheme)
-        
-        # save base colors
-        for name in baseColors:
-            s.setValue("basecolors/"+name, self.baseColors[name].name())
-        # save default styles
-        s.beginGroup("defaultstyles")
-        for name in defaultStyleNames:
-            s.beginGroup(name)
-            self.defaultStyles[name].save(s)
-            s.endGroup()
-        s.endGroup()
-        
-
-# We could use QTextCharFormat to store this kind of data,
-# but saving it does not work reliably in PyQt4 due to embedded
-# wrapped objects (QBrush etc).
-class StyleData(object):
-    """Encapsulates one highlight style."""
-    def __init__(self, other=None, **kwargs):
-        if other:
-            self.bold = other.bold
-            self.italic = other.italic
-            self.underline = other.underline
-            self.textColor = other.textColor
-            self.backgroundColor = other.backgroundColor
-            self.underlineColor = other.underlineColor
-        elif kwargs:
-            for name in styleProperties:
-                setattr(self, name, kwargs.get(name))
-        else:
-            self.bold = None
-            self.italic = None
-            self.underline = None
-            self.textColor = QColor()
-            self.backgroundColor = QColor()
-            self.underlineColor = QColor()
-            
-    def save(self, group):
-        if self.bold is None:
-            group.remove('bold')
-        else:
-            group.setValue('bold', self.bold)
-        if self.italic is None:
-            group.remove('italic')
-        else:
-            group.setValue('italic', self.italic)
-        if self.underline is None:
-            group.remove('underline')
-        else:
-            group.setValue('underline', self.underline)
-        if self.textColor.isValid():
-            group.setValue('textColor', self.textColor.name())
-        else:
-            group.remove('textColor')
-        if self.backgroundColor.isValid():
-            group.setValue('backgroundColor', self.backgroundColor.name())
-        else:
-            group.remove('backgroundColor')
-        if self.underlineColor.isValid():
-            group.setValue('underlineColor', self.underlineColor.name())
-        else:
-            group.remove('underlineColor')
-        
-    def load(self, group):
-        if group.contains('bold'):
-            self.bold = group.value('bold') in (True, 'true')
-        if group.contains('italic'):
-            self.italic = group.value('italic') in (True, 'true')
-        if group.contains('underline'):
-            self.underline = group.value('underline') in (True, 'true')
-        if group.contains('textColor'):
-            self.textColor = QColor(group.value('textColor'))
-        if group.contains('backgroundColor'):
-            self.backgroundColor = QColor(group.value('backgroundColor'))
-        if group.contains('underlineColor'):
-            self.underlineColor = QColor(group.value('underlineColor'))
-        
-
-baseColors = (
-    'text',
-    'background',
-    'selectiontext',
-    'selectionbackground',
-    'current',
-    'mark',
-    'error',
-    'search',
-)
-
-baseColorNames = dict(
-    text =                lambda: _("Text"),
-    background =          lambda: _("Background"),
-    selectiontext =       lambda: _("Selected Text"),
-    selectionbackground = lambda: _("Selection Background"),
-    current =             lambda: _("Current Line"),
-    mark =                lambda: _("Marked Line"),
-    error =               lambda: _("Error Line"),
-    search =              lambda: _("Search Result"),
-)
-
-baseColorDefaults = dict(
-    text =                lambda: QApplication.palette().color(QPalette.Text),
-    background =          lambda: QApplication.palette().color(QPalette.Base),
-    selectiontext =       lambda: QApplication.palette().color(QPalette.HighlightedText),
-    selectionbackground = lambda: QApplication.palette().color(QPalette.Highlight),
-    current =             lambda: QColor(255, 252, 149),
-    mark =                lambda: QColor(192, 192, 255),
-    error =               lambda: QColor(255, 192, 192),
-    search =              lambda: QColor(192, 255, 192),
-)
-
-styleProperties = (
-    'textColor',
-    'backgroundColor',
-    'underlineColor',
-    'bold',
-    'italic',
-    'underline',
-)
-
-defaultStyles = (
-    'keyword',
-    'function',
-    'variable',
-    'value',
-    'string',
-    'escape',
-    'comment',
-    'error',
-)
-
-defaultStyleNames = dict(
-    keyword =   lambda: _("Keyword"),
-    function =  lambda: _("Function"),
-    variable =  lambda: _("Variable"),
-    value =     lambda: _("Value"),
-    string =    lambda: _("String"),
-    escape =    lambda: _("Escape"), # TODO: better translatable name
-    comment =   lambda: _("Comment"),
-    error =     lambda: _("Error"),
-)
 
 
-def _defaultStyleDefaults():
-    keyword = StyleData()
-    keyword.bold = True
-    
-    function = StyleData(keyword)
-    function.textColor = QColor(128, 0, 128)
-    
-    variable = StyleData()
-    variable.textColor = QColor(128, 0, 128)
-    
-    value = StyleData()
-    value.textColor = QColor(128, 128, 0)
-    
-    string = StyleData()
-    string.textColor = QColor(192, 0, 0)
-    
-    escape = StyleData()
-    escape.bold = True
-    escape.textColor = QColor(0, 192, 192)
-    
-    comment = StyleData()
-    comment.textColor = QColor(128, 128, 128)
-    comment.italic = True
-    
-    error = StyleData()
-    error.textColor = QColor(255, 0, 0)
-    error.underline = True
-    
-    return locals()
-    
-defaultStyleDefaults = _defaultStyleDefaults()
-del _defaultStyleDefaults
-
-
-def allStyles():
-    return (
-        ('lilypond', _("LilyPond"), (
-            ('pitch', _("Pitch")),
-            ('duration', _("Duration")),
-            ('slur', _("Slur")),
-            ('dynamic', _("Dynamic")),
-            ('articulation', _("Articulation")),
-            ('chord', _("Chord")),
-            ('beam', _("Beam")),
-            ('check', _("Check")),
-            ('repeat', _("Repeat")),
-            ('keyword', _("Keyword")),
-            ('command', _("Command")),
-            ('usercommand', _("User Command")),
-            ('context', _("Context")),
-            ('grob', _("Layout Object")),
-            ('property', _("Property")),
-        )),
-    )
-
-
-            

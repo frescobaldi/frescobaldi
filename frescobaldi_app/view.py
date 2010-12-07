@@ -28,6 +28,7 @@ from PyQt4.QtGui import *
 
 import app
 import metainfo
+import textformats
 
 
 class View(QPlainTextEdit):
@@ -58,6 +59,15 @@ class View(QPlainTextEdit):
         metrics = QFontMetrics(font)
         tabwidth = metrics.width(" ") * int(s.value("tabwidth", 8))
         self.setTabStopWidth(tabwidth)
+        
+        data = textformats.textFormatData()
+        p = QApplication.palette()
+        p.setColor(QPalette.Text, data.baseColors['text'])
+        p.setColor(QPalette.Base, data.baseColors['background'])
+        p.setColor(QPalette.HighlightedText, data.baseColors['selectiontext'])
+        p.setColor(QPalette.Highlight, data.baseColors['selectionbackground'])
+        self.setPalette(p)
+        self._currentLineColor = data.baseColors['current']
         
     def focusInEvent(self, ev):
         super(View, self).focusInEvent(ev)
@@ -115,7 +125,7 @@ class View(QPlainTextEdit):
         es = QTextEdit.ExtraSelection()
         es.cursor = self.textCursor()
         es.cursor.clearSelection()
-        color = QColor(255, 255, 127) # TODO: make configurable
+        color = QColor(self._currentLineColor)
         self.hasFocus() or color.setAlpha(100)
         es.format.setBackground(color)
         es.format.setProperty(QTextFormat.FullWidthSelection, True)
