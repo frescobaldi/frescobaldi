@@ -57,6 +57,7 @@ def makeHighlightFormats():
     # LilyPond
     d[ly.tokenize.lilypond.Comment] = data.textFormat('lilypond', 'comment')
     d[ly.tokenize.lilypond.String] = data.textFormat('lilypond', 'string')
+    d[ly.tokenize.lilypond.Command] = data.textFormat('lilypond', 'command')
     
     # HTML
     d[ly.tokenize.html.TagStart] = data.textFormat('html', 'tag')
