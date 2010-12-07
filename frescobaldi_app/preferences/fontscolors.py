@@ -295,8 +295,9 @@ class BaseColors(QGroupBox):
         
     def translateUI(self):
         self.setTitle(_("Base Colors"))
+        names = baseColorNames()
         for name in textformats.baseColors:
-            self.labels[name].setText(textformats.baseColorNames[name]())
+            self.labels[name].setText(names[name])
         
 
 class CustomAttributes(QGroupBox):
@@ -426,6 +427,18 @@ class CustomAttributes(QGroupBox):
         self.blockSignals(block)
 
 
+
+def baseColorNames():
+    return {
+        'text':                _("Text"),
+        'background':          _("Background"),
+        'selectiontext':       _("Selected Text"),
+        'selectionbackground': _("Selection Background"),
+        'current':             _("Current Line"),
+        'mark':                _("Marked Line"),
+        'error':               _("Error Line"),
+        'search':              _("Search Result"),
+    }
 
 
 def defaultStyleNames():

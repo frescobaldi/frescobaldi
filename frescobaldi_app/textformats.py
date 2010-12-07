@@ -183,17 +183,6 @@ baseColors = (
     'search',
 )
 
-baseColorNames = dict(
-    text =                lambda: _("Text"),
-    background =          lambda: _("Background"),
-    selectiontext =       lambda: _("Selected Text"),
-    selectionbackground = lambda: _("Selection Background"),
-    current =             lambda: _("Current Line"),
-    mark =                lambda: _("Marked Line"),
-    error =               lambda: _("Error Line"),
-    search =              lambda: _("Search Result"),
-)
-
 baseColorDefaults = dict(
     text =                lambda: QApplication.palette().color(QPalette.Text),
     background =          lambda: QApplication.palette().color(QPalette.Base),
