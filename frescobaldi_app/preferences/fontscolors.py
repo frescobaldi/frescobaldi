@@ -51,6 +51,9 @@ class FontsColors(preferences.Page):
         self.scheme = SchemeSelector(self)
         layout.addWidget(self.scheme)
         
+        self.printScheme = QCheckBox()
+        layout.addWidget(self.printScheme)
+        
         hbox = QHBoxLayout()
         self.tree = QTreeWidget(self)
         self.tree.setHeaderHidden(True)
@@ -113,10 +116,12 @@ class FontsColors(preferences.Page):
         self.customAttributesWidget.changed.connect(self.customAttributesChanged)
         self.fontChooser.currentFontChanged.connect(self.fontChanged)
         self.fontSize.valueChanged.connect(self.fontChanged)
+        self.printScheme.clicked.connect(self.printSchemeChanged)
         
         app.translateUI(self)
         
     def translateUI(self):
+        self.printScheme.setText(_("Use this scheme for printing"))
         self.fontLabel.setText(_("Font:"))
         self.baseColorsItem.setText(0, _("Base Colors"))
         self.defaultStylesItem.setText(0, _("Default Styles"))
@@ -162,12 +167,21 @@ class FontsColors(preferences.Page):
         if scheme not in self.data:
             self.data[scheme] = textformats.TextFormatData(scheme)
         self.updateDisplay()
+        with signalsBlocked(self.printScheme):
+            self.printScheme.setChecked(scheme == self._printScheme)
     
     def fontChanged(self):
         data = self.data[self.scheme.currentScheme()]
         data.font = self.fontChooser.currentFont()
         data.font.setPointSizeF(self.fontSize.value())
         self.updateDisplay()
+        self.changed()
+    
+    def printSchemeChanged(self):
+        if self.printScheme.isChecked():
+            self._printScheme = self.scheme.currentScheme()
+        else:
+            self._printScheme = None
         self.changed()
         
     def updateDisplay(self):
@@ -241,13 +255,21 @@ class FontsColors(preferences.Page):
         self.changed()
         
     def loadSettings(self):
+        self._printScheme = None
         self.data = {} # holds all data with scheme as key
         self.scheme.loadSettings("editor_scheme", "editor_schemes")
+        printScheme = QSettings().value("Editor/printscheme", "default")
+        if printScheme in self.scheme.schemes():
+            self._printScheme = printScheme
         
     def saveSettings(self):
         self.scheme.saveSettings("editor_scheme", "editor_schemes", "fontscolors")
         for scheme in self.data:
             self.data[scheme].save(scheme)
+        if self._printScheme:
+            QSettings().setValue("Editor/printscheme", self._printScheme)
+        else:
+            QSettings().remove("Editor/printscheme")
 
 
 class BaseColors(QGroupBox):
