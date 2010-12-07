@@ -127,7 +127,7 @@ class FontsColors(preferences.Page):
             data = self.data[self.scheme.currentScheme()]
             w = self.customAttributesWidget
             self.stack.setCurrentWidget(w)
-            top = ''
+            toptext = None
             if item.parent() is self.defaultStylesItem:
                 # default style
                 w.setTitle(item.text(0))
@@ -138,10 +138,11 @@ class FontsColors(preferences.Page):
                 group, name = item.parent().group, item.name
                 w.setTitle("{0}: {1}".format(item.parent().text(0), item.text(0)))
                 w.setTristate(True)
+                w.setTextFormat(data.allStyles[group][name])
                 inherit = textformats.inherits[group].get(name)
                 if inherit:
-                    top = _("Inherits \"{0}\"").format(self.defaultStyleNames[inherit])
-            w.setTopText(top)
+                    toptext = _("(Inherits: {0})").format(self.defaultStyleNames[inherit])
+            w.setTopText(toptext)
     
     def currentSchemeChanged(self):
         scheme = self.scheme.currentScheme()
@@ -164,10 +165,7 @@ class FontsColors(preferences.Page):
         
         baseFont = self.tree.font() # TEMP
         
-        # update looks of default styles
-        for name in textformats.defaultStyles:
-            item = self.defaultStyles[name]
-            f = data.defaultStyles[name]
+        def setItemTextFormat(item, f):
             font = QFont(baseFont)
             if f.hasProperty(QTextFormat.ForegroundBrush):
                 item.setForeground(0, f.foreground().color())
@@ -181,6 +179,21 @@ class FontsColors(preferences.Page):
             font.setItalic(f.fontItalic())
             font.setUnderline(f.fontUnderline())
             item.setFont(0, font)
+            
+        # update looks of default styles
+        for name in textformats.defaultStyles:
+            setItemTextFormat(self.defaultStyles[name], data.defaultStyles[name])
+        
+        # update looks of all the specific styles
+        for group, styles in textformats.allStyles:
+            children = self.allStyles[group][1]
+            for name in styles:
+                inherit = textformats.inherits[group].get(name)
+                f = QTextCharFormat(data.defaultStyles[inherit]) if inherit else QTextCharFormat()
+                f.merge(data.allStyles[group][name])
+                setItemTextFormat(children[name], f)
+        
+        
         
     def baseColorsChanged(self, name):
         # keep data up to date with base colors
@@ -198,7 +211,9 @@ class FontsColors(preferences.Page):
             # a default style has been changed
             data.defaultStyles[item.name] = self.customAttributesWidget.textFormat()
         else:
-            pass # a custum style has been changed
+            # a specific style has been changed
+            group, name = item.parent().group, item.name
+            data.allStyles[group][name] = self.customAttributesWidget.textFormat()
         self.updateDisplay()
         self.changed()
         
@@ -252,6 +267,8 @@ class CustomAttributes(QGroupBox):
         self.setLayout(grid)
         
         self.toplabel = QLabel()
+        self.toplabel.setEnabled(False)
+        self.toplabel.setAlignment(Qt.AlignCenter)
         grid.addWidget(self.toplabel, 0, 0, 1, 3)
         
         self.textColor = ColorButton()
@@ -370,49 +387,47 @@ class CustomAttributes(QGroupBox):
 
 
 def defaultStyleNames():
-    return dict(
-        keyword =  _("Keyword"),
-        function = _("Function"),
-        variable = _("Variable"),
-        value =    _("Value"),
-        string =   _("String"),
-        escape =   _("Escape"), # TODO: better translatable name
-        comment =  _("Comment"),
-        error =    _("Error"),
-    )
+    return {
+        'keyword':  _("Keyword"),
+        'function': _("Function"),
+        'variable': _("Variable"),
+        'value':    _("Value"),
+        'string':   _("String"),
+        'escape':   _("Escape"), # TODO: better translatable name
+        'comment':  _("Comment"),
+        'error':    _("Error"),
+    }
 
 
 def allStyleNames():
-    return dict(
-        lilypond = (_("LilyPond"),
-            dict(
-                pitch =        _("Pitch"),
-                duration =     _("Duration"),
-                slur =         _("Slur"),
-                dynamic =      _("Dynamic"),
-                articulation = _("Articulation"),
-                chord =        _("Chord"),
-                beam =         _("Beam"),
-                check =        _("Check"),
-                repeat =       _("Repeat"),
-                keyword =      _("Keyword"),
-                command =      _("Command"),
-                usercommand =  _("User Command"),
-                context =      _("Context"),
-                grob =         _("Layout Object"),
-                property =     _("Property"),
-                comment =      _("Comment"),
-                string =       _("String"),
-            )),
-        html = (_("HTML"),
-            dict(
-                tag =          _("Tag"),
-                lilypondtag =  _("LilyPond Tag"),
-                attribute =    _("Attribute"),
-                value =        _("Value"),
-                entityref =    _("Entity Reference"),
-                comment =      _("Comment"),
-                string =       _("String"),
-            )),
-    )
+    return {
+        'lilypond': (_("LilyPond"), {
+            'pitch':        _("Pitch"),
+            'duration':     _("Duration"),
+            'slur':         _("Slur"),
+            'dynamic':      _("Dynamic"),
+            'articulation': _("Articulation"),
+            'chord':        _("Chord"),
+            'beam':         _("Beam"),
+            'check':        _("Check"),
+            'repeat':       _("Repeat"),
+            'keyword':      _("Keyword"),
+            'command':      _("Command"),
+            'usercommand':  _("User Command"),
+            'context':      _("Context"),
+            'grob':         _("Layout Object"),
+            'property':     _("Property"),
+            'comment':      _("Comment"),
+            'string':       _("String"),
+        }),
+        'html': (_("HTML"), {
+            'tag':          _("Tag"),
+            'lilypondtag':  _("LilyPond Tag"),
+            'attribute':    _("Attribute"),
+            'value':        _("Value"),
+            'entityref':    _("Entity Reference"),
+            'comment':      _("Comment"),
+            'string':       _("String"),
+        }),
+    }
 

@@ -54,6 +54,7 @@ class TextFormatData(object):
         """Loads the data from scheme."""
         self.baseColors = {}
         self.defaultStyles = {}
+        self.allStyles = {}
         self.load(scheme)
         
     def load(self, scheme):
@@ -68,14 +69,29 @@ class TextFormatData(object):
             else:
                 self.baseColors[name] = baseColorDefaults[name]()
         s.endGroup()
+        
         # load default styles
         s.beginGroup("defaultstyles")
         for name in defaultStyles:
-            self.defaultStyles[name] = d = QTextCharFormat(defaultStyleDefaults[name])
+            self.defaultStyles[name] = f = QTextCharFormat(defaultStyleDefaults[name])
             s.beginGroup(name)
-            loadTextFormat(d, s)
+            loadTextFormat(f, s)
             s.endGroup()
         s.endGroup()
+        
+        # load specific styles
+        s.beginGroup("allstyles")
+        for group, styles in allStyles:
+            self.allStyles[group]= {}
+            s.beginGroup(group)
+            for name in styles:
+                self.allStyles[group][name] = f = QTextCharFormat()
+                s.beginGroup(name)
+                loadTextFormat(f, s)
+                s.endGroup()
+            s.endGroup()
+        s.endGroup()
+            
         
     def save(self, scheme):
         s = QSettings()
@@ -84,6 +100,7 @@ class TextFormatData(object):
         # save base colors
         for name in baseColors:
             s.setValue("basecolors/"+name, self.baseColors[name].name())
+        
         # save default styles
         s.beginGroup("defaultstyles")
         for name in defaultStyles:
@@ -92,6 +109,16 @@ class TextFormatData(object):
             s.endGroup()
         s.endGroup()
         
+        # save all specific styles
+        s.beginGroup("allstyles")
+        for group, styles in allStyles:
+            s.beginGroup(group)
+            for name in styles:
+                s.beginGroup(name)
+                saveTextFormat(self.allStyles[group][name], s)
+                s.endGroup()
+            s.endGroup()
+        s.endGroup()
 
 
 def saveTextFormat(fmt, settings):
@@ -250,12 +277,14 @@ allStyles = (
 inherits = {
     'lilypond': {
         'keyword': 'keyword',
+        'command': 'function',
+        'usercommand': 'variable',
         'string': 'string',
         'comment': 'comment',
     },
     'html' : {
         'tag': 'keyword',
-        'lilypondtag': 'keyword',
+        'lilypondtag': 'function',
         'attribute': 'variable',
         'value': 'value',
         'entityref': 'escape',
