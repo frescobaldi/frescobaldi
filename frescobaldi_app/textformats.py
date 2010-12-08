@@ -90,7 +90,8 @@ class TextFormatData(object):
             self.allStyles[group]= {}
             s.beginGroup(group)
             for name in styles:
-                self.allStyles[group][name] = f = QTextCharFormat()
+                default = allStyleDefaults[group].get(name)
+                self.allStyles[group][name] = f = QTextCharFormat(default) if default else QTextCharFormat()
                 s.beginGroup(name)
                 loadTextFormat(f, s)
                 s.endGroup()
@@ -216,10 +217,10 @@ def _defaultStyleDefaults():
     keyword.setFontWeight(QFont.Bold)
     
     function = QTextCharFormat(keyword)
-    function.setForeground(QColor(128, 0, 128))
+    function.setForeground(QColor(0, 0, 192))
     
     variable = QTextCharFormat()
-    variable.setForeground(QColor(128, 0, 128))
+    variable.setForeground(QColor(0, 0, 255))
     
     value = QTextCharFormat()
     value.setForeground(QColor(128, 128, 0))
@@ -228,8 +229,7 @@ def _defaultStyleDefaults():
     string.setForeground(QColor(192, 0, 0))
     
     escape = QTextCharFormat()
-    escape.setFontWeight(QFont.Bold)
-    escape.setForeground(QColor(0, 192, 192))
+    escape.setForeground(QColor(0, 128, 128))
     
     comment = QTextCharFormat()
     comment.setForeground(QColor(128, 128, 128))
@@ -243,6 +243,35 @@ def _defaultStyleDefaults():
     
 defaultStyleDefaults = _defaultStyleDefaults()
 del _defaultStyleDefaults
+
+
+def _allStyleDefaults():
+    lilypond = {}
+    lilypond['markup'] = f = QTextCharFormat()
+    f.setForeground(QColor(0, 128, 0))
+    lilypond['grob'] = f = QTextCharFormat()
+    f.setForeground(QColor(192, 0, 192))
+    lilypond['context'] = f = QTextCharFormat(f)
+    f.setFontWeight(QFont.Bold)
+    
+    html = {}
+    
+    scheme = {}
+    scheme['scheme'] = f = QTextCharFormat()
+    f.setForeground(QColor(160, 73, 0))
+    scheme['lilypond'] = f = QTextCharFormat(f)
+    f.setFontWeight(QFont.Bold)
+    
+    latex = {}
+    docbook = {}
+    texi = {}
+    
+    del f
+    return locals()
+
+allStyleDefaults = _allStyleDefaults()
+del _allStyleDefaults
+
 
 
 allStyles = (
@@ -260,6 +289,7 @@ allStyles = (
         'command',
         'usercommand',
         'markup',
+        'delimiter',
         'context',
         'grob',
         'property',
@@ -283,6 +313,13 @@ allStyles = (
         'string',
         'comment',
         )),
+    ('texi', (
+        'keyword',
+        'block',
+        'escapechar',
+        'verbatim',
+        'comment',
+    ))
 )
 
 
@@ -292,6 +329,7 @@ inherits = {
         'command': 'function',
         'markup': 'function',
         'usercommand': 'variable',
+        'delimiter': 'keyword',
         'string': 'string',
         'stringescape': 'escape',
         'comment': 'comment',
@@ -310,6 +348,13 @@ inherits = {
         'string': 'string',
         'comment': 'comment',
     },
+    'texi': {
+        'keyword': 'keyword',
+        'block': 'function',
+        'escapechar': 'escape',
+        'verbatim': 'string',
+        'comment': 'comment',
+    }
         
 }
 

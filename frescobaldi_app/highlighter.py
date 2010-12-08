@@ -60,6 +60,9 @@ def makeHighlightFormats():
     d[ly.tokenize.lilypond.Dynamic] = data.textFormat('lilypond', 'dynamic')
     d[ly.tokenize.lilypond.Markup] = data.textFormat('lilypond', 'markup')
     d[ly.tokenize.lilypond.UserCommand] = data.textFormat('lilypond', 'usercommand')
+    d[ly.tokenize.lilypond.Delimiter] = data.textFormat('lilypond', 'delimiter')
+    d[ly.tokenize.lilypond.Context] = data.textFormat('lilypond', 'context')
+    d[ly.tokenize.lilypond.Grob] = data.textFormat('lilypond', 'grob')
     d[ly.tokenize.lilypond.StringQuoteEscape] = data.textFormat('lilypond', 'stringescape')
     d[ly.tokenize.lilypond.String] = data.textFormat('lilypond', 'string')
     d[ly.tokenize.lilypond.Comment] = data.textFormat('lilypond', 'comment')
@@ -71,6 +74,7 @@ def makeHighlightFormats():
     d[ly.tokenize.scheme.String] = data.textFormat('scheme', 'string')
     d[ly.tokenize.scheme.Comment] = data.textFormat('scheme', 'comment')
     d[ly.tokenize.scheme.Number] = data.textFormat('scheme', 'number')
+    d[ly.tokenize.scheme.LilyPond] = data.textFormat('scheme', 'lilypond')
     
     # HTML
     d[ly.tokenize.html.Tag] = data.textFormat('html', 'tag')
@@ -79,6 +83,13 @@ def makeHighlightFormats():
     d[ly.tokenize.html.EntityRef] = data.textFormat('html', 'entityref')
     d[ly.tokenize.html.Comment] = data.textFormat('html', 'comment')
     d[ly.tokenize.html.LilyPondTag] = data.textFormat('html', 'lilypondtag')
+    
+    # Texinfo
+    d[ly.tokenize.texi.Keyword] = data.textFormat('texi', 'keyword')
+    d[ly.tokenize.texi.Block] = data.textFormat('texi', 'block')
+    d[ly.tokenize.texi.EscapeChar] = data.textFormat('texi', 'escapechar')
+    d[ly.tokenize.texi.Verbatim] = data.textFormat('texi', 'verbatim')
+    d[ly.tokenize.texi.Comment] = data.textFormat('texi', 'comment')
     
     
     return d
@@ -104,6 +115,7 @@ class Highlighter(QSyntaxHighlighter):
         
         formats = highlightFormats()
         for token in ly.tokenize.tokens(text, state):
+            print token, token.__class__.__name__
             for cls in token.__class__.__mro__:
                 if cls is not ly.tokenize.Token:
                     try:

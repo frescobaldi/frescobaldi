@@ -141,10 +141,8 @@ class SignalInstance(object):
 
 
 def makeListener(func, owner=None):
-    if isinstance(func, types.MethodType):
+    if isinstance(func, (types.MethodType, types.BuiltinMethodType)):
         return MethodListener(func)
-    elif isinstance(func, types.BuiltinMethodType):
-        return BuiltinMethodListener(func)
     else:
         return FunctionListener(func, owner)
 
@@ -173,10 +171,14 @@ class ListenerBase(object):
 class MethodListener(ListenerBase):
     removeargs = 1
     def __init__(self, meth):
-        self.obj = meth.im_self
-        self.objid = id(meth.im_self)
-        self.func = meth.im_func
-            
+        self.obj = meth.__self__
+        self.objid = id(meth.__self__)
+        try:
+            self.func = meth.__func__
+        except AttributeError:
+            # c++ methods from PyQt4 object sometimes do not have the __func__ attribute
+            self.func = getattr(meth.__self__.__class__, meth.__name__)
+    
     def __eq__(self, other):
         return self.__class__ is other.__class__ and self.objid == other.objid and self.func is other.func
 
@@ -184,13 +186,6 @@ class MethodListener(ListenerBase):
         obj = self.obj()
         if obj is not None:
             self.func(obj, *args[self.argslice], **kwargs)
-
-
-class BuiltinMethodListener(MethodListener):
-    def __init__(self, meth):
-        self.obj = meth.__self__
-        self.objid = id(meth.__self__)
-        self.func = getattr(meth.__self__.__class__, meth.__name__)
 
 
 class FunctionListener(ListenerBase):

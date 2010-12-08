@@ -142,6 +142,14 @@ class SchemeStart(Item):
         state.enter(scheme.SchemeParser)
 
 
+class Context(Token):
+    rx = r"\b{0}\b".format("|".join(words.contexts))
+    
+    
+class Grob(Token):
+    rx = r"\b{0}\b".format("|".join(words.grobs))
+
+
 # Parsers
 
 class LilyPondParser(Parser):
@@ -157,6 +165,8 @@ class LilyPondParser(Parser):
         Dynamic,
         Command,
         UserCommand,
+        Context,
+        Grob,
     )
     
 

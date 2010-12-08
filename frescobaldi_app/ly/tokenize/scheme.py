@@ -108,15 +108,15 @@ class Word(Scheme, Item):
 
 
 class Number(Item, NumericBase):
-    rx = r"\d+|#(b[0-1]+|o[0-7]+|x[0-9a-fA-F]+)"
+    rx = r"-?\d+|#(b[0-1]+|o[0-7]+|x[0-9a-fA-F]+)"
     
 
 class Fraction(Number):
-    rx = r"\d+/\d+"
+    rx = r"-?\d+/\d+"
 
 
 class Float(Number):
-    rx = r"\d+E\d+|\d+\.\d*|\d*\.\d+"
+    rx = r"-?\d+E\d+|\d+\.\d*|\d*\.\d+"
 
 
 class LilyPond(Token):

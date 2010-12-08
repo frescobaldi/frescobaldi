@@ -469,6 +469,7 @@ def allStyleNames():
             'command':      _("Command"),
             'usercommand':  _("User Command"),
             'markup':       _("Markup"),
+            'delimiter':    _("Delimiter"),
             'context':      _("Context"),
             'grob':         _("Layout Object"),
             'property':     _("Property"),
@@ -490,6 +491,13 @@ def allStyleNames():
             'number':       _("Number"),
             'lilypond':     _("LilyPond Environment"),
             'string':       _("String"),
+            'comment':      _("Comment"),
+        }),
+        'texi': (_("Texinfo"), {
+            'keyword':      _("Keyword"),
+            'block':        _("Block"),
+            'escapechar':   _("Escaped Character"),
+            'verbatim':     _("Verbatim"),
             'comment':      _("Comment"),
         }),
 

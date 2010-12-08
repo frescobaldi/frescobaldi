@@ -26,17 +26,96 @@ Parses and tokenizes Texinfo input, recognizing LilyPond in Texinfo.
 from . import (
     Parser,
     Token,
-    Space
+    Leaver,
+    Space,
+    CommentBase,
+    EscapeBase,
 )
 
 
-class Keyword(Token):
-    rx = r"\b@[a-z][A-Z]+\b"
+class Comment(CommentBase):
+    pass
 
+
+class LineComment(Comment):
+    rx = r"@c\b.*$"
+
+
+class BlockCommentStart(Comment):
+    rx = r"@ignore\b"
+    def __init__(self, matchObj, state):
+        state.enter(CommentParser)
+        
+        
+class BlockCommentEnd(Comment, Leaver):
+    rx = r"@end\s+ignore\b"
+
+
+class Keyword(Token):
+    rx = r"@[a-zA-Z]+"
+
+
+class Block(Token):
+    pass
+
+
+class BlockStart(Block):
+    rx = r"@[a-zA-Z]+\{"
+    def __init__(self, matchObj, state):
+        state.enter(BlockParser)
+
+
+class BlockEnd(Block, Leaver):
+    rx = r"\}"
+
+
+class EscapeChar(EscapeBase):
+    rx = r"@[@{}]"
+    
+
+class Verbatim(Token):
+    pass
+
+
+class VerbatimStart(Keyword):
+    rx = r"@verbatim\b"
+    def __init__(self, matchObj, state):
+        state.enter(VerbatimParser)
+
+
+class VerbatimEnd(Keyword, Leaver):
+    rx = r"@end\s+verbatim\b"
+    
 
 class TexinfoParser(Parser):
     items = (
         Space,
+        LineComment,
+        BlockCommentStart,
+        EscapeChar,
+        BlockStart,
+        VerbatimStart,
         Keyword,
+    )
+
+
+class CommentParser(Parser):
+    defaultClass = Comment
+    items = (
+        BlockCommentEnd,
+    )
+
+
+class BlockParser(Parser):
+    items = (
+        BlockEnd,
+        EscapeChar,
+    )
+
+
+class VerbatimParser(Parser):
+    defaultClass = Verbatim
+    items = (
+        VerbatimEnd,
     )
 
