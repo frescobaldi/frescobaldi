@@ -42,7 +42,7 @@ def load():
         return
     _recentfiles = []
     
-    for url in QSettings().value("recent_files", []):
+    for url in QSettings().value("recent_files", []) or []:
         if isinstance(url, QUrl):
             if os.access(url.toLocalFile(), os.R_OK):
                 _recentfiles.append(url)

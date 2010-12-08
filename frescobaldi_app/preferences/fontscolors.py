@@ -23,8 +23,6 @@ from __future__ import unicode_literals
 Fonts and Colors preferences page.
 """
 
-import contextlib
-
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
@@ -33,6 +31,7 @@ from .. import (
     icons,
     preferences,
     textformats,
+    util,
 )
 
 from ..widgets import ClearButton
@@ -167,7 +166,7 @@ class FontsColors(preferences.Page):
         if scheme not in self.data:
             self.data[scheme] = textformats.TextFormatData(scheme)
         self.updateDisplay()
-        with signalsBlocked(self.printScheme):
+        with util.signalsBlocked(self.printScheme):
             self.printScheme.setChecked(scheme == self._printScheme)
     
     def fontChanged(self):
@@ -187,7 +186,7 @@ class FontsColors(preferences.Page):
     def updateDisplay(self):
         data = self.data[self.scheme.currentScheme()]
         
-        with signalsBlocked(self.fontChooser, self.fontSize):
+        with util.signalsBlocked(self.fontChooser, self.fontSize):
             self.fontChooser.setCurrentFont(data.font)
             self.fontSize.setValue(data.font.pointSizeF())
         
@@ -469,11 +468,13 @@ def allStyleNames():
             'keyword':      _("Keyword"),
             'command':      _("Command"),
             'usercommand':  _("User Command"),
+            'markup':       _("Markup"),
             'context':      _("Context"),
             'grob':         _("Layout Object"),
             'property':     _("Property"),
-            'comment':      _("Comment"),
             'string':       _("String"),
+            'stringescape': _("Escaped Character"),
+            'comment':      _("Comment"),
         }),
         'html': (_("HTML"), {
             'tag':          _("Tag"),
@@ -484,15 +485,13 @@ def allStyleNames():
             'comment':      _("Comment"),
             'string':       _("String"),
         }),
+        'scheme': (_("Scheme"), {
+            'scheme':       _("Scheme"),
+            'number':       _("Number"),
+            'lilypond':     _("LilyPond Environment"),
+            'string':       _("String"),
+            'comment':      _("Comment"),
+        }),
+
     }
-
-
-@contextlib.contextmanager
-def signalsBlocked(*objs):
-    blocks = [obj.blockSignals(True) for obj in objs]
-    try:
-        yield
-    finally:
-        for obj, block in zip(objs, blocks):
-            obj.blockSignals(block)
 

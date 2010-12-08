@@ -55,17 +55,29 @@ def makeHighlightFormats():
     data = textformats.textFormatData()
     
     # LilyPond
-    d[ly.tokenize.lilypond.Comment] = data.textFormat('lilypond', 'comment')
-    d[ly.tokenize.lilypond.String] = data.textFormat('lilypond', 'string')
+    d[ly.tokenize.lilypond.Keyword] = data.textFormat('lilypond', 'keyword')
     d[ly.tokenize.lilypond.Command] = data.textFormat('lilypond', 'command')
+    d[ly.tokenize.lilypond.Markup] = data.textFormat('lilypond', 'markup')
+    d[ly.tokenize.lilypond.UserCommand] = data.textFormat('lilypond', 'usercommand')
+    d[ly.tokenize.lilypond.StringQuoteEscape] = data.textFormat('lilypond', 'stringescape')
+    d[ly.tokenize.lilypond.String] = data.textFormat('lilypond', 'string')
+    d[ly.tokenize.lilypond.Comment] = data.textFormat('lilypond', 'comment')
+    
+    
+    # Scheme
+    d[ly.tokenize.lilypond.SchemeStart] = data.textFormat('scheme', 'scheme')
+    d[ly.tokenize.scheme.Scheme] = d[ly.tokenize.lilypond.SchemeStart]
+    d[ly.tokenize.scheme.String] = data.textFormat('scheme', 'string')
+    d[ly.tokenize.scheme.Comment] = data.textFormat('scheme', 'comment')
+    d[ly.tokenize.scheme.Number] = data.textFormat('scheme', 'number')
     
     # HTML
-    d[ly.tokenize.html.TagStart] = data.textFormat('html', 'tag')
-    d[ly.tokenize.html.TagEnd] = d[ly.tokenize.html.TagStart]
+    d[ly.tokenize.html.Tag] = data.textFormat('html', 'tag')
     d[ly.tokenize.html.AttrName] = data.textFormat('html', 'attribute')
     d[ly.tokenize.html.String] = data.textFormat('html', 'string')
     d[ly.tokenize.html.EntityRef] = data.textFormat('html', 'entityref')
     d[ly.tokenize.html.Comment] = data.textFormat('html', 'comment')
+    d[ly.tokenize.html.LilyPondTag] = data.textFormat('html', 'lilypondtag')
     
     
     return d

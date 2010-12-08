@@ -259,10 +259,12 @@ allStyles = (
         'keyword',
         'command',
         'usercommand',
+        'markup',
         'context',
         'grob',
         'property',
         'string',
+        'stringescape',
         'comment',
         )),
     ('html', (
@@ -274,6 +276,13 @@ allStyles = (
         'string',
         'comment',
         )),
+    ('scheme', (
+        'scheme',
+        'number',
+        'lilypond',
+        'string',
+        'comment',
+        )),
 )
 
 
@@ -281,11 +290,13 @@ inherits = {
     'lilypond': {
         'keyword': 'keyword',
         'command': 'function',
+        'markup': 'function',
         'usercommand': 'variable',
         'string': 'string',
+        'stringescape': 'escape',
         'comment': 'comment',
     },
-    'html' : {
+    'html': {
         'tag': 'keyword',
         'lilypondtag': 'function',
         'attribute': 'variable',
@@ -294,8 +305,13 @@ inherits = {
         'string': 'string',
         'comment': 'comment',
     },
+    'scheme': {
+        'number': 'value',
+        'string': 'string',
+        'comment': 'comment',
+    },
+        
 }
 
 
         
-    

@@ -40,6 +40,7 @@ import view
 import viewmanager
 import signals
 import recentfiles
+import util
 
 
 class MainWindow(QMainWindow):
@@ -276,7 +277,7 @@ class MainWindow(QMainWindow):
         filename = dest = doc.url().toLocalFile()
         if not filename:
             dest = doc.url().toString()
-        if not app.iswritable(filename):
+        if not util.iswritable(filename):
             QMessageBox.warning(self, app.caption(_("Error")),
                 _("Can't write to destination:\n\n{url}").format(url=dest))
             return False
@@ -299,7 +300,7 @@ class MainWindow(QMainWindow):
         filename = QFileDialog.getSaveFileName(self, caption, filename, filetypes)
         if not filename:
             return False # cancelled
-        if not app.iswritable(filename):
+        if not util.iswritable(filename):
             QMessageBox.warning(self, app.caption(_("Error")),
                 _("Can't write to destination:\n\n{url}").format(url=filename))
             return False

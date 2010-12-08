@@ -143,8 +143,3 @@ def settings(name):
     """Returns a QSettings object referring a file in ~/.config/frescobaldi/"""
     return QSettings(info.name, name)
 
-def iswritable(path):
-    """Returns True if the path can be written to or created."""
-    return ((os.path.exists(path) and os.access(path, os.W_OK))
-            or os.access(os.path.dirname(path), os.W_OK))
-

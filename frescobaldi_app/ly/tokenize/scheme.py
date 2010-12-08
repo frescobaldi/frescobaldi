@@ -33,9 +33,10 @@ from . import (
     Leaver,
     NumericBase,
     CommentBase,
+    StringBase,
+    EscapeBase,
+    StringParserBase,
 )
-
-import lilypond
 
 
 class Scheme(Token):
@@ -43,52 +44,93 @@ class Scheme(Token):
     pass
 
 
-class LineComment(CommentBase):
+class String(StringBase):
+    pass
+
+
+class StringQuotedStart(String):
+    rx = r'"'
+    def __init__(self, matchObj, state):
+        state.enter(StringParser)
+        
+
+class StringQuotedEnd(String, Leaver):
+    rx = r'"'
+    
+
+class StringQuoteEscape(String, EscapeBase):
+    rx = r'\\[\\"]'
+
+
+class Comment(CommentBase):
+    pass
+
+
+class LineComment(Comment):
     rx = r";.*$"
     
-class BlockCommentStart(CommentBase):
+
+class BlockCommentStart(Comment):
     rx = r"#!"
     def __init__(self, matchObj, state):
         state.enter(BlockCommentParser)
         
-class BlockCommentEnd(CommentBase, Leaver):
+
+class BlockCommentEnd(Comment, Leaver):
     rx = "!#"
+
 
 class OpenParen(Scheme, Increaser):
     rx = r"\("
     
+
 class CloseParen(Scheme, Decreaser):
     rx = r"\)"
 
-class Quote(Token):
+
+class Quote(Scheme):
     rx = r"[',`]"
     
-class Bool(Item):
+
+class Bool(Scheme, Item):
     rx = r"#[tf]\b"
     
-class Char(Item):
+
+class Char(Scheme, Item):
     rx = r"#\\([a-z]+|.)"
 
-class Word(Item):
+
+class Word(Scheme, Item):
     rx = r'[^()"{}\s]+'
+
 
 class Number(Item, NumericBase):
     rx = r"\d+|#(b[0-1]+|o[0-7]+|x[0-9a-fA-F]+)"
     
+
 class Fraction(Number):
     rx = r"\d+/\d+"
+
 
 class Float(Number):
     rx = r"\d+E\d+|\d+\.\d*|\d*\.\d+"
 
-class LilyPondStart(Token): # TODO: which base(s)?
+
+class LilyPond(Token):
+    pass
+
+
+class LilyPondStart(LilyPond):
     rx = r"#{"
     def __init__(self, matchObj, state):
         state.enter(LilyPondParser)
         
-class LilyPondEnd(Leaver):
+
+class LilyPondEnd(LilyPond, Leaver):
     rx = r"#}"
     
+
+# Parsers
 
 class SchemeParser(Parser):
     argcount = 1
@@ -106,17 +148,27 @@ class SchemeParser(Parser):
         Float,
         Number,
         Word,
-        lilypond.StringQuoted,
-        lilypond.StringQuotedStart,
+        StringQuotedStart,
     )
     
     
+class StringParser(StringParserBase):
+    defaultClass = String
+    argcount = 1
+    items = (
+        StringQuotedEnd,
+        StringQuoteEscape,
+    )
+    
+
 class BlockCommentParser(Parser):
-    defaultClass = CommentBase
+    defaultClass = Comment
     items = (
         BlockCommentEnd,
     )
 
+
+import lilypond
 
 class LilyPondParser(lilypond.LilyPondParser):
     items = (LilyPondEnd,) + lilypond.LilyPondParser.items

@@ -27,6 +27,8 @@ from . import (
     Token,
     Item,
     Leaver,
+    Increaser,
+    Decreaser,
     Space,
     
     CommentBase,
@@ -35,6 +37,8 @@ from . import (
     Parser,
     StringParserBase,
 )
+
+from .. import words
 
 
 class Comment(CommentBase):
@@ -55,24 +59,60 @@ class LineComment(Comment):
     rx = r"%.*$"
     
 
-class Command(Token):
-    rx = r"\\[a-zA-Z]+"
-    
-
-class Scheme(Token):
-    rx = "#"
-    def __init__(self, matchObj, state):
-        import scheme
-        state.enter(scheme.SchemeParser)
-
-
-class String(StringBase):
+class Delimiter(Token):
     pass
 
 
-class StringQuoted(String, Item):
-    rx = r'"(\\[\\"]|[^"\n\\]|\\(?![\\"]))*"'
+class OpenBracket(Delimiter, Increaser):
+    rx = r"\{"
+
+
+class CloseBracket(Delimiter, Decreaser):
+    rx = r"\}"
+
+
+class Keyword(Item):
+    rx = r"\\({0})\b".format("|".join(words.lilypond_keywords))
+
+
+class Command(Item):
+    rx = r"\\({0})\b".format("|".join(words.lilypond_music_commands))
     
+
+class Markup(Command):
+    rx = r"\\markup\b"
+    def __init__(self, matchObj, state):
+        state.enter(MarkupParser)
+
+
+class MarkupLines(Markup):
+    rx = r"\\markuplines\b"
+    def __init__(self, matchObj, state):
+        state.enter(MarkupParser)
+
+
+class MarkupCommand(Markup):
+    rx = r"\\[A-Za-z]+(-[A-Za-z]+)*"
+    def __init__(self, matchObj, state):
+        command = self[1:]
+        if command in words.markupcommands_nargs[0]:
+            state.endArgument()
+        else:
+            for argcount in 2, 3, 4:
+                if command in words.markupcommands_nargs[argcount]:
+                    break
+            else:
+                argcount = 1
+            state.enter(MarkupParser, argcount)
+
+
+class UserCommand(Token):
+    rx = r"\\[A-Za-z]+"
+    
+    
+class String(StringBase):
+    pass
+
 
 class StringQuotedStart(String):
     rx = r'"'
@@ -88,15 +128,27 @@ class StringQuoteEscape(String, EscapeBase):
     rx = r'\\[\\"]'
 
 
+class SchemeStart(Item):
+    rx = "#"
+    def __init__(self, matchObj, state):
+        import scheme
+        state.enter(scheme.SchemeParser)
+
+
+# Parsers
+
 class LilyPondParser(Parser):
     items = (
         Space,
         BlockCommentStart,
         LineComment,
-        Scheme,
-        StringQuoted,
+        SchemeStart,
         StringQuotedStart,
+        Keyword,
+        Markup,
+        MarkupLines,
         Command,
+        UserCommand,
     )
     
 
@@ -115,3 +167,12 @@ class BlockCommentParser(Parser):
         BlockCommentEnd,
     )
 
+
+class MarkupParser(Parser):
+    argcount = 1
+    items =  (
+#        MarkupScore,
+        MarkupCommand,
+        OpenBracket,
+        CloseBracket,
+    ) + LilyPondParser.items

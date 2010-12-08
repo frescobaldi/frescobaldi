@@ -33,6 +33,8 @@ from . import (
     CommentBase,
 )
 
+import lilypond
+
 
 class Comment(CommentBase):
     pass
@@ -52,13 +54,17 @@ class String(StringBase):
     pass
 
 
-class TagStart(Token):
+class Tag(Token):
+    pass
+
+
+class TagStart(Tag):
     rx = r"</?\w[-_:\w]*\b"
     def __init__(self, matchObj, state):
         state.enter(AttrParser)
         
 
-class TagEnd(Leaver):
+class TagEnd(Tag, Leaver):
     rx = r"/?>"
     
 
@@ -97,11 +103,60 @@ class StringSQEnd(StringEnd):
 class EntityRef(Token):
     rx = r"\&(#\d+|#[xX][0-9A-Fa-f]+|[A-Za-z_:][\w.:_-]*);"
 
+
+class LilyPondTag(Tag):
+    pass
+
+
+class LilyPondVersionTag(LilyPondTag):
+    rx = r"<lilypondversion/?>"
+
+
+class LilyPondFileTag(LilyPondTag):
+    rx = r"</?lilypondfile\b"
+    def __init__(self, matchObj, state):
+        state.enter(LilyPondFileOptionsParser)
+
+
+class LilyPondFileTagEnd(LilyPondTag, Leaver):
+    rx = r"/?>"
+
+
+class LilyPondInlineTag(LilyPondTag):
+    rx = r"<lilypond\b"
+    def __init__(self, matchObj, state):
+        state.enter(LilyPondAttrParser)
+
+
+class LilyPondCloseTag(LilyPondTag, Leaver):
+    rx = r"</lilypond>"
+    
+    
+class LilyPondTagEnd(LilyPondTag):
+    rx = r">"
+    def __init__(self, matchObj, state):
+        state.replace(LilyPondParser)
+
+
+class LilyPondInlineTagEnd(LilyPondTag, Leaver):
+    rx = r"/?>"
+    
+
+class SemiColon(Token):
+    rx = r":"
+    def __init__(self, matchObj, state):
+        state.replace(LilyPondInlineParser)
+
+
+
 # Parsers:
 
 class HTMLParser(Parser):
     items = (
         Space,
+        LilyPondVersionTag,
+        LilyPondFileTag,
+        LilyPondInlineTag,
         CommentStart,
         TagStart,
         EntityRef,
@@ -141,4 +196,39 @@ class CommentParser(Parser):
         CommentEnd,
     )
 
+
+class LilyPondAttrParser(Parser):
+    items = (
+        Space,
+        AttrName,
+        EqualSign,
+        StringDQStart,
+        StringSQStart,
+        LilyPondTagEnd,
+        SemiColon,
+    )
+    
+
+class LilyPondFileOptionsParser(Parser):
+    items = (
+        Space,
+        AttrName,
+        EqualSign,
+        StringDQStart,
+        StringSQStart,
+        LilyPondFileTagEnd,
+    )
+
+
+class LilyPondParser(Parser):
+    items = (
+        LilyPondCloseTag,
+    ) + lilypond.LilyPondParser.items
+    
+
+class LilyPondInlineParser(Parser):
+    items = (
+        LilyPondInlineTagEnd,
+    ) + lilypond.LilyPondParser.items
+    
 
