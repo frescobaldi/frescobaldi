@@ -54,8 +54,11 @@ class StringQuotedStart(String):
         state.enter(StringParser)
         
 
-class StringQuotedEnd(String, Leaver):
+class StringQuotedEnd(String):
     rx = r'"'
+    def __init__(self, matchObj, state):
+        state.leave()
+        state.endArgument()
     
 
 class StringQuoteEscape(String, EscapeBase):
@@ -154,7 +157,6 @@ class SchemeParser(Parser):
     
 class StringParser(StringParserBase):
     defaultClass = String
-    argcount = 1
     items = (
         StringQuotedEnd,
         StringQuoteEscape,

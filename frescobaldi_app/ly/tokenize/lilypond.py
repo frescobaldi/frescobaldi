@@ -75,6 +75,10 @@ class Keyword(Item):
     rx = r"\\({0})\b".format("|".join(words.lilypond_keywords))
 
 
+class Dynamic(Token):
+    rx = r"\\(f{1,5}|p{1,5}|mf|mp|fp|spp?|sff?|sfz|rfz)\b"
+
+
 class Command(Item):
     rx = r"\\({0})\b".format("|".join(words.lilypond_music_commands))
     
@@ -120,9 +124,12 @@ class StringQuotedStart(String):
         state.enter(StringParser)
         
 
-class StringQuotedEnd(String, Leaver):
+class StringQuotedEnd(String):
     rx = r'"'
-    
+    def __init__(self, matchObj, state):
+        state.leave()
+        state.endArgument()
+
 
 class StringQuoteEscape(String, EscapeBase):
     rx = r'\\[\\"]'
@@ -147,6 +154,7 @@ class LilyPondParser(Parser):
         Keyword,
         Markup,
         MarkupLines,
+        Dynamic,
         Command,
         UserCommand,
     )
@@ -154,7 +162,6 @@ class LilyPondParser(Parser):
 
 class StringParser(StringParserBase):
     defaultClass = String
-    argcount = 1
     items = (
         StringQuotedEnd,
         StringQuoteEscape,

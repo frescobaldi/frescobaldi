@@ -57,6 +57,7 @@ def makeHighlightFormats():
     # LilyPond
     d[ly.tokenize.lilypond.Keyword] = data.textFormat('lilypond', 'keyword')
     d[ly.tokenize.lilypond.Command] = data.textFormat('lilypond', 'command')
+    d[ly.tokenize.lilypond.Dynamic] = data.textFormat('lilypond', 'dynamic')
     d[ly.tokenize.lilypond.Markup] = data.textFormat('lilypond', 'markup')
     d[ly.tokenize.lilypond.UserCommand] = data.textFormat('lilypond', 'usercommand')
     d[ly.tokenize.lilypond.StringQuoteEscape] = data.textFormat('lilypond', 'stringescape')
