@@ -118,3 +118,4 @@ class Highlighter(QSyntaxHighlighter):
             self.setCurrentBlockState(len(self._states))
             self._states.append(cur)
 
+

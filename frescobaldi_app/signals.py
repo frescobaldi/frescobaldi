@@ -143,6 +143,8 @@ class SignalInstance(object):
 def makeListener(func, owner=None):
     if isinstance(func, types.MethodType):
         return MethodListener(func)
+    elif isinstance(func, types.BuiltinMethodType):
+        return BuiltinMethodListener(func)
     else:
         return FunctionListener(func, owner)
 
@@ -182,6 +184,13 @@ class MethodListener(ListenerBase):
         obj = self.obj()
         if obj is not None:
             self.func(obj, *args[self.argslice], **kwargs)
+
+
+class BuiltinMethodListener(MethodListener):
+    def __init__(self, meth):
+        self.obj = meth.__self__
+        self.objid = id(meth.__self__)
+        self.func = getattr(meth.__self__.__class__, meth.__name__)
 
 
 class FunctionListener(ListenerBase):
