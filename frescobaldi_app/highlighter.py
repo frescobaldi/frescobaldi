@@ -115,7 +115,6 @@ class Highlighter(QSyntaxHighlighter):
         
         formats = highlightFormats()
         for token in ly.tokenize.tokens(text, state):
-            print token, token.__class__.__name__
             for cls in token.__class__.__mro__:
                 if cls is not ly.tokenize.Token:
                     try:
