@@ -148,7 +148,6 @@ class LilyPondAttrEnd(Attribute, Leaver):
 
 class TexinfoParser(Parser):
     items = (
-        Space,
         LineComment,
         BlockCommentStart,
         Accent,
@@ -172,7 +171,10 @@ class CommentParser(Parser):
 class BlockParser(Parser):
     items = (
         BlockEnd,
+        Accent,
         EscapeChar,
+        BlockStart,
+        Keyword,
     )
 
 
