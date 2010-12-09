@@ -128,8 +128,8 @@ def filetypes(extension=None):
     for patterns, name in (
             ("{0} (*.ly *.lyi *.ily)",          _("LilyPond Files")),
             ("{0} (*.tex *.lytex *.latex)",     _("LaTeX Files")),
-            ("{0} (*.docbook)",                 _("DocBook Files")),
-            ("{0} (*.html)",                    _("HTML Files")),
+            ("{0} (*.docbook *.lyxml)",         _("DocBook Files")),
+            ("{0} (*.html *.xml)",              _("HTML Files")),
             ("{0} (*.itely *.tely *.texi *.texinfo)", _("Texinfo Files")),
             ("{0} (*.scm)",                     _("Scheme Files")),
             ("{0} (*)",                         _("All Files")),
