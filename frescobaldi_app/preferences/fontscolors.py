@@ -497,6 +497,7 @@ def allStyleNames():
             'keyword':      _("Keyword"),
             'block':        _("Block"),
             'escapechar':   _("Escaped Character"),
+            'attribute':    _("Attribute"),
             'verbatim':     _("Verbatim"),
             'comment':      _("Comment"),
         }),

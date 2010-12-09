@@ -316,6 +316,7 @@ allStyles = (
     ('texi', (
         'keyword',
         'block',
+        'attribute',
         'escapechar',
         'verbatim',
         'comment',
@@ -351,6 +352,7 @@ inherits = {
     'texi': {
         'keyword': 'keyword',
         'block': 'function',
+        'attribute': 'variable',
         'escapechar': 'escape',
         'verbatim': 'string',
         'comment': 'comment',

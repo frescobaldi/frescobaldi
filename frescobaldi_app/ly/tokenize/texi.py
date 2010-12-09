@@ -24,12 +24,13 @@ Parses and tokenizes Texinfo input, recognizing LilyPond in Texinfo.
 """
 
 from . import (
-    Parser,
     Token,
     Leaver,
     Space,
     CommentBase,
     EscapeBase,
+    Parser,
+    FallthroughParser,
 )
 
 
@@ -49,6 +50,10 @@ class BlockCommentStart(Comment):
         
 class BlockCommentEnd(Comment, Leaver):
     rx = r"@end\s+ignore\b"
+
+
+class Attribute(Token):
+    pass
 
 
 class Keyword(Token):
@@ -73,6 +78,10 @@ class EscapeChar(EscapeBase):
     rx = r"@[@{}]"
     
 
+class Accent(EscapeChar):
+    rx = "@['\"',=^`~](\\{[a-zA-Z]\\}|[a-zA-Z]\\b)"
+
+
 class Verbatim(Token):
     pass
 
@@ -86,13 +95,67 @@ class VerbatimStart(Keyword):
 class VerbatimEnd(Keyword, Leaver):
     rx = r"@end\s+verbatim\b"
     
+    
+class LilyPondBlockStart(Block):
+    rx = r"@lilypond(?=(\[[a-zA-Z,=0-9\\\s]+\])?\{)"
+    def __init__(self, matchObj, state):
+        state.enter(LilyPondBlockAttrParser)
+
+
+class LilyPondBlockStartBrace(Block):
+    rx = r"\{"
+    def __init__(self, matchObj, state):
+        state.replace(LilyPondBlockParser)
+
+
+class LilyPondBlockEnd(Block, Leaver):
+    rx = r"\}"
+    
+    
+class LilyPondEnvStart(Keyword):
+    rx = r"@lilypond\b"
+    def __init__(self, matchObj, state):
+        state.enter(LilyPondEnvAttrParser)
+    
+    
+class LilyPondEnvEnd(Keyword, Leaver):
+    rx = r"@end\s+lilypond\b"
+
+
+class LilyPondFileStart(Block):
+    rx = r"@lilypondfile\b"
+    def __init__(self, matchObj, state):
+        state.enter(LilyPondFileParser)
+
+
+class LilyPondFileStartBrace(Block):
+    rx = r"\{"
+    def __init__(self, matchObj, state):
+        state.replace(BlockParser)
+
+
+class LilyPondAttrStart(Attribute):
+    rx = r"\["
+    def __init__(self, matchObj, state):
+        state.enter(LilyPondAttrParser)
+    
+    
+class LilyPondAttrEnd(Attribute, Leaver):
+    rx = r"\]"
+
+
+# Parsers:
 
 class TexinfoParser(Parser):
     items = (
         Space,
         LineComment,
         BlockCommentStart,
+        Accent,
         EscapeChar,
+        LilyPondBlockStart,
+        LilyPondEnvStart,
+        LilyPondFileStart,
         BlockStart,
         VerbatimStart,
         Keyword,
@@ -118,4 +181,48 @@ class VerbatimParser(Parser):
     items = (
         VerbatimEnd,
     )
+
+
+class LilyPondBlockAttrParser(Parser):
+    items = (
+        LilyPondAttrStart,
+        LilyPondBlockStartBrace,
+    )
+
+
+class LilyPondEnvAttrParser(FallthroughParser):
+    items = (
+        LilyPondAttrStart,
+    )
+    def fallthrough(self, state):
+        state.replace(LilyPondEnvParser)
+
+
+class LilyPondAttrParser(Parser):
+    defaultClass = Attribute
+    items = (
+        LilyPondAttrEnd,
+    )
+
+
+class LilyPondFileParser(Parser):
+    items = (
+        LilyPondAttrStart,
+        LilyPondFileStartBrace,
+    )
+
+
+import lilypond
+
+class LilyPondBlockParser(Parser):
+    items = (
+        LilyPondBlockEnd,
+    ) + lilypond.LilyPondParser.items
+
+
+class LilyPondEnvParser(Parser):
+    items = (
+        LilyPondEnvEnd,
+    ) + lilypond.LilyPondParser.items
+    
 

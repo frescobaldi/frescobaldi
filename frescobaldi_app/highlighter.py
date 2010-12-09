@@ -88,6 +88,7 @@ def makeHighlightFormats():
     # Texinfo
     d[ly.tokenize.texi.Keyword] = data.textFormat('texi', 'keyword')
     d[ly.tokenize.texi.Block] = data.textFormat('texi', 'block')
+    d[ly.tokenize.texi.Attribute] = data.textFormat('texi', 'attribute')
     d[ly.tokenize.texi.EscapeChar] = data.textFormat('texi', 'escapechar')
     d[ly.tokenize.texi.Verbatim] = data.textFormat('texi', 'verbatim')
     d[ly.tokenize.texi.Comment] = data.textFormat('texi', 'comment')
