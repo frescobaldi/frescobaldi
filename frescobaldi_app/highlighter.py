@@ -79,6 +79,7 @@ def makeHighlightFormats():
     # HTML
     d[ly.tokenize.html.Tag] = data.textFormat('html', 'tag')
     d[ly.tokenize.html.AttrName] = data.textFormat('html', 'attribute')
+    d[ly.tokenize.html.Value] = data.textFormat('html', 'value')
     d[ly.tokenize.html.String] = data.textFormat('html', 'string')
     d[ly.tokenize.html.EntityRef] = data.textFormat('html', 'entityref')
     d[ly.tokenize.html.Comment] = data.textFormat('html', 'comment')
@@ -109,7 +110,7 @@ class Highlighter(QSyntaxHighlighter):
         if 0 <= prev < len(self._states):
             state = ly.tokenize.State.thaw(self._states[prev])
         else:
-            state = ly.tokenize.State(text)
+            state = ly.tokenize.State(ly.tokenize.guessState(text))
         
         setFormat = lambda f: self.setFormat(token.pos, len(token), f)
         

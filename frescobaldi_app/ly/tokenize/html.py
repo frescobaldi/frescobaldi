@@ -24,13 +24,14 @@ Parses and tokenizes HTML input, recognizing LilyPond in HTML.
 """
 
 from . import (
-    Parser,
     Token,
     Space,
     Leaver,
     StringBase,
-    StringParserBase,
     CommentBase,
+    Parser,
+    FallthroughParser,
+    StringParserBase,
 )
 
 import lilypond
@@ -74,7 +75,13 @@ class AttrName(Token):
     
 class EqualSign(Token):
     rx = "="
+    def __init__(self, matchObj, state):
+        state.enter(ValueParser)
 
+
+class Value(Leaver):
+    rx = r"\w+"
+    
 
 class StringDQStart(String):
     rx = r'"'
@@ -195,6 +202,16 @@ class CommentParser(Parser):
     items = (
         CommentEnd,
     )
+
+
+class ValueParser(FallthroughParser):
+    """Finds a value or drops back."""
+    items = (
+        Space,
+        Value,
+    )
+    def fallthrough(self, state):
+        state.leave()
 
 
 class LilyPondAttrParser(Parser):

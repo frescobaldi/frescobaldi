@@ -46,19 +46,22 @@ def tokens(text, state=None, pos=0):
     
     """
     if state is None:
-        state = State(text)
-    parser = state.parser()
-    m = parser.parse(text, pos)
-    while m:
-        if pos < m.start():
-            yield parser.default(text[pos:m.start()], pos)
-        yield _classlist[int(m.lastgroup[1:])](m, state)
-        pos = m.end()
+        state = State(guessState(text))
+    
+    while True:
         parser = state.parser()
         m = parser.parse(text, pos)
+        if m:
+            if pos < m.start():
+                yield parser.default(text[pos:m.start()], pos)
+            yield _classlist[int(m.lastgroup[1:])](m, state)
+            pos = m.end()
+        elif parser.fallthrough(state):
+            break
+        continue
     if pos < len(text):
         yield parser.default(text[pos:], pos)
-    
+
 
 def _makePattern(classes):
     """Builds a regular expression to parse a text for the given token classes.
@@ -85,18 +88,11 @@ class State(object):
     Basically, you create a State object and then use it with the tokens()
     generator to tokenize a text string of LilyPond input.
     
-    The constructor accepts one parameter that can be one of two things:
-    If it is a Parser subclass, it will be used as initial parser (defaulting
-    to lilypond.LilyPondParser). If it is a string, the initial parser will
-    be guessed from the contents of the string.
-    
     """
-    def __init__(self, init=None):
-        if not init:
-            init = lilypond.LilyPondParser
-        elif isinstance(init, basestring):
-            init = guessState(init)
-        self.state = [init()]
+    def __init__(self, initialParserClass=None):
+        if initialParserClass is None:
+            initialParserClass = lilypond.LilyPondParser
+        self.state = [initialParserClass()]
         self.language = 'nederlands' # LilyPond pitch name language
     
     def freeze(self):
@@ -275,6 +271,30 @@ class Parser(object):
         obj.pos = pos
         obj.end = pos + len(text)
         return obj
+    
+    def fallthrough(self, state):
+        """Called when no match is returned by parse().
+        
+        If this function returns True, the tokenizer stops parsing, assuming all
+        text has been consumed.  If this function returns False or None, it
+        should alter the state (switch parsers) and parsing continues using the
+        new Parser.
+        
+        The default implementation simply returns True.
+        
+        """
+        return True
+
+
+class FallthroughParser(Parser):
+    """Base class for parsers that 'match' instead of 'search' for a pattern.
+    
+    You should also implement the fallthrough() method to do something with
+    the state if there is no match. See Parser().
+    
+    """
+    def parse(self, text, pos):
+        return self.pattern.match(text, pos)
     
 
 class StringParserBase(Parser):
