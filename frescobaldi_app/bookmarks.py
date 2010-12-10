@@ -27,7 +27,7 @@ A mark is simply a QTextCursor that maintains its position in the document.
 """
 
 import bisect
-import pickle
+import json
 import weakref
 
 from PyQt4.QtGui import QTextCursor
@@ -142,7 +142,7 @@ class Bookmarks(object):
         self._marks = dict((type, []) for type in types)
         marks = metainfo.info(self.document()).bookmarks
         try:
-            d = pickle.loads(marks) or {}
+            d = json.loads(marks) or {}
         except Exception:
             return
         for type in types:
@@ -157,6 +157,6 @@ class Bookmarks(object):
                 linenum = mark.blockNumber()
                 if linenum not in lines:
                     lines.append(linenum)
-        metainfo.info(self.document()).bookmarks = pickle.dumps(d)
+        metainfo.info(self.document()).bookmarks = json.dumps(d)
 
 
