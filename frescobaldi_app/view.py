@@ -37,16 +37,22 @@ class View(QPlainTextEdit):
     
     def __init__(self, document):
         super(View, self).__init__()
+        self._currentLineColor = None
+        self._markColor = {}
+        self._markedLineExtraSelections = []
+        self._cursorExtraSelection = QTextEdit.ExtraSelection()
+        self._cursorExtraSelection.format.setProperty(QTextFormat.FullWidthSelection, True)
         self.setDocument(document)
         self.setLineWrapMode(QPlainTextEdit.NoWrap)
         self.setCursorWidth(2)
         # restore saved cursor position (defaulting to 0)
         document.loaded.connect(self.restoreCursor)
         document.closed.connect(self.slotDocumentClosed)
+        document.bookmarks.marksChanged.connect(self.updateMarkedLines)
         self.restoreCursor()
         self.cursorPositionChanged.connect(self.updateCursor)
         app.settingsChanged.connect(self.readSettings)
-        self.readSettings() # will also call updateCursor
+        self.readSettings() # will also call updateCursor and updateMarkedLines
     
     def readSettings(self):
         s = QSettings()
@@ -65,6 +71,11 @@ class View(QPlainTextEdit):
         p.setColor(QPalette.Highlight, data.baseColors['selectionbackground'])
         self.setPalette(p)
         self._currentLineColor = data.baseColors['current']
+        self._markColor['bookmark'] = QColor(data.baseColors['mark'])
+        self._markColor['bookmark'].setAlpha(200)
+        self._markColor['error'] = QColor(data.baseColors['error'])
+        self._markColor['error'].setAlpha(200)
+        self.updateMarkedLines()
         self.updateCursor()
         
     def focusInEvent(self, ev):
@@ -120,15 +131,28 @@ class View(QPlainTextEdit):
     def updateCursor(self):
         """Called when the textCursor has moved."""
         # highlight current line
-        es = QTextEdit.ExtraSelection()
+        es = self._cursorExtraSelection
         es.cursor = self.textCursor()
         es.cursor.clearSelection()
         color = QColor(self._currentLineColor)
-        self.hasFocus() or color.setAlpha(100)
+        color.setAlpha(200 if self.hasFocus() else 100)
         es.format.setBackground(color)
-        es.format.setProperty(QTextFormat.FullWidthSelection, True)
-        self.setExtraSelections([es])
+        self.updateExtraSelections()
         
-
-
+    def updateMarkedLines(self):
+        lines = self._markedLineExtraSelections = []
+        for type, marks in self.document().bookmarks.marks().items():
+            for mark in marks:
+                es = QTextEdit.ExtraSelection()
+                es.cursor = mark
+                es.format.setBackground(self._markColor[type])
+                es.format.setProperty(QTextFormat.FullWidthSelection, True)
+                lines.append(es)
+        self.updateExtraSelections()
+        
+    def updateExtraSelections(self):
+        extraSelections = self._markedLineExtraSelections + [self._cursorExtraSelection]
+        self.setExtraSelections(extraSelections)
+        
+        
 

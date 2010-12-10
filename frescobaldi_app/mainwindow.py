@@ -409,6 +409,17 @@ class MainWindow(QMainWindow):
         dlg = preferences.PreferencesDialog(self)
         dlg.exec_()
         dlg.deleteLater()
+    
+    def markCurrentLine(self):
+        view = self.currentView()
+        lineNumber = view.textCursor().blockNumber()
+        view.document().bookmarks.toggleMark(lineNumber, 'bookmark')
+    
+    def clearErrorMarks(self):
+        self.currentDocument().bookmarks.clear('error')
+        
+    def clearAllMarks(self):
+        self.currentDocument().bookmarks.clear()
         
     def toggleFullScreen(self, enabled):
         if enabled:
@@ -466,6 +477,9 @@ class MainWindow(QMainWindow):
         ac.view_previous_document.triggered.connect(self.tabBar.previousDocument)
         ac.view_scroll_up.triggered.connect(self.scrollUp)
         ac.view_scroll_down.triggered.connect(self.scrollDown)
+        ac.view_bookmark.triggered.connect(self.markCurrentLine)
+        ac.view_clear_error_marks.triggered.connect(self.clearErrorMarks)
+        ac.view_clear_all_marks.triggered.connect(self.clearAllMarks)
         ac.window_new.triggered.connect(self.newWindow)
         ac.window_fullscreen.toggled.connect(self.toggleFullScreen)
         ac.help_whatsthis.triggered.connect(QWhatsThis.enterWhatsThisMode)

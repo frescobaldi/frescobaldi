@@ -63,6 +63,7 @@ class Signal(object):
             return self.instances[instance]
         except KeyError:
             ret = self.instances[instance] = SignalInstance()
+            return ret
 
 
 class SignalInstance(object):

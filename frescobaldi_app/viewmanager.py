@@ -182,9 +182,13 @@ class ViewSpace(QWidget):
         view = self.activeView()
         if view:
             cur = view.textCursor()
+            line = cur.blockNumber() + 1
+            try:
+                column = cur.positionInBlock()
+            except AttributeError: # only in very recent PyQt4
+                column = cur.position() - cur.block().position()
             self.status.pos.setText(_("Line: {line}, Col: {column}").format(
-                line = cur.blockNumber() + 1,
-                column = cur.columnNumber()))
+                line = line, column = column))
             if view.document().isModified():
                 pixmap = icons.get('document-save').pixmap(16)
             else:

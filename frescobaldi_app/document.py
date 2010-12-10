@@ -31,6 +31,7 @@ from PyQt4.QtGui import *
 import app
 import view
 import highlighter
+import bookmarks
 
 
 class Document(QTextDocument):
@@ -41,14 +42,11 @@ class Document(QTextDocument):
     
     def __init__(self, url=None, encoding=None):
         super(Document, self).__init__()
-        
         self._materialized = False
         self._encoding = encoding
         self._url = url # avoid urlChanged on init
         self.setUrl(url)
         self.modificationChanged.connect(self.slotModificationChanged)
-        
-        
         app.documents.append(self)
         app.documentCreated(self)
         self.load()
@@ -117,7 +115,7 @@ class Document(QTextDocument):
         if not self._materialized:
             self.setDocumentLayout(QPlainTextDocumentLayout(self))
             self.highlighter = highlighter.Highlighter(self)
-            
+            self.bookmarks = bookmarks.Bookmarks(self)
             self._materialized = True
         return view.View(self)
     
