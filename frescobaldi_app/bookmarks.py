@@ -143,8 +143,8 @@ class Bookmarks(object):
         marks = metainfo.info(self.document()).bookmarks
         try:
             d = json.loads(marks) or {}
-        except Exception:
-            return
+        except ValueError:
+            return # No JSON object could be decoded
         for type in types:
             self._marks[type] = [QTextCursor(self.document().findBlockByNumber(num)) for num in d.get(type, [])]
         self.marksChanged()
