@@ -105,4 +105,32 @@ class Bookmarks(object):
             self._marks[type] = []
         self.marksChanged()
 
+    def nextMark(self, linenum, type=None):
+        if type is None:
+            marks = []
+            for type in types:
+                marks += self._marks[type]
+            # sort the marks on line number
+            marks.sort(key=lambda mark: mark.blockNumber())
+        else:
+            marks = self._marks[type]
+        nums = [mark.blockNumber() for mark in marks]
+        index = bisect.bisect_right(nums, linenum)
+        if index < len(nums):
+            return marks[index]
+        
+    def previousMark(self, linenum, type=None):
+        if type is None:
+            marks = []
+            for type in types:
+                marks += self._marks[type]
+            # sort the marks on line number
+            marks.sort(key=lambda mark: mark.blockNumber())
+        else:
+            marks = self._marks[type]
+        nums = [mark.blockNumber() for mark in marks]
+        index = bisect.bisect_left(nums, linenum)
+        if index > 0:
+            return marks[index-1]
+
 

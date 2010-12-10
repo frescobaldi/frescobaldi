@@ -420,6 +420,22 @@ class MainWindow(QMainWindow):
         
     def clearAllMarks(self):
         self.currentDocument().bookmarks.clear()
+    
+    def nextMark(self):
+        view = self.currentView()
+        lineNumber = view.textCursor().blockNumber()
+        cursor = view.document().bookmarks.nextMark(lineNumber)
+        if cursor:
+            view.setTextCursor(cursor)
+            view.ensureCursorVisible()
+            
+    def previousMark(self):
+        view = self.currentView()
+        lineNumber = view.textCursor().blockNumber()
+        cursor = view.document().bookmarks.previousMark(lineNumber)
+        if cursor:
+            view.setTextCursor(cursor)
+            view.ensureCursorVisible()
         
     def toggleFullScreen(self, enabled):
         if enabled:
@@ -475,6 +491,8 @@ class MainWindow(QMainWindow):
         ac.edit_preferences.triggered.connect(self.showPreferences)
         ac.view_next_document.triggered.connect(self.tabBar.nextDocument)
         ac.view_previous_document.triggered.connect(self.tabBar.previousDocument)
+        ac.view_next_mark.triggered.connect(self.nextMark)
+        ac.view_previous_mark.triggered.connect(self.previousMark)
         ac.view_scroll_up.triggered.connect(self.scrollUp)
         ac.view_scroll_down.triggered.connect(self.scrollDown)
         ac.view_bookmark.triggered.connect(self.markCurrentLine)
@@ -604,6 +622,8 @@ class MainWindow(QMainWindow):
         # actions that are not in menus
         self.addAction(ac.view_scroll_up)
         self.addAction(ac.view_scroll_down)
+        self.addAction(ac.view_next_mark)
+        self.addAction(ac.view_previous_mark)
         
     def createToolBars(self):
         ac = self.actionCollection
@@ -909,6 +929,8 @@ class ActionCollection(actioncollection.ActionCollection):
         self.view_bookmark.setCheckable(True)
         self.view_clear_error_marks = QAction(parent)
         self.view_clear_all_marks = QAction(parent)
+        self.view_next_mark = QAction(parent)
+        self.view_previous_mark = QAction(parent)
         self.view_scroll_up = QAction(parent)
         self.view_scroll_down = QAction(parent)
         
@@ -1008,6 +1030,8 @@ class ActionCollection(actioncollection.ActionCollection):
         self.view_next_document.setShortcuts(QKeySequence.Forward)
         self.view_previous_document.setShortcuts(QKeySequence.Back)
         self.view_bookmark.setShortcut(Qt.CTRL + Qt.Key_B)
+        self.view_next_mark.setShortcut(Qt.ALT + Qt.Key_PageDown)
+        self.view_previous_mark.setShortcut(Qt.ALT + Qt.Key_PageUp)
         self.view_scroll_up.setShortcut(Qt.CTRL + Qt.Key_Up)
         self.view_scroll_down.setShortcut(Qt.CTRL + Qt.Key_Down)
         
@@ -1055,6 +1079,8 @@ class ActionCollection(actioncollection.ActionCollection):
         self.view_bookmark.setText(_("&Mark Current Line"))
         self.view_clear_error_marks.setText(_("Clear &Error Marks"))
         self.view_clear_all_marks.setText(_("Clear &All Marks"))
+        self.view_next_mark.setText(_("Next Mark"))
+        self.view_previous_mark.setText(_("Previous Mark"))
         self.view_scroll_up.setText(_("Scroll Up"))
         self.view_scroll_down.setText(_("Scroll Down"))
         
