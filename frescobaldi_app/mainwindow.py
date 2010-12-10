@@ -402,6 +402,13 @@ class MainWindow(QMainWindow):
         directory = os.path.dirname(self.currentDocument().url().toLocalFile()) or os.getcwdu()
         QDesktopServices.openUrl(QUrl.fromLocalFile(directory))
     
+    def printSource(self):
+        p = QPrinter()
+        dlg = QPrintDialog(p, self)
+        dlg.setOptions(QAbstractPrintDialog.PrintToFile | QAbstractPrintDialog.PrintSelection)
+        if dlg.exec_():
+            self.currentView().print_(p)
+        
     def undo(self):
         self.currentDocument().undo()
         
@@ -496,6 +503,7 @@ class MainWindow(QMainWindow):
         ac.file_save.triggered.connect(self.saveCurrentDocument)
         ac.file_save_as.triggered.connect(self.saveCurrentDocumentAs)
         ac.file_save_all.triggered.connect(self.saveAllDocuments)
+        ac.file_print_source.triggered.connect(self.printSource)
         ac.file_close.triggered.connect(self.closeCurrentDocument)
         ac.file_close_other.triggered.connect(self.closeOtherDocuments)
         ac.edit_undo.triggered.connect(self.undo)

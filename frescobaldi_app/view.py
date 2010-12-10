@@ -58,7 +58,7 @@ class View(QPlainTextEdit):
         s = QSettings()
         s.beginGroup("Editor")
         
-        data = textformats.textFormatData()
+        data = textformats.formatData('editor')
         self.setFont(data.font)
         metrics = QFontMetrics(data.font)
         tabwidth = metrics.width(" ") * int(s.value("tabwidth", 8))

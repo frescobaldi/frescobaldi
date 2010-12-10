@@ -33,20 +33,22 @@ import app
 # When the settings are changed, it is cleared again so that it is reloaded when
 # requested again.
 
-_currentData = None
 
-def textFormatData():
+def formatData(type):
+    if _currentData[type] is None:
+        _currentData[type] = TextFormatData(QSettings().value('{0}_scheme'.format(type), 'default'))
+    return _currentData[type]
+
+def _resetFormatData():
     global _currentData
-    if _currentData is None:
-        _currentData = TextFormatData(QSettings().value('editor_scheme', 'default'))
-    return _currentData
+    _currentData = {
+        'editor': None,
+        'print': None,
+    }
 
-def _resetTextFormatData():
-    global _currentData
-    _currentData = None
+app.settingsChanged.connect(_resetFormatData, -100) # before all others
+_resetFormatData()
 
-app.settingsChanged.connect(_resetTextFormatData, -100) # before all others
-    
     
 class TextFormatData(object):
     """Encapsulates all settings in the Fonts & Colors page for a scheme."""

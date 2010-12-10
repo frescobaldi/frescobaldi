@@ -39,7 +39,7 @@ _highlightFormats = None
 def highlightFormats():
     global _highlightFormats
     if _highlightFormats is None:
-        _highlightFormats = makeHighlightFormats()
+        _highlightFormats = makeHighlightFormats(textformats.formatData('editor'))
     return _highlightFormats
     
 def _resetHighlightFormats():
@@ -49,10 +49,9 @@ def _resetHighlightFormats():
 app.settingsChanged.connect(_resetHighlightFormats, -100) # before all others
 
 
-def makeHighlightFormats():
+def makeHighlightFormats(data):
     """Returns a dictionary with all highlightformats coupled to token types."""
     d = {}
-    data = textformats.textFormatData()
     
     # LilyPond
     d[ly.tokenize.lilypond.Keyword] = data.textFormat('lilypond', 'keyword')
@@ -111,7 +110,7 @@ class Highlighter(QSyntaxHighlighter):
         if 0 <= prev < len(self._states):
             state = ly.tokenize.State.thaw(self._states[prev])
         elif not text or text.isspace():
-            self.setCurrentBlockState(prev - 1) # keep the highligher busy
+            self.setCurrentBlockState(prev - 1) # keep the highligher coming back
             return
         else:
             state = ly.tokenize.State(ly.tokenize.guessState(self.document().toPlainText()))
