@@ -102,6 +102,13 @@ class Bookmarks(object):
             self._marks[type].insert(index, mark)
         self.marksChanged()
 
+    def hasMark(self, linenum, type=None):
+        for type in types if type is None else (type,):
+            for mark in self._marks[type]:
+                if mark.blockNumber() == linenum:
+                    return True
+        return False
+        
     def clear(self, type=None):
         if type is None:
             for type in types:

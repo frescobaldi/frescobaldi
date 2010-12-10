@@ -110,8 +110,11 @@ class Highlighter(QSyntaxHighlighter):
         prev = self.previousBlockState()
         if 0 <= prev < len(self._states):
             state = ly.tokenize.State.thaw(self._states[prev])
+        elif not text or text.isspace():
+            self.setCurrentBlockState(prev - 1) # keep the highligher busy
+            return
         else:
-            state = ly.tokenize.State(ly.tokenize.guessState(text))
+            state = ly.tokenize.State(ly.tokenize.guessState(self.document().toPlainText()))
         
         setFormat = lambda f: self.setFormat(token.pos, len(token), f)
         

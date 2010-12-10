@@ -135,15 +135,25 @@ class MainWindow(QMainWindow):
                 return
             cur.copyAvailable.disconnect(self.updateViewActions)
             cur.selectionChanged.disconnect(self.updateViewActions)
+            cur.cursorPositionChanged.disconnect(self.updateMarkStatus)
+            cur.document().bookmarks.marksChanged.disconnect(self.updateMarkStatus)
         view.copyAvailable.connect(self.updateViewActions)
         view.selectionChanged.connect(self.updateViewActions)
+        view.cursorPositionChanged.connect(self.updateMarkStatus)
+        view.document().bookmarks.marksChanged.connect(self.updateMarkStatus)
         self._currentView = weakref.ref(view)
         self.updateViewActions()
+        self.updateMarkStatus()
         self.setCurrentDocument(view.document())
         self.currentViewChanged.emit(view, cur)
     
     def currentView(self):
         return self._currentView()
+    
+    def updateMarkStatus(self):
+        view = self._currentView()
+        ac = self.actionCollection
+        ac.view_bookmark.setChecked(view.document().bookmarks.hasMark(view.textCursor().blockNumber(), 'bookmark'))
         
     def updateViewActions(self):
         view = self._currentView()
