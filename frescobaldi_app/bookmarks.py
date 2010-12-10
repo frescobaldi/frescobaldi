@@ -27,10 +27,12 @@ A mark is simply a QTextCursor that maintains its position in the document.
 """
 
 import bisect
+import pickle
 import weakref
 
 from PyQt4.QtGui import QTextCursor
 
+import metainfo
 import signals
 
 types = (
@@ -44,8 +46,11 @@ class Bookmarks(object):
     marksChanged = signals.Signal()
     
     def __init__(self, document):
-        self.document = weakref.proxy(document)
-        self._marks = dict((type, []) for type in types)
+        self.document = weakref.ref(document)
+        document.loaded.connect(self.load)
+        document.saved.connect(self.save)
+        document.closed.connect(self.save)
+        self.load() # initializes self._marks
         
     def marks(self, type=None):
         return self._marks[type] if type else self._marks
@@ -55,7 +60,7 @@ class Bookmarks(object):
         if linenum in nums:
             return
         index = bisect.bisect_left(nums, linenum)
-        mark = QTextCursor(self.document.findBlockByNumber(linenum))
+        mark = QTextCursor(self.document().findBlockByNumber(linenum))
         try:
             # only available in very recent PyQt4 versions
             mark.setKeepPositionOnInsert(True)
@@ -88,7 +93,7 @@ class Bookmarks(object):
                     break
                 index = bisect.bisect_left(nums, linenum)
         else:
-            mark = QTextCursor(self.document.findBlockByNumber(linenum))
+            mark = QTextCursor(self.document().findBlockByNumber(linenum))
             try:
                 # only available in very recent PyQt4 versions
                 mark.setKeepPositionOnInsert(True)
@@ -132,5 +137,26 @@ class Bookmarks(object):
         index = bisect.bisect_left(nums, linenum)
         if index > 0:
             return nums[index-1]
+
+    def load(self):
+        self._marks = dict((type, []) for type in types)
+        marks = metainfo.info(self.document()).bookmarks
+        try:
+            d = pickle.loads(marks) or {}
+        except Exception:
+            return
+        for type in types:
+            self._marks[type] = [QTextCursor(self.document().findBlockByNumber(num)) for num in d.get(type, [])]
+        self.marksChanged()
+        
+    def save(self):
+        d = {}
+        for type in types:
+            d[type] = lines = []
+            for mark in self._marks[type]:
+                linenum = mark.blockNumber()
+                if linenum not in lines:
+                    lines.append(linenum)
+        metainfo.info(self.document()).bookmarks = pickle.dumps(d)
 
 

@@ -199,6 +199,8 @@ class MainWindow(QMainWindow):
         for doc in self.historyManager.documents():
             if not self.queryCloseDocument(doc):
                 return False
+        for doc in self.historyManager.documents()[::-1]:
+            doc.close()
         return True
 
     def readSettings(self):

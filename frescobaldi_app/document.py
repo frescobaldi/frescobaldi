@@ -39,6 +39,7 @@ class Document(QTextDocument):
     urlChanged = pyqtSignal()
     closed = pyqtSignal()
     loaded = pyqtSignal()
+    saved = pyqtSignal()
     
     def __init__(self, url=None, encoding=None):
         super(Document, self).__init__()
@@ -108,6 +109,7 @@ class Document(QTextDocument):
             except IOError, OSError:
                 return False
             self.setModified(False)
+            self.saved.emit()
             return True
 
     def createView(self):

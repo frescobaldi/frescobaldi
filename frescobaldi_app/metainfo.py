@@ -24,6 +24,7 @@ Store meta information about documents.
 """
 
 import contextlib
+import pickle
 import time
 import weakref
 
@@ -43,18 +44,21 @@ class MetaInfo(object):
     """Stores meta-information about a Document."""
     def __init__(self):
         self.position = 0
+        self.bookmarks = pickle.dumps(None)
 
     def load(self, url, settings=None):
         """Loads our settings from the group of url."""
         with settingsGroup(url, settings) as s:
             self.position = int(s.value("position", 0))
-        
+            self.bookmarks = bytes(s.value("bookmarks", pickle.dumps(None)))
+            
     def save(self, url, settings=None):
         """Saves our settings to the group of url."""
         with settingsGroup(url, settings) as s:
             s.setValue("time", time.time())
             s.setValue("position", self.position)
-
+            s.setValue("bookmarks", self.bookmarks)
+            
 
 @contextlib.contextmanager
 def settingsGroup(url, s=None):
