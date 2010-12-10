@@ -117,7 +117,7 @@ class Bookmarks(object):
         nums = [mark.blockNumber() for mark in marks]
         index = bisect.bisect_right(nums, linenum)
         if index < len(nums):
-            return marks[index]
+            return nums[index]
         
     def previousMark(self, linenum, type=None):
         if type is None:
@@ -131,6 +131,6 @@ class Bookmarks(object):
         nums = [mark.blockNumber() for mark in marks]
         index = bisect.bisect_left(nums, linenum)
         if index > 0:
-            return marks[index-1]
+            return nums[index-1]
 
 

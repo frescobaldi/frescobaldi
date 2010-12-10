@@ -424,16 +424,18 @@ class MainWindow(QMainWindow):
     def nextMark(self):
         view = self.currentView()
         lineNumber = view.textCursor().blockNumber()
-        cursor = view.document().bookmarks.nextMark(lineNumber)
-        if cursor:
+        lineNumber = view.document().bookmarks.nextMark(lineNumber)
+        if lineNumber is not None:
+            cursor = QTextCursor(view.document().findBlockByNumber(lineNumber))
             view.setTextCursor(cursor)
             view.ensureCursorVisible()
             
     def previousMark(self):
         view = self.currentView()
         lineNumber = view.textCursor().blockNumber()
-        cursor = view.document().bookmarks.previousMark(lineNumber)
-        if cursor:
+        lineNumber = view.document().bookmarks.previousMark(lineNumber)
+        if lineNumber is not None:
+            cursor = QTextCursor(view.document().findBlockByNumber(lineNumber))
             view.setTextCursor(cursor)
             view.ensureCursorVisible()
         
