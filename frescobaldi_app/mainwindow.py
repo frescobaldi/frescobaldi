@@ -445,10 +445,12 @@ class MainWindow(QMainWindow):
             name = os.path.join(dir, name)
         filename = QFileDialog.getSaveFileName(self, app.caption(_("Export as HTML")),
             name, "{0} (*.html)".format("HTML Files"))
-        html = doc.htmlCopy().toHtml()
+        if not filename:
+            return #cancelled
+        html = doc.htmlCopy().toHtml('utf-8').encode('utf-8')
         try:
-            with file(filename, "w") as f:
-                f.write(html)
+            with open(filename, "w") as f:
+                f.write(str(html))
         except (IOError, OSError) as err:
             QMessageBox.warning(self, app.caption(_("Error")),
                 _("Can't write to destination:\n\n{url}\n\n{error}").format(url=filename, error=err))

@@ -72,7 +72,7 @@ class Document(QTextDocument):
         fileName = self.url().toLocalFile()
         if fileName:
             try:
-                with file(fileName) as f:
+                with open(fileName) as f:
                     data = f.read()
             except IOError, OSError:
                 return False # errors are caught in MainWindow.openUrl()
@@ -105,7 +105,7 @@ class Document(QTextDocument):
         if fileName:
             data = self.toPlainText().encode(self._encoding or 'utf8')
             try:
-                with file(fileName, "w") as f:
+                with open(fileName, "w") as f:
                     f.write(data)
             except IOError, OSError:
                 return False
