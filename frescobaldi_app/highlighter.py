@@ -135,3 +135,26 @@ class Highlighter(QSyntaxHighlighter):
             self._states.append(cur)
 
 
+def htmlCopy(document, data):
+    """Returns a new QTextDocument with highlighting set as HTML textcharformats."""
+    formats = makeHighlightFormats(data)
+    
+    doc = QTextDocument()
+    doc.setDefaultFont(data.font)
+    text = document.toPlainText()
+    doc.setPlainText(text)
+    cursor = QTextCursor(doc)
+    state = ly.tokenize.State(ly.tokenize.guessState(text))
+    for token in ly.tokenize.tokens(text, state):
+        for cls in token.__class__.__mro__:
+            if cls is not ly.tokenize.Token:
+                try:
+                    f = formats[cls]
+                except KeyError:
+                    continue
+                cursor.setPosition(token.pos)
+                cursor.setPosition(token.pos + len(token), QTextCursor.KeepAnchor)
+                cursor.setCharFormat(f)
+            break
+    return doc
+    
