@@ -202,6 +202,10 @@ class ViewSpace(QWidget):
 
 class ViewManager(QSplitter):
     
+    # This signal is always emitted on setCurrentDocument,
+    # even if the view is the same as before.
+    # use MainWindow.currentViewChanged() to be informed about
+    # real View changes.
     viewChanged = pyqtSignal(view.View)
     
     def __init__(self, parent=None):
@@ -227,7 +231,7 @@ class ViewManager(QSplitter):
                         break
             if not done:
                 self.activeViewSpace().showDocument(doc)
-                self.viewChanged.emit(self.activeViewSpace().activeView())
+        self.viewChanged.emit(self.activeViewSpace().activeView())
         # the active space now displays the requested document
         # now also set this document in spaces that are empty
         for space in self._viewSpaces[:-1]:
@@ -258,7 +262,7 @@ class ViewManager(QSplitter):
             for space in self._viewSpaces[:-1]:
                 if not space.document():
                     space.showDocument(activeDocument)
-        
+            
     def createActions(self):
         self.actionCollection = ac = ViewActions()
         # connections

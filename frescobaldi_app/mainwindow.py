@@ -153,13 +153,15 @@ class MainWindow(QMainWindow):
     def updateMarkStatus(self):
         view = self._currentView()
         ac = self.actionCollection
-        ac.view_bookmark.setChecked(view.document().bookmarks.hasMark(view.textCursor().blockNumber(), 'bookmark'))
+        ac.view_bookmark.setChecked(
+            view.document().bookmarks.hasMark(view.textCursor().blockNumber(), 'bookmark'))
         
     def updateViewActions(self):
         view = self._currentView()
         ac = self.actionCollection
         selection = view.textCursor().hasSelection()
         ac.edit_copy.setEnabled(selection)
+        ac.edit_copy_colored_html.setEnabled(selection)
         ac.edit_cut.setEnabled(selection)
         ac.edit_cut_assign.setEnabled(selection)
         ac.edit_select_none.setEnabled(selection)
@@ -430,12 +432,54 @@ class MainWindow(QMainWindow):
                 cur2.removeSelectedText()
                 cur1.removeSelectedText()
             doc.print_(printer)
+    
+    def exportColoredHtml(self):
+        doc = self.currentDocument()
+        name, ext = os.path.splitext(os.path.basename(doc.url().path()))
+        if name:
+            if ext.lower() == ".html":
+                name += "_html"
+            name += ".html"
+        dir = os.path.dirname(doc.url().toLocalFile())
+        if dir:
+            name = os.path.join(dir, name)
+        filename = QFileDialog.getSaveFileName(self, app.caption(_("Export as HTML")),
+            name, "{0} (*.html)".format("HTML Files"))
+        html = doc.htmlCopy().toHtml()
+        try:
+            with file(filename, "w") as f:
+                f.write(html)
+        except (IOError, OSError) as err:
+            QMessageBox.warning(self, app.caption(_("Error")),
+                _("Can't write to destination:\n\n{url}\n\n{error}").format(url=filename, error=err))
         
     def undo(self):
         self.currentDocument().undo()
         
     def redo(self):
         self.currentDocument().redo()
+    
+    def cut(self):
+        self.currentView().cut()
+        
+    def copy(self):
+        self.currentView().copy()
+        
+    def paste(self):
+        self.currentView().paste()
+        
+    def copyColoredHtml(self):
+        cursor = self.currentView().textCursor()
+        if not cursor.hasSelection():
+            return
+        doc = self.currentDocument().htmlCopy()
+        cur1 = QTextCursor(doc)
+        cur1.setPosition(cursor.anchor())
+        cur1.setPosition(cursor.position(), QTextCursor.KeepAnchor)
+        html = QMimeData()
+        html.setHtml(cur1.selection().toHtml())
+        html.setText(cur1.selection().toHtml())
+        QApplication.clipboard().setMimeData(html)
         
     def selectNone(self):
         cursor = self.currentView().textCursor()
@@ -528,8 +572,13 @@ class MainWindow(QMainWindow):
         ac.file_print_source.triggered.connect(self.printSource)
         ac.file_close.triggered.connect(self.closeCurrentDocument)
         ac.file_close_other.triggered.connect(self.closeOtherDocuments)
+        ac.export_colored_html.triggered.connect(self.exportColoredHtml)
         ac.edit_undo.triggered.connect(self.undo)
         ac.edit_redo.triggered.connect(self.redo)
+        ac.edit_cut.triggered.connect(self.cut)
+        ac.edit_copy.triggered.connect(self.copy)
+        ac.edit_paste.triggered.connect(self.paste)
+        ac.edit_copy_colored_html.triggered.connect(self.copyColoredHtml)
         ac.edit_select_all.triggered.connect(self.selectAll)
         ac.edit_select_none.triggered.connect(self.selectNone)
         ac.edit_preferences.triggered.connect(self.showPreferences)
@@ -591,11 +640,14 @@ class MainWindow(QMainWindow):
         m.addSeparator()
         m.addAction(ac.file_print_music)
         m.addAction(ac.file_print_source)
+        self.menu_file_export = e = m.addMenu('')
         m.addSeparator()
         m.addAction(ac.file_close)
         m.addAction(ac.file_close_other)
         m.addSeparator()
         m.addAction(ac.file_quit)
+        
+        e.addAction(ac.export_colored_html)
         
         self.menu_edit = m = self.menuBar().addMenu('')
         m.addAction(ac.edit_undo)
@@ -604,6 +656,7 @@ class MainWindow(QMainWindow):
         m.addAction(ac.edit_cut_assign)
         m.addAction(ac.edit_cut)
         m.addAction(ac.edit_copy)
+        m.addAction(ac.edit_copy_colored_html)
         m.addAction(ac.edit_paste)
         m.addSeparator()
         m.addAction(ac.edit_select_all)
@@ -694,7 +747,8 @@ class MainWindow(QMainWindow):
         self.menu_sessions.setTitle(_('&Sessions'))
         self.menu_help.setTitle(_('&Help'))
         self.toolbar_main.setWindowTitle(_("Main Toolbar"))
-        
+        self.menu_file_export.setTitle(_("&Export"))
+
 
 class HistoryManager(object):
     """Keeps the history of document switches by the user.
@@ -951,11 +1005,14 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_close_other = QAction(parent)
         self.file_quit = QAction(parent)
         
+        self.export_colored_html = QAction(parent)
+        
         self.edit_undo = QAction(parent)
         self.edit_redo = QAction(parent)
         self.edit_cut_assign = QAction(parent)
         self.edit_cut = QAction(parent)
         self.edit_copy = QAction(parent)
+        self.edit_copy_colored_html = QAction(parent)
         self.edit_paste = QAction(parent)
         self.edit_select_all = QAction(parent)
         self.edit_select_current_toplevel = QAction(parent)
@@ -1101,12 +1158,15 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_close.setText(_("&Close"))
         self.file_close_other.setText(_("Close Other Documents"))
         self.file_quit.setText(_("&Quit"))
-
+        
+        self.export_colored_html.setText(_("Export Source as Colored &HTML..."))
+        
         self.edit_undo.setText(_("&Undo"))
         self.edit_redo.setText(_("Re&do"))
         self.edit_cut_assign.setText(_("Cut and Assign..."))
         self.edit_cut.setText(_("Cu&t"))
         self.edit_copy.setText(_("&Copy"))
+        self.edit_copy_colored_html.setText(_("Copy as Colored &HTML"))
         self.edit_paste.setText(_("&Paste"))
         self.edit_select_all.setText(_("Select &All"))
         self.edit_select_current_toplevel.setText(_("Select &Block"))

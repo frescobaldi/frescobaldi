@@ -134,6 +134,17 @@ class Highlighter(QSyntaxHighlighter):
             self.setCurrentBlockState(len(self._states))
             self._states.append(cur)
 
+    def state(self, block):
+        """Returns a thawn ly.tokenize.State() object at the beginning of the given QTextBlock.
+        
+        This assumes the highligher has already run through the whole document.
+        
+        """
+        userState = block.previous().userState()
+        if 0 <= userState < len(self._states):
+            return ly.tokenize.State.thaw(self._states[userState])
+        return ly.tokenize.State(ly.tokenize.guessState(self.document().toPlainText()))
+
 
 def htmlCopy(document, data):
     """Returns a new QTextDocument with highlighting set as HTML textcharformats."""
