@@ -255,7 +255,7 @@ class FontsColors(preferences.Page):
         
     def loadSettings(self):
         self.data = {} # holds all data with scheme as key
-        self._printScheme = QSettings().value("print_scheme", "default")
+        self._printScheme = QSettings().value("printer_scheme", "default")
         self.scheme.loadSettings("editor_scheme", "editor_schemes")
         
     def saveSettings(self):
@@ -263,9 +263,9 @@ class FontsColors(preferences.Page):
         for scheme in self.data:
             self.data[scheme].save(scheme)
         if self._printScheme:
-            QSettings().setValue("print_scheme", self._printScheme)
+            QSettings().setValue("printer_scheme", self._printScheme)
         else:
-            QSettings().remove("print_scheme")
+            QSettings().remove("printer_scheme")
 
 
 class BaseColors(QGroupBox):

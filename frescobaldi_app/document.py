@@ -31,6 +31,7 @@ from PyQt4.QtGui import *
 import app
 import view
 import highlighter
+import textformats
 import bookmarks
 
 
@@ -155,4 +156,13 @@ class Document(QTextDocument):
         else:
             return os.path.basename(self._url.path())
             
+    def htmlCopy(self, type='editor'):
+        """Returns a new QTextDocument with highlighting set as HTML textcharformats.
+        
+        type can be 'editor' (the default) or 'printer'.
+        
+        """
+        data = textformats.formatData(type)
+        return highlighter.htmlCopy(self, data)
+
 

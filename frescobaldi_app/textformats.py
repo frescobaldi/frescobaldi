@@ -35,6 +35,7 @@ import app
 
 
 def formatData(type):
+    """Returns a TextFormatData instance of type 'editor' or 'printer'."""
     if _currentData[type] is None:
         _currentData[type] = TextFormatData(QSettings().value('{0}_scheme'.format(type), 'default'))
     return _currentData[type]
@@ -43,7 +44,7 @@ def _resetFormatData():
     global _currentData
     _currentData = {
         'editor': None,
-        'print': None,
+        'printer': None,
     }
 
 app.settingsChanged.connect(_resetFormatData, -100) # before all others

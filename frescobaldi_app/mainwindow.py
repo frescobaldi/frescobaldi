@@ -403,33 +403,33 @@ class MainWindow(QMainWindow):
         QDesktopServices.openUrl(QUrl.fromLocalFile(directory))
     
     def printSource(self):
-        import highlighter
-        import textformats
-        doc = highlighter.htmlCopy(self.currentDocument(), textformats.formatData('print'))
-        doc.setMetaInformation(QTextDocument.DocumentTitle, self.currentDocument().url().toString())
-        font = doc.defaultFont()
-        font.setPointSizeF(font.pointSizeF() * 0.8)
-        doc.setDefaultFont(font)
         cursor = self.currentView().textCursor()
-        p = QPrinter()
-        dlg = QPrintDialog(p, self)
-        options = QAbstractPrintDialog.PrintToFile
+        printer = QPrinter()
+        dlg = QPrintDialog(printer, self)
+        dlg.setWindowTitle(app.caption(_("Print Source")))
+        options = QAbstractPrintDialog.PrintToFile | QAbstractPrintDialog.PrintShowPageSize
         if cursor.hasSelection():
             options |= QAbstractPrintDialog.PrintSelection
-            # cut out not selected text
-            start, end = cursor.position(), cursor.anchor()
-            if start > end:
-                start, end = end, start
-            cur1 = QTextCursor(doc)
-            cur1.setPosition(start, QTextCursor.KeepAnchor)
-            cur2 = QTextCursor(doc)
-            cur2.setPosition(end)
-            cur2.movePosition(QTextCursor.End, QTextCursor.KeepAnchor)
-            cur2.removeSelectedText()
-            cur1.removeSelectedText()
         dlg.setOptions(options)
         if dlg.exec_():
-            doc.print_(p)
+            doc = self.currentDocument().htmlCopy('printer')
+            doc.setMetaInformation(QTextDocument.DocumentTitle, self.currentDocument().url().toString())
+            font = doc.defaultFont()
+            font.setPointSizeF(font.pointSizeF() * 0.8)
+            doc.setDefaultFont(font)
+            if dlg.testOption(QAbstractPrintDialog.PrintSelection):
+                # cut out not selected text
+                start, end = cursor.position(), cursor.anchor()
+                if start > end:
+                    start, end = end, start
+                cur1 = QTextCursor(doc)
+                cur1.setPosition(start, QTextCursor.KeepAnchor)
+                cur2 = QTextCursor(doc)
+                cur2.setPosition(end)
+                cur2.movePosition(QTextCursor.End, QTextCursor.KeepAnchor)
+                cur2.removeSelectedText()
+                cur1.removeSelectedText()
+            doc.print_(printer)
         
     def undo(self):
         self.currentDocument().undo()
