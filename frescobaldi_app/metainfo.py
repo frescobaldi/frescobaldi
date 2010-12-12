@@ -45,12 +45,14 @@ class MetaInfo(object):
     def __init__(self):
         self.position = 0
         self.bookmarks = json.dumps(None)
+        self.highlighting = True
 
     def load(self, url, settings=None):
         """Loads our settings from the group of url."""
         with settingsGroup(url, settings) as s:
             self.position = int(s.value("position", 0))
             self.bookmarks = bytes(s.value("bookmarks", json.dumps(None)))
+            self.highlighting = s.value("highlighting", True) not in ('false', False)
             
     def save(self, url, settings=None):
         """Saves our settings to the group of url."""
@@ -58,6 +60,7 @@ class MetaInfo(object):
             s.setValue("time", time.time())
             s.setValue("position", self.position)
             s.setValue("bookmarks", self.bookmarks)
+            s.setValue("highlighting", self.highlighting)
             
 
 @contextlib.contextmanager

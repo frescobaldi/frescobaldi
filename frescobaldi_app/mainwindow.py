@@ -165,6 +165,7 @@ class MainWindow(QMainWindow):
         ac.edit_cut.setEnabled(selection)
         ac.edit_cut_assign.setEnabled(selection)
         ac.edit_select_none.setEnabled(selection)
+        ac.view_highlighting.setChecked(view.document().highlighter.isHighlighting())
     
     def updateDocActions(self):
         doc = self.currentDocument()
@@ -497,6 +498,10 @@ class MainWindow(QMainWindow):
         dlg.exec_()
         dlg.deleteLater()
     
+    def toggleHighlighting(self):
+        hl = self.currentDocument().highlighter
+        hl.setHighlighting(not hl.isHighlighting())
+        
     def markCurrentLine(self):
         view = self.currentView()
         lineNumber = view.textCursor().blockNumber()
@@ -590,6 +595,7 @@ class MainWindow(QMainWindow):
         ac.view_previous_mark.triggered.connect(self.previousMark)
         ac.view_scroll_up.triggered.connect(self.scrollUp)
         ac.view_scroll_down.triggered.connect(self.scrollDown)
+        ac.view_highlighting.triggered.connect(self.toggleHighlighting)
         ac.view_bookmark.triggered.connect(self.markCurrentLine)
         ac.view_clear_error_marks.triggered.connect(self.clearErrorMarks)
         ac.view_clear_all_marks.triggered.connect(self.clearAllMarks)
@@ -676,6 +682,8 @@ class MainWindow(QMainWindow):
         m.addAction(ac.view_next_document)
         m.addAction(ac.view_previous_document)
         m.addAction(ac.view_document)
+        m.addSeparator()
+        m.addAction(ac.view_highlighting)
         m.addSeparator()
         m.addAction(ac.view_bookmark)
         m.addAction(ac.view_clear_error_marks)
@@ -1028,6 +1036,8 @@ class ActionCollection(actioncollection.ActionCollection):
         self.view_next_document = QAction(parent)
         self.view_previous_document = QAction(parent)
         self.view_document = QAction(parent)
+        self.view_highlighting =QAction(parent)
+        self.view_highlighting.setCheckable(True)
         self.view_bookmark = QAction(parent)
         self.view_bookmark.setCheckable(True)
         self.view_clear_error_marks = QAction(parent)
@@ -1182,6 +1192,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.view_next_document.setText(_("&Next Document"))
         self.view_previous_document.setText(_("&Previous Document"))
         self.view_document.setText(_("&Document"))
+        self.view_highlighting.setText(_("Syntax &Highlighting"))
         self.view_bookmark.setText(_("&Mark Current Line"))
         self.view_clear_error_marks.setText(_("Clear &Error Marks"))
         self.view_clear_all_marks.setText(_("Clear &All Marks"))

@@ -32,6 +32,7 @@ from PyQt4.QtGui import *
 import ly.tokenize
 import app
 import textformats
+import metainfo
 
 
 _highlightFormats = None
@@ -104,6 +105,11 @@ class Highlighter(QSyntaxHighlighter):
         self.setDocument(document)
         self._states = []
         app.settingsChanged.connect(self.rehighlight)
+        self._highlighting = metainfo.info(document).highlighting
+        document.loaded.connect(self._resetHighlighting)
+        
+    def _resetHighlighting(self):
+        self.setHighlighting(metainfo.info(self.document()).highlighting)
         
     def highlightBlock(self, text):
         prev = self.previousBlockState()
@@ -115,18 +121,21 @@ class Highlighter(QSyntaxHighlighter):
         else:
             state = ly.tokenize.State(ly.tokenize.guessState(self.document().toPlainText()))
         
-        setFormat = lambda f: self.setFormat(token.pos, len(token), f)
+        if self._highlighting:
+            setFormat = lambda f: self.setFormat(token.pos, len(token), f)
+            formats = highlightFormats()
+            for token in ly.tokenize.tokens(text, state):
+                for cls in token.__class__.__mro__:
+                    if cls is not ly.tokenize.Token:
+                        try:
+                            setFormat(formats[cls])
+                        except KeyError:
+                            continue
+                    break
+        else:
+            for token in ly.tokenize.tokens(text, state):
+                pass
         
-        formats = highlightFormats()
-        for token in ly.tokenize.tokens(text, state):
-            for cls in token.__class__.__mro__:
-                if cls is not ly.tokenize.Token:
-                    try:
-                        setFormat(formats[cls])
-                    except KeyError:
-                        continue
-                break
-                
         cur = state.freeze()
         try:
             self.setCurrentBlockState(self._states.index(cur))
@@ -134,6 +143,18 @@ class Highlighter(QSyntaxHighlighter):
             self.setCurrentBlockState(len(self._states))
             self._states.append(cur)
 
+    def setHighlighting(self, enable):
+        """Enables or disables highlighting."""
+        changed = enable != self._highlighting
+        self._highlighting = enable
+        if changed:
+            metainfo.info(self.document()).highlighting = enable
+            self.rehighlight()
+            
+    def isHighlighting(self):
+        """Returns whether highlighting is active."""
+        return self._highlighting
+        
     def state(self, block):
         """Returns a thawn ly.tokenize.State() object at the beginning of the given QTextBlock.
         
