@@ -68,6 +68,7 @@ def sessionGroup(name):
     
 def loadSession(name):
     """Loads the given session (without closing other docs first)."""
+    setCurrentSession(name)
     session = sessionGroup(name)
     
     urls = []
@@ -86,9 +87,6 @@ def loadSession(name):
     app.sessionChanged()
     return result
 
-def currentSession():
-    return _currentSession
-    
 def saveSession(name, documents, activeDocument=None):
     """Saves the list of documents and which one is active."""
     session = sessionGroup(name)
@@ -97,6 +95,13 @@ def saveSession(name, documents, activeDocument=None):
         session.setValue("active", activeDocument.url())
     else:
         session.remove("active")
+
+def currentSession():
+    return _currentSession
+    
+def setCurrentSession(name):
+    global _currentSession
+    _currentSession = name
 
 
 class SessionManager(object):
@@ -118,13 +123,33 @@ class SessionManager(object):
     def saveSession(self):
         if not currentSession():
             return self.newSession()
-    
+        self.saveCurrentSession()
+        
     def manageSessions(self):
         pass
 
     def noSession(self):
-        pass
+        if currentSession():
+            self.saveCurrentSessionIfDesired()
+            setCurrentSession(None)
+            app.sessionChanged()
     
+    def saveCurrentSessionIfDesired(self):
+        """Saves the current session if it is configured to save itself on exit."""
+        cur = currentSession()
+        if cur:
+            s = sessionGroup(cur)
+            if s.value("autosave", True) not in (False, 'false'):
+                self.saveCurrentSession()
+    
+    def saveCurrentSession(self):
+        """Saves the current session."""
+        cur = currentSession()
+        if cur:
+            documents = self.mainwindow().documents()
+            active = self.mainwindow().currentDocument()
+            saveSession(cur, documents, active)
+
 
 class SessionActions(actioncollection.ActionCollection):
     name = "session"

@@ -107,6 +107,10 @@ class MainWindow(QMainWindow):
         if other:
             self.setCurrentDocument(other.currentDocument())
     
+    def documents(self):
+        """Returns the list of documents in the order of the TabBar."""
+        return self.tabBar.documents()
+        
     def currentView(self):
         return self._currentView()
     
@@ -821,7 +825,7 @@ class DocumentActionGroup(QActionGroup):
         self.triggered.connect(self.slotTriggered)
     
     def actions(self):
-        return [self._acts[doc] for doc in self.parent().tabBar.documents()]
+        return [self._acts[doc] for doc in self.parent().documents()]
 
     def addDocument(self, doc):
         a = QAction(self)

@@ -78,6 +78,7 @@ class Shortcuts(preferences.Page):
         for collection in (
                 win.actionCollection,
                 win.viewManager.actionCollection,
+                win.sessionManager.actionCollection,
                 ):
             for name, action in collection.actions().items():
                 allactions[action] = (collection, name)
