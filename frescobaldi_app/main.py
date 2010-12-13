@@ -38,7 +38,9 @@ import app              # Construct QApplication
 import po               # Setup language
 import mainwindow       # contains MainWindow class
 import session          # Initialize QSessionManager support
+import sessionmanager   # Initialize our own named session support
 import document
+
 
 def startmain():
     import optparse
@@ -56,9 +58,14 @@ def startmain():
 
     options, files = parser.parse_args(QApplication.arguments()[1:])
 
+    # load specific or default session, activeDocument contains
+    # the Document that should be set active.
+    activeDocument = None
     if options.session:
-        app.startSession(options.session)
-    
+        activeDocument = sessionmanager.loadSession(options.session)
+    else:
+        activeDocument = sessionmanager.loadDefaultSession()
+        
     # Just create one MainWindow
     win = mainwindow.MainWindow()
     win.show()
@@ -87,6 +94,8 @@ def startmain():
             cursor.setPosition(pos)
             win.currentView().setTextCursor(cursor)
             win.currentView().centerCursor()
+    elif activeDocument:
+        win.setCurrentDocument(activeDocument)
     else:
         # just create one empty and nameless document
         win.setCurrentDocument(document.Document())

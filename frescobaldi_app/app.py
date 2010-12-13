@@ -49,6 +49,7 @@ documentModificationChanged = SignalInstance() # Document
 documentClosed = SignalInstance()       # Document
 languageChanged = SignalInstance()      # (no arguments)
 settingsChanged = SignalInstance()      # (no arguments)
+sessionChanged = SignalInstance()       # (no arguments)
 
 import mainwindow
 import document
@@ -111,9 +112,6 @@ def translateUI(obj):
     languageChanged.connect(obj.translateUI)
     obj.translateUI()
 
-def startSession(name):
-    """Switches to the given session."""
-    
 def caption(title):
     """Returns a nice dialog or window title with appname appended."""
     return "{0} \u2013 {1}".format(title, info.appname)

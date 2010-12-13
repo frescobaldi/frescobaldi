@@ -106,49 +106,49 @@ class MainWindow(QMainWindow):
         if other:
             self.setCurrentDocument(other.currentDocument())
     
+    def currentView(self):
+        return self._currentView()
+    
     def currentDocument(self):
         return self._currentDocument
         
     def setCurrentDocument(self, doc, findOpenView=False):
-        cur = self._currentDocument
-        if cur:
-            if cur is doc:
-                return
-            cur.undoAvailable.disconnect(self.updateDocActions)
-            cur.redoAvailable.disconnect(self.updateDocActions)
-            cur.modificationChanged.disconnect(self.updateDocStatus)
-            cur.urlChanged.disconnect(self.updateDocStatus)
-        doc.undoAvailable.connect(self.updateDocActions)
-        doc.redoAvailable.connect(self.updateDocActions)
-        doc.modificationChanged.connect(self.updateDocStatus)
-        doc.urlChanged.connect(self.updateDocStatus)
-        self._currentDocument = doc
-        self.updateDocActions()
-        self.updateDocStatus()
         self.viewManager.setCurrentDocument(doc, findOpenView)
-        self.currentDocumentChanged.emit(doc, cur)
 
     def slotViewChanged(self, view):
-        cur = self._currentView()
-        if cur:
-            if cur is view:
+        curv = self._currentView()
+        if curv:
+            if curv is view:
                 return
-            cur.copyAvailable.disconnect(self.updateViewActions)
-            cur.selectionChanged.disconnect(self.updateViewActions)
-            cur.cursorPositionChanged.disconnect(self.updateMarkStatus)
-            cur.document().bookmarks.marksChanged.disconnect(self.updateMarkStatus)
+            curv.copyAvailable.disconnect(self.updateViewActions)
+            curv.selectionChanged.disconnect(self.updateViewActions)
+            curv.cursorPositionChanged.disconnect(self.updateMarkStatus)
         view.copyAvailable.connect(self.updateViewActions)
         view.selectionChanged.connect(self.updateViewActions)
         view.cursorPositionChanged.connect(self.updateMarkStatus)
-        view.document().bookmarks.marksChanged.connect(self.updateMarkStatus)
         self._currentView = weakref.ref(view)
+        
+        doc = view.document()
+        curd, self._currentDocument = self._currentDocument, doc
+        if curd is not doc:
+            if curd:
+                curd.undoAvailable.disconnect(self.updateDocActions)
+                curd.redoAvailable.disconnect(self.updateDocActions)
+                curd.modificationChanged.disconnect(self.updateDocStatus)
+                curd.urlChanged.disconnect(self.updateDocStatus)
+                curd.bookmarks.marksChanged.disconnect(self.updateMarkStatus)
+            doc.undoAvailable.connect(self.updateDocActions)
+            doc.redoAvailable.connect(self.updateDocActions)
+            doc.modificationChanged.connect(self.updateDocStatus)
+            doc.urlChanged.connect(self.updateDocStatus)
+            doc.bookmarks.marksChanged.connect(self.updateMarkStatus)
+            self.updateDocActions()
+            self.updateDocStatus()
         self.updateViewActions()
         self.updateMarkStatus()
-        self.setCurrentDocument(view.document())
-        self.currentViewChanged.emit(view, cur)
-    
-    def currentView(self):
-        return self._currentView()
+        self.currentViewChanged.emit(view, curv)
+        if curd is not doc:
+            self.currentDocumentChanged.emit(doc, curd)
     
     def updateMarkStatus(self):
         view = self._currentView()
@@ -165,13 +165,13 @@ class MainWindow(QMainWindow):
         ac.edit_cut.setEnabled(selection)
         ac.edit_cut_assign.setEnabled(selection)
         ac.edit_select_none.setEnabled(selection)
-        ac.view_highlighting.setChecked(view.document().highlighter.isHighlighting())
     
     def updateDocActions(self):
         doc = self.currentDocument()
         ac = self.actionCollection
         ac.edit_undo.setEnabled(doc.isUndoAvailable())
         ac.edit_redo.setEnabled(doc.isRedoAvailable())
+        ac.view_highlighting.setChecked(doc.highlighter.isHighlighting())
         
     def updateDocStatus(self):
         doc = self.currentDocument()
