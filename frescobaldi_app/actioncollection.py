@@ -38,8 +38,7 @@ class ActionCollection:
         self._actions = dict(self.__dict__)
         self.storeDefaults()
         self.load(False) # load without resettings defaults
-        self.translateUI()
-        app.languageChanged.connect(self.translateUI)
+        app.translateUI(self)
         app.settingsChanged.connect(self.load)
         
     def createActions(self, parent=None):

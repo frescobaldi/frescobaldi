@@ -87,7 +87,7 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.viewManager)
 
         self.documentActions = DocumentActionGroup(self)
-        
+        self.sessionManager = sessionmanager.SessionManager(self)
         self.createActions()
         
         # create other stuff that have their own actions
@@ -714,12 +714,13 @@ class MainWindow(QMainWindow):
         m.addAction(ac.window_fullscreen)
         
         self.menu_sessions = m = self.menuBar().addMenu('')
-        m.addAction(ac.session_new)
-        m.addAction(ac.session_save)
+        sm = self.sessionManager.actionCollection
+        m.addAction(sm.session_new)
+        m.addAction(sm.session_save)
         m.addSeparator()
-        m.addAction(ac.session_manage)
+        m.addAction(sm.session_manage)
         m.addSeparator()
-        m.addAction(ac.session_none)
+        m.addAction(sm.session_none)
         
         self.menu_help = m = self.menuBar().addMenu('')
         m.addAction(ac.help_manual)
@@ -1060,11 +1061,6 @@ class ActionCollection(actioncollection.ActionCollection):
         self.window_fullscreen = QAction(parent)
         self.window_fullscreen.setCheckable(True)
         
-        self.session_new = QAction(parent)
-        self.session_save = QAction(parent)
-        self.session_manage = QAction(parent)
-        self.session_none = QAction(parent)
-        
         self.help_manual = QAction(parent)
         self.help_whatsthis = QAction(parent)
         self.help_about = QAction(parent)
@@ -1109,10 +1105,6 @@ class ActionCollection(actioncollection.ActionCollection):
         
         self.window_new.setIcon(icons.get('window-new'))
         self.window_fullscreen.setIcon(icons.get('view-fullscreen'))
-        
-        self.session_new.setIcon(icons.get('document-new'))
-        self.session_save.setIcon(icons.get('document-save'))
-        self.session_manage.setIcon(icons.get('view-choose'))
         
         self.help_manual.setIcon(icons.get('help-contents'))
         self.help_whatsthis.setIcon(icons.get('help-contextual'))
@@ -1212,11 +1204,6 @@ class ActionCollection(actioncollection.ActionCollection):
         
         self.window_new.setText(_("New &Window"))
         self.window_fullscreen.setText(_("&Fullscreen"))
-        
-        self.session_new.setText(_("&New..."))
-        self.session_save.setText(_("&Save"))
-        self.session_manage.setText(_("&Manage..."))
-        self.session_none.setText(_("None"))
         
         self.help_manual.setText(_("&User Guide"))
         self.help_whatsthis.setText(_("&What's This?"))

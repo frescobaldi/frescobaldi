@@ -22,14 +22,19 @@ from __future__ import unicode_literals
 """
 Named session support (not to be confused with the QSessionManager support
 (see session.py)
+
+A session is a global list of open documents, with some additional preferences set.
+
 """
 
-
+import weakref
 
 from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 
 import app
-
+import actioncollection
+import icons
 
 _currentSession = None
 
@@ -45,7 +50,7 @@ def loadDefaultSession():
     Returns the document that should be set active (if any).
     """
     s = QSettings()
-    s.beginGroup("Session")
+    s.beginGroup("session")
     start = s.value("startup", "none")
     name = None
     if start == "lastused":
@@ -62,8 +67,7 @@ def sessionGroup(name):
     return session
     
 def loadSession(name):
-    global _currentSession
-    _currentSession = name
+    """Loads the given session (without closing other docs first)."""
     session = sessionGroup(name)
     
     urls = []
@@ -85,5 +89,59 @@ def loadSession(name):
 def currentSession():
     return _currentSession
     
+def saveSession(name, documents, activeDocument=None):
+    """Saves the list of documents and which one is active."""
+    session = sessionGroup(name)
+    session.setValue("urls", [doc.url() for doc in documents if not doc.url().isEmpty()])
+    if activeDocument:
+        session.setValue("active", activeDocument.url())
+    else:
+        session.remove("active")
 
 
+class SessionManager(object):
+    def __init__(self, mainwindow):
+        self.mainwindow = weakref.ref(mainwindow)
+        
+        self.createActions()
+        
+    def createActions(self):
+        self.actionCollection = ac = SessionActions()
+        ac.session_new.triggered.connect(self.newSession)
+        ac.session_save.triggered.connect(self.saveSession)
+        ac.session_manage.triggered.connect(self.manageSessions)
+        ac.session_none.triggered.connect(self.noSession)
+        
+    def newSession(self):
+        pass
+    
+    def saveSession(self):
+        if not currentSession():
+            return self.newSession()
+    
+    def manageSessions(self):
+        pass
+
+    def noSession(self):
+        pass
+    
+
+class SessionActions(actioncollection.ActionCollection):
+    name = "session"
+    def createActions(self, parent=None):
+        self.session_new = QAction(parent)
+        self.session_save = QAction(parent)
+        self.session_manage = QAction(parent)
+        self.session_none = QAction(parent)
+        
+        self.session_new.setIcon(icons.get('document-new'))
+        self.session_save.setIcon(icons.get('document-save'))
+        self.session_manage.setIcon(icons.get('view-choose'))
+        
+    def translateUI(self):
+        self.session_new.setText(_("&New..."))
+        self.session_save.setText(_("&Save"))
+        self.session_manage.setText(_("&Manage..."))
+        self.session_none.setText(_("None"))
+        
+    
