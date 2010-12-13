@@ -27,8 +27,10 @@ from PyQt4.QtCore import pyqtSignal
 from PyQt4.QtGui import (
     QFileDialog, QGridLayout, QListWidget, QListWidgetItem, QPushButton, QWidget)
 
-import app
-import icons
+from .. import(
+    app,
+    icons,
+)
 
 
 class ListEdit(QWidget):
@@ -43,7 +45,7 @@ class ListEdit(QWidget):
         self.setLayout(layout)
         
         self.addButton = QPushButton(icons.get('list-add'), '')
-        self.editButton = QPushButton(icons.get('configure', '')
+        self.editButton = QPushButton(icons.get('configure'), '')
         self.removeButton = QPushButton(icons.get('list-remove'), '')
         self.listBox = QListWidget()
         
@@ -81,6 +83,7 @@ class ListEdit(QWidget):
             selected = bool(self.listBox.currentItem())
             self.editButton.setEnabled(selected)
             self.removeButton.setEnabled(selected)
+        
         self.changed.connect(updateSelection)
         self.listBox.itemSelectionChanged.connect(updateSelection)
         updateSelection()

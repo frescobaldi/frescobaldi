@@ -35,6 +35,8 @@ from PyQt4.QtGui import *
 import app
 import actioncollection
 import icons
+import util
+
 
 _currentSession = None
 
@@ -65,10 +67,14 @@ def sessionGroup(name):
     session = app.settings("sessions")
     session.beginGroup(name)
     return session
+
+def sessionNames():
+    names = app.settings("sessions").childGroups()
+    names.sort(key=util.naturalsort)
+    return names
     
 def loadSession(name):
     """Loads the given session (without closing other docs first)."""
-    setCurrentSession(name)
     session = sessionGroup(name)
     
     urls = []
@@ -84,7 +90,7 @@ def loadSession(name):
             index = 0
         docs = [app.openUrl(url) for url in urls]
         result = docs[index]
-    app.sessionChanged()
+    setCurrentSession(name)
     return result
 
 def saveSession(name, documents, activeDocument=None):
@@ -96,12 +102,33 @@ def saveSession(name, documents, activeDocument=None):
     else:
         session.remove("active")
 
+def deleteSession(name):
+    app.settings("sessions").remove(name)
+    if name == _currentSession:
+        setCurrentSession(None)
+
+def renameSession(old, new):
+    """Renames a session.
+    
+    The document list is taken over but not the other settings.
+    Both names must be valid session names, and old must exist.
+    The old session group is deleted.
+    
+    """
+    oldSession = sessionGroup(old)
+    newSession = sessionGroup(new)
+    newSession.setValue("urls", oldSession.value("urls"))
+    newSession.setValue("active", oldSession.value("active"))
+    deleteSession(old)
+    
 def currentSession():
     return _currentSession
     
 def setCurrentSession(name):
     global _currentSession
-    _currentSession = name
+    if name != _currentSession:
+        _currentSession = name
+        app.sessionChanged()
 
 
 class SessionManager(object):
@@ -118,7 +145,11 @@ class SessionManager(object):
         ac.session_none.triggered.connect(self.noSession)
         
     def newSession(self):
-        pass
+        import sessiondialog
+        name = sessiondialog.SessionEditor(self.mainwindow()).edit()
+        if name:
+            setCurrentSession(name)
+            self.saveCurrentSession()
     
     def saveSession(self):
         if not currentSession():
@@ -126,13 +157,13 @@ class SessionManager(object):
         self.saveCurrentSession()
         
     def manageSessions(self):
-        pass
+        import sessiondialog
+        sessiondialog.SessionManagerDialog(self.mainwindow()).exec_()
 
     def noSession(self):
         if currentSession():
             self.saveCurrentSessionIfDesired()
             setCurrentSession(None)
-            app.sessionChanged()
     
     def saveCurrentSessionIfDesired(self):
         """Saves the current session if it is configured to save itself on exit."""
@@ -167,6 +198,6 @@ class SessionActions(actioncollection.ActionCollection):
         self.session_new.setText(_("&New..."))
         self.session_save.setText(_("&Save"))
         self.session_manage.setText(_("&Manage..."))
-        self.session_none.setText(_("None"))
+        self.session_none.setText(_("No Session"))
         
     

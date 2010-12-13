@@ -25,6 +25,7 @@ Some utility functions.
 
 import contextlib
 import os
+import re
 
 
 def iswritable(path):
@@ -42,5 +43,14 @@ def signalsBlocked(*objs):
     finally:
         for obj, block in zip(objs, blocks):
             obj.blockSignals(block)
+
+
+def naturalsort(text):
+    """Returns a key for the list.sort() method.
+    
+    Intended to sort strings in a human way, for e.g. version numbers.
+    
+    """
+    return tuple(int(s) if s.isdigit() else s for s in re.split(r'(\d+)', text))
 
 
