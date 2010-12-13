@@ -57,26 +57,33 @@ def loadDefaultSession():
 
 def sessionGroup(name):
     """Returns the session settings group where settings can be stored for the named session."""
-    sessions = app.settings("sessions")
-    sessions.beginGroup(name)
-    return sessions
+    session = app.settings("sessions")
+    session.beginGroup(name)
+    return session
     
 def loadSession(name):
-    sessions = sessionGroup(name)
+    global _currentSession
+    _currentSession = name
+    session = sessionGroup(name)
     
     urls = []
     for url in session.value("urls", []) or []:
         if isinstance(url, QUrl):
             urls.append(url)
     active = QUrl(session.value("active", QUrl()))
-    if not urls:
-        return None
-    try:
-        index = urls.index(active)
-    except ValueError:
-        index = 0
-    docs = [app.openUrl(url) for url in urls]
-    return docs[index]
+    result = None
+    if urls:
+        try:
+            index = urls.index(active)
+        except ValueError:
+            index = 0
+        docs = [app.openUrl(url) for url in urls]
+        result = docs[index]
+    app.sessionChanged()
+    return result
 
+def currentSession():
+    return _currentSession
+    
 
 

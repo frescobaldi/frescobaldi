@@ -40,6 +40,7 @@ import view
 import viewmanager
 import signals
 import recentfiles
+import sessionmanager
 import util
 
 
@@ -94,8 +95,8 @@ class MainWindow(QMainWindow):
         self.createMenus()
         self.createToolBars()
         
-        self.translateUI()
-        app.languageChanged.connect(self.translateUI)
+        app.translateUI(self)
+        app.sessionChanged.connect(self.updateWindowTitle)
         
         self.readSettings()
         
@@ -134,16 +135,16 @@ class MainWindow(QMainWindow):
             if curd:
                 curd.undoAvailable.disconnect(self.updateDocActions)
                 curd.redoAvailable.disconnect(self.updateDocActions)
-                curd.modificationChanged.disconnect(self.updateDocStatus)
-                curd.urlChanged.disconnect(self.updateDocStatus)
+                curd.modificationChanged.disconnect(self.updateWindowTitle)
+                curd.urlChanged.disconnect(self.updateWindowTitle)
                 curd.bookmarks.marksChanged.disconnect(self.updateMarkStatus)
             doc.undoAvailable.connect(self.updateDocActions)
             doc.redoAvailable.connect(self.updateDocActions)
-            doc.modificationChanged.connect(self.updateDocStatus)
-            doc.urlChanged.connect(self.updateDocStatus)
+            doc.modificationChanged.connect(self.updateWindowTitle)
+            doc.urlChanged.connect(self.updateWindowTitle)
             doc.bookmarks.marksChanged.connect(self.updateMarkStatus)
             self.updateDocActions()
-            self.updateDocStatus()
+            self.updateWindowTitle()
         self.updateViewActions()
         self.updateMarkStatus()
         self.currentViewChanged.emit(view, curv)
@@ -173,9 +174,11 @@ class MainWindow(QMainWindow):
         ac.edit_redo.setEnabled(doc.isRedoAvailable())
         ac.view_highlighting.setChecked(doc.highlighter.isHighlighting())
         
-    def updateDocStatus(self):
+    def updateWindowTitle(self):
         doc = self.currentDocument()
         name = []
+        if sessionmanager.currentSession():
+            name.append(sessionmanager.currentSession() + ':')
         if doc.url().isEmpty():
             name.append(doc.documentName())
         elif doc.url().toLocalFile():
