@@ -164,20 +164,13 @@ class SessionEditor(QDialog):
                 self.name.setText(self._originalName)
             return False
         
-        if name == 'none':
+        elif name == 'none':
             self.name.setFocus()
             QMessageBox.warning(self, app.caption(_("Warning")),
                 _("Please do not use the name '{name}'.".format(name="none")))
             return False
         
-        if set(name) & set("/\\&"):
-            self.name.setFocus()
-            QMessageBox.warning(self, app.caption(_("Warning")),
-                _("Please do not use the following characters "
-                  "in a session name:") + "\n\n/  \\  &")
-            return False
-            
-        if self._originalName != name and name in sessionmanager.sessionNames():
+        elif self._originalName != name and name in sessionmanager.sessionNames():
             self.name.setFocus()
             box = QMessageBox(QMessageBox.Warning, app.caption(_("Warning")),
                 _("Another session with the name {name} already exists.\n\n"

@@ -43,8 +43,14 @@ import util
 _currentSession = None
 
 
+@app.qApp.aboutToQuit.connect
+def _saveLastUsedSession():
+    s = QSettings()
+    s.beginGroup("session")
+    s.setValue("lastused", _currentSession or "")
+    
 def loadDefaultSession():
-    """Finds out which session should be started by default.
+    """Load the session which should be started by default.
     
     This can be:
     - no session,
@@ -61,7 +67,9 @@ def loadDefaultSession():
         name = s.value("lastused", "")
     elif start == "custom":
         name = s.value("custom", "")
-    if name:
+        if name not in sessionNames():
+            s.setValue("startup", "none")
+    if name and name in sessionNames():
         return loadSession(name)
 
 def sessionGroup(name):
@@ -171,7 +179,7 @@ class SessionManager(object):
                 ag.removeAction(a)
         self.actionCollection.session_none.setChecked(not currentSession())
         for name in sessionNames():
-            a = menu.addAction(name)
+            a = menu.addAction(name.replace('&', '&&'))
             a.setCheckable(True)
             if name == currentSession():
                 a.setChecked(True)

@@ -54,13 +54,16 @@ def startmain():
     parser.add_option('-c', '--column', type="int", metavar=_("NUM"),
         help=_("Column to go to, starting at 0"), default=0)
     parser.add_option('--start', metavar=_("NAME"),
-        help=_("Session to start"), dest="session")
+        help=_("Session to start ('{none}' for empty session)").format(none="none"),
+        dest="session")
 
     options, files = parser.parse_args(QApplication.arguments()[1:])
 
     # load specific or default session, activeDocument contains
     # the Document that should be set active.
-    if options.session:
+    if options.session == "none":
+        activeDocument = None
+    elif options.session:
         activeDocument = sessionmanager.loadSession(options.session)
     else:
         activeDocument = sessionmanager.loadDefaultSession()

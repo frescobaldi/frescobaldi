@@ -146,11 +146,11 @@ class SchemeStart(Item):
 
 
 class Context(Token):
-    rx = r"\b{0}\b".format("|".join(words.contexts))
+    rx = r"\b({0})\b".format("|".join(words.contexts))
     
     
 class Grob(Token):
-    rx = r"\b{0}\b".format("|".join(words.grobs))
+    rx = r"\b({0})\b".format("|".join(words.grobs))
 
 
 # Parsers

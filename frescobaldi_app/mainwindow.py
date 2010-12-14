@@ -206,11 +206,12 @@ class MainWindow(QMainWindow):
         
     def closeEvent(self, ev):
         lastWindow = len(app.windows) == 1
+        if lastWindow:
+            self.sessionManager.saveCurrentSessionIfDesired()
+            self.writeSettings()
         if not lastWindow or self.queryClose():
             ev.accept()
             app.windows.remove(self)
-            if lastWindow:
-                self.writeSettings()
         else:
             ev.ignore()
 

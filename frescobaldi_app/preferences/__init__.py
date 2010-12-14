@@ -23,10 +23,11 @@ from __future__ import unicode_literals
 The Preferences Dialog.
 """
 
-from PyQt4.QtCore import QSettings, QSize
+
+from PyQt4.QtCore import QSettings, QSize, pyqtSignal
 from PyQt4.QtGui import (
-    QDialog, QDialogButtonBox, QHBoxLayout, QListWidget, QListWidgetItem,
-    QStackedWidget, QVBoxLayout, QWidget)
+    QDialog, QDialogButtonBox, QGroupBox, QHBoxLayout, QListWidget,
+    QListWidgetItem, QStackedWidget, QVBoxLayout, QWidget)
 
 
 from .. import (
@@ -133,9 +134,10 @@ class PrefsItemBase(QListWidgetItem):
     def activate(self):
         dlg = self.listWidget().parentWidget()
         if self._widget is None:
-            self._widget = self.widget(dlg)
-            dlg.stack.addWidget(self._widget)
-            self._widget.loadSettings()
+            w = self._widget = self.widget(dlg)
+            dlg.stack.addWidget(w)
+            w.loadSettings()
+            w.changed.connect(dlg.changed)
         dlg.stack.setCurrentWidget(self._widget)
 
 
@@ -181,19 +183,50 @@ class FontsColors(PrefsItemBase):
 
 class Page(QWidget):
     """Base class for settings pages."""
+    changed = pyqtSignal()
+    
     def __init__(self, dialog):
         QWidget.__init__(self)
         dialog.pages.append(self)
     
-    def changed(self):
-        """Call this to enable the Apply button in the dialog."""
-        self.window().changed()
+    def loadSettings(self):
+        """Should load settings from config into our widget."""
+        
+    def saveSettings(self):
+        """Should write settings from our widget to config."""
+
+    
+class GroupsPage(Page):
+    """Base class for a Page with SettingsGroups.
+    
+    The load and save methods of the SettingsGroup groups are automatically called.
+    
+    """
+    def __init__(self, dialog):
+        super(GroupsPage, self).__init__(dialog)
+        self.groups = []
+        
+    def loadSettings(self):
+        for group in self.groups:
+            group.loadSettings()
+            
+    def saveSettings(self):
+        for group in self.groups:
+            group.saveSettings()
+            
+
+class Group(QGroupBox):
+    """This is a QGroupBox that auto-adds itself to a Page."""
+    changed = pyqtSignal()
+    
+    def __init__(self, page):
+        super(Group, self).__init__()
+        page.groups.append(self)
+        self.changed.connect(page.changed)
         
     def loadSettings(self):
         """Should load settings from config into our widget."""
         
     def saveSettings(self):
         """Should write settings from our widget to config."""
-    
-    
-    
+
