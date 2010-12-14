@@ -725,6 +725,7 @@ class MainWindow(QMainWindow):
         m.addAction(sm.session_manage)
         m.addSeparator()
         m.addAction(sm.session_none)
+        m.addSeparator()
         
         m.aboutToShow.connect(self.sessionManager.populateSessionsMenu)
         
