@@ -96,7 +96,6 @@ class SessionEditor(QDialog):
         grid.addWidget(l, 2, 0)
         grid.addWidget(self.basedir, 2, 1)
         
-        
         layout.addWidget(widgets.Separator())
         self.buttons = b = QDialogButtonBox(self)
         layout.addWidget(b)
@@ -157,7 +156,6 @@ class SessionEditor(QDialog):
         """
         name = self.name.text().strip()
         self.name.setText(name)
-        
         if not name:
             self.name.setFocus()
             QMessageBox.warning(self, app.caption(_("Warning")),
@@ -191,3 +189,4 @@ class SessionEditor(QDialog):
                 return False
             
         return True
+

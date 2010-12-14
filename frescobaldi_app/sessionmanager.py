@@ -27,6 +27,7 @@ A session is a global list of open documents, with some additional preferences s
 
 """
 
+import itertools
 import weakref
 
 from PyQt4.QtCore import QSettings, QUrl
@@ -64,13 +65,28 @@ def loadDefaultSession():
         return loadSession(name)
 
 def sessionGroup(name):
-    """Returns the session settings group where settings can be stored for the named session."""
+    """Returns the session settings group where settings can be stored for the named session.
+    
+    If the group did not exist, it is created.
+    
+    """
     session = app.settings("sessions")
-    session.beginGroup(name)
+    childGroups = session.childGroups()
+    for group in childGroups:
+        if session.value(group + "/name") == name:
+            break
+    else:
+        for count in itertools.count(1):
+            group = "session{0}".format(count)
+            if group not in childGroups:
+                session.setValue(group +  "/name", name)
+                break
+    session.beginGroup(group)
     return session
 
 def sessionNames():
-    names = app.settings("sessions").childGroups()
+    session = app.settings("sessions")
+    names = [session.value(group + "/name", "") for group in session.childGroups()]
     names.sort(key=util.naturalsort)
     return names
     
@@ -82,15 +98,13 @@ def loadSession(name):
     for url in session.value("urls", []) or []:
         if isinstance(url, QUrl):
             urls.append(url)
-    active = QUrl(session.value("active", QUrl()))
+    active = int(session.value("active", -1))
     result = None
     if urls:
-        try:
-            index = urls.index(active)
-        except ValueError:
-            index = 0
         docs = [app.openUrl(url) for url in urls]
-        result = docs[index]
+        if active not in range(len(docs)):
+            active = 0
+        result = docs[active]
     setCurrentSession(name)
     return result
 
@@ -98,29 +112,26 @@ def saveSession(name, documents, activeDocument=None):
     """Saves the list of documents and which one is active."""
     session = sessionGroup(name)
     session.setValue("urls", [doc.url() for doc in documents if not doc.url().isEmpty()])
-    if activeDocument:
-        session.setValue("active", activeDocument.url())
+    if activeDocument in documents:
+        session.setValue("active", documents.index(activeDocument))
     else:
         session.remove("active")
 
 def deleteSession(name):
-    app.settings("sessions").remove(name)
+    session = app.settings("sessions")
+    for group in session.childGroups():
+        if session.value(group + "/name", "") == name:
+            session.remove(group)
+            break
     if name == _currentSession:
         setCurrentSession(None)
 
 def renameSession(old, new):
-    """Renames a session.
-    
-    The document list is taken over but not the other settings.
-    Both names must be valid session names, and old must exist.
-    The old session group is deleted.
-    
-    """
-    oldSession = sessionGroup(old)
-    newSession = sessionGroup(new)
-    newSession.setValue("urls", oldSession.value("urls"))
-    newSession.setValue("active", oldSession.value("active"))
-    deleteSession(old)
+    """Renames a session."""
+    session = sessionGroup(old)
+    session.setValue("name", new)
+    if old == currentSession():
+        setCurrentSession(new)
     
 def currentSession():
     return _currentSession
@@ -128,6 +139,7 @@ def currentSession():
 def setCurrentSession(name):
     global _currentSession
     if name != _currentSession:
+        name and sessionGroup(name) # just select it, so its name is written in case it doesn't exist
         _currentSession = name
         app.sessionChanged()
 
@@ -195,11 +207,12 @@ class SessionManager(object):
     
     def startSession(self, name):
         """Switches to the given session."""
-        print "Starting Session:", name
+        if name == currentSession():
+            return
         self.saveCurrentSessionIfDesired()
-        # TODO: implement closing
-        active = loadSession(name) or document.Document()
-        self.mainwindow().setCurrentDocument(active)
+        if self.mainwindow().queryClose():
+            active = loadSession(name) or document.Document()
+            self.mainwindow().setCurrentDocument(active)
         
     def saveCurrentSessionIfDesired(self):
         """Saves the current session if it is configured to save itself on exit."""
