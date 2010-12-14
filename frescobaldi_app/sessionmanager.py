@@ -29,11 +29,12 @@ A session is a global list of open documents, with some additional preferences s
 
 import weakref
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QSettings, QUrl
+from PyQt4.QtGui import QAction, QActionGroup
 
 import app
 import actioncollection
+import document
 import icons
 import util
 
@@ -142,8 +143,35 @@ class SessionManager(object):
         ac.session_new.triggered.connect(self.newSession)
         ac.session_save.triggered.connect(self.saveSession)
         ac.session_manage.triggered.connect(self.manageSessions)
-        ac.session_none.triggered.connect(self.noSession)
         
+        # sessions menu
+        self._sessionsActionGroup = ag = QActionGroup(self.mainwindow())
+        ag.setExclusive(True)
+        ag.addAction(ac.session_none)
+        ag.triggered.connect(self.slotSessionsAction)
+        
+    def populateSessionsMenu(self):
+        menu = self.mainwindow().menu_sessions
+        ag = self._sessionsActionGroup
+        for a in ag.actions():
+            if a is not self.actionCollection.session_none:
+                menu.removeAction(a)
+                ag.removeAction(a)
+        self.actionCollection.session_none.setChecked(not currentSession())
+        for name in sessionNames():
+            a = menu.addAction(name)
+            a.setCheckable(True)
+            if name == currentSession():
+                a.setChecked(True)
+            a.setObjectName(name)
+            ag.addAction(a)
+    
+    def slotSessionsAction(self, action):
+        if action is self.actionCollection.session_none:
+            self.noSession()
+        elif action.objectName() in sessionNames():
+            self.startSession(action.objectName())
+            
     def newSession(self):
         import sessiondialog
         name = sessiondialog.SessionEditor(self.mainwindow()).edit()
@@ -165,6 +193,14 @@ class SessionManager(object):
             self.saveCurrentSessionIfDesired()
             setCurrentSession(None)
     
+    def startSession(self, name):
+        """Switches to the given session."""
+        print "Starting Session:", name
+        self.saveCurrentSessionIfDesired()
+        # TODO: implement closing
+        active = loadSession(name) or document.Document()
+        self.mainwindow().setCurrentDocument(active)
+        
     def saveCurrentSessionIfDesired(self):
         """Saves the current session if it is configured to save itself on exit."""
         cur = currentSession()
@@ -189,6 +225,7 @@ class SessionActions(actioncollection.ActionCollection):
         self.session_save = QAction(parent)
         self.session_manage = QAction(parent)
         self.session_none = QAction(parent)
+        self.session_none.setCheckable(True)
         
         self.session_new.setIcon(icons.get('document-new'))
         self.session_save.setIcon(icons.get('document-save'))

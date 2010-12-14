@@ -638,7 +638,7 @@ class MainWindow(QMainWindow):
         """Called when a recent files menu action is triggered."""
         doc = self.openUrl(action.url)
         self.setCurrentDocument(doc)
-
+        
     def createMenus(self):
         ac = self.actionCollection
         self.menu_file = m = self.menuBar().addMenu('')
@@ -725,6 +725,8 @@ class MainWindow(QMainWindow):
         m.addAction(sm.session_manage)
         m.addSeparator()
         m.addAction(sm.session_none)
+        
+        m.aboutToShow.connect(self.sessionManager.populateSessionsMenu)
         
         self.menu_help = m = self.menuBar().addMenu('')
         m.addAction(ac.help_manual)
