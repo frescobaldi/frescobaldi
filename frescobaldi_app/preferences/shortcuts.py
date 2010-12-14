@@ -215,7 +215,7 @@ class Shortcuts(preferences.Page):
                     return # cancelled
             # store the shortcut
             item.setShortcuts(shortcuts, scheme)
-            self.changed()
+            self.changed.emit()
 
         
 class ShortcutItem(QTreeWidgetItem):

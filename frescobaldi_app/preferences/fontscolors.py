@@ -174,14 +174,14 @@ class FontsColors(preferences.Page):
         data.font = self.fontChooser.currentFont()
         data.font.setPointSizeF(self.fontSize.value())
         self.updateDisplay()
-        self.changed()
+        self.changed.emit()
     
     def printSchemeChanged(self):
         if self.printScheme.isChecked():
             self._printScheme = self.scheme.currentScheme()
         else:
             self._printScheme = None
-        self.changed()
+        self.changed.emit()
         
     def updateDisplay(self):
         data = self.data[self.scheme.currentScheme()]
@@ -236,7 +236,7 @@ class FontsColors(preferences.Page):
         data = self.data[self.scheme.currentScheme()]
         data.baseColors[name] = self.baseColorsWidget.color[name].color()
         self.updateDisplay()
-        self.changed()
+        self.changed.emit()
     
     def customAttributesChanged(self):
         item = self.tree.currentItem()
@@ -251,7 +251,7 @@ class FontsColors(preferences.Page):
             group, name = item.parent().group, item.name
             data.allStyles[group][name] = self.customAttributesWidget.textFormat()
         self.updateDisplay()
-        self.changed()
+        self.changed.emit()
         
     def loadSettings(self):
         self.data = {} # holds all data with scheme as key
