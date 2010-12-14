@@ -109,6 +109,9 @@ class MarkupCommand(Markup):
                 argcount = 1
             state.enter(MarkupParser, argcount)
 
+class MarkupWord(Item):
+    rx = r'[^{}"\\\s#%]+'
+
 
 class UserCommand(Token):
     rx = r"\\[A-Za-z]+"
@@ -192,4 +195,5 @@ class MarkupParser(Parser):
         MarkupCommand,
         OpenBracket,
         CloseBracket,
+        MarkupWord,
     ) + LilyPondParser.items

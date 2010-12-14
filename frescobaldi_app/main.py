@@ -60,7 +60,6 @@ def startmain():
 
     # load specific or default session, activeDocument contains
     # the Document that should be set active.
-    activeDocument = None
     if options.session:
         activeDocument = sessionmanager.loadSession(options.session)
     else:

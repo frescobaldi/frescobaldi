@@ -67,7 +67,7 @@ def loadDefaultSession():
 def sessionGroup(name):
     """Returns the session settings group where settings can be stored for the named session.
     
-    If the group did not exist, it is created.
+    If the group doesn't exist, it is created.
     
     """
     session = app.settings("sessions")
