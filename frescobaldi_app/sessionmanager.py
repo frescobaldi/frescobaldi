@@ -151,6 +151,15 @@ def setCurrentSession(name):
         _currentSession = name
         app.sessionChanged()
 
+def currentSessionGroup():
+    """Returns the session settings at the current group is there is a current session.
+    
+    If there is no current session, returns None.
+    
+    """
+    if _currentSession:
+        return sessionGroup(_currentSession)
+
 
 class SessionManager(object):
     def __init__(self, mainwindow):
@@ -258,4 +267,4 @@ class SessionActions(actioncollection.ActionCollection):
         self.session_manage.setText(_("&Manage..."))
         self.session_none.setText(_("No Session"))
         
-    
+

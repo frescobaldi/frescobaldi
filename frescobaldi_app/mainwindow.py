@@ -284,6 +284,9 @@ class MainWindow(QMainWindow):
         filetypes = app.filetypes(ext)
         caption = app.caption(_("Open File"))
         directory = os.path.dirname(self.currentDocument().url().toLocalFile())
+        if not directory:
+            conf = sessionmanager.currentSessionGroup() or QSettings()
+            directory = conf.value("basedir", "")
         files = QFileDialog.getOpenFileNames(self, caption, directory, filetypes)
         docs = [self.openUrl(QUrl.fromLocalFile(f)) for f in files]
         if docs:
@@ -320,6 +323,9 @@ class MainWindow(QMainWindow):
         filetypes = app.filetypes(os.path.splitext(filename)[1])
         caption = app.caption(_("Save File"))
         filename = doc.url().toLocalFile()
+        if not filename:
+            conf = sessionmanager.currentSessionGroup() or QSettings()
+            filename = conf.value("basedir", "") # default directory to save to
         filename = QFileDialog.getSaveFileName(self, caption, filename, filetypes)
         if not filename:
             return False # cancelled

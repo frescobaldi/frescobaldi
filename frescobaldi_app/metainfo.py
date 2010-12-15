@@ -89,7 +89,8 @@ def info(document):
             res = _urlinfo[url]
         except KeyError:
             res = _urlinfo[url] = MetaInfo()
-            res.load(url)
+            if QSettings().value("metainfo", True) not in (False, 'false'):
+                res.load(url)
         return res
 
 @app.qApp.aboutToQuit.connect

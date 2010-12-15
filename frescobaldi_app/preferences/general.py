@@ -34,6 +34,10 @@ from .. import (
     sessionmanager,
 )
 
+from ..widgets import (
+    urlrequester,
+)
+
 
 class GeneralPrefs(preferences.GroupsPage):
     def __init__(self, dialog):
@@ -43,6 +47,7 @@ class GeneralPrefs(preferences.GroupsPage):
         self.setLayout(layout)
         
         layout.addWidget(StartSession(self))
+        layout.addWidget(SavingDocument(self))
         layout.addStretch(1)
             
 
@@ -105,6 +110,40 @@ class StartSession(preferences.Group):
         s.setValue("startup", startup)
 
 
+class SavingDocument(preferences.Group):
+    def __init__(self, page):
+        super(SavingDocument, self).__init__(page)
+        
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+        
+        self.metainfo = QCheckBox(toggled=self.changed)
+        layout.addWidget(self.metainfo)
+        
+        hbox = QHBoxLayout()
+        layout.addLayout(hbox)
+        
+        self.basedirLabel = l = QLabel()
+        self.basedir = urlrequester.UrlRequester()
+        hbox.addWidget(self.basedirLabel)
+        hbox.addWidget(self.basedir)
+        self.basedir.changed.connect(self.changed)
+        app.translateUI(self)
+        
+    def translateUI(self):
+        self.setTitle(_("When saving documents"))
+        self.metainfo.setText(_("Remember cursor position, bookmarks, etc."))
+        self.basedirLabel.setText(_("Default directory:"))
+        self.basedirLabel.setToolTip(_("The default folder for your LilyPond documents (optional)."))
+        
+    def loadSettings(self):
+        s = QSettings()
+        self.metainfo.setChecked(s.value("metainfo", True) not in (False, "false"))
+        self.basedir.setPath(s.value("basedir", ""))
+        
+    def saveSettings(self):
+        s = QSettings()
+        s.setValue("metainfo", self.metainfo.isChecked())
+        s.setValue("basedir", self.basedir.path())
 
-        
-        
+

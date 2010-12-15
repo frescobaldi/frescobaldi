@@ -29,7 +29,7 @@ from PyQt4.QtGui import *
 
 import app
 import widgets.listedit
-#import widgets.urlrequester
+import widgets.urlrequester
 import sessionmanager
 
 
@@ -90,7 +90,7 @@ class SessionEditor(QDialog):
         self.autosave = QCheckBox()
         grid.addWidget(self.autosave, 1, 1)
         
-        self.basedir = QLineEdit() # TODO: make urlrequester.UrlRequester
+        self.basedir = widgets.urlrequester.UrlRequester()
         self.basedirLabel = l = QLabel()
         l.setBuddy(self.basedir)
         grid.addWidget(l, 2, 0)
@@ -112,15 +112,18 @@ class SessionEditor(QDialog):
     def load(self, name):
         settings = sessionmanager.sessionGroup(name)
         self.autosave.setChecked(settings.value("autosave", True) not in (False, 'false'))
+        self.basedir.setPath(settings.value("basedir", ""))
         # more settings here
         
     def save(self, name):
         settings = sessionmanager.sessionGroup(name)
         settings.setValue("autosave", self.autosave.isChecked())
+        settings.setValue("basedir", self.basedir.path())
         # more settings here
         
     def defaults(self):
         self.autosave.setChecked(True)
+        self.basedir.setPath('')
         # more defaults here
         
     def edit(self, name=None):

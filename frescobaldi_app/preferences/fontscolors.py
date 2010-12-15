@@ -229,8 +229,6 @@ class FontsColors(preferences.Page):
                 f.merge(data.allStyles[group][name])
                 setItemTextFormat(children[name], f)
         
-        
-        
     def baseColorsChanged(self, name):
         # keep data up to date with base colors
         data = self.data[self.scheme.currentScheme()]
@@ -260,8 +258,9 @@ class FontsColors(preferences.Page):
         
     def saveSettings(self):
         self.scheme.saveSettings("editor_scheme", "editor_schemes", "fontscolors")
-        for scheme in self.data:
-            self.data[scheme].save(scheme)
+        for scheme in self.scheme.schemes():
+            if scheme in self.data:
+                self.data[scheme].save(scheme)
         if self._printScheme:
             QSettings().setValue("printer_scheme", self._printScheme)
         else:
