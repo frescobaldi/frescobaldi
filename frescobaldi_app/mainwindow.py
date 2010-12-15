@@ -224,6 +224,23 @@ class MainWindow(QMainWindow):
             doc.close()
         return True
 
+    def queryCloseDocument(self, doc):
+        """Returns whether a document can be closed.
+        
+        If modified, asks the user. The document is not closed.
+        """
+        if not doc.isModified():
+            return True
+        self.setCurrentDocument(doc, findOpenView=True)
+        res = QMessageBox.warning(self, _("Close Document"),
+            _("The document \"{name}\" has been modified.\n"
+            "Do you want to save your changes or discard them?").format(name=doc.documentName()),
+            QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel)
+        if res == QMessageBox.Save:
+            return self.saveDocument(doc)
+        else:
+            return res == QMessageBox.Discard
+        
     def readSettings(self):
         """ Read a few settings from the application global config. """
         settings = QSettings()
@@ -352,23 +369,6 @@ class MainWindow(QMainWindow):
                 document.Document()
         return close
         
-    def queryCloseDocument(self, doc):
-        """Returns whether a document can be closed.
-        
-        If modified, asks the user. The document is not closed.
-        """
-        if not doc.isModified():
-            return True
-        self.setCurrentDocument(doc, findOpenView=True)
-        res = QMessageBox.warning(self, _("Close Document"),
-            _("The document \"{name}\" has been modified.\n"
-            "Do you want to save your changes or discard them?").format(name=doc.documentName()),
-            QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel)
-        if res == QMessageBox.Save:
-            return self.saveDocument(doc)
-        else:
-            return res == QMessageBox.Discard
-        
     def saveCurrentDocument(self):
         return self.saveDocument(self.currentDocument())
     
@@ -414,6 +414,11 @@ class MainWindow(QMainWindow):
         for doc in docs:
             doc.close()
         return True
+    
+    def closeAllDocuments(self):
+        """Closes all documents and keep one new, empty document."""
+        if self.queryClose():
+            document.Document()
     
     def openCurrentDirectory(self):
         directory = os.path.dirname(self.currentDocument().url().toLocalFile()) or os.getcwdu()
@@ -593,6 +598,7 @@ class MainWindow(QMainWindow):
         ac.file_print_source.triggered.connect(self.printSource)
         ac.file_close.triggered.connect(self.closeCurrentDocument)
         ac.file_close_other.triggered.connect(self.closeOtherDocuments)
+        ac.file_close_all.triggered.connect(self.closeAllDocuments)
         ac.export_colored_html.triggered.connect(self.exportColoredHtml)
         ac.edit_undo.triggered.connect(self.undo)
         ac.edit_redo.triggered.connect(self.redo)
@@ -666,6 +672,7 @@ class MainWindow(QMainWindow):
         m.addSeparator()
         m.addAction(ac.file_close)
         m.addAction(ac.file_close_other)
+        m.addAction(ac.file_close_all)
         m.addSeparator()
         m.addAction(ac.file_quit)
         
@@ -1031,6 +1038,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_print_music = QAction(parent)
         self.file_close = QAction(parent)
         self.file_close_other = QAction(parent)
+        self.file_close_all = QAction(parent)
         self.file_quit = QAction(parent)
         
         self.export_colored_html = QAction(parent)
@@ -1178,6 +1186,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_print_source.setText(_("Print Source..."))
         self.file_close.setText(_("&Close"))
         self.file_close_other.setText(_("Close Other Documents"))
+        self.file_close_all.setText(_("Close All Documents"))
         self.file_quit.setText(_("&Quit"))
         
         self.export_colored_html.setText(_("Export Source as Colored &HTML..."))
