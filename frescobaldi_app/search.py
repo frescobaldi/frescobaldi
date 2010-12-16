@@ -138,6 +138,7 @@ class Search(QWidget):
         self.showWidget()
         
     def slotSearchChanged(self):
+        self.searchEntry.setFocus()
         self.updatePositions()
         self.currentView().setSearchResults(self._positions)
 
@@ -148,7 +149,7 @@ class Search(QWidget):
         self._positions = []
         if search:
             text = document.toPlainText()
-            flags = re.MULTILINE
+            flags = re.MULTILINE | re.DOTALL
             if not self.caseCheck.isChecked():
                 flags |= re.IGNORECASE
             if not self.regexCheck.isChecked():
