@@ -70,7 +70,7 @@ class UrlRequester(QWidget):
         app.translateUI(self)
         
     def translateUI(self):
-        pass
+        self.button.setToolTip(_("Open file dialog"))
     
     def setPath(self, path):
         self.lineEdit.setText(path)
