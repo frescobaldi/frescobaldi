@@ -79,9 +79,9 @@ class Search(QWidget):
         
     def translateUI(self):
         self.searchLabel.setText(_("Search:"))
-        self.caseCheck.setText(_("Case"))
+        self.caseCheck.setText(_("&Case"))
         self.caseCheck.setToolTip(_("Case Sensitive"))
-        self.regexCheck.setText(_("Regex"))
+        self.regexCheck.setText(_("&Regex"))
         self.regexCheck.setToolTip(_("Regular Expression"))
         self.countLabel.setToolTip(_("The total number of matches"))
         
