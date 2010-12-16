@@ -53,7 +53,13 @@ class View(QPlainTextEdit):
         self.cursorPositionChanged.connect(self.updateCursor)
         app.settingsChanged.connect(self.readSettings)
         self.readSettings() # will also call updateCursor and updateMarkedLines
-    
+        
+        # layout to show widgets in bottom
+        layout = QVBoxLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setAlignment(Qt.AlignBottom)
+        self.setLayout(layout)
+        
     def readSettings(self):
         s = QSettings()
         s.beginGroup("Editor")
@@ -154,5 +160,13 @@ class View(QPlainTextEdit):
         extraSelections = self._markedLineExtraSelections + [self._cursorExtraSelection]
         self.setExtraSelections(extraSelections)
         
-        
+    def showWidget(self, widget):
+        self.setViewportMargins(0, 0, 0, widget.height())
+        self.layout().addWidget(widget)
+    
+    def hideWidget(self, widget):
+        self.layout().removeWidget(widget)
+        self.setViewportMargins(0, 0, 0, 0)
+
+
 

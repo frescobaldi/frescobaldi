@@ -511,6 +511,20 @@ class MainWindow(QMainWindow):
     def selectAll(self):
         self.currentView().selectAll()
         
+    def find(self):
+        self.search().find()
+        
+    def replace(self):
+        self.search().replace()
+        
+    def search(self):
+        try:
+            return self._search
+        except AttributeError:
+            import search
+            self._search = search.Search(self)
+        return self._search
+        
     def showPreferences(self):
         import preferences
         dlg = preferences.PreferencesDialog(self)
@@ -608,6 +622,8 @@ class MainWindow(QMainWindow):
         ac.edit_copy_colored_html.triggered.connect(self.copyColoredHtml)
         ac.edit_select_all.triggered.connect(self.selectAll)
         ac.edit_select_none.triggered.connect(self.selectNone)
+        ac.edit_find.triggered.connect(self.find)
+        ac.edit_replace.triggered.connect(self.replace)
         ac.edit_preferences.triggered.connect(self.showPreferences)
         ac.view_next_document.triggered.connect(self.tabBar.nextDocument)
         ac.view_previous_document.triggered.connect(self.tabBar.previousDocument)
