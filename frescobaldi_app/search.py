@@ -28,17 +28,39 @@ import weakref
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+import app
+
 
 class Search(QWidget):
     def __init__(self, mainwindow):
         super(Search, self).__init__(mainwindow)
         self._currentView = None
-        mainwindow.currentViewChanged.connect(self.hideWidget)
+        mainwindow.currentViewChanged.connect(self.viewChanged)
         
-        hide = QAction(self)
-        self.addAction(hide)
+        hide = QAction(self, triggered=self.escapePressed)
         hide.setShortcut(QKeySequence(Qt.Key_Escape))
-        hide.triggered.connect(self.hideWidget)
+        self.addAction(hide)
+
+        
+        # dont inherit looks from view
+        self.setFont(QApplication.font())
+        self.setPalette(QApplication.palette())
+        
+        grid = QGridLayout()
+        grid.setContentsMargins(4, 0, 4, 0)
+        self.setLayout(grid)
+        
+        self.searchEntry = QLineEdit()
+        self.searchLabel = QLabel()
+        
+        grid.addWidget(self.searchLabel, 0, 0)
+        grid.addWidget(self.searchEntry, 0, 1)
+        
+        app.translateUI(self)
+        
+    def translateUI(self):
+        self.searchLabel.setText(_("Search:"))
+        
         
     def isVisible(self):
         return bool(self.currentView())
@@ -53,21 +75,41 @@ class Search(QWidget):
         if self.isVisible():
             self.hideWidget()
         view = self.window().currentView()
+        self.setFixedHeight(self.sizeHint().height())
         view.showWidget(self)
         self.setCurrentView(view)
+        
+        # make the search entry mimic the view's palette
+        self.searchEntry.setFont(view.font())
+        self.searchEntry.setPalette(view.palette())
+        
+        self.show()
         
     def hideWidget(self):
         view = self.currentView()
         if view:
             view.hideWidget(self)
             self.setCurrentView(None)
-
+            self.hide()
+    
+    def viewChanged(self):
+        self.hideWidget()
+        
+    def escapePressed(self):
+        view = self.currentView()
+        if view:
+            self.hideWidget()
+            view.setFocus()
+        
     def find(self):
-        self.setFixedHeight(30)
+        # TODO: hide replace stuff
+        
         self.showWidget()
+        self.searchEntry.setFocus()
         
     def replace(self):
-        self.setFixedHeight(50)
+        # TODO: show replace stuff
+
         self.showWidget()
         
         
