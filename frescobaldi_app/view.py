@@ -40,6 +40,8 @@ class View(QPlainTextEdit):
         self._currentLineColor = None
         self._markColor = {}
         self._markedLineExtraSelections = []
+        self._searchColor = None
+        self._searchExtraSelections = []
         self._cursorExtraSelection = QTextEdit.ExtraSelection()
         self._cursorExtraSelection.format.setProperty(QTextFormat.FullWidthSelection, True)
         self.setDocument(document)
@@ -81,6 +83,7 @@ class View(QPlainTextEdit):
         self._markColor['bookmark'].setAlpha(200)
         self._markColor['error'] = QColor(data.baseColors['error'])
         self._markColor['error'].setAlpha(200)
+        self._searchColor = data.baseColors['search']
         self.updateMarkedLines()
         self.updateCursor()
         
@@ -157,8 +160,17 @@ class View(QPlainTextEdit):
         self.updateExtraSelections()
         
     def updateExtraSelections(self):
-        extraSelections = self._markedLineExtraSelections + [self._cursorExtraSelection]
+        extraSelections = self._markedLineExtraSelections + self._searchExtraSelections + [self._cursorExtraSelection]
         self.setExtraSelections(extraSelections)
+    
+    def setSearchResults(self, cursors):
+        results = self._searchExtraSelections = []
+        for cursor in cursors:
+            es = QTextEdit.ExtraSelection()
+            es.cursor = cursor
+            es.format.setBackground(self._searchColor)
+            results.append(es)
+        self.updateExtraSelections()
         
     def showWidget(self, widget):
         self.setViewportMargins(0, 0, 0, widget.height())
