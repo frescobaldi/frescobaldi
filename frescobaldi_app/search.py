@@ -42,11 +42,6 @@ class Search(QWidget):
         self._replace = False  # are we in replace mode?
         
         mainwindow.currentViewChanged.connect(self.viewChanged)
-        
-        hide = QAction(self, triggered=self.escapePressed)
-        hide.setShortcut(QKeySequence(Qt.Key_Escape))
-        self.addAction(hide)
-
         mainwindow.actionCollection.edit_find_next.triggered.connect(self.findNext)
         mainwindow.actionCollection.edit_find_previous.triggered.connect(self.findPrevious)
         
@@ -61,23 +56,25 @@ class Search(QWidget):
         
         self.searchEntry = QLineEdit(textChanged=self.slotSearchChanged)
         self.searchLabel = QLabel()
-        self.caseCheck = QCheckBox()
-        self.caseCheck.setChecked(True)
-        self.regexCheck = QCheckBox()
-        self.countLabel = QLabel()
+        self.caseCheck = QCheckBox(checked=True, focusPolicy=Qt.NoFocus)
+        self.regexCheck = QCheckBox(focusPolicy=Qt.NoFocus)
+        self.countLabel = QLabel(alignment=Qt.AlignRight | Qt.AlignVCenter)
         self.countLabel.setMinimumWidth(QApplication.fontMetrics().width("9999"))
-        self.countLabel.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
+        self.closeButton = QToolButton(autoRaise=True, focusPolicy=Qt.NoFocus)
+        self.hideAction = QAction(self, triggered=self.slotHide)
+        self.hideAction.setShortcut(QKeySequence(Qt.Key_Escape))
+        self.hideAction.setIcon(self.style().standardIcon(QStyle.SP_DialogCloseButton))
+        self.closeButton.setDefaultAction(self.hideAction)
         
         grid.addWidget(self.searchLabel, 0, 0)
         grid.addWidget(self.searchEntry, 0, 1)
         grid.addWidget(self.caseCheck, 0, 2)
         grid.addWidget(self.regexCheck, 0, 3)
         grid.addWidget(self.countLabel, 0, 4)
+        grid.addWidget(self.closeButton, 0, 5)
         
         self.caseCheck.toggled.connect(self.slotSearchChanged)
         self.regexCheck.toggled.connect(self.slotSearchChanged)
-        self.caseCheck.setFocusPolicy(Qt.NoFocus)
-        self.regexCheck.setFocusPolicy(Qt.NoFocus)
         
         self.replaceEntry = QLineEdit()
         self.replaceLabel = QLabel()
@@ -98,6 +95,7 @@ class Search(QWidget):
         self.regexCheck.setText(_("&Regex"))
         self.regexCheck.setToolTip(_("Regular Expression"))
         self.countLabel.setToolTip(_("The total number of matches"))
+        self.hideAction.setToolTip(_("Close"))
         self.replaceLabel.setText(_("Replace:"))
         self.replaceButton.setText(_("Re&place"))
         self.replaceButton.setToolTip(_("Replaces the next occurrence of the search term."))
@@ -139,7 +137,7 @@ class Search(QWidget):
         self.setCurrentView(new)
         self.updatePositions()
         
-    def escapePressed(self):
+    def slotHide(self):
         view = self.currentView()
         if view:
             self.hideWidget()
