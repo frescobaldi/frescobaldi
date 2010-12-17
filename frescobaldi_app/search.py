@@ -100,7 +100,9 @@ class Search(QWidget):
         self.countLabel.setToolTip(_("The total number of matches"))
         self.replaceLabel.setText(_("Replace:"))
         self.replaceButton.setText(_("Re&place"))
+        self.replaceButton.setToolTip(_("Replaces the next occurrence of the search term."))
         self.replaceAllButton.setText(_("&All"))
+        self.replaceAllButton.setToolTip(_("Replaces all occurrences of the search term in the document or selection."))
         
     def currentView(self):
         return self._currentView and self._currentView()
@@ -119,6 +121,8 @@ class Search(QWidget):
         # make the search entry mimic the view's palette
         self.searchEntry.setFont(view.font())
         self.searchEntry.setPalette(view.palette())
+        self.replaceEntry.setFont(view.font())
+        self.replaceEntry.setPalette(view.palette())
         
         self.show()
         
@@ -152,6 +156,7 @@ class Search(QWidget):
             with util.signalsBlocked(self.searchEntry):
                 self.searchEntry.clear()
         self.showWidget()
+        self.updatePositions()
         self.searchEntry.setFocus()
         
     def replace(self):
@@ -163,6 +168,7 @@ class Search(QWidget):
         focus = self.replaceEntry if self.isVisible() and self.searchEntry.text() else self.searchEntry
         self._replace = True # we are in replace mode
         self.showWidget()
+        self.updatePositions()
         focus.setFocus()
         
     def slotSearchChanged(self):
@@ -252,18 +258,25 @@ class Search(QWidget):
         if view and self._positions:
             positions = [c.position() for c in self._positions]
             index = bisect.bisect_left(positions, view.textCursor().position())
-            if index < len(positions):
-                if self.doReplace(self._positions[index]):
-                    view.setSearchResults(self._positions)
-                    if index < len(positions) - 1:
-                        view.setTextCursor(self._positions[index+1])
-        
+            if index >= len(positions):
+                index = 0
+            if self.doReplace(self._positions[index]):
+                view.setSearchResults(self._positions)
+                if index < len(positions) - 1:
+                    view.setTextCursor(self._positions[index+1])
+                else:
+                    view.setTextCursor(self._positions[0])
+                view.ensureCursorVisible()
+    
     def slotReplaceAll(self):
         view = self.currentView()
         if view:
             replaced = False
+            cursors = self._positions
+            if view.textCursor().hasSelection():
+                cursors = [cursor for cursor in cursors if cursorContains(view.textCursor(), cursor)]
             view.textCursor().beginEditBlock()
-            for cursor in self._positions:
+            for cursor in cursors:
                 if self.doReplace(cursor):
                     replaced = True
             view.textCursor().endEditBlock()
@@ -271,4 +284,9 @@ class Search(QWidget):
                 view.setSearchResults(self._positions)
 
 
+def cursorContains(cursor1, cursor2):
+    """Returns True if the selection of cursor2 entirely falls inside the selection of cursor1."""
+    start1, end1 = sorted((cursor1.position(), cursor1.anchor()))
+    start2, end2 = sorted((cursor2.position(), cursor2.anchor()))
+    return start1 <= start2 and end1 >= end2
 
