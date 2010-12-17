@@ -156,7 +156,7 @@ class Search(QWidget):
             with util.signalsBlocked(self.searchEntry):
                 self.searchEntry.clear()
         self.showWidget()
-        self.updatePositions()
+        self.slotSearchChanged()
         self.searchEntry.setFocus()
         
     def replace(self):
@@ -168,7 +168,7 @@ class Search(QWidget):
         focus = self.replaceEntry if self.isVisible() and self.searchEntry.text() else self.searchEntry
         self._replace = True # we are in replace mode
         self.showWidget()
-        self.updatePositions()
+        self.slotSearchChanged()
         focus.setFocus()
         
     def slotSearchChanged(self):
