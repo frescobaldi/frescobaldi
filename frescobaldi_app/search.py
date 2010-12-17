@@ -39,6 +39,7 @@ class Search(QWidget):
         super(Search, self).__init__(mainwindow)
         self._currentView = None
         self._positions = None
+        self._replace = False  # are we in replace mode?
         
         mainwindow.currentViewChanged.connect(self.viewChanged)
         
@@ -55,6 +56,7 @@ class Search(QWidget):
         
         grid = QGridLayout()
         grid.setContentsMargins(4, 0, 4, 0)
+        grid.setVerticalSpacing(0)
         self.setLayout(grid)
         
         self.searchEntry = QLineEdit(textChanged=self.slotSearchChanged)
@@ -74,6 +76,18 @@ class Search(QWidget):
         
         self.caseCheck.toggled.connect(self.slotSearchChanged)
         self.regexCheck.toggled.connect(self.slotSearchChanged)
+        self.caseCheck.setFocusPolicy(Qt.NoFocus)
+        self.regexCheck.setFocusPolicy(Qt.NoFocus)
+        
+        self.replaceEntry = QLineEdit()
+        self.replaceLabel = QLabel()
+        self.replaceButton = QPushButton(clicked=self.slotReplace)
+        self.replaceAllButton = QPushButton(clicked=self.slotReplaceAll)
+        
+        grid.addWidget(self.replaceLabel, 1, 0)
+        grid.addWidget(self.replaceEntry, 1, 1)
+        grid.addWidget(self.replaceButton, 1, 2)
+        grid.addWidget(self.replaceAllButton, 1, 3)
         
         app.translateUI(self)
         
@@ -84,6 +98,9 @@ class Search(QWidget):
         self.regexCheck.setText(_("&Regex"))
         self.regexCheck.setToolTip(_("Regular Expression"))
         self.countLabel.setToolTip(_("The total number of matches"))
+        self.replaceLabel.setText(_("Replace:"))
+        self.replaceButton.setText(_("Re&place"))
+        self.replaceAllButton.setText(_("&All"))
         
     def currentView(self):
         return self._currentView and self._currentView()
@@ -125,20 +142,30 @@ class Search(QWidget):
             view.setFocus()
         
     def find(self):
-        # TODO: hide replace stuff
+        # hide replace stuff
+        self.replaceLabel.hide()
+        self.replaceEntry.hide()
+        self.replaceButton.hide()
+        self.replaceAllButton.hide()
+        self._replace = False # we are not in replace mode
         if not self.isVisible():
             with util.signalsBlocked(self.searchEntry):
                 self.searchEntry.clear()
-            self.showWidget()
+        self.showWidget()
         self.searchEntry.setFocus()
         
     def replace(self):
-        # TODO: show replace stuff
-
+        # show replace stuff
+        self.replaceLabel.show()
+        self.replaceEntry.show()
+        self.replaceButton.show()
+        self.replaceAllButton.show()
+        focus = self.replaceEntry if self.isVisible() and self.searchEntry.text() else self.searchEntry
+        self._replace = True # we are in replace mode
         self.showWidget()
+        focus.setFocus()
         
     def slotSearchChanged(self):
-        self.searchEntry.setFocus()
         self.updatePositions()
         self.currentView().setSearchResults(self._positions)
 
@@ -168,8 +195,8 @@ class Search(QWidget):
         
     def findNext(self):
         view = self.currentView()
-        positions = [c.position() for c in self._positions]
-        if view and positions:
+        if view and self._positions:
+            positions = [c.position() for c in self._positions]
             index = bisect.bisect_right(positions, view.textCursor().position())
             if index < len(positions):
                 view.setTextCursor(self._positions[index])
@@ -186,7 +213,12 @@ class Search(QWidget):
             view.ensureCursorVisible()
 
     def keyPressEvent(self, ev):
-        if self._positions and self.searchEntry.text() and not ev.modifiers():
+        if ev.key() == Qt.Key_Tab:
+            # prevent Tab from reaching the View widget
+            self.window().focusNextChild()
+            return
+        # if in search mode, Up and Down jump between search results
+        if not self._replace and self._positions and self.searchEntry.text() and not ev.modifiers():
             if ev.key() == Qt.Key_Up:
                 self.findPrevious()
                 return
@@ -195,8 +227,48 @@ class Search(QWidget):
                 return
         super(Search, self).keyPressEvent(ev)
 
-
-
+    def doReplace(self, cursor):
+        text = cursor.selection().toPlainText()
+        search = self.searchEntry.text()
+        replace = self.replaceEntry.text()
+        ok = text == self.searchEntry.text()
+        if self.regexCheck.isChecked():
+            m = re.match(search, text)
+            ok = False
+            if m:
+                try:
+                    replace = m.expand(replace)
+                    ok = True
+                except re.error:
+                    pass
+        if ok:
+            pos = cursor.position()
+            cursor.insertText(replace)
+            cursor.setPosition(pos, QTextCursor.KeepAnchor)
+        return ok
+        
+    def slotReplace(self):
+        view = self.currentView()
+        if view and self._positions:
+            positions = [c.position() for c in self._positions]
+            index = bisect.bisect_left(positions, view.textCursor().position())
+            if index < len(positions):
+                if self.doReplace(self._positions[index]):
+                    view.setSearchResults(self._positions)
+                    if index < len(positions) - 1:
+                        view.setTextCursor(self._positions[index+1])
+        
+    def slotReplaceAll(self):
+        view = self.currentView()
+        if view:
+            replaced = False
+            view.textCursor().beginEditBlock()
+            for cursor in self._positions:
+                if self.doReplace(cursor):
+                    replaced = True
+            view.textCursor().endEditBlock()
+            if replaced:
+                view.setSearchResults(self._positions)
 
 
 
