@@ -42,6 +42,7 @@ import signals
 import recentfiles
 import sessionmanager
 import util
+import matcher
 
 
 class MainWindow(QMainWindow):
@@ -106,7 +107,8 @@ class MainWindow(QMainWindow):
         self.setAcceptDrops(True)
         if other:
             self.setCurrentDocument(other.currentDocument())
-    
+        app.mainwindowCreated(self)
+        
     def documents(self):
         """Returns the list of documents in the order of the TabBar."""
         return self.tabBar.documents()
@@ -212,6 +214,7 @@ class MainWindow(QMainWindow):
         if not lastWindow or self.queryClose():
             ev.accept()
             app.windows.remove(self)
+            app.mainwindowClosed(self)
         else:
             ev.ignore()
 

@@ -245,6 +245,11 @@ class EscapeBase(Token): pass
 class NumericBase(Token): pass
 
 
+# some mixin classes that make special handling of tokens possible besides correct parsing:
+class MatchStart: pass # denotes that a Token matches another one,
+class MatchEnd:   pass # e.g. matching braces or parentheses
+
+
 # Parsers:
 class Parser(object):
     """Abstract base class for parsers.  Must be subclassed."""

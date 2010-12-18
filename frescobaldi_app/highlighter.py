@@ -109,9 +109,12 @@ class Highlighter(QSyntaxHighlighter):
         document.loaded.connect(self._resetHighlighting)
         
     def _resetHighlighting(self):
+        """Switches highlighting on or off depending on saved metainfo."""
         self.setHighlighting(metainfo.info(self.document()).highlighting)
         
     def highlightBlock(self, text):
+        """Called by Qt when the highlighting of the current line needs updating."""
+        # find the state of the previous line
         prev = self.previousBlockState()
         if 0 <= prev < len(self._states):
             state = ly.tokenize.State.thaw(self._states[prev])
@@ -121,10 +124,26 @@ class Highlighter(QSyntaxHighlighter):
         else:
             state = ly.tokenize.State(ly.tokenize.guessState(self.document().toPlainText()))
         
+        # collect and save the tokens
+        data = self.currentBlockUserData()
+        if not data:
+            data = BlockData()
+            self.setCurrentBlockUserData(data)
+        data.tokens = tokens = tuple(ly.tokenize.tokens(text, state))
+        
+        # save the state separately
+        cur = state.freeze()
+        try:
+            self.setCurrentBlockState(self._states.index(cur))
+        except ValueError:
+            self.setCurrentBlockState(len(self._states))
+            self._states.append(cur)
+        
+        # apply highlighting if desired
         if self._highlighting:
             setFormat = lambda f: self.setFormat(token.pos, len(token), f)
             formats = highlightFormats()
-            for token in ly.tokenize.tokens(text, state):
+            for token in tokens:
                 for cls in token.__class__.__mro__:
                     if cls is not ly.tokenize.Token:
                         try:
@@ -132,17 +151,7 @@ class Highlighter(QSyntaxHighlighter):
                         except KeyError:
                             continue
                     break
-        else:
-            for token in ly.tokenize.tokens(text, state):
-                pass
         
-        cur = state.freeze()
-        try:
-            self.setCurrentBlockState(self._states.index(cur))
-        except ValueError:
-            self.setCurrentBlockState(len(self._states))
-            self._states.append(cur)
-
     def setHighlighting(self, enable):
         """Enables or disables highlighting."""
         changed = enable != self._highlighting
@@ -165,6 +174,11 @@ class Highlighter(QSyntaxHighlighter):
         if 0 <= userState < len(self._states):
             return ly.tokenize.State.thaw(self._states[userState])
         return ly.tokenize.State(ly.tokenize.guessState(self.document().toPlainText()))
+
+
+class BlockData(QTextBlockUserData):
+    """Stores information about one text line."""
+    tokens = ()
 
 
 def htmlCopy(document, data):

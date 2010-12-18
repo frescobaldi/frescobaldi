@@ -40,6 +40,9 @@ class View(QPlainTextEdit):
         self._currentLineColor = None
         self._markColor = {}
         self._markedLineExtraSelections = []
+        self._matchColor = None
+        self._matchExtraSelections = []
+        self._matchTimer = QTimer(singleShot=True, interval=1000, timeout=self.clearMatches)
         self._searchColor = None
         self._searchExtraSelections = []
         self._cursorExtraSelection = QTextEdit.ExtraSelection()
@@ -84,6 +87,7 @@ class View(QPlainTextEdit):
         self._markColor['error'] = QColor(data.baseColors['error'])
         self._markColor['error'].setAlpha(200)
         self._searchColor = data.baseColors['search']
+        self._matchColor = data.baseColors['match']
         self.updateMarkedLines()
         self.updateCursor()
         
@@ -160,7 +164,12 @@ class View(QPlainTextEdit):
         self.updateExtraSelections()
         
     def updateExtraSelections(self):
-        extraSelections = self._markedLineExtraSelections + self._searchExtraSelections + [self._cursorExtraSelection]
+        extraSelections = (
+            self._markedLineExtraSelections +
+            self._searchExtraSelections +
+            [self._cursorExtraSelection] +
+            self._matchExtraSelections
+        )
         self.setExtraSelections(extraSelections)
     
     def setSearchResults(self, cursors):
@@ -171,12 +180,28 @@ class View(QPlainTextEdit):
             es.format.setBackground(self._searchColor)
             results.append(es)
         self.updateExtraSelections()
+    
+    def setMatches(self, cursors):
+        matches = self._matchExtraSelections = []
+        for cursor in cursors:
+            es = QTextEdit.ExtraSelection()
+            es.cursor = cursor
+            es.format.setBackground(self._matchColor)
+            matches.append(es)
+        self.updateExtraSelections()
+        self._matchTimer.start()
+
+    def clearMatches(self):
+        self._matchExtraSelections = []
+        self.updateExtraSelections()
         
     def showWidget(self, widget):
+        """Displays the widget in the bottom of the View."""
         self.setViewportMargins(0, 0, 0, widget.height())
         self.layout().addWidget(widget)
     
     def hideWidget(self, widget):
+        """Removes the widget from the bottom of the View."""
         self.layout().removeWidget(widget)
         self.setViewportMargins(0, 0, 0, 0)
 

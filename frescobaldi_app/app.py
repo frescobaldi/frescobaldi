@@ -43,6 +43,8 @@ documents = []
 from signals import SignalInstance
 
 # signals
+mainwindowCreated = SignalInstance()    # MainWindow
+mainwindowClosed = SignalInstance()     # MainWindow
 documentCreated = SignalInstance()      # Document
 documentUrlChanged = SignalInstance()   # Document
 documentModificationChanged = SignalInstance() # Document

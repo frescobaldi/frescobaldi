@@ -436,6 +436,7 @@ def baseColorNames():
         'mark':                _("Marked Line"),
         'error':               _("Error Line"),
         'search':              _("Search Result"),
+        'match':               _("Matching Character"),
     }
 
 

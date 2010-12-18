@@ -34,6 +34,9 @@ from . import (
     CommentBase,
     StringBase,
     EscapeBase,
+    
+    MatchStart,
+    MatchEnd,
     Parser,
     StringParserBase,
 )
@@ -63,11 +66,11 @@ class Delimiter(Token):
     pass
 
 
-class OpenBracket(Delimiter, Increaser):
+class OpenBracket(Delimiter, Increaser, MatchStart):
     rx = r"\{"
 
 
-class CloseBracket(Delimiter, Decreaser):
+class CloseBracket(Delimiter, Decreaser, MatchEnd):
     rx = r"\}"
 
 

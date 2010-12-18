@@ -156,11 +156,23 @@ class Search(QWidget):
         self.replaceButton.hide()
         self.replaceAllButton.hide()
         self._replace = False # we are not in replace mode
-        if not self.isVisible():
+        visible = self.isVisible()
+        if not visible:
             with util.signalsBlocked(self.searchEntry):
                 self.searchEntry.clear()
         self.showWidget()
-        self.slotSearchChanged()
+        if not visible and self.currentView():
+            # pick current word
+            cursor = self.currentView().textCursor()
+            cursor.movePosition(QTextCursor.StartOfWord)
+            cursor.movePosition(QTextCursor.EndOfWord, QTextCursor.KeepAnchor)
+            word = cursor.selection().toPlainText()
+            if not re.search(r'\w', word):
+                word = ""
+            self.searchEntry.setText(word)
+            self.searchEntry.selectAll()
+        else:
+            self.slotSearchChanged()
         self.searchEntry.setFocus()
         
     def replace(self):
