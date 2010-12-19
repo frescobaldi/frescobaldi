@@ -29,7 +29,6 @@ sip.setapi("QVariant", 2)
 
 import os
 import re
-import sys
 
 from PyQt4.QtCore import QUrl
 from PyQt4.QtGui import QApplication, QTextCursor
@@ -109,4 +108,4 @@ if app.qApp.isSessionRestored():
 else:
     # Parse command line arguments
     startmain()
-sys.exit(app.qApp.exec_())
+app.run()

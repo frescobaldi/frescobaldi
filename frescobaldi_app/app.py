@@ -90,6 +90,14 @@ def findDocument(url):
         if url == d.url():
             return d
 
+def run():
+    """Enter the Qt event loop."""
+    if not documents:
+        document.Document()
+    if not windows:
+        mainwindow.MainWindow().show()
+    sys.exit(qApp.exec_())
+    
 def translateUI(obj):
     """Translates texts in the object.
     
