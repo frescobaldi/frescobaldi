@@ -27,6 +27,7 @@ multiple views.
 """
 
 import contextlib
+import weakref
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -101,7 +102,7 @@ class ViewSpace(QWidget):
     
     def __init__(self, manager, parent=None):
         super(ViewSpace, self).__init__(parent)
-        self.manager = manager
+        self.manager = weakref.ref(manager)
         self.views = []
         
         layout = QVBoxLayout()
@@ -176,7 +177,7 @@ class ViewSpace(QWidget):
         view.document().urlChanged.disconnect(self.updateStatusBar)
     
     def setActiveViewSpace(self):
-        self.manager.setActiveViewSpace(self)
+        self.manager().setActiveViewSpace(self)
         
     def updateStatusBar(self):
         view = self.activeView()
@@ -196,9 +197,6 @@ class ViewSpace(QWidget):
             self.status.state.setPixmap(pixmap)
             self.status.info.setText(view.document().documentName())
             
-
-
-
 
 class ViewManager(QSplitter):
     

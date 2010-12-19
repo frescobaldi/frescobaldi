@@ -61,6 +61,7 @@ class MainWindow(QMainWindow):
         
         """
         QMainWindow.__init__(self)
+        self.setAttribute(Qt.WA_DeleteOnClose)
         
         self._currentDocument = None
         self._currentView = lambda: None
@@ -212,9 +213,9 @@ class MainWindow(QMainWindow):
             self.sessionManager.saveCurrentSessionIfDesired()
             self.writeSettings()
         if not lastWindow or self.queryClose():
-            ev.accept()
             app.windows.remove(self)
             app.mainwindowClosed(self)
+            ev.accept()
         else:
             ev.ignore()
 
@@ -802,7 +803,7 @@ class MainWindow(QMainWindow):
         self.menu_help.setTitle(_('&Help'))
         self.toolbar_main.setWindowTitle(_("Main Toolbar"))
         self.menu_file_export.setTitle(_("&Export"))
-
+    
 
 class HistoryManager(object):
     """Keeps the history of document switches by the user.
@@ -812,7 +813,7 @@ class HistoryManager(object):
     
     """
     def __init__(self, mainwin, othermanager=None):
-        self.mainwin = mainwin
+        self.mainwin = weakref.ref(mainwin)
         self._documents = list(othermanager._documents if othermanager else app.documents)
         mainwin.currentDocumentChanged.connect(self.setCurrentDocument)
         app.documentCreated.connect(self.addDocument, 1)
@@ -821,12 +822,12 @@ class HistoryManager(object):
     def addDocument(self, doc):
         self._documents.insert(-1, doc)
         if len(self._documents) == 1:
-            self.mainwin.setCurrentDocument(doc)
+            self.mainwin().setCurrentDocument(doc)
 
     def removeDocument(self, doc):
         active = doc is self._documents[-1]
         if active and len(self._documents) > 1:
-            self.mainwin.setCurrentDocument(self._documents[-2])
+            self.mainwin().setCurrentDocument(self._documents[-2])
         self._documents.remove(doc)
     
     def setCurrentDocument(self, doc):
