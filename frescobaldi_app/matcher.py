@@ -78,20 +78,14 @@ class Matcher(object):
                 break
         if source:
             # we've found a matcher item
+            cursor1 = tokens.cursor()
             nest = 0
             for token2 in source:
                 if isinstance(token2, match) and token2.matchname == token.matchname:
                     if nest == 0:
                         # we've found the matching item!
-                        pos1 = block.position()
-                        cur1 = QTextCursor(self.view().document())
-                        cur1.setPosition(pos1 + token.pos)
-                        cur1.setPosition(pos1 + token.end, QTextCursor.KeepAnchor)
-                        pos2 = tokens.block.position()
-                        cur2 = QTextCursor(self.view().document())
-                        cur2.setPosition(pos2 + token2.pos)
-                        cur2.setPosition(pos2 + token2.end, QTextCursor.KeepAnchor)
-                        self.view().setMatches((cur1, cur2))
+                        cursor2 = tokens.cursor()
+                        self.view().setMatches((cursor1, cursor2))
                         return
                     else:
                         nest -= 1
@@ -101,12 +95,18 @@ class Matcher(object):
 
 
 class TokenIterator(object):
+    """An iterator over the tokens in the userData a given QTextBlock."""
     def __init__(self, block, index = -1):
         self.block = block
         self._tokens = block.userData().tokens if block.userData() else ()
         self._index = index or len(self._tokens)
     
     def forward(self, change = True):
+        """Yields tokens in forward direction.
+        
+        If change == True, also advances to the next lines.
+        
+        """
         while self.block.isValid():
             while self._index + 1 < len(self._tokens):
                 self._index += 1
@@ -117,6 +117,11 @@ class TokenIterator(object):
                 return
 
     def backward(self, change = True):
+        """Yields tokens in backward direction.
+        
+        If change == True, also goes on to the previous lines.
+        
+        """
         while self.block.isValid():
             while self._index > 0:
                 self._index -= 1
@@ -125,5 +130,13 @@ class TokenIterator(object):
                 self.__init__(self.block.previous(), 0)
             else:
                 return
+    
+    def cursor(self):
+        """Returns a QTextCursor for the last token."""
+        token = self._tokens[self._index]
+        cursor = QTextCursor(self.block)
+        cursor.setPosition(self.block.position() + token.pos)
+        cursor.setPosition(self.block.position() + token.end, QTextCursor.KeepAnchor)
+        return cursor
 
 
