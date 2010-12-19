@@ -80,7 +80,7 @@ class Matcher(object):
             # we've found a matcher item
             nest = 0
             for token2 in source:
-                if isinstance(token2, match):
+                if isinstance(token2, match) and token2.matchname == token.matchname:
                     if nest == 0:
                         # we've found the matching item!
                         pos1 = block.position()
@@ -95,7 +95,7 @@ class Matcher(object):
                         return
                     else:
                         nest -= 1
-                elif isinstance(token2, other):
+                elif isinstance(token2, other) and token2.matchname == token.matchname:
                     nest += 1
         self.view().clearMatches()
 

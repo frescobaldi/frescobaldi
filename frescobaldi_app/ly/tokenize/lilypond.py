@@ -68,10 +68,11 @@ class Delimiter(Token):
 
 class OpenBracket(Delimiter, Increaser, MatchStart):
     rx = r"\{"
-
+    matchname = "bracket"
 
 class CloseBracket(Delimiter, Decreaser, MatchEnd):
     rx = r"\}"
+    matchname = "bracket"
 
 
 class Keyword(Item):

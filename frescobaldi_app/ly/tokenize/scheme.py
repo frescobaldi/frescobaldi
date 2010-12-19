@@ -31,6 +31,8 @@ from . import (
     Increaser,
     Decreaser,
     Leaver,
+    MatchStart,
+    MatchEnd,
     NumericBase,
     CommentBase,
     StringBase,
@@ -83,12 +85,14 @@ class BlockCommentEnd(Comment, Leaver):
     rx = "!#"
 
 
-class OpenParen(Scheme, Increaser):
+class OpenParen(Scheme, Increaser, MatchStart):
     rx = r"\("
+    matchname = "schemeparen"
     
 
-class CloseParen(Scheme, Decreaser):
+class CloseParen(Scheme, Decreaser, MatchEnd):
     rx = r"\)"
+    matchname = "schemeparen"
 
 
 class Quote(Scheme):
@@ -123,15 +127,17 @@ class LilyPond(Token):
     pass
 
 
-class LilyPondStart(LilyPond):
+class LilyPondStart(LilyPond, MatchStart):
     rx = r"#{"
+    matchname = "schemelily"
     def __init__(self, matchObj, state):
         state.enter(LilyPondParser)
         
 
-class LilyPondEnd(LilyPond, Leaver):
+class LilyPondEnd(LilyPond, Leaver, MatchEnd):
     rx = r"#}"
-    
+    matchname = "schemelily"
+
 
 # Parsers
 

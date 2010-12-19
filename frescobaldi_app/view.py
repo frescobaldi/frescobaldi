@@ -166,8 +166,8 @@ class View(QPlainTextEdit):
     def updateExtraSelections(self):
         extraSelections = (
             self._markedLineExtraSelections +
-            self._searchExtraSelections +
             [self._cursorExtraSelection] +
+            self._searchExtraSelections +
             self._matchExtraSelections
         )
         self.setExtraSelections(extraSelections)

@@ -246,8 +246,12 @@ class NumericBase(Token): pass
 
 
 # some mixin classes that make special handling of tokens possible besides correct parsing:
-class MatchStart: pass # denotes that a Token matches another one,
-class MatchEnd:   pass # e.g. matching braces or parentheses
+
+# MatchEnd and MatchStart can be used by parenthesis/brace matcher.
+# the matchname class attribute defines the type, so that it is independent
+# of the way other types could be nested.
+class MatchStart: matchname="" # denotes that a Token matches another one,
+class MatchEnd:   matchname="" # e.g. matching braces or parentheses
 
 
 # Parsers:
