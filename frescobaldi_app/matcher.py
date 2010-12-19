@@ -96,10 +96,15 @@ class Matcher(object):
 
 class TokenIterator(object):
     """An iterator over the tokens in the userData a given QTextBlock."""
-    def __init__(self, block, index = -1):
+    def __init__(self, block, atEnd=False):
+        """Positions the token iterator at the start of the given block.
+        
+        If atEnd == True, the iterator is positioned past the end of the block.
+        
+        """
         self.block = block
         self._tokens = block.userData().tokens if block.userData() else ()
-        self._index = index or len(self._tokens)
+        self._index = len(self._tokens) if atEnd else -1
     
     def forward(self, change = True):
         """Yields tokens in forward direction.
@@ -127,7 +132,7 @@ class TokenIterator(object):
                 self._index -= 1
                 yield self._tokens[self._index]
             if change:
-                self.__init__(self.block.previous(), 0)
+                self.__init__(self.block.previous(), True)
             else:
                 return
     
