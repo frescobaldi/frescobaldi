@@ -81,7 +81,7 @@ class ViewStatusBar(QWidget):
         menu = QMenu(self)
         menu.aboutToHide.connect(menu.deleteLater)
         viewspace = self.parent()
-        manager = viewspace.manager
+        manager = viewspace.manager()
         
         a = QAction(icons.get('view-split-top-bottom'), _("Split &Horizontally"), menu)
         menu.addAction(a)
