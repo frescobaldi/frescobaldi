@@ -424,6 +424,13 @@ class MainWindow(QMainWindow):
         if self.queryClose():
             document.Document()
     
+    def quit(self):
+        """Closes all MainWindows."""
+        for window in app.windows:
+            if window is not self:
+                window.close()
+        self.close()
+            
     def openCurrentDirectory(self):
         directory = os.path.dirname(self.currentDocument().url().toLocalFile()) or os.getcwdu()
         QDesktopServices.openUrl(QUrl.fromLocalFile(directory))
@@ -606,7 +613,7 @@ class MainWindow(QMainWindow):
         m.aboutToShow.connect(self.populateDocumentsMenu)
         
         # connections
-        ac.file_quit.triggered.connect(self.close)
+        ac.file_quit.triggered.connect(self.quit, Qt.QueuedConnection)
         ac.file_new.triggered.connect(self.newDocument)
         ac.file_open.triggered.connect(self.openDocument)
         ac.file_open_current_directory.triggered.connect(self.openCurrentDirectory)
