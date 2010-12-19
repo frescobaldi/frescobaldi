@@ -426,7 +426,7 @@ class MainWindow(QMainWindow):
     
     def quit(self):
         """Closes all MainWindows."""
-        for window in app.windows:
+        for window in app.windows[:]: # copy
             if window is not self:
                 window.close()
         self.close()
