@@ -103,7 +103,8 @@ class TokenIterator(object):
         
         """
         self.block = block
-        self._tokens = block.userData().tokens if block.userData() else ()
+        # if block is an empty line, the highlighter doesn't run
+        self._tokens = block.userData().tokens if block.userData() and block.length() > 1 else ()
         self._index = len(self._tokens) if atEnd else -1
     
     def forward(self, change = True):
@@ -116,10 +117,9 @@ class TokenIterator(object):
             while self._index + 1 < len(self._tokens):
                 self._index += 1
                 yield self._tokens[self._index]
-            if change:
-                self.__init__(self.block.next())
-            else:
+            if not change:
                 return
+            self.__init__(self.block.next())
 
     def backward(self, change = True):
         """Yields tokens in backward direction.
@@ -131,10 +131,9 @@ class TokenIterator(object):
             while self._index > 0:
                 self._index -= 1
                 yield self._tokens[self._index]
-            if change:
-                self.__init__(self.block.previous(), True)
-            else:
+            if not change:
                 return
+            self.__init__(self.block.previous(), True)
     
     def cursor(self):
         """Returns a QTextCursor for the last token."""

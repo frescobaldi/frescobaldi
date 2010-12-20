@@ -86,6 +86,58 @@ class CloseSimultaneous(Delimiter, Decreaser, MatchEnd):
     matchname = "simultaneous"
     
 
+class Slur(Token):
+    pass
+
+
+class SlurStart(Slur, MatchStart):
+    rx = r"\("
+    matchname = "slur"
+    
+
+class SlurEnd(Slur, MatchEnd):
+    rx = r"\)"
+    matchname = "slur"
+    
+
+class PhrasingSlurStart(SlurStart):
+    rx = r"\\\("
+    matchname = "phrasingslur"
+    
+    
+class PhrasingSlurEnd(SlurEnd):
+    rx = r"\\\)"
+    matchname = "phrasingslur"
+    
+    
+class Beam(Token):
+    pass
+
+
+class BeamStart(Beam, MatchStart):
+    rx = r"\["
+    matchname = "beam"
+
+
+class BeamEnd(Beam, MatchEnd):
+    rx = r"\]"
+    matchname = "beam"
+
+
+class Ligature(Token):
+    pass
+
+
+class LigatureStart(Ligature, MatchStart):
+    rx = r"\\\["
+    matchname = "ligature"
+    
+    
+class LigatureEnd(Ligature, MatchEnd):
+    rx = r"\\\]"
+    matchname = "ligature"
+    
+    
 class Keyword(Item):
     rx = r"\\({0})\b".format("|".join(words.lilypond_keywords))
 
@@ -187,6 +239,10 @@ class LilyPondParser(Parser):
         CloseBracket,
         OpenSimultaneous,
         CloseSimultaneous,
+        SlurStart, SlurEnd,
+        PhrasingSlurStart, PhrasingSlurEnd,
+        BeamStart, BeamEnd,
+        LigatureStart, LigatureEnd,
         Context,
         Grob,
     )
