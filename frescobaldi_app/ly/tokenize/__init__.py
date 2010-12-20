@@ -72,13 +72,16 @@ def _makePattern(classes):
     
     """
     def patterns():
+        done = set()
         for cls in classes:
-            try:
-                index = _classlist.index(cls)
-            except ValueError:
-                index = len(_classlist)
-                _classlist.append(cls)
-            yield "(?P<g{0}>{1})".format(index, cls.rx)
+            if cls not in done:
+                done.add(cls) # avoid having the same class twice in the same regexp
+                try:
+                    index = _classlist.index(cls)
+                except ValueError:
+                    index = len(_classlist)
+                    _classlist.append(cls)
+                yield "(?P<g{0}>{1})".format(index, cls.rx)
     return re.compile("|".join(patterns()))
 
 

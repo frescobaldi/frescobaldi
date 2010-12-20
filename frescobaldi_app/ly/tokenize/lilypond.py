@@ -70,10 +70,21 @@ class OpenBracket(Delimiter, Increaser, MatchStart):
     rx = r"\{"
     matchname = "bracket"
 
+
 class CloseBracket(Delimiter, Decreaser, MatchEnd):
     rx = r"\}"
     matchname = "bracket"
 
+
+class OpenSimultaneous(Delimiter, Increaser, MatchStart):
+    rx = r"<<"
+    matchname = "simultaneous"
+
+
+class CloseSimultaneous(Delimiter, Decreaser, MatchEnd):
+    rx = r">>"
+    matchname = "simultaneous"
+    
 
 class Keyword(Item):
     rx = r"\\({0})\b".format("|".join(words.lilypond_keywords))
@@ -172,6 +183,10 @@ class LilyPondParser(Parser):
         Dynamic,
         Command,
         UserCommand,
+        OpenBracket,
+        CloseBracket,
+        OpenSimultaneous,
+        CloseSimultaneous,
         Context,
         Grob,
     )
