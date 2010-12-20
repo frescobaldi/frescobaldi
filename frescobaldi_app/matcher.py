@@ -69,10 +69,10 @@ class Matcher(object):
         for token in tokens.forward(False):
             if token.pos <= column <= token.end:
                 if isinstance(token, ly.tokenize.MatchStart):
-                    source, match, other = tokens.forward(), ly.tokenize.MatchEnd, ly.tokenize.MatchStart
+                    source, match, other = tokens.forward(), ly.tokenize.MatchStart, ly.tokenize.MatchEnd
                     break
                 elif isinstance(token, ly.tokenize.MatchEnd):
-                    source, match, other = tokens.backward(), ly.tokenize.MatchStart, ly.tokenize.MatchEnd
+                    source, match, other = tokens.backward(), ly.tokenize.MatchEnd, ly.tokenize.MatchStart
                     break
             elif token.pos > column:
                 break
@@ -81,7 +81,7 @@ class Matcher(object):
             cursor1 = tokens.cursor()
             nest = 0
             for token2 in source:
-                if isinstance(token2, match) and token2.matchname == token.matchname:
+                if isinstance(token2, other) and token2.matchname == token.matchname:
                     if nest == 0:
                         # we've found the matching item!
                         cursor2 = tokens.cursor()
@@ -89,7 +89,7 @@ class Matcher(object):
                         return
                     else:
                         nest -= 1
-                elif isinstance(token2, other) and token2.matchname == token.matchname:
+                elif isinstance(token2, match) and token2.matchname == token.matchname:
                     nest += 1
         self.view().clearMatches()
 
