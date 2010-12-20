@@ -36,7 +36,7 @@ import metainfo
 import signals
 
 types = (
-    'bookmark',
+    'mark',
     'error',
 )
 

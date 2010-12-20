@@ -162,7 +162,7 @@ class MainWindow(QMainWindow):
         view = self._currentView()
         ac = self.actionCollection
         ac.view_bookmark.setChecked(
-            view.document().bookmarks.hasMark(view.textCursor().blockNumber(), 'bookmark'))
+            view.document().bookmarks.hasMark(view.textCursor().blockNumber(), 'mark'))
         
     def updateViewActions(self):
         view = self._currentView()
@@ -549,7 +549,7 @@ class MainWindow(QMainWindow):
     def markCurrentLine(self):
         view = self.currentView()
         lineNumber = view.textCursor().blockNumber()
-        view.document().bookmarks.toggleMark(lineNumber, 'bookmark')
+        view.document().bookmarks.toggleMark(lineNumber, 'mark')
     
     def clearErrorMarks(self):
         self.currentDocument().bookmarks.clear('error')

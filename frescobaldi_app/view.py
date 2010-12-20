@@ -29,6 +29,7 @@ from PyQt4.QtGui import *
 import app
 import metainfo
 import textformats
+import bookmarks
 
 
 class View(QPlainTextEdit):
@@ -37,13 +38,9 @@ class View(QPlainTextEdit):
     
     def __init__(self, document):
         super(View, self).__init__()
-        self._currentLineColor = None
-        self._markColor = {}
         self._markedLineExtraSelections = []
-        self._matchColor = None
         self._matchExtraSelections = []
         self._matchTimer = QTimer(singleShot=True, interval=1000, timeout=self.clearMatches)
-        self._searchColor = None
         self._searchExtraSelections = []
         self._cursorExtraSelection = QTextEdit.ExtraSelection()
         self._cursorExtraSelection.format.setProperty(QTextFormat.FullWidthSelection, True)
@@ -81,13 +78,7 @@ class View(QPlainTextEdit):
         p.setColor(QPalette.HighlightedText, data.baseColors['selectiontext'])
         p.setColor(QPalette.Highlight, data.baseColors['selectionbackground'])
         self.setPalette(p)
-        self._currentLineColor = data.baseColors['current']
-        self._markColor['bookmark'] = QColor(data.baseColors['mark'])
-        self._markColor['bookmark'].setAlpha(200)
-        self._markColor['error'] = QColor(data.baseColors['error'])
-        self._markColor['error'].setAlpha(200)
-        self._searchColor = data.baseColors['search']
-        self._matchColor = data.baseColors['match']
+        self._baseColors = data.baseColors
         self.updateMarkedLines()
         self.updateCursor()
         
@@ -147,7 +138,7 @@ class View(QPlainTextEdit):
         es = self._cursorExtraSelection
         es.cursor = self.textCursor()
         es.cursor.clearSelection()
-        color = QColor(self._currentLineColor)
+        color = QColor(self._baseColors['current'])
         color.setAlpha(200 if self.hasFocus() else 100)
         es.format.setBackground(color)
         self.updateExtraSelections()
@@ -158,7 +149,9 @@ class View(QPlainTextEdit):
             for mark in marks:
                 es = QTextEdit.ExtraSelection()
                 es.cursor = mark
-                es.format.setBackground(self._markColor[type])
+                color = QColor(self._baseColors[type])
+                color.setAlpha(200)
+                es.format.setBackground(color)
                 es.format.setProperty(QTextFormat.FullWidthSelection, True)
                 lines.append(es)
         self.updateExtraSelections()
@@ -177,16 +170,16 @@ class View(QPlainTextEdit):
         for cursor in cursors:
             es = QTextEdit.ExtraSelection()
             es.cursor = cursor
-            es.format.setBackground(self._searchColor)
+            es.format.setBackground(self._baseColors['search'])
             results.append(es)
         self.updateExtraSelections()
     
-    def setMatches(self, cursors):
+    def setMatches(self, cursors, type = 'match'):
         matches = self._matchExtraSelections = []
         for cursor in cursors:
             es = QTextEdit.ExtraSelection()
             es.cursor = cursor
-            es.format.setBackground(self._matchColor)
+            es.format.setBackground(self._baseColors[type])
             matches.append(es)
         self.updateExtraSelections()
         self._matchTimer.start()
