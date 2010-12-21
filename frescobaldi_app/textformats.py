@@ -301,6 +301,7 @@ allStyles = (
         'string',
         'stringescape',
         'comment',
+        'error',
         )),
     ('html', (
         'tag',
@@ -339,6 +340,7 @@ inherits = {
         'string': 'string',
         'stringescape': 'escape',
         'comment': 'comment',
+        'error': 'error',
     },
     'html': {
         'tag': 'keyword',

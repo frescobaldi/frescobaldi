@@ -476,6 +476,7 @@ def allStyleNames():
             'string':       _("String"),
             'stringescape': _("Escaped Character"),
             'comment':      _("Comment"),
+            'error':        _("Error"),
         }),
         'html': (_("HTML"), {
             'tag':          _("Tag"),

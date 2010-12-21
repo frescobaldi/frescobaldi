@@ -216,15 +216,15 @@ class LilyPondFileParser(Parser):
 
 import lilypond
 
-class LilyPondBlockParser(Parser):
+class LilyPondBlockParser(lilypond.LilyPondToplevelParser):
     items = (
         LilyPondBlockEnd,
-    ) + lilypond.LilyPondParser.items
+    ) + lilypond.LilyPondToplevelParser.items
 
 
-class LilyPondEnvParser(Parser):
+class LilyPondEnvParser(lilypond.LilyPondToplevelParser):
     items = (
         LilyPondEnvEnd,
-    ) + lilypond.LilyPondParser.items
+    ) + lilypond.LilyPondToplevelParser.items
     
 

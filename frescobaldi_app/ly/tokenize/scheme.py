@@ -178,6 +178,6 @@ class BlockCommentParser(Parser):
 
 import lilypond
 
-class LilyPondParser(lilypond.LilyPondParser):
-    items = (LilyPondEnd,) + lilypond.LilyPondParser.items
+class LilyPondParser(lilypond.LilyPondMusicParser):
+    items = (LilyPondEnd,) + lilypond.LilyPondMusicParser.items
 

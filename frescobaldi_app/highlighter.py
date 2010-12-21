@@ -58,6 +58,9 @@ def makeHighlightFormats(data):
     d[ly.tokenize.lilypond.Keyword] = data.textFormat('lilypond', 'keyword')
     d[ly.tokenize.lilypond.Command] = data.textFormat('lilypond', 'command')
     d[ly.tokenize.lilypond.Dynamic] = data.textFormat('lilypond', 'dynamic')
+    d[ly.tokenize.lilypond.Articulation] = data.textFormat('lilypond', 'articulation')
+    d[ly.tokenize.lilypond.Slur] = data.textFormat('lilypond', 'slur')
+    d[ly.tokenize.lilypond.Chord] = data.textFormat('lilypond', 'chord')
     d[ly.tokenize.lilypond.Markup] = data.textFormat('lilypond', 'markup')
     d[ly.tokenize.lilypond.UserCommand] = data.textFormat('lilypond', 'usercommand')
     d[ly.tokenize.lilypond.Delimiter] = data.textFormat('lilypond', 'delimiter')
@@ -66,8 +69,9 @@ def makeHighlightFormats(data):
     d[ly.tokenize.lilypond.StringQuoteEscape] = data.textFormat('lilypond', 'stringescape')
     d[ly.tokenize.lilypond.String] = data.textFormat('lilypond', 'string')
     d[ly.tokenize.lilypond.Comment] = data.textFormat('lilypond', 'comment')
+    d[ly.tokenize.lilypond.Error] = data.textFormat('lilypond', 'error')
     
-    
+
     # Scheme
     d[ly.tokenize.lilypond.SchemeStart] = data.textFormat('scheme', 'scheme')
     d[ly.tokenize.scheme.Scheme] = d[ly.tokenize.lilypond.SchemeStart]

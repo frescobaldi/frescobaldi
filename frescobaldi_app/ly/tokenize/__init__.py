@@ -271,6 +271,7 @@ class CommentBase(Token): pass
 class StringBase(Token): pass
 class EscapeBase(Token): pass
 class NumericBase(Token): pass
+class ErrorBase(Token): pass
 
 
 # some mixin classes that make special handling of tokens possible besides correct parsing:
@@ -336,7 +337,7 @@ def guessState(text):
     
     """
     return {
-        'lilypond': lilypond.LilyPondParser,
+        'lilypond': lilypond.LilyPondToplevelParser,
         'scheme':   scheme.SchemeParser,
         'docbook':  docbook.DocBookParser,
         'latex':    latex.LaTeXParser,
