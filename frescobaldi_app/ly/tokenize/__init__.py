@@ -178,6 +178,16 @@ class State(object):
         """
         return len(self.state), self.state[-1].level
 
+    def followToken(self, token):
+        """Act as if the token has been instantiated with the current state.
+        
+        Changes state according to the token.
+        
+        """
+        if isinstance(self.parser(), FallthroughParser) and token.__class__ not in self.parser().items:
+            self.parser().fallthrough(self)
+        token.changeState(self)
+
 
 class _makePatternMeta(type):
     """Metaclass for Parser subclasses.
@@ -214,7 +224,13 @@ class Token(unicode):
         return token
         
     def changeState(self, state):
-        """Implement this to have this token change the state, e.g. enter a different parser."""
+        """Implement this to have this token change the state, e.g. enter a different parser.
+        
+        Don't use it later on to have a State follow already instantiated Tokens,
+        because the FallthroughParser type can also change the state without generating a Token.
+        Use State.followToken() to have a State follow instantiated Tokens.
+        
+        """
         pass
 
 
