@@ -58,18 +58,22 @@ def makeHighlightFormats(data):
     d[ly.tokenize.lilypond.Keyword] = data.textFormat('lilypond', 'keyword')
     d[ly.tokenize.lilypond.Command] = data.textFormat('lilypond', 'command')
     d[ly.tokenize.lilypond.Dynamic] = data.textFormat('lilypond', 'dynamic')
+    d[ly.tokenize.lilypond.Duration] = data.textFormat('lilypond', 'duration')
     d[ly.tokenize.lilypond.Articulation] = data.textFormat('lilypond', 'articulation')
     d[ly.tokenize.lilypond.Slur] = data.textFormat('lilypond', 'slur')
     d[ly.tokenize.lilypond.Chord] = data.textFormat('lilypond', 'chord')
     d[ly.tokenize.lilypond.Markup] = data.textFormat('lilypond', 'markup')
+    d[ly.tokenize.lilypond.Repeat] = data.textFormat('lilypond', 'repeat')
     d[ly.tokenize.lilypond.UserCommand] = data.textFormat('lilypond', 'usercommand')
     d[ly.tokenize.lilypond.Delimiter] = data.textFormat('lilypond', 'delimiter')
     d[ly.tokenize.lilypond.Context] = data.textFormat('lilypond', 'context')
     d[ly.tokenize.lilypond.Grob] = data.textFormat('lilypond', 'grob')
     d[ly.tokenize.lilypond.StringQuoteEscape] = data.textFormat('lilypond', 'stringescape')
     d[ly.tokenize.lilypond.String] = data.textFormat('lilypond', 'string')
+    d[ly.tokenize.lilypond.Value] = data.textFormat('lilypond', 'value')
     d[ly.tokenize.lilypond.Comment] = data.textFormat('lilypond', 'comment')
     d[ly.tokenize.lilypond.Error] = data.textFormat('lilypond', 'error')
+    d[ly.tokenize.lilypond.Repeat] = data.textFormat('lilypond', 'repeat')
     
 
     # Scheme

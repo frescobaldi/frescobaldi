@@ -473,6 +473,7 @@ def allStyleNames():
             'context':      _("Context"),
             'grob':         _("Layout Object"),
             'property':     _("Property"),
+            'value':        _("Value"),
             'string':       _("String"),
             'stringescape': _("Escaped Character"),
             'comment':      _("Comment"),

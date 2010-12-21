@@ -35,16 +35,34 @@ from . import (
     CommentBase,
     StringBase,
     EscapeBase,
+    NumericBase,
     
     MatchStart,
     MatchEnd,
     Parser,
     StringParserBase,
+    FallthroughParser,
 )
 
 from .. import words
 
 
+re_articulation = r"[-_^][_.>|+^-]"
+re_dynamic = r"\\(f{1,5}|p{1,5}|mf|mp|fp|spp?|sff?|sfz|rfz)\b"
+
+re_duration = r"(\\(maxima|longa|breve)\b|(1|2|4|8|16|32|64|128|256|512|1024|2048)(?!\d))"
+re_dot = r"\."
+re_scaling = r"\*[\t ]*\d+(/\d+)?"
+
+
+class Value(Item, NumericBase):
+    pass
+
+
+class Fraction(Value):
+    rx = r"\d+/\d+"
+    
+    
 class Error(ErrorBase):
     pass
 
@@ -67,6 +85,45 @@ class LineComment(Comment):
     rx = r"%.*$"
     
 
+class String(StringBase):
+    pass
+
+
+class StringQuotedStart(String):
+    rx = r'"'
+    def changeState(self, state):
+        state.enter(StringParser)
+        
+
+class StringQuotedEnd(String):
+    rx = r'"'
+    def changeState(self, state):
+        state.leave()
+        state.endArgument()
+
+
+class StringQuoteEscape(String, EscapeBase):
+    rx = r'\\[\\"]'
+
+
+class Duration(Token):
+    pass
+
+
+class DurationStart(Duration):
+    rx = re_duration
+    def changeState(self, state):
+        state.enter(DurationParser)
+
+
+class Dot(Duration):
+    rx = re_dot
+    
+    
+class Scaling(Duration):
+    rx = re_scaling
+    
+    
 class Delimiter(Token):
     pass
 
@@ -124,7 +181,11 @@ class PhrasingSlurEnd(SlurEnd):
     rx = r"\\\)"
     matchname = "phrasingslur"
     
-    
+
+class Tie(Slur):
+    rx = r"~"
+
+
 class Beam(Token):
     pass
 
@@ -162,11 +223,11 @@ class VoiceSeparator(Keyword):
     
 
 class Articulation(Token):
-    rx = r"[-_^][_.>|+^-]"
+    rx = re_articulation
     
     
 class Dynamic(Token):
-    rx = r"\\(f{1,5}|p{1,5}|mf|mp|fp|spp?|sff?|sfz|rfz)\b"
+    rx = re_dynamic
 
 
 class Command(Item):
@@ -199,35 +260,33 @@ class MarkupCommand(Markup):
                 argcount = 1
             state.enter(MarkupParser, argcount)
 
+
 class MarkupWord(Item):
     rx = r'[^{}"\\\s#%]+'
+
+
+class Repeat(Command):
+    rx = r"\\repeat\b"
+    def changeState(self, state):
+        state.enter(RepeatParser)
+    
+    
+class RepeatSpecifier(Repeat):
+    rx = r"\b(volta|unfold|percent|tremolo)\b"
+    
+
+class RepeatStringSpecifier(String, Repeat):
+    rx = r'"(volta|unfold|percent|tremolo)"'
+    
+
+class RepeatCount(Value, Leaver):
+    rx = r"\d+"
 
 
 class UserCommand(Token):
     rx = r"\\[A-Za-z]+"
     
     
-class String(StringBase):
-    pass
-
-
-class StringQuotedStart(String):
-    rx = r'"'
-    def changeState(self, state):
-        state.enter(StringParser)
-        
-
-class StringQuotedEnd(String):
-    rx = r'"'
-    def changeState(self, state):
-        state.leave()
-        state.endArgument()
-
-
-class StringQuoteEscape(String, EscapeBase):
-    rx = r'\\[\\"]'
-
-
 class SchemeStart(Item):
     rx = "#"
     def changeState(self, state):
@@ -259,11 +318,11 @@ class ChordEnd(Chord, Leaver):
     
 
 class ErrorInChord(Error):
-    rx = (
-        r"[-_^][_.>|+^-]" # articulation
-        r"|<<|>>" # double french quotes
-        r"|\\[\\\]\[\(\)()]" # slurs beams
-    )
+    rx = "|".join((
+        re_articulation, # articulation
+        r"<<|>>", # double french quotes
+        r"\\[\\\]\[\(\)()]", # slurs beams
+    ))
     
 # Parsers
 
@@ -284,6 +343,8 @@ class LilyPondToplevelParser(LilyPondParser):
         Keyword,
         Markup,
         MarkupLines,
+        Repeat,
+        Fraction,
         Command,
         UserCommand,
         OpenBracket,
@@ -299,7 +360,10 @@ class LilyPondMusicParser(LilyPondParser):
         Keyword,
         Markup,
         MarkupLines,
+        Repeat,
         Dynamic,
+        Fraction,
+        DurationStart,
         Command,
         UserCommand,
         VoiceSeparator,
@@ -310,6 +374,7 @@ class LilyPondMusicParser(LilyPondParser):
         Grob,
         SlurStart, SlurEnd,
         PhrasingSlurStart, PhrasingSlurEnd,
+        Tie,
         BeamStart, BeamEnd,
         LigatureStart, LigatureEnd,
         Articulation,
@@ -348,3 +413,37 @@ class MarkupParser(Parser):
         CloseBracket,
         MarkupWord,
     ) + LilyPondParser.items
+
+
+class RepeatParser(FallthroughParser):
+    items = (
+        Space,
+        RepeatSpecifier,
+        RepeatStringSpecifier,
+        RepeatCount,
+    )
+    
+    def fallthrough(self, state):
+        state.leave()
+
+
+class DurationParser(FallthroughParser):
+    items = (
+        Space,
+        Dot,
+    )
+    def fallthrough(self, state):
+        state.replace(DurationScalingParser)
+        
+        
+class DurationScalingParser(DurationParser):
+    items = (
+        Space,
+        Scaling,
+    )
+    def fallthrough(self, state):
+        state.leave()
+
+
+    
+    
