@@ -52,13 +52,13 @@ class String(StringBase):
 
 class StringQuotedStart(String):
     rx = r'"'
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.enter(StringParser)
         
 
 class StringQuotedEnd(String):
     rx = r'"'
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.leave()
         state.endArgument()
     
@@ -77,7 +77,7 @@ class LineComment(Comment):
 
 class BlockCommentStart(Comment):
     rx = r"#!"
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.enter(BlockCommentParser)
         
 
@@ -130,7 +130,7 @@ class LilyPond(Token):
 class LilyPondStart(LilyPond, MatchStart):
     rx = r"#{"
     matchname = "schemelily"
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.enter(LilyPondParser)
         
 
@@ -162,7 +162,7 @@ class SchemeParser(Parser):
     
     
 class StringParser(StringParserBase):
-    defaultClass = String
+    default = String
     items = (
         StringQuotedEnd,
         StringQuoteEscape,
@@ -170,7 +170,7 @@ class StringParser(StringParserBase):
     
 
 class BlockCommentParser(Parser):
-    defaultClass = Comment
+    default = Comment
     items = (
         BlockCommentEnd,
     )

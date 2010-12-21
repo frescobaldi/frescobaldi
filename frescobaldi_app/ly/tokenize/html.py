@@ -43,7 +43,7 @@ class Comment(CommentBase):
 
 class CommentStart(Comment):
     rx = r"<!--"
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.enter(CommentParser)
         
         
@@ -61,7 +61,7 @@ class Tag(Token):
 
 class TagStart(Tag):
     rx = r"</?\w[-_:\w]*\b"
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.enter(AttrParser)
         
 
@@ -75,7 +75,7 @@ class AttrName(Token):
     
 class EqualSign(Token):
     rx = "="
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.enter(ValueParser)
 
 
@@ -85,13 +85,13 @@ class Value(Leaver):
 
 class StringDQStart(String):
     rx = r'"'
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.enter(StringDQParser)
 
 
 class StringSQStart(String):
     rx = r"'"
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.enter(StringSQParser)
     
 
@@ -121,7 +121,7 @@ class LilyPondVersionTag(LilyPondTag):
 
 class LilyPondFileTag(LilyPondTag):
     rx = r"</?lilypondfile\b"
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.enter(LilyPondFileOptionsParser)
 
 
@@ -131,7 +131,7 @@ class LilyPondFileTagEnd(LilyPondTag, Leaver):
 
 class LilyPondInlineTag(LilyPondTag):
     rx = r"<lilypond\b"
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.enter(LilyPondAttrParser)
 
 
@@ -141,7 +141,7 @@ class LilyPondCloseTag(LilyPondTag, Leaver):
     
 class LilyPondTagEnd(LilyPondTag):
     rx = r">"
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.replace(LilyPondParser)
 
 
@@ -151,7 +151,7 @@ class LilyPondInlineTagEnd(LilyPondTag, Leaver):
 
 class SemiColon(Token):
     rx = r":"
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.replace(LilyPondInlineParser)
 
 
@@ -182,7 +182,7 @@ class AttrParser(Parser):
 
 
 class StringDQParser(StringParserBase):
-    defaultClass = String
+    default = String
     items = (
         StringDQEnd,
         EntityRef,
@@ -190,7 +190,7 @@ class StringDQParser(StringParserBase):
     
 
 class StringSQParser(StringParserBase):
-    defaultClass = String
+    default = String
     items = (
         StringSQEnd,
         EntityRef,
@@ -198,7 +198,7 @@ class StringSQParser(StringParserBase):
     
 
 class CommentParser(Parser):
-    defaultClass = Comment
+    default = Comment
     items = (
         CommentEnd,
     )

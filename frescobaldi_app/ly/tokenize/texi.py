@@ -44,7 +44,7 @@ class LineComment(Comment):
 
 class BlockCommentStart(Comment):
     rx = r"@ignore\b"
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.enter(CommentParser)
         
         
@@ -66,7 +66,7 @@ class Block(Token):
 
 class BlockStart(Block):
     rx = r"@[a-zA-Z]+\{"
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.enter(BlockParser)
 
 
@@ -88,7 +88,7 @@ class Verbatim(Token):
 
 class VerbatimStart(Keyword):
     rx = r"@verbatim\b"
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.enter(VerbatimParser)
 
 
@@ -98,13 +98,13 @@ class VerbatimEnd(Keyword, Leaver):
     
 class LilyPondBlockStart(Block):
     rx = r"@lilypond(?=(\[[a-zA-Z,=0-9\\\s]+\])?\{)"
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.enter(LilyPondBlockAttrParser)
 
 
 class LilyPondBlockStartBrace(Block):
     rx = r"\{"
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.replace(LilyPondBlockParser)
 
 
@@ -114,7 +114,7 @@ class LilyPondBlockEnd(Block, Leaver):
     
 class LilyPondEnvStart(Keyword):
     rx = r"@lilypond\b"
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.enter(LilyPondEnvAttrParser)
     
     
@@ -124,19 +124,19 @@ class LilyPondEnvEnd(Keyword, Leaver):
 
 class LilyPondFileStart(Block):
     rx = r"@lilypondfile\b"
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.enter(LilyPondFileParser)
 
 
 class LilyPondFileStartBrace(Block):
     rx = r"\{"
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.replace(BlockParser)
 
 
 class LilyPondAttrStart(Attribute):
     rx = r"\["
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.enter(LilyPondAttrParser)
     
     
@@ -162,7 +162,7 @@ class TexinfoParser(Parser):
 
 
 class CommentParser(Parser):
-    defaultClass = Comment
+    default = Comment
     items = (
         BlockCommentEnd,
     )
@@ -179,7 +179,7 @@ class BlockParser(Parser):
 
 
 class VerbatimParser(Parser):
-    defaultClass = Verbatim
+    default = Verbatim
     items = (
         VerbatimEnd,
     )
@@ -201,7 +201,7 @@ class LilyPondEnvAttrParser(FallthroughParser):
 
 
 class LilyPondAttrParser(Parser):
-    defaultClass = Attribute
+    default = Attribute
     items = (
         LilyPondAttrEnd,
     )

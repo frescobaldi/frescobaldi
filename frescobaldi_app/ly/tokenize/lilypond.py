@@ -50,7 +50,7 @@ class Comment(CommentBase):
 
 class BlockCommentStart(Comment):
     rx = r"%{"
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.enter(BlockCommentParser)
 
 
@@ -152,19 +152,19 @@ class Command(Item):
 
 class Markup(Command):
     rx = r"\\markup\b"
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.enter(MarkupParser)
 
 
 class MarkupLines(Markup):
     rx = r"\\markuplines\b"
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.enter(MarkupParser)
 
 
 class MarkupCommand(Markup):
     rx = r"\\[A-Za-z]+(-[A-Za-z]+)*"
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         command = self[1:]
         if command in words.markupcommands_nargs[0]:
             state.endArgument()
@@ -190,13 +190,13 @@ class String(StringBase):
 
 class StringQuotedStart(String):
     rx = r'"'
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.enter(StringParser)
         
 
 class StringQuotedEnd(String):
     rx = r'"'
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.leave()
         state.endArgument()
 
@@ -207,7 +207,7 @@ class StringQuoteEscape(String, EscapeBase):
 
 class SchemeStart(Item):
     rx = "#"
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         import scheme
         state.enter(scheme.SchemeParser)
 
@@ -249,7 +249,7 @@ class LilyPondParser(Parser):
     
 
 class StringParser(StringParserBase):
-    defaultClass = String
+    default = String
     items = (
         StringQuotedEnd,
         StringQuoteEscape,
@@ -257,7 +257,7 @@ class StringParser(StringParserBase):
     
 
 class BlockCommentParser(Parser):
-    defaultClass = Comment
+    default = Comment
     items = (
         BlockCommentEnd,
     )

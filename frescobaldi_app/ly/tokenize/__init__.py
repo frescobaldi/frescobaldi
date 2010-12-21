@@ -53,14 +53,14 @@ def tokens(text, state=None, pos=0):
         m = parser.parse(text, pos)
         if m:
             if pos < m.start():
-                yield parser.default(text[pos:m.start()], pos)
-            yield _classlist[int(m.lastgroup[1:])](m, state)
+                yield parser.default(text[pos:m.start()], pos, state)
+            yield _classlist[int(m.lastgroup[1:])](m.group(), m.start(), state)
             pos = m.end()
         elif parser.fallthrough(state):
             break
         continue
     if pos < len(text):
-        yield parser.default(text[pos:], pos)
+        yield parser.default(text[pos:], pos, state)
 
 
 def _makePattern(classes):
@@ -199,16 +199,25 @@ class Token(unicode):
     
     The subclass determines the type.
     
-    The matchObj delivers the string and the position.
-    The state can be manipulated on instantiation.
+    The state can be manipulated on instantiation, and also
+    by calling the changeState() method, e.g. when iterating over
+    the tokens again.
     
     """
-    def __new__(cls, matchObj, state):
-        obj = unicode.__new__(cls, matchObj.group())
-        obj.pos, obj.end = matchObj.span()
-        return obj
+    __slots__ = ['pos', 'end']
+    
+    def __new__(cls, string, pos, state):
+        token = unicode.__new__(cls, string)
+        token.pos = pos
+        token.end = pos + len(token)
+        token.changeState(state)
+        return token
         
-        
+    def changeState(self, state):
+        """Implement this to have this token change the state, e.g. enter a different parser."""
+        pass
+
+
 class Unparsed(Token):
     """Represents an unparsed piece of input text."""
     pass
@@ -217,22 +226,22 @@ class Unparsed(Token):
 # some token types with special behaviour:
 class Item(Token):
     """A token that decreases the argument count of the current parser."""
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.endArgument()
 
 class Increaser(Token):
     """A token that increases the level of the current parser."""
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.inc()
         
 class Decreaser(Token):
     """A token that decreases the level of the current parser."""
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.dec()
 
 class Leaver(Token):
     """A token that leaves the current parser."""
-    def __init__(self, matchObj, state):
+    def changeState(self, state):
         state.leave()
 
 
@@ -262,7 +271,7 @@ class Parser(object):
     """Abstract base class for parsers.  Must be subclassed."""
     __metaclass__ = _makePatternMeta
     argcount = 0
-    defaultClass = Unparsed
+    default = Unparsed
     
     def __init__(self, argcount = None):
         self.level = 0
@@ -272,18 +281,6 @@ class Parser(object):
     def parse(self, text, pos):
         return self.pattern.search(text, pos)
 
-    def default(self, text, pos):
-        """Return a default token for unparsed content.
-        
-        The default implementation returns a token of type
-        self.defaultClass (without calling its constructor).
-        
-        """
-        obj = unicode.__new__(self.defaultClass, text)
-        obj.pos = pos
-        obj.end = pos + len(text)
-        return obj
-    
     def fallthrough(self, state):
         """Called when no match is returned by parse().
         
