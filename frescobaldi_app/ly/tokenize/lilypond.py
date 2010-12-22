@@ -273,6 +273,12 @@ class MarkupCommand(Markup):
             state.enter(MarkupParser, argcount)
 
 
+class MarkupScore(Markup):
+    rx = r"\\score\b"
+    def changeState(self, state):
+        state.enter(LilyPondToplevelParser, 1)
+
+
 class MarkupWord(Item):
     rx = r'[^{}"\\\s#%]+'
 
@@ -422,7 +428,7 @@ class BlockCommentParser(Parser):
 class MarkupParser(Parser):
     argcount = 1
     items =  (
-#        MarkupScore,
+        MarkupScore,
         MarkupCommand,
         OpenBracket,
         CloseBracket,
