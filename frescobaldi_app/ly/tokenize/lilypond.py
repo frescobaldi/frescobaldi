@@ -106,6 +106,18 @@ class StringQuoteEscape(String, EscapeBase):
     rx = r'\\[\\"]'
 
 
+class Skip(Token):
+    rx = r"(\\skip|s)(?![A-Za-z])"
+    
+    
+class Rest(Token):
+    rx = r"[Rr](?![A-Za-z])"
+    
+    
+class Note(Token):
+    rx = r"[a-z]+(?![A-Za-z])"
+    
+
 class Duration(Token):
     pass
 
@@ -215,7 +227,7 @@ class LigatureEnd(Ligature, MatchEnd):
     
     
 class Keyword(Item):
-    rx = r"\\({0})\b".format("|".join(words.lilypond_keywords))
+    rx = r"\\({0})(?![A-Za-z])".format("|".join(words.lilypond_keywords))
 
 
 class VoiceSeparator(Keyword):
@@ -231,23 +243,23 @@ class Dynamic(Token):
 
 
 class Command(Item):
-    rx = r"\\({0})\b".format("|".join(words.lilypond_music_commands))
+    rx = r"\\({0})(?![A-Za-z])".format("|".join(words.lilypond_music_commands))
     
 
 class Markup(Command):
-    rx = r"\\markup\b"
+    rx = r"\\markup(?![A-Za-z])"
     def changeState(self, state):
         state.enter(MarkupParser)
 
 
 class MarkupLines(Markup):
-    rx = r"\\markuplines\b"
+    rx = r"\\markuplines(?![A-Za-z])"
     def changeState(self, state):
         state.enter(MarkupParser)
 
 
 class MarkupCommand(Markup):
-    rx = r"\\[A-Za-z]+(-[A-Za-z]+)*"
+    rx = r"\\[A-Za-z]+(-[A-Za-z]+)*(?![A-Za-z])"
     def changeState(self, state):
         command = self[1:]
         if command in words.markupcommands_nargs[0]:
@@ -266,13 +278,13 @@ class MarkupWord(Item):
 
 
 class Repeat(Command):
-    rx = r"\\repeat\b"
+    rx = r"\\repeat(?![A-Za-z])"
     def changeState(self, state):
         state.enter(RepeatParser)
     
     
 class RepeatSpecifier(Repeat):
-    rx = r"\b(volta|unfold|percent|tremolo)\b"
+    rx = r"\b(volta|unfold|percent|tremolo)(?![A-Za-z])"
     
 
 class RepeatStringSpecifier(String, Repeat):
@@ -284,7 +296,7 @@ class RepeatCount(Value, Leaver):
 
 
 class UserCommand(Token):
-    rx = r"\\[A-Za-z]+"
+    rx = r"\\[A-Za-z]+(?![A-Za-z])"
     
     
 class SchemeStart(Item):
@@ -362,6 +374,9 @@ class LilyPondMusicParser(LilyPondParser):
         MarkupLines,
         Repeat,
         Dynamic,
+        Skip,
+        Rest,
+        Note,
         Fraction,
         DurationStart,
         Command,
