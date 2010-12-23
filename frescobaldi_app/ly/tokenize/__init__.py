@@ -274,12 +274,16 @@ class FallthroughParser(Parser):
     """Base class for parsers that 'match' instead of 'search' for a pattern.
     
     You should also implement the fallthrough() method to do something with
-    the state if there is no match. See Parser().
+    the state if there is no match. The default is to leave the current parser.
+    See Parser().
     
     """
     def parse(self, text, pos):
         return self.pattern.match(text, pos)
     
+    def fallthrough(self, state):
+        state.leave()
+
 
 class StringParserBase(Parser):
     """A Base class for parsers that parse quoted strings."""

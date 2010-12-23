@@ -185,6 +185,24 @@ class CloseBracketScore(CloseBracket):
     pass
 
 
+class OpenBracketBook(OpenBracket):
+    def changeState(self, state):
+        state.enter(LilyPondParserBook)
+
+
+class CloseBracketBook(CloseBracket):
+    pass
+
+
+class OpenBracketBookPart(OpenBracket):
+    def changeState(self, state):
+        state.enter(LilyPondParserBookPart)
+
+
+class CloseBracketBookPart(CloseBracket):
+    pass
+
+
 class Slur(Token):
     pass
 
@@ -261,6 +279,29 @@ class Command(Item):
     rx = r"\\({0})(?![A-Za-z])".format("|".join(words.lilypond_music_commands))
     
 
+class Specifier(Token):
+    # a specifier of a command e.g. the name of clef or repeat style.
+    pass
+
+
+class Score(Keyword):
+    rx = r"\\score\b"
+    def changeState(self, state):
+        state.enter(LilyPondParserExpectScore)
+        
+
+class Book(Keyword):
+    rx = r"\\book\b"
+    def changeState(self, state):
+        state.enter(LilyPondParserExpectBook)
+        
+        
+class BookPart(Keyword):
+    rx = r"\\bookpart\b"
+    def changeState(self, state):
+        state.enter(LilyPondParserExpectBookPart)
+
+
 class Markup(Command):
     rx = r"\\markup(?![A-Za-z])"
     def changeState(self, state):
@@ -313,17 +354,63 @@ class Repeat(Command):
         state.enter(RepeatParser)
     
     
-class RepeatSpecifier(Repeat):
+class RepeatSpecifier(Specifier):
     rx = r"\b(volta|unfold|percent|tremolo)(?![A-Za-z])"
     
 
-class RepeatStringSpecifier(String, Repeat):
+class RepeatStringSpecifier(String, Specifier):
     rx = r'"(volta|unfold|percent|tremolo)"'
     
 
 class RepeatCount(Value, Leaver):
     rx = r"\d+"
 
+
+class Override(Keyword):
+    rx = r"\\override\b"
+    def changeState(self, state):
+        state.enter(LilyPondParserOverride)
+
+
+class Set(Override):
+    rx = r"\\set\b"
+    def changeState(self, state):
+        state.enter(LilyPondParserSet)
+    
+
+class DotSetOverride(Delimiter):
+    rx = r"\."
+
+
+class Unset(Keyword):
+    rx = r"\\unset\b"
+    def changeState(self, state):
+        state.enter(LilyPondParserUnset)
+
+
+class New(Command):
+    rx = r"\\new\b"
+    def changeState(self, state):
+        state.enter(LilyPondParserNewContext)
+        
+        
+class Context(New):
+    rx = r"\\context\b"
+    
+
+class Change(New):
+    rx = r"\\change\b"
+    
+    
+class Clef(Command):
+    rx = r"\\clef"
+    def changeState(self, state):
+        state.enter(LilyPondParserClef)
+
+
+class ClefSpecifier(Specifier):
+    rx = r"\b({0})\b".format("|".join(words.clefs_plain))
+    
 
 class UserCommand(Token):
     rx = r"\\[A-Za-z]+(?![A-Za-z])"
@@ -342,6 +429,10 @@ class Context(Token):
     
 class Grob(Token):
     rx = r"\b({0})\b".format("|".join(words.grobs))
+
+
+class ContextProperty(Token):
+    rx = r"\b({0})\b".format("|".join(words.contextproperties))
 
 
 class Chord(Token):
@@ -367,52 +458,83 @@ class ErrorInChord(Error):
     ))
     
 
+class Name(Token):
+    """A variable name without \\ prefix."""
+    rx = r"[a-zA-Z]+(?![a-zA-Z])"
+    
+
+class NameLower(Name):
+    """A lowercase name."""
+    rx = r"[a-z]+(?![a-zA-Z])"
+    
+    
+class NameHyphenLower(Name):
+    """A lowercase name that may contain hyphens."""
+    rx = r"[a-z]+(-[a-z]+)*(!?[-a-zA-Z])"
+    
+
+class EqualSign(Token):
+    rx = r"="
+    
+
+class EqualSignSetOverride(EqualSign):
+    """An equal sign in a set/override construct."""
+    def changeState(self, state):
+        # wait for one more expression, then leave
+        state.parser().argcount = 1
+
+
 
 # Parsers
 class LilyPondParser(Parser):
     pass
 
 # basic stuff that can appear everywhere
-lilypond_base_items = (
+space_items = (
     Space,
     BlockCommentStart,
     LineComment,
+)    
+
+
+base_items = space_items + (
     SchemeStart,
     StringQuotedStart,
 )
 
 
-# items that occur in toplevel, book, bookpart or score
-# no Leave-tokens!
-lilypond_toplevel_base_items = lilypond_base_items + (
-    Keyword,
-    Markup,
-    MarkupLines,
+# items that represent commands in both toplevel and music mode
+command_items = (
     Repeat,
-    Fraction,
+    Override,
+    Set, Unset,
+    New, Context,
+    Clef,
+    Keyword,
     Command,
     UserCommand,
-    SequentialStart,
-    SimultaneousStart,
-    Context,
-    Grob,
 )
 
 
+# items that occur in toplevel, book, bookpart or score
+# no Leave-tokens!
+toplevel_base_items = base_items + (
+    Fraction,
+    SequentialStart,
+    SimultaneousStart,
+) + command_items
+
+
 # items that occur in music expressions
-lilypond_music_items = lilypond_base_items + (
-    Keyword,
+music_items = base_items + (
     Markup,
     MarkupLines,
-    Repeat,
     Dynamic,
     Skip,
     Rest,
     Note,
     Fraction,
     DurationStart,
-    Command,
-    UserCommand,
     VoiceSeparator,
     SequentialStart, SequentialEnd,
     SimultaneousStart, SimultaneousEnd,
@@ -425,47 +547,90 @@ lilypond_music_items = lilypond_base_items + (
     BeamStart, BeamEnd,
     LigatureStart, LigatureEnd,
     Articulation,
-)
+) + command_items
     
 
 # items that occur inside chords
-lilypond_music_chord_items = (
+music_chord_items = (
     ErrorInChord,
     ChordEnd,
-) + lilypond_music_items
+) + music_items
 
 
 
 class LilyPondParserGlobal(LilyPondParser):
     """Parses LilyPond from the toplevel of a file."""
     # TODO: implement assignments
-    items = lilypond_toplevel_base_items
+    items = (
+        Book,
+        BookPart,
+        Score,
+    ) + toplevel_base_items + (
+        Name,
+        EqualSign,
+    )
 
 
 class LilyPondParserScore(LilyPondParser):
     """Parses the expression after \score {, leaving at } """
     items = (
         CloseBracketScore,
-    ) + lilypond_toplevel_base_items
+    ) + toplevel_base_items
 
 
 class LilyPondParserExpectScore(LilyPondParser):
     argcount = 1
     default = Error
-    items = (
-        Space,
+    items = space_items + (
         OpenBracketScore,
+    )
+        
+
+class LilyPondParserBook(LilyPondParser):
+    """Parses the expression after \book {, leaving at } """
+    items = (
+        CloseBracketBook,
+        Markup,
+        MarkupLines,
+        BookPart,
+        Score,
+    ) + toplevel_base_items
+
+
+class LilyPondParserExpectBook(LilyPondParser):
+    argcount = 1
+    default = Error
+    items = space_items + (
+        OpenBracketBook,
+    )
+        
+
+class LilyPondParserBookPart(LilyPondParser):
+    """Parses the expression after \score {, leaving at } """
+    items = (
+        CloseBracketBookPart,
+        Markup,
+        MarkupLines,
+        Score,
+    ) + toplevel_base_items
+
+
+class LilyPondParserExpectBookPart(LilyPondParser):
+    argcount = 1
+    default = Error
+    items = space_items + (
+        OpenBracketBookPart,
     )
         
 
 class LilyPondParserMusic(LilyPondParser):
     """Parses LilyPond music expressions."""
-    items = lilypond_music_items
+    items = music_items
     
 
 class LilyPondParserChord(LilyPondParserMusic):
     """LilyPond inside chords < >"""
-    items = lilypond_music_chord_items
+    items = music_chord_items
 
 
 class StringParser(StringParserBase):
@@ -490,24 +655,19 @@ class MarkupParser(Parser):
         OpenBracketMarkup,
         CloseBracketMarkup,
         MarkupWord,
-    ) + lilypond_base_items
+    ) + base_items
 
 
 class RepeatParser(FallthroughParser):
-    items = (
-        Space,
+    items = space_items + (
         RepeatSpecifier,
         RepeatStringSpecifier,
         RepeatCount,
     )
-    
-    def fallthrough(self, state):
-        state.leave()
 
 
 class DurationParser(FallthroughParser):
-    items = (
-        Space,
+    items = space_items + (
         Dot,
     )
     def fallthrough(self, state):
@@ -515,13 +675,64 @@ class DurationParser(FallthroughParser):
         
         
 class DurationScalingParser(DurationParser):
-    items = (
-        Space,
+    items = space_items + (
         Scaling,
     )
     def fallthrough(self, state):
         state.leave()
 
 
+class LilyPondParserOverride(LilyPondParser):
+    argcount = 0
+    items = (
+        Context,
+        DotSetOverride,
+        Grob,
+        EqualSignSetOverride,
+        Name,
+    ) + base_items
+    
+
+class LilyPondParserRevert(FallthroughParser):
+    items = space_items + (
+        Context,
+        DotSetOverride,
+        Name,
+        SchemeStart,
+    )
+
+    
+class LilyPondParserSet(LilyPondParser):
+    argcount = 0
+    items = (
+        Context,
+        DotSetOverride,
+        ContextProperty,
+        EqualSignSetOverride,
+        Name,
+    ) + base_items
     
     
+class LilyPondParserUnset(FallthroughParser):
+    items = space_items + (
+        Context,
+        DotSetOverride,
+        ContextProperty,
+        Name,
+    )
+
+
+class LilyPondParserNewContext(FallthroughParser):
+    items = space_items + (
+        Context,
+        Name,
+    )
+
+
+class LilyPondParserClef(FallthroughParser):
+    argcount = 1
+    items = space_items + (
+        ClefSpecifier,
+        StringQuotedStart,
+    )
+

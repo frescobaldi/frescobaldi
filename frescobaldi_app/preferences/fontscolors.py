@@ -467,6 +467,7 @@ def allStyleNames():
             'repeat':       _("Repeat"),
             'keyword':      _("Keyword"),
             'command':      _("Command"),
+            'specifier':    _("Specifier"),
             'usercommand':  _("User Command"),
             'markup':       _("Markup"),
             'delimiter':    _("Delimiter"),
