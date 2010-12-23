@@ -199,8 +199,10 @@ class Token(unicode):
         because the FallthroughParser type can also change the state without generating a Token.
         Use State.followToken() to have a State follow instantiated Tokens.
         
+        The default implementation lets the Parser decide on state change.
+        
         """
-        pass
+        state.parser().changeState(state, self)
 
 
 class Unparsed(Token):
@@ -268,6 +270,10 @@ class Parser(object):
         
         """
         return True
+
+    def changeState(self, state, token):
+        """Called by the default implementation of Token.changeState()."""
+        pass
 
 
 class FallthroughParser(Parser):

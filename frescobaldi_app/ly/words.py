@@ -1514,6 +1514,9 @@ layoutvariables = (
     'indent',
     'short-indent',
     'system-count',
+    'line-width',
+    'ragged-right',
+    'ragged-last',
 )
 
 

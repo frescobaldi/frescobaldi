@@ -151,7 +151,7 @@ class Delimiter(Token):
 
 
 class OpenBracket(Delimiter, MatchStart):
-    """An open bracket, subclass to enter different parsers."""
+    """An open bracket, does not enter different parser, subclass or reimplement Parser.changeState()."""
     rx = r"\{"
     matchname = "bracket"
 
@@ -187,87 +187,6 @@ class SimultaneousEnd(Delimiter, MatchEnd):
         state.leave()
         state.endArgument()    
     
-
-class OpenBracketScore(OpenBracket):
-    def changeState(self, state):
-        state.enter(LilyPondParserScore)
-
-
-class CloseBracketScore(CloseBracket):
-    pass
-
-
-class OpenBracketBook(OpenBracket):
-    def changeState(self, state):
-        state.enter(LilyPondParserBook)
-
-
-class CloseBracketBook(CloseBracket):
-    pass
-
-
-class OpenBracketBookPart(OpenBracket):
-    def changeState(self, state):
-        state.enter(LilyPondParserBookPart)
-
-
-class CloseBracketBookPart(CloseBracket):
-    pass
-
-
-class OpenBracketPaper(OpenBracket):
-    def changeState(self, state):
-        state.enter(LilyPondParserPaper)
-
-
-class CloseBracketPaper(CloseBracket):
-    pass
-
-
-class OpenBracketHeader(OpenBracket):
-    def changeState(self, state):
-        state.enter(LilyPondParserHeader)
-
-
-class CloseBracketHeader(CloseBracket):
-    pass
-
-
-class OpenBracketLayout(OpenBracket):
-    def changeState(self, state):
-        state.enter(LilyPondParserLayout)
-
-
-class CloseBracketLayout(CloseBracket):
-    pass
-
-
-class OpenBracketMidi(OpenBracket):
-    def changeState(self, state):
-        state.enter(LilyPondParserMidi)
-
-
-class CloseBracketMidi(CloseBracket):
-    pass
-
-
-class OpenBracketWith(OpenBracket):
-    def changeState(self, state):
-        state.enter(LilyPondParserWith)
-
-
-class CloseBracketWith(CloseBracket):
-    pass
-
-
-class OpenBracketContext(OpenBracket):
-    def changeState(self, state):
-        state.enter(LilyPondParserContext)
-
-
-class CloseBracketContext(CloseBracket):
-    pass
-
 
 class Slur(Token):
     pass
@@ -696,34 +615,37 @@ class LilyPondParserGlobal(LilyPondParser):
     )
 
 
-class LilyPondParserExpectScore(LilyPondParser):
-    argcount = 1
+class WaitForOpenBracket(LilyPondParser):
+    """Waits for an OpenBracket and then replaces the parser with the class set in the replace attribute.
+    
+    Subclass this to set the destination for the OpenBracket.
+    
+    """
     default = Error
     items = space_items + (
-        OpenBracketScore,
+        OpenBracket,
     )
+    def changeState(self, state, token):
+        if isinstance(token, OpenBracket):
+            state.replace(self.replace)
         
 
 class LilyPondParserScore(LilyPondParser):
     """Parses the expression after \score {, leaving at } """
     items = (
-        CloseBracketScore,
+        CloseBracket,
         Header, Layout, Midi, With,
     ) + toplevel_base_items
 
 
-class LilyPondParserExpectBook(LilyPondParser):
-    argcount = 1
-    default = Error
-    items = space_items + (
-        OpenBracketBook,
-    )
-        
+class LilyPondParserExpectScore(WaitForOpenBracket):
+    replace = LilyPondParserScore
+            
 
 class LilyPondParserBook(LilyPondParser):
     """Parses the expression after \book {, leaving at } """
     items = (
-        CloseBracketBook,
+        CloseBracket,
         Markup, MarkupLines,
         BookPart,
         Score,
@@ -731,36 +653,29 @@ class LilyPondParserBook(LilyPondParser):
     ) + toplevel_base_items
 
 
-class LilyPondParserExpectBookPart(LilyPondParser):
-    argcount = 1
-    default = Error
-    items = space_items + (
-        OpenBracketBookPart,
-    )
-        
+
+class LilyPondParserExpectBook(WaitForOpenBracket):
+    replace = LilyPondParserBook
+
 
 class LilyPondParserBookPart(LilyPondParser):
     """Parses the expression after \score {, leaving at } """
     items = (
-        CloseBracketBookPart,
+        CloseBracket,
         Markup, MarkupLines,
         Score,
         Header, Layout,
     ) + toplevel_base_items
 
 
-class LilyPondParserExpectPaper(LilyPondParser):
-    argcount = 1
-    default = Error
-    items = space_items + (
-        OpenBracketPaper,
-    )
+class LilyPondParserExpectBookPart(WaitForOpenBracket):
+    replace = LilyPondParserBookPart
 
 
 class LilyPondParserPaper(LilyPondParser):
     """Parses the expression after \score {, leaving at } """
     items = base_items + (
-        CloseBracketPaper,
+        CloseBracket,
         Markup, MarkupLines,
         PaperVariable,
         EqualSign,
@@ -769,36 +684,28 @@ class LilyPondParserPaper(LilyPondParser):
     )
 
 
-class LilyPondParserExpectHeader(LilyPondParser):
-    argcount = 1
-    default = Error
-    items = space_items + (
-        OpenBracketHeader,
-    )
-        
+class LilyPondParserExpectPaper(WaitForOpenBracket):
+    replace = LilyPondParserPaper
+
 
 class LilyPondParserHeader(LilyPondParser):
     """Parses the expression after \score {, leaving at } """
     items = (
-        CloseBracketHeader,
+        CloseBracket,
         Markup, MarkupLines,
         HeaderVariable,
         EqualSign,
     ) + toplevel_base_items
 
 
-class LilyPondParserExpectLayout(LilyPondParser):
-    argcount = 1
-    default = Error
-    items = space_items + (
-        OpenBracketLayout,
-    )
+class LilyPondParserExpectHeader(WaitForOpenBracket):
+    replace = LilyPondParserHeader
         
 
 class LilyPondParserLayout(LilyPondParser):
     """Parses the expression after \score {, leaving at } """
     items = base_items + (
-        CloseBracketLayout,
+        CloseBracket,
         LayoutContext,
         LayoutVariable,
         EqualSign,
@@ -807,55 +714,52 @@ class LilyPondParserLayout(LilyPondParser):
     )
 
 
-class LilyPondParserExpectMidi(LilyPondParser):
-    argcount = 1
-    default = Error
-    items = space_items + (
-        OpenBracketMidi,
-    )
+class LilyPondParserExpectLayout(WaitForOpenBracket):
+    replace = LilyPondParserLayout
         
 
 class LilyPondParserMidi(LilyPondParser):
     """Parses the expression after \score {, leaving at } """
     items = (
-        CloseBracketMidi,
-    ) + toplevel_base_items
-
-
-class LilyPondParserExpectWith(LilyPondParser):
-    argcount = 1
-    default = Error
-    items = space_items + (
-        OpenBracketWith,
+        CloseBracket,
+        LayoutContext,
+        LayoutVariable,
+        EqualSign,
+        DecimalValue,
+        Unit,
     )
-        
+
+
+class LilyPondParserExpectMidi(WaitForOpenBracket):
+    replace = LilyPondParserMidi
+
 
 class LilyPondParserWith(LilyPondParser):
     """Parses the expression after \score {, leaving at } """
     items = (
-        CloseBracketWith,
+        CloseBracket,
         ContextProperty,
         EqualSign,
     ) + toplevel_base_items
 
 
-class LilyPondParserExpectContext(LilyPondParser):
-    argcount = 1
-    default = Error
-    items = space_items + (
-        OpenBracketContext,
-    )
+class LilyPondParserExpectWith(WaitForOpenBracket):
+    replace = LilyPondParserWith
         
 
 class LilyPondParserContext(LilyPondParser):
     """Parses the expression after \score {, leaving at } """
     items = (
-        CloseBracketContext,
+        CloseBracket,
         BackSlashedContextName,
         ContextProperty,
         EqualSign,
     ) + toplevel_base_items
 
+
+class LilyPondParserExpectContext(WaitForOpenBracket):
+    replace = LilyPondParserContext
+        
 
 class LilyPondParserMusic(LilyPondParser):
     """Parses LilyPond music expressions."""
@@ -940,7 +844,7 @@ class LilyPondParserRevert(FallthroughParser):
 class LilyPondParserSet(LilyPondParser):
     argcount = 0
     items = (
-        Context,
+        ContextName,
         DotSetOverride,
         ContextProperty,
         EqualSignSetOverride,
@@ -951,7 +855,7 @@ class LilyPondParserSet(LilyPondParser):
     
 class LilyPondParserUnset(FallthroughParser):
     items = space_items + (
-        Context,
+        ContextName,
         DotSetOverride,
         ContextProperty,
         Name,
@@ -960,7 +864,7 @@ class LilyPondParserUnset(FallthroughParser):
 
 class LilyPondParserNewContext(FallthroughParser):
     items = space_items + (
-        Context,
+        ContextName,
         Name,
     )
 
