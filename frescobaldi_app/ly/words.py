@@ -1396,7 +1396,7 @@ scheme_functions = (
 )
 
 
-headervars = (
+headervariables = (
     'dedication',
     'title',
     'subtitle',
@@ -1430,69 +1430,67 @@ headervars = (
 )
     
 
-papervars = (
-    # page
+papervariables = (
+    # fixed vertical
     'paper-height',
-    'paper-width',
     'top-margin',
     'bottom-margin',
-    'left-margin',
-    'right-margin',
-    'line-width',
-    
-    # vertical
-    'after-title-space', # 2.12
-    'after-title-spacing', # 2.14
-    'before-title-space', # 2.12
-    'before-title-spacing', # 2.14
-    'between-system-padding', # 2.12
-    'between-system-space', # 2.12
-    'between-scores-system-spacing', # 2.14
-    'between-system-spacing', # 2.14
-    'between-title-space', # 2.12
-    'between-title-spacing', # 2.14
-    'bottom-system-spacing', # 2.14
-    'top-title-spacing', # 2.14
-    'top-system-spacing', # 2.14
-    'page-top-space', # 2.12 only
+    'ragged-bottom',
+    'ragged-last-bottom',
     
     # horizontal
-    'binding-offset', # 2.14
+    'paper-width',
+    'line-width',
+    'left-margin',
+    'right-margin',
+    'check-consistency',
+    'ragged-right',
+    'ragged-last',
+    'two-sided',
+    'inner-margin',
+    'outer-margin',
+    'binding-offset',
     'horizontal-shift',
     'indent',
     'short-indent',
-    'two-sided', # 2.14
-    'inner-margin', # 2.14
-    'outer-margin', # 2.14
+    
+    # flex vertical
+    'markup-system-spacing', # the distance between a (title or top-level) markup and the system that follows it.
+    'score-markup-spacing',  # the distance between the last system of a score and the (title or top-level) markup that follows it.
+    'score-system-spacing',  # the distance between the last system of a score and the first system of the score that follows it, when no (title or top-level) markup exists between them.
+    'system-system-spacing', # the distance between two systems in the same score.
+    'markup-markup-spacing', # the distance between two (title or top-level) markups.
+    'last-bottom-spacing',   # the distance from the last system or top-level markup on a page to the bottom of the printable area (i.e. the top of the bottom margin).
+    'top-system-spacing',    # the distance from the top of the printable area (i.e. the bottom of the top margin) to the first system on a page, when there is no (title or top-level) markup between the two.
+    'top-markup-spacing',    # the distance from the top of the printable area (i.e. the bottom of the top margin) to the first (title or top-level) markup on a page, when there is no system between the two.
+    
+    # line breaking
+    'max-systems-per-page',
+    'min-systems-per-page',
+    'system-count',
+    'systems-per-page',
+
+    # page breaking
+    'blank-after-score-page-force',  # The penalty for having a blank page after the end of one score and before the next. By default, this is smaller than blank-page-force, so that we prefer blank pages after scores to blank pages within a score.
+    'blank-last-page-force',         # The penalty for ending the score on an odd-numbered page.
+    'blank-page-force',              # The penalty for having a blank page in the middle of a score. This is not used by ly:optimal-breaking since it will never consider blank pages in the middle of a score.
+    'page-breaking',                 # The page-breaking algorithm to use. Choices are ly:minimal-breaking, ly:page-turn-breaking, and ly:optimal-breaking.
+    'page-breaking-system-system-spacing', # Tricks the page breaker into thinking that system-system-spacing is set to something different than it really is. For example, if page-breaking-system-system-spacing #'padding is set to something substantially larger than system-system-spacing #'padding, then the page-breaker will put fewer systems on each page. Default: unset.
+    'page-count',                    # The number of pages to be used for a score, unset by default.
+    
+    # page numbering
+    'auto-first-page-number',
+    'first-page-number',
+    'print-first-page-number',
+    'print-page-number',
+    
+    # misc
+    'page-spacing-weight',
+    'print-all-headers',
+    'system-separator-markup',
     
     # debugging
     'annotate-spacing',
-    
-    # other
-    'auto-first-page-number',
-    'blank-last-page-force',
-    'blank-page-force',
-    'check-consistency', # 2.14
-    'first-page-number',
-    'foot-separation', # not in 2.14?
-    'head-separation', # not in 2.14?
-    'max-systems-per-page', # 2.14
-    'min-systems-per-page', # 2.14
-    'page-breaking-between-system-padding',
-    'page-count',
-    'page-limit-inter-system-space',
-    'page-limit-inter-system-space-factor',
-    'page-spacing-weight', # 2.14
-    'print-all-headers',
-    'print-first-page-number',
-    'print-page-number',
-    'ragged-bottom',
-    'ragged-last',
-    'ragged-last-bottom',
-    'ragged-right',
-    'system-separator-markup',
-    'system-count',
-    'systems-per-page', # 2.14
     
     # different markups
     'bookTitleMarkup',
@@ -1512,7 +1510,7 @@ papervars = (
 )
 
 
-layoutvars = (
+layoutvariables = (
     'indent',
     'short-indent',
     'system-count',

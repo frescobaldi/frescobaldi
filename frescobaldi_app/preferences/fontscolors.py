@@ -474,6 +474,8 @@ def allStyleNames():
             'context':      _("Context"),
             'grob':         _("Layout Object"),
             'property':     _("Property"),
+            'variable':     _("Variable"),
+            'uservariable': _("User Variable"),
             'value':        _("Value"),
             'string':       _("String"),
             'stringescape': _("Escaped Character"),

@@ -46,15 +46,27 @@ from .. import words
 
 
 re_articulation = r"[-_^][_.>|+^-]"
-re_dynamic = r"\\(f{1,5}|p{1,5}|mf|mp|fp|spp?|sff?|sfz|rfz)\b"
+re_dynamic = r"\\(f{1,5}|p{1,5}|mf|mp|fp|spp?|sff?|sfz|rfz)\b|\\[<!>]"
 
 re_duration = r"(\\(maxima|longa|breve)\b|(1|2|4|8|16|32|64|128|256|512|1024|2048)(?!\d))"
 re_dot = r"\."
 re_scaling = r"\*[\t ]*\d+(/\d+)?"
 
 
+class Variable(Token):
+    pass
+
+
+class UserVariable(Token):
+    pass
+
+
 class Value(Item, NumericBase):
     pass
+
+
+class DecimalValue(Value):
+    rx = r"-?\d+(\.\d+)?"
 
 
 class Fraction(Value):
@@ -203,6 +215,60 @@ class CloseBracketBookPart(CloseBracket):
     pass
 
 
+class OpenBracketPaper(OpenBracket):
+    def changeState(self, state):
+        state.enter(LilyPondParserPaper)
+
+
+class CloseBracketPaper(CloseBracket):
+    pass
+
+
+class OpenBracketHeader(OpenBracket):
+    def changeState(self, state):
+        state.enter(LilyPondParserHeader)
+
+
+class CloseBracketHeader(CloseBracket):
+    pass
+
+
+class OpenBracketLayout(OpenBracket):
+    def changeState(self, state):
+        state.enter(LilyPondParserLayout)
+
+
+class CloseBracketLayout(CloseBracket):
+    pass
+
+
+class OpenBracketMidi(OpenBracket):
+    def changeState(self, state):
+        state.enter(LilyPondParserMidi)
+
+
+class CloseBracketMidi(CloseBracket):
+    pass
+
+
+class OpenBracketWith(OpenBracket):
+    def changeState(self, state):
+        state.enter(LilyPondParserWith)
+
+
+class CloseBracketWith(CloseBracket):
+    pass
+
+
+class OpenBracketContext(OpenBracket):
+    def changeState(self, state):
+        state.enter(LilyPondParserContext)
+
+
+class CloseBracketContext(CloseBracket):
+    pass
+
+
 class Slur(Token):
     pass
 
@@ -302,6 +368,42 @@ class BookPart(Keyword):
         state.enter(LilyPondParserExpectBookPart)
 
 
+class Paper(Keyword):
+    rx = r"\\paper\b"
+    def changeState(self, state):
+        state.enter(LilyPondParserExpectPaper)
+
+
+class Header(Keyword):
+    rx = r"\\header\b"
+    def changeState(self, state):
+        state.enter(LilyPondParserExpectHeader)
+
+
+class Layout(Keyword):
+    rx = r"\\layout\b"
+    def changeState(self, state):
+        state.enter(LilyPondParserExpectLayout)
+
+
+class Midi(Keyword):
+    rx = r"\\midi\b"
+    def changeState(self, state):
+        state.enter(LilyPondParserExpectMidi)
+
+
+class With(Keyword):
+    rx = r"\\with\b"
+    def changeState(self, state):
+        state.enter(LilyPondParserExpectWith)
+
+
+class LayoutContext(Keyword):
+    rx = r"\\context\b"
+    def changeState(self, state):
+        state.enter(LilyPondParserExpectContext)
+
+
 class Markup(Command):
     rx = r"\\markup(?![A-Za-z])"
     def changeState(self, state):
@@ -355,11 +457,11 @@ class Repeat(Command):
     
     
 class RepeatSpecifier(Specifier):
-    rx = r"\b(volta|unfold|percent|tremolo)(?![A-Za-z])"
+    rx = r"\b({0})(?![A-Za-z])".format("|".join(words.repeat_types))
     
 
 class RepeatStringSpecifier(String, Specifier):
-    rx = r'"(volta|unfold|percent|tremolo)"'
+    rx = r'"({0})"'.format("|".join(words.repeat_types))
     
 
 class RepeatCount(Value, Leaver):
@@ -412,6 +514,10 @@ class ClefSpecifier(Specifier):
     rx = r"\b({0})\b".format("|".join(words.clefs_plain))
     
 
+class Unit(Command):
+    rx = r"\\(mm|cm|in|pt)\b"
+    
+    
 class UserCommand(Token):
     rx = r"\\[A-Za-z]+(?![A-Za-z])"
     
@@ -423,16 +529,32 @@ class SchemeStart(Item):
         state.enter(scheme.SchemeParser, 1)
 
 
-class Context(Token):
+class ContextName(Token):
     rx = r"\b({0})\b".format("|".join(words.contexts))
     
+
+class BackSlashedContextName(ContextName):
+    rx = r"\\({0})\b".format("|".join(words.contexts))
     
-class Grob(Token):
+    
+class GrobName(Token):
     rx = r"\b({0})\b".format("|".join(words.grobs))
 
 
 class ContextProperty(Token):
     rx = r"\b({0})\b".format("|".join(words.contextproperties))
+
+
+class PaperVariable(Variable):
+    rx = r"\b({0})\b".format("|".join(words.papervariables))
+
+
+class HeaderVariable(Variable):
+    rx = r"\b({0})\b".format("|".join(words.headervariables))
+
+
+class LayoutVariable(Variable):
+    rx = r"\b({0})\b".format("|".join(words.layoutvariables))
 
 
 class Chord(Token):
@@ -458,7 +580,7 @@ class ErrorInChord(Error):
     ))
     
 
-class Name(Token):
+class Name(UserVariable):
     """A variable name without \\ prefix."""
     rx = r"[a-zA-Z]+(?![a-zA-Z])"
     
@@ -509,6 +631,7 @@ command_items = (
     Override,
     Set, Unset,
     New, Context,
+    With,
     Clef,
     Keyword,
     Command,
@@ -539,8 +662,8 @@ music_items = base_items + (
     SequentialStart, SequentialEnd,
     SimultaneousStart, SimultaneousEnd,
     ChordStart,
-    Context,
-    Grob,
+    ContextName,
+    GrobName,
     SlurStart, SlurEnd,
     PhrasingSlurStart, PhrasingSlurEnd,
     Tie,
@@ -565,17 +688,12 @@ class LilyPondParserGlobal(LilyPondParser):
         Book,
         BookPart,
         Score,
+        Markup, MarkupLines,
+        Paper, Header, Layout,
     ) + toplevel_base_items + (
         Name,
         EqualSign,
     )
-
-
-class LilyPondParserScore(LilyPondParser):
-    """Parses the expression after \score {, leaving at } """
-    items = (
-        CloseBracketScore,
-    ) + toplevel_base_items
 
 
 class LilyPondParserExpectScore(LilyPondParser):
@@ -586,14 +704,11 @@ class LilyPondParserExpectScore(LilyPondParser):
     )
         
 
-class LilyPondParserBook(LilyPondParser):
-    """Parses the expression after \book {, leaving at } """
+class LilyPondParserScore(LilyPondParser):
+    """Parses the expression after \score {, leaving at } """
     items = (
-        CloseBracketBook,
-        Markup,
-        MarkupLines,
-        BookPart,
-        Score,
+        CloseBracketScore,
+        Header, Layout, Midi, With,
     ) + toplevel_base_items
 
 
@@ -605,13 +720,14 @@ class LilyPondParserExpectBook(LilyPondParser):
     )
         
 
-class LilyPondParserBookPart(LilyPondParser):
-    """Parses the expression after \score {, leaving at } """
+class LilyPondParserBook(LilyPondParser):
+    """Parses the expression after \book {, leaving at } """
     items = (
-        CloseBracketBookPart,
-        Markup,
-        MarkupLines,
+        CloseBracketBook,
+        Markup, MarkupLines,
+        BookPart,
         Score,
+        Paper, Header, Layout,
     ) + toplevel_base_items
 
 
@@ -622,6 +738,124 @@ class LilyPondParserExpectBookPart(LilyPondParser):
         OpenBracketBookPart,
     )
         
+
+class LilyPondParserBookPart(LilyPondParser):
+    """Parses the expression after \score {, leaving at } """
+    items = (
+        CloseBracketBookPart,
+        Markup, MarkupLines,
+        Score,
+        Header, Layout,
+    ) + toplevel_base_items
+
+
+class LilyPondParserExpectPaper(LilyPondParser):
+    argcount = 1
+    default = Error
+    items = space_items + (
+        OpenBracketPaper,
+    )
+
+
+class LilyPondParserPaper(LilyPondParser):
+    """Parses the expression after \score {, leaving at } """
+    items = base_items + (
+        CloseBracketPaper,
+        Markup, MarkupLines,
+        PaperVariable,
+        EqualSign,
+        DecimalValue,
+        Unit,
+    )
+
+
+class LilyPondParserExpectHeader(LilyPondParser):
+    argcount = 1
+    default = Error
+    items = space_items + (
+        OpenBracketHeader,
+    )
+        
+
+class LilyPondParserHeader(LilyPondParser):
+    """Parses the expression after \score {, leaving at } """
+    items = (
+        CloseBracketHeader,
+        Markup, MarkupLines,
+        HeaderVariable,
+        EqualSign,
+    ) + toplevel_base_items
+
+
+class LilyPondParserExpectLayout(LilyPondParser):
+    argcount = 1
+    default = Error
+    items = space_items + (
+        OpenBracketLayout,
+    )
+        
+
+class LilyPondParserLayout(LilyPondParser):
+    """Parses the expression after \score {, leaving at } """
+    items = base_items + (
+        CloseBracketLayout,
+        LayoutContext,
+        LayoutVariable,
+        EqualSign,
+        DecimalValue,
+        Unit,
+    )
+
+
+class LilyPondParserExpectMidi(LilyPondParser):
+    argcount = 1
+    default = Error
+    items = space_items + (
+        OpenBracketMidi,
+    )
+        
+
+class LilyPondParserMidi(LilyPondParser):
+    """Parses the expression after \score {, leaving at } """
+    items = (
+        CloseBracketMidi,
+    ) + toplevel_base_items
+
+
+class LilyPondParserExpectWith(LilyPondParser):
+    argcount = 1
+    default = Error
+    items = space_items + (
+        OpenBracketWith,
+    )
+        
+
+class LilyPondParserWith(LilyPondParser):
+    """Parses the expression after \score {, leaving at } """
+    items = (
+        CloseBracketWith,
+        ContextProperty,
+        EqualSign,
+    ) + toplevel_base_items
+
+
+class LilyPondParserExpectContext(LilyPondParser):
+    argcount = 1
+    default = Error
+    items = space_items + (
+        OpenBracketContext,
+    )
+        
+
+class LilyPondParserContext(LilyPondParser):
+    """Parses the expression after \score {, leaving at } """
+    items = (
+        CloseBracketContext,
+        BackSlashedContextName,
+        ContextProperty,
+        EqualSign,
+    ) + toplevel_base_items
+
 
 class LilyPondParserMusic(LilyPondParser):
     """Parses LilyPond music expressions."""
@@ -685,17 +919,18 @@ class DurationScalingParser(DurationParser):
 class LilyPondParserOverride(LilyPondParser):
     argcount = 0
     items = (
-        Context,
+        ContextName,
         DotSetOverride,
-        Grob,
+        GrobName,
         EqualSignSetOverride,
         Name,
+        Markup, MarkupLines,
     ) + base_items
     
 
 class LilyPondParserRevert(FallthroughParser):
     items = space_items + (
-        Context,
+        ContextName,
         DotSetOverride,
         Name,
         SchemeStart,
@@ -710,6 +945,7 @@ class LilyPondParserSet(LilyPondParser):
         ContextProperty,
         EqualSignSetOverride,
         Name,
+        Markup, MarkupLines,
     ) + base_items
     
     
