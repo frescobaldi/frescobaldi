@@ -237,15 +237,15 @@ class LilyPondFileOptionsParser(Parser):
     )
 
 
-class LilyPondParser(lilypond.LilyPondToplevelParser):
+class LilyPondParser(lilypond.LilyPondParserGlobal):
     items = (
         LilyPondCloseTag,
-    ) + lilypond.LilyPondToplevelParser.items
+    ) + lilypond.LilyPondParserGlobal.items
     
 
-class LilyPondInlineParser(lilypond.LilyPondMusicParser):
+class LilyPondInlineParser(lilypond.LilyPondParserMusic):
     items = (
         LilyPondInlineTagEnd,
-    ) + lilypond.LilyPondMusicParser.items
+    ) + lilypond.LilyPondParserMusic.items
     
 

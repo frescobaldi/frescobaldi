@@ -102,7 +102,6 @@ class State(object):
         """Returns the current state as a tuple (hashable object)."""
         return tuple((
             parser.__class__,
-            parser.level,
             parser.argcount,
         ) for parser in self.state), self.language
     
@@ -112,9 +111,8 @@ class State(object):
         obj = object.__new__(cls)
         state, obj.language = frozen
         obj.state = []
-        for cls, level, argcount in state:
+        for cls, argcount in state:
             parser = cls(argcount)
-            parser.level = level
             obj.state.append(parser)
         return obj
         
@@ -128,8 +126,7 @@ class State(object):
         
     def replace(self, parserClass, argcount=None):
         """Enter a new parser, replacing the current one."""
-        self.state.pop()
-        self.state.append(parserClass(argcount))
+        self.state[-1] = parserClass(argcount)
         
     def leave(self):
         """Leave the current parser and pop back to the previous."""
@@ -137,46 +134,18 @@ class State(object):
             self.state.pop()
     
     def endArgument(self):
-        """End an argument.
-        
-        Decrease argcount and leave the parser if it would reach 0.
-        
-        """
-        while len(self.state) > 1 and self.state[-1].level == 0:
-            if self.state[-1].argcount > 1:
-                self.state[-1].argcount -= 1
+        """Decrease argcount and leave the parser if it would reach 0."""
+        while len(self.state) > 1:
+            if self.state[-1].argcount == 1:
+                self.state.pop()
+            else:
+                if self.state[-1].argcount > 0:
+                    self.state[-1].argcount -= 1
                 return
-            elif self.state[-1].argcount == 0:
-                return
-            self.state.pop()
-            
-    def inc(self):
-        """Up the level of the current parser.
-        
-        Indicates nesting while staying in the same parser.
-        
-        """
-        self.state[-1].level += 1
-        
-    def dec(self):
-        """Down the level of the current parser.
-        
-        If it has reached zero, leave the current parser.
-        Otherwise decrease argcount and leave if that would reach zero.
-        """
-        while self.state[-1].level == 0 and len(self.state) > 1:
-            self.state.pop()
-        if self.state[-1].level > 0:
-            self.state[-1].level -= 1
-            self.endArgument()
-            
-    def depth(self):
-        """Return a two-tuple representing the depth of the current state.
-        
-        This is useful to quickly check when a part of LilyPond input ends.
-        
-        """
-        return len(self.state), self.state[-1].level
+    
+    def __len__(self):
+        """Returns the number of parsers currently in the stack."""
+        return len(self.state)
 
     def followToken(self, token):
         """Act as if the token has been instantiated with the current state.
@@ -245,16 +214,6 @@ class Item(Token):
     def changeState(self, state):
         state.endArgument()
 
-class Increaser(Token):
-    """A token that increases the level of the current parser."""
-    def changeState(self, state):
-        state.inc()
-        
-class Decreaser(Token):
-    """A token that decreases the level of the current parser."""
-    def changeState(self, state):
-        state.dec()
-
 class Leaver(Token):
     """A token that leaves the current parser."""
     def changeState(self, state):
@@ -291,7 +250,6 @@ class Parser(object):
     default = Unparsed
     
     def __init__(self, argcount = None):
-        self.level = 0
         if argcount is not None:
             self.argcount = argcount
 
@@ -337,7 +295,7 @@ def guessState(text):
     
     """
     return {
-        'lilypond': lilypond.LilyPondToplevelParser,
+        'lilypond': lilypond.LilyPondParserGlobal,
         'scheme':   scheme.SchemeParser,
         'docbook':  docbook.DocBookParser,
         'latex':    latex.LaTeXParser,

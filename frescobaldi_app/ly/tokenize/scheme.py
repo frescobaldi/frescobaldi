@@ -28,8 +28,6 @@ from . import (
     Token,
     Item,
     Space,
-    Increaser,
-    Decreaser,
     Leaver,
     MatchStart,
     MatchEnd,
@@ -85,15 +83,20 @@ class BlockCommentEnd(Comment, Leaver):
     rx = "!#"
 
 
-class OpenParen(Scheme, Increaser, MatchStart):
+class OpenParen(Scheme, MatchStart):
     rx = r"\("
     matchname = "schemeparen"
-    
+    def changeState(self, state):
+        state.enter(SchemeParser)
 
-class CloseParen(Scheme, Decreaser, MatchEnd):
+
+class CloseParen(Scheme, MatchEnd):
     rx = r"\)"
     matchname = "schemeparen"
-
+    def changeState(self, state):
+        state.leave()
+        state.endArgument()
+        
 
 class Quote(Scheme):
     rx = r"[',`]"
@@ -142,7 +145,6 @@ class LilyPondEnd(LilyPond, Leaver, MatchEnd):
 # Parsers
 
 class SchemeParser(Parser):
-    argcount = 1
     items = (
         Space,
         OpenParen,
@@ -178,6 +180,6 @@ class BlockCommentParser(Parser):
 
 import lilypond
 
-class LilyPondParser(lilypond.LilyPondMusicParser):
-    items = (LilyPondEnd,) + lilypond.LilyPondMusicParser.items
+class LilyPondParser(lilypond.LilyPondParserMusic):
+    items = (LilyPondEnd,) + lilypond.LilyPondParserMusic.items
 

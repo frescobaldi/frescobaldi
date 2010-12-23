@@ -27,8 +27,6 @@ from . import (
     Token,
     Item,
     Leaver,
-    Increaser,
-    Decreaser,
     Space,
     
     ErrorBase,
@@ -140,35 +138,52 @@ class Delimiter(Token):
     pass
 
 
-class OpenBracket(Delimiter, Increaser, MatchStart):
+class OpenBracket(Delimiter, MatchStart):
+    """An open bracket, subclass to enter different parsers."""
     rx = r"\{"
     matchname = "bracket"
-    def changeState(self, state):
-        if isinstance(state.parser(), LilyPondToplevelParser):
-            state.enter(LilyPondMusicParser)
-        else:
-            super(OpenBracket, self).changeState(state)
 
 
-class CloseBracket(Delimiter, Decreaser, MatchEnd):
+class CloseBracket(Delimiter, MatchEnd):
     rx = r"\}"
     matchname = "bracket"
+    def changeState(self, state):
+        state.leave()
+        state.endArgument()    
+    
+
+class SequentialStart(OpenBracket):
+    def changeState(self, state):
+        state.enter(LilyPondParserMusic)
 
 
-class OpenSimultaneous(Delimiter, Increaser, MatchStart):
+class SequentialEnd(CloseBracket):
+    pass
+
+
+class SimultaneousStart(Delimiter, MatchStart):
     rx = r"<<"
     matchname = "simultaneous"
     def changeState(self, state):
-        if isinstance(state.parser(), LilyPondToplevelParser):
-            state.enter(LilyPondMusicParser)
-        else:
-            super(OpenSimultaneous, self).changeState(state)
+        state.enter(LilyPondParserMusic)
 
 
-class CloseSimultaneous(Delimiter, Decreaser, MatchEnd):
+class SimultaneousEnd(Delimiter, MatchEnd):
     rx = r">>"
     matchname = "simultaneous"
+    def changeState(self, state):
+        state.leave()
+        state.endArgument()    
     
+
+class OpenBracketScore(OpenBracket):
+    def changeState(self, state):
+        state.enter(LilyPondParserScore)
+
+
+class CloseBracketScore(CloseBracket):
+    pass
+
 
 class Slur(Token):
     pass
@@ -230,7 +245,7 @@ class Keyword(Item):
     rx = r"\\({0})(?![A-Za-z])".format("|".join(words.lilypond_keywords))
 
 
-class VoiceSeparator(Keyword):
+class VoiceSeparator(Delimiter):
     rx = r"\\\\"
     
 
@@ -249,13 +264,13 @@ class Command(Item):
 class Markup(Command):
     rx = r"\\markup(?![A-Za-z])"
     def changeState(self, state):
-        state.enter(MarkupParser)
+        state.enter(MarkupParser, 1)
 
 
 class MarkupLines(Markup):
     rx = r"\\markuplines(?![A-Za-z])"
     def changeState(self, state):
-        state.enter(MarkupParser)
+        state.enter(MarkupParser, 1)
 
 
 class MarkupCommand(Markup):
@@ -276,11 +291,20 @@ class MarkupCommand(Markup):
 class MarkupScore(Markup):
     rx = r"\\score\b"
     def changeState(self, state):
-        state.enter(LilyPondToplevelParser, 1)
+        state.enter(LilyPondParserExpectScore)
 
 
 class MarkupWord(Item):
     rx = r'[^{}"\\\s#%]+'
+
+
+class OpenBracketMarkup(OpenBracket):
+    def changeState(self, state):
+        state.enter(MarkupParser)
+
+
+class CloseBracketMarkup(CloseBracket):
+    pass
 
 
 class Repeat(Command):
@@ -309,7 +333,7 @@ class SchemeStart(Item):
     rx = "#"
     def changeState(self, state):
         import scheme
-        state.enter(scheme.SchemeParser)
+        state.enter(scheme.SchemeParser, 1)
 
 
 class Context(Token):
@@ -328,7 +352,7 @@ class Chord(Token):
 class ChordStart(Chord):
     rx = r"<"
     def changeState(self, state):
-        state.enter(LilyPondChordParser)
+        state.enter(LilyPondParserChord)
 
 
 class ChordEnd(Chord, Leaver):
@@ -342,72 +366,106 @@ class ErrorInChord(Error):
         r"\\[\\\]\[\(\)()]", # slurs beams
     ))
     
+
+
 # Parsers
-
 class LilyPondParser(Parser):
-    """Base class for all LilyPond parsers (toplevel, music, markup etc)"""
-    items = (
-        Space,
-        BlockCommentStart,
-        LineComment,
-        SchemeStart,
-        StringQuotedStart,
-    )
+    pass
+
+# basic stuff that can appear everywhere
+lilypond_base_items = (
+    Space,
+    BlockCommentStart,
+    LineComment,
+    SchemeStart,
+    StringQuotedStart,
+)
 
 
-class LilyPondToplevelParser(LilyPondParser):
-    """Parses LilyPond from the toplevel of a file."""
-    items = LilyPondParser.items + (
-        Keyword,
-        Markup,
-        MarkupLines,
-        Repeat,
-        Fraction,
-        Command,
-        UserCommand,
-        OpenBracket,
-        OpenSimultaneous,
-        Context,
-        Grob,
-    )
+# items that occur in toplevel, book, bookpart or score
+# no Leave-tokens!
+lilypond_toplevel_base_items = lilypond_base_items + (
+    Keyword,
+    Markup,
+    MarkupLines,
+    Repeat,
+    Fraction,
+    Command,
+    UserCommand,
+    SequentialStart,
+    SimultaneousStart,
+    Context,
+    Grob,
+)
 
 
-class LilyPondMusicParser(LilyPondParser):
-    """Parses LilyPond music expressions."""
-    items = LilyPondParser.items + (
-        Keyword,
-        Markup,
-        MarkupLines,
-        Repeat,
-        Dynamic,
-        Skip,
-        Rest,
-        Note,
-        Fraction,
-        DurationStart,
-        Command,
-        UserCommand,
-        VoiceSeparator,
-        OpenBracket, CloseBracket,
-        OpenSimultaneous, CloseSimultaneous,
-        ChordStart,
-        Context,
-        Grob,
-        SlurStart, SlurEnd,
-        PhrasingSlurStart, PhrasingSlurEnd,
-        Tie,
-        BeamStart, BeamEnd,
-        LigatureStart, LigatureEnd,
-        Articulation,
-    )
+# items that occur in music expressions
+lilypond_music_items = lilypond_base_items + (
+    Keyword,
+    Markup,
+    MarkupLines,
+    Repeat,
+    Dynamic,
+    Skip,
+    Rest,
+    Note,
+    Fraction,
+    DurationStart,
+    Command,
+    UserCommand,
+    VoiceSeparator,
+    SequentialStart, SequentialEnd,
+    SimultaneousStart, SimultaneousEnd,
+    ChordStart,
+    Context,
+    Grob,
+    SlurStart, SlurEnd,
+    PhrasingSlurStart, PhrasingSlurEnd,
+    Tie,
+    BeamStart, BeamEnd,
+    LigatureStart, LigatureEnd,
+    Articulation,
+)
     
 
-class LilyPondChordParser(LilyPondMusicParser):
-    """LilyPond inside chords < >"""
+# items that occur inside chords
+lilypond_music_chord_items = (
+    ErrorInChord,
+    ChordEnd,
+) + lilypond_music_items
+
+
+
+class LilyPondParserGlobal(LilyPondParser):
+    """Parses LilyPond from the toplevel of a file."""
+    # TODO: implement assignments
+    items = lilypond_toplevel_base_items
+
+
+class LilyPondParserScore(LilyPondParser):
+    """Parses the expression after \score {, leaving at } """
     items = (
-        ErrorInChord,
-        ChordEnd,
-    ) + LilyPondMusicParser.items
+        CloseBracketScore,
+    ) + lilypond_toplevel_base_items
+
+
+class LilyPondParserExpectScore(LilyPondParser):
+    argcount = 1
+    default = Error
+    items = (
+        Space,
+        OpenBracketScore,
+    )
+        
+
+class LilyPondParserMusic(LilyPondParser):
+    """Parses LilyPond music expressions."""
+    items = lilypond_music_items
+    
+
+class LilyPondParserChord(LilyPondParserMusic):
+    """LilyPond inside chords < >"""
+    items = lilypond_music_chord_items
 
 
 class StringParser(StringParserBase):
@@ -426,14 +484,13 @@ class BlockCommentParser(Parser):
 
 
 class MarkupParser(Parser):
-    argcount = 1
     items =  (
         MarkupScore,
         MarkupCommand,
-        OpenBracket,
-        CloseBracket,
+        OpenBracketMarkup,
+        CloseBracketMarkup,
         MarkupWord,
-    ) + LilyPondParser.items
+    ) + lilypond_base_items
 
 
 class RepeatParser(FallthroughParser):
