@@ -456,7 +456,7 @@ class LyricMode(InputMode):
 
 
 class LyricText(Item):
-    rx = r"[^\W\d]+"
+    rx = r"[^\\\s\d]+"
 
 
 class LyricHyphen(LyricText):
