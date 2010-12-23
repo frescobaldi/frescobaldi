@@ -164,6 +164,20 @@ class CloseBracket(Delimiter, MatchEnd):
         state.endArgument()    
     
 
+class OpenSimultaneous(Delimiter, MatchStart):
+    """An open double French quote, does not enter different parser, subclass or reimplement Parser.changeState()."""
+    rx = r"<<"
+    matchname = "simultaneous"
+
+
+class CloseSimultaneous(Delimiter, MatchEnd):
+    rx = r">>"
+    matchname = "simultaneous"
+    def changeState(self, state):
+        state.leave()
+        state.endArgument()    
+    
+
 class SequentialStart(OpenBracket):
     def changeState(self, state):
         state.enter(LilyPondParserMusic)
@@ -173,20 +187,14 @@ class SequentialEnd(CloseBracket):
     pass
 
 
-class SimultaneousStart(Delimiter, MatchStart):
-    rx = r"<<"
-    matchname = "simultaneous"
+class SimultaneousStart(OpenSimultaneous):
     def changeState(self, state):
         state.enter(LilyPondParserMusic)
 
 
-class SimultaneousEnd(Delimiter, MatchEnd):
-    rx = r">>"
-    matchname = "simultaneous"
-    def changeState(self, state):
-        state.leave()
-        state.endArgument()    
-    
+class SimultaneousEnd(CloseSimultaneous):
+    pass
+
 
 class Slur(Token):
     pass
@@ -436,6 +444,32 @@ class ClefSpecifier(Specifier):
 class Unit(Command):
     rx = r"\\(mm|cm|in|pt)\b"
     
+
+class InputMode(Command):
+    pass
+
+
+class LyricMode(InputMode):
+    rx = r"\\(lyricmode|((old)?add)?lyrics|lyricsto)\b"
+    def changeState(self, state):
+        state.enter(LilyPondParserExpectLyricMode)
+
+
+class LyricText(Item):
+    rx = r"[^\W\d]+"
+
+
+class LyricHyphen(LyricText):
+    rx = r"--"
+    
+    
+class LyricExtender(LyricText):
+    rx = r"__"
+    
+    
+class LyricSkip(LyricText):
+    rx = r"_"
+    
     
 class UserCommand(Token):
     rx = r"\\[A-Za-z]+(?![A-Za-z])"
@@ -552,6 +586,7 @@ command_items = (
     New, Context,
     With,
     Clef,
+    LyricMode,
     Keyword,
     Command,
     UserCommand,
@@ -615,7 +650,7 @@ class LilyPondParserGlobal(LilyPondParser):
     )
 
 
-class WaitForOpenBracket(LilyPondParser):
+class ExpectOpenBracket(LilyPondParser):
     """Waits for an OpenBracket and then replaces the parser with the class set in the replace attribute.
     
     Subclass this to set the destination for the OpenBracket.
@@ -630,6 +665,22 @@ class WaitForOpenBracket(LilyPondParser):
             state.replace(self.replace)
         
 
+class ExpectOpenBrackedOrSimultaneous(LilyPondParser):
+    """Waits for an OpenBracket or << and then replaces the parser with the class set in the replace attribute.
+    
+    Subclass this to set the destination for the OpenBracket.
+    
+    """
+    default = Error
+    items = space_items + (
+        OpenBracket,
+        OpenSimultaneous,
+    )
+    def changeState(self, state, token):
+        if isinstance(token, (OpenBracket, OpenSimultaneous)):
+            state.replace(self.replace)
+        
+
 class LilyPondParserScore(LilyPondParser):
     """Parses the expression after \score {, leaving at } """
     items = (
@@ -638,7 +689,7 @@ class LilyPondParserScore(LilyPondParser):
     ) + toplevel_base_items
 
 
-class LilyPondParserExpectScore(WaitForOpenBracket):
+class LilyPondParserExpectScore(ExpectOpenBracket):
     replace = LilyPondParserScore
             
 
@@ -654,7 +705,7 @@ class LilyPondParserBook(LilyPondParser):
 
 
 
-class LilyPondParserExpectBook(WaitForOpenBracket):
+class LilyPondParserExpectBook(ExpectOpenBracket):
     replace = LilyPondParserBook
 
 
@@ -668,7 +719,7 @@ class LilyPondParserBookPart(LilyPondParser):
     ) + toplevel_base_items
 
 
-class LilyPondParserExpectBookPart(WaitForOpenBracket):
+class LilyPondParserExpectBookPart(ExpectOpenBracket):
     replace = LilyPondParserBookPart
 
 
@@ -684,7 +735,7 @@ class LilyPondParserPaper(LilyPondParser):
     )
 
 
-class LilyPondParserExpectPaper(WaitForOpenBracket):
+class LilyPondParserExpectPaper(ExpectOpenBracket):
     replace = LilyPondParserPaper
 
 
@@ -698,7 +749,7 @@ class LilyPondParserHeader(LilyPondParser):
     ) + toplevel_base_items
 
 
-class LilyPondParserExpectHeader(WaitForOpenBracket):
+class LilyPondParserExpectHeader(ExpectOpenBracket):
     replace = LilyPondParserHeader
         
 
@@ -714,7 +765,7 @@ class LilyPondParserLayout(LilyPondParser):
     )
 
 
-class LilyPondParserExpectLayout(WaitForOpenBracket):
+class LilyPondParserExpectLayout(ExpectOpenBracket):
     replace = LilyPondParserLayout
         
 
@@ -730,7 +781,7 @@ class LilyPondParserMidi(LilyPondParser):
     )
 
 
-class LilyPondParserExpectMidi(WaitForOpenBracket):
+class LilyPondParserExpectMidi(ExpectOpenBracket):
     replace = LilyPondParserMidi
 
 
@@ -743,7 +794,7 @@ class LilyPondParserWith(LilyPondParser):
     ) + toplevel_base_items
 
 
-class LilyPondParserExpectWith(WaitForOpenBracket):
+class LilyPondParserExpectWith(ExpectOpenBracket):
     replace = LilyPondParserWith
         
 
@@ -757,7 +808,7 @@ class LilyPondParserContext(LilyPondParser):
     ) + toplevel_base_items
 
 
-class LilyPondParserExpectContext(WaitForOpenBracket):
+class LilyPondParserExpectContext(ExpectOpenBracket):
     replace = LilyPondParserContext
         
 
@@ -866,6 +917,8 @@ class LilyPondParserNewContext(FallthroughParser):
     items = space_items + (
         ContextName,
         Name,
+        EqualSign,
+        StringQuotedStart,
     )
 
 
@@ -875,4 +928,39 @@ class LilyPondParserClef(FallthroughParser):
         ClefSpecifier,
         StringQuotedStart,
     )
+
+
+class LilyPondParserLyricMode(LilyPondParser):
+    items = base_items + (
+        CloseBracket,
+        CloseSimultaneous,
+        LyricHyphen,
+        LyricExtender,
+        LyricSkip,
+        LyricText,
+        Skip,
+        DurationStart,
+        OpenBracket,
+        OpenSimultaneous,
+        Markup, MarkupLines,
+    ) + command_items
+    
+    def changeState(self, state, token):
+        if isinstance(token, (OpenSimultaneous, OpenBracket)):
+            state.enter(LilyPondParserLyricMode)
+
+
+class LilyPondParserExpectLyricMode(FallthroughParser):
+    items = space_items + (
+        OpenBracket,
+        OpenSimultaneous,
+        SchemeStart,
+        StringQuotedStart,
+        Name,
+    )
+    
+    def changeState(self, state, token):
+        if isinstance(token, (OpenBracket, OpenSimultaneous)):
+            state.enter(LilyPondParserLyricMode)
+        
 

@@ -470,6 +470,8 @@ def allStyleNames():
             'specifier':    _("Specifier"),
             'usercommand':  _("User Command"),
             'markup':       _("Markup"),
+            'lyricmode':    _("Lyric Mode"),
+            'lyrictext':    _("Lyric Text"),
             'delimiter':    _("Delimiter"),
             'context':      _("Context"),
             'grob':         _("Layout Object"),

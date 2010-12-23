@@ -66,12 +66,14 @@ def tokens(text, state=None, pos=0):
 def _makePattern(classes):
     """Builds a regular expression to parse a text for the given token classes.
     
-    Expects a list of classes representing LilyPond input atoms. Returns a
-    compiled regular expression with named groups, to match input of the listed
-    types. Reads the rx class attribute of the given classes.
+    Expects a list of classes representing LilyPond input atoms.
+    Returns a property that returns the expression with named groups,
+    to match input of the listed types. Reads the rx class attribute of the given classes.
+    
+    When the pattern is requested for the first time, the regexp is created and compiled.
     
     """
-    def patterns():
+    def generator():
         done = set()
         for cls in classes:
             if cls not in done:
@@ -82,7 +84,15 @@ def _makePattern(classes):
                     index = len(_classlist)
                     _classlist.append(cls)
                 yield "(?P<g{0}>{1})".format(index, cls.rx)
-    return re.compile("|".join(patterns()))
+    
+    class prop(object):
+        def __get__(self, instance, owner):
+            try:
+                return self.pattern
+            except AttributeError:
+                self.pattern = re.compile("|".join(generator()))
+            return self.pattern
+    return prop()
 
 
 class State(object):
@@ -161,7 +171,7 @@ class State(object):
 class _makePatternMeta(type):
     """Metaclass for Parser subclasses.
     
-    Reads the items class attribute and create a compiled regex pattern
+    Reads the items class attribute and create a (lazily created) compiled regex pattern
     to parse text for those items.
     
     """
@@ -254,7 +264,7 @@ class Parser(object):
     def __init__(self, argcount = None):
         if argcount is not None:
             self.argcount = argcount
-
+    
     def parse(self, text, pos):
         return self.pattern.search(text, pos)
 

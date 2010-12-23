@@ -66,6 +66,8 @@ def makeHighlightFormats(data):
     d[ly.tokenize.lilypond.Slur] = data.textFormat('lilypond', 'slur')
     d[ly.tokenize.lilypond.Chord] = data.textFormat('lilypond', 'chord')
     d[ly.tokenize.lilypond.Markup] = data.textFormat('lilypond', 'markup')
+    d[ly.tokenize.lilypond.LyricMode] = data.textFormat('lilypond', 'lyricmode')
+    d[ly.tokenize.lilypond.LyricText] = data.textFormat('lilypond', 'lyrictext')
     d[ly.tokenize.lilypond.Repeat] = data.textFormat('lilypond', 'repeat')
     d[ly.tokenize.lilypond.Specifier] = data.textFormat('lilypond', 'specifier')
     d[ly.tokenize.lilypond.UserCommand] = data.textFormat('lilypond', 'usercommand')

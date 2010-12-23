@@ -295,6 +295,8 @@ allStyles = (
         'specifier',
         'usercommand',
         'markup',
+        'lyricmode',
+        'lyrictext',
         'delimiter',
         'context',
         'grob',
