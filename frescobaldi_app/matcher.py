@@ -25,10 +25,9 @@ Highlights matching tokens such as { and }, << and >> etc.
 
 import weakref
 
-from PyQt4.QtGui import QTextCursor
-
 import app
 import ly.tokenize
+import tokeniter
 
 
 _matchers = weakref.WeakKeyDictionary()
@@ -64,7 +63,7 @@ class Matcher(object):
         cursor = self.view().textCursor()
         block = cursor.block()
         column = cursor.position() - block.position()
-        tokens = TokenIterator(block)
+        tokens = tokeniter.TokenIterator(block)
         source = None
         for token in tokens.forward(False):
             if token.pos <= column <= token.end:
@@ -92,55 +91,5 @@ class Matcher(object):
                 elif isinstance(token2, match) and token2.matchname == token.matchname:
                     nest += 1
         self.view().clearMatches()
-
-
-class TokenIterator(object):
-    """An iterator over the tokens in the userData a given QTextBlock."""
-    def __init__(self, block, atEnd=False):
-        """Positions the token iterator at the start of the given block.
-        
-        If atEnd == True, the iterator is positioned past the end of the block.
-        
-        """
-        self.block = block
-        # if block is an empty line, the highlighter doesn't run
-        self._tokens = block.userData().tokens if block.userData() and block.length() > 1 else ()
-        self._index = len(self._tokens) if atEnd else -1
-    
-    def forward(self, change = True):
-        """Yields tokens in forward direction.
-        
-        If change == True, also advances to the next lines.
-        
-        """
-        while self.block.isValid():
-            while self._index + 1 < len(self._tokens):
-                self._index += 1
-                yield self._tokens[self._index]
-            if not change:
-                return
-            self.__init__(self.block.next())
-
-    def backward(self, change = True):
-        """Yields tokens in backward direction.
-        
-        If change == True, also goes on to the previous lines.
-        
-        """
-        while self.block.isValid():
-            while self._index > 0:
-                self._index -= 1
-                yield self._tokens[self._index]
-            if not change:
-                return
-            self.__init__(self.block.previous(), True)
-    
-    def cursor(self):
-        """Returns a QTextCursor for the last token."""
-        token = self._tokens[self._index]
-        cursor = QTextCursor(self.block)
-        cursor.setPosition(self.block.position() + token.pos)
-        cursor.setPosition(self.block.position() + token.end, QTextCursor.KeepAnchor)
-        return cursor
 
 
