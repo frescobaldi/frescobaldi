@@ -226,6 +226,7 @@ class Item(Token):
     def changeState(self, state):
         state.endArgument()
 
+
 class Leaver(Token):
     """A token that leaves the current parser."""
     def changeState(self, state):
@@ -252,6 +253,11 @@ class ErrorBase(Token): pass
 # of the way other types could be nested.
 class MatchStart: matchname="" # denotes that a Token matches another one,
 class MatchEnd:   matchname="" # e.g. matching braces or parentheses
+
+
+# Indent and Dedent can be used by an (auto) indenter.
+class Indent: pass # denotes that text can be indented more on the next line
+class Dedent: pass # denotes that text can be indented less on the next line
 
 
 # Parsers:

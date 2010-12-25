@@ -37,6 +37,8 @@ from . import (
     
     MatchStart,
     MatchEnd,
+    Indent,
+    Dedent,
     Parser,
     StringParserBase,
     FallthroughParser,
@@ -150,13 +152,13 @@ class Delimiter(Token):
     pass
 
 
-class OpenBracket(Delimiter, MatchStart):
+class OpenBracket(Delimiter, MatchStart, Indent):
     """An open bracket, does not enter different parser, subclass or reimplement Parser.changeState()."""
     rx = r"\{"
     matchname = "bracket"
 
 
-class CloseBracket(Delimiter, MatchEnd):
+class CloseBracket(Delimiter, MatchEnd, Dedent):
     rx = r"\}"
     matchname = "bracket"
     def changeState(self, state):
@@ -164,13 +166,13 @@ class CloseBracket(Delimiter, MatchEnd):
         state.endArgument()    
     
 
-class OpenSimultaneous(Delimiter, MatchStart):
+class OpenSimultaneous(Delimiter, MatchStart, Indent):
     """An open double French quote, does not enter different parser, subclass or reimplement Parser.changeState()."""
     rx = r"<<"
     matchname = "simultaneous"
 
 
-class CloseSimultaneous(Delimiter, MatchEnd):
+class CloseSimultaneous(Delimiter, MatchEnd, Dedent):
     rx = r">>"
     matchname = "simultaneous"
     def changeState(self, state):
