@@ -421,7 +421,9 @@ class MainWindow(QMainWindow):
     
     def closeAllDocuments(self):
         """Closes all documents and keep one new, empty document."""
+        self.sessionManager.saveCurrentSessionIfDesired()
         if self.queryClose():
+            sessionmanager.setCurrentSession(None)
             document.Document()
     
     def quit(self):
@@ -1214,6 +1216,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_close.setText(_("&Close"))
         self.file_close_other.setText(_("Close Other Documents"))
         self.file_close_all.setText(_("Close All Documents"))
+        self.file_close_all.setToolTip(_("Closes all documents and leaves the current session."))
         self.file_quit.setText(_("&Quit"))
         
         self.export_colored_html.setText(_("Export Source as Colored &HTML..."))
