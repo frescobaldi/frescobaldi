@@ -184,7 +184,7 @@ class Highlighter(QSyntaxHighlighter):
     def state(self, block):
         """Returns a thawn ly.tokenize.State() object at the beginning of the given QTextBlock.
         
-        This assumes the highligher has already run through the whole document.
+        This assumes the highlighter has already run through the whole document.
         
         """
         userState = block.previous().userState()
@@ -216,7 +216,7 @@ def htmlCopy(document, data):
                 except KeyError:
                     continue
                 cursor.setPosition(token.pos)
-                cursor.setPosition(token.pos + len(token), QTextCursor.KeepAnchor)
+                cursor.setPosition(token.end, QTextCursor.KeepAnchor)
                 cursor.setCharFormat(f)
             break
     return doc
