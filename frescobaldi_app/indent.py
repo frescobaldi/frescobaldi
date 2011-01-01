@@ -23,45 +23,129 @@ from __future__ import unicode_literals
 Indent and auto-indent.
 """
 
+from PyQt4.QtGui import QTextCursor
 
 import ly.tokenize
 import tokeniter
 
 
+INDENT_WIDTH = 2
+TAB_WIDTH = 8
+ALLOW_TABS = False
+
+# scheme commands that can have one argument on the same line and then want the next arguments
+# on the next lines at the same position.
+scheme_sync_args = (
+    'if', 'and', 'or', 'set!',
+    '=', '<', '<=', '>', '>=',
+    'eq?', 'eqv?', 'equal?',
+)
+
 def autoIndentBlock(block):
     """Auto-indents the given block."""
     
-    if block.blockNumber() == 0:
-        return
-        
+    # find the current indent of this line
+    old_indent = QTextCursor(block)
+    
     # count the dedent tokens at the beginning of the current block
+    it = tokeniter.TokenIterator(block)
     indents = 0
-    tokens = tokeniter.TokenIterator(block)
-    for token in tokens.forward(False):
-        if isinstance(token, ly.tokenize.Dedent):
+    for token in it.forward(False):
+        if isinstance(token, ly.tokenize.Space):
+            if token.pos == 0: old_indent = it.cursor()
+        elif isinstance(token, ly.tokenize.Dedent):
             indents -= 1
-        elif not isinstance(token, ly.tokenize.Space):
-            break
+        else: break
 
-    # find preceding non-empty line
+    # these variables control the position (yet to be translated to tabbed (real) columns)
+    # and how much to add ot remove
+    indent_pos = None
+    indent_add = 0
+    
+    # look backwards for the token that starts this indent
     prev = block.previous()
     while prev.isValid():
-        if prev.text():
-            break
-    else:
+        
+        # skip empty blocks
+        if prev.length() <= 1:
+            prev = prev.previous()
+            continue
+        
+        closers = 0
+        found = False
+        lasttokens = []
+        
+        it = tokeniter.TokenIterator(prev, atEnd=True)
+        token = None # in case of empty line
+        for token in it.backward(False):
+            if isinstance(token, ly.tokenize.Dedent):
+                indents -= 1
+                closers += 1
+            elif isinstance(token, ly.tokenize.Indent):
+                indents += 1
+                closers = 0
+                if not found:
+                    if indents == 1:
+                        found = it.copy()
+                    else:
+                        lasttokens.append(token)
+            elif not isinstance(token, ly.tokenize.Space):
+                closers = 0
+                if not found:
+                    lasttokens.append(token)
+        
+        if found:
+            # the token that started the current indent has been found
+            # if there are no tokens after the indent-opener, take indent of current line and increase,
+            # else set indent to the same indent of the token after the indent-opener.
+            scheme = isinstance(found.token(), ly.tokenize.scheme.OpenParen)
+            if lasttokens:
+                if isinstance(lasttokens[-1], ly.tokenize.Indent):
+                    indent_pos = lasttokens[-1].pos
+                elif len(lasttokens) >= 2:
+                    if (scheme and lasttokens[-1] in scheme_sync_args):
+                        indent_pos = lasttokens[-2].pos
+                    else:
+                        indent_pos, indent_add = found.token().pos, INDENT_WIDTH
+                else:
+                    indent_pos = lasttokens[-1].pos
+            elif scheme:
+                indent_pos, indent_add = found.token().pos, 1
+            else:
+                # just use current indent + INDENT_WIDTH
+                indent_pos = len(token) if isinstance(token, ly.tokenize.Space) else 0
+                indent_add = INDENT_WIDTH
+        elif indents + closers == 0:
+            # take over indent of current line
+            indent_pos = len(token) if isinstance(token, ly.tokenize.Space) else 0
+        else:
+            prev = prev.previous()
+            continue
+        
+        # translate indent to real columns (expanding tabs)
+        indent = indentOfText(prev.text()[:indent_pos]) + indent_add
+        
+        # make new indent string
+        old_indent.insertText(makeIndent(indent))
         return
-    
-    # look for both indent and dedent tokens in that line
-    pos = {}
-    tokens = tokeniter.TokenIterator(prev, atEnd=True)
-    for token in tokens.backward(False):
-        if isinstance(token, ly.tokenize.Dedent):
-            indents -= 1
-        elif isinstance(token, ly.tokenize.Indent):
-            indents += 1
-            pos[indents] = token.pos
-    
-    if indents == 0:
-        pass # take over indent of previous line
-    
-    
+
+
+def indentOfText(text, tabwidth = 8):
+    indent, pos = 0, 0
+    while True:
+        try:
+            tab = text.index('\t', pos)
+        except ValueError:
+            return indent + len(text) - pos
+        indent = (indent + tab + tabwidth) & -tabwidth
+        pos = tab + 1
+
+
+def makeIndent(indent, tabwidth = 8, allowTabs = ALLOW_TABS):
+    if allowTabs:
+        tabs, spaces = divmod(indent, tabwidth)
+        return '\t' * tabs + ' ' * spaces
+    else:
+        return ' ' * indent
+
+

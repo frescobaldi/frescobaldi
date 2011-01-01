@@ -198,5 +198,16 @@ class View(QPlainTextEdit):
         self.layout().removeWidget(widget)
         self.setViewportMargins(0, 0, 0, 0)
 
+    def keyPressEvent(self, ev):
+        super(View, self).keyPressEvent(ev)
+        if ev.text() and ev.text() in "\r})>":
+            cursor = self.textCursor()
+            cursor.joinPreviousEditBlock()
+            try:
+                import indent
+                indent.autoIndentBlock(cursor.block())
+            finally:
+                cursor.endEditBlock()
+        
 
 

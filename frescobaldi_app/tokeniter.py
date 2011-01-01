@@ -23,8 +23,23 @@ from __future__ import unicode_literals
 Iterate over tokens.
 """
 
-
 from PyQt4.QtGui import QTextCursor
+
+
+def tokens(block):
+    """Returns the tokens for the given block as a (possibly empty) tuple."""
+    # if block is an empty line, the highlighter doesn't run
+    return block.userData().tokens if block.length() > 1 and block.userData() else ()
+
+
+def state(block):
+    """Returns a thawn ly.tokenize.State() object at the beginning of the given QTextBlock.
+    
+    The document must have a highlighter (and thus have or had at least one View).
+    See highlighter.py.
+    
+    """
+    return block.document().highlighter.state(block)
 
 
 class TokenIterator(object):
@@ -36,8 +51,7 @@ class TokenIterator(object):
         
         """
         self.block = block
-        # if block is an empty line, the highlighter doesn't run
-        self._tokens = block.userData().tokens if block.userData() and block.length() > 1 else ()
+        self._tokens = tokens(block)
         self._index = len(self._tokens) if atEnd else -1
     
     def forward(self, change = True):
@@ -68,6 +82,10 @@ class TokenIterator(object):
                 return
             self.__init__(self.block.previous(), True)
     
+    def token(self):
+        """Re-returns the last yielded token."""
+        return self._tokens[self._index]
+        
     def cursor(self):
         """Returns a QTextCursor for the last token."""
         token = self._tokens[self._index]
@@ -76,4 +94,10 @@ class TokenIterator(object):
         cursor.setPosition(self.block.position() + token.end, QTextCursor.KeepAnchor)
         return cursor
 
+    def copy(self):
+        obj = object.__new__(self.__class__)
+        obj.block = self.block
+        obj._tokens = self._tokens
+        obj._index = self._index
+        return obj
 
