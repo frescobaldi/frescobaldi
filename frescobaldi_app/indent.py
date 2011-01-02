@@ -41,24 +41,25 @@ scheme_sync_args = (
     'eq?', 'eqv?', 'equal?',
 )
 
+
 def autoIndentBlock(block):
     """Auto-indents the given block."""
+    setIndent(block, computeIndent(block))
+
+
+def computeIndent(block):
+    """Returns the indent the given block should have."""
     
-    # find the current indent of this line
-    old_indent = QTextCursor(block)
-    
-    # count the dedent tokens at the beginning of the current block
-    it = tokeniter.TokenIterator(block)
+    # count the dedent tokens at the beginning of the block
     indents = 0
-    for token in it.forward(False):
-        if isinstance(token, ly.tokenize.Space):
-            if token.pos == 0: old_indent = it.cursor()
-        elif isinstance(token, ly.tokenize.Dedent):
+    for token in tokeniter.tokens(block):
+        if isinstance(token, ly.tokenize.Dedent):
             indents -= 1
-        else: break
+        elif not isinstance(token, ly.tokenize.Space):
+            break
 
     # these variables control the position (yet to be translated to tabbed (real) columns)
-    # and how much to add ot remove
+    # and how much to add
     indent_pos = None
     indent_add = 0
     
@@ -123,25 +124,44 @@ def autoIndentBlock(block):
             continue
         
         # translate indent to real columns (expanding tabs)
-        indent = indentOfText(prev.text()[:indent_pos]) + indent_add
-        
-        # make new indent string
-        old_indent.insertText(makeIndent(indent))
-        return
+        return indentOfText(prev.text(), indent_pos) + indent_add
+    # e.g. on first line
+    return 0
 
 
-def indentOfText(text, tabwidth = 8):
+def getIndent(block):
+    """Returns the indent of the given block."""
+    tokens = tokeniter.tokens(block)
+    if tokens and isinstance(tokens[0], ly.tokenize.Space):
+        return indentOfText(tokens[0])
+    else:
+        return 0
+
+
+def setIndent(block, indent):
+    """Sets the indent of block to tabs/spaces of length indent."""
+    cursor = QTextCursor(block)
+    tokens = tokeniter.tokens(block)
+    if tokens and isinstance(tokens[0], ly.tokenize.Space):
+        cursor = tokeniter.cursor(block, tokens[0])
+    cursor.insertText(makeIndent(indent))
+
+
+def indentOfText(text, position=None, tabwidth = 8):
+    """Converts position (or the length of the text) to real column position, expanding tabs."""
     indent, pos = 0, 0
+    end = len(text) if position is None else position
     while True:
         try:
-            tab = text.index('\t', pos)
+            tab = text.index('\t', pos, end)
         except ValueError:
-            return indent + len(text) - pos
+            return indent + end - pos
         indent = (indent + tab + tabwidth) & -tabwidth
         pos = tab + 1
 
 
 def makeIndent(indent, tabwidth = 8, allowTabs = ALLOW_TABS):
+    """Creates a string of indent length indent, using spaces (and tabs if allowTabs)."""
     if allowTabs:
         tabs, spaces = divmod(indent, tabwidth)
         return '\t' * tabs + ' ' * spaces

@@ -42,6 +42,14 @@ def state(block):
     return block.document().highlighter.state(block)
 
 
+def cursor(block, token):
+    """Returns a QTextCursor for the given token in the given block."""
+    cursor = QTextCursor(block)
+    cursor.setPosition(block.position() + token.pos)
+    cursor.setPosition(block.position() + token.end, QTextCursor.KeepAnchor)
+    return cursor
+
+
 class TokenIterator(object):
     """An iterator over the tokens in the userData a given QTextBlock."""
     def __init__(self, block, atEnd=False):
@@ -88,11 +96,7 @@ class TokenIterator(object):
         
     def cursor(self):
         """Returns a QTextCursor for the last token."""
-        token = self._tokens[self._index]
-        cursor = QTextCursor(self.block)
-        cursor.setPosition(self.block.position() + token.pos)
-        cursor.setPosition(self.block.position() + token.end, QTextCursor.KeepAnchor)
-        return cursor
+        return cursor(self.block, self._tokens[self._index])
 
     def copy(self):
         obj = object.__new__(self.__class__)
