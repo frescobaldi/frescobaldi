@@ -93,6 +93,10 @@ class BlockCommentEnd(Comment, Leaver, Dedent):
     rx = r"%}"
 
 
+class BlockCommentSpace(Comment, Space):
+    pass
+
+
 class LineComment(Comment):
     rx = r"%.*$"
     
@@ -835,7 +839,7 @@ class StringParser(StringParserBase):
 class BlockCommentParser(Parser):
     default = Comment
     items = (
-        Space,
+        BlockCommentSpace,
         BlockCommentEnd,
     )
 

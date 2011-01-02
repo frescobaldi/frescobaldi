@@ -75,14 +75,18 @@ class LineComment(Comment):
     rx = r";.*$"
     
 
-class BlockCommentStart(Comment):
+class BlockCommentStart(Comment, Indent):
     rx = r"#!"
     def changeState(self, state):
         state.enter(BlockCommentParser)
         
 
-class BlockCommentEnd(Comment, Leaver):
+class BlockCommentEnd(Comment, Leaver, Dedent):
     rx = "!#"
+
+
+class BlockCommentSpace(Comment, Space):
+    pass
 
 
 class OpenParen(Scheme, MatchStart, Indent):
@@ -176,6 +180,7 @@ class StringParser(StringParserBase):
 class BlockCommentParser(Parser):
     default = Comment
     items = (
+        BlockCommentSpace,
         BlockCommentEnd,
     )
 
