@@ -200,14 +200,17 @@ class View(QPlainTextEdit):
 
     def keyPressEvent(self, ev):
         super(View, self).keyPressEvent(ev)
-        if ev.text() and ev.text() in "\r})>":
-            cursor = self.textCursor()
+        
+        # run the indenter on Return or when the user entered a dedent token.
+        import indent
+        cursor = self.textCursor()
+        if ev.text() == '\r' or (ev.text() in ('}', '#', '>') and indent.indentable(cursor)):
             cursor.joinPreviousEditBlock()
             try:
-                import indent
                 indent.autoIndentBlock(cursor.block())
             finally:
                 cursor.endEditBlock()
-        
+            
+    
 
 

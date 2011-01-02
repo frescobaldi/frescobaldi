@@ -39,6 +39,7 @@ scheme_sync_args = (
     'if', 'and', 'or', 'set!',
     '=', '<', '<=', '>', '>=',
     'eq?', 'eqv?', 'equal?',
+    'filter',
 )
 
 
@@ -53,7 +54,8 @@ def computeIndent(block):
     # count the dedent tokens at the beginning of the block
     indents = 0
     for token in tokeniter.tokens(block):
-        if isinstance(token, ly.tokenize.Dedent):
+        # dont dedent scheme dedent tokens at beginning of lines (unusual)
+        if isinstance(token, ly.tokenize.Dedent) and not isinstance(token, ly.tokenize.scheme.CloseParen):
             indents -= 1
         elif not isinstance(token, ly.tokenize.Space):
             break
@@ -81,7 +83,10 @@ def computeIndent(block):
         for token in it.backward(False):
             if isinstance(token, ly.tokenize.Dedent):
                 indents -= 1
-                closers += 1
+                if isinstance(token, ly.tokenize.scheme.CloseParen):
+                    closers = 0 # scheme close parens are not moved
+                else:
+                    closers += 1
             elif isinstance(token, ly.tokenize.Indent):
                 indents += 1
                 closers = 0
@@ -127,6 +132,18 @@ def computeIndent(block):
         return indentOfText(prev.text(), indent_pos) + indent_add
     # e.g. on first line
     return 0
+
+
+def indentable(cursor):
+    """Returns True if the cursor is at a dedent token and running the auto-indenter makes sense."""
+    block = cursor.block()
+    pos = cursor.position() - block.position()
+    for token in tokeniter.tokens(block):
+        if isinstance(token, ly.tokenize.Dedent):
+            if token.end >= pos:
+                return True
+        elif not isinstance(token, ly.tokenize.Space) or token.end >= pos:
+            break
 
 
 def getIndent(block):

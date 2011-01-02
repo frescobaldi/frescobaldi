@@ -151,6 +151,7 @@ class LilyPondEnd(LilyPond, Leaver, MatchEnd, Dedent):
 # Parsers
 
 class SchemeParser(Parser):
+    mode = 'scheme'
     items = (
         Space,
         OpenParen,

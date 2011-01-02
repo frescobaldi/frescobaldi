@@ -568,7 +568,7 @@ class EqualSignSetOverride(EqualSign):
 
 # Parsers
 class LilyPondParser(Parser):
-    pass
+    mode = 'lilypond'
 
 # basic stuff that can appear everywhere
 space_items = (

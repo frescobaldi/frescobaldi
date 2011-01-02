@@ -167,6 +167,14 @@ class State(object):
             self.parser().fallthrough(self)
         token.changeState(self)
 
+    def mode(self):
+        """Returns the mode attribute of the first parser (from current parser) that has it."""
+        for parser in self.state[::-1]:
+            try:
+                return parser.mode
+            except AttributeError:
+                pass
+
 
 class _makePatternMeta(type):
     """Metaclass for Parser subclasses.
