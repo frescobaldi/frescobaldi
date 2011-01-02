@@ -114,11 +114,11 @@ def computeIndent(block):
                 indent_pos, indent_add = found.token().pos, 1
             else:
                 # just use current indent + INDENT_WIDTH
-                indent_pos = len(token) if isinstance(token, ly.tokenize.Space) else 0
+                indent_pos = token.end if isinstance(token, ly.tokenize.Space) else 0
                 indent_add = INDENT_WIDTH
         elif indents + closers == 0:
             # take over indent of current line
-            indent_pos = len(token) if isinstance(token, ly.tokenize.Space) else 0
+            indent_pos = token.end if isinstance(token, ly.tokenize.Space) else 0
         else:
             prev = prev.previous()
             continue
@@ -130,12 +130,14 @@ def computeIndent(block):
 
 
 def getIndent(block):
-    """Returns the indent of the given block."""
+    """Returns the indent of the given block.
+    
+    If the block does not start with a space token, returns None.
+    
+    """
     tokens = tokeniter.tokens(block)
     if tokens and isinstance(tokens[0], ly.tokenize.Space):
         return indentOfText(tokens[0])
-    else:
-        return 0
 
 
 def setIndent(block, indent):

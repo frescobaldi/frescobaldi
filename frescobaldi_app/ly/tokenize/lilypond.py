@@ -83,13 +83,13 @@ class Comment(CommentBase):
     pass
 
 
-class BlockCommentStart(Comment):
+class BlockCommentStart(Comment, Indent):
     rx = r"%{"
     def changeState(self, state):
         state.enter(BlockCommentParser)
 
 
-class BlockCommentEnd(Comment, Leaver):
+class BlockCommentEnd(Comment, Leaver, Dedent):
     rx = r"%}"
 
 
@@ -835,6 +835,7 @@ class StringParser(StringParserBase):
 class BlockCommentParser(Parser):
     default = Comment
     items = (
+        Space,
         BlockCommentEnd,
     )
 

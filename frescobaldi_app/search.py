@@ -300,9 +300,7 @@ class Search(QWidget):
                 view.setSearchResults(self._positions)
 
 
-def cursorContains(cursor1, cursor2):
+def cursorContains(c1, c2):
     """Returns True if the selection of cursor2 entirely falls inside the selection of cursor1."""
-    start1, end1 = sorted((cursor1.position(), cursor1.anchor()))
-    start2, end2 = sorted((cursor2.position(), cursor2.anchor()))
-    return start1 <= start2 and end1 >= end2
+    return c1.selectionStart() <= c2.selectionStart() and c1.selectionEnd() >= c2.selectionEnd()
 
