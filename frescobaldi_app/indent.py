@@ -27,11 +27,8 @@ from PyQt4.QtGui import QTextCursor
 
 import ly.tokenize
 import tokeniter
+import variables
 
-
-INDENT_WIDTH = 2
-TAB_WIDTH = 8
-ALLOW_TABS = False
 
 # scheme commands that can have one argument on the same line and then want the next arguments
 # on the next lines at the same position.
@@ -50,6 +47,9 @@ def autoIndentBlock(block):
 
 def computeIndent(block):
     """Returns the indent the given block should have."""
+    
+    # get some variables from the document
+    indent_vars = indentVariables(block.document())
     
     # count the dedent tokens at the beginning of the block
     indents = 0
@@ -112,7 +112,7 @@ def computeIndent(block):
                     if (scheme and lasttokens[-1] in scheme_sync_args):
                         indent_pos = lasttokens[-2].pos
                     else:
-                        indent_pos, indent_add = found.token().pos, INDENT_WIDTH
+                        indent_pos, indent_add = found.token().pos, indent_vars['indent-width']
                 else:
                     indent_pos = lasttokens[-1].pos
             elif scheme:
@@ -120,7 +120,7 @@ def computeIndent(block):
             else:
                 # just use current indent + INDENT_WIDTH
                 indent_pos = token.end if isinstance(token, ly.tokenize.Space) else 0
-                indent_add = INDENT_WIDTH
+                indent_add = indent_vars['indent-width']
         elif indents + closers == 0:
             # take over indent of current line
             indent_pos = token.end if isinstance(token, ly.tokenize.Space) else 0
@@ -129,7 +129,7 @@ def computeIndent(block):
             continue
         
         # translate indent to real columns (expanding tabs)
-        return columnPosition(prev.text(), indent_pos) + indent_add
+        return columnPosition(prev.text(), indent_pos, indent_vars['tab-width']) + indent_add
     # e.g. on first line
     return 0
 
@@ -155,8 +155,15 @@ def increaseIndent(cursor):
     """
     if not changeIndent(cursor, 1):
         # just insert a tab
-        # TODO: see if tabs or spaces are desired
-        cursor.insertText('\t')
+        indent_vars = indentVariables(cursor.document())
+        if indent_vars['document-tabs']:
+            cursor.insertText('\t')
+        else:
+            block = cursor.block()
+            tabwidth = indent_vars['tab-width']
+            pos = columnPosition(block.text(), cursor.position() - block.position(), tabwidth)
+            spaces = tabwidth - pos % tabwidth
+            cursor.insertText(' ' * spaces)
 
 
 def decreaseIndent(cursor):
@@ -171,6 +178,9 @@ def changeIndent(cursor, direction):
     The cursor may contain a selection.
     
     """
+    # get some variables from the document
+    indent_vars = indentVariables(cursor.document())
+    
     blocks = list(tokeniter.selectedBlocks(cursor))
     block = blocks[0]
     pos = cursor.selectionStart() - block.position()
@@ -179,7 +189,7 @@ def changeIndent(cursor, direction):
         # decrease the indent
         state = tokeniter.state(block)
         current_indent = getIndent(block)
-        new_indent = current_indent + direction * INDENT_WIDTH
+        new_indent = current_indent + direction * indent_vars['indent-width']
         if state.mode() in ('lilypond', 'scheme'):
             computed_indent = computeIndent(block)
             if computed_indent is not None and cmp(computed_indent, new_indent) == direction:
@@ -193,19 +203,37 @@ def changeIndent(cursor, direction):
 
 def getIndent(block):
     """Returns the indent of the given block."""
+    
+    # get some variables from the document
+    indent_vars = indentVariables(block.document())
+    
     tokens = tokeniter.tokens(block)
     if tokens and isinstance(tokens[0], ly.tokenize.Space):
-        return columnPosition(tokens[0])
+        return columnPosition(tokens[0], tabwidth = indent_vars['tab-width'])
     return 0
 
 
 def setIndent(block, indent):
     """Sets the indent of block to tabs/spaces of length indent."""
+    
+    # get some variables from the document
+    indent_vars = indentVariables(block.document())
+    
     cursor = QTextCursor(block)
     tokens = tokeniter.tokens(block)
     if tokens and isinstance(tokens[0], ly.tokenize.Space):
         cursor = tokeniter.cursor(block, tokens[0])
-    cursor.insertText(makeIndent(indent))
+    cursor.insertText(makeIndent(indent, indent_vars['tab-width'], indent_vars['indent-tabs']))
+
+
+def indentVariables(document):
+    """Returns a dictionary with some variables regarding document indenting."""
+    return variables.update(document, {
+        'indent-width': 2,
+        'tab-width': 8,
+        'indent-tabs': False,
+        'document-tabs': True,
+    })
 
 
 def columnPosition(text, position=None, tabwidth = 8):
@@ -221,7 +249,7 @@ def columnPosition(text, position=None, tabwidth = 8):
         pos = tab + 1
 
 
-def makeIndent(indent, tabwidth = 8, allowTabs = ALLOW_TABS):
+def makeIndent(indent, tabwidth = 8, allowTabs = False):
     """Creates a string of indent length indent, using spaces (and tabs if allowTabs)."""
     if indent <= 0:
         return ''
