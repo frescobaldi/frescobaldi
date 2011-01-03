@@ -123,17 +123,13 @@ def computeIndent(block):
                 indent_add = indent_vars['indent-width']
         elif indents + closers == 0:
             # take over indent of current line
-            print "SAME INDENT",
             indent_pos = token.end if isinstance(token, ly.tokenize.Space) else 0
-            print indent_pos
         else:
             prev = prev.previous()
             continue
         
         # translate indent to real columns (expanding tabs)
-        colpos = columnPosition(prev.text(), indent_pos, indent_vars['tab-width']) + indent_add
-        print colpos
-        return colpos
+        return columnPosition(prev.text(), indent_pos, indent_vars['tab-width']) + indent_add
     # e.g. on first line
     return 0
 
