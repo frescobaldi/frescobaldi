@@ -35,6 +35,10 @@ import textformats
 import metainfo
 
 
+# when highlighting, don't test all the Token base classes
+_token_mro_slice = slice(0, -len(ly.tokenize.Token.__mro__))
+
+
 _highlightFormats = None
 
 def highlightFormats():
@@ -161,12 +165,11 @@ class Highlighter(QSyntaxHighlighter):
             setFormat = lambda f: self.setFormat(token.pos, len(token), f)
             formats = highlightFormats()
             for token in tokens:
-                for cls in token.__class__.__mro__:
-                    if cls is not ly.tokenize.Token:
-                        try:
-                            setFormat(formats[cls])
-                        except KeyError:
-                            continue
+                for cls in token.__class__.__mro__[_token_mro_slice]:
+                    try:
+                        setFormat(formats[cls])
+                    except KeyError:
+                        continue
                     break
         
     def setHighlighting(self, enable):
@@ -185,6 +188,7 @@ class Highlighter(QSyntaxHighlighter):
         """Returns a thawn ly.tokenize.State() object at the beginning of the given QTextBlock.
         
         This assumes the highlighter has already run through the whole document.
+        To get the state info please use tokeniter.state() instead of this method.
         
         """
         userState = block.previous().userState()

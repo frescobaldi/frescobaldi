@@ -149,7 +149,8 @@ def indentable(cursor):
 def increaseIndent(cursor):
     """Increases the indent of the line the cursor is at (or the selected lines).
     
-    If the cursor is not in the first indent space, just inserts a Tab (or spaces).
+    If there is no selection or the cursor is not in the first indent space,
+    just inserts a Tab (or spaces).
     
     """
     if not changeIndent(cursor, 1):
