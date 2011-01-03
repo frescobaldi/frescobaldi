@@ -211,6 +211,18 @@ class View(QPlainTextEdit):
             finally:
                 cursor.endEditBlock()
             
-    
+    def event(self, ev):
+        # handle Tab and Backtab
+        if ev.type() == QEvent.KeyPress:
+            modifiers = int(ev.modifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
+            if ev.key() == Qt.Key_Tab and modifiers == 0:
+                import indent
+                indent.increaseIndent(self.textCursor())
+                return True
+            elif ev.key() == Qt.Key_Backtab and modifiers & ~Qt.SHIFT == 0:
+                import indent
+                indent.decreaseIndent(self.textCursor())
+                return True
+        return super(View, self).event(ev)
 
 

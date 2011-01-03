@@ -146,6 +146,22 @@ def indentable(cursor):
             break
 
 
+def increaseIndent(cursor):
+    """Increases the indent of the line the cursor is at (or the selected lines).
+    
+    If the cursor is not in the first indent space, just inserts a Tab (or spaces).
+    
+    """
+    print "increaseIndent" # TODO implement
+    print list(tokeniter.selectedBlocks(cursor))
+
+
+def decreaseIndent(cursor):
+    """Decreases the indent of the line the cursor is at (or the selected lines)."""
+    print "decreaseIndent" # TODO: implement
+    print list(tokeniter.selectedBlocks(cursor))
+
+
 def getIndent(block):
     """Returns the indent of the given block.
     

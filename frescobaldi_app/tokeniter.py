@@ -50,6 +50,20 @@ def cursor(block, token):
     return cursor
 
 
+def selectedBlocks(cursor):
+    """Yields the block(s) containing the cursor or selection."""
+    c = QTextCursor(cursor)
+    c.setPosition(cursor.selectionStart())
+    block = c.block()
+    c.setPosition(cursor.selectionEnd())
+    end = c.block()
+    while True:
+        yield block
+        if block == end:
+            break
+        block = block.next()
+     
+
 class TokenIterator(object):
     """An iterator over the tokens in the userData a given QTextBlock."""
     def __init__(self, block, atEnd=False):
