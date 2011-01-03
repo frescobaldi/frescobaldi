@@ -129,7 +129,7 @@ def computeIndent(block):
             continue
         
         # translate indent to real columns (expanding tabs)
-        return indentOfText(prev.text(), indent_pos) + indent_add
+        return columnPosition(prev.text(), indent_pos) + indent_add
     # e.g. on first line
     return 0
 
@@ -152,25 +152,50 @@ def increaseIndent(cursor):
     If the cursor is not in the first indent space, just inserts a Tab (or spaces).
     
     """
-    print "increaseIndent" # TODO implement
-    print list(tokeniter.selectedBlocks(cursor))
+    if not changeIndent(cursor, 1):
+        # just insert a tab
+        # TODO: see if tabs or spaces are desired
+        cursor.insertText('\t')
 
 
 def decreaseIndent(cursor):
     """Decreases the indent of the line the cursor is at (or the selected lines)."""
-    print "decreaseIndent" # TODO: implement
-    print list(tokeniter.selectedBlocks(cursor))
+    changeIndent(cursor, -1)
+
+
+def changeIndent(cursor, direction):
+    """Changes the indent in the desired direction (-1 for left and +1 for right).
+    
+    Returns True if the indent operation was applied.
+    The cursor may contain a selection.
+    
+    """
+    blocks = list(tokeniter.selectedBlocks(cursor))
+    block = blocks[0]
+    pos = cursor.selectionStart() - block.position()
+    token = tokeniter.tokens(block)[0] if tokeniter.tokens(block) else None
+    if cursor.hasSelection() or pos == 0 or (token and isinstance(token, ly.tokenize.Space) and token.end >= pos):
+        # decrease the indent
+        state = tokeniter.state(block)
+        current_indent = getIndent(block)
+        new_indent = current_indent + direction * INDENT_WIDTH
+        if state.mode() in ('lilypond', 'scheme'):
+            computed_indent = computeIndent(block)
+            if computed_indent is not None and cmp(computed_indent, new_indent) == direction:
+                new_indent = computed_indent
+        diff = new_indent - current_indent
+        with tokeniter.editBlock(cursor):
+            for block in blocks:
+                setIndent(block, getIndent(block) + diff)
+        return True
 
 
 def getIndent(block):
-    """Returns the indent of the given block.
-    
-    If the block does not start with a space token, returns None.
-    
-    """
+    """Returns the indent of the given block."""
     tokens = tokeniter.tokens(block)
     if tokens and isinstance(tokens[0], ly.tokenize.Space):
-        return indentOfText(tokens[0])
+        return columnPosition(tokens[0])
+    return 0
 
 
 def setIndent(block, indent):
@@ -182,7 +207,7 @@ def setIndent(block, indent):
     cursor.insertText(makeIndent(indent))
 
 
-def indentOfText(text, position=None, tabwidth = 8):
+def columnPosition(text, position=None, tabwidth = 8):
     """Converts position (or the length of the text) to real column position, expanding tabs."""
     indent, pos = 0, 0
     end = len(text) if position is None else position
@@ -197,7 +222,9 @@ def indentOfText(text, position=None, tabwidth = 8):
 
 def makeIndent(indent, tabwidth = 8, allowTabs = ALLOW_TABS):
     """Creates a string of indent length indent, using spaces (and tabs if allowTabs)."""
-    if allowTabs:
+    if indent <= 0:
+        return ''
+    elif allowTabs:
         tabs, spaces = divmod(indent, tabwidth)
         return '\t' * tabs + ' ' * spaces
     else:

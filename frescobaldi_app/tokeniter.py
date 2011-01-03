@@ -23,6 +23,8 @@ from __future__ import unicode_literals
 Iterate over tokens.
 """
 
+import contextlib
+
 from PyQt4.QtGui import QTextCursor
 
 
@@ -63,6 +65,16 @@ def selectedBlocks(cursor):
             break
         block = block.next()
      
+
+@contextlib.contextmanager
+def editBlock(cursor, joinPrevious = False):
+    """Returns a context manager to perform operations on cursor as a single undo-item."""
+    cursor.joinPreviousEditBlock() if joinPrevious else cursor.beginEditBlock()
+    try:
+        yield
+    finally:
+        cursor.endEditBlock()
+
 
 class TokenIterator(object):
     """An iterator over the tokens in the userData a given QTextBlock."""

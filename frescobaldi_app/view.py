@@ -30,6 +30,7 @@ import app
 import metainfo
 import textformats
 import bookmarks
+import tokeniter
 
 
 class View(QPlainTextEdit):
@@ -205,11 +206,8 @@ class View(QPlainTextEdit):
         import indent
         cursor = self.textCursor()
         if ev.text() == '\r' or (ev.text() in ('}', '#', '>') and indent.indentable(cursor)):
-            cursor.joinPreviousEditBlock()
-            try:
+            with tokeniter.editBlock(cursor, True):
                 indent.autoIndentBlock(cursor.block())
-            finally:
-                cursor.endEditBlock()
             
     def event(self, ev):
         # handle Tab and Backtab
