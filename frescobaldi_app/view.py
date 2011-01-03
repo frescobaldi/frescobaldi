@@ -31,6 +31,7 @@ import metainfo
 import textformats
 import bookmarks
 import tokeniter
+import variables
 
 
 class View(QPlainTextEdit):
@@ -64,15 +65,8 @@ class View(QPlainTextEdit):
         self.setLayout(layout)
         
     def readSettings(self):
-        s = QSettings()
-        s.beginGroup("Editor")
-        
         data = textformats.formatData('editor')
         self.setFont(data.font)
-        metrics = QFontMetrics(data.font)
-        tabwidth = metrics.width(" ") * int(s.value("tabwidth", 8))
-        self.setTabStopWidth(tabwidth)
-        
         p = QApplication.palette()
         p.setColor(QPalette.Text, data.baseColors['text'])
         p.setColor(QPalette.Base, data.baseColors['background'])
@@ -82,6 +76,11 @@ class View(QPlainTextEdit):
         self._baseColors = data.baseColors
         self.updateMarkedLines()
         self.updateCursor()
+        QTimer.singleShot(0, self.setTabWidth)
+        
+    def setTabWidth(self):
+        tabwidth = self.fontMetrics().width(" ") * variables.get(self.document(), 'tab-width', 8)
+        self.setTabStopWidth(tabwidth)
         
     def focusInEvent(self, ev):
         super(View, self).focusInEvent(ev)
