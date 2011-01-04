@@ -53,6 +53,7 @@ class View(QPlainTextEdit):
         document.loaded.connect(self.restoreCursor)
         document.closed.connect(self.slotDocumentClosed)
         document.bookmarks.marksChanged.connect(self.updateMarkedLines)
+        variables.manager(document).changed.connect(self.setTabWidth)
         self.restoreCursor()
         self.cursorPositionChanged.connect(self.updateCursor)
         app.settingsChanged.connect(self.readSettings)
@@ -76,7 +77,7 @@ class View(QPlainTextEdit):
         self._baseColors = data.baseColors
         self.updateMarkedLines()
         self.updateCursor()
-        QTimer.singleShot(0, self.setTabWidth)
+        self.setTabWidth()
         
     def setTabWidth(self):
         tabwidth = self.fontMetrics().width(" ") * variables.get(self.document(), 'tab-width', 8)

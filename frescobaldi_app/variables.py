@@ -26,10 +26,17 @@ Infrastructure to get local variables embedded in comments in a document.
 import re
 import weakref
 
+from PyQt4.QtCore import QTimer
+
+import signals
 import ly.tokenize
 import tokeniter
 
-__all__ = ['get', 'update']
+__all__ = ['get', 'update', 'manager']
+
+
+_var_mgrs = weakref.WeakKeyDictionary()
+_variable_re = re.compile(r'\s*?([a-z]+(?:-[a-z]+)*):[ \t]*(.*?);')
 
 
 def get(document, varname, default=None):
@@ -39,22 +46,129 @@ def get(document, varname, default=None):
     If no value exists, the default is returned.
     
     """
-    variables = _manager(document).variables()
+    variables = manager(document).variables()
     try:
-        return _prepare(variables[varname], default)
+        return prepare(variables[varname], default)
     except KeyError:
         return default
 
 
 def update(document, dictionary):
     """Updates the given dictionary with values from the document, using present values as default."""
-    for name, value in _manager(document).variables().items():
+    for name, value in manager(document).variables().items():
         if name in dictionary:
-            dictionary[name] = _prepare(value, dictionary[name])
+            dictionary[name] = prepare(value, dictionary[name])
     return dictionary
 
 
-def _prepare(value, default):
+def manager(document):
+    """Returns a VariableManager for this document."""
+    try:
+        return _var_mgrs[document]
+    except KeyError:
+        mgr = _var_mgrs[document] = VariableManager(document)
+    return mgr
+    
+    
+class VariableManager(object):
+    """Caches variables in the document and monitors for changes.
+    
+    The changed() Signal is emitted some time after the list of variables has been changed.
+    It is recommended to not change the document itself in response to this signal.
+    
+    """
+    changed = signals.Signal() # without argument
+    
+    LINES = 5
+    
+    def __init__(self, document):
+        self.document = weakref.ref(document)
+        self._updateTimer = QTimer(singleShot=True, timeout=self.slotTimeout)
+        self._variables = self.readVariables()
+        document.contentsChange.connect(self.slotContentsChange)
+        document.closed.connect(self._updateTimer.stop) # just to be sure
+    
+    def slotTimeout(self):
+        variables = self.readVariables()
+        if variables != self._variables:
+            self._variables = variables
+            self.changed()
+        
+    def slotContentsChange(self, position, removed, added):
+        """Called if the document changes."""
+        if (self.document().findBlock(position).blockNumber() < self.LINES or
+            self.document().findBlock(position + added).blockNumber() > self.document().blockCount() - self.LINES):
+            self._updateTimer.start(750)
+    
+    def variables(self):
+        """Returns the document variables (cached) as a dictionary. This method is recommended."""
+        if self._updateTimer.isActive():
+            # an update is pending, force it
+            self._updateTimer.stop()
+            self.slotTimeout()
+        return self._variables
+    
+    def readVariables(self):
+        """Reads the variables from the document and returns a dictionary. Internal."""
+        lines = self.document().blockCount()
+        if lines <= self.LINES * 2:
+            groups = (range(lines), )
+        else:
+            groups = (range(self.LINES), range(lines - self.LINES, lines))
+        variables = {}
+        for group in groups:
+            lines = (self.document().findBlockByNumber(num).text() for num in group)
+            variables.update(m.group(1, 2) for n, m in positions(lines))
+        return variables
+        
+
+def positions(lines):
+    """Lines should be an iterable returning lines of text.
+    
+    Returns an iterable yielding tuples (lineNum, matchObj) for every variable found.
+    Every matchObj has group(1) pointing to the variable name and group(2) to the value.
+    
+    """
+    commentstart = ''
+    interesting = False
+    for lineNum, text in enumerate(lines):
+        # first check the line start
+        start = 0
+        if interesting:
+            # already parsing? then skip comment start tokens
+            m = re.match(r'\s*{0}'.format(re.escape(commentstart)), text)
+            if m:
+                start = m.end()
+        else:
+            # does the line have '-*-' ?
+            m = re.match(r'\s*(\S*)\s*-\*-', text)
+            if m:
+                interesting = True
+                commentstart = m.group(1)
+                start = m.end()
+        # now parse the line
+        if interesting:
+            while True:
+                m = _variable_re.match(text, start)
+                if m:
+                    yield lineNum, m
+                    start = m.end()
+                else:
+                    if start < len(text) and not text[start:].isspace():
+                        interesting = False
+                    break
+
+
+def variables(lines):
+    """Lines should be an iterable returning lines of text.
+    
+    Returns a dictionary containing the variables (as strings).
+    
+    """
+    return dict(m.group(1, 2) for n, m in positions(lines))
+    
+
+def prepare(value, default):
     """Try to convert the value (which is a string) to the type of the default value.
     
     If (for int and bool) that fails, returns the default, otherwise returns the string unchanged.
@@ -72,60 +186,5 @@ def _prepare(value, default):
         except ValueError:
             return default
     return value
-
-
-_var_mgrs = weakref.WeakKeyDictionary()
-
-
-def _manager(document):
-    """Returns a VariableManager for this document."""
-    try:
-        return _var_mgrs[document]
-    except KeyError:
-        result = _var_mgrs[document] = _VariableManager(document)
-    return result
-
-
-# how many lines to watch from beginning to end
-LINES = 10
-
-class _VariableManager(object):
-    """ Caches variables for documents. """
-    def __init__(self, document):
-        self.document = weakref.ref(document)
-        _var_mgrs[document] = self
-        self._variables = None
-        
-    def slotContentsChange(self, position, removed, added):
-        """Called if the document changes."""
-        if (self.document().findBlock(position).blockNumber() < LINES or
-            self.document().findBlock(position + added).blockNumber() > self.document().blockCount() - LINES):
-            self._variables = None
-            # disconnect, connect when variables are requested again
-            self.document().contentsChange.disconnect(self.slotContentsChange)
-            
-    def variables(self):
-        if self._variables is None:
-            self._variables = {}
-            interesting = False
-            for block in self.interestingBlocks():
-                comment = []
-                for token in tokeniter.tokens(block):
-                    if isinstance(token, ly.tokenize.CommentBase):
-                        if not interesting and '-*-' in token:
-                            interesting = True
-                        if interesting:
-                            comment.append(token)
-                    else:
-                        interesting = False
-                self._variables.update(re.findall(r'([a-z]+(?:-[a-z]+)*):[ \t]*(.*?);', ''.join(comment)))
-            self.document().contentsChange.connect(self.slotContentsChange)
-        return self._variables
-    
-    def interestingBlocks(self):
-        """Iterate over the first 5 and last 5 blocks."""
-        lines = self.document().blockCount()
-        for num in filter(lambda i: i < LINES or i > lines-LINES, range(lines)):
-            yield self.document().findBlockByNumber(num)
 
 
