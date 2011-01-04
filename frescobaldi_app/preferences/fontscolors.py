@@ -500,7 +500,7 @@ def allStyleNames():
             'string':       _("String"),
             'comment':      _("Comment"),
         }),
-        'texi': (_("Texinfo"), {
+        'texinfo': (_("Texinfo"), {
             'keyword':      _("Keyword"),
             'block':        _("Block"),
             'escapechar':   _("Escaped Character"),

@@ -121,8 +121,8 @@ class VariableManager(object):
                 block = block.next()
         variables = {}
         for start in groups:
-            variables.update(m.group(1, 2)
-                             for n, m in positions(lines(self.document().findBlockByNumber(start))))
+            block = self.document().findBlockByNumber(start)
+            variables.update(m.group(1, 2) for n, m in positions(lines(block)))
         return variables
         
 

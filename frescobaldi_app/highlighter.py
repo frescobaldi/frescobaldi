@@ -33,6 +33,7 @@ import ly.tokenize
 import app
 import textformats
 import metainfo
+import variables
 
 
 # when highlighting, don't test all the Token base classes
@@ -107,12 +108,12 @@ def makeHighlightFormats(data):
     d[ly.tokenize.html.LilyPondTag] = data.textFormat('html', 'lilypondtag')
     
     # Texinfo
-    d[ly.tokenize.texi.Keyword] = data.textFormat('texi', 'keyword')
-    d[ly.tokenize.texi.Block] = data.textFormat('texi', 'block')
-    d[ly.tokenize.texi.Attribute] = data.textFormat('texi', 'attribute')
-    d[ly.tokenize.texi.EscapeChar] = data.textFormat('texi', 'escapechar')
-    d[ly.tokenize.texi.Verbatim] = data.textFormat('texi', 'verbatim')
-    d[ly.tokenize.texi.Comment] = data.textFormat('texi', 'comment')
+    d[ly.tokenize.texinfo.Keyword] = data.textFormat('texinfo', 'keyword')
+    d[ly.tokenize.texinfo.Block] = data.textFormat('texinfo', 'block')
+    d[ly.tokenize.texinfo.Attribute] = data.textFormat('texinfo', 'attribute')
+    d[ly.tokenize.texinfo.EscapeChar] = data.textFormat('texinfo', 'escapechar')
+    d[ly.tokenize.texinfo.Verbatim] = data.textFormat('texinfo', 'verbatim')
+    d[ly.tokenize.texinfo.Comment] = data.textFormat('texinfo', 'comment')
     
     
     return d
@@ -128,7 +129,17 @@ class Highlighter(QSyntaxHighlighter):
         app.settingsChanged.connect(self.rehighlight)
         self._highlighting = metainfo.info(document).highlighting
         document.loaded.connect(self._resetHighlighting)
+        mode = variables.get(document, "mode")
+        self._mode = mode if mode in ly.tokenize.modes else None
+        variables.manager(document).changed.connect(self._variablesChange)
         
+    def _variablesChange(self):
+        mode = variables.get(self.document(), "mode")
+        mode = mode if mode in ly.tokenize.modes else None
+        if mode != self._mode:
+            self._mode = mode
+            self.rehighlight()
+            
     def _resetHighlighting(self):
         """Switches highlighting on or off depending on saved metainfo."""
         self.setHighlighting(metainfo.info(self.document()).highlighting)
@@ -143,7 +154,7 @@ class Highlighter(QSyntaxHighlighter):
             self.setCurrentBlockState(prev - 1) # keep the highligher coming back
             return
         else:
-            state = ly.tokenize.State(ly.tokenize.guessState(self.document().toPlainText()))
+            state = self.initialState()
         
         # collect and save the tokens
         data = self.currentBlockUserData()
@@ -194,7 +205,12 @@ class Highlighter(QSyntaxHighlighter):
         userState = block.previous().userState()
         if 0 <= userState < len(self._states):
             return ly.tokenize.State.thaw(self._states[userState])
-        return ly.tokenize.State(ly.tokenize.guessState(self.document().toPlainText()))
+        return self.initialState()
+
+    def initialState(self):
+        """Returns the initial State for this document."""
+        mode = self._mode or ly.guessType(self.document().toPlainText())
+        return ly.tokenize.state(mode)
 
 
 class BlockData(QTextBlockUserData):
@@ -211,8 +227,10 @@ def htmlCopy(document, data):
     text = document.toPlainText()
     doc.setPlainText(text)
     cursor = QTextCursor(doc)
-    state = ly.tokenize.State(ly.tokenize.guessState(text))
-    for token in ly.tokenize.tokens(text, state):
+    mode = variables.get(document, 'mode')
+    if mode not in ly.tokenize.modes:
+        mode = ly.guessType(text)
+    for token in ly.tokenize.tokens(text, ly.tokenize.state(mode)):
         for cls in token.__class__.__mro__:
             if cls is not ly.tokenize.Token:
                 try:

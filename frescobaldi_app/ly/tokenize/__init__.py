@@ -29,16 +29,16 @@ LilyPond (and vice versa).
 
 import re
 
-from .. import guessType
-
 _classlist = []
 
 
-def tokens(text, state=None, pos=0):
+def state(mode):
+    """Returns a State instance starting at mode."""
+    return State(modes[mode])
+
+
+def tokens(text, state, pos=0):
     """Parses a text string using state.
-    
-    If state is not given, starts an anonymous state that guesses the type
-    of input (LilyPond, HTML, etc.).
     
     Yields tokens.  All tokens are a subclass of unicode.  Also space tokens
     are returned.  All tokens have a pos and an end attribute, describing their
@@ -102,9 +102,7 @@ class State(object):
     generator to tokenize a text string of LilyPond input.
     
     """
-    def __init__(self, initialParserClass=None):
-        if initialParserClass is None:
-            initialParserClass = lilypond.LilyPondParser
+    def __init__(self, initialParserClass):
         self.state = [initialParserClass()]
         self.language = 'nederlands' # LilyPond pitch name language
     
@@ -320,29 +318,19 @@ class StringParserBase(Parser):
     defaultClass = StringBase
 
 
-
-
-def guessState(text):
-    """Tries to guess the type of the input text.
-    
-    Returns the state class that can be used to parse it.
-    
-    """
-    return {
-        'lilypond': lilypond.LilyPondParserGlobal,
-        'scheme':   scheme.SchemeParser,
-        'docbook':  docbook.DocBookParser,
-        'latex':    latex.LaTeXParser,
-        'texi':     texi.TexinfoParser,
-        'html':     html.HTMLParser,
-        }[guessType(text)]
-        
-
-
 import lilypond
 import scheme
 import docbook
 import latex
-import texi
+import texinfo
 import html
+
+modes = {
+    'lilypond': lilypond.LilyPondParserGlobal,
+    'scheme':   scheme.SchemeParser,
+    'docbook':  docbook.DocBookParser,
+    'latex':    latex.LaTeXParser,
+    'texinfo':  texinfo.TexinfoParser,
+    'html':     html.HTMLParser,
+}
 

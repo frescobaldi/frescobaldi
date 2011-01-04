@@ -269,7 +269,7 @@ def _allStyleDefaults():
     
     latex = {}
     docbook = {}
-    texi = {}
+    texinfo = {}
     
     del f
     return locals()
@@ -325,7 +325,7 @@ allStyles = (
         'string',
         'comment',
         )),
-    ('texi', (
+    ('texinfo', (
         'keyword',
         'block',
         'attribute',
@@ -367,7 +367,7 @@ inherits = {
         'string': 'string',
         'comment': 'comment',
     },
-    'texi': {
+    'texinfo': {
         'keyword': 'keyword',
         'block': 'function',
         'attribute': 'variable',

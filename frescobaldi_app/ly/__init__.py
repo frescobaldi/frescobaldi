@@ -30,7 +30,7 @@ def guessType(text):
         scheme
         docbook
         latex
-        texi
+        texinfo
         html
     
     """
@@ -47,7 +47,7 @@ def guessType(text):
     elif text.startswith(("#!", ";", "(")):
         return "scheme"
     elif text.startswith('@'):
-        return "texi"
+        return "texinfo"
     else:
         return "lilypond"
 
