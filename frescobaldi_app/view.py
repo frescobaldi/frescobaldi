@@ -51,6 +51,7 @@ class View(QPlainTextEdit):
         self.setCursorWidth(2)
         # restore saved cursor position (defaulting to 0)
         document.loaded.connect(self.restoreCursor)
+        document.loaded.connect(self.setTabWidth)
         document.closed.connect(self.slotDocumentClosed)
         document.bookmarks.marksChanged.connect(self.updateMarkedLines)
         variables.manager(document).changed.connect(self.setTabWidth)
