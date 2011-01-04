@@ -111,17 +111,16 @@ class VariableManager(object):
     def readVariables(self):
         """Reads the variables from the document and returns a dictionary. Internal."""
         count = self.document().blockCount()
-        groups = [0]
+        blocks = [self.document().firstBlock()]
         if count > self.LINES * 2:
-            groups.append(count - self.LINES)
+            blocks.append(self.document().findBlockByNumber(count - self.LINES))
             count = self.LINES
         def lines(block):
             for i in range(count):
                 yield block.text()
                 block = block.next()
         variables = {}
-        for start in groups:
-            block = self.document().findBlockByNumber(start)
+        for block in blocks:
             variables.update(m.group(1, 2) for n, m in positions(lines(block)))
         return variables
         
