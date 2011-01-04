@@ -135,7 +135,8 @@ class Highlighter(QSyntaxHighlighter):
         
     def _variablesChange(self):
         mode = variables.get(self.document(), "mode")
-        mode = mode if mode in ly.tokenize.modes else None
+        if mode not in ly.tokenize.modes:
+            mode = None # default for unknown
         if mode != self._mode:
             self._mode = mode
             self.rehighlight()
@@ -226,20 +227,23 @@ def htmlCopy(document, data):
     doc.setDefaultFont(data.font)
     text = document.toPlainText()
     doc.setPlainText(text)
-    cursor = QTextCursor(doc)
     mode = variables.get(document, 'mode')
     if mode not in ly.tokenize.modes:
         mode = ly.guessType(text)
-    for token in ly.tokenize.tokens(text, ly.tokenize.state(mode)):
-        for cls in token.__class__.__mro__:
-            if cls is not ly.tokenize.Token:
+    state = ly.tokenize.state(mode)
+    cursor = QTextCursor(doc)
+    block = doc.firstBlock()
+    while block.isValid():
+        for token in ly.tokenize.tokens(block.text(), state):
+            for cls in token.__class__.__mro__[_token_mro_slice]:
                 try:
                     f = formats[cls]
                 except KeyError:
                     continue
-                cursor.setPosition(token.pos)
-                cursor.setPosition(token.end, QTextCursor.KeepAnchor)
+                cursor.setPosition(block.position() + token.pos)
+                cursor.setPosition(block.position() + token.end, QTextCursor.KeepAnchor)
                 cursor.setCharFormat(f)
-            break
+                break
+        block = block.next()
     return doc
-    
+
