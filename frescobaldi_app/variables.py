@@ -98,7 +98,7 @@ class VariableManager(object):
         """Called if the document changes."""
         if (self.document().findBlock(position).blockNumber() < self.LINES or
             self.document().findBlock(position + added).blockNumber() > self.document().blockCount() - self.LINES):
-            self._updateTimer.start(750)
+            self._updateTimer.start(500)
     
     def variables(self):
         """Returns the document variables (cached) as a dictionary. This method is recommended."""
