@@ -144,7 +144,7 @@ def positions(lines):
                 start = m.end()
         else:
             # does the line have '-*-' ?
-            m = re.match(r'\s*(\S*)\s*-\*-', text)
+            m = re.search(r'(\S*)\s*-\*-', text)
             if m:
                 interesting = True
                 commentstart = m.group(1)
