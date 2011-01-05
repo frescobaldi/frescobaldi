@@ -38,6 +38,8 @@ __all__ = ['get', 'update', 'manager']
 _var_mgrs = weakref.WeakKeyDictionary()
 _variable_re = re.compile(r'\s*?([a-z]+(?:-[a-z]+)*):[ \t]*(.*?);')
 
+_LINES = 5      # how many lines from top and bottom to scan for variables
+
 
 def get(document, varname, default=None):
     """Get a single value from the document.
@@ -79,8 +81,6 @@ class VariableManager(object):
     """
     changed = signals.Signal() # without argument
     
-    LINES = 5
-    
     def __init__(self, document):
         self.document = weakref.ref(document)
         self._updateTimer = QTimer(singleShot=True, timeout=self.slotTimeout)
@@ -96,8 +96,8 @@ class VariableManager(object):
         
     def slotContentsChange(self, position, removed, added):
         """Called if the document changes."""
-        if (self.document().findBlock(position).blockNumber() < self.LINES or
-            self.document().findBlock(position + added).blockNumber() > self.document().blockCount() - self.LINES):
+        if (self.document().findBlock(position).blockNumber() < _LINES or
+            self.document().findBlock(position + added).blockNumber() > self.document().blockCount() - _LINES):
             self._updateTimer.start(500)
     
     def variables(self):
@@ -112,9 +112,9 @@ class VariableManager(object):
         """Reads the variables from the document and returns a dictionary. Internal."""
         count = self.document().blockCount()
         blocks = [self.document().firstBlock()]
-        if count > self.LINES * 2:
-            blocks.append(self.document().findBlockByNumber(count - self.LINES))
-            count = self.LINES
+        if count > _LINES * 2:
+            blocks.append(self.document().findBlockByNumber(count - _LINES))
+            count = _LINES
         def lines(block):
             for i in range(count):
                 yield block.text()
@@ -171,6 +171,18 @@ def variables(lines):
     return dict(m.group(1, 2) for n, m in positions(lines))
     
 
+def readVariables(text):
+    """Reads variables from the first and last _LINES lines of text."""
+    lines = text.split('\n')
+    start, count = 0, len(lines)
+    d = {}
+    if count > 2 * _LINES:
+        d.update(m.group(1, 2) for n, m in positions(lines[:_LINES]))
+        start = count - _LINES
+    d.update(m.group(1, 2) for n, m in positions(lines[start:]))
+    return d
+    
+    
 def prepare(value, default):
     """Try to convert the value (which is a string) to the type of the default value.
     

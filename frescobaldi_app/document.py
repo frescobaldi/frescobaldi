@@ -23,6 +23,7 @@ from __future__ import unicode_literals
 A Frescobaldi (LilyPond) document.
 """
 
+import codecs
 import os
 
 from PyQt4.QtCore import *
@@ -33,6 +34,7 @@ import view
 import highlighter
 import textformats
 import bookmarks
+import variables
 
 
 class Document(QTextDocument):
@@ -74,20 +76,28 @@ class Document(QTextDocument):
             try:
                 with open(fileName) as f:
                     data = f.read()
-            except IOError, OSError:
+            except (IOError, OSError):
                 return False # errors are caught in MainWindow.openUrl()
-            encodings = ['utf8', 'latin1']
-            if self._encoding:
-                encodings.insert(0, self._encoding)
-            for encoding in encodings:
+            
+            # find and try encodings
+            def encodings():
+                if self._encoding:
+                    yield self._encoding
+                var_coding = variables.readVariables(data.decode('latin1', 'ignore')).get("coding")
+                if var_coding:
+                    yield var_coding
+                yield 'utf-8'
+                yield 'latin1'
+                
+            for encoding in encodings():
                 try:
                     text = data.decode(encoding)
-                except UnicodeError:
+                except (UnicodeError, LookupError):
                     continue
                 else:
                     break
             else:
-                text = data.decode('utf8', 'replace')
+                text = data.decode('utf-8', 'replace')
             self.setPlainText(text)
             self.setModified(False)
             self.loaded.emit()
@@ -103,11 +113,14 @@ class Document(QTextDocument):
         """
         fileName = self.url().toLocalFile()
         if fileName:
-            data = self.toPlainText().encode(self._encoding or 'utf8')
+            try:
+                data = self.toPlainText().encode(self.encoding() or 'utf-8')
+            except (UnicodeError, LookupError):
+                data = self.toPlainText().encode('utf-8')
             try:
                 with open(fileName, "w") as f:
                     f.write(data)
-            except IOError, OSError:
+            except (IOError, OSError):
                 return False
             self.setModified(False)
             self.saved.emit()
@@ -141,7 +154,7 @@ class Document(QTextDocument):
             app.documentUrlChanged(self)
     
     def encoding(self):
-        return self._encoding
+        return variables.get(self, "coding") or self._encoding
         
     def setEncoding(self, encoding):
         self._encoding = encoding
