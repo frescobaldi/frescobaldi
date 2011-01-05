@@ -59,48 +59,38 @@ def startmain():
 
     options, files = parser.parse_args(QApplication.arguments()[1:])
 
-    # load specific or default session, activeDocument contains
-    # the Document that should be set active.
-    if options.session == "none":
-        activeDocument = None
-    elif options.session:
-        activeDocument = sessionmanager.loadSession(options.session)
-    else:
-        activeDocument = sessionmanager.loadDefaultSession()
+    # load specified session
+    doc = None
+    if options.session and options.session != "none":
+        doc = sessionmanager.loadSession(options.session)
         
     # Just create one MainWindow
     win = mainwindow.MainWindow()
     win.show()
     
-    # make urls
-    urls = []
-    for arg in files:
-        if re.match(r'^(https?|s?ftp)://', arg):
-            url = QUrl(arg)
-        elif arg.startswith('file://'):
-            url = QUrl.fromLocalFile(arg[7:])
-        elif arg.startswith('file:'):
-            url = QUrl.fromLocalFile(os.path.abspath(arg[5:]))
-        else:
-            url = QUrl.fromLocalFile(os.path.abspath(arg))
-        urls.append(url)
-    
-    docs = [win.openUrl(url, options.encoding) for url in urls]
-    if docs:
-        # set the last document active and apply navigation if requested
-        doc = docs[-1]
-        win.setCurrentDocument(doc)
-        if options.line is not None:
-            pos = doc.findBlockByNumber(options.line - 1).position() + options.column
-            cursor = QTextCursor(doc)
-            cursor.setPosition(pos)
-            win.currentView().setTextCursor(cursor)
-            win.currentView().centerCursor()
-    elif activeDocument:
-        win.setCurrentDocument(activeDocument)
-    else:
-        # just create one empty and nameless document
-        win.setCurrentDocument(document.Document())
+    if files:
+        # make urls
+        for arg in files:
+            if re.match(r'^(https?|s?ftp)://', arg):
+                url = QUrl(arg)
+            elif arg.startswith('file://'):
+                url = QUrl.fromLocalFile(arg[7:])
+            elif arg.startswith('file:'):
+                url = QUrl.fromLocalFile(os.path.abspath(arg[5:]))
+            else:
+                url = QUrl.fromLocalFile(os.path.abspath(arg))
+            doc = win.openUrl(url, options.encoding)
+    elif not options.session:
+        # no docs, load default session
+        doc = sessionmanager.loadDefaultSession()
+    win.setCurrentDocument(doc or document.Document())
+    if files and options.line is not None:
+        # set the last loaded document active and apply navigation if requested
+        pos = doc.findBlockByNumber(options.line - 1).position() + options.column
+        cursor = QTextCursor(doc)
+        cursor.setPosition(pos)
+        win.currentView().setTextCursor(cursor)
+        win.currentView().centerCursor()
 
 if app.qApp.isSessionRestored():
     # Restore session, we are started by the session manager
