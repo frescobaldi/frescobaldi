@@ -32,7 +32,7 @@ import signals
 import ly.tokenize
 import tokeniter
 
-__all__ = ['get', 'update', 'manager']
+__all__ = ['get', 'update', 'manager', 'variables']
 
 
 _var_mgrs = weakref.WeakKeyDictionary()
@@ -70,6 +70,18 @@ def manager(document):
     except KeyError:
         mgr = _var_mgrs[document] = VariableManager(document)
     return mgr
+    
+    
+def variables(text):
+    """Reads variables from the first and last _LINES lines of text. Also accepts byte strings."""
+    lines = text.split(b'\n')
+    start, count = 0, len(lines)
+    d = {}
+    if count > 2 * _LINES:
+        d.update(m.group(1, 2) for n, m in positions(lines[:_LINES]))
+        start = count - _LINES
+    d.update(m.group(1, 2) for n, m in positions(lines[start:]))
+    return d
     
     
 class VariableManager(object):
@@ -162,27 +174,6 @@ def positions(lines):
                     break
 
 
-def variables(lines):
-    """Lines should be an iterable returning lines of text.
-    
-    Returns a dictionary containing the variables (as strings).
-    
-    """
-    return dict(m.group(1, 2) for n, m in positions(lines))
-    
-
-def readVariables(text):
-    """Reads variables from the first and last _LINES lines of text."""
-    lines = text.split(b'\n')
-    start, count = 0, len(lines)
-    d = {}
-    if count > 2 * _LINES:
-        d.update(m.group(1, 2) for n, m in positions(lines[:_LINES]))
-        start = count - _LINES
-    d.update(m.group(1, 2) for n, m in positions(lines[start:]))
-    return d
-    
-    
 def prepare(value, default):
     """Try to convert the value (which is a string) to the type of the default value.
     

@@ -93,7 +93,7 @@ class Document(QTextDocument):
                     data = data[len(bom):]
                     break
             else:
-                var_coding = variables.readVariables(data).get("coding")
+                var_coding = variables.variables(data).get("coding")
                 if var_coding:
                     encodings.append(var_coding)
             encodings.append('utf-8')
