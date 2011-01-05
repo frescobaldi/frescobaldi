@@ -83,7 +83,7 @@ class Document(QTextDocument):
             def encodings():
                 if self._encoding:
                     yield self._encoding
-                var_coding = variables.readVariables(data.decode('latin1', 'ignore')).get("coding")
+                var_coding = variables.readVariables(data).get("coding")
                 if var_coding:
                     yield var_coding
                 yield 'utf-8'
