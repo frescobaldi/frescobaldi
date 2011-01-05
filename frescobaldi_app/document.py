@@ -80,16 +80,26 @@ class Document(QTextDocument):
                 return False # errors are caught in MainWindow.openUrl()
             
             # find and try encodings
-            def encodings():
-                if self._encoding:
-                    yield self._encoding
+            encodings = []
+            if self._encoding:
+                encodings.append(self._encoding)
+            for bom, encoding in (
+                (codecs.BOM_UTF8, 'utf-8'),
+                (codecs.BOM_UTF16_LE, 'utf_16_le'),
+                (codecs.BOM_UTF16_BE, 'utf_16_be'),
+                    ):
+                if data.startswith(bom):
+                    encodings.append(encoding)
+                    data = data[len(bom):]
+                    break
+            else:
                 var_coding = variables.readVariables(data).get("coding")
                 if var_coding:
-                    yield var_coding
-                yield 'utf-8'
-                yield 'latin1'
-                
-            for encoding in encodings():
+                    encodings.append(var_coding)
+            encodings.append('utf-8')
+            encodings.append('latin1')
+            
+            for encoding in encodings:
                 try:
                     text = data.decode(encoding)
                 except (UnicodeError, LookupError):
