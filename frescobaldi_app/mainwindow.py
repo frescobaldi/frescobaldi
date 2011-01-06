@@ -145,11 +145,13 @@ class MainWindow(QMainWindow):
                 curd.redoAvailable.disconnect(self.updateDocActions)
                 curd.modificationChanged.disconnect(self.updateWindowTitle)
                 curd.urlChanged.disconnect(self.updateWindowTitle)
+                curd.loaded.disconnect(self.updateDocActions)
                 curd.bookmarks.marksChanged.disconnect(self.updateMarkStatus)
             doc.undoAvailable.connect(self.updateDocActions)
             doc.redoAvailable.connect(self.updateDocActions)
             doc.modificationChanged.connect(self.updateWindowTitle)
             doc.urlChanged.connect(self.updateWindowTitle)
+            doc.loaded.connect(self.updateDocActions)
             doc.bookmarks.marksChanged.connect(self.updateMarkStatus)
             self.updateDocActions()
             self.updateWindowTitle()
@@ -180,7 +182,7 @@ class MainWindow(QMainWindow):
         ac = self.actionCollection
         ac.edit_undo.setEnabled(doc.isUndoAvailable())
         ac.edit_redo.setEnabled(doc.isRedoAvailable())
-        ac.view_highlighting.setChecked(doc.highlighter.isHighlighting())
+        ac.view_highlighting.setChecked(metainfo.info(doc).highlighting)
         ac.tools_indent_auto.setChecked(metainfo.info(doc).autoindent)
         
     def updateWindowTitle(self):
@@ -547,8 +549,9 @@ class MainWindow(QMainWindow):
         dlg.deleteLater()
     
     def toggleHighlighting(self):
-        hl = self.currentDocument().highlighter
-        hl.setHighlighting(not hl.isHighlighting())
+        minfo = metainfo.info(self.currentDocument())
+        minfo.highlighting = not minfo.highlighting
+        self.currentDocument().highlighter.setHighlighting(minfo.highlighting)
         
     def markCurrentLine(self):
         view = self.currentView()

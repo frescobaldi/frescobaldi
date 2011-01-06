@@ -187,7 +187,6 @@ class Highlighter(QSyntaxHighlighter):
         changed = enable != self._highlighting
         self._highlighting = enable
         if changed:
-            metainfo.info(self.document()).highlighting = enable
             self.rehighlight()
             
     def isHighlighting(self):

@@ -40,30 +40,33 @@ _docinfo = weakref.WeakKeyDictionary() # for (unsaved) documents that have no UR
 _urlinfo = {}  # for documents that have a URL
 
 
+_defaults = (
+    # name           default           readfunc
+    ('position',     0,                int),
+    ('bookmarks',    json.dumps(None), bytes),
+    ('highlighting', True,             lambda v: v not in ('false', False)),
+    ('autoindent',   True,             lambda v: v not in ('false', False)),
+)
+
+
 class MetaInfo(object):
     """Stores meta-information about a Document."""
     def __init__(self):
-        self.position = 0
-        self.bookmarks = json.dumps(None)
-        self.highlighting = True
-        self.autoindent = True
+        self.__dict__ = dict((name, default) for name, default, readfunc in _defaults)
 
     def load(self, url, settings=None):
         """Loads our settings from the group of url."""
         with settingsGroup(url, settings) as s:
-            self.position = int(s.value("position", 0))
-            self.bookmarks = bytes(s.value("bookmarks", json.dumps(None)))
-            self.highlighting = s.value("highlighting", True) not in ('false', False)
-            self.autoindent = s.value("autoindent", True) not in ('false', False)
-            
+            for name, default, readfunc in _defaults:
+                self.__dict__[name] = readfunc(s.value(name, default))
+    
     def save(self, url, settings=None):
         """Saves our settings to the group of url."""
         with settingsGroup(url, settings) as s:
             s.setValue("time", time.time())
-            s.setValue("position", self.position)
-            s.remove("bookmarks") if self.bookmarks == json.dumps(None) else s.setValue("bookmarks", self.bookmarks)
-            s.remove("highlighting") if self.highlighting else s.setValue("highlighting", self.highlighting)
-            s.remove("autoindent") if self.autoindent else s.setValue("autoindent", self.autoindent)
+            for name, default, readfunc in _defaults:
+                value = self.__dict__[name]
+                s.remove(name) if value == default else s.setValue(name, value)
             
 
 @contextlib.contextmanager
