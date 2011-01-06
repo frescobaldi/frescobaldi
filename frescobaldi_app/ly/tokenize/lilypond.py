@@ -777,7 +777,7 @@ class LilyPondParserExpectLayout(ExpectOpenBracket):
 
 class LilyPondParserMidi(LilyPondParser):
     """Parses the expression after \score {, leaving at } """
-    items = (
+    items = base_items + (
         CloseBracket,
         LayoutContext,
         LayoutVariable,

@@ -203,12 +203,13 @@ class View(QPlainTextEdit):
     def keyPressEvent(self, ev):
         super(View, self).keyPressEvent(ev)
         
-        # run the indenter on Return or when the user entered a dedent token.
-        import indent
-        cursor = self.textCursor()
-        if ev.text() == '\r' or (ev.text() in ('}', '#', '>') and indent.indentable(cursor)):
-            with tokeniter.editBlock(cursor, True):
-                indent.autoIndentBlock(cursor.block())
+        if metainfo.info(self.document()).autoindent:
+            # run the indenter on Return or when the user entered a dedent token.
+            import indent
+            cursor = self.textCursor()
+            if ev.text() == '\r' or (ev.text() in ('}', '#', '>') and indent.indentable(cursor)):
+                with tokeniter.editBlock(cursor, True):
+                    indent.autoIndentBlock(cursor.block())
             
     def event(self, ev):
         # handle Tab and Backtab

@@ -38,6 +38,7 @@ import actioncollection
 import document
 import view
 import viewmanager
+import metainfo
 import signals
 import recentfiles
 import sessionmanager
@@ -180,6 +181,7 @@ class MainWindow(QMainWindow):
         ac.edit_undo.setEnabled(doc.isUndoAvailable())
         ac.edit_redo.setEnabled(doc.isRedoAvailable())
         ac.view_highlighting.setChecked(doc.highlighter.isHighlighting())
+        ac.tools_indent_auto.setChecked(metainfo.info(doc).autoindent)
         
     def updateWindowTitle(self):
         doc = self.currentDocument()
@@ -577,7 +579,11 @@ class MainWindow(QMainWindow):
             view.setTextCursor(cursor)
             view.ensureCursorVisible()
     
-    def indentAlign(self):
+    def toggleAutoIndent(self):
+        minfo = metainfo.info(self.currentDocument())
+        minfo.autoindent = not minfo.autoindent
+    
+    def reIndent(self):
         import indent
         indent.reIndent(self.currentView().textCursor())
         
@@ -652,7 +658,8 @@ class MainWindow(QMainWindow):
         ac.view_bookmark.triggered.connect(self.markCurrentLine)
         ac.view_clear_error_marks.triggered.connect(self.clearErrorMarks)
         ac.view_clear_all_marks.triggered.connect(self.clearAllMarks)
-        ac.tools_indent_auto.triggered.connect(self.indentAlign)
+        ac.tools_indent_auto.triggered.connect(self.toggleAutoIndent)
+        ac.tools_indent_indent.triggered.connect(self.reIndent)
         ac.window_new.triggered.connect(self.newWindow)
         ac.window_fullscreen.toggled.connect(self.toggleFullScreen)
         ac.help_whatsthis.triggered.connect(QWhatsThis.enterWhatsThisMode)
@@ -752,6 +759,7 @@ class MainWindow(QMainWindow):
         
         self.menu_tools = m = self.menuBar().addMenu('')
         m.addAction(ac.tools_indent_auto)
+        m.addAction(ac.tools_indent_indent)
         
         self.menu_window = m = self.menuBar().addMenu('')
         vm = self.viewManager.actionCollection
@@ -1115,6 +1123,8 @@ class ActionCollection(actioncollection.ActionCollection):
         self.lilypond_cancel = QAction(parent)
         
         self.tools_indent_auto = QAction(parent)
+        self.tools_indent_auto.setCheckable(True)
+        self.tools_indent_indent = QAction(parent)
         
         self.window_new = QAction(parent)
         self.window_fullscreen = QAction(parent)
@@ -1263,7 +1273,8 @@ class ActionCollection(actioncollection.ActionCollection):
         self.lilypond_run_custom.setText(_("Run LilyPond (&custom)"))
         self.lilypond_cancel.setText(_("Interrupt LilyPond &Job"))
         
-        self.tools_indent_auto.setText(_("Auto &Indent"))
+        self.tools_indent_auto.setText(_("&Automatic Indent"))
+        self.tools_indent_indent.setText(_("Re-&Indent"))
         
         self.window_new.setText(_("New &Window"))
         self.window_fullscreen.setText(_("&Fullscreen"))

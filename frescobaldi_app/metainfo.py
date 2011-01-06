@@ -46,6 +46,7 @@ class MetaInfo(object):
         self.position = 0
         self.bookmarks = json.dumps(None)
         self.highlighting = True
+        self.autoindent = True
 
     def load(self, url, settings=None):
         """Loads our settings from the group of url."""
@@ -53,14 +54,16 @@ class MetaInfo(object):
             self.position = int(s.value("position", 0))
             self.bookmarks = bytes(s.value("bookmarks", json.dumps(None)))
             self.highlighting = s.value("highlighting", True) not in ('false', False)
+            self.autoindent = s.value("autoindent", True) not in ('false', False)
             
     def save(self, url, settings=None):
         """Saves our settings to the group of url."""
         with settingsGroup(url, settings) as s:
             s.setValue("time", time.time())
             s.setValue("position", self.position)
-            s.setValue("bookmarks", self.bookmarks)
-            s.setValue("highlighting", self.highlighting)
+            s.remove("bookmarks") if self.bookmarks == json.dumps(None) else s.setValue("bookmarks", self.bookmarks)
+            s.remove("highlighting") if self.highlighting else s.setValue("highlighting", self.highlighting)
+            s.remove("autoindent") if self.autoindent else s.setValue("autoindent", self.autoindent)
             
 
 @contextlib.contextmanager
