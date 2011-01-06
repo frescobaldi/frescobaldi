@@ -213,6 +213,7 @@ def reIndent(cursor):
                 setIndent(block, computeIndent(block))
             else:
                 setIndent(block, getIndent(block))
+            tokeniter.update(block)
 
 
 def getIndent(block):

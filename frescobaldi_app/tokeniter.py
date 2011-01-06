@@ -27,6 +27,8 @@ import contextlib
 
 from PyQt4.QtGui import QTextCursor
 
+import highlighter
+
 
 def tokens(block):
     """Returns the tokens for the given block as a (possibly empty) tuple."""
@@ -42,6 +44,16 @@ def state(block):
     
     """
     return block.document().highlighter.state(block)
+
+
+def update(block):
+    """Retokenizes the given block, saving the tokens in the UserData.
+    
+    Does not update state, the highlighter will do it again to update its highlighting.
+    This can be used if you change the document and want to retokenize part of it in process.
+    
+    """
+    highlighter.updateTokens(block)
 
 
 def cursor(block, token):

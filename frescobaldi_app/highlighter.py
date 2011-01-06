@@ -159,10 +159,7 @@ class Highlighter(QSyntaxHighlighter):
             state = self.initialState()
         
         # collect and save the tokens
-        data = self.currentBlockUserData()
-        if not data:
-            data = BlockData()
-            self.setCurrentBlockUserData(data)
+        data = userData(self.currentBlock())
         data.tokens = tokens = tuple(ly.tokenize.tokens(text, state))
         
         # save the state separately
@@ -218,6 +215,27 @@ class Highlighter(QSyntaxHighlighter):
 class BlockData(QTextBlockUserData):
     """Stores information about one text line."""
     tokens = ()
+
+
+def userData(block):
+    """Gets the block data for this block, setting an empty one if not yet set."""
+    data = block.userData()
+    if not data:
+        data = BlockData()
+        block.setUserData(data)
+    return data
+
+
+def updateTokens(block, state=None):
+    """Force an update of the tokens in the given block.
+    
+    If state is not given, it is determined from the highlighter.
+    
+    """
+    if state is None:
+        state = block.document().highlighter.state(block)
+    userData(block).tokens = tokens = tuple(ly.tokenize.tokens(block.text(), state))
+    return tokens
 
 
 def htmlCopy(document, data):
