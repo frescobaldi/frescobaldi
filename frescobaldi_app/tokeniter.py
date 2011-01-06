@@ -66,6 +66,14 @@ def selectedBlocks(cursor):
         block = block.next()
      
 
+def allBlocks(document):
+    """Yields all blocks of the document."""
+    block = document.firstBlock()
+    while block.isValid():
+        yield block
+        block = block.next()
+
+
 @contextlib.contextmanager
 def editBlock(cursor, joinPrevious = False):
     """Returns a context manager to perform operations on cursor as a single undo-item."""

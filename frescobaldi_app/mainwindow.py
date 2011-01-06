@@ -576,6 +576,10 @@ class MainWindow(QMainWindow):
             cursor = QTextCursor(view.document().findBlockByNumber(lineNumber))
             view.setTextCursor(cursor)
             view.ensureCursorVisible()
+    
+    def indentAlign(self):
+        import indent
+        indent.reIndent(self.currentView().textCursor())
         
     def toggleFullScreen(self, enabled):
         if enabled:
@@ -648,6 +652,7 @@ class MainWindow(QMainWindow):
         ac.view_bookmark.triggered.connect(self.markCurrentLine)
         ac.view_clear_error_marks.triggered.connect(self.clearErrorMarks)
         ac.view_clear_all_marks.triggered.connect(self.clearAllMarks)
+        ac.tools_indent_align.triggered.connect(self.indentAlign)
         ac.window_new.triggered.connect(self.newWindow)
         ac.window_fullscreen.toggled.connect(self.toggleFullScreen)
         ac.help_whatsthis.triggered.connect(QWhatsThis.enterWhatsThisMode)
@@ -746,6 +751,7 @@ class MainWindow(QMainWindow):
         m.addAction(ac.lilypond_cancel)
         
         self.menu_tools = m = self.menuBar().addMenu('')
+        m.addAction(ac.tools_indent_align)
         
         self.menu_window = m = self.menuBar().addMenu('')
         vm = self.viewManager.actionCollection
@@ -1108,6 +1114,8 @@ class ActionCollection(actioncollection.ActionCollection):
         self.lilypond_run_custom = QAction(parent)
         self.lilypond_cancel = QAction(parent)
         
+        self.tools_indent_align = QAction(parent)
+        
         self.window_new = QAction(parent)
         self.window_fullscreen = QAction(parent)
         self.window_fullscreen.setCheckable(True)
@@ -1254,6 +1262,8 @@ class ActionCollection(actioncollection.ActionCollection):
         self.lilypond_run_publish.setText(_("Run LilyPond (&publish)"))
         self.lilypond_run_custom.setText(_("Run LilyPond (&custom)"))
         self.lilypond_cancel.setText(_("Interrupt LilyPond &Job"))
+        
+        self.tools_indent_align.setText(_("Align &Indent"))
         
         self.window_new.setText(_("New &Window"))
         self.window_fullscreen.setText(_("&Fullscreen"))

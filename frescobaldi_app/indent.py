@@ -201,6 +201,20 @@ def changeIndent(cursor, direction):
         return True
 
 
+def reIndent(cursor):
+    """Re-indents the selected region or the whole document."""
+    if cursor.hasSelection():
+        blocks = tokeniter.selectedBlocks(cursor)
+    else:
+        blocks = tokeniter.allBlocks(cursor.document())
+    with tokeniter.editBlock(cursor):
+        for block in blocks:
+            if tokeniter.state(block).mode() in ('lilypond', 'scheme'):
+                setIndent(block, computeIndent(block))
+            else:
+                setIndent(block, getIndent(block))
+
+
 def getIndent(block):
     """Returns the indent of the given block."""
     
