@@ -192,7 +192,7 @@ def changeIndent(cursor, direction):
         new_indent = current_indent + direction * indent_vars['indent-width']
         if state.mode() in ('lilypond', 'scheme'):
             computed_indent = computeIndent(block)
-            if computed_indent is not None and cmp(computed_indent, new_indent) == direction:
+            if cmp(computed_indent, new_indent) == direction:
                 new_indent = computed_indent
         diff = new_indent - current_indent
         with tokeniter.editBlock(cursor):
@@ -238,14 +238,14 @@ def indentVariables(document):
 
 def columnPosition(text, position=None, tabwidth = 8):
     """Converts position (or the length of the text) to real column position, expanding tabs."""
-    indent, pos = 0, 0
+    column, pos = 0, 0
     end = len(text) if position is None else position
     while True:
         try:
             tab = text.index('\t', pos, end)
         except ValueError:
-            return indent + end - pos
-        indent = (indent + tab - pos + tabwidth) & -tabwidth
+            return column + end - pos
+        column = (column + tab - pos + tabwidth) & -tabwidth
         pos = tab + 1
 
 
