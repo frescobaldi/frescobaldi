@@ -214,10 +214,11 @@ def reIndent(cursor):
     with tokeniter.editBlock(cursor):
         for block in blocks:
             if tokeniter.state(block).mode() in ('lilypond', 'scheme'):
-                setIndent(block, computeIndent(block))
+                indent = computeIndent(block)
             else:
-                setIndent(block, getIndent(block))
-            tokeniter.update(block)
+                indent = getIndent(block)
+            if setIndent(block, indent):
+                tokeniter.update(block) # force token update if changed
 
 
 def getIndent(block):
@@ -233,16 +234,26 @@ def getIndent(block):
 
 
 def setIndent(block, indent):
-    """Sets the indent of block to tabs/spaces of length indent."""
+    """Sets the indent of block to tabs/spaces of length indent.
     
+    Does not change the document if the indent does not need a change.
+    Returns True if the indent was changed.
+    
+    """
     # get some variables from the document
     indent_vars = indentVariables(block.document())
     
-    cursor = QTextCursor(block)
+    space = makeIndent(indent, indent_vars['tab-width'], indent_vars['indent-tabs'])
     tokens = tokeniter.tokens(block)
     if tokens and isinstance(tokens[0], ly.tokenize.Space):
+        changed = tokens[0] != space
         cursor = tokeniter.cursor(block, tokens[0])
-    cursor.insertText(makeIndent(indent, indent_vars['tab-width'], indent_vars['indent-tabs']))
+    else:
+        changed = indent != 0
+        cursor = QTextCursor(block)
+    if changed:
+        cursor.insertText(space)
+    return changed
 
 
 def indentVariables(document):
