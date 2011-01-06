@@ -92,7 +92,7 @@ def computeIndent(block):
                 closers = 0
                 if not found:
                     if indents == 1:
-                        found = it.copy()
+                        found = token
                     else:
                         lasttokens.append(token)
             elif not isinstance(token, ly.tokenize.Space):
@@ -104,23 +104,27 @@ def computeIndent(block):
             # the token that started the current indent has been found
             # if there are no tokens after the indent-opener, take indent of current line and increase,
             # else set indent to the same indent of the token after the indent-opener.
-            scheme = isinstance(found.token(), ly.tokenize.scheme.OpenParen)
-            if lasttokens:
-                if isinstance(lasttokens[-1], ly.tokenize.Indent):
-                    indent_pos = lasttokens[-1].pos
-                elif len(lasttokens) >= 2:
-                    if (scheme and lasttokens[-1] in scheme_sync_args):
+            if isinstance(found, ly.tokenize.scheme.OpenParen):
+                # scheme
+                if lasttokens:
+                    if len(lasttokens) == 1 or isinstance(lasttokens[-1], ly.tokenize.Indent):
+                        indent_pos = lasttokens[-1].pos
+                    elif lasttokens[-1] in scheme_sync_args:
                         indent_pos = lasttokens[-2].pos
                     else:
-                        indent_pos, indent_add = found.token().pos, indent_vars['indent-width']
+                        indent_pos = found.pos
+                        indent_add = indent_vars['indent-width']
                 else:
-                    indent_pos = lasttokens[-1].pos
-            elif scheme:
-                indent_pos, indent_add = found.token().pos, 1
+                    indent_pos = found.pos
+                    indent_add = 1
             else:
-                # just use current indent + INDENT_WIDTH
-                indent_pos = token.end if isinstance(token, ly.tokenize.Space) else 0
-                indent_add = indent_vars['indent-width']
+                # no scheme (lilypond)
+                if lasttokens:
+                    indent_pos = lasttokens[-1].pos
+                else:
+                    # just use current indent + INDENT_WIDTH
+                    indent_pos = token.end if isinstance(token, ly.tokenize.Space) else 0
+                    indent_add = indent_vars['indent-width']
         elif indents + closers == 0:
             # take over indent of current line
             indent_pos = token.end if isinstance(token, ly.tokenize.Space) else 0
