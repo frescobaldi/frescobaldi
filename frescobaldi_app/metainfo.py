@@ -51,7 +51,7 @@ def info(document):
 
 
 def add(name, default, readfunc=None):
-    """Define a value to be stored in the metainfo.
+    """Define a variable and its default value to be stored in the metainfo.
     
     Should be defined before it is requested or set.
     If readfunc is not given it defaults to a suitable function for bool or int types.
@@ -75,6 +75,7 @@ def add(name, default, readfunc=None):
 
 
 class MetaInfo(object):
+    """Stores meta-information for a Document."""
     def __init__(self, document):
         self.document = weakref.ref(document)
         self.load()
