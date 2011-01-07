@@ -530,18 +530,12 @@ class MainWindow(QMainWindow):
         self.currentView().selectAll()
         
     def find(self):
-        self.search().find()
+        import search
+        search.Search.instance(self).find()
         
     def replace(self):
-        self.search().replace()
-        
-    def search(self):
-        try:
-            return self._search
-        except AttributeError:
-            import search
-            self._search = search.Search(self)
-        return self._search
+        import search
+        search.Search.instance(self).replace()
         
     def showPreferences(self):
         import preferences

@@ -27,14 +27,17 @@ import bisect
 import re
 import weakref
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import Qt
+from PyQt4.QtGui import (
+    QAction, QApplication, QCheckBox, QGridLayout, QKeySequence, QLabel,
+    QLineEdit, QPushButton, QStyle, QTextCursor, QToolButton, QWidget)
 
 import app
 import util
+import plugin
 
 
-class Search(QWidget):
+class Search(QWidget, plugin.MainWindowPlugin):
     def __init__(self, mainwindow):
         super(Search, self).__init__(mainwindow)
         self._currentView = None

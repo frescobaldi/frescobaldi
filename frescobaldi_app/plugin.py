@@ -40,7 +40,7 @@ class Plugin(object):
             return _instances[cls][obj]
         except KeyError:
             instances = _instances.setdefault(cls, weakref.WeakKeyDictionary())
-            result = instances[obj] = object.__new__(cls, obj)
+            result = instances[obj] = cls.__new__(cls, obj)
             result._parent = weakref.ref(obj)
             result.__init__(obj)
         return result
