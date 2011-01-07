@@ -24,18 +24,15 @@ Store meta information about documents.
 """
 
 import time
-import weakref
 
 from PyQt4.QtCore import QSettings, QUrl
 
 import app
+import plugin
 
 
 __all__ = ["info", "define"]
 
-
-# This dictionary stores the MetaInfo objects per document
-_metainfo = weakref.WeakKeyDictionary()
 
 # This dictionary store the default values: "name": [default, readfunc]
 _defaults = {}
@@ -43,11 +40,7 @@ _defaults = {}
 
 def info(document):
     """Returns a MetaInfo object for the Document."""
-    try:
-        return _metainfo[document]
-    except KeyError:
-        minfo = _metainfo[document] = MetaInfo(document)
-    return minfo
+    return MetaInfo.instance(document)
 
 
 def define(name, default, readfunc=None):
@@ -70,16 +63,16 @@ def define(name, default, readfunc=None):
     _defaults[name] = [default, readfunc]
     
     # read this value for already loaded metainfo items
-    for minfo in _metainfo.items():
+    for minfo in MetaInfo.instances():
         minfo.loadValue(name)
 
 
-class MetaInfo(object):
+class MetaInfo(plugin.DocumentPlugin):
     """Stores meta-information for a Document."""
     def __init__(self, document):
-        self.document = weakref.ref(document)
         self.load()
         document.loaded.connect(self.load)
+        document.closed.connect(self.save)
         
     def settingsGroup(self):
         url = self.document().url()
