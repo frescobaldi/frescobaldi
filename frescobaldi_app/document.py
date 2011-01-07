@@ -35,14 +35,15 @@ import highlighter
 import textformats
 import bookmarks
 import variables
+import signals
 
 
 class Document(QTextDocument):
     
-    urlChanged = pyqtSignal()
-    closed = pyqtSignal()
-    loaded = pyqtSignal()
-    saved = pyqtSignal()
+    urlChanged = signals.Signal()
+    closed = signals.Signal()
+    loaded = signals.Signal()
+    saved = signals.Signal()
     
     def __init__(self, url=None, encoding=None):
         super(Document, self).__init__()
@@ -60,7 +61,7 @@ class Document(QTextDocument):
 
     def close(self):
         app.documents.remove(self)
-        self.closed.emit()
+        self.closed()
         app.documentClosed(self)
 
     def load(self):
@@ -110,7 +111,7 @@ class Document(QTextDocument):
                 text = data.decode('utf-8', 'replace')
             self.setPlainText(text)
             self.setModified(False)
-            self.loaded.emit()
+            self.loaded()
             return True
             
     def save(self):
@@ -133,7 +134,7 @@ class Document(QTextDocument):
             except (IOError, OSError):
                 return False
             self.setModified(False)
-            self.saved.emit()
+            self.saved()
             return True
 
     def createView(self):
@@ -160,7 +161,7 @@ class Document(QTextDocument):
         else:
             self._num = 0
         if changed:
-            self.urlChanged.emit()
+            self.urlChanged()
             app.documentUrlChanged(self)
     
     def encoding(self):

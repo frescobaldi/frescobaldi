@@ -71,8 +71,8 @@ class MetaInfo(plugin.DocumentPlugin):
     """Stores meta-information for a Document."""
     def __init__(self, document):
         self.load()
-        document.loaded.connect(self.load)
-        document.closed.connect(self.save)
+        document.loaded.connect(self.load, -999) # before all others
+        document.closed.connect(self.save,  999) # after all others
         
     def settingsGroup(self):
         url = self.document().url()
@@ -102,11 +102,6 @@ class MetaInfo(plugin.DocumentPlugin):
                 value = self.__dict__[name]
                 s.remove(name) if value == _defaults[name][0] else s.setValue(name, value)
             
-
-@app.documentClosed.connect
-def save(document):
-    info(document).save()
-    
 
 @app.qApp.aboutToQuit.connect
 def prune():
