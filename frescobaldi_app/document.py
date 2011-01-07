@@ -33,7 +33,6 @@ import app
 import view
 import highlighter
 import textformats
-import bookmarks
 import variables
 import signals
 
@@ -142,7 +141,6 @@ class Document(QTextDocument):
         if not self._materialized:
             self.setDocumentLayout(QPlainTextDocumentLayout(self))
             self.highlighter = highlighter.Highlighter(self)
-            self.bookmarks = bookmarks.Bookmarks(self)
             self._materialized = True
         return view.View(self)
     

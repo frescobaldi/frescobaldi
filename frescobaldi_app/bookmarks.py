@@ -28,12 +28,12 @@ A mark is simply a QTextCursor that maintains its position in the document.
 
 import bisect
 import json
-import weakref
 
 from PyQt4.QtGui import QTextCursor
 
 import metainfo
 import signals
+import plugin
 
 types = (
     'mark',
@@ -44,12 +44,15 @@ types = (
 metainfo.define('bookmarks', json.dumps(None), bytes)
 
 
-class Bookmarks(object):
+def bookmarks(document):
+    return Bookmarks.instance(document)
+
+
+class Bookmarks(plugin.DocumentPlugin):
     
     marksChanged = signals.Signal()
     
     def __init__(self, document):
-        self.document = weakref.ref(document)
         document.loaded.connect(self.load)
         document.saved.connect(self.save)
         document.closed.connect(self.save)

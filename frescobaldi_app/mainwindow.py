@@ -44,6 +44,7 @@ import recentfiles
 import sessionmanager
 import util
 import matcher
+import bookmarks
 
 
 class MainWindow(QMainWindow):
@@ -146,13 +147,13 @@ class MainWindow(QMainWindow):
                 curd.modificationChanged.disconnect(self.updateWindowTitle)
                 curd.urlChanged.disconnect(self.updateWindowTitle)
                 curd.loaded.disconnect(self.updateDocActions)
-                curd.bookmarks.marksChanged.disconnect(self.updateMarkStatus)
+                bookmarks.bookmarks(curd).marksChanged.disconnect(self.updateMarkStatus)
             doc.undoAvailable.connect(self.updateDocActions)
             doc.redoAvailable.connect(self.updateDocActions)
             doc.modificationChanged.connect(self.updateWindowTitle)
             doc.urlChanged.connect(self.updateWindowTitle)
             doc.loaded.connect(self.updateDocActions)
-            doc.bookmarks.marksChanged.connect(self.updateMarkStatus)
+            bookmarks.bookmarks(doc).marksChanged.connect(self.updateMarkStatus)
             self.updateDocActions()
             self.updateWindowTitle()
         self.updateViewActions()
@@ -165,7 +166,7 @@ class MainWindow(QMainWindow):
         view = self._currentView()
         ac = self.actionCollection
         ac.view_bookmark.setChecked(
-            view.document().bookmarks.hasMark(view.textCursor().blockNumber(), 'mark'))
+            bookmarks.bookmarks(view.document()).hasMark(view.textCursor().blockNumber(), 'mark'))
         
     def updateViewActions(self):
         view = self._currentView()
@@ -556,18 +557,18 @@ class MainWindow(QMainWindow):
     def markCurrentLine(self):
         view = self.currentView()
         lineNumber = view.textCursor().blockNumber()
-        view.document().bookmarks.toggleMark(lineNumber, 'mark')
+        bookmarks.bookmarks(view.document()).toggleMark(lineNumber, 'mark')
     
     def clearErrorMarks(self):
-        self.currentDocument().bookmarks.clear('error')
+        bookmarks.bookmarks(self.currentDocument()).clear('error')
         
     def clearAllMarks(self):
-        self.currentDocument().bookmarks.clear()
+        bookmarks.bookmarks(self.currentDocument()).clear()
     
     def nextMark(self):
         view = self.currentView()
         lineNumber = view.textCursor().blockNumber()
-        lineNumber = view.document().bookmarks.nextMark(lineNumber)
+        lineNumber = bookmarks.bookmarks(view.document()).nextMark(lineNumber)
         if lineNumber is not None:
             cursor = QTextCursor(view.document().findBlockByNumber(lineNumber))
             view.setTextCursor(cursor)
@@ -576,7 +577,7 @@ class MainWindow(QMainWindow):
     def previousMark(self):
         view = self.currentView()
         lineNumber = view.textCursor().blockNumber()
-        lineNumber = view.document().bookmarks.previousMark(lineNumber)
+        lineNumber = bookmarks.bookmarks(view.document()).previousMark(lineNumber)
         if lineNumber is not None:
             cursor = QTextCursor(view.document().findBlockByNumber(lineNumber))
             view.setTextCursor(cursor)

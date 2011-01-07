@@ -57,7 +57,7 @@ class View(QPlainTextEdit):
         document.loaded.connect(self.restoreCursor)
         document.loaded.connect(self.setTabWidth)
         document.closed.connect(self.slotDocumentClosed)
-        document.bookmarks.marksChanged.connect(self.updateMarkedLines)
+        bookmarks.bookmarks(document).marksChanged.connect(self.updateMarkedLines)
         variables.manager(document).changed.connect(self.setTabWidth)
         self.restoreCursor()
         self.cursorPositionChanged.connect(self.updateCursor)
@@ -151,7 +151,7 @@ class View(QPlainTextEdit):
         
     def updateMarkedLines(self):
         lines = self._markedLineExtraSelections = []
-        for type, marks in self.document().bookmarks.marks().items():
+        for type, marks in bookmarks.bookmarks(self.document()).marks().items():
             for mark in marks:
                 es = QTextEdit.ExtraSelection()
                 es.cursor = mark
