@@ -41,6 +41,9 @@ types = (
 )
 
 
+metainfo.add('bookmarks', json.dumps(None), bytes)
+
+
 class Bookmarks(object):
     
     marksChanged = signals.Signal()

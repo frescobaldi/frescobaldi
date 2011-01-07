@@ -23,8 +23,6 @@ from __future__ import unicode_literals
 Store meta information about documents.
 """
 
-import contextlib
-import json
 import time
 import weakref
 
@@ -33,97 +31,95 @@ from PyQt4.QtCore import QSettings, QUrl
 import app
 
 
-__all__ = ["info"]
+__all__ = ["info", "add"]
 
 
-_docinfo = weakref.WeakKeyDictionary() # for (unsaved) documents that have no URL
-_urlinfo = {}  # for documents that have a URL
+# This dictionary stores the MetaInfo objects per document
+_metainfo = weakref.WeakKeyDictionary()
 
+# This dictionary store the default values: "name": [default, readfunc]
+_defaults = {}
 
-_defaults = (
-    # name           default           readfunc
-    ('position',     0,                int),
-    ('bookmarks',    json.dumps(None), bytes),
-    ('highlighting', True,             lambda v: v not in ('false', False)),
-    ('autoindent',   True,             lambda v: v not in ('false', False)),
-)
-
-
-class MetaInfo(object):
-    """Stores meta-information about a Document."""
-    def __init__(self):
-        self.__dict__ = dict((name, default) for name, default, readfunc in _defaults)
-
-    def load(self, url, settings=None):
-        """Loads our settings from the group of url."""
-        with settingsGroup(url, settings) as s:
-            for name, default, readfunc in _defaults:
-                self.__dict__[name] = readfunc(s.value(name, default))
-    
-    def save(self, url, settings=None):
-        """Saves our settings to the group of url."""
-        with settingsGroup(url, settings) as s:
-            s.setValue("time", time.time())
-            for name, default, readfunc in _defaults:
-                value = self.__dict__[name]
-                s.remove(name) if value == default else s.setValue(name, value)
-            
-
-@contextlib.contextmanager
-def settingsGroup(url, s=None):
-    """Returns a contextmanager which is the group metainfo can be saved to."""
-    if s is None:
-        s = app.settings('metainfo')
-    name = url.toString().replace('\\', '_').replace('/', '_')
-    s.beginGroup(name)
-    try:
-        yield s
-    finally:
-        s.endGroup()
 
 def info(document):
     """Returns a MetaInfo object for the Document."""
-    url = document.url()
-    if url.isEmpty():
-        try:
-            res = _docinfo[document]
-        except KeyError:
-            res = _docinfo[document] = MetaInfo()
-        return res
-    else:
-        try:
-            res = _urlinfo[url]
-        except KeyError:
-            res = _urlinfo[url] = MetaInfo()
-            if QSettings().value("metainfo", True) not in (False, 'false'):
-                res.load(url)
-        return res
+    try:
+        return _metainfo[document]
+    except KeyError:
+        minfo = _metainfo[document] = MetaInfo(document)
+    return minfo
+
+
+def add(name, default, readfunc=None):
+    """Define a value to be stored in the metainfo.
+    
+    Should be defined before it is requested or set.
+    If readfunc is not given it defaults to a suitable function for bool or int types.
+    
+    """
+    if readfunc is None:
+        if isinstance(default, bool):
+            if default:
+                readfunc = lambda v: v not in ('false', False)
+            else:
+                readfunc = lambda v: v not in ('true', True)
+        elif isinstance(default, int):
+            readfunc = int
+        else:
+            readfunc = lambda v: v
+    _defaults[name] = [default, readfunc]
+    
+    # read this value for already loaded metainfo items
+    for minfo in _metainfo.items():
+        minfo.loadValue(name)
+
+
+class MetaInfo(object):
+    def __init__(self, document):
+        self.document = weakref.ref(document)
+        self.load()
+        document.loaded.connect(self.load)
+        
+    def settingsGroup(self):
+        url = self.document().url()
+        if not url.isEmpty():
+            s = app.settings('metainfo')
+            s.beginGroup(url.toString().replace('\\', '_').replace('/', '_'))
+            return s
+        
+    def load(self):
+        s = self.settingsGroup()
+        for name in _defaults:
+            self.loadValue(name, s)
+        
+    def loadValue(self, name, settings=None):
+        s = settings or self.settingsGroup()
+        default, readfunc = _defaults[name]
+        if s and QSettings().value("metainfo", True) not in (False, 'false'):
+            self.__dict__[name] = readfunc(s.value(name, default))
+        else:
+            self.__dict__[name] = default
+
+    def save(self):
+        s = self.settingsGroup()
+        if s:
+            s.setValue("time", time.time())
+            for name in _defaults:
+                value = self.__dict__[name]
+                s.remove(name) if value == _defaults[name][0] else s.setValue(name, value)
+            
+
+@app.documentClosed.connect
+def save(document):
+    info(document).save()
+    
 
 @app.qApp.aboutToQuit.connect
-def saveMetaInfo():
-    """Saves all not yet saved meta information."""
+def prune():
+    """Prune old info."""
     s = app.settings('metainfo')
-    for url, info in _urlinfo.items():
-        info.save(url, s)
-    # prune old stuff
     month_ago = time.time() - 31 * 24 * 3600
     for key in s.childGroups():
         if float(s.value(key + "/time", 0.0)) < month_ago:
             s.remove(key)
-
-@app.documentUrlChanged.connect
-def slotUrlChanged(document):
-    """Called when a document changes URL."""
-    try:
-        del _docinfo[document]
-    except KeyError:
-        pass
-
-@app.documentClosed.connect
-def slotDocumentClosed(document):
-    """Called when a document closes."""
-    url = document.url()
-    if not url.isEmpty() and url in _urlinfo:
-        _urlinfo[url].save(url)
-        del _urlinfo[url]
 

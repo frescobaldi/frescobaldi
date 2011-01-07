@@ -36,6 +36,9 @@ import metainfo
 import variables
 
 
+metainfo.add('highlighting', True)
+
+
 # when highlighting, don't test all the Token base classes
 _token_mro_slice = slice(0, -len(ly.tokenize.Token.__mro__))
 

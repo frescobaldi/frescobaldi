@@ -34,6 +34,10 @@ import tokeniter
 import variables
 
 
+metainfo.add('autoindent', True)
+metainfo.add('position', 0)
+
+
 class View(QPlainTextEdit):
     
     focusIn = pyqtSignal(QPlainTextEdit)
