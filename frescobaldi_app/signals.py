@@ -56,13 +56,13 @@ class Signal(object):
     def __init__(self):
         self.instances = weakref.WeakKeyDictionary()
         
-    def __get__(self, instance, owner):
+    def __get__(self, instance, cls):
         if instance is None:
             return self
         try:
             return self.instances[instance]
         except KeyError:
-            ret = self.instances[instance] = SignalInstance()
+            ret = self.instances[instance] = SignalInstance(owner=instance)
             return ret
 
 
@@ -104,11 +104,19 @@ class SignalInstance(object):
     with s.blocked():
         doSomething() # code that would cause s to emit a signal
     
+    If owner is given (must be a keyword argument) a weak reference to it is
+    kept, and this allows a SignalInstance to be connected to another Signal.
+    When the owner dies, the connection is removed.
+    
     """
     
-    def __init__(self):
+    def __init__(self, owner=None):
         self.listeners = []
         self._blocked = False
+        self._owner = weakref.ref(owner) if owner else lambda: None
+        
+    def owner(self):
+        return self._owner()
         
     def connect(self, func, priority=0, owner=None):
         key = makeListener(func, owner)
@@ -144,6 +152,8 @@ class SignalInstance(object):
 def makeListener(func, owner=None):
     if isinstance(func, (types.MethodType, types.BuiltinMethodType)):
         return MethodListener(func)
+    elif isinstance(func, SignalInstance):
+        return FunctionListener(func, owner or func.owner())
     else:
         return FunctionListener(func, owner)
 
