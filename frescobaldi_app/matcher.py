@@ -26,18 +26,12 @@ Highlights matching tokens such as { and }, << and >> etc.
 import weakref
 
 import app
+import plugin
 import ly.tokenize
 import tokeniter
 
 
-_matchers = weakref.WeakKeyDictionary()
-
-@app.mainwindowCreated.connect
-def newMatcher(mainwindow):
-    _matchers[mainwindow] = Matcher(mainwindow)
-    
-
-class Matcher(object):
+class Matcher(plugin.MainWindowPlugin):
     def __init__(self, mainwindow):
         mainwindow.currentViewChanged.connect(self.newView)
         view = mainwindow.currentView()
@@ -92,4 +86,6 @@ class Matcher(object):
                     nest += 1
         self.view().clearMatches()
 
+
+app.mainwindowCreated.connect(Matcher.instance)
 

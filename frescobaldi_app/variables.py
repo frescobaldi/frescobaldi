@@ -24,18 +24,16 @@ Infrastructure to get local variables embedded in comments in a document.
 """
 
 import re
-import weakref
 
 from PyQt4.QtCore import QTimer
 
 import signals
-import ly.tokenize
-import tokeniter
+import plugin
+
 
 __all__ = ['get', 'update', 'manager', 'variables']
 
 
-_var_mgrs = weakref.WeakKeyDictionary()
 _variable_re = re.compile(br'\s*?([a-z]+(?:-[a-z]+)*):[ \t]*(.*?);')
 
 _LINES = 5      # how many lines from top and bottom to scan for variables
@@ -65,11 +63,7 @@ def update(document, dictionary):
 
 def manager(document):
     """Returns a VariableManager for this document."""
-    try:
-        return _var_mgrs[document]
-    except KeyError:
-        mgr = _var_mgrs[document] = VariableManager(document)
-    return mgr
+    return VariableManager.instance(document)
     
     
 def variables(text):
@@ -84,7 +78,7 @@ def variables(text):
     return d
     
     
-class VariableManager(object):
+class VariableManager(plugin.DocumentPlugin):
     """Caches variables in the document and monitors for changes.
     
     The changed() Signal is emitted some time after the list of variables has been changed.
@@ -94,7 +88,6 @@ class VariableManager(object):
     changed = signals.Signal() # without argument
     
     def __init__(self, document):
-        self.document = weakref.ref(document)
         self._updateTimer = QTimer(singleShot=True, timeout=self.slotTimeout)
         self._variables = self.readVariables()
         document.contentsChange.connect(self.slotContentsChange)
