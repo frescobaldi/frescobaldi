@@ -36,7 +36,7 @@ import metainfo
 import variables
 
 
-metainfo.add('highlighting', True)
+metainfo.define('highlighting', True)
 
 
 # when highlighting, don't test all the Token base classes

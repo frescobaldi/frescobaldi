@@ -41,7 +41,7 @@ types = (
 )
 
 
-metainfo.add('bookmarks', json.dumps(None), bytes)
+metainfo.define('bookmarks', json.dumps(None), bytes)
 
 
 class Bookmarks(object):

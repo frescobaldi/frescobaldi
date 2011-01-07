@@ -31,7 +31,7 @@ from PyQt4.QtCore import QSettings, QUrl
 import app
 
 
-__all__ = ["info", "add"]
+__all__ = ["info", "define"]
 
 
 # This dictionary stores the MetaInfo objects per document
@@ -50,7 +50,7 @@ def info(document):
     return minfo
 
 
-def add(name, default, readfunc=None):
+def define(name, default, readfunc=None):
     """Define a variable and its default value to be stored in the metainfo.
     
     Should be defined before it is requested or set.

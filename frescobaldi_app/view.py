@@ -34,8 +34,8 @@ import tokeniter
 import variables
 
 
-metainfo.add('autoindent', True)
-metainfo.add('position', 0)
+metainfo.define('autoindent', True)
+metainfo.define('position', 0)
 
 
 class View(QPlainTextEdit):
