@@ -30,12 +30,8 @@ from PyQt4.QtCore import QEvent, Qt, QTimer, pyqtSignal
 from PyQt4.QtGui import (
     QApplication, QHBoxLayout, QKeySequence, QPushButton, QToolButton, QWidget)
 
-
-from .. import (
-    app,
-    icons,
-)
-
+import app
+import icons
 
 from . import ClearButton
 

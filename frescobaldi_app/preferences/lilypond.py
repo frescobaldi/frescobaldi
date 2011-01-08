@@ -26,12 +26,9 @@ LilyPond preferences page
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-
-from .. import (
-    app,
-    icons,
-    preferences,
-)
+import app
+import icons
+import preferences
 
 
 class LilyPondPrefs(preferences.Page):

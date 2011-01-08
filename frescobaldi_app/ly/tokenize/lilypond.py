@@ -44,7 +44,7 @@ from . import (
     FallthroughParser,
 )
 
-from .. import words
+import ly.words
 
 
 re_articulation = r"[-_^][_.>|+^-]"
@@ -259,7 +259,7 @@ class LigatureEnd(Ligature, MatchEnd):
     
     
 class Keyword(Item):
-    rx = r"\\({0})(?![A-Za-z])".format("|".join(words.lilypond_keywords))
+    rx = r"\\({0})(?![A-Za-z])".format("|".join(ly.words.lilypond_keywords))
 
 
 class VoiceSeparator(Delimiter):
@@ -275,7 +275,7 @@ class Dynamic(Token):
 
 
 class Command(Item):
-    rx = r"\\({0})(?![A-Za-z])".format("|".join(words.lilypond_music_commands))
+    rx = r"\\({0})(?![A-Za-z])".format("|".join(ly.words.lilypond_music_commands))
     
 
 class Specifier(Token):
@@ -353,11 +353,11 @@ class MarkupCommand(Markup):
     rx = r"\\[A-Za-z]+(-[A-Za-z]+)*(?![A-Za-z])"
     def changeState(self, state):
         command = self[1:]
-        if command in words.markupcommands_nargs[0]:
+        if command in ly.words.markupcommands_nargs[0]:
             state.endArgument()
         else:
             for argcount in 2, 3, 4:
-                if command in words.markupcommands_nargs[argcount]:
+                if command in ly.words.markupcommands_nargs[argcount]:
                     break
             else:
                 argcount = 1
@@ -390,11 +390,11 @@ class Repeat(Command):
     
     
 class RepeatSpecifier(Specifier):
-    rx = r"\b({0})(?![A-Za-z])".format("|".join(words.repeat_types))
+    rx = r"\b({0})(?![A-Za-z])".format("|".join(ly.words.repeat_types))
     
 
 class RepeatStringSpecifier(String, Specifier):
-    rx = r'"({0})"'.format("|".join(words.repeat_types))
+    rx = r'"({0})"'.format("|".join(ly.words.repeat_types))
     
 
 class RepeatCount(Value, Leaver):
@@ -444,7 +444,7 @@ class Clef(Command):
 
 
 class ClefSpecifier(Specifier):
-    rx = r"\b({0})\b".format("|".join(words.clefs_plain))
+    rx = r"\b({0})\b".format("|".join(ly.words.clefs_plain))
     
 
 class Unit(Command):
@@ -489,31 +489,31 @@ class SchemeStart(Item):
 
 
 class ContextName(Token):
-    rx = r"\b({0})\b".format("|".join(words.contexts))
+    rx = r"\b({0})\b".format("|".join(ly.words.contexts))
     
 
 class BackSlashedContextName(ContextName):
-    rx = r"\\({0})\b".format("|".join(words.contexts))
+    rx = r"\\({0})\b".format("|".join(ly.words.contexts))
     
     
 class GrobName(Token):
-    rx = r"\b({0})\b".format("|".join(words.grobs))
+    rx = r"\b({0})\b".format("|".join(ly.words.grobs))
 
 
 class ContextProperty(Token):
-    rx = r"\b({0})\b".format("|".join(words.contextproperties))
+    rx = r"\b({0})\b".format("|".join(ly.words.contextproperties))
 
 
 class PaperVariable(Variable):
-    rx = r"\b({0})\b".format("|".join(words.papervariables))
+    rx = r"\b({0})\b".format("|".join(ly.words.papervariables))
 
 
 class HeaderVariable(Variable):
-    rx = r"\b({0})\b".format("|".join(words.headervariables))
+    rx = r"\b({0})\b".format("|".join(ly.words.headervariables))
 
 
 class LayoutVariable(Variable):
-    rx = r"\b({0})\b".format("|".join(words.layoutvariables))
+    rx = r"\b({0})\b".format("|".join(ly.words.layoutvariables))
 
 
 class Chord(Token):

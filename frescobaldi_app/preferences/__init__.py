@@ -29,12 +29,9 @@ from PyQt4.QtGui import (
     QDialog, QDialogButtonBox, QGroupBox, QHBoxLayout, QListWidget,
     QListWidgetItem, QStackedWidget, QVBoxLayout, QWidget)
 
-
-from .. import (
-    app,
-    icons,
-    widgets,
-    )
+import app
+import icons
+import widgets
 
 
 _prefsindex = 0 # global setting for selected prefs page but not saved on exit

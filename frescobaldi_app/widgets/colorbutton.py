@@ -28,9 +28,7 @@ from PyQt4.QtCore import Qt, pyqtSignal
 from PyQt4.QtGui import QApplication, QColor, QColorDialog, QPalette, QPushButton
 
 
-from .. import (
-    app,
-)
+import app
 
 
 class ColorButton(QPushButton):

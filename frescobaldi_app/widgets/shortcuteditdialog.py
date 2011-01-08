@@ -29,7 +29,7 @@ from PyQt4.QtGui import (
     QRadioButton)
 
 
-from .. import app
+import app
 from . import Separator
 from keysequencewidget import KeySequenceWidget
 

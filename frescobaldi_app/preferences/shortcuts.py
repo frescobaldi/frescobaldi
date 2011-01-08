@@ -30,15 +30,12 @@ from PyQt4.QtGui import (
     QAction, QKeySequence, QMessageBox, QPushButton, QTreeWidget,
     QTreeWidgetItem, QVBoxLayout)
 
+import app
+import icons
+import preferences
 
-from .. import (
-    app,
-    icons,
-    preferences,
-)
-
-from ..widgets.shortcuteditdialog import ShortcutEditDialog
-from ..widgets.schemeselector import SchemeSelector
+from widgets.shortcuteditdialog import ShortcutEditDialog
+from widgets.schemeselector import SchemeSelector
 
 _lastaction = '' # last selected action name (saved during running but not on exit)
 

@@ -26,17 +26,12 @@ Keyboard shortcuts settings page.
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+import app
+import icons
+import preferences
+import sessionmanager
 
-from .. import (
-    app,
-    icons,
-    preferences,
-    sessionmanager,
-)
-
-from ..widgets import (
-    urlrequester,
-)
+from widgets.urlrequester import UrlRequester
 
 
 class GeneralPrefs(preferences.GroupsPage):
@@ -124,7 +119,7 @@ class SavingDocument(preferences.Group):
         layout.addLayout(hbox)
         
         self.basedirLabel = l = QLabel()
-        self.basedir = urlrequester.UrlRequester()
+        self.basedir = UrlRequester()
         hbox.addWidget(self.basedirLabel)
         hbox.addWidget(self.basedir)
         self.basedir.changed.connect(self.changed)

@@ -27,10 +27,8 @@ from PyQt4.QtCore import pyqtSignal
 from PyQt4.QtGui import (
     QFileDialog, QGridLayout, QListWidget, QListWidgetItem, QPushButton, QWidget)
 
-from .. import(
-    app,
-    icons,
-)
+import app
+import icons
 
 
 class ListEdit(QWidget):

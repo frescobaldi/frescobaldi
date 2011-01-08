@@ -28,9 +28,7 @@ Some very simple ones are in this file, others in their own files.
 from PyQt4.QtCore import QSize, Qt
 from PyQt4.QtGui import QFrame, QToolButton
 
-from .. import (
-    icons,
-)
+import icons
 
 
 class Separator(QFrame):

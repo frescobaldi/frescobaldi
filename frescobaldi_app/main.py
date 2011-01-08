@@ -23,12 +23,18 @@ from __future__ import unicode_literals
 Entry point of Frescobaldi.
 """
 
+import os
+import re
+import sys
+
+# Make package contents available as toplevel modules
+from . import __path__ as path
+sys.path[0:0] = map(os.path.abspath, path)
+del path[:], path
+
 import sip
 sip.setapi("QString", 2)
 sip.setapi("QVariant", 2)
-
-import os
-import re
 
 from PyQt4.QtCore import QUrl
 from PyQt4.QtGui import QApplication, QTextCursor

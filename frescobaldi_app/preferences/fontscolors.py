@@ -26,17 +26,15 @@ Fonts and Colors preferences page.
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-from .. import (
-    app,
-    icons,
-    preferences,
-    textformats,
-    util,
-)
+import app
+import icons
+import preferences
+import textformats
+import util
 
-from ..widgets import ClearButton
-from ..widgets.schemeselector import SchemeSelector
-from ..widgets.colorbutton import ColorButton
+from widgets import ClearButton
+from widgets.schemeselector import SchemeSelector
+from widgets.colorbutton import ColorButton
 
 
 class FontsColors(preferences.Page):

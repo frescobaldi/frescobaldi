@@ -27,12 +27,9 @@ from PyQt4.QtCore import QSettings, pyqtSignal
 from PyQt4.QtGui import (
     QComboBox, QHBoxLayout, QInputDialog, QLabel, QPushButton, QWidget)
 
-
-from .. import (
-    app,
-    icons,
-    preferences,
-)
+import app
+import icons
+import preferences
 
 
 class SchemeSelector(QWidget):

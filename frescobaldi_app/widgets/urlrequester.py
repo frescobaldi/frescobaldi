@@ -26,11 +26,8 @@ UrlRequester, a lineedit with a Browse-button.
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-
-from .. import (
-    app,
-    icons,
-)
+import app
+import icons
 
 
 class UrlRequester(QWidget):
