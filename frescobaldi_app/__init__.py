@@ -20,3 +20,7 @@
 """
 Frescobaldi, a LilyPond sheet music editor.
 """
+
+# Note: in main.py the __path__ entries in this frescobaldi_app package are
+# moved to the main sys.path so every module in this package can be imported
+# as a top-level module or package.
