@@ -18,10 +18,14 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Frescobaldi, a LilyPond sheet music editor.
+Importing this module makes all other modules and packages inside this
+package available as toplevel modules and packages.
 """
 
-# Note: if you import toplevel.py, all modules and packages inside this
-# package will become available as toplevel modules and packages rather
-# than as submodules and subpackages of this package.  Some nested
-# packages of Frescobaldi expect this.
+import os
+import sys
+
+from . import __path__ as path
+sys.path[0:0] = map(os.path.abspath, path)
+del path[:], path
+

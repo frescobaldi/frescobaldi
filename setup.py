@@ -16,9 +16,10 @@ setup(
         'frescobaldi_app',
         'frescobaldi_app.po',
         'frescobaldi_app.icons',
-        #'frescobaldi_app.ly',
-        #'frescobaldi_app.util',
-        #'frescobaldi_app.data',
+        'frescobaldi_app.ly',
+        'frescobaldi_app.ly.tokenize',
+        'frescobaldi_app.widgets',
+        'frescobaldi_app.preferences',
     ],
     package_data = {
         'frescobaldi_app.po': ['*.mo'],
