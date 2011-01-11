@@ -36,13 +36,22 @@ def tokens(block):
     return block.userData().tokens if block.length() > 1 and block.userData() else ()
 
 
-def state(block):
+def state(blockOrCursor):
     """Returns a thawn ly.tokenize.State() object at the beginning of the given QTextBlock.
     
     The document must have a highlighter (and thus have or had at least one View).
     See highlighter.py.
     
+    If the argument is a QTextCursor, uses the current block or the first block of its selection.
+    
     """
+    if isinstance(blockOrCursor, QTextCursor):
+        if blockOrCursor.hasSelection():
+            block = blockOrCursor.document().findBlock(blockOrCursor.selectionStart())
+        else:
+            block = blockOrCursor.block()
+    else:
+        block = blockOrCursor
     return block.document().highlighter.state(block)
 
 
@@ -84,7 +93,7 @@ def allBlocks(document):
         block = block.next()
 
 
-def selectedTokens(cursor):
+def selectedTokens(cursor, state=None):
     """Yields block, selected_tokens for every block that has selected tokens.
     
     Usage:
@@ -93,6 +102,9 @@ def selectedTokens(cursor):
         for token in tokens:
             do_something() ...
     
+    If state is given, it should be the state at the start of the selection.
+    (Use state(cursor) to get that.)
+    
     """
     if not cursor.hasSelection():
         return
@@ -100,19 +112,36 @@ def selectedTokens(cursor):
     start = d.findBlock(cursor.selectionStart())
     end = d.findBlock(cursor.selectionEnd())
     block = start
-    def selected_tokens():
-        for token in tokens(block):
-            if token.pos < cursor.selectionStart() - start.position():
-                continue
-            elif token.end <= cursor.selectionEnd() - end.position():
+    
+    if state:
+        def token_source():
+            for token in tokens(block):
+                state.followToken(token)
                 yield token
-            else:
+    else:
+        def token_source():
+            for token in tokens(block):
+                yield token
+    
+    def source_start(source):
+        for token in source:
+            if token.pos >= cursor.selectionStart() - start.position():
+                yield token
+    
+    def source_end(source):
+        for token in source:
+            if token.end > cursor.selectionEnd() - end.position():
                 break
+            yield token
+    
+    source = source_start(token_source())
     while True:
-        yield block, selected_tokens()
         if block == end:
+            yield block, source_end(source)
             break
+        yield block, source
         block = block.next()
+        source = token_source()
 
 
 @contextlib.contextmanager
