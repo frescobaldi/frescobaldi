@@ -66,11 +66,9 @@ def cursor(block, token):
 
 def selectedBlocks(cursor):
     """Yields the block(s) containing the cursor or selection."""
-    c = QTextCursor(cursor)
-    c.setPosition(cursor.selectionStart())
-    block = c.block()
-    c.setPosition(cursor.selectionEnd())
-    end = c.block()
+    d = cursor.document()
+    block = d.findBlock(cursor.selectionStart())
+    end = d.findBlock(cursor.selectionEnd())
     while True:
         yield block
         if block == end:
@@ -83,6 +81,37 @@ def allBlocks(document):
     block = document.firstBlock()
     while block.isValid():
         yield block
+        block = block.next()
+
+
+def selectedTokens(cursor):
+    """Yields block, selected_tokens for every block that has selected tokens.
+    
+    Usage:
+    
+    for block, tokens in selectedTokens(cursor):
+        for token in tokens:
+            do_something() ...
+    
+    """
+    if not cursor.hasSelection():
+        return
+    d = cursor.document()
+    start = d.findBlock(cursor.selectionStart())
+    end = d.findBlock(cursor.selectionEnd())
+    block = start
+    def selected_tokens():
+        for token in tokens(block):
+            if token.pos < cursor.selectionStart() - start.position():
+                continue
+            elif token.end <= cursor.selectionEnd() - end.position():
+                yield token
+            else:
+                break
+    while True:
+        yield block, selected_tokens()
+        if block == end:
+            break
         block = block.next()
 
 
