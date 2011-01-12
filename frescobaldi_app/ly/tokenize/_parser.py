@@ -22,8 +22,7 @@ from __future__ import unicode_literals
 """
 Base classes for Parser instances.
 
-Don't use this module directly!
-All important classes are imported in the ly.tokenize namespace.
+You can import this module in you mode modules to subclasse Parser or FallthroughParser.
 
 This module starts with an underscore so that it does not interfere with the mode
 modules.
