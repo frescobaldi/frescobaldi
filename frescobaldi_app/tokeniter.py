@@ -32,8 +32,7 @@ import highlighter
 
 def tokens(block):
     """Returns the tokens for the given block as a (possibly empty) tuple."""
-    # if block is an empty line, the highlighter doesn't run
-    return block.userData().tokens if block.length() > 1 and block.userData() else ()
+    return highlighter.userData(block).tokens
 
 
 def state(blockOrCursor):
@@ -65,11 +64,20 @@ def update(block):
     highlighter.updateTokens(block)
 
 
-def cursor(block, token):
-    """Returns a QTextCursor for the given token in the given block."""
+def cursor(block, token, start=0, end=None):
+    """Returns a QTextCursor for the given token in the given block.
+    
+    If start is given the cursor will start at position start in the token
+    (from the beginning of the token). Start defaults to 0.
+    If end is given, the cursor will end at that position in the token (from
+    the beginning of the token). End defaults to the length of the token.
+    
+    """
+    if end is None:
+        end = len(token)
     cursor = QTextCursor(block)
-    cursor.setPosition(block.position() + token.pos)
-    cursor.setPosition(block.position() + token.end, QTextCursor.KeepAnchor)
+    cursor.setPosition(block.position() + token.pos + start)
+    cursor.setPosition(block.position() + token.pos + end, QTextCursor.KeepAnchor)
     return cursor
 
 
@@ -102,8 +110,8 @@ def selectedTokens(cursor, state=None):
         for token in tokens:
             do_something() ...
     
-    If state is given, it should be the state at the start of the selection.
-    (Use state(cursor) to get that.)
+    If state is given, it should be the state at the start of the block
+    the selection begins. (Use state(cursor) to get that.)
     
     """
     if not cursor.hasSelection():
@@ -198,9 +206,16 @@ class TokenIterator(object):
         """Re-returns the last yielded token."""
         return self._tokens[self._index]
         
-    def cursor(self):
-        """Returns a QTextCursor for the last token."""
-        return cursor(self.block, self._tokens[self._index])
+    def cursor(self, start=0, end=None):
+        """Returns a QTextCursor for the last token.
+        
+        If start is given the cursor will start at position start in the token
+        (from the beginning of the token). Start defaults to 0.
+        If end is given, the cursor will end at that position in the token (from
+        the beginning of the token). End defaults to the length of the token.
+        
+        """
+        return cursor(self.block, self._tokens[self._index], start, end)
 
     def copy(self):
         obj = object.__new__(self.__class__)
