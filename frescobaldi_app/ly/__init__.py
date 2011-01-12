@@ -21,33 +21,3 @@
 A package of modules dealing with LilyPond and the LilyPond format.
 """
 
-
-def guessType(text):
-    """Tries to guess the type of the input text.
-    
-    Returns one of the strings:
-        lilypond
-        scheme
-        docbook
-        latex
-        texinfo
-        html
-    
-    """
-    text = text.lstrip()
-    if text.startswith(('%', '\\')) and ("\\documentclass" in text or "\\section" in text):
-        return "latex"
-    elif text.startswith("<<"):
-        return "lilypond"
-    elif text.startswith("<"):
-        if 'DOCTYPE book' in text or "<programlisting" in text:
-            return "docbook"
-        else:
-            return "html"
-    elif text.startswith(("#!", ";", "(")):
-        return "scheme"
-    elif text.startswith('@'):
-        return "texinfo"
-    else:
-        return "lilypond"
-
