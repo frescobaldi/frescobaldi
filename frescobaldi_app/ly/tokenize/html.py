@@ -23,39 +23,31 @@ from __future__ import unicode_literals
 Parses and tokenizes HTML input, recognizing LilyPond in HTML.
 """
 
-from . import (
-    Token,
-    Space,
-    Leaver,
-    StringBase,
-    CommentBase,
-    Parser,
-    FallthroughParser,
-    StringParserBase,
-)
+import _token as token
+import _parser as parser
 
 import lilypond
 
 
-class Comment(CommentBase):
+class Comment(token.Comment):
     pass
 
 
-class CommentStart(Comment):
+class CommentStart(Comment, token.BlockCommentStart):
     rx = r"<!--"
     def changeState(self, state):
         state.enter(CommentParser)
         
         
-class CommentEnd(Comment, Leaver):
+class CommentEnd(Comment, token.Leaver, token.BlockCommentEnd):
     rx = r"-->"
 
 
-class String(StringBase):
+class String(token.String):
     pass
 
 
-class Tag(Token):
+class Tag(token.Token):
     pass
 
 
@@ -65,49 +57,45 @@ class TagStart(Tag):
         state.enter(AttrParser)
         
 
-class TagEnd(Tag, Leaver):
+class TagEnd(Tag, token.Leaver):
     rx = r"/?>"
     
 
-class AttrName(Token):
+class AttrName(token.Token):
     rx = r"\w+([-_:]\w+)?"
     
     
-class EqualSign(Token):
+class EqualSign(token.Token):
     rx = "="
     def changeState(self, state):
         state.enter(ValueParser)
 
 
-class Value(Leaver):
+class Value(token.Leaver):
     rx = r"\w+"
     
 
-class StringDQStart(String):
+class StringDQStart(String, token.StringStart):
     rx = r'"'
     def changeState(self, state):
         state.enter(StringDQParser)
 
 
-class StringSQStart(String):
+class StringSQStart(String, token.StringStart):
     rx = r"'"
     def changeState(self, state):
         state.enter(StringSQParser)
     
 
-class StringEnd(String, Leaver):
-    pass
-
-
-class StringDQEnd(StringEnd):
+class StringDQEnd(String, token.StringEnd):
     rx = r'"'
     
 
-class StringSQEnd(StringEnd):
+class StringSQEnd(String, token.StringEnd):
     rx = r"'"
 
 
-class EntityRef(Token):
+class EntityRef(token.Character):
     rx = r"\&(#\d+|#[xX][0-9A-Fa-f]+|[A-Za-z_:][\w.:_-]*);"
 
 
@@ -125,7 +113,7 @@ class LilyPondFileTag(LilyPondTag):
         state.enter(LilyPondFileOptionsParser)
 
 
-class LilyPondFileTagEnd(LilyPondTag, Leaver):
+class LilyPondFileTagEnd(LilyPondTag, token.Leaver):
     rx = r"/?>"
 
 
@@ -135,7 +123,7 @@ class LilyPondInlineTag(LilyPondTag):
         state.enter(LilyPondAttrParser)
 
 
-class LilyPondCloseTag(LilyPondTag, Leaver):
+class LilyPondCloseTag(LilyPondTag, token.Leaver):
     rx = r"</lilypond>"
     
     
@@ -145,11 +133,11 @@ class LilyPondTagEnd(LilyPondTag):
         state.replace(LilyPondParser)
 
 
-class LilyPondInlineTagEnd(LilyPondTag, Leaver):
+class LilyPondInlineTagEnd(LilyPondTag, token.Leaver):
     rx = r"/?>"
     
 
-class SemiColon(Token):
+class SemiColon(token.Token):
     rx = r":"
     def changeState(self, state):
         state.replace(LilyPondInlineParser)
@@ -158,9 +146,9 @@ class SemiColon(Token):
 
 # Parsers:
 
-class HTMLParser(Parser):
+class HTMLParser(parser.Parser):
     items = (
-        Space,
+        token.Space,
         LilyPondVersionTag,
         LilyPondFileTag,
         LilyPondInlineTag,
@@ -170,9 +158,9 @@ class HTMLParser(Parser):
     )
 
 
-class AttrParser(Parser):
+class AttrParser(parser.Parser):
     items = (
-        Space,
+        token.Space,
         TagEnd,
         AttrName,
         EqualSign,
@@ -181,7 +169,7 @@ class AttrParser(Parser):
     )
 
 
-class StringDQParser(StringParserBase):
+class StringDQParser(parser.Parser):
     default = String
     items = (
         StringDQEnd,
@@ -189,7 +177,7 @@ class StringDQParser(StringParserBase):
     )
     
 
-class StringSQParser(StringParserBase):
+class StringSQParser(parser.Parser):
     default = String
     items = (
         StringSQEnd,
@@ -197,26 +185,26 @@ class StringSQParser(StringParserBase):
     )
     
 
-class CommentParser(Parser):
+class CommentParser(parser.Parser):
     default = Comment
     items = (
         CommentEnd,
     )
 
 
-class ValueParser(FallthroughParser):
+class ValueParser(parser.FallthroughParser):
     """Finds a value or drops back."""
     items = (
-        Space,
+        token.Space,
         Value,
     )
     def fallthrough(self, state):
         state.leave()
 
 
-class LilyPondAttrParser(Parser):
+class LilyPondAttrParser(parser.Parser):
     items = (
-        Space,
+        token.Space,
         AttrName,
         EqualSign,
         StringDQStart,
@@ -226,9 +214,9 @@ class LilyPondAttrParser(Parser):
     )
     
 
-class LilyPondFileOptionsParser(Parser):
+class LilyPondFileOptionsParser(parser.Parser):
     items = (
-        Space,
+        token.Space,
         AttrName,
         EqualSign,
         StringDQStart,

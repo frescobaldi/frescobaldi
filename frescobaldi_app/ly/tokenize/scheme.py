@@ -23,80 +23,66 @@ from __future__ import unicode_literals
 Parses and tokenizes Scheme input.
 """
 
-from . import (
-    Parser,
-    Token,
-    Item,
-    Space,
-    Leaver,
-    MatchStart,
-    MatchEnd,
-    Indent,
-    Dedent,
-    NumericBase,
-    CommentBase,
-    StringBase,
-    EscapeBase,
-    StringParserBase,
-)
+import _token as token
+import _parser as parser
 
 
-class Scheme(Token):
+class Scheme(token.Token):
     """Baseclass for Scheme tokens."""
     pass
 
 
-class String(StringBase):
+class String(token.String):
     pass
 
 
-class StringQuotedStart(String):
+class StringQuotedStart(String, token.StringStart):
     rx = r'"'
     def changeState(self, state):
         state.enter(StringParser)
         
 
-class StringQuotedEnd(String):
+class StringQuotedEnd(String, token.StringEnd):
     rx = r'"'
     def changeState(self, state):
         state.leave()
         state.endArgument()
     
 
-class StringQuoteEscape(String, EscapeBase):
+class StringQuoteEscape(token.Character):
     rx = r'\\[\\"]'
 
 
-class Comment(CommentBase):
+class Comment(token.Comment):
     pass
 
 
-class LineComment(Comment):
+class LineComment(Comment, token.LineComment):
     rx = r";.*$"
     
 
-class BlockCommentStart(Comment, Indent):
+class BlockCommentStart(Comment, token.BlockCommentStart, token.Indent):
     rx = r"#!"
     def changeState(self, state):
         state.enter(BlockCommentParser)
         
 
-class BlockCommentEnd(Comment, Leaver, Dedent):
+class BlockCommentEnd(Comment, token.BlockCommentEnd, token.Leaver, token.Dedent):
     rx = "!#"
 
 
-class BlockCommentSpace(Comment, Space):
+class BlockCommentSpace(Comment, token.Space):
     pass
 
 
-class OpenParen(Scheme, MatchStart, Indent):
+class OpenParen(Scheme, token.MatchStart, token.Indent):
     rx = r"\("
     matchname = "schemeparen"
     def changeState(self, state):
         state.enter(SchemeParser)
 
 
-class CloseParen(Scheme, MatchEnd, Dedent):
+class CloseParen(Scheme, token.MatchEnd, token.Dedent):
     rx = r"\)"
     matchname = "schemeparen"
     def changeState(self, state):
@@ -108,19 +94,19 @@ class Quote(Scheme):
     rx = r"[',`]"
     
 
-class Bool(Scheme, Item):
+class Bool(Scheme, token.Item):
     rx = r"#[tf]\b"
     
 
-class Char(Scheme, Item):
+class Char(Scheme, token.Item):
     rx = r"#\\([a-z]+|.)"
 
 
-class Word(Scheme, Item):
+class Word(Scheme, token.Item):
     rx = r'[^()"{}\s]+'
 
 
-class Number(Item, NumericBase):
+class Number(token.Item, token.Numeric):
     rx = r"-?\d+|#(b[0-1]+|o[0-7]+|x[0-9a-fA-F]+)"
     
 
@@ -132,28 +118,28 @@ class Float(Number):
     rx = r"-?\d+E\d+|\d+\.\d*|\d*\.\d+"
 
 
-class LilyPond(Token):
+class LilyPond(token.Token):
     pass
 
 
-class LilyPondStart(LilyPond, MatchStart, Indent):
+class LilyPondStart(LilyPond, token.MatchStart, token.Indent):
     rx = r"#{"
     matchname = "schemelily"
     def changeState(self, state):
         state.enter(LilyPondParser)
         
 
-class LilyPondEnd(LilyPond, Leaver, MatchEnd, Dedent):
+class LilyPondEnd(LilyPond, token.Leaver, token.MatchEnd, token.Dedent):
     rx = r"#}"
     matchname = "schemelily"
 
 
 # Parsers
 
-class SchemeParser(Parser):
+class SchemeParser(parser.Parser):
     mode = 'scheme'
     items = (
-        Space,
+        token.Space,
         OpenParen,
         CloseParen,
         LineComment,
@@ -170,7 +156,7 @@ class SchemeParser(Parser):
     )
     
     
-class StringParser(StringParserBase):
+class StringParser(parser.Parser):
     default = String
     items = (
         StringQuotedEnd,
@@ -178,7 +164,7 @@ class StringParser(StringParserBase):
     )
     
 
-class BlockCommentParser(Parser):
+class BlockCommentParser(parser.Parser):
     default = Comment
     items = (
         BlockCommentSpace,

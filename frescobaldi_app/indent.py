@@ -26,6 +26,7 @@ Indent and auto-indent.
 from PyQt4.QtGui import QTextCursor
 
 import ly.tokenize
+import ly.tokenize.scheme
 import tokeniter
 import variables
 

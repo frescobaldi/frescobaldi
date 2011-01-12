@@ -23,26 +23,8 @@ from __future__ import unicode_literals
 Parses and tokenizes LilyPond input.
 """
 
-from . import (
-    Token,
-    Item,
-    Leaver,
-    Space,
-    
-    ErrorBase,
-    CommentBase,
-    StringBase,
-    EscapeBase,
-    NumericBase,
-    
-    MatchStart,
-    MatchEnd,
-    Indent,
-    Dedent,
-    Parser,
-    StringParserBase,
-    FallthroughParser,
-)
+import _token as token
+import _parser as parser
 
 import ly.words
 
@@ -55,15 +37,15 @@ re_dot = r"\."
 re_scaling = r"\*[\t ]*\d+(/\d+)?"
 
 
-class Variable(Token):
+class Variable(token.Token):
     pass
 
 
-class UserVariable(Token):
+class UserVariable(token.Token):
     pass
 
 
-class Value(Item, NumericBase):
+class Value(token.Item, token.Numeric):
     pass
 
 
@@ -75,66 +57,66 @@ class Fraction(Value):
     rx = r"\d+/\d+"
     
     
-class Error(ErrorBase):
+class Error(token.Error):
     pass
 
 
-class Comment(CommentBase):
+class Comment(token.Comment):
     pass
 
 
-class BlockCommentStart(Comment, Indent):
+class BlockCommentStart(Comment, token.BlockCommentStart, token.Indent):
     rx = r"%{"
     def changeState(self, state):
         state.enter(BlockCommentParser)
 
 
-class BlockCommentEnd(Comment, Leaver, Dedent):
+class BlockCommentEnd(Comment, token.BlockCommentEnd, token.Leaver, token.Dedent):
     rx = r"%}"
 
 
-class BlockCommentSpace(Comment, Space):
+class BlockCommentSpace(Comment, token.BlockComment, token.Space):
     pass
 
 
-class LineComment(Comment):
+class LineComment(Comment, token.LineComment):
     rx = r"%.*$"
     
 
-class String(StringBase):
+class String(token.String):
     pass
 
 
-class StringQuotedStart(String):
+class StringQuotedStart(String, token.StringStart):
     rx = r'"'
     def changeState(self, state):
         state.enter(StringParser)
         
 
-class StringQuotedEnd(String):
+class StringQuotedEnd(String, token.StringEnd):
     rx = r'"'
     def changeState(self, state):
         state.leave()
         state.endArgument()
 
 
-class StringQuoteEscape(String, EscapeBase):
+class StringQuoteEscape(token.Character):
     rx = r'\\[\\"]'
 
 
-class Skip(Token):
+class Skip(token.Token):
     rx = r"(\\skip|s)(?![A-Za-z])"
     
     
-class Rest(Token):
+class Rest(token.Token):
     rx = r"[Rr](?![A-Za-z])"
     
     
-class Note(Token):
+class Note(token.Token):
     rx = r"[a-z]+(?![A-Za-z])"
     
 
-class Duration(Token):
+class Duration(token.Token):
     pass
 
 
@@ -152,17 +134,17 @@ class Scaling(Duration):
     rx = re_scaling
     
     
-class Delimiter(Token):
+class Delimiter(token.Token):
     pass
 
 
-class OpenBracket(Delimiter, MatchStart, Indent):
+class OpenBracket(Delimiter, token.MatchStart, token.Indent):
     """An open bracket, does not enter different parser, subclass or reimplement Parser.changeState()."""
     rx = r"\{"
     matchname = "bracket"
 
 
-class CloseBracket(Delimiter, MatchEnd, Dedent):
+class CloseBracket(Delimiter, token.MatchEnd, token.Dedent):
     rx = r"\}"
     matchname = "bracket"
     def changeState(self, state):
@@ -170,13 +152,13 @@ class CloseBracket(Delimiter, MatchEnd, Dedent):
         state.endArgument()    
     
 
-class OpenSimultaneous(Delimiter, MatchStart, Indent):
+class OpenSimultaneous(Delimiter, token.MatchStart, token.Indent):
     """An open double French quote, does not enter different parser, subclass or reimplement Parser.changeState()."""
     rx = r"<<"
     matchname = "simultaneous"
 
 
-class CloseSimultaneous(Delimiter, MatchEnd, Dedent):
+class CloseSimultaneous(Delimiter, token.MatchEnd, token.Dedent):
     rx = r">>"
     matchname = "simultaneous"
     def changeState(self, state):
@@ -202,16 +184,16 @@ class SimultaneousEnd(CloseSimultaneous):
     pass
 
 
-class Slur(Token):
+class Slur(token.Token):
     pass
 
 
-class SlurStart(Slur, MatchStart):
+class SlurStart(Slur, token.MatchStart):
     rx = r"\("
     matchname = "slur"
     
 
-class SlurEnd(Slur, MatchEnd):
+class SlurEnd(Slur, token.MatchEnd):
     rx = r"\)"
     matchname = "slur"
     
@@ -230,35 +212,35 @@ class Tie(Slur):
     rx = r"~"
 
 
-class Beam(Token):
+class Beam(token.Token):
     pass
 
 
-class BeamStart(Beam, MatchStart):
+class BeamStart(Beam, token.MatchStart):
     rx = r"\["
     matchname = "beam"
 
 
-class BeamEnd(Beam, MatchEnd):
+class BeamEnd(Beam, token.MatchEnd):
     rx = r"\]"
     matchname = "beam"
 
 
-class Ligature(Token):
+class Ligature(token.Token):
     pass
 
 
-class LigatureStart(Ligature, MatchStart):
+class LigatureStart(Ligature, token.MatchStart):
     rx = r"\\\["
     matchname = "ligature"
     
     
-class LigatureEnd(Ligature, MatchEnd):
+class LigatureEnd(Ligature, token.MatchEnd):
     rx = r"\\\]"
     matchname = "ligature"
     
     
-class Keyword(Item):
+class Keyword(token.Item):
     rx = r"\\({0})(?![A-Za-z])".format("|".join(ly.words.lilypond_keywords))
 
 
@@ -266,19 +248,19 @@ class VoiceSeparator(Delimiter):
     rx = r"\\\\"
     
 
-class Articulation(Token):
+class Articulation(token.Token):
     rx = re_articulation
     
     
-class Dynamic(Token):
+class Dynamic(token.Token):
     rx = re_dynamic
 
 
-class Command(Item):
+class Command(token.Item):
     rx = r"\\({0})(?![A-Za-z])".format("|".join(ly.words.lilypond_music_commands))
     
 
-class Specifier(Token):
+class Specifier(token.Token):
     # a specifier of a command e.g. the name of clef or repeat style.
     pass
 
@@ -370,7 +352,7 @@ class MarkupScore(Markup):
         state.enter(LilyPondParserExpectScore)
 
 
-class MarkupWord(Item):
+class MarkupWord(token.Item):
     rx = r'[^{}"\\\s#%]+'
 
 
@@ -397,7 +379,7 @@ class RepeatStringSpecifier(String, Specifier):
     rx = r'"({0})"'.format("|".join(ly.words.repeat_types))
     
 
-class RepeatCount(Value, Leaver):
+class RepeatCount(Value, token.Leaver):
     rx = r"\d+"
 
 
@@ -461,7 +443,7 @@ class LyricMode(InputMode):
         state.enter(LilyPondParserExpectLyricMode)
 
 
-class LyricText(Item):
+class LyricText(token.Item):
     rx = r"[^\\\s\d]+"
 
 
@@ -477,18 +459,18 @@ class LyricSkip(LyricText):
     rx = r"_"
     
     
-class UserCommand(Token):
+class UserCommand(token.Token):
     rx = r"\\[A-Za-z]+(?![A-Za-z])"
     
     
-class SchemeStart(Item):
+class SchemeStart(token.Item):
     rx = "#"
     def changeState(self, state):
         import scheme
         state.enter(scheme.SchemeParser, 1)
 
 
-class ContextName(Token):
+class ContextName(token.Token):
     rx = r"\b({0})\b".format("|".join(ly.words.contexts))
     
 
@@ -496,11 +478,11 @@ class BackSlashedContextName(ContextName):
     rx = r"\\({0})\b".format("|".join(ly.words.contexts))
     
     
-class GrobName(Token):
+class GrobName(token.Token):
     rx = r"\b({0})\b".format("|".join(ly.words.grobs))
 
 
-class ContextProperty(Token):
+class ContextProperty(token.Token):
     rx = r"\b({0})\b".format("|".join(ly.words.contextproperties))
 
 
@@ -516,7 +498,7 @@ class LayoutVariable(Variable):
     rx = r"\b({0})\b".format("|".join(ly.words.layoutvariables))
 
 
-class Chord(Token):
+class Chord(token.Token):
     """Base class for Chord delimiters."""
     pass
 
@@ -527,11 +509,11 @@ class ChordStart(Chord):
         state.enter(LilyPondParserChord)
 
 
-class ChordEnd(Chord, Leaver):
+class ChordEnd(Chord, token.Leaver):
     rx = r">"
     
 
-class ErrorInChord(Error):
+class ErrorInChord(token.Error):
     rx = "|".join((
         re_articulation, # articulation
         r"<<|>>", # double french quotes
@@ -554,7 +536,7 @@ class NameHyphenLower(Name):
     rx = r"[a-z]+(-[a-z]+)*(!?[-a-zA-Z])"
     
 
-class EqualSign(Token):
+class EqualSign(token.Token):
     rx = r"="
     
 
@@ -567,12 +549,12 @@ class EqualSignSetOverride(EqualSign):
 
 
 # Parsers
-class LilyPondParser(Parser):
+class LilyPondParser(parser.Parser):
     mode = 'lilypond'
 
 # basic stuff that can appear everywhere
 space_items = (
-    Space,
+    token.Space,
     BlockCommentStart,
     LineComment,
 )    
@@ -828,7 +810,7 @@ class LilyPondParserChord(LilyPondParserMusic):
     items = music_chord_items
 
 
-class StringParser(StringParserBase):
+class StringParser(parser.Parser):
     default = String
     items = (
         StringQuotedEnd,
@@ -836,7 +818,7 @@ class StringParser(StringParserBase):
     )
     
 
-class BlockCommentParser(Parser):
+class BlockCommentParser(parser.Parser):
     default = Comment
     items = (
         BlockCommentSpace,
@@ -844,7 +826,7 @@ class BlockCommentParser(Parser):
     )
 
 
-class MarkupParser(Parser):
+class MarkupParser(parser.Parser):
     items =  (
         MarkupScore,
         MarkupCommand,
@@ -854,7 +836,7 @@ class MarkupParser(Parser):
     ) + base_items
 
 
-class RepeatParser(FallthroughParser):
+class RepeatParser(parser.FallthroughParser):
     items = space_items + (
         RepeatSpecifier,
         RepeatStringSpecifier,
@@ -862,7 +844,7 @@ class RepeatParser(FallthroughParser):
     )
 
 
-class DurationParser(FallthroughParser):
+class DurationParser(parser.FallthroughParser):
     items = space_items + (
         Dot,
     )
@@ -890,7 +872,7 @@ class LilyPondParserOverride(LilyPondParser):
     ) + base_items
     
 
-class LilyPondParserRevert(FallthroughParser):
+class LilyPondParserRevert(parser.FallthroughParser):
     items = space_items + (
         ContextName,
         DotSetOverride,
@@ -911,7 +893,7 @@ class LilyPondParserSet(LilyPondParser):
     ) + base_items
     
     
-class LilyPondParserUnset(FallthroughParser):
+class LilyPondParserUnset(parser.FallthroughParser):
     items = space_items + (
         ContextName,
         DotSetOverride,
@@ -920,7 +902,7 @@ class LilyPondParserUnset(FallthroughParser):
     )
 
 
-class LilyPondParserNewContext(FallthroughParser):
+class LilyPondParserNewContext(parser.FallthroughParser):
     items = space_items + (
         ContextName,
         Name,
@@ -929,7 +911,7 @@ class LilyPondParserNewContext(FallthroughParser):
     )
 
 
-class LilyPondParserClef(FallthroughParser):
+class LilyPondParserClef(parser.FallthroughParser):
     argcount = 1
     items = space_items + (
         ClefSpecifier,
@@ -957,7 +939,7 @@ class LilyPondParserLyricMode(LilyPondParser):
             state.enter(LilyPondParserLyricMode)
 
 
-class LilyPondParserExpectLyricMode(FallthroughParser):
+class LilyPondParserExpectLyricMode(parser.FallthroughParser):
     items = space_items + (
         OpenBracket,
         OpenSimultaneous,

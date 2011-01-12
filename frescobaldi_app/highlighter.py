@@ -30,6 +30,11 @@ from PyQt4.QtGui import *
 
 
 import ly.tokenize
+import ly.tokenize.lilypond
+import ly.tokenize.scheme
+import ly.tokenize.html
+import ly.tokenize.texinfo
+
 import app
 import textformats
 import metainfo
@@ -154,7 +159,7 @@ class Highlighter(QSyntaxHighlighter):
         # find the state of the previous line
         prev = self.previousBlockState()
         if 0 <= prev < len(self._states):
-            state = ly.tokenize.State.thaw(self._states[prev])
+            state = ly.tokenize.thawState(self._states[prev])
         elif not text or text.isspace():
             self.setCurrentBlockState(prev - 1) # keep the highligher coming back
             return
@@ -163,7 +168,7 @@ class Highlighter(QSyntaxHighlighter):
         
         # collect and save the tokens
         data = userData(self.currentBlock())
-        data.tokens = tokens = tuple(ly.tokenize.tokens(text, state))
+        data.tokens = tokens = tuple(state.tokens(text))
         
         # save the state separately
         cur = state.freeze()
@@ -210,7 +215,7 @@ class Highlighter(QSyntaxHighlighter):
 
     def initialState(self):
         """Returns the initial State for this document."""
-        mode = self._mode or ly.guessType(self.document().toPlainText())
+        mode = self._mode or ly.tokenize.guessMode(self.document().toPlainText())
         return ly.tokenize.state(mode)
 
 
@@ -236,7 +241,7 @@ def updateTokens(block, state=None):
     """
     if state is None:
         state = block.document().highlighter.state(block)
-    userData(block).tokens = tokens = tuple(ly.tokenize.tokens(block.text(), state))
+    userData(block).tokens = tokens = tuple(state.tokens(block.text()))
     return tokens
 
 

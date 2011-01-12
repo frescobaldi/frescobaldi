@@ -23,44 +23,37 @@ from __future__ import unicode_literals
 Parses and tokenizes Texinfo input, recognizing LilyPond in Texinfo.
 """
 
-from . import (
-    Token,
-    Leaver,
-    Space,
-    CommentBase,
-    EscapeBase,
-    Parser,
-    FallthroughParser,
-)
+import _token as token
+import _parser as parser
 
 
-class Comment(CommentBase):
+class Comment(token.Comment):
     pass
 
 
-class LineComment(Comment):
+class LineComment(Comment, token.LineComment):
     rx = r"@c\b.*$"
 
 
-class BlockCommentStart(Comment):
+class BlockCommentStart(Comment, token.BlockCommentStart):
     rx = r"@ignore\b"
     def changeState(self, state):
         state.enter(CommentParser)
         
         
-class BlockCommentEnd(Comment, Leaver):
+class BlockCommentEnd(Comment, token.Leaver, token.BlockCommentEnd):
     rx = r"@end\s+ignore\b"
 
 
-class Attribute(Token):
+class Attribute(token.Token):
     pass
 
 
-class Keyword(Token):
+class Keyword(token.Token):
     rx = r"@[a-zA-Z]+"
 
 
-class Block(Token):
+class Block(token.Token):
     pass
 
 
@@ -70,11 +63,11 @@ class BlockStart(Block):
         state.enter(BlockParser)
 
 
-class BlockEnd(Block, Leaver):
+class BlockEnd(Block, token.Leaver):
     rx = r"\}"
 
 
-class EscapeChar(EscapeBase):
+class EscapeChar(token.Character):
     rx = r"@[@{}]"
     
 
@@ -82,7 +75,7 @@ class Accent(EscapeChar):
     rx = "@['\"',=^`~](\\{[a-zA-Z]\\}|[a-zA-Z]\\b)"
 
 
-class Verbatim(Token):
+class Verbatim(token.Token):
     pass
 
 
@@ -92,7 +85,7 @@ class VerbatimStart(Keyword):
         state.enter(VerbatimParser)
 
 
-class VerbatimEnd(Keyword, Leaver):
+class VerbatimEnd(Keyword, token.Leaver):
     rx = r"@end\s+verbatim\b"
     
     
@@ -108,7 +101,7 @@ class LilyPondBlockStartBrace(Block):
         state.replace(LilyPondBlockParser)
 
 
-class LilyPondBlockEnd(Block, Leaver):
+class LilyPondBlockEnd(Block, token.Leaver):
     rx = r"\}"
     
     
@@ -118,7 +111,7 @@ class LilyPondEnvStart(Keyword):
         state.enter(LilyPondEnvAttrParser)
     
     
-class LilyPondEnvEnd(Keyword, Leaver):
+class LilyPondEnvEnd(Keyword, token.Leaver):
     rx = r"@end\s+lilypond\b"
 
 
@@ -140,13 +133,13 @@ class LilyPondAttrStart(Attribute):
         state.enter(LilyPondAttrParser)
     
     
-class LilyPondAttrEnd(Attribute, Leaver):
+class LilyPondAttrEnd(Attribute, token.Leaver):
     rx = r"\]"
 
 
 # Parsers:
 
-class TexinfoParser(Parser):
+class TexinfoParser(parser.Parser):
     items = (
         LineComment,
         BlockCommentStart,
@@ -161,14 +154,14 @@ class TexinfoParser(Parser):
     )
 
 
-class CommentParser(Parser):
+class CommentParser(parser.Parser):
     default = Comment
     items = (
         BlockCommentEnd,
     )
 
 
-class BlockParser(Parser):
+class BlockParser(parser.Parser):
     items = (
         BlockEnd,
         Accent,
@@ -178,21 +171,21 @@ class BlockParser(Parser):
     )
 
 
-class VerbatimParser(Parser):
+class VerbatimParser(parser.Parser):
     default = Verbatim
     items = (
         VerbatimEnd,
     )
 
 
-class LilyPondBlockAttrParser(Parser):
+class LilyPondBlockAttrParser(parser.Parser):
     items = (
         LilyPondAttrStart,
         LilyPondBlockStartBrace,
     )
 
 
-class LilyPondEnvAttrParser(FallthroughParser):
+class LilyPondEnvAttrParser(parser.FallthroughParser):
     items = (
         LilyPondAttrStart,
     )
@@ -200,14 +193,14 @@ class LilyPondEnvAttrParser(FallthroughParser):
         state.replace(LilyPondEnvParser)
 
 
-class LilyPondAttrParser(Parser):
+class LilyPondAttrParser(parser.Parser):
     default = Attribute
     items = (
         LilyPondAttrEnd,
     )
 
 
-class LilyPondFileParser(Parser):
+class LilyPondFileParser(parser.Parser):
     items = (
         LilyPondAttrStart,
         LilyPondFileStartBrace,

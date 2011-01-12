@@ -23,16 +23,13 @@ from __future__ import unicode_literals
 Parses and tokenizes LaTeX input, recognizing LilyPond in LaTeX.
 """
 
-from . import (
-    Parser,
-    Token,
-    Space,
-)
+import _token as token
+import _parser as parser
 
 
-class LaTeXParser(Parser):
+class LaTeXParser(parser.Parser):
     items = (
-        Space,
+        token.Space,
     )
 
 
