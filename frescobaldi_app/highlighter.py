@@ -253,11 +253,11 @@ def htmlCopy(document, data):
     doc.setDefaultFont(data.font)
     text = document.toPlainText()
     doc.setPlainText(text)
-    state = ly.tokenize.state(documentMode(document) or ly.guessType(text))
+    state = ly.tokenize.state(documentMode(document) or ly.tokenize.guessMode(text))
     cursor = QTextCursor(doc)
     block = doc.firstBlock()
     while block.isValid():
-        for token in ly.tokenize.tokens(block.text(), state):
+        for token in state.tokens(block.text()):
             for cls in token.__class__.__mro__[_token_mro_slice]:
                 try:
                     f = formats[cls]
