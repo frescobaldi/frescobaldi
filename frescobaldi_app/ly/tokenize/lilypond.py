@@ -458,7 +458,31 @@ class LyricExtender(LyricText):
 class LyricSkip(LyricText):
     rx = r"_"
     
-    
+
+class NoteMode(InputMode):
+    rx = r"\\(notes|notemode)\b"
+    def changeState(self, state):
+        state.enter(LilyPondParserExpectNoteMode)
+
+
+class ChordMode(InputMode):
+    rx = r"\\(chords|chordmode)\b"
+    def changeState(self, state):
+        state.enter(LilyPondParserExpectChordMode)
+
+
+class DrumMode(InputMode):
+    rx = r"\\(drums|drummode)\b"
+    def changeState(self, state):
+        state.enter(LilyPondParserExpectDrumMode)
+
+
+class FigureMode(InputMode):
+    rx = r"\\(figures|figuremode)\b"
+    def changeState(self, state):
+        state.enter(LilyPondParserExpectFigureMode)
+
+
 class UserCommand(_token.Token):
     rx = r"\\[A-Za-z]+(?![A-Za-z])"
     
@@ -574,7 +598,7 @@ command_items = (
     New, Context,
     With,
     Clef,
-    LyricMode,
+    ChordMode, DrumMode, FigureMode, LyricMode, NoteMode,
     Keyword,
     Command,
     UserCommand,
@@ -703,7 +727,7 @@ class LilyPondParserBookPart(LilyPondParser):
         CloseBracket,
         Markup, MarkupLines,
         Score,
-        Header, Layout,
+        Paper, Header, Layout,
     ) + toplevel_base_items
 
 
@@ -919,7 +943,26 @@ class LilyPondParserClef(_parser.FallthroughParser):
     )
 
 
-class LilyPondParserLyricMode(LilyPondParser):
+class InputModeParser(LilyPondParser):
+    """Base class for parser for mode-changing music commands."""
+    
+    
+class LilyPondParserExpectLyricMode(_parser.FallthroughParser):
+    items = space_items + (
+        OpenBracket,
+        OpenSimultaneous,
+        SchemeStart,
+        StringQuotedStart,
+        Name,
+    )
+    
+    def changeState(self, state, token):
+        if isinstance(token, (OpenBracket, OpenSimultaneous)):
+            state.enter(LilyPondParserLyricMode)
+        
+
+class LilyPondParserLyricMode(InputModeParser):
+    """Parser for \\lyrics, \\lyricmode, \\addlyrics, etc."""
     items = base_items + (
         CloseBracket,
         CloseSimultaneous,
@@ -939,17 +982,67 @@ class LilyPondParserLyricMode(LilyPondParser):
             state.enter(LilyPondParserLyricMode)
 
 
-class LilyPondParserExpectLyricMode(_parser.FallthroughParser):
+class LilyPondParserExpectChordMode(_parser.FallthroughParser):
     items = space_items + (
         OpenBracket,
         OpenSimultaneous,
-        SchemeStart,
-        StringQuotedStart,
-        Name,
     )
     
     def changeState(self, state, token):
         if isinstance(token, (OpenBracket, OpenSimultaneous)):
-            state.enter(LilyPondParserLyricMode)
+            state.enter(LilyPondParserChordMode)
         
+
+class LilyPondParserChordMode(InputModeParser):
+    """Parser for \\chords and \\chordmode."""
+    pass
+
+
+class LilyPondParserExpectNoteMode(_parser.FallthroughParser):
+    items = space_items + (
+        OpenBracket,
+        OpenSimultaneous,
+    )
+    
+    def changeState(self, state, token):
+        if isinstance(token, (OpenBracket, OpenSimultaneous)):
+            state.enter(LilyPondParserNoteMode)
+        
+
+class LilyPondParserNoteMode(InputModeParser, LilyPondParserMusic):
+    """Parser for \\notes and \\notemode. Same as Music itself."""
+
+
+class LilyPondParserExpectDrumMode(_parser.FallthroughParser):
+    items = space_items + (
+        OpenBracket,
+        OpenSimultaneous,
+    )
+    
+    def changeState(self, state, token):
+        if isinstance(token, (OpenBracket, OpenSimultaneous)):
+            state.enter(LilyPondParserDrumMode)
+        
+
+class LilyPondParserDrumMode(LilyPondParserMusic):
+    """Parser for \\drums and \\drummode."""
+    pass # TODO: implement
+
+
+class LilyPondParserExpectFigureMode(_parser.FallthroughParser):
+    items = space_items + (
+        OpenBracket,
+        OpenSimultaneous,
+    )
+    
+    def changeState(self, state, token):
+        if isinstance(token, (OpenBracket, OpenSimultaneous)):
+            state.enter(LilyPondParserFigureMode)
+        
+
+class LilyPondParserFigureMode(LilyPondParserMusic):
+    """Parser for \\figures and \\figuremode."""
+    pass # TODO: implement
+    
+
 
