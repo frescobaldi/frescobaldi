@@ -162,6 +162,24 @@ def editBlock(cursor, joinPrevious = False):
         cursor.endEditBlock()
 
 
+@contextlib.contextmanager
+def keepSelection(cursor):
+    """Performs operations inside the selection and restore the selection afterwards."""
+    start, end, pos = cursor.selectionStart(), cursor.selectionEnd(), cursor.position()
+    cur2 = QTextCursor(cursor)
+    cur2.setPosition(end)
+    
+    try:
+        yield
+    finally:
+        if pos == start:
+            cursor.setPosition(cur2.position())
+            cursor.setPosition(start, QTextCursor.KeepAnchor)
+        else:
+            cursor.setPosition(start)
+            cursor.setPosition(cur2.position(), QTextCursor.KeepAnchor)
+    
+
 class TokenIterator(object):
     """An iterator over the tokens in the userData a given QTextBlock."""
     def __init__(self, block, atEnd=False):

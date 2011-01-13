@@ -45,6 +45,7 @@ import sessionmanager
 import util
 import matcher
 import bookmarks
+import lyrics
 
 
 class MainWindow(QMainWindow):
@@ -793,6 +794,14 @@ class MainWindow(QMainWindow):
         self.menu_tools = m = self.menuBar().addMenu('')
         m.addAction(ac.tools_indent_auto)
         m.addAction(ac.tools_indent_indent)
+        m.addSeparator()
+        self.menu_tools_lyrics = lm = m.addMenu('')
+        
+        la = lyrics.lyrics(self).actionCollection
+        lm.addAction(la.lyrics_hyphenate)
+        lm.addAction(la.lyrics_dehyphenate)
+        lm.addSeparator()
+        lm.addAction(la.lyrics_copy_dehyphenated)
         
         self.menu_window = m = self.menuBar().addMenu('')
         vm = self.viewManager.actionCollection
@@ -858,7 +867,9 @@ class MainWindow(QMainWindow):
         self.menu_sessions.setTitle(_('&Sessions'))
         self.menu_help.setTitle(_('&Help'))
         self.toolbar_main.setWindowTitle(_("Main Toolbar"))
+        
         self.menu_file_export.setTitle(_("&Export"))
+        self.menu_tools_lyrics.setTitle(_("&Lyrics"))
     
 
 class HistoryManager(object):
