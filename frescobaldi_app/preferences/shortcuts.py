@@ -72,11 +72,7 @@ class Shortcuts(preferences.Page):
         # value, with the collection prepended (for loading/saving)
         win = dialog.parent()
         allactions = {}
-        for collection in (
-                win.actionCollection,
-                win.viewManager.actionCollection,
-                win.sessionManager.actionCollection,
-                ):
+        for collection in win.actionCollections():
             for name, action in collection.actions().items():
                 allactions[action] = (collection, name)
         

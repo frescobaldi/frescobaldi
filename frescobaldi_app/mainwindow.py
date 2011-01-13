@@ -67,6 +67,7 @@ class MainWindow(QMainWindow):
         
         self._currentDocument = None
         self._currentView = lambda: None
+        self._allActionCollections = []
         
         # find an unused objectName
         names = set(win.objectName() for win in app.windows)
@@ -108,6 +109,12 @@ class MainWindow(QMainWindow):
         self.viewManager.viewChanged.connect(self.slotViewChanged)
         self.tabBar.currentDocumentChanged.connect(self.setCurrentDocument)
         self.setAcceptDrops(True)
+        
+        # keep track of all ActionCollections for the keyboard settings dialog
+        self.addActionCollection(self.actionCollection)
+        self.addActionCollection(self.viewManager.actionCollection)
+        self.addActionCollection(self.sessionManager.actionCollection)
+        
         if other:
             self.setCurrentDocument(other.currentDocument())
         app.mainwindowCreated(self)
@@ -295,6 +302,34 @@ class MainWindow(QMainWindow):
         else:
             recentfiles.add(url)
         return app.openUrl(url, encoding)
+    
+    def addActionCollection(self, collection):
+        """Add an actioncollection to our list (used for changing keyboard shortcuts).
+        
+        Does not keep a reference to it.  If the ActionCollection gets garbage collected,
+        it is removed automatically from our list.
+        
+        """
+        ref = weakref.ref(collection)
+        if ref not in self._allActionCollections:
+            self._allActionCollections.append(ref)
+        
+    def removeActionCollection(self, collection):
+        """Removes the given ActionCollection from our list."""
+        ref = weakref.ref(collection)
+        try:
+            self._allActionCollections.remove(ref)
+        except ValueError:
+            pass
+
+    def actionCollections(self):
+        """Iterate over the ActionCollections in our list."""
+        for ref in self._allActionCollections[:]: # copy
+            collection = ref()
+            if collection:
+                yield collection
+            else:
+                self._allActionCollections.remove(ref)
         
     ##
     # Implementations of menu actions
