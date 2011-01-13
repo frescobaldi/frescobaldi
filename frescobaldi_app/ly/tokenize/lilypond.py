@@ -448,7 +448,7 @@ class Lyric(_token.Item):
 
 
 class LyricText(Lyric):
-    rx = r"[^\\\s\d]+"
+    rx = r"[^\\\s\d~\"]+"
 
 
 class LyricHyphen(Lyric):

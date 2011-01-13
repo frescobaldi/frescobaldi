@@ -62,7 +62,33 @@ class Lyrics(plugin.MainWindowPlugin):
     
     def hyphenate(self):
         """Hyphenates selected Lyrics text."""
-    
+        view = self.mainwindow().currentView()
+        cursor = view.textCursor()
+        found = []
+        # find text to hyphenate
+        for block, tokens in tokeniter.selectedTokens(cursor):
+            for token in tokens:
+                if isinstance(token, ly.tokenize.lilypond.LyricText):
+                    # a word found
+                    m = re.search(r"[^\W0-9_]+", token)
+                    if m:
+                        found.append((tokeniter.cursor(block, token, m.start(), m.end()), m.group()))
+        if not found:
+            # no tokens were found, then simply go into flat text mode.
+            # TODO: implement
+            pass
+        
+        if found:
+            # get hyphenator, TODO: config of course
+            import hyphenator
+            h = hyphenator.Hyphenator('/usr/share/hyphen/hyph_nl_NL.dic')
+            with tokeniter.keepSelection(cursor):
+                with tokeniter.editBlock(cursor):
+                    for cur, word in found:
+                        hyph_word = h.inserted(word, ' -- ')
+                        if word != hyph_word:
+                            cur.insertText(hyph_word)
+            
     def dehyphenate(self):
         """De-hyphenates selected Lyrics text."""
         view = self.mainwindow().currentView()
