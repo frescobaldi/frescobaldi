@@ -443,19 +443,23 @@ class LyricMode(InputMode):
         state.enter(LilyPondParserExpectLyricMode)
 
 
-class LyricText(_token.Item):
+class Lyric(_token.Item):
+    """Base class for Lyric items."""
+
+
+class LyricText(Lyric):
     rx = r"[^\\\s\d]+"
 
 
-class LyricHyphen(LyricText):
+class LyricHyphen(Lyric):
     rx = r"--"
     
     
-class LyricExtender(LyricText):
+class LyricExtender(Lyric):
     rx = r"__"
     
     
-class LyricSkip(LyricText):
+class LyricSkip(Lyric):
     rx = r"_"
     
 

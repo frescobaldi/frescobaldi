@@ -27,6 +27,7 @@ import re
 
 from PyQt4.QtGui import QAction, QApplication, QTextCursor
 
+import ly.tokenize.lilypond
 import actioncollection
 import plugin
 import tokeniter
@@ -61,7 +62,7 @@ class Lyrics(plugin.MainWindowPlugin):
     
     def hyphenate(self):
         """Hyphenates selected Lyrics text."""
-        
+    
     def dehyphenate(self):
         """De-hyphenates selected Lyrics text."""
         view = self.mainwindow().currentView()
