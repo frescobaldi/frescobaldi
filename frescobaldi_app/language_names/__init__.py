@@ -31,13 +31,13 @@ def languageName(code, language=None):
     if language is None:
         language = locale.getdefaultlocale()[0] or "C"
         
-    for lang in _try(language, True):
+    for lang in (lang, lang.split('_')[0], "C"):
         try:
             d = language_names[lang]
         except KeyError:
             continue
         
-        for c in _try(code):
+        for c in (code, code.split('_')[0]):
             try:
                 return d[c]
             except KeyError:
@@ -46,10 +46,3 @@ def languageName(code, language=None):
     return code
 
 
-def _try(lang, c=False):
-    """Yields e.g. "nl_NL", "nl" for "nl_NL". If c == True, yields "C" at the end."""
-    yield lang
-    if '_' in lang:
-        yield lang.split('_')[0]
-    if c:
-        yield "C"

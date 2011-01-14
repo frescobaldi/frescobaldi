@@ -62,7 +62,10 @@ def install(mofile):
 
 def setup():
     """Install the desired language."""
-    language = locale.getdefaultlocale()[0]
+    try:
+        language = locale.getdefaultlocale()[0]
+    except ValueError:
+        return
     if language:
         mo = mofile(language)
         if mo:

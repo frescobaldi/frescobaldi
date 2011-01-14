@@ -98,15 +98,15 @@ class Lyrics(plugin.MainWindowPlugin):
                 cur.setPosition(start + m.end(), QTextCursor.KeepAnchor)
                 found.append((cur, m.group()))
         if found:
-            # get hyphenator, TODO: config of course
-            import hyphenator
-            h = hyphenator.Hyphenator('/usr/share/hyphen/hyph_nl_NL.dic')
-            with tokeniter.keepSelection(cursor):
-                with tokeniter.editBlock(cursor):
-                    for cur, word in found:
-                        hyph_word = h.inserted(word, ' -- ')
-                        if word != hyph_word:
-                            cur.insertText(hyph_word)
+            import hyphendialog
+            h = hyphendialog.HyphenDialog(self.mainwindow()).hyphenator()
+            if h:
+                with tokeniter.keepSelection(cursor):
+                    with tokeniter.editBlock(cursor):
+                        for cur, word in found:
+                            hyph_word = h.inserted(word, ' -- ')
+                            if word != hyph_word:
+                                cur.insertText(hyph_word)
             
     def dehyphenate(self):
         """De-hyphenates selected Lyrics text."""
