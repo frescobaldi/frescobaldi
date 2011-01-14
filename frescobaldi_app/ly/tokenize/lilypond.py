@@ -970,14 +970,14 @@ class LilyPondParserLyricMode(InputModeParser):
     items = base_items + (
         CloseBracket,
         CloseSimultaneous,
+        OpenBracket,
+        OpenSimultaneous,
         LyricHyphen,
         LyricExtender,
         LyricSkip,
         LyricText,
         Skip,
         DurationStart,
-        OpenBracket,
-        OpenSimultaneous,
         Markup, MarkupLines,
     ) + command_items
     

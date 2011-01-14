@@ -33,6 +33,10 @@ import plugin
 import tokeniter
 
 
+# regexp to match a lyric word
+_word_re = re.compile(r"[^\W0-9_]+")
+
+
 def lyrics(mainwindow):
     return Lyrics.instance(mainwindow)
     
@@ -70,14 +74,29 @@ class Lyrics(plugin.MainWindowPlugin):
             for token in tokens:
                 if isinstance(token, ly.tokenize.lilypond.LyricText):
                     # a word found
-                    m = re.search(r"[^\W0-9_]+", token)
+                    m = _word_re.search(token)
                     if m:
                         found.append((tokeniter.cursor(block, token, m.start(), m.end()), m.group()))
         if not found:
-            # no tokens were found, then simply go into flat text mode.
-            # TODO: implement
-            pass
-        
+            # no tokens were found, then tokenize the text again as if in lyricmode
+            start = cursor.selectionStart()
+            state = ly.tokenize.State(ly.tokenize.lilypond.LilyPondParserLyricMode)
+            for token in state.tokens(cursor.selection().toPlainText()):
+                if isinstance(token, ly.tokenize.lilypond.LyricText):
+                    # a word found
+                    m = _word_re.search(token)
+                    if m:
+                        cur = QTextCursor(cursor)
+                        cur.setPosition(start + token.pos + m.start())
+                        cur.setPosition(start + token.pos + m.end(), QTextCursor.KeepAnchor)
+                        found.append((cur, m.group()))
+        if not found:
+            # still not succeeded, then try flat text
+            for m in _word_re.finditer(cursor.selection().toPlainText()):
+                cur = QTextCursor(cursor)
+                cur.setPosition(start + m.start())
+                cur.setPosition(start + m.end(), QTextCursor.KeepAnchor)
+                found.append((cur, m.group()))
         if found:
             # get hyphenator, TODO: config of course
             import hyphenator
