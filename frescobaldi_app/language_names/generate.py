@@ -75,7 +75,7 @@ def makestring(text):
 def write_dict(langs):
     """Writes the dictionary file to the 'data.py' file."""
     
-    keys = sorted(lang_names or langs)
+    keys = sorted(filter(lambda k: k in langs, lang_names) if lang_names else langs)
 
     with codecs.open("data.py", "w", "utf-8") as output:
         output.write("#! python\n# -*- coding: utf-8;\n\n")
@@ -85,11 +85,10 @@ def write_dict(langs):
         
         output.write("language_names = {\n")
         for key in keys:
-            if key in langs:
-                output.write('{0}: {{\n'.format(makestring(key)))
-                for lang in sorted(langs[key]):
-                    output.write(' {0}:{1},\n'.format(makestring(lang), makestring(langs[key][lang])))
-                output.write('},\n')
+            output.write('{0}: {{\n'.format(makestring(key)))
+            for lang in sorted(langs[key]):
+                output.write(' {0}:{1},\n'.format(makestring(lang), makestring(langs[key][lang])))
+            output.write('},\n')
         output.write("}\n\n# End of data.py\n")
 
 
