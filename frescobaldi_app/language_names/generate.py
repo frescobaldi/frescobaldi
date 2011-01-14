@@ -75,7 +75,7 @@ def makestring(text):
 def write_dict(langs):
     """Writes the dictionary file to the 'data.py' file."""
     
-    keys = sorted(lang_names)
+    keys = sorted(lang_names or langs)
 
     with codecs.open("data.py", "w", "utf-8") as output:
         output.write("#! python\n# -*- coding: utf-8;\n\n")

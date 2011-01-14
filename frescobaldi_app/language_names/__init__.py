@@ -29,11 +29,9 @@ def languageName(code, language=None):
     """
     for lang in _try(language):
         try:
-            d = language_names[lang]
+            return language_names[lang].get(code, code)
         except KeyError:
-            continue
-        else:
-            return d.get(code, code)
+            pass
     return code
 
 
