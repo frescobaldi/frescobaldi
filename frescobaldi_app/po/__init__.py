@@ -23,6 +23,7 @@ Internationalisation.
 
 import __builtin__
 import gettext
+import locale
 import os
 
 # By default, just return the strings unchanged
@@ -61,15 +62,11 @@ def install(mofile):
 
 def setup():
     """Install the desired language."""
-    podir = __path__[0]
-    for envar in ('LANGUAGE', 'LC_ALL', 'LC_MESSAGES', 'LANG'):
-        val = os.environ.get(envar)
-        if val:
-            for language in val.split(':'):
-                mo = mofile(language)
-                if mo:
-                    install(mo)
-                    return
+    language = locale.getdefaultlocale()[0]
+    if language:
+        mo = mofile(language)
+        if mo:
+            install(mo)
 
 setup()
 
