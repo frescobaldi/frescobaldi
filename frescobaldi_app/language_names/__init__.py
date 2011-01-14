@@ -13,6 +13,7 @@ which are used currently in data.py.
 
 """
 
+import itertools
 import locale
 from .data import language_names
 
@@ -27,19 +28,28 @@ def languageName(code, language=None):
     the name must be translated and defaults to the current locale.
     
     """
-    for lang in _try(language):
+    if language is None:
+        language = locale.getdefaultlocale()[0] or "C"
+        
+    for lang in _try(language, True):
         try:
-            return language_names[lang].get(code, code)
+            d = language_names[lang]
         except KeyError:
-            pass
+            continue
+        
+        for c in _try(code):
+            try:
+                return d[c]
+            except KeyError:
+                continue
+        break
     return code
 
 
-def _try(lang):
-    if lang is None:
-        lang = locale.getdefaultlocale()[0] or "C"
+def _try(lang, c=False):
+    """Yields e.g. "nl_NL", "nl" for "nl_NL". If c == True, yields "C" at the end."""
     yield lang
     if '_' in lang:
         yield lang.split('_')[0]
-    yield "C"
-    
+    if c:
+        yield "C"
