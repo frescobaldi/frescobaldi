@@ -25,7 +25,8 @@ Commands for manipulating Lyrics.
 
 import re
 
-from PyQt4.QtGui import QAction, QApplication, QTextCursor
+from PyQt4.QtCore import Qt
+from PyQt4.QtGui import QAction, QApplication, QKeySequence, QTextCursor
 
 import ly.tokenize.lilypond
 import actioncollection
@@ -137,6 +138,7 @@ class Actions(actioncollection.ActionCollection):
         self.lyrics_dehyphenate = QAction(parent)
         self.lyrics_copy_dehyphenated = QAction(parent)
         
+        self.lyrics_hyphenate.setShortcut(QKeySequence(Qt.CTRL + Qt.Key_L))
         
     def translateUI(self):
         self.lyrics_hyphenate.setText(_("Hyphenate Lyrics Text"))

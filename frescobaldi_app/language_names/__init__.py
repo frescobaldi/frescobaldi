@@ -31,7 +31,7 @@ def languageName(code, language=None):
     if language is None:
         language = locale.getdefaultlocale()[0] or "C"
         
-    for lang in (lang, lang.split('_')[0], "C"):
+    for lang in (language, language.split('_')[0], "C"):
         try:
             d = language_names[lang]
         except KeyError:

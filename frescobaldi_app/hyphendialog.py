@@ -24,12 +24,15 @@ Dialog for selecting a hyphen language.
 """
 
 import glob
+import locale
 import os
 
-from PyQt4.QtCore import QSettings
+from PyQt4.QtCore import QSettings, Qt
+from PyQt4.QtGui import *
 
 import app
 import language_names
+import widgets
 
 
 # paths to check for hyphen dicts
@@ -72,17 +75,66 @@ def findDicts():
     
     # now find the hyph_xx_XX.dic files
     dicfiles = (f for p in paths()
-                  for f in glob(os.path.join(p, 'hyph_*.dic')) if os.access(f, os.R_OK))
+                  for f in glob.glob(os.path.join(p, 'hyph_*.dic')) if os.access(f, os.R_OK))
 
     return dict((os.path.basename(dic)[5:-4], dic) for dic in dicfiles)
 
 
-class HyphenDialog():
+class HyphenDialog(QDialog):
     def __init__(self, mainwindow):
-        pass
-    
+        super(HyphenDialog, self).__init__(mainwindow)
+        
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+        self.topLabel = QLabel()
+        self.listWidget = QListWidget()
+        
+        layout.addWidget(self.topLabel)
+        layout.addWidget(self.listWidget)
+        layout.addWidget(widgets.Separator())
+        
+        self.buttons = b = QDialogButtonBox()
+        layout.addWidget(b)
+        b.setStandardButtons(QDialogButtonBox.Help | QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        b.rejected.connect(self.reject)
+        b.accepted.connect(self.accept)
+        
+        self.load()
+        app.translateUI(self)
+        
+    def translateUI(self):
+        self.setWindowTitle(app.caption(_("Hyphenate Lyrics Text")))
+        self.topLabel.setText(_("Please select a language:"))
+        
+    def load(self):
+        self._langs = [(language_names.languageName(lang), lang, dic) for lang, dic in findDicts().iteritems()]
+        self._langs.sort()
+        for name, lang, dic in self._langs:
+            self.listWidget.addItem("{0}  ({1})".format(name, lang))
+            
+        def select():
+            lastused = settings().value("lastused")
+            if lastused:
+                yield lastused
+            try:
+                lang = locale.getdefaultlocale()[0]
+            except ValueError:
+                pass
+            else:
+                yield lang
+                yield lang.split('_')[0]
+                
+        langs = [item[1] for item in self._langs]
+        for preselect in select():
+            try:
+                self.listWidget.setCurrentRow(langs.index(preselect))
+                break
+            except ValueError:
+                continue
+   
     def hyphenator(self):
-        import hyphenator
-        #TODO: further implement this.
-        return hyphenator.Hyphenator('/usr/share/hyphen/hyph_nl_NL.dic')
-
+        if self.exec_():
+            lang, dic = self._langs[self.listWidget.currentRow()][1:]
+            import hyphenator
+            return hyphenator.Hyphenator(dic)
+        
