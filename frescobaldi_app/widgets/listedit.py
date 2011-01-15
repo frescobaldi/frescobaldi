@@ -167,13 +167,23 @@ class FilePathEdit(ListEdit):
     """
     def __init__(self, *args, **kwargs):
         super(FilePathEdit, self).__init__(*args, **kwargs)
-        
+    
+    def fileDialog(self):
+        """The QFileDialog this widget is using."""
+        try:
+            return self._filedialog
+        except AttributeError:
+            self._filedialog = d = QFileDialog(self)
+            d.setFileMode(QFileDialog.Directory)
+            return d
+    
     def openEditor(self, item):
         """Asks the user for an (existing) directory."""
         directory = item.text()
-        directory = QFileDialog.getExistingDirectory(self, None, directory)
-        if directory:
-            item.setText(directory)
+        dlg = self.fileDialog()
+        dlg.selectFile(directory)
+        if dlg.exec_():
+            item.setText(dlg.selectedFiles()[0])
             return True
         return False
 

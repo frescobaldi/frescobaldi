@@ -14,16 +14,19 @@ setup(
     scripts = ['frescobaldi'],
     packages = [
         'frescobaldi_app',
-        'frescobaldi_app.po',
+        'frescobaldi_app.hyphdicts',
         'frescobaldi_app.icons',
+        'frescobaldi_app.language_names',
         'frescobaldi_app.ly',
         'frescobaldi_app.ly.tokenize',
-        'frescobaldi_app.widgets',
+        'frescobaldi_app.po',
         'frescobaldi_app.preferences',
+        'frescobaldi_app.widgets',
     ],
     package_data = {
-        'frescobaldi_app.po': ['*.mo'],
+        'frescobaldi_app.hyphdicts': ['*.dic'],
         'frescobaldi_app.icons': ['*.svg', '*.png'],
+        'frescobaldi_app.po': ['*.mo'],
     },
     data_files = [
         ('share/icons/hicolor/scalable/apps', ['frescobaldi_app/icons/frescobaldi.svg']),
