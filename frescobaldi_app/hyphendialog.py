@@ -20,7 +20,8 @@
 from __future__ import unicode_literals
 
 """
-Dialog for selecting a hyphen language.
+Dialog for selecting a hyphen language,
+and code for finding hyphenation dictionaries to present the user a  choice.
 """
 
 import glob
@@ -28,11 +29,13 @@ import locale
 import os
 
 from PyQt4.QtCore import QSettings, Qt
-from PyQt4.QtGui import *
+from PyQt4.QtGui import QDialog, QDialogButtonBox, QLabel, QListWidget, QVBoxLayout
 
 import app
 import language_names
 import widgets
+import hyphdicts
+import hyphenator
 
 
 # paths to check for hyphen dicts
@@ -68,6 +71,7 @@ def directories():
             else:
                 for pref in prefixes:
                     yield os.path.join(pref, path)
+        yield hyphdicts.path
     return filter(os.path.isdir, gen())
 
 def findDicts():
@@ -136,7 +140,6 @@ class HyphenDialog(QDialog):
     def hyphenator(self):
         if self.exec_():
             lang, dic = self._langs[self.listWidget.currentRow()][1:]
-            import hyphenator
             result = hyphenator.Hyphenator(dic)
             settings().setValue("lastused", lang)
         else:
