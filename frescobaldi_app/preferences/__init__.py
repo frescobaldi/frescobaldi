@@ -79,6 +79,7 @@ class PreferencesDialog(QDialog):
         for item in (
             General,
             LilyPond,
+            Paths,
             Shortcuts,
             FontsColors,
                 ):
@@ -156,6 +157,16 @@ class LilyPond(PrefsItemBase):
     def widget(self, dlg):
         import lilypond
         return lilypond.LilyPondPrefs(dlg)
+
+
+class Paths(PrefsItemBase):
+    def setup(self):
+        self.setText(_("Paths"))
+        self.setIcon(icons.get("document-open-folder"))
+        
+    def widget(self, dlg):
+        import paths
+        return paths.Paths(dlg)
 
 
 class Shortcuts(PrefsItemBase):
