@@ -23,3 +23,65 @@ from __future__ import unicode_literals
 Code to use LilyPond-generated SVGs as icons.
 The default black color will be adjusted to the default Text color.
 """
+
+import os
+
+from PyQt4.QtCore import Qt
+from PyQt4.QtGui import QApplication, QIcon, QIconEngineV2, QPainter, QPixmap, QStyleOption
+from PyQt4.QtSvg import QSvgRenderer
+
+__all__ = ["icon"]
+
+
+_icons = {}
+_alpha = {}
+
+
+def icon(name):
+    """Returns a QIcon that shows a LilyPond-generated SVG in the default text color."""
+    try:
+        return _icons[name]
+    except KeyError:
+        icon = _icons[name] = QIcon(Engine(name))
+        return icon
+
+
+def alpha(name, size):
+    """Returns a (possibly cached) alpha pixmap from a LilyPond symbol."""
+    try:
+        return _alpha[(name, size)]
+    except KeyError:
+        p = QPixmap(size)
+        p.fill(Qt.transparent)
+        r = QSvgRenderer(os.path.join(__path__[0], name + ".svg"))
+        r.render(QPainter(p))
+        a = _alpha[(name, size)] = p.alphaChannel()
+        return a
+
+
+def pixmap(name, size, mode, state):
+    """Returns a pixmap of the name and size with the default text color.
+    
+    The state argument is ignored for now.
+    
+    """
+    p = QPixmap(size)
+    p.fill(QApplication.palette().foreground().color())
+    p.setAlphaChannel(alpha(name, size))
+    return QApplication.style().generatedIconPixmap(mode, p, QStyleOption())
+
+
+class Engine(QIconEngineV2):
+    """Engine to provide renderings of SVG icons in the default text color."""
+    def __init__(self, name):
+        super(Engine, self).__init__()
+        self._name = name
+        
+    def pixmap(self, size, mode, state):
+        return pixmap(self._name, size, mode, state)
+        
+    def paint(self, painter, rect, mode, state):
+        p = self.pixmap(rect.size(), mode, state)
+        painter.drawPixmap(rect, p)
+        
+
