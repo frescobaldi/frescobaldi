@@ -55,8 +55,8 @@ def settings():
     settings.beginGroup("hyphenation")
     return settings
 
-def paths():
-    """ Yields a list of paths based on config """
+def directories():
+    """ Yields a list of existing paths based on config """
     # prefixes to look in for relative paths
     prefixes = ['/usr/', '/usr/local/']
     
@@ -74,7 +74,7 @@ def findDicts():
     """ Find installed hyphen dictionary files """
     
     # now find the hyph_xx_XX.dic files
-    dicfiles = (f for p in paths()
+    dicfiles = (f for p in directories()
                   for f in glob.glob(os.path.join(p, 'hyph_*.dic')) if os.access(f, os.R_OK))
 
     return dict((os.path.basename(dic)[5:-4], dic) for dic in dicfiles)
@@ -107,7 +107,8 @@ class HyphenDialog(QDialog):
         self.topLabel.setText(_("Please select a language:"))
         
     def load(self):
-        self._langs = [(language_names.languageName(lang), lang, dic) for lang, dic in findDicts().iteritems()]
+        self._langs = [(language_names.languageName(lang), lang, dic)
+                       for lang, dic in findDicts().iteritems()]
         self._langs.sort()
         for name, lang, dic in self._langs:
             self.listWidget.addItem("{0}  ({1})".format(name, lang))
@@ -136,5 +137,10 @@ class HyphenDialog(QDialog):
         if self.exec_():
             lang, dic = self._langs[self.listWidget.currentRow()][1:]
             import hyphenator
-            return hyphenator.Hyphenator(dic)
+            result = hyphenator.Hyphenator(dic)
+            settings().setValue("lastused", lang)
+        else:
+            result = None
+        self.deleteLater()
+        return result
         

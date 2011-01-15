@@ -463,6 +463,10 @@ class LyricSkip(Lyric):
     rx = r"_"
     
 
+class LyricTie(Lyric):
+    rx = r"~"
+
+
 class NoteMode(InputMode):
     rx = r"\\(notes|notemode)\b"
     def changeState(self, state):
@@ -975,6 +979,7 @@ class LilyPondParserLyricMode(InputModeParser):
         LyricHyphen,
         LyricExtender,
         LyricSkip,
+        LyricTie,
         LyricText,
         Skip,
         DurationStart,

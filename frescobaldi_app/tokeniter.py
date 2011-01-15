@@ -163,8 +163,12 @@ def editBlock(cursor, joinPrevious = False):
 
 
 @contextlib.contextmanager
-def keepSelection(cursor):
-    """Performs operations inside the selection and restore the selection afterwards."""
+def keepSelection(cursor, view=None):
+    """Performs operations inside the selection and restore the selection afterwards.
+    
+    If view is given, call setTextCursor(cursor) on the view afterwards.
+    
+    """
     start, end, pos = cursor.selectionStart(), cursor.selectionEnd(), cursor.position()
     cur2 = QTextCursor(cursor)
     cur2.setPosition(end)
@@ -178,7 +182,9 @@ def keepSelection(cursor):
         else:
             cursor.setPosition(start)
             cursor.setPosition(cur2.position(), QTextCursor.KeepAnchor)
-    
+        if view:
+            view.setTextCursor(cursor)
+
 
 class TokenIterator(object):
     """An iterator over the tokens in the userData a given QTextBlock."""

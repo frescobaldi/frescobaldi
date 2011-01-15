@@ -102,7 +102,7 @@ class Lyrics(plugin.MainWindowPlugin):
             import hyphendialog
             h = hyphendialog.HyphenDialog(self.mainwindow()).hyphenator()
             if h:
-                with tokeniter.keepSelection(cursor):
+                with tokeniter.keepSelection(cursor, view):
                     with tokeniter.editBlock(cursor):
                         for cur, word in found:
                             hyph_word = h.inserted(word, ' -- ')
@@ -115,9 +115,8 @@ class Lyrics(plugin.MainWindowPlugin):
         cursor = view.textCursor()
         text = cursor.selection().toPlainText()
         if ' --' in text:
-            with tokeniter.keepSelection(cursor):
+            with tokeniter.keepSelection(cursor, view):
                 cursor.insertText(self.removehyphens(text))
-            view.setTextCursor(cursor)
             
     def copy_dehyphenated(self):
         """Copies selected lyrics text to the clipboard with hyphenation removed."""
@@ -126,8 +125,9 @@ class Lyrics(plugin.MainWindowPlugin):
         
     def removehyphens(self, text):
         """Removes hyphens and extenders from text."""
-        return re.sub(r"[ \t]*--[ \t]*|__[ \t]*|_([ \t]+_)*[ \t]*", '', text)
-    
+        text = re.sub(r"[ \t]*--[ \t]*|__[ \t]*|_[ \t]+(_[ \t]+)*", '', text)
+        return text.replace('_', ' ').replace('~', ' ')
+
 
 class Actions(actioncollection.ActionCollection):
     name = "lyrics"
