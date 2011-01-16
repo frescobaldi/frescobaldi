@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" width="7.73mm" height="7.73mm" viewBox="0 0 4.4000 4.4000">
 <!-- Page: 1/1 -->
-<rect transform="translate(2.1125, 2.2813)" x="0.0000" y="-2.2375" width="0.1000" height="0.8750" ry="0.0000" fill="currentColor"/>
-<line transform="translate(0.2000, 3.9875)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1000" stroke="currentColor" x1="0.0500" y1="-0.0000" x2="3.9500" y2="-0.0000"/>
-<line transform="translate(0.2000, 3.1125)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1000" stroke="currentColor" x1="0.0500" y1="-0.0000" x2="3.9500" y2="-0.0000"/>
-<line transform="translate(0.2000, 2.2375)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1000" stroke="currentColor" x1="0.0500" y1="-0.0000" x2="3.9500" y2="-0.0000"/>
-<line transform="translate(0.2000, 1.3625)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1000" stroke="currentColor" x1="0.0500" y1="-0.0000" x2="3.9500" y2="-0.0000"/>
-<line transform="translate(0.2000, 0.4875)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1000" stroke="currentColor" x1="0.0500" y1="-0.0000" x2="3.9500" y2="-0.0000"/>
+<rect transform="translate(2.1125, 2.3113)" x="0.0000" y="-2.2675" width="0.1600" height="0.8750" ry="0.0000" fill="currentColor"/>
+<line transform="translate(0.2000, 4.0175)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1600" stroke="currentColor" x1="0.0800" y1="-0.0000" x2="3.9200" y2="-0.0000"/>
+<line transform="translate(0.2000, 3.1425)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1600" stroke="currentColor" x1="0.0800" y1="-0.0000" x2="3.9200" y2="-0.0000"/>
+<line transform="translate(0.2000, 2.2675)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1600" stroke="currentColor" x1="0.0800" y1="-0.0000" x2="3.9200" y2="-0.0000"/>
+<line transform="translate(0.2000, 1.3925)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1600" stroke="currentColor" x1="0.0800" y1="-0.0000" x2="3.9200" y2="-0.0000"/>
+<line transform="translate(0.2000, 0.5175)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1600" stroke="currentColor" x1="0.0800" y1="-0.0000" x2="3.9200" y2="-0.0000"/>
 </svg>

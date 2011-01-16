@@ -9,7 +9,7 @@
   
   top-system-spacing = #
   '((basic-distance . 0)
-    (minimum-distance . 2.2)
+    (minimum-distance . 2.3)
     (padding . 0))
 
 }
@@ -18,6 +18,7 @@
   \context {
     \Score
     \override StaffSymbol #'width = #'4
+    \override StaffSymbol #'thickness = #1.6
   }
   \context {
     \Staff

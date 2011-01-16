@@ -3,7 +3,7 @@
 \paper {
   top-system-spacing = #
   '((basic-distance . 0)
-    (minimum-distance . 2.2)
+    (minimum-distance . 2.25)
     (padding . 0))
 }
 \layout {
