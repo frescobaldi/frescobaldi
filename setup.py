@@ -21,12 +21,14 @@ setup(
         'frescobaldi_app.ly.tokenize',
         'frescobaldi_app.po',
         'frescobaldi_app.preferences',
+        'frescobaldi_app.symbols',
         'frescobaldi_app.widgets',
     ],
     package_data = {
         'frescobaldi_app.hyphdicts': ['*.dic'],
         'frescobaldi_app.icons': ['*.svg', '*.png'],
         'frescobaldi_app.po': ['*.mo'],
+        'frescobaldi_app.symbols': ['*.svg'],
     },
     data_files = [
         ('share/icons/hicolor/scalable/apps', ['frescobaldi_app/icons/frescobaldi.svg']),
