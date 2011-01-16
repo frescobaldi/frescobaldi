@@ -19,6 +19,7 @@ $(patsubst %.ly,%.svg,$(wildcard clef_*.ly)): clef_defaults.ily
 
 # Other dependencies
 clef_defaults.ily: icon_defaults.ily
+articulation_defaults.ily: icon_defaults.ily
 
 
 
