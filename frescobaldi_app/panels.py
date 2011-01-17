@@ -26,8 +26,8 @@ When the panel must be shown its widget is instantiated.
 """
 
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import Qt
+from PyQt4.QtGui import QDockWidget, QKeySequence, QLabel
 
 import actioncollection
 import app
@@ -49,6 +49,11 @@ class PanelManager(plugin.MainWindowPlugin):
         self.actionCollection = Actions(self)
         self.mainwindow().addActionCollection(self.actionCollection)
 
+    def addActionsToMenu(self, menu):
+        """Adds all toggleViewActions to the given menu."""
+        menu.addAction(self.actionCollection.panel_quickinsert)
+        
+        
 
 class Actions(actioncollection.ActionCollection):
     """Manages the keyboard shortcuts to hide/show the plugins."""
@@ -65,6 +70,7 @@ class Panel(QDockWidget):
     """Base class for Panels.
     
     You should implement __init__(), createWidget() and translateUI().
+    On the first call to sizeHint() our widget is created.
     
     """
     def __init__(self, mainwindow):
@@ -75,14 +81,24 @@ class Panel(QDockWidget):
         """
         super(Panel, self).__init__(mainwindow)
         app.translateUI(self)
+    
+    def mainwindow(self):
+        return self.parentWidget()
         
     def sizeHint(self):
         """This is always called when the panel needs to be shown. Instantiate if not already done."""
-        if not self.widget():
-            self.setWidget(self.createWidget(self.parentWidget()))
+        self.widget()
         return super(Panel, self).sizeHint()
+    
+    def widget(self):
+        """Ensures that our widget() is created and returns it."""
+        w = super(Panel, self).widget()
+        if not w:
+            w = self.createWidget()
+            self.setWidget(w)
+        return w
         
-    def createWidget(self, mainwindow):
+    def createWidget(self):
         """Re-implement this to return the widget for this tool."""
         return QLabel("<test>", self)
         
@@ -99,3 +115,8 @@ class QuickInsertPanel(Panel):
         self.setWindowTitle(_("Quick Insert"))
         self.toggleViewAction().setText(_("Quick &Insert"))
         
+    def createWidget(self):
+        import quickinsert
+        return quickinsert.QuickInsert(self)
+
+
