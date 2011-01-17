@@ -46,6 +46,7 @@ import util
 import matcher
 import bookmarks
 import lyrics
+import panels
 
 
 class MainWindow(QMainWindow):
@@ -802,6 +803,10 @@ class MainWindow(QMainWindow):
         lm.addAction(la.lyrics_dehyphenate)
         lm.addSeparator()
         lm.addAction(la.lyrics_copy_dehyphenated)
+        
+        m.addSeparator()
+        pa = panels.manager(self).actionCollection
+        m.addAction(pa.panel_quickinsert)
         
         self.menu_window = m = self.menuBar().addMenu('')
         vm = self.viewManager.actionCollection
