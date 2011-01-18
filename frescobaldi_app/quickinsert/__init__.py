@@ -20,57 +20,51 @@
 from __future__ import unicode_literals
 
 """
-The Quick Insert panel widget.
+The Quick Insert panel.
 """
 
+import weakref
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import Qt
+from PyQt4.QtGui import QKeySequence
 
-import app
-import icons
-import symbols
+import actioncollection
+import panels
 
 
-class QuickInsert(QWidget):
-    def __init__(self, panel):
-        super(QuickInsert, self).__init__(panel)
-        
-        layout = QVBoxLayout()
-        self.setLayout(layout)
-        layout.setContentsMargins(0, 0, 0, 0)
-        
-        self.directionLabel = QLabel()
-        self.direction = QComboBox()
-        self.direction.addItems(['', '', ''])
-        self.direction.setItemIcon(0, icons.get("arrow-up"))
-        self.direction.setItemIcon(2, icons.get("arrow-down"))
-        self.direction.setCurrentIndex(1)
-        hor = QHBoxLayout()
-        hor.setContentsMargins(0, 0, 0, 0)
-        hor.addWidget(self.directionLabel)
-        hor.addWidget(self.direction)
-        layout.addLayout(hor)
-        
-        self.toolbox = ToolBox(self)
-        layout.addWidget(self.toolbox)
-        app.translateUI(self)
-        
-    def translateUI(self):
-        self.directionLabel.setText(_("Direction:"))
-        for item, text in enumerate((_("Up"), _("Neutral"), _("Down"))):
-            self.direction.setItemText(item, text)
+class QuickInsertPanel(panels.Panel):
+    def __init__(self, mainwindow):
+        super(QuickInsertPanel, self).__init__(mainwindow)
+        self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
+        self.hide()
+        self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+I"))
+        mainwindow.addDockWidget(Qt.LeftDockWidgetArea, self)
+        self.actionCollection = QuickInsertActions(self)
+        mainwindow.addActionCollection(self.actionCollection)
     
-    def actionForName(self, name):
-        """This is called by the ShortcutCollection of our dockwidget if the user presses a key."""
-        print "Action",name,"requested!!"
-        a = QAction(None)
-        a.setText("Slur")
-        a.setIcon(symbols.icon('bar_single'))
-        return a
+    def translateUI(self):
+        self.setWindowTitle(_("Quick Insert"))
+        self.toggleViewAction().setText(_("Quick &Insert"))
+        
+    def createWidget(self):
+        import widget
+        return widget.QuickInsert(self)
 
 
-class ToolBox(QToolBox):
-    pass
+class QuickInsertActions(actioncollection.ShortcutCollection):
+    """Manages keyboard shortcuts for the QuickInsert module."""
+    name = "quickinsert"
+    def __init__(self, panel):
+        super(QuickInsertActions, self).__init__(panel.mainwindow())
+        self.panel = weakref.ref(panel)
+    
+    def createDefaultShortcuts(self):
+        self.setDefaultShortcuts('slur', [QKeySequence('Ctrl+(')])
 
+    def realAction(self, name):
+        return self.panel().widget().actionForName(name)
+        
+    def title(self):
+        return _("Quick Insert")
+    
 

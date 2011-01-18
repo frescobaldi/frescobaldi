@@ -28,7 +28,7 @@ When the panel must be shown its widget is instantiated.
 import weakref
 
 from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QDockWidget, QKeySequence, QLabel
+from PyQt4.QtGui import QDockWidget, QLabel
 
 import actioncollection
 import app
@@ -42,7 +42,8 @@ def manager(mainwindow):
 class PanelManager(plugin.MainWindowPlugin):
     def __init__(self, mainwindow):
         # instantiate the panel stubs here
-        self.quickinsert = QuickInsertPanel(mainwindow)
+        import quickinsert
+        self.quickinsert = quickinsert.QuickInsertPanel(mainwindow)
         
         self.createActions()
 
@@ -103,40 +104,4 @@ class Panel(QDockWidget):
         """Re-implement this to return the widget for this tool."""
         return QLabel("<test>", self)
         
-
-# stubs here
-class QuickInsertPanel(Panel):
-    def __init__(self, mainwindow):
-        super(QuickInsertPanel, self).__init__(mainwindow)
-        self.hide()
-        self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+I"))
-        mainwindow.addDockWidget(Qt.LeftDockWidgetArea, self)
-        self.actionCollection = QuickInsertActions(self)
-        mainwindow.addActionCollection(self.actionCollection)
-    
-    def translateUI(self):
-        self.setWindowTitle(_("Quick Insert"))
-        self.toggleViewAction().setText(_("Quick &Insert"))
-        
-    def createWidget(self):
-        import quickinsert
-        return quickinsert.QuickInsert(self)
-
-
-class QuickInsertActions(actioncollection.ShortcutCollection):
-    """Manages keyboard shortcuts for the QuickInsert module."""
-    name = "quickinsert"
-    def __init__(self, panel):
-        super(QuickInsertActions, self).__init__(panel.mainwindow())
-        self.panel = weakref.ref(panel)
-    
-    def createDefaultShortcuts(self):
-        self.setDefaultShortcuts('slur', [QKeySequence('Ctrl+(')])
-
-    def realAction(self, name):
-        return self.panel().widget().actionForName(name)
-        
-    def title(self):
-        return _("Quick Insert")
-    
 
