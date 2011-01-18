@@ -197,8 +197,10 @@ class ShortcutCollection(ActionCollectionBase):
         settings = self.settingsGroup()
         for name in settings.allKeys():
             shortcuts = [QKeySequence(s) for s in settings.value(name) or []]
-            if not shortcuts and name not in self.defaults():
-                self.remove(name)
+            if not shortcuts:
+                if not self.removeAction(name):
+                    # if it did not exist, remove key from config
+                    settings.remove(name)
             else:
                 self.action(name).setShortcuts(shortcuts)
     
@@ -210,34 +212,45 @@ class ShortcutCollection(ActionCollectionBase):
             pass
         
     def setShortcuts(self, name, shortcuts):
-        """Sets the shortcuts list for our action."""
-        if not shortcuts and name not in self.defaults():
-            self.remove(name)
-        else:
+        """Sets the shortcuts list for our action. Use an empty list to remove the shortcuts."""
+        if shortcuts:
             self.action(name).setShortcuts(shortcuts)
             self.settingsGroup().setValue(name, shortcuts)
-        self.reloadOthers()
-        
-    def remove(self, name):
-        """(Internal) Removes a shortcut without triggering other to reload."""
-        try:
-            self._actions[name].setParent(None)
-            del self._actions[name]
-        except KeyError:
-            pass
         else:
-            self.settingsGroup().remove(name)
-
+            self.removeAction(name)
+            if name in self.defaults():
+                # save empty list because there exists a default value
+                self.settingsGroup().setValue(name, [])
+            else:
+                self.settingsGroup().remove(name)
+        self.reloadOthers()
+    
+    def removeAction(self, name):
+        """(Internal) Removes the named action, returning True it it did exist."""
+        try:
+            a = self._actions[name]
+        except KeyError:
+            return False
+        a.setParent(None)
+        del self._actions[name]
+        return True
+        
     def action(self, name):
         """Returns a QAction for the name, instantiating it if necessary."""
         try:
             a = self._actions[name]
         except KeyError:
             a = self._actions[name] = QAction(self.widget())
-            a.triggered.connect(lambda: self.realAction(name).trigger())
+            a.triggered.connect(lambda: self.triggerAction(name))
             self.widget().addAction(a)
         return a
-
+    
+    def triggerAction(self, name):
+        """Called when the user presses a saved keyboard shortcut."""
+        a = self.realAction(name)
+        if a:
+            a.trigger()
+            
     def realAction(self, name):
         """Implement this to return the real action the name refers to,
         
