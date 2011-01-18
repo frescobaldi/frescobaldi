@@ -30,7 +30,7 @@ _instances = weakref.WeakKeyDictionary()
 
 class Plugin(object):
     @classmethod
-    def instance(cls, obj):
+    def instance(cls, obj, *args, **kwargs):
         """Returns the instance of this plugin type for this object.
         
         The plugin instance is created if it did not exist.
@@ -40,19 +40,18 @@ class Plugin(object):
             return _instances[cls][obj]
         except KeyError:
             instances = _instances.setdefault(cls, weakref.WeakKeyDictionary())
-            result = instances[obj] = cls.__new__(cls, obj)
+            result = instances[obj] = cls.__new__(cls, obj, *args, **kwargs)
             result._parent = weakref.ref(obj)
-            result.__init__(obj)
+            result.__init__(obj, *args, **kwargs)
         return result
     
     @classmethod
     def instances(cls):
         """Iterates over all living instances of this plugin."""
         try:
-            for instance in _instances[cls].items():
-                yield instance
+            return _instances[cls].values()
         except KeyError:
-            pass
+            return ()
 
 
 class DocumentPlugin(Plugin):

@@ -272,8 +272,8 @@ class ShortcutCollection(ActionCollectionBase):
             if a:
                 d[name] = a
             else:
+                self.removeAction(name)
                 changed = True
-                self.remove(name)
         if changed:
             self.reloadOthers()
         return d

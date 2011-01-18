@@ -112,7 +112,7 @@ class Shortcuts(preferences.Page):
                 titlegroups.setdefault(collection.title(), []).append(a)
                 left.remove(a)
         for title in sorted(titlegroups):
-            item = QTreeWidgetItem([title])
+            item = QTreeWidgetItem(["{0}:".format(title)])
             for a in titlegroups[title]:
                 item.addChild(ShortcutItem(a, *allactions[a]))
             self.tree.addTopLevelItem(item)

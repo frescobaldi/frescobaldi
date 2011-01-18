@@ -29,6 +29,7 @@ from PyQt4.QtGui import *
 
 import app
 import icons
+import symbols
 
 
 class QuickInsert(QWidget):
@@ -63,9 +64,9 @@ class QuickInsert(QWidget):
     def actionForName(self, name):
         """This is called by the ShortcutCollection of our dockwidget if the user presses a key."""
         print "Action",name,"requested!!"
-        print self.parent().actionCollection
         a = QAction(None)
         a.setText("Slur")
+        a.setIcon(symbols.icon('bar_single'))
         return a
 
 
