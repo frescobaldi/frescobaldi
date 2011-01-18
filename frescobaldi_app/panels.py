@@ -136,3 +136,7 @@ class QuickInsertActions(actioncollection.ShortcutCollection):
     def realAction(self, name):
         return self.panel().widget().actionForName(name)
         
+    def title(self):
+        return _("Quick Insert")
+    
+

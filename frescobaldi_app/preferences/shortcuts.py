@@ -101,8 +101,24 @@ class Shortcuts(preferences.Page):
                 menuitem.setExpanded(True)
                 menuitem.setFlags(Qt.ItemIsEnabled) # disable selection
         
-        # TODO: show actions that are left, grouped by collection
+        # sort leftover actions
+        left.sort(key=lambda i: i.text())
         
+        # show actions that are left, grouped by collection
+        titlegroups = {}
+        for a in left[:]: # copy
+            collection, name = allactions[a]
+            if collection.title():
+                titlegroups.setdefault(collection.title(), []).append(a)
+                left.remove(a)
+        for title in sorted(titlegroups):
+            item = QTreeWidgetItem([title])
+            for a in titlegroups[title]:
+                item.addChild(ShortcutItem(a, *allactions[a]))
+            self.tree.addTopLevelItem(item)
+            item.setExpanded(True)
+            item.setFlags(Qt.ItemIsEnabled) # disable selection
+            
         # show other actions that were not in the menus
         item = QTreeWidgetItem([_("Other commands:")])
         for a in left:
