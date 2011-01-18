@@ -20,13 +20,34 @@
 from __future__ import unicode_literals
 
 """
-ActionCollection is a class to keep a list of actions as attributes.
+In this module are two classes, ActionCollection and ShortcutCollection.
+Both must be inherited to do something useful.
+
+ActionCollection keeps a fixed list of QActions, set as instance attributes in
+the createActions() method. The icons and default shortcuts may also be set in
+the same method. The texts should be set in the translateUI() method.
+
+The ActionCollection then keeps track of possibly changed keyboard shortcuts by
+loading them from the config and connecting to the app.settingsChanged() signal.
+
+ShortcutCollection keeps a variable list of QActions, for which default
+shortcuts must be set in the createDefaultShortcuts() method.
+
+This actions must not be connected to, but they are only used to set keyboard
+shortcuts for a module that needs not to be loaded initially for the shortcuts
+to work. If a shortcut is pressed, the real action is queried using the
+realAction() method, which should return the corresponding action in the UI.
+That one is than triggered.
+
+The module may provide the user with a means to change the keyboard shortcuts,
+which then should call setShortcuts() to do it. The module may also query the
+currently set shortcuts for an action using shortcuts().
 """
 
 import weakref
 
 from PyQt4.QtCore import QSettings
-from PyQt4.QtGui import QKeySequence
+from PyQt4.QtGui import QAction, QKeySequence
 
 import app
 
@@ -37,19 +58,15 @@ class ActionCollectionBase(object):
         self._widget = weakref.ref(widget) if widget else lambda: None
         self._actions = {}  # maps name to action
         self._defaults = {} # maps name to default list of shortcuts
+        app.settingsChanged.connect(self.load)
     
     def widget(self):
+        """Returns the widget given on construction or None."""
         return self._widget()
         
     def setDefaultShortcuts(self, name, shortcuts):
+        """Set a default list of QKeySequence objects for the named action."""
         self._defaults[name] = shortcuts
-        
-    def settingsGroup(self):
-        """Returns settings group to load shortcuts from."""
-        s = QSettings()
-        scheme = s.value("shortcut_scheme", "default")
-        s.beginGroup("shortcuts/{0}/{1}".format(scheme, self.name))
-        return s
         
     def actions(self):
         """Returns the dictionary with actions."""
@@ -59,18 +76,21 @@ class ActionCollectionBase(object):
         """Returns the dictionary with actions that have a default shortcut."""
         return self._defaults
         
-    def names(self):
-        """Returns the names of all actions."""
-        return self._actions.keys()
+    def settingsGroup(self):
+        """Returns settings group to load/save shortcuts from or to."""
+        s = QSettings()
+        scheme = s.value("shortcut_scheme", "default")
+        s.beginGroup("shortcuts/{0}/{1}".format(scheme, self.name))
+        return s
         
-    def text(self, name):
-        """Returns the text of the named action, with ampersands removed."""
-        return self._actions[name].text().replace('&&', '\0').replace('&', '').replace('\0', '&')
-
-    def icon(self, name):
-        """Returns the icon of the named action"""
-        return self._actions[name].icon()
+    def load(self):
+        """Implement to load shortcuts from our settingsGroup()."""
+        pass
     
+    def title(self):
+        """If this returns a meaningful title, actions can be grouped in the shortcut settings dialog."""
+        pass
+
 
 class ActionCollection(ActionCollectionBase):
     """Keeps a fixed list of QActions as instance attributes.
@@ -78,16 +98,20 @@ class ActionCollection(ActionCollectionBase):
     Subclass this and add the actions as instance attributes in
     the createActions() method.
     
+    You can set the default shortcuts directly in the actions in the
+    createActions() method, it is not needed to use the setDefaultShortcuts()
+    method for that.
+    
+    Set the titles for the actions in the translateUI() method.
+    
     """
     def __init__(self, parent=None):
-        """Should define all actions in this collection as instance attributes."""
         super(ActionCollection, self).__init__(parent)
         self.createActions(parent)
         self._actions = dict(i for i in self.__dict__.items() if not i[0].startswith('_'))
         self.storeDefaults()
         self.load(False) # load the shortcuts without resettings defaults
         app.translateUI(self)
-        app.settingsChanged.connect(self.load)
         
     def createActions(self, parent=None):
         """Should add actions as instance attributes.
@@ -103,7 +127,7 @@ class ActionCollection(ActionCollectionBase):
         pass
     
     def storeDefaults(self):
-        """Saves the preset default QKeySequence values for the actions."""
+        """Saves the preset default QKeySequence lists for the actions."""
         for name, action in self._actions.items():
             if action.shortcuts():
                 self.setDefaultShortcuts(name, action.shortcuts())
@@ -128,10 +152,11 @@ class ActionCollection(ActionCollectionBase):
                     self._actions[name].setShortcuts(self._defaults.get(name) or [])
 
 
-class VariableActionCollection(ActionCollectionBase):
+class ShortcutCollection(ActionCollectionBase):
     """An ActionCollection type that only saves actions that have a keyboard shortcut.
     
-    Should always be instantiated with the MainWindow as a parent.
+    Should always be instantiated with a visible widget (preferably MainWindow)
+    as parent.
     
     Use the setShortcuts() method to set a list (possibly empty) of QKeySequence
     objects.  Every change causes other instances of the sane-named collection
@@ -149,17 +174,13 @@ class VariableActionCollection(ActionCollectionBase):
     # save weak references to other instances with the same name and sync then.
     others = {}
     
-    def __init__(self, mainwindow):
-        super(VariableActionCollection, self).__init__(mainwindow)
-        self.createDefaults()
+    def __init__(self, widget):
+        super(ShortcutCollection, self).__init__(widget)
+        self.createDefaultShortcuts()
         self.load()
-        app.settingsChanged.connect(self.load)
         self.others.setdefault(self.name, []).append(weakref.ref(self))
-        
-    def mainwindow(self):
-        return self.widget()
-        
-    def createDefaults(self):
+    
+    def createDefaultShortcuts(self):
         """Should set some default shortcut lists using setDefaultShortcuts()."""
         pass
         
@@ -173,10 +194,13 @@ class VariableActionCollection(ActionCollectionBase):
         for name, shortcuts in self.defaults().items():
             self.action(name).setShortcuts(shortcuts)
         # then load
-        for name in self.settingsGroup().allKeys():
+        settings = self.settingsGroup()
+        for name in settings.allKeys():
             shortcuts = [QKeySequence(s) for s in settings.value(name) or []]
             if not shortcuts and name not in self.defaults():
                 self.remove(name)
+            else:
+                self.action(name).setShortcuts(shortcuts)
     
     def shortcuts(name):
         """Returns the list of shortcuts for our action."""
@@ -189,9 +213,13 @@ class VariableActionCollection(ActionCollectionBase):
         """Sets the shortcuts list for our action."""
         if not shortcuts and name not in self.defaults():
             self.remove(name)
+        else:
+            self.action(name).setShortcuts(shortcuts)
+            self.settingsGroup().setValue(name, shortcuts)
         self.reloadOthers()
         
     def remove(self, name):
+        """(Internal) Removes a shortcut without triggering other to reload."""
         try:
             self._actions[name].setParent(None)
             del self._actions[name]
@@ -205,8 +233,9 @@ class VariableActionCollection(ActionCollectionBase):
         try:
             a = self._actions[name]
         except KeyError:
-            a = self._actions[name] = QAction(self.mainwindow())
+            a = self._actions[name] = QAction(self.widget())
             a.triggered.connect(lambda: self.realAction(name).trigger())
+            self.widget().addAction(a)
         return a
 
     def realAction(self, name):
@@ -237,6 +266,7 @@ class VariableActionCollection(ActionCollectionBase):
         return d
     
     def reloadOthers(self):
+        """Reload others managing the same shortcuts (e.g. in case of multiple mainwindows)."""
         for ref in self.others[self.name][:]:
             other = ref()
             if not other:

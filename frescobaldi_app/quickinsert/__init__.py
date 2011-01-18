@@ -59,6 +59,14 @@ class QuickInsert(QWidget):
         self.directionLabel.setText(_("Direction:"))
         for item, text in enumerate((_("Up"), _("Neutral"), _("Down"))):
             self.direction.setItemText(item, text)
+    
+    def actionForName(self, name):
+        """This is called by the ShortcutCollection of our dockwidget if the user presses a key."""
+        print "Action",name,"requested!!"
+        print self.parent().actionCollection
+        a = QAction(None)
+        a.setText("Slur")
+        return a
 
 
 class ToolBox(QToolBox):

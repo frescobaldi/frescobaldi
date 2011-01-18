@@ -100,7 +100,9 @@ class Shortcuts(preferences.Page):
                 self.tree.addTopLevelItem(menuitem)
                 menuitem.setExpanded(True)
                 menuitem.setFlags(Qt.ItemIsEnabled) # disable selection
-                
+        
+        # TODO: show actions that are left, grouped by collection
+        
         # show other actions that were not in the menus
         item = QTreeWidgetItem([_("Other commands:")])
         for a in left:

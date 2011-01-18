@@ -25,6 +25,7 @@ Base class and stubs and logic for Panels (QDockWidgets).
 When the panel must be shown its widget is instantiated.
 """
 
+import weakref
 
 from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QDockWidget, QKeySequence, QLabel
@@ -110,6 +111,8 @@ class QuickInsertPanel(Panel):
         self.hide()
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+I"))
         mainwindow.addDockWidget(Qt.LeftDockWidgetArea, self)
+        self.actionCollection = QuickInsertActions(self)
+        mainwindow.addActionCollection(self.actionCollection)
     
     def translateUI(self):
         self.setWindowTitle(_("Quick Insert"))
@@ -120,3 +123,16 @@ class QuickInsertPanel(Panel):
         return quickinsert.QuickInsert(self)
 
 
+class QuickInsertActions(actioncollection.ShortcutCollection):
+    """Manages keyboard shortcuts for the QuickInsert module."""
+    name = "quickinsert"
+    def __init__(self, panel):
+        super(QuickInsertActions, self).__init__(panel.mainwindow())
+        self.panel = weakref.ref(panel)
+    
+    def createDefaultShortcuts(self):
+        self.setDefaultShortcuts('slur', [QKeySequence('Ctrl+0')])
+
+    def realAction(self, name):
+        return self.panel().widget().actionForName(name)
+        
