@@ -59,7 +59,7 @@ class QuickInsertActions(actioncollection.ShortcutCollection):
         self.panel = weakref.ref(panel)
     
     def createDefaultShortcuts(self):
-        self.setDefaultShortcuts('slur', [QKeySequence('Ctrl+(')])
+        self.setDefaultShortcuts('staccato', [QKeySequence('Ctrl+.')])
 
     def realAction(self, name):
         return self.panel().widget().actionForName(name)

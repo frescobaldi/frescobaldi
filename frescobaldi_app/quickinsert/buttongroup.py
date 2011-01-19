@@ -139,7 +139,7 @@ class Button(QToolButton):
             text = self.defaultAction().text()
             key = self.key()
             if key:
-                text += "\n" + _("Shortcut Key: {key}").format(key=key)
+                text = _("{name} ({key})").format(name=text, key=key)
             QToolTip.showText(ev.globalPos(), text)
             return True
         return super(Button, self).event(ev)
