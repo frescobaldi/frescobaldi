@@ -29,6 +29,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import widgets.shortcuteditdialog
 
 
 class ButtonGroup(QGroupBox):
@@ -153,8 +154,15 @@ class Button(QToolButton):
 
     def editShortcut(self):
         """Edit our shortcut."""
-        # TODO: implement
-        
+        action = QAction(self.defaultAction().icon(), self.defaultAction().text(), None)
+        shortcuts = self.actionCollection().shortcuts(self.objectName())
+        if shortcuts:
+            action.setShortcuts(shortcuts)
+        dlg = widgets.shortcuteditdialog.ShortcutEditDialog(self)
+        if dlg.editAction(action, self.actionCollection().defaults().get(self.objectName())):
+            # TODO: implement conflict checking
+            self.actionCollection().setShortcuts(self.objectName(), action.shortcuts())
+
 
 
 

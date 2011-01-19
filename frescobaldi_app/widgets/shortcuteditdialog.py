@@ -81,8 +81,7 @@ class ShortcutEditDialog(QDialog):
         layout.addWidget(b, 9, 0, 1, 2)
         b.accepted.connect(self.accept)
         b.rejected.connect(self.reject)
-        app.languageChanged.connect(self.translateUI)
-        self.translateUI()
+        app.translateUI(self)
     
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Edit Shortcut")))
