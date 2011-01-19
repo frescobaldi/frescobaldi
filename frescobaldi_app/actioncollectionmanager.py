@@ -21,9 +21,6 @@ from __future__ import unicode_literals
 
 """
 Manages action collections for a MainWindow.
-
-Call the manager instance via actioncollection.manager(mainwindow).
-
 """
 
 import weakref
