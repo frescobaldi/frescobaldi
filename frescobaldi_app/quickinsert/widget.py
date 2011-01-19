@@ -30,10 +30,15 @@ import app
 import icons
 import symbols
 
+from . import articulations
+
 
 class QuickInsert(QWidget):
     def __init__(self, panel):
         super(QuickInsert, self).__init__(panel)
+        
+        # filled in by ButtonGroup subclasses
+        self.actionDict = {}
         
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -51,25 +56,30 @@ class QuickInsert(QWidget):
         hor.addWidget(self.direction)
         layout.addLayout(hor)
         
-        self.toolbox = ToolBox(self)
+        self.toolbox = QToolBox(self)
         layout.addWidget(self.toolbox)
+        
+        for cls in (
+                articulations.Articulations,
+            ):
+            widget = cls(self.toolbox)
+            self.toolbox.addItem(widget, widget.icon(), '')
+        
         app.translateUI(self)
         
     def translateUI(self):
         self.directionLabel.setText(_("Direction:"))
         for item, text in enumerate((_("Up"), _("Neutral"), _("Down"))):
             self.direction.setItemText(item, text)
-    
+        for i in range(self.toolbox.count()):
+            self.toolbox.setItemText(i, self.toolbox.widget(i).title())
+            self.toolbox.setItemToolTip(i, self.toolbox.widget(i).tooltip())
+            
     def actionForName(self, name):
-        """This is called by the ShortcutCollection of our dockwidget if the user presses a key."""
-        print "Action",name,"requested!!"
-        a = QAction(None)
-        a.setText("Slur")
-        a.setIcon(symbols.icon('bar_single'))
-        return a
-
-
-class ToolBox(QToolBox):
-    pass
+        """This is called by the ShortcutCollection of our dockwidget, e.g. if the user presses a key."""
+        try:
+            return self.actionDict[name]
+        except KeyError:
+            pass
 
 
