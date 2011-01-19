@@ -21,6 +21,7 @@ setup(
         'frescobaldi_app.ly.tokenize',
         'frescobaldi_app.po',
         'frescobaldi_app.preferences',
+        'frescobaldi_app.quickinsert',
         'frescobaldi_app.symbols',
         'frescobaldi_app.widgets',
     ],
