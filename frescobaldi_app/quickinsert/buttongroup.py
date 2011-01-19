@@ -154,14 +154,45 @@ class Button(QToolButton):
 
     def editShortcut(self):
         """Edit our shortcut."""
+        mainwindow = self.parent().tool().panel().parent().mainwindow()
         action = QAction(self.defaultAction().icon(), self.defaultAction().text(), None)
         shortcuts = self.actionCollection().shortcuts(self.objectName())
         if shortcuts:
             action.setShortcuts(shortcuts)
         dlg = widgets.shortcuteditdialog.ShortcutEditDialog(self)
-        if dlg.editAction(action, self.actionCollection().defaults().get(self.objectName())):
-            # TODO: implement conflict checking
+        
+        while dlg.editAction(action, self.actionCollection().defaults().get(self.objectName())):
+            # conflict checking
+            shortcuts = action.shortcuts()
+            if shortcuts:
+                conflicts = {}
+                for collection in mainwindow.actionCollections():
+                    for a in collection.actions().values():
+                        if a is not self.defaultAction() and a.shortcuts():
+                            for s1 in a.shortcuts():
+                                for s2 in action.shortcuts():
+                                    if s2.matches(s1) or s1.matches(s2):
+                                        # s2 conflicts with a
+                                        conflicts.setdefault(a, []).append(s2)
+                                        # do shortcuts remain?
+                                        if s2 in shortcuts:
+                                            shortcuts.remove(s2)
+                if conflicts:
+                    msg = [_("This shortcut conflicts with the following command:",
+                            "This shortcut conflicts with the following commands:", len(conflicts))]
+                    msg.append("<br/>".join("{name} ({key})".format(name=a.text(), key=' \u2014 '.join(s.toString()
+                                    for s in conflicts[a])) for a in conflicts))
+                    msg = '<p>{0}</p>'.format('</p><p>'.join(msg))
+                    box = QMessageBox(QMessageBox.Warning, _("Shortcut Conflict"), msg,
+                            QMessageBox.Ok | QMessageBox.Cancel, self)
+                    box.button(QMessageBox.Ok).setText(_("Edit again"))
+                    if box.exec_() == QMessageBox.Ok:
+                        action.setShortcuts(shortcuts)
+                        continue
+                    else:
+                        return
             self.actionCollection().setShortcuts(self.objectName(), action.shortcuts())
+            return
 
 
 
