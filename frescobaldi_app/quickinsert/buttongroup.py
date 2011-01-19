@@ -134,6 +134,16 @@ class Button(QToolButton):
                 key += "..."
             return key
     
+    def event(self, ev):
+        if ev.type() == QEvent.ToolTip:
+            text = self.defaultAction().text()
+            key = self.key()
+            if key:
+                text += "\n" + _("Shortcut Key: {key}").format(key=key)
+            QToolTip.showText(ev.globalPos(), text)
+            return True
+        return super(Button, self).event(ev)
+    
     def contextMenuEvent(self, ev):
         m = QMenu(self)
         a = m.addAction(_("Configure Keyboard Shortcut ({key})").format(key = self.key() or "None"))
