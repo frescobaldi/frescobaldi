@@ -23,6 +23,8 @@ from __future__ import unicode_literals
 The Quick Insert panel widget.
 """
 
+import weakref
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
@@ -33,10 +35,15 @@ class Tool(QWidget):
     """
     def __init__(self, panel):
         super(Tool, self).__init__(panel)
+        self._panel = weakref.ref(panel)
         layout = QVBoxLayout()
         self.setLayout(layout)
         layout.setContentsMargins(0, 0, 0, 0)
-        
+    
+    def panel(self):
+        """Returns the panel."""
+        return self._panel()
+    
     def icon(self):
         """Should return an icon for our tab."""
         pass

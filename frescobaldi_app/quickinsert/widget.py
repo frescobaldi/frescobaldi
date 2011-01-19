@@ -23,6 +23,8 @@ from __future__ import unicode_literals
 The Quick Insert panel widget.
 """
 
+import weakref
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
@@ -34,9 +36,9 @@ from . import articulations
 
 
 class QuickInsert(QWidget):
-    def __init__(self, panel):
-        super(QuickInsert, self).__init__(panel)
-        
+    def __init__(self, dockwidget):
+        super(QuickInsert, self).__init__(dockwidget)
+        self._dockwidget = weakref.ref(dockwidget)
         # filled in by ButtonGroup subclasses
         self.actionDict = {}
         
@@ -62,7 +64,7 @@ class QuickInsert(QWidget):
         for cls in (
                 articulations.Articulations,
             ):
-            widget = cls(self.toolbox)
+            widget = cls(self)
             self.toolbox.addItem(widget, widget.icon(), '')
         
         app.translateUI(self)
@@ -81,5 +83,8 @@ class QuickInsert(QWidget):
             return self.actionDict[name]
         except KeyError:
             pass
+
+    def dockwidget(self):
+        return self._dockwidget()
 
 

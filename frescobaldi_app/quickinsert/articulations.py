@@ -26,10 +26,23 @@ The Quick Insert panel widget.
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+import app
 import symbols
 
 import tool
 import buttongroup
+
+
+# a dict mapping long articulation names to their short sign
+shorthands = {
+    'marcato': '^',
+    'stopped': '+',
+    'tenuto': '-',
+    'staccatissimo': '|',
+    'accent': '>',
+    'staccato': '.',
+    'portato': '_',
+}
 
 
 class Articulations(tool.Tool):
@@ -38,9 +51,23 @@ class Articulations(tool.Tool):
     """
     def __init__(self, panel):
         super(Articulations, self).__init__(panel)
+        self.shorthands = QCheckBox(self)
+        self.shorthands.setChecked(True)
+        self.layout().addWidget(self.shorthands)
+        for cls in (
+                ArticulationsGroup,
+                OrnamentsGroup,
+                SignsGroup,
+                OtherGroup,
+            ):
+            self.layout().addWidget(cls(self))
+        app.translateUI(self)
         
-        self.layout().addWidget(ArticulationsGroup(self))
-        
+    def translateUI(self):
+        self.shorthands.setText(_("Allow shorthands"))
+        self.shorthands.setToolTip(_(
+            "Use short notation for some articulations like staccato."))
+
     def icon(self):
         """Should return an icon for our tab."""
         return symbols.icon("articulation_prall")
@@ -59,8 +86,14 @@ class Group(buttongroup.ButtonGroup):
         for name, title in self.actionTexts():
             yield name, symbols.icon('articulation_'+name), None
 
+    def actionTriggered(self, name):
+        print "Articulation",name,"triggered"#DEBUG
+        
 
 class ArticulationsGroup(Group):
+    def translateUI(self):
+        self.setTitle(_("Articulations"))
+        
     def actionTexts(self):
         yield 'accent', _("Accent")
         yield 'marcato', _("Marcato")
@@ -69,4 +102,60 @@ class ArticulationsGroup(Group):
         yield 'portato', _("Portato")
         yield 'tenuto', _("Tenuto")
         yield 'espressivo', _("Espressivo")
+
+
+class OrnamentsGroup(Group):
+    def translateUI(self):
+        self.setTitle(_("Ornaments"))
         
+    def actionTexts(self):
+        yield 'trill', _("Trill")
+        yield 'prall', _("Prall")
+        yield 'mordent', _("Mordent")
+        yield 'turn', _("Turn")
+        yield 'prallprall', _("Prall prall")
+        yield 'prallmordent', _("Prall mordent")
+        yield 'upprall', _("Up prall")
+        yield 'downprall', _("Down prall")
+        yield 'upmordent', _("Up mordent")
+        yield 'downmordent', _("Down mordent")
+        yield 'prallup', _("Prall up")
+        yield 'pralldown', _("Prall down")
+        yield 'lineprall', _("Line prall")
+        yield 'reverseturn', _("Reverse turn")
+
+
+class SignsGroup(Group):
+    def translateUI(self):
+        self.setTitle(_("Signs"))
+        
+    def actionTexts(self):
+        yield 'fermata', _("Fermata")
+        yield 'shortfermata', _("Short fermata")
+        yield 'longfermata', _("Long fermata")
+        yield 'verylongfermata', _("Very long fermata")
+        yield 'segno', _("Segno")
+        yield 'coda', _("Coda")
+        yield 'varcoda', _("Varcoda")
+        yield 'signumcongruentiae', _("Signumcongruentiae")
+
+
+class OtherGroup(Group):
+    def translateUI(self):
+        self.setTitle(_("Other"))
+    
+    def actionTexts(self):
+        yield 'upbow', _("Upbow")
+        yield 'downbow', _("Downbow")
+        yield 'snappizzicato', _("Snappizzicato")
+        yield 'open', _("Open (e.g. brass)")
+        yield 'stopped', _("Stopped (e.g. brass)")
+        yield 'flageolet', _("Flageolet")
+        yield 'thumb', _("Thumb")
+        yield 'lheel', _("Left heel")
+        yield 'rheel', _("Right heel")
+        yield 'ltoe', _("Left toe")
+        yield 'rtoe', _("Right toe")
+        yield 'halfopen', _("Half open (e.g. hi-hat)")
+
+

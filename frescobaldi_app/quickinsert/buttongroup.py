@@ -23,6 +23,8 @@ from __future__ import unicode_literals
 A QGroupBox in the Quick Insert Panel that auto-layouts its buttons.
 """
 
+import weakref
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
@@ -41,9 +43,12 @@ class ButtonGroup(QGroupBox):
     
     """
       
-    def __init__(self, parent=None):
-        super(ButtonGroup, self).__init__(parent)
+    def __init__(self, tool):
+        super(ButtonGroup, self).__init__(tool)
+        self._tool = weakref.ref(tool)
         grid = QGridLayout()
+        grid.setSpacing(0)
+        grid.setContentsMargins(0, 0, 0, 0)
         self.setLayout(grid)
         self.createActions()
         self.setActionTexts()
@@ -55,13 +60,12 @@ class ButtonGroup(QGroupBox):
         """Should set our title."""
         pass
     
-    def panel(self):
-        #           subpanel toolbox  panel
-        return self.parent().parent().parent()
+    def tool(self):
+        return self._tool()
     
     def actionDict(self):
         """Returns the Quick Insert action dictionary."""
-        return self.panel().actionDict
+        return self.tool().panel().actionDict
         
     def direction(self):
         """ The value of the generic direction widget.
@@ -94,9 +98,7 @@ class ButtonGroup(QGroupBox):
         row = layout.rowCount()
         columns = 5
         for num, name in enumerate(self._names, row*columns):
-            b = QToolButton(self)
-            b.setDefaultAction(actionDict[name])
-            b.setAutoRaise(True)
+            b = Button(self, name, actionDict[name])
             layout.addWidget(b, *divmod(num, columns))
             
     def actionData(self):
@@ -111,4 +113,40 @@ class ButtonGroup(QGroupBox):
         """Called by default when a button is activated."""
         print "Action triggered:", name # DEBUG
         
+
+class Button(QToolButton):
+    def __init__(self, group, name, action):
+        super(Button, self).__init__(group)
+        self.setObjectName(name)
+        self.setDefaultAction(action)
+        self.setAutoRaise(True)
+        self.setIconSize(QSize(22, 22))
     
+    def actionCollection(self):
+        return self.parent().tool().panel().parent().actionCollection
+    
+    def key(self):
+        """Returns a textual representation of the configured shortcut if it exists."""
+        shortcuts = self.actionCollection().shortcuts(self.objectName())
+        if shortcuts:
+            key = shortcuts[0].toString()
+            if len(shortcuts) > 1:
+                key += "..."
+            return key
+    
+    def contextMenuEvent(self, ev):
+        m = QMenu(self)
+        a = m.addAction(_("Configure Keyboard Shortcut ({key})").format(key = self.key() or "None"))
+        a.triggered.connect(self.editShortcut)
+        m.exec_(ev.globalPos())
+        m.deleteLater()
+
+    def editShortcut(self):
+        """Edit our shortcut."""
+        # TODO: implement
+        
+
+
+
+
+

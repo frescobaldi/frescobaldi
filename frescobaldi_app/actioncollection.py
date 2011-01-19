@@ -204,7 +204,7 @@ class ShortcutCollection(ActionCollectionBase):
             else:
                 self.action(name).setShortcuts(shortcuts)
     
-    def shortcuts(name):
+    def shortcuts(self, name):
         """Returns the list of shortcuts for our action."""
         try:
             return self._actions[name].shortcuts()
