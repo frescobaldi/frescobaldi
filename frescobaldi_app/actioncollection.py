@@ -76,6 +76,13 @@ class ActionCollectionBase(object):
         """Returns the dictionary with actions that have a default shortcut."""
         return self._defaults
         
+    def shortcuts(self, name):
+        """Returns the list of shortcuts for the named action, or None."""
+        try:
+            return self._actions[name].shortcuts()
+        except KeyError:
+            pass
+        
     def settingsGroup(self):
         """Returns settings group to load/save shortcuts from or to."""
         s = QSettings()
@@ -204,13 +211,6 @@ class ShortcutCollection(ActionCollectionBase):
             else:
                 self.action(name).setShortcuts(shortcuts)
     
-    def shortcuts(self, name):
-        """Returns the list of shortcuts for our action."""
-        try:
-            return self._actions[name].shortcuts()
-        except KeyError:
-            pass
-        
     def setShortcuts(self, name, shortcuts):
         """Sets the shortcuts list for our action. Use an empty list to remove the shortcuts."""
         if shortcuts:

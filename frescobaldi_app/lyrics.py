@@ -30,6 +30,7 @@ from PyQt4.QtGui import QAction, QApplication, QKeySequence, QTextCursor
 
 import ly.tokenize.lilypond
 import actioncollection
+import actioncollectionmanager
 import plugin
 import tokeniter
 
@@ -45,7 +46,7 @@ def lyrics(mainwindow):
 class Lyrics(plugin.MainWindowPlugin):
     def __init__(self, mainwindow):
         ac = self.actionCollection = Actions()
-        mainwindow.addActionCollection(ac)
+        actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         
         ac.lyrics_hyphenate.triggered.connect(self.hyphenate)
         ac.lyrics_dehyphenate.triggered.connect(self.dehyphenate)

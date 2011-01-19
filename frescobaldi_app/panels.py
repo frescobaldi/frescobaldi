@@ -31,6 +31,7 @@ from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QDockWidget, QLabel
 
 import actioncollection
+import actioncollectionmanager
 import app
 import plugin
 
@@ -49,7 +50,7 @@ class PanelManager(plugin.MainWindowPlugin):
 
     def createActions(self):
         self.actionCollection = Actions(self)
-        self.mainwindow().addActionCollection(self.actionCollection)
+        actioncollectionmanager.manager(self.mainwindow()).addActionCollection(self.actionCollection)
 
     def addActionsToMenu(self, menu):
         """Adds all toggleViewActions to the given menu."""

@@ -31,6 +31,8 @@ from PyQt4.QtGui import (
     QTreeWidgetItem, QVBoxLayout)
 
 import app
+import actioncollection
+import actioncollectionmanager
 import icons
 import preferences
 
@@ -72,7 +74,7 @@ class Shortcuts(preferences.Page):
         # value, with the collection prepended (for loading/saving)
         win = dialog.parent()
         allactions = {}
-        for collection in win.actionCollections():
+        for collection in actioncollectionmanager.manager(win).actionCollections():
             for name, action in collection.actions().items():
                 allactions[action] = (collection, name)
         

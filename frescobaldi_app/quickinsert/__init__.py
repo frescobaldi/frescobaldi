@@ -29,6 +29,7 @@ from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QKeySequence
 
 import actioncollection
+import actioncollectionmanager
 import panels
 
 
@@ -40,7 +41,7 @@ class QuickInsertPanel(panels.Panel):
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+I"))
         mainwindow.addDockWidget(Qt.LeftDockWidgetArea, self)
         self.actionCollection = QuickInsertActions(self)
-        mainwindow.addActionCollection(self.actionCollection)
+        actioncollectionmanager.manager(mainwindow).addActionCollection(self.actionCollection)
     
     def translateUI(self):
         self.setWindowTitle(_("Quick Insert"))
