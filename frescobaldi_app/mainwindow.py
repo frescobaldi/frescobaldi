@@ -1237,7 +1237,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.lilypond_run_publish.setShortcut(Qt.CTRL + Qt.SHIFT + Qt.Key_P)
         self.lilypond_run_custom.setShortcut(Qt.CTRL + Qt.SHIFT + Qt.Key_M)
         
-        self.window_fullscreen.setShortcut(Qt.CTRL + Qt.SHIFT + Qt.Key_F)
+        self.window_fullscreen.setShortcuts([QKeySequence(Qt.CTRL + Qt.SHIFT + Qt.Key_F), QKeySequence(Qt.Key_F11)])
         
         self.help_manual.setShortcuts(QKeySequence.HelpContents)
         self.help_whatsthis.setShortcuts(QKeySequence.WhatsThis)
