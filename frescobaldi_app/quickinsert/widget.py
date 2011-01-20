@@ -33,6 +33,7 @@ import icons
 import symbols
 
 from . import articulations
+from . import barlines
 
 
 class QuickInsert(QWidget):
@@ -63,6 +64,7 @@ class QuickInsert(QWidget):
         
         for cls in (
                 articulations.Articulations,
+                barlines.BarLines,
             ):
             widget = cls(self)
             self.toolbox.addItem(widget, widget.icon(), '')

@@ -20,7 +20,7 @@
 from __future__ import unicode_literals
 
 """
-The Quick Insert panel widget.
+The Quick Insert panel Articulations Tool.
 """
 
 from PyQt4.QtCore import *
