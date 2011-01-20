@@ -68,6 +68,12 @@ class MainWindow(QMainWindow):
         QMainWindow.__init__(self)
         self.setAttribute(Qt.WA_DeleteOnClose)
         
+        # this could be made configurable
+        self.setCorner(Qt.TopLeftCorner, Qt.LeftDockWidgetArea)
+        self.setCorner(Qt.BottomLeftCorner, Qt.LeftDockWidgetArea)
+        self.setCorner(Qt.TopRightCorner, Qt.RightDockWidgetArea)
+        self.setCorner(Qt.BottomRightCorner, Qt.RightDockWidgetArea)
+        
         self._currentDocument = None
         self._currentView = lambda: None
         self._allActionCollections = []
