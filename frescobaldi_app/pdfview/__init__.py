@@ -34,7 +34,6 @@ import panels
 class PDFViewPanel(panels.Panel):
     def __init__(self, mainwindow):
         super(PDFViewPanel, self).__init__(mainwindow)
-        self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.hide()
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+P"))
         mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
