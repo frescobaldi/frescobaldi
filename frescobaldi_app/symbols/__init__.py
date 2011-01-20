@@ -35,6 +35,7 @@ __all__ = ["icon"]
 
 _icons = {}
 _alpha = {}
+_pixmaps = {}
 
 
 def icon(name):
@@ -48,14 +49,15 @@ def icon(name):
 
 def alpha(name, size):
     """Returns a (possibly cached) alpha pixmap from a LilyPond symbol."""
+    key = (name, size.width(), size.height())
     try:
-        return _alpha[(name, size)]
+        return _alpha[key]
     except KeyError:
         p = QPixmap(size)
         p.fill(Qt.transparent)
         r = QSvgRenderer(os.path.join(__path__[0], name + ".svg"))
         r.render(QPainter(p))
-        a = _alpha[(name, size)] = p.alphaChannel()
+        a = _alpha[key] = p.alphaChannel()
         return a
 
 
@@ -65,10 +67,15 @@ def pixmap(name, size, mode, state):
     The state argument is ignored for now.
     
     """
-    p = QPixmap(size)
-    p.fill(QApplication.palette().foreground().color())
-    p.setAlphaChannel(alpha(name, size))
-    return QApplication.style().generatedIconPixmap(mode, p, QStyleOption())
+    key = (name, size.width(), size.height(), mode, id(QApplication.style()))
+    try:
+        return _pixmaps[key]
+    except KeyError:
+        p = QPixmap(size)
+        p.fill(QApplication.palette().foreground().color())
+        p.setAlphaChannel(alpha(name, size))
+        p = _pixmaps[key] = QApplication.style().generatedIconPixmap(mode, p, QStyleOption())
+        return p
 
 
 class Engine(QIconEngineV2):
