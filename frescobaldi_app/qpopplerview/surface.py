@@ -24,4 +24,4 @@ class Surface(QWidget):
         p.setBrush(QPalette.Background, p.dark())
         self.setPalette(p)
         
-        
+

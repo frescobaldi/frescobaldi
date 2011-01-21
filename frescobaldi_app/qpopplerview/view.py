@@ -24,4 +24,11 @@ class View(QScrollArea):
         self.setPalette(p)
         
         self.setWidget(surface.Surface(self))
+    
+    def surface(self):
+        """Returns our Surface, the widget drawing the page(s)."""
+        return self.widget()
         
+    def setDocument(self, document):
+        """Opens the given Poppler.Document"""
+
