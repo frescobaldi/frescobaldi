@@ -15,7 +15,7 @@ class Page(object):
     def __init__(self, document, pageNumber):
         self._document = document
         self._pageNumber = pageNumber
-        self._pageSizeF = document.page(pageNumber).pageSizeF()
+        self._pageSize = document.page(pageNumber).pageSize()
         self._rotation = popplerqt4.Poppler.Page.Rotate0
         self._rect = QRect()
         self._xdpi = 72.0
@@ -60,21 +60,12 @@ class Page(object):
         """Sets our position (affects the Layout)."""
         self._rect.setTopLeft(point)
     
-    def pageSizeF(self):
-        """Returns the size of our page, taking rotation into account."""
-        s = self._pageSizeF
-        if self._rotation & 1:
-            s.transpose()
-        return s
-    
     def setRotation(self, rotation):
         """Sets our Poppler.Page.Rotation."""
         old, self._rotation = self._rotation, rotation
         if (old ^ rotation) & 1:
-            # swap x and y in our size
-            s = self._rect.size()
-            s.transpose()
-            self._rect.setSize(s)
+            self._pageSize.transpose()
+            self._computeSize()
     
     def rotation(self):
         """Returns our rotation."""
@@ -82,10 +73,9 @@ class Page(object):
     
     def _computeSize(self):
         """Recomputes our size."""
-        s = self.pageSizeF()
-        x = s.width() * self._xdpi / 72.0 * self._scale
-        y = s.height() * self._ydpi / 72.0 * self._scale
-        self._rect.setSize(QSizeF(x, y).toSize())
+        x = round(self._pageSize.width() * self._xdpi / 72.0 * self._scale)
+        y = round(self._pageSize.height() * self._ydpi / 72.0 * self._scale)
+        self._rect.setSize(QSize(x, y))
         
     def setDPI(self, xdpi, ydpi=None):
         """Sets our dots per inch in x and y direction.
@@ -114,11 +104,11 @@ class Page(object):
     
     def setWidth(self, width):
         """Forces our width (influences size() and dpi())."""
-        self.setScale(width * 72.0 / self._xdpi / self.pageSizeF().width())
+        self.setScale(width * 72.0 / self._xdpi / self._pageSize.width())
 
     def setHeight(self, height):
         """Forces our height (influences size() and dpi())."""
-        self.setScale(height * 72.0 / self._ydpi / self.pageSizeF().height())
+        self.setScale(height * 72.0 / self._ydpi / self._pageSize.height())
         
     def paint(self, painter, rect):
         update_rect = rect & self.rect()
