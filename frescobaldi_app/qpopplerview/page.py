@@ -83,10 +83,8 @@ class Page(object):
         If y is not given, the same value as for x is used.
         
         """
-        if ydpi is None:
-            ydpi = xdpi
         self._xdpi = xdpi
-        self._ydpi = ydpi
+        self._ydpi = ydpi or xdpi
         self._computeSize()
     
     def dpi(self):
