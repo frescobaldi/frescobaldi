@@ -18,8 +18,11 @@ class Page(object):
         self._pageSizeF = document.page(pageNumber).pageSizeF()
         self._rotation = popplerqt4.Poppler.Page.Rotate0
         self._rect = QRect()
-        self.setDPI(72.0)
+        self._xdpi = 72.0
+        self._ydpi = 72.0
+        self._scale = 1.0
         self._layout = lambda: None
+        self._computeSize()
         
     def document(self):
         """Returns the document."""
@@ -57,28 +60,13 @@ class Page(object):
         """Sets our position (affects the Layout)."""
         self._rect.setTopLeft(point)
     
-    def setDPI(self, xres, yres=None):
-        """Sets our dots per inch in x and y direction.
-        
-        If y is not given, the same value as for x is used.
-        
-        """
-        if yres is None:
-            yres = xres
-        self._xres = xres
-        self._yres = yres
-        
+    def pageSizeF(self):
+        """Returns the size of our page, taking rotation into account."""
         s = self._pageSizeF
         if self._rotation & 1:
             s.transpose()
-        x = int(round(s.width() * xres / 72.0))
-        y = int(round(s.height() * yres / 72.0))
-        self._rect.setSize(QSize(x, y))
+        return s
     
-    def dpi(self):
-        """Returns a tuple (xres, yres)."""
-        return self._xres, self._yres
-        
     def setRotation(self, rotation):
         """Sets our Poppler.Page.Rotation."""
         old, self._rotation = self._rotation, rotation
@@ -92,19 +80,45 @@ class Page(object):
         """Returns our rotation."""
         return self._rotation
     
+    def _computeSize(self):
+        """Recomputes our size."""
+        s = self.pageSizeF()
+        x = s.width() * self._xdpi / 72.0 * self._scale
+        y = s.height() * self._ydpi / 72.0 * self._scale
+        self._rect.setSize(QSizeF(x, y).toSize())
+        
+    def setDPI(self, xdpi, ydpi=None):
+        """Sets our dots per inch in x and y direction.
+        
+        If y is not given, the same value as for x is used.
+        
+        """
+        if ydpi is None:
+            ydpi = xdpi
+        self._xdpi = xdpi
+        self._ydpi = ydpi
+        self._computeSize()
+    
+    def dpi(self):
+        """Returns a tuple (xdpi, ydpi)."""
+        return self._xdpi, self._ydpi
+    
+    def setScale(self, scale):
+        """Changes the display scale."""
+        self._scale = scale
+        self._computeSize()
+        
+    def scale(self):
+        """Returns our display scale."""
+        return self._scale
+    
     def setWidth(self, width):
         """Forces our width (influences size() and dpi())."""
-        if width != self.width():
-            scale = float(width) / self._rect.width()
-            xres, yres = self.dpi()
-            self.setDPI(xres * scale, yres * scale)
+        self.setScale(width * 72.0 / self._xdpi / self.pageSizeF().width())
 
     def setHeight(self, height):
         """Forces our height (influences size() and dpi())."""
-        if height != self.height():
-            scale = float(height) / self._rect.height()
-            xres, yres = self.dpi()
-            self.setDPI(xres * scale, yres * scale)
+        self.setScale(height * 72.0 / self._ydpi / self.pageSizeF().height())
         
     def paint(self, painter, rect):
         update_rect = rect & self.rect()
