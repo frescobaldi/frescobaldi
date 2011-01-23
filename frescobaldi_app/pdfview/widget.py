@@ -28,11 +28,12 @@ import weakref
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+import popplerqt4
 import qpopplerview
 
 import app
 import icons
-
+import textformats
 
 
 class PDFView(QWidget):
@@ -42,7 +43,17 @@ class PDFView(QWidget):
         layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
         
-        self.view = qpopplerview.QPopplerView(self)
+        self.view = qpopplerview.View(self)
         layout.addWidget(self.view)
         
+        # TEMP!!
+        d = popplerqt4.Poppler.Document.load('/home/wilbert/mozart.pdf')
+        if d:
+            d.setRenderHint(1)
+            d.setRenderHint(2)
+            d.setPaperColor(textformats.formatData('editor').baseColors['paper'])
+            self.view.load(d)
+            self.view.surface().pageLayout().setScale(1.6)
+            self.view.surface().pageLayout().update()
+            self.view.surface().updateLayout()
         

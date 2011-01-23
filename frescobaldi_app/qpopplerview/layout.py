@@ -1,4 +1,22 @@
-#! python
+# This file is part of the qpopplerview package.
+#
+# Copyright (c) 2010, 2011 by Wilbert Berendsen
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+# See http://www.gnu.org/licenses/ for more information.
+
 
 """
 Manages and positions a group of Page instances.
@@ -20,8 +38,8 @@ class AbstractLayout(object):
         self._pages = []
         self._dpi = (72.0, 72.0)
         self._size = QSize()
-        self._margin = 2
-        self._spacing = 2
+        self._margin = 4
+        self._spacing = 4
         
     def own(self, page):
         """(Internal) Makes the page have ourselves as layout."""
@@ -127,7 +145,7 @@ class AbstractLayout(object):
         """Returns the space between the pages in pixels."""
         return self._spacing
         
-    def layout(self):
+    def update(self):
         """Implement! Performs the layouting (positions the Pages and adjust our size()."""
         pass
     

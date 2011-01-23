@@ -435,6 +435,7 @@ def baseColorNames():
         'error':               _("Error Line"),
         'search':              _("Search Result"),
         'match':               _("Matching Character"),
+        'paper':               _("Preview Background"),
     }
 
 
