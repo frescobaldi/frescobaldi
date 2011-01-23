@@ -23,12 +23,22 @@ class View(QScrollArea):
         p.setBrush(QPalette.Background, p.dark())
         self.setPalette(p)
         
-        self.setWidget(surface.Surface(self))
     
     def surface(self):
         """Returns our Surface, the widget drawing the page(s)."""
-        return self.widget()
+        sf = self.widget()
+        if not sf:
+            sf = surface.Surface(self)
+            self.setSurface(sf)
+        return sf
+    
+    def setSurface(self, sf):
+        """Sets the given surface as our widget."""
+        self.setWidget(sf)
         
-    def setDocument(self, document):
-        """Opens the given Poppler.Document"""
+    def load(self, document):
+        """Convenience method to load all the pages from the given Poppler.Document."""
+        self.surface().pageLayout().load(document)
+        self.surface().pageLayout().update()
+        self.surface().updateLayout()
 

@@ -55,6 +55,9 @@ class AbstractLayout(object):
         self.disown(page)
         return page
     
+    def clear(self):
+        del self[:]
+        
     def __len__(self):
         return len(self._pages)
     
@@ -128,20 +131,27 @@ class AbstractLayout(object):
         """Implement! Performs the layouting (positions the Pages and adjust our size()."""
         pass
     
-    def page(self, point):
+    def pageAt(self, point):
         """Returns the page that contains the given QPoint."""
         # Specific layouts may use faster algorithms to find the page.
         for page in self:
             if page.rect().contains(point):
                 return page
     
-    def pages(self, rect):
+    def pagesAt(self, rect):
         """Yields the pages touched by the given QRect."""
         # Specific layouts may use faster algorithms to find the pages.
         for page in self:
             if page.rect().intersects(rect):
                 yield page
         
+    def load(self, document):
+        """Convenience mehod to load all the pages of the given Poppler.Document using page.Page()."""
+        self.clear()
+        for num in range(document.numPages()):
+            self.append(page.Page(document, num))
+
+
 
 class Layout(AbstractLayout):
     """A basic layout that shows pages from right to left or top to bottom."""
@@ -169,7 +179,7 @@ class Layout(AbstractLayout):
         for page in self:
             page.setHeight(pageheight)
             
-    def layout(self):
+    def update(self):
         """Orders our pages."""
         if self._orientation == Qt.Vertical:
             width = max(page.width() for page in self) + self._margin * 2

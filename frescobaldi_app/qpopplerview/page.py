@@ -10,6 +10,8 @@ import popplerqt4
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+from . import cache
+
 
 class Page(object):
     def __init__(self, document, pageNumber):
@@ -104,7 +106,7 @@ class Page(object):
             return
         image = cache.image(self._document, self._pageNumber, self.size())
         if image:
-            image_rect = QRect(update_rect.topLeft() - self.rect().topLeft(), ur.size())
+            image_rect = QRect(update_rect.topLeft() - self.rect().topLeft(), update_rect.size())
             painter.drawImage(update_rect, image, image_rect)
         else:
             painter.fillRect(update_rect, QApplication.palette().background().color())
