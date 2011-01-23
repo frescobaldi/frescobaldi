@@ -204,7 +204,7 @@ baseColorDefaults = dict(
     error =               lambda: QColor(255, 192, 192),
     search =              lambda: QColor(192, 255, 192),
     match =               lambda: QColor(0, 192, 255),
-    paper =               lambda: QColor(221, 204, 153),
+    paper =               lambda: QColor(242, 224, 168),
 )
 
 defaultStyles = (

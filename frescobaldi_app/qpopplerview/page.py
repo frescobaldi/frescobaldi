@@ -122,7 +122,7 @@ class Page(object):
         update_rect = rect & self.rect()
         if not update_rect:
             return
-        image = cache.image(self._document, self._pageNumber, self.size())
+        image = cache.image(self._document, self._pageNumber, self.size(), self.rotation())
         if image:
             image_rect = QRect(update_rect.topLeft() - self.rect().topLeft(), update_rect.size())
             painter.drawImage(update_rect, image, image_rect)

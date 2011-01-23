@@ -24,13 +24,11 @@ Manages and positions a group of Page instances.
 
 import weakref
 
-import popplerqt4
-
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-
 from . import page
+
 
 class AbstractLayout(object):
     """Manages page.Page instances with a list-like api."""
