@@ -28,8 +28,9 @@ import popplerqt4
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+
 _cache = weakref.WeakKeyDictionary()
-_jobs = {}
+_runners = weakref.WeakKeyDictionary()
 
 
 def clear(document=None):
@@ -75,47 +76,74 @@ def gen(page):
     """Generates an image for the cache."""
     
     document = page.document()
-    
-    key = (document, page.pageNumber(), page.rotation(), page.width(), page.height())
-
     try:
-        job = _jobs[key]
+        runner = _runners[document]
     except KeyError:
-        job = Job(key)
-        job.start()
-    return job
+        runner = _runners[document] = Runner(document)
+    return runner.job(page)
+
+
+class Runner(object):
+    def __init__(self, document):
+        self._schedule = []
+        self._jobs = {}
+        self._document = weakref.ref(document)
+        self._running = False
+        
+    def job(self, page):
+        key = (page.pageNumber(), page.rotation(), page.width(), page.height())
+        try:
+            job = self._jobs[key]
+        except KeyError:
+            job = self._jobs[key] = Job(page)
+            job.key = key
+        else:
+            self._schedule.remove(job)
+        self._schedule.append(job)
+        self.checkStart()
+        return job
+        
+    def checkStart(self):
+        if self._schedule and not self._running:
+            job = self._schedule[-1]
+            job.done.connect(self.jobDone)
+            job.start()
+            self._running = True
+            
+    def jobDone(self, job):
+        del self._jobs[job.key]
+        self._schedule.remove(job)
+        self._running = False
+        self.checkStart()
 
 
 
 class Job(QThread):
     
-    done = pyqtSignal()
+    done = pyqtSignal(QThread)
     
-    def __init__(self, key):
+    def __init__(self, page):
         super(Job, self).__init__()
-        _jobs[key] = self
-        self._pages = []
-        self._key = key
+        self.document = page.document()
+        self.pageNumber = page.pageNumber()
+        self.rotation = page.rotation()
+        self.width = page.width()
+        self.height = page.height()
         self.finished.connect(self.slotFinished)
-        print "Starting Job"
 
     def run(self):
-        document, pageNumber, rotation, width, height = self._key
-        page = document.page(pageNumber)
+        page = self.document.page(self.pageNumber)
         pageSize = page.pageSize()
-        if rotation & 1:
+        if self.rotation & 1:
             pageSize.transpose()
-        xres = 72.0 * width / pageSize.width()
-        yres = 72.0 * height / pageSize.height()
-        self._image = page.renderToImage(xres, yres, 0, 0, width, height, rotation)
+        xres = 72.0 * self.width / pageSize.width()
+        yres = 72.0 * self.height / pageSize.height()
+        self.image = page.renderToImage(xres, yres, 0, 0, self.width, self.height, self.rotation)
         
     def slotFinished(self):
-        document, pageNumber, rotation, width, height = self._key
-        pageKey = (pageNumber, rotation)
-        sizeKey = (width, height)
-        _cache.setdefault(document, {}).setdefault(pageKey, {})[sizeKey] = self._image
-        del _jobs[self._key]
-        self.done.emit()
-        print "Ending Job"
+        pageKey = (self.pageNumber, self.rotation)
+        sizeKey = (self.width, self.height)
+        _cache.setdefault(self.document, {}).setdefault(pageKey, {})[sizeKey] = self.image
+        self.done.emit(self)
     
 

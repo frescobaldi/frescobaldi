@@ -223,4 +223,3 @@ class Layout(AbstractLayout):
             self.setSize(QSize(left, height))
             
                 
-                
