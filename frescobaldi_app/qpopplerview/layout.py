@@ -30,9 +30,13 @@ from PyQt4.QtGui import *
 from . import page
 
 
-class AbstractLayout(object):
+class AbstractLayout(QObject):
     """Manages page.Page instances with a list-like api."""
+    
+    redraw = pyqtSignal(QRect)
+    
     def __init__(self):
+        super(AbstractLayout, self).__init__()
         self._pages = []
         self._dpi = (72.0, 72.0)
         self._size = QSize()
@@ -147,6 +151,10 @@ class AbstractLayout(object):
         """Implement! Performs the layouting (positions the Pages and adjust our size()."""
         pass
     
+    def updatePage(self, page):
+        """Called by the Page when an image has been generated."""
+        self.redraw.emit(page.rect())
+        
     def pageAt(self, point):
         """Returns the page that contains the given QPoint."""
         # Specific layouts may use faster algorithms to find the page.

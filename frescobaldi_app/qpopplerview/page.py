@@ -40,6 +40,7 @@ class Page(object):
         self._rect = QRect()
         self._scale = 1.0
         self._layout = lambda: None
+        self._pending = None
         
     def document(self):
         """Returns the document."""
@@ -122,12 +123,26 @@ class Page(object):
         update_rect = rect & self.rect()
         if not update_rect:
             return
-        image = cache.image(self._document, self._pageNumber, self.size(), self.rotation())
+        image_rect = QRect(update_rect.topLeft() - self.rect().topLeft(), update_rect.size())
+        image = cache.image(self)
         if image:
-            image_rect = QRect(update_rect.topLeft() - self.rect().topLeft(), update_rect.size())
             painter.drawImage(update_rect, image, image_rect)
         else:
-            painter.fillRect(update_rect, QApplication.palette().background().color())
+            # schedule an image to be generated
+            if not self._pending:
+                self._pending = cache.gen(self)
+                self._pending.done.connect(self.update)
+            # find suitable image in other size
+            image = cache.image(self, False)
+            if image:
+                painter.drawImage(update_rect, image, image_rect)
+            else:
+                # draw blank paper
+                painter.fillRect(update_rect, self.document().paperColor())
 
-
-        
+    def update(self):
+        """Called when an image is drawn."""
+        if self.layout():
+            self.layout().updatePage(self)
+            
+    

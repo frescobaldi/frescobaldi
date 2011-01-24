@@ -37,7 +37,8 @@ class Surface(QWidget):
     def __init__(self, view):
         super(Surface, self).__init__(view)
         self._view = weakref.ref(view)
-        self._pageLayout = layout.Layout()
+        self._pageLayout = None
+        self.setPageLayout(layout.Layout())
         
         p = self.palette()
         p.setBrush(QPalette.Background, p.dark())
@@ -48,7 +49,10 @@ class Surface(QWidget):
         return self._pageLayout
         
     def setPageLayout(self, layout):
-        self._pageLayout = layout
+        old, self._pageLayout = self._pageLayout, layout
+        if old:
+            old.redraw.disconnect(self.update)
+        layout.redraw.connect(self.update)
         
     def updateLayout(self):
         """Conforms ourselves to our layout (that must already be updated.)"""
