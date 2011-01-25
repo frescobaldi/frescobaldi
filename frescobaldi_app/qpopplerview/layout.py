@@ -134,6 +134,38 @@ class AbstractLayout(QObject):
         for page in self._pages:
             page.setScale(scale)
     
+    def setPageWidth(self, width, sameScale=True):
+        """Sets the width of all pages.
+        
+        If sameScale is True (default), the largest page will be scaled to the given
+        width (minus margin).  All pages will then be scaled to that scale.
+        If sameScale is False all pages will be scaled individually to the same width.
+        
+        """
+        if sameScale:
+            scale = self.widest().scaleForWidth(width)
+            for page in self:
+                page.setScale(scale)
+        else:
+            for page in self:
+                page.setWidth(width)
+    
+    def setPageHeight(self, height, sameScale=True):
+        """Sets the height of all pages.
+        
+        If sameScale is True (default), the largest page will be scaled to the given
+        height (minus margin).  All pages will then be scaled to that scale.
+        If sameScale is False all pages will be scaled individually to the same height.
+        
+        """
+        if sameScale:
+            scale = self.heighest().scaleForWidth(height)
+            for page in self:
+                page.setScale(scale)
+        else:
+            for page in self:
+                page.setHeight(height)
+            
     def setMargin(self, margin):
         """Sets the margin around the pages in pixels."""
         self._margin = margin
@@ -172,6 +204,18 @@ class AbstractLayout(QObject):
             if page.rect().intersects(rect):
                 yield page
         
+    def widest(self):
+        """Returns the widest page (in its natural page size)."""
+        if self.count():
+            return max((page.pageSize().width(), page) for page in self)[1]
+        return 0
+        
+    def heighest(self):
+        """Returns the heighest page (in its natural page size)."""
+        if self.count():
+            return max((page.pageSize().height(), page) for page in self)[1]
+        return 0
+        
     def load(self, document):
         """Convenience mehod to load all the pages of the given Poppler.Document using page.Page()."""
         self.clear()
@@ -194,18 +238,6 @@ class Layout(AbstractLayout):
         """Returns our orientation (either Qt.Vertical or Qt.Horizontal)."""
         return self._orientation
     
-    def setWidth(self, width):
-        """Forces all pages the same width. Does not make much sense when orientation() is Qt.Horizontal."""
-        pagewidth = width - self._margin * 2
-        for page in self:
-            page.setWidth(pagewidth)
-    
-    def setHeight(self, height):
-        """Forces all pages the same height. Does not make much sense when orientation() is Qt.Vertical."""
-        pageheight = height - self.margin * 2
-        for page in self:
-            page.setHeight(pageheight)
-            
     def update(self):
         """Orders our pages."""
         if self.count() == 0:

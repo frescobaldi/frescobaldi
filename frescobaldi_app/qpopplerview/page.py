@@ -108,15 +108,27 @@ class Page(object):
         """Returns our display scale."""
         return self._scale
     
+    def scaleForWidth(self, width):
+        """Returns the scale we need to display ourselves at the given width."""
+        if self.layout():
+            return width * 72.0 / self.layout().dpi()[0] / self._pageSize.width()
+        else:
+            return float(width) / self._pageSize.width()
+        
+    def scaleForHeight(self, height):
+        """Returns the scale we need to display ourselves at the given width."""
+        if self.layout():
+            return height * 72.0 / self.layout().dpi()[1] / self._pageSize.height()
+        else:
+            return float(height) / self._pageSize.height()
+        
     def setWidth(self, width):
-        """Forces our width (influences size() and dpi())."""
-        xdpi = self.layout().dpi()[0] if self.layout() else 72.0
-        self.setScale(width * 72.0 / xdpi / self._pageSize.width())
+        """Change our scale to force our width to the given value."""
+        self.setScale(self.scaleForWidth(width))
 
     def setHeight(self, height):
-        """Forces our height (influences size() and dpi())."""
-        ydpi = self.layout().dpi()[1] if self.layout() else 72.0
-        self.setScale(height * 72.0 / ydpi / self._pageSize.height())
+        """Change our scale to force our height to the given value."""
+        self.setScale(self.scaleForHeight(height))
         
     def paint(self, painter, rect):
         update_rect = rect & self.rect()
