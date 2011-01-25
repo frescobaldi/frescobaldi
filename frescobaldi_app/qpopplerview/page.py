@@ -40,7 +40,6 @@ class Page(object):
         self._rect = QRect()
         self._scale = 1.0
         self._layout = lambda: None
-        self._pending = False
         
     def document(self):
         """Returns the document."""
@@ -129,9 +128,13 @@ class Page(object):
             painter.drawImage(update_rect, image, image_rect)
         else:
             # schedule an image to be generated
-            if not self._pending:
-                self._pending = True
-                cache.gen(self).done.connect(self.update)
+            job = cache.gen(self)
+            # don't connect ourselves twice
+            try:
+                job.done.disconnect(self.update)
+            except TypeError:
+                pass
+            job.done.connect(self.update)
             # find suitable image to be scaled from other size
             image = cache.image(self, False)
             if image:

@@ -79,15 +79,14 @@ def gen(page):
     try:
         runner = _runners[document]
     except KeyError:
-        runner = _runners[document] = Runner(document)
+        runner = _runners[document] = Runner()
     return runner.job(page)
 
 
 class Runner(object):
-    def __init__(self, document):
+    def __init__(self):
         self._schedule = []
         self._jobs = {}
-        self._document = weakref.ref(document)
         self._running = False
         
     def job(self, page):
