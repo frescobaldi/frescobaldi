@@ -26,8 +26,7 @@ import time
 import weakref
 import popplerqt4
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QThread
 
 
 __all__ = ['maxsize', 'setmaxsize', 'image', 'generate', 'clear']
@@ -81,9 +80,12 @@ def image(page, exact=True):
     
     if exact:
         try:
-            return _cache[document][pageKey][sizeKey][0]
+            entry = _cache[document][pageKey][sizeKey]
         except KeyError:
             return
+        else:
+            entry[1] = time.time()
+            return entry[0]
     try:
         sizes = _cache[document][pageKey].keys()
     except KeyError:
@@ -91,8 +93,7 @@ def image(page, exact=True):
     # find the closest size (assuming aspect ratio has not changed)
     if sizes:
         sizes.sort(key=lambda s: abs(1 - s[0] / float(page.width())))
-        image = _cache[document][pageKey][sizes[0]][0]
-        return image
+        return _cache[document][pageKey][sizes[0]][0]
 
 
 def generate(page):
@@ -111,7 +112,7 @@ def add(image, document, pageNumber, rotation, width, height):
     """(Internal) Adds an image to the cache."""
     pageKey = (pageNumber, rotation)
     sizeKey = (width, height)
-    _cache.setdefault(document, {}).setdefault(pageKey, {})[sizeKey] = (image, time.time())
+    _cache.setdefault(document, {}).setdefault(pageKey, {})[sizeKey] = [image, time.time()]
     
     # maintain cache size
     global _maxsize, _currentsize
@@ -126,26 +127,24 @@ def purge():
     (Not necessary to call, as the cache will monitor its size automatically.)
     
     """
-    # make a list of the images, sorted on time
-    images = []
-    for document, pageKeys in _cache.items():
-        for pageKey, sizeKeys in pageKeys.items():
-            for sizeKey, (image, time) in sizeKeys.items():
-                images.append((time, document, pageKey, sizeKey, image.byteCount()))
-    # newest first
-    images.sort(key = lambda i: i[0], reverse=True)
+    # make a list of the images, sorted on time, newest first
+    images = iter(sorted((
+        (time, document, pageKey, sizeKey, image.byteCount())
+            for document, pageKeys in _cache.items()
+            for pageKey, sizeKeys in pageKeys.items()
+            for sizeKey, (image, time) in sizeKeys.items()),
+                reverse=True))
 
     # sum the size of the newest images
     global _maxsize, _currentsize
-    items = iter(images)
     byteCount = 0
-    for item in items:
+    for item in images:
         byteCount += item[4]
         if byteCount > _maxsize:
             break
     _currentsize = byteCount
     # delete the other images
-    for time, document, pageKey, sizeKey, byteCount in items:
+    for time, document, pageKey, sizeKey, byteCount in images:
         del _cache[document][pageKey][sizeKey]
 
 
