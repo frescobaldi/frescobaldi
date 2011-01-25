@@ -72,9 +72,10 @@ def image(page, exact=True):
 
 
 
-def gen(page):
+def generate(page):
     """Generates an image for the cache."""
-    
+    # Poppler-Qt4 crashes when different pages from a Document are rendered at the same time,
+    # so we schedule them to be run in sequence.
     document = page.document()
     try:
         runner = _runners[document]
@@ -84,12 +85,19 @@ def gen(page):
 
 
 class Runner(object):
+    """Manages running rendering jobs in sequence for a Document."""
     def __init__(self):
-        self._schedule = []
-        self._jobs = {}
-        self._running = False
+        self._schedule = []     # order
+        self._jobs = {}         # jobs on key
+        self._running = None
         
     def job(self, page):
+        """Creates or returns an existing Job.
+        
+        The returned Job will be scheduled to run as the first one.
+        
+        """
+        # uniquely identify the image to be generated
         key = (page.pageNumber(), page.rotation(), page.width(), page.height())
         try:
             job = self._jobs[key]
@@ -98,6 +106,7 @@ class Runner(object):
             job.key = key
         else:
             self._schedule.remove(job)
+            job.notify(page)
         self._schedule.append(job)
         self.checkStart()
         return job
@@ -105,44 +114,69 @@ class Runner(object):
     def checkStart(self):
         if self._schedule and not self._running:
             job = self._schedule[-1]
-            job.done.connect(self.jobDone)
-            job.start()
-            self._running = True
+            document = job.document()
+            if document:
+                self._running = Run(self, document, job)
+            else:
+                self.done(job)
             
-    def jobDone(self, job):
+    def done(self, job):
         del self._jobs[job.key]
         self._schedule.remove(job)
-        self._running = False
+        self._running = None
+        for page in job.pages():
+            page.update()
         self.checkStart()
 
 
 
-class Job(QThread):
-    
-    done = pyqtSignal(QThread)
-    
+class Job(object):
+    """Simply contains data needed to create an image later."""
     def __init__(self, page):
-        super(Job, self).__init__()
-        self.document = page.document()
+        self._pages = []
+        self.document = weakref.ref(page.document())
         self.pageNumber = page.pageNumber()
         self.rotation = page.rotation()
         self.width = page.width()
         self.height = page.height()
-        self.finished.connect(self.slotFinished)
+        self.notify(page)
+        
+    def notify(self, page):
+        pageref = weakref.ref(page)
+        if pageref not in self._pages:
+            self._pages.append(pageref)
+        
+    def pages(self):
+        for pageref in self._pages:
+            page = pageref()
+            if page:
+                yield page
 
+
+class Run(QThread):
+    """Immediately runs a Job, using a thread."""
+    def __init__(self, runner, document, job):
+        super(Run, self).__init__()
+        self.runner = runner
+        self.job = job
+        self.document = document # keep reference now so that it does not die during this thread
+        self.finished.connect(self.slotFinished)
+        self.start()
+        
     def run(self):
-        page = self.document.page(self.pageNumber)
+        page = self.document.page(self.job.pageNumber)
         pageSize = page.pageSize()
-        if self.rotation & 1:
+        if self.job.rotation & 1:
             pageSize.transpose()
-        xres = 72.0 * self.width / pageSize.width()
-        yres = 72.0 * self.height / pageSize.height()
-        self.image = page.renderToImage(xres, yres, 0, 0, self.width, self.height, self.rotation)
+        xres = 72.0 * self.job.width / pageSize.width()
+        yres = 72.0 * self.job.height / pageSize.height()
+        self.image = page.renderToImage(xres, yres, 0, 0, self.job.width, self.job.height, self.job.rotation)
         
     def slotFinished(self):
-        pageKey = (self.pageNumber, self.rotation)
-        sizeKey = (self.width, self.height)
+        pageKey = (self.job.pageNumber, self.job.rotation)
+        sizeKey = (self.job.width, self.job.height)
         _cache.setdefault(self.document, {}).setdefault(pageKey, {})[sizeKey] = self.image
-        self.done.emit(self)
-    
+        self.runner.done(self.job)
+
+
 

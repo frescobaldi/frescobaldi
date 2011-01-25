@@ -127,14 +127,8 @@ class Page(object):
         if image:
             painter.drawImage(update_rect, image, image_rect)
         else:
-            # schedule an image to be generated
-            job = cache.gen(self)
-            # don't connect ourselves twice
-            try:
-                job.done.disconnect(self.update)
-            except TypeError:
-                pass
-            job.done.connect(self.update)
+            # schedule an image to be generated, if done our update() method is called
+            cache.generate(self)
             # find suitable image to be scaled from other size
             image = cache.image(self, False)
             if image:
@@ -149,7 +143,6 @@ class Page(object):
 
     def update(self):
         """Called when an image is drawn."""
-        self._pending = False
         if self.layout():
             self.layout().updatePage(self)
             
