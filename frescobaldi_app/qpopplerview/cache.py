@@ -22,6 +22,7 @@
 Caching of generated images.
 """
 
+import time
 import weakref
 import popplerqt4
 
@@ -57,7 +58,7 @@ def image(page, exact=True):
     
     if exact:
         try:
-            return _cache[document][pageKey][sizeKey]
+            return _cache[document][pageKey][sizeKey][0]
         except KeyError:
             return
     try:
@@ -67,7 +68,7 @@ def image(page, exact=True):
     # find the closest size (assuming aspect ratio has not changed)
     if sizes:
         sizes.sort(key=lambda s: abs(1 - s[0] / float(page.width())))
-        image = _cache[document][pageKey][sizes[0]]
+        image = _cache[document][pageKey][sizes[0]][0]
         return image
 
 
@@ -87,9 +88,22 @@ def add(image, document, pageNumber, rotation, width, height):
     """Adds an image to the cache."""
     pageKey = (pageNumber, rotation)
     sizeKey = (width, height)
-    _cache.setdefault(document, {}).setdefault(pageKey, {})[sizeKey] = image
+    _cache.setdefault(document, {}).setdefault(pageKey, {})[sizeKey] = (image, time.time())
+    purge()
 
 
+def purge():
+    """Removes old images from the cache to limit the space used."""
+    # make a list of the images, sorted on time
+    images = []
+    for doc, pageKeys in _cache.items():
+        for pageKey, sizeKeys in pageKeys.items():
+            for sizeKey, (image, time) in sizeKeys.items():
+                images.append((time, doc, pageKey, sizeKey, image.byteCount()))
+    # newest first
+    images.sort(key = lambda i: i[0], reverse=True)
+    
+    
 class Runner(object):
     """Manages running rendering jobs in sequence for a Document."""
     def __init__(self):
