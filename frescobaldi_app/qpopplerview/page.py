@@ -132,10 +132,14 @@ class Page(object):
             if not self._pending:
                 self._pending = True
                 cache.gen(self).done.connect(self.update)
-            # find suitable image scaled from other size
+            # find suitable image to be scaled from other size
             image = cache.image(self, False)
             if image:
-                painter.drawImage(update_rect, image, image_rect)
+                hscale = float(image.width()) / self.width()
+                vscale = float(image.height()) / self.height()
+                image_rect = QRectF(image_rect.x() * hscale, image_rect.y() * vscale,
+                                    image_rect.width() * hscale, image_rect.height() * vscale)
+                painter.drawImage(QRectF(update_rect), image, image_rect)
             else:
                 # draw blank paper
                 painter.fillRect(update_rect, self.document().paperColor())

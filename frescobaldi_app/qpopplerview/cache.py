@@ -64,10 +64,10 @@ def image(page, exact=True):
         sizes = _cache[document][pageKey].keys()
     except KeyError:
         return
-    # find the closest size (assuming aspect ratio has not changed) and cache that for the time being
+    # find the closest size (assuming aspect ratio has not changed)
     if sizes:
         sizes.sort(key=lambda s: abs(1 - s[0] / float(page.width())))
-        image = _cache[document][pageKey][sizeKey] = _cache[document][pageKey][sizes[0]].scaled(page.size())
+        image = _cache[document][pageKey][sizes[0]]
         return image
 
 
