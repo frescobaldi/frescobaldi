@@ -71,7 +71,6 @@ def image(page, exact=True):
         return image
 
 
-
 def generate(page):
     """Generates an image for the cache."""
     # Poppler-Qt4 crashes when different pages from a Document are rendered at the same time,
@@ -82,6 +81,13 @@ def generate(page):
     except KeyError:
         runner = _runners[document] = Runner()
     return runner.job(page)
+
+
+def add(image, document, pageNumber, rotation, width, height):
+    """Adds an image to the cache."""
+    pageKey = (pageNumber, rotation)
+    sizeKey = (width, height)
+    _cache.setdefault(document, {}).setdefault(pageKey, {})[sizeKey] = image
 
 
 class Runner(object):
@@ -173,9 +179,7 @@ class Run(QThread):
         self.image = page.renderToImage(xres, yres, 0, 0, self.job.width, self.job.height, self.job.rotation)
         
     def slotFinished(self):
-        pageKey = (self.job.pageNumber, self.job.rotation)
-        sizeKey = (self.job.width, self.job.height)
-        _cache.setdefault(self.document, {}).setdefault(pageKey, {})[sizeKey] = self.image
+        add(self.image, self.document, self.job.pageNumber, self.job.rotation, self.job.width, self.job.height)
         self.runner.done(self.job)
 
 
