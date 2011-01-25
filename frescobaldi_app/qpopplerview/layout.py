@@ -77,6 +77,9 @@ class AbstractLayout(QObject):
     
     def clear(self):
         del self[:]
+    
+    def count(self):
+        return len(self._pages)
         
     def __len__(self):
         return len(self._pages)
@@ -205,7 +208,9 @@ class Layout(AbstractLayout):
             
     def update(self):
         """Orders our pages."""
-        if self._orientation == Qt.Vertical:
+        if self.count() == 0:
+            self.setSize(QSize(self._margin * 2, self._margin * 2))
+        elif self._orientation == Qt.Vertical:
             width = max(page.width() for page in self) + self._margin * 2
             top = self._margin
             for page in self:

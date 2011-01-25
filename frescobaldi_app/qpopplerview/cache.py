@@ -30,11 +30,32 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 
+__all__ = ['maxsize', 'setmaxsize', 'image', 'generate', 'clear']
+
+
 _cache = weakref.WeakKeyDictionary()
-_runners = weakref.WeakKeyDictionary()
+_schedulers = weakref.WeakKeyDictionary()
+
+
+# cache size
+_maxsize = 104857600 # 100M
+_currentsize = 0
+
+
+def setmaxsize(maxsize):
+    """Sets the maximum cache size in Megabytes."""
+    global _maxsize
+    _maxsize = maxsize * 1048576
+    purge()
+    
+
+def maxsize():
+    """Returns the maximum cache size in Megabytes."""
+    return _maxsize / 1048576
 
 
 def clear(document=None):
+    """Clears the whole cache or the cache for the given Poppler.Document."""
     if document:
         try:
             del _cache[document]
@@ -42,6 +63,8 @@ def clear(document=None):
             pass
     else:
         _cache.clear()
+        global _currentsize
+        _currentsize = 0
 
 
 def image(page, exact=True):
@@ -73,48 +96,70 @@ def image(page, exact=True):
 
 
 def generate(page):
-    """Generates an image for the cache."""
+    """Schedule an image to be generated for the cache."""
     # Poppler-Qt4 crashes when different pages from a Document are rendered at the same time,
     # so we schedule them to be run in sequence.
     document = page.document()
     try:
-        runner = _runners[document]
+        scheduler = _schedulers[document]
     except KeyError:
-        runner = _runners[document] = Runner()
-    return runner.job(page)
+        scheduler = _schedulers[document] = Scheduler()
+    scheduler.schedulejob(page)
 
 
 def add(image, document, pageNumber, rotation, width, height):
-    """Adds an image to the cache."""
+    """(Internal) Adds an image to the cache."""
     pageKey = (pageNumber, rotation)
     sizeKey = (width, height)
     _cache.setdefault(document, {}).setdefault(pageKey, {})[sizeKey] = (image, time.time())
-    purge()
+    
+    # maintain cache size
+    global _maxsize, _currentsize
+    _currentsize += image.byteCount()
+    if _currentsize > _maxsize:
+        purge()
 
 
 def purge():
-    """Removes old images from the cache to limit the space used."""
+    """Removes old images from the cache to limit the space used.
+    
+    (Not necessary to call, as the cache will monitor its size automatically.)
+    
+    """
     # make a list of the images, sorted on time
     images = []
-    for doc, pageKeys in _cache.items():
+    for document, pageKeys in _cache.items():
         for pageKey, sizeKeys in pageKeys.items():
             for sizeKey, (image, time) in sizeKeys.items():
-                images.append((time, doc, pageKey, sizeKey, image.byteCount()))
+                images.append((time, document, pageKey, sizeKey, image.byteCount()))
     # newest first
     images.sort(key = lambda i: i[0], reverse=True)
-    
-    
-class Runner(object):
+
+    # sum the size of the newest images
+    global _maxsize, _currentsize
+    items = iter(images)
+    byteCount = 0
+    for item in items:
+        byteCount += item[4]
+        if byteCount > _maxsize:
+            break
+    _currentsize = byteCount
+    # delete the other images
+    for time, document, pageKey, sizeKey, byteCount in items:
+        del _cache[document][pageKey][sizeKey]
+
+
+class Scheduler(object):
     """Manages running rendering jobs in sequence for a Document."""
     def __init__(self):
         self._schedule = []     # order
         self._jobs = {}         # jobs on key
         self._running = None
         
-    def job(self, page):
-        """Creates or returns an existing Job.
+    def schedulejob(self, page):
+        """Creates or retriggers an existing Job.
         
-        The returned Job will be scheduled to run as the first one.
+        The page's update() method will be called when the Job has completed.
         
         """
         # uniquely identify the image to be generated
@@ -129,25 +174,25 @@ class Runner(object):
             job.notify(page)
         self._schedule.append(job)
         self.checkStart()
-        return job
         
     def checkStart(self):
+        """Starts a job if none is running and at least one is waiting."""
         if self._schedule and not self._running:
             job = self._schedule[-1]
             document = job.document()
             if document:
-                self._running = Run(self, document, job)
+                self._running = Runner(self, document, job)
             else:
                 self.done(job)
             
     def done(self, job):
+        """Called when the job has completed."""
         del self._jobs[job.key]
         self._schedule.remove(job)
         self._running = None
         for page in job.pages():
             page.update()
         self.checkStart()
-
 
 
 class Job(object):
@@ -162,28 +207,31 @@ class Job(object):
         self.notify(page)
         
     def notify(self, page):
+        """Add a Page to the list to be notified when the job has completed."""
         pageref = weakref.ref(page)
         if pageref not in self._pages:
             self._pages.append(pageref)
         
     def pages(self):
+        """Yields the pages that want to update() when this Job is done."""
         for pageref in self._pages:
             page = pageref()
             if page:
                 yield page
 
 
-class Run(QThread):
-    """Immediately runs a Job, using a thread."""
-    def __init__(self, runner, document, job):
-        super(Run, self).__init__()
-        self.runner = runner
+class Runner(QThread):
+    """Immediately runs a Job in a background thread."""
+    def __init__(self, scheduler, document, job):
+        super(Runner, self).__init__()
+        self.scheduler = scheduler
         self.job = job
         self.document = document # keep reference now so that it does not die during this thread
         self.finished.connect(self.slotFinished)
         self.start()
         
     def run(self):
+        """Main method of this thread, called by Qt on start()."""
         page = self.document.page(self.job.pageNumber)
         pageSize = page.pageSize()
         if self.job.rotation & 1:
@@ -193,8 +241,9 @@ class Run(QThread):
         self.image = page.renderToImage(xres, yres, 0, 0, self.job.width, self.job.height, self.job.rotation)
         
     def slotFinished(self):
+        """Called when the thread has completed."""
         add(self.image, self.document, self.job.pageNumber, self.job.rotation, self.job.width, self.job.height)
-        self.runner.done(self.job)
+        self.scheduler.done(self.job)
 
 
 
