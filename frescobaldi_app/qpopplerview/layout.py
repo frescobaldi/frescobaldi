@@ -28,6 +28,13 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 from . import page
+from . import (
+    # viewModes:
+    FixedScale,
+    FitWidth,
+    FitHeight,
+    FitBoth,
+)
 
 
 class AbstractLayout(QObject):
@@ -181,6 +188,16 @@ class AbstractLayout(QObject):
     def spacing(self):
         """Returns the space between the pages in pixels."""
         return self._spacing
+        
+    def fit(self, size, mode):
+        """Fits the layout in the given ViewMode."""
+        if mode and self.count():
+            scales = []
+            if mode & FitWidth:
+                scales.append(self.widest().scaleForWidth(size.width() - self.margin() * 2))
+            if mode & FitHeight:
+                scales.append(self.heighest().scaleForHeight(size.height() - self.margin() * 2))
+            self.setScale(min(scales))
         
     def update(self):
         """Implement! Performs the layouting (positions the Pages and adjust our size()."""

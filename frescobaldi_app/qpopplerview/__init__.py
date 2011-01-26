@@ -48,8 +48,14 @@ Of course there are some convenience shortcuts:
 
 """
 
+# viewModes:
+FixedScale = 0
+FitWidth   = 1
+FitHeight  = 2
+FitBoth    = FitHeight | FitWidth
 
-from .view import View, FixedScale, FitWidth, FitHeight, FitBoth
+
+from .view import View
 from .page import Page
 from .layout import AbstractLayout, Layout
 from .surface import Surface

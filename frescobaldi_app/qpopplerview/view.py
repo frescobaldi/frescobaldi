@@ -31,12 +31,13 @@ import popplerqt4
 from . import surface
 from . import cache
 
-
-# viewModes:
-FixedScale = 0
-FitWidth   = 1
-FitHeight  = 2
-FitBoth    = FitHeight | FitWidth
+from . import (
+    # viewModes:
+    FixedScale,
+    FitWidth,
+    FitHeight,
+    FitBoth,
+)
 
 
 class View(QScrollArea):
@@ -127,12 +128,8 @@ class View(QScrollArea):
         self._resizeTimer.start(100)
         
     def _resizeTimeout(self):
-        layout = self.surface().pageLayout()
-        scales = []
-        if self.viewMode() & FitWidth:
-            scales.append(layout.widest().scaleForWidth(self._newsize.width() - layout.margin() * 2))
-        if self.viewMode() & FitHeight:
-            scales.append(layout.heighest().scaleForHeight(self._newsize.height() - layout.margin() * 2))
-        self.setScale(min(scales))
+        self.surface().pageLayout().fit(self._newsize, self.viewMode())
+        self.surface().pageLayout().update()
+        self.surface().updateLayout()
 
 
