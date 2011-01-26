@@ -29,6 +29,7 @@ from PyQt4.QtGui import *
 import popplerqt4
 
 from . import surface
+from . import cache
 
 
 class View(QScrollArea):
@@ -71,4 +72,21 @@ class View(QScrollArea):
         self.surface().pageLayout().setScale(scale)
         self.surface().pageLayout().update()
         self.surface().updateLayout()
+
+    def visiblePages(self):
+        """Yields the visible pages."""
+        rect = self.viewport().rect()
+        rect.translate(-self.surface().pos())
+        rect.intersect(self.surface().rect())
+        for page in self.surface().pageLayout().pagesAt(rect):
+            yield page
+
+    def redraw(self):
+        """Redraws, e.g. when you changed rendering hints or papercolor on the document."""
+        pages = list(self.visiblePages())
+        documents = set(page.document() for page in pages)
+        for document in documents:
+            cache.clear(document)
+        for page in pages:
+            cache.generate(page)
 
