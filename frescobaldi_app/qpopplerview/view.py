@@ -48,11 +48,8 @@ class View(QScrollArea):
         super(View, self).__init__(parent)
         
         self.setAlignment(Qt.AlignCenter)
-        
-        p = self.viewport().palette()
-        p.setBrush(QPalette.Background, p.dark())
-        self.viewport().setPalette(p)
-        
+        self.setBackgroundRole(QPalette.Dark)
+
         self._viewMode = FixedScale
         
         # delayed resize

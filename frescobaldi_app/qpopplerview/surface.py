@@ -36,14 +36,10 @@ from . import layout
 class Surface(QWidget):
     def __init__(self, view):
         super(Surface, self).__init__(view)
+        self.setBackgroundRole(QPalette.Dark)
         self._view = weakref.ref(view)
         self._pageLayout = None
         self.setPageLayout(layout.Layout())
-        
-        p = self.palette()
-        p.setBrush(QPalette.Background, p.dark())
-        self.setPalette(p)
-        self.setAutoFillBackground(True)
         
     def pageLayout(self):
         return self._pageLayout
