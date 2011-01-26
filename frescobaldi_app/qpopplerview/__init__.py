@@ -49,7 +49,7 @@ Of course there are some convenience shortcuts:
 """
 
 
-from .view import View
+from .view import View, FixedScale, FitWidth, FitHeight, FitBoth
 from .page import Page
 from .layout import AbstractLayout, Layout
 from .surface import Surface

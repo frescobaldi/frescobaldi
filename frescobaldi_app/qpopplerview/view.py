@@ -32,7 +32,17 @@ from . import surface
 from . import cache
 
 
+# viewModes:
+FixedScale = 0
+FitWidth   = 1
+FitHeight  = 2
+FitBoth    = FitHeight | FitWidth
+
+
 class View(QScrollArea):
+    
+    viewModeChanged = pyqtSignal(int)
+    
     def __init__(self, parent=None):
         super(View, self).__init__(parent)
         
@@ -42,6 +52,11 @@ class View(QScrollArea):
         p.setBrush(QPalette.Background, p.dark())
         self.viewport().setPalette(p)
         
+        self._viewMode = FixedScale
+        
+        # delayed resize
+        self._newsize = None
+        self._resizeTimer = QTimer(singleShot = True, timeout = self._resizeTimeout)
     
     def surface(self):
         """Returns our Surface, the widget drawing the page(s)."""
@@ -54,7 +69,20 @@ class View(QScrollArea):
     def setSurface(self, sf):
         """Sets the given surface as our widget."""
         self.setWidget(sf)
+    
+    def viewMode(self):
+        """Returns the current ViewMode."""
+        return self._viewMode
         
+    def setViewMode(self, mode):
+        """Sets the current ViewMode."""
+        if mode == self._viewMode:
+            return
+        self._viewMode = mode
+        if mode:
+            pass # TODO: change view if necessary for the mode
+        self.viewModeChanged.emit(mode)
+    
     def load(self, document):
         """Convenience method to load all the pages from the given Poppler.Document."""
         self.surface().pageLayout().load(document)
@@ -78,8 +106,7 @@ class View(QScrollArea):
         rect = self.viewport().rect()
         rect.translate(-self.surface().pos())
         rect.intersect(self.surface().rect())
-        for page in self.surface().pageLayout().pagesAt(rect):
-            yield page
+        return self.surface().pageLayout().pagesAt(rect)
 
     def redraw(self):
         """Redraws, e.g. when you changed rendering hints or papercolor on the document."""
@@ -90,3 +117,22 @@ class View(QScrollArea):
         for page in pages:
             cache.generate(page)
 
+    def resizeEvent(self, ev):
+        super(View, self).resizeEvent(ev)
+        if self.viewMode() and self.surface().pageLayout().count():
+            self.resizeWithDelay(ev.size())
+            
+    def resizeWithDelay(self, size):
+        self._newsize = size
+        self._resizeTimer.start(100)
+        
+    def _resizeTimeout(self):
+        layout = self.surface().pageLayout()
+        scales = []
+        if self.viewMode() & FitWidth:
+            scales.append(layout.widest().scaleForWidth(self._newsize.width() - layout.margin() * 2))
+        if self.viewMode() & FitHeight:
+            scales.append(layout.heighest().scaleForHeight(self._newsize.height() - layout.margin() * 2))
+        self.setScale(min(scales))
+
+        
