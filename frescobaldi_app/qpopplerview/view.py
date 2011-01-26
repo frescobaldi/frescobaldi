@@ -135,4 +135,4 @@ class View(QScrollArea):
             scales.append(layout.heighest().scaleForHeight(self._newsize.height() - layout.margin() * 2))
         self.setScale(min(scales))
 
-        
+
