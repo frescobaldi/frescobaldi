@@ -208,13 +208,11 @@ class AbstractLayout(QObject):
         """Returns the widest page (in its natural page size)."""
         if self.count():
             return max((page.pageSize().width(), page) for page in self)[1]
-        return 0
         
     def heighest(self):
         """Returns the heighest page (in its natural page size)."""
         if self.count():
             return max((page.pageSize().height(), page) for page in self)[1]
-        return 0
         
     def load(self, document):
         """Convenience mehod to load all the pages of the given Poppler.Document using page.Page()."""
