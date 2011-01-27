@@ -123,7 +123,7 @@ class View(QScrollArea):
             if (self.size() == self._oldsize
                 and ev.size().width() > ev.oldSize().width()
                 and ev.size().height() > ev.oldSize().width()):
-                print "resize loop!"
+                pass #resize loop!
             else:
                 self._resizeTimer.start(100)
         self._oldsize = self.size()
