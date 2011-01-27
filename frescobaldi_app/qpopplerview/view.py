@@ -55,7 +55,8 @@ class View(QScrollArea):
         # delayed resize
         self._newsize = None
         self._resizeTimer = QTimer(singleShot = True, timeout = self._resizeTimeout)
-    
+        self._oldsize = None
+        
     def surface(self):
         """Returns our Surface, the widget drawing the page(s)."""
         sf = self.widget()
@@ -118,14 +119,17 @@ class View(QScrollArea):
     def resizeEvent(self, ev):
         super(View, self).resizeEvent(ev)
         if self.viewMode() and self.surface().pageLayout().count():
-            self.resizeWithDelay(ev.size())
+            # detect a resize loop due to scrollbar dis- and re-appearing
+            if (self.size() == self._oldsize
+                and ev.size().width() > ev.oldSize().width()
+                and ev.size().height() > ev.oldSize().width()):
+                print "resize loop!"
+            else:
+                self._resizeTimer.start(100)
+        self._oldsize = self.size()
             
-    def resizeWithDelay(self, size):
-        self._newsize = size
-        self._resizeTimer.start(100)
-        
     def _resizeTimeout(self):
-        self.surface().pageLayout().fit(self._newsize, self.viewMode())
+        self.surface().pageLayout().fit(self.viewport().size(), self.viewMode())
         self.surface().pageLayout().update()
         self.surface().updateLayout()
 
