@@ -129,7 +129,7 @@ class View(QScrollArea):
             # scrollbars to appear again, causing a resize again, etc.
             if (self.size() == self._oldsize
                 and ev.size().width() > ev.oldSize().width()
-                and ev.size().height() > ev.oldSize().width()):
+                and ev.size().height() > ev.oldSize().height()):
                 # We are in a resize loop.
                 # Compute the largest possible surface that would fit in the
                 # scrollarea without causing the scrollbars to appear again.
