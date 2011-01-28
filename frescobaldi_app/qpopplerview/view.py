@@ -122,48 +122,17 @@ class View(QScrollArea):
 
     def resizeEvent(self, ev):
         super(View, self).resizeEvent(ev)
+        # Detect a resize loop due to scrollbar disappearing
         if self.viewMode() and self.surface().pageLayout().count():
-            # Detect a resize loop due to scrollbar dis- and re-appearing
-            # When the area size does not change and both scrollbars disappear
-            # at the same time, a resize of the surface would case one of the
-            # scrollbars to appear again, causing a resize again, etc.
-            if (self.size() == self._oldsize
-                and ev.size().width() > ev.oldSize().width()
-                and ev.size().height() > ev.oldSize().height()):
-                # We are in a resize loop.
-                # Compute the largest possible surface that would fit in the
-                # scrollarea without causing the scrollbars to appear again.
-                # We use a sequential algorithm that could be improved to a
-                # binary method, but it doesn't happen often and uses at most
-                # scrollbar-width (approx. 15) iterations.
-                def sizes():
-                    """Yields sizes to try."""
-                    s = QSize(ev.size()) # copy
-                    if self.viewMode() & FitWidth:
-                        for width in range(ev.size().width(), self.surface().width(), -1):
-                            s.setWidth(width)
-                            yield s
-                    else:
-                        for height in range(ev.size().height(), self.surface().height(), -1):
-                            s.setHeight(height)
-                            yield s
-                layout = self.surface().pageLayout()
-                for size in sizes():
-                    layout.fit(size, self.viewMode())
-                    layout.update()
-                    if (layout.size().width() <= ev.size().width()
-                        and layout.size().height() <= ev.size().height()):
-                        # directly update it, it will not cause a new resize event
-                        break
-                else:
-                    # reset layout, just to be sure
-                    layout.fit(self.surface().size(), self.viewMode())
-                    layout.update()
-                self.surface().updateLayout()
+            diff = ev.size() - ev.oldSize()
+            if self.size() == self._oldsize and (
+                diff.width() > 0 and self.viewMode() & FitWidth
+                or diff.height() > 0 and self.viewMode() & FitHeight):
+                pass # avoid a loop
             else:
                 self._resizeTimer.start(100)
         self._oldsize = self.size()
-            
+    
     def _resizeTimeout(self):
         self.surface().pageLayout().fit(self.viewport().size(), self.viewMode())
         self.surface().pageLayout().update()
