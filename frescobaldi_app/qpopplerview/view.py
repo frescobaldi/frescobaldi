@@ -79,7 +79,10 @@ class View(QScrollArea):
             return
         self._viewMode = mode
         if mode:
-            pass # TODO: change view if necessary for the mode
+            # change view
+            self.surface().pageLayout().fit(self.viewport().size(), mode)
+            self.surface().pageLayout().update()
+            self.surface().updateLayout()
         self.viewModeChanged.emit(mode)
     
     def load(self, document):
