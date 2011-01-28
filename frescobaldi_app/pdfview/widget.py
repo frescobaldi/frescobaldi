@@ -47,7 +47,7 @@ class PDFView(QWidget):
         layout.addWidget(self.view)
         
         # TEMP!!
-        d = popplerqt4.Poppler.Document.load('/home/wilbert/mozart.pdf')
+        d = popplerqt4.Poppler.Document.load('/home/wilbert/mouvement.pdf')
         if d:
             d.setRenderHint(1)
             d.setRenderHint(2)
