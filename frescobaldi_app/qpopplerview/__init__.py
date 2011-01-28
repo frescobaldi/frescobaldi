@@ -45,6 +45,28 @@ Of course there are some convenience shortcuts:
 - View.load(document) loads all pages from a document in a default Layout
 - Layout.load(document) also loads all page objects from a document
 
+The default Layout arranges all pages either vertically or horizontally, which
+can be set using Layout.setOrientation(Qt.Vertical or Qt.Horizontal).
+
+The View supports four resizing modes:
+
+FixedScale = 0  (don't resize the pages if the View resizes)
+FitWidth   = 1  (fit pages in the width of the View)
+FitHeight  = 2  (fit pages in the height of the View)
+FitBoth    = 3  (fit the full page size in the View)
+
+The Layout.fit() method actually creates the layout described by the viewmode.
+The default layout uses the largest Page to determine the "fit" size.
+Specialized layouts can react in different ways to the view mode.
+
+View.setViewMode() is used to set the view mode, and View.setScale() automatically
+sets the view mode to FixedScale.  View emits viewModeChanged(mode) on mode change.
+
+View, Surface, (Abstract)Layout and Page can all be inherited from to build
+more specialized Poppler viewers.
+
+Finally the cache module implements in-memory caching for drawed Page images.
+The images are rendered in a background thread.
 
 """
 
