@@ -130,8 +130,8 @@ class View(QScrollArea):
         if self.viewMode() and self.surface().pageLayout().count():
             diff = ev.size() - ev.oldSize()
             if self.size() == self._oldsize and (
-                diff.width() > 0 and self.viewMode() & FitWidth
-                or diff.height() > 0 and self.viewMode() & FitHeight):
+                (diff.width() > 0 and self.viewMode() & FitWidth)
+                or (diff.height() > 0 and self.viewMode() & FitHeight)):
                 pass # avoid a loop
             else:
                 self._resizeTimer.start(100)
