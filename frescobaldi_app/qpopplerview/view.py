@@ -97,6 +97,10 @@ class View(QScrollArea):
         self.surface().pageLayout().update()
         self.surface().updateLayout()
 
+    def scale(self):
+        """Returns the scale of the pages in the View."""
+        return self.surface().pageLayout().scale()
+        
     def setScale(self, scale):
         """Sets the scale of all pages in the View."""
         self.surface().pageLayout().setScale(scale)

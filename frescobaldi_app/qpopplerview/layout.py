@@ -136,6 +136,13 @@ class AbstractLayout(QObject):
         """Returns our DPI as a tuple(XDPI, YDPI)."""
         return self._dpi
         
+    def scale(self):
+        """Returns the scale (1.0 == 100%) of the first page."""
+        try:
+            return self[0].scale()
+        except IndexError:
+            return 1.0
+    
     def setScale(self, scale):
         """Sets the scale (1.0 == 100%) of all our Pages."""
         for page in self._pages:
