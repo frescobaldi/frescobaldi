@@ -99,10 +99,10 @@ class View(QScrollArea):
 
     def setScale(self, scale):
         """Sets the scale of all pages in the View."""
-        self.setViewMode(FixedScale)
         self.surface().pageLayout().setScale(scale)
         self.surface().pageLayout().update()
         self.surface().updateLayout()
+        self.setViewMode(FixedScale)
 
     def visiblePages(self):
         """Yields the visible pages."""
