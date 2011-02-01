@@ -85,7 +85,7 @@ class Surface(QWidget):
                 links = p.linksAt(ev.pos())
                 if links:
                     link = links[0]
-                    QToolTip.showText(ev.globalPos(), link.url(), self, self._currentLinkRect)
+                    QToolTip.showText(ev.globalPos(), link.url(), self, p.linkRect(link))
             return True
         return super(Surface, self).event(ev)
 
