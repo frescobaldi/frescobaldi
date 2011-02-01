@@ -29,6 +29,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 from . import cache
+from . import rectangles
 
 
 class Page(object):
@@ -158,4 +159,43 @@ class Page(object):
         if self.layout():
             self.layout().updatePage(self)
             
+    def _links(self):
+        """(Internal) Returns a position-searchable list of the links in the page."""
+        try:
+            return self._link_rectangles
+        except AttributeError:
+            res = self._link_rectangles = rectangles.Rectangles(
+                self.document().page(self.pageNumber()).links(),
+                lambda link: link.linkArea().normalized().getCoords())
+            return res
     
+    def linksAt(self, point):
+        """Returns a list() of zero or more links touched by point (relative to surface).
+        
+        The list is sorted with the smallest rectangle first.
+        
+        """
+        # Poppler.Link objects have their linkArea() ranging in width and height
+        # from 0.0 to 1.0, so divide by resp. height and width of the Page.
+        point = point - self.pos()
+        x = float(point.x()) / self.width()
+        y = float(point.y()) / self.height()
+        return list(sorted(self._links().at(x, y), key=lambda link: link.linkArea().width()))
+        
+    def linksIn(self, rect):
+        """Returns an unordered set() of links enclosed in rectangle (relative to surface)."""
+        rect = rect.normalized()
+        rect.translate(-self.pos())
+        left   = float(rect.left())   / self.width()
+        top    = float(rect.top())    / self.height()
+        right  = float(rect.right())  / self.width()
+        bottom = float(rect.bottom()) / self.height()
+        return self._links().inside(left, top, right, bottom)
+
+    def linkRect(self, link):
+        """Returns a QRect encompassing the linkArea() of the link in coordinates of our rect()."""
+        x, y, w, h = link.linkArea().normalized().getRect()
+        rect = QRect(x * self.width(), y * self.height(), w * self.width(), h * self.height())
+        rect.translate(self.pos())
+        return rect
+        
