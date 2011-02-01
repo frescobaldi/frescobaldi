@@ -228,6 +228,15 @@ class AbstractLayout(QObject):
             if page.rect().intersects(rect):
                 yield page
         
+    def linkAt(self, point):
+        """Returns (page, link) if pos points to a Poppler.Link in a Page, else (None, None)."""
+        page = self.pageAt(point)
+        if page:
+            links = page.linksAt(point)
+            if links:
+                return page, links[0]
+        return None, None
+        
     def widest(self):
         """Returns the widest page (in its natural page size)."""
         if self.count():

@@ -65,14 +65,9 @@ class Surface(QWidget):
     def mouseMoveEvent(self, ev):
         if ev.pos() in self._currentLinkRect:
             return
-        link = None
-        p = self.pageLayout().pageAt(ev.pos())
-        if p:
-            links = p.linksAt(ev.pos())
-            if links:
-                link = links[0]
+        page, link = self.pageLayout().linkAt(ev.pos())
         if link:
-            self._currentLinkRect = p.linkRect(link)
+            self._currentLinkRect = page.linkRect(link)
             self.setCursor(Qt.PointingHandCursor)
         else:
             self._currentLinkRect = QRect()
@@ -80,12 +75,9 @@ class Surface(QWidget):
     
     def event(self, ev):
         if isinstance(ev, QHelpEvent):
-            p = self.pageLayout().pageAt(ev.pos())
-            if p:
-                links = p.linksAt(ev.pos())
-                if links:
-                    link = links[0]
-                    QToolTip.showText(ev.globalPos(), link.url(), self, p.linkRect(link))
+            page, link = self.pageLayout().linkAt(ev.pos())
+            if link:
+                QToolTip.showText(ev.globalPos(), link.url(), self, page.linkRect(link))
             return True
         return super(Surface, self).event(ev)
 
