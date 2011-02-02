@@ -193,9 +193,13 @@ class Rectangles(object):
         try:
             return self._index[side]
         except KeyError:
-            objects = [(coords[side], obj) for obj, coords in self._items.items()]
-            objects.sort()
-            result = self._index[side] = tuple(zip(*objects))
+            if self._items:
+                objects = [(coords[side], obj) for obj, coords in self._items.items()]
+                objects.sort()
+                result = tuple(map(list, zip(*objects)))
+            else:
+                result = [], []
+            self._index[side] = result
             return result
             
 
