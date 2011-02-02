@@ -46,14 +46,18 @@ class PDFView(QWidget):
         self.view = qpopplerview.View(self)
         layout.addWidget(self.view)
         
-        # TEMP!!
-        d = popplerqt4.Poppler.Document.load('/home/wilbert/mouvement.pdf')
-        if d:
-            d.setRenderHint(1)
-            d.setRenderHint(2)
-            d.setPaperColor(textformats.formatData('editor').baseColors['paper'])
-            self.view.setViewMode(qpopplerview.FitWidth)
-            self.view.load(d)
-            self.view.surface().pageLayout().update()
-            self.view.surface().updateLayout()
+    def sizeHint(self):
+        size = self.parent().mainwindow().size()
+        return QSize(size.width() / 2, size.height())
         
+    def openPDF(self, pdf):
+        # TEMP !!
+        d = popplerqt4.Poppler.Document.load(pdf)
+        d.setRenderHint(1)
+        d.setRenderHint(2)
+        d.setPaperColor(textformats.formatData('editor').baseColors['paper'])
+        self.view.setViewMode(qpopplerview.FitWidth)
+        self.view.load(d)
+        self.view.surface().pageLayout().update()
+        self.view.surface().updateLayout()
+

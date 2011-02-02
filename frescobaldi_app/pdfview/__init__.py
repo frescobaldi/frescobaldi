@@ -23,6 +23,7 @@ from __future__ import unicode_literals
 The PDF preview panel.
 """
 
+import os
 import weakref
 
 from PyQt4.QtCore import Qt
@@ -37,13 +38,30 @@ class PDFViewPanel(panels.Panel):
         self.hide()
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+P"))
         mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
-    
+        mainwindow.currentDocumentChanged.connect(self.slotDocumentChanged)
+        
     def translateUI(self):
         self.setWindowTitle(_("PDF Preview"))
         self.toggleViewAction().setText(_("&PDF Preview"))
-        
+    
     def createWidget(self):
         import widget
         return widget.PDFView(self)
 
+    def slotDocumentChanged(self, document, old):
+        if old:
+            old.loaded.disconnect(self.setDocument)
+        document.loaded.connect(self.setDocument)
+        self.setDocument(document)
+        
+    def setDocument(self, document=None):
+        if document is None:
+            document = self.mainwindow().currentDocument()
+        # TEMP!!
+        filename = document.url().toLocalFile()
+        basename, ext = os.path.splitext(filename)
+        pdf = basename + ".pdf"
+        if os.path.exists(pdf):
+            self.show()
+            self.widget().openPDF(pdf)
 
