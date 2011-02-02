@@ -88,6 +88,8 @@ class View(QScrollArea):
     def load(self, document):
         """Convenience method to load all the pages from the given Poppler.Document."""
         self.surface().pageLayout().load(document)
+        if self.viewMode():
+            self.surface().pageLayout().fit(self.viewport().size(), self.viewMode())
         self.surface().pageLayout().update()
         self.surface().updateLayout()
 
