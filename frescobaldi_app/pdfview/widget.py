@@ -47,8 +47,7 @@ class PDFView(QWidget):
         layout.addWidget(self.view)
         
     def sizeHint(self):
-        size = self.parent().mainwindow().size()
-        return QSize(size.width() / 2, size.height())
+        return self.parent().mainwindow().size() / 2
         
     def openPDF(self, pdf):
         # TEMP !!
