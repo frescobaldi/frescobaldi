@@ -121,6 +121,32 @@ class Rectangles(object):
             (self._smaller, Left, right),
             (self._larger, Right, left))
 
+    def closest(self, obj, side):
+        """Returns the object closest to the given one, going to the given side."""
+        coords = self._items[obj]
+        pos = coords[side^2]
+        lat = (coords[side^1|2] - coords[side^1&2]) / 2.0
+        direction = -1 if side < Right else 1
+        indices, objects = self._sorted(side^2)
+        i = objects.index(obj)
+        mindist = indices[-1]
+        result = []
+        for other in objects[i+direction::direction]:
+            coords = self._items[other]
+            pos1 = coords[side^2]
+            d = abs(pos1 - pos)
+            if d > mindist:
+                break
+            lat1 = (coords[side^1|2] - coords[side^1&2]) / 2.0
+            dlat = abs(lat1 - lat)
+            if dlat < d:
+                dist = dlat + d  # manhattan dist
+                result.append((other, dist))
+                mindist = min(mindist, dist)
+        if result:
+            result.sort(key=lambda r: r[1])
+            return result[0][0]
+
     def __len__(self):
         return len(self._items)
         
