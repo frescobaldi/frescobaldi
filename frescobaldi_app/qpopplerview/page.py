@@ -180,6 +180,14 @@ class Page(object):
         point = point - self.pos()
         x = float(point.x()) / self.width()
         y = float(point.y()) / self.height()
+        # rotate
+        if self._rotation:
+            if self._rotation == popplerqt4.Poppler.Page.Rotate90:
+                x, y = y, 1-x
+            elif self._rotation == popplerqt4.Poppler.Page.Rotate180:
+                x, y = 1-x, 1-y
+            else: # 270
+                x, y = 1-y, x
         return list(sorted(self._links().at(x, y), key=lambda link: link.linkArea().width()))
         
     def linksIn(self, rect):
@@ -190,12 +198,29 @@ class Page(object):
         top    = float(rect.top())    / self.height()
         right  = float(rect.right())  / self.width()
         bottom = float(rect.bottom()) / self.height()
+        # rotate
+        if self._rotation:
+            if self._rotation == popplerqt4.Poppler.Page.Rotate90:
+                left, top, right, bottom = top, 1-right, bottom, 1-left
+            elif self._rotation == popplerqt4.Poppler.Page.Rotate180:
+                left, top, right, bottom = 1-right, 1-bottom, 1-left, 1-top
+            else: # 270
+                left, top, right, bottom = 1-bottom, left, 1-top, right
         return self._links().inside(left, top, right, bottom)
 
     def linkRect(self, link):
         """Returns a QRect encompassing the linkArea() of the link in coordinates of our rect()."""
-        x, y, w, h = link.linkArea().normalized().getRect()
-        rect = QRect(x * self.width(), y * self.height(), w * self.width(), h * self.height())
+        left, top, right, bottom = link.linkArea().normalized().getCoords()
+        # rotate
+        if self._rotation:
+            if self._rotation == popplerqt4.Poppler.Page.Rotate90:
+                left, top, right, bottom = 1-bottom, left, 1-top, right
+            elif self._rotation == popplerqt4.Poppler.Page.Rotate180:
+                left, top, right, bottom = 1-right, 1-bottom, 1-left, 1-top
+            else: # 270
+                left, top, right, bottom = top, 1-right, bottom, 1-left
+        rect = QRect()
+        rect.setCoords(left * self.width(), top * self.height(), right * self.width(), bottom * self.height())
         rect.translate(self.pos())
         return rect
         
