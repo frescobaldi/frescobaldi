@@ -148,6 +148,25 @@ def purge():
         del _cache[document][pageKey][sizeKey]
 
 
+def wait(document, msec=None):
+    """Blocks if a thread is rendering an image from the given Poppler.Document.
+    
+    Returns immediately if no thread is running.
+    Returns false if msec milliseconds have elapsed and the thread is still running.
+    
+    Use this if you are calling certain things like rendering or requesting the links of a
+    Poppler.Page. This is needed to avoid crashes in Poppler.
+    
+    """
+    try:
+        thread = _schedulers[document]._running
+    except KeyError:
+        return True
+    if thread:
+        return thread.wait(msec) if msec is not None else thread.wait()
+    return True
+
+
 class Scheduler(object):
     """Manages running rendering jobs in sequence for a Document."""
     def __init__(self):

@@ -164,6 +164,7 @@ class Page(object):
         try:
             return self._link_rectangles
         except AttributeError:
+            cache.wait(self.document())
             res = self._link_rectangles = rectangles.Rectangles(
                 self.document().page(self.pageNumber()).links(),
                 lambda link: link.linkArea().normalized().getCoords())
