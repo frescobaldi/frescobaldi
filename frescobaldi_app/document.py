@@ -124,12 +124,8 @@ class Document(QTextDocument):
         fileName = self.url().toLocalFile()
         if fileName:
             try:
-                data = self.toPlainText().encode(self.encoding() or 'utf-8')
-            except (UnicodeError, LookupError):
-                data = self.toPlainText().encode('utf-8')
-            try:
                 with open(fileName, "w") as f:
-                    f.write(data)
+                    f.write(self.encodedText())
             except (IOError, OSError):
                 return False
             self.setModified(False)
@@ -167,6 +163,17 @@ class Document(QTextDocument):
         
     def setEncoding(self, encoding):
         self._encoding = encoding
+    
+    def encodedText(self):
+        """Returns the text of the document encoded in the correct encoding.
+        
+        Useful to save to a file.
+        
+        """
+        try:
+            return self.toPlainText().encode(self.encoding() or 'utf-8')
+        except (UnicodeError, LookupError):
+            return self.toPlainText().encode('utf-8')
         
     def documentName(self):
         """ Returns a suitable name for this document. """
