@@ -158,6 +158,28 @@ class Page(object):
         if self.layout():
             self.layout().updatePage(self)
             
+    def image(self, rect, xdpi = 72.0, ydpi = None):
+        """Returns a QImage of the specified rectangle (relative to our layout).
+        
+        xdpi defaults to 72.0 and ydpi defaults to xdpi.
+        
+        """
+        rect = rect.normalized().intersected(self.rect())
+        if not rect:
+            return
+        rect.translate(-self.pos())
+        if ydpi is None:
+            ydpi = xdpi
+        hscale = (xdpi * self.pageSize().width()) / (72.0 * self.width())
+        vscale = (ydpi * self.pageSize().height()) / (72.0 * self.height())
+        x = rect.x() * hscale
+        y = rect.y() * vscale
+        w = rect.width() * hscale
+        h = rect.height() * vscale
+        cache.wait(self.document())
+        page = self.document().page(self._pageNumber)
+        return page.renderToImage(xdpi, ydpi, x, y, w, h, self._rotation)
+        
     def _links(self):
         """(Internal) Returns a position-searchable list of the links in the page."""
         try:
