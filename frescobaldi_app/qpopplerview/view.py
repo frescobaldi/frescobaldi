@@ -23,8 +23,8 @@ View widget to display PDF documents.
 """
 
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QTimer, Qt, pyqtSignal
+from PyQt4.QtGui import QPalette, QScrollArea
 
 import popplerqt4
 

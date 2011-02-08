@@ -23,8 +23,10 @@ from __future__ import unicode_literals
 View is basically a QPlainTextEdit instance.
 """
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QEvent, Qt, QTimer, pyqtSignal
+from PyQt4.QtGui import (
+    QApplication, QColor, QPalette, QPlainTextEdit, QTextCursor, QTextEdit,
+    QTextFormat, QVBoxLayout)
 
 import app
 import metainfo

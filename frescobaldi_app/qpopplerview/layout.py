@@ -24,8 +24,7 @@ Manages and positions a group of Page instances.
 
 import weakref
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QObject, QPoint, QRect, QSize, Qt, pyqtSignal
 
 from . import page
 from . import (

@@ -25,8 +25,8 @@ about a document's contents.
 """
 
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtGui import (
+    QSyntaxHighlighter, QTextBlockUserData, QTextCursor, QTextDocument)
 
 
 import ly.tokenize

@@ -23,7 +23,7 @@ Recent files handling.
 
 import os
 
-from PyQt4.QtCore import *
+from PyQt4.QtCore import QSettings, QUrl
 
 import app
 

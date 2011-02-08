@@ -24,8 +24,9 @@ Session dialog for named session stuff (see sessionmanager.py)
 """
 
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtGui import (
+    QCheckBox, QDialog, QDialogButtonBox, QGridLayout, QLabel, QLineEdit,
+    QMessageBox, QVBoxLayout)
 
 import app
 import widgets.listedit

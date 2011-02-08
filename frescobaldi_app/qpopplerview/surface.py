@@ -25,8 +25,8 @@ Surface is the widget everything is drawn on.
 import weakref
 
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QRect, Qt
+from PyQt4.QtGui import QHelpEvent, QPainter, QPalette, QToolTip, QWidget
 
 import popplerqt4
 

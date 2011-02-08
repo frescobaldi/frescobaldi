@@ -25,8 +25,7 @@ inside a layout.
 
 import popplerqt4
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QRect, QRectF, QSize
 
 from . import cache
 from . import rectangles
