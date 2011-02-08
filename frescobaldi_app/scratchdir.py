@@ -42,7 +42,8 @@ class ScratchDir(plugin.DocumentPlugin):
         
     def create(self):
         """Creates the local temporary directory."""
-        self._directory = tempfile.mkdtemp()
+        if not self._directory:
+            self._directory = tempfile.mkdtemp()
     
     def delete(self):
         """Deletes our temporary area."""
