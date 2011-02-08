@@ -40,7 +40,7 @@ The _base.py module contains State, the state maintainer with its tokens() funct
 
 
 from _base import State
-from _mode import modes, guessMode
+from _mode import extensions, modes, guessMode
 from _token import *
 
 

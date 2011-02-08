@@ -111,3 +111,14 @@ def guessMode(text):
         return "lilypond"
 
 
+
+# dictionary mapping mode name to a default extension for a file of that mode.
+extensions = {
+    'lilypond': '.ly',
+    'html':     '.html',
+    'scheme':   '.scm',
+    'latex':    '.lytex',
+    'texinfo':  '.texi',
+    'docbook':  '.docbook',
+}
+
