@@ -81,5 +81,6 @@ from .view import View
 from .page import Page
 from .layout import AbstractLayout, Layout
 from .surface import Surface
+from .render import RenderOptions
 from . import cache
 

@@ -28,17 +28,22 @@ import popplerqt4
 
 from PyQt4.QtCore import QThread
 
+from . import render
 
-__all__ = ['maxsize', 'setmaxsize', 'image', 'generate', 'clear']
+__all__ = ['maxsize', 'setmaxsize', 'image', 'generate', 'clear', 'wait', 'options']
 
 
 _cache = weakref.WeakKeyDictionary()
 _schedulers = weakref.WeakKeyDictionary()
-
+_options = weakref.WeakKeyDictionary()
 
 # cache size
 _maxsize = 104857600 # 100M
 _currentsize = 0
+
+# default render options, enable antialiasing by default
+_globaloptions = render.RenderOptions()
+_globaloptions.setRenderHint(popplerqt4.Poppler.Document.Antialiasing | popplerqt4.Poppler.Document.TextAntialiasing)
 
 
 def setmaxsize(maxsize):
@@ -167,6 +172,18 @@ def wait(document, msec=None):
     return True
 
 
+def options(document=None):
+    """Returns a RenderOptions object for a document or the global one if no document is given."""
+    if document:
+        try:
+            return _options[document]
+        except KeyError:
+            result = _options[document] = render.RenderOptions()
+            return result
+    else:
+        return _globaloptions
+    
+
 class Scheduler(object):
     """Manages running rendering jobs in sequence for a Document."""
     def __init__(self):
@@ -256,12 +273,13 @@ class Runner(QThread):
             pageSize.transpose()
         xres = 72.0 * self.job.width / pageSize.width()
         yres = 72.0 * self.job.height / pageSize.height()
+        options().write(self.document)
+        options(self.document).write(self.document)
         self.image = page.renderToImage(xres, yres, 0, 0, self.job.width, self.job.height, self.job.rotation)
         
     def slotFinished(self):
         """Called when the thread has completed."""
         add(self.image, self.document, self.job.pageNumber, self.job.rotation, self.job.width, self.job.height)
         self.scheduler.done(self.job)
-
 
 

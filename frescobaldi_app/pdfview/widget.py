@@ -51,10 +51,8 @@ class PDFView(QWidget):
         
     def openPDF(self, pdf):
         # TEMP !!
+        qpopplerview.cache.options().setPaperColor(textformats.formatData('editor').baseColors['paper'])
         d = popplerqt4.Poppler.Document.load(pdf)
-        d.setRenderHint(1)
-        d.setRenderHint(2)
-        d.setPaperColor(textformats.formatData('editor').baseColors['paper'])
         self.view.setViewMode(qpopplerview.FitWidth)
         self.view.load(d)
         self.view.surface().pageLayout().update()
