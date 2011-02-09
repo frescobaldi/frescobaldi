@@ -150,19 +150,23 @@ class Page(object):
                                     image_rect.width() * hscale, image_rect.height() * vscale)
                 painter.drawImage(QRectF(update_rect), image, image_rect)
             else:
-                # draw blank paper
-                painter.fillRect(update_rect, self.document().paperColor())
+                # draw blank paper, using the background color of the cache rendering (if set)
+                # or from the document itself.
+                color = (cache.options(self.document()).paperColor()
+                         or cache.options().paperColor() or self.document().paperColor())
+                painter.fillRect(update_rect, color)
 
     def update(self):
         """Called when an image is drawn."""
         if self.layout():
             self.layout().updatePage(self)
             
-    def image(self, rect, xdpi = 72.0, ydpi = None):
+    def image(self, rect, xdpi=72.0, ydpi=None, options=None):
         """Returns a QImage of the specified rectangle (relative to our layout).
         
         xdpi defaults to 72.0 and ydpi defaults to xdpi.
-        
+        options may be a render.RenderOptions instance that will set some document
+        rendering options just before rendering the image.
         """
         rect = rect.normalized().intersected(self.rect())
         if not rect:
@@ -177,6 +181,7 @@ class Page(object):
         w = rect.width() * hscale
         h = rect.height() * vscale
         cache.wait(self.document())
+        options and options.write(self.document())
         page = self.document().page(self._pageNumber)
         return page.renderToImage(xdpi, ydpi, x, y, w, h, self._rotation)
         

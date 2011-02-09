@@ -37,6 +37,7 @@ class RenderOptions(object):
     def write(self, document):
         """Writes our rendering options to the given Poppler.Document."""
         if self._renderHint is not None:
+            document.setRenderHint(int(document.renderHints()), False)
             document.setRenderHint(self._renderHint)
         
         if self._paperColor is not None:
