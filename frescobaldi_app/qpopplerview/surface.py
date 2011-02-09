@@ -49,8 +49,12 @@ class Surface(QWidget):
     def setPageLayout(self, layout):
         old, self._pageLayout = self._pageLayout, layout
         if old:
-            old.redraw.disconnect(self.update)
-        layout.redraw.connect(self.update)
+            old.redraw.disconnect(self.redraw)
+        layout.redraw.connect(self.redraw)
+    
+    def redraw(self, rect):
+        """Called when the Layout wants to redraw a rectangle."""
+        self.update(rect)
         
     def updateLayout(self):
         """Conforms ourselves to our layout (that must already be updated.)"""
