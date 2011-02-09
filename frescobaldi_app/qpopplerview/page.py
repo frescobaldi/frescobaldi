@@ -251,3 +251,43 @@ class Page(object):
         rect.translate(self.pos())
         return rect
         
+    def text(self, rect):
+        """Returns text inside rectangle (relative to surface)."""
+        rect = rect.normalized()
+        rect.translate(-self.pos())
+        w, h = self.pageSize().width(), self.pageSize().height()
+        left   = float(rect.left())   / self.width()  * w
+        top    = float(rect.top())    / self.height() * h
+        right  = float(rect.right())  / self.width()  * w
+        bottom = float(rect.bottom()) / self.height() * h
+        if self._rotation:
+            if self._rotation == popplerqt4.Poppler.Page.Rotate90:
+                left, top, right, bottom = top, w-right, bottom, w-left
+            elif self._rotation == popplerqt4.Poppler.Page.Rotate180:
+                left, top, right, bottom = w-right, h-bottom, w-left, h-top
+            else: # 270
+                left, top, right, bottom = h-bottom, left, h-top, right
+        rect = QRectF()
+        rect.setCoords(left, top, right, bottom)
+        cache.wait(self.document())
+        page = self.document().page(self._pageNumber)
+        return page.text(rect)
+        
+    def searchRect(self, rectF):
+        """Returns a QRect encompassing the given rect (in points) to our position, size and rotation."""
+        rect = rectF.normalized()
+        left, top, right, bottom = rect.getCoords()
+        w, h = self.pageSize().width(), self.pageSize().height()
+        hscale = self.width()  / float(w)
+        vscale = self.height() / float(h)
+        if self._rotation:
+            if self._rotation == popplerqt4.Poppler.Page.Rotate90:
+                left, top, right, bottom = w-bottom, left, w-top, right
+            elif self._rotation == popplerqt4.Poppler.Page.Rotate180:
+                left, top, right, bottom = w-right, h-bottom, w-left, h-top
+            else: # 270
+                left, top, right, bottom = top, h-right, bottom, h-left
+        rect = QRect()
+        rect.setCoords(left * hscale, top * vscale, right * hscale, bottom * vscale)
+        return rect
+        
