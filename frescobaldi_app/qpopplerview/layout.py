@@ -107,15 +107,15 @@ class AbstractLayout(QObject):
     def __setitem__(self, item, new):
         if isinstance(item, slice):
             old = self._pages[item]
-            new = list(new)
             self._pages[item] = new
-            for page in new:
+            for page in self._pages[item]:
                 self.own(page)
             for page in old:
                 self.disown(page)
         else:
             self.disown(self._pages[item])
             self._pages[item] = new
+            self.own(new)
     
     def setSize(self, size):
         """Sets our size. Mainly done after layouting."""
