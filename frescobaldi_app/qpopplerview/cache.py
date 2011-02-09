@@ -41,9 +41,7 @@ _options = weakref.WeakKeyDictionary()
 _maxsize = 104857600 # 100M
 _currentsize = 0
 
-# default render options, enable antialiasing by default
-_globaloptions = render.RenderOptions()
-_globaloptions.setRenderHint(popplerqt4.Poppler.Document.Antialiasing | popplerqt4.Poppler.Document.TextAntialiasing)
+_globaloptions = None
 
 
 def setmaxsize(maxsize):
@@ -174,15 +172,38 @@ def wait(document, msec=None):
 
 def options(document=None):
     """Returns a RenderOptions object for a document or the global one if no document is given."""
+    global _globaloptions, _options
     if document:
         try:
             return _options[document]
         except KeyError:
             result = _options[document] = render.RenderOptions()
             return result
-    else:
-        return _globaloptions
+    if not _globaloptions:
+        _globaloptions = render.RenderOptions()
+        # enable antialiasing by default
+        _globaloptions.setRenderHint(popplerqt4.Poppler.Document.Antialiasing |
+                                     popplerqt4.Poppler.Document.TextAntialiasing)
+    return _globaloptions
+
+
+def setoptions(options, document=None):
+    """Sets a RenderOptions instance for the given document or as the global one if no document is given.
     
+    Use None for the options to unset (delete) the options.
+    
+    """
+    global _globaloptions, _options
+    if not document:
+        _globaloptions = options
+    elif options:
+        _options[document] = options
+    else:
+        try:
+            del _options[document]
+        except KeyError:
+            pass
+
 
 class Scheduler(object):
     """Manages running rendering jobs in sequence for a Document."""
