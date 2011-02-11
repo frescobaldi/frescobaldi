@@ -167,12 +167,12 @@ class View(QScrollArea):
             x = pagePos.x() / float(page.width())
             y = pagePos.y() / float(page.height())
             self.setScale(scale)
-            newPos = QPoint(x * page.width(), y * page.height()) + page.pos()
+            newPos = QPoint(round(x * page.width()), round(y * page.height())) + page.pos()
         else:
             x = surfacePos.x() / float(self.surface().width())
             y = surfacePos.y() / float(self.surface().height())
             self.setScale(scale)
-            newPos = QPoint(x * self.surface().width(), y * self.surface().height())
+            newPos = QPoint(round(x * self.surface().width()), round(y * self.surface().height()))
         
         diff = newPos - surfacePos
         v.setValue(v.value() + diff.y())
