@@ -197,13 +197,10 @@ class View(QScrollArea):
         self.zoom(self.scale() / factor, pos)
         
     def wheelEvent(self, ev):
-        if ev.modifiers() & Qt.CTRL:
-            factor = 1.1 ** (abs(ev.delta()) / 120)
-            if ev.delta() > 0:
-                self.zoomIm(ev.pos(), factor)
-            elif ev.delta() < 0:
-                self.zoomOut(ev.pos(), factor)
-    
+        if int(ev.modifiers()) & (Qt.CTRL | Qt.SHIFT | Qt.ALT | Qt.META) == Qt.CTRL:
+            factor = 1.1 ** (ev.delta() / 120)
+            if ev.delta():
+                self.zoom(self.scale() * factor, ev.pos())
         else:
             super(View, self).wheelEvent(ev)
 
