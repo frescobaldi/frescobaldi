@@ -140,9 +140,21 @@ class View(QScrollArea):
         self._oldsize = self.size()
     
     def _resizeTimeout(self):
+        # store the point currently in the center
+        surfacePos = QPoint(self.width(), self.height()) / 2 - self.surface().pos()
+        x = surfacePos.x() / float(self.surface().width())
+        y = surfacePos.y() / float(self.surface().height())
+        # resize the layout
         self.surface().pageLayout().fit(self.viewport().size(), self.viewMode())
         self.surface().pageLayout().update()
         self.surface().updateLayout()
+        # restore our position
+        newPos = QPoint(round(x * self.surface().width()), round(y * self.surface().height()))
+        diff = newPos - surfacePos
+        v = self.verticalScrollBar()
+        h = self.horizontalScrollBar()
+        v.setValue(v.value() + diff.y())
+        h.setValue(h.value() + diff.x())
 
     def zoom(self, scale, pos=None):
         """Changes the display scale (1.0 is 100%).
