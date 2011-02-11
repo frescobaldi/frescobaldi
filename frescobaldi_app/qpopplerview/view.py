@@ -23,7 +23,7 @@ View widget to display PDF documents.
 """
 
 
-from PyQt4.QtCore import QTimer, Qt, pyqtSignal
+from PyQt4.QtCore import QPoint, QTimer, Qt, pyqtSignal
 from PyQt4.QtGui import QPalette, QScrollArea
 
 import popplerqt4
@@ -144,4 +144,52 @@ class View(QScrollArea):
         self.surface().pageLayout().update()
         self.surface().updateLayout()
 
+    def zoom(self, scale, pos=None):
+        """Changes the display scale (1.0 is 100%).
+        
+        If pos is given, keeps that point at the same place if possible.
+        Pos is a QPoint relative to ourselves.
+        
+        """
+        if scale < 0.05 or scale > 3.0:
+            return
+        
+        v = self.verticalScrollBar()
+        h = self.horizontalScrollBar()
+        
+        if pos:
+            surfacePos = pos - self.surface().pos()
+            page = self.surface().pageLayout().pageAt(surfacePos)
+            if page:
+                pagePos = surfacePos - page.pos()
+                x = pagePos.x() / float(page.width())
+                y = pagePos.y() / float(page.height())
+                self.setScale(scale)
+                newPos = QPoint(x * page.width(), y * page.height()) + page.pos()
+                diff = newPos - surfacePos
+                v.setValue(v.value() + diff.y())
+                h.setValue(h.value() + diff.x())
+                return
+        x = (h.value() / float(h.maximum())) if h.maximum() else 0.5
+        y = (v.value() / float(v.maximum())) if v.maximum() else 0.5
+        self.setScale(scale)
+        h.setValue(h.maximum() * x)
+        v.setValue(v.maximum() * y)
+            
+    def zoomIm(self, pos=None, factor=1.1):
+        self.zoom(self.scale() * factor, pos)
+        
+    def zoomOut(self, pos=None, factor=1.1):
+        self.zoom(self.scale() / factor, pos)
+        
+    def wheelEvent(self, ev):
+        if ev.modifiers() & Qt.CTRL:
+            factor = 1.1 ** (abs(ev.delta()) / 120)
+            if ev.delta() > 0:
+                self.zoomIm(ev.pos(), factor)
+            elif ev.delta() < 0:
+                self.zoomOut(ev.pos(), factor)
+    
+        else:
+            super(View, self).wheelEvent(ev)
 
