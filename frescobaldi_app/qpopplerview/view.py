@@ -157,24 +157,26 @@ class View(QScrollArea):
         v = self.verticalScrollBar()
         h = self.horizontalScrollBar()
         
-        if pos:
-            surfacePos = pos - self.surface().pos()
-            page = self.surface().pageLayout().pageAt(surfacePos)
-            if page:
-                pagePos = surfacePos - page.pos()
-                x = pagePos.x() / float(page.width())
-                y = pagePos.y() / float(page.height())
-                self.setScale(scale)
-                newPos = QPoint(x * page.width(), y * page.height()) + page.pos()
-                diff = newPos - surfacePos
-                v.setValue(v.value() + diff.y())
-                h.setValue(h.value() + diff.x())
-                return
-        x = (h.value() / float(h.maximum())) if h.maximum() else 0.5
-        y = (v.value() / float(v.maximum())) if v.maximum() else 0.5
-        self.setScale(scale)
-        h.setValue(h.maximum() * x)
-        v.setValue(v.maximum() * y)
+        if pos is None:
+            pos = QPoint(self.width(), self.height()) / 2
+        
+        surfacePos = pos - self.surface().pos()
+        page = self.surface().pageLayout().pageAt(surfacePos)
+        if page:
+            pagePos = surfacePos - page.pos()
+            x = pagePos.x() / float(page.width())
+            y = pagePos.y() / float(page.height())
+            self.setScale(scale)
+            newPos = QPoint(x * page.width(), y * page.height()) + page.pos()
+        else:
+            x = surfacePos.x() / float(self.surface().width())
+            y = surfacePos.y() / float(self.surface().height())
+            self.setScale(scale)
+            newPos = QPoint(x * self.surface().width(), y * self.surface().height())
+        
+        diff = newPos - surfacePos
+        v.setValue(v.value() + diff.y())
+        h.setValue(h.value() + diff.x())
             
     def zoomIm(self, pos=None, factor=1.1):
         self.zoom(self.scale() * factor, pos)
