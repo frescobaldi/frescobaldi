@@ -25,8 +25,8 @@ Surface is the widget everything is drawn on.
 import weakref
 
 
-from PyQt4.QtCore import QRect, Qt
-from PyQt4.QtGui import QHelpEvent, QPainter, QPalette, QToolTip, QWidget
+from PyQt4.QtCore import QPoint, QRect, Qt
+from PyQt4.QtGui import QCursor, QHelpEvent, QPainter, QPalette, QToolTip, QWidget
 
 import popplerqt4
 
@@ -42,6 +42,7 @@ class Surface(QWidget):
         self.setPageLayout(layout.Layout())
         self.setMouseTracking(True)
         self._currentLinkRect = QRect()
+        self._dragging = False
         
     def pageLayout(self):
         return self._pageLayout
@@ -52,6 +53,10 @@ class Surface(QWidget):
             old.redraw.disconnect(self.redraw)
         layout.redraw.connect(self.redraw)
     
+    def view(self):
+        """Returns our associated View."""
+        return self._view()
+        
     def redraw(self, rect):
         """Called when the Layout wants to redraw a rectangle."""
         self.update(rect)
@@ -66,17 +71,35 @@ class Surface(QWidget):
         for page in self.pageLayout().pagesAt(ev.rect()):
             page.paint(painter, ev.rect())
     
-    def mouseMoveEvent(self, ev):
-        if ev.pos() in self._currentLinkRect:
-            return
+    def mousePressEvent(self, ev):
         page, link = self.pageLayout().linkAt(ev.pos())
         if link:
-            self._currentLinkRect = page.linkRect(link)
-            self.setCursor(Qt.PointingHandCursor)
-        else:
-            self._currentLinkRect = QRect()
-            self.unsetCursor()
+            self.linkClickEvent(ev, page, link)
+        elif ev.button() == Qt.LeftButton:
+            self._dragging = True
+            self._dragPos = ev.globalPos()
     
+    def mouseReleaseEvent(self, ev):
+        if self._dragging and ev.button() == Qt.LeftButton:
+            self._dragging = False
+            self.updateCursor(ev.pos())
+            
+    def mouseMoveEvent(self, ev):
+        if self._dragging and ev.buttons() == Qt.LeftButton:
+            self.setCursor(Qt.SizeAllCursor)
+            diff = self._dragPos - ev.globalPos()
+            self._dragPos = ev.globalPos()
+            h = self.view().horizontalScrollBar()
+            v = self.view().verticalScrollBar()
+            h.setValue(h.value() + diff.x())
+            v.setValue(v.value() + diff.y())
+        else:
+            self.updateCursor(ev.pos())
+    
+    def moveEvent(self, ev):
+        if not self._dragging:
+            self.updateCursor(self.mapFromGlobal(QCursor.pos()))
+        
     def event(self, ev):
         if isinstance(ev, QHelpEvent):
             page, link = self.pageLayout().linkAt(ev.pos())
@@ -84,5 +107,32 @@ class Surface(QWidget):
                 QToolTip.showText(ev.globalPos(), link.url(), self, page.linkRect(link))
             return True
         return super(Surface, self).event(ev)
+
+    def updateCursor(self, pos):
+        if pos in self._currentLinkRect:
+            return
+        if self._currentLinkRect:
+            self.linkHoverLeave()
+        page, link = self.pageLayout().linkAt(pos)
+        if link:
+            self._currentLinkRect = page.linkRect(link)
+            self.setCursor(Qt.PointingHandCursor)
+            self.linkHoverEnter(page, link)
+        else:
+            self._currentLinkRect = QRect()
+            self.unsetCursor()
+        
+    def linkClickEvent(self, ev, page, link):
+        """Called when a link is clicked."""
+        print "linkClickEvent", link.url()
+        
+    def linkHoverEnter(self, page, link):
+        """Called when the mouse hovers over a link."""
+        print "linkHoverEnter", link.url()
+        
+    def linkHoverLeave(self):
+        """Called when the mouse does not hover a link anymore."""
+        print "linkHoverLeave"
+
 
 
