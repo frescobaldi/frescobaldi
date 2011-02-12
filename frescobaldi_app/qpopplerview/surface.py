@@ -40,7 +40,6 @@ class Surface(QWidget):
         self._view = weakref.ref(view)
         self._pageLayout = None
         self.setPageLayout(layout.Layout())
-        self.pageLayout().setDPI(self.logicalDpiX(), self.logicalDpiY())
         self.setMouseTracking(True)
         self._currentLinkId = None
         self._dragging = False
