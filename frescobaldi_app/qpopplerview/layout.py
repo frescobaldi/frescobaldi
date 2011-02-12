@@ -38,7 +38,13 @@ from . import (
 
 
 class AbstractLayout(QObject):
-    """Manages page.Page instances with a list-like api."""
+    """Manages page.Page instances with a list-like api.
+    
+    You can iterate over the layout itself, which yields all Page instances.
+    You can also iterate over pages(), which only yields the Page instances
+    that are visible().
+    
+    """
     
     redraw = pyqtSignal(QRect)
     
@@ -203,7 +209,7 @@ class AbstractLayout(QObject):
         
     def fit(self, size, mode):
         """Fits the layout in the given ViewMode."""
-        if mode and self.count():
+        if mode and any(self.pages()):
             scales = []
             if mode & FitWidth:
                 scales.append(self.widest().scaleForWidth(size.width() - self.margin() * 2))
@@ -237,17 +243,23 @@ class AbstractLayout(QObject):
             if page.document() == document and page.pageNumber() == pageNumber:
                 return page
     
+    def pages(self):
+        """Yields our pages that are visible()."""
+        for page in self:
+            if page.visible():
+                yield page
+        
     def pageAt(self, point):
         """Returns the page that contains the given QPoint."""
         # Specific layouts may use faster algorithms to find the page.
-        for page in self:
+        for page in self.pages():
             if page.rect().contains(point):
                 return page
     
     def pagesAt(self, rect):
         """Yields the pages touched by the given QRect."""
         # Specific layouts may use faster algorithms to find the pages.
-        for page in self:
+        for page in self.pages():
             if page.rect().intersects(rect):
                 yield page
         
@@ -262,13 +274,15 @@ class AbstractLayout(QObject):
         
     def widest(self):
         """Returns the widest page (in its natural page size)."""
-        if self.count():
-            return max((page.pageSize().width(), page) for page in self)[1]
+        pages = list(self.pages())
+        if pages:
+            return max((page.pageSize().width(), page) for page in pages)[1]
         
     def heighest(self):
         """Returns the heighest page (in its natural page size)."""
-        if self.count():
-            return max((page.pageSize().height(), page) for page in self)[1]
+        pages = list(self.pages())
+        if pages:
+            return max((page.pageSize().height(), page) for page in pages)[1]
         
     def load(self, document):
         """Convenience mehod to load all the pages of the given Poppler.Document using page.Page()."""
@@ -294,23 +308,24 @@ class Layout(AbstractLayout):
     
     def update(self):
         """Orders our pages."""
-        if self.count() == 0:
+        pages = list(self.pages())
+        if len(pages) == 0:
             self.setSize(QSize(self._margin * 2, self._margin * 2))
         elif self._orientation == Qt.Vertical:
-            width = max(page.width() for page in self) + self._margin * 2
+            width = max(page.width() for page in pages) + self._margin * 2
             top = self._margin
-            for page in self:
+            for page in pages:
                 page.setPos(QPoint((width - page.width()) / 2, top))
                 top += page.height() + self._spacing
             top += self._margin - self._spacing
             self.setSize(QSize(width, top))
         else:
-            height = max(page.height() for page in self) + self._margin * 2
+            height = max(page.height() for page in pages) + self._margin * 2
             left = self._margin
-            for page in self:
+            for page in pages:
                 page.setPos(QPoint(left, (height - page.height()) / 2))
                 left += page.width() + self._spacing
             left += self._margin - self._spacing
             self.setSize(QSize(left, height))
             
-                
+

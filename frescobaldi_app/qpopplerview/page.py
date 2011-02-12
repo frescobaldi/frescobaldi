@@ -39,6 +39,7 @@ class Page(object):
         self._rotation = popplerqt4.Poppler.Page.Rotate0
         self._rect = QRect()
         self._scale = 1.0
+        self._visible = True
         self._layout = lambda: None
         
     def document(self):
@@ -57,6 +58,14 @@ class Page(object):
         """Returns the Layout if we are part of one."""
         return self._layout()
     
+    def visible(self):
+        """Returns True if this page is visible (will be displayed)."""
+        return self._visible
+        
+    def setVisible(self, visible):
+        """Sets whether  this page is visible (will be displayed)."""
+        self._visible = visible
+        
     def rect(self):
         """Returns our QRect(), with position and size."""
         return self._rect
