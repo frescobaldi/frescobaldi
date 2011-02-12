@@ -90,6 +90,9 @@ class AbstractLayout(QObject):
     def __len__(self):
         return len(self._pages)
     
+    def __nonzero__(self):
+        return True
+    
     def __contains__(self, page):
         return page in self._pages
     
