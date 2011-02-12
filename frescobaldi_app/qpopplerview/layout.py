@@ -25,7 +25,6 @@ Manages and positions a group of Page instances.
 import weakref
 
 from PyQt4.QtCore import QObject, QPoint, QRect, QSize, Qt, pyqtSignal
-from PyQt4.QtGui import QApplication
 
 from . import page
 from . import (
@@ -54,9 +53,7 @@ class AbstractLayout(QObject):
         self._size = QSize()
         self._margin = 4
         self._spacing = 8
-        # pick DPI from desktop system
-        widget = QApplication.desktop()
-        self._dpi = (widget.logicalDpiX(), widget.logicalDpiY())
+        self._dpi = (72, 72)
         
     def own(self, page):
         """(Internal) Makes the page have ourselves as layout."""
