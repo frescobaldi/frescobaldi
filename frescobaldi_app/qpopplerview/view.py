@@ -169,12 +169,12 @@ class View(QScrollArea):
                 pass # avoid a loop
             else:
                 if not self._resizeTimer.isActive():
+                    # store the point currently in the center
                     self._centerPos = QPoint(self.width(), self.height()) / 2 - self.surface().pos()
                 self._resizeTimer.start(100)
         self._oldsize = self.size()
     
     def _resizeTimeout(self):
-        # store the point currently in the center
         x = self._centerPos.x() / float(self.surface().width())
         y = self._centerPos.y() / float(self.surface().height())
         # resize the layout
