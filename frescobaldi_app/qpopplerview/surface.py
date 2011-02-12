@@ -40,7 +40,7 @@ class Surface(QWidget):
         self._view = weakref.ref(view)
         self._pageLayout = None
         self.setPageLayout(layout.Layout())
-        self.setMouseTracking(True)
+        self.setLinksEnabled(True)
         self._currentLinkId = None
         self._dragging = False
         
@@ -57,6 +57,15 @@ class Surface(QWidget):
         """Returns our associated View."""
         return self._view()
         
+    def setLinksEnabled(self, enabled):
+        """Enables or disables the handling of Poppler.Links in the pages."""
+        self._linksEnabled = enabled
+        self.setMouseTracking(enabled)
+    
+    def linksEnabled(self):
+        """Returns True if the handling of Poppler.Links in the pages is enabled."""
+        return self._linksEnabled
+        
     def redraw(self, rect):
         """Called when the Layout wants to redraw a rectangle."""
         self.update(rect)
@@ -72,10 +81,12 @@ class Surface(QWidget):
             page.paint(painter, ev.rect())
     
     def mousePressEvent(self, ev):
-        page, link = self.pageLayout().linkAt(ev.pos())
-        if link:
-            self.linkClickEvent(ev, page, link)
-        elif ev.button() == Qt.LeftButton:
+        if self._linksEnabled:
+            page, link = self.pageLayout().linkAt(ev.pos())
+            if link:
+                self.linkClickEvent(ev, page, link)
+                return
+        if ev.button() == Qt.LeftButton:
             self._dragging = True
             self._dragPos = ev.globalPos()
     
@@ -102,21 +113,24 @@ class Surface(QWidget):
         
     def event(self, ev):
         if isinstance(ev, QHelpEvent):
-            page, link = self.pageLayout().linkAt(ev.pos())
-            if link:
-                QToolTip.showText(ev.globalPos(), link.url(), self, page.linkRect(link))
+            if self._linksEnabled:
+                page, link = self.pageLayout().linkAt(ev.pos())
+                if link:
+                    QToolTip.showText(ev.globalPos(), link.url(), self, page.linkRect(link))
             return True
         return super(Surface, self).event(ev)
 
     def updateCursor(self, pos):
-        page, link = self.pageLayout().linkAt(pos)
-        lid = id(link) if link else None
-        if lid != self._currentLinkId:
-            if self._currentLinkId is not None:
-                self.linkHoverLeave()
-            self._currentLinkId = lid
-            if link:
-                self.linkHoverEnter(page, link)
+        link = False
+        if self._linksEnabled:
+            page, link = self.pageLayout().linkAt(pos)
+            lid = id(link) if link else None
+            if lid != self._currentLinkId:
+                if self._currentLinkId is not None:
+                    self.linkHoverLeave()
+                self._currentLinkId = lid
+                if link:
+                    self.linkHoverEnter(page, link)
         self.setCursor(Qt.PointingHandCursor) if link else self.unsetCursor()
         
     def linkClickEvent(self, ev, page, link):
