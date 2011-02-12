@@ -41,7 +41,7 @@ class Surface(QWidget):
         self._pageLayout = None
         self.setPageLayout(layout.Layout())
         self.setMouseTracking(True)
-        self._currentLinkRect = QRect()
+        self._currentLinkId = None
         self._dragging = False
         
     def pageLayout(self):
@@ -87,12 +87,12 @@ class Surface(QWidget):
     def mouseMoveEvent(self, ev):
         if self._dragging and ev.buttons() == Qt.LeftButton:
             self.setCursor(Qt.SizeAllCursor)
-            diff = self._dragPos - ev.globalPos()
+            diff = ev.globalPos() - self._dragPos
             self._dragPos = ev.globalPos()
             h = self.view().horizontalScrollBar()
             v = self.view().verticalScrollBar()
-            h.setValue(h.value() + diff.x())
-            v.setValue(v.value() + diff.y())
+            h.setValue(h.value() - diff.x())
+            v.setValue(v.value() - diff.y())
         else:
             self.updateCursor(ev.pos())
     
@@ -109,18 +109,15 @@ class Surface(QWidget):
         return super(Surface, self).event(ev)
 
     def updateCursor(self, pos):
-        if pos in self._currentLinkRect:
-            return
-        if self._currentLinkRect:
-            self.linkHoverLeave()
         page, link = self.pageLayout().linkAt(pos)
-        if link:
-            self._currentLinkRect = page.linkRect(link)
-            self.setCursor(Qt.PointingHandCursor)
-            self.linkHoverEnter(page, link)
-        else:
-            self._currentLinkRect = QRect()
-            self.unsetCursor()
+        lid = id(link) if link else None
+        if lid != self._currentLinkId:
+            if self._currentLinkId is not None:
+                self.linkHoverLeave()
+            self._currentLinkId = lid
+            if link:
+                self.linkHoverEnter(page, link)
+        self.setCursor(Qt.PointingHandCursor) if link else self.unsetCursor()
         
     def linkClickEvent(self, ev, page, link):
         """Called when a link is clicked."""
