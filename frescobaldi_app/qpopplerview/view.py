@@ -40,6 +40,10 @@ from . import (
 )
 
 
+# most used keyboard modifiers
+_SCAM = (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META)
+
+
 class View(QScrollArea):
     
     viewModeChanged = pyqtSignal(int)
@@ -51,9 +55,10 @@ class View(QScrollArea):
         self.setBackgroundRole(QPalette.Dark)
 
         self._viewMode = FixedScale
+        self._wheelZoomEnabled = True
+        self._wheelZoomModifier = Qt.CTRL
         
         # delayed resize
-        self._newsize = None
         self._resizeTimer = QTimer(singleShot = True, timeout = self._resizeTimeout)
         self._oldsize = None
         
@@ -85,6 +90,33 @@ class View(QScrollArea):
             self.surface().updateLayout()
         self.viewModeChanged.emit(mode)
     
+    def wheelZoomEnabled(self):
+        """Returns whether wheel zoom is enabled."""
+        return self._wheelZoomEnabled
+        
+    def setWheelZoomEnabled(self, enabled):
+        """Sets whether wheel zoom is enabled.
+        
+        Wheel zoom is zooming using the mouse wheel and a keyboard modifier key
+        (defaulting to Qt.CTRL).  Use setWheelZoomModifier() to set a key (or
+        key combination).
+        
+        """
+        self._wheelZoomEnabled = enabled
+    
+    def wheelZoomModifier(self):
+        """Returns the modifier key to wheel-zoom with (defaults to Qt.CTRL)."""
+        return self._wheelZoomModifier
+        
+    def setWheelZoomModifier(self, key):
+        """Sets the modifier key to wheel-zoom with (defaults to Qt.CTRL).
+        
+        Can also be set to a ORed value, e.g. Qt.SHIFT|Qt.ALT.
+        Only use Qt.ALT, Qt.CTRL, Qt.SHIFT and/or Qt.META.
+        
+        """
+        self._wheelZoomModifier = key
+        
     def load(self, document):
         """Convenience method to load all the pages from the given Poppler.Document."""
         self.surface().pageLayout().load(document)
@@ -197,7 +229,8 @@ class View(QScrollArea):
         self.zoom(self.scale() / factor, pos)
         
     def wheelEvent(self, ev):
-        if int(ev.modifiers()) & (Qt.CTRL | Qt.SHIFT | Qt.ALT | Qt.META) == Qt.CTRL:
+        if (self._wheelZoomEnabled and
+            int(ev.modifiers()) & _SCAM == self._wheelZoomModifier):
             factor = 1.1 ** (ev.delta() / 120)
             if ev.delta():
                 self.zoom(self.scale() * factor, ev.pos())
