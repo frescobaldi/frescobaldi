@@ -32,6 +32,17 @@ from . import rectangles
 
 
 class Page(object):
+    """Represents a page from a Poppler.Document.
+    
+    It maintains its own size and can draw itself using the cache.
+    It also can maintain a list of links and return links at certain
+    points or rectangles.
+    
+    The visible attribute (setVisible and visible) defaults to True but
+    can be set to False to hide the page from a Surface (this is done by
+    the Layout).
+    
+    """
     def __init__(self, document, pageNumber):
         self._document = document
         self._pageNumber = pageNumber

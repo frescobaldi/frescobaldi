@@ -30,7 +30,9 @@ objects (see page.py).
 
 A Page represents a single page from a Poppler.Document. Its rect() method
 contains the position and size to draw it. Its computeSize() method computes its
-size, and the Layout is expected to set its position.
+size, and the Layout is expected to set its position. A Page can be hidden from
+the view using Page.setVisible(False). A Layout has no notion of a document,
+only Pages. Every Page references the Poppler.Document it belongs to.
 
 So the long route to view a PDF document is:
 - get a Poppler.Document instance (and set its rendering hints)
@@ -67,6 +69,11 @@ more specialized Poppler viewers.
 
 Finally the cache module implements in-memory caching for drawed Page images.
 The images are rendered in a background thread.
+
+The Poppler library is not thread-safe, so when calling into Poppler for drawing
+or getting other objects you can use cache.wait(document) to wait till a possible
+running background job for that document has completed. (Pending tasks will wait
+until the Qt eventloop is entered again.)
 
 """
 

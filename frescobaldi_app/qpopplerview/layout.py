@@ -223,7 +223,7 @@ class AbstractLayout(QObject):
         self.redraw.emit(page.rect())
         
     def page(self, document, pageNumber):
-        """Returns the page belonging to the given Poppler.Document with the given page number.
+        """Returns the page (visible or not) from a Poppler.Document with page number.
         
         Returns None if that page is not available.
         
@@ -270,12 +270,12 @@ class AbstractLayout(QObject):
         return None, None
         
     def widest(self):
-        """Returns the widest page (in its natural page size)."""
+        """Returns the widest visible page (in its natural page size)."""
         pages = list(self.pages())
         return max((page.pageSize().width(), page) for page in pages)[1] if pages else 0
             
     def heighest(self):
-        """Returns the heighest page (in its natural page size)."""
+        """Returns the heighest visible page (in its natural page size)."""
         pages = list(self.pages())
         return max((page.pageSize().height(), page) for page in pages)[1] if pages else 0
         
@@ -294,7 +294,7 @@ class Layout(AbstractLayout):
         self._orientation = Qt.Vertical
         
     def setOrientation(self, orientation):
-        """Sets our orientation to either horizontal or vertical."""
+        """Sets our orientation to either Qt.Vertical or Qt.Horizontal."""
         self._orientation = orientation
         
     def orientation(self):
