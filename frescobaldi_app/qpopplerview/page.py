@@ -28,7 +28,6 @@ import popplerqt4
 from PyQt4.QtCore import QRect, QRectF, QSize
 
 from . import cache
-from . import rectangles
 
 
 class Page(object):
@@ -205,17 +204,6 @@ class Page(object):
         page = self.document().page(self._pageNumber)
         return page.renderToImage(xdpi, ydpi, x, y, w, h, self._rotation)
         
-    def _links(self):
-        """(Internal) Returns a position-searchable list of the links in the page."""
-        try:
-            return self._link_rectangles
-        except AttributeError:
-            cache.wait(self.document())
-            res = self._link_rectangles = rectangles.Rectangles(
-                self.document().page(self.pageNumber()).links(),
-                lambda link: link.linkArea().normalized().getCoords())
-            return res
-    
     def linksAt(self, point):
         """Returns a list() of zero or more links touched by point (relative to surface).
         
@@ -235,7 +223,7 @@ class Page(object):
                 x, y = 1-x, 1-y
             else: # 270
                 x, y = 1-y, x
-        return list(sorted(self._links().at(x, y), key=lambda link: link.linkArea().width()))
+        return list(sorted(cache.links(self).at(x, y), key=lambda link: link.linkArea().width()))
         
     def linksIn(self, rect):
         """Returns an unordered set() of links enclosed in rectangle (relative to surface)."""
@@ -253,7 +241,7 @@ class Page(object):
                 left, top, right, bottom = 1-right, 1-bottom, 1-left, 1-top
             else: # 270
                 left, top, right, bottom = 1-bottom, left, 1-top, right
-        return self._links().inside(left, top, right, bottom)
+        return cache.links(self).inside(left, top, right, bottom)
 
     def linkRect(self, link):
         """Returns a QRect encompassing the linkArea() of the link in coordinates of our rect()."""

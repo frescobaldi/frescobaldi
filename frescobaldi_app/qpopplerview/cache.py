@@ -29,13 +29,16 @@ import popplerqt4
 from PyQt4.QtCore import QThread
 
 from . import render
+from . import rectangles
 
-__all__ = ['maxsize', 'setmaxsize', 'image', 'generate', 'clear', 'wait', 'options']
+__all__ = ['maxsize', 'setmaxsize', 'image', 'generate', 'clear', 'links', 'wait', 'options']
 
 
 _cache = weakref.WeakKeyDictionary()
 _schedulers = weakref.WeakKeyDictionary()
 _options = weakref.WeakKeyDictionary()
+_links = weakref.WeakKeyDictionary()
+
 
 # cache size
 _maxsize = 104857600 # 100M
@@ -149,6 +152,19 @@ def purge():
     # delete the other images
     for time, document, pageKey, sizeKey, byteCount in images:
         del _cache[document][pageKey][sizeKey]
+
+
+def links(page):
+    """Returns a position-searchable list of the links in the page."""
+    document, pageNumber = page.document(), page.pageNumber()
+    try:
+        return _links[document][pageNumber]
+    except KeyError:
+        wait(document)
+        links = rectangles.Rectangles(document.page(pageNumber).links(),
+                                      lambda link: link.linkArea().normalized().getCoords())
+        _links.setdefault(document, {})[pageNumber] = links
+        return links
 
 
 def wait(document, msec=None):
