@@ -213,6 +213,24 @@ class AbstractLayout(QObject):
         """Called by the Page when an image has been generated."""
         self.redraw.emit(page.rect())
         
+    def page(self, document, pageNumber):
+        """Returns the page belonging to the given Poppler.Document with the given page number.
+        
+        Returns None if that page is not available.
+        
+        """
+        # Specific layouts may use faster algorithms to find the page.
+        try:
+            page = self[pageNumber]
+        except IndexError:
+            pass
+        else:
+            if page.document() == document:
+                return page
+        for page in self:
+            if page.document() == document and page.pageNumber() == pageNumber:
+                return page
+    
     def pageAt(self, point):
         """Returns the page that contains the given QPoint."""
         # Specific layouts may use faster algorithms to find the page.
