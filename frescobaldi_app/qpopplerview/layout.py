@@ -47,7 +47,7 @@ class AbstractLayout(QObject):
         self._dpi = (72.0, 72.0)
         self._size = QSize()
         self._margin = 4
-        self._spacing = 4
+        self._spacing = 8
         
     def own(self, page):
         """(Internal) Makes the page have ourselves as layout."""
