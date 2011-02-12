@@ -137,7 +137,7 @@ class AbstractLayout(QObject):
     def setDPI(self, xdpi, ydpi=None):
         """Sets our DPI in X and Y direction. If Y isn't given, uses the X value."""
         self._dpi = xdpi, ydpi or xdpi
-        for page in self._pages:
+        for page in self:
             page.computeSize()
     
     def dpi(self):
@@ -153,7 +153,7 @@ class AbstractLayout(QObject):
     
     def setScale(self, scale):
         """Sets the scale (1.0 == 100%) of all our Pages."""
-        for page in self._pages:
+        for page in self:
             page.setScale(scale)
     
     def setPageWidth(self, width, sameScale=True):
@@ -164,10 +164,8 @@ class AbstractLayout(QObject):
         If sameScale is False all pages will be scaled individually to the same width.
         
         """
-        if sameScale:
-            scale = self.widest().scaleForWidth(width)
-            for page in self:
-                page.setScale(scale)
+        if sameScale and any(self.pages()):
+            self.setScale(self.widest().scaleForWidth(width))
         else:
             for page in self:
                 page.setWidth(width)
@@ -180,10 +178,8 @@ class AbstractLayout(QObject):
         If sameScale is False all pages will be scaled individually to the same height.
         
         """
-        if sameScale:
-            scale = self.heighest().scaleForWidth(height)
-            for page in self:
-                page.setScale(scale)
+        if sameScale and any(self.pages()):
+            self.setScale(self.heighest().scaleForWidth(height))
         else:
             for page in self:
                 page.setHeight(height)
@@ -215,7 +211,7 @@ class AbstractLayout(QObject):
             self.setScale(min(scales))
         
     def update(self):
-        """Implement! Performs the layouting (positions the Pages and adjust our size()."""
+        """Implement! Performs the layouting (positions the Pages and adjusts our size)."""
         pass
     
     def updatePage(self, page):
