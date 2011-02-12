@@ -272,12 +272,14 @@ class AbstractLayout(QObject):
     def widest(self):
         """Returns the widest visible page (in its natural page size)."""
         pages = list(self.pages())
-        return max((page.pageSize().width(), page) for page in pages)[1] if pages else 0
+        if pages:
+            return max((page.pageSize().width(), page) for page in pages)[1]
             
     def heighest(self):
         """Returns the heighest visible page (in its natural page size)."""
         pages = list(self.pages())
-        return max((page.pageSize().height(), page) for page in pages)[1] if pages else 0
+        if pages:
+            return max((page.pageSize().height(), page) for page in pages)[1]
         
     def load(self, document):
         """Convenience mehod to load all the pages of the given Poppler.Document using page.Page()."""
@@ -303,7 +305,10 @@ class Layout(AbstractLayout):
     
     def update(self):
         """Orders our pages."""
-        if self._orientation == Qt.Vertical:
+        pages = list(self.pages())
+        if not pages:
+            self.setSize(QSize(self._margin * 2, self._margin * 2))
+        elif self._orientation == Qt.Vertical:
             width = self.widest().width() + self._margin * 2
             top = self._margin
             for page in self.pages():
