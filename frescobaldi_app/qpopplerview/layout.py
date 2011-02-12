@@ -272,14 +272,12 @@ class AbstractLayout(QObject):
     def widest(self):
         """Returns the widest page (in its natural page size)."""
         pages = list(self.pages())
-        if pages:
-            return max((page.pageSize().width(), page) for page in pages)[1]
-        
+        return max((page.pageSize().width(), page) for page in pages)[1] if pages else 0
+            
     def heighest(self):
         """Returns the heighest page (in its natural page size)."""
         pages = list(self.pages())
-        if pages:
-            return max((page.pageSize().height(), page) for page in pages)[1]
+        return max((page.pageSize().height(), page) for page in pages)[1] if pages else 0
         
     def load(self, document):
         """Convenience mehod to load all the pages of the given Poppler.Document using page.Page()."""
@@ -305,21 +303,18 @@ class Layout(AbstractLayout):
     
     def update(self):
         """Orders our pages."""
-        pages = list(self.pages())
-        if len(pages) == 0:
-            self.setSize(QSize(self._margin * 2, self._margin * 2))
-        elif self._orientation == Qt.Vertical:
-            width = max(page.width() for page in pages) + self._margin * 2
+        if self._orientation == Qt.Vertical:
+            width = self.widest().width() + self._margin * 2
             top = self._margin
-            for page in pages:
+            for page in self.pages():
                 page.setPos(QPoint((width - page.width()) / 2, top))
                 top += page.height() + self._spacing
             top += self._margin - self._spacing
             self.setSize(QSize(width, top))
         else:
-            height = max(page.height() for page in pages) + self._margin * 2
+            height = self.heighest().height() + self._margin * 2
             left = self._margin
-            for page in pages:
+            for page in self.pages():
                 page.setPos(QPoint(left, (height - page.height()) / 2))
                 left += page.width() + self._spacing
             left += self._margin - self._spacing

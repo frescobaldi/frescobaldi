@@ -161,7 +161,7 @@ class View(QScrollArea):
     def resizeEvent(self, ev):
         super(View, self).resizeEvent(ev)
         # Detect a resize loop due to scrollbar disappearing
-        if self.viewMode() and self.surface().pageLayout().count():
+        if self.viewMode() and any(self.surface().pageLayout().pages()):
             diff = ev.size() - ev.oldSize()
             if self.size() == self._oldsize and (
                 (diff.width() > 0 and self.viewMode() & FitWidth)
