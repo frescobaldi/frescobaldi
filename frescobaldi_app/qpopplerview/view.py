@@ -168,21 +168,22 @@ class View(QScrollArea):
                 or (diff.height() > 0 and self.viewMode() & FitHeight)):
                 pass # avoid a loop
             else:
+                if not self._resizeTimer.isActive():
+                    self._centerPos = QPoint(self.width(), self.height()) / 2 - self.surface().pos()
                 self._resizeTimer.start(100)
         self._oldsize = self.size()
     
     def _resizeTimeout(self):
         # store the point currently in the center
-        surfacePos = QPoint(self.width(), self.height()) / 2 - self.surface().pos()
-        x = surfacePos.x() / float(self.surface().width())
-        y = surfacePos.y() / float(self.surface().height())
+        x = self._centerPos.x() / float(self.surface().width())
+        y = self._centerPos.y() / float(self.surface().height())
         # resize the layout
         self.surface().pageLayout().fit(self.viewport().size(), self.viewMode())
         self.surface().pageLayout().update()
         self.surface().updateLayout()
         # restore our position
         newPos = QPoint(round(x * self.surface().width()), round(y * self.surface().height()))
-        diff = newPos - surfacePos
+        diff = newPos - self._centerPos
         v = self.verticalScrollBar()
         h = self.horizontalScrollBar()
         v.setValue(v.value() + diff.y())
