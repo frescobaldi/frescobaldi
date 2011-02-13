@@ -153,21 +153,21 @@ class Page(object):
         update_rect = rect & self.rect()
         if not update_rect:
             return
-        image_rect = QRect(update_rect.topLeft() - self.rect().topLeft(), update_rect.size())
-        image = cache.image(self)
-        if image:
-            painter.drawImage(update_rect, image, image_rect)
+        pixmap_rect = QRect(update_rect.topLeft() - self.rect().topLeft(), update_rect.size())
+        pixmap = cache.pixmap(self)
+        if pixmap:
+            painter.drawPixmap(update_rect, pixmap, pixmap_rect)
         else:
-            # schedule an image to be generated, if done our update() method is called
+            # schedule a pixmap to be generated, if done our update() method is called
             cache.generate(self)
-            # find suitable image to be scaled from other size
-            image = cache.image(self, False)
-            if image:
-                hscale = float(image.width()) / self.width()
-                vscale = float(image.height()) / self.height()
-                image_rect = QRectF(image_rect.x() * hscale, image_rect.y() * vscale,
-                                    image_rect.width() * hscale, image_rect.height() * vscale)
-                painter.drawImage(QRectF(update_rect), image, image_rect)
+            # find suitable pixmap to be scaled from other size
+            #pixmap = cache.pixmap(self, False)
+            if False:#pixmap:
+                hscale = float(pixmap.width()) / self.width()
+                vscale = float(pixmap.height()) / self.height()
+                pixmap_rect = QRectF(pixmap_rect.x() * hscale, pixmap_rect.y() * vscale,
+                                    pixmap_rect.width() * hscale, pixmap_rect.height() * vscale)
+                painter.drawPixmap(QRectF(update_rect), pixmap, pixmap_rect)
             else:
                 # draw blank paper, using the background color of the cache rendering (if set)
                 # or from the document itself.

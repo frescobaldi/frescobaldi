@@ -19,7 +19,7 @@
 
 
 """
-Caching of generated images.
+Caching of generated pixmaps.
 """
 
 import time
@@ -27,11 +27,13 @@ import weakref
 import popplerqt4
 
 from PyQt4.QtCore import QThread
+from PyQt4.QtGui import QPixmap
 
 from . import render
 from . import rectangles
 
-__all__ = ['maxsize', 'setmaxsize', 'image', 'generate', 'clear', 'links', 'wait', 'options']
+
+__all__ = ['maxsize', 'setmaxsize', 'pixmap', 'generate', 'clear', 'links', 'wait', 'options']
 
 
 _cache = weakref.WeakKeyDictionary()
@@ -72,12 +74,12 @@ def clear(document=None):
         _currentsize = 0
 
 
-def image(page, exact=True):
-    """Returns a rendered image for given Page if in cache.
+def pixmap(page, exact=True):
+    """Returns a rendered pixmap for given Page if in cache.
     
     If exact is True (default), the function returns None if the exact size was
     not in the cache. If exact is False, the function may return a temporary
-    rendering of the page scaled from a different size, if that was available.
+    rendering of the page of a different size, if that was available.
     
     """
     document = page.document()
@@ -103,7 +105,7 @@ def image(page, exact=True):
 
 
 def generate(page):
-    """Schedule an image to be generated for the cache."""
+    """Schedule a pixmap to be generated for the cache."""
     # Poppler-Qt4 crashes when different pages from a Document are rendered at the same time,
     # so we schedule them to be run in sequence.
     document = page.document()
@@ -114,43 +116,44 @@ def generate(page):
     scheduler.schedulejob(page)
 
 
-def add(image, document, pageNumber, rotation, width, height):
-    """(Internal) Adds an image to the cache."""
+def add(pixmap, document, pageNumber, rotation, width, height):
+    """(Internal) Adds a pixmap to the cache."""
     pageKey = (pageNumber, rotation)
     sizeKey = (width, height)
-    _cache.setdefault(document, {}).setdefault(pageKey, {})[sizeKey] = [image, time.time()]
+    byteCount = width * height * pixmap.depth() / 8
+    _cache.setdefault(document, {}).setdefault(pageKey, {})[sizeKey] = [pixmap, time.time(), byteCount]
     
     # maintain cache size
     global _maxsize, _currentsize
-    _currentsize += image.byteCount()
+    _currentsize += byteCount
     if _currentsize > _maxsize:
         purge()
 
 
 def purge():
-    """Removes old images from the cache to limit the space used.
+    """Removes old pixmaps from the cache to limit the space used.
     
     (Not necessary to call, as the cache will monitor its size automatically.)
     
     """
     # make a list of the images, sorted on time, newest first
-    images = iter(sorted((
-        (time, document, pageKey, sizeKey, image.byteCount())
+    pixmaps = iter(sorted((
+        (time, document, pageKey, sizeKey, byteCount)
             for document, pageKeys in _cache.items()
             for pageKey, sizeKeys in pageKeys.items()
-            for sizeKey, (image, time) in sizeKeys.items()),
+            for sizeKey, (pixmap, time, byteCount) in sizeKeys.items()),
                 reverse=True))
 
     # sum the size of the newest images
     global _maxsize, _currentsize
     byteCount = 0
-    for item in images:
+    for item in pixmaps:
         byteCount += item[4]
         if byteCount > _maxsize:
             break
     _currentsize = byteCount
     # delete the other images
-    for time, document, pageKey, sizeKey, byteCount in images:
+    for time, document, pageKey, sizeKey, byteCount in pixmaps:
         del _cache[document][pageKey][sizeKey]
 
 
@@ -316,7 +319,8 @@ class Runner(QThread):
         
     def slotFinished(self):
         """Called when the thread has completed."""
-        add(self.image, self.document, self.job.pageNumber, self.job.rotation, self.job.width, self.job.height)
+        pixmap = QPixmap.fromImage(self.image)
+        add(pixmap, self.document, self.job.pageNumber, self.job.rotation, self.job.width, self.job.height)
         self.scheduler.done(self.job)
 
 
