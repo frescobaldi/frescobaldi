@@ -161,8 +161,8 @@ class Page(object):
             # schedule a pixmap to be generated, if done our update() method is called
             cache.generate(self)
             # find suitable pixmap to be scaled from other size
-            #pixmap = cache.pixmap(self, False)
-            if False:#pixmap:
+            pixmap = cache.pixmap(self, False)
+            if pixmap:
                 hscale = float(pixmap.width()) / self.width()
                 vscale = float(pixmap.height()) / self.height()
                 pixmap_rect = QRectF(pixmap_rect.x() * hscale, pixmap_rect.y() * vscale,
