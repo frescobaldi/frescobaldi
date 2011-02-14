@@ -47,7 +47,7 @@ _INSIDE  = 15
 
 class Surface(QWidget):
     
-    selectionChanged = pyqtSignal(bool)
+    selectionChanged = pyqtSignal(QRect)
     
     def __init__(self, view):
         super(Surface, self).__init__(view)
@@ -56,8 +56,7 @@ class Surface(QWidget):
         self._currentLinkId = None
         self._dragging = False
         self._selecting = False
-        self._draggingSelection = False
-        self._selectionRect = QRect()
+        self._selection = QRect()
         self._rubberBand = QRubberBand(QRubberBand.Rectangle, self)
         self._pageLayout = None
         self.setPageLayout(layout.Layout())
@@ -81,6 +80,7 @@ class Surface(QWidget):
         """Enables or disables selecting rectangular regions."""
         self._selectionEnabled = enabled
         if not enabled:
+            self.clearSelection()
             self._rubberBand.hide()
             self._selecting = False
     
@@ -99,22 +99,24 @@ class Surface(QWidget):
     
     def hasSelection(self):
         """Returns True if there is a selection."""
-        return bool(self.selection())
+        return bool(self._selection)
         
     def setSelection(self, rect):
         """Sets the selection rectangle."""
-        self._selectionRect = rect
-        self._rubberBand.setGeometry(rect.normalized())
-        self._rubberBand.setVisible(bool(rect.normalized()))
+        rect = rect.normalized()
+        old, self._selection = self._selection, rect
+        self._rubberBand.setGeometry(rect)
+        self._rubberBand.setVisible(bool(rect))
+        if rect != old:
+            self.selectionChanged.emit(rect)
         
     def selection(self):
         """Returns the selection rectangle (normalized) or an invalid QRect()."""
-        return self._selectionRect.normalized()
+        return self._selection
     
     def clearSelection(self):
         """Hides the selection rectangle."""
-        self._selectionRect = QRect()
-        self._rubberBand.hide()
+        self.setSelection(QRect())
         
     def redraw(self, rect):
         """Called when the Layout wants to redraw a rectangle."""
@@ -143,19 +145,20 @@ class Surface(QWidget):
                 edge = selectionEdge(ev.pos(), self.selection())
                 if edge == _OUTSIDE:
                     self.clearSelection()
-                    self.selectionChanged.emit(False)
-                elif ev.button() == Qt.RightButton:
-                    return # dont move/resize selection with right button
                 else:
-                    self._selectionRect = self.selection() # force normalize
-                    self._draggingSelection = edge
-                    self._dragSelectPos = ev.pos()
+                    if ev.button() != Qt.RightButton:
+                        # dont move/resize selection with right button
+                        self._selecting = True
+                        self._selectionEdge = edge
+                        self._selectionRect = self.selection()
+                        self._selectionPos = ev.pos()
                     return
             if not self._selecting:
                 if ev.button() == Qt.RightButton or int(ev.modifiers()) & _SCAM:
                     self._selecting = True
-                    self._selectPos = ev.pos()
-                    self.setSelection(QRect(ev.pos(), QSize(0,0)))
+                    self._selectionEdge = _RIGHT | _BOTTOM
+                    self._selectionRect = QRect(ev.pos(), QSize(0, 0))
+                    self._selectionPos = ev.pos()
                     return
         if ev.button() == Qt.LeftButton:
             self._dragging = True
@@ -167,15 +170,12 @@ class Surface(QWidget):
         else:
             if self._selecting:
                 self._selecting = False
-                if self.selection().width() < 8 and self.selection().height() < 8:
+                selection = self._selectionRect.normalized()
+                if selection.width() < 8 and selection.height() < 8:
                     self.clearSelection()
-                self.selectionChanged.emit(self.hasSelection())
-            elif self._draggingSelection:
-                self._draggingSelection = False
-                if self.selection().width() < 8 and self.selection().height() < 8:
-                    self.clearSelection()
-                self.selectionChanged.emit(self.hasSelection())
-            self.updateCursor(ev.pos())
+                else:
+                    self.setSelection(selection)
+        self.updateCursor(ev.pos())
         
     def mouseMoveEvent(self, ev):
         if self._dragging:
@@ -187,16 +187,16 @@ class Surface(QWidget):
             h.setValue(h.value() - diff.x())
             v.setValue(v.value() - diff.y())
         elif self._selecting:
-            self.setSelection(QRect(self._selectPos, ev.pos()))
-        elif self._draggingSelection:
-            diff = ev.pos() - self._dragSelectPos
-            self._dragSelectPos = ev.pos()
-            sel = self._draggingSelection
-            self.setSelection(self._selectionRect.adjusted(
-                diff.x() if sel & _LEFT   else 0,
-                diff.y() if sel & _TOP    else 0,
-                diff.x() if sel & _RIGHT  else 0,
-                diff.y() if sel & _BOTTOM else 0))
+            diff = ev.pos() - self._selectionPos
+            self._selectionPos = ev.pos()
+            edge = self._selectionEdge
+            self._selectionRect.adjust(
+                diff.x() if edge & _LEFT   else 0,
+                diff.y() if edge & _TOP    else 0,
+                diff.x() if edge & _RIGHT  else 0,
+                diff.y() if edge & _BOTTOM else 0)
+            self._rubberBand.setGeometry(self._selectionRect.normalized())
+            self._rubberBand.show()
         else:
             self.updateCursor(ev.pos())
     
