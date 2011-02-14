@@ -215,17 +215,7 @@ class Surface(QWidget):
 
     def updateCursor(self, pos):
         cursor = None
-        if self._selectionEnabled and self.hasSelection():
-            edge = selectionEdge(pos, self.selection())
-            if edge in (_TOP, _BOTTOM):
-                cursor = Qt.SizeVerCursor
-            elif edge in (_LEFT, _RIGHT):
-                cursor = Qt.SizeHorCursor
-            elif edge in (_LEFT | _TOP, _RIGHT | _BOTTOM):
-                cursor = Qt.SizeFDiagCursor
-            elif edge in (_TOP | _RIGHT, _BOTTOM | _LEFT):
-                cursor = Qt.SizeBDiagCursor
-        if cursor is None and self._linksEnabled:
+        if self._linksEnabled:
             page, link = self.pageLayout().linkAt(pos)
             if link:
                 cursor = Qt.PointingHandCursor
@@ -238,6 +228,16 @@ class Surface(QWidget):
                 self._currentLinkId = lid
                 if link:
                     self.linkHoverEnter(page, link)
+        if self._selectionEnabled and cursor is None and self.hasSelection():
+            edge = selectionEdge(pos, self.selection())
+            if edge in (_TOP, _BOTTOM):
+                cursor = Qt.SizeVerCursor
+            elif edge in (_LEFT, _RIGHT):
+                cursor = Qt.SizeHorCursor
+            elif edge in (_LEFT | _TOP, _RIGHT | _BOTTOM):
+                cursor = Qt.SizeFDiagCursor
+            elif edge in (_TOP | _RIGHT, _BOTTOM | _LEFT):
+                cursor = Qt.SizeBDiagCursor
         self.setCursor(cursor) if cursor else self.unsetCursor()
         
     def linkClickEvent(self, ev, page, link):
