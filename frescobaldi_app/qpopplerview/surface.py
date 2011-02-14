@@ -124,6 +124,7 @@ class Surface(QWidget):
         
     def updateLayout(self):
         """Conforms ourselves to our layout (that must already be updated.)"""
+        self.clearSelection()
         self.resize(self._pageLayout.size())
         self.update()
         
