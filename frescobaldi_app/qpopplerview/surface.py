@@ -60,6 +60,7 @@ class Surface(QWidget):
         self._rubberBand = QRubberBand(QRubberBand.Rectangle, self)
         self._pageLayout = None
         self.setPageLayout(layout.Layout())
+        self.setMouseTracking(True)
         self.setLinksEnabled(True)
         self.setSelectionEnabled(True)
         
@@ -91,7 +92,6 @@ class Surface(QWidget):
     def setLinksEnabled(self, enabled):
         """Enables or disables the handling of Poppler.Links in the pages."""
         self._linksEnabled = enabled
-        self.setMouseTracking(enabled)
     
     def linksEnabled(self):
         """Returns True if the handling of Poppler.Links in the pages is enabled."""
