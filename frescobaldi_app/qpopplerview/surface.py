@@ -25,7 +25,7 @@ Surface is the widget everything is drawn on.
 import weakref
 
 
-from PyQt4.QtCore import QPoint, QRect, QSize, Qt
+from PyQt4.QtCore import QPoint, QRect, QSize, Qt, pyqtSignal
 from PyQt4.QtGui import QCursor, QHelpEvent, QPainter, QPalette, QRubberBand, QToolTip, QWidget
 
 import popplerqt4
@@ -37,14 +37,18 @@ from . import layout
 _SCAM = (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META)
 
 # dragging/moving selection:
-_LEFT   = 1
-_TOP    = 2
-_RIGHT  = 4
-_BOTTOM = 8
-_MOVE   = 15
+_OUTSIDE = 0
+_LEFT    = 1
+_TOP     = 2
+_RIGHT   = 4
+_BOTTOM  = 8
+_INSIDE  = 15
 
 
 class Surface(QWidget):
+    
+    selectionChanged = pyqtSignal(bool)
+    
     def __init__(self, view):
         super(Surface, self).__init__(view)
         self.setBackgroundRole(QPalette.Dark)
@@ -137,11 +141,13 @@ class Surface(QWidget):
         if self._selectionEnabled:
             if self.hasSelection():
                 edge = selectionEdge(ev.pos(), self.selection())
-                if edge == 0:
+                if edge == _OUTSIDE:
                     self.clearSelection()
+                    self.selectionChanged.emit(False)
                 elif ev.button() == Qt.RightButton:
                     return # dont move/resize selection with right button
                 else:
+                    self._selectionRect = self.selection() # force normalize
                     self._draggingSelection = edge
                     self._dragSelectPos = ev.pos()
                     return
@@ -158,11 +164,17 @@ class Surface(QWidget):
     def mouseReleaseEvent(self, ev):
         if self._dragging:
             self._dragging = False
-            self.updateCursor(ev.pos())
-        elif self._selecting:
-            self._selecting = False
-        elif self._draggingSelection:
-            self._draggingSelection = False
+        else:
+            if self._selecting:
+                self._selecting = False
+                if self.selection().width() < 8 and self.selection().height() < 8:
+                    self.clearSelection()
+                self.selectionChanged.emit(self.hasSelection())
+            elif self._draggingSelection:
+                self._draggingSelection = False
+                if self.selection().width() < 8 and self.selection().height() < 8:
+                    self.clearSelection()
+                self.selectionChanged.emit(self.hasSelection())
             self.updateCursor(ev.pos())
         
     def mouseMoveEvent(self, ev):
@@ -245,7 +257,7 @@ class Surface(QWidget):
 def selectionEdge(point, rect):
     """Returns the edge where the point touches the rect."""
     if point not in rect.adjusted(-2, -2, 2, 2):
-        return 0
+        return _OUTSIDE
     edge = 0
     if point.x() <= rect.left() + 4:
         edge |= _LEFT
@@ -255,5 +267,5 @@ def selectionEdge(point, rect):
         edge |= _TOP
     elif point.y() >= rect.bottom() - 4:
         edge |= _BOTTOM
-    return edge or _MOVE
+    return edge or _INSIDE
 
