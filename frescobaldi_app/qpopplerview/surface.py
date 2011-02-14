@@ -215,14 +215,17 @@ class Surface(QWidget):
                 cursor = Qt.SizeBDiagCursor
         if cursor is None and self._linksEnabled:
             page, link = self.pageLayout().linkAt(pos)
-            lid = id(link) if link else None
+            if link:
+                cursor = Qt.PointingHandCursor
+                lid = id(link)
+            else:
+                lid = None
             if lid != self._currentLinkId:
                 if self._currentLinkId is not None:
                     self.linkHoverLeave()
                 self._currentLinkId = lid
                 if link:
                     self.linkHoverEnter(page, link)
-                    cursor = Qt.PointingHandCursor
         self.setCursor(cursor) if cursor else self.unsetCursor()
         
     def linkClickEvent(self, ev, page, link):
