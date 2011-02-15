@@ -153,6 +153,8 @@ class Surface(QWidget):
                         self._selectionEdge = edge
                         self._selectionRect = self.selection()
                         self._selectionPos = ev.pos()
+                        if edge == _INSIDE:
+                            self.setCursor(Qt.SizeAllCursor)
                     return
             if not self._selecting:
                 if ev.button() == Qt.RightButton or int(ev.modifiers()) & _SCAM:
