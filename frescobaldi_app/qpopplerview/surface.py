@@ -25,7 +25,7 @@ Surface is the widget everything is drawn on.
 import weakref
 
 
-from PyQt4.QtCore import QPoint, QRect, QSize, Qt, pyqtSignal
+from PyQt4.QtCore import QPoint, QRect, QSize, Qt, QTimer, pyqtSignal
 from PyQt4.QtGui import QCursor, QHelpEvent, QPainter, QPalette, QRubberBand, QToolTip, QWidget
 
 import popplerqt4
@@ -58,6 +58,8 @@ class Surface(QWidget):
         self._selecting = False
         self._selection = QRect()
         self._rubberBand = QRubberBand(QRubberBand.Rectangle, self)
+        self._scrolling = False
+        self._scrollTimer = QTimer(interval=100, timeout=self._scrollTimeout)
         self._pageLayout = None
         self.setPageLayout(layout.Layout())
         self.setMouseTracking(True)
@@ -77,6 +79,10 @@ class Surface(QWidget):
         """Returns our associated View."""
         return self._view()
     
+    def viewportRect(self):
+        """Returns the rectangle of us that is visible in the View."""
+        return self.view().viewport().rect().translated(-self.pos())
+        
     def setSelectionEnabled(self, enabled):
         """Enables or disables selecting rectangular regions."""
         self._selectionEnabled = enabled
@@ -147,14 +153,12 @@ class Surface(QWidget):
                 if edge == _OUTSIDE:
                     self.clearSelection()
                 else:
-                    if ev.button() != Qt.RightButton:
-                        # dont move/resize selection with right button
-                        self._selecting = True
-                        self._selectionEdge = edge
-                        self._selectionRect = self.selection()
-                        self._selectionPos = ev.pos()
-                        if edge == _INSIDE:
-                            self.setCursor(Qt.SizeAllCursor)
+                    self._selecting = True
+                    self._selectionEdge = edge
+                    self._selectionRect = self.selection()
+                    self._selectionPos = ev.pos()
+                    if edge == _INSIDE:
+                        self.setCursor(Qt.SizeAllCursor)
                     return
             if not self._selecting:
                 if ev.button() == Qt.RightButton or int(ev.modifiers()) & _SCAM:
@@ -178,6 +182,8 @@ class Surface(QWidget):
                     self.clearSelection()
                 else:
                     self.setSelection(selection)
+                if self._scrolling:
+                    self.stopScrolling()
         self.updateCursor(ev.pos())
         
     def mouseMoveEvent(self, ev):
@@ -190,25 +196,29 @@ class Surface(QWidget):
             h.setValue(h.value() - diff.x())
             v.setValue(v.value() - diff.y())
         elif self._selecting:
-            diff = ev.pos() - self._selectionPos
-            self._selectionPos = ev.pos()
-            edge = self._selectionEdge
-            self._selectionRect.adjust(
-                diff.x() if edge & _LEFT   else 0,
-                diff.y() if edge & _TOP    else 0,
-                diff.x() if edge & _RIGHT  else 0,
-                diff.y() if edge & _BOTTOM else 0)
-            self._rubberBand.setGeometry(self._selectionRect.normalized())
+            self._moveSelection(ev.pos())
             self._rubberBand.show()
-            if self.cursor().shape() in (Qt.SizeBDiagCursor, Qt.SizeFDiagCursor):
-                # we're dragging a corner, use correct diagonal cursor
-                bdiag = (edge in (3, 12)) ^ (self._selectionRect.width() * self._selectionRect.height() >= 0)
-                self.setCursor(Qt.SizeBDiagCursor if bdiag else Qt.SizeFDiagCursor)
+            # check if we are dragging close to the edge of the view, scroll if needed
+            view = self.viewportRect()
+            dx = ev.x() - view.left() - 12
+            if dx >= 0:
+                dx = ev.x() - view.right() + 12
+                if dx < 0:
+                    dx = 0
+            dy = ev.y() - view.top() - 12
+            if dy >= 0:
+                dy = ev.y() - view.bottom() + 12
+                if dy < 0:
+                    dy = 0
+            if dx or dy:
+                self.startScrolling(dx, dy)
+            elif self._scrolling:
+                self.stopScrolling()
         else:
             self.updateCursor(ev.pos())
     
     def moveEvent(self, ev):
-        if not self._dragging:
+        if not self._dragging and not self._selecting:
             self.updateCursor(self.mapFromGlobal(QCursor.pos()))
         
     def event(self, ev):
@@ -258,6 +268,46 @@ class Surface(QWidget):
     def linkHoverLeave(self):
         """Called when the mouse does not hover a link anymore."""
         print "linkHoverLeave"
+
+    def startScrolling(self, dx, dy):
+        """Starts scrolling dx, dy about 10 times a second."""
+        self._scrolling = QPoint(dx, dy)
+        self._scrollTimer.isActive() or self._scrollTimer.start()
+        
+    def stopScrolling(self):
+        """Stops scrolling."""
+        self._scrolling = False
+        self._scrollTimer.stop()
+        
+    def _scrollTimeout(self):
+        """Called by the _scrollTimer."""
+        h = self.view().horizontalScrollBar()
+        v = self.view().verticalScrollBar()
+        # change the scrollbars, but check how far they really moved.
+        old = QPoint(h.value(), v.value())
+        h.setValue(h.value() + self._scrolling.x())
+        v.setValue(v.value() + self._scrolling.y())
+        diff = QPoint(h.value(), v.value()) - old
+        if not diff:
+            self.stopScrolling()
+        if self._selecting:
+            self._moveSelection(self._selectionPos + diff)
+    
+    def _moveSelection(self, pos):
+        """Moves the dragged selection edge or corner to the given pos (QPoint)."""
+        diff = pos - self._selectionPos
+        self._selectionPos = pos
+        edge = self._selectionEdge
+        self._selectionRect.adjust(
+            diff.x() if edge & _LEFT   else 0,
+            diff.y() if edge & _TOP    else 0,
+            diff.x() if edge & _RIGHT  else 0,
+            diff.y() if edge & _BOTTOM else 0)
+        self._rubberBand.setGeometry(self._selectionRect.normalized())
+        if self.cursor().shape() in (Qt.SizeBDiagCursor, Qt.SizeFDiagCursor):
+            # we're dragging a corner, use correct diagonal cursor
+            bdiag = (edge in (3, 12)) ^ (self._selectionRect.width() * self._selectionRect.height() >= 0)
+            self.setCursor(Qt.SizeBDiagCursor if bdiag else Qt.SizeFDiagCursor)
 
 
 
