@@ -25,13 +25,13 @@ Surface is the widget everything is drawn on.
 import weakref
 
 
-from PyQt4.QtCore import QPoint, QRect, QSize, Qt, QTimer, pyqtSignal
+from PyQt4.QtCore import QEvent, QPoint, QRect, QSize, Qt, QTimer, pyqtSignal
 from PyQt4.QtGui import QCursor, QHelpEvent, QPainter, QPalette, QRubberBand, QToolTip, QWidget
 
 import popplerqt4
 
 from . import layout
-
+from . import page
 
 # most used keyboard modifiers
 _SCAM = (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META)
@@ -47,6 +47,11 @@ _INSIDE  = 15
 
 class Surface(QWidget):
     
+    rightClicked = pyqtSignal(QPoint)
+    linkClicked = pyqtSignal(QEvent, page.Page, popplerqt4.Poppler.Link)
+    linkHovered = pyqtSignal(page.Page, popplerqt4.Poppler.Link)
+    linkLeft = pyqtSignal()
+    linkHelpRequested = pyqtSignal(QPoint, page.Page, popplerqt4.Poppler.Link)    
     selectionChanged = pyqtSignal(QRect)
     
     def __init__(self, view):
@@ -65,6 +70,7 @@ class Surface(QWidget):
         self.setMouseTracking(True)
         self.setLinksEnabled(True)
         self.setSelectionEnabled(True)
+        self.setShowUrlTips(True)
         
     def pageLayout(self):
         return self._pageLayout
@@ -103,6 +109,18 @@ class Surface(QWidget):
         """Returns True if the handling of Poppler.Links in the pages is enabled."""
         return self._linksEnabled
     
+    def setShowUrlTips(self, enabled):
+        """Enables or disables showing the URL in a tooltip when hovering a link.
+        
+        (Of course also setLinksEnabled(True) if you want this.)
+        
+        """
+        self._showUrlTips = enabled
+        
+    def showUrlTips(self):
+        """Returns True if URLs are shown in a tooltip when hovering a link."""
+        return self._showUrlTips
+        
     def hasSelection(self):
         """Returns True if there is a selection."""
         return bool(self._selection)
@@ -153,12 +171,13 @@ class Surface(QWidget):
                 if edge == _OUTSIDE:
                     self.clearSelection()
                 else:
-                    self._selecting = True
-                    self._selectionEdge = edge
-                    self._selectionRect = self.selection()
-                    self._selectionPos = ev.pos()
-                    if edge == _INSIDE:
-                        self.setCursor(Qt.SizeAllCursor)
+                    if ev.button() != Qt.RightButton or edge != _INSIDE:
+                        self._selecting = True
+                        self._selectionEdge = edge
+                        self._selectionRect = self.selection()
+                        self._selectionPos = ev.pos()
+                        if edge == _INSIDE:
+                            self.setCursor(Qt.SizeAllCursor)
                     return
             if not self._selecting:
                 if ev.button() == Qt.RightButton or int(ev.modifiers()) & _SCAM:
@@ -226,7 +245,7 @@ class Surface(QWidget):
             if self._linksEnabled:
                 page, link = self.pageLayout().linkAt(ev.pos())
                 if link:
-                    QToolTip.showText(ev.globalPos(), link.url(), self, page.linkRect(link))
+                    self.linkHelpEvent(ev.globalPos(), page, link)
             return True
         return super(Surface, self).event(ev)
 
@@ -256,21 +275,57 @@ class Surface(QWidget):
             elif edge in (_TOP | _RIGHT, _BOTTOM | _LEFT):
                 cursor = Qt.SizeBDiagCursor
         self.setCursor(cursor) if cursor else self.unsetCursor()
+    
+    def linkHelpEvent(self, globalPos, page, link):
+        """Called when a QHelpEvent occurs on a link.
+        
+        The default implementation shows a tooltip if showUrls() is True,
+        and emits the linkHelpRequested() signal.
+        
+        """
+        if self._showUrlTips and isinstance(link, popplerqt4.Poppler.LinkBrowse):
+            QToolTip.showText(globalPos, link.url(), self, page.linkRect(link))
+        self.linkHelpRequested.emit(globalPos, page, link)
+        
+    def rightClick(self, pos):
+        """Called when the right mouse button is released.
+        
+        Use this instead of the contextMenuEvent as that one also
+        fires when starting a right-button selection.
+        
+        """
+        self.rightClicked.emit(pos)
         
     def linkClickEvent(self, ev, page, link):
-        """Called when a link is clicked."""
-        print "linkClickEvent", link.url()
+        """Called when a link is clicked.
+        
+        The default implementation emits the linkClicked(event, page, link) signal.
+        
+        """
+        self.linkClicked.emit(ev, page, link)
         
     def linkHoverEnter(self, page, link):
-        """Called when the mouse hovers over a link."""
-        print "linkHoverEnter", link.url()
+        """Called when the mouse hovers over a link.
+        
+        The default implementation emits the linkHovered(page, link) signal.
+        
+        """
+        self.linkHovered.emit(page, link)
         
     def linkHoverLeave(self):
-        """Called when the mouse does not hover a link anymore."""
-        print "linkHoverLeave"
+        """Called when the mouse does not hover a link anymore.
+        
+        The default implementation emits the linkLeft() signal.
+        
+        """
+        self.linkLeft.emit()
 
     def startScrolling(self, dx, dy):
-        """Starts scrolling dx, dy about 10 times a second."""
+        """Starts scrolling dx, dy about 10 times a second.
+        
+        Stops automatically when the end is reached.
+        
+        """
         self._scrolling = QPoint(dx, dy)
         self._scrollTimer.isActive() or self._scrollTimer.start()
         
@@ -280,7 +335,7 @@ class Surface(QWidget):
         self._scrollTimer.stop()
         
     def _scrollTimeout(self):
-        """Called by the _scrollTimer."""
+        """(Internal) Called by the _scrollTimer."""
         h = self.view().horizontalScrollBar()
         v = self.view().verticalScrollBar()
         # change the scrollbars, but check how far they really moved.
@@ -294,7 +349,7 @@ class Surface(QWidget):
             self._moveSelection(self._selectionPos + diff)
     
     def _moveSelection(self, pos):
-        """Moves the dragged selection edge or corner to the given pos (QPoint)."""
+        """(Internal) Moves the dragged selection edge or corner to the given pos (QPoint)."""
         diff = pos - self._selectionPos
         self._selectionPos = pos
         edge = self._selectionEdge
