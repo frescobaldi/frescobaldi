@@ -70,6 +70,7 @@ class Surface(QWidget):
         self._pageLayout = None
         self.setPageLayout(layout.Layout())
         self.setMouseTracking(True)
+        self.setContextMenuPolicy(Qt.PreventContextMenu)
         self.setLinksEnabled(True)
         self.setSelectionEnabled(True)
         self.setShowUrlTips(True)
@@ -373,13 +374,6 @@ class Surface(QWidget):
             # we're dragging a corner, use correct diagonal cursor
             bdiag = (edge in (3, 12)) ^ (self._selectionRect.width() * self._selectionRect.height() >= 0)
             self.setCursor(Qt.SizeBDiagCursor if bdiag else Qt.SizeFDiagCursor)
-
-    def contextMenuEvent(self, ev):
-        # prevent it from reaching the viewport because on some systems this event occurs
-        # on button press instead of release, which is not useful as we can select a
-        # region with the right mouse button. Instead we send ourselves a QContextMenuEvent
-        # to the View in the rightClick() method.
-        ev.accept()
 
 
 
