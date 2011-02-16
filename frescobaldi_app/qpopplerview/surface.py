@@ -206,6 +206,8 @@ class Surface(QWidget):
                 if self._scrolling:
                     self.stopScrolling()
         self.updateCursor(ev.pos())
+        if ev.button() == Qt.RightButton:
+            self.rightClick(ev.pos())
         
     def mouseMoveEvent(self, ev):
         if self._dragging:
