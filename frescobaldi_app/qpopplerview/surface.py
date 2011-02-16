@@ -26,7 +26,9 @@ import weakref
 
 
 from PyQt4.QtCore import QEvent, QPoint, QRect, QSize, Qt, QTimer, pyqtSignal
-from PyQt4.QtGui import QCursor, QHelpEvent, QPainter, QPalette, QRubberBand, QToolTip, QWidget
+from PyQt4.QtGui import (
+    QApplication, QContextMenuEvent, QCursor, QHelpEvent, QPainter, QPalette,
+    QRubberBand, QToolTip, QWidget)
 
 import popplerqt4
 
@@ -297,11 +299,14 @@ class Surface(QWidget):
     def rightClick(self, pos):
         """Called when the right mouse button is released.
         
-        Use this instead of the contextMenuEvent as that one also
-        fires when starting a right-button selection.
+        (Use this instead of the contextMenuEvent as that one also
+        fires when starting a right-button selection.)
+        The default implementation emite the rightClicked(pos) signal and also
+        sends a ContextMenu event to the View widget.
         
         """
         self.rightClicked.emit(pos)
+        QApplication.postEvent(self.view().viewport(), QContextMenuEvent(QContextMenuEvent.Mouse, pos + self.pos()))
         
     def linkClickEvent(self, ev, page, link):
         """Called when a link is clicked.
@@ -368,6 +373,13 @@ class Surface(QWidget):
             # we're dragging a corner, use correct diagonal cursor
             bdiag = (edge in (3, 12)) ^ (self._selectionRect.width() * self._selectionRect.height() >= 0)
             self.setCursor(Qt.SizeBDiagCursor if bdiag else Qt.SizeFDiagCursor)
+
+    def contextMenuEvent(self, ev):
+        # prevent it from reaching the viewport because on some systems this event occurs
+        # on button press instead of release, which is not useful as we can select a
+        # region with the right mouse button. Instead we send ourselves a QContextMenuEvent
+        # to the View in the rightClick() method.
+        ev.accept()
 
 
 
