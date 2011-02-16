@@ -46,6 +46,7 @@ class AbstractLayout(QObject):
     """
     
     redraw = pyqtSignal(QRect)
+    changed = pyqtSignal()
     
     def __init__(self):
         super(AbstractLayout, self).__init__()
@@ -211,7 +212,17 @@ class AbstractLayout(QObject):
             self.setScale(min(scales))
         
     def update(self):
-        """Implement! Performs the layouting (positions the Pages and adjusts our size)."""
+        """Performs the layouting (positions the Pages and adjusts our size)."""
+        self.reLayout()
+        self.changed.emit()
+        
+    def reLayout(self):
+        """This is called by update().
+        
+        You must implement this method to position the Pages and adjust our size.
+        See Layout for a possible implementation.
+        
+        """
         pass
     
     def updatePage(self, page):
@@ -309,7 +320,7 @@ class Layout(AbstractLayout):
         """Returns our orientation (either Qt.Vertical or Qt.Horizontal)."""
         return self._orientation
     
-    def update(self):
+    def reLayout(self):
         """Orders our pages."""
         if self._orientation == Qt.Vertical:
             width = self.maxWidth() + self._margin * 2

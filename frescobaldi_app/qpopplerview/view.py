@@ -87,7 +87,6 @@ class View(QScrollArea):
             # change view
             self.surface().pageLayout().fit(self.viewport().size(), mode)
             self.surface().pageLayout().update()
-            self.surface().updateLayout()
         self.viewModeChanged.emit(mode)
     
     def wheelZoomEnabled(self):
@@ -123,13 +122,11 @@ class View(QScrollArea):
         if self.viewMode():
             self.surface().pageLayout().fit(self.viewport().size(), self.viewMode())
         self.surface().pageLayout().update()
-        self.surface().updateLayout()
 
     def clear(self):
         """Convenience method to clear the current layout."""
         self.surface().pageLayout().clear()
         self.surface().pageLayout().update()
-        self.surface().updateLayout()
 
     def scale(self):
         """Returns the scale of the pages in the View."""
@@ -139,7 +136,6 @@ class View(QScrollArea):
         """Sets the scale of all pages in the View."""
         self.surface().pageLayout().setScale(scale)
         self.surface().pageLayout().update()
-        self.surface().updateLayout()
         self.setViewMode(FixedScale)
 
     def visiblePages(self):
@@ -180,7 +176,6 @@ class View(QScrollArea):
         # resize the layout
         self.surface().pageLayout().fit(self.viewport().size(), self.viewMode())
         self.surface().pageLayout().update()
-        self.surface().updateLayout()
         # restore our position
         newPos = QPoint(round(x * self.surface().width()), round(y * self.surface().height()))
         diff = newPos - self._centerPos

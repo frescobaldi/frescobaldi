@@ -79,7 +79,9 @@ class Surface(QWidget):
         old, self._pageLayout = self._pageLayout, layout
         if old:
             old.redraw.disconnect(self.redraw)
+            old.changed.disconnect(self.updateLayout)
         layout.redraw.connect(self.redraw)
+        layout.changed.connect(self.updateLayout)
     
     def view(self):
         """Returns our associated View."""
