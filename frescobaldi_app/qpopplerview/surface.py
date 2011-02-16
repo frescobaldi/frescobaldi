@@ -239,8 +239,11 @@ class Surface(QWidget):
             self.updateCursor(ev.pos())
     
     def moveEvent(self, ev):
-        if not self._dragging and not self._selecting:
-            self.updateCursor(self.mapFromGlobal(QCursor.pos()))
+        pos = self.mapFromGlobal(QCursor.pos())
+        if self._selecting:
+            self._moveSelection(pos)
+        elif not self._dragging:
+            self.updateCursor(pos)
         
     def event(self, ev):
         if isinstance(ev, QHelpEvent):
@@ -347,8 +350,6 @@ class Surface(QWidget):
         diff = QPoint(h.value(), v.value()) - old
         if not diff:
             self.stopScrolling()
-        if self._selecting:
-            self._moveSelection(self._selectionPos + diff)
     
     def _moveSelection(self, pos):
         """(Internal) Moves the dragged selection edge or corner to the given pos (QPoint)."""
