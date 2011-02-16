@@ -200,7 +200,7 @@ class Surface(QWidget):
                 diff.y() if edge & _BOTTOM else 0)
             self._rubberBand.setGeometry(self._selectionRect.normalized())
             self._rubberBand.show()
-            if edge in (3, 6, 12, 9):
+            if self.cursor().shape() in (Qt.SizeBDiagCursor, Qt.SizeFDiagCursor):
                 # we're dragging a corner, use correct diagonal cursor
                 bdiag = (edge in (3, 12)) ^ (self._selectionRect.width() * self._selectionRect.height() >= 0)
                 self.setCursor(Qt.SizeBDiagCursor if bdiag else Qt.SizeFDiagCursor)
