@@ -141,7 +141,7 @@ class Surface(QWidget):
         
     def selection(self):
         """Returns the selection rectangle (normalized) or an invalid QRect()."""
-        return self._selection
+        return QRect(self._selection)
     
     def clearSelection(self):
         """Hides the selection rectangle."""
