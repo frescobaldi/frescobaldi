@@ -30,41 +30,6 @@ import subprocess
 from . import util
 
 
-_cache = {} # this can be changed to another dict-like object using setcache()
-
-
-__all__ = ['info', 'cache', 'setcache', 'LilyPondInfo']
-
-
-def info(cmd):
-    """Returns a LilyPondInfo object if the path points to a lilypond executable."""
-    try:
-        info = _cache[cmd]
-    except KeyError:
-        info = _cache[cmd] = LilyPondInfo(cmd)
-    return info
-
-
-def setcache(obj):
-    """Uses obj as the cache.
-    
-    The object should only have a __getitem__ and __setitem__ method (like a dict)
-    It should cache (partially) filled LilyPondInfo instances.
-    
-    You can use it to cache e.g. the verionString and datadir based on mtime
-    of the executable so it's not necessary to really start the LilyPond executable
-    to get this information.
-    
-    """
-    global _cache
-    _cache = obj
-    
-
-def cache():
-    """Returns the object used as the cache. By default a dictionary is used."""
-    return _cache
-
-
 class LilyPondInfo(object):
     """Encapsulates information about a runnable LilyPond instance.
     
