@@ -61,7 +61,7 @@ def setcache(obj):
     
 
 def cache():
-    """Returns the object used as the cache."""
+    """Returns the object used as the cache. By default a dictionary is used."""
     return _cache
 
 
