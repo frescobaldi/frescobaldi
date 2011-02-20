@@ -31,6 +31,7 @@ import icons
 import preferences
 import lilypondinfo
 import widgets.listedit
+import widgets.urlrequester
 
 
 class LilyPondPrefs(preferences.GroupsPage):
@@ -89,12 +90,28 @@ class LilyPondInfoList(widgets.listedit.ListEdit):
     def translateUI(self):
         super(LilyPondInfoList, self).translateUI()
         self.defaultButton.setText(_("Set as &Default"))
-        
+    
+    def lilyPondInfoDialog(self):
+        try:
+            return self._lilyPondInfoDialog
+        except AttributeError:
+            self._lilyPondInfoDialog = LilyPondInfoDialog(self)
+            return self._lilyPondInfoDialog
+
     def createItem(self):
         return LilyPondInfoItem(lilypondinfo.LilyPondInfo("lilypond"))
-        
+    
+    def openEditor(self, item):
+        dlg = self.lilyPondInfoDialog()
+        dlg.loadInfo(item._info)
+        if dlg.exec_():
+            item._info = dlg.newInfo()
+            return True
+        return False
+
     def itemChanged(self, item):
         item.display()
+        self.setCurrentItem(item)
         
 
 class LilyPondInfoItem(QListWidgetItem):
@@ -112,5 +129,67 @@ class LilyPondInfoItem(QListWidgetItem):
         self.setText(text)
 
 
+class LilyPondInfoDialog(QDialog):
+    def __init__(self, parent):
+        super(LilyPondInfoDialog, self).__init__(parent)
+        
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+        grid = QGridLayout()
+        layout.addLayout(grid)
+        
+        self.lilypond = widgets.urlrequester.UrlRequester()
+        self.lilypond.setFileMode(QFileDialog.ExistingFile)
+        self.lilypondLabel = l = QLabel()
+        l.setBuddy(self.lilypond)
+        grid.addWidget(l, 0, 0, 1, 2)
+        grid.addWidget(self.lilypond, 1, 0, 1, 2)
+        
+        self.convert_ly = QLineEdit()
+        self.convert_lyLabel = l = QLabel()
+        l.setBuddy(self.convert_ly)
+        grid.addWidget(l, 2, 0)
+        grid.addWidget(self.convert_ly, 2, 1)
+        
+        self.lilypond_book = QLineEdit()
+        self.lilypond_bookLabel = l = QLabel()
+        l.setBuddy(self.lilypond_book)
+        grid.addWidget(l, 3, 0)
+        grid.addWidget(self.lilypond_book, 3, 1)
+        
+        self.auto = QCheckBox()
+        grid.addWidget(self.auto, 4, 1)
+        
+        layout.addWidget(widgets.Separator())
+        b = self.buttons = QDialogButtonBox(self)
+        layout.addWidget(b)
+        
+        b.setStandardButtons(QDialogButtonBox.Help | QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        b.accepted.connect(self.accept)
+        b.rejected.connect(self.reject)
+        app.translateUI(self)
+        
+    def translateUI(self):
+        self.setWindowTitle(app.caption(_("LilyPond")))
+        self.lilypondLabel.setText(_("LilyPond Command:"))
+        self.lilypond.lineEdit.setToolTip(_("Name or full path of the LilyPond program."))
+        self.convert_lyLabel.setText(_("Convert-ly:"))
+        self.lilypond_bookLabel.setText(_("LilyPond-book:"))
+        self.auto.setText(_("Include in automatic version selection"))
+        
+    def loadInfo(self, info):
+        """Takes over settings for the dialog from the LilyPondInfo object."""
+        self.lilypond.setPath(info.command)
+        self.convert_ly.setText(info.convert_ly)
+        self.lilypond_book.setText(info.lilypond_book)
+        self.auto.setChecked(info.auto)
 
-    
+    def newInfo(self):
+        """Returns a new LilyPondInfo instance for our settings."""
+        info = lilypondinfo.LilyPondInfo(self.lilypond.path())
+        info.auto = self.auto.isChecked()
+        info.convert_ly = self.convert_ly.text()
+        info.lilypond_book = self.lilypond_book.text()
+        return info
+
+

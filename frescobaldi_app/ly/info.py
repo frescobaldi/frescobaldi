@@ -76,7 +76,8 @@ class LilyPondInfo(object):
     @property
     def version(self):
         """Returns the version as a tuple of ints."""
-        return tuple(map(int, self.versionString.split('.')))
+        if self.versionString:
+            return tuple(map(int, self.versionString.split('.')))
     
     @property
     def bindir(self):
