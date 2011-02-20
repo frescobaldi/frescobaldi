@@ -43,9 +43,14 @@ class LilyPondInfo(object):
         """The path should point to an existing, executable LilyPond instance."""
         self._command = command
     
-    @util.cachedproperty
+    @property
     def command(self):
-        """Returns the full path of our LilyPond command.
+        """Returns the command given at instantiation."""
+        return self._command
+        
+    @util.cachedproperty
+    def abscommand(self):
+        """Returns the full absolute path of our LilyPond command.
         
         May return None if LilyPond is not found.
         
@@ -55,10 +60,10 @@ class LilyPondInfo(object):
     @util.cachedproperty
     def versionString(self):
         """Returns the version of this LilyPond instance as a string."""
-        if self.command:
+        if self.abscommand:
             try:
                 output = subprocess.Popen(
-                    (self.command, '-v'),
+                    (self.abscommand, '-v'),
                     stdout = subprocess.PIPE, stderr = subprocess.STDOUT).communicate()[0]
             except OSError:
                 pass
@@ -76,8 +81,8 @@ class LilyPondInfo(object):
     @property
     def bindir(self):
         """Returns the directory the LilyPond command is in."""
-        if self.command:
-            return os.path.dirname(self.command)
+        if self.abscommand:
+            return os.path.dirname(self.abscommand)
     
     @property
     def prefix(self):
@@ -93,10 +98,10 @@ class LilyPondInfo(object):
         If this method returns None, the datadir could not be determined.
         
         """
-        if self.command:
+        if self.abscommand:
             # First ask LilyPond itself.
             try:
-                d = subprocess.Popen((self.command, '-e',
+                d = subprocess.Popen((self.abscommand, '-e',
                     "(display (ly:get-option 'datadir)) (newline) (exit)"),
                     stdout = subprocess.PIPE).communicate()[0].strip()
                 if os.path.isabs(d) and os.path.isdir(d):
