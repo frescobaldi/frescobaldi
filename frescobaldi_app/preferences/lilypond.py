@@ -74,7 +74,7 @@ class LilyPondVersions(preferences.Group):
             self.instances.addItem(LilyPondInfoItem(info))
         
     def saveSettings(self):
-        infos = [item._info for item in self._instances.items()]
+        infos = [item._info for item in self.instances.items()]
         lilypondinfo.setinfos(infos)
         lilypondinfo.saveinfos()
 
