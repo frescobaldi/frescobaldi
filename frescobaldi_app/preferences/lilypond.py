@@ -67,10 +67,9 @@ class LilyPondVersions(preferences.Group):
 
     def loadSettings(self):
         self.instances.clear()
-        infos = [info.copy() for info in lilypondinfo.infos()]
+        infos = sorted(lilypondinfo.infos(), key=lambda i: i.version)
         if not infos:
             infos = [lilypondinfo.LilyPondInfo("lilypond")]
-        infos.sort(key=lambda i: i.version)
         for info in infos:
             self.instances.addItem(LilyPondInfoItem(info))
         

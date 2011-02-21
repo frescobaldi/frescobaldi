@@ -73,15 +73,6 @@ class LilyPondInfo(ly.info.LilyPondInfo):
         self.lilypond_book = 'lilypond-book'
         self.convert_ly = 'convert-ly'
     
-    def copy(self):
-        """Returns a copy of this instance."""
-        copy = self.__class__(self.command)
-        copy.versionString = self.versionString
-        copy.auto = self.auto
-        copy.lilypond_book = self.lilypond_book
-        copy.convert_ly = self.convert_ly
-        return copy
-        
     @classmethod
     def read(cls, settings):
         """Returns a new LilyPondInfo instance, filled from a QSettings instance.
