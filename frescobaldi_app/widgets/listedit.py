@@ -148,6 +148,7 @@ class ListEdit(QWidget):
         self.listBox.clear()
         for item in items:
             self.listBox.addItem(item)
+            self.itemChanged(item)
         self.changed.emit()
     
     def items(self):

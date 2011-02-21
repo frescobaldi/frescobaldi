@@ -54,11 +54,18 @@ class LilyPondVersions(preferences.Group):
         
         self.instances = LilyPondInfoList(self)
         self.instances.changed.connect(self.changed)
+        self.instances.defaultButton.clicked.connect(self.defaultButtonClicked)
         layout.addWidget(self.instances)
         self.auto = QCheckBox(clicked=self.changed)
         layout.addWidget(self.auto)
         app.translateUI(self)
-        
+    
+    def defaultButtonClicked(self):
+        self._defaultCommand = self.instances.listBox.currentItem()._info.command
+        for item in self.instances.items():
+            item.display()
+        self.changed.emit()
+            
     def translateUI(self):
         self.setTitle(_("LilyPond versions to use"))
         self.auto.setText(_(
@@ -66,15 +73,35 @@ class LilyPondVersions(preferences.Group):
             "(choose LilyPond version from document)"))
 
     def loadSettings(self):
-        self.instances.clear()
+        s = QSettings()
+        s.beginGroup("lilypond_version")
+        self._defaultCommand = s.value("default", "lilypond")
+        self.auto.setChecked(s.value("autoversion", True) in (True, "true"))
         infos = sorted(lilypondinfo.infos(), key=lambda i: i.version)
         if not infos:
             infos = [lilypondinfo.LilyPondInfo("lilypond")]
-        for info in infos:
-            self.instances.addItem(LilyPondInfoItem(info))
+        items = [LilyPondInfoItem(info) for info in infos]
+        self.instances.setItems(items)
+        for item in items:
+            if item._info.command == self._defaultCommand:
+                self.instances.setCurrentItem(item)
+                break
         
     def saveSettings(self):
         infos = [item._info for item in self.instances.items()]
+        if infos:
+            for info in infos:
+                if info.command == self._defaultCommand:
+                    break
+            else:
+                self._defaultCommand = infos[0].command
+        else:
+            infos = lilypondinfo.LilyPondInfo("lilypond")
+            self._defaultCommand = "lilypond"
+        s = QSettings()
+        s.beginGroup("lilypond_version")
+        s.setValue("default", self._defaultCommand)
+        s.setValue("autoversion", self.auto.isChecked())
         lilypondinfo.setinfos(infos)
         lilypondinfo.saveinfos()
 
@@ -85,6 +112,10 @@ class LilyPondInfoList(widgets.listedit.ListEdit):
         super(LilyPondInfoList, self).__init__(group)
         self.layout().addWidget(self.defaultButton, 3, 1)
         self.layout().addWidget(self.listBox, 0, 0, 5, 1)
+        self.listBox.itemSelectionChanged.connect(self._selectionChanged)
+        
+    def _selectionChanged(self):
+        self.defaultButton.setEnabled(bool(self.listBox.currentItem()))
         
     def translateUI(self):
         super(LilyPondInfoList, self).translateUI()
@@ -125,6 +156,8 @@ class LilyPondInfoItem(QListWidgetItem):
             self.setIcon(icons.get("lilypond-run"))
         else:
             self.setIcon(icons.get("dialog-error"))
+        if self._info.command == self.listWidget().parentWidget().parentWidget()._defaultCommand:
+            text += " [{0}]".format(_("default"))
         self.setText(text)
 
 
