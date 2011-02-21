@@ -212,7 +212,7 @@ class MainWindow(QMainWindow):
         elif doc.url().toLocalFile():
             filename = doc.url().toLocalFile()
             homedir = os.path.expanduser('~')
-            if filename.startswith(homedir):
+            if filename.startswith(homedir + os.sep):
                 filename = "~" + filename[len(homedir):]
             name.append(filename)
         else:
@@ -694,7 +694,7 @@ class MainWindow(QMainWindow):
         for url in recentfiles.urls():
             f = url.toLocalFile()
             dirname, basename = os.path.split(f)
-            if dirname.startswith(homedir):
+            if dirname.startswith(homedir + os.sep):
                 dirname = "~" + dirname[len(homedir):]
             text = "{0}  ({1})".format(basename, dirname)
             

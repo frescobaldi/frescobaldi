@@ -154,7 +154,7 @@ class LilyPondInfoItem(QListWidgetItem):
     def display(self):
         text = self._info.command
         homedir = os.path.expanduser('~')
-        if text.startswith(homedir):
+        if text.startswith(homedir + os.sep):
             text = "~" + text[len(homedir):]
         if self._info.version:
             text += " ({0})".format(self._info.versionString)
