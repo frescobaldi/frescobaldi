@@ -23,6 +23,8 @@ from __future__ import unicode_literals
 LilyPond preferences page
 """
 
+import os
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
@@ -151,6 +153,9 @@ class LilyPondInfoItem(QListWidgetItem):
     
     def display(self):
         text = self._info.command
+        homedir = os.path.expanduser('~')
+        if text.startswith(homedir):
+            text = "~" + text[len(homedir):]
         if self._info.version:
             text += " ({0})".format(self._info.versionString)
             self.setIcon(icons.get("lilypond-run"))

@@ -210,7 +210,11 @@ class MainWindow(QMainWindow):
         if doc.url().isEmpty():
             name.append(doc.documentName())
         elif doc.url().toLocalFile():
-            name.append(doc.url().toLocalFile())
+            filename = doc.url().toLocalFile()
+            homedir = os.path.expanduser('~')
+            if filename.startswith(homedir):
+                filename = "~" + filename[len(homedir):]
+            name.append(filename)
         else:
             name.append(doc.url().toString())
         if doc.isModified():
@@ -686,10 +690,13 @@ class MainWindow(QMainWindow):
     def populateRecentFilesMenu(self):
         self.menu_recent_files.clear()
         used = []
+        homedir = os.path.expanduser('~')
         for url in recentfiles.urls():
             f = url.toLocalFile()
             dirname, basename = os.path.split(f)
-            text = "{0} ({1})".format(basename, dirname)
+            if dirname.startswith(homedir):
+                dirname = "~" + dirname[len(homedir):]
+            text = "{0}  ({1})".format(basename, dirname)
             
             # add accelerators
             text = text.replace('&', '&&')
