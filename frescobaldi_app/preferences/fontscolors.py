@@ -164,6 +164,8 @@ class FontsColors(preferences.Page):
         if scheme not in self.data:
             self.data[scheme] = textformats.TextFormatData(scheme)
         self.updateDisplay()
+        if self.tree.currentItem():
+            self.currentItemChanged(self.tree.currentItem(), None)
         with util.signalsBlocked(self.printScheme):
             self.printScheme.setChecked(scheme == self._printScheme)
     
