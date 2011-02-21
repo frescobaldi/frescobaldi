@@ -36,6 +36,12 @@ import widgets.listedit
 import widgets.urlrequester
 
 
+def settings():
+    s = QSettings()
+    s.beginGroup("lilypond_settings")
+    return s
+
+
 class LilyPondPrefs(preferences.GroupsPage):
     def __init__(self, dialog):
         super(LilyPondPrefs, self).__init__(dialog)
@@ -44,7 +50,8 @@ class LilyPondPrefs(preferences.GroupsPage):
         self.setLayout(layout)
 
         layout.addWidget(Versions(self))
-        layout.addStretch(1)
+        layout.addWidget(DocVersion(self))
+        layout.addWidget(Running(self))
 
 
 class Versions(preferences.Group):
@@ -75,8 +82,7 @@ class Versions(preferences.Group):
             "(choose LilyPond version from document)"))
 
     def loadSettings(self):
-        s = QSettings()
-        s.beginGroup("lilypond_version")
+        s = settings()
         self._defaultCommand = s.value("default", "lilypond")
         self.auto.setChecked(s.value("autoversion", True) in (True, "true"))
         infos = sorted(lilypondinfo.infos(), key=lambda i: i.version)
@@ -100,8 +106,7 @@ class Versions(preferences.Group):
         else:
             infos = lilypondinfo.LilyPondInfo("lilypond")
             self._defaultCommand = "lilypond"
-        s = QSettings()
-        s.beginGroup("lilypond_version")
+        s = settings()
         s.setValue("default", self._defaultCommand)
         s.setValue("autoversion", self.auto.isChecked())
         lilypondinfo.setinfos(infos)
@@ -228,5 +233,78 @@ class InfoDialog(QDialog):
         info.convert_ly = self.convert_ly.text()
         info.lilypond_book = self.lilypond_book.text()
         return info
+
+
+class Running(preferences.Group):
+    def __init__(self, page):
+        super(Running, self).__init__(page)
+        
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+        
+        self.deleteFiles = QCheckBox(clicked=self.changed)
+        self.includeLabel = QLabel()
+        self.include = widgets.listedit.FilePathEdit()
+        self.include.changed.connect(self.changed)
+        layout.addWidget(self.deleteFiles)
+        layout.addWidget(self.includeLabel)
+        layout.addWidget(self.include)
+        app.translateUI(self)
+        
+    def translateUI(self):
+        self.setTitle(_("Running LilyPond"))
+        self.deleteFiles.setText(_("Delete intermediate output files"))
+        self.includeLabel.setText(_("LilyPond include path:"))
+    
+    def loadSettings(self):
+        s = settings()
+        self.deleteFiles.setChecked(s.value("delete_intermediate_files", True) not in (False, "false"))
+        self.include.setValue(s.value("include_path", []) or [])
+        
+    def saveSettings(self):
+        s = settings()
+        s.setValue("delete_intermediate_files", self.deleteFiles.isChecked())
+        s.setValue("include_path", self.include.value())
+
+
+class DocVersion(preferences.Group):
+    def __init__(self, page):
+        super(DocVersion, self).__init__(page)
+        
+        grid = QGridLayout()
+        self.setLayout(grid)
+        
+        self.verInstalled = QRadioButton(clicked=self._changed)
+        self.verCustom = QRadioButton(clicked=self._changed)
+        self.customVersion = QLineEdit()
+        grid.addWidget(self.verInstalled, 0, 0, 1, 2)
+        grid.addWidget(self.verCustom, 1, 0)
+        grid.addWidget(self.customVersion, 1, 1)
+        
+        app.translateUI(self)
+    
+    def _changed(self):
+        self.customVersion.setEnabled(self.verCustom.isChecked())
+        if self.customVersion.isEnabled():
+            self.customVersion.setFocus()
+        self.changed.emit()
+        
+    def translateUI(self):
+        self.setTitle(_("LilyPond version number to use for new documents"))
+        self.verInstalled.setText(_("Use version number of installed LilyPond"))
+        self.verCustom.setText(_("Use custom version number:"))
+        
+    def loadSettings(self):
+        s = settings()
+        installed = s.value("document_version", "installed") != "custom"
+        self.verInstalled.setChecked(installed)
+        self.verCustom.setChecked(not installed)
+        self.customVersion.setText(s.value("custom_version", ""))
+        self.customVersion.setEnabled(not installed)
+        
+    def saveSettings(self):
+        s = settings()
+        s.setValue("document_version", "installed" if self.verInstalled.isChecked() else "custom")
+        s.setValue("custom_version", self.customVersion.text())
 
 
