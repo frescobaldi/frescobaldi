@@ -43,18 +43,18 @@ class LilyPondPrefs(preferences.GroupsPage):
         layout = QVBoxLayout()
         self.setLayout(layout)
 
-        layout.addWidget(LilyPondVersions(self))
+        layout.addWidget(Versions(self))
         layout.addStretch(1)
 
 
-class LilyPondVersions(preferences.Group):
+class Versions(preferences.Group):
     def __init__(self, page):
-        super(LilyPondVersions, self).__init__(page)
+        super(Versions, self).__init__(page)
         
         layout = QVBoxLayout()
         self.setLayout(layout)
         
-        self.instances = LilyPondInfoList(self)
+        self.instances = InfoList(self)
         self.instances.changed.connect(self.changed)
         self.instances.defaultButton.clicked.connect(self.defaultButtonClicked)
         layout.addWidget(self.instances)
@@ -82,7 +82,7 @@ class LilyPondVersions(preferences.Group):
         infos = sorted(lilypondinfo.infos(), key=lambda i: i.version)
         if not infos:
             infos = [lilypondinfo.LilyPondInfo("lilypond")]
-        items = [LilyPondInfoItem(info) for info in infos]
+        items = [InfoItem(info) for info in infos]
         self.instances.setItems(items)
         for item in items:
             if item._info.command == self._defaultCommand:
@@ -108,10 +108,10 @@ class LilyPondVersions(preferences.Group):
         lilypondinfo.saveinfos()
 
 
-class LilyPondInfoList(widgets.listedit.ListEdit):
+class InfoList(widgets.listedit.ListEdit):
     def __init__(self, group):
         self.defaultButton = QPushButton()
-        super(LilyPondInfoList, self).__init__(group)
+        super(InfoList, self).__init__(group)
         self.layout().addWidget(self.defaultButton, 3, 1)
         self.layout().addWidget(self.listBox, 0, 0, 5, 1)
         self.listBox.itemSelectionChanged.connect(self._selectionChanged)
@@ -120,21 +120,21 @@ class LilyPondInfoList(widgets.listedit.ListEdit):
         self.defaultButton.setEnabled(bool(self.listBox.currentItem()))
         
     def translateUI(self):
-        super(LilyPondInfoList, self).translateUI()
+        super(InfoList, self).translateUI()
         self.defaultButton.setText(_("Set as &Default"))
     
-    def lilyPondInfoDialog(self):
+    def infoDialog(self):
         try:
-            return self._lilyPondInfoDialog
+            return self._infoDialog
         except AttributeError:
-            self._lilyPondInfoDialog = LilyPondInfoDialog(self)
-            return self._lilyPondInfoDialog
+            self._infoDialog = InfoDialog(self)
+            return self._infoDialog
 
     def createItem(self):
-        return LilyPondInfoItem(lilypondinfo.LilyPondInfo("lilypond"))
+        return InfoItem(lilypondinfo.LilyPondInfo("lilypond"))
     
     def openEditor(self, item):
-        dlg = self.lilyPondInfoDialog()
+        dlg = self.infoDialog()
         dlg.loadInfo(item._info)
         if dlg.exec_():
             item._info = dlg.newInfo()
@@ -146,9 +146,9 @@ class LilyPondInfoList(widgets.listedit.ListEdit):
         self.setCurrentItem(item)
         
 
-class LilyPondInfoItem(QListWidgetItem):
+class InfoItem(QListWidgetItem):
     def __init__(self, info):
-        super(LilyPondInfoItem, self).__init__()
+        super(InfoItem, self).__init__()
         self._info = info
     
     def display(self):
@@ -166,9 +166,9 @@ class LilyPondInfoItem(QListWidgetItem):
         self.setText(text)
 
 
-class LilyPondInfoDialog(QDialog):
+class InfoDialog(QDialog):
     def __init__(self, parent):
-        super(LilyPondInfoDialog, self).__init__(parent)
+        super(InfoDialog, self).__init__(parent)
         
         layout = QVBoxLayout()
         self.setLayout(layout)
