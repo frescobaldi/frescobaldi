@@ -176,8 +176,10 @@ class InfoDialog(QDialog):
         super(InfoDialog, self).__init__(parent)
         
         layout = QVBoxLayout()
+        layout.setSpacing(10)
         self.setLayout(layout)
         grid = QGridLayout()
+        grid.setSpacing(4)
         layout.addLayout(grid)
         
         self.lilypond = widgets.urlrequester.UrlRequester()

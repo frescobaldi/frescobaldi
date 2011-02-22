@@ -26,7 +26,7 @@ A dialog to edit the keyboard shortcuts for an action.
 from PyQt4.QtCore import Qt
 from PyQt4.QtGui import (
     QDialog, QDialogButtonBox, QGridLayout, QHBoxLayout, QKeySequence, QLabel,
-    QRadioButton)
+    QRadioButton, QVBoxLayout)
 
 
 import app
@@ -41,24 +41,31 @@ class ShortcutEditDialog(QDialog):
         super(ShortcutEditDialog, self).__init__(parent)
         self.setMinimumWidth(400)
         # create gui
-        layout = QGridLayout()
-        layout.setColumnStretch(1, 2)
+        
+        layout = QVBoxLayout()
+        layout.setSpacing(10)
         self.setLayout(layout)
+        
         top = QHBoxLayout()
-        top.setContentsMargins(0, 0, 0, 10)
+        top.setSpacing(4)
         p = self.toppixmap = QLabel()
         l = self.toplabel = QLabel()
         l.setWordWrap(True)
         top.addWidget(p)
         top.addWidget(l, 1)
-        layout.addLayout(top, 0, 0, 1, 2)
+        layout.addLayout(top)
+        
+        grid = QGridLayout()
+        grid.setSpacing(4)
+        grid.setColumnStretch(1, 2)
+        layout.addLayout(grid)
         
         self.buttonDefault = QRadioButton(self)
         self.buttonNone = QRadioButton(self)
         self.buttonCustom = QRadioButton(self)
-        layout.addWidget(self.buttonDefault, 1, 0, 1, 2)
-        layout.addWidget(self.buttonNone, 2, 0, 1, 2)
-        layout.addWidget(self.buttonCustom, 3, 0, 1, 2)
+        grid.addWidget(self.buttonDefault, 0, 0, 1, 2)
+        grid.addWidget(self.buttonNone, 1, 0, 1, 2)
+        grid.addWidget(self.buttonCustom, 2, 0, 1, 2)
         
         self.keybuttons = []
         self.keylabels = []
@@ -71,14 +78,14 @@ class ShortcutEditDialog(QDialog):
             l.setBuddy(b)
             self.keylabels.append(l)
             self.keybuttons.append(b)
-            layout.addWidget(l, num+4, 0)
-            layout.addWidget(b, num+4, 1)
+            grid.addWidget(l, num+3, 0)
+            grid.addWidget(b, num+3, 1)
         
-        layout.addWidget(Separator(self), 8, 0, 1, 2)
+        layout.addWidget(Separator(self))
         
         b = QDialogButtonBox(self)
         b.setStandardButtons(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        layout.addWidget(b, 9, 0, 1, 2)
+        layout.addWidget(b)
         b.accepted.connect(self.accept)
         b.rejected.connect(self.reject)
         app.translateUI(self)
