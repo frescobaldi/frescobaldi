@@ -92,7 +92,7 @@ class PreferencesDialog(QDialog):
         self.pagelist.setCurrentRow(_prefsindex)
         
     def done(self, result):
-        if result:
+        if result and self.buttons.button(QDialogButtonBox.Apply).isEnabled():
             self.saveSettings()
         # save our size and selected page
         global _prefsindex
