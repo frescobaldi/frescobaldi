@@ -51,6 +51,7 @@ class HyphenPaths(preferences.Group):
         self.setLayout(layout)
         
         self.listedit = widgets.listedit.FilePathEdit()
+        self.listedit.changed.connect(self.changed)
         layout.addWidget(self.listedit)
         
         app.translateUI(self)

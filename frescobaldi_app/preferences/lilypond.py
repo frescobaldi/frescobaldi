@@ -276,7 +276,7 @@ class DocVersion(preferences.Group):
         
         self.verInstalled = QRadioButton(clicked=self._changed)
         self.verCustom = QRadioButton(clicked=self._changed)
-        self.customVersion = QLineEdit()
+        self.customVersion = QLineEdit(textEdited=self.changed)
         grid.addWidget(self.verInstalled, 0, 0, 1, 2)
         grid.addWidget(self.verCustom, 1, 0)
         grid.addWidget(self.customVersion, 1, 1)
