@@ -167,21 +167,26 @@ class ViewSpace(QWidget):
             self.updateStatusBar()
     
     def connectView(self, view):
-        view.cursorPositionChanged.connect(self.updateStatusBar)
-        view.modificationChanged.connect(self.updateStatusBar)
+        view.cursorPositionChanged.connect(self.updateCursorPosition)
+        view.modificationChanged.connect(self.updateModificationState)
         view.focusIn.connect(self.setActiveViewSpace)
-        view.document().urlChanged.connect(self.updateStatusBar)
+        view.document().urlChanged.connect(self.updateDocumentName)
 
     def disconnectView(self, view):
-        view.cursorPositionChanged.disconnect(self.updateStatusBar)
-        view.modificationChanged.disconnect(self.updateStatusBar)
+        view.cursorPositionChanged.disconnect(self.updateCursorPosition)
+        view.modificationChanged.disconnect(self.updateModificationState)
         view.focusIn.disconnect(self.setActiveViewSpace)
-        view.document().urlChanged.disconnect(self.updateStatusBar)
+        view.document().urlChanged.disconnect(self.updateDocumentName)
     
     def setActiveViewSpace(self):
         self.manager().setActiveViewSpace(self)
         
     def updateStatusBar(self):
+        self.updateCursorPosition()
+        self.updateModificationState()
+        self.updateDocumentName()
+        
+    def updateCursorPosition(self):
         view = self.activeView()
         if view:
             cur = view.textCursor()
@@ -192,13 +197,18 @@ class ViewSpace(QWidget):
                 column = cur.position() - cur.block().position()
             self.status.pos.setText(_("Line: {line}, Col: {column}").format(
                 line = line, column = column))
-            if view.document().isModified():
-                pixmap = icons.get('document-save').pixmap(16)
-            else:
-                pixmap = QPixmap()
+    
+    def updateModificationState(self):
+        view = self.activeView()
+        if view:
+            pixmap = icons.get('document-save').pixmap(16) if view.document().isModified() else QPixmap()
             self.status.state.setPixmap(pixmap)
+    
+    def updateDocumentName(self):
+        view = self.activeView()
+        if view:
             self.status.info.setText(view.document().documentName())
-            
+
 
 class ViewManager(QSplitter):
     
