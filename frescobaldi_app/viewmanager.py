@@ -182,32 +182,29 @@ class ViewSpace(QWidget):
         self.manager().setActiveViewSpace(self)
         
     def updateStatusBar(self):
-        self.updateCursorPosition()
-        self.updateModificationState()
-        self.updateDocumentName()
+        """Update all info in the statusbar, e.g. on document change."""
+        if self.views:
+            self.updateCursorPosition()
+            self.updateModificationState()
+            self.updateDocumentName()
         
     def updateCursorPosition(self):
-        view = self.activeView()
-        if view:
-            cur = view.textCursor()
-            line = cur.blockNumber() + 1
-            try:
-                column = cur.positionInBlock()
-            except AttributeError: # only in very recent PyQt4
-                column = cur.position() - cur.block().position()
-            self.status.pos.setText(_("Line: {line}, Col: {column}").format(
-                line = line, column = column))
+        cur = self.activeView().textCursor()
+        line = cur.blockNumber() + 1
+        try:
+            column = cur.positionInBlock()
+        except AttributeError: # only in very recent PyQt4
+            column = cur.position() - cur.block().position()
+        self.status.pos.setText(_("Line: {line}, Col: {column}").format(
+            line = line, column = column))
     
     def updateModificationState(self):
-        view = self.activeView()
-        if view:
-            pixmap = icons.get('document-save').pixmap(16) if view.document().isModified() else QPixmap()
-            self.status.state.setPixmap(pixmap)
+        modified = self.document().isModified()
+        pixmap = icons.get('document-save').pixmap(16) if modified else QPixmap()
+        self.status.state.setPixmap(pixmap)
     
     def updateDocumentName(self):
-        view = self.activeView()
-        if view:
-            self.status.info.setText(view.document().documentName())
+        self.status.info.setText(self.document().documentName())
 
 
 class ViewManager(QSplitter):
