@@ -49,6 +49,7 @@ documentCreated = SignalInstance()      # Document
 documentUrlChanged = SignalInstance()   # Document
 documentModificationChanged = SignalInstance() # Document
 documentClosed = SignalInstance()       # Document
+viewSpaceCreated = SignalInstance()     # ViewSpace (see viewmanager.py)
 languageChanged = SignalInstance()      # (no arguments)
 settingsChanged = SignalInstance()      # (no arguments)
 sessionChanged = SignalInstance()       # (no arguments)

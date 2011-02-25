@@ -64,3 +64,8 @@ class MainWindowPlugin(Plugin):
         return self._parent()
 
 
+class ViewSpacePlugin(Plugin):
+    def viewSpace(self):
+        return self._parent()
+
+

@@ -58,10 +58,6 @@ class ViewStatusBar(QWidget):
         self.info = QLabel()
         layout.addWidget(self.info, 1)
         
-        self.progress = QProgressBar()
-        self.progress.setFixedHeight(14)
-        layout.addWidget(self.progress, 1)
-        
         self.installEventFilter(self)
         self.translateUI()
         app.languageChanged.connect(self.translateUI)
@@ -101,6 +97,19 @@ class ViewStatusBar(QWidget):
 
 
 class ViewSpace(QWidget):
+    """A ViewSpace manages a stack of views, one of them is visible.
+    
+    The ViewSpace also has a statusbar, accessible in the status attribute.
+    The viewChanged(View) signal is emitted when the current view for this ViewSpace changes.
+    
+    Also, when a ViewSpace is created (e.g. when a window is created or split), the
+    app.viewSpaceCreated(space) signal is emitted.
+    
+    You can use the app.viewSpaceCreated() and the ViewSpace.viewChanged() signals to implement
+    things on a per ViewSpace basis, e.g. in the statusbar of a ViewSpace.
+    
+    """
+    viewChanged = pyqtSignal(view.View)
     
     def __init__(self, manager, parent=None):
         super(ViewSpace, self).__init__(parent)
@@ -117,6 +126,7 @@ class ViewSpace(QWidget):
         self.status.setEnabled(False)
         layout.addWidget(self.status)
         app.languageChanged.connect(self.updateStatusBar)
+        app.viewSpaceCreated(self)
         
     def activeView(self):
         if self.views:
@@ -171,6 +181,7 @@ class ViewSpace(QWidget):
         view.modificationChanged.connect(self.updateModificationState)
         view.focusIn.connect(self.setActiveViewSpace)
         view.document().urlChanged.connect(self.updateDocumentName)
+        self.viewChanged.emit(view)
 
     def disconnectView(self, view):
         view.cursorPositionChanged.disconnect(self.updateCursorPosition)
