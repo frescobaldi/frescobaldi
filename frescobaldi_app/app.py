@@ -52,6 +52,8 @@ documentClosed = SignalInstance()       # Document
 languageChanged = SignalInstance()      # (no arguments)
 settingsChanged = SignalInstance()      # (no arguments)
 sessionChanged = SignalInstance()       # (no arguments)
+jobStarted = SignalInstance()           # (Document, Job)
+jobFinished = SignalInstance()          # (Document, Job, bool success)
 
 import mainwindow
 import document
