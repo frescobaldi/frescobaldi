@@ -637,11 +637,6 @@ class MainWindow(QMainWindow):
         m.aboutToShow.connect(self.populateRecentFilesMenu)
         m.triggered.connect(self.slotRecentFilesAction)
         
-        # documents submenu
-        self.menu_documents = m = QMenu()
-        ac.view_document.setMenu(m)
-        m.aboutToShow.connect(self.populateDocumentsMenu)
-        
         # connections
         ac.file_quit.triggered.connect(self.quit, Qt.QueuedConnection)
         ac.file_new.triggered.connect(self.newDocument)
@@ -683,9 +678,9 @@ class MainWindow(QMainWindow):
         ac.help_whatsthis.triggered.connect(QWhatsThis.enterWhatsThisMode)
         
     def populateDocumentsMenu(self):
-        self.menu_documents.clear()
+        self.menu_document.clear()
         for a in self.documentActions.actions():
-            self.menu_documents.addAction(a)
+            self.menu_document.addAction(a)
     
     def populateRecentFilesMenu(self):
         self.menu_recent_files.clear()
@@ -764,13 +759,15 @@ class MainWindow(QMainWindow):
         self.menu_view = m = self.menuBar().addMenu('')
         m.addAction(ac.view_next_document)
         m.addAction(ac.view_previous_document)
-        m.addAction(ac.view_document)
         m.addSeparator()
         m.addAction(ac.view_highlighting)
         m.addSeparator()
         m.addAction(ac.view_bookmark)
         m.addAction(ac.view_clear_error_marks)
         m.addAction(ac.view_clear_all_marks)
+        
+        self.menu_document = m = self.menuBar().addMenu('')
+        m.aboutToShow.connect(self.populateDocumentsMenu)
         
         self.menu_lilypond = m = self.menuBar().addMenu('')
         m.addAction(ac.lilypond_run_preview)
@@ -851,6 +848,7 @@ class MainWindow(QMainWindow):
         self.menu_file.setTitle(_('&File'))
         self.menu_edit.setTitle(_('&Edit'))
         self.menu_view.setTitle(_('&View'))
+        self.menu_document.setTitle(_('&Document'))
         self.menu_lilypond.setTitle(_('&LilyPond'))
         self.menu_tools.setTitle(_('&Tools'))
         self.menu_window.setTitle(_('&Window'))
@@ -1138,7 +1136,6 @@ class ActionCollection(actioncollection.ActionCollection):
         
         self.view_next_document = QAction(parent)
         self.view_previous_document = QAction(parent)
-        self.view_document = QAction(parent)
         self.view_highlighting =QAction(parent)
         self.view_highlighting.setCheckable(True)
         self.view_bookmark = QAction(parent)
@@ -1291,7 +1288,6 @@ class ActionCollection(actioncollection.ActionCollection):
         
         self.view_next_document.setText(_("&Next Document"))
         self.view_previous_document.setText(_("&Previous Document"))
-        self.view_document.setText(_("&Document"))
         self.view_highlighting.setText(_("Syntax &Highlighting"))
         self.view_bookmark.setText(_("&Mark Current Line"))
         self.view_clear_error_marks.setText(_("Clear &Error Marks"))
