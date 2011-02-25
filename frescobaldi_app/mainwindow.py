@@ -48,6 +48,7 @@ import matcher
 import bookmarks
 import lyrics
 import panels
+import progress
 
 
 class MainWindow(QMainWindow):
