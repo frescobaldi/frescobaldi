@@ -1,2 +1,11 @@
 README for Frescobaldi 2.0
+==========================
 
+Homepage: http://www.frescobaldi.org/
+Main author: Wilbert Berendsen
+
+Frescobaldi is a LilyPond music score editor.
+
+The 2.0 version is built with Python and Qt4.7 and is designed to run on all
+major platforms. This version is in very heavy development although the basic
+editing functionality is already working.
