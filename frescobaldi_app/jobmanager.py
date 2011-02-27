@@ -29,6 +29,7 @@ It also sends the app-wide signals jobStarted() and jobFinished().
 
 import app
 import plugin
+import signals
 
 
 def manager(document):
@@ -36,6 +37,9 @@ def manager(document):
 
 
 class JobManager(plugin.DocumentPlugin):
+    
+    stateChanged = signals.Signal()
+    
     def __init__(self, document):
         self._running = None
         
@@ -46,13 +50,18 @@ class JobManager(plugin.DocumentPlugin):
             job.done.connect(self._finished)
             job.start()
             app.jobStarted(self.document(), job)
+            self.stateChanged()
         
     def _finished(self, success):
         app.jobFinished(self.document(), self._running, success)
         self._running = None
+        self.stateChanged()
     
     def runningJob(self):
+        """Returns the running job if any."""
         return self._running
 
-
+    def isRunning(self):
+        """Returns True when a job is running."""
+        return bool(self._running)
 
