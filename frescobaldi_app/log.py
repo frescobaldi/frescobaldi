@@ -37,7 +37,7 @@ class Log(QTextBrowser):
         super(Log, self).__init__(parent)
         self.cursor = QTextCursor(self.document())
         self._lasttype = None
-        self._formats = logformats()
+        self._formats = self.logformats()
         
     def connectJob(self, job):
         """Gives us the output from the Job (past and upcoming)."""
@@ -57,30 +57,34 @@ class Log(QTextBrowser):
             self.cursor.insertText('\n')
         self.cursor.insertText(message, self.textFormat(type))
 
+    def logformats(self):
+        """Returns a dictionary with QTextCharFormats for the different types of messages."""
+        # TODO: make fonts and colors user-configurable
+        output = QTextCharFormat()
+        output.setFont(QFont("Monospace", 10))
+        
+        stdout = QTextCharFormat(output)
+        stderr = QTextCharFormat(output)
+        
+        status = QTextCharFormat()
+        status.setFontWeight(QFont.Bold)
+        
+        neutral = QTextCharFormat(status)
+        
+        success = QTextCharFormat(status)
+        success.setForeground(QColor(Qt.green))
+        
+        failure = QTextCharFormat(status)
+        failure.setForeground(QColor(Qt.red))
+        
+        return {
+            job.STDOUT: stdout,
+            job.STDERR: stderr,
+            job.NEUTRAL: neutral,
+            job.SUCCESS: success,
+            job.FAILURE: failure,
+        }
 
 
-def logformats():
-    output = QTextCharFormat()
-    output.setFont(QFont("Monospace"))
-    
-    stdout = QTextCharFormat(output)
-    stderr = QTextCharFormat(output)
-    
-    status = QTextCharFormat()
-    
-    neutral = QTextCharFormat(status)
-    success = QTextCharFormat(status)
-    success.setForeground(QColor(Qt.green))
-    
-    failure = QTextCharFormat(status)
-    failure.setForeground(QColor(Qt.red))
-    
-    return {
-        job.STDOUT: stdout,
-        job.STDERR: stderr,
-        job.NEUTRAL: neutral,
-        job.SUCCESS: success,
-        job.FAILURE: failure,
-    }
 
 
