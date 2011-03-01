@@ -23,6 +23,7 @@ from __future__ import unicode_literals
 A Log shows the output of a Job.
 """
 
+import contextlib
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -51,12 +52,24 @@ class Log(QTextBrowser):
 
     def write(self, message, type):
         """Writes the given message with the given type to the log."""
-        changed = type != self._lasttype
-        self._lasttype = type
-        if changed and self.cursor.block().text() and not message.startswith('\n'):
-            self.cursor.insertText('\n')
-        self.cursor.insertText(message, self.textFormat(type))
-
+        with self.keepScrolledDown():
+            changed = type != self._lasttype
+            self._lasttype = type
+            if changed and self.cursor.block().text() and not message.startswith('\n'):
+                self.cursor.insertText('\n')
+            self.cursor.insertText(message, self.textFormat(type))
+    
+    @contextlib.contextmanager
+    def keepScrolledDown(self):
+        """Performs a function, ensuring the log stays scrolled down if it was scrolled down on start."""
+        vbar = self.verticalScrollBar()
+        scrolleddown = vbar.value() == vbar.maximum()
+        try:
+            yield
+        finally:
+            if scrolleddown:
+                vbar.setValue(vbar.maximum())
+    
     def logformats(self):
         """Returns a dictionary with QTextCharFormats for the different types of messages."""
         # TODO: make fonts and colors user-configurable
