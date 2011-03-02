@@ -47,6 +47,8 @@ class PanelManager(plugin.MainWindowPlugin):
         self.quickinsert = quickinsert.QuickInsertPanel(mainwindow)
         import pdfview
         self.pdfview = pdfview.PDFViewPanel(mainwindow)
+        import logtool
+        self.logtool = logtool.LogTool(mainwindow)
         
         self.createActions()
 
@@ -58,7 +60,7 @@ class PanelManager(plugin.MainWindowPlugin):
         """Adds all toggleViewActions to the given menu."""
         menu.addAction(self.actionCollection.panel_quickinsert)
         menu.addAction(self.actionCollection.panel_pdfview)
-        
+        menu.addAction(self.actionCollection.panel_logtool)
 
 class Actions(actioncollection.ActionCollection):
     """Manages the keyboard shortcuts to hide/show the plugins."""
@@ -68,7 +70,7 @@ class Actions(actioncollection.ActionCollection):
         # add the actions for the plugins
         self.panel_quickinsert = manager.quickinsert.toggleViewAction()
         self.panel_pdfview = manager.pdfview.toggleViewAction()
-
+        self.panel_logtool = manager.logtool.toggleViewAction()
 
 
 class Panel(QDockWidget):

@@ -36,32 +36,44 @@ def manager(document):
     return JobManager.instance(document)
 
 
+def job(document):
+    return JobManager.instance(document).job()
+
+
+def isRunning(document):
+    if job(document):
+        return job.document().isRunning()
+    return False
+
+
 class JobManager(plugin.DocumentPlugin):
     
     stateChanged = signals.Signal()
     
     def __init__(self, document):
-        self._running = None
+        self._job = None
         
     def startJob(self, job):
         """Starts a Job on our behalf."""
         if not self._running:
-            self._running = job
+            self._job = job
             job.done.connect(self._finished)
             job.start()
             app.jobStarted(self.document(), job)
             self.stateChanged()
         
     def _finished(self, success):
-        app.jobFinished(self.document(), self._running, success)
-        self._running = None
+        app.jobFinished(self.document(), self._job, success)
         self.stateChanged()
     
-    def runningJob(self):
-        """Returns the running job if any."""
-        return self._running
+    def job(self):
+        """Returns the last job if any."""
+        return self._job
 
     def isRunning(self):
         """Returns True when a job is running."""
-        return bool(self._running)
+        if self._job:
+            return self._job.isRunning()
+
+
 

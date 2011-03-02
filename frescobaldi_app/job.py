@@ -109,6 +109,10 @@ class Job(object):
         """Aborts the process."""
         if self._process:
             self._process.terminate()
+    
+    def isRunning(self):
+        """Returns True if this job is running."""
+        return bool(self._process)
         
     def setProcess(self, process):
         """Sets a QProcess instance and connects the signals."""
