@@ -71,13 +71,33 @@ class Log(QTextBrowser):
                 vbar.setValue(vbar.maximum())
     
     def logformats(self):
-        """Returns a dictionary with QTextCharFormats for the different types of messages."""
-        # TODO: make fonts and colors user-configurable
+        """Returns a dictionary with QTextCharFormats for the different types of messages.
+        
+        Besides the STDOUT, STDERR, NEUTRAL, FAILURE and SUCCESS formats there is also
+        a "link" format, that looks basically the same as the output formats, but blueish
+        and underlined, to make parts of the output (e.g. filenames) look clickable.
+        
+        """
+        textColor = QApplication.palette().color(QPalette.WindowText)
+        successColor = addcolor(textColor, 0, 128, 0) # more green
+        failureColor = addcolor(textColor, 128, 0, 0) # more red
+        linkColor    = addcolor(textColor, 0, 0, 128) # more blue
+        stdoutColor  = addcolor(textColor, 64, 64, 0) # more purple
+        
+        s = QSettings()
+        s.beginGroup("log")
+        outputFont = QFont(s.value("fontfamily", "Monospace"), int(s.value("fontsize", 9)))
+        
         output = QTextCharFormat()
-        output.setFont(QFont("Monospace", 10))
+        output.setFont(outputFont)
         
         stdout = QTextCharFormat(output)
+        stdout.setForeground(stdoutColor)
+        
         stderr = QTextCharFormat(output)
+        link   = QTextCharFormat(output)
+        link.setForeground(linkColor)
+        link.setFontUnderline(True)
         
         status = QTextCharFormat()
         status.setFontWeight(QFont.Bold)
@@ -85,10 +105,10 @@ class Log(QTextBrowser):
         neutral = QTextCharFormat(status)
         
         success = QTextCharFormat(status)
-        success.setForeground(QColor(Qt.green))
+        success.setForeground(successColor)
         
         failure = QTextCharFormat(status)
-        failure.setForeground(QColor(Qt.red))
+        failure.setForeground(failureColor)
         
         return {
             job.STDOUT: stdout,
@@ -96,8 +116,22 @@ class Log(QTextBrowser):
             job.NEUTRAL: neutral,
             job.SUCCESS: success,
             job.FAILURE: failure,
+            'link': link,
         }
 
 
+
+
+def addcolor(color, r, g, b):
+    """Adds r, g and b values to the given color and returns a new QColor instance."""
+    r += color.red()
+    g += color.green()
+    b += color.blue()
+    d = max(r, g, b) - 255
+    if d > 0:
+        r = max(0, r - d)
+        g = max(0, g - d)
+        b = max(0, b - d)
+    return QColor(r, g, b)
 
 
