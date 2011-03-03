@@ -23,6 +23,8 @@ from __future__ import unicode_literals
 The LogWidget.
 """
 
+import weakref
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
@@ -34,25 +36,33 @@ class LogWidget(log.Log):
     """A Log widget that tracks document changes in the MainWindow."""
     def __init__(self, logtool):
         super(LogWidget, self).__init__(logtool)
-        logtool.mainwindow().currentDocumentChanged.connect(self.documentChanged)
+        self._document = lambda: None
+        logtool.mainwindow().currentDocumentChanged.connect(self.switchDocument)
         app.jobStarted.connect(self.jobStarted)
-        self.documentChanged(logtool.mainwindow().currentDocument())
+        app.documentClosed.connect(self.documentClosed)
+        self.switchDocument(logtool.mainwindow().currentDocument())
         
-    def documentChanged(self, doc, prev=None):
+    def switchDocument(self, doc):
         """Called when the document is changed."""
         import jobmanager
-        if prev:
-            job = jobmanager.job(prev)
-            if job:
-                job.output.disconnect(self.widget().write)
         job = jobmanager.job(doc)
         if job:
+            prevDoc = self._document()
+            if prevDoc and prevDoc != doc:
+                prevJob = jobmanager.job(prevDoc)
+                if prevJob:
+                    prevJob.output.disconnect(self.write)
+            self._document = weakref.ref(doc)
             self.clear()
             self.connectJob(job)
             
     def jobStarted(self, doc, job):
         if doc == self.parentWidget().mainwindow().currentDocument():
+            self.switchDocument(doc)
+
+    def documentClosed(self, doc):
+        if doc == self._document():
             self.clear()
-            self.connectJob(job)
+
 
 
