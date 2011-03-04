@@ -23,12 +23,16 @@ from __future__ import unicode_literals
 Manages the progress bar in the status bar of ViewSpaces.
 """
 
-
-from PyQt4.QtCore import Qt
+from PyQt4.QtCore import Qt, QTimer
 from PyQt4.QtGui import QProgressBar
 
 import app
 import plugin
+import jobmanager
+import metainfo
+
+
+metainfo.define('buildtime', 0.0, float)
 
 
 class ProgressBar(plugin.ViewSpacePlugin):
@@ -36,9 +40,48 @@ class ProgressBar(plugin.ViewSpacePlugin):
     def __init__(self, viewSpace):
         bar = self._bar = QProgressBar()
         bar.setMaximumHeight(14)
-        layout = viewSpace.status.layout()
-        layout.addWidget(self._bar, 1)
+        bar.setMinimum(0)
+        viewSpace.status.layout().addWidget(self._bar, 1)
+        self._bar.hide()
+        self._timer = QTimer(timeout=self.timeout)
+        self._hideTimer = QTimer(timeout=self._bar.hide, singleShot=True)
+        viewSpace.viewChanged.connect(self.viewChanged)
+        app.jobStarted.connect(self.jobStarted)
+        app.jobFinished.connect(self.jobFinished)
         
+    def viewChanged(self, view):
+        self.showProgress(view.document())
+        
+    def showProgress(self, document):
+        self._hideTimer.stop()
+        job = jobmanager.job(document)
+        if job and job.isRunning():
+            self._bar.setMaximum(metainfo.info(document).buildtime * 1000)
+            self._bar.setValue(job.elapsed() * 1000)
+            self._bar.show()
+            self._timer.start(100)
+        else:
+            self._timer.stop()
+            self._bar.hide()
+            
+    def timeout(self):
+        job = jobmanager.job(self.viewSpace().document())
+        self._bar.setValue(job.elapsed() * 1000)
+        
+    def jobStarted(self, document):
+        if document == self.viewSpace().document():
+            self.showProgress(document)
+            
+    def jobFinished(self, document, job, success):
+        if document == self.viewSpace().document():
+            self._timer.stop()
+            if success:
+                metainfo.info(document).buildtime = job.elapsed()
+                self._bar.setMaximum(100)
+                self._bar.setValue(100)
+                self._hideTimer.start(3000)
+            else:
+                self._bar.hide()
 
 
 app.viewSpaceCreated.connect(ProgressBar.instance)
