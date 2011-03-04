@@ -55,7 +55,7 @@ class JobManager(plugin.DocumentPlugin):
         
     def startJob(self, job):
         """Starts a Job on our behalf."""
-        if not self._running:
+        if not self.isRunning():
             self._job = job
             job.done.connect(self._finished)
             job.start()
