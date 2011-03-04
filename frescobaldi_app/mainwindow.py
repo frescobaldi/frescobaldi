@@ -49,6 +49,7 @@ import bookmarks
 import lyrics
 import panels
 import progress
+import engrave
 
 
 class MainWindow(QMainWindow):
@@ -768,10 +769,11 @@ class MainWindow(QMainWindow):
         m.aboutToShow.connect(self.populateDocumentsMenu)
         
         self.menu_lilypond = m = self.menuBar().addMenu('')
-        m.addAction(ac.lilypond_run_preview)
-        m.addAction(ac.lilypond_run_publish)
-        m.addAction(ac.lilypond_run_custom)
-        m.addAction(ac.lilypond_cancel)
+        eg = engrave.engraver(self).actionCollection
+        m.addAction(eg.engrave_preview)
+        m.addAction(eg.engrave_publish)
+        m.addAction(eg.engrave_custom)
+        m.addAction(eg.engrave_abort)
         
         self.menu_tools = m = self.menuBar().addMenu('')
         m.addAction(ac.tools_indent_auto)
@@ -839,7 +841,7 @@ class MainWindow(QMainWindow):
         t.addAction(ac.edit_undo)
         t.addAction(ac.edit_redo)
         t.addSeparator()
-        t.addAction(ac.lilypond_runner)
+        t.addAction(engrave.engraver(self).actionCollection.engrave_runner)
         t.addAction(ac.file_print_music)
         
     def translateUI(self):
@@ -1145,12 +1147,6 @@ class ActionCollection(actioncollection.ActionCollection):
         self.view_scroll_up = QAction(parent)
         self.view_scroll_down = QAction(parent)
         
-        self.lilypond_runner = QAction(parent)
-        self.lilypond_run_preview = QAction(parent)
-        self.lilypond_run_publish = QAction(parent)
-        self.lilypond_run_custom = QAction(parent)
-        self.lilypond_cancel = QAction(parent)
-        
         self.tools_indent_auto = QAction(parent)
         self.tools_indent_auto.setCheckable(True)
         self.tools_indent_indent = QAction(parent)
@@ -1195,12 +1191,6 @@ class ActionCollection(actioncollection.ActionCollection):
         self.view_previous_document.setIcon(icons.get('go-previous'))
         self.view_bookmark.setIcon(icons.get('bookmark-new'))
         
-        self.lilypond_runner.setIcon(icons.get('lilypond-run'))
-        self.lilypond_run_preview.setIcon(icons.get('lilypond-run'))
-        self.lilypond_run_publish.setIcon(icons.get('lilypond-run'))
-        self.lilypond_run_custom.setIcon(icons.get('lilypond-run'))
-        self.lilypond_cancel.setIcon(icons.get('process-stop'))
-        
         self.window_new.setIcon(icons.get('window-new'))
         self.window_fullscreen.setIcon(icons.get('view-fullscreen'))
         
@@ -1240,10 +1230,6 @@ class ActionCollection(actioncollection.ActionCollection):
         self.view_previous_mark.setShortcut(Qt.ALT + Qt.Key_PageUp)
         self.view_scroll_up.setShortcut(Qt.CTRL + Qt.Key_Up)
         self.view_scroll_down.setShortcut(Qt.CTRL + Qt.Key_Down)
-        
-        self.lilypond_run_preview.setShortcut(Qt.CTRL + Qt.Key_M)
-        self.lilypond_run_publish.setShortcut(Qt.CTRL + Qt.SHIFT + Qt.Key_P)
-        self.lilypond_run_custom.setShortcut(Qt.CTRL + Qt.SHIFT + Qt.Key_M)
         
         self.window_fullscreen.setShortcuts([QKeySequence(Qt.CTRL + Qt.SHIFT + Qt.Key_F), QKeySequence(Qt.Key_F11)])
         
@@ -1294,12 +1280,6 @@ class ActionCollection(actioncollection.ActionCollection):
         self.view_previous_mark.setText(_("Previous Mark"))
         self.view_scroll_up.setText(_("Scroll Up"))
         self.view_scroll_down.setText(_("Scroll Down"))
-        
-        self.lilypond_runner.setText(_("LilyPond"))
-        self.lilypond_run_preview.setText(_("Run &LilyPond (preview)"))
-        self.lilypond_run_publish.setText(_("Run LilyPond (&publish)"))
-        self.lilypond_run_custom.setText(_("Run LilyPond (&custom)"))
-        self.lilypond_cancel.setText(_("Interrupt LilyPond &Job"))
         
         self.tools_indent_auto.setText(_("&Automatic Indent"))
         self.tools_indent_indent.setText(_("Re-&Indent"))

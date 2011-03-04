@@ -14,9 +14,11 @@ setup(
     scripts = ['frescobaldi'],
     packages = [
         'frescobaldi_app',
+        'frescobaldi_app.engrave',
         'frescobaldi_app.hyphdicts',
         'frescobaldi_app.icons',
         'frescobaldi_app.language_names',
+        'frescobaldi_app.logtool',
         'frescobaldi_app.ly',
         'frescobaldi_app.ly.tokenize',
         'frescobaldi_app.pdfview',
