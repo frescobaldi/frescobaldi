@@ -77,7 +77,6 @@ class MainWindow(QMainWindow):
         
         self._currentDocument = None
         self._currentView = lambda: None
-        self._allActionCollections = []
         
         # find an unused objectName
         names = set(win.objectName() for win in app.windows)
@@ -480,9 +479,7 @@ class MainWindow(QMainWindow):
             doc.setDefaultFont(font)
             if dlg.testOption(QAbstractPrintDialog.PrintSelection):
                 # cut out not selected text
-                start, end = cursor.position(), cursor.anchor()
-                if start > end:
-                    start, end = end, start
+                start, end = cursor.selectionStart(), cursor.selectionEnd()
                 cur1 = QTextCursor(doc)
                 cur1.setPosition(start, QTextCursor.KeepAnchor)
                 cur2 = QTextCursor(doc)
