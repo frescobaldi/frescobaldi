@@ -27,7 +27,8 @@ import os
 import shutil
 import tempfile
 
-import mode
+import ly.tokenize
+import documentinfo
 import plugin
 
 
@@ -64,7 +65,7 @@ class ScratchDir(plugin.DocumentPlugin):
             if not self.document().url().isEmpty():
                 basename = os.path.basename(self.document().url().path())
             if not basename:
-                basename = 'document' + mode.extension(mode.documentMode(self.document()))
+                basename = 'document' + ly.tokenize.extensions[documentinfo.mode(self.document())]
             return os.path.join(self._directory, basename)
             
     def saveDocument(self):

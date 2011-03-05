@@ -20,14 +20,18 @@
 from __future__ import unicode_literals
 
 """
-Utility functions related to document modes.
+Delivers information about a document.
 """
 
+import itertools
+import re
+
 import ly.tokenize
+import tokeniter
 import variables
 
 
-def documentMode(document, guess=True):
+def mode(document, guess=True):
     """Returns the type of document ('lilypond, 'html', etc.).
     
     The mode can be set using the "mode" document variable.
@@ -46,28 +50,35 @@ def documentMode(document, guess=True):
         return ly.tokenize.guessMode(document.toPlainText())
     
 
-def textMode(text):
-    """Returns the type of document, based on the given text."""
-    return ly.tokenize.guessMode(text)
-
-
-def fileMode(filename):
-    """Returns the mode of the contents of the given filename.
+def version(document):
+    """Returns the LilyPond version if set in the document, as a tuple of ints.
     
-    Returns None if the file could not be read.
+    First the functions searches inside LilyPond syntax.
+    Then it looks at the 'version' document variable.
+    Then, if the document is not a LilyPond document, it simply searches for a
+    \\version command string, possibly embedded in a comment.
     
     """
-    try:
-        with open(filename) as f:
-            text = f.read(1000).decode('utf-8', 'ignore')
-    except (OSError, IOError):
-        return
-    else:
-        return ly.tokenize.guessMode(text)
-
-
-def extension(mode):
-    """Returns a suitable default extension for the given mode. The extension includes the dot."""
-    return ly.tokenize.extensions[mode]
+    source = iter(t for block in tokeniter.allBlocks(document) for t in tokeniter.tokens(block))
+    for token in source:
+        if isinstance(token, ly.tokenize.lilypond.Keyword) and token == "\\version":
+            for token in source:
+                if not isinstance(token, (ly.tokenize.Space, ly.tokenize.Comment)):
+                    break
+            if token == '"':
+                pred = lambda t: t != '"'
+            else:
+                pred = lambda t: not isinstance(t, ly.tokenize.Space, ly.tokenize.Comment)
+            version = ''.join(itertools.takewhile(pred, source))
+            return tuple(map(int, re.findall(r"\d+", version)))
+    # look at document variables
+    version = variables.get(document, "version")
+    if version:
+        return tuple(map(int, re.findall(r"\d+", version)))
+    # parse whole document for non-lilypond documents
+    if mode(document) != "lilypond":
+        m = re.search(r'\\version\s*"(\d+\.\d+(\.\d+)*)"', document.toPlainText())
+        if m:
+            return tuple(map(int, m.group(1).split('.')))
 
 

@@ -39,7 +39,7 @@ import app
 import textformats
 import metainfo
 import variables
-import mode
+import documentinfo
 
 
 metainfo.define('highlighting', True)
@@ -137,11 +137,11 @@ class Highlighter(QSyntaxHighlighter):
         app.settingsChanged.connect(self.rehighlight)
         self._highlighting = metainfo.info(document).highlighting
         document.loaded.connect(self._resetHighlighting)
-        self._mode = mode.documentMode(document, False)
+        self._mode = documentinfo.mode(document, False)
         variables.manager(document).changed.connect(self._variablesChange)
         
     def _variablesChange(self):
-        mode = mode.documentMode(self.document(), False)
+        mode = documentinfo.mode(self.document(), False)
         if mode != self._mode:
             self._mode = mode
             self.rehighlight()
@@ -249,7 +249,7 @@ def htmlCopy(document, data):
     doc.setDefaultFont(data.font)
     text = document.toPlainText()
     doc.setPlainText(text)
-    state = ly.tokenize.state(mode.documentMode(document))
+    state = ly.tokenize.state(documentinfo.mode(document))
     cursor = QTextCursor(doc)
     block = doc.firstBlock()
     while block.isValid():

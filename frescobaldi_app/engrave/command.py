@@ -23,18 +23,15 @@ from __future__ import unicode_literals
 Creates the commandline or Job to engrave a music document.
 """
 
-import itertools
 import os
-import re
 
 from PyQt4.QtCore import QSettings
 
-import ly.tokenize.lilypond
+import ly.tokenize
 import job
-import mode
-import variables
 import scratchdir
 import tokeniter
+import documentinfo
 import lilypondinfo
 import variables
 
@@ -54,7 +51,7 @@ def jobFile(document, preview):
     filename = document.url().toLocalFile()
     v = variables.manager(document).variables()
     redir = v.get("master-preview" if preview else "master-publish", v.get("master"))
-    documentMode = mode.documentMode(document)
+    mode = documentinfo.mode(document)
     
     includepath = []
     
@@ -62,7 +59,13 @@ def jobFile(document, preview):
         # We have a local filename and the document wants another one as master
         filename = os.path.normpath(os.path.join(os.path.dirname(filename), redir))
         if os.path.exists(filename):
-            documentMode = mode.fileMode(filename)
+            try:
+                with open(filename) as f:
+                    text = f.read(1000).decode('utf-8', 'ignore')
+            except (OSError, IOError):
+                pass
+            else:
+                mode = ly.tokenize.guessMode(text)
     elif not filename or document.isModified():
         # We need to use a scratchdir to save our contents to
         scratch = scratchdir.scratchdir(document)
@@ -89,7 +92,7 @@ def info(document):
     if s.value("autoversion", True) in (True, "true"):
         # Determine version set in document
         infos.sort(key=lambda i: i.version)
-        version = documentVersion(document)
+        version = documentinfo.version(document)
         if version:
             for i in infos:
                 if i.version >= version:
@@ -105,31 +108,6 @@ def info(document):
             return i
     return infos[0]
         
-
-def documentVersion(document):
-    """Returns the LilyPond version set in the document as a tuple of ints, if present."""
-    source = iter(t for block in tokeniter.allBlocks(document) for t in tokeniter.tokens(block))
-    for token in source:
-        if isinstance(token, ly.tokenize.lilypond.Keyword) and token == "\\version":
-            for token in source:
-                if not isinstance(token, (ly.tokenize.Space, ly.tokenize.Comment)):
-                    break
-            if token == '"':
-                pred = lambda t: t != '"'
-            else:
-                pred = lambda t: not isinstance(t, ly.tokenize.Space, ly.tokenize.Comment)
-            version = ''.join(itertools.takewhile(pred, source))
-            return tuple(map(int, re.findall(r"\d+", version)))
-    # look at document variables
-    version = variables.get(document, "version")
-    if version:
-        return tuple(map(int, re.findall(r"\d+", version)))
-    # parse whole document for non-lilypond documents
-    if mode.documentMode(document) != "lilypond":
-        m = re.search(r'\\version\s*"(\d+\.\d+(\.\d+)*)"', document.toPlainText())
-        if m:
-            return tuple(map(int, m.group(1).split('.')))
-
 
 def defaultJob(document, preview):
     """Returns a default job for the document."""
