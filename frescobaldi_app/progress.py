@@ -56,7 +56,10 @@ class ProgressBar(plugin.ViewSpacePlugin):
         self._hideTimer.stop()
         job = jobmanager.job(document)
         if job and job.isRunning():
-            self._bar.setMaximum(metainfo.info(document).buildtime * 1000)
+            buildtime = metainfo.info(document).buildtime
+            if not buildtime:
+                buildtime = 3.0 + document.blockCount() / 20 # very arbitrary estimate...
+            self._bar.setMaximum(buildtime * 1000)
             self._bar.setValue(job.elapsed() * 1000)
             self._bar.show()
             self._timer.start(100)
