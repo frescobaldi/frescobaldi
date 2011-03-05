@@ -27,14 +27,14 @@ The default black color will be adjusted to the default Text color.
 import os
 
 from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QApplication, QIcon, QIconEngineV2, QPainter, QPixmap, QStyleOption
+from PyQt4.QtGui import QApplication, QColor, QIcon, QIconEngineV2, QImage, QPainter, QPixmap, QStyleOption
 from PyQt4.QtSvg import QSvgRenderer
 
 __all__ = ["icon"]
 
 
 _icons = {}
-_alpha = {}
+_pixmaps = {}
 
 
 def icon(name):
@@ -46,30 +46,29 @@ def icon(name):
         return icon
 
 
-def alpha(name, size):
-    """Returns a (possibly cached) alpha pixmap from a LilyPond symbol."""
-    key = (name, size.width(), size.height())
-    try:
-        return _alpha[key]
-    except KeyError:
-        p = QPixmap(size)
-        p.fill(Qt.transparent)
-        r = QSvgRenderer(os.path.join(__path__[0], name + ".svg"))
-        r.render(QPainter(p))
-        a = _alpha[key] = p.alphaChannel()
-        return a
-
-
 def pixmap(name, size, mode, state):
-    """Returns a pixmap of the name and size with the default text color.
+    """Returns a (possibly cached) pixmap of the name and size with the default text color.
     
     The state argument is ignored for now.
     
     """
-    p = QPixmap(size)
-    p.fill(QApplication.palette().foreground().color())
-    p.setAlphaChannel(alpha(name, size))
-    return QApplication.style().generatedIconPixmap(mode, p, QStyleOption())
+    color = QApplication.palette().foreground().color()
+    key = (name, size.width(), size.height(), color.rgb(), mode)
+    try:
+        return _pixmaps[key]
+    except KeyError:
+        i = QImage(size, QImage.Format_ARGB32_Premultiplied)
+        i.fill(0)
+        painter = QPainter(i)
+        # render SVG symbol
+        QSvgRenderer(os.path.join(__path__[0], name + ".svg")).render(painter)
+        # recolor to text color
+        painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
+        painter.fillRect(i.rect(), color)
+        painter.end()
+        pixmap = QApplication.style().generatedIconPixmap(mode, QPixmap.fromImage(i), QStyleOption())
+        _pixmaps[key] = pixmap
+        return pixmap
 
 
 class Engine(QIconEngineV2):
