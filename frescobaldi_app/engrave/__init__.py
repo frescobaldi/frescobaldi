@@ -24,7 +24,7 @@ Actions to engrave the music in the documents.
 """
 
 from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QAction, QKeySequence
+from PyQt4.QtGui import QAction, QApplication, QKeySequence
 
 import app
 import actioncollection
@@ -74,6 +74,8 @@ class Engraver(plugin.MainWindowPlugin):
         job = self.runningJob()
         if job:
             job.abort()
+        elif QApplication.keyboardModifiers() & Qt.SHIFT:
+            self.engraveCustom()
         else:
             self.engravePreview()
     
