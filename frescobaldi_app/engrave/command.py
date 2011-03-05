@@ -36,6 +36,7 @@ import variables
 import scratchdir
 import tokeniter
 import lilypondinfo
+import variables
 
 
 def jobFile(document, preview):
@@ -93,14 +94,15 @@ def info(document):
             for i in infos:
                 if i.version >= version:
                     return i
+            return infos[-1]
     # find default version
     default = s.value("default", "lilypond")
     for i in infos:
-        if info.command == default:
-            return info
+        if i.command == default:
+            return i
     for i in infos:
-        if info.command == "lilypond":
-            return info
+        if i.command == "lilypond":
+            return i
     return infos[0]
         
 
@@ -117,9 +119,32 @@ def documentVersion(document):
             else:
                 pred = lambda t: not isinstance(t, ly.tokenize.Space, ly.tokenize.Comment)
             version = ''.join(itertools.takewhile(pred, source))
-            return tuple(map(int, re.findall(r"\d+", version)))        
-    # if no result, just search the whole document
-    m = re.search(r'\\version\s*"(\d+\.\d+(\.\d+)*)"', document.toPlainText())
-    if m:
-        return tuple(map(int, m.group(1).split('.')))
+            return tuple(map(int, re.findall(r"\d+", version)))
+    # look at document variables
+    version = variables.get(document, "version")
+    if version:
+        return tuple(map(int, re.findall(r"\d+", version)))
+    # parse whole document for non-lilypond documents
+    if mode.documentMode(document) != "lilypond":
+        m = re.search(r'\\version\s*"(\d+\.\d+(\.\d+)*)"', document.toPlainText())
+        if m:
+            return tuple(map(int, m.group(1).split('.')))
+
+
+def defaultJob(document, preview):
+    """Returns a default job for the document."""
+    filename, includepath = jobFile(document, preview)
+    i = info(document)
+    j = job.Job()
+    
+    # TEMP!!!
+    command = [i.command]
+    command.append('-dpoint-and-click' if preview else '-dno-point-and-click')
+    command.append('--pdf')
+    command.extend('-I' + path for path in includepath)
+    j.directory, filename = os.path.split(filename)
+    command.append(filename)
+    j.command = command
+    return j
+
 
