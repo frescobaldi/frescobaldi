@@ -66,7 +66,6 @@ class Engraver(plugin.MainWindowPlugin):
         ac = self.actionCollection
         ac.engrave_preview.setEnabled(not running)
         ac.engrave_publish.setEnabled(not running)
-        ac.engrave_custom.setEnabled(not running)
         ac.engrave_abort.setEnabled(running)
         ac.engrave_runner.setIcon(icons.get('process-stop' if running else 'lilypond-run'))
     
@@ -80,13 +79,23 @@ class Engraver(plugin.MainWindowPlugin):
             self.engravePreview()
     
     def engravePreview(self):
-        pass
+        """Starts an engrave job in preview mode (with point and click turned on)."""
+        self.engrave(True)
     
     def engravePublish(self):
+        """Starts an engrave job in publish mode (with point and click turned off)."""
+        self.engrave(False)
+        
+    def engraveCustom(self):
+        """Opens a dialog to configure the job before starting it."""
         pass
     
-    def engraveCustom(self):
-        pass
+    def engrave(self, preview):
+        """Starts a default engraving job. The bool preview specifies preview mode."""
+        from . import command
+        doc = self.mainwindow().currentDocument()
+        job = command.defaultJob(doc, preview)
+        jobmanager.manager(doc).startJob(job)
     
     def engraveAbort(self):
         job = self.runningJob()

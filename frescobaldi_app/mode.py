@@ -46,6 +46,26 @@ def documentMode(document, guess=True):
         return ly.tokenize.guessMode(document.toPlainText())
     
 
+def textMode(text):
+    """Returns the type of document, based on the given text."""
+    return ly.tokenize.guessMode(text)
+
+
+def fileMode(filename):
+    """Returns the mode of the contents of the given filename.
+    
+    Returns None if the file could not be read.
+    
+    """
+    try:
+        with open(filename) as f:
+            text = f.read(1000).decode('utf-8', 'ignore')
+    except (OSError, IOError):
+        return
+    else:
+        return ly.tokenize.guessMode(text)
+
+
 def extension(mode):
     """Returns a suitable default extension for the given mode. The extension includes the dot."""
     return ly.tokenize.extensions[mode]
