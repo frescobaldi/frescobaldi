@@ -27,7 +27,7 @@ The default black color will be adjusted to the default Text color.
 import os
 
 from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QApplication, QColor, QIcon, QIconEngineV2, QImage, QPainter, QPixmap, QStyleOption
+from PyQt4.QtGui import QApplication, QIcon, QIconEngineV2, QImage, QPainter, QPixmap, QStyleOption
 from PyQt4.QtSvg import QSvgRenderer
 
 __all__ = ["icon"]
@@ -66,6 +66,7 @@ def pixmap(name, size, mode, state):
         painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
         painter.fillRect(i.rect(), color)
         painter.end()
+        # let style alter the drawing based on mode, and create QPixmap
         pixmap = QApplication.style().generatedIconPixmap(mode, QPixmap.fromImage(i), QStyleOption())
         _pixmaps[key] = pixmap
         return pixmap
