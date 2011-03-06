@@ -40,6 +40,7 @@ class LogTool(panels.Panel):
         self.hide()
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+L"))
         mainwindow.addDockWidget(Qt.BottomDockWidgetArea, self)
+        app.jobStarted.connect(self.jobStarted)
     
     def translateUI(self):
         self.setWindowTitle(_("LilyPond Log"))
@@ -48,4 +49,9 @@ class LogTool(panels.Panel):
     def createWidget(self):
         from . import logwidget
         return logwidget.LogWidget(self)
-        
+    
+    def jobStarted(self):
+        if QSettings().value("log/show_on_start", True) not in (False, "false"):
+            self.show()
+            
+
