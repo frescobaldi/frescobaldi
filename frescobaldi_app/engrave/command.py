@@ -123,6 +123,7 @@ def defaultJob(document, preview):
     j.directory, filename = os.path.split(filename)
     command.append(filename)
     j.command = command
+    j.setTitle("{0} {1}".format(os.path.basename(i.command), i.versionString))
     return j
 
 

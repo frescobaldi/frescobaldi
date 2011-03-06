@@ -74,16 +74,28 @@ class Job(object):
     """
     output = signals.Signal()
     done = signals.Signal()
+    titleChanged = signals.Signal() # title (string)
     
     def __init__(self):
         self.command = []
         self.directory = ""
         self.decoder = codecs.getdecoder("utf-8")
         
+        self._title = ""
         self._process = None
         self._history = []
         self._starttime = 0.0
         self._elapsed = 0.0
+    
+    def title(self):
+        """Returns the job title, set with setTitle(), defaults to an empty string."""
+        return self._title
+        
+    def setTitle(self, title):
+        """Sets the title and if changed, emits the titleChanged(title) signal."""
+        old, self._title = self._title, title
+        if title != old:
+            self.titleChanged(title)
     
     def start(self):
         """Starts the process."""
@@ -171,7 +183,8 @@ class Job(object):
 
     def startMessage(self):
         """Outputs a message the process has started."""
-        self.message("Starting...", NEUTRAL)
+        name = self.title() or os.path.basename(self.command[0])
+        self.message(_("Starting {job}...").format(job=name), NEUTRAL)
     
     def errorMessage(self, error):
         """Outputs a message describing the given QProcess.Error."""
