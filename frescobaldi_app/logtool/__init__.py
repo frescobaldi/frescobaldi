@@ -50,8 +50,9 @@ class LogTool(panels.Panel):
         from . import logwidget
         return logwidget.LogWidget(self)
     
-    def jobStarted(self):
-        if QSettings().value("log/show_on_start", True) not in (False, "false"):
+    def jobStarted(self, document):
+        if (document == self.mainwindow().currentDocument() and
+            QSettings().value("log/show_on_start", True) not in (False, "false")):
             self.show()
             
 
