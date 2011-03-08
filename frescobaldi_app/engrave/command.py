@@ -27,58 +27,10 @@ import os
 
 from PyQt4.QtCore import QSettings
 
-import ly.tokenize
 import job
-import scratchdir
-import tokeniter
 import documentinfo
 import lilypondinfo
-import variables
 
-
-def jobFile(document):
-    """Returns a two tuple(filename, includepath) based on the given document.
-    
-    The document contents is checked for the 'master' variable to run the
-    engraver on a different file instead, possibly based on preview mode.
-    
-    If no redirecting variables are found and the document is modified, its text
-    is saved to a temporary area and that filename is returned. In that case, if
-    the document includes other files, the original directory is given in the
-    includepath list.
-    
-    """
-    # Determine the filename to run LilyPond on
-    filename = document.url().toLocalFile()
-    redir = variables.get(document, "master")
-    mode = documentinfo.mode(document)
-    
-    includepath = []
-    
-    if filename and redir:
-        # We have a local filename and the document wants another one as master
-        filename = os.path.normpath(os.path.join(os.path.dirname(filename), redir))
-        if os.path.exists(filename):
-            try:
-                with open(filename) as f:
-                    text = f.read(1000).decode('utf-8', 'ignore')
-            except (OSError, IOError):
-                pass
-            else:
-                mode = ly.tokenize.guessMode(text)
-    elif not filename or document.isModified():
-        # We need to use a scratchdir to save our contents to
-        scratch = scratchdir.scratchdir(document)
-        scratch.saveDocument()
-        if filename:
-            for block in tokeniter.allBlocks(document):
-                if "\\include" in tokeniter.tokens(block):
-                    includepath.append(os.path.dirname(filename))
-                    break
-        filename = scratch.path()
-    
-    return filename, includepath
-    
 
 def info(document):
     """Returns a LilyPondInfo instance that should be used by default to engrave the document."""
@@ -111,7 +63,7 @@ def info(document):
 
 def defaultJob(document, preview):
     """Returns a default job for the document."""
-    filename, includepath = jobFile(document)
+    filename, mode, includepath = documentinfo.jobinfo(document, True)
     i = info(document)
     j = job.Job()
     

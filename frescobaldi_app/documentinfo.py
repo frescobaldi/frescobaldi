@@ -26,7 +26,10 @@ Delivers information about a document.
 import itertools
 import re
 
+from PyQt4.QtCore import QUrl
+
 import ly.tokenize
+import app
 import tokeniter
 import variables
 
@@ -81,4 +84,59 @@ def version(document):
         if m:
             return tuple(map(int, m.group(1).split('.')))
 
+
+def jobinfo(document, create=False):
+    """Returns a three tuple(filename, mode, includepath) based on the given document.
+    
+    If the document is a local file, its contents is checked for the 'master' variable
+    to run the engraver on a different file instead. The mode is then also chosen
+    based on the contents of that other file.
+    
+    If no redirecting variables are found and the document is modified, its text
+    is saved to a temporary area and that filename is returned. If the 'create'
+    argument is False (the default), no temporary file is created, and in that
+    case, the existing filename (may be empty) is returned.
+    
+    If a scratch area is used but the document has a local filename and includes
+    other files, the original directory is given in the includepath list.
+    
+    """
+    # Determine the filename to run the engraving job on
+    filename = document.url().toLocalFile()
+    redir = variables.get(document, "master")
+    mode_ = mode(document)
+    
+    includepath = []
+    
+    if filename and redir:
+        # We have a local filename and the document wants another one as master,
+        # find the mode of the other file. If it is loaded in a different document,
+        # getting the mode is easy. Otherwise just read part of the file.
+        url = document.url().resolved(QUrl(redir))
+        filename = url.toLocalFile()
+        d = app.findDocument(url)
+        if d:
+            mode_ = mode(d)
+        else:
+            try:
+                with open(filename) as f:
+                    text = f.read(1000).decode('utf-8', 'ignore')
+            except (OSError, IOError):
+                pass
+            else:
+                mode_ = ly.tokenize.guessMode(text)
+    elif create and (not filename or document.isModified()):
+        # We need to use a scratchdir to save our contents to
+        import scratchdir
+        scratch = scratchdir.scratchdir(document)
+        scratch.saveDocument()
+        if filename:
+            for block in tokeniter.allBlocks(document):
+                if "\\include" in tokeniter.tokens(block):
+                    includepath.append(os.path.dirname(filename))
+                    break
+        filename = scratch.path()
+    
+    return filename, mode_, includepath
+    
 
