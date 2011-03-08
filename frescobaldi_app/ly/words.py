@@ -113,6 +113,8 @@ lilypond_music_commands = (
     'bassFigureStaffAlignmentUp',
     'bendAfter',
     'blackTriangleMarkup',
+    'bookOutputName',
+    'bookOutputSuffix',
     'bracketCloseSymbol',
     'bracketOpenSymbol',
     'break',

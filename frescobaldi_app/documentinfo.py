@@ -215,12 +215,12 @@ def basenames(document):
         for source in sources():
             for token in source:
                 found = None
-                if isinstance(ly.tokenize.lilypond.Command, token):
+                if isinstance(token, ly.tokenize.lilypond.Command):
                     if token == "\\bookOutputName":
                         found = "name"
                     elif token == "\\bookOutputSuffix":
                         found = "suffix"
-                elif isinstance(ly.tokenize.scheme.Word) and token == "define-output-suffix":
+                elif isinstance(token, ly.tokenize.scheme.Word) and token == "define-output-suffix":
                     found = "suffix"
                 if found:
                     for token in source:
