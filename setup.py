@@ -12,6 +12,9 @@ setup(
     license = info.license,
     
     scripts = ['frescobaldi'],
+    
+    # The following command prints the packages list:
+    # find . -name __init__.py | sed "s#/__init__.py#',#;s#^./#        '#;s#/#.#g" | sort
     packages = [
         'frescobaldi_app',
         'frescobaldi_app.engrave',
