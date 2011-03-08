@@ -152,6 +152,11 @@ def selectedTokens(cursor, state=None):
         source = token_source()
 
 
+def allTokens(document):
+    """Yields all tokens of a document."""
+    return (token for block in allBlocks(document) for token in tokens(block))
+
+
 @contextlib.contextmanager
 def editBlock(cursor, joinPrevious = False):
     """Returns a context manager to perform operations on cursor as a single undo-item."""

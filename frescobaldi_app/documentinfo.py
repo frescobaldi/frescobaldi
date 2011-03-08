@@ -24,6 +24,7 @@ Delivers information about a document.
 """
 
 import itertools
+import os
 import re
 
 from PyQt4.QtCore import QUrl
@@ -31,6 +32,7 @@ from PyQt4.QtCore import QUrl
 import ly.tokenize
 import app
 import tokeniter
+import util
 import variables
 
 
@@ -53,6 +55,14 @@ def mode(document, guess=True):
         return ly.tokenize.guessMode(document.toPlainText())
     
 
+def tokens(document):
+    """Iterates over all the tokens in a document, parsing if the document has not yet materialized."""
+    if document.materialized():
+        return tokeniter.allTokens(document)
+    else:
+        return ly.tokenize.state(mode(document)).tokens(document.toPlainText())
+
+
 def version(document):
     """Returns the LilyPond version if set in the document, as a tuple of ints.
     
@@ -62,7 +72,7 @@ def version(document):
     \\version command string, possibly embedded in a comment.
     
     """
-    source = iter(t for block in tokeniter.allBlocks(document) for t in tokeniter.tokens(block))
+    source = tokens(document)
     for token in source:
         if isinstance(token, ly.tokenize.lilypond.Keyword) and token == "\\version":
             for token in source:
@@ -117,26 +127,73 @@ def jobinfo(document, create=False):
         d = app.findDocument(url)
         if d:
             mode_ = mode(d)
-        else:
-            try:
-                with open(filename) as f:
-                    text = f.read(1000).decode('utf-8', 'ignore')
-            except (OSError, IOError):
-                pass
-            else:
+        elif os.path.exists(filename):
+            with open(filename) as f:
+                text = util.decode(f.read())
+            mode_ = variables.variables(text).get("mode")
+            if mode_ not in ly.tokenize.modes:
                 mode_ = ly.tokenize.guessMode(text)
-    elif create and (not filename or document.isModified()):
+
+    elif not filename or document.isModified():
         # We need to use a scratchdir to save our contents to
         import scratchdir
         scratch = scratchdir.scratchdir(document)
-        scratch.saveDocument()
-        if filename:
-            for block in tokeniter.allBlocks(document):
-                if "\\include" in tokeniter.tokens(block):
-                    includepath.append(os.path.dirname(filename))
-                    break
-        filename = scratch.path()
+        if create:
+            scratch.saveDocument()
+            if filename:
+                for block in tokeniter.allBlocks(document):
+                    if "\\include" in tokeniter.tokens(block):
+                        includepath.append(os.path.dirname(filename))
+                        break
+            filename = scratch.path()
+        elif scratch.path() and os.path.exists(scratch.path()):
+            filename = scratch.path()
     
     return filename, mode_, includepath
     
+
+def includefiles(document, path=()):
+    """Returns a set of filenames that are included by the given document.
+    
+    If a path is given, it must be a list of directories that are also searched
+    for files to be included.
+    
+    """
+    files = set()
+    basedir = os.path.dirname(document.url().toLocalFile())
+    
+    def find(source, directory=basedir):
+        for token in source:
+            if isinstance(token, ly.tokenize.lilypond.Keyword) and token == "\\include":
+                for token in source:
+                    if not isinstance(token, (ly.tokenize.Space, ly.tokenize.Comment)):
+                        break
+                if token == '"':
+                    f = ''.join(itertools.takewhile(lambda t: t != '"', source))
+                    # old include (relative to master file)
+                    find_file(os.path.normpath(os.path.join(basedir, f)))
+                    # new, recursive, relative include
+                    find_file(os.path.normpath(os.path.join(directory, f)))
+                    # if path is given, also search there:
+                    for p in path:
+                        find_file(os.path.normpath(os.path.join(p, f)))
+        
+    def find_file(filename):
+        if os.path.exists(filename) and filename not in files:
+            files.add(filename)
+            d = app.findDocument(QUrl.fromLocalFile(filename))
+            if d:
+                source = tokens(d)
+            else:
+                with open(filename) as f:
+                    text = util.decode(f.read())
+                mode = variables.variables(text).get("mode")
+                if mode not in ly.tokenize.modes:
+                    mode = ly.tokenize.guessMode(text)
+                source = ly.tokenize.state(mode).tokens(text)
+            find(source, os.path.dirname(filename))
+    
+    find(tokens(document))
+    return files
+
 
