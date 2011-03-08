@@ -29,7 +29,7 @@ import re
 
 from PyQt4.QtCore import QUrl
 
-import ly.tokenize
+import ly.tokenize.lilypond
 import app
 import tokeniter
 import util
@@ -141,8 +141,8 @@ def jobinfo(document, create=False):
         if create:
             scratch.saveDocument()
             if filename:
-                for block in tokeniter.allBlocks(document):
-                    if "\\include" in tokeniter.tokens(block):
+                for token in tokens(document):
+                    if isinstance(token, ly.tokenize.lilypond.Keyword) and token == "\\include":
                         includepath.append(os.path.dirname(filename))
                         break
             filename = scratch.path()
