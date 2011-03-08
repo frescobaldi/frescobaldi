@@ -36,12 +36,11 @@ import lilypondinfo
 import variables
 
 
-def jobFile(document, preview):
+def jobFile(document):
     """Returns a two tuple(filename, includepath) based on the given document.
     
-    Preview mode is either True or False. The document contents is checked
-    for the 'master', 'master-preview' and 'master-publish' variables to run
-    the engraver on a different file instead, possibly based on preview mode.
+    The document contents is checked for the 'master' variable to run the
+    engraver on a different file instead, possibly based on preview mode.
     
     If no redirecting variables are found and the document is modified, its text
     is saved to a temporary area and that filename is returned. In that case, if
@@ -51,8 +50,7 @@ def jobFile(document, preview):
     """
     # Determine the filename to run LilyPond on
     filename = document.url().toLocalFile()
-    v = variables.manager(document).variables()
-    redir = v.get("master-preview" if preview else "master-publish", v.get("master"))
+    redir = variables.get(document, "master")
     mode = documentinfo.mode(document)
     
     includepath = []
@@ -113,7 +111,7 @@ def info(document):
 
 def defaultJob(document, preview):
     """Returns a default job for the document."""
-    filename, includepath = jobFile(document, preview)
+    filename, includepath = jobFile(document)
     i = info(document)
     j = job.Job()
     
