@@ -23,7 +23,6 @@ from __future__ import unicode_literals
 A Frescobaldi (LilyPond) document.
 """
 
-import codecs
 import os
 
 from PyQt4.QtCore import QUrl
@@ -31,6 +30,7 @@ from PyQt4.QtGui import QPlainTextDocumentLayout, QTextDocument
 
 import app
 import view
+import util
 import highlighter
 import textformats
 import variables
@@ -79,36 +79,7 @@ class Document(QTextDocument):
             except (IOError, OSError):
                 return False # errors are caught in MainWindow.openUrl()
             
-            # find and try encodings
-            encodings = []
-            if self._encoding:
-                encodings.append(self._encoding)
-            for bom, encoding in (
-                (codecs.BOM_UTF8, 'utf-8'),
-                (codecs.BOM_UTF16_LE, 'utf_16_le'),
-                (codecs.BOM_UTF16_BE, 'utf_16_be'),
-                    ):
-                if data.startswith(bom):
-                    encodings.append(encoding)
-                    data = data[len(bom):]
-                    break
-            else:
-                var_coding = variables.variables(data).get("coding")
-                if var_coding:
-                    encodings.append(var_coding)
-            encodings.append('utf-8')
-            encodings.append('latin1')
-            
-            for encoding in encodings:
-                try:
-                    text = data.decode(encoding)
-                except (UnicodeError, LookupError):
-                    continue
-                else:
-                    break
-            else:
-                text = data.decode('utf-8', 'replace')
-            self.setPlainText(text)
+            self.setPlainText(util.decode(data))
             self.setModified(False)
             self.loaded()
             return True

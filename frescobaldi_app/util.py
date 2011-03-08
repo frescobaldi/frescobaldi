@@ -23,9 +23,12 @@ from __future__ import unicode_literals
 Some utility functions.
 """
 
+import codecs
 import contextlib
 import os
 import re
+
+import variables
 
 
 def iswritable(path):
@@ -52,5 +55,36 @@ def naturalsort(text):
     
     """
     return tuple(int(s) if s.isdigit() else s for s in re.split(r'(\d+)', text))
+
+
+def decode(data, encoding=None):
+    """Returns the unicode text from the encoded, data. Prefer encoding if given.
+    
+    The text is also checked for the 'coding' document variable.
+    
+    """
+    encodings = [encoding] if encoding else []
+    for bom, encoding in (
+        (codecs.BOM_UTF8, 'utf-8'),
+        (codecs.BOM_UTF16_LE, 'utf_16_le'),
+        (codecs.BOM_UTF16_BE, 'utf_16_be'),
+            ):
+        if data.startswith(bom):
+            encodings.append(encoding)
+            data = data[len(bom):]
+            break
+    else:
+        var_coding = variables.variables(data).get("coding")
+        if var_coding:
+            encodings.append(var_coding)
+    encodings.append('utf-8')
+    encodings.append('latin1')
+    
+    for encoding in encodings:
+        try:
+            return data.decode(encoding)
+        except (UnicodeError, LookupError):
+            continue
+    return data.decode('utf-8', 'replace')
 
 
