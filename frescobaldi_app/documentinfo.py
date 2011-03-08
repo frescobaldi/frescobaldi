@@ -181,19 +181,62 @@ def includefiles(document, path=()):
     def find_file(filename):
         if os.path.exists(filename) and filename not in files:
             files.add(filename)
-            d = app.findDocument(QUrl.fromLocalFile(filename))
-            if d:
-                source = tokens(d)
-            else:
-                with open(filename) as f:
-                    text = util.decode(f.read())
-                mode = variables.variables(text).get("mode")
-                if mode not in ly.tokenize.modes:
-                    mode = ly.tokenize.guessMode(text)
-                source = ly.tokenize.state(mode).tokens(text)
-            find(source, os.path.dirname(filename))
+            with open(filename) as f:
+                text = util.decode(f.read())
+            mode = variables.variables(text).get("mode")
+            if mode not in ly.tokenize.modes:
+                mode = ly.tokenize.guessMode(text)
+            find(ly.tokenize.state(mode).tokens(text), os.path.dirname(filename))
     
     find(tokens(document))
     return files
+
+
+def basenames(document):
+    """Returns a list of basenames that a document is expected to create.
+    
+    The list is created based on include files and the define-output-suffix and
+    \bookOutputName and \bookOutputSuffix commands.
+    You should add '.ext' and/or '-[0-9]+.ext' to find created files.
+    
+    """
+    filename, mode, ipath = jobinfo(document)
+    dirname, basename = os.path.split(filename)
+    basenames = set()
+    if mode == "lilypond":
+        basename = os.path.splitext(basename)[0]
+        basenames.add(os.path.join(dirname, basename))
+        files = includefiles(document)
+        def sources():
+            yield tokens(document)
+            for f in files:
+                with open(filename) as f:
+                    text = util.decode(f.read())
+                yield ly.tokenize.guessState(text).tokens(text)
+        for source in sources:
+            for token in source:
+                found = None
+                if isinstance(ly.tokenize.lilypond.Command, token):
+                    if token == "\\bookOutputName":
+                        found = "name"
+                    elif token == "\\bookOutputSuffix":
+                        found = "suffix"
+                elif isinstance(ly.tokenize.scheme.Word) and token == "define-output-suffix":
+                    found = "suffix"
+                if found:
+                    for token in source:
+                        if not isinstance(token, (ly.tokenize.lilypond.SchemeStart,
+                                                  ly.tokenize.Space,
+                                                  ly.tokenize.Comment)):
+                            break
+                    if token == '"':
+                        f = ''.join(itertools.takewhile(lambda t: t != '"', source))
+                    if found == "suffix":
+                        f = basename + '-' + f
+                    basenames.add(os.path.normpath(os.path.join(dirname, f)))
+    
+    return basenames
+
+
 
 
