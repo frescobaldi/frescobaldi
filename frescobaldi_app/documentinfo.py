@@ -206,14 +206,13 @@ def basenames(document):
     if mode == "lilypond":
         basename = os.path.splitext(basename)[0]
         basenames.add(os.path.join(dirname, basename))
-        files = includefiles(document)
         def sources():
             yield tokens(document)
-            for f in files:
+            for f in includefiles(document):
                 with open(filename) as f:
                     text = util.decode(f.read())
                 yield ly.tokenize.guessState(text).tokens(text)
-        for source in sources:
+        for source in sources():
             for token in source:
                 found = None
                 if isinstance(ly.tokenize.lilypond.Command, token):
