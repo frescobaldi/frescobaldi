@@ -43,8 +43,10 @@ def jobFile(document, preview):
     for the 'master', 'master-preview' and 'master-publish' variables to run
     the engraver on a different file instead, possibly based on preview mode.
     
-    The includepath is most times empty, but may contain the document's directory,
-    e.g. when it is modified but refers to other documents in it's own directory.
+    If no redirecting variables are found and the document is modified, its text
+    is saved to a temporary area and that filename is returned. In that case, if
+    the document includes other files, the original directory is given in the
+    includepath list.
     
     """
     # Determine the filename to run LilyPond on
