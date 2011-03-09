@@ -26,6 +26,7 @@ Delivers information about a document.
 import itertools
 import os
 import re
+import weakref
 
 from PyQt4.QtCore import QSettings, QUrl
 
@@ -61,6 +62,28 @@ def textmode(text, guess=True):
 
 
 
+def resetoncontentschanged(func):
+    """Caches a value until the document emits the contentsChanged signal.
+    
+    Use this to decorate methods of the DocumentInfo class.
+    
+    """
+    _cache = weakref.WeakKeyDictionary()
+    def f(self):
+        try:
+            return _cache[self]
+        except KeyError:
+            def reset(selfref=weakref.ref(self)):
+                self = selfref()
+                if self:
+                    del _cache[self]
+                    self.document().contentsChanged.disconnect(reset)
+            result = _cache[self] = func(self)
+            self.document().contentsChanged.connect(reset)
+            return result
+    return f
+
+
 class DocumentInfo(plugin.DocumentPlugin):
     """Computes and caches (sometimes) information about a Document."""
     
@@ -92,6 +115,7 @@ class DocumentInfo(plugin.DocumentPlugin):
         else:
             return ly.tokenize.state(self.mode()).tokens(self.document().toPlainText())
 
+    @resetoncontentschanged
     def version(self):
         """Returns the LilyPond version if set in the document, as a tuple of ints.
         
