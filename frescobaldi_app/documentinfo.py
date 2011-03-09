@@ -153,18 +153,36 @@ def jobinfo(document, create=False):
     return filename, mode_, includepath
     
 
-def includefiles(source, path=()):
-    """Returns a set of filenames that are included by the given source (Document or filename).
+def includefiles(document, includepath=None):
+    """Returns a set of filenames that are included by the given document.
     
-    If a path is given, it must be a list of directories that are also searched
+    The document's own filename is also added to the set.
+    
+    If a path is given, it must be a list of directories that are searched
     for files to be included.
     
     """
     files = set()
     
+    if includepath is None:
+        includepath = []
+    filename = document.url().toLocalFile()
+    redir = variables.get(document, "master")
+    basedir = None
+    
     def find(source, directory=None):
         if directory is None:
             directory = basedir
+        
+        def tryfile(name):
+            # old include (relative to master file)
+            basedir and find_file(os.path.normpath(os.path.join(basedir, name)))
+            # new, recursive, relative include
+            directory and find_file(os.path.normpath(os.path.join(directory, name)))
+            # if path is given, also search there:
+            for p in includepath:
+                find_file(os.path.normpath(os.path.join(p, name)))
+            
         for token in source:
             if isinstance(token, ly.tokenize.lilypond.Keyword) and token == "\\include":
                 for token in source:
@@ -172,14 +190,8 @@ def includefiles(source, path=()):
                         break
                 if token == '"':
                     f = ''.join(itertools.takewhile(lambda t: t != '"', source))
-                    # old include (relative to master file)
-                    find_file(os.path.normpath(os.path.join(basedir, f)))
-                    # new, recursive, relative include
-                    find_file(os.path.normpath(os.path.join(directory, f)))
-                    # if path is given, also search there:
-                    for p in path:
-                        find_file(os.path.normpath(os.path.join(p, f)))
-        
+                    tryfile(f)
+    
     def find_file(filename):
         if os.path.exists(filename) and filename not in files:
             files.add(filename)
@@ -189,13 +201,19 @@ def includefiles(source, path=()):
             if mode not in ly.tokenize.modes:
                 mode = ly.tokenize.guessMode(text)
             find(ly.tokenize.state(mode).tokens(text), os.path.dirname(filename))
-
-    if isinstance(source, document_.Document):
-        basedir = os.path.dirname(source.url().toLocalFile())
-        find(tokens(source))
-    else:
-        basedir = os.path.dirname(source)
-        find_file(source)
+    
+    if filename:
+        basedir = os.path.dirname(filename)
+        if redir:
+            path = os.path.normpath(os.path.join(basedir, redir))
+            if os.path.exists(path):
+                filename = path
+                basedir = os.path.dirname(filename)
+                files.add(filename)
+                find_file(filename)
+                return files
+        files.add(filename)
+    find(tokens(document), basedir)
     return files
 
 
