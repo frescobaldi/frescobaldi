@@ -146,7 +146,14 @@ class DocumentInfo(plugin.DocumentPlugin):
             m = re.search(r'\\version\s*"(\d+\.\d+(\.\d+)*)"', self.document().toPlainText())
             if m:
                 return tuple(map(int, m.group(1).split('.')))
-
+    
+    @resetoncontentschanged
+    def hasinclude(self):
+        """Returns True if the document contains an \\include command."""
+        for token in self.tokens():
+            if isinstance(token, ly.tokenize.lilypond.Keyword) and token == "\\include":
+                return True
+        
     def master(self):
         """Returns the master filename for the document, if it exists."""
         filename = self.document().url().toLocalFile()
@@ -193,11 +200,8 @@ class DocumentInfo(plugin.DocumentPlugin):
                 scratch = scratchdir.scratchdir(self.document())
                 if create:
                     scratch.saveDocument()
-                    if filename:
-                        for token in self.tokens():
-                            if isinstance(token, ly.tokenize.lilypond.Keyword) and token == "\\include":
-                                includepath.append(os.path.dirname(filename))
-                                break
+                    if filename and self.hasinclude():
+                        includepath.append(os.path.dirname(filename))
                     filename = scratch.path()
                 elif scratch.path() and os.path.exists(scratch.path()):
                     filename = scratch.path()
