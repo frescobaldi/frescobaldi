@@ -34,6 +34,7 @@ import app
 import tokeniter
 import util
 import variables
+import document as document_
 
 
 def mode(document, guess=True):
@@ -152,17 +153,18 @@ def jobinfo(document, create=False):
     return filename, mode_, includepath
     
 
-def includefiles(document, path=()):
-    """Returns a set of filenames that are included by the given document.
+def includefiles(source, path=()):
+    """Returns a set of filenames that are included by the given source (Document or filename).
     
     If a path is given, it must be a list of directories that are also searched
     for files to be included.
     
     """
     files = set()
-    basedir = os.path.dirname(document.url().toLocalFile())
     
-    def find(source, directory=basedir):
+    def find(source, directory=None):
+        if directory is None:
+            directory = basedir
         for token in source:
             if isinstance(token, ly.tokenize.lilypond.Keyword) and token == "\\include":
                 for token in source:
@@ -187,8 +189,13 @@ def includefiles(document, path=()):
             if mode not in ly.tokenize.modes:
                 mode = ly.tokenize.guessMode(text)
             find(ly.tokenize.state(mode).tokens(text), os.path.dirname(filename))
-    
-    find(tokens(document))
+
+    if isinstance(source, document_.Document):
+        basedir = os.path.dirname(source.url().toLocalFile())
+        find(tokens(source))
+    else:
+        basedir = os.path.dirname(source)
+        find_file(source)
     return files
 
 
@@ -206,13 +213,10 @@ def basenames(document):
     if mode == "lilypond":
         basename = os.path.splitext(basename)[0]
         basenames.add(os.path.join(dirname, basename))
-        def sources():
-            yield tokens(document)
-            for f in includefiles(document):
-                with open(filename) as f:
-                    text = util.decode(f.read())
-                yield ly.tokenize.guessState(text).tokens(text)
-        for source in sources():
+        for filename in includefiles(filename, ipath):
+            with open(filename) as f:
+                text = util.decode(f.read())
+            source = ly.tokenize.guessState(text).tokens(text)
             for token in source:
                 found = None
                 if isinstance(token, ly.tokenize.lilypond.Command):
