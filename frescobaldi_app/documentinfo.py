@@ -27,14 +27,13 @@ import itertools
 import os
 import re
 
-from PyQt4.QtCore import QUrl
+from PyQt4.QtCore import QSettings, QUrl
 
 import ly.tokenize.lilypond
 import app
 import tokeniter
 import util
 import variables
-import document as document_
 
 
 def mode(document, guess=True):
@@ -55,6 +54,19 @@ def mode(document, guess=True):
     if guess:
         return ly.tokenize.guessMode(document.toPlainText())
     
+
+def textmode(text, guess=True):
+    """Returns the type of the given text ('lilypond, 'html', etc.).
+    
+    Checks the mode variable and guesses otherwise if guess is True.
+    
+    """
+    mode = variables.variables(text).get("mode")
+    if mode in ly.tokenize.modes:
+        return mode
+    if guess:
+        return ly.tokenize.guessMode(text)
+
 
 def tokens(document):
     """Iterates over all the tokens in a document, parsing if the document has not yet materialized."""
@@ -96,6 +108,21 @@ def version(document):
             return tuple(map(int, m.group(1).split('.')))
 
 
+def master(document):
+    """Returns the master filename for the document, if it exists."""
+    filename = document.url().toLocalFile()
+    redir = variables.get(document, "master")
+    if filename and redir:
+        path = os.path.normpath(os.path.join(os.path.dirname(filename), redir))
+        if os.path.exists(path) and path != filename:
+            return path
+
+
+def includepath(document):
+    """Returns the configured include path. Currently the document does not matter."""
+    return QSettings().value("lilypond_settings/include_path", []) or []
+    
+
 def jobinfo(document, create=False):
     """Returns a three tuple(filename, mode, includepath) based on the given document.
     
@@ -113,62 +140,43 @@ def jobinfo(document, create=False):
     
     """
     # Determine the filename to run the engraving job on
-    filename = document.url().toLocalFile()
-    redir = variables.get(document, "master")
-    mode_ = mode(document)
-    
     includepath = []
+    filename = master(document)
+    if filename:
+        with open(filename) as f:
+            text = util.decode(f.read())
+        mode_ = textmode(text)
+    else:
+        filename = document.url().toLocalFile()
+        mode_ = mode(document)
     
-    if filename and redir:
-        # We have a local filename and the document wants another one as master,
-        # find the mode of the other file. If it is loaded in a different document,
-        # getting the mode is easy. Otherwise just read part of the file.
-        url = document.url().resolved(QUrl(redir))
-        filename = url.toLocalFile()
-        d = app.findDocument(url)
-        if d:
-            mode_ = mode(d)
-        elif os.path.exists(filename):
-            with open(filename) as f:
-                text = util.decode(f.read())
-            mode_ = variables.variables(text).get("mode")
-            if mode_ not in ly.tokenize.modes:
-                mode_ = ly.tokenize.guessMode(text)
-
-    elif not filename or document.isModified():
-        # We need to use a scratchdir to save our contents to
-        import scratchdir
-        scratch = scratchdir.scratchdir(document)
-        if create:
-            scratch.saveDocument()
-            if filename:
-                for token in tokens(document):
-                    if isinstance(token, ly.tokenize.lilypond.Keyword) and token == "\\include":
-                        includepath.append(os.path.dirname(filename))
-                        break
-            filename = scratch.path()
-        elif scratch.path() and os.path.exists(scratch.path()):
-            filename = scratch.path()
+        if not filename or document.isModified():
+            # We need to use a scratchdir to save our contents to
+            import scratchdir
+            scratch = scratchdir.scratchdir(document)
+            if create:
+                scratch.saveDocument()
+                if filename:
+                    for token in tokens(document):
+                        if isinstance(token, ly.tokenize.lilypond.Keyword) and token == "\\include":
+                            includepath.append(os.path.dirname(filename))
+                            break
+                filename = scratch.path()
+            elif scratch.path() and os.path.exists(scratch.path()):
+                filename = scratch.path()
     
     return filename, mode_, includepath
     
 
-def includefiles(document, includepath=None):
+def includefiles(document):
     """Returns a set of filenames that are included by the given document.
     
     The document's own filename is also added to the set.
-    
-    If a path is given, it must be a list of directories that are searched
-    for files to be included.
+    The configured include path is used to find files.
     
     """
     files = set()
-    
-    if includepath is None:
-        includepath = []
-    filename = document.url().toLocalFile()
-    redir = variables.get(document, "master")
-    basedir = None
+    ipath = includepath(document)
     
     def find(source, directory=None):
         if directory is None:
@@ -180,7 +188,7 @@ def includefiles(document, includepath=None):
             # new, recursive, relative include
             directory and find_file(os.path.normpath(os.path.join(directory, name)))
             # if path is given, also search there:
-            for p in includepath:
+            for p in ipath:
                 find_file(os.path.normpath(os.path.join(p, name)))
             
         for token in source:
@@ -197,44 +205,49 @@ def includefiles(document, includepath=None):
             files.add(filename)
             with open(filename) as f:
                 text = util.decode(f.read())
-            mode = variables.variables(text).get("mode")
-            if mode not in ly.tokenize.modes:
-                mode = ly.tokenize.guessMode(text)
-            find(ly.tokenize.state(mode).tokens(text), os.path.dirname(filename))
+            find(ly.tokenize.state(textmode(text)).tokens(text), os.path.dirname(filename))
     
+    basedir = None
+    filename = master(document)
     if filename:
-        basedir = os.path.dirname(filename)
-        if redir:
-            path = os.path.normpath(os.path.join(basedir, redir))
-            if os.path.exists(path):
-                filename = path
-                basedir = os.path.dirname(filename)
-                files.add(filename)
-                find_file(filename)
-                return files
-        files.add(filename)
-    find(tokens(document), basedir)
+        find_file(filename)
+    else:
+        filename = document.url().toLocalFile()
+        if filename:
+            files.add(filename)
+            basedir = os.path.dirname(filename)
+        find(tokens(document), basedir)
     return files
 
 
 def basenames(document):
-    """Returns a list of basenames that a document is expected to create.
+    """Returns a set of basenames that a document is expected to create.
     
     The list is created based on include files and the define-output-suffix and
     \bookOutputName and \bookOutputSuffix commands.
     You should add '.ext' and/or '-[0-9]+.ext' to find created files.
     
     """
-    filename, mode, ipath = jobinfo(document)
-    dirname, basename = os.path.split(filename)
     basenames = set()
+    filename, mode = jobinfo(document)[:2]
+    basepath = os.path.splitext(filename)[0]
+    dirname, basename = os.path.split(basepath)
+    
     if mode == "lilypond":
-        basename = os.path.splitext(basename)[0]
-        basenames.add(os.path.join(dirname, basename))
-        for filename in includefiles(filename, ipath):
-            with open(filename) as f:
-                text = util.decode(f.read())
-            source = ly.tokenize.guessState(text).tokens(text)
+        includes = includefiles(document)
+        if basepath:
+            basenames.add(basepath)
+            
+        def sources():
+            if not master(document):
+                includes.discard(document.url().toLocalFile())
+                yield tokens(document)
+            for filename in includes:
+                with open(filename) as f:
+                    text = util.decode(f.read())
+                yield ly.tokenize.state(textmode(text)).tokens(text)
+
+        for source in sources():
             for token in source:
                 found = None
                 if isinstance(token, ly.tokenize.lilypond.Command):
@@ -252,9 +265,21 @@ def basenames(document):
                             break
                     if token == '"':
                         f = ''.join(itertools.takewhile(lambda t: t != '"', source))
-                    if found == "suffix":
-                        f = basename + '-' + f
-                    basenames.add(os.path.normpath(os.path.join(dirname, f)))
+                        if found == "suffix":
+                            f = basename + '-' + f
+                        basenames.add(os.path.normpath(os.path.join(dirname, f)))
+    
+    elif mode == "html":
+        pass
+    
+    elif mode == "texinfo":
+        pass
+    
+    elif mode == "latex":
+        pass
+    
+    elif mode == "docbook":
+        pass
     
     return basenames
 
