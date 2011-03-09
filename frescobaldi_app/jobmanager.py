@@ -59,12 +59,12 @@ class JobManager(plugin.DocumentPlugin):
             self._job = job
             job.done.connect(self._finished)
             job.start()
-            app.jobStarted(self.document(), job)
             self.stateChanged()
+            app.jobStarted(self.document(), job)
         
     def _finished(self, success):
-        app.jobFinished(self.document(), self._job, success)
         self.stateChanged()
+        app.jobFinished(self.document(), self._job, success)
     
     def job(self):
         """Returns the last job if any."""

@@ -44,7 +44,7 @@ def info(document):
     if s.value("autoversion", True) in (True, "true"):
         # Determine version set in document
         infos.sort(key=lambda i: i.version)
-        version = documentinfo.version(document)
+        version = documentinfo.info(document).version()
         if version:
             for i in infos:
                 if i.version >= version:
@@ -63,7 +63,7 @@ def info(document):
 
 def defaultJob(document, preview):
     """Returns a default job for the document."""
-    filename, mode, includepath = documentinfo.jobinfo(document, True)
+    filename, mode, includepath = documentinfo.info(document).jobinfo(True)
     i = info(document)
     j = job.Job()
     
