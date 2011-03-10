@@ -93,7 +93,53 @@ def includeargsinfile(filename):
         result = cache[filename] = list(includeargs(ly.tokenize.state(textmode(text)).tokens(text)))
         return result
         
-        
+
+def outputargs(tokens):
+    """Yields the arguments of \\bookOutputName, \\bookOutputSuffix and define output-suffix commands.
+    
+    Every argument is a two tuple(type, argument) where type is either "suffix" or "name".
+    
+    """
+    for token in tokens:
+        found = None
+        if isinstance(token, ly.tokenize.lilypond.Command):
+            if token == "\\bookOutputName":
+                found = "name"
+            elif token == "\\bookOutputSuffix":
+                found = "suffix"
+        elif isinstance(token, ly.tokenize.scheme.Word) and token == "output-suffix":
+            found = "suffix"
+        if found:
+            for token in tokens:
+                if not isinstance(token, (ly.tokenize.lilypond.SchemeStart,
+                                          ly.tokenize.Space,
+                                          ly.tokenize.Comment)):
+                    break
+            if token == '"':
+                yield found, ''.join(itertools.takewhile(lambda t: t != '"', tokens))
+
+
+def outputargsinfile(filename):
+    """Returns the list of arguments of \\bookOutputName, \\bookOutputSuffix etc. commands.
+    
+    See outputargs(). The return value is cached until the mtime of the file changes.
+    
+    """
+    global _output_args_cache
+    try:
+        cache = _output_args_cache
+    except NameError:
+        import filecache
+        cache = _output_args_cache = filecache.FileCache()
+    try:
+        return cache[filename]
+    except KeyError:
+        with open(filename) as f:
+            text = util.decode(f.read())
+        result = cache[filename] = list(outputargs(ly.tokenize.state(textmode(text)).tokens(text)))
+        return result
+
+
 def resetoncontentschanged(func):
     """Caches a value until the document emits the contentsChanged signal.
     
@@ -290,10 +336,15 @@ class DocumentInfo(plugin.DocumentPlugin):
             find(incl_args, basedir)
         return files
 
+    @resetoncontentschanged
+    def outputargs(self):
+        """Returns a list of output arguments (see outputargs() in this module) in our document."""
+        return list(outputargs(self.tokens()))
+        
     def basenames(self):
         """Returns a set of basenames that a document is expected to create.
         
-        The list is created based on include files and the define-output-suffix and
+        The list is created based on include files and the define output-suffix and
         \bookOutputName and \bookOutputSuffix commands.
         You should add '.ext' and/or '-[0-9]+.ext' to find created files.
         
@@ -308,36 +359,17 @@ class DocumentInfo(plugin.DocumentPlugin):
             if basepath:
                 basenames.add(basepath)
                 
-            def sources():
+            def args():
                 if not self.master():
                     includes.discard(self.document().url().toLocalFile())
-                    yield self.tokens()
+                    yield self.outputargs()
                 for filename in includes:
-                    with open(filename) as f:
-                        text = util.decode(f.read())
-                    yield ly.tokenize.state(textmode(text)).tokens(text)
-
-            for source in sources():
-                for token in source:
-                    found = None
-                    if isinstance(token, ly.tokenize.lilypond.Command):
-                        if token == "\\bookOutputName":
-                            found = "name"
-                        elif token == "\\bookOutputSuffix":
-                            found = "suffix"
-                    elif isinstance(token, ly.tokenize.scheme.Word) and token == "output-suffix":
-                        found = "suffix"
-                    if found:
-                        for token in source:
-                            if not isinstance(token, (ly.tokenize.lilypond.SchemeStart,
-                                                      ly.tokenize.Space,
-                                                      ly.tokenize.Comment)):
-                                break
-                        if token == '"':
-                            f = ''.join(itertools.takewhile(lambda t: t != '"', source))
-                            if found == "suffix":
-                                f = basename + '-' + f
-                            basenames.add(os.path.normpath(os.path.join(dirname, f)))
+                    yield outputargsinfile(filename)
+                        
+            for type, arg in itertools.chain.from_iterable(args()):
+                if type == "suffix":
+                    arg = basename + '-' + arg
+                basenames.add(os.path.normpath(os.path.join(dirname, arg)))
         
         elif mode == "html":
             pass
