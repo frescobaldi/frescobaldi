@@ -62,6 +62,16 @@ def textmode(text, guess=True):
         return ly.tokenize.guessMode(text)
 
 
+def includeargs(tokens):
+    """Yields the arguments of \\include commands in the token stream."""
+    for token in tokens:
+        if isinstance(token, ly.tokenize.lilypond.Keyword) and token == "\\include":
+            for token in tokens:
+                if not isinstance(token, (ly.tokenize.Space, ly.tokenize.Comment)):
+                    break
+            if token == '"':
+                yield ''.join(itertools.takewhile(lambda t: t != '"', tokens))
+
 
 def resetoncontentschanged(func):
     """Caches a value until the document emits the contentsChanged signal.
@@ -151,13 +161,6 @@ class DocumentInfo(plugin.DocumentPlugin):
             if m:
                 return tuple(map(int, m.group(1).split('.')))
     
-    @resetoncontentschanged
-    def hasinclude(self):
-        """Returns True if the document contains an \\include command."""
-        for token in self.tokens():
-            if isinstance(token, ly.tokenize.lilypond.Keyword) and token == "\\include":
-                return True
-        
     def master(self):
         """Returns the master filename for the document, if it exists."""
         filename = self.document().url().toLocalFile()
@@ -211,7 +214,19 @@ class DocumentInfo(plugin.DocumentPlugin):
                     filename = scratch.path()
         
         return filename, mode_, includepath
+    
+    @resetoncontentschanged
+    def hasinclude(self):
+        """Returns True if the document contains an \\include command."""
+        for token in self.tokens():
+            if isinstance(token, ly.tokenize.lilypond.Keyword) and token == "\\include":
+                return True
         
+    @resetoncontentschanged
+    def includeargs(self):
+        """Returns a list of \\include arguments in our document."""
+        return includeargs(self.tokens())
+
     def includefiles(self):
         """Returns a set of filenames that are included by the given document.
         
