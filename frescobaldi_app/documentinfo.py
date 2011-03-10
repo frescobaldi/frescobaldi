@@ -34,10 +34,16 @@ from PyQt4.QtCore import QSettings, QUrl
 import ly.tokenize.lilypond
 import ly.parse
 import app
+import filecache
 import tokeniter
 import util
 import plugin
 import variables
+
+
+_include_args_cache = filecache.FileCache()
+_output_args_cache = filecache.FileCache()
+_mode_cache = filecache.FileCache()
 
 
 def info(document):
@@ -63,6 +69,25 @@ def textmode(text, guess=True):
         return ly.tokenize.guessMode(text)
 
 
+def filemode(filename):
+    """Returns the type of the text in the given filename."""
+    global _mode_cache
+    try:
+        return _mode_cache[filename]
+    except KeyError:
+        with open(filename) as f:
+            text = util.decode(f.read())
+        mode = _mode_cache[filename] = textmode(text)
+        return mode
+
+
+def tokensfromfile(filename):
+    """Returns a token stream from the given filename."""
+    with open(filename) as f:
+        text = util.decode(f.read())
+    return ly.tokenize.state(textmode(text)).tokens(text)
+
+
 def includeargsinfile(filename):
     """Returns the list of arguments of \\include commands in the given file.
     
@@ -71,17 +96,9 @@ def includeargsinfile(filename):
     """
     global _include_args_cache
     try:
-        cache = _include_args_cache
-    except NameError:
-        import filecache
-        cache = _include_args_cache = filecache.FileCache()
-    try:
-        return cache[filename]
+        return _include_args_cache[filename]
     except KeyError:
-        with open(filename) as f:
-            text = util.decode(f.read())
-        result = cache[filename] = list(ly.parse.includeargs(
-            ly.tokenize.state(textmode(text)).tokens(text)))
+        result = _include_args_cache[filename] = list(ly.parse.includeargs(tokensfromfile(filename)))
         return result
         
 
@@ -93,17 +110,9 @@ def outputargsinfile(filename):
     """
     global _output_args_cache
     try:
-        cache = _output_args_cache
-    except NameError:
-        import filecache
-        cache = _output_args_cache = filecache.FileCache()
-    try:
-        return cache[filename]
+        return _output_args_cache[filename]
     except KeyError:
-        with open(filename) as f:
-            text = util.decode(f.read())
-        result = cache[filename] = list(ly.parse.outputargs(
-            ly.tokenize.state(textmode(text)).tokens(text)))
+        result = _output_args_cache[filename] = list(ly.parse.outputargs(tokensfromfile(filename)))
         return result
 
 
@@ -221,9 +230,7 @@ class DocumentInfo(plugin.DocumentPlugin):
         includepath = []
         filename = self.master()
         if filename:
-            with open(filename) as f:
-                text = util.decode(f.read())
-            mode_ = textmode(text)
+            mode_ = filemode(filename)
         else:
             filename = self.document().url().toLocalFile()
             mode_ = self.mode()
