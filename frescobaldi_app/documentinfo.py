@@ -71,7 +71,6 @@ def textmode(text, guess=True):
 
 def filemode(filename):
     """Returns the type of the text in the given filename."""
-    global _mode_cache
     try:
         return _mode_cache[filename]
     except KeyError:
@@ -94,7 +93,6 @@ def includeargsinfile(filename):
     The return value is cached until the mtime of the file changes.
     
     """
-    global _include_args_cache
     try:
         return _include_args_cache[filename]
     except KeyError:
@@ -108,7 +106,6 @@ def outputargsinfile(filename):
     See outputargs(). The return value is cached until the mtime of the file changes.
     
     """
-    global _output_args_cache
     try:
         return _output_args_cache[filename]
     except KeyError:
