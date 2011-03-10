@@ -31,19 +31,16 @@ import weakref
 
 from PyQt4.QtCore import QSettings, QUrl
 
-import ly.tokenize.lilypond
+import ly.tokenize
 import ly.parse
 import app
-import filecache
+import fileinfo
 import tokeniter
-import util
 import plugin
 import variables
 
 
-_include_args_cache = filecache.FileCache()
-_output_args_cache = filecache.FileCache()
-_mode_cache = filecache.FileCache()
+__all__ = ['info', 'mode']
 
 
 def info(document):
@@ -56,63 +53,6 @@ def mode(document, guess=True):
     return info(document).mode(guess)
 
 
-def textmode(text, guess=True):
-    """Returns the type of the given text ('lilypond, 'html', etc.).
-    
-    Checks the mode variable and guesses otherwise if guess is True.
-    
-    """
-    mode = variables.variables(text).get("mode")
-    if mode in ly.tokenize.modes:
-        return mode
-    if guess:
-        return ly.tokenize.guessMode(text)
-
-
-def filemode(filename):
-    """Returns the type of the text in the given filename."""
-    try:
-        return _mode_cache[filename]
-    except KeyError:
-        with open(filename) as f:
-            text = util.decode(f.read())
-        mode = _mode_cache[filename] = textmode(text)
-        return mode
-
-
-def tokensfromfile(filename):
-    """Returns a token stream from the given filename."""
-    with open(filename) as f:
-        text = util.decode(f.read())
-    return ly.tokenize.state(textmode(text)).tokens(text)
-
-
-def includeargsinfile(filename):
-    """Returns the list of arguments of \\include commands in the given file.
-    
-    The return value is cached until the mtime of the file changes.
-    
-    """
-    try:
-        return _include_args_cache[filename]
-    except KeyError:
-        result = _include_args_cache[filename] = list(ly.parse.includeargs(tokensfromfile(filename)))
-        return result
-        
-
-def outputargsinfile(filename):
-    """Returns the list of arguments of \\bookOutputName, \\bookOutputSuffix etc. commands.
-    
-    See outputargs(). The return value is cached until the mtime of the file changes.
-    
-    """
-    try:
-        return _output_args_cache[filename]
-    except KeyError:
-        result = _output_args_cache[filename] = list(ly.parse.outputargs(tokensfromfile(filename)))
-        return result
-
-
 def resetoncontentschanged(func):
     """Caches a value until the document emits the contentsChanged signal.
     
@@ -121,7 +61,7 @@ def resetoncontentschanged(func):
     """
     _cache = weakref.WeakKeyDictionary()
     @functools.wraps(func)
-    def f(self):
+    def wrapper(self):
         try:
             return _cache[self]
         except KeyError:
@@ -133,11 +73,11 @@ def resetoncontentschanged(func):
             result = _cache[self] = func(self)
             self.document().contentsChanged.connect(reset)
             return result
-    return f
+    return wrapper
 
 
 class DocumentInfo(plugin.DocumentPlugin):
-    """Computes and caches (sometimes) information about a Document."""
+    """Computes and caches various information about a Document."""
     def mode(self, guess=True):
         """Returns the type of document ('lilypond, 'html', etc.).
         
@@ -223,7 +163,7 @@ class DocumentInfo(plugin.DocumentPlugin):
         includepath = []
         filename = self.master()
         if filename:
-            mode_ = filemode(filename)
+            mode_ = fileinfo.mode(filename)
         else:
             filename = self.document().url().toLocalFile()
             mode_ = self.mode()
@@ -234,7 +174,7 @@ class DocumentInfo(plugin.DocumentPlugin):
                 scratch = scratchdir.scratchdir(self.document())
                 if create:
                     scratch.saveDocument()
-                    if filename and self.hasinclude():
+                    if filename and self.includeargs():
                         includepath.append(os.path.dirname(filename))
                     filename = scratch.path()
                 elif scratch.path() and os.path.exists(scratch.path()):
@@ -243,15 +183,12 @@ class DocumentInfo(plugin.DocumentPlugin):
         return filename, mode_, includepath
     
     @resetoncontentschanged
-    def hasinclude(self):
-        """Returns True if the document contains an \\include command."""
-        for token in self.tokens():
-            if isinstance(token, ly.tokenize.lilypond.Keyword) and token == "\\include":
-                return True
-        
-    @resetoncontentschanged
     def includeargs(self):
-        """Returns a list of \\include arguments in our document."""
+        """Returns a list of \\include arguments in our document.
+        
+        See ly.parse.includeargs().
+        
+        """
         return list(ly.parse.includeargs(self.tokens()))
 
     def includefiles(self):
@@ -273,7 +210,7 @@ class DocumentInfo(plugin.DocumentPlugin):
             path = os.path.join(directory, arg)
             if os.path.exists(path) and path not in files:
                 files.add(path)
-                args = includeargsinfile(path)
+                args = fileinfo.includeargs(path)
                 find(args, os.path.dirname(path))
                 return True
                 
@@ -290,7 +227,7 @@ class DocumentInfo(plugin.DocumentPlugin):
                     
         filename = self.master()
         if filename:
-            incl_args = includeargsinfile(filename)
+            incl_args = fileinfo.includeargs(filename)
         else:
             filename = self.document().url().toLocalFile()
             if filename:
@@ -303,11 +240,15 @@ class DocumentInfo(plugin.DocumentPlugin):
 
     @resetoncontentschanged
     def outputargs(self):
-        """Returns a list of output arguments (see outputargs() in this module) in our document."""
+        """Returns a list of output arguments in our document.
+        
+        See ly.parse.outputargs().
+        
+        """
         return list(ly.parse.outputargs(self.tokens()))
         
     def basenames(self):
-        """Returns a set of basenames that a document is expected to create.
+        """Returns a set of basenames that our document is expected to create.
         
         The list is created based on include files and the define output-suffix and
         \bookOutputName and \bookOutputSuffix commands.
@@ -329,7 +270,7 @@ class DocumentInfo(plugin.DocumentPlugin):
                     includes.discard(self.document().url().toLocalFile())
                     yield self.outputargs()
                 for filename in includes:
-                    yield outputargsinfile(filename)
+                    yield fileinfo.outputargs(filename)
                         
             for type, arg in itertools.chain.from_iterable(args()):
                 if type == "suffix":
