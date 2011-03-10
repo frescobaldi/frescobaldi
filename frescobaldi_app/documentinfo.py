@@ -138,10 +138,6 @@ def resetoncontentschanged(func):
 
 class DocumentInfo(plugin.DocumentPlugin):
     """Computes and caches (sometimes) information about a Document."""
-    
-    def __init__(self, document):
-        pass
-    
     def mode(self, guess=True):
         """Returns the type of document ('lilypond, 'html', etc.).
         

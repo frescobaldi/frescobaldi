@@ -29,6 +29,23 @@ _instances = weakref.WeakKeyDictionary()
 
 
 class Plugin(object):
+    """Base class for plugins.
+    
+    A Plugin is coupled to another object and is automatically garbage collected
+    as soon as the other object disappears.
+    
+    Use the instance() class method to get/create one for an object.
+    
+    Implement the __init__() method if you want to do some setup.
+    This method then needs to accept the arguments you give to the instance()
+    class method.
+    
+    The instances() class method returns all living instances of this plugin type.
+    
+    """
+    def __init__(self, *args, **kwargs):
+        pass
+    
     @classmethod
     def instance(cls, obj, *args, **kwargs):
         """Returns the instance of this plugin type for this object.
@@ -55,16 +72,19 @@ class Plugin(object):
 
 
 class DocumentPlugin(Plugin):
+    """Base class for plugins that live besides a Document."""
     def document(self):
         return self._parent()
 
 
 class MainWindowPlugin(Plugin):
+    """Base class for plugins that live besides a MainWindow."""
     def mainwindow(self):
         return self._parent()
 
 
 class ViewSpacePlugin(Plugin):
+    """Base class for plugins that live besides a ViewSpace."""
     def viewSpace(self):
         return self._parent()
 
