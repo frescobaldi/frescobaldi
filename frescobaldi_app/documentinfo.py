@@ -24,6 +24,7 @@ Delivers information about a document.
 """
 
 import itertools
+import functools
 import os
 import re
 import weakref
@@ -69,6 +70,7 @@ def resetoncontentschanged(func):
     
     """
     _cache = weakref.WeakKeyDictionary()
+    @functools.wraps(func)
     def f(self):
         try:
             return _cache[self]
@@ -123,6 +125,8 @@ class DocumentInfo(plugin.DocumentPlugin):
         Then it looks at the 'version' document variable.
         Then, if the document is not a LilyPond document, it simply searches for a
         \\version command string, possibly embedded in a comment.
+        
+        The version is cached until the documents contents change.
         
         """
         source = self.tokens()
