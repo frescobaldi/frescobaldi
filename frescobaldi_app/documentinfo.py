@@ -73,6 +73,27 @@ def includeargs(tokens):
                 yield ''.join(itertools.takewhile(lambda t: t != '"', tokens))
 
 
+def includeargsinfile(filename):
+    """Returns the list of arguments of \\include commands in the given file.
+    
+    The return value is cached until the mtime of the file changes.
+    
+    """
+    global _include_args_cache
+    try:
+        cache = _include_args_cache
+    except NameError:
+        import filecache
+        cache = _include_args_cache = filecache.FileCache()
+    try:
+        return cache[filename]
+    except KeyError:
+        with open(filename) as f:
+            text = util.decode(f.read())
+        result = cache[filename] = list(includeargs(ly.tokenize.state(textmode(text)).tokens(text)))
+        return result
+        
+        
 def resetoncontentschanged(func):
     """Caches a value until the document emits the contentsChanged signal.
     
