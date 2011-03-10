@@ -24,7 +24,48 @@ Finds out which files are created by running the engraver.
 """
 
 
+import app
 import documentinfo
+import jobmanager
+import plugin
+
+
+def results(document):
+    return Results.instance(document)
+
+
+# Set the basenames of the resulting documents to expect when a job starts
+@app.jobStarted.connect
+def _init_basenames(document):
+    results(document).setBasenames(documentinfo.info(document).basenames())
+    
+
+
+class Results(plugin.DocumentPlugin):
+    """Can be queried to get the files created by running the engraver (LilyPond) on our document."""
+    def __init__(self, document):
+        self._basenames = None
+        document.saved.connect(self.documentSaved)
+        
+    def documentSaved(self):
+        """Called when the user saves a Document.
+        
+        'Forgets' the basenames if set, but only if no job is currently running.
+        
+        """
+        if not jobmanager.isRunning(self.document()):
+            self._basenames = None
+            
+    def basenames(self):
+        """Returns the list of basenames the last or running Job is expected to create."""
+        if self._basenames is None:
+            return documentinfo.info(self.document()).basenames()
+        return self._basenames
+    
+    def setBasenames(self, basenames):
+        """Sets our basenames. Esp. used when a job starts."""
+        self._basenames = basenames
+
 
 
 
