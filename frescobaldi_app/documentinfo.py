@@ -225,7 +225,7 @@ class DocumentInfo(plugin.DocumentPlugin):
     @resetoncontentschanged
     def includeargs(self):
         """Returns a list of \\include arguments in our document."""
-        return includeargs(self.tokens())
+        return list(includeargs(self.tokens()))
 
     def includefiles(self):
         """Returns a set of filenames that are included by the given document.
