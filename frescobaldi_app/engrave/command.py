@@ -64,6 +64,7 @@ def info(document):
 def defaultJob(document, preview):
     """Returns a default job for the document."""
     filename, mode, includepath = documentinfo.info(document).jobinfo(True)
+    includepath.extend(documentinfo.info(document).includepath())
     i = info(document)
     j = job.Job()
     

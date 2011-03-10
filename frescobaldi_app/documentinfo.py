@@ -258,45 +258,36 @@ class DocumentInfo(plugin.DocumentPlugin):
         files = set()
         ipath = self.includepath()
         
-        def find(source, directory=None):
-            if directory is None:
-                directory = basedir
-            
-            def tryfile(name):
-                # old include (relative to master file)
-                basedir and find_file(os.path.normpath(os.path.join(basedir, name)))
-                # new, recursive, relative include
-                directory and find_file(os.path.normpath(os.path.join(directory, name)))
-                # if path is given, also search there:
-                for p in ipath:
-                    find_file(os.path.normpath(os.path.join(p, name)))
+        def tryarg(directory, arg):
+            path = os.path.join(directory, arg)
+            if os.path.exists(path) and path not in files:
+                files.add(path)
+                args = includeargsinfile(path)
+                find(args, os.path.dirname(path))
+                return True
                 
-            for token in source:
-                if isinstance(token, ly.tokenize.lilypond.Keyword) and token == "\\include":
-                    for token in source:
-                        if not isinstance(token, (ly.tokenize.Space, ly.tokenize.Comment)):
-                            break
-                    if token == '"':
-                        f = ''.join(itertools.takewhile(lambda t: t != '"', source))
-                        tryfile(f)
-        
-        def find_file(filename):
-            if os.path.exists(filename) and filename not in files:
-                files.add(filename)
-                with open(filename) as f:
-                    text = util.decode(f.read())
-                find(ly.tokenize.state(textmode(text)).tokens(text), os.path.dirname(filename))
-        
-        basedir = None
+        def find(incl_args, directory):
+            for arg in incl_args:
+                # new, recursive, relative include
+                if not (directory and tryarg(directory, arg)):
+                    # old include (relative to master file)
+                    if not (basedir and tryarg(basedir, arg)):
+                        # if path is given, also search there:
+                        for p in ipath:
+                            if tryarg(p, arg):
+                                break
+                    
         filename = self.master()
         if filename:
-            find_file(filename)
+            incl_args = includeargsinfile(filename)
         else:
             filename = self.document().url().toLocalFile()
             if filename:
-                files.add(filename)
-                basedir = os.path.dirname(filename)
-            find(self.tokens(), basedir)
+                incl_args = self.includeargs()
+        if filename:
+            files.add(filename)
+            basedir = os.path.dirname(filename)
+            find(incl_args, basedir)
         return files
 
     def basenames(self):
