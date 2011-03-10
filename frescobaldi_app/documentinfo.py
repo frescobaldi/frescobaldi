@@ -32,6 +32,7 @@ import weakref
 from PyQt4.QtCore import QSettings, QUrl
 
 import ly.tokenize.lilypond
+import ly.parse
 import app
 import tokeniter
 import util
@@ -62,17 +63,6 @@ def textmode(text, guess=True):
         return ly.tokenize.guessMode(text)
 
 
-def includeargs(tokens):
-    """Yields the arguments of \\include commands in the token stream."""
-    for token in tokens:
-        if isinstance(token, ly.tokenize.lilypond.Keyword) and token == "\\include":
-            for token in tokens:
-                if not isinstance(token, (ly.tokenize.Space, ly.tokenize.Comment)):
-                    break
-            if token == '"':
-                yield ''.join(itertools.takewhile(lambda t: t != '"', tokens))
-
-
 def includeargsinfile(filename):
     """Returns the list of arguments of \\include commands in the given file.
     
@@ -90,34 +80,10 @@ def includeargsinfile(filename):
     except KeyError:
         with open(filename) as f:
             text = util.decode(f.read())
-        result = cache[filename] = list(includeargs(ly.tokenize.state(textmode(text)).tokens(text)))
+        result = cache[filename] = list(ly.parse.includeargs(
+            ly.tokenize.state(textmode(text)).tokens(text)))
         return result
         
-
-def outputargs(tokens):
-    """Yields the arguments of \\bookOutputName, \\bookOutputSuffix and define output-suffix commands.
-    
-    Every argument is a two tuple(type, argument) where type is either "suffix" or "name".
-    
-    """
-    for token in tokens:
-        found = None
-        if isinstance(token, ly.tokenize.lilypond.Command):
-            if token == "\\bookOutputName":
-                found = "name"
-            elif token == "\\bookOutputSuffix":
-                found = "suffix"
-        elif isinstance(token, ly.tokenize.scheme.Word) and token == "output-suffix":
-            found = "suffix"
-        if found:
-            for token in tokens:
-                if not isinstance(token, (ly.tokenize.lilypond.SchemeStart,
-                                          ly.tokenize.Space,
-                                          ly.tokenize.Comment)):
-                    break
-            if token == '"':
-                yield found, ''.join(itertools.takewhile(lambda t: t != '"', tokens))
-
 
 def outputargsinfile(filename):
     """Returns the list of arguments of \\bookOutputName, \\bookOutputSuffix etc. commands.
@@ -136,7 +102,8 @@ def outputargsinfile(filename):
     except KeyError:
         with open(filename) as f:
             text = util.decode(f.read())
-        result = cache[filename] = list(outputargs(ly.tokenize.state(textmode(text)).tokens(text)))
+        result = cache[filename] = list(ly.parse.outputargs(
+            ly.tokenize.state(textmode(text)).tokens(text)))
         return result
 
 
@@ -206,27 +173,20 @@ class DocumentInfo(plugin.DocumentPlugin):
         The version is cached until the documents contents change.
         
         """
-        source = self.tokens()
-        for token in source:
-            if isinstance(token, ly.tokenize.lilypond.Keyword) and token == "\\version":
-                for token in source:
-                    if not isinstance(token, (ly.tokenize.Space, ly.tokenize.Comment)):
-                        break
-                if token == '"':
-                    pred = lambda t: t != '"'
-                else:
-                    pred = lambda t: not isinstance(t, ly.tokenize.Space, ly.tokenize.Comment)
-                version = ''.join(itertools.takewhile(pred, source))
-                return tuple(map(int, re.findall(r"\d+", version)))
+        mkver = lambda strings: tuple(map(int, strings))
+        
+        version = ly.parse.version(self.tokens())
+        if version:
+            return mkver(re.findall(r"\d+", version))
         # look at document variables
         version = variables.get(self.document(), "version")
         if version:
-            return tuple(map(int, re.findall(r"\d+", version)))
+            return mkver(re.findall(r"\d+", version))
         # parse whole document for non-lilypond documents
         if self.mode() != "lilypond":
             m = re.search(r'\\version\s*"(\d+\.\d+(\.\d+)*)"', self.document().toPlainText())
             if m:
-                return tuple(map(int, m.group(1).split('.')))
+                return mkver(m.group(1).split('.'))
     
     def master(self):
         """Returns the master filename for the document, if it exists."""
@@ -292,13 +252,18 @@ class DocumentInfo(plugin.DocumentPlugin):
     @resetoncontentschanged
     def includeargs(self):
         """Returns a list of \\include arguments in our document."""
-        return list(includeargs(self.tokens()))
+        return list(ly.parse.includeargs(self.tokens()))
 
     def includefiles(self):
         """Returns a set of filenames that are included by the given document.
         
         The document's own filename is also added to the set.
         The configured include path is used to find files.
+        Included files are checked recursively, relative to our (master) file,
+        relative to the including file, and if that still yields no file, relative
+        to the directories in the includepath().
+        
+        This method uses caching for both the document contents and the other files.
         
         """
         files = set()
@@ -339,7 +304,7 @@ class DocumentInfo(plugin.DocumentPlugin):
     @resetoncontentschanged
     def outputargs(self):
         """Returns a list of output arguments (see outputargs() in this module) in our document."""
-        return list(outputargs(self.tokens()))
+        return list(ly.parse.outputargs(self.tokens()))
         
     def basenames(self):
         """Returns a set of basenames that a document is expected to create.
