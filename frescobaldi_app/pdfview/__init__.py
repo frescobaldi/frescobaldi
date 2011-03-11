@@ -29,7 +29,9 @@ import weakref
 from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QKeySequence
 
+import app
 import panels
+import resultfiles
 
 
 class PDFViewPanel(panels.Panel):
@@ -39,6 +41,8 @@ class PDFViewPanel(panels.Panel):
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+P"))
         mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
         mainwindow.currentDocumentChanged.connect(self.slotDocumentChanged)
+        app.jobFinished.connect(self.setDocument)
+        self._previousDocument = lambda: None
         
     def translateUI(self):
         self.setWindowTitle(_("PDF Preview"))
@@ -48,20 +52,21 @@ class PDFViewPanel(panels.Panel):
         import widget
         return widget.PDFView(self)
 
-    def slotDocumentChanged(self, document, old):
-        if old:
-            old.loaded.disconnect(self.setDocument)
+    def slotDocumentChanged(self, document):
+        prev = self._previousDocument()
+        if prev:
+            prev.loaded.disconnect(self.setDocument)
         document.loaded.connect(self.setDocument)
+        self._previousDocument = weakref.ref(document)
         self.setDocument(document)
         
     def setDocument(self, document=None):
         if document is None:
             document = self.mainwindow().currentDocument()
         # TEMP!!
-        filename = document.url().toLocalFile()
-        basename, ext = os.path.splitext(filename)
-        pdf = basename + ".pdf"
-        if os.path.exists(pdf):
+        pdfs = resultfiles.results(document).files(".pdf")
+        if pdfs:
+            pdf = pdfs[0]
             self.show()
             self.widget().openPDF(pdf)
 

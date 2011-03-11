@@ -23,11 +23,15 @@ from __future__ import unicode_literals
 Finds out which files are created by running the engraver.
 """
 
+import itertools
+import glob
+import os
 
 import app
 import documentinfo
 import jobmanager
 import plugin
+import util
 
 
 def results(document):
@@ -84,5 +88,29 @@ class Results(plugin.DocumentPlugin):
         if self._basenames is None:
             return documentinfo.info(self.document()).basenames()
         return self._basenames
+
+    def files(self, extension = '*', newer = True):
+        """Returns a list of existing files matching our basenames and the given extension.
+        
+        First the files basename + extension are returned,
+        then basename + '-[0-9]+' + extension,
+        then basename + '-.+' + extension.
+        
+        If newer is True (the default), only files that are newer than the jobfile() are returned.
+        
+        """
+        jobfile = self.jobfile()
+        if jobfile:
+            basenames = self.basenames()
+            def source():
+                for name in basenames:
+                    yield glob.iglob(name + extension)
+                    yield sorted(glob.iglob(name + '-?*' + extension), key=util.naturalsort)
+            files = itertools.chain.from_iterable(source())
+            if newer:
+                mtime = os.path.getmtime(jobfile)
+                files = filter(lambda fname: os.path.getmtime(fname) >= mtime, files)
+            return list(files)
+        return []
 
 
