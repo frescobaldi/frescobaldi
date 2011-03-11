@@ -248,14 +248,14 @@ class DocumentInfo(plugin.DocumentPlugin):
         return list(ly.parse.outputargs(self.tokens()))
         
     def basenames(self):
-        """Returns a set of basenames that our document is expected to create.
+        """Returns a list of basenames that our document is expected to create.
         
         The list is created based on include files and the define output-suffix and
         \bookOutputName and \bookOutputSuffix commands.
         You should add '.ext' and/or '-[0-9]+.ext' to find created files.
         
         """
-        basenames = set()
+        basenames = []
         filename, mode = self.jobinfo()[:2]
         basepath = os.path.splitext(filename)[0]
         dirname, basename = os.path.split(basepath)
@@ -263,7 +263,7 @@ class DocumentInfo(plugin.DocumentPlugin):
         if mode == "lilypond":
             includes = self.includefiles()
             if basepath:
-                basenames.add(basepath)
+                basenames.append(basepath)
                 
             def args():
                 if not self.master():
@@ -275,7 +275,9 @@ class DocumentInfo(plugin.DocumentPlugin):
             for type, arg in itertools.chain.from_iterable(args()):
                 if type == "suffix":
                     arg = basename + '-' + arg
-                basenames.add(os.path.normpath(os.path.join(dirname, arg)))
+                path = os.path.normpath(os.path.join(dirname, arg))
+                if path not in basenames:
+                    basenames.append(path)
         
         elif mode == "html":
             pass
