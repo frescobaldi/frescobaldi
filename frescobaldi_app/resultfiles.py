@@ -37,35 +37,52 @@ def results(document):
 # Set the basenames of the resulting documents to expect when a job starts
 @app.jobStarted.connect
 def _init_basenames(document):
-    results(document).setBasenames(documentinfo.info(document).basenames())
+    results(document).saveDocumentInfo(documentinfo.info(document))
     
 
 
 class Results(plugin.DocumentPlugin):
     """Can be queried to get the files created by running the engraver (LilyPond) on our document."""
     def __init__(self, document):
+        self._jobfile = None
         self._basenames = None
-        document.saved.connect(self.documentSaved)
+        document.saved.connect(self.forgetDocumentInfo)
         
-    def documentSaved(self):
+    def saveDocumentInfo(self, info):
+        """Takes over some vital information from a DocumentInfo instance.
+        
+        The file a job is run on and the basenames expected to be created are saved.
+        When the user saves a Document after a Job has run, this information is 'forgotten' again.
+        
+        Otherwise the results of a Job would not be seen if the user starts a Job and then
+        saves the Document while the job is still running.  The Job uses the scratcharea if the
+        document was modified but saving it would result in DocumentInfo.jobinfo()[0] pointing
+        to the real document instead.
+        
+        """
+        self._jobfile = info.jobinfo()[0]
+        self._basenames = info.basenames()
+
+    def forgetDocumentInfo(self):
         """Called when the user saves a Document.
         
-        'Forgets' the basenames if set, but only if no job is currently running.
+        'Forgets' the basenames and job filename if set, but only if no job is currently running.
         
         """
         if not jobmanager.isRunning(self.document()):
+            self._jobfile = None
             self._basenames = None
             
+    def jobfile(self):
+        """Returns the file that is currently being, or will be, engraved."""
+        if self._jobfile is None:
+            return documentinfo.info(self.document()).jobinfo()[0]
+        return self._jobfile
+
     def basenames(self):
         """Returns the list of basenames the last or running Job is expected to create."""
         if self._basenames is None:
             return documentinfo.info(self.document()).basenames()
         return self._basenames
-    
-    def setBasenames(self, basenames):
-        """Sets our basenames. Esp. used when a job starts."""
-        self._basenames = basenames
-
-
 
 
