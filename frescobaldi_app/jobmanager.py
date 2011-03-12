@@ -42,7 +42,7 @@ def job(document):
 
 def isRunning(document):
     if job(document):
-        return job.document().isRunning()
+        return job(document).isRunning()
     return False
 
 
