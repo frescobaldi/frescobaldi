@@ -29,7 +29,7 @@ import os
 class FileCache(object):
     """Caches information about files, and checks the mtime upon request.
     
-    Has __setitem__, __getitem__ and clear methods like a dict.
+    Has __setitem__, __getitem__, __delitem__, clear etc. methods like a dict.
     
     """
     def __init__(self):
@@ -51,6 +51,25 @@ class FileCache(object):
         except (IOError, OSError):
             pass
     
+    def __delitem__(self, filename):
+        del self._cache[filename]
+        
+    def __contains__(self, filename):
+        try:
+            self[filename]
+            return True
+        except KeyError:
+            return False
+    
+    def filenames(self):
+        """Yields filenames that are still valid in the cache."""
+        for filename in list(self._cache):
+            try:
+                self[filename]
+                yield filename
+            except KeyError:
+                pass
+                
     def clear(self):
         self._cache.clear()
 
