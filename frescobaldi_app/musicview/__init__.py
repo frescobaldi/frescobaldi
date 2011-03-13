@@ -37,7 +37,7 @@ import resultfiles
 class MusicViewPanel(panels.Panel):
     def __init__(self, mainwindow):
         super(MusicViewPanel, self).__init__(mainwindow)
-        self.hide()
+        #self.hide()
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+M"))
         mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
         mainwindow.currentDocumentChanged.connect(self.slotDocumentChanged)
