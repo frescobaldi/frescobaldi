@@ -404,7 +404,36 @@ class MainWindow(QMainWindow):
     
     def saveCurrentDocumentAs(self):
         return self.saveDocumentAs(self.currentDocument())
-        
+    
+    def saveCopyAs(self):
+        import documentinfo
+        import fileinfo
+        import ly.tokenize
+        doc = self.currentDocument()
+        if not self.currentView().textCursor().hasSelection():
+            mode = documentinfo.mode(doc)
+            data = doc.encodedText()
+            caption = app.caption(_("Save Copy"))
+        else:
+            text = self.currentView().textCursor().selection().toPlainText()
+            mode = fileinfo.textmode(text)
+            data = util.encode(text)
+            caption = app.caption(_("Save Selection"))
+        filetypes = app.filetypes(ly.tokenize.extensions[mode])
+        dirname = os.path.dirname(doc.url().toLocalFile())
+        if not dirname:
+            conf = sessionmanager.currentSessionGroup() or QSettings()
+            dirname = conf.value("basedir", "") # default directory to save to
+        filename = QFileDialog.getSaveFileName(self, caption, dirname, filetypes)
+        if not filename:
+            return # cancelled
+        try:
+            with open(filename, "w") as f:
+                f.write(data)
+        except (IOError, OSError) as err:
+            QMessageBox.warning(self, app.caption(_("Error")),
+                _("Can't write to destination:\n\n{url}\n\n{error}").format(url=filename, error=err))
+    
     def closeCurrentDocument(self):
         return self.closeDocument(self.currentDocument())
     
@@ -643,6 +672,7 @@ class MainWindow(QMainWindow):
         ac.file_open_current_directory.triggered.connect(self.openCurrentDirectory)
         ac.file_save.triggered.connect(self.saveCurrentDocument)
         ac.file_save_as.triggered.connect(self.saveCurrentDocumentAs)
+        ac.file_save_copy_as.triggered.connect(self.saveCopyAs)
         ac.file_save_all.triggered.connect(self.saveAllDocuments)
         ac.file_print_source.triggered.connect(self.printSource)
         ac.file_close.triggered.connect(self.closeCurrentDocument)
@@ -719,6 +749,7 @@ class MainWindow(QMainWindow):
         m.addSeparator()
         m.addAction(ac.file_save)
         m.addAction(ac.file_save_as)
+        m.addAction(ac.file_save_copy_as)
         m.addSeparator()
         m.addAction(ac.file_save_all)
         m.addSeparator()
@@ -1108,6 +1139,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_open_current_directory = QAction(parent)
         self.file_save = QAction(parent)
         self.file_save_as = QAction(parent)
+        self.file_save_copy_as = QAction(parent)
         self.file_save_all = QAction(parent)
         self.file_print_source = QAction(parent)
         self.file_print_music = QAction(parent)
@@ -1167,6 +1199,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_open_current_directory.setIcon(icons.get('document-open-folder'))
         self.file_save.setIcon(icons.get('document-save'))
         self.file_save_as.setIcon(icons.get('document-save-as'))
+        self.file_save_copy_as.setIcon(icons.get('document-save-as'))
         self.file_save_all.setIcon(icons.get('document-save-all'))
         self.file_print_source.setIcon(icons.get('document-print'))
         self.file_print_music.setIcon(icons.get('document-print'))
@@ -1243,6 +1276,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_open_current_directory.setText(_("Open Current Directory"))
         self.file_save.setText(_("&Save"))
         self.file_save_as.setText(_("Save &As..."))
+        self.file_save_copy_as.setText(_("Save Copy or Selection As..."))
         self.file_save_all.setText(_("Save All"))
         self.file_print_music.setText(_("&Print Music..."))
         self.file_print_source.setText(_("Print Source..."))

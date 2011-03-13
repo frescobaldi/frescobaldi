@@ -88,3 +88,19 @@ def decode(data, encoding=None):
     return data.decode('utf-8', 'replace')
 
 
+def encode(text, default_encoding='utf-8'):
+    """Returns the bytes representing the text, encoded.
+    
+    Looks at the 'coding' variable to determine the encoding,
+    otherwise falls back to the given default encoding, defaulting to 'utf-8'.
+    
+    """
+    encoding = variables.variables(text).get("coding")
+    if encoding:
+        try:
+            return text.encode(encoding)
+        except (LookupError, UnicodeError):
+            pass
+    return text.encode(default_encoding)
+
+
