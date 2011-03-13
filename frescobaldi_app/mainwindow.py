@@ -367,12 +367,15 @@ class MainWindow(QMainWindow):
         
         """
         filename = doc.url().toLocalFile()
-        filetypes = app.filetypes(os.path.splitext(filename)[1])
-        caption = app.caption(_("Save File"))
-        filename = doc.url().toLocalFile()
-        if not filename:
+        if filename:
+            filetypes = app.filetypes(os.path.splitext(filename)[1])
+        else:
             conf = sessionmanager.currentSessionGroup() or QSettings()
             filename = conf.value("basedir", "") # default directory to save to
+            import documentinfo
+            import ly.tokenize
+            filetypes = app.filetypes(ly.tokenize.extensions[documentinfo.mode(doc)])
+        caption = app.caption(_("Save File"))
         filename = QFileDialog.getSaveFileName(self, caption, filename, filetypes)
         if not filename:
             return False # cancelled
@@ -406,15 +409,15 @@ class MainWindow(QMainWindow):
         return self.saveDocumentAs(self.currentDocument())
     
     def saveCopyAs(self):
-        import documentinfo
-        import fileinfo
         import ly.tokenize
         doc = self.currentDocument()
         if not self.currentView().textCursor().hasSelection():
+            import documentinfo
             mode = documentinfo.mode(doc)
             data = doc.encodedText()
             caption = app.caption(_("Save Copy"))
         else:
+            import fileinfo
             text = self.currentView().textCursor().selection().toPlainText()
             mode = fileinfo.textmode(text)
             data = util.encode(text)
