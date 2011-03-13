@@ -36,9 +36,9 @@ import icons
 import textformats
 
 
-class PDFView(QWidget):
+class MusicView(QWidget):
     def __init__(self, dockwidget):
-        super(PDFView, self).__init__(dockwidget)
+        super(MusicView, self).__init__(dockwidget)
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
