@@ -45,8 +45,8 @@ class PanelManager(plugin.MainWindowPlugin):
         # instantiate the panel stubs here
         import quickinsert
         self.quickinsert = quickinsert.QuickInsertPanel(mainwindow)
-        import pdfview
-        self.pdfview = pdfview.PDFViewPanel(mainwindow)
+        import musicview
+        self.musicview = musicview.MusicViewPanel(mainwindow)
         import logtool
         self.logtool = logtool.LogTool(mainwindow)
         
@@ -59,7 +59,7 @@ class PanelManager(plugin.MainWindowPlugin):
     def addActionsToMenu(self, menu):
         """Adds all toggleViewActions to the given menu."""
         menu.addAction(self.actionCollection.panel_quickinsert)
-        menu.addAction(self.actionCollection.panel_pdfview)
+        menu.addAction(self.actionCollection.panel_musicview)
         menu.addAction(self.actionCollection.panel_logtool)
 
 class Actions(actioncollection.ActionCollection):
@@ -69,7 +69,7 @@ class Actions(actioncollection.ActionCollection):
     def createActions(self, manager):
         # add the actions for the plugins
         self.panel_quickinsert = manager.quickinsert.toggleViewAction()
-        self.panel_pdfview = manager.pdfview.toggleViewAction()
+        self.panel_musicview = manager.musicview.toggleViewAction()
         self.panel_logtool = manager.logtool.toggleViewAction()
 
 

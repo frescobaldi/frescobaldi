@@ -34,19 +34,19 @@ import panels
 import resultfiles
 
 
-class PDFViewPanel(panels.Panel):
+class MusicViewPanel(panels.Panel):
     def __init__(self, mainwindow):
-        super(PDFViewPanel, self).__init__(mainwindow)
+        super(MusicViewPanel, self).__init__(mainwindow)
         self.hide()
-        self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+P"))
+        self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+M"))
         mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
         mainwindow.currentDocumentChanged.connect(self.slotDocumentChanged)
         app.jobFinished.connect(self.setDocument)
         self._previousDocument = lambda: None
         
     def translateUI(self):
-        self.setWindowTitle(_("PDF Preview"))
-        self.toggleViewAction().setText(_("&PDF Preview"))
+        self.setWindowTitle(_("Music View"))
+        self.toggleViewAction().setText(_("&Music View"))
     
     def createWidget(self):
         import widget
