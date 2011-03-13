@@ -24,7 +24,7 @@ setup(
         'frescobaldi_app.logtool',
         'frescobaldi_app.ly',
         'frescobaldi_app.ly.tokenize',
-        'frescobaldi_app.pdfview',
+        'frescobaldi_app.musicview',
         'frescobaldi_app.po',
         'frescobaldi_app.preferences',
         'frescobaldi_app.qpopplerview',
