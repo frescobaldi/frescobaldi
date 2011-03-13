@@ -42,7 +42,7 @@ metainfo.define('position', 0)
 
 class View(QPlainTextEdit):
     
-    focusIn = pyqtSignal(QPlainTextEdit)
+    focusIn = pyqtSignal()
     
     def __init__(self, document):
         super(View, self).__init__()
@@ -93,7 +93,7 @@ class View(QPlainTextEdit):
     def focusInEvent(self, ev):
         super(View, self).focusInEvent(ev)
         self.updateCursor()
-        self.focusIn.emit(self)
+        self.focusIn.emit()
         
     def focusOutEvent(self, ev):
         super(View, self).focusOutEvent(ev)
