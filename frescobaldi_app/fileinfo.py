@@ -75,7 +75,7 @@ def includeargs(filename):
     try:
         return _include_args_cache[filename]
     except KeyError:
-        result = _include_args_cache[filename] = list(ly.parse.includeargs(tokensfromfile(filename)))
+        result = _include_args_cache[filename] = list(ly.parse.includeargs(tokens(filename)))
         return result
         
 
@@ -88,7 +88,7 @@ def outputargs(filename):
     try:
         return _output_args_cache[filename]
     except KeyError:
-        result = _output_args_cache[filename] = list(ly.parse.outputargs(tokensfromfile(filename)))
+        result = _output_args_cache[filename] = list(ly.parse.outputargs(tokens(filename)))
         return result
 
 
