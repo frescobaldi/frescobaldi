@@ -76,8 +76,7 @@ class Lyrics(plugin.MainWindowPlugin):
             for token in tokens:
                 if isinstance(token, ly.tokenize.lilypond.LyricText):
                     # a word found
-                    m = _word_re.search(token)
-                    if m:
+                    for m in _word_re.finditer(token):
                         found.append((tokeniter.cursor(block, token, m.start(), m.end()), m.group()))
         if not found:
             # no tokens were found, then tokenize the text again as if in lyricmode
@@ -86,8 +85,7 @@ class Lyrics(plugin.MainWindowPlugin):
             for token in state.tokens(cursor.selection().toPlainText()):
                 if isinstance(token, ly.tokenize.lilypond.LyricText):
                     # a word found
-                    m = _word_re.search(token)
-                    if m:
+                    for m in _word_re.finditer(token):
                         cur = QTextCursor(cursor)
                         cur.setPosition(start + token.pos + m.start())
                         cur.setPosition(start + token.pos + m.end(), QTextCursor.KeepAnchor)
