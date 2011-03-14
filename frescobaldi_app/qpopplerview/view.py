@@ -218,7 +218,7 @@ class View(QScrollArea):
         v.setValue(v.value() + diff.y())
         h.setValue(h.value() + diff.x())
             
-    def zoomIm(self, pos=None, factor=1.1):
+    def zoomIn(self, pos=None, factor=1.1):
         self.zoom(self.scale() * factor, pos)
         
     def zoomOut(self, pos=None, factor=1.1):
