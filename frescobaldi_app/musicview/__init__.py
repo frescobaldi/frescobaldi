@@ -61,7 +61,16 @@ class MusicViewPanel(panels.Panel):
     
     def createWidget(self):
         import widget
-        return widget.MusicView(self)
+        m = widget.MusicView(self)
+        m.view.viewModeChanged.connect(self.slotViewModeChanged)
+        return m
+        
+    def slotViewModeChanged(self, viewmode):
+        import qpopplerview
+        ac = self.actionCollection
+        ac.music_fit_width.setChecked(viewmode == qpopplerview.FitWidth)
+        ac.music_fit_height.setChecked(viewmode == qpopplerview.FitHeight)
+        ac.music_fit_both.setChecked(viewmode == qpopplerview.FitBoth)
 
     def slotDocumentChanged(self, document):
         prev = self._previousDocument()
@@ -85,19 +94,22 @@ class MusicViewPanel(panels.Panel):
         pass
     
     def zoomIn(self):
-        pass
+        self.widget().view.zoomIn()
     
     def zoomOut(self):
-        pass
+        self.widget().view.zoomOut()
     
     def fitWidth(self):
-        pass
+        import qpopplerview
+        self.widget().view.setViewMode(qpopplerview.FitWidth)
     
     def fitHeight(self):
-        pass
+        import qpopplerview
+        self.widget().view.setViewMode(qpopplerview.FitHeight)
 
     def fitBoth(self):
-        pass
+        import qpopplerview
+        self.widget().view.setViewMode(qpopplerview.FitBoth)
 
 
 class Actions(actioncollection.ActionCollection):
@@ -109,6 +121,10 @@ class Actions(actioncollection.ActionCollection):
         self.music_fit_width = QAction(panel)
         self.music_fit_height = QAction(panel)
         self.music_fit_both = QAction(panel)
+        
+        self.music_fit_width.setCheckable(True)
+        self.music_fit_height.setCheckable(True)
+        self.music_fit_both.setCheckable(True)
 
         self.music_print.setIcon(icons.get('document-print'))
         self.music_zoom_in.setIcon(icons.get('zoom-in'))
