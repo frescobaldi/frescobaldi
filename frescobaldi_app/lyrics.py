@@ -115,17 +115,12 @@ class Lyrics(plugin.MainWindowPlugin):
         text = cursor.selection().toPlainText()
         if ' --' in text:
             with tokeniter.keepSelection(cursor, view):
-                cursor.insertText(self.removehyphens(text))
+                cursor.insertText(removehyphens(text))
             
     def copy_dehyphenated(self):
         """Copies selected lyrics text to the clipboard with hyphenation removed."""
         text = self.mainwindow().currentView().textCursor().selection().toPlainText()
-        QApplication.clipboard().setText(self.removehyphens(text))
-        
-    def removehyphens(self, text):
-        """Removes hyphens and extenders from text."""
-        text = re.sub(r"[ \t]*--[ \t]*|__[ \t]*|_[ \t]+(_[ \t]+)*", '', text)
-        return text.replace('_', ' ').replace('~', ' ')
+        QApplication.clipboard().setText(removehyphens(text))
 
 
 class Actions(actioncollection.ActionCollection):
@@ -143,5 +138,11 @@ class Actions(actioncollection.ActionCollection):
         self.lyrics_hyphenate.setText(_("&Hyphenate Lyrics Text"))
         self.lyrics_dehyphenate.setText(_("&Remove hyphenation"))
         self.lyrics_copy_dehyphenated.setText(_("&Copy Lyrics with hyphenation removed"))
+
+
+def removehyphens(text):
+    """Removes hyphens and extenders from text."""
+    text = re.sub(r"[ \t]*--[ \t]*|__[ \t]*|_[ \t]+(_[ \t]+)*", '', text)
+    return text.replace('_', ' ').replace('~', ' ')
 
 
