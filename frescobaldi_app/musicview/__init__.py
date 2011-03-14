@@ -143,6 +143,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_zoom_out.setShortcuts(QKeySequence.ZoomOut)
         
     def translateUI(self):
+        self.music_document_select.setText(_("Document"))
         self.music_print.setText(_("&Print Music..."))
         self.music_zoom_in.setText(_("Zoom &In"))
         self.music_zoom_out.setText(_("Zoom &Out"))
@@ -154,9 +155,22 @@ class Actions(actioncollection.ActionCollection):
 class DocumentChooserAction(QWidgetAction):
     def __init__(self, panel):
         super(DocumentChooserAction, self).__init__(panel)
-        
+        self.triggered.connect(self.showPopup)
+
     def createWidget(self, parent):
         return DocumentChooser(self.parent(), parent)
+    
+    def showPopup(self):
+        for w in self.createdWidgets():
+            if w.window() == self.parent().mainwindow():
+                break
+        else:
+            for w in self.createdWidgets():
+                if w.window() == self.parent():
+                    break
+            else:
+                return
+        w.showPopup()
         
     def setPDFs(self, pdfs):
         for w in self.createdWidgets():

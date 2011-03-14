@@ -1164,7 +1164,6 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_save_copy_as = QAction(parent)
         self.file_save_all = QAction(parent)
         self.file_print_source = QAction(parent)
-        self.file_print_music = QAction(parent)
         self.file_close = QAction(parent)
         self.file_close_other = QAction(parent)
         self.file_close_all = QAction(parent)
