@@ -886,7 +886,14 @@ class MainWindow(QMainWindow):
         t.addAction(ac.edit_redo)
         t.addSeparator()
         t.addAction(engrave.engraver(self).actionCollection.engrave_runner)
-        t.addAction(panels.manager(self).musicview.actionCollection.music_print)
+        
+        self.toolbar_music = t = self.addToolBar('')
+        ma = panels.manager(self).musicview.actionCollection
+        t.addAction(ma.music_document_select)
+        t.addAction(ma.music_print)
+        t.addSeparator()
+        t.addAction(ma.music_zoom_in)
+        t.addAction(ma.music_zoom_out)
         
     def translateUI(self):
         self.menu_file.setTitle(_('&File'))
@@ -899,6 +906,7 @@ class MainWindow(QMainWindow):
         self.menu_sessions.setTitle(_('&Sessions'))
         self.menu_help.setTitle(_('&Help'))
         self.toolbar_main.setWindowTitle(_("Main Toolbar"))
+        self.toolbar_music.setWindowTitle(_("Music View Toolbar"))
         
         self.menu_file_export.setTitle(_("&Export"))
         self.menu_view_music.setTitle(_("Music &View"))

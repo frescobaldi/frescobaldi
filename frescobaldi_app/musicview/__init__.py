@@ -27,7 +27,7 @@ import os
 import weakref
 
 from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QAction, QKeySequence
+from PyQt4.QtGui import QAction, QComboBox, QKeySequence, QWidgetAction
 
 import app
 import actioncollection
@@ -85,11 +85,15 @@ class MusicViewPanel(panels.Panel):
             document = self.mainwindow().currentDocument()
         # TEMP!!
         pdfs = resultfiles.results(document).files(".pdf")
+        self.actionCollection.music_document_select.setPDFs(pdfs)
         if pdfs:
             pdf = pdfs[0]
             self.show()
             self.widget().openPDF(pdf)
-
+        ac = self.actionCollection
+        ac.music_document_select.setEnabled(bool(pdfs))
+        ac.music_print.setEnabled(bool(pdfs))
+        
     def printMusic(self):
         pass
     
@@ -115,6 +119,7 @@ class MusicViewPanel(panels.Panel):
 class Actions(actioncollection.ActionCollection):
     name = "musicview"
     def createActions(self, panel):
+        self.music_document_select = DocumentChooserAction(panel)
         self.music_print = QAction(panel)
         self.music_zoom_in = QAction(panel)
         self.music_zoom_out = QAction(panel)
@@ -145,4 +150,26 @@ class Actions(actioncollection.ActionCollection):
         self.music_fit_height.setText(_("Fit &Height"))
         self.music_fit_both.setText(_("Fit &Page"))
         
+
+class DocumentChooserAction(QWidgetAction):
+    def __init__(self, panel):
+        super(DocumentChooserAction, self).__init__(panel)
+        
+    def createWidget(self, parent):
+        return DocumentChooser(self.parent(), parent)
+        
+    def setPDFs(self, pdfs):
+        for w in self.createdWidgets():
+            w.clear()
+            w.addItems(map(os.path.basename, pdfs))
+            
+
+class DocumentChooser(QComboBox):
+    def __init__(self, panel, parent):
+        super(DocumentChooser, self).__init__(parent)
+        self.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        app.translateUI(self)
+        
+    def translateUI(self):
+        self.setToolTip(_("Choose the PDF document to display."))
 
