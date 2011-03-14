@@ -138,12 +138,13 @@ class Actions(actioncollection.ActionCollection):
         self.music_fit_height.setIcon(icons.get('zoom-fit-height'))
         self.music_fit_both.setIcon(icons.get('zoom-fit-best'))
         
+        self.music_document_select.setShortcut(QKeySequence(Qt.SHIFT | Qt.CTRL | Qt.Key_O))
         self.music_print.setShortcuts(QKeySequence.Print)
         self.music_zoom_in.setShortcuts(QKeySequence.ZoomIn)
         self.music_zoom_out.setShortcuts(QKeySequence.ZoomOut)
         
     def translateUI(self):
-        self.music_document_select.setText(_("Document"))
+        self.music_document_select.setText(_("Select Music View Document"))
         self.music_print.setText(_("&Print Music..."))
         self.music_zoom_in.setText(_("Zoom &In"))
         self.music_zoom_out.setText(_("Zoom &Out"))
@@ -161,16 +162,17 @@ class DocumentChooserAction(QWidgetAction):
         return DocumentChooser(self.parent(), parent)
     
     def showPopup(self):
+        """Called when our action is triggered by a keyboard shortcut."""
+        # find the widget in our floating panel, if available there
+        for w in self.createdWidgets():
+            if w.window() == self.parent():
+                w.showPopup()
+                return
+        # find the one in the main window
         for w in self.createdWidgets():
             if w.window() == self.parent().mainwindow():
-                break
-        else:
-            for w in self.createdWidgets():
-                if w.window() == self.parent():
-                    break
-            else:
+                w.showPopup()
                 return
-        w.showPopup()
         
     def setPDFs(self, pdfs):
         for w in self.createdWidgets():
@@ -182,6 +184,7 @@ class DocumentChooser(QComboBox):
     def __init__(self, panel, parent):
         super(DocumentChooser, self).__init__(parent)
         self.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        self.setFocusPolicy(Qt.NoFocus)
         app.translateUI(self)
         
     def translateUI(self):
