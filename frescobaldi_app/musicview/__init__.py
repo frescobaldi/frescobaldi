@@ -27,9 +27,12 @@ import os
 import weakref
 
 from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QKeySequence
+from PyQt4.QtGui import QAction, QKeySequence
 
 import app
+import actioncollection
+import actioncollectionmanager
+import icons
 import panels
 import resultfiles
 
@@ -43,6 +46,15 @@ class MusicViewPanel(panels.Panel):
         app.jobFinished.connect(self.setDocument)
         self._previousDocument = lambda: None
         
+        ac = self.actionCollection = Actions(self)
+        actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
+        ac.music_print.triggered.connect(self.printMusic)
+        ac.music_zoom_in.triggered.connect(self.zoomIn)
+        ac.music_zoom_out.triggered.connect(self.zoomOut)
+        ac.music_fit_width.triggered.connect(self.fitWidth)
+        ac.music_fit_height.triggered.connect(self.fitHeight)
+        ac.music_fit_both.triggered.connect(self.fitBoth)
+    
     def translateUI(self):
         self.setWindowTitle(_("Music View"))
         self.toggleViewAction().setText(_("&Music View"))
@@ -68,4 +80,53 @@ class MusicViewPanel(panels.Panel):
             pdf = pdfs[0]
             self.show()
             self.widget().openPDF(pdf)
+
+    def printMusic(self):
+        pass
+    
+    def zoomIn(self):
+        pass
+    
+    def zoomOut(self):
+        pass
+    
+    def fitWidth(self):
+        pass
+    
+    def fitHeight(self):
+        pass
+
+    def fitBoth(self):
+        pass
+
+
+class Actions(actioncollection.ActionCollection):
+    name = "musicview"
+    def createActions(self, panel):
+        self.music_print = QAction(panel)
+        self.music_zoom_in = QAction(panel)
+        self.music_zoom_out = QAction(panel)
+        self.music_fit_width = QAction(panel)
+        self.music_fit_height = QAction(panel)
+        self.music_fit_both = QAction(panel)
+
+        self.music_print.setIcon(icons.get('document-print'))
+        self.music_zoom_in.setIcon(icons.get('zoom-in'))
+        self.music_zoom_out.setIcon(icons.get('zoom-out'))
+        self.music_fit_width.setIcon(icons.get('zoom-fit-width'))
+        self.music_fit_height.setIcon(icons.get('zoom-fit-height'))
+        self.music_fit_both.setIcon(icons.get('zoom-fit-best'))
+        
+        self.music_print.setShortcuts(QKeySequence.Print)
+        self.music_zoom_in.setShortcuts(QKeySequence.ZoomIn)
+        self.music_zoom_out.setShortcuts(QKeySequence.ZoomOut)
+        
+    def translateUI(self):
+        self.music_print.setText(_("&Print Music..."))
+        self.music_zoom_in.setText(_("Zoom &In"))
+        self.music_zoom_out.setText(_("Zoom &Out"))
+        self.music_fit_width.setText(_("Fit &Width"))
+        self.music_fit_height.setText(_("Fit &Height"))
+        self.music_fit_both.setText(_("Fit &Page"))
+        
 

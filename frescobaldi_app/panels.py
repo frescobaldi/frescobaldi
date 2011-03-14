@@ -62,6 +62,7 @@ class PanelManager(plugin.MainWindowPlugin):
         menu.addAction(self.actionCollection.panel_musicview)
         menu.addAction(self.actionCollection.panel_logtool)
 
+
 class Actions(actioncollection.ActionCollection):
     """Manages the keyboard shortcuts to hide/show the plugins."""
     name = "panels"

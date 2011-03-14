@@ -756,7 +756,7 @@ class MainWindow(QMainWindow):
         m.addSeparator()
         m.addAction(ac.file_save_all)
         m.addSeparator()
-        m.addAction(ac.file_print_music)
+        m.addAction(panels.manager(self).musicview.actionCollection.music_print)
         m.addAction(ac.file_print_source)
         self.menu_file_export = e = m.addMenu('')
         m.addSeparator()
@@ -794,6 +794,16 @@ class MainWindow(QMainWindow):
         m.addAction(ac.view_previous_document)
         m.addSeparator()
         m.addAction(ac.view_highlighting)
+        self.menu_view_music = mm = m.addMenu('')
+        
+        ma = panels.manager(self).musicview.actionCollection
+        mm.addAction(ma.music_zoom_in)
+        mm.addAction(ma.music_zoom_out)
+        mm.addSeparator()
+        mm.addAction(ma.music_fit_width)
+        mm.addAction(ma.music_fit_height)
+        mm.addAction(ma.music_fit_both)
+        
         m.addSeparator()
         m.addAction(ac.view_bookmark)
         m.addAction(ac.view_clear_error_marks)
@@ -876,7 +886,7 @@ class MainWindow(QMainWindow):
         t.addAction(ac.edit_redo)
         t.addSeparator()
         t.addAction(engrave.engraver(self).actionCollection.engrave_runner)
-        t.addAction(ac.file_print_music)
+        t.addAction(panels.manager(self).musicview.actionCollection.music_print)
         
     def translateUI(self):
         self.menu_file.setTitle(_('&File'))
@@ -891,6 +901,7 @@ class MainWindow(QMainWindow):
         self.toolbar_main.setWindowTitle(_("Main Toolbar"))
         
         self.menu_file_export.setTitle(_("&Export"))
+        self.menu_view_music.setTitle(_("Music &View"))
         self.menu_tools_lyrics.setTitle(_("&Lyrics"))
     
 
@@ -1205,7 +1216,6 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_save_copy_as.setIcon(icons.get('document-save-as'))
         self.file_save_all.setIcon(icons.get('document-save-all'))
         self.file_print_source.setIcon(icons.get('document-print'))
-        self.file_print_music.setIcon(icons.get('document-print'))
         self.file_close.setIcon(icons.get('document-close'))
         self.file_quit.setIcon(icons.get('application-exit'))
         
@@ -1240,7 +1250,6 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_open.setShortcuts(QKeySequence.Open)
         self.file_save.setShortcuts(QKeySequence.Save)
         self.file_save_as.setShortcuts(QKeySequence.SaveAs)
-        self.file_print_music.setShortcuts(QKeySequence.Print)
         self.file_close.setShortcuts(QKeySequence.Close)
         self.file_quit.setShortcuts(QKeySequence.Quit)
         
@@ -1281,7 +1290,6 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_save_as.setText(_("Save &As..."))
         self.file_save_copy_as.setText(_("Save Copy or Selection As..."))
         self.file_save_all.setText(_("Save All"))
-        self.file_print_music.setText(_("&Print Music..."))
         self.file_print_source.setText(_("Print Source..."))
         self.file_close.setText(_("&Close"))
         self.file_close_other.setText(_("Close Other Documents"))
