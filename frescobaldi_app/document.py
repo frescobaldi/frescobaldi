@@ -156,10 +156,6 @@ class Document(QTextDocument):
         else:
             return os.path.basename(self._url.path())
     
-    def materialized(self):
-        """Returns True if this document has materialized (i.e. has a highlighter updating tokens)."""
-        return self._materialized
-        
     def htmlCopy(self, type='editor'):
         """Returns a new QTextDocument with highlighting set as HTML textcharformats.
         
