@@ -57,6 +57,16 @@ def naturalsort(text):
     return tuple(int(s) if s.isdigit() else s for s in re.split(r'(\d+)', text))
 
 
+def uniq(iterable):
+    """Returns an iterable, removing duplicates. The items should be hashable."""
+    s, l = set(), 0
+    for i in iterable:
+        s.add(i)
+        if len(s) > l:
+            yield i
+            l = len(s)
+
+
 def decode(data, encoding=None):
     """Returns the unicode text from the encoded, data. Prefer encoding if given.
     
