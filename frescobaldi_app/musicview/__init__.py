@@ -187,7 +187,6 @@ class DocumentChooser(QComboBox):
         self.setSizeAdjustPolicy(QComboBox.AdjustToContents)
         self.setFocusPolicy(Qt.NoFocus)
         app.translateUI(self)
-        self.hide()
         
     def translateUI(self):
         self.setToolTip(_("Choose the PDF document to display."))
