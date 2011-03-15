@@ -98,7 +98,7 @@ class DocumentInfo(plugin.DocumentPlugin):
     
     def tokens(self):
         """Iterates over all the tokens in a document, parsing if the document has not yet materialized."""
-        if self.document().materialized():
+        if self.document().firstBlock().userState() != -1:
             return tokeniter.allTokens(self.document())
         else:
             return ly.tokenize.state(self.mode()).tokens(self.document().toPlainText())
