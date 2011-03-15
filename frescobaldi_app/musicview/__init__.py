@@ -91,7 +91,6 @@ class MusicViewPanel(panels.Panel):
             self.show()
             self.widget().openPDF(pdf)
         ac = self.actionCollection
-        ac.music_document_select.setEnabled(bool(pdfs))
         ac.music_print.setEnabled(bool(pdfs))
         
     def printMusic(self):
@@ -175,6 +174,8 @@ class DocumentChooserAction(QWidgetAction):
                 return
         
     def setPDFs(self, pdfs):
+        self.setVisible(len(pdfs) > 1)
+        self.setEnabled(len(pdfs) > 1)
         for w in self.createdWidgets():
             w.clear()
             w.addItems(map(os.path.basename, pdfs))
@@ -186,6 +187,7 @@ class DocumentChooser(QComboBox):
         self.setSizeAdjustPolicy(QComboBox.AdjustToContents)
         self.setFocusPolicy(Qt.NoFocus)
         app.translateUI(self)
+        self.hide()
         
     def translateUI(self):
         self.setToolTip(_("Choose the PDF document to display."))
