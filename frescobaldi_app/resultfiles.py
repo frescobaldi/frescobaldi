@@ -105,7 +105,7 @@ class Results(plugin.DocumentPlugin):
             def source():
                 for name in basenames:
                     yield glob.iglob(name + extension)
-                    yield sorted(glob.iglob(name + '-[0-9]*' + extension), key=util.naturalsort)
+                    yield sorted(glob.iglob(name + '-*[0-9]' + extension), key=util.naturalsort)
             files = itertools.chain.from_iterable(source())
             if newer:
                 mtime = os.path.getmtime(jobfile)
