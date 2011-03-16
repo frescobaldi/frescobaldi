@@ -73,7 +73,7 @@ def defaultJob(document, preview):
     command.append('-dpoint-and-click' if preview else '-dno-point-and-click')
     command.append('--pdf')
     command.extend('-I' + path for path in includepath)
-    j.directory, filename = os.path.split(filename)
+    j.directory = os.path.dirname(filename)
     command.append(filename)
     j.command = command
     j.setTitle("{0} {1}".format(os.path.basename(i.command), i.versionString))
