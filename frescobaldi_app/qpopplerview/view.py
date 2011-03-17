@@ -185,11 +185,7 @@ class View(QScrollArea):
         self.surface().pageLayout().update()
         # restore our position
         newPos = QPoint(round(x * self.surface().width()), round(y * self.surface().height()))
-        diff = newPos - self._centerPos
-        v = self.verticalScrollBar()
-        h = self.horizontalScrollBar()
-        v.setValue(v.value() + diff.y())
-        h.setValue(h.value() + diff.x())
+        self.scrollSurface(newPos - self._centerPos)
 
     def zoom(self, scale, pos=None):
         """Changes the display scale (1.0 is 100%).
@@ -200,9 +196,6 @@ class View(QScrollArea):
         """
         if scale < 0.05 or scale > 3.0:
             return
-        
-        v = self.verticalScrollBar()
-        h = self.horizontalScrollBar()
         
         if pos is None:
             pos = QPoint(self.width(), self.height()) / 2
@@ -221,9 +214,7 @@ class View(QScrollArea):
             self.setScale(scale)
             newPos = QPoint(round(x * self.surface().width()), round(y * self.surface().height()))
         
-        diff = newPos - surfacePos
-        v.setValue(v.value() + diff.y())
-        h.setValue(h.value() + diff.x())
+        self.scrollSurface(newPos - surfacePos)
             
     def zoomIn(self, pos=None, factor=1.1):
         self.zoom(self.scale() * factor, pos)
