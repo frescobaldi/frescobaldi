@@ -73,24 +73,31 @@ class View(QPlainTextEdit):
         layout.setAlignment(Qt.AlignBottom)
         self.setLayout(layout)
         
-    def readSettings(self):
-        data = textformats.formatData('editor')
-        self.setFont(data.font)
-        p = QApplication.palette()
-        p.setColor(QPalette.Text, data.baseColors['text'])
-        p.setColor(QPalette.Base, data.baseColors['background'])
-        p.setColor(QPalette.HighlightedText, data.baseColors['selectiontext'])
-        p.setColor(QPalette.Highlight, data.baseColors['selectionbackground'])
-        self.setPalette(p)
-        self._baseColors = data.baseColors
-        self.updateMarkedLines()
-        self.updateCursor()
-        self.setTabWidth()
+    def event(self, ev):
+        # handle Tab and Backtab
+        if ev.type() == QEvent.KeyPress:
+            modifiers = int(ev.modifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
+            if ev.key() == Qt.Key_Tab and modifiers == 0:
+                import indent
+                indent.increaseIndent(self.textCursor())
+                return True
+            elif ev.key() == Qt.Key_Backtab and modifiers & ~Qt.SHIFT == 0:
+                import indent
+                indent.decreaseIndent(self.textCursor())
+                return True
+        return super(View, self).event(ev)
+
+    def keyPressEvent(self, ev):
+        super(View, self).keyPressEvent(ev)
         
-    def setTabWidth(self):
-        tabwidth = self.fontMetrics().width(" ") * variables.get(self.document(), 'tab-width', 8)
-        self.setTabStopWidth(tabwidth)
-        
+        if metainfo.info(self.document()).autoindent:
+            # run the indenter on Return or when the user entered a dedent token.
+            import indent
+            cursor = self.textCursor()
+            if ev.text() == '\r' or (ev.text() in ('}', '#', '>') and indent.indentable(cursor)):
+                with tokeniter.editBlock(cursor, True):
+                    indent.autoIndentBlock(cursor.block())
+            
     def focusInEvent(self, ev):
         super(View, self).focusInEvent(ev)
         self.updateCursor()
@@ -129,6 +136,7 @@ class View(QPlainTextEdit):
             super(View, self).dropEvent(ev)
 
     def paintEvent(self, ev):
+        # paint a cursor if we have no focus
         super(View, self).paintEvent(ev)
         if self._paintcursor:
             rect = self.cursorRect()
@@ -136,6 +144,20 @@ class View(QPlainTextEdit):
                 color = self.palette().text().color()
                 color.setAlpha(128)
                 QPainter(self.viewport()).fillRect(rect, color)
+        
+    def readSettings(self):
+        data = textformats.formatData('editor')
+        self.setFont(data.font)
+        p = QApplication.palette()
+        p.setColor(QPalette.Text, data.baseColors['text'])
+        p.setColor(QPalette.Base, data.baseColors['background'])
+        p.setColor(QPalette.HighlightedText, data.baseColors['selectiontext'])
+        p.setColor(QPalette.Highlight, data.baseColors['selectionbackground'])
+        self.setPalette(p)
+        self._baseColors = data.baseColors
+        self.updateMarkedLines()
+        self.updateCursor()
+        self.setTabWidth()
         
     def slotDocumentClosed(self):
         if self.hasFocus():
@@ -162,6 +184,10 @@ class View(QPlainTextEdit):
         color.setAlpha(200 if self.hasFocus() else 100)
         es.format.setBackground(color)
         self.updateExtraSelections()
+        
+    def setTabWidth(self):
+        tabwidth = self.fontMetrics().width(" ") * variables.get(self.document(), 'tab-width', 8)
+        self.setTabStopWidth(tabwidth)
         
     def updateMarkedLines(self):
         lines = self._markedLineExtraSelections = []
@@ -217,30 +243,5 @@ class View(QPlainTextEdit):
         """Removes the widget from the bottom of the View."""
         self.layout().removeWidget(widget)
         self.setViewportMargins(0, 0, 0, 0)
-
-    def keyPressEvent(self, ev):
-        super(View, self).keyPressEvent(ev)
-        
-        if metainfo.info(self.document()).autoindent:
-            # run the indenter on Return or when the user entered a dedent token.
-            import indent
-            cursor = self.textCursor()
-            if ev.text() == '\r' or (ev.text() in ('}', '#', '>') and indent.indentable(cursor)):
-                with tokeniter.editBlock(cursor, True):
-                    indent.autoIndentBlock(cursor.block())
-            
-    def event(self, ev):
-        # handle Tab and Backtab
-        if ev.type() == QEvent.KeyPress:
-            modifiers = int(ev.modifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
-            if ev.key() == Qt.Key_Tab and modifiers == 0:
-                import indent
-                indent.increaseIndent(self.textCursor())
-                return True
-            elif ev.key() == Qt.Key_Backtab and modifiers & ~Qt.SHIFT == 0:
-                import indent
-                indent.decreaseIndent(self.textCursor())
-                return True
-        return super(View, self).event(ev)
 
 
