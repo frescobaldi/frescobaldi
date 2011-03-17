@@ -659,6 +659,26 @@ class MainWindow(QMainWindow):
         sb = self.currentView().verticalScrollBar()
         sb.setValue(sb.value() + 1)
         
+    def selectFullLinesUp(self):
+        """Select lines upwards, selecting full lines."""
+        self.selectFullLines(QTextCursor.Up)
+        
+    def selectFullLinesDown(self):
+        """Select lines downwards, selecting full lines."""
+        self.selectFullLines(QTextCursor.Down)
+        
+    def selectFullLines(self, direction):
+        """Select full lines in the direction QTextCursor.Up or Down."""
+        view = self.currentView()
+        cur = view.textCursor()
+        position = cur.position()
+        cur.setPosition(cur.anchor())
+        cur.movePosition(QTextCursor.StartOfLine)
+        cur.setPosition(position, QTextCursor.KeepAnchor)
+        cur.movePosition(direction, QTextCursor.KeepAnchor)
+        cur.movePosition(QTextCursor.StartOfLine, QTextCursor.KeepAnchor)
+        view.setTextCursor(cur)
+    
     def createActions(self):
         self.actionCollection = ac = ActionCollection()
         
@@ -690,6 +710,8 @@ class MainWindow(QMainWindow):
         ac.edit_copy_colored_html.triggered.connect(self.copyColoredHtml)
         ac.edit_select_all.triggered.connect(self.selectAll)
         ac.edit_select_none.triggered.connect(self.selectNone)
+        ac.edit_select_full_lines_up.triggered.connect(self.selectFullLinesUp)
+        ac.edit_select_full_lines_down.triggered.connect(self.selectFullLinesDown)
         ac.edit_find.triggered.connect(self.find)
         ac.edit_replace.triggered.connect(self.replace)
         ac.edit_preferences.triggered.connect(self.showPreferences)
@@ -872,6 +894,8 @@ class MainWindow(QMainWindow):
         self.addAction(ac.view_scroll_down)
         self.addAction(ac.view_next_mark)
         self.addAction(ac.view_previous_mark)
+        self.addAction(ac.edit_select_full_lines_up)
+        self.addAction(ac.edit_select_full_lines_down)
         
     def createToolBars(self):
         ac = self.actionCollection
@@ -1181,6 +1205,8 @@ class ActionCollection(actioncollection.ActionCollection):
         self.edit_select_all = QAction(parent)
         self.edit_select_current_toplevel = QAction(parent)
         self.edit_select_none = QAction(parent)
+        self.edit_select_full_lines_up = QAction(parent)
+        self.edit_select_full_lines_down = QAction(parent)
         self.edit_find = QAction(parent)
         self.edit_find_next = QAction(parent)
         self.edit_find_previous = QAction(parent)
@@ -1269,6 +1295,8 @@ class ActionCollection(actioncollection.ActionCollection):
         self.edit_select_all.setShortcuts(QKeySequence.SelectAll)
         self.edit_select_current_toplevel.setShortcut(QKeySequence(Qt.SHIFT+Qt.CTRL+Qt.Key_B))
         self.edit_select_none.setShortcut(QKeySequence(Qt.SHIFT + Qt.CTRL + Qt.Key_A))
+        self.edit_select_full_lines_up.setShortcut(QKeySequence(Qt.SHIFT + Qt.CTRL + Qt.Key_Up))
+        self.edit_select_full_lines_down.setShortcut(QKeySequence(Qt.SHIFT + Qt.CTRL + Qt.Key_Down))
         self.edit_find.setShortcuts(QKeySequence.Find)
         self.edit_find_next.setShortcuts(QKeySequence.FindNext)
         self.edit_find_previous.setShortcuts(QKeySequence.FindPrevious)
@@ -1316,6 +1344,8 @@ class ActionCollection(actioncollection.ActionCollection):
         self.edit_select_all.setText(_("Select &All"))
         self.edit_select_current_toplevel.setText(_("Select &Block"))
         self.edit_select_none.setText(_("Select &None"))
+        self.edit_select_full_lines_up.setText(_("Select Whole Lines Up"))
+        self.edit_select_full_lines_down.setText(_("Select Whole Lines Down"))
         self.edit_find.setText(_("&Find..."))
         self.edit_find_next.setText(_("Find Ne&xt"))
         self.edit_find_previous.setText(_("Find Pre&vious"))
