@@ -131,9 +131,11 @@ class View(QPlainTextEdit):
     def paintEvent(self, ev):
         super(View, self).paintEvent(ev)
         if self._paintcursor:
-            color = self.palette().text().color()
-            color.setAlpha(128)
-            QPainter(self.viewport()).fillRect(self.cursorRect(), color)
+            rect = self.cursorRect()
+            if rect.intersects(ev.rect()):
+                color = self.palette().text().color()
+                color.setAlpha(128)
+                QPainter(self.viewport()).fillRect(rect, color)
         
     def slotDocumentClosed(self):
         if self.hasFocus():
