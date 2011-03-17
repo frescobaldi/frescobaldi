@@ -154,6 +154,13 @@ class View(QScrollArea):
         for page in pages:
             cache.generate(page)
 
+    def scrollSurface(self, diff):
+        """Scrolls the surface() by the distance given in the QPoint diff."""
+        v = self.verticalScrollBar()
+        h = self.horizontalScrollBar()
+        v.setValue(v.value() + diff.y())
+        h.setValue(h.value() + diff.x())
+        
     def resizeEvent(self, ev):
         super(View, self).resizeEvent(ev)
         # Detect a resize loop due to scrollbar disappearing
@@ -232,4 +239,62 @@ class View(QScrollArea):
                 self.zoom(self.scale() * factor, ev.pos())
         else:
             super(View, self).wheelEvent(ev)
+
+    def currentPage(self):
+        """Returns the Page currently mostly in the center, or None if there are no pages."""
+        pos = QPoint(self.width(), self.height()) / 2 - self.surface().pos()
+        layout = self.surface().pageLayout()
+        if len(layout):
+            d = layout.spacing() * 2
+            for dx, dy in ((0, 0), (-d, 0), (0, -d), (d, 0), (0, d)):
+                dist = QPoint(dx, dy)
+                page = layout.pageAt(pos + dist)
+                if page:
+                    return page
+    
+    def currentPageNumber(self):
+        """Returns the number (index in the layout) of the currentPage(), or None if there are no pages."""
+        page = self.currentPage()
+        if page:
+            return self.surface().pageLayout().index(page)
+
+    def gotoPageNumber(self, num):
+        """Aligns the page at the given index in the layout to the topleft of our View."""
+        layout = self.surface().pageLayout()
+        if num < len(layout) and num != self.currentPageNumber():
+            self.scrollSurface(layout[num].pos() + self.surface().pos())
+            
+    def position(self):
+        """Returns a three-tuple(num, x, y) describing the page currently in the center of the View.
+        
+        the number is the index of the Page in the Layout, and x and y are the coordinates in the
+        range 0.0 -> 1.0 of the point that is at the center of the View.
+        
+        This way a position can be retained even if the scale or the orientation of the Layout changed.
+        
+        Returns None, None, None if the layout is empty.
+        
+        """
+        page = self.currentPage()
+        if page:
+            layout = self.surface().pageLayout()
+            pos = QPoint(self.width(), self.height()) / 2 - self.surface().pos()
+            pagePos = pos - page.pos()
+            x = pagePos.x() / float(page.width())
+            y = pagePos.y() / float(page.height())
+            return layout.index(page), x, y
+        return None, None, None
+
+    def setPosition(self, position):
+        """Sets the position to a three-tuple as previously returned by position()."""
+        layout = self.surface().pageLayout()
+        pageNum, x, y = position
+        if pageNum is None or pageNum >= len(layout):
+            return
+        page = layout[pageNum]
+        # center this point
+        newPos = QPoint(round(x * page.width()), round(y * page.height())) + page.pos()
+        oldPos = QPoint(self.width(), self.height()) / 2 - self.surface().pos()
+        self.scrollSurface(newPos - oldPos)
+
 

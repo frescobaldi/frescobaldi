@@ -47,6 +47,7 @@ class AbstractLayout(QObject):
     
     redraw = pyqtSignal(QRect)
     changed = pyqtSignal()
+    scaleChanged = pyqtSignal(float)
     
     def __init__(self):
         super(AbstractLayout, self).__init__()
@@ -54,6 +55,7 @@ class AbstractLayout(QObject):
         self._size = QSize()
         self._margin = 4
         self._spacing = 8
+        self._scale = 1.0
         self._dpi = (72, 72)
         
     def own(self, page):
@@ -127,6 +129,10 @@ class AbstractLayout(QObject):
             self._pages[item] = new
             self.own(new)
     
+    def index(self, page):
+        """Returns the index at which the given Page can be found in our Layout."""
+        return self._pages.index(page)
+        
     def setSize(self, size):
         """Sets our size. Mainly done after layouting."""
         self._size = size
@@ -146,16 +152,16 @@ class AbstractLayout(QObject):
         return self._dpi
         
     def scale(self):
-        """Returns the scale (1.0 == 100%) of the first page."""
-        try:
-            return self[0].scale()
-        except IndexError:
-            return 1.0
+        """Returns the scale (1.0 == 100%)."""
+        return self._scale
     
     def setScale(self, scale):
         """Sets the scale (1.0 == 100%) of all our Pages."""
-        for page in self:
-            page.setScale(scale)
+        if scale != self._scale:
+            self._scale = scale
+            for page in self:
+                page.setScale(scale)
+            self.scaleChanged.emit(scale)
     
     def setPageWidth(self, width, sameScale=True):
         """Sets the width of all pages.
@@ -302,8 +308,9 @@ class AbstractLayout(QObject):
         """Convenience mehod to load all the pages of the given Poppler.Document using page.Page()."""
         self.clear()
         for num in range(document.numPages()):
-            self.append(page.Page(document, num))
-
+            p = page.Page(document, num)
+            p.setScale(self._scale)
+            self.append(p)
 
 
 class Layout(AbstractLayout):
