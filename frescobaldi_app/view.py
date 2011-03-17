@@ -25,8 +25,8 @@ View is basically a QPlainTextEdit instance.
 
 from PyQt4.QtCore import QEvent, Qt, QTimer, pyqtSignal
 from PyQt4.QtGui import (
-    QApplication, QColor, QPalette, QPlainTextEdit, QTextCursor, QTextEdit,
-    QTextFormat, QVBoxLayout)
+    QApplication, QColor, QPainter, QPalette, QPlainTextEdit, QTextCursor,
+    QTextEdit, QTextFormat, QVBoxLayout)
 
 import app
 import metainfo
@@ -46,6 +46,7 @@ class View(QPlainTextEdit):
     
     def __init__(self, document):
         super(View, self).__init__()
+        self._paintcursor = False
         self._markedLineExtraSelections = []
         self._matchExtraSelections = []
         self._matchTimer = QTimer(singleShot=True, interval=1000, timeout=self.clearMatches)
@@ -94,11 +95,13 @@ class View(QPlainTextEdit):
         super(View, self).focusInEvent(ev)
         self.updateCursor()
         self.focusIn.emit()
+        self._paintcursor = False
         
     def focusOutEvent(self, ev):
         super(View, self).focusOutEvent(ev)
         self.updateCursor()
         self.storeCursor()
+        self._paintcursor = True # display the textcursor even if we have no focus
 
     def dragEnterEvent(self, ev):
         """Reimplemented to avoid showing the cursor when dropping URLs."""
@@ -125,6 +128,13 @@ class View(QPlainTextEdit):
         else:
             super(View, self).dropEvent(ev)
 
+    def paintEvent(self, ev):
+        super(View, self).paintEvent(ev)
+        if self._paintcursor:
+            color = QApplication.palette().text().color()
+            color.setAlpha(128)
+            QPainter(self.viewport()).fillRect(self.cursorRect(), color)
+        
     def slotDocumentClosed(self):
         if self.hasFocus():
             self.storeCursor()
