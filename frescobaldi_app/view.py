@@ -131,7 +131,7 @@ class View(QPlainTextEdit):
     def paintEvent(self, ev):
         super(View, self).paintEvent(ev)
         if self._paintcursor:
-            color = QApplication.palette().text().color()
+            color = self.palette().text().color()
             color.setAlpha(128)
             QPainter(self.viewport()).fillRect(self.cursorRect(), color)
         
