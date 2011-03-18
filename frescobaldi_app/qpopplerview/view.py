@@ -197,6 +197,10 @@ class View(QScrollArea):
         if scale < 0.05 or scale > 3.0:
             return
         
+        if self.surface().pageLayout().count() == 0:
+            self.setScale(scale)
+            return
+            
         if pos is None:
             pos = QPoint(self.width(), self.height()) / 2
         
