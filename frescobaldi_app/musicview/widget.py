@@ -47,14 +47,22 @@ class MusicView(QWidget):
         layout.addWidget(self.view)
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
+        self.view.setViewMode(qpopplerview.FitWidth)
+        self.view.viewModeChanged.connect(self.slotViewModeChanged)
+        self.slotViewModeChanged(self.view.viewMode())
         
     def sizeHint(self):
         return self.parent().mainwindow().size() / 2
         
+    def slotViewModeChanged(self, viewmode):
+        ac = self.parent().actionCollection
+        ac.music_fit_width.setChecked(viewmode == qpopplerview.FitWidth)
+        ac.music_fit_height.setChecked(viewmode == qpopplerview.FitHeight)
+        ac.music_fit_both.setChecked(viewmode == qpopplerview.FitBoth)
+
     def openPDF(self, pdf):
         # TEMP !!
         d = popplerqt4.Poppler.Document.load(pdf)
-        self.view.setViewMode(qpopplerview.FitWidth)
         self.view.load(d)
         self.view.surface().pageLayout().update()
         self.view.surface().updateLayout()

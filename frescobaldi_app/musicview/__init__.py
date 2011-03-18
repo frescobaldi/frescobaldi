@@ -61,17 +61,8 @@ class MusicViewPanel(panels.Panel):
     
     def createWidget(self):
         import widget
-        m = widget.MusicView(self)
-        m.view.viewModeChanged.connect(self.slotViewModeChanged)
-        return m
+        return widget.MusicView(self)
         
-    def slotViewModeChanged(self, viewmode):
-        import qpopplerview
-        ac = self.actionCollection
-        ac.music_fit_width.setChecked(viewmode == qpopplerview.FitWidth)
-        ac.music_fit_height.setChecked(viewmode == qpopplerview.FitHeight)
-        ac.music_fit_both.setChecked(viewmode == qpopplerview.FitBoth)
-
     def slotDocumentChanged(self, document):
         prev = self._previousDocument()
         if prev:
