@@ -24,7 +24,6 @@ Code to load and manage PDF documents to view.
 """
 
 
-import itertools
 import os
 import weakref
 
@@ -40,6 +39,20 @@ import signals
 
 _cache = weakref.WeakValueDictionary()
 
+
+# This signal gets emitted when a finished Job has created new PDF document(s).
+documentUpdated = signals.SignalInstance() # Document
+
+
+@app.jobFinished.connect
+def _on_job_finished(document):
+    if group(document).update():
+        documentUpdated(document)
+
+
+def group(document):
+    """Returns a DocumentGroup instance for the given text document."""
+    return DocumentGroup.instance(document)
 
 
 def load(filename):
@@ -57,15 +70,10 @@ def load(filename):
 
 
 class Document(object):
-    """Represents a (lazily) loaded PDF document and retains its position in the viewer.
-    
-    The position can be set by simply writing/reading the position attribute.
-    
-    """
+    """Represents a (lazily) loaded PDF document."""
     def __init__(self):
         self._filename = None
         self._dirty = True
-        self.position = 0, 0.5, 0 # see qpopplerview.View.position()
         
     def filename(self):
         return self._filename
@@ -91,40 +99,32 @@ class Document(object):
 class DocumentGroup(plugin.DocumentPlugin):
     """Represents a group of PDF documents, created by the text document it belongs to.
     
-    One of the documents is the current document, displayed in the viewer.
+    Multiple MusicView instances can use this group, they can store the positions
+    of the Documents in the viewer themselves via a weak-key dictionary on the Document
+    instances returned by documents(). On update() these Document instances will be reused.
+    
+    The global documentUpdated(DocumentGroup) signal will be emitted when the global
+    app.jobFinished() signal causes a reload of documents in a group.
     
     """
-    
-    # reloaded() is emitted when the documents have been updated,
-    # the current index may then also have been changed.
-    reloaded = signals.Signal()
-    
-    # emitted when the current document is changed via setCurrentIndex()
-    currentIndexChanged = signals.Signal() # int
-    
     def __init__(self, document):
         self._documents = []
-        self._current = 0
+        self.update()
         
     def documents(self):
-        """Returns the list of PDF Document objects created by our text document.
-        
-        update() must have been called before calling this.
-        
-        """
+        """Returns the list of PDF Document objects created by our text document."""
         return self._documents[:]
     
     def update(self):
         """Queries the resultfiles of this text document for PDF files and loads them.
         
-        emits the reloaded() signal if there were any documents.
+        Returns True if new documents were loaded.
         
         """
         files = resultfiles.results(self.document()).files(".pdf")
         if files:
             # reuse the older Document objects, they will probably be displaying
-            # (about) the same documents, and so they will retain their position
-            # in the viewer.
+            # (about) the same documents, and so the viewer will remember their position.
             def docs():
                 # yield existing docs and then new ones
                 for d in self._documents:
@@ -136,24 +136,6 @@ class DocumentGroup(plugin.DocumentPlugin):
                 doc.setFilename(filename)
                 documents.append(doc)
             self._documents = documents
-            if self._current >= len(files):
-                self._current = 0
-            self.reloaded()
-
-    def setCurrentIndex(self, index):
-        """Changes the current document and emits the currentIndexChanged(int) signal."""
-        if index < len(self._documents) and index != self._current:
-            self._current = index
-            self.currentIndexChanged(index)
-    
-    def currentIndex(self):
-        """Returns the index of the current document in the list returned by documents()."""
-        return self._current
-
-
-
-@app.jobFinished.connect
-def _update_documents(document):
-    DocumentGroup.instance(document).update()
+            return True
 
 
