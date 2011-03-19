@@ -35,6 +35,8 @@ import app
 import icons
 import textformats
 
+from . import pointandclick
+
 
 class MusicView(QWidget):
     def __init__(self, dockwidget):
@@ -74,6 +76,7 @@ class MusicView(QWidget):
         self.view.load(doc.document())
         position = self._positions.get(doc, (0, 0, 0))
         self.view.setPosition(position)
+        self._links = pointandclick.links(doc.document())
 
     def clear(self):
         """Empties the view."""

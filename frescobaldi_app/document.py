@@ -82,6 +82,7 @@ class Document(QTextDocument):
             self.setPlainText(util.decode(data))
             self.setModified(False)
             self.loaded()
+            app.documentLoaded(self)
             return True
             
     def save(self):

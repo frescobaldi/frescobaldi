@@ -47,6 +47,7 @@ mainwindowCreated = SignalInstance()    # MainWindow
 mainwindowClosed = SignalInstance()     # MainWindow
 documentCreated = SignalInstance()      # Document
 documentUrlChanged = SignalInstance()   # Document
+documentLoaded = SignalInstance()       # Document
 documentModificationChanged = SignalInstance() # Document
 documentClosed = SignalInstance()       # Document
 viewSpaceCreated = SignalInstance()     # ViewSpace (see viewmanager.py)
