@@ -122,12 +122,14 @@ class Links(object):
                 return bound.cursor(line, col)
             elif load:
                 # this also calls bind(), via app.documentLoaded
-                d = app.openUrl(QUrl.fromLocalFile(filename))
-                return self._docs[filename].cursor(line, col)
+                app.openUrl(QUrl.fromLocalFile(filename))
+                bound = self._docs.get(filename)
+                if bound:
+                    return bound.cursor(line, col)
 
 
 class BoundLinks(object):
-    """Stores links as cursors for a document."""
+    """Stores links as QTextCursors for a document."""
     _bound_links_instances = []
     
     def __init__(self, doc, links):
