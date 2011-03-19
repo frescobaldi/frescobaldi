@@ -44,9 +44,6 @@ class MusicViewPanel(panels.Panel):
         super(MusicViewPanel, self).__init__(mainwindow)
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+M"))
         mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
-        mainwindow.currentDocumentChanged.connect(self.slotDocumentChanged)
-        app.jobFinished.connect(self.setDocument)
-        self._previousDocument = lambda: None
         
         ac = self.actionCollection = Actions(self)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
@@ -57,7 +54,8 @@ class MusicViewPanel(panels.Panel):
         ac.music_fit_height.triggered.connect(self.fitHeight)
         ac.music_fit_both.triggered.connect(self.fitBoth)
         ac.music_document_select.currentDocumentChanged.connect(self.openDocument)
-    
+        ac.music_document_select.documentsChanged.connect(self.updateActions)
+        
     def translateUI(self):
         self.setWindowTitle(_("Music View"))
         self.toggleViewAction().setText(_("&Music View"))
@@ -66,24 +64,13 @@ class MusicViewPanel(panels.Panel):
         import widget
         return widget.MusicView(self)
         
-    def slotDocumentChanged(self, document):
-        prev = self._previousDocument()
-        if prev:
-            prev.loaded.disconnect(self.setDocument)
-        document.loaded.connect(self.setDocument)
-        self._previousDocument = weakref.ref(document)
-        self.setDocument(document)
-        
-    def setDocument(self, document=None):
-        if document is None:
-            document = self.mainwindow().currentDocument()
-        ac = self.actionCollection
-        ac.music_document_select.setDocument(document)
-        ac.music_print.setEnabled(bool(documents.group(document).documents()))
-    
     def openDocument(self, doc):
-        """Opens the documents.Document."""
+        """Opens the documents.Document instance (wrapping a lazily loaded Poppler document)."""
         self.widget().view.load(doc.document())
+    
+    def updateActions(self):
+        ac = self.actionCollection
+        ac.music_print.setEnabled(bool(ac.music_document_select.documents()))
         
     def printMusic(self):
         pass
@@ -146,6 +133,7 @@ class Actions(actioncollection.ActionCollection):
 
 class DocumentChooserAction(QWidgetAction):
     
+    documentsChanged = pyqtSignal()
     currentDocumentChanged = pyqtSignal(documents.Document)
     
     def __init__(self, panel):
@@ -155,6 +143,8 @@ class DocumentChooserAction(QWidgetAction):
         self._documents = []
         self._currentIndex = -1
         self._indices = weakref.WeakKeyDictionary()
+        panel.mainwindow().currentDocumentChanged.connect(self.setDocument)
+        documents.documentUpdated.connect(self.setDocument)
         
     def createWidget(self, parent):
         return DocumentChooser(self, parent)
@@ -171,23 +161,29 @@ class DocumentChooserAction(QWidgetAction):
             if w.window() == self.parent().mainwindow():
                 w.showPopup()
                 return
-        
+    
     def setDocument(self, document):
         """Displays the DocumentGroup of the given document in our chooser."""
         prev = self._document()
         self._document = weakref.ref(document)
         if prev:
+            prev.loaded.disconnect(self.updateDocument)
             self._indices[prev] = self._currentIndex
+        document.loaded.connect(self.updateDocument)
+        self.updateDocument()
         
-        docs = self._documents = documents.group(document).documents()
+    def updateDocument(self):
+        """(Re)read the output documents of the current document and show them."""
+        docs = self._documents = documents.group(self._document()).documents()
         self.setVisible(bool(docs))
         self.setEnabled(bool(docs))
         for w in self.createdWidgets():
             w.updateContents(self)
         
-        index = self._indices.get(document, 0)
+        index = self._indices.get(self._document(), 0)
         if index < 0 or index >= len(docs):
             index = 0
+        self.documentsChanged.emit()
         self.setCurrentIndex(index)
     
     def documents(self):
