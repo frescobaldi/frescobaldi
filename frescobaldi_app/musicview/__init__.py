@@ -55,6 +55,7 @@ class MusicViewPanel(panels.Panel):
         ac.music_fit_both.triggered.connect(self.fitBoth)
         ac.music_document_select.currentDocumentChanged.connect(self.openDocument)
         ac.music_document_select.documentsChanged.connect(self.updateActions)
+        ac.music_document_select.documentClosed.connect(self.closeDocument)
         
     def translateUI(self):
         self.setWindowTitle(_("Music View"))
@@ -68,6 +69,9 @@ class MusicViewPanel(panels.Panel):
         """Opens the documents.Document instance (wrapping a lazily loaded Poppler document)."""
         self.widget().view.load(doc.document())
     
+    def closeDocument(self):
+        self.widget().view.clear()
+        
     def updateActions(self):
         ac = self.actionCollection
         ac.music_print.setEnabled(bool(ac.music_document_select.documents()))
@@ -133,6 +137,7 @@ class Actions(actioncollection.ActionCollection):
 
 class DocumentChooserAction(QWidgetAction):
     
+    documentClosed = pyqtSignal()
     documentsChanged = pyqtSignal()
     currentDocumentChanged = pyqtSignal(documents.Document)
     
@@ -168,8 +173,10 @@ class DocumentChooserAction(QWidgetAction):
         self._document = weakref.ref(document)
         if prev:
             prev.loaded.disconnect(self.updateDocument)
+            prev.closed.disconnect(self.closeDocument)
             self._indices[prev] = self._currentIndex
         document.loaded.connect(self.updateDocument)
+        document.closed.connect(self.closeDocument)
         self.updateDocument()
         
     def updateDocument(self):
@@ -186,6 +193,10 @@ class DocumentChooserAction(QWidgetAction):
         self.documentsChanged.emit()
         self.setCurrentIndex(index)
     
+    def closeDocument(self):
+        """Called when the current document is closed by the user."""
+        self.documentClosed.emit()
+        
     def documents(self):
         return self._documents
         

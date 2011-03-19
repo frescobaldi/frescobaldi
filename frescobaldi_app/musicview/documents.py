@@ -109,6 +109,7 @@ class DocumentGroup(plugin.DocumentPlugin):
     """
     def __init__(self, document):
         self._documents = None
+        document.loaded.connect(self.update, -100)
         
     def documents(self):
         """Returns the list of PDF Document objects created by our text document."""
