@@ -39,6 +39,10 @@ import textformats
 class MusicView(QWidget):
     def __init__(self, dockwidget):
         super(MusicView, self).__init__(dockwidget)
+        
+        self._positions = weakref.WeakKeyDictionary()
+        self._currentDocument = lambda: None
+        
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
@@ -60,13 +64,26 @@ class MusicView(QWidget):
         ac.music_fit_height.setChecked(viewmode == qpopplerview.FitHeight)
         ac.music_fit_both.setChecked(viewmode == qpopplerview.FitBoth)
 
-    def openPDF(self, pdf):
-        # TEMP !!
-        d = popplerqt4.Poppler.Document.load(pdf)
-        self.view.load(d)
-        self.view.surface().pageLayout().update()
-        self.view.surface().updateLayout()
+    def openDocument(self, doc):
+        """Opens a documents.Document instance."""
+        cur = self._currentDocument()
+        if cur:
+            self._positions[cur] = self.view.position()
+            
+        self._currentDocument = weakref.ref(doc)
+        self.view.load(doc.document())
+        position = self._positions.get(doc)
+        if position is not None:
+            self.view.setPosition(position)
 
+    def clear(self):
+        """Empties the view."""
+        cur = self._currentDocument()
+        if cur:
+            self._positions[cur] = self.view.position()
+        self._currentDocument = lambda: None
+        self.view.clear()
+        
     def readSettings(self):
         qpopplerview.cache.options().setPaperColor(textformats.formatData('editor').baseColors['paper'])
         self.view.redraw()

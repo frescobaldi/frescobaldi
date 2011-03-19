@@ -67,10 +67,10 @@ class MusicViewPanel(panels.Panel):
         
     def openDocument(self, doc):
         """Opens the documents.Document instance (wrapping a lazily loaded Poppler document)."""
-        self.widget().view.load(doc.document())
+        self.widget().openDocument(doc)
     
     def closeDocument(self):
-        self.widget().view.clear()
+        self.widget().clear()
         
     def updateActions(self):
         ac = self.actionCollection
