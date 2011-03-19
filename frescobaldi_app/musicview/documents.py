@@ -103,7 +103,7 @@ class DocumentGroup(plugin.DocumentPlugin):
     of the Documents in the viewer themselves via a weak-key dictionary on the Document
     instances returned by documents(). On update() these Document instances will be reused.
     
-    The global documentUpdated(DocumentGroup) signal will be emitted when the global
+    The global documentUpdated(Document) signal will be emitted when the global
     app.jobFinished() signal causes a reload of documents in a group.
     
     """

@@ -26,7 +26,7 @@ The PDF preview panel.
 import os
 import weakref
 
-from PyQt4.QtCore import Qt
+from PyQt4.QtCore import Qt, pyqtSignal
 from PyQt4.QtGui import QAction, QComboBox, QKeySequence, QWidgetAction
 
 import app
@@ -35,6 +35,8 @@ import actioncollectionmanager
 import icons
 import panels
 import resultfiles
+
+from . import documents
 
 
 class MusicViewPanel(panels.Panel):
@@ -54,6 +56,7 @@ class MusicViewPanel(panels.Panel):
         ac.music_fit_width.triggered.connect(self.fitWidth)
         ac.music_fit_height.triggered.connect(self.fitHeight)
         ac.music_fit_both.triggered.connect(self.fitBoth)
+        ac.music_document_select.currentDocumentChanged.connect(self.openDocument)
     
     def translateUI(self):
         self.setWindowTitle(_("Music View"))
@@ -74,15 +77,13 @@ class MusicViewPanel(panels.Panel):
     def setDocument(self, document=None):
         if document is None:
             document = self.mainwindow().currentDocument()
-        # TEMP!!
-        pdfs = resultfiles.results(document).files(".pdf")
-        self.actionCollection.music_document_select.setPDFs(pdfs)
-        if pdfs:
-            pdf = pdfs[0]
-            self.show()
-            self.widget().openPDF(pdf)
         ac = self.actionCollection
-        ac.music_print.setEnabled(bool(pdfs))
+        ac.music_document_select.setDocument(document)
+        ac.music_print.setEnabled(bool(documents.group(document).documents()))
+    
+    def openDocument(self, doc):
+        """Opens the documents.Document."""
+        self.widget().view.load(doc.document())
         
     def printMusic(self):
         pass
@@ -144,12 +145,19 @@ class Actions(actioncollection.ActionCollection):
         
 
 class DocumentChooserAction(QWidgetAction):
+    
+    currentDocumentChanged = pyqtSignal(documents.Document)
+    
     def __init__(self, panel):
         super(DocumentChooserAction, self).__init__(panel)
         self.triggered.connect(self.showPopup)
-
+        self._document = lambda: None
+        self._documents = []
+        self._currentIndex = -1
+        self._indices = weakref.WeakKeyDictionary()
+        
     def createWidget(self, parent):
-        return DocumentChooser(self.parent(), parent)
+        return DocumentChooser(self, parent)
     
     def showPopup(self):
         """Called when our action is triggered by a keyboard shortcut."""
@@ -164,21 +172,53 @@ class DocumentChooserAction(QWidgetAction):
                 w.showPopup()
                 return
         
-    def setPDFs(self, pdfs):
-        self.setVisible(len(pdfs) > 1)
-        self.setEnabled(len(pdfs) > 1)
+    def setDocument(self, document):
+        """Displays the DocumentGroup of the given document in our chooser."""
+        prev = self._document()
+        self._document = weakref.ref(document)
+        if prev:
+            self._indices[prev] = self._currentIndex
+        
+        docs = self._documents = documents.group(document).documents()
+        self.setVisible(bool(docs))
+        self.setEnabled(bool(docs))
         for w in self.createdWidgets():
-            w.clear()
-            w.addItems(map(os.path.basename, pdfs))
-            
+            w.updateContents(self)
+        
+        index = self._indices.get(document, 0)
+        if index < 0 or index >= len(docs):
+            index = 0
+        self.setCurrentIndex(index)
+    
+    def documents(self):
+        return self._documents
+        
+    def setCurrentIndex(self, index):
+        if self._documents:
+            self._currentIndex = index
+            for w in self.createdWidgets():
+                w.setCurrentIndex(index)
+            self.currentDocumentChanged.emit(self._documents[index])
+    
+    def currentIndex(self):
+        return self._currentIndex
+        
 
 class DocumentChooser(QComboBox):
-    def __init__(self, panel, parent):
+    def __init__(self, action, parent):
         super(DocumentChooser, self).__init__(parent)
         self.setSizeAdjustPolicy(QComboBox.AdjustToContents)
         self.setFocusPolicy(Qt.NoFocus)
+        self.activated[int].connect(action.setCurrentIndex)
+        self.updateContents(action)
         app.translateUI(self)
         
     def translateUI(self):
         self.setToolTip(_("Choose the PDF document to display."))
+
+    def updateContents(self, action):
+        self.clear()
+        self.addItems([os.path.basename(doc.filename()) for doc in action.documents()])
+        self.setCurrentIndex(action.currentIndex())
+
 
