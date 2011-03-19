@@ -72,9 +72,8 @@ class MusicView(QWidget):
             
         self._currentDocument = weakref.ref(doc)
         self.view.load(doc.document())
-        position = self._positions.get(doc)
-        if position is not None:
-            self.view.setPosition(position)
+        position = self._positions.get(doc, (0, 0, 0))
+        self.view.setPosition(position)
 
     def clear(self):
         """Empties the view."""
