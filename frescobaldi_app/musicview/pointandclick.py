@@ -107,27 +107,24 @@ class Links(object):
         if filename in self._links and filename not in self._docs:
             self.bind(filename, doc)
     
-    def isLoaded(self, link):
-        """Returns True if the link points to a document that is loaded."""
-        m = textedit_match(link.url())
-        if m:
-            filename = readfilename(m)
-            return filename in self._docs
-
-    def cursor(self, link):
+    def cursor(self, link, load=False):
         """Returns the destination of a link as a QTextCursor of the destination document).
         
+        If load (defaulting to False) is True, the document is loaded if it is not yet loaded.
         Returns None if the url was not valid or the document could not be loaded.
         
         """
         m = textedit_match(link.url())
         if m:
             filename, line, col = readurl(m)
-            if filename not in self._docs:
+            bound = self._docs.get(filename)
+            if bound:
+                return bound.cursor(line, col)
+            elif load:
                 # this also calls bind(), via app.documentLoaded
                 d = app.openUrl(QUrl.fromLocalFile(filename))
-            return self._docs[filename].cursor(line, col)
-            
+                return self._docs[filename].cursor(line, col)
+
 
 class BoundLinks(object):
     """Stores links as cursors for a document."""
