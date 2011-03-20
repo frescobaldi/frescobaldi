@@ -45,8 +45,7 @@ textedit_match = re.compile(r"^textedit://(.*?):(\d+):(\d+)(?::\d+)$").match
 
 def readfilename(match):
     """Returns the filename from the match object resulting from textedit_match."""
-    # TODO: check urlencoding of filename
-    return match.group(1)
+    return QUrl.fromPercentEncoding(match.group(1))
 
 
 def readurl(match):
@@ -66,7 +65,6 @@ class Links(object):
     """Stores all the links of a Poppler document sorted by URL and text position.
     
     Only textedit:// urls are stored.
-    
     
     """
     def __init__(self, document):
