@@ -108,8 +108,11 @@ class Results(plugin.DocumentPlugin):
                     yield sorted(glob.iglob(name + '-*[0-9]' + extension), key=util.naturalsort)
             files = itertools.chain.from_iterable(source())
             if newer:
-                mtime = os.path.getmtime(jobfile)
-                files = filter(lambda fname: os.path.getmtime(fname) >= mtime, files)
+                try:
+                    mtime = os.path.getmtime(jobfile)
+                    files = filter(lambda fname: os.path.getmtime(fname) >= mtime, files)
+                except (OSError, IOError):
+                    pass
             return list(util.uniq(files))
         return []
 
