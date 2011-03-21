@@ -285,6 +285,7 @@ class Zoomer(QComboBox):
         self.setSizeAdjustPolicy(QComboBox.AdjustToContents)
         self.setFocusPolicy(Qt.NoFocus)
         self.setEditable(True)
+        self.lineEdit().setReadOnly(True)
         self.activated[int].connect(action.setCurrentIndex)
         self.addItems(['']*3)
         self.addItems(list(map("{0}%".format, _zoomvalues)))
