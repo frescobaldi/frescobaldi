@@ -267,7 +267,7 @@ class ZoomerAction(QWidgetAction):
             scale = self.parent().widget().view.scale()
             text = "{0:.0f}%".format(round(scale * 100.0))
             for w in self.createdWidgets():
-                w.lineEdit().setText(text)
+                w.setEditText(text)
         else:
             if mode == qpopplerview.FitWidth:
                 index = 0
