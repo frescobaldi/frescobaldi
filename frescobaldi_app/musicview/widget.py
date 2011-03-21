@@ -54,6 +54,7 @@ class MusicView(QWidget):
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
         self.view.setViewMode(qpopplerview.FitWidth)
+        self.view.surface().pageLayout().setDPI(self.physicalDpiX(), self.physicalDpiY())
         self.view.viewModeChanged.connect(self.slotViewModeChanged)
         self.view.surface().linkClicked.connect(self.slotLinkClicked)
         self.slotViewModeChanged(self.view.viewMode())
