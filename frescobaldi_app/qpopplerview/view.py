@@ -194,7 +194,8 @@ class View(QScrollArea):
         Pos is a QPoint relative to ourselves.
         
         """
-        if scale < 0.05 or scale > 3.0:
+        scale = max(0.05, min(4.0, scale))
+        if scale == self.scale():
             return
         
         if self.surface().pageLayout().count() == 0:
