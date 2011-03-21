@@ -918,6 +918,7 @@ class MainWindow(QMainWindow):
         t.addSeparator()
         t.addAction(ma.music_zoom_in)
         t.addAction(ma.music_zoom_out)
+        t.addAction(ma.music_zoom_combo)
         
     def translateUI(self):
         self.menu_file.setTitle(_('&File'))

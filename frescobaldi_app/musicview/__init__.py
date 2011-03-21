@@ -39,6 +39,10 @@ import resultfiles
 from . import documents
 
 
+# default zoom percentages
+_zoomvalues = [50, 75, 100, 125, 150, 175, 200, 250, 300]
+
+
 class MusicViewPanel(panels.Panel):
     def __init__(self, mainwindow):
         super(MusicViewPanel, self).__init__(mainwindow)
@@ -105,6 +109,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_print = QAction(panel)
         self.music_zoom_in = QAction(panel)
         self.music_zoom_out = QAction(panel)
+        self.music_zoom_combo = ZoomerAction(panel)
         self.music_fit_width = QAction(panel)
         self.music_fit_height = QAction(panel)
         self.music_fit_both = QAction(panel)
@@ -229,3 +234,63 @@ class DocumentChooser(QComboBox):
         self.setCurrentIndex(action.currentIndex())
 
 
+class ZoomerAction(QWidgetAction):
+    def __init__(self, panel):
+        super(ZoomerAction, self).__init__(panel)
+        
+    def createWidget(self, parent):
+        return Zoomer(self, parent)
+    
+    def setCurrentIndex(self, index):
+        """Called when a user manipulates a Zoomer combobox.
+        
+        Updates the other widgets and calls the corresponding method of the panel.
+        
+        """
+        for w in self.createdWidgets():
+            w.setCurrentIndex(index)
+        if index == 0:
+            self.parent().fitWidth()
+        elif index == 1:
+            self.parent().fitHeight()
+        elif index == 2:
+            self.parent().fitBoth()
+        else:
+            self.parent().widget().view.zoom(_zoomvalues[index-3] / 100.0)
+    
+    def updateZoomInfo(self):
+        """Connect view.viewModeChanged and layout.scaleChanged to this."""
+        import qpopplerview
+        scale = self.parent().widget().view.scale()
+        mode = self.parent().widget().view.viewMode()
+        scaletext = "{0:.0f}%".format(round(scale * 100.0))
+        if mode == qpopplerview.FixedScale:
+            text = scaletext
+        else:
+            if mode == qpopplerview.FitWidth:
+                text = _("Fit Width ({zoom})")
+            elif mode == qpopplerview.FitHeight:
+                text = _("Fit Height ({zoom})")
+            else: # qpopplerview.FitBoth:
+                text = _("Fit Page ({zoom})")
+            text = text.format(zoom = scaletext)
+        for w in self.createdWidgets():
+            w.lineEdit().setText(text)
+
+
+class Zoomer(QComboBox):
+    def __init__(self, action, parent):
+        super(Zoomer, self).__init__(parent)
+        self.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        self.setFocusPolicy(Qt.NoFocus)
+        self.setEditable(True)
+        self.activated[int].connect(action.setCurrentIndex)
+        self.addItems(['']*3)
+        self.addItems(list(map("{0}%".format, _zoomvalues)))
+        app.translateUI(self)
+    
+    def translateUI(self):
+        self.setItemText(0, _("Fit Width"))
+        self.setItemText(1, _("Fit Height"))
+        self.setItemText(2, _("Fit Page"))
+        

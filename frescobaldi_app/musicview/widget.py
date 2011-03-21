@@ -58,6 +58,10 @@ class MusicView(QWidget):
         self.view.surface().linkClicked.connect(self.slotLinkClicked)
         self.slotViewModeChanged(self.view.viewMode())
         
+        zoomer = self.parent().actionCollection.music_zoom_combo
+        self.view.viewModeChanged.connect(zoomer.updateZoomInfo)
+        self.view.surface().pageLayout().scaleChanged.connect(zoomer.updateZoomInfo)
+
     def sizeHint(self):
         return self.parent().mainwindow().size() / 2
         
