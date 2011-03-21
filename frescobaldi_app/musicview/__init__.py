@@ -27,7 +27,7 @@ import os
 import weakref
 
 from PyQt4.QtCore import Qt, pyqtSignal
-from PyQt4.QtGui import QAction, QComboBox, QKeySequence, QWidgetAction
+from PyQt4.QtGui import QAction, QComboBox, QPalette, QKeySequence, QWidgetAction
 
 import app
 import actioncollection
@@ -261,21 +261,22 @@ class ZoomerAction(QWidgetAction):
     def updateZoomInfo(self):
         """Connect view.viewModeChanged and layout.scaleChanged to this."""
         import qpopplerview
-        scale = self.parent().widget().view.scale()
         mode = self.parent().widget().view.viewMode()
-        scaletext = "{0:.0f}%".format(round(scale * 100.0))
+        
         if mode == qpopplerview.FixedScale:
-            text = scaletext
+            scale = self.parent().widget().view.scale()
+            text = "{0:.0f}%".format(round(scale * 100.0))
+            for w in self.createdWidgets():
+                w.lineEdit().setText(text)
         else:
             if mode == qpopplerview.FitWidth:
-                text = _("Fit Width ({zoom})")
+                index = 0
             elif mode == qpopplerview.FitHeight:
-                text = _("Fit Height ({zoom})")
+                index = 1
             else: # qpopplerview.FitBoth:
-                text = _("Fit Page ({zoom})")
-            text = text.format(zoom = scaletext)
-        for w in self.createdWidgets():
-            w.lineEdit().setText(text)
+                index = 2
+            for w in self.createdWidgets():
+                w.setCurrentIndex(index)
 
 
 class Zoomer(QComboBox):
@@ -287,6 +288,7 @@ class Zoomer(QComboBox):
         self.activated[int].connect(action.setCurrentIndex)
         self.addItems(['']*3)
         self.addItems(list(map("{0}%".format, _zoomvalues)))
+        self.setMaxVisibleItems(20)
         app.translateUI(self)
     
     def translateUI(self):
