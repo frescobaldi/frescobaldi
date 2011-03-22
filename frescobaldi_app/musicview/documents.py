@@ -50,6 +50,13 @@ def _on_job_finished(document):
         documentUpdated(document)
 
 
+@app.settingsChanged.connect
+def _on_settings_changed():
+    import qpopplerview
+    for doc in _cache.values():
+        qpopplerview.cache.clear(doc)
+
+
 def group(document):
     """Returns a DocumentGroup instance for the given text document."""
     return DocumentGroup.instance(document)
