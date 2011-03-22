@@ -1002,9 +1002,9 @@ class LilyPondParserExpectChordMode(_parser.FallthroughParser):
             state.enter(LilyPondParserChordMode)
         
 
-class LilyPondParserChordMode(InputModeParser):
+class LilyPondParserChordMode(InputModeParser, LilyPondParserMusic):
     """Parser for \\chords and \\chordmode."""
-    pass
+    pass # TODO: implement
 
 
 class LilyPondParserExpectNoteMode(_parser.FallthroughParser):
@@ -1033,7 +1033,7 @@ class LilyPondParserExpectDrumMode(_parser.FallthroughParser):
             state.enter(LilyPondParserDrumMode)
         
 
-class LilyPondParserDrumMode(LilyPondParserMusic):
+class LilyPondParserDrumMode(InputModeParser, LilyPondParserMusic):
     """Parser for \\drums and \\drummode."""
     pass # TODO: implement
 
@@ -1049,7 +1049,7 @@ class LilyPondParserExpectFigureMode(_parser.FallthroughParser):
             state.enter(LilyPondParserFigureMode)
         
 
-class LilyPondParserFigureMode(LilyPondParserMusic):
+class LilyPondParserFigureMode(InputModeParser, LilyPondParserMusic):
     """Parser for \\figures and \\figuremode."""
     pass # TODO: implement
     
