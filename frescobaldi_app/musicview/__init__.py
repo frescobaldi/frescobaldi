@@ -81,7 +81,10 @@ class MusicViewPanel(panels.Panel):
         ac.music_print.setEnabled(bool(ac.music_document_select.documents()))
         
     def printMusic(self):
-        pass
+        doc = self.actionCollection.music_document_select.currentDocument()
+        if doc:
+            from . import printing
+            printing.printDocument(self, doc)
     
     def zoomIn(self):
         self.widget().view.zoomIn()
@@ -214,7 +217,12 @@ class DocumentChooserAction(QWidgetAction):
     
     def currentIndex(self):
         return self._currentIndex
-        
+    
+    def currentDocument(self):
+        """Returns the currently selected Music document (Note: NOT the text document!)"""
+        if self._documents:
+            return self._documents[self._currentIndex]
+
 
 class DocumentChooser(QComboBox):
     def __init__(self, action, parent):
