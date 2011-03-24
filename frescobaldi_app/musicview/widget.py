@@ -102,6 +102,7 @@ class MusicView(QWidget):
             mainwin = self.parent().mainwindow()
             mainwin.setCurrentDocument(cursor.document(), findOpenView=True)
             mainwin.currentView().setTextCursor(cursor)
-
+        elif isinstance(link, popplerqt4.Poppler.LinkBrowse):
+            QDesktopServices.openUrl(QUrl(link.url()))
 
 
