@@ -29,6 +29,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import util
 import icons
 import preferences
 import lilypondinfo
@@ -157,10 +158,7 @@ class InfoItem(QListWidgetItem):
         self._info = info
     
     def display(self):
-        text = self._info.command
-        homedir = os.path.expanduser('~')
-        if text.startswith(homedir + os.sep):
-            text = "~" + text[len(homedir):]
+        text = util.homify(self._info.command)
         if self._info.version:
             text += " ({0})".format(self._info.versionString)
             self.setIcon(icons.get("lilypond-run"))

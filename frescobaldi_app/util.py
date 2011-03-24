@@ -37,6 +37,14 @@ def iswritable(path):
             or os.access(os.path.dirname(path), os.W_OK))
 
 
+def homify(path):
+    """Replaces the homedirectory (if present) in the path with a tilde (~)."""
+    homedir = os.path.expanduser('~')
+    if path.startswith(homedir + os.sep):
+        path = "~" + path[len(homedir):]
+    return path
+
+
 @contextlib.contextmanager
 def signalsBlocked(*objs):
     """Blocks the signals of the given QObjects and then returns a contextmanager"""
