@@ -23,9 +23,24 @@ from __future__ import unicode_literals
 Constructs a printcommand to print a PDF file.
 """
 
+import itertools
 import os
 
 from PyQt4.QtGui import QPrinter
+
+
+def lprCommand():
+    """Returns a suitable 'lpr'-like command to send a file to the printer queue.
+    
+    Returns None if no such command could be found.
+    Prefers the CUPS command 'lpr' or 'lp' if it can be found.
+    
+    """
+    commands = ("lpr-cups", "lpr.cups", "lpr", "lp")
+    paths = os.environ.get("PATH", os.defpath).split(os.pathsep)
+    for cmd, path in itertools.product(commands, paths):
+        if os.access(os.path.join(path, cmd), os.X_OK):
+            return cmd
 
 
 def printCommand(cmd, printer, filename):
@@ -33,7 +48,7 @@ def printCommand(cmd, printer, filename):
     
     cmd:      "lpr" or "lp" (or something like that)
     printer:  a QPrinter instance
-    filename: the filename of the PDF document.
+    filename: the filename of the PDF document to print.
     
     """
     command = [cmd]

@@ -30,13 +30,13 @@ can be printed.
 """
 
 
-import itertools
 import os
 import subprocess
 
 from PyQt4.QtGui import QMessageBox, QPrinter, QPrintDialog
 
 import app
+import fileprinter
 
 
 def printDocument(dock, document):
@@ -45,14 +45,8 @@ def printDocument(dock, document):
     The dock is the QDockWidget of the music viewer.
     
     """
-    # find the print command
-    commands = ("lpr-cups", "lpr.cups", "lpr", "lp")
-    paths = os.environ.get("PATH", os.defpath).split(os.pathsep)
-    for cmd, path in itertools.product(commands, paths):
-        if os.access(os.path.join(path, cmd), os.X_OK):
-            break
-    else:
-        cmd = None
+    cmd = fileprinter.lprCommand()
+    if not cmd:
         # Temporarily return from here, later fallback printing could be implemented
         QMessageBox.information(dock, _("Not Supported"),
             _("No Print command could be found and direct printing is not yet supported."))
@@ -71,7 +65,6 @@ def printDocument(dock, document):
         return # cancelled
     
     if cmd:
-        import fileprinter
         command = fileprinter.printCommand(cmd, printer, document.filename())
         if subprocess.call(command):
             QMessageBox.warning(dock, _("Printing Error"),
