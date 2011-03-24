@@ -116,4 +116,18 @@ class Results(plugin.DocumentPlugin):
             return list(util.uniq(files))
         return []
 
+    def currentDirectory(self):
+        """Returns the directory the document resides in.
+        
+        Returns the temporary directory if that was used last and there is no master document set.
+        
+        """
+        if documentinfo.info(self.document()).master():
+            filename = self.document().url().toLocalfile()
+        else:
+            filename = self.jobfile()
+        directory = os.path.dirname(filename)
+        if os.path.isdir(directory):
+            return directory
+
 

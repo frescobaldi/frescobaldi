@@ -492,7 +492,13 @@ class MainWindow(QMainWindow):
         self.close()
             
     def openCurrentDirectory(self):
-        directory = os.path.dirname(self.currentDocument().url().toLocalFile()) or os.getcwdu()
+        import resultfiles
+        directory = resultfiles.results(self.currentDocument()).currentDirectory()
+        if not directory:
+            conf = sessionmanager.currentSessionGroup() or QSettings()
+            directory = conf.value("basedir", "") # default directory to save to
+        if not directory:
+            directory = os.getcwdu()
         QDesktopServices.openUrl(QUrl.fromLocalFile(directory))
     
     def printSource(self):
