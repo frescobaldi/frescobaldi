@@ -23,6 +23,7 @@ from __future__ import unicode_literals
 The PDF preview panel widget.
 """
 
+import os
 import weakref
 
 from PyQt4.QtCore import *
@@ -57,6 +58,8 @@ class MusicView(QWidget):
         self.view.surface().pageLayout().setDPI(self.physicalDpiX(), self.physicalDpiY())
         self.view.viewModeChanged.connect(self.slotViewModeChanged)
         self.view.surface().linkClicked.connect(self.slotLinkClicked)
+        self.view.surface().setShowUrlTips(False)
+        self.view.surface().linkHelpRequested.connect(self.slotLinkHelpRequested)
         self.slotViewModeChanged(self.view.viewMode())
         
         zoomer = self.parent().actionCollection.music_zoom_combo
@@ -102,7 +105,16 @@ class MusicView(QWidget):
             mainwin = self.parent().mainwindow()
             mainwin.setCurrentDocument(cursor.document(), findOpenView=True)
             mainwin.currentView().setTextCursor(cursor)
-        elif isinstance(link, popplerqt4.Poppler.LinkBrowse):
+        elif ev.button() != Qt.RightButton and isinstance(link, popplerqt4.Poppler.LinkBrowse):
             QDesktopServices.openUrl(QUrl(link.url()))
 
+    def slotLinkHelpRequested(self, pos, page, link):
+        if isinstance(link, popplerqt4.Poppler.LinkBrowse):
+            text = link.url()
+            cursor = self._links.cursor(link)
+            m = pointandclick.textedit_match(link.url())
+            if m:
+                filename, line, column = pointandclick.readurl(m)
+                text = "{0}  {1}:{2}".format(os.path.basename(filename), line, column)
+            QToolTip.showText(pos, text, self.view.surface(), page.linkRect(link))
 
