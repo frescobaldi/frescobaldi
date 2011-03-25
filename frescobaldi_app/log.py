@@ -51,13 +51,25 @@ class Log(QTextBrowser):
         return self._formats[type]
 
     def write(self, message, type):
-        """Writes the given message with the given type to the log."""
+        """Writes the given message with the given type to the log.
+        
+        The keepScrolledDown context manager is used to scroll the log further
+        down if it was scrolled down at that moment.
+        
+        If two messages of a different type are written after each other a newline
+        is inserted if otherwise the message would continue on the same line.
+        
+        """
         with self.keepScrolledDown():
             changed = type != self._lasttype
             self._lasttype = type
             if changed and self.cursor.block().text() and not message.startswith('\n'):
                 self.cursor.insertText('\n')
-            self.cursor.insertText(message, self.textFormat(type))
+            self.writeMessage(message, type)
+    
+    def writeMessage(self, message, type):
+        """Inserts the given message in the text with the textformat belonging to type."""
+        self.cursor.insertText(message, self.textFormat(type))
     
     @contextlib.contextmanager
     def keepScrolledDown(self):
