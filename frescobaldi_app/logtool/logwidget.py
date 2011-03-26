@@ -106,7 +106,12 @@ class LogWidget(log.Log):
 
     def slotAnchorClicked(self, url):
         """Called when the user clicks a filename in the log."""
-        print url.path()
+        from . import errors
+        cursor = errors.errors(self._document()).cursor(url.toString(), True)
+        if cursor:
+            self.parentWidget().mainwindow().setCurrentDocument(cursor.document())
+            self.parentWidget().mainwindow().currentView().setTextCursor(cursor)
+
 
 
 
