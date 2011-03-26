@@ -102,7 +102,7 @@ class Links(object):
     def slotDocumentLoaded(self, doc):
         """Called when a new document is loaded, it maybe possible to bind to it."""
         filename = doc.url().toLocalFile()
-        if filename in self._links and filename not in self._docs:
+        if filename in self._links:
             self.bind(filename, doc)
     
     def cursor(self, link, load=False):
