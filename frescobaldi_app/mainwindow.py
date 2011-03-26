@@ -144,7 +144,7 @@ class MainWindow(QMainWindow):
     
     def setTextCursor(self, cursor, findOpenView=False):
         """Switches to the document() of the cursor and then sets that cursor on its View."""
-        self.setCurrentDocument(doc, findOpenView)
+        self.setCurrentDocument(cursor.document(), findOpenView)
         self.currentView().setTextCursor(cursor)
     
     def slotViewChanged(self, view):
