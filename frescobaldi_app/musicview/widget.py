@@ -102,9 +102,7 @@ class MusicView(QWidget):
     def slotLinkClicked(self, ev, page, link):
         cursor = self._links.cursor(link, True)
         if cursor:
-            mainwin = self.parent().mainwindow()
-            mainwin.setCurrentDocument(cursor.document(), findOpenView=True)
-            mainwin.currentView().setTextCursor(cursor)
+            self.parent().mainwindow().setTextCursor(cursor, findOpenView=True)
         elif ev.button() != Qt.RightButton and isinstance(link, popplerqt4.Poppler.LinkBrowse):
             QDesktopServices.openUrl(QUrl(link.url()))
 

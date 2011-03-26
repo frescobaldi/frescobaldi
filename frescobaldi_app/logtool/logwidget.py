@@ -110,8 +110,7 @@ class LogWidget(log.Log):
         """Called when the user clicks a filename in the log."""
         cursor = errors.errors(self._document()).cursor(url.toString(), True)
         if cursor:
-            self.parentWidget().mainwindow().setCurrentDocument(cursor.document())
-            self.parentWidget().mainwindow().currentView().setTextCursor(cursor)
+            self.parentWidget().mainwindow().setTextCursor(cursor, findOpenView=True)
 
 
 
