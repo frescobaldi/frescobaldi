@@ -23,6 +23,9 @@ from __future__ import unicode_literals
 The LogWidget.
 """
 
+import itertools
+import os
+import re
 import weakref
 
 from PyQt4.QtCore import *
@@ -30,18 +33,32 @@ from PyQt4.QtGui import *
 
 import app
 import log
+import job
+
+
+_message_re = re.compile(r"^((.*?):(\d+)(?::(\d+))?)(?=:)", re.M)
 
 
 class LogWidget(log.Log):
     """A Log widget that tracks document changes in the MainWindow."""
     def __init__(self, logtool):
         super(LogWidget, self).__init__(logtool)
+        self._rawView = True
         self._document = lambda: None
+        self.readSettings()
+        self.anchorClicked.connect(self.slotAnchorClicked)
         logtool.mainwindow().currentDocumentChanged.connect(self.switchDocument)
         app.jobStarted.connect(self.jobStarted)
         app.documentClosed.connect(self.documentClosed)
+        app.settingsChanged.connect(self.readSettings)
         self.switchDocument(logtool.mainwindow().currentDocument())
-        
+    
+    def readSettings(self):
+        self._formats = self.logformats()
+        self._rawView = QSettings().value("log/rawview", True) not in (False, "false")
+        if self._document():
+            self.switchDocument(self._document()) # reload
+    
     def switchDocument(self, doc):
         """Called when the document is changed."""
         import jobmanager
@@ -63,6 +80,33 @@ class LogWidget(log.Log):
     def documentClosed(self, doc):
         if doc == self._document():
             self.clear()
+
+    def writeMessage(self, message, type):
+        if type == job.STDERR:
+            # find filenames in message:
+            parts = iter(_message_re.split(message))
+            self.cursor.insertText(next(parts), self.textFormat(type))
+            
+            for url, path, line, col, msg in zip(*itertools.repeat(parts, 5)):
+                
+                if self._rawView:
+                    fmt = QTextCharFormat(self.textFormat(type))
+                    display_url = url
+                else:
+                    fmt = QTextCharFormat(self.textFormat("link"))
+                    display_url = os.path.basename(path)
+                fmt.setAnchor(True)
+                fmt.setAnchorHref(url)
+                fmt.setAnchorNames([url])
+                fmt.setToolTip(_("Click to edit this file"))
+                self.cursor.insertText(display_url, fmt)
+                self.cursor.insertText(msg, self.textFormat(type))
+        else:
+            super(LogWidget, self).writeMessage(message, type)
+
+    def slotAnchorClicked(self, url):
+        """Called when the user clicks a filename in the log."""
+        print url.path()
 
 
 

@@ -36,6 +36,7 @@ class Log(QTextBrowser):
     """Widget displaying output from a Job."""
     def __init__(self, parent=None):
         super(Log, self).__init__(parent)
+        self.setOpenLinks(False)
         self.cursor = QTextCursor(self.document())
         self._lasttype = None
         self._formats = self.logformats()
