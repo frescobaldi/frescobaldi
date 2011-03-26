@@ -29,6 +29,7 @@ from PyQt4.QtCore import QUrl
 from PyQt4.QtGui import QTextCursor
 
 import app
+import bookmarks
 import plugin
 import job
 import jobmanager
@@ -48,7 +49,7 @@ def errors(document):
 
 
 class Errors(plugin.DocumentPlugin):
-    """Maintains the list of references to documents after a Job run."""
+    """Maintains the list of references (errors/warnings) to documents after a Job run."""
     
     def __init__(self, document):
         self._refs = {}
@@ -56,6 +57,7 @@ class Errors(plugin.DocumentPlugin):
     def connectJob(self, job):
         """Starts collecting the references of a started Job."""
         self._refs.clear()
+        bookmarks.bookmarks(self.document()).clear("error")
         job.output.connect(self.slotJobOutput)
     
     def slotJobOutput(self, message, type):
@@ -88,6 +90,8 @@ class Reference(object):
             if (scratchdir.scratchdir(d).path() == filename
                 or d.url().toLocalFile() == filename):
                 self.bind(d)
+                if line > 0:
+                    bookmarks.bookmarks(d).setMark(line - 1, "error")
                 break
     
     def bind(self, document):
