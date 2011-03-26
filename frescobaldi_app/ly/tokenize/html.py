@@ -87,11 +87,11 @@ class StringSQStart(String, _token.StringStart):
         state.enter(StringSQParser)
     
 
-class StringDQEnd(String, _token.StringEnd):
+class StringDQEnd(String, _token.StringEnd, _token.Leaver):
     rx = r'"'
     
 
-class StringSQEnd(String, _token.StringEnd):
+class StringSQEnd(String, _token.StringEnd, _token.Leaver):
     rx = r"'"
 
 
