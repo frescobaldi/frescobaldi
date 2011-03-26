@@ -35,6 +35,8 @@ import app
 import log
 import job
 
+from . import errors
+
 
 _message_re = re.compile(r"^((.*?):(\d+)(?::(\d+))?)(?=:)", re.M)
 
@@ -106,7 +108,6 @@ class LogWidget(log.Log):
 
     def slotAnchorClicked(self, url):
         """Called when the user clicks a filename in the log."""
-        from . import errors
         cursor = errors.errors(self._document()).cursor(url.toString(), True)
         if cursor:
             self.parentWidget().mainwindow().setCurrentDocument(cursor.document())
