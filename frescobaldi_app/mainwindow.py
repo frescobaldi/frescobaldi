@@ -900,6 +900,8 @@ class MainWindow(QMainWindow):
         self.addAction(ac.view_previous_mark)
         self.addAction(ac.edit_select_full_lines_up)
         self.addAction(ac.edit_select_full_lines_down)
+        self.addAction(panels.manager(self).logtool.actionCollection.log_next_error)
+        self.addAction(panels.manager(self).logtool.actionCollection.log_previous_error)
         
     def createToolBars(self):
         ac = self.actionCollection

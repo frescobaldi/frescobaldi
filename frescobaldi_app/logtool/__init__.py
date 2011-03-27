@@ -29,6 +29,8 @@ The log dockwindow.
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+import actioncollection
+import actioncollectionmanager
 import app
 import panels
 
@@ -39,6 +41,8 @@ class LogTool(panels.Panel):
         super(LogTool, self).__init__(mainwindow)
         self.hide()
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+L"))
+        ac = self.actionCollection = Actions()
+        actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         mainwindow.addDockWidget(Qt.BottomDockWidgetArea, self)
         app.jobStarted.connect(self.jobStarted)
     
@@ -55,4 +59,18 @@ class LogTool(panels.Panel):
             QSettings().value("log/show_on_start", True) not in (False, "false")):
             self.show()
             
+
+class Actions(actioncollection.ActionCollection):
+    name = "logtool"
+    def createActions(self, parent=None):
+        self.log_next_error = QAction(parent)
+        self.log_previous_error = QAction(parent)
+        
+        self.log_next_error.setShortcut(QKeySequence("Ctrl+E"))
+        self.log_previous_error.setShortcut(QKeySequence("Ctrl+Shift+E"))
+        
+    def translateUI(self):
+        self.log_next_error.setText(_("Next Error Message"))
+        self.log_previous_error.setText(_("Previous Error Message"))
+
 

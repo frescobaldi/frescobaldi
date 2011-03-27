@@ -44,9 +44,13 @@ class LogWidget(log.Log):
         super(LogWidget, self).__init__(logtool)
         self._rawView = True
         self._document = lambda: None
+        self._errors = []
+        self._currentErrorIndex = -1
         self.readSettings()
         self.anchorClicked.connect(self.slotAnchorClicked)
         logtool.mainwindow().currentDocumentChanged.connect(self.switchDocument)
+        logtool.actionCollection.log_next_error.triggered.connect(self.slotNextError)
+        logtool.actionCollection.log_previous_error.triggered.connect(self.slotPreviousError)
         app.jobStarted.connect(self.jobStarted)
         app.documentClosed.connect(self.documentClosed)
         app.settingsChanged.connect(self.readSettings)
@@ -80,6 +84,12 @@ class LogWidget(log.Log):
         if doc == self._document():
             self.clear()
 
+    def clear(self):
+        self._errors = []
+        self._currentErrorIndex = -1
+        self.setExtraSelections([])
+        super(LogWidget, self).clear()
+    
     def writeMessage(self, message, type):
         if type == job.STDERR:
             # find filenames in message:
@@ -96,10 +106,13 @@ class LogWidget(log.Log):
                     display_url = os.path.basename(path)
                 fmt.setAnchor(True)
                 fmt.setAnchorHref(url)
-                fmt.setAnchorNames([url])
                 fmt.setToolTip(_("Click to edit this file"))
+                
+                pos = self.cursor.position()
                 self.cursor.insertText(display_url, fmt)
                 self.cursor.insertText(msg, self.textFormat(type))
+                self._errors.append((pos, self.cursor.position(), url))
+
         else:
             super(LogWidget, self).writeMessage(message, type)
 
@@ -108,6 +121,46 @@ class LogWidget(log.Log):
         cursor = errors.errors(self._document()).cursor(url.toString(), True)
         if cursor:
             self.parentWidget().mainwindow().setTextCursor(cursor, findOpenView=True)
+
+    def slotNextError(self):
+        """Jumps to the position pointed to by the next error message."""
+        self.gotoError(1)
+    
+    def slotPreviousError(self):
+        """Jumps to the position pointed to by the next error message."""
+        self.gotoError(-1)
+        
+    def gotoError(self, direction):
+        """Jumps to the next (1) or previous (-1) error message."""
+        if self._errors:
+            i = self._currentErrorIndex + direction
+            if i < 0:
+                i = len(self._errors) - 1
+            elif i >= len(self._errors):
+                i = 0
+            self._currentErrorIndex = i
+            
+            # set text format
+            pos, anchor, url = self._errors[i]
+            es = QTextEdit.ExtraSelection()
+            es.cursor = QTextCursor(self.document())
+            es.cursor.setPosition(pos)
+            es.cursor.setPosition(anchor, QTextCursor.KeepAnchor)
+            bg = QColor(Qt.red)
+            bg.setAlpha(64)
+            es.format.setBackground(bg)
+            es.format.setProperty(QTextFormat.FullWidthSelection, True)
+            self.setExtraSelections([es])
+            # scroll log to the message
+            cursor = QTextCursor(self.document())
+            cursor.setPosition(anchor)
+            self.setTextCursor(cursor)
+            cursor.setPosition(pos)
+            self.setTextCursor(cursor)
+            # jump to the error location
+            cursor = errors.errors(self._document()).cursor(url, True)
+            if cursor:
+                self.parentWidget().mainwindow().setTextCursor(cursor, findOpenView=True)
 
 
 
