@@ -38,9 +38,6 @@ import job
 from . import errors
 
 
-_message_re = re.compile(r"^((.*?):(\d+)(?::(\d+))?)(?=:)", re.M)
-
-
 class LogWidget(log.Log):
     """A Log widget that tracks document changes in the MainWindow."""
     def __init__(self, logtool):
@@ -86,7 +83,7 @@ class LogWidget(log.Log):
     def writeMessage(self, message, type):
         if type == job.STDERR:
             # find filenames in message:
-            parts = iter(_message_re.split(message))
+            parts = iter(errors.message_re.split(message))
             self.cursor.insertText(next(parts), self.textFormat(type))
             
             for url, path, line, col, msg in zip(*itertools.repeat(parts, 5)):

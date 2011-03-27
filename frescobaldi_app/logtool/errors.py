@@ -36,11 +36,12 @@ import jobmanager
 import scratchdir
 
 
-_message_re = re.compile(r"^((.*?):(\d+)(?::(\d+))?)(?=:)", re.M)
+# finds file references (filename:line:col:) in messages
+message_re = re.compile(r"^((.*?):(\d+)(?::(\d+))?)(?=:)", re.M)
 
 
 @app.jobStarted.connect
-def _clearrefs(document, job):
+def _collectrefs(document, job):
     errors(document).connectJob(job)
 
 
@@ -56,13 +57,20 @@ class Errors(plugin.DocumentPlugin):
         
     def connectJob(self, job):
         """Starts collecting the references of a started Job."""
+        # clear earlier set error marks
+        docs = set([self.document()])
+        for ref in self._refs.values():
+            c = ref.cursor(False)
+            if c:
+                docs.add(c.document())
+        for doc in docs:
+            bookmarks.bookmarks(doc).clear("error")
         self._refs.clear()
-        bookmarks.bookmarks(self.document()).clear("error")
         job.output.connect(self.slotJobOutput)
     
     def slotJobOutput(self, message, type):
         if type == job.STDERR:
-            for m in _message_re.finditer(message):
+            for m in message_re.finditer(message):
                 url, filename = m.group(1, 2)
                 line, column = int(m.group(3)), int(m.group(4) or "0")
                 self._refs[url] = Reference(filename, line, column)
@@ -90,8 +98,6 @@ class Reference(object):
             if (scratchdir.scratchdir(d).path() == filename
                 or d.url().toLocalFile() == filename):
                 self.bind(d)
-                if line > 0:
-                    bookmarks.bookmarks(d).setMark(line - 1, "error")
                 break
     
     def bind(self, document):
@@ -100,6 +106,8 @@ class Reference(object):
             self._cursor = c = QTextCursor(document)
             c.setPosition(b.position() + self._column)
             document.closed.connect(self.unbind)
+            if self._line > 0:
+                bookmarks.bookmarks(document).setMark(self._line - 1, "error")
         else:
             self._cursor = None
             
@@ -114,7 +122,7 @@ class Reference(object):
         """Returns a QTextCursor for this reference.
         
         load should be True or False and determines if a not-loaded document should be loaded.
-        Returns None of the document could not be loaded.
+        Returns None if the document could not be loaded.
         
         """
         if self._cursor:
