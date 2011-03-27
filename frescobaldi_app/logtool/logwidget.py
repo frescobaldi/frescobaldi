@@ -105,7 +105,7 @@ class LogWidget(log.Log):
                     fmt = QTextCharFormat(self.textFormat("link"))
                     display_url = os.path.basename(path)
                 fmt.setAnchor(True)
-                fmt.setAnchorHref(url)
+                fmt.setAnchorHref(str(len(self._errors)))
                 fmt.setToolTip(_("Click to edit this file"))
                 
                 pos = self.cursor.position()
@@ -118,9 +118,9 @@ class LogWidget(log.Log):
 
     def slotAnchorClicked(self, url):
         """Called when the user clicks a filename in the log."""
-        cursor = errors.errors(self._document()).cursor(url.toString(), True)
-        if cursor:
-            self.parentWidget().mainwindow().setTextCursor(cursor, findOpenView=True)
+        index = int(url.toString())
+        if 0 <= index < len(self._errors):
+            self.highlightError(index)
 
     def slotNextError(self):
         """Jumps to the position pointed to by the next error message."""
@@ -138,29 +138,32 @@ class LogWidget(log.Log):
                 i = len(self._errors) - 1
             elif i >= len(self._errors):
                 i = 0
-            self._currentErrorIndex = i
-            
-            # set text format
-            pos, anchor, url = self._errors[i]
-            es = QTextEdit.ExtraSelection()
-            es.cursor = QTextCursor(self.document())
-            es.cursor.setPosition(pos)
-            es.cursor.setPosition(anchor, QTextCursor.KeepAnchor)
-            bg = QColor(Qt.red)
-            bg.setAlpha(64)
-            es.format.setBackground(bg)
-            es.format.setProperty(QTextFormat.FullWidthSelection, True)
-            self.setExtraSelections([es])
-            # scroll log to the message
-            cursor = QTextCursor(self.document())
-            cursor.setPosition(anchor)
-            self.setTextCursor(cursor)
-            cursor.setPosition(pos)
-            self.setTextCursor(cursor)
-            # jump to the error location
-            cursor = errors.errors(self._document()).cursor(url, True)
-            if cursor:
-                self.parentWidget().mainwindow().setTextCursor(cursor, findOpenView=True)
+            self.highlightError(i)
+    
+    def highlightError(self, index):
+        """Hihglights the error message at the given index and jumps to its location."""
+        self._currentErrorIndex = index
+        # set text format
+        pos, anchor, url = self._errors[index]
+        es = QTextEdit.ExtraSelection()
+        es.cursor = QTextCursor(self.document())
+        es.cursor.setPosition(pos)
+        es.cursor.setPosition(anchor, QTextCursor.KeepAnchor)
+        bg = QColor(Qt.red)
+        bg.setAlpha(64)
+        es.format.setBackground(bg)
+        es.format.setProperty(QTextFormat.FullWidthSelection, True)
+        self.setExtraSelections([es])
+        # scroll log to the message
+        cursor = QTextCursor(self.document())
+        cursor.setPosition(anchor)
+        self.setTextCursor(cursor)
+        cursor.setPosition(pos)
+        self.setTextCursor(cursor)
+        # jump to the error location
+        cursor = errors.errors(self._document()).cursor(url, True)
+        if cursor:
+            self.parentWidget().mainwindow().setTextCursor(cursor, findOpenView=True)
 
 
 
