@@ -63,17 +63,21 @@ class LogTool(preferences.Group):
         box.addWidget(self.fontSize)
         layout.addLayout(box)
         
-        self.rawview = QCheckBox(stateChanged=self.changed)
+        self.showlog = QCheckBox(toggled=self.changed)
+        layout.addWidget(self.showlog)
+        
+        self.rawview = QCheckBox(toggled=self.changed)
         layout.addWidget(self.rawview)
         
         app.translateUI(self)
         
     def translateUI(self):
-        self.setTitle(_("Log View"))
+        self.setTitle(_("LilyPond Log"))
         self.fontLabel.setText(_("Font:"))
-        self.rawview.setText(_("Display Plain Log Output"))
+        self.showlog.setText(_("Show log when a job is started"))
+        self.rawview.setText(_("Display plain log output"))
         self.rawview.setToolTip(_(
-            "If checked, Frescobaldi will not shorten pathnames in the log output."""))
+            "If checked, Frescobaldi will not shorten filenames in the log output."""))
     
     def loadSettings(self):
         s = QSettings()
@@ -83,6 +87,7 @@ class LogTool(preferences.Group):
         with util.signalsBlocked(self.fontChooser, self.fontSize):
             self.fontChooser.setCurrentFont(font)
             self.fontSize.setValue(font.pointSizeF())
+        self.showlog.setChecked(s.value("show_on_start", True) not in (False, "false"))
         self.rawview.setChecked(s.value("rawview", True) not in (False, "false"))
 
     def saveSettings(self):
@@ -90,6 +95,7 @@ class LogTool(preferences.Group):
         s.beginGroup("log")
         s.setValue("fontfamily", self.fontChooser.currentFont().family())
         s.setValue("fontsize", self.fontSize.value())
+        s.setValue("show_on_start", self.showlog.isChecked())
         s.setValue("rawview", self.rawview.isChecked())
 
 

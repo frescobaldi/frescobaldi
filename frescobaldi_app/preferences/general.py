@@ -43,7 +43,6 @@ class GeneralPrefs(preferences.GroupsPage):
         
         layout.addWidget(StartSession(self))
         layout.addWidget(SavingDocument(self))
-        layout.addWidget(Tools(self))
         layout.addStretch(1)
             
 
@@ -141,29 +140,5 @@ class SavingDocument(preferences.Group):
         s = QSettings()
         s.setValue("metainfo", self.metainfo.isChecked())
         s.setValue("basedir", self.basedir.path())
-
-
-class Tools(preferences.Group):
-    def __init__(self, page):
-        super(Tools, self).__init__(page)
-        
-        layout = QVBoxLayout()
-        self.setLayout(layout)
-        
-        self.showlog = QCheckBox(toggled=self.changed)
-        layout.addWidget(self.showlog)
-        app.translateUI(self)
-        
-    def translateUI(self):
-        self.setTitle(_("Tool Preferences"))
-        self.showlog.setText(_("Show LilyPond Log when a job starts"))
-        
-    def loadSettings(self):
-        s = QSettings()
-        self.showlog.setChecked(s.value("log/show_on_start", True) not in (False, "false"))
-
-    def saveSettings(self):
-        s = QSettings()
-        s.setValue("log/show_on_start", self.showlog.isChecked())
 
 
