@@ -42,7 +42,6 @@ class PreferencesDialog(QDialog):
     def __init__(self, mainwindow):
         super(PreferencesDialog, self).__init__(mainwindow)
         
-        self.setWindowTitle(app.caption(_("Preferences")))
         layout = QVBoxLayout()
         layout.setSpacing(10)
         self.setLayout(layout)
@@ -93,6 +92,11 @@ class PreferencesDialog(QDialog):
         self.resize(QSettings().value("prefsize", QSize(500, 300)))
         self.pagelist.setCurrentRow(_prefsindex)
         
+        app.translateUI(self)
+        
+    def translateUI(self):
+        self.setWindowTitle(app.caption(_("Preferences")))
+    
     def done(self, result):
         if result and self.buttons.button(QDialogButtonBox.Apply).isEnabled():
             self.saveSettings()
@@ -129,7 +133,8 @@ class PrefsItemBase(QListWidgetItem):
     def __init__(self):
         super(PrefsItemBase, self).__init__()
         self._widget = None
-        self.setup()
+        self.setIcon(icons.get(self.iconName))
+        app.translateUI(self)
     
     def activate(self):
         dlg = self.listWidget().parentWidget()
@@ -142,9 +147,9 @@ class PrefsItemBase(QListWidgetItem):
 
 
 class General(PrefsItemBase):
-    def setup(self):
+    iconName = "configure"
+    def translateUI(self):
         self.setText(_("General Preferences"))
-        self.setIcon(icons.get("configure"))
 
     def widget(self, dlg):
         import general
@@ -152,9 +157,9 @@ class General(PrefsItemBase):
         
 
 class LilyPond(PrefsItemBase):
-    def setup(self):
+    iconName = "lilypond-run"
+    def translateUI(self):
         self.setText(_("LilyPond Preferences"))
-        self.setIcon(icons.get("lilypond-run"))
         
     def widget(self, dlg):
         import lilypond
@@ -162,9 +167,9 @@ class LilyPond(PrefsItemBase):
 
 
 class Paths(PrefsItemBase):
-    def setup(self):
+    iconName = "document-open-folder"
+    def translateUI(self):
         self.setText(_("Paths"))
-        self.setIcon(icons.get("document-open-folder"))
         
     def widget(self, dlg):
         import paths
@@ -172,9 +177,9 @@ class Paths(PrefsItemBase):
 
 
 class Shortcuts(PrefsItemBase):
-    def setup(self):
+    iconName = "configure-shortcuts"
+    def translateUI(self):
         self.setText(_("Keyboard Shortcuts"))
-        self.setIcon(icons.get("configure-shortcuts"))
         
     def widget(self, dlg):
         import shortcuts
@@ -182,9 +187,9 @@ class Shortcuts(PrefsItemBase):
         
 
 class FontsColors(PrefsItemBase):
-    def setup(self):
+    iconName = "fill-color"
+    def translateUI(self):
         self.setText(_("Fonts & Colors"))
-        self.setIcon(icons.get("fill-color"))
         
     def widget(self, dlg):
         import fontscolors
@@ -192,9 +197,9 @@ class FontsColors(PrefsItemBase):
 
 
 class Tools(PrefsItemBase):
-    def setup(self):
+    iconName = "preferences-system"
+    def translateUI(self):
         self.setText(_("Tools"))
-        self.setIcon(icons.get("preferences-system"))
         
     def widget(self, dlg):
         import tools
