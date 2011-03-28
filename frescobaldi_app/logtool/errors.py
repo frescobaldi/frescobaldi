@@ -40,11 +40,6 @@ import scratchdir
 message_re = re.compile(r"^((.*?):(\d+)(?::(\d+))?)(?=:)", re.M)
 
 
-@app.jobStarted.connect
-def _collectrefs(document, job):
-    errors(document).connectJob(job)
-
-
 def errors(document):
     return Errors.instance(document)
 
@@ -54,6 +49,14 @@ class Errors(plugin.DocumentPlugin):
     
     def __init__(self, document):
         self._refs = {}
+        mgr = jobmanager.manager(document)
+        if mgr.job():
+            self.connectJob(mgr.job())
+        mgr.stateChanged.connect(self.slotJobManagerStateChanged)
+        
+    def slotJobManagerStateChanged(self, job):
+        if job:
+            self.connectJob(job)
         
     def connectJob(self, job):
         """Starts collecting the references of a started Job."""
@@ -66,6 +69,9 @@ class Errors(plugin.DocumentPlugin):
         for doc in docs:
             bookmarks.bookmarks(doc).clear("error")
         self._refs.clear()
+        # take over history and connect
+        for msg, type in job.history():
+            self.slotJobOutput(msg, type)
         job.output.connect(self.slotJobOutput)
     
     def slotJobOutput(self, message, type):

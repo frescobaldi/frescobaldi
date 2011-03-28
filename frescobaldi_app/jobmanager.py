@@ -48,7 +48,7 @@ def isRunning(document):
 
 class JobManager(plugin.DocumentPlugin):
     
-    stateChanged = signals.Signal()
+    stateChanged = signals.Signal() # Job (started) or False (finished)
     
     def __init__(self, document):
         self._job = None
@@ -59,11 +59,11 @@ class JobManager(plugin.DocumentPlugin):
             self._job = job
             job.done.connect(self._finished)
             job.start()
-            self.stateChanged()
+            self.stateChanged(job)
             app.jobStarted(self.document(), job)
         
     def _finished(self, success):
-        self.stateChanged()
+        self.stateChanged(False)
         app.jobFinished(self.document(), self._job, success)
     
     def job(self):
