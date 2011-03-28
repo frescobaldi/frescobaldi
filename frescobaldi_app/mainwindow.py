@@ -832,8 +832,14 @@ class MainWindow(QMainWindow):
         
         m.addSeparator()
         m.addAction(ac.view_bookmark)
+        m.addAction(ac.view_next_mark)
+        m.addAction(ac.view_previous_mark)
         m.addAction(ac.view_clear_error_marks)
         m.addAction(ac.view_clear_all_marks)
+        m.addSeparator()
+        la = panels.manager(self).logtool.actionCollection
+        m.addAction(la.log_next_error)
+        m.addAction(la.log_previous_error)
         
         self.menu_document = m = self.menuBar().addMenu('')
         m.aboutToShow.connect(self.populateDocumentsMenu)
@@ -896,12 +902,8 @@ class MainWindow(QMainWindow):
         # actions that are not in menus
         self.addAction(ac.view_scroll_up)
         self.addAction(ac.view_scroll_down)
-        self.addAction(ac.view_next_mark)
-        self.addAction(ac.view_previous_mark)
         self.addAction(ac.edit_select_full_lines_up)
         self.addAction(ac.edit_select_full_lines_down)
-        self.addAction(panels.manager(self).logtool.actionCollection.log_next_error)
-        self.addAction(panels.manager(self).logtool.actionCollection.log_previous_error)
         
     def createToolBars(self):
         ac = self.actionCollection
