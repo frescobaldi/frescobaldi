@@ -84,3 +84,9 @@ class Actions(actioncollection.ActionCollection):
         self.log_previous_error.setText(_("Previous Error Message"))
 
 
+# log errors by initializing Errors instance
+@app.jobStarted.connect
+def _log_errors(document):
+    from . import errors
+    errors.errors(document)
+
