@@ -42,6 +42,8 @@ class LogTool(panels.Panel):
         self.hide()
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+L"))
         ac = self.actionCollection = Actions()
+        ac.log_next_error.triggered.connect(self.slotNextError)
+        ac.log_previous_error.triggered.connect(self.slotPreviousError)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         mainwindow.addDockWidget(Qt.BottomDockWidgetArea, self)
         app.jobStarted.connect(self.jobStarted)
@@ -58,7 +60,15 @@ class LogTool(panels.Panel):
         if (document == self.mainwindow().currentDocument() and
             QSettings().value("log/show_on_start", True) not in (False, "false")):
             self.show()
-            
+
+    def slotNextError(self):
+        """Jumps to the position pointed to by the next error message."""
+        self.widget().gotoError(1)
+    
+    def slotPreviousError(self):
+        """Jumps to the position pointed to by the next error message."""
+        self.widget().gotoError(-1)
+        
 
 class Actions(actioncollection.ActionCollection):
     name = "logtool"

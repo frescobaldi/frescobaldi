@@ -34,6 +34,7 @@ from PyQt4.QtGui import *
 import app
 import log
 import job
+import jobmanager
 
 from . import errors
 
@@ -49,8 +50,6 @@ class LogWidget(log.Log):
         self.readSettings()
         self.anchorClicked.connect(self.slotAnchorClicked)
         logtool.mainwindow().currentDocumentChanged.connect(self.switchDocument)
-        logtool.actionCollection.log_next_error.triggered.connect(self.slotNextError)
-        logtool.actionCollection.log_previous_error.triggered.connect(self.slotPreviousError)
         app.jobStarted.connect(self.jobStarted)
         app.documentClosed.connect(self.documentClosed)
         app.settingsChanged.connect(self.readSettings)
@@ -64,7 +63,6 @@ class LogWidget(log.Log):
     
     def switchDocument(self, doc):
         """Called when the document is changed."""
-        import jobmanager
         job = jobmanager.job(doc)
         if job:
             prevDoc = self._document()
@@ -121,15 +119,7 @@ class LogWidget(log.Log):
         index = int(url.toString())
         if 0 <= index < len(self._errors):
             self.highlightError(index)
-
-    def slotNextError(self):
-        """Jumps to the position pointed to by the next error message."""
-        self.gotoError(1)
     
-    def slotPreviousError(self):
-        """Jumps to the position pointed to by the next error message."""
-        self.gotoError(-1)
-        
     def gotoError(self, direction):
         """Jumps to the next (1) or previous (-1) error message."""
         if self._errors:
