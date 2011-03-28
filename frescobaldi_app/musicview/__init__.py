@@ -138,30 +138,18 @@ class Actions(actioncollection.ActionCollection):
         self.music_print.setText(_("&Print Music..."))
         self.music_zoom_in.setText(_("Zoom &In"))
         self.music_zoom_out.setText(_("Zoom &Out"))
+        self.music_zoom_combo.setText(_("Zoom Music"))
         self.music_fit_width.setText(_("Fit &Width"))
         self.music_fit_height.setText(_("Fit &Height"))
         self.music_fit_both.setText(_("Fit &Page"))
         
 
-class DocumentChooserAction(QWidgetAction):
-    
-    documentClosed = pyqtSignal()
-    documentsChanged = pyqtSignal()
-    currentDocumentChanged = pyqtSignal(documents.Document)
-    
-    def __init__(self, panel):
-        super(DocumentChooserAction, self).__init__(panel)
+class ComboBoxAction(QWidgetAction):
+    """A widget action that opens a combobox widget popup when triggered."""
+    def __init__(self, parent=None):
+        super(ComboBoxAction, self).__init__(parent)
         self.triggered.connect(self.showPopup)
-        self._document = lambda: None
-        self._documents = []
-        self._currentIndex = -1
-        self._indices = weakref.WeakKeyDictionary()
-        panel.mainwindow().currentDocumentChanged.connect(self.setDocument)
-        documents.documentUpdated.connect(self.setDocument)
         
-    def createWidget(self, parent):
-        return DocumentChooser(self, parent)
-    
     def showPopup(self):
         """Called when our action is triggered by a keyboard shortcut."""
         # find the widget in our floating panel, if available there
@@ -174,6 +162,25 @@ class DocumentChooserAction(QWidgetAction):
             if w.window() == self.parent().mainwindow():
                 w.showPopup()
                 return
+    
+
+class DocumentChooserAction(ComboBoxAction):
+    
+    documentClosed = pyqtSignal()
+    documentsChanged = pyqtSignal()
+    currentDocumentChanged = pyqtSignal(documents.Document)
+    
+    def __init__(self, panel):
+        super(DocumentChooserAction, self).__init__(panel)
+        self._document = lambda: None
+        self._documents = []
+        self._currentIndex = -1
+        self._indices = weakref.WeakKeyDictionary()
+        panel.mainwindow().currentDocumentChanged.connect(self.setDocument)
+        documents.documentUpdated.connect(self.setDocument)
+        
+    def createWidget(self, parent):
+        return DocumentChooser(self, parent)
     
     def setDocument(self, document):
         """Displays the DocumentGroup of the given document in our chooser."""
@@ -242,10 +249,7 @@ class DocumentChooser(QComboBox):
         self.setCurrentIndex(action.currentIndex())
 
 
-class ZoomerAction(QWidgetAction):
-    def __init__(self, panel):
-        super(ZoomerAction, self).__init__(panel)
-        
+class ZoomerAction(ComboBoxAction):
     def createWidget(self, parent):
         return Zoomer(self, parent)
     
