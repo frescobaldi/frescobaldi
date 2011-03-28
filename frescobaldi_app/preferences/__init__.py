@@ -75,6 +75,7 @@ class PreferencesDialog(QDialog):
         
         # fill the pagelist
         self.pagelist.setIconSize(QSize(32, 32))
+        self.pagelist.setSpacing(2)
         self.pages = []
         for item in (
             General,
@@ -82,6 +83,7 @@ class PreferencesDialog(QDialog):
             Paths,
             Shortcuts,
             FontsColors,
+            Tools,
                 ):
             self.pagelist.addItem(item())
         self.pagelist.setFixedWidth(self.pagelist.sizeHintForColumn(0) + 12)
@@ -187,6 +189,16 @@ class FontsColors(PrefsItemBase):
     def widget(self, dlg):
         import fontscolors
         return fontscolors.FontsColors(dlg)
+
+
+class Tools(PrefsItemBase):
+    def setup(self):
+        self.setText(_("Tools"))
+        self.setIcon(icons.get("preferences-system"))
+        
+    def widget(self, dlg):
+        import tools
+        return tools.Tools(dlg)
 
 
 class Page(QWidget):

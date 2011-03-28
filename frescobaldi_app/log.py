@@ -99,7 +99,8 @@ class Log(QTextBrowser):
         
         s = QSettings()
         s.beginGroup("log")
-        outputFont = QFont(s.value("fontfamily", "Monospace"), int(s.value("fontsize", 9)))
+        outputFont = QFont(s.value("fontfamily", "monospace"))
+        outputFont.setPointSizeF(float(s.value("fontsize", 9.0)))
         
         output = QTextCharFormat()
         output.setFont(outputFont)
