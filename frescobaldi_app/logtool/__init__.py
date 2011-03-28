@@ -23,11 +23,8 @@ from __future__ import unicode_literals
 The log dockwindow.
 """
 
-
-
-
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QSettings, Qt
+from PyQt4.QtGui import QAction, QKeySequence
 
 import actioncollection
 import actioncollectionmanager

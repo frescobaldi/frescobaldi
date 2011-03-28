@@ -28,8 +28,8 @@ import os
 import re
 import weakref
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QSettings
+from PyQt4.QtGui import QTextCharFormat, QTextCursor, QTextEdit, QTextFormat
 
 import app
 import log
@@ -139,8 +139,8 @@ class LogWidget(log.Log):
         es.cursor = QTextCursor(self.document())
         es.cursor.setPosition(pos)
         es.cursor.setPosition(anchor, QTextCursor.KeepAnchor)
-        bg = QColor(Qt.red)
-        bg.setAlpha(64)
+        bg = self.palette().highlight().color()
+        bg.setAlpha(100)
         es.format.setBackground(bg)
         es.format.setProperty(QTextFormat.FullWidthSelection, True)
         self.setExtraSelections([es])
