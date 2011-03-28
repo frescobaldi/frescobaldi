@@ -146,8 +146,8 @@ class Actions(actioncollection.ActionCollection):
 
 class ComboBoxAction(QWidgetAction):
     """A widget action that opens a combobox widget popup when triggered."""
-    def __init__(self, parent=None):
-        super(ComboBoxAction, self).__init__(parent)
+    def __init__(self, panel):
+        super(ComboBoxAction, self).__init__(panel)
         self.triggered.connect(self.showPopup)
         
     def showPopup(self):
