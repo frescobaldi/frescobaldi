@@ -29,7 +29,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import job
-
+import util
 
 
 class Log(QTextBrowser):
@@ -92,10 +92,10 @@ class Log(QTextBrowser):
         
         """
         textColor = QApplication.palette().color(QPalette.WindowText)
-        successColor = addcolor(textColor, 0, 128, 0) # more green
-        failureColor = addcolor(textColor, 128, 0, 0) # more red
-        linkColor    = addcolor(textColor, 0, 0, 128) # more blue
-        stdoutColor  = addcolor(textColor, 64, 64, 0) # more purple
+        successColor = util.addcolor(textColor, 0, 128, 0) # more green
+        failureColor = util.addcolor(textColor, 128, 0, 0) # more red
+        linkColor    = util.addcolor(textColor, 0, 0, 128) # more blue
+        stdoutColor  = util.addcolor(textColor, 64, 64, 0) # more purple
         
         s = QSettings()
         s.beginGroup("log")
@@ -132,19 +132,5 @@ class Log(QTextBrowser):
             'link': link,
         }
 
-
-
-
-def addcolor(color, r, g, b):
-    """Adds r, g and b values to the given color and returns a new QColor instance."""
-    r += color.red()
-    g += color.green()
-    b += color.blue()
-    d = max(r, g, b) - 255
-    if d > 0:
-        r = max(0, r - d)
-        g = max(0, g - d)
-        b = max(0, b - d)
-    return QColor(r, g, b)
 
 

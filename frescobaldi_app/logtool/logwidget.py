@@ -29,12 +29,14 @@ import re
 import weakref
 
 from PyQt4.QtCore import QSettings
-from PyQt4.QtGui import QTextCharFormat, QTextCursor, QTextEdit, QTextFormat
+from PyQt4.QtGui import (
+    QColor, QTextCharFormat, QTextCursor, QTextEdit, QTextFormat)
 
 import app
 import log
 import job
 import jobmanager
+import util
 
 from . import errors
 
@@ -139,8 +141,7 @@ class LogWidget(log.Log):
         es.cursor = QTextCursor(self.document())
         es.cursor.setPosition(pos)
         es.cursor.setPosition(anchor, QTextCursor.KeepAnchor)
-        bg = self.palette().highlight().color()
-        bg.setAlpha(100)
+        bg = util.mixcolor(self.palette().highlight().color(), self.palette().base().color(), 0.4)
         es.format.setBackground(bg)
         es.format.setProperty(QTextFormat.FullWidthSelection, True)
         self.setExtraSelections([es])
@@ -154,7 +155,5 @@ class LogWidget(log.Log):
         cursor = errors.errors(self._document()).cursor(url, True)
         if cursor:
             self.parentWidget().mainwindow().setTextCursor(cursor, findOpenView=True)
-
-
 
 

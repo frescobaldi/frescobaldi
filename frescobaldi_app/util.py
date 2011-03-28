@@ -28,6 +28,8 @@ import contextlib
 import os
 import re
 
+from PyQt4.QtGui import QColor
+
 import variables
 
 
@@ -54,6 +56,29 @@ def signalsBlocked(*objs):
     finally:
         for obj, block in zip(objs, blocks):
             obj.blockSignals(block)
+
+
+def addcolor(color, r, g, b):
+    """Adds r, g and b values to the given color and returns a new QColor instance."""
+    r += color.red()
+    g += color.green()
+    b += color.blue()
+    d = max(r, g, b) - 255
+    if d > 0:
+        r = max(0, r - d)
+        g = max(0, g - d)
+        b = max(0, b - d)
+    return QColor(r, g, b)
+
+
+def mixcolor(color1, color2, mix):
+    """Returns a QColor as if color1 is painted on color1 with alpha value mix (0.0 - 1.0)."""
+    r1, g1, b1 = color1.red(), color1.green(), color1.blue()
+    r2, g2, b2 = color2.red(), color2.green(), color2.blue()
+    r = r1 * mix + r2 * (1 - mix)
+    g = g1 * mix + g2 * (1 - mix)
+    b = b1 * mix + b2 * (1 - mix)
+    return QColor(r, g, b)
 
 
 def naturalsort(text):
