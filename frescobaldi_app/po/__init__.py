@@ -26,6 +26,8 @@ import gettext
 import locale
 import os
 
+from . import qtranslator
+
 # By default, just return the strings unchanged
 _default_translation = [
     lambda: None,
