@@ -61,15 +61,3 @@ Now you can edit the xx.po file with a tool like Lokalize. If done, you can send
 the translated po file to the Frescobaldi author if you like, to contribute it
 to the Frescobaldi project.
 
-There are many instrument names in Frescobaldi, with the full name and abridged
-name in one string, separated by a pipe symbol (|). This is done so that you can
-understand how to translate the short names. You should translate both the full
-and abridged names and also include the pipe symbol in the resulting string, so:
-
-"Soprano|S." becomes "Sopraan|S." (dutch)
-"Organ|Org." becomes "Orgue|Org." (french)
-"Organ|Org." becomes "Órgano|Órg." (spanish)
-
-Note that this use of the pipe symbol in translations differs from the 
-convention in some projects that the pipe symbol denotes a comment.
-
