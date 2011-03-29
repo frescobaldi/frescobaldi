@@ -27,18 +27,14 @@ import locale
 import os
 
 # By default, just return the strings unchanged
-def _default(message, plural=None, count=0):
-    if plural and count != 1:
-        return plural
-    return message
-
-def _default_context(context, message, plural=None, count=0):
-    if plural and count != 1:
-        return plural
-    return message
-
-__builtin__.__dict__['_'] = _default
-__builtin__.__dict__['_c'] = _default_context
+_default_translation = [
+    lambda: None,
+    lambda message: message,
+    lambda context, message: message,
+    lambda message, plural, count: message if count == 1 else plural,
+    lambda context, message, plural, count: message if count == 1 else plural,
+]
+__builtin__.__dict__['_'] = lambda *args: _default_translation[len(args)](*args)
 
 
 podir = __path__[0]
@@ -59,19 +55,20 @@ def mofile(language):
     
 def install(mofile):
     """Installs the translations from the given .mo file."""
-    translator = gettext.GNUTranslations(open(mofile))
-    
-    def translate(message, plural=None, count=0):
-        if plural is not None:
-            return translator.ungettext(message, plural, count)
-        else:
-            return translator.ugettext(message)
-    
-    def translate_context(context, message, plural=None, count=0):
-        return translate(context + "\x04" + message, plural, count)
-    
-    __builtin__.__dict__['_'] = translate
-    __builtin__.__dict__['_c'] = translate_context
+    with open(mofile) as f:
+        translator = gettext.GNUTranslations(f)
+    translation = [
+        lambda: None,
+        lambda message:
+            translator.ugettext(message),
+        lambda context, message:
+            translator.ugettext(context + "\x04" + message),
+        lambda message, plural, count:
+            translator.ungettext(message, plural, count),
+        lambda context, message, plural, count:
+            translator.ungettext(context + "\x04" + message, context + "\x04" + plural, count),
+    ]
+    __builtin__.__dict__['_'] = lambda *args: translation[len(args)](*args)
 
 def setup():
     """Install the desired language."""
