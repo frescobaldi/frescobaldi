@@ -31,7 +31,6 @@ from PyQt4.QtCore import QCoreApplication, QTranslator
 class Translator(QTranslator):
     """Subclass of QTranslator that gets its messages via the _() function."""
     def translate(self, context, sourceText, disambiguation=""):
-        print context, sourceText
         return _(context, sourceText)
 
 
