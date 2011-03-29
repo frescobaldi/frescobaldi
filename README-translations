@@ -38,7 +38,8 @@ E.g. _("The music view, noun", "View") can return something like "Weergave",
 while _("Command to view the music, verb", "View") should return "Weergeven".
 
 Additionally, when you write a comment starting with L10N (short for localisation),
-it will be included as a command in the POT file.
+just before the line containing the string to be translated, it will be included
+as a comment in the POT file.
 
 
 For translators:
