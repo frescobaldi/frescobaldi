@@ -91,7 +91,7 @@ class ShortcutEditDialog(QDialog):
         app.translateUI(self)
     
     def translateUI(self):
-        self.setWindowTitle(app.caption(_("Edit Shortcut")))
+        self.setWindowTitle(app.caption(_("window title", "Edit Shortcut")))
         self.buttonNone.setText(_("&No shortcut"))
         self.buttonCustom.setText(_("Use a &custom shortcut:"))
         for num in range(4):
@@ -121,7 +121,10 @@ class ShortcutEditDialog(QDialog):
             self.keybuttons[num].setShortcut(key)
         for num in range(len(shortcuts), 4):
             self.keybuttons[num].clear()
-        ds = _("none") if not default else "; ".join(key.toString(QKeySequence.NativeText) for key in default)
+        if default:
+            ds = "; ".join(key.toString(QKeySequence.NativeText) for key in default)
+        else:
+            ds = _("no keyboard shortcut", "none")
         self.buttonDefault.setText(_("Use &default shortcut ({name})").format(name=ds))
         
         return self.exec_()

@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Dummy file that contains messages that are part of Qt but used in our application.
+Dummy file containing messages that are part of Qt and used in our application.
 """
 
 _("CloseButton", "Close Tab")
@@ -45,10 +45,10 @@ _("QScrollBar", "Page up")
 _("QScrollBar", "Page down")
 _("QScrollBar", "Scroll up")
 _("QScrollBar", "Scroll down")
-
 _("QScrollBar", "Left edge")
 _("QScrollBar", "Right edge")
 _("QScrollBar", "Page left")
 _("QScrollBar", "Page right")
 _("QScrollBar", "Scroll left")
 _("QScrollBar", "Scroll right")
+
