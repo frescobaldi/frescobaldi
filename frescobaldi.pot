@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-03-29 15:04+0200\n"
+"POT-Creation-Date: 2011-03-29 23:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -638,6 +638,141 @@ msgstr ""
 
 #: frescobaldi_app/document.py:156
 msgid "Untitled ({num})"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:24
+msgctxt "CloseButton"
+msgid "Close Tab"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:26
+msgctxt "QDialogButtonBox"
+msgid "Apply"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:27
+msgctxt "QDialogButtonBox"
+msgid "OK"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:28
+msgctxt "QDialogButtonBox"
+msgid "Cancel"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:29
+msgctxt "QDialogButtonBox"
+msgid "Discard"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:30
+msgctxt "QDialogButtonBox"
+msgid "Save"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:31
+msgctxt "QDialogButtonBox"
+msgid "Help"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:32
+msgctxt "QDialogButtonBox"
+msgid "Close"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:33
+msgctxt "QDialogButtonBox"
+msgid "Open"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:34
+msgctxt "QDialogButtonBox"
+msgid "Reset"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:36
+msgctxt "QFileDialog"
+msgid "File"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:37
+msgctxt "QFileDialog"
+msgid "Folder"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:38
+msgctxt "QFileDialog"
+msgid "Find Directory"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:39
+msgctxt "QFileDialog"
+msgid "All Files (*)"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:41
+msgctxt "QScrollBar"
+msgid "Scroll here"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:42
+msgctxt "QScrollBar"
+msgid "Top"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:43
+msgctxt "QScrollBar"
+msgid "Bottom"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:44
+msgctxt "QScrollBar"
+msgid "Page up"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:45
+msgctxt "QScrollBar"
+msgid "Page down"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:46
+msgctxt "QScrollBar"
+msgid "Scroll up"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:47
+msgctxt "QScrollBar"
+msgid "Scroll down"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:48
+msgctxt "QScrollBar"
+msgid "Left edge"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:49
+msgctxt "QScrollBar"
+msgid "Right edge"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:50
+msgctxt "QScrollBar"
+msgid "Page left"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:51
+msgctxt "QScrollBar"
+msgid "Page right"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:52
+msgctxt "QScrollBar"
+msgid "Scroll left"
+msgstr ""
+
+#: frescobaldi_app/po/qtmessages.py:53
+msgctxt "QScrollBar"
+msgid "Scroll right"
 msgstr ""
 
 #: frescobaldi_app/quickinsert/articulations.py:67
@@ -1525,6 +1660,7 @@ msgid "Default"
 msgstr ""
 
 #: frescobaldi_app/widgets/shortcuteditdialog.py:94
+msgctxt "window title"
 msgid "Edit Shortcut"
 msgstr ""
 
@@ -1548,11 +1684,12 @@ msgstr ""
 msgid "Here you can edit the shortcuts for {name}"
 msgstr ""
 
-#: frescobaldi_app/widgets/shortcuteditdialog.py:124
+#: frescobaldi_app/widgets/shortcuteditdialog.py:127
+msgctxt "no keyboard shortcut"
 msgid "none"
 msgstr ""
 
-#: frescobaldi_app/widgets/shortcuteditdialog.py:125
+#: frescobaldi_app/widgets/shortcuteditdialog.py:128
 msgid "Use &default shortcut ({name})"
 msgstr ""
 
