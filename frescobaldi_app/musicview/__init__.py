@@ -62,7 +62,7 @@ class MusicViewPanel(panels.Panel):
         ac.music_document_select.documentClosed.connect(self.closeDocument)
         
     def translateUI(self):
-        self.setWindowTitle(_("Music View"))
+        self.setWindowTitle(_("window title", "Music View"))
         self.toggleViewAction().setText(_("&Music View"))
     
     def createWidget(self):

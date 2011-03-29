@@ -1,7 +1,11 @@
 #! python
 
-# This small scripts creates a POT file for the translations by extracting all messages
+# This small script creates a POT file for the translations by extracting all messages
 # from Python source files.
+
+# Usage:
+# python update-pot.py
+
 
 import os
 import subprocess

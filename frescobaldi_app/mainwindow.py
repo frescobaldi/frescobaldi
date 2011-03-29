@@ -220,6 +220,7 @@ class MainWindow(QMainWindow):
         else:
             name.append(doc.url().toString())
         if doc.isModified():
+            # L10N: state of document in window titlebar
             name.append(_("[modified]"))
         self.setWindowTitle(app.caption(" ".join(name)))
     
@@ -263,7 +264,7 @@ class MainWindow(QMainWindow):
         if not doc.isModified():
             return True
         self.setCurrentDocument(doc, findOpenView=True)
-        res = QMessageBox.warning(self, _("Close Document"),
+        res = QMessageBox.warning(self, _("dialog title", "Close Document"),
             _("The document \"{name}\" has been modified.\n"
             "Do you want to save your changes or discard them?").format(name=doc.documentName()),
             QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel)
@@ -330,7 +331,7 @@ class MainWindow(QMainWindow):
         """ Displays an open dialog to open one or more documents. """
         ext = os.path.splitext(self.currentDocument().url().path())[1]
         filetypes = app.filetypes(ext)
-        caption = app.caption(_("Open File"))
+        caption = app.caption(_("dialog title", "Open File"))
         directory = os.path.dirname(self.currentDocument().url().toLocalFile())
         if not directory:
             conf = sessionmanager.currentSessionGroup() or QSettings()
@@ -376,7 +377,7 @@ class MainWindow(QMainWindow):
             import documentinfo
             import ly.tokenize
             filetypes = app.filetypes(ly.tokenize.extensions[documentinfo.mode(doc)])
-        caption = app.caption(_("Save File"))
+        caption = app.caption(_("dialog title", "Save File"))
         filename = QFileDialog.getSaveFileName(self, caption, filename, filetypes)
         if not filename:
             return False # cancelled
@@ -416,13 +417,13 @@ class MainWindow(QMainWindow):
             import documentinfo
             mode = documentinfo.mode(doc)
             data = doc.encodedText()
-            caption = app.caption(_("Save Copy"))
+            caption = app.caption(_("dialog title", "Save Copy"))
         else:
             import fileinfo
             text = self.currentView().textCursor().selection().toPlainText()
             mode = fileinfo.textmode(text)
             data = util.encode(text)
-            caption = app.caption(_("Save Selection"))
+            caption = app.caption(_("dialog title", "Save Selection"))
         filetypes = app.filetypes(ly.tokenize.extensions[mode])
         dirname = os.path.dirname(doc.url().toLocalFile())
         if not dirname:
@@ -506,7 +507,7 @@ class MainWindow(QMainWindow):
         cursor = self.currentView().textCursor()
         printer = QPrinter()
         dlg = QPrintDialog(printer, self)
-        dlg.setWindowTitle(app.caption(_("Print Source")))
+        dlg.setWindowTitle(app.caption(_("dialog title", "Print Source")))
         options = QAbstractPrintDialog.PrintToFile | QAbstractPrintDialog.PrintShowPageSize
         if cursor.hasSelection():
             options |= QAbstractPrintDialog.PrintSelection
@@ -929,21 +930,21 @@ class MainWindow(QMainWindow):
         t.addAction(ma.music_zoom_out)
         
     def translateUI(self):
-        self.menu_file.setTitle(_('&File'))
-        self.menu_edit.setTitle(_('&Edit'))
-        self.menu_view.setTitle(_('&View'))
-        self.menu_document.setTitle(_('&Document'))
-        self.menu_lilypond.setTitle(_('&LilyPond'))
-        self.menu_tools.setTitle(_('&Tools'))
-        self.menu_window.setTitle(_('&Window'))
-        self.menu_sessions.setTitle(_('&Sessions'))
-        self.menu_help.setTitle(_('&Help'))
+        self.menu_file.setTitle(_('menu title', '&File'))
+        self.menu_edit.setTitle(_('menu title', '&Edit'))
+        self.menu_view.setTitle(_('menu title', '&View'))
+        self.menu_document.setTitle(_('menu title', '&Document'))
+        self.menu_lilypond.setTitle(_('menu title', '&LilyPond'))
+        self.menu_tools.setTitle(_('menu title', '&Tools'))
+        self.menu_window.setTitle(_('menu title', '&Window'))
+        self.menu_sessions.setTitle(_('menu title', '&Sessions'))
+        self.menu_help.setTitle(_('menu title', '&Help'))
         self.toolbar_main.setWindowTitle(_("Main Toolbar"))
         self.toolbar_music.setWindowTitle(_("Music View Toolbar"))
         
-        self.menu_file_export.setTitle(_("&Export"))
-        self.menu_view_music.setTitle(_("Music &View"))
-        self.menu_tools_lyrics.setTitle(_("&Lyrics"))
+        self.menu_file_export.setTitle(_('submenu title', "&Export"))
+        self.menu_view_music.setTitle(_('submenu title', "Music &View"))
+        self.menu_tools_lyrics.setTitle(_('submenu title', "&Lyrics"))
     
 
 class HistoryManager(object):
@@ -1326,7 +1327,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.help_whatsthis.setShortcuts(QKeySequence.WhatsThis)
         
     def translateUI(self):
-        self.file_new.setText(_("&New"))
+        self.file_new.setText(_("action: new document", "&New"))
         self.file_open.setText(_("&Open..."))
         self.file_open_recent.setText(_("Open &Recent"))
         self.file_open_current_directory.setText(_("Open Current Directory"))
