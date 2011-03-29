@@ -27,12 +27,19 @@ import locale
 import os
 
 # By default, just return the strings unchanged
-def _default(msg, plur=None, count=0):
-    if plur and count != 1:
-        return plur
-    return msg
-    
+def _default(message, plural=None, count=0):
+    if plural and count != 1:
+        return plural
+    return message
+
+def _default_context(context, message, plural=None, count=0):
+    if plural and count != 1:
+        return plural
+    return message
+
 __builtin__.__dict__['_'] = _default
+__builtin__.__dict__['_c'] = _default_context
+
 
 podir = __path__[0]
 
@@ -53,12 +60,18 @@ def mofile(language):
 def install(mofile):
     """Installs the translations from the given .mo file."""
     translator = gettext.GNUTranslations(open(mofile))
-    def translate(msg, plur=None, count=0):
-        if plur is not None:
-            return translator.ungettext(msg, plur, count)
+    
+    def translate(message, plural=None, count=0):
+        if plural is not None:
+            return translator.ungettext(message, plural, count)
         else:
-            return translator.ugettext(msg)
+            return translator.ugettext(message)
+    
+    def translate_context(context, message, plural=None, count=0):
+        return translate(context + "\x04" + message, plural, count)
+    
     __builtin__.__dict__['_'] = translate
+    __builtin__.__dict__['_c'] = translate_context
 
 def setup():
     """Install the desired language."""
