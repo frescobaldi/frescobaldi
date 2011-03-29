@@ -31,10 +31,20 @@ from PyQt4.QtCore import QCoreApplication, QTranslator
 class Translator(QTranslator):
     """Subclass of QTranslator that gets its messages via the _() function."""
     def translate(self, context, sourceText, disambiguation=""):
+        #_debug(context, sourceText)
         return _(context, sourceText)
 
 
 _translator = Translator()
 
 QCoreApplication.installTranslator(_translator)
+
+
+# DEBUG: show translatable Qt messages once
+_debugmessages = set()
+def _debug(context, sourceText):
+    l = len(_debugmessages)
+    _debugmessages.add((context, sourceText))
+    if len(_debugmessages) > l:
+        print context, sourceText
 
