@@ -100,6 +100,7 @@ def run():
         document.Document()
     if not windows:
         mainwindow.MainWindow().show()
+    sys.excepthook = excepthook
     sys.exit(qApp.exec_())
     
 def translateUI(obj):
@@ -142,4 +143,12 @@ def filetypes(extension=None):
 def settings(name):
     """Returns a QSettings object referring a file in ~/.config/frescobaldi/"""
     return QSettings(info.name, name)
+
+def excepthook(exctype, excvalue, exctb):
+    """Called when a Python exception goes unhandled."""
+    from traceback import format_exception
+    sys.stderr.write(''.join(format_exception(exctype, excvalue, exctb)))
+    if exctype != KeyboardInterrupt:
+        import exception
+        exception.ExceptionDialog(exctype, excvalue, exctb)
 
