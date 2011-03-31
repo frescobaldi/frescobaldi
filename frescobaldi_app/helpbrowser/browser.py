@@ -32,13 +32,19 @@ from PyQt4.QtWebKit import *
 import app
 
 
-class Browser(QMainWindow):
+class Browser(QWidget):
     """We use an embedded QMainWindow so we can add a toolbar nicely."""
     def __init__(self, dockwidget):
         super(Browser, self).__init__(dockwidget)
-        self.setWindowFlags(Qt.Widget)
+        
+        layout = QVBoxLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
+        self.setLayout(layout)
+        
+        self.toolbar = tb = QToolBar()
+        layout.addWidget(self.toolbar)
         self.webview = QWebView()
-        self.setCentralWidget(self.webview)
+        layout.addWidget(self.webview)
         
         ac = dockwidget.actionCollection
         ac.help_back.triggered.connect(self.webview.back)
@@ -48,19 +54,25 @@ class Browser(QMainWindow):
         
         self.webview.urlChanged.connect(self.slotUrlChanged)
         
-        self._toolbar = tb = self.addToolBar('')
         tb.addAction(ac.help_back)
         tb.addAction(ac.help_forward)
         tb.addSeparator()
         tb.addAction(ac.help_home_lilypond)
         tb.addAction(ac.help_home_frescobaldi)
         
+        dockwidget.mainwindow().iconSizeChanged.connect(self.updateToolBarSettings)
+        dockwidget.mainwindow().toolButtonStyleChanged.connect(self.updateToolBarSettings)
         
         self.slotUrlChanged()
         app.translateUI(self)
         
     def translateUI(self):
-        self._toolbar.setWindowTitle(_("Help Browser Toolbar"))
+        self.toolbar.setWindowTitle(_("Help Browser Toolbar"))
+    
+    def updateToolBarSettings(self):
+        mainwin = self.parentWidget().mainwindow()
+        self.toolbar.setIconSize(mainwin.iconSize())
+        self.toolbar.setToolButtonStyle(mainwin.toolButtonStyle())
         
     def showManual(self):
         """Invoked when the user presses F1."""
