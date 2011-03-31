@@ -687,6 +687,10 @@ class MainWindow(QMainWindow):
         cur.movePosition(QTextCursor.StartOfLine, QTextCursor.KeepAnchor)
         view.setTextCursor(cur)
     
+    def showManual(self):
+        """Shows the user guide, called when user presses F1."""
+        panels.manager(self).helpbrowser.showManual()
+        
     def createActions(self):
         self.actionCollection = ac = ActionCollection()
         
@@ -737,6 +741,7 @@ class MainWindow(QMainWindow):
         ac.tools_indent_indent.triggered.connect(self.reIndent)
         ac.window_new.triggered.connect(self.newWindow)
         ac.window_fullscreen.toggled.connect(self.toggleFullScreen)
+        ac.help_manual.triggered.connect(self.showManual)
         ac.help_whatsthis.triggered.connect(QWhatsThis.enterWhatsThisMode)
         
     def populateDocumentsMenu(self):

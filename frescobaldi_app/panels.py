@@ -49,6 +49,8 @@ class PanelManager(plugin.MainWindowPlugin):
         self.musicview = musicview.MusicViewPanel(mainwindow)
         import logtool
         self.logtool = logtool.LogTool(mainwindow)
+        import helpbrowser
+        self.helpbrowser = helpbrowser.HelpBrowser(mainwindow)
         
         self.createActions()
 
@@ -61,6 +63,7 @@ class PanelManager(plugin.MainWindowPlugin):
         menu.addAction(self.actionCollection.panel_quickinsert)
         menu.addAction(self.actionCollection.panel_musicview)
         menu.addAction(self.actionCollection.panel_logtool)
+        menu.addAction(self.actionCollection.panel_helpbrowser)
 
 
 class Actions(actioncollection.ActionCollection):
@@ -72,6 +75,7 @@ class Actions(actioncollection.ActionCollection):
         self.panel_quickinsert = manager.quickinsert.toggleViewAction()
         self.panel_musicview = manager.musicview.toggleViewAction()
         self.panel_logtool = manager.logtool.toggleViewAction()
+        self.panel_helpbrowser = manager.helpbrowser.toggleViewAction()
 
 
 class Panel(QDockWidget):
