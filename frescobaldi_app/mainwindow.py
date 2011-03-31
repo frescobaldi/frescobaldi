@@ -689,7 +689,7 @@ class MainWindow(QMainWindow):
     
     def showManual(self):
         """Shows the user guide, called when user presses F1."""
-        panels.manager(self).helpbrowser.showManual()
+        panels.manager(self).helpbrowser.activate()
         
     def createActions(self):
         self.actionCollection = ac = ActionCollection()

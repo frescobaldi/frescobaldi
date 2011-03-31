@@ -28,8 +28,9 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtWebKit import *
 
-
 import app
+
+from . import html
 
 
 class Browser(QWidget):
@@ -49,25 +50,21 @@ class Browser(QWidget):
         ac = dockwidget.actionCollection
         ac.help_back.triggered.connect(self.webview.back)
         ac.help_forward.triggered.connect(self.webview.forward)
-        ac.help_home_frescobaldi.triggered.connect(self.slotHomeFrescobaldi)
-        ac.help_home_lilypond.triggered.connect(self.slotHomeLilyPond)
+        ac.help_home.triggered.connect(self.showHomePage)
+        ac.help_home_lilypond.triggered.connect(self.showLilyPondHome)
         
         self.webview.urlChanged.connect(self.slotUrlChanged)
         
         tb.addAction(ac.help_back)
         tb.addAction(ac.help_forward)
         tb.addSeparator()
+        tb.addAction(ac.help_home)
         tb.addAction(ac.help_home_lilypond)
-        tb.addAction(ac.help_home_frescobaldi)
         
         dockwidget.mainwindow().iconSizeChanged.connect(self.updateToolBarSettings)
         dockwidget.mainwindow().toolButtonStyleChanged.connect(self.updateToolBarSettings)
         
-        self.slotUrlChanged()
-        app.translateUI(self)
-        
-    def translateUI(self):
-        self.toolbar.setWindowTitle(_("Help Browser Toolbar"))
+        self.showHomePage() # show an initial welcome page
     
     def updateToolBarSettings(self):
         mainwin = self.parentWidget().mainwindow()
@@ -83,11 +80,13 @@ class Browser(QWidget):
         ac.help_back.setEnabled(self.webview.history().canGoBack())
         ac.help_forward.setEnabled(self.webview.history().canGoForward())
         
+    def showHomePage(self):
+        """Shows an initial welcome page."""
+        self.webview.setHtml(html.welcome())
+        
+    def showLilyPondHome(self):
+        """Shows the homepage of the LilyPond documentation."""
+        #self.webview.load(QUrl("http://lilypond.org/doc")) # TEMP!!!
+        self.webview.load(QUrl.fromLocalFile("/usr/share/doc/lilypond/html/index.html")) # TEMP
 
 
-    def slotHomeFrescobaldi(self):
-        self.webview.load(QUrl("http://www.frescobaldi.org/")) # TEMP!!!
-        
-    def slotHomeLilyPond(self):
-        self.webview.load(QUrl("http://lilypond.org/doc")) # TEMP!!!
-        

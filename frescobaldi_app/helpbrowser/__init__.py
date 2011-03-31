@@ -48,13 +48,6 @@ class HelpBrowser(panels.Panel):
     def createWidget(self):
         from . import browser
         return browser.Browser(self)
-        
-    def showManual(self):
-        self.widget().showManual()
-        self.show()
-        if self.mainwindow().tabifiedDockWidgets(self):
-            self.raise_()
-            
 
 
 class Actions(actioncollection.ActionCollection):
@@ -66,23 +59,21 @@ class Actions(actioncollection.ActionCollection):
     def createActions(self, parent=None):
         self.help_back = QAction(parent)
         self.help_forward = QAction(parent)
-        self.help_home_frescobaldi = QAction(parent)
+        self.help_home = QAction(parent)
         self.help_home_lilypond = QAction(parent)
         
         self.help_back.setIcon(icons.get("go-previous"))
         self.help_forward.setIcon(icons.get("go-next"))
-        self.help_home_frescobaldi.setIcon(icons.get("frescobaldi"))
+        self.help_home.setIcon(icons.get("go-home"))
         self.help_home_lilypond.setIcon(icons.get("lilypond-run"))
         
     def translateUI(self):
         self.help_back.setText(_("Back"))
         self.help_forward.setText(_("Forward"))
-        self.help_home_frescobaldi.setText(_("Frescobaldi"))
-        self.help_home_frescobaldi.setToolTip(_("Shows the Frescobaldi documentation."))
+        # L10N: Home page of the Frescobaldi manual
+        self.help_home.setText(_("Home"))
         self.help_home_lilypond.setText(_("LilyPond"))
-        self.help_home_lilypond.setToolTip(_("Shows the LilyPond documentation."))
 
 
 
-        
-        
+
