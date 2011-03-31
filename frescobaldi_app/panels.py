@@ -114,4 +114,9 @@ class Panel(QDockWidget):
         """Re-implement this to return the widget for this tool."""
         return QLabel("<test>", self)
         
+    def activate(self):
+        """Really shows the dock widget, even if tabified."""
+        self.show()
+        if self.mainwindow().tabifiedDockWidgets(self):
+            self.raise_()
 
