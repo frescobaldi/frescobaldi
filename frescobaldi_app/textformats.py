@@ -137,6 +137,15 @@ class TextFormatData(object):
         f = QTextCharFormat(self.defaultStyles[inherit]) if inherit else QTextCharFormat()
         f.merge(self.allStyles[group][name])
         return f
+    
+    def palette(self):
+        """Returns a basic palette with text, background, selection and selection background filled in."""
+        p = QApplication.palette()
+        p.setColor(QPalette.Text, self.baseColors['text'])
+        p.setColor(QPalette.Base, self.baseColors['background'])
+        p.setColor(QPalette.HighlightedText, self.baseColors['selectiontext'])
+        p.setColor(QPalette.Highlight, self.baseColors['selectionbackground'])
+        return p
         
 
 def saveTextFormat(fmt, settings):

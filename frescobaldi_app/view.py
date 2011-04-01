@@ -148,12 +148,7 @@ class View(QPlainTextEdit):
     def readSettings(self):
         data = textformats.formatData('editor')
         self.setFont(data.font)
-        p = QApplication.palette()
-        p.setColor(QPalette.Text, data.baseColors['text'])
-        p.setColor(QPalette.Base, data.baseColors['background'])
-        p.setColor(QPalette.HighlightedText, data.baseColors['selectiontext'])
-        p.setColor(QPalette.Highlight, data.baseColors['selectionbackground'])
-        self.setPalette(p)
+        self.setPalette(data.palette())
         self._baseColors = data.baseColors
         self.updateMarkedLines()
         self.updateCursor()

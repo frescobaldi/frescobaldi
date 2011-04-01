@@ -30,11 +30,12 @@ import weakref
 from PyQt4.QtCore import Qt
 from PyQt4.QtGui import (
     QAction, QApplication, QCheckBox, QGridLayout, QKeySequence, QLabel,
-    QLineEdit, QPushButton, QStyle, QTextCursor, QToolButton, QWidget)
+    QLineEdit, QPalette, QPushButton, QStyle, QTextCursor, QToolButton, QWidget)
 
 import app
 import util
 import plugin
+import textformats
 
 
 class Search(QWidget, plugin.MainWindowPlugin):
@@ -89,6 +90,8 @@ class Search(QWidget, plugin.MainWindowPlugin):
         grid.addWidget(self.replaceButton, 1, 2)
         grid.addWidget(self.replaceAllButton, 1, 3)
         
+        app.settingsChanged.connect(self.readSettings)
+        self.readSettings()
         app.translateUI(self)
         
     def translateUI(self):
@@ -105,6 +108,14 @@ class Search(QWidget, plugin.MainWindowPlugin):
         self.replaceAllButton.setText(_("&All"))
         self.replaceAllButton.setToolTip(_("Replaces all occurrences of the search term in the document or selection."))
     
+    def readSettings(self):
+        data = textformats.formatData('editor')
+        self.searchEntry.setFont(data.font)
+        self.replaceEntry.setFont(data.font)
+        p = data.palette()
+        self.searchEntry.setPalette(p)
+        self.replaceEntry.setPalette(p)
+         
     def currentView(self):
         return self._currentView and self._currentView()
     
@@ -118,13 +129,6 @@ class Search(QWidget, plugin.MainWindowPlugin):
         self.setFixedHeight(self.sizeHint().height())
         view.showWidget(self)
         self.setCurrentView(view)
-        
-        # make the search entry mimic the view's palette
-        self.searchEntry.setFont(view.font())
-        self.searchEntry.setPalette(view.palette())
-        self.replaceEntry.setFont(view.font())
-        self.replaceEntry.setPalette(view.palette())
-        
         self.show()
         
     def hideWidget(self):
