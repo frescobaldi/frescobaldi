@@ -46,6 +46,7 @@ def infos():
             if info:
                 _infos.append(info)
         s.endArray()
+        app.qApp.aboutToQuit.connect(saveinfos)
     return _infos
 
 
@@ -101,4 +102,3 @@ class LilyPondInfo(ly.info.LilyPondInfo):
         settings.setValue("convert-ly", self.convert_ly)
 
 
-app.qApp.aboutToQuit.connect(saveinfos)
