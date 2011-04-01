@@ -90,7 +90,6 @@ class Search(QWidget, plugin.MainWindowPlugin):
         grid.addWidget(self.replaceAllButton, 1, 3)
         
         app.translateUI(self)
-        app.settingsChanged.connect(self.slotSettingsChanged)
         
     def translateUI(self):
         self.searchLabel.setText(_("Search:"))
@@ -105,11 +104,6 @@ class Search(QWidget, plugin.MainWindowPlugin):
         self.replaceButton.setToolTip(_("Replaces the next occurrence of the search term."))
         self.replaceAllButton.setText(_("&All"))
         self.replaceAllButton.setToolTip(_("Replaces all occurrences of the search term in the document or selection."))
-    
-    def slotSettingsChanged(self):
-        view = self.currentView()
-        if view:
-            view.setSearchResults(self._positions)
     
     def currentView(self):
         return self._currentView and self._currentView()
