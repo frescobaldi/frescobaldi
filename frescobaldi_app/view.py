@@ -23,9 +23,11 @@ from __future__ import unicode_literals
 View is basically a QPlainTextEdit instance.
 """
 
+import weakref
+
 from PyQt4.QtCore import QEvent, Qt, QTimer, pyqtSignal
 from PyQt4.QtGui import (
-    QApplication, QColor, QPainter, QPalette, QPlainTextEdit, QTextCursor,
+    QApplication, QColor, QPainter, QPalette, QPlainTextEdit, QTextCharFormat, QTextCursor,
     QTextEdit, QTextFormat, QVBoxLayout)
 
 import app
@@ -46,13 +48,10 @@ class View(QPlainTextEdit):
     
     def __init__(self, document):
         super(View, self).__init__()
+        self._selections = {}
+        self._cursorFormat = QTextCharFormat()
+        self._cursorFormat.setProperty(QTextFormat.FullWidthSelection, True)
         self._paintcursor = False
-        self._markedLineExtraSelections = []
-        self._matchExtraSelections = []
-        self._matchTimer = QTimer(singleShot=True, interval=1000, timeout=self.clearMatches)
-        self._searchExtraSelections = []
-        self._cursorExtraSelection = QTextEdit.ExtraSelection()
-        self._cursorExtraSelection.format.setProperty(QTextFormat.FullWidthSelection, True)
         self.setDocument(document)
         self.setLineWrapMode(QPlainTextEdit.NoWrap)
         self.setCursorWidth(2)
@@ -65,7 +64,8 @@ class View(QPlainTextEdit):
         self.restoreCursor()
         self.cursorPositionChanged.connect(self.updateCursor)
         app.settingsChanged.connect(self.readSettings)
-        self.readSettings() # will also call updateCursor and updateMarkedLines
+        self.readSettings() # will also call updateCursor
+        self.updateMarkedLines()
         
         # layout to show widgets in bottom
         layout = QVBoxLayout()
@@ -73,6 +73,53 @@ class View(QPlainTextEdit):
         layout.setAlignment(Qt.AlignBottom)
         self.setLayout(layout)
         
+    def showWidget(self, widget):
+        """Displays the widget in the bottom of the View."""
+        self.setViewportMargins(0, 0, 0, widget.height())
+        self.layout().addWidget(widget)
+    
+    def hideWidget(self, widget):
+        """Removes the widget from the bottom of the View."""
+        self.layout().removeWidget(widget)
+        self.setViewportMargins(0, 0, 0, 0)
+
+    def highlight(self, format, cursors, priority, msec=0):
+        """Highlights the selection of an arbitrary list of QTextCursors.
+        
+        format can be a name for a predefined text format or a QTextCharFormat.
+        priority determines the order of drawing, highlighting with higher priority
+        is drawn over highlighting with lower priority.
+        msec, if > 0, removes the highlighting after that many milliseconds.
+        
+        """
+        fmt = format if isinstance(format, QTextFormat) else self.textFormat(format)
+        selections = []
+        for cursor in cursors:
+            es = QTextEdit.ExtraSelection()
+            es.cursor = cursor
+            es.format = fmt
+            selections.append(es)
+        if msec:
+            def clear(selfref=weakref.ref(self)):
+                self = selfref()
+                if self:
+                    self.clearHighlight(format)
+            timer = QTimer(timeout=clear, singleShot=True)
+            timer.start(msec)
+            self._selections[format] = (priority, selections, timer)
+        else:
+            self._selections[format] = (priority, selections)
+        self.updateHighlighting()
+        
+    def clearHighlight(self, format):
+        """Removes the highlighting for the given format (name or QTextCharFormat)."""
+        try:
+            del self._selections[format]
+        except KeyError:
+            pass
+        else:
+            self.updateHighlighting()
+
     def event(self, ev):
         # handle Tab and Backtab
         if ev.type() == QEvent.KeyPress:
@@ -150,7 +197,7 @@ class View(QPlainTextEdit):
         self.setFont(data.font)
         self.setPalette(data.palette())
         self._baseColors = data.baseColors
-        self.updateMarkedLines()
+        self.reloadHighlighting()
         self.updateCursor()
         self.setTabWidth()
         
@@ -172,71 +219,37 @@ class View(QPlainTextEdit):
     def updateCursor(self):
         """Called when the textCursor has moved."""
         # highlight current line
-        es = self._cursorExtraSelection
-        es.cursor = self.textCursor()
-        es.cursor.clearSelection()
         color = QColor(self._baseColors['current'])
         color.setAlpha(200 if self.hasFocus() else 100)
-        es.format.setBackground(color)
-        self.updateExtraSelections()
+        self._cursorFormat.setBackground(color)
+        cursor = self.textCursor()
+        cursor.clearSelection()
+        self.highlight(self._cursorFormat, [cursor], 0)
         
     def setTabWidth(self):
         tabwidth = self.fontMetrics().width(" ") * variables.get(self.document(), 'tab-width', 8)
         self.setTabStopWidth(tabwidth)
         
     def updateMarkedLines(self):
-        lines = self._markedLineExtraSelections = []
         for type, marks in bookmarks.bookmarks(self.document()).marks().items():
-            for mark in marks:
-                es = QTextEdit.ExtraSelection()
-                es.cursor = mark
-                color = QColor(self._baseColors[type])
-                color.setAlpha(200)
-                es.format.setBackground(color)
-                es.format.setProperty(QTextFormat.FullWidthSelection, True)
-                lines.append(es)
-        self.updateExtraSelections()
+            self.highlight(type, marks, -1)
         
-    def updateExtraSelections(self):
-        extraSelections = (
-            self._markedLineExtraSelections +
-            [self._cursorExtraSelection] +
-            self._searchExtraSelections +
-            self._matchExtraSelections
-        )
-        self.setExtraSelections(extraSelections)
-    
-    def setSearchResults(self, cursors):
-        results = self._searchExtraSelections = []
-        for cursor in cursors:
-            es = QTextEdit.ExtraSelection()
-            es.cursor = cursor
-            es.format.setBackground(self._baseColors['search'])
-            results.append(es)
-        self.updateExtraSelections()
-    
-    def setMatches(self, cursors, type = 'match'):
-        matches = self._matchExtraSelections = []
-        for cursor in cursors:
-            es = QTextEdit.ExtraSelection()
-            es.cursor = cursor
-            es.format.setBackground(self._baseColors[type])
-            matches.append(es)
-        self.updateExtraSelections()
-        self._matchTimer.start()
+    def updateHighlighting(self):
+        self.setExtraSelections(sum((s[1] for s in sorted(self._selections.values())), []))
 
-    def clearMatches(self):
-        self._matchExtraSelections = []
-        self.updateExtraSelections()
-        
-    def showWidget(self, widget):
-        """Displays the widget in the bottom of the View."""
-        self.setViewportMargins(0, 0, 0, widget.height())
-        self.layout().addWidget(widget)
-    
-    def hideWidget(self, widget):
-        """Removes the widget from the bottom of the View."""
-        self.layout().removeWidget(widget)
-        self.setViewportMargins(0, 0, 0, 0)
-
+    def textFormat(self, name):
+        f = QTextCharFormat()
+        f.setBackground(self._baseColors[name])
+        if name in ('current', 'mark', 'error'):
+            f.setProperty(QTextFormat.FullWidthSelection, True)
+        return f
+            
+    def reloadHighlighting(self):
+        """Reloads the named formats in the highlighting (e.g. in case of settings change)."""
+        for format in self._selections:
+            if not isinstance(format, QTextFormat):
+                fmt = self.textFormat(format)
+                for es in self._selections[format][1]:
+                    es.format = fmt
+        self.updateHighlighting()
 
