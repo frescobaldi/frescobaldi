@@ -23,8 +23,6 @@ from __future__ import unicode_literals
 Highlights matching tokens such as { and }, << and >> etc.
 """
 
-import weakref
-
 import app
 import plugin
 import ly.tokenize
@@ -37,11 +35,8 @@ class Matcher(plugin.MainWindowPlugin):
         view = mainwindow.currentView()
         if view:
             self.newView(view)
-        else:
-            self.view = lambda: None
         
     def newView(self, view, old=None):
-        self.view = weakref.ref(view)
         if old:
             old.cursorPositionChanged.disconnect(self.checkMatches)
             old.document().contentsChange.disconnect(self.checkContentsChange)
@@ -49,12 +44,13 @@ class Matcher(plugin.MainWindowPlugin):
         view.document().contentsChange.connect(self.checkContentsChange)
     
     def checkContentsChange(self, position):
-        if position == self.view().textCursor().position():
+        if position == self.mainwindow().currentView().textCursor().position():
             self.checkMatches()
             
     def checkMatches(self):
         # see if there are matches
-        cursor = self.view().textCursor()
+        view = self.mainwindow().currentView()
+        cursor = view.textCursor()
         block = cursor.block()
         column = cursor.position() - block.position()
         tokens = tokeniter.TokenIterator(block)
@@ -78,13 +74,13 @@ class Matcher(plugin.MainWindowPlugin):
                     if nest == 0:
                         # we've found the matching item!
                         cursor2 = tokens.cursor()
-                        self.view().highlight("match", (cursor1, cursor2), 2, 1000)
+                        view.highlight("match", (cursor1, cursor2), 2, 1000)
                         return
                     else:
                         nest -= 1
                 elif isinstance(token2, match) and token2.matchname == token.matchname:
                     nest += 1
-        self.view().clearHighlight("match")
+        view.clearHighlight("match")
 
 
 app.mainwindowCreated.connect(Matcher.instance)
