@@ -117,6 +117,6 @@ class Panel(QDockWidget):
     def activate(self):
         """Really shows the dock widget, even if tabified."""
         self.show()
-        if self.mainwindow().tabifiedDockWidgets(self):
+        if self.mainwindow().tabifiedDockWidgets(self) or self.isFloating():
             self.raise_()
 
