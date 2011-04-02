@@ -1,5 +1,12 @@
+import os
 from distutils.core import setup
 from frescobaldi_app import info
+
+def packagelist(directory):
+    """Returns a sorted list with package names for all packages under the given directory."""
+    return list(sorted(root.replace('/', '.')
+        for root, dirs, files in os.walk(directory)
+        if '__init__.py' in files))
 
 setup(
     name = info.name,
@@ -13,25 +20,7 @@ setup(
     
     scripts = ['frescobaldi'],
     
-    # The following command prints the packages list:
-    # find . -name __init__.py | sed "s#/__init__.py#',#;s#^./#        '#;s#/#.#g" | sort
-    packages = [
-        'frescobaldi_app',
-        'frescobaldi_app.engrave',
-        'frescobaldi_app.hyphdicts',
-        'frescobaldi_app.icons',
-        'frescobaldi_app.language_names',
-        'frescobaldi_app.logtool',
-        'frescobaldi_app.ly',
-        'frescobaldi_app.ly.tokenize',
-        'frescobaldi_app.musicview',
-        'frescobaldi_app.po',
-        'frescobaldi_app.preferences',
-        'frescobaldi_app.qpopplerview',
-        'frescobaldi_app.quickinsert',
-        'frescobaldi_app.symbols',
-        'frescobaldi_app.widgets',
-    ],
+    packages = packagelist('frescobaldi_app'),
     package_data = {
         'frescobaldi_app.hyphdicts': ['*.dic'],
         'frescobaldi_app.icons': ['*.svg', '*.png'],

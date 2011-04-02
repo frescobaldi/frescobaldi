@@ -1,5 +1,7 @@
-include README COPYING
+include README* COPYING TODO
 include frescobaldi.desktop
+include frescobaldi.pot
 recursive-include frescobaldi_app *.png *.svg
 recursive-include frescobaldi_app *.ly *.ily Makefile
 recursive-include frescobaldi_app *.po *.mo
+exclude *~
