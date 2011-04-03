@@ -65,24 +65,21 @@ class NetworkAccessManager(QNetworkAccessManager):
         Content-Type header.
         
         """
-        self._dispatcher[scheme] = htmlhandler(handler, threaded, encoding)
+        cls = ThreadedHtmlReply if threaded else HtmlReply
+        def createRequest(mgr, operation, request, data):
+            return cls(mgr, request.url(), handler, encoding)
+        self._dispatcher[scheme] = createRequest
 
     def unregisterHandler(self, scheme):
-        del self._dispatcher[scheme]
-        
-
-def htmlhandler(handler, threaded, encoding):
-    """Returns a simple function that returns a HtmlReply instance based on the query url."""
-    if threaded:
-        def createRequest(mgr, operation, request, data):
-            return ThreadedHtmlReply(mgr, request.url(), handler, encoding)
-    else:
-        def createRequest(mgr, operation, request, data):
-            return HtmlReply(mgr, request.url(), handler, encoding)
-    return createRequest
+        """Removes the special handling for the given scheme."""
+        try:
+            del self._dispatcher[scheme]
+        except KeyError:
+            pass
 
 
 class HtmlReplyBase(QNetworkReply):
+    """Abstract base class for a QNetworkReply that represents a generated HTML string."""
     def __init__(self, manager, url, handler, encoding="UTF-8"):
         QNetworkReply.__init__(self, manager)
         self.setUrl(url)
@@ -120,6 +117,7 @@ class HtmlReplyBase(QNetworkReply):
 
 
 class HtmlReply(HtmlReplyBase):
+    """QNetworkReply that generates a HTML string by calling handler(url).encode(encoding)."""
     def __init__(self, manager, url, handler, encoding="UTF-8"):
         HtmlReplyBase.__init__(self, manager, url, handler, encoding)
         self.callHandler()
@@ -128,6 +126,7 @@ class HtmlReply(HtmlReplyBase):
 
 
 class ThreadedHtmlReply(HtmlReplyBase):
+    """HtmlReply that calls handler(url) in a background thread."""
     def __init__(self, manager, url, handler, encoding="UTF-8"):
         HtmlReplyBase.__init__(self, manager, url, handler, encoding)
         self._thread = Thread(self.callHandler)
@@ -140,6 +139,7 @@ class ThreadedHtmlReply(HtmlReplyBase):
 
 
 class Thread(QThread):
+    """QThread that runs a single callable."""
     def __init__(self, func):
         QThread.__init__(self)
         self._func = func
