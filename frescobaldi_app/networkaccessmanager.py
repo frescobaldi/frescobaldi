@@ -61,8 +61,8 @@ class NetworkAccessManager(QNetworkAccessManager):
         
         The handler only gets a GET URL (QUrl) and should return a HTML string.
         If threaded is True, the handler is called in a background thread.
-        The encoding defaults to UTF-8 and is used for encoding and in the
-        Content-Type header.
+        The encoding defaults to UTF-8 and is used for encoding the HTML returned
+        by then handler and also set in the Content-Type header.
         
         """
         cls = ThreadedHtmlReply if threaded else HtmlReply

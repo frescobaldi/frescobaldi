@@ -31,57 +31,74 @@ import weakref
 
 from PyQt4.QtCore import QUrl
 
+import network
+
 from . import manual
 
 
 def save(func):
-    """Decorator that lets a method cache its return value and return that next calls."""
+    """Decorator that lets an instance method cache its return value.
+    
+    If the return value is not None, it is cached and returned next time.
+    If the return value is None, nothing is cached and the method is
+    called again next time.
+    
+    """
     _cache = weakref.WeakKeyDictionary()
     @functools.wraps(func)
     def wrapper(self):
         try:
             return _cache[self]
         except KeyError:
-            result = _cache[self] = func(self)
+            result = func(self)
+            if result is not None:
+                _cache[self] = result
             return result
     return wrapper
 
 
 class LilyDoc(object):
-    """Represents one instance of the full LilyPond documentation."""
+    """Represents one instance of the full LilyPond documentation.
+    
+    The url, given on instantiation, should point to the folder (local or remote)
+    containing the 'VERSION' file and 'Documentation' folder.
+    
+    """
     def __init__(self, url):
         self._url = url
-    
+        self._localFile = url.toLocalFile()
+        self._versionRequest = None
+        
     def url(self):
-        return self._url
+        return QUrl(self._url)
     
     def isLocal(self):
         """Returns True if the documentation is on the local system."""
-        return bool(self._url.toLocalFile())
-        
+        return bool(self._localFile)
+    
     def version(self):
         """Returns the versionString as a tuple of ints."""
-        return tuple(map(int, re.findall(r"\d+", self.versionString())))
+        v = self.versionString()
+        if v is not None:
+            return tuple(map(int, re.findall(r"\d+", v)))
     
     @save
     def versionString(self):
         """Returns the version, if it can be found, of this manual. If not, returns an empty string."""
         if self.isLocal():
-            verfile = os.path.join(self.baseUrl().toLocalFile(), 'VERSION')
-            if os.path.exists(verfile):
-                return open(verfile).read().strip()
-        return ""
-
-    def baseUrl(self):
-        """Tries to find the top directory of this documentation."""
-        filename = self.url().toLocalFile()
-        if filename:
-            # local url
-            while os.sep in filename:
-                if os.path.isdir() and os.path.exists(os.path.join(filename, 'VERSION'):
-                    return QUrl.fromLocalFile(filename)
-                filename = os.path.dirname(filename)
-        return self._url
+            verfile = os.path.join(self._localFile, 'VERSION')
+            if os.path.exists(verfile) and os.access(verfile, os.R_OK):
+                return file(verfile).read().strip()
+            return ""
+        if self._versionRequest is None:
+            url = self.url()
+            sep = '/' if not url.path().endswith('/') else ''
+            url.setPath(url.path() + sep + 'VERSION')
+            self._versionRequest = network.get(url)
+        elif self._versionRequest.isFinished():
+            v = str(self._versionRequest.readAll()).strip()
+            self._versionRequest = None
+            return v
         
     @save
     def notation(self):
