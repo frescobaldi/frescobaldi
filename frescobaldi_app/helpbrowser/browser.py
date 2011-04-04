@@ -30,6 +30,8 @@ from PyQt4.QtWebKit import *
 
 import app
 import network
+import textformats
+import highlighter
 
 from . import html
 
@@ -87,12 +89,20 @@ class Browser(QWidget):
     def slotUnsupported(self, reply):
         if reply.url().path().endswith(('.ily', '.lyi', '.ly')):
             # TODO: display ly in small window, or highlighted as html etc.
-            data = reply.readAll()
-            dataurl = "data:text/html;charset=UTF-8,<html><pre>{0}</pre></html>".format(data)
-            self.webview.load(QUrl(dataurl))
+            self.lyViewer().showReply(reply)
+            #data = reply.readAll()
+            #dataurl = "data:text/html;charset=UTF-8,<html><pre>{0}</pre></html>".format(data)
+            #self.webview.load(QUrl(dataurl))
         else:
             QDesktopServices.openUrl(reply.url())
-        
+    
+    def lyViewer(self):
+        try:
+            return self._lyviewer
+        except AttributeError:
+            self._lyviewer = LyViewer(self)
+            return self._lyviewer
+    
     def showHomePage(self):
         """Shows an initial welcome page."""
         self.webview.setHtml(html.welcome())
@@ -101,5 +111,41 @@ class Browser(QWidget):
         """Shows the homepage of the LilyPond documentation."""
         #self.webview.load(QUrl("http://lilypond.org/doc")) # TEMP!!!
         self.webview.load(QUrl.fromLocalFile("/usr/share/doc/lilypond/html/index.html")) # TEMP
+
+
+
+class LyViewer(QDialog):
+    def __init__(self, browser):
+        super(LyViewer, self).__init__(browser)
+
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+        
+        self.urlLabel = QLabel(wordWrap=True)
+        layout.addWidget(self.urlLabel)
+        self.textbrowser = QTextBrowser()
+        layout.addWidget(self.textbrowser)
+        
+        self.textbrowser.setLineWrapMode(QTextBrowser.NoWrap)
+        
+        app.settingsChanged.connect(self.readSettings)
+        self.readSettings()
+        app.translateUI(self)
+        
+    def translateUI(self):
+        self.setWindowTitle(app.caption(_("LilyPond Source")))
+        
+    def readSettings(self):
+        self.textbrowser.setFont(textformats.formatData('editor').font)
+        
+    def showReply(self, reply):
+        self.urlLabel.setText(reply.url().toString())
+        self.textbrowser.setText(unicode(reply.readAll(), 'utf-8', 'replace'))
+        self.resize(QSettings().value("helpbrowser/sourcedialogsize", QSize(400, 300)))
+        self.show()
+        highlighter.highlight(self.textbrowser.document())
+        
+    def resizeEvent(self, ev):
+        QSettings().setValue("helpbrowser/sourcedialogsize", ev.size())
 
 

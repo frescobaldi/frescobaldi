@@ -266,3 +266,23 @@ def htmlCopy(document, data):
         block = block.next()
     return doc
 
+
+def highlight(document):
+    """Highlights a generic QTextDocument once."""
+    formats = highlightFormats()
+    state = ly.tokenize.guessState(document.toPlainText())
+    cursor = QTextCursor(document)
+    block = document.firstBlock()
+    while block.isValid():
+        for token in state.tokens(block.text()):
+            for cls in token.__class__.__mro__[_token_mro_slice]:
+                try:
+                    f = formats[cls]
+                except KeyError:
+                    continue
+                cursor.setPosition(block.position() + token.pos)
+                cursor.setPosition(block.position() + token.end, QTextCursor.KeepAnchor)
+                cursor.setCharFormat(f)
+                break
+        block = block.next()
+
