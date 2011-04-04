@@ -29,6 +29,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtWebKit import *
 
 import app
+import network
 
 from . import html
 
@@ -53,6 +54,7 @@ class Browser(QWidget):
         ac.help_home.triggered.connect(self.showHomePage)
         ac.help_home_lilypond.triggered.connect(self.showLilyPondHome)
         
+        self.webview.page().setNetworkAccessManager(network.accessmanager())
         self.webview.urlChanged.connect(self.slotUrlChanged)
         
         tb.addAction(ac.help_back)

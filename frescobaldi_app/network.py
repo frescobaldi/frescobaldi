@@ -21,24 +21,47 @@
 Network-related utility functions.
 """
 
+import locale
+
 from PyQt4.QtCore import *
 from PyQt4.QtNetwork import *
 
+import app
+import networkaccessmanager
 
 _accessmanager = None
 
 
 def accessmanager():
-    """Returns a global QNetworkAccessManager."""
+    """Returns a global NetworkAccessManager."""
     global _accessmanager
     if _accessmanager:
         return _accessmanager
-    _accessmanager = QNetworkAccessManager()
+    _accessmanager = networkaccessmanager.NetworkAccessManager()
+    _readSettings()
+    app.settingsChanged.connect(_readSettings)
     return _accessmanager
 
 
 def get(url):
     request = QNetworkRequest(url)
     return accessmanager().get(request)
+
+
+
+def _readSettings():
+    """Called when the networkaccessmanager is created for the first time and when the app settings change."""
+    nam = _accessmanager
+    
+    # TODO: set language preference from config
+    langs = []
+    lang = locale.getdefaultlocale()[0]
+    if lang:
+        langs.append(lang)
+        if '_' in lang:
+            langs.append(lang.split('_')[0])
+    langs.append('en')
+    nam.headers['Accept-Language'] = ','.join(langs)
+
 
 
