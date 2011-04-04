@@ -85,16 +85,16 @@ class PreferencesDialog(QDialog):
             Tools,
                 ):
             self.pagelist.addItem(item())
-        self.pagelist.setFixedWidth(self.pagelist.sizeHintForColumn(0) + 12)
         self.pagelist.currentItemChanged.connect(self.slotCurrentItemChanged)
         
         # read our size and selected page
         self.resize(QSettings().value("prefsize", QSize(500, 300)))
         self.pagelist.setCurrentRow(_prefsindex)
         
-        app.translateUI(self)
+        app.translateUI(self, 100)
         
     def translateUI(self):
+        self.pagelist.setFixedWidth(self.pagelist.sizeHintForColumn(0) + 12)
         self.setWindowTitle(app.caption(_("Preferences")))
     
     def done(self, result):

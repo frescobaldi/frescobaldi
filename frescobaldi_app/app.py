@@ -103,7 +103,7 @@ def run():
     sys.excepthook = excepthook
     sys.exit(qApp.exec_())
     
-def translateUI(obj):
+def translateUI(obj, priority=0):
     """Translates texts in the object.
     
     Texts are translated again if the language is changed.
@@ -111,7 +111,7 @@ def translateUI(obj):
     also called by this function.
     
     """
-    languageChanged.connect(obj.translateUI)
+    languageChanged.connect(obj.translateUI, priority)
     obj.translateUI()
 
 def caption(title):

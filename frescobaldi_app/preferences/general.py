@@ -30,6 +30,9 @@ import app
 import icons
 import preferences
 import sessionmanager
+import util
+import po
+import language_names
 
 from widgets.urlrequester import UrlRequester
 
@@ -41,10 +44,57 @@ class GeneralPrefs(preferences.GroupsPage):
         layout = QVBoxLayout()
         self.setLayout(layout)
         
+        layout.addWidget(General(self))
+        layout.addStretch(0)
         layout.addWidget(StartSession(self))
+        layout.addStretch(0)
         layout.addWidget(SavingDocument(self))
-        layout.addStretch(1)
-            
+
+
+class General(preferences.Group):
+    def __init__(self, page):
+        super(General, self).__init__(page)
+        
+        grid = QGridLayout()
+        self.setLayout(grid)
+        
+        self.langLabel = QLabel()
+        self.lang = QComboBox(currentIndexChanged=self.changed)
+        grid.addWidget(self.langLabel, 0, 0)
+        grid.addWidget(self.lang, 0, 1)
+        grid.setColumnStretch(2, 1)
+        
+        app.translateUI(self)
+    
+    def loadSettings(self):
+        lang = QSettings().value("language", "")
+        try:
+            index = self._langs.index(lang)
+        except IndexError:
+            index = 1
+        self.lang.setCurrentIndex(index)
+    
+    def saveSettings(self):
+        QSettings().setValue("language", self._langs[self.lang.currentIndex()])
+        
+    def translateUI(self):
+        self.setTitle(_("General Preferences"))
+        self.langLabel.setText(_("Language:"))
+        
+        current = QSettings().value("language", "")
+        if current in ("none", ""):
+            current = None
+        i = self.lang.currentIndex()
+        self.lang.clear()
+        self.lang.addItem(_("No Translation"))
+        self.lang.addItem(_("System Default Language (if available)"))
+        self._langs = ["none", ""]
+        for lang in po.available():
+            self._langs.append(lang)
+            self.lang.addItem(language_names.languageName(lang, current))
+        with util.signalsBlocked(self.lang):
+            self.lang.setCurrentIndex(i)
+
 
 class StartSession(preferences.Group):
     def __init__(self, page):

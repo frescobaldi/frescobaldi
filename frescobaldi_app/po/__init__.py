@@ -25,7 +25,6 @@ import __builtin__
 import gettext
 import os
 
-# By default, just return the strings unchanged
 _default_translation = [
     lambda: None,
     lambda message: message,
@@ -33,7 +32,12 @@ _default_translation = [
     lambda message, plural, count: message if count == 1 else plural,
     lambda context, message, plural, count: message if count == 1 else plural,
 ]
-__builtin__.__dict__['_'] = lambda *args: _default_translation[len(args)](*args)
+
+# By default, just return the strings unchanged
+translation = _default_translation
+
+# Make the _() function available everywhere 
+__builtin__.__dict__['_'] = lambda *args: translation[len(args)](*args)
 
 
 podir = __path__[0]
@@ -58,6 +62,7 @@ def mofile(language):
     
 def install(mofile):
     """Installs the translations from the given .mo file."""
+    global translation
     with open(mofile) as f:
         translator = gettext.GNUTranslations(f)
     translation = [
@@ -65,11 +70,16 @@ def install(mofile):
         lambda message:
             translator.ugettext(message),
         lambda context, message:
-            translator.ugettext(context + "\x04" + message),
+            translator.ugettext(context + "\x04" + message).split("\x04")[-1],
         lambda message, plural, count:
             translator.ungettext(message, plural, count),
         lambda context, message, plural, count:
-            translator.ungettext(context + "\x04" + message, context + "\x04" + plural, count),
+            translator.ungettext(context + "\x04" + message, context + "\x04" + plural, count).split("\x04")[-1],
     ]
-    __builtin__.__dict__['_'] = lambda *args: translation[len(args)](*args)
+
+def remove():
+    """Removes installed translations, reverting back to untranslated."""
+    global translation
+    translation = _default_translation
+
 
