@@ -89,9 +89,11 @@ class General(preferences.Group):
         self.lang.addItem(_("No Translation"))
         self.lang.addItem(_("System Default Language (if available)"))
         self._langs = ["none", ""]
-        for lang in po.available():
+        langnames = [(language_names.languageName(lang, current), lang) for lang in po.available()]
+        langnames.sort()
+        for name, lang in langnames:
             self._langs.append(lang)
-            self.lang.addItem(language_names.languageName(lang, current))
+            self.lang.addItem(name)
         with util.signalsBlocked(self.lang):
             self.lang.setCurrentIndex(i)
 
