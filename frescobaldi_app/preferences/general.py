@@ -64,6 +64,15 @@ class General(preferences.Group):
         grid.addWidget(self.lang, 0, 1)
         grid.setColumnStretch(2, 1)
         
+        # fill in the combo
+        self._langs = ["none", ""]
+        self.lang.addItems(('', ''))
+        langnames = [(language_names.languageName(lang, lang), lang) for lang in po.available()]
+        langnames.sort()
+        for name, lang in langnames:
+            self._langs.append(lang)
+            self.lang.addItem(name)
+        
         app.translateUI(self)
     
     def loadSettings(self):
@@ -80,22 +89,8 @@ class General(preferences.Group):
     def translateUI(self):
         self.setTitle(_("General Preferences"))
         self.langLabel.setText(_("Language:"))
-        
-        current = QSettings().value("language", "")
-        if current in ("none", ""):
-            current = None
-        i = self.lang.currentIndex()
-        self.lang.clear()
-        self.lang.addItem(_("No Translation"))
-        self.lang.addItem(_("System Default Language (if available)"))
-        self._langs = ["none", ""]
-        langnames = [(language_names.languageName(lang, current), lang) for lang in po.available()]
-        langnames.sort()
-        for name, lang in langnames:
-            self._langs.append(lang)
-            self.lang.addItem(name)
-        with util.signalsBlocked(self.lang):
-            self.lang.setCurrentIndex(i)
+        self.lang.setItemText(0, _("No Translation"))
+        self.lang.setItemText(1, _("System Default Language (if available)"))
 
 
 class StartSession(preferences.Group):
