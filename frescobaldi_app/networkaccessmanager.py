@@ -28,24 +28,40 @@ from PyQt4.QtNetwork import QNetworkAccessManager, QNetworkReply, QNetworkReques
 
 
 class NetworkAccessManager(QNetworkAccessManager):
-    def __init__(self, old_manager=None, parent=None):
+    """A QNetworkAccessManager subclass with easy registration of custom url schemes.
+    
+    Use the registerHandler() method to add custom scheme handlers.
+    The registerHtmlHandler() method is used to add a simple callable as handler that
+    gets a QUrl and should return the HTML as a normal string.
+    
+    The headers instance attribute is a dictionary (empty by default) containing
+    extra headers (as key, value) that are added to outgoing requests.
+    
+    """
+    
+    def __init__(self, parent=None):
         QNetworkAccessManager.__init__(self, parent)
-        if old_manager:
-            self._old_manager = old_manager
-            self.setCache(old_manager.cache())
-            self.setCookieJar(old_manager.cookieJar())
-            self.setProxy(old_manager.proxy())
-            self.setProxyFactory(old_manager.proxyFactory())
         self._dispatcher = {}
+        self.headers = {}
         
     def createRequest(self, operation, request, data):
         try:
             requestFunc = self._dispatcher[request.url().scheme()]
         except KeyError:
+            self.addHeadersToRequest(request)
             return QNetworkAccessManager.createRequest(self, operation, request, data)
-        else:
-            return requestFunc(self, operation, request, data)
-
+        return requestFunc(self, operation, request, data)
+    
+    def addHeadersToRequest(self, request):
+        """Called on outgoing requests and should add raw headers to the request.
+        
+        The default implementation of this method simply adds all the headers in the
+        headers instance attribute.
+        
+        """
+        for name, value in self.headers.items():
+            request.setRawHeader(name, value)
+    
     def registerHandler(self, scheme, handler):
         """Registers a handler for the given scheme.
         
