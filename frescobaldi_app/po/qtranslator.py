@@ -27,6 +27,10 @@ The strings that are needed are in the qtmessages.py file in this directory.
 
 from PyQt4.QtCore import QCoreApplication, QTranslator
 
+import app
+
+
+_translator = None
 
 class Translator(QTranslator):
     """Subclass of QTranslator that gets its messages via the _() function."""
@@ -35,9 +39,17 @@ class Translator(QTranslator):
         return _(context, sourceText)
 
 
-_translator = Translator()
+def installTranslator():
+    """Install a QTranslator so Qt's own texts are also translated."""
+    global _translator
+    if _translator is not None:
+        QCoreApplication.removeTranslator(_translator)
+    _translator = Translator()
+    QCoreApplication.installTranslator(_translator)
 
-QCoreApplication.installTranslator(_translator)
+# just install again on change, so the widgets get a LanguageChange event
+app.languageChanged.connect(installTranslator)
+installTranslator()
 
 
 # DEBUG: show translatable Qt messages once
