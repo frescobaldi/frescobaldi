@@ -23,10 +23,7 @@ Internationalisation.
 
 import __builtin__
 import gettext
-import locale
 import os
-
-from . import qtranslator
 
 # By default, just return the strings unchanged
 _default_translation = [
@@ -41,6 +38,10 @@ __builtin__.__dict__['_'] = lambda *args: _default_translation[len(args)](*args)
 
 podir = __path__[0]
 
+def available():
+    """Returns a list of language shortnames for which a MO file is available."""
+    return [name[:-3] for name in os.listdir(podir) if name.endswith(".mo")]
+ 
 def mofile(language):
     """Returns a .mo file for the given language.
     
@@ -71,17 +72,4 @@ def install(mofile):
             translator.ungettext(context + "\x04" + message, context + "\x04" + plural, count),
     ]
     __builtin__.__dict__['_'] = lambda *args: translation[len(args)](*args)
-
-def setup():
-    """Install the desired language."""
-    try:
-        language = locale.getdefaultlocale()[0]
-    except ValueError:
-        return
-    if language:
-        mo = mofile(language)
-        if mo:
-            install(mo)
-
-setup()
 

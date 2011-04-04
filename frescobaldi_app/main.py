@@ -36,7 +36,7 @@ from PyQt4.QtGui import QApplication, QTextCursor
 import toplevel         # Find all modules and packages as toplevel
 import info             # Information about our application
 import app              # Construct QApplication
-import po               # Setup language
+import po.setup         # Setup language
 import mainwindow       # contains MainWindow class
 import session          # Initialize QSessionManager support
 import sessionmanager   # Initialize our own named session support
