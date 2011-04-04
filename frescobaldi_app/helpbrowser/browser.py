@@ -55,6 +55,8 @@ class Browser(QWidget):
         ac.help_home_lilypond.triggered.connect(self.showLilyPondHome)
         
         self.webview.page().setNetworkAccessManager(network.accessmanager())
+        self.webview.page().setForwardUnsupportedContent(True)
+        self.webview.page().unsupportedContent.connect(self.slotUnsupported)
         self.webview.urlChanged.connect(self.slotUrlChanged)
         
         tb.addAction(ac.help_back)
@@ -81,6 +83,15 @@ class Browser(QWidget):
         ac = self.parentWidget().actionCollection
         ac.help_back.setEnabled(self.webview.history().canGoBack())
         ac.help_forward.setEnabled(self.webview.history().canGoForward())
+    
+    def slotUnsupported(self, reply):
+        if reply.url().path().endswith(('.ily', '.lyi', '.ly')):
+            # TODO: display ly in small window, or highlighted as html etc.
+            data = reply.readAll()
+            dataurl = "data:text/html;charset=UTF-8,<html><pre>{0}</pre></html>".format(data)
+            self.webview.load(QUrl(dataurl))
+        else:
+            QDesktopServices.openUrl(reply.url())
         
     def showHomePage(self):
         """Shows an initial welcome page."""
