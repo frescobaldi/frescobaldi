@@ -29,39 +29,40 @@ from PyQt4.QtNetwork import *
 import app
 import networkaccessmanager
 
-_accessmanager = None
-
 
 def accessmanager():
     """Returns a global NetworkAccessManager."""
     global _accessmanager
-    if _accessmanager:
-        return _accessmanager
-    _accessmanager = networkaccessmanager.NetworkAccessManager()
-    _readSettings()
-    app.settingsChanged.connect(_readSettings)
+    try:
+        _accessmanager
+    except NameError:
+        _accessmanager = NetworkAccessManager()
     return _accessmanager
 
 
 def get(url):
+    """Downloads a URL, returns a QNetworkReply."""
     request = QNetworkRequest(url)
     return accessmanager().get(request)
 
 
-
-def _readSettings():
-    """Called when the networkaccessmanager is created for the first time and when the app settings change."""
-    nam = _accessmanager
+class NetworkAccessManager(networkaccessmanager.NetworkAccessManager):
+    """A NetworkAccessManager that maintains some settings from the preferences."""
+    def __init__(self, parent=None):
+        super(NetworkAccessManager, self).__init__(parent)
+        app.settingsChanged.connect(self.readSettings)
+        self.readSettings()
     
-    # TODO: set language preference from config
-    langs = []
-    lang = locale.getdefaultlocale()[0]
-    if lang:
-        langs.append(lang)
-        if '_' in lang:
-            langs.append(lang.split('_')[0])
-    langs.append('en')
-    nam.headers['Accept-Language'] = ','.join(langs)
+    def readSettings(self):
+        # TODO: set language preference from config
+        langs = []
+        lang = locale.getdefaultlocale()[0]
+        if lang:
+            langs.append(lang)
+            if '_' in lang:
+                langs.append(lang.split('_')[0])
+        langs.append('en')
+        self.headers['Accept-Language'] = ','.join(langs)
 
 
 
