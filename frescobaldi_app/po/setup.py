@@ -51,8 +51,11 @@ def setup():
         if language != "none":
             mo = mofile(language)
             if mo:
-                install(mo)
-                return
+                try:
+                    install(mo)
+                    return
+                except Exception:
+                    pass
         remove()
 
 app.settingsChanged.connect(setup)

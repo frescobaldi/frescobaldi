@@ -63,11 +63,8 @@ def mofile(language):
 def install(mofile):
     """Installs the translations from the given .mo file."""
     global translation
-    try:
-        with open(mofile) as f:
-            translator = gettext.GNUTranslations(f)
-    except Exception:
-        return
+    with open(mofile) as f:
+        translator = gettext.GNUTranslations(f)
     translation = [
         lambda: None,
         lambda message:
