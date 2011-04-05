@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-04-05 16:48+0200\n"
+"POT-Creation-Date: 2011-04-05 18:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -85,28 +85,33 @@ msgstr ""
 msgid "Session to start ('{none}' for empty session)"
 msgstr ""
 
-#: frescobaldi_app/about.py:39
+#: frescobaldi_app/about.py:38
 msgid "About {appname}"
 msgstr ""
 
-#: frescobaldi_app/about.py:71
+#: frescobaldi_app/about.py:63
 msgid "Version {version}"
 msgstr ""
 
-#: frescobaldi_app/about.py:72
+#: frescobaldi_app/about.py:64
 msgid "A LilyPond Music Editor"
 msgstr ""
 
-#: frescobaldi_app/about.py:73
+#: frescobaldi_app/about.py:65
 msgid "Copyright (c) {year} by {author}"
 msgstr ""
 
-#: frescobaldi_app/about.py:77
+#: frescobaldi_app/about.py:69
 msgid "Send an e-mail message to the maintainers."
 msgstr ""
 
-#: frescobaldi_app/about.py:79
-msgid "Licensed under the {gpl}"
+#. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
+#: frescobaldi_app/about.py:72
+msgid "Translated by Your Name."
+msgstr ""
+
+#: frescobaldi_app/about.py:77
+msgid "Licensed under the {gpl}."
 msgstr ""
 
 #: frescobaldi_app/app.py:129
