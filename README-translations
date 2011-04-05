@@ -41,6 +41,10 @@ Additionally, when you write a comment starting with L10N (short for localisatio
 just before the line containing the string to be translated, it will be included
 as a comment in the POT file.
 
+If translatable strings need arguments, you should use named variables, e.g:
+
+_("About {appname}").format(appname = ...)
+
 
 For translators:
 ================
@@ -61,4 +65,7 @@ where 'xx_CC' is e.g. 'nl_NL' (or simply 'nl').
 Now you can edit the xx.po file with a tool like Lokalize. If done, you can send
 the translated po file to the Frescobaldi author if you like, to contribute it
 to the Frescobaldi project.
+
+Variables between brackets in the messages like "Viewing page {number} of {total}"
+should not be translated but exactly copied to the translation.
 
