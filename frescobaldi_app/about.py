@@ -36,7 +36,7 @@ class AboutDialog(QDialog):
     def __init__(self, mainwindow):
         super(AboutDialog, self).__init__(mainwindow)
         
-        self.setWindowTitle(_("About {name}").format(name = info.appname))
+        self.setWindowTitle(_("About {appname}").format(appname = info.appname))
         layout = QVBoxLayout()
         self.setLayout(layout)
         

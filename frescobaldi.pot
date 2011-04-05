@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-04-05 16:43+0200\n"
+"POT-Creation-Date: 2011-04-05 16:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -86,7 +86,7 @@ msgid "Session to start ('{none}' for empty session)"
 msgstr ""
 
 #: frescobaldi_app/about.py:39
-msgid "About {name}"
+msgid "About {appname}"
 msgstr ""
 
 #: frescobaldi_app/about.py:71
@@ -621,7 +621,7 @@ msgid "Report a &Bug..."
 msgstr ""
 
 #: frescobaldi_app/mainwindow.py:1396
-msgid "&About {name}"
+msgid "&About {appname}..."
 msgstr ""
 
 #: frescobaldi_app/viewmanager.py:66 frescobaldi_app/viewmanager.py:209
