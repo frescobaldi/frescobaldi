@@ -104,7 +104,7 @@ class Browser(QWidget):
     
     def showHomePage(self):
         """Shows an initial welcome page."""
-        self.webview.setHtml(html.welcome())
+        self.webview.load(QUrl("fhelp:titlepage"))
         
     def showLilyPondHome(self):
         """Shows the homepage of the LilyPond documentation."""

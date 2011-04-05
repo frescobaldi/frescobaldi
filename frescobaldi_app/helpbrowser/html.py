@@ -20,26 +20,41 @@
 from __future__ import unicode_literals
 
 """
-Generates HTML on the fly for help browser.
+Generates HTML on the fly for help browser, served via a custom fhelp: url scheme
 """
 
 import info
+import network
 
 
-def welcome():
-    return (
-    "<html>"
-    "<head>"
-    "<title>" + enc(_("Frescobaldi Help Pages")) + "</title>"
-    "</head>"
-    "<body>"
-    "<h1>" + enc(_("Documentation")) + "</h1>" +
-    "<p>{0} {1}</p>".format(info.appname, info.version) +
+def fhelp(url):
+    """Returns HTML for custom fhelp: urls."""
+    path = url.path()
+    if path == "titlepage":
+        return titlepage()
+
+
+# install the custom url scheme
+network.accessmanager().registerHtmlHandler("fhelp", fhelp)
+
+
+
+def titlepage():
     
-    "</body>"
-    "</html>\n")
+    title = _("Documentation")
+    versioninfo = _("{appname} version {version}").format(appname = info.appname, version = info.version)
     
+    return titlepage_template.format(**locals())
 
-def enc(html):
-    return html.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+titlepage_template = """\
+<html><body>
+<h1>{title}</h1>
+<p>{versioninfo}</p>
+</body></html>
+"""
+
+
+
 
