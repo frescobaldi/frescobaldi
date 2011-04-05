@@ -690,7 +690,12 @@ class MainWindow(QMainWindow):
     def showManual(self):
         """Shows the user guide, called when user presses F1."""
         panels.manager(self).helpbrowser.activate()
-        
+    
+    def showAbout(self):
+        """Shows about dialog."""
+        import about
+        about.AboutDialog(self).exec_()
+    
     def createActions(self):
         self.actionCollection = ac = ActionCollection()
         
@@ -743,6 +748,7 @@ class MainWindow(QMainWindow):
         ac.window_fullscreen.toggled.connect(self.toggleFullScreen)
         ac.help_manual.triggered.connect(self.showManual)
         ac.help_whatsthis.triggered.connect(QWhatsThis.enterWhatsThisMode)
+        ac.help_about.triggered.connect(self.showAbout)
         
     def populateDocumentsMenu(self):
         self.menu_document.clear()
