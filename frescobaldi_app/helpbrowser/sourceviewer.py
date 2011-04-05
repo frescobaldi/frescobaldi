@@ -25,7 +25,7 @@ A dialog to view LilyPond source.
 
 
 from PyQt4.QtCore import QSettings, QSize, Qt
-from PyQt4.QtGui import QDialog, QLabel, QTextBrowser, QVBoxLayout
+from PyQt4.QtGui import QDialog, QLabel, QSizePolicy, QTextBrowser, QVBoxLayout
 
 
 import app
@@ -45,6 +45,7 @@ class SourceViewer(QDialog):
         self.textbrowser = QTextBrowser()
         layout.addWidget(self.textbrowser)
         
+        self.urlLabel.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         self.textbrowser.setLineWrapMode(QTextBrowser.NoWrap)
         
         app.settingsChanged.connect(self.readSettings)
