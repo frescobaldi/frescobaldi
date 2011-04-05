@@ -28,10 +28,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtWebKit import *
 
-import app
 import network
-import textformats
-import highlighter
 
 from . import html
 
@@ -57,6 +54,8 @@ class Browser(QWidget):
         ac.help_home_lilypond.triggered.connect(self.showLilyPondHome)
         
         self.webview.page().setNetworkAccessManager(network.accessmanager())
+        self.webview.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
+        self.webview.page().linkClicked.connect(self.openUrl)
         self.webview.page().setForwardUnsupportedContent(True)
         self.webview.page().unsupportedContent.connect(self.slotUnsupported)
         self.webview.urlChanged.connect(self.slotUrlChanged)
@@ -86,22 +85,22 @@ class Browser(QWidget):
         ac.help_back.setEnabled(self.webview.history().canGoBack())
         ac.help_forward.setEnabled(self.webview.history().canGoForward())
     
-    def slotUnsupported(self, reply):
-        if reply.url().path().endswith(('.ily', '.lyi', '.ly')):
-            # TODO: display ly in small window, or highlighted as html etc.
-            self.lyViewer().showReply(reply)
-            #data = reply.readAll()
-            #dataurl = "data:text/html;charset=UTF-8,<html><pre>{0}</pre></html>".format(data)
-            #self.webview.load(QUrl(dataurl))
+    def openUrl(self, url):
+        if url.path().endswith(('.ily', '.lyi', '.ly')):
+            self.sourceViewer().showReply(network.get(url))
         else:
-            QDesktopServices.openUrl(reply.url())
+            self.webview.load(url)
     
-    def lyViewer(self):
+    def slotUnsupported(self, reply):
+        QDesktopServices.openUrl(reply.url())
+    
+    def sourceViewer(self):
         try:
-            return self._lyviewer
+            return self._sourceviewer
         except AttributeError:
-            self._lyviewer = LyViewer(self)
-            return self._lyviewer
+            from . import sourceviewer
+            self._sourceviewer = sourceviewer.SourceViewer(self)
+            return self._sourceviewer
     
     def showHomePage(self):
         """Shows an initial welcome page."""
@@ -112,40 +111,5 @@ class Browser(QWidget):
         #self.webview.load(QUrl("http://lilypond.org/doc")) # TEMP!!!
         self.webview.load(QUrl.fromLocalFile("/usr/share/doc/lilypond/html/index.html")) # TEMP
 
-
-
-class LyViewer(QDialog):
-    def __init__(self, browser):
-        super(LyViewer, self).__init__(browser)
-
-        layout = QVBoxLayout()
-        self.setLayout(layout)
-        
-        self.urlLabel = QLabel(wordWrap=True)
-        layout.addWidget(self.urlLabel)
-        self.textbrowser = QTextBrowser()
-        layout.addWidget(self.textbrowser)
-        
-        self.textbrowser.setLineWrapMode(QTextBrowser.NoWrap)
-        
-        app.settingsChanged.connect(self.readSettings)
-        self.readSettings()
-        app.translateUI(self)
-        
-    def translateUI(self):
-        self.setWindowTitle(app.caption(_("LilyPond Source")))
-        
-    def readSettings(self):
-        self.textbrowser.setFont(textformats.formatData('editor').font)
-        
-    def showReply(self, reply):
-        self.urlLabel.setText(reply.url().toString())
-        self.textbrowser.setText(unicode(reply.readAll(), 'utf-8', 'replace'))
-        self.resize(QSettings().value("helpbrowser/sourcedialogsize", QSize(400, 300)))
-        self.show()
-        highlighter.highlight(self.textbrowser.document())
-        
-    def resizeEvent(self, ev):
-        QSettings().setValue("helpbrowser/sourcedialogsize", ev.size())
 
 
