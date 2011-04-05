@@ -76,6 +76,7 @@ class SourceViewer(QDialog):
         self._reply.close()
         self._reply.deleteLater()
         del self._reply
+        self.textbrowser.clear()
         self.textbrowser.setText(unicode(data, 'utf-8', 'replace'))
         highlighter.highlight(self.textbrowser.document())
         
