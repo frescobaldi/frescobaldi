@@ -79,6 +79,7 @@ class SourceViewer(QDialog):
         highlighter.highlight(self.textbrowser.document())
         
     def resizeEvent(self, ev):
+        super(SourceViewer, self).resizeEvent(ev)
         QSettings().setValue("helpbrowser/sourcedialogsize", ev.size())
 
 
