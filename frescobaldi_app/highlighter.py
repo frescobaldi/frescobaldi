@@ -45,10 +45,6 @@ import documentinfo
 metainfo.define('highlighting', True)
 
 
-# when highlighting, don't test all the Token base classes
-_token_mro_slice = slice(0, -len(ly.tokenize.Token.__mro__))
-
-
 _highlightFormats = None
 
 def highlightFormats():
@@ -62,6 +58,18 @@ def _resetHighlightFormats():
     _highlightFormats = None
 
 app.settingsChanged.connect(_resetHighlightFormats, -100) # before all others
+
+
+# when highlighting, don't test all the Token base classes
+_token_mro_slice = slice(0, -len(ly.tokenize.Token.__mro__))
+
+def tokenFormat(token, formats):
+    """Returns the format defined in the formats dictionary for the token class, or None if no format is defined."""
+    for cls in token.__class__.__mro__[_token_mro_slice]:
+        try:
+            return formats[cls]
+        except KeyError:
+            pass
 
 
 def makeHighlightFormats(data):
@@ -179,12 +187,9 @@ class Highlighter(QSyntaxHighlighter):
             setFormat = lambda f: self.setFormat(token.pos, len(token), f)
             formats = highlightFormats()
             for token in tokens:
-                for cls in token.__class__.__mro__[_token_mro_slice]:
-                    try:
-                        setFormat(formats[cls])
-                    except KeyError:
-                        continue
-                    break
+                f = tokenFormat(token, formats)
+                if f:
+                    setFormat(f)
         
     def setHighlighting(self, enable):
         """Enables or disables highlighting."""
@@ -254,15 +259,11 @@ def htmlCopy(document, data):
     block = doc.firstBlock()
     while block.isValid():
         for token in state.tokens(block.text()):
-            for cls in token.__class__.__mro__[_token_mro_slice]:
-                try:
-                    f = formats[cls]
-                except KeyError:
-                    continue
+            f = tokenFormat(token, formats)
+            if f:
                 cursor.setPosition(block.position() + token.pos)
                 cursor.setPosition(block.position() + token.end, QTextCursor.KeepAnchor)
                 cursor.setCharFormat(f)
-                break
         block = block.next()
     return doc
 
@@ -275,14 +276,10 @@ def highlight(document):
     block = document.firstBlock()
     while block.isValid():
         for token in state.tokens(block.text()):
-            for cls in token.__class__.__mro__[_token_mro_slice]:
-                try:
-                    f = formats[cls]
-                except KeyError:
-                    continue
+            f = tokenFormat(token, formats)
+            if f:
                 cursor.setPosition(block.position() + token.pos)
                 cursor.setPosition(block.position() + token.end, QTextCursor.KeepAnchor)
                 cursor.setCharFormat(f)
-                break
         block = block.next()
 
