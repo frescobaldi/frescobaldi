@@ -53,6 +53,9 @@ class PanelManager(plugin.MainWindowPlugin):
         self.helpbrowser = helpbrowser.HelpBrowser(mainwindow)
         
         self.createActions()
+        
+        # make some default arrangements
+        mainwindow.tabifyDockWidget(self.musicview, self.helpbrowser)
 
     def createActions(self):
         self.actionCollection = Actions(self)
@@ -92,6 +95,7 @@ class Panel(QDockWidget):
         
         """
         super(Panel, self).__init__(mainwindow)
+        self.visibilityChanged.connect(self.widget)
         app.translateUI(self)
     
     def mainwindow(self):
@@ -106,6 +110,7 @@ class Panel(QDockWidget):
         """Ensures that our widget() is created and returns it."""
         w = super(Panel, self).widget()
         if not w:
+            self.visibilityChanged.disconnect(self.widget)
             w = self.createWidget()
             self.setWidget(w)
         return w

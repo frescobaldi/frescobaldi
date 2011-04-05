@@ -35,9 +35,10 @@ import textformats
 
 class SourceViewer(QDialog):
     def __init__(self, browser):
-        super(SourceViewer, self).__init__(browser)
+        super(SourceViewer, self).__init__(browser.parentWidget())
 
         layout = QVBoxLayout()
+        layout.setContentsMargins(4, 4, 4, 4)
         self.setLayout(layout)
         
         self.urlLabel = QLabel(wordWrap=True)

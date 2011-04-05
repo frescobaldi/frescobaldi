@@ -36,7 +36,6 @@ class HelpBrowser(panels.Panel):
     def __init__(self, mainwindow):
         super(HelpBrowser, self).__init__(mainwindow)
         self.hide()
-        self.setFloating(True)
         mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
         ac = self.actionCollection = Actions()
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
