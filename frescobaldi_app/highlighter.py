@@ -50,7 +50,7 @@ _highlightFormats = None
 def highlightFormats():
     global _highlightFormats
     if _highlightFormats is None:
-        _highlightFormats = makeHighlightFormats(textformats.formatData('editor'))
+        _highlightFormats = HighlightFormats(textformats.formatData('editor'))
     return _highlightFormats
     
 def _resetHighlightFormats():
@@ -61,81 +61,94 @@ app.settingsChanged.connect(_resetHighlightFormats, -100) # before all others
 
 
 # when highlighting, don't test all the Token base classes
-_token_mro_slice = slice(0, -len(ly.tokenize.Token.__mro__))
+_token_mro_slice = slice(1, -len(ly.tokenize.Token.__mro__))
 
-def tokenFormat(token, formats):
-    """Returns the format defined in the formats dictionary for the token class, or None if no format is defined."""
-    for cls in token.__class__.__mro__[_token_mro_slice]:
+
+class HighlightFormats(object):
+    """Manages a dictionary with all highlightformats coupled to token types."""
+    def __init__(self, data):
+        self._formats = d = {}
+        
+        # LilyPond
+        d[ly.tokenize.lilypond.Keyword] = data.textFormat('lilypond', 'keyword')
+        d[ly.tokenize.lilypond.Command] = data.textFormat('lilypond', 'command')
+        d[ly.tokenize.lilypond.Dynamic] = data.textFormat('lilypond', 'dynamic')
+        d[ly.tokenize.lilypond.Note] = data.textFormat('lilypond', 'pitch')
+        d[ly.tokenize.lilypond.Rest] = data.textFormat('lilypond', 'pitch')
+        d[ly.tokenize.lilypond.Skip] = data.textFormat('lilypond', 'pitch')
+        d[ly.tokenize.lilypond.Duration] = data.textFormat('lilypond', 'duration')
+        d[ly.tokenize.lilypond.Articulation] = data.textFormat('lilypond', 'articulation')
+        d[ly.tokenize.lilypond.Slur] = data.textFormat('lilypond', 'slur')
+        d[ly.tokenize.lilypond.Chord] = data.textFormat('lilypond', 'chord')
+        d[ly.tokenize.lilypond.Markup] = data.textFormat('lilypond', 'markup')
+        d[ly.tokenize.lilypond.LyricMode] = data.textFormat('lilypond', 'lyricmode')
+        d[ly.tokenize.lilypond.Lyric] = data.textFormat('lilypond', 'lyrictext')
+        d[ly.tokenize.lilypond.LyricTie] = data.textFormat('lilypond', 'slur')
+        d[ly.tokenize.lilypond.Repeat] = data.textFormat('lilypond', 'repeat')
+        d[ly.tokenize.lilypond.Specifier] = data.textFormat('lilypond', 'specifier')
+        d[ly.tokenize.lilypond.UserCommand] = data.textFormat('lilypond', 'usercommand')
+        d[ly.tokenize.lilypond.Delimiter] = data.textFormat('lilypond', 'delimiter')
+        d[ly.tokenize.lilypond.ContextName] = data.textFormat('lilypond', 'context')
+        d[ly.tokenize.lilypond.GrobName] = data.textFormat('lilypond', 'grob')
+        d[ly.tokenize.lilypond.ContextProperty] = data.textFormat('lilypond', 'property')
+        d[ly.tokenize.lilypond.Variable] = data.textFormat('lilypond', 'variable')
+        d[ly.tokenize.lilypond.UserVariable] = data.textFormat('lilypond', 'uservariable')
+        d[ly.tokenize.lilypond.Value] = data.textFormat('lilypond', 'value')
+        d[ly.tokenize.lilypond.String] = data.textFormat('lilypond', 'string')
+        d[ly.tokenize.lilypond.StringQuoteEscape] = data.textFormat('lilypond', 'stringescape')
+        d[ly.tokenize.lilypond.Comment] = data.textFormat('lilypond', 'comment')
+        d[ly.tokenize.lilypond.Error] = data.textFormat('lilypond', 'error')
+        d[ly.tokenize.lilypond.Repeat] = data.textFormat('lilypond', 'repeat')
+        
+
+        # Scheme
+        d[ly.tokenize.lilypond.SchemeStart] = data.textFormat('scheme', 'scheme')
+        d[ly.tokenize.scheme.Scheme] = d[ly.tokenize.lilypond.SchemeStart]
+        d[ly.tokenize.scheme.String] = data.textFormat('scheme', 'string')
+        d[ly.tokenize.scheme.Comment] = data.textFormat('scheme', 'comment')
+        d[ly.tokenize.scheme.Number] = data.textFormat('scheme', 'number')
+        d[ly.tokenize.scheme.LilyPond] = data.textFormat('scheme', 'lilypond')
+        
+        # HTML
+        d[ly.tokenize.html.Tag] = data.textFormat('html', 'tag')
+        d[ly.tokenize.html.AttrName] = data.textFormat('html', 'attribute')
+        d[ly.tokenize.html.Value] = data.textFormat('html', 'value')
+        d[ly.tokenize.html.String] = data.textFormat('html', 'string')
+        d[ly.tokenize.html.EntityRef] = data.textFormat('html', 'entityref')
+        d[ly.tokenize.html.Comment] = data.textFormat('html', 'comment')
+        d[ly.tokenize.html.LilyPondTag] = data.textFormat('html', 'lilypondtag')
+        
+        # Texinfo
+        d[ly.tokenize.texinfo.Keyword] = data.textFormat('texinfo', 'keyword')
+        d[ly.tokenize.texinfo.Block] = data.textFormat('texinfo', 'block')
+        d[ly.tokenize.texinfo.Attribute] = data.textFormat('texinfo', 'attribute')
+        d[ly.tokenize.texinfo.EscapeChar] = data.textFormat('texinfo', 'escapechar')
+        d[ly.tokenize.texinfo.Verbatim] = data.textFormat('texinfo', 'verbatim')
+        d[ly.tokenize.texinfo.Comment] = data.textFormat('texinfo', 'comment')
+    
+    def format(self, token):
+        """Returns the format defined in the formats dictionary for the token class.
+        
+        Returns None if no format is defined.
+        Return values are cached to improve the lookup speed.
+        
+        """
+        d = self._formats
+        cls = token.__class__
         try:
-            return formats[cls]
+            return d[cls]
         except KeyError:
-            pass
+            for c in cls.__mro__[_token_mro_slice]:
+                try:
+                    f = d[c]
+                    break
+                except KeyError:
+                    pass
+            else:
+                f = None
+            d[cls] = f
+            return f
 
-
-def makeHighlightFormats(data):
-    """Returns a dictionary with all highlightformats coupled to token types."""
-    d = {}
-    
-    # LilyPond
-    d[ly.tokenize.lilypond.Keyword] = data.textFormat('lilypond', 'keyword')
-    d[ly.tokenize.lilypond.Command] = data.textFormat('lilypond', 'command')
-    d[ly.tokenize.lilypond.Dynamic] = data.textFormat('lilypond', 'dynamic')
-    d[ly.tokenize.lilypond.Note] = data.textFormat('lilypond', 'pitch')
-    d[ly.tokenize.lilypond.Rest] = data.textFormat('lilypond', 'pitch')
-    d[ly.tokenize.lilypond.Skip] = data.textFormat('lilypond', 'pitch')
-    d[ly.tokenize.lilypond.Duration] = data.textFormat('lilypond', 'duration')
-    d[ly.tokenize.lilypond.Articulation] = data.textFormat('lilypond', 'articulation')
-    d[ly.tokenize.lilypond.Slur] = data.textFormat('lilypond', 'slur')
-    d[ly.tokenize.lilypond.Chord] = data.textFormat('lilypond', 'chord')
-    d[ly.tokenize.lilypond.Markup] = data.textFormat('lilypond', 'markup')
-    d[ly.tokenize.lilypond.LyricMode] = data.textFormat('lilypond', 'lyricmode')
-    d[ly.tokenize.lilypond.Lyric] = data.textFormat('lilypond', 'lyrictext')
-    d[ly.tokenize.lilypond.LyricTie] = data.textFormat('lilypond', 'slur')
-    d[ly.tokenize.lilypond.Repeat] = data.textFormat('lilypond', 'repeat')
-    d[ly.tokenize.lilypond.Specifier] = data.textFormat('lilypond', 'specifier')
-    d[ly.tokenize.lilypond.UserCommand] = data.textFormat('lilypond', 'usercommand')
-    d[ly.tokenize.lilypond.Delimiter] = data.textFormat('lilypond', 'delimiter')
-    d[ly.tokenize.lilypond.ContextName] = data.textFormat('lilypond', 'context')
-    d[ly.tokenize.lilypond.GrobName] = data.textFormat('lilypond', 'grob')
-    d[ly.tokenize.lilypond.ContextProperty] = data.textFormat('lilypond', 'property')
-    d[ly.tokenize.lilypond.Variable] = data.textFormat('lilypond', 'variable')
-    d[ly.tokenize.lilypond.UserVariable] = data.textFormat('lilypond', 'uservariable')
-    d[ly.tokenize.lilypond.Value] = data.textFormat('lilypond', 'value')
-    d[ly.tokenize.lilypond.String] = data.textFormat('lilypond', 'string')
-    d[ly.tokenize.lilypond.StringQuoteEscape] = data.textFormat('lilypond', 'stringescape')
-    d[ly.tokenize.lilypond.Comment] = data.textFormat('lilypond', 'comment')
-    d[ly.tokenize.lilypond.Error] = data.textFormat('lilypond', 'error')
-    d[ly.tokenize.lilypond.Repeat] = data.textFormat('lilypond', 'repeat')
-    
-
-    # Scheme
-    d[ly.tokenize.lilypond.SchemeStart] = data.textFormat('scheme', 'scheme')
-    d[ly.tokenize.scheme.Scheme] = d[ly.tokenize.lilypond.SchemeStart]
-    d[ly.tokenize.scheme.String] = data.textFormat('scheme', 'string')
-    d[ly.tokenize.scheme.Comment] = data.textFormat('scheme', 'comment')
-    d[ly.tokenize.scheme.Number] = data.textFormat('scheme', 'number')
-    d[ly.tokenize.scheme.LilyPond] = data.textFormat('scheme', 'lilypond')
-    
-    # HTML
-    d[ly.tokenize.html.Tag] = data.textFormat('html', 'tag')
-    d[ly.tokenize.html.AttrName] = data.textFormat('html', 'attribute')
-    d[ly.tokenize.html.Value] = data.textFormat('html', 'value')
-    d[ly.tokenize.html.String] = data.textFormat('html', 'string')
-    d[ly.tokenize.html.EntityRef] = data.textFormat('html', 'entityref')
-    d[ly.tokenize.html.Comment] = data.textFormat('html', 'comment')
-    d[ly.tokenize.html.LilyPondTag] = data.textFormat('html', 'lilypondtag')
-    
-    # Texinfo
-    d[ly.tokenize.texinfo.Keyword] = data.textFormat('texinfo', 'keyword')
-    d[ly.tokenize.texinfo.Block] = data.textFormat('texinfo', 'block')
-    d[ly.tokenize.texinfo.Attribute] = data.textFormat('texinfo', 'attribute')
-    d[ly.tokenize.texinfo.EscapeChar] = data.textFormat('texinfo', 'escapechar')
-    d[ly.tokenize.texinfo.Verbatim] = data.textFormat('texinfo', 'verbatim')
-    d[ly.tokenize.texinfo.Comment] = data.textFormat('texinfo', 'comment')
-    
-    
-    return d
-    
         
 class Highlighter(QSyntaxHighlighter):
     def __init__(self, document):
@@ -187,7 +200,7 @@ class Highlighter(QSyntaxHighlighter):
             setFormat = lambda f: self.setFormat(token.pos, len(token), f)
             formats = highlightFormats()
             for token in tokens:
-                f = tokenFormat(token, formats)
+                f = formats.format(token)
                 if f:
                     setFormat(f)
         
@@ -248,38 +261,35 @@ def updateTokens(block, state=None):
 
 def htmlCopy(document, data):
     """Returns a new QTextDocument with highlighting set as HTML textcharformats."""
-    formats = makeHighlightFormats(data)
-    
     doc = QTextDocument()
     doc.setDefaultFont(data.font)
-    text = document.toPlainText()
-    doc.setPlainText(text)
-    state = ly.tokenize.state(documentinfo.mode(document))
-    cursor = QTextCursor(doc)
-    block = doc.firstBlock()
-    while block.isValid():
-        for token in state.tokens(block.text()):
-            f = tokenFormat(token, formats)
-            if f:
-                cursor.setPosition(block.position() + token.pos)
-                cursor.setPosition(block.position() + token.end, QTextCursor.KeepAnchor)
-                cursor.setCharFormat(f)
-        block = block.next()
+    doc.setPlainText(document.toPlainText())
+    highlight(doc, HighlightFormats(data), ly.tokenize.state(documentinfo.mode(document)))
     return doc
 
 
-def highlight(document):
-    """Highlights a generic QTextDocument once."""
-    formats = highlightFormats()
-    state = ly.tokenize.guessState(document.toPlainText())
+def highlight(document, formats=None, state=None):
+    """Highlights a generic QTextDocument once.
+    
+    formats is an optional HighlightFormats instance, defaulting to the current
+    configured editor highlighting formats.
+    state is an optional ly.tokenize.State instance. By default the text type
+    is guessed.
+    
+    """
+    if formats is None:
+        formats = highlightFormats()
+    if state is None:
+        state = ly.tokenize.guessState(document.toPlainText())
     cursor = QTextCursor(document)
     block = document.firstBlock()
     while block.isValid():
         for token in state.tokens(block.text()):
-            f = tokenFormat(token, formats)
+            f = formats.format(token)
             if f:
                 cursor.setPosition(block.position() + token.pos)
                 cursor.setPosition(block.position() + token.end, QTextCursor.KeepAnchor)
                 cursor.setCharFormat(f)
         block = block.next()
+
 
