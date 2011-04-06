@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2011-04-05 18:16+0200\n"
-"PO-Revision-Date: 2011-04-06 10:07+0200\n"
+"PO-Revision-Date: 2011-04-06 11:09+0200\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -46,22 +46,20 @@ msgstr[1] ""
 
 #: frescobaldi_app/actioncollectionmanager.py:116
 #: frescobaldi_app/preferences/shortcuts.py:209
-#, fuzzy
 msgid "Shortcut Conflict"
-msgstr "Sneltoets"
+msgstr "Sneltoetsconflict"
 
 #: frescobaldi_app/actioncollectionmanager.py:118
 msgid "Edit again"
-msgstr ""
+msgstr "Opnieuw bewerken"
 
 #: frescobaldi_app/main.py:49
 msgid "usage: {appname} [options] file ..."
-msgstr ""
+msgstr "gebruik: {appname} [opties] bestand ..."
 
 #: frescobaldi_app/main.py:51
-#, fuzzy
 msgid "ENC"
-msgstr "REC"
+msgstr "ENC"
 
 #: frescobaldi_app/main.py:52
 msgid "Encoding to use"
@@ -69,7 +67,7 @@ msgstr "Te gebruiken tekenset"
 
 #: frescobaldi_app/main.py:53 frescobaldi_app/main.py:55
 msgid "NUM"
-msgstr ""
+msgstr "NUM"
 
 #: frescobaldi_app/main.py:54
 msgid "Line number to go to, starting at 1"
@@ -81,45 +79,42 @@ msgstr "Ga naar kolom (start met 0)"
 
 #: frescobaldi_app/main.py:57
 msgid "NAME"
-msgstr ""
+msgstr "NAAM"
 
 #: frescobaldi_app/main.py:58
 msgid "Session to start ('{none}' for empty session)"
-msgstr ""
+msgstr "Te starten sessie ('{none}' voor lege sessie)"
 
 #: frescobaldi_app/about.py:38
 msgid "About {appname}"
-msgstr ""
+msgstr "Over {appname}"
 
 #: frescobaldi_app/about.py:63
-#, fuzzy
 msgid "Version {version}"
-msgstr "LilyPond-versie invoegen"
+msgstr "Versie {version}"
 
 #: frescobaldi_app/about.py:64
-#, fuzzy
 msgid "A LilyPond Music Editor"
-msgstr "Muziek-editor voor LilyPond"
+msgstr "Een muziek-editor voor LilyPond"
 
 #: frescobaldi_app/about.py:65
 msgid "Copyright (c) {year} by {author}"
-msgstr ""
+msgstr "Copyright (c) {year} door {author}"
 
 #: frescobaldi_app/about.py:69
 msgid "Send an e-mail message to the maintainers."
-msgstr ""
+msgstr "Een e-mailbericht sturen naar de auteurs."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
 #: frescobaldi_app/about.py:72
 msgid "Translated by Your Name."
-msgstr ""
+msgstr "Vertaald door Wilbert Berendsen."
 
 #: frescobaldi_app/about.py:77
 msgid "Licensed under the {gpl}."
-msgstr ""
+msgstr "Beschikbaar onder de {gpl}."
 
 #: frescobaldi_app/app.py:129
-#, fuzzy
 msgid "LilyPond Files"
 msgstr "LilyPond-bestanden"
 
