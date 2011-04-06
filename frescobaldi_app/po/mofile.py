@@ -66,7 +66,7 @@ def parse_header(data):
                 info[key] = val
                 lastkey = key
             elif lastkey:
-                info[lastkey] += '\n' + line
+                info[lastkey] += b'\n' + line
     return info
 
 

@@ -13,13 +13,6 @@ import sys
 
 import mofile
 
-try:
-    filename = sys.argv[1]
-except IndexError:
-    print("usage: python molint.py <mofile.mo>")
-    sys.exit(1)
-
-
 rx = re.compile(br"(?:^|[^{])\{([a-z]+)")
 
 def fields(text):
@@ -27,8 +20,13 @@ def fields(text):
 
 
 def molint(filename):
-    """Checks filename for superfluous fields in the translated messages."""
-    exitCode = 0
+    """Checks filename for superfluous fields in the translated messages.
+    
+    Returns True if there are no errors, otherwise prints messages to stderr
+    and returns False.
+    
+    """
+    correct = True
     for context, messages, translations in mofile.parse_mo_decode(open(filename, 'rb').read()):
 
         # collect fields in messages
@@ -45,25 +43,42 @@ def molint(filename):
         
         # write out errors if any
         if errors:
-            exitCode = 1
-            print('')
-            print("{0}: Translation contains fields that are not in message!".format(filename))
-            
-            print("  Message{0}:".format('' if len(messages) == 1 else "s"))
+            correct = False
+            sys.stderr.write(
+                "\n{0}: Translation contains fields that are not in message!\n"
+                "  Message{1}:\n".format(filename, '' if len(messages) == 1 else "s"))
             for m in messages:
-                print("    " + m)
+                sys.stderr.write("    {0}\n".format(m))
             
-            print("  Offending translation{0}:".format('' if len(errors) == 1 else "s"))
+            sys.stderr.write("  Offending translation{0}:\n".format('' if len(errors) == 1 else "s"))
             
             totalsuperfluous = set()
             for t, superfluous in errors:
-                print("    " + t)
+                sys.stderr.write("    {0}\n".format(t))
                 totalsuperfluous |= superfluous
             
             fieldlist = ["{{{0}}}".format(name) for name in totalsuperfluous]
-            print("  Field(s) not in message: {0}".format(", ".join(fieldlist)))
+            sys.stderr.write("  Fields not in message: {0}\n".format(", ".join(fieldlist)))
     
-    return exitCode
+    return correct
 
 
-sys.exit(molint(filename))
+filenames = sys.argv[1:]
+if not filenames:
+    sys.stderr.write(
+        "usage: python molint.py <mofiles> ...\n"
+        "\n"
+        "checks the given MO files if the translations contain erroneous\n"
+        "embedded variable names.\n"
+    )
+    sys.exit(2)
+
+errorfiles = []
+for filename in filenames:
+    if not molint(filename):
+        errorfiles.append(filename)
+
+if errorfiles:
+    sys.stderr.write("\nFiles containing errors: {0}\n".format(", ".join(errorfiles)))
+
+sys.exit(1 if errorfiles else 0)
