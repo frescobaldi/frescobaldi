@@ -69,3 +69,8 @@ to the Frescobaldi project.
 Variables between brackets in the messages like "Viewing page {number} of {total}"
 should not be translated but exactly copied to the translation.
 
+If you finished editing the PO file, you can simply run 'make' in the po directory.
+This will run the 'msgfmt' program to create a MO file that Frescobaldi can read.
+Additionally the MO file will be checked for wrong variable names in translated
+messages.
+
