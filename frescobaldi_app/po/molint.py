@@ -19,11 +19,13 @@ except IndexError:
     sys.exit(1)
 
 
-t = gettext.GNUTranslations(file(mofile))
+t = gettext.GNUTranslations(open(mofile))
 rx = re.compile(r"(?:^|[^{])\{([a-z]+)")
 
 def fields(text):
     return set(rx.findall(text))
+
+exitCode = 0
 
 # this trick works hopefully elsewhere as well...
 for key, value in t._catalog.items():
@@ -37,6 +39,7 @@ for key, value in t._catalog.items():
         print("  Translation: {0}".format(value))
         fieldlist = ["{{{0}}}".format(name) for name in superfluous]
         print("  Field(s) not in message: {0}".format(", ".join(fieldlist)))
+        exitCode = 1
 
 
-
+sys.exit(exitCode)
