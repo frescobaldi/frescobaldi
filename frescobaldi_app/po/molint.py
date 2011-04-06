@@ -8,29 +8,26 @@ This would cause keyword errors when the format method is called on a translated
 string.
 """
 
-import gettext
 import re
 import sys
 
+import mofile
+
 try:
-    mofile = sys.argv[1]
+    mo = sys.argv[1]
 except IndexError:
     print("usage: python molint.py <mofile.mo>")
     sys.exit(1)
 
 
-t = gettext.GNUTranslations(open(mofile))
-rx = re.compile(r"(?:^|[^{])\{([a-z]+)")
+rx = re.compile(br"(?:^|[^{])\{([a-z]+)")
 
 def fields(text):
     return set(rx.findall(text))
 
 exitCode = 0
 
-# this trick works hopefully elsewhere as well...
-for key, value in t._catalog.items():
-    if isinstance(key, tuple):
-        key = key[0]
+for key, value in mofile.parse_mo(open(mo, 'rb').read()):
     superfluous = fields(value) - fields(key)
     if superfluous:
         print('')
