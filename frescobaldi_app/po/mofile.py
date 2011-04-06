@@ -73,7 +73,7 @@ def parse_header(data):
 def parse_mo_split(buf):
     """Parses the mo file and splits up all messages/translation pairs.
     
-    Yields a three-tuple everytime: (contest, messages, translations)
+    Yields a three-tuple everytime: (context, messages, translations)
     
     where context is None or bytes, and messages and translations both unencoded lists.
     
