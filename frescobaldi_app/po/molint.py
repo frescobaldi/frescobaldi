@@ -32,10 +32,11 @@ for key, value in t._catalog.items():
     superfluous = fields(value) - fields(key)
     if superfluous:
         print('')
-        print("**** This translation contains fields that are not in the message! ****")
-        print("Message: {0}".format(key))
-        print("Translation: {0}".format(value))
-        print("Field(s) not in message: {0}".format(", ".join(superfluous)))
+        print("{0}: Translation contains fields that are not in message!".format(mofile))
+        print("  Message: {0}".format(key))
+        print("  Translation: {0}".format(value))
+        fieldlist = ["{{{0}}}".format(name) for name in superfluous]
+        print("  Field(s) not in message: {0}".format(", ".join(fieldlist)))
 
 
 
