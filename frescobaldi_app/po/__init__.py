@@ -38,7 +38,7 @@ _default_translation = [
 translation = _default_translation
 
 # Make the _() function available everywhere 
-__builtin__.__dict__['_'] = lambda *args: translation[len(args)](*args)
+__builtin__._ = lambda *args: translation[len(args)](*args)
 
 
 podir = __path__[0]

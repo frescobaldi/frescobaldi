@@ -1,9 +1,55 @@
-# a loader for MO files, written by Wilbert Berendsen
-#
-# Heavily inspired by the Python gettext library, but allows for reading
-# all contents of a MO file, also the msgid2's, which are not needed
-# for translating but are useful when checking messages and translations
-# for wrong Python variable fields.
+"""
+This module contains a loader for MO files, written in 2011 by Wilbert Berendsen.
+
+The module is heavily inspired by the Python gettext library, but allows for reading
+all contents of a MO file, also the msgid2's, which are not needed for translating
+but are useful e.g. when checking messages and translations for wrong Python
+variable fields. Also the msgctxt is supported (the *pgettext methods).
+
+The module provides a MoFile class, representing a MO file.
+
+MoFile(filename)          reads the messages from the given filename,
+MoFile.fromData(buffer)   reads the messages from the given bytes-string,
+MoFile.fromStream(stream) reads the messages from the given stream.
+
+The four methods 'gettext', 'pgettext', 'ngettext', 'npgettext' are like the
+ones in the GNU Gettext library. If a message can't be found the fallback (settable
+with the set_fallback() method is consulted. By default a NullMoFile() is used
+that returns the messages untranslated. All messages are returned as unicode
+strings.
+
+The *lgettext methods are not provided but a wrapper class could easily be
+created to return encoded messages.
+
+Besides the MoFile and NullMoFile classes, the module provides some functions
+that iterate over the contents of a MO file in different ways.
+
+There are no functions to locate MO files, or to install a MoFile object
+as a global translator. You can do this easily yourself e.g.:
+
+import __builtin__
+__builtin__._ = lambda *args: translation[len(args)](*args)
+
+mo_instance = MoFile('/path/to/file.mo')
+
+translation = [
+    None,
+    mo_instance.gettext,
+    mo_instance.pgettext,
+    mo_instance.ngettext,
+    mo_instance.npgettext,
+]
+
+This way, the _( ... ) function can be called with one to four arguments, and
+calls the correct method to return a translated message.
+
+"""
+
+__all__ = [
+    'NullMoFile', 'MoFile',
+    'parse_mo', 'parse_mo_split', 'parse_mo_decode',
+    'parse_header', 'parse_plural_expr',
+]
 
 import re
 from struct import unpack
