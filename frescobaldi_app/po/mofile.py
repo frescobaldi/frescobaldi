@@ -102,3 +102,48 @@ def parse_mo_decode(buf, default_charset="UTF-8"):
 
 
 
+expr_re = re.compile(r"\d+|>>|<<|[<>!=]=|&&|\|\||[-+*/%^&<>?:|!()n]")
+
+
+def parse_plural_expr(text):
+    """Parses an expression such as the 'plural=<expression>' found in PO/MO files.
+    
+    Returns a lambda function taking the 'n' argument and returning the plural number.
+    Returns None if the function could not be parsed.
+    
+    """
+    source = iter(expr_re.findall(text))
+    
+    def _expr():
+        result = []
+        for token in source:
+            if token == '?':
+                result.insert(0, 'if')
+                result[0:0] = _expr()
+                result.append('else')
+                result.extend(_expr())
+            elif token == ':':
+                return result
+            elif token == '&&':
+                result.append('and')
+            elif token == '||':
+                result.append('or')
+            elif token == '!':
+                result.append('not')
+            else:
+                result.append(token)
+                if token == '(':
+                    result.extend(_expr())
+                elif token == ')':
+                    return result
+        return result
+    
+    py_expression = ' '.join(_expr())
+    if py_expression:
+        code = "lambda n: int({0})".format(py_expression)
+        try:
+            compiled_code = compile(code, '<plural_expression>', 'eval')
+        except Exception:
+            return
+        return eval(compiled_code)
+
