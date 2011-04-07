@@ -24,7 +24,7 @@ Help browser dockwidget.
 """
 
 from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QAction
+from PyQt4.QtGui import QAction, QKeySequence
 
 import actioncollection
 import actioncollectionmanager
@@ -35,6 +35,7 @@ import panels
 class HelpBrowser(panels.Panel):
     def __init__(self, mainwindow):
         super(HelpBrowser, self).__init__(mainwindow)
+        self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+H"))
         self.hide()
         mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
         ac = self.actionCollection = Actions()
