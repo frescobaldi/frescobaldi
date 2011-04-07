@@ -362,7 +362,10 @@ class OpenBracketMarkup(OpenBracket):
 
 
 class CloseBracketMarkup(CloseBracket):
-    pass
+    def changeState(self, state):
+        state.endArgument()    
+        state.leave()
+        state.endArgument()    
 
 
 class Repeat(Command):
