@@ -80,16 +80,20 @@ class MoFile(NullMoFile):
     """Represents a MO translation file and provides methods to translate messages."""
     @classmethod
     def fromData(cls, buf):
+        """Constructs the MoFile object, reading the messages from a bytes buffer."""
         obj = cls.__new__(cls)
         obj._load(buf)
         return obj
         
     @classmethod
     def fromStream(cls, stream):
+        """Constructs the MoFile object, reading the messages from an open stream."""
         return cls.fromData(stream.read())
 
     def __init__(self, filename):
-        self._load(open(filename, 'rb').read())
+        """The default constructor reads the messages from the given filename."""
+        with open(filename, 'rb') as f:
+            self._load(f.read())
     
     def _load(self, buf):
         catalog = {}
@@ -133,17 +137,29 @@ class MoFile(NullMoFile):
     def set_fallback(self, fallback):
         """Sets a fallback class to return translations for messages not in this MO file.
         
-        If fallback is None, yields TypeError when translations are not found.
-        By default, fallback is set to a NullMoFile instance.
+        If fallback is None, AttributeError is raised when translations are not found.
+        By default, fallback is set to a NullMoFile instance that returns the message
+        untranslated.
         
         """
         self._fallback = fallback
     
     def fallback(self):
+        """Returns the fallback MoFile or NullMoFile object or None.
+        
+        The fallback is called when a message is not found in our own catalog.
+        By default, fallback is set to a NullMoFile instance that returns the message
+        untranslated.
+        
+        """
         return self._fallback
     
     def info(self):
-        """Returns the header (catalog description) from the MO-file as a dictionary with lower-cased header names."""
+        """Returns the header (catalog description) from the MO-file as a dictionary.
+        
+        The keys are the header names in lower case, the values unicode strings.
+        
+        """
         return self._info
     
     def gettext(self, message):
