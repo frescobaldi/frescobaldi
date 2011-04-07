@@ -5,11 +5,123 @@
 # for translating but are useful when checking messages and translations
 # for wrong Python variable fields.
 
+import re
 from struct import unpack
 
 LE_MAGIC = 0x950412deL
 BE_MAGIC = 0xde120495L
 
+
+class NullMoFile(object):
+    """Empty "mo file", returning messages untranslated."""
+    def gettext(self, message):
+        return message
+    
+    def ngettext(self, message, message_plural, n):
+        return message if n == 1 else message_plural
+    
+    def pgettext(self, context, message):
+        return message
+    
+    def npgettext(self, context, message, message_plural, n):
+        return message if n == 1 else message_plural
+
+    def fallback(self):
+        return None
+
+
+class MoFile(NullMoFile):
+    """Represents a MO translation file and provides methods to translate messages."""
+    @classmethod
+    def fromData(cls, buf):
+        obj = cls.__new__(cls)
+        obj._load(buf)
+        return obj
+        
+    @classmethod
+    def fromStream(cls, stream):
+        return cls.fromData(stream.read())
+
+    def __init__(self, filename):
+        self._load(open(filename, 'rb').read())
+    
+    def _load(self, buf):
+        catalog = {}
+        context_catalog = {}
+        charset = 'UTF-8'
+        self._plural = lambda n: int(n != 1)
+        for context, msgs, tmsgs in parse_mo_split(buf):
+            if msgs[0] == '':
+                # header
+                info = parse_header(tmsgs[0])
+                try:
+                    charset = info.get('content-type', '').split('charset=')[1]
+                except IndexError:
+                    pass
+                try:
+                    plural = info.get('plural-forms', '').split(';')[1].split('plural=')[1]
+                except IndexError:
+                    pass
+                else:
+                    f = parse_plural_expr(plural)
+                    if f:
+                        self._plural = f
+            else:
+                # decode
+                d = context_catalog.setdefault(context.decode(charset), {}) if context else catalog
+                msgid1 = msgs[0].decode(charset)
+                if len(msgs) > 1:
+                    # plural
+                    for i, t in enumerate(tmsgs):
+                        d[(msgid1, i)] = t.decode(charset)
+                else:
+                    # singular
+                    d[msgid1] = tmsgs[0].decode(charset)
+        self._catalog = catalog
+        self._context_catalog = context_catalog
+        self._charset = charset
+        self._fallback = NullMoFile()
+        
+    def set_fallback(self, fallback):
+        """Sets a fallback class to return translations for messages not in this MO file.
+        
+        If fallback is None, yields TypeError when translations are not found.
+        By default, fallback is set to a NullMoFile instance.
+        
+        """
+        self._fallback = fallback
+    
+    def fallback(self):
+        return self._fallback
+    
+    def gettext(self, message):
+        """Returns the translation of the message."""
+        try:
+            return self._catalog[message]
+        except KeyError:
+            return self._fallback.gettext(message)
+    
+    def ngettext(self, message, message_plural, n):
+        """Returns the correct translation (singular or plural) depending on n."""
+        try:
+            return self._catalog[(message, self._plural(n))]
+        except KeyError:
+            return self._fallback.ngettext(message, message_plural, n)
+    
+    def pgettext(self, context, message):
+        """Returns the translation of the message in the given context."""
+        try:
+            return self._context_catalog[context][message]
+        except KeyError:
+            return self._fallback(context, message)
+    
+    def npgettext(self, context, message, message_plural, n):
+        """Returns the correct translation (singular or plural) depending on n, in the given context."""
+        try:
+            return self._context_catalog[context][(message, self._plural(n))]
+        except KeyError:
+            return self._fallback(context, message, message_plural, n)
+    
 
 def parse_mo(buf):
     """Parses the given buffer (a bytes instance) as a MO file.
@@ -93,8 +205,8 @@ def parse_mo_decode(buf, default_charset="UTF-8"):
         if msgs[0] == '':
             info = parse_header(tmsgs[0])
             try:
-                dummy, charset = info.get('content-type', '').split('charset=')
-            except ValueError:
+                charset = info.get('content-type', '').split('charset=')[1]
+            except IndexError:
                 pass
         yield (context.decode(charset) if context else None,
                [msg.decode(charset) for msg in msgs],
