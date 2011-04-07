@@ -96,6 +96,7 @@ class MoFile(NullMoFile):
         context_catalog = {}
         charset = 'UTF-8'
         self._plural = lambda n: int(n != 1)
+        self._info = {}
         for context, msgs, tmsgs in parse_mo_split(buf):
             if msgs[0] == '':
                 # header
@@ -112,6 +113,8 @@ class MoFile(NullMoFile):
                     f = parse_plural_expr(plural)
                     if f:
                         self._plural = f
+                # store as well
+                self._info = dict((k, v.decode(charset)) for k, v in info.items())
             else:
                 # decode
                 d = context_catalog.setdefault(context.decode(charset), {}) if context else catalog
@@ -125,7 +128,6 @@ class MoFile(NullMoFile):
                     d[msgid1] = tmsgs[0].decode(charset)
         self._catalog = catalog
         self._context_catalog = context_catalog
-        self._charset = charset
         self._fallback = NullMoFile()
         
     def set_fallback(self, fallback):
@@ -139,6 +141,10 @@ class MoFile(NullMoFile):
     
     def fallback(self):
         return self._fallback
+    
+    def info(self):
+        """Returns the header (catalog description) from the MO-file as a dictionary with lower-cased header names."""
+        return self._info
     
     def gettext(self, message):
         """Returns the translation of the message."""
