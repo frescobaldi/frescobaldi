@@ -145,5 +145,5 @@ def parse_plural_expr(text):
             compiled_code = compile(code, '<plural_expression>', 'eval')
         except Exception:
             return
-        return eval(compiled_code)
+        return eval(compiled_code, {}, {})
 
