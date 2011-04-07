@@ -233,7 +233,8 @@ def parse_mo_split(buf):
     
     Yields a three-tuple everytime: (context, messages, translations)
     
-    where context is None or bytes, and messages and translations both unencoded lists.
+    where context is None or bytes, and messages and translations are both lists
+    of undecoded bytes objects.
     
     """
     for msg, tmsg in parse_mo(buf):
@@ -267,7 +268,7 @@ def parse_plural_expr(text):
     """Parses an expression such as the 'plural=<expression>' found in PO/MO files.
     
     Returns a lambda function taking the 'n' argument and returning the plural number.
-    Returns None if the function could not be parsed.
+    Returns None if the expression could not be parsed.
     
     """
     source = iter(expr_re.findall(text))
