@@ -27,7 +27,7 @@ from PyQt4.QtCore import QSettings, QTimer
 
 import app
 
-from . import mofile, install, remove
+from . import find, install, remove
 from . import qtranslator
 
 
@@ -49,7 +49,7 @@ def setup():
             QTimer.singleShot(0, app.languageChanged)
         _currentlanguage = language
         if language != "none":
-            mo = mofile(language)
+            mo = find(language)
             if mo:
                 try:
                     install(mo)

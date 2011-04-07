@@ -113,14 +113,14 @@ class MoFile(NullMoFile):
         try:
             return self._context_catalog[context][message]
         except KeyError:
-            return self._fallback(context, message)
+            return self._fallback.pgettext(context, message)
     
     def npgettext(self, context, message, message_plural, n):
         """Returns the correct translation (singular or plural) depending on n, in the given context."""
         try:
             return self._context_catalog[context][(message, self._plural(n))]
         except KeyError:
-            return self._fallback(context, message, message_plural, n)
+            return self._fallback.npgettext(context, message, message_plural, n)
     
 
 def parse_mo(buf):

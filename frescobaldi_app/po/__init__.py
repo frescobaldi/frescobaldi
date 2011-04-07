@@ -22,8 +22,9 @@ Internationalisation.
 """
 
 import __builtin__
-import gettext
 import os
+
+from . import mofile
 
 _default_translation = [
     lambda: None,
@@ -46,35 +47,28 @@ def available():
     """Returns a list of language shortnames for which a MO file is available."""
     return [name[:-3] for name in os.listdir(podir) if name.endswith(".mo")]
  
-def mofile(language):
+def find(language):
     """Returns a .mo file for the given language.
     
     Returns None if no suitable MO file can be found.
     
     """
-    mofile = os.path.join(podir, language + ".mo")
-    if os.path.exists(mofile):
-        return mofile
-    if '_' in language:
-        mofile = os.path.join(podir, language.split('_')[0] + ".mo")
-        if os.path.exists(mofile):
-            return mofile
+    filename = os.path.join(podir, language + ".mo")
+    if os.path.exists(filename):
+        return filename
+    elif '_' in language:
+        return find(language.split('_')[0])
     
-def install(mofile):
+def install(filename):
     """Installs the translations from the given .mo file."""
     global translation
-    with open(mofile) as f:
-        translator = gettext.GNUTranslations(f)
+    translator = mofile.MoFile(filename)
     translation = [
         lambda: None,
-        lambda message:
-            translator.ugettext(message),
-        lambda context, message:
-            translator.ugettext(context + "\x04" + message).split("\x04")[-1],
-        lambda message, plural, count:
-            translator.ungettext(message, plural, count),
-        lambda context, message, plural, count:
-            translator.ungettext(context + "\x04" + message, context + "\x04" + plural, count).split("\x04")[-1],
+        translator.gettext,
+        translator.pgettext,
+        translator.ngettext,
+        translator.npgettext,
     ]
 
 def remove():
