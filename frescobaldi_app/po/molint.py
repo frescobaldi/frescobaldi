@@ -18,13 +18,10 @@ _parse = string.Formatter().parse
 def fields(text):
     """Returns the format field names in text as a set().
     
-    If parsing causes errors, returns the empty set().
+    If the text contains erroneous formatting delimiters, ValueError is raised.
     
     """
-    try:
-        return set(i[1] for i in _parse(text) if i[1])
-    except ValueError:
-        return set()
+    return set(i[1] for i in _parse(text) if i[1])
 
 
 def molint(filename):
@@ -40,7 +37,10 @@ def molint(filename):
         # collect fields in messages
         s = set()
         for m in messages:
-            s |= fields(m)
+            try:
+                s |= fields(m)
+            except ValueError:
+                pass
         
         if not s:
             continue
@@ -48,28 +48,29 @@ def molint(filename):
         # collect superfluous fields in translations
         errors = []
         for t in translations:
-            superfluous = fields(t) - s
-            if superfluous:
-                errors.append((t, superfluous))
+            try:
+                superfluous = fields(t) - s
+            except ValueError:
+                errors.append((t, "Erroneous format string"))
+            else:
+                if superfluous:
+                    errors.append((t, "Field{0} {1} not in message".format(
+                        's' if len(superfluous) > 1 else '',
+                        ', '.join('{{{0}}}'.format(name) for name in superfluous))))
         
         # write out errors if any
         if errors:
             correct = False
             sys.stderr.write(
-                "\n{0}: Translation contains fields that are not in message!\n"
+                "\n{0}: Translation contains errors!\n"
                 "  Message{1}:\n".format(filename, '' if len(messages) == 1 else "s"))
             for m in messages:
                 sys.stderr.write("    {0}\n".format(m))
             
             sys.stderr.write("  Offending translation{0}:\n".format('' if len(errors) == 1 else "s"))
             
-            totalsuperfluous = set()
-            for t, superfluous in errors:
-                sys.stderr.write("    {0}\n".format(t))
-                totalsuperfluous |= superfluous
-            
-            fieldlist = ["{{{0}}}".format(name) for name in totalsuperfluous]
-            sys.stderr.write("  Fields not in message: {0}\n".format(", ".join(fieldlist)))
+            for t, errmsg in errors:
+                sys.stderr.write("    {0}:\n      {1}\n".format(errmsg, t))
     
     return correct
 
