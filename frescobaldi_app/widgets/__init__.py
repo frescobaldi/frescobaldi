@@ -17,13 +17,13 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
-from __future__ import unicode_literals
-
 """
 All kinds of more or less generally usable widgets.
 
 Some very simple ones are in this file, others in their own files.
 """
+
+from __future__ import unicode_literals
 
 from PyQt4.QtCore import QSize, Qt
 from PyQt4.QtGui import QFrame, QToolButton

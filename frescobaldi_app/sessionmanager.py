@@ -17,8 +17,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
-from __future__ import unicode_literals
-
 """
 Named session support (not to be confused with the QSessionManager support
 (see session.py)
@@ -26,6 +24,8 @@ Named session support (not to be confused with the QSessionManager support
 A session is a global list of open documents, with some additional preferences set.
 
 """
+
+from __future__ import unicode_literals
 
 import itertools
 import weakref

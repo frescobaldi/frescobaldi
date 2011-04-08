@@ -17,13 +17,13 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
-from __future__ import unicode_literals
-
 """
 Base class and stubs and logic for Panels (QDockWidgets).
 
 When the panel must be shown its widget is instantiated.
 """
+
+from __future__ import unicode_literals
 
 import weakref
 

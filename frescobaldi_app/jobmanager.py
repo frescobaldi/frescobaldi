@@ -17,8 +17,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
-from __future__ import unicode_literals
-
 """
 A JobManager exists for every Document, and ensures no two jobs are running
 at the same time.
@@ -26,6 +24,8 @@ at the same time.
 It also sends the app-wide signals jobStarted() and jobFinished().
 
 """
+
+from __future__ import unicode_literals
 
 import app
 import plugin

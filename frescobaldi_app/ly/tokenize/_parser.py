@@ -17,8 +17,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
-from __future__ import unicode_literals
-
 """
 Base classes for Parser instances.
 
@@ -28,6 +26,8 @@ This module starts with an underscore so that it does not interfere with the mod
 modules.
 
 """
+
+from __future__ import unicode_literals
 
 __all__ = ["Parser", "FallthroughParser"]
 

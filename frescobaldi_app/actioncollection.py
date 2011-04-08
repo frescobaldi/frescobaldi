@@ -17,8 +17,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
-from __future__ import unicode_literals
-
 """
 In this module are two classes, ActionCollection and ShortcutCollection.
 Both must be inherited to do something useful.
@@ -43,6 +41,8 @@ The module may provide the user with a means to change the keyboard shortcuts,
 which then should call setShortcuts() to do it. The module may also query the
 currently set shortcuts for an action using shortcuts().
 """
+
+from __future__ import unicode_literals
 
 import weakref
 

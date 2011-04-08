@@ -17,12 +17,12 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
-from __future__ import unicode_literals
-
 """
 A Job runs LilyPond (or another process) and captures the output
 to get it later or to have a log follow it.
 """
+
+from __future__ import unicode_literals
 
 import codecs
 import os

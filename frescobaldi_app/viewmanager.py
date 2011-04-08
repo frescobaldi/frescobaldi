@@ -17,14 +17,14 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
-from __future__ import unicode_literals
-
 """
 ViewManager is a QSplitter containing sub-splitters to display multiple
 ViewSpaces.
 ViewSpace is a QStackedWidget with a statusbar, capable of displaying one of
 multiple views.
 """
+
+from __future__ import unicode_literals
 
 import contextlib
 import weakref

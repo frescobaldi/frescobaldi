@@ -17,11 +17,11 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
-from __future__ import unicode_literals
-
 """
 A Manual manages a searchable index for a LilyPond manual.
 """
+
+from __future__ import unicode_literals
 
 
 from PyQt4.QtCore import QObject, QUrl, pyqtSignal

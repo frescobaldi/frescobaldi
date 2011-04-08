@@ -17,8 +17,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
-from __future__ import unicode_literals
-
 """
 Registry for the different modes used by the tokenizer.
 
@@ -42,6 +40,8 @@ Don't use this module directly!  modes and guessMode are imported in the main
 tokenize module.
 
 """
+
+from __future__ import unicode_literals
 
 __all__ = ['modes', 'guessMode']
 
