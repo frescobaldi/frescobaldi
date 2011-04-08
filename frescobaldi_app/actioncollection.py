@@ -113,6 +113,11 @@ class ActionCollection(ActionCollectionBase):
     
     """
     def __init__(self, parent=None):
+        """Creates the ActionCollection.
+        
+        parent is an optional widget that is also the parent for the created actions.
+        
+        """
         super(ActionCollection, self).__init__(parent)
         self.createActions(parent)
         self._actions = dict(i for i in self.__dict__.items() if not i[0].startswith('_'))
@@ -124,7 +129,7 @@ class ActionCollection(ActionCollectionBase):
         """Should add actions as instance attributes.
         
         The QActions should get icons and shortcuts. Texts should be set
-        in translateUI().
+        in translateUI(). The actions are created with the parent given on instantiation.
         
         """
         pass
@@ -182,6 +187,12 @@ class ShortcutCollection(ActionCollectionBase):
     others = {}
     
     def __init__(self, widget):
+        """Creates the ShortcutCollection.
+        
+        The widget is required as actions are added to it, so their keyboard
+        shortcuts get triggered.
+        
+        """
         super(ShortcutCollection, self).__init__(widget)
         self.createDefaultShortcuts()
         self.load()

@@ -32,7 +32,13 @@ import icons
 
 
 class AboutDialog(QDialog):
+    """A simple 'About Frescobaldi' dialog.
+    
+    Most of the information is taken from the info module.
+    
+    """
     def __init__(self, mainwindow):
+        """Creates the about dialog. You can simply exec_() it."""
         super(AboutDialog, self).__init__(mainwindow)
         
         self.setWindowTitle(_("About {appname}").format(appname = info.appname))

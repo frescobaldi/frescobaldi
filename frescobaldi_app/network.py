@@ -23,8 +23,7 @@ Network-related utility functions.
 
 import locale
 
-from PyQt4.QtCore import *
-from PyQt4.QtNetwork import *
+from PyQt4.QtNetwork import QNetworkReply, QNetworkRequest
 
 import app
 import networkaccessmanager

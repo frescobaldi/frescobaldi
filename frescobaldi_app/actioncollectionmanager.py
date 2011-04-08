@@ -18,7 +18,11 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Manages action collections for a MainWindow.
+Manages ActionCollections for a MainWindow (and so, effectively, for the whole
+application.)
+
+This makes it possible to edit actions and check whether keyboard shortcuts of
+actions conflict with other actions.
 """
 
 from __future__ import unicode_literals
@@ -32,12 +36,14 @@ import plugin
 
 
 def manager(mainwindow):
+    """Returns the ActionCollectionManager belonging to mainwindow."""
     return ActionCollectionManager.instance(mainwindow)
 
 
 class ActionCollectionManager(plugin.MainWindowPlugin):
-    
+    """Manages ActionCollections for a MainWindow."""
     def __init__(self, mainwindow):
+        """Creates the ActionCollectionManager for the given mainwindow."""
         self._actioncollections = []
     
     def addActionCollection(self, collection):
