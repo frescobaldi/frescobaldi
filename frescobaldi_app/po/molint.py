@@ -8,15 +8,23 @@ This would cause keyword errors when the format method is called on a translated
 string.
 """
 
-import re
+import string
 import sys
 
 import mofile
 
-rx = re.compile(br"(?:^|[^{])\{([a-z]+)")
+_parse = string.Formatter().parse
 
 def fields(text):
-    return set(rx.findall(text))
+    """Returns the format field names in text as a set().
+    
+    If parsing causes errors, returns the empty set().
+    
+    """
+    try:
+        return set(i[1] for i in _parse(text) if i[1])
+    except ValueError:
+        return set()
 
 
 def molint(filename):
@@ -33,6 +41,9 @@ def molint(filename):
         s = set()
         for m in messages:
             s |= fields(m)
+        
+        if not s:
+            continue
         
         # collect superfluous fields in translations
         errors = []
@@ -63,22 +74,23 @@ def molint(filename):
     return correct
 
 
-filenames = sys.argv[1:]
-if not filenames:
-    sys.stderr.write(
-        "usage: python molint.py <mofiles> ...\n"
-        "\n"
-        "checks the given MO files if the translations contain erroneous\n"
-        "embedded variable names.\n"
-    )
-    sys.exit(2)
+if __name__ == '__main__':
+    filenames = sys.argv[1:]
+    if not filenames:
+        sys.stderr.write(
+            "usage: python molint.py <mofiles> ...\n"
+            "\n"
+            "checks the given MO files if the translations contain erroneous\n"
+            "embedded variable names.\n"
+        )
+        sys.exit(2)
 
-errorfiles = []
-for filename in filenames:
-    if not molint(filename):
-        errorfiles.append(filename)
+    errorfiles = []
+    for filename in filenames:
+        if not molint(filename):
+            errorfiles.append(filename)
 
-if errorfiles:
-    sys.stderr.write("\nFiles containing errors: {0}\n".format(", ".join(errorfiles)))
+    if errorfiles:
+        sys.stderr.write("\nFiles containing errors: {0}\n".format(", ".join(errorfiles)))
 
-sys.exit(1 if errorfiles else 0)
+    sys.exit(1 if errorfiles else 0)
