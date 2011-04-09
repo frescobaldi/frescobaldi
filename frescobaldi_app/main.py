@@ -99,4 +99,9 @@ if app.qApp.isSessionRestored():
 else:
     # Parse command line arguments
     startmain()
+# be sure there is at least one mainwindow and one document.
+if not app.windows:
+    mainwindow.MainWindow().show()
+if not app.documents:
+    document.Document()
 app.run()

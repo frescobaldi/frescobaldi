@@ -29,7 +29,6 @@ from PyQt4.QtCore import QUrl
 from PyQt4.QtGui import QPlainTextDocumentLayout, QTextDocument
 
 import app
-import view
 import util
 import highlighter
 import textformats
@@ -110,6 +109,7 @@ class Document(QTextDocument):
             self.setDocumentLayout(QPlainTextDocumentLayout(self))
             self.highlighter = highlighter.Highlighter(self)
             self._materialized = True
+        import view
         return view.View(self)
     
     def url(self):

@@ -57,9 +57,6 @@ sessionChanged = SignalInstance()       # (no arguments)
 jobStarted = SignalInstance()           # (Document, Job)
 jobFinished = SignalInstance()          # (Document, Job, bool success)
 
-import mainwindow
-import document
-
 
 def openUrl(url, encoding=None):
     """Returns a Document instance for the given QUrl.
@@ -81,6 +78,7 @@ def openUrl(url, encoding=None):
             d.setEncoding(encoding)
             d.load()
         else:
+            import document
             d = document.Document(url, encoding)
     return d
 
@@ -96,10 +94,6 @@ def findDocument(url):
 
 def run():
     """Enter the Qt event loop."""
-    if not documents:
-        document.Document()
-    if not windows:
-        mainwindow.MainWindow().show()
     sys.excepthook = excepthook
     sys.exit(qApp.exec_())
     
