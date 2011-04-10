@@ -19,6 +19,9 @@
 
 """
 View is basically a QPlainTextEdit instance.
+
+It is used to edit a Document. The ViewManager (see viewmanager.py)
+has support for showing multiple Views in a window.
 """
 
 from __future__ import unicode_literals
@@ -43,10 +46,30 @@ metainfo.define('position', 0)
 
 
 class View(QPlainTextEdit):
+    """View is the text editor widget a Document is displayed and edited with.
     
+    It is basically a QPlainTextEdit with some extra features:
+    - it draws a grey cursor when out of focus
+    - it draws the marked lines from the bookmarks module
+    - it reads basic palette colors from the preferences
+    - it determines tab width from the document variables (defaulting to 8 characters)
+    - it stores the cursor position in the metainfo
+    - it runs the autoindenter when enabled (also checked via metainfo)
+    - using the highlight() method it can highlight arbitrary ranges
+    - it can display a widget in the bottom using showWidget and hideWidget.
+    
+    Create a View through the document->createView() method.
+    
+    """
     focusIn = pyqtSignal()
     
     def __init__(self, document):
+        """Creates the View for the given document.
+        
+        Normally you'll call the createView() method from the document, as it performs
+        some lazy setup for the Document when it's first View is created.
+        
+        """
         super(View, self).__init__()
         self._selections = {}
         self._cursorFormat = QTextCharFormat()
@@ -183,7 +206,7 @@ class View(QPlainTextEdit):
             super(View, self).dropEvent(ev)
 
     def paintEvent(self, ev):
-        # paint a cursor if we have no focus
+        """Reimplemented to paint a cursor if we have no focus."""
         super(View, self).paintEvent(ev)
         if self._paintcursor:
             rect = self.cursorRect()
@@ -217,7 +240,7 @@ class View(QPlainTextEdit):
         metainfo.info(self.document()).position = self.textCursor().position()
 
     def updateCursor(self):
-        """Called when the textCursor has moved."""
+        """Called when the textCursor has moved. Highlights the current line."""
         # highlight current line
         color = QColor(self._baseColors['current'])
         color.setAlpha(200 if self.hasFocus() else 100)
@@ -227,17 +250,25 @@ class View(QPlainTextEdit):
         self.highlight(self._cursorFormat, [cursor], 0)
         
     def setTabWidth(self):
+        """(Internal) Reads the tab-width variable and the font settings to set the tabStopWidth."""
         tabwidth = self.fontMetrics().width(" ") * variables.get(self.document(), 'tab-width', 8)
         self.setTabStopWidth(tabwidth)
         
     def updateMarkedLines(self):
+        """Called when something changes in the bookmarks."""
         for type, marks in bookmarks.bookmarks(self.document()).marks().items():
             self.highlight(type, marks, -1)
         
     def updateHighlighting(self):
+        """(Internal) Called whenever the arbitrary highlighting changes."""
         self.setExtraSelections(sum((s[1] for s in sorted(self._selections.values())), []))
 
     def textFormat(self, name):
+        """(Internal) Returns a QTextCharFormat setup according to the preferences.
+        
+        For bookmarks and the current line, FullWidthSelection is automatically enabled.
+        
+        """
         f = QTextCharFormat()
         f.setBackground(self._baseColors[name])
         if name in ('current', 'mark', 'error'):
