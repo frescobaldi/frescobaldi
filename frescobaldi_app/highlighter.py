@@ -38,11 +38,17 @@ import ly.tokenize.texinfo
 import app
 import textformats
 import metainfo
+import plugin
 import variables
 import documentinfo
 
 
 metainfo.define('highlighting', True)
+
+
+def highlighter(document):
+    """Returns the Highlighter for this document."""
+    return Highlighter.instance(document)
 
 
 _highlightFormats = None
@@ -150,7 +156,7 @@ class HighlightFormats(object):
             return f
 
         
-class Highlighter(QSyntaxHighlighter):
+class Highlighter(QSyntaxHighlighter, plugin.Plugin):
     def __init__(self, document):
         QSyntaxHighlighter.__init__(self, document)
         self.setDocument(document)
@@ -178,7 +184,7 @@ class Highlighter(QSyntaxHighlighter):
         if 0 <= prev < len(self._states):
             state = ly.tokenize.thawState(self._states[prev])
         elif not text or text.isspace():
-            self.setCurrentBlockState(prev - 1) # keep the highligher coming back
+            self.setCurrentBlockState(prev - 1) # keep the highlighter coming back
             return
         else:
             state = self.initialState()
@@ -254,7 +260,7 @@ def updateTokens(block, state=None):
     
     """
     if state is None:
-        state = block.document().highlighter.state(block)
+        state = highlighter(block.document()).state(block)
     userData(block).tokens = tokens = tuple(state.tokens(block.text()))
     return tokens
 

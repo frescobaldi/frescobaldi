@@ -605,7 +605,8 @@ class MainWindow(QMainWindow):
     def toggleHighlighting(self):
         minfo = metainfo.info(self.currentDocument())
         minfo.highlighting = not minfo.highlighting
-        self.currentDocument().highlighter.setHighlighting(minfo.highlighting)
+        import highlighter
+        highlighter.highlighter(self.currentDocument()).setHighlighting(minfo.highlighting)
         
     def markCurrentLine(self):
         view = self.currentView()

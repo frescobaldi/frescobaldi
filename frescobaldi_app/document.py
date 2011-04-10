@@ -107,7 +107,7 @@ class Document(QTextDocument):
         """Returns a new View on our document."""
         if not self._materialized:
             self.setDocumentLayout(QPlainTextDocumentLayout(self))
-            self.highlighter = highlighter.Highlighter(self)
+            highlighter.highlighter(self)
             self._materialized = True
         import view
         return view.View(self)

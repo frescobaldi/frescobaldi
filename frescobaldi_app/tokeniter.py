@@ -51,7 +51,7 @@ def state(blockOrCursor):
             block = blockOrCursor.block()
     else:
         block = blockOrCursor
-    return block.document().highlighter.state(block)
+    return highlighter.highlighter(block.document()).state(block)
 
 
 def update(block):
