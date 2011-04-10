@@ -45,7 +45,7 @@ class Document(QTextDocument):
     
     def __init__(self, url=None, encoding=None):
         super(Document, self).__init__()
-        self._materialized = False
+        self.setDocumentLayout(QPlainTextDocumentLayout(self))
         self._encoding = encoding
         self._url = url # avoid urlChanged on init
         self.setUrl(url)
@@ -105,10 +105,7 @@ class Document(QTextDocument):
 
     def createView(self):
         """Returns a new View on our document."""
-        if not self._materialized:
-            self.setDocumentLayout(QPlainTextDocumentLayout(self))
-            highlighter.highlighter(self)
-            self._materialized = True
+        highlighter.highlighter(self) # be sure the highlighter is started
         import view
         return view.View(self)
     
