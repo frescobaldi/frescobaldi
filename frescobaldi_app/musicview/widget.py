@@ -110,6 +110,7 @@ class MusicView(QWidget):
         cursor = self._links.cursor(link, True)
         if cursor:
             self.parent().mainwindow().setTextCursor(cursor, findOpenView=True)
+            self.slotLinkLeft() # hide possible highlighting
         elif ev.button() != Qt.RightButton and isinstance(link, popplerqt4.Poppler.LinkBrowse):
             QDesktopServices.openUrl(QUrl(link.url()))
 
