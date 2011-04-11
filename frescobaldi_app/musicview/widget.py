@@ -127,13 +127,13 @@ class MusicView(QWidget):
         column = cursor.position() - block.position()
         tokens = tokeniter.TokenIterator(block)
         state = tokeniter.state(block)
-        for token in tokens.forward_state(state, False):
-            if token.pos >= column:
+        source = tokens.forward_state(state)
+        for token in source:
+            if token.pos >= column or tokens.block != block:
                 break
         else:
             return
         start = token.pos + block.position()
-        source = tokens.forward_state(state)
         
         cur = QTextCursor(document)
         cur.setPosition(start)
@@ -141,13 +141,14 @@ class MusicView(QWidget):
         
         if isinstance(token, ly.tokenize.lilypond.Direction):
             for token in source:
-                break
+                if not isinstance(token, (ly.tokenize.Space, ly.tokenize.Comment)):
+                    break
         end = token.end + block.position()
         if token == '\\markup':
             depth = len(state)
             for token in source:
                 if len(state) < depth:
-                    end = token.end + block.position()
+                    end = token.end + tokens.block.position()
                     break
         elif token == '"':
             for token in source:
