@@ -41,6 +41,16 @@ class Token(unicode):
     by calling the changeState() method, e.g. when iterating over
     the tokens again.
     
+    A token subclass should define the regular expression string that defines it
+    in the rx attribute. This can be a string or a staticmethod that returns the string.
+    
+    To add token types to a Parser class, list the token class in the items attribute
+    of the Parser class.
+    
+    When parsing, a Parser joins all the regular expression strings of all the token
+    classes in the items attribute and compiles one large expression of it that is then
+    used for parsing text.
+    
     """
     __slots__ = ['pos', 'end']
     
@@ -62,6 +72,28 @@ class Token(unicode):
         
         """
         state.parser().changeState(state, self)
+    
+
+class patternproperty(object):
+    """Property that caches the return value of its function and returns that next time.
+    
+    Use this if the rx attribute (the pattern string to match tokens for) of a Token subclass
+    is already costly to create and you want it created lazily (i.e. only when parsing starts):
+    
+    @patternproperty
+    def rx():
+        ...complicated function returning the regular expression string...
+    
+    """
+    def __init__(self, func):
+        self._func = func
+        
+    def __get__(self, instance, owner):
+        try:
+            return self._rx
+        except AttributeError:
+            self._rx = self._func()
+            return self._rx
 
 
 class Unparsed(Token):

@@ -187,14 +187,15 @@ class SimultaneousEnd(CloseSimultaneous):
 
 
 class Articulation(_token.Token):
-    rx = r"\\({0})(?![A-Za-z])".format("|".join(itertools.chain(
-        ly.words.articulations,
-        ly.words.ornaments,
-        ly.words.fermatas,
-        ly.words.instrument_scripts,
-        ly.words.repeat_scripts,
-        ly.words.ancient_scripts,
-    )))
+    rx = _token.patternproperty(lambda:
+        r"\\({0})(?![A-Za-z])".format("|".join(itertools.chain(
+            ly.words.articulations,
+            ly.words.ornaments,
+            ly.words.fermatas,
+            ly.words.instrument_scripts,
+            ly.words.repeat_scripts,
+            ly.words.ancient_scripts,
+    ))))
     
     
 class Direction(Articulation):
