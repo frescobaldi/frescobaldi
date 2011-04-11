@@ -46,6 +46,7 @@ class MusicView(QWidget):
         
         self._positions = weakref.WeakKeyDictionary()
         self._currentDocument = lambda: None
+        self._highlightFormat = QTextCharFormat()
         
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
@@ -60,6 +61,7 @@ class MusicView(QWidget):
         self.view.viewModeChanged.connect(self.slotViewModeChanged)
         self.view.surface().linkClicked.connect(self.slotLinkClicked)
         self.view.surface().linkHovered.connect(self.slotLinkHovered)
+        self.view.surface().linkLeft.connect(self.slotLinkLeft)
         self.view.surface().setShowUrlTips(False)
         self.view.surface().linkHelpRequested.connect(self.slotLinkHelpRequested)
         self.slotViewModeChanged(self.view.viewMode())
@@ -98,6 +100,9 @@ class MusicView(QWidget):
         self.view.clear()
         
     def readSettings(self):
+        color = textformats.formatData('editor').baseColors['selectionbackground']
+        color.setAlpha(128)
+        self._highlightFormat.setBackground(color)
         qpopplerview.cache.options().setPaperColor(textformats.formatData('editor').baseColors['paper'])
         self.view.redraw()
 
@@ -112,20 +117,60 @@ class MusicView(QWidget):
         cursor = self._links.cursor(link)
         if not cursor or cursor.document() != self.parent().mainwindow().currentDocument():
             return
+        
         # highlight token(s) at this cursor
-        view = self.parent().mainwindow().currentView()
-        if not hasattr(self, '_hoverformat'):
-            self._hoverformat = QTextCharFormat()
-        color = textformats.formatData('editor').baseColors['selectionbackground']
-        color.setAlpha(128)
-        self._hoverformat.setBackground(color)
         import tokeniter
+        import ly.tokenize.lilypond
+        document = cursor.document()
         block = cursor.block()
         column = cursor.position() - block.position()
         tokens = tokeniter.TokenIterator(block)
-        for token in itertools.dropwhile(lambda t: t.pos < column, tokens.forward(False)):
-            view.highlight(self._hoverformat, [tokens.cursor()], 2, 1000)
-            break
+        state = tokeniter.state(block)
+        for token in tokens.forward_state(state, False):
+            if token.pos >= column:
+                break
+        else:
+            return
+        start = token.pos + block.position()
+        source = tokens.forward_state(state)
+        
+        cur = QTextCursor(document)
+        cur.setPosition(start)
+        cursors = [cur]
+        
+        if isinstance(token, ly.tokenize.lilypond.Direction):
+            for token in source:
+                break
+        end = token.end + block.position()
+        if token == '\\markup':
+            depth = len(state)
+            for token in source:
+                if len(state) < depth:
+                    end = token.end + block.position()
+                    break
+        elif token == '"':
+            for token in source:
+                if isinstance(token, ly.tokenize.StringEnd):
+                    end = token.end + tokens.block.position()
+                    break
+        elif isinstance(token, ly.tokenize.MatchStart):
+            name = token.matchname
+            for token in source:
+                if isinstance(token, ly.tokenize.MatchEnd) and token.matchname == name:
+                    cur2 = QTextCursor(document)
+                    cur2.setPosition(token.pos + tokens.block.position())
+                    cur2.setPosition(token.end + tokens.block.position(), QTextCursor.KeepAnchor)
+                    cursors.append(cur2)
+                    break
+                    
+        cur.setPosition(end, QTextCursor.KeepAnchor)
+        
+        view = self.parent().mainwindow().currentView()
+        view.highlight(self._highlightFormat, cursors, 2, 5000)
+    
+    def slotLinkLeft(self):
+        view = self.parent().mainwindow().currentView()
+        view.clearHighlight(self._highlightFormat)
 
     def slotLinkHelpRequested(self, pos, page, link):
         if isinstance(link, popplerqt4.Poppler.LinkBrowse):
