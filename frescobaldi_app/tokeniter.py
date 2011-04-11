@@ -231,16 +231,22 @@ class TokenIterator(object):
                 return
             self.__init__(self.block.previous(), True)
     
-    def forward_state(self, state, change=True):
-        """Yields tokens in forward direction, updating state in the process.
+    def forward_state(self, change=True):
+        """Returns a token iterator and a state instance.
         
-        State is a ly.tokenize.State instance. If change == True, also advances
-        to the next lines.
+        The iterator yields tokens from beginning of the block.
+        The State is the tokenizer state at the same place,
+        automatically updated by following the tokens.
+        
+        If change == True, also advances to the next lines.
         
         """
-        for token in self.forward(change):
-            state.followToken(token)
-            yield token
+        state = highlighter.highlighter(self.block.document()).state(self.block)
+        def generator():
+            for token in self.forward(change):
+                state.followToken(token)
+                yield token
+        return generator(), state
 
     def token(self):
         """Re-returns the last yielded token."""
