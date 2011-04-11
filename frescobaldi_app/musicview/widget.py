@@ -42,6 +42,7 @@ from . import pointandclick
 
 class MusicView(QWidget):
     def __init__(self, dockwidget):
+        """Creates the Music View for the dockwidget."""
         super(MusicView, self).__init__(dockwidget)
         
         self._positions = weakref.WeakKeyDictionary()
@@ -71,9 +72,11 @@ class MusicView(QWidget):
         self.view.surface().pageLayout().scaleChanged.connect(zoomer.updateZoomInfo)
 
     def sizeHint(self):
+        """Returns the initial size the PDF (Music) View prefers."""
         return self.parent().mainwindow().size() / 2
         
     def slotViewModeChanged(self, viewmode):
+        """Called when the view mode of the view changes."""
         ac = self.parent().actionCollection
         ac.music_fit_width.setChecked(viewmode == qpopplerview.FitWidth)
         ac.music_fit_height.setChecked(viewmode == qpopplerview.FitHeight)
@@ -100,6 +103,7 @@ class MusicView(QWidget):
         self.view.clear()
         
     def readSettings(self):
+        """Reads the settings from the user's preferences."""
         color = textformats.formatData('editor').baseColors['selectionbackground']
         color.setAlpha(128)
         self._highlightFormat.setBackground(color)
@@ -107,6 +111,12 @@ class MusicView(QWidget):
         self.view.redraw()
 
     def slotLinkClicked(self, ev, page, link):
+        """Called when the use clicks a link.
+        
+        If the links is a textedit link, opens the document and puts the cursor there.
+        Otherwise, call the QDesktopServices to open the destination.
+        
+        """
         cursor = self._links.cursor(link, True)
         if cursor:
             self.parent().mainwindow().setTextCursor(cursor, findOpenView=True)
@@ -115,6 +125,15 @@ class MusicView(QWidget):
             QDesktopServices.openUrl(QUrl(link.url()))
 
     def slotLinkHovered(self, page, link):
+        """Called when the mouse hovers a link.
+        
+        If the links points to the current editor document, the token(s) it points
+        at are highlighted using a transparent selection color.
+        
+        The highlight shows for a few seconds but disappears when the mouse moves
+        off the link or when the link is clicked.
+        
+        """
         cursor = self._links.cursor(link)
         if not cursor or cursor.document() != self.parent().mainwindow().currentDocument():
             return
@@ -126,44 +145,53 @@ class MusicView(QWidget):
         block = cursor.block()
         column = cursor.position() - block.position()
         tokens = tokeniter.TokenIterator(block)
-        state = tokeniter.state(block)
-        source = tokens.forward_state(state)
+        source, state = tokens.forward_state()
+        # go to our column
         for token in source:
             if token.pos >= column or tokens.block != block:
                 break
         else:
             return
-        start = token.pos + block.position()
         
+        start = token.pos + block.position()
         cur = QTextCursor(document)
         cur.setPosition(start)
         cursors = [cur]
         
         if isinstance(token, ly.tokenize.lilypond.Direction):
+            # a _, - or ^ is found; find the next token
             for token in source:
                 if not isinstance(token, (ly.tokenize.Space, ly.tokenize.Comment)):
                     break
         end = token.end + block.position()
         if token == '\\markup':
+            # find the end of the markup expression
             depth = len(state)
             for token in source:
                 if len(state) < depth:
                     end = token.end + tokens.block.position()
                     break
         elif token == '"':
+            # find the end of the string
             for token in source:
                 if isinstance(token, ly.tokenize.StringEnd):
                     end = token.end + tokens.block.position()
                     break
         elif isinstance(token, ly.tokenize.MatchStart):
+            # find the end of slur, beam. ligature, phrasing slur, etc.
             name = token.matchname
+            nest = 1
             for token in source:
                 if isinstance(token, ly.tokenize.MatchEnd) and token.matchname == name:
-                    cur2 = QTextCursor(document)
-                    cur2.setPosition(token.pos + tokens.block.position())
-                    cur2.setPosition(token.end + tokens.block.position(), QTextCursor.KeepAnchor)
-                    cursors.append(cur2)
-                    break
+                    nest -= 1
+                    if nest == 0:
+                        cur2 = QTextCursor(document)
+                        cur2.setPosition(token.pos + tokens.block.position())
+                        cur2.setPosition(token.end + tokens.block.position(), QTextCursor.KeepAnchor)
+                        cursors.append(cur2)
+                        break
+                elif isinstance(token, ly.tokenize.MatchStart) and token.matchname == name:
+                    nest += 1
                     
         cur.setPosition(end, QTextCursor.KeepAnchor)
         
@@ -171,10 +199,12 @@ class MusicView(QWidget):
         view.highlight(self._highlightFormat, cursors, 2, 5000)
     
     def slotLinkLeft(self):
+        """Called when the mouse moves off a previously highlighted link."""
         view = self.parent().mainwindow().currentView()
         view.clearHighlight(self._highlightFormat)
 
     def slotLinkHelpRequested(self, pos, page, link):
+        """Called when a ToolTip wants to appear above the hovered link."""
         if isinstance(link, popplerqt4.Poppler.LinkBrowse):
             text = link.url()
             cursor = self._links.cursor(link)
