@@ -231,6 +231,17 @@ class TokenIterator(object):
                 return
             self.__init__(self.block.previous(), True)
     
+    def forward_state(self, state, change=True):
+        """Yields tokens in forward direction, updating state in the process.
+        
+        State is a ly.tokenize.State instance. If change == True, also advances
+        to the next lines.
+        
+        """
+        for token in self.forward(change):
+            state.followToken(token)
+            yield token
+
     def token(self):
         """Re-returns the last yielded token."""
         return self._tokens[self._index]
