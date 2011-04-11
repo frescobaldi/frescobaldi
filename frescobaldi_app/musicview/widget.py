@@ -23,6 +23,7 @@ The PDF preview panel widget.
 
 from __future__ import unicode_literals
 
+import itertools
 import os
 import weakref
 
@@ -58,6 +59,7 @@ class MusicView(QWidget):
         self.view.surface().pageLayout().setDPI(self.physicalDpiX(), self.physicalDpiY())
         self.view.viewModeChanged.connect(self.slotViewModeChanged)
         self.view.surface().linkClicked.connect(self.slotLinkClicked)
+        self.view.surface().linkHovered.connect(self.slotLinkHovered)
         self.view.surface().setShowUrlTips(False)
         self.view.surface().linkHelpRequested.connect(self.slotLinkHelpRequested)
         self.slotViewModeChanged(self.view.viewMode())
@@ -105,6 +107,25 @@ class MusicView(QWidget):
             self.parent().mainwindow().setTextCursor(cursor, findOpenView=True)
         elif ev.button() != Qt.RightButton and isinstance(link, popplerqt4.Poppler.LinkBrowse):
             QDesktopServices.openUrl(QUrl(link.url()))
+
+    def slotLinkHovered(self, page, link):
+        cursor = self._links.cursor(link)
+        if not cursor or cursor.document() != self.parent().mainwindow().currentDocument():
+            return
+        # highlight token(s) at this cursor
+        view = self.parent().mainwindow().currentView()
+        if not hasattr(self, '_hoverformat'):
+            self._hoverformat = QTextCharFormat()
+        color = textformats.formatData('editor').baseColors['selectionbackground']
+        color.setAlpha(128)
+        self._hoverformat.setBackground(color)
+        import tokeniter
+        block = cursor.block()
+        column = cursor.position() - block.position()
+        tokens = tokeniter.TokenIterator(block)
+        for token in itertools.dropwhile(lambda t: t.pos < column, tokens.forward(False)):
+            view.highlight(self._hoverformat, [tokens.cursor()], 2, 1000)
+            break
 
     def slotLinkHelpRequested(self, pos, page, link):
         if isinstance(link, popplerqt4.Poppler.LinkBrowse):
