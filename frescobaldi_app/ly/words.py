@@ -468,6 +468,75 @@ lilypond_music_commands = (
 )
 
 
+articulations = (
+    'accent',
+    'espressivo',
+    'marcato',
+    'portato',
+    'staccatissimo',
+    'staccato',
+    'tenuto',
+)
+
+
+ornaments = (
+    'prall',
+    'mordent',
+    'prallmordent',
+    'turn',
+    'upprall',
+    'downprall',
+    'upmordent',
+    'downmordent',
+    'lineprall',
+    'prallprall',
+    'pralldown',
+    'prallup',
+    'reverseturn',
+    'trill',
+)
+   
+
+fermatas = (
+    'shortfermata',
+    'fermata',
+    'longfermata',
+    'verylongfermata',
+)
+
+
+instrument_scripts = (
+    'upbow',
+    'downbow',
+    'flageolet',
+    'thumb',
+    'snappizzicato',
+    'open',
+    'halfopen',
+    'stopped',
+    'lheel',
+    'rheel',
+    'ltoe',
+    'rtoe',
+)
+
+
+repeat_scripts = (
+    'segno',
+    'coda',
+    'varcoda',
+)
+
+
+ancient_scripts = (
+    'ictus',
+    'accentus',
+    'circulus',
+    'semicirculus',
+    'signumcongruentiae',
+)
+
+
 musiccommands_completion = (
     'addlyrics {}',
     'alternative {}',

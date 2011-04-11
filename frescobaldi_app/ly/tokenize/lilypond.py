@@ -23,6 +23,8 @@ Parses and tokenizes LilyPond input.
 
 from __future__ import unicode_literals
 
+import itertools
+
 import _token
 import _parser
 
@@ -184,6 +186,27 @@ class SimultaneousEnd(CloseSimultaneous):
     pass
 
 
+class Articulation(_token.Token):
+    rx = r"\\({0})(?![A-Za-z])".format("|".join(itertools.chain(
+        ly.words.articulations,
+        ly.words.ornaments,
+        ly.words.fermatas,
+        ly.words.instrument_scripts,
+        ly.words.repeat_scripts,
+        ly.words.ancient_scripts,
+    )))
+    
+    
+class Direction(Articulation):
+    rx = r"[-_^]"
+    def changeState(self, state):
+        state.enter(ScriptAbbreviationParser)
+
+
+class ScriptAbbreviation(Articulation, _token.Leaver):
+    rx = r"[+|>._^-]"
+
+
 class Slur(_token.Token):
     pass
 
@@ -248,10 +271,6 @@ class VoiceSeparator(Delimiter):
     rx = r"\\\\"
     
 
-class Articulation(_token.Token):
-    rx = re_articulation
-    
-    
 class Dynamic(_token.Token):
     rx = re_dynamic
 
@@ -646,6 +665,7 @@ music_items = base_items + (
     Tie,
     BeamStart, BeamEnd,
     LigatureStart, LigatureEnd,
+    Direction,
     Articulation,
 ) + command_items
     
@@ -951,6 +971,13 @@ class LilyPondParserClef(_parser.FallthroughParser):
     items = space_items + (
         ClefSpecifier,
         StringQuotedStart,
+    )
+
+
+class ScriptAbbreviationParser(_parser.FallthroughParser):
+    argcount = 1
+    items = space_items + (
+        ScriptAbbreviation,
     )
 
 
