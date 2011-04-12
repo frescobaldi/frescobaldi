@@ -23,7 +23,6 @@ Handles Point and Click.
 
 from __future__ import unicode_literals
 
-import bisect
 import re
 import weakref
 
@@ -141,7 +140,7 @@ class BoundLinks(object):
         self._document = weakref.ref(doc, self.remove)
         self._bound_links_instances.append(self)
         
-        # make a sorted list of cursors with their [(page, linkArea) ...] list
+        # make a sorted list of cursors with their [(pageNum, linkArea) ...] list
         self._cursors = cursors = {}
         for pos, dest in links.items():
             line, column = pos
@@ -156,17 +155,15 @@ class BoundLinks(object):
         """Returns the QTextCursor for the give line/col."""
         return self._cursors[(line, column)][0]
     
-    def areas(self, cursor):
-        """Returns the areas as a list of two-tuples (pageNum, linkArea) closest in the text to the given cursor.
+    def positions(self):
+        """Returns the list (cursor, destination) pairs.
         
-        If no area can be found, returns an empty tuple.
+        The list is sorted on cursor position.
+        Each destination is a list of (pageNum, QRectF) pairs.
+        All cursors refer to our text Document and all links are from the same Poppler document.
         
         """
-        positions = [c[0].position() for c in self._positions]
-        i = bisect.bisect_right(positions, cursor.position()) - 1
-        if i >= 0:
-            return self._positions[i][1]
-        return ()
+        return self._positions
     
     def remove(self, wr):
         self._bound_links_instances.remove(self)

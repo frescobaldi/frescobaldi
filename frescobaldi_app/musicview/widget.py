@@ -36,6 +36,8 @@ import qpopplerview
 import app
 import icons
 import textformats
+import tokeniter
+import ly.tokenize.lilypond
 
 from . import pointandclick
 
@@ -147,8 +149,6 @@ class MusicView(QWidget):
             return
         
         # highlight token(s) at this cursor
-        import tokeniter
-        import ly.tokenize.lilypond
         document = cursor.document()
         block = cursor.block()
         column = cursor.position() - block.position()
@@ -166,6 +166,7 @@ class MusicView(QWidget):
         cur.setPosition(start)
         cursors = [cur]
         
+        # some heuristic to find the relevant range(s) the linked grob represents
         if isinstance(token, ly.tokenize.lilypond.Direction):
             # a _, - or ^ is found; find the next token
             for token in source:
@@ -234,13 +235,84 @@ class MusicView(QWidget):
     def slotCursorPositionChanged(self):
         """Called when the user moves the text cursor."""
         if not self._currentDocument():
-            return
+            return # no PDF in the viewer
         view = self.parent().mainwindow().currentView()
         links = self._links.boundLinks(view.document())
-        if links:
+        if not links:
+            return # the PDF contains no references to the current text document
+        
+        positions = links.positions()
+        
+        def findlink(pos):
+            # binary search
+            lo, hi = 0, len(positions)
+            while lo < hi:
+                mid = (lo + hi) // 2
+                if pos < positions[mid][0].position():
+                    hi = mid
+                else:
+                    lo = mid + 1
+            return lo - 1
+        
+        cursor = view.textCursor()
+        if cursor.hasSelection():
+            start = cursor.selectionStart()
+            index = findlink(cursor.selectionEnd() - 1)
+            if index < 0:
+                return # no links before selection end
             areas = []
             layout = self.view.surface().pageLayout()
-            for pageNum, rect in links.areas(view.textCursor()):
-                areas.append((layout[pageNum], rect))
-            self.view.surface().highlight(self._highlightMusicFormat, areas, 2000)
+            while index:
+                cur2, destination = positions[index]
+                if cur2.position() < start:
+                    break
+                for pageNum, rect in destination:
+                    areas.append((layout[pageNum], rect))
+                index -= 1
+            if areas:
+                self.view.surface().highlight(self._highlightMusicFormat, areas, 5000)
+            return
+            
+        index = findlink(cursor.position())
+        if index < 0:
+            return # before all other links
+        
+        cur2 = positions[index][0]
+        if cur2.position() < cursor.position():
+            # is the cursor at an ending token like a slur end?
+            prevcol = -1
+            if cur2.block() == cursor.block():
+                prevcol = cur2.position() - cur2.block().position()
+            col = cursor.position() - cursor.block().position()
+            found = False
+            tokens = tokeniter.TokenIterator(cursor.block(), True)
+            for token in tokens.backward(False):
+                if token.pos <= col and token.pos > prevcol:
+                    if isinstance(token, ly.tokenize.MatchEnd) and token.matchname in (
+                            'slur', 'phrasingslur', 'beam'):
+                        # YES! now go backwards to find the opening token
+                        nest = 1
+                        name = token.matchname
+                        for token in tokens.backward():
+                            if isinstance(token, ly.tokenize.MatchStart) and token.matchname == name:
+                                nest -= 1
+                                if nest == 0:
+                                    found = True
+                                    break
+                            elif isinstance(token, ly.tokenize.MatchEnd) and token.matchname == name:
+                                nest += 1
+                        break
+            if found:
+                cur3 = tokens.cursor()
+                index = findlink(cur3.position())
+                if index < 0:
+                    return
+            elif cur2.block() != cursor.block():
+                return # not on same line
+        # highlight it!
+        areas = []
+        layout = self.view.surface().pageLayout()
+        for pageNum, rect in positions[index][1]:
+            areas.append((layout[pageNum], rect))
+        self.view.surface().highlight(self._highlightMusicFormat, areas, 2000)
 
