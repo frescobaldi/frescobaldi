@@ -48,6 +48,7 @@ class MusicView(QWidget):
         self._positions = weakref.WeakKeyDictionary()
         self._currentDocument = lambda: None
         self._highlightFormat = QTextCharFormat()
+        self._highlightMusicFormat = qpopplerview.Highlighter()
         
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
@@ -134,6 +135,7 @@ class MusicView(QWidget):
         off the link or when the link is clicked.
         
         """
+        self.view.surface().highlight(self._highlightMusicFormat, [(page, link.linkArea().normalized())], 2000)
         cursor = self._links.cursor(link)
         if not cursor or cursor.document() != self.parent().mainwindow().currentDocument():
             return
@@ -200,6 +202,7 @@ class MusicView(QWidget):
     
     def slotLinkLeft(self):
         """Called when the mouse moves off a previously highlighted link."""
+        self.view.surface().clearHighlight(self._highlightMusicFormat)
         view = self.parent().mainwindow().currentView()
         view.clearHighlight(self._highlightFormat)
 

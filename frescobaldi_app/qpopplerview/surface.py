@@ -160,7 +160,7 @@ class Surface(QWidget):
         self.resize(self._pageLayout.size())
         self.update()
         
-    def highlight(self, areas, highlighter, msec=0):
+    def highlight(self, highlighter, areas, msec=0):
         """Highlights the list of areas using the given highlighter.
         
         Every area is a two-tuple (page, rect), where rect is a rectangle inside (0, 0, 1, 1) like the
