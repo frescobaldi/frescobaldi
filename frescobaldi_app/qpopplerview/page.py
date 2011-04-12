@@ -243,9 +243,9 @@ class Page(object):
                 left, top, right, bottom = 1-bottom, left, 1-top, right
         return cache.links(self).inside(left, top, right, bottom)
 
-    def linkRect(self, link):
-        """Returns a QRect encompassing the linkArea() of the link in coordinates of our rect()."""
-        left, top, right, bottom = link.linkArea().normalized().getCoords()
+    def linkRect(self, linkarea):
+        """Returns a QRect encompassing the linkArea (of a link) in coordinates of our rect()."""
+        left, top, right, bottom = linkarea.normalized().getCoords()
         # rotate
         if self._rotation:
             if self._rotation == popplerqt4.Poppler.Page.Rotate90:

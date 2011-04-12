@@ -294,7 +294,7 @@ class Surface(QWidget):
         
         """
         if self._showUrlTips and isinstance(link, popplerqt4.Poppler.LinkBrowse):
-            QToolTip.showText(globalPos, link.url(), self, page.linkRect(link))
+            QToolTip.showText(globalPos, link.url(), self, page.linkRect(link.linkArea()))
         self.linkHelpRequested.emit(globalPos, page, link)
         
     def rightClick(self, pos):

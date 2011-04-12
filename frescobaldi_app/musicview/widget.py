@@ -212,5 +212,5 @@ class MusicView(QWidget):
             if m:
                 filename, line, column = pointandclick.readurl(m)
                 text = "{0}  {1}:{2}".format(os.path.basename(filename), line, column)
-            QToolTip.showText(pos, text, self.view.surface(), page.linkRect(link))
+            QToolTip.showText(pos, text, self.view.surface(), page.linkRect(link.linkArea()))
 
