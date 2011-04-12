@@ -32,8 +32,6 @@ class Highlighter(object):
     The paintRects() method is called with a list of rectangles that need to be drawn.
     
     To implement different highlighting behaviour just inherit paintRects().
-    
-    
     The default implementation of paintRects() uses the color() method to get the
     color to use and the lineWidth (default: 2) and radius (default: 3) class attributes.
     
