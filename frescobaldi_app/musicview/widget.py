@@ -71,6 +71,12 @@ class MusicView(QWidget):
         zoomer = self.parent().actionCollection.music_zoom_combo
         self.view.viewModeChanged.connect(zoomer.updateZoomInfo)
         self.view.surface().pageLayout().scaleChanged.connect(zoomer.updateZoomInfo)
+        
+        # react if cursor of current text document moves
+        dockwidget.mainwindow().currentViewChanged.connect(self.slotCurrentViewChanged)
+        view = dockwidget.mainwindow().currentView()
+        if view:
+            self.slotCurrentViewChanged(view)
 
     def sizeHint(self):
         """Returns the initial size the PDF (Music) View prefers."""
@@ -216,4 +222,25 @@ class MusicView(QWidget):
                 filename, line, column = pointandclick.readurl(m)
                 text = "{0}  {1}:{2}".format(os.path.basename(filename), line, column)
             QToolTip.showText(pos, text, self.view.surface(), page.linkRect(link.linkArea()))
+
+    def slotCurrentViewChanged(self, view, old):
+        self.view.surface().clearHighlight(self._highlightMusicFormat)
+        if old:
+            old.cursorPositionChanged.disconnect(self.slotCursorPositionChanged)
+            old.selectionChanged.disconnect(self.slotCursorPositionChanged)
+        view.cursorPositionChanged.connect(self.slotCursorPositionChanged)
+        view.selectionChanged.connect(self.slotCursorPositionChanged)
+    
+    def slotCursorPositionChanged(self):
+        """Called when the user moves the text cursor."""
+        if not self._currentDocument():
+            return
+        view = self.parent().mainwindow().currentView()
+        links = self._links.boundLinks(view.document())
+        if links:
+            areas = []
+            layout = self.view.surface().pageLayout()
+            for pageNum, rect in links.areas(view.textCursor()):
+                areas.append((layout[pageNum], rect))
+            self.view.surface().highlight(self._highlightMusicFormat, areas, 2000)
 

@@ -23,6 +23,7 @@ Handles Point and Click.
 
 from __future__ import unicode_literals
 
+import bisect
 import re
 import weakref
 
@@ -80,7 +81,7 @@ class Links(object):
                     if m:
                         filename, line, col = readurl(m)
                         l = self._links.setdefault(filename, {})
-                        l.setdefault((line, col), []).append((page, link.linkArea()))
+                        l.setdefault((line, col), []).append((num, link.linkArea()))
 
         for filename in self._links:
             for d in app.documents:
@@ -124,6 +125,12 @@ class Links(object):
                 bound = self._docs.get(filename)
                 if bound:
                     return bound.cursor(line, col)
+    
+    def boundLinks(self, doc):
+        """Returns the Bound links object for the given text document."""
+        for b in self._docs.values():
+            if b._document() == doc:
+                return b
 
 
 class BoundLinks(object):
@@ -143,11 +150,24 @@ class BoundLinks(object):
                 c = QTextCursor(doc)
                 c.setPosition(b.position() + column)
                 cursors[pos] = (c, dest)
-    
+        self._positions = [cursors[pos] for pos in sorted(cursors)]
+        
     def cursor(self, line, column):
         """Returns the QTextCursor for the give line/col."""
         return self._cursors[(line, column)][0]
+    
+    def areas(self, cursor):
+        """Returns the areas as a list of two-tuples (pageNum, linkArea) closest in the text to the given cursor.
         
+        If no area can be found, returns an empty tuple.
+        
+        """
+        positions = [c[0].position() for c in self._positions]
+        i = bisect.bisect_right(positions, cursor.position()) - 1
+        if i >= 0:
+            return self._positions[i][1]
+        return ()
+    
     def remove(self, wr):
         self._bound_links_instances.remove(self)
 
