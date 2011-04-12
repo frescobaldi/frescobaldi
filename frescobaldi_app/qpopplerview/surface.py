@@ -22,6 +22,7 @@
 Surface is the widget everything is drawn on.
 """
 
+import itertools
 import weakref
 
 
@@ -34,6 +35,7 @@ import popplerqt4
 
 from . import layout
 from . import page
+from . import highlight
 
 # most used keyboard modifiers
 _SCAM = (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META)
@@ -68,6 +70,7 @@ class Surface(QWidget):
         self._scrolling = False
         self._scrollTimer = QTimer(interval=100, timeout=self._scrollTimeout)
         self._pageLayout = None
+        self._highlights = weakref.WeakKeyDictionary()
         self.setPageLayout(layout.Layout())
         self.setMouseTracking(True)
         self.setContextMenuPolicy(Qt.PreventContextMenu)
@@ -157,10 +160,47 @@ class Surface(QWidget):
         self.resize(self._pageLayout.size())
         self.update()
         
+    def highlight(self, areas, highlighter, msec=0):
+        """Highlights the list of areas using the given highlighter.
+        
+        Every area is a two-tuple (page, rect), where rect is a rectangle inside (0, 0, 1, 1) like the
+        linkArea attribute of a Poppler.Link.
+        
+        """
+        d = weakref.WeakKeyDictionary()
+        for page, areas in itertools.groupby(sorted(areas), lambda a: a[0]):
+            d[page] = list(area[1] for area in areas)
+        if msec:
+            def clear(selfref=weakref.ref(self)):
+                self = selfref()
+                if self:
+                    self.clearHighlight(highlighter)
+            t = QTimer(singleShot = True, timeout = clear)
+            t.start(msec)
+        else:
+            t = None
+        self._highlights[highlighter] = (d, t)
+        
+    def clearHighlight(self, highlighter):
+        """Removes the highlighted areas of the given highlighter."""
+        try:
+            del self._highlights[highlighter]
+        except KeyError:
+            pass
+        
     def paintEvent(self, ev):
         painter = QPainter(self)
-        for page in self.pageLayout().pagesAt(ev.rect()):
+        pages = list(self.pageLayout().pagesAt(ev.rect()))
+        for page in pages:
             page.paint(painter, ev.rect())
+        
+        for highlighter, (d, t) in self._highlights.items():
+            for page in pages:
+                try:
+                    rects = d[page]
+                except KeyError:
+                    continue
+                highlighter.paintRects(painter, page, rects)
     
     def mousePressEvent(self, ev):
         # link?
