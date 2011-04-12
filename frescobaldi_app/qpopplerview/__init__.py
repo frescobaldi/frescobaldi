@@ -89,5 +89,6 @@ from .page import Page
 from .layout import AbstractLayout, Layout
 from .surface import Surface
 from .render import RenderOptions
+from .highlight import Highlighter
 from . import cache
 

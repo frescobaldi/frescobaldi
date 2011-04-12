@@ -19,15 +19,49 @@
 
 
 """
-Highlight rectangular areas inside pages.
+Highlight rectangular areas inside a Surface.
 """
+
+from PyQt4.QtGui import QApplication, QPainter, QPen
 
 
 class Highlighter(object):
-    def __init__(self):
-        pass
+    """A Highlighter can draw rectangles to highlight e.g. links in a Poppler.Document.
     
-    def paintRects(self, painter, page, rects):
+    An instance represents a certain type of highlighting, e.g. of a particular style.
+    The paintRects() method is called with a list of rectangles that need to be drawn.
+    
+    To implement different highlighting behaviour just inherit paintRects().
+    
+    
+    The default implementation of paintRects() uses the color() method to get the
+    color to use and the lineWidth (default: 2) and radius (default: 3) class attributes.
+    
+    lineWidth specifies the thickness in pixels of the border drawn,
+    radius specifies the distance in pixels the border is drawn (by default with rounded corners)
+    around the area to be highlighted.
+    
+    """
+    
+    lineWidth = 2
+    radius = 3
+    
+    def color(self):
+        """The default paintRects() method uses this method to return the color to use.
+        
+        By default the application's palette highlight color is returned.
+        
+        """
+        return QApplication.palette().highlight().color()
+    
+    def paintRects(self, painter, rects):
+        """Override this method to implement different drawing behaviour."""
+        pen = QPen(self.color())
+        pen.setWidth(self.lineWidth)
+        painter.setPen(pen)
+        painter.setRenderHint(QPainter.Antialiasing, True)
+        rad = self.radius
         for r in rects:
-            r = page.linkRect(r).adjusted(-1, -1, 1, 1)
-            painter.drawRect(r)
+            r.adjust(-rad, -rad, rad, rad)
+            painter.drawRoundedRect(r, rad, rad)
+

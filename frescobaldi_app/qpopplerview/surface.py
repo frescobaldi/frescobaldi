@@ -180,6 +180,7 @@ class Surface(QWidget):
         else:
             t = None
         self._highlights[highlighter] = (d, t)
+        self.update()
         
     def clearHighlight(self, highlighter):
         """Removes the highlighted areas of the given highlighter."""
@@ -187,7 +188,9 @@ class Surface(QWidget):
             del self._highlights[highlighter]
         except KeyError:
             pass
-        
+        else:
+            self.update()
+    
     def paintEvent(self, ev):
         painter = QPainter(self)
         pages = list(self.pageLayout().pagesAt(ev.rect()))
@@ -195,12 +198,14 @@ class Surface(QWidget):
             page.paint(painter, ev.rect())
         
         for highlighter, (d, t) in self._highlights.items():
+            rects = []
             for page in pages:
                 try:
-                    rects = d[page]
+                    rects.extend(map(page.linkRect, d[page]))
                 except KeyError:
                     continue
-                highlighter.paintRects(painter, page, rects)
+            if rects:
+                highlighter.paintRects(painter, rects)
     
     def mousePressEvent(self, ev):
         # link?
