@@ -258,19 +258,16 @@ class MusicView(QWidget):
         if cursor.hasSelection():
             start = cursor.selectionStart()
             index = findlink(cursor.selectionEnd() - 1)
-            if index < 0:
-                return # no links before selection end
             areas = []
             layout = self.view.surface().pageLayout()
-            while index:
+            while index >= 0:
                 cur2, destination = positions[index]
                 if cur2.position() < start:
                     break
                 for pageNum, rect in destination:
                     areas.append((layout[pageNum], rect))
                 index -= 1
-            if areas:
-                self.view.surface().highlight(self._highlightMusicFormat, areas, 5000)
+            self.view.surface().highlight(self._highlightMusicFormat, areas, 5000)
             return
             
         index = findlink(cursor.position())
