@@ -306,7 +306,8 @@ class MusicView(QWidget):
                 if index < 0:
                     return
             elif cur2.block() != cursor.block():
-                return # not on same line
+                self.clearHighlighting() # not on same line
+                return
         # highlight it!
         self.highlight(links, index, index, 2000)
 
