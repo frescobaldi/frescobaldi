@@ -140,30 +140,36 @@ class BoundLinks(object):
         self._document = weakref.ref(doc, self.remove)
         self._bound_links_instances.append(self)
         
-        # make a sorted list of cursors with their [(pageNum, linkArea) ...] list
-        self._cursors = cursors = {}
-        for pos, dest in links.items():
+        # make a sorted list of cursors with their [(pageNum, linkArea) ...] destinations list
+        self._cursor_dict = d = {}              # mapping from (line, col) to QTextCursor
+        self._cursors = cursors = []            # sorted list of the cursors
+        self._destinations = destinations = []  # corresponding list of destinations
+        for pos, dest in sorted(links.items()):
             line, column = pos
             b = doc.findBlockByNumber(line - 1)
             if b.isValid():
-                c = QTextCursor(doc)
+                c = d[pos] = QTextCursor(doc)
                 c.setPosition(b.position() + column)
-                cursors[pos] = (c, dest)
-        self._positions = [cursors[pos] for pos in sorted(cursors)]
+                cursors.append(c)
+                destinations.append(dest)
         
     def cursor(self, line, column):
         """Returns the QTextCursor for the give line/col."""
-        return self._cursors[(line, column)][0]
+        return self._cursor_dict[(line, column)]
     
-    def positions(self):
-        """Returns the list (cursor, destination) pairs.
+    def cursors(self):
+        """Returns the list of cursors, sorted on cursor position."""
+        return self._cursors
         
-        The list is sorted on cursor position.
-        Each destination is a list of (pageNum, QRectF) pairs.
-        All cursors refer to our text Document and all links are from the same Poppler document.
+    def destinations(self):
+        """Returns the list of destinations.
+        
+        Each destination corresponds with the cursor at the same index in the cursors() list.
+        Each destination is a list of (pageNum, QRectF) pairs, because many point-and-click
+        objects can point to the same place in the text document.
         
         """
-        return self._positions
+        return self._destinations
     
     def remove(self, wr):
         self._bound_links_instances.remove(self)

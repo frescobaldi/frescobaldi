@@ -49,8 +49,12 @@ class MusicView(QWidget):
         
         self._positions = weakref.WeakKeyDictionary()
         self._currentDocument = lambda: None
+        
         self._highlightFormat = QTextCharFormat()
         self._highlightMusicFormat = qpopplerview.Highlighter()
+        self._highlightRange = None
+        self._highlightTimer = QTimer(singleShot=True, interval= 250, timeout=self.updateHighlighting)
+        self._highlightRemoveTimer = QTimer(singleShot=True, timeout=self.clearHighlighting)
         
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
@@ -102,6 +106,8 @@ class MusicView(QWidget):
         self.view.load(doc.document())
         position = self._positions.get(doc, (0, 0, 0))
         self.view.setPosition(position)
+        self._highlightRange = None
+        self._highlightTimer.stop()
 
     def clear(self):
         """Empties the view."""
@@ -232,21 +238,22 @@ class MusicView(QWidget):
     
     def slotCursorPositionChanged(self):
         """Called when the user moves the text cursor."""
-        if not self._currentDocument():
-            return # no PDF in the viewer
+        if not self.isVisible() or not self._currentDocument():
+            return # not visible of no PDF in the viewer
+        
         view = self.parent().mainwindow().currentView()
         links = self._links.boundLinks(view.document())
         if not links:
             return # the PDF contains no references to the current text document
         
-        positions = links.positions()
+        cursors = links.cursors()
         
         def findlink(pos):
-            # binary search
-            lo, hi = 0, len(positions)
+            # binary search in list of cursors
+            lo, hi = 0, len(cursors)
             while lo < hi:
                 mid = (lo + hi) // 2
-                if pos < positions[mid][0].position():
+                if pos < cursors[mid].position():
                     hi = mid
                 else:
                     lo = mid + 1
@@ -254,25 +261,22 @@ class MusicView(QWidget):
         
         cursor = view.textCursor()
         if cursor.hasSelection():
-            start = cursor.selectionStart()
-            index = findlink(cursor.selectionEnd() - 1)
-            areas = []
-            layout = self.view.surface().pageLayout()
-            while index >= 0:
-                cur2, destination = positions[index]
-                if cur2.position() < start:
-                    break
-                for pageNum, rect in destination:
-                    areas.append((layout[pageNum], rect))
-                index -= 1
-            self.view.surface().highlight(self._highlightMusicFormat, areas, 5000)
+            end = findlink(cursor.selectionEnd() - 1)
+            if end >= 0:
+                start = findlink(cursor.selectionStart())
+                if start < 0 or cursors[start].position() < cursor.selectionStart():
+                    start += 1
+                if start <= end:
+                    self.highlight(links, start, end, 5000)
+                    return
+            self.clearHighlighting()
             return
             
         index = findlink(cursor.position())
         if index < 0:
             return # before all other links
         
-        cur2 = positions[index][0]
+        cur2 = cursors[index]
         if cur2.position() < cursor.position():
             # is the cursor at an ending token like a slur end?
             prevcol = -1
@@ -298,16 +302,39 @@ class MusicView(QWidget):
                                 nest += 1
                         break
             if found:
-                cur3 = tokens.cursor()
-                index = findlink(cur3.position())
+                index = findlink(tokens.cursor().position())
                 if index < 0:
                     return
             elif cur2.block() != cursor.block():
                 return # not on same line
         # highlight it!
-        areas = []
+        self.highlight(links, index, index, 2000)
+
+    def highlight(self, links, start, end, msec):
+        """(Internal) Highlights the links in links.destinations()[start : end + 1] for msec seconds."""
+        self._destinations = links.destinations()
+        self._highlightRemoveTimer.start(msec)
+        if self._highlightRange == (start, end):
+            return # don't rewrite if same
+        self._highlightRange = (start, end)
+        if end - start > 100:
+            self._highlightTimer.start()
+        else:
+            self._highlightTimer.stop()
+            self.updateHighlighting()
+    
+    def updateHighlighting(self):
+        """Really orders the view's surface to draw the highlighting."""
         layout = self.view.surface().pageLayout()
-        for pageNum, rect in positions[index][1]:
-            areas.append((layout[pageNum], rect))
-        self.view.surface().highlight(self._highlightMusicFormat, areas, 2000)
+        start, end = self._highlightRange
+        areas = [(layout[pageNum], rect)
+                    for dest in self._destinations[start:end+1]
+                    for pageNum, rect in dest]
+        self.view.surface().highlight(self._highlightMusicFormat, areas)
+    
+    def clearHighlighting(self):
+        """Called on timeout of the _highlightRemoveTimer."""
+        self._highlightRange = None
+        self.view.surface().clearHighlight(self._highlightMusicFormat)
+
 
