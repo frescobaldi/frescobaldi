@@ -115,6 +115,8 @@ class MusicView(QWidget):
         if cur:
             self._positions[cur] = self.view.position()
         self._currentDocument = lambda: None
+        self._highlightRange = None
+        self._highlightTimer.stop()
         self.view.clear()
         
     def readSettings(self):
@@ -150,6 +152,7 @@ class MusicView(QWidget):
         
         """
         self.view.surface().highlight(self._highlightMusicFormat, [(page, link.linkArea().normalized())], 2000)
+        self._highlightRange = None
         cursor = self._links.cursor(link)
         if not cursor or cursor.document() != self.parent().mainwindow().currentDocument():
             return
@@ -215,7 +218,7 @@ class MusicView(QWidget):
     
     def slotLinkLeft(self):
         """Called when the mouse moves off a previously highlighted link."""
-        self.view.surface().clearHighlight(self._highlightMusicFormat)
+        self.clearHighlighting()
         view = self.parent().mainwindow().currentView()
         view.clearHighlight(self._highlightFormat)
 
