@@ -228,9 +228,7 @@ class MusicView(QWidget):
         self.view.surface().clearHighlight(self._highlightMusicFormat)
         if old:
             old.cursorPositionChanged.disconnect(self.slotCursorPositionChanged)
-            old.selectionChanged.disconnect(self.slotCursorPositionChanged)
         view.cursorPositionChanged.connect(self.slotCursorPositionChanged)
-        view.selectionChanged.connect(self.slotCursorPositionChanged)
     
     def slotCursorPositionChanged(self):
         """Called when the user moves the text cursor."""
