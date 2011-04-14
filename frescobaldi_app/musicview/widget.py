@@ -262,7 +262,6 @@ class MusicView(QWidget):
         count = slice.stop - slice.start
         if msec is None:
             msec = 5000 if count > 1 else 2000 # show selections longer
-        self._highlightRemoveTimer.stop()
         self._highlightRemoveTimer.start(msec)
         if self._highlightRange == slice:
             return # don't redraw if same
@@ -300,13 +299,13 @@ class MusicView(QWidget):
         s = links.indices(view.textCursor())
         if not s:
             return
-        self.highlight(links.destinations(), s, 8000)
         layout = self.view.surface().pageLayout()
         rect = QRect()
         for dest in links.destinations()[s]:
             for pageNum, r in dest:
                 rect = rect.united(layout[pageNum].linkRect(r.normalized()))
         self.view.center(rect.center())
+        self.highlight(links.destinations(), s, 10000)
 
 
 class Highlighter(qpopplerview.Highlighter):
