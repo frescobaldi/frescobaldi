@@ -30,11 +30,12 @@ What does work?
 - automatic indentation
 - highlighting of matching braces, slurs, etc.
 - run LilyPond and show output log
-- parse LilyPond errors: Ctrl-E jumps to first (or next) error message, Ctrl+Shiht+E backwards
+- parse LilyPond errors: Ctrl-E jumps to first (or next) error message, Ctrl-Shiht-E backwards
 - music view with two-way point and click:
   - hovering an object in the PDF highlights the part in the text that represents it
   - clicking a PDF object moves the text cursor
   - moving the text cursor highlights the corresponding objects in the PDF
+  - Ctrl-H lets the PDF jump to the objects the text cursor points to
 - lyrics hyphenation
 - preferences dialog:
   - multiple LilyPond versions support
