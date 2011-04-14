@@ -842,6 +842,8 @@ class MainWindow(QMainWindow):
         mm.addAction(ma.music_fit_width)
         mm.addAction(ma.music_fit_height)
         mm.addAction(ma.music_fit_both)
+        mm.addSeparator()
+        mm.addAction(ma.music_jump_to_cursor)
         
         m.addSeparator()
         m.addAction(ac.view_bookmark)

@@ -255,10 +255,11 @@ class MusicView(QWidget):
         elif s:
             self.highlight(links.destinations(), s)
 
-    def highlight(self, destinations, slice):
+    def highlight(self, destinations, slice, msec=None):
         """(Internal) Highlights the from the specified destinations the specified slice."""
         count = slice.stop - slice.start
-        msec = 5000 if count > 1 else 2000 # show selections longer
+        if msec is None:
+            msec = 5000 if count > 1 else 2000 # show selections longer
         self._highlightRemoveTimer.start(msec)
         if self._highlightRange == slice:
             return # don't redraw if same
@@ -283,4 +284,25 @@ class MusicView(QWidget):
         self._highlightRange = None
         self.view.surface().clearHighlight(self._highlightMusicFormat)
 
+    def showCurrentLinks(self):
+        """Scrolls the view if necessary to show objects at current text cursor."""
+        if not self._currentDocument():
+            return # no PDF in viewer
+            
+        view = self.parent().mainwindow().currentView()
+        links = self._links.boundLinks(view.document())
+        if not links:
+            return # the PDF contains no references to the current text document
+        
+        s = links.indices(view.textCursor())
+        if not s:
+            return
+        self.highlight(links.destinations(), s, 8000)
+        layout = self.view.surface().pageLayout()
+        rect = QRect()
+        for dest in links.destinations()[s]:
+            for pageNum, r in dest:
+                rect = rect.united(layout[pageNum].linkRect(r.normalized()))
+        diff = rect.center() - self.view.viewport().rect().center() + self.view.surface().pos()
+        self.view.scrollSurface(diff)
 

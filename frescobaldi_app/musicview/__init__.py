@@ -57,6 +57,7 @@ class MusicViewPanel(panels.Panel):
         ac.music_fit_width.triggered.connect(self.fitWidth)
         ac.music_fit_height.triggered.connect(self.fitHeight)
         ac.music_fit_both.triggered.connect(self.fitBoth)
+        ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
         ac.music_document_select.currentDocumentChanged.connect(self.openDocument)
         ac.music_document_select.documentsChanged.connect(self.updateActions)
         ac.music_document_select.documentClosed.connect(self.closeDocument)
@@ -104,6 +105,10 @@ class MusicViewPanel(panels.Panel):
         import qpopplerview
         self.widget().view.setViewMode(qpopplerview.FitBoth)
 
+    def jumpToCursor(self):
+        self.activate()
+        self.widget().showCurrentLinks()
+
 
 class Actions(actioncollection.ActionCollection):
     name = "musicview"
@@ -116,6 +121,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_fit_width = QAction(panel)
         self.music_fit_height = QAction(panel)
         self.music_fit_both = QAction(panel)
+        self.music_jump_to_cursor = QAction(panel)
         
         self.music_fit_width.setCheckable(True)
         self.music_fit_height.setCheckable(True)
@@ -132,6 +138,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_print.setShortcuts(QKeySequence.Print)
         self.music_zoom_in.setShortcuts(QKeySequence.ZoomIn)
         self.music_zoom_out.setShortcuts(QKeySequence.ZoomOut)
+        self.music_jump_to_cursor.setShortcut(QKeySequence(Qt.CTRL | Qt.Key_H))
         
     def translateUI(self):
         self.music_document_select.setText(_("Select Music View Document"))
@@ -142,7 +149,8 @@ class Actions(actioncollection.ActionCollection):
         self.music_fit_width.setText(_("Fit &Width"))
         self.music_fit_height.setText(_("Fit &Height"))
         self.music_fit_both.setText(_("Fit &Page"))
-        
+        self.music_jump_to_cursor.setText(_("&Jump to Cursor Position"))
+
 
 class ComboBoxAction(QWidgetAction):
     """A widget action that opens a combobox widget popup when triggered."""
