@@ -239,7 +239,7 @@ class BoundLinks(object):
                                 nest += 1
                         break
             if found:
-                index = findlink(tokens.cursor().position())
+                index = findlink(tokens.block.position() + token.pos)
                 if index < 0:
                     return
             elif cur2.block() != cursor.block():
