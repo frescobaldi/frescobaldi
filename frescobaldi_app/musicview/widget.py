@@ -249,79 +249,22 @@ class MusicView(QWidget):
         if not links:
             return # the PDF contains no references to the current text document
         
-        cursors = links.cursors()
-        
-        def findlink(pos):
-            # binary search in list of cursors
-            lo, hi = 0, len(cursors)
-            while lo < hi:
-                mid = (lo + hi) // 2
-                if pos < cursors[mid].position():
-                    hi = mid
-                else:
-                    lo = mid + 1
-            return lo - 1
-        
-        cursor = view.textCursor()
-        if cursor.hasSelection():
-            end = findlink(cursor.selectionEnd() - 1)
-            if end >= 0:
-                start = findlink(cursor.selectionStart())
-                if start < 0 or cursors[start].position() < cursor.selectionStart():
-                    start += 1
-                if start <= end:
-                    self.highlight(links, start, end, 5000)
-                    return
+        s = links.indices(view.textCursor())
+        if s is False:
             self.clearHighlighting()
-            return
-            
-        index = findlink(cursor.position())
-        if index < 0:
-            return # before all other links
-        
-        cur2 = cursors[index]
-        if cur2.position() < cursor.position():
-            # is the cursor at an ending token like a slur end?
-            prevcol = -1
-            if cur2.block() == cursor.block():
-                prevcol = cur2.position() - cur2.block().position()
-            col = cursor.position() - cursor.block().position()
-            found = False
-            tokens = tokeniter.TokenIterator(cursor.block(), True)
-            for token in tokens.backward(False):
-                if token.pos <= col and token.pos > prevcol:
-                    if isinstance(token, ly.tokenize.MatchEnd) and token.matchname in (
-                            'slur', 'phrasingslur', 'beam'):
-                        # YES! now go backwards to find the opening token
-                        nest = 1
-                        name = token.matchname
-                        for token in tokens.backward():
-                            if isinstance(token, ly.tokenize.MatchStart) and token.matchname == name:
-                                nest -= 1
-                                if nest == 0:
-                                    found = True
-                                    break
-                            elif isinstance(token, ly.tokenize.MatchEnd) and token.matchname == name:
-                                nest += 1
-                        break
-            if found:
-                index = findlink(tokens.cursor().position())
-                if index < 0:
-                    return
-            elif cur2.block() != cursor.block():
-                self.clearHighlighting() # not on same line
-                return
-        # highlight it!
-        self.highlight(links, index, index, 2000)
+        elif s:
+            self.highlight(links.destinations(), s)
 
-    def highlight(self, links, start, end, msec):
-        """(Internal) Highlights the links in links.destinations()[start : end + 1] for msec seconds."""
-        self._destinations = links.destinations()
+    def highlight(self, destinations, slice):
+        """(Internal) Highlights the from the specified destinations the specified slice."""
+        count = slice.stop - slice.start
+        msec = 5000 if count > 1 else 2000 # show selections longer
         self._highlightRemoveTimer.start(msec)
-        if self._highlightRange == (start, end):
-            return # don't rewrite if same
-        self._highlightRange = (start, end)
-        if end - start > 100:
+        if self._highlightRange == slice:
+            return # don't redraw if same
+        self._highlightRange = slice
+        self._destinations = destinations[slice]
+        if count > 100:
             self._highlightTimer.start()
         else:
             self._highlightTimer.stop()
@@ -330,9 +273,8 @@ class MusicView(QWidget):
     def updateHighlighting(self):
         """Really orders the view's surface to draw the highlighting."""
         layout = self.view.surface().pageLayout()
-        start, end = self._highlightRange
         areas = [(layout[pageNum], rect)
-                    for dest in self._destinations[start:end+1]
+                    for dest in self._destinations
                     for pageNum, rect in dest]
         self.view.surface().highlight(self._highlightMusicFormat, areas)
     

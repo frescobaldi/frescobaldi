@@ -34,6 +34,8 @@ import qpopplerview
 
 import app
 import scratchdir
+import ly.tokenize
+import tokeniter
 
 
 # cache point and click handlers for poppler documents
@@ -171,6 +173,80 @@ class BoundLinks(object):
         """
         return self._destinations
     
+    def indices(self, cursor):
+        """Returns a Python slice object or None or False.
+        
+        If a slice, it specifies the range of destinations (in the destinations() list)
+        that the given QTextCursor points to. The cursor must of course belong to our document.
+        
+        If None or False, it means that there is no object in the cursors neighbourhood.
+        If False, it means that it is e.g. preferred to clear earlier highlighted objects.
+        
+        This method performs quite a bit trickery: it also returns the destination when a cursor
+        points to the _ending_ point of a slur, beam or phrasing slur.
+        
+        """
+        cursors = self._cursors
+        
+        def findlink(pos):
+            # binary search in list of cursors
+            lo, hi = 0, len(cursors)
+            while lo < hi:
+                mid = (lo + hi) // 2
+                if pos < cursors[mid].position():
+                    hi = mid
+                else:
+                    lo = mid + 1
+            return lo - 1
+        
+        if cursor.hasSelection():
+            end = findlink(cursor.selectionEnd() - 1)
+            if end >= 0:
+                start = findlink(cursor.selectionStart())
+                if start < 0 or cursors[start].position() < cursor.selectionStart():
+                    start += 1
+                if start <= end:
+                    return slice(start, end+1)
+            return False
+            
+        index = findlink(cursor.position())
+        if index < 0:
+            return # before all other links
+        
+        cur2 = cursors[index]
+        if cur2.position() < cursor.position():
+            # is the cursor at an ending token like a slur end?
+            prevcol = -1
+            if cur2.block() == cursor.block():
+                prevcol = cur2.position() - cur2.block().position()
+            col = cursor.position() - cursor.block().position()
+            found = False
+            tokens = tokeniter.TokenIterator(cursor.block(), True)
+            for token in tokens.backward(False):
+                if token.pos <= col and token.pos > prevcol:
+                    if isinstance(token, ly.tokenize.MatchEnd) and token.matchname in (
+                            'slur', 'phrasingslur', 'beam'):
+                        # YES! now go backwards to find the opening token
+                        nest = 1
+                        name = token.matchname
+                        for token in tokens.backward():
+                            if isinstance(token, ly.tokenize.MatchStart) and token.matchname == name:
+                                nest -= 1
+                                if nest == 0:
+                                    found = True
+                                    break
+                            elif isinstance(token, ly.tokenize.MatchEnd) and token.matchname == name:
+                                nest += 1
+                        break
+            if found:
+                index = findlink(tokens.cursor().position())
+                if index < 0:
+                    return
+            elif cur2.block() != cursor.block():
+                return False
+        # highlight it!
+        return slice(index, index+1)
+        
     def remove(self, wr):
         self._bound_links_instances.remove(self)
 
