@@ -160,7 +160,12 @@ class View(QScrollArea):
         h = self.horizontalScrollBar()
         v.setValue(v.value() + diff.y())
         h.setValue(h.value() + diff.x())
-        
+    
+    def center(self, point):
+        """Centers the given QPoint of the surface."""
+        diff = point - self.viewport().rect().center() + self.surface().pos()
+        self.scrollSurface(diff)
+
     def resizeEvent(self, ev):
         super(View, self).resizeEvent(ev)
         # Detect a resize loop due to scrollbar disappearing

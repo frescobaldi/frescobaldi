@@ -303,6 +303,5 @@ class MusicView(QWidget):
         for dest in links.destinations()[s]:
             for pageNum, r in dest:
                 rect = rect.united(layout[pageNum].linkRect(r.normalized()))
-        diff = rect.center() - self.view.viewport().rect().center() + self.view.surface().pos()
-        self.view.scrollSurface(diff)
+        self.view.center(rect.center())
 
