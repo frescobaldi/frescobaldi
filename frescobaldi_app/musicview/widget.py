@@ -51,7 +51,7 @@ class MusicView(QWidget):
         self._currentDocument = lambda: None
         
         self._highlightFormat = QTextCharFormat()
-        self._highlightMusicFormat = qpopplerview.Highlighter()
+        self._highlightMusicFormat = Highlighter()
         self._highlightRange = None
         self._highlightTimer = QTimer(singleShot=True, interval= 250, timeout=self.updateHighlighting)
         self._highlightRemoveTimer = QTimer(singleShot=True, timeout=self.clearHighlighting)
@@ -121,10 +121,12 @@ class MusicView(QWidget):
         
     def readSettings(self):
         """Reads the settings from the user's preferences."""
-        color = textformats.formatData('editor').baseColors['selectionbackground']
+        colors = textformats.formatData('editor').baseColors
+        self._highlightMusicFormat.setColor(colors['musichighlight'])
+        color = colors['selectionbackground']
         color.setAlpha(128)
         self._highlightFormat.setBackground(color)
-        qpopplerview.cache.options().setPaperColor(textformats.formatData('editor').baseColors['paper'])
+        qpopplerview.cache.options().setPaperColor(colors['paper'])
         self.view.redraw()
 
     def slotLinkClicked(self, ev, page, link):
@@ -305,4 +307,20 @@ class MusicView(QWidget):
             for pageNum, r in dest:
                 rect = rect.united(layout[pageNum].linkRect(r.normalized()))
         self.view.center(rect.center())
+
+
+class Highlighter(qpopplerview.Highlighter):
+    """Simple version of qpopplerview.Highlighter that has the color settable.
+    
+    You must set a color before using the Highlighter.
+    
+    """
+    def setColor(self, color):
+        """Sets the color to use to draw highlighting rectangles."""
+        self._color = color
+    
+    def color(self):
+        """Returns the color set using the setColor method."""
+        return self._color
+
 

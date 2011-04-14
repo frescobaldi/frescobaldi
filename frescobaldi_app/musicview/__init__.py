@@ -133,6 +133,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_fit_width.setIcon(icons.get('zoom-fit-width'))
         self.music_fit_height.setIcon(icons.get('zoom-fit-height'))
         self.music_fit_both.setIcon(icons.get('zoom-fit-best'))
+        self.music_jump_to_cursor.setIcon(icons.get('go-jump'))
         
         self.music_document_select.setShortcut(QKeySequence(Qt.SHIFT | Qt.CTRL | Qt.Key_O))
         self.music_print.setShortcuts(QKeySequence.Print)

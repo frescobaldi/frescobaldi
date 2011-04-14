@@ -201,6 +201,7 @@ baseColors = (
     'search',
     'match',
     'paper',
+    'musichighlight',
 )
 
 baseColorDefaults = dict(
@@ -214,6 +215,7 @@ baseColorDefaults = dict(
     search =              lambda: QColor(192, 255, 192),
     match =               lambda: QColor(0, 192, 255),
     paper =               lambda: QColor(242, 224, 168),
+    musichighlight =      lambda: QApplication.palette().color(QPalette.Highlight),
 )
 
 defaultStyles = (

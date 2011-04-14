@@ -428,28 +428,48 @@ class CustomAttributes(QGroupBox):
 
 def baseColorNames():
     return {
+        # L10N: color of Text
         'text':                _("Text"),
+        # L10N: color of Background
         'background':          _("Background"),
+        # L10N: color of Selected Text
         'selectiontext':       _("Selected Text"),
+        # L10N: color of Selection Background
         'selectionbackground': _("Selection Background"),
+        # L10N: color of Current Line
         'current':             _("Current Line"),
+        # L10N: color of Marked Line (bookmark)
         'mark':                _("Marked Line"),
+        # L10N: color of line with Error
         'error':               _("Error Line"),
+        # L10N: color of highlighted search result
         'search':              _("Search Result"),
+        # L10N: color of characters that match (e.g. braces, parentheses)
         'match':               _("Matching Character"),
+        # L10N: color of paper in music preview
         'paper':               _("Preview Background"),
+        # L10N: color of objects highlighting in preview
+        'musichighlight':      _("Preview Highlight"),
     }
 
 
 def defaultStyleNames():
     return {
+        # L10N: a basic type of input in the editor
         'keyword':  _("Keyword"),
+        # L10N: a basic type of input in the editor
         'function': _("Function"),
+        # L10N: a basic type of input in the editor
         'variable': _("Variable"),
+        # L10N: a basic type of input in the editor
         'value':    _("Value"),
+        # L10N: a basic type of input in the editor
         'string':   _("String"),
+        # L10N: a basic type of input in the editor
         'escape':   _("Escape"), # TODO: better translatable name
+        # L10N: a basic type of input in the editor
         'comment':  _("Comment"),
+        # L10N: a basic type of input in the editor
         'error':    _("Error"),
     }
 
