@@ -147,7 +147,7 @@ class PrefsItemBase(QListWidgetItem):
 
 
 class General(PrefsItemBase):
-    iconName = "configure"
+    iconName = "preferences-system"
     def translateUI(self):
         self.setText(_("General Preferences"))
 
@@ -197,7 +197,7 @@ class FontsColors(PrefsItemBase):
 
 
 class Tools(PrefsItemBase):
-    iconName = "preferences-system"
+    iconName = "preferences-other"
     def translateUI(self):
         self.setText(_("Tools"))
         

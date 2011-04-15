@@ -1293,6 +1293,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.view_next_document.setIcon(icons.get('go-next'))
         self.view_previous_document.setIcon(icons.get('go-previous'))
         self.view_bookmark.setIcon(icons.get('bookmark-new'))
+        self.view_clear_all_marks.setIcon(icons.get('edit-clear'))
         
         self.window_new.setIcon(icons.get('window-new'))
         self.window_fullscreen.setIcon(icons.get('view-fullscreen'))
@@ -1312,7 +1313,7 @@ class ActionCollection(actioncollection.ActionCollection):
         
         self.edit_undo.setShortcuts(QKeySequence.Undo)
         self.edit_redo.setShortcuts(QKeySequence.Redo)
-        self.edit_cut_assign.setShortcut(QKeySequence(Qt.SHIFT + Qt.CTRL + Qt.Key_C))
+        self.edit_cut_assign.setShortcut(QKeySequence(Qt.SHIFT + Qt.CTRL + Qt.Key_X))
         self.edit_cut.setShortcuts(QKeySequence.Cut)
         self.edit_copy.setShortcuts(QKeySequence.Copy)
         self.edit_paste.setShortcuts(QKeySequence.Paste)
