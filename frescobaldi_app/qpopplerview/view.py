@@ -205,7 +205,6 @@ class View(QScrollArea):
         if not fitw and not fith:
             if vcan or hcan:
                 layout.fit(QSize(minwidth, minheight), mode)
-                layout.reLayout()
         elif mode & FitWidth and fitw and not fith and vcan:
             # a vertical scrollbar will appear
             w = minwidth
