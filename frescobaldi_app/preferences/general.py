@@ -62,6 +62,10 @@ class General(preferences.Group):
         self.lang = QComboBox(currentIndexChanged=self.changed)
         grid.addWidget(self.langLabel, 0, 0)
         grid.addWidget(self.lang, 0, 1)
+        
+        self.systemIcons = QCheckBox(toggled=self.changed)
+        grid.addWidget(self.systemIcons, 1, 0, 1, 3)
+        
         grid.setColumnStretch(2, 1)
         
         # fill in the combo
@@ -76,21 +80,30 @@ class General(preferences.Group):
         app.translateUI(self)
     
     def loadSettings(self):
-        lang = QSettings().value("language", "")
+        s = QSettings()
+        lang = s.value("language", "")
         try:
             index = self._langs.index(lang)
         except IndexError:
             index = 1
         self.lang.setCurrentIndex(index)
+        self.systemIcons.setChecked(s.value("system_icons", True) not in (False, "false"))
     
     def saveSettings(self):
-        QSettings().setValue("language", self._langs[self.lang.currentIndex()])
+        s = QSettings()
+        s.setValue("language", self._langs[self.lang.currentIndex()])
+        s.setValue("system_icons", self.systemIcons.isChecked())
         
     def translateUI(self):
         self.setTitle(_("General Preferences"))
         self.langLabel.setText(_("Language:"))
         self.lang.setItemText(0, _("No Translation"))
         self.lang.setItemText(1, _("System Default Language (if available)"))
+        self.systemIcons.setText(_("Use System Icons (if available)"))
+        self.systemIcons.setWhatsThis(_(
+            "If checked, icons of the desktop icon theme, if available, "
+            "will be used instead of the bundled icons.\n\n"
+            "This setting has only effect after a restart."))
 
 
 class StartSession(preferences.Group):
@@ -176,7 +189,7 @@ class SavingDocument(preferences.Group):
         self.setTitle(_("When saving documents"))
         self.metainfo.setText(_("Remember cursor position, bookmarks, etc."))
         self.basedirLabel.setText(_("Default directory:"))
-        self.basedirLabel.setToolTip(_("The default folder for your LilyPond documents (optional)."))
+        self.basedirLabel.setWhatsThis(_("The default folder for your LilyPond documents (optional)."))
         
     def loadSettings(self):
         s = QSettings()

@@ -23,15 +23,24 @@ Icons.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QDir, QFile, QSize
+import os
+
+from PyQt4.QtCore import QDir, QFile, QSettings, QSize
 from PyQt4.QtGui import QIcon
 
-QDir.setSearchPaths("icons", __path__)
+QDir.setSearchPaths("icons", [
+    os.path.join(__path__[0], "tango"),
+    __path__[0],
+])
 
 _cache = {}
 
+
+_preferSystemIcons = QSettings().value("system_icons", True) not in (False, "false")
+
+
 def get(name):
-    if QIcon.hasThemeIcon(name):
+    if _preferSystemIcons and QIcon.hasThemeIcon(name):
         return QIcon.fromTheme(name)
     try:
         return _cache[name]
@@ -43,8 +52,8 @@ def get(name):
             icon.addFile(fname)
         else:
             # then try different sizes
-            for size in (0, 16, 22, 32, 48):
-                fname = 'icons:{0}{1}.png'.format(name, size or '')
+            for size in (16, 22, 32, 48):
+                fname = 'icons:{1}x{1}/{0}.png'.format(name, size or '')
                 if QFile(fname).exists():
                     qsize = QSize(size, size) if size else QSize()
                     icon.addFile(fname, qsize)

@@ -167,7 +167,7 @@ class LilyPond(PrefsItemBase):
 
 
 class Paths(PrefsItemBase):
-    iconName = "document-open-folder"
+    iconName = "folder-open"
     def translateUI(self):
         self.setText(_("Paths"))
         
@@ -187,7 +187,7 @@ class Shortcuts(PrefsItemBase):
         
 
 class FontsColors(PrefsItemBase):
-    iconName = "fill-color"
+    iconName = "applications-graphics"
     def translateUI(self):
         self.setText(_("Fonts & Colors"))
         

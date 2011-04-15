@@ -23,6 +23,8 @@ Dummy file containing messages that are part of Qt and used in our application.
 
 _("CloseButton", "Close Tab")
 
+_("QDialog", "What's This?")
+
 _("QDialogButtonBox", "Apply")
 _("QDialogButtonBox", "OK")
 _("QDialogButtonBox", "Cancel")

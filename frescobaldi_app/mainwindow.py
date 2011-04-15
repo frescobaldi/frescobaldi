@@ -1267,7 +1267,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_new.setIcon(icons.get('document-new'))
         self.file_open.setIcon(icons.get('document-open'))
         self.file_open_recent.setIcon(icons.get('document-open-recent'))
-        self.file_open_current_directory.setIcon(icons.get('document-open-folder'))
+        self.file_open_current_directory.setIcon(icons.get('folder-open'))
         self.file_save.setIcon(icons.get('document-save'))
         self.file_save_as.setIcon(icons.get('document-save-as'))
         self.file_save_copy_as.setIcon(icons.get('document-save-as'))
@@ -1288,7 +1288,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.edit_find_next.setIcon(icons.get('go-down-search'))
         self.edit_find_previous.setIcon(icons.get('go-up-search'))
         self.edit_replace.setIcon(icons.get('edit-find-replace'))
-        self.edit_preferences.setIcon(icons.get('configure'))
+        self.edit_preferences.setIcon(icons.get('preferences-system'))
         
         self.view_next_document.setIcon(icons.get('go-next'))
         self.view_previous_document.setIcon(icons.get('go-previous'))
