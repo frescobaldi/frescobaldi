@@ -140,7 +140,15 @@ class AbstractLayout(QObject):
     def size(self):
         """Returns our size as QSize()."""
         return self._size
-        
+    
+    def width(self):
+        """Returns our width."""
+        return self._size.width()
+    
+    def height(self):
+        """Returns our height."""
+        return self._size.height()
+    
     def setDPI(self, xdpi, ydpi=None):
         """Sets our DPI in X and Y direction. If Y isn't given, uses the X value."""
         self._dpi = xdpi, ydpi or xdpi
