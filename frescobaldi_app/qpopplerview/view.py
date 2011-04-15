@@ -23,8 +23,8 @@ View widget to display PDF documents.
 """
 
 
-from PyQt4.QtCore import QPoint, QTimer, Qt, pyqtSignal
-from PyQt4.QtGui import QPalette, QScrollArea
+from PyQt4.QtCore import QPoint, QSize, QTimer, Qt, pyqtSignal
+from PyQt4.QtGui import QPalette, QScrollArea, QStyle
 
 import popplerqt4
 
@@ -60,7 +60,6 @@ class View(QScrollArea):
         
         # delayed resize
         self._resizeTimer = QTimer(singleShot = True, timeout = self._resizeTimeout)
-        self._oldsize = None
         
     def surface(self):
         """Returns our Surface, the widget drawing the page(s)."""
@@ -84,9 +83,7 @@ class View(QScrollArea):
             return
         self._viewMode = mode
         if mode:
-            # change view
-            self.surface().pageLayout().fit(self.viewport().size(), mode)
-            self.surface().pageLayout().update()
+            self.fit()
         self.viewModeChanged.emit(mode)
     
     def wheelZoomEnabled(self):
@@ -120,7 +117,7 @@ class View(QScrollArea):
         """Convenience method to load all the pages from the given Poppler.Document."""
         self.surface().pageLayout().load(document)
         if self.viewMode():
-            self.surface().pageLayout().fit(self.viewport().size(), self.viewMode())
+            self.fit()
         self.surface().pageLayout().update()
 
     def clear(self):
@@ -166,28 +163,80 @@ class View(QScrollArea):
         diff = point - self.viewport().rect().center() + self.surface().pos()
         self.scrollSurface(diff)
 
+    def minimumViewportSize(self):
+        """Returns the size of the viewport with both scrollbars enabled. Should really be in Qt."""
+        framewidth = 0
+        if self.style().styleHint(QStyle.SH_ScrollView_FrameOnlyAroundContents, None, self):
+            framewidth = self.style().pixelMetric(QStyle.PM_DefaultFrameWidth) * 2
+        margin = self.style().pixelMetric(QStyle.PM_ScrollBarExtent, None, self) + framewidth
+        return self.maximumViewportSize() - QSize(margin, margin)
+        
+    def fit(self):
+        """(Internal). Fits the layout according to the view mode.
+        
+        Prevents scrollbar/resize loops by precalculating which scrollbars will appear.
+        
+        """
+        layout = self.surface().pageLayout()
+        mode = self.viewMode()
+        if mode == FixedScale:
+            return
+        # first fit with hidden scrollbars
+        maxsize = self.maximumViewportSize()
+        minsize = self.minimumViewportSize()
+        layout.fit(maxsize, mode)
+        layout.reLayout()
+        fitw = layout.width() <= maxsize.width()
+        fith = layout.height() <= maxsize.height()
+        if not fitw and not fith:
+            layout.fit(minsize, mode)
+            layout.reLayout()
+        elif mode & FitWidth and fitw and not fith:
+            # a vertical scrollbar will appear
+            w = minsize.width()
+            layout.fit(QSize(w, maxsize.height()), mode)
+            layout.reLayout()
+            if layout.height() <= maxsize.height():
+                # now the vert. scrollbar would disappear!
+                # enlarge it as long as the vertical scrollbar would not be needed
+                while True:
+                    w += 1
+                    layout.fit(QSize(w, maxsize.height()), mode)
+                    layout.reLayout()
+                    if layout.height() > maxsize.height():
+                        layout.fit(QSize(w - 1, maxsize.height()), mode)
+                        break
+        elif mode & FitHeight and fith and not fitw:
+            # a horizontal scrollbar will appear
+            h = minsize.height()
+            layout.fit(QSize(maxsize.width(), h), mode)
+            layout.reLayout()
+            if layout.width() <= maxsize.width():
+                # now the hor. scrollbar would disappear!
+                # enlarge it as long as the horizontal scrollbar would not be needed
+                while True:
+                    h += 1
+                    layout.fit(QSize(maxsize.width(), h), mode)
+                    layout.reLayout()
+                    if layout.width() > maxsize.width():
+                        layout.fit(QSize(maxsize.width(), h - 1), mode)
+                        break
+        layout.update()
+        
     def resizeEvent(self, ev):
         super(View, self).resizeEvent(ev)
         # Detect a resize loop due to scrollbar disappearing
         if self.viewMode() and any(self.surface().pageLayout().pages()):
-            diff = ev.size() - ev.oldSize()
-            if self.size() == self._oldsize and (
-                (diff.width() > 0 and self.viewMode() & FitWidth)
-                or (diff.height() > 0 and self.viewMode() & FitHeight)):
-                pass # avoid a loop
-            else:
-                if not self._resizeTimer.isActive():
-                    # store the point currently in the center
-                    self._centerPos = QPoint(self.width(), self.height()) / 2 - self.surface().pos()
-                self._resizeTimer.start(100)
-        self._oldsize = self.size()
+            if not self._resizeTimer.isActive():
+                # store the point currently in the center
+                self._centerPos = QPoint(self.width(), self.height()) / 2 - self.surface().pos()
+            self._resizeTimer.start(100)
     
     def _resizeTimeout(self):
         x = self._centerPos.x() / float(self.surface().width())
         y = self._centerPos.y() / float(self.surface().height())
         # resize the layout
-        self.surface().pageLayout().fit(self.viewport().size(), self.viewMode())
-        self.surface().pageLayout().update()
+        self.fit()
         # restore our position
         newPos = QPoint(round(x * self.surface().width()), round(y * self.surface().height()))
         self.scrollSurface(newPos - self._centerPos)
