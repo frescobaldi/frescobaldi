@@ -163,14 +163,6 @@ class View(QScrollArea):
         diff = point - self.viewport().rect().center() + self.surface().pos()
         self.scrollSurface(diff)
 
-    def minimumViewportSize(self):
-        """Returns the size of the viewport with both scrollbars enabled. Should really be in Qt."""
-        framewidth = 0
-        if self.style().styleHint(QStyle.SH_ScrollView_FrameOnlyAroundContents, None, self):
-            framewidth = self.style().pixelMetric(QStyle.PM_DefaultFrameWidth) * 2
-        margin = self.style().pixelMetric(QStyle.PM_ScrollBarExtent, None, self) + framewidth
-        return self.maximumViewportSize() - QSize(margin, margin)
-        
     def fit(self):
         """(Internal). Fits the layout according to the view mode.
         
@@ -181,19 +173,42 @@ class View(QScrollArea):
         mode = self.viewMode()
         if mode == FixedScale:
             return
-        # first fit with hidden scrollbars
+        
         maxsize = self.maximumViewportSize()
-        minsize = self.minimumViewportSize()
+        
+        # can vertical or horizontal scrollbars appear?
+        vcan = self.verticalScrollBarPolicy() == Qt.ScrollBarAsNeeded
+        hcan = self.horizontalScrollBarPolicy() == Qt.ScrollBarAsNeeded
+        
+        # width a scrollbar takes off the viewport size
+        framewidth = 0
+        if self.style().styleHint(QStyle.SH_ScrollView_FrameOnlyAroundContents, None, self):
+            framewidth = self.style().pixelMetric(QStyle.PM_DefaultFrameWidth) * 2
+        scrollbarextent = self.style().pixelMetric(QStyle.PM_ScrollBarExtent, None, self) + framewidth
+        
+        # first try to fit full size
         layout.fit(maxsize, mode)
         layout.reLayout()
+        
+        # minimal values
+        minwidth = maxsize.width()
+        minheight = maxsize.height()
+        if vcan:
+            minwidth -= scrollbarextent
+        if hcan:
+            minheight -= scrollbarextent
+        
+        # do width and/or height fit?
         fitw = layout.width() <= maxsize.width()
         fith = layout.height() <= maxsize.height()
+        
         if not fitw and not fith:
-            layout.fit(minsize, mode)
-            layout.reLayout()
-        elif mode & FitWidth and fitw and not fith:
+            if vcan or hcan:
+                layout.fit(QSize(minwidth, minheight), mode)
+                layout.reLayout()
+        elif mode & FitWidth and fitw and not fith and vcan:
             # a vertical scrollbar will appear
-            w = minsize.width()
+            w = minwidth
             layout.fit(QSize(w, maxsize.height()), mode)
             layout.reLayout()
             if layout.height() <= maxsize.height():
@@ -206,9 +221,9 @@ class View(QScrollArea):
                     if layout.height() > maxsize.height():
                         layout.fit(QSize(w - 1, maxsize.height()), mode)
                         break
-        elif mode & FitHeight and fith and not fitw:
+        elif mode & FitHeight and fith and not fitw and hcan:
             # a horizontal scrollbar will appear
-            h = minsize.height()
+            h = minheight
             layout.fit(QSize(maxsize.width(), h), mode)
             layout.reLayout()
             if layout.width() <= maxsize.width():

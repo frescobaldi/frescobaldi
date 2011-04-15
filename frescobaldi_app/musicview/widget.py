@@ -76,7 +76,7 @@ class MusicView(QWidget):
         
         zoomer = self.parent().actionCollection.music_zoom_combo
         self.view.viewModeChanged.connect(zoomer.updateZoomInfo)
-        #self.view.surface().pageLayout().scaleChanged.connect(zoomer.updateZoomInfo)
+        self.view.surface().pageLayout().scaleChanged.connect(zoomer.updateZoomInfo)
         
         # react if cursor of current text document moves
         dockwidget.mainwindow().currentViewChanged.connect(self.slotCurrentViewChanged)

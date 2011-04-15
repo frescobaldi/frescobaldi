@@ -56,6 +56,7 @@ class AbstractLayout(QObject):
         self._margin = 4
         self._spacing = 8
         self._scale = 1.0
+        self._scaleChanged = False
         self._dpi = (72, 72)
         
     def own(self, page):
@@ -169,7 +170,7 @@ class AbstractLayout(QObject):
             self._scale = scale
             for page in self:
                 page.setScale(scale)
-            self.scaleChanged.emit(scale)
+            self._scaleChanged = True
     
     def setPageWidth(self, width, sameScale=True):
         """Sets the width of all pages.
@@ -228,6 +229,9 @@ class AbstractLayout(QObject):
     def update(self):
         """Performs the layouting (positions the Pages and adjusts our size)."""
         self.reLayout()
+        if self._scaleChanged:
+            self.scaleChanged.emit(self._scale)
+            self._scaleChanged = False
         self.changed.emit()
         
     def reLayout(self):
