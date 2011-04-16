@@ -45,6 +45,7 @@ import document
 
 def startmain():
     import optparse
+    optparse._ = _ # let optparse use our translations
     parser = optparse.OptionParser(
         usage = _("{appname} [options] file ...").format(appname=info.name),
         version = "{0} {1}".format(info.appname, info.version),

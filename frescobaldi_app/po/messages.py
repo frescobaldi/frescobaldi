@@ -18,9 +18,18 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Dummy file containing messages that are part of Qt and used in our application.
+Dummy file containing messages that are part of some Python modules or Qt and used in our application.
 """
 
+# Python, optparse:
+_("Usage")
+_("show this help message and exit")
+_("show program's version number and exit")
+# L10N: Command line options
+_("Options")
+
+
+# Qt
 _("CloseButton", "Close Tab")
 
 _("QDialog", "What's This?")
