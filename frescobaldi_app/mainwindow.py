@@ -697,6 +697,13 @@ class MainWindow(QMainWindow):
         import about
         about.AboutDialog(self).exec_()
     
+    def reportBug(self):
+        """Opens e-mail composer to send a bug or feature report."""
+        import bugreport
+        bugreport.email('', _(
+            "Please describe the issue or feature request.\n"
+            "Provide as much information as possible.\n\n\n"))
+    
     def createActions(self):
         self.actionCollection = ac = ActionCollection()
         
@@ -750,6 +757,7 @@ class MainWindow(QMainWindow):
         ac.help_manual.triggered.connect(self.showManual)
         ac.help_whatsthis.triggered.connect(QWhatsThis.enterWhatsThisMode)
         ac.help_about.triggered.connect(self.showAbout)
+        ac.help_bugreport.triggered.connect(self.reportBug)
         
     def populateDocumentsMenu(self):
         self.menu_document.clear()
