@@ -23,7 +23,10 @@ setup(
     packages = packagelist('frescobaldi_app'),
     package_data = {
         'frescobaldi_app.hyphdicts': ['*.dic'],
-        'frescobaldi_app.icons': ['*.svg', '*.png'],
+        'frescobaldi_app.icons': [
+            '*.svg', '*x*/.png',
+            'tango/*.svg', 'tango/*x*/*.png',
+            ],
         'frescobaldi_app.po': ['*.mo'],
         'frescobaldi_app.symbols': ['*.svg'],
     },
