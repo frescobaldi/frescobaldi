@@ -27,6 +27,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import info
 import icons
 import preferences
 import sessionmanager
@@ -99,11 +100,11 @@ class General(preferences.Group):
         self.langLabel.setText(_("Language:"))
         self.lang.setItemText(0, _("No Translation"))
         self.lang.setItemText(1, _("System Default Language (if available)"))
-        self.systemIcons.setText(_("Use System Icons (if available)"))
-        self.systemIcons.setWhatsThis(_(
-            "If checked, icons of the desktop icon theme, if available, "
+        self.systemIcons.setText(_("Use System Icons"))
+        self.systemIcons.setToolTip(_(
+            "If checked, icons of the desktop icon theme "
             "will be used instead of the bundled icons.\n\n"
-            "This setting has only effect after a restart."))
+            "This setting takes effect on the next start of {appname}.").format(appname=info.appname))
 
 
 class StartSession(preferences.Group):
@@ -189,7 +190,7 @@ class SavingDocument(preferences.Group):
         self.setTitle(_("When saving documents"))
         self.metainfo.setText(_("Remember cursor position, bookmarks, etc."))
         self.basedirLabel.setText(_("Default directory:"))
-        self.basedirLabel.setWhatsThis(_("The default folder for your LilyPond documents (optional)."))
+        self.basedirLabel.setToolTip(_("The default folder for your LilyPond documents (optional)."))
         
     def loadSettings(self):
         s = QSettings()
