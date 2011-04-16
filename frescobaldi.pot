@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-04-16 11:59+0200\n"
+"POT-Creation-Date: 2011-04-16 12:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -691,154 +691,159 @@ msgid "Usage"
 msgstr ""
 
 #: frescobaldi_app/po/messages.py:26
-msgid "show this help message and exit"
+#, python-format
+msgid "Usage: %s\n"
 msgstr ""
 
 #: frescobaldi_app/po/messages.py:27
+msgid "show this help message and exit"
+msgstr ""
+
+#: frescobaldi_app/po/messages.py:28
 msgid "show program's version number and exit"
 msgstr ""
 
 #. L10N: Command line options
-#: frescobaldi_app/po/messages.py:29
+#: frescobaldi_app/po/messages.py:30
 msgid "Options"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:33
+#: frescobaldi_app/po/messages.py:34
 msgctxt "CloseButton"
 msgid "Close Tab"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:35
+#: frescobaldi_app/po/messages.py:36
 msgctxt "QDialog"
 msgid "What's This?"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:37
+#: frescobaldi_app/po/messages.py:38
 msgctxt "QDialogButtonBox"
 msgid "Apply"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:38
+#: frescobaldi_app/po/messages.py:39
 msgctxt "QDialogButtonBox"
 msgid "OK"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:39
+#: frescobaldi_app/po/messages.py:40
 msgctxt "QDialogButtonBox"
 msgid "Cancel"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:40
+#: frescobaldi_app/po/messages.py:41
 msgctxt "QDialogButtonBox"
 msgid "Discard"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:41
+#: frescobaldi_app/po/messages.py:42
 msgctxt "QDialogButtonBox"
 msgid "Save"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:42
+#: frescobaldi_app/po/messages.py:43
 msgctxt "QDialogButtonBox"
 msgid "Help"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:43
+#: frescobaldi_app/po/messages.py:44
 msgctxt "QDialogButtonBox"
 msgid "Close"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:44
+#: frescobaldi_app/po/messages.py:45
 msgctxt "QDialogButtonBox"
 msgid "Open"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:45
+#: frescobaldi_app/po/messages.py:46
 msgctxt "QDialogButtonBox"
 msgid "Reset"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:47
+#: frescobaldi_app/po/messages.py:48
 msgctxt "QFileDialog"
 msgid "File"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:48
+#: frescobaldi_app/po/messages.py:49
 msgctxt "QFileDialog"
 msgid "Folder"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:49
+#: frescobaldi_app/po/messages.py:50
 msgctxt "QFileDialog"
 msgid "Find Directory"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:50
+#: frescobaldi_app/po/messages.py:51
 msgctxt "QFileDialog"
 msgid "All Files (*)"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:52
+#: frescobaldi_app/po/messages.py:53
 msgctxt "QScrollBar"
 msgid "Scroll here"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:53
+#: frescobaldi_app/po/messages.py:54
 msgctxt "QScrollBar"
 msgid "Top"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:54
+#: frescobaldi_app/po/messages.py:55
 msgctxt "QScrollBar"
 msgid "Bottom"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:55
+#: frescobaldi_app/po/messages.py:56
 msgctxt "QScrollBar"
 msgid "Page up"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:56
+#: frescobaldi_app/po/messages.py:57
 msgctxt "QScrollBar"
 msgid "Page down"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:57
+#: frescobaldi_app/po/messages.py:58
 msgctxt "QScrollBar"
 msgid "Scroll up"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:58
+#: frescobaldi_app/po/messages.py:59
 msgctxt "QScrollBar"
 msgid "Scroll down"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:59
+#: frescobaldi_app/po/messages.py:60
 msgctxt "QScrollBar"
 msgid "Left edge"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:60
+#: frescobaldi_app/po/messages.py:61
 msgctxt "QScrollBar"
 msgid "Right edge"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:61
+#: frescobaldi_app/po/messages.py:62
 msgctxt "QScrollBar"
 msgid "Page left"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:62
+#: frescobaldi_app/po/messages.py:63
 msgctxt "QScrollBar"
 msgid "Page right"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:63
+#: frescobaldi_app/po/messages.py:64
 msgctxt "QScrollBar"
 msgid "Scroll left"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:64
+#: frescobaldi_app/po/messages.py:65
 msgctxt "QScrollBar"
 msgid "Scroll right"
 msgstr ""

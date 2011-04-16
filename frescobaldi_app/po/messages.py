@@ -23,6 +23,7 @@ Dummy file containing messages that are part of some Python modules or Qt and us
 
 # Python, optparse:
 _("Usage")
+_("Usage: %s\n")
 _("show this help message and exit")
 _("show program's version number and exit")
 # L10N: Command line options
