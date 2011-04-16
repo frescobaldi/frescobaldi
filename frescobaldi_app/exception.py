@@ -78,14 +78,49 @@ class ExceptionDialog(QDialog):
         super(ExceptionDialog, self).done(result)
         
     def reportBug(self):
-        subject = u"[{0} {1}] {2}".format(info.name, info.version, self._tbshort)
-        body = u"{0} {1}\n\n{2}\n{3}\n\n".format(
-            info.name, info.version, self._tbfull,
+        subject = u"[{0} {1}] {2}".format(info.appname, info.version, self._tbshort)
+        body = u"{0}: {1}\n\n{2}\n\n{3}\n{4}\n\n".format(
+            info.appname, info.version, versionInfo(), self._tbfull,
             _("Optionally describe below what you were doing:"))
         
         url = QUrl("mailto:" + info.maintainer_email)
         url.addQueryItem("subject", subject)
         url.addQueryItem("body", body)
         QDesktopServices.openUrl(url)
+
+
+def versionInfo():
+    """Returns terse version and platform information as a human-readable string for debugging purposes."""
+    try:
+        import sip
+        sip_version = sip.SIP_VERSION_STR
+    except (ImportError, NameError):
+        sip_version = "unknown"
+    
+    try:
+        import PyQt4.QtCore
+        pyqt_version = PyQt4.QtCore.PYQT_VERSION_STR
+    except (ImportError, NameError):
+        pyqt_version = "unknown"
+    
+    try:
+        qt_version = PyQt4.QtCore.QT_VERSION_STR
+    except NameError:
+        qt_version = "unknown"
+    
+    try:
+        import platform
+        python_version = platform.python_version()
+        osname = platform.platform()
+    except (ImportError, NameError):
+        python_version = "unknown"
+        osname = "unknown"
+    
+    return (
+        "Python: {python_version} -- "
+        "Qt: {qt_version} -- "
+        "PyQt4: {pyqt_version} -- "
+        "sip: {sip_version}\n"
+        "OS: {osname}".format(**locals()))
 
 
