@@ -46,8 +46,9 @@ import document
 def startmain():
     import optparse
     parser = optparse.OptionParser(
-        usage = _("usage: {appname} [options] file ...").format(appname=info.name),
-        version = "{0} {1}".format(info.name, info.version))
+        usage = _("{appname} [options] file ...").format(appname=info.name),
+        version = "{0} {1}".format(info.appname, info.version),
+        description = _("A LilyPond Music Editor"))
     parser.add_option('-e', '--encoding', metavar=_("ENC"),
         help=_("Encoding to use"))
     parser.add_option('-l', '--line', type="int", metavar=_("NUM"),
