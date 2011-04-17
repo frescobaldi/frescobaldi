@@ -437,7 +437,8 @@ class MainWindow(QMainWindow):
                 f.write(data)
         except (IOError, OSError) as err:
             QMessageBox.warning(self, app.caption(_("Error")),
-                _("Can't write to destination:\n\n{url}\n\n{error}").format(url=filename, error=err))
+                _("Can't write to destination:\n\n{url}\n\n{error}").format(
+                    url=filename, error=err.strerror))
     
     def closeCurrentDocument(self):
         return self.closeDocument(self.currentDocument())
@@ -507,8 +508,8 @@ class MainWindow(QMainWindow):
                 data = open(filename).read()
             except (IOError, OSError) as err:
                 QMessageBox.warning(self, app.caption(_("Error")),
-                    _("Can't read from file:\n\n{filename}\n\n{error}").format(
-                        filename=filename, error=err.strerror))
+                    _("Can't read from source:\n\n{url}\n\n{error}").format(
+                        url=filename, error=err.strerror))
             else:
                 text = util.decode(data)
                 self.currentView().textCursor().insertText(text)
