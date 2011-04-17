@@ -502,12 +502,13 @@ class MainWindow(QMainWindow):
             conf = sessionmanager.currentSessionGroup() or QSettings()
             directory = conf.value("basedir", "")
         filename = QFileDialog.getOpenFileName(self, caption, directory, filetypes)
-        if filename and os.path.exists(filename):
+        if filename:
             try:
                 data = open(filename).read()
             except (IOError, OSError) as err:
                 QMessageBox.warning(self, app.caption(_("Error")),
-                    _("Can't read from file:\n\n{filename}\n\n{error}").format(url=filename, error=err))
+                    _("Can't read from file:\n\n{filename}\n\n{error}").format(
+                        filename=filename, error=err.strerror))
             else:
                 text = util.decode(data)
                 self.currentView().textCursor().insertText(text)
