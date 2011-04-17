@@ -492,7 +492,26 @@ class MainWindow(QMainWindow):
             if window is not self:
                 window.close()
         self.close()
-            
+    
+    def insertFromFile(self):
+        ext = os.path.splitext(self.currentDocument().url().path())[1]
+        filetypes = app.filetypes(ext)
+        caption = app.caption(_("dialog title", "Insert From File"))
+        directory = os.path.dirname(self.currentDocument().url().toLocalFile())
+        if not directory:
+            conf = sessionmanager.currentSessionGroup() or QSettings()
+            directory = conf.value("basedir", "")
+        filename = QFileDialog.getOpenFileName(self, caption, directory, filetypes)
+        if filename and os.path.exists(filename):
+            try:
+                data = open(filename).read()
+            except (IOError, OSError) as err:
+                QMessageBox.warning(self, app.caption(_("Error")),
+                    _("Can't read from file:\n\n{filename}\n\n{error}").format(url=filename, error=err))
+            else:
+                text = util.decode(data)
+                self.currentView().textCursor().insertText(text)
+        
     def openCurrentDirectory(self):
         import resultfiles
         directory = resultfiles.results(self.currentDocument()).currentDirectory()
@@ -717,6 +736,7 @@ class MainWindow(QMainWindow):
         ac.file_quit.triggered.connect(self.quit, Qt.QueuedConnection)
         ac.file_new.triggered.connect(self.newDocument)
         ac.file_open.triggered.connect(self.openDocument)
+        ac.file_insert_file.triggered.connect(self.insertFromFile)
         ac.file_open_current_directory.triggered.connect(self.openCurrentDirectory)
         ac.file_save.triggered.connect(self.saveCurrentDocument)
         ac.file_save_as.triggered.connect(self.saveCurrentDocumentAs)
@@ -795,6 +815,7 @@ class MainWindow(QMainWindow):
         m.addSeparator()
         m.addAction(ac.file_open)
         m.addAction(ac.file_open_recent)
+        m.addAction(ac.file_insert_file)
         m.addAction(ac.file_open_current_directory)
         m.addSeparator()
         m.addAction(ac.file_save)
@@ -1214,6 +1235,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_new = QAction(parent)
         self.file_open = QAction(parent)
         self.file_open_recent = QAction(parent)
+        self.file_insert_file = QAction(parent)
         self.file_open_current_directory = QAction(parent)
         self.file_save = QAction(parent)
         self.file_save_as = QAction(parent)
@@ -1353,6 +1375,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_new.setText(_("action: new document", "&New"))
         self.file_open.setText(_("&Open..."))
         self.file_open_recent.setText(_("Open &Recent"))
+        self.file_insert_file.setText(_("Insert from &File..."))
         self.file_open_current_directory.setText(_("Open Current Directory"))
         self.file_save.setText(_("&Save"))
         self.file_save_as.setText(_("Save &As..."))
