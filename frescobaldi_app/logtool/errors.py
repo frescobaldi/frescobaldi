@@ -55,11 +55,21 @@ class Errors(plugin.DocumentPlugin):
         mgr.stateChanged.connect(self.slotJobManagerStateChanged)
         
     def slotJobManagerStateChanged(self, job):
+        """Called when a job starts or stops.
+        
+        On start, we connect to it immediately.
+        
+        """
         if job:
             self.connectJob(job)
         
     def connectJob(self, job):
-        """Starts collecting the references of a started Job."""
+        """Starts collecting the references of a started Job.
+        
+        Output already created by the Job is read and we start
+        listening for new output.
+        
+        """
         # clear earlier set error marks
         docs = set([self.document()])
         for ref in self._refs.values():
@@ -75,6 +85,12 @@ class Errors(plugin.DocumentPlugin):
         job.output.connect(self.slotJobOutput)
     
     def slotJobOutput(self, message, type):
+        """Called wheneven the job has output.
+        
+        The output is checked for errormessages that contain
+        a filename:line:column expression.
+        
+        """
         if type == job.STDERR:
             for m in message_re.finditer(message):
                 url, filename = m.group(1, 2)
@@ -93,7 +109,19 @@ class Errors(plugin.DocumentPlugin):
 
 
 class Reference(object):
+    """Represents a reference to a line/column pair (a cursor position) in a Document."""
     def __init__(self, filename, line, column):
+        """Creates the reference to filename, line and column.
+        
+        lines start numbering with 1, columns with 0 (LilyPond convention).
+        
+        If a document with the given filename is already loaded (or the filename
+        refers to the scratchdir for a document) a QTextCursor is created immediately.
+        
+        Otherwise, when a Document is loaded later with our filename, a QTextCursor
+        is created then (by the bind() method).
+        
+        """
         self._filename = filename
         self._line = line
         self._column = column
@@ -107,6 +135,12 @@ class Reference(object):
                 break
     
     def bind(self, document):
+        """Called when a document is loaded this Reference points to.
+        
+        Creates a QTextCursor so the position is maintained even if the document
+        changes.
+        
+        """
         b = document.findBlockByNumber(max(0, self._line - 1))
         if b.isValid():
             self._cursor = c = QTextCursor(document)
@@ -118,9 +152,11 @@ class Reference(object):
             self._cursor = None
             
     def unbind(self):
+        """Called when previously "bound" document is closed."""
         self._cursor = None
     
     def trybind(self, document):
+        """Called whenever a new Document is loaded, checks the filename."""
         if document.url().toLocalFile() == self._filename:
             self.bind(document)
 
