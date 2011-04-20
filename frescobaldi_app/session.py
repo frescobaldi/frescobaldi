@@ -97,6 +97,6 @@ def restoreSession():
         settings.endGroup()
     settings.endGroup()
 
-app.qApp.saveStateRequest.connect(saveState, Qt.DirectConnection)
-app.qApp.commitDataRequest.connect(commitData, Qt.DirectConnection)
+app.qApp.saveStateRequest.connect(saveState)
+app.qApp.commitDataRequest.connect(commitData)
 
