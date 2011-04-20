@@ -4,7 +4,12 @@ This file defines the (simple) API, loosely based on the PyGame.MIDI api.
 """
 
 from .constants import *
-from .pm_ctypes import libpm, libpt, pmHostError, PmEvent, PortMidiStreamPtr
+from .pm_ctypes import (
+    libpm, libpt,
+    pmHostError, PmEvent,
+    PmTimeProcPtr, NullTimeProcPtr,
+    PortMidiStreamPtr,
+)
 
 
 def init():
@@ -15,7 +20,7 @@ def init():
     """
     libpm.Pm_Initialize()
     # equiv to TIME_START: start timer w/ ms accuracy
-    libpt.Pt_Start(1, None, None)
+    libpt.Pt_Start(1, NullTimeProcPtr, None)
 
 def quit():
     """De-initializes the PortMidi library.
