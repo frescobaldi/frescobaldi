@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
 # Copyright (c) 2008 - 2011 by Wilbert Berendsen
@@ -24,11 +25,32 @@ About dialog.
 from __future__ import unicode_literals
 
 from PyQt4.QtCore import QSize, Qt
-from PyQt4.QtGui import QDialog, QDialogButtonBox, QLabel, QLayout, QVBoxLayout
+from PyQt4.QtGui import QDialog, QDialogButtonBox, QLabel, QLayout, QTabWidget, QTextBrowser, QVBoxLayout, QWidget
 
 import app
 import info
 import icons
+import language_names
+
+
+def credits():
+    """Iterating over this should return paragraphs for the credits page."""
+    yield _("{appname} is written in {python} and uses the {qt} toolkit.").format(
+        appname=info.appname,
+        # L10N: the Python programming language
+        python='<a href="http://www.python.org/">{0}</a>'.format(_("Python")),
+        # L10N: the Qt4 application framework
+        qt='<a href="http://qt.nokia.com/">{0}</a>'.format(_("Qt4")))
+    yield _("The Music View is powered by the {poppler} library by {authors} and others.".format(
+        # L10N: the Poppler PDF library
+        poppler='<a href="http://poppler.freedesktop.org/">{0}</a>'.format(_("Poppler")),
+        authors='Kristian Høgsberg, Albert Astals Cid'))
+    yield _("Most of the bundled icons are created by {tango}.").format(
+        tango='<a href="http://tango.freedesktop.org/">{0}</a>'.format(_("The Tango Desktop Project")))
+    yield _("{appname} is translated into the following languages:").format(appname=info.appname)
+    langs = [(language_names.languageName(code, code), names) for code, names in info.translators.items()]
+    for lang, names in sorted(langs):
+        yield lang + ": " + (', '.join(names))
 
 
 class AboutDialog(QDialog):
@@ -45,6 +67,27 @@ class AboutDialog(QDialog):
         layout = QVBoxLayout()
         self.setLayout(layout)
         
+        tabw = QTabWidget()
+        layout.addWidget(tabw)
+        
+        tabw.addTab(About(self), _("About"))
+        tabw.addTab(Credits(self), _("Credits"))
+        
+        button = QDialogButtonBox(QDialogButtonBox.Ok)
+        button.setCenterButtons(True)
+        button.accepted.connect(self.accept)
+        layout.addWidget(button)
+        layout.setSizeConstraint(QLayout.SetFixedSize)
+        
+
+class About(QWidget):
+    """About widget."""
+    def __init__(self, parent=None):
+        super(About, self).__init__(parent)
+        
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+        
         size = QSize(100, 100)
         pic = QLabel()
         pic.setPixmap(icons.get("frescobaldi").pixmap(size))
@@ -56,11 +99,13 @@ class AboutDialog(QDialog):
         text.setOpenExternalLinks(True)
         layout.addWidget(text)
 
-        button = QDialogButtonBox(QDialogButtonBox.Ok)
-        button.setCenterButtons(True)
-        button.accepted.connect(self.accept)
-        layout.addWidget(button)
-        layout.setSizeConstraint(QLayout.SetFixedSize)
+
+class Credits(QTextBrowser):
+    """Credits widget."""
+    def __init__(self, parent=None):
+        super(Credits, self).__init__(parent)
+        self.setOpenExternalLinks(True)
+        self.setHtml('\n'.join(map('<p>{0}</p>'.format, credits())))
 
 
 def html():
@@ -86,6 +131,7 @@ def html():
     
     return html_template.format(**locals())
 
+
 html_template = """<html>
 <body><div align="center">
 <h1>{appname}</h1>
@@ -98,3 +144,4 @@ html_template = """<html>
 </div></body>
 </html>
 """
+

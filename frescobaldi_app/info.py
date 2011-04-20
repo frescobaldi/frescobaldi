@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
 # Copyright (c) 2008 - 2011 by Wilbert Berendsen
@@ -21,6 +22,8 @@
 Information about the Frescobaldi application.
 """
 
+from __future__ import unicode_literals
+
 # these variables are also used by the distutils setup
 name = "frescobaldi"
 version = "1.9.0"
@@ -35,4 +38,11 @@ license = "GPL"
 
 # these are used in the application
 appname = "Frescobaldi"
+
+# mapping from language code to list of translator names
+translators = {
+    'nl': [
+        "Wilbert Berendsen",
+    ],
+}
 

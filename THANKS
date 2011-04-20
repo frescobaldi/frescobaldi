@@ -1,0 +1,49 @@
+Without the help of other people, Frescobaldi would not have been possible.
+
+Besides the credits listed here, there is also information in about.py and
+info.py from the frescobaldi_app/ directory.
+
+Thanks go to the Python and Qt4 developers for providing excellent tools to
+develop Frescobaldi with.
+
+And thanks to the LilyPond developers for creating an amazing music engraver!
+
+
+Main author and core developer:
+* Wilbert Berendsen (www.wilbertberendsen.nl)
+
+French translation:
+* Valentin Villenave (valentin.villenave.info)
+* Yann Collette
+* David Bouriaud
+* Ryan Kavanagh
+
+Turkish translation:
+* Server ACİM (www.serveracim.net)
+
+Spanish translation:
+* Francisco Vila (www.paconet.org)
+
+Russian translation:
+* Sergey Poltavski
+* Artem Zolochevskiy
+
+Italian translation:
+* Gianluca D'Orazio
+
+German translation:
+* Henrik Evers
+* Georg Hennig
+
+Czech translation:
+* Pavel Fric
+
+Polish translation:
+* Piotr Komorowski
+
+Galician translation:
+* Manuel A. Vázquez
+
+Finding lots of bugs:
+* Mario Moles
+
