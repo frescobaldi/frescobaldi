@@ -56,17 +56,11 @@ def quit():
     if _initialized is True:
         _initialized = False
 
-def reinit():
-    """Re-initializes the PortMidi library, e.g. when new MIDI devices are added."""
-    if _initialized:
-        quit()
-    init()
-
-def count():
+def get_count():
     """Returns the number of available MIDI devices."""
     return libpm.Pm_CountDevices()
 
-def device_info(device_id):
+def get_device_info(device_id):
     """Returns 5-item tuple parameters with information about the given device.
 
     Returns a tuple with the following five elements:
@@ -84,13 +78,13 @@ def device_info(device_id):
         return (info.interf, info.name, bool(info.input), bool(info.output),
             bool(info.opened))
 
-def default_output_device():
-    """Return ID of the current default MID output device."""
-    return libpm.Pm_GetDefaultOutputDeviceID()
-
-def default_input_device():
+def get_default_input_id():
     """Return ID of the current default MIDI input device."""
     return libpm.Pm_GetDefaultInputDeviceID()
+
+def get_default_output_id():
+    """Return ID of the current default MID output device."""
+    return libpm.Pm_GetDefaultOutputDeviceID()
 
 def time():
     """Returns the current time of the PortMidi timer in milliseconds."""
@@ -129,11 +123,13 @@ def check_error(err_no):
         if err_no == pmHostError:
             err_msg = create_string_buffer('\000' * 256)
             libpm.Pm_GetHostErrorText(err_msg, err_no)
-            raise HostError(err_no, err_msg.value)
-        raise Error(err_no, libpm.Pm_GetErrorText(err_no))
+            err_msg = err_msg.value
+        else:
+            err_msg = libpm.Pm_GetErrorText(err_no)
+        raise MidiException(err_no, err_msg)
 
 
-class Error(Exception):
+class MidiException(Exception):
     """Raised on PortMidi errors.
     
     The err_no attribute defines the PortMidi error number.
@@ -147,10 +143,6 @@ class Error(Exception):
     
     def __str__(self):
         return "[{0}] {1}".format(self.err_no, self.err_msg)
-
-
-class HostError(Error):
-    pass
 
 
 class Output(object):
@@ -198,12 +190,16 @@ class Output(object):
         check_error(err)
         self._opened = True
 
-    def __del__(self):
-        if self._opened and device_info(self.device_id)[4]:
+    def close(self):
+        """Closes a midi stream, flushing any pending buffers."""
+        if self._opened and get_device_info(self.device_id)[4]:
             err = libpm.Pm_Abort(self._midi_stream)
             check_error(err)
             err = libpm.Pm_Close(self._midi_stream)
             check_error(err)
+            self._opened = False
+        
+    __del__ = close
 
     def write(self, data, bufsize=None):
         """Send the given series of data to the output device.
@@ -323,6 +319,40 @@ class Output(object):
         while time() == cur_time:
             pass
 
+    def note_on(self, note, velocity=80, channel = 0):
+        """turns a midi note on.  Note must be off.
+        Output.note_on(note, velocity=80, channel = 0)
+
+        Turn a note on in the output stream.  The note must already
+        be off for this to work correctly.
+        """
+        if not (0 <= channel <= 15):
+            raise ValueError("Channel not between 0 and 15.")
+        self.write_short(0x90+channel, note, velocity)
+
+    def note_off(self, note, velocity=0, channel = 0):
+        """turns a midi note off.  Note must be on.
+        Output.note_off(note, velocity=None, channel = 0)
+
+        Turn a note off in the output stream.  The note must already
+        be on for this to work correctly.
+        """
+        if not (0 <= channel <= 15):
+            raise ValueError("Channel not between 0 and 15.")
+        self.write_short(0x80 + channel, note, velocity)
+
+
+    def set_instrument(self, instrument_id, channel = 0):
+        """select an instrument, with a value between 0 and 127
+        Output.set_instrument(instrument_id, channel = 0)
+
+        """
+        if not (0 <= instrument_id <= 127):
+            raise ValueError("Undefined instrument id: %d" % instrument_id)
+        if not (0 <= channel <= 15):
+            raise ValueError("Channel not between 0 and 15.")
+        self.write_short(0xc0+channel, instrument_id)
+
 
 class Input(object):
     """Define a MIDI input stream and attach it to a MIDI input device.
@@ -359,12 +389,16 @@ class Input(object):
         check_error(err)
         self._opened = True
 
-    def __del__(self):
-        if self._opened and device_info(self.device_id)[4]:
+    def close(self):
+        """Closes a midi stream, flushing any pending buffers."""
+        if self._opened and get_device_info(self.device_id)[4]:
             err = libpm.Pm_Abort(self._midi_stream)
             check_error(err)
             err = libpm.Pm_Close(self._midi_stream)
             check_error(err)
+            self._opened = False
+        
+    __del__ = close
 
     def set_filter(self, filter):
         """Sets filter on an open input stream to drop selected MIDI messages.
