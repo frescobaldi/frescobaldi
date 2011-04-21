@@ -4,6 +4,18 @@ via ctypes.
 
 This file defines the (simple) API, loosely based on the pygame.midi API.
 
+For many use cases, this package could be used as a fallback is pygame.midi is
+not available. E.g.:
+
+try:
+    import pygame.midi as pmidi
+except ImportError:
+    try:
+        import portmidi as pmidi
+    except ImportError:
+        ... no MIDI support available
+    
+
 The PortMidi library should be installed separately.
 Get it from: http://portmedia.sourceforge.net/
 
@@ -137,7 +149,7 @@ class MidiException(Exception):
     
     """
     def __init__(self, err_no, err_msg):
-        super(Error, self).__init__(err_msg)
+        super(MidiException, self).__init__(err_msg)
         self.err_no = err_no
         self.err_msg = err_msg
     
