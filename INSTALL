@@ -1,13 +1,14 @@
 INSTALL for Frescobaldi 2.0.
 ============================
 
-You can run Frescobaldi without installing:
+You can run Frescobaldi without installing. Just unpack and then run:
 
   python frescobaldi
 
 
-The Frescobaldi package is based on distutils. To install in the default
-location:
+The Frescobaldi package is based on distutils. No build process is needed as
+Frescobaldi is fully written in the interpreted Python language. To install in
+the default location:
 
   sudo python setup.py install
 
@@ -34,7 +35,29 @@ See the distutils documentation for more install options.
 Dependencies:
 =============
 
-Frescobaldi 2.0 depends on Qt4.7 and PyQt4.8, and uses the python-poppler-qt4
-package[1] for the built-in PDF preview.
+Frescobaldi 2.0 is written in Python version 2.6 or 2.7 (3.x support is planned)
+and depends on Qt4.7 and PyQt4.8, and uses the python-poppler-qt4 binding to
+Poppler for the built-in PDF preview.
 
-[1] http://python-poppler-qt4.googlecode.com/
+For MIDI the PortMidi library is used, either via importing pyportmidi.midi, or,
+if that is not available, loading the pygame.pypm module or, as a last resort,
+embedding the PortMidi C-library via ctypes. MIDI is optional.
+
+Required:
+    Python:
+        http://www.python.org/
+    Qt4:
+        http://qt.nokia.com/
+    PyQt4:
+        http://www.riverbankcomputing.co.uk/software/pyqt/
+    Poppler:
+        http://poppler.freedesktop.org/
+    python-poppler-qt4:
+        http://python-poppler-qt4.googlecode.com/
+
+Optional:
+    PortMidi:
+        http://portmedia.sourceforge.net/portmidi/
+
+Of course you'll need to install one or more versions of LilyPond!
+
