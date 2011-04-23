@@ -2,6 +2,7 @@ include README* COPYING THANKS TODO
 include frescobaldi.desktop
 include frescobaldi.pot
 include *.py
+recursive-include frescobaldi_app README*
 recursive-include frescobaldi_app *.png *.svg
 recursive-include frescobaldi_app *.ly *.ily Makefile
 recursive-include frescobaldi_app *.po *.mo
