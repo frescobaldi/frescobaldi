@@ -1,4 +1,4 @@
-# This file is part of the qmidiplayer package.
+# This file is part of the midiobject package.
 #
 # Copyright (c) 2011 by Wilbert Berendsen
 #
@@ -17,16 +17,24 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
+class Event(object):
+    """The base type for all MIDI events."""
+    def output(self, out):
+        """Should write our event to the output event handler."""
+        pass
 
-"""
-The qmidiplayer package contains a midiplayer and some additional modules.
+class NoteEvent(Event):
+    """A NoteOn or NoteOff event."""
+    def __init__(self, channel, pitch, velocity):
+        self.channel = channel
+        self.pitch = pitch
+        self.velocity = velocity
 
-It uses Max M.'s midi package for loading SMF (Standard MIDI Format) files.
-It uses a portmidi backend with a pygame.midi-like api.
-It uses signals and some more idioms from Qt4.
-It contains a Qt4 widget as well.
-
-"""
-
-
+class NoteOn(NoteEvent):
+    def output(self, out):
+        return out.note_on(self.channel, self.pitch, self.velocity)
+        
+class NoteOff(NoteEvent):
+    def output(self, out):
+        return out.note_off(self.channel, self.pitch, self.velocity)
 

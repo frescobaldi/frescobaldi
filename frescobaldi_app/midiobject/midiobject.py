@@ -1,4 +1,4 @@
-# This file is part of the qmidiplayer package.
+# This file is part of the midiobject package.
 #
 # Copyright (c) 2011 by Wilbert Berendsen
 #
