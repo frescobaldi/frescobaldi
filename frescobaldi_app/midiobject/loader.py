@@ -22,17 +22,20 @@
 Loads a MIDI file using Max M.'s midi package.
 
 The Loader is a subclass of MidiOutStream and stores all information, events etc.
-This information is then transferred to a MidiObject instance that represents the loaded file.
+in a MidiObject instance that represents the loaded file.
+
 """
 
 import midi.MidiOutStream
 
 from . import event
+from . import midiobject
+
 
 class Loader(midi.MidiOutStream.MidiOutStream):
-    def __init__(self):
+    def __init__(self, midiObject=None):
         super(Loader, self).__init__()
-        self._events = {}
+        self.midi = midiObject or midiobject.MidiObject()
 
     def append(self, ev):
         """Adds the event to our events dict (by absolute time)
@@ -41,14 +44,14 @@ class Loader(midi.MidiOutStream.MidiOutStream):
         The value is a dict containing a list of event objects for every track number.
         
         """
-        evs = self._events.setdefault(self.abs_time(), {}).setdefault(self.get_current_track(), [])
+        evs = self.midi.events().setdefault(self.abs_time(), {}).setdefault(self.get_current_track(), [])
         evs.append(ev)
         
     # event handlers
     def header(self, format=0, nTracks=1, division=96):
-        self._format = format
-        self._numTracks = nTracks
-        self._division = division
+        self.midi.setMidiFormat(format)
+        self.midi.setNumTracks(nTracks)
+        self.midi.setDivision(division)
     
     def note_on(self, channel=0, note=0x40, velocity=0x40):
         self.append(event.NoteOn(channel, note, velocity))

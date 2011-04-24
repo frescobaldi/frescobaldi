@@ -22,11 +22,6 @@
 A MidiObject() represents a loaded MIDI file.
 """
 
-import midi.MidiInFile
-
-from . import loader
-
-
 class MidiObject(object):
     """Represents a MIDI file."""
     def __init__(self):
@@ -40,36 +35,30 @@ class MidiObject(object):
         self._division = 96
         self._events = {}
         
-    def load(self, f):
-        """Initializes ourselves from a file or file handle."""
-        ldr = loader.Loader()
-        inp = midi.MidiInFile.MidiInFile(ldr, f)
-        inp.read()
-        self.initFromLoader(ldr)
-
-    def initFromLoader(self, ldr):
-        """Initializes ourselves from the contents of Loader ldr.
-        
-        Theoretically the MidiObject itself could be a subclass of MidiOutStream
-        like the Loader is, but that would leave us with all the unnecessary
-        event handler methods once the file is read, which makes the MidiObject
-        class more difficult to understand for user-developers.
-        
-        """
-        self._format = ldr._format
-        self._numTracks = ldr._numTracks
-        self._division = ldr._division
-        self._events = ldr._events
-
     def midiFormat(self):
+        """Returns the MIDI format of this file."""
         return self._format
     
+    def setMidiFormat(self, format):
+        """Sets the MIDI format of this file."""
+        self._format = format
+        
     def numTracks(self):
+        """Returns the number of tracks of this file."""
         return self._numTracks
     
+    def setNumTracks(self, numTracks):
+        """Sets the number of tracks of this file."""
+        self._numTracks = numTracks
+        
     def division(self):
+        """Returns the division of this file."""
         return self._division
     
+    def setDivision(self, division):
+        """Sets the division of this file."""
+        self._division = division
+        
     def events(self):
         """Returns all the MIDI events in a dictionary.
         

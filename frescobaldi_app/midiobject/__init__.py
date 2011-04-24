@@ -22,9 +22,25 @@
 A MidiObject represents a MIDI file in memory.
 """
 
-
+import midi.MidiInFile
 
 from . import midiobject
 from . import event
+from . import loader
 
 MidiObject = midiobject.MidiObject
+
+
+
+def load(f):
+    """Loads a MIDI file from the given filename or filehandle.
+    
+    Returns a MidiObject.
+    
+    """
+    m = MidiObject()
+    inp = midi.MidiInFile.MidiInFile(loader.Loader(m), f)
+    inp.read()
+    return m
+
+
