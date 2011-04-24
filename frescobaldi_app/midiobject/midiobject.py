@@ -22,24 +22,60 @@
 A MidiObject() represents a loaded MIDI file.
 """
 
-import midi.MidiOutStream
+import midi.MidiInFile
 
-from . import event
+from . import loader
 
-class MidiObject(midi.MidiOutStream.MidiOutStream):
+
+class MidiObject(object):
     """Represents a MIDI file."""
     def __init__(self):
-        super(MidiObject, self).__init__()
-        self._events = {}
-    
-    def append(self, ev):
-        """Adds the event to our events dict (by absolute time)"""
-        evs = self._events.setdefault(self.abs_time(), [])
-        evs.append(ev)
+        """Initializes an empty MIDI object."""
+        self.clear()
         
-    def note_on(self, channel=0, note=0x40, velocity=0x40):
-        self.append(event.NoteOn(channel, note, velocity))
-    
-    def note_off(self, channel=0, note=0x40, velocity=0x40):
-        self.append(event.NoteOff(channel, note, velocity))
+    def clear(self):
+        """Initializes ourselves as an empty MIDI object."""
+        self._format = 1
+        self._numTracks = 0
+        self._division = 96
+        self._events = {}
+        
+    def load(self, f):
+        """Initializes ourselves from a file or file handle."""
+        ldr = loader.Loader()
+        inp = midi.MidiInFile.MidiInFile(ldr, f)
+        inp.read()
+        self.initFromLoader(ldr)
 
+    def initFromLoader(self, ldr):
+        """Initializes ourselves from the contents of Loader ldr.
+        
+        Theoretically the MidiObject itself could be a subclass of MidiOutStream
+        like the Loader is, but that would leave us with all the unnecessary
+        event handler methods once the file is read, which makes the MidiObject
+        class more difficult to understand for user-developers.
+        
+        """
+        self._format = ldr._format
+        self._numTracks = ldr._numTracks
+        self._division = ldr._division
+        self._events = ldr._events
+
+    def midiFormat(self):
+        return self._format
+    
+    def numTracks(self):
+        return self._numTracks
+    
+    def division(self):
+        return self._division
+    
+    def events(self):
+        """Returns all the MIDI events in a dictionary.
+        
+        The events dict's keys are the absolute time.
+        The value is a dict containing a list of event objects for every track number.
+        
+        """
+        return self._events
+        
