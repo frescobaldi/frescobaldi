@@ -30,7 +30,7 @@ from . import loader
 
 MidiObject = midiobject.MidiObject
 
-
+__all__ = ['load', 'MidiObject']
 
 def load(f):
     """Loads a MIDI file from the given filename or filehandle.

@@ -40,6 +40,7 @@ class LoaderBase(midi.MidiOutStream.MidiOutStream):
     
     """
     def __init__(self, midiObject=None):
+        """If you don't supply a MidiObject, a default one will be used. You can find it in the midi attribute."""
         super(LoaderBase, self).__init__()
         self.midi = midiObject or midiobject.MidiObject()
 
