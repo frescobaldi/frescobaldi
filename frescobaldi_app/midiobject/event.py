@@ -18,44 +18,6 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 
-_notenames = ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'a#', 'b']
-_octavenames = [",,,,", ",,,", ",,", ",", "", "'", "''", "'''", "''''", "'''''"]
-
-def pitch2note(p):
-    """Returns a notename from the given MIDI pitch, e.g. "c'".
-    
-    This is only used in the __repr__ functions of note events.
-    
-    """
-    octave, note = divmod(p, 12)
-    return _notenames[note]+_octavenames[octave]
-
-
-_keynames = [
-    'f&', 'c&', 'g&', 'd&', 'a&', 'e&', 'b&',
-    'f', 'c', 'g', 'd', 'a', 'e', 'b',
-    'f#', 'c#', 'g#', 'd#', 'a#', 'e#', 'b#',
-]
-
-def keysignature(sf, mi):
-    """Returns a human-readable key signature, e.g. 'd minor'.
-    
-    sf: number of sharps or flats (negative)
-    mi: 0 = major, 1 = minor.
-    
-    """
-    if sf > 128:
-        sf -= 256
-    i = sf + 8
-    if mi:
-        i += 3
-    if 0 <= i <= len(_keynames):
-        key = _keynames[i]
-    else:
-        key = format(sf)
-    return key + (" minor" if mi else " major")
-
-
 class Event(object):
     """The base type for all MIDI events."""
     def output(self, out):
@@ -325,6 +287,10 @@ class SmptOffset(Event):
     def output(self, out):
         return out.smpt_offset(self.hour, self.minute, self.second, self.frame, self.framePart)
 
+    def __repr__(self):
+        return "<{0} {1:02d}:{2:02d}:{3:02d}, {4:02d}-{5:03d}>".format(
+            self.__class__.__name__, self.hour, self.minute, self.second, self.frame, self.framePart)
+
 class TimeSignature(Event):
     def __init__(self, nn, dd, cc, bb):
         """
@@ -396,4 +362,29 @@ class ActiveSensing(Event):
 class SystemReset(Event):
     def output(self, out):
         return out.system_reset()
+
+
+_notenames = ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'a#', 'b']
+_octavenames = [",,,,", ",,,", ",,", ",", "", "'", "''", "'''", "''''", "'''''"]
+
+def pitch2note(p):
+    """Returns a notename from the given MIDI pitch, e.g. "c'".
+    
+    This is only used in the __repr__ functions of note events.
+    
+    """
+    octave, note = divmod(p, 12)
+    return _notenames[note]+_octavenames[octave]
+
+
+def keysignature(sf, mi):
+    # negative?
+    if sf > 128:
+        sf -= 256
+    # adjust pitch name for minor
+    i = sf + (4 if mi else 1)
+    # add accidentals
+    accs, pitch = divmod(i, 7)
+    suffix = '&' * -accs if accs < 0 else '#' * accs
+    return 'fcgdaeb'[pitch] + suffix + (" minor" if mi else " major")
 
