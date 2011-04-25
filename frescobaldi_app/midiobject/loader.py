@@ -92,11 +92,8 @@ class Loader(midi.MidiOutStream.MidiOutStream):
     def meta_event(self, meta_type, data):
         self.append(event.MetaEvent(meta_type, data))
     
-    def start_of_track(self, n_track=0):
-        self.append(event.StartOfTrack(n_track))
-
     def end_of_track(self):
-        self.append(event.EndOfTrack(n_track))
+        self.append(event.EndOfTrack())
 
     def sequence_number(self, value):
         self.append(event.SequenceNumber(value))
@@ -141,70 +138,24 @@ class Loader(midi.MidiOutStream.MidiOutStream):
         self.append(event.KeySignature(sf, mi))
 
     def sequencer_specific(self, data):
-
-        """
-        data: The data as byte values
-        """
-        pass
-
-
-
-
-    #####################
-    ## realtime events
-
+        self.append(event.SequenceSpecific(data))
+    
     def timing_clock(self):
-
-        """
-        No values passed
-        """
-        pass
-
-
+        self.append(event.TimingClock())
 
     def song_start(self):
-
-        """
-        No values passed
-        """
-        pass
-
-
-
+        self.append(event.SongStart())
+    
     def song_stop(self):
-
-        """
-        No values passed
-        """
-        pass
-
-
+        self.append(event.SongStop())
 
     def song_continue(self):
-
-        """
-        No values passed
-        """
-        pass
-
-
+        self.append(event.SongContinue())
 
     def active_sensing(self):
-
-        """
-        No values passed
-        """
-        pass
-
-
+        self.append(event.ActiveSensing())
 
     def system_reset(self):
-
-        """
-        No values passed
-        """
-        pass
-
-
+        self.append(event.SystemReset())
 
 

@@ -129,21 +129,9 @@ class MetaEvent(Event):
     def output(self, out):
         return out.meta_event(self.meta_type, self.data)
 
-class StartOfTrack(Event):
-    def __init__(self, n_track):
-        """n_track: number of track"""
-        self.n_track = n_track
-
-    def output(self, out):
-        return out.start_of_track(self.n_track)
-        
 class EndOfTrack(Event):
-    def __init__(self, n_track):
-        """n_track: number of track"""
-        self.n_track = n_track
-
     def output(self, out):
-        return out.end_of_track(self.n_track)
+        return out.end_of_track()
         
 class SequenceNumber(Event):
     def __init__(self, value):
@@ -283,4 +271,36 @@ class KeySignature(Event):
     
     def output(self, out):
         return out.key_signature(self.sf, self.mi)
+
+class SequenceSpecific(Event):
+    def __init__(self, data):
+        """data: the data as byte values"""
+        self.data = data
+    
+    def output(self, out):
+        return out.sequence_specific(self.data)
+
+class TimingClock(Event):
+    def output(self, out):
+        return out.timing_clock()
+
+class SongStart(Event):
+    def output(self, out):
+        return out.song_start()
+
+class SongStop(Event):
+    def output(self, out):
+        return out.song_stop()
+
+class SongContinue(Event):
+    def output(self, out):
+        return out.song_continue()
+
+class ActiveSensing(Event):
+    def output(self, out):
+        return out.active_sensing()
+
+class SystemReset(Event):
+    def output(self, out):
+        return out.system_reset()
 
