@@ -17,13 +17,43 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
+
 _notenames = ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'a#', 'b']
 _octavenames = [",,,,", ",,,", ",,", ",", "", "'", "''", "'''", "''''", "'''''"]
 
 def pitch2note(p):
-    """Returns a notename from the given MIDI pitch."""
+    """Returns a notename from the given MIDI pitch, e.g. "c'".
+    
+    This is only used in the __repr__ functions of note events.
+    
+    """
     octave, note = divmod(p, 12)
     return _notenames[note]+_octavenames[octave]
+
+
+_keynames = [
+    'f&', 'c&', 'g&', 'd&', 'a&', 'e&', 'b&',
+    'f', 'c', 'g', 'd', 'a', 'e', 'b',
+    'f#', 'c#', 'g#', 'd#', 'a#', 'e#', 'b#',
+]
+
+def keysignature(sf, mi):
+    """Returns a human-readable key signature, e.g. 'd minor'.
+    
+    sf: number of sharps or flats (negative)
+    mi: 0 = major, 1 = minor.
+    
+    """
+    if sf > 128:
+        sf -= 256
+    i = sf + 8
+    if mi:
+        i += 3
+    if 0 <= i <= len(_keynames):
+        key = _keynames[i]
+    else:
+        key = format(sf)
+    return key + (" minor" if mi else " major")
 
 
 class Event(object):
@@ -122,7 +152,14 @@ class SystemExclusive(Event):
         
     def output(self, out):
         return out.system_exclusive(self.data)
-
+    
+    def __repr__(self):
+        maxlen = 10
+        data = " ".join(hex(ord(d))[2:] for d in self.data[:maxlen])
+        if len(self.data) > maxlen:
+            data += " ..."
+        return "<{0} hex:{1}>".format(self.__class__.__name__, data)
+        
 class SongPositionPointer(Event):
     def __init__(self, value):
         """value: 0-16383"""
@@ -131,6 +168,9 @@ class SongPositionPointer(Event):
     def output(self, out):
         return out.song_position_pointer(self.value)
 
+    def __repr__(self):
+        return "<{0} {1}>".format(self.__class__.__name__, self.value)
+
 class SongSelect(Event):
     def __init__(self, songNumber):
         """songNumber: 0-127"""
@@ -138,6 +178,9 @@ class SongSelect(Event):
     
     def output(self, out):
         return out.song_select(self.songNumber)
+
+    def __repr__(self):
+        return "<{0} {1}>".format(self.__class__.__name__, self.songNumber)
 
 class TuningRequest(Event):
     def output(self, out):
@@ -151,6 +194,9 @@ class MidiTimeCode(Event):
     
     def output(self, out):
         return out.midi_time_code(self.msg_type, self.values)
+    
+    def __repr__(self):
+        return "<{0} msg_type={1} values={2}>".format(self.__class__.__name__, self.msg_type, self.values)
 
 class MetaEvent(Event):
     def __init__(self, meta_type, data):
@@ -172,6 +218,9 @@ class SequenceNumber(Event):
     
     def output(self, out):
         return out.sequence_number(self.value)
+
+    def __repr__(self):
+        return "<{0} {1}>".format(self.__class__.__name__, self.value)
 
 class TextEvent(Event):
     """Base class for events with only a text attribute."""
@@ -318,9 +367,7 @@ class KeySignature(Event):
         return out.key_signature(self.sf, self.mi)
     
     def __repr__(self):
-        key = self.sf if self.sf < 128 else self.sf - 256
-        return "<{0} key={1} {2}>".format(
-            self.__class__.__name__, key, "minor" if self.mi else "major")
+        return "<{0} {1}>".format(self.__class__.__name__, keysignature(self.sf, self.mi))
 
 class SequenceSpecific(Event):
     def __init__(self, data):
