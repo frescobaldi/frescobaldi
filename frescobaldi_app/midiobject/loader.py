@@ -32,7 +32,13 @@ from . import event
 from . import midiobject
 
 
-class Loader(midi.MidiOutStream.MidiOutStream):
+class LoaderBase(midi.MidiOutStream.MidiOutStream):
+    """Base class for loading a MIDI file from a MidiInStream or file into a MidiObject.
+    
+    Although the class is usable, no event except the header event is loaded.
+    Inherit this class to implement handlers for the events you're interested in.
+    
+    """
     def __init__(self, midiObject=None):
         super(Loader, self).__init__()
         self.midi = midiObject or midiobject.MidiObject()
@@ -47,12 +53,20 @@ class Loader(midi.MidiOutStream.MidiOutStream):
         evs = self.midi.events().setdefault(self.abs_time(), {}).setdefault(self.get_current_track(), [])
         evs.append(ev)
         
-    # event handlers
     def header(self, format=0, nTracks=1, division=96):
         self.midi.setMidiFormat(format)
         self.midi.setNumTracks(nTracks)
         self.midi.setDivision(division)
     
+
+class Loader(LoaderBase):
+    """Loader class that loads all events from a MidiInStream.
+    
+    To filter out some events you could inherit this class and define no-op
+    methods for the events you're not interested in.
+    
+    """
+    # event handlers
     def note_on(self, channel=0, note=0x40, velocity=0x40):
         self.append(event.NoteOn(channel, note, velocity))
     

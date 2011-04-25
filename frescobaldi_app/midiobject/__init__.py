@@ -36,6 +36,7 @@ def load(f):
     """Loads a MIDI file from the given filename or filehandle.
     
     Returns a MidiObject.
+    Uses the default MidiObject and a default Loader.
     
     """
     m = MidiObject()
