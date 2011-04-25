@@ -40,7 +40,7 @@ class LoaderBase(midi.MidiOutStream.MidiOutStream):
     
     """
     def __init__(self, midiObject=None):
-        super(Loader, self).__init__()
+        super(LoaderBase, self).__init__()
         self.midi = midiObject or midiobject.MidiObject()
 
     def append(self, ev):

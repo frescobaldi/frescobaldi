@@ -17,6 +17,15 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
+_notenames = ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'a#', 'b']
+_octavenames = [",,,,", ",,,", ",,", ",", "", "'", "''", "'''", "''''", "'''''"]
+
+def pitch2note(p):
+    """Returns a notename from the given MIDI pitch."""
+    octave, note = divmod(p, 12)
+    return _notenames[note]+_octavenames[octave]
+
+
 class Event(object):
     """The base type for all MIDI events."""
     def output(self, out):
@@ -40,7 +49,7 @@ class NoteEvent(ChannelEvent):
     
     def __repr__(self):
         return "<{0} ch={1} p={2} v={3}>".format(
-            self.__class__.__name__, self.channel, self.pitch, self.velocity)
+            self.__class__.__name__, self.channel, pitch2note(self.pitch), self.velocity)
 
 class NoteOn(NoteEvent):
     def output(self, out):
