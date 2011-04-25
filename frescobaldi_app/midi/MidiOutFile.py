@@ -222,7 +222,7 @@ class MidiOutFile(MidiOutStream):
         """
         self._current_track_buffer = RawOutstreamFile()
         self.reset_time()
-        self._current_track += 1
+        self._current_track = n_track
 
 
     def end_of_track(self):

@@ -207,10 +207,6 @@ class MetaEvent(Event):
     def output(self, out):
         return out.meta_event(self.meta_type, self.data)
 
-class EndOfTrack(Event):
-    def output(self, out):
-        return out.end_of_track()
-        
 class SequenceNumber(Event):
     def __init__(self, value):
         """value: 0-16383"""
@@ -346,7 +342,7 @@ class TimeSignature(Event):
         self.bb = bb
         
     def output(self, out):
-        return out.time_signature(self.nn, self.dd, self.cc, self.dd)
+        return out.time_signature(self.nn, self.dd, self.cc, self.bb)
     
     def __repr__(self):
         return "<{0} n={1} d={2} c={3} b={4}".format(

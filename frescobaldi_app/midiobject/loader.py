@@ -106,9 +106,6 @@ class Loader(LoaderBase):
     def meta_event(self, meta_type, data):
         self.append(event.MetaEvent(meta_type, data))
     
-    def end_of_track(self):
-        self.append(event.EndOfTrack())
-
     def sequence_number(self, value):
         self.append(event.SequenceNumber(value))
 
