@@ -22,6 +22,9 @@ class Event(object):
     def output(self, out):
         """Should write our event to the output event handler."""
         pass
+    
+    def __repr__(self):
+        return "<{0}>".format(self.__class__.__name__)
 
 class ChannelEvent(Event):
     """An event type that must have channel attribute."""
@@ -34,6 +37,10 @@ class NoteEvent(ChannelEvent):
         self.channel = channel
         self.pitch = pitch
         self.velocity = velocity
+    
+    def __repr__(self):
+        return "<{0} ch={1} p={2} v={3}>".format(
+            self.__class__.__name__, self.channel, self.pitch, self.velocity)
 
 class NoteOn(NoteEvent):
     def output(self, out):
@@ -56,7 +63,11 @@ class ContinuousController(ChannelEvent):
 
     def output(self, out):
         return out.continuous_controller(self.channel, self.controller, self.value)
-
+    
+    def __repr__(self):
+        return "<{0} ch={1} c={2} v={3}>".format(
+            self.__class__.__name__, self.channel, self.controller, self.value)
+        
 class PatchChange(ChannelEvent):
     def __init__(self, channel, patch):
         """channel: 0-15; patch: 0-127"""
@@ -65,7 +76,11 @@ class PatchChange(ChannelEvent):
     
     def output(self, out):
         return out.patch_change(self.channel, self.patch)
-
+    
+    def __repr__(self):
+        return "<{0} ch={1} patch={2}>".format(
+            self.__class__.__name__, self.channel, self.patch)
+        
 class ChannelPressure(ChannelEvent):
     def __init__(self, channel, pressure):
         """channel: 0-15; pressure: 0-127"""
@@ -75,6 +90,10 @@ class ChannelPressure(ChannelEvent):
     def output(self, out):
         return out.channel_pressure(self.channel, self.pressure)
 
+    def __repr__(self):
+        return "<{0} ch={1} pressure={2}>".format(
+            self.__class__.__name__, self.channel, self.pressure)
+        
 class PitchBend(ChannelEvent):
     def __init__(self, channel, value):
         """channel: 0-15; value: 0-16383"""
@@ -83,6 +102,10 @@ class PitchBend(ChannelEvent):
         
     def output(self, out):
         return out.pitch_bend(self.channel, self.value)
+    
+    def __repr__(self):
+        return "<{0} ch={1} value={2}>".format(
+            self.__class__.__name__, self.channel, self.value)
 
 class SystemExclusive(Event):
     def __init__(self, data):
@@ -146,7 +169,10 @@ class TextEvent(Event):
     def __init__(self, text):
         """text: string"""
         self.text = text
-        
+    
+    def __repr__(self):
+        return "<{0} {1}>".format(self.__class__.__name__, repr(self.text))
+
 class Text(TextEvent):
     """Text event"""
     def output(self, out):
@@ -199,6 +225,9 @@ class MidiPort(Event):
     
     def output(self, out):
         return out.midi_port(self.value)
+    
+    def __repr__(self):
+        return "<{0} value={1}>".format(self.__class__.__name__, self.value)
 
 class Tempo(Event):
     """Tempo event"""
@@ -212,6 +241,9 @@ class Tempo(Event):
         
     def output(self, out):
         return out.tempo(self.value)
+    
+    def __repr__(self):
+        return "<{0} value={1}>".format(self.__class__.__name__, self.value)
 
 class SmptOffset(Event):
     """SMPT Time event"""
@@ -257,6 +289,10 @@ class TimeSignature(Event):
         
     def output(self, out):
         return out.time_signature(self.nn, self.dd, self.cc, self.dd)
+    
+    def __repr__(self):
+        return "<{0} n={1} d={2} c={3} b={4}".format(
+            self.__class__.__name__, self.nn, self.dd, self.cc, self.bb)
 
 class KeySignature(Event):
     def __init__(self, sf, mi):
@@ -271,6 +307,11 @@ class KeySignature(Event):
     
     def output(self, out):
         return out.key_signature(self.sf, self.mi)
+    
+    def __repr__(self):
+        key = self.sf if self.sf < 128 else self.sf - 256
+        return "<{0} key={1} {2}>".format(
+            self.__class__.__name__, key, "minor" if self.mi else "major")
 
 class SequenceSpecific(Event):
     def __init__(self, data):
