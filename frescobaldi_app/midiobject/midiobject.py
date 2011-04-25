@@ -71,10 +71,12 @@ class MidiObject(object):
     def output(self, output):
         """Write all our events to the output handler (a midi.MidiOutStream instance)."""
         output.header(self._format, self._numTracks, self._division)
-        times = list(sorted(self.events().keys()))
+        times = sorted(self.events().keys())
         evs = self.events()
         for track in range(self._numTracks):
+            output.reset_time()
             output.start_of_track(track)
+            output.set_current_track(track)
             for time in times:
                 try:
                     for ev in evs[time][track]:
