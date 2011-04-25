@@ -250,7 +250,7 @@ class EventDispatcher:
         # SMTP_OFFSET = 0x54 (54 05 hh mm ss ff xx)
         elif meta_type == SMTP_OFFSET:
             hour, minute, second, frame, framePart = toBytes(data)
-            stream.smtp_offset(
+            stream.smpt_offset(
                     hour, minute, second, frame, framePart)
         
         # TIME_SIGNATURE = 0x58 (58 04 nn dd cc bb)

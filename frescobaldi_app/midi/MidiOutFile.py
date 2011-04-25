@@ -334,7 +334,7 @@ class MidiOutFile(MidiOutStream):
         self.meta_slice(TEMPO, fromBytes([hb, mb, lb]))
 
 
-    def smtp_offset(self, hour, minute, second, frame, framePart):
+    def smpt_offset(self, hour, minute, second, frame, framePart):
 
         """
         hour,

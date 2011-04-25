@@ -149,8 +149,8 @@ class MidiToText(MidiOutStream):
         print 'tempo:', value
 
 
-    def smtp_offset(self, hour, minute, second, frame, framePart):
-        print 'smtp_offset', hour, minute, second, frame, framePart
+    def smpt_offset(self, hour, minute, second, frame, framePart):
+        print 'smpt_offset', hour, minute, second, frame, framePart
 
 
     def time_signature(self, nn, dd, cc, bb):

@@ -347,9 +347,10 @@ class MidiOutStream(object):
         pass
 
 
-    def smtp_offset(self, hour, minute, second, frame, framePart):
-
+    def smpt_offset(self, hour, minute, second, frame, framePart):
+        
         """
+        NOTE: spelling corrected! (orig: smtp_offset)
         hour,
         minute,
         second: 3 bytes specifying the hour (0-23), minutes (0-59) and 

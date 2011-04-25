@@ -59,3 +59,152 @@ class Loader(midi.MidiOutStream.MidiOutStream):
     def note_off(self, channel=0, note=0x40, velocity=0x40):
         self.append(event.NoteOff(channel, note, velocity))
 
+    def aftertouch(self, channel=0, note=0x40, velocity=0x40):
+        self.append(event.Aftertouch(channel, note, velocity))
+
+    def continuous_controller(self, channel, controller, value):
+        self.append(event.ContinuousController(channel, controller, value))
+
+    def patch_change(self, channel, patch):
+        self.append(event.PatchChange(channel, patch))
+
+    def channel_pressure(self, channel, pressure):
+        self.append(event.ChannelPressure(channel, pressure))
+
+    def pitch_bend(self, channel, value):
+        self.append(event.PitchBend(channel, value))
+
+    def system_exclusive(self, data):
+        self.append(event.SystemExclusive(data))
+    
+    def song_position_pointer(self, value):
+        self.append(event.SongPositionPointer(value))
+
+    def song_select(self, songNumber):
+        self.append(event.SongSelect(songNumber))
+
+    def tuning_request(self):
+        self.append(event.TuningRequest())
+            
+    def midi_time_code(self, msg_type, values):
+        self.append(event.MidiTimeCode(msg_type, values))
+
+    def meta_event(self, meta_type, data):
+        self.append(event.MetaEvent(meta_type, data))
+    
+    def start_of_track(self, n_track=0):
+        self.append(event.StartOfTrack(n_track))
+
+    def end_of_track(self):
+        self.append(event.EndOfTrack(n_track))
+
+    def sequence_number(self, value):
+        self.append(event.SequenceNumber(value))
+
+    def text(self, text):
+        self.append(event.Text(text))
+
+    def copyright(self, text):
+        self.append(event.Copyright(text))
+
+    def sequence_name(self, text):
+        self.append(event.SequenceName(text))
+
+    def instrument_name(self, text):
+        self.append(event.InstrumentName(text))
+
+    def lyric(self, text):
+        self.append(event.Lyric(text))
+
+    def marker(self, text):
+        self.append(event.Marker(text))
+
+    def cuepoint(self, text):
+        self.append(event.Cuepoint(text))
+    
+    def midi_ch_prefix(self, channel):
+        self.append(event.MidiChPrefix(channel))
+
+    def midi_port(self, value):
+        self.append(event.MidiPort(value))
+
+    def tempo(self, value):
+        self.append(event.Tempo(value))
+
+    def smpt_offset(self, hour, minute, second, frame, framePart):
+        self.append(event.SmtpOffset(hour, minute, second, frame, framePart))
+
+    def time_signature(self, nn, dd, cc, bb):
+        self.append(event.TimeSignature(nn, dd, cc, bb))
+
+    def key_signature(self, sf, mi):
+        self.append(event.KeySignature(sf, mi))
+
+    def sequencer_specific(self, data):
+
+        """
+        data: The data as byte values
+        """
+        pass
+
+
+
+
+    #####################
+    ## realtime events
+
+    def timing_clock(self):
+
+        """
+        No values passed
+        """
+        pass
+
+
+
+    def song_start(self):
+
+        """
+        No values passed
+        """
+        pass
+
+
+
+    def song_stop(self):
+
+        """
+        No values passed
+        """
+        pass
+
+
+
+    def song_continue(self):
+
+        """
+        No values passed
+        """
+        pass
+
+
+
+    def active_sensing(self):
+
+        """
+        No values passed
+        """
+        pass
+
+
+
+    def system_reset(self):
+
+        """
+        No values passed
+        """
+        pass
+
+
+
+
