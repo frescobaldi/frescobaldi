@@ -22,6 +22,9 @@
 A MidiObject() represents a loaded MIDI file.
 """
 
+import midi.MidiOutFile # used for saving
+
+
 class MidiObject(object):
     """Represents a MIDI file."""
     def __init__(self):
@@ -71,8 +74,8 @@ class MidiObject(object):
     def output(self, output):
         """Write all our events to the output handler (a midi.MidiOutStream instance)."""
         output.header(self._format, self._numTracks, self._division)
-        times = sorted(self.events().keys())
         evs = self.events()
+        times = sorted(evs)
         for track in range(self._numTracks):
             output.reset_time()
             output.start_of_track(track)
@@ -87,4 +90,9 @@ class MidiObject(object):
             output.update_time(0)
             output.end_of_track()
         output.eof()
+
+    def save(self, f):
+        """Writes ourselves to a MIDI file or file handle."""
+        self.output(midi.MidiOutFile.MidiOutFile(f))
+
 
