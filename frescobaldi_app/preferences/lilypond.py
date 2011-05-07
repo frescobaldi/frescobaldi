@@ -51,7 +51,6 @@ class LilyPondPrefs(preferences.GroupsPage):
         self.setLayout(layout)
 
         layout.addWidget(Versions(self))
-        layout.addWidget(DocVersion(self))
         layout.addWidget(Running(self))
 
 
@@ -273,46 +272,5 @@ class Running(preferences.Group):
         s.setValue("save_on_run", self.saveDocument.isChecked())
         s.setValue("delete_intermediate_files", self.deleteFiles.isChecked())
         s.setValue("include_path", self.include.value())
-
-
-class DocVersion(preferences.Group):
-    def __init__(self, page):
-        super(DocVersion, self).__init__(page)
-        
-        grid = QGridLayout()
-        self.setLayout(grid)
-        
-        self.verInstalled = QRadioButton(clicked=self._changed)
-        self.verCustom = QRadioButton(clicked=self._changed)
-        self.customVersion = QLineEdit(textEdited=self.changed)
-        grid.addWidget(self.verInstalled, 0, 0, 1, 2)
-        grid.addWidget(self.verCustom, 1, 0)
-        grid.addWidget(self.customVersion, 1, 1)
-        
-        app.translateUI(self)
-    
-    def _changed(self):
-        self.customVersion.setEnabled(self.verCustom.isChecked())
-        if self.customVersion.isEnabled():
-            self.customVersion.setFocus()
-        self.changed.emit()
-        
-    def translateUI(self):
-        self.setTitle(_("LilyPond version number to use for new documents"))
-        self.verInstalled.setText(_("Use version number of installed LilyPond"))
-        self.verCustom.setText(_("Use custom version number:"))
-        
-    def loadSettings(self):
-        s = settings()
-        installed = s.value("document_version", "installed") != "custom"
-        self.verInstalled.setChecked(installed)
-        self.verCustom.setChecked(not installed)
-        self.customVersion.setText(s.value("custom_version", ""))
-        self.customVersion.setEnabled(not installed)
-        
-    def saveSettings(self):
-        s = settings()
-        s.setValue("document_version", "installed" if self.verInstalled.isChecked() else "custom")
-        s.setValue("custom_version", self.customVersion.text())
 
 
