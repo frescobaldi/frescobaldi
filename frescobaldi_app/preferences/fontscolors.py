@@ -275,6 +275,7 @@ class BaseColors(QGroupBox):
         super(BaseColors, self).__init__(parent)
         
         grid = QGridLayout()
+        grid.setSpacing(1)
         self.setLayout(grid)
         
         self.color = {}
