@@ -77,8 +77,7 @@ class LogWidget(log.Log):
             self.connectJob(job)
             
     def jobStarted(self, doc, job):
-        if doc == self.parentWidget().mainwindow().currentDocument():
-            self.switchDocument(doc)
+        self.switchDocument(doc)
 
     def documentClosed(self, doc):
         if doc == self._document():

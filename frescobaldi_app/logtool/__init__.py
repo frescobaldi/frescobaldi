@@ -55,8 +55,7 @@ class LogTool(panels.Panel):
         return logwidget.LogWidget(self)
     
     def slotJobStarted(self, document):
-        if (document == self.mainwindow().currentDocument() and
-            QSettings().value("log/show_on_start", True) not in (False, "false")):
+        if QSettings().value("log/show_on_start", True) not in (False, "false"):
             self.show()
 
     def slotJobFinished(self, document, job, success):
