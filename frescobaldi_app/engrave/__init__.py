@@ -78,7 +78,7 @@ class Engraver(plugin.MainWindowPlugin):
         ac.engrave_publish.setEnabled(not running)
         ac.engrave_abort.setEnabled(running)
         ac.engrave_runner.setIcon(icons.get('process-stop' if running else 'lilypond-run'))
-        doc = self._currentStickyDocument()
+        doc = self.stickyDocument()
         ac.engrave_sticky.setChecked(bool(doc))
         text = _("&Sticky")
         if doc:
@@ -109,7 +109,7 @@ class Engraver(plugin.MainWindowPlugin):
     def engrave(self, preview):
         """Starts a default engraving job. The bool preview specifies preview mode."""
         from . import command
-        doc = self._currentStickyDocument() or self.mainwindow().currentDocument()
+        doc = self.stickyDocument() or self.mainwindow().currentDocument()
         job = command.defaultJob(doc, preview)
         jobmanager.manager(doc).startJob(job)
     
@@ -120,16 +120,21 @@ class Engraver(plugin.MainWindowPlugin):
     
     def stickyToggled(self):
         """Called when the user toggles the 'Sticky' action."""
-        doc = self.mainwindow().currentDocument()
+        self.setStickyDocument(None if self.stickyDocument() else self.mainwindow().currentDocument())
+    
+    def setStickyDocument(self, doc=None):
+        """Sticks to the given document or removes the 'stick' when None."""
         cur = self._currentStickyDocument()
-        if cur:
-            self._currentStickyDocument = lambda: None
-            self.stickyChanged(cur)
-        else:
+        if doc:
             self._currentStickyDocument = weakref.ref(doc)
+        else:
+            self._currentStickyDocument = lambda: None
+        if cur:
+            self.stickyChanged(cur)
+        if doc:
             self.stickyChanged(doc)
         self.updateActions()
-    
+        
     def stickyDocument(self):
         """Returns the document currently marked as 'Sticky', if any."""
         return self._currentStickyDocument()
