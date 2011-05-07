@@ -76,7 +76,8 @@ def defaultJob(document, preview):
     j.directory = os.path.dirname(filename)
     command.append(filename)
     j.command = command
-    j.setTitle("{0} {1}".format(os.path.basename(i.command), i.versionString))
+    j.setTitle("{0} {1} [{2}]".format(
+        os.path.basename(i.command), i.versionString, document.documentName()))
     return j
 
 
