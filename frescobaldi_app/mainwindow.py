@@ -1086,8 +1086,8 @@ class DocumentActionGroup(QActionGroup):
             self._accels[doc] = ''
         # add [sticky] mark if necessary
         if doc == engrave.engraver(self.parent()).stickyDocument():
-            # L10N: sticky means: the document is marked as 'Sticky' in the LilyPond menu
-            name += " " + _("[sticky]")
+            # L10N: 'always engraved': the document is marked as 'Always Engrave' in the LilyPond menu
+            name += " " + _("[always engraved]")
         self._acts[doc].setText(name)
         # set the icon
         if jobmanager.isRunning(doc):

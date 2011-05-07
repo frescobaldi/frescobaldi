@@ -78,9 +78,11 @@ class Engraver(plugin.MainWindowPlugin):
         ac.engrave_runner.setIcon(icons.get('process-stop' if running else 'lilypond-run'))
         doc = self.stickyDocument()
         ac.engrave_sticky.setChecked(bool(doc))
-        text = _("&Sticky")
+        doc = doc or self.mainwindow().currentDocument()
         if doc:
-            text += " " + "[{0}]".format(doc.documentName())
+            text = _("&Always Engrave [{docname}]").format(docname = doc.documentName())
+        else:
+            text = _("&Always Engrave")
         ac.engrave_sticky.setText(text)
     
     def engraveRunner(self):
@@ -164,9 +166,7 @@ class Actions(actioncollection.ActionCollection):
         
 
     def translateUI(self):
-        # L10N: 'Sticky' means: When checked, always engrave this document.
-        self.engrave_sticky.setText(_("&Sticky"))
-        self.engrave_sticky.setToolTip(_("When checked, always engraves this document."))
+        self.engrave_sticky.setText(_("&Always Engrave"))
         self.engrave_runner.setText(_("Engrave"))
         self.engrave_preview.setText(_("&Engrave (preview)"))
         self.engrave_publish.setText(_("Engrave (&publish)"))
