@@ -23,8 +23,6 @@ Actions to engrave the music in the documents.
 
 from __future__ import unicode_literals
 
-import weakref
-
 from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QAction, QApplication, QKeySequence
 
@@ -45,7 +43,7 @@ class Engraver(plugin.MainWindowPlugin):
     stickyChanged = signals.Signal()
     
     def __init__(self, mainwindow):
-        self._currentStickyDocument = lambda: None
+        self._currentStickyDocument = None
         ac = self.actionCollection = Actions()
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         ac.engrave_sticky.triggered.connect(self.stickyToggled)
@@ -124,20 +122,23 @@ class Engraver(plugin.MainWindowPlugin):
     
     def setStickyDocument(self, doc=None):
         """Sticks to the given document or removes the 'stick' when None."""
-        cur = self._currentStickyDocument()
-        if doc:
-            self._currentStickyDocument = weakref.ref(doc)
-        else:
-            self._currentStickyDocument = lambda: None
+        cur = self._currentStickyDocument
+        self._currentStickyDocument = doc
         if cur:
+            cur.closed.disconnect(self.slotCloseStickyDocument)
             self.stickyChanged(cur)
         if doc:
+            doc.closed.connect(self.slotCloseStickyDocument)
             self.stickyChanged(doc)
         self.updateActions()
         
     def stickyDocument(self):
         """Returns the document currently marked as 'Sticky', if any."""
-        return self._currentStickyDocument()
+        return self._currentStickyDocument
+    
+    def slotCloseStickyDocument(self):
+        """Called when the document that is currently sticky closes."""
+        self.setStickyDocument(None)
 
 
 class Actions(actioncollection.ActionCollection):
