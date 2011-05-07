@@ -48,6 +48,7 @@ import matcher
 import bookmarks
 import lyrics
 import panels
+import jobmanager
 import progress
 import engrave
 
@@ -892,6 +893,8 @@ class MainWindow(QMainWindow):
         
         self.menu_lilypond = m = self.menuBar().addMenu('')
         eg = engrave.engraver(self).actionCollection
+        m.addAction(eg.engrave_sticky)
+        m.addSeparator()
         m.addAction(eg.engrave_preview)
         m.addAction(eg.engrave_publish)
         m.addAction(eg.engrave_custom)
@@ -1045,7 +1048,10 @@ class DocumentActionGroup(QActionGroup):
         app.documentClosed.connect(self.removeDocument)
         app.documentUrlChanged.connect(self.setDocumentStatus)
         app.documentModificationChanged.connect(self.setDocumentStatus)
+        app.jobStarted.connect(self.setDocumentStatus)
+        app.jobFinished.connect(self.setDocumentStatus)
         parent.currentDocumentChanged.connect(self.setCurrentDocument)
+        engrave.engraver(parent).stickyChanged.connect(self.setDocumentStatus)
         self.triggered.connect(self.slotTriggered)
     
     def actions(self):
@@ -1078,8 +1084,19 @@ class DocumentActionGroup(QActionGroup):
                 break
         else:
             self._accels[doc] = ''
+        # add [sticky] mark if necessary
+        if doc == engrave.engraver(self.parent()).stickyDocument():
+            # L10N: sticky means: the document is marked as 'Sticky' in the LilyPond menu
+            name += " " + _("[sticky]")
         self._acts[doc].setText(name)
-        self._acts[doc].setIcon(icons.get('document-save') if doc.isModified() else QIcon())
+        # set the icon
+        if jobmanager.isRunning(doc):
+            icon = icons.get('lilypond-run')
+        elif doc.isModified():
+            icon = icons.get('document-save')
+        else:
+            icon = QIcon()
+        self._acts[doc].setIcon(icon)
     
     def slotTriggered(self, action):
         self.parent().setCurrentDocument(self._acts.keys()[self._acts.values().index(action)])
@@ -1109,6 +1126,8 @@ class TabBar(QTabBar):
         app.documentClosed.connect(self.removeDocument)
         app.documentUrlChanged.connect(self.setDocumentStatus)
         app.documentModificationChanged.connect(self.setDocumentStatus)
+        app.jobStarted.connect(self.setDocumentStatus)
+        app.jobFinished.connect(self.setDocumentStatus)
         mainwin.currentDocumentChanged.connect(self.setCurrentDocument)
         self.currentChanged.connect(self.slotCurrentChanged)
         self.tabMoved.connect(self.slotTabMoved)
@@ -1136,13 +1155,20 @@ class TabBar(QTabBar):
     def setDocumentStatus(self, doc):
         if doc in self.docs:
             index = self.docs.index(doc)
-            icon = 'document-save' if doc.isModified() else 'text-plain'
-            self.setTabIcon(index, icons.get(icon))
             self.setTabText(index, doc.documentName())
             tooltip = None
             if not doc.url().isEmpty():
                 tooltip = doc.url().toString(QUrl.RemoveUserInfo)
             self.setTabToolTip(index, tooltip)
+            # icon
+            if jobmanager.isRunning(doc):
+                icon = 'lilypond-run'
+            elif doc.isModified():
+                icon = 'document-save'
+            else:
+                icon = 'text-plain'
+            self.setTabIcon(index, icons.get(icon))
+
     
     def setCurrentDocument(self, doc):
         """ Raise the tab belonging to this document."""
