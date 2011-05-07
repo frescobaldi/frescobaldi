@@ -242,10 +242,12 @@ class Running(preferences.Group):
         layout = QVBoxLayout()
         self.setLayout(layout)
         
+        self.saveDocument = QCheckBox(clicked=self.changed)
         self.deleteFiles = QCheckBox(clicked=self.changed)
         self.includeLabel = QLabel()
         self.include = widgets.listedit.FilePathEdit()
         self.include.changed.connect(self.changed)
+        layout.addWidget(self.saveDocument)
         layout.addWidget(self.deleteFiles)
         layout.addWidget(self.includeLabel)
         layout.addWidget(self.include)
@@ -253,16 +255,22 @@ class Running(preferences.Group):
         
     def translateUI(self):
         self.setTitle(_("Running LilyPond"))
+        self.saveDocument.setText(_("Save document if possible"))
+        self.saveDocument.setToolTip(_(
+            "If checked, the document is saved when it is local and modified.\n"
+            "Otherwise a temporary file is used to run LilyPond."))
         self.deleteFiles.setText(_("Delete intermediate output files"))
         self.includeLabel.setText(_("LilyPond include path:"))
     
     def loadSettings(self):
         s = settings()
+        self.saveDocument.setChecked(s.value("save_on_run", False) in (True, "true"))
         self.deleteFiles.setChecked(s.value("delete_intermediate_files", True) not in (False, "false"))
         self.include.setValue(s.value("include_path", []) or [])
         
     def saveSettings(self):
         s = settings()
+        s.setValue("save_on_run", self.saveDocument.isChecked())
         s.setValue("delete_intermediate_files", self.deleteFiles.isChecked())
         s.setValue("include_path", self.include.value())
 

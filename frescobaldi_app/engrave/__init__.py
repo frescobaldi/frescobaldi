@@ -23,7 +23,7 @@ Actions to engrave the music in the documents.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import Qt
+from PyQt4.QtCore import QSettings, Qt
 from PyQt4.QtGui import QAction, QApplication, QKeySequence
 
 import app
@@ -109,6 +109,12 @@ class Engraver(plugin.MainWindowPlugin):
     def engrave(self, preview):
         """Starts a default engraving job. The bool preview specifies preview mode."""
         from . import command
+        # save the current document if desired and it makes sense 
+        # (i.e. the document is modified and has a local filename)
+        if QSettings().value("lilypond_settings/save_on_run", False) in (True, "true"):
+            doc = self.mainwindow().currentDocument()
+            if doc.isModified() and doc.url().toLocalFile():
+                doc.save()
         doc = self.stickyDocument() or self.mainwindow().currentDocument()
         job = command.defaultJob(doc, preview)
         jobmanager.manager(doc).startJob(job)
