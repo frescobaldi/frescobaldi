@@ -55,6 +55,7 @@ class Engraver(plugin.MainWindowPlugin):
         mainwindow.currentDocumentChanged.connect(self.documentChanged)
         app.jobStarted.connect(self.updateActions)
         app.jobFinished.connect(self.updateActions)
+        app.languageChanged.connect(self.updateActions)
         
     def documentChanged(self, new, old):
         if old:
@@ -78,7 +79,6 @@ class Engraver(plugin.MainWindowPlugin):
         ac.engrave_runner.setIcon(icons.get('process-stop' if running else 'lilypond-run'))
         doc = self.stickyDocument()
         ac.engrave_sticky.setChecked(bool(doc))
-        doc = doc or self.mainwindow().currentDocument()
         if doc:
             text = _("&Always Engrave [{docname}]").format(docname = doc.documentName())
         else:
@@ -172,7 +172,6 @@ class Actions(actioncollection.ActionCollection):
         
 
     def translateUI(self):
-        self.engrave_sticky.setText(_("&Always Engrave"))
         self.engrave_runner.setText(_("Engrave"))
         self.engrave_preview.setText(_("&Engrave (preview)"))
         self.engrave_publish.setText(_("Engrave (&publish)"))
