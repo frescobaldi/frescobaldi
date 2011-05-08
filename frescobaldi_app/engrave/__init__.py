@@ -52,18 +52,12 @@ class Engraver(plugin.MainWindowPlugin):
         ac.engrave_publish.triggered.connect(self.engravePublish)
         ac.engrave_custom.triggered.connect(self.engraveCustom)
         ac.engrave_abort.triggered.connect(self.engraveAbort)
-        mainwindow.currentDocumentChanged.connect(self.documentChanged)
+        mainwindow.currentDocumentChanged.connect(self.updateActions)
         app.jobStarted.connect(self.updateActions)
         app.jobFinished.connect(self.updateActions)
         app.languageChanged.connect(self.updateStickyActionText)
         self.updateStickyActionText()
         
-    def documentChanged(self, new, old):
-        if old:
-            old.urlChanged.disconnect(self.updateActions)
-        new.urlChanged.connect(self.updateActions)
-        self.updateActions()
-    
     def runningJob(self):
         """Returns a Job for the sticky or current document if that is running."""
         doc = self.stickyDocument() or self.mainwindow().currentDocument()
@@ -78,7 +72,6 @@ class Engraver(plugin.MainWindowPlugin):
         ac.engrave_publish.setEnabled(not running)
         ac.engrave_abort.setEnabled(running)
         ac.engrave_runner.setIcon(icons.get('process-stop' if running else 'lilypond-run'))
-        ac.engrave_sticky.setChecked(bool(self.stickyDocument()))
     
     def engraveRunner(self):
         job = self.runningJob()
@@ -130,11 +123,14 @@ class Engraver(plugin.MainWindowPlugin):
         if cur:
             cur.closed.disconnect(self.slotUnStickDocument)
             cur.loaded.disconnect(self.slotUnStickDocument)
+            cur.urlChanged.disconnect(self.updateStickyActionText)
             self.stickyChanged(cur)
         if doc:
             doc.closed.connect(self.slotUnStickDocument)
             doc.loaded.connect(self.slotUnStickDocument)
+            doc.urlChanged.connect(self.updateStickyActionText)
             self.stickyChanged(doc)
+        self.actionCollection.engrave_sticky.setChecked(bool(doc))
         self.updateStickyActionText()
         self.updateActions()
         
@@ -143,7 +139,7 @@ class Engraver(plugin.MainWindowPlugin):
         return self._currentStickyDocument
     
     def slotUnStickDocument(self):
-        """Called when the document that is currently sticky closes."""
+        """Called when the document that is currently sticky closes or reloads."""
         self.setStickyDocument(None)
 
     def updateStickyActionText(self):
