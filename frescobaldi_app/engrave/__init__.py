@@ -55,7 +55,8 @@ class Engraver(plugin.MainWindowPlugin):
         mainwindow.currentDocumentChanged.connect(self.documentChanged)
         app.jobStarted.connect(self.updateActions)
         app.jobFinished.connect(self.updateActions)
-        app.languageChanged.connect(self.updateActions)
+        app.languageChanged.connect(self.updateStickyActionText)
+        self.updateStickyActionText()
         
     def documentChanged(self, new, old):
         if old:
@@ -77,13 +78,7 @@ class Engraver(plugin.MainWindowPlugin):
         ac.engrave_publish.setEnabled(not running)
         ac.engrave_abort.setEnabled(running)
         ac.engrave_runner.setIcon(icons.get('process-stop' if running else 'lilypond-run'))
-        doc = self.stickyDocument()
-        ac.engrave_sticky.setChecked(bool(doc))
-        if doc:
-            text = _("&Always Engrave [{docname}]").format(docname = doc.documentName())
-        else:
-            text = _("&Always Engrave")
-        ac.engrave_sticky.setText(text)
+        ac.engrave_sticky.setChecked(bool(self.stickyDocument()))
     
     def engraveRunner(self):
         job = self.runningJob()
@@ -133,21 +128,33 @@ class Engraver(plugin.MainWindowPlugin):
         cur = self._currentStickyDocument
         self._currentStickyDocument = doc
         if cur:
-            cur.closed.disconnect(self.slotCloseStickyDocument)
+            cur.closed.disconnect(self.slotUnStickDocument)
+            cur.loaded.disconnect(self.slotUnStickDocument)
             self.stickyChanged(cur)
         if doc:
-            doc.closed.connect(self.slotCloseStickyDocument)
+            doc.closed.connect(self.slotUnStickDocument)
+            doc.loaded.connect(self.slotUnStickDocument)
             self.stickyChanged(doc)
+        self.updateStickyActionText()
         self.updateActions()
         
     def stickyDocument(self):
         """Returns the document currently marked as 'Sticky', if any."""
         return self._currentStickyDocument
     
-    def slotCloseStickyDocument(self):
+    def slotUnStickDocument(self):
         """Called when the document that is currently sticky closes."""
         self.setStickyDocument(None)
 
+    def updateStickyActionText(self):
+        """Called when the sticky action toggles or when the language is changed."""
+        doc = self.stickyDocument()
+        if doc:
+            text = _("&Always Engrave [{docname}]").format(docname = doc.documentName())
+        else:
+            text = _("&Always Engrave This Document")
+        self.actionCollection.engrave_sticky.setText(text)
+        
 
 class Actions(actioncollection.ActionCollection):
     name = "engrave"
