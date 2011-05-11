@@ -103,7 +103,7 @@ class General(preferences.Group):
         self.systemIcons.setText(_("Use System Icons"))
         self.systemIcons.setToolTip(_(
             "If checked, icons of the desktop icon theme "
-            "will be used instead of the bundled icons.\n\n"
+            "will be used instead of the bundled icons.\n"
             "This setting takes effect on the next start of {appname}.").format(appname=info.appname))
 
 

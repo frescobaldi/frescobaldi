@@ -275,6 +275,8 @@ class Running(preferences.Group):
             "If checked, the document is saved when it is local and modified.\n"
             "Otherwise a temporary file is used to run LilyPond."))
         self.deleteFiles.setText(_("Delete intermediate output files"))
+        self.deleteFiles.setToolTip(_(
+            "If checked, LilyPond will delete intermediate PostScript files."))
         self.includeLabel.setText(_("LilyPond include path:"))
     
     def loadSettings(self):
