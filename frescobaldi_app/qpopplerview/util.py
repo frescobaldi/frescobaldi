@@ -22,7 +22,7 @@
 Utility functions.
 """
 
-from PyQt4.QtCore import QFile, QIODevice, QObject, Qt, pyqtSignal
+from PyQt4.QtCore import QFile, QIODevice, Qt
 from PyQt4.QtGui import QColor, QPainter, QPrinter
 
 from .locking import lock
@@ -76,44 +76,65 @@ def psfile(doc, printer, output, pageList=None, margins=(0, 0, 0, 0)):
         return ps.convert()
 
 
-class Printer(QObject):
+class Printer(object):
     """Prints a Poppler.Document to a QPrinter.
     
-    This is currently done using raster images at max. 300DPI,
-    because the ArthurBackend of Poppler (that can render to a painter)
+    This is currently done using raster images at (by default) 300 DPI,
+    because the Arthur backend of Poppler (that can render to a painter)
     does not work correctly in all cases and is not well supported by
     the Poppler developers at this time.
     
     """
-    printing = pyqtSignal(int, int, int)
-    
-    def __init__(self, document, printer, parent=None):
-        """Creates the Printer instance.
+    def __init__(self):
+        self._stop = False
+        self._resolution = 300
+        self._document = None
+        self._printer = None
         
-        document: a Poppler.Document
-        printer: a QPrinter
+    def setDocument(self, document):
+        """Sets the Poppler.Document to print (mandatory)."""
+        self._document = document
+        
+    def document(self):
+        """Returns the previously set Poppler.Document."""
+        return self._document
+        
+    def setPrinter(self, printer):
+        """Sets the QPrinter to print to (mandatory)."""
+        self._printer = printer
+        
+    def printer(self):
+        """Returns the previously set QPrinter."""
+        return self._printer
+    
+    def setResolution(self, dpi):
+        """Sets the resolution in dots per inch."""
+        self._resolution = dpi
+    
+    def resolution(self):
+        """Returns the resolution in dots per inch."""
+        return self._resolution
+        
+    def pageList(self):
+        """Should return a list of desired page numbers (starting with 1).
+        
+        The default implementation reads the pages from the QPrinter.
         
         """
-        QObject.__init__(self, parent)
-        self.document = document
-        self.printer = printer
-        self._stop = False
-    
-    def pageList(self):
-        """Returns a list of desired page numbers (starting with 1)."""
-        p = self.printer
+        p = self._printer
         if (p.printRange() == QPrinter.AllPages
             or (p.fromPage() == 0 and p.toPage() == 0)):
-            pages = range(1, self.document.numPages() + 1)
+            pages = range(1, self.document().numPages() + 1)
         else:
-            pages = range(max(p.fromPage(), 1), min(p.toPage(), self.document.numPages()) + 1)
+            pages = range(max(p.fromPage(), 1), min(p.toPage(), self.document().numPages()) + 1)
         return list(pages)
     
     def print_(self):
         """Prints the document."""
-        p = self.printer
+        self._stop = False
+        p = self._printer
         p.setFullPage(True)
-        p.setResolution(300)
+        p.setResolution(self._resolution)
         
         center = p.paperRect().center()
         painter = QPainter(p)
@@ -133,10 +154,10 @@ class Printer(QObject):
             if self._stop:
                 return p.abort()
             
-            with lock(self.document):
-                opts.write(self.document)
-                page = self.document.page(pageNum - 1)
-                img = page.renderToImage(300, 300)
+            with lock(self._document):
+                opts.write(self._document)
+                page = self._document.page(pageNum - 1)
+                img = page.renderToImage(self._resolution, self._resolution)
             rect = img.rect()
             rect.moveCenter(center)
             painter.drawImage(rect, img)
@@ -145,10 +166,14 @@ class Printer(QObject):
                 p.newPage()
         return painter.end()
         
-    def cancel(self):
-        """Instructs the printer to cancel."""
+    def abort(self):
+        """Instructs the printer to cancel the job."""
         self._stop = True
 
+    def aborted(self):
+        """Returns whether abort() was called."""
+        return self._stop
+        
     def progress(self, num, total, pageNumber):
         """Called when printing a page.
         
@@ -156,9 +181,9 @@ class Printer(QObject):
         total: the total number of pages
         pageNumber: the page number in the document (starts also with 1)
         
-        The default implementation emits the printing() signal.
+        The default implementation does nothing.
         
         """
-        self.printing.emit(num, total, pageNumber)
-    
+        pass
+
 
