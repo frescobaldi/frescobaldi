@@ -28,6 +28,7 @@ import popplerqt4
 from PyQt4.QtCore import QRect, QRectF, QSize
 
 from . import cache
+from .locking import lock
 
 
 class Page(object):
@@ -199,10 +200,10 @@ class Page(object):
         y = rect.y() * vscale
         w = rect.width() * hscale
         h = rect.height() * vscale
-        cache.wait(self.document())
-        options and options.write(self.document())
-        page = self.document().page(self._pageNumber)
-        return page.renderToImage(xdpi, ydpi, x, y, w, h, self._rotation)
+        with lock(self.document()):
+            options and options.write(self.document())
+            page = self.document().page(self._pageNumber)
+            return page.renderToImage(xdpi, ydpi, x, y, w, h, self._rotation)
         
     def linksAt(self, point):
         """Returns a list() of zero or more links touched by point (relative to surface).
@@ -277,9 +278,9 @@ class Page(object):
                 left, top, right, bottom = h-bottom, left, h-top, right
         rect = QRectF()
         rect.setCoords(left, top, right, bottom)
-        cache.wait(self.document())
-        page = self.document().page(self._pageNumber)
-        return page.text(rect)
+        with lock(self.document()):
+            page = self.document().page(self._pageNumber)
+            return page.text(rect)
         
     def searchRect(self, rectF):
         """Returns a QRect encompassing the given rect (in points) to our position, size and rotation."""

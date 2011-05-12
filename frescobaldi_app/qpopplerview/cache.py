@@ -30,8 +30,9 @@ from PyQt4.QtCore import QThread
 
 from . import render
 from . import rectangles
+from .locking import lock
 
-__all__ = ['maxsize', 'setmaxsize', 'image', 'generate', 'clear', 'links', 'wait', 'options']
+__all__ = ['maxsize', 'setmaxsize', 'image', 'generate', 'clear', 'links', 'options']
 
 
 _cache = weakref.WeakKeyDictionary()
@@ -160,30 +161,11 @@ def links(page):
     try:
         return _links[document][pageNumber]
     except KeyError:
-        wait(document)
-        links = rectangles.Rectangles(document.page(pageNumber).links(),
-                                      lambda link: link.linkArea().normalized().getCoords())
+        with lock(document):
+            links = rectangles.Rectangles(document.page(pageNumber).links(),
+                                        lambda link: link.linkArea().normalized().getCoords())
         _links.setdefault(document, {})[pageNumber] = links
         return links
-
-
-def wait(document, msec=None):
-    """Blocks if a thread is rendering an image from the given Poppler.Document.
-    
-    Returns immediately if no thread is running.
-    Returns false if msec milliseconds have elapsed and the thread is still running.
-    
-    Use this if you are calling certain things like rendering or requesting the links of a
-    Poppler.Page. This is needed to avoid crashes in Poppler.
-    
-    """
-    try:
-        thread = _schedulers[document]._running
-    except KeyError:
-        return True
-    if thread:
-        return thread.wait(msec) if msec is not None else thread.wait()
-    return True
 
 
 def options(document=None):
@@ -310,9 +292,10 @@ class Runner(QThread):
             pageSize.transpose()
         xres = 72.0 * self.job.width / pageSize.width()
         yres = 72.0 * self.job.height / pageSize.height()
-        options().write(self.document)
-        options(self.document).write(self.document)
-        self.image = page.renderToImage(xres, yres, 0, 0, self.job.width, self.job.height, self.job.rotation)
+        with lock(self.document):
+            options().write(self.document)
+            options(self.document).write(self.document)
+            self.image = page.renderToImage(xres, yres, 0, 0, self.job.width, self.job.height, self.job.rotation)
         
     def slotFinished(self):
         """Called when the thread has completed."""

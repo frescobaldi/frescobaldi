@@ -73,7 +73,6 @@ class Links(object):
         self._links = {}
         self._docs = weakref.WeakValueDictionary()
         
-        qpopplerview.cache.wait(document)
         for num in range(document.numPages()):
             page = document.page(num)
             for link in page.links():

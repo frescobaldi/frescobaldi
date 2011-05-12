@@ -71,9 +71,9 @@ Finally the cache module implements in-memory caching for drawed Page images.
 The images are rendered in a background thread.
 
 The Poppler library is not thread-safe, so when calling into Poppler for drawing
-or getting other objects you can use cache.wait(document) to wait till a possible
-running background job for that document has completed. (Pending tasks will wait
-until the Qt eventloop is entered again.)
+or getting other objects you can acuire a lock with lock(document) that blocks
+till a possible running background job for that document has completed.
+(Pending tasks will wait until the Qt eventloop is entered again.)
 
 """
 
@@ -90,5 +90,13 @@ from .layout import AbstractLayout, Layout
 from .surface import Surface
 from .render import RenderOptions
 from .highlight import Highlighter
+from .locking import lock
 from . import cache
 
+
+__all__ = [
+    'FixedScale', 'FitWidth', 'FitHeight', 'FitBoth',
+    'View', 'Page', 'AbstractLayout', 'Layout', 'Surface',
+    'RenderOptions', 'Highlighter',
+    'lock', 'cache',
+]
