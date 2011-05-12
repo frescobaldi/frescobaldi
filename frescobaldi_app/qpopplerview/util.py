@@ -22,10 +22,11 @@
 Utility functions.
 """
 
-from PyQt4.QtCore import QFile, QIODevice
-from PyQt4.QtGui import QPrinter
+from PyQt4.QtCore import QFile, QIODevice, QObject, Qt, pyqtSignal
+from PyQt4.QtGui import QColor, QPainter, QPrinter
 
 from .locking import lock
+from .render import RenderOptions
 
 
 def psfile(doc, printer, output, pageList=None, margins=(0, 0, 0, 0)):
@@ -74,4 +75,90 @@ def psfile(doc, printer, output, pageList=None, margins=(0, 0, 0, 0)):
     with lock(doc):
         return ps.convert()
 
+
+class Printer(QObject):
+    """Prints a Poppler.Document to a QPrinter.
+    
+    This is currently done using raster images at max. 300DPI,
+    because the ArthurBackend of Poppler (that can render to a painter)
+    does not work correctly in all cases and is not well supported by
+    the Poppler developers at this time.
+    
+    """
+    printing = pyqtSignal(int, int, int)
+    
+    def __init__(self, document, printer, parent=None):
+        """Creates the Printer instance.
+        
+        document: a Poppler.Document
+        printer: a QPrinter
+        
+        """
+        QObject.__init__(self, parent)
+        self.document = document
+        self.printer = printer
+        self._stop = False
+    
+    def pageList(self):
+        """Returns a list of desired page numbers (starting with 1)."""
+        p = self.printer
+        if (p.printRange() == QPrinter.AllPages
+            or (p.fromPage() == 0 and p.toPage() == 0)):
+            pages = range(1, self.document.numPages() + 1)
+        else:
+            pages = range(max(p.fromPage(), 1), min(p.toPage(), self.document.numPages()) + 1)
+        return list(pages)
+    
+    def print_(self):
+        """Prints the document."""
+        p = self.printer
+        p.setFullPage(True)
+        p.setResolution(300)
+        
+        center = p.paperRect().center()
+        painter = QPainter(p)
+        
+        pages  = self.pageList()
+        if p.pageOrder() != QPrinter.FirstPageFirst:
+            pages.reverse()
+
+        total = len(pages)
+        
+        opts = RenderOptions()
+        opts.setRenderHint(0)
+        opts.setPaperColor(QColor(Qt.white))
+        
+        for num, pageNum in enumerate(pages, 1):
+            self.progress(num, total, pageNum)
+            if self._stop:
+                return p.abort()
+            
+            with lock(self.document):
+                opts.write(self.document)
+                page = self.document.page(pageNum - 1)
+                img = page.renderToImage(300, 300)
+            rect = img.rect()
+            rect.moveCenter(center)
+            painter.drawImage(rect, img)
+            
+            if num != total:
+                p.newPage()
+        return painter.end()
+        
+    def cancel(self):
+        """Instructs the printer to cancel."""
+        self._stop = True
+
+    def progress(self, num, total, pageNumber):
+        """Called when printing a page.
+        
+        num: counts the pages (starts with 1)
+        total: the total number of pages
+        pageNumber: the page number in the document (starts also with 1)
+        
+        The default implementation emits the printing() signal.
+        
+        """
+        self.printing.emit(num, total, pageNumber)
+    
 
