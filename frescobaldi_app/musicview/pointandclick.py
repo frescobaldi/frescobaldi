@@ -73,15 +73,16 @@ class Links(object):
         self._links = {}
         self._docs = weakref.WeakValueDictionary()
         
-        for num in range(document.numPages()):
-            page = document.page(num)
-            for link in page.links():
-                if isinstance(link, popplerqt4.Poppler.LinkBrowse):
-                    m = textedit_match(link.url())
-                    if m:
-                        filename, line, col = readurl(m)
-                        l = self._links.setdefault(filename, {})
-                        l.setdefault((line, col), []).append((num, link.linkArea()))
+        with qpopplerview.lock(document):
+            for num in range(document.numPages()):
+                page = document.page(num)
+                for link in page.links():
+                    if isinstance(link, popplerqt4.Poppler.LinkBrowse):
+                        m = textedit_match(link.url())
+                        if m:
+                            filename, line, col = readurl(m)
+                            l = self._links.setdefault(filename, {})
+                            l.setdefault((line, col), []).append((num, link.linkArea()))
 
         for filename in self._links:
             for d in app.documents:
