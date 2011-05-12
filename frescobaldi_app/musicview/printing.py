@@ -33,10 +33,12 @@ from __future__ import unicode_literals
 import os
 import subprocess
 
+from PyQt4.QtCore import QTemporaryFile
 from PyQt4.QtGui import QMessageBox, QPrinter, QPrintDialog
 
 import app
 import fileprinter
+import qpopplerview.util
 
 
 def printDocument(dock, document):
@@ -55,20 +57,28 @@ def printDocument(dock, document):
     printer = QPrinter()
     dlg = QPrintDialog(printer, dock)
     
-    numPages = document.document().numPages()
-    dlg.setMinMax(1, numPages)
+    doc = document.document()
+    filename = os.path.basename(document.filename())
+    
+    dlg.setMinMax(1, doc.numPages())
     dlg.setOption(QPrintDialog.PrintToFile, False)
-    dlg.setWindowTitle(app.caption(
-        _("Print {filename}").format(filename=os.path.basename(document.filename()))))
+    dlg.setWindowTitle(app.caption(_("Print {filename}").format(filename=filename)))
     
     if not dlg.exec_():
         return # cancelled
     
     if cmd:
-        command = fileprinter.printCommand(cmd, printer, document.filename())
-        if subprocess.call(command):
-            QMessageBox.warning(dock, _("Printing Error"),
-                _("Could not send the document to the printer."))
+        # make a PostScript file with the desired paper size
+        ps = QTemporaryFile()
+        if ps.open() and qpopplerview.util.psfile(doc, printer, ps):
+            ps.close()
+            # let all converted pages print
+            printer.setPrintRange(QPrinter.AllPages)
+            command = fileprinter.printCommand(cmd, printer, ps.fileName(), filename)
+            if not subprocess.call(command):
+                return # success!
+        QMessageBox.warning(dock, _("Printing Error"),
+            _("Could not send the document to the printer."))
     else:
         pass
         # TODO: implement fall back printing of rendered raster images

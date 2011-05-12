@@ -43,12 +43,13 @@ def lprCommand():
             return cmd
 
 
-def printCommand(cmd, printer, filename):
+def printCommand(cmd, printer, filename, title=None):
     """Returns a commandline (list) to print a PDF file.
     
     cmd:      "lpr" or "lp" (or something like that)
     printer:  a QPrinter instance
     filename: the filename of the PDF document to print.
+    title:    the job title. By default the filename will be used.
     
     """
     command = [cmd]
