@@ -82,7 +82,7 @@ def printCommand(cmd, printer, filename, title=None):
         command.append('-t')
     else:
         command.append('-J')
-    command.append(os.path.basename(filename))
+    command.append(title or os.path.basename(filename))
     
     # page range
     if printer.printRange() == QPrinter.PageRange:
