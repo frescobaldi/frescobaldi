@@ -38,7 +38,7 @@ from PyQt4.QtGui import QMessageBox, QPrinter, QPrintDialog, QProgressDialog
 
 import app
 import fileprinter
-import qpopplerview.util
+import qpopplerview.printer
 
 
 def printDocument(dock, document):
@@ -75,7 +75,7 @@ def printDocument(dock, document):
     if cmd:
         # make a PostScript file with the desired paper size
         ps = QTemporaryFile()
-        if ps.open() and qpopplerview.util.psfile(doc, printer, ps):
+        if ps.open() and qpopplerview.printer.psfile(doc, printer, ps):
             ps.close()
             # let all converted pages print
             printer.setPrintRange(QPrinter.AllPages)
@@ -119,13 +119,13 @@ def printDocument(dock, document):
         p.start()
 
 
-class Printer(QThread, qpopplerview.util.Printer):
+class Printer(QThread, qpopplerview.printer.Printer):
     """Simple wrapper that prints the raster images in a background thread."""
     printing = pyqtSignal(int, int, int)
     
     def __init__(self, parent=None):
         QThread.__init__(self, parent)
-        qpopplerview.util.Printer.__init__(self)
+        qpopplerview.printer.Printer.__init__(self)
         self.success = None
         
     def run(self):

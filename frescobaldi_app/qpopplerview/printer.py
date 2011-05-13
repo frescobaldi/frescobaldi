@@ -19,7 +19,7 @@
 
 
 """
-Utility functions.
+Printing functionality.
 """
 
 from PyQt4.QtCore import QFile, QIODevice, Qt
