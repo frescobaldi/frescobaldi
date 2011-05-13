@@ -67,8 +67,12 @@ sets the view mode to FixedScale.  View emits viewModeChanged(mode) on mode chan
 View, Surface, (Abstract)Layout and Page can all be inherited from to build
 more specialized Poppler viewers.
 
-Finally the cache module implements in-memory caching for drawed Page images.
+The cache module implements in-memory caching for drawed Page images.
 The images are rendered in a background thread.
+
+Furthermore, there is a printer module containing functions to create a PostScript
+file of a Poppler.Document and a class to print a Poppler.Document to a QPrinter
+using raster images.
 
 The Poppler library is not thread-safe, so when calling into Poppler for drawing
 or getting other objects you can acuire a lock with lock(document) that blocks

@@ -43,13 +43,12 @@ def lprCommand():
             return cmd
 
 
-def printCommand(cmd, printer, filename, title=None):
+def printCommand(cmd, printer, filename):
     """Returns a commandline (list) to print a PDF file.
     
     cmd:      "lpr" or "lp" (or something like that)
     printer:  a QPrinter instance
     filename: the filename of the PDF document to print.
-    title:    the job title. By default the filename will be used.
     
     """
     command = [cmd]
@@ -82,7 +81,7 @@ def printCommand(cmd, printer, filename, title=None):
         command.append('-t')
     else:
         command.append('-J')
-    command.append(title or os.path.basename(filename))
+    command.append(printer.docName() or os.path.basename(filename))
     
     # page range
     if printer.printRange() == QPrinter.PageRange:

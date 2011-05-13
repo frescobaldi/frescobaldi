@@ -79,7 +79,7 @@ def printDocument(dock, document):
             ps.close()
             # let all converted pages print
             printer.setPrintRange(QPrinter.AllPages)
-            command = fileprinter.printCommand(cmd, printer, ps.fileName(), filename)
+            command = fileprinter.printCommand(cmd, printer, ps.fileName())
             if not subprocess.call(command):
                 return # success!
         QMessageBox.warning(dock, _("Printing Error"),
@@ -89,7 +89,7 @@ def printDocument(dock, document):
         # It is unsure if the Poppler ArthurBackend ever will be ready for
         # good rendering directly to a painter, so we'll fall back to using
         # 300DPI raster images.
-            
+        
         p = Printer()
         p.setDocument(doc)
         p.setPrinter(printer)
