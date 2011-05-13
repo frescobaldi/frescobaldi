@@ -166,9 +166,9 @@ class Printer(object):
         document = self.document()
         
         for num, pageNum in enumerate(pages, 1):
-            self.progress(num, total, pageNum)
             if self._stop:
                 return p.abort()
+            self.progress(num, total, pageNum)
             
             with lock(document):
                 opts.write(document)

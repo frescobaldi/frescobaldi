@@ -33,8 +33,8 @@ from __future__ import unicode_literals
 import os
 import subprocess
 
-from PyQt4.QtCore import QTemporaryFile
-from PyQt4.QtGui import QMessageBox, QPrinter, QPrintDialog
+from PyQt4.QtCore import pyqtSignal, QTemporaryFile, Qt, QThread
+from PyQt4.QtGui import QMessageBox, QPrinter, QPrintDialog, QProgressDialog
 
 import app
 import fileprinter
@@ -49,17 +49,22 @@ def printDocument(dock, document):
     """
     cmd = fileprinter.lprCommand()
     if not cmd:
-        # Temporarily return from here, later fallback printing could be implemented
-        QMessageBox.information(dock, _("Not Supported"),
-            _("No Print command could be found and direct printing is not yet supported."))
-        return
+        res = QMessageBox.information(dock, _("Warning"), _(
+            "No print command to print a PostScript file could be found.\n\n"
+            "Therefore the document will be printed using raster images at {resolution} DPI. "
+            "It is recommended to print using a dedicated PDF viewer.\n\n"
+            "Do you want to continue?").format(resolution=300),
+            QMessageBox.Yes | QMessageBox.No)
+        if res != QMessageBox.Yes:
+            return # cancelled
         
-    printer = QPrinter()
-    dlg = QPrintDialog(printer, dock)
-    
     doc = document.document()
     filename = os.path.basename(document.filename())
     
+    printer = QPrinter()
+    printer.setDocName(filename)
+    
+    dlg = QPrintDialog(printer, dock)
     dlg.setMinMax(1, doc.numPages())
     dlg.setOption(QPrintDialog.PrintToFile, False)
     dlg.setWindowTitle(app.caption(_("Print {filename}").format(filename=filename)))
@@ -80,10 +85,53 @@ def printDocument(dock, document):
         QMessageBox.warning(dock, _("Printing Error"),
             _("Could not send the document to the printer."))
     else:
-        pass
-        # TODO: implement fall back printing of rendered raster images
+        # Fall back printing of rendered raster images.
         # It is unsure if the Poppler ArthurBackend ever will be ready for
         # good rendering directly to a painter, so we'll fall back to using
         # 300DPI raster images.
+            
+        p = Printer()
+        p.setDocument(doc)
+        p.setPrinter(printer)
+        p.setResolution(300)
+        
+        d = QProgressDialog()
+        d.setModal(True)
+        d.setMinimumDuration(0)
+        d.setRange(0, len(p.pageList()) + 1)
+        d.canceled.connect(p.abort)
+        
+        def progress(num, total, page):
+            d.setValue(num)
+            d.setLabelText(_("Printing page {page} ({num} of {total})...").format(
+                page=page, num=num, total=total))
+                
+        def finished():
+            p.deleteLater()
+            d.deleteLater()
+            d.hide()
+            if not p.success and not p.aborted():
+                QMessageBox.warning(dock, _("Printing Error"),
+                    _("Could not send the document to the printer."))
+            
+        p.finished.connect(finished)
+        p.printing.connect(progress)
+        p.start()
+
+
+class Printer(QThread, qpopplerview.util.Printer):
+    """Simple wrapper that prints the raster images in a background thread."""
+    printing = pyqtSignal(int, int, int)
+    
+    def __init__(self, parent=None):
+        QThread.__init__(self, parent)
+        qpopplerview.util.Printer.__init__(self)
+        self.success = None
+        
+    def run(self):
+        self.success = self.print_()
+        
+    def progress(self, num, total, page):
+        self.printing.emit(num, total, page)
 
 
