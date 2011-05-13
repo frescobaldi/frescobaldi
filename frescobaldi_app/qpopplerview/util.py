@@ -169,7 +169,8 @@ class Printer(object):
             if self._stop:
                 return p.abort()
             self.progress(num, total, pageNum)
-            
+            if num > 1:
+                p.newPage()
             with lock(document):
                 opts.write(document)
                 page = document.page(pageNum - 1)
@@ -177,9 +178,7 @@ class Printer(object):
             rect = img.rect()
             rect.moveCenter(center)
             painter.drawImage(rect, img)
-            
-            if num != total:
-                p.newPage()
+        
         return painter.end()
         
     def abort(self):
