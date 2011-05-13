@@ -26,7 +26,7 @@ from PyQt4.QtCore import QFile, QIODevice, Qt
 from PyQt4.QtGui import QColor, QPainter, QPrinter
 
 from .locking import lock
-from .render import RenderOptions
+from . import render
 
 
 def psfile(doc, printer, output, pageList=None, margins=(0, 0, 0, 0)):
@@ -90,6 +90,10 @@ class Printer(object):
         self._resolution = 300
         self._document = None
         self._printer = None
+        opts = render.RenderOptions()
+        opts.setRenderHint(0)
+        opts.setPaperColor(QColor(Qt.white))
+        self.setRenderOptions(opts)
         
     def setDocument(self, document):
         """Sets the Poppler.Document to print (mandatory)."""
@@ -114,6 +118,18 @@ class Printer(object):
     def resolution(self):
         """Returns the resolution in dots per inch."""
         return self._resolution
+    
+    def setRenderOptions(self, options):
+        """Sets the render options (see render.py)."""
+        self._renderoptions = options
+    
+    def renderOptions(self):
+        """Returns the render options (see render.py).
+        
+        By default, all antialiasing is off and the papercolor is white.
+        
+        """
+        return self._renderoptions
         
     def pageList(self):
         """Should return a list of desired page numbers (starting with 1).
@@ -121,7 +137,7 @@ class Printer(object):
         The default implementation reads the pages from the QPrinter.
         
         """
-        p = self._printer
+        p = self.printer()
         if (p.printRange() == QPrinter.AllPages
             or (p.fromPage() == 0 and p.toPage() == 0)):
             pages = range(1, self.document().numPages() + 1)
@@ -132,9 +148,10 @@ class Printer(object):
     def print_(self):
         """Prints the document."""
         self._stop = False
-        p = self._printer
+        resolution = self.resolution()
+        p = self.printer()
         p.setFullPage(True)
-        p.setResolution(self._resolution)
+        p.setResolution(resolution)
         
         center = p.paperRect().center()
         painter = QPainter(p)
@@ -145,19 +162,18 @@ class Printer(object):
 
         total = len(pages)
         
-        opts = RenderOptions()
-        opts.setRenderHint(0)
-        opts.setPaperColor(QColor(Qt.white))
+        opts = self.renderOptions()
+        document = self.document()
         
         for num, pageNum in enumerate(pages, 1):
             self.progress(num, total, pageNum)
             if self._stop:
                 return p.abort()
             
-            with lock(self._document):
-                opts.write(self._document)
-                page = self._document.page(pageNum - 1)
-                img = page.renderToImage(self._resolution, self._resolution)
+            with lock(document):
+                opts.write(document)
+                page = document.page(pageNum - 1)
+                img = page.renderToImage(resolution, resolution)
             rect = img.rect()
             rect.moveCenter(center)
             painter.drawImage(rect, img)
