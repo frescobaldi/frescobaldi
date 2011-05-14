@@ -174,6 +174,16 @@ class ComboBoxAction(QWidgetAction):
     
 
 class DocumentChooserAction(ComboBoxAction):
+    """A ComboBoxAction that keeps track of the current text document.
+    
+    It manages the list of generated PDF documents for every text document.
+    If the mainwindow changes its current document and there are PDFs to display,
+    it switches the current document.
+    
+    It also switches to a text document if a job finished for that document,
+    and it generated new PDF documents.
+    
+    """
     
     documentClosed = pyqtSignal()
     documentsChanged = pyqtSignal()
@@ -181,12 +191,12 @@ class DocumentChooserAction(ComboBoxAction):
     
     def __init__(self, panel):
         super(DocumentChooserAction, self).__init__(panel)
-        self._document = lambda: None
+        self._document = None
         self._documents = []
         self._currentIndex = -1
         self._indices = weakref.WeakKeyDictionary()
         panel.mainwindow().currentDocumentChanged.connect(self.slotDocumentChanged)
-        documents.documentUpdated.connect(self.setDocument)
+        documents.documentUpdated.connect(self.setCurrentDocument)
         
     def createWidget(self, parent):
         return DocumentChooser(self, parent)
@@ -194,13 +204,13 @@ class DocumentChooserAction(ComboBoxAction):
     def slotDocumentChanged(self, doc):
         """Called when the mainwindow changes its current document."""
         # only switch our document if there are PDF documents to display
-        if self._document() is None or documents.group(doc).documents():
-            self.setDocument(doc)
+        if self._document is None or documents.group(doc).documents():
+            self.setCurrentDocument(doc)
     
-    def setDocument(self, document):
-        """Displays the DocumentGroup of the given document in our chooser."""
-        prev = self._document()
-        self._document = weakref.ref(document)
+    def setCurrentDocument(self, document):
+        """Displays the DocumentGroup of the given text Document in our chooser."""
+        prev = self._document
+        self._document = document
         if prev:
             prev.loaded.disconnect(self.updateDocument)
             prev.closed.disconnect(self.closeDocument)
@@ -211,13 +221,13 @@ class DocumentChooserAction(ComboBoxAction):
         
     def updateDocument(self):
         """(Re)read the output documents of the current document and show them."""
-        docs = self._documents = documents.group(self._document()).documents()
+        docs = self._documents = documents.group(self._document).documents()
         self.setVisible(bool(docs))
         self.setEnabled(bool(docs))
         for w in self.createdWidgets():
             w.updateContents(self)
         
-        index = self._indices.get(self._document(), 0)
+        index = self._indices.get(self._document, 0)
         if index < 0 or index >= len(docs):
             index = 0
         self.documentsChanged.emit()
@@ -225,7 +235,13 @@ class DocumentChooserAction(ComboBoxAction):
     
     def closeDocument(self):
         """Called when the current document is closed by the user."""
+        self._document = None
+        self._documents = []
+        self._currentIndex = -1
+        self.setVisible(False)
+        self.setEnabled(False)
         self.documentClosed.emit()
+        self.documentsChanged.emit()
         
     def documents(self):
         return self._documents
