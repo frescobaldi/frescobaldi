@@ -240,7 +240,7 @@ class BoundLinks(object):
                         break
             if found:
                 index = findlink(tokens.block.position() + token.pos)
-                if index < 0:
+                if index < 0 or cursors[index].block() != tokens.block:
                     return
             elif cur2.block() != cursor.block():
                 return False
