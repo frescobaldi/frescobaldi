@@ -98,11 +98,7 @@ def startmain():
 if app.qApp.isSessionRestored():
     # Restore session, we are started by the session manager
     session.restoreSession()
-    if not app.windows:
-        mainwindow.MainWindow().show()
 else:
     # Parse command line arguments
     startmain()
-if not app.documents:
-    document.Document()
 app.run()

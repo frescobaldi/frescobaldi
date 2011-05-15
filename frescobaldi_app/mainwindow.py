@@ -39,6 +39,7 @@ import actioncollectionmanager
 import document
 import view
 import viewmanager
+import historymanager
 import metainfo
 import signals
 import recentfiles
@@ -116,7 +117,7 @@ class MainWindow(QMainWindow):
         
         self.readSettings()
         
-        self.historyManager = HistoryManager(self, other.historyManager if other else None)
+        self.historyManager = historymanager.HistoryManager(self, other.historyManager if other else None)
         self.viewManager.viewChanged.connect(self.slotViewChanged)
         self.tabBar.currentDocumentChanged.connect(self.setCurrentDocument)
         self.setAcceptDrops(True)
@@ -214,15 +215,16 @@ class MainWindow(QMainWindow):
         name = []
         if sessionmanager.currentSession():
             name.append(sessionmanager.currentSession() + ':')
-        if doc.url().isEmpty():
-            name.append(doc.documentName())
-        elif doc.url().toLocalFile():
-            name.append(util.homify(doc.url().toLocalFile()))
-        else:
-            name.append(doc.url().toString())
-        if doc.isModified():
-            # L10N: state of document in window titlebar
-            name.append(_("[modified]"))
+        if doc:
+            if doc.url().isEmpty():
+                name.append(doc.documentName())
+            elif doc.url().toLocalFile():
+                name.append(util.homify(doc.url().toLocalFile()))
+            else:
+                name.append(doc.url().toString())
+            if doc.isModified():
+                # L10N: state of document in window titlebar
+                name.append(_("[modified]"))
         self.setWindowTitle(app.caption(" ".join(name)))
     
     def dropEvent(self, ev):
@@ -402,7 +404,7 @@ class MainWindow(QMainWindow):
             doc.close()
             # keep one document
             if not app.documents:
-                document.Document()
+                self.setCurrentDocument(document.Document())
         return close
         
     def saveCurrentDocument(self):
@@ -486,7 +488,7 @@ class MainWindow(QMainWindow):
         self.sessionManager.saveCurrentSessionIfDesired()
         if self.queryClose():
             sessionmanager.setCurrentSession(None)
-            document.Document()
+            self.setCurrentDocument(document.Document())
     
     def quit(self):
         """Closes all MainWindows."""
@@ -994,40 +996,6 @@ class MainWindow(QMainWindow):
         self.menu_view_music.setTitle(_('submenu title', "Music &View"))
         self.menu_tools_lyrics.setTitle(_('submenu title', "&Lyrics"))
     
-
-class HistoryManager(object):
-    """Keeps the history of document switches by the user.
-    
-    If a document is closed, the previously active document is set active.
-    If a document is created and it is the first one, it is also set active.
-    
-    """
-    def __init__(self, mainwin, othermanager=None):
-        self.mainwin = weakref.ref(mainwin)
-        self._documents = list(othermanager._documents if othermanager else app.documents)
-        mainwin.currentDocumentChanged.connect(self.setCurrentDocument)
-        app.documentCreated.connect(self.addDocument, 1)
-        app.documentClosed.connect(self.removeDocument, 1)
-        
-    def addDocument(self, doc):
-        self._documents.insert(-1, doc)
-        if len(self._documents) == 1:
-            self.mainwin().setCurrentDocument(doc)
-
-    def removeDocument(self, doc):
-        active = doc is self._documents[-1]
-        if active and len(self._documents) > 1:
-            self.mainwin().setCurrentDocument(self._documents[-2])
-        self._documents.remove(doc)
-    
-    def setCurrentDocument(self, doc):
-        self._documents.remove(doc)
-        self._documents.append(doc)
-    
-    def documents(self):
-        """Returns the documents in order of most recent been active."""
-        return self._documents[::-1]
-
 
 class DocumentActionGroup(QActionGroup):
     """Maintains a list of actions to set the current document.

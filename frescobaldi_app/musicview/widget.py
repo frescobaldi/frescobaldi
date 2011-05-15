@@ -234,7 +234,7 @@ class MusicView(QWidget):
                 text = "{0}  {1}:{2}".format(os.path.basename(filename), line, column)
             QToolTip.showText(pos, text, self.view.surface(), page.linkRect(link.linkArea()))
 
-    def slotCurrentViewChanged(self, view, old):
+    def slotCurrentViewChanged(self, view, old=None):
         self.view.surface().clearHighlight(self._highlightMusicFormat)
         if old:
             old.cursorPositionChanged.disconnect(self.slotCursorPositionChanged)
