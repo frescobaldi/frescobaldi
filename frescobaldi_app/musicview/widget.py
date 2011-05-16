@@ -97,17 +97,14 @@ class MusicView(QWidget):
 
     def openDocument(self, doc):
         """Opens a documents.Document instance."""
-        cur = self._currentDocument()
-        if cur:
-            self._positions[cur] = self.view.position()
-            
+        self.clear()
         self._currentDocument = weakref.ref(doc)
-        self._links = pointandclick.links(doc.document())
-        self.view.load(doc.document())
-        position = self._positions.get(doc, (0, 0, 0))
-        self.view.setPosition(position)
-        self._highlightRange = None
-        self._highlightTimer.stop()
+        document = doc.document()
+        if document:
+            self._links = pointandclick.links(document)
+            self.view.load(document)
+            position = self._positions.get(doc, (0, 0, 0))
+            self.view.setPosition(position)
 
     def clear(self):
         """Empties the view."""

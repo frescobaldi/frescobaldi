@@ -63,7 +63,11 @@ def group(document):
 
 
 def load(filename):
-    """Returns a Poppler.Document for the given filename, caching it (weakly)."""
+    """Returns a Poppler.Document for the given filename, caching it (weakly).
+    
+    Returns None if the document failed to load.
+    
+    """
     mtime = os.path.getmtime(filename)
     key = (mtime, filename)
     
@@ -72,14 +76,17 @@ def load(filename):
     except KeyError:
         with open(filename, 'rb') as f:
             data = QByteArray(f.read())
-        doc = _cache[key] = popplerqt4.Poppler.Document.loadFromData(data)
-        return doc
+        doc = popplerqt4.Poppler.Document.loadFromData(data)
+        if doc:
+            _cache[key] = doc
+        return doc or None
 
 
 class Document(object):
     """Represents a (lazily) loaded PDF document."""
     def __init__(self):
         self._filename = None
+        self._document = None
         self._dirty = True
         
     def filename(self):
@@ -96,10 +103,16 @@ class Document(object):
         self._dirty = True
             
     def document(self):
-        """Returns the PDF document the filename points to, reloading if the filename was set."""
+        """Returns the PDF document the filename points to, reloading if the filename was set.
+        
+        Can return None, in case the document failed to load.
+        
+        """
         if self._dirty:
-            self._document = load(self._filename)
-            self._dirty = False
+            doc = load(self._filename)
+            if doc:
+                self._document = doc
+                self._dirty = False
         return self._document
 
 

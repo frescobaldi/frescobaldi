@@ -83,7 +83,7 @@ class MusicViewPanel(panels.Panel):
         
     def printMusic(self):
         doc = self.actionCollection.music_document_select.currentDocument()
-        if doc:
+        if doc and doc.document():
             from . import printing
             printing.printDocument(self, doc)
     
