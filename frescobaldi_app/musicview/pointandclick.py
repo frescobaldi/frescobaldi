@@ -223,7 +223,9 @@ class BoundLinks(object):
             found = False
             tokens = tokeniter.TokenIterator(cursor.block(), True)
             for token in tokens.backward(False):
-                if token.pos <= col and token.pos > prevcol:
+                if token.pos <= prevcol:
+                    break
+                elif token.pos <= col:
                     if isinstance(token, ly.tokenize.MatchEnd) and token.matchname in (
                             'slur', 'phrasingslur', 'beam'):
                         # YES! now go backwards to find the opening token
