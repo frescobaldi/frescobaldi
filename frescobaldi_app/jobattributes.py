@@ -23,8 +23,6 @@ Manages a collection of attributes that can be set on a Job.
 E.g. from which mainwindow it was started, etc.
 """
 
-import weakref
-
 import plugin
 
 
@@ -33,7 +31,7 @@ def get(job):
     return JobAttributes.instance(job)
 
 
-class JobAttributes(plugin.Plugin):
+class JobAttributes(plugin.AttributePlugin):
     """Manages attributes of a Job.
     
     The attributes can be set simply as instance attributes.
@@ -42,36 +40,13 @@ class JobAttributes(plugin.Plugin):
     
     If an attribute is requested but not set, None is returned.
     
-    Usage:
+    Usage e.g.:
     
     attrs = jobattributes.get(job)
     attrs.mainwindow = mainwindow
     
     """
-    def __init__(self, job):
-        self._attrs = {}
-        
     def job(self):
         return self._parent()
-        
-    def __getattr__(self, name):
-        val = self._attrs.get(name)
-        if isinstance(val, weakref.ref):
-            return val()
-        else:
-            return val
-    
-    def __setattr__(self, name, value):
-        if name.startswith('_'):
-            super(JobAttributes, self).__setattr__(name, value)
-        else:
-            try:
-                value = weakref.ref(value)
-            except TypeError:
-                pass
-            self._attrs[name] = value
-
-    def __delattr__(self, name):
-        del self._attrs[name]
 
 

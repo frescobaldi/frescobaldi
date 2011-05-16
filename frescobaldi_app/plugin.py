@@ -32,6 +32,17 @@ There are three often used Plugin classes defined here:
 MainWindowPlugin (for MainWindow instances), DocumentPlugin (for Document instances)
 and ViewSpacePlugin (for ViewSpace instances).
 
+Also the Attributes class is defined here, which is a simple class without methods
+but with special instance attribute handling:
+- when setting attributes on an instance, weak references are used when possible
+- when requesting unexisting attributes, None is returned
+- deleting an attribute does not fail if it doesn't exist.
+
+You can use this class to store information to associate objects with each other,
+but without keeping references to them.
+
+Finally there is an AttributePlugin class, combining the Attributes and Plugin classes.
+
 """
 
 from __future__ import unicode_literals
@@ -82,6 +93,55 @@ class Plugin(object):
         except KeyError:
             return ()
 
+
+class Attributes(object):
+    """Manages attributes.
+    
+    The attributes can be set simply as instance attributes.
+    
+    If an attribute is set, it is stored as a weak reference when possible
+    If an attribute is requested but not set or its value does not exist anymore,
+    None is returned.
+    Deleting an attribute does not fail if it doesn't exist.
+    
+    """
+    def __init__(self):
+        self._attrs = {}
+        
+    def __getattr__(self, name):
+        val = self._attrs.get(name)
+        if isinstance(val, weakref.ref):
+            return val()
+        else:
+            return val
+    
+    def __setattr__(self, name, value):
+        if name.startswith('_'):
+            object.__setattr__(self, name, value)
+        else:
+            try:
+                value = weakref.ref(value)
+            except TypeError:
+                pass
+            self._attrs[name] = value
+
+    def __delattr__(self, name):
+        try:
+            del self._attrs[name]
+        except KeyError:
+            pass
+
+
+class AttributePlugin(Plugin, Attributes):
+    """Base class for a Plugin managing attributes for any object."""
+    def __init__(self, obj):
+        """Implement this method to setup the plugin instance.
+        
+        For this class (AttributePlugin) you must also call this constructor if you reimplement it.
+        
+        """
+        Attributes.__init__(self)
+    
 
 class DocumentPlugin(Plugin):
     """Base class for plugins that live besides a Document."""
