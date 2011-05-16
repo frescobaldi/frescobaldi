@@ -45,9 +45,9 @@ documentUpdated = signals.SignalInstance() # Document
 
 
 @app.jobFinished.connect
-def _on_job_finished(document):
+def _on_job_finished(document, job):
     if group(document).update():
-        documentUpdated(document)
+        documentUpdated(document, job)
 
 
 @app.settingsChanged.connect

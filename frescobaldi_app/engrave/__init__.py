@@ -30,6 +30,7 @@ import app
 import actioncollection
 import actioncollectionmanager
 import jobmanager
+import jobattributes
 import plugin
 import icons
 import signals
@@ -105,6 +106,7 @@ class Engraver(plugin.MainWindowPlugin):
                 doc.save()
         doc = self.stickyDocument() or self.mainwindow().currentDocument()
         job = command.defaultJob(doc, preview)
+        jobattributes.get(job).mainwindow = self.mainwindow()
         jobmanager.manager(doc).startJob(job)
     
     def engraveAbort(self):

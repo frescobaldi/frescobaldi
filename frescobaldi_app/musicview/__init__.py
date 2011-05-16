@@ -35,6 +35,7 @@ import actioncollectionmanager
 import icons
 import panels
 import resultfiles
+import jobattributes
 
 from . import documents
 
@@ -196,7 +197,7 @@ class DocumentChooserAction(ComboBoxAction):
         self._currentIndex = -1
         self._indices = weakref.WeakKeyDictionary()
         panel.mainwindow().currentDocumentChanged.connect(self.slotDocumentChanged)
-        documents.documentUpdated.connect(self.setCurrentDocument)
+        documents.documentUpdated.connect(self.slotDocumentUpdated)
         
     def createWidget(self, parent):
         return DocumentChooser(self, parent)
@@ -205,6 +206,12 @@ class DocumentChooserAction(ComboBoxAction):
         """Called when the mainwindow changes its current document."""
         # only switch our document if there are PDF documents to display
         if self._document is None or documents.group(doc).documents():
+            self.setCurrentDocument(doc)
+    
+    def slotDocumentUpdated(self, doc, job):
+        """Called when a Job, finished on the document, has created new PDFs."""
+        if (doc == self._document or
+                jobattributes.get(job).mainwindow == self.parent().mainwindow()):
             self.setCurrentDocument(doc)
     
     def setCurrentDocument(self, document):

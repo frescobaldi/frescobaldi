@@ -43,7 +43,6 @@ class LogTool(panels.Panel):
         ac.log_previous_error.triggered.connect(self.slotPreviousError)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         mainwindow.addDockWidget(Qt.BottomDockWidgetArea, self)
-        app.jobStarted.connect(self.slotJobStarted)
         app.jobFinished.connect(self.slotJobFinished)
     
     def translateUI(self):
@@ -54,10 +53,6 @@ class LogTool(panels.Panel):
         from . import logwidget
         return logwidget.LogWidget(self)
     
-    def slotJobStarted(self, document):
-        if QSettings().value("log/show_on_start", True) not in (False, "false"):
-            self.show()
-
     def slotJobFinished(self, document, job, success):
         if not success and document == self.mainwindow().currentDocument():
             self.show()
