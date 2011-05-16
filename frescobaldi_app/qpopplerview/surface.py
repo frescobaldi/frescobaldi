@@ -193,7 +193,6 @@ class Surface(QWidget):
         self.update(sum((page.rect() for page in d), QRegion()))
     
     def paintEvent(self, ev):
-        print "paint!!!", ev.rect()
         painter = QPainter(self)
         pages = list(self.pageLayout().pagesAt(ev.rect()))
         for page in pages:
