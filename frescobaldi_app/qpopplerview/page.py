@@ -52,6 +52,7 @@ class Page(object):
         self._scale = 1.0
         self._visible = True
         self._layout = lambda: None
+        self._waiting = True # whether image still needs to be generated
         
     def document(self):
         """Returns the document."""
@@ -156,6 +157,7 @@ class Page(object):
             return
         image_rect = QRect(update_rect.topLeft() - self.rect().topLeft(), update_rect.size())
         image = cache.image(self)
+        self._waiting = not image
         if image:
             painter.drawImage(update_rect, image, image_rect)
         else:
@@ -178,7 +180,8 @@ class Page(object):
 
     def update(self):
         """Called when an image is drawn."""
-        if self.layout():
+        # only redraw when we were waiting for a correctly sized image.
+        if self._waiting and self.layout():
             self.layout().updatePage(self)
             
     def image(self, rect, xdpi=72.0, ydpi=None, options=None):
