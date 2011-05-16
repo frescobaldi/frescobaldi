@@ -29,7 +29,7 @@ import weakref
 from PyQt4.QtCore import QEvent, QPoint, QRect, QSize, Qt, QTimer, pyqtSignal
 from PyQt4.QtGui import (
     QApplication, QContextMenuEvent, QCursor, QHelpEvent, QPainter, QPalette,
-    QRubberBand, QToolTip, QWidget)
+    QRegion, QRubberBand, QToolTip, QWidget)
 
 import popplerqt4
 
@@ -179,19 +179,21 @@ class Surface(QWidget):
             t.start(msec)
         else:
             t = None
+        self.clearHighlight(highlighter)
         self._highlights[highlighter] = (d, t)
-        self.update()
+        self.update(sum((page.rect() for page in d), QRegion()))
         
     def clearHighlight(self, highlighter):
         """Removes the highlighted areas of the given highlighter."""
         try:
-            del self._highlights[highlighter]
+            (d, t) = self._highlights[highlighter]
         except KeyError:
-            pass
-        else:
-            self.update()
+            return
+        del self._highlights[highlighter]
+        self.update(sum((page.rect() for page in d), QRegion()))
     
     def paintEvent(self, ev):
+        print "paint!!!", ev.rect()
         painter = QPainter(self)
         pages = list(self.pageLayout().pagesAt(ev.rect()))
         for page in pages:
