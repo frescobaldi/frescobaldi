@@ -71,7 +71,7 @@ class Links(object):
     """
     def __init__(self, document):
         self._links = {}
-        self._docs = weakref.WeakValueDictionary()
+        self._docs = {}
         
         with qpopplerview.lock(document):
             for num in range(document.numPages()):
@@ -90,6 +90,7 @@ class Links(object):
                     or d.url().toLocalFile() == filename):
                     self.bind(filename, d)
         app.documentLoaded.connect(self.slotDocumentLoaded)
+        app.documentClosed.connect(self.slotDocumentClosed)
     
     def bind(self, filename, doc):
         """Binds the given filename to the given document.
@@ -99,13 +100,23 @@ class Links(object):
         to they keep their position even if the user changes the document.
         
         """
-        self._docs[filename] = BoundLinks(doc, self._links[filename])
+        if filename not in self._docs:
+            self._docs[filename] = BoundLinks(doc, self._links[filename])
     
     def slotDocumentLoaded(self, doc):
         """Called when a new document is loaded, it maybe possible to bind to it."""
         filename = doc.url().toLocalFile()
         if filename in self._links:
             self.bind(filename, doc)
+    
+    def slotDocumentClosed(self, doc):
+        """Called when a document is closed, removes the bound links."""
+        for filename, b in self._docs.items():
+            if b.document == doc:
+                break
+        else:
+            return
+        del self._docs[filename]
     
     def cursor(self, link, load=False):
         """Returns the destination of a link as a QTextCursor of the destination document).
@@ -130,18 +141,15 @@ class Links(object):
     def boundLinks(self, doc):
         """Returns the Bound links object for the given text document."""
         for b in self._docs.values():
-            if b._document() == doc:
+            if b.document == doc:
                 return b
 
 
 class BoundLinks(object):
     """Stores links as QTextCursors for a document."""
-    _bound_links_instances = []
-    
     def __init__(self, doc, links):
-        self._document = weakref.ref(doc, self.remove)
-        self._bound_links_instances.append(self)
-        
+        """Creates QTextCursor instances for every link, keeps a reference to the document."""
+        self.document = doc
         # make a sorted list of cursors with their [(pageNum, linkArea) ...] destinations list
         self._cursor_dict = d = {}              # mapping from (line, col) to QTextCursor
         self._cursors = cursors = []            # sorted list of the cursors
@@ -248,9 +256,5 @@ class BoundLinks(object):
                 return False
         # highlight it!
         return slice(index, index+1)
-        
-    def remove(self, wr):
-        self._bound_links_instances.remove(self)
-
 
 
