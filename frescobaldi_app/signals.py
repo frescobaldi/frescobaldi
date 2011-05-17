@@ -143,7 +143,7 @@ class SignalInstance(object):
 
     def emit(self, *args, **kwargs):
         if not self._blocked:
-            for l in self.listeners:
+            for l in self.listeners[:]:
                 l.call(args, kwargs)
     
     __call__ = emit
