@@ -208,11 +208,13 @@ class Scheduler(object):
     def __init__(self):
         self._schedule = []     # order
         self._jobs = {}         # jobs on key
+        self._waiting = weakref.WeakKeyDictionary()      # jobs on page
         self._running = None
         
     def schedulejob(self, page):
         """Creates or retriggers an existing Job.
         
+        If a Job was already scheduled for the page, it is canceled.
         The page's update() method will be called when the Job has completed.
         
         """
@@ -225,17 +227,18 @@ class Scheduler(object):
             job.key = key
         else:
             self._schedule.remove(job)
-            job.notify(page)
         self._schedule.append(job)
+        self._waiting[page] = job
         self.checkStart()
         
     def checkStart(self):
         """Starts a job if none is running and at least one is waiting."""
-        if self._schedule and not self._running:
+        while self._schedule and not self._running:
             job = self._schedule[-1]
             document = job.document()
-            if document:
+            if document and job in self._waiting.values():
                 self._running = Runner(self, document, job)
+                break
             else:
                 self.done(job)
             
@@ -244,34 +247,20 @@ class Scheduler(object):
         del self._jobs[job.key]
         self._schedule.remove(job)
         self._running = None
-        for page in job.pages():
-            page.update()
-        self.checkStart()
+        for page in self._waiting.keys():
+            if self._waiting[page] is job:
+                page.update()
+                del self._waiting[page]
 
 
 class Job(object):
     """Simply contains data needed to create an image later."""
     def __init__(self, page):
-        self._pages = []
         self.document = weakref.ref(page.document())
         self.pageNumber = page.pageNumber()
         self.rotation = page.rotation()
         self.width = page.width()
         self.height = page.height()
-        self.notify(page)
-        
-    def notify(self, page):
-        """Add a Page to the list to be notified when the job has completed."""
-        pageref = weakref.ref(page)
-        if pageref not in self._pages:
-            self._pages.append(pageref)
-        
-    def pages(self):
-        """Yields the pages that want to update() when this Job is done."""
-        for pageref in self._pages:
-            page = pageref()
-            if page:
-                yield page
 
 
 class Runner(QThread):
@@ -301,5 +290,5 @@ class Runner(QThread):
         """Called when the thread has completed."""
         add(self.image, self.document, self.job.pageNumber, self.job.rotation, self.job.width, self.job.height)
         self.scheduler.done(self.job)
-
+        self.scheduler.checkStart()
 
