@@ -247,7 +247,7 @@ class Scheduler(object):
         del self._jobs[job.key]
         self._schedule.remove(job)
         self._running = None
-        for page in self._waiting.keys():
+        for page in list(self._waiting):
             if self._waiting[page] is job:
                 page.update()
                 del self._waiting[page]
