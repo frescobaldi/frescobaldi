@@ -27,13 +27,15 @@ import types
 import weakref
 
 
-__all__ = ["Signal", "SignalInstance"]
+__all__ = ["Signal"]
 
 
 class Signal(object):
-    """Use the Signal object at the class definition level:
+    """A Signal can be emitted and receivers (slots) can be connected to it.
     
-    class MyObject:
+    An example:
+    
+    class MyObject(object):
     
         somethingChanged = Signal()
         
@@ -47,29 +49,10 @@ class Signal(object):
     o.somethingChanged.connect(receiver)
     o.somethingChanged.emit("Hi there")
     
-    When the somethingChanged attribute is accessed for the first time through
-    an instance, a SignalInstance object is created that provides the signal/
-    slot implementation.
-    
-    """
-    
-    def __init__(self):
-        self.instances = weakref.WeakKeyDictionary()
-        
-    def __get__(self, instance, cls):
-        if instance is None:
-            return self
-        try:
-            return self.instances[instance]
-        except KeyError:
-            ret = self.instances[instance] = SignalInstance(owner=instance)
-            return ret
+    A Signal instance can be used directly but can also be accessed as an
+    attribute of a class or an instance, in which case it creates a Signal
+    instance for that class or instance.
 
-
-class SignalInstance(object):
-    """The SignalInstance object can be used as a signal that receivers (slots)
-    can be connected to.
-    
     The signal is emitted by the emit() method or by simply invoking it.  Use
     the connect() method to connect functions to it that are called with the
     same arguments as used when emitting the signal.  Currently no argument type
@@ -78,12 +61,12 @@ class SignalInstance(object):
     a connected slot called before all the others, use e.g. -1, and when you
     want to have a connected slot called after others, use 1 or higher.
     
-    If an instance method is connected, the SignalInstance keeps no reference
-    to the object the method belongs to. So if the object is garbage collected,
-    the signal is automatically disconnected.
+    If an instance method is connected, the Signal keeps no reference to the
+    object the method belongs to. So if the object is garbage collected, the
+    signal is automatically disconnected.
     
-    If a normal or lambda function is connected, the SignalInstance will keep
-    a reference to the function.  If you want to have the function disconnected
+    If a normal or lambda function is connected, the Signal will keep a
+    reference to the function.  If you want to have the function disconnected
     automatically when some object dies, provide that object through the owner
     argument.  Be sure that the connected function does not keep a reference to
     that object though!
@@ -99,31 +82,66 @@ class SignalInstance(object):
     The blocked() method returns a contextmanager that will block the signals
     as long as it exists:
     
-    s = SignalInstance()
+    s = Signal()
     s.connect(receiver)
     with s.blocked():
         doSomething() # code that would cause s to emit a signal
     
     If owner is given (must be a keyword argument) a weak reference to it is
-    kept, and this allows a SignalInstance to be connected to another Signal.
-    When the owner dies, the connection is removed.
+    kept, and this allows a Signal to be connected to another Signal. When the
+    owner dies, the connection is removed.
     
     """
     
     def __init__(self, owner=None):
+        """Creates the Signal.
+        
+        If owner is given (must be a keyword argument) it is set as the
+        owner of this signal (using a weak reference).
+        
+        """
         self.listeners = []
         self._blocked = False
         self._owner = weakref.ref(owner) if owner else lambda: None
         
+    def __get__(self, instance, cls):
+        """Called when accessing as a descriptor: returns another instance."""
+        if instance is None:
+            return self
+        try:
+            return self._instances[instance]
+        except AttributeError:
+            self._instances = weakref.WeakKeyDictionary()
+        except KeyError:
+            pass
+        ret = self._instances[instance] = Signal(owner=instance)
+        return ret
+    
     def owner(self):
+        """Returns the owner of this Signal, if any."""
         return self._owner()
         
     def connect(self, func, priority=0, owner=None):
+        """Connects a method or function ('slot') to this Signal.
+        
+        priority determines the order the connected slots are called
+        (a lower value calls the slot earlier).
+        If owner is given, the connection will be removed if owner is garbage
+        collected.
+        
+        A slot that is already connected will not be connected twice.
+        
+        """
         key = makeListener(func, owner)
         if key not in self.listeners:
             key.add(self, priority)
             
     def disconnect(self, func):
+        """Disconnects the method or function.
+        
+        No error is raised if there wasn't a connection.
+        
+        """
         key = makeListener(func)
         try:
             self.listeners.remove(key)
@@ -131,10 +149,12 @@ class SignalInstance(object):
             pass
     
     def clear(self):
+        """Removes all connected slots."""
         del self.listeners[:]
     
     @contextlib.contextmanager
     def blocked(self):
+        """Returns a contextmanager that suppresses all emits as long as it lives."""
         blocked, self._blocked = self._blocked, True
         try:
             yield
@@ -142,6 +162,7 @@ class SignalInstance(object):
             self._blocked = blocked
 
     def emit(self, *args, **kwargs):
+        """Emits the signal using supplied arguments."""
         if not self._blocked:
             for l in self.listeners[:]:
                 l.call(args, kwargs)
@@ -152,7 +173,7 @@ class SignalInstance(object):
 def makeListener(func, owner=None):
     if isinstance(func, (types.MethodType, types.BuiltinMethodType)):
         return MethodListener(func)
-    elif isinstance(func, SignalInstance):
+    elif isinstance(func, Signal):
         return FunctionListener(func, owner or func.owner())
     else:
         return FunctionListener(func, owner)

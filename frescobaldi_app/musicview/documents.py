@@ -41,7 +41,7 @@ _cache = weakref.WeakValueDictionary()
 
 
 # This signal gets emitted when a finished Job has created new PDF document(s).
-documentUpdated = signals.SignalInstance() # Document
+documentUpdated = signals.Signal() # Document
 
 
 @app.jobFinished.connect

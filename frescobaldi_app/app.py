@@ -40,22 +40,22 @@ QApplication.setOrganizationDomain(info.url)
 windows = []
 documents = []
 
-from signals import SignalInstance
+from signals import Signal
 
 # signals
-mainwindowCreated = SignalInstance()    # MainWindow
-mainwindowClosed = SignalInstance()     # MainWindow
-documentCreated = SignalInstance()      # Document
-documentUrlChanged = SignalInstance()   # Document
-documentLoaded = SignalInstance()       # Document
-documentModificationChanged = SignalInstance() # Document
-documentClosed = SignalInstance()       # Document
-viewSpaceCreated = SignalInstance()     # ViewSpace (see viewmanager.py)
-languageChanged = SignalInstance()      # (no arguments)
-settingsChanged = SignalInstance()      # (no arguments)
-sessionChanged = SignalInstance()       # (no arguments)
-jobStarted = SignalInstance()           # (Document, Job)
-jobFinished = SignalInstance()          # (Document, Job, bool success)
+mainwindowCreated = Signal()    # MainWindow
+mainwindowClosed = Signal()     # MainWindow
+documentCreated = Signal()      # Document
+documentUrlChanged = Signal()   # Document
+documentLoaded = Signal()       # Document
+documentModificationChanged = Signal() # Document
+documentClosed = Signal()       # Document
+viewSpaceCreated = Signal()     # ViewSpace (see viewmanager.py)
+languageChanged = Signal()      # (no arguments)
+settingsChanged = Signal()      # (no arguments)
+sessionChanged = Signal()       # (no arguments)
+jobStarted = Signal()           # (Document, Job)
+jobFinished = Signal()          # (Document, Job, bool success)
 
 
 def openUrl(url, encoding=None):

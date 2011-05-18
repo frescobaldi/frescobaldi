@@ -32,7 +32,7 @@ import signals
 
 # This signal is emitted whenever a MainWindow sets a document current (active)
 # Any HistoryManager can listen to it and follow it if no document is current
-_setCurrentDocument = signals.SignalInstance()  # Document
+_setCurrentDocument = signals.Signal()  # Document
 
 
 class HistoryManager(object):
