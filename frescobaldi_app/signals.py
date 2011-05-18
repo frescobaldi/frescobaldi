@@ -41,63 +41,43 @@ class Signal(object):
         
         def __init__(self):
             pass # etc
+            
+        def doSomething(self):
+            ... do things ...
+            self.somethingChanged("Hi there!")     # emit the signal
     
     def receiver(arg):
         print "Received message:", arg
     
-    o = MyObject()
-    o.somethingChanged.connect(receiver)
-    o.somethingChanged.emit("Hi there")
     
-    A Signal instance can be used directly but can also be accessed as an
-    attribute of a class or an instance, in which case it creates a Signal
-    instance for that class or instance.
+    >>> o = MyObject()
+    >>> o.somethingChanged.connect(receiver)
+    >>> o.doSomething()
+    Hi there!
+    
+    A Signal() can be used directly or as a class attribute, but can also be
+    accessed as an attribute of an instance, in which case it creates a Signal
+    instance for that instance.
 
-    The signal is emitted by the emit() method or by simply invoking it.  Use
-    the connect() method to connect functions to it that are called with the
-    same arguments as used when emitting the signal.  Currently no argument type
-    checking is provided. You can set the priority to influence the order the
-    connected slots are called.  The default priority is 0, if you want to have
-    a connected slot called before all the others, use e.g. -1, and when you
-    want to have a connected slot called after others, use 1 or higher.
+    The signal is emitted by the emit() method or by simply invoking it.
     
-    If an instance method is connected, the Signal keeps no reference to the
-    object the method belongs to. So if the object is garbage collected, the
-    signal is automatically disconnected.
+    It is currently not possible to enforce argument types that should be used
+    when emitting the signal. But if called methods or functions expect fewer
+    arguments than were given on emit(), the superfluous arguments are left out.
     
-    If a normal or lambda function is connected, the Signal will keep a
-    reference to the function.  If you want to have the function disconnected
-    automatically when some object dies, provide that object through the owner
-    argument.  Be sure that the connected function does not keep a reference to
-    that object though!
-    
-    You can't connect the same function or method twice, but no exception will
-    be raised.
-    
-    The disconnect() method will disconnect an instance method or function.
-    If it wasn't connected no exception is raised.
-    
-    The clear() method simply disconnects all connected slots.
-    
-    The blocked() method returns a contextmanager that will block the signals
-    as long as it exists:
-    
-    s = Signal()
-    s.connect(receiver)
-    with s.blocked():
-        doSomething() # code that would cause s to emit a signal
-    
-    If owner is given (must be a keyword argument) a weak reference to it is
-    kept, and this allows a Signal to be connected to another Signal. When the
-    owner dies, the connection is removed.
+    Methods or functions are connected using connect() and disconnected using
+    disconnect(). It is no problem to call connect() or disconnect() more than
+    once for the same function or method. Only one connection to the same method
+    or function can exist.
     
     """
     
     def __init__(self, owner=None):
         """Creates the Signal.
         
-        If owner is given (must be a keyword argument) it is set as the
-        owner of this signal (using a weak reference).
+        If owner is given (must be a keyword argument) a weak reference to it is
+        kept, and this allows a Signal to be connected to another Signal. When
+        the owner dies, the connection is removed.
         
         """
         self.listeners = []
@@ -121,25 +101,35 @@ class Signal(object):
         """Returns the owner of this Signal, if any."""
         return self._owner()
         
-    def connect(self, func, priority=0, owner=None):
+    def connect(self, slot, priority=0, owner=None):
         """Connects a method or function ('slot') to this Signal.
         
-        priority determines the order the connected slots are called
-        (a lower value calls the slot earlier).
+        The priority argument determines the order the connected slots are
+        called. A lower value calls the slot earlier.
         If owner is given, the connection will be removed if owner is garbage
         collected.
         
         A slot that is already connected will not be connected twice.
         
+        If slot is an instance method (bound method), the Signal keeps no
+        reference to the object the method belongs to. So if the object is
+        garbage collected, the signal is automatically disconnected.
+        
+        If slot is a (normal or lambda) function, the Signal will keep a
+        reference to the function. If you want to have the function disconnected
+        automatically when some object dies, you should provide that object
+        through the owner argument. Be sure that the connected function does not
+        keep a reference to that object in that case!
+        
         """
-        key = makeListener(func, owner)
+        key = makeListener(slot, owner)
         if key not in self.listeners:
             key.add(self, priority)
             
     def disconnect(self, func):
         """Disconnects the method or function.
         
-        No error is raised if there wasn't a connection.
+        No exception is raised if there wasn't a connection.
         
         """
         key = makeListener(func)
@@ -154,7 +144,20 @@ class Signal(object):
     
     @contextlib.contextmanager
     def blocked(self):
-        """Returns a contextmanager that suppresses all emits as long as it lives."""
+        """Returns a contextmanager that suppresses the signal.
+        
+        An example (continued from the class documentation):
+        
+        >>> o = MyObject()
+        >>> o.somethingChanged.connect(receiver)
+        >>> with o.somethingChanged.blocked():
+        ...     o.doSomething()
+        (no output)
+        
+        The doSomething() method will emit the signal but the connected slots
+        will not be called.
+        
+        """
         blocked, self._blocked = self._blocked, True
         try:
             yield
@@ -162,7 +165,11 @@ class Signal(object):
             self._blocked = blocked
 
     def emit(self, *args, **kwargs):
-        """Emits the signal using supplied arguments."""
+        """Emits the signal.
+        
+        Unless blocked, all slots will be called with the supplied arguments.
+        
+        """
         if not self._blocked:
             for l in self.listeners[:]:
                 l.call(args, kwargs)
