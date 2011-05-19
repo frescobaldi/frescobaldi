@@ -300,6 +300,8 @@ class MusicView(QWidget):
         for dest in links.destinations()[s]:
             for pageNum, r in dest:
                 rect = rect.united(layout[pageNum].linkRect(r.normalized()))
+        # not larger than viewport
+        rect.setSize(rect.size().boundedTo(self.view.viewport().size()))
         self.view.center(rect.center())
         self.highlight(links.destinations(), s, 10000)
 
