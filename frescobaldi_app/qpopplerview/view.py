@@ -149,7 +149,7 @@ class View(QScrollArea):
         for document in documents:
             cache.clear(document)
         for page in pages:
-            cache.generate(page)
+            page.repaint()
 
     def scrollSurface(self, diff):
         """Scrolls the surface() by the distance given in the QPoint diff."""

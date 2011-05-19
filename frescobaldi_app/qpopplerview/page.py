@@ -183,7 +183,12 @@ class Page(object):
         # only redraw when we were waiting for a correctly sized image.
         if self._waiting and self.layout():
             self.layout().updatePage(self)
-            
+    
+    def repaint(self):
+        """Call this to force a repaint (e.g. when the rendering options are changed)."""
+        self._waiting = True
+        cache.generate(self)
+    
     def image(self, rect, xdpi=72.0, ydpi=None, options=None):
         """Returns a QImage of the specified rectangle (relative to our layout).
         
