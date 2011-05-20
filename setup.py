@@ -1,4 +1,5 @@
 import os
+import sys
 from distutils.core import setup
 from frescobaldi_app import info
 
@@ -18,7 +19,10 @@ setup(
     url = info.url,
     license = info.license,
     
-    scripts = ['frescobaldi'],
+    scripts = (
+        ['frescobaldi', 'frescobaldi-postinstall.py'] if sys.platform.startswith('win')
+        else ['frescobaldi']
+    )
     
     packages = packagelist('frescobaldi_app'),
     package_data = {
