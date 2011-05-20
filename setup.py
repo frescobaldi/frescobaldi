@@ -22,7 +22,7 @@ setup(
     scripts = (
         ['frescobaldi', 'frescobaldi-postinstall.py'] if sys.platform.startswith('win')
         else ['frescobaldi']
-    )
+    ),
     
     packages = packagelist('frescobaldi_app'),
     package_data = {
@@ -33,6 +33,7 @@ setup(
             ],
         'frescobaldi_app.po': ['*.mo'],
         'frescobaldi_app.symbols': ['*.svg'],
+		'frescobaldi_app.postinstall': ['*.ico'],
     },
     data_files = [
         ('share/icons/hicolor/scalable/apps', ['frescobaldi_app/icons/frescobaldi.svg']),

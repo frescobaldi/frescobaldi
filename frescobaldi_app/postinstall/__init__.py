@@ -13,7 +13,7 @@ def install():
     """Called after installing."""
     # start menu
     startmenu = get_special_folder_path('CSIDL_STARTMENU')
-    dest = os.path.join(startmenu, "frescobaldi.lnk")
+    dest = os.path.join(startmenu, "Frescobaldi.lnk")
     create_shortcut(
         python,         # path
         "Frescobaldi",  # description
