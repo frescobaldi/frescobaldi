@@ -3,8 +3,8 @@ import os
 import sys
 
 icon = os.path.join(__path__[0], 'frescobaldi.ico')
-script = os.path.join(sys.prefix, 'scripts', 'frescobaldi')
-python = os.path.join(sys.prefix, 'pythonw.exe') # because sys.executable points to installer
+script = os.path.join(sys.prefix, 'Scripts', 'frescobaldi')
+python = os.path.join(sys.exec_prefix, 'pythonw.exe') # because sys.executable points to installer
 
 
 
@@ -18,11 +18,12 @@ def install():
         python,         # path
         "Frescobaldi",  # description
         dest,           # filename
-        "",             # arguments
+        script,         # arguments
         "",             # workdir
         icon,           # icon
         0,              # icon index
     )
+	file_created(dest)
     
 def remove():
     """Called before uninstalling."""
