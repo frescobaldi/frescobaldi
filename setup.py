@@ -10,35 +10,39 @@ def packagelist(directory):
         if '__init__.py' in files))
 
 scripts = ['frescobaldi']
-if sys.platform.startswith('win'):
-	scripts.append('frescobaldi-postinstall.py')
-
 packages = packagelist('frescobaldi_app')
-package_dir = dict((p, p.replace('.', os.sep)) for p in packages)
 package_data = {
-	'frescobaldi_app.hyphdicts': ['*.dic'],
-	'frescobaldi_app.icons': [
-		'*.svg', '*x*/.png',
-		'tango/*.svg', 'tango/*x*/*.png',
-		],
-	'frescobaldi_app.po': ['*.mo'],
-	'frescobaldi_app.symbols': ['*.svg'],
-	'frescobaldi_app.postinstall': ['*.ico'],
+    'frescobaldi_app.hyphdicts': ['*.dic'],
+    'frescobaldi_app.icons': [
+        '*.svg', '*x*/.png',
+        'tango/*.svg', 'tango/*x*/*.png',
+        ],
+    'frescobaldi_app.po': ['*.mo'],
+    'frescobaldi_app.symbols': ['*.svg'],
+    'frescobaldi_app.wininst': ['*.ico'],
 }
-data_files = [
-	('share/icons/hicolor/scalable/apps', ['frescobaldi_app/icons/frescobaldi.svg']),
-	('share/applications', ['frescobaldi.desktop']),
-]
+
+if sys.platform.startswith('win'):
+    scripts.append('frescobaldi-wininst.py')
+    data_files = []
+else:
+    if 'sdist' not in sys.argv:
+        packages.remove('frescobaldi_app.wininst')
+    data_files = [
+        ('share/icons/hicolor/scalable/apps', ['frescobaldi_app/icons/frescobaldi.svg']),
+        ('share/applications', ['frescobaldi.desktop']),
+    ]
+
 classifiers = [
-	'Development Status :: 3 - Alpha',
-	'Intended Audience :: End Users/Desktop',
-	'License :: OSI Approved :: GNU General Public License (GPL)',
-	'Operating System :: MacOS :: MacOS X',
-	'Operating System :: Microsoft :: Windows',
-	'Operating System :: POSIX',
-	'Programming Language :: Python',
-	'Topic :: Multimedia :: Sound/Audio',
-	'Topic :: Multimedia :: Graphics',
+    'Development Status :: 3 - Alpha',
+    'Intended Audience :: End Users/Desktop',
+    'License :: OSI Approved :: GNU General Public License (GPL)',
+    'Operating System :: MacOS :: MacOS X',
+    'Operating System :: Microsoft :: Windows',
+    'Operating System :: POSIX',
+    'Programming Language :: Python',
+    'Topic :: Multimedia :: Sound/Audio',
+    'Topic :: Multimedia :: Graphics',
 ]
 
 setup(
@@ -51,11 +55,10 @@ setup(
     url = info.url,
     license = info.license,
     
-	scripts = scripts,
-	packages = packages,
-	package_dir = package_dir,
-	package_data = package_data,
-	data_files = data_files,
-	classifiers = classifiers,
+    scripts = scripts,
+    packages = packages,
+    package_data = package_data,
+    data_files = data_files,
+    classifiers = classifiers,
 )
 
