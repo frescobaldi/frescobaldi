@@ -19,6 +19,17 @@
 
 """
 The PDF preview panel.
+
+This file loads even if popplerqt4 is absent, although the PDF preview
+panel only shows a message about missing the popplerqt4 module.
+
+The widget module contains the real widget, the documents module a simple
+abstraction and caching of Poppler documents with their filename,
+and the printing module contains code to print a Poppler document, either
+via a PostScript rendering or by printing raster images to a QPrinter.
+
+All the point & click stuff is handled in the pointandclick module.
+
 """
 
 from __future__ import unicode_literals
@@ -27,7 +38,14 @@ import os
 import weakref
 
 from PyQt4.QtCore import Qt, pyqtSignal
-from PyQt4.QtGui import QAction, QComboBox, QPalette, QKeySequence, QWidgetAction
+from PyQt4.QtGui import (
+    QAction, QComboBox, QLabel, QMessageBox, QPalette, QKeySequence,
+    QWidgetAction)
+
+try:
+    import popplerqt4
+except ImportError:
+    popplerqt4 = None
 
 import app
 import actioncollection
@@ -43,6 +61,12 @@ from . import documents
 # default zoom percentages
 _zoomvalues = [50, 75, 100, 125, 150, 175, 200, 250, 300]
 
+# viewModes from qpopplerview:
+FixedScale = 0
+FitWidth   = 1
+FitHeight  = 2
+FitBoth    = FitHeight | FitWidth
+
 
 class MusicViewPanel(panels.Panel):
     def __init__(self, mainwindow):
@@ -53,23 +77,31 @@ class MusicViewPanel(panels.Panel):
         ac = self.actionCollection = Actions(self)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         ac.music_print.triggered.connect(self.printMusic)
-        ac.music_zoom_in.triggered.connect(self.zoomIn)
-        ac.music_zoom_out.triggered.connect(self.zoomOut)
-        ac.music_fit_width.triggered.connect(self.fitWidth)
-        ac.music_fit_height.triggered.connect(self.fitHeight)
-        ac.music_fit_both.triggered.connect(self.fitBoth)
-        ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
-        ac.music_document_select.currentDocumentChanged.connect(self.openDocument)
-        ac.music_document_select.documentsChanged.connect(self.updateActions)
-        ac.music_document_select.documentClosed.connect(self.closeDocument)
+        if popplerqt4 is not None:
+            ac.music_zoom_in.triggered.connect(self.zoomIn)
+            ac.music_zoom_out.triggered.connect(self.zoomOut)
+            ac.music_zoom_combo.zoomChanged.connect(self.slotZoomChanged)
+            ac.music_fit_width.triggered.connect(self.fitWidth)
+            ac.music_fit_height.triggered.connect(self.fitHeight)
+            ac.music_fit_both.triggered.connect(self.fitBoth)
+            ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
+            ac.music_document_select.currentDocumentChanged.connect(self.openDocument)
+            ac.music_document_select.documentsChanged.connect(self.updateActions)
+            ac.music_document_select.documentClosed.connect(self.closeDocument)
         
     def translateUI(self):
         self.setWindowTitle(_("window title", "Music View"))
         self.toggleViewAction().setText(_("&Music View"))
     
     def createWidget(self):
-        import widget
-        return widget.MusicView(self)
+        if popplerqt4 is not None:
+            import widget
+            w = widget.MusicView(self)
+            w.zoomChanged.connect(self.slotMusicZoomChanged)
+            w.updateZoomInfo()
+        else:
+            w = NoPopplerLabel(self)
+        return w
         
     def openDocument(self, doc):
         """Opens the documents.Document instance (wrapping a lazily loaded Poppler document)."""
@@ -83,6 +115,8 @@ class MusicViewPanel(panels.Panel):
         ac.music_print.setEnabled(bool(ac.music_document_select.documents()))
         
     def printMusic(self):
+        if popplerqt4 is None:
+            return QMessageBox.warning(self, app.caption(_("Can't Print")), no_poppler_text())
         doc = self.actionCollection.music_document_select.currentDocument()
         if doc and doc.document():
             from . import printing
@@ -95,21 +129,33 @@ class MusicViewPanel(panels.Panel):
         self.widget().view.zoomOut()
     
     def fitWidth(self):
-        import qpopplerview
-        self.widget().view.setViewMode(qpopplerview.FitWidth)
+        self.widget().view.setViewMode(FitWidth)
     
     def fitHeight(self):
-        import qpopplerview
-        self.widget().view.setViewMode(qpopplerview.FitHeight)
+        self.widget().view.setViewMode(FitHeight)
 
     def fitBoth(self):
-        import qpopplerview
-        self.widget().view.setViewMode(qpopplerview.FitBoth)
-
+        self.widget().view.setViewMode(FitBoth)
+    
     def jumpToCursor(self):
         self.activate()
         self.widget().showCurrentLinks()
-
+    
+    def slotZoomChanged(self, mode, scale):
+        """Called when the combobox is changed, changes view zoom."""
+        if mode == FixedScale:
+            self.widget().view.zoom(scale)
+        else:
+            self.widget().view.setViewMode(mode)
+    
+    def slotMusicZoomChanged(self, mode, scale):
+        """Called when the music view is changed, updates the toolbar actions."""
+        ac = self.actionCollection
+        ac.music_fit_width.setChecked(mode == FitWidth)
+        ac.music_fit_height.setChecked(mode == FitHeight)
+        ac.music_fit_both.setChecked(mode == FitBoth)
+        ac.music_zoom_combo.updateZoomInfo(mode, scale)
+        
 
 class Actions(actioncollection.ActionCollection):
     name = "musicview"
@@ -288,6 +334,8 @@ class DocumentChooser(QComboBox):
 
 
 class ZoomerAction(ComboBoxAction):
+    zoomChanged = pyqtSignal(int, float)
+    
     def createWidget(self, parent):
         return Zoomer(self, parent)
     
@@ -300,28 +348,24 @@ class ZoomerAction(ComboBoxAction):
         for w in self.createdWidgets():
             w.setCurrentIndex(index)
         if index == 0:
-            self.parent().fitWidth()
+            self.zoomChanged.emit(FitWidth, 0)
         elif index == 1:
-            self.parent().fitHeight()
+            self.zoomChanged.emit(FitHeight, 0)
         elif index == 2:
-            self.parent().fitBoth()
+            self.zoomChanged.emit(FitBoth, 0)
         else:
-            self.parent().widget().view.zoom(_zoomvalues[index-3] / 100.0)
+            self.zoomChanged.emit(FixedScale, _zoomvalues[index-3] / 100.0)
     
-    def updateZoomInfo(self):
+    def updateZoomInfo(self, mode, scale):
         """Connect view.viewModeChanged and layout.scaleChanged to this."""
-        import qpopplerview
-        mode = self.parent().widget().view.viewMode()
-        
-        if mode == qpopplerview.FixedScale:
-            scale = self.parent().widget().view.scale()
+        if mode == FixedScale:
             text = "{0:.0f}%".format(round(scale * 100.0))
             for w in self.createdWidgets():
                 w.setEditText(text)
         else:
-            if mode == qpopplerview.FitWidth:
+            if mode == FitWidth:
                 index = 0
-            elif mode == qpopplerview.FitHeight:
+            elif mode == FitHeight:
                 index = 1
             else: # qpopplerview.FitBoth:
                 index = 2
@@ -347,3 +391,23 @@ class Zoomer(QComboBox):
         self.setItemText(1, _("Fit Height"))
         self.setItemText(2, _("Fit Page"))
         
+
+class NoPopplerLabel(QLabel):
+    def __init__(self, parent=None):
+        super(NoPopplerLabel, self).__init__(parent)
+        self.setAlignment(Qt.AlignCenter)
+        self.setOpenExternalLinks(True)
+        app.translateUI(self)
+    
+    def translateUI(self):
+        self.setText(no_poppler_text())
+
+
+def no_poppler_text():
+    """Returns a text saying that popplerqt4 is not available."""
+    return _(
+    "<p>Could not load the {poppler} module.</p>"
+    "<p>This module can be downloaded from<br/>{url}</p>").format(
+    poppler="<code>popplerqt4</code>",
+    url='<a href="http://python-poppler-qt4.googlecode.com/">python-poppler-qt4.googlecode.com</a>')
+

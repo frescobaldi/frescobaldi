@@ -29,7 +29,10 @@ import weakref
 
 from PyQt4.QtCore import QByteArray
 
-import popplerqt4
+try:
+    import popplerqt4
+except ImportError:
+    popplerqt4 = None
 
 import app
 import plugin
@@ -48,13 +51,6 @@ documentUpdated = signals.Signal() # Document
 def _on_job_finished(document, job):
     if group(document).update():
         documentUpdated(document, job)
-
-
-@app.settingsChanged.connect
-def _on_settings_changed():
-    import qpopplerview
-    for doc in _cache.values():
-        qpopplerview.cache.clear(doc)
 
 
 def group(document):
@@ -114,6 +110,13 @@ class Document(object):
                 self._document = doc
                 self._dirty = False
         return self._document
+
+
+if popplerqt4 is None:
+    class Document(Document):
+        def document(self):
+            """Returns None because popplerqt4 is not available."""
+            return None
 
 
 class DocumentGroup(plugin.DocumentPlugin):

@@ -43,6 +43,10 @@ from . import pointandclick
 
 
 class MusicView(QWidget):
+    """Widget containing the qpopplerview.View."""
+    
+    zoomChanged = pyqtSignal(int, float) # mode, scale
+    
     def __init__(self, dockwidget):
         """Creates the Music View for the dockwidget."""
         super(MusicView, self).__init__(dockwidget)
@@ -66,17 +70,14 @@ class MusicView(QWidget):
         self.readSettings()
         self.view.setViewMode(qpopplerview.FitWidth)
         self.view.surface().pageLayout().setDPI(self.physicalDpiX(), self.physicalDpiY())
-        self.view.viewModeChanged.connect(self.slotViewModeChanged)
         self.view.surface().linkClicked.connect(self.slotLinkClicked)
         self.view.surface().linkHovered.connect(self.slotLinkHovered)
         self.view.surface().linkLeft.connect(self.slotLinkLeft)
         self.view.surface().setShowUrlTips(False)
         self.view.surface().linkHelpRequested.connect(self.slotLinkHelpRequested)
-        self.slotViewModeChanged(self.view.viewMode())
         
-        zoomer = self.parent().actionCollection.music_zoom_combo
-        self.view.viewModeChanged.connect(zoomer.updateZoomInfo)
-        self.view.surface().pageLayout().scaleChanged.connect(zoomer.updateZoomInfo)
+        self.view.viewModeChanged.connect(self.updateZoomInfo)
+        self.view.surface().pageLayout().scaleChanged.connect(self.updateZoomInfo)
         
         # react if cursor of current text document moves
         dockwidget.mainwindow().currentViewChanged.connect(self.slotCurrentViewChanged)
@@ -87,14 +88,11 @@ class MusicView(QWidget):
     def sizeHint(self):
         """Returns the initial size the PDF (Music) View prefers."""
         return self.parent().mainwindow().size() / 2
+    
+    def updateZoomInfo(self):
+        """Called when zoom and viewmode of the qpopplerview change, emit zoomChanged."""
+        self.zoomChanged.emit(self.view.viewMode(), self.view.surface().pageLayout().scale())
         
-    def slotViewModeChanged(self, viewmode):
-        """Called when the view mode of the view changes."""
-        ac = self.parent().actionCollection
-        ac.music_fit_width.setChecked(viewmode == qpopplerview.FitWidth)
-        ac.music_fit_height.setChecked(viewmode == qpopplerview.FitHeight)
-        ac.music_fit_both.setChecked(viewmode == qpopplerview.FitBoth)
-
     def openDocument(self, doc):
         """Opens a documents.Document instance."""
         self.clear()
