@@ -5,7 +5,7 @@ from frescobaldi_app import info
 
 def packagelist(directory):
     """Returns a sorted list with package names for all packages under the given directory."""
-    return list(sorted(root.replace('/', '.')
+    return list(sorted(root.replace(os.sep, '.')
         for root, dirs, files in os.walk(directory)
         if '__init__.py' in files))
 
