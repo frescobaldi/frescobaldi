@@ -39,10 +39,20 @@ def iswritable(path):
             or os.access(os.path.dirname(path), os.W_OK))
 
 
+if os.name == 'nt':
+    def equal_paths(p1, p2):
+        """Returns True if the paths are equal (case and separator insensitive)."""
+        return p1.lower().replace('\\', '/') == p2.lower().replace('\\', '/')
+else:
+    def equal_paths(p1, p2):
+        """Returns True if the paths are equal."""
+        return p1 == p2
+        
+
 def homify(path):
     """Replaces the homedirectory (if present) in the path with a tilde (~)."""
     homedir = os.path.expanduser('~')
-    if path.startswith(homedir + os.sep):
+    if equal_paths(path[:len(homedir)+1], homedir + '/'):
         path = "~" + path[len(homedir):]
     return path
 
