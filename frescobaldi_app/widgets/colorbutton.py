@@ -29,9 +29,6 @@ from PyQt4.QtCore import Qt, pyqtSignal
 from PyQt4.QtGui import QApplication, QColor, QColorDialog, QPainter, QPalette, QPushButton
 
 
-import app
-
-
 class ColorButton(QPushButton):
     
     colorChanged = pyqtSignal()
@@ -40,13 +37,9 @@ class ColorButton(QPushButton):
         super(ColorButton, self).__init__(parent)
         
         self.setFixedSize(self.sizeHint())
-        app.translateUI(self)
         self._color = QColor()
         self.clicked.connect(self.openDialog)
     
-    def translateUI(self):
-        self.setToolTip(_("Click to select a different color."))
-        
     def color(self):
         return self._color
     
