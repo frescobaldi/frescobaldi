@@ -53,7 +53,6 @@ class LogWidget(log.Log):
         self.readSettings()
         self.anchorClicked.connect(self.slotAnchorClicked)
         logtool.mainwindow().currentDocumentChanged.connect(self.switchDocument)
-        app.jobStarted.connect(self.jobStarted)
         app.documentClosed.connect(self.documentClosed)
         app.settingsChanged.connect(self.readSettings)
         self.switchDocument(logtool.mainwindow().currentDocument())
@@ -77,14 +76,6 @@ class LogWidget(log.Log):
             self.clear()
             self.connectJob(job)
             
-    def jobStarted(self, doc, job):
-        """Called whenever job starts, decides whether to follow it and show the log."""
-        mainwindow = self.parentWidget().mainwindow()
-        if doc == mainwindow.currentDocument() or mainwindow == jobattributes.get(job).mainwindow:
-            self.switchDocument(doc)
-            if QSettings().value("log/show_on_start", True) not in (False, "false"):
-                self.parentWidget().show()
-
     def documentClosed(self, doc):
         if doc == self._document():
             self.clear()
