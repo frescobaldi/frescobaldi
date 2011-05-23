@@ -23,9 +23,10 @@ A button to select a color.
 
 from __future__ import unicode_literals
 
+import os
 
 from PyQt4.QtCore import Qt, pyqtSignal
-from PyQt4.QtGui import QApplication, QColor, QColorDialog, QPalette, QPushButton
+from PyQt4.QtGui import QApplication, QColor, QColorDialog, QPainter, QPalette, QPushButton
 
 
 import app
@@ -67,3 +68,11 @@ class ColorButton(QPushButton):
             self.setColor(color)
             self.colorChanged.emit()
 
+    if os.name == "nt":
+        def paintEvent(self, ev):
+            QPushButton.paintEvent(self, ev)
+            if self._color.isValid():
+                p = QPainter(self)
+                r = self.rect().adjusted(6, 6, -6, -6)
+                p.fillRect(r, self._color)
+                
