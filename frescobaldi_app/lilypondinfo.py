@@ -66,6 +66,17 @@ def saveinfos():
     s.endArray()
 
 
+def default():
+    """Returns a default LilyPondInfo instance with the default LilyPond command.
+    
+    On Windows, the default command is "lilypond-windows.exe",
+    on other platforms simply "lilypond".
+    
+    """
+    lilypond = "lilypond-windows.exe" if os.name == "nt" else "lilypond"
+    return LilyPondInfo(lilypond)
+
+
 class LilyPondInfo(ly.info.LilyPondInfo):
     """Manages information about a LilyPond instance, partially cached to speed up Frescobaldi."""
     def __init__(self, command):

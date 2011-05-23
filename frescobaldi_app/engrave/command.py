@@ -36,7 +36,7 @@ def info(document):
     """Returns a LilyPondInfo instance that should be used by default to engrave the document."""
     infos = lilypondinfo.infos()
     if not infos:
-        return lilypondinfo.LilyPondInfo("lilypond")
+        return lilypondinfo.default()
     elif len(infos) == 1:
         return infos[0]
     s = QSettings()

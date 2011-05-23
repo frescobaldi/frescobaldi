@@ -99,11 +99,12 @@ class Versions(preferences.Group):
 
     def loadSettings(self):
         s = settings()
-        self._defaultCommand = s.value("default", "lilypond")
+        default = lilypondinfo.default()
+        self._defaultCommand = s.value("default", default.command)
         self.auto.setChecked(s.value("autoversion", True) in (True, "true"))
         infos = sorted(lilypondinfo.infos(), key=lambda i: i.version)
         if not infos:
-            infos = [lilypondinfo.LilyPondInfo("lilypond")]
+            infos = [default]
         items = [InfoItem(info) for info in infos]
         self.instances.setItems(items)
         for item in items:
@@ -120,8 +121,8 @@ class Versions(preferences.Group):
             else:
                 self._defaultCommand = infos[0].command
         else:
-            infos = lilypondinfo.LilyPondInfo("lilypond")
-            self._defaultCommand = "lilypond"
+            infos = [lilypondinfo.default()]
+            self._defaultCommand = infos[0].command
         s = settings()
         s.setValue("default", self._defaultCommand)
         s.setValue("autoversion", self.auto.isChecked())
