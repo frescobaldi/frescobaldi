@@ -39,6 +39,7 @@ def scratchdir(document):
 class ScratchDir(plugin.DocumentPlugin):
     
     def __init__(self, document):
+        document.closed.connect(self.delete)
         self._directory = None
         
     def create(self):
@@ -52,8 +53,6 @@ class ScratchDir(plugin.DocumentPlugin):
             shutil.rmtree(self._directory, ignore_errors=True)
             self._directory = None
             
-    __del__ = delete
-
     def directory(self):
         """Returns the directory if a temporary area was created, else None."""
         return self._directory
