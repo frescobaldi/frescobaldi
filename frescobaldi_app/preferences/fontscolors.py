@@ -190,9 +190,11 @@ class FontsColors(preferences.Page):
             self.fontChooser.setCurrentFont(data.font)
             self.fontSize.setValue(data.font.pointSizeF())
         
-        # update base colors
-        for name in textformats.baseColors:
-            self.baseColorsWidget.color[name].setColor(data.baseColors[name])
+        with util.signalsBlocked(self):
+            # update base colors
+            for name in textformats.baseColors:
+                self.baseColorsWidget.color[name].setColor(data.baseColors[name])
+        
         # update base colors for whole treewidget
         p = QApplication.palette()
         p.setColor(QPalette.Base, data.baseColors['background'])
