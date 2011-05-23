@@ -3,7 +3,7 @@
 
 import sys
 
-from frescobaldi_app.postinstall import install, remove
+from frescobaldi_app.wininst import install, remove
 
 if sys.argv[1] == '-install':
     install()
