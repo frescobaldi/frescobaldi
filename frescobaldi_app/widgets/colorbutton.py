@@ -51,10 +51,9 @@ class ColorButton(QPushButton):
         return self._color
     
     def setColor(self, color):
-        changed = self._color != color
-        self._color = color
-        self._updateColor()
-        if changed:
+        if self._color != color:
+            self._color = color
+            self._updateColor()
             self.colorChanged.emit(color)
 
     def clear(self):
