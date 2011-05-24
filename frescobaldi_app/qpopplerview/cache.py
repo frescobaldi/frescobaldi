@@ -24,7 +24,11 @@ Caching of generated images.
 
 import time
 import weakref
-import popplerqt4
+
+try:
+    import popplerqt4
+except ImportError:
+    from . import popplerqt4_dummy as popplerqt4
 
 from PyQt4.QtCore import QThread
 

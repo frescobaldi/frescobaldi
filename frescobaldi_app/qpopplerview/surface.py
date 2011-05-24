@@ -31,7 +31,10 @@ from PyQt4.QtGui import (
     QApplication, QContextMenuEvent, QCursor, QHelpEvent, QPainter, QPalette,
     QRegion, QRubberBand, QToolTip, QWidget)
 
-import popplerqt4
+try:
+    import popplerqt4
+except ImportError:
+    from . import popplerqt4_dummy as popplerqt4
 
 from . import layout
 from . import page
