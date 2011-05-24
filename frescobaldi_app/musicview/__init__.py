@@ -42,11 +42,6 @@ from PyQt4.QtGui import (
     QAction, QComboBox, QLabel, QMessageBox, QPalette, QKeySequence,
     QWidgetAction)
 
-try:
-    import popplerqt4
-except ImportError:
-    popplerqt4 = None
-
 import app
 import actioncollection
 import actioncollectionmanager
@@ -62,10 +57,7 @@ from . import documents
 _zoomvalues = [50, 75, 100, 125, 150, 175, 200, 250, 300]
 
 # viewModes from qpopplerview:
-FixedScale = 0
-FitWidth   = 1
-FitHeight  = 2
-FitBoth    = FitHeight | FitWidth
+from qpopplerview import FixedScale, FitWidth, FitHeight, FitBoth
 
 
 class MusicViewPanel(panels.Panel):
@@ -77,30 +69,26 @@ class MusicViewPanel(panels.Panel):
         ac = self.actionCollection = Actions(self)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         ac.music_print.triggered.connect(self.printMusic)
-        if popplerqt4 is not None:
-            ac.music_zoom_in.triggered.connect(self.zoomIn)
-            ac.music_zoom_out.triggered.connect(self.zoomOut)
-            ac.music_zoom_combo.zoomChanged.connect(self.slotZoomChanged)
-            ac.music_fit_width.triggered.connect(self.fitWidth)
-            ac.music_fit_height.triggered.connect(self.fitHeight)
-            ac.music_fit_both.triggered.connect(self.fitBoth)
-            ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
-            ac.music_document_select.currentDocumentChanged.connect(self.openDocument)
-            ac.music_document_select.documentsChanged.connect(self.updateActions)
-            ac.music_document_select.documentClosed.connect(self.closeDocument)
+        ac.music_zoom_in.triggered.connect(self.zoomIn)
+        ac.music_zoom_out.triggered.connect(self.zoomOut)
+        ac.music_zoom_combo.zoomChanged.connect(self.slotZoomChanged)
+        ac.music_fit_width.triggered.connect(self.fitWidth)
+        ac.music_fit_height.triggered.connect(self.fitHeight)
+        ac.music_fit_both.triggered.connect(self.fitBoth)
+        ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
+        ac.music_document_select.currentDocumentChanged.connect(self.openDocument)
+        ac.music_document_select.documentClosed.connect(self.closeDocument)
+        ac.music_document_select.documentsChanged.connect(self.updateActions)
         
     def translateUI(self):
         self.setWindowTitle(_("window title", "Music View"))
         self.toggleViewAction().setText(_("&Music View"))
     
     def createWidget(self):
-        if popplerqt4 is not None:
-            import widget
-            w = widget.MusicView(self)
-            w.zoomChanged.connect(self.slotMusicZoomChanged)
-            w.updateZoomInfo()
-        else:
-            w = NoPopplerLabel(self)
+        import widget
+        w = widget.MusicView(self)
+        w.zoomChanged.connect(self.slotMusicZoomChanged)
+        w.updateZoomInfo()
         return w
         
     def openDocument(self, doc):
@@ -115,8 +103,6 @@ class MusicViewPanel(panels.Panel):
         ac.music_print.setEnabled(bool(ac.music_document_select.documents()))
         
     def printMusic(self):
-        if popplerqt4 is None:
-            return QMessageBox.warning(self, app.caption(_("Can't Print")), no_poppler_text())
         doc = self.actionCollection.music_document_select.currentDocument()
         if doc and doc.document():
             from . import printing
@@ -391,23 +377,4 @@ class Zoomer(QComboBox):
         self.setItemText(1, _("Fit Height"))
         self.setItemText(2, _("Fit Page"))
         
-
-class NoPopplerLabel(QLabel):
-    def __init__(self, parent=None):
-        super(NoPopplerLabel, self).__init__(parent)
-        self.setAlignment(Qt.AlignCenter)
-        self.setOpenExternalLinks(True)
-        app.translateUI(self)
-    
-    def translateUI(self):
-        self.setText(no_poppler_text())
-
-
-def no_poppler_text():
-    """Returns a text saying that popplerqt4 is not available."""
-    return _(
-    "<p>Could not load the {poppler} module.</p>"
-    "<p>This module can be downloaded from<br/>{url}</p>").format(
-    poppler="<code>popplerqt4</code>",
-    url='<a href="http://python-poppler-qt4.googlecode.com/">python-poppler-qt4.googlecode.com</a>')
 

@@ -29,7 +29,6 @@ import weakref
 from PyQt4.QtCore import QUrl
 from PyQt4.QtGui import QTextCursor
 
-import popplerqt4
 import qpopplerview
 
 import app
@@ -73,6 +72,7 @@ class Links(object):
         self._links = {}
         self._docs = {}
         
+        import popplerqt4
         with qpopplerview.lock(document):
             for num in range(document.numPages()):
                 page = document.page(num)

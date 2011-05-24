@@ -30,7 +30,11 @@ import weakref
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-import popplerqt4
+try:
+    import popplerqt4
+except ImportError:
+    pass
+
 import qpopplerview
 
 import app
