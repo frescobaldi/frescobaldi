@@ -149,7 +149,7 @@ class Button(QToolButton):
     
     def contextMenuEvent(self, ev):
         m = QMenu(self)
-        a = m.addAction(_("Configure Keyboard Shortcut ({key})").format(key = self.key() or "None"))
+        a = m.addAction(_("Configure Keyboard Shortcut ({key})").format(key = self.key() or _("None")))
         a.triggered.connect(self.editShortcut)
         m.exec_(ev.globalPos())
         m.deleteLater()
