@@ -14,6 +14,7 @@ packages = packagelist('frescobaldi_app')
 package_data = {
     'frescobaldi_app.hyphdicts': ['*.dic'],
     'frescobaldi_app.icons': [
+        '*.ico',
         '*.svg', '*x*/.png',
         'tango/*.svg', 'tango/*x*/*.png',
         ],
