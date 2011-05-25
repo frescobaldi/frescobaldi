@@ -56,7 +56,8 @@ class MusicView(QWidget):
         super(MusicView, self).__init__(dockwidget)
         
         self._positions = weakref.WeakKeyDictionary()
-        self._currentDocument = lambda: None
+        self._currentDocument = None
+        self._links = None
         
         self._highlightFormat = QTextCharFormat()
         self._highlightMusicFormat = Highlighter()
@@ -100,7 +101,7 @@ class MusicView(QWidget):
     def openDocument(self, doc):
         """Opens a documents.Document instance."""
         self.clear()
-        self._currentDocument = weakref.ref(doc)
+        self._currentDocument = doc
         document = doc.document()
         if document:
             self._links = pointandclick.links(document)
@@ -110,10 +111,11 @@ class MusicView(QWidget):
 
     def clear(self):
         """Empties the view."""
-        cur = self._currentDocument()
+        cur = self._currentDocument
         if cur:
             self._positions[cur] = self.view.position()
-        self._currentDocument = lambda: None
+        self._currentDocument = None
+        self._links = None
         self._highlightRange = None
         self._highlightTimer.stop()
         self.view.clear()
@@ -241,7 +243,7 @@ class MusicView(QWidget):
     
     def slotCursorPositionChanged(self):
         """Called when the user moves the text cursor."""
-        if not self.isVisible() or not self._currentDocument():
+        if not self.isVisible() or not self._links:
             return # not visible of no PDF in the viewer
         
         view = self.parent().mainwindow().currentView()
@@ -286,7 +288,7 @@ class MusicView(QWidget):
 
     def showCurrentLinks(self):
         """Scrolls the view if necessary to show objects at current text cursor."""
-        if not self._currentDocument():
+        if not self._links:
             return # no PDF in viewer
             
         view = self.parent().mainwindow().currentView()
