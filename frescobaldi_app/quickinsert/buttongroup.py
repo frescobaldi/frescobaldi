@@ -86,7 +86,7 @@ class ButtonGroup(QGroupBox):
         for name, icon, function in self.actionData():
             if function is None:
                 function = (lambda name: lambda: self.actionTriggered(name))(name)
-            actionDict[name] = QAction(None, icon=icon, triggered=function)
+            actionDict[name] = QAction(self, icon=icon, triggered=function)
             self._names.append(name)
     
     def setActionTexts(self):
