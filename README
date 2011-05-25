@@ -35,7 +35,7 @@ What does work?
   - hovering an object in the PDF highlights the part in the text that represents it
   - clicking a PDF object moves the text cursor
   - moving the text cursor or selecting text highlights the corresponding objects in the PDF
-  - Ctrl-H lets the PDF jump to the objects the text cursor or selection points to
+  - Ctrl-J lets the PDF jump to the objects the text cursor or selection points to
 - lyrics hyphenation
 - metainfo like cursor position, marked lines, etc. can be remembered
 - preferences dialog:

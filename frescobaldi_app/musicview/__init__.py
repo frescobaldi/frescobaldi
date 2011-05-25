@@ -172,7 +172,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_print.setShortcuts(QKeySequence.Print)
         self.music_zoom_in.setShortcuts(QKeySequence.ZoomIn)
         self.music_zoom_out.setShortcuts(QKeySequence.ZoomOut)
-        self.music_jump_to_cursor.setShortcut(QKeySequence(Qt.CTRL | Qt.Key_H))
+        self.music_jump_to_cursor.setShortcut(QKeySequence(Qt.CTRL | Qt.Key_J))
         
     def translateUI(self):
         self.music_document_select.setText(_("Select Music View Document"))
