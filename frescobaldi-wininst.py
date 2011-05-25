@@ -69,11 +69,11 @@ def remove_association():
     
     """
     try:
-        key = winreg.OpenKey(winreg.HKEY_CLASSES_ROOT, "LilyPond\\shell")
+        key = winreg.OpenKey(winreg.HKEY_CLASSES_ROOT, "LilyPond")
         with key:
-            winreg.SetValue(key, None, winreg.REG_SZ, "generate")
-            winreg.DeleteKey(key, "frescobaldi\\command")
-            winreg.DeleteKey(key, "frescobaldi")
+            winreg.DeleteKey(key, "shell\\frescobaldi\\command")
+            winreg.DeleteKey(key, "shell\\frescobaldi")
+            winreg.SetValue(key, "shell", winreg.REG_SZ, "generate")
     except WindowsError:
         pass
 
