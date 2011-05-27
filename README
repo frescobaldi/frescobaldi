@@ -13,13 +13,12 @@ editing functionality is already working.
 
 What do you need to run it?
 
-- Windows (not tested yet)
-- or Mac OS X (not tested yet)
-- or Linux (tested under KDE)
+- Windows, Mac OS X or Linux
 
 - Python 2.6 or 2.7
 - Qt 4.7
 - PyQt4
+- Poppler
 - python-poppler-qt4 (binding to Poppler-Qt4 for viewing PDF documents)
 
 
