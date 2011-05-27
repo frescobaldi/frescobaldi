@@ -24,7 +24,7 @@ Computes and caches various information about files.
 from __future__ import unicode_literals
 
 import ly.parse
-import ly.tokenize
+import ly.lex
 import filecache
 import util
 import variables
@@ -42,10 +42,10 @@ def textmode(text, guess=True):
     
     """
     mode = variables.variables(text).get("mode")
-    if mode in ly.tokenize.modes:
+    if mode in ly.lex.modes:
         return mode
     if guess:
-        return ly.tokenize.guessMode(text)
+        return ly.lex.guessMode(text)
 
 
 def mode(filename):
@@ -63,7 +63,7 @@ def tokens(filename):
     """Returns a token stream from the given filename."""
     with open(filename) as f:
         text = util.decode(f.read())
-    return ly.tokenize.state(textmode(text)).tokens(text)
+    return ly.lex.state(textmode(text)).tokens(text)
 
 
 def includeargs(filename):

@@ -26,16 +26,17 @@ from __future__ import unicode_literals
 
 import itertools
 
-import ly.tokenize.lilypond
-import ly.tokenize.scheme
+from . import lex
+import lex.lilypond
+import lex.scheme
 
 
 def includeargs(tokens):
     """Yields the arguments of \\include commands in the token stream."""
     for token in tokens:
-        if isinstance(token, ly.tokenize.lilypond.Keyword) and token == "\\include":
+        if isinstance(token, lex.lilypond.Keyword) and token == "\\include":
             for token in tokens:
-                if not isinstance(token, (ly.tokenize.Space, ly.tokenize.Comment)):
+                if not isinstance(token, (lex.Space, lex.Comment)):
                     break
             if token == '"':
                 yield ''.join(itertools.takewhile(lambda t: t != '"', tokens))
@@ -49,18 +50,18 @@ def outputargs(tokens):
     """
     for token in tokens:
         found = None
-        if isinstance(token, ly.tokenize.lilypond.Command):
+        if isinstance(token, lex.lilypond.Command):
             if token == "\\bookOutputName":
                 found = "name"
             elif token == "\\bookOutputSuffix":
                 found = "suffix"
-        elif isinstance(token, ly.tokenize.scheme.Word) and token == "output-suffix":
+        elif isinstance(token, lex.scheme.Word) and token == "output-suffix":
             found = "suffix"
         if found:
             for token in tokens:
-                if not isinstance(token, (ly.tokenize.lilypond.SchemeStart,
-                                          ly.tokenize.Space,
-                                          ly.tokenize.Comment)):
+                if not isinstance(token, (lex.lilypond.SchemeStart,
+                                          lex.Space,
+                                          lex.Comment)):
                     break
             if token == '"':
                 yield found, ''.join(itertools.takewhile(lambda t: t != '"', tokens))
@@ -69,14 +70,14 @@ def outputargs(tokens):
 def version(tokens):
     """Returns the argument of \\version, if found in this token stream."""
     for token in tokens:
-        if isinstance(token, ly.tokenize.lilypond.Keyword) and token == "\\version":
+        if isinstance(token, lex.lilypond.Keyword) and token == "\\version":
             for token in tokens:
-                if not isinstance(token, (ly.tokenize.Space, ly.tokenize.Comment)):
+                if not isinstance(token, (lex.Space, lex.Comment)):
                     break
             if token == '"':
                 pred = lambda t: t != '"'
             else:
-                pred = lambda t: not isinstance(t, ly.tokenize.Space, ly.tokenize.Comment)
+                pred = lambda t: not isinstance(t, lex.Space, lex.Comment)
             return ''.join(itertools.takewhile(pred, tokens))
 
 

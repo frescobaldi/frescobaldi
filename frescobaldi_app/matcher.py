@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import app
 import plugin
-import ly.tokenize
+import ly.lex
 import tokeniter
 
 
@@ -57,11 +57,11 @@ class Matcher(plugin.MainWindowPlugin):
         source = None
         for token in tokens.forward(False):
             if token.pos <= column <= token.end:
-                if isinstance(token, ly.tokenize.MatchStart):
-                    source, match, other = tokens.forward(), ly.tokenize.MatchStart, ly.tokenize.MatchEnd
+                if isinstance(token, ly.lex.MatchStart):
+                    source, match, other = tokens.forward(), ly.lex.MatchStart, ly.lex.MatchEnd
                     break
-                elif isinstance(token, ly.tokenize.MatchEnd):
-                    source, match, other = tokens.backward(), ly.tokenize.MatchEnd, ly.tokenize.MatchStart
+                elif isinstance(token, ly.lex.MatchEnd):
+                    source, match, other = tokens.backward(), ly.lex.MatchEnd, ly.lex.MatchStart
                     break
             elif token.pos > column:
                 break

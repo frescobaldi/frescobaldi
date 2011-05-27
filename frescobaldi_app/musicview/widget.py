@@ -41,7 +41,7 @@ import app
 import icons
 import textformats
 import tokeniter
-import ly.tokenize.lilypond
+import ly.lex.lilypond
 
 from . import pointandclick
 
@@ -178,10 +178,10 @@ class MusicView(QWidget):
         cursors = [cur]
         
         # some heuristic to find the relevant range(s) the linked grob represents
-        if isinstance(token, ly.tokenize.lilypond.Direction):
+        if isinstance(token, ly.lex.lilypond.Direction):
             # a _, - or ^ is found; find the next token
             for token in source:
-                if not isinstance(token, (ly.tokenize.Space, ly.tokenize.Comment)):
+                if not isinstance(token, (ly.lex.Space, ly.lex.Comment)):
                     break
         end = token.end + block.position()
         if token == '\\markup':
@@ -194,15 +194,15 @@ class MusicView(QWidget):
         elif token == '"':
             # find the end of the string
             for token in source:
-                if isinstance(token, ly.tokenize.StringEnd):
+                if isinstance(token, ly.lex.StringEnd):
                     end = token.end + tokens.block.position()
                     break
-        elif isinstance(token, ly.tokenize.MatchStart):
+        elif isinstance(token, ly.lex.MatchStart):
             # find the end of slur, beam. ligature, phrasing slur, etc.
             name = token.matchname
             nest = 1
             for token in source:
-                if isinstance(token, ly.tokenize.MatchEnd) and token.matchname == name:
+                if isinstance(token, ly.lex.MatchEnd) and token.matchname == name:
                     nest -= 1
                     if nest == 0:
                         cur2 = QTextCursor(document)
@@ -210,7 +210,7 @@ class MusicView(QWidget):
                         cur2.setPosition(token.end + tokens.block.position(), QTextCursor.KeepAnchor)
                         cursors.append(cur2)
                         break
-                elif isinstance(token, ly.tokenize.MatchStart) and token.matchname == name:
+                elif isinstance(token, ly.lex.MatchStart) and token.matchname == name:
                     nest += 1
                     
         cur.setPosition(end, QTextCursor.KeepAnchor)

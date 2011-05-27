@@ -25,8 +25,8 @@ from __future__ import unicode_literals
 
 from PyQt4.QtGui import QTextCursor
 
-import ly.tokenize
-import ly.tokenize.scheme
+import ly.lex
+import ly.lex.scheme
 import tokeniter
 import variables
 
@@ -56,9 +56,9 @@ def computeIndent(block):
     indents = 0
     for token in tokeniter.tokens(block):
         # dont dedent scheme dedent tokens at beginning of lines (unusual)
-        if isinstance(token, ly.tokenize.Dedent) and not isinstance(token, ly.tokenize.scheme.CloseParen):
+        if isinstance(token, ly.lex.Dedent) and not isinstance(token, ly.lex.scheme.CloseParen):
             indents -= 1
-        elif not isinstance(token, ly.tokenize.Space):
+        elif not isinstance(token, ly.lex.Space):
             break
 
     # these variables control the position (yet to be translated to tabbed (real) columns)
@@ -82,13 +82,13 @@ def computeIndent(block):
         it = tokeniter.TokenIterator(prev, atEnd=True)
         token = None # in case of empty line
         for token in it.backward(False):
-            if isinstance(token, ly.tokenize.Dedent):
+            if isinstance(token, ly.lex.Dedent):
                 indents -= 1
-                if isinstance(token, ly.tokenize.scheme.CloseParen):
+                if isinstance(token, ly.lex.scheme.CloseParen):
                     closers = 0 # scheme close parens are not moved
                 else:
                     closers += 1
-            elif isinstance(token, ly.tokenize.Indent):
+            elif isinstance(token, ly.lex.Indent):
                 indents += 1
                 closers = 0
                 if not found:
@@ -96,7 +96,7 @@ def computeIndent(block):
                         found = token
                     else:
                         lasttokens.append(token)
-            elif not isinstance(token, ly.tokenize.Space):
+            elif not isinstance(token, ly.lex.Space):
                 closers = 0
                 if not found:
                     lasttokens.append(token)
@@ -105,10 +105,10 @@ def computeIndent(block):
             # the token that started the current indent has been found
             # if there are no tokens after the indent-opener, take indent of current line and increase,
             # else set indent to the same indent of the token after the indent-opener.
-            if isinstance(found, ly.tokenize.scheme.OpenParen):
+            if isinstance(found, ly.lex.scheme.OpenParen):
                 # scheme
                 if lasttokens:
-                    if len(lasttokens) == 1 or isinstance(lasttokens[-1], ly.tokenize.Indent):
+                    if len(lasttokens) == 1 or isinstance(lasttokens[-1], ly.lex.Indent):
                         indent_pos = lasttokens[-1].pos
                     elif lasttokens[-1] in scheme_sync_args:
                         indent_pos = lasttokens[-2].pos
@@ -124,11 +124,11 @@ def computeIndent(block):
                     indent_pos = lasttokens[-1].pos
                 else:
                     # just use current indent + INDENT_WIDTH
-                    indent_pos = token.end if isinstance(token, ly.tokenize.Space) else 0
+                    indent_pos = token.end if isinstance(token, ly.lex.Space) else 0
                     indent_add = indent_vars['indent-width']
         elif indents + closers == 0:
             # take over indent of current line
-            indent_pos = token.end if isinstance(token, ly.tokenize.Space) else 0
+            indent_pos = token.end if isinstance(token, ly.lex.Space) else 0
         else:
             prev = prev.previous()
             continue
@@ -144,10 +144,10 @@ def indentable(cursor):
     block = cursor.block()
     pos = cursor.position() - block.position()
     for token in tokeniter.tokens(block):
-        if isinstance(token, ly.tokenize.Dedent):
+        if isinstance(token, ly.lex.Dedent):
             if token.end >= pos:
                 return True
-        elif not isinstance(token, ly.tokenize.Space) or token.end >= pos:
+        elif not isinstance(token, ly.lex.Space) or token.end >= pos:
             break
 
 
@@ -190,7 +190,7 @@ def changeIndent(cursor, direction):
     block = blocks[0]
     pos = cursor.selectionStart() - block.position()
     token = tokeniter.tokens(block)[0] if tokeniter.tokens(block) else None
-    if cursor.hasSelection() or pos == 0 or (token and isinstance(token, ly.tokenize.Space) and token.end >= pos):
+    if cursor.hasSelection() or pos == 0 or (token and isinstance(token, ly.lex.Space) and token.end >= pos):
         # decrease the indent
         state = tokeniter.state(block)
         current_indent = getIndent(block)
@@ -229,7 +229,7 @@ def getIndent(block):
     indent_vars = indentVariables(block.document())
     
     tokens = tokeniter.tokens(block)
-    if tokens and isinstance(tokens[0], ly.tokenize.Space):
+    if tokens and isinstance(tokens[0], ly.lex.Space):
         return columnPosition(tokens[0], tabwidth = indent_vars['tab-width'])
     return 0
 
@@ -246,7 +246,7 @@ def setIndent(block, indent):
     
     space = makeIndent(indent, indent_vars['tab-width'], indent_vars['indent-tabs'])
     tokens = tokeniter.tokens(block)
-    if tokens and isinstance(tokens[0], ly.tokenize.Space):
+    if tokens and isinstance(tokens[0], ly.lex.Space):
         changed = tokens[0] != space
         cursor = tokeniter.cursor(block, tokens[0])
     else:

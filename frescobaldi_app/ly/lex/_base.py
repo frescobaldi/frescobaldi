@@ -21,7 +21,7 @@
 The State implementation.
 
 Don't use this module directly!
-All important classes are imported in the ly.tokenize namespace.
+All important classes are imported in the ly.lex namespace.
 
 This module starts with an underscore so that it does not interfere with the mode
 modules.

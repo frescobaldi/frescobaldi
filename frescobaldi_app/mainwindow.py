@@ -378,8 +378,8 @@ class MainWindow(QMainWindow):
             conf = sessionmanager.currentSessionGroup() or QSettings()
             filename = conf.value("basedir", "") # default directory to save to
             import documentinfo
-            import ly.tokenize
-            filetypes = app.filetypes(ly.tokenize.extensions[documentinfo.mode(doc)])
+            import ly.lex
+            filetypes = app.filetypes(ly.lex.extensions[documentinfo.mode(doc)])
         caption = app.caption(_("dialog title", "Save File"))
         filename = QFileDialog.getSaveFileName(self, caption, filename, filetypes)
         if not filename:
@@ -414,7 +414,7 @@ class MainWindow(QMainWindow):
         return self.saveDocumentAs(self.currentDocument())
     
     def saveCopyAs(self):
-        import ly.tokenize
+        import ly.lex
         doc = self.currentDocument()
         if not self.currentView().textCursor().hasSelection():
             import documentinfo
@@ -427,7 +427,7 @@ class MainWindow(QMainWindow):
             mode = fileinfo.textmode(text)
             data = util.encode(text)
             caption = app.caption(_("dialog title", "Save Selection"))
-        filetypes = app.filetypes(ly.tokenize.extensions[mode])
+        filetypes = app.filetypes(ly.lex.extensions[mode])
         dirname = os.path.dirname(doc.url().toLocalFile())
         if not dirname:
             conf = sessionmanager.currentSessionGroup() or QSettings()

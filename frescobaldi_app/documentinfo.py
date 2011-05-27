@@ -31,7 +31,7 @@ import weakref
 
 from PyQt4.QtCore import QSettings, QUrl
 
-import ly.tokenize
+import ly.lex
 import ly.parse
 import app
 import fileinfo
@@ -91,17 +91,17 @@ class DocumentInfo(plugin.DocumentPlugin):
         
         """
         mode = variables.get(self.document(), "mode")
-        if mode in ly.tokenize.modes:
+        if mode in ly.lex.modes:
             return mode
         if guess:
-            return ly.tokenize.guessMode(self.document().toPlainText())
+            return ly.lex.guessMode(self.document().toPlainText())
     
     def tokens(self):
         """Iterates over all the tokens in a document, parsing if the document has not yet materialized."""
         if self.document().firstBlock().userState() != -1:
             return tokeniter.allTokens(self.document())
         else:
-            return ly.tokenize.state(self.mode()).tokens(self.document().toPlainText())
+            return ly.lex.state(self.mode()).tokens(self.document().toPlainText())
 
     @resetoncontentschanged
     def version(self):

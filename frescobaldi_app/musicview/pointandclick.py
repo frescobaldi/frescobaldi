@@ -33,7 +33,7 @@ import qpopplerview
 
 import app
 import scratchdir
-import ly.tokenize
+import ly.lex
 import tokeniter
 
 
@@ -234,18 +234,18 @@ class BoundLinks(object):
                 if token.pos <= prevcol:
                     break
                 elif token.pos <= col:
-                    if isinstance(token, ly.tokenize.MatchEnd) and token.matchname in (
+                    if isinstance(token, ly.lex.MatchEnd) and token.matchname in (
                             'slur', 'phrasingslur', 'beam'):
                         # YES! now go backwards to find the opening token
                         nest = 1
                         name = token.matchname
                         for token in tokens.backward():
-                            if isinstance(token, ly.tokenize.MatchStart) and token.matchname == name:
+                            if isinstance(token, ly.lex.MatchStart) and token.matchname == name:
                                 nest -= 1
                                 if nest == 0:
                                     found = True
                                     break
-                            elif isinstance(token, ly.tokenize.MatchEnd) and token.matchname == name:
+                            elif isinstance(token, ly.lex.MatchEnd) and token.matchname == name:
                                 nest += 1
                         break
             if found:

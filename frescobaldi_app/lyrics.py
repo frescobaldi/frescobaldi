@@ -28,7 +28,7 @@ import re
 from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QAction, QApplication, QKeySequence, QTextCursor
 
-import ly.tokenize.lilypond
+import ly.lex.lilypond
 import actioncollection
 import actioncollectionmanager
 import plugin
@@ -74,16 +74,16 @@ class Lyrics(plugin.MainWindowPlugin):
         # find text to hyphenate
         for block, tokens in tokeniter.selectedTokens(cursor):
             for token in tokens:
-                if isinstance(token, ly.tokenize.lilypond.LyricText):
+                if isinstance(token, ly.lex.lilypond.LyricText):
                     # a word found
                     for m in _word_re.finditer(token):
                         found.append((tokeniter.cursor(block, token, m.start(), m.end()), m.group()))
         if not found:
             # no tokens were found, then tokenize the text again as if in lyricmode
             start = cursor.selectionStart()
-            state = ly.tokenize.State(ly.tokenize.lilypond.LilyPondParserLyricMode)
+            state = ly.lex.State(ly.lex.lilypond.LilyPondParserLyricMode)
             for token in state.tokens(cursor.selection().toPlainText()):
-                if isinstance(token, ly.tokenize.lilypond.LyricText):
+                if isinstance(token, ly.lex.lilypond.LyricText):
                     # a word found
                     for m in _word_re.finditer(token):
                         cur = QTextCursor(cursor)

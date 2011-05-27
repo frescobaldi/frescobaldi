@@ -29,11 +29,11 @@ from PyQt4.QtGui import (
     QSyntaxHighlighter, QTextBlockUserData, QTextCursor, QTextDocument)
 
 
-import ly.tokenize
-import ly.tokenize.lilypond
-import ly.tokenize.scheme
-import ly.tokenize.html
-import ly.tokenize.texinfo
+import ly.lex
+import ly.lex.lilypond
+import ly.lex.scheme
+import ly.lex.html
+import ly.lex.texinfo
 
 import app
 import textformats
@@ -67,7 +67,7 @@ app.settingsChanged.connect(_resetHighlightFormats, -100) # before all others
 
 
 # when highlighting, don't test all the Token base classes
-_token_mro_slice = slice(1, -len(ly.tokenize.Token.__mro__))
+_token_mro_slice = slice(1, -len(ly.lex.Token.__mro__))
 
 
 class HighlightFormats(object):
@@ -76,61 +76,61 @@ class HighlightFormats(object):
         self._formats = d = {}
         
         # LilyPond
-        d[ly.tokenize.lilypond.Keyword] = data.textFormat('lilypond', 'keyword')
-        d[ly.tokenize.lilypond.Command] = data.textFormat('lilypond', 'command')
-        d[ly.tokenize.lilypond.Dynamic] = data.textFormat('lilypond', 'dynamic')
-        d[ly.tokenize.lilypond.Note] = data.textFormat('lilypond', 'pitch')
-        d[ly.tokenize.lilypond.Rest] = data.textFormat('lilypond', 'pitch')
-        d[ly.tokenize.lilypond.Skip] = data.textFormat('lilypond', 'pitch')
-        d[ly.tokenize.lilypond.Duration] = data.textFormat('lilypond', 'duration')
-        d[ly.tokenize.lilypond.Articulation] = data.textFormat('lilypond', 'articulation')
-        d[ly.tokenize.lilypond.Slur] = data.textFormat('lilypond', 'slur')
-        d[ly.tokenize.lilypond.Chord] = data.textFormat('lilypond', 'chord')
-        d[ly.tokenize.lilypond.Markup] = data.textFormat('lilypond', 'markup')
-        d[ly.tokenize.lilypond.LyricMode] = data.textFormat('lilypond', 'lyricmode')
-        d[ly.tokenize.lilypond.Lyric] = data.textFormat('lilypond', 'lyrictext')
-        d[ly.tokenize.lilypond.LyricTie] = data.textFormat('lilypond', 'slur')
-        d[ly.tokenize.lilypond.Repeat] = data.textFormat('lilypond', 'repeat')
-        d[ly.tokenize.lilypond.Specifier] = data.textFormat('lilypond', 'specifier')
-        d[ly.tokenize.lilypond.UserCommand] = data.textFormat('lilypond', 'usercommand')
-        d[ly.tokenize.lilypond.Delimiter] = data.textFormat('lilypond', 'delimiter')
-        d[ly.tokenize.lilypond.ContextName] = data.textFormat('lilypond', 'context')
-        d[ly.tokenize.lilypond.GrobName] = data.textFormat('lilypond', 'grob')
-        d[ly.tokenize.lilypond.ContextProperty] = data.textFormat('lilypond', 'property')
-        d[ly.tokenize.lilypond.Variable] = data.textFormat('lilypond', 'variable')
-        d[ly.tokenize.lilypond.UserVariable] = data.textFormat('lilypond', 'uservariable')
-        d[ly.tokenize.lilypond.Value] = data.textFormat('lilypond', 'value')
-        d[ly.tokenize.lilypond.String] = data.textFormat('lilypond', 'string')
-        d[ly.tokenize.lilypond.StringQuoteEscape] = data.textFormat('lilypond', 'stringescape')
-        d[ly.tokenize.lilypond.Comment] = data.textFormat('lilypond', 'comment')
-        d[ly.tokenize.lilypond.Error] = data.textFormat('lilypond', 'error')
-        d[ly.tokenize.lilypond.Repeat] = data.textFormat('lilypond', 'repeat')
+        d[ly.lex.lilypond.Keyword] = data.textFormat('lilypond', 'keyword')
+        d[ly.lex.lilypond.Command] = data.textFormat('lilypond', 'command')
+        d[ly.lex.lilypond.Dynamic] = data.textFormat('lilypond', 'dynamic')
+        d[ly.lex.lilypond.Note] = data.textFormat('lilypond', 'pitch')
+        d[ly.lex.lilypond.Rest] = data.textFormat('lilypond', 'pitch')
+        d[ly.lex.lilypond.Skip] = data.textFormat('lilypond', 'pitch')
+        d[ly.lex.lilypond.Duration] = data.textFormat('lilypond', 'duration')
+        d[ly.lex.lilypond.Articulation] = data.textFormat('lilypond', 'articulation')
+        d[ly.lex.lilypond.Slur] = data.textFormat('lilypond', 'slur')
+        d[ly.lex.lilypond.Chord] = data.textFormat('lilypond', 'chord')
+        d[ly.lex.lilypond.Markup] = data.textFormat('lilypond', 'markup')
+        d[ly.lex.lilypond.LyricMode] = data.textFormat('lilypond', 'lyricmode')
+        d[ly.lex.lilypond.Lyric] = data.textFormat('lilypond', 'lyrictext')
+        d[ly.lex.lilypond.LyricTie] = data.textFormat('lilypond', 'slur')
+        d[ly.lex.lilypond.Repeat] = data.textFormat('lilypond', 'repeat')
+        d[ly.lex.lilypond.Specifier] = data.textFormat('lilypond', 'specifier')
+        d[ly.lex.lilypond.UserCommand] = data.textFormat('lilypond', 'usercommand')
+        d[ly.lex.lilypond.Delimiter] = data.textFormat('lilypond', 'delimiter')
+        d[ly.lex.lilypond.ContextName] = data.textFormat('lilypond', 'context')
+        d[ly.lex.lilypond.GrobName] = data.textFormat('lilypond', 'grob')
+        d[ly.lex.lilypond.ContextProperty] = data.textFormat('lilypond', 'property')
+        d[ly.lex.lilypond.Variable] = data.textFormat('lilypond', 'variable')
+        d[ly.lex.lilypond.UserVariable] = data.textFormat('lilypond', 'uservariable')
+        d[ly.lex.lilypond.Value] = data.textFormat('lilypond', 'value')
+        d[ly.lex.lilypond.String] = data.textFormat('lilypond', 'string')
+        d[ly.lex.lilypond.StringQuoteEscape] = data.textFormat('lilypond', 'stringescape')
+        d[ly.lex.lilypond.Comment] = data.textFormat('lilypond', 'comment')
+        d[ly.lex.lilypond.Error] = data.textFormat('lilypond', 'error')
+        d[ly.lex.lilypond.Repeat] = data.textFormat('lilypond', 'repeat')
         
 
         # Scheme
-        d[ly.tokenize.lilypond.SchemeStart] = data.textFormat('scheme', 'scheme')
-        d[ly.tokenize.scheme.Scheme] = d[ly.tokenize.lilypond.SchemeStart]
-        d[ly.tokenize.scheme.String] = data.textFormat('scheme', 'string')
-        d[ly.tokenize.scheme.Comment] = data.textFormat('scheme', 'comment')
-        d[ly.tokenize.scheme.Number] = data.textFormat('scheme', 'number')
-        d[ly.tokenize.scheme.LilyPond] = data.textFormat('scheme', 'lilypond')
+        d[ly.lex.lilypond.SchemeStart] = data.textFormat('scheme', 'scheme')
+        d[ly.lex.scheme.Scheme] = d[ly.lex.lilypond.SchemeStart]
+        d[ly.lex.scheme.String] = data.textFormat('scheme', 'string')
+        d[ly.lex.scheme.Comment] = data.textFormat('scheme', 'comment')
+        d[ly.lex.scheme.Number] = data.textFormat('scheme', 'number')
+        d[ly.lex.scheme.LilyPond] = data.textFormat('scheme', 'lilypond')
         
         # HTML
-        d[ly.tokenize.html.Tag] = data.textFormat('html', 'tag')
-        d[ly.tokenize.html.AttrName] = data.textFormat('html', 'attribute')
-        d[ly.tokenize.html.Value] = data.textFormat('html', 'value')
-        d[ly.tokenize.html.String] = data.textFormat('html', 'string')
-        d[ly.tokenize.html.EntityRef] = data.textFormat('html', 'entityref')
-        d[ly.tokenize.html.Comment] = data.textFormat('html', 'comment')
-        d[ly.tokenize.html.LilyPondTag] = data.textFormat('html', 'lilypondtag')
+        d[ly.lex.html.Tag] = data.textFormat('html', 'tag')
+        d[ly.lex.html.AttrName] = data.textFormat('html', 'attribute')
+        d[ly.lex.html.Value] = data.textFormat('html', 'value')
+        d[ly.lex.html.String] = data.textFormat('html', 'string')
+        d[ly.lex.html.EntityRef] = data.textFormat('html', 'entityref')
+        d[ly.lex.html.Comment] = data.textFormat('html', 'comment')
+        d[ly.lex.html.LilyPondTag] = data.textFormat('html', 'lilypondtag')
         
         # Texinfo
-        d[ly.tokenize.texinfo.Keyword] = data.textFormat('texinfo', 'keyword')
-        d[ly.tokenize.texinfo.Block] = data.textFormat('texinfo', 'block')
-        d[ly.tokenize.texinfo.Attribute] = data.textFormat('texinfo', 'attribute')
-        d[ly.tokenize.texinfo.EscapeChar] = data.textFormat('texinfo', 'escapechar')
-        d[ly.tokenize.texinfo.Verbatim] = data.textFormat('texinfo', 'verbatim')
-        d[ly.tokenize.texinfo.Comment] = data.textFormat('texinfo', 'comment')
+        d[ly.lex.texinfo.Keyword] = data.textFormat('texinfo', 'keyword')
+        d[ly.lex.texinfo.Block] = data.textFormat('texinfo', 'block')
+        d[ly.lex.texinfo.Attribute] = data.textFormat('texinfo', 'attribute')
+        d[ly.lex.texinfo.EscapeChar] = data.textFormat('texinfo', 'escapechar')
+        d[ly.lex.texinfo.Verbatim] = data.textFormat('texinfo', 'verbatim')
+        d[ly.lex.texinfo.Comment] = data.textFormat('texinfo', 'comment')
     
     def format(self, token):
         """Returns the format defined in the formats dictionary for the token class.
@@ -182,7 +182,7 @@ class Highlighter(QSyntaxHighlighter, plugin.Plugin):
         # find the state of the previous line
         prev = self.previousBlockState()
         if 0 <= prev < len(self._states):
-            state = ly.tokenize.thawState(self._states[prev])
+            state = ly.lex.thawState(self._states[prev])
         elif not text or text.isspace():
             self.setCurrentBlockState(prev - 1) # keep the highlighter coming back
             return
@@ -222,7 +222,7 @@ class Highlighter(QSyntaxHighlighter, plugin.Plugin):
         return self._highlighting
         
     def state(self, block):
-        """Returns a thawn ly.tokenize.State() object at the beginning of the given QTextBlock.
+        """Returns a thawn ly.lex.State() object at the beginning of the given QTextBlock.
         
         This assumes the highlighter has already run through the whole document.
         To get the state info please use tokeniter.state() instead of this method.
@@ -230,13 +230,13 @@ class Highlighter(QSyntaxHighlighter, plugin.Plugin):
         """
         userState = block.previous().userState()
         if 0 <= userState < len(self._states):
-            return ly.tokenize.State.thaw(self._states[userState])
+            return ly.lex.State.thaw(self._states[userState])
         return self.initialState()
 
     def initialState(self):
         """Returns the initial State for this document."""
-        mode = self._mode or ly.tokenize.guessMode(self.document().toPlainText())
-        return ly.tokenize.state(mode)
+        mode = self._mode or ly.lex.guessMode(self.document().toPlainText())
+        return ly.lex.state(mode)
 
 
 class BlockData(QTextBlockUserData):
@@ -270,7 +270,7 @@ def htmlCopy(document, data):
     doc = QTextDocument()
     doc.setDefaultFont(data.font)
     doc.setPlainText(document.toPlainText())
-    highlight(doc, HighlightFormats(data), ly.tokenize.state(documentinfo.mode(document)))
+    highlight(doc, HighlightFormats(data), ly.lex.state(documentinfo.mode(document)))
     return doc
 
 
@@ -279,14 +279,14 @@ def highlight(document, formats=None, state=None):
     
     formats is an optional HighlightFormats instance, defaulting to the current
     configured editor highlighting formats.
-    state is an optional ly.tokenize.State instance. By default the text type
+    state is an optional ly.lex.State instance. By default the text type
     is guessed.
     
     """
     if formats is None:
         formats = highlightFormats()
     if state is None:
-        state = ly.tokenize.guessState(document.toPlainText())
+        state = ly.lex.guessState(document.toPlainText())
     cursor = QTextCursor(document)
     block = document.firstBlock()
     while block.isValid():

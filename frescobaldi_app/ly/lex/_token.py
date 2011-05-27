@@ -21,7 +21,7 @@
 Token base classes.
 
 Don't use this module directly!
-All important classes are imported in the ly.tokenize namespace.
+All important classes are imported in the ly.lex namespace.
 
 You can, however, import _token in mode modules that also are in this directory.
 

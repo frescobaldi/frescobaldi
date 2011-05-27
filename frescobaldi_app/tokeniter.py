@@ -36,7 +36,7 @@ def tokens(block):
 
 
 def state(blockOrCursor):
-    """Returns a thawn ly.tokenize.State() object at the beginning of the given QTextBlock.
+    """Returns a thawn ly.lex.State() object at the beginning of the given QTextBlock.
     
     The document must have a highlighter (and thus have or had at least one View).
     See highlighter.py.
