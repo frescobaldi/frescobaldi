@@ -23,7 +23,7 @@ except ImportError:
         winreg = None
 
 
-# Frescobaldi meta info (Not accessible anymore on uninstall):
+# Frescobaldi meta info (Possibly not accessible anymore on uninstall):
 try:
     from frescobaldi_app import info
 except ImportError:
@@ -46,36 +46,31 @@ python = os.path.join(sys.exec_prefix, 'pythonw.exe') # because sys.executable p
 def install_association():
     """Installs a file association for the LilyPond file type.
     
-    Sets HKEY_CLASSES_ROOT\\LilyPond\\shell to 'frescobaldi'
     Sets HKEY_CLASSES_ROOT\\LilyPond\\shell\\frescobaldi to 'Open with &Frescobaldi...'
     Sets HKEY_CLASSES_ROOT\\LilyPond\\shell\\frescobaldi\\command
         to '{python} "{script}" "%1"'
     
     """
-    key = winreg.CreateKey(winreg.HKEY_CLASSES_ROOT, "LilyPond\\shell")
+    key = winreg.CreateKey(winreg.HKEY_CLASSES_ROOT, "LilyPond\\shell\\frescobaldi")
     with key:
-        cmd = winreg.CreateKey(key, "frescobaldi")
-        with cmd:
-            winreg.SetValue(cmd, None, winreg.REG_SZ, "Open with &Frescobaldi...")
-            winreg.SetValue(cmd, "command", winreg.REG_SZ, '{0} "{1}" "%1"'.format(python, script))
-        winreg.SetValue(key, None, winreg.REG_SZ, "frescobaldi")
+        winreg.SetValue(key, None, winreg.REG_SZ, "Open with &Frescobaldi...")
+        winreg.SetValue(key, "command", winreg.REG_SZ, '{0} "{1}" "%1"'.format(python, script))
     print("* Created file association")
 
 def remove_association():
     """Removes the file association.
     
     Removes HKEY_CLASSES_ROOT\\LilyPond\\shell\\frescobaldi
-    Sets HKEY_CLASSES_ROOT\\LilyPond\\shell to 'generate' (as the LilyPond install does)
     
     """
     try:
-        key = winreg.OpenKey(winreg.HKEY_CLASSES_ROOT, "LilyPond")
+        key = winreg.OpenKey(winreg.HKEY_CLASSES_ROOT, "LilyPond\\shell")
         with key:
-            winreg.DeleteKey(key, "shell\\frescobaldi\\command")
-            winreg.DeleteKey(key, "shell\\frescobaldi")
-            winreg.SetValue(key, "shell", winreg.REG_SZ, "generate")
+            winreg.DeleteKey(key, "frescobaldi\\command")
+            winreg.DeleteKey(key, "frescobaldi")
+        print("* Removed file association")
     except WindowsError:
-        pass
+        print("*** Could not remove file association ***")
 
 def install_startmenu():
     """Installs a shortcut in the startmenu."""
