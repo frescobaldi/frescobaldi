@@ -134,6 +134,22 @@ def filetypes(extension=None):
             havenot.append(patterns.format(name))
     return ";;".join(have + havenot)
 
+def basedir():
+    """Returns a base directory for documents.
+
+    First looks in the session settings, then the default settings.
+    Returns "" if no directory was set. It is recommended to use the
+    home directory in that case.
+
+    """
+    import sessionmanager
+    conf = sessionmanager.currentSessionGroup()
+    if conf:
+        basedir = conf.value("basedir", "")
+        if basedir:
+            return basedir
+    return QSettings().value("basedir")
+
 def settings(name):
     """Returns a QSettings object referring a file in ~/.config/frescobaldi/"""
     return QSettings(info.name, name)

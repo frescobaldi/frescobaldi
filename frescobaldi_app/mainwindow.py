@@ -335,10 +335,7 @@ class MainWindow(QMainWindow):
         ext = os.path.splitext(self.currentDocument().url().path())[1]
         filetypes = app.filetypes(ext)
         caption = app.caption(_("dialog title", "Open File"))
-        directory = os.path.dirname(self.currentDocument().url().toLocalFile())
-        if not directory:
-            conf = sessionmanager.currentSessionGroup() or QSettings()
-            directory = conf.value("basedir", "")
+        directory = os.path.dirname(self.currentDocument().url().toLocalFile()) or app.basedir()
         files = QFileDialog.getOpenFileNames(self, caption, directory, filetypes)
         docs = [self.openUrl(QUrl.fromLocalFile(f)) for f in files]
         if docs:
@@ -375,8 +372,7 @@ class MainWindow(QMainWindow):
         if filename:
             filetypes = app.filetypes(os.path.splitext(filename)[1])
         else:
-            conf = sessionmanager.currentSessionGroup() or QSettings()
-            filename = conf.value("basedir", "") # default directory to save to
+            filename = app.basedir() # default directory to save to
             import documentinfo
             import ly.lex
             filetypes = app.filetypes(ly.lex.extensions[documentinfo.mode(doc)])
@@ -428,10 +424,7 @@ class MainWindow(QMainWindow):
             data = util.encode(text)
             caption = app.caption(_("dialog title", "Save Selection"))
         filetypes = app.filetypes(ly.lex.extensions[mode])
-        dirname = os.path.dirname(doc.url().toLocalFile())
-        if not dirname:
-            conf = sessionmanager.currentSessionGroup() or QSettings()
-            dirname = conf.value("basedir", "") # default directory to save to
+        dirname = os.path.dirname(doc.url().toLocalFile()) or app.basedir()
         filename = QFileDialog.getSaveFileName(self, caption, dirname, filetypes)
         if not filename:
             return # cancelled
@@ -501,10 +494,7 @@ class MainWindow(QMainWindow):
         ext = os.path.splitext(self.currentDocument().url().path())[1]
         filetypes = app.filetypes(ext)
         caption = app.caption(_("dialog title", "Insert From File"))
-        directory = os.path.dirname(self.currentDocument().url().toLocalFile())
-        if not directory:
-            conf = sessionmanager.currentSessionGroup() or QSettings()
-            directory = conf.value("basedir", "")
+        directory = os.path.dirname(self.currentDocument().url().toLocalFile()) or app.basedir()
         filename = QFileDialog.getOpenFileName(self, caption, directory, filetypes)
         if filename:
             try:
@@ -521,10 +511,7 @@ class MainWindow(QMainWindow):
         import resultfiles
         directory = resultfiles.results(self.currentDocument()).currentDirectory()
         if not directory:
-            conf = sessionmanager.currentSessionGroup() or QSettings()
-            directory = conf.value("basedir", "") # default directory to save to
-        if not directory:
-            directory = os.getcwdu()
+            directory = app.basedir() or os.getcwdu()
         QDesktopServices.openUrl(QUrl.fromLocalFile(directory))
     
     def printSource(self):
