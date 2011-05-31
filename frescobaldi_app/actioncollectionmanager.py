@@ -130,5 +130,7 @@ class ActionCollectionManager(plugin.MainWindowPlugin):
                         return False
             dlg.deleteLater()
             return True
+        dlg.deleteLater()
+        return False
 
 

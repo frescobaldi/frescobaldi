@@ -53,7 +53,12 @@ import app
 
 
 class ActionCollectionBase(object):
-    """Abstract base class. Can load and keep a list of QActions."""
+    """Abstract base class. Can load and keep a list of QActions.
+
+    You must subclass this class and provide a name for the actioncollection
+    in the 'name' class attribute.
+    
+    """
     def __init__(self, widget=None):
         self._widget = weakref.ref(widget) if widget else lambda: None
         self._actions = {}  # maps name to action
@@ -171,12 +176,12 @@ class ShortcutCollection(ActionCollectionBase):
     as parent.
     
     Use the setShortcuts() method to set a list (possibly empty) of QKeySequence
-    objects.  Every change causes other instances of the sane-named collection
+    objects.  Every change causes other instances of the same-named collection
     to reload.
     
     This serves two purposes:
     1. save keyboard shortcuts for actions created by the user or from a very large list
-    2. make the keyboard shortcuts working even if the component their actions are
+    2. make the keyboard shortcuts working even if the component the actions are
        contained in is not even loaded yet.
        
        To make this work, implement the realAction() method to instantiate the widget the
