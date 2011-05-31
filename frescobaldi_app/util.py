@@ -68,6 +68,16 @@ def signalsBlocked(*objs):
             obj.blockSignals(block)
 
 
+@contextlib.contextmanager
+def deleteLater(*qobjs):
+    """Performs code and calls deleteLater() when done on the specified QObjects."""
+    try:
+        yield
+    finally:
+        for obj in qobjs:
+            obj.deleteLater()
+
+
 def addcolor(color, r, g, b):
     """Adds r, g and b values to the given color and returns a new QColor instance."""
     r += color.red()

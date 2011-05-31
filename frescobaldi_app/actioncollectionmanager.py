@@ -33,6 +33,7 @@ from PyQt4.QtGui import QMessageBox
 
 import actioncollection
 import plugin
+import util
 
 
 def manager(mainwindow):
@@ -93,44 +94,42 @@ class ActionCollectionManager(plugin.MainWindowPlugin):
         from widgets import shortcuteditdialog
         dlg = shortcuteditdialog.ShortcutEditDialog(parent)
         
-        while dlg.editAction(action, default):
-            # conflict checking
-            shortcuts = action.shortcuts()
-            if shortcuts:
-                conflicts = {}
-                for collection in self.actionCollections():
-                    for name, a in collection.actions().items():
-                        # we use collection.shortcuts(name) instead of a.shortcuts()
-                        # because the (real) actions returned by ShortcutCollection.action()
-                        # don't have the shortcuts set.
-                        if a is not skip and collection.shortcuts(name):
-                            for s1 in collection.shortcuts(name):
-                                for s2 in action.shortcuts():
-                                    if s2.matches(s1) or s1.matches(s2):
-                                        # s2 conflicts with a
-                                        conflicts.setdefault(a, []).append(s2)
-                                        # do shortcuts remain?
-                                        if s2 in shortcuts:
-                                            shortcuts.remove(s2)
-                if conflicts:
-                    msg = [_("This shortcut conflicts with the following command:",
-                            "This shortcut conflicts with the following commands:", len(conflicts))]
-                    msg.append("<br/>".join("{name} ({key})".format(
-                        name = actioncollection.removeAccels(a.text()),
-                        key=' \u2014 '.join(s.toString() for s in conflicts[a])) for a in conflicts))
-                    msg = '<p>{0}</p>'.format('</p><p>'.join(msg))
-                    box = QMessageBox(QMessageBox.Warning, _("Shortcut Conflict"), msg,
-                            QMessageBox.Ok | QMessageBox.Cancel, parent)
-                    box.button(QMessageBox.Ok).setText(_("Edit again"))
-                    if box.exec_() == QMessageBox.Ok:
-                        action.setShortcuts(shortcuts)
-                        continue
-                    else:
-                        dlg.deleteLater()
-                        return False
-            dlg.deleteLater()
-            return True
-        dlg.deleteLater()
+        with util.deleteLater(dlg):
+            while dlg.editAction(action, default):
+                # conflict checking
+                shortcuts = action.shortcuts()
+                if shortcuts:
+                    conflicts = {}
+                    for collection in self.actionCollections():
+                        for name, a in collection.actions().items():
+                            # we use collection.shortcuts(name) instead of a.shortcuts()
+                            # because the (real) actions returned by ShortcutCollection.action()
+                            # don't have the shortcuts set.
+                            if a is not skip and collection.shortcuts(name):
+                                for s1 in collection.shortcuts(name):
+                                    for s2 in action.shortcuts():
+                                        if s2.matches(s1) or s1.matches(s2):
+                                            # s2 conflicts with a
+                                            conflicts.setdefault(a, []).append(s2)
+                                            # do shortcuts remain?
+                                            if s2 in shortcuts:
+                                                shortcuts.remove(s2)
+                    if conflicts:
+                        msg = [_("This shortcut conflicts with the following command:",
+                                "This shortcut conflicts with the following commands:", len(conflicts))]
+                        msg.append("<br/>".join("{name} ({key})".format(
+                            name = actioncollection.removeAccels(a.text()),
+                            key=' \u2014 '.join(s.toString() for s in conflicts[a])) for a in conflicts))
+                        msg = '<p>{0}</p>'.format('</p><p>'.join(msg))
+                        box = QMessageBox(QMessageBox.Warning, _("Shortcut Conflict"), msg,
+                                QMessageBox.Ok | QMessageBox.Cancel, parent)
+                        box.button(QMessageBox.Ok).setText(_("Edit again"))
+                        if box.exec_() == QMessageBox.Ok:
+                            action.setShortcuts(shortcuts)
+                            continue
+                        else:
+                            break
+                return True
         return False
 
 
