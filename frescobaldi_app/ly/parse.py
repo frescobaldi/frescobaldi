@@ -77,7 +77,7 @@ def version(tokens):
             if token == '"':
                 pred = lambda t: t != '"'
             else:
-                pred = lambda t: not isinstance(t, lex.Space, lex.Comment)
+                pred = lambda t: not isinstance(t, (lex.Space, lex.Comment))
             return ''.join(itertools.takewhile(pred, tokens))
 
 
