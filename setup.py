@@ -20,15 +20,12 @@ package_data = {
         ],
     'frescobaldi_app.po': ['*.mo'],
     'frescobaldi_app.symbols': ['*.svg'],
-    'frescobaldi_app.wininst': ['*.ico'],
 }
 
 if sys.platform.startswith('win'):
     scripts.append('frescobaldi-wininst.py')
     data_files = []
 else:
-    if 'sdist' not in sys.argv:
-        packages.remove('frescobaldi_app.wininst')
     data_files = [
         ('share/icons/hicolor/scalable/apps', ['frescobaldi_app/icons/frescobaldi.svg']),
         ('share/applications', ['frescobaldi.desktop']),
