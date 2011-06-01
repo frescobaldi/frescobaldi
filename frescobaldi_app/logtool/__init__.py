@@ -67,10 +67,12 @@ class LogTool(panels.Panel):
     
     def slotNextError(self):
         """Jumps to the position pointed to by the next error message."""
+        self.activate()
         self.widget().gotoError(1)
     
     def slotPreviousError(self):
         """Jumps to the position pointed to by the next error message."""
+        self.activate()
         self.widget().gotoError(-1)
         
 

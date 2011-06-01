@@ -62,7 +62,7 @@ class ProgressBar(plugin.ViewSpacePlugin):
             self._bar.setMaximum(buildtime * 1000)
             self._bar.setValue(job.elapsed() * 1000)
             self._bar.show()
-            self._timer.start(100)
+            self._timer.start(200)
         else:
             self._timer.stop()
             self._bar.hide()
