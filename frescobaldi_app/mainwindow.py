@@ -777,7 +777,6 @@ class MainWindow(QMainWindow):
     
     def populateRecentFilesMenu(self):
         self.menu_recent_files.clear()
-        used = []
         for url in recentfiles.urls():
             f = url.toLocalFile()
             dirname, basename = os.path.split(f)
