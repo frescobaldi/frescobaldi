@@ -25,7 +25,6 @@ from __future__ import unicode_literals
 
 import itertools
 import os
-import re
 import weakref
 
 from PyQt4.QtCore import *
@@ -783,17 +782,8 @@ class MainWindow(QMainWindow):
             f = url.toLocalFile()
             dirname, basename = os.path.split(f)
             text = "{0}  ({1})".format(basename, util.homify(dirname))
-            
-            # add accelerators
-            text = text.replace('&', '&&')
-            for m in itertools.chain(re.finditer(r'\b\w', text),
-                                     re.finditer(r'\B\w', text)):
-                if m.group().lower() not in used:
-                    used.append(m.group().lower())
-                    text = text[:m.start()] + '&' + text[m.start():]
-                    break
-
             self.menu_recent_files.addAction(text).url = url
+        util.addAccelerators(self.menu_recent_files.actions())
     
     def slotRecentFilesAction(self, action):
         """Called when a recent files menu action is triggered."""

@@ -194,6 +194,7 @@ class SessionManager(object):
                 a.setChecked(True)
             a.setObjectName(name)
             ag.addAction(a)
+        util.addAccelerators(menu.actions())
     
     def slotSessionsAction(self, action):
         if action is self.actionCollection.session_none:
