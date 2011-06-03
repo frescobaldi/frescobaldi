@@ -17,24 +17,73 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
+"""
+Pitch manipulation.
+"""
+
 from __future__ import unicode_literals
 
 import re
 from fractions import Fraction
 
 
-class QuarterToneNotAvailable(Exception):
-    """
-    Raised when there is no pitch name in the target languate
-    when translating pitch names.
+pitchInfo = {
+    'nederlands': (
+        ('c','d','e','f','g','a','b'),
+        ('eses', 'eseh', 'es', 'eh', '', 'ih','is','isih','isis'),
+        (('ees', 'es'), ('aes', 'as'))
+    ),
+    'english': (
+        ('c','d','e','f','g','a','b'),
+        ('ff', 'tqf', 'f', 'qf', '', 'qs', 's', 'tqs', 'ss'),
+    ),
+    'deutsch': (
+        ('c','d','e','f','g','a','h'),
+        ('eses', 'eseh', 'es', 'eh', '', 'ih','is','isih','isis'),
+        (('ees', 'es'), ('aes', 'as'), ('hes', 'b'))
+    ),
+    'svenska': (
+        ('c','d','e','f','g','a','h'),
+        ('essess', '', 'ess', '', '', '','iss','','ississ'),
+        (('ees', 'es'), ('aes', 'as'), ('hess', 'b'))
+    ),
+    'italiano': (
+        ('do', 're', 'mi', 'fa', 'sol', 'la', 'si'),
+        ('bb', 'bsb', 'b', 'sb', '', 'sd', 'd', 'dsd', 'dd')
+    ),
+    'espanol': (
+        ('do', 're', 'mi', 'fa', 'sol', 'la', 'si'),
+        ('bb', '', 'b', '', '', '', 's', '', 'ss')
+    ),
+    'portugues': (
+        ('do', 're', 'mi', 'fa', 'sol', 'la', 'si'),
+        ('bb', 'btqt', 'b', 'bqt', '', 'sqt', 's', 'stqt', 'ss')
+    ),
+    'vlaams': (
+        ('do', 're', 'mi', 'fa', 'sol', 'la', 'si'),
+        ('bb', '', 'b', '', '', '', 'k', '', 'kk')
+    ),
+}
+pitchInfo['norsk'] = pitchInfo['deutsch']
+pitchInfo['suomi'] = pitchInfo['deutsch']
+pitchInfo['catalan'] = pitchInfo['italiano']
+
+
+class PitchNameNotAvailable(Exception):
+    """Exception raised when there is no name for a pitch.
+    
+    Can occur when translating pitch names, if the target language e.g.
+    does not have quarter-tone names.
+    
     """
     pass
 
 
 class Pitch(object):
-    """
-    A pitch with note, alter, octave and cautionary and octaveCheck
-    (for relative pitches)
+    """A pitch with note, alter, octave and cautionary and octaveCheck attributes.
+    
+    Attributes may be manipulated directly.
+    
     """
     def __init__(self):
         self.note = 0           # base note (c, d, e, f, g, a, b)
@@ -95,7 +144,7 @@ class Pitch(object):
     def output(self, language):
         """
         Return the pitch as a string in the given pitch name language.
-        Raises QuarterToneNotAvailable is an alteration is
+        Raises PitchNameNotAvailable is an alteration is
         requested that is not available in that language.
         """
         output = [pitchWriter[language](self.note, self.alter),
@@ -146,14 +195,14 @@ class PitchWriter(object):
     def __call__(self, note, alter = 0):
         """
         Returns a string representing the pitch in our language.
-        Raises QuarterToneNotAvailable if the requested pitch
+        Raises PitchNameNotAvailable if the requested pitch
         has an alteration that is not available in the current language.
         """
         pitch = self.names[note]
         if alter:
             acc = self.accs[int(alter * 4 + 4)]
             if not acc:
-                raise QuarterToneNotAvailable()
+                raise PitchNameNotAvailable()
             pitch += acc
         for s, r in self.replacements:
             if pitch.startswith(s):
@@ -203,53 +252,24 @@ def octaveToNum(octave):
     return octave.count("'") - octave.count(",")
 
 
-pitchInfo = {
-    'nederlands': (
-        ('c','d','e','f','g','a','b'),
-        ('eses', 'eseh', 'es', 'eh', '', 'ih','is','isih','isis'),
-        (('ees', 'es'), ('aes', 'as'))
-    ),
-    'english': (
-        ('c','d','e','f','g','a','b'),
-        ('ff', 'tqf', 'f', 'qf', '', 'qs', 's', 'tqs', 'ss'),
-    ),
-    'deutsch': (
-        ('c','d','e','f','g','a','h'),
-        ('eses', 'eseh', 'es', 'eh', '', 'ih','is','isih','isis'),
-        (('ees', 'es'), ('aes', 'as'), ('hes', 'b'))
-    ),
-    'svenska': (
-        ('c','d','e','f','g','a','h'),
-        ('essess', '', 'ess', '', '', '','iss','','ississ'),
-        (('ees', 'es'), ('aes', 'as'), ('hess', 'b'))
-    ),
-    'italiano': (
-        ('do', 're', 'mi', 'fa', 'sol', 'la', 'si'),
-        ('bb', 'bsb', 'b', 'sb', '', 'sd', 'd', 'dsd', 'dd')
-    ),
-    'espanol': (
-        ('do', 're', 'mi', 'fa', 'sol', 'la', 'si'),
-        ('bb', '', 'b', '', '', '', 's', '', 'ss')
-    ),
-    'portugues': (
-        ('do', 're', 'mi', 'fa', 'sol', 'la', 'si'),
-        ('bb', 'btqt', 'b', 'bqt', '', 'sqt', 's', 'stqt', 'ss')
-    ),
-    'vlaams': (
-        ('do', 're', 'mi', 'fa', 'sol', 'la', 'si'),
-        ('bb', '', 'b', '', '', '', 'k', '', 'kk')
-    ),
-}
+_pitchReaders = {}
+_pitchWriters = {}
 
-pitchInfo['norsk'] = pitchInfo['deutsch']
-pitchInfo['suomi'] = pitchInfo['deutsch']
-pitchInfo['catalan'] = pitchInfo['italiano']
+def pitchReader(language):
+    """Returns a PitchReader for the speficied language."""
+    try:
+        return _pitchReaders[language]
+    except KeyError:
+        res = _pitchReaders[language] = PitchReader(*pitchInfo[language])
+        return res
 
 
-pitchWriter = dict(
-    (lang, PitchWriter(*data)) for lang, data in pitchInfo.iteritems())
-
-pitchReader = dict(
-    (lang, PitchReader(*data)) for lang, data in pitchInfo.iteritems())
+def pitchWriter(language):
+    """Returns a PitchWriter for the speficied language."""
+    try:
+        return _pitchWriters[language]
+    except KeyError:
+        res = _pitchWriters[language] = PitchWriter(*pitchInfo[language])
+        return res
 
 
