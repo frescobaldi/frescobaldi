@@ -103,7 +103,6 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.viewManager)
 
         self.documentActions = DocumentActionGroup(self)
-        self.sessionManager = sessionmanager.manager.get(self)
         self.createActions()
         
         # create other stuff that have their own actions
@@ -124,7 +123,6 @@ class MainWindow(QMainWindow):
         # keep track of all ActionCollections for the keyboard settings dialog
         actioncollectionmanager.manager(self).addActionCollection(self.actionCollection)
         actioncollectionmanager.manager(self).addActionCollection(self.viewManager.actionCollection)
-        actioncollectionmanager.manager(self).addActionCollection(self.sessionManager.actionCollection)
         
         if other:
             self.setCurrentDocument(other.currentDocument())
@@ -240,7 +238,7 @@ class MainWindow(QMainWindow):
     def closeEvent(self, ev):
         lastWindow = len(app.windows) == 1
         if lastWindow:
-            self.sessionManager.saveCurrentSessionIfDesired()
+            sessionmanager.manager.get(self).saveCurrentSessionIfDesired()
             self.writeSettings()
         if not lastWindow or self.queryClose():
             app.windows.remove(self)
@@ -477,7 +475,7 @@ class MainWindow(QMainWindow):
     
     def closeAllDocuments(self):
         """Closes all documents and keep one new, empty document."""
-        self.sessionManager.saveCurrentSessionIfDesired()
+        sessionmanager.manager.get(self).saveCurrentSessionIfDesired()
         if self.queryClose():
             sessionmanager.setCurrentSession(None)
             self.setCurrentDocument(document.Document())
@@ -907,16 +905,7 @@ class MainWindow(QMainWindow):
         m.addAction(ac.window_fullscreen)
         
         self.menu_sessions = m = self.menuBar().addMenu('')
-        sm = self.sessionManager.actionCollection
-        m.addAction(sm.session_new)
-        m.addAction(sm.session_save)
-        m.addSeparator()
-        m.addAction(sm.session_manage)
-        m.addSeparator()
-        m.addAction(sm.session_none)
-        m.addSeparator()
-        
-        m.aboutToShow.connect(self.sessionManager.populateSessionsMenu)
+        sessionmanager.manager.get(self).addActionsToMenu(m)
         
         self.menu_help = m = self.menuBar().addMenu('')
         m.addAction(ac.help_manual)

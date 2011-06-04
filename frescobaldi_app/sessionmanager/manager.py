@@ -26,6 +26,7 @@ from __future__ import unicode_literals
 from PyQt4.QtGui import QAction, QActionGroup
 
 import actioncollection
+import actioncollectionmanager
 import plugin
 import document
 import icons
@@ -55,6 +56,7 @@ class SessionManager(plugin.MainWindowPlugin):
 
     def __init__(self, mainwindow):
         self.actionCollection = ac = SessionActions()
+        actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         ac.session_new.triggered.connect(self.newSession)
         ac.session_save.triggered.connect(self.saveSession)
         ac.session_manage.triggered.connect(self.manageSessions)
@@ -65,6 +67,18 @@ class SessionManager(plugin.MainWindowPlugin):
         ag.addAction(ac.session_none)
         ag.triggered.connect(self.slotSessionsAction)
         
+    def addActionsToMenu(self, m):
+        """Adds our actions to the sessions menu."""
+        ac = self.actionCollection
+        m.addAction(ac.session_new)
+        m.addAction(ac.session_save)
+        m.addSeparator()
+        m.addAction(ac.session_manage)
+        m.addSeparator()
+        m.addAction(ac.session_none)
+        m.addSeparator()
+        m.aboutToShow.connect(self.populateSessionsMenu)
+    
     def populateSessionsMenu(self):
         menu = self.mainwindow().menu_sessions
         ag = self._sessionsActionGroup
