@@ -115,7 +115,7 @@ class Fraction(Number):
 
 
 class Float(Number):
-    rx = r"-?\d+E\d+|\d+\.\d*|\d*\.\d+"
+    rx = r"-?((\d+(\.\d*)|\.\d+)(E\d+)?)"
 
 
 class LilyPond(_token.Token):
