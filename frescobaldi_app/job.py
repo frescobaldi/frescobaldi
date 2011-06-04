@@ -120,6 +120,7 @@ class Job(object):
     def abort(self):
         """Aborts the process."""
         if self._process:
+            self.abortMessage()
             self._process.terminate()
     
     def isRunning(self):
@@ -185,6 +186,11 @@ class Job(object):
         """Outputs a message the process has started."""
         name = self.title() or os.path.basename(self.command[0])
         self.message(_("Starting {job}...").format(job=name), NEUTRAL)
+    
+    def abortMessage(self):
+        """Outputs a message the process has been aborted."""
+        name = self.title() or os.path.basename(self.command[0])
+        self.message(_("Aborting {job}...").format(job=name), NEUTRAL)
     
     def errorMessage(self, error):
         """Outputs a message describing the given QProcess.Error."""
