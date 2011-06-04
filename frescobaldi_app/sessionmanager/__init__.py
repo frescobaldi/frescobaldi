@@ -19,7 +19,7 @@
 
 """
 Named session support (not to be confused with the QSessionManager support
-(see session.py)
+in session.py)
 
 A session is a global list of open documents, with some additional preferences set.
 
@@ -28,15 +28,10 @@ A session is a global list of open documents, with some additional preferences s
 from __future__ import unicode_literals
 
 import itertools
-import weakref
 
 from PyQt4.QtCore import QSettings, QUrl
-from PyQt4.QtGui import QAction, QActionGroup
 
 import app
-import actioncollection
-import document
-import icons
 import util
 
 
@@ -124,6 +119,7 @@ def saveSession(name, documents, activeDocument=None):
         session.setValue("active", documents.index(activeDocument))
     else:
         session.remove("active")
+    app.saveSessionData(name)
 
 def deleteSession(name):
     session = app.settings("sessions")
@@ -149,7 +145,7 @@ def setCurrentSession(name):
     if name != _currentSession:
         name and sessionGroup(name) # just select it, so its name is written in case it doesn't exist
         _currentSession = name
-        app.sessionChanged()
+        app.sessionChanged(name)
 
 def currentSessionGroup():
     """Returns the session settings at the current group is there is a current session.
@@ -160,112 +156,4 @@ def currentSessionGroup():
     if _currentSession:
         return sessionGroup(_currentSession)
 
-
-class SessionManager(object):
-    def __init__(self, mainwindow):
-        self.mainwindow = weakref.ref(mainwindow)
-        
-        self.createActions()
-        
-    def createActions(self):
-        self.actionCollection = ac = SessionActions()
-        ac.session_new.triggered.connect(self.newSession)
-        ac.session_save.triggered.connect(self.saveSession)
-        ac.session_manage.triggered.connect(self.manageSessions)
-        
-        # sessions menu
-        self._sessionsActionGroup = ag = QActionGroup(self.mainwindow())
-        ag.setExclusive(True)
-        ag.addAction(ac.session_none)
-        ag.triggered.connect(self.slotSessionsAction)
-        
-    def populateSessionsMenu(self):
-        menu = self.mainwindow().menu_sessions
-        ag = self._sessionsActionGroup
-        for a in ag.actions():
-            if a is not self.actionCollection.session_none:
-                menu.removeAction(a)
-                ag.removeAction(a)
-        self.actionCollection.session_none.setChecked(not currentSession())
-        for name in sessionNames():
-            a = menu.addAction(name.replace('&', '&&'))
-            a.setCheckable(True)
-            if name == currentSession():
-                a.setChecked(True)
-            a.setObjectName(name)
-            ag.addAction(a)
-        util.addAccelerators(menu.actions())
-    
-    def slotSessionsAction(self, action):
-        if action is self.actionCollection.session_none:
-            self.noSession()
-        elif action.objectName() in sessionNames():
-            self.startSession(action.objectName())
-            
-    def newSession(self):
-        import sessiondialog
-        name = sessiondialog.SessionEditor(self.mainwindow()).edit()
-        if name:
-            setCurrentSession(name)
-            self.saveCurrentSession()
-    
-    def saveSession(self):
-        if not currentSession():
-            return self.newSession()
-        self.saveCurrentSession()
-        
-    def manageSessions(self):
-        import sessiondialog
-        sessiondialog.SessionManagerDialog(self.mainwindow()).exec_()
-
-    def noSession(self):
-        if currentSession():
-            self.saveCurrentSessionIfDesired()
-            setCurrentSession(None)
-    
-    def startSession(self, name):
-        """Switches to the given session."""
-        if name == currentSession():
-            return
-        self.saveCurrentSessionIfDesired()
-        if self.mainwindow().queryClose():
-            active = loadSession(name) or document.Document()
-            self.mainwindow().setCurrentDocument(active)
-        
-    def saveCurrentSessionIfDesired(self):
-        """Saves the current session if it is configured to save itself on exit."""
-        cur = currentSession()
-        if cur:
-            s = sessionGroup(cur)
-            if s.value("autosave", True) not in (False, 'false'):
-                self.saveCurrentSession()
-    
-    def saveCurrentSession(self):
-        """Saves the current session."""
-        cur = currentSession()
-        if cur:
-            documents = self.mainwindow().documents()
-            active = self.mainwindow().currentDocument()
-            saveSession(cur, documents, active)
-
-
-class SessionActions(actioncollection.ActionCollection):
-    name = "session"
-    def createActions(self, parent=None):
-        self.session_new = QAction(parent)
-        self.session_save = QAction(parent)
-        self.session_manage = QAction(parent)
-        self.session_none = QAction(parent)
-        self.session_none.setCheckable(True)
-        
-        self.session_new.setIcon(icons.get('document-new'))
-        self.session_save.setIcon(icons.get('document-save'))
-        self.session_manage.setIcon(icons.get('view-choose'))
-        
-    def translateUI(self):
-        self.session_new.setText(_("&New..."))
-        self.session_save.setText(_("&Save"))
-        self.session_manage.setText(_("&Manage..."))
-        self.session_none.setText(_("No Session"))
-        
 

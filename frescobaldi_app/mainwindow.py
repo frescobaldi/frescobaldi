@@ -42,7 +42,7 @@ import historymanager
 import metainfo
 import signals
 import recentfiles
-import sessionmanager
+import sessionmanager.manager
 import util
 import matcher
 import bookmarks
@@ -103,7 +103,7 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.viewManager)
 
         self.documentActions = DocumentActionGroup(self)
-        self.sessionManager = sessionmanager.SessionManager(self)
+        self.sessionManager = sessionmanager.manager.get(self)
         self.createActions()
         
         # create other stuff that have their own actions

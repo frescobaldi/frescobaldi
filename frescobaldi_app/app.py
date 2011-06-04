@@ -53,7 +53,8 @@ documentClosed = Signal()       # Document
 viewSpaceCreated = Signal()     # ViewSpace (see viewmanager.py)
 languageChanged = Signal()      # (no arguments)
 settingsChanged = Signal()      # (no arguments)
-sessionChanged = Signal()       # (no arguments)
+sessionChanged = Signal()       # (name)
+saveSessionData = Signal()      # (name)
 jobStarted = Signal()           # (Document, Job)
 jobFinished = Signal()          # (Document, Job, bool success)
 

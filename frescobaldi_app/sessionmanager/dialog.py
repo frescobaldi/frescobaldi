@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Session dialog for named session stuff (see sessionmanager.py)
+Session dialog for named session stuff.
 """
 
 from __future__ import unicode_literals
