@@ -30,7 +30,7 @@ import app
 import info
 import icons
 import preferences
-import sessionmanager
+import sessions
 import util
 import po
 import language_names
@@ -146,7 +146,7 @@ class StartSession(preferences.Group):
             self.custom.setChecked(True)
         else:
             self.none.setChecked(True)
-        sessionNames = sessionmanager.sessionNames()
+        sessionNames = sessions.sessionNames()
         self.combo.clear()
         self.combo.addItems(sessionNames)
         custom = s.value("custom", "")

@@ -39,7 +39,7 @@ import app              # Construct QApplication
 import po.setup         # Setup language
 import mainwindow       # contains MainWindow class
 import session          # Initialize QSessionManager support
-import sessionmanager   # Initialize our own named session support
+import sessions   # Initialize our own named session support
 import document
 
 
@@ -69,7 +69,7 @@ def startmain():
     # load specified session
     doc = None
     if options.session and options.session != "none":
-        doc = sessionmanager.loadSession(options.session)
+        doc = sessions.loadSession(options.session)
         
     # Just create one MainWindow
     win = mainwindow.MainWindow()
@@ -89,7 +89,7 @@ def startmain():
             doc = win.openUrl(url, options.encoding)
     elif not options.session:
         # no docs, load default session
-        doc = sessionmanager.loadDefaultSession()
+        doc = sessions.loadDefaultSession()
     win.setCurrentDocument(doc or document.Document())
     if files and options.line is not None:
         # set the last loaded document active and apply navigation if requested

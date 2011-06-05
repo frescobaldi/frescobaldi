@@ -143,8 +143,8 @@ def basedir():
     home directory in that case.
 
     """
-    import sessionmanager
-    conf = sessionmanager.currentSessionGroup()
+    import sessions
+    conf = sessions.currentSessionGroup()
     if conf:
         basedir = conf.value("basedir", "")
         if basedir:

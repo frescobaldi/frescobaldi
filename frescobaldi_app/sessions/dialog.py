@@ -31,7 +31,7 @@ from PyQt4.QtGui import (
 import app
 import widgets.listedit
 import widgets.urlrequester
-import sessionmanager
+import sessions
 
 
 class SessionManagerDialog(QDialog):
@@ -55,14 +55,14 @@ class SessionManagerDialog(QDialog):
 class SessionList(widgets.listedit.ListEdit):
     """Manage the list of sessions."""
     def load(self):
-        names = sessionmanager.sessionNames()
-        current = sessionmanager.currentSession()
+        names = sessions.sessionNames()
+        current = sessions.currentSession()
         self.setValue(names)
         if current in names:
             self.setCurrentRow(names.index(current))
 
     def removeItem(self, item):
-        sessionmanager.deleteSession(item.text())
+        sessions.deleteSession(item.text())
         super(SessionList, self).removeItem(item)
 
     def openEditor(self, item):
@@ -111,13 +111,13 @@ class SessionEditor(QDialog):
         self.basedirLabel.setText(_("Base directory:"))
     
     def load(self, name):
-        settings = sessionmanager.sessionGroup(name)
+        settings = sessions.sessionGroup(name)
         self.autosave.setChecked(settings.value("autosave", True) not in (False, 'false'))
         self.basedir.setPath(settings.value("basedir", ""))
         # more settings here
         
     def save(self, name):
-        settings = sessionmanager.sessionGroup(name)
+        settings = sessions.sessionGroup(name)
         settings.setValue("autosave", self.autosave.isChecked())
         settings.setValue("basedir", self.basedir.path())
         # more settings here
@@ -143,7 +143,7 @@ class SessionEditor(QDialog):
             # name changed?
             name = self.name.text()
             if self._originalName and name != self._originalName:
-                sessionmanager.renameSession(self._originalName, name)
+                sessions.renameSession(self._originalName, name)
             self.save(name)
             return name
 
@@ -174,7 +174,7 @@ class SessionEditor(QDialog):
                 _("Please do not use the name '{name}'.".format(name="none")))
             return False
         
-        elif self._originalName != name and name in sessionmanager.sessionNames():
+        elif self._originalName != name and name in sessions.sessionNames():
             self.name.setFocus()
             box = QMessageBox(QMessageBox.Warning, app.caption(_("Warning")),
                 _("Another session with the name {name} already exists.\n\n"

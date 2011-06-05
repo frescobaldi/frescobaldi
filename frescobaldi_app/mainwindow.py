@@ -42,7 +42,7 @@ import historymanager
 import metainfo
 import signals
 import recentfiles
-import sessionmanager.manager
+import sessions.manager
 import util
 import matcher
 import bookmarks
@@ -210,8 +210,8 @@ class MainWindow(QMainWindow):
     def updateWindowTitle(self):
         doc = self.currentDocument()
         name = []
-        if sessionmanager.currentSession():
-            name.append(sessionmanager.currentSession() + ':')
+        if sessions.currentSession():
+            name.append(sessions.currentSession() + ':')
         if doc:
             if doc.url().isEmpty():
                 name.append(doc.documentName())
@@ -238,7 +238,7 @@ class MainWindow(QMainWindow):
     def closeEvent(self, ev):
         lastWindow = len(app.windows) == 1
         if lastWindow:
-            sessionmanager.manager.get(self).saveCurrentSessionIfDesired()
+            sessions.manager.get(self).saveCurrentSessionIfDesired()
             self.writeSettings()
         if not lastWindow or self.queryClose():
             app.windows.remove(self)
@@ -475,9 +475,9 @@ class MainWindow(QMainWindow):
     
     def closeAllDocuments(self):
         """Closes all documents and keep one new, empty document."""
-        sessionmanager.manager.get(self).saveCurrentSessionIfDesired()
+        sessions.manager.get(self).saveCurrentSessionIfDesired()
         if self.queryClose():
-            sessionmanager.setCurrentSession(None)
+            sessions.setCurrentSession(None)
             self.setCurrentDocument(document.Document())
     
     def quit(self):
@@ -905,7 +905,7 @@ class MainWindow(QMainWindow):
         m.addAction(ac.window_fullscreen)
         
         self.menu_sessions = m = self.menuBar().addMenu('')
-        sessionmanager.manager.get(self).addActionsToMenu(m)
+        sessions.manager.get(self).addActionsToMenu(m)
         
         self.menu_help = m = self.menuBar().addMenu('')
         m.addAction(ac.help_manual)

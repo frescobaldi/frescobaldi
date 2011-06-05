@@ -31,7 +31,7 @@ import plugin
 import document
 import icons
 import util
-import sessionmanager
+import sessions
 import signals
 
 
@@ -86,11 +86,11 @@ class SessionManager(plugin.MainWindowPlugin):
             if a is not self.actionCollection.session_none:
                 menu.removeAction(a)
                 ag.removeAction(a)
-        self.actionCollection.session_none.setChecked(not sessionmanager.currentSession())
-        for name in sessionmanager.sessionNames():
+        self.actionCollection.session_none.setChecked(not sessions.currentSession())
+        for name in sessions.sessionNames():
             a = menu.addAction(name.replace('&', '&&'))
             a.setCheckable(True)
-            if name == sessionmanager.currentSession():
+            if name == sessions.currentSession():
                 a.setChecked(True)
             a.setObjectName(name)
             ag.addAction(a)
@@ -99,18 +99,18 @@ class SessionManager(plugin.MainWindowPlugin):
     def slotSessionsAction(self, action):
         if action is self.actionCollection.session_none:
             self.noSession()
-        elif action.objectName() in sessionmanager.sessionNames():
+        elif action.objectName() in sessions.sessionNames():
             self.startSession(action.objectName())
             
     def newSession(self):
         from . import dialog
         name = dialog.SessionEditor(self.mainwindow()).edit()
         if name:
-            sessionmanager.setCurrentSession(name)
+            sessions.setCurrentSession(name)
             self.saveCurrentSession()
     
     def saveSession(self):
-        if not sessionmanager.currentSession():
+        if not sessions.currentSession():
             return self.newSession()
         self.saveCurrentSession()
         
@@ -121,32 +121,32 @@ class SessionManager(plugin.MainWindowPlugin):
     def noSession(self):
         if currentSession():
             self.saveCurrentSessionIfDesired()
-            sessionmanager.setCurrentSession(None)
+            sessions.setCurrentSession(None)
     
     def startSession(self, name):
         """Switches to the given session."""
-        if name == sessionmanager.currentSession():
+        if name == sessions.currentSession():
             return
         self.saveCurrentSessionIfDesired()
         if self.mainwindow().queryClose():
-            active = sessionmanager.loadSession(name) or document.Document()
+            active = sessions.loadSession(name) or document.Document()
             self.mainwindow().setCurrentDocument(active)
         
     def saveCurrentSessionIfDesired(self):
         """Saves the current session if it is configured to save itself on exit."""
-        cur = sessionmanager.currentSession()
+        cur = sessions.currentSession()
         if cur:
-            s = sessionmanager.sessionGroup(cur)
+            s = sessions.sessionGroup(cur)
             if s.value("autosave", True) not in (False, 'false'):
                 self.saveCurrentSession()
     
     def saveCurrentSession(self):
         """Saves the current session."""
-        cur = sessionmanager.currentSession()
+        cur = sessions.currentSession()
         if cur:
             documents = self.mainwindow().documents()
             active = self.mainwindow().currentDocument()
-            sessionmanager.saveSession(cur, documents, active)
+            sessions.saveSession(cur, documents, active)
             self.saveSessionData(cur)
 
 
