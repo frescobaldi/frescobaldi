@@ -169,7 +169,8 @@ class Actions(actioncollection.ActionCollection):
         self.engrave_preview.setShortcut(QKeySequence(Qt.CTRL + Qt.Key_M))
         self.engrave_publish.setShortcut(QKeySequence(Qt.CTRL + Qt.SHIFT + Qt.Key_P))
         self.engrave_custom.setShortcut(QKeySequence(Qt.CTRL + Qt.SHIFT + Qt.Key_M))
-
+        self.engrave_abort.setShortcut(QKeySequence(Qt.CTRL + Qt.Key_Pause))
+        
         self.engrave_sticky.setIcon(icons.get('pushpin'))
         self.engrave_preview.setIcon(icons.get('lilypond-run'))
         self.engrave_publish.setIcon(icons.get('lilypond-run'))
