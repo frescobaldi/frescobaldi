@@ -119,7 +119,7 @@ class SessionManager(plugin.MainWindowPlugin):
         dialog.SessionManagerDialog(self.mainwindow()).exec_()
 
     def noSession(self):
-        if currentSession():
+        if sessions.currentSession():
             self.saveCurrentSessionIfDesired()
             sessions.setCurrentSession(None)
     
