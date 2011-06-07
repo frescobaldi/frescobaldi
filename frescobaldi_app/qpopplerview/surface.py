@@ -264,12 +264,9 @@ class Surface(QWidget):
     def mouseMoveEvent(self, ev):
         if self._dragging:
             self.setCursor(Qt.SizeAllCursor)
-            diff = ev.globalPos() - self._dragPos
+            diff = self._dragPos - ev.globalPos()
             self._dragPos = ev.globalPos()
-            h = self.view().horizontalScrollBar()
-            v = self.view().verticalScrollBar()
-            h.setValue(h.value() - diff.x())
-            v.setValue(v.value() - diff.y())
+            self.view().scrollSurface(diff)
         elif self._selecting:
             self._moveSelection(ev.pos())
             self._rubberBand.show()
@@ -398,13 +395,10 @@ class Surface(QWidget):
         
     def _scrollTimeout(self):
         """(Internal) Called by the _scrollTimer."""
-        h = self.view().horizontalScrollBar()
-        v = self.view().verticalScrollBar()
         # change the scrollbars, but check how far they really moved.
-        old = QPoint(h.value(), v.value())
-        h.setValue(h.value() + self._scrolling.x())
-        v.setValue(v.value() + self._scrolling.y())
-        diff = QPoint(h.value(), v.value()) - old
+        pos = self.pos()
+        self.view().scrollSurface(self._scrolling)
+        diff = pos - self.pos()
         if not diff:
             self.stopScrolling()
     
