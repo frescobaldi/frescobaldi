@@ -39,6 +39,7 @@ except ImportError:
 from . import layout
 from . import page
 from . import highlight
+from . import magnifier
 
 # most used keyboard modifiers
 _SCAM = (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META)
@@ -68,6 +69,10 @@ class Surface(QWidget):
         self._currentLinkId = None
         self._dragging = False
         self._selecting = False
+        self._magnifying = False
+        self._magnifier = None
+        self.setMagnifier(magnifier.Magnifier())
+        self.setMagnifierModifiers(Qt.CTRL)
         self._selection = QRect()
         self._rubberBand = QRubberBand(QRubberBand.Rectangle, self)
         self._scrolling = False
@@ -131,6 +136,33 @@ class Surface(QWidget):
     def showUrlTips(self):
         """Returns True if URLs are shown in a tooltip when hovering a link."""
         return self._showUrlTips
+        
+    def setMagnifier(self, magnifier):
+        """Sets the Magnifier to use (or None to disable the magnifier).
+        
+        The Surface takes ownership of the Magnifier.
+        
+        """
+        if self._magnifier:
+            self._magnifier.setParent(None)
+        magnifier.setParent(self)
+        self._magnifier = magnifier
+    
+    def magnifier(self):
+        """Returns the currently set magnifier."""
+        return self._magnifier
+    
+    def setMagnifierModifiers(self, modifiers):
+        """Sets the modifiers (e.g. Qt.CTRL) to show the magnifier.
+        
+        Use None to show the magnifier always (instead of dragging).
+        
+        """
+        self._magnifierModifiers = modifiers
+    
+    def magnifierModifiers(self):
+        """Returns the currently set keyboard modifiers (e.g. Qt.CTRL) to show the magnifier."""
+        return self._magnifierModifiers
         
     def hasSelection(self):
         """Returns True if there is a selection."""
@@ -218,6 +250,14 @@ class Surface(QWidget):
             if link:
                 self.linkClickEvent(ev, page, link)
                 return
+        # magnifier?
+        if self._magnifier and int(ev.modifiers()) & _SCAM == self._magnifierModifiers:
+            self._magnifier.moveCenter(ev.pos())
+            self._magnifier.show()
+            self._magnifier.raise_()
+            self._magnifying = True
+            self.setCursor(QCursor(Qt.BlankCursor))
+            return
         # selecting?
         if self._selectionEnabled:
             if self.hasSelection():
@@ -247,6 +287,9 @@ class Surface(QWidget):
     def mouseReleaseEvent(self, ev):
         if self._dragging:
             self._dragging = False
+        elif self._magnifying:
+            self._magnifier.hide()
+            self._magnifying = False
         else:
             if self._selecting:
                 self._selecting = False
@@ -267,6 +310,8 @@ class Surface(QWidget):
             diff = self._dragPos - ev.globalPos()
             self._dragPos = ev.globalPos()
             self.view().scrollSurface(diff)
+        elif self._magnifying:
+            self._magnifier.moveCenter(ev.pos())
         elif self._selecting:
             self._moveSelection(ev.pos())
             self._rubberBand.show()
@@ -293,6 +338,8 @@ class Surface(QWidget):
         pos = self.mapFromGlobal(QCursor.pos())
         if self._selecting:
             self._moveSelection(pos)
+        elif self._magnifying:
+            self._magnifier.move(pos)
         elif not self._dragging:
             self.updateCursor(pos)
         

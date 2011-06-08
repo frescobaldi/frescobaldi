@@ -94,6 +94,7 @@ from .layout import AbstractLayout, Layout
 from .surface import Surface
 from .render import RenderOptions
 from .highlight import Highlighter
+from .magnifier import Magnifier
 from .locking import lock
 from . import cache
 
@@ -101,6 +102,6 @@ from . import cache
 __all__ = [
     'FixedScale', 'FitWidth', 'FitHeight', 'FitBoth',
     'View', 'Page', 'AbstractLayout', 'Layout', 'Surface',
-    'RenderOptions', 'Highlighter',
+    'RenderOptions', 'Highlighter', 'Magnifier',
     'lock', 'cache',
 ]
