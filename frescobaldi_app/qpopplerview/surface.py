@@ -251,7 +251,9 @@ class Surface(QWidget):
                 self.linkClickEvent(ev, page, link)
                 return
         # magnifier?
-        if self._magnifier and int(ev.modifiers()) & _SCAM == self._magnifierModifiers:
+        if (self._magnifier and
+            int(ev.modifiers()) & _SCAM == self._magnifierModifiers and
+            ev.button() == Qt.LeftButton):
             self._magnifier.moveCenter(ev.pos())
             self._magnifier.show()
             self._magnifier.raise_()
