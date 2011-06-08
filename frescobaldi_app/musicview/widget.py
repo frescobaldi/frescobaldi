@@ -39,6 +39,7 @@ import qpopplerview
 
 import app
 import icons
+import settings
 import textformats
 import tokeniter
 import ly.lex.lilypond
@@ -131,18 +132,9 @@ class MusicView(QWidget):
         qpopplerview.cache.options().setPaperColor(colors['paper'])
         self.view.redraw()
         # magnifier size and scale
-        s = QSettings()
-        s.beginGroup("musicview/magnifier")
-        try:
-            size = int(s.value("size", 300))
-        except ValueError:
-            size = 300
-        self.view.surface().magnifier().resize(size, size)
-        try:
-            scale = int(s.value("scale", 300))
-        except ValueError:
-            scale = 300
-        self.view.surface().magnifier().setScale(scale / 100.0)
+        s = settings.Magnifier.load()
+        self.view.surface().magnifier().resize(s.size, s.size)
+        self.view.surface().magnifier().setScale(s.scale / 100.0)
 
     def slotLinkClicked(self, ev, page, link):
         """Called when the use clicks a link.

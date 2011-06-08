@@ -31,6 +31,7 @@ from PyQt4.QtGui import (
 import app
 import util
 import preferences
+import settings
 
 
 class Tools(preferences.GroupsPage):
@@ -111,9 +112,9 @@ class MusicView(preferences.Group):
         self.magnifierSizeLabel = QLabel()
         self.magnifierSizeSlider = QSlider(Qt.Horizontal, valueChanged=self.changed)
         self.magnifierSizeSlider.setSingleStep(50)
-        self.magnifierSizeSlider.setRange(200, 800)
+        self.magnifierSizeSlider.setRange(*settings.Magnifier.sizeRange)
         self.magnifierSizeSpinBox = QSpinBox()
-        self.magnifierSizeSpinBox.setRange(200, 800)
+        self.magnifierSizeSpinBox.setRange(*settings.Magnifier.sizeRange)
         self.magnifierSizeSpinBox.valueChanged.connect(self.magnifierSizeSlider.setValue)
         self.magnifierSizeSlider.valueChanged.connect(self.magnifierSizeSpinBox.setValue)
         layout.addWidget(self.magnifierSizeLabel, 0, 0)
@@ -123,9 +124,9 @@ class MusicView(preferences.Group):
         self.magnifierScaleLabel = QLabel()
         self.magnifierScaleSlider = QSlider(Qt.Horizontal, valueChanged=self.changed)
         self.magnifierScaleSlider.setSingleStep(50)
-        self.magnifierScaleSlider.setRange(200, 500)
+        self.magnifierScaleSlider.setRange(*settings.Magnifier.scaleRange)
         self.magnifierScaleSpinBox = QSpinBox()
-        self.magnifierScaleSpinBox.setRange(200, 500)
+        self.magnifierScaleSpinBox.setRange(*settings.Magnifier.scaleRange)
         self.magnifierScaleSpinBox.valueChanged.connect(self.magnifierScaleSlider.setValue)
         self.magnifierScaleSlider.valueChanged.connect(self.magnifierScaleSpinBox.setValue)
         layout.addWidget(self.magnifierScaleLabel, 1, 0)
@@ -138,34 +139,23 @@ class MusicView(preferences.Group):
         self.setTitle(_("Music View"))
         self.magnifierSizeLabel.setText(_("Magnifier Size:"))
         self.magnifierSizeLabel.setToolTip(_(
-            "Size of the magnifier glass (Ctrl+Click in the Music View)\n"
-            "(ranging from {min} to {max} pixels).").format(min=200, max=800))
+            "Size of the magnifier glass (Ctrl+Click in the Music View)."))
         # L10N: as in "400 pixels", appended after number in spinbox, note the leading space
         self.magnifierSizeSpinBox.setSuffix(_(" pixels"))
         self.magnifierScaleLabel.setText(_("Magnifier Scale:"))
         self.magnifierScaleLabel.setToolTip(_(
-            "Magnification of the magnifier\n"
-            "(ranging from {min} to {max} percent).").format(min=200, max=500))
+            "Magnification of the magnifier."))
         self.magnifierScaleSpinBox.setSuffix(_("percent unit sign", "%"))
             
     def loadSettings(self):
-        s = QSettings()
-        s.beginGroup("musicview/magnifier")
-        try:
-            size = int(s.value("size", 300))
-        except ValueError:
-            size = 300
-        self.magnifierSizeSlider.setValue(size)
-        try:
-            scale = int(s.value("scale", 300))
-        except ValueError:
-            scale = 300
-        self.magnifierScaleSlider.setValue(scale)
+        s = settings.Magnifier.load()
+        self.magnifierSizeSlider.setValue(s.size)
+        self.magnifierScaleSlider.setValue(s.scale)
     
     def saveSettings(self):
-        s = QSettings()
-        s.beginGroup("musicview/magnifier")
-        s.setValue("size", self.magnifierSizeSlider.value())
-        s.setValue("scale", self.magnifierScaleSlider.value())
+        s = settings.Magnifier()
+        s.size = self.magnifierSizeSlider.value()
+        s.scale = self.magnifierScaleSlider.value()
+        s.save()
 
 
