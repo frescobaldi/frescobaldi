@@ -339,7 +339,7 @@ class Surface(QWidget):
         if self._selecting:
             self._moveSelection(pos)
         elif self._magnifying:
-            self._magnifier.move(pos)
+            self._magnifier.moveCenter(pos)
         elif not self._dragging:
             self.updateCursor(pos)
         
