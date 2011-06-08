@@ -20,7 +20,7 @@
 """
 Here are simple classes that encapsulate settings for some application parts.
 
-Saving and loading of settings, including defaults, can so be concentrated
+This way, saving and loading of settings, including defaults, is concentrated
 in one place.  Because the settings objects are very simple Python classes,
 everything (e.g. boundary checking of values, etc.) can be implemented here,
 to ensure the application parts get valid settings and defaults.
