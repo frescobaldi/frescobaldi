@@ -122,6 +122,7 @@ class MusicView(QWidget):
         
     def readSettings(self):
         """Reads the settings from the user's preferences."""
+        # background and highlight colors of music view
         colors = textformats.formatData('editor').baseColors
         self._highlightMusicFormat.setColor(colors['musichighlight'])
         color = colors['selectionbackground']
@@ -129,6 +130,19 @@ class MusicView(QWidget):
         self._highlightFormat.setBackground(color)
         qpopplerview.cache.options().setPaperColor(colors['paper'])
         self.view.redraw()
+        # magnifier size and scale
+        s = QSettings()
+        s.beginGroup("musicview/magnifier")
+        try:
+            size = int(s.value("size", 300))
+        except ValueError:
+            size = 300
+        self.view.surface().magnifier().resize(size, size)
+        try:
+            scale = int(s.value("scale", 300))
+        except ValueError:
+            scale = 300
+        self.view.surface().magnifier().setScale(scale / 100.0)
 
     def slotLinkClicked(self, ev, page, link):
         """Called when the use clicks a link.

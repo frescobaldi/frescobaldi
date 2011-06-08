@@ -23,9 +23,10 @@ Per-tool preferences.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QSettings
+from PyQt4.QtCore import QSettings, Qt
 from PyQt4.QtGui import (
-    QCheckBox, QDoubleSpinBox, QFont, QFontComboBox, QHBoxLayout, QLabel, QVBoxLayout)
+    QCheckBox, QDoubleSpinBox, QFont, QFontComboBox, QGridLayout, QHBoxLayout,
+    QLabel, QSlider, QSpinBox, QVBoxLayout)
 
 import app
 import util
@@ -40,6 +41,7 @@ class Tools(preferences.GroupsPage):
         self.setLayout(layout)
         
         layout.addWidget(LogTool(self))
+        layout.addWidget(MusicView(self))
         layout.addStretch(1)
             
 
@@ -97,5 +99,73 @@ class LogTool(preferences.Group):
         s.setValue("fontsize", self.fontSize.value())
         s.setValue("show_on_start", self.showlog.isChecked())
         s.setValue("rawview", self.rawview.isChecked())
+
+
+class MusicView(preferences.Group):
+    def __init__(self, page):
+        super(MusicView, self).__init__(page)
+        
+        layout = QGridLayout()
+        self.setLayout(layout)
+
+        self.magnifierSizeLabel = QLabel()
+        self.magnifierSizeSlider = QSlider(Qt.Horizontal, valueChanged=self.changed)
+        self.magnifierSizeSlider.setSingleStep(50)
+        self.magnifierSizeSlider.setRange(200, 800)
+        self.magnifierSizeSpinBox = QSpinBox()
+        self.magnifierSizeSpinBox.setRange(200, 800)
+        self.magnifierSizeSpinBox.valueChanged.connect(self.magnifierSizeSlider.setValue)
+        self.magnifierSizeSlider.valueChanged.connect(self.magnifierSizeSpinBox.setValue)
+        layout.addWidget(self.magnifierSizeLabel, 0, 0)
+        layout.addWidget(self.magnifierSizeSlider, 0, 1)
+        layout.addWidget(self.magnifierSizeSpinBox, 0, 2)
+        
+        self.magnifierScaleLabel = QLabel()
+        self.magnifierScaleSlider = QSlider(Qt.Horizontal, valueChanged=self.changed)
+        self.magnifierScaleSlider.setSingleStep(50)
+        self.magnifierScaleSlider.setRange(200, 500)
+        self.magnifierScaleSpinBox = QSpinBox()
+        self.magnifierScaleSpinBox.setRange(200, 500)
+        self.magnifierScaleSpinBox.valueChanged.connect(self.magnifierScaleSlider.setValue)
+        self.magnifierScaleSlider.valueChanged.connect(self.magnifierScaleSpinBox.setValue)
+        layout.addWidget(self.magnifierScaleLabel, 1, 0)
+        layout.addWidget(self.magnifierScaleSlider, 1, 1)
+        layout.addWidget(self.magnifierScaleSpinBox, 1, 2)
+        
+        app.translateUI(self)
+        
+    def translateUI(self):
+        self.setTitle(_("Music View"))
+        self.magnifierSizeLabel.setText(_("Magnifier Size:"))
+        self.magnifierSizeLabel.setToolTip(_(
+            "Size of the magnifier glass (Ctrl+Click in the Music View)\n"
+            "(ranging from {min} to {max} pixels).").format(min=200, max=800))
+        # L10N: as in "400 pixels", appended after number in spinbox, note the leading space
+        self.magnifierSizeSpinBox.setSuffix(_(" pixels"))
+        self.magnifierScaleLabel.setText(_("Magnifier Scale:"))
+        self.magnifierScaleLabel.setToolTip(_(
+            "Magnification of the magnifier\n"
+            "(ranging from {min} to {max} percent).").format(min=200, max=500))
+        self.magnifierScaleSpinBox.setSuffix(_("percent unit sign", "%"))
+            
+    def loadSettings(self):
+        s = QSettings()
+        s.beginGroup("musicview/magnifier")
+        try:
+            size = int(s.value("size", 300))
+        except ValueError:
+            size = 300
+        self.magnifierSizeSlider.setValue(size)
+        try:
+            scale = int(s.value("scale", 300))
+        except ValueError:
+            scale = 300
+        self.magnifierScaleSlider.setValue(scale)
+    
+    def saveSettings(self):
+        s = QSettings()
+        s.beginGroup("musicview/magnifier")
+        s.setValue("size", self.magnifierSizeSlider.value())
+        s.setValue("scale", self.magnifierScaleSlider.value())
 
 
