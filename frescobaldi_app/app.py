@@ -153,7 +153,9 @@ def basedir():
 
 def settings(name):
     """Returns a QSettings object referring a file in ~/.config/frescobaldi/"""
-    return QSettings(info.name, name)
+    s = QSettings(info.name, name)
+    s.setFallbacksEnabled(False)
+    return s
 
 def excepthook(exctype, excvalue, exctb):
     """Called when a Python exception goes unhandled."""
