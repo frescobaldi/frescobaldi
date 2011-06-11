@@ -51,6 +51,7 @@ import panels
 import jobmanager
 import progress
 import engrave
+import insert
 
 
 class MainWindow(QMainWindow):
@@ -863,6 +864,8 @@ class MainWindow(QMainWindow):
         la = panels.manager(self).logtool.actionCollection
         m.addAction(la.log_next_error)
         m.addAction(la.log_previous_error)
+        
+        self.menuBar().addMenu(insert.Manager.instance(self).menu)
         
         self.menu_document = m = self.menuBar().addMenu('')
         m.aboutToShow.connect(self.populateDocumentsMenu)
