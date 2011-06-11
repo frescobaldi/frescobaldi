@@ -60,7 +60,7 @@ class SchemeSelector(QWidget):
         
     def translateUI(self):
         self.label.setText(_("Scheme:"))
-        self.add.setText(_("&New..."))
+        self.add.setText(_("New Scheme", "&New..."))
         self.remove.setText(_("&Remove"))
         
     def slotSchemeChanged(self, index):

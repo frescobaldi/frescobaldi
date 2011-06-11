@@ -164,7 +164,7 @@ class SessionActions(actioncollection.ActionCollection):
         self.session_manage.setIcon(icons.get('view-choose'))
         
     def translateUI(self):
-        self.session_new.setText(_("&New..."))
+        self.session_new.setText(_("New Session", "&New..."))
         self.session_save.setText(_("&Save"))
         self.session_manage.setText(_("&Manage..."))
         self.session_none.setText(_("No Session"))
