@@ -46,7 +46,7 @@ from __future__ import unicode_literals
 
 import weakref
 
-from PyQt4.QtCore import QSettings
+from PyQt4.QtCore import QSettings, Qt
 from PyQt4.QtGui import QAction, QKeySequence
 
 import app
@@ -191,6 +191,9 @@ class ShortcutCollection(ActionCollectionBase):
     # save weak references to other instances with the same name and sync then.
     others = {}
     
+    # shortcut context to use by default
+    shortcutContext = Qt.WidgetWithChildrenShortcut
+    
     def __init__(self, widget):
         """Creates the ShortcutCollection.
         
@@ -257,6 +260,7 @@ class ShortcutCollection(ActionCollectionBase):
             a = self._actions[name]
         except KeyError:
             a = self._actions[name] = QAction(self.widget())
+            a.setShortcutContext(self.shortcutContext)
             a.triggered.connect(lambda: self.triggerAction(name))
             self.widget().addAction(a)
         return a

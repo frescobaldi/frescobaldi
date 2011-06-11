@@ -56,7 +56,7 @@ def action(name, parent=None, collection=None):
     return a
 
 
-def trigger(name, mainwindow):
+def trigger(name, view):
     """Called when a template is activated and should be inserted in the document."""
     # TEMP!! example implementation
     d = {
@@ -72,7 +72,7 @@ def trigger(name, mainwindow):
         text = d[name]
     except KeyError:
         return
-    mainwindow.currentView().textCursor().insertText(text)
+    view.textCursor().insertText(text)
 
 
 def populateMenu(menu, collection):

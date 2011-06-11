@@ -92,7 +92,7 @@ class InsertActions(actioncollection.ShortcutCollection):
     """Manages keyboard shortcuts for the Insert module."""
     name = "insert"
     def __init__(self, mgr):
-        super(InsertActions, self).__init__(mgr.mainwindow())
+        super(InsertActions, self).__init__(mgr.mainwindow().centralWidget())
         self.manager = weakref.ref(mgr)
     
     def createDefaultShortcuts(self):
@@ -109,7 +109,9 @@ class InsertActions(actioncollection.ShortcutCollection):
     
     def triggerAction(self, name):
         from . import actions
-        actions.trigger(name, self.manager().mainwindow())
+        view = self.manager().mainwindow().currentView()
+        if view.hasFocus():
+            actions.trigger(name, view)
         
     def title(self):
         return _("Insert Templates")
