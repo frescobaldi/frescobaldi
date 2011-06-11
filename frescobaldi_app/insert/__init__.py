@@ -66,8 +66,11 @@ class Manager(plugin.MainWindowPlugin):
         self.menu.clear()
     
     def menuTriggered(self, action):
+        from . import actions
         if action.objectName():
-            self.actions.triggerAction(action.objectName())
+            view = self.mainwindow().currentView()
+            view.setFocus()
+            actions.trigger(action.objectName(), view)
         
     def showEditor(self):
         from . import editor
