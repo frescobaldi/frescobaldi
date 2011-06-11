@@ -192,7 +192,7 @@ class ShortcutCollection(ActionCollectionBase):
     others = {}
     
     # shortcut context to use by default
-    shortcutContext = Qt.WidgetWithChildrenShortcut
+    shortcutContext = Qt.WindowShortcut
     
     def __init__(self, widget):
         """Creates the ShortcutCollection.
