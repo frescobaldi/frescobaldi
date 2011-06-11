@@ -26,14 +26,13 @@ from __future__ import unicode_literals
 
 import weakref
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import Qt
+from PyQt4.QtGui import QAction, QKeySequence, QMenu
 
 import app
 import actioncollection
 import actioncollectionmanager
 import plugin
-
 
 
 class Manager(plugin.MainWindowPlugin):
@@ -43,26 +42,38 @@ class Manager(plugin.MainWindowPlugin):
         actioncollectionmanager.manager(mainwindow).addActionCollection(self.actions)
         self.actionCollection = ac = ActionCollection(mainwindow)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
+        ac.insert_show_editor.triggered.connect(self.showEditor)
+        mainwindow.addAction(ac.insert_show_editor)
         self.menu = QMenu(mainwindow, aboutToShow=self.populateMenu)
+        self.menu.triggered.connect(self.menuTriggered)
+        self.menu.aboutToHide.connect(self.clearMenu, Qt.QueuedConnection)
         
         app.translateUI(self)
         
     def translateUI(self):
         self.menu.setTitle(_("&Insert"))
     
-    def actionForName(self, name):
-        print "action requested", name
-        pass # TODO: implement
-    
     def populateMenu(self):
         """Called when the Insert Menu is displayed."""
+        from . import actions
         m = self.menu
         m.clear()
-        # TODO: add templates to the menu
-        
-        # finally...
+        actions.populateMenu(m, self.actions)
         m.addSeparator()
         m.addAction(self.actionCollection.insert_show_editor)
+    
+    def clearMenu(self):
+        self.menu.clear()
+    
+    def menuTriggered(self, action):
+        if action.objectName():
+            self.actions.triggerAction(action.objectName())
+        
+    def showEditor(self):
+        from . import editor
+        e = editor.Editor(self.mainwindow())
+        e.exec_()
+        e.deleteLater()
 
 
 class ActionCollection(actioncollection.ActionCollection):
@@ -93,9 +104,14 @@ class InsertActions(actioncollection.ShortcutCollection):
         self.setDefaultShortcuts('times23', [QKeySequence('Ctrl+3')])
 
     def realAction(self, name):
-        return self.manager().actionForName(name)
+        from . import actions
+        return actions.action(name)
+    
+    def triggerAction(self, name):
+        from . import actions
+        actions.trigger(name, self.manager().mainwindow())
         
     def title(self):
         return _("Insert Templates")
-    
+
 
