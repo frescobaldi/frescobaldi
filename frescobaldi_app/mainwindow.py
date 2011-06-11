@@ -867,9 +867,6 @@ class MainWindow(QMainWindow):
         
         self.menuBar().addMenu(insert.Manager.instance(self).menu)
         
-        self.menu_document = m = self.menuBar().addMenu('')
-        m.aboutToShow.connect(self.populateDocumentsMenu)
-        
         self.menu_lilypond = m = self.menuBar().addMenu('')
         eg = engrave.engraver(self).actionCollection
         m.addAction(eg.engrave_sticky)
@@ -893,6 +890,9 @@ class MainWindow(QMainWindow):
         
         m.addSeparator()
         panels.manager(self).addActionsToMenu(m)
+        
+        self.menu_document = m = self.menuBar().addMenu('')
+        m.aboutToShow.connect(self.populateDocumentsMenu)
         
         self.menu_window = m = self.menuBar().addMenu('')
         vm = self.viewManager.actionCollection
@@ -955,7 +955,7 @@ class MainWindow(QMainWindow):
         self.menu_lilypond.setTitle(_('menu title', '&LilyPond'))
         self.menu_tools.setTitle(_('menu title', '&Tools'))
         self.menu_window.setTitle(_('menu title', '&Window'))
-        self.menu_sessions.setTitle(_('menu title', '&Sessions'))
+        self.menu_sessions.setTitle(_('menu title', '&Session'))
         self.menu_help.setTitle(_('menu title', '&Help'))
         self.toolbar_main.setWindowTitle(_("Main Toolbar"))
         self.toolbar_music.setWindowTitle(_("Music View Toolbar"))
