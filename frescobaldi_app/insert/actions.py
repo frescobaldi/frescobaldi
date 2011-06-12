@@ -25,6 +25,8 @@ Functions to access the built-in and user defined templates.
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+from . import template
+
 
 def action(name, parent=None, collection=None):
     """Returns a QAction with text and icon for the given template name.
@@ -32,23 +34,12 @@ def action(name, parent=None, collection=None):
     Returns None is no such template is available.
     If collection is provided, it is used to set shortcuts to the action.
     """
-    # TEMP!!!
-    d = {
-        'voice1': '\\voiceOne',
-        'voice2': '\\voiceTwo',
-        'voice3': '\\voiceThree',
-        'voice4': '\\voiceFour',
-        '1voice': '\\oneVoice',
-        'times23': '\\times 2/3 { ',
-    }
-        
-    try:
-        text = d[name]
-    except KeyError:
+    title = template.title(name)
+    if not title:
         return
     a = QAction(parent)
     a.setObjectName(name)
-    a.setText(text.replace('&', '&&'))
+    a.setText(title.replace('&', '&&'))
     if collection:
         shortcuts = collection.shortcuts(name)
         if shortcuts:
@@ -58,21 +49,10 @@ def action(name, parent=None, collection=None):
 
 def trigger(name, view):
     """Called when a template is activated and should be inserted in the document."""
-    # TEMP!! example implementation
-    d = {
-        'voice1': '\\voiceOne',
-        'voice2': '\\voiceTwo',
-        'voice3': '\\voiceThree',
-        'voice4': '\\voiceFour',
-        '1voice': '\\oneVoice',
-        'times23': '\\times 2/3 { ',
-    }
-        
-    try:
-        text = d[name]
-    except KeyError:
-        return
-    view.textCursor().insertText(text)
+    text = template.text(name)
+    if text:
+        # TODO: all the expand stuff!
+        view.textCursor().insertText(text)
 
 
 def populateMenu(menu, collection):
@@ -84,6 +64,7 @@ def populateMenu(menu, collection):
     """
     # TEMP!!
     menu.addAction(action('voice1', menu, collection))
+    menu.addAction(action('times23', menu, collection))
 
 
 
