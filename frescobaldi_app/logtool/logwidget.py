@@ -36,7 +36,6 @@ import app
 import log
 import job
 import jobmanager
-import jobattributes
 import util
 
 from . import errors
