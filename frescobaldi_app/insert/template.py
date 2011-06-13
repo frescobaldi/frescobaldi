@@ -33,6 +33,7 @@ Built-in templates have translated titles.
 
 from __future__ import unicode_literals
 
+import random
 import re
 import functools
 import itertools
@@ -136,7 +137,16 @@ def shorttext(name):
 
 @memoize
 def get(name):
-    """Returns a tuple (text, variables).
+    """Returns a tuple (text, variables) for the specified name.
+    
+    Equivalent to parse(text(name)). See parse().
+    
+    """
+    return parse(text(name))
+
+
+def parse(text):
+    """Parses a piece of text and returns a tuple (text, variables).
     
     text is the template text, with lines starting with '-*- ' removed.
     variables is a dictionary containing variables read from lines starting
@@ -153,12 +163,87 @@ def get(name):
     In that case the value is set to True.
     
     """
-    lines = text(name).split('\n')
+    lines = text.split('\n')
     start = 0
     while start < len(lines) and lines[start].startswith('-*- '):
         start += 1
     t = '\n'.join(lines[start:])
     d = dict(m.groups(True) for l in lines[:start] for m in _variables_re.finditer(l))
     return t, d
+
+
+def name(names=None):
+    """Returns a name to be used for a new template.
+    
+    If names is specified, it should be a list of strings for which
+    the newly returned name is unique.
+    
+    You must test for uniqueness yourself if you do not give a list of names.
+    
+    """
+    while True:
+        u = "n{0:06.0f}".format(random.random()*1000000)
+        if not names or u not in names:
+            break
+    return u
+
+
+def namegen(names=None):
+    """Yields unique names.
+    
+    If names is specified, it should be a list of strings for which
+    the newly returned names are unique.
+    
+    You must test for uniqueness yourself if you do not give a list of names.
+    
+    """
+    names = list(names) if names is not None else []
+    while True:
+        n = name(names)
+        names.append(n)
+        yield n
+
+
+def save(name, text, title=None):
+    """Stores a template."""
+    try:
+        t = templates[name]
+    except KeyError:
+        # not builtin
+        pass
+    else:
+        # builtin
+        if not title or title == t.title():
+            title = None
+        if text == t.text:
+            text = None
+    s = settings()
+    if title or text:
+        s.beginGroup(name)
+        s.setValue("text", text) if text else s.remove("text")
+        s.setValue("title", title) if title else s.remove("title")
+    else:
+        # the template exactly matches the builtin, no saving needed
+        s.remove(name)
+
+
+def delete(name):
+    """Deletes a template. For builtins, name/deleted is set to true."""
+    s = settings()
+    s.remove(name)
+    if name in templates:
+        s.setValue(name+"/deleted", True)
+
+
+def deleted():
+    """Returns the set of names of builtin templates that are deleted."""
+    s = settings()
+    return set(filter(lambda name: s.value(name+"/deleted"), templates))
+
+
+def restore(name):
+    """Undeletes or restores the named builtin template to its original state."""
+    if name in templates:
+        settings().remove(name)
 
 
