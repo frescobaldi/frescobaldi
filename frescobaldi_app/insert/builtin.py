@@ -30,17 +30,17 @@ import collections
 _ = lambda *args: lambda: __builtin__._(*args)
 
 
-T = collections.namedtuple("Template", "text title")
+T = collections.namedtuple("Template", "title text")
 
 
 templates = {
 
-'voice1':       T('\\voiceOne', None),
-'voice2':       T('\\voiceTwo', None),
-'voice3':       T('\\voiceThree', None),
-'voice4':       T('\\voiceFour', None),
-'1voice':       T('\\oneVoice', None),
-'times23':      T('\\times 2/3 { {CURSEL} }', _("Tuplets")),
+'voice1':       T(None, '\\voiceOne'),
+'voice2':       T(None, '\\voiceTwo'),
+'voice3':       T(None, '\\voiceThree'),
+'voice4':       T(None, '\\voiceFour'),
+'1voice':       T(None, '\\oneVoice'),
+'times23':      T(_("Tuplets"), '\\times 2/3 { {CURSEL} }'),
 
 
 }

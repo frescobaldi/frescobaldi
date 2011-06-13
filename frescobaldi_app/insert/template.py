@@ -33,11 +33,16 @@ Built-in templates have translated titles.
 
 from __future__ import unicode_literals
 
+import re
 import functools
 import itertools
 
 import app
 from .builtin import templates
+
+
+# match variables in a '-*- ' line
+_variables_re = re.compile(br'\s*?([a-z]+(?:-[a-z]+)*)(?::[ \t]*(.*?))?;')
 
 
 _names = None   # here is the names list stored
@@ -67,7 +72,7 @@ def names():
     global _names
     if _names is None:
         s = settings()
-        _names = set(filter(lambda name: s.value(name+"/deleted"),
+        _names = set(filter(lambda name: not s.value(name+"/deleted"),
                             itertools.chain(templates, s.childGroups())))
     return _names
 
@@ -117,19 +122,43 @@ def text(name):
 @memoize
 def shorttext(name):
     """Returns the abridged text, in most cases usable for display or matching."""
-    t = text(name)
-    lines = t.splitlines()
-    if len(lines) < 2:
-        return t
-    usable = lambda line: line and not (line.startswith('-*- ') or line.isspace())
-    first, last = 0, len(lines) - 1
-    while not usable(lines[first]):
-        first += 1
-    while last > first and not usable(lines[last]):
-        last -= 1
-    if last == first:
-        return lines[first]
+    lines = get(name)[0].splitlines()
+    start, end  = 0, len(lines) - 1
+    while not lines[start] or lines[start].isspace():
+        start += 1
+    while end > start and (not lines[end] or lines[end].isspace()):
+        end -= 1
+    if end == start:
+        return lines[start]
     else:
-        return lines[first] + " ... " + lines[last]
+        return lines[start] + " ... " + lines[end]
+
+
+@memoize
+def get(name):
+    """Returns a tuple (text, variables).
+    
+    text is the template text, with lines starting with '-*- ' removed.
+    variables is a dictionary containing variables read from lines starting
+    with '-*- '.
+    
+    The syntax is as follows:
+    
+    -*- name: value; name1: value2; (etc)
+    
+    Names without value are also possible:
+    
+    -*- name;
+    
+    In that case the value is set to True.
+    
+    """
+    lines = text(name).split('\n')
+    start = 0
+    while start < len(lines) and lines[start].startswith('-*- '):
+        start += 1
+    t = '\n'.join(lines[start:])
+    d = dict(m.groups(True) for l in lines[:start] for m in _variables_re.finditer(l))
+    return t, d
 
 
