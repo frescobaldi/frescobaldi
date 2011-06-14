@@ -70,7 +70,7 @@ class Manager(plugin.MainWindowPlugin):
         if action.objectName():
             view = self.mainwindow().currentView()
             view.setFocus()
-            actions.trigger(action.objectName(), view)
+            actions.applyTemplate(view, action.objectName())
         
     def showEditor(self):
         from . import editor
@@ -114,7 +114,7 @@ class InsertActions(actioncollection.ShortcutCollection):
         from . import actions
         view = self.manager().mainwindow().currentView()
         if view.hasFocus():
-            actions.trigger(name, view)
+            actions.applyTemplate(view, name)
         
     def title(self):
         return _("Insert Templates")

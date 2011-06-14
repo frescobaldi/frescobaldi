@@ -47,14 +47,6 @@ def action(name, parent=None, collection=None):
     return a
 
 
-def trigger(name, view):
-    """Called when a template is activated and should be inserted in the document."""
-    text = template.text(name)
-    if text:
-        # TODO: all the expand stuff!
-        view.textCursor().insertText(text)
-
-
 def populateMenu(menu, collection):
     """Adds actions to the specified menu to insert templates.
     
@@ -66,6 +58,22 @@ def populateMenu(menu, collection):
     menu.addAction(action('voice1', menu, collection))
     menu.addAction(action('times23', menu, collection))
 
+
+
+def applyTemplate(view, name):
+    """Called when a template is activated and should be inserted in the document."""
+    _applyTemplate(view, template.get(name))
+
+
+def applyText(view, text):
+    """Applies a template contained in text to the view."""
+    _applyTemplate(view, template.parse(text))
+
+
+def _applyTemplate(view, (text, variables)):
+    """Applies the template described by text and variables to the view."""
+    # TODO: all the expand stuff!
+    view.textCursor().insertText(text)
 
 
 
