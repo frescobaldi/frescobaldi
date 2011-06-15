@@ -72,6 +72,13 @@ class Widget(QWidget):
         self.clearButton.clicked.connect(self.searchEntry.clear)
         self.searchEntry.returnPressed.connect(self.slotReturnPressed)
         
+        # hide if ESC pressed in lineedit
+        a = QAction(self.searchEntry)
+        self.searchEntry.addAction(a)
+        a.setShortcut(QKeySequence(Qt.Key_Escape))
+        a.setShortcutContext(Qt.WidgetShortcut)
+        a.triggered.connect(self.slotEscapePressed)
+        
         self.setInfoText('')
         app.translateUI(self)
 
@@ -95,4 +102,8 @@ class Widget(QWidget):
         self.parent().hide() # TODO: make configurable
         self.parent().mainwindow().currentView().setFocus()
 
+    def slotEscapePressed(self):
+        """Called when the user presses ESC in the search entry. Hides the panel."""
+        self.parent().hide() # TODO: make configurable
+        self.parent().mainwindow().currentView().setFocus()
 
