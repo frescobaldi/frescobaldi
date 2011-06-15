@@ -51,6 +51,8 @@ class PanelManager(plugin.MainWindowPlugin):
         self.logtool = logtool.LogTool(mainwindow)
         import helpbrowser
         self.helpbrowser = helpbrowser.HelpBrowser(mainwindow)
+        import snippettool
+        self.snippettool = snippettool.SnippetTool(mainwindow)
         
         self.createActions()
         
@@ -64,6 +66,7 @@ class PanelManager(plugin.MainWindowPlugin):
     def addActionsToMenu(self, menu):
         """Adds all toggleViewActions to the given menu."""
         menu.addAction(self.actionCollection.panel_quickinsert)
+        menu.addAction(self.actionCollection.panel_snippettool)
         menu.addAction(self.actionCollection.panel_musicview)
         menu.addAction(self.actionCollection.panel_logtool)
         menu.addAction(self.actionCollection.panel_helpbrowser)
@@ -76,6 +79,7 @@ class Actions(actioncollection.ActionCollection):
     def createActions(self, manager):
         # add the actions for the plugins
         self.panel_quickinsert = manager.quickinsert.toggleViewAction()
+        self.panel_snippettool = manager.snippettool.toggleViewAction()
         self.panel_musicview = manager.musicview.toggleViewAction()
         self.panel_logtool = manager.logtool.toggleViewAction()
         self.panel_helpbrowser = manager.helpbrowser.toggleViewAction()

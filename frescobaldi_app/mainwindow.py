@@ -923,6 +923,7 @@ class MainWindow(QMainWindow):
         self.addAction(ac.view_scroll_down)
         self.addAction(ac.edit_select_full_lines_up)
         self.addAction(ac.edit_select_full_lines_down)
+        self.addAction(panels.manager(self).snippettool.actionCollection.snippettool_activate) # TEMP
         
     def createToolBars(self):
         ac = self.actionCollection
