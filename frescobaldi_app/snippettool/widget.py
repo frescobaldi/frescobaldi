@@ -26,6 +26,7 @@ from PyQt4.QtGui import *
 
 import app
 import icons
+import widgets.lineedit
 
 
 class Widget(QWidget):
@@ -35,7 +36,7 @@ class Widget(QWidget):
         layout = QVBoxLayout()
         self.setLayout(layout)
         
-        self.searchEntry = QLineEdit()
+        self.searchEntry = widgets.lineedit.LineEdit()
         self.listView = QListView()
         self.infoLine = QLabel()
         self.textView = QTextBrowser()
@@ -44,7 +45,6 @@ class Widget(QWidget):
         self.editButton = QToolButton(autoRaise=True, icon=icons.get('preferences-system'))
         self.removeButton = QToolButton(autoRaise=True, icon=icons.get('list-remove'))
         self.applyButton = QToolButton(autoRaise=True, icon=icons.get('edit-paste'))
-        self.clearButton = QToolButton(autoRaise=True, icon=icons.get('edit-clear-locationbar-rtl'))
         
         layout.addWidget(self.listView)
         layout.addWidget(self.infoLine)
@@ -58,7 +58,6 @@ class Widget(QWidget):
         
         self.listView.setLayout(layout)
         layout.addWidget(self.searchEntry)
-        layout.addWidget(self.clearButton)
         layout.addSpacing(10)
         layout.addWidget(self.addButton)
         layout.addWidget(self.editButton)
@@ -69,7 +68,6 @@ class Widget(QWidget):
         self.listView.setViewportMargins(0, layout.sizeHint().height(), 0, 0)
         
         # signals
-        self.clearButton.clicked.connect(self.searchEntry.clear)
         self.searchEntry.returnPressed.connect(self.slotReturnPressed)
         
         # hide if ESC pressed in lineedit
