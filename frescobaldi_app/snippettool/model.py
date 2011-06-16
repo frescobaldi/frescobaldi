@@ -42,7 +42,7 @@ def model():
     return _model
 
 
-class Model(QAbstractListModel):
+class Model(QAbstractItemModel):
     def __init__(self, parent = None):
         super(Model, self).__init__(parent)
         ### TEMP!
@@ -54,8 +54,14 @@ class Model(QAbstractListModel):
             'yet another test',
             'final test string',
             ]
-            
-    def columnCount(self):
+    
+    def index(self, row, column, parent=None):
+        return self.createIndex(row, column)
+    
+    def parent(self, index):
+        return QModelIndex()
+    
+    def columnCount(self, parent):
         return 2
     
     def rowCount(self, parent):

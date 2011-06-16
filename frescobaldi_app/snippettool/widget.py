@@ -76,6 +76,7 @@ class Widget(QWidget):
         self.treeView.setSelectionBehavior(QTreeView.SelectRows)
         self.treeView.setSelectionMode(QTreeView.ExtendedSelection)
         self.treeView.setRootIsDecorated(False)
+        self.treeView.setAllColumnsShowFocus(True)
         self.treeView.setModel(model.model())
         
         self.setInfoText('')
