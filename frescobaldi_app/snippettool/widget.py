@@ -28,6 +28,7 @@ import app
 import icons
 import widgets.lineedit
 
+from . import model
 
 class Widget(QWidget):
     def __init__(self, panel):
@@ -35,9 +36,11 @@ class Widget(QWidget):
         
         layout = QVBoxLayout()
         self.setLayout(layout)
+        layout.setSpacing(0)
         
-        self.searchEntry = widgets.lineedit.LineEdit()
-        self.listView = QListView()
+        self.searchEntry = SearchLineEdit()
+        self.treeView = QTreeView()
+        self.treeView.setHeaderHidden(True)
         self.infoLine = QLabel()
         self.textView = QTextBrowser()
         
@@ -46,26 +49,19 @@ class Widget(QWidget):
         self.removeButton = QToolButton(autoRaise=True, icon=icons.get('list-remove'))
         self.applyButton = QToolButton(autoRaise=True, icon=icons.get('edit-paste'))
         
-        layout.addWidget(self.listView)
+        top = QHBoxLayout()
+        layout.addLayout(top)
+        layout.addWidget(self.treeView)
         layout.addWidget(self.infoLine)
         layout.addWidget(self.textView)
         
-        w = QWidget(self.listView)
-        layout = QHBoxLayout()
-        layout.setSpacing(0)
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.setAlignment(Qt.AlignTop)
-        
-        self.listView.setLayout(layout)
-        layout.addWidget(self.searchEntry)
-        layout.addSpacing(10)
-        layout.addWidget(self.addButton)
-        layout.addWidget(self.editButton)
-        layout.addWidget(self.removeButton)
-        layout.addSpacing(10)
-        layout.addWidget(self.applyButton)
-        
-        self.listView.setViewportMargins(0, layout.sizeHint().height(), 0, 0)
+        top.addWidget(self.searchEntry)
+        top.addSpacing(10)
+        top.addWidget(self.addButton)
+        top.addWidget(self.editButton)
+        top.addWidget(self.removeButton)
+        top.addSpacing(10)
+        top.addWidget(self.applyButton)
         
         # signals
         self.searchEntry.returnPressed.connect(self.slotReturnPressed)
@@ -76,6 +72,11 @@ class Widget(QWidget):
         a.setShortcut(QKeySequence(Qt.Key_Escape))
         a.setShortcutContext(Qt.WidgetShortcut)
         a.triggered.connect(self.slotEscapePressed)
+        
+        self.treeView.setSelectionBehavior(QTreeView.SelectRows)
+        self.treeView.setSelectionMode(QTreeView.ExtendedSelection)
+        self.treeView.setRootIsDecorated(False)
+        self.treeView.setModel(model.model())
         
         self.setInfoText('')
         app.translateUI(self)
@@ -104,4 +105,20 @@ class Widget(QWidget):
         """Called when the user presses ESC in the search entry. Hides the panel."""
         self.parent().hide() # TODO: make configurable
         self.parent().mainwindow().currentView().setFocus()
+
+
+class SearchLineEdit(widgets.lineedit.LineEdit):
+    def __init__(self, *args):
+        super(SearchLineEdit, self).__init__(*args)
+    
+    def event(self, ev):
+        if ev.type() == QEvent.KeyPress and any(ev.matches(key) for key in (
+            QKeySequence.MoveToNextLine, QKeySequence.SelectNextLine,
+            QKeySequence.MoveToPreviousLine, QKeySequence.SelectPreviousLine,
+            QKeySequence.MoveToNextPage, QKeySequence.SelectNextPage,
+            QKeySequence.MoveToPreviousPage, QKeySequence.SelectPreviousPage)):
+            QApplication.sendEvent(self.parent().treeView, ev)
+            return True
+        return super(SearchLineEdit, self).event(ev)
+
 
