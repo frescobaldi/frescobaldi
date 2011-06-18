@@ -23,9 +23,10 @@ The snippets dockwindow.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+import weakref
 
+from PyQt4.QtCore import Qt
+from PyQt4.QtGui import QAction, QKeySequence
 
 import actioncollection
 import actioncollectionmanager
@@ -37,8 +38,9 @@ class SnippetTool(panels.Panel):
     """A dockwidget for selecting, applying and editing the list of snippets."""
     def __init__(self, mainwindow):
         super(SnippetTool, self).__init__(mainwindow)
-        
         self.hide()
+        self.actions = SnippetActions(self)
+        actioncollectionmanager.manager(mainwindow).addActionCollection(self.actions)
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+S"))
         ac = self.actionCollection = Actions()
         ac.snippettool_activate.triggered.connect(self.activate)
@@ -67,5 +69,34 @@ class Actions(actioncollection.ActionCollection):
 
     def translateUI(self):
         self.snippettool_activate.setText(_("&Snippets..."))
+
+
+class SnippetActions(actioncollection.ShortcutCollection):
+    """Manages keyboard shortcuts for the snippets."""
+    name = "snippets"
+    def __init__(self, tool):
+        super(SnippetActions, self).__init__(tool.mainwindow().centralWidget())
+        self.tool = weakref.ref(tool)
+    
+    def createDefaultShortcuts(self):
+        self.setDefaultShortcuts('voice1', [QKeySequence('Alt+1')])
+        self.setDefaultShortcuts('voice2', [QKeySequence('Alt+2')])
+        self.setDefaultShortcuts('voice3', [QKeySequence('Alt+3')])
+        self.setDefaultShortcuts('voice4', [QKeySequence('Alt+4')])
+        self.setDefaultShortcuts('1voice', [QKeySequence('Alt+0')])
+        self.setDefaultShortcuts('times23', [QKeySequence('Ctrl+3')])
+
+    def realAction(self, name):
+        from . import actions
+        return actions.action(name)
+    
+    def triggerAction(self, name):
+        from . import actions
+        view = self.tool().mainwindow().currentView()
+        if view.hasFocus() or self.tool().widget().searchEntry.hasFocus():
+            actions.applySnippet(view, name)
+            
+    def title(self):
+        return _("Snippets")
 
 

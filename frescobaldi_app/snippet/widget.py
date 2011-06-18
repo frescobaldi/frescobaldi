@@ -28,6 +28,7 @@ import app
 import icons
 import widgets.lineedit
 
+from . import actions
 from . import model
 
 class Widget(QWidget):
@@ -40,7 +41,6 @@ class Widget(QWidget):
         
         self.searchEntry = SearchLineEdit()
         self.treeView = QTreeView()
-        self.treeView.setHeaderHidden(True)
         self.infoLine = QLabel()
         self.textView = QTextBrowser()
         
@@ -97,14 +97,16 @@ class Widget(QWidget):
         self.infoLine.setVisible(bool(text))
         
     def slotReturnPressed(self):
-        """Called when the user presses Return in the search entry. Applies current template."""
-        #TODO: apply current template/snippet
-        self.parent().hide() # TODO: make configurable
-        self.parent().mainwindow().currentView().setFocus()
+        """Called when the user presses Return in the search entry. Applies current snippet."""
+        name = self.treeView.model().name(self.treeView.currentIndex())
+        view = self.parent().mainwindow().currentView()
+        actions.applySnippet(view, name)
+        self.parent().hide() # make configurable?
+        view.setFocus()
 
     def slotEscapePressed(self):
         """Called when the user presses ESC in the search entry. Hides the panel."""
-        self.parent().hide() # TODO: make configurable
+        self.parent().hide()
         self.parent().mainwindow().currentView().setFocus()
 
 
