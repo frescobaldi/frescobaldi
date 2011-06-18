@@ -53,9 +53,9 @@ class Widget(QWidget):
         
         top = QHBoxLayout()
         layout.addLayout(top)
-        layout.addWidget(self.treeView)
+        layout.addWidget(self.treeView, 2)
         layout.addWidget(self.infoLine)
-        layout.addWidget(self.textView)
+        layout.addWidget(self.textView, 1)
         
         top.addWidget(self.searchEntry)
         top.addSpacing(10)
