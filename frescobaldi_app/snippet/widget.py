@@ -27,9 +27,11 @@ from PyQt4.QtGui import *
 import app
 import icons
 import widgets.lineedit
+import textformats
 
 from . import actions
 from . import model
+from . import snippets
 
 class Widget(QWidget):
     def __init__(self, panel):
@@ -63,9 +65,6 @@ class Widget(QWidget):
         top.addSpacing(10)
         top.addWidget(self.applyButton)
         
-        # signals
-        self.searchEntry.returnPressed.connect(self.slotReturnPressed)
-        
         # hide if ESC pressed in lineedit
         a = QAction(self.searchEntry)
         self.searchEntry.addAction(a)
@@ -79,8 +78,18 @@ class Widget(QWidget):
         self.treeView.setAllColumnsShowFocus(True)
         self.treeView.setModel(model.model())
         
+        # signals
+        self.searchEntry.returnPressed.connect(self.slotReturnPressed)
+        self.searchEntry.textChanged.connect(self.updateFilter)
+        self.removeButton.clicked.connect(self.slotDelete)
+        self.applyButton.clicked.connect(self.slotApply)
+        self.treeView.selectionModel().currentChanged.connect(self.updateText)
+        
         self.setInfoText('')
+        self.readSettings()
+        app.settingsChanged.connect(self.readSettings)
         app.translateUI(self)
+        self.updateColumnSizes()
 
     def translateUI(self):
         try:
@@ -96,19 +105,71 @@ class Widget(QWidget):
             self.infoLine.setText(text)
         self.infoLine.setVisible(bool(text))
         
+    def readSettings(self):
+        data = textformats.formatData('editor')
+        self.textView.setFont(data.font)
+        self.textView.setPalette(data.palette())
+
     def slotReturnPressed(self):
         """Called when the user presses Return in the search entry. Applies current snippet."""
-        name = self.treeView.model().name(self.treeView.currentIndex())
-        view = self.parent().mainwindow().currentView()
-        actions.applySnippet(view, name)
-        self.parent().hide() # make configurable?
-        view.setFocus()
+        name = self.currentSnippet()
+        if name:
+            view = self.parent().mainwindow().currentView()
+            actions.applySnippet(view, name)
+            self.parent().hide() # make configurable?
+            view.setFocus()
 
     def slotEscapePressed(self):
         """Called when the user presses ESC in the search entry. Hides the panel."""
         self.parent().hide()
         self.parent().mainwindow().currentView().setFocus()
 
+    def slotDelete(self):
+        """Called when the user wants to delete the selected rows."""
+        rows = sorted(set(i.row() for i in self.treeView.selectedIndexes()), reverse=True)
+        for row in rows:
+            self.treeView.model().removeRow(row)
+        self.updateColumnSizes()
+        self.updateFilter()
+    
+    def slotApply(self):
+        """Called when the user clicks the apply button. Applies current snippet."""
+        name = self.currentSnippet()
+        if name:
+            view = self.parent().mainwindow().currentView()
+            actions.applySnippet(view, name)
+        
+    def currentSnippet(self):
+        """Returns the name of the current snippet if it is visible."""
+        row = self.treeView.currentIndex().row()
+        if row != -1 and not self.treeView.isRowHidden(row, QModelIndex()):
+            return self.treeView.model().names()[row]
+
+    def updateFilter(self):
+        """Called when the text in the entry changes, updates search results."""
+        text = self.searchEntry.text()
+        ltext = text.lower()
+        for row in range(self.treeView.model().rowCount()):
+            name = self.treeView.model().names()[row]
+            hide = False
+            if snippets.get(name)[1].get('name') == text:
+                i = self.treeView.model().createIndex(row, 0)
+                self.treeView.selectionModel().setCurrentIndex(i, QItemSelectionModel.SelectCurrent | QItemSelectionModel.Rows)
+            elif ltext not in snippets.title(name).lower():
+                hide = True
+            self.treeView.setRowHidden(row, QModelIndex(), hide)
+        self.updateText()
+            
+    def updateText(self):
+        """Called when the current snippet changes."""
+        name = self.currentSnippet()
+        text = snippets.get(name)[0] if name else ''
+        self.textView.setText(text)
+        
+    def updateColumnSizes(self):
+        self.treeView.resizeColumnToContents(0)
+        self.treeView.resizeColumnToContents(1)
+        
 
 class SearchLineEdit(widgets.lineedit.LineEdit):
     def __init__(self, *args):

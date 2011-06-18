@@ -25,8 +25,12 @@ from __future__ import unicode_literals
 
 
 import itertools
+import re
 
 import app
+
+# match variables in a '-*- ' line
+_variables_re = re.compile(br'\s*?([a-z]+(?:-[a-z]+)*)(?::[ \t]*(.*?))?;')
 
 # builtin snippets
 from .builtin import builtin_snippets
@@ -120,5 +124,13 @@ def parse(text):
     t = '\n'.join(lines[start:])
     d = dict(m.groups(True) for l in lines[:start] for m in _variables_re.finditer(l))
     return t, d
+
+
+def delete(name):
+    """Deletes a snippet. For builtins, name/deleted is set to true."""
+    s = settings()
+    s.remove(name)
+    if name in builtin_snippets:
+        s.setValue(name+"/deleted", True)
 
 

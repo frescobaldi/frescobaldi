@@ -35,10 +35,10 @@ T = collections.namedtuple("Template", "title text")
 
 builtin_snippets = {
 
-'voice1':       T(None, '\\voiceOne'),
-'voice2':       T(None, '\\voiceTwo'),
-'voice3':       T(None, '\\voiceThree'),
-'voice4':       T(None, '\\voiceFour'),
+'voice1':       T(None, '-*- name: v1;\n\\voiceOne'),
+'voice2':       T(None, '-*- name: v2;\n\\voiceTwo'),
+'voice3':       T(None, '-*- name: v3;\n\\voiceThree'),
+'voice4':       T(None, '-*- name: v4;\n\\voiceFour'),
 '1voice':       T(None, '\\oneVoice'),
 'times23':      T(_("Tuplets"), '\\times 2/3 { {CURSEL} }'),
 
