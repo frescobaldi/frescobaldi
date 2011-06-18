@@ -39,7 +39,7 @@ builtin_snippets = {
 'voice2':       T(None, '-*- name: v2;\n\\voiceTwo'),
 'voice3':       T(None, '-*- name: v3;\n\\voiceThree'),
 'voice4':       T(None, '-*- name: v4;\n\\voiceFour'),
-'1voice':       T(None, '\\oneVoice'),
+'1voice':       T(None, '-*- name: 1v;\n\\oneVoice'),
 'times23':      T(_("Tuplets"), '\\times 2/3 { {CURSEL} }'),
 
 

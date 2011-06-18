@@ -129,7 +129,6 @@ class Widget(QWidget):
         rows = sorted(set(i.row() for i in self.treeView.selectedIndexes()), reverse=True)
         for row in rows:
             self.treeView.model().removeRow(row)
-        self.updateColumnSizes()
         self.updateFilter()
     
     def slotApply(self):
@@ -151,11 +150,16 @@ class Widget(QWidget):
         ltext = text.lower()
         for row in range(self.treeView.model().rowCount()):
             name = self.treeView.model().names()[row]
-            hide = False
-            if snippets.get(name)[1].get('name') == text:
+            nameid = snippets.get(name)[1].get('name', '')
+            if nameid == text:
                 i = self.treeView.model().createIndex(row, 0)
                 self.treeView.selectionModel().setCurrentIndex(i, QItemSelectionModel.SelectCurrent | QItemSelectionModel.Rows)
-            elif ltext not in snippets.title(name).lower():
+                hide = False
+            elif nameid.lower().startswith(ltext):
+                hide = False
+            elif ltext in snippets.title(name).lower():
+                hide = False
+            else:
                 hide = True
             self.treeView.setRowHidden(row, QModelIndex(), hide)
         self.updateText()
