@@ -46,10 +46,10 @@ class Widget(QWidget):
         self.infoLine = QLabel()
         self.textView = QTextBrowser()
         
-        self.addButton = QToolButton(autoRaise=True, icon=icons.get('list-add'))
-        self.editButton = QToolButton(autoRaise=True, icon=icons.get('preferences-system'))
-        self.removeButton = QToolButton(autoRaise=True, icon=icons.get('list-remove'))
-        self.applyButton = QToolButton(autoRaise=True, icon=icons.get('edit-paste'))
+        addButton = QToolButton(autoRaise=True)
+        editButton = QToolButton(autoRaise=True)
+        removeButton = QToolButton(autoRaise=True)
+        applyButton = QToolButton(autoRaise=True)
         
         top = QHBoxLayout()
         layout.addLayout(top)
@@ -59,30 +59,53 @@ class Widget(QWidget):
         
         top.addWidget(self.searchEntry)
         top.addSpacing(10)
-        top.addWidget(self.addButton)
-        top.addWidget(self.editButton)
-        top.addWidget(self.removeButton)
+        top.addWidget(addButton)
+        top.addWidget(editButton)
+        top.addWidget(removeButton)
         top.addSpacing(10)
-        top.addWidget(self.applyButton)
+        top.addWidget(applyButton)
+        
+        # action generator for actions added to search entry
+        def act(slot, icon=None):
+            a = QAction(self.searchEntry, triggered=slot)
+            self.searchEntry.addAction(a)
+            a.setShortcutContext(Qt.WidgetShortcut)
+            icon and a.setIcon(icons.get(icon))
+            return a
         
         # hide if ESC pressed in lineedit
-        a = QAction(self.searchEntry)
-        self.searchEntry.addAction(a)
+        a = act(self.slotEscapePressed)
         a.setShortcut(QKeySequence(Qt.Key_Escape))
-        a.setShortcutContext(Qt.WidgetShortcut)
-        a.triggered.connect(self.slotEscapePressed)
+        
+        # add button
+        a = self.addAction_ = act(self.slotAdd, 'list-add')
+        a.setShortcut(QKeySequence(Qt.CTRL + Qt.Key_Insert))
+        addButton.setDefaultAction(a)
+        
+        # edit button
+        a = self.editAction = act(self.slotEdit, 'preferences-system')
+        a.setShortcut(QKeySequence(Qt.Key_F2))
+        editButton.setDefaultAction(a)
+        
+        # delete button
+        a = self.deleteAction = act(self.slotDelete, 'list-remove')
+        a.setShortcut(QKeySequence(Qt.CTRL + Qt.Key_Delete))
+        removeButton.setDefaultAction(a)
+        
+        # apply button
+        a = self.applyAction = act(self.slotApply, 'edit-paste')
+        applyButton.setDefaultAction(a)
         
         self.treeView.setSelectionBehavior(QTreeView.SelectRows)
         self.treeView.setSelectionMode(QTreeView.ExtendedSelection)
         self.treeView.setRootIsDecorated(False)
         self.treeView.setAllColumnsShowFocus(True)
         self.treeView.setModel(model.model())
+        self.treeView.setCurrentIndex(QModelIndex())
         
         # signals
         self.searchEntry.returnPressed.connect(self.slotReturnPressed)
         self.searchEntry.textChanged.connect(self.updateFilter)
-        self.removeButton.clicked.connect(self.slotDelete)
-        self.applyButton.clicked.connect(self.slotApply)
         self.treeView.selectionModel().currentChanged.connect(self.updateText)
         
         self.setInfoText('')
@@ -96,7 +119,11 @@ class Widget(QWidget):
             self.searchEntry.setPlaceHolderText(_("Search..."))
         except AttributeError:
             pass # not in Qt 4.6
-    
+        self.addAction_.setText(_("Add..."))
+        self.editAction.setText(_("Edit..."))
+        self.deleteAction.setText(_("Remove"))
+        self.applyAction.setText(_("Apply"))
+        
     def sizeHint(self):
         return self.parent().mainwindow().size() / 4
         
@@ -124,6 +151,14 @@ class Widget(QWidget):
         self.parent().hide()
         self.parent().mainwindow().currentView().setFocus()
 
+    def slotAdd(self):
+        """Called when the user wants to add a new snippet."""
+        #TODO: implement
+        
+    def slotEdit(self):
+        """Called when the user wants to edit a snippet."""
+        #TODO: implement
+        
     def slotDelete(self):
         """Called when the user wants to delete the selected rows."""
         rows = sorted(set(i.row() for i in self.treeView.selectedIndexes()), reverse=True)
