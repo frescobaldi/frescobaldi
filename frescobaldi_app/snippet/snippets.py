@@ -47,8 +47,13 @@ def names():
                       itertools.chain(builtin_snippets, s.childGroups())))
 
 
-def title(name):
-    """Returns the title of the specified snippet or the empty string."""
+def title(name, fallback=True):
+    """Returns the title of the specified snippet or the empty string.
+    
+    If fallback, returns a shortened display of the text if no title is
+    available.
+    
+    """
     s = settings()
     title = s.value(name+"/title")
     if title:
@@ -60,8 +65,9 @@ def title(name):
     else:
         if t.title:
             return t.title()   # call to translate
-    # no title found, send shorttext instead
-    return shorttext(name)
+    if fallback:
+        # no title found, send shorttext instead
+        return shorttext(name)
 
 
 def text(name):

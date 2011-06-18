@@ -32,6 +32,8 @@ import textformats
 from . import actions
 from . import model
 from . import snippets
+from . import edit
+
 
 class Widget(QWidget):
     def __init__(self, panel):
@@ -153,11 +155,13 @@ class Widget(QWidget):
 
     def slotAdd(self):
         """Called when the user wants to add a new snippet."""
-        #TODO: implement
+        edit.Edit(self, None)
         
     def slotEdit(self):
         """Called when the user wants to edit a snippet."""
-        #TODO: implement
+        name = self.currentSnippet()
+        if name:
+            edit.Edit(self, name)
         
     def slotDelete(self):
         """Called when the user wants to delete the selected rows."""
