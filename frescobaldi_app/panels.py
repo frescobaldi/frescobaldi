@@ -51,8 +51,8 @@ class PanelManager(plugin.MainWindowPlugin):
         self.logtool = logtool.LogTool(mainwindow)
         import helpbrowser
         self.helpbrowser = helpbrowser.HelpBrowser(mainwindow)
-        import snippettool
-        self.snippettool = snippettool.SnippetTool(mainwindow)
+        import snippet.tool
+        self.snippettool = snippet.tool.SnippetTool(mainwindow)
         
         self.createActions()
         
