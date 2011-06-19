@@ -110,7 +110,7 @@ class Widget(QWidget):
         self.searchEntry.textChanged.connect(self.updateFilter)
         self.treeView.doubleClicked.connect(self.slotDoubleClicked)
         self.treeView.selectionModel().currentChanged.connect(self.updateText)
-        self.treeView.model().dataChanged.connect(self.updateText)
+        self.treeView.model().dataChanged.connect(self.updateFilter)
         
         self.setInfoText('')
         self.readSettings()

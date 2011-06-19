@@ -84,17 +84,6 @@ class SnippetModel(QAbstractItemModel):
             else:
                 return shortcut(name)
     
-    def removeRows(self, row, count, parent=QModelIndex()):
-        end = row + count
-        self.beginRemoveRows(parent, row, end)
-        try:
-            for name in self._names[row:end]:
-                snippets.delete(name)
-            del self._names[row:end]
-        finally:
-            self.endRemoveRows()
-            return True
-        
     # slots
     def slotSettingsChanged(self):
         """Called when settings change, e.g. when keyboard shortcuts are altered."""
@@ -102,7 +91,7 @@ class SnippetModel(QAbstractItemModel):
         
     def slotLanguageChanged(self):
         """Called when the user changes the language."""
-        self.headerDataChanged.emit(Qt.Horizontal, 0, 1)
+        self.headerDataChanged.emit(Qt.Horizontal, 0, 2)
         
     def load(self):
         self.beginResetModel()
@@ -118,6 +107,17 @@ class SnippetModel(QAbstractItemModel):
         """The internal snippet id for the given QModelIndex."""
         return self._names[index.row()]
 
+    def removeRows(self, row, count, parent=QModelIndex()):
+        end = row + count
+        self.beginRemoveRows(parent, row, end)
+        try:
+            for name in self._names[row:end]:
+                snippets.delete(name)
+            del self._names[row:end]
+        finally:
+            self.endRemoveRows()
+            return True
+        
     def saveSnippet(self, name, text, title):
         """Store a snippet.
         
