@@ -24,17 +24,45 @@ Acessing the snippets data.
 from __future__ import unicode_literals
 
 
+import functools
 import itertools
 import random
 import re
 
 import app
 
+# cache parsed snippets
+_cache = {}
+
 # match variables in a '-*- ' line
 _variables_re = re.compile(br'\s*?([a-z]+(?:-[a-z]+)*)(?::[ \t]*(.*?))?;')
 
 # builtin snippets
 from .builtin import builtin_snippets
+
+
+def memoize(f):
+    """Decorator memoizing stuff for a name."""
+    @functools.wraps(f)
+    def func(name):
+        try:
+            result = _cache[name][f]
+        except KeyError:
+            result = _cache.setdefault(name, {})[f] = f(name)
+        return result
+    return func
+
+
+def unmemoize(f):
+    """Decorator forgetting memoized information for a name."""
+    @functools.wraps(f)
+    def func(name):
+        try:
+            del _cache[name]
+        except KeyError:
+            pass
+        return f(name)
+    return func
 
 
 def settings():
@@ -83,6 +111,7 @@ def text(name):
     return t.text
 
 
+@memoize
 def shorttext(name):
     """Returns the abridged text, in most cases usable for display or matching."""
     lines = get(name)[0].splitlines()
@@ -99,6 +128,7 @@ def shorttext(name):
         return lines[start] + " ... " + lines[end]
 
 
+@memoize
 def get(name):
     """Returns a tuple (text, variables) for the specified name.
     
@@ -135,6 +165,7 @@ def parse(text):
     return t, d
 
 
+@unmemoize
 def delete(name):
     """Deletes a snippet. For builtins, name/deleted is set to true."""
     s = settings()
@@ -156,6 +187,7 @@ def name(names):
     return u
 
 
+@unmemoize
 def save(name, text, title=None):
     """Stores a snippet."""
     try:
