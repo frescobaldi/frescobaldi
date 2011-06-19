@@ -81,15 +81,20 @@ class ActionCollectionManager(plugin.MainWindowPlugin):
         Returns True if editing was Ok, False if cancelled.
         parent is the widget to show the dialog above.
         default gives None or a list with QKeySequence objects that are the default shortcut.
+        
         Use skip to give the action to skip (e.g. the action that is about to be changed).
+        skip can also be a tuple (collection, name) to define the action to skip.
         
         Just uses the dialog in widgets.shortcuteditdialog but implements conflict checking
         (without altering other shortcuts. The implementation of conflict checking in 
         preferences/shortcuts.py also can change other shortcuts in the prefs dialog.)
        
         """
+        skip_ = lambda: a is skip
         if skip is None:
             skip = action
+        elif isinstance(skip, tuple):
+            skip_ = lambda: (collection, name) == skip
             
         from widgets import shortcuteditdialog
         dlg = shortcuteditdialog.ShortcutEditDialog(parent)
@@ -105,7 +110,7 @@ class ActionCollectionManager(plugin.MainWindowPlugin):
                             # we use collection.shortcuts(name) instead of a.shortcuts()
                             # because the (real) actions returned by ShortcutCollection.action()
                             # don't have the shortcuts set.
-                            if a is not skip and collection.shortcuts(name):
+                            if not skip_() and collection.shortcuts(name):
                                 for s1 in collection.shortcuts(name):
                                     for s2 in action.shortcuts():
                                         if s2.matches(s1) or s1.matches(s2):

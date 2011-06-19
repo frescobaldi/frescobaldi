@@ -27,7 +27,9 @@ from __future__ import unicode_literals
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+import actioncollectionmanager
 import app
+import icons
 import textformats
 import widgets
 
@@ -55,7 +57,8 @@ class Edit(QDialog):
         self.titleLabel = QLabel()
         self.titleEntry = QLineEdit()
         self.shortcutLabel = QLabel()
-        self.shortcutButton = QPushButton()
+        self.shortcutButton = QPushButton(icon=icons.get("preferences-system"),
+            clicked=self.editShortcuts)
         
         layout.addWidget(self.topLabel)
         layout.addWidget(self.text)
@@ -78,8 +81,11 @@ class Edit(QDialog):
         if name:
             self.titleEntry.setText(snippets.title(name, False) or '')
             self.text.setPlainText(snippets.text(name))
+            ac = self.parent().parent().actions
+            self.setShortcuts(ac.shortcuts(name))
         else:
             self.text.setPlainText(text)
+            self.setShortcuts(None)
         
         app.translateUI(self)
         
@@ -94,6 +100,17 @@ class Edit(QDialog):
         self.topLabel.setText(_("Snippet Text:"))
         self.titleLabel.setText(_("Title:"))
         self.shortcutLabel.setText(_("Shortcut:"))
+        self.updateShortcutText()
+    
+    def updateShortcutText(self):
+        if not self._shortcuts:
+            self.shortcutButton.setText(_("None"))
+        else:
+            key = self._shortcuts[0].toString()
+            if len(self._shortcuts) > 1:
+                key += "..."
+            self.shortcutButton.setText(key.replace('&', '&&'))
+        self.shortcutButton.setToolTip(_("Click to change the keyboard shortcut."))
 
     def done(self, result):
         if result:
@@ -113,6 +130,23 @@ class Edit(QDialog):
         self.text.setFont(data.font)
         self.text.setPalette(data.palette())
 
+    def setShortcuts(self, shortcuts):
+        self._shortcuts = shortcuts
+        self.updateShortcutText()
+        
+    def editShortcuts(self):
+        mainwindow = self.parent().parent().mainwindow()
+        ac = self.parent().parent().actions
+        action = QAction(self.titleEntry.text() or _("Untitled"), None)
+        skip = None
+        default = None
+        if self._name:
+            action.setShortcuts(ac.shortcuts(self._name) or [])
+            skip = (ac, self._name)
+            default = ac.defaults().get(self._name)
+        if actioncollectionmanager.manager(mainwindow).editAction(self, action, default, skip):
+            self.setShortcuts(action.shortcuts())
+    
     def saveSnippet(self):
         index = model.model().saveSnippet(self._name,
             self.text.toPlainText(), self.titleEntry.text())
@@ -122,6 +156,6 @@ class Edit(QDialog):
         self.parent().updateColumnSizes()
         # get the name that was used
         name = model.model().name(index)
-        # TODO: implement keyboard shortcut handling
+        self.parent().parent().actions.setShortcuts(name, self._shortcuts)
 
 
