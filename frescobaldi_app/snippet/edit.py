@@ -58,7 +58,7 @@ class Edit(QDialog):
         self.titleLabel = QLabel()
         self.titleEntry = QLineEdit()
         self.shortcutLabel = QLabel()
-        self.shortcutButton = QPushButton(icon=icons.get("preferences-system"),
+        self.shortcutButton = QPushButton(icon=icons.get("configure-shortcuts"),
             clicked=self.editShortcuts)
         
         layout.addWidget(self.topLabel)
@@ -146,13 +146,17 @@ class Edit(QDialog):
     def editShortcuts(self):
         mainwindow = self.parent().parent().mainwindow()
         ac = self.parent().parent().snippetActions
-        action = QAction(self.titleEntry.text() or _("Untitled"), None)
-        skip = None
-        default = None
+        action = QAction(None)
         if self._name:
             action.setShortcuts(ac.shortcuts(self._name) or [])
             skip = (ac, self._name)
             default = ac.defaults().get(self._name)
+            text = snippets.title(self._name)
+        else:
+            skip = None
+            default = None
+            text = self.titleEntry.text() or _("Untitled")
+        action.setText(text.replace('&', '&&'))
         if actioncollectionmanager.manager(mainwindow).editAction(self, action, default, skip):
             self.setShortcuts(action.shortcuts())
     

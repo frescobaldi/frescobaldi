@@ -85,7 +85,7 @@ class Widget(QWidget):
         addButton.setDefaultAction(a)
         
         # edit button
-        a = self.editAction = act(self.slotEdit, 'preferences-system')
+        a = self.editAction = act(self.slotEdit, 'document-edit')
         a.setShortcut(QKeySequence(Qt.Key_F2))
         editButton.setDefaultAction(a)
         

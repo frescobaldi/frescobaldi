@@ -43,7 +43,7 @@ class ListEdit(QWidget):
         self.setLayout(layout)
         
         self.addButton = QPushButton(icons.get('list-add'), '')
-        self.editButton = QPushButton(icons.get('preferences-system'), '')
+        self.editButton = QPushButton(icons.get('document-edit'), '')
         self.removeButton = QPushButton(icons.get('list-remove'), '')
         self.listBox = QListWidget()
         
