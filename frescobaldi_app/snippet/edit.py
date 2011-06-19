@@ -114,6 +114,9 @@ class Edit(QDialog):
 
     def done(self, result):
         if result:
+            if not self.text.toPlainText():
+                QMessageBox.warning(self, _("Empty Snippet"), _("A snippet can't be empty."))
+                return
             self.saveSnippet()
         super(Edit, self).done(result)
         self.deleteLater()

@@ -81,7 +81,7 @@ class Widget(QWidget):
         
         # add button
         a = self.addAction_ = act(self.slotAdd, 'list-add')
-        a.setShortcut(QKeySequence(Qt.CTRL + Qt.Key_Insert))
+        a.setShortcut(QKeySequence(Qt.Key_Insert))
         addButton.setDefaultAction(a)
         
         # edit button

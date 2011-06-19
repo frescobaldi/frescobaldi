@@ -86,8 +86,11 @@ def text(name):
 def shorttext(name):
     """Returns the abridged text, in most cases usable for display or matching."""
     lines = get(name)[0].splitlines()
+    print repr(lines)
+    if not lines:
+        return ''
     start, end  = 0, len(lines) - 1
-    while not lines[start] or lines[start].isspace():
+    while start < end and (not lines[start] or lines[start].isspace()):
         start += 1
     while end > start and (not lines[end] or lines[end].isspace()):
         end -= 1
@@ -163,7 +166,7 @@ def save(name, text, title=None):
         pass
     else:
         # builtin
-        if not title or title == t.title():
+        if not title or (t.title and title == t.title()):
             title = None
         if text == t.text:
             text = None
