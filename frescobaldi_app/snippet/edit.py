@@ -35,6 +35,7 @@ import widgets
 
 from . import model
 from . import snippets
+from . import builtin
 
 
 class Edit(QDialog):
@@ -76,7 +77,12 @@ class Edit(QDialog):
         b = QDialogButtonBox(accepted=self.accept, rejected=self.reject)
         layout.addWidget(b)
         
-        b.setStandardButtons(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        buttons = QDialogButtonBox.Ok | QDialogButtonBox.Cancel
+        if name and name in builtin.builtin_snippets:
+            b.setStandardButtons(buttons | QDialogButtonBox.RestoreDefaults)
+            b.button(QDialogButtonBox.RestoreDefaults).clicked.connect(self.slotDefaults)
+        else:
+            b.setStandardButtons(buttons)
         
         if name:
             self.titleEntry.setText(snippets.title(name, False) or '')
@@ -159,5 +165,11 @@ class Edit(QDialog):
         # get the name that was used
         name = model.model().name(index)
         self.parent().parent().actions.setShortcuts(name, self._shortcuts)
+
+    def slotDefaults(self):
+        t = builtin.builtin_snippets[self._name]
+        self.text.setPlainText(t.text)
+        self.titleEntry.setText(t.title() if t.title else '')
+        self.setShortcuts(self.parent().parent().actions.defaults().get(self._name))
 
 
