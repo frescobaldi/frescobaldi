@@ -56,12 +56,12 @@ def memoize(f):
 def unmemoize(f):
     """Decorator forgetting memoized information for a name."""
     @functools.wraps(f)
-    def func(name):
+    def func(name, *args, **kwargs):
         try:
             del _cache[name]
         except KeyError:
             pass
-        return f(name)
+        return f(name, *args, **kwargs)
     return func
 
 
