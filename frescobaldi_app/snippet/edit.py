@@ -87,7 +87,7 @@ class Edit(QDialog):
         if name:
             self.titleEntry.setText(snippets.title(name, False) or '')
             self.text.setPlainText(snippets.text(name))
-            ac = self.parent().parent().actions
+            ac = self.parent().parent().snippetActions
             self.setShortcuts(ac.shortcuts(name))
         else:
             self.text.setPlainText(text)
@@ -145,7 +145,7 @@ class Edit(QDialog):
         
     def editShortcuts(self):
         mainwindow = self.parent().parent().mainwindow()
-        ac = self.parent().parent().actions
+        ac = self.parent().parent().snippetActions
         action = QAction(self.titleEntry.text() or _("Untitled"), None)
         skip = None
         default = None
@@ -164,12 +164,12 @@ class Edit(QDialog):
             index, QItemSelectionModel.SelectCurrent | QItemSelectionModel.Rows)
         # get the name that was used
         name = model.model().name(index)
-        self.parent().parent().actions.setShortcuts(name, self._shortcuts)
+        self.parent().parent().snippetActions.setShortcuts(name, self._shortcuts)
 
     def slotDefaults(self):
         t = builtin.builtin_snippets[self._name]
         self.text.setPlainText(t.text)
         self.titleEntry.setText(t.title() if t.title else '')
-        self.setShortcuts(self.parent().parent().actions.defaults().get(self._name))
+        self.setShortcuts(self.parent().parent().snippetActions.defaults().get(self._name))
 
 

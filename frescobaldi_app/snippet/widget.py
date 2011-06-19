@@ -173,7 +173,7 @@ class Widget(QWidget):
         """Called when the user wants to delete the selected rows."""
         rows = sorted(set(i.row() for i in self.treeView.selectedIndexes()), reverse=True)
         for row in rows:
-            self.parent().actions.setShortcuts(self.treeView.model().names()[row], [])
+            self.parent().snippetActions.setShortcuts(self.treeView.model().names()[row], [])
             self.treeView.model().removeRow(row)
         self.updateFilter()
     

@@ -39,8 +39,8 @@ class SnippetTool(panels.Panel):
     def __init__(self, mainwindow):
         super(SnippetTool, self).__init__(mainwindow)
         self.hide()
-        self.actions = SnippetActions(self)
-        actioncollectionmanager.manager(mainwindow).addActionCollection(self.actions)
+        self.snippetActions = SnippetActions(self)
+        actioncollectionmanager.manager(mainwindow).addActionCollection(self.snippetActions)
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+S"))
         ac = self.actionCollection = Actions()
         ac.snippettool_activate.triggered.connect(self.activate)
