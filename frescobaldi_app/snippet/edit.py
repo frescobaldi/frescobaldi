@@ -156,7 +156,6 @@ class Edit(QDialog):
         # set snippet current in the editor that called us
         self.parent().treeView.selectionModel().setCurrentIndex(
             index, QItemSelectionModel.SelectCurrent | QItemSelectionModel.Rows)
-        self.parent().updateColumnSizes()
         # get the name that was used
         name = model.model().name(index)
         self.parent().parent().actions.setShortcuts(name, self._shortcuts)

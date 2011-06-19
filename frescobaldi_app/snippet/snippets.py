@@ -86,7 +86,6 @@ def text(name):
 def shorttext(name):
     """Returns the abridged text, in most cases usable for display or matching."""
     lines = get(name)[0].splitlines()
-    print repr(lines)
     if not lines:
         return ''
     start, end  = 0, len(lines) - 1
