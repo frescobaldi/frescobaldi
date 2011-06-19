@@ -69,9 +69,9 @@ class Widget(QWidget):
         
         # action generator for actions added to search entry
         def act(slot, icon=None):
-            a = QAction(self.searchEntry, triggered=slot)
-            self.searchEntry.addAction(a)
-            a.setShortcutContext(Qt.WidgetShortcut)
+            a = QAction(self, triggered=slot)
+            self.addAction(a)
+            a.setShortcutContext(Qt.WidgetWithChildrenShortcut)
             icon and a.setIcon(icons.get(icon))
             return a
         
@@ -108,7 +108,9 @@ class Widget(QWidget):
         # signals
         self.searchEntry.returnPressed.connect(self.slotReturnPressed)
         self.searchEntry.textChanged.connect(self.updateFilter)
+        self.treeView.doubleClicked.connect(self.slotDoubleClicked)
         self.treeView.selectionModel().currentChanged.connect(self.updateText)
+        self.treeView.model().dataChanged.connect(self.updateText)
         
         self.setInfoText('')
         self.readSettings()
@@ -152,6 +154,10 @@ class Widget(QWidget):
         """Called when the user presses ESC in the search entry. Hides the panel."""
         self.parent().hide()
         self.parent().mainwindow().currentView().setFocus()
+    
+    def slotDoubleClicked(self, index):
+        name = self.treeView.model().name(index)
+        edit.Edit(self, name)
 
     def slotAdd(self):
         """Called when the user wants to add a new snippet."""

@@ -25,6 +25,7 @@ from __future__ import unicode_literals
 
 
 import itertools
+import random
 import re
 
 import app
@@ -138,5 +139,41 @@ def delete(name):
     s.remove(name)
     if name in builtin_snippets:
         s.setValue(name+"/deleted", True)
+
+
+def name(names):
+    """Returns a name to be used for a new snippet..
+    
+    names is a list of strings for which the newly returned name will be unique.
+    
+    """
+    while True:
+        u = "n{0:06.0f}".format(random.random()*1000000)
+        if u not in names:
+            break
+    return u
+
+
+def save(name, text, title=None):
+    """Stores a snippet."""
+    try:
+        t = builtin_snippets[name]
+    except KeyError:
+        # not builtin
+        pass
+    else:
+        # builtin
+        if not title or title == t.title():
+            title = None
+        if text == t.text:
+            text = None
+    s = settings()
+    if title or text:
+        s.beginGroup(name)
+        s.setValue("text", text) if text else s.remove("text")
+        s.setValue("title", title) if title else s.remove("title")
+    else:
+        # the snippet exactly matches the builtin, no saving needed
+        s.remove(name)
 
 

@@ -31,7 +31,9 @@ import app
 import textformats
 import widgets
 
+from . import model
 from . import snippets
+
 
 class Edit(QDialog):
     """Dialog for editing a snippet. It is used for one edit.
@@ -95,7 +97,7 @@ class Edit(QDialog):
 
     def done(self, result):
         if result:
-            print "OK!"
+            self.saveSnippet()
         super(Edit, self).done(result)
         self.deleteLater()
         self.storeSize()
@@ -111,6 +113,15 @@ class Edit(QDialog):
         self.text.setFont(data.font)
         self.text.setPalette(data.palette())
 
-
+    def saveSnippet(self):
+        index = model.model().saveSnippet(self._name,
+            self.text.toPlainText(), self.titleEntry.text())
+        # set snippet current in the editor that called us
+        self.parent().treeView.selectionModel().setCurrentIndex(
+            index, QItemSelectionModel.SelectCurrent | QItemSelectionModel.Rows)
+        self.parent().updateColumnSizes()
+        # get the name that was used
+        name = model.model().name(index)
+        # TODO: implement keyboard shortcut handling
 
 

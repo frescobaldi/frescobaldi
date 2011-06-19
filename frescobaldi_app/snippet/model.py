@@ -24,6 +24,8 @@ The model containing the snippets data.
 
 from __future__ import unicode_literals
 
+import bisect
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
@@ -116,6 +118,54 @@ class SnippetModel(QAbstractItemModel):
         """The internal snippet id for the given QModelIndex."""
         return self._names[index.row()]
 
+    def saveSnippet(self, name, text, title):
+        """Store a snippet.
+        
+        If name is None or does not exist in names(), a new snippet is created.
+        Returns the QModelIndex the snippet was stored at.
+        
+        Title may be None.
+        
+        """
+        # first, get the old titles list
+        titles = list(snippets.title(n) for n in self._names)
+        
+        oldrow = None
+        if name is None:
+            name = snippets.name(self._names)
+        else:
+            try:
+                oldrow = self._names.index(name)
+            except ValueError:
+                pass
+        snippets.save(name, text, title)
+        # sort the new snippet in
+        # if oldrow is not None, it is the row to be removed.
+        title = snippets.title(name)
+        i = bisect.bisect_right(titles, title)
+        
+        if oldrow is None:
+            # just insert new snippet
+            self.beginInsertRows(QModelIndex(), i, i )
+            self._names.insert(i, name)
+            self.endInsertRows()
+            return self.createIndex(i, 0)
+        elif i in (oldrow, oldrow+1):
+            # just replace
+            self._names[oldrow] = name
+            self.dataChanged.emit(self.createIndex(oldrow, 0), self.createIndex(oldrow, 2))
+            return self.createIndex(oldrow, 0)
+        else:
+            # move the old row to the new place
+            if self.beginMoveRows(QModelIndex(), oldrow, oldrow, QModelIndex(), i):
+                del self._names[oldrow]
+                if i > oldrow:
+                    i -= 1
+                self._names.insert(i, name)
+                self.endMoveRows()
+                self.dataChanged.emit(self.createIndex(i, 0), self.createIndex(i, 2))
+                return self.createIndex(i, 0)
+            raise RuntimeError("wrong row move offset")
 
 
 def shortcut(name):
