@@ -147,7 +147,7 @@ class Widget(QWidget):
         name = self.currentSnippet()
         if name:
             view = self.parent().mainwindow().currentView()
-            actions.applySnippet(view, name)
+            insert.insert(name, view)
             self.parent().hide() # make configurable?
             view.setFocus()
 
