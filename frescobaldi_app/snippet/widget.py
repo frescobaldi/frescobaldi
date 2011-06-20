@@ -29,7 +29,6 @@ import icons
 import widgets.lineedit
 import textformats
 
-from . import actions
 from . import model
 from . import snippets
 from . import edit
