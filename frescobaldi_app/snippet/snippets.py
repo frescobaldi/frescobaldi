@@ -37,6 +37,10 @@ _cache = {}
 # match variables in a '-*- ' line
 _variables_re = re.compile(br'\s*?([a-z]+(?:-[a-z]+)*)(?::[ \t]*(.*?))?;')
 
+# match expansions $$, $NAME or ${text} (the latter may contain escaped right brace: '\}')
+_expansions_re = re.compile(r'\$(\{)?((?(1)(?:\\\}|[^\}])*|(?:\$|[A-Z]+(?:_[A-Z]+)*)))(?(1)\})')
+
+
 # builtin snippets
 from .builtin import builtin_snippets
 
@@ -209,5 +213,27 @@ def save(name, text, title=None):
     else:
         # the snippet exactly matches the builtin, no saving needed
         s.remove(name)
+
+
+def expand(text):
+    """Yields tuples (text, expansion) for text.
+    
+    Parses text for expressions like '$VAR_NAME', '${other text}' or '$$'.
+    
+    An expansion starts with a '$' and is an uppercase word (which can have
+    single underscores in the middle), or other text between braces (which may
+    contain a right brace espaced: '\}', those are already unescaped by this
+    function).
+
+    One of (text, expansion) may be an empty string.
+    
+    """
+    pos = 0
+    for m in _expansions_re.finditer(text):
+        expansion = m.group(2) if not m.group(1) else m.group(2).replace('\\}', '}')
+        yield text[pos:m.start()], expansion
+        pos = m.end()
+    if pos < len(text):
+        yield text[pos:], ''
 
 
