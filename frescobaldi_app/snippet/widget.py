@@ -131,7 +131,7 @@ class Widget(QWidget):
             "Enter text to search in the snippets list.\n"
             "See \"What's This\" for more information."))
         self.searchEntry.setWhatsThis("<p>{0}</p><p>{1}</p><p>{2}</p>".format(
-            _("If the search text fully matches the '{name}' variable "
+            _("If the search text fully matches the value of the '{name}' variable "
               "of a snippet, that snippet is selected.").format(name="name"),
             _("If the search text starts with a colon ':', the rest of the "
               "search text filters snippets that define the given variable. "
