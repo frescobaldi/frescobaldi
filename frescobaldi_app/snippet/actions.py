@@ -59,22 +59,3 @@ def populateMenu(menu, collection):
     menu.addAction(action('times23', menu, collection))
 
 
-
-def applySnippet(view, name):
-    """Called when a template is activated and should be inserted in the document."""
-    _applySnippet(view, snippets.get(name))
-
-
-def applyText(view, text):
-    """Applies a template contained in text to the view."""
-    _applySnippet(view, snippets.parse(text))
-
-
-def _applySnippet(view, (text, variables)):
-    """Applies the template described by text and variables to the view."""
-    # TODO: all the expand stuff!
-    view.textCursor().insertText(text)
-
-
-
-

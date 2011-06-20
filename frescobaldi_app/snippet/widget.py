@@ -33,6 +33,7 @@ from . import actions
 from . import model
 from . import snippets
 from . import edit
+from . import insert
 
 
 class Widget(QWidget):
@@ -182,7 +183,7 @@ class Widget(QWidget):
         name = self.currentSnippet()
         if name:
             view = self.parent().mainwindow().currentView()
-            actions.applySnippet(view, name)
+            insert.insert(name, view)
         
     def currentSnippet(self):
         """Returns the name of the current snippet if it is visible."""

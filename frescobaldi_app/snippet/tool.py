@@ -92,10 +92,10 @@ class SnippetActions(actioncollection.ShortcutCollection):
         return actions.action(name)
     
     def triggerAction(self, name):
-        from . import actions
+        from . import insert
         view = self.tool().mainwindow().currentView()
         if view.hasFocus() or self.tool().widget().searchEntry.hasFocus():
-            actions.applySnippet(view, name)
+            insert.insert(name, view)
             
     def title(self):
         return _("Snippets")
