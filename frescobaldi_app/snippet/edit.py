@@ -177,7 +177,8 @@ class Edit(QDialog):
         self.text.setPlainText(t.text)
         self.titleEntry.setText(t.title() if t.title else '')
         self.setShortcuts(self.parent().parent().snippetActions.defaults().get(self._name))
-
+    def __del__(self):
+        print "BYE!"
 
 class Highlighter(QSyntaxHighlighter):
     def __init__(self, document):
