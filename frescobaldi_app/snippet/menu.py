@@ -24,25 +24,29 @@ If a snippet defines the variable 'menu' it is placed in the menu, sorted
 on its internal action name and grouped by the value of the 'menu' variable.
 
 TODO:
-- provide possibility for submenus
+- provide submenus
 - caching (keep actions alive?)
 
 """
 
+from __future__ import unicode_literals
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtGui import QMenu
 
 import app
+import util
 import panels
+
 
 class InsertMenu(QMenu):
     def __init__(self, parent=None):
         super(InsertMenu, self).__init__(parent)
         
         self.aboutToShow.connect(self.populate)
-        self.aboutToHide.connect(self.clearMenu, Qt.QueuedConnection)
+        self.aboutToHide.connect(self.clearMenu)
         self.triggered.connect(self.slotTriggered)
+        tool = panels.manager(self.mainwindow()).snippettool
+        self.addAction(tool.actionCollection.snippettool_activate)
         app.translateUI(self)
         
     def translateUI(self):
@@ -52,24 +56,38 @@ class InsertMenu(QMenu):
         return self.parent().window()
         
     def populate(self):
-        self.clear()
+        """Inserts all snippets that have a menu variable in the menu.
+        
+        The snippets are inserted before the "Snippets..." action that
+        is inserted at construction.
+        
+        If the 'menu' snippet variable also has a value, it is used
+        to group snippets with the same value, sorted on internal id.
+        Groups are separated with a separator.
+        
+        """
         from . import model, snippets, actions
-        ac = panels.manager(self.mainwindow()).snippettool.snippetActions
+        tool = panels.manager(self.mainwindow()).snippettool
+        last = tool.actionCollection.snippettool_activate
         groups = {}
         for name in sorted(model.model().names()):
             menu = snippets.get(name).variables.get('menu')
             if menu:
-                groups.setdefault(menu, []).append(actions.action(name, self, ac))
-        for n, group in enumerate(sorted(groups)):
-            if n:
-                self.addSeparator()
+                groups.setdefault(menu, []).append(
+                    actions.action(name, self, tool.snippetActions))
+        for group in sorted(groups):
             for action in groups[group]:
-                self.addAction(action)
-    
+                self.insertAction(last, action)
+            self.insertSeparator(last)
+        util.addAccelerators(self.actions())
+        
     def clearMenu(self):
-        self.clear()
+        """Deletes the actions on menu hide, excepts the "Snippets..." action."""
+        for a in self.actions()[:-1]:
+            a.deleteLater()
     
     def slotTriggered(self, action):
+        """Called when an action is triggered."""
         name = action.objectName()
         if name:
             from . import insert

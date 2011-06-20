@@ -43,6 +43,7 @@ class SnippetTool(panels.Panel):
         actioncollectionmanager.manager(mainwindow).addActionCollection(self.snippetActions)
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+S"))
         ac = self.actionCollection = Actions()
+        mainwindow.addAction(ac.snippettool_activate)
         ac.snippettool_activate.triggered.connect(self.activate)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         mainwindow.addDockWidget(Qt.BottomDockWidgetArea, self)
