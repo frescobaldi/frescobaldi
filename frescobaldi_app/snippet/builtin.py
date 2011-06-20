@@ -35,36 +35,67 @@ T = collections.namedtuple("Template", "title text")
 
 builtin_snippets = {
 
-'voice1':       T(None, '-*- name: v1;\n\\voiceOne'),
-'voice2':       T(None, '-*- name: v2;\n\\voiceTwo'),
-'voice3':       T(None, '-*- name: v3;\n\\voiceThree'),
-'voice4':       T(None, '-*- name: v4;\n\\voiceFour'),
-'1voice':       T(None, '-*- name: 1v;\n\\oneVoice'),
-'times23':      T(_("Tuplets"), '\\times 2/3 { $IS }'),
-'onceoverride': T(None, '-*- name: oo;\n\\once \\override '),
+'voice1': T(None,
+r"""-*- name: v1;
+\voiceOne"""),
 
-'m22':          T(_("Modern 2/2 Time Signature"),
-    '-*- name: 22;\n'
-    '\\numericTimeSignature\n'
-    '\\time 2/2'),
 
-'m44':          T(_("Modern 4/4 Time Signature"),
-    '-*- name: 44;\n'
-    '\\numericTimeSignature\n'
-    '\\time 4/4'),
+'voice2': T(None,
+r"""-*- name: v2;
+\voiceTwo"""),
 
-'tactus':       T(_("Tactus Time Signature (number with note)"),
-    '-*- name: tac;\n'
-    "\\once \\override Staff.TimeSignature #'style = #'()\n"
-    "\\once \\override Staff.TimeSignature #'stencil = #ly:text-interface::print\n"
-    "\\once \\override Staff.TimeSignature #'text = \\markup {\n"
-    "  \\override #'(baseline-skip . 0.5)\n"
-    "  \\column { \\number ${I:1} \\tiny \\note #\"${I:2}\" #-.6 }\n"
-    "}\n"),
 
-'ly_version':   T(_("LilyPond Version"),
-    '-*- menu;\n'
-    '\\version "$LILYPOND_VERSION"\n'),
+'voice3': T(None,
+r"""-*- name: v3;
+\voiceThree"""),
+
+
+'voice4': T(None,
+r"""-*- name: v4;
+\voiceFour"""),
+
+
+'1voice': T(None,
+r"""-*- name: 1v;
+\oneVoice"""),
+
+
+'times23': T(_("Tuplets"),
+r"""\times 2/3 { $IS }"""),
+
+
+'onceoverride': T(None,
+r"""-*- name: oo;
+\once \override """),
+
+
+'m22': T(_("Modern 2/2 Time Signature"),
+r"""-*- name: 22;
+\numericTimeSignature
+\time 2/2"""),
+
+
+'m44': T(_("Modern 4/4 Time Signature"),
+r"""-*- name: 44;
+\numericTimeSignature
+\time 4/4"""),
+
+
+'tactus': T(_("Tactus Time Signature (number with note)"),
+r"""-*- name: tac;\n'
+\once \override Staff.TimeSignature #'style = #'()
+\once \override Staff.TimeSignature #'stencil = #ly:text-interface::print
+\once \override Staff.TimeSignature #'text = \markup {
+  \override #'(baseline-skip . 0.5)
+  \column { \number ${I:1} \tiny \note #"${I:2}" #-.6 }
+}
+"""),
+
+
+'ly_version': T(_("LilyPond Version"),
+r"""-*- menu;
+\version "$LILYPOND_VERSION"
+"""),
 
 
 }
