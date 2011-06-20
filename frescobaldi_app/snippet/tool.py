@@ -85,6 +85,7 @@ class SnippetActions(actioncollection.ShortcutCollection):
         self.setDefaultShortcuts('voice4', [QKeySequence('Alt+4')])
         self.setDefaultShortcuts('1voice', [QKeySequence('Alt+0')])
         self.setDefaultShortcuts('times23', [QKeySequence('Ctrl+3')])
+        self.setDefaultShortcuts('ly_version', [QKeySequence('Ctrl+Shift+V')])
 
     def realAction(self, name):
         from . import actions

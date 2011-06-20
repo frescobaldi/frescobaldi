@@ -53,7 +53,7 @@ builtin_snippets = {
     '\\numericTimeSignature\n'
     '\\time 4/4'),
 
-'tactus':      T(_("Tactus Time Signature (number with note)"),
+'tactus':       T(_("Tactus Time Signature (number with note)"),
     '-*- name: tac;\n'
     "\\once \\override Staff.TimeSignature #'style = #'()\n"
     "\\once \\override Staff.TimeSignature #'stencil = #ly:text-interface::print\n"
@@ -61,6 +61,9 @@ builtin_snippets = {
     "  \\override #'(baseline-skip . 0.5)\n"
     "  \\column { \\number ${I:1} \\tiny \\note #\"${I:2}\" #-.6 }\n"
     "}\n"),
+
+'ly_version':   T(_("LilyPond Version"),
+    '\\version "$LILYPOND_VERSION"\n'),
 
 
 }
