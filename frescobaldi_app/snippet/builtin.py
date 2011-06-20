@@ -40,8 +40,27 @@ builtin_snippets = {
 'voice3':       T(None, '-*- name: v3;\n\\voiceThree'),
 'voice4':       T(None, '-*- name: v4;\n\\voiceFour'),
 '1voice':       T(None, '-*- name: 1v;\n\\oneVoice'),
-'times23':      T(_("Tuplets"), '\\times 2/3 { {CURSEL} }'),
+'times23':      T(_("Tuplets"), '\\times 2/3 { $IS }'),
 'onceoverride': T(None, '-*- name: oo;\n\\once \\override '),
+
+'m22':          T(_("Modern 2/2 Time Signature"),
+    '-*- name: 22;\n'
+    '\\numericTimeSignature\n'
+    '\\time 2/2'),
+
+'m44':          T(_("Modern 4/4 Time Signature"),
+    '-*- name: 44;\n'
+    '\\numericTimeSignature\n'
+    '\\time 4/4'),
+
+'tactus':      T(_("Tactus Time Signature (number with note)"),
+    '-*- name: tac;\n'
+    "\\once \\override Staff.TimeSignature #'style = #'()\n"
+    "\\once \\override Staff.TimeSignature #'stencil = #ly:text-interface::print\n"
+    "\\once \\override Staff.TimeSignature #'text = \\markup {\n"
+    "  \\override #'(baseline-skip . 0.5)\n"
+    "  \\column { \\number ${I:1} \\tiny \\note #\"${I:2}\" #-.6 }\n"
+    "}\n"),
 
 
 }
