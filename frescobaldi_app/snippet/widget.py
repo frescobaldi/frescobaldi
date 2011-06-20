@@ -194,10 +194,20 @@ class Widget(QWidget):
         """Called when the text in the entry changes, updates search results."""
         text = self.searchEntry.text()
         ltext = text.lower()
+        filterVars = text.startswith(':')
+        if filterVars:
+            try:
+                fvar, fval = text[1:].split(None, 1)
+                fhide = lambda v: v.get(fvar) in (True, None) or fval not in v.get(fvar)
+            except ValueError:
+                fvar = text[1:].strip()
+                fhide = lambda v: not v.get(fvar)
         for row in range(self.treeView.model().rowCount()):
             name = self.treeView.model().names()[row]
             nameid = snippets.get(name).variables.get('name', '')
-            if nameid == text:
+            if filterVars:
+                hide = fhide(snippets.get(name).variables)
+            elif nameid == text:
                 i = self.treeView.model().createIndex(row, 0)
                 self.treeView.selectionModel().setCurrentIndex(i, QItemSelectionModel.SelectCurrent | QItemSelectionModel.Rows)
                 hide = False
