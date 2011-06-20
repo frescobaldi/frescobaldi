@@ -82,7 +82,7 @@ r"""-*- name: 44;
 
 
 'tactus': T(_("Tactus Time Signature (number with note)"),
-r"""-*- name: tac;\n'
+r"""-*- name: tac;
 \once \override Staff.TimeSignature #'style = #'()
 \once \override Staff.TimeSignature #'stencil = #ly:text-interface::print
 \once \override Staff.TimeSignature #'text = \markup {
