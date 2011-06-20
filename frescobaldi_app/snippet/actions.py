@@ -22,8 +22,7 @@ Functions to access the built-in and user defined templates.
 """
 
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtGui import QAction
 
 from . import snippets
 
@@ -45,17 +44,5 @@ def action(name, parent=None, collection=None):
         if shortcuts:
             a.setShortcuts(shortcuts)
     return a
-
-
-def populateMenu(menu, collection):
-    """Adds actions to the specified menu to insert templates.
-    
-    collection is the ShortcutCollection that can provide the keyboard
-    shortcuts to display.
-    
-    """
-    # TEMP!!
-    menu.addAction(action('voice1', menu, collection))
-    menu.addAction(action('times23', menu, collection))
 
 

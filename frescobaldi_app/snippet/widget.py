@@ -196,7 +196,7 @@ class Widget(QWidget):
         ltext = text.lower()
         for row in range(self.treeView.model().rowCount()):
             name = self.treeView.model().names()[row]
-            nameid = snippets.get(name)[1].get('name', '')
+            nameid = snippets.get(name).variables.get('name', '')
             if nameid == text:
                 i = self.treeView.model().createIndex(row, 0)
                 self.treeView.selectionModel().setCurrentIndex(i, QItemSelectionModel.SelectCurrent | QItemSelectionModel.Rows)
@@ -213,7 +213,7 @@ class Widget(QWidget):
     def updateText(self):
         """Called when the current snippet changes."""
         name = self.currentSnippet()
-        text = snippets.get(name)[0] if name else ''
+        text = snippets.get(name).text if name else ''
         self.textView.setText(text)
         
     def updateColumnSizes(self):

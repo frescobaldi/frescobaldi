@@ -24,12 +24,15 @@ Acessing the snippets data.
 from __future__ import unicode_literals
 
 
+import collections
 import functools
 import itertools
 import random
 import re
 
 import app
+
+textvars = collections.namedtuple('textvars', 'text variables')
 
 # cache parsed snippets
 _cache = {}
@@ -143,7 +146,7 @@ def get(name):
 
 
 def parse(text):
-    """Parses a piece of text and returns a tuple (text, variables).
+    """Parses a piece of text and returns a named tuple (text, variables).
     
     text is the template text, with lines starting with '-*- ' removed.
     variables is a dictionary containing variables read from lines starting
@@ -166,7 +169,7 @@ def parse(text):
         start += 1
     t = '\n'.join(lines[start:])
     d = dict(m.groups(True) for l in lines[:start] for m in _variables_re.finditer(l))
-    return t, d
+    return textvars(t, d)
 
 
 @unmemoize

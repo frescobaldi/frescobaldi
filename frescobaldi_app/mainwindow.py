@@ -51,6 +51,7 @@ import panels
 import jobmanager
 import progress
 import engrave
+import snippet.menu
 
 
 class MainWindow(QMainWindow):
@@ -864,7 +865,7 @@ class MainWindow(QMainWindow):
         m.addAction(la.log_next_error)
         m.addAction(la.log_previous_error)
         
-        #TEMP self.menuBar().addMenu(insert.Manager.instance(self).menu)
+        self.menuBar().addMenu(snippet.menu.InsertMenu(self))
         
         self.menu_lilypond = m = self.menuBar().addMenu('')
         eg = engrave.engraver(self).actionCollection

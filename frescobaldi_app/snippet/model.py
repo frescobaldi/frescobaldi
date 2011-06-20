@@ -77,7 +77,7 @@ class SnippetModel(QAbstractItemModel):
         if role == Qt.DisplayRole:
             name = self.name(index)
             if index.column() == 0:
-                return snippets.get(name)[1].get('name')
+                return snippets.get(name).variables.get('name')
             elif index.column() == 1:
                 return snippets.title(name)
             else:

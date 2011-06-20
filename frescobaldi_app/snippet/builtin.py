@@ -63,6 +63,7 @@ builtin_snippets = {
     "}\n"),
 
 'ly_version':   T(_("LilyPond Version"),
+    '-*- menu;\n'
     '\\version "$LILYPOND_VERSION"\n'),
 
 
