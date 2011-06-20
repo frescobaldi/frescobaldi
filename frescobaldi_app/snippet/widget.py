@@ -127,7 +127,20 @@ class Widget(QWidget):
         self.editAction.setText(_("Edit..."))
         self.deleteAction.setText(_("Remove"))
         self.applyAction.setText(_("Apply"))
-        
+        self.searchEntry.setToolTip(_(
+            "Enter text to search in the snippets list.\n"
+            "See \"What's This\" for more information."))
+        self.searchEntry.setWhatsThis("<p>{0}</p><p>{1}</p><p>{2}</p>".format(
+            _("If the search text fully matches the '{name}' variable "
+              "of a snippet, that snippet is selected.").format(name="name"),
+            _("If the search text starts with a colon ':', the rest of the "
+              "search text filters snippets that define the given variable. "
+              "After a space a value can also be entered, snippets will then "
+              "match if the value of the given variable contains the text after "
+              "the space."),
+            _("E.g. entering {menu} will show all snippets that are displayed "
+              "in the insert menu.").format(menu="<code>:menu</code>")))
+    
     def sizeHint(self):
         return self.parent().mainwindow().size() / 4
         
