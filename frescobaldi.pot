@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-06-11 13:07+0200\n"
+"POT-Creation-Date: 2011-06-21 19:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,19 +38,19 @@ msgstr ""
 msgid "&Copy Lyrics with hyphenation removed"
 msgstr ""
 
-#: frescobaldi_app/actioncollectionmanager.py:118
+#: frescobaldi_app/actioncollectionmanager.py:123
 #: frescobaldi_app/preferences/shortcuts.py:203
 msgid "This shortcut conflicts with the following command:"
 msgid_plural "This shortcut conflicts with the following commands:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: frescobaldi_app/actioncollectionmanager.py:124
+#: frescobaldi_app/actioncollectionmanager.py:129
 #: frescobaldi_app/preferences/shortcuts.py:209
 msgid "Shortcut Conflict"
 msgstr ""
 
-#: frescobaldi_app/actioncollectionmanager.py:126
+#: frescobaldi_app/actioncollectionmanager.py:131
 msgid "Edit again"
 msgstr ""
 
@@ -704,7 +704,7 @@ msgstr ""
 msgid "Optionally describe below what you were doing:"
 msgstr ""
 
-#: frescobaldi_app/document.py:151
+#: frescobaldi_app/document.py:151 frescobaldi_app/snippet/edit.py:165
 msgid "Untitled"
 msgstr ""
 
@@ -1076,6 +1076,7 @@ msgid "Configure Keyboard Shortcut ({key})"
 msgstr ""
 
 #: frescobaldi_app/quickinsert/buttongroup.py:152
+#: frescobaldi_app/snippet/edit.py:120
 msgid "None"
 msgstr ""
 
@@ -1225,7 +1226,7 @@ msgstr ""
 msgid "Abort Engraving &Job"
 msgstr ""
 
-#: frescobaldi_app/logtool/logwidget.py:105
+#: frescobaldi_app/logtool/logwidget.py:104
 msgid "Click to edit this file"
 msgstr ""
 
@@ -1238,11 +1239,11 @@ msgstr ""
 msgid "LilyPond &Log"
 msgstr ""
 
-#: frescobaldi_app/logtool/__init__.py:89
+#: frescobaldi_app/logtool/__init__.py:90
 msgid "Next Error Message"
 msgstr ""
 
-#: frescobaldi_app/logtool/__init__.py:90
+#: frescobaldi_app/logtool/__init__.py:91
 msgid "Previous Error Message"
 msgstr ""
 
@@ -1333,6 +1334,181 @@ msgstr ""
 
 #: frescobaldi_app/musicview/__init__.py:378
 msgid "Fit Page"
+msgstr ""
+
+#: frescobaldi_app/snippet/expand.py:65
+msgid "The current date in YYYY-MM-DD format."
+msgstr ""
+
+#: frescobaldi_app/snippet/expand.py:69
+msgid "The version of the default LilyPond program."
+msgstr ""
+
+#: frescobaldi_app/snippet/expand.py:73
+msgid "The version of Frescobaldi."
+msgstr ""
+
+#: frescobaldi_app/snippet/expand.py:77
+msgid "The URL of the current document."
+msgstr ""
+
+#: frescobaldi_app/snippet/expand.py:81
+msgid "The full local filename of the current document."
+msgstr ""
+
+#: frescobaldi_app/snippet/expand.py:85
+msgid "The name of the current document."
+msgstr ""
+
+#: frescobaldi_app/snippet/edit.py:109
+msgid "Edit Snippet"
+msgstr ""
+
+#: frescobaldi_app/snippet/edit.py:109
+msgid "New Snippet"
+msgstr ""
+
+#: frescobaldi_app/snippet/edit.py:111
+msgid "Snippet Text:"
+msgstr ""
+
+#: frescobaldi_app/snippet/edit.py:112
+msgid "Title:"
+msgstr ""
+
+#: frescobaldi_app/snippet/edit.py:113
+msgid "Shortcut:"
+msgstr ""
+
+#: frescobaldi_app/snippet/edit.py:126
+msgid "Click to change the keyboard shortcut."
+msgstr ""
+
+#: frescobaldi_app/snippet/edit.py:131
+msgid "Empty Snippet"
+msgstr ""
+
+#: frescobaldi_app/snippet/edit.py:131
+msgid "A snippet can't be empty."
+msgstr ""
+
+#: frescobaldi_app/snippet/edit.py:216
+msgid ""
+"<p>Here you can edit the text of the snippet.</p><p>If you start the first "
+"line(s) with '<code>-*- </code>' (note the space), the remainder of that line"
+"(s) defines variables like <code>name: value;</code> or simply <code>name;</"
+"code> which influence the behaviour of the snippet. The following variables "
+"currently have a meaning:</p>"
+msgstr ""
+
+#: frescobaldi_app/snippet/edit.py:224
+msgid "Place the snippet in the insert menu, grouped by the (optional) value."
+msgstr ""
+
+#: frescobaldi_app/snippet/edit.py:225
+msgid "The mnemonic to type to select the snippet."
+msgstr ""
+
+#: frescobaldi_app/snippet/edit.py:230
+msgid ""
+"<p>The other lines of the snippet define the text to be inserted in the "
+"editor. Here, you can insert variables prefixed with a $. A double $ will be "
+"replaced with a single one. The following variables are recognized:</p>"
+msgstr ""
+
+#: frescobaldi_app/snippet/model.py:58
+msgid "Name"
+msgstr ""
+
+#: frescobaldi_app/snippet/model.py:60
+msgid "Description"
+msgstr ""
+
+#: frescobaldi_app/snippet/model.py:62
+#: frescobaldi_app/preferences/shortcuts.py:56
+msgid "Shortcut"
+msgstr ""
+
+#: frescobaldi_app/snippet/menu.py:53
+msgid "&Insert"
+msgstr ""
+
+#: frescobaldi_app/snippet/tool.py:52 frescobaldi_app/snippet/tool.py:102
+msgid "Snippets"
+msgstr ""
+
+#: frescobaldi_app/snippet/tool.py:53
+msgid "&Snippets"
+msgstr ""
+
+#: frescobaldi_app/snippet/tool.py:72
+msgid "&Snippets..."
+msgstr ""
+
+#: frescobaldi_app/snippet/widget.py:123
+msgid "Search..."
+msgstr ""
+
+#: frescobaldi_app/snippet/widget.py:126
+msgid "Add..."
+msgstr ""
+
+#: frescobaldi_app/snippet/widget.py:127
+msgid "Edit..."
+msgstr ""
+
+#: frescobaldi_app/snippet/widget.py:128
+msgid "Remove"
+msgstr ""
+
+#: frescobaldi_app/snippet/widget.py:129
+msgid "Apply"
+msgstr ""
+
+#: frescobaldi_app/snippet/widget.py:131
+msgid ""
+"Enter text to search in the snippets list.\n"
+"See \"What's This\" for more information."
+msgstr ""
+
+#: frescobaldi_app/snippet/widget.py:134
+msgid ""
+"If the search text fully matches the value of the '{name}' variable of a "
+"snippet, that snippet is selected."
+msgstr ""
+
+#: frescobaldi_app/snippet/widget.py:136
+msgid ""
+"If the search text starts with a colon ':', the rest of the search text "
+"filters snippets that define the given variable. After a space a value can "
+"also be entered, snippets will then match if the value of the given variable "
+"contains the text after the space."
+msgstr ""
+
+#: frescobaldi_app/snippet/widget.py:141
+msgid ""
+"E.g. entering {menu} will show all snippets that are displayed in the insert "
+"menu."
+msgstr ""
+
+#: frescobaldi_app/snippet/builtin.py:63
+msgid "Tuplets"
+msgstr ""
+
+#: frescobaldi_app/snippet/builtin.py:72
+msgid "Modern 2/2 Time Signature"
+msgstr ""
+
+#: frescobaldi_app/snippet/builtin.py:78
+msgid "Modern 4/4 Time Signature"
+msgstr ""
+
+#: frescobaldi_app/snippet/builtin.py:84
+msgid "Tactus Time Signature (number with note)"
+msgstr ""
+
+#: frescobaldi_app/snippet/builtin.py:95
+msgid "LilyPond Version"
 msgstr ""
 
 #: frescobaldi_app/preferences/lilypond.py:79
@@ -1698,10 +1874,6 @@ msgstr ""
 msgid "Verbatim"
 msgstr ""
 
-#: frescobaldi_app/preferences/shortcuts.py:56
-msgid "Shortcut"
-msgstr ""
-
 #: frescobaldi_app/preferences/shortcuts.py:101
 msgid "Menu {name}:"
 msgstr ""
@@ -1848,19 +2020,6 @@ msgstr ""
 
 #: frescobaldi_app/preferences/__init__.py:202
 msgid "Tools"
-msgstr ""
-
-#: frescobaldi_app/insert/__init__.py:54
-msgid "&Insert"
-msgstr ""
-
-#: frescobaldi_app/insert/__init__.py:85
-msgid "Edit &Templates..."
-msgstr ""
-
-#: frescobaldi_app/insert/__init__.py:88
-#: frescobaldi_app/insert/__init__.py:115
-msgid "Insert Templates"
 msgstr ""
 
 #: frescobaldi_app/sessions/manager.py:167
