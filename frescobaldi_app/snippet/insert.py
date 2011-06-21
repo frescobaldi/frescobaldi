@@ -23,6 +23,9 @@ Insert snippets into a Document.
 
 from __future__ import unicode_literals
 
+from PyQt4.QtCore import QSettings
+
+import tokeniter
 
 from . import snippets
 
@@ -31,8 +34,35 @@ from . import snippets
 def insert(name, view):
     """Insert named snippet into the view."""
     text, variables = snippets.get(name)
-    # TODO: all the expand stuff!
-    view.textCursor().insertText(text)
+    
+    cursor = view.textCursor()
+    
+    exp_base = ExpanderBasic(view)
+    
+    with tokeniter.editBlock(cursor):
+        for text, key in snippets.expand(text):
+            if text:
+                cursor.insertText(text)
+            if key == "$":
+                cursor.insertText(key)
+            elif key:
+                # basic variables
+                func = getattr(exp_base, key, None)
+                if func:
+                    cursor.insertText(func())
+                    continue
+
+
+
+
+class ExpanderBasic(object):
+    """Expands basic variables."""
+    def __init__(self, view):
+        self.view = view
+    
+    def LILYPOND_VERSION(self):
+        import lilypondinfo
+        return lilypondinfo.preferred().versionString
 
 
 
