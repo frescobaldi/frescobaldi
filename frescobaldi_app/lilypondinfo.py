@@ -77,6 +77,28 @@ def default():
     return LilyPondInfo(lilypond)
 
 
+def preferred():
+    """Returns the preferred (user set default) LilyPondInfo instance."""
+    infos_ = infos()
+    if not infos_:
+        return default()
+    elif len(infos_) == 1:
+        return infos_[0]
+    s = QSettings()
+    s.beginGroup("lilypond_settings")
+    # find default version
+    defaultCommand = "lilypond-windows.exe" if os.name == "nt" else "lilypond"
+    userDefault = s.value("default", defaultCommand)
+    if userDefault != defaultCommand:
+        for info in infos_:
+            if info.command == userDefault:
+                return info
+    for info in infos_:
+        if info.command == defaultCommand:
+            return info
+    return infos_[0]
+
+
 class LilyPondInfo(ly.info.LilyPondInfo):
     """Manages information about a LilyPond instance, partially cached to speed up Frescobaldi."""
     def __init__(self, command):

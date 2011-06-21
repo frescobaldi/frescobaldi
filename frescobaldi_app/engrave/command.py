@@ -39,9 +39,7 @@ def info(document):
         return lilypondinfo.default()
     elif len(infos) == 1:
         return infos[0]
-    s = QSettings()
-    s.beginGroup("lilypond_settings")
-    if s.value("autoversion", True) in (True, "true"):
+    if QSettings().value("lilypond_settings/autoversion", True) in (True, "true"):
         # Determine version set in document
         infos.sort(key=lambda i: i.version)
         version = documentinfo.info(document).version()
@@ -51,14 +49,7 @@ def info(document):
                     return i
             return infos[-1]
     # find default version
-    default = s.value("default", "lilypond")
-    for i in infos:
-        if i.command == default:
-            return i
-    for i in infos:
-        if i.command == "lilypond":
-            return i
-    return infos[0]
+    return lilypondinfo.preferred()
         
 
 def defaultJob(document, preview):
