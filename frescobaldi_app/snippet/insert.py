@@ -28,7 +28,7 @@ from PyQt4.QtCore import QSettings
 import tokeniter
 
 from . import snippets
-
+from . import expand
 
 
 def insert(name, view):
@@ -37,7 +37,7 @@ def insert(name, view):
     
     cursor = view.textCursor()
     
-    exp_base = ExpanderBasic(view)
+    exp_base = expand.ExpanderBasic(view)
     
     with tokeniter.editBlock(cursor):
         for text, key in snippets.expand(text):
@@ -52,17 +52,6 @@ def insert(name, view):
                     cursor.insertText(func())
                     continue
 
-
-
-
-class ExpanderBasic(object):
-    """Expands basic variables."""
-    def __init__(self, view):
-        self.view = view
-    
-    def LILYPOND_VERSION(self):
-        import lilypondinfo
-        return lilypondinfo.preferred().versionString
 
 
 

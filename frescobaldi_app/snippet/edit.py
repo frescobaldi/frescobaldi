@@ -38,6 +38,7 @@ import widgets
 from . import model
 from . import snippets
 from . import builtin
+from . import expand
 
 
 class Edit(QDialog):
@@ -111,6 +112,8 @@ class Edit(QDialog):
         self.titleLabel.setText(_("Title:"))
         self.shortcutLabel.setText(_("Shortcut:"))
         self.updateShortcutText()
+        self.text.setWhatsThis(whatsThisText())
+            
     
     def updateShortcutText(self):
         if not self._shortcuts:
@@ -204,4 +207,35 @@ class Highlighter(QSyntaxHighlighter):
         else:
             for m in snippets._expansions_re.finditer(text):
                 self.setFormat(m.start(), m.end()-m.start(), self._styles['escape'])
+
+
+def whatsThisText():
+    """Returns the What's This text for the snippet edit widget."""
+    text = []
+    text.append(_(
+    "<p>Here you can edit the text of the snippet.</p>"
+    "<p>If you start the first line(s) with '<code>-*- </code>' (note the space), "
+    "the remainder of that line(s) defines variables like <code>name: value;</code> or "
+    "simply <code>name;</code> which influence the behaviour of the snippet. "
+    "The following variables currently have a meaning:</p>"))
+    
+    text.append("<dl>")
+    text.extend("<dt><code>{0}</code></dt><dd>{1}</dd>".format(name, desc) for name, desc in (
+        ('menu', _("Place the snippet in the insert menu, grouped by the (optional) value.")),
+        ('name', _("The mnemonic to type to select the snippet.")),
+    ))
+    text.append("</dl>")
+
+    text.append(_(
+    "<p>The other lines of the snippet define the text to be inserted in the editor. "
+    "Here, you can insert variables prefixed with a $. A double $ will be replaced with "
+    "a single one. The following variables are recognized:</p>"))
+    
+    text.append("<dl>")
+    text.extend("<dt><code>${0}</code></dt><dd>{1}</dd>".format(name, doc) for name, doc in
+        expand.documentation(expand.ExpanderBasic))
+    text.append("</dl>")
+    return ''.join(text)
+
+
 
