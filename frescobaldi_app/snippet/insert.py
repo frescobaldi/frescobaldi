@@ -37,20 +37,45 @@ def insert(name, view):
     
     cursor = view.textCursor()
     
-    exp_base = expand.ExpanderBasic(view)
-    
     with tokeniter.editBlock(cursor):
-        for text, key in snippets.expand(text):
-            if text:
-                cursor.insertText(text)
-            if key == "$":
-                cursor.insertText(key)
-            elif key:
-                # basic variables
-                func = getattr(exp_base, key, None)
-                if func:
-                    cursor.insertText(func())
-                    continue
+        if 'python' in variables:
+            insert_python(text, cursor)
+        else:
+            insert_snippet(text, cursor)
+        
+
+def insert_snippet(text, cursor):
+    """Inserts a normal text snippet."""
+    exp_base = expand.ExpanderBasic(cursor)
+    
+    for text, key in snippets.expand(text):
+        if text:
+            cursor.insertText(text)
+        if key == "$":
+            cursor.insertText(key)
+        elif key:
+            # basic variables
+            func = getattr(exp_base, key, None)
+            if func:
+                cursor.insertText(func())
+                continue
+
+
+def insert_python(text, cursor):
+    """Regards the text as Python code, and exec it.
+    
+    the following variables are available:
+    
+    - text: contains selection or '', set it to insert new text
+
+    """
+    code = compile(text, "<snippet>", "exec")
+        
+    namespace = {
+        'text': cursor.selection().toPlainText(),
+    }
+    exec code in namespace
+    cursor.insertText(namespace['text'])
 
 
 

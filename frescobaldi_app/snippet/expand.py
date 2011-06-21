@@ -62,8 +62,8 @@ def documentation(cls):
 
 class ExpanderBasic(object):
     """Expands basic variables."""
-    def __init__(self, view):
-        self.view = view
+    def __init__(self, cursor):
+        self.cursor = cursor
     
     @_("The current date in YYYY-MM-DD format.")
     def DATE(self):
@@ -79,15 +79,15 @@ class ExpanderBasic(object):
     
     @_("The URL of the current document.")
     def URL(self):
-        return self.view.document().url().toString()
+        return self.cursor.document().url().toString()
     
     @_("The full local filename of the current document.")
     def FILE_NAME(self):
-        return self.view.document().url().toLocalFile()
+        return self.cursor.document().url().toLocalFile()
     
     @_("The name of the current document.")
     def DOCUMENT_NAME(self):
-        return self.view.document().documentName()
+        return self.cursor.document().documentName()
 
 
 
