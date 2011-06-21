@@ -22,6 +22,10 @@ Expand variables like $DATE, $LILYPOND_VERSION etc. in snippets.
 """
 
 import __builtin__
+import time
+
+import info
+import lilypondinfo
 
 
 def _(docstring):
@@ -31,6 +35,9 @@ def _(docstring):
     The untranslated docstring will be added as __doc__ to the function.
     
     __builtin__._ is expected to be the translation function.
+    
+    We use the underscore as function name so xgettext picks up the strings
+    to be translated.
     
     """
     def deco(f):
@@ -58,30 +65,27 @@ class ExpanderBasic(object):
     def __init__(self, view):
         self.view = view
     
-    @ _("The current date in YYYY-MM-DD format.")
+    @_("The current date in YYYY-MM-DD format.")
     def DATE(self):
-        import time
         return time.strftime('%Y-%m-%d')
 
-    @ _("The version of the default LilyPond program.")
+    @_("The version of the default LilyPond program.")
     def LILYPOND_VERSION(self):
-        import lilypondinfo
         return lilypondinfo.preferred().versionString
 
-    @ _("The version of Frescobaldi.")
+    @_("The version of Frescobaldi.")
     def FRESCOBALDI_VERSION(self):
-        import info
         return info.version
     
-    @ _("The URL of the current document.")
+    @_("The URL of the current document.")
     def URL(self):
         return self.view.document().url().toString()
     
-    @ _("The full local filename of the current document.")
+    @_("The full local filename of the current document.")
     def FILE_NAME(self):
         return self.view.document().url().toLocalFile()
     
-    @ _("The name of the current document.")
+    @_("The name of the current document.")
     def DOCUMENT_NAME(self):
         return self.view.document().documentName()
 
