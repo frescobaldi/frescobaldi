@@ -82,3 +82,29 @@ def keepSelection(cursor, edit=None):
             edit.setTextCursor(cursor)
 
 
+def stripSelection(cursor):
+    """Adjusts the selection to not include whitespace on both ends."""
+    if not cursor.hasSelection():
+        return
+    text = cursor.selection().toPlainText()
+    if text.isspace():
+        return
+    start, end, pos = cursor.selectionStart(), cursor.selectionEnd(), cursor.position()
+    atStart = start == pos
+    
+    for c in text:
+        if c.isspace():
+            start += 1
+        else:
+            break
+    for c in text[::-1]:
+        if c.isspace():
+            end -= 1
+        else:
+            break
+    if atStart:
+        start, end = end, start
+    cursor.setPosition(start)
+    cursor.setPosition(end, QTextCursor.KeepAnchor)
+
+
