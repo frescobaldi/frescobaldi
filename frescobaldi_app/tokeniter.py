@@ -23,10 +23,9 @@ Iterate over tokens.
 
 from __future__ import unicode_literals
 
-import contextlib
-
 from PyQt4.QtGui import QTextCursor
 
+import cursortools
 import highlighter
 
 
@@ -79,26 +78,6 @@ def cursor(block, token, start=0, end=None):
     cursor.setPosition(block.position() + token.pos + start)
     cursor.setPosition(block.position() + token.pos + end, QTextCursor.KeepAnchor)
     return cursor
-
-
-def selectedBlocks(cursor):
-    """Yields the block(s) containing the cursor or selection."""
-    d = cursor.document()
-    block = d.findBlock(cursor.selectionStart())
-    end = d.findBlock(cursor.selectionEnd())
-    while True:
-        yield block
-        if block == end:
-            break
-        block = block.next()
-     
-
-def allBlocks(document):
-    """Yields all blocks of the document."""
-    block = document.firstBlock()
-    while block.isValid():
-        yield block
-        block = block.next()
 
 
 def selectedTokens(cursor, state=None):
@@ -154,41 +133,7 @@ def selectedTokens(cursor, state=None):
 
 def allTokens(document):
     """Yields all tokens of a document."""
-    return (token for block in allBlocks(document) for token in tokens(block))
-
-
-@contextlib.contextmanager
-def editBlock(cursor, joinPrevious = False):
-    """Returns a context manager to perform operations on cursor as a single undo-item."""
-    cursor.joinPreviousEditBlock() if joinPrevious else cursor.beginEditBlock()
-    try:
-        yield
-    finally:
-        cursor.endEditBlock()
-
-
-@contextlib.contextmanager
-def keepSelection(cursor, view=None):
-    """Performs operations inside the selection and restore the selection afterwards.
-    
-    If view is given, call setTextCursor(cursor) on the view afterwards.
-    
-    """
-    start, end, pos = cursor.selectionStart(), cursor.selectionEnd(), cursor.position()
-    cur2 = QTextCursor(cursor)
-    cur2.setPosition(end)
-    
-    try:
-        yield
-    finally:
-        if pos == start:
-            cursor.setPosition(cur2.position())
-            cursor.setPosition(start, QTextCursor.KeepAnchor)
-        else:
-            cursor.setPosition(start)
-            cursor.setPosition(cur2.position(), QTextCursor.KeepAnchor)
-        if view:
-            view.setTextCursor(cursor)
+    return (token for block in cursortools.allBlocks(document) for token in tokens(block))
 
 
 class TokenIterator(object):

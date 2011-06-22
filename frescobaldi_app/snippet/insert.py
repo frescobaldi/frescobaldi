@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 from PyQt4.QtCore import QSettings
 
-import tokeniter
+import cursortools
 
 from . import snippets
 from . import expand
@@ -37,7 +37,7 @@ def insert(name, view):
     
     cursor = view.textCursor()
     
-    with tokeniter.editBlock(cursor):
+    with cursortools.editBlock(cursor):
         if 'python' in variables:
             insert_python(text, cursor)
         else:

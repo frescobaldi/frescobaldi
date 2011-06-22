@@ -27,6 +27,7 @@ from PyQt4.QtGui import QTextCursor
 
 import ly.lex
 import ly.lex.scheme
+import cursortools
 import tokeniter
 import variables
 
@@ -186,7 +187,7 @@ def changeIndent(cursor, direction):
     # get some variables from the document
     indent_vars = indentVariables(cursor.document())
     
-    blocks = list(tokeniter.selectedBlocks(cursor))
+    blocks = list(cursortools.selectedBlocks(cursor))
     block = blocks[0]
     pos = cursor.selectionStart() - block.position()
     token = tokeniter.tokens(block)[0] if tokeniter.tokens(block) else None
@@ -209,9 +210,9 @@ def changeIndent(cursor, direction):
 def reIndent(cursor):
     """Re-indents the selected region or the whole document."""
     if cursor.hasSelection():
-        blocks = tokeniter.selectedBlocks(cursor)
+        blocks = cursortools.selectedBlocks(cursor)
     else:
-        blocks = tokeniter.allBlocks(cursor.document())
+        blocks = cursortools.allBlocks(cursor.document())
     with tokeniter.editBlock(cursor):
         for block in blocks:
             if tokeniter.state(block).mode() in ('lilypond', 'scheme'):

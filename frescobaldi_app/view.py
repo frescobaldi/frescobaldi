@@ -37,7 +37,7 @@ import app
 import metainfo
 import textformats
 import bookmarks
-import tokeniter
+import cursortools
 import variables
 
 
@@ -165,7 +165,7 @@ class View(QPlainTextEdit):
             import indent
             cursor = self.textCursor()
             if ev.text() == '\r' or (ev.text() in ('}', '#', '>') and indent.indentable(cursor)):
-                with tokeniter.editBlock(cursor, True):
+                with cursortools.editBlock(cursor, True):
                     indent.autoIndentBlock(cursor.block())
             
     def focusInEvent(self, ev):

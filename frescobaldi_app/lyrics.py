@@ -32,6 +32,7 @@ import ly.lex.lilypond
 import actioncollection
 import actioncollectionmanager
 import plugin
+import cursortools
 import tokeniter
 
 
@@ -101,8 +102,8 @@ class Lyrics(plugin.MainWindowPlugin):
             import hyphendialog
             h = hyphendialog.HyphenDialog(self.mainwindow()).hyphenator()
             if h:
-                with tokeniter.keepSelection(cursor, view):
-                    with tokeniter.editBlock(cursor):
+                with cursortools.keepSelection(cursor, view):
+                    with cursortools.editBlock(cursor):
                         for cur, word in found:
                             hyph_word = h.inserted(word, ' -- ')
                             if word != hyph_word:
@@ -114,7 +115,7 @@ class Lyrics(plugin.MainWindowPlugin):
         cursor = view.textCursor()
         text = cursor.selection().toPlainText()
         if ' --' in text:
-            with tokeniter.keepSelection(cursor, view):
+            with cursortools.keepSelection(cursor, view):
                 cursor.insertText(removehyphens(text))
             
     def copy_dehyphenated(self):
