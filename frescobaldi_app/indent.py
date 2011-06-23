@@ -201,7 +201,7 @@ def changeIndent(cursor, direction):
             if cmp(computed_indent, new_indent) == direction:
                 new_indent = computed_indent
         diff = new_indent - current_indent
-        with tokeniter.editBlock(cursor):
+        with cursortools.editBlock(cursor):
             for block in blocks:
                 setIndent(block, getIndent(block) + diff)
         return True
@@ -213,7 +213,7 @@ def reIndent(cursor):
         blocks = cursortools.selectedBlocks(cursor)
     else:
         blocks = cursortools.allBlocks(cursor.document())
-    with tokeniter.editBlock(cursor):
+    with cursortools.editBlock(cursor):
         for block in blocks:
             if tokeniter.state(block).mode() in ('lilypond', 'scheme'):
                 indent = computeIndent(block)

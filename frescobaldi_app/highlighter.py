@@ -253,18 +253,6 @@ def userData(block):
     return data
 
 
-def updateTokens(block, state=None):
-    """Force an update of the tokens in the given block.
-    
-    If state is not given, it is determined from the highlighter.
-    
-    """
-    if state is None:
-        state = highlighter(block.document()).state(block)
-    userData(block).tokens = tokens = tuple(state.tokens(block.text()))
-    return tokens
-
-
 def htmlCopy(document, data):
     """Returns a new QTextDocument with highlighting set as HTML textcharformats."""
     doc = QTextDocument()
