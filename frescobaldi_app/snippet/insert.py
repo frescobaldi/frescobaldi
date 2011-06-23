@@ -26,6 +26,8 @@ from __future__ import unicode_literals
 from PyQt4.QtCore import QSettings
 
 import cursortools
+import indent
+import tokeniter
 
 from . import snippets
 from . import expand
@@ -37,15 +39,35 @@ def insert(name, view):
     
     cursor = view.textCursor()
     
+    block = cursor.block()
     with cursortools.editBlock(cursor):
+        
+        # insert the snippet
         if 'python' in variables:
             insert_python(text, cursor)
         else:
             insert_snippet(text, cursor)
         
+        # QTextBlock the snippet ends
+        last = cursor.block()
+        
+        # re-indent if not explicitly suppressed by a 'no-indent' variable
+        if last != block and 'no-indent' not in variables:
+            tokeniter.update(block) # tokenize inserted lines
+            while True:
+                block = block.next()
+                if indent.setIndent(block, indent.computeIndent(block)):
+                    tokeniter.update(block)
+                if block == last:
+                    break
+
 
 def insert_snippet(text, cursor):
-    """Inserts a normal text snippet."""
+    """Inserts a normal text snippet.
+    
+    After the insert, the cursor points to the end of the inserted snippet.
+    
+    """
     exp_base = expand.ExpanderBasic(cursor)
     
     for text, key in snippets.expand(text):
@@ -68,6 +90,8 @@ def insert_python(text, cursor):
     
     - text: contains selection or '', set it to insert new text
 
+    After the insert, the cursor points to the end of the inserted snippet.
+    
     """
     code = compile(text, "<snippet>", "exec")
         
