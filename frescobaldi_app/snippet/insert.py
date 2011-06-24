@@ -24,6 +24,7 @@ Insert snippets into a Document.
 from __future__ import unicode_literals
 
 from PyQt4.QtCore import QSettings
+from PyQt4.QtGui import QTextCursor
 
 import cursortools
 import indent
@@ -39,7 +40,7 @@ def insert(name, view):
     
     cursor = view.textCursor()
     
-    block = cursor.block()
+    block = cursor.document().findBlock(cursor.selectionStart())
     with cursortools.editBlock(cursor):
         
         # insert the snippet
@@ -60,7 +61,7 @@ def insert(name, view):
                     tokeniter.update(block)
                 if block == last:
                     break
-
+    view.setTextCursor(cursor)
 
 def insert_snippet(text, cursor):
     """Inserts a normal text snippet.
@@ -70,17 +71,35 @@ def insert_snippet(text, cursor):
     """
     exp_base = expand.ExpanderBasic(cursor)
     
+    text1, text2 = [], []
+    t = text1
+    
     for text, key in snippets.expand(text):
         if text:
-            cursor.insertText(text)
+            t.append(text)
         if key == "$":
-            cursor.insertText(key)
+            t.append('$')
         elif key:
             # basic variables
             func = getattr(exp_base, key, None)
             if func:
-                cursor.insertText(func())
+                t.append(func())
                 continue
+            if key == 'SELECTION':
+                t = text2
+            elif key == 'SELECTION_WS':
+                cursortools.stripSelection(cursor)
+                space = '\n' if '\n' in cursor.selection().toPlainText() else ' '
+                t.append(space)
+                t = text2
+                t.append(space)
+    cur1 = QTextCursor(cursor)
+    cur1.setPosition(cursor.selectionStart())
+    cur2 = QTextCursor(cursor)
+    cur2.setPosition(cursor.selectionEnd())
+    cur1.insertText(''.join(text1))
+    cur2.insertText(''.join(text2))
+    cursor.setPosition(cur2.position())
 
 
 def insert_python(text, cursor):
