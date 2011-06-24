@@ -58,6 +58,7 @@ class SnippetTool(panels.Panel):
 
     def activate(self):
         super(SnippetTool, self).activate()
+        self.mainwindow().currentView().ensureCursorVisible()
         self.widget().searchEntry.setFocus()
         self.widget().searchEntry.selectAll()
 
@@ -89,14 +90,16 @@ class SnippetActions(actioncollection.ShortcutCollection):
         self.setDefaultShortcuts('ly_version', [QKeySequence('Ctrl+Shift+V')])
 
     def realAction(self, name):
-        from . import actions
-        return actions.action(name)
+        from . import actions, model
+        if name in model.model().names():
+            return actions.action(name)
     
     def triggerAction(self, name):
-        from . import insert
-        view = self.tool().mainwindow().currentView()
-        if view.hasFocus() or self.tool().widget().searchEntry.hasFocus():
-            insert.insert(name, view)
+        from . import insert, model
+        if name in model.model().names():
+            view = self.tool().mainwindow().currentView()
+            if view.hasFocus() or self.tool().widget().searchEntry.hasFocus():
+                insert.insert(name, view)
             
     def title(self):
         return _("Snippets")
