@@ -61,7 +61,8 @@ r"""-*- name: 1v;
 
 
 'times23': T(_("Tuplets"),
-r"""\times 2/3 { $IS }"""),
+r"""-*- menu: blocks;
+\times 2/3 { $IS }"""),
 
 
 'onceoverride': T(None,
@@ -96,6 +97,11 @@ r"""-*- name: tac;
 r"""-*- menu;
 \version "$LILYPOND_VERSION"
 """),
+
+
+'repeat': T(_("Repeat"),
+r"""-*- menu: blocks; name: rep;
+\repeat volta 2 {$SELECTION_WS}"""),
 
 
 }
