@@ -68,7 +68,7 @@ r"""-*- name: 1v;
 
 'times23': T(_("Tuplets"),
 r"""-*- menu: blocks;
-\times 2/3 { $IS }"""),
+\times 2/3 {$SELECTION_WS$C}"""),
 
 
 'onceoverride': T(None,
@@ -94,7 +94,7 @@ r"""-*- name: tac;
 \once \override Staff.TimeSignature #'stencil = #ly:text-interface::print
 \once \override Staff.TimeSignature #'text = \markup {
   \override #'(baseline-skip . 0.5)
-  \column { \number ${I:1} \tiny \note #"${I:2}" #-.6 }
+  \column { \number $A1$C \tiny \note #"2" #-.6 }
 }
 """),
 
