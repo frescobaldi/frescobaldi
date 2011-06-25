@@ -43,11 +43,11 @@ def insert(name, view):
     block = cursor.document().findBlock(cursor.selectionStart())
     with cursortools.editBlock(cursor):
         
-        # insert the snippet
+        # insert the snippet, might return a new cursor
         if 'python' in variables:
-            insert_python(text, cursor)
+            new = insert_python(text, cursor)
         else:
-            insert_snippet(text, cursor)
+            new = insert_snippet(text, cursor)
         
         # QTextBlock the snippet ends
         last = cursor.block()
@@ -61,7 +61,7 @@ def insert(name, view):
                     tokeniter.update(block)
                 if block == last:
                     break
-    view.setTextCursor(cursor)
+    view.setTextCursor(new or cursor)
 
 def insert_snippet(text, cursor):
     """Inserts a normal text snippet.
@@ -72,6 +72,8 @@ def insert_snippet(text, cursor):
     exp_base = expand.ExpanderBasic(cursor)
     
     text1, text2 = [], []
+    anchor, curpos = None, None
+    newcursor = None
     t = text1
     
     for text, key in snippets.expand(text):
@@ -93,13 +95,34 @@ def insert_snippet(text, cursor):
                 t.append(space)
                 t = text2
                 t.append(space)
+            elif key == 'A':
+                anchor = (sum(map(len, t)), t is text2)
+            elif key == 'C':
+                curpos = (sum(map(len, t)), t is text2)
+    start, end = cursor.selectionStart(), cursor.selectionEnd()
     cur1 = QTextCursor(cursor)
-    cur1.setPosition(cursor.selectionStart())
+    cur1.setPosition(start)
     cur2 = QTextCursor(cursor)
-    cur2.setPosition(cursor.selectionEnd())
-    cur1.insertText(''.join(text1))
-    cur2.insertText(''.join(text2))
+    cur2.setPosition(end)
+    
+    text1 = ''.join(text1)
+    text2 = ''.join(text2)
+    cur1.insertText(text1)
+    cur2.insertText(text2)
+    end += len(text1)
+    
+    if anchor or curpos:
+        newcursor = QTextCursor(cursor)
+        if anchor:
+            pos, after = anchor
+            pos += end if after else start
+            newcursor.setPosition(pos)
+        if curpos:
+            pos, after = curpos
+            pos += end if after else start
+            newcursor.setPosition(pos, QTextCursor.KeepAnchor if anchor else QTextCursor.MoveAnchor)
     cursor.setPosition(cur2.position())
+    return newcursor
 
 
 def insert_python(text, cursor):
