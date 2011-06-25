@@ -35,6 +35,12 @@ T = collections.namedtuple("Template", "title text")
 
 builtin_snippets = {
 
+'blankline': T(_("Blank Line"),
+r"""
+$C
+"""),
+
+
 'voice1': T(None,
 r"""-*- name: v1;
 \voiceOne"""),

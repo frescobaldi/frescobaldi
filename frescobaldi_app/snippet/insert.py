@@ -63,10 +63,14 @@ def insert(name, view):
                     break
     view.setTextCursor(new or cursor)
 
+
 def insert_snippet(text, cursor):
     """Inserts a normal text snippet.
     
     After the insert, the cursor points to the end of the inserted snippet.
+    
+    If this function returns a cursor it must be set as the cursor for the view
+    after the snippet has been inserted.
     
     """
     exp_base = expand.ExpanderBasic(cursor)
