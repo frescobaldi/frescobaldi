@@ -75,58 +75,61 @@ def insert_snippet(text, cursor):
     """
     exp_base = expand.ExpanderBasic(cursor)
     
-    text1, text2 = [], []
-    anchor, curpos = None, None
-    newcursor = None
-    t = text1
-    
+    ANCHOR, CURSOR, SELECTION, SELECTION_WS = 1, 2, 3, 4 # just some constants
+    evs = [] # make a list of events, either text or a constant
     for text, key in snippets.expand(text):
         if text:
-            t.append(text)
-        if key == "$":
-            t.append('$')
+            evs.append(text)
+        if key == '$':
+            evs.append('$')
         elif key:
             # basic variables
             func = getattr(exp_base, key, None)
             if func:
-                t.append(func())
-                continue
-            if key == 'SELECTION':
-                t = text2
+                evs.append(func())
+            elif key == 'SELECTION':
+                evs.append(SELECTION if cursor.hasSelection() else CURSOR)
             elif key == 'SELECTION_WS':
-                cursortools.stripSelection(cursor)
-                space = '\n' if '\n' in cursor.selection().toPlainText() else ' '
-                t.append(space)
-                t = text2
-                t.append(space)
-            elif key == 'A':
-                anchor = (sum(map(len, t)), t is text2)
+                evs.append(SELECTION_WS if cursor.hasSelection() else CURSOR)
             elif key == 'C':
-                curpos = (sum(map(len, t)), t is text2)
-    start, end = cursor.selectionStart(), cursor.selectionEnd()
-    cur1 = QTextCursor(cursor)
-    cur1.setPosition(start)
-    cur2 = QTextCursor(cursor)
-    cur2.setPosition(end)
-    
-    text1 = ''.join(text1)
-    text2 = ''.join(text2)
-    cur1.insertText(text1)
-    cur2.insertText(text2)
-    end += len(text1)
-    
-    if anchor or curpos:
-        newcursor = QTextCursor(cursor)
-        if anchor:
-            pos, after = anchor
-            pos += end if after else start
-            newcursor.setPosition(pos)
-        if curpos:
-            pos, after = curpos
-            pos += end if after else start
-            newcursor.setPosition(pos, QTextCursor.KeepAnchor if anchor else QTextCursor.MoveAnchor)
-    cursor.setPosition(cur2.position())
-    return newcursor
+                evs.append(CURSOR)
+            elif key == 'A':
+                evs.append(ANCHOR)
+    # do the padding if SELECTION_WS is used
+    try:
+        i = evs.index(SELECTION_WS)
+    except ValueError:
+        if SELECTION not in evs:
+            cursor.removeSelectedText()
+    else:
+        cursortools.stripSelection(cursor)
+        space = '\n' if '\n' in cursor.selection().toPlainText() else ' '
+        if i > 0:
+            evs[i-1] = evs[i-1].rstrip() + space
+        if i < len(evs) - 1:
+            evs[i+1] = space + evs[i+1].lstrip()
+    # now insert the text
+    ins = QTextCursor(cursor)
+    ins.setPosition(cursor.selectionStart())
+    a, c = -1, -1
+    for e in evs:
+        if e == ANCHOR:
+            a = ins.position()
+        elif e == CURSOR:
+            c = ins.position()
+        elif e in (SELECTION, SELECTION_WS):
+            ins.setPosition(cursor.selectionEnd())
+        else:
+            ins.insertText(e)
+    cursor.setPosition(ins.position())
+    # return a new cursor if requested
+    if (a, c) != (-1, -1):
+        new = QTextCursor(cursor)
+        if a != -1:
+            new.setPosition(a)
+        if c != -1:
+            new.setPosition(c, QTextCursor.KeepAnchor if a != -1 else QTextCursor.MoveAnchor)
+        return new
 
 
 def insert_python(text, cursor):

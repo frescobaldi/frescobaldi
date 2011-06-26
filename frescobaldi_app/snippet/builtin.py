@@ -68,7 +68,7 @@ r"""-*- name: 1v;
 
 'times23': T(_("Tuplets"),
 r"""-*- menu: blocks;
-\times 2/3 {$SELECTION_WS$C}"""),
+\times 2/3 { $SELECTION_WS }"""),
 
 
 'onceoverride': T(None,
@@ -107,7 +107,7 @@ r"""-*- menu;
 
 'repeat': T(_("Repeat"),
 r"""-*- menu: blocks; name: rep;
-\repeat volta 2 {$SELECTION_WS}"""),
+\repeat volta 2 { $SELECTION_WS }"""),
 
 
 }

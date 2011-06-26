@@ -235,13 +235,16 @@ def whatsThisText():
     text.extend("<dt><code>${0}</code></dt><dd>{1}</dd>".format(name, doc) for name, doc in
         expand.documentation(expand.ExpanderBasic))
     text.extend("<dt><code>${0}</code></dt><dd>{1}</dd>".format(name, doc) for name, doc in (
-        ('SELECTION', _("The selected text (if available).")),
+        ('SELECTION', _(
+            "The selected text if available. "
+            "If not, the text cursor is moved here.")),
         ('SELECTION_WS', _(
             "The selected text (if available) with starting and trialing "
             "whitespace removed and then padded with a newline on both ends "
             "if the remaining selected text contains newlines, else padded "
-            "with spaces.")),
-        ('C', _("Places the text cursor here after insert.")),
+            "with spaces. "
+            "If no text is selected, the cursor is moved here.")),
+        ('C', _("Moves the text cursor here after insert.")),
         ('A', _("Selects text from here to the position given using the <code>$C</code> variable")),
     ))
     text.append("</dl>")
