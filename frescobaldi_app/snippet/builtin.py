@@ -41,6 +41,16 @@ $C
 """),
 
 
+'quotes_s': T(_("Single Typographical Quotes"),
+"""-*- menu: quotes;
+\u2018$SELECTION\u2019"""),
+
+
+'quotes_d': T(_("Double Typographical Quotes"),
+"""-*- menu: quotes;
+\u201C$SELECTION\u201D"""),
+
+
 'voice1': T(None,
 r"""-*- name: v1;
 \voiceOne"""),
