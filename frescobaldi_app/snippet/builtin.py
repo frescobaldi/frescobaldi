@@ -120,5 +120,12 @@ r"""-*- menu: blocks; name: rep;
 \repeat volta 2 { $SELECTION_WS }"""),
 
 
+'relative': T(_("Relative Music"),
+r"""-*- name: rel;
+\relative c$C'$A {
+""" '  ' r"""  
+}"""),
+
+
 }
 
