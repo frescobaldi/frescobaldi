@@ -40,7 +40,7 @@ def insert(name, view):
     
     cursor = view.textCursor()
     
-    block = cursor.document().findBlock(cursor.selectionStart())
+    line = cursor.document().findBlock(cursor.selectionStart()).blockNumber()
     with cursortools.editBlock(cursor):
         
         # insert the snippet, might return a new cursor
@@ -49,7 +49,8 @@ def insert(name, view):
         else:
             new = insert_snippet(text, cursor)
         
-        # QTextBlock the snippet ends
+        # QTextBlocks the snippet starts and ends
+        block = cursor.document().findBlockByNumber(line)
         last = cursor.block()
         
         # re-indent if not explicitly suppressed by a 'no-indent' variable
@@ -75,7 +76,7 @@ def insert_snippet(text, cursor):
     """
     exp_base = expand.ExpanderBasic(cursor)
     
-    ANCHOR, CURSOR, SELECTION, SELECTION_WS = 1, 2, 3, 4 # just some constants
+    ANCHOR, CURSOR, SELECTION, SELECTION_WS = constants = 1, 2, 3, 4 # just some constants
     evs = [] # make a list of events, either text or a constant
     for text, key in snippets.expand(text):
         if text:
@@ -104,10 +105,15 @@ def insert_snippet(text, cursor):
     else:
         cursortools.stripSelection(cursor)
         space = '\n' if '\n' in cursor.selection().toPlainText() else ' '
-        if i > 0:
-            evs[i-1] = evs[i-1].rstrip() + space
-        if i < len(evs) - 1:
-            evs[i+1] = space + evs[i+1].lstrip()
+        # change whitespace in previous and next piece of text
+        for j in range(i-1, -i, -1):
+            if evs[j] not in constants:
+                evs[j] = evs[j].rstrip() + space
+                break
+        for j in range(i+1, len(evs)):
+            if evs[j] not in constants:
+                evs[j] = space + evs[j].lstrip()
+                break
     # now insert the text
     ins = QTextCursor(cursor)
     ins.setPosition(cursor.selectionStart())
