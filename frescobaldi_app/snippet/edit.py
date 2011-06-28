@@ -223,6 +223,7 @@ def whatsThisText():
     text.extend("<dt><code>{0}</code></dt><dd>{1}</dd>".format(name, desc) for name, desc in (
         ('menu', _("Place the snippet in the insert menu, grouped by the (optional) value.")),
         ('name', _("The mnemonic to type to select the snippet.")),
+        ('no-indent', _("Do not auto-indent the snippet after inserting.")),
     ))
     text.append("</dl>")
 
