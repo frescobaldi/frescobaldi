@@ -59,6 +59,7 @@ class Widget(QWidget):
         splitter.addWidget(self.textView)
         layout.addWidget(splitter)
         splitter.setSizes([200, 100])
+        splitter.setCollapsible(0, False)
         
         top.addWidget(self.searchEntry)
         top.addSpacing(10)
