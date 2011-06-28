@@ -45,7 +45,6 @@ class Widget(QWidget):
         
         self.searchEntry = SearchLineEdit()
         self.treeView = QTreeView()
-        self.infoLine = QLabel()
         self.textView = QTextBrowser()
         
         addButton = QToolButton(autoRaise=True)
@@ -53,11 +52,13 @@ class Widget(QWidget):
         removeButton = QToolButton(autoRaise=True)
         applyButton = QToolButton(autoRaise=True)
         
+        splitter = QSplitter(Qt.Vertical)
         top = QHBoxLayout()
         layout.addLayout(top)
-        layout.addWidget(self.treeView, 2)
-        layout.addWidget(self.infoLine)
-        layout.addWidget(self.textView, 1)
+        splitter.addWidget(self.treeView)
+        splitter.addWidget(self.textView)
+        layout.addWidget(splitter)
+        splitter.setSizes([200, 100])
         
         top.addWidget(self.searchEntry)
         top.addSpacing(10)
@@ -112,7 +113,6 @@ class Widget(QWidget):
         self.treeView.selectionModel().currentChanged.connect(self.updateText)
         self.treeView.model().dataChanged.connect(self.updateFilter)
         
-        self.setInfoText('')
         self.readSettings()
         app.settingsChanged.connect(self.readSettings)
         app.translateUI(self)
@@ -143,11 +143,6 @@ class Widget(QWidget):
     
     def sizeHint(self):
         return self.parent().mainwindow().size() / 4
-        
-    def setInfoText(self, text):
-        if text:
-            self.infoLine.setText(text)
-        self.infoLine.setVisible(bool(text))
         
     def readSettings(self):
         data = textformats.formatData('editor')
