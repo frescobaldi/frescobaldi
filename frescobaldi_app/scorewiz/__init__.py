@@ -21,3 +21,36 @@
 The Score Wizard.
 """
 
+from PyQt4.QtGui import QAction, QKeySequence
+
+import actioncollection
+import actioncollectionmanager
+import plugin
+
+
+class ScoreWizard(plugin.MainWindowPlugin):
+    def __init__(self, mainwindow):
+        self.actionCollection = ac = Actions()
+        actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
+        ac.scorewiz.triggered.connect(self.showDialog)
+        self._dlg = None
+    
+    def showDialog(self):
+        if self._dlg is None:
+            from . import dialog
+            self._dlg = dialog.ScoreWizardDialog(self.mainwindow())
+        self._dlg.show()
+
+
+
+
+
+class Actions(actioncollection.ActionCollection):
+    name = 'scorewiz'
+    def createActions(self, parent=None):
+        self.scorewiz = QAction(parent)
+        self.scorewiz.setShortcut(QKeySequence("Ctrl+Shift+N"))
+        
+    def translateUI(self):
+        self.scorewiz.setText(_("Setup New Score..."))
+        

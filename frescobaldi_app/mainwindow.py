@@ -52,6 +52,7 @@ import jobmanager
 import progress
 import engrave
 import snippet.menu
+import scorewiz
 
 
 class MainWindow(QMainWindow):
@@ -877,6 +878,8 @@ class MainWindow(QMainWindow):
         m.addAction(eg.engrave_abort)
         
         self.menu_tools = m = self.menuBar().addMenu('')
+        m.addAction(scorewiz.ScoreWizard.instance(self).actionCollection.scorewiz)
+        m.addSeparator()
         m.addAction(ac.tools_indent_auto)
         m.addAction(ac.tools_indent_indent)
         m.addSeparator()

@@ -40,12 +40,36 @@ class ScoreWizardDialog(QDialog):
         b.setStandardButtons(QDialogButtonBox.Ok|QDialogButtonBox.Cancel)
         b.accepted.connect(self.accept)
         b.rejected.connect(self.reject)
+        layout.addWidget(self.tabBar)
+        layout.addWidget(self.stack)
+        layout.addWidget(b)
+        
+        self.tabs = []
+        self.header = Header(self)
+        self.tabs.append(self.header)
+        self.parts = Parts(self)
+        self.tabs.append(self.parts)
+        self.settings = Settings(self)
+        self.tabs.append(self.settings)
+        self.preview = Preview(self)
+        self.tabs.append(self.preview)
+        
+        for t in self.tabs:
+            self.tabBar.addTab('')
+        self.tabBar.currentChanged.connect(self.slotCurrentChanged)
+        self.tabBar.setCurrentIndex(0)
         
         app.translateUI(self)
     
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Score Setup Wizard")))
-
+        for n, tab in enumerate(self.tabs):
+            self.tabBar.setTabText(n, tab.title())
+    
+    def slotCurrentChanged(self, i):
+        self.stack.setCurrentWidget(self.tabs[i].widget())
+        
+            
 
 class Tab(object):
     def __init__(self, dialog):
