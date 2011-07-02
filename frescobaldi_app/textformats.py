@@ -230,7 +230,11 @@ defaultStyles = (
 )
 
 
-def _defaultStyleDefaults():
+# decorator that executes the function and returns the result
+_result = lambda f: f()
+
+@_result
+def defaultStyleDefaults():
     keyword = QTextCharFormat()
     keyword.setFontWeight(QFont.Bold)
     
@@ -258,12 +262,10 @@ def _defaultStyleDefaults():
     error.setFontUnderline(True)
     
     return locals()
-    
-defaultStyleDefaults = _defaultStyleDefaults()
-del _defaultStyleDefaults
 
 
-def _allStyleDefaults():
+@_result
+def allStyleDefaults():
     lilypond = {}
     lilypond['markup'] = f = QTextCharFormat()
     f.setForeground(QColor(0, 128, 0))
@@ -286,10 +288,6 @@ def _allStyleDefaults():
     
     del f
     return locals()
-
-allStyleDefaults = _allStyleDefaults()
-del _allStyleDefaults
-
 
 
 allStyles = (
