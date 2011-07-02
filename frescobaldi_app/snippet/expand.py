@@ -60,8 +60,14 @@ def documentation(cls):
         yield name, cls.__dict__[name].doc()
 
 
-class ExpanderBasic(object):
-    """Expands basic variables."""
+ANCHOR, CURSOR, SELECTION, SELECTION_WS = constants = 1, 2, 3, 4 # just some constants
+
+class Expander(object):
+    """Expands variables.
+    
+    The methods return text or other events (currently simply integer constants).
+    
+    """
     def __init__(self, cursor):
         self.cursor = cursor
     
@@ -89,6 +95,24 @@ class ExpanderBasic(object):
     def DOCUMENT_NAME(self):
         return self.cursor.document().documentName()
 
-
+    @_("Moves the text cursor here after insert.")
+    def C(self):
+        return CURSOR
+        
+    @_("Selects text from here to the position given using the <code>$C</code> variable")
+    def A(self):
+        return ANCHOR
+    
+    @_("The selected text if available. If not, the text cursor is moved here.")
+    def SELECTION(self):
+        return SELECTION if self.cursor.hasSelection() else CURSOR
+    
+    @_("The selected text (if available) with starting and trialing "
+       "whitespace removed and then padded with a newline on both ends "
+       "if the remaining selected text contains newlines, else padded "
+       "with spaces. "
+       "If no text is selected, the cursor is moved here.")
+    def SELECTION_WS(self):
+        return SELECTION_WS if self.cursor.hasSelection() else CURSOR
 
 

@@ -74,9 +74,8 @@ def insert_snippet(text, cursor):
     after the snippet has been inserted.
     
     """
-    exp_base = expand.ExpanderBasic(cursor)
+    exp_base = expand.Expander(cursor)
     
-    ANCHOR, CURSOR, SELECTION, SELECTION_WS = constants = 1, 2, 3, 4 # just some constants
     evs = [] # make a list of events, either text or a constant
     for text, key in snippets.expand(text):
         if text:
@@ -88,19 +87,11 @@ def insert_snippet(text, cursor):
             func = getattr(exp_base, key, None)
             if func:
                 evs.append(func())
-            elif key == 'SELECTION':
-                evs.append(SELECTION if cursor.hasSelection() else CURSOR)
-            elif key == 'SELECTION_WS':
-                evs.append(SELECTION_WS if cursor.hasSelection() else CURSOR)
-            elif key == 'C':
-                evs.append(CURSOR)
-            elif key == 'A':
-                evs.append(ANCHOR)
     # do the padding if SELECTION_WS is used
     try:
-        i = evs.index(SELECTION_WS)
+        i = evs.index(expand.SELECTION_WS)
     except ValueError:
-        if SELECTION not in evs:
+        if expand.SELECTION not in evs:
             cursor.removeSelectedText()
     else:
         cursortools.stripSelection(cursor)
@@ -119,11 +110,11 @@ def insert_snippet(text, cursor):
     ins.setPosition(cursor.selectionStart())
     a, c = -1, -1
     for e in evs:
-        if e == ANCHOR:
+        if e == expand.ANCHOR:
             a = ins.position()
-        elif e == CURSOR:
+        elif e == expand.CURSOR:
             c = ins.position()
-        elif e in (SELECTION, SELECTION_WS):
+        elif e in (expand.SELECTION, expand.SELECTION_WS):
             ins.setPosition(cursor.selectionEnd())
         else:
             ins.insertText(e)
