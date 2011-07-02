@@ -519,7 +519,7 @@ class UserCommand(_token.Token):
     
     
 class SchemeStart(_token.Item):
-    rx = "#"
+    rx = "[#$]"
     def changeState(self, state):
         import scheme
         state.enter(scheme.SchemeParser, 1)
