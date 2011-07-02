@@ -90,9 +90,9 @@ def insert_snippet(text, cursor):
     # do the padding if SELECTION_WS is used
     try:
         i = evs.index(expand.SELECTION_WS)
+        selectionUsed = True
     except ValueError:
-        if expand.SELECTION not in evs:
-            cursor.removeSelectedText()
+        selectionUsed = expand.SELECTION in evs
     else:
         cursortools.stripSelection(cursor)
         space = '\n' if '\n' in cursor.selection().toPlainText() else ' '
@@ -107,7 +107,7 @@ def insert_snippet(text, cursor):
                 break
     # now insert the text
     ins = QTextCursor(cursor)
-    ins.setPosition(cursor.selectionStart())
+    selectionUsed and ins.setPosition(cursor.selectionStart())
     a, c = -1, -1
     for e in evs:
         if e == expand.ANCHOR:
