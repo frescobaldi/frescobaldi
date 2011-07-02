@@ -54,10 +54,10 @@ def documentation(cls):
     The tuples are sorted on function_name.
     
     """
-    for name in sorted(cls.__dict__):
+    for name, meth in sorted(cls.__dict__.items()):
         if name.startswith('_'):
             return
-        yield name, cls.__dict__[name].doc()
+        yield name, meth.doc()
 
 
 ANCHOR, CURSOR, SELECTION, SELECTION_WS = constants = 1, 2, 3, 4 # just some constants
