@@ -30,7 +30,6 @@ import textformats
 import completionmodel
 
 from . import __path__
-from . import completion
 
 
 class HeaderWidget(QWidget):
