@@ -71,7 +71,9 @@ class HeaderWidget(QWidget):
             grid.addWidget(e, row, 1)
             self.labels[name] = l
             self.edits[name] = e
-            e.setCompleter(QCompleter(completionmodel.model("scorewiz/completion/header/"+name), e))
+            c = QCompleter(completionmodel.model("scorewiz/completion/header/"+name), e)
+            c.setCaseSensitivity(Qt.CaseInsensitive)
+            e.setCompleter(c)
         
         dialog.accepted.connect(self.saveCompletions)
         app.settingsChanged.connect(self.readSettings)
