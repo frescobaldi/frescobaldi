@@ -92,7 +92,7 @@ class Tab(object):
 
 class Header(Tab):
     def title(self):
-        return _("Titles and Headers")
+        return _("&Titles and Headers")
 
     def createWidget(self, dialog):
         from . import header
@@ -101,16 +101,16 @@ class Header(Tab):
         
 class Parts(Tab):
     def title(self):
-        return _("Parts")
+        return _("&Parts")
 
     def createWidget(self, dialog):
-        from . import parts
-        return parts.PartsWidget(dialog)
+        from . import score
+        return score.PartsWidget(dialog)
 
 
 class Settings(Tab):
     def title(self):
-        return _("Score settings")
+        return _("&Score settings")
     
     def createWidget(self, dialog):
         from . import settings
@@ -119,7 +119,7 @@ class Settings(Tab):
 
 class Preview(Tab):
     def title(self):
-        return _("Preview")
+        return _("Pre&view")
     
     def createWidget(self, dialog):
         from . import preview

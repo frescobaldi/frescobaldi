@@ -45,7 +45,8 @@ class HeaderWidget(QWidget):
         t.setOpenExternalLinks(False)
         t.setSearchPaths(__path__)
         t.setTextInteractionFlags(Qt.LinksAccessibleByMouse)
-
+        t.setFocusPolicy(Qt.NoFocus)
+        
         # ensure that the full HTML example page is displayed
         t.setContentsMargins(2, 2, 2, 2)
         t.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
@@ -89,8 +90,10 @@ class HeaderWidget(QWidget):
                     for name, desc in headers())))
         for name, desc in headers():
             self.labels[name].setText(desc + ":")
-        # add accelerators to names
-        util.addAccelerators([self.labels[name] for name, desc in headers()])
+        # add accelerators to names, avoiding the tab names
+        used = filter(None, (util.getAccelerator(tab.title())
+                             for tab in self.parent().tabs))
+        util.addAccelerators([self.labels[name] for name, desc in headers()], used)
 
     def saveCompletions(self):
         for edit in self.edits.values():

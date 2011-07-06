@@ -79,18 +79,21 @@ def deleteLater(*qobjs):
             obj.deleteLater()
 
 
-def addAccelerators(actions):
+def addAccelerators(actions, used=[]):
     """Adds accelerators to the list of actions.
     
     Actions that have accelerators are skipped, the accelerators that they use
     are not used. This can be used for e.g. menus that are created on the fly.
     
+    used is a sequence of already used accelerators (in lower case).
+    
     """
-    todo, used = [], []
+    todo = []
+    used = list(used)
     for a in actions:
         if a.text():
-            m = re.search(r'&(\w)', a.text())
-            used.append(m.group(1).lower()) if m else todo.append(a)
+            accel = getAccelerator(a.text())
+            used.append(accel) if accel else todo.append(a)
     for a in todo:
         text = a.text()
         for m in itertools.chain(re.finditer(r'\b\w', text),
@@ -99,6 +102,17 @@ def addAccelerators(actions):
                 used.append(m.group().lower())
                 a.setText(text[:m.start()] + '&' + text[m.start():])
                 break
+
+
+def getAccelerator(text):
+    """Returns the accelerator (in lower case) contained in the text, if any.
+    
+    An accelerator is a character preceded by an ampersand &.
+    
+    """
+    m = re.search(r'(?<!&)&(\w)', text)
+    if m:
+        return m.group(1).lower()
 
 
 def addcolor(color, r, g, b):
