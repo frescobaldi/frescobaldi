@@ -25,9 +25,12 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import util
 import textformats
+import completionmodel
 
 from . import __path__
+from . import completion
 
 
 class HeaderWidget(QWidget):
@@ -69,8 +72,9 @@ class HeaderWidget(QWidget):
             grid.addWidget(e, row, 1)
             self.labels[name] = l
             self.edits[name] = e
-            e.setObjectName(name)
-            
+            e.setCompleter(QCompleter(completionmodel.model("scorewiz/completion/header/"+name), e))
+        
+        dialog.accepted.connect(self.saveCompletions)
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
         app.translateUI(self)
@@ -84,7 +88,13 @@ class HeaderWidget(QWidget):
                     for name, desc in headers())))
         for name, desc in headers():
             self.labels[name].setText(desc + ":")
+        # add accelerators to names
+        util.addAccelerators([self.labels[name] for name, desc in headers()])
 
+    def saveCompletions(self):
+        for edit in self.edits.values():
+            edit.completer().model().addString(edit.text().strip())
+            
     def readSettings(self):
         p = self.htmlView.palette()
         p.setColor(QPalette.Base, textformats.formatData('editor').baseColors['paper'])
