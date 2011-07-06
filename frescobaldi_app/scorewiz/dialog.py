@@ -56,8 +56,9 @@ class ScoreWizardDialog(QDialog):
         
         for t in self.tabs:
             self.tabBar.addTab('')
-        self.tabBar.currentChanged.connect(self.slotCurrentChanged)
         self.tabBar.setCurrentIndex(0)
+        self.stack.setCurrentWidget(self.tabs[0].widget())
+        self.tabBar.currentChanged.connect(self.slotCurrentChanged)
         
         app.translateUI(self)
     
