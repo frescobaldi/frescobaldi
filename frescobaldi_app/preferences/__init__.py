@@ -30,6 +30,7 @@ from PyQt4.QtGui import (
     QListWidgetItem, QStackedWidget, QVBoxLayout, QWidget)
 
 import app
+import util
 import icons
 import widgets
 
@@ -87,11 +88,10 @@ class PreferencesDialog(QDialog):
             self.pagelist.addItem(item())
         self.pagelist.currentItemChanged.connect(self.slotCurrentItemChanged)
         
-        # read our size and selected page
-        self.resize(QSettings().value("prefsize", QSize(500, 300)))
-        self.pagelist.setCurrentRow(_prefsindex)
-        
         app.translateUI(self, 100)
+        # read our size and selected page
+        util.saveDialogSize(self, "preferences/dialog/size", QSize(500, 300))
+        self.pagelist.setCurrentRow(_prefsindex)
         
     def translateUI(self):
         self.pagelist.setFixedWidth(self.pagelist.sizeHintForColumn(0) + 12)
@@ -103,7 +103,6 @@ class PreferencesDialog(QDialog):
         # save our size and selected page
         global _prefsindex
         _prefsindex = self.pagelist.currentRow()
-        QSettings().setValue("prefsize", self.size())
         super(PreferencesDialog, self).done(result)
         
     def loadSettings(self):
