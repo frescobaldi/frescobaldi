@@ -19,6 +19,7 @@ package_data = {
         'tango/*.svg', 'tango/*x*/*.png',
         ],
     'frescobaldi_app.po': ['*.mo'],
+    'frescobaldi_app.scorewiz': ['*.png'],
     'frescobaldi_app.symbols': ['*.svg'],
 }
 
