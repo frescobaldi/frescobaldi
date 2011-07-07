@@ -34,47 +34,56 @@ class ScoreWizardDialog(QDialog):
         layout = QVBoxLayout()
         self.setLayout(layout)
         
-        self.tabBar = QTabBar()
-        self.stack = QStackedWidget()
+        self.tabs = QTabWidget()
         b = QDialogButtonBox()
         b.setStandardButtons(QDialogButtonBox.Ok|QDialogButtonBox.Cancel)
         b.accepted.connect(self.accept)
         b.rejected.connect(self.reject)
-        layout.addWidget(self.tabBar)
-        layout.addWidget(self.stack)
+        layout.addWidget(self.tabs)
         layout.addWidget(b)
         
-        self.tabs = []
         self.header = Header(self)
-        self.tabs.append(self.header)
+        self.tabs.addTab(self.header, '')
         self.parts = Parts(self)
-        self.tabs.append(self.parts)
+        self.tabs.addTab(self.parts, '')
         self.settings = Settings(self)
-        self.tabs.append(self.settings)
+        self.tabs.addTab(self.settings, '')
         self.preview = Preview(self)
-        self.tabs.append(self.preview)
+        self.tabs.addTab(self.preview, '')
         
-        for t in self.tabs:
-            self.tabBar.addTab('')
-        self.tabBar.setCurrentIndex(0)
-        self.stack.setCurrentWidget(self.tabs[0].widget())
-        self.tabBar.currentChanged.connect(self.slotCurrentChanged)
-        
+        self.tabs.setCurrentIndex(0)
+        self.tabs.widget(0).widget() # activate it
+        self.tabs.currentChanged.connect(self.slotCurrentChanged)
+        self.finished.connect(self.saveDialogSize)
+        self.loadDialogSize()
         app.translateUI(self)
+    
+    def loadDialogSize(self):
+        self.resize(QSettings().value("scorewiz/dialog/size", QSize()))
+    
+    def saveDialogSize(self):
+        QSettings().setValue("scorewiz/dialog/size", self.size())
     
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Score Setup Wizard")))
-        for n, tab in enumerate(self.tabs):
-            self.tabBar.setTabText(n, tab.title())
+        for i in range(self.tabs.count()):
+            self.tabs.setTabText(i, self.tabs.widget(i).title())
     
     def slotCurrentChanged(self, i):
-        self.stack.setCurrentWidget(self.tabs[i].widget())
+        """Lazy-loads the tab's page if shown for the first time."""
+        self.tabs.widget(i).widget()
         
             
 
-class Tab(object):
+class Page(QWidget):
+    """A Page in the tab widget.
+    
+    Basically this is just a QWidget that loads the desired page
+    as soon as the widget() is called for the first time.
+    
+    """
     def __init__(self, dialog):
-        self._dialog = dialog
+        super(Page, self).__init__(dialog)
         self._widget = None
         
     def title(self):
@@ -82,47 +91,50 @@ class Tab(object):
 
     def widget(self):
         if self._widget is None:
-            self._widget = self.createWidget(self._dialog)
-            self._dialog.stack.addWidget(self._widget)
+            layout = QVBoxLayout()
+            layout.setContentsMargins(0, 0, 0, 0)
+            self.setLayout(layout)
+            w = self._widget = self.createWidget(self)
+            layout.addWidget(w)
         return self._widget
 
-    def createWidget(self, dialog):
+    def createWidget(self, parent):
         """Should return the widget for this tab."""
         
 
-class Header(Tab):
+class Header(Page):
     def title(self):
         return _("&Titles and Headers")
 
-    def createWidget(self, dialog):
+    def createWidget(self, parent):
         from . import header
-        return header.HeaderWidget(dialog)
+        return header.HeaderWidget(parent)
 
         
-class Parts(Tab):
+class Parts(Page):
     def title(self):
         return _("&Parts")
 
-    def createWidget(self, dialog):
+    def createWidget(self, parent):
         from . import score
-        return score.PartsWidget(dialog)
+        return score.PartsWidget(parent)
 
 
-class Settings(Tab):
+class Settings(Page):
     def title(self):
         return _("&Score settings")
     
-    def createWidget(self, dialog):
+    def createWidget(self, parent):
         from . import settings
-        return settings.SettingsWidget(dialog)
+        return settings.SettingsWidget(parent)
 
 
-class Preview(Tab):
+class Preview(Page):
     def title(self):
         return _("Pre&view")
     
-    def createWidget(self, dialog):
+    def createWidget(self, parent):
         from . import preview
-        return preview.PreviewWidget(dialog)
+        return preview.PreviewWidget(parent)
 
 

@@ -33,8 +33,8 @@ from . import __path__
 
 
 class HeaderWidget(QWidget):
-    def __init__(self, dialog):
-        super(HeaderWidget, self).__init__(dialog)
+    def __init__(self, parent):
+        super(HeaderWidget, self).__init__(parent)
         
         layout = QHBoxLayout()
         self.setLayout(layout)
@@ -76,7 +76,7 @@ class HeaderWidget(QWidget):
             c.setCaseSensitivity(Qt.CaseInsensitive)
             e.setCompleter(c)
         
-        dialog.accepted.connect(self.saveCompletions)
+        self.window().accepted.connect(self.saveCompletions)
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
         app.translateUI(self)
@@ -91,8 +91,9 @@ class HeaderWidget(QWidget):
         for name, desc in headers():
             self.labels[name].setText(desc + ":")
         # add accelerators to names, avoiding the tab names
-        used = filter(None, (util.getAccelerator(tab.title())
-                             for tab in self.parent().tabs))
+        tabwidget = self.window().tabs
+        used = filter(None, (util.getAccelerator(tabwidget.widget(i).title())
+                             for i in range(tabwidget.count())))
         util.addAccelerators([self.labels[name] for name, desc in headers()], used)
 
     def saveCompletions(self):
