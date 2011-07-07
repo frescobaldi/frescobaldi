@@ -25,6 +25,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import util
 
 
 class ScoreWizardDialog(QDialog):
@@ -54,15 +55,8 @@ class ScoreWizardDialog(QDialog):
         self.tabs.setCurrentIndex(0)
         self.tabs.widget(0).widget() # activate it
         self.tabs.currentChanged.connect(self.slotCurrentChanged)
-        self.finished.connect(self.saveDialogSize)
-        self.loadDialogSize()
+        util.saveDialogSize(self, "scorewiz/dialog/size")
         app.translateUI(self)
-    
-    def loadDialogSize(self):
-        self.resize(QSettings().value("scorewiz/dialog/size", QSize()))
-    
-    def saveDialogSize(self):
-        QSettings().setValue("scorewiz/dialog/size", self.size())
     
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Score Setup Wizard")))

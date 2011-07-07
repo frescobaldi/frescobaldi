@@ -32,6 +32,7 @@ from PyQt4.QtCore import QSettings, Qt
 from PyQt4.QtGui import QDialog, QDialogButtonBox, QLabel, QListWidget, QVBoxLayout
 
 import app
+import util
 import language_names
 import widgets
 import hyphdicts
@@ -105,6 +106,7 @@ class HyphenDialog(QDialog):
         
         self.load()
         app.translateUI(self)
+        util.saveDialogSize(self, "hyphenation/dialog/size")
         
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Hyphenate Lyrics Text")))

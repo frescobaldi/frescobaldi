@@ -31,6 +31,7 @@ from PyQt4.QtGui import *
 
 import actioncollectionmanager
 import app
+import util
 import icons
 import textformats
 import widgets
@@ -100,9 +101,9 @@ class Edit(QDialog):
         
         app.translateUI(self)
         
-        self.restoreSize()
         self.readSettings()
         app.settingsChanged.connect(self.readSettings)
+        util.saveDialogSize(self, "snippettool/editor/size", QSize(400, 300))
         self.show()
         
     def translateUI(self):
@@ -133,14 +134,7 @@ class Edit(QDialog):
             self.saveSnippet()
         super(Edit, self).done(result)
         self.deleteLater()
-        self.storeSize()
 
-    def storeSize(self):
-        QSettings().setValue("snippettool/editor/size", self.size())
-        
-    def restoreSize(self):
-        self.resize(QSettings().value("snippettool/editor/size", QSize(400, 300)))
-    
     def readSettings(self):
         data = textformats.formatData('editor')
         self.text.setFont(data.font)
