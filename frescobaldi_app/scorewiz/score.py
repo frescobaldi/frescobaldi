@@ -26,6 +26,7 @@ from PyQt4.QtGui import *
 
 import app
 import icons
+import widgets.treewidget
 
 from . import parts
 import parts._base
@@ -36,14 +37,16 @@ class ScorePartsWidget(QSplitter):
         super(ScorePartsWidget, self).__init__(parent)
         
         self.typesLabel = QLabel()
-        self.typesView = QTreeView(selectionMode=QTreeView.ExtendedSelection,
-                                   selectionBehavior=QTreeView.SelectRows,
-                                   headerHidden=True)
+        self.typesView = QTreeView(
+            selectionMode=QTreeView.ExtendedSelection,
+            selectionBehavior=QTreeView.SelectRows,
+            headerHidden=True)
         self.scoreLabel = QLabel()
-        self.scoreView = ScoreView(selectionMode=QTreeView.ExtendedSelection,
-                                   selectionBehavior=QTreeView.SelectRows,
-                                   headerHidden=True,
-                                   dragDropMode=QTreeView.InternalMove)
+        self.scoreView = widgets.treewidget.TreeWidget(
+            selectionMode=QTreeView.ExtendedSelection,
+            selectionBehavior=QTreeView.SelectRows,
+            headerHidden=True,
+            dragDropMode=QTreeView.InternalMove)
         self.addButton = QPushButton(icon = icons.get("list-add"))
         self.removeButton = QPushButton(icon = icons.get("list-remove"))
         self.upButton = QToolButton(icon = icons.get("go-up"))
@@ -119,76 +122,10 @@ class ScorePartsWidget(QSplitter):
     
     def slotRemoveButtonClicked(self):
         self.scoreView.removeSelectedItems()
-        
+       
 
 
-class ScoreView(QTreeWidget):
-    """A QTreeWidget with some item-manipulation methods.
-    
-    We use a widget instead of a view with a standard model because
-    this lets us really have control over the items. With a standard
-    model, items are recreated e.g. when dragging and this looses the
-    python subclassed instances with their own paramaters.
-    
-    Calls the cleanup() method on QTreeWidgetItem as they are removed.
-    
-    """
-    def __init__(self, parent=None, **kws):
-        super(ScoreView, self).__init__(parent, **kws)
-    
-    def removeSelectedItems(self, item=None):
-        """Removes all selected items from the specified item or the root item."""
-        if item is None:
-            item = self.invisibleRootItem()
-        remove = []
-        for i in range(item.childCount()):
-            child = item.child(i)
-            if child.isSelected():
-                remove.append(child)
-            else:
-                self.removeSelectedItems(child)
-        for i in remove:
-            item.removeChild(i)
-            i.cleanup()
-    
-    def findSelectedItem(self, item=None):
-        """Returns an item that has selected children, if any exists.
-        
-        The item closest to the specified item or the root item that
-        has selected children, is returned.
-        
-        """
-        if item is None:
-            item = self.invisibleRootItem()
-        for i in range(item.childCount()):
-            if item.child(i).isSelected():
-                return item
-        for i in range(item.childCount()):
-            child = item.child(i)
-            r = self.findSelectedItem(child)
-            if r:
-                return r
-    
-    def moveSelectedChildrenUp(self):
-        item = self.findSelectedItem()
-        if item:
-            for row in range(1, item.childCount()):
-                if item.child(row).isSelected():
-                    i = item.takeChild(row)
-                    item.insertChild(row - 1, i)
-                    i.setSelected(True)
-
-    def moveSelectedChildrenDown(self):
-        item = self.findSelectedItem()
-        if item:
-            for row in range(item.childCount() - 2, -1, -1):
-                if item.child(row).isSelected():
-                    i = item.takeChild(row)
-                    item.insertChild(row + 1, i)
-                    i.setSelected(True)
-
-
-class PartItem(QTreeWidgetItem):
+class PartItem(widgets.treewidget.TreeWidgetItem):
     def __init__(self, tree, part, box):
         super(PartItem, self).__init__(tree)
         self.part = part()
@@ -216,4 +153,3 @@ class PartItem(QTreeWidgetItem):
         self.box.deleteLater()
 
 
-        
