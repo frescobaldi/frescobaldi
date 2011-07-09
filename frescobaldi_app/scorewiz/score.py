@@ -40,7 +40,10 @@ class ScorePartsWidget(QSplitter):
                                    selectionBehavior=QTreeView.SelectRows,
                                    headerHidden=True)
         self.scoreLabel = QLabel()
-        self.scoreView = ScoreView()
+        self.scoreView = ScoreView(selectionMode=QTreeView.ExtendedSelection,
+                                   selectionBehavior=QTreeView.SelectRows,
+                                   headerHidden=True,
+                                   dragDropMode=QTreeView.InternalMove)
         self.addButton = QPushButton(icon = icons.get("list-add"))
         self.removeButton = QPushButton(icon = icons.get("list-remove"))
         self.upButton = QToolButton()
@@ -120,12 +123,18 @@ class ScorePartsWidget(QSplitter):
 
 
 class ScoreView(QTreeWidget):
-    def __init__(self, parent=None):
-        super(ScoreView, self).__init__(parent,
-            selectionMode=QTreeView.ExtendedSelection,
-            selectionBehavior=QTreeView.SelectRows,
-            headerHidden=True,
-            dragDropMode=QTreeView.InternalMove)
+    """A QTreeWidget with some item-manipulation methods.
+    
+    We use a widget instead of a view with a standard model because
+    this lets us really have control over the items. With a standard
+    model, items are recreated e.g. when dragging and this looses the
+    python subclassed instances with their own paramaters.
+    
+    Calls the cleanup() method on QTreeWidgetItem as they are removed.
+    
+    """
+    def __init__(self, parent=None, **kws):
+        super(ScoreView, self).__init__(parent, **kws)
     
     def removeSelectedItems(self, item=None):
         """Removes all selected items from the specified item or the root item."""
@@ -139,8 +148,8 @@ class ScoreView(QTreeWidget):
             else:
                 self.removeSelectedItems(child)
         for i in remove:
-            i.box.deleteLater()
             item.removeChild(i)
+            i.cleanup()
     
     def findSelectedItem(self, item=None):
         """Returns an item that has selected children, if any exists.
@@ -179,7 +188,6 @@ class ScoreView(QTreeWidget):
                     i.setSelected(True)
 
 
-    
 class PartItem(QTreeWidgetItem):
     def __init__(self, tree, part, box):
         super(PartItem, self).__init__(tree)
@@ -203,4 +211,9 @@ class PartItem(QTreeWidgetItem):
         self.setText(0, self.part.title())
         self.box.setTitle(self.part.title())
         self.part.translateWidgets()
+        
+    def cleanup(self):
+        self.box.deleteLater()
+
+
         
