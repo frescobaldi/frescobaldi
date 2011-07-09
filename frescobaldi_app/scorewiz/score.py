@@ -46,8 +46,8 @@ class ScorePartsWidget(QSplitter):
                                    dragDropMode=QTreeView.InternalMove)
         self.addButton = QPushButton(icon = icons.get("list-add"))
         self.removeButton = QPushButton(icon = icons.get("list-remove"))
-        self.upButton = QToolButton()
-        self.downButton = QToolButton()
+        self.upButton = QToolButton(icon = icons.get("go-up"))
+        self.downButton = QToolButton(icon = icons.get("go-down"))
         self.partSettings = QStackedWidget()
         
         w = QWidget()
