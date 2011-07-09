@@ -111,7 +111,7 @@ class Parts(Page):
 
     def createWidget(self, parent):
         from . import score
-        return score.PartsWidget(parent)
+        return score.ScorePartsWidget(parent)
 
 
 class Settings(Page):
