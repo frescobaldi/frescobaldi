@@ -42,7 +42,9 @@ def category():
 
 class StringPart(_base.Part):
     """Base class for string part types."""
-    pass
+    midiInstrument = ''
+    clef = None
+    octave = 1
 
 
 class Violin(StringPart):

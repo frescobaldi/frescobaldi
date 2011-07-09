@@ -24,6 +24,8 @@ Base types for parts.
 import __builtin__
 import collections
 
+from PyQt4.QtGui import QLabel
+
 import icons
 
 
@@ -55,4 +57,16 @@ class Part(object):
         
         """
 
+    def createWidgets(self, layout):
+        """Should create widgets to adjust settings."""
+        self.noSettingsLabel = QLabel()
+        layout.addWidget(self.noSettingsLabel)
+        
+    def translateWidgets(self):
+        """Should set the text in the widgets when the language changes."""
+        self.noSettingsLabel.setText('({0})'.format(_("No settings available.")))
+
+
+class Container(Part):
+    """Base class for "part" types that can contain others."""
 
