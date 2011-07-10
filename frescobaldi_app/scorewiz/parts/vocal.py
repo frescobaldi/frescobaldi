@@ -164,80 +164,88 @@ class Choir(VocalPart):
     def title(_=__builtin__._):
         return _("Choir")
 
-    #def widgets(self, layout):
-        #l = QLabel('<p>{0} <i>({1})</i></p>'.format(
-            #i18n("Please select the voices for the choir. "
-            #"Use the letters S, A, T, or B. A hyphen denotes a new staff."),
-            #i18n("Hint: For a double choir you can use two choir parts.")))
-        #l.setWordWrap(True)
-        #layout.addWidget(l)
-        #h = KHBox()
-        #layout.addWidget(h)
-        #l = QLabel(i18n("Voicing:"), h)
-        #self.voicing = QComboBox(h)
-        #l.setBuddy(self.voicing)
-        #self.voicing.setEditable(True)
-        #self.voicing.setCompleter(None)
-        #self.voicing.setValidator(QRegExpValidator(
-            #QRegExp("[SATB]+(-[SATB]+)*", Qt.CaseInsensitive), self.voicing))
-        #self.voicing.addItems((
-            #'SA-TB', 'S-A-T-B',
-            #'SA', 'S-A', 'SS-A', 'S-S-A',
-            #'TB', 'T-B', 'TT-B', 'T-T-B',
-            #'SS-A-T-B', 'S-A-TT-B', 'SS-A-TT-B',
-            #'S-S-A-T-T-B', 'S-S-A-A-T-T-B-B',
-            #))
-        #self.stanzaWidget(layout)
-        #h = KHBox()
-        #layout.addWidget(h)
-        #l = QLabel(i18n("Lyrics:"), h)
-        #self.lyrics = QComboBox(h)
-        #l.setBuddy(self.lyrics)
-        #for index, (text, tooltip) in enumerate((
-         #(i18n("All voices same lyrics"),
-          #i18n("A set of the same lyrics is placed between all staves.")),
-         #(i18n("Every voice same lyrics"),
-          #i18n("Every voice gets its own lyrics, using the same text as the"
-               #" other voices.")),
-         #(i18n("Every voice different lyrics"),
-          #i18n("Every voice gets a different set of lyrics.")),
-         #(i18n("Distribute stanzas"),
-          #i18n("One set of stanzas is distributed across the staves.")))):
-            #self.lyrics.addItem(text)
-            #self.lyrics.setItemData(index, tooltip, Qt.ToolTipRole)
-        #self.lyrics.setCurrentIndex(0)
-        #self.ambitusWidget(layout)
-        #self.pianoReduction = QCheckBox(i18n("Piano reduction"))
-        #self.pianoReduction.setToolTip(i18n(
-            #"Adds an automatically generated piano reduction."))
-        #layout.addWidget(self.pianoReduction)
-        #self.rehearsalMidi = QCheckBox(i18n("Rehearsal MIDI files"))
-        #self.rehearsalMidi.setToolTip(i18n(
-            #"Creates a rehearsal MIDI file for every voice, "
-            #"even if no MIDI output is generated for the main score."))
-        #layout.addWidget(self.rehearsalMidi)
+    def createWidgets(self, layout):
+        self.label = QLabel(wordWrap=True)
+        self.voicingLabel = QLabel()
+        self.voicing = QComboBox(editable=True)
+        self.voicingLabel.setBuddy(self.voicing)
+        self.voicing.setCompleter(None)
+        self.voicing.setValidator(QRegExpValidator(
+            QRegExp("[SATB]+(-[SATB]+)*", Qt.CaseInsensitive), self.voicing))
+        self.voicing.addItems((
+            'SA-TB', 'S-A-T-B',
+            'SA', 'S-A', 'SS-A', 'S-S-A',
+            'TB', 'T-B', 'TT-B', 'T-T-B',
+            'SS-A-T-B', 'S-A-TT-B', 'SS-A-TT-B',
+            'S-S-A-T-T-B', 'S-S-A-A-T-T-B-B',
+            ))
+        self.lyricsLabel = QLabel()
+        self.lyrics = QComboBox()
+        self.lyricsLabel.setBuddy(self.lyrics)
+        self.lyrics.setModel(LyricsModel(self.lyrics))
+        self.lyrics.setCurrentIndex(0)
+        self.pianoReduction = QCheckBox()
+        self.rehearsalMidi = QCheckBox()
+        
+        layout.addWidget(self.label)
+        box = QHBoxLayout()
+        layout.addLayout(box)
+        box.addWidget(self.voicingLabel)
+        box.addWidget(self.voicing)
+        self.createStanzaWidget(layout)
+        box = QHBoxLayout()
+        layout.addLayout(box)
+        box.addWidget(self.lyricsLabel)
+        box.addWidget(self.lyrics)
+        self.createAmbitusWidget(layout)
+        layout.addWidget(self.pianoReduction)
+        layout.addWidget(self.rehearsalMidi)
+    
+    def translateWidgets(self):
+        self.translateStanzaWidget()
+        self.translateAmbitusWidget()
+        self.lyrics.update()
+        self.label.setText('<p>{0} <i>({1})</i></p>'.format(
+            _("Please select the voices for the choir. "
+              "Use the letters S, A, T, or B. A hyphen denotes a new staff."),
+            _("Hint: For a double choir you can use two choir parts.")))
+        self.voicingLabel.setText(_("Voicing:"))
+        self.lyricsLabel.setText(_("Lyrics:"))
+        self.pianoReduction.setText(_("Piano reduction"))
+        self.pianoReduction.setToolTip(_(
+            "Adds an automatically generated piano reduction."))
+        self.rehearsalMidi.setText(_("Rehearsal MIDI files"))
+        self.rehearsalMidi.setToolTip(_(
+            "Creates a rehearsal MIDI file for every voice, "
+            "even if no MIDI output is generated for the main score."))
 
-    #identifiers = {
-        #'S': 'soprano',
-        #'A': 'alto',
-        #'T': 'tenor',
-        #'B': 'bass',
-    #}
-    
-    #octaves = {
-        #'S': SopranoVoice.octave,
-        #'A': AltoVoice.octave,
-        #'T': TenorVoice.octave,
-        #'B': BassVoice.octave,
-    #}
-    
-    #instrumentNames = {
-        #'S': SopranoVoice.instrumentNames,
-        #'A': AltoVoice.instrumentNames,
-        #'T': TenorVoice.instrumentNames,
-        #'B': BassVoice.instrumentNames,
-    #}
+
+
+class LyricsModel(QAbstractListModel):
+    _data = (
+    (lambda: _("All voices same lyrics"),
+        lambda: _("A set of the same lyrics is placed between all staves.")),
+    (lambda: _("Every voice same lyrics"),
+        lambda: _("Every voice gets its own lyrics, using the same text as the"
+                  " other voices.")),
+    (lambda: _("Every voice different lyrics"),
+        lambda: _("Every voice gets a different set of lyrics.")),
+    (lambda: _("Distribute stanzas"),
+        lambda: _("One set of stanzas is distributed across the staves.")),
+    )
             
+    def rowCount(self, parent):
+        return len(self._data)
+        
+    def data(self, index, role):
+        if role == Qt.DisplayRole:
+            return self._data[index.row()][0]()
+        elif role == Qt.ToolTipRole:
+            return self._data[index.row()][1]()
+
+
+
+
 
 register(
     lambda: _("Vocal"),
