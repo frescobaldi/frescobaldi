@@ -41,7 +41,7 @@ class KeyboardPart(_base.Part):
         self.lowerVoicesLabel.setBuddy(self.lowerVoices)
         
         layout.addWidget(self.label)
-        grid = QGridLayout(horizontalSpacing=2, verticalSpacing=0)
+        grid = QGridLayout()
         grid.addWidget(self.upperVoicesLabel, 0, 0)
         grid.addWidget(self.upperVoices, 0, 1)
         grid.addWidget(self.lowerVoicesLabel, 1, 0)

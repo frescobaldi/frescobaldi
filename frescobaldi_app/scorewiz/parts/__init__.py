@@ -46,8 +46,12 @@ def register(title, items, icon=None):
 # Every module will call the register() function to register its part types.
 from . import (
     strings,
+    plucked_strings,
+    woodwind,
+    brass,
     vocal,
     keyboard,
+    percussion,
 )
 
 
