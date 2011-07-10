@@ -24,20 +24,7 @@ String part types.
 import __builtin__
 
 from . import _base
-
-
-def category():
-    return _base.Category(
-        title = lambda: _("Strings"),
-        items = [
-            Violin,
-            Viola,
-            Cello,
-            Contrabass,
-            BassoContinuo,
-        ])
-
-
+from . import register
 
 
 class StringPart(_base.Part):
@@ -110,4 +97,17 @@ class BassoContinuo(Cello):
     def short(_=__builtin__._):
         return _("abbreviation for Basso Continuo", "B.c.")
     
+
+register(
+    lambda: _("Strings"),
+    [
+        Violin,
+        Viola,
+        Cello,
+        Contrabass,
+        BassoContinuo,
+    ])
+
+
+
 

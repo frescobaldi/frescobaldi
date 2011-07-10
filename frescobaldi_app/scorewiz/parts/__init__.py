@@ -26,16 +26,31 @@ import collections
 from PyQt4.QtCore import QAbstractItemModel, QModelIndex, Qt
 from PyQt4.QtGui import QApplication
 
+import icons
 
-# instrument / part type categories. Import here ...
-from . import strings
+from . import _base
+
+# categories is a global list holding Category instances.
+# Each Category describes a related group of part types with a title
+# (callable because translation is dynamic), a list of classes and
+# an icon (defaulting to a 'folder-open' QIcon).
+categories = []
+
+def register(title, items, icon=None):
+    """Register a category."""
+    categories.append(_base.Category(title, items, icon or icons.get("folder-open")))
 
 
-# ... and add the categories here to the global list.
-categories = [
-    strings.category(),
-    
-]
+
+# Import here the instrument / part type modules.
+# Every module will call the register() function to register its part types.
+from . import (
+    strings,
+    vocal,
+    keyboard,
+)
+
+
 
 
 def model():

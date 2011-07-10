@@ -133,6 +133,7 @@ class PartItem(widgets.treewidget.TreeWidgetItem):
         layout = QVBoxLayout()
         box.setLayout(layout)
         self.part.createWidgets(layout)
+        layout.addStretch(1)
         app.translateUI(self)
         
         flags = (

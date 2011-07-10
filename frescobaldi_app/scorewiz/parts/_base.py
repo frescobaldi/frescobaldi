@@ -24,18 +24,11 @@ Base types for parts.
 import __builtin__
 import collections
 
-from PyQt4.QtGui import QLabel
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 
-import icons
 
-
-# A Category is simply a named tuple with default values.
-# The title is callable because the program supports dynamic language change.
-Category = collections.namedtuple("Category", "title items icon")(
-    title = lambda: '',
-    items = [],
-    icon = icons.get("folder-open")
-)._replace
+Category = collections.namedtuple("Category", "title items icon")
 
 
 
@@ -69,4 +62,46 @@ class Part(object):
 
 class Container(Part):
     """Base class for "part" types that can contain others."""
+
+
+
+# Mixin-base classes with basic behaviour
+class ChordNames(object):
+    def createWidgets(self, layout):
+        self.chordStyleLabel = QLabel()
+        self.chordStyle = QComboBox()
+        self.chordStyleLabel.setBuddy(self.chordStyle)
+        self.chordStyle.setModel(ChordNamesModel(self.chordStyle))
+        self.guitarFrets = QCheckBox()
+        
+        box = QHBoxLayout()
+        box.addWidget(self.chordStyleLabel)
+        box.addWidget(self.chordStyle)
+        layout.addLayout(box)
+        layout.addWidget(self.guitarFrets)
+        
+    def translateWidgets(self):
+        self.chordStyleLabel.setText(_("Chord style:"))
+        self.guitarFrets.setText(_("Guitar fret diagrams"))
+        self.guitarFrets.setToolTip(_(
+            "Show predefined guitar fret diagrams below the chord names "
+            "(LilyPond 2.12 and above)."))
+        self.chordStyle.update()
+
+
+class ChordNamesModel(QAbstractListModel):
+    _data = (
+        lambda: _("Default"),
+        lambda: _("German"),
+        lambda: _("Semi-German"),
+        lambda: _("Italian"),
+        lambda: _("French"),
+    )
+    
+    def rowCount(self, parent):
+        return len(self._data)
+        
+    def data(self, index, role):
+        if role == Qt.DisplayRole:
+            return self._data[index.row()]()
 
