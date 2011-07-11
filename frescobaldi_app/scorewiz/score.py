@@ -141,7 +141,7 @@ class PartItem(widgets.treewidget.TreeWidgetItem):
             Qt.ItemIsDragEnabled |
             Qt.ItemIsEnabled
         )
-        if isinstance(part, parts._base.Container):
+        if issubclass(part, parts._base.Container):
             flags |= Qt.ItemIsDropEnabled
         self.setFlags(flags)
         

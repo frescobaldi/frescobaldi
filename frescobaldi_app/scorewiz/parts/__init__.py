@@ -52,6 +52,8 @@ from . import (
     vocal,
     keyboard,
     percussion,
+    special,
+    containers,
 )
 
 
