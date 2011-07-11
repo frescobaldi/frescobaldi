@@ -36,10 +36,31 @@ class StaffGroup(_base.Container):
         return _("Staff Group")
 
 
+class Score(_base.Container):
+    @staticmethod
+    def title(_=__builtin__._):
+        return _("Score")
+
+
+class BookPart(_base.Container):
+    @staticmethod
+    def title(_=__builtin__._):
+        return _("Book Part")
+
+
+class Book(_base.Container):
+    @staticmethod
+    def title(_=__builtin__._):
+        return _("Book")
+
+
 
 
 register(
     lambda: _("Containers"),
     [
         StaffGroup,
+        Score,
+        BookPart,
+        Book,
     ])
