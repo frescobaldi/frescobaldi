@@ -107,14 +107,20 @@ class ScorePartsWidget(QSplitter):
 
     def addParts(self, indexes):
         """Adds the parts for the given indexes."""
+        # add to current if that is a container type
+        parent = self.scoreView.currentItem()
+        if not parent or parent.flags() & Qt.ItemIsDropEnabled == 0:
+            parent = self.scoreView.invisibleRootItem()
+        else:
+            parent.setExpanded(True)
         for index in indexes:
             category = index.internalPointer()
             if category:
                 part = category.items[index.row()]
                 box = QGroupBox(self.partSettings)
                 self.partSettings.addWidget(box)
-                item = PartItem(self.scoreView, part, box)
-                self.scoreView.addTopLevelItem(item)
+                item = PartItem(parent, part, box)
+                parent.addChild(item)
     
     def slotCurrentItemChanged(self, item):
         if isinstance(item, PartItem):
