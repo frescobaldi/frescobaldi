@@ -23,19 +23,152 @@ Percussion part types.
 
 import __builtin__
 
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
+
 from . import _base
 from . import register
 
 
 
+class PitchedPercussionPart(_base.Part):
+    """Base class for pitched percussion types."""
+    
+    
+class Timpani(PitchedPercussionPart):
+    @staticmethod
+    def title(_=__builtin__._):
+        return _("Timpani")
+    
+    @staticmethod
+    def short(_=__builtin__._):
+        return _("abbreviation for Timpani", "Tmp.")
+        
+    midiInstrument = 'timpani'
+    clef = 'bass'
+    octave = -1
+
+
+class Xylophone(PitchedPercussionPart):
+    @staticmethod
+    def title(_=__builtin__._):
+        return _("Xylophone")
+    
+    @staticmethod
+    def short(_=__builtin__._):
+        return _("abbreviation for Xylophone", "Xyl.")
+        
+    midiInstrument = 'xylophone'
+
+
+class Marimba(PitchedPercussionPart):
+    @staticmethod
+    def title(_=__builtin__._):
+        return _("Marimba")
+    
+    @staticmethod
+    def short(_=__builtin__._):
+        return _("abbreviation for Marimba", "Mar.")
+    
+    midiInstrument = 'marimba'
+
+
+class Vibraphone(PitchedPercussionPart):
+    @staticmethod
+    def title(_=__builtin__._):
+        return _("Vibraphone")
+    
+    @staticmethod
+    def short(_=__builtin__._):
+        return _("abbreviation for Vibraphone", "Vib.")
+        
+    midiInstrument = 'vibraphone'
+
+
+class TubularBells(PitchedPercussionPart):
+    @staticmethod
+    def title(_=__builtin__._):
+        return _("Tubular bells")
+    
+    @staticmethod
+    def short(_=__builtin__._):
+        return _("abbreviation for Tubular bells", "Tub.")
+        
+    midiInstrument = 'tubular bells'
+
+
+class Glockenspiel(PitchedPercussionPart):
+    @staticmethod
+    def title(_=__builtin__._):
+        return _("Glockenspiel")
+    
+    @staticmethod
+    def short(_=__builtin__._):
+        return _("abbreviation for Glockenspiel", "Gls.")
+        
+    midiInstrument = 'glockenspiel'
+
+
+class Drums(_base.Part):
+    @staticmethod
+    def title(_=__builtin__._):
+        return _("Drums")
+    
+    @staticmethod
+    def short(_=__builtin__._):
+        return _("abbreviation for Drums", "Dr.")
+        
+    def createWidgets(self, layout):
+        self.voicesLabel = QLabel()
+        self.voices = QSpinBox(minimum=1, maximum=4, value=1)
+        self.drumStyleLabel = QLabel()
+        self.drumStyle = QComboBox()
+        self.drumStyle.setModel(DrumStyleModel(self.drumStyle))
+        self.drumStems = QCheckBox()
+        
+        box = QHBoxLayout()
+        box.addWidget(self.voicesLabel)
+        box.addWidget(self.voices)
+        layout.addLayout(box)
+        box = QHBoxLayout()
+        box.addWidget(self.drumStyleLabel)
+        box.addWidget(self.drumStyle)
+        layout.addLayout(box)
+        layout.addWidget(self.drumStems)
+        
+    def translateWidgets(self):
+        self.voicesLabel.setText(_("Voices:"))
+        self.drumStyleLabel.setText(_("Style:"))
+        self.drumStems.setText(_("Remove stems"))
+        self.drumStems.setToolTip(_("Remove the stems from the drum notes."))
+        self.drumStyle.update()
+
+
+class DrumStyleModel(QAbstractListModel):
+    _data = (
+        lambda: _("Drums (5 lines, default)"),
+        lambda: _("Timbales-style (2 lines)"),
+        lambda: _("Congas-style (2 lines)"),
+        lambda: _("Bongos-style (2 lines)"),
+        lambda: _("Percussion-style (1 line)"),
+    )
+    
+    def rowCount(self, parent):
+        return len(self._data)
+        
+    def data(self, index, role):
+        if role == Qt.DisplayRole:
+            return self._data[index.row()]()
+
+
 register(
     lambda: _("Percussion"),
     [
-        #Timpani,
-        #Xylophone,
-        #Marimba,
-        #Vibraphone,
-        #TubularBells,
-        #Glockenspiel,
-        #Drums,
+        Timpani,
+        Xylophone,
+        Marimba,
+        Vibraphone,
+        TubularBells,
+        Glockenspiel,
+        Drums,
     ])
