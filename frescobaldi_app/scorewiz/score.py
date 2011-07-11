@@ -109,7 +109,7 @@ class ScorePartsWidget(QSplitter):
         """Adds the parts for the given indexes."""
         # add to current if that is a container type
         parent = self.scoreView.currentItem()
-        if not parent or parent.flags() & Qt.ItemIsDropEnabled == 0:
+        if not parent or not parent.flags() & Qt.ItemIsDropEnabled:
             parent = self.scoreView.invisibleRootItem()
         else:
             parent.setExpanded(True)
