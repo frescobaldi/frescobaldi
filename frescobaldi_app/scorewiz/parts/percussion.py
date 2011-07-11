@@ -141,6 +141,45 @@ class Glockenspiel(PitchedPercussionPart):
     midiInstrument = 'glockenspiel'
 
 
+class Carillon(PitchedPercussionPart):
+    @staticmethod
+    def title(_=__builtin__._):
+        return _("Carillon")
+    
+    @staticmethod
+    def short(_=__builtin__._):
+        return _("abbreviation for Carillon", "Car.")
+    
+    midiInstrument = 'tubular bells' # anyone knows better?
+    
+    def createWidgets(self, layout):
+        self.label = QLabel(wordWrap=True)
+        self.upperVoicesLabel = QLabel()
+        self.lowerVoicesLabel = QLabel()
+        self.upperVoices = QSpinBox(minimum=1, maximum=4, value=1)
+        self.lowerVoices = QSpinBox(minimum=1, maximum=4, value=1)
+        
+        self.upperVoicesLabel.setBuddy(self.upperVoices)
+        self.lowerVoicesLabel.setBuddy(self.lowerVoices)
+        
+        layout.addWidget(self.label)
+        grid = QGridLayout()
+        grid.addWidget(self.upperVoicesLabel, 0, 0)
+        grid.addWidget(self.upperVoices, 0, 1)
+        grid.addWidget(self.lowerVoicesLabel, 1, 0)
+        grid.addWidget(self.lowerVoices, 1, 1)
+        layout.addLayout(grid)
+    
+    def translateWidgets(self):
+        self.label.setText('{0} <i>({1})</i>'.format(
+            _("Adjust how many separate voices you want on each staff."),
+            _("This is primarily useful when you write polyphonic music "
+              "like a fuge.")))
+        self.upperVoicesLabel.setText(_("Manual staff:"))
+        self.lowerVoicesLabel.setText(_("Pedal staff:"))
+
+
+
 class Drums(_base.Part):
     @staticmethod
     def title(_=__builtin__._):
@@ -202,5 +241,6 @@ register(
         Vibraphone,
         TubularBells,
         Glockenspiel,
+        Carillon,
         Drums,
     ])
