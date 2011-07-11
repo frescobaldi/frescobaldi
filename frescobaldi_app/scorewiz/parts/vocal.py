@@ -23,8 +23,10 @@ Vocal part types.
 
 import __builtin__
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QAbstractListModel, QRegExp, Qt
+from PyQt4.QtGui import (
+    QCheckBox, QComboBox, QGroupBox, QHBoxLayout, QLabel, QRegExpValidator,
+    QSpinBox, QVBoxLayout)
 
 from . import _base
 from . import register

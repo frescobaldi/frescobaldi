@@ -23,8 +23,8 @@ Percussion part types.
 
 import __builtin__
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QAbstractListModel, Qt
+from PyQt4.QtGui import QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLabel, QSpinBox
 
 from . import _base
 from . import register
@@ -72,8 +72,36 @@ class Marimba(PitchedPercussionPart):
     
     midiInstrument = 'marimba'
 
+    def createWidgets(self, layout):
+        self.label = QLabel(wordWrap=True)
+        self.upperVoicesLabel = QLabel()
+        self.lowerVoicesLabel = QLabel()
+        self.upperVoices = QSpinBox(minimum=1, maximum=4, value=1)
+        self.lowerVoices = QSpinBox(minimum=0, maximum=4, value=1)
+        
+        self.upperVoicesLabel.setBuddy(self.upperVoices)
+        self.lowerVoicesLabel.setBuddy(self.lowerVoices)
+        
+        layout.addWidget(self.label)
+        grid = QGridLayout()
+        grid.addWidget(self.upperVoicesLabel, 0, 0)
+        grid.addWidget(self.upperVoices, 0, 1)
+        grid.addWidget(self.lowerVoicesLabel, 1, 0)
+        grid.addWidget(self.lowerVoices, 1, 1)
+        layout.addLayout(grid)
+    
+    def translateWidgets(self):
+        self.label.setText('{0} <i>({1})</i>'.format(
+            _("Adjust how many separate voices you want on each staff."),
+            _("This is primarily useful when you write polyphonic music "
+              "like a fuge.")))
+        self.upperVoicesLabel.setText(_("Upper staff:"))
+        self.lowerVoicesLabel.setText(_("Lower staff:"))
+        self.lowerVoices.setToolTip(_(
+            "Set the number of voices to 0 to disable the second staff."))
 
-class Vibraphone(PitchedPercussionPart):
+
+class Vibraphone(Marimba):
     @staticmethod
     def title(_=__builtin__._):
         return _("Vibraphone")
@@ -83,6 +111,10 @@ class Vibraphone(PitchedPercussionPart):
         return _("abbreviation for Vibraphone", "Vib.")
         
     midiInstrument = 'vibraphone'
+
+    def createWidgets(self, layout):
+        super(Vibraphone, self).createWidgets(layout)
+        self.lowerVoices.setValue(0)
 
 
 class TubularBells(PitchedPercussionPart):
