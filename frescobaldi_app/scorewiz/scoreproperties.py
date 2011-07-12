@@ -29,6 +29,8 @@ Properties of a score:
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+import symbols
+
 
 class ScoreProperties(object):
     """This is only the base class, it should be mixed in with a widget or a different way."""
@@ -60,8 +62,9 @@ class ScoreProperties(object):
     # Time signature
     def createTimeSignatureWidget(self):
         self.timeSignatureLabel = QLabel()
-        self.timeSignature = QComboBox()
+        self.timeSignature = QComboBox(editable=True)
         self.timeSignature.setModel(TimeSignatureModel(self.timeSignature))
+        self.timeSignature.setCompleter(None)
     
     def translateTimeSignatureWidget(self):
         self.timeSignatureLabel.setText(_("Time signature:"))
@@ -72,7 +75,6 @@ class ScoreProperties(object):
         box.addWidget(self.timeSignatureLabel)
         box.addWidget(self.timeSignature)
         layout.addLayout(box)
-
 
     # Pickup bar
     def createPickupWidget(self):
@@ -97,7 +99,7 @@ class ScoreProperties(object):
 class KeyNoteModel(QAbstractListModel):
     language = 'nederlands'
     def rowCount(self, parent):
-        return 17
+        return len(keyNames[self.language])
         
     def data(self, index, role):
         if role == Qt.DisplayRole:
