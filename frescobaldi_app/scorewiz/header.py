@@ -112,9 +112,22 @@ class HeaderWidget(QWidget):
             return
         e.setFocus()
 
+    def clear(self):
+        """Empties all text entries."""
+        for edit in self.edits.values():
+            edit.clear()
+    
+    def headers(self):
+        """Yields two-tuples (headername, entered text) for the headers that are non-empty."""
+        for name, desc in headers():
+            text = self.edits[name].text().strip()
+            if text:
+                yield name, text
+            
 
 
 def headers():
+    """Yields two-tuples (headername, translated name) in a sensible order."""
     yield 'dedication',  _("Dedication")
     yield 'title',       _("Title")
     yield 'subtitle',    _("Subtitle")

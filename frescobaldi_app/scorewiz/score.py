@@ -129,6 +129,9 @@ class ScorePartsWidget(QSplitter):
     def slotRemoveButtonClicked(self):
         self.scoreView.removeSelectedItems()
        
+    def clear(self):
+        """Called when the user clicks the clear button on this page."""
+        self.scoreView.clear()
 
 
 class PartItem(widgets.treewidget.TreeWidgetItem):

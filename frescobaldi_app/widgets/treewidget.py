@@ -41,6 +41,23 @@ class TreeWidget(QTreeWidget):
     def __init__(self, parent=None, **kws):
         super(TreeWidget, self).__init__(parent, **kws)
     
+    def items(self, parent=None):
+        """Yields all items from parent or the invisibleRootItem."""
+        if parent is None:
+            parent = self.invisibleRootItem()
+        for i in range(parent.childCount()):
+            c = parent.child(i)
+            for i in self.items(c):
+                yield i
+            yield c
+        
+    def clear(self):
+        """Removes all items, calling their cleanup() method (if available) first."""
+        for item in self.items():
+            self._cleanup(item)
+        while self.topLevelItemCount() > 0:
+            self.takeTopLevelItem(0)
+    
     def removeSelectedItems(self, item=None):
         """Removes all selected items from the specified item or the root item."""
         if item is None:
@@ -54,12 +71,7 @@ class TreeWidget(QTreeWidget):
                 self.removeSelectedItems(child)
         for i in remove:
             item.removeChild(i)
-            try:
-                i.cleanup
-            except AttributeError:
-                pass
-            else:
-                i.cleanup()
+            self._cleanup(i)
     
     def findSelectedItem(self, item=None):
         """Returns an item that has selected children, if any exists.
@@ -96,6 +108,12 @@ class TreeWidget(QTreeWidget):
                     i = item.takeChild(row)
                     item.insertChild(row + 1, i)
                     i.setSelected(True)
+
+    @staticmethod
+    def _cleanup(item):
+        """Calls item.cleanup() if the QTreeWidgetItem has that method."""
+        if hasattr(item, 'cleanup'):
+            item.cleanup()
 
 
 class TreeWidgetItem(QTreeWidgetItem):

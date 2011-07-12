@@ -36,10 +36,11 @@ class ScoreWizardDialog(QDialog):
         self.setLayout(layout)
         
         self.tabs = QTabWidget()
-        b = QDialogButtonBox()
-        b.setStandardButtons(QDialogButtonBox.Ok|QDialogButtonBox.Cancel)
+        b = self.dialogButtons = QDialogButtonBox()
+        b.setStandardButtons(QDialogButtonBox.Reset|QDialogButtonBox.Ok|QDialogButtonBox.Cancel)
         b.accepted.connect(self.accept)
         b.rejected.connect(self.reject)
+        b.button(QDialogButtonBox.Reset).clicked.connect(self.reset)
         layout.addWidget(self.tabs)
         layout.addWidget(b)
         
@@ -62,12 +63,17 @@ class ScoreWizardDialog(QDialog):
         self.setWindowTitle(app.caption(_("Score Setup Wizard")))
         for i in range(self.tabs.count()):
             self.tabs.setTabText(i, self.tabs.widget(i).title())
+        self.dialogButtons.button(QDialogButtonBox.Reset).setText(_("Clear"))
+        self.dialogButtons.button(QDialogButtonBox.Reset).setToolTip(_(
+            "Clears the current page of the Score Wizard."))
     
     def slotCurrentChanged(self, i):
         """Lazy-loads the tab's page if shown for the first time."""
         self.tabs.widget(i).widget()
         
-            
+    def reset(self):
+        self.tabs.currentWidget().widget().clear()
+
 
 class Page(QWidget):
     """A Page in the tab widget.
