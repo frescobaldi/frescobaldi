@@ -98,7 +98,9 @@ class HeaderWidget(QWidget):
 
     def saveCompletions(self):
         for edit in self.edits.values():
-            edit.completer().model().addString(edit.text().strip())
+            text = edit.text().strip()
+            if text:
+                edit.completer().model().addString(text)
             
     def readSettings(self):
         p = self.htmlView.palette()
