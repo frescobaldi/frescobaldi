@@ -23,10 +23,12 @@ Vocal part types.
 
 import __builtin__
 
-from PyQt4.QtCore import QAbstractListModel, QRegExp, Qt
+from PyQt4.QtCore import QRegExp, Qt
 from PyQt4.QtGui import (
     QCheckBox, QComboBox, QGroupBox, QHBoxLayout, QLabel, QRegExpValidator,
     QSpinBox, QVBoxLayout)
+
+import listmodel
 
 from . import _base
 from . import register
@@ -184,7 +186,9 @@ class Choir(VocalPart):
         self.lyricsLabel = QLabel()
         self.lyrics = QComboBox()
         self.lyricsLabel.setBuddy(self.lyrics)
-        self.lyrics.setModel(LyricsModel(self.lyrics))
+        self.lyrics.setModel(listmodel.ListModel(lyricStyles, self.lyrics,
+            display=listmodel.translate_index(0),
+            tooltip=listmodel.translate_index(1)))
         self.lyrics.setCurrentIndex(0)
         self.pianoReduction = QCheckBox()
         self.rehearsalMidi = QCheckBox()
@@ -223,8 +227,7 @@ class Choir(VocalPart):
 
 
 
-class LyricsModel(QAbstractListModel):
-    _data = (
+lyricStyles = (
     (lambda: _("All voices same lyrics"),
         lambda: _("A set of the same lyrics is placed between all staves.")),
     (lambda: _("Every voice same lyrics"),
@@ -234,18 +237,7 @@ class LyricsModel(QAbstractListModel):
         lambda: _("Every voice gets a different set of lyrics.")),
     (lambda: _("Distribute stanzas"),
         lambda: _("One set of stanzas is distributed across the staves.")),
-    )
-            
-    def rowCount(self, parent):
-        return len(self._data)
-        
-    def data(self, index, role):
-        if role == Qt.DisplayRole:
-            return self._data[index.row()][0]()
-        elif role == Qt.ToolTipRole:
-            return self._data[index.row()][1]()
-
-
+)
 
 
 

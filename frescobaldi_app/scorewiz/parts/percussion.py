@@ -23,8 +23,9 @@ Percussion part types.
 
 import __builtin__
 
-from PyQt4.QtCore import QAbstractListModel, Qt
 from PyQt4.QtGui import QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLabel, QSpinBox
+
+import listmodel
 
 from . import _base
 from . import register
@@ -194,7 +195,7 @@ class Drums(_base.Part):
         self.voices = QSpinBox(minimum=1, maximum=4, value=1)
         self.drumStyleLabel = QLabel()
         self.drumStyle = QComboBox()
-        self.drumStyle.setModel(DrumStyleModel(self.drumStyle))
+        self.drumStyle.setModel(listmodel.ListModel(drumStyles, self.drumStyle, display=listmodel.translate))
         self.drumStems = QCheckBox()
         
         box = QHBoxLayout()
@@ -215,21 +216,14 @@ class Drums(_base.Part):
         self.drumStyle.update()
 
 
-class DrumStyleModel(QAbstractListModel):
-    _data = (
-        lambda: _("Drums (5 lines, default)"),
-        lambda: _("Timbales-style (2 lines)"),
-        lambda: _("Congas-style (2 lines)"),
-        lambda: _("Bongos-style (2 lines)"),
-        lambda: _("Percussion-style (1 line)"),
-    )
+drumStyles = (
+    lambda: _("Drums (5 lines, default)"),
+    lambda: _("Timbales-style (2 lines)"),
+    lambda: _("Congas-style (2 lines)"),
+    lambda: _("Bongos-style (2 lines)"),
+    lambda: _("Percussion-style (1 line)"),
+)
     
-    def rowCount(self, parent):
-        return len(self._data)
-        
-    def data(self, index, role):
-        if role == Qt.DisplayRole:
-            return self._data[index.row()]()
 
 
 register(
