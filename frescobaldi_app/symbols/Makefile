@@ -26,5 +26,6 @@ bar_defaults.ily: icon_defaults.ily
 clef_defaults.ily: icon_defaults.ily
 breathe_defaults.ily: icon_defaults.ily
 time_defaults.ily: icon_defaults.ily
+note_defaults.ily: icon_defaults.ily
 
 .PHONY: all
