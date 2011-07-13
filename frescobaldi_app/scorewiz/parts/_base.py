@@ -27,6 +27,7 @@ import collections
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+import listmodel
 
 Category = collections.namedtuple("Category", "title items icon")
 
@@ -71,7 +72,8 @@ class ChordNames(object):
         self.chordStyleLabel = QLabel()
         self.chordStyle = QComboBox()
         self.chordStyleLabel.setBuddy(self.chordStyle)
-        self.chordStyle.setModel(ChordNamesModel(self.chordStyle))
+        self.chordStyle.setModel(listmodel.ListModel(chordNameStyles, self.chordStyle,
+            display=listmodel.translate))
         self.guitarFrets = QCheckBox()
         
         box = QHBoxLayout()
@@ -89,19 +91,11 @@ class ChordNames(object):
         self.chordStyle.update()
 
 
-class ChordNamesModel(QAbstractListModel):
-    _data = (
-        lambda: _("Default"),
-        lambda: _("German"),
-        lambda: _("Semi-German"),
-        lambda: _("Italian"),
-        lambda: _("French"),
-    )
-    
-    def rowCount(self, parent):
-        return len(self._data)
-        
-    def data(self, index, role):
-        if role == Qt.DisplayRole:
-            return self._data[index.row()]()
+chordNameStyles = (
+    lambda: _("Default"),
+    lambda: _("German"),
+    lambda: _("Semi-German"),
+    lambda: _("Italian"),
+    lambda: _("French"),
+)
 

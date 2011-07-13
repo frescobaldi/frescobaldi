@@ -29,6 +29,7 @@ Properties of a score:
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+import listmodel
 import symbols
 
 
@@ -41,7 +42,7 @@ class ScoreProperties(object):
         self.keyNote = QComboBox()
         self.keyNote.setModel(KeyNoteModel(self.keyNote))
         self.keyMode = QComboBox()
-        self.keyMode.setModel(KeyModeModel(self.keyMode))
+        self.keyMode.setModel(listmodel.ListModel(modes, self.keyMode, display=listmodel.translate_index(1)))
 
     def translateKeySignatureWidget(self):
         self.keySignatureLabel.setText(_("Key signature:"))
@@ -104,15 +105,6 @@ class KeyNoteModel(QAbstractListModel):
     def data(self, index, role):
         if role == Qt.DisplayRole:
             return keyNames[self.language][index.row()]
-
-
-class KeyModeModel(QAbstractListModel):
-    def rowCount(self, parent):
-        return len(modes)
-    
-    def data(self, index, role):
-        if role == Qt.DisplayRole:
-            return modes[index.row()][1]()
 
 
 class TimeSignatureModel(QAbstractListModel):

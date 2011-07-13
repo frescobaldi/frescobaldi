@@ -23,7 +23,6 @@ Plucked string part types.
 
 import __builtin__
 
-from PyQt4.QtCore import QAbstractListModel, Qt
 from PyQt4.QtGui import QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLabel, QSpinBox
 
 import listmodel
