@@ -26,6 +26,8 @@ import __builtin__
 from PyQt4.QtCore import QAbstractListModel, Qt
 from PyQt4.QtGui import QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLabel, QSpinBox
 
+import listmodel
+
 from . import _base
 from . import register
 
@@ -41,7 +43,8 @@ class TablaturePart(_base.Part):
         self.staffTypeLabel = QLabel()
         self.staffType = QComboBox()
         self.staffTypeLabel.setBuddy(self.staffType)
-        self.staffType.setModel(TablatureModel(self.staffType))
+        self.staffType.setModel(listmodel.ListModel(tablatureStaffTypes,
+            self.staffType, display=listmodel.translate))
         box = QHBoxLayout()
         layout.addLayout(box)
         box.addWidget(self.staffTypeLabel)
@@ -55,7 +58,10 @@ class TablaturePart(_base.Part):
         self.tuningLabel = QLabel()
         self.tuning = QComboBox()
         self.tuningLabel.setBuddy(self.tuning)
-        self.tuning.setModel(TuningModel(self.tunings, self.tuning))
+        tunings = [('', lambda: _("Default"))]
+        tunings.extend(self.tunings)
+        self.tuning.setModel(listmodel.ListModel(tunings, self.tuning,
+            display=listmodel.translate_index(1)))
         self.tuning.setCurrentIndex(1)
         box = QHBoxLayout()
         layout.addLayout(box)
@@ -81,36 +87,12 @@ class TablaturePart(_base.Part):
         self.tuning.setEnabled(bool(enable))
         
         
-class TablatureModel(QAbstractListModel):
-    _data = (
-        lambda: _("Normal staff"),
-        lambda: _("Tablature"),
-        #L10N: Both a Normal and a Tablature staff
-        lambda: _("Both"),
-    )
-    
-    def rowCount(self, parent):
-        return len(self._data)
-    
-    def data(self, index, role):
-        if role == Qt.DisplayRole:
-            return self._data[index.row()]()
-
-
-class TuningModel(QAbstractListModel):
-    """Presents a given list of String Tunings as a model, prepending a 'Default' entry."""
-    def __init__(self, tunings, parent = None):
-        super(TuningModel, self).__init__(parent)
-        self.tunings = list(tunings)
-        self.tunings.insert(0, (lambda: _("Default"), ''))
-    
-    def rowCount(self, parent):
-        return len(self.tunings)
-        
-    def data(self, index, role):
-        if role == Qt.DisplayRole:
-            return self.tunings[index.row()][0]()
-            
+tablatureStaffTypes = (
+    lambda: _("Normal staff"),
+    lambda: _("Tablature"),
+    #L10N: Both a Normal and a Tablature staff
+    lambda: _("Both"),
+)
 
 
 class Mandolin(TablaturePart):
@@ -124,7 +106,7 @@ class Mandolin(TablaturePart):
     
     midiInstrument = 'acoustic guitar (steel)'
     tunings = (
-        (lambda: _("Mandolin tuning"), 'mandolin-tuning'),
+        ('mandolin-tuning', lambda: _("Mandolin tuning")),
     )
     
 
@@ -140,11 +122,11 @@ class Banjo(TablaturePart):
     midiInstrument = 'banjo'
     tabFormat = 'fret-number-tablature-format-banjo'
     tunings = (
-        (lambda: _("Open G-tuning (aDGBD)"), 'banjo-open-g-tuning'),
-        (lambda: _("C-tuning (gCGBD)"), 'banjo-c-tuning'),
-        (lambda: _("Modal tuning (gDGCD)"), 'banjo-modal-tuning'),
-        (lambda: _("Open D-tuning (aDF#AD)"), 'banjo-open-d-tuning'),
-        (lambda: _("Open Dm-tuning (aDFAD)"), 'banjo-open-dm-tuning'),
+        ('banjo-open-g-tuning', lambda: _("Open G-tuning (aDGBD)")),
+        ('banjo-c-tuning', lambda: _("C-tuning (gCGBD)")),
+        ('banjo-modal-tuning', lambda: _("Modal tuning (gDGCD)")),
+        ('banjo-open-d-tuning', lambda: _("Open D-tuning (aDF#AD)")),
+        ('banjo-open-dm-tuning', lambda: _("Open Dm-tuning (aDFAD)")),
     )
     
     def createTuningWidgets(self, layout):
@@ -169,8 +151,8 @@ class ClassicalGuitar(TablaturePart):
     midiInstrument = 'acoustic guitar (nylon)'
     clef = "treble_8"
     tunings = (
-        (lambda: _("Guitar tuning"), 'guitar-tuning'),
-        (lambda: _("Open G-tuning"), 'guitar-open-g-tuning'),
+        ('guitar-tuning', lambda: _("Guitar tuning")),
+        ('guitar-open-g-tuning', lambda: _("Open G-tuning")),
     )
 
     def createWidgets(self, layout):
@@ -212,7 +194,7 @@ class Bass(TablaturePart):
     clef = 'bass_8'
     octave = -2
     tunings = (
-        (lambda: _("Bass tuning"), 'bass-tuning'),
+        ('bass-tuning', lambda: _("Bass tuning")),
     )
 
 
