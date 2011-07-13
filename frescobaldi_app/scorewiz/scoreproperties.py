@@ -29,26 +29,53 @@ Properties of a score:
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+import completionmodel
 import listmodel
 import symbols
+import widgets.lineedit
+import widgets.tempobutton
 
 
 class ScoreProperties(object):
     """This is only the base class, it should be mixed in with a widget or a different way."""
-    
+
+    def createWidgets(self):
+        """Creates all widgets."""
+        self.createKeySignatureWidget()
+        self.createTimeSignatureWidget()
+        self.createPickupWidget()
+        self.createMetronomeWidget()
+        self.createTempoWidget()
+        
+    def layoutWidgets(self, layout):
+        """Adds all widgets to a vertical layout."""
+        self.layoutKeySignatureWidget(layout)
+        self.layoutTimeSignatureWidget(layout)
+        self.layoutPickupWidget(layout)
+        self.layoutMetronomeWidget(layout)
+        self.layoutTempoWidget(layout)
+        
+    def translateWidgets(self):
+        self.translateKeySignatureWidget()
+        self.translateTimeSignatureWidget()
+        self.translatePickupWidget()
+        self.tranlateMetronomeWidget()
+        self.translateTempoWidget()
+        
     # Key signature
     def createKeySignatureWidget(self):
         self.keySignatureLabel = QLabel()
         self.keyNote = QComboBox()
-        self.keyNote.setModel(KeyNoteModel(self.keyNote))
+        self.keyNote.setModel(listmodel.ListModel(keyNames['nederlands'], self.keyNote))
         self.keyMode = QComboBox()
         self.keyMode.setModel(listmodel.ListModel(modes, self.keyMode, display=listmodel.translate_index(1)))
-
+        self.keySignatureLabel.setBuddy(self.keyNote)
+        
     def translateKeySignatureWidget(self):
         self.keySignatureLabel.setText(_("Key signature:"))
         self.keyMode.update()
     
-    def layoutKeySignature(self, layout):
+    def layoutKeySignatureWidget(self, layout):
         """Adds our widgets to a layout, assuming it is a QVBoxLayout."""
         box = QHBoxLayout()
         box.addWidget(self.keySignatureLabel)
@@ -57,20 +84,26 @@ class ScoreProperties(object):
         layout.addLayout(box)
 
     def setPitchNameLanguage(self, language='nederlands'):
-        self.keyNote.model().language = language
+        self.keyNote.model()._data = keyNames[language]
         self.keyNote.update()
         
     # Time signature
     def createTimeSignatureWidget(self):
         self.timeSignatureLabel = QLabel()
         self.timeSignature = QComboBox(editable=True)
-        self.timeSignature.setModel(TimeSignatureModel(self.timeSignature))
+        icons = {
+            '(4/4)': symbols.icon('time_c44'),
+            '(2/2)': symbols.icon('time_c22'),
+        }
+        self.timeSignature.setModel(listmodel.ListModel(timeSignaturePresets, self.timeSignature,
+            icon=icons.get))
         self.timeSignature.setCompleter(None)
+        self.timeSignatureLabel.setBuddy(self.timeSignature)
     
     def translateTimeSignatureWidget(self):
         self.timeSignatureLabel.setText(_("Time signature:"))
     
-    def layoutTimeSignature(self, layout):
+    def layoutTimeSignatureWidget(self, layout):
         """Adds our widgets to a layout, assuming it is a QVBoxLayout."""
         box = QHBoxLayout()
         box.addWidget(self.timeSignatureLabel)
@@ -81,55 +114,100 @@ class ScoreProperties(object):
     def createPickupWidget(self):
         self.pickupLabel = QLabel()
         self.pickup = QComboBox()
-        self.pickup.setModel(PickupModel(self.pickup))
+        pickups = ['']
+        pickups.extend(durations)
+        self.pickup.setModel(listmodel.ListModel(pickups, self.pickup,
+            display = lambda item: item or _("None"),
+            icon = lambda item: symbols.icon('note_{0}'.format(item.replace('.', 'd'))) if item else None))
+        self.pickupLabel.setBuddy(self.pickup)
         
     def translatePickupWidget(self):
+        self.pickupLabel.setText(_("Pickup measure:"))
         self.pickup.update()
         
-    def layoutPickup(self, layout):
+    def layoutPickupWidget(self, layout):
         box = QHBoxLayout()
         box.addWidget(self.pickupLabel)
         box.addWidget(self.pickup)
         layout.addLayout(box)
         
     # Metronome value
+    def createMetronomeWidget(self):
+        self.metronomeLabel = QLabel()
+        self.metronomeNote = QComboBox()
+        self.metronomeNote.setModel(listmodel.ListModel(durations, display=None,
+            icon = lambda item: symbols.icon('note_{0}'.format(item.replace('.', 'd')))))
+        self.metronomeNote.setCurrentIndex(durations.index('4'))
+        self.metronomeEqualSign = QLabel('=')
+        self.metronomeEqualSign.setFixedWidth(self.metronomeEqualSign.minimumSizeHint().width())
+        self.metronomeValue = QComboBox(editable=True)
+        self.metronomeValue.setModel(listmodel.ListModel(metronomeValues, self.metronomeValue,
+            display=format))
+        self.metronomeValue.setCompleter(None)
+        self.metronomeValue.setCurrentIndex(metronomeValues.index(100))
+        self.metronomeTempo = widgets.tempobutton.TempoButton()
+        self.metronomeTempo.tempo.connect(self.setMetronomeValue)
+        self.metronomeLabel.setBuddy(self.metronomeNote)
     
-    
-    
-    
-class KeyNoteModel(QAbstractListModel):
-    language = 'nederlands'
-    def rowCount(self, parent):
-        return len(keyNames[self.language])
+    def layoutMetronomeWidget(self, layout):
+        box = QHBoxLayout(spacing=0)
+        box.addWidget(self.metronomeLabel)
+        box.addWidget(self.metronomeNote)
+        box.addWidget(self.metronomeEqualSign)
+        box.addWidget(self.metronomeValue)
+        box.addWidget(self.metronomeTempo)
+        layout.addLayout(box)
         
-    def data(self, index, role):
-        if role == Qt.DisplayRole:
-            return keyNames[self.language][index.row()]
-
-
-class TimeSignatureModel(QAbstractListModel):
-    _data = (
-        '(4/4)', '(2/2)', # with symbols
-        '2/4', '3/4', '4/4', '5/4', '6/4', '7/4',
-        '2/2', '3/2', '4/2',
-        '3/8', '5/8', '6/8', '7/8', '8/8', '9/8', '12/8',
-        '3/16', '6/16', '12/16',
-        '3+2/8', '3/4+3/8',
-    )
-    def rowCount(self, parent):
-        return len(self._data)
+    def tranlateMetronomeWidget(self):
+        self.metronomeLabel.setText(_("Metronome mark:"))
     
-    def data(self, index, role):
-        if role == Qt.DisplayRole:
-            return self._data[index.row()]
-        elif role == Qt.DecorationRole:
-            if index.row() == 0:
-                return symbols.icon('time_c44')
-            elif index.row() == 1:
-                return symbols.icon('time_c22')
-            
+    def setMetronomeValue(self, bpm):
+        """ Tap the tempo tap button """
+        l = [abs(t - bpm) for t in metronomeValues]
+        m = min(l)
+        if m < 6:
+            self.metronomeValue.setCurrentIndex(l.index(m))
+
+    # Tempo indication
+    def createTempoWidget(self):
+        self.tempoLabel = QLabel()
+        self.tempo = widgets.lineedit.LineEdit()
+        c = QCompleter(completionmodel.model("scorewiz/completion/scoreproperties/tempo"), self.tempo)
+        c.setCaseSensitivity(Qt.CaseInsensitive)
+        self.tempo.setCompleter(c) # TODO: let this completer save its text on dialog accept
+        self.tempoLabel.setBuddy(self.tempo)
+
+    def layoutTempoWidget(self, layout):
+        box = QHBoxLayout()
+        box.addWidget(self.tempoLabel)
+        box.addWidget(self.tempo)
+        layout.addLayout(box)
+
+    def translateTempoWidget(self):
+        self.tempoLabel.setText(_("Tempo indication:"))
 
 
+
+def metronomeValues():
+    v, start = [], 40
+    for end, step in (60, 2), (72, 3), (120, 4), (144, 6), (210, 8):
+        v.extend(range(start, end, step))
+        start = end
+    return v
+metronomeValues = metronomeValues()
+
+timeSignaturePresets = (
+    '(4/4)', '(2/2)', # with symbols
+    '2/4', '3/4', '4/4', '5/4', '6/4', '7/4',
+    '2/2', '3/2', '4/2',
+    '3/8', '5/8', '6/8', '7/8', '8/8', '9/8', '12/8',
+    '3/16', '6/16', '12/16',
+    '3+2/8', '3/4+3/8',
+)
+
+# durations for pickup and metronome
+durations = ['16', '16.', '8', '8.', '4', '4.', '2', '2.', '1', '1.']
+ 
 
 keyNames = {
     'nederlands': (

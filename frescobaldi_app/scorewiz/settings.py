@@ -24,7 +24,36 @@ The score settings widget.
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+import app
+
+from . import scoreproperties
 
 class SettingsWidget(QWidget):
-    pass
+   def __init__(self, parent):
+        super(SettingsWidget, self).__init__(parent)
+        grid = QGridLayout()
+        self.setLayout(grid)
+        
+        self.scoreProperties = ScoreProperties()
+        
+        grid.addWidget(self.scoreProperties, 0, 0)
+
+
+
+class ScoreProperties(QGroupBox, scoreproperties.ScoreProperties):
+    def __init__(self, parent = None):
+        super(ScoreProperties, self).__init__(parent)
+        
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+        
+        self.createWidgets()
+        self.layoutWidgets(layout)
+        
+        app.translateUI(self)
+        
+    def translateUI(self):
+        self.translateWidgets()
+        self.setTitle(_("Score properties"))
+    
 

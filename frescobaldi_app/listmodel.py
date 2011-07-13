@@ -46,7 +46,7 @@ def translate_index(index):
 
 class ListModel(QAbstractListModel):
     """A simple QAbstractListModel around a Python list."""
-    def __init__(self, data, parent=None, display=display, tooltip=None, icon=None):
+    def __init__(self, data, parent=None, display=display, edit=None, tooltip=None, icon=None):
         """Initializes the list.
         
         parent may be a parent QObject.
@@ -59,8 +59,12 @@ class ListModel(QAbstractListModel):
         super(ListModel, self).__init__(parent)
         self._data = data
         self._roles = {}
+        if edit is None:
+            edit = display
         if display:
             self._roles[Qt.DisplayRole] = display
+        if edit:
+            self._roles[Qt.EditRole] = edit
         if tooltip:
             self._roles[Qt.ToolTipRole] = tooltip
         if icon:
