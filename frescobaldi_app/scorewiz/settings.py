@@ -25,6 +25,9 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import po
+import language_names
+import listmodel
 
 from . import scoreproperties
 
@@ -36,9 +39,13 @@ class SettingsWidget(QWidget):
         
         self.scoreProperties = ScoreProperties()
         self.generalPreferences = GeneralPreferences()
+        #self.lilypondPreferences = LilyPondPreferences()
+        self.instrumentNames = InstrumentNames()
         
         grid.addWidget(self.scoreProperties, 0, 0)
         grid.addWidget(self.generalPreferences, 0, 1)
+        #grid.addWidget(self.lilypondPreferences, 1, 0)
+        grid.addWidget(self.instrumentNames, 1, 1)
 
 
 class ScoreProperties(QGroupBox, scoreproperties.ScoreProperties):
@@ -116,6 +123,66 @@ class GeneralPreferences(QGroupBox):
   
     def slotPaperChanged(self, index):
         self.paperLandscape.setEnabled(bool(index))
+
+
+class InstrumentNames(QGroupBox):
+    def __init__(self, parent = None):
+        super(InstrumentNames, self).__init__(parent, checkable=True, checked=True)
+        
+        grid = QGridLayout()
+        self.setLayout(grid)
+        
+        self.firstSystemLabel = QLabel()
+        self.firstSystem = QComboBox()
+        self.firstSystemLabel.setBuddy(self.firstSystem)
+        self.otherSystemsLabel = QLabel()
+        self.otherSystems = QComboBox()
+        self.otherSystemsLabel.setBuddy(self.otherSystems)
+        self.languageLabel = QLabel()
+        self.language = QComboBox()
+        self.languageLabel.setBuddy(self.language)
+
+        self.firstSystem.setModel(listmodel.ListModel(
+            (lambda: _("Long"), lambda: _("Short")), self.firstSystem,
+            display = listmodel.translate))
+        self.otherSystems.setModel(listmodel.ListModel(
+            (lambda: _("Long"), lambda: _("Short"), lambda: _("None")), self.otherSystems,
+            display = listmodel.translate))
+        
+        self._langs = l = ['','C']
+        l.extend(sorted(po.available()))
+        def display(lang):
+            if lang == 'C':
+                return _("English (untranslated)")
+            elif not lang:
+                return _("Default")
+            return language_names.languageName(lang)
+        self.language.setModel(listmodel.ListModel(l, self.language, display=display))
+        
+        grid.addWidget(self.firstSystemLabel, 0, 0)
+        grid.addWidget(self.firstSystem, 0, 1)
+        grid.addWidget(self.otherSystemsLabel, 1, 0)
+        grid.addWidget(self.otherSystems, 1, 1)
+        grid.addWidget(self.languageLabel, 2, 0)
+        grid.addWidget(self.language, 2, 1)
+        app.translateUI(self)
+        
+    def translateUI(self):
+        self.setTitle(_("Instrument names"))
+        self.firstSystemLabel.setText(_("First system:"))
+        self.otherSystemsLabel.setText(_("Other systems:"))
+        self.languageLabel.setText(_("Language:"))
+        self.firstSystem.setToolTip(_(
+            "Use long or short instrument names before the first system."))
+        self.otherSystems.setToolTip(_(
+            "Use short, long or no instrument names before the next systems."))
+        self.language.setToolTip(_(
+            "Which language to use for the instrument names."))
+        self.firstSystem.update()
+        self.otherSystems.update()
+        self.language.update()
+
+
 
 
 
