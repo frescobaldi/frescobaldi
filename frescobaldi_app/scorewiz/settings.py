@@ -35,9 +35,10 @@ class SettingsWidget(QWidget):
         self.setLayout(grid)
         
         self.scoreProperties = ScoreProperties()
+        self.generalPreferences = GeneralPreferences()
         
         grid.addWidget(self.scoreProperties, 0, 0)
-
+        grid.addWidget(self.generalPreferences, 0, 1)
 
 
 class ScoreProperties(QGroupBox, scoreproperties.ScoreProperties):
@@ -57,3 +58,65 @@ class ScoreProperties(QGroupBox, scoreproperties.ScoreProperties):
         self.setTitle(_("Score properties"))
     
 
+
+class GeneralPreferences(QGroupBox):
+    def __init__(self, parent = None):
+        super(GeneralPreferences, self).__init__(parent)
+        
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+        
+        self.typq = QCheckBox()
+        self.tagl = QCheckBox()
+        self.barnum = QCheckBox()
+        self.midi = QCheckBox()
+        self.metro = QCheckBox()
+        self.paperSizeLabel = QLabel()
+        self.paper = QComboBox()
+        self.paper.addItems(paperSizes)
+        self.paperLandscape = QCheckBox(enabled=False)
+        self.paper.activated.connect(self.slotPaperChanged)
+        
+        layout.addWidget(self.typq)
+        layout.addWidget(self.tagl)
+        layout.addWidget(self.barnum)
+        layout.addWidget(self.midi)
+        layout.addWidget(self.metro)
+        
+        box = QHBoxLayout(spacing=2)
+        box.addWidget(self.paperSizeLabel)
+        box.addWidget(self.paper)
+        box.addWidget(self.paperLandscape)
+        layout.addLayout(box)
+        app.translateUI(self)
+        
+    def translateUI(self):
+        self.setTitle(_("General preferences"))
+        self.typq.setText(_("Use typographical quotes"))
+        self.typq.setToolTip(_(
+            "Replace normal quotes in titles with nice typographical quotes."))
+        self.tagl.setText(_("Remove default tagline"))
+        self.tagl.setToolTip(_(
+            "Suppress the default tagline output by LilyPond."))
+        self.barnum.setText(_("Remove bar numbers"))
+        self.barnum.setToolTip(_(
+            "Suppress the display of measure numbers at the beginning of "
+            "every system."))
+        self.midi.setText(_("Create MIDI output"))
+        self.midi.setToolTip(_(
+            "Create a MIDI file in addition to the PDF file."))
+        self.metro.setText(_("Show metronome mark"))
+        self.metro.setToolTip(_(
+            "If checked, show the metronome mark at the beginning of the "
+            "score. The MIDI output also uses the metronome setting."))
+        # paper size:
+        self.paperSizeLabel.setText(_("Paper size:"))
+        self.paper.setItemText(0, _("Default"))
+        self.paperLandscape.setText(_("Landscape"))
+  
+    def slotPaperChanged(self, index):
+        self.paperLandscape.setEnabled(bool(index))
+
+
+
+paperSizes = ['', 'a3', 'a4', 'a5', 'a6', 'a7', 'legal', 'letter', '11x17']

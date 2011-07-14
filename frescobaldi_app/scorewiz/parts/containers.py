@@ -26,6 +26,7 @@ import __builtin__
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+import widgets.lineedit
 from scorewiz import scoreproperties
 
 from . import _base
@@ -93,6 +94,31 @@ class Book(_base.Container):
     def accepts(self):
         return (BookPart, Score, StaffGroup, _base.Part)
 
+    def createWidgets(self, layout):
+        self.bookOutputInfo = QLabel(wordWrap=True)
+        self.bookOutputLabel = QLabel()
+        self.bookOutput = widgets.lineedit.LineEdit()
+        self.bookOutputFileName = QRadioButton()
+        self.bookOutputSuffix = QRadioButton(checked=True)
+        
+        layout.addWidget(self.bookOutputInfo)
+        grid = QGridLayout(spacing=0)
+        grid.addWidget(self.bookOutputLabel, 0, 0)
+        grid.addWidget(self.bookOutput, 0, 1, 1, 2)
+        grid.addWidget(self.bookOutputFileName, 1, 1)
+        grid.addWidget(self.bookOutputSuffix, 1, 2)
+        layout.addLayout(grid)
+    
+    def translateWidgets(self):
+        self.bookOutputInfo.setText(_(
+            "<p>Here you can specify a filename or suffix (without extension) "
+            "to set the names of generated output files for this book.</p>\n"
+            "<p>If you choose \"Suffix\" the entered name will be appended "
+            "to the document's file name; if you choose \"Filename\", just "
+            "the entered name will be used.</p>"))
+        self.bookOutputLabel.setText(_("Output Filename:"))
+        self.bookOutputFileName.setText(_("Filename"))
+        self.bookOutputSuffix.setText(_("Suffix"))
 
 
 register(
