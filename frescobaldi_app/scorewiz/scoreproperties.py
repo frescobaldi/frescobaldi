@@ -119,6 +119,7 @@ class ScoreProperties(object):
         self.pickup.setModel(listmodel.ListModel(pickups, self.pickup,
             display = lambda item: item or _("None"),
             icon = lambda item: symbols.icon('note_{0}'.format(item.replace('.', 'd'))) if item else None))
+        self.pickup.view().setIconSize(QSize(22, 22))
         self.pickupLabel.setBuddy(self.pickup)
         
     def translatePickupWidget(self):
@@ -138,6 +139,7 @@ class ScoreProperties(object):
         self.metronomeNote.setModel(listmodel.ListModel(durations, display=None,
             icon = lambda item: symbols.icon('note_{0}'.format(item.replace('.', 'd')))))
         self.metronomeNote.setCurrentIndex(durations.index('4'))
+        self.metronomeNote.view().setIconSize(QSize(22, 22))
         self.metronomeEqualSign = QLabel('=')
         self.metronomeEqualSign.setFixedWidth(self.metronomeEqualSign.minimumSizeHint().width())
         self.metronomeValue = QComboBox(editable=True)

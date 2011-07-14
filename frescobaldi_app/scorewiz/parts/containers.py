@@ -26,9 +26,10 @@ import __builtin__
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+from scorewiz import scoreproperties
+
 from . import _base
 from . import register
-
 
 class StaffGroup(_base.Container):
     @staticmethod
@@ -36,12 +37,42 @@ class StaffGroup(_base.Container):
         return _("Staff Group")
 
 
-class Score(_base.Container):
+class Score(_base.Container, scoreproperties.ScoreProperties):
     @staticmethod
     def title(_=__builtin__._):
         return _("Score")
 
-
+    def createWidgets(self, layout):
+        self.pieceLabel = QLabel()
+        self.piece = QLineEdit()
+        self.pieceLabel.setBuddy(self.piece)
+        self.opusLabel = QLabel()
+        self.opus = QLineEdit()
+        self.opusLabel.setBuddy(self.opus)
+        self.scoreProps = QGroupBox(checkable=True, checked=False)
+        scoreproperties.ScoreProperties.createWidgets(self)
+        
+        box = QHBoxLayout()
+        box.addWidget(self.pieceLabel)
+        box.addWidget(self.piece)
+        layout.addLayout(box)
+        box = QHBoxLayout()
+        box.addWidget(self.opusLabel)
+        box.addWidget(self.opus)
+        layout.addLayout(box)
+        layout.addWidget(self.scoreProps)
+        layout = QVBoxLayout()
+        self.scoreProps.setLayout(layout)
+        scoreproperties.ScoreProperties.layoutWidgets(self, layout)
+        
+    def translateWidgets(self):
+        self.pieceLabel.setText(_("Piece"))
+        self.opusLabel.setText(_("Opus"))
+        self.scoreProps.setTitle(_("Properties"))
+        scoreproperties.ScoreProperties.translateWidgets(self)
+        
+    
+        
 class BookPart(_base.Container):
     @staticmethod
     def title(_=__builtin__._):
