@@ -36,6 +36,9 @@ class StaffGroup(_base.Container):
     def title(_=__builtin__._):
         return _("Staff Group")
 
+    def accepts(self):
+        return (StaffGroup, _base.Part)
+
 
 class Score(_base.Container, scoreproperties.ScoreProperties):
     @staticmethod
@@ -69,12 +72,17 @@ class Score(_base.Container, scoreproperties.ScoreProperties):
         self.scoreProps.setTitle(_("Properties"))
         scoreproperties.ScoreProperties.translateWidgets(self)
         
-    
-        
+    def accepts(self):
+        return (StaffGroup, _base.Part)
+
+
 class BookPart(_base.Container):
     @staticmethod
     def title(_=__builtin__._):
         return _("Book Part")
+
+    def accepts(self):
+        return (Score, StaffGroup, _base.Part)
 
 
 class Book(_base.Container):
@@ -82,6 +90,8 @@ class Book(_base.Container):
     def title(_=__builtin__._):
         return _("Book")
 
+    def accepts(self):
+        return (BookPart, Score, StaffGroup, _base.Part)
 
 
 

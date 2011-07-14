@@ -32,9 +32,8 @@ import listmodel
 Category = collections.namedtuple("Category", "title items icon")
 
 
-
-class Part(object):
-    """Base class for Parts."""
+class Base(object):
+    """Base class for both Part and Container."""
     @staticmethod
     def title(_=__builtin__._):
         """Should return a title.
@@ -60,11 +59,21 @@ class Part(object):
         """Should set the text in the widgets when the language changes."""
         self.noSettingsLabel.setText('({0})'.format(_("No settings available.")))
 
+    def accepts(self):
+        """Should return a tuple of classes this part item accepts as child items."""
+        return ()
 
-class Container(Part):
-    """Base class for "part" types that can contain others."""
+
+class Part(Base):
+    """Base class for Parts (that can't contain other parts)."""
 
 
+
+class Container(Base):
+    """Base class for "part" types that can contain others, like a Staff Group or Score, Book etc."""
+    def accepts(self):
+        return (Part, Container)
+    
 
 # Mixin-base classes with basic behaviour
 class ChordNames(object):
