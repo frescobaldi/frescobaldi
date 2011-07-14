@@ -1,4 +1,4 @@
-\version "2.13.43"
+\version "2.14.0"
 \include "bar_defaults.ily"
 \paper {
   top-system-spacing = #
@@ -8,12 +8,8 @@
 }
 \layout {
   \context {
-    \Score
-    \override BarLine #'extra-offset = #'(-0.1 . -0.05)
-  }
-  \context {
     \Staff
     \override StaffSymbol #'staff-space = #(/ 7 8)
   }
 }
-{ s \bar "'" s }
+{ \makeBar "'" }

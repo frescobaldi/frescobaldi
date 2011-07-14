@@ -1,9 +1,3 @@
-\version "2.13.43"
+\version "2.14.0"
 \include "bar_defaults.ily"
-\layout {
-  \context {
-    \Score
-    \override BarLine #'extra-offset = #'(-0.8 . 0)
-  }
-}
-{ s \bar "|:" s }
+{ \makeBar "|:" }

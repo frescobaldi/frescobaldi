@@ -10,7 +10,7 @@ c155 0 256 -128 256 -261c0 -76 -33 -154 -107 -210c-25 -19 -53 -31 -83 -39v-32c0 
 c98 0 165 91 171 191c3 46 4 93 4 139v23c-26 -4 -51 -6 -78 -6zM454 -205c72 23 121 95 121 167c0 88 -63 176 -164 191c23 -109 39 -236 43 -358zM338 -219c25 0 50 1 74 4c-4 126 -21 258 -45 370c-86 -5 -135 -61 -135 -122c0 -44 26 -92 82 -124c5 -5 7 -10 7 -15
 c0 -11 -10 -22 -22 -22c-3 0 -6 1 -9 2c-80 43 -117 115 -117 185c0 91 62 179 170 199c-16 63 -34 125 -53 187c-109 -125 -218 -250 -218 -415c0 -136 130 -249 266 -249zM406 1103c-100 -53 -163 -157 -163 -270c0 -87 22 -158 43 -230c84 102 155 209 155 341
 c0 70 -7 98 -35 159z" fill="currentColor"/>
-<text transform="translate(4.2899, 7.9902)" font-family="Century Schoolbook L,serif" font-style="italic" font-size="1.3854" text-anchor="start" fill="currentColor">
+<text transform="translate(4.2899, 7.9902)" font-family="Century Schoolbook L" font-style="italic" font-size="1.3854" text-anchor="start" fill="currentColor">
 <tspan>
 8</tspan>
 </text>

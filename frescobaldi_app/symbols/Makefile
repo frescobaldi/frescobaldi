@@ -1,7 +1,7 @@
 # Makefile
 
 # Which LilyPond executable to use
-LILYPOND=~/lilypond_bin/2.13.43-1/bin/lilypond
+LILYPOND=~/lilypond_bin/2.14.0-1/bin/lilypond
 
 # Make .svg files from .ly files
 lys = $(wildcard *.ly)
