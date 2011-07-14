@@ -50,28 +50,29 @@ class TreeWidget(QTreeWidget):
             for i in self.items(c):
                 yield i
             yield c
-        
+    
     def clear(self):
         """Removes all items, calling their cleanup() method (if available) first."""
         for item in self.items():
             self._cleanup(item)
-        while self.topLevelItemCount() > 0:
-            self.takeTopLevelItem(0)
+        super(TreeWidget, self).clear()
     
     def removeSelectedItems(self, item=None):
         """Removes all selected items from the specified item or the root item."""
         if item is None:
             item = self.invisibleRootItem()
-        remove = []
+        itemsToRemove = []
         for i in range(item.childCount()):
             child = item.child(i)
             if child.isSelected():
-                remove.append(child)
+                itemsToRemove.append(child)
             else:
                 self.removeSelectedItems(child)
-        for i in remove:
-            item.removeChild(i)
-            self._cleanup(i)
+        for child in itemsToRemove:
+            for descendant in self.items(child):
+                self._cleanup(descendant)
+            item.removeChild(child)
+            self._cleanup(child)
     
     def findSelectedItem(self, item=None):
         """Returns an item that has selected children, if any exists.
