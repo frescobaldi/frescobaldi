@@ -28,6 +28,7 @@ import app
 import po
 import language_names
 import listmodel
+import lilypondinfo
 
 from . import scoreproperties
 
@@ -39,13 +40,17 @@ class SettingsWidget(QWidget):
         
         self.scoreProperties = ScoreProperties()
         self.generalPreferences = GeneralPreferences()
-        #self.lilypondPreferences = LilyPondPreferences()
+        self.lilypondPreferences = LilyPondPreferences()
         self.instrumentNames = InstrumentNames()
         
         grid.addWidget(self.scoreProperties, 0, 0)
         grid.addWidget(self.generalPreferences, 0, 1)
-        #grid.addWidget(self.lilypondPreferences, 1, 0)
+        grid.addWidget(self.lilypondPreferences, 1, 0)
         grid.addWidget(self.instrumentNames, 1, 1)
+        
+        scorewiz = parent.window()
+        scorewiz.pitchLanguageChanged.connect(self.scoreProperties.setPitchLanguage)
+        self.scoreProperties.setPitchLanguage(scorewiz.pitchLanguage())
 
 
 class ScoreProperties(QGroupBox, scoreproperties.ScoreProperties):
@@ -183,7 +188,50 @@ class InstrumentNames(QGroupBox):
         self.language.update()
 
 
+class LilyPondPreferences(QGroupBox):
+    def __init__(self, parent = None):
+        super(LilyPondPreferences, self).__init__(parent)
+        
+        grid = QGridLayout()
+        self.setLayout(grid)
+        
+        self.pitchLanguageLabel = QLabel()
+        self.pitchLanguage = QComboBox()
+        self.versionLabel = QLabel()
+        self.version = QComboBox(editable=True)
+        
+        self.pitchLanguage.addItem('')
+        self.pitchLanguage.addItems([lang.title() for lang in sorted(scoreproperties.keyNames)])
+        self.version.addItem(lilypondinfo.preferred().versionString)
+        for v in ("2.14.0", "2.12.0"):
+            if v != lilypondinfo.preferred().versionString:
+                self.version.addItem(v)
+        
+        grid.addWidget(self.pitchLanguageLabel, 0, 0)
+        grid.addWidget(self.pitchLanguage, 0, 1)
+        grid.addWidget(self.versionLabel, 1, 0)
+        grid.addWidget(self.version, 1, 1)
+        
+        self.pitchLanguage.activated.connect(self.slotPitchLanguageChanged)
+        app.translateUI(self)
+        
+    def translateUI(self):
+        self.setTitle(_("LilyPond"))
+        self.pitchLanguageLabel.setText(_("Pitch name language:"))
+        self.pitchLanguage.setToolTip(_(
+            "The LilyPond language you want to use for the pitch names."))
+        self.pitchLanguage.setItemText(0, _("Default"))
+        self.versionLabel.setText(_("Version:"))
+        self.version.setToolTip(_(
+            "The LilyPond version you will be using for this document."))
 
+    def slotPitchLanguageChanged(self, index):
+        if index == 0:
+            language = ''
+        else:
+            language = self.pitchLanguage.currentText().lower()
+        self.window().setPitchLanguage(language)
+        
 
 
 paperSizes = ['', 'a3', 'a4', 'a5', 'a6', 'a7', 'legal', 'letter', '11x17']

@@ -83,8 +83,8 @@ class ScoreProperties(object):
         box.addWidget(self.keyMode)
         layout.addLayout(box)
 
-    def setPitchNameLanguage(self, language='nederlands'):
-        self.keyNote.model()._data = keyNames[language]
+    def setPitchLanguage(self, language='nederlands'):
+        self.keyNote.model()._data = keyNames[language or 'nederlands']
         self.keyNote.update()
         
     # Time signature

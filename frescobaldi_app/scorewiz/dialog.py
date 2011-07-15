@@ -29,8 +29,13 @@ import util
 
 
 class ScoreWizardDialog(QDialog):
+    
+    pitchLanguageChanged = pyqtSignal(type(''))
+    
     def __init__(self, mainwindow):
         super(ScoreWizardDialog, self).__init__(mainwindow)
+        
+        self._pitchLanguage = ''
         
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -73,6 +78,14 @@ class ScoreWizardDialog(QDialog):
         
     def reset(self):
         self.tabs.currentWidget().widget().clear()
+
+    def setPitchLanguage(self, language):
+        if language != self._pitchLanguage:
+            self._pitchLanguage = language
+            self.pitchLanguageChanged.emit(language)
+    
+    def pitchLanguage(self):
+        return self._pitchLanguage
 
 
 class Page(QWidget):

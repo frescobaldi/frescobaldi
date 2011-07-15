@@ -67,6 +67,10 @@ class Score(_base.Container, scoreproperties.ScoreProperties):
         self.scoreProps.setLayout(layout)
         scoreproperties.ScoreProperties.layoutWidgets(self, layout)
         
+        scorewiz = self.scoreProps.window()
+        self.setPitchLanguage(scorewiz.pitchLanguage())
+        scorewiz.pitchLanguageChanged.connect(self.setPitchLanguage)
+        
     def translateWidgets(self):
         self.pieceLabel.setText(_("Piece:"))
         self.opusLabel.setText(_("Opus:"))
