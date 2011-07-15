@@ -38,23 +38,19 @@ class SettingsWidget(QWidget):
         grid = QGridLayout()
         self.setLayout(grid)
         
-        self.scoreProperties = ScoreProperties()
-        self.generalPreferences = GeneralPreferences()
-        self.lilypondPreferences = LilyPondPreferences()
-        self.instrumentNames = InstrumentNames()
+        self.scoreProperties = ScoreProperties(self)
+        self.generalPreferences = GeneralPreferences(self)
+        self.lilypondPreferences = LilyPondPreferences(self)
+        self.instrumentNames = InstrumentNames(self)
         
         grid.addWidget(self.scoreProperties, 0, 0)
         grid.addWidget(self.generalPreferences, 0, 1)
         grid.addWidget(self.lilypondPreferences, 1, 0)
         grid.addWidget(self.instrumentNames, 1, 1)
-        
-        scorewiz = parent.window()
-        scorewiz.pitchLanguageChanged.connect(self.scoreProperties.setPitchLanguage)
-        self.scoreProperties.setPitchLanguage(scorewiz.pitchLanguage())
 
 
 class ScoreProperties(QGroupBox, scoreproperties.ScoreProperties):
-    def __init__(self, parent = None):
+    def __init__(self, parent):
         super(ScoreProperties, self).__init__(parent)
         
         layout = QVBoxLayout()
@@ -65,6 +61,10 @@ class ScoreProperties(QGroupBox, scoreproperties.ScoreProperties):
         
         app.translateUI(self)
         
+        scorewiz = self.window()
+        scorewiz.pitchLanguageChanged.connect(self.setPitchLanguage)
+        self.setPitchLanguage(scorewiz.pitchLanguage())
+        
     def translateUI(self):
         self.translateWidgets()
         self.setTitle(_("Score properties"))
@@ -72,7 +72,7 @@ class ScoreProperties(QGroupBox, scoreproperties.ScoreProperties):
 
 
 class GeneralPreferences(QGroupBox):
-    def __init__(self, parent = None):
+    def __init__(self, parent):
         super(GeneralPreferences, self).__init__(parent)
         
         layout = QVBoxLayout()
@@ -131,7 +131,7 @@ class GeneralPreferences(QGroupBox):
 
 
 class InstrumentNames(QGroupBox):
-    def __init__(self, parent = None):
+    def __init__(self, parent):
         super(InstrumentNames, self).__init__(parent, checkable=True, checked=True)
         
         grid = QGridLayout()
@@ -189,7 +189,7 @@ class InstrumentNames(QGroupBox):
 
 
 class LilyPondPreferences(QGroupBox):
-    def __init__(self, parent = None):
+    def __init__(self, parent):
         super(LilyPondPreferences, self).__init__(parent)
         
         grid = QGridLayout()
