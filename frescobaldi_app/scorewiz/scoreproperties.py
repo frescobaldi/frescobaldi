@@ -176,7 +176,7 @@ class ScoreProperties(object):
         self.tempo = widgets.lineedit.LineEdit()
         c = QCompleter(completionmodel.model("scorewiz/completion/scoreproperties/tempo"), self.tempo)
         c.setCaseSensitivity(Qt.CaseInsensitive)
-        self.tempo.setCompleter(c) # TODO: let this completer save its text on dialog accept
+        self.tempo.setCompleter(c)
         self.tempoLabel.setBuddy(self.tempo)
 
     def layoutTempoWidget(self, layout):
@@ -187,6 +187,12 @@ class ScoreProperties(object):
 
     def translateTempoWidget(self):
         self.tempoLabel.setText(_("Tempo indication:"))
+
+    def saveCompletions(self):
+        """Saves the completions in the tempo line edit."""
+        text = self.tempo.text().strip()
+        if text:
+            self.tempo.completer().model().addString(text)
 
 
 

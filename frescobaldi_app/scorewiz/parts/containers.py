@@ -70,6 +70,7 @@ class Score(_base.Container, scoreproperties.ScoreProperties):
         scorewiz = self.scoreProps.window()
         self.setPitchLanguage(scorewiz.pitchLanguage())
         scorewiz.pitchLanguageChanged.connect(self.setPitchLanguage)
+        scorewiz.accepted.connect(self.saveCompletions)
         
     def translateWidgets(self):
         self.pieceLabel.setText(_("Piece:"))
