@@ -26,6 +26,8 @@ import __builtin__
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+import listmodel
+import symbols
 import widgets.lineedit
 from scorewiz import scoreproperties
 
@@ -39,6 +41,34 @@ class StaffGroup(_base.Container):
 
     def accepts(self):
         return (StaffGroup, _base.Part)
+
+    def createWidgets(self, layout):
+        self.systemStartLabel = QLabel()
+        self.systemStart = QComboBox()
+        self.systemStartLabel.setBuddy(self.systemStart)
+        self.systemStart.setModel(listmodel.ListModel((
+            # L10N: Brace like a piano staff
+            (lambda: _("Brace"), 'system_start_brace'),
+            # L10N: Bracket like a choir staff
+            (lambda: _("Bracket"), 'system_start_bracket'),
+            # L10N: Square bracket like a sub-group
+            (lambda: _("Square"), 'system_start_square'),
+            ), self.systemStart, display=listmodel.translate_index(0),
+            icon=lambda item: symbols.icon(item[1])))
+        self.systemStart.setIconSize(QSize(64, 64))
+        self.connectBarLines = QCheckBox()
+        
+        box = QHBoxLayout()
+        box.addWidget(self.systemStartLabel)
+        box.addWidget(self.systemStart)
+        layout.addLayout(box)
+        layout.addWidget(self.connectBarLines)
+    
+    def translateWidgets(self):
+        self.systemStartLabel.setText(_("Type:"))
+        self.connectBarLines.setText(_("Connect Barlines"))
+        self.connectBarLines.setToolTip(_("If checked, barlines are connected between the staves."))
+        self.systemStart.update()
 
 
 class Score(_base.Container, scoreproperties.ScoreProperties):
