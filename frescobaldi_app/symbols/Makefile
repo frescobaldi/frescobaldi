@@ -19,6 +19,7 @@ $(patsubst %.ly,%.svg,$(wildcard clef_*.ly)): clef_defaults.ily
 $(patsubst %.ly,%.svg,$(wildcard bar_*.ly)): bar_defaults.ily
 $(patsubst %.ly,%.svg,$(wildcard time_*.ly)): time_defaults.ily
 $(patsubst %.ly,%.svg,$(wildcard breathe_*.ly)): breathe_defaults.ily
+$(patsubst %.ly,%.svg,$(wildcard system_start_*.ly)): system_start_defaults.ily
 
 # Other dependencies
 articulation_defaults.ily: icon_defaults.ily
@@ -27,5 +28,6 @@ clef_defaults.ily: icon_defaults.ily
 breathe_defaults.ily: icon_defaults.ily
 time_defaults.ily: icon_defaults.ily
 note_defaults.ily: icon_defaults.ily
+system_start_defaults.ily: icon_defaults.ily
 
 .PHONY: all
