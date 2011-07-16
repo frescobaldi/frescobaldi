@@ -210,7 +210,7 @@ class Choir(VocalPart):
     def translateWidgets(self):
         self.translateStanzaWidget()
         self.translateAmbitusWidget()
-        self.lyrics.update()
+        self.lyrics.model().update()
         self.label.setText('<p>{0} <i>({1})</i></p>'.format(
             _("Please select the voices for the choir. "
               "Use the letters S, A, T, or B. A hyphen denotes a new staff."),

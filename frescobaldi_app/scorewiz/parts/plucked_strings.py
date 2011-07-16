@@ -69,13 +69,13 @@ class TablaturePart(_base.Part):
     
     def translateWidgets(self):
         self.staffTypeLabel.setText(_("Staff type:"))
-        self.staffType.update()
+        self.staffType.model().update()
         if self.tunings:
             self.translateTuningWidgets()
     
     def translateTuningWidgets(self):
         self.tuningLabel.setText(_("Tuning:"))
-        self.tuning.update()
+        self.tuning.model().update()
     
     def slotTabEnable(self, enable):
         """Called when the user changes the staff type.

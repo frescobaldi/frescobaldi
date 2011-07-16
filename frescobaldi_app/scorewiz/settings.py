@@ -184,9 +184,9 @@ class InstrumentNames(QGroupBox):
             "Use short, long or no instrument names before the next systems."))
         self.language.setToolTip(_(
             "Which language to use for the instrument names."))
-        self.firstSystem.update()
-        self.otherSystems.update()
-        self.language.update()
+        self.firstSystem.model().update()
+        self.otherSystems.model().update()
+        self.language.model().update()
 
 
 class LilyPondPreferences(QGroupBox):

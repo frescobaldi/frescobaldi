@@ -80,4 +80,14 @@ class ListModel(QAbstractListModel):
             return
         return f(self._data[index.row()])
 
+    def update(self):
+        """Emits the dataChanged signal for all entries.
+        
+        This can e.g. be used to request that translated strings are redisplayed.
+        
+        """
+        self.dataChanged.emit(
+            self.createIndex(0, 0),
+            self.createIndex(len(self._data) - 1, 0))
+
 

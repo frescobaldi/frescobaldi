@@ -73,7 +73,7 @@ class ScoreProperties(object):
         
     def translateKeySignatureWidget(self):
         self.keySignatureLabel.setText(_("Key signature:"))
-        self.keyMode.update()
+        self.keyMode.model().update()
     
     def layoutKeySignatureWidget(self, layout):
         """Adds our widgets to a layout, assuming it is a QVBoxLayout."""
@@ -124,7 +124,7 @@ class ScoreProperties(object):
         
     def translatePickupWidget(self):
         self.pickupLabel.setText(_("Pickup measure:"))
-        self.pickup.update()
+        self.pickup.model().update()
         
     def layoutPickupWidget(self, layout):
         box = QHBoxLayout()

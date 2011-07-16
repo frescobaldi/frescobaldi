@@ -213,7 +213,7 @@ class Drums(_base.Part):
         self.drumStyleLabel.setText(_("Style:"))
         self.drumStems.setText(_("Remove stems"))
         self.drumStems.setToolTip(_("Remove the stems from the drum notes."))
-        self.drumStyle.update()
+        self.drumStyle.model().update()
 
 
 drumStyles = (

@@ -68,7 +68,7 @@ class StaffGroup(_base.Container):
         self.systemStartLabel.setText(_("Type:"))
         self.connectBarLines.setText(_("Connect Barlines"))
         self.connectBarLines.setToolTip(_("If checked, barlines are connected between the staves."))
-        self.systemStart.update()
+        self.systemStart.model().update()
 
 
 class Score(_base.Container, scoreproperties.ScoreProperties):

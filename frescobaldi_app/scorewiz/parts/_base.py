@@ -97,7 +97,7 @@ class ChordNames(object):
         self.guitarFrets.setToolTip(_(
             "Show predefined guitar fret diagrams below the chord names "
             "(LilyPond 2.12 and above)."))
-        self.chordStyle.update()
+        self.chordStyle.model().update()
 
 
 chordNameStyles = (
