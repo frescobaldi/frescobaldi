@@ -98,11 +98,11 @@ def insert_snippet(text, cursor):
         space = '\n' if '\n' in cursor.selection().toPlainText() else ' '
         # change whitespace in previous and next piece of text
         for j in range(i-1, -i, -1):
-            if evs[j] not in constants:
+            if evs[j] not in expand.constants:
                 evs[j] = evs[j].rstrip() + space
                 break
         for j in range(i+1, len(evs)):
-            if evs[j] not in constants:
+            if evs[j] not in expand.constants:
                 evs[j] = space + evs[j].lstrip()
                 break
     # now insert the text
