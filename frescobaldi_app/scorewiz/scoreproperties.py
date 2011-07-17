@@ -85,7 +85,7 @@ class ScoreProperties(object):
 
     def setPitchLanguage(self, language='nederlands'):
         self.keyNote.model()._data = keyNames[language or 'nederlands']
-        self.keyNote.update()
+        self.keyNote.model().update()
         
     # Time signature
     def createTimeSignatureWidget(self):
