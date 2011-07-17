@@ -92,11 +92,10 @@ def translator(mofile):
     return translate
     
 def install(filename):
-    """Installs the translations from the given .mo file."""
-    __builtin__._ = translator(mofile.MoFile(filename))
-
-def remove():
-    """Removes installed translations, reverting back to untranslated."""
-    __builtin__._ = translator(None)
-
+    """Installs the translations from the given .mo file.
+    
+    If filename is None, installs a dummy translator.
+    
+    """
+    __builtin__._ = translator(mofile.MoFile(filename) if filename else None)
 

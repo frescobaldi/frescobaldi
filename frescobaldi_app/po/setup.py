@@ -27,7 +27,7 @@ from PyQt4.QtCore import QSettings, QTimer
 
 import app
 
-from . import find, install, remove
+from . import find, install
 from . import qtranslator
 
 
@@ -56,7 +56,7 @@ def setup():
                     return
                 except Exception:
                     pass
-    remove()
+    install(None)
 
 app.settingsChanged.connect(setup)
 setup()
