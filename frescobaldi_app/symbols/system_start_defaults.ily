@@ -5,9 +5,9 @@
   paper-height = 40\pt
   paper-width = 40\pt
   top-system-spacing = #'(
-    (basic-distance . 4)
+    (basic-distance . 3.9)
     (padding . 0)
-    (minimum-distance . 4)
+    (minimum-distance . 3.9)
     (stretchability . 0))
 }
 
