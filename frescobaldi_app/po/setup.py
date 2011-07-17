@@ -56,7 +56,7 @@ def setup():
                     return
                 except Exception:
                     pass
-        remove()
+    remove()
 
 app.settingsChanged.connect(setup)
 setup()
