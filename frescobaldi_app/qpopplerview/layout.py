@@ -298,13 +298,13 @@ class AbstractLayout(QObject):
         """Returns the widest visible page (in its natural page size)."""
         pages = list(self.pages())
         if pages:
-            return max((page.pageSize().width(), page) for page in pages)[1]
+            return max(pages, key = lambda p: p.pageSize().width())
             
     def heighest(self):
         """Returns the heighest visible page (in its natural page size)."""
         pages = list(self.pages())
         if pages:
-            return max((page.pageSize().height(), page) for page in pages)[1]
+            return max(pages, key = lambda p: p.pageSize().height())
     
     def maxWidth(self):
         """Returns the width of the widest visible page."""
