@@ -25,6 +25,8 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import cursortools
+import indent
 import util
 
 
@@ -63,6 +65,7 @@ class ScoreWizardDialog(QDialog):
         self.tabs.currentChanged.connect(self.slotCurrentChanged)
         util.saveDialogSize(self, "scorewiz/dialog/size")
         app.translateUI(self)
+        self.accepted.connect(self.slotAccepted)
     
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Score Setup Wizard")))
@@ -86,6 +89,14 @@ class ScoreWizardDialog(QDialog):
     
     def pitchLanguage(self):
         return self._pitchLanguage
+
+    def slotAccepted(self):
+        """Makes the score and puts it in the editor."""
+        from . import build
+        builder = build.Builder(self)
+        cursor = self.parent().currentView().textCursor()
+        cursortools.insertText(cursor, builder.text())
+        indent.reIndent(cursor)
 
 
 class Page(QWidget):

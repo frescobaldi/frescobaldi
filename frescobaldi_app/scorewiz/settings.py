@@ -40,12 +40,12 @@ class SettingsWidget(QWidget):
         
         self.scoreProperties = ScoreProperties(self)
         self.generalPreferences = GeneralPreferences(self)
-        self.lilypondPreferences = LilyPondPreferences(self)
+        self.lilyPondPreferences = LilyPondPreferences(self)
         self.instrumentNames = InstrumentNames(self)
         
         grid.addWidget(self.scoreProperties, 0, 0)
         grid.addWidget(self.generalPreferences, 0, 1)
-        grid.addWidget(self.lilypondPreferences, 1, 0)
+        grid.addWidget(self.lilyPondPreferences, 1, 0)
         grid.addWidget(self.instrumentNames, 1, 1)
 
 
@@ -187,6 +187,16 @@ class InstrumentNames(QGroupBox):
         self.firstSystem.model().update()
         self.otherSystems.model().update()
         self.language.model().update()
+    
+    def getLanguage(self):
+        """Returns the language the user has set.
+        
+        '' means:  default (use same translation as system)
+        'C' means: English (untranslated)
+        or a languagecode that is available in Frescobaldi's translation.
+        
+        """
+        return self._langs[self.language.currentIndex()]
 
 
 class LilyPondPreferences(QGroupBox):

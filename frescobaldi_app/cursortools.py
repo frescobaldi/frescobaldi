@@ -108,3 +108,12 @@ def stripSelection(cursor):
     cursor.setPosition(end, QTextCursor.KeepAnchor)
 
 
+def insertText(cursor, text):
+    """Inserts text and then selects all inserted text in the cursor."""
+    pos = cursor.selectionStart()
+    cursor.insertText(text)
+    new = cursor.position()
+    cursor.setPosition(pos)
+    cursor.setPosition(new, QTextCursor.KeepAnchor)
+
+
