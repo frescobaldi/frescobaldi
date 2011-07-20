@@ -75,7 +75,6 @@ class Builder(object):
         p.typographicalQuotes = generalPreferences.typq.isChecked()
         if self.pitchLanguage:
             p.language = self.pitchLanguage
-            
     
     def text(self, doc=None):
         """Return LilyPond formatted output. """

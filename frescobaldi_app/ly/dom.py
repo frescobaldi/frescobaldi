@@ -1061,7 +1061,7 @@ class KeySignature(Leaf):
         self.mode = mode
 
     def ly(self, printer):
-        pitch = ly.pitch.pitchWriter[printer.language](self.note, self.alter)
+        pitch = ly.pitch.pitchWriter(printer.language)(self.note, self.alter)
         return "\\key {0} \\{1}".format(pitch, self.mode)
 
 
@@ -1100,7 +1100,7 @@ class Tempo(Container):
     def ly(self, printer):
         result = ['\\tempo']
         if len(self) > 0:
-            result.append(super(Tempo, self).ly())
+            result.append(super(Tempo, self).ly(printer))
         if self.value:
             result.append("{0}={1}".format(self.duration, self.value))
         return ' '.join(result)

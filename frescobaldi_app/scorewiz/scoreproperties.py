@@ -26,6 +26,7 @@ Properties of a score:
 - tempo indication
 """
 
+import fractions
 import re
 
 from PyQt4.QtCore import *
@@ -175,7 +176,7 @@ class ScoreProperties(object):
         layout.addLayout(box)
     
     def lyPickup(self, parent, builder):
-         if s.pickup.currentIndex() > 0:
+         if self.pickup.currentIndex() > 0:
             dur, dots = partialDurations[self.pickup.currentIndex() - 1]
             ly.dom.Partial(dur, dots, parent=parent)
     
@@ -243,14 +244,16 @@ class ScoreProperties(object):
 
     def lyTempo(self, parent, builder):
         """Returns an appropriate tempo indication."""
+        text = self.tempo.text().strip()
         if builder.showMetronomeMark:
             dur = durations[self.metronomeNote.currentIndex()]
             val = self.metronomeValue.currentText()
         else:
             dur = None
             val = None
+            if not text:
+                return
         tempo = ly.dom.Tempo(dur, val, parent)
-        text = self.tempo.text().strip()
         if text:
             ly.dom.QuotedString(text, tempo)
 
