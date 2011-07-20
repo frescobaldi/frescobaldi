@@ -33,14 +33,13 @@ import po.mofile
 class Builder(object):
     """Builds the LilyPond score from all user input in the score wizard.
     
-    Reads settings and other input from the dialog.
-    If the user changes the dialog after our initialization, the behaviour is
-    undefined, so just use a Builder once and then throw it away.
+    Reads settings and other input from the dialog on construction.
+    Does not need the dialog after that.
     
     """
     def __init__(self, dialog):
         """Initializes ourselves from all user settings in the dialog."""
-        self.dialog = dialog
+        self._includeFiles = []
         
         generalPreferences = dialog.settings.widget().generalPreferences
         lilyPondPreferences = dialog.settings.widget().lilyPondPreferences
@@ -91,7 +90,6 @@ class Builder(object):
         
         # version
         ly.dom.Version(self.lyVersionString, doc)
-        ly.dom.BlankLine(doc)
         
         # language
         if self.pitchLanguage:
@@ -99,7 +97,14 @@ class Builder(object):
                 ly.dom.Line('\\language "{0}"'.format(self.pitchLanguage), doc)
             else:
                 ly.dom.Include("{0}.ly".format(self.pitchLanguage), doc)
+        ly.dom.BlankLine(doc)
 
+        # other include files
+        if self._includeFiles:
+            for filename in self._includeFiles:
+                ly.dom.Include(filename, doc)
+            ly.dom.BlankLine(doc)
+            
         # general header
         h = ly.dom.Header()
         for name, value in self.header:
@@ -120,6 +125,7 @@ class Builder(object):
             ).after = 1
             ly.dom.BlankLine(doc)
 
+        # remove bar numbers
         if self.removeBarNumbers:
             ly.dom.Line('\\remove "Bar_number_engraver"',
                 ly.dom.Context('Score',
