@@ -28,7 +28,6 @@ import re
 import ly.dom
 import po.mofile
 
-from . import settings
 
 
 class Builder(object):
@@ -55,7 +54,8 @@ class Builder(object):
         self.midi = generalPreferences.midi.isChecked()
         self.pitchLanguage = dialog.pitchLanguage()
         self.suppressTagLine = generalPreferences.tagl.isChecked()
-        self.paperSize = settings.paperSizes[generalPreferences.paper.currentIndex()]
+        self.removeBarNumbers = generalPreferences.barnum.isChecked()
+        self.paperSize = generalPreferences.getPaperSize()
         self.paperLandscape = generalPreferences.paperLandscape.isChecked()
         
         # translator for instrument names
@@ -120,6 +120,11 @@ class Builder(object):
             ).after = 1
             ly.dom.BlankLine(doc)
 
+        if self.removeBarNumbers:
+            ly.dom.Line('\\remove "Bar_number_engraver"',
+                ly.dom.Context('Score',
+                    ly.dom.Layout(doc)))
+            ly.dom.BlankLine(doc)
 
         
         return doc

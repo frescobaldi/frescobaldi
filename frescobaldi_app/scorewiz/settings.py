@@ -129,6 +129,10 @@ class GeneralPreferences(QGroupBox):
   
     def slotPaperChanged(self, index):
         self.paperLandscape.setEnabled(bool(index))
+    
+    def getPaperSize(self):
+        """Returns the configured papersize or the empty string for default."""
+        return paperSizes[self.paper.currentIndex()]
 
 
 class InstrumentNames(QGroupBox):
