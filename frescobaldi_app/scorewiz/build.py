@@ -54,6 +54,7 @@ class Builder(object):
         self.pitchLanguage = dialog.pitchLanguage()
         self.suppressTagLine = generalPreferences.tagl.isChecked()
         self.removeBarNumbers = generalPreferences.barnum.isChecked()
+        self.showMetronomeMark = generalPreferences.metro.isChecked()
         self.paperSize = generalPreferences.getPaperSize()
         self.paperLandscape = generalPreferences.paperLandscape.isChecked()
         

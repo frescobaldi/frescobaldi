@@ -26,9 +26,12 @@ Properties of a score:
 - tempo indication
 """
 
+import re
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+import ly.dom
 import completionmodel
 import listmodel
 import symbols
@@ -61,7 +64,19 @@ class ScoreProperties(object):
         self.translatePickupWidget()
         self.tranlateMetronomeWidget()
         self.translateTempoWidget()
+    
+    def ly(self, parent, builder):
+        """Adds appropriate LilyPond command nodes to the parent node.
         
+        Settings from the builder are used where that makes sense.
+        All widgets must be present.
+        
+        """
+        self.lyKeySignature(parent, builder)
+        self.lyTimeSignature(parent, builder)
+        self.lyPickup(parent, builder)
+        self.lyTempo(parent, builder)
+    
     # Key signature
     def createKeySignatureWidget(self):
         self.keySignatureLabel = QLabel()
@@ -86,6 +101,13 @@ class ScoreProperties(object):
     def setPitchLanguage(self, language='nederlands'):
         self.keyNote.model()._data = keyNames[language or 'nederlands']
         self.keyNote.model().update()
+    
+    def lyKeySignature(self, parent, builder):
+        """Adds the key signature to the ly.dom node parent."""
+        note, alter = keys[self.keyNote.currentIndex()]
+        alter = fractions.Fraction(alter, 2)
+        mode = modes[self.keyMode.currentIndex()][0]
+        ly.dom.KeySignature(note, alter, mode, parent).after = 1
         
     # Time signature
     def createTimeSignatureWidget(self):
@@ -109,6 +131,26 @@ class ScoreProperties(object):
         box.addWidget(self.timeSignatureLabel)
         box.addWidget(self.timeSignature)
         layout.addLayout(box)
+    
+    def lyTimeSignature(self, parent, builder):
+        """Adds the time signature to the ly.dom node parent."""
+        sig = self.timeSignature.currentText().strip()
+        if '+' in sig:
+            pass # TODO: implement support for \compoundMeter
+        else:
+            if sig == '(2/2)':
+                ly.dom.TimeSignature(2, 2, parent).after = 1
+            elif sig == '(4/4)':
+                ly.dom.TimeSignature(4, 4, parent).after = 1
+            else:
+                match = re.search(r'(\d+).*?(\d+)', sig)
+                if match:
+                    if builder.lyVersion >= (2, 11, 44):
+                        ly.dom.Line(r"\numericTimeSignature", parent)
+                    else:
+                        ly.dom.Line(r"\override Staff.TimeSignature #'style = #'()", parent)
+                    num, beat = map(int, match.group(1, 2))
+                    ly.dom.TimeSignature(num, beat, g).after = 1
 
     # Pickup bar
     def createPickupWidget(self):
@@ -131,7 +173,12 @@ class ScoreProperties(object):
         box.addWidget(self.pickupLabel)
         box.addWidget(self.pickup)
         layout.addLayout(box)
-        
+    
+    def lyPickup(self, parent, builder):
+         if s.pickup.currentIndex() > 0:
+            dur, dots = partialDurations[self.pickup.currentIndex() - 1]
+            ly.dom.Partial(dur, dots, parent=parent)
+    
     # Metronome value
     def createMetronomeWidget(self):
         self.metronomeLabel = QLabel()
@@ -194,6 +241,19 @@ class ScoreProperties(object):
         if text:
             self.tempo.completer().model().addString(text)
 
+    def lyTempo(self, parent, builder):
+        """Returns an appropriate tempo indication."""
+        if builder.showMetronomeMark:
+            dur = durations[self.metronomeNote.currentIndex()]
+            val = self.metronomeValue.currentText()
+        else:
+            dur = None
+            val = None
+        tempo = ly.dom.Tempo(dur, val, parent)
+        text = self.tempo.text().strip()
+        if text:
+            ly.dom.QuotedString(text, tempo)
+
 
 
 def metronomeValues():
@@ -203,6 +263,7 @@ def metronomeValues():
         start = end
     return v
 metronomeValues = metronomeValues()
+
 
 timeSignaturePresets = (
     '(4/4)', '(2/2)', # with symbols
@@ -215,6 +276,7 @@ timeSignaturePresets = (
 
 # durations for pickup and metronome
 durations = ['16', '16.', '8', '8.', '4', '4.', '2', '2.', '1', '1.']
+partialDurations = ((4,0),(4,1),(3,0),(3,1),(2,0),(2,1),(1,0),(1,1),(0,0),(0,1))
  
 
 keyNames = {
@@ -287,6 +349,16 @@ keyNames['suomi'] = keyNames['deutsch']
 keyNames['catalan'] = keyNames['italiano']
 keyNames['portugues'] = keyNames['espanol']
 
+keys = (
+    (0, 0), (0, 1),
+    (1, -1), (1, 0), (1, 1),
+    (2, -1), (2, 0),
+    (3, 0), (3, 1),
+    (4, -1), (4, 0), (4, 1),
+    (5, -1), (5, 0), (5, 1),
+    (6, -1), (6, 0),
+)
+
 modes = (
     ('major',       lambda: _("Major")),
     ('minor',       lambda: _("Minor")),
@@ -298,3 +370,4 @@ modes = (
     ('aeolian',     lambda: _("Aeolian")),
     ('locrian',     lambda: _("Locrian")),
 )
+

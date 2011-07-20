@@ -1087,9 +1087,10 @@ class Partial(Named, Duration):
     before, after = 1, 1
     
     
-class Tempo(Leaf):
+class Tempo(Container):
     """
     A tempo setting, like: \\tempo 4 = 100
+    May have a child markup or quoted string.
     """
     def __init__(self, duration, value, parent=None):
         super(Tempo, self).__init__(parent)
@@ -1097,7 +1098,12 @@ class Tempo(Leaf):
         self.value = value
         
     def ly(self, printer):
-        return "\\tempo {0}={1}".format(self.duration, self.value)
+        result = ['\\tempo']
+        if len(self) > 0:
+            result.append(super(Tempo, self).ly())
+        if self.value:
+            result.append("{0}={1}".format(self.duration, self.value))
+        return ' '.join(result)
         
         
 class Clef(Leaf):
