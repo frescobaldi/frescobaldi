@@ -854,6 +854,15 @@ class ContextType(Container):
         self.insert(0, With())
         return self[0]
 
+    def addInstrumentNameEngraverIfNecessary(self):
+        """
+        Adds the Instrument_name_engraver to the node if it would need it
+        to print instrument names.
+        """
+        if not isinstance(self,
+            (Staff, RhythmicStaff, PianoStaff, Lyrics, FretBoards)):
+            Line('\\consists "Instrument_name_engraver"', self.getWith())
+
 
 class ChoirStaff(ContextType): pass
 class ChordNames(ContextType): pass
@@ -1162,15 +1171,4 @@ class MarkupCommand(Command):
     pass
 
 
-# Utility functions
-def addInstrumentNameEngraverIfNecessary(node):
-    """
-    Adds the Instrument_name_engraver to the node if it would need it
-    to print instrument names.
-    """
-    if (isinstance(node, ContextType) and not isinstance(node,
-            (Staff, RhythmicStaff, PianoStaff, Lyrics, FretBoards))):
-        Line('\\consists "Instrument_name_engraver"', node.getWith())
 
-
-        

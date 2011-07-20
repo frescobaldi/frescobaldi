@@ -66,17 +66,17 @@ class ScoreProperties(object):
         self.tranlateMetronomeWidget()
         self.translateTempoWidget()
     
-    def ly(self, parent, builder):
+    def ly(self, node, builder):
         """Adds appropriate LilyPond command nodes to the parent node.
         
         Settings from the builder are used where that makes sense.
         All widgets must be present.
         
         """
-        self.lyKeySignature(parent, builder)
-        self.lyTimeSignature(parent, builder)
-        self.lyPickup(parent, builder)
-        self.lyTempo(parent, builder)
+        self.lyKeySignature(node, builder)
+        self.lyTimeSignature(node, builder)
+        self.lyPickup(node, builder)
+        self.lyTempo(node, builder)
     
     # Key signature
     def createKeySignatureWidget(self):
@@ -103,12 +103,12 @@ class ScoreProperties(object):
         self.keyNote.model()._data = keyNames[language or 'nederlands']
         self.keyNote.model().update()
     
-    def lyKeySignature(self, parent, builder):
+    def lyKeySignature(self, node, builder):
         """Adds the key signature to the ly.dom node parent."""
         note, alter = keys[self.keyNote.currentIndex()]
         alter = fractions.Fraction(alter, 2)
         mode = modes[self.keyMode.currentIndex()][0]
-        ly.dom.KeySignature(note, alter, mode, parent).after = 1
+        ly.dom.KeySignature(note, alter, mode, node).after = 1
         
     # Time signature
     def createTimeSignatureWidget(self):
@@ -133,23 +133,23 @@ class ScoreProperties(object):
         box.addWidget(self.timeSignature)
         layout.addLayout(box)
     
-    def lyTimeSignature(self, parent, builder):
+    def lyTimeSignature(self, node, builder):
         """Adds the time signature to the ly.dom node parent."""
         sig = self.timeSignature.currentText().strip()
         if '+' in sig:
             pass # TODO: implement support for \compoundMeter
         else:
             if sig == '(2/2)':
-                ly.dom.TimeSignature(2, 2, parent).after = 1
+                ly.dom.TimeSignature(2, 2, node).after = 1
             elif sig == '(4/4)':
-                ly.dom.TimeSignature(4, 4, parent).after = 1
+                ly.dom.TimeSignature(4, 4, node).after = 1
             else:
                 match = re.search(r'(\d+).*?(\d+)', sig)
                 if match:
                     if builder.lyVersion >= (2, 11, 44):
-                        ly.dom.Line(r"\numericTimeSignature", parent)
+                        ly.dom.Line(r"\numericTimeSignature", node)
                     else:
-                        ly.dom.Line(r"\override Staff.TimeSignature #'style = #'()", parent)
+                        ly.dom.Line(r"\override Staff.TimeSignature #'style = #'()", node)
                     num, beat = map(int, match.group(1, 2))
                     ly.dom.TimeSignature(num, beat, g).after = 1
 
@@ -175,10 +175,10 @@ class ScoreProperties(object):
         box.addWidget(self.pickup)
         layout.addLayout(box)
     
-    def lyPickup(self, parent, builder):
+    def lyPickup(self, node, builder):
          if self.pickup.currentIndex() > 0:
             dur, dots = partialDurations[self.pickup.currentIndex() - 1]
-            ly.dom.Partial(dur, dots, parent=parent)
+            ly.dom.Partial(dur, dots, parent=node)
     
     # Metronome value
     def createMetronomeWidget(self):
@@ -194,6 +194,7 @@ class ScoreProperties(object):
         self.metronomeValue.setModel(listmodel.ListModel(metronomeValues, self.metronomeValue,
             display=format))
         self.metronomeValue.setCompleter(None)
+        self.metronomeValue.setValidator(QIntValidator(0, 999, self.metronomeValue))
         self.metronomeValue.setCurrentIndex(metronomeValues.index(100))
         self.metronomeTempo = widgets.tempobutton.TempoButton()
         self.metronomeTempo.tempo.connect(self.setMetronomeValue)
@@ -242,21 +243,26 @@ class ScoreProperties(object):
         if text:
             self.tempo.completer().model().addString(text)
 
-    def lyTempo(self, parent, builder):
+    def lyTempo(self, node, builder):
         """Returns an appropriate tempo indication."""
         text = self.tempo.text().strip()
         if builder.showMetronomeMark:
             dur = durations[self.metronomeNote.currentIndex()]
             val = self.metronomeValue.currentText()
-        else:
+        elif text:
             dur = None
             val = None
-            if not text:
-                return
-        tempo = ly.dom.Tempo(dur, val, parent)
+        else:
+            return
+        tempo = ly.dom.Tempo(dur, val, node)
         if text:
             ly.dom.QuotedString(text, tempo)
 
+    def lyMidiTempo(self, node):
+        """Sets the configured tempo in the tempoWholesPerMinute variable."""
+        base, mul = midiDurations[self.metronomeNote.currentIndex()]
+        val = int(self.metronomeValue.currentText()) * mul
+        node['tempoWholesPerMinute'] = ly.dom.Scheme("(ly:make-moment {0} {1})".format(val, base))
 
 
 def metronomeValues():
@@ -278,7 +284,8 @@ timeSignaturePresets = (
 )
 
 # durations for pickup and metronome
-durations = ['16', '16.', '8', '8.', '4', '4.', '2', '2.', '1', '1.']
+durations = ('16', '16.', '8', '8.', '4', '4.', '2', '2.', '1', '1.')
+midiDurations = ((16,1),(32,3),(8,1),(16,3),(4,1),(8,3),(2,1),(4,3),(1,1),(2,3))
 partialDurations = ((4,0),(4,1),(3,0),(3,1),(2,0),(2,1),(1,0),(1,1),(0,0),(0,1))
  
 

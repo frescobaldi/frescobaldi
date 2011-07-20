@@ -57,6 +57,10 @@ class Builder(object):
         self.showMetronomeMark = generalPreferences.metro.isChecked()
         self.paperSize = generalPreferences.getPaperSize()
         self.paperLandscape = generalPreferences.paperLandscape.isChecked()
+        self.showInstrumentNames = instrumentNames.isChecked()
+        names = ['long', 'short', None]
+        self.firstInstrumentName = names[instrumentNames.firstSystem.currentIndex()]
+        self.otherInstrumentName = names[instrumentNames.otherSystems.currentIndex()]
         
         # translator for instrument names
         self._ = __builtin__._
@@ -134,4 +138,31 @@ class Builder(object):
 
         
         return doc
+
+
+    def setMidiInstrument(self, node, midiInstrument):
+        """Sets the MIDI instrument for the node, if the user wants MIDI output."""
+        if self.midi:
+            node.getWith()['midiInstrument'] = midiInstrument
+
+    def setInstrumentNames(self, staff, longName, shortName):
+        """Sets the instrument names to the staff (or group).
+        
+        longName and shortName may either be a string or a ly.dom.Node object (markup)
+        The settings in the score wizard are honored.
+        
+        """
+        if self.showInstrumentNames:
+            staff.addInstrumentNameEngraverIfNecessary()
+            w = staff.getWith()
+            first = longName if self.firstInstrumentName == 'long' else shortName
+            w['instrumentName'] = first
+            if self.otherInstrumentName:
+                other = longName if self.otherInstrumentName == 'long' else shortName
+                # If these are markup objects, copy them otherwise the assignment
+                # to shortInstrumentName takes it away from the instrumentName.
+                if other is first and isinstance(first, ly.dom.Node):
+                    other = other.copy()
+                w['shortInstrumentName'] = other
+
 
