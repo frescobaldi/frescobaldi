@@ -23,7 +23,7 @@ Builds the LilyPond score from the settings in the Score Wizard.
 
 import __builtin__
 import re
-
+import collections
 
 import ly.dom
 import po.mofile
@@ -119,13 +119,46 @@ class Builder(object):
         # analyze the parts
         root = dialog.parts.widget().scoreView.invisibleRootItem()
         
+        containerType = (
+            parts.containers.Book,
+            parts.containers.BookPart,
+            parts.containers.Score,
+        )
         
-        def children(item):
-            for index in range(item.count()):
-                yield item.child(index)
+        class Section(object):
+            def __init__(self, part, containers, parts):
+                self.part = part
+                self.containers = containers
+                self.parts = parts
                 
+        # split out children into into containers and parts for every item
+        # for containers, recursively split them out; for parts append the part
+        # attribute of the tree widget item.
+        def getparts(item):
+            containers, parts = [], []
+            for i in range(item.childCount()):
+                child = item.child(i)
+                if isinstance(child.part, containerType):
+                    containers.append(getparts(child))
+                else:
+                    parts.append(child.part)
+            return Section(getattr(item, 'part', None), containers, parts)
             
+        globalSection = getparts(root)
         
+        # if a container (book, bookpart, score) has no parts, use the parts of the parent
+        def assignparts(section):
+            partsOfParentUsed = False
+            for s in section.containers:
+                if not s.parts:
+                    s.parts = section.parts
+                    partsOfParentUsed = True
+                assignparts(s)
+            if partsOfParentUsed:
+                section.parts = []
+        assignparts(globalSection)
+        
+        # determine names for the \score section to prefix the part names if there are more than one
         
         
     def text(self, doc=None):
