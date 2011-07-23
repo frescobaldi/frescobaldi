@@ -28,6 +28,42 @@ import re
 import ly.dom
 import po.mofile
 
+from . import parts
+import parts._base
+import parts.containers
+
+
+
+class PartData(object):
+    """Represents what a Part wants to add to the LilyPond score.
+    
+    A Part may append to the following instance attributes (which are lists):
+    
+    includes:           (string) filename to be included
+    codeblocks:         (ly.dom.Node) global blocks of code a part depends on
+    assignments:        (ly.dom.Assignment) assignment of an expression to a
+                        variable, most times the music stub for a part
+    nodes:              (ly.dom.Node) the nodes a part adds to the parent \score
+    afterblocks:        (ly.dom.Node) other blocks, appended ad the end
+    
+    The num instance attribute is set to 0 by default but can be increased by
+    the Builder, when there are more parts of the exact same type in the same
+    score.
+    
+    This is used by the builder afterwards to adjust identifiers and instrument
+    names to this.
+    
+    """
+    def __init__(self):
+        self.num = 0
+        self.includes = []
+        self.codeblocks = []
+        self.assignments = []
+        self.nodes = []
+        self.afterblocks = []
+        
+        
+
 
 
 class Builder(object):
@@ -79,7 +115,19 @@ class Builder(object):
         p.typographicalQuotes = generalPreferences.typq.isChecked()
         if self.pitchLanguage:
             p.language = self.pitchLanguage
-    
+        
+        # analyze the parts
+        root = dialog.parts.widget().scoreView.invisibleRootItem()
+        
+        
+        def children(item):
+            for index in range(item.count()):
+                yield item.child(index)
+                
+            
+        
+        
+        
     def text(self, doc=None):
         """Return LilyPond formatted output. """
         return self.printer().indent(doc or self.document())
