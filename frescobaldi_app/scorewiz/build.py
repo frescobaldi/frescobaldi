@@ -23,14 +23,12 @@ Builds the LilyPond score from the settings in the Score Wizard.
 
 import __builtin__
 import re
-import collections
 
 import ly.dom
 import po.mofile
 
 from . import parts
 import parts._base
-import parts.containers
 
 
 
@@ -117,46 +115,19 @@ class Builder(object):
             p.language = self.pitchLanguage
         
         # analyze the parts
-        root = dialog.parts.widget().scoreView.invisibleRootItem()
+        globalGroup = dialog.parts.widget().parts()
         
-        containerType = (
-            parts.containers.Book,
-            parts.containers.BookPart,
-            parts.containers.Score,
-        )
-        
-        class Section(object):
-            def __init__(self, part, containers, parts):
-                self.part = part
-                self.containers = containers
-                self.parts = parts
-                
-        # split out children into into containers and parts for every item
-        # for containers, recursively split them out; for parts append the part
-        # attribute of the tree widget item.
-        def getparts(item):
-            containers, parts = [], []
-            for i in range(item.childCount()):
-                child = item.child(i)
-                if isinstance(child.part, containerType):
-                    containers.append(getparts(child))
-                else:
-                    parts.append(child.part)
-            return Section(getattr(item, 'part', None), containers, parts)
-            
-        globalSection = getparts(root)
-        
-        # if a container (book, bookpart, score) has no parts, use the parts of the parent
-        def assignparts(section):
+        # if a group (book, bookpart, score) has no parts, use the parts of the parent
+        def assignparts(group):
             partsOfParentUsed = False
-            for s in section.containers:
-                if not s.parts:
-                    s.parts = section.parts
+            for g in group.groups:
+                if not g.parts:
+                    g.parts = group.parts
                     partsOfParentUsed = True
-                assignparts(s)
+                assignparts(g)
             if partsOfParentUsed:
-                section.parts = []
-        assignparts(globalSection)
+                group.parts = []
+        assignparts(globalGroup)
         
         # determine names for the \score section to prefix the part names if there are more than one
         

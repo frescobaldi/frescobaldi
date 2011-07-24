@@ -75,6 +75,10 @@ class Container(Base):
         return (Part, Container)
     
 
+class Group(Container):
+    """Base class for "part" types that are a group such as Book, BookPart and Score."""
+
+
 # Mixin-base classes with basic behaviour
 class ChordNames(object):
     def createWidgets(self, layout):

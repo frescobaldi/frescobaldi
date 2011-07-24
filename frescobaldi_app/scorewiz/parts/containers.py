@@ -71,7 +71,7 @@ class StaffGroup(_base.Container):
         self.systemStart.model().update()
 
 
-class Score(_base.Container, scoreproperties.ScoreProperties):
+class Score(_base.Group, scoreproperties.ScoreProperties):
     @staticmethod
     def title(_=__builtin__._):
         return _("Score")
@@ -112,7 +112,7 @@ class Score(_base.Container, scoreproperties.ScoreProperties):
         return (StaffGroup, _base.Part)
 
 
-class BookPart(_base.Container):
+class BookPart(_base.Group):
     @staticmethod
     def title(_=__builtin__._):
         return _("Book Part")
@@ -121,7 +121,7 @@ class BookPart(_base.Container):
         return (Score, StaffGroup, _base.Part)
 
 
-class Book(_base.Container):
+class Book(_base.Group):
     @staticmethod
     def title(_=__builtin__._):
         return _("Book")

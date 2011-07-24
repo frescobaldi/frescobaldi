@@ -30,6 +30,7 @@ import widgets.treewidget
 
 from . import parts
 import parts._base
+import parts.containers
 
 
 class ScorePartsWidget(QSplitter):
@@ -135,9 +136,21 @@ class ScorePartsWidget(QSplitter):
         """Called when the user clicks the clear button on this page."""
         self.scoreView.clear()
 
+    def parts(self):
+        """Returns a Group instance, representing the tree of parts in the score view."""
+        return Group(self.scoreView.invisibleRootItem())
+        
 
 class PartItem(widgets.treewidget.TreeWidgetItem):
+    """An item in the score tree widget."""
     def __init__(self, tree, part, box):
+        """Initializes the item.
+        
+        tree: is the score tree widget,
+        part: is the Part instance that creates the widgets
+        box: the QGroupBox that is created for this item in the stacked widget.
+        
+        """
         super(PartItem, self).__init__(tree)
         self.part = part()
         self.box = box
@@ -163,5 +176,29 @@ class PartItem(widgets.treewidget.TreeWidgetItem):
         
     def cleanup(self):
         self.box.deleteLater()
+
+
+class Group(object):
+    """Represents an item in the parts tree that contains other Groups or Parts.
+    
+    Items that represent normal parts are separated from items that represent Score,
+    BookPart or Book.
+    
+    The 'parts' attribute of a Group contains the list of normal Parts in the group.
+    The 'groups' attribute of a Group contains the list of sub-Groups. (E.g. a Book
+    can contain one or more Score instances.)
+    The 'part' attribute of a Group contains the Part of that group (container).
+    
+    """
+    def __init__(self, item):
+        self.part = getattr(item, 'part', None)
+        self.groups = []
+        self.parts = []
+        for i in range(item.childCount()):
+            child = item.child(i)
+            if isinstance(child.part, parts._base.Group):
+                self.groups.append(Group(child))
+            else:
+                self.parts.append(child.part)
 
 
