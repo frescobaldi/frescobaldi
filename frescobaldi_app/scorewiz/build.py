@@ -129,6 +129,26 @@ class Builder(object):
                 group.parts = []
         assignparts(globalGroup)
         
+        # iter over the groups as an event list
+        def itergroups(group):
+            yield group
+            for g in group.groups:
+                for i in itergroups(g):
+                    yield i
+            yield None # end a group
+            
+        # debug, TEMP!!!
+        indent = 0
+        for group in itergroups(globalGroup):
+            if group:
+                print (' '*indent) + "Group:", group.part
+                for p in group.parts:
+                    print (' '*indent) + "- Part:", p
+                indent += 2
+            else:
+                indent -= 2
+                print (' '*indent) + "End"
+        
         # determine names for the \score section to prefix the part names if there are more than one
         
         
