@@ -117,26 +117,9 @@ class Builder(object):
         # analyze the parts
         globalGroup = dialog.parts.widget().parts()
         
-        # if a group (book, bookpart, score) has no parts, use the parts of the parent
-        def assignparts(group):
-            partsOfParentUsed = False
-            for g in group.groups:
-                if not g.parts:
-                    g.parts = group.parts
-                    partsOfParentUsed = True
-                assignparts(g)
-            if partsOfParentUsed:
-                group.parts = []
+        # move parts down the tree to subgroups that have no parts
         assignparts(globalGroup)
         
-        # iter over the groups as an event list
-        def itergroups(group):
-            yield group
-            for g in group.groups:
-                for i in itergroups(g):
-                    yield i
-            yield None # end a group
-            
         # debug, TEMP!!!
         indent = 0
         for group in itergroups(globalGroup):
@@ -148,6 +131,12 @@ class Builder(object):
             else:
                 indent -= 2
                 print (' '*indent) + "End"
+        
+        # make the nodes
+        source = itergroups(globalGroup)
+        
+        
+            
         
         # determine names for the \score section to prefix the part names if there are more than one
         
@@ -236,5 +225,38 @@ class Builder(object):
                 if other is first and isinstance(first, ly.dom.Node):
                     other = other.copy()
                 w['shortInstrumentName'] = other
+
+
+
+def assignparts(group):
+    """Moves the parts to sub-groups that contain no parts.
+    
+    If at least one subgroup uses the parts, the parent's parts are removed.
+    This way a user can specify some parts and then multiple scores, and they will all
+    use the same parts again.
+    
+    """
+    partsOfParentUsed = False
+    for g in group.groups:
+        if not g.parts:
+            g.parts = group.parts
+            partsOfParentUsed = True
+        assignparts(g)
+    if partsOfParentUsed:
+        group.parts = []
+
+
+def itergroups(group):
+    """Iterates over the group and its subgroups as an event list.
+    
+    When a group is yielded, it means the group starts.
+    When None is yielded, it means that the last started groups ends.
+    
+    """
+    yield group
+    for g in group.groups:
+        for i in itergroups(g):
+            yield i
+    yield None # end a group
 
 
