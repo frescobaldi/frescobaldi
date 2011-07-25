@@ -138,7 +138,7 @@ class ScorePartsWidget(QSplitter):
 
     def parts(self):
         """Returns a Group instance, representing the tree of parts in the score view."""
-        return Group(self.scoreView.invisibleRootItem())
+        return PartNode(self.scoreView.invisibleRootItem())
         
 
 class PartItem(widgets.treewidget.TreeWidgetItem):
@@ -178,16 +178,17 @@ class PartItem(widgets.treewidget.TreeWidgetItem):
         self.box.deleteLater()
 
 
-class Group(object):
-    """Represents an item in the parts tree that contains other Groups or Parts.
+class PartNode(object):
+    """Represents an item with sub-items in the parts tree.
     
-    Items that represent normal parts are separated from items that represent Score,
-    BookPart or Book.
+    Sub-items of this items are are split out in two lists: the 'parts' and
+    'groups' attributes.
     
-    The 'parts' attribute of a Group contains the list of normal Parts in the group.
-    The 'groups' attribute of a Group contains the list of sub-Groups. (E.g. a Book
-    can contain one or more Score instances.)
-    The 'part' attribute of a Group contains the Part of that group (container).
+    Parts ('parts' attribute) are vertically stacked (instrumental parts or
+    staff groups). Groups ('groups' attribute) are horizontally added (score,
+    book, bookpart).
+    
+    The Part (containing the widgets) is in the 'part' attribute.
     
     """
     def __init__(self, item):
@@ -195,10 +196,10 @@ class Group(object):
         self.groups = []
         self.parts = []
         for i in range(item.childCount()):
-            child = item.child(i)
-            if isinstance(child.part, parts._base.Group):
-                self.groups.append(Group(child))
+            node = PartNode(item.child(i))
+            if isinstance(node.part, parts._base.Group):
+                self.groups.append(node)
             else:
-                self.parts.append(child.part)
+                self.parts.append(node)
 
 

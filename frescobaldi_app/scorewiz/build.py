@@ -126,7 +126,7 @@ class Builder(object):
             if group:
                 print (' '*indent) + "Group:", group.part
                 for p in group.parts:
-                    print (' '*indent) + "- Part:", p
+                    print (' '*indent) + "- Part:", p.part
                 indent += 2
             else:
                 indent -= 2
