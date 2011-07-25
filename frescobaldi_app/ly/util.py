@@ -68,3 +68,49 @@ class cachedproperty(object):
         except KeyError:
             pass
 
+
+_nums = (
+    '', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight',
+    'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen',
+    'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen')
+
+_tens = (
+    'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty',
+    'Ninety')
+
+def int2text(number):
+    """Converts an integer to the English language name of that integer.
+    
+    E.g. converts 1 to "One". Supports numbers 0 to 999999.
+    This can be used in LilyPond identifiers (that do not support digits).
+    
+    """
+    result = []
+    if number >= 1000:
+        hundreds, number = divmod(number, 1000)
+        result.append(int2text(hundreds) + "Thousand")
+    if number >= 100:
+        tens, number = divmod(number, 100)
+        result.append(_nums[tens] + "Hundred")
+    if number < 20:
+        result.append(_nums[number])
+    else:
+        tens, number = divmod(number, 10)
+        result.append(_tens[tens-2] + _nums[number])
+    text = "".join(result)
+    return text or 'Zero'
+
+
+# Thanks: http://billmill.org/python_roman.html
+_roman_numerals = (("M", 1000), ("CM", 900), ("D", 500), ("CD", 400),
+("C", 100),("XC", 90),("L", 50),("XL", 40), ("X", 10), ("IX", 9), ("V", 5),
+("IV", 4), ("I", 1))
+
+def int2roman(n):
+    roman = []
+    for ltr, num in _roman_numerals:
+        k, n = divmod(n, num)
+        roman.append(ltr * k)
+    return "".join(roman)
+
+
