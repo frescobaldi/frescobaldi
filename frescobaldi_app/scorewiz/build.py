@@ -114,32 +114,36 @@ class Builder(object):
         if self.pitchLanguage:
             p.language = self.pitchLanguage
         
-        # analyze the parts
+        # get the parts
         globalGroup = dialog.parts.widget().parts()
         
         # move parts down the tree to subgroups that have no parts
         assignparts(globalGroup)
         
-        # debug, TEMP!!!
-        indent = 0
-        for group in itergroups(globalGroup):
-            if group:
-                print (' '*indent) + "Group:", group.part
+        # now prepare the different blocks
+        # variable assignments
+        self.assignments = ly.dom.Block()
+        # the \score { }, \book { } etc. blocks
+        self.scores = ly.dom.Block()
+        # the aftermath, things that parts may add
+        self.backmatter = ly.dom.Block()
+        
+        usePrefix = needsPrefix(globalGroup)
+        groupCount = sum(1 for g in itergroups(globalGroup) if g and g.parts)
+        
+        def makeBlock(group, node):
+            if group.part:
+                node = group.part.makeNode(node)
+            if group.parts:
+                # add parts here, always in \score { }
+                if not isinstance(node,ly.dom.Score):
+                    node = ly.dom.Score(node)
+                # TODO: add the parts
                 for p in group.parts:
-                    print (' '*indent) + "- Part:", p.part
-                indent += 2
-            else:
-                indent -= 2
-                print (' '*indent) + "End"
-        
-        # make the nodes
-        source = itergroups(globalGroup)
-        
-        
-            
-        
-        # determine names for the \score section to prefix the part names if there are more than one
-        
+                    ly.dom.Comment("Part {0}".format(p.part.title()), node)
+            for g in group.groups:
+                makeBlock(g, node)
+        makeBlock(globalGroup, self.scores)
         
     def text(self, doc=None):
         """Return LilyPond formatted output. """
@@ -197,7 +201,8 @@ class Builder(object):
                     ly.dom.Layout(doc)))
             ly.dom.BlankLine(doc)
 
-        
+        # add the main scores
+        doc.append(self.scores)
         return doc
 
 
@@ -258,5 +263,21 @@ def itergroups(group):
         for i in itergroups(g):
             yield i
     yield None # end a group
+
+
+def needsPrefix(globalGroup):
+    """Returns True if there are multiple scores in group with shared part types.
+    
+    This means the music assignments will need a prefix (e.g. scoreAsoprano,
+    scoreBsoprano, etc.)
+    
+    """
+    counter = {}    # collections.Counter() would be nice but requires Python 2.7
+    for group in itergroups(globalGroup):
+        if group:
+            partTypes = set(type(g.part) for g in group.parts)
+            for partType in partTypes:
+                counter[partType] = counter.get(partType, 0) + 1
+    return any(v for v in counter.values() if v > 1)
 
 

@@ -26,6 +26,7 @@ import __builtin__
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+import ly.dom
 import listmodel
 import symbols
 import widgets.lineedit
@@ -111,6 +112,11 @@ class Score(_base.Group, scoreproperties.ScoreProperties):
     def accepts(self):
         return (StaffGroup, _base.Part)
 
+    def makeNode(self, node):
+        score = ly.dom.Score(node)
+        # TODO: add header
+        return score
+
 
 class BookPart(_base.Group):
     @staticmethod
@@ -119,6 +125,10 @@ class BookPart(_base.Group):
 
     def accepts(self):
         return (Score, StaffGroup, _base.Part)
+
+    def makeNode(self, node):
+        bookpart = ly.dom.BookPart(node)
+        return bookpart
 
 
 class Book(_base.Group):
@@ -154,6 +164,14 @@ class Book(_base.Group):
         self.bookOutputLabel.setText(_("Output Filename:"))
         self.bookOutputFileName.setText(_("Filename"))
         self.bookOutputSuffix.setText(_("Suffix"))
+
+    def makeNode(self, node):
+        book = ly.dom.Book(node)
+        name = self.bookOutput.text().strip()
+        if name:
+            cmd = 'bookOutputName' if self.bookOutputFileName.isChecked() else 'bookOutputSuffix'
+            ly.dom.Line(r'\{0} "{1}"'.format(cmd, name.replace('"', r'\"')), book)
+        return book
 
 
 register(

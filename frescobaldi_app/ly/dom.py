@@ -777,6 +777,7 @@ class Section(StatementEnclosed):
 
 
 class Book(Section): name = 'book'
+class BookPart(Section): name = 'bookpart'
 class Score(Section): name = 'score'
 class Paper(HandleVars, Section): name = 'paper'
 class Layout(HandleVars, Section): name = 'layout'

@@ -24,6 +24,7 @@ Utility functions.
 from __future__ import unicode_literals
 
 import os
+import string
 import weakref
 
 
@@ -112,5 +113,22 @@ def int2roman(n):
         k, n = divmod(n, num)
         roman.append(ltr * k)
     return "".join(roman)
+
+
+def int2letter(number, chars=string.ascii_uppercase):
+    """Converts an integer to one or more letters.
+    
+    E.g. 1 -> A, 2 -> B, ... 26 -> Z, 27 -> AA, etc.
+    Zero returns the empty string.
+    
+    chars is the string to pick characters of, defaulting to string.ascii_uppercase
+    
+    """
+    mod = len(chars)
+    result = []
+    while number > 0:
+        number, c = divmod(number - 1, mod)
+        result.append(c)
+    return "".join(chars[c] for c in reversed(result))
 
 
