@@ -136,9 +136,9 @@ class ScorePartsWidget(QSplitter):
         """Called when the user clicks the clear button on this page."""
         self.scoreView.clear()
 
-    def parts(self):
-        """Returns a Group instance, representing the tree of parts in the score view."""
-        return PartNode(self.scoreView.invisibleRootItem())
+    def rootPartItem(self):
+        """Returns the invisibleRootItem(), representing the tree of parts in the score view."""
+        return self.scoreView.invisibleRootItem()
         
 
 class PartItem(widgets.treewidget.TreeWidgetItem):
@@ -176,30 +176,5 @@ class PartItem(widgets.treewidget.TreeWidgetItem):
         
     def cleanup(self):
         self.box.deleteLater()
-
-
-class PartNode(object):
-    """Represents an item with sub-items in the parts tree.
-    
-    Sub-items of this items are are split out in two lists: the 'parts' and
-    'groups' attributes.
-    
-    Parts ('parts' attribute) are vertically stacked (instrumental parts or
-    staff groups). Groups ('groups' attribute) are horizontally added (score,
-    book, bookpart).
-    
-    The Part (containing the widgets) is in the 'part' attribute.
-    
-    """
-    def __init__(self, item):
-        self.part = getattr(item, 'part', None)
-        self.groups = []
-        self.parts = []
-        for i in range(item.childCount()):
-            node = PartNode(item.child(i))
-            if isinstance(node.part, parts._base.Group):
-                self.groups.append(node)
-            else:
-                self.parts.append(node)
 
 

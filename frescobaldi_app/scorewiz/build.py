@@ -22,6 +22,7 @@ Builds the LilyPond score from the settings in the Score Wizard.
 """
 
 import __builtin__
+import collections
 import re
 
 import ly.dom
@@ -30,6 +31,32 @@ import po.mofile
 from . import parts
 import parts._base
 
+
+
+class PartNode(object):
+    """Represents an item with sub-items in the parts tree.
+    
+    Sub-items of this items are are split out in two lists: the 'parts' and
+    'groups' attributes.
+    
+    Parts ('parts' attribute) are vertically stacked (instrumental parts or
+    staff groups). Groups ('groups' attribute) are horizontally added (score,
+    book, bookpart).
+    
+    The Part (containing the widgets) is in the 'part' attribute.
+    
+    """
+    def __init__(self, item):
+        """item is a PartItem (QTreeWidgetItem)."""
+        self.part = getattr(item, 'part', None)
+        self.groups = []
+        self.parts = []
+        for i in range(item.childCount()):
+            node = PartNode(item.child(i))
+            if isinstance(node.part, parts._base.Group):
+                self.groups.append(node)
+            else:
+                self.parts.append(node)
 
 
 class PartData(object):
@@ -60,8 +87,15 @@ class PartData(object):
         self.nodes = []
         self.afterblocks = []
         
-        
 
+class BlockData(object):
+    """Represents the building blocks of a global section of a ly.dom.Document."""
+    def __init__(self, num=0):
+        self.num = num
+        self.assignments = ly.dom.Block()
+        self.scores = ly.dom.Block()
+        self.backmatter = ly.dom.Block()
+        
 
 
 class Builder(object):
@@ -115,41 +149,51 @@ class Builder(object):
             p.language = self.pitchLanguage
         
         # get the parts
-        globalGroup = dialog.parts.widget().parts()
+        globalGroup = PartNode(dialog.parts.widget().rootPartItem())
         
         # move parts down the tree to subgroups that have no parts
         assignparts(globalGroup)
         
         # now prepare the different blocks
-        # variable assignments
-        self.assignments = ly.dom.Block()
-        # the \score { }, \book { } etc. blocks
-        self.scores = ly.dom.Block()
-        # the aftermath, things that parts may add
-        self.backmatter = ly.dom.Block()
-        
         usePrefix = needsPrefix(globalGroup)
         groupCount = sum(1 for g in itergroups(globalGroup) if g and g.parts)
         
-        def makeBlock(group, node):
-            if group.part:
-                node = group.part.makeNode(node)
-            if group.parts:
-                # add parts here, always in \score { }
-                if not isinstance(node,ly.dom.Score):
-                    node = ly.dom.Score(node)
-                ly.dom.Layout(node)
-                if self.midi:
-                    midi = ly.dom.Midi(node)
-                music = ly.dom.Simr()
-                node.insert(0, music)
-                # TODO: add the parts to the music << >>
-                for p in group.parts:
-                    ly.dom.Comment("Part {0}".format(p.part.title()), music)
-            for g in group.groups:
-                makeBlock(g, node)
-                
-        makeBlock(globalGroup, self.scores)
+        # make a part of the document (assignments, scores, backmatter) for
+        # every group (book, bookpart or score) in the global group
+        if globalGroup.parts:
+            groups = [globalGroup]
+        else:
+            groups = globalGroup.groups
+        
+        self.blocks = []
+        for group in groups:
+            block = BlockData()
+            self.makeBlock(group, block.scores, block)
+            self.blocks.append(block)
+    
+    def makeBlock(self, group, node, block):
+        """Recursively populates the Block with data from the group.
+        
+        The group can contain parts and/or subgroups.
+        ly.dom nodes representing the LilyPond document are added to the node.
+        
+        """
+        if group.part:
+            node = group.part.makeNode(node)
+        if group.parts:
+            # add parts here, always in \score { }
+            score = node if isinstance(node,ly.dom.Score) else ly.dom.Score(node)
+            ly.dom.Layout(score)
+            if self.midi:
+                midi = ly.dom.Midi(score)
+            music = ly.dom.Simr()
+            score.insert(0, music)
+            # TODO: add the parts to the music << >>
+            for p in group.parts:
+                ly.dom.Comment("Part {0}".format(p.part.title()), music)
+        for g in group.groups:
+            self.makeBlock(g, node, block)
+            
         
     def text(self, doc=None):
         """Return LilyPond formatted output. """
@@ -208,7 +252,14 @@ class Builder(object):
             ly.dom.BlankLine(doc)
 
         # add the main scores
-        doc.append(self.scores)
+        for block in self.blocks:
+            doc.append(block.assignments)
+            ly.dom.BlankLine(doc)
+            doc.append(block.scores)
+            if len(block.backmatter):
+                ly.dom.BlankLine(doc)
+                doc.append(block.backmatter)
+            
         return doc
 
 
