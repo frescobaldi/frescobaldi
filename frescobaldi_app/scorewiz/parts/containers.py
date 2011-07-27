@@ -114,7 +114,15 @@ class Score(_base.Group, scoreproperties.ScoreProperties):
 
     def makeNode(self, node):
         score = ly.dom.Score(node)
-        # TODO: add header
+        h = ly.dom.Header()
+        piece = self.piece.text().strip()
+        opus = self.opus.text().strip()
+        if piece:
+            h['piece'] = ly.dom.QuotedString(piece)
+        if opus:
+            h['opus'] = ly.dom.QuotedString(opus)
+        if len(h):
+            score.append(h)
         return score
 
 

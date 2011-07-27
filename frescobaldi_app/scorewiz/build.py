@@ -138,11 +138,17 @@ class Builder(object):
                 # add parts here, always in \score { }
                 if not isinstance(node,ly.dom.Score):
                     node = ly.dom.Score(node)
-                # TODO: add the parts
+                ly.dom.Layout(node)
+                if self.midi:
+                    midi = ly.dom.Midi(node)
+                music = ly.dom.Simr()
+                node.insert(0, music)
+                # TODO: add the parts to the music << >>
                 for p in group.parts:
-                    ly.dom.Comment("Part {0}".format(p.part.title()), node)
+                    ly.dom.Comment("Part {0}".format(p.part.title()), music)
             for g in group.groups:
                 makeBlock(g, node)
+                
         makeBlock(globalGroup, self.scores)
         
     def text(self, doc=None):
@@ -263,6 +269,25 @@ def itergroups(group):
         for i in itergroups(g):
             yield i
     yield None # end a group
+
+
+def descendants(group):
+    """Iterates over the descendants of a group (including the group itself).
+    
+    First the group, then its children, then the grandchildren, etc.
+    
+    """
+    def _descendants(group):
+        children = group.groups
+        while children:
+            new = []
+            for g in children:
+                yield g
+                new.extend(g.groups)
+            children = new
+    yield group
+    for g in _descendants(group):
+        yield g
 
 
 def needsPrefix(globalGroup):
