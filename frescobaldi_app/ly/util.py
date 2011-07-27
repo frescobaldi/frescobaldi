@@ -121,7 +121,8 @@ def int2letter(number, chars=string.ascii_uppercase):
     E.g. 1 -> A, 2 -> B, ... 26 -> Z, 27 -> AA, etc.
     Zero returns the empty string.
     
-    chars is the string to pick characters of, defaulting to string.ascii_uppercase
+    chars is the string to pick characters from, defaulting to
+    string.ascii_uppercase.
     
     """
     mod = len(chars)
@@ -130,5 +131,27 @@ def int2letter(number, chars=string.ascii_uppercase):
         number, c = divmod(number - 1, mod)
         result.append(c)
     return "".join(chars[c] for c in reversed(result))
+
+
+def mkid(*args):
+    """Makes a lower-camel-case identifier of the strings in args.
+    
+    All strings are concatenated with the first character of every string
+    uppercased, except for the first character, which is lowercased.
+    
+    Examples:
+    mkid("Violin") ==> "violin"
+    mkid("soprano", "verse") ==> "sopranoVerse"
+    mkid("scoreOne", "choirII") ==> "scoreOneChoirII"
+    
+    """
+    result = []
+    for a in args[:1]:
+        result.append(a[:1].lower())
+        result.append(a[1:])
+    for a in args[1:]:
+        result.append(a[:1].upper())
+        result.append(a[1:])
+    return "".join(result)
 
 
