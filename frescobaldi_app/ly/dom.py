@@ -89,6 +89,13 @@ class Node(object):
         self._children.append(node)
         node._parent = weakref.ref(self)
         
+    def extend(self, iterable):
+        """
+        Calls append() for every Node from iterable.
+        """
+        for node in iterable:
+            self.append(node)
+        
     def index(self, node):
         """
         Return the index of the given object in our list of children.

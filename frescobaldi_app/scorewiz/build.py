@@ -86,12 +86,19 @@ class PartData(object):
         self.assignments = []
         self.nodes = []
         self.afterblocks = []
+    
+    def roman(self):
+        """Returns the value of the num attribute as a Roman number.
         
+        Returns the empty string if num == 0.
+        
+        """
+        return ly.util.int2roman(self.num) if self.num else ''
+
 
 class BlockData(object):
     """Represents the building blocks of a global section of a ly.dom.Document."""
-    def __init__(self, num=0):
-        self.num = num
+    def __init__(self):
         self.assignments = ly.dom.Block()
         self.scores = ly.dom.Block()
         self.backmatter = ly.dom.Block()
@@ -155,8 +162,8 @@ class Builder(object):
         assignparts(globalGroup)
         
         # now prepare the different blocks
-        usePrefix = needsPrefix(globalGroup)
-        groupCount = sum(1 for g in itergroups(globalGroup) if g and g.parts)
+        self.usePrefix = needsPrefix(globalGroup)
+        self.currentScore = 0
         
         # make a part of the document (assignments, scores, backmatter) for
         # every group (book, bookpart or score) in the global group
@@ -186,14 +193,72 @@ class Builder(object):
             ly.dom.Layout(score)
             if self.midi:
                 midi = ly.dom.Midi(score)
+                # TODO: set MIDI tempo if necessary
             music = ly.dom.Simr()
             score.insert(0, music)
-            # TODO: add the parts to the music << >>
-            for p in group.parts:
-                ly.dom.Comment("Part {0}".format(p.part.title()), music)
+            # make the parts
+            partData = self.makeParts(group.parts)
+            # prefix if necessary
+            if self.usePrefix:
+                self.currentScore += 1
+                prefix = 'score' + ly.util.int2letter(self.currentScore)
+                for p in partData:
+                    for a in p.assignments:
+                        a.name.name = ly.util.mkid(prefix, a.name.name)
+            # add them
+            for p in partData:
+                block.assignments.extend(p.assignments)
+                music.extend(p.nodes)
+                # TODO: aftermath/backmatter
         for g in group.groups:
             self.makeBlock(g, node, block)
-            
+    
+    def makeParts(self, parts):
+        """Lets the parts build the music stubs and assignments.
+        
+        parts is a list of PartNode instances.
+        Returns the list of PartData object for the parts.
+        
+        """
+        # number instances of the same type (Choir I and Choir II, etc.)
+        data = {}
+        types = {}
+        def _search(parts):
+            for group in parts:
+                pd = data[group] = PartData()
+                types.setdefault(group.part.__class__, []).append(group)
+                _search(group.parts)
+        _search(parts)
+        for t in types.values():
+            if len(t) > 1:
+                for num, group in enumerate(t, 1):
+                    data[group].num = num
+
+        # now build all the parts
+        def build(parts, parent=None):
+            for group in parts:
+                group.part.build(data[group], self)
+                if parent:
+                    parent.part.addChild(data[parent], data[group])
+                build(group.parts, group)
+        build(parts)
+        
+        # check for name collisions in assignment identifiers
+        refs = {}
+        for group in allparts(parts):
+            for a in data[group].assignments:
+                ref = a.name
+                name = ref.name
+                refs.setdefault(name, []).append((ref, group))
+        for reflist in refs.values():
+            if len(reflist) > 1:
+                for ref, group in reflist:
+                    # append the class name and number
+                    identifier = group.__class__.__name__ + data[group].roman()
+                    ref.name = ly.util.mkid(ref.name, identifier)
+        
+        # return all PartData instances
+        return [data[group] for group in allparts(parts)]
         
     def text(self, doc=None):
         """Return LilyPond formatted output. """
@@ -357,3 +422,10 @@ def needsPrefix(globalGroup):
     return any(v for v in counter.values() if v > 1)
 
 
+def allparts(parts):
+    """Yields all the parts and child parts."""
+    for group in parts:
+        yield group
+        for group in allparts(group.parts):
+            yield group
+        

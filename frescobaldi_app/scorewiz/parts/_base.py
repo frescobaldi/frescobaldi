@@ -28,6 +28,8 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import listmodel
+import ly.dom
+
 
 Category = collections.namedtuple("Category", "title items icon")
 
@@ -62,6 +64,10 @@ class Base(object):
     def accepts(self):
         """Should return a tuple of classes this part item accepts as child items."""
         return ()
+    
+    def build(self, data, builder):
+        """Should populate the PartData (see build.py)."""
+        data.nodes.append(ly.dom.Comment("Part {0}".format(self.__class__.__name__)))
 
 
 class Part(Base):

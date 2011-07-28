@@ -70,6 +70,16 @@ class StaffGroup(_base.Container):
         self.connectBarLines.setText(_("Connect Barlines"))
         self.connectBarLines.setToolTip(_("If checked, barlines are connected between the staves."))
         self.systemStart.model().update()
+    
+    def build(self, data, builder):
+        node = ly.dom.StaffGroup()
+        data.nodes.append(node)
+        data.staffGroup = ly.dom.Simr(node)
+        
+    def addChild(self, data, childData):
+        """Takes over the nodes."""
+        data.staffGroup.extend(childData.nodes)
+        del childData.nodes[:]
 
 
 class Score(_base.Group, scoreproperties.ScoreProperties):
