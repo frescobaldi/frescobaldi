@@ -30,7 +30,7 @@ import po.mofile
 
 from . import parts
 import parts._base
-
+import parts.containers
 
 
 class PartNode(object):
@@ -80,6 +80,7 @@ class PartData(object):
     
     """
     def __init__(self):
+        self.globalName = 'global'
         self.num = 0
         self.includes = []
         self.codeblocks = []
@@ -115,7 +116,9 @@ class Builder(object):
     def __init__(self, dialog):
         """Initializes ourselves from all user settings in the dialog."""
         self._includeFiles = []
+        self.globalUsed = False
         
+        scoreProperties = dialog.settings.widget().scoreProperties
         generalPreferences = dialog.settings.widget().generalPreferences
         lilyPondPreferences = dialog.settings.widget().lilyPondPreferences
         instrumentNames = dialog.settings.widget().instrumentNames
@@ -147,6 +150,9 @@ class Builder(object):
                 mofile = po.find(lang)
                 if mofile:
                     self._ = po.translator(po.mofile.MoFile(mofile))
+        
+        # global score preferences
+        self.globalSection = scoreProperties.globalSection(self)
         
         # printer that converts the ly.dom tree to text
         p = self._printer = ly.dom.Printer()
@@ -188,6 +194,22 @@ class Builder(object):
         if group.part:
             node = group.part.makeNode(node)
         if group.parts:
+            # prefix for this block, used if necessary
+            self.currentScore += 1
+            prefix = 'score' + ly.util.int2letter(self.currentScore)
+            
+            # is this a score and has it its own score properties?
+            globalName = 'global'
+            if isinstance(group.part, parts.containers.Score):
+                globalSection = group.part.globalSection(self)
+                if globalSection:
+                    globalName = prefix + 'Global'
+                    a = ly.dom.Assignment(globalName)
+                    a.append(globalSection)
+                    block.assignments.append(a)
+                else:
+                    self.globalUsed = True
+            
             # add parts here, always in \score { }
             score = node if isinstance(node,ly.dom.Score) else ly.dom.Score(node)
             ly.dom.Layout(score)
@@ -197,11 +219,9 @@ class Builder(object):
             music = ly.dom.Simr()
             score.insert(0, music)
             # make the parts
-            partData = self.makeParts(group.parts)
+            partData = self.makeParts(group.parts, globalName)
             # prefix if necessary
             if self.usePrefix:
-                self.currentScore += 1
-                prefix = 'score' + ly.util.int2letter(self.currentScore)
                 for p in partData:
                     for a in p.assignments:
                         a.name.name = ly.util.mkid(prefix, a.name.name)
@@ -213,10 +233,13 @@ class Builder(object):
         for g in group.groups:
             self.makeBlock(g, node, block)
     
-    def makeParts(self, parts):
+    def makeParts(self, parts, globalName):
         """Lets the parts build the music stubs and assignments.
         
         parts is a list of PartNode instances.
+        globalName is either 'global' (for the global time/key signature section)
+        or something like 'scoreAGlobal' (when a score has its own properties).
+        
         Returns the list of PartData object for the parts.
         
         """
@@ -226,6 +249,7 @@ class Builder(object):
         def _search(parts):
             for group in parts:
                 pd = data[group] = PartData()
+                pd.globalName = globalName
                 types.setdefault(group.part.__class__, []).append(group)
                 _search(group.parts)
         _search(parts)
@@ -239,11 +263,13 @@ class Builder(object):
             for group in parts:
                 group.part.build(data[group], self)
                 if parent:
+                    # this is used for parts that have child parts (like StaffGroup)
                     parent.part.addChild(data[parent], data[group])
                 build(group.parts, group)
         build(parts)
         
         # check for name collisions in assignment identifiers
+        # add the part class name and a roman number if necessary
         refs = {}
         for group in allparts(parts):
             for a in data[group].assignments:
@@ -316,6 +342,13 @@ class Builder(object):
                     ly.dom.Layout(doc)))
             ly.dom.BlankLine(doc)
 
+        # global section
+        if self.globalUsed:
+            a = ly.dom.Assignment('global')
+            a.append(self.globalSection)
+            doc.append(a)
+            ly.dom.BlankLine(doc)
+        
         # add the main scores
         for block in self.blocks:
             doc.append(block.assignments)

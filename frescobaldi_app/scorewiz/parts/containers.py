@@ -134,6 +134,11 @@ class Score(_base.Group, scoreproperties.ScoreProperties):
         if len(h):
             score.append(h)
         return score
+    
+    def globalSection(self, builder):
+        if self.scoreProps.isChecked():
+            return scoreproperties.ScoreProperties.globalSection(self, builder)
+            
 
 
 class BookPart(_base.Group):

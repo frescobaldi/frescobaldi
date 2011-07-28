@@ -78,6 +78,12 @@ class ScoreProperties(object):
         self.lyPickup(node, builder)
         self.lyTempo(node, builder)
     
+    def globalSection(self, builder):
+        """Returns a sequential expression between { } containing the output of ly()."""
+        seq = ly.dom.Seq()
+        self.ly(seq, builder)
+        return seq
+        
     # Key signature
     def createKeySignatureWidget(self):
         self.keySignatureLabel = QLabel()
