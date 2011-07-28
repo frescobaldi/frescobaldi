@@ -29,29 +29,8 @@ from . import _base
 from . import register
 
 
-class StringPart(_base.Part):
+class StringPart(_base.SingleVoicePart):
     """Base class for string part types."""
-    midiInstrument = ''
-    clef = None
-    octave = 1
-
-    def build(self, data, builder):
-        a = data.assign()
-        stub = ly.dom.Relative(a)
-        ly.dom.Pitch(self.octave, 0, 0, stub)
-        s = ly.dom.Seq(stub)
-        ly.dom.Identifier(data.globalName, s).after = 1
-        ly.dom.LineComment(_("Music follows here."), s)
-        ly.dom.BlankLine(s)
-        
-        staff = ly.dom.Staff()
-        builder.setInstrumentNames(staff, self.title(builder._), self.short(builder._))
-        builder.setMidiInstrument(staff, self.midiInstrument)
-        seq = ly.dom.Seqr(staff)
-        if self.clef:
-            ly.dom.Clef(self.clef, seq)
-        ly.dom.Identifier(a.name, seq)
-        data.nodes.append(staff)
 
 
 class Violin(StringPart):
@@ -116,6 +95,8 @@ class BassoContinuo(Cello):
     @staticmethod
     def short(_=__builtin__._):
         return _("abbreviation for Basso Continuo", "B.c.")
+    
+    # TODO: reimplement build() to add a figures line
     
 
 register(

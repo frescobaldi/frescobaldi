@@ -27,7 +27,7 @@ from . import _base
 from . import register
 
 
-class BrassPart(_base.Part):
+class BrassPart(_base.SingleVoicePart):
     """Base class for brass types."""
     
     

@@ -23,6 +23,7 @@ Base types for parts.
 
 import __builtin__
 import collections
+import fractions
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -85,7 +86,39 @@ class Group(Container):
     """Base class for "part" types that are a group such as Book, BookPart and Score."""
 
 
-# Mixin-base classes with basic behaviour
+# Mixin- or base classes with basic behaviour
+class SingleVoicePart(Part):
+    """Base class for a part creating a single single-voice staff."""
+    midiInstrument = ''
+    clef = None
+    octave = 1
+    transposition = None # or a three tuple (octave, note, alteration)
+
+    def build(self, data, builder):
+        # stub
+        a = data.assign()
+        stub = ly.dom.Relative(a)
+        ly.dom.Pitch(self.octave, 0, 0, stub)
+        s = ly.dom.Seq(stub)
+        ly.dom.Identifier(data.globalName, s).after = 1
+        if self.transposition is not None:
+            toct, tnote, talter = self.transposition
+            ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), ly.dom.Transposition(s))
+        ly.dom.LineComment(_("Music follows here."), s)
+        ly.dom.BlankLine(s)
+        
+        # node
+        staff = ly.dom.Staff()
+        builder.setInstrumentNamesFromPart(staff, self, data)
+        if self.midiInstrument:
+            builder.setMidiInstrument(staff, self.midiInstrument)
+        seq = ly.dom.Seqr(staff)
+        if self.clef:
+            ly.dom.Clef(self.clef, seq)
+        ly.dom.Identifier(a.name, seq)
+        data.nodes.append(staff)
+
+
 class ChordNames(object):
     def createWidgets(self, layout):
         self.chordStyleLabel = QLabel()

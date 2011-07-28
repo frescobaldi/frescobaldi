@@ -27,7 +27,7 @@ from . import _base
 from . import register
 
 
-class WoodWindPart(_base.Part):
+class WoodWindPart(_base.SingleVoicePart):
     """Base class for wood wind part types."""
     
     

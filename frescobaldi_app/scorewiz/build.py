@@ -436,6 +436,28 @@ class Builder(object):
                     other = other.copy()
                 w['shortInstrumentName'] = other
 
+    def instrumentName(self, function, num=0):
+        """Returns an instrument name.
+        
+        The name is constructed by calling the 'function' with our translator as
+        argument, and appending the number 'num' in roman literals, if num > 0.
+        
+        """
+        name = function(self._)
+        if num:
+            name += ' ' + ly.util.int2roman(num)
+        return name
+    
+    def setInstrumentNamesFromPart(self, node, part, data):
+        """Sets the long and short instrument names for the node.
+        
+        Calls part.title(translator) and part.short(translator) to get the
+        names, appends roman literals if data.num > 0, and sets them on the node.
+        
+        """
+        longName = self.instrumentName(part.title, data.num)
+        shortName = self.instrumentName(part.short, data.num)
+        self.setInstrumentNames(node, longName, shortName)
 
 
 def assignparts(group):
