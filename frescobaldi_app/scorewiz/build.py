@@ -79,7 +79,8 @@ class PartData(object):
     names to this.
     
     """
-    def __init__(self):
+    def __init__(self, part):
+        self._name = part.__class__.__name__
         self.globalName = 'global'
         self.num = 0
         self.includes = []
@@ -88,13 +89,16 @@ class PartData(object):
         self.nodes = []
         self.afterblocks = []
     
-    def roman(self):
-        """Returns the value of the num attribute as a Roman number.
+    def name(self):
+        """Returns a name for this part data.
         
-        Returns the empty string if num == 0.
+        The name consists of the class name of the part with the value of the num
+        attribute appended as a roman number.
         
         """
-        return ly.util.int2roman(self.num) if self.num else ''
+        if self.num:
+            return self._name + ly.util.int2roman(self.num)
+        return self._name
 
 
 class BlockData(object):
@@ -218,18 +222,40 @@ class Builder(object):
                 # TODO: set MIDI tempo if necessary
             music = ly.dom.Simr()
             score.insert(0, music)
+            
             # make the parts
             partData = self.makeParts(group.parts, globalName)
-            # prefix if necessary
-            if self.usePrefix:
-                for p in partData:
-                    for a in p.assignments:
-                        a.name.name = ly.util.mkid(prefix, a.name.name)
-            # add them
+            
+            # collect all 'prefixable' assignments for this group
+            assignments = []
+            for p in partData:
+                assignments.extend(p.assignments)
+                
+            # add the assignments to the block
             for p in partData:
                 block.assignments.extend(p.assignments)
-                music.extend(p.nodes)
-                # TODO: aftermath/backmatter
+            
+            # make a part assignment if there is more than one part that has assignments
+            if sum(1 for p in partData if p.assignments) > 1:
+                # make part assignments containing the nodes of the part
+                for p in partData:
+                    a = ly.dom.Assignment(ly.dom.Reference(ly.util.mkid(p.name() + "Part")))
+                    ly.dom.Simr(a).extend(p.nodes)
+                    ly.dom.Identifier(a.name, music).after = 1
+                    block.assignments.append(a)
+                    assignments.append(a)
+            else:
+                # just put the nodes in the score
+                for p in partData:
+                    music.extend(p.nodes)
+            
+            # TODO: aftermath/backmatter
+            
+            # add the prefix to the assignments if necessary
+            if self.usePrefix:
+                for a in assignments:
+                    a.name.name = ly.util.mkid(prefix, a.name.name)
+            
         for g in group.groups:
             self.makeBlock(g, node, block)
     
@@ -248,9 +274,9 @@ class Builder(object):
         types = {}
         def _search(parts):
             for group in parts:
-                pd = data[group] = PartData()
+                pd = data[group] = PartData(group.part)
                 pd.globalName = globalName
-                types.setdefault(group.part.__class__, []).append(group)
+                types.setdefault(pd.name(), []).append(group)
                 _search(group.parts)
         _search(parts)
         for t in types.values():
@@ -280,8 +306,7 @@ class Builder(object):
             if len(reflist) > 1:
                 for ref, group in reflist:
                     # append the class name and number
-                    identifier = group.__class__.__name__ + data[group].roman()
-                    ref.name = ly.util.mkid(ref.name, identifier)
+                    ref.name = ly.util.mkid(ref.name, data.name())
         
         # return all PartData instances
         return [data[group] for group in allparts(parts)]
