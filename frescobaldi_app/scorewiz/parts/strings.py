@@ -23,6 +23,8 @@ String part types.
 
 import __builtin__
 
+import ly.dom
+
 from . import _base
 from . import register
 
@@ -32,6 +34,24 @@ class StringPart(_base.Part):
     midiInstrument = ''
     clef = None
     octave = 1
+
+    def build(self, data, builder):
+        a = data.assign()
+        stub = ly.dom.Relative(a)
+        ly.dom.Pitch(self.octave, 0, 0, stub)
+        s = ly.dom.Seq(stub)
+        ly.dom.Identifier(data.globalName, s).after = 1
+        ly.dom.LineComment(_("Music follows here."), s)
+        ly.dom.BlankLine(s)
+        
+        staff = ly.dom.Staff()
+        builder.setInstrumentNames(staff, self.title(builder._), self.short(builder._))
+        builder.setMidiInstrument(staff, self.midiInstrument)
+        seq = ly.dom.Seqr(staff)
+        if self.clef:
+            ly.dom.Clef(self.clef, seq)
+        ly.dom.Identifier(a.name, seq)
+        data.nodes.append(staff)
 
 
 class Violin(StringPart):

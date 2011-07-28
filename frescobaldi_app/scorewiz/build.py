@@ -100,6 +100,22 @@ class PartData(object):
             return self._name + ly.util.int2roman(self.num)
         return self._name
 
+    def assign(self, name=None):
+        """Creates a ly.dom.Assignment.
+        
+        name is a string name, if not given the class name is used with the
+        first letter lowered.
+        
+        A ly.dom.Reference is used as the name for the Assignment.
+        The assignment is appended to our assignments and returned.
+        
+        The Reference is in the name attribute of the assignment.
+        
+        """
+        a = ly.dom.Assignment(ly.dom.Reference(name or ly.util.mkid(self.name())))
+        self.assignments.append(a)
+        return a
+    
 
 class BlockData(object):
     """Represents the building blocks of a global section of a ly.dom.Document."""
@@ -211,8 +227,8 @@ class Builder(object):
                     a = ly.dom.Assignment(globalName)
                     a.append(globalSection)
                     block.assignments.append(a)
-                else:
-                    self.globalUsed = True
+            if globalName == 'global':
+                self.globalUsed = True
             
             # add parts here, always in \score { }
             score = node if isinstance(node,ly.dom.Score) else ly.dom.Score(node)
@@ -236,14 +252,18 @@ class Builder(object):
                 block.assignments.extend(p.assignments)
             
             # make a part assignment if there is more than one part that has assignments
-            if sum(1 for p in partData if p.assignments) > 1:
+            # BUG does not yet work well with StaffGroup
+            if all(p.assignments for p in partData) and len(partData) > 1:
                 # make part assignments containing the nodes of the part
                 for p in partData:
-                    a = ly.dom.Assignment(ly.dom.Reference(ly.util.mkid(p.name() + "Part")))
-                    ly.dom.Simr(a).extend(p.nodes)
-                    ly.dom.Identifier(a.name, music).after = 1
-                    block.assignments.append(a)
-                    assignments.append(a)
+                    if p.assignments:
+                        a = ly.dom.Assignment(ly.dom.Reference(ly.util.mkid(p.name() + "Part")))
+                        ly.dom.Simr(a).extend(p.nodes)
+                        ly.dom.Identifier(a.name, music).after = 1
+                        block.assignments.append(a)
+                        assignments.append(a)
+                    else:
+                        music.extend(p.nodes)
             else:
                 # just put the nodes in the score
                 for p in partData:

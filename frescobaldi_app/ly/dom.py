@@ -1003,7 +1003,7 @@ class Pitch(Leaf):
         """
         Print the pitch in the preferred language.
         """
-        p = ly.pitch.pitchWriter[printer.language](self.note, self.alter)
+        p = ly.pitch.pitchWriter(printer.language)(self.note, self.alter)
         if self.octave < -1:
             return p + ',' * (-self.octave - 1)
         elif self.octave > -1:
