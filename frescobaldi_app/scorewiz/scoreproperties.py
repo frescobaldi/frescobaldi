@@ -157,7 +157,7 @@ class ScoreProperties(object):
                     else:
                         ly.dom.Line(r"\override Staff.TimeSignature #'style = #'()", node)
                     num, beat = map(int, match.group(1, 2))
-                    ly.dom.TimeSignature(num, beat, g).after = 1
+                    ly.dom.TimeSignature(num, beat, node).after = 1
 
     # Pickup bar
     def createPickupWidget(self):
