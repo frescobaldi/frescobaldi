@@ -79,8 +79,13 @@ class PartData(object):
     names to this.
     
     """
-    def __init__(self, part):
+    def __init__(self, part, parent=None):
+        """part is a parts._base.Part instance, parent may be another PartData."""
+        if parent:
+            parent.children.append(self)
+        self.isChild = bool(parent)
         self._name = part.__class__.__name__
+        self.children = []
         self.globalName = 'global'
         self.num = 0
         self.includes = []
@@ -251,23 +256,29 @@ class Builder(object):
             for p in partData:
                 block.assignments.extend(p.assignments)
             
-            # make a part assignment if there is more than one part that has assignments
-            # BUG does not yet work well with StaffGroup
-            if all(p.assignments for p in partData) and len(partData) > 1:
-                # make part assignments containing the nodes of the part
-                for p in partData:
-                    if p.assignments:
-                        a = ly.dom.Assignment(ly.dom.Reference(ly.util.mkid(p.name() + "Part")))
-                        ly.dom.Simr(a).extend(p.nodes)
+            # make part assignments if there is more than one part that has assignments
+            if sum(1 for p in partData if p.assignments) > 1:
+                def make(part, music):
+                    if part.assignments:
+                        a = ly.dom.Assignment(ly.dom.Reference(ly.util.mkid(part.name() + "Part")))
+                        ly.dom.Simr(a).extend(part.nodes)
                         ly.dom.Identifier(a.name, music).after = 1
                         block.assignments.append(a)
                         assignments.append(a)
                     else:
-                        music.extend(p.nodes)
+                        music.extend(part.nodes)
             else:
-                # just put the nodes in the score
-                for p in partData:
-                    music.extend(p.nodes)
+                def make(part, music):
+                    music.extend(part.nodes)
+            
+            def makeRecursive(parts, music):
+                for part in parts:
+                    make(part, music)
+                    if part.children:
+                        makeRecursive(part.children, part.music)
+            
+            parents = [p for p in partData if not p.isChild]
+            makeRecursive(parents, music)
             
             # TODO: aftermath/backmatter
             
@@ -292,12 +303,12 @@ class Builder(object):
         # number instances of the same type (Choir I and Choir II, etc.)
         data = {}
         types = {}
-        def _search(parts):
+        def _search(parts, parent=None):
             for group in parts:
-                pd = data[group] = PartData(group.part)
+                pd = data[group] = PartData(group.part, parent)
                 pd.globalName = globalName
                 types.setdefault(pd.name(), []).append(group)
-                _search(group.parts)
+                _search(group.parts, pd)
         _search(parts)
         for t in types.values():
             if len(t) > 1:
@@ -305,14 +316,8 @@ class Builder(object):
                     data[group].num = num
 
         # now build all the parts
-        def build(parts, parent=None):
-            for group in parts:
-                group.part.build(data[group], self)
-                if parent:
-                    # this is used for parts that have child parts (like StaffGroup)
-                    parent.part.addChild(data[parent], data[group])
-                build(group.parts, group)
-        build(parts)
+        for group in allparts(parts):
+            group.part.build(data[group], self)
         
         # check for name collisions in assignment identifiers
         # add the part class name and a roman number if necessary

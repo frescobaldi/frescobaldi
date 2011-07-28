@@ -74,12 +74,7 @@ class StaffGroup(_base.Container):
     def build(self, data, builder):
         node = ly.dom.StaffGroup()
         data.nodes.append(node)
-        data.staffGroup = ly.dom.Simr(node)
-        
-    def addChild(self, data, childData):
-        """Takes over the nodes."""
-        data.staffGroup.extend(childData.nodes)
-        del childData.nodes[:]
+        data.music = ly.dom.Simr(node)
 
 
 class Score(_base.Group, scoreproperties.ScoreProperties):
