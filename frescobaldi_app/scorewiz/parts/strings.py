@@ -96,7 +96,17 @@ class BassoContinuo(Cello):
     def short(_=__builtin__._):
         return _("abbreviation for Basso Continuo", "B.c.")
     
-    # TODO: reimplement build() to add a figures line
+    def build(self, data, builder):
+        super(BassoContinuo, self).build(data, builder)
+        data.assignments[0].name.name = 'bcMusic'
+        a = data.assign('bcFigures')
+        b = ly.dom.FigureMode(a)
+        ly.dom.Identifier(data.globalName, b)
+        ly.dom.Line("\\override Staff.BassFigureAlignmentPositioning "
+                    "#'direction = #DOWN", b)
+        ly.dom.LineComment(_("Figures follow here."), b)
+        ly.dom.BlankLine(b)
+        data.nodes[0][-1].append(ly.dom.Identifier(a.name))
     
 
 register(
