@@ -64,6 +64,7 @@ class LilyPondInfo(object):
             try:
                 output = subprocess.Popen(
                     (self.abscommand, '-v'),
+                    stdin = subprocess.PIPE if os.name == "nt" else None,
                     stdout = subprocess.PIPE, stderr = subprocess.STDOUT).communicate()[0]
             except OSError:
                 pass
@@ -102,9 +103,12 @@ class LilyPondInfo(object):
         if self.abscommand:
             # First ask LilyPond itself.
             try:
+                args = dict(stdout = subprocess.PIPE)
+                if os.name == "nt":
+                    args.update(stdin = subprocess.PIPE, stderr = subprocess.PIPE)
                 d = subprocess.Popen((self.abscommand, '-e',
                     "(display (ly:get-option 'datadir)) (newline) (exit)"),
-                    stdout = subprocess.PIPE).communicate()[0].strip()
+                    **args).communicate()[0].strip()
                 if os.path.isabs(d) and os.path.isdir(d):
                     return d
             except OSError:
