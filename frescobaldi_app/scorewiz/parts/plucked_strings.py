@@ -109,7 +109,7 @@ class TablaturePart(_base.Part):
             voices = 'upper', 'middle', 'lower'
         else:
             order = 1, 2, 3, 4
-            voices = [ly.util.mkid(self.name(), "voice") + ly.util.int2text(i) for i in order]
+            voices = [ly.util.mkid(data.name(), "voice") + ly.util.int2text(i) for i in order]
         
         assignments = [data.assignMusic(name, self.octave, self.transposition)
                        for name in voices]
@@ -254,6 +254,9 @@ class ClassicalGuitar(TablaturePart):
     def translateWidgets(self):
         super(ClassicalGuitar, self).translateWidgets()
         self.voicesLabel.setText(_("Voices:"))
+    
+    def voiceCount(self):
+        return self.voices.value()
 
 
 class JazzGuitar(ClassicalGuitar):
