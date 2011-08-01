@@ -21,6 +21,8 @@
 String part types.
 """
 
+from __future__ import unicode_literals
+
 import __builtin__
 
 import ly.dom

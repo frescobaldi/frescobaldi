@@ -21,6 +21,8 @@
 Some special part types.
 """
 
+from __future__ import unicode_literals
+
 import __builtin__
 
 from PyQt4.QtGui import QCheckBox
