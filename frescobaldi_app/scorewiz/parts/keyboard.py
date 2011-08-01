@@ -152,6 +152,13 @@ class Organ(KeyboardPart):
         self.pedalVoicesLabel.setText(_("Pedal:"))
         self.pedalVoices.setToolTip(_(
             "Set to 0 to disable the pedal altogether."))
+    
+    def build(self, data, builder):
+        super(Organ, self).build(data, builder)
+        if self.pedalVoices.value():
+            data.nodes.append(self.buildStaff(data, builder,
+                'pedal', -1, self.pedalVoices.value(), clef="bass"))
+
 
 
 class Celesta(KeyboardPart):
