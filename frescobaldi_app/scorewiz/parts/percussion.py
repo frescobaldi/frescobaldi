@@ -186,6 +186,44 @@ class Drums(_base.Part):
         self.drumStems.setText(_("Remove stems"))
         self.drumStems.setToolTip(_("Remove the stems from the drum notes."))
         self.drumStyle.model().update()
+    
+    def assignDrums(self, data, name = None):
+        """Creates an empty name = \drummode assignment.
+
+        Returns the assignment.
+        
+        """
+        a = data.assign(name)
+        s = ly.dom.DrumMode(a)
+        ly.dom.Identifier(data.globalName, s)
+        ly.dom.LineComment(_("Drums follow here."), s)
+        ly.dom.BlankLine(s)
+        return a
+
+    def build(self, data, builder):
+        p = ly.dom.DrumStaff()
+        s = ly.dom.Simr(p)
+        if self.voices.value() > 1:
+            for i in range(1, self.voices.value() + 1):
+                q = ly.dom.Seq(ly.dom.DrumVoice(parent=s))
+                ly.dom.Text('\\voice' + ly.util.int2text(i), q)
+                a = self.assignDrums(data, 'drum' + ly.util.int2text(i))
+                ly.dom.Identifier(a.name, q)
+        else:
+            a = self.assignDrums(data, 'drum')
+            ly.dom.Identifier(a.name, s)
+        builder.setInstrumentNamesFromPart(p, self, data)
+        i = self.drumStyle.currentIndex()
+        if i > 0:
+            v = ('drums', 'timbales', 'congas', 'bongos', 'percussion')[i]
+            p.getWith()['drumStyleTable'] = ly.dom.Scheme(v + '-style')
+            v = (5, 2, 2, 2, 1)[i]
+            ly.dom.Line("\\override StaffSymbol #'line-count = #{0}".format(v), p.getWith())
+        if self.drumStems.isChecked():
+            ly.dom.Line("\\override Stem #'stencil = ##f", p.getWith())
+            ly.dom.Line("\\override Stem #'length = #3  % " + _("keep some distance."),
+                p.getWith())
+        data.nodes.append(p)
 
 
 drumStyles = (
