@@ -106,6 +106,65 @@ class SingleVoicePart(Part):
         data.nodes.append(staff)
 
 
+class PianoStaffPart(Part):
+    """Base class for parts creating a piano staff."""
+    def createWidgets(self, layout):
+        self.label = QLabel(wordWrap=True)
+        self.upperVoicesLabel = QLabel()
+        self.lowerVoicesLabel = QLabel()
+        self.upperVoices = QSpinBox(minimum=1, maximum=4, value=1)
+        self.lowerVoices = QSpinBox(minimum=1, maximum=4, value=1)
+        
+        self.upperVoicesLabel.setBuddy(self.upperVoices)
+        self.lowerVoicesLabel.setBuddy(self.lowerVoices)
+        
+        layout.addWidget(self.label)
+        grid = QGridLayout()
+        grid.addWidget(self.upperVoicesLabel, 0, 0)
+        grid.addWidget(self.upperVoices, 0, 1)
+        grid.addWidget(self.lowerVoicesLabel, 1, 0)
+        grid.addWidget(self.lowerVoices, 1, 1)
+        layout.addLayout(grid)
+    
+    def translateWidgets(self):
+        self.label.setText('{0} <i>({1})</i>'.format(
+            _("Adjust how many separate voices you want on each staff."),
+            _("This is primarily useful when you write polyphonic music "
+              "like a fuge.")))
+        self.upperVoicesLabel.setText(_("Right hand:"))
+        self.lowerVoicesLabel.setText(_("Left hand:"))
+    
+    def buildStaff(self, data, builder, name, octave, numVoices=1, node=None, clef=None):
+        """Build a staff with the given number of voices and name."""
+        staff = ly.dom.Staff(name, parent=node)
+        builder.setMidiInstrument(staff, self.midiInstrument)
+        c = ly.dom.Seqr(staff)
+        if clef:
+            ly.dom.Clef(clef, c)
+        if numVoices == 1:
+            a = data.assignMusic(name, octave)
+            ly.dom.Identifier(a.name, c)
+        else:
+            c = ly.dom.Sim(c)
+            for i in range(1, numVoices):
+                a = data.assignMusic(name + ly.util.int2text(i), octave)
+                ly.dom.Identifier(a.name, c)
+                ly.dom.VoiceSeparator(c)
+            a = data.assignMusic(name + ly.util.int2text(numVoices), octave)
+            ly.dom.Identifier(a.name, c)
+        return staff
+
+    def build(self, data, builder):
+        """ Setup structure for a 2-staff PianoStaff. """
+        p = ly.dom.PianoStaff()
+        builder.setInstrumentNamesFromPart(p, self, data)
+        s = ly.dom.Sim(p)
+        # add two staves, with a respective number of voices.
+        self.buildStaff(data, builder, 'right', 1, self.upperVoices.value(), s)
+        self.buildStaff(data, builder, 'left', 0, self.lowerVoices.value(), s, "bass")
+        data.nodes.append(p)
+
+
 class ChordNames(object):
     def createWidgets(self, layout):
         self.chordStyleLabel = QLabel()

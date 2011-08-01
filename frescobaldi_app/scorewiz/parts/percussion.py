@@ -26,13 +26,14 @@ import __builtin__
 from PyQt4.QtGui import QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLabel, QSpinBox
 
 import listmodel
+import ly.dom
 
 from . import _base
 from . import register
 
 
 
-class PitchedPercussionPart(_base.Part):
+class PitchedPercussionPart(_base.SingleVoicePart):
     """Base class for pitched percussion types."""
     
     
@@ -62,7 +63,7 @@ class Xylophone(PitchedPercussionPart):
     midiInstrument = 'xylophone'
 
 
-class Marimba(PitchedPercussionPart):
+class Marimba(_base.PianoStaffPart):
     @staticmethod
     def title(_=__builtin__._):
         return _("Marimba")
@@ -74,32 +75,20 @@ class Marimba(PitchedPercussionPart):
     midiInstrument = 'marimba'
 
     def createWidgets(self, layout):
-        self.label = QLabel(wordWrap=True)
-        self.upperVoicesLabel = QLabel()
-        self.lowerVoicesLabel = QLabel()
-        self.upperVoices = QSpinBox(minimum=1, maximum=4, value=1)
-        self.lowerVoices = QSpinBox(minimum=0, maximum=4, value=1)
-        
-        self.upperVoicesLabel.setBuddy(self.upperVoices)
-        self.lowerVoicesLabel.setBuddy(self.lowerVoices)
-        
-        layout.addWidget(self.label)
-        grid = QGridLayout()
-        grid.addWidget(self.upperVoicesLabel, 0, 0)
-        grid.addWidget(self.upperVoices, 0, 1)
-        grid.addWidget(self.lowerVoicesLabel, 1, 0)
-        grid.addWidget(self.lowerVoices, 1, 1)
-        layout.addLayout(grid)
+        super(Marimba, self).createWidgets(layout)
+        self.lowerVoices.setMinimum(0)
     
     def translateWidgets(self):
-        self.label.setText('{0} <i>({1})</i>'.format(
-            _("Adjust how many separate voices you want on each staff."),
-            _("This is primarily useful when you write polyphonic music "
-              "like a fuge.")))
         self.upperVoicesLabel.setText(_("Upper staff:"))
         self.lowerVoicesLabel.setText(_("Lower staff:"))
         self.lowerVoices.setToolTip(_(
             "Set the number of voices to 0 to disable the second staff."))
+
+    def build(self, data, builder):
+        if self.lowerVoices.value():
+            super(Marimba, self).build(data, builder)
+        else:
+            data.nodes.append(self.buildStaff(data, builder, None, 1))
 
 
 class Vibraphone(Marimba):
@@ -112,10 +101,6 @@ class Vibraphone(Marimba):
         return _("abbreviation for Vibraphone", "Vib.")
         
     midiInstrument = 'vibraphone'
-
-    def createWidgets(self, layout):
-        super(Vibraphone, self).createWidgets(layout)
-        self.lowerVoices.setValue(0)
 
 
 class TubularBells(PitchedPercussionPart):
@@ -142,7 +127,7 @@ class Glockenspiel(PitchedPercussionPart):
     midiInstrument = 'glockenspiel'
 
 
-class Carillon(PitchedPercussionPart):
+class Carillon(_base.PianoStaffPart):
     @staticmethod
     def title(_=__builtin__._):
         return _("Carillon")
@@ -153,32 +138,19 @@ class Carillon(PitchedPercussionPart):
     
     midiInstrument = 'tubular bells' # anyone knows better?
     
-    def createWidgets(self, layout):
-        self.label = QLabel(wordWrap=True)
-        self.upperVoicesLabel = QLabel()
-        self.lowerVoicesLabel = QLabel()
-        self.upperVoices = QSpinBox(minimum=1, maximum=4, value=1)
-        self.lowerVoices = QSpinBox(minimum=1, maximum=4, value=1)
-        
-        self.upperVoicesLabel.setBuddy(self.upperVoices)
-        self.lowerVoicesLabel.setBuddy(self.lowerVoices)
-        
-        layout.addWidget(self.label)
-        grid = QGridLayout()
-        grid.addWidget(self.upperVoicesLabel, 0, 0)
-        grid.addWidget(self.upperVoices, 0, 1)
-        grid.addWidget(self.lowerVoicesLabel, 1, 0)
-        grid.addWidget(self.lowerVoices, 1, 1)
-        layout.addLayout(grid)
-    
     def translateWidgets(self):
-        self.label.setText('{0} <i>({1})</i>'.format(
-            _("Adjust how many separate voices you want on each staff."),
-            _("This is primarily useful when you write polyphonic music "
-              "like a fuge.")))
+        super(Carillon, self).translateWidgets()
         self.upperVoicesLabel.setText(_("Manual staff:"))
         self.lowerVoicesLabel.setText(_("Pedal staff:"))
-
+    
+    def build(self, data, builder):
+        p = ly.dom.PianoStaff()
+        builder.setInstrumentNamesFromPart(p, self, data)
+        s = ly.dom.Sim(p)
+        # add two staves, with a respective number of voices.
+        self.buildStaff(data, builder, 'manual', 1, self.upperVoices.value(), s)
+        self.buildStaff(data, builder, 'pedal', 0, self.lowerVoices.value(), s, "bass")
+        data.nodes.append(p)
 
 
 class Drums(_base.Part):
