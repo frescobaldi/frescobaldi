@@ -36,6 +36,8 @@ class TablaturePart(_base.Part):
     """Base class for tablature instrument part types."""
     
     octave = 0
+    clef = None
+    transposition = None
     tunings = ()    # may contain a list of tunings.
     tabFormat = ''  # can contain a tablatureFormat value.
     
@@ -85,8 +87,85 @@ class TablaturePart(_base.Part):
         
         """
         self.tuning.setEnabled(bool(enable))
+    
+    def voiceCount(self):
+        """Returns the number of voices.
         
+        Inherit to make this user-settable.
         
+        """
+        return 1
+        
+    def build(self, data, builder):
+        # First make assignments for the voices we want to create
+        numVoices = self.voiceCount()
+        if numVoices == 1:
+            voices = (ly.util.mkid(data.name()),)
+        elif numVoices == 2:
+            order = 1, 2
+            voices = 'upper', 'lower'
+        elif numVoices == 3:
+            order = 1, 3, 2
+            voices = 'upper', 'middle', 'lower'
+        else:
+            order = 1, 2, 3, 4
+            voices = [ly.util.mkid(self.name(), "voice") + ly.util.int2text(i) for i in order]
+        
+        assignments = [data.assignMusic(name, self.octave, self.transposition)
+                       for name in voices]
+        
+        staffType = self.staffType.currentIndex()
+        if staffType in (0, 2):
+            # create a normal staff
+            staff = ly.dom.Staff()
+            seq = ly.dom.Seqr(staff)
+            if self.clef:
+                ly.dom.Clef(self.clef, seq)
+            mus = ly.dom.Simr(seq)
+            for a in assignments[:-1]:
+                ly.dom.Identifier(a.name, mus)
+                ly.dom.VoiceSeparator(mus)
+            ly.dom.Identifier(assignments[-1].name, mus)
+            builder.setMidiInstrument(staff, self.midiInstrument)
+        
+        if staffType in (1, 2):
+            # create a tab staff
+            tabstaff = ly.dom.TabStaff()
+            if self.tabFormat:
+                tabstaff.getWith()['tablatureFormat'] = ly.dom.Scheme(self.tabFormat)
+            self.setTunings(tabstaff)
+            sim = ly.dom.Simr(tabstaff)
+            if numVoices == 1:
+                ly.dom.Identifier(assignments[0].name, sim)
+            else:
+                for num, a in zip(order, assignments):
+                    s = ly.dom.Seq(ly.dom.TabVoice(parent=sim))
+                    ly.dom.Text('\\voice' + ly.util.int2text(num), s)
+                    ly.dom.Identifier(a.name, s)
+        
+        if staffType == 0:
+            # only a normal staff
+            p = staff
+        elif staffType == 1:
+            # only a TabStaff
+            builder.setMidiInstrument(tabstaff, self.midiInstrument)
+            p = tabstaff
+        else:
+            # both TabStaff and normal staff
+            p = ly.dom.StaffGroup()
+            s = ly.dom.Sim(p)
+            s.append(staff)
+            s.append(tabstaff)
+        
+        builder.setInstrumentNamesFromPart(p, self, data)
+        data.nodes.append(p)
+
+    def setTunings(self, tab):
+        if self.tunings and self.tuning.currentIndex() > 0:
+            tuning = self.tunings[self.tuning.currentIndex() - 1][0]
+            tab.getWith()['stringTunings'] = ly.dom.Scheme(tuning)
+
+
 tablatureStaffTypes = (
     lambda: _("Normal staff"),
     lambda: _("Tablature"),
@@ -137,6 +216,14 @@ class Banjo(TablaturePart):
     def translateTuningWidgets(self):
         super(Banjo, self).translateTuningWidgets()
         self.fourStrings.setText(_("Four strings (instead of five)"))
+    
+    def setTunings(self, tab):
+        if not self.fourStrings.isChecked():
+            super(Banjo, self).setTunings(tab)
+        else:
+            tab.getWith()['stringTunings'] = ly.dom.Scheme(
+                '(four-string-banjo {0})'.format(
+                    self.tunings[self.tuning.currentIndex()][0]))
 
 
 class ClassicalGuitar(TablaturePart):
