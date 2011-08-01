@@ -23,6 +23,7 @@ Builds the LilyPond score from the settings in the Score Wizard.
 
 import __builtin__
 import collections
+import fractions
 import re
 
 import ly.dom
@@ -121,6 +122,20 @@ class PartData(object):
         self.assignments.append(a)
         return a
     
+    def assignMusic(self, name=None, octave=0, transposition=None):
+        """Creates a ly.dom.Assignment with a \\relative music stub."""
+        a = self.assign(name)
+        stub = ly.dom.Relative(a)
+        ly.dom.Pitch(octave, 0, 0, stub)
+        s = ly.dom.Seq(stub)
+        ly.dom.Identifier(self.globalName, s).after = 1
+        if transposition is not None:
+            toct, tnote, talter = transposition
+            ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), ly.dom.Transposition(s))
+        ly.dom.LineComment(_("Music follows here."), s)
+        ly.dom.BlankLine(s)
+        return a
+
 
 class BlockData(object):
     """Represents the building blocks of a global section of a ly.dom.Document."""

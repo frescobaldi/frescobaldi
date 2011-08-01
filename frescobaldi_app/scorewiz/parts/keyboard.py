@@ -25,6 +25,9 @@ import __builtin__
 
 from PyQt4.QtGui import QGridLayout, QLabel, QSpinBox
 
+import ly.dom
+import ly.util
+
 from . import _base
 from . import register
 
@@ -55,7 +58,38 @@ class KeyboardPart(_base.Part):
               "like a fuge.")))
         self.upperVoicesLabel.setText(_("Right hand:"))
         self.lowerVoicesLabel.setText(_("Left hand:"))
-        
+    
+    def buildStaff(self, data, builder, name, octave, numVoices=1, node=None, clef=None):
+        """Build a staff with the given number of voices and name."""
+        staff = ly.dom.Staff(name, parent=node)
+        builder.setMidiInstrument(staff, self.midiInstrument)
+        c = ly.dom.Seqr(staff)
+        if clef:
+            ly.dom.Clef(clef, c)
+        if numVoices == 1:
+            a = data.assignMusic(name, octave)
+            ly.dom.Identifier(a.name, c)
+        else:
+            c = ly.dom.Sim(c)
+            for i in range(1, numVoices):
+                a = data.assignMusic(name + ly.util.int2text(i), octave)
+                ly.dom.Identifier(a.name, c)
+                ly.dom.VoiceSeparator(c)
+            a = data.assignMusic(name + ly.util.int2text(numVoices), octave)
+            ly.dom.Identifier(a.name, c)
+        return staff
+
+    def build(self, data, builder):
+        """ setup structure for a 2-staff PianoStaff. """
+        p = ly.dom.PianoStaff()
+        builder.setInstrumentNamesFromPart(p, self, data)
+        s = ly.dom.Sim(p)
+        # add two staves, with a respective number of voices.
+        self.buildStaff(data, builder, 'right', 1, self.upperVoices.value(), s)
+        self.buildStaff(data, builder, 'left', 0, self.lowerVoices.value(), s, "bass")
+        data.nodes.append(p)
+
+
 
 class Piano(KeyboardPart):
     @staticmethod

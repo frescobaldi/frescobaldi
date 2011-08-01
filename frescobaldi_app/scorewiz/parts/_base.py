@@ -23,7 +23,6 @@ Base types for parts.
 
 import __builtin__
 import collections
-import fractions
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -95,19 +94,7 @@ class SingleVoicePart(Part):
     transposition = None # or a three tuple (octave, note, alteration)
 
     def build(self, data, builder):
-        # stub
-        a = data.assign()
-        stub = ly.dom.Relative(a)
-        ly.dom.Pitch(self.octave, 0, 0, stub)
-        s = ly.dom.Seq(stub)
-        ly.dom.Identifier(data.globalName, s).after = 1
-        if self.transposition is not None:
-            toct, tnote, talter = self.transposition
-            ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), ly.dom.Transposition(s))
-        ly.dom.LineComment(_("Music follows here."), s)
-        ly.dom.BlankLine(s)
-        
-        # node
+        a = data.assignMusic(None, self.octave, self.transposition)
         staff = ly.dom.Staff()
         builder.setInstrumentNamesFromPart(staff, self, data)
         if self.midiInstrument:
