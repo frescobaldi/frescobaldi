@@ -348,7 +348,7 @@ class Builder(object):
             if len(reflist) > 1:
                 for ref, group in reflist:
                     # append the class name and number
-                    ref.name = ly.util.mkid(ref.name, data.name())
+                    ref.name = ly.util.mkid(ref.name, data[group].name())
         
         # return all PartData instances
         return [data[group] for group in allparts(parts)]

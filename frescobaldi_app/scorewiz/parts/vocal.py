@@ -31,6 +31,7 @@ from PyQt4.QtGui import (
     QSpinBox, QVBoxLayout)
 
 import listmodel
+import ly.dom
 
 from . import _base
 from . import register
@@ -69,12 +70,53 @@ class VocalPart(_base.Part):
         self.ambitus.setText(_("Ambitus"))
         self.ambitus.setToolTip(_(
             "Show the pitch range of the voice at the beginning of the staff."))
+    
+    def assignLyrics(self, data, name, verse=0):
+        """Creates an empty assignment for lyrics.
+        
+        Returns the assignment.
+        
+        """
+        l = ly.dom.LyricMode()
+        if verse:
+            name = name + ly.util.int2text(verse)
+            ly.dom.Line('\\set stanza = "{0}."'.format(verse), l)
+        a = data.assign(name)
+        a.append(l)
+        ly.dom.LineComment(_("Lyrics follow here."), l)
+        ly.dom.BlankLine(l)
+        return a
+    
+    def addStanzas(self, data, node):
+        """Add stanzas to the given (Voice) node.
+        
+        The stanzas (as configured in self.stanzas.value()) are added
+        using \\addlyrics.
+        
+        """
+        if self.stanzas.value() == 1:
+            ly.dom.Identifier(self.assignLyrics(data, 'verse').name, ly.dom.AddLyrics(node))
+        else:
+            for i in range(self.stanzas.value()):
+                ly.dom.Identifier(self.assignLyrics(data, 'verse', i + 1).name, ly.dom.AddLyrics(node))
 
 
-class VocalSoloPart(VocalPart):
+class VocalSoloPart(VocalPart, _base.SingleVoicePart):
     """Base class for vocal solo parts."""
     octave = 1
     clef = None
+    
+    def build(self, data, builder):
+        super(VocalSoloPart, self).build(data, builder)
+        stub = data.assignments[-1][0][-1]
+        stub.insert(1, ly.dom.Line('\\dynamicUp')) # just after the \global
+        staff = data.nodes[-1]
+        staff[-1].may_remove_brackets = False
+        self.addStanzas(data, staff)
+        if self.ambitus.isChecked():
+            ly.dom.Line('\\consists "Ambitus_engraver"', staff.getWith())
+
+
 
 class SopranoVoice(VocalSoloPart):
     @staticmethod
