@@ -74,7 +74,16 @@ class StaffGroup(_base.Container):
         self.systemStart.model().update()
     
     def build(self, data, builder):
-        node = ly.dom.StaffGroup()
+        s = self.systemStart.currentIndex()
+        b = self.connectBarLines.isChecked()
+        if s == 0:
+            node = ly.dom.GrandStaff()
+            if not b:
+                ly.dom.Line("\\remove Span_bar_engraver", node.getWith())
+        else:
+            node = ly.dom.StaffGroup() if b else ly.dom.ChoirStaff()
+            if s == 2:
+                node.getWith()['systemStartDelimiter'] = ly.dom.Scheme("'SystemStartSquare")
         data.nodes.append(node)
         data.music = ly.dom.Simr(node)
 
