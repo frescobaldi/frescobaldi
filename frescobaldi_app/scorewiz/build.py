@@ -298,8 +298,6 @@ class Builder(object):
             parents = [p for p in partData if not p.isChild]
             makeRecursive(parents, music)
             
-            # TODO: aftermath/backmatter
-            
             # add the prefix to the assignments if necessary
             if self.usePrefix:
                 for a in assignments:

@@ -603,7 +603,7 @@ class Choir(VocalPart):
             rehearsalMidi = a.name
             
             func = ly.dom.SchemeList(a)
-            func.pre = '#(' # hack
+            func.pre = '#\n(' # hack
             ly.dom.Text('define-music-function', func)
             ly.dom.Line('(parser location name midiInstrument lyrics) '
                  '(string? string? ly:music?)', func)
@@ -646,7 +646,7 @@ class Choir(VocalPart):
             seq = ly.dom.Seq(choir)
             ly.dom.Line("\\set Score.midiMinimumVolume = #0.5", seq)
             ly.dom.Line("\\set Score.midiMaximumVolume = #0.5", seq)
-            ly.dom.Line("\\set Score.tempoWholesPerMinute = #" + builder.getMidiTempo(), seq)
+            #ly.dom.Line("\\set Score.tempoWholesPerMinute = #" + builder.getMidiTempo(), seq)
             ly.dom.Line("\\set Staff.midiMinimumVolume = #0.8", seq)
             ly.dom.Line("\\set Staff.midiMaximumVolume = #1.0", seq)
             ly.dom.Line("\\set Staff.midiInstrument = $midiInstrument", seq)
