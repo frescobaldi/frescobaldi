@@ -272,7 +272,8 @@ class Builder(object):
             # add the assignments to the block
             for p in partData:
                 block.assignments.extend(p.assignments)
-            
+                block.backmatter.extend(p.afterblocks)
+                
             # make part assignments if there is more than one part that has assignments
             if sum(1 for p in partData if p.assignments) > 1:
                 def make(part, music):

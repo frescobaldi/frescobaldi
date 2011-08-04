@@ -599,38 +599,36 @@ class Choir(VocalPart):
         
         # Create MIDI files if desired
         if self.rehearsalMidi.isChecked():
-            # builder.book = True # force \book { } block
-
             a = data.assign('rehearsalMidi')
             rehearsalMidi = a.name
-            # TILL HERE, TODO: update this for F2.0
-            func = SchemeList(a)
-            func.pre = '#(' # hack
-            Text('define-music-function', func)
-            Line('(parser location name midiInstrument lyrics) '
-                 '(string? string? ly:music?)', func)
-            choir = Sim(Command('unfoldRepeats', SchemeLily(func)))
             
-            self.aftermath.append(Comment(i18n("Rehearsal MIDI files:")))
+            func = ly.dom.SchemeList(a)
+            func.pre = '#(' # hack
+            ly.dom.Text('define-music-function', func)
+            ly.dom.Line('(parser location name midiInstrument lyrics) '
+                 '(string? string? ly:music?)', func)
+            choir = ly.dom.Sim(ly.dom.Command('unfoldRepeats', ly.dom.SchemeLily(func)))
+            
+            data.afterblocks.append(ly.dom.Comment(_("Rehearsal MIDI files:")))
             
             for voice, num, ref, lyrName in rehearsalMidis:
                 # Append voice to the rehearsalMidi function
-                name = self.identifiers[voice] + str(num or '')
-                seq = Seq(Voice(name, parent=Staff(name, parent=choir)))
-                Text('s1*0\\f', seq) # add one dynamic
-                Identifier(ref, seq) # add the reference to the voice
+                name = voice2id[voice] + str(num or '')
+                seq = ly.dom.Seq(ly.dom.Voice(name, parent=ly.dom.Staff(name, parent=choir)))
+                ly.dom.Text('s1*0\\f', seq) # add one dynamic
+                ly.dom.Identifier(ref, seq) # add the reference to the voice
                 
                 # Append score to the aftermath (stuff put below the main score)
-                if self.num:
-                    suffix = "choir{0}-{1}".format(self.num, name)
+                if data.num:
+                    suffix = "choir{0}-{1}".format(data.num, name)
                 else:
                     suffix = name
-                self.aftermath.append(
-                    Line('#(define output-suffix "{0}")'.format(suffix)))
-                book = Book()
-                self.aftermath.append(book)
-                self.aftermath.append(BlankLine())
-                score = Score(book)
+                data.afterblocks.append(
+                    ly.dom.Line('#(define output-suffix "{0}")'.format(suffix)))
+                book = ly.dom.Book()
+                data.afterblocks.append(book)
+                data.afterblocks.append(ly.dom.BlankLine())
+                score = ly.dom.Score(book)
                 
                 # TODO: make configurable
                 if voice in ('SA'):
@@ -638,23 +636,23 @@ class Choir(VocalPart):
                 else:
                     midiInstrument = "tenor sax"
 
-                cmd = Command(rehearsalMidi, score)
-                QuotedString(name, cmd)
-                QuotedString(midiInstrument, cmd)
-                Identifier(refs[(lyrName, stanzas[0])], cmd)
-                Midi(score)
+                cmd = ly.dom.Command(rehearsalMidi, score)
+                ly.dom.QuotedString(name, cmd)
+                ly.dom.QuotedString(midiInstrument, cmd)
+                ly.dom.Identifier(refs[(lyrName, stanzas[0])], cmd)
+                ly.dom.Midi(score)
             
-            Text("\\context Staff = $name", choir)
-            seq = Seq(choir)
-            Line("\\set Score.midiMinimumVolume = #0.5", seq)
-            Line("\\set Score.midiMaximumVolume = #0.5", seq)
-            Line("\\set Score.tempoWholesPerMinute = #" + builder.getMidiTempo(), seq)
-            Line("\\set Staff.midiMinimumVolume = #0.8", seq)
-            Line("\\set Staff.midiMaximumVolume = #1.0", seq)
-            Line("\\set Staff.midiInstrument = $midiInstrument", seq)
-            lyr = Lyrics(parent=choir)
-            lyr.getWith()['alignBelowContext'] = Text('$name')
-            Text("\\lyricsto $name $lyrics", lyr)
+            ly.dom.Text("\\context Staff = $name", choir)
+            seq = ly.dom.Seq(choir)
+            ly.dom.Line("\\set Score.midiMinimumVolume = #0.5", seq)
+            ly.dom.Line("\\set Score.midiMaximumVolume = #0.5", seq)
+            ly.dom.Line("\\set Score.tempoWholesPerMinute = #" + builder.getMidiTempo(), seq)
+            ly.dom.Line("\\set Staff.midiMinimumVolume = #0.8", seq)
+            ly.dom.Line("\\set Staff.midiMaximumVolume = #1.0", seq)
+            ly.dom.Line("\\set Staff.midiInstrument = $midiInstrument", seq)
+            lyr = ly.dom.Lyrics(parent=choir)
+            lyr.getWith()['alignBelowContext'] = ly.dom.Text('$name')
+            ly.dom.Text("\\lyricsto $name $lyrics", lyr)
 
 
 
