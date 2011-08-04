@@ -190,6 +190,25 @@ class ChordNames(object):
             "(LilyPond 2.12 and above)."))
         self.chordStyle.model().update()
 
+    def build(self, data, builder):
+        p = ly.dom.ChordNames()
+        a = data.assign('chordNames')
+        ly.dom.Identifier(a.name, p)
+        s = ly.dom.ChordMode(a)
+        ly.dom.Identifier(data.globalName, s).after = 1
+        i = self.chordStyle.currentIndex()
+        if i > 0:
+            ly.dom.Line('\\{0}Chords'.format(
+                ('german', 'semiGerman', 'italian', 'french')[i-1]), s)
+        ly.dom.LineComment(_("Chords follow here."), s)
+        ly.dom.BlankLine(s)
+        data.nodes.append(p)
+        if self.guitarFrets.isChecked():
+            f = ly.dom.FretBoards()
+            ly.dom.Identifier(a.name, f)
+            data.nodes.append(f)
+            data.includes.append("predefined-guitar-fretboards.ly")
+
 
 chordNameStyles = (
     lambda: _("Default"),

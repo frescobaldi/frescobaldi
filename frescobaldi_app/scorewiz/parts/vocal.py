@@ -117,7 +117,6 @@ class VocalSoloPart(VocalPart, _base.SingleVoicePart):
             ly.dom.Line('\\consists "Ambitus_engraver"', staff.getWith())
 
 
-
 class SopranoVoice(VocalSoloPart):
     @staticmethod
     def title(_=__builtin__._):
@@ -205,6 +204,64 @@ class LeadSheet(VocalPart, _base.ChordNames):
             "Adds an accompaniment staff and also puts an accompaniment "
             "voice in the upper staff."))
 
+    def build(self, data, builder):
+        """Create chord names, song and lyrics.
+        
+        Optionally a second staff with a piano accompaniment.
+        
+        """
+        if self.chords.isChecked():
+            _base.ChordNames.build(self, data, builder)
+        if self.accomp.isChecked():
+            p = ly.dom.ChoirStaff()
+            #TODO: instrument names ?
+            #TODO: different midi instrument for voice and accompaniment ?
+            s = ly.dom.Sim(p)
+            mel = ly.dom.Sim(ly.dom.Staff(parent=s))
+            v1 = ly.dom.Voice(parent=mel)
+            s1 = ly.dom.Seq(v1)
+            ly.dom.Text('\\voiceOne', s1)
+            a = data.assignMusic('melody', 1)
+            ly.dom.Identifier(a.name, s1)
+            s2 = ly.dom.Seq(ly.dom.Voice(parent=mel))
+            ly.dom.Text('\\voiceTwo', s2)
+            a = data.assignMusic('accRight', 0)
+            ly.dom.Identifier(a.name, s2)
+            acc = ly.dom.Seq(ly.dom.Staff(parent=s))
+            ly.dom.Clef('bass', acc)
+            a = data.assignMusic('accLeft', -1)
+            ly.dom.Identifier(a.name, acc)
+            if self.ambitus.isChecked():
+                # We can't use \addlyrics when the voice has a \with {}
+                # section, because it creates a nested Voice context.
+                # So if the ambitus engraver should be added to the Voice,
+                # we don't use \addlyrics but create a new Lyrics context.
+                # So in that case we don't use addStanzas, but insert the
+                # Lyrics contexts manually inside our ChoirStaff.
+                v1.cid = ly.dom.Reference('melody')
+                ly.dom.Line('\\consists "Ambitus_engraver"', v1.getWith())
+                count = self.stanzas.value() # number of stanzas
+                if count == 1:
+                    l = ly.dom.Lyrics()
+                    s.insert(acc.parent(), l)
+                    a = self.assignLyrics(data, 'verse')
+                    ly.dom.Identifier(a.name, ly.dom.LyricsTo(v1.cid, l))
+                else:
+                    for i in range(count):
+                        l = ly.dom.Lyrics()
+                        s.insert(acc.parent(), l)
+                        a = self.assignLyrics(data, 'verse', i + 1)
+                        ly.dom.Identifier(a.name, ly.dom.LyricsTo(v1.cid, l))
+            else:
+                self.addStanzas(data, v1)
+        else:
+            a = data.assignMusic('melody', 1)
+            p = ly.dom.Staff()
+            ly.dom.Identifier(a.name, ly.dom.Seq(p))
+            self.addStanzas(data, p)
+            if self.ambitus.isChecked():
+                ly.dom.Line('\\consists "Ambitus_engraver"', p.getWith())
+        data.nodes.append(p)
 
 
 class Choir(VocalPart):
