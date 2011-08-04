@@ -59,7 +59,7 @@ class StaffGroup(_base.Container):
             ), self.systemStart, display=listmodel.translate_index(0),
             icon=lambda item: symbols.icon(item[1])))
         self.systemStart.setIconSize(QSize(64, 64))
-        self.connectBarLines = QCheckBox()
+        self.connectBarLines = QCheckBox(checked=True)
         
         box = QHBoxLayout()
         box.addWidget(self.systemStartLabel)
