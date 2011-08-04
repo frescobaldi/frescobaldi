@@ -667,6 +667,8 @@ command_items = (
     With,
     Clef,
     ChordMode, DrumMode, FigureMode, LyricMode, NoteMode,
+    Markup,
+    MarkupLines,
     Keyword,
     Command,
     UserCommand,
@@ -684,8 +686,6 @@ toplevel_base_items = base_items + (
 
 # items that occur in music expressions
 music_items = base_items + (
-    Markup,
-    MarkupLines,
     Dynamic,
     Skip,
     Rest,
