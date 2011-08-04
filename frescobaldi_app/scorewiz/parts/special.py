@@ -27,6 +27,8 @@ import __builtin__
 
 from PyQt4.QtGui import QCheckBox
 
+import ly.dom
+
 from . import _base
 from . import register
 
@@ -49,6 +51,18 @@ class BassFigures(_base.Part):
     def translateWidgets(self):
         self.extenderLines.setText(_("Use extender lines"))
 
+    def build(self, data, builder):
+        a = data.assign('figBass')
+        s = ly.dom.FigureMode(a)
+        p = ly.dom.FiguredBass()
+        ly.dom.Identifier(a.name, p)
+        ly.dom.Identifier(data.globalName, s)
+        ly.dom.LineComment(_("Figures follow here."), s)
+        ly.dom.BlankLine(s)
+        if self.extenderLines.isChecked():
+            p.getWith()['useBassFigureExtenders'] = ly.dom.Scheme('#t')
+        data.nodes.append(p)
+
 
 class Staff(_base.Part):
     @staticmethod
@@ -63,5 +77,5 @@ register(
     [
         Chords,
         BassFigures,
-        Staff,
+        #Staff,
     ])
