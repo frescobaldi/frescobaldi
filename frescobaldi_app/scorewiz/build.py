@@ -90,6 +90,7 @@ class PartData(object):
         self._name = part.__class__.__name__
         self.children = []
         self.globalName = 'global'
+        self.scoreProperties = None
         self.num = 0
         self.includes = []
         self.codeblocks = []
@@ -194,6 +195,7 @@ class Builder(object):
                     self._ = po.translator(po.mofile.MoFile(mofile))
         
         # global score preferences
+        self.scoreProperties = scoreProperties
         self.globalSection = scoreProperties.globalSection(self)
         
         # printer that converts the ly.dom tree to text
@@ -242,9 +244,11 @@ class Builder(object):
             
             # is this a score and has it its own score properties?
             globalName = 'global'
+            scoreProperties = self.scoreProperties
             if isinstance(group.part, parts.containers.Score):
                 globalSection = group.part.globalSection(self)
                 if globalSection:
+                    scoreProperties = group.part
                     globalName = prefix + 'Global'
                     a = ly.dom.Assignment(globalName)
                     a.append(globalSection)
@@ -257,12 +261,14 @@ class Builder(object):
             ly.dom.Layout(score)
             if self.midi:
                 midi = ly.dom.Midi(score)
-                # TODO: set MIDI tempo if necessary
+                # set MIDI tempo if necessary
+                if not self.showMetronomeMark:
+                    scoreProperties.lyMidiTempo(ly.dom.Context('Score', midi))
             music = ly.dom.Simr()
             score.insert(0, music)
             
             # make the parts
-            partData = self.makeParts(group.parts, globalName)
+            partData = self.makeParts(group.parts, globalName, scoreProperties)
             
             # collect all 'prefixable' assignments for this group
             assignments = []
@@ -306,12 +312,15 @@ class Builder(object):
         for g in group.groups:
             self.makeBlock(g, node, block)
     
-    def makeParts(self, parts, globalName):
+    def makeParts(self, parts, globalName, scoreProperties):
         """Lets the parts build the music stubs and assignments.
         
         parts is a list of PartNode instances.
         globalName is either 'global' (for the global time/key signature section)
         or something like 'scoreAGlobal' (when a score has its own properties).
+        
+        scoreProperties is the ScoreProperties instance currently in effect
+        (the global one or a particular Score part's one)/
         
         Returns the list of PartData object for the parts.
         
@@ -323,6 +332,7 @@ class Builder(object):
             for group in parts:
                 pd = data[group] = PartData(group.part, parent)
                 pd.globalName = globalName
+                pd.scoreProperties = scoreProperties
                 types.setdefault(pd.name(), []).append(group)
                 _search(group.parts, pd)
         _search(parts)

@@ -266,10 +266,14 @@ class ScoreProperties(object):
 
     def lyMidiTempo(self, node):
         """Sets the configured tempo in the tempoWholesPerMinute variable."""
+        node['tempoWholesPerMinute'] = ly.dom.Scheme(self.schemeMidiTempo())
+    
+    def schemeMidiTempo(self):
+        """Returns a string with the tempo like '(ly:make-moment 100 4)' from the settings."""
         base, mul = midiDurations[self.metronomeNote.currentIndex()]
         val = int(self.metronomeValue.currentText()) * mul
-        node['tempoWholesPerMinute'] = ly.dom.Scheme("(ly:make-moment {0} {1})".format(val, base))
-
+        return "(ly:make-moment {0} {1})".format(val, base)
+        
 
 def metronomeValues():
     v, start = [], 40

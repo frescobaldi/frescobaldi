@@ -631,10 +631,7 @@ class Choir(VocalPart):
                 score = ly.dom.Score(book)
                 
                 # TODO: make configurable
-                if voice in ('SA'):
-                    midiInstrument = "soprano sax"
-                else:
-                    midiInstrument = "tenor sax"
+                midiInstrument = voice2Midi[voice]
 
                 cmd = ly.dom.Command(rehearsalMidi, score)
                 ly.dom.QuotedString(name, cmd)
@@ -646,7 +643,7 @@ class Choir(VocalPart):
             seq = ly.dom.Seq(choir)
             ly.dom.Line("\\set Score.midiMinimumVolume = #0.5", seq)
             ly.dom.Line("\\set Score.midiMaximumVolume = #0.5", seq)
-            #ly.dom.Line("\\set Score.tempoWholesPerMinute = #" + builder.getMidiTempo(), seq)
+            ly.dom.Line("\\set Score.tempoWholesPerMinute = #" + data.scoreProperties.schemeMidiTempo(), seq)
             ly.dom.Line("\\set Staff.midiMinimumVolume = #0.8", seq)
             ly.dom.Line("\\set Staff.midiMaximumVolume = #1.0", seq)
             ly.dom.Line("\\set Staff.midiInstrument = $midiInstrument", seq)
@@ -680,6 +677,13 @@ voice2id = {
     'A': 'alto',
     'T': 'tenor',
     'B': 'bass',
+}
+
+voice2Midi = {
+    'S': 'soprano sax',
+    'A': 'soprano sax',
+    'T': 'tenor sax',
+    'B': 'tenor sax',
 }
 
 register(
