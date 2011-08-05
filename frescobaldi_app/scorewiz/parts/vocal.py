@@ -618,14 +618,15 @@ class Choir(VocalPart):
                 ly.dom.Text('s1*0\\f', seq) # add one dynamic
                 ly.dom.Identifier(ref, seq) # add the reference to the voice
                 
-                # Append score to the aftermath (stuff put below the main score)
-                if data.num:
-                    suffix = "choir{0}-{1}".format(data.num, name)
-                else:
-                    suffix = name
-                data.afterblocks.append(
-                    ly.dom.Line('#(define output-suffix "{0}")'.format(suffix)))
                 book = ly.dom.Book()
+                
+                # Append score to the aftermath (stuff put below the main score)
+                suffix = "choir{0}-{1}".format(data.num, name) if data.num else name
+                if builder.lyVersion < (2, 12, 0):
+                    data.afterblocks.append(
+                        ly.dom.Line('#(define output-suffix "{0}")'.format(suffix)))
+                else:
+                    ly.dom.Line('\\bookOutputSuffix "{0}"'.format(suffix), book)
                 data.afterblocks.append(book)
                 data.afterblocks.append(ly.dom.BlankLine())
                 score = ly.dom.Score(book)
