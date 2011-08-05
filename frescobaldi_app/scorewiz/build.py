@@ -277,7 +277,9 @@ class Builder(object):
                 
             # add the assignments to the block
             for p in partData:
-                block.assignments.extend(p.assignments)
+                for a in p.assignments:
+                    block.assignments.append(a)
+                    ly.dom.BlankLine(block.assignments)
                 block.backmatter.extend(p.afterblocks)
                 
             # make part assignments if there is more than one part that has assignments
@@ -288,6 +290,7 @@ class Builder(object):
                         ly.dom.Simr(a).extend(part.nodes)
                         ly.dom.Identifier(a.name, music).after = 1
                         block.assignments.append(a)
+                        ly.dom.BlankLine(block.assignments)
                         assignments.append(a)
                     else:
                         music.extend(part.nodes)
@@ -428,12 +431,11 @@ class Builder(object):
         # add the main scores
         for block in self.blocks:
             doc.append(block.assignments)
-            ly.dom.BlankLine(doc)
             doc.append(block.scores)
+            ly.dom.BlankLine(doc)
             if len(block.backmatter):
-                ly.dom.BlankLine(doc)
                 doc.append(block.backmatter)
-            
+                ly.dom.BlankLine(doc)
         return doc
 
 
