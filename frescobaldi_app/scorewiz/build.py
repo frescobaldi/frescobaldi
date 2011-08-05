@@ -330,13 +330,13 @@ class Builder(object):
         """
         # number instances of the same type (Choir I and Choir II, etc.)
         data = {}
-        types = {}
+        types = collections.defaultdict(list)
         def _search(parts, parent=None):
             for group in parts:
                 pd = data[group] = PartData(group.part, parent)
                 pd.globalName = globalName
                 pd.scoreProperties = scoreProperties
-                types.setdefault(pd.name(), []).append(group)
+                types[pd.name()].append(group)
                 _search(group.parts, pd)
         _search(parts)
         for t in types.values():
@@ -350,12 +350,12 @@ class Builder(object):
         
         # check for name collisions in assignment identifiers
         # add the part class name and a roman number if necessary
-        refs = {}
+        refs = collections.defaultdict(list)
         for group in allparts(parts):
             for a in data[group].assignments:
                 ref = a.name
                 name = ref.name
-                refs.setdefault(name, []).append((ref, group))
+                refs[name].append((ref, group))
         for reflist in refs.values():
             if len(reflist) > 1:
                 for ref, group in reflist:
@@ -437,7 +437,6 @@ class Builder(object):
                 doc.append(block.backmatter)
                 ly.dom.BlankLine(doc)
         return doc
-
 
     def setMidiInstrument(self, node, midiInstrument):
         """Sets the MIDI instrument for the node, if the user wants MIDI output."""
