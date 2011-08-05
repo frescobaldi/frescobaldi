@@ -103,6 +103,9 @@ class GeneralPreferences(QGroupBox):
         layout.addLayout(box)
         app.translateUI(self)
         
+        self.loadSettings()
+        self.window().finished.connect(self.saveSettings)
+        
     def translateUI(self):
         self.setTitle(_("General preferences"))
         self.typq.setText(_("Use typographical quotes"))
@@ -133,8 +136,33 @@ class GeneralPreferences(QGroupBox):
     def getPaperSize(self):
         """Returns the configured papersize or the empty string for default."""
         return paperSizes[self.paper.currentIndex()]
+    
+    def loadSettings(self):
+        s = QSettings()
+        s.beginGroup('scorewiz/preferences')
+        self.typq.setChecked(s.value('typographical_quotes', True) not in (False, 'false'))
+        self.tagl.setChecked(s.value('remove_tagline', False) in (True, 'true'))
+        self.barnum.setChecked(s.value('remove_barnumbers', False) in (True, 'true'))
+        self.midi.setChecked(s.value('midi', True) not in (False, 'false'))
+        self.metro.setChecked(s.value('metronome_mark', False) in (True, 'true'))
+        psize = s.value('paper_size', '')
+        enable = bool(psize and psize in paperSizes)
+        self.paper.setCurrentIndex(paperSizes.index(psize) if enable else 0)
+        self.paperLandscape.setChecked(s.value('paper_landscape', False) in (True, 'true'))
+        self.paperLandscape.setEnabled(enable)
 
+    def saveSettings(self):
+        s = QSettings()
+        s.beginGroup('scorewiz/preferences')
+        s.setValue('typographical_quotes', self.typq.isChecked())
+        s.setValue('remove_tagline', self.tagl.isChecked())
+        s.setValue('remove_barnumbers', self.barnum.isChecked())
+        s.setValue('midi', self.midi.isChecked())
+        s.setValue('metronome_mark', self.metro.isChecked())
+        s.setValue('paper_size', paperSizes[self.paper.currentIndex()])
+        s.setValue('paper_landscape', self.paperLandscape.isChecked())
 
+        
 class InstrumentNames(QGroupBox):
     def __init__(self, parent):
         super(InstrumentNames, self).__init__(parent, checkable=True, checked=True)
@@ -176,6 +204,8 @@ class InstrumentNames(QGroupBox):
         grid.addWidget(self.languageLabel, 2, 0)
         grid.addWidget(self.language, 2, 1)
         app.translateUI(self)
+        self.loadSettings()
+        self.window().finished.connect(self.saveSettings)
         
     def translateUI(self):
         self.setTitle(_("Instrument names"))
@@ -202,7 +232,28 @@ class InstrumentNames(QGroupBox):
         """
         return self._langs[self.language.currentIndex()]
 
+    def loadSettings(self):
+        s = QSettings()
+        s.beginGroup('scorewiz/instrumentnames')
+        self.setChecked(s.value('enabled', True) not in (False, 'false'))
+        allow = ['long', 'short']
+        first = s.value('first', '')
+        self.firstSystem.setCurrentIndex(allow.index(first) if first in allow else 0)
+        allow = ['long', 'short', 'none']
+        other = s.value('other', '')
+        self.otherSystems.setCurrentIndex(allow.index(other) if other in allow else 2)
+        language = s.value('language', '')
+        self.language.setCurrentIndex(self._langs.index(language) if language in self._langs else 0)
+    
+    def saveSettings(self):
+        s = QSettings()
+        s.beginGroup('scorewiz/instrumentnames')
+        s.setValue('enable', self.isChecked())
+        s.setValue('first', ('long', 'short')[self.firstSystem.currentIndex()])
+        s.setValue('other', ('long', 'short', 'none')[self.otherSystems.currentIndex()])
+        s.setValue('language', self._langs[self.language.currentIndex()])
 
+        
 class LilyPondPreferences(QGroupBox):
     def __init__(self, parent):
         super(LilyPondPreferences, self).__init__(parent)
@@ -229,7 +280,9 @@ class LilyPondPreferences(QGroupBox):
         
         self.pitchLanguage.activated.connect(self.slotPitchLanguageChanged)
         app.translateUI(self)
-        
+        self.loadSettings()
+        self.window().finished.connect(self.saveSettings)
+
     def translateUI(self):
         self.setTitle(_("LilyPond"))
         self.pitchLanguageLabel.setText(_("Pitch name language:"))
@@ -247,6 +300,19 @@ class LilyPondPreferences(QGroupBox):
             language = self.pitchLanguage.currentText().lower()
         self.window().setPitchLanguage(language)
         
+    def loadSettings(self):
+        s = QSettings()
+        s.beginGroup('scorewiz/lilypond')
+        language = s.value('pitch_language', '')
+        languages = list(sorted(scoreproperties.keyNames))
+        index = languages.index(language) + 1 if language in languages else 0
+        self.pitchLanguage.setCurrentIndex(index)
+        self.slotPitchLanguageChanged(index)
+
+    def saveSettings(self):
+        s = QSettings()
+        s.beginGroup('scorewiz/lilypond')
+        s.setValue('pitch_language', self.window().pitchLanguage())
 
 
 paperSizes = ['', 'a3', 'a4', 'a5', 'a6', 'a7', 'legal', 'letter', '11x17']
