@@ -320,7 +320,7 @@ class Builder(object):
         or something like 'scoreAGlobal' (when a score has its own properties).
         
         scoreProperties is the ScoreProperties instance currently in effect
-        (the global one or a particular Score part's one)/
+        (the global one or a particular Score part's one).
         
         Returns the list of PartData object for the parts.
         
