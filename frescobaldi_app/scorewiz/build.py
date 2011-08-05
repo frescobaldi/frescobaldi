@@ -89,8 +89,6 @@ class PartData(object):
         self.isChild = bool(parent)
         self._name = part.__class__.__name__
         self.children = []
-        self.globalName = 'global'
-        self.scoreProperties = None
         self.num = 0
         self.includes = []
         self.codeblocks = []
@@ -146,7 +144,6 @@ class BlockData(object):
         self.assignments = ly.dom.Block()
         self.scores = ly.dom.Block()
         self.backmatter = ly.dom.Block()
-        
 
 
 class Builder(object):
@@ -267,8 +264,13 @@ class Builder(object):
             music = ly.dom.Simr()
             score.insert(0, music)
             
+            # a PartData subclass "knowing" the globalName and scoreProperties
+            class _PartData(PartData): pass
+            _PartData.globalName = globalName
+            _PartData.scoreProperties = scoreProperties
+                
             # make the parts
-            partData = self.makeParts(group.parts, globalName, scoreProperties)
+            partData = self.makeParts(group.parts, _PartData)
             
             # collect all 'prefixable' assignments for this group
             assignments = []
@@ -315,15 +317,16 @@ class Builder(object):
         for g in group.groups:
             self.makeBlock(g, node, block)
     
-    def makeParts(self, parts, globalName, scoreProperties):
+    def makeParts(self, parts, partDataClass):
         """Lets the parts build the music stubs and assignments.
         
         parts is a list of PartNode instances.
-        globalName is either 'global' (for the global time/key signature section)
-        or something like 'scoreAGlobal' (when a score has its own properties).
-        
-        scoreProperties is the ScoreProperties instance currently in effect
-        (the global one or a particular Score part's one).
+        partDataClass is a subclass or PartData containing some attributes:
+            - globalName is either 'global' (for the global time/key signature
+              section) or something like 'scoreAGlobal' (when a score has its
+              own properties).
+            - scoreProperties is the ScoreProperties instance currently in effect
+              (the global one or a particular Score part's one).
         
         Returns the list of PartData object for the parts.
         
@@ -333,9 +336,7 @@ class Builder(object):
         types = collections.defaultdict(list)
         def _search(parts, parent=None):
             for group in parts:
-                pd = data[group] = PartData(group.part, parent)
-                pd.globalName = globalName
-                pd.scoreProperties = scoreProperties
+                pd = data[group] = partDataClass(group.part, parent)
                 types[pd.name()].append(group)
                 _search(group.parts, pd)
         _search(parts)
