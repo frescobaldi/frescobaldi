@@ -37,7 +37,7 @@ class ScoreWizardDialog(QDialog):
     def __init__(self, mainwindow):
         super(ScoreWizardDialog, self).__init__(mainwindow)
         
-        self._pitchLanguage = ''
+        self._pitchLanguage = None
         
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -88,6 +88,13 @@ class ScoreWizardDialog(QDialog):
             self.pitchLanguageChanged.emit(language)
     
     def pitchLanguage(self):
+        if self._pitchLanguage is None:
+            # load setting; saving occurs in .settings.py
+            lang = QSettings().value('scorewiz/lilypond/pitch_language', '')
+            from .scoreproperties import keyNames
+            if lang not in keyNames:
+                lang = ''
+            self._pitchLanguage = lang
         return self._pitchLanguage
 
     def slotAccepted(self):

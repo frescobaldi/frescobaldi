@@ -301,18 +301,13 @@ class LilyPondPreferences(QGroupBox):
         self.window().setPitchLanguage(language)
         
     def loadSettings(self):
-        s = QSettings()
-        s.beginGroup('scorewiz/lilypond')
-        language = s.value('pitch_language', '')
+        language = self.window().pitchLanguage()
         languages = list(sorted(scoreproperties.keyNames))
         index = languages.index(language) + 1 if language in languages else 0
         self.pitchLanguage.setCurrentIndex(index)
-        self.slotPitchLanguageChanged(index)
 
     def saveSettings(self):
-        s = QSettings()
-        s.beginGroup('scorewiz/lilypond')
-        s.setValue('pitch_language', self.window().pitchLanguage())
+        QSettings().setValue('scorewiz/lilypond/pitch_language', self.window().pitchLanguage())
 
 
 paperSizes = ['', 'a3', 'a4', 'a5', 'a6', 'a7', 'legal', 'letter', '11x17']
