@@ -247,9 +247,9 @@ class Builder(object):
                 if globalSection:
                     scoreProperties = group.part
                     globalName = prefix + 'Global'
-                    a = ly.dom.Assignment(globalName)
+                    a = ly.dom.Assignment(globalName, block.assignments)
                     a.append(globalSection)
-                    block.assignments.append(a)
+                    ly.dom.BlankLine(block.assignments)
             if globalName == 'global':
                 self.globalUsed = True
             
