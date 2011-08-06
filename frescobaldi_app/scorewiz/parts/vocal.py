@@ -637,7 +637,7 @@ class Choir(VocalPart):
                 cmd = ly.dom.Command(rehearsalMidi, score)
                 ly.dom.QuotedString(name, cmd)
                 ly.dom.QuotedString(midiInstrument, cmd)
-                ly.dom.Identifier(refs[(lyrName, stanzas[0])], cmd)
+                ly.dom.Identifier(refs[(lyrName, allStanzas[0])], cmd)
                 ly.dom.Midi(score)
             
             ly.dom.Text("\\context Staff = $name", choir)
