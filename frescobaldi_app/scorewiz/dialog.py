@@ -57,8 +57,6 @@ class ScoreWizardDialog(QDialog):
         self.tabs.addTab(self.parts, '')
         self.settings = Settings(self)
         self.tabs.addTab(self.settings, '')
-        self.preview = Preview(self)
-        self.tabs.addTab(self.preview, '')
         
         self.tabs.setCurrentIndex(0)
         self.tabs.widget(0).widget() # activate it
@@ -158,14 +156,5 @@ class Settings(Page):
     def createWidget(self, parent):
         from . import settings
         return settings.SettingsWidget(parent)
-
-
-class Preview(Page):
-    def title(self):
-        return _("Pre&view")
-    
-    def createWidget(self, parent):
-        from . import preview
-        return preview.PreviewWidget(parent)
 
 
