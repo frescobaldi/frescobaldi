@@ -215,6 +215,7 @@ def reIndent(cursor):
         blocks = cursortools.allBlocks(cursor.document())
     with cursortools.editBlock(cursor):
         for block in blocks:
+            tokeniter.update(block)
             if tokeniter.state(block).mode() in ('lilypond', 'scheme'):
                 indent = computeIndent(block)
             else:

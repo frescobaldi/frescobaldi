@@ -100,8 +100,9 @@ class ScoreWizardDialog(QDialog):
         from . import build
         builder = build.Builder(self)
         cursor = self.parent().currentView().textCursor()
-        cursortools.insertText(cursor, builder.text())
-        indent.reIndent(cursor)
+        with cursortools.editBlock(cursor):
+            cursortools.insertText(cursor, builder.text())
+            indent.reIndent(cursor)
 
 
 class Page(QWidget):
