@@ -23,7 +23,7 @@ Manages the progress bar in the status bar of ViewSpaces.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import Qt, QTimer
+from PyQt4.QtCore import Qt, QTimeLine, QTimer
 from PyQt4.QtGui import QProgressBar
 
 import app
@@ -38,13 +38,14 @@ metainfo.define('buildtime', 0.0, float)
 class ProgressBar(plugin.ViewSpacePlugin):
     """A Simple progress bar to show a Job is running."""
     def __init__(self, viewSpace):
-        bar = self._bar = QProgressBar()
+        bar = self._bar = QProgressBar(minimum=0, maximum=100)
         bar.setMaximumHeight(14)
         bar.setMinimum(0)
-        viewSpace.status.layout().addWidget(self._bar, 1)
-        self._bar.hide()
-        self._timer = QTimer(timeout=self.timeout)
-        self._hideTimer = QTimer(timeout=self._bar.hide, singleShot=True)
+        viewSpace.status.layout().addWidget(bar, 1)
+        bar.hide()
+        self._timeline = QTimeLine(updateInterval=125, frameChanged=bar.setValue)
+        self._timeline.setFrameRange(0, 100)
+        self._hideTimer = QTimer(timeout=bar.hide, singleShot=True)
         viewSpace.viewChanged.connect(self.viewChanged)
         app.jobStarted.connect(self.jobStarted)
         app.jobFinished.connect(self.jobFinished)
@@ -59,28 +60,23 @@ class ProgressBar(plugin.ViewSpacePlugin):
             buildtime = metainfo.info(document).buildtime
             if not buildtime:
                 buildtime = 3.0 + document.blockCount() / 20 # very arbitrary estimate...
-            self._bar.setMaximum(buildtime * 1000)
-            self._bar.setValue(job.elapsed() * 1000)
+            self._timeline.setDuration(buildtime*1000)
+            self._timeline.setCurrentTime(job.elapsed()*1000)
+            self._timeline.start()
             self._bar.show()
-            self._timer.start(200)
         else:
-            self._timer.stop()
+            self._timeline.stop()
             self._bar.hide()
             
-    def timeout(self):
-        job = jobmanager.job(self.viewSpace().document())
-        self._bar.setValue(job.elapsed() * 1000)
-        
     def jobStarted(self, document):
         if document == self.viewSpace().document():
             self.showProgress(document)
             
     def jobFinished(self, document, job, success):
         if document == self.viewSpace().document():
-            self._timer.stop()
+            self._timeline.stop()
             if success:
                 metainfo.info(document).buildtime = job.elapsed()
-                self._bar.setMaximum(100)
                 self._bar.setValue(100)
                 self._hideTimer.start(3000)
             else:
