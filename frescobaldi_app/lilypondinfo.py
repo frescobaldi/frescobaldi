@@ -99,6 +99,14 @@ def preferred():
     return infos_[0]
 
 
+def suitable(version):
+    """Returns a LilyPondInfo with a suitable version if found, else returns preferred()."""
+    for i in sorted(infos(), key=lambda i: i.version):
+        if i.version >= version:
+            return i
+    return preferred()
+ 
+
 class LilyPondInfo(ly.info.LilyPondInfo):
     """Manages information about a LilyPond instance, partially cached to speed up Frescobaldi."""
     def __init__(self, command):
