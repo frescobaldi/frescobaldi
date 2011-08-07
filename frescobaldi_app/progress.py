@@ -30,7 +30,7 @@ import app
 import plugin
 import jobmanager
 import metainfo
-
+import widgets.progressbar
 
 metainfo.define('buildtime', 0.0, float)
 
@@ -38,49 +38,36 @@ metainfo.define('buildtime', 0.0, float)
 class ProgressBar(plugin.ViewSpacePlugin):
     """A Simple progress bar to show a Job is running."""
     def __init__(self, viewSpace):
-        bar = self._bar = QProgressBar(minimum=0, maximum=100)
+        bar = self._bar = widgets.progressbar.TimedProgressBar()
         bar.setMaximumHeight(14)
-        bar.setMinimum(0)
         viewSpace.status.layout().addWidget(bar, 1)
         bar.hide()
-        self._timeline = QTimeLine(updateInterval=125, frameChanged=bar.setValue)
-        self._timeline.setFrameRange(0, 100)
-        self._hideTimer = QTimer(timeout=bar.hide, singleShot=True)
         viewSpace.viewChanged.connect(self.viewChanged)
         app.jobStarted.connect(self.jobStarted)
         app.jobFinished.connect(self.jobFinished)
         
     def viewChanged(self, view):
         self.showProgress(view.document())
-        
+    
     def showProgress(self, document):
-        self._hideTimer.stop()
         job = jobmanager.job(document)
         if job and job.isRunning():
             buildtime = metainfo.info(document).buildtime
             if not buildtime:
                 buildtime = 3.0 + document.blockCount() / 20 # very arbitrary estimate...
-            self._timeline.setDuration(buildtime*1000)
-            self._timeline.setCurrentTime(job.elapsed()*1000)
-            self._timeline.start()
-            self._bar.show()
+            self._bar.start(buildtime, job.elapsed())
         else:
-            self._timeline.stop()
-            self._bar.hide()
-            
+            self._bar.stop(False)
+    
     def jobStarted(self, document):
         if document == self.viewSpace().document():
             self.showProgress(document)
-            
+    
     def jobFinished(self, document, job, success):
         if document == self.viewSpace().document():
-            self._timeline.stop()
+            self._bar.stop(success)
             if success:
                 metainfo.info(document).buildtime = job.elapsed()
-                self._bar.setValue(100)
-                self._hideTimer.start(3000)
-            else:
-                self._bar.hide()
 
 
 app.viewSpaceCreated.connect(ProgressBar.instance)
