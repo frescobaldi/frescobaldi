@@ -26,7 +26,6 @@ from PyQt4.QtGui import *
 
 import app
 import cursortools
-import tokeniter
 import indent
 import util
 
@@ -103,7 +102,6 @@ class ScoreWizardDialog(QDialog):
         cursor = self.parent().currentView().textCursor()
         with cursortools.editBlock(cursor):
             cursortools.insertText(cursor, builder.text())
-            tokeniter.update(cursor.document().findBlock(cursor.selectionStart()))
             indent.reIndent(cursor)
 
 
