@@ -322,7 +322,6 @@ class Printer(object):
         self.typographicalQuotes = True
         self.language = "nederlands"
         self.indentString = '  '
-        self.lilypondVersion = (2, 10, 0)
         
     def quoteString(self, text):
         if self.typographicalQuotes:
@@ -341,7 +340,7 @@ class Printer(object):
         """
         d = startIndent
         for t in node.ly(self).splitlines() + [''] * node.after:
-            if d and re.match(r'}|>|%}', t):
+            if d and re.match(r'#?}|>|%}', t):
                 d -= 1
             yield self.indentString * d + t
             if re.search(r'(\{|<|%{)$', t):
