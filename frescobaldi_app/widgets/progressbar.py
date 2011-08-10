@@ -60,6 +60,7 @@ class TimedProgressBar(QProgressBar):
         
         """
         self._hideTimer.stop()
+        self._timeline.stop()
         if showFinished:
             self.setValue(100)
             self._hideTimer.start()
