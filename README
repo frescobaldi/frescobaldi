@@ -7,8 +7,8 @@ Main author: Wilbert Berendsen
 Frescobaldi is a LilyPond music score editor.
 
 The 2.0 version is built with Python and Qt4.7 and is designed to run on all
-major platforms. This version is in very heavy development although the basic
-editing functionality is already working.
+major platforms. This version is in very heavy development although quite some
+functionality is already working well and usable.
 
 
 What do you need to run it?
@@ -25,22 +25,26 @@ What do you need to run it?
 What does work?
 
 - the basic editor with save, load, search/replace, split/multiple views
-- syntax highlighting with parser for LilyPond, HTML, Texinfo, LaTeX (todo), Scheme, DocBook (todo)
+- syntax highlighting with parser for LilyPond, HTML, Texinfo, LaTeX (todo),
+  Scheme, DocBook (todo)
 - automatic indentation
 - highlighting of matching braces, slurs, etc.
 - run LilyPond and show output log
-- parse LilyPond errors: Ctrl-E jumps to first (or next) error message, Ctrl-Shift-E backwards
+- parse LilyPond errors: Ctrl-E jumps to first (or next) error message, Ctrl-
+  Shift-E backwards
 - music view with two-way point and click:
-  - hovering an object in the PDF highlights the part in the text that represents it
+  - hovering an object in the PDF highlights the appropriate part in the text
   - clicking a PDF object moves the text cursor
-  - moving the text cursor or selecting text highlights the corresponding objects in the PDF
-  - Ctrl-J lets the PDF jump to the objects the text cursor or selection points to
+  - moving the text cursor or selecting text highlights the objects in the PDF
+  - Ctrl-J lets the PDF jump to the objects the text cursor or selection is at
 - lyrics hyphenation
 - metainfo like cursor position, marked lines, etc. can be remembered
 - preferences dialog:
   - multiple LilyPond versions support
   - configurable keyboard shortcuts (with possibility of multiple schemes)
   - configure fonts/colors (with possibility of multiple schemes)
+- nice snippet manager (Ctrl-T)
+- score wizard, now also with multiple score, book, staffgroup etc support
 
 
 TODO:
@@ -48,9 +52,8 @@ TODO:
 - run other commands such as lilypond-book, convert-ly
 - finish Quick Insert Panel
 - finish built-in help browser
-- template support
 - autocompletion
-- score wizard
+- score wizard preview
 - test on Mac OS X and Windows, make easy installers
 - MIDI...
 
