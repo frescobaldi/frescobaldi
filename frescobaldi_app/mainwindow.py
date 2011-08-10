@@ -38,6 +38,7 @@ import actioncollectionmanager
 import document
 import view
 import viewmanager
+import highlighter
 import historymanager
 import metainfo
 import signals
@@ -179,6 +180,8 @@ class MainWindow(QMainWindow):
             bookmarks.bookmarks(doc).marksChanged.connect(self.updateMarkStatus)
             self.updateDocActions()
             self.updateWindowTitle()
+            if metainfo.info(doc).highlighting:
+                highlighter.highlighter(doc)
         self.updateViewActions()
         self.updateMarkStatus()
         self.currentViewChanged.emit(view, curv)
@@ -523,7 +526,7 @@ class MainWindow(QMainWindow):
             options |= QAbstractPrintDialog.PrintSelection
         dlg.setOptions(options)
         if dlg.exec_():
-            doc = self.currentDocument().htmlCopy('printer')
+            doc = highlighter.htmlCopy(self.currentDocument(), 'printer')
             doc.setMetaInformation(QTextDocument.DocumentTitle, self.currentDocument().url().toString())
             font = doc.defaultFont()
             font.setPointSizeF(font.pointSizeF() * 0.8)
@@ -554,7 +557,7 @@ class MainWindow(QMainWindow):
             name, "{0} (*.html)".format("HTML Files"))
         if not filename:
             return #cancelled
-        html = doc.htmlCopy().toHtml('utf-8').encode('utf-8')
+        html = highlighter.htmlCopy(doc).toHtml('utf-8').encode('utf-8')
         try:
             with open(filename, "w") as f:
                 f.write(str(html))
@@ -581,14 +584,15 @@ class MainWindow(QMainWindow):
         cursor = self.currentView().textCursor()
         if not cursor.hasSelection():
             return
-        doc = self.currentDocument().htmlCopy()
+        doc = highlighter.htmlCopy(self.currentDocument())
         cur1 = QTextCursor(doc)
         cur1.setPosition(cursor.anchor())
         cur1.setPosition(cursor.position(), QTextCursor.KeepAnchor)
-        html = QMimeData()
-        html.setHtml(cur1.selection().toHtml())
-        html.setText(cur1.selection().toHtml())
-        QApplication.clipboard().setMimeData(html)
+        data = QMimeData()
+        html = cur1.selection().toHtml()
+        data.setHtml(html)
+        data.setText(html)
+        QApplication.clipboard().setMimeData(data)
         
     def selectNone(self):
         cursor = self.currentView().textCursor()
@@ -615,7 +619,6 @@ class MainWindow(QMainWindow):
     def toggleHighlighting(self):
         minfo = metainfo.info(self.currentDocument())
         minfo.highlighting = not minfo.highlighting
-        import highlighter
         highlighter.highlighter(self.currentDocument()).setHighlighting(minfo.highlighting)
         
     def markCurrentLine(self):

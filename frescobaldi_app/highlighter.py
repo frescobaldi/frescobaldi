@@ -182,18 +182,23 @@ class Highlighter(QSyntaxHighlighter, plugin.Plugin):
         # find the state of the previous line
         prev = self.previousBlockState()
         if 0 <= prev < len(self._states):
+            blank = False
             state = ly.lex.thawState(self._states[prev])
-        elif not text or text.isspace():
-            self.setCurrentBlockState(prev - 1) # keep the highlighter coming back
-            return
         else:
+            blank = not text or text.isspace()
             state = self.initialState()
         
         # collect and save the tokens
         data = userData(self.currentBlock())
         data.tokens = tokens = tuple(state.tokens(text))
+
+        if blank:
+            # keep the highlighter coming back
+            # because the parsing state is not yet known
+            self.setCurrentBlockState(prev - 1)
+            return
         
-        # save the state separately
+        # save the state
         cur = state.freeze()
         try:
             self.setCurrentBlockState(self._states.index(cur))
@@ -239,22 +244,18 @@ class Highlighter(QSyntaxHighlighter, plugin.Plugin):
         return ly.lex.state(mode)
 
 
-class BlockData(QTextBlockUserData):
-    """Stores information about one text line."""
-    tokens = ()
-
-
 def userData(block):
     """Gets the block data for this block, setting an empty one if not yet set."""
     data = block.userData()
     if not data:
-        data = BlockData()
+        data = QTextBlockUserData()
         block.setUserData(data)
     return data
 
 
-def htmlCopy(document, data):
+def htmlCopy(document, type='editor'):
     """Returns a new QTextDocument with highlighting set as HTML textcharformats."""
+    data = textformats.formatData(type)
     doc = QTextDocument()
     doc.setDefaultFont(data.font)
     doc.setPlainText(document.toPlainText())

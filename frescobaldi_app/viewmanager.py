@@ -37,7 +37,7 @@ from PyQt4.QtGui import (
 import actioncollection
 import app
 import icons
-import view
+import view as view_
 
 
 class ViewStatusBar(QWidget):
@@ -109,7 +109,7 @@ class ViewSpace(QWidget):
     things on a per ViewSpace basis, e.g. in the statusbar of a ViewSpace.
     
     """
-    viewChanged = pyqtSignal(view.View)
+    viewChanged = pyqtSignal(view_.View)
     
     def __init__(self, manager, parent=None):
         super(ViewSpace, self).__init__(parent)
@@ -151,7 +151,7 @@ class ViewSpace(QWidget):
                 self.views.remove(view)
                 break
         else:
-            view = doc.createView()
+            view = view_.View(doc)
             self.stack.addWidget(view)
         self.views.append(view)
         if cur:
@@ -224,7 +224,7 @@ class ViewManager(QSplitter):
     # even if the view is the same as before.
     # use MainWindow.currentViewChanged() to be informed about
     # real View changes.
-    viewChanged = pyqtSignal(view.View)
+    viewChanged = pyqtSignal(view_.View)
     
     def __init__(self, parent=None):
         super(ViewManager, self).__init__(parent)

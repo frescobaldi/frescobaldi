@@ -58,18 +58,11 @@ class View(QPlainTextEdit):
     - using the highlight() method it can highlight arbitrary ranges
     - it can display a widget in the bottom using showWidget and hideWidget.
     
-    Create a View through the document->createView() method.
-    
     """
     focusIn = pyqtSignal()
     
     def __init__(self, document):
-        """Creates the View for the given document.
-        
-        Normally you'll call the createView() method from the document, as it performs
-        some lazy setup for the Document when it's first View is created.
-        
-        """
+        """Creates the View for the given document."""
         super(View, self).__init__()
         self._selections = {}
         self._cursorFormat = QTextCharFormat()

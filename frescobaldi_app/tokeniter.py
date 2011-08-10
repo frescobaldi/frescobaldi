@@ -18,7 +18,16 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Iterate over tokens.
+Use this module to get the parsed tokens of a document.
+
+The tokens are created by the syntax highlighter, see highlighter.py.
+The core methods of this module are tokens() and state(). These access
+the token information from the highlighter, and also run the highlighter
+if it has not run yet.
+
+If you alter the document and directly after that need the new tokens,
+use update().
+
 """
 
 from __future__ import unicode_literals
@@ -31,14 +40,15 @@ import highlighter
 
 def tokens(block):
     """Returns the tokens for the given block as a (possibly empty) tuple."""
+    try:
+        return highlighter.userData(block).tokens
+    except AttributeError:
+        highlighter.highlighter(block.document()).rehighlight()
     return highlighter.userData(block).tokens
 
 
 def state(blockOrCursor):
     """Returns a thawn ly.lex.State() object at the beginning of the given QTextBlock.
-    
-    The document must have a highlighter (and thus have or had at least one View).
-    See highlighter.py.
     
     If the argument is a QTextCursor, uses the current block or the first block of its selection.
     
@@ -50,6 +60,8 @@ def state(blockOrCursor):
             block = blockOrCursor.block()
     else:
         block = blockOrCursor
+    if block.userState() == -1:
+        highlighter.highlighter(block.document()).rehighlight()
     return highlighter.highlighter(block.document()).state(block)
 
 

@@ -96,13 +96,6 @@ class DocumentInfo(plugin.DocumentPlugin):
         if guess:
             return ly.lex.guessMode(self.document().toPlainText())
     
-    def tokens(self):
-        """Iterates over all the tokens in a document, parsing if the document has not yet materialized."""
-        if self.document().firstBlock().userState() != -1:
-            return tokeniter.allTokens(self.document())
-        else:
-            return ly.lex.state(self.mode()).tokens(self.document().toPlainText())
-
     @resetoncontentschanged
     def version(self):
         """Returns the LilyPond version if set in the document, as a tuple of ints.
@@ -117,7 +110,7 @@ class DocumentInfo(plugin.DocumentPlugin):
         """
         mkver = lambda strings: tuple(map(int, strings))
         
-        version = ly.parse.version(self.tokens())
+        version = ly.parse.version(tokeniter.allTokens(self.document()))
         if version:
             return mkver(re.findall(r"\d+", version))
         # look at document variables
@@ -189,7 +182,7 @@ class DocumentInfo(plugin.DocumentPlugin):
         See ly.parse.includeargs().
         
         """
-        return list(ly.parse.includeargs(self.tokens()))
+        return list(ly.parse.includeargs(tokeniter.allTokens(self.document())))
 
     def includefiles(self):
         """Returns a set of filenames that are included by the given document.
@@ -245,7 +238,7 @@ class DocumentInfo(plugin.DocumentPlugin):
         See ly.parse.outputargs().
         
         """
-        return list(ly.parse.outputargs(self.tokens()))
+        return list(ly.parse.outputargs(tokeniter.allTokens(self.document())))
         
     def basenames(self):
         """Returns a list of basenames that our document is expected to create.

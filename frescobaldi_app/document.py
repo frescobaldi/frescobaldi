@@ -30,8 +30,6 @@ from PyQt4.QtGui import QPlainTextDocumentLayout, QTextDocument
 
 import app
 import util
-import highlighter
-import textformats
 import variables
 import signals
 
@@ -103,12 +101,6 @@ class Document(QTextDocument):
             self.saved()
             return True
 
-    def createView(self):
-        """Returns a new View on our document."""
-        highlighter.highlighter(self) # be sure the highlighter is started
-        import view
-        return view.View(self)
-    
     def url(self):
         return self._url
         
@@ -153,14 +145,5 @@ class Document(QTextDocument):
                 return _("Untitled ({num})").format(num=self._num)
         else:
             return os.path.basename(self._url.path())
-    
-    def htmlCopy(self, type='editor'):
-        """Returns a new QTextDocument with highlighting set as HTML textcharformats.
-        
-        type can be 'editor' (the default) or 'printer'.
-        
-        """
-        data = textformats.formatData(type)
-        return highlighter.htmlCopy(self, data)
 
 
