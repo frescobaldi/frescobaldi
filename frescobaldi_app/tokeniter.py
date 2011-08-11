@@ -44,7 +44,10 @@ def tokens(block):
         return highlighter.userData(block).tokens
     except AttributeError:
         highlighter.highlighter(block.document()).rehighlight()
-    return highlighter.userData(block).tokens
+    try:
+        return highlighter.userData(block).tokens
+    except AttributeError:
+        return ()
 
 
 def state(blockOrCursor):
