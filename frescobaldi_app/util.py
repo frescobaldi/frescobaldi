@@ -25,6 +25,7 @@ from __future__ import unicode_literals
 
 import codecs
 import contextlib
+import glob
 import itertools
 import os
 import re
@@ -58,6 +59,15 @@ def homify(path):
     if equal_paths(path[:len(homedir)+1], homedir + '/'):
         path = "~" + path[len(homedir):]
     return path
+
+
+def files(basenames, extension = '*'):
+    """Yields filenames with the given basenames matching the given extension."""
+    def source():
+        for name in basenames:
+            yield glob.iglob(name + extension)
+            yield sorted(glob.iglob(name + '-*[0-9]' + extension), key=naturalsort)
+    return itertools.chain.from_iterable(source())
 
 
 @contextlib.contextmanager

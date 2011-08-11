@@ -23,6 +23,10 @@ Computes and caches various information about files.
 
 from __future__ import unicode_literals
 
+import functools
+import itertools
+import os
+
 import ly.parse
 import ly.lex
 import filecache
@@ -30,9 +34,16 @@ import util
 import variables
 
 
-_include_args_cache = filecache.FileCache()
-_output_args_cache = filecache.FileCache()
-_mode_cache = filecache.FileCache()
+def _cache(func):
+    """Wraps a function to make it use a FileCache."""
+    cache = filecache.FileCache()
+    @functools.wraps(func)
+    def wrapper(filename):
+        try:
+            return cache[filename]
+        except KeyError:
+            result = cache[filename] = func(filename)
+            return result
 
 
 def textmode(text, guess=True):
@@ -48,15 +59,12 @@ def textmode(text, guess=True):
         return ly.lex.guessMode(text)
 
 
+@_cache
 def mode(filename):
     """Returns the type of the text in the given filename."""
-    try:
-        return _mode_cache[filename]
-    except KeyError:
-        with open(filename) as f:
-            text = util.decode(f.read())
-        mode = _mode_cache[filename] = textmode(text)
-        return mode
+    with open(filename) as f:
+        text = util.decode(f.read())
+    return textmode(text)
 
 
 def tokens(filename):
@@ -66,29 +74,98 @@ def tokens(filename):
     return ly.lex.state(textmode(text)).tokens(text)
 
 
+@_cache
 def includeargs(filename):
     """Returns the list of arguments of \\include commands in the given file.
     
     The return value is cached until the mtime of the file changes.
     
     """
-    try:
-        return _include_args_cache[filename]
-    except KeyError:
-        result = _include_args_cache[filename] = list(ly.parse.includeargs(tokens(filename)))
-        return result
-        
+    return list(ly.parse.includeargs(tokens(filename)))
 
+
+def includefiles(filename, include_path=[], initial_args=None):
+    """Returns a set of filenames that are included by the given pathname.
+        
+    The specified include path is used to find files.
+    The filename is NOT itself added to the set.
+    Included files are checked recursively, relative to our (master) file,
+    relative to the including file, and if that still yields no file, relative
+    to the directories in the include_path.
+    
+    If initial_args is given, the filename itself is not scanned for include_args.
+    
+    """
+    files = set()
+    
+    def tryarg(directory, arg):
+        path = os.path.join(directory, arg)
+        if os.path.exists(path) and path not in files:
+            files.add(path)
+            args = includeargs(path)
+            find(args, os.path.dirname(path))
+            return True
+            
+    def find(incl_args, directory):
+        for arg in incl_args:
+            # new, recursive, relative include
+            if not (directory and tryarg(directory, arg)):
+                # old include (relative to master file)
+                if not (basedir and tryarg(basedir, arg)):
+                    # if path is given, also search there:
+                    for p in include_path:
+                        if tryarg(p, arg):
+                            break
+    
+    if initial_args is None:
+        initial_args = includeargs(filename)
+    basedir = os.path.basename(filename)
+    find(initial_args, basedir)
+    return files
+
+
+@_cache
 def outputargs(filename):
     """Returns the list of arguments of \\bookOutputName, \\bookOutputSuffix etc. commands.
     
     See outputargs(). The return value is cached until the mtime of the file changes.
     
     """
-    try:
-        return _output_args_cache[filename]
-    except KeyError:
-        result = _output_args_cache[filename] = list(ly.parse.outputargs(tokens(filename)))
-        return result
+    return list(ly.parse.outputargs(tokens(filename)))
+
+
+def basenames(filename, includefiles = None, initial_outputargs = None):
+    """Returns the list of basenames a document is expected to create.
+    
+    The list is created based on includefiles and the define output-suffix and
+    \bookOutputName and \bookOutputSuffix commands.
+    You should add '.ext' and/or '-[0-9]+.ext' to find created files.
+    
+    """
+    basenames = []
+    basepath = os.path.splitext(filename)[0]
+    dirname, basename = os.path.split(basepath)
+
+    if basepath:
+        basenames.append(basepath)
+    
+    includes = set(includefiles) if includefiles else set()
+    includes.discard(filename)
+    
+    if initial_outputargs is None:
+        initial_outputargs = outputargs(filename)
+    
+    def args():
+        yield initial_outputargs
+        for filename in includes:
+            yield outputargs(filename)
+                
+    for type, arg in itertools.chain.from_iterable(args()):
+        if type == "suffix":
+            arg = basename + '-' + arg
+        path = os.path.normpath(os.path.join(dirname, arg))
+        if path not in basenames:
+            basenames.append(path)
+    return basenames
 
 

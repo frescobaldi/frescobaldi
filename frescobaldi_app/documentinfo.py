@@ -196,39 +196,15 @@ class DocumentInfo(plugin.DocumentPlugin):
         This method uses caching for both the document contents and the other files.
         
         """
-        files = set()
-        ipath = self.includepath()
-        
-        def tryarg(directory, arg):
-            path = os.path.join(directory, arg)
-            if os.path.exists(path) and path not in files:
-                files.add(path)
-                args = fileinfo.includeargs(path)
-                find(args, os.path.dirname(path))
-                return True
-                
-        def find(incl_args, directory):
-            for arg in incl_args:
-                # new, recursive, relative include
-                if not (directory and tryarg(directory, arg)):
-                    # old include (relative to master file)
-                    if not (basedir and tryarg(basedir, arg)):
-                        # if path is given, also search there:
-                        for p in ipath:
-                            if tryarg(p, arg):
-                                break
-                    
         filename = self.master()
-        if filename:
-            incl_args = fileinfo.includeargs(filename)
-        else:
+        includeargs = None
+        if not filename:
             filename = self.document().url().toLocalFile()
-            if filename:
-                incl_args = self.includeargs()
-        if filename:
-            files.add(filename)
-            basedir = os.path.dirname(filename)
-            find(incl_args, basedir)
+            if not filename:
+                return set()
+            includeargs = self.includeargs()
+        files = fileinfo.includefiles(filename, self.includepath(), includeargs)
+        files.add(filename)
         return files
 
     @resetoncontentschanged
@@ -248,29 +224,10 @@ class DocumentInfo(plugin.DocumentPlugin):
         You should add '.ext' and/or '-[0-9]+.ext' to find created files.
         
         """
-        basenames = []
         filename, mode = self.jobinfo()[:2]
-        basepath = os.path.splitext(filename)[0]
-        dirname, basename = os.path.split(basepath)
         
         if mode == "lilypond":
-            includes = self.includefiles()
-            if basepath:
-                basenames.append(basepath)
-                
-            def args():
-                if not self.master():
-                    includes.discard(self.document().url().toLocalFile())
-                    yield self.outputargs()
-                for filename in includes:
-                    yield fileinfo.outputargs(filename)
-                        
-            for type, arg in itertools.chain.from_iterable(args()):
-                if type == "suffix":
-                    arg = basename + '-' + arg
-                path = os.path.normpath(os.path.join(dirname, arg))
-                if path not in basenames:
-                    basenames.append(path)
+            return fileinfo.basenames(filename, self.includefiles(), self.outputargs())
         
         elif mode == "html":
             pass
@@ -284,6 +241,6 @@ class DocumentInfo(plugin.DocumentPlugin):
         elif mode == "docbook":
             pass
         
-        return basenames
+        return []
 
 

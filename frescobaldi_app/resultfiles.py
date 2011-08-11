@@ -41,7 +41,7 @@ def results(document):
 # Set the basenames of the resulting documents to expect when a job starts
 @app.jobStarted.connect
 def _init_basenames(document):
-    results(document).saveDocumentInfo(documentinfo.info(document))
+    results(document).saveDocumentInfo()
     
 
 
@@ -52,7 +52,7 @@ class Results(plugin.DocumentPlugin):
         self._basenames = None
         document.saved.connect(self.forgetDocumentInfo)
         
-    def saveDocumentInfo(self, info):
+    def saveDocumentInfo(self):
         """Takes over some vital information from a DocumentInfo instance.
         
         The file a job is run on and the basenames expected to be created are saved.
@@ -64,6 +64,7 @@ class Results(plugin.DocumentPlugin):
         to the real document instead.
         
         """
+        info = documentinfo.info(self.document())
         self._jobfile = info.jobinfo()[0]
         self._basenames = info.basenames()
 
@@ -101,12 +102,7 @@ class Results(plugin.DocumentPlugin):
         """
         jobfile = self.jobfile()
         if jobfile:
-            basenames = self.basenames()
-            def source():
-                for name in basenames:
-                    yield glob.iglob(name + extension)
-                    yield sorted(glob.iglob(name + '-*[0-9]' + extension), key=util.naturalsort)
-            files = itertools.chain.from_iterable(source())
+            files = util.files(self.basenames(), extension)
             if newer:
                 try:
                     mtime = os.path.getmtime(jobfile)
