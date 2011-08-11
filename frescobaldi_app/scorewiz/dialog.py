@@ -48,6 +48,8 @@ class ScoreWizardDialog(QDialog):
         b.accepted.connect(self.accept)
         b.rejected.connect(self.reject)
         b.button(QDialogButtonBox.Reset).clicked.connect(self.reset)
+        self.previewButton = b.addButton('', QDialogButtonBox.ActionRole)
+        self.previewButton.clicked.connect(self.showPreview)
         layout.addWidget(self.tabs)
         layout.addWidget(b)
         
@@ -72,7 +74,8 @@ class ScoreWizardDialog(QDialog):
         self.dialogButtons.button(QDialogButtonBox.Reset).setText(_("Clear"))
         self.dialogButtons.button(QDialogButtonBox.Reset).setToolTip(_(
             "Clears the current page of the Score Wizard."))
-    
+        self.previewButton.setText(_("Preview"))
+        
     def slotCurrentChanged(self, i):
         """Lazy-loads the tab's page if shown for the first time."""
         self.tabs.widget(i).widget()
@@ -103,6 +106,11 @@ class ScoreWizardDialog(QDialog):
         with cursortools.editBlock(cursor):
             cursortools.insertText(cursor, builder.text())
             indent.reIndent(cursor)
+    
+    def showPreview(self):
+        """Shows a preview."""
+        from . import preview
+        preview.preview(self)
 
 
 class Page(QWidget):

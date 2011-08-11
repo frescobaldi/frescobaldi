@@ -24,7 +24,11 @@ The preview widget.
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+from . import build
 
-class PreviewWidget(QWidget):
-    pass
 
+def preview(scorewiz):
+    builder = build.Builder(scorewiz)
+    
+    # fill the document with example notes
+    
