@@ -44,6 +44,7 @@ def _cache(func):
         except KeyError:
             result = cache[filename] = func(filename)
             return result
+    return wrapper
 
 
 def textmode(text, guess=True):
@@ -119,7 +120,7 @@ def includefiles(filename, include_path=[], initial_args=None):
     
     if initial_args is None:
         initial_args = includeargs(filename)
-    basedir = os.path.basename(filename)
+    basedir = os.path.dirname(filename)
     find(initial_args, basedir)
     return files
 
