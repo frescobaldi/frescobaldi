@@ -166,8 +166,9 @@ class Widget(QWidget):
     
     def slotDoubleClicked(self, index):
         name = self.treeView.model().name(index)
-        edit.Edit(self, name)
-
+        view = self.parent().mainwindow().currentView()
+        insert.insert(name, view)
+        
     def slotAdd(self):
         """Called when the user wants to add a new snippet."""
         edit.Edit(self, None)
