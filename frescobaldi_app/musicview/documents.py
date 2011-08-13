@@ -38,6 +38,7 @@ import app
 import plugin
 import resultfiles
 import signals
+import popplertools
 
 
 _cache = weakref.WeakValueDictionary()
@@ -78,42 +79,12 @@ def load(filename):
         return doc or None
 
 
-class Document(object):
+class Document(popplertools.Document):
     """Represents a (lazily) loaded PDF document."""
-    def __init__(self):
-        self._filename = None
-        self._document = None
-        self._dirty = True
+    def load(self):
+        return load(self.filename())
         
-    def filename(self):
-        return self._filename
-    
-    def setFilename(self, filename):
-        """Sets a filename.
-        
-        The document will be reloaded if the filename changed,
-        or if the mtime of the document has changed.
-        
-        """
-        self._filename = filename
-        self._dirty = True
-            
-    def document(self):
-        """Returns the PDF document the filename points to, reloading if the filename was set.
-        
-        Can return None, in case the document failed to load.
-        
-        """
-        if self._dirty:
-            doc = load(self._filename)
-            if doc:
-                self._document = doc
-                self._dirty = False
-        return self._document
-
-
-if popplerqt4 is None:
-    class Document(Document):
+    if popplerqt4 is None:
         def document(self):
             """Returns None because popplerqt4 is not available."""
             return None

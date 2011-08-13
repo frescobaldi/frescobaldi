@@ -43,12 +43,8 @@ import util
 import fileinfo
 import lilypondinfo
 import qpopplerview
+import popplertools
 import widgets.progressbar
-
-try:
-    import popplerqt4
-except ImportError:
-    popplerqt4 = None
 
 
 class MusicPreviewJob(job.Job):
@@ -74,21 +70,6 @@ class MusicPreviewJob(job.Job):
         
     def cleanup(self):
         shutil.rmtree(self.directory)
-
-
-class Document(object):
-    """Represents a PDF document."""
-    def __init__(self, filename):
-        self.name = os.path.basename(filename)
-        self.filename = filename
-        self._document = None
-    
-    def document(self):
-        """Returns the popplerqt4 document."""
-        if popplerqt4 and self._document is None:
-            self._document = popplerqt4.Poppler.Document.load(self.filename)
-        return self._document
-
 
 
 class MusicPreviewWidget(QWidget):
@@ -141,9 +122,9 @@ class MusicPreviewWidget(QWidget):
         
     def setDocuments(self, pdfs):
         """Loads the given PDF path names in the UI."""
-        self._documents = [Document(name) for name in pdfs]
+        self._documents = [popplertools.Document(name) for name in pdfs]
         self._chooser.clear()
-        self._chooser.addItems([d.name for d in self._documents])
+        self._chooser.addItems([d.name() for d in self._documents])
         self._chooser.setVisible(len(self._documents) > 1)
         if pdfs:
             self._chooser.setCurrentIndex(0)
@@ -165,7 +146,10 @@ class MusicPreviewWidget(QWidget):
     
     def print_(self):
         """Prints the currently displayed document."""
-        # TODO: implement
+        if self._documents:
+            doc = self._documents[self._chooser.currentIndex()]
+            import popplerprint
+            popplerprint.printDocument(doc, self)
 
 
 class MusicPreviewDialog(QDialog):
@@ -182,11 +166,12 @@ class MusicPreviewDialog(QDialog):
         self._printButton = b.addButton('', QDialogButtonBox.ActionRole)
         self._printButton.setIcon(icons.get("document-print"))
         self._printButton.clicked.connect(self._widget.print_)
+        self._printButton.hide()
         util.saveDialogSize(self, "musicpreview/dialog/size", QSize(500, 350))
         app.translateUI(self)
     
     def translateUI(self):
-        self._printButton.setText(_("&Print..."))
+        self._printButton.setText(_("&Print"))
         self.setWindowTitle(app.caption(_("Music Preview")))
         
     def preview(self, text, title=None):
@@ -194,5 +179,9 @@ class MusicPreviewDialog(QDialog):
 
     def cleanup(self):
         self._widget.cleanup()
+
+    def setEnablePrintButton(self, enable):
+        """Enables or disables the print button."""
+        self._printButton.setVisible(enable)
 
 

@@ -41,35 +41,37 @@ import fileprinter
 import qpopplerview.printer
 
 
-def printDocument(dock, document):
-    """Prints the document described by document (see the musicview.documents module).
+def print_(doc, filename=None, widget=None):
+    """Prints the popplerqt4.Poppler.Document.
     
-    The dock is the QDockWidget of the music viewer.
+    The filename is used in the dialog and print job name.
+    If the filename is not given, it defaults to a translation of "PDF Document".
+    The widget is a widget to use as parent for the print dialog etc.
     
     """
     cmd = fileprinter.lprCommand()
-    if not cmd:
-        res = QMessageBox.information(dock, _("Warning"), _(
-            "No print command to print a PostScript file could be found.\n\n"
-            "Therefore the document will be printed using raster images at {resolution} DPI. "
-            "It is recommended to print using a dedicated PDF viewer.\n\n"
-            "Do you want to continue?").format(resolution=300),
-            QMessageBox.Yes | QMessageBox.No)
-        if res != QMessageBox.Yes:
-            return # cancelled
+    if not cmd and QMessageBox.information(widget, _("Warning"), _(
+        "No print command to print a PostScript file could be found.\n\n"
+        "Therefore the document will be printed using raster images at {resolution} DPI. "
+        "It is recommended to print using a dedicated PDF viewer.\n\n"
+        "Do you want to continue?").format(resolution=300),
+        QMessageBox.Yes | QMessageBox.No) != QMessageBox.Yes:
+        return # cancelled
         
-    doc = document.document()
-    filename = os.path.basename(document.filename())
+    filename = os.path.basename(filename) if filename else _("PDF Document")
     
     printer = QPrinter()
     printer.setDocName(filename)
     
-    dlg = QPrintDialog(printer, dock)
+    dlg = QPrintDialog(printer, widget)
     dlg.setMinMax(1, doc.numPages())
     dlg.setOption(QPrintDialog.PrintToFile, False)
     dlg.setWindowTitle(app.caption(_("Print {filename}").format(filename=filename)))
     
-    if not dlg.exec_():
+    result = dlg.exec_()
+    if widget:
+        dlg.deleteLater() # because it has a parent
+    if not result:
         return # cancelled
     
     if cmd:
@@ -82,7 +84,7 @@ def printDocument(dock, document):
             command = fileprinter.printCommand(cmd, printer, ps.fileName())
             if not subprocess.call(command):
                 return # success!
-        QMessageBox.warning(dock, _("Printing Error"),
+        QMessageBox.warning(widget, _("Printing Error"),
             _("Could not send the document to the printer."))
     else:
         # Fall back printing of rendered raster images.
@@ -111,7 +113,7 @@ def printDocument(dock, document):
             d.deleteLater()
             d.hide()
             if not p.success and not p.aborted():
-                QMessageBox.warning(dock, _("Printing Error"),
+                QMessageBox.warning(widget, _("Printing Error"),
                     _("Could not send the document to the printer."))
             
         p.finished.connect(finished)
@@ -133,5 +135,14 @@ class Printer(QThread, qpopplerview.printer.Printer):
         
     def progress(self, num, total, page):
         self.printing.emit(num, total, page)
+
+
+def printDocument(document, widget=None):
+    """Prints the document described by the popplertools.Document.
+    
+    The widget is a widget to use as parent for the print dialog etc.
+    
+    """
+    print_(document.document(), document.filename(), widget)
 
 

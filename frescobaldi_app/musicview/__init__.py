@@ -105,8 +105,8 @@ class MusicViewPanel(panels.Panel):
     def printMusic(self):
         doc = self.actionCollection.music_document_select.currentDocument()
         if doc and doc.document():
-            from . import printing
-            printing.printDocument(self, doc)
+            import popplerprint
+            popplerprint.printDocument(doc, self)
     
     def zoomIn(self):
         self.widget().view.zoomIn()
