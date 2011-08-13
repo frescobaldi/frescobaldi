@@ -87,10 +87,15 @@ class MusicPreviewWidget(QWidget):
         self._progress = widgets.progressbar.TimedProgressBar()
         
         self._stack = QStackedLayout()
-        self._stack.addWidget(self._log)
-        self._stack.addWidget(self._view)
-        
         self._top = QWidget()
+        
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+        
+        layout.addWidget(self._top)
+        layout.addLayout(self._stack)
+        layout.addWidget(self._progress)
+        
         top = QHBoxLayout()
         top.setContentsMargins(0, 0, 0, 0)
         top.setSpacing(2)
@@ -99,12 +104,8 @@ class MusicPreviewWidget(QWidget):
         top.addWidget(self._chooser)
         top.addStretch(1)
         
-        layout = QVBoxLayout()
-        self.setLayout(layout)
-        
-        layout.addWidget(self._top)
-        layout.addLayout(self._stack)
-        layout.addWidget(self._progress)
+        self._stack.addWidget(self._log)
+        self._stack.addWidget(self._view)
         
         self._top.hide()
         app.qApp.aboutToQuit.connect(self.cleanup)
