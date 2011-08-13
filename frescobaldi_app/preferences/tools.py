@@ -31,7 +31,7 @@ from PyQt4.QtGui import (
 import app
 import util
 import preferences
-import settings
+import popplerview
 
 
 class Tools(preferences.GroupsPage):
@@ -112,9 +112,9 @@ class MusicView(preferences.Group):
         self.magnifierSizeLabel = QLabel()
         self.magnifierSizeSlider = QSlider(Qt.Horizontal, valueChanged=self.changed)
         self.magnifierSizeSlider.setSingleStep(50)
-        self.magnifierSizeSlider.setRange(*settings.Magnifier.sizeRange)
+        self.magnifierSizeSlider.setRange(*popplerview.MagnifierSettings.sizeRange)
         self.magnifierSizeSpinBox = QSpinBox()
-        self.magnifierSizeSpinBox.setRange(*settings.Magnifier.sizeRange)
+        self.magnifierSizeSpinBox.setRange(*popplerview.MagnifierSettings.sizeRange)
         self.magnifierSizeSpinBox.valueChanged.connect(self.magnifierSizeSlider.setValue)
         self.magnifierSizeSlider.valueChanged.connect(self.magnifierSizeSpinBox.setValue)
         layout.addWidget(self.magnifierSizeLabel, 0, 0)
@@ -124,9 +124,9 @@ class MusicView(preferences.Group):
         self.magnifierScaleLabel = QLabel()
         self.magnifierScaleSlider = QSlider(Qt.Horizontal, valueChanged=self.changed)
         self.magnifierScaleSlider.setSingleStep(50)
-        self.magnifierScaleSlider.setRange(*settings.Magnifier.scaleRange)
+        self.magnifierScaleSlider.setRange(*popplerview.MagnifierSettings.scaleRange)
         self.magnifierScaleSpinBox = QSpinBox()
-        self.magnifierScaleSpinBox.setRange(*settings.Magnifier.scaleRange)
+        self.magnifierScaleSpinBox.setRange(*popplerview.MagnifierSettings.scaleRange)
         self.magnifierScaleSpinBox.valueChanged.connect(self.magnifierScaleSlider.setValue)
         self.magnifierScaleSlider.valueChanged.connect(self.magnifierScaleSpinBox.setValue)
         layout.addWidget(self.magnifierScaleLabel, 1, 0)
@@ -148,12 +148,12 @@ class MusicView(preferences.Group):
         self.magnifierScaleSpinBox.setSuffix(_("percent unit sign", "%"))
             
     def loadSettings(self):
-        s = settings.Magnifier.load()
+        s = popplerview.MagnifierSettings.load()
         self.magnifierSizeSlider.setValue(s.size)
         self.magnifierScaleSlider.setValue(s.scale)
     
     def saveSettings(self):
-        s = settings.Magnifier()
+        s = popplerview.MagnifierSettings()
         s.size = self.magnifierSizeSlider.value()
         s.scale = self.magnifierScaleSlider.value()
         s.save()

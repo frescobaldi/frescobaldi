@@ -42,7 +42,7 @@ import log
 import util
 import fileinfo
 import lilypondinfo
-import qpopplerview
+import popplerview
 import popplertools
 import widgets.progressbar
 
@@ -82,8 +82,7 @@ class MusicPreviewWidget(QWidget):
         self._chooserLabel = QLabel()
         self._chooser = QComboBox(self, activated=self.selectDocument)
         self._log = log.Log()
-        self._view = qpopplerview.View()
-        self._view.surface().pageLayout().setDPI(self.physicalDpiX(), self.physicalDpiY())
+        self._view = popplerview.View()
         self._progress = widgets.progressbar.TimedProgressBar()
         
         self._stack = QStackedLayout()

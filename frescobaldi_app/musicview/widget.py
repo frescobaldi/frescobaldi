@@ -36,6 +36,7 @@ except ImportError:
     pass
 
 import qpopplerview
+import popplerview
 
 import app
 import icons
@@ -70,12 +71,11 @@ class MusicView(QWidget):
         layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
         
-        self.view = qpopplerview.View(self)
+        self.view = popplerview.View(self)
         layout.addWidget(self.view)
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
         self.view.setViewMode(qpopplerview.FitWidth)
-        self.view.surface().pageLayout().setDPI(self.physicalDpiX(), self.physicalDpiY())
         self.view.surface().linkClicked.connect(self.slotLinkClicked)
         self.view.surface().linkHovered.connect(self.slotLinkHovered)
         self.view.surface().linkLeft.connect(self.slotLinkLeft)
@@ -129,12 +129,6 @@ class MusicView(QWidget):
         color = colors['selectionbackground']
         color.setAlpha(128)
         self._highlightFormat.setBackground(color)
-        qpopplerview.cache.options().setPaperColor(colors['paper'])
-        self.view.redraw()
-        # magnifier size and scale
-        s = settings.Magnifier.load()
-        self.view.surface().magnifier().resize(s.size, s.size)
-        self.view.surface().magnifier().setScale(s.scale / 100.0)
 
     def slotLinkClicked(self, ev, page, link):
         """Called when the use clicks a link.

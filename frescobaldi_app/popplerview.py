@@ -18,22 +18,9 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Here are simple classes that encapsulate settings for some application parts.
+A slightly customized subclass of qpopplerview.View.
 
-This way, saving and loading of settings, including defaults, is concentrated
-in one place.  Because the settings objects are very simple Python classes,
-everything (e.g. boundary checking of values, etc.) can be implemented here,
-to ensure the application parts get valid settings and defaults.
-
-The classes are intended for single use: just to transfer parameters from
-the users configuration files or registry to the application (settings dialog
-and also the parts that use the settings), or from the settings dialog to the
-configuration files or registry. After that the instance can be thrown away.
-
-The classes should set defaults on init in instance attributes.
-They should define a load() class method that returns a new instance with the
-loaded settings. They should also have a save() instance method that writes
-the settings to the configuration.
+This is used throughout Frescobaldi, to obey color settings etc.
 
 """
 
@@ -41,13 +28,36 @@ from __future__ import unicode_literals
 
 from PyQt4.QtCore import QSettings
 
+import app
+import util
+import textformats
+import qpopplerview
 
-def bound(value, start, end):
-    """Clips value so it falls in the int range defined by start and end."""
-    return max(start, min(end, value))
+
+# global setup of background color
+def _setbackground():
+    colors = textformats.formatData('editor').baseColors
+    qpopplerview.cache.options().setPaperColor(colors['paper'])
+app.settingsChanged.connect(_setbackground, -1)
+_setbackground()
 
 
-class Magnifier(object):
+class View(qpopplerview.View):
+    def __init__(self, parent=None):
+        super(View, self).__init__(parent)
+        self.surface().pageLayout().setDPI(self.physicalDpiX(), self.physicalDpiY())
+        app.settingsChanged.connect(self.readSettings)
+        self.readSettings()
+    
+    def readSettings(self):
+        self.redraw() # because of possibly changed background color
+        # magnifier size and scale
+        s = MagnifierSettings.load()
+        self.surface().magnifier().resize(s.size, s.size)
+        self.surface().magnifier().setScale(s.scale / 100.0)
+
+
+class MagnifierSettings(object):
     """Manages settings for the MusicView Magnifier."""
     sizeRange = (200, 800)
     scaleRange = (150, 500)
@@ -81,5 +91,10 @@ class Magnifier(object):
         s.beginGroup("musicview/magnifier")
         s.setValue("size", self.size)
         s.setValue("scale", self.scale)
+
+
+def bound(value, start, end):
+    """Clips value so it falls in the int range defined by start and end."""
+    return max(start, min(end, value))
 
 
