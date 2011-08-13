@@ -75,13 +75,14 @@ class MusicPreviewJob(job.Job):
 class MusicPreviewWidget(QWidget):
     def __init__(self, parent=None):
         super(MusicPreviewWidget, self).__init__(parent)
-        self._lastbuildtime = 5.0
+        self._lastbuildtime = 10.0
         self._running = None
         self._current = None
         
-        self._chooser = QComboBox(activated=self.selectDocument)
+        self._chooser = QComboBox(self, activated=self.selectDocument)
         self._log = log.Log()
         self._view = qpopplerview.View()
+        self._view.surface().pageLayout().setDPI(self.physicalDpiX(), self.physicalDpiY())
         self._progress = widgets.progressbar.TimedProgressBar()
         
         self._stack = QStackedLayout()
@@ -159,6 +160,7 @@ class MusicPreviewDialog(QDialog):
         self.setLayout(layout)
         self._widget = MusicPreviewWidget()
         layout.addWidget(self._widget)
+        layout.addWidget(widgets.Separator())
         b = QDialogButtonBox()
         layout.addWidget(b)
         b.addButton(QDialogButtonBox.Close)
