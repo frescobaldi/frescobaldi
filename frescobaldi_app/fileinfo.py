@@ -169,4 +169,34 @@ def basenames(filename, includefiles = None, initial_outputargs = None):
             basenames.append(path)
     return basenames
 
+@_cache
+def version(filename):
+    """Returns the LilyPond version if set in the file, as a tuple of ints.
+    
+    First the function searches inside LilyPond syntax.
+    Then it looks at the 'version' document variable.
+    Then, if the document is not a LilyPond document, it simply searches for a
+    \\version command string, possibly embedded in a comment.
+    
+    The version is cached until the file changes.
+    
+    """
+    mkver = lambda strings: tuple(map(int, strings))
+    with open(filename) as f:
+        text = util.decode(f.read())
+    mode = textmode(text)
+    tokens_ = list(ly.lex.state(mode).tokens(text))
+
+    version = ly.parse.version(tokens_)
+    if version:
+        return mkver(re.findall(r"\d+", version))
+    # look at document variables
+    version = variables.variables(text).get("version")
+    if version:
+        return mkver(re.findall(r"\d+", version))
+    # parse whole document for non-lilypond comments
+    if mode != "lilypond":
+        m = re.search(r'\\version\s*"(\d+\.\d+(\.\d+)*)"', text)
+        if m:
+            return mkver(m.group(1).split('.'))
 
