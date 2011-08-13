@@ -28,6 +28,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import ly.dom
+import musicpreview
 
 from . import build
 
@@ -39,9 +40,11 @@ def preview(scorewiz):
     doc = builder.document()
     examplify(doc)
     
-    # TEMP!!
-    print builder.text(doc)
-
+    dlg = musicpreview.MusicPreviewDialog(scorewiz)
+    dlg.preview(builder.text(doc), _("Score Preview"))
+    dlg.exec_()
+    dlg.deleteLater()
+    dlg.cleanup()
 
 
 def examplify(doc):
