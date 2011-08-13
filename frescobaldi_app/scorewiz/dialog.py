@@ -109,8 +109,21 @@ class ScoreWizardDialog(QDialog):
     
     def showPreview(self):
         """Shows a preview."""
-        from . import preview
-        preview.preview(self)
+        try:
+            dlg = self._previewDialog
+        except AttributeError:
+            import musicpreview
+            dlg = self._previewDialog = musicpreview.MusicPreviewDialog(self)
+        
+        # get the document and fill in some example music
+        from . import preview, build
+        builder = build.Builder(self)
+        doc = builder.document()
+        preview.examplify(doc)
+        # preview it
+        dlg.preview(builder.text(doc), _("Score Preview"))
+        dlg.exec_()
+        dlg.cleanup()
 
 
 class Page(QWidget):

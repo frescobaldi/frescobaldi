@@ -18,33 +18,13 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-The preview widget.
+Fill in a ly.dom Document with example music for previewing.
 """
 
 import itertools
 import math
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-
 import ly.dom
-import musicpreview
-
-from . import build
-
-
-def preview(scorewiz):
-    builder = build.Builder(scorewiz)
-    
-    # get the document's assignments
-    doc = builder.document()
-    examplify(doc)
-    
-    dlg = musicpreview.MusicPreviewDialog(scorewiz)
-    dlg.preview(builder.text(doc), _("Score Preview"))
-    dlg.exec_()
-    dlg.deleteLater()
-    dlg.cleanup()
 
 
 def examplify(doc):
