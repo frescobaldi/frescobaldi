@@ -164,7 +164,7 @@ class Builder(object):
         instrumentNames = dialog.settings.widget().instrumentNames
         
         # attributes the Part and Container types may read and we need later as well
-        self.header = dialog.header.widget().headers()
+        self.header = list(dialog.header.widget().headers())
         self.headerDict = dict(self.header)
         self.lyVersionString = lilyPondPreferences.version.currentText().strip()
         self.lyVersion = tuple(map(int, re.findall('\\d+', self.lyVersionString)))
