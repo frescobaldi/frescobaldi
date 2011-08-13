@@ -79,6 +79,7 @@ class MusicPreviewWidget(QWidget):
         self._running = None
         self._current = None
         
+        self._chooserLabel = QLabel()
         self._chooser = QComboBox(self, activated=self.selectDocument)
         self._log = log.Log()
         self._view = qpopplerview.View()
@@ -89,14 +90,28 @@ class MusicPreviewWidget(QWidget):
         self._stack.addWidget(self._log)
         self._stack.addWidget(self._view)
         
+        self._top = QWidget()
+        top = QHBoxLayout()
+        top.setContentsMargins(0, 0, 0, 0)
+        top.setSpacing(2)
+        self._top.setLayout(top)
+        top.addWidget(self._chooserLabel)
+        top.addWidget(self._chooser)
+        top.addStretch(1)
+        
         layout = QVBoxLayout()
         self.setLayout(layout)
-        layout.addWidget(self._chooser)
+        
+        layout.addWidget(self._top)
         layout.addLayout(self._stack)
         layout.addWidget(self._progress)
         
-        self._chooser.hide()
+        self._top.hide()
         app.qApp.aboutToQuit.connect(self.cleanup)
+        app.translateUI(self)
+    
+    def translateUI(self):
+        self._chooserLabel.setText(_("Document:"))
         
     def preview(self, text, title=None):
         """Runs LilyPond on the given text and shows the resulting PDF."""
@@ -126,7 +141,7 @@ class MusicPreviewWidget(QWidget):
         self._documents = [popplertools.Document(name) for name in pdfs]
         self._chooser.clear()
         self._chooser.addItems([d.name() for d in self._documents])
-        self._chooser.setVisible(len(self._documents) > 1)
+        self._top.setVisible(len(self._documents) > 1)
         if pdfs:
             self._chooser.setCurrentIndex(0)
             self.selectDocument(0)
@@ -144,6 +159,9 @@ class MusicPreviewWidget(QWidget):
         if self._current:
             self._current.cleanup()
             self._current = None
+        self._stack.setCurrentWidget(self._log)
+        self._top.hide()
+        self._view.clear()
     
     def print_(self):
         """Prints the currently displayed document."""
