@@ -218,6 +218,8 @@ def whatsThisText():
         ('menu', _("Place the snippet in the insert menu, grouped by the (optional) value.")),
         ('name', _("The mnemonic to type to select the snippet.")),
         ('no-indent', _("Do not auto-indent the snippet after inserting.")),
+                       # L10N: do not translate the word "strip"
+        ('selection', _("<code>strip</code>: Adjusts the selection to not include starting and trialing whitespace.")),
     ))
     text.append("</dl>")
 

@@ -60,7 +60,7 @@ def documentation(cls):
         yield name, meth.doc()
 
 
-ANCHOR, CURSOR, SELECTION, SELECTION_WS = constants = 1, 2, 3, 4 # just some constants
+ANCHOR, CURSOR, SELECTION = constants = 1, 2, 3 # just some constants
 
 class Expander(object):
     """Expands variables.
@@ -106,13 +106,5 @@ class Expander(object):
     @_("The selected text if available. If not, the text cursor is moved here.")
     def SELECTION(self):
         return SELECTION if self.cursor.hasSelection() else CURSOR
-    
-    @_("The selected text (if available) with starting and trialing "
-       "whitespace removed and then padded with a newline on both ends "
-       "if the remaining selected text contains newlines, else padded "
-       "with spaces. "
-       "If no text is selected, the cursor is moved here.")
-    def SELECTION_WS(self):
-        return SELECTION_WS if self.cursor.hasSelection() else CURSOR
 
 

@@ -40,6 +40,9 @@ def insert(name, view):
     
     cursor = view.textCursor()
     
+    if 'strip' in variables.get('selection', ''):
+        cursortools.stripSelection(cursor)
+    
     line = cursor.document().findBlock(cursor.selectionStart()).blockNumber()
     with cursortools.editBlock(cursor):
         
@@ -47,7 +50,7 @@ def insert(name, view):
         if 'python' in variables:
             new = insert_python(text, cursor)
         else:
-            new = insert_snippet(text, cursor)
+            new = insert_snippet(text, cursor, variables)
         
         # QTextBlocks the snippet starts and ends
         block = cursor.document().findBlockByNumber(line)
@@ -65,7 +68,7 @@ def insert(name, view):
     view.setTextCursor(new or cursor)
 
 
-def insert_snippet(text, cursor):
+def insert_snippet(text, cursor, variables):
     """Inserts a normal text snippet.
     
     After the insert, the cursor points to the end of the inserted snippet.
@@ -87,16 +90,13 @@ def insert_snippet(text, cursor):
             func = getattr(exp_base, key, None)
             if func:
                 evs.append(func())
-    # do the padding if SELECTION_WS is used
-    try:
-        i = evs.index(expand.SELECTION_WS)
-        selectionUsed = True
-    except ValueError:
-        selectionUsed = expand.SELECTION in evs
-    else:
-        cursortools.stripSelection(cursor)
+    
+    selectionUsed = expand.SELECTION in evs
+    # do the padding if 'selection: strip;' is used
+    if selectionUsed and 'strip' in variables.get('selection', ''):
         space = '\n' if '\n' in cursor.selection().toPlainText() else ' '
         # change whitespace in previous and next piece of text
+        i = evs.index(expand.SELECTION)
         for j in range(i-1, -i, -1):
             if evs[j] not in expand.constants:
                 evs[j] = evs[j].rstrip() + space
@@ -114,7 +114,7 @@ def insert_snippet(text, cursor):
             a = ins.position()
         elif e == expand.CURSOR:
             c = ins.position()
-        elif e in (expand.SELECTION, expand.SELECTION_WS):
+        elif e == expand.SELECTION:
             ins.setPosition(cursor.selectionEnd())
         else:
             ins.insertText(e)

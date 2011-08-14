@@ -77,8 +77,8 @@ r"""-*- name: 1v;
 
 
 'times23': T(_("Tuplets"),
-r"""-*- menu: blocks;
-\times 2/3 { $SELECTION_WS }"""),
+r"""-*- menu: blocks; selection: strip;
+\times 2/3 { $SELECTION }"""),
 
 
 'onceoverride': T(None,
@@ -116,8 +116,8 @@ r"""-*- menu;
 
 
 'repeat': T(_("Repeat"),
-r"""-*- menu: blocks; name: rep;
-\repeat volta 2 { $SELECTION_WS }"""),
+r"""-*- menu: blocks; name: rep; selection: strip;
+\repeat volta 2 { $SELECTION }"""),
 
 
 'relative': T(_("Relative Music"),
