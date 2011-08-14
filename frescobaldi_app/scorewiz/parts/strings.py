@@ -108,7 +108,9 @@ class BassoContinuo(Cello):
                     "#'direction = #DOWN", b)
         ly.dom.LineComment(_("Figures follow here."), b)
         ly.dom.BlankLine(b)
-        data.nodes[0][-1].append(ly.dom.Identifier(a.name))
+        s = ly.dom.Sim(data.nodes[0][-1])
+        s.append(data.nodes[0][-1][-2])
+        ly.dom.Identifier(a.name, s)
     
 
 register(
