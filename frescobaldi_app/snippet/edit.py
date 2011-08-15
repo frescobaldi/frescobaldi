@@ -35,6 +35,7 @@ import util
 import icons
 import textformats
 import widgets.indenter
+import widgets.matcher
 
 from . import model
 from . import snippets
@@ -89,6 +90,7 @@ class Edit(QDialog):
             b.setStandardButtons(buttons)
         
         Highlighter(self.text.document())
+        Matcher(self.text)
         widgets.indenter.Indenter(self.text)
         
         if name:
@@ -115,7 +117,6 @@ class Edit(QDialog):
         self.shortcutLabel.setText(_("Shortcut:"))
         self.updateShortcutText()
         self.text.setWhatsThis(whatsThisText())
-            
     
     def updateShortcutText(self):
         if not self._shortcuts:
@@ -202,6 +203,17 @@ class Highlighter(QSyntaxHighlighter):
         else:
             for m in snippets._expansions_re.finditer(text):
                 self.setFormat(m.start(), m.end()-m.start(), self._styles['escape'])
+
+
+class Matcher(widgets.matcher.Matcher):
+    def __init__(self, edit):
+        super(Matcher, self).__init__(edit)
+        self.readSettings()
+        app.settingsChanged.connect(self.readSettings)
+    
+    def readSettings(self):
+        self.format = QTextCharFormat()
+        self.format.setBackground(textformats.formatData('editor').baseColors['match'])
 
 
 def whatsThisText():
