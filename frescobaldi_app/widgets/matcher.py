@@ -49,7 +49,6 @@ class Matcher(QObject):
         col = cursor.position() - block.position()
         end = col + 1
         col = max(0, col - 1)
-        print repr(text[col:end])
         for c in text[col:end]:
             if c in self.matchPairs:
                 break
