@@ -27,10 +27,16 @@ from PyQt4.QtGui import *
 
 class Matcher(QObject):
     
-    # may also be set as instance attributes
+    # These attributes may be overridden by setting them as instance attributes
+    
+    # should be a string of characters that match in pairs with each other
     matchPairs = "{}()[]"
+    
+    # a QTextCharFormat to highlight the matching characters with
     format = QTextCharFormat()
     format.setForeground(Qt.red)
+    
+    # how long the highlighting is shown in msec
     time = 2000
     
     def __init__(self, edit):
@@ -39,13 +45,20 @@ class Matcher(QObject):
         edit.cursorPositionChanged.connect(self.slotCursorPositionChanged)
     
     def edit(self):
+        """Returns our Q(Plain)TextEdit."""
         return self.parent()
     
     def slotCursorPositionChanged(self):
+        """Called whenever the cursor position changes.
+        
+        Highlights matching characters if the cursor is at one of them.
+        
+        """
         cursor = self.edit().textCursor()
         block = cursor.block()
-        document = cursor.document()
         text = block.text()
+        
+        # try both characters at the cursor
         col = cursor.position() - block.position()
         end = col + 1
         col = max(0, col - 1)
@@ -56,9 +69,12 @@ class Matcher(QObject):
         else:
             self.clearHighlight()
             return
-        i = self.matchPairs.index(c)
         
+        # the cursor is at a character from matchPairs
+        i = self.matchPairs.index(c)
         cursor.setPosition(block.position() + col)
+        
+        # find the matching character
         new = QTextCursor(cursor)
         if i & 1:
             # look backward
@@ -73,20 +89,14 @@ class Matcher(QObject):
         # search, also nesting
         rx = QRegExp(QRegExp.escape(c) + '|' + QRegExp.escape(match))
         nest = 0
-        while True:
+        while nest >= 0:
             new = cursor.document().find(rx, new, flags)
             if new.isNull():
                 self.clearHighlight()
-                break
-            elif new.selectedText() == c:
-                nest += 1
-            elif nest == 0:
-                # found
-                cursor.movePosition(QTextCursor.Right, QTextCursor.KeepAnchor)
-                self.highlight([cursor, new])
-                break
-            else:
-                nest -= 1
+                return
+            nest += 1 if new.selectedText() == c else -1
+        cursor.movePosition(QTextCursor.Right, QTextCursor.KeepAnchor)
+        self.highlight([cursor, new])
     
     def highlight(self, cursors):
         selections = []
