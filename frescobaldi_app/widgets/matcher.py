@@ -21,25 +21,32 @@
 A basic parenthesis/brace character matcher for a textedit widget.
 """
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QObject, QRegExp, Qt, QTimer
+from PyQt4.QtGui import QTextCharFormat, QTextCursor, QTextDocument, QTextEdit
 
 
 class Matcher(QObject):
+    """Highlights matching characters in a textedit.
     
-    # These attributes may be overridden by setting them as instance attributes
+    The following attributes are available at the class level,
+    and may be overridden by setting them as instance attributes:
     
-    # should be a string of characters that match in pairs with each other
+    matchPairs: a string of characters that match in pairs with each other
+                default: "{}()[]"
+    format:     a QTextCharFormat used to highlight matching characters with
+                default: a red foreground color
+    time:       how many milliseconds to show the highlighting (0=forever)
+                default: 2000
+    
+    """
+    
     matchPairs = "{}()[]"
-    
-    # a QTextCharFormat to highlight the matching characters with
     format = QTextCharFormat()
     format.setForeground(Qt.red)
-    
-    # how long the highlighting is shown in msec
     time = 2000
     
     def __init__(self, edit):
+        """Initialize the Matcher; edit is a Q(Plain)TextEdit instance."""
         super(Matcher, self).__init__(edit)
         self._timer = QTimer(singleShot=True, timeout=self.clearHighlight)
         edit.cursorPositionChanged.connect(self.slotCursorPositionChanged)
@@ -99,6 +106,7 @@ class Matcher(QObject):
         self.highlight([cursor, new])
     
     def highlight(self, cursors):
+        """Highlights the selections of the specified QTextCursor instances."""
         selections = []
         for cursor in cursors:
             es = QTextEdit.ExtraSelection()
@@ -106,10 +114,11 @@ class Matcher(QObject):
             es.format = self.format
             selections.append(es)
         self.edit().setExtraSelections(selections)
-        if selections:
+        if self.time and selections:
             self._timer.start(self.time)
     
     def clearHighlight(self):
+        """Removes the highlighting."""
         self.edit().setExtraSelections([])
-        
-    
+
+

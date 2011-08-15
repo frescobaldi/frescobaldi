@@ -26,22 +26,47 @@ from __future__ import unicode_literals
 
 import contextlib
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QEvent, QObject, Qt
+from PyQt4.QtGui import QTextCursor
 
 
 class Indenter(QObject):
-    """Install this as an event filter for a Q(Plain)TextEdit."""
+    """A basic indenter for a Q(Plain)TextEdit.
+
+    When instantiated it automatically installs itself
+    as an event filter for the textedit, catching some
+    keypresses:
+    
+    Return:
+        enters a newline and the same indent as the current line
+    Tab:
+        indents the current line
+    Backtab:
+        dedents the current line
+    
+    These instance attributes may be set:
+    
+    indentWidth:
+        how many characters to indent (default 2)
+    indentChar:
+        which character to use (default " ")
+    
+    """
 
     indentWidth = 2
     indentChar = ' '
     
     def __init__(self, textedit):
+        """Installs ourselves as event filter for textedit.
+        
+        The textedit also becomes our parent.
+        
+        """
         super(Indenter, self).__init__(textedit)
         textedit.installEventFilter(self)
     
     def eventFilter(self, edit, ev):
-        # handle Tab and Backtab
+        """Handles Return, Tab and Backtab."""
         if ev.type() == QEvent.KeyPress:
             modifiers = int(ev.modifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
             if ev.text() == '\r' and modifiers == 0:
@@ -56,14 +81,17 @@ class Indenter(QObject):
         return False
 
     def newline(self, cursor):
+        """Inserts a newline and then the same indent as the current line."""
         indent = self.getIndent(cursor)
         cursor.insertText('\n' + indent)
     
     def getIndent(self, cursor):
+        """Returns the whitespace with which the current line starts."""
         text = cursor.document().findBlock(cursor.selectionStart()).text()
         return text[:len(text) - len(text.lstrip())]
         
     def indent(self, cursor):
+        """Indents the line with the cursor or the selected lines (one step more)."""
         with editBlock(cursor):
             for block in blocks(cursor):
                 cursor.setPosition(block.position())
@@ -71,6 +99,7 @@ class Indenter(QObject):
                 cursor.insertText(self.indentChar * self.indentWidth)
     
     def dedent(self, cursor):
+        """Dedents the line with the cursor or the selected lines (one step less)."""
         with editBlock(cursor):
             for block in blocks(cursor):
                 cursor.setPosition(block.position())
@@ -83,6 +112,7 @@ class Indenter(QObject):
 
 
 def blocks(cursor):
+    """Yields the blocks (one or more) of the cursor or its selection."""
     block = cursor.document().findBlock(cursor.selectionStart())
     end = cursor.document().findBlock(cursor.selectionEnd())
     while True:
