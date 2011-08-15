@@ -34,7 +34,7 @@ import app
 import util
 import icons
 import textformats
-import widgets
+import widgets.indenter
 
 from . import model
 from . import snippets
@@ -89,6 +89,7 @@ class Edit(QDialog):
             b.setStandardButtons(buttons)
         
         Highlighter(self.text.document())
+        widgets.indenter.Indenter(self.text)
         
         if name:
             self.titleEntry.setText(snippets.title(name, False) or '')
