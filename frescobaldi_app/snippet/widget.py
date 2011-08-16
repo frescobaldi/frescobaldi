@@ -125,13 +125,22 @@ class Widget(QWidget):
         except AttributeError:
             pass # not in Qt 4.6
         self.addAction_.setText(_("Add..."))
+        self.addAction_.setToolTip(
+            _("Add a new snippet. ({key})").format(key=self.addAction_.shortcut().toString()))
         self.editAction.setText(_("Edit..."))
+        self.editAction.setToolTip(
+            _("Edit the current snippet. ({key})").format(key=self.editAction.shortcut().toString()))
         self.deleteAction.setText(_("Remove"))
+        self.deleteAction.setToolTip(
+            _("Remove the current snippet. ({key})").format(key=self.deleteAction.shortcut().toString()))
         self.applyAction.setText(_("Apply"))
+        self.applyAction.setToolTip(_("Apply the current snippet."))
         self.searchEntry.setToolTip(_(
             "Enter text to search in the snippets list.\n"
             "See \"What's This\" for more information."))
-        self.searchEntry.setWhatsThis("<p>{0}</p><p>{1}</p><p>{2}</p>".format(
+        self.searchEntry.setWhatsThis(''.join(map("<p>{0}</p>\n".format, (
+            _("Enter text to search in the snippets list, and "
+              "press Enter to apply the currently selected snippet."),
             _("If the search text fully matches the value of the '{name}' variable "
               "of a snippet, that snippet is selected.").format(name="name"),
             _("If the search text starts with a colon ':', the rest of the "
@@ -140,7 +149,8 @@ class Widget(QWidget):
               "match if the value of the given variable contains the text after "
               "the space."),
             _("E.g. entering {menu} will show all snippets that are displayed "
-              "in the insert menu.").format(menu="<code>:menu</code>")))
+              "in the insert menu.").format(menu="<code>:menu</code>"),
+            ))))
     
     def sizeHint(self):
         return self.parent().mainwindow().size() / 4
