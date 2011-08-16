@@ -281,14 +281,18 @@ class MainWindow(QMainWindow):
     def readSettings(self):
         """ Read a few settings from the application global config. """
         settings = QSettings()
+        settings.beginGroup('mainwindow')
         defaultSize = QApplication.desktop().screen().size() * 2 / 3
         self.resize(settings.value("size", defaultSize))
+        self.restoreState(settings.value('state', QByteArray()))
         
     def writeSettings(self):
         """ Write a few settings to the application global config. """
         settings = QSettings()
+        settings.beginGroup('mainwindow')
         if not self.isFullScreen():
             settings.setValue("size", self.size())
+        settings.setValue('state', self.saveState())
         
     def readSessionSettings(self, settings):
         """Restore ourselves from session manager settings.
@@ -933,6 +937,7 @@ class MainWindow(QMainWindow):
     def createToolBars(self):
         ac = self.actionCollection
         self.toolbar_main = t = self.addToolBar('')
+        t.setObjectName('toolbar_main')
         t.addAction(ac.file_new)
         t.addAction(ac.file_open)
         t.addSeparator()
@@ -945,6 +950,7 @@ class MainWindow(QMainWindow):
         t.addAction(engrave.engraver(self).actionCollection.engrave_runner)
         
         self.toolbar_music = t = self.addToolBar('')
+        t.setObjectName('toolbar_music')
         ma = panels.manager(self).musicview.actionCollection
         t.addAction(ma.music_document_select)
         t.addAction(ma.music_print)

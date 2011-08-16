@@ -99,6 +99,7 @@ class Panel(QDockWidget):
         
         """
         super(Panel, self).__init__(mainwindow)
+        self.setObjectName(self.__class__.__name__.lower())
         self.visibilityChanged.connect(self.widget)
         app.translateUI(self)
     
