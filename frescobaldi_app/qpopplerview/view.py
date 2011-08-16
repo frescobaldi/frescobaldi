@@ -115,7 +115,7 @@ class View(QScrollArea):
         """Convenience method to load all the pages from the given Poppler.Document."""
         self.surface().pageLayout().load(document)
         if self.viewMode():
-            self.fit()
+            QTimer.singleShot(0, self.fit)
         self.surface().pageLayout().update()
 
     def clear(self):
