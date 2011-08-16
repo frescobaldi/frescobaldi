@@ -40,7 +40,6 @@ import popplerview
 
 import app
 import icons
-import settings
 import textformats
 import tokeniter
 import ly.lex.lilypond
