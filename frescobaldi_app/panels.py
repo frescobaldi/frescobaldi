@@ -100,7 +100,7 @@ class Panel(QDockWidget):
         """
         super(Panel, self).__init__(mainwindow)
         self.setObjectName(self.__class__.__name__.lower())
-        self.visibilityChanged.connect(self.widget)
+        self.visibilityChanged.connect(self.slotVisibilityChanged)
         app.translateUI(self)
     
     def mainwindow(self):
@@ -115,10 +115,14 @@ class Panel(QDockWidget):
         """Ensures that our widget() is created and returns it."""
         w = super(Panel, self).widget()
         if not w:
-            self.visibilityChanged.disconnect(self.widget)
+            self.visibilityChanged.disconnect(self.slotVisibilityChanged)
             w = self.createWidget()
             self.setWidget(w)
         return w
+    
+    def slotVisibilityChanged(self, visible):
+        if visible:
+            self.widget()
         
     def createWidget(self):
         """Re-implement this to return the widget for this tool."""

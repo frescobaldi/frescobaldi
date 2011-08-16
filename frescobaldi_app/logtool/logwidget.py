@@ -54,7 +54,9 @@ class LogWidget(log.Log):
         logtool.mainwindow().currentDocumentChanged.connect(self.switchDocument)
         app.documentClosed.connect(self.documentClosed)
         app.settingsChanged.connect(self.readSettings)
-        self.switchDocument(logtool.mainwindow().currentDocument())
+        doc = logtool.mainwindow().currentDocument()
+        if doc:
+            self.switchDocument(doc)
     
     def readSettings(self):
         self._formats = self.logformats()

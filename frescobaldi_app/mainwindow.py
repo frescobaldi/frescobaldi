@@ -307,6 +307,7 @@ class MainWindow(QMainWindow):
         if name:
             self.setObjectName(name)
         self.restoreGeometry(settings.value('geometry', QByteArray()))
+        self.restoreState(settings.value('state', QByteArray()))
         
     def writeSessionSettings(self, settings):
         """Write our state to the session manager settings.
@@ -316,6 +317,7 @@ class MainWindow(QMainWindow):
         """
         settings.setValue('name', self.objectName())
         settings.setValue('geometry', self.saveGeometry())
+        settings.setValue('state', self.saveState())
 
     def openUrl(self, url, encoding=None):
         """Same as app.openUrl but with some error checking and recent files."""
@@ -673,6 +675,7 @@ class MainWindow(QMainWindow):
     
     def newWindow(self):
         """Opens a new MainWindow."""
+        self.writeSettings()
         MainWindow(self).show()
 
     def scrollUp(self):
