@@ -61,7 +61,6 @@ class State(object):
                 pos = m.end()
             elif parser.fallthrough(self):
                 break
-            continue
         if pos < len(text):
             yield parser.default(text[pos:], pos, self)
     
@@ -76,10 +75,7 @@ class State(object):
     def thaw(cls, frozen):
         """Returns a new State object from the frozen state argument."""
         obj = object.__new__(cls)
-        obj.state = []
-        for cls, argcount in frozen:
-            parser = cls(argcount)
-            obj.state.append(parser)
+        obj.state = [cls(argcount) for cls, argcount in frozen]
         return obj
         
     def parser(self, depth=-1):
