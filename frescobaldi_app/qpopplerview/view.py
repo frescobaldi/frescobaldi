@@ -57,6 +57,7 @@ class View(QScrollArea):
         self._wheelZoomModifier = Qt.CTRL
         
         # delayed resize
+        self._centerPos = False
         self._resizeTimer = QTimer(singleShot = True, timeout = self._resizeTimeout)
         
     def surface(self):
@@ -114,8 +115,9 @@ class View(QScrollArea):
     def load(self, document):
         """Convenience method to load all the pages from the given Poppler.Document."""
         self.surface().pageLayout().load(document)
-        if self.viewMode():
-            QTimer.singleShot(0, self.fit)
+        # dont do a fit() before the very first resize as the size is then bogus
+        if self.viewMode() and self._centerPos is not False:
+            self.fit()
         self.surface().pageLayout().update()
 
     def clear(self):
@@ -237,14 +239,18 @@ class View(QScrollArea):
         
     def resizeEvent(self, ev):
         super(View, self).resizeEvent(ev)
-        # Detect a resize loop due to scrollbar disappearing
+        # Adjust the size of the document if desired
         if self.viewMode() and any(self.surface().pageLayout().pages()):
-            if not self._resizeTimer.isActive():
+            if not self._centerPos:
                 # store the point currently in the center
                 self._centerPos = QPoint(self.width(), self.height()) / 2 - self.surface().pos()
-            self._resizeTimer.start(100)
+            if not self._resizeTimer.isActive():
+                self._resizeTimeout()
+            self._resizeTimer.start(150)
     
     def _resizeTimeout(self):
+        if not self._centerPos:
+            return
         x = self._centerPos.x() / float(self.surface().width())
         y = self._centerPos.y() / float(self.surface().height())
         # resize the layout
@@ -252,6 +258,7 @@ class View(QScrollArea):
         # restore our position
         newPos = QPoint(round(x * self.surface().width()), round(y * self.surface().height()))
         self.scrollSurface(newPos - self._centerPos)
+        self._centerPos = None
 
     def zoom(self, scale, pos=None):
         """Changes the display scale (1.0 is 100%).
