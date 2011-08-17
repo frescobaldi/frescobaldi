@@ -68,13 +68,17 @@ class InsertMenu(QMenu):
         """
         from . import model, snippets, actions
         tool = panels.manager(self.mainwindow()).snippettool
+        selection = self.mainwindow().currentView().textCursor().hasSelection()
         last = tool.actionCollection.snippettool_activate
         groups = {}
         for name in sorted(model.model().names()):
-            menu = snippets.get(name).variables.get('menu')
+            variables = snippets.get(name).variables
+            menu = variables.get('menu')
             if menu:
-                groups.setdefault(menu, []).append(
-                    actions.action(name, self, tool.snippetActions))
+                action = actions.action(name, self, tool.snippetActions)
+                if 'yes' in variables.get('selection', ''):
+                    action.setEnabled(selection)
+                groups.setdefault(menu, []).append(action)
         for group in sorted(groups):
             for action in groups[group]:
                 self.insertAction(last, action)

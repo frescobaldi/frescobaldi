@@ -37,13 +37,16 @@ from . import expand
 def insert(name, view):
     """Insert named snippet into the view."""
     text, variables = snippets.get(name)
-    
     cursor = view.textCursor()
     
-    if 'strip' in variables.get('selection', ''):
+    selection = variables.get('selection', '')
+    if 'yes' in selection and not cursor.hasSelection():
+        return
+    if 'strip' in selection:
         cursortools.stripSelection(cursor)
     
-    line = cursor.document().findBlock(cursor.selectionStart()).blockNumber()
+    pos = cursor.selectionStart()
+    line = cursor.document().findBlock(pos).blockNumber()
     with cursortools.editBlock(cursor):
         
         # insert the snippet, might return a new cursor
@@ -56,8 +59,8 @@ def insert(name, view):
         block = cursor.document().findBlockByNumber(line)
         last = cursor.block()
         
-        # re-indent if not explicitly suppressed by a 'no-indent' variable
-        if last != block and 'no-indent' not in variables:
+        # re-indent if not explicitly suppressed by a 'indent: no' variable
+        if last != block and 'no' not in variables.get('indent', ''):
             tokeniter.update(block) # tokenize inserted lines
             while True:
                 block = block.next()
@@ -65,6 +68,11 @@ def insert(name, view):
                     tokeniter.update(block)
                 if block == last:
                     break
+    
+    if not new and 'keep' in selection:
+        end = cursor.position()
+        cursor.setPosition(pos)
+        cursor.setPosition(end, QTextCursor.KeepAnchor)
     view.setTextCursor(new or cursor)
 
 

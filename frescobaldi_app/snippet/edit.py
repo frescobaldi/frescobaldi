@@ -228,14 +228,25 @@ def whatsThisText():
     
     text.append("<dl>")
     text.extend("<dt><code>{0}</code></dt><dd>{1}</dd>".format(name, desc) for name, desc in (
-        ('menu', _("Place the snippet in the insert menu, grouped by the (optional) value.")),
-        ('name', _("The mnemonic to type to select the snippet.")),
-        ('no-indent', _("Do not auto-indent the snippet after inserting.")),
-        ('python', _("Execute the snippet as a Python script. "
-                     "The variable {text} can be read and set.").format(text="<code>text</code>")),
+        ('menu',
+            _("Place the snippet in the insert menu, grouped by the (optional) value.")),
+        ('name',
+            _("The mnemonic to type to select the snippet.")),
+        ('indent: no',
+            _("Do not auto-indent the snippet after inserting.")),
+        ('python',
+            _("Execute the snippet as a Python script. "
+              "The variable {text} can be read and set.").format(text="<code>text</code>")),
         ('selection',
-            "<code>strip</code>: " + _("Adjusts the selection to not include starting and trialing whitespace.")
-        ),
+            _("One of more of the following words (separated with spaces or commas):") + " " +
+              "\n".join("<code>{0}</code>: {1}".format(name, desc) for name, desc in (
+            ('yes',
+                _("Requires text to be selected.")),
+            ('strip',
+                _("Adjusts the selection to not include starting and trialing whitespace.")),
+            ('keep',
+                _("Selects all inserted text.")),
+        ))),
     ))
     text.append("</dl>")
 
