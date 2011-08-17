@@ -169,7 +169,6 @@ class View(QScrollArea):
         Prevents scrollbar/resize loops by precalculating which scrollbars will appear.
         
         """
-        layout = self.surface().pageLayout()
         mode = self.viewMode()
         if mode == FixedScale:
             return
@@ -187,6 +186,7 @@ class View(QScrollArea):
         scrollbarextent = self.style().pixelMetric(QStyle.PM_ScrollBarExtent, None, self) + framewidth
         
         # first try to fit full size
+        layout = self.surface().pageLayout()
         layout.fit(maxsize, mode)
         layout.reLayout()
         
