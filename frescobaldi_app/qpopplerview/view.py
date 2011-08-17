@@ -116,7 +116,7 @@ class View(QScrollArea):
         """Convenience method to load all the pages from the given Poppler.Document."""
         self.surface().pageLayout().load(document)
         # dont do a fit() before the very first resize as the size is then bogus
-        if self.viewMode() and self._centerPos is not False:
+        if self.viewMode():
             self.fit()
         self.surface().pageLayout().update()
 
@@ -241,7 +241,9 @@ class View(QScrollArea):
         super(View, self).resizeEvent(ev)
         # Adjust the size of the document if desired
         if self.viewMode() and any(self.surface().pageLayout().pages()):
-            if not self._centerPos:
+            if self._centerPos is False:
+                self._centerPos = QPoint(0, 0)
+            elif self._centerPos is None:
                 # store the point currently in the center
                 self._centerPos = QPoint(self.width(), self.height()) / 2 - self.surface().pos()
             if not self._resizeTimer.isActive():
@@ -249,7 +251,7 @@ class View(QScrollArea):
             self._resizeTimer.start(150)
     
     def _resizeTimeout(self):
-        if not self._centerPos:
+        if self._centerPos is None:
             return
         x = self._centerPos.x() / float(self.surface().width())
         y = self._centerPos.y() / float(self.surface().height())
