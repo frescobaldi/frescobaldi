@@ -224,10 +224,10 @@ def whatsThisText():
     "<p>If you start the first line(s) with '<code>-*- </code>' (note the space), "
     "the remainder of that line(s) defines variables like <code>name: value;</code> or "
     "simply <code>name;</code> which influence the behaviour of the snippet. "
-    "The following variables currently have a meaning:</p>"))
+    "The following variables can be used:</p>"))
     
     text.append("<dl>")
-    text.extend("<dt><code>{0}</code></dt><dd>{1}</dd>".format(name, desc) for name, desc in (
+    text.extend(map("<dt><code>{0[0]}</code></dt><dd>{0[1]}</dd>".format, (
         ('menu',
             _("Place the snippet in the insert menu, grouped by the (optional) value.")),
         ('name',
@@ -239,15 +239,15 @@ def whatsThisText():
               "The variable {text} can be read and set.").format(text="<code>text</code>")),
         ('selection',
             _("One of more of the following words (separated with spaces or commas):") + " " +
-              "\n".join("<code>{0}</code>: {1}".format(name, desc) for name, desc in (
+              "\n".join(map("<code>{0[0]}</code>: {0[1]}".format, (
             ('yes',
                 _("Requires text to be selected.")),
             ('strip',
                 _("Adjusts the selection to not include starting and trialing whitespace.")),
             ('keep',
                 _("Selects all inserted text.")),
-        ))),
-    ))
+        )))),
+    )))
     text.append("</dl>")
 
     text.append(_(
@@ -256,8 +256,8 @@ def whatsThisText():
     "a single one. The following variables are recognized:</p>"))
     
     text.append("<dl>")
-    text.extend("<dt><code>${0}</code></dt><dd>{1}</dd>".format(name, doc) for name, doc in
-        expand.documentation(expand.Expander))
+    text.extend(map("<dt><code>${0[0]}</code></dt><dd>{0[1]}</dd>".format,
+        expand.documentation(expand.Expander)))
     text.append("</dl>")
     return ''.join(text)
 

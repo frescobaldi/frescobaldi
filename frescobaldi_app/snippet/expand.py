@@ -96,11 +96,11 @@ class Expander(object):
         return self.cursor.document().documentName()
 
     @_("Moves the text cursor here after insert.")
-    def C(self):
+    def CURSOR(self):
         return CURSOR
         
-    @_("Selects text from here to the position given using the <code>$C</code> variable")
-    def A(self):
+    @_("Selects text from here to the position given using the <code>$CURSOR</code> variable")
+    def ANCHOR(self):
         return ANCHOR
     
     @_("The selected text if available. If not, the text cursor is moved here.")

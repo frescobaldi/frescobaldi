@@ -37,7 +37,7 @@ builtin_snippets = {
 
 'blankline': T(_("Blank Line"),
 r"""
-$C
+$CURSOR
 """),
 
 
@@ -104,7 +104,7 @@ r"""-*- name: tac;
 \once \override Staff.TimeSignature #'stencil = #ly:text-interface::print
 \once \override Staff.TimeSignature #'text = \markup {
   \override #'(baseline-skip . 0.5)
-  \column { \number $C1$A \tiny \note #"2" #-.6 }
+  \column { \number $CURSOR1$ANCHOR \tiny \note #"2" #-.6 }
 }
 """),
 
@@ -122,7 +122,7 @@ r"""-*- menu: blocks; name: rep; selection: strip;
 
 'relative': T(_("Relative Music"),
 r"""-*- name: rel;
-\relative c$C'$A {
+\relative c$CURSOR'$ANCHOR {
 """ '  ' r"""  
 }"""),
 
