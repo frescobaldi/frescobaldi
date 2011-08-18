@@ -127,5 +127,64 @@ r"""-*- name: rel;
 }"""),
 
 
+'uppercase': T(_("Upper case selection"),
+r"""-*- python; selection: yes, keep;
+text = text.upper()
+"""),
+
+
+'lowercase': T(_("Lower case selection"),
+r"""-*- python; selection: yes, keep;
+text = text.lower()
+"""),
+
+
+'titlecase': T(_("Title case selection"),
+r"""-*- python; selection: yes, keep;
+text = text.title()
+"""),
+
+
+'markup': T(_("Markup"),
+r"""-*- name: m; selection: strip;
+\markup { $SELECTION }"""),
+
+
+'markup_lines_selection': T(_("Markup lines"),
+r"""-*- name: l; python; selection: yes, keep, strip;
+text = '\n'.join(r'\line { %s }' % l for l in text.splitlines())
+"""),
+
+
+'markup_column': T(_("Markup column"),
+r"""-*- name: c; selection: yes, keep, strip;
+\column { $SELECTION }"""),
+
+
+'tagline_date_version': T(_("Tagline with date and LilyPond version"),
+r"""tagline = \markup {
+  Engraved at
+  \simple #(strftime "%Y-%m-%d" (localtime (current-time)))
+  with \with-url #"http://lilypond.org/"
+  \line { LilyPond \simple #(lilypond-version) (http://lilypond.org/) }
+}
+"""),
+
+
+'header': T(_("Header Template"),
+r"""-*- name: h;
+\header {
+  title = "$CURSOR"
+  composer = ""
+  tagline = \markup {
+    Engraved at
+    \simple #(strftime "%Y-%m-%d" (localtime (current-time)))
+    with \with-url #"http://lilypond.org/"
+    \line { LilyPond \simple #(lilypond-version) (http://lilypond.org/) }
+  }
+}
+"""),
+
+
 }
 
