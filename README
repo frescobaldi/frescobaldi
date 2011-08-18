@@ -43,8 +43,8 @@ What does work?
   - multiple LilyPond versions support
   - configurable keyboard shortcuts (with possibility of multiple schemes)
   - configure fonts/colors (with possibility of multiple schemes)
-- nice snippet manager (Ctrl-T)
-- score wizard, now also with multiple score, book, staffgroup etc support
+- nice and powerful snippet manager (Ctrl-T)
+- score wizard with preview, now also with multiple score, book, staffgroup etc
 
 
 TODO:
@@ -52,8 +52,9 @@ TODO:
 - run other commands such as lilypond-book, convert-ly
 - finish Quick Insert Panel
 - finish built-in help browser
+- music transpose, translate, relative<->absolute tools
+- rhythm tools
 - autocompletion
-- score wizard preview
 - test on Mac OS X and Windows, make easy installers
 - MIDI...
 
