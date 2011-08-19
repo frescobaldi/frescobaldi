@@ -20,7 +20,7 @@
 """
 Base classes for Parser instances.
 
-You can import this module in you mode modules to subclasse Parser or FallthroughParser.
+You can import this module in you mode modules to subclass Parser or FallthroughParser.
 
 This module starts with an underscore so that it does not interfere with the mode
 modules.
@@ -41,43 +41,39 @@ import _token
 _tokenclasses = []
 
 
+def generate(items):
+    """Yields regular expression parts for the specified Token subclasses."""
+    done = set()
+    for cls in items:
+        if cls not in done:
+            done.add(cls) # avoid having the same class twice in the same regexp
+            try:
+                index = _tokenclasses.index(cls)
+            except ValueError:
+                index = len(_tokenclasses)
+                _tokenclasses.append(cls)
+            yield "(?P<g{0}>{1})".format(index, cls.rx)
+
+
 class PatternProperty(object):
     """A descriptor that lazily generates a regular expression based on a list of Token subclasses."""
-    def __init__(self, items):
-        self.items = items
-    
     def __get__(self, instance, owner):
         try:
-            return self.pattern
+            owner.pattern = self.pattern
         except AttributeError:
-            self.pattern = re.compile("|".join(self.generate()))
-        return self.pattern
+            owner.pattern = self.pattern = re.compile("|".join(generate(owner.items)))
+        return owner.pattern
 
-    def generate(self):
-        done = set()
-        for cls in self.items:
-            if cls not in done:
-                done.add(cls) # avoid having the same class twice in the same regexp
-                try:
-                    index = _tokenclasses.index(cls)
-                except ValueError:
-                    index = len(_tokenclasses)
-                    _tokenclasses.append(cls)
-                yield "(?P<g{0}>{1})".format(index, cls.rx)
-        
 
 class ParserMetaClass(type):
     """Metaclass for Parser subclasses.
     
-    Reads the items class attribute and create a (lazily created) compiled regex pattern
-    to parse text for those items.
+    Adds a 'pattern' attribute with a PatternProperty() when the class also defines 'items'.
     
     """
     def __new__(cls, name, bases, attrd):
-        try:
-            attrd['pattern'] = PatternProperty(attrd['items'])
-        except KeyError:
-            pass # in abstract classes there is no items attribute
+        if 'items' in attrd:
+            attrd['pattern'] = PatternProperty()
         return type.__new__(cls, name, bases, attrd)
 
 
