@@ -35,14 +35,13 @@ You should inherit from Node to make meaningful tree node types.
 
 """
 
-from __future__ import unicode_literals
-
-
 import weakref
 
 
 class Node(object):
     """A list-like class to build tree structures with."""
+    __slots__ = ['_parent', '_children']
+    
     def __init__(self, parent=None):
         self._parent = None
         self._children = []
