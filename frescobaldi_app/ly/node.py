@@ -42,112 +42,109 @@ import weakref
 
 
 class Node(object):
-    
+    """A list-like class to build tree structures with."""
     def __init__(self, parent=None):
         self._parent = None
         self._children = []
         if parent:
             parent.append(self)
 
+    def _own(self, node):
+        """(Internal) Remove node from its parent if any and make us parent."""
+        assert isinstance(node, Node)
+        parent = node.parent()
+        if parent:
+            parent.remove(node)
+        node._parent = weakref.ref(self)
+        
     def parent(self):
-        """
-        The parent, or None if the node has no parent.
-        """
+        """The parent, or None if the node has no parent."""
         if self._parent is not None:
             return self._parent()
 
     def children(self):
-        """
-        Our children, may be an empty list.
+        """Our children, may be an empty list.
+
+        You should not alter this list.
+        
         """
         return self._children
 
-    def setParent(self, parent):
-        """
-        Takes away node from current parent and appends to other.
-        """
-        if parent is not self.parent():
-            parent.append(self)
-    
-    def removeFromParent(self):
-        """
-        Removes self from parent.
-        """
-        parent = self.parent()
-        if parent:
-            parent.remove(self)
-
     def append(self, node):
+        """Appends a node to the current node.
+        
+        It will be reparented, that means it will be removed from it's former
+        parent if it had one.
+        
         """
-        Appends an object to the current node. It will be reparented, that
-        means it will be removed from it's former parent (if it had one).
-        """
-        assert isinstance(node, Node)
-        node.removeFromParent()
+        self._own(node)
         self._children.append(node)
-        node._parent = weakref.ref(self)
         
-    def extend(self, iterable):
-        """
-        Calls append() for every Node from iterable.
-        """
-        for node in iterable:
-            self.append(node)
-        
-    def index(self, node):
-        """
-        Return the index of the given object in our list of children.
-        """
-        return self._children.index(node)
-
     def insert(self, where, node):
+        """Insert a node at 'where' in the current node.
+        
+        'where' can be an integer index, or another child node.
+        
         """
-        Insert at index, or just before another node.
-        """
-        assert isinstance(node, Node)
         if isinstance(where, Node):
             where = self.index(where)
-        node.removeFromParent()
+        self._own(node)
         self._children.insert(where, node)
-        node._parent = weakref.ref(self)
         
-    def remove(self, node):
-        """
-        Removes the given child object.
-        See also: removeFromParent()
-        """
-        self._children.remove(node)
-        node._parent = None
-
     def replace(self, where, node):
+        """Replace a node with another node.
+        
+        'where' can be an integer index or the node to replace.
+        
         """
-        Replace child at index or specified node with a replacement node.
-        """
-        assert isinstance(node, Node)
         if isinstance(where, Node):
             old = where
             where = self.index(where)
         else:
             old = self._children[where]
-        node.removeFromParent()
-        node._parent = weakref.ref(self)
+        self._own(node)
         self._children[where] = node
         old._parent = None
 
+    def remove(self, node):
+        """Removes the given child node."""
+        self._children.remove(node)
+        node._parent = None
+
+    def index(self, node):
+        """Return the index of the given node in our list of children."""
+        return self._children.index(node)
+
+    def copy(self):
+        """Return a deep copy of the node and its children """
+        obj = self.__class__.__new__(self.__class__)
+        for name, value in vars(self).items():
+            name.startswith("_") or setattr(obj, name, value)
+        obj._parent = None
+        obj._children = []
+        for n in self:
+            obj.append(n.copy())
+        return obj
+    
+    def extend(self, iterable):
+        """Appends every Node from iterable."""
+        for node in iterable:
+            self.append(node)
+        
     def __nonzero__(self):
-        """ We are always true """
+        """We are always true."""
         return True
     
     def __len__(self):
-        """ Return the number of children """
+        """Return the number of children."""
         return len(self._children)
 
     def __getitem__(self, k):
-        """ also supports slices """
+        """Return child at index or children at slice."""
         return self._children[k]
 
     def __setitem__(self, k, obj):
-        """ also supports slices """
+        """Set child at index or children at slice."""
         if isinstance(k, slice):
             if k.step:
                 # extended slice, number of items must be same
@@ -167,7 +164,7 @@ class Node(object):
             self.replace(k, obj)
 
     def __delitem__(self, k):
-        """ also supports slices """
+        """Delete child at index or children at slice."""
         if isinstance(k, slice):
             for i in self[k]:
                 self.remove(i)
@@ -175,14 +172,15 @@ class Node(object):
             self.remove(self[k])
 
     def __contains__(self, node):
+        """Returns True if the node is our child."""
         return node in self._children
 
     def clear(self):
-        """ Remove all children """
+        """Remove all children."""
         del self[:]
 
     def copy(self):
-        """ Return a deep copy of the node and its children """
+        """Return a deep copy of the node and its children."""
         obj = self.__class__.__new__(self.__class__)
         for name, value in vars(self).items():
             name.startswith("_") or setattr(obj, name, value)
@@ -193,16 +191,17 @@ class Node(object):
         return obj
             
     def ancestors(self):
-        """ climb the tree up over the parents """
+        """Climb the tree up over the parents."""
         node = self.parent()
         while node:
             yield node
             node = node.parent()
 
     def previousSibling(self):
-        """
-        Return the object just before this one in the parent's list of children.
-        None if this is the first child, or if we have no parent.
+        """Return the object just before us in our parents list.
+        
+        Returns None if this is the first child, or if we have no parent.
+        
         """
         parent = self.parent()
         if parent:
@@ -211,9 +210,10 @@ class Node(object):
                 return parent[i-1]
 
     def nextSibling(self):
-        """
-        Return the object just after this one in the parent's list of children.
-        None if this is the last child, or if we have no parent.
+        """Return the object just after us in our parents list.
+        
+        Returns None if this is the last child, or if we have no parent.
+        
         """
         parent = self.parent()
         if parent:
@@ -222,33 +222,28 @@ class Node(object):
                 return parent[i+1]
 
     def previousSiblings(self):
-        """
-        Iterate (backwards) over the preceding items in our parent's
-        list of children.
-        """
+        """Iterate (backwards) over the preceding siblings."""
         node = self.previousSibling()
         while node:
             yield node
             node = self.previousSibling()
 
     def nextSiblings(self):
-        """
-        Iterate over the following items in our parent's list of children.
-        """
+        """Iterate over the following siblings."""
         node = self.nextSibling()
         while node:
             yield node
             node = self.nextSibling()
 
-    def isChildOf(self, otherNode):
-        """ find parent in ancestors? """
+    def isDescendantOf(self, node):
+        """Returns True if node is somewhere in our ancestors()."""
         for node in self.ancestors():
             if node is otherNode:
                 return True
         return False
 
     def toplevel(self):
-        """ returns the toplevel parent Node of this node """
+        """Returns the toplevel parent Node of this node."""
         node = self
         parent = self.parent()
         while parent:
@@ -257,9 +252,10 @@ class Node(object):
         return node
 
     def iterDepthFirst(self, depth = -1):
-        """
-        Iterate over all the children, and their children, etc.
+        """Iterate over all the children, and their children, etc.
+        
         Set depth to restrict the search to a certain depth, -1 is unrestricted.
+        
         """
         if depth != 0:
             for i in self:
@@ -268,9 +264,10 @@ class Node(object):
                     yield j
                 
     def iterDepthLast(self, depth = -1):
-        """
-        Iterate over the children in rings, depth last.
+        """Iterate over the children in rings, depth last.
+        
         Set depth to restrict the search to a certain depth, -1 is unrestricted.
+        
         """
         children = self.children()
         while children and depth:
@@ -282,27 +279,19 @@ class Node(object):
             children = newchildren
 
     def findChildren(self, cls, depth = -1):
-        """
-        iterate over all descendants of the current node if they are of
-        the class cls or a subclass.
-        """
+        """Yields all descendants if they are an instance of cls."""
         for node in self.iterDepthLast(depth):
             if isinstance(node, cls):
                 yield node
 
     def findChild(self, cls, depth = -1):
-        """
-        return the first descendant of the current node of
-        the class cls or a subclass, if there is any.
-        """
+        """Returns the first descendant that's an instance of cls."""
         for node in self.iterDepthLast(depth):
             if isinstance(node, cls):
                 return node
     
     def findParent(self, cls):
-        """
-        find an ancestor of the given class
-        """
+        """Finds an ancestor of the given class."""
         for node in self.ancestors():
             if isinstance(node, cls):
                 return node
