@@ -80,6 +80,10 @@ the type of the text.
 
 from __future__ import unicode_literals
 
+import slexer
+from ._token import *
+from _mode import extensions, modes, guessMode
+
 
 __all__ = [
     'State',
@@ -107,9 +111,45 @@ __all__ = [
 ]
 
 
-from _base import State
-from _mode import extensions, modes, guessMode
-from _token import *
+class Parser(slexer.Parser):
+    argcount = 0
+    default = Unparsed
+    mode = None
+    
+    def __init__(self, argcount = None):
+        if argcount is not None:
+            self.argcount = argcount
+
+    def freeze(self):
+        return (self.argcount,)
+
+
+class FallthroughParser(Parser, slexer.FallthroughParser):
+    pass
+
+
+class State(slexer.State):
+    def endArgument(self):
+        """Decrease argcount and leave the parser if it would reach 0."""
+        while self.depth() > 1:
+            p = self.parser()
+            if p.argcount == 1:
+                self.leave()
+            else:
+                if p.argcount > 0:
+                    p.argcount -= 1
+                return
+    
+    def mode(self):
+        """Returns the mode attribute of the first parser (from current parser) that has it."""
+        for parser in self.state[::-1]:
+            if parser.mode:
+                return parser.mode
+
+
+class Fridge(slexer.Fridge):
+    def __init__(self, stateClass = State):
+        super(Fridge, self).__init__(stateClass)
 
 
 def state(mode):

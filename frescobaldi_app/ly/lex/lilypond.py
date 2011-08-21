@@ -25,8 +25,8 @@ from __future__ import unicode_literals
 
 import itertools
 
-import _token
-import _parser
+from . import _token
+from . import Parser, FallthroughParser
 
 
 re_articulation = r"[-_^][_.>|+^-]"
@@ -67,8 +67,8 @@ class Comment(_token.Comment):
 
 class BlockCommentStart(Comment, _token.BlockCommentStart, _token.Indent):
     rx = r"%{"
-    def changeState(self, state):
-        state.enter(BlockCommentParser)
+    def updateState(self, state):
+        state.enter(BlockCommentParser())
 
 
 class BlockCommentEnd(Comment, _token.BlockCommentEnd, _token.Leaver, _token.Dedent):
@@ -89,13 +89,13 @@ class String(_token.String):
 
 class StringQuotedStart(String, _token.StringStart):
     rx = r'"'
-    def changeState(self, state):
-        state.enter(StringParser)
+    def updateState(self, state):
+        state.enter(StringParser())
         
 
 class StringQuotedEnd(String, _token.StringEnd):
     rx = r'"'
-    def changeState(self, state):
+    def updateState(self, state):
         state.leave()
         state.endArgument()
 
@@ -122,8 +122,8 @@ class Duration(_token.Token):
 
 class DurationStart(Duration):
     rx = re_duration
-    def changeState(self, state):
-        state.enter(DurationParser)
+    def updateState(self, state):
+        state.enter(DurationParser())
 
 
 class Dot(Duration):
@@ -139,7 +139,7 @@ class Delimiter(_token.Token):
 
 
 class OpenBracket(Delimiter, _token.MatchStart, _token.Indent):
-    """An open bracket, does not enter different parser, subclass or reimplement Parser.changeState()."""
+    """An open bracket, does not enter different parser, subclass or reimplement Parser.updateState()."""
     rx = r"\{"
     matchname = "bracket"
 
@@ -147,13 +147,13 @@ class OpenBracket(Delimiter, _token.MatchStart, _token.Indent):
 class CloseBracket(Delimiter, _token.MatchEnd, _token.Dedent):
     rx = r"\}"
     matchname = "bracket"
-    def changeState(self, state):
+    def updateState(self, state):
         state.leave()
         state.endArgument()    
     
 
 class OpenSimultaneous(Delimiter, _token.MatchStart, _token.Indent):
-    """An open double French quote, does not enter different parser, subclass or reimplement Parser.changeState()."""
+    """An open double French quote, does not enter different parser, subclass or reimplement Parser.updateState()."""
     rx = r"<<"
     matchname = "simultaneous"
 
@@ -161,14 +161,14 @@ class OpenSimultaneous(Delimiter, _token.MatchStart, _token.Indent):
 class CloseSimultaneous(Delimiter, _token.MatchEnd, _token.Dedent):
     rx = r">>"
     matchname = "simultaneous"
-    def changeState(self, state):
+    def updateState(self, state):
         state.leave()
-        state.endArgument()    
+        state.endArgument()
     
 
 class SequentialStart(OpenBracket):
-    def changeState(self, state):
-        state.enter(LilyPondParserMusic)
+    def updateState(self, state):
+        state.enter(LilyPondParserMusic())
 
 
 class SequentialEnd(CloseBracket):
@@ -176,8 +176,8 @@ class SequentialEnd(CloseBracket):
 
 
 class SimultaneousStart(OpenSimultaneous):
-    def changeState(self, state):
-        state.enter(LilyPondParserMusic)
+    def updateState(self, state):
+        state.enter(LilyPondParserMusic())
 
 
 class SimultaneousEnd(CloseSimultaneous):
@@ -200,8 +200,8 @@ class Articulation(_token.Token):
     
 class Direction(Articulation):
     rx = r"[-_^]"
-    def changeState(self, state):
-        state.enter(ScriptAbbreviationParser)
+    def updateState(self, state):
+        state.enter(ScriptAbbreviationParser())
 
 
 class ScriptAbbreviation(Articulation, _token.Leaver):
@@ -293,73 +293,73 @@ class Specifier(_token.Token):
 
 class Score(Keyword):
     rx = r"\\score\b"
-    def changeState(self, state):
-        state.enter(LilyPondParserExpectScore)
+    def updateState(self, state):
+        state.enter(LilyPondParserExpectScore())
         
 
 class Book(Keyword):
     rx = r"\\book\b"
-    def changeState(self, state):
-        state.enter(LilyPondParserExpectBook)
+    def updateState(self, state):
+        state.enter(LilyPondParserExpectBook())
         
         
 class BookPart(Keyword):
     rx = r"\\bookpart\b"
-    def changeState(self, state):
-        state.enter(LilyPondParserExpectBookPart)
+    def updateState(self, state):
+        state.enter(LilyPondParserExpectBookPart())
 
 
 class Paper(Keyword):
     rx = r"\\paper\b"
-    def changeState(self, state):
-        state.enter(LilyPondParserExpectPaper)
+    def updateState(self, state):
+        state.enter(LilyPondParserExpectPaper())
 
 
 class Header(Keyword):
     rx = r"\\header\b"
-    def changeState(self, state):
-        state.enter(LilyPondParserExpectHeader)
+    def updateState(self, state):
+        state.enter(LilyPondParserExpectHeader())
 
 
 class Layout(Keyword):
     rx = r"\\layout\b"
-    def changeState(self, state):
-        state.enter(LilyPondParserExpectLayout)
+    def updateState(self, state):
+        state.enter(LilyPondParserExpectLayout())
 
 
 class Midi(Keyword):
     rx = r"\\midi\b"
-    def changeState(self, state):
-        state.enter(LilyPondParserExpectMidi)
+    def updateState(self, state):
+        state.enter(LilyPondParserExpectMidi())
 
 
 class With(Keyword):
     rx = r"\\with\b"
-    def changeState(self, state):
-        state.enter(LilyPondParserExpectWith)
+    def updateState(self, state):
+        state.enter(LilyPondParserExpectWith())
 
 
 class LayoutContext(Keyword):
     rx = r"\\context\b"
-    def changeState(self, state):
-        state.enter(LilyPondParserExpectContext)
+    def updateState(self, state):
+        state.enter(LilyPondParserExpectContext())
 
 
 class Markup(Command):
     rx = r"\\markup(?![A-Za-z])"
-    def changeState(self, state):
-        state.enter(MarkupParser, 1)
+    def updateState(self, state):
+        state.enter(MarkupParser(1))
 
 
 class MarkupLines(Markup):
     rx = r"\\markuplines(?![A-Za-z])"
-    def changeState(self, state):
-        state.enter(MarkupParser, 1)
+    def updateState(self, state):
+        state.enter(MarkupParser(1))
 
 
 class MarkupCommand(Markup):
     rx = r"\\[A-Za-z]+(-[A-Za-z]+)*(?![A-Za-z])"
-    def changeState(self, state):
+    def updateState(self, state):
         import ly.words
         command = self[1:]
         if command in ly.words.markupcommands_nargs[0]:
@@ -370,13 +370,13 @@ class MarkupCommand(Markup):
                     break
             else:
                 argcount = 1
-            state.enter(MarkupParser, argcount)
+            state.enter(MarkupParser(argcount))
 
 
 class MarkupScore(Markup):
     rx = r"\\score\b"
-    def changeState(self, state):
-        state.enter(LilyPondParserExpectScore)
+    def updateState(self, state):
+        state.enter(LilyPondParserExpectScore())
 
 
 class MarkupWord(_token.Item):
@@ -384,12 +384,12 @@ class MarkupWord(_token.Item):
 
 
 class OpenBracketMarkup(OpenBracket):
-    def changeState(self, state):
-        state.enter(MarkupParser)
+    def updateState(self, state):
+        state.enter(MarkupParser())
 
 
 class CloseBracketMarkup(CloseBracket):
-    def changeState(self, state):
+    def updateState(self, state):
         state.endArgument()    
         state.leave()
         state.endArgument()    
@@ -397,8 +397,8 @@ class CloseBracketMarkup(CloseBracket):
 
 class Repeat(Command):
     rx = r"\\repeat(?![A-Za-z])"
-    def changeState(self, state):
-        state.enter(RepeatParser)
+    def updateState(self, state):
+        state.enter(RepeatParser())
     
     
 class RepeatSpecifier(Specifier):
@@ -421,14 +421,14 @@ class RepeatCount(Value, _token.Leaver):
 
 class Override(Keyword):
     rx = r"\\override\b"
-    def changeState(self, state):
-        state.enter(LilyPondParserOverride)
+    def updateState(self, state):
+        state.enter(LilyPondParserOverride())
 
 
 class Set(Override):
     rx = r"\\set\b"
-    def changeState(self, state):
-        state.enter(LilyPondParserSet)
+    def updateState(self, state):
+        state.enter(LilyPondParserSet())
     
 
 class DotSetOverride(Delimiter):
@@ -437,14 +437,14 @@ class DotSetOverride(Delimiter):
 
 class Unset(Keyword):
     rx = r"\\unset\b"
-    def changeState(self, state):
-        state.enter(LilyPondParserUnset)
+    def updateState(self, state):
+        state.enter(LilyPondParserUnset())
 
 
 class New(Command):
     rx = r"\\new\b"
-    def changeState(self, state):
-        state.enter(LilyPondParserNewContext)
+    def updateState(self, state):
+        state.enter(LilyPondParserNewContext())
         
         
 class Context(New):
@@ -457,8 +457,8 @@ class Change(New):
     
 class Clef(Command):
     rx = r"\\clef"
-    def changeState(self, state):
-        state.enter(LilyPondParserClef)
+    def updateState(self, state):
+        state.enter(LilyPondParserClef())
 
 
 class ClefSpecifier(Specifier):
@@ -478,8 +478,8 @@ class InputMode(Command):
 
 class LyricMode(InputMode):
     rx = r"\\(lyricmode|((old)?add)?lyrics|lyricsto)\b"
-    def changeState(self, state):
-        state.enter(LilyPondParserExpectLyricMode)
+    def updateState(self, state):
+        state.enter(LilyPondParserExpectLyricMode())
 
 
 class Lyric(_token.Item):
@@ -508,26 +508,26 @@ class LyricTie(Lyric):
 
 class NoteMode(InputMode):
     rx = r"\\(notes|notemode)\b"
-    def changeState(self, state):
-        state.enter(LilyPondParserExpectNoteMode)
+    def updateState(self, state):
+        state.enter(LilyPondParserExpectNoteMode())
 
 
 class ChordMode(InputMode):
     rx = r"\\(chords|chordmode)\b"
-    def changeState(self, state):
-        state.enter(LilyPondParserExpectChordMode)
+    def updateState(self, state):
+        state.enter(LilyPondParserExpectChordMode())
 
 
 class DrumMode(InputMode):
     rx = r"\\(drums|drummode)\b"
-    def changeState(self, state):
-        state.enter(LilyPondParserExpectDrumMode)
+    def updateState(self, state):
+        state.enter(LilyPondParserExpectDrumMode())
 
 
 class FigureMode(InputMode):
     rx = r"\\(figures|figuremode)\b"
-    def changeState(self, state):
-        state.enter(LilyPondParserExpectFigureMode)
+    def updateState(self, state):
+        state.enter(LilyPondParserExpectFigureMode())
 
 
 class UserCommand(_token.Token):
@@ -536,9 +536,9 @@ class UserCommand(_token.Token):
     
 class SchemeStart(_token.Item):
     rx = "[#$]"
-    def changeState(self, state):
+    def updateState(self, state):
         import scheme
-        state.enter(scheme.SchemeParser, 1)
+        state.enter(scheme.SchemeParser(1))
 
 
 class ContextName(_token.Token):
@@ -597,8 +597,8 @@ class Chord(_token.Token):
 
 class ChordStart(Chord):
     rx = r"<"
-    def changeState(self, state):
-        state.enter(LilyPondParserChord)
+    def updateState(self, state):
+        state.enter(LilyPondParserChord())
 
 
 class ChordEnd(Chord, _token.Leaver):
@@ -634,14 +634,14 @@ class EqualSign(_token.Token):
 
 class EqualSignSetOverride(EqualSign):
     """An equal sign in a set/override construct."""
-    def changeState(self, state):
+    def updateState(self, state):
         # wait for one more expression, then leave
         state.parser().argcount = 1
 
 
 
 # Parsers
-class LilyPondParser(_parser.Parser):
+class LilyPondParser(Parser):
     mode = 'lilypond'
 
 # basic stuff that can appear everywhere
@@ -741,9 +741,9 @@ class ExpectOpenBracket(LilyPondParser):
     items = space_items + (
         OpenBracket,
     )
-    def changeState(self, state, token):
+    def updateState(self, state, token):
         if isinstance(token, OpenBracket):
-            state.replace(self.replace)
+            state.replace(self.replace())
         
 
 class ExpectOpenBrackedOrSimultaneous(LilyPondParser):
@@ -757,9 +757,9 @@ class ExpectOpenBrackedOrSimultaneous(LilyPondParser):
         OpenBracket,
         OpenSimultaneous,
     )
-    def changeState(self, state, token):
+    def updateState(self, state, token):
         if isinstance(token, (OpenBracket, OpenSimultaneous)):
-            state.replace(self.replace)
+            state.replace(self.replace())
         
 
 class LilyPondParserScore(LilyPondParser):
@@ -903,7 +903,7 @@ class LilyPondParserChord(LilyPondParserMusic):
     items = music_chord_items
 
 
-class StringParser(_parser.Parser):
+class StringParser(Parser):
     default = String
     items = (
         StringQuotedEnd,
@@ -911,7 +911,7 @@ class StringParser(_parser.Parser):
     )
     
 
-class BlockCommentParser(_parser.Parser):
+class BlockCommentParser(Parser):
     default = Comment
     items = (
         BlockCommentSpace,
@@ -919,7 +919,7 @@ class BlockCommentParser(_parser.Parser):
     )
 
 
-class MarkupParser(_parser.Parser):
+class MarkupParser(Parser):
     items =  (
         MarkupScore,
         MarkupCommand,
@@ -929,7 +929,7 @@ class MarkupParser(_parser.Parser):
     ) + base_items
 
 
-class RepeatParser(_parser.FallthroughParser):
+class RepeatParser(FallthroughParser):
     items = space_items + (
         RepeatSpecifier,
         RepeatStringSpecifier,
@@ -937,12 +937,12 @@ class RepeatParser(_parser.FallthroughParser):
     )
 
 
-class DurationParser(_parser.FallthroughParser):
+class DurationParser(FallthroughParser):
     items = space_items + (
         Dot,
     )
     def fallthrough(self, state):
-        state.replace(DurationScalingParser)
+        state.replace(DurationScalingParser())
         
         
 class DurationScalingParser(DurationParser):
@@ -965,7 +965,7 @@ class LilyPondParserOverride(LilyPondParser):
     ) + base_items
     
 
-class LilyPondParserRevert(_parser.FallthroughParser):
+class LilyPondParserRevert(FallthroughParser):
     items = space_items + (
         ContextName,
         DotSetOverride,
@@ -986,7 +986,7 @@ class LilyPondParserSet(LilyPondParser):
     ) + base_items
     
     
-class LilyPondParserUnset(_parser.FallthroughParser):
+class LilyPondParserUnset(FallthroughParser):
     items = space_items + (
         ContextName,
         DotSetOverride,
@@ -995,7 +995,7 @@ class LilyPondParserUnset(_parser.FallthroughParser):
     )
 
 
-class LilyPondParserNewContext(_parser.FallthroughParser):
+class LilyPondParserNewContext(FallthroughParser):
     items = space_items + (
         ContextName,
         Name,
@@ -1004,7 +1004,7 @@ class LilyPondParserNewContext(_parser.FallthroughParser):
     )
 
 
-class LilyPondParserClef(_parser.FallthroughParser):
+class LilyPondParserClef(FallthroughParser):
     argcount = 1
     items = space_items + (
         ClefSpecifier,
@@ -1012,7 +1012,7 @@ class LilyPondParserClef(_parser.FallthroughParser):
     )
 
 
-class ScriptAbbreviationParser(_parser.FallthroughParser):
+class ScriptAbbreviationParser(FallthroughParser):
     argcount = 1
     items = space_items + (
         ScriptAbbreviation,
@@ -1023,7 +1023,7 @@ class InputModeParser(LilyPondParser):
     """Base class for parser for mode-changing music commands."""
     
     
-class LilyPondParserExpectLyricMode(_parser.FallthroughParser):
+class LilyPondParserExpectLyricMode(FallthroughParser):
     items = space_items + (
         OpenBracket,
         OpenSimultaneous,
@@ -1032,9 +1032,9 @@ class LilyPondParserExpectLyricMode(_parser.FallthroughParser):
         Name,
     )
     
-    def changeState(self, state, token):
+    def updateState(self, state, token):
         if isinstance(token, (OpenBracket, OpenSimultaneous)):
-            state.enter(LilyPondParserLyricMode)
+            state.enter(LilyPondParserLyricMode())
         
 
 class LilyPondParserLyricMode(InputModeParser):
@@ -1054,20 +1054,20 @@ class LilyPondParserLyricMode(InputModeParser):
         Markup, MarkupLines,
     ) + command_items
     
-    def changeState(self, state, token):
+    def updateState(self, state, token):
         if isinstance(token, (OpenSimultaneous, OpenBracket)):
-            state.enter(LilyPondParserLyricMode)
+            state.enter(LilyPondParserLyricMode())
 
 
-class LilyPondParserExpectChordMode(_parser.FallthroughParser):
+class LilyPondParserExpectChordMode(FallthroughParser):
     items = space_items + (
         OpenBracket,
         OpenSimultaneous,
     )
     
-    def changeState(self, state, token):
+    def updateState(self, state, token):
         if isinstance(token, (OpenBracket, OpenSimultaneous)):
-            state.enter(LilyPondParserChordMode)
+            state.enter(LilyPondParserChordMode())
         
 
 class LilyPondParserChordMode(InputModeParser, LilyPondParserMusic):
@@ -1075,30 +1075,30 @@ class LilyPondParserChordMode(InputModeParser, LilyPondParserMusic):
     pass # TODO: implement
 
 
-class LilyPondParserExpectNoteMode(_parser.FallthroughParser):
+class LilyPondParserExpectNoteMode(FallthroughParser):
     items = space_items + (
         OpenBracket,
         OpenSimultaneous,
     )
     
-    def changeState(self, state, token):
+    def updateState(self, state, token):
         if isinstance(token, (OpenBracket, OpenSimultaneous)):
-            state.enter(LilyPondParserNoteMode)
+            state.enter(LilyPondParserNoteMode())
         
 
 class LilyPondParserNoteMode(InputModeParser, LilyPondParserMusic):
     """Parser for \\notes and \\notemode. Same as Music itself."""
 
 
-class LilyPondParserExpectDrumMode(_parser.FallthroughParser):
+class LilyPondParserExpectDrumMode(FallthroughParser):
     items = space_items + (
         OpenBracket,
         OpenSimultaneous,
     )
     
-    def changeState(self, state, token):
+    def updateState(self, state, token):
         if isinstance(token, (OpenBracket, OpenSimultaneous)):
-            state.enter(LilyPondParserDrumMode)
+            state.enter(LilyPondParserDrumMode())
         
 
 class LilyPondParserDrumMode(InputModeParser, LilyPondParserMusic):
@@ -1106,15 +1106,15 @@ class LilyPondParserDrumMode(InputModeParser, LilyPondParserMusic):
     pass # TODO: implement
 
 
-class LilyPondParserExpectFigureMode(_parser.FallthroughParser):
+class LilyPondParserExpectFigureMode(FallthroughParser):
     items = space_items + (
         OpenBracket,
         OpenSimultaneous,
     )
     
-    def changeState(self, state, token):
+    def updateState(self, state, token):
         if isinstance(token, (OpenBracket, OpenSimultaneous)):
-            state.enter(LilyPondParserFigureMode)
+            state.enter(LilyPondParserFigureMode())
         
 
 class LilyPondParserFigureMode(InputModeParser, LilyPondParserMusic):

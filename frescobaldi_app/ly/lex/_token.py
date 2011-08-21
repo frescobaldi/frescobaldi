@@ -25,54 +25,16 @@ All important classes are imported in the ly.lex namespace.
 
 You can, however, import _token in mode modules that also are in this directory.
 
-This module starts with an underscore so that it does not interfere with the mode
-modules.
+This module starts with an underscore so that its name does not interfere with
+the mode modules.
 
 """
 
 from __future__ import unicode_literals
 
-class Token(unicode):
-    """Represents a parsed piece of text.
-    
-    The subclass determines the type.
-    
-    The state can be manipulated on instantiation, and also
-    by calling the changeState() method, e.g. when iterating over
-    the tokens again.
-    
-    A token subclass should define the regular expression string that defines it
-    in the rx attribute. This can be a string or a staticmethod that returns the string.
-    
-    To add token types to a Parser class, list the token class in the items attribute
-    of the Parser class.
-    
-    When parsing, a Parser joins all the regular expression strings of all the token
-    classes in the items attribute and compiles one large expression of it that is then
-    used for parsing text.
-    
-    """
-    __slots__ = ['pos', 'end']
-    
-    def __new__(cls, string, pos, state):
-        token = unicode.__new__(cls, string)
-        token.pos = pos
-        token.end = pos + len(token)
-        token.changeState(state)
-        return token
-        
-    def changeState(self, state):
-        """Implement this to have this token change the state, e.g. enter a different parser.
-        
-        Don't use it later on to have a State follow already instantiated Tokens,
-        because the FallthroughParser type can also change the state without generating a Token.
-        Use State.followToken() to have a State follow instantiated Tokens.
-        
-        The default implementation lets the Parser decide on state change.
-        
-        """
-        state.parser().changeState(state, self)
-    
+
+from slexer import Token
+
 
 class patternproperty(object):
     """Property that caches the return value of its function and returns that next time.
@@ -86,14 +48,14 @@ class patternproperty(object):
     
     """
     def __init__(self, func):
-        self._func = func
+        self.func = func
         
     def __get__(self, instance, owner):
         try:
-            return self._rx
+            return self.rx
         except AttributeError:
-            self._rx = self._func()
-            return self._rx
+            self.rx = self.func()
+            return self.rx
 
 
 class Unparsed(Token):
@@ -103,13 +65,13 @@ class Unparsed(Token):
 # some token types with special behaviour:
 class Item(Token):
     """A token that decreases the argument count of the current parser."""
-    def changeState(self, state):
+    def updateState(self, state):
         state.endArgument()
 
 
 class Leaver(Token):
     """A token that leaves the current parser."""
-    def changeState(self, state):
+    def updateState(self, state):
         state.leave()
 
 

@@ -169,6 +169,14 @@ class State(object):
         if len(self.state) > 1:
             self.state.pop()
     
+    def replace(self, parser):
+        """Replaces the current parser with a new one."""
+        self.state[-1] = parser
+    
+    def depth(self):
+        """Returns the number of parsers currenly active (1 or more)."""
+        return len(self.state)
+    
     def follow(self, token):
         """Act as if the token has been instantiated with the current state.
         

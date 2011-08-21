@@ -23,8 +23,8 @@ Parses and tokenizes Scheme input.
 
 from __future__ import unicode_literals
 
-import _token
-import _parser
+from . import _token
+from . import Parser
 
 
 class Scheme(_token.Token):
@@ -38,13 +38,13 @@ class String(_token.String):
 
 class StringQuotedStart(String, _token.StringStart):
     rx = r'"'
-    def changeState(self, state):
-        state.enter(StringParser)
+    def updateState(self, state):
+        state.enter(StringParser())
         
 
 class StringQuotedEnd(String, _token.StringEnd):
     rx = r'"'
-    def changeState(self, state):
+    def updateState(self, state):
         state.leave()
         state.endArgument()
     
@@ -63,8 +63,8 @@ class LineComment(Comment, _token.LineComment):
 
 class BlockCommentStart(Comment, _token.BlockCommentStart, _token.Indent):
     rx = r"#!"
-    def changeState(self, state):
-        state.enter(BlockCommentParser)
+    def updateState(self, state):
+        state.enter(BlockCommentParser())
         
 
 class BlockCommentEnd(Comment, _token.BlockCommentEnd, _token.Leaver, _token.Dedent):
@@ -78,14 +78,14 @@ class BlockCommentSpace(Comment, _token.Space):
 class OpenParen(Scheme, _token.MatchStart, _token.Indent):
     rx = r"\("
     matchname = "schemeparen"
-    def changeState(self, state):
-        state.enter(SchemeParser)
+    def updateState(self, state):
+        state.enter(SchemeParser())
 
 
 class CloseParen(Scheme, _token.MatchEnd, _token.Dedent):
     rx = r"\)"
     matchname = "schemeparen"
-    def changeState(self, state):
+    def updateState(self, state):
         state.leave()
         state.endArgument()
         
@@ -125,8 +125,8 @@ class LilyPond(_token.Token):
 class LilyPondStart(LilyPond, _token.MatchStart, _token.Indent):
     rx = r"#{"
     matchname = "schemelily"
-    def changeState(self, state):
-        state.enter(LilyPondParser)
+    def updateState(self, state):
+        state.enter(LilyPondParser())
         
 
 class LilyPondEnd(LilyPond, _token.Leaver, _token.MatchEnd, _token.Dedent):
@@ -136,7 +136,7 @@ class LilyPondEnd(LilyPond, _token.Leaver, _token.MatchEnd, _token.Dedent):
 
 # Parsers
 
-class SchemeParser(_parser.Parser):
+class SchemeParser(Parser):
     mode = 'scheme'
     items = (
         _token.Space,
@@ -156,7 +156,7 @@ class SchemeParser(_parser.Parser):
     )
     
     
-class StringParser(_parser.Parser):
+class StringParser(Parser):
     default = String
     items = (
         StringQuotedEnd,
@@ -164,7 +164,7 @@ class StringParser(_parser.Parser):
     )
     
 
-class BlockCommentParser(_parser.Parser):
+class BlockCommentParser(Parser):
     default = Comment
     items = (
         BlockCommentSpace,
