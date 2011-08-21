@@ -1,4 +1,4 @@
-# This file is part of the Frescobaldi project, http://www.frescobaldi.org/
+# === Python node module ===
 #
 # Copyright (c) 2008 - 2011 by Wilbert Berendsen
 #
