@@ -272,7 +272,7 @@ class ParserMeta(type):
     
     """
     def __new__(cls, name, bases, attrd):
-        if 'items' in attrd:
+        if attrd.get('items'):
             attrd['pattern'] = PatternProperty()
         return type.__new__(cls, name, bases, attrd)
 
@@ -287,8 +287,6 @@ class Parser(object):
     by the default implementation of updateState() in Token.
     
     """
-    __metaclass__ = ParserMeta
-    
     default = None # if not None, the default class for unparsed pieces of text
     
     # tuple of Token classes to look for in text
@@ -339,6 +337,10 @@ class Parser(object):
         
         """
         pass
+
+
+# This syntax to make Parser use the metaclass works in both Python2 and 3
+Parser = ParserMeta(Parser.__name__, Parser.__bases__, dict(Parser.__dict__))
 
 
 class FallthroughParser(Parser):
