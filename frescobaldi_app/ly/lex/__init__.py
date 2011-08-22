@@ -17,22 +17,23 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
-"""
-This module can parse any input, although some functionality is inspired by the
-different peculiarities of the LilyPond .LY format.
+r"""
+This module is built on top of slexer and can parse LilyPond input and other
+formats.
 
 The base functionality is delegated to modules with an underscore in this package.
 The modules describing parsing modes (filetypes) are the files without underscore.
 
 Currently available are modes for lilypond, latex, html, texinfo, scheme, and docbook.
 
-The 'underscored' modules should not be imported in application code, but accessed
-directly from here.
+The 'underscored' modules should not be imported in application code. What is
+needed from them is available here, in the ly.lex namespace.
 
 If you add new files for parsing other file types, you should add them in _mode.py.
 The _token.py module contains base Token types and Token mixin classes.
-The _parser.py module contains the implementation of Parser and FallthroughParser.
-The _base.py module contains State, the state maintainer with its tokens() function.
+
+The State, Parser, FallthroughParser and Fridge classes from slexer are all
+slightly extended here,
 
 Usage:
 
@@ -76,19 +77,24 @@ Use ly.lex.state("name") to get a state for a specific mode to start parsing wit
 If you don't know the type of text, you can use ly.lex.guessState(text), where
 text is the text you want to parse. A quick heuristic is then used to determine
 the type of the text.
+
+See for more information the documentation of the slexer module.
+
 """
 
 from __future__ import unicode_literals
 
 import slexer
 from ._token import *
-from _mode import extensions, modes, guessMode
+from ._mode import extensions, modes, guessMode
 
 
 __all__ = [
     'State',
+    'Parser', 'FallthroughParser',
+    'Fridge',
     'extensions', 'modes', 'guessMode',
-    'state', 'guessState', 'thawState',
+    'state', 'guessState',
     'Token',
     'Unparsed',
     'Space',
@@ -160,10 +166,5 @@ def state(mode):
 def guessState(text):
     """Returns a State instance, guessing the type of text."""
     return State(modes[guessMode(text)]())
-
-
-def thawState(frozen):
-    """Unfreezes the given state."""
-    return State.thaw(frozen)
 
 
