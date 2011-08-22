@@ -33,6 +33,7 @@ from . import model
 from . import snippets
 from . import edit
 from . import insert
+from . import highlight
 
 
 class Widget(QWidget):
@@ -113,6 +114,9 @@ class Widget(QWidget):
         self.treeView.doubleClicked.connect(self.slotDoubleClicked)
         self.treeView.selectionModel().currentChanged.connect(self.updateText)
         self.treeView.model().dataChanged.connect(self.updateFilter)
+        
+        # highlight text
+        self.highlighter = highlight.Highlighter(self.textView.document())
         
         self.readSettings()
         app.settingsChanged.connect(self.readSettings)
@@ -243,8 +247,11 @@ class Widget(QWidget):
     def updateText(self):
         """Called when the current snippet changes."""
         name = self.currentSnippet()
-        text = snippets.get(name).text if name else ''
-        self.textView.setText(text)
+        self.textView.clear()
+        if name:
+            s = snippets.get(name)
+            self.highlighter.setPython('python' in s.variables)
+            self.textView.setText(s.text)
         
     def updateColumnSizes(self):
         self.treeView.resizeColumnToContents(0)

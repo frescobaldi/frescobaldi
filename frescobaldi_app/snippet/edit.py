@@ -41,6 +41,7 @@ from . import model
 from . import snippets
 from . import builtin
 from . import expand
+from . import highlight
 
 
 class Edit(QDialog):
@@ -89,7 +90,7 @@ class Edit(QDialog):
         else:
             b.setStandardButtons(buttons)
         
-        Highlighter(self.text.document())
+        highlight.Highlighter(self.text.document())
         Matcher(self.text)
         widgets.indenter.Indenter(self.text)
         
@@ -178,31 +179,6 @@ class Edit(QDialog):
         self.text.setPlainText(t.text)
         self.titleEntry.setText(t.title() if t.title else '')
         self.setShortcuts(self.parent().parent().snippetActions.defaults().get(self._name))
-
-
-class Highlighter(QSyntaxHighlighter):
-    def __init__(self, document):
-        super(Highlighter, self).__init__(document)
-        self.readSettings()
-        app.settingsChanged.connect(self.readSettingsAgain)
-        
-    def readSettings(self):
-        self._styles = textformats.formatData('editor').defaultStyles
-        
-    def readSettingsAgain(self):
-        self.readSettings()
-        self.rehighlight()
-        
-    def highlightBlock(self, text):
-        if text.startswith('-*- '):
-            self.setFormat(0, 3, self._styles['keyword'])
-            for m in snippets._variables_re.finditer(text):
-                self.setFormat(m.start(1), m.end(1)-m.start(1), self._styles['variable'])
-                if m.group(2):
-                    self.setFormat(m.start(2), m.end(2)-m.start(2), self._styles['value'])
-        else:
-            for m in snippets._expansions_re.finditer(text):
-                self.setFormat(m.start(), m.end()-m.start(), self._styles['escape'])
 
 
 class Matcher(widgets.matcher.Matcher):
