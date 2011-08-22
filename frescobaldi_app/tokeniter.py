@@ -113,7 +113,7 @@ def selectedTokens(cursor, state=None):
     if state:
         def token_source():
             for token in tokens(block):
-                state.followToken(token)
+                state.follow(token)
                 yield token
     else:
         def token_source():
@@ -199,7 +199,7 @@ class TokenIterator(object):
         state = highlighter.highlighter(self.block.document()).state(self.block)
         def generator():
             for token in self.forward(change):
-                state.followToken(token)
+                state.follow(token)
                 yield token
         return generator(), state
 

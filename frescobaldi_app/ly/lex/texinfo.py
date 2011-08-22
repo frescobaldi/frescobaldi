@@ -23,8 +23,8 @@ Parses and tokenizes Texinfo input, recognizing LilyPond in Texinfo.
 
 from __future__ import unicode_literals
 
-import _token
-import _parser
+from . import _token
+from . import Parser, FallthroughParser
 
 
 class Comment(_token.Comment):
@@ -139,7 +139,7 @@ class LilyPondAttrEnd(Attribute, _token.Leaver):
 
 # Parsers:
 
-class TexinfoParser(_parser.Parser):
+class TexinfoParser(Parser):
     items = (
         LineComment,
         BlockCommentStart,
@@ -154,14 +154,14 @@ class TexinfoParser(_parser.Parser):
     )
 
 
-class CommentParser(_parser.Parser):
+class CommentParser(Parser):
     default = Comment
     items = (
         BlockCommentEnd,
     )
 
 
-class BlockParser(_parser.Parser):
+class BlockParser(Parser):
     items = (
         BlockEnd,
         Accent,
@@ -171,21 +171,21 @@ class BlockParser(_parser.Parser):
     )
 
 
-class VerbatimParser(_parser.Parser):
+class VerbatimParser(Parser):
     default = Verbatim
     items = (
         VerbatimEnd,
     )
 
 
-class LilyPondBlockAttrParser(_parser.Parser):
+class LilyPondBlockAttrParser(Parser):
     items = (
         LilyPondAttrStart,
         LilyPondBlockStartBrace,
     )
 
 
-class LilyPondEnvAttrParser(_parser.FallthroughParser):
+class LilyPondEnvAttrParser(FallthroughParser):
     items = (
         LilyPondAttrStart,
     )
@@ -193,14 +193,14 @@ class LilyPondEnvAttrParser(_parser.FallthroughParser):
         state.replace(LilyPondEnvParser)
 
 
-class LilyPondAttrParser(_parser.Parser):
+class LilyPondAttrParser(Parser):
     default = Attribute
     items = (
         LilyPondAttrEnd,
     )
 
 
-class LilyPondFileParser(_parser.Parser):
+class LilyPondFileParser(Parser):
     items = (
         LilyPondAttrStart,
         LilyPondFileStartBrace,

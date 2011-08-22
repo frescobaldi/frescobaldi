@@ -23,8 +23,8 @@ Parses and tokenizes HTML input, recognizing LilyPond in HTML.
 
 from __future__ import unicode_literals
 
-import _token
-import _parser
+from . import _token
+from . import Parser, FallthroughParser
 
 import lilypond
 
@@ -146,7 +146,7 @@ class SemiColon(_token.Token):
 
 # Parsers:
 
-class HTMLParser(_parser.Parser):
+class HTMLParser(Parser):
     items = (
         _token.Space,
         LilyPondVersionTag,
@@ -158,7 +158,7 @@ class HTMLParser(_parser.Parser):
     )
 
 
-class AttrParser(_parser.Parser):
+class AttrParser(Parser):
     items = (
         _token.Space,
         TagEnd,
@@ -169,7 +169,7 @@ class AttrParser(_parser.Parser):
     )
 
 
-class StringDQParser(_parser.Parser):
+class StringDQParser(Parser):
     default = String
     items = (
         StringDQEnd,
@@ -177,7 +177,7 @@ class StringDQParser(_parser.Parser):
     )
     
 
-class StringSQParser(_parser.Parser):
+class StringSQParser(Parser):
     default = String
     items = (
         StringSQEnd,
@@ -185,14 +185,14 @@ class StringSQParser(_parser.Parser):
     )
     
 
-class CommentParser(_parser.Parser):
+class CommentParser(Parser):
     default = Comment
     items = (
         CommentEnd,
     )
 
 
-class ValueParser(_parser.FallthroughParser):
+class ValueParser(FallthroughParser):
     """Finds a value or drops back."""
     items = (
         _token.Space,
@@ -202,7 +202,7 @@ class ValueParser(_parser.FallthroughParser):
         state.leave()
 
 
-class LilyPondAttrParser(_parser.Parser):
+class LilyPondAttrParser(Parser):
     items = (
         _token.Space,
         AttrName,
@@ -214,7 +214,7 @@ class LilyPondAttrParser(_parser.Parser):
     )
     
 
-class LilyPondFileOptionsParser(_parser.Parser):
+class LilyPondFileOptionsParser(Parser):
     items = (
         _token.Space,
         AttrName,
