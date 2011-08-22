@@ -185,9 +185,9 @@ class MusicView(QWidget):
         end = token.end + block.position()
         if token == '\\markup':
             # find the end of the markup expression
-            depth = len(state)
+            depth = state.depth()
             for token in source:
-                if len(state) < depth:
+                if state.depth() < depth:
                     end = token.end + tokens.block.position()
                     break
         elif token == '"':
