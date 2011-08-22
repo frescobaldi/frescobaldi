@@ -160,7 +160,7 @@ class Highlighter(QSyntaxHighlighter, plugin.Plugin):
     def __init__(self, document):
         QSyntaxHighlighter.__init__(self, document)
         self.setDocument(document)
-        self._states = []
+        self._fridge = ly.lex.Fridge()
         app.settingsChanged.connect(self.rehighlight)
         self._highlighting = metainfo.info(document).highlighting
         document.loaded.connect(self._resetHighlighting)
@@ -181,30 +181,18 @@ class Highlighter(QSyntaxHighlighter, plugin.Plugin):
         """Called by Qt when the highlighting of the current line needs updating."""
         # find the state of the previous line
         prev = self.previousBlockState()
-        if 0 <= prev < len(self._states):
-            blank = False
-            state = ly.lex.thawState(self._states[prev])
-        else:
-            blank = not text or text.isspace()
+        state = self._fridge.thaw(prev)
+        blank = not state and (not text or text.isspace())
+        if not state:
             state = self.initialState()
-        
+
         # collect and save the tokens
         data = userData(self.currentBlock())
         data.tokens = tokens = tuple(state.tokens(text))
-
-        if blank:
-            # keep the highlighter coming back
-            # because the parsing state is not yet known
-            self.setCurrentBlockState(prev - 1)
-            return
         
-        # save the state
-        cur = state.freeze()
-        try:
-            self.setCurrentBlockState(self._states.index(cur))
-        except ValueError:
-            self.setCurrentBlockState(len(self._states))
-            self._states.append(cur)
+        # if blank thus far, keep the highlighter coming back
+        # because the parsing state is not yet known; else save the state
+        self.setCurrentBlockState(prev - 1 if blank else self._fridge.freeze(state))
         
         # apply highlighting if desired
         if self._highlighting:
@@ -234,9 +222,7 @@ class Highlighter(QSyntaxHighlighter, plugin.Plugin):
         
         """
         userState = block.previous().userState()
-        if 0 <= userState < len(self._states):
-            return ly.lex.State.thaw(self._states[userState])
-        return self.initialState()
+        return self._fridge.thaw(userState) or self.initialState()
 
     def initialState(self):
         """Returns the initial State for this document."""

@@ -388,7 +388,8 @@ class Fridge(object):
 
     def thaw(self, num):
         """Returns the state stored under the specified number."""
-        return self._stateClass.thaw(self._states[num])
+        if 0 <= num < len(self._states):
+            return self._stateClass.thaw(self._states[num])
 
     def count(self):
         """Returns the number of stored frozen states."""
