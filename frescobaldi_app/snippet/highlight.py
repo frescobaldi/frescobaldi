@@ -131,42 +131,42 @@ class PyBuiltin(slexer.Token):
     rx = r"\b({0})\b".format('|'.join(__builtin__.__dict__.keys()))
 
 class PyStringStartDQ1(String):
-    rx = '[ub]?"'
+    rx = '[uUbB]?"'
     def updateState(self, state):
         state.enter(PyStringParserDQ1())
 
 class PyStringStartDQ3(String):
-    rx = '[ub]?"""'
+    rx = '[uUbB]?"""'
     def updateState(self, state):
         state.enter(PyStringParserDQ3())
 
 class PyStringStartSQ1(String):
-    rx = "[ub]?'"
+    rx = "[uUbB]?'"
     def updateState(self, state):
         state.enter(PyStringParserSQ1())
 
 class PyStringStartSQ3(String):
-    rx = "[ub]?'''"
+    rx = "[uUbB]?'''"
     def updateState(self, state):
         state.enter(PyStringParserSQ3())
 
 class PyStringStartDQ1R(String):
-    rx = '[ub]?r"'
+    rx = '[uUbB]?[rR]"'
     def updateState(self, state):
         state.enter(PyStringParserDQ1R())
 
 class PyStringStartDQ3R(String):
-    rx = '[ub]?r"""'
+    rx = '[uUbB]?[rR]"""'
     def updateState(self, state):
         state.enter(PyStringParserDQ3R())
 
 class PyStringStartSQ1R(String):
-    rx = "[ub]?r'"
+    rx = "[uUbB]?[rR]'"
     def updateState(self, state):
         state.enter(PyStringParserSQ1R())
 
 class PyStringStartSQ3R(String):
-    rx = "[ub]?r'''"
+    rx = "[uUbB]?[rR]'''"
     def updateState(self, state):
         state.enter(PyStringParserSQ3R())
 
@@ -182,19 +182,24 @@ class PyStringEndSQ1(StringEnd):
 class PyStringEndSQ3(StringEnd):
     rx = "'''"
 
-class PyStringEscapeDQ(Escape):
-    rx = r'\\["\\]'
-    
-class PyStringEscapeSQ(Escape):
-    rx = r"\\['\\]"
-    
+class PyStringEscape(Escape):
+    rx = (
+        r"""\\([\\'"abfnrtv]"""
+        r'|[0-7]{3}|x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8}'
+        r'|N\{[A-Z]+( [A-Z]+)*\})'
+    )
+
+class PyEscapedNewline(Escape):
+    rx = r'\\$'
+
 class PyComment(Comment):
     rx = "#"
     def updateState(self, state):
         state.enter(PyCommentParser())
 
-class NewlineEnd(slexer.Token):
+class LineEnd(slexer.Token):
     """Newline to leave context."""
+    rx = r'$'
     def updateState(self, state):
         state.leave()
 
@@ -225,52 +230,70 @@ class Python(slexer.Parser):
 
 class PyStringParserDQ1(StringParser):
     items = (
-        PyStringEscapeDQ,
+        PyStringEscape,
+        PyEscapedNewline,
+        LineEnd,
         PyStringEndDQ1,
     )
 
 class PyStringParserDQ3(StringParser):
     items = (
-        PyStringEscapeDQ,
+        PyStringEscape,
+        PyEscapedNewline,
         PyStringEndDQ3,
     )
 
 class PyStringParserSQ1(StringParser):
     items = (
-        PyStringEscapeSQ,
+        PyStringEscape,
+        PyEscapedNewline,
+        LineEnd,
         PyStringEndSQ1,
     )
 
 class PyStringParserSQ3(StringParser):
     items = (
-        PyStringEscapeSQ,
+        PyStringEscape,
+        PyEscapedNewline,
         PyStringEndSQ3,
     )
 
 class PyStringParserDQ1R(StringParser):
     items = (
+        PyEscapedNewline,
+        LineEnd,
         PyStringEndDQ1,
     )
 
 class PyStringParserDQ3R(StringParser):
     items = (
+        PyEscapedNewline,
         PyStringEndDQ3,
     )
 
 class PyStringParserSQ1R(StringParser):
     items = (
+        PyEscapedNewline,
+        LineEnd,
         PyStringEndSQ1,
     )
 
 class PyStringParserSQ3R(StringParser):
     items = (
+        PyEscapedNewline,
         PyStringEndSQ3,
     )
 
 class PyCommentParser(slexer.Parser):
     default = Comment
     items = (
-        NewlineEnd,
+        LineEnd,
+    )
+
+class EOLParser(slexer.Parser):
+    """Keeps in the string context after an escaped newline."""
+    items = (
+        LineEnd,
     )
 
 class Snippet(slexer.Parser):
