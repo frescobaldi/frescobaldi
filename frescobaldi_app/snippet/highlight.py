@@ -290,12 +290,6 @@ class PyCommentParser(slexer.Parser):
         LineEnd,
     )
 
-class EOLParser(slexer.Parser):
-    """Keeps in the string context after an escaped newline."""
-    items = (
-        LineEnd,
-    )
-
 class Snippet(slexer.Parser):
     items = (
         StringStart,
