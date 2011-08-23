@@ -77,32 +77,36 @@ class Highlighter(QSyntaxHighlighter):
             # we are in the snippet text
             state = self._fridge.thaw(prev) or slexer.State(Python if python else Snippet)
             for t in state.tokens(text):
-                if isinstance(t, String):
-                    self.setFormat(t.pos, len(t), self._styles['string'])
-                elif isinstance(t, Escape):
-                    self.setFormat(t.pos, len(t), self._styles['escape'])
-                elif isinstance(t, Comment):
-                    self.setFormat(t.pos, len(t), self._styles['comment'])
-                elif isinstance(t, Keyword):
-                    self.setFormat(t.pos, len(t), self._styles['keyword'])
-                elif isinstance(t, PyBuiltin):
-                    self.setFormat(t.pos, len(t), self._styles['function'])
+                if isinstance(t, Stylable):
+                    self.setFormat(t.pos, len(t), self._styles[t.style])
             self.setCurrentBlockState(self._fridge.freeze(state))
 
 
 # Basic types:
+class Stylable(slexer.Token):
+    """A token type with style ;-) to highlight."""
+    style = '<set style here>'
 
-class String(slexer.Token):
-    pass
+class String(Stylable):
+    style = 'string'
 
-class Comment(slexer.Token):
-    pass
+class Comment(Stylable):
+    style = 'comment'
 
-class Escape(slexer.Token):
-    pass
+class Escape(Stylable):
+    style = 'escape'
 
-class Keyword(slexer.Token):
-    pass
+class Function(Stylable):
+    style = 'function'
+
+class Keyword(Stylable):
+    style = 'keyword'
+
+class Variable(Stylable):
+    style = 'variable'
+
+class Value(Stylable):
+    style = 'value'
 
 
 # Snippet types:
@@ -127,7 +131,7 @@ class Expansion(Escape):
 class PyKeyword(Keyword):
     rx = r"\b({0})\b".format('|'.join(keyword.kwlist))
 
-class PyBuiltin(slexer.Token):
+class PyBuiltin(Function):
     rx = r"\b({0})\b".format('|'.join(__builtin__.__dict__.keys()))
 
 class PyStringStartDQ1(String):
@@ -189,8 +193,27 @@ class PyStringEscape(Escape):
         r'|N\{[A-Z]+( [A-Z]+)*\})'
     )
 
-class PyEscapedNewline(Escape):
+class PyStringEscapedNewline(Escape):
+    """Highlights escaped newline."""
     rx = r'\\$'
+
+class PyStringDoubleBackslashAtLineEnd(PyStringEscape):
+    """Use this to leave a string at line end. Prevents staying in PyStringEOL."""
+    rx = r'\\\\$'
+    def updateState(self, state):
+        state.leave()
+
+class PyStringDoubleBackslashAtLineEndR(String):
+    """Use this to leave a string at line end in raw. Prevents staying in PyStringEOL."""
+    rx = r'\\\\$'
+    def updateState(self, state):
+        state.leave()
+
+class PyStringEOL(slexer.Token):
+    """Leaves a string at unescaped Newline."""
+    rx = r'(?<!\\)$'
+    def updateState(self, state):
+        state.leave()
 
 class PyComment(Comment):
     rx = "#"
@@ -203,6 +226,14 @@ class LineEnd(slexer.Token):
     def updateState(self, state):
         state.leave()
 
+class PyVariable(Variable):
+    rx = r"\b(self|text)\b"
+
+class PyValue(Value):
+    rx = (
+        "(0[bB][01]+|0[oO][0-7]+|0[xX][0-9A-Fa-f]+|\d+)[lL]?"
+        "|(\d+\.\d*|\.\d+)([eE][+-]?\d+)?"
+    )
 
 # Parsers, many because of complicated string quote types in Python
 class StringParser(slexer.Parser):
@@ -217,6 +248,8 @@ class Python(slexer.Parser):
     items = (
         PyKeyword,
         PyBuiltin,
+        PyVariable,
+        PyValue,
         PyStringStartDQ3,
         PyStringStartDQ1,
         PyStringStartSQ3,
@@ -229,68 +262,82 @@ class Python(slexer.Parser):
     )
 
 class PyStringParserDQ1(StringParser):
+    """Parses string with one double quote."""
     items = (
+        PyStringDoubleBackslashAtLineEnd,
         PyStringEscape,
-        PyEscapedNewline,
-        LineEnd,
+        PyStringEscapedNewline,
+        PyStringEOL,
         PyStringEndDQ1,
     )
 
 class PyStringParserDQ3(StringParser):
+    """Parses string with three double quotes."""
     items = (
         PyStringEscape,
-        PyEscapedNewline,
+        PyStringEscapedNewline,
         PyStringEndDQ3,
     )
 
 class PyStringParserSQ1(StringParser):
+    """Parses string with one single quote."""
     items = (
+        PyStringDoubleBackslashAtLineEnd,
         PyStringEscape,
-        PyEscapedNewline,
-        LineEnd,
+        PyStringEscapedNewline,
+        PyStringEOL,
         PyStringEndSQ1,
     )
 
 class PyStringParserSQ3(StringParser):
+    """Parses string with three single quotes."""
     items = (
         PyStringEscape,
-        PyEscapedNewline,
+        PyStringEscapedNewline,
         PyStringEndSQ3,
     )
 
 class PyStringParserDQ1R(StringParser):
+    """Parses raw string with one double quote."""
     items = (
-        PyEscapedNewline,
-        LineEnd,
+        PyStringDoubleBackslashAtLineEndR,
+        PyStringEscapedNewline,
+        PyStringEOL,
         PyStringEndDQ1,
     )
 
 class PyStringParserDQ3R(StringParser):
+    """Parses raw string with three double quotes."""
     items = (
-        PyEscapedNewline,
+        PyStringEscapedNewline,
         PyStringEndDQ3,
     )
 
 class PyStringParserSQ1R(StringParser):
+    """Parses raw string with one single quote."""
     items = (
-        PyEscapedNewline,
-        LineEnd,
+        PyStringDoubleBackslashAtLineEndR,
+        PyStringEscapedNewline,
+        PyStringEOL,
         PyStringEndSQ1,
     )
 
 class PyStringParserSQ3R(StringParser):
+    """Parses raw string with three single quotes."""
     items = (
-        PyEscapedNewline,
+        PyStringEscapedNewline,
         PyStringEndSQ3,
     )
 
 class PyCommentParser(slexer.Parser):
+    """Parses comment."""
     default = Comment
     items = (
         LineEnd,
     )
 
 class Snippet(slexer.Parser):
+    """Just parses simple double-quoted string and dollar-sign expansions."""
     items = (
         StringStart,
         Expansion,
