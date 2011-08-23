@@ -35,8 +35,8 @@ class Comment(_token.Comment):
 
 class CommentStart(Comment, _token.BlockCommentStart):
     rx = r"<!--"
-    def changeState(self, state):
-        state.enter(CommentParser)
+    def updateState(self, state):
+        state.enter(CommentParser())
         
         
 class CommentEnd(Comment, _token.Leaver, _token.BlockCommentEnd):
@@ -53,8 +53,8 @@ class Tag(_token.Token):
 
 class TagStart(Tag):
     rx = r"</?\w[-_:\w]*\b"
-    def changeState(self, state):
-        state.enter(AttrParser)
+    def updateState(self, state):
+        state.enter(AttrParser())
         
 
 class TagEnd(Tag, _token.Leaver):
@@ -67,8 +67,8 @@ class AttrName(_token.Token):
     
 class EqualSign(_token.Token):
     rx = "="
-    def changeState(self, state):
-        state.enter(ValueParser)
+    def updateState(self, state):
+        state.enter(ValueParser())
 
 
 class Value(_token.Leaver):
@@ -77,14 +77,14 @@ class Value(_token.Leaver):
 
 class StringDQStart(String, _token.StringStart):
     rx = r'"'
-    def changeState(self, state):
-        state.enter(StringDQParser)
+    def updateState(self, state):
+        state.enter(StringDQParser())
 
 
 class StringSQStart(String, _token.StringStart):
     rx = r"'"
-    def changeState(self, state):
-        state.enter(StringSQParser)
+    def updateState(self, state):
+        state.enter(StringSQParser())
     
 
 class StringDQEnd(String, _token.StringEnd, _token.Leaver):
@@ -109,8 +109,8 @@ class LilyPondVersionTag(LilyPondTag):
 
 class LilyPondFileTag(LilyPondTag):
     rx = r"</?lilypondfile\b"
-    def changeState(self, state):
-        state.enter(LilyPondFileOptionsParser)
+    def updateState(self, state):
+        state.enter(LilyPondFileOptionsParser())
 
 
 class LilyPondFileTagEnd(LilyPondTag, _token.Leaver):
@@ -119,8 +119,8 @@ class LilyPondFileTagEnd(LilyPondTag, _token.Leaver):
 
 class LilyPondInlineTag(LilyPondTag):
     rx = r"<lilypond\b"
-    def changeState(self, state):
-        state.enter(LilyPondAttrParser)
+    def updateState(self, state):
+        state.enter(LilyPondAttrParser())
 
 
 class LilyPondCloseTag(LilyPondTag, _token.Leaver):
@@ -129,8 +129,8 @@ class LilyPondCloseTag(LilyPondTag, _token.Leaver):
     
 class LilyPondTagEnd(LilyPondTag):
     rx = r">"
-    def changeState(self, state):
-        state.replace(LilyPondParser)
+    def updateState(self, state):
+        state.replace(LilyPondParser())
 
 
 class LilyPondInlineTagEnd(LilyPondTag, _token.Leaver):
@@ -139,14 +139,15 @@ class LilyPondInlineTagEnd(LilyPondTag, _token.Leaver):
 
 class SemiColon(_token.Token):
     rx = r":"
-    def changeState(self, state):
-        state.replace(LilyPondInlineParser)
+    def updateState(self, state):
+        state.replace(LilyPondInlineParser())
 
 
 
 # Parsers:
 
 class HTMLParser(Parser):
+    mode = "html"
     items = (
         _token.Space,
         LilyPondVersionTag,
