@@ -41,7 +41,7 @@ _cache = {}
 _variables_re = re.compile(br'\s*?([a-z]+(?:-[a-z]+)*)(?::[ \t]*(.*?))?;')
 
 # match expansions $$, $NAME or ${text} (the latter may contain escaped right brace: '\}')
-_expansions_re = re.compile(r'\$(\{)?((?(1)(?:\\\}|[^\}])*|(?:\$|[A-Z]+(?:_[A-Z]+)*)))(?(1)\})')
+_expansions_re = re.compile(r'\$(?P<_bracket_>\{)?((?(_bracket_)(?:\\\}|[^\}])*|(?:\$|[A-Z]+(?:_[A-Z]+)*)))(?(_bracket_)\})')
 
 
 # builtin snippets
