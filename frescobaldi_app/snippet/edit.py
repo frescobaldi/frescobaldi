@@ -123,7 +123,7 @@ class Edit(QDialog):
         if not self._shortcuts:
             self.shortcutButton.setText(_("None"))
         else:
-            key = self._shortcuts[0].toString()
+            key = self._shortcuts[0].toString(QKeySequence.NativeText)
             if len(self._shortcuts) > 1:
                 key += "..."
             self.shortcutButton.setText(key.replace('&', '&&'))

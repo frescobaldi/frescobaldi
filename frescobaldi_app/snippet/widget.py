@@ -128,15 +128,16 @@ class Widget(QWidget):
             self.searchEntry.setPlaceHolderText(_("Search..."))
         except AttributeError:
             pass # not in Qt 4.6
+        shortcut = lambda a: a.shortcut().toString(QKeySequence.NativeText)
         self.addAction_.setText(_("Add..."))
         self.addAction_.setToolTip(
-            _("Add a new snippet. ({key})").format(key=self.addAction_.shortcut().toString()))
+            _("Add a new snippet. ({key})").format(key=shortcut(self.addAction_)))
         self.editAction.setText(_("Edit..."))
         self.editAction.setToolTip(
-            _("Edit the current snippet. ({key})").format(key=self.editAction.shortcut().toString()))
+            _("Edit the current snippet. ({key})").format(key=shortcut(self.editAction)))
         self.deleteAction.setText(_("Remove"))
         self.deleteAction.setToolTip(
-            _("Remove the current snippet. ({key})").format(key=self.deleteAction.shortcut().toString()))
+            _("Remove the current snippet. ({key})").format(key=shortcut(self.deleteAction)))
         self.applyAction.setText(_("Apply"))
         self.applyAction.setToolTip(_("Apply the current snippet."))
         self.searchEntry.setToolTip(_(

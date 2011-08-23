@@ -27,6 +27,7 @@ from __future__ import unicode_literals
 import bisect
 
 from PyQt4.QtCore import QAbstractItemModel, QModelIndex, Qt
+from PyQt4.QtGui import QKeySequence
 
 import app
 import actioncollection
@@ -178,7 +179,7 @@ def shortcut(name):
     if collection:
         shortcuts = collection.shortcuts(name)
         if shortcuts:
-            text = shortcuts[0].toString()
+            text = shortcuts[0].toString(QKeySequence.NativeText)
             if len(shortcuts) > 1:
                 text += "..."
             return text

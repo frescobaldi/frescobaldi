@@ -297,7 +297,7 @@ class ShortcutItem(QTreeWidgetItem):
         text = ''
         shortcuts, default = self._shortcuts[scheme]
         if shortcuts:
-            text = shortcuts[0].toString()
+            text = shortcuts[0].toString(QKeySequence.NativeText)
             if len(shortcuts) > 1:
                 text += "..."
             if default:

@@ -132,7 +132,7 @@ class Button(QToolButton):
         """Returns a textual representation of the configured shortcut if it exists."""
         shortcuts = self.actionCollection().shortcuts(self.objectName())
         if shortcuts:
-            key = shortcuts[0].toString()
+            key = shortcuts[0].toString(QKeySequence.NativeText)
             if len(shortcuts) > 1:
                 key += "..."
             return key
