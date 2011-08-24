@@ -37,8 +37,8 @@ class LineComment(Comment, _token.LineComment):
 
 class BlockCommentStart(Comment, _token.BlockCommentStart):
     rx = r"@ignore\b"
-    def changeState(self, state):
-        state.enter(CommentParser)
+    def updateState(self, state):
+        state.enter(CommentParser())
         
         
 class BlockCommentEnd(Comment, _token.Leaver, _token.BlockCommentEnd):
@@ -59,8 +59,8 @@ class Block(_token.Token):
 
 class BlockStart(Block):
     rx = r"@[a-zA-Z]+\{"
-    def changeState(self, state):
-        state.enter(BlockParser)
+    def updateState(self, state):
+        state.enter(BlockParser())
 
 
 class BlockEnd(Block, _token.Leaver):
@@ -81,8 +81,8 @@ class Verbatim(_token.Token):
 
 class VerbatimStart(Keyword):
     rx = r"@verbatim\b"
-    def changeState(self, state):
-        state.enter(VerbatimParser)
+    def updateState(self, state):
+        state.enter(VerbatimParser())
 
 
 class VerbatimEnd(Keyword, _token.Leaver):
@@ -91,14 +91,14 @@ class VerbatimEnd(Keyword, _token.Leaver):
     
 class LilyPondBlockStart(Block):
     rx = r"@lilypond(?=(\[[a-zA-Z,=0-9\\\s]+\])?\{)"
-    def changeState(self, state):
-        state.enter(LilyPondBlockAttrParser)
+    def updateState(self, state):
+        state.enter(LilyPondBlockAttrParser())
 
 
 class LilyPondBlockStartBrace(Block):
     rx = r"\{"
-    def changeState(self, state):
-        state.replace(LilyPondBlockParser)
+    def updateState(self, state):
+        state.replace(LilyPondBlockParser())
 
 
 class LilyPondBlockEnd(Block, _token.Leaver):
@@ -107,8 +107,8 @@ class LilyPondBlockEnd(Block, _token.Leaver):
     
 class LilyPondEnvStart(Keyword):
     rx = r"@lilypond\b"
-    def changeState(self, state):
-        state.enter(LilyPondEnvAttrParser)
+    def updateState(self, state):
+        state.enter(LilyPondEnvAttrParser())
     
     
 class LilyPondEnvEnd(Keyword, _token.Leaver):
@@ -117,20 +117,20 @@ class LilyPondEnvEnd(Keyword, _token.Leaver):
 
 class LilyPondFileStart(Block):
     rx = r"@lilypondfile\b"
-    def changeState(self, state):
-        state.enter(LilyPondFileParser)
+    def updateState(self, state):
+        state.enter(LilyPondFileParser())
 
 
 class LilyPondFileStartBrace(Block):
     rx = r"\{"
-    def changeState(self, state):
-        state.replace(BlockParser)
+    def updateState(self, state):
+        state.replace(BlockParser())
 
 
 class LilyPondAttrStart(Attribute):
     rx = r"\["
-    def changeState(self, state):
-        state.enter(LilyPondAttrParser)
+    def updateState(self, state):
+        state.enter(LilyPondAttrParser())
     
     
 class LilyPondAttrEnd(Attribute, _token.Leaver):
@@ -140,6 +140,7 @@ class LilyPondAttrEnd(Attribute, _token.Leaver):
 # Parsers:
 
 class TexinfoParser(Parser):
+    mode = "texinfo"
     items = (
         LineComment,
         BlockCommentStart,
@@ -190,7 +191,7 @@ class LilyPondEnvAttrParser(FallthroughParser):
         LilyPondAttrStart,
     )
     def fallthrough(self, state):
-        state.replace(LilyPondEnvParser)
+        state.replace(LilyPondEnvParser())
 
 
 class LilyPondAttrParser(Parser):
