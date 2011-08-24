@@ -148,8 +148,9 @@ def insert_python(text, cursor):
     
     """
     namespace = {
-        'text': cursor.selection().toPlainText(),
+        'cursor': QTextCursor(cursor),
         'state': state(cursor),
+        'text': cursor.selection().toPlainText(),
     }
     try:
         code = compile(text, "<snippet>", "exec")
@@ -176,7 +177,7 @@ def state(cursor):
     state = tokeniter.state(block)
     column = pos - block.position()
     for t in tokens:
-        if t.end > pos:
+        if t.end > column:
             break
         state.follow(t)
     return simplestate.state(state)
