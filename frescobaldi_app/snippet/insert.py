@@ -24,7 +24,7 @@ Insert snippets into a Document.
 from __future__ import unicode_literals
 
 from PyQt4.QtCore import QSettings
-from PyQt4.QtGui import QTextCursor
+from PyQt4.QtGui import QTextCursor, QMessageBox
 
 import cursortools
 import indent
@@ -147,14 +147,37 @@ def insert_python(text, cursor):
     After the insert, the cursor points to the end of the inserted snippet.
     
     """
-    code = compile(text, "<snippet>", "exec")
-        
     namespace = {
         'text': cursor.selection().toPlainText(),
+        'state': state(cursor),
     }
-    exec code in namespace
-    cursor.insertText(namespace['text'])
+    try:
+        code = compile(text, "<snippet>", "exec")
+        exec code in namespace
+    except Exception:
+        import sys, traceback
+        exc_type, exc_value, exc_traceback = sys.exc_info()
+        tb = traceback.extract_tb(exc_traceback)
+        while tb and tb[0][0] != "<snippet>":
+            del tb[0]
+        msg = ''.join(traceback.format_list(tb) +
+                      traceback.format_exception_only(exc_type, exc_value))
+        QMessageBox.critical(None, _("Snippet error"), msg)
+    else:
+        cursor.insertText(namespace['text'])
 
 
-
+def state(cursor):
+    """Returns the simplestate string for the position of the cursor."""
+    import simplestate
+    pos = cursor.selectionStart()
+    block = cursor.document().findBlock(pos)
+    tokens = tokeniter.tokens(block)
+    state = tokeniter.state(block)
+    column = pos - block.position()
+    for t in tokens:
+        if t.end > pos:
+            break
+        state.follow(t)
+    return simplestate.state(state)
 
