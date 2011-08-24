@@ -227,7 +227,7 @@ class LineEnd(slexer.Token):
         state.leave()
 
 class PyVariable(Variable):
-    rx = r"\b(self|text)\b"
+    rx = r"\b(self|state|cursor|text|ANCHOR|CURSOR)\b"
 
 class PyValue(Value):
     rx = (

@@ -143,6 +143,8 @@ def insert_python(text, cursor):
     the following variables are available:
     
     - text: contains selection or '', set it to insert new text
+    - state: contains simplestate for the cursor position
+    - cursor: the QTextCursor
 
     After the insert, the cursor points to the end of the inserted snippet.
     
@@ -151,6 +153,8 @@ def insert_python(text, cursor):
         'cursor': QTextCursor(cursor),
         'state': state(cursor),
         'text': cursor.selection().toPlainText(),
+        'ANCHOR': 1,
+        'CURSOR': 2,
     }
     try:
         code = compile(text, "<snippet>", "exec")
@@ -165,7 +169,28 @@ def insert_python(text, cursor):
                       traceback.format_exception_only(exc_type, exc_value))
         QMessageBox.critical(None, _("Snippet error"), msg)
     else:
-        cursor.insertText(namespace['text'])
+        text = namespace.get('text', '')
+        if isinstance(text, (tuple, list)):
+            ANCHOR = namespace.get('ANCHOR', 1)
+            CURSOR = namespace.get('CURSOR', 2)
+            pos = cursor.selectionStart()
+            a, c = -1, -1
+            for t in text:
+                if t == ANCHOR:
+                    a = cursor.selectionStart()
+                elif t == CURSOR:
+                    c = cursor.selectionStart()
+                else:
+                    cursor.insertText(t)
+            if (a, c) != (-1, -1):
+                new = QTextCursor(cursor)
+                if a != -1:
+                    new.setPosition(a)
+                if c != -1:
+                    new.setPosition(c, QTextCursor.KeepAnchor if a != -1 else QTextCursor.MoveAnchor)
+                return new
+        else:
+            cursor.insertText(namespace['text'])
 
 
 def state(cursor):
@@ -181,4 +206,5 @@ def state(cursor):
             break
         state.follow(t)
     return simplestate.state(state)
+
 
