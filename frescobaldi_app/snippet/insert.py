@@ -173,7 +173,6 @@ def insert_python(text, cursor):
         if isinstance(text, (tuple, list)):
             ANCHOR = namespace.get('ANCHOR', 1)
             CURSOR = namespace.get('CURSOR', 2)
-            pos = cursor.selectionStart()
             a, c = -1, -1
             for t in text:
                 if t == ANCHOR:
