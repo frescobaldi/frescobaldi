@@ -192,7 +192,7 @@ r"""-*- name: h;
 r"""-*- name: nb; python;
 s = state.split()[-1]
 text = r'\remove "Bar_number_engraver"'
-if s != 'context':
+if s not in ('context', 'with'):
     text = '\\context {\n\\Score\n%s\n}' % text
     if s != 'layout':
         text = '\\layout {\n%s\n}' % text
