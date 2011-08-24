@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 r"""
-Represents a ly.lex.State as a simplified list of strings.
+Represents a ly.lex.State as a simplified string.
 
     \book {
       \header {
@@ -26,10 +26,12 @@ Represents a ly.lex.State as a simplified list of strings.
 
 e.g. yields:
 
-    [u'lilypond', u'book', u'header', u'markup', u'scheme', u'string']
+    'lilypond book header markup scheme string'
 
 This is done by examining the state's parsers.
 It can be used in snippets or plugin scripts.
+
+The first word is always the mode of the file (e.g. 'lilypond', 'html', etc.).
 
 """
 
@@ -41,27 +43,24 @@ import ly.lex.html
 
 
 def state(state):
-    parsers = [p.__class__ for p in state.state]
-    if not parsers:
-        return []
-    
     names = []
     def append(name):
         if not names or names[-1] != name:
             names.append(name)
     
-    for p in parsers:
-        name = parserClasses.get(p)
+    for p in state.state:
+        name = parserClasses.get(p.__class__)
         if name:
             append(name)
         elif p.mode:
             append(p.mode)
         else:
             for c, name in parserTypes:
-                if issubclass(p, c):
+                if isinstance(p, c):
                     append(name)
                     break
-    print names
+    
+    return ' '.join(names)
     
 
 parserClasses = {
@@ -102,14 +101,17 @@ parserTypes = (
 
 
 if __name__ == "__main__":
+    # test
     text = r"""
-    \header {
-      title = "
-    
+    @title bla
+    @lilypond
+    \relative c' {
+      c d e-\markup {
+      
     """
     s = ly.lex.guessState(text)
     list(s.tokens(text))
-    state(s)
+    print state(s)
 
 
 
