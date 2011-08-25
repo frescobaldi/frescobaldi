@@ -177,8 +177,6 @@ class MainWindow(QMainWindow):
             bookmarks.bookmarks(doc).marksChanged.connect(self.updateMarkStatus)
             self.updateDocActions()
             self.updateWindowTitle()
-            if metainfo.info(doc).highlighting:
-                highlighter.highlighter(doc)
         self.updateViewActions()
         self.updateMarkStatus()
         self.currentViewChanged.emit(view, curv)

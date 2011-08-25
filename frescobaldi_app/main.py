@@ -43,9 +43,9 @@ import sessions         # Initialize our own named session support
 import document         # contains Document class
 
 # boot Frescobaldi-specific stuff that should be running on startup
-import viewhighlighter
-import matcher
-import progress
+import viewhighlighter  # highlight arbitrary ranges in text
+import matcher          # matches braces etc in active text window
+import progress         # creates progress bar in view space
 
 def startmain():
     import optparse
