@@ -60,7 +60,7 @@ class Edit(QDialog):
         self.setLayout(layout)
         
         self.topLabel = QLabel()
-        self.text = QTextEdit()
+        self.text = QTextEdit(cursorWidth=2)
         self.titleLabel = QLabel()
         self.titleEntry = QLineEdit()
         self.shortcutLabel = QLabel()
