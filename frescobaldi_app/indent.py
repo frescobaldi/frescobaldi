@@ -145,11 +145,10 @@ def indentable(cursor):
     block = cursor.block()
     pos = cursor.position() - block.position()
     for token in tokeniter.tokens(block):
-        if isinstance(token, ly.lex.Dedent):
-            if token.end >= pos:
-                return True
-        elif not isinstance(token, ly.lex.Space) or token.end >= pos:
-            break
+        if token.end >= pos:
+            return isinstance(token, ly.lex.Dedent)
+        elif not isinstance(token, ly.lex.Space):
+            return
 
 
 def increaseIndent(cursor):
