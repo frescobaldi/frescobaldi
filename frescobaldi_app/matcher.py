@@ -27,6 +27,7 @@ import app
 import plugin
 import ly.lex
 import tokeniter
+import viewhighlighter
 
 
 class Matcher(plugin.MainWindowPlugin):
@@ -68,13 +69,15 @@ class Matcher(plugin.MainWindowPlugin):
                     if nest == 0:
                         # we've found the matching item!
                         cursor2 = tokens.cursor()
-                        view.highlight("match", (cursor1, cursor2), 2, 1000)
+                        hl = viewhighlighter.highlighter(view)
+                        hl.highlight("match", (cursor1, cursor2), 2, 1000)
                         return
                     else:
                         nest -= 1
                 elif isinstance(token2, match) and token2.matchname == token.matchname:
                     nest += 1
-        view.clearHighlight("match")
+        hl = viewhighlighter.highlighter(view)
+        hl.clear("match")
 
 
 app.mainwindowCreated.connect(Matcher.instance)

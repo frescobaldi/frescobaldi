@@ -164,3 +164,10 @@ class ViewSpacePlugin(Plugin):
         return self._parent()
 
 
+class ViewPlugin(Plugin):
+    """Base class for plugins that live besides a View."""
+    def view(self):
+        """Returns the View this plugin is used for."""
+        return self._parent()
+
+

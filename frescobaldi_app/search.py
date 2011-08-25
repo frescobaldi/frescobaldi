@@ -36,6 +36,7 @@ import app
 import util
 import plugin
 import textformats
+import viewhighlighter
 
 
 class Search(QWidget, plugin.MainWindowPlugin):
@@ -134,7 +135,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
     def hideWidget(self):
         view = self.currentView()
         if view:
-            view.clearHighlight("search")
+            viewhighlighter.highlighter(view).clear("search")
             view.hideWidget(self)
             self.hide()
     
@@ -190,7 +191,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
         
     def slotSearchChanged(self):
         self.updatePositions()
-        self.currentView().highlight("search", self._positions, 1)
+        viewhighlighter.highlighter(self.currentView()).highlight("search", self._positions, 1)
 
     def updatePositions(self):
         search = self.searchEntry.text()
@@ -278,7 +279,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
             if index >= len(positions):
                 index = 0
             if self.doReplace(self._positions[index]):
-                view.highlight("search", self._positions, 1)
+                viewhighlighter.highlighter(view).highlight("search", self._positions, 1)
                 if index < len(positions) - 1:
                     view.setTextCursor(self._positions[index+1])
                 else:
@@ -298,7 +299,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
                     replaced = True
             view.textCursor().endEditBlock()
             if replaced:
-                view.highlight("search", self._positions, 1)
+                viewhighlighter.highlighter(view).highlight("search", self._positions, 1)
 
 
 def cursorContains(c1, c2):

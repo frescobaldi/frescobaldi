@@ -179,16 +179,20 @@ class ViewSpace(QWidget):
     def connectView(self, view):
         view.cursorPositionChanged.connect(self.updateCursorPosition)
         view.modificationChanged.connect(self.updateModificationState)
-        view.focusIn.connect(self.setActiveViewSpace)
+        view.focusChanged.connect(self.slotViewFocusChanged)
         view.document().urlChanged.connect(self.updateDocumentName)
         self.viewChanged.emit(view)
 
     def disconnectView(self, view):
         view.cursorPositionChanged.disconnect(self.updateCursorPosition)
         view.modificationChanged.disconnect(self.updateModificationState)
-        view.focusIn.disconnect(self.setActiveViewSpace)
+        view.focusChanged.disconnect(self.slotViewFocusChanged)
         view.document().urlChanged.disconnect(self.updateDocumentName)
     
+    def slotViewFocusChanged(self, focus):
+        if focus:
+            self.setActiveViewSpace()
+
     def setActiveViewSpace(self):
         self.manager().setActiveViewSpace(self)
         

@@ -42,6 +42,7 @@ import app
 import icons
 import textformats
 import tokeniter
+import viewhighlighter
 import ly.lex.lilypond
 
 from . import pointandclick
@@ -215,13 +216,13 @@ class MusicView(QWidget):
         cur.setPosition(end, QTextCursor.KeepAnchor)
         
         view = self.parent().mainwindow().currentView()
-        view.highlight(self._highlightFormat, cursors, 2, 5000)
+        viewhighlighter.highlighter(view).highlight(self._highlightFormat, cursors, 2, 5000)
     
     def slotLinkLeft(self):
         """Called when the mouse moves off a previously highlighted link."""
         self.clearHighlighting()
         view = self.parent().mainwindow().currentView()
-        view.clearHighlight(self._highlightFormat)
+        viewhighlighter.highlighter(view).clear(self._highlightFormat)
 
     def slotLinkHelpRequested(self, pos, page, link):
         """Called when a ToolTip wants to appear above the hovered link."""
