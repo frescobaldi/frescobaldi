@@ -39,7 +39,7 @@ class ArbitraryHighlighter(QObject):
         super(ArbitraryHighlighter, self).__init__(edit)
         self._selections = {}
     
-    def highlight(self, format, cursors, priority, msec=0):
+    def highlight(self, format, cursors, priority=0, msec=0):
         """Highlights the selection of an arbitrary list of QTextCursors.
         
         format can be a name for a predefined text format or a QTextCharFormat;
@@ -66,7 +66,7 @@ class ArbitraryHighlighter(QObject):
             self._selections[format] = (priority, selections, timer)
         else:
             self._selections[format] = (priority, selections)
-        self.updateHighlighting()
+        self.update()
 
     def clear(self, format):
         """Removes the highlighting for the given format (name or QTextCharFormat)."""
@@ -75,26 +75,26 @@ class ArbitraryHighlighter(QObject):
         except KeyError:
             pass
         else:
-            self.updateHighlighting()
+            self.update()
 
     def textFormat(self, name):
         """Implement this to return a QTextCharFormat for the given name."""
         raise NotImplemented
 
-    def updateHighlighting(self):
+    def update(self):
         """(Internal) Called whenever the arbitrary highlighting changes."""
         textedit = self.parent()
         if textedit:
             textedit.setExtraSelections(
                 sum((s[1] for s in sorted(self._selections.values())), []))
 
-    def reloadHighlighting(self):
+    def reload(self):
         """Reloads the named formats in the highlighting (e.g. in case of settings change)."""
         for format in self._selections:
             if not isinstance(format, QTextFormat):
                 fmt = self.textFormat(format)
                 for es in self._selections[format][1]:
                     es.format = fmt
-        self.updateHighlighting()
+        self.update()
 
 

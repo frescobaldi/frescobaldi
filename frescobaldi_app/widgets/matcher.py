@@ -48,7 +48,7 @@ class Matcher(QObject):
     def __init__(self, edit):
         """Initialize the Matcher; edit is a Q(Plain)TextEdit instance."""
         super(Matcher, self).__init__(edit)
-        self._timer = QTimer(singleShot=True, timeout=self.clearHighlight)
+        self._timer = QTimer(singleShot=True, timeout=self.clear)
         edit.cursorPositionChanged.connect(self.slotCursorPositionChanged)
     
     def edit(self):
@@ -74,7 +74,7 @@ class Matcher(QObject):
                 break
             col += 1
         else:
-            self.clearHighlight()
+            self.clear()
             return
         
         # the cursor is at a character from matchPairs
@@ -99,7 +99,7 @@ class Matcher(QObject):
         while nest >= 0:
             new = cursor.document().find(rx, new, flags)
             if new.isNull():
-                self.clearHighlight()
+                self.clear()
                 return
             nest += 1 if new.selectedText() == c else -1
         cursor.movePosition(QTextCursor.Right, QTextCursor.KeepAnchor)
@@ -117,7 +117,7 @@ class Matcher(QObject):
         if self.time and selections:
             self._timer.start(self.time)
     
-    def clearHighlight(self):
+    def clear(self):
         """Removes the highlighting."""
         self.edit().setExtraSelections([])
 
