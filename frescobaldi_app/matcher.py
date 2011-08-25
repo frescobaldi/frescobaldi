@@ -39,13 +39,7 @@ class Matcher(plugin.MainWindowPlugin):
     def newView(self, view, old=None):
         if old:
             old.cursorPositionChanged.disconnect(self.checkMatches)
-            old.document().contentsChange.disconnect(self.checkContentsChange)
         view.cursorPositionChanged.connect(self.checkMatches)
-        view.document().contentsChange.connect(self.checkContentsChange)
-    
-    def checkContentsChange(self, position):
-        if position == self.mainwindow().currentView().textCursor().position():
-            self.checkMatches()
             
     def checkMatches(self):
         # see if there are matches
