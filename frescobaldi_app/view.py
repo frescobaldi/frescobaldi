@@ -78,6 +78,7 @@ class View(QPlainTextEdit):
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setAlignment(Qt.AlignBottom)
         self.setLayout(layout)
+        app.viewCreated(self)
         
     def showWidget(self, widget):
         """Displays the widget in the bottom of the View."""

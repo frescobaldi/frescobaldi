@@ -35,6 +35,9 @@ def highlighter(view):
     return ViewHighlighter.instance(view)
 
 
+app.viewCreated.connect(highlighter)
+
+
 class ViewHighlighter(widgets.arbitraryhighlighter.ArbitraryHighlighter, plugin.ViewPlugin):
     def __init__(self, view):
         super(ViewHighlighter, self).__init__(view)
