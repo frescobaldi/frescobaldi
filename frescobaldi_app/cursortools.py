@@ -89,19 +89,16 @@ def stripSelection(cursor):
     text = cursor.selection().toPlainText()
     if text.isspace():
         return
-    start, end, pos = cursor.selectionStart(), cursor.selectionEnd(), cursor.position()
-    atStart = start == pos
+    start, end = cursor.selectionStart(), cursor.selectionEnd()
+    atStart = start == cursor.position()
     
-    for c in text:
-        if c.isspace():
-            start += 1
-        else:
-            break
-    for c in text[::-1]:
-        if c.isspace():
-            end -= 1
-        else:
-            break
+    s, e = 0, -1
+    while text[s].isspace():
+        s += 1
+    while text[e].isspace():
+        e -= 1
+    start += s
+    end += e + 1
     if atStart:
         start, end = end, start
     cursor.setPosition(start)
