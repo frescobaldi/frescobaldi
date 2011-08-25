@@ -41,16 +41,13 @@ import viewmanager
 import highlighter
 import historymanager
 import metainfo
-import signals
 import recentfiles
 import sessions.manager
 import util
-import matcher
 import bookmarks
 import lyrics
 import panels
 import jobmanager
-import progress
 import engrave
 import snippet.menu
 import scorewiz
