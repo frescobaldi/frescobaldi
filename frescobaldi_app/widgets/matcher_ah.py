@@ -17,8 +17,12 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
+"""
+Highlights matching characters in a textedit,
+using an ArbitraryHighlighter.
+"""
+
 from . import matcher
-from . import arbitraryhighlighter
 
 class Matcher(matcher.Matcher):
     
