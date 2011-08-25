@@ -41,12 +41,14 @@ class ScorePartsWidget(QSplitter):
         self.typesView = QTreeView(
             selectionMode=QTreeView.ExtendedSelection,
             selectionBehavior=QTreeView.SelectRows,
+            animated=True,
             headerHidden=True)
         self.scoreLabel = QLabel()
         self.scoreView = widgets.treewidget.TreeWidget(
             selectionMode=QTreeView.ExtendedSelection,
             selectionBehavior=QTreeView.SelectRows,
             headerHidden=True,
+            animated=True,
             dragDropMode=QTreeView.InternalMove)
         self.addButton = QPushButton(icon = icons.get("list-add"))
         self.removeButton = QPushButton(icon = icons.get("list-remove"))
