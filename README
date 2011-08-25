@@ -37,6 +37,7 @@ What does work?
   - clicking a PDF object moves the text cursor
   - moving the text cursor or selecting text highlights the objects in the PDF
   - Ctrl-J lets the PDF jump to the objects the text cursor or selection is at
+  - Ctrl-click to show a magnifier glass
 - lyrics hyphenation
 - metainfo like cursor position, marked lines, etc. can be remembered
 - preferences dialog:
