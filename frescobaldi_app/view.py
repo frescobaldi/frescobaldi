@@ -30,8 +30,7 @@ import weakref
 
 from PyQt4.QtCore import QEvent, Qt, QTimer, pyqtSignal
 from PyQt4.QtGui import (
-    QApplication, QColor, QPainter, QPalette, QPlainTextEdit, QTextCharFormat, QTextCursor,
-    QTextEdit, QTextFormat, QVBoxLayout)
+    QApplication, QPainter, QPlainTextEdit, QTextCursor, QVBoxLayout)
 
 import app
 import metainfo
