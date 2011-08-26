@@ -45,6 +45,12 @@ _setbackground()
 class View(qpopplerview.View):
     def __init__(self, parent=None):
         super(View, self).__init__(parent)
+        try:
+            import popplerqt4
+        except ImportError:
+            # surface with a "could not load popplerqt4" message
+            import popplerdummy
+            self.setSurface(popplerdummy.Surface(self))
         self.surface().pageLayout().setDPI(self.physicalDpiX(), self.physicalDpiY())
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
