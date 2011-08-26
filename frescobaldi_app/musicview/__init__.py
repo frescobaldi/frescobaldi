@@ -47,7 +47,6 @@ import actioncollection
 import actioncollectionmanager
 import icons
 import panels
-import resultfiles
 import jobattributes
 
 from . import documents
