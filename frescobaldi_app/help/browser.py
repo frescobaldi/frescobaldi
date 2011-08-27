@@ -29,6 +29,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import icons
 
 from . import __path__
 from . import helpimpl
@@ -43,7 +44,16 @@ class Window(QMainWindow):
         self.browser = Browser(self)
         self.setCentralWidget(self.browser)
         
-        self.browser.sourceChanged.connect(self.translateUI)
+        self._toolbar = tb = self.addToolBar('')
+        self._back = tb.addAction(icons.get('go-previous'), '')
+        self._forw = tb.addAction(icons.get('go-next'), '')
+        self._home = tb.addAction(icons.get('go-home'), '')
+        self._back.triggered.connect(self.browser.backward)
+        self._forw.triggered.connect(self.browser.forward)
+        self._home.triggered.connect(self.home)
+        
+        self.browser.sourceChanged.connect(self.slotSourceChanged)
+        self.browser.historyChanged.connect(self.slotHistoryChanged)
         app.translateUI(self)
         self.loadSettings()
         app.qApp.aboutToQuit.connect(self.saveSettings)
@@ -55,8 +65,24 @@ class Window(QMainWindow):
         QSettings().setValue("helpbrowser/size", self.size())
     
     def translateUI(self):
+        self.setCaption()
+        self._toolbar.setWindowTitle(_("Toolbar"))
+        self._back.setText(_("Back"))
+        self._forw.setText(_("Forward"))
+    
+    def slotSourceChanged(self):
+        self.setCaption()
+    
+    def setCaption(self):
         title = self.browser.documentTitle() or _("Help")
-        self.setWindowTitle(app.caption(title))
+        self.setWindowTitle(app.caption(title) + " " + _("Help"))
+
+    def slotHistoryChanged(self):
+        self._back.setEnabled(self.browser.isBackwardAvailable())
+        self._forw.setEnabled(self.browser.isForwardAvailable())
+    
+    def home(self):
+        self.displayHelp('contents')
         
     def displayHelp(self, name):
         """Opens the help browser showing the help at name."""
