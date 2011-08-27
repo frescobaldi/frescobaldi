@@ -49,5 +49,12 @@ class starting(help):
         return _("Getting Started")
     
     def body():
-        return ("bla di bla")
+        from colorize import colorize
+        return "<p>bla di bla</p>" + colorize(
+r"""\relative c' {
+  c d e f g
+  \override NoteHead #'stencil = ##f
+}""")
+
+
 
