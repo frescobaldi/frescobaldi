@@ -38,9 +38,3 @@ def window():
     return _browser
 
 
-def add(cls):
-    """Add a helpimpl.help based class to the help system."""
-    from . import contents
-    setattr(contents, cls.name, cls)
-
-

@@ -21,25 +21,40 @@
 The help contents definition.
 """
 
+all_pages = {}
+
+
 class helpmeta(type):
-    """Makes all methods static and adds name attribute."""
+    """Makes all methods classmethod or staticmethod and adds name attribute.
+    
+    Also adds each class (which is in fact a help page) to the all_pages dict.
+    
+    """
     def __new__(cls, name, bases, d):
-        for n in d:
-            d[n] = staticmethod(d[n])
+        for n in ('title', 'body', 'children', 'seealso'):
+            if n in d:
+                meth = (staticmethod, classmethod)[d[n].func_code.co_argcount]
+                d[n] = meth(d[n])
         d['name'] = name
-        return type.__new__(cls, name, bases, d)
+        page = type.__new__(cls, name, bases, d)
+        all_pages[name] = page
+        return page
 
 
-class help(object):
+class help_page(object):
     """Base class for help items.
     
     classes based on help are never instantiated; the class is simply used as a
-    data container. Some methods should be defined, which are used static.
+    data container. Some methods should be defined, which are used as classmethod
+    if they have an argument, or as staticmethod when they accept no arguments.
     
     The methods may return translated text, when the application changes
     language, the methods are called again.
     
+    Set the popup class attribute to True to make the help topic a popup.
     """
+    popup = False
+    
     def title():
         return ""
     
@@ -54,5 +69,5 @@ class help(object):
 
 
 # This syntax to make help use the metaclass works in both Python2 and 3
-help = helpmeta('help', help.__bases__, dict(help.__dict__))
+help_page = helpmeta('help_page', help_page.__bases__, dict(help_page.__dict__))
 

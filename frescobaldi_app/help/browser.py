@@ -86,9 +86,12 @@ class Browser(QTextBrowser):
 def html(name):
     """Returns the HTML for the named help item."""
     from . import contents
-    help = getattr(contents, name, contents.nohelp)
+    help = contents.all_pages.get(name, contents.nohelp)
     link = lambda h: '<div><a href="help:{0}">{1}</a><div>\n'.format(h.name, h.title())
-    html = ['<html><head><title>{0}</title></head><body><h3>{0}</h3>'.format(help.title())]
+    html = []
+    if help.popup:
+        html.append('<qt type=detail>')
+    html.append('<html><head><title>{0}</title></head><body><h3>{0}</h3>'.format(help.title()))
     html.append(help.body())
     html.extend(map(link, help.children()))
     seealso = help.seealso()

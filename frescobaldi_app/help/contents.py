@@ -21,10 +21,11 @@
 The help contents.
 """
 
-from .helpimpl import help
+from .helpimpl import help_page, all_pages
+from colorize import colorize
 
 
-class nohelp(help):
+class nohelp(help_page):
     """Shown when no help is found."""
     def title():
         return _("No Help")
@@ -33,7 +34,7 @@ class nohelp(help):
         return _("No help has been found on this topic.")
 
 
-class contents(help):
+class contents(help_page):
     """Main help contents."""
     def title():
         return _("Help contents")
@@ -44,12 +45,11 @@ class contents(help):
         )
 
 
-class starting(help):
+class starting(help_page):
     def title():
         return _("Getting Started")
     
-    def body():
-        from colorize import colorize
+    def body(cls):
         return "<p>bla di bla</p>" + colorize(
 r"""\relative c' {
   c d e f g
