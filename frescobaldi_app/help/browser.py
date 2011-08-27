@@ -31,6 +31,7 @@ from PyQt4.QtGui import *
 import app
 
 from . import __path__
+from . import helpimpl
 
 
 class Window(QMainWindow):
@@ -72,7 +73,7 @@ class Browser(QTextBrowser):
         
     def loadResource(self, type, url):
         if type == QTextDocument.HtmlResource and url.scheme() == "help":
-            return html(url.path())
+            return helpimpl.html(url.path())
         elif type == QTextDocument.ImageResource:
             url = QUrl.fromLocalFile(os.path.join(__path__[0], url.path()))
         return super(Browser, self).loadResource(type, url)
@@ -82,22 +83,4 @@ class Browser(QTextBrowser):
             self.window().hide()
         super(Browser, self).keyPressEvent(ev)
 
-
-def html(name):
-    """Returns the HTML for the named help item."""
-    from . import contents
-    help = contents.all_pages.get(name, contents.nohelp)
-    link = lambda h: '<div><a href="help:{0}">{1}</a><div>\n'.format(h.name, h.title())
-    html = []
-    if help.popup:
-        html.append('<qt type=detail>')
-    html.append('<html><head><title>{0}</title></head><body><h3>{0}</h3>'.format(help.title()))
-    html.append(help.body())
-    html.extend(map(link, help.children()))
-    seealso = help.seealso()
-    if seealso:
-        html.append("<hr/><p>{0}</p>".format(_("See also:")))
-        html.extend(map(link, seealso))
-    html.append('</body></html>')
-    return ''.join(html)
 

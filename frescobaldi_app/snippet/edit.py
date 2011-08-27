@@ -32,6 +32,7 @@ from PyQt4.QtGui import *
 import actioncollectionmanager
 import app
 import util
+import help
 import icons
 import textformats
 import widgets.indenter
@@ -83,12 +84,13 @@ class Edit(QDialog):
         b = QDialogButtonBox(accepted=self.accept, rejected=self.reject)
         layout.addWidget(b)
         
-        buttons = QDialogButtonBox.Ok | QDialogButtonBox.Cancel
+        buttons = QDialogButtonBox.Ok | QDialogButtonBox.Cancel | QDialogButtonBox.Help
         if name and name in builtin.builtin_snippets:
             b.setStandardButtons(buttons | QDialogButtonBox.RestoreDefaults)
             b.button(QDialogButtonBox.RestoreDefaults).clicked.connect(self.slotDefaults)
         else:
             b.setStandardButtons(buttons)
+        b.helpRequested.connect(lambda: help.help("snippet_help"))
         
         highlight.Highlighter(self.text.document())
         Matcher(self.text)
@@ -117,7 +119,6 @@ class Edit(QDialog):
         self.titleLabel.setText(_("Title:"))
         self.shortcutLabel.setText(_("Shortcut:"))
         self.updateShortcutText()
-        self.text.setWhatsThis(whatsThisText())
     
     def updateShortcutText(self):
         if not self._shortcuts:
@@ -192,50 +193,90 @@ class Matcher(widgets.matcher.Matcher):
         self.format.setBackground(textformats.formatData('editor').baseColors['match'])
 
 
-def whatsThisText():
-    """Returns the What's This text for the snippet edit widget."""
-    text = []
-    text.append(_(
-    "<p>Here you can edit the text of the snippet.</p>"
-    "<p>If you start the first line(s) with '<code>-*- </code>' (note the space), "
-    "the remainder of that line(s) defines variables like <code>name: value;</code> or "
-    "simply <code>name;</code> which influence the behaviour of the snippet. "
-    "The following variables can be used:</p>"))
+class snippet_help(help.page):
+    def title():
+        return _("Snippet editor")
     
-    text.append("<dl>")
-    text.extend(map("<dt><code>{0[0]}</code></dt><dd>{0[1]}</dd>".format, (
-        ('menu',
-            _("Place the snippet in the insert menu, grouped by the (optional) value.")),
-        ('name',
-            _("The mnemonic to type to select the snippet.")),
-        ('indent: no',
-            _("Do not auto-indent the snippet after inserting.")),
-        ('python',
-            _("Execute the snippet as a Python script. "
-              "The variable {text} can be read and set.").format(text="<code>text</code>")),
-        ('selection',
-            _("One of more of the following words (separated with spaces or commas):") + " " +
-              "\n".join(map("<code>{0[0]}</code>: {0[1]}".format, (
-            ('yes',
-                _("Requires text to be selected.")),
-            ('strip',
-                _("Adjusts the selection to not include starting and trialing whitespace.")),
-            ('keep',
-                _("Selects all inserted text.")),
-        )))),
-    )))
-    text.append("</dl>")
+    def body():
+        text = []
+        text.append(_(
+        "<p>Here you can edit the text of the snippet.</p>"
+        "<p>If you start the first line(s) with '<code>-*- </code>' (note the space), "
+        "the remainder of that line(s) defines variables like <code>name: value;</code> or "
+        "simply <code>name;</code> which influence the behaviour of the snippet. "
+        "The following variables can be used:</p>"))
+        
+        text.append("<dl>")
+        text.extend(map("<dt><code>{0[0]}</code></dt><dd>{0[1]}</dd>".format, (
+            ('menu',
+                _("Place the snippet in the insert menu, grouped by the (optional) value.")),
+            ('name',
+                _("The mnemonic to type to select the snippet.")),
+            ('indent: no',
+                _("Do not auto-indent the snippet after inserting.")),
+            ('python',
+                _("Execute the snippet as a Python script. See {link}.").format(
+                    link=python_snippets_help.link())),
+            ('selection',
+                _("One of more of the following words (separated with spaces or commas):") + " " +
+                "\n".join(map("<code>{0[0]}</code>: {0[1]}".format, (
+                ('yes',
+                    _("Requires text to be selected.")),
+                ('strip',
+                    _("Adjusts the selection to not include starting and trialing whitespace.")),
+                ('keep',
+                    _("Selects all inserted text.")),
+            )))),
+        )))
+        text.append("</dl>")
 
-    text.append(_(
-    "<p>The other lines of the snippet define the text to be inserted in the editor. "
-    "Here, you can insert variables prefixed with a $. A double $ will be replaced with "
-    "a single one. The following variables are recognized:</p>"))
+        text.append(_(
+        "<p>The other lines of the snippet define the text to be inserted in the editor. "
+        "Here, you can insert variables prefixed with a $. A double $ will be replaced with "
+        "a single one. The following variables are recognized:</p>"))
+        
+        text.append("<dl>")
+        text.extend(map("<dt><code>${0[0]}</code></dt><dd>{0[1]}</dd>".format,
+            expand.documentation(expand.Expander)))
+        text.append("</dl>")
+        return ''.join(text)
+
+    def children():
+        return (python_snippets_help,)
+
+
+class python_snippets_help(help.page):
+    def title():
+        return _("Python Snippets")
     
-    text.append("<dl>")
-    text.extend(map("<dt><code>${0[0]}</code></dt><dd>{0[1]}</dd>".format,
-        expand.documentation(expand.Expander)))
-    text.append("</dl>")
-    return ''.join(text)
+    def body():
+        text = []
+        text.append(_(
+        "<p>Python snippets can read and should set the variable {text}. "
+        "The variable {text} contains the currently selected text (which may be an "
+        "empty string).</p>\n"
+        "<p>You may set {text} to a string or a list of strings.</p>\n"
+        "<p>Other variables that may be referenced:</p>").format(text="<code>text</code>"))
+        text.append("<dl>")
+        text.extend(map("<dt><code>{0[0]}</code></dt><dd>{0[1]}</dd>".format, (
+            ('state',
+                _("A list of strings describing the type of text the cursor is at.")),
+            ('cursor',
+                _("The current QTextCursor, giving access to the document. "
+                  "Don't change the document through the cursor, however.")),
+            ('CURSOR',
+                _("When setting {text} to a list instead of a string, you can "
+                  "use this value to specify the place the text cursor will be "
+                  "placed after inserting the snippet.").format(text="<code>text</code>")),
+            ('ANCHOR',
+                _("When setting {text} to a list instead of a string, "
+                  "this value can be used together with {cursor} to select text "
+                  "when inserting the string parts of the list.").format(
+                    text="<code>text</code>", cursor="<code>CURSOR</code>")),
+        )))
+        text.append("</dl>")
+        return ''.join(text)
+
 
 
 

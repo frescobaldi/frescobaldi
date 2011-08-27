@@ -41,7 +41,7 @@ class helpmeta(type):
         return page
 
 
-class help_page(object):
+class page(object):
     """Base class for help items.
     
     classes based on help are never instantiated; the class is simply used as a
@@ -54,6 +54,10 @@ class help_page(object):
     Set the popup class attribute to True to make the help topic a popup.
     """
     popup = False
+    
+    @classmethod
+    def link(cls):
+        return '<a href="help:{0}">{1}</a>'.format(cls.name, cls.title())
     
     def title():
         return ""
@@ -69,5 +73,33 @@ class help_page(object):
 
 
 # This syntax to make help use the metaclass works in both Python2 and 3
-help_page = helpmeta('help_page', help_page.__bases__, dict(help_page.__dict__))
+page = helpmeta('page', page.__bases__, dict(page.__dict__))
+
+
+def html(name):
+    """Returns the HTML for the named help item."""
+    from . import contents
+    help = all_pages.get(name, contents.nohelp)
+    html = []
+    if help.popup:
+        html.append('<qt type=detail>')
+    html.append('<html><head><title>{0}</title></head><body>'.format(help.title()))
+    up = [page for page in all_pages.values() if help in page.children()]
+    if up:
+        html.append('<p>'+ _("Up:"))
+        html.extend(' ' + h.link() for h in up)
+        html.append('</p>')
+    html.append('<h2>{0}</h2>'.format(help.title()))
+    html.append(help.body())
+    html.extend(map(divlink, help.children()))
+    seealso = help.seealso()
+    if seealso:
+        html.append("<hr/><p>{0}</p>".format(_("See also:")))
+        html.extend(map(divlink, seealso))
+    html.append('</body></html>')
+    return ''.join(html)
+
+
+def divlink(help):
+    return '<div>{0}</div>\n'.format(help.link())
 
