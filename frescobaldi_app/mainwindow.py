@@ -705,7 +705,8 @@ class MainWindow(QMainWindow):
     
     def showManual(self):
         """Shows the user guide, called when user presses F1."""
-        panels.manager(self).helpbrowser.activate()
+        import help
+        help.help("contents")
     
     def showAbout(self):
         """Shows about dialog."""
