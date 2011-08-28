@@ -98,9 +98,17 @@ class Browser(QTextBrowser):
     def __init__(self, parent):
         super(Browser, self).__init__(parent)
         app.settingsChanged.connect(self.reload, 1)
+        self.anchorClicked.connect(self.slotAnchorClicked)
+        self.setOpenLinks(False)
+        
+    def slotAnchorClicked(self, url):
+        if url.scheme() == "help":
+            self.setSource(url)
+        else:
+            QDesktopServices.openUrl(url)
         
     def loadResource(self, type, url):
-        if type == QTextDocument.HtmlResource and url.scheme() == "help":
+        if type == QTextDocument.HtmlResource:
             return helpimpl.html(url.path())
         elif type == QTextDocument.ImageResource:
             url = QUrl.fromLocalFile(os.path.join(__path__[0], url.path()))
