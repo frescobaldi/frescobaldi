@@ -28,6 +28,7 @@ import app
 import cursortools
 import indent
 import util
+import help
 
 
 class ScoreWizardDialog(QDialog):
@@ -44,9 +45,12 @@ class ScoreWizardDialog(QDialog):
         
         self.tabs = QTabWidget()
         b = self.dialogButtons = QDialogButtonBox()
-        b.setStandardButtons(QDialogButtonBox.Reset|QDialogButtonBox.Ok|QDialogButtonBox.Cancel)
+        b.setStandardButtons(
+            QDialogButtonBox.Help | QDialogButtonBox.Reset
+            | QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         b.accepted.connect(self.accept)
         b.rejected.connect(self.reject)
+        b.helpRequested.connect(lambda: help.help(scorewiz_help))
         b.button(QDialogButtonBox.Reset).clicked.connect(self.reset)
         self.previewButton = b.addButton('', QDialogButtonBox.ActionRole)
         self.previewButton.clicked.connect(self.showPreview)
@@ -179,4 +183,34 @@ class Settings(Page):
         from . import settings
         return settings.SettingsWidget(parent)
 
+
+class scorewiz_help(help.page):
+    def title():
+        return _("The Score Wizard")
+    
+    def body():
+        return _(
+        "<p>The Score Setup Wizard ({key}) in {menu} is designed\n"
+        "to quickly setup a LilyPond music score.</p>\n"
+        "<p>In the first tab you can enter titling information.</p>\n"
+        "<p>In the second tab you can compose your score out of many available part types.\n"
+        "Doubleclick a part type to add it to your score (or click Add).\n"
+        "Select the part in the score list to change some settings\n"
+        "for the selected part, if desired.\n"
+        "Many parts, especially Choir, have powerful options to set up "
+        "the score the way you want it.</p>\n"
+        "<p>The \"Containers\" category in the part types list contains\n"
+        "the Score, Book and Bookpart types, with which you can setup a\n"
+        "LilyPond document containing multiple scores or even books.</p>\n"
+        "<p>In the score view, you can add musical parts to a Score object.\n"
+        "If you want to create multiple scores with exact the same parts,\n"
+        "you can just add the parts to the top level of the score view, and then\n"
+        "the scores, without adding musical parts to the scores.\n"
+        "The scores will then use the parts in the top level of the score.</p>\n"
+        "<p>In the third tab global score properties and preferences can be set.\n"
+        "Click the Preview button to get a preview with some example music filled in.</p>"
+        ).format(
+            key=QKeySequence('Ctrl+Shift+N').toString(QKeySequence.NativeText),
+            menu="<em>{0}->{1}</em>".format(
+                _("menu title", "Tools"), _("Setup New Score...")))
 
