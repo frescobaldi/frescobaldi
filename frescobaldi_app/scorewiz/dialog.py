@@ -189,6 +189,8 @@ class scorewiz_help(help.page):
         return _("The Score Wizard")
     
     def body():
+        from . import ScoreWizard
+        key = ScoreWizard.instances()[0].actionCollection.scorewiz.shortcut().toString(QKeySequence.NativeText)
         return _(
         "<p>The Score Setup Wizard ({key}) in {menu} is designed\n"
         "to quickly setup a LilyPond music score.</p>\n"
@@ -209,8 +211,6 @@ class scorewiz_help(help.page):
         "The scores will then use the parts in the top level of the score.</p>\n"
         "<p>In the third tab global score properties and preferences can be set.\n"
         "Click the Preview button to get a preview with some example music filled in.</p>"
-        ).format(
-            key=QKeySequence('Ctrl+Shift+N').toString(QKeySequence.NativeText),
-            menu="<em>{0}->{1}</em>".format(
-                _("menu title", "Tools"), _("Setup New Score...")))
+        ).format(key=key, menu="<em>{0}->{1}</em>".format(
+            _("menu title", "Tools"), _("Setup New Score...")))
 
