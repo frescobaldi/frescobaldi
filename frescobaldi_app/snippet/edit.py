@@ -90,7 +90,7 @@ class Edit(QDialog):
             b.button(QDialogButtonBox.RestoreDefaults).clicked.connect(self.slotDefaults)
         else:
             b.setStandardButtons(buttons)
-        b.helpRequested.connect(lambda: help.help("snippet_help"))
+        b.helpRequested.connect(lambda: help.help(snippet_help))
         
         highlight.Highlighter(self.text.document())
         Matcher(self.text)

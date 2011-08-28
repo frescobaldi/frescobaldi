@@ -27,9 +27,9 @@ See helpimpl.py.
 from .helpimpl import page, all_pages
 
 
-def help(name):
-    """Shows the help window with help about 'name'."""
-    window().displayHelp(name)
+def help(page):
+    """Shows the help window with the specified page (class or name)."""
+    window().displayHelp(page)
 
 
 def window():

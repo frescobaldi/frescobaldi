@@ -84,9 +84,11 @@ class Window(QMainWindow):
     def home(self):
         self.displayHelp('contents')
         
-    def displayHelp(self, name):
-        """Opens the help browser showing the help at name."""
-        self.browser.setSource(QUrl("help:{0}".format(name)))
+    def displayHelp(self, page):
+        """Opens the help browser showing the specified help page (by name or class)."""
+        if issubclass(page, helpimpl.page):
+            page = page.name
+        self.browser.setSource(QUrl("help:{0}".format(page)))
         self.show()
         self.activateWindow()
         self.raise_()
