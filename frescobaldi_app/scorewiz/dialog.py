@@ -190,27 +190,37 @@ class scorewiz_help(help.page):
     
     def body():
         from . import ScoreWizard
-        key = ScoreWizard.instances()[0].actionCollection.scorewiz.shortcut().toString(QKeySequence.NativeText)
-        return _(
-        "<p>The Score Setup Wizard ({key}) in {menu} is designed\n"
-        "to quickly setup a LilyPond music score.</p>\n"
-        "<p>In the first tab you can enter titling information.</p>\n"
-        "<p>In the second tab you can compose your score out of many available part types.\n"
-        "Doubleclick a part type to add it to your score (or click Add).\n"
-        "Select the part in the score list to change some settings\n"
-        "for the selected part, if desired.\n"
-        "Many parts, especially Choir, have powerful options to set up "
-        "the score the way you want it.</p>\n"
-        "<p>The \"Containers\" category in the part types list contains\n"
-        "the Score, Book and Bookpart types, with which you can setup a\n"
-        "LilyPond document containing multiple scores or even books.</p>\n"
-        "<p>In the score view, you can add musical parts to a Score object.\n"
-        "If you want to create multiple scores with exact the same parts,\n"
-        "you can just add the parts to the top level of the score view, and then\n"
-        "the scores, without adding musical parts to the scores.\n"
-        "The scores will then use the parts in the top level of the score.</p>\n"
-        "<p>In the third tab global score properties and preferences can be set.\n"
-        "Click the Preview button to get a preview with some example music filled in.</p>"
+        action = ScoreWizard.instances()[0].actionCollection.scorewiz
+        key = action.shortcut().toString(QKeySequence.NativeText)
+        return _("""\
+<p>The Score Setup Wizard ({key}) in {menu} is designed
+to quickly setup a LilyPond music score.</p>
+
+<p>In the first tab, <em>Titles and Headers</em>, you can enter titling
+information.</p>
+
+<p>In the second tab, <em>Parts</em>, you can compose your score out of many
+available part types.
+Doubleclick a part type to add it to your score (or click Add).
+Select the part in the score list to change some settings for the selected part,
+if desired.
+Many parts, especially Choir, have powerful options to set up the score the way
+you want it.</p>
+
+<p>The "Containers" category in the part types list contains the Score, Book and
+Bookpart types, with which you can setup a LilyPond document containing multiple
+scores or even books.</p>
+
+<p>In the score view, you can add musical parts to a Score object.
+If you want to create multiple scores with exact the same parts, you can just
+add the parts to the top level of the score view, and then the scores, without
+adding musical parts to the scores.
+The scores will then use the parts in the top level of the score.</p>
+
+<p>In the third tab, <em>Score settings</em>, global score properties and
+preferences can be set.
+Click the Preview button to get a preview with some example music filled in.</p>
+"""
         ).format(key=key, menu="<em>{0}->{1}</em>".format(
             _("menu title", "Tools"), _("Setup New Score...")))
 
