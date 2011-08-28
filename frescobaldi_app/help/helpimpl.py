@@ -100,7 +100,7 @@ def html(name):
     children = help.children()
     if children:
         html.extend(map(divlink, help.children()))
-    elif up:
+    elif not help.popup and up:
         # give a Next: link if there is a sibling page left
         for h in up:
             i = h.children().index(help)
