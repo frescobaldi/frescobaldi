@@ -97,7 +97,7 @@ class Window(QMainWindow):
 class Browser(QTextBrowser):
     def __init__(self, parent):
         super(Browser, self).__init__(parent)
-        app.languageChanged.connect(self.reload, -1)
+        app.settingsChanged.connect(self.reload, 1)
         
     def loadResource(self, type, url):
         if type == QTextDocument.HtmlResource and url.scheme() == "help":
