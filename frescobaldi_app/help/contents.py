@@ -40,9 +40,42 @@ class contents(page):
         return _("Help contents")
     
     def children():
+        import scorewiz.dialog
         return (
+            introduction,
             starting,
+            scorewiz.dialog.scorewiz_help,
+            
         )
+
+
+class introduction(page):
+    def title():
+        return _("Introduction")
+    
+    def body():
+        return _(
+r"""<p>
+<a href="http://lilypond.org/">LilyPond</a>
+is an open-source music engraving program, producing very high-quality sheet
+music printouts from fairly simple text input files.
+Those text files can be created with any text editor, and LilyPond then loads
+the text file and outputs a beautiful engraving, by default in PDF format.
+</p>
+
+<p>
+Frescobaldi is an application designed to make editing LilyPond music scores
+faster and easier. You still will need to learn the LilyPond input language.
+If you read the {getting_started} section of this User Guide, you'll also pickup
+some LilyPond basics.
+</p>
+
+<p>
+Then you can continue to learn using the Learning Manual from 
+<a href="http://lilypond.org/doc/"
+>LilyPond's excellent online documentation</a>.
+</p>""").format(getting_started=starting.link())
+
 
 
 class starting(page):

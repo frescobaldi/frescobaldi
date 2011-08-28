@@ -79,23 +79,42 @@ page = helpmeta('page', page.__bases__, dict(page.__dict__))
 def html(name):
     """Returns the HTML for the named help item."""
     from . import contents
+    import info
     help = all_pages.get(name, contents.nohelp)
     html = []
+    # make this a popup (see QTextBrowser docs)
     if help.popup:
         html.append('<qt type=detail>')
     html.append('<html><head><title>{0}</title></head><body>'.format(help.title()))
-    up = [page for page in all_pages.values() if help in page.children()]
-    if up:
-        html.append('<p>'+ _("Up:"))
-        html.extend(' ' + h.link() for h in up)
-        html.append('</p>')
+    if not help.popup:
+        # show the title(s) of the pages that have us as child
+        up = [page for page in all_pages.values() if help in page.children()]
+        if up:
+            html.append('<p>'+ _("Up:"))
+            html.extend(' ' + h.link() for h in up)
+            html.append('</p>')
+    # body
     html.append('<h2>{0}</h2>'.format(help.title()))
     html.append(help.body())
-    html.extend(map(divlink, help.children()))
+    # link to child docs
+    children = help.children()
+    if children:
+        html.extend(map(divlink, help.children()))
+    elif up:
+        # give a Next: link if there is a sibling page left
+        for h in up:
+            i = h.children().index(help)
+            if i < len(h.children()) - 1:
+                html.append('<div>{0} {1}</div>'.format(
+                    _("Next:"), h.children()[i+1].link()))
+    # link to "see also" docs
     seealso = help.seealso()
     if seealso:
         html.append("<hr/><p>{0}</p>".format(_("See also:")))
         html.extend(map(divlink, seealso))
+    # nice footer
+    html.append('<br/><hr width=80%/>')
+    html.append('<address><center>{0} {1}</center></address>'.format(info.appname, info.version))
     html.append('</body></html>')
     return ''.join(html)
 
