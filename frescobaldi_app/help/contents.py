@@ -21,6 +21,8 @@
 The help contents.
 """
 
+from __future__ import unicode_literals
+
 from .helpimpl import page, shortcut
 from colorize import colorize
 
@@ -60,6 +62,7 @@ This manual is written by {author} and documents {appname} version {version}.</p
             starting,
             scorewiz.dialog.scorewiz_help,
             
+            about,            
         )
 
 
@@ -167,4 +170,103 @@ variable. If needed, provide the exact path to your LilyPond executable under
 Edit->Preferences->LilyPond preferences.
 </p>
 """).format(example=example, key_engrave=key_engrave, key_jump=key_jump)
+
+
+class about(page):
+    def title():
+        return _("About Frescobaldi")
+    
+    def body():
+        return _("""\
+<p>
+Frescobaldi is named after
+<a href="http://en.wikipedia.org/wiki/Girolamo_Frescobaldi">Girolamo
+Frescobaldi (1583 &#8211; 1643)</a>, an Italian organist and composer.
+</p>
+
+<p>
+Frescobaldi's homepage is at
+<a href="http://www.frescobaldi.org/">www.frescobaldi.org</a>
+and there is a mailinglist at
+<a href="mailto:frescobaldi@googlegroups.com">frescobaldi@googlegroups.com</a>
+(<a href="http://groups.google.com/group/frescobaldi">more info</a>).
+</p>
+""")
+    def children():
+        return (
+            credits,
+            contributing,
+            history,
+        )
+
+
+class credits(page):
+    def title():
+        return _("Credits")
+
+    def body():
+        text = []
+        text.append(
+            _("Frescobaldi's main author is {author}.").format(author=info.maintainer))
+        import about
+        text.extend(about.credits())
+        return '\n'.join(map('<p>{0}</p>'.format, text))
+
+
+class contributing(page):
+    def title():
+        return _("Contributing")
+    
+    def body():
+        return _("""\
+<p>
+Frescobaldi is a <a href="http://www.gnu.org/philosophy/free-sw.html">Free
+Software</a> project to create a user friendly LilyPond music score editor.
+The goal is to make Frescobaldi available on all major platforms.
+</p>
+
+<p>
+Frescobaldi is developed in a public GitHub repository at {url}.
+There you can browse or checkout the source code and report bugs and wishes.
+</p>
+
+<p>
+You can contribute by simply using Frescobaldi and reporting bugs and suggestions.
+Translations are also very welcome. How to create new translations is described
+in the file README-translations in the source distribution of Frescobaldi.
+If you want to add functionality you can find information about the source code
+structure in the file README-development.
+</p>
+""").format(url='<a href="http://github.com/wbsoft/frescobaldi">'
+                'github.com/wbsoft/frescobaldi</a>')
+
+
+class history(page):
+    def title():
+        return _("History of Frescobaldi")
+
+    def body():
+        return _("""\
+<p>
+Frescobaldi has its roots in LilyKDE, which was a plugin for KDE3's editor Kate.
+LilyKDE was written in Python and released in 2007 on Christmas.
+</p>
+
+<p>
+When KDE developed version 4, it was not immediately possible to make Kate
+plugins in Python. So LilyKDE became a standalone application, wrapping the
+Kate texteditor part, and was renamed to Frescobaldi. It still used the Okular
+KDE part to display PDF documents.
+Frescobaldi 0.7 was the first public release, on Christmas 2008.
+On Christmas 2009 version 1.0.0 was released and on Christmas 2010 version 1.2.0.
+</p>
+
+<p>
+At that time it was decided to move away from the KDE4 libraries and just use
+Python and Qt4 which are easily available on all major computing platforms.
+Frescobaldi 2.0 is a complete rewrite from scratch. Its release date is
+targeted at Christmas 2011.
+</p>
+""")
+
 
