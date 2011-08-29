@@ -191,7 +191,7 @@ class scorewiz_help(help.page):
     def body():
         from . import ScoreWizard
         action = ScoreWizard.instances()[0].actionCollection.scorewiz
-        key = action.shortcut().toString(QKeySequence.NativeText)
+        key = help.shortcut(action)
         return _("""\
 <p>The Score Setup Wizard ({key}) in {menu} is designed
 to quickly setup a LilyPond music score.</p>

@@ -24,7 +24,7 @@ Inherit from 'page' to make a help page.
 See helpimpl.py.
 """
 
-from .helpimpl import page, all_pages
+from .helpimpl import page, shortcut
 
 
 def help(page):

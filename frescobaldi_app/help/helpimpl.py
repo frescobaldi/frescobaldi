@@ -135,3 +135,13 @@ def markexternal(text):
     return pat.sub(r'\g<0>&#11008;', text)
 
 
+def shortcut(action):
+    """Returns a suitable text for the keyboard shortcut of the given QAction.
+    
+    The text is meant to be used in the help docs.
+    
+    """
+    from PyQt4.QtGui import QKeySequence
+    return action.shortcut().toString(QKeySequence.NativeText) or _("(no key defined)")
+    
+
