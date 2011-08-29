@@ -24,6 +24,8 @@ The help contents.
 from .helpimpl import page, shortcut
 from colorize import colorize
 
+import info
+
 
 class nohelp(page):
     """Shown when no help is found."""
@@ -37,7 +39,14 @@ class nohelp(page):
 class contents(page):
     """Main help contents."""
     def title():
-        return _("Help contents")
+        return _("Frescobaldi Manual")
+    
+    def body():
+        return _(
+r"""<p>Frescobaldi is a light-weight and powerful editor for LilyPond
+sheet music documents.
+This manual documents {appname} version {version}.</p>"""
+        ).format(appname=info.appname, version=info.version)
     
     def children():
         import scorewiz.dialog
