@@ -18,8 +18,13 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-The help contents definition.
+The help implementation.
 """
+
+from __future__ import unicode_literals
+
+import re
+
 
 all_pages = {}
 
@@ -73,7 +78,7 @@ class page(object):
 
 
 # This syntax to make help use the metaclass works in both Python2 and 3
-page = helpmeta('page', page.__bases__, dict(page.__dict__))
+page = helpmeta(page.__name__, page.__bases__, dict(page.__dict__))
 
 
 def html(name):
@@ -96,7 +101,7 @@ def html(name):
             html.append('</p>')
     # body
     html.append('<h2>{0}</h2>'.format(help.title()))
-    html.append(help.body())
+    html.append(markexternal(help.body()))
     # link to child docs
     children = help.children()
     if children:
@@ -122,4 +127,11 @@ def html(name):
 
 def divlink(help):
     return '<div>{0}</div>\n'.format(help.link())
+
+
+def markexternal(text):
+    """Marks http(s)/ftp(s) links as external with an arrow."""
+    pat = re.compile(r'''<a\s+.*?href\s*=\s*(['"])(ht|f)tps?.*?\1[^>]*>''', re.I)
+    return pat.sub(r'\g<0>&#11008;', text)
+
 

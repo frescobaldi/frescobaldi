@@ -54,8 +54,8 @@ class introduction(page):
         return _("Introduction")
     
     def body():
-        return _(
-r"""<p>
+        return _("""\
+<p>
 <a href="http://lilypond.org/">LilyPond</a>
 is an open-source music engraving program, producing very high-quality sheet
 music printouts from fairly simple text input files.
@@ -72,8 +72,7 @@ some LilyPond basics.
 
 <p>
 Then you can continue to learn using the Learning Manual from 
-<a href="http://lilypond.org/doc/"
->LilyPond's excellent online documentation</a>.
+<a href="http://lilypond.org/doc/">LilyPond's excellent online documentation</a>.
 </p>""").format(getting_started=starting.link())
 
 
