@@ -42,11 +42,16 @@ class contents(page):
         return _("Frescobaldi Manual")
     
     def body():
-        return _(
+        # L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
+        text = _(
 r"""<p>Frescobaldi is a light-weight and powerful editor for LilyPond
 sheet music documents.
-This manual documents {appname} version {version}.</p>"""
-        ).format(appname=info.appname, version=info.version)
+This manual is written by {author} and documents {appname} version {version}.</p>"""
+            ).format(author=info.maintainer, appname=info.appname, version=info.version)
+        translator = _("Translated by Your Name.")
+        if translator != "Translated by Your Name.":
+            text += "<p>" + translator + "</p>"
+        return text
     
     def children():
         import scorewiz.dialog
