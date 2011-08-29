@@ -82,11 +82,12 @@ def html(name):
     import info
     help = all_pages.get(name, contents.nohelp)
     html = []
+    html.append('<html><head><title>{0}</title></head><body>'.format(help.title()))
     # make this a popup (see QTextBrowser docs)
     if help.popup:
-        html.append('<qt type=detail>')
-    html.append('<html><head><title>{0}</title></head><body>'.format(help.title()))
-    if not help.popup:
+        html.insert(0, '<qt type=detail>')
+        up = () # dont list ancestor pages in popup
+    else:
         # show the title(s) of the pages that have us as child
         up = [page for page in all_pages.values() if help in page.children()]
         if up:
@@ -100,7 +101,7 @@ def html(name):
     children = help.children()
     if children:
         html.extend(map(divlink, help.children()))
-    elif not help.popup and up:
+    elif up:
         # give a Next: link if there is a sibling page left
         for h in up:
             i = h.children().index(help)
@@ -110,7 +111,7 @@ def html(name):
     # link to "see also" docs
     seealso = help.seealso()
     if seealso:
-        html.append("<hr/><p>{0}</p>".format(_("See also:")))
+        html.append("<p>{0}</p>".format(_("See also:")))
         html.extend(map(divlink, seealso))
     # nice footer
     html.append('<br/><hr width=80%/>')
