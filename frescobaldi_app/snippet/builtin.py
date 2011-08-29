@@ -153,7 +153,7 @@ r"""-*- name: m; selection: strip;
 'markup_lines_selection': T(_("Markup lines"),
 r"""-*- name: l; python; selection: yes, keep, strip;
 text = '\n'.join(r'\line { %s }' % l for l in text.splitlines())
-if not state.endswith('markup'):
+if state[-1] != 'markup':
     text = '\\markup {\n%s\n}' % text
 """),
 
@@ -190,11 +190,10 @@ r"""-*- name: h;
 
 'no_barnumbers': T(_("No Barnumbers"),
 r"""-*- name: nb; python;
-s = state.split()[-1]
 text = r'\remove "Bar_number_engraver"'
-if s not in ('context', 'with'):
+if state[-1] not in ('context', 'with'):
     text = '\\context {\n\\Score\n%s\n}' % text
-    if s != 'layout':
+    if state[-1] != 'layout':
         text = '\\layout {\n%s\n}' % text
 """),
 

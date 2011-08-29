@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 r"""
-Represents a ly.lex.State as a simplified string.
+Represents a ly.lex.State as a simplified list of strings.
 
     \book {
       \header {
@@ -26,7 +26,7 @@ Represents a ly.lex.State as a simplified string.
 
 e.g. yields:
 
-    'lilypond book header markup scheme string'
+    ['lilypond', 'book', 'header', 'markup', 'scheme', 'string']
 
 This is done by examining the state's parsers.
 It can be used in snippets or plugin scripts.
@@ -60,7 +60,7 @@ def state(state):
                     append(name)
                     break
     
-    return ' '.join(names)
+    return names
     
 
 parserClasses = {
