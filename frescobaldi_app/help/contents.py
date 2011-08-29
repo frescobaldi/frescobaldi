@@ -23,7 +23,7 @@ The help contents.
 
 from __future__ import unicode_literals
 
-from .helpimpl import page, shortcut
+from .helpimpl import page, shortcut, menu
 from colorize import colorize
 
 import info
@@ -44,15 +44,17 @@ class contents(page):
         return _("Frescobaldi Manual")
     
     def body():
-        # L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-        text = _(
-r"""<p>Frescobaldi is a light-weight and powerful editor for LilyPond
+        text = _("""\
+<p>
+Frescobaldi is a light-weight and powerful editor for LilyPond
 sheet music documents.
-This manual is written by {author} and documents {appname} version {version}.</p>"""
-            ).format(author=info.maintainer, appname=info.appname, version=info.version)
+This manual is written by {author} and documents {appname} version {version}.
+</p>
+""").format(author=info.maintainer, appname=info.appname, version=info.version)
+        # L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
         translator = _("Translated by Your Name.")
         if translator != "Translated by Your Name.":
-            text += "<p>" + translator + "</p>"
+            text += "<p>{0}</p>".format(translator)
         return text
     
     def children():
@@ -99,18 +101,30 @@ class starting(page):
         return _("Getting Started")
     
     def body(cls):
-        import engrave, panels
-        example=colorize(r"""\relative c'' {
+        d = {}
+        d['example'] = colorize(r"""\relative c'' {
   \time 7/4
   c2 bes4 a2 g a bes4 a( g) f2
 }
 \addlyrics {
   Join us now and share the soft -- ware!
 }""")
+        import engrave
         action = engrave.Engraver.instances()[0].actionCollection.engrave_preview
-        key_engrave = shortcut(action)
+        d['key_engrave'] = shortcut(action)
+        import panels
         action = panels.PanelManager.instances()[0].musicview.actionCollection.music_jump_to_cursor
-        key_jump = shortcut(action)
+        d['key_jump'] = shortcut(action)
+        action = panels.PanelManager.instances()[0].logtool.actionCollection.log_next_error
+        d['key_error'] = shortcut(action)
+        d['menu_engrave'] = menu(_("LilyPond"), _("Engrave (publish)"))
+        d['menu_preferences_lilypond'] = menu(
+            _("menu title", "Edit"),
+            _("Preferences"),
+            _("LilyPond Preferences"))
+        d['menu_clear_error_marks'] = menu(
+            _("menu title", "View"),
+            _("Clear Error Marks"))
         return _("""\
 <p>
 The default screen of Frescobaldi shows a text document on the left and an
@@ -134,7 +148,7 @@ file that will be displayed in the music preview:
 <p><img src="getting_started1.png"></p>
 
 <p>
-The musicview has many possibilities:
+The Music View has many possibilities:
 <p>
 
 <ul>
@@ -152,24 +166,36 @@ Ctrl-click on an empty place to show a magnifier glass
 </li>
 
 <li>
-Moving the text cursor highlights the notes in the preview; press {key_jump}
-to explicitly center and highlight a note or other object in the preview.
+Moving the text cursor or selecting text highlights the notes in the preview;
+press {key_jump} to explicitly center and highlight a note or other object
+in the preview.
 </li>
 </ul>
 
 <p>
-If your music score is finished, it is recommended to run LilyPond with clickable
-notes turned off: menu LilyPond->Engrave (publish). This will result in much
-smaller PDF documents.
+If your music score is finished, it is recommended to run LilyPond once again
+with clickable notes turned off: menu {menu_engrave}.
+This will result in much smaller PDF documents.
 </p>
 
 <p>
 If LilyPond does not start at all, check if you have installed LilyPond
 correctly and that the lilypond command is in your system's PATH environment
 variable. If needed, provide the exact path to your LilyPond executable under
-Edit->Preferences->LilyPond preferences.
+{menu_preferences_lilypond}.
 </p>
-""").format(example=example, key_engrave=key_engrave, key_jump=key_jump)
+
+<p>
+If LilyPond encounters errors in your document they will show up in the log,
+and Frescobaldi will mark the lines in your document where the errors were
+found. Clicking the error in the log or pressing {key_error} immediately
+brings the text cursor to the offending place. Pressing {key_error} again
+will move to the next error message and so forth. When running LilyPond
+again, the error line marks will be removed.
+You can manually remove the error line markings with the option
+{menu_clear_error_marks}.
+</p>
+""").format(**d)
 
 
 class about(page):

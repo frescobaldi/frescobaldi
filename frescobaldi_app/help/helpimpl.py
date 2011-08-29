@@ -19,6 +19,13 @@
 
 """
 The help implementation.
+
+A help page (or 'page') is a class, not an instance. Help pages
+are never instantiated.
+
+You should define the title() and body() methods and may define children()
+and seealso().
+
 """
 
 from __future__ import unicode_literals
@@ -30,16 +37,23 @@ all_pages = {}
 
 
 class helpmeta(type):
-    """Makes all methods classmethod or staticmethod and adds name attribute.
+    """Metaclass for the page base class.
     
-    Also adds each class (which is in fact a help page) to the all_pages dict.
+    Does the following things to the page class:
+    - automatically add the page to the all_pages dictionary
+    - adds the 'name' attribute and set it to the class name
+    - makes the four methods 'title', 'body', 'children' and 'seealso'
+      a classmethod if they require one or more arguments, and a staticmethod
+      if they require no argument.
     
     """
     def __new__(cls, name, bases, d):
         for n in ('title', 'body', 'children', 'seealso'):
             if n in d:
-                meth = (staticmethod, classmethod)[d[n].func_code.co_argcount]
-                d[n] = meth(d[n])
+                if d[n].func_code.co_argcount > 0:
+                    d[n] = classmethod(d[n])
+                else:
+                    d[n] = staticmethod(d[n])
         d['name'] = name
         page = type.__new__(cls, name, bases, d)
         all_pages[name] = page
@@ -77,7 +91,7 @@ class page(object):
         return ()
 
 
-# This syntax to make help use the metaclass works in both Python2 and 3
+# This syntax to make 'page' use the metaclass works in both Python2 and 3
 page = helpmeta(page.__name__, page.__bases__, dict(page.__dict__))
 
 
@@ -85,48 +99,42 @@ def html(name):
     """Returns the HTML for the named help item."""
     from . import contents
     import info
-    help = all_pages.get(name, contents.nohelp)
+    page = all_pages.get(name, contents.nohelp)
     html = []
-    html.append('<html><head><title>{0}</title></head><body>'.format(help.title()))
-    # make this a popup (see QTextBrowser docs)
-    if help.popup:
+    html.append('<html><head><title>{0}</title></head><body>'.format(page.title()))
+    if page.popup:
+        # make this a popup (see QTextBrowser docs)
         html.insert(0, '<qt type=detail>')
         up = () # dont list ancestor pages in popup
     else:
         # show the title(s) of the pages that have us as child
-        up = [page for page in all_pages.values() if help in page.children()]
+        up = [p for p in all_pages.values() if page in p.children()]
         if up:
             html.append('<p>'+ _("Up:"))
-            html.extend(' ' + h.link() for h in up)
+            html.extend(' ' + p.link() for p in up)
             html.append('</p>')
     # body
-    html.append('<h2>{0}</h2>'.format(help.title()))
-    html.append(markexternal(help.body()))
+    html.append('<h2>{0}</h2>'.format(page.title()))
+    html.append(markexternal(page.body()))
     # link to child docs
-    children = help.children()
-    if children:
-        html.extend(map(divlink, help.children()))
+    if page.children():
+        html.extend('<div>{0}</div>'.format(p.link()) for p in page.children())
     elif up:
         # give a Next: link if there is a sibling page left
-        for h in up:
-            i = h.children().index(help)
-            if i < len(h.children()) - 1:
+        for p in up:
+            i = p.children().index(page)
+            if i < len(p.children()) - 1:
                 html.append('<div>{0} {1}</div>'.format(
-                    _("Next:"), h.children()[i+1].link()))
+                    _("Next:"), p.children()[i+1].link()))
     # link to "see also" docs
-    seealso = help.seealso()
-    if seealso:
+    if page.seealso():
         html.append("<p>{0}</p>".format(_("See also:")))
-        html.extend(map(divlink, seealso))
+        html.extend('<div>{0}</div>'.format(p.link()) for p in page.seealso())
     # nice footer
     html.append('<br/><hr width=80%/>')
     html.append('<address><center>{0} {1}</center></address>'.format(info.appname, info.version))
     html.append('</body></html>')
     return ''.join(html)
-
-
-def divlink(help):
-    return '<div>{0}</div>\n'.format(help.link())
 
 
 def markexternal(text):
@@ -143,5 +151,20 @@ def shortcut(action):
     """
     from PyQt4.QtGui import QKeySequence
     return action.shortcut().toString(QKeySequence.NativeText) or _("(no key defined)")
+
+
+def menu(*titles):
+    """Returns a nicely formatted list describing a menu option.
     
+    e.g.
+    
+    menu('Edit', 'Preferences')
+    
+    yields something like:
+    
+    '<em>Edit-&gt;Preferences</em>'
+    
+    """
+    return '<em>{0}</em>'.format('&#8594;'.join(titles))
+
 

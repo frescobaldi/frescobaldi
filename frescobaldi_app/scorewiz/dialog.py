@@ -190,8 +190,10 @@ class scorewiz_help(help.page):
     
     def body():
         from . import ScoreWizard
+        d = {}
         action = ScoreWizard.instances()[0].actionCollection.scorewiz
-        key = help.shortcut(action)
+        d['key'] = help.shortcut(action)
+        d['menu'] = help.menu(_("menu title", "Tools"), _("Setup New Score..."))
         return _("""\
 <p>The Score Setup Wizard ({key}) in {menu} is designed
 to quickly setup a LilyPond music score.</p>
@@ -220,7 +222,5 @@ The scores will then use the parts in the top level of the score.</p>
 <p>In the third tab, <em>Score settings</em>, global score properties and
 preferences can be set.
 Click the Preview button to get a preview with some example music filled in.</p>
-"""
-        ).format(key=key, menu="<em>{0}->{1}</em>".format(
-            _("menu title", "Tools"), _("Setup New Score...")))
+""").format(**d)
 
