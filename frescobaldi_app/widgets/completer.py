@@ -21,8 +21,13 @@
 Completer providing completions in a Q(Plain)TextEdit.
 """
 
-
 from __future__ import unicode_literals
+
+#TEMP
+import sip
+sip.setapi('QString', 2)
+sip.setapi('QVariant', 2)
+
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -31,33 +36,43 @@ from PyQt4.QtGui import *
 class Completer(QCompleter):
     """A QCompleter providing completions in a Q(Plain)TextEdit.
     
-    Use setTextEdit() to assign the completer to a text edit.
+    Use setWidget() to assign the completer to a text edit.
     
     """
-    def __init__(self):
-        super(Completer, self).__init__()
-    
-    def setTextEdit(self, edit):
-        """Sets the completer to work on the given edit.
+    def __init__(self, *args, **kwargs):
+        super(Completer, self).__init__(*args, **kwargs)
+        self.activated[QModelIndex].connect(self.insertCompletion)
         
-        Use None to remove our binding from any textedit.
-        
-        """
-        old = self.widget()
-        if old:
-            old.cursorPositionChanged.disconnect(self.slotCursorPositionChanged)
-        self.setWidget(edit)
-        if edit:
-            edit.cursorPositionChanged.connect(self.slotCursorPositionChanged)
-    
     def eventFilter(self, obj, ev):
-        isVisible = self.popup().isVisible()
-        if ev.type() == QEvent.FocusOut:
-            self.popup().hide()
-        print ev.type()
-        return False
+        key = (ev.type() == QEvent.KeyPress) and ev.key()
+        if key and obj != self.widget():
+            if key in (Qt.Key_Up, Qt.Key_Down, Qt.Key_Escape):
+                return super(Completer, self).eventFilter(obj, ev)
+            elif key in (Qt.Key_Return, Qt.Key_Enter):
+                self.setCurrentRow(self.popup().currentIndex().row())
+                self.insertCompletion(self.currentIndex())
+                self.popup().hide()
+                return True
+            else:
+                # deliver event and then look for the cursor position
+                self.widget().event(ev)
+                # TODO: check newly entered text, cursor position etc.
+                return True
+        return super(Completer, self).eventFilter(obj, ev)
 
-    def slotCursorPositionChanged(self):
-        """Called when the cursor position in our widget() has changed."""
+    def insertCompletion(self, index):
+        print 'insertCompletion', self.completionModel().data(index, Qt.EditRole)
         
-    
+
+
+if __name__ == "__main__":
+    ap = QApplication([])
+    e = QPlainTextEdit()
+    e.show()
+    c = Completer('een twee drie vier vijf'.split())
+    c.setWidget(e)
+    c.complete(QRect(10, 10, 200, 100))
+    #c.setCompletionPrefix('v')
+    ap.exec_()
+
+
