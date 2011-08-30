@@ -55,14 +55,18 @@ class Model(QStringListModel):
     def __init__(self, key):
         super(Model, self).__init__()
         self.key = key
+        self._changed = False
         self.load()
         QApplication.instance().aboutToQuit.connect(self.save)
         
     def load(self):
         self.setStringList(sorted(QSettings().value(self.key) or []))
+        self._changed = False
     
     def save(self):
-        QSettings().setValue(self.key, self.stringList())
+        if self._changed:
+            QSettings().setValue(self.key, self.stringList())
+            self._changed = False
 
     def addString(self, text):
         strings = self.stringList()
@@ -70,4 +74,6 @@ class Model(QStringListModel):
             strings.append(text)
             strings.sort()
             self.setStringList(strings)
+            self._changed = True
+
 
