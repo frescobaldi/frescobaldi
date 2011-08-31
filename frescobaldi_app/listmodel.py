@@ -70,6 +70,18 @@ class ListModel(QAbstractListModel):
         if icon:
             self._roles[Qt.DecorationRole] = icon
     
+    def setRoleFunction(self, role, function):
+        """Sets a function that returns a value for a Qt.ItemDataRole.
+        
+        The function accepts an item in the data list given on construction
+        as argument. If function is None, deletes a previously set function.
+        
+        """
+        if function:
+            self._roles[role] = function
+        elif role in self._roles:
+            del self._roles[role]
+    
     def rowCount(self, parent):
         return 0 if parent.isValid() else len(self._data)
     
