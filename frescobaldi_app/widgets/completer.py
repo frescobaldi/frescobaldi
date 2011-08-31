@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2011 by Wilbert Berendsen
+# Copyright (c) 2011 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -35,14 +35,14 @@ class Completer(QCompleter):
     
     Use setWidget() to assign the completer to a text edit.
     
-    You can reimplement completionCursor to make your own, other than simple
+    You can reimplement completionCursor() to make your own, other than simple
     string-based completions.
     
     Call showCompletionPopup() to force the popup to show.
     
     """
     autoComplete = True
-    autoCompleteLength = 1
+    autoCompleteLength = 2
     
     def __init__(self, *args, **kwargs):
         super(Completer, self).__init__(*args, **kwargs)
@@ -50,12 +50,13 @@ class Completer(QCompleter):
         
     def eventFilter(self, obj, ev):
         key = (ev.type() == QEvent.KeyPress) and ev.key()
+        if not key:
+            return super(Completer, self).eventFilter(obj, ev)
         modifiers = key and int(ev.modifiers() & _SCAM)
         # we can't test for self.popup() as that will recursively call
         # eventFilter during instantiation.
-        if not key:
-            return super(Completer, self).eventFilter(obj, ev)
-        if obj != self.widget():
+        popupVisible = obj != self.widget()
+        if popupVisible:
             # a key was pressed while the popup is visible
             if key in (Qt.Key_Up, Qt.Key_Down, Qt.Key_Escape):
                 # let QCompleter handle navigation in popup
@@ -69,7 +70,7 @@ class Completer(QCompleter):
             else:
                 # deliver event and then look for the cursor position
                 self.widget().event(ev)
-                if self.popupWanted(ev, True):
+                if self.isTextEvent(ev, True) or ev.key() == Qt.Key_Backspace:
                     # text was entered, look for the cursor position and
                     # adjust the completionPrefix
                     self.showCompletionPopup()
@@ -87,22 +88,21 @@ class Completer(QCompleter):
                 return True
         # a key was pressed while the popup is not visible
         self.widget().event(ev)
-        if self.autoComplete and self.popupWanted(ev, False):
+        if self.autoComplete and self.isTextEvent(ev, False):
             self.showCompletionPopup(False)
             
         return True
     
-    def popupWanted(self, ev, visible):
-        """Called when a key is pressed. Returns whether to show the popup.
+    def isTextEvent(self, ev, visible):
+        """Called when a key is pressed.
         
-        ev is the KeyPress event, visible is the current visibility of the popup.
+        Should return True if the given KeyPress event 'ev' represents text that
+        makes sense for showing the completions popup.
+        
+        The 'visible' argument is True when the popup is currently visible.
         
         """
-        istext = ev.text()[-1:] > " "
-        if visible:
-            return istext or ev.key() == Qt.Key_Backspace
-        else:
-            return istext and ev.key() != Qt.Key_Delete
+        return ev.text()[-1:] > " " and ev.key() != Qt.Key_Delete
 
     def textCursor(self):
         """Returns the current text cursor of the TextEdit."""

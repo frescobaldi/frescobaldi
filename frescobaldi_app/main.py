@@ -46,6 +46,7 @@ import document         # contains Document class
 import viewhighlighter  # highlight arbitrary ranges in text
 import matcher          # matches braces etc in active text window
 import progress         # creates progress bar in view space
+import autocomplete     # auto-complete input
 
 def startmain():
     import optparse
