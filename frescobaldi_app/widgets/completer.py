@@ -23,15 +23,8 @@ Completer providing completions in a Q(Plain)TextEdit.
 
 from __future__ import unicode_literals
 
-#TEMP
-import sip
-sip.setapi('QString', 2)
-sip.setapi('QVariant', 2)
-
-import re
-
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QEvent, QModelIndex, Qt
+from PyQt4.QtGui import QCompleter, QKeySequence, QTextCursor
 
 # most used keyboard modifiers
 _SCAM = (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META)
@@ -44,6 +37,8 @@ class Completer(QCompleter):
     
     You can reimplement completionCursor to make your own, other than simple
     string-based completions.
+    
+    Call showCompletionPopup() to force the popup to show.
     
     """
     autoComplete = True
@@ -74,7 +69,7 @@ class Completer(QCompleter):
             else:
                 # deliver event and then look for the cursor position
                 self.widget().event(ev)
-                if ev.text()[-1:] > " " or ev.key() in (Qt.Key_Backspace, Qt.Key_Delete):
+                if self.popupWanted(ev, True):
                     # text was entered, look for the cursor position and
                     # adjust the completionPrefix
                     self.showCompletionPopup()
@@ -92,11 +87,23 @@ class Completer(QCompleter):
                 return True
         # a key was pressed while the popup is not visible
         self.widget().event(ev)
-        if self.autoComplete and ev.text()[-1:] > " ":
+        if self.autoComplete and self.popupWanted(ev, False):
             self.showCompletionPopup(False)
             
         return True
     
+    def popupWanted(self, ev, visible):
+        """Called when a key is pressed. Returns whether to show the popup.
+        
+        ev is the KeyPress event, visible is the current visibility of the popup.
+        
+        """
+        istext = ev.text()[-1:] > " "
+        if visible:
+            return istext or ev.key() == Qt.Key_Backspace
+        else:
+            return istext and ev.key() != Qt.Key_Delete
+
     def textCursor(self):
         """Returns the current text cursor of the TextEdit."""
         return self.widget().textCursor()
@@ -127,29 +134,28 @@ class Completer(QCompleter):
         
         """
         cursor = self.completionCursor()
-        if forced or (self.autoComplete and len(cursor.selectedText()) >= self.autoCompleteLength):
-            self.setCompletionPrefix(cursor.selectedText())
+        if not cursor:
+            return
+        text = cursor.selectedText()
+        if forced or (self.autoComplete and len(text) >= self.autoCompleteLength):
+            self.setCompletionPrefix(text)
             rect = self.widget().cursorRect(cursor)
             rect.setWidth(self.popup().sizeHintForColumn(0)
                 + self.popup().verticalScrollBar().sizeHint().width())
             frameWidth = self.popup().frameWidth()
-            rect.translate(-frameWidth, frameWidth)
+            rect.translate(-frameWidth, frameWidth + 2)
             self.complete(rect)
         
     def insertCompletion(self, index):
+        """Inserts the completion at the given index.
+        
+        The default implementation reads the model data under the Qt.EditRole,
+        and inserts that with the (already entered) completionPrefix removed.
+        
+        """
         text = self.completionModel().data(index, Qt.EditRole)
         text = text[len(self.completionPrefix()):]
         self.textCursor().insertText(text)
 
-
-
-if __name__ == "__main__":
-    ap = QApplication([])
-    e = QPlainTextEdit()
-    e.show()
-    c = Completer('een twee drie vier vijf zes zeven acht negen tien'.split())
-    c.setMaxVisibleItems(15)
-    c.setWidget(e)
-    ap.exec_()
 
 
