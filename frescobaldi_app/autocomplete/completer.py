@@ -28,19 +28,13 @@ import re
 from PyQt4.QtGui import QTextCursor
 
 import app
-import listmodel
 import textformats
 import widgets.completer
-
-import ly.words
 
 
 class Completer(widgets.completer.Completer):
     def __init__(self):
         super(Completer, self).__init__()
-        self.setModel(listmodel.ListModel(sorted(
-            ly.words.lilypond_keywords + ly.words.lilypond_music_commands),
-            display = lambda item: '\\' + item))
         self.setMaxVisibleItems(16)
         self.popup().setMinimumWidth(100)
         app.settingsChanged.connect(self.readSettings)
@@ -49,18 +43,18 @@ class Completer(widgets.completer.Completer):
     def readSettings(self):
         self.popup().setFont(textformats.formatData('editor').font)
     
-    def isTextEvent(self, ev, visible):
-        if visible and ev.text()[-1:] == '\\':
-            return False
-        return super(Completer, self).isTextEvent(ev, visible)
-    
     def completionCursor(self):
         cursor = self.textCursor()
-        text = cursor.block().text()[:cursor.position()-cursor.block().position()]
-        m = re.search(r'\\[a-z]?[A-Za-z]*$', text)
-        if m:
-            cursor.setPosition(cursor.block().position() + m.start(), QTextCursor.KeepAnchor)
-            return cursor
+        # trick: if we are still visible we don't have to analyze the text again
+        if not (self.popup().isVisible() and self._pos < cursor.position()):
+            from . import analyzer
+            result = analyzer.completions(cursor)
+            if not result:
+                return
+            self._pos, model = result
+            if self.model() != model:
+                self.setModel(model)
+        cursor.setPosition(self._pos, QTextCursor.KeepAnchor)
+        return cursor
 
 
-    
