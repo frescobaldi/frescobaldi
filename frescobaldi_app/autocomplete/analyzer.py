@@ -25,6 +25,7 @@ from __future__ import unicode_literals
 
 import re
 
+import ly.lex.lilypond
 import tokeniter
 
 from . import completiondata
@@ -62,10 +63,18 @@ def completions(cursor):
         if t.end == column:
             break
     
+    last = tokens[-1] if tokens else ''
+    
     # DEBUG
     print '================================'
     for t in tokens:
         print '{0} "{1}"'.format(t.__class__.__name__, t)
+    
+    # in markup mode?
+    if isinstance(state.parser(), ly.lex.lilypond.MarkupParser):
+        if last != '\\markup' and last.startswith('\\'):
+            column = last.pos
+        return column, completiondata.lilypond_markup_commands
     
     # TEMP!!! only complete backslashed commands
     m = re.search(r'\\[a-z]?[A-Za-z]*$', text)

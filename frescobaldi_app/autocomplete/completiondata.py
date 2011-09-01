@@ -33,3 +33,7 @@ lilypond_commands = listmodel.ListModel(
     sorted(ly.words.lilypond_keywords + ly.words.lilypond_music_commands),
     display = lambda item: '\\' + item)
 
+lilypond_markup_commands = listmodel.ListModel(
+    sorted(ly.words.markupcommands),
+    display = lambda item: '\\' + item)
+
