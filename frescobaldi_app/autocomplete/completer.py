@@ -51,7 +51,8 @@ class Completer(widgets.completer.Completer):
             result = analyzer.completions(cursor)
             if not result:
                 return
-            self._pos, model = result
+            self._pos = cursor.block().position() + result[0]
+            model = result[1]
             if self.model() != model:
                 self.setModel(model)
         cursor.setPosition(self._pos, QTextCursor.KeepAnchor)

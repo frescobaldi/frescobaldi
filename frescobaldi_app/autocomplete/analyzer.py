@@ -33,7 +33,7 @@ from . import completiondata
 def completions(cursor):
     """Analyzes text at cursor and returns a tuple (position, model) or None.
     
-    The position is an integer specifying the cursor position where the last
+    The position is an integer specifying the column in the line where the last
     text starts that should be completed.
     
     The model list the possible completions.
@@ -45,21 +45,31 @@ def completions(cursor):
     
     """
     block = cursor.block()
-    pos = block.position()
-    column = cursor.position() - pos
+    column = cursor.position() - block.position()
     text = block.text()[:column]
     
+    # make a list of tokens exactly ending at the cursor position
+    # and let state follow
     state = tokeniter.state(block)
     tokens = []
     for t in tokeniter.tokens(cursor.block()):
         if t.end > column:
+            # cut off the last token and run the parser on it
+            tokens.extend(state.tokens(text, t.pos))
             break
         tokens.append(t)
         state.follow(t)
-
+        if t.end == column:
+            break
+    
+    # DEBUG
+    print '================================'
+    for t in tokens:
+        print '{0} "{1}"'.format(t.__class__.__name__, t)
+    
     # TEMP!!! only complete backslashed commands
     m = re.search(r'\\[a-z]?[A-Za-z]*$', text)
     if m:
-        return pos + m.start(), completiondata.lilypond_commands
+        return m.start(), completiondata.lilypond_commands
 
 
