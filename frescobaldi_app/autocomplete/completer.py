@@ -49,6 +49,11 @@ class Completer(widgets.completer.Completer):
     def readSettings(self):
         self.popup().setFont(textformats.formatData('editor').font)
     
+    def isTextEvent(self, ev, visible):
+        if visible and ev.text()[-1:] == '\\':
+            return False
+        return super(Completer, self).isTextEvent(ev, visible)
+    
     def completionCursor(self):
         cursor = self.textCursor()
         text = cursor.block().text()[:cursor.position()-cursor.block().position()]

@@ -67,6 +67,7 @@ class Completer(QCompleter):
             elif ev.key() not in (
                 Qt.Key_Up, Qt.Key_Down, Qt.Key_PageUp, Qt.Key_PageDown,
                 Qt.Key_Shift, Qt.Key_Control, Qt.Key_Alt, Qt.Key_Meta):
+                # hide on anything except navigation keys
                 self.popup().hide()
             return super(Completer, self).eventFilter(obj, ev)
         # a key was pressed while the popup is not visible
