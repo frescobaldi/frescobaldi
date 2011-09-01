@@ -27,7 +27,9 @@ import re
 
 from PyQt4.QtGui import QTextCursor
 
+import app
 import listmodel
+import textformats
 import widgets.completer
 
 import ly.words
@@ -41,6 +43,11 @@ class Completer(widgets.completer.Completer):
             display = lambda item: '\\' + item))
         self.setMaxVisibleItems(16)
         self.popup().setMinimumWidth(100)
+        app.settingsChanged.connect(self.readSettings)
+        self.readSettings()
+    
+    def readSettings(self):
+        self.popup().setFont(textformats.formatData('editor').font)
     
     def completionCursor(self):
         cursor = self.textCursor()

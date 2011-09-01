@@ -68,30 +68,21 @@ class Completer(QCompleter):
                 self.popup().hide()
                 return True
             else:
-                # deliver event and then look for the cursor position
-                self.widget().event(ev)
                 if self.isTextEvent(ev, True) or ev.key() == Qt.Key_Backspace:
-                    # text was entered, look for the cursor position and
-                    # adjust the completionPrefix
+                    # deliver event and keep showing popup if necessary
+                    self.widget().event(ev)
                     self.showCompletionPopup()
                     return True
-                elif key in (Qt.Key_Shift, Qt.Key_Control, Qt.Key_Alt, Qt.Key_Meta):
-                    # a modifier key was pressed
-                    return True
-                elif (ev.matches(QKeySequence.MoveToNextChar) or
-                      ev.matches(QKeySequence.MoveToPreviousChar)):
-                    # the cursor was moved, hide popup if out range
-                    # TODO: implement
-                    return True
-                # any other key hides the popup
-                self.popup().hide()
-                return True
+                elif key not in (
+                    Qt.Key_Shift, Qt.Key_Control, Qt.Key_Alt, Qt.Key_Meta):
+                    self.popup().hide()
+                return super(Completer, self).eventFilter(obj, ev)
         # a key was pressed while the popup is not visible
-        self.widget().event(ev)
         if self.autoComplete and self.isTextEvent(ev, False):
+            self.widget().event(ev)
             self.showCompletionPopup(False)
-            
-        return True
+            return True
+        return False
     
     def isTextEvent(self, ev, visible):
         """Called when a key is pressed.
@@ -135,6 +126,7 @@ class Completer(QCompleter):
         """
         cursor = self.completionCursor()
         if not cursor:
+            self.popup().hide()
             return
         text = cursor.selectedText()
         if forced or (self.autoComplete and len(text) >= self.autoCompleteLength):
