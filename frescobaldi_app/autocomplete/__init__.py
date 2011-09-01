@@ -59,7 +59,8 @@ class CompleterManager(plugin.MainWindowPlugin):
         self.completer().autoComplete = enabled
     
     def showCompletions(self):
-        self.completer().showCompletionPopup()
+        if self.mainwindow().currentView().hasFocus():
+            self.completer().showCompletionPopup()
 
 
 app.mainwindowCreated.connect(CompleterManager.instance)
