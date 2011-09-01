@@ -26,9 +26,6 @@ from __future__ import unicode_literals
 from PyQt4.QtCore import QEvent, QModelIndex, Qt
 from PyQt4.QtGui import QCompleter, QKeySequence, QTextCursor
 
-# most used keyboard modifiers
-_SCAM = (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META)
-
 
 class Completer(QCompleter):
     """A QCompleter providing completions in a Q(Plain)TextEdit.
@@ -49,34 +46,29 @@ class Completer(QCompleter):
         self.activated[QModelIndex].connect(self.insertCompletion)
         
     def eventFilter(self, obj, ev):
-        key = (ev.type() == QEvent.KeyPress) and ev.key()
-        if not key:
+        if ev.type() != QEvent.KeyPress:
             return super(Completer, self).eventFilter(obj, ev)
-        modifiers = key and int(ev.modifiers() & _SCAM)
         # we can't test for self.popup() as that will recursively call
         # eventFilter during instantiation.
         popupVisible = obj != self.widget()
         if popupVisible:
             # a key was pressed while the popup is visible
-            if key in (Qt.Key_Up, Qt.Key_Down, Qt.Key_Escape):
-                # let QCompleter handle navigation in popup
-                return super(Completer, self).eventFilter(obj, ev)
-            elif key in (Qt.Key_Return, Qt.Key_Enter):
+            if ev.key() in (Qt.Key_Return, Qt.Key_Enter):
                 # insert the highlighted completion
                 self.setCurrentRow(self.popup().currentIndex().row())
                 self.insertCompletion(self.currentIndex())
                 self.popup().hide()
                 return True
-            else:
-                if self.isTextEvent(ev, True) or ev.key() == Qt.Key_Backspace:
-                    # deliver event and keep showing popup if necessary
-                    self.widget().event(ev)
-                    self.showCompletionPopup()
-                    return True
-                elif key not in (
-                    Qt.Key_Shift, Qt.Key_Control, Qt.Key_Alt, Qt.Key_Meta):
-                    self.popup().hide()
-                return super(Completer, self).eventFilter(obj, ev)
+            elif self.isTextEvent(ev, True) or ev.key() == Qt.Key_Backspace:
+                # deliver event and keep showing popup if necessary
+                self.widget().event(ev)
+                self.showCompletionPopup()
+                return True
+            elif ev.key() not in (
+                Qt.Key_Up, Qt.Key_Down, Qt.Key_PageUp, Qt.Key_PageDown,
+                Qt.Key_Shift, Qt.Key_Control, Qt.Key_Alt, Qt.Key_Meta):
+                self.popup().hide()
+            return super(Completer, self).eventFilter(obj, ev)
         # a key was pressed while the popup is not visible
         if self.autoComplete and self.isTextEvent(ev, False):
             self.widget().event(ev)
