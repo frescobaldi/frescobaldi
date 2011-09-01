@@ -59,7 +59,15 @@ class Completer(QCompleter):
                 self.insertCompletion(self.currentIndex())
                 self.popup().hide()
                 return True
-            elif self.isTextEvent(ev, True) or ev.key() == Qt.Key_Backspace:
+            elif ev.key() == Qt.Key_Backspace:
+                # deliver event, hide popup if completionPrefix already none
+                self.widget().event(ev)
+                if self.completionPrefix():
+                    self.showCompletionPopup()
+                else:
+                    self.popup().hide()
+                return True
+            elif self.isTextEvent(ev, True):
                 # deliver event and keep showing popup if necessary
                 self.widget().event(ev)
                 self.showCompletionPopup()

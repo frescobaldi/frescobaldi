@@ -26,6 +26,7 @@ from __future__ import unicode_literals
 import re
 
 import ly.lex.lilypond
+import ly.words
 import tokeniter
 
 from . import completiondata
@@ -72,7 +73,7 @@ def completions(cursor):
     
     # in markup mode?
     if isinstance(state.parser(), ly.lex.lilypond.MarkupParser):
-        if last != '\\markup' and last.startswith('\\'):
+        if last.startswith('\\') and last[1:] not in ly.words.markupcommands:
             column = last.pos
         return column, completiondata.lilypond_markup_commands
     
