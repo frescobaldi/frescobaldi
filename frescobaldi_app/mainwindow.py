@@ -51,6 +51,7 @@ import jobmanager
 import engrave
 import snippet.menu
 import scorewiz
+import autocomplete
 
 
 class MainWindow(QMainWindow):
@@ -888,6 +889,10 @@ class MainWindow(QMainWindow):
         m.addSeparator()
         m.addAction(ac.tools_indent_auto)
         m.addAction(ac.tools_indent_indent)
+        m.addSeparator()
+        aa = autocomplete.CompleterManager.instance(self).actionCollection
+        m.addAction(aa.autocomplete)
+        m.addAction(aa.popup_completions)
         m.addSeparator()
         self.menu_tools_lyrics = lm = m.addMenu('')
         

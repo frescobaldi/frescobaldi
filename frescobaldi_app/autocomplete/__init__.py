@@ -21,15 +21,26 @@
 Auto-completes entered text.
 """
 
+from PyQt4.QtCore import QSettings, Qt
+from PyQt4.QtGui import QAction, QKeySequence
+
 import app
+import actioncollection
+import actioncollectionmanager
 import plugin
 
 
 class CompleterManager(plugin.MainWindowPlugin):
     def __init__(self, mainwindow):
+        ac = self.actionCollection = Actions()
+        actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
+        ac.autocomplete.toggled.connect(self.setAutoComplete)
+        ac.popup_completions.triggered.connect(self.showCompletions)
         mainwindow.currentViewChanged.connect(self.setView)
         if mainwindow.currentView():
             self.setView(mainwindow.currentView())
+        complete = QSettings().value("autocomplete", True) not in ('false', False)
+        ac.autocomplete.setChecked(complete)
     
     def setView(self, view):
         self.completer().setWidget(view)
@@ -39,8 +50,29 @@ class CompleterManager(plugin.MainWindowPlugin):
             return self._completer
         except AttributeError:
             from . import completer
-            self._completer = completer.Completer()
+            self._completer = c = completer.Completer()
+            c.autoComplete = self.actionCollection.autocomplete.isChecked()
             return self._completer
+    
+    def setAutoComplete(self, enabled):
+        QSettings().setValue("autocomplete", enabled)
+        self.completer().autoComplete = enabled
+    
+    def showCompletions(self):
+        self.completer().showCompletionPopup()
 
 
 app.mainwindowCreated.connect(CompleterManager.instance)
+
+
+class Actions(actioncollection.ActionCollection):
+    name = 'autocomplete'
+    def createActions(self, parent):
+        self.autocomplete = QAction(parent, checkable=True)
+        self.popup_completions = QAction(parent)
+        self.popup_completions.setShortcut(QKeySequence(Qt.CTRL + Qt.Key_Space))
+    
+    def translateUI(self):
+        self.autocomplete.setText(_("Automatic &Completion"))
+        self.popup_completions.setText(_("Show Completions &Popup"))
+
