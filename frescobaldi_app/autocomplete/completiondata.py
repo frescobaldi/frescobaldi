@@ -91,6 +91,8 @@ start_music = (
     'relative',
     'transpose',
     'partcombine',
+    'keepWithTag',
+    'removeWithTag',
     'new',
     'context',
     'with',
