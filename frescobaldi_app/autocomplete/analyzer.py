@@ -188,6 +188,22 @@ def test(self):
         return completiondata.lilypond_contexts
 
 
+@state(ly.lex.lilypond.LilyPondParserOverride)
+def test(self):
+    tokenclasses = list(map(type, self.tokens))
+    if self.last[:1].isalpha():
+        self.column = self.lastpos
+    elif ly.lex.lilypond.GrobName in tokenclasses:
+        return # TODO: popup suitable properties here
+    if (isinstance(self.state.parsers()[1], (
+            ly.lex.lilypond.LilyPondParserWith,
+            ly.lex.lilypond.LilyPondParserContext,
+            ))
+        or ly.lex.lilypond.DotSetOverride in tokenclasses):
+        return completiondata.lilypond_grobs
+    return completiondata.lilypond_contexts_and_grobs
+
+
 
 
 del test, state

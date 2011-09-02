@@ -53,6 +53,11 @@ lilypond_layout_variables = listmodel.ListModel(
 
 lilypond_contexts = listmodel.ListModel(sorted(ly.words.contexts))
 
+lilypond_grobs = listmodel.ListModel(sorted(ly.words.grobs))
+
+lilypond_contexts_and_grobs = listmodel.ListModel(
+    sorted(ly.words.contexts) + sorted(ly.words.grobs))
+
 lilypond_context_contents = listmodel.ListModel(sorted(itertools.chain(
     ('\\' + w for w in ly.words.contexts),
     ly.words.contextproperties,
