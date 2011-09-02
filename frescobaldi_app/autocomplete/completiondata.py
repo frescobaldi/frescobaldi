@@ -23,6 +23,8 @@ All completions data.
 
 from __future__ import unicode_literals
 
+import itertools
+
 import listmodel
 import ly.words
 
@@ -33,10 +35,33 @@ lilypond_commands = listmodel.ListModel(
     sorted(ly.words.lilypond_keywords + ly.words.lilypond_music_commands),
     display = lambda item: '\\' + item)
 
+lilypond_markup = listmodel.ListModel(['\\markup'])
+
 lilypond_markup_commands = listmodel.ListModel(
     sorted(ly.words.markupcommands),
     display = lambda item: '\\' + item)
 
 lilypond_header_variables = listmodel.ListModel(
     sorted(ly.words.headervariables), edit = lambda item: item + " = ")
+
+lilypond_paper_variables = listmodel.ListModel(
+    sorted(ly.words.papervariables), edit = lambda item: item + " = ")
+
+lilypond_layout_variables = listmodel.ListModel(
+    ['\\context',] + sorted(ly.words.layoutvariables),
+    edit = lambda item: item if item[0] == '\\' else item + " = ")
+
+lilypond_contexts = listmodel.ListModel(sorted(ly.words.contexts))
+
+lilypond_context_contents = listmodel.ListModel(sorted(itertools.chain(
+    ('\\' + w for w in ly.words.contexts),
+    ly.words.contextproperties,
+    ('\\override',),
+    )), edit = lambda item: item if item[0] == '\\' else item + " = ")
+
+lilypond_with_contents = listmodel.ListModel(sorted(itertools.chain(
+    ly.words.contextproperties,
+    ('\\override',),
+    )), edit = lambda item: item if item[0] == '\\' else item + " = ")
+
 

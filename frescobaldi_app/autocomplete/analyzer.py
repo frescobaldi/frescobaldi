@@ -27,71 +27,169 @@ import re
 
 import ly.lex.lilypond
 import ly.words
-import listmodel
 import tokeniter
 
 from . import completiondata
 
+__all__ = ['completions']
+
 
 def completions(cursor):
-    """Analyzes text at cursor and returns a tuple (position, model) or None.
+    """Analyzes text at cursor and returns a tuple (position, model).
     
     The position is an integer specifying the column in the line where the last
     text starts that should be completed.
     
-    The model list the possible completions.
-    
-    If None is returned. there are no suitable completions.
+    The model list the possible completions. If the model is None, there are no
+    suitable completions.
     
     This function does its best to return extremely meaningful completions
     for the context the cursor is in.
     
     """
-    block = cursor.block()
-    column = cursor.position() - block.position()
-    text = block.text()[:column]
-    
-    # make a list of tokens exactly ending at the cursor position
-    # and let state follow
-    state = tokeniter.state(block)
-    tokens = []
-    for t in tokeniter.tokens(cursor.block()):
-        if t.end > column:
-            # cut off the last token and run the parser on it
-            tokens.extend(state.tokens(text, t.pos))
-            break
-        tokens.append(t)
-        state.follow(t)
-        if t.end == column:
-            break
-    
-    last = tokens[-1] if tokens else ''
-    
-    # DEBUG
-    print '================================'
-    for t in tokens:
-        print '{0} "{1}"'.format(t.__class__.__name__, t)
-    print '========parser:', state.parser().__class__
-    
-    # in markup mode?
-    if isinstance(state.parser(), ly.lex.lilypond.MarkupParser):
-        if last.startswith('\\') and last[1:] not in ly.words.markupcommands:
-            column = last.pos
-        return column, completiondata.lilypond_markup_commands
-    
-    # header?
-    if isinstance(state.parser(), ly.lex.lilypond.LilyPondParserHeader):
-        if '=' in tokens[-3:] or last.startswith('\\'):
-            if last.startswith('\\'):
-                column = last.pos
-            return column, listmodel.ListModel(['\\markup'])
-        if last[:1].isalpha():
-            column = last.pos
-        return column, completiondata.lilypond_header_variables
+    analyzer = Analyzer(cursor)
+    return analyzer.column, analyzer.model
+
+
+class Analyzer(object):
+    """This does the analyzing work; sets the attributes column and model."""
+    def __init__(self, cursor):
+        block = cursor.block()
+        self.column = column = cursor.position() - block.position()
+        self.text = text = block.text()[:column]
         
-    # TEMP!!! only complete backslashed commands
-    m = re.search(r'\\[a-z]?[A-Za-z]*$', text)
-    if m:
-        return m.start(), completiondata.lilypond_commands
+        # make a list of tokens exactly ending at the cursor position
+        # and let state follow
+        state = self.state = tokeniter.state(block)
+        tokens = self.tokens = []
+        for t in tokeniter.tokens(cursor.block()):
+            if t.end > column:
+                # cut off the last token and run the parser on it
+                tokens.extend(state.tokens(text, t.pos))
+                break
+            tokens.append(t)
+            state.follow(t)
+            if t.end == column:
+                break
+        
+        self.last = tokens[-1] if tokens else ''
+        self.lastpos = self.last.pos if self.last else column
+        
+        # DEBUG
+        print '================================'
+        for t in tokens:
+            print '{0} "{1}"'.format(t.__class__.__name__, t)
+        print '========parser:', state.parser().__class__
+        
+        parser = state.parser()
+        
+        # First, directly map the parser class to a function to return the model
+        try:
+            function = _states[parser.__class__]
+        except KeyError:
+            self.model = None
+        else:
+            self.model = function(self)
+            if self.model:
+                return
+        
+        # TODO: try more
+        
+        # TEMP!!! only complete backslashed commands
+        m = re.search(r'\\[a-z]?[A-Za-z]*$', text)
+        if m:
+            self.column = m.start()
+            self.model = completiondata.lilypond_commands
+
+
+# decorator to map functions to parser class
+_states = {}
+def state(parserClass):
+    def decorator(f):
+        _states[parserClass] = f
+    return decorator
+
+
+# markup
+@state(ly.lex.lilypond.MarkupParser)
+def test(self):
+    if (self.last.startswith('\\')
+        and self.last[1:] not in ly.words.markupcommands
+        and self.last != '\\markup'):
+        self.column = self.lastpos
+    return completiondata.lilypond_markup_commands
+    
+
+# \header {
+@state(ly.lex.lilypond.LilyPondParserHeader)
+def test(self):
+    if '=' in self.tokens[-3:] or self.last.startswith('\\'):
+        if self.last.startswith('\\'):
+            self.column = self.lastpos
+        return completiondata.lilypond_markup
+    if self.last[:1].isalpha():
+        self.column = self.lastpos
+    return completiondata.lilypond_header_variables
+
+
+# \paper {
+@state(ly.lex.lilypond.LilyPondParserPaper)
+def test(self):
+    if '=' in self.tokens[-3:] or self.last.startswith('\\'):
+        if self.last.startswith('\\'):
+            self.column = self.lastpos
+        return completiondata.lilypond_markup
+    if self.last[:1].isalpha():
+        self.column = self.lastpos
+    return completiondata.lilypond_paper_variables
+    
+
+# \layout {
+@state(ly.lex.lilypond.LilyPondParserLayout)
+def test(self):
+    if self.last and not isinstance(self.last, ly.lex.Space):
+        self.column = self.lastpos
+    return completiondata.lilypond_layout_variables
+    
+
+# \layout { \context {
+@state(ly.lex.lilypond.LilyPondParserContext)
+def test(self):
+    if '=' in self.tokens[-3:]:
+        if self.last.startswith('\\'):
+            self.column = self.lastpos
+        return completiondata.lilypond_markup
+    if self.last and not isinstance(self.last, ly.lex.Space):
+        self.column = self.lastpos
+    return completiondata.lilypond_context_contents
+    
+
+# \with {
+@state(ly.lex.lilypond.LilyPondParserWith)
+def test(self):
+    if '=' in self.tokens[-3:]:
+        if self.last.startswith('\\'):
+            self.column = self.lastpos
+        return completiondata.lilypond_markup
+    if self.last and not isinstance(self.last, ly.lex.Space):
+        self.column = lastpos
+    return completiondata.lilypond_with_contents
+    
+
+# \new or \context in music
+@state(ly.lex.lilypond.LilyPondParserNewContext)
+def test(self):
+    if self.last[:1].isalpha():
+        self.column = self.lastpos
+        preceding = self.tokens[-3:]
+    else:
+        preceding = self.tokens[-2:]
+    if '\\new' in preceding or '\\context' in preceding:
+        return completiondata.lilypond_contexts
+
+
+
+
+del test, state
 
 

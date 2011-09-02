@@ -136,7 +136,11 @@ class State(object):
     def parser(self):
         """Returns the current Parser instance."""
         return self.state[-1]
-        
+    
+    def parsers(self):
+        """Returns all active parsers in reverse order, most current first."""
+        return self.state[::-1]
+    
     def tokens(self, text, pos=0):
         """Parses a text string using our state info.
         
