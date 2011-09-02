@@ -7,8 +7,8 @@ Main author: Wilbert Berendsen
 Frescobaldi is a LilyPond music score editor.
 
 The 2.0 version is built with Python and Qt4.7 and is designed to run on all
-major platforms. This version is in very heavy development although quite some
-functionality is already working well and usable.
+major platforms. This version is in very heavy development although many
+functions are already working well and usable.
 
 
 What do you need to run it?
@@ -28,6 +28,7 @@ What does work?
 - syntax highlighting with parser for LilyPond, HTML, Texinfo, LaTeX (todo),
   Scheme, DocBook (todo)
 - automatic indentation
+- finegrained automatic completion
 - highlighting of matching braces, slurs, etc.
 - run LilyPond and show output log
 - parse LilyPond errors: Ctrl-E jumps to first (or next) error message, Ctrl-
@@ -46,16 +47,16 @@ What does work?
   - configure fonts/colors (with possibility of multiple schemes)
 - nice and powerful snippet manager (Ctrl-T)
 - score wizard with preview, now also with multiple score, book, staffgroup etc
+- builtin help manual; help buttons on all dialogs
 
 
 TODO:
 
 - run other commands such as lilypond-book, convert-ly
 - finish Quick Insert Panel
-- finish built-in help browser
+- finish built-in lilypond documentation browser
 - music transpose, translate, relative<->absolute tools
 - rhythm tools
-- autocompletion
 - test on Mac OS X and Windows, make easy installers
 - MIDI...
 
