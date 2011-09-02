@@ -29,27 +29,130 @@ import listmodel
 import ly.words
 
 
+# helper functions
+def command(item):
+    """Prepends '\\' to item."""
+    return '\\' + item
+
+def variable(item):
+    """Appends ' = ' to item."""
+    return item + " = "
+
+def cmd_or_var(item):
+    """Appends ' = ' to item if it does not start with '\\'."""
+    return item if item.startswith('\\') else item + " = "
+
+def make_cmds(words):
+    """Returns generator prepending '\\' to every word."""
+    return ('\\' + w for w in words)
+
+
+# some groups of basic commands
+
+# markup (toplevel, book and bookpart)
+markup = (
+    'markup',
+    'markuplines',
+    'pageBreak',
+    'noPageBreak',
+)
+
+# these can occur (almost) everywhere
+everywhere = (
+    'language',
+    'pointAndClickOn',
+    'pointAndClickOff',
+    'include',
+)
+
+# commands that change input mode, can introduce a music expression
+inputmodes = (
+    'chords',
+    'chordmode {',
+    'drums',
+    'drummode {',
+    'figures',
+    'figuremode {',
+    'lyrics',
+    'lyricmode {',
+    'addlyrics {',
+)
+
+# commands that only occur at the global file level
+toplevel = (
+    'version',
+    'sourcefileline',
+    'sourcefilename',
+)
+
+# other commands that can start a music expression
+start_music = (
+    'repeat',
+    'relative',
+    'transpose',
+    'partcombine',
+    'new',
+    'context',
+    'with',
+)
+
+# tweak commands may be assigned, in toplevel
+tweaks = (
+    'once',
+    'override',
+    'set',
+    'unset',
+    'tweak',
+)
+
+# modes book, bookpart and score
+modes = (
+    'book {',
+    'bookpart {',
+    'score {',
+)
+
+# blocks: paper, header, layout
+blocks = (
+    'paper {',
+    'header {',
+    'layout {',
+)
+
+# commands that are used in context definitions
+cmds_context = (
+    'override',
+    'consists',
+    'remove',
+    'RemoveEmptyStaves',
+    'accepts',
+    'denies',
+    'name',
+)
+
+# in \with { } a smaller set
+cmds_with = cmds_context[:3]
 
 
 lilypond_commands = listmodel.ListModel(
     sorted(ly.words.lilypond_keywords + ly.words.lilypond_music_commands),
-    display = lambda item: '\\' + item)
+    display = command)
 
 lilypond_markup = listmodel.ListModel(['\\markup'])
 
 lilypond_markup_commands = listmodel.ListModel(
     sorted(ly.words.markupcommands),
-    display = lambda item: '\\' + item)
+    display = command)
 
 lilypond_header_variables = listmodel.ListModel(
-    sorted(ly.words.headervariables), edit = lambda item: item + " = ")
+    sorted(ly.words.headervariables), edit = variable)
 
 lilypond_paper_variables = listmodel.ListModel(
-    sorted(ly.words.papervariables), edit = lambda item: item + " = ")
+    sorted(ly.words.papervariables), edit = variable)
 
 lilypond_layout_variables = listmodel.ListModel(
-    ['\\context',] + sorted(ly.words.layoutvariables),
-    edit = lambda item: item if item[0] == '\\' else item + " = ")
+    ['\\context {',] + sorted(ly.words.layoutvariables),
+    edit = cmd_or_var)
 
 lilypond_contexts = listmodel.ListModel(sorted(ly.words.contexts))
 
@@ -59,14 +162,36 @@ lilypond_contexts_and_grobs = listmodel.ListModel(
     sorted(ly.words.contexts) + sorted(ly.words.grobs))
 
 lilypond_context_contents = listmodel.ListModel(sorted(itertools.chain(
-    ('\\' + w for w in ly.words.contexts),
+    make_cmds(ly.words.contexts),
     ly.words.contextproperties,
-    ('\\override',),
-    )), edit = lambda item: item if item[0] == '\\' else item + " = ")
+    make_cmds(cmds_context),
+    )), edit = cmd_or_var)
 
 lilypond_with_contents = listmodel.ListModel(sorted(itertools.chain(
     ly.words.contextproperties,
-    ('\\override',),
-    )), edit = lambda item: item if item[0] == '\\' else item + " = ")
+    make_cmds(cmds_with),
+    )), edit = cmd_or_var)
+
+lilypond_toplevel = listmodel.ListModel(sorted(
+    toplevel + everywhere + inputmodes + markup + start_music + tweaks
+    + modes + blocks
+    ), display = command)
+
+lilypond_book = listmodel.ListModel(sorted(
+    everywhere + inputmodes + markup + start_music
+    + modes[1:] + blocks + (
+    'bookOutputName',
+    'bookOutputSuffix',
+    )), display = command)
+
+lilypond_bookpart = listmodel.ListModel(sorted(
+    everywhere + inputmodes + markup + start_music + modes[2:] + blocks
+    ), display = command)
+    
+lilypond_score = listmodel.ListModel(sorted(
+    everywhere + inputmodes + start_music + blocks[1:] + (
+    'midi {',
+    )), display = command)
+
 
 

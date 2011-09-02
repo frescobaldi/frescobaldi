@@ -95,23 +95,59 @@ class Analyzer(object):
                 return
         
         # TODO: try more
-        
-        # TEMP!!! only complete backslashed commands
-        m = re.search(r'\\[a-z]?[A-Za-z]*$', text)
-        if m:
-            self.column = m.start()
-            self.model = completiondata.lilypond_commands
 
 
-# decorator to map functions to parser class
+# decorator to map functions to parser class(es)
 _states = {}
-def state(parserClass):
+def state(*parserClasses):
     def decorator(f):
-        _states[parserClass] = f
+        for c in parserClasses:
+            _states[c] = f
     return decorator
 
 
-# markup
+# global toplevel
+@state(ly.lex.lilypond.LilyPondParserGlobal)
+def test(self):
+    if not isinstance(self.last, ly.lex.Space):
+        self.column = self.lastpos
+    return completiondata.lilypond_toplevel
+    # maybe: check if behind \version or \language
+
+
+# \book {
+@state(ly.lex.lilypond.LilyPondParserBook)
+def test(self):
+    if not isinstance(self.last, ly.lex.Space):
+        self.column = self.lastpos
+    return completiondata.lilypond_book
+
+
+# \bookpart {
+@state(ly.lex.lilypond.LilyPondParserBookPart)
+def test(self):
+    if not isinstance(self.last, ly.lex.Space):
+        self.column = self.lastpos
+    return completiondata.lilypond_bookpart
+
+
+# \score {
+@state(ly.lex.lilypond.LilyPondParserScore)
+def test(self):
+    if not isinstance(self.last, ly.lex.Space):
+        self.column = self.lastpos
+    return completiondata.lilypond_score
+
+
+# general music
+@state(ly.lex.lilypond.LilyPondParserMusic, ly.lex.lilypond.LilyPondParserNoteMode)
+def test(self):
+    if not isinstance(self.last, ly.lex.Space):
+        self.column = self.lastpos
+    return completiondata.lilypond_commands
+
+
+# \markup
 @state(ly.lex.lilypond.MarkupParser)
 def test(self):
     if (self.last.startswith('\\')
@@ -173,7 +209,7 @@ def test(self):
             self.column = self.lastpos
         return completiondata.lilypond_markup
     if self.last and not isinstance(self.last, ly.lex.Space):
-        self.column = lastpos
+        self.column = self.lastpos
     return completiondata.lilypond_with_contents
     
 
