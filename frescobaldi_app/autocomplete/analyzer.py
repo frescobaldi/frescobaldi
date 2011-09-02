@@ -26,6 +26,7 @@ from __future__ import unicode_literals
 import re
 
 import ly.lex.lilypond
+import ly.lex.scheme
 import ly.words
 import tokeniter
 
@@ -188,13 +189,30 @@ def test(self):
         return completiondata.lilypond_contexts
 
 
+# \override
 @state(ly.lex.lilypond.LilyPondParserOverride)
 def test(self):
+    if self.last == '\\override':
+        return
+    
     tokenclasses = list(map(type, self.tokens))
+    grob = ly.lex.lilypond.GrobName in tokenclasses
+    prop = grob and ly.lex.lilypond.SchemeStart in tokenclasses
+    equalSign = prop and ly.lex.lilypond.EqualSignSetOverride in tokenclasses
+
     if self.last[:1].isalpha():
         self.column = self.lastpos
-    elif ly.lex.lilypond.GrobName in tokenclasses:
-        return # TODO: popup suitable properties here
+    if equalSign:
+        # TODO maybe return suitable values for the last property
+        return completiondata.lilypond_markup
+    if prop:
+        return # TODO: maybe drop back at properties
+    if grob:
+        if tokenclasses[-1] is ly.lex.lilypond.GrobName:
+            return completiondata.lilypond_grobs
+        else:
+            return # TODO: return properties for the grob
+    
     if (isinstance(self.state.parsers()[1], (
             ly.lex.lilypond.LilyPondParserWith,
             ly.lex.lilypond.LilyPondParserContext,
