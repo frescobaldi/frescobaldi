@@ -27,6 +27,7 @@ import re
 
 import ly.lex.lilypond
 import ly.words
+import listmodel
 import tokeniter
 
 from . import completiondata
@@ -70,6 +71,7 @@ def completions(cursor):
     print '================================'
     for t in tokens:
         print '{0} "{1}"'.format(t.__class__.__name__, t)
+    print '========parser:', state.parser().__class__
     
     # in markup mode?
     if isinstance(state.parser(), ly.lex.lilypond.MarkupParser):
@@ -77,6 +79,16 @@ def completions(cursor):
             column = last.pos
         return column, completiondata.lilypond_markup_commands
     
+    # header?
+    if isinstance(state.parser(), ly.lex.lilypond.LilyPondParserHeader):
+        if '=' in tokens[-3:] or last.startswith('\\'):
+            if last.startswith('\\'):
+                column = last.pos
+            return column, listmodel.ListModel(['\\markup'])
+        if last[:1].isalpha():
+            column = last.pos
+        return column, completiondata.lilypond_header_variables
+        
     # TEMP!!! only complete backslashed commands
     m = re.search(r'\\[a-z]?[A-Za-z]*$', text)
     if m:

@@ -37,3 +37,6 @@ lilypond_markup_commands = listmodel.ListModel(
     sorted(ly.words.markupcommands),
     display = lambda item: '\\' + item)
 
+lilypond_header_variables = listmodel.ListModel(
+    sorted(ly.words.headervariables), edit = lambda item: item + " = ")
+
