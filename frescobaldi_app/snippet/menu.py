@@ -31,6 +31,7 @@ TODO:
 
 from __future__ import unicode_literals
 
+from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QMenu
 
 import app
@@ -43,7 +44,7 @@ class InsertMenu(QMenu):
         super(InsertMenu, self).__init__(parent)
         
         self.aboutToShow.connect(self.populate)
-        self.aboutToHide.connect(self.clearMenu)
+        self.aboutToHide.connect(self.clearMenu, Qt.QueuedConnection)
         self.triggered.connect(self.slotTriggered)
         tool = panels.manager(self.mainwindow()).snippettool
         self.addAction(tool.actionCollection.snippettool_activate)
@@ -75,7 +76,7 @@ class InsertMenu(QMenu):
             variables = snippets.get(name).variables
             menu = variables.get('menu')
             if menu:
-                action = actions.action(name, self, tool.snippetActions)
+                action = actions.action(name, self.mainwindow(), tool.snippetActions)
                 if 'yes' in variables.get('selection', ''):
                     action.setEnabled(selection)
                 groups.setdefault(menu, []).append(action)
@@ -88,6 +89,7 @@ class InsertMenu(QMenu):
     def clearMenu(self):
         """Deletes the actions on menu hide, excepts the "Snippets..." action."""
         for a in self.actions()[:-1]:
+            self.removeAction(a)
             a.deleteLater()
     
     def slotTriggered(self, action):
