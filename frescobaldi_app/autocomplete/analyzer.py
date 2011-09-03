@@ -192,25 +192,27 @@ def test(self):
 # \layout { \context {
 @state(ly.lex.lilypond.LilyPondParserContext)
 def test(self):
-    if '=' in self.tokens[-3:]:
-        if self.last.startswith('\\'):
-            self.column = self.lastpos
-        return completiondata.lilypond_markup
-    if self.last and not isinstance(self.last, ly.lex.Space):
-        self.column = self.lastpos
-    return completiondata.lilypond_context_contents
+    return test_context_with(self) or completiondata.lilypond_context_contents
     
 
 # \with {
 @state(ly.lex.lilypond.LilyPondParserWith)
 def test(self):
+    return test_context_with(self) or completiondata.lilypond_with_contents
+    
+
+# shared analyzer for \context { } and \with { }
+def test_context_with(self):
+    if '\\remove' in self.tokens[-3:-1] or '\\consists' in self.tokens[-3:-1]:
+        if not isinstance(self.last, ly.lex.Space):
+            self.column = self.lastpos
+        return completiondata.lilypond_engravers
     if '=' in self.tokens[-3:]:
         if self.last.startswith('\\'):
             self.column = self.lastpos
         return completiondata.lilypond_markup
     if self.last and not isinstance(self.last, ly.lex.Space):
         self.column = self.lastpos
-    return completiondata.lilypond_with_contents
     
 
 # \new or \context in music
@@ -257,6 +259,17 @@ def test(self):
         return completiondata.lilypond_grobs
     return completiondata.lilypond_contexts_and_grobs
 
+
+# string in lilypond
+@state(ly.lex.lilypond.StringParser)
+def test(self):
+    if '"' not in self.tokens[-2:]:
+        return
+    elif self.last != '"':
+        self.column = self.lastpos
+    if '\\remove' in self.tokens or '\\consists' in self.tokens:
+        return completiondata.lilypond_engravers
+    
 
 
 

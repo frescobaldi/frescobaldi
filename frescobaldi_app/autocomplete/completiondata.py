@@ -88,11 +88,13 @@ toplevel = (
 # other commands that can start a music expression
 start_music = (
     'repeat',
+    'alternative',
     'relative',
     'transpose',
     'partcombine',
-    'keepWithTag',
-    'removeWithTag',
+    'keepWithTag #\'',
+    'removeWithTag #\'',
+    'tag #\'',
     'new',
     'context',
     'with',
@@ -104,7 +106,7 @@ tweaks = (
     'override',
     'set',
     'unset',
-    'tweak',
+    'tweak #\'',
 )
 
 # modes book, bookpart and score
@@ -128,6 +130,8 @@ cmds_context = (
     'remove',
     'RemoveEmptyStaves',
     'accepts',
+    'alias',
+    'defaultchild',
     'denies',
     'name',
 )
@@ -195,5 +199,6 @@ lilypond_score = listmodel.ListModel(sorted(
     'midi {',
     )), display = command)
 
-
+lilypond_engravers = listmodel.ListModel(ly.words.engravers)
+    
 
