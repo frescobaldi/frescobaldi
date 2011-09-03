@@ -21,6 +21,8 @@
 Expand variables like $DATE, $LILYPOND_VERSION etc. in snippets. 
 """
 
+from __future__ import unicode_literals
+
 import __builtin__
 import time
 

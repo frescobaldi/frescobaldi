@@ -22,6 +22,8 @@ Manages highlighting of arbitrary things in a View, e.g.
 the current line, marked lines, search results etc.
 """
 
+from __future__ import unicode_literals
+
 from PyQt4.QtGui import QColor, QTextCharFormat, QTextFormat
 
 import app

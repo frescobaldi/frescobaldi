@@ -21,6 +21,8 @@
 Fill in a ly.dom Document with example music for previewing.
 """
 
+from __future__ import unicode_literals
+
 import itertools
 import math
 

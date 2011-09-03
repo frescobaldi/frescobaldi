@@ -21,6 +21,8 @@ Get it from: http://portmedia.sourceforge.net/
 
 """
 
+from __future__ import unicode_literals
+
 import array
 import atexit
 

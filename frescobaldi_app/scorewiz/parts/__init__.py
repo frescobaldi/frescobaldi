@@ -21,6 +21,8 @@
 All available part types.
 """
 
+from __future__ import unicode_literals
+
 import collections
 
 from PyQt4.QtCore import QAbstractItemModel, QModelIndex, Qt

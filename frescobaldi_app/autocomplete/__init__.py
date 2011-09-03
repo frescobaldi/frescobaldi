@@ -21,6 +21,8 @@
 Auto-completes entered text.
 """
 
+from __future__ import unicode_literals
+
 from PyQt4.QtCore import QSettings, Qt
 from PyQt4.QtGui import QAction, QKeySequence
 

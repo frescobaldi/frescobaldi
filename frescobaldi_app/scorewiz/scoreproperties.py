@@ -26,6 +26,8 @@ Properties of a score:
 - tempo indication
 """
 
+from __future__ import unicode_literals
+
 import fractions
 import re
 

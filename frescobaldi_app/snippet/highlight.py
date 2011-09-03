@@ -21,6 +21,8 @@
 Highlighter for the snippet editor and view.
 """
 
+from __future__ import unicode_literals
+
 import __builtin__
 import keyword
 

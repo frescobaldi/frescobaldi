@@ -21,6 +21,8 @@
 Dummy file containing messages that are part of some Python modules or Qt and used in our application.
 """
 
+from __future__ import unicode_literals
+
 # Python, optparse:
 _("Usage")
 _("Usage: %s\n")
