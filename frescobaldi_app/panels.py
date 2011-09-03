@@ -115,9 +115,9 @@ class Panel(QDockWidget):
         """Ensures that our widget() is created and returns it."""
         w = super(Panel, self).widget()
         if not w:
-            self.visibilityChanged.disconnect(self.slotVisibilityChanged)
             w = self.createWidget()
             self.setWidget(w)
+            self.visibilityChanged.disconnect(self.slotVisibilityChanged)
         return w
     
     def slotVisibilityChanged(self, visible):
