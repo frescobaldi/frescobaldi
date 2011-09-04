@@ -23,7 +23,7 @@ Information about grobs (Graphical Objects).
 
 import itertools
 
-from . import interfaces as _interfaces
+from . import _interfaces
 
 def properties(grob):
     """Returns the list of properties the named grob supports."""
