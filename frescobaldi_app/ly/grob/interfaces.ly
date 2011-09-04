@@ -17,6 +17,22 @@
    '()
    h))
 
+
+#
+(define accepted-properties
+  '(
+    cross-staff
+    positioning-done
+    ))
+
+
+#
+(define (user-property? prop)
+  "is the property a user property?"
+  (or (memq prop accepted-properties)
+      (memq prop all-user-grob-properties)))
+
+
 #
 (define (format-string-list list indent)
   "formats a list of strings as a python list"
@@ -56,7 +72,8 @@
              (format-string-list
               (sort
                (map symbol->string
-                 (list-ref (hashq-ref h k) 2))
+                (filter user-property?
+                 (list-ref (hashq-ref h k) 2)))
                string<)
               4)
              4)))
