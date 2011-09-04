@@ -27,6 +27,7 @@ import itertools
 
 import listmodel
 import ly.words
+import ly.grob
 
 
 # helper functions
@@ -201,4 +202,8 @@ lilypond_score = listmodel.ListModel(sorted(
 
 lilypond_engravers = listmodel.ListModel(ly.words.engravers)
     
+def lilypond_grob_properties(grob):
+    return listmodel.ListModel(ly.grob.properties(grob),
+        display = lambda item: "#'" + item)
+
 

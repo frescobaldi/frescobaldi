@@ -79,7 +79,7 @@ class Analyzer(object):
         # DEBUG
         print '================================'
         for t in tokens:
-            print '{0} "{1}"'.format(t.__class__.__name__, t)
+            print '{0} "{1}"'.format(t.__class__, t)
         print '========parser:', state.parser().__class__
         
         parser = state.parser()
@@ -243,14 +243,20 @@ def test(self):
     if equalSign:
         # TODO maybe return suitable values for the last property
         return completiondata.lilypond_markup
-    if prop:
-        return # TODO: maybe drop back at properties
     if grob:
         if tokenclasses[-1] is ly.lex.lilypond.GrobName:
             return completiondata.lilypond_grobs
-        else:
-            return # TODO: return properties for the grob
-    
+        elif ly.lex.lilypond.GrobName in tokenclasses[-2:-1]:
+            # return properties for the grob
+            return completiondata.lilypond_grob_properties(self.tokens[-2])
+        elif tokenclasses[-5:] == [
+            ly.lex.lilypond.GrobName,
+            ly.lex.Space,
+            ly.lex.lilypond.SchemeStart,
+            ly.lex.scheme.Quote,
+            ly.lex.scheme.Word]:
+            self.column = self.lastpos - 2
+            return completiondata.lilypond_grob_properties(self.tokens[-5])
     if (isinstance(self.state.parsers()[1], (
             ly.lex.lilypond.LilyPondParserWith,
             ly.lex.lilypond.LilyPondParserContext,
@@ -270,6 +276,26 @@ def test(self):
     if '\\remove' in self.tokens or '\\consists' in self.tokens:
         return completiondata.lilypond_engravers
     
+
+# scheme, various stuff
+@state(ly.lex.scheme.SchemeParser)
+def test(self):
+    tokenclasses = list(map(type, self.tokens))
+    
+    if tokenclasses[-3:] == [
+        ly.lex.lilypond.GrobName,
+        ly.lex.Space,
+        ly.lex.lilypond.SchemeStart]:
+        self.column -= 1
+        return completiondata.lilypond_grob_properties(self.tokens[-3])
+    elif tokenclasses[-4:] == [
+        ly.lex.lilypond.GrobName,
+        ly.lex.Space,
+        ly.lex.lilypond.SchemeStart,
+        ly.lex.scheme.Quote]:
+        self.column -= 2
+        return completiondata.lilypond_grob_properties(self.tokens[-4])
+
 
 
 

@@ -21,14 +21,14 @@
 Information about grobs (Graphical Objects).
 """
 
-import itertools
-
 from . import _interfaces
+from .. import util
 
 def properties(grob):
     """Returns the list of properties the named grob supports."""
-    return sorted(sum(itertools.chain(
-        _interfaces.interfaces[i] for i in _interfaces.grobs.get(grob, [])), []))
+    return sorted(uniq(prop
+        for iface in _interfaces.grobs.get(grob, [])
+        for prop in _interfaces.interfaces[iface]))
 
 def interfaces(grob):
     """Returns the list of interfaces a grob supports."""
@@ -41,9 +41,9 @@ def interface_properties(iface):
 def properties_with_interface(grob):
     """Returns a list of two-tuples (property, interface)."""
     return sorted(
-        (p, i)
-        for i in _interfaces.grobs.get(grob, [])
-        for p in _interfaces.interfaces[i])
+        (prop, iface)
+        for iface in _interfaces.grobs.get(grob, [])
+        for prop in _interfaces.interfaces[iface])
 
 def interfaces_for_property(prop):
     """(Expensive) returns the list of interfaces that define the property.
@@ -54,4 +54,24 @@ def interfaces_for_property(prop):
     return [iface
         for iface, props in _interfaces.interfaces.items()
         if prop in props]
+
+def interface(prop, grob):
+    """Returns the list of interfaces of the grob that define the property.
+    
+    Will almost always return one interface name.
+    
+    """
+    return [iface
+        for iface in interfaces(grob)
+        if prop in interface_properties(iface)]
+
+def uniq(iterable):
+    """Returns an iterable, removing duplicates. The items should be hashable."""
+    s, l = set(), 0
+    for i in iterable:
+        s.add(i)
+        if len(s) > l:
+            yield i
+            l = len(s)
+
 
