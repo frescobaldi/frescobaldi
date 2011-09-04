@@ -22,21 +22,13 @@ Information about grobs (Graphical Objects).
 """
 
 from . import _interfaces
-from .. import util
+
 
 def properties(grob):
     """Returns the list of properties the named grob supports."""
     return sorted(uniq(prop
         for iface in _interfaces.grobs.get(grob, [])
         for prop in _interfaces.interfaces[iface]))
-
-def interfaces(grob):
-    """Returns the list of interfaces a grob supports."""
-    return _interfaces.grobs.get(grob, [])
-
-def interface_properties(iface):
-    """Retrns the list of properties an interface supports."""
-    return _interfaces.interfaces.get(iface, [])
 
 def properties_with_interface(grob):
     """Returns a list of two-tuples (property, interface)."""
@@ -45,8 +37,24 @@ def properties_with_interface(grob):
         for iface in _interfaces.grobs.get(grob, [])
         for prop in _interfaces.interfaces[iface])
 
+def interfaces(grob, prop=None):
+    """Returns the list of interfaces a grob supports.
+    
+    If prop is given, only returns the interfaces that define prop.
+    
+    """
+    ifaces = _interfaces.grobs.get(grob, [])
+    if prop is None:
+        return ifaces
+    return [iface for iface in ifaces
+            if prop in interface_properties(iface)]
+
+def interface_properties(iface):
+    """Returns the list of properties an interface supports."""
+    return _interfaces.interfaces.get(iface, [])
+
 def interfaces_for_property(prop):
-    """(Expensive) returns the list of interfaces that define the property.
+    """Returns the list of interfaces that define the property.
     
     Most times returns one, but several interface names may be returned.
     
@@ -54,16 +62,6 @@ def interfaces_for_property(prop):
     return [iface
         for iface, props in _interfaces.interfaces.items()
         if prop in props]
-
-def interface(prop, grob):
-    """Returns the list of interfaces of the grob that define the property.
-    
-    Will almost always return one interface name.
-    
-    """
-    return [iface
-        for iface in interfaces(grob)
-        if prop in interface_properties(iface)]
 
 def uniq(iterable):
     """Returns an iterable, removing duplicates. The items should be hashable."""
