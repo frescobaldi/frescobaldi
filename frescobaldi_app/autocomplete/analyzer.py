@@ -31,6 +31,8 @@ import ly.words
 import tokeniter
 
 from . import completiondata
+from . import documentdata
+
 
 __all__ = ['completions']
 
@@ -55,6 +57,7 @@ def completions(cursor):
 class Analyzer(object):
     """This does the analyzing work; sets the attributes column and model."""
     def __init__(self, cursor):
+        self.cursor = cursor
         block = cursor.block()
         self.column = column = cursor.position() - block.position()
         self.text = text = block.text()[:column]
@@ -142,6 +145,13 @@ def test(self):
 # general music
 @state(ly.lex.lilypond.LilyPondParserMusic, ly.lex.lilypond.LilyPondParserNoteMode)
 def test(self):
+    if isinstance(self.last, ly.lex.scheme.Word):
+        if ('\\tweak' in self.tokens[-5:-4]
+            and self.text[:self.lastpos].endswith("#'")):
+            self.column = self.lastpos - 2
+            return completiondata.lilypond_all_grob_properties
+        self.column = self.lastpos
+        return documentdata.doc(self.cursor.document()).schemewords()
     if not isinstance(self.last, ly.lex.Space):
         self.column = self.lastpos
     return completiondata.lilypond_commands
@@ -207,7 +217,10 @@ def test_context_with(self):
         if not isinstance(self.last, ly.lex.Space):
             self.column = self.lastpos
         return completiondata.lilypond_engravers
-    if '=' in self.tokens[-3:]:
+    if '=' in self.tokens[-4:]:
+        if isinstance(self.last, ly.lex.scheme.Word):
+            self.column = self.lastpos
+            return documentdata.doc(self.cursor.document()).schemewords()
         if self.last.startswith('\\'):
             self.column = self.lastpos
         return completiondata.lilypond_markup
@@ -282,6 +295,7 @@ def test(self):
 def test(self):
     tokenclasses = list(map(type, self.tokens))
     
+    # test for properties after a grob name in \override or \revert
     if tokenclasses[-3:] == [
         ly.lex.lilypond.GrobName,
         ly.lex.Space,
@@ -295,6 +309,50 @@ def test(self):
         ly.lex.scheme.Quote]:
         self.column -= 2
         return completiondata.lilypond_grob_properties(self.tokens[-4])
+    
+    # test for property after \tweak
+    if '\\tweak' in self.tokens:
+        if tokenclasses[-3:] == [
+            ly.lex.lilypond.Command,
+            ly.lex.Space,
+            ly.lex.lilypond.SchemeStart]:
+            self.column -= 1
+            return completiondata.lilypond_all_grob_properties
+        elif tokenclasses[-4:] == [
+            ly.lex.lilypond.Command,
+            ly.lex.Space,
+            ly.lex.lilypond.SchemeStart,
+            ly.lex.scheme.Quote]:
+            self.column -= 2
+            return completiondata.lilypond_all_grob_properties
+    
+    # test for \markup \override
+    if '\\override' in self.tokens:
+        if isinstance(self.last, ly.lex.scheme.Word):
+            clss = tokenclasses[:-1]
+            column = self.lastpos
+        else:
+            clss = tokenclasses
+            column = self.column
+        if clss[-5:] == [
+            ly.lex.lilypond.MarkupCommand,
+            ly.lex.Space,
+            ly.lex.lilypond.SchemeStart,
+            ly.lex.scheme.Quote,
+            ly.lex.scheme.OpenParen]:
+            self.column = column
+            return completiondata.lilypond_markup_properties
+    
+    # test for other scheme words
+    if isinstance(self.last, (
+        ly.lex.lilypond.SchemeStart,
+        ly.lex.scheme.OpenParen,
+        ly.lex.scheme.Word,
+        )):
+        if isinstance(self.last, ly.lex.scheme.Word):
+            self.column = self.lastpos
+        return documentdata.doc(self.cursor.document()).schemewords()
+
 
 
 

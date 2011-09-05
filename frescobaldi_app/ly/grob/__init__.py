@@ -63,6 +63,10 @@ def interfaces_for_property(prop):
         for iface, props in _interfaces.interfaces.items()
         if prop in props]
 
+def all_properties():
+    """Returns the list of all properties."""
+    return sorted(uniq(sum(_interfaces.interfaces.values(), [])))
+
 def uniq(iterable):
     """Returns an iterable, removing duplicates. The items should be hashable."""
     s, l = set(), 0

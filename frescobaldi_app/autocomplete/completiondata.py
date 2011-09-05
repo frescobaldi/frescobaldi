@@ -207,4 +207,14 @@ def lilypond_grob_properties(grob):
     return listmodel.ListModel(ly.grob.properties(grob),
         display = lambda item: "#'" + item)
 
+lilypond_all_grob_properties = listmodel.ListModel(ly.grob.all_properties(),
+    display = lambda item: "#'" + item)
+
+lilypond_markup_properties = listmodel.ListModel(
+    sorted(set(sum(map(ly.grob.interface_properties, (
+        # see lilypond docs about \markup \override
+        'font-interface',
+        'text-interface',
+        'instrument-specific-markup-interface',
+    )), []))))
 

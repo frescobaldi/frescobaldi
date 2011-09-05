@@ -42,9 +42,9 @@ def names(cursor):
         block = block.next()
 
 
-def schemewords(cursor):
+def schemewords(document):
     """Harvests all schemewords from the document."""
-    for t in tokeniter.allTokens(cursor.document()):
+    for t in tokeniter.allTokens(document):
         if type(t) is ly.lex.scheme.Word:
             yield t
 
@@ -54,9 +54,9 @@ _word_types = (
     ly.lex.String, ly.lex.Comment, ly.lex.Unparsed,
     ly.lex.lilypond.MarkupWord, ly.lex.lilypond.LyricText)
 
-def words(cursor):
+def words(document):
     """Harvests words from strings, lyrics, markup and comments."""
-    for t in tokeniter.allTokens(cursor.document()):
+    for t in tokeniter.allTokens(document):
         if isinstance(t, _word_types):
             for m in _words(t):
                 yield m.group()

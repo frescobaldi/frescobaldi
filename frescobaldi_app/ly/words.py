@@ -1394,6 +1394,7 @@ scheme_functions = (
     'set-accidental-style',
     'set-global-staff-size',
     'set-octavation',
+    'set-paper-size',
     'define-public',
     'define-music-function',
     'define-markup-command',
