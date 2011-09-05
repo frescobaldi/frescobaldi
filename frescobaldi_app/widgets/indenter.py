@@ -70,7 +70,9 @@ class Indenter(QObject):
         if ev.type() == QEvent.KeyPress:
             modifiers = int(ev.modifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
             if ev.text() == '\r' and modifiers == 0:
-                self.newline(edit.textCursor())
+                cursor = edit.textCursor()
+                self.newline(cursor)
+                edit.setTextCursor(cursor)
                 return True
             elif ev.key() == Qt.Key_Tab and modifiers == 0:
                 self.indent(edit.textCursor())

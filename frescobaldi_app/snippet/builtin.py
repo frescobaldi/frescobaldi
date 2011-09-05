@@ -200,7 +200,6 @@ if state[-1] not in ('context', 'with'):
 
 'comment': T(_("Comment"),
 r"""-*- python; indent: no;
--*- python;
 # determine state
 for s in state[::-1]:
   if s in ('lilypond', 'html', 'scheme'):
