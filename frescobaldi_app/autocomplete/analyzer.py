@@ -228,9 +228,9 @@ def test(self):
 
 
 # \override
-@state(ly.lex.lilypond.LilyPondParserOverride)
+@state(ly.lex.lilypond.LilyPondParserOverride, ly.lex.lilypond.LilyPondParserRevert)
 def test(self):
-    if self.last == '\\override':
+    if self.last in ('\\override', '\\revert'):
         return
     
     tokenclasses = list(map(type, self.tokens))

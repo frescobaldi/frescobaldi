@@ -431,6 +431,12 @@ class Set(Override):
         state.enter(LilyPondParserSet())
     
 
+class Revert(Override):
+    rx = r"\\revert\b"
+    def updateState(self, state):
+        state.enter(LilyPondParserRevert())
+    
+
 class DotSetOverride(Delimiter):
     rx = r"\."
 
@@ -661,7 +667,7 @@ base_items = space_items + (
 # items that represent commands in both toplevel and music mode
 command_items = (
     Repeat,
-    Override,
+    Override, Revert,
     Set, Unset,
     New, Context,
     With,
@@ -969,6 +975,7 @@ class LilyPondParserRevert(FallthroughParser):
     items = space_items + (
         ContextName,
         DotSetOverride,
+        GrobName,
         Name,
         SchemeStart,
     )

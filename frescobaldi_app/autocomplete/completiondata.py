@@ -105,6 +105,7 @@ start_music = (
 tweaks = (
     'once',
     'override',
+    'revert',
     'set',
     'unset',
     'tweak #\'',
