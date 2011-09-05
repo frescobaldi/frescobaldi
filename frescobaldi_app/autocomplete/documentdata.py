@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-All completions data.
+Completions data harvested from a Document.
 """
 
 from __future__ import unicode_literals
@@ -66,7 +66,7 @@ class DocumentDataSource(plugin.DocumentPlugin):
     def words(self):
         """Returns the list of words in comments, markup etc."""
         return listmodel.ListModel(
-            list(harvest.words(self.document())))
+            sorted(set(harvest.words(self.document()))))
 
     @keep
     def schemewords(self):
@@ -80,6 +80,10 @@ class DocumentDataSource(plugin.DocumentPlugin):
             ))
         return listmodel.ListModel(sorted(schemewords))
 
-
+    @keep
+    def markup(self):
+        return listmodel.ListModel(
+            ['\\' + w for w in ly.words.markupcommands]
+            + sorted(set(harvest.words(self.document()))))
 
 

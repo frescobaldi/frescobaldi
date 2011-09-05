@@ -25,8 +25,9 @@ from __future__ import unicode_literals
 
 import re
 
-import ly.lex.lilypond
-import ly.lex.scheme
+import ly.lex as lx
+import ly.lex.lilypond as lp
+import ly.lex.scheme as scm
 import ly.words
 import tokeniter
 
@@ -110,65 +111,69 @@ def state(*parserClasses):
 
 
 # global toplevel
-@state(ly.lex.lilypond.LilyPondParserGlobal)
+@state(lp.LilyPondParserGlobal)
 def test(self):
-    if not isinstance(self.last, ly.lex.Space):
+    if not isinstance(self.last, lx.Space):
         self.column = self.lastpos
     return completiondata.lilypond_toplevel
     # maybe: check if behind \version or \language
 
 
 # \book {
-@state(ly.lex.lilypond.LilyPondParserBook)
+@state(lp.LilyPondParserBook)
 def test(self):
-    if not isinstance(self.last, ly.lex.Space):
+    if not isinstance(self.last, lx.Space):
         self.column = self.lastpos
     return completiondata.lilypond_book
 
 
 # \bookpart {
-@state(ly.lex.lilypond.LilyPondParserBookPart)
+@state(lp.LilyPondParserBookPart)
 def test(self):
-    if not isinstance(self.last, ly.lex.Space):
+    if not isinstance(self.last, lx.Space):
         self.column = self.lastpos
     return completiondata.lilypond_bookpart
 
 
 # \score {
-@state(ly.lex.lilypond.LilyPondParserScore)
+@state(lp.LilyPondParserScore)
 def test(self):
-    if not isinstance(self.last, ly.lex.Space):
+    if not isinstance(self.last, lx.Space):
         self.column = self.lastpos
     return completiondata.lilypond_score
 
 
 # general music
-@state(ly.lex.lilypond.LilyPondParserMusic, ly.lex.lilypond.LilyPondParserNoteMode)
+@state(lp.LilyPondParserMusic, lp.LilyPondParserNoteMode)
 def test(self):
-    if isinstance(self.last, ly.lex.scheme.Word):
+    if isinstance(self.last, scm.Word):
         if ('\\tweak' in self.tokens[-5:-4]
             and self.text[:self.lastpos].endswith("#'")):
             self.column = self.lastpos - 2
             return completiondata.lilypond_all_grob_properties
         self.column = self.lastpos
         return documentdata.doc(self.cursor.document()).schemewords()
-    if not isinstance(self.last, ly.lex.Space):
+    if not isinstance(self.last, lx.Space):
         self.column = self.lastpos
     return completiondata.lilypond_commands
 
 
 # \markup
-@state(ly.lex.lilypond.MarkupParser)
+@state(lp.MarkupParser)
 def test(self):
-    if (self.last.startswith('\\')
-        and self.last[1:] not in ly.words.markupcommands
-        and self.last != '\\markup'):
+    if self.last.startswith('\\'):
+        if (self.last[1:] not in ly.words.markupcommands
+            and self.last != '\\markup'):
+            self.column = self.lastpos
+        else:
+            return completiondata.lilypond_markup_commands
+    elif not isinstance(self.last, lx.Space):
         self.column = self.lastpos
-    return completiondata.lilypond_markup_commands
+    return documentdata.doc(self.cursor.document()).markup()
     
 
 # \header {
-@state(ly.lex.lilypond.LilyPondParserHeader)
+@state(lp.LilyPondParserHeader)
 def test(self):
     if '=' in self.tokens[-3:] or self.last.startswith('\\'):
         if self.last.startswith('\\'):
@@ -180,7 +185,7 @@ def test(self):
 
 
 # \paper {
-@state(ly.lex.lilypond.LilyPondParserPaper)
+@state(lp.LilyPondParserPaper)
 def test(self):
     if '=' in self.tokens[-3:] or self.last.startswith('\\'):
         if self.last.startswith('\\'):
@@ -192,21 +197,21 @@ def test(self):
     
 
 # \layout {
-@state(ly.lex.lilypond.LilyPondParserLayout)
+@state(lp.LilyPondParserLayout)
 def test(self):
-    if self.last and not isinstance(self.last, ly.lex.Space):
+    if self.last and not isinstance(self.last, lx.Space):
         self.column = self.lastpos
     return completiondata.lilypond_layout_variables
     
 
 # \layout { \context {
-@state(ly.lex.lilypond.LilyPondParserContext)
+@state(lp.LilyPondParserContext)
 def test(self):
     return test_context_with(self) or completiondata.lilypond_context_contents
     
 
 # \with {
-@state(ly.lex.lilypond.LilyPondParserWith)
+@state(lp.LilyPondParserWith)
 def test(self):
     return test_context_with(self) or completiondata.lilypond_with_contents
     
@@ -214,22 +219,22 @@ def test(self):
 # shared analyzer for \context { } and \with { }
 def test_context_with(self):
     if '\\remove' in self.tokens[-3:-1] or '\\consists' in self.tokens[-3:-1]:
-        if not isinstance(self.last, ly.lex.Space):
+        if not isinstance(self.last, lx.Space):
             self.column = self.lastpos
         return completiondata.lilypond_engravers
     if '=' in self.tokens[-4:]:
-        if isinstance(self.last, ly.lex.scheme.Word):
+        if isinstance(self.last, scm.Word):
             self.column = self.lastpos
             return documentdata.doc(self.cursor.document()).schemewords()
         if self.last.startswith('\\'):
             self.column = self.lastpos
         return completiondata.lilypond_markup
-    if self.last and not isinstance(self.last, ly.lex.Space):
+    if self.last and not isinstance(self.last, lx.Space):
         self.column = self.lastpos
     
 
 # \new or \context in music
-@state(ly.lex.lilypond.LilyPondParserNewContext)
+@state(lp.LilyPondParserNewContext)
 def test(self):
     if self.last[:1].isalpha():
         self.column = self.lastpos
@@ -241,15 +246,15 @@ def test(self):
 
 
 # \override
-@state(ly.lex.lilypond.LilyPondParserOverride, ly.lex.lilypond.LilyPondParserRevert)
+@state(lp.LilyPondParserOverride, lp.LilyPondParserRevert)
 def test(self):
     if self.last in ('\\override', '\\revert'):
         return
     
     tokenclasses = list(map(type, self.tokens))
-    grob = ly.lex.lilypond.GrobName in tokenclasses
-    prop = grob and ly.lex.lilypond.SchemeStart in tokenclasses
-    equalSign = prop and ly.lex.lilypond.EqualSignSetOverride in tokenclasses
+    grob = lp.GrobName in tokenclasses
+    prop = grob and lp.SchemeStart in tokenclasses
+    equalSign = prop and lp.EqualSignSetOverride in tokenclasses
 
     if self.last[:1].isalpha():
         self.column = self.lastpos
@@ -257,30 +262,46 @@ def test(self):
         # TODO maybe return suitable values for the last property
         return completiondata.lilypond_markup
     if grob:
-        if tokenclasses[-1] is ly.lex.lilypond.GrobName:
+        if tokenclasses[-1] is lp.GrobName:
             return completiondata.lilypond_grobs
-        elif ly.lex.lilypond.GrobName in tokenclasses[-2:-1]:
+        elif lp.GrobName in tokenclasses[-2:-1]:
             # return properties for the grob
             return completiondata.lilypond_grob_properties(self.tokens[-2])
         elif tokenclasses[-5:] == [
-            ly.lex.lilypond.GrobName,
-            ly.lex.Space,
-            ly.lex.lilypond.SchemeStart,
-            ly.lex.scheme.Quote,
-            ly.lex.scheme.Word]:
+            lp.GrobName,
+            lx.Space,
+            lp.SchemeStart,
+            scm.Quote,
+            scm.Word]:
             self.column = self.lastpos - 2
             return completiondata.lilypond_grob_properties(self.tokens[-5])
     if (isinstance(self.state.parsers()[1], (
-            ly.lex.lilypond.LilyPondParserWith,
-            ly.lex.lilypond.LilyPondParserContext,
+            lp.LilyPondParserWith,
+            lp.LilyPondParserContext,
             ))
-        or ly.lex.lilypond.DotSetOverride in tokenclasses):
+        or lp.DotSetOverride in tokenclasses):
         return completiondata.lilypond_grobs
     return completiondata.lilypond_contexts_and_grobs
 
 
+# \set
+@state(lp.LilyPondParserSet, lp.LilyPondParserUnset)
+def test(self):
+    tokenclasses = list(map(type, self.tokens))
+    if not isinstance(self.last, (lx.Space, lp.DotSetOverride)):
+        self.column = self.lastpos
+    if lp.EqualSignSetOverride in tokenclasses:
+        # TODO maybe return suitable values for the context property
+        return completiondata.lilypond_markup
+    elif lp.ContextProperty in tokenclasses and isinstance(self.last, lx.Space):
+        return # fall back to music?
+    elif lp.DotSetOverride in tokenclasses:
+        return completiondata.lilypond_context_properties
+    return completiondata.lilypond_contexts_and_properties
+
+
 # string in lilypond
-@state(ly.lex.lilypond.StringParser)
+@state(lp.StringParser)
 def test(self):
     if '"' not in self.tokens[-2:]:
         return
@@ -291,65 +312,65 @@ def test(self):
     
 
 # scheme, various stuff
-@state(ly.lex.scheme.SchemeParser)
+@state(scm.SchemeParser)
 def test(self):
     tokenclasses = list(map(type, self.tokens))
     
     # test for properties after a grob name in \override or \revert
     if tokenclasses[-3:] == [
-        ly.lex.lilypond.GrobName,
-        ly.lex.Space,
-        ly.lex.lilypond.SchemeStart]:
+        lp.GrobName,
+        lx.Space,
+        lp.SchemeStart]:
         self.column -= 1
         return completiondata.lilypond_grob_properties(self.tokens[-3])
     elif tokenclasses[-4:] == [
-        ly.lex.lilypond.GrobName,
-        ly.lex.Space,
-        ly.lex.lilypond.SchemeStart,
-        ly.lex.scheme.Quote]:
+        lp.GrobName,
+        lx.Space,
+        lp.SchemeStart,
+        scm.Quote]:
         self.column -= 2
         return completiondata.lilypond_grob_properties(self.tokens[-4])
     
     # test for property after \tweak
     if '\\tweak' in self.tokens:
         if tokenclasses[-3:] == [
-            ly.lex.lilypond.Command,
-            ly.lex.Space,
-            ly.lex.lilypond.SchemeStart]:
+            lp.Command,
+            lx.Space,
+            lp.SchemeStart]:
             self.column -= 1
             return completiondata.lilypond_all_grob_properties
         elif tokenclasses[-4:] == [
-            ly.lex.lilypond.Command,
-            ly.lex.Space,
-            ly.lex.lilypond.SchemeStart,
-            ly.lex.scheme.Quote]:
+            lp.Command,
+            lx.Space,
+            lp.SchemeStart,
+            scm.Quote]:
             self.column -= 2
             return completiondata.lilypond_all_grob_properties
     
     # test for \markup \override
     if '\\override' in self.tokens:
-        if isinstance(self.last, ly.lex.scheme.Word):
+        if isinstance(self.last, scm.Word):
             clss = tokenclasses[:-1]
             column = self.lastpos
         else:
             clss = tokenclasses
             column = self.column
         if clss[-5:] == [
-            ly.lex.lilypond.MarkupCommand,
-            ly.lex.Space,
-            ly.lex.lilypond.SchemeStart,
-            ly.lex.scheme.Quote,
-            ly.lex.scheme.OpenParen]:
+            lp.MarkupCommand,
+            lx.Space,
+            lp.SchemeStart,
+            scm.Quote,
+            scm.OpenParen]:
             self.column = column
             return completiondata.lilypond_markup_properties
     
     # test for other scheme words
     if isinstance(self.last, (
-        ly.lex.lilypond.SchemeStart,
-        ly.lex.scheme.OpenParen,
-        ly.lex.scheme.Word,
+        lp.SchemeStart,
+        scm.OpenParen,
+        scm.Word,
         )):
-        if isinstance(self.last, ly.lex.scheme.Word):
+        if isinstance(self.last, scm.Word):
             self.column = self.lastpos
         return documentdata.doc(self.cursor.document()).schemewords()
 

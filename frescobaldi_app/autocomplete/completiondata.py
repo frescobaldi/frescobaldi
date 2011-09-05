@@ -89,13 +89,12 @@ toplevel = (
 # other commands that can start a music expression
 start_music = (
     'repeat',
-    'alternative',
+    'alternative {',
     'relative',
     'transpose',
     'partcombine',
     'keepWithTag #\'',
     'removeWithTag #\'',
-    'tag #\'',
     'new',
     'context',
     'with',
@@ -108,7 +107,6 @@ tweaks = (
     'revert',
     'set',
     'unset',
-    'tweak #\'',
 )
 
 # modes book, bookpart and score
@@ -168,6 +166,12 @@ lilypond_grobs = listmodel.ListModel(sorted(ly.words.grobs))
 
 lilypond_contexts_and_grobs = listmodel.ListModel(
     sorted(ly.words.contexts) + sorted(ly.words.grobs))
+
+lilypond_context_properties = listmodel.ListModel(sorted(
+    ly.words.contextproperties))
+
+lilypond_contexts_and_properties = listmodel.ListModel(
+    sorted(ly.words.contexts) + sorted(ly.words.contextproperties))
 
 lilypond_context_contents = listmodel.ListModel(sorted(itertools.chain(
     make_cmds(ly.words.contexts),
