@@ -167,8 +167,10 @@ def test(self):
             self.column = self.lastpos
         else:
             return completiondata.lilypond_markup_commands
-    elif not isinstance(self.last, lx.Space):
-        self.column = self.lastpos
+    else:
+        m = re.search(r'\w+$', self.last)
+        if m:
+            self.column = self.lastpos + m.start()
     return documentdata.doc(self.cursor.document()).markup()
     
 
