@@ -197,5 +197,43 @@ if state[-1] not in ('context', 'with'):
         text = '\\layout {\n%s\n}' % text
 """),
 
+
+'comment': T(_("Comment"),
+r"""-*- python; indent: no;
+-*- python;
+# determine state
+for s in state[::-1]:
+  if s in ('lilypond', 'html', 'scheme'):
+    break
+else:
+  s = 'lilypond'
+
+def html():
+  if text:
+    return '<!-- ' + text + ' -->'
+  else:
+    return ['<!-- ', ANCHOR, ' -->']
+
+def lilypond():
+  if text:
+    return '%{ ' + text + '%}'
+  else:
+    return '% '
+
+def scheme():
+  if text:
+    return '; ' + text.replace('\n', '\n; ')
+  else:
+    return '; '
+
+if s == 'lilypond':
+  text = lilypond()
+elif s == 'html':
+  text = html()
+elif s == 'scheme':
+  text = scheme()
+"""),
+
+
 }
 
