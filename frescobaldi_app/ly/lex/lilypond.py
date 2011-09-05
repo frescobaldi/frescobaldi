@@ -1049,6 +1049,7 @@ class LilyPondParserLyricMode(InputModeParser):
         LyricSkip,
         LyricTie,
         LyricText,
+        Dynamic,
         Skip,
         DurationStart,
         Markup, MarkupLines,
