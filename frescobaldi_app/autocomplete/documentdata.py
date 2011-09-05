@@ -54,7 +54,6 @@ def keep(f):
             t, ret = result
             if (time.time() - t) < _delay:
                 return ret
-        print 'caling func', f.func_name
         ret = f(self)
         _cache[self] = (time.time(), ret)
         return ret
