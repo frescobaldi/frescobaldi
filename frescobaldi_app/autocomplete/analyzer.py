@@ -161,6 +161,11 @@ def test(self):
         # complete scheme word
         self.column = self.lastpos
         return documentdata.doc(self.cursor.document()).schemewords()
+    # complete mode argument of '\\key'
+    if '\\key' in self.tokens[-5:-2] and lp.Note in tokenclasses[-3:]:
+        if self.last.startswith('\\'):
+            self.column = self.lastpos
+        return completiondata.lilypond_modes
     # fall back: generic music commands
     if not isinstance(self.last, lx.Space):
         self.column = self.lastpos
@@ -279,11 +284,7 @@ def test(self):
             # return properties for the grob
             return completiondata.lilypond_grob_properties(self.tokens[-2])
         elif tokenclasses[-5:] == [
-            lp.GrobName,
-            lx.Space,
-            lp.SchemeStart,
-            scm.Quote,
-            scm.Word]:
+            lp.GrobName, lx.Space, lp.SchemeStart, scm.Quote, scm.Word]:
             self.column = self.lastpos - 2
             return completiondata.lilypond_grob_properties(self.tokens[-5])
     if (isinstance(self.state.parsers()[1], (
@@ -328,33 +329,21 @@ def test(self):
     tokenclasses = self.tokenclasses()
     
     # test for properties after a grob name in \override or \revert
-    if tokenclasses[-3:] == [
-        lp.GrobName,
-        lx.Space,
-        lp.SchemeStart]:
+    test = [lp.GrobName, lx.Space, lp.SchemeStart, scm.Quote]
+    if tokenclasses[-3:] == test[:-1]:
         self.column -= 1
         return completiondata.lilypond_grob_properties(self.tokens[-3])
-    elif tokenclasses[-4:] == [
-        lp.GrobName,
-        lx.Space,
-        lp.SchemeStart,
-        scm.Quote]:
+    elif tokenclasses[-4:] == test:
         self.column -= 2
         return completiondata.lilypond_grob_properties(self.tokens[-4])
     
     # test for property after \tweak
     if '\\tweak' in self.tokens:
-        if tokenclasses[-3:] == [
-            lp.Command,
-            lx.Space,
-            lp.SchemeStart]:
+        test = [lp.Command, lx.Space, lp.SchemeStart, scm.Quote]
+        if tokenclasses[-3:] == test[:-1]:
             self.column -= 1
             return completiondata.lilypond_all_grob_properties
-        elif tokenclasses[-4:] == [
-            lp.Command,
-            lx.Space,
-            lp.SchemeStart,
-            scm.Quote]:
+        elif tokenclasses[-4:] == test:
             self.column -= 2
             return completiondata.lilypond_all_grob_properties
     
