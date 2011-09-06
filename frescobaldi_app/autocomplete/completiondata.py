@@ -222,3 +222,5 @@ lilypond_markup_properties = listmodel.ListModel(
         'instrument-specific-markup-interface',
     )), []))))
 
+lilypond_modes = listmodel.ListModel(ly.words.modes, display = command)
+
