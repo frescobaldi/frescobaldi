@@ -100,6 +100,10 @@ class Analyzer(object):
         
         # TODO: try more
 
+    def tokenclasses(self):
+        """Returns the list of classes of the tokens."""
+        return list(map(type, self.tokens))
+
 
 # decorator to map functions to parser class(es)
 _states = {}
@@ -146,13 +150,18 @@ def test(self):
 # general music
 @state(lp.LilyPondParserMusic, lp.LilyPondParserNoteMode)
 def test(self):
+    tokenclasses = self.tokenclasses()
+    # at end of scheme word?
     if isinstance(self.last, scm.Word):
         if ('\\tweak' in self.tokens[-5:-4]
             and self.text[:self.lastpos].endswith("#'")):
+            # complete \tweak property
             self.column = self.lastpos - 2
             return completiondata.lilypond_all_grob_properties
+        # complete scheme word
         self.column = self.lastpos
         return documentdata.doc(self.cursor.document()).schemewords()
+    # fall back: generic music commands
     if not isinstance(self.last, lx.Space):
         self.column = self.lastpos
     return completiondata.lilypond_commands
@@ -253,7 +262,7 @@ def test(self):
     if self.last in ('\\override', '\\revert'):
         return
     
-    tokenclasses = list(map(type, self.tokens))
+    tokenclasses = self.tokenclasses()
     grob = lp.GrobName in tokenclasses
     prop = grob and lp.SchemeStart in tokenclasses
     equalSign = prop and lp.EqualSignSetOverride in tokenclasses
@@ -289,7 +298,7 @@ def test(self):
 # \set
 @state(lp.LilyPondParserSet, lp.LilyPondParserUnset)
 def test(self):
-    tokenclasses = list(map(type, self.tokens))
+    tokenclasses = self.tokenclasses()
     if not isinstance(self.last, (lx.Space, lp.DotSetOverride)):
         self.column = self.lastpos
     if lp.EqualSignSetOverride in tokenclasses:
@@ -316,7 +325,7 @@ def test(self):
 # scheme, various stuff
 @state(scm.SchemeParser)
 def test(self):
-    tokenclasses = list(map(type, self.tokens))
+    tokenclasses = self.tokenclasses()
     
     # test for properties after a grob name in \override or \revert
     if tokenclasses[-3:] == [
