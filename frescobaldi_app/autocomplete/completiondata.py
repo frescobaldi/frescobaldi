@@ -27,7 +27,7 @@ import itertools
 
 import listmodel
 import ly.words
-import ly.grob
+import ly.data
 
 
 # helper functions
@@ -167,20 +167,20 @@ lilypond_grobs = listmodel.ListModel(sorted(ly.words.grobs))
 lilypond_contexts_and_grobs = listmodel.ListModel(
     sorted(ly.words.contexts) + sorted(ly.words.grobs))
 
-lilypond_context_properties = listmodel.ListModel(sorted(
-    ly.words.contextproperties))
+lilypond_context_properties = listmodel.ListModel(
+    ly.data.context_properties())
 
 lilypond_contexts_and_properties = listmodel.ListModel(
-    sorted(ly.words.contexts) + sorted(ly.words.contextproperties))
+    sorted(ly.words.contexts) + ly.data.context_properties())
 
 lilypond_context_contents = listmodel.ListModel(sorted(itertools.chain(
     make_cmds(ly.words.contexts),
-    ly.words.contextproperties,
+    ly.data.context_properties(),
     make_cmds(cmds_context),
     )), edit = cmd_or_var)
 
 lilypond_with_contents = listmodel.ListModel(sorted(itertools.chain(
-    ly.words.contextproperties,
+    ly.data.context_properties(),
     make_cmds(cmds_with),
     )), edit = cmd_or_var)
 
@@ -205,17 +205,17 @@ lilypond_score = listmodel.ListModel(sorted(
     'midi {',
     )), display = command)
 
-lilypond_engravers = listmodel.ListModel(ly.words.engravers)
+lilypond_engravers = listmodel.ListModel(ly.data.engravers())
     
 def lilypond_grob_properties(grob):
-    return listmodel.ListModel(ly.grob.properties(grob),
+    return listmodel.ListModel(ly.data.grob_properties(grob),
         display = lambda item: "#'" + item)
 
-lilypond_all_grob_properties = listmodel.ListModel(ly.grob.all_properties(),
+lilypond_all_grob_properties = listmodel.ListModel(ly.data.all_grob_properties(),
     display = lambda item: "#'" + item)
 
 lilypond_markup_properties = listmodel.ListModel(
-    sorted(set(sum(map(ly.grob.interface_properties, (
+    sorted(set(sum(map(ly.data.grob_interface_properties, (
         # see lilypond docs about \markup \override
         'font-interface',
         'text-interface',

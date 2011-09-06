@@ -571,8 +571,8 @@ class GrobName(_token.Token):
 class ContextProperty(_token.Token):
     @_token.patternproperty
     def rx():
-        from .. import words
-        return r"\b({0})\b".format("|".join(words.contextproperties))
+        from .. import data
+        return r"\b({0})\b".format("|".join(data.context_properties()))
 
 
 class PaperVariable(Variable):

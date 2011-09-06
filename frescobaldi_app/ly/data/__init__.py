@@ -18,54 +18,71 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Information about grobs (Graphical Objects).
+Query functions to get data from the LilyPond-generated _data.py module.
 """
 
-from . import _interfaces
-
-
-def properties(grob):
+def grob_properties(grob):
     """Returns the list of properties the named grob supports."""
+    from . import _data
     return sorted(uniq(prop
-        for iface in _interfaces.grobs.get(grob, [])
-        for prop in _interfaces.interfaces[iface]))
+        for iface in _data.grobs.get(grob, [])
+        for prop in _data.interfaces[iface]))
 
-def properties_with_interface(grob):
+def grob_properties_with_interface(grob):
     """Returns a list of two-tuples (property, interface)."""
+    from . import _data
     return sorted(
         (prop, iface)
-        for iface in _interfaces.grobs.get(grob, [])
-        for prop in _interfaces.interfaces[iface])
+        for iface in _data.grobs.get(grob, [])
+        for prop in _data.interfaces[iface])
 
-def interfaces(grob, prop=None):
+def grob_interfaces(grob, prop=None):
     """Returns the list of interfaces a grob supports.
     
     If prop is given, only returns the interfaces that define prop.
     
     """
-    ifaces = _interfaces.grobs.get(grob, [])
+    from . import _data
+    ifaces = _data.grobs.get(grob, [])
     if prop is None:
         return ifaces
     return [iface for iface in ifaces
-            if prop in interface_properties(iface)]
+            if prop in grob_interface_properties(iface)]
 
-def interface_properties(iface):
+def grob_interface_properties(iface):
     """Returns the list of properties an interface supports."""
-    return _interfaces.interfaces.get(iface, [])
+    from . import _data
+    return _data.interfaces.get(iface, [])
 
-def interfaces_for_property(prop):
+def grob_interfaces_for_property(prop):
     """Returns the list of interfaces that define the property.
     
     Most times returns one, but several interface names may be returned.
     
     """
+    from . import _data
     return [iface
-        for iface, props in _interfaces.interfaces.items()
+        for iface, props in _data.interfaces.items()
         if prop in props]
 
-def all_properties():
+def all_grob_properties():
     """Returns the list of all properties."""
-    return sorted(uniq(sum(_interfaces.interfaces.values(), [])))
+    from . import _data
+    return sorted(uniq(sum(_data.interfaces.values(), [])))
+
+def context_properties():
+    """Returns the list of context properties."""
+    from . import _data
+    return _data.contextproperties
+
+def engravers():
+    """Returns the list of engravers and performers."""
+    return _data.engravers
+
+def music_glyphs():
+    """Returns the list of glyphs in the emmentaler font."""
+    from . import _data
+    return _data.musicglyphs
 
 def uniq(iterable):
     """Returns an iterable, removing duplicates. The items should be hashable."""
