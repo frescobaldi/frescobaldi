@@ -264,25 +264,19 @@ def new_context(self):
 def override(self):
     """\\override and \\revert"""
     tokenclasses = self.tokenclasses()
-    test = [lp.GrobName, lx.Space, lp.SchemeStart, scm.Quote, scm.Word]
-    if tokenclasses[-5:] == test:
-        self.column = self.tokens[-3].pos
-        return completiondata.lilypond_grob_properties(self.tokens[-5])
-    elif tokenclasses[-4:] == test[:4]:
-        self.column = self.tokens[-2].pos
-        return completiondata.lilypond_grob_properties(self.tokens[-4])
-    elif tokenclasses[-3:] == test[:3]:
-        self.column = self.tokens[-1].pos
-        return completiondata.lilypond_grob_properties(self.tokens[-3])
-    elif type(self.state.parser()) is not lp.LilyPondParserOverride:
-        return
-    elif tokenclasses[-2:] == test[:2]:
-        return completiondata.lilypond_grob_properties(self.tokens[-2])
-    elif lp.EqualSignSetOverride in tokenclasses:
-        # TODO maybe return suitable values for the last property
-        self.backuntil(lp.EqualSignSetOverride, lx.Space)
-        return completiondata.lilypond_markup
-    else:
+    inOverride = isinstance(self.state.parser(), lp.LilyPondParserOverride)
+    try:
+        # check if there is a GrobName in the last 5 tokens
+        i = tokenclasses.index(lp.GrobName, -5)
+    except ValueError:
+        # not found, then complete Contexts and or Grobs
+        # (only if we are in the override parser and there's no "=")
+        if not inOverride:
+            return
+        if lp.EqualSignSetOverride in tokenclasses:
+            # TODO maybe return suitable values for the last property
+            self.backuntil(lp.EqualSignSetOverride, lx.Space)
+            return completiondata.lilypond_markup
         self.backuntil(lp.DotSetOverride, lx.Space)
         if (isinstance(self.state.parsers()[1], (
                 lp.LilyPondParserWith,
@@ -291,6 +285,20 @@ def override(self):
             or lp.DotSetOverride in tokenclasses):
             return completiondata.lilypond_grobs
         return completiondata.lilypond_contexts_and_grobs
+    # yes, there is a GrobName at i
+    count = len(self.tokens) - i - 1 # tokens after grobname
+    if count < 2:
+        if not inOverride:
+            return
+        elif count == 0:
+            self.column = self.lastpos
+            return completiondata.lilypond_grobs
+    else:
+        # set the place of the scheme-start "#" as the column
+        self.column = self.tokens[i+2].pos
+    test = [lx.Space, lp.SchemeStart, scm.Quote, scm.Word]
+    if tokenclasses[i+1:] == test[:count]:
+        return completiondata.lilypond_grob_properties(self.tokens[i])
 
 def set_unset(self):
     """\\set and \\unset"""
