@@ -165,10 +165,10 @@ def key(self):
         return completiondata.lilypond_modes
 
 def general_music(self):
-    """fall back: generic music commands"""
+    """fall back: generic music commands and user-defined commands."""
     if not isinstance(self.last, lx.Space):
         self.column = self.lastpos
-    return completiondata.lilypond_commands
+    return documentdata.doc(self.cursor.document()).musiccommands(self.cursor)
 
 def scheme_word(self):
     """Complete scheme word from scheme functions, etc."""

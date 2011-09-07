@@ -29,26 +29,10 @@ import listmodel
 import ly.words
 import ly.data
 
-
-# helper functions
-def command(item):
-    """Prepends '\\' to item."""
-    return '\\' + item
-
-def variable(item):
-    """Appends ' = ' to item."""
-    return item + " = "
-
-def cmd_or_var(item):
-    """Appends ' = ' to item if it does not start with '\\'."""
-    return item if item.startswith('\\') else item + " = "
-
-def make_cmds(words):
-    """Returns generator prepending '\\' to every word."""
-    return ('\\' + w for w in words)
+from . import util
 
 
-# some groups of basic commands
+# some groups of basic lilypond commands
 
 # markup (toplevel, book and bookpart)
 markup = (
@@ -140,25 +124,21 @@ cmds_context = (
 cmds_with = cmds_context[:3]
 
 
-lilypond_commands = listmodel.ListModel(
-    sorted(ly.words.lilypond_keywords + ly.words.lilypond_music_commands),
-    display = command)
-
 lilypond_markup = listmodel.ListModel(['\\markup'])
 
 lilypond_markup_commands = listmodel.ListModel(
     sorted(ly.words.markupcommands),
-    display = command)
+    display = util.command)
 
 lilypond_header_variables = listmodel.ListModel(
-    sorted(ly.words.headervariables), edit = variable)
+    sorted(ly.words.headervariables), edit = util.variable)
 
 lilypond_paper_variables = listmodel.ListModel(
-    sorted(ly.words.papervariables), edit = variable)
+    sorted(ly.words.papervariables), edit = util.variable)
 
 lilypond_layout_variables = listmodel.ListModel(
     ['\\context {',] + sorted(ly.words.layoutvariables),
-    edit = cmd_or_var)
+    edit = util.cmd_or_var)
 
 lilypond_contexts = listmodel.ListModel(sorted(ly.words.contexts))
 
@@ -174,36 +154,36 @@ lilypond_contexts_and_properties = listmodel.ListModel(
     sorted(ly.words.contexts) + ly.data.context_properties())
 
 lilypond_context_contents = listmodel.ListModel(sorted(itertools.chain(
-    make_cmds(ly.words.contexts),
+    util.make_cmds(ly.words.contexts),
     ly.data.context_properties(),
-    make_cmds(cmds_context),
-    )), edit = cmd_or_var)
+    util.make_cmds(cmds_context),
+    )), edit = util.cmd_or_var)
 
 lilypond_with_contents = listmodel.ListModel(sorted(itertools.chain(
     ly.data.context_properties(),
-    make_cmds(cmds_with),
-    )), edit = cmd_or_var)
+    util.make_cmds(cmds_with),
+    )), edit = util.cmd_or_var)
 
 lilypond_toplevel = listmodel.ListModel(sorted(
     toplevel + everywhere + inputmodes + markup + start_music + tweaks
     + modes + blocks
-    ), display = command)
+    ), display = util.command)
 
 lilypond_book = listmodel.ListModel(sorted(
     everywhere + inputmodes + markup + start_music
     + modes[1:] + blocks + (
     'bookOutputName',
     'bookOutputSuffix',
-    )), display = command)
+    )), display = util.command)
 
 lilypond_bookpart = listmodel.ListModel(sorted(
     everywhere + inputmodes + markup + start_music + modes[2:] + blocks
-    ), display = command)
+    ), display = util.command)
     
 lilypond_score = listmodel.ListModel(sorted(
     everywhere + inputmodes + start_music + blocks[1:] + (
     'midi {',
-    )), display = command)
+    )), display = util.command)
 
 lilypond_engravers = listmodel.ListModel(ly.data.engravers())
     
@@ -222,5 +202,5 @@ lilypond_markup_properties = listmodel.ListModel(
         'instrument-specific-markup-interface',
     )), []))))
 
-lilypond_modes = listmodel.ListModel(ly.words.modes, display = command)
+lilypond_modes = listmodel.ListModel(ly.words.modes, display = util.command)
 

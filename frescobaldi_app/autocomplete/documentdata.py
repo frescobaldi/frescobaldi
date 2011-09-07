@@ -24,15 +24,13 @@ Completions data harvested from a Document.
 from __future__ import unicode_literals
 
 import itertools
-import functools
-import time
-import weakref
 
 import listmodel
 import plugin
 import ly.words
 
 from . import harvest
+from . import util
 
 
 def doc(document):
@@ -40,34 +38,14 @@ def doc(document):
     return DocumentDataSource.instance(document)
 
 
-def keep(f):
-    """Returns a decorator that remembers its return value for some time."""
-    _delay = 5.0 # sec
-    _cache = weakref.WeakKeyDictionary()
-    @functools.wraps(f)
-    def decorator(self):
-        try:
-            result = _cache[self]
-        except KeyError:
-            pass
-        else:
-            t, ret = result
-            if (time.time() - t) < _delay:
-                return ret
-        ret = f(self)
-        _cache[self] = (time.time(), ret)
-        return ret
-    return decorator
-
-
 class DocumentDataSource(plugin.DocumentPlugin):
-    @keep
+    @util.keep
     def words(self):
         """Returns the list of words in comments, markup etc."""
         return listmodel.ListModel(
             sorted(set(harvest.words(self.document()))))
 
-    @keep
+    @util.keep
     def schemewords(self):
         """Scheme names, including those harvested from document."""
         schemewords = set(itertools.chain(
@@ -79,10 +57,19 @@ class DocumentDataSource(plugin.DocumentPlugin):
             ))
         return listmodel.ListModel(sorted(schemewords))
 
-    @keep
+    @util.keep
     def markup(self):
+        """Completes markup commands and normal text from the document."""
         return listmodel.ListModel(
             ['\\' + w for w in ly.words.markupcommands]
             + sorted(set(harvest.words(self.document()))))
+
+    @util.keep
+    def musiccommands(self, cursor):
+        return listmodel.ListModel(sorted(set(itertools.chain(
+            ly.words.lilypond_keywords,
+            ly.words.lilypond_music_commands,
+            harvest.names(cursor)))), display = util.command)
+
 
 
