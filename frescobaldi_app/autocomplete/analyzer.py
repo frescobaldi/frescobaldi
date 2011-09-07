@@ -62,6 +62,7 @@ class Analyzer(object):
         block = cursor.block()
         self.column = column = cursor.position() - block.position()
         self.text = text = block.text()[:column]
+        self.model = None
         
         # make a list of tokens exactly ending at the cursor position
         # and let state follow
@@ -88,93 +89,88 @@ class Analyzer(object):
         
         parser = state.parser()
         
-        # First, directly map the parser class to a function to return the model
+        # Map the parser class to a group of tests to return the model.
+        # Try the tests until a model is returned.
         try:
-            function = _states[parser.__class__]
+            tests = _tests[parser.__class__]
         except KeyError:
-            self.model = None
+            return
         else:
-            self.model = function(self)
-            if self.model:
-                return
-        
-        # TODO: try more
+            for function in tests:
+                model = function(self)
+                if model:
+                    self.model = model
+                    return
 
     def tokenclasses(self):
         """Returns the list of classes of the tokens."""
         return list(map(type, self.tokens))
 
 
-# decorator to map functions to parser class(es)
-_states = {}
-def state(*parserClasses):
-    def decorator(f):
-        for c in parserClasses:
-            _states[c] = f
-    return decorator
-
-
-# global toplevel
-@state(lp.LilyPondParserGlobal)
-def test(self):
+# Test functions that return a model or None
+# self is the Analyzer instance.
+def toplevel(self):
+    """LilyPond toplevel document contents."""
     if not isinstance(self.last, lx.Space):
         self.column = self.lastpos
     return completiondata.lilypond_toplevel
     # maybe: check if behind \version or \language
 
-
-# \book {
-@state(lp.LilyPondParserBook)
-def test(self):
+def book(self):
+    """\\book {"""
     if not isinstance(self.last, lx.Space):
         self.column = self.lastpos
     return completiondata.lilypond_book
-
-
-# \bookpart {
-@state(lp.LilyPondParserBookPart)
-def test(self):
+    
+def bookpart(self):
+    """\\bookpart {"""
     if not isinstance(self.last, lx.Space):
         self.column = self.lastpos
     return completiondata.lilypond_bookpart
 
-
-# \score {
-@state(lp.LilyPondParserScore)
-def test(self):
+def score(self):
+    """\\score {"""
     if not isinstance(self.last, lx.Space):
         self.column = self.lastpos
     return completiondata.lilypond_score
 
-
-# general music
-@state(lp.LilyPondParserMusic, lp.LilyPondParserNoteMode)
-def test(self):
-    tokenclasses = self.tokenclasses()
-    # at end of scheme word?
-    if isinstance(self.last, scm.Word):
-        if ('\\tweak' in self.tokens[-5:-4]
-            and self.text[:self.lastpos].endswith("#'")):
-            # complete \tweak property
+def tweak(self):
+    """complete property after \\tweak"""
+    if '\\tweak' in self.tokens:
+        tokenclasses = self.tokenclasses()
+        test = [lp.Command, lx.Space, lp.SchemeStart, scm.Quote, scm.Word]
+        if tokenclasses[-3:] == test[:-2] and self.tokens[-3] == '\\tweak':
+            self.column -= 1
+            return completiondata.lilypond_all_grob_properties
+        elif tokenclasses[-4:] == test[:-1] and self.tokens[-4] == '\\tweak':
+            self.column -= 2
+            return completiondata.lilypond_all_grob_properties
+        elif tokenclasses[-5:] == test and self.tokens[-5] == '\\tweak':
             self.column = self.lastpos - 2
             return completiondata.lilypond_all_grob_properties
-        # complete scheme word
-        self.column = self.lastpos
-        return documentdata.doc(self.cursor.document()).schemewords()
-    # complete mode argument of '\\key'
+
+def key(self):
+    """complete mode argument of '\\key'"""
+    tokenclasses = self.tokenclasses()
     if '\\key' in self.tokens[-5:-2] and lp.Note in tokenclasses[-3:]:
         if self.last.startswith('\\'):
             self.column = self.lastpos
         return completiondata.lilypond_modes
-    # fall back: generic music commands
+
+def general_music(self):
+    """fall back: generic music commands"""
     if not isinstance(self.last, lx.Space):
         self.column = self.lastpos
     return completiondata.lilypond_commands
 
-
-# \markup
-@state(lp.MarkupParser)
-def test(self):
+def scheme_word(self):
+    """Complete scheme word from scheme functions, etc."""
+    if isinstance(self.last, scm.Word):
+        self.column = self.lastpos
+        return documentdata.doc(self.cursor.document()).schemewords()
+    
+def markup(self):
+    """\\markup {"""
     if self.last.startswith('\\'):
         if (self.last[1:] not in ly.words.markupcommands
             and self.last != '\\markup'):
@@ -187,10 +183,8 @@ def test(self):
             self.column = self.lastpos + m.start()
     return documentdata.doc(self.cursor.document()).markup()
     
-
-# \header {
-@state(lp.LilyPondParserHeader)
-def test(self):
+def header(self):
+    """\\header {"""
     if '=' in self.tokens[-3:] or self.last.startswith('\\'):
         if self.last.startswith('\\'):
             self.column = self.lastpos
@@ -199,10 +193,8 @@ def test(self):
         self.column = self.lastpos
     return completiondata.lilypond_header_variables
 
-
-# \paper {
-@state(lp.LilyPondParserPaper)
-def test(self):
+def paper(self):
+    """\\paper {"""
     if '=' in self.tokens[-3:] or self.last.startswith('\\'):
         if self.last.startswith('\\'):
             self.column = self.lastpos
@@ -211,33 +203,29 @@ def test(self):
         self.column = self.lastpos
     return completiondata.lilypond_paper_variables
     
-
-# \layout {
-@state(lp.LilyPondParserLayout)
-def test(self):
+def layout(self):
+    """\\layout {"""
     if self.last and not isinstance(self.last, lx.Space):
         self.column = self.lastpos
     return completiondata.lilypond_layout_variables
-    
 
-# \layout { \context {
-@state(lp.LilyPondParserContext)
-def test(self):
-    return test_context_with(self) or completiondata.lilypond_context_contents
-    
-
-# \with {
-@state(lp.LilyPondParserWith)
-def test(self):
-    return test_context_with(self) or completiondata.lilypond_with_contents
-    
-
-# shared analyzer for \context { } and \with { }
-def test_context_with(self):
-    if '\\remove' in self.tokens[-3:-1] or '\\consists' in self.tokens[-3:-1]:
+def engraver(self):
+    """Complete engraver names."""
+    cmd_in = lambda tokens: '\\remove' in tokens or '\\consists' in tokens
+    if isinstance(self.state.parser(), lp.StringParser):
+        if not cmd_in(self.tokens[-5:-2]):
+            return
+        if self.last != '"':
+            if '"' not in self.tokens[-2:-1]:
+                return
+            self.column = self.lastpos
+        return completiondata.lilypond_engravers
+    if cmd_in(self.tokens[-3:-1]):
         if not isinstance(self.last, lx.Space):
             self.column = self.lastpos
         return completiondata.lilypond_engravers
+    
+def context_variable_set(self):
     if '=' in self.tokens[-4:]:
         if isinstance(self.last, scm.Word):
             self.column = self.lastpos
@@ -245,13 +233,19 @@ def test_context_with(self):
         if self.last.startswith('\\'):
             self.column = self.lastpos
         return completiondata.lilypond_markup
-    if self.last and not isinstance(self.last, lx.Space):
-        self.column = self.lastpos
-    
 
-# \new or \context in music
-@state(lp.LilyPondParserNewContext)
-def test(self):
+def context(self):
+    if not isinstance(self.last, lx.Space):
+        self.column = self.lastpos
+    return completiondata.lilypond_context_contents
+
+def with_(self):
+    if not isinstance(self.last, lx.Space):
+        self.column = self.lastpos
+    return completiondata.lilypond_with_contents
+
+def new_context(self):
+    """\\new or \\context in music"""
     if self.last[:1].isalpha():
         self.column = self.lastpos
         preceding = self.tokens[-3:]
@@ -260,10 +254,8 @@ def test(self):
     if '\\new' in preceding or '\\context' in preceding:
         return completiondata.lilypond_contexts
 
-
-# \override
-@state(lp.LilyPondParserOverride, lp.LilyPondParserRevert)
-def test(self):
+def override(self):
+    """\\override and \\revert"""
     if self.last in ('\\override', '\\revert'):
         return
     
@@ -276,6 +268,10 @@ def test(self):
         self.column = self.lastpos
     if equalSign:
         # TODO maybe return suitable values for the last property
+        for t in self.tokens[::-1]:
+            if isinstance(t, (lp.EqualSignSetOverride, lx.Space)):
+                break
+            self.column = t.pos
         return completiondata.lilypond_markup
     if grob:
         if tokenclasses[-1] is lp.GrobName:
@@ -295,15 +291,17 @@ def test(self):
         return completiondata.lilypond_grobs
     return completiondata.lilypond_contexts_and_grobs
 
-
-# \set
-@state(lp.LilyPondParserSet, lp.LilyPondParserUnset)
-def test(self):
+def set_unset(self):
+    """\\set and \\unset"""
     tokenclasses = self.tokenclasses()
     if not isinstance(self.last, (lx.Space, lp.DotSetOverride)):
         self.column = self.lastpos
     if lp.EqualSignSetOverride in tokenclasses:
         # TODO maybe return suitable values for the context property
+        for t in self.tokens[::-1]:
+            if isinstance(t, (lp.EqualSignSetOverride, lx.Space)):
+                break
+            self.column = t.pos
         return completiondata.lilypond_markup
     elif lp.ContextProperty in tokenclasses and isinstance(self.last, lx.Space):
         return # fall back to music?
@@ -311,24 +309,10 @@ def test(self):
         return completiondata.lilypond_context_properties
     return completiondata.lilypond_contexts_and_properties
 
-
-# string in lilypond
-@state(lp.StringParser)
-def test(self):
-    if '"' not in self.tokens[-2:]:
-        return
-    elif self.last != '"':
-        self.column = self.lastpos
-    if '\\remove' in self.tokens or '\\consists' in self.tokens:
-        return completiondata.lilypond_engravers
-    
-
-# scheme, various stuff
-@state(scm.SchemeParser)
-def test(self):
+def override_scheme(self):
+    """test for properties after a grob name in \override or \revert"""
+    # TODO: merge this with the other override function
     tokenclasses = self.tokenclasses()
-    
-    # test for properties after a grob name in \override or \revert
     test = [lp.GrobName, lx.Space, lp.SchemeStart, scm.Quote]
     if tokenclasses[-3:] == test[:-1]:
         self.column -= 1
@@ -336,18 +320,10 @@ def test(self):
     elif tokenclasses[-4:] == test:
         self.column -= 2
         return completiondata.lilypond_grob_properties(self.tokens[-4])
-    
-    # test for property after \tweak
-    if '\\tweak' in self.tokens:
-        test = [lp.Command, lx.Space, lp.SchemeStart, scm.Quote]
-        if tokenclasses[-3:] == test[:-1]:
-            self.column -= 1
-            return completiondata.lilypond_all_grob_properties
-        elif tokenclasses[-4:] == test:
-            self.column -= 2
-            return completiondata.lilypond_all_grob_properties
-    
-    # test for \markup \override
+
+def markup_override(self):
+    """test for \\markup \\override inside scheme"""
+    tokenclasses = self.tokenclasses()
     if '\\override' in self.tokens:
         if isinstance(self.last, scm.Word):
             clss = tokenclasses[:-1]
@@ -363,8 +339,9 @@ def test(self):
             scm.OpenParen]:
             self.column = column
             return completiondata.lilypond_markup_properties
-    
-    # test for other scheme words
+
+def scheme_other(self):
+    """test for other scheme words"""
     if isinstance(self.last, (
         lp.SchemeStart,
         scm.OpenParen,
@@ -375,9 +352,77 @@ def test(self):
         return documentdata.doc(self.cursor.document()).schemewords()
 
 
-
-
-
-del test, state
-
+# Mapping from Parsers to the lists of functions to run.
+_tests = {
+    lp.LilyPondParserGlobal: (
+        toplevel,
+    ),
+    lp.LilyPondParserBook: (
+        book,
+    ),
+    lp.LilyPondParserBookPart: (
+        bookpart,
+    ),
+    lp.LilyPondParserScore: (
+        score,
+    ),
+    lp.LilyPondParserMusic: (
+        tweak,
+        scheme_word,
+        key,
+        general_music,
+    ),
+    lp.LilyPondParserNoteMode: (
+        tweak,
+        scheme_word,
+        key,
+        general_music,
+    ),
+    lp.MarkupParser: (
+        markup,
+    ),
+    lp.LilyPondParserHeader: (
+        header,
+    ),
+    lp.LilyPondParserPaper: (
+        paper,
+    ),
+    lp.LilyPondParserLayout: (
+        layout,
+    ),
+    lp.LilyPondParserContext: (
+        engraver,
+        context_variable_set,
+        context,
+    ),
+    lp.LilyPondParserWith: (
+        engraver,
+        context_variable_set,
+        with_,
+    ),
+    lp.LilyPondParserNewContext: (
+        new_context,
+    ),
+    lp.LilyPondParserOverride: (
+        override,
+    ),
+    lp.LilyPondParserRevert: (
+        override,
+    ),
+    lp.LilyPondParserSet: (
+        set_unset,
+    ),
+    lp.LilyPondParserUnset: (
+        set_unset,
+    ),
+    lp.StringParser: (
+        engraver,
+    ),
+    scm.SchemeParser: (
+        override_scheme,
+        tweak,
+        markup_override,
+        scheme_other,
+    ),
+}
 
