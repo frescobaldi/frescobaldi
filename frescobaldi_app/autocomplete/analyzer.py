@@ -264,14 +264,13 @@ def new_context(self):
 def override(self):
     """\\override and \\revert"""
     tokenclasses = self.tokenclasses()
-    inOverride = isinstance(self.state.parser(), lp.LilyPondParserOverride)
     try:
         # check if there is a GrobName in the last 5 tokens
         i = tokenclasses.index(lp.GrobName, -5)
     except ValueError:
         # not found, then complete Contexts and or Grobs
         # (only if we are in the override parser and there's no "=")
-        if not inOverride:
+        if isinstance(self.state.parser(), scm.SchemeParser):
             return
         if lp.EqualSignSetOverride in tokenclasses:
             # TODO maybe return suitable values for the last property
@@ -287,13 +286,10 @@ def override(self):
         return completiondata.lilypond_contexts_and_grobs
     # yes, there is a GrobName at i
     count = len(self.tokens) - i - 1 # tokens after grobname
-    if count < 2:
-        if not inOverride:
-            return
-        elif count == 0:
-            self.column = self.lastpos
-            return completiondata.lilypond_grobs
-    else:
+    if count == 0:
+        self.column = self.lastpos
+        return completiondata.lilypond_grobs
+    elif count >= 2:
         # set the place of the scheme-start "#" as the column
         self.column = self.tokens[i+2].pos
     test = [lx.Space, lp.SchemeStart, scm.Quote, scm.Word]

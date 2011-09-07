@@ -564,8 +564,8 @@ class BackSlashedContextName(ContextName):
 class GrobName(_token.Token):
     @_token.patternproperty
     def rx():
-        from .. import words
-        return r"\b({0})\b".format("|".join(words.grobs))
+        from .. import data
+        return r"\b({0})\b".format("|".join(data.grobs()))
 
 
 class ContextProperty(_token.Token):
