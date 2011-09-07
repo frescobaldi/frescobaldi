@@ -106,6 +106,13 @@ class Analyzer(object):
         """Returns the list of classes of the tokens."""
         return list(map(type, self.tokens))
 
+    def backuntil(self, *classes):
+        """Moves self.column back until a token of *classes is encountered."""
+        for t in self.tokens[::-1]:
+            if isinstance(t, classes):
+                break
+            self.column = t.pos
+
 
 # Test functions that return a model or None
 # self is the Analyzer instance.
@@ -256,40 +263,34 @@ def new_context(self):
 
 def override(self):
     """\\override and \\revert"""
-    if self.last in ('\\override', '\\revert'):
-        return
-    
     tokenclasses = self.tokenclasses()
-    grob = lp.GrobName in tokenclasses
-    prop = grob and lp.SchemeStart in tokenclasses
-    equalSign = prop and lp.EqualSignSetOverride in tokenclasses
-
-    if self.last[:1].isalpha():
-        self.column = self.lastpos
-    if equalSign:
+    test = [lp.GrobName, lx.Space, lp.SchemeStart, scm.Quote, scm.Word]
+    if tokenclasses[-5:] == test:
+        self.column = self.tokens[-3].pos
+        return completiondata.lilypond_grob_properties(self.tokens[-5])
+    elif tokenclasses[-4:] == test[:4]:
+        self.column = self.tokens[-2].pos
+        return completiondata.lilypond_grob_properties(self.tokens[-4])
+    elif tokenclasses[-3:] == test[:3]:
+        self.column = self.tokens[-1].pos
+        return completiondata.lilypond_grob_properties(self.tokens[-3])
+    elif type(self.state.parser()) is not lp.LilyPondParserOverride:
+        return
+    elif tokenclasses[-2:] == test[:2]:
+        return completiondata.lilypond_grob_properties(self.tokens[-2])
+    elif lp.EqualSignSetOverride in tokenclasses:
         # TODO maybe return suitable values for the last property
-        for t in self.tokens[::-1]:
-            if isinstance(t, (lp.EqualSignSetOverride, lx.Space)):
-                break
-            self.column = t.pos
+        self.backuntil(lp.EqualSignSetOverride, lx.Space)
         return completiondata.lilypond_markup
-    if grob:
-        if tokenclasses[-1] is lp.GrobName:
+    else:
+        self.backuntil(lp.DotSetOverride, lx.Space)
+        if (isinstance(self.state.parsers()[1], (
+                lp.LilyPondParserWith,
+                lp.LilyPondParserContext,
+                ))
+            or lp.DotSetOverride in tokenclasses):
             return completiondata.lilypond_grobs
-        elif lp.GrobName in tokenclasses[-2:-1]:
-            # return properties for the grob
-            return completiondata.lilypond_grob_properties(self.tokens[-2])
-        elif tokenclasses[-5:] == [
-            lp.GrobName, lx.Space, lp.SchemeStart, scm.Quote, scm.Word]:
-            self.column = self.lastpos - 2
-            return completiondata.lilypond_grob_properties(self.tokens[-5])
-    if (isinstance(self.state.parsers()[1], (
-            lp.LilyPondParserWith,
-            lp.LilyPondParserContext,
-            ))
-        or lp.DotSetOverride in tokenclasses):
-        return completiondata.lilypond_grobs
-    return completiondata.lilypond_contexts_and_grobs
+        return completiondata.lilypond_contexts_and_grobs
 
 def set_unset(self):
     """\\set and \\unset"""
@@ -308,18 +309,6 @@ def set_unset(self):
     elif lp.DotSetOverride in tokenclasses:
         return completiondata.lilypond_context_properties
     return completiondata.lilypond_contexts_and_properties
-
-def override_scheme(self):
-    """test for properties after a grob name in \override or \revert"""
-    # TODO: merge this with the other override function
-    tokenclasses = self.tokenclasses()
-    test = [lp.GrobName, lx.Space, lp.SchemeStart, scm.Quote]
-    if tokenclasses[-3:] == test[:-1]:
-        self.column -= 1
-        return completiondata.lilypond_grob_properties(self.tokens[-3])
-    elif tokenclasses[-4:] == test:
-        self.column -= 2
-        return completiondata.lilypond_grob_properties(self.tokens[-4])
 
 def markup_override(self):
     """test for \\markup \\override inside scheme"""
@@ -419,7 +408,7 @@ _tests = {
         engraver,
     ),
     scm.SchemeParser: (
-        override_scheme,
+        override,
         tweak,
         markup_override,
         scheme_other,
