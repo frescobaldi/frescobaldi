@@ -18,12 +18,11 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-LilyPond reserved words for auto completion, and some regexps
+LilyPond reserved words for auto completion and highlighting.
 """
 
 from __future__ import unicode_literals
 
-import re
 
 lilypond_keywords = (
     'accepts',
@@ -59,15 +58,6 @@ lilypond_keywords = (
     'context',
 )
 
-lilypond_keywords_completion = (
-    'score {}',
-    'header {}',
-    'paper {}',
-    'midi {}',
-    'layout {}',
-    'with {}',
-    'context {}',
-)
 
 lilypond_music_commands = (
     'acciaccatura',
@@ -863,140 +853,6 @@ midi_instruments = (
 )
 
 
-grobs = (
-    'Accidental',
-    'AccidentalCautionary',
-    'AccidentalPlacement',
-    'AccidentalSuggestion',
-    'Ambitus',
-    'AmbitusAccidental',
-    'AmbitusLine',
-    'AmbitusNoteHead',
-    'Arpeggio',
-    'BalloonTextItem',
-    'BarLine',
-    'BarNumber',
-    'BassFigure',
-    'BassFigureAlignment',
-    'BassFigureAlignmentPositioning',
-    'BassFigureBracket',
-    'BassFigureContinuation',
-    'BassFigureLine',
-    'Beam',
-    'BendAfter',
-    'BreakAlignGroup',
-    'BreakAlignment',
-    'BreathingSign',
-    'ChordName',
-    'Clef',
-    'ClusterSpanner',
-    'ClusterSpannerBeacon',
-    'CombineTextScript',
-    'Custos',
-    'DotColumn',
-    'Dots',
-    'DoublePercentRepeat',
-    'DoublePercentRepeatCounter',
-    'DynamicLineSpanner',
-    'DynamicText',
-    'DynamicTextSpanner',
-    'Episema',
-    'Fingering',
-    'FretBoard',
-    'Glissando',
-    'GraceSpacing',
-    'GridLine',
-    'GridPoint',
-    'Hairpin',
-    'HarmonicParenthesesItem',
-    'HorizontalBracket',
-    'InstrumentName',
-    'InstrumentSwitch',
-    'KeyCancellation',
-    'KeySignature',
-    'LaissezVibrerTie',
-    'LaissezVibrerTieColumn',
-    'LedgerLineSpanner',
-    'LeftEdge',
-    'LigatureBracket',
-    'LyricExtender',
-    'LyricHyphen',
-    'LyricSpace',
-    'LyricText',
-    'MeasureGrouping',
-    'MelodyItem',
-    'MensuralLigature',
-    'MetronomeMark',
-    'MultiMeasureRest',
-    'MultiMeasureRestNumber',
-    'MultiMeasureRestText',
-    'NonMusicalPaperColumn',
-    'NoteCollision',
-    'NoteColumn',
-    'NoteHead',
-    'NoteName',
-    'NoteSpacing',
-    'OctavateEight',
-    'OttavaBracket',
-    'PaperColumn',
-    'ParenthesesItem',
-    'PercentRepeat',
-    'PercentRepeatCounter',
-    'PhrasingSlur',
-    'PianoPedalBracket',
-    'RehearsalMark',
-    'RepeatSlash',
-    'RepeatTie',
-    'RepeatTieColumn',
-    'Rest',
-    'RestCollision',
-    'Script',
-    'ScriptColumn',
-    'ScriptRow',
-    'SeparationItem',
-    'Slur',
-    'SostenutoPedal',
-    'SostenutoPedalLineSpanner',
-    'SpacingSpanner',
-    'SpanBar',
-    'StaffGrouper',
-    'StaffSpacing',
-    'StaffSymbol',
-    'StanzaNumber',
-    'Stem',
-    'StemTremolo',
-    'StringNumber',
-    'StrokeFinger',
-    'SustainPedal',
-    'SustainPedalLineSpanner',
-    'System',
-    'SystemStartBar',
-    'SystemStartBrace',
-    'SystemStartBracket',
-    'SystemStartSquare',
-    'TabNoteHead',
-    'TextScript',
-    'TextSpanner',
-    'Tie',
-    'TieColumn',
-    'TimeSignature',
-    'TrillPitchAccidental',
-    'TrillPitchGroup',
-    'TrillPitchHead',
-    'TrillSpanner',
-    'TupletBracket',
-    'TupletNumber',
-    'UnaCordaPedal',
-    'UnaCordaPedalLineSpanner',
-    'VaticanaLigature',
-    'VerticalAlignment',
-    'VerticalAxisGroup',
-    'VoiceFollower',
-    'VoltaBracket',
-    'VoltaBracketSpanner',
-)
-
-
 scheme_functions = (
     'set-accidental-style',
     'set-global-staff-size',
@@ -1005,6 +861,7 @@ scheme_functions = (
     'define-public',
     'define-music-function',
     'define-markup-command',
+    'empty-stencil',
     'markup',
     'number?',
     'string?',
@@ -1216,6 +1073,7 @@ break_visibility = (
     'center-invisible',
 )
 
+
 mark_formatters = (
     'format-mark-alphabet',
     'format-mark-barnumbers',
@@ -1231,8 +1089,4 @@ mark_formatters = (
     'format-mark-circle-numbers',
 )
 
-
-set_context_re = re.compile(r'\\(un)?set\s+(' + '|'.join(contexts) + r')\s*.\s*$')
-context_re = re.compile(r'\b(' + '|'.join(contexts) + r')\s*\.\s*$')
-grob_re = re.compile(r'\b(' + '|'.join(grobs) + r')\s*$')
 

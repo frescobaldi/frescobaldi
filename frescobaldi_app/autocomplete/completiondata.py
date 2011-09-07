@@ -162,10 +162,10 @@ lilypond_layout_variables = listmodel.ListModel(
 
 lilypond_contexts = listmodel.ListModel(sorted(ly.words.contexts))
 
-lilypond_grobs = listmodel.ListModel(sorted(ly.words.grobs))
+lilypond_grobs = listmodel.ListModel(ly.data.grobs())
 
 lilypond_contexts_and_grobs = listmodel.ListModel(
-    sorted(ly.words.contexts) + sorted(ly.words.grobs))
+    sorted(ly.words.contexts) + ly.data.grobs())
 
 lilypond_context_properties = listmodel.ListModel(
     ly.data.context_properties())

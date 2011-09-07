@@ -65,6 +65,11 @@ def grob_interfaces_for_property(prop):
         for iface, props in _data.interfaces.items()
         if prop in props]
 
+def grobs():
+    """Returns the sorted list of all grob names."""
+    from . import _data
+    return sorted(_data.grobs.keys())
+    
 def all_grob_properties():
     """Returns the list of all properties."""
     from . import _data
