@@ -42,6 +42,7 @@ class Completer(widgets.completer.Completer):
     
     def readSettings(self):
         self.popup().setFont(textformats.formatData('editor').font)
+        self.popup().setPalette(textformats.formatData('editor').palette())
     
     def completionCursor(self):
         cursor = self.textCursor()
