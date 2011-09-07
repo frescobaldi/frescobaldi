@@ -211,7 +211,7 @@ def html():
   if text:
     return '<!-- ' + text + ' -->'
   else:
-    return ['<!-- ', ANCHOR, ' -->']
+    return ['<!-- ', CURSOR, ' -->']
 
 def lilypond():
   if text:
