@@ -118,27 +118,23 @@ class Analyzer(object):
 # self is the Analyzer instance.
 def toplevel(self):
     """LilyPond toplevel document contents."""
-    if not isinstance(self.last, lx.Space):
-        self.column = self.lastpos
+    self.backuntil(lx.Space)
     return completiondata.lilypond_toplevel
     # maybe: check if behind \version or \language
 
 def book(self):
     """\\book {"""
-    if not isinstance(self.last, lx.Space):
-        self.column = self.lastpos
+    self.backuntil(lx.Space)
     return completiondata.lilypond_book
     
 def bookpart(self):
     """\\bookpart {"""
-    if not isinstance(self.last, lx.Space):
-        self.column = self.lastpos
+    self.backuntil(lx.Space)
     return completiondata.lilypond_bookpart
 
 def score(self):
     """\\score {"""
-    if not isinstance(self.last, lx.Space):
-        self.column = self.lastpos
+    self.backuntil(lx.Space)
     return completiondata.lilypond_score
 
 def tweak(self):
@@ -170,10 +166,15 @@ def clef(self):
         self.backuntil(lx.Space, lp.StringQuotedStart)
         return completiondata.lilypond_clefs
         
+def repeat(self):
+    """complete \\repeat types"""
+    if '\\repeat' in self.tokens[-4:-1]:
+        self.backuntil(lx.Space, lp.StringQuotedStart)
+        return completiondata.lilypond_repeat_types
+        
 def general_music(self):
     """fall back: generic music commands and user-defined commands."""
-    if not isinstance(self.last, lx.Space):
-        self.column = self.lastpos
+    self.backuntil(lx.Space)
     return documentdata.doc(self.cursor.document()).musiccommands(self.cursor)
 
 def scheme_word(self):
@@ -218,8 +219,7 @@ def paper(self):
     
 def layout(self):
     """\\layout {"""
-    if self.last and not isinstance(self.last, lx.Space):
-        self.column = self.lastpos
+    self.backuntil(lx.Space)
     return completiondata.lilypond_layout_variables
 
 def engraver(self):
@@ -234,8 +234,7 @@ def engraver(self):
             self.column = self.lastpos
         return completiondata.lilypond_engravers
     if cmd_in(self.tokens[-3:-1]):
-        if not isinstance(self.last, lx.Space):
-            self.column = self.lastpos
+        self.backuntil(lx.Space)
         return completiondata.lilypond_engravers
     
 def context_variable_set(self):
@@ -248,24 +247,22 @@ def context_variable_set(self):
         return completiondata.lilypond_markup
 
 def context(self):
-    if not isinstance(self.last, lx.Space):
-        self.column = self.lastpos
+    self.backuntil(lx.Space)
     return completiondata.lilypond_context_contents
 
 def with_(self):
-    if not isinstance(self.last, lx.Space):
-        self.column = self.lastpos
+    self.backuntil(lx.Space)
     return completiondata.lilypond_with_contents
 
 def new_context(self):
-    """\\new or \\context in music"""
-    if self.last[:1].isalpha():
-        self.column = self.lastpos
-        preceding = self.tokens[-3:]
-    else:
-        preceding = self.tokens[-2:]
-    if '\\new' in preceding or '\\context' in preceding:
-        return completiondata.lilypond_contexts
+    """complete context name after \\new, \\change or \\context in music"""
+    for t in self.tokens[-2::-1]:
+        if isinstance(t, lp.ContextName):
+            return
+        elif isinstance(t, lp.New):
+            break
+    self.backuntil(lx.Space)
+    return completiondata.lilypond_contexts
 
 def override(self):
     """\\override and \\revert"""
@@ -305,8 +302,7 @@ def override(self):
 def set_unset(self):
     """\\set and \\unset"""
     tokenclasses = self.tokenclasses()
-    if not isinstance(self.last, (lx.Space, lp.DotSetOverride)):
-        self.column = self.lastpos
+    self.backuntil(lx.Space, lp.DotSetOverride)
     if lp.EqualSignSetOverride in tokenclasses:
         # TODO maybe return suitable values for the context property
         for t in self.tokens[::-1]:
@@ -322,22 +318,17 @@ def set_unset(self):
 
 def markup_override(self):
     """test for \\markup \\override inside scheme"""
-    tokenclasses = self.tokenclasses()
-    if '\\override' in self.tokens:
-        if isinstance(self.last, scm.Word):
-            clss = tokenclasses[:-1]
-            column = self.lastpos
-        else:
-            clss = tokenclasses
-            column = self.column
-        if clss[-5:] == [
-            lp.MarkupCommand,
-            lx.Space,
-            lp.SchemeStart,
-            scm.Quote,
-            scm.OpenParen]:
-            self.column = column
-            return completiondata.lilypond_markup_properties
+    try:
+        i = self.tokens.index('\\override', -6, -4)
+    except ValueError:
+        return
+    for t, cls in zip(self.tokens[i:], (
+        lp.MarkupCommand, lx.Space, lp.SchemeStart, scm.Quote, scm.OpenParen)):
+        if type(t) is not cls:
+            return
+    if len(self.tokens) > i + 5:
+        self.column = self.lastpos
+    return completiondata.lilypond_markup_properties
 
 def scheme_other(self):
     """test for other scheme words"""
@@ -354,6 +345,7 @@ def scheme_other(self):
 # Mapping from Parsers to the lists of functions to run.
 _tests = {
     lp.LilyPondParserGlobal: (
+        repeat,
         toplevel,
     ),
     lp.LilyPondParserBook: (
@@ -370,6 +362,7 @@ _tests = {
         scheme_word,
         key,
         clef,
+        repeat,
         general_music,
     ),
     lp.LilyPondParserNoteMode: (
@@ -377,6 +370,7 @@ _tests = {
         scheme_word,
         key,
         clef,
+        repeat,
         general_music,
     ),
     lp.MarkupParser: (
@@ -419,9 +413,13 @@ _tests = {
     lp.StringParser: (
         engraver,
         clef,
+        repeat,
     ),
     lp.LilyPondParserClef: (
         clef,
+    ),
+    lp.RepeatParser: (
+        repeat,
     ),
     scm.SchemeParser: (
         override,

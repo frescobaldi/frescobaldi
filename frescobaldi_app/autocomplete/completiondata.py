@@ -206,3 +206,5 @@ lilypond_modes = listmodel.ListModel(ly.words.modes, display = util.command)
 
 lilypond_clefs = listmodel.ListModel(ly.words.clefs_plain)
 
+lilypond_repeat_types = listmodel.ListModel(ly.words.repeat_types)
+

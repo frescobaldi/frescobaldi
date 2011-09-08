@@ -672,7 +672,7 @@ command_items = (
     Repeat,
     Override, Revert,
     Set, Unset,
-    New, Context,
+    New, Context, Change,
     With,
     Clef,
     ChordMode, DrumMode, FigureMode, LyricMode, NoteMode,
