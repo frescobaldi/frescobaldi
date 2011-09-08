@@ -204,3 +204,5 @@ lilypond_markup_properties = listmodel.ListModel(
 
 lilypond_modes = listmodel.ListModel(ly.words.modes, display = util.command)
 
+lilypond_clefs = listmodel.ListModel(ly.words.clefs_plain)
+

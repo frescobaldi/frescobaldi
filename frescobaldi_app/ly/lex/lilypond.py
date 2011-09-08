@@ -473,6 +473,9 @@ class ClefSpecifier(Specifier):
         from .. import words
         return r"\b({0})\b".format("|".join(words.clefs_plain))
     
+    def updateState(self, state):
+        state.leave()
+
 
 class Unit(Command):
     rx = r"\\(mm|cm|in|pt)\b"

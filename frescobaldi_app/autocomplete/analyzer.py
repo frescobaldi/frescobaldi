@@ -164,6 +164,12 @@ def key(self):
             self.column = self.lastpos
         return completiondata.lilypond_modes
 
+def clef(self):
+    """complete \\clef names"""
+    if '\\clef' in self.tokens[-4:-1]:
+        self.backuntil(lx.Space, lp.StringQuotedStart)
+        return completiondata.lilypond_clefs
+        
 def general_music(self):
     """fall back: generic music commands and user-defined commands."""
     if not isinstance(self.last, lx.Space):
@@ -363,12 +369,14 @@ _tests = {
         tweak,
         scheme_word,
         key,
+        clef,
         general_music,
     ),
     lp.LilyPondParserNoteMode: (
         tweak,
         scheme_word,
         key,
+        clef,
         general_music,
     ),
     lp.MarkupParser: (
@@ -410,6 +418,10 @@ _tests = {
     ),
     lp.StringParser: (
         engraver,
+        clef,
+    ),
+    lp.LilyPondParserClef: (
+        clef,
     ),
     scm.SchemeParser: (
         override,
