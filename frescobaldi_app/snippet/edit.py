@@ -91,6 +91,7 @@ class Edit(QDialog):
         else:
             b.setStandardButtons(buttons)
         b.helpRequested.connect(lambda: help.help(snippet_help))
+        b.button(QDialogButtonBox.Help).setShortcut(QKeySequence.HelpContents)
         
         highlight.Highlighter(self.text.document())
         Matcher(self.text)
