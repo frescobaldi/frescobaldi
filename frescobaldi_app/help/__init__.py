@@ -24,6 +24,8 @@ Inherit from 'page' to make a help page.
 See helpimpl.py.
 """
 
+from PyQt4.QtGui import QDialogButtonBox, QKeySequence
+
 from .helpimpl import page, shortcut, menu
 
 
@@ -40,5 +42,16 @@ def window():
         from . import browser
         _browser = browser.Window()
     return _browser
+
+
+def addButton(box, page):
+    """Adds a Help button to the specified QDialogButtonBox.
+    
+    When clicked or F1 (the system standard help key) is pressed,
+    the specified help page (class or name) is opened.
+    
+    """
+    box.addButton(QDialogButtonBox.Help).setShortcut(QKeySequence.HelpContents)
+    box.helpRequested.connect(lambda: help(page))
 
 

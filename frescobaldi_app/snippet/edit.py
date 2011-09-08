@@ -84,14 +84,13 @@ class Edit(QDialog):
         b = QDialogButtonBox(accepted=self.accept, rejected=self.reject)
         layout.addWidget(b)
         
-        buttons = QDialogButtonBox.Ok | QDialogButtonBox.Cancel | QDialogButtonBox.Help
+        buttons = QDialogButtonBox.Ok | QDialogButtonBox.Cancel
         if name and name in builtin.builtin_snippets:
             b.setStandardButtons(buttons | QDialogButtonBox.RestoreDefaults)
             b.button(QDialogButtonBox.RestoreDefaults).clicked.connect(self.slotDefaults)
         else:
             b.setStandardButtons(buttons)
-        b.helpRequested.connect(lambda: help.help(snippet_help))
-        b.button(QDialogButtonBox.Help).setShortcut(QKeySequence.HelpContents)
+        help.addButton(b, snippet_help)
         
         highlight.Highlighter(self.text.document())
         Matcher(self.text)
