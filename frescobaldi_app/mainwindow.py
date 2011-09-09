@@ -35,9 +35,9 @@ import info
 import icons
 import actioncollection
 import actioncollectionmanager
-import bookmarkmanager
+import menu
+import tabbar
 import document
-import documentactions
 import view
 import viewmanager
 import highlighter
@@ -45,13 +45,8 @@ import historymanager
 import recentfiles
 import sessions.manager
 import util
-import lyrics
 import panels
-import jobmanager
 import engrave
-import snippet.menu
-import scorewiz
-import autocomplete
 
 
 class MainWindow(QMainWindow):
@@ -98,16 +93,12 @@ class MainWindow(QMainWindow):
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
         mainwidget.setLayout(layout)
-        self.tabBar = TabBar(self)
+        self.tabBar = tabbar.TabBar(self)
         self.viewManager = viewmanager.ViewManager(self)
         layout.addWidget(self.tabBar)
         layout.addWidget(self.viewManager)
 
-        self.documentActions = DocumentActionGroup(self)
         self.createActions()
-        
-        # create other stuff that have their own actions
-        
         self.createMenus()
         self.createToolBars()
         
@@ -714,11 +705,6 @@ class MainWindow(QMainWindow):
         ac.help_about.triggered.connect(self.showAbout)
         ac.help_bugreport.triggered.connect(self.reportBug)
         
-    def populateDocumentsMenu(self):
-        self.menu_document.clear()
-        for a in self.documentActions.actions():
-            self.menu_document.addAction(a)
-    
     def populateRecentFilesMenu(self):
         self.menu_recent_files.clear()
         for url in recentfiles.urls():
@@ -734,144 +720,9 @@ class MainWindow(QMainWindow):
         self.setCurrentDocument(doc)
         
     def createMenus(self):
-        ac = self.actionCollection
-        self.menu_file = m = self.menuBar().addMenu('')
-        m.addAction(ac.file_new)
-        m.addSeparator()
-        m.addAction(ac.file_open)
-        m.addAction(ac.file_open_recent)
-        m.addAction(ac.file_insert_file)
-        m.addAction(ac.file_open_current_directory)
-        m.addSeparator()
-        m.addAction(ac.file_save)
-        m.addAction(ac.file_save_as)
-        m.addAction(ac.file_save_copy_as)
-        m.addSeparator()
-        m.addAction(ac.file_save_all)
-        m.addSeparator()
-        m.addAction(panels.manager(self).musicview.actionCollection.music_print)
-        m.addAction(ac.file_print_source)
-        self.menu_file_export = e = m.addMenu('')
-        m.addSeparator()
-        m.addAction(ac.file_close)
-        m.addAction(ac.file_close_other)
-        m.addAction(ac.file_close_all)
-        m.addSeparator()
-        m.addAction(ac.file_quit)
-        
-        e.addAction(ac.export_colored_html)
-        
-        self.menu_edit = m = self.menuBar().addMenu('')
-        m.addAction(ac.edit_undo)
-        m.addAction(ac.edit_redo)
-        m.addSeparator()
-        m.addAction(ac.edit_cut_assign)
-        m.addAction(ac.edit_cut)
-        m.addAction(ac.edit_copy)
-        m.addAction(ac.edit_copy_colored_html)
-        m.addAction(ac.edit_paste)
-        m.addSeparator()
-        m.addAction(ac.edit_select_all)
-        m.addAction(ac.edit_select_current_toplevel)
-        m.addAction(ac.edit_select_none)
-        m.addSeparator()
-        m.addAction(ac.edit_find)
-        m.addAction(ac.edit_find_next)
-        m.addAction(ac.edit_find_previous)
-        m.addAction(ac.edit_replace)
-        m.addSeparator()
-        m.addAction(ac.edit_preferences)
-        
-        self.menu_view = m = self.menuBar().addMenu('')
-        m.addAction(ac.view_next_document)
-        m.addAction(ac.view_previous_document)
-        m.addSeparator()
-        docac = documentactions.get(self).actionCollection
-        m.addAction(docac.view_highlighting)
-        self.menu_view_music = mm = m.addMenu('')
-        
-        ma = panels.manager(self).musicview.actionCollection
-        mm.addAction(ma.music_zoom_in)
-        mm.addAction(ma.music_zoom_out)
-        mm.addSeparator()
-        mm.addAction(ma.music_fit_width)
-        mm.addAction(ma.music_fit_height)
-        mm.addAction(ma.music_fit_both)
-        mm.addSeparator()
-        mm.addAction(ma.music_jump_to_cursor)
-        
-        m.addSeparator()
-        ba = bookmarkmanager.BookmarkManager.instance(self).actionCollection
-        m.addAction(ba.view_bookmark)
-        m.addAction(ba.view_next_mark)
-        m.addAction(ba.view_previous_mark)
-        m.addAction(ba.view_clear_error_marks)
-        m.addAction(ba.view_clear_all_marks)
-        m.addSeparator()
-        la = panels.manager(self).logtool.actionCollection
-        m.addAction(la.log_next_error)
-        m.addAction(la.log_previous_error)
-        
-        self.menuBar().addMenu(snippet.menu.InsertMenu(self))
-        
-        self.menu_lilypond = m = self.menuBar().addMenu('')
-        eg = engrave.engraver(self).actionCollection
-        m.addAction(eg.engrave_sticky)
-        m.addSeparator()
-        m.addAction(eg.engrave_preview)
-        m.addAction(eg.engrave_publish)
-        m.addAction(eg.engrave_custom)
-        m.addAction(eg.engrave_abort)
-        
-        self.menu_tools = m = self.menuBar().addMenu('')
-        m.addAction(scorewiz.ScoreWizard.instance(self).actionCollection.scorewiz)
-        m.addSeparator()
-        m.addAction(docac.tools_indent_auto)
-        m.addAction(docac.tools_indent_indent)
-        m.addSeparator()
-        aa = autocomplete.CompleterManager.instance(self).actionCollection
-        m.addAction(aa.autocomplete)
-        m.addAction(aa.popup_completions)
-        m.addSeparator()
-        self.menu_tools_lyrics = lm = m.addMenu('')
-        
-        la = lyrics.lyrics(self).actionCollection
-        lm.addAction(la.lyrics_hyphenate)
-        lm.addAction(la.lyrics_dehyphenate)
-        lm.addSeparator()
-        lm.addAction(la.lyrics_copy_dehyphenated)
-        
-        m.addSeparator()
-        panels.manager(self).addActionsToMenu(m)
-        
-        self.menu_document = m = self.menuBar().addMenu('')
-        m.aboutToShow.connect(self.populateDocumentsMenu)
-        
-        self.menu_window = m = self.menuBar().addMenu('')
-        vm = self.viewManager.actionCollection
-        m.addAction(ac.window_new)
-        m.addSeparator()
-        m.addAction(vm.window_split_horizontal)
-        m.addAction(vm.window_split_vertical)
-        m.addAction(vm.window_close_view)
-        m.addAction(vm.window_close_others)
-        m.addAction(vm.window_next_view)
-        m.addAction(vm.window_previous_view)
-        m.addSeparator()
-        m.addAction(ac.window_fullscreen)
-        
-        self.menu_sessions = m = self.menuBar().addMenu('')
-        sessions.manager.get(self).addActionsToMenu(m)
-        
-        self.menu_help = m = self.menuBar().addMenu('')
-        m.addAction(ac.help_manual)
-        m.addAction(ac.help_whatsthis)
-        m.addSeparator()
-        m.addAction(ac.help_bugreport)
-        m.addSeparator()
-        m.addAction(ac.help_about)
-        
+        menu.createMenus(self)
         # actions that are not in menus
+        ac = self.actionCollection
         self.addAction(ac.view_scroll_up)
         self.addAction(ac.view_scroll_down)
         self.addAction(ac.edit_select_full_lines_up)
@@ -903,249 +754,8 @@ class MainWindow(QMainWindow):
         t.addAction(ma.music_zoom_out)
         
     def translateUI(self):
-        self.menu_file.setTitle(_('menu title', '&File'))
-        self.menu_edit.setTitle(_('menu title', '&Edit'))
-        self.menu_view.setTitle(_('menu title', '&View'))
-        self.menu_document.setTitle(_('menu title', '&Document'))
-        self.menu_lilypond.setTitle(_('menu title', '&LilyPond'))
-        self.menu_tools.setTitle(_('menu title', '&Tools'))
-        self.menu_window.setTitle(_('menu title', '&Window'))
-        self.menu_sessions.setTitle(_('menu title', '&Session'))
-        self.menu_help.setTitle(_('menu title', '&Help'))
         self.toolbar_main.setWindowTitle(_("Main Toolbar"))
         self.toolbar_music.setWindowTitle(_("Music View Toolbar"))
-        
-        self.menu_file_export.setTitle(_('submenu title', "&Export"))
-        self.menu_view_music.setTitle(_('submenu title', "Music &View"))
-        self.menu_tools_lyrics.setTitle(_('submenu title', "&Lyrics"))
-    
-
-class DocumentActionGroup(QActionGroup):
-    """Maintains a list of actions to set the current document.
-    
-    The actions are added to the View->Documents menu in the order
-    of the tabbar. The actions also get accelerators that are kept
-    during the lifetime of a document.
-    
-    """
-    def __init__(self, parent):
-        super(DocumentActionGroup, self).__init__(parent)
-        self._acts = {}
-        self._accels = {}
-        self.setExclusive(True)
-        for d in app.documents:
-            self.addDocument(d)
-        app.documentCreated.connect(self.addDocument)
-        app.documentClosed.connect(self.removeDocument)
-        app.documentUrlChanged.connect(self.setDocumentStatus)
-        app.documentModificationChanged.connect(self.setDocumentStatus)
-        app.jobStarted.connect(self.setDocumentStatus)
-        app.jobFinished.connect(self.setDocumentStatus)
-        parent.currentDocumentChanged.connect(self.setCurrentDocument)
-        engrave.engraver(parent).stickyChanged.connect(self.setDocumentStatus)
-        self.triggered.connect(self.slotTriggered)
-    
-    def actions(self):
-        return [self._acts[doc] for doc in self.parent().documents()]
-
-    def addDocument(self, doc):
-        a = QAction(self)
-        a.setCheckable(True)
-        if doc is self.parent().currentDocument():
-            a.setChecked(True)
-        self._acts[doc] = a
-        self.setDocumentStatus(doc)
-        
-    def removeDocument(self, doc):
-        self._acts[doc].deleteLater()
-        del self._acts[doc]
-        del self._accels[doc]
-        
-    def setCurrentDocument(self, doc):
-        self._acts[doc].setChecked(True)
-
-    def setDocumentStatus(self, doc):
-        # create accels
-        accels = [self._accels[d] for d in self._accels if d is not doc]
-        name = doc.documentName().replace('&', '&&')
-        for index, char in enumerate(name):
-            if char.isalnum() and char.lower() not in accels:
-                name = name[:index] + '&' + name[index:]
-                self._accels[doc] = char.lower()
-                break
-        else:
-            self._accels[doc] = ''
-        # add [sticky] mark if necessary
-        if doc == engrave.engraver(self.parent()).stickyDocument():
-            # L10N: 'always engraved': the document is marked as 'Always Engrave' in the LilyPond menu
-            name += " " + _("[always engraved]")
-        self._acts[doc].setText(name)
-        # set the icon
-        if jobmanager.isRunning(doc):
-            icon = icons.get('lilypond-run')
-        elif doc.isModified():
-            icon = icons.get('document-save')
-        else:
-            icon = QIcon()
-        self._acts[doc].setIcon(icon)
-    
-    def slotTriggered(self, action):
-        self.parent().setCurrentDocument(self._acts.keys()[self._acts.values().index(action)])
-
-
-class TabBar(QTabBar):
-    """The tabbar above the editor window."""
-    
-    currentDocumentChanged = pyqtSignal(document.Document)
-    
-    def __init__(self, parent=None):
-        super(TabBar, self).__init__(parent)
-        
-        self.setFocusPolicy(Qt.NoFocus)
-        self.setTabsClosable(True) # TODO: make configurable
-        self.setMovable(True)      # TODO: make configurable
-        self.setExpanding(False)
-        
-        mainwin = self.window()
-        self.docs = []
-        for doc in app.documents:
-            self.addDocument(doc)
-            if doc is mainwin.currentDocument():
-                self.setCurrentDocument(doc)
-        
-        app.documentCreated.connect(self.addDocument)
-        app.documentClosed.connect(self.removeDocument)
-        app.documentUrlChanged.connect(self.setDocumentStatus)
-        app.documentModificationChanged.connect(self.setDocumentStatus)
-        app.jobStarted.connect(self.setDocumentStatus)
-        app.jobFinished.connect(self.setDocumentStatus)
-        mainwin.currentDocumentChanged.connect(self.setCurrentDocument)
-        self.currentChanged.connect(self.slotCurrentChanged)
-        self.tabMoved.connect(self.slotTabMoved)
-        self.tabCloseRequested.connect(self.slotTabCloseRequested)
-        
-    def documents(self):
-        return list(self.docs)
-        
-    def addDocument(self, doc):
-        if doc not in self.docs:
-            self.docs.append(doc)
-            self.blockSignals(True)
-            self.addTab('')
-            self.blockSignals(False)
-            self.setDocumentStatus(doc)
-
-    def removeDocument(self, doc):
-        if doc in self.docs:
-            index = self.docs.index(doc)
-            self.docs.remove(doc)
-            self.blockSignals(True)
-            self.removeTab(index)
-            self.blockSignals(False)
-
-    def setDocumentStatus(self, doc):
-        if doc in self.docs:
-            index = self.docs.index(doc)
-            self.setTabText(index, doc.documentName())
-            tooltip = None
-            if not doc.url().isEmpty():
-                tooltip = doc.url().toString(QUrl.RemoveUserInfo)
-            self.setTabToolTip(index, tooltip)
-            # icon
-            if jobmanager.isRunning(doc):
-                icon = 'lilypond-run'
-            elif doc.isModified():
-                icon = 'document-save'
-            else:
-                icon = 'text-plain'
-            self.setTabIcon(index, icons.get(icon))
-
-    
-    def setCurrentDocument(self, doc):
-        """ Raise the tab belonging to this document."""
-        if doc in self.docs:
-            index = self.docs.index(doc)
-            self.blockSignals(True)
-            self.setCurrentIndex(index)
-            self.blockSignals(False)
-
-    def slotCurrentChanged(self, index):
-        """ Called when the user clicks a tab. """
-        self.currentDocumentChanged.emit(self.docs[index])
-    
-    def slotTabCloseRequested(self, index):
-        """ Called when the user clicks the close button. """
-        self.window().closeDocument(self.docs[index])
-    
-    def slotTabMoved(self, index_from, index_to):
-        """ Called when the user moved a tab. """
-        doc = self.docs.pop(index_from)
-        self.docs.insert(index_to, doc)
-        
-    def nextDocument(self):
-        """ Switches to the next document. """
-        index = self.currentIndex() + 1
-        if index == self.count():
-            index = 0
-        self.setCurrentIndex(index)
-        
-    def previousDocument(self):
-        index = self.currentIndex() - 1
-        if index < 0:
-            index = self.count() - 1
-        self.setCurrentIndex(index)
-    
-    def contextMenuEvent(self, ev):
-        index = self.tabAt(ev.pos())
-        if index >= 0:
-            self.contextMenu().exec_(self.docs[index], ev.globalPos())
-
-    def contextMenu(self):
-        try:
-            return self._contextMenu
-        except AttributeError:
-            self._contextMenu = TabContextMenu(self)
-        return self._contextMenu
-
-
-class TabContextMenu(QMenu):
-    def __init__(self, parent):
-        super(TabContextMenu, self).__init__(parent)
-        self._doc = lambda: None
-        self.doc_save = self.addAction(icons.get('document-save'), '')
-        self.doc_save_as = self.addAction(icons.get('document-save-as'), '')
-        self.addSeparator()
-        self.doc_close = self.addAction(icons.get('document-close'), '')
-        
-        self.doc_save.triggered.connect(self.docSave)
-        self.doc_save_as.triggered.connect(self.docSaveAs)
-        self.doc_close.triggered.connect(self.docClose)
-        app.languageChanged.connect(self.translateUI)
-        self.translateUI()
-    
-    def translateUI(self):
-        self.doc_save.setText(_("&Save"))
-        self.doc_save_as.setText(_("Save &As..."))
-        self.doc_close.setText(_("&Close"))
-        
-    def exec_(self, document, pos):
-        self._doc = weakref.ref(document)
-        super(TabContextMenu, self).exec_(pos)
-    
-    def docSave(self):
-        doc = self._doc()
-        if doc:
-            self.parent().window().saveDocument(doc)
-    
-    def docSaveAs(self):
-        doc = self._doc()
-        if doc:
-            self.parent().window().saveDocumentAs(doc)
-    
-    def docClose(self):
-        doc = self._doc()
-        if doc:
-            self.parent().window().closeDocument(doc)
 
 
 class ActionCollection(actioncollection.ActionCollection):

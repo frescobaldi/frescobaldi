@@ -67,20 +67,7 @@ class SessionManager(plugin.MainWindowPlugin):
         ag.addAction(ac.session_none)
         ag.triggered.connect(self.slotSessionsAction)
         
-    def addActionsToMenu(self, m):
-        """Adds our actions to the sessions menu."""
-        ac = self.actionCollection
-        m.addAction(ac.session_new)
-        m.addAction(ac.session_save)
-        m.addSeparator()
-        m.addAction(ac.session_manage)
-        m.addSeparator()
-        m.addAction(ac.session_none)
-        m.addSeparator()
-        m.aboutToShow.connect(self.populateSessionsMenu)
-    
-    def populateSessionsMenu(self):
-        menu = self.mainwindow().menu_sessions
+    def populateSessionMenu(self, menu):
         ag = self._sessionsActionGroup
         for a in ag.actions():
             if a is not self.actionCollection.session_none:
