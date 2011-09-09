@@ -208,6 +208,13 @@ class MainWindow(QMainWindow):
         ac.view_highlighting.setChecked(metainfo.info(doc).highlighting)
         ac.tools_indent_auto.setChecked(metainfo.info(doc).autoindent)
         
+    def updateOtherDocActions(self):
+        """Calls updateDocActions() in other MainWindows that show same document."""
+        doc = self.currentDocument()
+        for window in app.windows:
+            if window is not self and window.currentDocument() == doc:
+                window.updateDocActions()
+        
     def updateWindowTitle(self):
         doc = self.currentDocument()
         name = []
@@ -622,6 +629,7 @@ class MainWindow(QMainWindow):
         minfo = metainfo.info(self.currentDocument())
         minfo.highlighting = not minfo.highlighting
         highlighter.highlighter(self.currentDocument()).setHighlighting(minfo.highlighting)
+        self.updateOtherDocActions()
         
     def markCurrentLine(self):
         view = self.currentView()
@@ -655,6 +663,7 @@ class MainWindow(QMainWindow):
     def toggleAutoIndent(self):
         minfo = metainfo.info(self.currentDocument())
         minfo.autoindent = not minfo.autoindent
+        self.updateOtherDocActions()
     
     def reIndent(self):
         import indent
