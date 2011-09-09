@@ -147,8 +147,8 @@ class Bookmarks(plugin.DocumentPlugin):
             self._marks[type] = []
         self.marksChanged()
 
-    def nextMark(self, linenum, type=None):
-        """Finds, starting from linenum, the next mark (of the type if specified)."""
+    def nextMark(self, cursor, type=None):
+        """Finds the first mark after the cursor (of the type if specified)."""
         if type is None:
             marks = []
             for type in types:
@@ -158,12 +158,12 @@ class Bookmarks(plugin.DocumentPlugin):
         else:
             marks = self._marks[type]
         nums = [mark.blockNumber() for mark in marks]
-        index = bisect.bisect_right(nums, linenum)
+        index = bisect.bisect_right(nums, cursor.blockNumber())
         if index < len(nums):
-            return nums[index]
+            return QTextCursor(marks[index].block())
         
-    def previousMark(self, linenum, type=None):
-        """Finds, starting from linenum, the previous mark (of the type if specified)."""
+    def previousMark(self, cursor, type=None):
+        """Finds the first mark before the cursor (of the type if specified)."""
         if type is None:
             marks = []
             for type in types:
@@ -173,9 +173,9 @@ class Bookmarks(plugin.DocumentPlugin):
         else:
             marks = self._marks[type]
         nums = [mark.blockNumber() for mark in marks]
-        index = bisect.bisect_left(nums, linenum)
+        index = bisect.bisect_left(nums, cursor.blockNumber())
         if index > 0:
-            return nums[index-1]
+            return QTextCursor(marks[index-1].block())
 
     def load(self):
         """Loads the marks from the metainfo."""

@@ -35,6 +35,7 @@ import info
 import icons
 import actioncollection
 import actioncollectionmanager
+import bookmarkmanager
 import document
 import documentactions
 import view
@@ -44,7 +45,6 @@ import historymanager
 import recentfiles
 import sessions.manager
 import util
-import bookmarks
 import lyrics
 import panels
 import jobmanager
@@ -154,10 +154,8 @@ class MainWindow(QMainWindow):
                 return
             curv.copyAvailable.disconnect(self.updateViewActions)
             curv.selectionChanged.disconnect(self.updateViewActions)
-            curv.cursorPositionChanged.disconnect(self.updateMarkStatus)
         view.copyAvailable.connect(self.updateViewActions)
         view.selectionChanged.connect(self.updateViewActions)
-        view.cursorPositionChanged.connect(self.updateMarkStatus)
         self._currentView = weakref.ref(view)
         
         doc = view.document()
@@ -169,27 +167,18 @@ class MainWindow(QMainWindow):
                 curd.modificationChanged.disconnect(self.updateWindowTitle)
                 curd.urlChanged.disconnect(self.updateWindowTitle)
                 curd.loaded.disconnect(self.updateDocActions)
-                bookmarks.bookmarks(curd).marksChanged.disconnect(self.updateMarkStatus)
             doc.undoAvailable.connect(self.updateDocActions)
             doc.redoAvailable.connect(self.updateDocActions)
             doc.modificationChanged.connect(self.updateWindowTitle)
             doc.urlChanged.connect(self.updateWindowTitle)
             doc.loaded.connect(self.updateDocActions)
-            bookmarks.bookmarks(doc).marksChanged.connect(self.updateMarkStatus)
             self.updateDocActions()
             self.updateWindowTitle()
         self.updateViewActions()
-        self.updateMarkStatus()
         self.currentViewChanged.emit(view, curv)
         if curd is not doc:
             self.currentDocumentChanged.emit(doc, curd)
     
-    def updateMarkStatus(self):
-        view = self._currentView()
-        ac = self.actionCollection
-        ac.view_bookmark.setChecked(
-            bookmarks.bookmarks(view.document()).hasMark(view.textCursor().blockNumber(), 'mark'))
-        
     def updateViewActions(self):
         view = self._currentView()
         ac = self.actionCollection
@@ -616,35 +605,6 @@ class MainWindow(QMainWindow):
         dlg.exec_()
         dlg.deleteLater()
     
-    def markCurrentLine(self):
-        view = self.currentView()
-        lineNumber = view.textCursor().blockNumber()
-        bookmarks.bookmarks(view.document()).toggleMark(lineNumber, 'mark')
-    
-    def clearErrorMarks(self):
-        bookmarks.bookmarks(self.currentDocument()).clear('error')
-        
-    def clearAllMarks(self):
-        bookmarks.bookmarks(self.currentDocument()).clear()
-    
-    def nextMark(self):
-        view = self.currentView()
-        lineNumber = view.textCursor().blockNumber()
-        lineNumber = bookmarks.bookmarks(view.document()).nextMark(lineNumber)
-        if lineNumber is not None:
-            cursor = QTextCursor(view.document().findBlockByNumber(lineNumber))
-            view.setTextCursor(cursor)
-            view.ensureCursorVisible()
-            
-    def previousMark(self):
-        view = self.currentView()
-        lineNumber = view.textCursor().blockNumber()
-        lineNumber = bookmarks.bookmarks(view.document()).previousMark(lineNumber)
-        if lineNumber is not None:
-            cursor = QTextCursor(view.document().findBlockByNumber(lineNumber))
-            view.setTextCursor(cursor)
-            view.ensureCursorVisible()
-    
     def toggleFullScreen(self, enabled):
         if enabled:
             self._maximized = self.isMaximized()
@@ -745,13 +705,8 @@ class MainWindow(QMainWindow):
         ac.edit_preferences.triggered.connect(self.showPreferences)
         ac.view_next_document.triggered.connect(self.tabBar.nextDocument)
         ac.view_previous_document.triggered.connect(self.tabBar.previousDocument)
-        ac.view_next_mark.triggered.connect(self.nextMark)
-        ac.view_previous_mark.triggered.connect(self.previousMark)
         ac.view_scroll_up.triggered.connect(self.scrollUp)
         ac.view_scroll_down.triggered.connect(self.scrollDown)
-        ac.view_bookmark.triggered.connect(self.markCurrentLine)
-        ac.view_clear_error_marks.triggered.connect(self.clearErrorMarks)
-        ac.view_clear_all_marks.triggered.connect(self.clearAllMarks)
         ac.window_new.triggered.connect(self.newWindow)
         ac.window_fullscreen.toggled.connect(self.toggleFullScreen)
         ac.help_manual.triggered.connect(self.showManual)
@@ -846,11 +801,12 @@ class MainWindow(QMainWindow):
         mm.addAction(ma.music_jump_to_cursor)
         
         m.addSeparator()
-        m.addAction(ac.view_bookmark)
-        m.addAction(ac.view_next_mark)
-        m.addAction(ac.view_previous_mark)
-        m.addAction(ac.view_clear_error_marks)
-        m.addAction(ac.view_clear_all_marks)
+        ba = bookmarkmanager.BookmarkManager.instance(self).actionCollection
+        m.addAction(ba.view_bookmark)
+        m.addAction(ba.view_next_mark)
+        m.addAction(ba.view_previous_mark)
+        m.addAction(ba.view_clear_error_marks)
+        m.addAction(ba.view_clear_all_marks)
         m.addSeparator()
         la = panels.manager(self).logtool.actionCollection
         m.addAction(la.log_next_error)
@@ -1232,12 +1188,6 @@ class ActionCollection(actioncollection.ActionCollection):
         
         self.view_next_document = QAction(parent)
         self.view_previous_document = QAction(parent)
-        self.view_bookmark = QAction(parent)
-        self.view_bookmark.setCheckable(True)
-        self.view_clear_error_marks = QAction(parent)
-        self.view_clear_all_marks = QAction(parent)
-        self.view_next_mark = QAction(parent)
-        self.view_previous_mark = QAction(parent)
         self.view_scroll_up = QAction(parent)
         self.view_scroll_down = QAction(parent)
         
@@ -1279,8 +1229,6 @@ class ActionCollection(actioncollection.ActionCollection):
         
         self.view_next_document.setIcon(icons.get('go-next'))
         self.view_previous_document.setIcon(icons.get('go-previous'))
-        self.view_bookmark.setIcon(icons.get('bookmark-new'))
-        self.view_clear_all_marks.setIcon(icons.get('edit-clear'))
         
         self.window_new.setIcon(icons.get('window-new'))
         self.window_fullscreen.setIcon(icons.get('view-fullscreen'))
@@ -1317,9 +1265,6 @@ class ActionCollection(actioncollection.ActionCollection):
         
         self.view_next_document.setShortcuts(QKeySequence.Forward)
         self.view_previous_document.setShortcuts(QKeySequence.Back)
-        self.view_bookmark.setShortcut(Qt.CTRL + Qt.Key_B)
-        self.view_next_mark.setShortcut(Qt.ALT + Qt.Key_PageDown)
-        self.view_previous_mark.setShortcut(Qt.ALT + Qt.Key_PageUp)
         self.view_scroll_up.setShortcut(Qt.CTRL + Qt.Key_Up)
         self.view_scroll_down.setShortcut(Qt.CTRL + Qt.Key_Down)
         
@@ -1367,11 +1312,6 @@ class ActionCollection(actioncollection.ActionCollection):
         
         self.view_next_document.setText(_("&Next Document"))
         self.view_previous_document.setText(_("&Previous Document"))
-        self.view_bookmark.setText(_("&Mark Current Line"))
-        self.view_clear_error_marks.setText(_("Clear &Error Marks"))
-        self.view_clear_all_marks.setText(_("Clear &All Marks"))
-        self.view_next_mark.setText(_("Next Mark"))
-        self.view_previous_mark.setText(_("Previous Mark"))
         self.view_scroll_up.setText(_("Scroll Up"))
         self.view_scroll_down.setText(_("Scroll Down"))
         
