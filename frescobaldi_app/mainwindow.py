@@ -36,11 +36,11 @@ import icons
 import actioncollection
 import actioncollectionmanager
 import document
+import documentactions
 import view
 import viewmanager
 import highlighter
 import historymanager
-import metainfo
 import recentfiles
 import sessions.manager
 import util
@@ -205,15 +205,6 @@ class MainWindow(QMainWindow):
         ac = self.actionCollection
         ac.edit_undo.setEnabled(doc.isUndoAvailable())
         ac.edit_redo.setEnabled(doc.isRedoAvailable())
-        ac.view_highlighting.setChecked(metainfo.info(doc).highlighting)
-        ac.tools_indent_auto.setChecked(metainfo.info(doc).autoindent)
-        
-    def updateOtherDocActions(self):
-        """Calls updateDocActions() in other MainWindows that show same document."""
-        doc = self.currentDocument()
-        for window in app.windows:
-            if window is not self and window.currentDocument() == doc:
-                window.updateDocActions()
         
     def updateWindowTitle(self):
         doc = self.currentDocument()
@@ -625,12 +616,6 @@ class MainWindow(QMainWindow):
         dlg.exec_()
         dlg.deleteLater()
     
-    def toggleHighlighting(self):
-        minfo = metainfo.info(self.currentDocument())
-        minfo.highlighting = not minfo.highlighting
-        highlighter.highlighter(self.currentDocument()).setHighlighting(minfo.highlighting)
-        self.updateOtherDocActions()
-        
     def markCurrentLine(self):
         view = self.currentView()
         lineNumber = view.textCursor().blockNumber()
@@ -660,15 +645,6 @@ class MainWindow(QMainWindow):
             view.setTextCursor(cursor)
             view.ensureCursorVisible()
     
-    def toggleAutoIndent(self):
-        minfo = metainfo.info(self.currentDocument())
-        minfo.autoindent = not minfo.autoindent
-        self.updateOtherDocActions()
-    
-    def reIndent(self):
-        import indent
-        indent.reIndent(self.currentView().textCursor())
-        
     def toggleFullScreen(self, enabled):
         if enabled:
             self._maximized = self.isMaximized()
@@ -773,12 +749,9 @@ class MainWindow(QMainWindow):
         ac.view_previous_mark.triggered.connect(self.previousMark)
         ac.view_scroll_up.triggered.connect(self.scrollUp)
         ac.view_scroll_down.triggered.connect(self.scrollDown)
-        ac.view_highlighting.triggered.connect(self.toggleHighlighting)
         ac.view_bookmark.triggered.connect(self.markCurrentLine)
         ac.view_clear_error_marks.triggered.connect(self.clearErrorMarks)
         ac.view_clear_all_marks.triggered.connect(self.clearAllMarks)
-        ac.tools_indent_auto.triggered.connect(self.toggleAutoIndent)
-        ac.tools_indent_indent.triggered.connect(self.reIndent)
         ac.window_new.triggered.connect(self.newWindow)
         ac.window_fullscreen.toggled.connect(self.toggleFullScreen)
         ac.help_manual.triggered.connect(self.showManual)
@@ -858,7 +831,8 @@ class MainWindow(QMainWindow):
         m.addAction(ac.view_next_document)
         m.addAction(ac.view_previous_document)
         m.addSeparator()
-        m.addAction(ac.view_highlighting)
+        docac = documentactions.get(self).actionCollection
+        m.addAction(docac.view_highlighting)
         self.menu_view_music = mm = m.addMenu('')
         
         ma = panels.manager(self).musicview.actionCollection
@@ -896,8 +870,8 @@ class MainWindow(QMainWindow):
         self.menu_tools = m = self.menuBar().addMenu('')
         m.addAction(scorewiz.ScoreWizard.instance(self).actionCollection.scorewiz)
         m.addSeparator()
-        m.addAction(ac.tools_indent_auto)
-        m.addAction(ac.tools_indent_indent)
+        m.addAction(docac.tools_indent_auto)
+        m.addAction(docac.tools_indent_indent)
         m.addSeparator()
         aa = autocomplete.CompleterManager.instance(self).actionCollection
         m.addAction(aa.autocomplete)
@@ -1258,8 +1232,6 @@ class ActionCollection(actioncollection.ActionCollection):
         
         self.view_next_document = QAction(parent)
         self.view_previous_document = QAction(parent)
-        self.view_highlighting =QAction(parent)
-        self.view_highlighting.setCheckable(True)
         self.view_bookmark = QAction(parent)
         self.view_bookmark.setCheckable(True)
         self.view_clear_error_marks = QAction(parent)
@@ -1268,10 +1240,6 @@ class ActionCollection(actioncollection.ActionCollection):
         self.view_previous_mark = QAction(parent)
         self.view_scroll_up = QAction(parent)
         self.view_scroll_down = QAction(parent)
-        
-        self.tools_indent_auto = QAction(parent)
-        self.tools_indent_auto.setCheckable(True)
-        self.tools_indent_indent = QAction(parent)
         
         self.window_new = QAction(parent)
         self.window_fullscreen = QAction(parent)
@@ -1399,7 +1367,6 @@ class ActionCollection(actioncollection.ActionCollection):
         
         self.view_next_document.setText(_("&Next Document"))
         self.view_previous_document.setText(_("&Previous Document"))
-        self.view_highlighting.setText(_("Syntax &Highlighting"))
         self.view_bookmark.setText(_("&Mark Current Line"))
         self.view_clear_error_marks.setText(_("Clear &Error Marks"))
         self.view_clear_all_marks.setText(_("Clear &All Marks"))
@@ -1407,9 +1374,6 @@ class ActionCollection(actioncollection.ActionCollection):
         self.view_previous_mark.setText(_("Previous Mark"))
         self.view_scroll_up.setText(_("Scroll Up"))
         self.view_scroll_down.setText(_("Scroll Down"))
-        
-        self.tools_indent_auto.setText(_("&Automatic Indent"))
-        self.tools_indent_indent.setText(_("Re-&Indent"))
         
         self.window_new.setText(_("New &Window"))
         self.window_fullscreen.setText(_("&Fullscreen"))
