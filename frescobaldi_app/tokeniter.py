@@ -148,14 +148,16 @@ def allTokens(document):
 
 class TokenIterator(object):
     """An iterator over the tokens in the userData a given QTextBlock."""
-    def __init__(self, block, atEnd=False):
+    def __init__(self, block=QTextBlock(), atEnd=False):
         """Positions the token iterator at the start of the given block.
         
         If atEnd == True, the iterator is positioned past the end of the block.
+        If no block is given you can't iterate but you can still use the methods
+        that accept a QTextCursor, as they initialize the iterator again.
         
         """
         self.block = block
-        self._tokens = tokens(block)
+        self._tokens = tokens(block) is block.isValid() else ()
         self._index = len(self._tokens) if atEnd else -1
     
     def forward(self, change = True):
