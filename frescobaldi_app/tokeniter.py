@@ -32,7 +32,7 @@ use update().
 
 from __future__ import unicode_literals
 
-from PyQt4.QtGui import QTextCursor
+from PyQt4.QtGui import QTextBlock, QTextCursor
 
 import cursortools
 import highlighter
@@ -157,7 +157,7 @@ class TokenIterator(object):
         
         """
         self.block = block
-        self._tokens = tokens(block) is block.isValid() else ()
+        self._tokens = tokens(block) if block.isValid() else ()
         self._index = len(self._tokens) if atEnd else -1
     
     def forward(self, change = True):
