@@ -114,3 +114,31 @@ def insertText(cursor, text):
     cursor.setPosition(new, QTextCursor.KeepAnchor)
 
 
+def isBlankBefore(cursor):
+    """Returns True if there's no text on the current line before the cursor."""
+    if cursor.hasSelection():
+        return False
+    if cursor.atBlockStart():
+        return True
+    c = QTextCursor(cursor)
+    c.movePosition(QTextCursor.StartOfBlock, QTextCursor.KeepAnchor)
+    return c.selection().toPlainText().isspace()
+
+
+def isBlankAfter(cursor):
+    """Returns True if there's no text on the current line after the cursor."""
+    if cursor.hasSelection():
+        return False
+    if cursor.atBlockEnd():
+        return True
+    c = QTextCursor(cursor)
+    c.movePosition(QTextCursor.EndOfBlock, QTextCursor.KeepAnchor)
+    return c.selection().toPlainText().isspace()
+
+
+def isBlankLine(cursor):
+    """Returns True if the cursor is on an empty or blank line."""
+    text = cursor.block().text()
+    return not text or text.isspace()
+
+

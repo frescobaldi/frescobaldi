@@ -292,3 +292,20 @@ def makeIndent(indent, tabwidth = 8, allowTabs = False):
         return ' ' * indent
 
 
+def insertText(cursor, text):
+    """Inserts text and indents it if there are newlines in it."""
+    if '\n' not in text:
+        cursor.insertText(text)
+        return
+    line = cursor.document().findBlock(cursor.selectionStart()).blockNumber()
+    with cursortools.editBlock(cursor):
+        cursor.insertText(text)
+        block = cursor.document().findBlockByNumber(line)
+        last = cursor.block()
+        tokeniter.update(block) # tokenize inserted lines
+        while last != block:
+            block = block.next()
+            if setIndent(block, computeIndent(block)):
+                tokeniter.update(block)
+
+

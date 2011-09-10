@@ -133,6 +133,9 @@ class MainWindow(QMainWindow):
     def setCurrentDocument(self, doc, findOpenView=False):
         self.viewManager.setCurrentDocument(doc, findOpenView)
     
+    def textCursor(self):
+        return self.currentView().textCursor()
+        
     def setTextCursor(self, cursor, findOpenView=False):
         """Switches to the document() of the cursor and then sets that cursor on its View."""
         self.setCurrentDocument(cursor.document(), findOpenView)
