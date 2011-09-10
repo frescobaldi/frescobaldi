@@ -88,7 +88,11 @@ class BarlinesGroup(buttongroup.ButtonGroup):
         for name, ly_text, title in self.barlines():
             yield name, title
     
-    
+    def actionTriggered(self, name):
+        text = '\\bar "{0}"'.format(self._barlines[name])
+        self.insertText(text)
+
+
 class BreatheGroup(buttongroup.ButtonGroup):
     def translateUI(self):
         self.setTitle(_("Breathing Signs"))
@@ -102,5 +106,16 @@ class BreatheGroup(buttongroup.ButtonGroup):
         yield 'breathe_rvarcomma', _("Straight Breathing Sign")
         yield 'breathe_caesura_curved', _("Curved Caesura")
         yield 'breathe_caesura_straight', _("Straight Caesura")
+
+    def actionTriggered(self, name):
+        if name == 'breathe_rcomma':
+            self.insertText('\\breathe')
+        else:
+            glyph = name[8:].replace('_', '.')
+            text = ("\\once \\override BreathingSign #'text = "
+                    '#(make-musicglyph-markup "scripts.{0}")\n'
+                    "\\breathe").format(glyph)
+            self.insertText(text, blankline=True)
+
 
 

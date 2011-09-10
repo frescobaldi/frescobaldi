@@ -31,6 +31,7 @@ from PyQt4.QtGui import *
 import actioncollection
 import actioncollectionmanager
 import app
+import cursortools
 import widgets.shortcuteditdialog
 
 
@@ -65,6 +66,9 @@ class ButtonGroup(QGroupBox):
     
     def tool(self):
         return self._tool()
+    
+    def mainwindow(self):
+        return self.tool().panel().parent().mainwindow()
     
     def actionDict(self):
         """Returns the Quick Insert action dictionary."""
@@ -115,7 +119,28 @@ class ButtonGroup(QGroupBox):
     def actionTriggered(self, name):
         """Called by default when a button is activated."""
         print "Action triggered:", name # DEBUG
+    
+    def insertText(self, text, indent=True, blankline=False):
+        """Insert text in the current document and focuses the document again.
         
+        Besides the text, the following keyword arguments may be used:
+        
+        indent (default: True): The text will be indented if there are one or
+            more newlines in it.
+        blankline (default: False): A newline will be prepended to text if the
+            cursor is currently not on a blank line.
+        
+        """
+        cursor = self.mainwindow().textCursor()
+        if blankline and not cursortools.isBlankBefore(cursor):
+            text = '\n' + text
+        if indent and '\n' in text:
+            import indent
+            indent.insertText(cursor, text)
+        else:
+            cursor.insertText(text)
+        self.mainwindow().currentView().setFocus()
+
 
 class Button(QToolButton):
     def __init__(self, group, name, action):
@@ -156,7 +181,7 @@ class Button(QToolButton):
 
     def editShortcut(self):
         """Edit our shortcut."""
-        mainwindow = self.parent().tool().panel().parent().mainwindow()
+        mainwindow = self.parent().mainwindow()
         action = QAction(self.defaultAction().icon(), self.defaultAction().text(), None)
         action.setShortcuts(self.actionCollection().shortcuts(self.objectName()) or [])
         if actioncollectionmanager.manager(mainwindow).editAction(self, action,
