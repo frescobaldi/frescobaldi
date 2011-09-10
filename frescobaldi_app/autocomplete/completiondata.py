@@ -131,7 +131,7 @@ lilypond_markup_commands = listmodel.ListModel(
     display = util.command)
 
 lilypond_header_variables = listmodel.ListModel(
-    sorted(ly.words.headervariables), edit = util.variable)
+    sorted(ly.words.headervariables, key=lambda i: i[:3]), edit = util.variable)
 
 lilypond_paper_variables = listmodel.ListModel(
     sorted(ly.words.papervariables), edit = util.variable)
