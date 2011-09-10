@@ -54,25 +54,30 @@ class DocumentActions(plugin.MainWindowPlugin):
         ac.view_highlighting.setChecked(minfo.highlighting)
         ac.tools_indent_auto.setChecked(minfo.autoindent)
         
+    def currentView(self):
+        return self.mainwindow().currentView()
+    
+    def currentDocument(self):
+        return self.mainwindow().currentDocument()
+        
     def updateOtherDocActions(self):
         """Calls updateDocActions() in other instances that show same document."""
-        doc = self.mainwindow().currentDocument()
+        doc = self.currentDocument()
         for i in self.instances():
-            if i is not self and i.mainwindow().currentDocument() == doc:
+            if i is not self and i.currentDocument() == doc:
                 i.updateDocActions(doc)
         
     def toggleAutoIndent(self):
-        doc = self.mainwindow().currentDocument()
-        minfo = metainfo.info(doc)
+        minfo = metainfo.info(self.currentDocument())
         minfo.autoindent = not minfo.autoindent
         self.updateOtherDocActions()
     
     def reIndent(self):
         import indent
-        indent.reIndent(self.mainwindow().currentView().textCursor())
+        indent.reIndent(self.currentView().textCursor())
         
     def toggleHighlighting(self):
-        doc = self.mainwindow().currentDocument()
+        doc = self.currentDocument()
         minfo = metainfo.info(doc)
         minfo.highlighting = not minfo.highlighting
         highlighter.highlighter(doc).setHighlighting(minfo.highlighting)
