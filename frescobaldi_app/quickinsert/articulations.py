@@ -191,12 +191,13 @@ def articulation_positions(cursor, text=None):
                 if t.end >= pos:
                     yield t
                     break
+            if iterator.block != endblock:
+                for t in tokens:
+                    yield t
+                    if iterator.block == endblock:
+                        break
             for t in tokens:
-                yield t
-                if iterator.block == endblock:
-                    break
-            for t in tokens:
-                if t.pos > endpos:
+                if t.pos >= endpos:
                     break
                 yield t
         source = generator()
@@ -208,19 +209,20 @@ def articulation_positions(cursor, text=None):
         for t in source:
             if isinstance(state.parser(), ly.lex.lilypond.LilyPondParserChord):
                 continue
-            if isinstance(t, (
-                ly.lex.lilypond.Note, ly.lex.lilypond.DurationStart, ly.lex.lilypond.Scaling,
+            if isinstance(t, ly.lex.Space):
+                continue
+            if isinstance(t, ly.lex.lilypond.Scaling):
+                yield iterator.cursor(start=len(t))
+            elif isinstance(t, (
+                ly.lex.lilypond.Note, ly.lex.lilypond.DurationStart,
                 ly.lex.lilypond.ChordEnd)):
+                c = iterator.cursor(start=len(t))
                 for t in source:
-                    if isinstance(t, (ly.lex.lilypond.DurationStart, ly.lex.lilypond.Scaling)):
-                        continue
-                    if isinstance(t, ly.lex.lilypond.Note):
-                        # TODO: really test the note contents
-                        continue
-                    yield iterator.cursor(end=0)
-                    break
-                else:
-                    yield iterator.cursor(start=len(t))
+                    if not isinstance(t, (ly.lex.lilypond.DurationStart, ly.lex.lilypond.Scaling)):
+                        c = iterator.cursor(end=0)
+                        break
+                    c = iterator.cursor(start=len(t))
+                yield c
     if cursor.hasSelection():
         return list(generate_cursors())
     return list(itertools.islice(generate_cursors(), 1))
