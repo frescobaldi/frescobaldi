@@ -202,7 +202,15 @@ class TokenIterator(object):
                 state.follow(token)
                 yield token
         return generator(), state
-
+    
+    def atBlockStart(self):
+        """Returns True if the iterator is at the start of the current block."""
+        return self._index <= 0
+    
+    def atBlockEnd(self):
+        """Returns True if the iterator is at the end of the current block."""
+        return self._index >= len(self._tokens) - 1
+        
     def token(self):
         """Re-returns the last yielded token."""
         return self._tokens[self._index]

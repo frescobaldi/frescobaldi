@@ -197,9 +197,9 @@ def articulation_positions(cursor, text=None):
                     if iterator.block == endblock:
                         break
             for t in tokens:
-                if t.pos >= endpos:
-                    break
                 yield t
+                if t.end >= endpos:
+                    break
         source = generator()
     else:
         tokens, state = iterator.forward_state(False)
@@ -209,19 +209,19 @@ def articulation_positions(cursor, text=None):
         for t in source:
             if isinstance(state.parser(), ly.lex.lilypond.LilyPondParserChord):
                 continue
-            if isinstance(t, ly.lex.Space):
+            elif isinstance(t, ly.lex.Space):
                 continue
-            if isinstance(t, ly.lex.lilypond.Scaling):
+            elif isinstance(t, ly.lex.lilypond.Scaling):
                 yield iterator.cursor(start=len(t))
             elif isinstance(t, (
                 ly.lex.lilypond.Note, ly.lex.lilypond.DurationStart,
                 ly.lex.lilypond.ChordEnd)):
                 c = iterator.cursor(start=len(t))
-                for t in source:
-                    if not isinstance(t, (ly.lex.lilypond.DurationStart, ly.lex.lilypond.Scaling)):
-                        c = iterator.cursor(end=0)
-                        break
-                    c = iterator.cursor(start=len(t))
+                if not iterator.atBlockEnd():
+                    for t in source:
+                        if not isinstance(t, (ly.lex.lilypond.DurationStart, ly.lex.lilypond.Scaling)):
+                            c = iterator.cursor(end=0)
+                            break
                 yield c
     if cursor.hasSelection():
         return list(generate_cursors())
