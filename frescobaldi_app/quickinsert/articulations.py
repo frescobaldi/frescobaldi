@@ -23,14 +23,19 @@ The Quick Insert panel Articulations Tool.
 
 from __future__ import unicode_literals
 
+import itertools
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
 import symbols
+import cursortools
+import tokeniter
+import ly.lex.lilypond
 
-import tool
-import buttongroup
+from . import tool
+from . import buttongroup
 
 
 # a dict mapping long articulation names to their short sign
@@ -87,8 +92,15 @@ class Group(buttongroup.ButtonGroup):
             yield name, symbols.icon('articulation_'+name), None
 
     def actionTriggered(self, name):
-        print "Articulation",name,"triggered"#DEBUG
-        
+        if self.tool().shorthands.isChecked() and name in shorthands:
+            text = '_-^'[self.direction()+1] + shorthands[name]
+        else:
+            text = ('_', '', '^')[self.direction()+1] + '\\' + name
+        cursor = self.mainwindow().textCursor()
+        with cursortools.editBlock(cursor):
+            for c in articulation_positions(cursor, text):
+                c.insertText(text)
+
 
 class ArticulationsGroup(Group):
     def translateUI(self):
@@ -157,5 +169,60 @@ class OtherGroup(Group):
         yield 'ltoe', _("Left toe")
         yield 'rtoe', _("Right toe")
         yield 'halfopen', _("Half open (e.g. hi-hat)")
+
+
+def articulation_positions(cursor, text=None):
+    """Returns a list of positions where an articulation can be added.
+    
+    Every position is given as a QTextCursor instance.
+    If text is given, the places where that text already exists are not yielded.
+    If the cursor has a selection, all positions in the selection are returned.
+    
+    """
+    block = cursor.document().findBlock(cursor.selectionStart())
+    iterator = tokeniter.TokenIterator(block)
+    pos = cursor.selectionStart() - block.position()
+    if cursor.hasSelection():
+        endblock = cursor.document().findBlock(cursor.selectionEnd())
+        endpos = cursor.selectionEnd() - endblock.position()
+        tokens, state = iterator.forward_state()
+        def generator():
+            for t in tokens:
+                if t.end >= pos:
+                    yield t
+                    break
+            for t in tokens:
+                yield t
+                if iterator.block == endblock:
+                    break
+            for t in tokens:
+                if t.pos > endpos:
+                    break
+                yield t
+        source = generator()
+    else:
+        tokens, state = iterator.forward_state(False)
+        source = itertools.dropwhile(lambda t: t.end < pos, tokens)
+    
+    def generate_cursors():
+        for t in source:
+            if isinstance(state.parser(), ly.lex.lilypond.LilyPondParserChord):
+                continue
+            if isinstance(t, (
+                ly.lex.lilypond.Note, ly.lex.lilypond.DurationStart, ly.lex.lilypond.Scaling,
+                ly.lex.lilypond.ChordEnd)):
+                for t in source:
+                    if isinstance(t, (ly.lex.lilypond.DurationStart, ly.lex.lilypond.Scaling)):
+                        continue
+                    if isinstance(t, ly.lex.lilypond.Note):
+                        # TODO: really test the note contents
+                        continue
+                    yield iterator.cursor(end=0)
+                    break
+                else:
+                    yield iterator.cursor(start=len(t))
+    if cursor.hasSelection():
+        return list(generate_cursors())
+    return list(itertools.islice(generate_cursors(), 1))
 
 

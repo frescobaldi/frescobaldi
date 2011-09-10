@@ -82,7 +82,7 @@ class ButtonGroup(QGroupBox):
          1 == Up
          
         """
-        return 1 - self.panel().direction.currentIndex()
+        return 1 - self.tool().panel().direction.currentIndex()
         
     def createActions(self):
         actionDict = self.actionDict()
