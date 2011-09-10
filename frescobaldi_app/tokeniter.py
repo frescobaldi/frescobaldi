@@ -203,6 +203,80 @@ class TokenIterator(object):
                 yield token
         return generator(), state
     
+    def forward_selection(self, cursor, partial=True):
+        """Returns a token iterator.
+        
+        The iterator yields tokens from the selection of the cursor.
+        If partial is True (the default), also tokens that are partially inside
+        the selection are yielded.
+        
+        """
+        def token_source():
+            for token in self.forward(False):
+                yield token
+        return self._forward_selection_internal(cursor, partial, token_source)
+       
+    def forward_selection_state(self, cursor, partial=True):
+        """Returns a token iterator and a state instance.
+        
+        The iterator yields tokens from the selection of the cursor.
+        If partial is True (the default), also tokens that are partially inside
+        the selection are yielded.
+        
+        The State is the tokenizer state at the same place,
+        automatically updated by following the tokens.
+        
+        """
+        block = cursor.document().findBlock(cursor.selectionStart())
+        state = highlighter.highlighter(block.document()).state(block)
+        def token_source():
+            for token in self.forward(False):
+                state.follow(token)
+                yield token
+        gen = self._forward_selection_internal(cursor, partial, token_source)
+        return gen, state
+       
+    def _forward_selection_internal(self, cursor, partial, token_source):
+        """Internal shared implementation of forward_selection etc.
+        
+        cursor and partial: see forward_selection and forward_selection_state;
+        token_source: should yield the tokens for the current block.
+        
+        """
+        block = cursor.document().findBlock(cursor.selectionStart())
+        endblock = cursor.document().findBlock(cursor.selectionEnd())
+        pos = cursor.selectionStart() - block.position()
+        endpos = cursor.selectionEnd() - endblock.position()
+        self.__init__(block)
+        if partial:
+            def source_start(source):
+                for token in source:
+                    if token.end > pos:
+                        yield token
+            def source_end(source):
+                for token in source:
+                    if token.pos >= endpos:
+                        break
+                    yield token
+        else:
+            def source_start(source):
+                for token in source:
+                    if token.pos >= pos:
+                        yield token
+            def source_end(source):
+                for token in source:
+                    if token.end > endpos:
+                        break
+                    yield token
+        source = source_start(token_source())
+        while self.block != endblock:
+            for token in source:
+                yield token
+            self.__init__(self.block.next())
+            source = token_source()
+        for token in source_end(source):
+            yield token
+
     def atBlockStart(self):
         """Returns True if the iterator is at the start of the current block."""
         return self._index <= 0

@@ -181,32 +181,16 @@ def articulation_positions(cursor, text=None):
     """
     block = cursor.document().findBlock(cursor.selectionStart())
     iterator = tokeniter.TokenIterator(block)
-    pos = cursor.selectionStart() - block.position()
     if cursor.hasSelection():
-        endblock = cursor.document().findBlock(cursor.selectionEnd())
-        endpos = cursor.selectionEnd() - endblock.position()
-        tokens, state = iterator.forward_state()
-        def generator():
-            for t in tokens:
-                if t.end >= pos:
-                    yield t
-                    break
-            if iterator.block != endblock:
-                for t in tokens:
-                    yield t
-                    if iterator.block == endblock:
-                        break
-            for t in tokens:
-                yield t
-                if t.end >= endpos:
-                    break
-        source = generator()
+        source, state = iterator.forward_selection_state(cursor)
     else:
+        pos = cursor.selectionStart() - block.position()
         tokens, state = iterator.forward_state(False)
         source = itertools.dropwhile(lambda t: t.end < pos, tokens)
     
     def generate_cursors():
         for t in source:
+            print t.__class__, repr(t)
             if isinstance(state.parser(), ly.lex.lilypond.LilyPondParserChord):
                 continue
             elif isinstance(t, ly.lex.Space):
