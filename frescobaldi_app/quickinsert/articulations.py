@@ -183,7 +183,9 @@ def articulation_positions(cursor, text=None):
     iterator = tokeniter.TokenIterator(block)
     if cursor.hasSelection():
         source, state = iterator.forward_selection_state(cursor)
+        makelist = list
     else:
+        makelist = lambda gen: list(itertools.islice(gen, 1))
         pos = cursor.selectionStart() - block.position()
         tokens, state = iterator.forward_state(False)
         source = itertools.dropwhile(lambda t: t.end < pos, tokens)
@@ -207,8 +209,6 @@ def articulation_positions(cursor, text=None):
                             c = iterator.cursor(end=0)
                             break
                 yield c
-    if cursor.hasSelection():
-        return list(generate_cursors())
-    return list(itertools.islice(generate_cursors(), 1))
+    return makelist(generate_cursors())
 
 
