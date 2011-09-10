@@ -23,9 +23,12 @@ Session menu.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtGui import QMenu
+from PyQt4.QtGui import QActionGroup, QMenu
 
 import app
+import util
+import sessions
+
 from . import manager
 
 
@@ -33,7 +36,12 @@ class SessionMenu(QMenu):
     def __init__(self, mainwindow):
         super(SessionMenu, self).__init__(mainwindow)
         app.translateUI(self)
-        ac = manager.get(mainwindow).actionCollection
+        mgr = manager.get(mainwindow)
+        ac = mgr.actionCollection
+        ag = self._actionGroup = QActionGroup(self)
+        ag.setExclusive(True)
+        ag.addAction(ac.session_none)
+        ag.triggered.connect(self.slotSessionsAction)
         self.addAction(ac.session_new)
         self.addAction(ac.session_save)
         self.addSeparator()
@@ -47,6 +55,24 @@ class SessionMenu(QMenu):
         self.setTitle(_('menu title', '&Session'))
     
     def populate(self):
-        manager.get(self.parentWidget()).populateSessionMenu(self)
+        ac = manager.get(self.parentWidget()).actionCollection
+        ag = self._actionGroup
+        for a in ag.actions():
+            if a is not ac.session_none:
+                self.removeAction(a)
+                ag.removeAction(a)
+        ac.session_none.setChecked(not sessions.currentSession())
+        for name in sessions.sessionNames():
+            a = self.addAction(name.replace('&', '&&'))
+            a.setCheckable(True)
+            if name == sessions.currentSession():
+                a.setChecked(True)
+            a.setObjectName(name)
+            ag.addAction(a)
+        util.addAccelerators(self.actions())
+
+    def slotSessionsAction(self, action):
+        if action.objectName() in sessions.sessionNames():
+            manager.get(self.parentWidget()).startSession(action.objectName())
 
 

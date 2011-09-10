@@ -60,35 +60,8 @@ class SessionManager(plugin.MainWindowPlugin):
         ac.session_new.triggered.connect(self.newSession)
         ac.session_save.triggered.connect(self.saveSession)
         ac.session_manage.triggered.connect(self.manageSessions)
-        
-        # sessions menu
-        self._sessionsActionGroup = ag = QActionGroup(mainwindow)
-        ag.setExclusive(True)
-        ag.addAction(ac.session_none)
-        ag.triggered.connect(self.slotSessionsAction)
-        
-    def populateSessionMenu(self, menu):
-        ag = self._sessionsActionGroup
-        for a in ag.actions():
-            if a is not self.actionCollection.session_none:
-                menu.removeAction(a)
-                ag.removeAction(a)
-        self.actionCollection.session_none.setChecked(not sessions.currentSession())
-        for name in sessions.sessionNames():
-            a = menu.addAction(name.replace('&', '&&'))
-            a.setCheckable(True)
-            if name == sessions.currentSession():
-                a.setChecked(True)
-            a.setObjectName(name)
-            ag.addAction(a)
-        util.addAccelerators(menu.actions())
+        ac.session_none.triggered.connect(self.noSession)
     
-    def slotSessionsAction(self, action):
-        if action is self.actionCollection.session_none:
-            self.noSession()
-        elif action.objectName() in sessions.sessionNames():
-            self.startSession(action.objectName())
-            
     def newSession(self):
         from . import dialog
         name = dialog.SessionEditor(self.mainwindow()).edit()
