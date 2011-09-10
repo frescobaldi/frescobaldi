@@ -71,6 +71,19 @@ class QuickInsert(QWidget):
         
         app.translateUI(self)
         
+        # restore remembered current page
+        name = QSettings().value("quickinsert/current_tool", "")
+        if name:
+            for i in range(self.toolbox.count()):
+                if name == self.toolbox.widget(i).__class__.__name__.lower():
+                    self.toolbox.setCurrentIndex(i)
+                    break
+        self.toolbox.currentChanged.connect(self.slotCurrentChanged)
+        
+    def slotCurrentChanged(self, index):
+        name = self.toolbox.widget(index).__class__.__name__.lower()
+        QSettings().setValue("quickinsert/current_tool", name)
+    
     def translateUI(self):
         self.directionLabel.setText(_("Direction:"))
         for item, text in enumerate((_("Up"), _("Neutral"), _("Down"))):
