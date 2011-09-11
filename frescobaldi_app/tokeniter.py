@@ -152,42 +152,41 @@ def selection(cursor, state=None, partial=True):
     endpos = cursor.selectionEnd() - endblock.position()
     
     if state:
-        def token_source():
-            for token in tokens(block):
-                state.follow(token)
-                yield token
+        follow = state.follow
+        def follower(source):
+            for t in source:
+                follow(t)
+                yield t
     else:
-        def token_source():
-            for token in tokens(block):
-                yield token
-    
+        follow = lambda t: None
+        follower = lambda i: i
     if partial:
-        def source_start(source):
-            for token in source:
-                if token.end > pos:
-                    yield token
-        def source_end(source):
-            for token in source:
-                if token.pos >= endpos:
-                    break
-                yield token
+        start_pred = lambda t: t.end <= pos
+        end_pred = lambda t: t.pos >= endpos
     else:
-        def source_start(source):
-            for token in source:
-                if token.pos >= pos:
-                    yield token
-        def source_end(source):
-            for token in source:
-                if token.end > endpos:
-                    break
-                yield token
+        start_pred = lambda t: t.pos < pos
+        end_pred = lambda t: t.end > endpos
     
-    source = source_start(token_source())
+    def source_start(block):
+        source = iter(tokens(block))
+        for t in source:
+            if start_pred(t):
+                follow(t)
+                continue
+            else:
+                for t in source:
+                    yield t
+    def source_end(source):
+        for t in source:
+            if end_pred(t):
+                break
+            yield t
+    source = source_start
     while block != endblock:
-        yield block, source
+        yield block, follower(source(block))
         block = block.next()
-        source = token_source()
-    yield block, source_end(source)
+        source = tokens
+    yield block, follower(source_end(source(block)))
 
 
 def allTokens(document):
