@@ -190,9 +190,15 @@ def articulation_positions(cursor, text=None):
         tokens, state = iterator.forward_state(False)
         source = itertools.dropwhile(lambda t: t.end < pos, tokens)
     
+    def rest_of_line():
+        if not iterator.atBlockEnd():
+            for t in source:
+                yield t
+                if iterator.atBlockEnd():
+                    break
+    
     def generate_cursors():
         for t in source:
-            print t.__class__, repr(t)
             if isinstance(state.parser(), ly.lex.lilypond.LilyPondParserChord):
                 continue
             elif isinstance(t, ly.lex.Space):
@@ -200,14 +206,14 @@ def articulation_positions(cursor, text=None):
             elif isinstance(t, ly.lex.lilypond.Scaling):
                 yield iterator.cursor(start=len(t))
             elif isinstance(t, (
-                ly.lex.lilypond.Note, ly.lex.lilypond.DurationStart,
+                ly.lex.lilypond.Note, ly.lex.lilypond.DurationStart, ly.lex.lilypond.Dot,
                 ly.lex.lilypond.ChordEnd)):
-                c = iterator.cursor(start=len(t))
-                if not iterator.atBlockEnd():
-                    for t in source:
-                        if not isinstance(t, (ly.lex.lilypond.DurationStart, ly.lex.lilypond.Scaling)):
-                            c = iterator.cursor(end=0)
-                            break
+                for t in rest_of_line():
+                    if not isinstance(t, (ly.lex.lilypond.DurationStart, ly.lex.lilypond.Dot, ly.lex.lilypond.Scaling)):
+                        c = tokeniter.cursor(iterator.block, t, end=0)
+                        break
+                else:
+                    c = tokeniter.cursor(iterator.block, t, start=len(t))
                 yield c
     return makelist(generate_cursors())
 
