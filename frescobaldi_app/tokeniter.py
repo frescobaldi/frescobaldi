@@ -175,6 +175,7 @@ def selection(cursor, state=None, partial=True):
                 follow(t)
                 continue
             else:
+                yield t
                 for t in source:
                     yield t
     def source_end(source):
