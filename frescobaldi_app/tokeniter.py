@@ -89,26 +89,67 @@ def cursor(block, token, start=0, end=None):
     cursor.setPosition(block.position() + token.pos + end, QTextCursor.KeepAnchor)
     return cursor
 
+def fromCursor(cursor, state=None, first=1):
+    """Yields block, tokens starting at the cursor position.
+    
+    If state is given, it should be the state at the start of the block
+    the selection begins. (Use state(cursor) to get that.)
+    
+    If first is -1: starts with the token that touches the cursor at the right
+    If first is 0: starts with the token that overlaps the cursor
+    If first is 1 (default): starts with the first token to the right.
+    
+    """
+    block = cursor.document().findBlock(cursor.selectionStart())
+    pos = cursor.selectionStart() - block.position()
+    if state:
+        def token_source(block):
+            for t in tokens(block):
+                state.follow(t)
+                yield t
+    else:
+        def token_source(block):
+            return iter(tokens(block))
+    if first == -1:
+        pred = lambda t: t.end < pos
+    elif first == 0:
+        pred = lambda t: t.end <= pos
+    else:
+        pred = lambda t: t.pos < pos
+    def source_start(block):
+        source = token_source(block)
+        for t in source:
+            if not pred(t):
+                yield t
+                for t in source:
+                    yield t
+    source = source_start
+    while block.isValid():
+        yield block, source(block)
+        block = block.next()
+        source = token_source
 
-def selectedTokens(cursor, state=None):
+
+def selection(cursor, state=None, partial=True):
     """Yields block, selected_tokens for every block that has selected tokens.
     
     Usage:
     
-    for block, tokens in selectedTokens(cursor):
+    for block, tokens in selection(cursor):
         for token in tokens:
             do_something() ...
     
     If state is given, it should be the state at the start of the block
     the selection begins. (Use state(cursor) to get that.)
     
+    If partial is True (the default), also tokens that are partially inside
+    the selection are yielded.
+    
     """
-    if not cursor.hasSelection():
-        return
-    d = cursor.document()
-    start = d.findBlock(cursor.selectionStart())
-    end = d.findBlock(cursor.selectionEnd())
-    block = start
+    block = cursor.document().findBlock(cursor.selectionStart())
+    endblock = cursor.document().findBlock(cursor.selectionEnd())
+    pos = cursor.selectionStart() - block.position()
+    endpos = cursor.selectionEnd() - endblock.position()
     
     if state:
         def token_source():
@@ -120,25 +161,33 @@ def selectedTokens(cursor, state=None):
             for token in tokens(block):
                 yield token
     
-    def source_start(source):
-        for token in source:
-            if token.pos >= cursor.selectionStart() - start.position():
+    if partial:
+        def source_start(source):
+            for token in source:
+                if token.end > pos:
+                    yield token
+        def source_end(source):
+            for token in source:
+                if token.pos >= endpos:
+                    break
+                yield token
+    else:
+        def source_start(source):
+            for token in source:
+                if token.pos >= pos:
+                    yield token
+        def source_end(source):
+            for token in source:
+                if token.end > endpos:
+                    break
                 yield token
     
-    def source_end(source):
-        for token in source:
-            if token.end > cursor.selectionEnd() - end.position():
-                break
-            yield token
-    
     source = source_start(token_source())
-    while True:
-        if block == end:
-            yield block, source_end(source)
-            break
+    while block != endblock:
         yield block, source
         block = block.next()
         source = token_source()
+    yield block, source_end(source)
 
 
 def allTokens(document):
