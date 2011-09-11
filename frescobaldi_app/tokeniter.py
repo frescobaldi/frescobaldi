@@ -89,6 +89,7 @@ def cursor(block, token, start=0, end=None):
     cursor.setPosition(block.position() + token.pos + end, QTextCursor.KeepAnchor)
     return cursor
 
+
 def fromCursor(cursor, state=None, first=1):
     """Yields block, tokens starting at the cursor position.
     
