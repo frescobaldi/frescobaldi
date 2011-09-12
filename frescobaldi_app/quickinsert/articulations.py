@@ -191,7 +191,13 @@ def articulation_positions(cursor, text=None):
         for t in tokens:
             if isinstance(source.state.parser(), _skipparsers):
                 continue
-            elif isinstance(t, _pitchclasses):
+            elif isinstance(t, _skiprests):
+                for t in source.tokens:
+                    if not isinstance(t, ly.lex.lilypond.Duration):
+                        break
+                else:
+                    continue
+            if isinstance(t, _pitchclasses):
                 for t in source.tokens:
                     if not isinstance(t, _stay):
                         yield source.cursor(t, end=0)
@@ -204,6 +210,11 @@ def articulation_positions(cursor, text=None):
 _skipparsers = (
     ly.lex.lilypond.ParseChord,
     ly.lex.lilypond.ParsePitchCommand,
+)
+
+_skiprests = (
+    ly.lex.lilypond.Rest,
+    ly.lex.lilypond.Skip,
 )
 
 _pitchclasses = (
