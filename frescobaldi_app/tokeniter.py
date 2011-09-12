@@ -191,6 +191,74 @@ def selection(cursor, state=None, partial=True):
     yield block, follower(source_end(source(block)))
 
 
+class source(object):
+    """Helper iterator.
+    
+    Iterates over the (block, tokens) tuples such as yielded by selection()
+    and fromCursor(). Stores the current block in the block attribute and the
+    tokens (which also should be a generator) in the tokens attribute. 
+    
+    Iterating over the source object itself just yields the tokens, while the
+    block attribute contains the current block.
+    
+    You can also iterate over the tokens attribute, which will yield the
+    remaining tokens of the current block and then stop.
+    
+    Use the fromCursor() and selection() class methods with the same arguments
+    as the corresponding global functions to create a source iterator.
+    
+    So this:
+    
+    import tokeniter
+    s = tokeniter.source(tokeniter.selection(cursor))
+    
+    is equivalent to:
+    
+    import tokeniter
+    s = tokeniter.source.selection(cursor)
+    
+    And then you can do:
+    
+    for token in s:
+        ... # do something with every token
+        ...
+        for token in s.tokens:
+            ... # do something with the remaining tokens on the line
+    
+    """
+    def __init__(self, gen):
+        """Initializes ourselves with a generator returning (block, tokens)."""
+        def g():
+            for self.block, self.tokens in gen:
+                for t in self.tokens:
+                    yield t
+        self.gen = g()
+    
+    def __iter__(self):
+        return self.gen
+    
+    def next(self):
+        return self.gen.next()
+    
+    @classmethod
+    def fromCursor(cls, cursor, state=None, first=1):
+        """Initializes a source object with a fromCursor generator.
+        
+        See the documentation for the fromCursor() function.
+        
+        """
+        return cls(fromCursor(cursor, state, first))
+    
+    @classmethod
+    def selection(cls, cursor, state=None, partial=True):
+        """Initializes a source object with a fromCursor generator.
+        
+        See the documentation for the fromCursor() function.
+        
+        """
+        return cls(selection(cursor, state, partial))
+
+
 def allTokens(document):
     """Yields all tokens of a document."""
     return (token for block in cursortools.allBlocks(document) for token in tokens(block))
