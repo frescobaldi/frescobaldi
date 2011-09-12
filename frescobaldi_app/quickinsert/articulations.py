@@ -179,35 +179,41 @@ def articulation_positions(cursor, text=None):
     If the cursor has a selection, all positions in the selection are returned.
     
     """
-    if cursor.hasSelection():
-        source = tokeniter.Source.selection(cursor, True)
-        makelist = list
-    else:
-        source = tokeniter.Source.fromCursor(cursor, True, first=-1)
+    if not cursor.hasSelection():
+        cursor.movePosition(QTextCursor.EndOfBlock, QTextCursor.KeepAnchor)
         makelist = lambda gen: list(itertools.islice(gen, 1))
+    else:
+        makelist = list
+    source = tokeniter.Source.selection(cursor, True)
     
     def generate_cursors():
         for t in source:
-            if isinstance(source.state.parser(), ly.lex.lilypond.LilyPondParserChord):
+            if isinstance(source.state.parser(), _skipparsers):
                 continue
-            elif isinstance(t, ly.lex.Space):
-                continue
-            elif isinstance(t, ly.lex.lilypond.Scaling):
-                yield tokeniter.cursor(source.block, t, start=len(t))
-            elif isinstance(t, (
-                ly.lex.lilypond.Note,
-                ly.lex.lilypond.Octave, ly.lex.lilypond.Accidental,
-                ly.lex.lilypond.DurationStart, ly.lex.lilypond.Dot,
-                ly.lex.lilypond.ChordEnd)):
+            elif isinstance(t, _pitchclasses):
                 for t in source.tokens:
-                    if not isinstance(t, (
-                        ly.lex.lilypond.Octave, ly.lex.lilypond.Accidental,
-                        ly.lex.lilypond.DurationStart, ly.lex.lilypond.Dot, ly.lex.lilypond.Scaling)):
-                        c = tokeniter.cursor(source.block, t, end=0)
+                    if not isinstance(t, _stay):
+                        yield tokeniter.cursor(source.block, t, end=0)
                         break
                 else:
-                    c = tokeniter.cursor(source.block, t, start=len(t))
-                yield c
+                    yield tokeniter.cursor(source.block, t, start=len(t))
     return makelist(generate_cursors())
+
+
+_skipparsers = (
+    ly.lex.lilypond.LilyPondParserChord,
+    ly.lex.lilypond.LilyPondParserPitchCommand,
+)
+
+_pitchclasses = (
+    ly.lex.lilypond.Note,
+    ly.lex.lilypond.ChordEnd,
+    ly.lex.lilypond.Octave,
+    ly.lex.lilypond.Accidental,
+    ly.lex.lilypond.OctaveCheck,
+    ly.lex.lilypond.Duration,
+)
+
+_stay = _pitchclasses[2:]
 
 

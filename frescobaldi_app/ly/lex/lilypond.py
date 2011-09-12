@@ -105,7 +105,7 @@ class StringQuoteEscape(_token.Character):
 
 
 class Skip(_token.Token):
-    rx = r"(\\skip|s)(?![A-Za-z])"
+    rx = r"s(?![A-Za-z])"
     
     
 class Rest(_token.Token):
@@ -113,14 +113,14 @@ class Rest(_token.Token):
     
     
 class Note(_token.Token):
-    rx = r"[a-z]+(?![A-Za-z])"
+    rx = r"[a-x]+(?![A-Za-z])"
     
 
 class Octave(_token.Token):
     rx = r",+|'+"
 
 
-class OctaveCheck(Octave):
+class OctaveCheck(_token.Token):
     rx = r"=(,+|'+)"
 
 
@@ -140,7 +140,7 @@ class Duration(_token.Token):
     pass
 
 
-class DurationStart(Duration):
+class Length(Duration):
     rx = re_duration
     def updateState(self, state):
         state.enter(DurationParser())
@@ -482,7 +482,7 @@ class Change(New):
     
     
 class Clef(Command):
-    rx = r"\\clef"
+    rx = r"\\clef\b"
     def updateState(self, state):
         state.enter(LilyPondParserClef())
 
@@ -495,6 +495,12 @@ class ClefSpecifier(Specifier):
     
     def updateState(self, state):
         state.leave()
+
+
+class PitchCommand(Command):
+    rx = r"\\(relative|transpose|transposition)\b"
+    def updateState(self, state):
+        state.enter(LilyPondParserPitchCommand())
 
 
 class Unit(Command):
@@ -690,6 +696,7 @@ base_items = space_items + (
 # items that represent commands in both toplevel and music mode
 command_items = (
     Repeat,
+    PitchCommand,
     Override, Revert,
     Set, Unset,
     New, Context, Change,
@@ -720,7 +727,7 @@ music_items = base_items + (
     Rest,
     Note,
     Fraction,
-    DurationStart,
+    Length,
     Octave,
     OctaveCheck,
     AccidentalCautionary,
@@ -1085,7 +1092,7 @@ class LilyPondParserLyricMode(InputModeParser):
         LyricText,
         Dynamic,
         Skip,
-        DurationStart,
+        Length,
         Markup, MarkupLines,
     ) + command_items
     
@@ -1156,5 +1163,11 @@ class LilyPondParserFigureMode(InputModeParser, LilyPondParserMusic):
     """Parser for \\figures and \\figuremode."""
     pass # TODO: implement
     
+
+class LilyPondParserPitchCommand(FallthroughParser):
+    items = space_items + (
+        Note,
+        Octave,
+    )
 
 
