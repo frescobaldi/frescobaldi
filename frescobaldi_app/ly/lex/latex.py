@@ -27,7 +27,7 @@ from . import _token
 from . import Parser
 
 
-class LaTeXParser(Parser):
+class ParseLaTeX(Parser):
     mode = "latex"
     items = (
         _token.Space,

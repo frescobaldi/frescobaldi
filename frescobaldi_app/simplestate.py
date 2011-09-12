@@ -65,34 +65,34 @@ def state(state):
 
 parserClasses = {
     # lilypond
-    ly.lex.lilypond.LilyPondParserMusic: "music",
-    ly.lex.lilypond.LilyPondParserChord: "chord",
-    ly.lex.lilypond.LilyPondParserLyricMode: "lyricmode",
-    ly.lex.lilypond.LilyPondParserChordMode: "chordmode",
-    ly.lex.lilypond.LilyPondParserFigureMode: "figuremode",
-    ly.lex.lilypond.LilyPondParserDrumMode: "drummode",
-    ly.lex.lilypond.LilyPondParserPaper: "paper",
-    ly.lex.lilypond.LilyPondParserHeader: "header",
-    ly.lex.lilypond.LilyPondParserLayout: "layout",
-    ly.lex.lilypond.LilyPondParserBook: "book",
-    ly.lex.lilypond.LilyPondParserBookPart: "bookpart",
-    ly.lex.lilypond.LilyPondParserScore: "score",
-    ly.lex.lilypond.LilyPondParserMidi: "midi",
-    ly.lex.lilypond.LilyPondParserContext: "context",
-    ly.lex.lilypond.LilyPondParserWith: "with",
-    ly.lex.lilypond.MarkupParser: "markup",
-    ly.lex.lilypond.LilyPondParserOverride: "override",
-    ly.lex.lilypond.StringParser: "string",
+    ly.lex.lilypond.ParseMusic: "music",
+    ly.lex.lilypond.ParseChord: "chord",
+    ly.lex.lilypond.ParseLyricMode: "lyricmode",
+    ly.lex.lilypond.ParseChordMode: "chordmode",
+    ly.lex.lilypond.ParseFigureMode: "figuremode",
+    ly.lex.lilypond.ParseDrumMode: "drummode",
+    ly.lex.lilypond.ParsePaper: "paper",
+    ly.lex.lilypond.ParseHeader: "header",
+    ly.lex.lilypond.ParseLayout: "layout",
+    ly.lex.lilypond.ParseBook: "book",
+    ly.lex.lilypond.ParseBookPart: "bookpart",
+    ly.lex.lilypond.ParseScore: "score",
+    ly.lex.lilypond.ParseMidi: "midi",
+    ly.lex.lilypond.ParseContext: "context",
+    ly.lex.lilypond.ParseWith: "with",
+    ly.lex.lilypond.ParseMarkup: "markup",
+    ly.lex.lilypond.ParseOverride: "override",
+    ly.lex.lilypond.ParseString: "string",
     
     # scheme
-    ly.lex.scheme.SchemeParser: "scheme",
-    ly.lex.scheme.StringParser: "string",
+    ly.lex.scheme.ParseScheme: "scheme",
+    ly.lex.scheme.ParseString: "string",
     
     # html
-    ly.lex.html.AttrParser: "htmlattribute",
-    ly.lex.html.StringSQParser: "single-quoted-string",
-    ly.lex.html.StringDQParser: "double-quoted-string",
-    ly.lex.html.CommentParser: "comment",
+    ly.lex.html.ParseAttr: "htmlattribute",
+    ly.lex.html.ParseStringSQ: "single-quoted-string",
+    ly.lex.html.ParseStringDQ: "double-quoted-string",
+    ly.lex.html.ParseComment: "comment",
 }
 
 parserTypes = (

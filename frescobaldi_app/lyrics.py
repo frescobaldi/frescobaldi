@@ -73,7 +73,7 @@ class Lyrics(plugin.MainWindowPlugin):
         cursor = view.textCursor()
         found = []
         # find text to hyphenate
-        source = tokeniter.source.selection(cursor)
+        source = tokeniter.Source.selection(cursor)
         for token in source:
             if isinstance(token, ly.lex.lilypond.LyricText):
                 # a word found
@@ -82,7 +82,7 @@ class Lyrics(plugin.MainWindowPlugin):
         if not found:
             # no tokens were found, then tokenize the text again as if in lyricmode
             start = cursor.selectionStart()
-            state = ly.lex.State(ly.lex.lilypond.LilyPondParserLyricMode)
+            state = ly.lex.State(ly.lex.lilypond.ParseLyricMode)
             for token in state.tokens(cursor.selection().toPlainText()):
                 if isinstance(token, ly.lex.lilypond.LyricText):
                     # a word found

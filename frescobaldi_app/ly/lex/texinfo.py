@@ -38,7 +38,7 @@ class LineComment(Comment, _token.LineComment):
 class BlockCommentStart(Comment, _token.BlockCommentStart):
     rx = r"@ignore\b"
     def updateState(self, state):
-        state.enter(CommentParser())
+        state.enter(ParseComment())
         
         
 class BlockCommentEnd(Comment, _token.Leaver, _token.BlockCommentEnd):
@@ -60,7 +60,7 @@ class Block(_token.Token):
 class BlockStart(Block):
     rx = r"@[a-zA-Z]+\{"
     def updateState(self, state):
-        state.enter(BlockParser())
+        state.enter(ParseBlock())
 
 
 class BlockEnd(Block, _token.Leaver):
@@ -82,7 +82,7 @@ class Verbatim(_token.Token):
 class VerbatimStart(Keyword):
     rx = r"@verbatim\b"
     def updateState(self, state):
-        state.enter(VerbatimParser())
+        state.enter(ParseVerbatim())
 
 
 class VerbatimEnd(Keyword, _token.Leaver):
@@ -92,13 +92,13 @@ class VerbatimEnd(Keyword, _token.Leaver):
 class LilyPondBlockStart(Block):
     rx = r"@lilypond(?=(\[[a-zA-Z,=0-9\\\s]+\])?\{)"
     def updateState(self, state):
-        state.enter(LilyPondBlockAttrParser())
+        state.enter(ParseLilyPondBlockAttr())
 
 
 class LilyPondBlockStartBrace(Block):
     rx = r"\{"
     def updateState(self, state):
-        state.replace(LilyPondBlockParser())
+        state.replace(ParseLilyPondBlock())
 
 
 class LilyPondBlockEnd(Block, _token.Leaver):
@@ -108,7 +108,7 @@ class LilyPondBlockEnd(Block, _token.Leaver):
 class LilyPondEnvStart(Keyword):
     rx = r"@lilypond\b"
     def updateState(self, state):
-        state.enter(LilyPondEnvAttrParser())
+        state.enter(ParseLilyPondEnvAttr())
     
     
 class LilyPondEnvEnd(Keyword, _token.Leaver):
@@ -118,19 +118,19 @@ class LilyPondEnvEnd(Keyword, _token.Leaver):
 class LilyPondFileStart(Block):
     rx = r"@lilypondfile\b"
     def updateState(self, state):
-        state.enter(LilyPondFileParser())
+        state.enter(ParseLilyPondFile())
 
 
 class LilyPondFileStartBrace(Block):
     rx = r"\{"
     def updateState(self, state):
-        state.replace(BlockParser())
+        state.replace(ParseBlock())
 
 
 class LilyPondAttrStart(Attribute):
     rx = r"\["
     def updateState(self, state):
-        state.enter(LilyPondAttrParser())
+        state.enter(ParseLilyPondAttr())
     
     
 class LilyPondAttrEnd(Attribute, _token.Leaver):
@@ -139,7 +139,7 @@ class LilyPondAttrEnd(Attribute, _token.Leaver):
 
 # Parsers:
 
-class TexinfoParser(Parser):
+class ParseTexinfo(Parser):
     mode = "texinfo"
     items = (
         LineComment,
@@ -155,14 +155,14 @@ class TexinfoParser(Parser):
     )
 
 
-class CommentParser(Parser):
+class ParseComment(Parser):
     default = Comment
     items = (
         BlockCommentEnd,
     )
 
 
-class BlockParser(Parser):
+class ParseBlock(Parser):
     items = (
         BlockEnd,
         Accent,
@@ -172,36 +172,36 @@ class BlockParser(Parser):
     )
 
 
-class VerbatimParser(Parser):
+class ParseVerbatim(Parser):
     default = Verbatim
     items = (
         VerbatimEnd,
     )
 
 
-class LilyPondBlockAttrParser(Parser):
+class ParseLilyPondBlockAttr(Parser):
     items = (
         LilyPondAttrStart,
         LilyPondBlockStartBrace,
     )
 
 
-class LilyPondEnvAttrParser(FallthroughParser):
+class ParseLilyPondEnvAttr(FallthroughParser):
     items = (
         LilyPondAttrStart,
     )
     def fallthrough(self, state):
-        state.replace(LilyPondEnvParser())
+        state.replace(ParseLilyPondEnv())
 
 
-class LilyPondAttrParser(Parser):
+class ParseLilyPondAttr(Parser):
     default = Attribute
     items = (
         LilyPondAttrEnd,
     )
 
 
-class LilyPondFileParser(Parser):
+class ParseLilyPondFile(Parser):
     items = (
         LilyPondAttrStart,
         LilyPondFileStartBrace,
@@ -210,15 +210,15 @@ class LilyPondFileParser(Parser):
 
 import lilypond
 
-class LilyPondBlockParser(lilypond.LilyPondParserGlobal):
+class ParseLilyPondBlock(lilypond.ParseGlobal):
     items = (
         LilyPondBlockEnd,
-    ) + lilypond.LilyPondParserGlobal.items
+    ) + lilypond.ParseGlobal.items
 
 
-class LilyPondEnvParser(lilypond.LilyPondParserGlobal):
+class ParseLilyPondEnv(lilypond.ParseGlobal):
     items = (
         LilyPondEnvEnd,
-    ) + lilypond.LilyPondParserGlobal.items
+    ) + lilypond.ParseGlobal.items
     
 

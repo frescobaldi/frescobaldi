@@ -39,7 +39,7 @@ class String(_token.String):
 class StringQuotedStart(String, _token.StringStart):
     rx = r'"'
     def updateState(self, state):
-        state.enter(StringParser())
+        state.enter(ParseString())
         
 
 class StringQuotedEnd(String, _token.StringEnd):
@@ -64,7 +64,7 @@ class LineComment(Comment, _token.LineComment):
 class BlockCommentStart(Comment, _token.BlockCommentStart, _token.Indent):
     rx = r"#!"
     def updateState(self, state):
-        state.enter(BlockCommentParser())
+        state.enter(ParseBlockComment())
         
 
 class BlockCommentEnd(Comment, _token.BlockCommentEnd, _token.Leaver, _token.Dedent):
@@ -79,7 +79,7 @@ class OpenParen(Scheme, _token.MatchStart, _token.Indent):
     rx = r"\("
     matchname = "schemeparen"
     def updateState(self, state):
-        state.enter(SchemeParser())
+        state.enter(ParseScheme())
 
 
 class CloseParen(Scheme, _token.MatchEnd, _token.Dedent):
@@ -126,7 +126,7 @@ class LilyPondStart(LilyPond, _token.MatchStart, _token.Indent):
     rx = r"#{"
     matchname = "schemelily"
     def updateState(self, state):
-        state.enter(LilyPondParser())
+        state.enter(ParseLilyPond())
         
 
 class LilyPondEnd(LilyPond, _token.Leaver, _token.MatchEnd, _token.Dedent):
@@ -136,7 +136,7 @@ class LilyPondEnd(LilyPond, _token.Leaver, _token.MatchEnd, _token.Dedent):
 
 # Parsers
 
-class SchemeParser(Parser):
+class ParseScheme(Parser):
     mode = 'scheme'
     items = (
         _token.Space,
@@ -156,7 +156,7 @@ class SchemeParser(Parser):
     )
     
     
-class StringParser(Parser):
+class ParseString(Parser):
     default = String
     items = (
         StringQuotedEnd,
@@ -164,7 +164,7 @@ class StringParser(Parser):
     )
     
 
-class BlockCommentParser(Parser):
+class ParseBlockComment(Parser):
     default = Comment
     items = (
         BlockCommentSpace,
@@ -174,6 +174,6 @@ class BlockCommentParser(Parser):
 
 import lilypond
 
-class LilyPondParser(lilypond.LilyPondParserMusic):
-    items = (LilyPondEnd,) + lilypond.LilyPondParserMusic.items
+class ParseLilyPond(lilypond.ParseMusic):
+    items = (LilyPondEnd,) + lilypond.ParseMusic.items
 

@@ -36,7 +36,7 @@ class Comment(_token.Comment):
 class CommentStart(Comment, _token.BlockCommentStart):
     rx = r"<!--"
     def updateState(self, state):
-        state.enter(CommentParser())
+        state.enter(ParseComment())
         
         
 class CommentEnd(Comment, _token.Leaver, _token.BlockCommentEnd):
@@ -54,7 +54,7 @@ class Tag(_token.Token):
 class TagStart(Tag):
     rx = r"</?\w[-_:\w]*\b"
     def updateState(self, state):
-        state.enter(AttrParser())
+        state.enter(ParseAttr())
         
 
 class TagEnd(Tag, _token.Leaver):
@@ -68,7 +68,7 @@ class AttrName(_token.Token):
 class EqualSign(_token.Token):
     rx = "="
     def updateState(self, state):
-        state.enter(ValueParser())
+        state.enter(ParseValue())
 
 
 class Value(_token.Leaver):
@@ -78,13 +78,13 @@ class Value(_token.Leaver):
 class StringDQStart(String, _token.StringStart):
     rx = r'"'
     def updateState(self, state):
-        state.enter(StringDQParser())
+        state.enter(ParseStringDQ())
 
 
 class StringSQStart(String, _token.StringStart):
     rx = r"'"
     def updateState(self, state):
-        state.enter(StringSQParser())
+        state.enter(ParseStringSQ())
     
 
 class StringDQEnd(String, _token.StringEnd, _token.Leaver):
@@ -110,7 +110,7 @@ class LilyPondVersionTag(LilyPondTag):
 class LilyPondFileTag(LilyPondTag):
     rx = r"</?lilypondfile\b"
     def updateState(self, state):
-        state.enter(LilyPondFileOptionsParser())
+        state.enter(ParseLilyPondFileOptions())
 
 
 class LilyPondFileTagEnd(LilyPondTag, _token.Leaver):
@@ -120,7 +120,7 @@ class LilyPondFileTagEnd(LilyPondTag, _token.Leaver):
 class LilyPondInlineTag(LilyPondTag):
     rx = r"<lilypond\b"
     def updateState(self, state):
-        state.enter(LilyPondAttrParser())
+        state.enter(ParseLilyPondAttr())
 
 
 class LilyPondCloseTag(LilyPondTag, _token.Leaver):
@@ -130,7 +130,7 @@ class LilyPondCloseTag(LilyPondTag, _token.Leaver):
 class LilyPondTagEnd(LilyPondTag):
     rx = r">"
     def updateState(self, state):
-        state.replace(LilyPondParser())
+        state.replace(ParseLilyPond())
 
 
 class LilyPondInlineTagEnd(LilyPondTag, _token.Leaver):
@@ -140,13 +140,13 @@ class LilyPondInlineTagEnd(LilyPondTag, _token.Leaver):
 class SemiColon(_token.Token):
     rx = r":"
     def updateState(self, state):
-        state.replace(LilyPondInlineParser())
+        state.replace(ParseLilyPondInline())
 
 
 
 # Parsers:
 
-class HTMLParser(Parser):
+class ParseHTML(Parser):
     mode = "html"
     items = (
         _token.Space,
@@ -159,7 +159,7 @@ class HTMLParser(Parser):
     )
 
 
-class AttrParser(Parser):
+class ParseAttr(Parser):
     items = (
         _token.Space,
         TagEnd,
@@ -170,7 +170,7 @@ class AttrParser(Parser):
     )
 
 
-class StringDQParser(Parser):
+class ParseStringDQ(Parser):
     default = String
     items = (
         StringDQEnd,
@@ -178,7 +178,7 @@ class StringDQParser(Parser):
     )
     
 
-class StringSQParser(Parser):
+class ParseStringSQ(Parser):
     default = String
     items = (
         StringSQEnd,
@@ -186,14 +186,14 @@ class StringSQParser(Parser):
     )
     
 
-class CommentParser(Parser):
+class ParseComment(Parser):
     default = Comment
     items = (
         CommentEnd,
     )
 
 
-class ValueParser(FallthroughParser):
+class ParseValue(FallthroughParser):
     """Finds a value or drops back."""
     items = (
         _token.Space,
@@ -203,7 +203,7 @@ class ValueParser(FallthroughParser):
         state.leave()
 
 
-class LilyPondAttrParser(Parser):
+class ParseLilyPondAttr(Parser):
     items = (
         _token.Space,
         AttrName,
@@ -215,7 +215,7 @@ class LilyPondAttrParser(Parser):
     )
     
 
-class LilyPondFileOptionsParser(Parser):
+class ParseLilyPondFileOptions(Parser):
     items = (
         _token.Space,
         AttrName,
@@ -226,15 +226,15 @@ class LilyPondFileOptionsParser(Parser):
     )
 
 
-class LilyPondParser(lilypond.LilyPondParserGlobal):
+class ParseLilyPond(lilypond.ParseGlobal):
     items = (
         LilyPondCloseTag,
-    ) + lilypond.LilyPondParserGlobal.items
+    ) + lilypond.ParseGlobal.items
     
 
-class LilyPondInlineParser(lilypond.LilyPondParserMusic):
+class ParseLilyPondInline(lilypond.ParseMusic):
     items = (
         LilyPondInlineTagEnd,
-    ) + lilypond.LilyPondParserMusic.items
+    ) + lilypond.ParseMusic.items
     
 

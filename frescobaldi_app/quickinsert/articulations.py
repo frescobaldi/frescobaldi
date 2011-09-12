@@ -179,30 +179,31 @@ def articulation_positions(cursor, text=None):
     If the cursor has a selection, all positions in the selection are returned.
     
     """
-    if not cursor.hasSelection():
-        cursor.movePosition(QTextCursor.EndOfBlock, QTextCursor.KeepAnchor)
-        makelist = lambda gen: list(itertools.islice(gen, 1))
-    else:
+    if cursor.hasSelection():
+        source = tokens = tokeniter.Source.selection(cursor, True)
         makelist = list
-    source = tokeniter.Source.selection(cursor, True)
+    else:
+        source = tokeniter.Source.fromCursor(cursor, True, -1)
+        tokens = source.tokens # only current line
+        makelist = lambda gen: list(itertools.islice(gen, 1))
     
     def generate_cursors():
-        for t in source:
+        for t in tokens:
             if isinstance(source.state.parser(), _skipparsers):
                 continue
             elif isinstance(t, _pitchclasses):
                 for t in source.tokens:
                     if not isinstance(t, _stay):
-                        yield tokeniter.cursor(source.block, t, end=0)
+                        yield source.cursor(t, end=0)
                         break
                 else:
-                    yield tokeniter.cursor(source.block, t, start=len(t))
+                    yield source.cursor(t, start=len(t))
     return makelist(generate_cursors())
 
 
 _skipparsers = (
-    ly.lex.lilypond.LilyPondParserChord,
-    ly.lex.lilypond.LilyPondParserPitchCommand,
+    ly.lex.lilypond.ParseChord,
+    ly.lex.lilypond.ParsePitchCommand,
 )
 
 _pitchclasses = (

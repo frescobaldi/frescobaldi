@@ -27,7 +27,7 @@ from . import _token
 from . import Parser
 
 
-class DocBookParser(Parser):
+class ParseDocBook(Parser):
     mode = "docbook"
     items = (
         _token.Space,

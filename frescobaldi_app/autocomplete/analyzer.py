@@ -225,7 +225,7 @@ def layout(self):
 def engraver(self):
     """Complete engraver names."""
     cmd_in = lambda tokens: '\\remove' in tokens or '\\consists' in tokens
-    if isinstance(self.state.parser(), lp.StringParser):
+    if isinstance(self.state.parser(), lp.ParseString):
         if not cmd_in(self.tokens[-5:-2]):
             return
         if self.last != '"':
@@ -273,7 +273,7 @@ def override(self):
     except ValueError:
         # not found, then complete Contexts and or Grobs
         # (only if we are in the override parser and there's no "=")
-        if isinstance(self.state.parser(), scm.SchemeParser):
+        if isinstance(self.state.parser(), scm.ParseScheme):
             return
         if lp.EqualSignSetOverride in tokenclasses:
             # TODO maybe return suitable values for the last property
@@ -281,8 +281,8 @@ def override(self):
             return completiondata.lilypond_markup
         self.backuntil(lp.DotSetOverride, lx.Space)
         if (isinstance(self.state.parsers()[1], (
-                lp.LilyPondParserWith,
-                lp.LilyPondParserContext,
+                lp.ParseWith,
+                lp.ParseContext,
                 ))
             or lp.DotSetOverride in tokenclasses):
             return completiondata.lilypond_grobs
@@ -344,20 +344,20 @@ def scheme_other(self):
 
 # Mapping from Parsers to the lists of functions to run.
 _tests = {
-    lp.LilyPondParserGlobal: (
+    lp.ParseGlobal: (
         repeat,
         toplevel,
     ),
-    lp.LilyPondParserBook: (
+    lp.ParseBook: (
         book,
     ),
-    lp.LilyPondParserBookPart: (
+    lp.ParseBookPart: (
         bookpart,
     ),
-    lp.LilyPondParserScore: (
+    lp.ParseScore: (
         score,
     ),
-    lp.LilyPondParserMusic: (
+    lp.ParseMusic: (
         tweak,
         scheme_word,
         key,
@@ -365,7 +365,7 @@ _tests = {
         repeat,
         general_music,
     ),
-    lp.LilyPondParserNoteMode: (
+    lp.ParseNoteMode: (
         tweak,
         scheme_word,
         key,
@@ -373,55 +373,55 @@ _tests = {
         repeat,
         general_music,
     ),
-    lp.MarkupParser: (
+    lp.ParseMarkup: (
         markup,
     ),
-    lp.LilyPondParserHeader: (
+    lp.ParseHeader: (
         header,
     ),
-    lp.LilyPondParserPaper: (
+    lp.ParsePaper: (
         paper,
     ),
-    lp.LilyPondParserLayout: (
+    lp.ParseLayout: (
         layout,
     ),
-    lp.LilyPondParserContext: (
+    lp.ParseContext: (
         engraver,
         context_variable_set,
         context,
     ),
-    lp.LilyPondParserWith: (
+    lp.ParseWith: (
         engraver,
         context_variable_set,
         with_,
     ),
-    lp.LilyPondParserNewContext: (
+    lp.ParseNewContext: (
         new_context,
     ),
-    lp.LilyPondParserOverride: (
+    lp.ParseOverride: (
         override,
     ),
-    lp.LilyPondParserRevert: (
+    lp.ParseRevert: (
         override,
     ),
-    lp.LilyPondParserSet: (
+    lp.ParseSet: (
         set_unset,
     ),
-    lp.LilyPondParserUnset: (
+    lp.ParseUnset: (
         set_unset,
     ),
-    lp.StringParser: (
+    lp.ParseString: (
         engraver,
         clef,
         repeat,
     ),
-    lp.LilyPondParserClef: (
+    lp.ParseClef: (
         clef,
     ),
-    lp.RepeatParser: (
+    lp.ParseRepeat: (
         repeat,
     ),
-    scm.SchemeParser: (
+    scm.ParseScheme: (
         override,
         tweak,
         markup_override,
