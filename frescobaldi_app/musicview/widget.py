@@ -153,28 +153,21 @@ class MusicView(QWidget):
         off the link or when the link is clicked.
         
         """
-        self.view.surface().highlight(self._highlightMusicFormat, [(page, link.linkArea().normalized())], 2000)
+        self.view.surface().highlight(self._highlightMusicFormat,
+            [(page, link.linkArea().normalized())], 2000)
         self._highlightRange = None
         cursor = self._links.cursor(link)
         if not cursor or cursor.document() != self.parent().mainwindow().currentDocument():
             return
         
         # highlight token(s) at this cursor
-        document = cursor.document()
-        block = cursor.block()
-        column = cursor.position() - block.position()
-        tokens = tokeniter.TokenIterator(block)
-        source, state = tokens.forward_state()
-        # go to our column
-        for token in source:
-            if token.pos >= column or tokens.block != block:
-                break
+        source = tokeniter.source.fromCursor(cursor, True)
+        for token in source.tokens:
+            break
         else:
             return
         
-        start = token.pos + block.position()
-        cur = QTextCursor(document)
-        cur.setPosition(start)
+        cur = source.cursor(token, end=0)
         cursors = [cur]
         
         # some heuristic to find the relevant range(s) the linked grob represents
@@ -183,19 +176,19 @@ class MusicView(QWidget):
             for token in source:
                 if not isinstance(token, (ly.lex.Space, ly.lex.Comment)):
                     break
-        end = token.end + block.position()
+        end = token.end + source.block.position()
         if token == '\\markup':
             # find the end of the markup expression
-            depth = state.depth()
+            depth = source.state.depth()
             for token in source:
-                if state.depth() < depth:
-                    end = token.end + tokens.block.position()
+                if source.state.depth() < depth:
+                    end = token.end + source.block.position()
                     break
         elif token == '"':
             # find the end of the string
             for token in source:
                 if isinstance(token, ly.lex.StringEnd):
-                    end = token.end + tokens.block.position()
+                    end = token.end + source.block.position()
                     break
         elif isinstance(token, ly.lex.MatchStart):
             # find the end of slur, beam. ligature, phrasing slur, etc.
@@ -205,10 +198,7 @@ class MusicView(QWidget):
                 if isinstance(token, ly.lex.MatchEnd) and token.matchname == name:
                     nest -= 1
                     if nest == 0:
-                        cur2 = QTextCursor(document)
-                        cur2.setPosition(token.pos + tokens.block.position())
-                        cur2.setPosition(token.end + tokens.block.position(), QTextCursor.KeepAnchor)
-                        cursors.append(cur2)
+                        cursors.append(source.cursor(token))
                         break
                 elif isinstance(token, ly.lex.MatchStart) and token.matchname == name:
                     nest += 1

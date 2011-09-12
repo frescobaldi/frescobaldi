@@ -230,7 +230,11 @@ class source(object):
     def __init__(self, gen, state=None):
         """Initializes ourselves with a generator returning (block, tokens)."""
         self.state = state
+        for self.block, self.tokens in gen:
+            break
         def g():
+            for t in self.tokens:
+                yield t
             for self.block, self.tokens in gen:
                 for t in self.tokens:
                     yield t
@@ -239,8 +243,18 @@ class source(object):
     def __iter__(self):
         return self.gen
     
-    def next(self):
+    def __next__(self):
         return self.gen.next()
+    
+    next = __next__
+    
+    def cursor(self, token, start=0, end=None):
+        """Returns a QTextCursor for the token in the current block.
+        
+        See the global cursor() function for more information.
+        
+        """
+        return cursor(self.block, token, start, end)
     
     @classmethod
     def fromCursor(cls, cursor, state=None, first=1):
@@ -248,8 +262,8 @@ class source(object):
         
         If state is True, the state(cursor) module function is called and the
         result is put in the state attribute. Otherwise state is just passed to
-        the fromCursor() function.
-        See the documentation for the fromCursor() function.
+        the global fromCursor() function.
+        See the documentation for the global fromCursor() function.
         
         """
         if state is True:
@@ -262,8 +276,8 @@ class source(object):
         
         If state is True, the state(cursor) module function is called and the
         result is put in the state attribute. Otherwise state is just passed to
-        the selection() function.
-        See the documentation for the selection() function.
+        the global selection() function.
+        See the documentation for the global selection() function.
         
         """
         if state is True:
