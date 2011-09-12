@@ -84,7 +84,7 @@ class Analyzer(object):
         # DEBUG
         print '================================'
         for t in tokens:
-            print '{0} "{1}"'.format(t.__class__, t)
+            print '{0} {1}'.format(t.__class__, repr(t))
         print '========parser:', state.parser().__class__
         
         parser = state.parser()
