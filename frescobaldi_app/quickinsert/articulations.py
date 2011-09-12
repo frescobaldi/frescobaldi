@@ -97,9 +97,14 @@ class Group(buttongroup.ButtonGroup):
         else:
             text = ('_', '', '^')[self.direction()+1] + '\\' + name
         cursor = self.mainwindow().textCursor()
-        with cursortools.editBlock(cursor):
-            for c in articulation_positions(cursor, text):
-                c.insertText(text)
+        jump = not cursor.hasSelection()
+        cursors = articulation_positions(cursor, text)
+        if cursors:
+            with cursortools.editBlock(cursor):
+                for c in cursors:
+                    c.insertText(text)
+            if jump:
+                self.mainwindow().currentView().setTextCursor(c)
 
 
 class ArticulationsGroup(Group):
@@ -182,22 +187,24 @@ def articulation_positions(cursor, text=None):
     if cursor.hasSelection():
         source = tokens = tokeniter.Source.selection(cursor, True)
         makelist = list
+        skip, add = _pitchclasses[:1], _pitchclasses[1:]
     else:
         source = tokeniter.Source.fromCursor(cursor, True, -1)
         tokens = source.tokens # only current line
         makelist = lambda gen: list(itertools.islice(gen, 1))
-    
+        skip, add = (), _pitchclasses
+        
     def generate_cursors():
         for t in tokens:
             if isinstance(source.state.parser(), _skipparsers):
                 continue
-            elif isinstance(t, _skiprests):
+            elif skip and isinstance(t, skip):
                 for t in source.tokens:
                     if not isinstance(t, ly.lex.lilypond.Duration):
                         break
                 else:
                     continue
-            if isinstance(t, _pitchclasses):
+            if isinstance(t, add):
                 for t in source.tokens:
                     if not isinstance(t, _stay):
                         yield source.cursor(t, end=0)
@@ -212,12 +219,9 @@ _skipparsers = (
     ly.lex.lilypond.ParsePitchCommand,
 )
 
-_skiprests = (
+_pitchclasses = (
     ly.lex.lilypond.Rest,
     ly.lex.lilypond.Skip,
-)
-
-_pitchclasses = (
     ly.lex.lilypond.Note,
     ly.lex.lilypond.ChordEnd,
     ly.lex.lilypond.Octave,
@@ -226,6 +230,6 @@ _pitchclasses = (
     ly.lex.lilypond.Duration,
 )
 
-_stay = _pitchclasses[2:]
+_stay = _pitchclasses[4:]
 
 
