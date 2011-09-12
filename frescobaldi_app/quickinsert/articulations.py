@@ -179,33 +179,31 @@ def articulation_positions(cursor, text=None):
     If the cursor has a selection, all positions in the selection are returned.
     
     """
-    state = tokeniter.state(cursor)
     if cursor.hasSelection():
-        lines = tokeniter.selection(cursor, state)
+        source = tokeniter.source.selection(cursor, True)
         makelist = list
     else:
-        lines = tokeniter.fromCursor(cursor, state, first=-1)
+        source = tokeniter.source.fromCursor(cursor, True, first=-1)
         makelist = lambda gen: list(itertools.islice(gen, 1))
     
     def generate_cursors():
-        for block, tokens in lines:
-            for t in tokens:
-                if isinstance(state.parser(), ly.lex.lilypond.LilyPondParserChord):
-                    continue
-                elif isinstance(t, ly.lex.Space):
-                    continue
-                elif isinstance(t, ly.lex.lilypond.Scaling):
-                    yield tokeniter.cursor(block, t, start=len(t))
-                elif isinstance(t, (
-                    ly.lex.lilypond.Note, ly.lex.lilypond.DurationStart, ly.lex.lilypond.Dot,
-                    ly.lex.lilypond.ChordEnd)):
-                    for t in tokens:
-                        if not isinstance(t, (ly.lex.lilypond.DurationStart, ly.lex.lilypond.Dot, ly.lex.lilypond.Scaling)):
-                            c = tokeniter.cursor(block, t, end=0)
-                            break
-                    else:
-                        c = tokeniter.cursor(block, t, start=len(t))
-                    yield c
+        for t in source:
+            if isinstance(source.state.parser(), ly.lex.lilypond.LilyPondParserChord):
+                continue
+            elif isinstance(t, ly.lex.Space):
+                continue
+            elif isinstance(t, ly.lex.lilypond.Scaling):
+                yield tokeniter.cursor(source.block, t, start=len(t))
+            elif isinstance(t, (
+                ly.lex.lilypond.Note, ly.lex.lilypond.DurationStart, ly.lex.lilypond.Dot,
+                ly.lex.lilypond.ChordEnd)):
+                for t in source.tokens:
+                    if not isinstance(t, (ly.lex.lilypond.DurationStart, ly.lex.lilypond.Dot, ly.lex.lilypond.Scaling)):
+                        c = tokeniter.cursor(source.block, t, end=0)
+                        break
+                else:
+                    c = tokeniter.cursor(source.block, t, start=len(t))
+                yield c
     return makelist(generate_cursors())
 
 

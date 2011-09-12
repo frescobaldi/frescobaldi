@@ -167,7 +167,8 @@ def selection(cursor, state=None, partial=True):
     else:
         start_pred = lambda t: t.pos < pos
         end_pred = lambda t: t.end > endpos
-    
+    def token_source(block):
+        return iter(tokens(block))
     def source_start(block):
         source = iter(tokens(block))
         for t in source:
@@ -187,7 +188,7 @@ def selection(cursor, state=None, partial=True):
     while block != endblock:
         yield block, follower(source(block))
         block = block.next()
-        source = tokens
+        source = token_source
     yield block, follower(source_end(source(block)))
 
 
@@ -226,8 +227,9 @@ class source(object):
             ... # do something with the remaining tokens on the line
     
     """
-    def __init__(self, gen):
+    def __init__(self, gen, state=None):
         """Initializes ourselves with a generator returning (block, tokens)."""
+        self.state = state
         def g():
             for self.block, self.tokens in gen:
                 for t in self.tokens:
@@ -244,19 +246,29 @@ class source(object):
     def fromCursor(cls, cursor, state=None, first=1):
         """Initializes a source object with a fromCursor generator.
         
+        If state is True, the state(cursor) module function is called and the
+        result is put in the state attribute. Otherwise state is just passed to
+        the fromCursor() function.
         See the documentation for the fromCursor() function.
         
         """
-        return cls(fromCursor(cursor, state, first))
+        if state is True:
+            state = globals()['state'](cursor)
+        return cls(fromCursor(cursor, state, first), state)
     
     @classmethod
     def selection(cls, cursor, state=None, partial=True):
         """Initializes a source object with a fromCursor generator.
         
-        See the documentation for the fromCursor() function.
+        If state is True, the state(cursor) module function is called and the
+        result is put in the state attribute. Otherwise state is just passed to
+        the selection() function.
+        See the documentation for the selection() function.
         
         """
-        return cls(selection(cursor, state, partial))
+        if state is True:
+            state = globals()['state'](cursor)
+        return cls(selection(cursor, state, partial), state)
 
 
 def allTokens(document):
