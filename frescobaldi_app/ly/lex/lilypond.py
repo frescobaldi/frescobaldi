@@ -116,6 +116,26 @@ class Note(_token.Token):
     rx = r"[a-z]+(?![A-Za-z])"
     
 
+class Octave(_token.Token):
+    rx = r",+|'+"
+
+
+class OctaveCheck(Octave):
+    rx = r"=(,+|'+)"
+
+
+class Accidental(_token.Token):
+    pass
+
+
+class AccidentalReminder(Accidental):
+    rx = r"!"
+
+
+class AccidentalCautionary(Accidental):
+    rx = r"\?"
+
+
 class Duration(_token.Token):
     pass
 
@@ -701,6 +721,10 @@ music_items = base_items + (
     Note,
     Fraction,
     DurationStart,
+    Octave,
+    OctaveCheck,
+    AccidentalCautionary,
+    AccidentalReminder,
     VoiceSeparator,
     SequentialStart, SequentialEnd,
     SimultaneousStart, SimultaneousEnd,

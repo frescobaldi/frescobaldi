@@ -195,10 +195,14 @@ def articulation_positions(cursor, text=None):
             elif isinstance(t, ly.lex.lilypond.Scaling):
                 yield tokeniter.cursor(source.block, t, start=len(t))
             elif isinstance(t, (
-                ly.lex.lilypond.Note, ly.lex.lilypond.DurationStart, ly.lex.lilypond.Dot,
+                ly.lex.lilypond.Note,
+                ly.lex.lilypond.Octave, ly.lex.lilypond.Accidental,
+                ly.lex.lilypond.DurationStart, ly.lex.lilypond.Dot,
                 ly.lex.lilypond.ChordEnd)):
                 for t in source.tokens:
-                    if not isinstance(t, (ly.lex.lilypond.DurationStart, ly.lex.lilypond.Dot, ly.lex.lilypond.Scaling)):
+                    if not isinstance(t, (
+                        ly.lex.lilypond.Octave, ly.lex.lilypond.Accidental,
+                        ly.lex.lilypond.DurationStart, ly.lex.lilypond.Dot, ly.lex.lilypond.Scaling)):
                         c = tokeniter.cursor(source.block, t, end=0)
                         break
                 else:
