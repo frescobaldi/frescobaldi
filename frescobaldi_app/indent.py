@@ -80,9 +80,8 @@ def computeIndent(block):
         found = False
         lasttokens = []
         
-        it = tokeniter.TokenIterator(prev, atEnd=True)
         token = None # in case of empty line
-        for token in it.backward(False):
+        for token in reversed(tokeniter.tokens(prev)):
             if isinstance(token, ly.lex.Dedent):
                 indents -= 1
                 if isinstance(token, ly.lex.scheme.CloseParen):

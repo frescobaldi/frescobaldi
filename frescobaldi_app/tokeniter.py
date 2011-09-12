@@ -90,6 +90,11 @@ def cursor(block, token, start=0, end=None):
     return cursor
 
 
+def allTokens(document):
+    """Yields all tokens of a document."""
+    return (token for block in cursortools.allBlocks(document) for token in tokens(block))
+
+
 def fromCursor(cursor, state=None, first=1):
     """Yields block, tokens starting at the cursor position.
     
@@ -192,7 +197,7 @@ def selection(cursor, state=None, partial=True):
     yield block, follower(source_end(source(block)))
 
 
-class source(object):
+class Source(object):
     """Helper iterator.
     
     Iterates over the (block, tokens) tuples such as yielded by selection()
@@ -211,12 +216,12 @@ class source(object):
     So this:
     
     import tokeniter
-    s = tokeniter.source(tokeniter.selection(cursor))
+    s = tokeniter.Source(tokeniter.selection(cursor))
     
     is equivalent to:
     
     import tokeniter
-    s = tokeniter.source.selection(cursor)
+    s = tokeniter.Source.selection(cursor)
     
     And then you can do:
     
@@ -285,51 +290,46 @@ class source(object):
         return cls(selection(cursor, state, partial), state)
 
 
-def allTokens(document):
-    """Yields all tokens of a document."""
-    return (token for block in cursortools.allBlocks(document) for token in tokens(block))
-
-
-class TokenIterator(object):
-    """An iterator over the tokens in the userData a given QTextBlock."""
-    def __init__(self, block=QTextBlock(), atEnd=False):
-        """Positions the token iterator at the start of the given block.
+class Runner(object):
+    """Iterates back and forth over tokens.
+    
+    A Runner can stop anywhere and remembers its current token.
+    
+    """
+    def __init__(self, block, atEnd=False):
+        """Positions the token iterator at the start of the given QTextBlock.
         
         If atEnd == True, the iterator is positioned past the end of the block.
-        If no block is given you can't iterate but you can still use the methods
-        that accept a QTextCursor, as they initialize the iterator again.
         
         """
         self.block = block
-        self._tokens = tokens(block) if block.isValid() else ()
+        self._tokens = tokens(block)
         self._index = len(self._tokens) if atEnd else -1
     
-    def forward(self, change = True):
-        """Yields tokens in forward direction.
-        
-        If change == True, also advances to the next lines.
-        
-        """
+    def forward_line(self):
+        """Yields tokens in forward direction in the current block."""
+        while self._index + 1 < len(self._tokens):
+            self._index += 1
+            yield self._tokens[self._index]
+    
+    def forward(self):
+        """Yields tokens in forward direction across blocks."""
         while self.block.isValid():
-            while self._index + 1 < len(self._tokens):
-                self._index += 1
-                yield self._tokens[self._index]
-            if not change:
-                return
+            for t in self.forward_line():
+                yield t
             self.__init__(self.block.next())
-
-    def backward(self, change = True):
-        """Yields tokens in backward direction.
-        
-        If change == True, also goes on to the previous lines.
-        
-        """
+    
+    def backward_line(self):
+        """Yields tokens in backward direction in the current block."""
+        while self._index > 0:
+            self._index -= 1
+            yield self._tokens[self._index]
+    
+    def backward(self):
+        """Yields tokens in backward direction across blocks."""
         while self.block.isValid():
-            while self._index > 0:
-                self._index -= 1
-                yield self._tokens[self._index]
-            if not change:
-                return
+            for t in self.backward_line():
+                yield t
             self.__init__(self.block.previous(), True)
     
     def atBlockStart(self):
@@ -361,4 +361,5 @@ class TokenIterator(object):
         obj._tokens = self._tokens
         obj._index = self._index
         return obj
+
 

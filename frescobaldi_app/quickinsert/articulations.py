@@ -180,10 +180,10 @@ def articulation_positions(cursor, text=None):
     
     """
     if cursor.hasSelection():
-        source = tokeniter.source.selection(cursor, True)
+        source = tokeniter.Source.selection(cursor, True)
         makelist = list
     else:
-        source = tokeniter.source.fromCursor(cursor, True, first=-1)
+        source = tokeniter.Source.fromCursor(cursor, True, first=-1)
         makelist = lambda gen: list(itertools.islice(gen, 1))
     
     def generate_cursors():

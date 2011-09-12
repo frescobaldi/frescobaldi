@@ -229,8 +229,8 @@ class BoundLinks(object):
                 prevcol = cur2.position() - cur2.block().position()
             col = cursor.position() - cursor.block().position()
             found = False
-            tokens = tokeniter.TokenIterator(cursor.block(), True)
-            for token in tokens.backward(False):
+            tokens = tokeniter.Runner(cursor.block(), True)
+            for token in tokens.backward_line():
                 if token.pos <= prevcol:
                     break
                 elif token.pos <= col:

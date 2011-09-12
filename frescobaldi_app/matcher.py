@@ -48,9 +48,9 @@ class Matcher(plugin.MainWindowPlugin):
         cursor = view.textCursor()
         block = cursor.block()
         column = cursor.position() - block.position()
-        tokens = tokeniter.TokenIterator(block)
+        tokens = tokeniter.Runner(block)
         source = None
-        for token in tokens.forward(False):
+        for token in tokens.forward_line():
             if token.pos <= column <= token.end:
                 if isinstance(token, ly.lex.MatchStart):
                     source, match, other = tokens.forward(), ly.lex.MatchStart, ly.lex.MatchEnd
