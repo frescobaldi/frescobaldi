@@ -16,6 +16,7 @@ $(svgs): %.svg: %.ly
 $(patsubst %.ly,%.svg,$(wildcard note_*.ly)): note_defaults.ily
 $(patsubst %.ly,%.svg,$(wildcard articulation_*.ly)): articulation_defaults.ily
 $(patsubst %.ly,%.svg,$(wildcard clef_*.ly)): clef_defaults.ily
+$(patsubst %.ly,%.svg,$(wildcard dynamic_*.ly)): dynamic_defaults.ily
 $(patsubst %.ly,%.svg,$(wildcard bar_*.ly)): bar_defaults.ily
 $(patsubst %.ly,%.svg,$(wildcard time_*.ly)): time_defaults.ily
 $(patsubst %.ly,%.svg,$(wildcard breathe_*.ly)): breathe_defaults.ily
@@ -25,6 +26,7 @@ $(patsubst %.ly,%.svg,$(wildcard system_start_*.ly)): system_start_defaults.ily
 articulation_defaults.ily: icon_defaults.ily
 bar_defaults.ily: icon_defaults.ily
 clef_defaults.ily: icon_defaults.ily
+dynamic_defaults.ily: icon_defaults.ily
 breathe_defaults.ily: icon_defaults.ily
 time_defaults.ily: icon_defaults.ily
 note_defaults.ily: icon_defaults.ily
