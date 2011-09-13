@@ -27,7 +27,6 @@
     \override StaffSymbol #'width = #4
     \remove "Clef_engraver"
     \remove "Time_signature_engraver"
-    \override Arpeggio #'X-offset = #1
   }
   \context {
     \Voice
@@ -35,4 +34,8 @@
     \override NoteHead #'stencil = #empty-stencil
     \override Stem #'stencil =#empty-stencil
   }
+}
+
+centerArpeggio = {
+  \alignGrob #"Staff.Arpeggio" #'StaffSymbol #0 #0
 }
