@@ -596,6 +596,7 @@ markupcommands_nargs = (
     'abs-fontsize',
     'combine',
     'fontsize',
+    'footnote',
     'fraction',
     'halign',
     'hcenter-in',
@@ -607,12 +608,14 @@ markupcommands_nargs = (
     'pad-around',
     'pad-markup',
     'pad-x',
+    'page-link',
     'path',     # added in LP 2.13.31
     'raise',
     'rotate',
     'translate',
     'translate-scaled',
     'with-color',
+    'with-link',
     'with-url',
 ),
 # three arguments
@@ -630,6 +633,7 @@ markupcommands_nargs = (
 ),
 # four arguments
 (
+    'pattern',
     'put-adjacent',
 ),
 # five arguments,
