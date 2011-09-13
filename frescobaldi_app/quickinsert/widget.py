@@ -65,8 +65,9 @@ class QuickInsert(QWidget):
         
         for cls in (
                 articulations.Articulations,
-                barlines.BarLines,
                 dynamics.Dynamics,
+                #spanners.Spanners,
+                barlines.BarLines,
             ):
             widget = cls(self)
             self.toolbox.addItem(widget, widget.icon(), '')
