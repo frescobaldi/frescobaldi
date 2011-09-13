@@ -35,6 +35,7 @@ import symbols
 from . import articulations
 from . import barlines
 from . import dynamics
+from . import spanners
 
 
 class QuickInsert(QWidget):
@@ -66,7 +67,7 @@ class QuickInsert(QWidget):
         for cls in (
                 articulations.Articulations,
                 dynamics.Dynamics,
-                #spanners.Spanners,
+                spanners.Spanners,
                 barlines.BarLines,
             ):
             widget = cls(self)
