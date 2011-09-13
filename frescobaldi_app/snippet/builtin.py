@@ -188,6 +188,14 @@ r"""-*- name: h;
 """),
 
 
+'no_tagline': T(_("No Tagline"),
+r"""-*- name: nt; python;
+text = 'tagline = ##f'
+if state[-1] != 'header':
+    text = '\\header {\n%s\n}' % text
+"""),
+
+
 'no_barnumbers': T(_("No Barnumbers"),
 r"""-*- name: nb; python;
 text = r'\remove "Bar_number_engraver"'
@@ -231,6 +239,14 @@ elif s == 'html':
   text = html()
 elif s == 'scheme':
   text = scheme()
+"""),
+
+
+'paper_a5': T(_("A5 Paper"),
+r"""-*- name: a5; python;
+text = r'#(set-paper-size "a5")'
+if state[-1] != 'paper':
+    text = '\\paper {\n%s\n}' % text
 """),
 
 
