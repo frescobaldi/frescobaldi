@@ -7,17 +7,12 @@
   paper-width = 24\pt
   indent = #0
   left-margin = 2\pt
-  top-system-spacing = #
-  '(
-    (padding . 0)
-    (basic-distance . 0)
-    (minimum-distance . 2.4)
-   )
-  last-bottom-spacing = #
-  '(
-    (basic-distance . 0)
-    (padding . 0)
-   )
+  top-system-spacing = #'
+  (
+   (basic-distance . 0)
+   (minimum-distance . 2.4)
+   (padding . 0)
+   (stretchability . 0))
 }
 
 \layout {

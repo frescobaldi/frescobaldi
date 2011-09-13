@@ -5,8 +5,11 @@
 \paper {
   paper-height = 24\pt
   paper-width = 24\pt
-  top-markup-spacing = #'((basic-distance . 3.2))
-  last-bottom-spacing = #'((padding . 0))
+  top-markup-spacing = #'
+  ((basic-distance . 3.2)
+   (minimum-distance . 0)
+   (padding . 0)
+   (stretchability . 0))
 }
 
 #(define-markup-command

@@ -6,8 +6,8 @@
   paper-width = 40\pt
   top-system-spacing = #'(
     (basic-distance . 3.9)
-    (padding . 0)
     (minimum-distance . 3.9)
+    (padding . 0)
     (stretchability . 0))
 }
 
@@ -24,8 +24,8 @@
     \Score
     \override StaffGrouper #'staff-staff-spacing = #'(
       (basic-distance . 8)
-      (padding . 0)
       (minimum-distance . 8)
+      (padding . 0)
       (stretchability . 8))
   }
 }

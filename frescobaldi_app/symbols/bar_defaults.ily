@@ -6,12 +6,11 @@
   paper-width = 22\pt
   left-margin = 1\pt
   right-margin = 1\pt
-  
-  top-system-spacing = #
-  '((basic-distance . 0)
-    (minimum-distance . 2.3)
-    (padding . 0))
-
+  top-system-spacing = #'
+  ((basic-distance . 0)
+   (minimum-distance . 2.3)
+   (padding . 0)
+   (stretchability . 0))
 }
 
 \layout {

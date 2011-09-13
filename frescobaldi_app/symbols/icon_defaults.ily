@@ -10,7 +10,19 @@
   bottom-margin = 0
   left-margin = 0
   right-margin = 0
-  
+
+  top-markup-spacing = #
+  '((minimum-distance . 0)
+    (basic-distance . 0)
+    (padding . 0)
+    (stretchability . 0))
+
+  last-bottom-spacing = #
+  '((minimum-distance . 0)
+    (basic-distance . 0)
+    (padding . 0)
+    (stretchability . 0))
+
 }
 
 \layout {
