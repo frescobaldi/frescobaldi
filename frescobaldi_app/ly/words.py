@@ -631,7 +631,12 @@ markupcommands_nargs = (
 # four arguments
 (
     'put-adjacent',
-))
+),
+# five arguments,
+(
+    'fill-with-pattern',
+),
+)
 
 
 markupcommands = sum(markupcommands_nargs, ())

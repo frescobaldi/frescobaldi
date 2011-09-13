@@ -385,7 +385,7 @@ class MarkupCommand(Markup):
         if command in ly.words.markupcommands_nargs[0]:
             state.endArgument()
         else:
-            for argcount in 2, 3, 4:
+            for argcount in 2, 3, 4, 5:
                 if command in ly.words.markupcommands_nargs[argcount]:
                     break
             else:
