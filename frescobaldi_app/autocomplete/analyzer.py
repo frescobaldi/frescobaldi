@@ -174,7 +174,8 @@ def repeat(self):
         
 def general_music(self):
     """fall back: generic music commands and user-defined commands."""
-    self.backuntil(lx.Space)
+    if self.last.startswith('\\'):
+        self.column = self.lastpos
     return documentdata.doc(self.cursor.document()).musiccommands(self.cursor)
 
 def scheme_word(self):
