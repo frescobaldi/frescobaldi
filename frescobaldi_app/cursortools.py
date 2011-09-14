@@ -142,3 +142,10 @@ def isBlankLine(cursor):
     return not text or text.isspace()
 
 
+def stripIndent(cursor):
+    """Moves the cursor in its block to the first non-space character."""
+    text = cursor.block().text()
+    pos = len(text) - len(text.lstrip())
+    cursor.setPosition(cursor.block().position() + pos)
+
+

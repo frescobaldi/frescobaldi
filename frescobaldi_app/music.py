@@ -49,9 +49,9 @@ def music_items(source, command=False, chord=False, tokens=None):
     
     """
     skip_parsers = ()
-    if command:
+    if not command:
         skip_parsers += (ly.lex.lilypond.ParsePitchCommand,)
-    if chord:
+    if not chord:
         skip_parsers += (ly.lex.lilypond.ParseChord,)
 
     for t in tokens or source:

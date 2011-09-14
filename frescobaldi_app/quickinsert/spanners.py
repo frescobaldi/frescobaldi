@@ -76,8 +76,32 @@ class ArpeggioGroup(buttongroup.ButtonGroup):
         yield 'arpeggio_parenthesis', _("Parenthesis Arpeggio")
         
     def actionTriggered(self, name):
-        print 'arpeggio:', name
-
+        # convert arpeggio_normal to arpeggioNormal, etc.
+        name = _arpeggioTypes[name]
+        cursor = self.mainwindow().textCursor()
+        # which arpeggio type is last used?
+        lastused = '\\arpeggioNormal'
+        types = set(_arpeggioTypes.values())
+        block = cursor.block()
+        while block.isValid():
+            s = types.intersection(tokeniter.tokens(block))
+            if s:
+                lastused = s.pop()
+                break
+            block = block.previous()
+        # where to insert
+        source = tokeniter.Source.fromCursor(cursor, True, -1)
+        with cursortools.editBlock(cursor):
+            for p in music.music_items(source, tokens=source.tokens):
+                c = source.cursor(p[-1], start=len(p[-1]))
+                c.insertText('\\arpeggio')
+                if name != lastused:
+                    cursortools.stripIndent(c)
+                    import indent
+                    indent.insertText(c, name + '\n')
+                # just pick the first place
+                return
+        
 
 class GlissandoGroup(buttongroup.ButtonGroup):
     def translateUI(self):
@@ -97,7 +121,17 @@ class GlissandoGroup(buttongroup.ButtonGroup):
         yield 'glissando_trill', _("Trill Glissando")
 
     def actionTriggered(self, name):
-        print 'glissando:', name
+        cursor = self.mainwindow().textCursor()
+        style = _glissandoStyles[name]
+        source = tokeniter.Source.fromCursor(cursor, True, -1)
+        for p in music.music_items(source, tokens=source.tokens):
+            c = source.cursor(p[-1], start=len(p[-1]))
+            if style:
+                text = "-\\tweak #'style #'{0} \\glissando".format(style)
+            else:
+                text = '\\glissando'
+            c.insertText(text)
+            return
 
 
 class SpannerGroup(buttongroup.ButtonGroup):
@@ -147,4 +181,22 @@ def spanner_positions(cursor):
     else:
         del positions[2:]
     return positions
+
+
+
+_arpeggioTypes = {
+    'arpeggio_normal': '\\arpeggioNormal',
+    'arpeggio_arrow_up': '\\arpeggioArrowUp',
+    'arpeggio_arrow_down': '\\arpeggioArrowDown',
+    'arpeggio_bracket': '\\arpeggioBracket',
+    'arpeggio_parenthesis': '\\arpeggioParenthesis',
+}
+
+_glissandoStyles = {
+    'glissando_normal': '',
+    'glissando_dashed': 'dashed-line',
+    'glissando_dotted': 'dotted-line',
+    'glissando_zigzag': 'zigzag',
+    'glissando_trill':  'trill',
+}
 
