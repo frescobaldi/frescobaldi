@@ -66,6 +66,7 @@ class Articulations(tool.Tool):
                 OtherGroup,
             ):
             self.layout().addWidget(cls(self))
+        self.layout().addStretch(1)
         app.translateUI(self)
         
     def translateUI(self):
@@ -97,14 +98,16 @@ class Group(buttongroup.ButtonGroup):
         else:
             text = ('_', '', '^')[self.direction()+1] + '\\' + name
         cursor = self.mainwindow().textCursor()
-        jump = not cursor.hasSelection()
+        selection = cursor.hasSelection()
         cursors = articulation_positions(cursor, text)
         if cursors:
             with cursortools.editBlock(cursor):
                 for c in cursors:
                     c.insertText(text)
-            if jump:
+            if not selection:
                 self.mainwindow().currentView().setTextCursor(c)
+        elif not selection:
+            cursor.insertText(text)
 
 
 class ArticulationsGroup(Group):
