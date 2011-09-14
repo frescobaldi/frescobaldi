@@ -28,9 +28,11 @@ from PyQt4.QtGui import *
 
 import app
 import symbols
+import tokeniter
+import music
 
-import tool
-import buttongroup
+from . import tool
+from . import buttongroup
 
 
 class Dynamics(tool.Tool):
@@ -54,7 +56,27 @@ class Dynamics(tool.Tool):
         return _("Dynamic symbols.")
 
 
-class DynamicGroup(buttongroup.ButtonGroup):
+class Group(buttongroup.ButtonGroup):
+    """Base class for dynamic button groups with insert implementation."""
+    def actionTriggered(self, name):
+        name = name[8:]
+        if name in dynamic_marks:
+            dynamic = '\\' + name
+        else:
+            dynamic = dynamic_spanners[name]
+        cursor = self.mainwindow().textCursor()
+        if not cursor.hasSelection():
+            source = tokeniter.Source.fromCursor(cursor, True, -1)
+            for p in music.music_items(source):
+                cursor = source.cursor(p[-1], start=len(p[-1]))
+                break
+            cursor.insertText(dynamic)
+            self.mainwindow().currentView().setTextCursor(cursor)
+        else:
+            pass # TODO: implement selection stuff
+
+
+class DynamicGroup(Group):
     def translateUI(self):
         # L10N: dynamic signs
         self.setTitle(_("Signs"))
@@ -71,12 +93,9 @@ class DynamicGroup(buttongroup.ButtonGroup):
             name = 'dynamic_' + m
             bold = "<b><i>{0}</i></b>".format
             yield name, _("Dynamic sign {name}").format(name=bold(m))
-        
-    def actionTriggered(self, name):
-        print 'dynamic:', name
 
 
-class SpannerGroup(buttongroup.ButtonGroup):
+class SpannerGroup(Group):
     def translateUI(self):
         self.setTitle(_("Spanners"))
     
@@ -93,9 +112,6 @@ class SpannerGroup(buttongroup.ButtonGroup):
         yield 'dynamic_dim', _("Diminuendo")
         yield 'dynamic_decresc', _("Decrescendo")
         
-    def actionTriggered(self, name):
-        print 'dynamic:', name
-
 
 dynamic_marks = (
     'f', 'ff', 'fff', 'ffff', 'fffff',
@@ -103,5 +119,13 @@ dynamic_marks = (
     'mf', 'mp', 'fp', 'sfz', 'rfz',
     'sf', 'sff', 'sp', 'spp',
 )
+
+dynamic_spanners = {
+    'hairpin_cresc': '\\<',
+    'hairpin_dim':   '\\>',
+    'cresc':         '\\cresc',
+    'decresc':       '\\decresc',
+    'dim':           '\\dim',
+}
 
 
