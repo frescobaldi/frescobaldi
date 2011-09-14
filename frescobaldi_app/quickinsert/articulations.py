@@ -100,7 +100,7 @@ class Group(buttongroup.ButtonGroup):
             text = ('_', '', '^')[self.direction()+1] + '\\' + name
         cursor = self.mainwindow().textCursor()
         selection = cursor.hasSelection()
-        cursors = articulation_positions(cursor, text)
+        cursors = articulation_positions(cursor)
         if cursors:
             with cursortools.editBlock(cursor):
                 for c in cursors:
@@ -180,11 +180,10 @@ class OtherGroup(Group):
         yield 'halfopen', _("Half open (e.g. hi-hat)")
 
 
-def articulation_positions(cursor, text=None):
+def articulation_positions(cursor):
     """Returns a list of positions where an articulation can be added.
     
     Every position is given as a QTextCursor instance.
-    If text is given, the places where that text already exists are not yielded.
     If the cursor has a selection, all positions in the selection are returned.
     
     """

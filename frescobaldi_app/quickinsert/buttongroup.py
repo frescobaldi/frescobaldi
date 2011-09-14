@@ -88,9 +88,11 @@ class ButtonGroup(QGroupBox):
         actionDict = self.actionDict()
         self._names = []
         for name, icon, function in self.actionData():
+            a = actionDict[name] = QAction(self, icon=icon)
+            a.triggered.connect(self.focusView)
             if function is None:
                 function = (lambda name: lambda: self.actionTriggered(name))(name)
-            actionDict[name] = QAction(self, icon=icon, triggered=function)
+            a.triggered.connect(function)
             self._names.append(name)
     
     def setActionTexts(self):
@@ -108,6 +110,10 @@ class ButtonGroup(QGroupBox):
             b = Button(self, name, actionDict[name])
             layout.addWidget(b, *divmod(num, columns))
             
+    def focusView(self):
+        """Always called when an action is triggered; focuses the main view."""
+        self.mainwindow().currentView().setFocus()
+        
     def actionData(self):
         """Should yield name, icon, function (may be None) for every action."""
         pass
@@ -139,7 +145,6 @@ class ButtonGroup(QGroupBox):
             indent.insertText(cursor, text)
         else:
             cursor.insertText(text)
-        self.mainwindow().currentView().setFocus()
 
 
 class Button(QToolButton):

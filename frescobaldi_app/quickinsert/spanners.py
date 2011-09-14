@@ -27,6 +27,9 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import cursortools
+import tokeniter
+import music
 import symbols
 
 import tool
@@ -112,6 +115,36 @@ class SpannerGroup(buttongroup.ButtonGroup):
         yield 'spanner_trill', _("Trill")
 
     def actionTriggered(self, name):
-        print 'spanner:', name
+        d = ['_', '', '^'][self.direction()+1]
+        if name == "spanner_slur":
+            spanner = d + '(', ')'
+        elif name == "spanner_phrasingslur":
+            spanner = d + '\\(', '\\)'
+        elif name == "spanner_beam16":
+            spanner = d + '[', ']'
+        elif name == "spanner_trill":
+            spanner = '\\startTrillSpan', '\\stopTrillSpan'
 
+        cursor = self.mainwindow().textCursor()
+        with cursortools.editBlock(cursor):
+            for s, c in zip(spanner, spanner_positions(cursor)):
+                c.insertText(s)
+
+
+def spanner_positions(cursor):
+    if cursor.hasSelection():
+        source = tokeniter.Source.selection(cursor, True)
+        tokens = None
+    else:
+        source = tokeniter.Source.fromCursor(cursor, True, -1)
+        tokens = source.tokens # only current line
+    
+    positions = [source.cursor(p[-1], start=len(p[-1]))
+        for p in music.music_items(source, tokens=tokens)]
+    
+    if cursor.hasSelection():
+        del positions[1:-1]
+    else:
+        del positions[2:]
+    return positions
 
