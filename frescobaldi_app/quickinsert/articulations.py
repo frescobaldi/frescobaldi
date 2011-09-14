@@ -32,6 +32,7 @@ import app
 import symbols
 import cursortools
 import tokeniter
+import music
 import ly.lex.lilypond
 
 from . import tool
@@ -188,51 +189,21 @@ def articulation_positions(cursor, text=None):
     
     """
     if cursor.hasSelection():
-        source = tokens = tokeniter.Source.selection(cursor, True)
-        makelist = list
-        skip, add = _pitchclasses[:1], _pitchclasses[1:]
+        source = tokeniter.Source.selection(cursor, True)
+        tokens = None
+        rests = False
     else:
         source = tokeniter.Source.fromCursor(cursor, True, -1)
         tokens = source.tokens # only current line
-        makelist = lambda gen: list(itertools.islice(gen, 1))
-        skip, add = (), _pitchclasses
-        
-    def generate_cursors():
-        for t in tokens:
-            if isinstance(source.state.parser(), _skipparsers):
-                continue
-            elif skip and isinstance(t, skip):
-                for t in source.tokens:
-                    if not isinstance(t, ly.lex.lilypond.Duration):
-                        break
-                else:
-                    continue
-            if isinstance(t, add):
-                for t in source.tokens:
-                    if not isinstance(t, _stay):
-                        yield source.cursor(t, end=0)
-                        break
-                else:
-                    yield source.cursor(t, start=len(t))
-    return makelist(generate_cursors())
-
-
-_skipparsers = (
-    ly.lex.lilypond.ParseChord,
-    ly.lex.lilypond.ParsePitchCommand,
-)
-
-_pitchclasses = (
-    ly.lex.lilypond.Rest,
-    ly.lex.lilypond.Skip,
-    ly.lex.lilypond.Note,
-    ly.lex.lilypond.ChordEnd,
-    ly.lex.lilypond.Octave,
-    ly.lex.lilypond.Accidental,
-    ly.lex.lilypond.OctaveCheck,
-    ly.lex.lilypond.Duration,
-)
-
-_stay = _pitchclasses[4:]
+        rests = True
+    
+    positions = []
+    for p in music.music_items(source, tokens=tokens):
+        if not rests and isinstance(p[0], ly.lex.lilypond.Rest):
+            continue
+        positions.append(source.cursor(p[-1], start=len(p[-1])))
+        if not cursor.hasSelection():
+            break # leave if first found, that's enough
+    return positions
 
 
