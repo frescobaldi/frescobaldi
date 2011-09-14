@@ -39,11 +39,12 @@ class Spanners(tool.Tool):
         super(Spanners, self).__init__(panel)
         self.layout().addWidget(ArpeggioGroup(self))
         self.layout().addWidget(GlissandoGroup(self))
+        self.layout().addWidget(SpannerGroup(self))
         self.layout().addStretch(1)
 
     def icon(self):
         """Should return an icon for our tab."""
-        return symbols.icon("slur") # TODO: icon
+        return symbols.icon("spanner_phrasingslur")
     
     def title(self):
         """Should return a title for our tab."""
@@ -94,5 +95,23 @@ class GlissandoGroup(buttongroup.ButtonGroup):
 
     def actionTriggered(self, name):
         print 'glissando:', name
+
+
+class SpannerGroup(buttongroup.ButtonGroup):
+    def translateUI(self):
+        self.setTitle(_("Spanners"))
+    
+    def actionData(self):
+        for name, title in self.actionTexts():
+            yield name, symbols.icon(name), None
+
+    def actionTexts(self):
+        yield 'spanner_slur', _("Slur")
+        yield 'spanner_phrasingslur', _("Phrasing Slur")
+        yield 'spanner_beam16', _("Beam")
+        yield 'spanner_trill', _("Trill")
+
+    def actionTriggered(self, name):
+        print 'spanner:', name
 
 

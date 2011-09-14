@@ -56,7 +56,8 @@ class Dynamics(tool.Tool):
 
 class DynamicGroup(buttongroup.ButtonGroup):
     def translateUI(self):
-        self.setTitle(_("Dynamics"))
+        # L10N: dynamic signs
+        self.setTitle(_("Signs"))
     
     def actionData(self):
         """Should yield name, icon, function (may be None) for every action."""
