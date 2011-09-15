@@ -25,6 +25,7 @@ from __future__ import unicode_literals
 
 import app
 import symbols
+import cursortools
 import tokeniter
 import music
 import ly.lex.lilypond
@@ -80,15 +81,33 @@ class Group(buttongroup.ButtonGroup):
             source = tokeniter.Source.selection(cursor, True)
             cursors = [source.cursor(p[-1], start=len(p[-1]))
                 for p in music.music_items(source)]
-            del cursors[1:-1]
-            if len(cursors) < 2:
-                if cursors:
-                    cursors[0].insertText(direction + dynamic)
+            if not cursors:
                 return
-            # now, find out if there are dynamics at both cursor positions
-            afterFirst, afterLast = (dynamics(c) for c in cursors)
-            print afterFirst, afterLast
-            
+            c1, c2 = cursors[0], cursors[-1]
+            # are there dynamics at the cursor? then skip them
+            d1 = dynamics(c1)
+            if d1:
+                c1 = tokeniter.cursor(c1.block(), d1[-1], start=len(d1[-1]))
+            with cursortools.editBlock(cursor):
+                if len(cursors) > 1:
+                    # dynamics after the end cursor?
+                    d2 = dynamics(c2)
+                    if isSpanner and not d2:
+                        # don't terminate the spanner if there's a dynamic there
+                        c2.insertText('\\!')
+                    elif set(d1).intersection(dynamic_spanners.values()):
+                        # write the dynamic at the end if there's a spanner at start
+                        # remove ending \! if there
+                        terminator = set(['\\!']).intersection(d2)
+                        if terminator:
+                            c2 = tokeniter.cursor(c2.block(), terminator.pop())
+                        if direction in d1:
+                            c2.insertText(dynamic)
+                        else:
+                            c2.insertText(direction + dynamic)
+                        return
+                c1.insertText(direction + dynamic)
+
 
 class DynamicGroup(Group):
     def translateUI(self):

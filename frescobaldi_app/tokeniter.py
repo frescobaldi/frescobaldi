@@ -93,9 +93,17 @@ def cursor(block, token, start=0, end=None):
 
 
 def index(cursor):
-    """Returns the index of the token at the cursor (right or overlapping)."""
-    pos = cursor.position() - cursor.block().position()
+    """Returns the index of the token at the cursor (right or overlapping).
+    
+    The index can range from 0 (if there are no tokens or the cursor is in the
+    first token) to the total count of tokens in the cursor's block (if the
+    cursor is at the very end of the block).
+    
+    """
     tokens_ = tokens(cursor.block())
+    if cursor.atBlockEnd():
+        return len(tokens_)
+    pos = cursor.position() - cursor.block().position()
     lo, hi = 0, len(tokens_)
     while lo < hi:
         mid = (lo + hi) // 2
@@ -117,14 +125,14 @@ def partition(cursor):
     right is a tuple of tokens right to the cursor.
     
     """
-    pos = cursor.position() - cursor.block().position()
-    i = index(cursor)
     t = tokens(cursor.block())
-    if t[i].pos < pos:
-        return Partition(t[:i], t[i], t[i+1:])
+    i = index(cursor)
+    if t:
+        if i < len(t) and t[i].pos < cursor.position() - cursor.block().position():
+            return Partition(t[:i], t[i], t[i+1:])
     return Partition(t[:i], None, t[i:])
-    
-    
+
+
 def allTokens(document):
     """Yields all tokens of a document."""
     return (token for block in cursortools.allBlocks(document) for token in tokens(block))
