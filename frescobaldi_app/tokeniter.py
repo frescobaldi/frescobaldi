@@ -92,6 +92,24 @@ def cursor(block, token, start=0, end=None):
     return cursor
 
 
+def find(text, tokens):
+    """Finds text in tokens.
+    
+    Consumes the tokens iterable until a token with text text is found.
+    Returns the found token or None.
+    
+    """
+    if isinstance(tokens, (tuple, list)):
+        try:
+            i = tokens.index(text)
+        except ValueError:
+            return
+        return tokens[i]
+    for t in tokens:
+        if t == text:
+            return t
+
+
 def index(cursor):
     """Returns the index of the token at the cursor (right or overlapping).
     

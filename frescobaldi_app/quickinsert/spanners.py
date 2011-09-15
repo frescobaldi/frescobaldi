@@ -29,8 +29,8 @@ import tokeniter
 import music
 import symbols
 
-import tool
-import buttongroup
+from . import tool
+from . import buttongroup
 
 
 class Spanners(tool.Tool):

@@ -26,8 +26,8 @@ from __future__ import unicode_literals
 import app
 import symbols
 
-import tool
-import buttongroup
+from . import tool
+from . import buttongroup
 
 
 class BarLines(tool.Tool):

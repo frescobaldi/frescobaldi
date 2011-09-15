@@ -98,9 +98,9 @@ class Group(buttongroup.ButtonGroup):
                     elif set(d1).intersection(dynamic_spanners.values()):
                         # write the dynamic at the end if there's a spanner at start
                         # remove ending \! if there
-                        terminator = set(['\\!']).intersection(d2)
+                        terminator = tokeniter.find("\\!", d2)
                         if terminator:
-                            c2 = tokeniter.cursor(c2.block(), terminator.pop())
+                            c2 = tokeniter.cursor(c2.block(), terminator)
                         if direction in d1:
                             c2.insertText(dynamic)
                         else:
