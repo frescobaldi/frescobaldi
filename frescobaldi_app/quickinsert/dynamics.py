@@ -30,6 +30,7 @@ import app
 import symbols
 import tokeniter
 import music
+import ly.lex.lilypond
 
 from . import tool
 from . import buttongroup
@@ -60,21 +61,37 @@ class Group(buttongroup.ButtonGroup):
     """Base class for dynamic button groups with insert implementation."""
     def actionTriggered(self, name):
         name = name[8:]
-        if name in dynamic_marks:
-            dynamic = '\\' + name
-        else:
+        direction = ['_', '', '^'][self.direction() + 1]
+        isSpanner = name not in dynamic_marks
+        if isSpanner:
             dynamic = dynamic_spanners[name]
+        else:
+            dynamic = '\\' + name
         cursor = self.mainwindow().textCursor()
         if not cursor.hasSelection():
-            source = tokeniter.Source.fromCursor(cursor, True, -1)
-            for p in music.music_items(source):
-                cursor = source.cursor(p[-1], start=len(p[-1]))
-                break
-            cursor.insertText(dynamic)
+            # dynamic right before the cursor?
+            left = tokeniter.partition(cursor).left
+            if not left or not isinstance(left[-1], ly.lex.lilypond.Dynamic):
+                # no, find the first pitch
+                source = tokeniter.Source.fromCursor(cursor, True, -1)
+                for p in music.music_items(source):
+                    cursor = source.cursor(p[-1], start=len(p[-1]))
+                    break
+            cursor.insertText(direction + dynamic)
             self.mainwindow().currentView().setTextCursor(cursor)
         else:
-            pass # TODO: implement selection stuff
-
+            source = tokeniter.Source.selection(cursor, True)
+            cursors = [source.cursor(p[-1], start=len(p[-1]))
+                for p in music.music_items(source)]
+            del cursors[1:-1]
+            if len(cursors) < 2:
+                if cursors:
+                    cursors[0].insertText(direction + dynamic)
+                return
+            # now, find out if there are dynamics at both cursor positions
+            afterFirst, afterLast = (dynamics(c) for c in cursors)
+            print afterFirst, afterLast
+            
 
 class DynamicGroup(Group):
     def translateUI(self):
@@ -112,6 +129,18 @@ class SpannerGroup(Group):
         yield 'dynamic_dim', _("Diminuendo")
         yield 'dynamic_decresc', _("Decrescendo")
         
+
+def dynamics(cursor):
+    """Returns a tuple of dynamic tokens (including _ or ^) at the cursor."""
+    right = tokeniter.partition(cursor).right
+    i = 0
+    for j, t in enumerate(right, 1):
+        if isinstance(t, ly.lex.lilypond.Dynamic):
+            i = j
+        elif not isinstance(t, (ly.lex.Space, ly.lex.lilypond.Direction)):
+            break
+    return right[:i]
+
 
 dynamic_marks = (
     'f', 'ff', 'fff', 'ffff', 'fffff',

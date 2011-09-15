@@ -32,6 +32,8 @@ use update().
 
 from __future__ import unicode_literals
 
+import collections
+
 from PyQt4.QtGui import QTextBlock, QTextCursor
 
 import cursortools
@@ -90,6 +92,39 @@ def cursor(block, token, start=0, end=None):
     return cursor
 
 
+def index(cursor):
+    """Returns the index of the token at the cursor (right or overlapping)."""
+    pos = cursor.position() - cursor.block().position()
+    tokens_ = tokens(cursor.block())
+    lo, hi = 0, len(tokens_)
+    while lo < hi:
+        mid = (lo + hi) // 2
+        if pos < tokens_[mid].pos:
+            hi = mid
+        else:
+            lo = mid + 1
+    return lo - 1
+
+
+Partition = collections.namedtuple('Partition', 'left middle right')
+
+
+def partition(cursor):
+    """Returns a named three-tuple (left, middle, right).
+    
+    left is a tuple of tokens left to the cursor.
+    middle is the token that overlaps the cursor at both sides (or None).
+    right is a tuple of tokens right to the cursor.
+    
+    """
+    pos = cursor.position() - cursor.block().position()
+    i = index(cursor)
+    t = tokens(cursor.block())
+    if t[i].pos < pos:
+        return Partition(t[:i], t[i], t[i+1:])
+    return Partition(t[:i], None, t[i:])
+    
+    
 def allTokens(document):
     """Yields all tokens of a document."""
     return (token for block in cursortools.allBlocks(document) for token in tokens(block))
