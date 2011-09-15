@@ -23,9 +23,6 @@ The Quick Insert panel spanners Tool.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-
 import app
 import cursortools
 import tokeniter

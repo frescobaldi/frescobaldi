@@ -25,8 +25,7 @@ from __future__ import unicode_literals
 
 import itertools
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtGui import QCheckBox
 
 import app
 import symbols
