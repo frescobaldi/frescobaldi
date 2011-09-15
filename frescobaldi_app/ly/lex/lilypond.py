@@ -30,7 +30,12 @@ from . import Parser, FallthroughParser
 
 
 re_articulation = r"[-_^][_.>|+^-]"
-re_dynamic = r"\\(f{1,5}|p{1,5}|mf|mp|fp|spp?|sff?|sfz|rfz)\b|\\[<!>]"
+re_dynamic = (
+    r"\\[<!>]|"
+    r"\\(f{1,5}|p{1,5}"
+    r"|mf|mp|fp|spp?|sff?|sfz|rfz"
+    r"|cresc|decresc|dim|cr|decr"
+    r")(?![A-Za-z])")
 
 re_duration = r"(\\(maxima|longa|breve)\b|(1|2|4|8|16|32|64|128|256|512|1024|2048)(?!\d))"
 re_dot = r"\."
