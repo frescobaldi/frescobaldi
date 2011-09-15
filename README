@@ -47,13 +47,13 @@ What does work?
   - configure fonts/colors (with possibility of multiple schemes)
 - nice and powerful snippet manager (Ctrl-T)
 - score wizard with preview, now also with multiple score, book, staffgroup etc
+- the QuickInsert panel
 - builtin help manual; help buttons on all dialogs
 
 
 TODO:
 
 - run other commands such as lilypond-book, convert-ly
-- finish Quick Insert Panel
 - finish built-in lilypond documentation browser
 - music transpose, translate, relative<->absolute tools
 - rhythm tools
