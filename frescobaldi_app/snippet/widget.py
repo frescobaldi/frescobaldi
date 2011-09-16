@@ -149,6 +149,7 @@ class Widget(QWidget):
             _("Remove the current snippet. ({key})").format(key=shortcut(self.deleteAction)))
         self.applyAction.setText(_("Apply"))
         self.applyAction.setToolTip(_("Apply the current snippet."))
+        self.helpAction.setText(_("Help"))
         self.searchEntry.setToolTip(_(
             "Enter text to search in the snippets list.\n"
             "See \"What's This\" for more information."))
