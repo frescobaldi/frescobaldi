@@ -32,6 +32,8 @@ from __future__ import unicode_literals
 
 import re
 
+from PyQt4.QtGui import QAction, QShortcut, QKeySequence
+
 
 all_pages = {}
 
@@ -143,14 +145,24 @@ def markexternal(text):
     return pat.sub(r'\g<0>&#11008;', text)
 
 
-def shortcut(action):
-    """Returns a suitable text for the keyboard shortcut of the given QAction.
+def shortcut(item):
+    """Returns a suitable text for the keyboard shortcut of the given item.
+    
+    Item may be a QAction, a QShortcut, a QKeySequence or a
+    QKeySequence.StandardKey.
     
     The text is meant to be used in the help docs.
     
     """
-    from PyQt4.QtGui import QKeySequence
-    return action.shortcut().toString(QKeySequence.NativeText) or _("(no key defined)")
+    if isinstance(item, QAction):
+        seq = item.shortcut()
+    elif isinstance(item, QShortcut):
+        seq = item.key()
+    elif isinstance(item, QKeySequence.StandardKey):
+        seq = QKeySequence(item)
+    else:
+        seq = item
+    return seq.toString(QKeySequence.NativeText) or _("(no key defined)")
 
 
 def menu(*titles):

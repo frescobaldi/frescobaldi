@@ -27,6 +27,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import help
 import icons
 import widgets.lineedit
 import textformats
@@ -54,6 +55,7 @@ class Widget(QWidget):
         editButton = QToolButton(autoRaise=True)
         removeButton = QToolButton(autoRaise=True)
         applyButton = QToolButton(autoRaise=True)
+        helpButton = QToolButton(autoRaise=True)
         
         splitter = QSplitter(Qt.Vertical)
         top = QHBoxLayout()
@@ -65,12 +67,13 @@ class Widget(QWidget):
         splitter.setCollapsible(0, False)
         
         top.addWidget(self.searchEntry)
+        top.addWidget(applyButton)
         top.addSpacing(10)
         top.addWidget(addButton)
         top.addWidget(editButton)
         top.addWidget(removeButton)
         top.addSpacing(10)
-        top.addWidget(applyButton)
+        top.addWidget(helpButton)
         
         # action generator for actions added to search entry
         def act(slot, icon=None):
@@ -102,6 +105,10 @@ class Widget(QWidget):
         # apply button
         a = self.applyAction = act(self.slotApply, 'edit-paste')
         applyButton.setDefaultAction(a)
+        
+        # help button
+        a = self.helpAction = act(self.slotHelp, 'help-contents')
+        helpButton.setDefaultAction(a)
         
         self.treeView.setSelectionBehavior(QTreeView.SelectRows)
         self.treeView.setSelectionMode(QTreeView.ExtendedSelection)
@@ -210,6 +217,10 @@ class Widget(QWidget):
         if name:
             view = self.parent().mainwindow().currentView()
             insert.insert(name, view)
+    
+    def slotHelp(self):
+        """Called when the user clicks the small help button."""
+        help.help(snippet_help)
         
     def currentSnippet(self):
         """Returns the name of the current snippet if it is visible."""
@@ -274,5 +285,54 @@ class SearchLineEdit(widgets.lineedit.LineEdit):
             QApplication.sendEvent(self.parent().treeView, ev)
             return True
         return super(SearchLineEdit, self).event(ev)
+
+
+class snippet_help(help.page):
+    def title():
+        return _("Snippets")
+    
+    def body():
+        import panels
+        ac = panels.PanelManager.instances()[0].snippettool.actionCollection
+        key_snippets = help.shortcut(ac.snippettool_activate)
+        return _("""\
+<p>
+With the snippets manager you can store often used pieces of text called
+"snippets", and easily paste them into the text editor.
+</p>
+
+<p>
+The snippets manager can be activated via the menu {menu_snippets} or
+by pressing {key_snippets}.
+<p>
+Snippets can be searched by browsing the list or by typing some characters
+in the search entry.
+Snippets can also have a keyboard shortcut which directly applies them.
+Some snippets have a special mnemonic (short name) which you can also type
+in the search entry to select the snippet. Pressing the Return key will then
+apply the snippet to the text editor and hide the snippets manager.
+</p>
+
+<p>
+Add new snippets using {key_add}. Edit the selected snippet with {key_edit}.
+Remove selected snippets using {key_delete}. Warning: there's no undo!
+</p>
+
+<p>
+Snippets can also be put in the menu (see {link}).
+And finally there are snippets which can include or alter selected text.
+Some snippets do this by using special variables, while others are small
+scripts written in Python.
+</p>
+""").format(link = edit.snippet_edit_help.link(),
+            menu_snippets = help.menu(_("menu title", "Insert"), _("Snippets...")),
+            key_snippets = key_snippets,
+            key_add = help.shortcut(QKeySequence(Qt.Key_Insert)),
+            key_edit = help.shortcut(QKeySequence(Qt.Key_F2)),
+            key_delete = help.shortcut(QKeySequence(Qt.CTRL + Qt.Key_Delete)))
+
+    def children():
+        return (edit.snippet_edit_help,)
+
 
 

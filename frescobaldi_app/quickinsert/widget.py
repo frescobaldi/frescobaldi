@@ -51,6 +51,10 @@ class QuickInsert(QWidget):
         self.setLayout(layout)
         layout.setContentsMargins(0, 0, 0, 0)
         
+        self.helpButton = QToolButton(
+            icon = icons.get("help-contents"),
+            autoRaise = True,
+            clicked = lambda: help.help(quickinsert_help))
         self.directionLabel = QLabel()
         self.direction = QComboBox()
         self.direction.addItems(['', '', ''])
@@ -59,6 +63,7 @@ class QuickInsert(QWidget):
         self.direction.setCurrentIndex(1)
         hor = QHBoxLayout()
         hor.setContentsMargins(0, 0, 0, 0)
+        hor.addWidget(self.helpButton)
         hor.addWidget(self.directionLabel)
         hor.addWidget(self.direction)
         layout.addLayout(hor)
@@ -98,6 +103,7 @@ class QuickInsert(QWidget):
             "elements to the current note or selected music.</p>\n"
             "<p>See {link} for more information.</p>").format(link=
                 quickinsert_help.link()))
+        self.helpButton.setToolTip(_("Help"))
         self.directionLabel.setText(_("Direction:"))
         for item, text in enumerate((_("Up"), _("Neutral"), _("Down"))):
             self.direction.setItemText(item, text)
@@ -149,6 +155,12 @@ of music.
 If you add them to a selection, rests will be skipped.
 If there is no text selected, the cursor will automatically move to the next
 pitch, rest, skip or chord.
+</p>
+
+<p>
+If <em>Allow shorthands</em> is checked, Frescobaldi will use short signs
+for articulations if they exist
+(e.g. <code>-.</code> instead of <code>-\staccato</code>).
 </p>
 """) + ("""\
 <h3>Dynamics</h3>

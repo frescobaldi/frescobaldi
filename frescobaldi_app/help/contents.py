@@ -23,6 +23,8 @@ The help contents.
 
 from __future__ import unicode_literals
 
+from PyQt4.QtGui import QKeySequence
+
 from .helpimpl import page, shortcut, menu
 from colorize import colorize
 
@@ -55,6 +57,17 @@ This manual is written by {author} and documents {appname} version {version}.
         translator = _("Translated by Your Name.")
         if translator != "Translated by Your Name.":
             text += "<p>{0}</p>".format(translator)
+        text += _("""\
+<h3>How to get help inside Frescobaldi</h3>
+
+<p>
+In many dialogs you can click a Help button or press the {key_help} key.
+Many user interface items also have "What's This" information which can be
+revealed by pressing {key_whatsthis} or by selecting {menu_whatsthis}.
+</p>
+""").format(key_help = shortcut(QKeySequence.HelpContents),
+            key_whatsthis = shortcut(QKeySequence.WhatsThis),
+            menu_whatsthis = menu(_("Help"), _("What's This")))
         return text
     
     def children():
@@ -63,7 +76,7 @@ This manual is written by {author} and documents {appname} version {version}.
             introduction,
             starting,
             scorewiz.dialog.scorewiz_help,
-            
+            tools,
             about,            
         )
 
@@ -196,6 +209,24 @@ You can manually remove the error line markings with the option
 {menu_clear_error_marks}.
 </p>
 """).format(**d)
+
+
+class tools(page):
+    def title():
+        return _("Other Tools")
+    
+    def body():
+        return _("""\
+<p>Some other important tools are listed here.</p>
+""")
+    
+    def children():
+        import quickinsert.widget
+        import snippet.widget
+        return (
+            quickinsert.widget.quickinsert_help,
+            snippet.widget.snippet_help,
+        )
 
 
 class about(page):

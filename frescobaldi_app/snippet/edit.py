@@ -90,7 +90,7 @@ class Edit(QDialog):
             b.button(QDialogButtonBox.RestoreDefaults).clicked.connect(self.slotDefaults)
         else:
             b.setStandardButtons(buttons)
-        help.addButton(b, snippet_help)
+        help.addButton(b, snippet_edit_help)
         
         highlight.Highlighter(self.text.document())
         Matcher(self.text)
@@ -193,7 +193,7 @@ class Matcher(widgets.matcher.Matcher):
         self.format.setBackground(textformats.formatData('editor').baseColors['match'])
 
 
-class snippet_help(help.page):
+class snippet_edit_help(help.page):
     def title():
         return _("Snippet editor")
     
