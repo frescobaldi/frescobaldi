@@ -29,6 +29,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import help
 import icons
 import symbols
 import widgets.toolboxwheeler
@@ -76,6 +77,7 @@ class QuickInsert(QWidget):
             self.toolbox.addItem(widget, widget.icon(), '')
         
         app.translateUI(self)
+        help.openWhatsThis(self)
         
         # restore remembered current page
         name = QSettings().value("quickinsert/current_tool", "")
@@ -91,6 +93,11 @@ class QuickInsert(QWidget):
         QSettings().setValue("quickinsert/current_tool", name)
     
     def translateUI(self):
+        self.setWhatsThis(_(
+            "<p>With the Quick Insert Panel you can add various music "
+            "elements to the current note or selected music.</p>\n"
+            "<p>See {link} for more information.</p>").format(link=
+                quickinsert_help.link()))
         self.directionLabel.setText(_("Direction:"))
         for item, text in enumerate((_("Up"), _("Neutral"), _("Down"))):
             self.direction.setItemText(item, text)
@@ -107,5 +114,56 @@ class QuickInsert(QWidget):
 
     def dockwidget(self):
         return self._dockwidget()
+
+
+class quickinsert_help(help.page):
+    def title():
+        return _("The Quick Insert Panel")
+    
+    def body():
+        return _("""\
+<p>
+With the Quick Insert Panel you can add various music elements to the current
+note or selected music.
+</p>
+
+<p>
+All buttons in the Quick Insert Panel have configurable keyboard shortcuts;
+you can change them by right-clicking a button.
+</p>
+
+<h3>Articulations</h3>
+
+<p>
+These musical symbols can be added to a note or rest or a selected range
+of music.
+If you add them to a selection, rests will be skipped.
+If there is no text selected, the cursor will automatically move to the next
+pitch, rest, skip or chord.
+</p>
+
+<h3>Dynamics</h3>
+
+<p>
+Dynamics can also be added to a note or rest.
+If you select a range of music, you can add spanners which will automatically
+terminate at the last note, rest or chord in the selection.
+If you then click a sign, it will replace the terminator.
+</p>
+
+<h3>Spanners</h3>
+
+<p>
+This tool lets you add arpeggio, glissandos and other spanners like slurs,
+phrasing slurs, manual beams or trills.
+</p>
+
+<h3>Bar Lines</h3>
+
+<p>
+Here you can insert bar lines or various breathing signs.
+</p>
+""")
+
 
 
