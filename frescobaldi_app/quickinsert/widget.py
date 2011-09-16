@@ -121,17 +121,26 @@ class quickinsert_help(help.page):
         return _("The Quick Insert Panel")
     
     def body():
-        return _("""\
+        return (_("""\
 <p>
-With the Quick Insert Panel you can add various music elements to the current
-note or selected music.
+With the tools in the Quick Insert Panel you can add various music elements
+to the current note or selected music.
 </p>
 
 <p>
+The <em>Direction</em> chooser specifies if articulations, dynamics or slurs
+appear in a neutral position (e.g. determined by stem direction), or above
+or below the staff by prepending a <code>-</code>, <code>^</code> or
+<code>_</code> character.
+</p>
+
+<p>
+Click on a tab to select a tool. You can cycle through the tools with Ctrl
+(or {command}) and the mouse wheel.
 All buttons in the Quick Insert Panel have configurable keyboard shortcuts;
 you can change them by right-clicking a button.
 </p>
-
+""").format(command="\u2318") + ("""\
 <h3>Articulations</h3>
 
 <p>
@@ -141,7 +150,7 @@ If you add them to a selection, rests will be skipped.
 If there is no text selected, the cursor will automatically move to the next
 pitch, rest, skip or chord.
 </p>
-
+""") + ("""\
 <h3>Dynamics</h3>
 
 <p>
@@ -150,7 +159,7 @@ If you select a range of music, you can add spanners which will automatically
 terminate at the last note, rest or chord in the selection.
 If you then click a sign, it will replace the terminator.
 </p>
-
+""") + ("""\
 <h3>Spanners</h3>
 
 <p>
@@ -165,13 +174,12 @@ The slurs, beams or trill apply to the current note and the next one
 if no music is selected,
 or to the first and the last note or chord in the selection.
 </p>
-
+""") + ("""\
 <h3>Bar Lines</h3>
 
 <p>
 Here you can insert bar lines or various breathing signs.
 </p>
-""")
-
+"""))
 
 

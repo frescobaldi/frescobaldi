@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-09-15 14:12+0200\n"
+"POT-Creation-Date: 2011-09-16 19:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3862,20 +3862,53 @@ msgstr ""
 msgid "Configure Keyboard Shortcut ({key})"
 msgstr ""
 
-#: frescobaldi_app/quickinsert/widget.py:94
+#: frescobaldi_app/quickinsert/widget.py:97
+msgid ""
+"<p>With the Quick Insert Panel you can add various music elements to the "
+"current note or selected music.</p>\n"
+"<p>See {link} for more information.</p>"
+msgstr ""
+
+#: frescobaldi_app/quickinsert/widget.py:101
 msgid "Direction:"
 msgstr ""
 
-#: frescobaldi_app/quickinsert/widget.py:95
+#: frescobaldi_app/quickinsert/widget.py:102
 msgid "Up"
 msgstr ""
 
-#: frescobaldi_app/quickinsert/widget.py:95
+#: frescobaldi_app/quickinsert/widget.py:102
 msgid "Neutral"
 msgstr ""
 
-#: frescobaldi_app/quickinsert/widget.py:95
+#: frescobaldi_app/quickinsert/widget.py:102
 msgid "Down"
+msgstr ""
+
+#: frescobaldi_app/quickinsert/widget.py:121
+msgid "The Quick Insert Panel"
+msgstr ""
+
+#: frescobaldi_app/quickinsert/widget.py:124
+msgid ""
+"<p>\n"
+"With the tools in the Quick Insert Panel you can add various music elements\n"
+"to the current note or selected music.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"The \"Direction\" chooser specifies if articulations, dynamics or slurs\n"
+"appear in a neutral position (e.g. determined by stem direction), or above\n"
+"or below the staff by prepending a <code>-</code>, <code>^</code> or\n"
+"<code>_</code> character.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Click on a tab to select a tool. You can cycle through the tools with Ctrl\n"
+"(or \\u2318) and the mouse wheel.\n"
+"All buttons in the Quick Insert Panel have configurable keyboard shortcuts;\n"
+"you can change them by right-clicking a button.\n"
+"</p>\n"
 msgstr ""
 
 #: frescobaldi_app/quickinsert/dynamics.py:51
