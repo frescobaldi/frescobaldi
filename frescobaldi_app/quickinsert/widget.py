@@ -158,6 +158,14 @@ This tool lets you add arpeggio, glissandos and other spanners like slurs,
 phrasing slurs, manual beams or trills.
 </p>
 
+<p>
+Arpeggios and glissandos apply to the current note;
+they need no music to be selected.
+The slurs, beams or trill apply to the current note and the next one
+if no music is selected,
+or to the first and the last note or chord in the selection.
+</p>
+
 <h3>Bar Lines</h3>
 
 <p>
