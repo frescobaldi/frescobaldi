@@ -55,3 +55,12 @@ def addButton(box, page):
     box.helpRequested.connect(lambda: help(page))
 
 
+def openWhatsThis(widget, enabled=True):
+    """Open WhatsThis links in help browser if enabled is True (default)."""
+    from . import whatsthis
+    if enabled:
+        widget.installEventFilter(whatsthis.handler)
+    else:
+        widget.removeEventFilter(whatsthis.handler)
+
+
