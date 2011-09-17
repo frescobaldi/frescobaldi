@@ -35,19 +35,10 @@ class Rhythm(plugin.MainWindowPlugin):
     def __init__(self, mainwindow):
         self.actionCollection = ac = Actions()
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
-        mainwindow.currentViewChanged.connect(self.slotViewChanged)
-        view = mainwindow.currentView()
-        if view:
-            self.slotViewChanged(view)
+        mainwindow.selectionStateChanged.connect(self.updateSelection)
+        self.updateSelection(mainwindow.hasSelection())
     
-    def slotViewChanged(self, view, old=None):
-        if old:
-            old.selectionChanged.disconnect(self.updateActions)
-        view.selectionChanged.connect(self.updateActions)
-        self.updateActions()
-        
-    def updateActions(self):
-        selection = self.mainwindow().textCursor().hasSelection()
+    def updateSelection(self, selection):
         ac = self.actionCollection
         ac.rhythm_double.setEnabled(selection)
         ac.rhythm_half.setEnabled(selection)

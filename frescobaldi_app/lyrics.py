@@ -48,21 +48,13 @@ class Lyrics(plugin.MainWindowPlugin):
     def __init__(self, mainwindow):
         ac = self.actionCollection = Actions()
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
-        
         ac.lyrics_hyphenate.triggered.connect(self.hyphenate)
         ac.lyrics_dehyphenate.triggered.connect(self.dehyphenate)
         ac.lyrics_copy_dehyphenated.triggered.connect(self.copy_dehyphenated)
+        mainwindow.selectionStateChanged.connect(self.updateSelection)
+        self.updateSelection(mainwindow.hasSelection())
         
-        mainwindow.currentViewChanged.connect(self.slotViewChanged)
-        
-    def slotViewChanged(self, view, old):
-        if old:
-            old.selectionChanged.disconnect(self.updateActions)
-        view.selectionChanged.connect(self.updateActions)
-        self.updateActions()
-        
-    def updateActions(self):
-        selection = self.mainwindow().currentView().textCursor().hasSelection()
+    def updateSelection(self, selection):
         self.actionCollection.lyrics_hyphenate.setEnabled(selection)
         self.actionCollection.lyrics_dehyphenate.setEnabled(selection)
         self.actionCollection.lyrics_copy_dehyphenated.setEnabled(selection)

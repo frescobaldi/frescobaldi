@@ -55,6 +55,9 @@ class MainWindow(QMainWindow):
     currentDocumentChanged = pyqtSignal(document.Document, document.Document)
     currentViewChanged = pyqtSignal(view.View, view.View)
     
+    # emitted when whether there is a selection changes
+    selectionStateChanged = pyqtSignal(bool)
+    
     def __init__(self, other=None):
         """Creates a new MainWindow.
         
@@ -75,6 +78,7 @@ class MainWindow(QMainWindow):
         
         self._currentDocument = None
         self._currentView = lambda: None
+        self._selectedState = None
         
         # find an unused objectName
         names = set(win.objectName() for win in app.windows)
@@ -125,15 +129,26 @@ class MainWindow(QMainWindow):
         return self.tabBar.documents()
         
     def currentView(self):
+        """Returns the current View or None."""
         return self._currentView()
     
     def currentDocument(self):
+        """Returns the current Document or None."""
         return self._currentDocument
         
     def setCurrentDocument(self, doc, findOpenView=False):
         self.viewManager.setCurrentDocument(doc, findOpenView)
     
+    def hasSelection(self):
+        """Returns whether there is a selection."""
+        return self.textCursor().hasSelection() if self.currentView() else False
+            
     def textCursor(self):
+        """Returns the QTextCursor of the current View.
+        
+        Raises an error if there is not yet a view.
+        
+        """
         return self.currentView().textCursor()
         
     def setTextCursor(self, cursor, findOpenView=False):
@@ -146,10 +161,10 @@ class MainWindow(QMainWindow):
         if curv:
             if curv is view:
                 return
-            curv.copyAvailable.disconnect(self.updateViewActions)
-            curv.selectionChanged.disconnect(self.updateViewActions)
-        view.copyAvailable.connect(self.updateViewActions)
-        view.selectionChanged.connect(self.updateViewActions)
+            curv.copyAvailable.disconnect(self.updateSelection)
+            curv.selectionChanged.disconnect(self.updateSelection)
+        view.copyAvailable.connect(self.updateSelection)
+        view.selectionChanged.connect(self.updateSelection)
         self._currentView = weakref.ref(view)
         
         doc = view.document()
@@ -168,20 +183,22 @@ class MainWindow(QMainWindow):
             doc.loaded.connect(self.updateDocActions)
             self.updateDocActions()
             self.updateWindowTitle()
-        self.updateViewActions()
+        self.updateSelection()
         self.currentViewChanged.emit(view, curv)
         if curd is not doc:
             self.currentDocumentChanged.emit(doc, curd)
     
-    def updateViewActions(self):
-        view = self._currentView()
-        ac = self.actionCollection
-        selection = view.textCursor().hasSelection()
-        ac.edit_copy.setEnabled(selection)
-        ac.edit_copy_colored_html.setEnabled(selection)
-        ac.edit_cut.setEnabled(selection)
-        ac.edit_cut_assign.setEnabled(selection)
-        ac.edit_select_none.setEnabled(selection)
+    def updateSelection(self):
+        selection = self.textCursor().hasSelection()
+        if selection != self._selectedState:
+            self._selectedState = selection
+            self.selectionStateChanged.emit(selection)
+            ac = self.actionCollection
+            ac.edit_copy.setEnabled(selection)
+            ac.edit_copy_colored_html.setEnabled(selection)
+            ac.edit_cut.setEnabled(selection)
+            ac.edit_cut_assign.setEnabled(selection)
+            ac.edit_select_none.setEnabled(selection)
     
     def updateDocActions(self):
         doc = self.currentDocument()
