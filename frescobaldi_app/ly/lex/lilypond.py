@@ -226,11 +226,19 @@ class Articulation(_token.Token):
 class Direction(Articulation):
     rx = r"[-_^]"
     def updateState(self, state):
-        state.enter(ParseScriptAbbreviation())
+        state.enter(ParseScriptAbbreviationOrFingering())
 
 
 class ScriptAbbreviation(Articulation, _token.Leaver):
     rx = r"[+|>._^-]"
+
+
+class Fingering(Articulation, _token.Leaver):
+    rx = r"\d"
+
+
+class StringNumber(Articulation):
+    rx = r"\\\d+"
 
 
 class Slur(_token.Token):
@@ -645,7 +653,7 @@ class ChordEnd(Chord, _token.Leaver):
     rx = r">"
     
 
-class ErrorInChord(_token.Error):
+class ErrorInChord(Error):
     rx = "|".join((
         re_articulation, # articulation
         r"<<|>>", # double french quotes
@@ -757,6 +765,7 @@ music_items = base_items + (
 music_chord_items = (
     ErrorInChord,
     ChordEnd,
+    StringNumber,
 ) + music_items
 
 
@@ -1058,10 +1067,11 @@ class ParseClef(FallthroughParser):
     )
 
 
-class ParseScriptAbbreviation(FallthroughParser):
+class ParseScriptAbbreviationOrFingering(FallthroughParser):
     argcount = 1
     items = space_items + (
         ScriptAbbreviation,
+        Fingering,
     )
 
 
