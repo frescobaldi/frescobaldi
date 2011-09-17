@@ -112,7 +112,7 @@ class Lyrics(plugin.MainWindowPlugin):
             
     def copy_dehyphenated(self):
         """Copies selected lyrics text to the clipboard with hyphenation removed."""
-        text = self.mainwindow().currentView().textCursor().selection().toPlainText()
+        text = self.mainwindow().textCursor().selection().toPlainText()
         QApplication.clipboard().setText(removehyphens(text))
 
 

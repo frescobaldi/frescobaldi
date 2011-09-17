@@ -69,8 +69,8 @@ class InsertMenu(QMenu):
         """
         from . import model, snippets, actions
         tool = panels.manager(self.mainwindow()).snippettool
-        selection = self.mainwindow().currentView().textCursor().hasSelection()
         last = tool.actionCollection.snippettool_activate
+        selection = self.mainwindow().hasSelection()
         groups = {}
         for name in sorted(model.model().names()):
             variables = snippets.get(name).variables

@@ -37,11 +37,23 @@ class Rhythm(plugin.MainWindowPlugin):
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         mainwindow.selectionStateChanged.connect(self.updateSelection)
         self.updateSelection(mainwindow.hasSelection())
-    
+        ac.rhythm_double.triggered.connect(self.rhythm_double)
+        ac.rhythm_halve.triggered.connect(self.rhythm_halve)
+        ac.rhythm_dot.triggered.connect(self.rhythm_dot)
+        ac.rhythm_undot.triggered.connect(self.rhythm_undot)
+        ac.rhythm_remove_scaling.triggered.connect(self.rhythm_remove_scaling)
+        ac.rhythm_remove.triggered.connect(self.rhythm_remove)
+        ac.rhythm_implicit.triggered.connect(self.rhythm_implicit)
+        ac.rhythm_implicit_per_line.triggered.connect(self.rhythm_implicit_per_line)
+        ac.rhythm_explicit.triggered.connect(self.rhythm_explicit)
+        ac.rhythm_apply.triggered.connect(self.rhythm_apply)
+        ac.rhythm_copy.triggered.connect(self.rhythm_copy)
+        ac.rhythm_paste.triggered.connect(self.rhythm_paste)
+        
     def updateSelection(self, selection):
         ac = self.actionCollection
         ac.rhythm_double.setEnabled(selection)
-        ac.rhythm_half.setEnabled(selection)
+        ac.rhythm_halve.setEnabled(selection)
         ac.rhythm_dot.setEnabled(selection)
         ac.rhythm_undot.setEnabled(selection)
         ac.rhythm_remove_scaling.setEnabled(selection)
@@ -53,18 +65,60 @@ class Rhythm(plugin.MainWindowPlugin):
         ac.rhythm_copy.setEnabled(selection)
         ac.rhythm_paste.setEnabled(selection)
 
-
-
-
-
-
+    def rhythm_double(self):
+        from . import rhythm
+        rhythm.rhythm_double(self)
+        
+    def rhythm_halve(self):
+        from . import rhythm
+        rhythm.rhythm_halve(self)
+        
+    def rhythm_dot(self):
+        from . import rhythm
+        rhythm.rhythm_dot(self)
+        
+    def rhythm_undot(self):
+        from . import rhythm
+        rhythm.rhythm_undot(self)
+        
+    def rhythm_remove_scaling(self):
+        from . import rhythm
+        rhythm.rhythm_remove_scaling(self)
+        
+    def rhythm_remove(self):
+        from . import rhythm
+        rhythm.rhythm_remove(self)
+        
+    def rhythm_implicit(self):
+        from . import rhythm
+        rhythm.rhythm_implicit(self)
+        
+    def rhythm_implicit_per_line(self):
+        from . import rhythm
+        rhythm.rhythm_implicit_per_line(self)
+        
+    def rhythm_explicit(self):
+        from . import rhythm
+        rhythm.rhythm_explicit(self)
+        
+    def rhythm_apply(self):
+        from . import rhythm
+        rhythm.rhythm_apply(self)
+        
+    def rhythm_copy(self):
+        from . import rhythm
+        rhythm.rhythm_copy(self)
+        
+    def rhythm_paste(self):
+        from . import rhythm
+        rhythm.rhythm_paste(self)
 
 
 class Actions(actioncollection.ActionCollection):
     name = "rhythm"
     def createActions(self, parent):
         self.rhythm_double = QAction(parent)
-        self.rhythm_half = QAction(parent)
+        self.rhythm_halve = QAction(parent)
         self.rhythm_dot = QAction(parent)
         self.rhythm_undot = QAction(parent)
         self.rhythm_remove_scaling = QAction(parent)
@@ -77,42 +131,42 @@ class Actions(actioncollection.ActionCollection):
         self.rhythm_paste = QAction(parent)
     
     def translateUI(self):
-        self.rhythm_double.setText(_("Double durations"))
+        self.rhythm_double.setText(_("&Double durations"))
         self.rhythm_double.setToolTip(_(
             "Double all the durations in the selection."))
-        self.rhythm_half.setText(_("Halve durations"))
-        self.rhythm_half.setToolTip(_(
+        self.rhythm_halve.setText(_("&Halve durations"))
+        self.rhythm_halve.setToolTip(_(
             "Halve all the durations in the selection."))
-        self.rhythm_dot.setText(_("Dot durations"))
+        self.rhythm_dot.setText(_("Do&t durations"))
         self.rhythm_dot.setToolTip(_(
             "Add a dot to all the durations in the selection."))
-        self.rhythm_undot.setText(_("Undot durations"))
+        self.rhythm_undot.setText(_("&Undot durations"))
         self.rhythm_undot.setToolTip(_(
             "Remove one dot from all the durations in the selection."))
-        self.rhythm_remove_scaling.setText(_("Remove scaling"))
+        self.rhythm_remove_scaling.setText(_("Remove &scaling"))
         self.rhythm_remove_scaling.setToolTip(_(
             "Remove all scaling (*n/m) from the durations in the selection."))
-        self.rhythm_remove.setText(_("Remove durations"))
+        self.rhythm_remove.setText(_("&Remove durations"))
         self.rhythm_remove.setToolTip(_(
             "Remove all durations from the selection."))
-        self.rhythm_implicit.setText(_("Make implicit"))
+        self.rhythm_implicit.setText(_("Make &implicit"))
         self.rhythm_implicit.setToolTip(_(
             "Make durations implicit (remove repeated durations)."))
-        self.rhythm_implicit_per_line.setText(_("Make implicit (per line)"))
+        self.rhythm_implicit_per_line.setText(_("Make implicit (per &line)"))
         self.rhythm_implicit_per_line.setToolTip(_(
             "Make durations implicit (remove repeated durations), "
             "except for the first duration in a line."))
-        self.rhythm_explicit.setText(_("Make explicit"))
+        self.rhythm_explicit.setText(_("Make &explicit"))
         self.rhythm_explicit.setToolTip(_(
             "Make durations explicit (add duration to every note, "
             "even if it is the same as the preceding note)."))
-        self.rhythm_apply.setText(_("Apply rhythm..."))
+        self.rhythm_apply.setText(_("&Apply rhythm..."))
         self.rhythm_apply.setToolTip(_(
             "Apply an entered rhythm to the selected music."))
-        self.rhythm_copy.setText(_("Copy rhythm"))
+        self.rhythm_copy.setText(_("&Copy rhythm"))
         self.rhythm_copy.setToolTip(_(
             "Copy the rhythm of the selected music."))
-        self.rhythm_paste.setText(_("Paste rhythm"))
+        self.rhythm_paste.setText(_("&Paste rhythm"))
         self.rhythm_paste.setToolTip(_("Paste a rhythm to the selected music."))
 
 

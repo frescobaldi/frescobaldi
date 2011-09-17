@@ -229,7 +229,7 @@ def menu_tools_rhythm(mainwindow):
     ac = rhythm.Rhythm.instance(mainwindow).actionCollection
     
     m.addAction(ac.rhythm_double)
-    m.addAction(ac.rhythm_half)
+    m.addAction(ac.rhythm_halve)
     m.addSeparator()
     m.addAction(ac.rhythm_dot)
     m.addAction(ac.rhythm_undot)
