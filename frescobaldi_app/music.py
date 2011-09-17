@@ -35,8 +35,8 @@ def music_items(source, command=False, chord=False, tokens=None):
     
     The following keyword arguments can be used:
     
-    command: whether to skip pitches in \relative, \transpose, etc.
-    chord: whether to skip pitches inside chords.
+    command: whether to allow pitches in \relative, \transpose, etc.
+    chord: whether to allow pitches inside chords.
     tokens: if given, it is used as main iterator instead of the source object.
     
     Each list is a contiguous group of tokens (at least one).

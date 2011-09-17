@@ -32,6 +32,7 @@ import bookmarkmanager
 import documentactions
 import documentmenu
 import sessions.menu
+import rhythm
 import lyrics
 import panels
 import engrave
@@ -205,6 +206,7 @@ def menu_tools(mainwindow):
     m.addAction(ac.autocomplete)
     m.addAction(ac.popup_completions)
     m.addSeparator()
+    m.addMenu(menu_tools_rhythm(mainwindow))
     m.addMenu(menu_tools_lyrics(mainwindow))
     m.addSeparator()
     panels.manager(mainwindow).addActionsToMenu(m)
@@ -219,6 +221,29 @@ def menu_tools_lyrics(mainwindow):
     m.addAction(ac.lyrics_dehyphenate)
     m.addSeparator()
     m.addAction(ac.lyrics_copy_dehyphenated)
+    return m
+
+
+def menu_tools_rhythm(mainwindow):
+    m = Menu(_('submenu title', "&Rhythm"), mainwindow)
+    ac = rhythm.Rhythm.instance(mainwindow).actionCollection
+    
+    m.addAction(ac.rhythm_double)
+    m.addAction(ac.rhythm_half)
+    m.addSeparator()
+    m.addAction(ac.rhythm_dot)
+    m.addAction(ac.rhythm_undot)
+    m.addSeparator()
+    m.addAction(ac.rhythm_remove_scaling)
+    m.addAction(ac.rhythm_remove)
+    m.addSeparator()
+    m.addAction(ac.rhythm_implicit)
+    m.addAction(ac.rhythm_implicit_per_line)
+    m.addAction(ac.rhythm_explicit)
+    m.addSeparator()
+    m.addAction(ac.rhythm_apply)
+    m.addAction(ac.rhythm_copy)
+    m.addAction(ac.rhythm_paste)
     return m
 
 
