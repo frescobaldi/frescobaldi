@@ -481,7 +481,12 @@ def allStyleNames():
     return {
         'lilypond': (_("LilyPond"), {
             'pitch':        _("Pitch"),
+            'octave':       _("Octave"),
             'duration':     _("Duration"),
+            'octavecheck':  _("Octave Check"),
+            'fingering':    _("Fingering"),
+                              # L10N: For String instruments like Guitar
+            'stringnumber': _("String Number"),
             'slur':         _("Slur"),
             'dynamic':      _("Dynamic"),
             'articulation': _("Articulation"),

@@ -126,7 +126,7 @@ class Octave(_token.Token):
 
 
 class OctaveCheck(_token.Token):
-    rx = r"=(,+|'+)"
+    rx = r"=(,+|'+)?"
 
 
 class Accidental(_token.Token):
@@ -207,6 +207,10 @@ class SimultaneousStart(OpenSimultaneous):
 
 class SimultaneousEnd(CloseSimultaneous):
     pass
+
+
+class PipeSymbol(Delimiter):
+    rx = r"\|"
 
 
 class Articulation(_token.Token):
@@ -658,6 +662,8 @@ class ErrorInChord(Error):
         re_articulation, # articulation
         r"<<|>>", # double french quotes
         r"\\[\\\]\[\(\)()]", # slurs beams
+        re_duration, # duration
+        re_scaling, # scaling
     ))
     
 
@@ -745,6 +751,7 @@ music_items = base_items + (
     OctaveCheck,
     AccidentalCautionary,
     AccidentalReminder,
+    PipeSymbol,
     VoiceSeparator,
     SequentialStart, SequentialEnd,
     SimultaneousStart, SimultaneousEnd,
@@ -1100,6 +1107,7 @@ class ParseLyricMode(ParseInputMode):
         CloseSimultaneous,
         OpenBracket,
         OpenSimultaneous,
+        PipeSymbol,
         LyricHyphen,
         LyricExtender,
         LyricSkip,

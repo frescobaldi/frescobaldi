@@ -293,7 +293,10 @@ def allStyleDefaults():
 allStyles = (
     ('lilypond', (
         'pitch',
+        'octave',
         'duration',
+        'fingering',
+        'stringnumber',
         'slur',
         'dynamic',
         'articulation',
