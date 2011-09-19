@@ -66,52 +66,64 @@ class Rhythm(plugin.MainWindowPlugin):
         ac.rhythm_paste.setEnabled(selection)
 
     def rhythm_double(self):
+        cursor = self.mainwindow().textCursor()
         from . import rhythm
-        rhythm.rhythm_double(self)
+        rhythm.rhythm_double(cursor)
         
     def rhythm_halve(self):
+        cursor = self.mainwindow().textCursor()
         from . import rhythm
-        rhythm.rhythm_halve(self)
+        rhythm.rhythm_halve(cursor)
         
     def rhythm_dot(self):
+        cursor = self.mainwindow().textCursor()
         from . import rhythm
-        rhythm.rhythm_dot(self)
+        rhythm.rhythm_dot(cursor)
         
     def rhythm_undot(self):
+        cursor = self.mainwindow().textCursor()
         from . import rhythm
-        rhythm.rhythm_undot(self)
+        rhythm.rhythm_undot(cursor)
         
     def rhythm_remove_scaling(self):
+        cursor = self.mainwindow().textCursor()
         from . import rhythm
-        rhythm.rhythm_remove_scaling(self)
+        rhythm.rhythm_remove_scaling(cursor)
         
     def rhythm_remove(self):
+        cursor = self.mainwindow().textCursor()
         from . import rhythm
-        rhythm.rhythm_remove(self)
+        rhythm.rhythm_remove(cursor)
         
     def rhythm_implicit(self):
+        cursor = self.mainwindow().textCursor()
         from . import rhythm
-        rhythm.rhythm_implicit(self)
+        rhythm.rhythm_implicit(cursor)
         
     def rhythm_implicit_per_line(self):
+        cursor = self.mainwindow().textCursor()
         from . import rhythm
-        rhythm.rhythm_implicit_per_line(self)
+        rhythm.rhythm_implicit_per_line(cursor)
         
     def rhythm_explicit(self):
+        cursor = self.mainwindow().textCursor()
         from . import rhythm
-        rhythm.rhythm_explicit(self)
+        rhythm.rhythm_explicit(cursor)
         
     def rhythm_apply(self):
+        cursor = self.mainwindow().textCursor()
         from . import rhythm
-        rhythm.rhythm_apply(self)
+        rhythm.rhythm_apply(cursor, self.mainwindow())
         
     def rhythm_copy(self):
+        cursor = self.mainwindow().textCursor()
         from . import rhythm
-        rhythm.rhythm_copy(self)
+        rhythm.rhythm_copy(cursor)
         
     def rhythm_paste(self):
+        cursor = self.mainwindow().textCursor()
         from . import rhythm
-        rhythm.rhythm_paste(self)
+        rhythm.rhythm_paste(cursor)
 
 
 class Actions(actioncollection.ActionCollection):

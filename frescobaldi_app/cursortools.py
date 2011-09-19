@@ -149,3 +149,26 @@ def stripIndent(cursor):
     cursor.setPosition(cursor.block().position() + pos)
 
 
+class Editor(object):
+    """A context manager that stores edits until it is exited."""
+    def __init__(self):
+        self.edits = []
+    
+    def __enter__(self):
+        return self
+    
+    def insertText(self, cursor, text):
+        """Stores an insertText operation."""
+        self.edits.append((cursor, text))
+    
+    def removeSelectedText(self, cursor):
+        """Stores a removeSelectedText operation."""
+        self.edits.append((cursor, ""))
+    
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if self.edits:
+            with editBlock(self.edits[0][0]):
+                for cursor, text in self.edits:
+                    cursor.insertText(text)
+
+
