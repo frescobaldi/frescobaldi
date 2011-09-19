@@ -132,6 +132,11 @@ class Completer(QCompleter):
         text = cursor.selectedText()
         if forced or (self.autoComplete and len(text) >= self.autoCompleteLength):
             self.setCompletionPrefix(text)
+            # hide if there is only one completion left
+            if (not self.setCurrentRow(1) and self.setCurrentRow(0)
+                and self.currentCompletion() == text):
+                self.popup().hide()
+                return
             rect = self.widget().cursorRect(cursor)
             rect.setWidth(self.popup().sizeHintForColumn(0)
                 + self.popup().verticalScrollBar().sizeHint().width())
