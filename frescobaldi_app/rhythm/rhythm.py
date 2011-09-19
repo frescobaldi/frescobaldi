@@ -111,7 +111,7 @@ def rhythm_implicit_per_line(cursor):
         for c, d in items:
             if c.block() != prevblock:
                 if not d:
-                    e.insertText(''.join(prev))
+                    e.insertText(c, ''.join(prev))
                 else:
                     prev = d
                 prevblock = c.block()
@@ -137,7 +137,7 @@ def rhythm_explicit(cursor):
 def rhythm_apply(cursor, mainwindow):
     durs, ok = QInputDialog.getText(mainwindow,
         app.caption(_("Apply Rhythm")), _("Enter a rhythm:"))
-    if ok:
+    if ok and durs.split():
         duration_source = itertools.cycle(durs.split())
         with cursortools.Editor() as e:
             for c, d in duration_cursor_items(cursor):
