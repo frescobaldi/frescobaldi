@@ -19,6 +19,8 @@
 
 """
 Implementation of the tools to edit durations of selected music.
+
+Durations are represented simply by lists of ly.lex.lilypond.Duration tokens.
 """
 
 from __future__ import unicode_literals
@@ -165,22 +167,26 @@ def duration_items(cursor, *classes):
         yield source.block, [token for token in m if isinstance(token, classes)]
 
 def duration_cursor_items(cursor):
-    """Yields cursors to insert or overwrite durations in the selection."""
+    """Yields two-tuples (cursor, list of duration tokens).
+    
+    The list of duration tokens may be empty. This can be used to find
+    the places to insert or overwrite durations in the selected music.
+    
+    """
     source = tokeniter.Source.selection(cursor, True)
     for m in music.music_items(source):
+        i = iter(m)
         c = QTextCursor(source.block)
-        for t in m:
+        for t in i:
             if isinstance(t, ly.lex.lilypond.Duration):
                 l = [t]
                 c.setPosition(source.block.position() + t.pos)
-                end = t.end
-                for t in m:
+                for t in i:
                     if isinstance(t, ly.lex.lilypond.Duration):
-                        end = t.end
                         l.append(t)
                     elif not isinstance(t, ly.lex.Space):
                         break
-                c.setPosition(source.block.position() + end, QTextCursor.KeepAnchor)
+                c.setPosition(source.block.position() + l[-1].end, c.KeepAnchor)
                 break
         else:
             c.setPosition(source.block.position() + t.end)
@@ -193,7 +199,7 @@ def cursors(cursor, *classes):
         for b, d in duration_items(cursor, *classes) for t in d]
 
 def preceding(cursor):
-    """Returns a preceding duration before the cursor, if any."""
+    """Returns a preceding duration before the cursor, or an empty list."""
     c = QTextCursor(cursor)
     c.setPosition(cursor.selectionStart())
     for tokens in back(c):
