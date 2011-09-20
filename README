@@ -48,6 +48,7 @@ What does work?
 - nice and powerful snippet manager (Ctrl-T)
 - score wizard with preview, now also with multiple score, book, staffgroup etc
 - the QuickInsert panel
+- rhythm tools in Tools->Rhythm
 - builtin help manual; help buttons on all dialogs
 
 
@@ -56,7 +57,6 @@ TODO:
 - run other commands such as lilypond-book, convert-ly
 - finish built-in lilypond documentation browser
 - music transpose, translate, relative<->absolute tools
-- rhythm tools
 - test on Mac OS X and Windows, make easy installers
 - MIDI...
 
