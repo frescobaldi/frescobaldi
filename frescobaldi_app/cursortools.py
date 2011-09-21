@@ -150,7 +150,11 @@ def stripIndent(cursor):
 
 
 class Editor(object):
-    """A context manager that stores edits until it is exited."""
+    """A context manager that stores edits until it is exited.
+
+    The edits will not be performed if the context is exited with an exception.
+    
+    """
     def __init__(self):
         self.edits = []
     
@@ -166,7 +170,7 @@ class Editor(object):
         self.edits.append((cursor, ""))
     
     def __exit__(self, exc_type, exc_val, exc_tb):
-        if self.edits:
+        if self.edits and exc_type is None:
             with editBlock(self.edits[0][0]):
                 for cursor, text in self.edits:
                     cursor.insertText(text)
