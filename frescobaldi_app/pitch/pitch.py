@@ -30,6 +30,8 @@ import ly.pitch
 import ly.lex.lilypond
 import cursortools
 import tokeniter
+import documentinfo
+import lilypondinfo
 
 
 def changeLanguage(cursor, language):
@@ -70,10 +72,29 @@ def changeLanguage(cursor, language):
             ).format(name=language))
         return
     if not changed:
+        if not start:
+            # set language using \\language if LilyPond >= 2.13.38
+            ver = (documentinfo.info(cursor.document()).version()
+                   or lilypondinfo.preferred().version)
+            if ver and ver < (2, 13, 38):
+                text = '\\include "{0}.ly"'.format(language)
+            else:
+                text = '\\language "{0}"'.format(language)
+            # insert language command on top of file, but below version
+            block = cursor.document().firstBlock()
+            with cursortools.editBlock(cursor, True):
+                c = QTextCursor(block)
+                if '\\version' in tokeniter.tokens(block):
+                    c.movePosition(QTextCursor.EndOfBlock)
+                    c.insertBlock()
+                else:
+                    text += '\n'
+                c.insertText(text)
+            return
         QMessageBox.information(None, _("Pitch Name Language"), 
             '<p>{0}</p>'
-            '<p><tt>\\include "{1}.ly"</tt> {2}</p>'
-            '<p><tt>\\language "{1}"</tt> {3}</p>'.format(
+            '<p><code>\\include "{1}.ly"</code> {2}</p>'
+            '<p><code>\\language "{1}"</code> {3}</p>'.format(
                 _("The pitch language of the selected text has been "
                   "updated, but you need to manually add the following "
                   "command to your document:"), language,
