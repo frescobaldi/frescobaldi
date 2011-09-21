@@ -31,10 +31,12 @@ import weakref
 
 from PyQt4.QtCore import QSettings, QUrl
 
-import ly.lex
+import ly.lex.lilypond
 import ly.parse
+import ly.pitch
 import app
 import fileinfo
+import cursortools
 import tokeniter
 import plugin
 import variables
@@ -122,6 +124,29 @@ class DocumentInfo(plugin.DocumentPlugin):
             m = re.search(r'\\version\s*"(\d+\.\d+(\.\d+)*)"', self.document().toPlainText())
             if m:
                 return mkver(m.group(1).split('.'))
+    
+    @resetoncontentschanged
+    def pitchLanguage(self):
+        """Returns the pitchname language used in the document, if defined."""
+        languages = ly.pitch.pitchInfo.keys()
+        for block in cursortools.allBlocks(self.document()):
+            tokens = tokeniter.tokens(block)
+            try:
+                i = tokens.index('\\language')
+            except ValueError:
+                try:
+                    i = tokens.index('\\include')
+                except ValueError:
+                    continue
+            if isinstance(tokens[i], ly.lex.lilypond.Keyword):
+                for t in tokens[i+1:]:
+                    if isinstance(t, ly.lex.Space):
+                        continue
+                    elif t == '"':
+                        continue
+                    lang = t[:-3] if t.endswith('.ly') else t[:]
+                    if lang in languages:
+                        return lang
     
     def master(self):
         """Returns the master filename for the document, if it exists."""

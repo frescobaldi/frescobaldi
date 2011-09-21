@@ -32,6 +32,7 @@ import bookmarkmanager
 import documentactions
 import documentmenu
 import sessions.menu
+import pitch
 import rhythm
 import lyrics
 import panels
@@ -206,6 +207,7 @@ def menu_tools(mainwindow):
     m.addAction(ac.autocomplete)
     m.addAction(ac.popup_completions)
     m.addSeparator()
+    m.addMenu(menu_tools_pitch(mainwindow))
     m.addMenu(menu_tools_rhythm(mainwindow))
     m.addMenu(menu_tools_lyrics(mainwindow))
     m.addSeparator()
@@ -221,6 +223,19 @@ def menu_tools_lyrics(mainwindow):
     m.addAction(ac.lyrics_dehyphenate)
     m.addSeparator()
     m.addAction(ac.lyrics_copy_dehyphenated)
+    return m
+
+
+def menu_tools_pitch(mainwindow):
+    m = Menu(_('submenu title', "&Pitch"), mainwindow)
+    ac = pitch.Pitch.instance(mainwindow).actionCollection
+    
+    m.addAction(ac.pitch_language)
+    m.addSeparator()
+    m.addAction(ac.pitch_rel2abs)
+    m.addAction(ac.pitch_abs2rel)
+    m.addSeparator()
+    m.addAction(ac.pitch_transpose)
     return m
 
 
