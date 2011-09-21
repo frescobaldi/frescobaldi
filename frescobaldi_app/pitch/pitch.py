@@ -76,7 +76,7 @@ def changeLanguage(cursor, language):
             '<p><tt>\\language "{1}"</tt> {3}</p>'.format(
                 _("The pitch language of the selected text has been "
                   "updated, but you need to manually add the following "
-                  "command to your document:"),
+                  "command to your document:"), language,
                 _("(for LilyPond below 2.14), or"),
                 _("(for LilyPond 2.14 and higher.)")))
 
