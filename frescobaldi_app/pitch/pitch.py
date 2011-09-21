@@ -23,7 +23,7 @@ Implementation of the tools to edit pitch of selected music.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtGui import QTextCursor
+from PyQt4.QtGui import QMessageBox, QTextCursor
 
 import slexer
 import ly.pitch
@@ -40,28 +40,45 @@ def changeLanguage(cursor, language):
         cursor.setPosition(cursor.selectionEnd())
         cursor.setPosition(0, QTextCursor.KeepAnchor)
     else:
-        start = cursor.document().firstBlock()
-        startpos = 0
+        start = None
         cursor.select(QTextCursor.Document)
     source = tokeniter.Source.selection(cursor)
     reader = PitchReader(source)
     writer = ly.pitch.pitchWriter(language)
-    # follow the language names
-    changed = False
-    for t in reader:
-        if source.block == start and t.end >= startpos:
-            break
-        if not changed and isinstance(t, LanguageName):
-            changed = True
-    # translate the pitches
-    with cursortools.Editor() as e:
+    if start:
+        # consume tokens before the selection, following the language
         for t in reader:
-            if isinstance(t, ly.lex.lilypond.Note):
-                p = reader.read(t)
-                if p:
-                    e.insertText(source.cursor(t), writer(*p))
-            elif isinstance(t, LanguageName) and t != language:
-                e.insertText(source.cursor(t), language)
+            if source.block == start and t.end >= startpos:
+                break
+    # translate the pitches
+    changed = False
+    try:
+        with cursortools.Editor() as e:
+            for t in reader:
+                if isinstance(t, ly.lex.lilypond.Note):
+                    p = reader.read(t)
+                    if p:
+                        e.insertText(source.cursor(t), writer(*p))
+                elif isinstance(t, LanguageName) and t != language:
+                    e.insertText(source.cursor(t), language)
+                    changed = True
+    except ly.pitch.PitchNameNotAvailable:
+        QMessageBox.critical(None, _("Pitch Name Language"), _(
+            "Can't perform the requested translation.\n\n"
+            "The music contains quarter-tone alterations, but "
+            "those are not available in the pitch language \"{name}\"."
+            ).format(name=language))
+        return
+    if not changed:
+        QMessageBox.information(None, _("Pitch Name Language"), 
+            '<p>{0}</p>'
+            '<p><tt>\\include "{1}.ly"</tt> {2}</p>'
+            '<p><tt>\\language "{1}"</tt> {3}</p>'.format(
+                _("The pitch language of the selected text has been "
+                  "updated, but you need to manually add the following "
+                  "command to your document:"),
+                _("(for LilyPond below 2.14), or"),
+                _("(for LilyPond 2.14 and higher.)")))
 
 
 def rel2abs(cursor):
