@@ -25,7 +25,6 @@ from __future__ import unicode_literals
 
 from PyQt4.QtGui import QMessageBox, QTextCursor
 
-import slexer
 import ly.pitch
 import ly.lex.lilypond
 import cursortools
