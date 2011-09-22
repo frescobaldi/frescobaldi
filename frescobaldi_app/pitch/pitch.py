@@ -35,70 +35,85 @@ import lilypondinfo
 
 def changeLanguage(cursor, language):
     """Changes the language of the pitch names."""
-    if cursor.hasSelection():
-        start = cursor.document().findBlock(cursor.selectionStart())
-        startpos = cursor.selectionStart() - start.position()
+    selection = cursor.hasSelection()
+    if selection:
+        start = cursor.selectionStart()
         cursor.setPosition(cursor.selectionEnd())
         cursor.setPosition(0, QTextCursor.KeepAnchor)
+        source = tokeniter.Source.selection(cursor)
     else:
-        start = None
-        cursor.select(QTextCursor.Document)
-    source = tokeniter.Source.selection(cursor)
+        source = tokeniter.Source.document(cursor)
+    
     reader = PitchReader(source)
     writer = ly.pitch.pitchWriter(language)
-    if start:
+    
+    if selection:
         # consume tokens before the selection, following the language
-        for t in reader:
-            if source.block == start and t.end >= startpos:
-                break
-    # translate the pitches
-    changed = False
-    try:
-        with cursortools.Editor() as e:
-            for t in reader:
-                if isinstance(t, ly.lex.lilypond.Note):
-                    p = reader.read(t)
-                    if p:
-                        e.insertText(source.cursor(t), writer(*p))
-                elif isinstance(t, LanguageName) and t != language:
-                    e.insertText(source.cursor(t), language)
-                    changed = True
-    except ly.pitch.PitchNameNotAvailable:
-        QMessageBox.critical(None, _("Pitch Name Language"), _(
-            "Can't perform the requested translation.\n\n"
-            "The music contains quarter-tone alterations, but "
-            "those are not available in the pitch language \"{name}\"."
-            ).format(name=language))
-        return
-    if not changed:
-        if not start:
-            # set language using \\language if LilyPond >= 2.13.38
-            ver = (documentinfo.info(cursor.document()).version()
-                   or lilypondinfo.preferred().version)
-            if ver and ver < (2, 13, 38):
-                text = '\\include "{0}.ly"'.format(language)
-            else:
-                text = '\\language "{0}"'.format(language)
-            # insert language command on top of file, but below version
-            block = cursor.document().firstBlock()
-            with cursortools.editBlock(cursor, True):
-                c = QTextCursor(block)
-                if '\\version' in tokeniter.tokens(block):
-                    c.movePosition(QTextCursor.EndOfBlock)
-                    c.insertBlock()
-                else:
-                    text += '\n'
-                c.insertText(text)
+        source.consume(reader, start)
+    
+    changed = False # track change of \language or \include language command
+    with cursortools.editBlock(cursor):
+        try:
+            with cursortools.Editor() as e:
+                for t in reader:
+                    if isinstance(t, ly.lex.lilypond.Note):
+                        # translate the pitch
+                        p = reader.read(t)
+                        if p:
+                            e.insertText(source.cursor(t), writer(*p))
+                    elif isinstance(t, LanguageName) and t != language:
+                        # change the language name in a command
+                        e.insertText(source.cursor(t), language)
+                        changed = True
+        except ly.pitch.PitchNameNotAvailable:
+            QMessageBox.critical(None, _("Pitch Name Language"), _(
+                "Can't perform the requested translation.\n\n"
+                "The music contains quarter-tone alterations, but "
+                "those are not available in the pitch language \"{name}\"."
+                ).format(name=language))
             return
-        QMessageBox.information(None, _("Pitch Name Language"), 
-            '<p>{0}</p>'
-            '<p><code>\\include "{1}.ly"</code> {2}</p>'
-            '<p><code>\\language "{1}"</code> {3}</p>'.format(
-                _("The pitch language of the selected text has been "
-                  "updated, but you need to manually add the following "
-                  "command to your document:"), language,
-                _("(for LilyPond below 2.14), or"),
-                _("(for LilyPond 2.14 and higher.)")))
+        if changed:
+            return
+        if not selection:
+            # there was no selection and no language command, so insert one
+            insertLanguage(cursor.document(), language)
+            return
+    # there was a selection but no command, user must insert manually.
+    QMessageBox.information(None, _("Pitch Name Language"), 
+        '<p>{0}</p>'
+        '<p><code>\\include "{1}.ly"</code> {2}</p>'
+        '<p><code>\\language "{1}"</code> {3}</p>'.format(
+            _("The pitch language of the selected text has been "
+                "updated, but you need to manually add the following "
+                "command to your document:"),
+            language,
+            _("(for LilyPond below 2.14), or"),
+            _("(for LilyPond 2.14 and higher.)")))
+
+
+def insertLanguage(document, language):
+    """Inserts a language command in the document.
+    
+    The command is inserted at the top or just below the version line.
+    If the document uses LilyPond < 2.13.38, the \\include command is used,
+    otherwise the newer \\language command.
+    
+    """
+    version = (documentinfo.info(document).version()
+               or lilypondinfo.preferred().version)
+    if version and version < (2, 13, 38):
+        text = '\\include "{0}.ly"'
+    else:
+        text = '\\language "{0}"'
+    # insert language command on top of file, but below version
+    block = document.firstBlock()
+    c = QTextCursor(block)
+    if '\\version' in tokeniter.tokens(block):
+        c.movePosition(QTextCursor.EndOfBlock)
+        text = '\n' + text
+    else:
+        text += '\n'
+    c.insertText(text.format(language))
 
 
 def rel2abs(cursor):

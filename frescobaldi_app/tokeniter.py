@@ -258,6 +258,29 @@ def selection(cursor, state=None, partial=True):
     yield block, follower(source_end(source(block)))
 
 
+def document(cursor, state=None):
+    """Yields block, tokens for all blocks in the document.
+    
+    Usage:
+    
+    for block, tokens in document(cursor):
+        for token in tokens:
+            do_something() ...
+    
+    If state is given, it should be the state at the start of the document.
+    
+    """
+    if state:
+        def gen(source):
+            for t in source:
+                state.follow(t)
+                yield t
+    else:
+        gen = iter
+    for block in cursortools.allBlocks(cursor.document()):
+        yield block, gen(tokens(block))
+
+
 class Source(object):
     """Helper iterator.
     
@@ -322,6 +345,24 @@ class Source(object):
         """
         return cursor(self.block, token, start, end)
     
+    def position(self, token):
+        """Returns the position of the token in the current block."""
+        return self.block.position() + token.pos
+    
+    def consume(self, iterable, position):
+        """Consumes iterable (supposed to be reading from us) until position.
+        
+        Returns the last token (if any) before stopping.
+        
+        """
+        if self.block.position() < position:
+            block = self.block.document().findBlock(position)
+            pos = position - block.position()
+            for t in iterable:
+                if self.block >= block:
+                    if self.block > block or t.end >= pos:
+                        return t
+    
     @classmethod
     def fromCursor(cls, cursor, state=None, first=1):
         """Initializes a source object with a fromCursor generator.
@@ -349,6 +390,20 @@ class Source(object):
         if state is True:
             state = globals()['state'](cursor)
         return cls(selection(cursor, state, partial), state)
+
+    @classmethod
+    def document(cls, cursor, state=None):
+        """Initializes a source object with a document generator.
+        
+        If state is True, the state(cursor) module function is called and the
+        result is put in the state attribute. Otherwise state is just passed to
+        the global document() function.
+        See the documentation for the global document() function.
+        
+        """
+        if state is True:
+            state = globals()['state'](cursor.document().firstBlock())
+        return cls(document(cursor, state), state)
 
 
 class Runner(object):
