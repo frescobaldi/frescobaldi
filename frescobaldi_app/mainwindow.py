@@ -224,14 +224,14 @@ class MainWindow(QMainWindow):
         self.setWindowTitle(app.caption(" ".join(name)))
     
     def dropEvent(self, ev):
-        if ev.mimeData().hasUrls():
+        if not ev.source() and ev.mimeData().hasUrls():
             ev.accept()
             docs = [self.openUrl(url) for url in ev.mimeData().urls()]
             if docs:
                 self.setCurrentDocument(docs[-1])
         
     def dragEnterEvent(self, ev):
-        if ev.mimeData().hasUrls():
+        if not ev.source() and ev.mimeData().hasUrls():
             ev.accept()
         
     def closeEvent(self, ev):

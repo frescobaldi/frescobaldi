@@ -37,10 +37,10 @@ from __future__ import unicode_literals
 import os
 import weakref
 
-from PyQt4.QtCore import QFileInfo, Qt, pyqtSignal
+from PyQt4.QtCore import QFileInfo, QMimeData, Qt, QUrl, pyqtSignal
 from PyQt4.QtGui import (
-    QAction, QComboBox, QFileIconProvider, QLabel, QMessageBox, QPalette,
-    QKeySequence, QWidgetAction)
+    QAction, QApplication, QComboBox, QDrag, QFileIconProvider, QLabel,
+    QMessageBox, QPalette, QKeySequence, QWidgetAction)
 
 import app
 import actioncollection
@@ -303,10 +303,14 @@ class DocumentChooserAction(ComboBoxAction):
 class DocumentChooser(QComboBox):
     def __init__(self, action, parent):
         super(DocumentChooser, self).__init__(parent)
+        self._dragpos = None
         self.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        self.setEditable(True)
+        self.lineEdit().setReadOnly(True)
         self.setFocusPolicy(Qt.NoFocus)
         self.activated[int].connect(action.setCurrentIndex)
         self.updateContents(action)
+        self._action = action
         app.translateUI(self)
         
     def translateUI(self):
@@ -318,6 +322,24 @@ class DocumentChooser(QComboBox):
         for doc in action.documents():
             self.addItem(icon, os.path.basename(doc.filename()))
         self.setCurrentIndex(action.currentIndex())
+    
+    def mousePressEvent(self, ev):
+        if ev.button() == Qt.LeftButton:
+            self._dragpos = ev.pos()
+        super(DocumentChooser, self).mousePressEvent(ev)
+    
+    def mouseMoveEvent(self, ev):
+        if (ev.buttons() & Qt.LeftButton
+            and self._dragpos is not None
+            and (ev.pos() - self._dragpos).manhattanLength() >= QApplication.startDragDistance()):
+            drag = QDrag(self)
+            data = QMimeData()
+            data.setUrls([QUrl.fromLocalFile(self._action.currentDocument().filename())])
+            drag.setMimeData(data)
+            drag.setPixmap(QFileIconProvider().icon(QFileInfo('test.pdf')).pixmap(32))
+            drag.exec_(Qt.CopyAction)
+        else:
+            super(DocumentChooser, self).mouseMoveEvent(ev)
 
 
 class ZoomerAction(ComboBoxAction):
@@ -364,9 +386,9 @@ class Zoomer(QComboBox):
     def __init__(self, action, parent):
         super(Zoomer, self).__init__(parent)
         self.setSizeAdjustPolicy(QComboBox.AdjustToContents)
-        self.setFocusPolicy(Qt.NoFocus)
         self.setEditable(True)
         self.lineEdit().setReadOnly(True)
+        self.setFocusPolicy(Qt.NoFocus)
         self.activated[int].connect(action.setCurrentIndex)
         self.addItems(['']*3)
         self.addItems(list(map("{0}%".format, _zoomvalues)))
