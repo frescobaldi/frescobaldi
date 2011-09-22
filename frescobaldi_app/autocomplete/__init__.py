@@ -77,5 +77,5 @@ class Actions(actioncollection.ActionCollection):
     
     def translateUI(self):
         self.autocomplete.setText(_("Automatic &Completion"))
-        self.popup_completions.setText(_("Show Completions &Popup"))
+        self.popup_completions.setText(_("Show C&ompletions Popup"))
 
