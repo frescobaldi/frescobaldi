@@ -37,10 +37,10 @@ from __future__ import unicode_literals
 import os
 import weakref
 
-from PyQt4.QtCore import Qt, pyqtSignal
+from PyQt4.QtCore import QFileInfo, Qt, pyqtSignal
 from PyQt4.QtGui import (
-    QAction, QComboBox, QLabel, QMessageBox, QPalette, QKeySequence,
-    QWidgetAction)
+    QAction, QComboBox, QFileIconProvider, QLabel, QMessageBox, QPalette,
+    QKeySequence, QWidgetAction)
 
 import app
 import actioncollection
@@ -313,8 +313,10 @@ class DocumentChooser(QComboBox):
         self.setToolTip(_("Choose the PDF document to display."))
 
     def updateContents(self, action):
+        icon = QFileIconProvider().icon(QFileInfo('test.pdf'))
         self.clear()
-        self.addItems([os.path.basename(doc.filename()) for doc in action.documents()])
+        for doc in action.documents():
+            self.addItem(icon, os.path.basename(doc.filename()))
         self.setCurrentIndex(action.currentIndex())
 
 
