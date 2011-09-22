@@ -172,7 +172,8 @@ class Editor(object):
     def __exit__(self, exc_type, exc_val, exc_tb):
         if self.edits and exc_type is None:
             with editBlock(self.edits[0][0]):
-                for cursor, text in self.edits:
+                while self.edits:
+                    cursor, text = self.edits.pop()
                     cursor.insertText(text)
 
 
