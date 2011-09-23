@@ -87,10 +87,14 @@ class ListModel(QAbstractListModel):
     
     def data(self, index, role):
         try:
+            data = self._data[index.row()]
+        except IndexError:
+            return
+        try:
             f = self._roles[role]
         except KeyError:
             return
-        return f(self._data[index.row()])
+        return f(data)
 
     def update(self):
         """Emits the dataChanged signal for all entries.
