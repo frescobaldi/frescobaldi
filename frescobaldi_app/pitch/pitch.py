@@ -62,7 +62,9 @@ def changeLanguage(cursor, language):
                             # translate the pitch
                             p = reader.read(t)
                             if p:
-                                e.insertText(source.cursor(t), writer(*p))
+                                n = writer(*p)
+                                if n != t:
+                                    e.insertText(source.cursor(t), n)
                         elif isinstance(t, LanguageName) and t != language:
                             # change the language name in a command
                             e.insertText(source.cursor(t), language)
