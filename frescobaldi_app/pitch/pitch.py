@@ -28,6 +28,7 @@ from PyQt4.QtGui import QMessageBox, QTextCursor
 import ly.pitch
 import ly.lex.lilypond
 import cursortools
+import util
 import tokeniter
 import documentinfo
 import lilypondinfo
@@ -54,17 +55,18 @@ def changeLanguage(cursor, language):
     changed = False # track change of \language or \include language command
     with cursortools.editBlock(cursor):
         try:
-            with cursortools.Editor() as e:
-                for t in reader:
-                    if isinstance(t, ly.lex.lilypond.Note):
-                        # translate the pitch
-                        p = reader.read(t)
-                        if p:
-                            e.insertText(source.cursor(t), writer(*p))
-                    elif isinstance(t, LanguageName) and t != language:
-                        # change the language name in a command
-                        e.insertText(source.cursor(t), language)
-                        changed = True
+            with util.busyCursor():
+                with cursortools.Editor() as e:
+                    for t in reader:
+                        if isinstance(t, ly.lex.lilypond.Note):
+                            # translate the pitch
+                            p = reader.read(t)
+                            if p:
+                                e.insertText(source.cursor(t), writer(*p))
+                        elif isinstance(t, LanguageName) and t != language:
+                            # change the language name in a command
+                            e.insertText(source.cursor(t), language)
+                            changed = True
         except ly.pitch.PitchNameNotAvailable:
             QMessageBox.critical(None, _("Pitch Name Language"), _(
                 "Can't perform the requested translation.\n\n"

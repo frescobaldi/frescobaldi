@@ -31,8 +31,8 @@ import os
 import re
 import weakref
 
-from PyQt4.QtCore import QSettings, QSize
-from PyQt4.QtGui import QColor
+from PyQt4.QtCore import QSettings, QSize, Qt
+from PyQt4.QtGui import QApplication, QColor
 
 import variables
 
@@ -236,5 +236,22 @@ def saveDialogSize(dialog, key, default=QSize()):
         if dialog:
             QSettings().setValue(key, dialog.size())
     dialog.finished.connect(save)
+
+
+@contextlib.contextmanager
+def busyCursor(cursor=Qt.WaitCursor, processEvents=True):
+    """Performs the contained code using a busy cursor.
+    
+    The default cursor used is Qt.WaitCursor.
+    If processEvents is True (the default), QApplication.processEvents()
+    will be called once before the contained code is executed.
+    
+    """
+    QApplication.setOverrideCursor(cursor)
+    processEvents and QApplication.processEvents()
+    try:
+        yield
+    finally:
+        QApplication.restoreOverrideCursor()
 
 
