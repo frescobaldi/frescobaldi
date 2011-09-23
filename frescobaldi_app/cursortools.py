@@ -152,7 +152,7 @@ def stripIndent(cursor):
 class Editor(object):
     """A context manager that stores edits until it is exited.
 
-    The edits will not be performed if the context is exited with an exception.
+    The edits will not be applied if the context is exited with an exception.
     
     """
     def __init__(self):
@@ -169,11 +169,16 @@ class Editor(object):
         """Stores a removeSelectedText operation."""
         self.edits.append((cursor, ""))
     
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        if self.edits and exc_type is None:
+    def apply(self):
+        """Applies and clears the stored edits."""
+        if self.edits:
             with editBlock(self.edits[0][0]):
                 while self.edits:
                     cursor, text = self.edits.pop()
                     cursor.insertText(text)
+        
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if exc_type is None:
+            self.apply()
 
 
