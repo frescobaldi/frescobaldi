@@ -80,88 +80,64 @@ class PitchNameNotAvailable(Exception):
 
 
 class Pitch(object):
-    """A pitch with note, alter, octave and cautionary and octaveCheck attributes.
+    """A pitch with note, alter and octave attributes.
     
     Attributes may be manipulated directly.
     
     """
-    def __init__(self):
-        self.note = 0           # base note (c, d, e, f, g, a, b)
-        self.alter = 0          # # = 2; b = -2; natural = 0
-        self.octave = 0         # '' = 2; ,, = -2
-        self.cautionary = ''    # '!' or '?' or ''
-        self.octaveCheck = None
+    def __init__(self, note=0, alter=0, octave=0):
+        self.note = note        # base note (c, d, e, f, g, a, b)
+        self.alter = alter      # # = 2; b = -2; natural = 0
+        self.octave = octave    # '' = 2; ,, = -2
     
     @classmethod
     def c1(cls):
-        """ Return a pitch c' """
-        p = cls()
-        p.octave = 1
-        return p
+        """Returns a pitch c'."""
+        return cls(octave=1)
 
     @classmethod
     def c0(cls):
-        """ Return a pitch c """
+        """Returns a pitch c."""
         return cls()
 
     def copy(self):
-        """ Return a new instance with our attributes. """
-        p = self.__class__()
-        p.note = self.note
-        p.alter = self.alter
-        p.octave = self.octave
-        p.cautionary = self.cautionary
-        p.octaveCheck = self.octaveCheck
-        return p
+        """Returns a new instance with our attributes."""
+        return self.__class__(self.note, self.alter, self.octave)
         
     def absolute(self, lastPitch):
+        """Sets our octave from lastPitch.
+        
+        Sets our octave height from lastPitch (which is absolute), as if
+        we are a relative pitch.
+        
         """
-        Set our octave height from lastPitch (which is absolute), as if
-        we are a relative pitch. If the octaveCheck attribute is set to an
-        octave number, that is used instead.
-        """
-        if self.octaveCheck is not None:
-            self.octave = self.octaveCheck
-            self.octaveCheck = None
-        else:
-            dist = self.note - lastPitch.note
-            if dist > 3:
-                dist -= 7
-            elif dist < -3:
-                dist += 7
-            self.octave += lastPitch.octave  + (lastPitch.note + dist) // 7
+        dist = self.note - lastPitch.note
+        if dist > 3:
+            dist -= 7
+        elif dist < -3:
+            dist += 7
+        self.octave += lastPitch.octave  + (lastPitch.note + dist) // 7
         
     def relative(self, lastPitch):
-        """
+        """Returns a new Pitch with our pitch relative to lastPitch.
+        
         Returns a new Pitch instance with the current pitch relative to
         the absolute pitch in lastPitch.
+        
         """
         p = self.copy()
         dist = self.note - lastPitch.note
         p.octave = self.octave - lastPitch.octave + (dist + 3) // 7
         return p
-        
-    def output(self, language):
-        """
-        Return the pitch as a string in the given pitch name language.
-        Raises PitchNameNotAvailable is an alteration is
-        requested that is not available in that language.
-        """
-        output = [pitchWriter[language](self.note, self.alter),
-                  octaveToString(self.octave),
-                  self.cautionary]
-        if self.octaveCheck is not None:
-            output.append('=' + octaveToString(self.octaveCheck))
-        return ''.join(output)
 
 
 class Transposer(object):
-    """
-    Transpose pitches.
+    """Transpose pitches.
     
     Instantiate with a from- and to-Pitch, and optionally a scale.
     The scale is a list with the pitch height of the unaltered step (0 .. 6).
     The default scale is the normal scale: C, D, E, F, G, A, B.
+    
     """
     scale = (0, 1, 2, Fraction(5, 2), Fraction(7, 2), Fraction(9, 2), Fraction(11, 2))
         
@@ -238,22 +214,26 @@ class PitchReader(object):
             
             
 def octaveToString(octave):
-    """
-    Convert numeric octave to a string with apostrophes or commas.
+    """Converts numeric octave to a string with apostrophes or commas.
+    
     0 -> "" ; 1 -> "'" ; -1 -> "," ; etc.
+    
     """
     return octave < 0 and ',' * -octave or "'" * octave
 
+
 def octaveToNum(octave):
-    """
-    Convert string octave to an integer:
+    """Converts string octave to an integer:
+    
     "" -> 0 ; "," -> -1 ; "'''" -> 3 ; etc.
+    
     """
     return octave.count("'") - octave.count(",")
 
 
 _pitchReaders = {}
 _pitchWriters = {}
+
 
 def pitchReader(language):
     """Returns a PitchReader for the speficied language."""
