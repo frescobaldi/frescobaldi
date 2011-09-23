@@ -47,6 +47,8 @@ import actioncollection
 import actioncollectionmanager
 import icons
 import panels
+import listmodel
+import widgets.drag
 import jobattributes
 
 from . import documents
@@ -223,6 +225,7 @@ class DocumentChooserAction(ComboBoxAction):
     
     def __init__(self, panel):
         super(DocumentChooserAction, self).__init__(panel)
+        self._model = None
         self._document = None
         self._documents = []
         self._currentIndex = -1
@@ -231,7 +234,11 @@ class DocumentChooserAction(ComboBoxAction):
         documents.documentUpdated.connect(self.slotDocumentUpdated)
         
     def createWidget(self, parent):
-        return DocumentChooser(self, parent)
+        w = DocumentChooser(parent)
+        w.activated[int].connect(self.setCurrentIndex)
+        if self._model:
+            w.setModel(self._model)
+        return w
     
     def slotDocumentChanged(self, doc):
         """Called when the mainwindow changes its current document."""
@@ -262,8 +269,14 @@ class DocumentChooserAction(ComboBoxAction):
         docs = self._documents = documents.group(self._document).documents()
         self.setVisible(bool(docs))
         self.setEnabled(bool(docs))
+        
+        # make model for the docs
+        m = self._model = listmodel.ListModel([d.filename() for d in docs],
+            display = os.path.basename,
+            icon = lambda f: QFileIconProvider().icon(QFileInfo(f)))
+        m.setRoleFunction(Qt.UserRole, lambda f: f)
         for w in self.createdWidgets():
-            w.updateContents(self)
+            w.setModel(m)
         
         index = self._indices.get(self._document, 0)
         if index < 0 or index >= len(docs):
@@ -301,45 +314,17 @@ class DocumentChooserAction(ComboBoxAction):
 
 
 class DocumentChooser(QComboBox):
-    def __init__(self, action, parent):
+    def __init__(self, parent):
         super(DocumentChooser, self).__init__(parent)
-        self._dragpos = None
         self.setSizeAdjustPolicy(QComboBox.AdjustToContents)
         self.setEditable(True)
         self.lineEdit().setReadOnly(True)
         self.setFocusPolicy(Qt.NoFocus)
-        self.activated[int].connect(action.setCurrentIndex)
-        self.updateContents(action)
-        self._action = action
         app.translateUI(self)
+        widgets.drag.ComboDrag(self).role = Qt.UserRole
         
     def translateUI(self):
         self.setToolTip(_("Choose the PDF document to display."))
-
-    def updateContents(self, action):
-        icon = QFileIconProvider().icon(QFileInfo('test.pdf'))
-        self.clear()
-        for doc in action.documents():
-            self.addItem(icon, os.path.basename(doc.filename()))
-        self.setCurrentIndex(action.currentIndex())
-    
-    def mousePressEvent(self, ev):
-        if ev.button() == Qt.LeftButton:
-            self._dragpos = ev.pos()
-        super(DocumentChooser, self).mousePressEvent(ev)
-    
-    def mouseMoveEvent(self, ev):
-        if (ev.buttons() & Qt.LeftButton
-            and self._dragpos is not None
-            and (ev.pos() - self._dragpos).manhattanLength() >= QApplication.startDragDistance()):
-            drag = QDrag(self)
-            data = QMimeData()
-            data.setUrls([QUrl.fromLocalFile(self._action.currentDocument().filename())])
-            drag.setMimeData(data)
-            drag.setPixmap(QFileIconProvider().icon(QFileInfo('test.pdf')).pixmap(32))
-            drag.exec_(Qt.CopyAction)
-        else:
-            super(DocumentChooser, self).mouseMoveEvent(ev)
 
 
 class ZoomerAction(ComboBoxAction):
