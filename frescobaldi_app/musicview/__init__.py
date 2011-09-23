@@ -37,10 +37,9 @@ from __future__ import unicode_literals
 import os
 import weakref
 
-from PyQt4.QtCore import QFileInfo, QMimeData, Qt, QUrl, pyqtSignal
+from PyQt4.QtCore import QFileInfo, Qt, pyqtSignal
 from PyQt4.QtGui import (
-    QAction, QApplication, QComboBox, QDrag, QFileIconProvider, QLabel,
-    QMessageBox, QPalette, QKeySequence, QWidgetAction)
+    QAction, QComboBox, QFileIconProvider, QLabel, QKeySequence, QWidgetAction)
 
 import app
 import actioncollection
@@ -325,6 +324,9 @@ class DocumentChooser(QComboBox):
         
     def translateUI(self):
         self.setToolTip(_("Choose the PDF document to display."))
+        self.setWhatsThis(_(
+            "Choose the PDF document to display or drag the file "
+            "to another application or location."))
 
 
 class ZoomerAction(ComboBoxAction):
