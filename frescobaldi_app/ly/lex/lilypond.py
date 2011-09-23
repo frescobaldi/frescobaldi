@@ -213,6 +213,10 @@ class PipeSymbol(Delimiter):
     rx = r"\|"
 
 
+class IntegerValue(Value):
+    rx = r"\d+"
+
+
 class Articulation(_token.Token):
     @_token.patternproperty
     def rx():
@@ -452,8 +456,8 @@ class RepeatStringSpecifier(String, Specifier):
         return r'"({0})"'.format("|".join(words.repeat_types))
     
 
-class RepeatCount(Value, _token.Leaver):
-    rx = r"\d+"
+class RepeatCount(IntegerValue, _token.Leaver):
+    pass
 
 
 class Override(Keyword):
@@ -765,6 +769,7 @@ music_items = base_items + (
     LigatureStart, LigatureEnd,
     Direction,
     Articulation,
+    IntegerValue,
 ) + command_items
     
 
