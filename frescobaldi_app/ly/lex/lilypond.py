@@ -1202,7 +1202,7 @@ class ParsePitchCommand(FallthroughParser):
     def updateState(self, state, token):
         if isinstance(token, Note):
             self.argcount -= 1
-        elif isinstance(token, _token.Space) and self.argcount == 0:
+        elif isinstance(token, _token.Space) and self.argcount <= 0:
             state.leave()
 
 
