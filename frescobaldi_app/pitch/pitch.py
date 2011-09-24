@@ -45,7 +45,7 @@ def changeLanguage(cursor, language):
     else:
         source = tokeniter.Source.document(cursor)
     
-    reader = PitchReader(source)
+    pitches = PitchIterator(source)
     writer = ly.pitch.pitchWriter(language)
     
     if selection:
@@ -57,9 +57,9 @@ def changeLanguage(cursor, language):
         try:
             with util.busyCursor():
                 with cursortools.Editor() as e:
-                    for t in reader:
+                    for t in reader.notes():
                         if isinstance(t, ly.lex.lilypond.Note):
-                            # translate the pitch
+                            # translate the pitch name
                             p = reader.read(t)
                             if p:
                                 n = writer(*p)
@@ -131,23 +131,19 @@ def rel2abs(cursor):
     else:
         source = tokeniter.Source.document(cursor)
     
-    reader = PitchReader(source)
+    pitches = PitchIterator(source)
     
     if selection:
         # consume tokens before the selection, following the language
         source.consume(reader, start)
     
-    writer = ly.pitch.pitchWriter(reader.language)
-    
     # TEMP!!! test code that simply transposes all notes one octave higher
     with cursortools.Editor() as e:
-        for t in pitches(reader):
-            print t
-            if isinstance(t, LanguageName):
-                writer = ly.pitch.pitchWriter(t)
+        for t in pitches.pitches():
             if isinstance(t, Pitch):
-                t.octave += 1
-                t.output(writer, e)
+                t.octave += 2
+                t.alter += 1
+                pitches.write(t, e)
 
 
 def abs2rel(cursor):
@@ -160,24 +156,20 @@ def transpose(cursor, mainwindow):
 
 
 
-class PitchReader(object):
-    """Reads a token source and yields all tokens and LanguageName tokens."""
-    def __init__(self, source):
-        self.setLanguage("nederlands")
-        self.source = source
+class PitchIterator(object):
+    """Iterate over notes or pitches in a source.
     
-    def __iter__(self):
-        for t in self.source:
-            yield t
-            if isinstance(t, ly.lex.lilypond.Keyword):
-                if t in ("\\include", "\\language"):
-                    for t in self.iterable:
-                        if not isinstance(t, ly.lex.Space) and t != '"':
-                            lang = t[:-3] if t.endswith('.ly') else t[:]
-                            if self.setLanguage(lang):
-                                yield LanguageName(lang, t.pos)
-                            break
-                        yield t
+    
+    """
+    
+    def __init__(self, source):
+        """Initializes us with a tokeniter.Source.
+        
+        The language is set to "nederlands".
+        
+        """
+        self.source = source
+        self.setLanguage("nederlands")
     
     def setLanguage(self, lang):
         """Changes the pitch name language to use.
@@ -191,44 +183,68 @@ class PitchReader(object):
         """
         if lang in ly.pitch.pitchInfo.keys():
             self.language = lang
-            self.read = ly.pitch.pitchReader(lang)
             return True
     
+    def tokens(self):
+        """Yield just all tokens from the source, following the language."""
+        for t in self.source:
+            yield t
+            if isinstance(t, ly.lex.lilypond.Keyword):
+                if t in ("\\include", "\\language"):
+                    for t in self.iterable:
+                        if not isinstance(t, ly.lex.Space) and t != '"':
+                            lang = t[:-3] if t.endswith('.ly') else t[:]
+                            if self.setLanguage(lang):
+                                yield LanguageName(lang, t.pos)
+                            break
+                        yield t
+    
+    def pitches(self):
+        """Yields all tokens, but collects Note and Octave tokens.
+        
+        When a Note is encoutered, also reads octave and octave check and then
+        a Pitch is yielded instead of the tokens.
+        
+        """
+        tokens = self.tokens()
+        for t in tokens:
+            while isinstance(t, ly.lex.lilypond.Note):
+                p = self.read(t)
+                if p:
+                    p = Pitch(*p)
+                    p.noteCursor = self.source.cursor(t)
+                    p.octaveCursor = self.source.cursor(t, start=len(t))
+                    for t in tokens:
+                        if isinstance(t, ly.lex.lilypond.OctaveCheck):
+                            p.octaveCheck = ly.pitch.octaveToNum(t)
+                            p.octaveCheckCursor = self.source.cursor(t, start=1)
+                            break
+                        elif isinstance(t, ly.lex.lilypond.Octave):
+                            p.octave = ly.pitch.octaveToNum(t)
+                            p.octaveCursor = self.source.cursor(t)
+                        elif not isinstance(t, (ly.lex.Space, ly.lex.lilypond.Accidental)):
+                            break
+                    yield p
+            yield t
+        
     def read(self, token):
         """Reads the token and returns (note, alter) or None."""
-        pass # This is actually done by the pitchReader in the instance.
+        return ly.pitch.pitchReader(self.language)(token)
+    
+    def write(self, pitch, editor, language=None):
+        """Outputs a changed Pitch to the cursortools.Editor."""
+        def insert(cursor, text):
+            if cursor.selectedText() != text:
+                editor.insertText(cursor, text)
+        writer = ly.pitch.pitchWriter(language or self.language)
+        insert(pitch.noteCursor, writer(pitch.note, pitch.alter))
+        insert(pitch.octaveCursor, ly.pitch.octaveToString(pitch.octave))
+        if pitch.octaveCheck is not None:
+            insert(pitch.octaveCheckCursor, ly.pitch.octaveToString(pitch.octaveCheck))
 
 
 class LanguageName(ly.lex.Token):
     pass
-
-
-def pitches(reader):
-    """Yields tokens from a PitchReader, collecting Note and Octave tokens.
-    
-    When a Note is encoutered, also reads octave and octave check and then
-    yields a Pitch instead of the tokens.
-    
-    """
-    for t in reader:
-        while isinstance(t, ly.lex.lilypond.Note):
-            p = reader.read(t)
-            if p:
-                p = Pitch(*p)
-                p.noteCursor = reader.source.cursor(t)
-                p.octaveCursor = reader.source.cursor(t, start=len(t))
-                for t in reader:
-                    if isinstance(t, ly.lex.lilypond.OctaveCheck):
-                        p.octaveCheck = ly.pitch.octaveToNum(t)
-                        p.octaveCheckCursor = reader.source.cursor(t, start=1)
-                        break
-                    elif isinstance(t, ly.lex.lilypond.Octave):
-                        p.octave = ly.pitch.octaveToNum(t)
-                        p.octaveCursor = reader.source.cursor(t)
-                    elif not isinstance(t, (ly.lex.Space, ly.lex.lilypond.Accidental)):
-                        break
-                yield p
-        yield t
 
 
 class Pitch(ly.pitch.Pitch):
@@ -237,20 +253,4 @@ class Pitch(ly.pitch.Pitch):
     octaveCheck = None
     octaveCursor = None
     octaveCheckCursor = None
-
-    def output(self, writer, editor):
-        """Writes the pitch back to the stored cursors.
-        
-        Only changes are written. 'editor' is a cursortools.Editor instance
-        that stores the actual writes.
-        
-        """
-        def insert(cursor, text):
-            if cursor.selectedText() != text:
-                editor.insertText(cursor, text)
-        insert(self.noteCursor, writer(self.note, self.alter))
-        insert(self.octaveCursor, ly.pitch.octaveToString(self.octave))
-        if self.octaveCheck is not None:
-            insert(self.octaveCheckCursor, ly.pitch.octaveToString(self.octaveCheck))
-
 
