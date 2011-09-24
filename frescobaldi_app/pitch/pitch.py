@@ -170,9 +170,6 @@ class PitchReader(object):
 
 
 class LanguageName(ly.lex.Token):
-    def __new__(cls, value, pos):
-        token = super(ly.lex.Token, cls).__new__(cls, value)
-        token.pos = pos
-        token.end = pos + len(token)
-        return token
+    pass
+
 

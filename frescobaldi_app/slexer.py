@@ -156,13 +156,19 @@ class State(object):
             m = parser.parse(text, pos)
             if m:
                 if parser.default and pos < m.start():
-                    yield parser.default(text[pos:m.start()], pos, self)
-                yield parser.token(m, self)
+                    token =  parser.default(text[pos:m.start()], pos)
+                    token.updateState(self)
+                    yield token
+                token = parser.token(m)
+                token.updateState(self)
+                yield token
                 pos = m.end()
             elif parser.fallthrough(self):
                 break
         if parser.default and pos < len(text):
-            yield parser.default(text[pos:], pos, self)
+            token = parser.default(text[pos:], pos)
+            token.updateState(self)
+            yield token
     
     def enter(self, parser):
         """Enter a new parser."""
@@ -209,7 +215,6 @@ class Token(str):
     
     You should put the regular expression string in the rx class attribute.
     In the rx string, you may not use named groups starting with "g_".
-    Upon instantiation, the updateState() instance method is also called.
     
     To add token types to a Parser class, list the token class in the items
     attribute of the Parser class.
@@ -219,15 +224,16 @@ class Token(str):
     
     rx = None
     
-    def __new__(cls, string, pos, state):
+    def __new__(cls, string, pos):
         token = str.__new__(cls, string)
         token.pos = pos
         token.end = pos + len(token)
-        token.updateState(state)
         return token
         
     def updateState(self, state):
         """Lets the token update the state, e.g. enter a different parser.
+        
+        This method is called by the State upon instantiation of the tokens.
         
         Don't use it later on to have a State follow already instantiated Tokens
         because the FallthroughParser type can also change the state without
@@ -300,15 +306,15 @@ class Parser(object):
         """Parses text from position pos and returns a Match Object or None."""
         return self.pattern.search(text, pos)
     
-    def token(self, matchObj, state):
+    def token(self, matchObj):
         """Returns a Token instance of the correct class.
         
         The matchObj is returned by the parse() method.
         
         """
         tokenClass = self.index[matchObj.lastindex]
-        return tokenClass(matchObj.group(), matchObj.start(), state)
-        
+        return tokenClass(matchObj.group(), matchObj.start())
+    
     def _follow(self, token, state):
         """(Internal) Called by State.follow()."""
         pass
@@ -361,7 +367,7 @@ class FallthroughParser(Parser):
     
     def _follow(self, token, state):
         """(Internal) Called by State.follow()."""
-        if not isinstance(token, self.items):
+        if type(token) not in self.items:
             self.fallthrough(state)
 
     def fallthrough(self, state):
