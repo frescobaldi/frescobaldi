@@ -519,9 +519,10 @@ class ClefSpecifier(Specifier):
 
 
 class PitchCommand(Command):
-    rx = r"\\(relative|transpose|transposition)\b"
+    rx = r"\\(relative|transpose|transposition|key|octaveCheck)\b"
     def updateState(self, state):
-        state.enter(ParsePitchCommand())
+        argcount = 2 if self == '\\transpose' else 1
+        state.enter(ParsePitchCommand(argcount))
 
 
 class Unit(Command):
@@ -1193,9 +1194,16 @@ class ParseFigureMode(ParseInputMode, ParseMusic):
     
 
 class ParsePitchCommand(FallthroughParser):
+    argcount = 1
     items = space_items + (
         Note,
         Octave,
     )
+    def updateState(self, state, token):
+        if isinstance(token, Note):
+            self.argcount -= 1
+        elif isinstance(token, _token.Space) and self.argcount == 0:
+            state.leave()
+
 
 
