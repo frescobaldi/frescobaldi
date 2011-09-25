@@ -172,9 +172,24 @@ class Editor(object):
     def apply(self):
         """Applies and clears the stored edits."""
         if self.edits:
-            with editBlock(self.edits[0][0]):
-                while self.edits:
-                    cursor, text = self.edits.pop()
+            # don't use all the cursors directly, but copy and sort the ranges
+            # otherwise inserts would move the cursor for adjacent edits.
+            # We could also just start with the first, but that would require
+            # all cursors to update their position during the process, which
+            # notably slows down large edits (as there are already many cursors
+            # used by the point and click feature).
+            # We could also use QTextCursor.keepPositionOnInsert but that is
+            # only available in the newest PyQt4 versions.
+            edits = [(cursor.selectionStart(), cursor.selectionEnd(), text)
+                      for cursor, text in self.edits]
+            edits.sort(key=lambda e: e[0]) # dont reorder edits at same startpos
+            edits.reverse()
+            cursor = self.edits[0][0]
+            del self.edits[:]
+            with editBlock(cursor):
+                for start, end, text in edits:
+                    cursor.setPosition(end)
+                    cursor.setPosition(start, QTextCursor.KeepAnchor)
                     cursor.insertText(text)
         
     def __exit__(self, exc_type, exc_val, exc_tb):
