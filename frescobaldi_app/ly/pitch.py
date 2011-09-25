@@ -90,6 +90,11 @@ class Pitch(object):
         self.alter = alter      # # = 2; b = -2; natural = 0
         self.octave = octave    # '' = 2; ,, = -2
     
+    def __repr__(self):
+        return (
+            pitchWriter('nederlands')(self.note, self.alter) +
+            octaveToString(self.octave))
+    
     @classmethod
     def c1(cls):
         """Returns a pitch c'."""
@@ -104,13 +109,8 @@ class Pitch(object):
         """Returns a new instance with our attributes."""
         return self.__class__(self.note, self.alter, self.octave)
         
-    def absolute(self, lastPitch):
-        """Sets our octave from lastPitch.
-        
-        Sets our octave height from lastPitch (which is absolute), as if
-        we are a relative pitch.
-        
-        """
+    def makeAbsolute(self, lastPitch):
+        """Makes ourselves absolute, i.e. sets our octave from lastPitch."""
         dist = self.note - lastPitch.note
         if dist > 3:
             dist -= 7
@@ -118,17 +118,10 @@ class Pitch(object):
             dist += 7
         self.octave += lastPitch.octave  + (lastPitch.note + dist) // 7
         
-    def relative(self, lastPitch):
-        """Returns a new Pitch with our pitch relative to lastPitch.
-        
-        Returns a new Pitch instance with the current pitch relative to
-        the absolute pitch in lastPitch.
-        
-        """
-        p = self.copy()
+    def makeRelative(self, lastPitch):
+        """Makes ourselves relative, i.e. changes our octave from lastPitch."""
         dist = self.note - lastPitch.note
-        p.octave = self.octave - lastPitch.octave + (dist + 3) // 7
-        return p
+        self.octave -= lastPitch.octave + (dist + 3) // 7
 
 
 class Transposer(object):
