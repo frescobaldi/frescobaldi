@@ -57,10 +57,10 @@ def changeLanguage(cursor, language):
         try:
             with util.busyCursor():
                 with cursortools.Editor() as e:
-                    for t in reader.notes():
+                    for t in pitches.tokens():
                         if isinstance(t, ly.lex.lilypond.Note):
                             # translate the pitch name
-                            p = reader.read(t)
+                            p = pitches.read(t)
                             if p:
                                 n = writer(*p)
                                 if n != t:
