@@ -142,7 +142,7 @@ def rel2abs(cursor):
         for t in pitches.pitches():
             if isinstance(t, Pitch):
                 t.octave += 2
-                t.alter += 1
+                t.alter += 0.5
                 pitches.write(t, e)
 
 
@@ -212,15 +212,16 @@ class PitchIterator(object):
                 p = self.read(t)
                 if p:
                     p = Pitch(*p)
+                    p.origPitch = (p.note, p.alter)
                     p.noteCursor = self.source.cursor(t)
                     p.octaveCursor = self.source.cursor(t, start=len(t))
                     for t in tokens:
                         if isinstance(t, ly.lex.lilypond.OctaveCheck):
-                            p.octaveCheck = ly.pitch.octaveToNum(t)
-                            p.octaveCheckCursor = self.source.cursor(t, start=1)
+                            p.octaveCheck = p.origOctaveCheck = ly.pitch.octaveToNum(t)
+                            p.octaveCheckCursor = self.source.cursor(t)
                             break
                         elif isinstance(t, ly.lex.lilypond.Octave):
-                            p.octave = ly.pitch.octaveToNum(t)
+                            p.octave = p.origOctave = ly.pitch.octaveToNum(t)
                             p.octaveCursor = self.source.cursor(t)
                         elif not isinstance(t, (ly.lex.Space, ly.lex.lilypond.Accidental)):
                             break
@@ -233,14 +234,17 @@ class PitchIterator(object):
     
     def write(self, pitch, editor, language=None):
         """Outputs a changed Pitch to the cursortools.Editor."""
-        def insert(cursor, text):
-            if cursor.selectedText() != text:
-                editor.insertText(cursor, text)
-        writer = ly.pitch.pitchWriter(language or self.language)
-        insert(pitch.noteCursor, writer(pitch.note, pitch.alter))
-        insert(pitch.octaveCursor, ly.pitch.octaveToString(pitch.octave))
-        if pitch.octaveCheck is not None:
-            insert(pitch.octaveCheckCursor, ly.pitch.octaveToString(pitch.octaveCheck))
+        if (pitch.note, pitch.alter) != pitch.origPitch:
+            writer = ly.pitch.pitchWriter(language or self.language)
+            editor.insertText(pitch.noteCursor, writer(pitch.note, pitch.alter))
+        if pitch.octave != pitch.origOctave:
+            editor.insertText(pitch.octaveCursor, ly.pitch.octaveToString(pitch.octave))
+        if pitch.origOctaveCheck is not None:
+            if pitch.octaveCheck is None:
+                editor.removeSelectedText(pitch.octaveCheckCursor)
+            else:
+                octaveCheck = '=' + ly.pitch.octaveToString(pitch.octaveCheck)
+                editor.insertText(pitch.octaveCheckCursor, octaveCheck)
 
 
 class LanguageName(ly.lex.Token):
@@ -253,4 +257,8 @@ class Pitch(ly.pitch.Pitch):
     octaveCheck = None
     octaveCursor = None
     octaveCheckCursor = None
+    origPitch = None
+    origOctave = None
+    origOctaveCheck = None
+
 
