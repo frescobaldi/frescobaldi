@@ -212,7 +212,7 @@ class PitchIterator(object):
                 p = self.read(t)
                 if p:
                     p = Pitch(*p)
-                    p.origPitch = (p.note, p.alter)
+                    p.origNoteToken = t
                     p.noteCursor = self.source.cursor(t)
                     p.octaveCursor = self.source.cursor(t, start=len(t))
                     for t in tokens:
@@ -234,9 +234,10 @@ class PitchIterator(object):
     
     def write(self, pitch, editor, language=None):
         """Outputs a changed Pitch to the cursortools.Editor."""
-        if (pitch.note, pitch.alter) != pitch.origPitch:
-            writer = ly.pitch.pitchWriter(language or self.language)
-            editor.insertText(pitch.noteCursor, writer(pitch.note, pitch.alter))
+        writer = ly.pitch.pitchWriter(language or self.language)
+        note = writer(pitch.note, pitch.alter)
+        if note != pitch.origNoteToken:
+            editor.insertText(pitch.noteCursor, note)
         if pitch.octave != pitch.origOctave:
             editor.insertText(pitch.octaveCursor, ly.pitch.octaveToString(pitch.octave))
         if pitch.origOctaveCheck is not None:
@@ -257,8 +258,8 @@ class Pitch(ly.pitch.Pitch):
     octaveCheck = None
     octaveCursor = None
     octaveCheckCursor = None
-    origPitch = None
-    origOctave = None
+    origNoteToken = None
+    origOctave = 0
     origOctaveCheck = None
 
 
