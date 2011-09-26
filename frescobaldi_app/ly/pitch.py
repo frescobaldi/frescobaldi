@@ -91,10 +91,14 @@ class Pitch(object):
         self.octave = octave    # '' = 2; ,, = -2
     
     def __repr__(self):
-        return (
-            pitchWriter('nederlands')(self.note, self.alter) +
-            octaveToString(self.octave))
+        return '<Pitch {0}>'.format(self.output())
     
+    def output(self, language="nederlands"):
+        """Returns our string representation."""
+        return (
+            pitchWriter(language)(self.note, self.alter) +
+            octaveToString(self.octave))
+        
     @classmethod
     def c1(cls):
         """Returns a pitch c'."""

@@ -23,6 +23,8 @@ Implementation of the tools to edit pitch of selected music.
 
 from __future__ import unicode_literals
 
+import itertools
+
 from PyQt4.QtGui import QMessageBox, QTextCursor
 
 import ly.pitch
@@ -135,9 +137,11 @@ def rel2abs(cursor):
     
     if selection:
         # consume tokens before the selection, following the language
-        source.consume(pitches.tokens(), start)
-    
-    psource = pitches.pitches()
+        psource = itertools.chain(
+            (source.consume(pitches.tokens(), start),),
+            pitches.pitches())
+    else:
+        psource = pitches.pitches()
     
     # this class dispatches the tokens. we can't use a generator function
     # as that doesn't like to be called again while there is already a body
@@ -198,7 +202,6 @@ def rel2abs(cursor):
             lastPitch = Pitch.c1()
         
         # remove the \relative <pitch> tokens
-        c.setPosition(c.selectionStart())
         c.setPosition(source.position(t), c.KeepAnchor)
         editor.removeSelectedText(c)
         
@@ -223,7 +226,6 @@ def rel2abs(cursor):
                         if isinstance(p, Pitch):
                             # remove the \octaveCheck
                             lastPitch = p
-                            c.setPosition(c.selectionStart())
                             c.setPosition((p.octaveCursor or p.noteCursor).selectionEnd(), c.keepAnchor)
                             editor.removeSelectedText(c)
                     else:
@@ -250,9 +252,10 @@ def rel2abs(cursor):
             makeAbsolute(t, lastPitch)
     
     # Do it!
-    with cursortools.Editor() as editor:
-        for t in tsource:
-            pass
+    with util.busyCursor():
+        with cursortools.Editor() as editor:
+            for t in tsource:
+                pass
     
     
 
@@ -261,6 +264,122 @@ def rel2abs(cursor):
 
 def abs2rel(cursor):
     """Converts pitches from absolute to relative."""
+    selection = cursor.hasSelection()
+    if selection:
+        start = cursor.selectionStart()
+        cursor.setPosition(cursor.selectionEnd())
+        cursor.setPosition(0, QTextCursor.KeepAnchor)
+        source = tokeniter.Source.selection(cursor, True)
+    else:
+        source = tokeniter.Source.document(cursor, True)
+    
+    pitches = PitchIterator(source)
+    
+    if selection:
+        # consume tokens before the selection, following the language
+        psource = itertools.chain(
+            (source.consume(pitches.tokens(), start),),
+            pitches.pitches())
+    else:
+        psource = pitches.pitches()
+    
+    # this class dispatches the tokens. we can't use a generator function
+    # as that doesn't like to be called again while there is already a body
+    # running.
+    class gen(object):
+        def __iter__(self):
+            return self
+        
+        def __next__(self):
+            t = next(psource)
+            while isinstance(t, (ly.lex.Space, ly.lex.Comment)):
+                t = next(psource)
+            if t == '\\relative' and isinstance(t, ly.lex.lilypond.Command):
+                relative()
+                t = next(psource)
+            elif isinstance(t, ly.lex.lilypond.ChordMode):
+                consume() # do not change chords
+                t = next(psource)
+            elif isinstance(t, ly.lex.lilypond.MarkupScore):
+                consume()
+                t = next(psource)
+            return t
+        
+        next = __next__
+            
+    tsource = gen()
+
+    def context():
+        """Consume tokens till the level drops (we exit a construct)."""
+        depth = source.state.depth()
+        for t in tsource:
+            yield t
+            if source.state.depth() < depth:
+                return
+    
+    def consume():
+        """Consume tokens from context() returning the last token, if any."""
+        t = None
+        for t in context():
+            pass
+        return t
+    
+    def relative():
+        """Consume the whole \relative expression without doing anything. """
+        # skip pitch argument
+        t = next(psource)
+        if isinstance(t, Pitch):
+            t = next(psource)
+        
+        while True:
+            # eat stuff like \new Staff == "bla" \new Voice \notes etc.
+            if isinstance(source.state.parser(), ly.lex.lilypond.ParseNewContext):
+                t = consume()
+            elif isinstance(t, ly.lex.lilypond.NoteMode):
+                t = next(tsource)
+            else:
+                break
+        
+        if t in ('{', '<<', '<'):
+            consume()
+    
+    # Do it!
+    with util.busyCursor():
+        with cursortools.Editor() as editor:
+            for t in psource:
+                if t in ('{', '<<'):
+                    # Ok, parse current expression.
+                    c = source.cursor(t, end=0) # insert the \relative command
+                    lastPitch = None
+                    chord = None
+                    for t in context():
+                        # skip commands with pitches that do not count
+                        if isinstance(t, ly.lex.lilypond.PitchCommand):
+                            consume()
+                        elif isinstance(t, ly.lex.lilypond.ChordStart):
+                            # Handle chord
+                            chord = []
+                        elif isinstance(t, ly.lex.lilypond.ChordEnd):
+                            if chord:
+                                lastPitch = chord[0]
+                            chord = None
+                        elif isinstance(t, Pitch):
+                            # Handle pitch
+                            if lastPitch is None:
+                                lastPitch = Pitch.c1()
+                                lastPitch.octave = t.octave
+                                if t.note > 3:
+                                    lastPitch.octave += 1
+                                editor.insertText(c,
+                                    "\\relative {0} ".format(
+                                        lastPitch.output(pitches.language)))
+                            p = t.copy()
+                            t.makeRelative(lastPitch)
+                            pitches.write(t, editor)
+                            lastPitch = p
+                            # remember the first pitch of a chord
+                            if chord == []:
+                                chord.append(p)
 
 
 def transpose(cursor, mainwindow):
