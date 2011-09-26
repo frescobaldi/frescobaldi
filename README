@@ -49,6 +49,7 @@ What does work?
 - score wizard with preview, now also with multiple score, book, staffgroup etc
 - the QuickInsert panel
 - rhythm tools in Tools->Rhythm
+- music transpose, translate, relative<->absolute tools in Tools->Pitch
 - builtin help manual; help buttons on all dialogs
 
 
@@ -56,7 +57,6 @@ TODO:
 
 - run other commands such as lilypond-book, convert-ly
 - finish built-in lilypond documentation browser
-- music transpose, translate, relative<->absolute tools
 - test on Mac OS X and Windows, make easy installers
 - MIDI...
 
