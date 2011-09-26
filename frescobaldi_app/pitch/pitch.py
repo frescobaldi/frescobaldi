@@ -651,9 +651,10 @@ class PitchIterator(object):
                     elif not isinstance(t, (ly.lex.Space, ly.lex.lilypond.Accidental)):
                         break
                 yield p
+                if t is None:
+                    break
             else:
-                if t is not None:
-                    yield t
+                yield t
         
     def read(self, token):
         """Reads the token and returns (note, alter) or None."""
