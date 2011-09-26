@@ -386,18 +386,13 @@ def transpose(cursor, mainwindow):
         language=language))
     if not ok:
         return
-    pitches = text.split()
     result = []
-    for p in pitches:
-        m = re.match(r"([a-z]+)('*|,*)", p)
-        if m:
-            r = ly.pitch.pitchReader(language)(m.group(1))
-            if r:
-                note, alter = r
-                octave = ly.pitch.octaveToNum(m.group(2))
-                result.append(ly.pitch.Pitch(note, alter, octave))
+    for pitch, octave in re.findall(r"([a-z]+)([,']*)", text):
+        r = ly.pitch.pitchReader(language)(pitch)
+        if r:
+            result.append(ly.pitch.Pitch(*r, octave=ly.pitch.octaveToNum(octave)))
     if len(result) != 2:
-        QMessageBox.critical(mainwindow, _("Transpose"),
+        QMessageBox.critical(mainwindow, app.caption(_("Transpose")),
             _("Invalid pitches were entered."))
         return
     
