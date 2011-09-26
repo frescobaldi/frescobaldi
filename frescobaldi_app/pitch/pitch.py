@@ -255,10 +255,6 @@ def rel2abs(cursor):
         with cursortools.Editor() as editor:
             for t in tsource:
                 pass
-    
-    
-
-
 
 
 def abs2rel(cursor):
@@ -387,10 +383,7 @@ def transpose(cursor, mainwindow):
 
 
 class PitchIterator(object):
-    """Iterate over notes or pitches in a source.
-    
-    
-    """
+    """Iterate over notes or pitches in a source."""
     
     def __init__(self, source):
         """Initializes us with a tokeniter.Source.
