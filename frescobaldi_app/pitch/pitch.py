@@ -135,13 +135,12 @@ def rel2abs(cursor):
     
     pitches = PitchIterator(source)
     
+    psource = pitches.pitches()
     if selection:
         # consume tokens before the selection, following the language
-        psource = itertools.chain(
-            (source.consume(pitches.tokens(), start),),
-            pitches.pitches())
-    else:
-        psource = pitches.pitches()
+        t = source.consume(pitches.tokens(), start)
+        if t:
+            psource = itertools.chain((t,), psource)
     
     # this class dispatches the tokens. we can't use a generator function
     # as that doesn't like to be called again while there is already a body
@@ -275,13 +274,12 @@ def abs2rel(cursor):
     
     pitches = PitchIterator(source)
     
+    psource = pitches.pitches()
     if selection:
         # consume tokens before the selection, following the language
-        psource = itertools.chain(
-            (source.consume(pitches.tokens(), start),),
-            pitches.pitches())
-    else:
-        psource = pitches.pitches()
+        t = source.consume(pitches.tokens(), start)
+        if t:
+            psource = itertools.chain((t,), psource)
     
     # this class dispatches the tokens. we can't use a generator function
     # as that doesn't like to be called again while there is already a body

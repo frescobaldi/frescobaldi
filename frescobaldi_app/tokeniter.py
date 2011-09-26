@@ -352,7 +352,7 @@ class Source(object):
     def consume(self, iterable, position):
         """Consumes iterable (supposed to be reading from us) until position.
         
-        Returns the last token (if any) before stopping.
+        Returns the last token if that overlaps position.
         
         """
         if self.block.position() < position:
@@ -360,8 +360,10 @@ class Source(object):
             pos = position - block.position()
             for t in iterable:
                 if self.block >= block:
-                    if self.block > block or t.end >= pos:
+                    if self.block > block or t.end > pos:
                         return t
+                    elif t.end == pos:
+                        return
     
     @classmethod
     def fromCursor(cls, cursor, state=None, first=1):
