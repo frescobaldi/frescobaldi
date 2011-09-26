@@ -24,9 +24,11 @@ Implementation of the tools to edit pitch of selected music.
 from __future__ import unicode_literals
 
 import itertools
+import re
 
-from PyQt4.QtGui import QMessageBox, QTextCursor
+from PyQt4.QtGui import QInputDialog, QMessageBox, QTextCursor
 
+import app
 import ly.pitch
 import ly.lex.lilypond
 import cursortools
@@ -47,7 +49,8 @@ def changeLanguage(cursor, language):
     else:
         source = tokeniter.Source.document(cursor)
     
-    tokens = PitchIterator(source).tokens()
+    pitches = PitchIterator(source)
+    tokens = pitches.tokens()
     writer = ly.pitch.pitchWriter(language)
     
     if selection:
@@ -72,7 +75,7 @@ def changeLanguage(cursor, language):
                             e.insertText(source.cursor(t), language)
                             changed = True
         except ly.pitch.PitchNameNotAvailable:
-            QMessageBox.critical(None, _("Pitch Name Language"), _(
+            QMessageBox.critical(None, app.caption(_("Pitch Name Language")), _(
                 "Can't perform the requested translation.\n\n"
                 "The music contains quarter-tone alterations, but "
                 "those are not available in the pitch language \"{name}\"."
@@ -85,7 +88,7 @@ def changeLanguage(cursor, language):
             insertLanguage(cursor.document(), language)
             return
     # there was a selection but no command, user must insert manually.
-    QMessageBox.information(None, _("Pitch Name Language"), 
+    QMessageBox.information(None, app.caption(_("Pitch Name Language")),
         '<p>{0}</p>'
         '<p><code>\\include "{1}.ly"</code> {2}</p>'
         '<p><code>\\language "{1}"</code> {3}</p>'.format(
@@ -134,7 +137,6 @@ def rel2abs(cursor):
         source = tokeniter.Source.document(cursor, True)
     
     pitches = PitchIterator(source)
-    
     psource = pitches.pitches()
     if selection:
         # consume tokens before the selection, following the language
@@ -189,8 +191,8 @@ def rel2abs(cursor):
             pass
         return t
     
-    def relative(token):
-        c = source.cursor(token)
+    def relative(t):
+        c = source.cursor(t)
         lastPitch = None
         
         t = next(tsource)
@@ -232,20 +234,18 @@ def rel2abs(cursor):
                 elif isinstance(t, ly.lex.lilypond.ChordStart):
                     # handle chord
                     chord = [lastPitch]
-                    for t in context():
-                        if isinstance(t, Pitch):
-                            makeAbsolute(t, chord[-1])
-                            chord.append(t)
+                    for p in getpitches(context()):
+                        makeAbsolute(p, chord[-1])
+                        chord.append(p)
                     lastPitch = chord[:2][-1] # same or first
                 elif isinstance(t, Pitch):
                     makeAbsolute(t, lastPitch)
                     lastPitch = t
         elif isinstance(t, ly.lex.lilypond.ChordStart):
             # Handle just one chord
-            for t in context():
-                if isinstance(t, Pitch):
-                    makeAbsolute(t, lastPitch)
-                    lastPitch = t
+            for p in getpitches(context()):
+                makeAbsolute(p, lastPitch)
+                lastPitch = p
         elif isinstance(t, Pitch):
             # Handle just one pitch
             makeAbsolute(t, lastPitch)
@@ -269,7 +269,6 @@ def abs2rel(cursor):
         source = tokeniter.Source.document(cursor, True)
     
     pitches = PitchIterator(source)
-    
     psource = pitches.pitches()
     if selection:
         # consume tokens before the selection, following the language
@@ -378,8 +377,202 @@ def abs2rel(cursor):
 
 def transpose(cursor, mainwindow):
     """Transposes pitches."""
+    language = documentinfo.info(cursor.document()).pitchLanguage() or 'nederlands'
+    text, ok = QInputDialog.getText(mainwindow, app.caption(_("Transpose")), _(
+        "Please enter two absolute pitches, separated by a space,\n"
+        "using the pitch name language \"{language}.\"\n"
+        "The music will be transposed from the first pitch to the second,\n"
+        "just as the \\transpose LilyPond command would do.").format(
+        language=language))
+    if not ok:
+        return
+    pitches = text.split()
+    result = []
+    for p in pitches:
+        m = re.match(r"([a-z]+)('*|,*)", p)
+        if m:
+            r = ly.pitch.pitchReader(language)(m.group(1))
+            if r:
+                note, alter = r
+                octave = ly.pitch.octaveToNum(m.group(2))
+                result.append(ly.pitch.Pitch(note, alter, octave))
+    if len(result) != 2:
+        QMessageBox.critical(mainwindow, _("Transpose"),
+            _("Invalid pitches were entered."))
+        return
+    
+    transposer = ly.pitch.Transposer(*result)
+    
+    selection = cursor.hasSelection()
+    if selection:
+        start = cursor.selectionStart()
+        cursor.setPosition(cursor.selectionEnd())
+        cursor.setPosition(0, QTextCursor.KeepAnchor)
+        source = tokeniter.Source.selection(cursor, True)
+    else:
+        source = tokeniter.Source.document(cursor, True)
+    
+    pitches = PitchIterator(source)
+    psource = pitches.pitches()
+    
+    class gen(object):
+        def __init__(self):
+            self.inSelection = not selection
+        
+        def __iter__(self):
+            return self
+        
+        def __next__(self):
+            while True:
+                t = next(psource)
+                if isinstance(t, (ly.lex.Space, ly.lex.Comment)):
+                    continue
+                elif not self.inSelection and pitches.position(t) >= start:
+                    self.inSelection = True
+                # Handle stuff that's the same in relative and absolute here
+                if t == "\\relative":
+                    relative()
+                elif isinstance(t, ly.lex.lilypond.MarkupScore):
+                    absolute(context())
+                elif isinstance(t, ly.lex.lilypond.ChordMode):
+                    chordmode()
+                elif isinstance(t, ly.lex.lilypond.PitchCommand):
+                    if t == "\\transposition":
+                        next(psource) # skip pitch
+                    elif t == "\\transpose":
+                        for p in getpitches(context()):
+                            transpose(p)
+                    elif t == "\\key":
+                        for p in getpitches(context()):
+                            transpose(p, 0)
+                    else:
+                        return t
+                else:
+                    return t
+        
+        next = __next__
+    
+    tsource = gen()
+    
+    def context():
+        """Consume tokens till the level drops (we exit a construct)."""
+        depth = source.state.depth()
+        for t in tsource:
+            yield t
+            if source.state.depth() < depth:
+                return
+    
+    def consume():
+        """Consume tokens from context() returning the last token, if any."""
+        t = None
+        for t in context():
+            pass
+        return t
+        
+    def transpose(p, resetOctave = None):
+        """Transpose absolute pitch, using octave if given."""
+        transposer.transpose(p)
+        if resetOctave is not None:
+            p.octave = resetOctave
+        if tsource.inSelection:
+            pitches.write(p, editor)
 
+    def chordmode():
+        """Called inside \\chordmode or \\chords."""
+        for p in getpitches(context()):
+            transpose(p, 0)
+            
+    def absolute(tokens):
+        """Called when outside a possible \\relative environment."""
+        for p in getpitches(tokens):
+            transpose(p)
+    
+    def relative():
+        """Called when \\relative is encountered."""
+        def transposeRelative(p, lastPitch):
+            """Transposes a relative pitch; returns the pitch in absolute form."""
+            # absolute pitch determined from untransposed pitch of lastPitch
+            p.makeAbsolute(lastPitch)
+            if not tsource.inSelection:
+                return p
+            # we may change this pitch. Make it relative against the
+            # transposed lastPitch.
+            try:
+                last = lastPitch.transposed
+            except AttributeError:
+                last = lastPitch
+            # transpose a copy and store that in the transposed
+            # attribute of lastPitch. Next time that is used for
+            # making the next pitch relative correctly.
+            newLastPitch = p.copy()
+            transposer.transpose(p)
+            newLastPitch.transposed = p.copy()
+            if p.octaveCheck is not None:
+                p.octaveCheck = p.octave
+            p.makeRelative(last)
+            if relPitch:
+                # we are allowed to change the pitch after the
+                # \relative command. lastPitch contains this pitch.
+                lastPitch.octave += p.octave
+                p.octave = 0
+                pitches.write(lastPitch, editor)
+                del relPitch[:]
+            pitches.write(p, editor)
+            return newLastPitch
 
+        lastPitch = None
+        relPitch = [] # we use a list so it can be changed from inside functions
+        
+        # find the pitch after the \relative command
+        t = next(tsource)
+        if isinstance(t, Pitch):
+            lastPitch = t
+            if tsource.inSelection:
+                relPitch.append(lastPitch)
+            t = next(tsource)
+        else:
+            lastPitch = Pitch.c1()
+        
+        while True:
+            # eat stuff like \new Staff == "bla" \new Voice \notes etc.
+            if isinstance(source.state.parser(), ly.lex.lilypond.ParseNewContext):
+                t = consume()
+            elif isinstance(t, ly.lex.lilypond.NoteMode):
+                t = next(tsource)
+            else:
+                break
+        
+        # now transpose the relative expression
+        if t in ('{', '<<'):
+            # Handle full music expression { ... } or << ... >>
+            for t in context():
+                if t == '\\octaveCheck':
+                    for p in getpitches(context()):
+                        lastPitch = p.copy()
+                        del relPitch[:]
+                        if tsource.inSelection:
+                            transposer.transpose(p)
+                            lastPitch.transposed = p
+                            pitches.write(p, editor)
+                elif isinstance(t, ly.lex.lilypond.ChordStart):
+                    chord = [lastPitch]
+                    for p in getpitches(context()):
+                        chord.append(transposeRelative(p, chord[-1]))
+                    lastPitch = chord[:2][-1] # same or first
+                elif isinstance(t, Pitch):
+                    lastPitch = transposeRelative(t, lastPitch)
+        elif isinstance(t, ly.lex.lilypond.ChordStart):
+            # Handle just one chord
+            for p in getpitches(context()):
+                lastPitch = transposeRelative(p, lastPitch)
+        elif isinstance(t, Pitch):
+            # Handle just one pitch
+            transposeRelative(token, lastPitch)
+
+    # Do it!
+    with util.busyCursor():
+        with cursortools.Editor() as editor:
+            absolute(tsource)
 
 
 class PitchIterator(object):
@@ -408,6 +601,13 @@ class PitchIterator(object):
             self.language = lang
             return True
     
+    def position(self, t):
+        """Returns the cursor position for the given token or Pitch."""
+        if isinstance(t, Pitch):
+            return t.noteCursor.selectionStart()
+        else:
+            return self.source.position(t)
+    
     def tokens(self):
         """Yield just all tokens from the source, following the language."""
         for t in self.source:
@@ -433,23 +633,27 @@ class PitchIterator(object):
         for t in tokens:
             while isinstance(t, ly.lex.lilypond.Note):
                 p = self.read(t)
-                if p:
-                    p = Pitch(*p)
-                    p.origNoteToken = t
-                    p.noteCursor = self.source.cursor(t)
-                    p.octaveCursor = self.source.cursor(t, start=len(t))
-                    for t in tokens:
-                        if isinstance(t, ly.lex.lilypond.OctaveCheck):
-                            p.octaveCheck = p.origOctaveCheck = ly.pitch.octaveToNum(t)
-                            p.octaveCheckCursor = self.source.cursor(t)
-                            break
-                        elif isinstance(t, ly.lex.lilypond.Octave):
-                            p.octave = p.origOctave = ly.pitch.octaveToNum(t)
-                            p.octaveCursor = self.source.cursor(t)
-                        elif not isinstance(t, (ly.lex.Space, ly.lex.lilypond.Accidental)):
-                            break
-                    yield p
-            yield t
+                if not p:
+                    break
+                p = Pitch(*p)
+                p.origNoteToken = t
+                p.noteCursor = self.source.cursor(t)
+                p.octaveCursor = self.source.cursor(t, start=len(t))
+                t = None # prevent hang in this loop
+                for t in tokens:
+                    if isinstance(t, ly.lex.lilypond.OctaveCheck):
+                        p.octaveCheck = p.origOctaveCheck = ly.pitch.octaveToNum(t)
+                        p.octaveCheckCursor = self.source.cursor(t)
+                        break
+                    elif isinstance(t, ly.lex.lilypond.Octave):
+                        p.octave = p.origOctave = ly.pitch.octaveToNum(t)
+                        p.octaveCursor = self.source.cursor(t)
+                    elif not isinstance(t, (ly.lex.Space, ly.lex.lilypond.Accidental)):
+                        break
+                yield p
+            else:
+                if t is not None:
+                    yield t
         
     def read(self, token):
         """Reads the token and returns (note, alter) or None."""
@@ -484,5 +688,12 @@ class Pitch(ly.pitch.Pitch):
     origNoteToken = None
     origOctave = 0
     origOctaveCheck = None
+
+
+def getpitches(iterable):
+    """Consumes iterable but only yields Pitch instances."""
+    for p in iterable:
+        if isinstance(p, Pitch):
+            yield p
 
 
