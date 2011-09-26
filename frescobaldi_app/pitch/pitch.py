@@ -325,9 +325,9 @@ def abs2rel(cursor):
     def relative():
         """Consume the whole \relative expression without doing anything. """
         # skip pitch argument
-        t = next(psource)
+        t = next(tsource)
         if isinstance(t, Pitch):
-            t = next(psource)
+            t = next(tsource)
         
         while True:
             # eat stuff like \new Staff == "bla" \new Voice \notes etc.
@@ -344,7 +344,8 @@ def abs2rel(cursor):
     # Do it!
     with util.busyCursor():
         with cursortools.Editor() as editor:
-            for t in psource:
+            for t in tsource:
+                print t
                 if t in ('{', '<<'):
                     # Ok, parse current expression.
                     c = source.cursor(t, end=0) # insert the \relative command

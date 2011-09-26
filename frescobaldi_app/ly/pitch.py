@@ -115,17 +115,11 @@ class Pitch(object):
         
     def makeAbsolute(self, lastPitch):
         """Makes ourselves absolute, i.e. sets our octave from lastPitch."""
-        dist = self.note - lastPitch.note
-        if dist > 3:
-            dist -= 7
-        elif dist < -3:
-            dist += 7
-        self.octave += lastPitch.octave  + (lastPitch.note + dist) // 7
+        self.octave += lastPitch.octave - (self.note - lastPitch.note + 3) // 7
         
     def makeRelative(self, lastPitch):
         """Makes ourselves relative, i.e. changes our octave from lastPitch."""
-        dist = self.note - lastPitch.note
-        self.octave -= lastPitch.octave + (dist + 3) // 7
+        self.octave -= lastPitch.octave - (self.note - lastPitch.note + 3) // 7
 
 
 class Transposer(object):
