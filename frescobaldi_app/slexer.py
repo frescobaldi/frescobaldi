@@ -193,7 +193,8 @@ class State(object):
         Changes state according to the token.
         
         """
-        self.parser()._follow(token, self)
+        while self.parser()._follow(token, self):
+            pass
         token.updateState(self)
 
     def freeze(self):
@@ -369,6 +370,7 @@ class FallthroughParser(Parser):
         """(Internal) Called by State.follow()."""
         if type(token) not in self.items:
             self.fallthrough(state)
+            return True
 
     def fallthrough(self, state):
         """Called when no match is returned by parse().

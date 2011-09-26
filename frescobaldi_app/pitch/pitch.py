@@ -345,7 +345,6 @@ def abs2rel(cursor):
     with util.busyCursor():
         with cursortools.Editor() as editor:
             for t in tsource:
-                print t
                 if t in ('{', '<<'):
                     # Ok, parse current expression.
                     c = source.cursor(t, end=0) # insert the \relative command
