@@ -223,12 +223,12 @@ def rel2abs(cursor):
                 if isinstance(t, ly.lex.lilypond.PitchCommand):
                     if t == '\\octaveCheck':
                         c = source.cursor(t)
-                        p = next(tsource)
-                        if isinstance(p, Pitch):
+                        for p in getpitches(context()):
                             # remove the \octaveCheck
                             lastPitch = p
-                            c.setPosition((p.octaveCursor or p.noteCursor).selectionEnd(), c.keepAnchor)
+                            c.setPosition((p.octaveCursor or p.noteCursor).selectionEnd(), c.KeepAnchor)
                             editor.removeSelectedText(c)
+                            break
                     else:
                         consume()
                 elif isinstance(t, ly.lex.lilypond.ChordStart):
