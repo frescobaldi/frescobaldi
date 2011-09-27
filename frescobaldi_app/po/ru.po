@@ -1,21 +1,26 @@
-# translation of nl.po to Nederlands
+# translation of ru.po to Russian
+# translation of ru.po to
+# Copyright (C)
+# This file is distributed under the same license as the Frescobaldi package.
+# Serj Poltavski
 #
-# Wilbert Berendsen <wbsoft@xs4all.nl>, 2008.
-# Wilbert Berendsen <info@wilbertberendsen.nl>, 2008, 2009, 2010, 2011.
+# Serj Poltavski <serge.uliss@gmail.com>, 2009.
+# Artem Zolochevskiy <artem.zolochevskiy@gmail.com>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: frescobaldi 1.9.0\n"
+"Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2011-09-27 09:45+0200\n"
-"PO-Revision-Date: 2011-04-16 12:04+0200\n"
-"Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
-"Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2009-10-08 21:17+0300\n"
+"Last-Translator: Artem Zolochevskiy <artem.zolochevskiy@gmail.com>\n"
+"Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: nl\n"
-"X-Generator: Lokalize 1.1\n"
+"#-#-#-#-#  ru.po (ru)  #-#-#-#-#\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 1.0\n"
 
 #: frescobaldi_app/job.py:188
 msgid "Starting {job}..."
@@ -30,26 +35,27 @@ msgstr ""
 msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
-msgstr "Kon LilyPond niet starten. Controleer uw installatie."
+msgstr ""
+"Невозможно запустить LilyPond/ Проверьте путь к программе и разрешения."
 
 #: frescobaldi_app/job.py:202
 #, fuzzy
 msgid "Could not read from the process."
-msgstr "Kan de uitvoer van het LilyPond-proces niet lezen."
+msgstr "Невозможно чтение из процесса LilyPond."
 
 #: frescobaldi_app/job.py:204
 msgid "An unknown error occured."
-msgstr "Er is een onbekende fout opgetreden."
+msgstr "Неизвестная ошибка произошла."
 
 #: frescobaldi_app/job.py:209
 #, fuzzy
 msgid "Exited with return code {code}."
-msgstr "LilyPond [%1] stopte met foutcode %2."
+msgstr "Программа LilyPond [%1] завершилась с кодом %2."
 
 #: frescobaldi_app/job.py:211
 #, fuzzy
 msgid "Exited with exit status {status}."
-msgstr "LilyPond [%1] stopte met status %2."
+msgstr "Программа LilyPond [%1] завершилась с кодом %2."
 
 #: frescobaldi_app/job.py:214
 msgid "Completed successfully in {time}."
@@ -70,16 +76,15 @@ msgstr ""
 #: frescobaldi_app/viewmanager.py:91
 #, fuzzy
 msgid "&Close View"
-msgstr "&Gereedschapsweergaven"
+msgstr "&Панели инструментов"
 
 #: frescobaldi_app/viewmanager.py:443
 msgid "&Close Current View"
 msgstr ""
 
 #: frescobaldi_app/viewmanager.py:444
-#, fuzzy
 msgid "Close &Other Views"
-msgstr "Andere documenten sluiten"
+msgstr ""
 
 #: frescobaldi_app/viewmanager.py:445
 msgid "&Next View"
@@ -88,52 +93,52 @@ msgstr ""
 #: frescobaldi_app/viewmanager.py:446
 #, fuzzy
 msgid "&Previous View"
-msgstr "Vorige"
+msgstr "Предыдущий"
 
 #: frescobaldi_app/main.py:55
 msgid "{appname} [options] file ..."
-msgstr "{appname} [opties] bestand ..."
+msgstr ""
 
 #: frescobaldi_app/main.py:57 frescobaldi_app/about.py:115
+#, fuzzy
 msgid "A LilyPond Music Editor"
-msgstr "Een muziek-editor voor LilyPond"
+msgstr "Музыкальный нотатор LilyPond"
 
 #: frescobaldi_app/main.py:58
 msgid "ENC"
-msgstr "ENC"
+msgstr ""
 
 #: frescobaldi_app/main.py:59
 msgid "Encoding to use"
-msgstr "Te gebruiken tekenset"
+msgstr "Используемая кодировка"
 
 #: frescobaldi_app/main.py:60 frescobaldi_app/main.py:62
 msgid "NUM"
-msgstr "NUM"
+msgstr ""
 
 #: frescobaldi_app/main.py:61
 msgid "Line number to go to, starting at 1"
-msgstr "Ga naar regel (start met 1)"
+msgstr "Номер строки для перехода, начиная с 1"
 
 #: frescobaldi_app/main.py:63
 msgid "Column to go to, starting at 0"
-msgstr "Ga naar kolom (start met 0)"
+msgstr "Столбец для перехода, начиная с 0"
 
 #: frescobaldi_app/main.py:64
 msgid "NAME"
-msgstr "NAAM"
+msgstr ""
 
 #: frescobaldi_app/main.py:65
 msgid "Session to start ('{none}' for empty session)"
-msgstr "Te starten sessie ('{none}' voor lege sessie)"
+msgstr ""
 
 #: frescobaldi_app/documentactions.py:97
 msgid "Syntax &Highlighting"
 msgstr ""
 
 #: frescobaldi_app/documentactions.py:98
-#, fuzzy
 msgid "&Automatic Indent"
-msgstr "automatisch"
+msgstr ""
 
 #: frescobaldi_app/documentactions.py:99
 msgid "Re-&Indent"
@@ -142,46 +147,49 @@ msgstr ""
 #: frescobaldi_app/musicpreview.py:114
 #, fuzzy
 msgid "Document:"
-msgstr "&Document"
+msgstr "&Документ"
 
 #: frescobaldi_app/musicpreview.py:194
 #, fuzzy
 msgid "&Print"
-msgstr "Afdrukken"
+msgstr "Печать"
 
 #: frescobaldi_app/musicpreview.py:195
 #, fuzzy
 msgid "Music Preview"
-msgstr "PDF vooruitblik"
+msgstr "Предпросмотр PDF"
 
 #: frescobaldi_app/exception.py:69
 msgid "An internal error has occurred:"
-msgstr "Er is een interne fout opgetreden:"
+msgstr "Произошла внутренняя ошибка:"
 
 #: frescobaldi_app/exception.py:70
 msgid "Internal Error"
-msgstr "Interne fout"
+msgstr "Внутренняя ошибка"
 
 #: frescobaldi_app/exception.py:71
 msgid "Email Bug Report..."
-msgstr "Bugrapport emailen..."
+msgstr "Послать отчет об ошибке по Email"
 
 #: frescobaldi_app/exception.py:79
 #, fuzzy
 msgid "Optionally describe below what you were doing:"
-msgstr "Geef hier eventueel aan wat u aan het doen was:"
+msgstr "Дополнительно опишите ваши действия:"
 
 #: frescobaldi_app/lyrics.py:131
+#, fuzzy
 msgid "&Hyphenate Lyrics Text"
-msgstr "&Liedteksten afbreken"
+msgstr "Расставить переносы в тексте"
 
 #: frescobaldi_app/lyrics.py:132
+#, fuzzy
 msgid "&Remove hyphenation"
-msgstr "Liedtekst-afbreking ver&wijderen"
+msgstr "Удалить переносы"
 
 #: frescobaldi_app/lyrics.py:133
+#, fuzzy
 msgid "&Copy Lyrics with hyphenation removed"
-msgstr "Liedteksten &kopiëren met afbreking verwijderd"
+msgstr "Удалить переносы"
 
 #: frescobaldi_app/actioncollectionmanager.py:123
 #: frescobaldi_app/preferences/shortcuts.py:203
@@ -189,27 +197,29 @@ msgid "This shortcut conflicts with the following command:"
 msgid_plural "This shortcut conflicts with the following commands:"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #: frescobaldi_app/actioncollectionmanager.py:129
 #: frescobaldi_app/preferences/shortcuts.py:209
+#, fuzzy
 msgid "Shortcut Conflict"
-msgstr "Sneltoetsconflict"
+msgstr "Сокращение"
 
 #: frescobaldi_app/actioncollectionmanager.py:131
 msgid "Edit again"
-msgstr "Opnieuw bewerken"
+msgstr ""
 
 #. L10N: state of document in window titlebar
 #: frescobaldi_app/mainwindow.py:223
 #, fuzzy
 msgid "[modified]"
-msgstr "gewijzigd"
+msgstr "изменен"
 
 #: frescobaldi_app/mainwindow.py:266
 #, fuzzy
 msgctxt "dialog title"
 msgid "Close Document"
-msgstr "Andere documenten sluiten"
+msgstr "&Исходный документ"
 
 #: frescobaldi_app/mainwindow.py:267
 msgid ""
@@ -223,7 +233,7 @@ msgstr ""
 #: frescobaldi_app/sessions/dialog.py:179
 #, fuzzy
 msgid "Warning"
-msgstr "Gitaarstemming"
+msgstr "Настройка гитары"
 
 #: frescobaldi_app/mainwindow.py:321
 msgid ""
@@ -236,7 +246,7 @@ msgstr ""
 #, fuzzy
 msgctxt "dialog title"
 msgid "Open File"
-msgstr "Bestand openen"
+msgstr "Открыть файл"
 
 #. L10N: a basic type of input in the editor
 #: frescobaldi_app/mainwindow.py:358 frescobaldi_app/mainwindow.py:363
@@ -259,19 +269,19 @@ msgstr ""
 #, fuzzy
 msgctxt "dialog title"
 msgid "Save File"
-msgstr "Bestand openen"
+msgstr "Сохранить"
 
 #: frescobaldi_app/mainwindow.py:421
 #, fuzzy
 msgctxt "dialog title"
 msgid "Save Copy"
-msgstr "Opslaan"
+msgstr "Сохранить"
 
 #: frescobaldi_app/mainwindow.py:427
 #, fuzzy
 msgctxt "dialog title"
 msgid "Save Selection"
-msgstr "Score sectie"
+msgstr "Настройки партитуры"
 
 #: frescobaldi_app/mainwindow.py:438 frescobaldi_app/mainwindow.py:566
 msgid ""
@@ -300,7 +310,7 @@ msgstr ""
 #, fuzzy
 msgctxt "dialog title"
 msgid "Print Source"
-msgstr "Brontekst afdrukken..."
+msgstr "Печать"
 
 #: frescobaldi_app/mainwindow.py:556
 msgid "Export as HTML"
@@ -342,18 +352,17 @@ msgstr ""
 #: frescobaldi_app/mainwindow.py:911
 #, fuzzy
 msgid "Open Current Directory"
-msgstr "Huidige map openen"
+msgstr "Открыть текущую папку"
 
 #: frescobaldi_app/mainwindow.py:912 frescobaldi_app/tabbar.py:167
 #: frescobaldi_app/sessions/manager.py:128
 #, fuzzy
 msgid "&Save"
-msgstr "Opslaan"
+msgstr "Сохранить"
 
 #: frescobaldi_app/mainwindow.py:913 frescobaldi_app/tabbar.py:168
-#, fuzzy
 msgid "Save &As..."
-msgstr "PDF opslaan als..."
+msgstr ""
 
 #: frescobaldi_app/mainwindow.py:914
 msgid "Save Copy or Selection As..."
@@ -362,11 +371,12 @@ msgstr ""
 #: frescobaldi_app/mainwindow.py:915
 #, fuzzy
 msgid "Save All"
-msgstr "Bestand openen"
+msgstr "Сохранить"
 
 #: frescobaldi_app/mainwindow.py:916
+#, fuzzy
 msgid "Print Source..."
-msgstr "Brontekst afdrukken..."
+msgstr "Печать"
 
 #: frescobaldi_app/mainwindow.py:917 frescobaldi_app/tabbar.py:169
 msgid "&Close"
@@ -374,17 +384,17 @@ msgstr ""
 
 #: frescobaldi_app/mainwindow.py:918
 msgid "Close Other Documents"
-msgstr "Andere documenten sluiten"
+msgstr ""
 
 #: frescobaldi_app/mainwindow.py:919
 #, fuzzy
 msgid "Close All Documents"
-msgstr "Andere documenten sluiten"
+msgstr "&Исходный документ"
 
 #: frescobaldi_app/mainwindow.py:920
 #, fuzzy
 msgid "Closes all documents and leaves the current session."
-msgstr "Transponeert alle noten in de selectie of het document."
+msgstr "Уменьшает длительности в 2 раза в выделенном фрагменте."
 
 #: frescobaldi_app/mainwindow.py:921
 msgid "&Quit"
@@ -397,7 +407,7 @@ msgstr ""
 #: frescobaldi_app/mainwindow.py:925
 #, fuzzy
 msgid "&Undo"
-msgstr "Losmaken"
+msgstr "Скрыть док"
 
 #: frescobaldi_app/mainwindow.py:926
 msgid "Re&do"
@@ -406,7 +416,7 @@ msgstr ""
 #: frescobaldi_app/mainwindow.py:927
 #, fuzzy
 msgid "Cut and Assign..."
-msgstr "Knippen en toewijzen"
+msgstr "Вырезать и Присвоить"
 
 #: frescobaldi_app/mainwindow.py:928
 msgid "Cu&t"
@@ -414,30 +424,28 @@ msgstr ""
 
 #: frescobaldi_app/mainwindow.py:929
 msgid "&Copy"
-msgstr "&Kopiëren"
+msgstr "&Копировать"
 
 #: frescobaldi_app/mainwindow.py:930
 msgid "Copy as Colored &HTML"
 msgstr ""
 
 #: frescobaldi_app/mainwindow.py:931
+#, fuzzy
 msgid "&Paste"
-msgstr ""
+msgstr "Размер страницы:"
 
 #: frescobaldi_app/mainwindow.py:932
-#, fuzzy
 msgid "Select &All"
-msgstr "Alles selecteren"
+msgstr ""
 
 #: frescobaldi_app/mainwindow.py:933
-#, fuzzy
 msgid "Select &Block"
-msgstr "Alles selecteren"
+msgstr ""
 
 #: frescobaldi_app/mainwindow.py:934
-#, fuzzy
 msgid "Select &None"
-msgstr "Alles selecteren"
+msgstr ""
 
 #: frescobaldi_app/mainwindow.py:935
 msgid "Select Whole Lines Up"
@@ -448,8 +456,9 @@ msgid "Select Whole Lines Down"
 msgstr ""
 
 #: frescobaldi_app/mainwindow.py:937
+#, fuzzy
 msgid "&Find..."
-msgstr ""
+msgstr "Печать"
 
 #: frescobaldi_app/mainwindow.py:938
 msgid "Find Ne&xt"
@@ -458,26 +467,27 @@ msgstr ""
 #: frescobaldi_app/mainwindow.py:939
 #, fuzzy
 msgid "Find Pre&vious"
-msgstr "Vorige"
+msgstr "Предыдущий"
 
 #: frescobaldi_app/mainwindow.py:940
+#, fuzzy
 msgid "&Replace..."
-msgstr ""
+msgstr "Поиск..."
 
 #: frescobaldi_app/mainwindow.py:941
 #, fuzzy
 msgid "Pr&eferences..."
-msgstr "Algemene voorkeuren"
+msgstr "Общие настройки"
 
 #: frescobaldi_app/mainwindow.py:943
 #, fuzzy
 msgid "&Next Document"
-msgstr "&Document"
+msgstr "&Документ"
 
 #: frescobaldi_app/mainwindow.py:944
 #, fuzzy
 msgid "&Previous Document"
-msgstr "&Brondocument"
+msgstr "&Исходный документ"
 
 #: frescobaldi_app/mainwindow.py:945
 msgid "Scroll Up"
@@ -486,7 +496,7 @@ msgstr ""
 #: frescobaldi_app/mainwindow.py:946
 #, fuzzy
 msgid "Scroll Down"
-msgstr "Stokken omlaag"
+msgstr "Вниз"
 
 #: frescobaldi_app/mainwindow.py:948
 msgid "New &Window"
@@ -527,18 +537,18 @@ msgstr ""
 #: frescobaldi_app/bookmarkmanager.py:115
 #, fuzzy
 msgid "Next Mark"
-msgstr "Volgende"
+msgstr "Далее"
 
 #: frescobaldi_app/bookmarkmanager.py:116
 #, fuzzy
 msgid "Previous Mark"
-msgstr "Vorige"
+msgstr "Предыдущий"
 
 #: frescobaldi_app/documentmenu.py:42
 #, fuzzy
 msgctxt "menu title"
 msgid "&Document"
-msgstr "&Document"
+msgstr "&Документ"
 
 #. L10N: 'always engraved': the document is marked as 'Always Engrave' in the LilyPond menu
 #: frescobaldi_app/documentmenu.py:109
@@ -546,9 +556,10 @@ msgid "[always engraved]"
 msgstr ""
 
 #: frescobaldi_app/menu.py:80
+#, fuzzy
 msgctxt "menu title"
 msgid "&File"
-msgstr ""
+msgstr "Заголовок"
 
 #: frescobaldi_app/menu.py:109
 msgctxt "submenu title"
@@ -564,7 +575,7 @@ msgstr ""
 #, fuzzy
 msgctxt "menu title"
 msgid "&View"
-msgstr "&Gereedschapsweergaven"
+msgstr "&Панели инструментов"
 
 #: frescobaldi_app/menu.py:166
 msgctxt "submenu title"
@@ -575,31 +586,31 @@ msgstr ""
 #, fuzzy
 msgctxt "menu title"
 msgid "&LilyPond"
-msgstr "&LilyPond"
+msgstr "LilyPond"
 
 #: frescobaldi_app/menu.py:198
 #, fuzzy
 msgctxt "menu title"
 msgid "&Tools"
-msgstr "&Gereedschapsweergaven"
+msgstr "&Панели инструментов"
 
 #: frescobaldi_app/menu.py:219
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Lyrics"
-msgstr "&Liedteksten"
+msgstr "&Тексты"
 
 #: frescobaldi_app/menu.py:230
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Pitch"
-msgstr "&Toonhoogte"
+msgstr "&Тон"
 
 #: frescobaldi_app/menu.py:243
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Rhythm"
-msgstr "&Ritme"
+msgstr "&Ритм"
 
 #: frescobaldi_app/menu.py:270
 msgctxt "menu title"
@@ -612,27 +623,28 @@ msgid "&Help"
 msgstr ""
 
 #: frescobaldi_app/document.py:143 frescobaldi_app/snippet/edit.py:163
+#, fuzzy
 msgid "Untitled"
-msgstr "Naamloos"
+msgstr "Заголовок 2"
 
 #: frescobaldi_app/document.py:145
-#, fuzzy
 msgid "Untitled ({num})"
-msgstr "Naamloos"
+msgstr ""
 
 #: frescobaldi_app/popplerdummy.py:42
 #, fuzzy
 msgid "Could not load the {name} module."
-msgstr "Kan de uitvoer van het LilyPond-proces niet lezen."
+msgstr "Не удалось загрузить %1"
 
 #: frescobaldi_app/search.py:99
 #, fuzzy
 msgid "Search:"
-msgstr "Zoeken..."
+msgstr "Поиск..."
 
 #: frescobaldi_app/search.py:100
+#, fuzzy
 msgid "&Case"
-msgstr ""
+msgstr "Размер страницы:"
 
 #: frescobaldi_app/search.py:101
 msgid "Case Sensitive"
@@ -649,11 +661,12 @@ msgstr ""
 #: frescobaldi_app/search.py:104
 #, fuzzy
 msgid "The total number of matches"
-msgstr "Het aantal coupletten."
+msgstr "Количество строф."
 
 #: frescobaldi_app/search.py:105
+#, fuzzy
 msgid "Close"
-msgstr ""
+msgstr "Композитор"
 
 #: frescobaldi_app/search.py:106
 msgid "Replace:"
@@ -675,48 +688,48 @@ msgstr ""
 #, fuzzy
 msgid ""
 "Replaces all occurrences of the search term in the document or selection."
-msgstr "Transponeert alle noten in de selectie of het document."
+msgstr "Уменьшает длительности в 2 раза в выделенном фрагменте."
 
 #: frescobaldi_app/hyphendialog.py:112
 msgid "Hyphenate Lyrics Text"
-msgstr "Liedteksten afbreken"
+msgstr "Расставить переносы в тексте"
 
 #: frescobaldi_app/hyphendialog.py:113
 msgid "Please select a language:"
-msgstr "Selecteer een taal:"
+msgstr "Выберите язык:"
 
 #: frescobaldi_app/app.py:125
+#, fuzzy
 msgid "LilyPond Files"
-msgstr "LilyPond-bestanden"
+msgstr "Файлы LilyPon"
 
 #: frescobaldi_app/app.py:126
 #, fuzzy
 msgid "LaTeX Files"
-msgstr "Bestand openen"
+msgstr "Все файлы"
 
 #: frescobaldi_app/app.py:127
 #, fuzzy
 msgid "DocBook Files"
-msgstr "PDF-bestanden"
+msgstr "Все файлы"
 
 #: frescobaldi_app/app.py:128
 #, fuzzy
 msgid "HTML Files"
-msgstr "Alle bestanden"
+msgstr "Все файлы"
 
 #: frescobaldi_app/app.py:129
 #, fuzzy
 msgid "Texinfo Files"
-msgstr "Bestand openen"
+msgstr "Открыть файл"
 
 #: frescobaldi_app/app.py:130
-#, fuzzy
 msgid "Scheme Files"
-msgstr "Bestand openen"
+msgstr ""
 
 #: frescobaldi_app/app.py:131
 msgid "All Files"
-msgstr "Alle bestanden"
+msgstr "Все файлы"
 
 #: frescobaldi_app/popplerprint.py:54
 msgid ""
@@ -731,22 +744,22 @@ msgstr ""
 #: frescobaldi_app/popplerprint.py:61
 #, fuzzy
 msgid "PDF Document"
-msgstr "&Document"
+msgstr "&Документ"
 
 #: frescobaldi_app/popplerprint.py:69
 #, fuzzy
 msgid "Print {filename}"
-msgstr "1 bestand afdrukken"
+msgstr "Печать %1"
 
 #: frescobaldi_app/popplerprint.py:87 frescobaldi_app/popplerprint.py:116
 #, fuzzy
 msgid "Printing Error"
-msgstr "Interne fout"
+msgstr "Внутренняя ошибка"
 
 #: frescobaldi_app/popplerprint.py:88 frescobaldi_app/popplerprint.py:117
 #, fuzzy
 msgid "Could not send the document to the printer."
-msgstr "Kan de uitvoer van het LilyPond-proces niet lezen."
+msgstr "Невозможно чтение из процесса LilyPond."
 
 #: frescobaldi_app/popplerprint.py:108
 msgid "Printing page {page} ({num} of {total})..."
@@ -760,7 +773,7 @@ msgstr ""
 #: frescobaldi_app/about.py:41
 #, fuzzy
 msgid "Python"
-msgstr "Pad"
+msgstr "Пути"
 
 #. L10N: the Qt4 application framework
 #: frescobaldi_app/about.py:43
@@ -771,7 +784,7 @@ msgstr ""
 #: frescobaldi_app/about.py:46
 #, fuzzy
 msgid "Poppler"
-msgstr "Papier"
+msgstr "Размер страницы:"
 
 #: frescobaldi_app/about.py:44
 msgid ""
@@ -792,46 +805,47 @@ msgstr ""
 
 #: frescobaldi_app/about.py:66
 msgid "About {appname}"
-msgstr "Over {appname}"
+msgstr ""
 
 #: frescobaldi_app/about.py:73
 #, fuzzy
 msgid "About"
-msgstr "Auto"
+msgstr "Автоматически"
 
 #: frescobaldi_app/about.py:74 frescobaldi_app/help/contents.py:262
 msgid "Credits"
 msgstr ""
 
 #: frescobaldi_app/about.py:114
+#, fuzzy
 msgid "Version {version}"
-msgstr "Versie {version}"
+msgstr "Вставить версию LilyPond"
 
 #: frescobaldi_app/about.py:116
 msgid "Copyright (c) {year} by {author}"
-msgstr "Copyright (c) {year} door {author}"
+msgstr ""
 
 #: frescobaldi_app/about.py:120
 msgid "Send an e-mail message to the maintainers."
-msgstr "Een e-mailbericht sturen naar de auteurs."
+msgstr ""
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
 #: frescobaldi_app/about.py:123 frescobaldi_app/help/contents.py:57
 msgid "Translated by Your Name."
-msgstr "Vertaald door Wilbert Berendsen."
+msgstr ""
 
 #: frescobaldi_app/about.py:128
 msgid "Licensed under the {gpl}."
-msgstr "Beschikbaar onder de {gpl}."
+msgstr ""
 
 #: frescobaldi_app/po/messages.py:27
 msgid "Usage"
-msgstr "Gebruik"
+msgstr ""
 
 #: frescobaldi_app/po/messages.py:28
 #, python-format
 msgid "Usage: %s\n"
-msgstr "Gebruik: %s\n"
+msgstr ""
 
 #: frescobaldi_app/po/messages.py:29
 msgid "show this help message and exit"
@@ -844,7 +858,7 @@ msgstr ""
 #. L10N: Command line options
 #: frescobaldi_app/po/messages.py:32
 msgid "Options"
-msgstr "Opties"
+msgstr ""
 
 #: frescobaldi_app/po/messages.py:36
 msgctxt "CloseButton"
@@ -857,10 +871,9 @@ msgid "What's This?"
 msgstr ""
 
 #: frescobaldi_app/po/messages.py:40
-#, fuzzy
 msgctxt "QDialogButtonBox"
 msgid "Apply"
-msgstr "Toepassen"
+msgstr ""
 
 #: frescobaldi_app/po/messages.py:41
 msgctxt "QDialogButtonBox"
@@ -881,7 +894,7 @@ msgstr ""
 #, fuzzy
 msgctxt "QDialogButtonBox"
 msgid "Save"
-msgstr "Opslaan"
+msgstr "Сохранить"
 
 #: frescobaldi_app/po/messages.py:45
 msgctxt "QDialogButtonBox"
@@ -889,15 +902,16 @@ msgid "Help"
 msgstr ""
 
 #: frescobaldi_app/po/messages.py:46
+#, fuzzy
 msgctxt "QDialogButtonBox"
 msgid "Close"
-msgstr ""
+msgstr "Композитор"
 
 #: frescobaldi_app/po/messages.py:47
 #, fuzzy
 msgctxt "QDialogButtonBox"
 msgid "Open"
-msgstr "%1 openen"
+msgstr "Открыть %1"
 
 #: frescobaldi_app/po/messages.py:48
 msgctxt "QDialogButtonBox"
@@ -908,7 +922,7 @@ msgstr ""
 #, fuzzy
 msgctxt "QFileDialog"
 msgid "File"
-msgstr "Alle bestanden"
+msgstr "Заголовок"
 
 #: frescobaldi_app/po/messages.py:51
 msgctxt "QFileDialog"
@@ -919,78 +933,75 @@ msgstr ""
 #, fuzzy
 msgctxt "QFileDialog"
 msgid "Find Directory"
-msgstr "Basismap:"
+msgstr "Каталог по умолчанию:"
 
 #: frescobaldi_app/po/messages.py:53
 #, fuzzy
 msgctxt "QFileDialog"
 msgid "All Files (*)"
-msgstr "Alle bestanden"
+msgstr "Все файлы"
 
 #: frescobaldi_app/po/messages.py:55
 #, fuzzy
 msgctxt "QScrollBar"
 msgid "Scroll here"
-msgstr "Slagwerk volgt."
+msgstr "Партия ударных"
 
 #: frescobaldi_app/po/messages.py:56
 #, fuzzy
 msgctxt "QScrollBar"
 msgid "Top"
-msgstr "Tik"
+msgstr "Щёлкните"
 
 #: frescobaldi_app/po/messages.py:57
 #, fuzzy
 msgctxt "QScrollBar"
 msgid "Bottom"
-msgstr "Onderste zijbalk"
+msgstr "Портато"
 
 #: frescobaldi_app/po/messages.py:58
-#, fuzzy
 msgctxt "QScrollBar"
 msgid "Page up"
-msgstr "Aantal pagina's:"
+msgstr ""
 
 #: frescobaldi_app/po/messages.py:59
-#, fuzzy
 msgctxt "QScrollBar"
 msgid "Page down"
-msgstr "Praller naar onder"
+msgstr ""
 
 #: frescobaldi_app/po/messages.py:60
-#, fuzzy
 msgctxt "QScrollBar"
 msgid "Scroll up"
-msgstr "Praller naar boven"
+msgstr ""
 
 #: frescobaldi_app/po/messages.py:61
-#, fuzzy
 msgctxt "QScrollBar"
 msgid "Scroll down"
-msgstr "Praller naar onder"
+msgstr ""
 
 #: frescobaldi_app/po/messages.py:62
 #, fuzzy
 msgctxt "QScrollBar"
 msgid "Left edge"
-msgstr "Linker hak"
+msgstr "Left heel"
 
 #: frescobaldi_app/po/messages.py:63
 #, fuzzy
 msgctxt "QScrollBar"
 msgid "Right edge"
-msgstr "Rechter hak"
+msgstr "Right heel"
 
 #: frescobaldi_app/po/messages.py:64
 #, fuzzy
 msgctxt "QScrollBar"
 msgid "Page left"
-msgstr "Aantal pagina's:"
+msgstr "Флажолет"
 
 #: frescobaldi_app/po/messages.py:65
+#, fuzzy
 msgctxt "QScrollBar"
 msgid "Page right"
-msgstr ""
+msgstr "Вставить ритм"
 
 #: frescobaldi_app/po/messages.py:66
 msgctxt "QScrollBar"
@@ -1003,23 +1014,22 @@ msgid "Scroll right"
 msgstr ""
 
 #: frescobaldi_app/autocomplete/__init__.py:79
-#, fuzzy
 msgid "Automatic &Completion"
-msgstr "automatisch"
+msgstr ""
 
 #: frescobaldi_app/autocomplete/__init__.py:80
 msgid "Show C&ompletions Popup"
 msgstr ""
 
 #: frescobaldi_app/help/browser.py:69
-#, fuzzy
 msgid "Toolbar"
-msgstr "&Gereedschapsweergaven"
+msgstr ""
 
 #: frescobaldi_app/help/browser.py:70
 #: frescobaldi_app/helpbrowser/__init__.py:71
+#, fuzzy
 msgid "Back"
-msgstr ""
+msgstr "Медные духовые"
 
 #: frescobaldi_app/help/browser.py:71
 #: frescobaldi_app/helpbrowser/__init__.py:72
@@ -1035,12 +1045,12 @@ msgstr ""
 #: frescobaldi_app/help/helpimpl.py:115
 #, fuzzy
 msgid "Up:"
-msgstr "Boven"
+msgstr "Вверх"
 
 #: frescobaldi_app/help/helpimpl.py:130
 #, fuzzy
 msgid "Next:"
-msgstr "Naam:"
+msgstr "Далее"
 
 #: frescobaldi_app/help/helpimpl.py:133
 msgid "See also:"
@@ -1092,7 +1102,7 @@ msgstr ""
 #: frescobaldi_app/help/contents.py:86
 #, fuzzy
 msgid "Introduction"
-msgstr "Piano-uittreksel"
+msgstr "Направление:"
 
 #: frescobaldi_app/help/contents.py:89
 msgid ""
@@ -1140,27 +1150,26 @@ msgid "Engrave (publish)"
 msgstr ""
 
 #: frescobaldi_app/help/contents.py:135
-#, fuzzy
 msgctxt "menu title"
 msgid "Edit"
-msgstr "Afdrukken..."
+msgstr ""
 
 #: frescobaldi_app/help/contents.py:136
 #: frescobaldi_app/preferences/__init__.py:98
 #, fuzzy
 msgid "Preferences"
-msgstr "Algemene voorkeuren"
+msgstr "Общие настройки"
 
 #: frescobaldi_app/help/contents.py:137
 #: frescobaldi_app/preferences/__init__.py:161
+#, fuzzy
 msgid "LilyPond Preferences"
-msgstr "LilyPond-voorkeuren"
+msgstr "Файлы LilyPon"
 
 #: frescobaldi_app/help/contents.py:139
-#, fuzzy
 msgctxt "menu title"
 msgid "View"
-msgstr "&Gereedschapsweergaven"
+msgstr ""
 
 #: frescobaldi_app/help/contents.py:140
 msgid "Clear Error Marks"
@@ -1248,15 +1257,16 @@ msgstr ""
 #: frescobaldi_app/help/contents.py:216
 #, fuzzy
 msgid "Other Tools"
-msgstr "&Extra gereedschappen"
+msgstr "Другие"
 
 #: frescobaldi_app/help/contents.py:219
 msgid "<p>Some other important tools are listed here.</p>\n"
 msgstr ""
 
 #: frescobaldi_app/help/contents.py:234
+#, fuzzy
 msgid "About Frescobaldi"
-msgstr ""
+msgstr "Frescobaldi"
 
 #: frescobaldi_app/help/contents.py:237
 msgid ""
@@ -1312,8 +1322,9 @@ msgid ""
 msgstr ""
 
 #: frescobaldi_app/help/contents.py:303
+#, fuzzy
 msgid "History of Frescobaldi"
-msgstr ""
+msgstr "Frescobaldi"
 
 #: frescobaldi_app/help/contents.py:306
 msgid ""
@@ -1346,29 +1357,31 @@ msgstr ""
 #: frescobaldi_app/snippet/builtin.py:38
 #, fuzzy
 msgid "Blank Line"
-msgstr "Maatstrepen"
+msgstr "&Тактовые черты"
 
 #: frescobaldi_app/snippet/builtin.py:44
 #, fuzzy
 msgid "Single Typographical Quotes"
-msgstr "Typografische aanhalingstekens"
+msgstr "Использовать типографские кавычки"
 
 #: frescobaldi_app/snippet/builtin.py:49
 #, fuzzy
 msgid "Double Typographical Quotes"
-msgstr "Typografische aanhalingstekens"
+msgstr "Использовать типографские кавычки"
 
 #: frescobaldi_app/snippet/builtin.py:79
 msgid "Tuplets"
 msgstr ""
 
 #: frescobaldi_app/snippet/builtin.py:89
+#, fuzzy
 msgid "Modern 2/2 Time Signature"
-msgstr "Moderne 2/2 maat"
+msgstr "Размер:"
 
 #: frescobaldi_app/snippet/builtin.py:95
+#, fuzzy
 msgid "Modern 4/4 Time Signature"
-msgstr "Moderne 4/4 maat"
+msgstr "Размер:"
 
 #: frescobaldi_app/snippet/builtin.py:101
 msgid "Tactus Time Signature (number with note)"
@@ -1377,41 +1390,42 @@ msgstr ""
 #: frescobaldi_app/snippet/builtin.py:112
 #, fuzzy
 msgid "LilyPond Version"
-msgstr "Standaard LilyPond-versie."
+msgstr "Вставить версию LilyPond"
 
 #: frescobaldi_app/snippet/builtin.py:118
 #: frescobaldi_app/preferences/fontscolors.py:496
 msgid "Repeat"
-msgstr "Herhaling (\\repeat)"
+msgstr ""
 
 #: frescobaldi_app/snippet/builtin.py:123
 msgid "Relative Music"
-msgstr "Relatieve muziek"
+msgstr ""
 
 #: frescobaldi_app/snippet/builtin.py:130
 #, fuzzy
 msgid "Upper case selection"
-msgstr "Score sectie"
+msgstr "Настройки партитуры"
 
 #: frescobaldi_app/snippet/builtin.py:136
 #, fuzzy
 msgid "Lower case selection"
-msgstr "Score sectie"
+msgstr "Настройки партитуры"
 
 #: frescobaldi_app/snippet/builtin.py:142
 #, fuzzy
 msgid "Title case selection"
-msgstr "Score sectie"
+msgstr "Построчный режим выбора"
 
 #: frescobaldi_app/snippet/builtin.py:148
 #: frescobaldi_app/preferences/fontscolors.py:501
+#, fuzzy
 msgid "Markup"
-msgstr ""
+msgstr "Арфа"
 
 #: frescobaldi_app/snippet/builtin.py:153
 #, fuzzy
 msgid "Markup lines"
-msgstr "Maatstrepen"
+msgstr "&Тактовые черты"
 
 #: frescobaldi_app/snippet/builtin.py:161
 msgid "Markup column"
@@ -1420,21 +1434,21 @@ msgstr ""
 #: frescobaldi_app/snippet/builtin.py:166
 #, fuzzy
 msgid "Tagline with date and LilyPond version"
-msgstr "Kan LilyPond-versie niet bepalen."
+msgstr "Вставить версию LilyPond"
 
 #: frescobaldi_app/snippet/builtin.py:176
 msgid "Header Template"
-msgstr "Kopregel-sjabloon"
+msgstr ""
 
 #: frescobaldi_app/snippet/builtin.py:191
 #, fuzzy
 msgid "No Tagline"
-msgstr "Tagline"
+msgstr "Строка программы"
 
 #: frescobaldi_app/snippet/builtin.py:199
 #, fuzzy
 msgid "No Barnumbers"
-msgstr "Layout: geen maatnummers"
+msgstr "Удалить номера тактов"
 
 #. L10N: a basic type of input in the editor
 #: frescobaldi_app/snippet/builtin.py:209
@@ -1445,25 +1459,25 @@ msgstr "Layout: geen maatnummers"
 #: frescobaldi_app/preferences/fontscolors.py:538
 #, fuzzy
 msgid "Comment"
-msgstr "Commando"
+msgstr "Команда печати:"
 
 #: frescobaldi_app/snippet/builtin.py:245
 #, fuzzy
 msgid "A5 Paper"
-msgstr "Papier"
+msgstr "Размер страницы:"
 
 #: frescobaldi_app/snippet/model.py:59
 msgid "Name"
-msgstr "Naam"
+msgstr "Имя"
 
 #: frescobaldi_app/snippet/model.py:61
 msgid "Description"
-msgstr "Omschrijving"
+msgstr "Описание"
 
 #: frescobaldi_app/snippet/model.py:63
 #: frescobaldi_app/preferences/shortcuts.py:56
 msgid "Shortcut"
-msgstr "Sneltoets"
+msgstr "Сокращение"
 
 #: frescobaldi_app/snippet/expand.py:76
 msgid "The current date in YYYY-MM-DD format."
@@ -1472,7 +1486,7 @@ msgstr ""
 #: frescobaldi_app/snippet/expand.py:80
 #, fuzzy
 msgid "The version of the default LilyPond program."
-msgstr "Naam of pad van het LilyPond programma."
+msgstr "Имя или полный путь к программе LilyPond"
 
 #: frescobaldi_app/snippet/expand.py:84
 msgid "The version of Frescobaldi."
@@ -1489,7 +1503,7 @@ msgstr ""
 #: frescobaldi_app/snippet/expand.py:96
 #, fuzzy
 msgid "The name of the current document."
-msgstr "Terminal met huidig document s&ynchroniseren"
+msgstr "Синхронизировать консоль с текущим документом"
 
 #: frescobaldi_app/snippet/expand.py:100
 msgid "Moves the text cursor here after insert."
@@ -1507,7 +1521,7 @@ msgstr ""
 
 #: frescobaldi_app/snippet/menu.py:54
 msgid "&Insert"
-msgstr "Inv&oegen"
+msgstr "&Вставка"
 
 #: frescobaldi_app/snippet/insert.py:170
 msgid "Snippet error"
@@ -1517,21 +1531,20 @@ msgstr ""
 #: frescobaldi_app/snippet/widget.py:293
 #, fuzzy
 msgid "Snippets"
-msgstr "Rusten verwijderen"
+msgstr "Удалить паузы"
 
 #: frescobaldi_app/snippet/tool.py:53
 #, fuzzy
 msgid "&Snippets"
-msgstr "Rusten verwijderen"
+msgstr "Удалить паузы"
 
 #: frescobaldi_app/snippet/tool.py:73
-#, fuzzy
 msgid "&Snippets..."
-msgstr "Afdrukken..."
+msgstr ""
 
 #: frescobaldi_app/snippet/widget.py:137
 msgid "Search..."
-msgstr "Zoeken..."
+msgstr "Поиск..."
 
 #: frescobaldi_app/snippet/widget.py:141
 msgid "Add..."
@@ -1544,7 +1557,7 @@ msgstr ""
 #: frescobaldi_app/snippet/widget.py:144
 #, fuzzy
 msgid "Edit..."
-msgstr "Afdrukken..."
+msgstr "Печать"
 
 #: frescobaldi_app/snippet/widget.py:146
 msgid "Edit the current snippet. ({key})"
@@ -1553,7 +1566,7 @@ msgstr ""
 #: frescobaldi_app/snippet/widget.py:147
 #, fuzzy
 msgid "Remove"
-msgstr "Stokken verwijderen"
+msgstr "Удалить нотные штили"
 
 #: frescobaldi_app/snippet/widget.py:149
 msgid "Remove the current snippet. ({key})"
@@ -1561,21 +1574,19 @@ msgstr ""
 
 #: frescobaldi_app/snippet/widget.py:150
 msgid "Apply"
-msgstr "Toepassen"
+msgstr ""
 
 #: frescobaldi_app/snippet/widget.py:151
 #, fuzzy
 msgid "Apply the current snippet."
-msgstr "Zet de cursor op deze plaats."
+msgstr "Поместить курсор на это место."
 
 #: frescobaldi_app/snippet/widget.py:154
 #, fuzzy
 msgid ""
 "Enter text to search in the snippets list.\n"
 "See \"What's This\" for more information."
-msgstr ""
-"Voer zoveel letters (S, A, T of B) in als er balken zijn.\n"
-"Zie \"Wat is dit\" voor meer informatie."
+msgstr "Здесь Вы можете выбрать, какие Guile скрипты загружать в Rumor."
 
 #: frescobaldi_app/snippet/widget.py:157
 msgid ""
@@ -1641,12 +1652,11 @@ msgstr ""
 #, fuzzy
 msgctxt "menu title"
 msgid "Insert"
-msgstr "Inv&oegen"
+msgstr "&Вставка"
 
 #: frescobaldi_app/snippet/widget.py:329
-#, fuzzy
 msgid "Snippets..."
-msgstr "Afdrukken..."
+msgstr ""
 
 #: frescobaldi_app/snippet/edit.py:116
 msgid "Edit Snippet"
@@ -1657,31 +1667,29 @@ msgid "New Snippet"
 msgstr ""
 
 #: frescobaldi_app/snippet/edit.py:118
-#, fuzzy
 msgid "Snippet Text:"
-msgstr "&Brontekst"
+msgstr ""
 
 #: frescobaldi_app/snippet/edit.py:119
 #, fuzzy
 msgid "Title:"
-msgstr "Titel"
+msgstr "Заголовок"
 
 #: frescobaldi_app/snippet/edit.py:120
 #, fuzzy
 msgid "Shortcut:"
-msgstr "Sneltoets"
+msgstr "Сокращение"
 
 #: frescobaldi_app/snippet/edit.py:125
 #: frescobaldi_app/scorewiz/settings.py:189
 #: frescobaldi_app/scorewiz/scoreproperties.py:171
 #: frescobaldi_app/quickinsert/buttongroup.py:182
 msgid "None"
-msgstr "Geen"
+msgstr "Нет"
 
 #: frescobaldi_app/snippet/edit.py:131
-#, fuzzy
 msgid "Click to change the keyboard shortcut."
-msgstr "Klik op de knop om de sneltoets in te stellen voor:"
+msgstr ""
 
 #: frescobaldi_app/snippet/edit.py:136
 msgid "Empty Snippet"
@@ -1733,9 +1741,8 @@ msgid "Adjusts the selection to not include starting and trialing whitespace."
 msgstr ""
 
 #: frescobaldi_app/snippet/edit.py:228
-#, fuzzy
 msgid "Selects all inserted text."
-msgstr "&Brontekst"
+msgstr ""
 
 #: frescobaldi_app/snippet/edit.py:234
 msgid ""
@@ -1783,148 +1790,140 @@ msgstr ""
 #: frescobaldi_app/rhythm/__init__.py:146
 #, fuzzy
 msgid "&Double durations"
-msgstr "Tijdsduur verdubbelen"
+msgstr "Увеличить длительности в 2 раза"
 
 #: frescobaldi_app/rhythm/__init__.py:148
 msgid "Double all the durations in the selection."
-msgstr "Alle nootlengtes in de selectie verdubbelen."
+msgstr "Увеличивает длительности в 2 раза в выделенном фрагменте"
 
 #: frescobaldi_app/rhythm/__init__.py:149
 #, fuzzy
 msgid "&Halve durations"
-msgstr "Tijdsduur halveren"
+msgstr "Уменьшить длительности в 2 раза"
 
 #: frescobaldi_app/rhythm/__init__.py:151
 msgid "Halve all the durations in the selection."
-msgstr "Alle nootlengtes in de selectie halveren."
+msgstr "Уменьшает длительности в 2 раза в выделенном фрагменте."
 
 #: frescobaldi_app/rhythm/__init__.py:152
 #, fuzzy
 msgid "Do&t durations"
-msgstr "Punt toevoegen"
+msgstr "Добавить точки к длительностям"
 
 #: frescobaldi_app/rhythm/__init__.py:154
 msgid "Add a dot to all the durations in the selection."
-msgstr "Een punt toevoegen aan alle noten in de selectie."
+msgstr "Добавляет точки ко всем длительностям в выделенном фрагменте."
 
 #: frescobaldi_app/rhythm/__init__.py:155
 #, fuzzy
 msgid "&Undot durations"
-msgstr "Punt verwijderen"
+msgstr "Удалить точки у длительностей"
 
 #: frescobaldi_app/rhythm/__init__.py:157
 msgid "Remove one dot from all the durations in the selection."
-msgstr "Een punt verwijderen van alle noten in de selectie."
+msgstr "Удаляет одну точку у всех длительностей в выделенном фрагменте."
 
 #: frescobaldi_app/rhythm/__init__.py:158
 #, fuzzy
 msgid "Remove &scaling"
-msgstr "Schaling verwijderen"
+msgstr "Удалить нерегулярные группы"
 
 #: frescobaldi_app/rhythm/__init__.py:160
 msgid "Remove all scaling (*n/m) from the durations in the selection."
-msgstr "Alle schaling (*n/m) verwijderen van de nootlengtes in de selectie."
+msgstr "Удалить нерегулярные группы (*n/m) в выделенном."
 
 #: frescobaldi_app/rhythm/__init__.py:161
 #, fuzzy
 msgid "&Remove durations"
-msgstr "Tijdsduur verwijderen"
+msgstr "Удалить длительности"
 
 #: frescobaldi_app/rhythm/__init__.py:163
 msgid "Remove all durations from the selection."
-msgstr "De volledige tijdsduur-informatie verwijderen uit de selectie."
+msgstr "Удаляет все длительности в выделенном фрагменте."
 
 #: frescobaldi_app/rhythm/__init__.py:164
 #, fuzzy
 msgid "Make &implicit"
-msgstr "Impliciet maken"
+msgstr "Сделать длительности неявными"
 
 #: frescobaldi_app/rhythm/__init__.py:166
 msgid "Make durations implicit (remove repeated durations)."
-msgstr "Tijdsduren impliciet maken (herhaalde lengtes verwijderen)."
+msgstr "Делает длительности неявными (удаляет повторяющиеся длительности)"
 
 #: frescobaldi_app/rhythm/__init__.py:167
 #, fuzzy
 msgid "Make implicit (per &line)"
-msgstr "Impliciet maken (per regel)"
+msgstr "Сделать длительности неявными"
 
 #: frescobaldi_app/rhythm/__init__.py:169
+#, fuzzy
 msgid ""
 "Make durations implicit (remove repeated durations), except for the first "
 "duration in a line."
-msgstr ""
-"Tijdsduren impliciet maken (herhaalde lengtes verwijderen), behalve de "
-"eerste tijdsduur in een regel."
+msgstr "Делает длительности неявными (удаляет повторяющиеся длительности)"
 
 #: frescobaldi_app/rhythm/__init__.py:171
 #, fuzzy
 msgid "Make &explicit"
-msgstr "Expliciet maken"
+msgstr "Сделать длительности явными"
 
 #: frescobaldi_app/rhythm/__init__.py:173
 msgid ""
 "Make durations explicit (add duration to every note, even if it is the same "
 "as the preceding note)."
-msgstr ""
-"De toonduur na elke noot weergeven, ook als deze hetzelfde is als de vorige "
-"noot."
+msgstr "Сделать длительности явными"
 
 #: frescobaldi_app/rhythm/__init__.py:175
 #, fuzzy
 msgid "&Apply rhythm..."
-msgstr "Ritme toepassen..."
+msgstr "Применить ритм..."
 
 #: frescobaldi_app/rhythm/__init__.py:177
 msgid "Apply an entered rhythm to the selected music."
-msgstr "Een ingevoerd ritme op de geselecteerde muziek toepassen."
+msgstr "Применить введенный ритм к выделенной музыке."
 
 #: frescobaldi_app/rhythm/__init__.py:178
 #, fuzzy
 msgid "&Copy rhythm"
-msgstr "Ritme kopiëren"
+msgstr "Копировать ритм"
 
 #: frescobaldi_app/rhythm/__init__.py:180
 msgid "Copy the rhythm of the selected music."
-msgstr "Het ritme van de geselecteerde muziek kopiëren."
+msgstr "Копировать ритм выделенной музыки."
 
 #: frescobaldi_app/rhythm/__init__.py:181
 #, fuzzy
 msgid "&Paste rhythm"
-msgstr "Ritme plakken"
+msgstr "Вставить ритм"
 
 #: frescobaldi_app/rhythm/__init__.py:182
 msgid "Paste a rhythm to the selected music."
-msgstr "Een ritme in de geselecteerde muziek plakken."
+msgstr "Вставить ритм в выделенную музыку."
 
 #: frescobaldi_app/rhythm/rhythm.py:141
 msgid "Apply Rhythm"
-msgstr "Ritme toepassen"
+msgstr "Применить ритм"
 
 #: frescobaldi_app/rhythm/rhythm.py:141
 msgid "Enter a rhythm:"
-msgstr "Voer een ritme in:"
+msgstr "Введите ритм:"
 
 #: frescobaldi_app/preferences/lilypond.py:79
 #, fuzzy
 msgid "LilyPond versions to use"
-msgstr "De te gebruiken LilyPond-versies:"
+msgstr "Вставить версию LilyPond"
 
 #: frescobaldi_app/preferences/lilypond.py:80
 #, fuzzy
 msgid "Automatically choose LilyPond version from document"
-msgstr ""
-"Automatische versie-selectie inschakelen (kiest LilyPond-versie op basis van "
-"document)"
+msgstr "Версия LilyPond используемая для новых документов"
 
 #: frescobaldi_app/preferences/lilypond.py:82
 #, fuzzy
 msgid ""
 "If checked, the document's version determines the LilyPond version to use.\n"
 "See \"What's This\" for more information."
-msgstr ""
-"Hier kunt een vaste LilyPond-versie kiezen om te gebruiken op documenten in "
-"deze sessie.\n"
-"Raadpleeg \"Wat is dit\" (Shift+F1) voor meer informatie."
+msgstr "Здесь Вы можете выбрать, какие Guile скрипты загружать в Rumor."
 
 #: frescobaldi_app/preferences/lilypond.py:85
 msgid ""
@@ -1944,41 +1943,43 @@ msgstr ""
 #: frescobaldi_app/preferences/lilypond.py:146
 #, fuzzy
 msgid "Set as &Default"
-msgstr "Als standaard instellen"
+msgstr "Сохранить по умолчанию"
 
 #: frescobaldi_app/preferences/lilypond.py:184
+#, fuzzy
 msgid "default"
-msgstr "standaard"
+msgstr "По умолчанию"
 
 #: frescobaldi_app/preferences/lilypond.py:232
+#, fuzzy
 msgid "LilyPond Command:"
-msgstr "LilyPond-commando:"
+msgstr "Документация LilyPond:"
 
 #: frescobaldi_app/preferences/lilypond.py:233
 msgid "Name or full path of the LilyPond program."
-msgstr "Naam of pad van het LilyPond programma."
+msgstr "Имя или полный путь к программе LilyPond"
 
 #: frescobaldi_app/preferences/lilypond.py:234
 msgid "Convert-ly:"
-msgstr "Convert-ly:"
+msgstr ""
 
 #: frescobaldi_app/preferences/lilypond.py:235
 #, fuzzy
 msgid "LilyPond-book:"
-msgstr "Lilypond-book:"
+msgstr "LilyPond"
 
 #: frescobaldi_app/preferences/lilypond.py:236
 msgid "Include in automatic version selection"
-msgstr "Meenemen in automatische versie-selectie"
+msgstr ""
 
 #: frescobaldi_app/preferences/lilypond.py:273
+#, fuzzy
 msgid "Running LilyPond"
-msgstr "Bij het starten van LilyPond"
+msgstr "LilyPond"
 
 #: frescobaldi_app/preferences/lilypond.py:274
-#, fuzzy
 msgid "Save document if possible"
-msgstr "Eén document gefaald."
+msgstr ""
 
 #: frescobaldi_app/preferences/lilypond.py:276
 msgid ""
@@ -1989,26 +1990,27 @@ msgstr ""
 #: frescobaldi_app/preferences/lilypond.py:278
 #, fuzzy
 msgid "Delete intermediate output files"
-msgstr "Laat LilyPond tussentijdse uitvoerbestanden verwijderen"
+msgstr "Удалить служебные файлы LilyPond."
 
 #: frescobaldi_app/preferences/lilypond.py:280
 #, fuzzy
 msgid "If checked, LilyPond will delete intermediate PostScript files."
-msgstr "Laat LilyPond tussentijdse uitvoerbestanden verwijderen"
+msgstr "Удалить служебные файлы LilyPond."
 
 #: frescobaldi_app/preferences/lilypond.py:281
+#, fuzzy
 msgid "LilyPond include path:"
-msgstr "LilyPond include-pad:"
+msgstr "Файлы LilyPon"
 
 #: frescobaldi_app/preferences/general.py:99
 #: frescobaldi_app/preferences/__init__.py:151
 msgid "General Preferences"
-msgstr "Algemene voorkeuren"
+msgstr "Общие настройки"
 
 #: frescobaldi_app/preferences/general.py:100
 #: frescobaldi_app/scorewiz/settings.py:216
 msgid "Language:"
-msgstr "Taal:"
+msgstr "Язык:"
 
 #: frescobaldi_app/preferences/general.py:101
 msgid "No Translation"
@@ -2031,35 +2033,36 @@ msgstr ""
 
 #: frescobaldi_app/preferences/general.py:134
 msgid "Session to load if Frescobaldi is started without arguments"
-msgstr "Als Frescobaldi zonder argumenten wordt gestart,"
+msgstr ""
 
 #: frescobaldi_app/preferences/general.py:135
 msgid "Start with no session"
-msgstr "Lege sessie starten"
+msgstr ""
 
 #: frescobaldi_app/preferences/general.py:136
 msgid "Start with last used session"
-msgstr "Laatstgebruikte sessie starten"
+msgstr ""
 
 #: frescobaldi_app/preferences/general.py:137
 msgid "Start with session:"
-msgstr "Met deze sessie starten:"
+msgstr ""
 
 #: frescobaldi_app/preferences/general.py:190
+#, fuzzy
 msgid "When saving documents"
-msgstr "Bij het opslaan van documenten"
+msgstr "Послать документы по email"
 
 #: frescobaldi_app/preferences/general.py:191
 msgid "Remember cursor position, bookmarks, etc."
-msgstr "Cursorpositie, bladwijzers, etc. onthouden"
+msgstr "Запоминать позицию курсора, закладки и т.п."
 
 #: frescobaldi_app/preferences/general.py:192
 msgid "Default directory:"
-msgstr "Standaardmap:"
+msgstr "Каталог по умолчанию:"
 
 #: frescobaldi_app/preferences/general.py:193
 msgid "The default folder for your LilyPond documents (optional)."
-msgstr "De standaardmap voor uw LilyPond documenten (optioneel)."
+msgstr "Каталог по умолчанию для Ваших LilyPond документов (опционально)."
 
 #: frescobaldi_app/preferences/fontscolors.py:121
 msgid "Use this scheme for printing"
@@ -2078,7 +2081,7 @@ msgstr ""
 #: frescobaldi_app/preferences/fontscolors.py:124
 #, fuzzy
 msgid "Default Styles"
-msgstr "Standaard"
+msgstr "По умолчанию"
 
 #: frescobaldi_app/preferences/fontscolors.py:157
 msgid "(Inherits: {0})"
@@ -2087,8 +2090,9 @@ msgstr ""
 #. L10N: color of Text
 #: frescobaldi_app/preferences/fontscolors.py:360
 #: frescobaldi_app/preferences/fontscolors.py:435
+#, fuzzy
 msgid "Text"
-msgstr ""
+msgstr "Далее"
 
 #. L10N: color of Background
 #: frescobaldi_app/preferences/fontscolors.py:361
@@ -2103,18 +2107,16 @@ msgstr ""
 #: frescobaldi_app/preferences/fontscolors.py:363
 #, fuzzy
 msgid "Italic"
-msgstr "Italiaans"
+msgstr "Итальянский"
 
 #: frescobaldi_app/preferences/fontscolors.py:364
-#, fuzzy
 msgid "Underline"
-msgstr "Extender-lijnen gebruiken"
+msgstr ""
 
 #. L10N: color of Selected Text
 #: frescobaldi_app/preferences/fontscolors.py:439
-#, fuzzy
 msgid "Selected Text"
-msgstr "&Brontekst"
+msgstr ""
 
 #. L10N: color of Selection Background
 #: frescobaldi_app/preferences/fontscolors.py:441
@@ -2130,13 +2132,13 @@ msgstr ""
 #: frescobaldi_app/preferences/fontscolors.py:445
 #, fuzzy
 msgid "Marked Line"
-msgstr "Maatstrepen"
+msgstr "&Тактовые черты"
 
 #. L10N: color of line with Error
 #: frescobaldi_app/preferences/fontscolors.py:447
 #, fuzzy
 msgid "Error Line"
-msgstr "Maatstrepen"
+msgstr "&Тактовые черты"
 
 #. L10N: color of highlighted search result
 #: frescobaldi_app/preferences/fontscolors.py:449
@@ -2145,15 +2147,14 @@ msgstr ""
 
 #. L10N: color of characters that match (e.g. braces, parentheses)
 #: frescobaldi_app/preferences/fontscolors.py:451
-#, fuzzy
 msgid "Matching Character"
-msgstr "Speciale tekens"
+msgstr ""
 
 #. L10N: color of paper in music preview
 #: frescobaldi_app/preferences/fontscolors.py:453
 #, fuzzy
 msgid "Preview Background"
-msgstr "vooruitblik"
+msgstr "режим просмотра"
 
 #. L10N: color of objects highlighting in preview
 #: frescobaldi_app/preferences/fontscolors.py:455
@@ -2164,14 +2165,15 @@ msgstr ""
 #: frescobaldi_app/preferences/fontscolors.py:462
 #: frescobaldi_app/preferences/fontscolors.py:497
 #: frescobaldi_app/preferences/fontscolors.py:533
+#, fuzzy
 msgid "Keyword"
-msgstr ""
+msgstr "Клавиатура"
 
 #. L10N: a basic type of input in the editor
 #: frescobaldi_app/preferences/fontscolors.py:464
 #, fuzzy
 msgid "Function"
-msgstr "Actie:"
+msgstr "Направление:"
 
 #. L10N: a basic type of input in the editor
 #: frescobaldi_app/preferences/fontscolors.py:466
@@ -2183,8 +2185,9 @@ msgstr ""
 #: frescobaldi_app/preferences/fontscolors.py:468
 #: frescobaldi_app/preferences/fontscolors.py:510
 #: frescobaldi_app/preferences/fontscolors.py:520
+#, fuzzy
 msgid "Value"
-msgstr ""
+msgstr "Размер страницы:"
 
 #. L10N: a basic type of input in the editor
 #: frescobaldi_app/preferences/fontscolors.py:470
@@ -2193,28 +2196,28 @@ msgstr ""
 #: frescobaldi_app/preferences/fontscolors.py:529
 #, fuzzy
 msgid "String"
-msgstr "Snaarinstrumenten"
+msgstr "Струнные"
 
 #. L10N: a basic type of input in the editor
 #: frescobaldi_app/preferences/fontscolors.py:472
 #, fuzzy
 msgid "Escape"
-msgstr "Oblong"
+msgstr "Альбомная"
 
 #: frescobaldi_app/preferences/fontscolors.py:483
 #, fuzzy
 msgid "Pitch"
-msgstr "&Toonhoogte"
+msgstr "&Тон"
 
 #: frescobaldi_app/preferences/fontscolors.py:484
 #, fuzzy
 msgid "Octave"
-msgstr "Opslaan"
+msgstr "Сохранить"
 
 #: frescobaldi_app/preferences/fontscolors.py:485
 #, fuzzy
 msgid "Duration"
-msgstr "Tijdsduren"
+msgstr "Добавить точки к длительностям"
 
 #: frescobaldi_app/preferences/fontscolors.py:486
 msgid "Octave Check"
@@ -2228,31 +2231,30 @@ msgstr ""
 #: frescobaldi_app/preferences/fontscolors.py:489
 #, fuzzy
 msgid "String Number"
-msgstr "Paginanummers afdrukken"
+msgstr "&Тактовые черты"
 
 #: frescobaldi_app/preferences/fontscolors.py:490
 #: frescobaldi_app/quickinsert/spanners.py:143
 msgid "Slur"
-msgstr "Boogje"
+msgstr ""
 
 #: frescobaldi_app/preferences/fontscolors.py:491
-#, fuzzy
 msgid "Dynamic"
-msgstr "Dynamiek"
+msgstr ""
 
 #: frescobaldi_app/preferences/fontscolors.py:492
 msgid "Articulation"
-msgstr "Articulatie"
+msgstr "Артикуляция"
 
 #: frescobaldi_app/preferences/fontscolors.py:493
 #, fuzzy
 msgid "Chord"
-msgstr "Clavichord"
+msgstr "Хор"
 
 #: frescobaldi_app/preferences/fontscolors.py:494
 #: frescobaldi_app/quickinsert/spanners.py:145
 msgid "Beam"
-msgstr "Waardestreep"
+msgstr ""
 
 #: frescobaldi_app/preferences/fontscolors.py:495
 msgid "Check"
@@ -2260,18 +2262,19 @@ msgstr ""
 
 #: frescobaldi_app/preferences/fontscolors.py:498
 #: frescobaldi_app/preferences/shortcuts.py:56
+#, fuzzy
 msgid "Command"
-msgstr "Commando"
+msgstr "Команда печати:"
 
 #: frescobaldi_app/preferences/fontscolors.py:499
 #, fuzzy
 msgid "Specifier"
-msgstr "Speciaal"
+msgstr "Другие"
 
 #: frescobaldi_app/preferences/fontscolors.py:500
 #, fuzzy
 msgid "User Command"
-msgstr "Commando"
+msgstr "Команда печати:"
 
 #: frescobaldi_app/preferences/fontscolors.py:502
 msgid "Lyric Mode"
@@ -2280,7 +2283,7 @@ msgstr ""
 #: frescobaldi_app/preferences/fontscolors.py:503
 #, fuzzy
 msgid "Lyric Text"
-msgstr "Liedteksten afbreken"
+msgstr "Расставить переносы в тексте"
 
 #: frescobaldi_app/preferences/fontscolors.py:504
 msgid "Delimiter"
@@ -2293,11 +2296,12 @@ msgstr ""
 #: frescobaldi_app/preferences/fontscolors.py:506
 #, fuzzy
 msgid "Layout Object"
-msgstr "Layout sectie"
+msgstr "Выбор языка"
 
 #: frescobaldi_app/preferences/fontscolors.py:507
+#, fuzzy
 msgid "Property"
-msgstr ""
+msgstr "Поэт"
 
 #: frescobaldi_app/preferences/fontscolors.py:509
 msgid "User Variable"
@@ -2305,9 +2309,8 @@ msgstr ""
 
 #: frescobaldi_app/preferences/fontscolors.py:512
 #: frescobaldi_app/preferences/fontscolors.py:535
-#, fuzzy
 msgid "Escaped Character"
-msgstr "Speciale tekens"
+msgstr ""
 
 #: frescobaldi_app/preferences/fontscolors.py:516
 msgid "HTML"
@@ -2316,12 +2319,12 @@ msgstr ""
 #: frescobaldi_app/preferences/fontscolors.py:517
 #, fuzzy
 msgid "Tag"
-msgstr "Tik"
+msgstr "Щёлкните"
 
 #: frescobaldi_app/preferences/fontscolors.py:518
 #, fuzzy
 msgid "LilyPond Tag"
-msgstr "LilyPond-uitvoer"
+msgstr "LilyPond журнал"
 
 #: frescobaldi_app/preferences/fontscolors.py:519
 #: frescobaldi_app/preferences/fontscolors.py:536
@@ -2331,7 +2334,7 @@ msgstr ""
 #: frescobaldi_app/preferences/fontscolors.py:521
 #, fuzzy
 msgid "Entity Reference"
-msgstr "Notation Reference"
+msgstr "Общие настройки"
 
 #: frescobaldi_app/preferences/fontscolors.py:525
 #: frescobaldi_app/preferences/fontscolors.py:526
@@ -2339,17 +2342,19 @@ msgid "Scheme"
 msgstr ""
 
 #: frescobaldi_app/preferences/fontscolors.py:527
+#, fuzzy
 msgid "Number"
-msgstr ""
+msgstr "Имя"
 
 #: frescobaldi_app/preferences/fontscolors.py:528
 #, fuzzy
 msgid "LilyPond Environment"
-msgstr "LilyPond-documentatie"
+msgstr "Документация LilyPond"
 
 #: frescobaldi_app/preferences/fontscolors.py:532
+#, fuzzy
 msgid "Texinfo"
-msgstr ""
+msgstr "Тенор"
 
 #: frescobaldi_app/preferences/fontscolors.py:534
 msgid "Block"
@@ -2366,24 +2371,25 @@ msgstr ""
 #: frescobaldi_app/preferences/shortcuts.py:125
 #, fuzzy
 msgid "Other commands:"
-msgstr "Printcommando:"
+msgstr "Команда печати:"
 
 #: frescobaldi_app/preferences/shortcuts.py:178
 #, fuzzy
 msgid "(no shortcut)"
-msgstr "Sneltoets"
+msgstr "Сокращение"
 
 #: frescobaldi_app/preferences/shortcuts.py:206
 #, fuzzy
 msgid "Remove the shortcut from that command?"
 msgid_plural "Remove the shortcut from those commands?"
-msgstr[0] "Verwijder de stokken van de slagwerknoten."
-msgstr[1] "Verwijder de stokken van de slagwerknoten."
+msgstr[0] "Удалить штили у ударных нот."
+msgstr[1] "Удалить штили у ударных нот."
+msgstr[2] "Удалить штили у ударных нот."
 
 #: frescobaldi_app/preferences/shortcuts.py:304
 #, fuzzy
 msgid "(default)"
-msgstr "standaard"
+msgstr "По умолчанию"
 
 #: frescobaldi_app/preferences/paths.py:60
 msgid "Folders containing hyphenation dictionaries"
@@ -2391,12 +2397,12 @@ msgstr ""
 
 #: frescobaldi_app/preferences/__init__.py:171
 msgid "Paths"
-msgstr "Paden"
+msgstr "Пути"
 
 #: frescobaldi_app/preferences/__init__.py:181
 #, fuzzy
 msgid "Keyboard Shortcuts"
-msgstr "Sneltoets instellen"
+msgstr "Клавишные"
 
 #: frescobaldi_app/preferences/__init__.py:191
 msgid "Fonts & Colors"
@@ -2405,12 +2411,12 @@ msgstr ""
 #: frescobaldi_app/preferences/__init__.py:201
 #, fuzzy
 msgid "Tools"
-msgstr "&Gereedschapsweergaven"
+msgstr "&Панели инструментов"
 
 #: frescobaldi_app/preferences/tools.py:78
 #: frescobaldi_app/logtool/__init__.py:50
 msgid "LilyPond Log"
-msgstr "LilyPond-uitvoer"
+msgstr "LilyPond журнал"
 
 #: frescobaldi_app/preferences/tools.py:80
 msgid "Show log when a job is started"
@@ -2431,7 +2437,7 @@ msgstr ""
 #: frescobaldi_app/preferences/tools.py:140
 #, fuzzy
 msgid "Magnifier Size:"
-msgstr "Papiergrootte:"
+msgstr "Размер страницы:"
 
 #: frescobaldi_app/preferences/tools.py:142
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
@@ -2458,62 +2464,60 @@ msgstr ""
 #: frescobaldi_app/scorewiz/settings.py:73
 #, fuzzy
 msgid "Score properties"
-msgstr "Partituur-instellingen"
+msgstr "Настройки партитуры"
 
 #: frescobaldi_app/scorewiz/settings.py:112
 msgid "General preferences"
-msgstr "Algemene voorkeuren"
+msgstr "Общие настройки"
 
 #: frescobaldi_app/scorewiz/settings.py:113
 msgid "Use typographical quotes"
-msgstr "Typografische aanhalingstekens"
+msgstr "Использовать типографские кавычки"
 
 #: frescobaldi_app/scorewiz/settings.py:115
 msgid "Replace normal quotes in titles with nice typographical quotes."
-msgstr ""
-"Vervang normale aanhalingstekens in titels met fraaie typografische "
-"aanhalingstekens."
+msgstr "Заменить обычные кавычки в заголовках на типографские."
 
 #: frescobaldi_app/scorewiz/settings.py:116
 msgid "Remove default tagline"
-msgstr "Standaard-tagline verwijderen"
+msgstr "Удалить строку программы по умолчанию"
 
 #: frescobaldi_app/scorewiz/settings.py:118
 msgid "Suppress the default tagline output by LilyPond."
-msgstr "Onderdrukt de weergave van de standaard tagline door LilyPond."
+msgstr "Удаляет строку программы выводимую LilyPond по умолчанию."
 
 #: frescobaldi_app/scorewiz/settings.py:119
 msgid "Remove bar numbers"
-msgstr "Maatnummers verwijderen"
+msgstr "Удалить номера тактов"
 
 #: frescobaldi_app/scorewiz/settings.py:121
 msgid ""
 "Suppress the display of measure numbers at the beginning of every system."
-msgstr "Onderdrukt de weergave van maatnummers aan het begin van elk systeem."
+msgstr "Удаляет номера тактов в начале каждой системы."
 
 #: frescobaldi_app/scorewiz/settings.py:123
 msgid "Create MIDI output"
-msgstr "MIDI uitvoer aanmaken"
+msgstr "Создать MIDI"
 
 #: frescobaldi_app/scorewiz/settings.py:125
 msgid "Create a MIDI file in addition to the PDF file."
-msgstr "Maak, behalve een PDF, ook een MIDI-bestand aan."
+msgstr "Создать MIDI файл, в дополнение к PDF"
 
 #: frescobaldi_app/scorewiz/settings.py:126
 msgid "Show metronome mark"
-msgstr "Metronoomgetal weergeven"
+msgstr "Показать метроном"
 
 #: frescobaldi_app/scorewiz/settings.py:128
 msgid ""
 "If checked, show the metronome mark at the beginning of the score. The MIDI "
 "output also uses the metronome setting."
 msgstr ""
-"Indien aangekruist, toont het metronoomgetal aan het begin van de partituur. "
-"De MIDI-uitvoer gebruikt deze instelling ook."
+"Если выбрано, показывает значение метронома в начале партитуры. Вывод MIDI "
+"также использует значение метронома."
 
 #: frescobaldi_app/scorewiz/settings.py:131
 msgid "Paper size:"
-msgstr "Papiergrootte:"
+msgstr "Размер страницы:"
 
 #: frescobaldi_app/scorewiz/settings.py:132
 #: frescobaldi_app/scorewiz/settings.py:198
@@ -2522,21 +2526,21 @@ msgstr "Papiergrootte:"
 #: frescobaldi_app/scorewiz/parts/_base.py:214
 #: frescobaldi_app/widgets/schemeselector.py:115
 msgid "Default"
-msgstr "Standaard"
+msgstr "По умолчанию"
 
 #: frescobaldi_app/scorewiz/settings.py:133
 msgid "Landscape"
-msgstr "Oblong"
+msgstr "Альбомная"
 
 #: frescobaldi_app/scorewiz/settings.py:186
 #: frescobaldi_app/scorewiz/settings.py:189
 msgid "Long"
-msgstr "Lang"
+msgstr "Длинный"
 
 #: frescobaldi_app/scorewiz/settings.py:186
 #: frescobaldi_app/scorewiz/settings.py:189
 msgid "Short"
-msgstr "Kort"
+msgstr "Короткий"
 
 #: frescobaldi_app/scorewiz/settings.py:196
 msgid "English (untranslated)"
@@ -2544,178 +2548,180 @@ msgstr ""
 
 #: frescobaldi_app/scorewiz/settings.py:213
 msgid "Instrument names"
-msgstr "Instrumentnamen"
+msgstr "Названия инструментов"
 
 #: frescobaldi_app/scorewiz/settings.py:214
 msgid "First system:"
-msgstr "Eerste systeem:"
+msgstr "Первая система:"
 
 #: frescobaldi_app/scorewiz/settings.py:215
 msgid "Other systems:"
-msgstr "Volgende systemen:"
+msgstr "Остальные системы:"
 
 #: frescobaldi_app/scorewiz/settings.py:218
 msgid "Use long or short instrument names before the first system."
-msgstr "Gebruik lange of korte instrumentnamen voor het eerste systeem."
+msgstr ""
+"Использовать длинные или короткие имена инструментов перед первой системой."
 
 #: frescobaldi_app/scorewiz/settings.py:220
 msgid "Use short, long or no instrument names before the next systems."
 msgstr ""
-"Gebruik korte, lange of geen instrumentnamen voor de volgende systemen."
+"(Не)Показывать сокращенные или длинные названия инструментов перед "
+"следующими системами."
 
 #: frescobaldi_app/scorewiz/settings.py:222
 msgid "Which language to use for the instrument names."
-msgstr "De taal die u wilt gebruiken voor de instrumentnamen."
+msgstr "Язык LilyPond для названий инструментов."
 
 #: frescobaldi_app/scorewiz/settings.py:290
 msgid "Pitch name language:"
-msgstr "Taal voor nootnamen:"
+msgstr "Язык нотной записи:"
 
 #: frescobaldi_app/scorewiz/settings.py:292
 msgid "The LilyPond language you want to use for the pitch names."
-msgstr "De LilyPond-taal die u wilt gebruiken voor de toonhoogtes."
+msgstr "Язык LilyPond для обозначения нот."
 
 #: frescobaldi_app/scorewiz/settings.py:294
 msgid "Version:"
-msgstr "Versie:"
+msgstr "Версия:"
 
 #: frescobaldi_app/scorewiz/settings.py:296
 msgid "The LilyPond version you will be using for this document."
-msgstr "De LilyPond-versie die u wilt gebruiken voor dit document."
+msgstr "Версия LilyPond используемая для текущего документа."
 
 #: frescobaldi_app/scorewiz/scoreproperties.py:99
 msgid "Key signature:"
-msgstr "Toonsoort:"
+msgstr "Ключевые знаки:"
 
 #: frescobaldi_app/scorewiz/scoreproperties.py:135
 msgid "Time signature:"
-msgstr "Maatsoort:"
+msgstr "Размер:"
 
 #: frescobaldi_app/scorewiz/scoreproperties.py:177
 msgid "Pickup measure:"
-msgstr "Opmaat:"
+msgstr "Затакт:"
 
 #: frescobaldi_app/scorewiz/scoreproperties.py:221
 msgid "Metronome mark:"
-msgstr "Metronoomgetal:"
+msgstr "Метроном:"
 
 #: frescobaldi_app/scorewiz/scoreproperties.py:246
 msgid "Tempo indication:"
-msgstr "Tempo-aanduiding:"
+msgstr "Темп:"
 
 #: frescobaldi_app/scorewiz/scoreproperties.py:385
 msgid "Major"
-msgstr "Majeur"
+msgstr "Мажор"
 
 #: frescobaldi_app/scorewiz/scoreproperties.py:386
 msgid "Minor"
-msgstr "Mineur"
+msgstr "Минор"
 
 #: frescobaldi_app/scorewiz/scoreproperties.py:387
 msgid "Ionian"
-msgstr "Ionisch"
+msgstr "Ионийский"
 
 #: frescobaldi_app/scorewiz/scoreproperties.py:388
 msgid "Dorian"
-msgstr "Dorisch"
+msgstr "Дорийский"
 
 #: frescobaldi_app/scorewiz/scoreproperties.py:389
 msgid "Phrygian"
-msgstr "Phrygisch"
+msgstr "Фригийский"
 
 #: frescobaldi_app/scorewiz/scoreproperties.py:390
 msgid "Lydian"
-msgstr "Lydisch"
+msgstr "Лидийский"
 
 #: frescobaldi_app/scorewiz/scoreproperties.py:391
 msgid "Mixolydian"
-msgstr "Mixolydisch"
+msgstr "Миксолидийский"
 
 #: frescobaldi_app/scorewiz/scoreproperties.py:392
 msgid "Aeolian"
-msgstr "Aeolisch"
+msgstr "Эолийский"
 
 #: frescobaldi_app/scorewiz/scoreproperties.py:393
 msgid "Locrian"
-msgstr "Locrisch"
+msgstr "Локрийский"
 
 #: frescobaldi_app/scorewiz/__init__.py:57
 #: frescobaldi_app/scorewiz/dialog.py:198
 msgid "Setup New Score..."
-msgstr "Nieuwe partituur maken..."
+msgstr "Новая партитура"
 
 #: frescobaldi_app/scorewiz/header.py:87
 msgid "Click to enter a value."
-msgstr "Klik om een waarde in te voeren."
+msgstr "Щёлкните для ввода значения."
 
 #: frescobaldi_app/scorewiz/header.py:89
 msgid "bottom of first page"
-msgstr "onderaan eerste pagina"
+msgstr "внизу первой страницы"
 
 #: frescobaldi_app/scorewiz/header.py:90
 msgid "bottom of last page"
-msgstr "onderaan laatste pagina"
+msgstr "внизу последней страницы"
 
 #: frescobaldi_app/scorewiz/header.py:135
 msgid "Dedication"
-msgstr "Opdracht"
+msgstr "Посвящение"
 
 #: frescobaldi_app/scorewiz/header.py:136
 msgid "Title"
-msgstr "Titel"
+msgstr "Заголовок"
 
 #: frescobaldi_app/scorewiz/header.py:137
 msgid "Subtitle"
-msgstr "Subtitel"
+msgstr "Заголовок 2"
 
 #: frescobaldi_app/scorewiz/header.py:138
 msgid "Subsubtitle"
-msgstr "Subsubtitel"
+msgstr "Заголовок 3"
 
 #: frescobaldi_app/scorewiz/header.py:139
 msgid "Instrument"
-msgstr "Instrument"
+msgstr "Инструмент"
 
 #: frescobaldi_app/scorewiz/header.py:140
 msgid "Composer"
-msgstr "Componist"
+msgstr "Композитор"
 
 #: frescobaldi_app/scorewiz/header.py:141
 msgid "Arranger"
-msgstr "Arrangeur"
+msgstr "Редактор"
 
 #: frescobaldi_app/scorewiz/header.py:142
 msgid "Poet"
-msgstr "Dichter"
+msgstr "Поэт"
 
 #: frescobaldi_app/scorewiz/header.py:143
 msgid "Meter"
-msgstr "Versvoet"
+msgstr "Метр"
 
 #: frescobaldi_app/scorewiz/header.py:144
 msgid "Piece"
-msgstr "Werk"
+msgstr "Название произведения"
 
 #: frescobaldi_app/scorewiz/header.py:145
 msgid "Opus"
-msgstr "Opus"
+msgstr "Опус"
 
 #: frescobaldi_app/scorewiz/header.py:146
 msgid "Copyright"
-msgstr "Copyright"
+msgstr "Авторское право"
 
 #: frescobaldi_app/scorewiz/header.py:147
 msgid "Tagline"
-msgstr "Tagline"
+msgstr "Строка программы"
 
 #: frescobaldi_app/scorewiz/dialog.py:77
 msgid "Score Setup Wizard"
-msgstr "Partituur opzetten"
+msgstr "Мастер Настройки Партитуры"
 
 #: frescobaldi_app/scorewiz/dialog.py:80
 #, fuzzy
 msgid "Clear"
-msgstr "Celesta"
+msgstr "Челеста"
 
 #: frescobaldi_app/scorewiz/dialog.py:82
 msgid "Clears the current page of the Score Wizard."
@@ -2724,38 +2730,38 @@ msgstr ""
 #: frescobaldi_app/scorewiz/dialog.py:83
 #, fuzzy
 msgid "Preview"
-msgstr "PDF vooruitblik"
+msgstr "Предпросмотр PDF"
 
 #: frescobaldi_app/scorewiz/dialog.py:130
 #, fuzzy
 msgid "Score Preview"
-msgstr "PDF vooruitblik"
+msgstr "Предпросмотр PDF"
 
 #: frescobaldi_app/scorewiz/dialog.py:164
 #, fuzzy
 msgid "&Titles and Headers"
-msgstr "Titels en koppen"
+msgstr "Заголовки"
 
 #: frescobaldi_app/scorewiz/dialog.py:173
 #, fuzzy
 msgid "&Parts"
-msgstr "Partijen"
+msgstr "Инструменты"
 
 #: frescobaldi_app/scorewiz/dialog.py:182
 #, fuzzy
 msgid "&Score settings"
-msgstr "Partituur-instellingen"
+msgstr "Настройки партитуры"
 
 #: frescobaldi_app/scorewiz/dialog.py:191
 #, fuzzy
 msgid "The Score Wizard"
-msgstr "Partituur opzetten"
+msgstr "Мастер Настройки Партитуры"
 
 #: frescobaldi_app/scorewiz/dialog.py:198
 #, fuzzy
 msgctxt "menu title"
 msgid "Tools"
-msgstr "&Gereedschapsweergaven"
+msgstr "&Панели инструментов"
 
 #: frescobaldi_app/scorewiz/dialog.py:199
 msgid ""
@@ -2821,11 +2827,11 @@ msgstr ""
 
 #: frescobaldi_app/scorewiz/score.py:100
 msgid "Available parts:"
-msgstr "Beschikbare partijen:"
+msgstr "Доступные инструменты:"
 
 #: frescobaldi_app/scorewiz/score.py:101
 msgid "Score:"
-msgstr "Partituur:"
+msgstr "Партитура:"
 
 #: frescobaldi_app/scorewiz/score.py:102
 msgid "&Add"
@@ -2836,29 +2842,29 @@ msgstr ""
 #: frescobaldi_app/widgets/schemeselector.py:64
 #, fuzzy
 msgid "&Remove"
-msgstr "Stokken verwijderen"
+msgstr "Удалить нотные штили"
 
 #: frescobaldi_app/scorewiz/score.py:104
 #, fuzzy
 msgid "Move up"
-msgstr "Verplaatsen naar"
+msgstr "Переместить"
 
 #: frescobaldi_app/scorewiz/score.py:105
 #, fuzzy
 msgid "Move down"
-msgstr "Verplaatsen naar"
+msgstr "Переместить"
 
 #: frescobaldi_app/scorewiz/build.py:136
 msgid "Music follows here."
-msgstr "Muziek volgt hier."
+msgstr "Music follows here."
 
 #: frescobaldi_app/scorewiz/build.py:403
 msgid "Remove default LilyPond tagline"
-msgstr "Standaard LilyPond-tagline verwijderen"
+msgstr "Удалить строку LilyPond по умолчанию"
 
 #: frescobaldi_app/scorewiz/parts/keyboard.py:44
 msgid "Piano"
-msgstr "Piano"
+msgstr "Фортепиано"
 
 #: frescobaldi_app/scorewiz/parts/keyboard.py:48
 msgctxt "abbreviation for Piano"
@@ -2867,16 +2873,16 @@ msgstr "Pno."
 
 #: frescobaldi_app/scorewiz/parts/keyboard.py:56
 msgid "Harpsichord"
-msgstr "Klavecimbel"
+msgstr "Клавесин"
 
 #: frescobaldi_app/scorewiz/parts/keyboard.py:60
 msgctxt "abbreviation for Harpsichord"
 msgid "Hs."
-msgstr "Kl."
+msgstr "Hs."
 
 #: frescobaldi_app/scorewiz/parts/keyboard.py:68
 msgid "Clavichord"
-msgstr "Clavichord"
+msgstr "Клавикорд"
 
 #: frescobaldi_app/scorewiz/parts/keyboard.py:72
 msgctxt "abbreviation for Clavichord"
@@ -2885,7 +2891,7 @@ msgstr "Clv."
 
 #: frescobaldi_app/scorewiz/parts/keyboard.py:80
 msgid "Organ"
-msgstr "Orgel"
+msgstr "Орган"
 
 #: frescobaldi_app/scorewiz/parts/keyboard.py:84
 msgctxt "abbreviation for Organ"
@@ -2894,15 +2900,15 @@ msgstr "Org."
 
 #: frescobaldi_app/scorewiz/parts/keyboard.py:99
 msgid "Pedal:"
-msgstr "Pedaal:"
+msgstr "Педаль:"
 
 #: frescobaldi_app/scorewiz/parts/keyboard.py:101
 msgid "Set to 0 to disable the pedal altogether."
-msgstr "Stel 0 in om de pedaalbalk te verwijderen."
+msgstr "Установите 0, чтобы убрать педаль."
 
 #: frescobaldi_app/scorewiz/parts/keyboard.py:114
 msgid "Celesta"
-msgstr "Celesta"
+msgstr "Челеста"
 
 #: frescobaldi_app/scorewiz/parts/keyboard.py:118
 msgctxt "abbreviation for Celesta"
@@ -2911,11 +2917,11 @@ msgstr "Cel."
 
 #: frescobaldi_app/scorewiz/parts/keyboard.py:124
 msgid "Keyboard instruments"
-msgstr "Toetsinstrumenten"
+msgstr "Клавишные"
 
 #: frescobaldi_app/scorewiz/parts/strings.py:41
 msgid "Violin"
-msgstr "Viool"
+msgstr "Скрипка"
 
 #: frescobaldi_app/scorewiz/parts/strings.py:45
 msgctxt "abbreviation for Violin"
@@ -2924,16 +2930,16 @@ msgstr "Vl."
 
 #: frescobaldi_app/scorewiz/parts/strings.py:53
 msgid "Viola"
-msgstr "Altviool"
+msgstr "Альт"
 
 #: frescobaldi_app/scorewiz/parts/strings.py:57
 msgctxt "abbreviation for Viola"
 msgid "Vla."
-msgstr "Avl."
+msgstr "Vla."
 
 #: frescobaldi_app/scorewiz/parts/strings.py:67
 msgid "Cello"
-msgstr "Cello"
+msgstr "Виолончель"
 
 #: frescobaldi_app/scorewiz/parts/strings.py:71
 msgctxt "abbreviation for Cello"
@@ -2942,7 +2948,7 @@ msgstr "Cl."
 
 #: frescobaldi_app/scorewiz/parts/strings.py:81
 msgid "Contrabass"
-msgstr "Contrabas"
+msgstr "Контрабас"
 
 #: frescobaldi_app/scorewiz/parts/strings.py:85
 msgctxt "abbreviation for Contrabass"
@@ -2950,8 +2956,9 @@ msgid "Cb."
 msgstr "Cb."
 
 #: frescobaldi_app/scorewiz/parts/strings.py:95
+#, fuzzy
 msgid "Basso Continuo"
-msgstr "Basso continuo"
+msgstr "Бассо континуо"
 
 #: frescobaldi_app/scorewiz/parts/strings.py:99
 msgctxt "abbreviation for Basso Continuo"
@@ -2961,35 +2968,36 @@ msgstr "B.c."
 #: frescobaldi_app/scorewiz/parts/strings.py:109
 #: frescobaldi_app/scorewiz/parts/special.py:60
 msgid "Figures follow here."
-msgstr "Bas-becijfering volgt."
+msgstr ""
 
 #: frescobaldi_app/scorewiz/parts/strings.py:117
 msgid "Strings"
-msgstr "Snaarinstrumenten"
+msgstr "Струнные"
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:65
 msgid "Stanzas:"
-msgstr "Coupletten:"
+msgstr "Строфы:"
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:66
 msgid "The number of stanzas."
-msgstr "Het aantal coupletten."
+msgstr "Количество строф."
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:73
 msgid "Ambitus"
-msgstr "Ambitus"
+msgstr "Амбитус"
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:75
 msgid "Show the pitch range of the voice at the beginning of the staff."
-msgstr "Toont het bereik van een zangstem aan het begin van de balk."
+msgstr ""
+"Показывает диапазон голоса от низшего до высшего тона в начале нотоносца"
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:89
 msgid "Lyrics follow here."
-msgstr "Liedtekst volgt hier."
+msgstr ""
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:126
 msgid "Soprano"
-msgstr "Sopraan"
+msgstr "Сопрано"
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:130
 msgctxt "abbreviation for Soprano"
@@ -2997,8 +3005,9 @@ msgid "S."
 msgstr "S."
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:136
+#, fuzzy
 msgid "Mezzo-soprano"
-msgstr "Mezzosopraan"
+msgstr "Меццо-сопрано"
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:140
 msgctxt "abbreviation for Mezzo-soprano"
@@ -3007,7 +3016,7 @@ msgstr "Ms."
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:146
 msgid "Alto"
-msgstr "Alt"
+msgstr "Альт"
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:150
 msgctxt "abbreviation for Alto"
@@ -3016,7 +3025,7 @@ msgstr "A."
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:158
 msgid "Tenor"
-msgstr "Tenor"
+msgstr "Тенор"
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:162
 msgctxt "abbreviation for Tenor"
@@ -3026,7 +3035,7 @@ msgstr "T."
 #: frescobaldi_app/scorewiz/parts/vocal.py:171
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:279
 msgid "Bass"
-msgstr "Bas"
+msgstr "Бас"
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:175
 msgctxt "abbreviation for Bass"
@@ -3035,149 +3044,149 @@ msgstr "B."
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:184
 msgid "Lead sheet"
-msgstr "Lead-sheet"
+msgstr "Нотный стан"
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:202
 msgid ""
 "The Lead Sheet provides a staff with chord names above and lyrics below it. "
 "A second staff is optional."
 msgstr ""
-"Met een \"Lead-sheet\" krijgt u een balk met akkoordnamen erboven en "
-"liedteksten eronder. Een tweede balk is optioneel."
+"Нотный стан с названиями аккордов сверху и текстом снизу. Второй нотоносец "
+"опционален."
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:204
 #: frescobaldi_app/scorewiz/parts/special.py:39
 msgid "Chord names"
-msgstr "Akkoordnamen"
+msgstr "Названия аккордов"
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:205
 msgid "Add accompaniment staff"
-msgstr "Begeleidingsbalk toevoegen"
+msgstr "Добавить стан для аккомпанемента."
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:207
 msgid ""
 "Adds an accompaniment staff and also puts an accompaniment voice in the "
 "upper staff."
 msgstr ""
-"Voegt een begeleidingsbalk toe, en ook een tweede stem aan de bovenste balk."
+"Добавить станы для аккомпанемента и поместить аккомпанируемый голос верхним."
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:273
 #: frescobaldi_app/scorewiz/parts/vocal.py:360
 msgid "Choir"
-msgstr "Koor"
+msgstr "Хор"
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:319
 msgid ""
 "Please select the voices for the choir. Use the letters S, A, T, or B. A "
 "hyphen denotes a new staff."
 msgstr ""
-"Selecteer de stemmen voor het koor. Gebruik de letters S, A, T en/of B. Een "
-"koppelteken geeft een nieuwe balk aan."
+"Выберите голоса для хора. Используйте буквы S, A, T или B. Дефис означает "
+"новый нотоносец."
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:321
 msgid "Hint: For a double choir you can use two choir parts."
-msgstr "Tip: gebruik twee koorpartijen voor een dubbelkoor."
+msgstr "Совет: для двойного хора можно использовать две хоровые партии."
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:322
 msgid "Voicing:"
-msgstr "Stemmen:"
+msgstr "Голоса:"
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:323
+#, fuzzy
 msgid "Lyrics:"
-msgstr "Liedteksten:"
+msgstr "Тексты"
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:324
+#, fuzzy
 msgid "Piano reduction"
-msgstr "Piano-uittreksel"
+msgstr "Направление:"
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:326
 msgid "Adds an automatically generated piano reduction."
-msgstr "Voegt automatisch een piano-uittreksel toe."
+msgstr ""
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:327
 msgid "Rehearsal MIDI files"
-msgstr "MIDI-oefenbestanden"
+msgstr ""
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:329
 msgid ""
 "Creates a rehearsal MIDI file for every voice, even if no MIDI output is "
 "generated for the main score."
 msgstr ""
-"Genereert een MIDI-oefenbestand voor elke stem, ook als MIDI uitvoer voor de "
-"hoofdpartituur is uitgeschakeld."
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:361
 msgctxt "abbreviation for Choir"
 msgid "Ch."
-msgstr "K."
+msgstr "Ch."
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:612
 msgid "Rehearsal MIDI files:"
-msgstr "MIDI-oefenbestanden:"
+msgstr ""
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:658
 msgid "All voices same lyrics"
-msgstr "Alle stemmen zelfde liedtekst"
+msgstr "Одинаковый текст во всех голосах"
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:659
+#, fuzzy
 msgid "A set of the same lyrics is placed between all staves."
-msgstr "Een set van dezelfde liedteksten wordt tussen alle balken geplaatst."
+msgstr "Один и тот же текст располагается между всеми нотоносцами."
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:660
 msgid "Every voice same lyrics"
-msgstr "Elke stem zelfde liedtekst"
+msgstr "Одинаковый текст во всех голосах"
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:661
 msgid ""
 "Every voice gets its own lyrics, using the same text as the other voices."
 msgstr ""
-"Elke stem krijgt zijn eigen liedtekst, met dezelfde tekst als de andere "
-"stemmen."
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:663
 msgid "Every voice different lyrics"
-msgstr "Elke stem andere liedtekst"
+msgstr "Разный текст у каждого голоса"
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:664
 msgid "Every voice gets a different set of lyrics."
-msgstr "Elke stem krijgt zijn eigen liedteksten."
+msgstr "Каждый голос имеет свой текст."
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:665
 msgid "Distribute stanzas"
-msgstr "Coupletten verdelen"
+msgstr ""
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:666
+#, fuzzy
 msgid "One set of stanzas is distributed across the staves."
-msgstr "Een enkele set liedteksten wordt verdeeld over alle balken."
+msgstr "Один и тот же текст располагается между всеми нотоносцами."
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:691
 msgid "Vocal"
-msgstr "Vocaal"
+msgstr "Голос"
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:76
 msgid "Staff type:"
-msgstr "Type balk:"
+msgstr "Тип нотоносца:"
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:82
 msgid "Tuning:"
-msgstr "Stemming:"
+msgstr "Настройка:"
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:172
 msgid "Normal staff"
-msgstr "Normaal"
+msgstr "Обычный"
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:173
 msgid "Tablature"
-msgstr "Tabulatuur"
+msgstr "Табулатура"
 
 #. L10N: Both a Normal and a Tablature staff
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:175
 msgid "Both"
-msgstr "Beide"
+msgstr "Оба"
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:182
 msgid "Mandolin"
-msgstr "Mandoline"
+msgstr "Мандолина"
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:186
 msgctxt "abbreviation for Mandolin"
@@ -3186,11 +3195,11 @@ msgstr "Mdl."
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:190
 msgid "Mandolin tuning"
-msgstr "Mandoline-stemming"
+msgstr "Настройка мандолины"
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:197
 msgid "Banjo"
-msgstr "Banjo"
+msgstr "Банджо"
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:201
 msgctxt "abbreviation for Banjo"
@@ -3199,58 +3208,59 @@ msgstr "Bj."
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:206
 msgid "Open G-tuning (aDGBD)"
-msgstr "Open G-stemming (aDGBD)"
+msgstr ""
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:207
 msgid "C-tuning (gCGBD)"
-msgstr "C-stemming (gCGBD)"
+msgstr ""
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:208
 msgid "Modal tuning (gDGCD)"
-msgstr "Modale stemming (gDGCD)"
+msgstr ""
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:209
 msgid "Open D-tuning (aDF#AD)"
-msgstr "Open D-stemming (aDF#AD)"
+msgstr ""
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:210
 msgid "Open Dm-tuning (aDFAD)"
-msgstr "Open Dm-stemming (aDFAD)"
+msgstr ""
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:220
 msgid "Four strings (instead of five)"
-msgstr "Vier snaren (ipv vijf)"
+msgstr "Четыре струны (вместо пяти)"
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:234
 msgid "Classical guitar"
-msgstr "Klassiek gitaar"
+msgstr "Классическая гитара"
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:238
+#, fuzzy
 msgctxt "abbreviation for Classical guitar"
 msgid "Gt."
-msgstr ""
+msgstr "Gt."
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:243
 msgid "Guitar tuning"
-msgstr "Gitaarstemming"
+msgstr "Настройка гитары"
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:244
 msgid "Open G-tuning"
-msgstr "Open G-stemming"
+msgstr ""
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:258
 #: frescobaldi_app/scorewiz/parts/percussion.py:186
 msgid "Voices:"
-msgstr "Stemmen:"
+msgstr "Голоса:"
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:267
 msgid "Jazz guitar"
-msgstr "Jazzgitaar"
+msgstr "Джазовая гитара"
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:271
 msgctxt "abbreviation for Jazz guitar"
 msgid "J.Gt."
-msgstr "J.gt."
+msgstr "J.Gt."
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:283
 msgctxt "abbreviation for Bass"
@@ -3259,11 +3269,11 @@ msgstr "Bs."
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:289
 msgid "Bass tuning"
-msgstr "Basstemming"
+msgstr ""
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:296
 msgid "Electric bass"
-msgstr "Electrische bas"
+msgstr "Бас-гитара"
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:300
 msgctxt "abbreviation for Electric bass"
@@ -3272,7 +3282,7 @@ msgstr "E.Bs."
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:308
 msgid "Harp"
-msgstr "Harp"
+msgstr "Арфа"
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:312
 msgctxt "abbreviation for Harp"
@@ -3282,102 +3292,105 @@ msgstr "Hp."
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:318
 #: frescobaldi_app/scorewiz/parts/percussion.py:84
 msgid "Upper staff:"
-msgstr "Bovenste balk:"
+msgstr ""
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:319
 #: frescobaldi_app/scorewiz/parts/percussion.py:85
+#, fuzzy
 msgid "Lower staff:"
-msgstr "Onderste balk:"
+msgstr "Обычный"
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:335
 msgid "Plucked strings"
-msgstr "Getokkelde instrumenten"
+msgstr "Струнные щипковые"
 
 #: frescobaldi_app/scorewiz/parts/_base.py:64
 msgid "No settings available."
-msgstr "Geen instellingen beschikbaar."
+msgstr "Настройки недоступны."
 
 #: frescobaldi_app/scorewiz/parts/_base.py:133
 msgid "Adjust how many separate voices you want on each staff."
-msgstr "Hier kunt u instellen hoeveel aparte stemmen u in elke balk wilt."
+msgstr "Количество голосов на каждом нотоносце."
 
 #: frescobaldi_app/scorewiz/parts/_base.py:134
 msgid "This is primarily useful when you write polyphonic music like a fuge."
-msgstr "Dit is vooral handig als u polyfone muziek schrijft zoals een fuga."
+msgstr "В основном, полезно при наборе полифонической музыки."
 
 #: frescobaldi_app/scorewiz/parts/_base.py:136
 msgid "Right hand:"
-msgstr "Rechts:"
+msgstr "Правая рука:"
 
 #: frescobaldi_app/scorewiz/parts/_base.py:137
 msgid "Left hand:"
-msgstr "Links:"
+msgstr "Левая рука:"
 
 #: frescobaldi_app/scorewiz/parts/_base.py:186
 msgid "Chord style:"
-msgstr "Akkoordstijl:"
+msgstr "Стиль аккордов:"
 
 #: frescobaldi_app/scorewiz/parts/_base.py:187
 msgid "Guitar fret diagrams"
-msgstr "Gitaar-fretdiagrammen"
+msgstr "Гитарные диаграммы"
 
 #: frescobaldi_app/scorewiz/parts/_base.py:189
 msgid ""
 "Show predefined guitar fret diagrams below the chord names (LilyPond 2.12 "
 "and above)."
 msgstr ""
-"Voorgedefiniëerde gitaar-fretdiagrammen afbeelden onder de akkoordnamen "
-"(LilyPond 2.12 en hoger)."
+"Показывать предопределенные гитарные диаграммы под названиями аккордов "
+"(версия Lilypond 2.12 и выше)"
 
 #: frescobaldi_app/scorewiz/parts/_base.py:203
 msgid "Chords follow here."
-msgstr "Akkoordnamen volgen."
+msgstr ""
 
 #: frescobaldi_app/scorewiz/parts/_base.py:215
 msgid "German"
-msgstr "Duits"
+msgstr "Немецкий"
 
 #: frescobaldi_app/scorewiz/parts/_base.py:216
+#, fuzzy
 msgid "Semi-German"
-msgstr "Semi-Duits"
+msgstr "Semi-German"
 
 #: frescobaldi_app/scorewiz/parts/_base.py:217
 msgid "Italian"
-msgstr "Italiaans"
+msgstr "Итальянский"
 
 #: frescobaldi_app/scorewiz/parts/_base.py:218
 msgid "French"
-msgstr "Frans"
+msgstr "Французский"
 
 #: frescobaldi_app/scorewiz/parts/containers.py:43
 #, fuzzy
 msgid "Staff Group"
-msgstr "Type balk:"
+msgstr "Тип нотоносца:"
 
 #. L10N: Brace like a piano staff
 #: frescobaldi_app/scorewiz/parts/containers.py:54
+#, fuzzy
 msgid "Brace"
-msgstr "Accolade"
+msgstr "Медные духовые"
 
 #. L10N: Bracket like a choir staff
 #: frescobaldi_app/scorewiz/parts/containers.py:56
 msgid "Bracket"
-msgstr "Haak"
+msgstr ""
 
 #. L10N: Square bracket like a sub-group
 #: frescobaldi_app/scorewiz/parts/containers.py:58
 #, fuzzy
 msgid "Square"
-msgstr "Boogje"
+msgstr "Сохранить"
 
 #: frescobaldi_app/scorewiz/parts/containers.py:71
 msgid "Type:"
-msgstr "Type:"
+msgstr ""
 
 #: frescobaldi_app/scorewiz/parts/containers.py:72
 #, fuzzy
 msgid "Connect Barlines"
-msgstr "Maatstrepen verbinden"
+msgstr "Без тактовых черт"
 
 #: frescobaldi_app/scorewiz/parts/containers.py:73
 msgid "If checked, barlines are connected between the staves."
@@ -3386,17 +3399,17 @@ msgstr ""
 #: frescobaldi_app/scorewiz/parts/containers.py:94
 #, fuzzy
 msgid "Score"
-msgstr "Partituur:"
+msgstr "Партитура:"
 
 #: frescobaldi_app/scorewiz/parts/containers.py:123
 #, fuzzy
 msgid "Piece:"
-msgstr "Werk"
+msgstr "Название произведения"
 
 #: frescobaldi_app/scorewiz/parts/containers.py:124
 #, fuzzy
 msgid "Opus:"
-msgstr "Opus"
+msgstr "Опус"
 
 #: frescobaldi_app/scorewiz/parts/containers.py:125
 msgid "Properties"
@@ -3424,9 +3437,8 @@ msgid "Output Filename:"
 msgstr ""
 
 #: frescobaldi_app/scorewiz/parts/containers.py:194
-#, fuzzy
 msgid "Filename"
-msgstr "Alle bestanden"
+msgstr ""
 
 #: frescobaldi_app/scorewiz/parts/containers.py:195
 msgid "Suffix"
@@ -3435,20 +3447,20 @@ msgstr ""
 #: frescobaldi_app/scorewiz/parts/containers.py:207
 #, fuzzy
 msgid "Containers"
-msgstr "Maatstrepen verbinden"
+msgstr "Без тактовых черт"
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:45
 msgid "Timpani"
-msgstr "Pauken"
+msgstr "Литавры"
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:49
 msgctxt "abbreviation for Timpani"
 msgid "Tmp."
-msgstr "Pkn."
+msgstr "Tmp."
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:59
 msgid "Xylophone"
-msgstr "Xylofoon"
+msgstr "Ксилофон"
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:63
 msgctxt "abbreviation for Xylophone"
@@ -3457,7 +3469,7 @@ msgstr "Xyl."
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:71
 msgid "Marimba"
-msgstr "Marimba"
+msgstr "Маримба"
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:75
 msgctxt "abbreviation for Marimba"
@@ -3470,7 +3482,7 @@ msgstr ""
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:99
 msgid "Vibraphone"
-msgstr "Vibrafoon"
+msgstr "Вибрафон"
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:103
 msgctxt "abbreviation for Vibraphone"
@@ -3479,98 +3491,99 @@ msgstr "Vib."
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:111
 msgid "Tubular bells"
-msgstr "Buisklokken"
+msgstr "Колокола"
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:115
 msgctxt "abbreviation for Tubular bells"
 msgid "Tub."
-msgstr "Bkl."
+msgstr "Tub."
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:123
 msgid "Glockenspiel"
-msgstr "Klokkenspel"
+msgstr "Колокольчик"
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:127
 msgctxt "abbreviation for Glockenspiel"
 msgid "Gls."
-msgstr "Kls."
+msgstr "Gls."
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:135
 #, fuzzy
 msgid "Carillon"
-msgstr "Klarinet"
+msgstr "Кларнет"
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:139
+#, fuzzy
 msgctxt "abbreviation for Carillon"
 msgid "Car."
-msgstr ""
+msgstr "Mar."
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:145
 #, fuzzy
 msgid "Manual staff:"
-msgstr "Normaal"
+msgstr "Обычный"
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:146
 #, fuzzy
 msgid "Pedal staff:"
-msgstr "Normaal"
+msgstr "Обычный"
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:161
 msgid "Drums"
-msgstr "Slagwerk"
+msgstr "Ударные"
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:165
 msgctxt "abbreviation for Drums"
 msgid "Dr."
-msgstr "Slw."
+msgstr "Dr."
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:187
 msgid "Style:"
-msgstr "Stijl:"
+msgstr "Стиль:"
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:188
 msgid "Remove stems"
-msgstr "Stokken verwijderen"
+msgstr "Удалить нотные штили"
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:189
 msgid "Remove the stems from the drum notes."
-msgstr "Verwijder de stokken van de slagwerknoten."
+msgstr "Удалить штили у ударных нот."
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:201
 msgid "Drums follow here."
-msgstr "Slagwerk volgt."
+msgstr "Партия ударных"
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:226
 msgid "keep some distance."
-msgstr "houd enige afstand."
+msgstr "сохранять дистанцию"
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:232
 msgid "Drums (5 lines, default)"
-msgstr "Drums (5 lijnen, standaard)"
+msgstr "Ударные (5 линеек, по умолчанию)"
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:233
 msgid "Timbales-style (2 lines)"
-msgstr "Timbales-stijl (2 lijnen)"
+msgstr "Timbales-style (2 линейки)"
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:234
 msgid "Congas-style (2 lines)"
-msgstr "Conga's-stijl (2 lijnen)"
+msgstr "Congas-style (2 линейки)"
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:235
 msgid "Bongos-style (2 lines)"
-msgstr "Bongo's-stijl (2 lijnen)"
+msgstr "Bongos-style (2 линейки)"
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:236
 msgid "Percussion-style (1 line)"
-msgstr "Percussie-stijl (1 lijn)"
+msgstr "Percussion-style (1 линейка)"
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:242
 msgid "Percussion"
-msgstr "Percussie"
+msgstr "Ударные"
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:39
 msgid "Flute"
-msgstr "Fluit"
+msgstr "Флейта"
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:43
 msgctxt "abbreviation for Flute"
@@ -3579,7 +3592,7 @@ msgstr "Fl."
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:51
 msgid "Piccolo"
-msgstr "Piccolo"
+msgstr "Флейта пикколо"
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:55
 msgctxt "abbreviation for Piccolo"
@@ -3588,7 +3601,7 @@ msgstr "Pic."
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:64
 msgid "Bass flute"
-msgstr "Basfluit"
+msgstr "Басовая флейта"
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:68
 msgctxt "abbreviation for Bass flute"
@@ -3597,171 +3610,174 @@ msgstr "Bfl."
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:77
 msgid "Oboe"
-msgstr "Hobo"
+msgstr "Гобой"
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:81
 msgctxt "abbreviation for Oboe"
 msgid "Ob."
-msgstr "Hb."
+msgstr "Ob."
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:89
+#, fuzzy
 msgid "Oboe d'amore"
-msgstr "Liefdeshobo"
+msgstr "Гобой д'амур"
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:93
 msgctxt "abbreviation for Oboe d'amore"
 msgid "Ob.d'am."
-msgstr "Lhb."
+msgstr "Ob.d'am."
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:102
+#, fuzzy
 msgid "English horn"
-msgstr "Althobo"
+msgstr "Английский рожок"
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:106
 msgctxt "abbreviation for English horn"
 msgid "Eng.h."
-msgstr "Ahb."
+msgstr "Eng.h."
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:115
 msgid "Bassoon"
-msgstr "Fagot"
+msgstr "Фагот"
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:119
 msgctxt "abbreviation for Bassoon"
 msgid "Bn."
-msgstr "Fag."
+msgstr "Bn."
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:129
 msgid "Contrabassoon"
-msgstr "Contrafagot"
+msgstr "Контрафагот"
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:133
 msgctxt "abbreviation for Contrabassoon"
 msgid "C.Bn."
-msgstr "Cfag."
+msgstr "C.Bn."
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:144
 msgid "Clarinet"
-msgstr "Klarinet"
+msgstr "Кларнет"
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:148
 msgctxt "abbreviation for Clarinet"
 msgid "Cl."
-msgstr "Klar."
+msgstr "Cl."
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:157
 msgid "Sopranino Sax"
-msgstr "Sopraninosax"
+msgstr "Саксофон-сопранино"
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:161
 msgctxt "abbreviation for Sopranino Sax"
 msgid "SiSx."
-msgstr "Sisx."
+msgstr "SiSx."
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:170
 msgid "Soprano Sax"
-msgstr "Sopraansax"
+msgstr "Саксофон-сопрано"
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:174
 msgctxt "abbreviation for Soprano Sax"
 msgid "SoSx."
-msgstr "Sosx."
+msgstr "SoSx."
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:183
 msgid "Alto Sax"
-msgstr "Altsax"
+msgstr "Альт-саксофон"
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:187
 msgctxt "abbreviation for Alto Sax"
 msgid "ASx."
-msgstr "Asx."
+msgstr "ASx."
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:196
 msgid "Tenor Sax"
-msgstr "Tenorsax"
+msgstr "Тенор-саксофон"
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:200
 msgctxt "abbreviation for Tenor Sax"
 msgid "TSx."
-msgstr "Tsx."
+msgstr "TSx."
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:209
 msgid "Baritone Sax"
-msgstr "Baritonsax"
+msgstr "Баритон-саксофон"
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:213
 msgctxt "abbreviation for Baritone Sax"
 msgid "BSx."
-msgstr "Bsx."
+msgstr "BSx."
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:222
 msgid "Bass Sax"
-msgstr "Bassax"
+msgstr "Бас-саксофон"
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:226
 msgctxt "abbreviation for Bass Sax"
 msgid "BsSx."
-msgstr "Bssx."
+msgstr "BsSx."
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:235
 msgid "Soprano recorder"
-msgstr "Sopraanblokfluit"
+msgstr "Сопрановая блокфлейта"
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:239
 msgctxt "abbreviation for Soprano recorder"
 msgid "S.rec."
-msgstr "Sbfl."
+msgstr "S.rec."
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:248
 msgid "Alto recorder"
-msgstr "Altblokfluit"
+msgstr "Альтовая блокфлейта"
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:252
 msgctxt "abbreviation for Alto recorder"
 msgid "A.rec."
-msgstr "Ablf."
+msgstr "A.rec."
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:260
 msgid "Tenor recorder"
-msgstr "Tenorblokfluit"
+msgstr "Теноровая блокфлейта"
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:264
 msgctxt "abbreviation for Tenor recorder"
 msgid "T.rec."
-msgstr "Tblf."
+msgstr "T.rec."
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:272
 msgid "Bass recorder"
-msgstr "Basblokfluit"
+msgstr "Басовая блокфлейта"
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:276
 msgctxt "abbreviation for Bass recorder"
 msgid "B.rec."
-msgstr "Bblf."
+msgstr "B.rec."
 
 #: frescobaldi_app/scorewiz/parts/woodwind.py:285
 msgid "Woodwinds"
-msgstr "Houtblazers"
+msgstr "Деревянные духовые"
 
 #: frescobaldi_app/scorewiz/parts/special.py:45
 msgid "Figured Bass"
-msgstr "Becijferde bas"
+msgstr "Цифрованный бас"
 
 #: frescobaldi_app/scorewiz/parts/special.py:52
 msgid "Use extender lines"
-msgstr "Extender-lijnen gebruiken"
+msgstr ""
 
 #: frescobaldi_app/scorewiz/parts/special.py:70
+#, fuzzy
 msgid "Staff"
-msgstr "Notenbalk"
+msgstr "Тип нотоносца:"
 
 #: frescobaldi_app/scorewiz/parts/special.py:76
 msgid "Special"
-msgstr "Speciaal"
+msgstr "Другие"
 
 #: frescobaldi_app/scorewiz/parts/brass.py:39
 msgid "Horn in F"
-msgstr "Hoorn in F"
+msgstr "Валторна"
 
 #: frescobaldi_app/scorewiz/parts/brass.py:43
 msgctxt "abbreviation for Horn in F"
@@ -3770,25 +3786,27 @@ msgstr "Hn.F."
 
 #: frescobaldi_app/scorewiz/parts/brass.py:52
 msgid "Trumpet in C"
-msgstr "Trompet in C"
+msgstr "Труба in C"
 
 #: frescobaldi_app/scorewiz/parts/brass.py:56
+#, fuzzy
 msgctxt "abbreviation for Trumpet in C"
 msgid "Tr.C."
-msgstr ""
+msgstr "Tr.C"
 
 #: frescobaldi_app/scorewiz/parts/brass.py:64
 msgid "Trumpet in Bb"
-msgstr "Trompet in Bes"
+msgstr "Труба in B"
 
 #: frescobaldi_app/scorewiz/parts/brass.py:68
+#, fuzzy
 msgctxt "abbreviation for Trumpet in Bb"
 msgid "Tr.Bb."
-msgstr ""
+msgstr "Tr.Bb"
 
 #: frescobaldi_app/scorewiz/parts/brass.py:76
 msgid "Trombone"
-msgstr "Trombone"
+msgstr "Тромбон"
 
 #: frescobaldi_app/scorewiz/parts/brass.py:80
 msgctxt "abbreviation for Trombone"
@@ -3797,7 +3815,7 @@ msgstr "Trb."
 
 #: frescobaldi_app/scorewiz/parts/brass.py:90
 msgid "Tuba"
-msgstr "Tuba"
+msgstr "Туба"
 
 #: frescobaldi_app/scorewiz/parts/brass.py:94
 msgctxt "abbreviation for Tuba"
@@ -3806,91 +3824,92 @@ msgstr "Tb."
 
 #: frescobaldi_app/scorewiz/parts/brass.py:103
 msgid "Bass Tuba"
-msgstr "Bastuba"
+msgstr "Басовая туба"
 
 #: frescobaldi_app/scorewiz/parts/brass.py:107
 msgctxt "abbreviation for Bass Tuba"
 msgid "B.Tb."
-msgstr "Btb."
+msgstr "B.Tb."
 
 #: frescobaldi_app/scorewiz/parts/brass.py:116
 msgid "Brass"
-msgstr "Koper"
+msgstr "Медные духовые"
 
 #: frescobaldi_app/sessions/menu.py:55
 #, fuzzy
 msgctxt "menu title"
 msgid "&Session"
-msgstr "&Sessies"
+msgstr "Используемая сессия"
 
 #: frescobaldi_app/sessions/dialog.py:40
+#, fuzzy
 msgid "Manage Sessions"
-msgstr "Sessies beheren"
+msgstr "Используемая сессия"
 
 #: frescobaldi_app/sessions/dialog.py:109
+#, fuzzy
 msgid "Name:"
-msgstr "Naam:"
+msgstr "Имя"
 
 #: frescobaldi_app/sessions/dialog.py:110
 msgid "Always save the list of documents in this session"
-msgstr "De lijst van documenten in deze sessie altijd opslaan"
+msgstr ""
 
 #: frescobaldi_app/sessions/dialog.py:111
+#, fuzzy
 msgid "Base directory:"
-msgstr "Basismap:"
+msgstr "Каталог по умолчанию:"
 
 #: frescobaldi_app/sessions/dialog.py:133
-#, fuzzy
 msgid "Edit session: {name}"
-msgstr "Sessie bewerken: %1"
+msgstr ""
 
 #: frescobaldi_app/sessions/dialog.py:137
 msgid "Edit new session"
-msgstr "Nieuwe sessie bewerken"
+msgstr ""
 
 #: frescobaldi_app/sessions/dialog.py:166
+#, fuzzy
 msgid "Please enter a session name."
-msgstr "Voer een sessienaam in."
+msgstr ""
+"Используйте только латинские буквы, цифры и символ подчеркивания в названии "
+"расширения."
 
 #: frescobaldi_app/sessions/dialog.py:174
 #, fuzzy
 msgid "Please do not use the name '{name}'."
-msgstr "U kunt de naam '%1' niet gebruiken."
+msgstr ""
+"Используйте только латинские буквы, цифры и символ подчеркивания в названии "
+"расширения."
 
 #: frescobaldi_app/sessions/dialog.py:180
-#, fuzzy
 msgid ""
 "Another session with the name {name} already exists.\n"
 "\n"
 "Do you want to overwrite it?"
 msgstr ""
-"Er bestaat reeds een sessie met de naam %1.\n"
-"\n"
-"Wilt u deze overschrijven?"
 
 #: frescobaldi_app/sessions/dialog.py:183
-#, fuzzy
 msgid "Overwrite"
-msgstr "Override"
+msgstr ""
 
 #: frescobaldi_app/sessions/manager.py:127
-#, fuzzy
 msgctxt "New Session"
 msgid "&New..."
-msgstr "Nieuw..."
+msgstr ""
 
 #: frescobaldi_app/sessions/manager.py:129
-#, fuzzy
 msgid "&Manage..."
-msgstr "Sessies beheren..."
+msgstr ""
 
 #: frescobaldi_app/sessions/manager.py:130
+#, fuzzy
 msgid "No Session"
-msgstr "Geen sessie"
+msgstr "Ударные"
 
 #: frescobaldi_app/pitch/pitch.py:78 frescobaldi_app/pitch/pitch.py:91
 msgid "Pitch Name Language"
-msgstr "Taal voor nootnamen"
+msgstr "Язык нотной записи"
 
 #: frescobaldi_app/pitch/pitch.py:79
 #, fuzzy
@@ -3900,31 +3919,31 @@ msgid ""
 "The music contains quarter-tone alterations, but those are not available in "
 "the pitch language \"{name}\"."
 msgstr ""
-"De gevraagde vertaling kan niet worden gemaakt.\n"
+"Невозможно выполнить требуемое преобразование.\n"
 "\n"
-"De muziek bevat kwarttonen, maar deze zijn niet beschikbaar in de taal \"%1"
-"\"."
+"Музыка содержит четвертьтоновые альтерации, которые недоступны в языковой "
+"записи \"%1\"."
 
 #: frescobaldi_app/pitch/pitch.py:95
 msgid ""
 "The pitch language of the selected text has been updated, but you need to "
 "manually add the following command to your document:"
 msgstr ""
-"De taal van de nootnamen in de geselecteerde tekst is aangepast, maar u "
-"dient handmatig het volgende commando aan uw document toe te voegen:"
+"Язык ввода нот выделенного текста был обновлен, но Вы должны вручную "
+"добавить следующую команду в документ:"
 
 #: frescobaldi_app/pitch/pitch.py:99
 msgid "(for LilyPond below 2.14), or"
-msgstr "(voor LilyPond lager dan 2.14), of"
+msgstr ""
 
 #: frescobaldi_app/pitch/pitch.py:100
 msgid "(for LilyPond 2.14 and higher.)"
-msgstr "(voor LilyPond 2.14 en hoger.)"
+msgstr ""
 
 #: frescobaldi_app/pitch/pitch.py:381 frescobaldi_app/pitch/pitch.py:395
 #: frescobaldi_app/pitch/pitch.py:575
 msgid "Transpose"
-msgstr "Transponeren"
+msgstr ""
 
 #: frescobaldi_app/pitch/pitch.py:382
 msgid ""
@@ -3935,15 +3954,11 @@ msgid ""
 msgstr ""
 
 #: frescobaldi_app/pitch/pitch.py:396
-#, fuzzy
 msgid ""
 "Could not understand the entered pitches.\n"
 "\n"
 "Please make sure you use pitch names in the language \"{language}\"."
 msgstr ""
-"Kan de ingevoerde toonhoogtes niet begrijpen.\n"
-"\n"
-"Gebruik de nootnamen in de taal \"%1\"."
 
 #: frescobaldi_app/pitch/pitch.py:576
 #, fuzzy
@@ -3953,66 +3968,58 @@ msgid ""
 "The transposed music would contain quarter-tone alterations that are not "
 "available in the pitch language \"{language}\"."
 msgstr ""
-"De gevraagde transpositie kan niet worden gemaakt.\n"
-"\n"
-"De getransponeerde muziek zou kwarttonen bevatten die niet beschikbaar zijn "
-"in de taal \"%1\"."
+"Невозможно выполнить требуемое преобразование. Музыка содержит "
+"четвертьтоновые альтерации, которые недоступны в языковой записи %1."
 
 #: frescobaldi_app/pitch/__init__.py:95
 #, fuzzy
 msgid "Pitch Name &Language"
-msgstr "Taal voor nootnamen"
+msgstr "Язык нотной записи"
 
 #: frescobaldi_app/pitch/__init__.py:97
 msgid ""
 "Change the LilyPond language used for pitch names in this document or in the "
 "selection."
-msgstr ""
-"De LilyPond-taal voor de nootnamen aanpassen in het document of het "
-"geselecteerde gedeelte."
+msgstr "Изменить язык ввода нот в этом документе или в выделении."
 
 #: frescobaldi_app/pitch/__init__.py:99
 msgid "Convert Relative to &Absolute"
-msgstr "Relatief naar &absoluut omzetten"
+msgstr ""
 
 #: frescobaldi_app/pitch/__init__.py:101
 msgid ""
 "Converts the notes in the document or selection from relative to absolute "
 "pitch."
 msgstr ""
-"Zet de noten in het document of de selectie om van relatieve naar absolute "
-"toonhoogte."
 
 #: frescobaldi_app/pitch/__init__.py:103
 msgid "Convert Absolute to &Relative"
-msgstr "Absoluut naar &relatief omzetten"
+msgstr ""
 
 #: frescobaldi_app/pitch/__init__.py:105
+#, fuzzy
 msgid ""
 "Converts the notes in the document or selection from absolute to relative "
 "pitch."
-msgstr ""
-"Zet de noten in het document of de selectie om van absolute naar relatieve "
-"toonhoogte."
+msgstr "Уменьшает длительности в 2 раза в выделенном фрагменте."
 
 #: frescobaldi_app/pitch/__init__.py:107
-#, fuzzy
 msgid "&Transpose..."
-msgstr "Transponeren..."
+msgstr ""
 
 #: frescobaldi_app/pitch/__init__.py:109
+#, fuzzy
 msgid "Transposes all notes in the document or selection."
-msgstr "Transponeert alle noten in de selectie of het document."
+msgstr "Уменьшает длительности в 2 раза в выделенном фрагменте."
 
 #: frescobaldi_app/helpbrowser/html.py:44
 #, fuzzy
 msgid "Documentation"
-msgstr "LilyPond-documentatie"
+msgstr "Документация LilyPond"
 
 #: frescobaldi_app/helpbrowser/html.py:45
-#, fuzzy
 msgid "{appname} version {version}"
-msgstr "Versie {version}"
+msgstr ""
 
 #: frescobaldi_app/helpbrowser/__init__.py:45
 #: frescobaldi_app/helpbrowser/__init__.py:57
@@ -4026,17 +4033,17 @@ msgstr ""
 #. L10N: Home page of the Frescobaldi manual
 #: frescobaldi_app/helpbrowser/__init__.py:74
 msgid "Home"
-msgstr "Begin"
+msgstr ""
 
 #: frescobaldi_app/helpbrowser/sourceviewer.py:59
 #, fuzzy
 msgid "LilyPond Source"
-msgstr "LilyPond-uitvoer"
+msgstr "LilyPond журнал"
 
 #: frescobaldi_app/logtool/__init__.py:51
 #, fuzzy
 msgid "LilyPond &Log"
-msgstr "LilyPond-uitvoer"
+msgstr "LilyPond журнал"
 
 #: frescobaldi_app/logtool/__init__.py:90
 msgid "Next Error Message"
@@ -4048,7 +4055,7 @@ msgstr ""
 
 #: frescobaldi_app/logtool/logwidget.py:106
 msgid "Click to edit this file"
-msgstr "Klik om dit bestand te bewerken"
+msgstr "Щёлкните, для редактирования этого файла"
 
 #: frescobaldi_app/musicview/__init__.py:84
 msgctxt "window title"
@@ -4062,12 +4069,12 @@ msgstr ""
 #: frescobaldi_app/musicview/__init__.py:178
 #, fuzzy
 msgid "Select Music View Document"
-msgstr "&Brondocument"
+msgstr "&Исходный документ"
 
 #: frescobaldi_app/musicview/__init__.py:179
 #, fuzzy
 msgid "&Print Music..."
-msgstr "Muziek afdrukken..."
+msgstr "Печать"
 
 #: frescobaldi_app/musicview/__init__.py:180
 msgid "Zoom &In"
@@ -4092,16 +4099,15 @@ msgstr ""
 #: frescobaldi_app/musicview/__init__.py:185
 #, fuzzy
 msgid "Fit &Page"
-msgstr "Eerste pagina"
+msgstr "Первая страница"
 
 #: frescobaldi_app/musicview/__init__.py:186
 msgid "&Jump to Cursor Position"
 msgstr ""
 
 #: frescobaldi_app/musicview/__init__.py:326
-#, fuzzy
 msgid "Choose the PDF document to display."
-msgstr "Andere documenten sluiten"
+msgstr ""
 
 #: frescobaldi_app/musicview/__init__.py:328
 msgid ""
@@ -4120,48 +4126,50 @@ msgstr ""
 #: frescobaldi_app/musicview/__init__.py:388
 #, fuzzy
 msgid "Fit Page"
-msgstr "Eerste pagina"
+msgstr "Первая страница"
 
 #: frescobaldi_app/quickinsert/articulations.py:73
 msgid "Allow shorthands"
-msgstr "Korte notatie"
+msgstr "Использовать сокращения"
 
 #: frescobaldi_app/quickinsert/articulations.py:75
 msgid "Use short notation for some articulations like staccato."
-msgstr "Korte notatie toestaan voor sommige articulaties zoals staccato."
+msgstr ""
+"Использовать сокращенную нотацию для некоторых обозначений, таких как "
+"стаккато."
 
 #: frescobaldi_app/quickinsert/articulations.py:83
 #: frescobaldi_app/quickinsert/articulations.py:115
 msgid "Articulations"
-msgstr "Articulaties"
+msgstr "Артикуляционные обозначения"
 
 #: frescobaldi_app/quickinsert/articulations.py:87
 msgid "Different kinds of articulations and other signs."
-msgstr "Verschillende soorten articulatie en andere tekens."
+msgstr "Другие артикуляционные обозначения или другие знаки."
 
 #: frescobaldi_app/quickinsert/articulations.py:118
 msgid "Accent"
-msgstr "Accent"
+msgstr "Акцент"
 
 #: frescobaldi_app/quickinsert/articulations.py:119
 msgid "Marcato"
-msgstr "Marcato"
+msgstr "Маркато"
 
 #: frescobaldi_app/quickinsert/articulations.py:120
 msgid "Staccatissimo"
-msgstr "Staccatissimo"
+msgstr "Стаккатиссимо"
 
 #: frescobaldi_app/quickinsert/articulations.py:121
 msgid "Staccato"
-msgstr "Staccato"
+msgstr "Стаккато"
 
 #: frescobaldi_app/quickinsert/articulations.py:122
 msgid "Portato"
-msgstr "Portato"
+msgstr "Портато"
 
 #: frescobaldi_app/quickinsert/articulations.py:123
 msgid "Tenuto"
-msgstr "Tenuto"
+msgstr "Тенуто"
 
 #: frescobaldi_app/quickinsert/articulations.py:124
 msgid "Espressivo"
@@ -4169,90 +4177,90 @@ msgstr "Espressivo"
 
 #: frescobaldi_app/quickinsert/articulations.py:129
 msgid "Ornaments"
-msgstr "Versieringen"
+msgstr "Орнаментация"
 
 #: frescobaldi_app/quickinsert/articulations.py:132
 #: frescobaldi_app/quickinsert/spanners.py:146
 msgid "Trill"
-msgstr "Triller"
+msgstr "Трель"
 
 #: frescobaldi_app/quickinsert/articulations.py:133
 msgid "Prall"
-msgstr "Praller"
+msgstr "Мордент"
 
 #: frescobaldi_app/quickinsert/articulations.py:134
 msgid "Mordent"
-msgstr "Mordent"
+msgstr "Перечеркнутый мордент"
 
 #: frescobaldi_app/quickinsert/articulations.py:135
 msgid "Turn"
-msgstr "Dubbelslag"
+msgstr "Группетто"
 
 #: frescobaldi_app/quickinsert/articulations.py:136
 msgid "Prall prall"
-msgstr "Lange praller"
+msgstr "Двойной мордент"
 
 #: frescobaldi_app/quickinsert/articulations.py:137
 msgid "Prall mordent"
-msgstr "Praller met mordent"
+msgstr "Двойной перечеркнутый мордент"
 
 #: frescobaldi_app/quickinsert/articulations.py:138
 msgid "Up prall"
-msgstr "Praller naar boven"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/articulations.py:139
 msgid "Down prall"
-msgstr "Praller naar beneden"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/articulations.py:140
 msgid "Up mordent"
-msgstr "Mordent naar boven"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/articulations.py:141
 msgid "Down mordent"
-msgstr "Mordent naar beneden"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/articulations.py:142
 msgid "Prall up"
-msgstr "Praller naar boven"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/articulations.py:143
 msgid "Prall down"
-msgstr "Praller naar onder"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/articulations.py:144
 msgid "Line prall"
-msgstr "Praller met lijn"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/articulations.py:145
 msgid "Reverse turn"
-msgstr "Omgekeerde dubbelslag"
+msgstr "Обратное группетто"
 
 #. L10N: dynamic signs
 #: frescobaldi_app/quickinsert/articulations.py:150
 #: frescobaldi_app/quickinsert/dynamics.py:115
 msgid "Signs"
-msgstr "Tekens"
+msgstr "Знаки"
 
 #: frescobaldi_app/quickinsert/articulations.py:153
 msgid "Fermata"
-msgstr "Fermate"
+msgstr "Фермата"
 
 #: frescobaldi_app/quickinsert/articulations.py:154
 msgid "Short fermata"
-msgstr "Korte fermate"
+msgstr "Короткая фермата"
 
 #: frescobaldi_app/quickinsert/articulations.py:155
 msgid "Long fermata"
-msgstr "Lange fermate"
+msgstr "Длинная фермата"
 
 #: frescobaldi_app/quickinsert/articulations.py:156
 msgid "Very long fermata"
-msgstr "Zeer lange fermate"
+msgstr "Очень длинная фермата"
 
 #: frescobaldi_app/quickinsert/articulations.py:157
 msgid "Segno"
-msgstr "Teken"
+msgstr "Segno"
 
 #: frescobaldi_app/quickinsert/articulations.py:158
 msgid "Coda"
@@ -4264,171 +4272,177 @@ msgstr "Varcoda"
 
 #: frescobaldi_app/quickinsert/articulations.py:160
 msgid "Signumcongruentiae"
-msgstr "Signumcongruentiae"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/articulations.py:165
 msgid "Other"
-msgstr "Overig"
+msgstr "Другие"
 
 #: frescobaldi_app/quickinsert/articulations.py:168
 msgid "Upbow"
-msgstr "Opstreek"
+msgstr "Вверх смычком"
 
 #: frescobaldi_app/quickinsert/articulations.py:169
 msgid "Downbow"
-msgstr "Afstreek"
+msgstr "Вниз смычком"
 
 #: frescobaldi_app/quickinsert/articulations.py:170
 msgid "Snappizzicato"
-msgstr "Bartók pizzicato"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/articulations.py:171
 msgid "Open (e.g. brass)"
-msgstr "Open (koper)"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/articulations.py:172
 msgid "Stopped (e.g. brass)"
-msgstr "Gestopt (koper)"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/articulations.py:173
 msgid "Flageolet"
-msgstr "Flageolet"
+msgstr "Флажолет"
 
 #: frescobaldi_app/quickinsert/articulations.py:174
 msgid "Thumb"
-msgstr "Duim"
+msgstr "Ставка"
 
 #: frescobaldi_app/quickinsert/articulations.py:175
 msgid "Left heel"
-msgstr "Linker hak"
+msgstr "Left heel"
 
 #: frescobaldi_app/quickinsert/articulations.py:176
 msgid "Right heel"
-msgstr "Rechter hak"
+msgstr "Right heel"
 
 #: frescobaldi_app/quickinsert/articulations.py:177
 msgid "Left toe"
-msgstr "Linker teen"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/articulations.py:178
 msgid "Right toe"
-msgstr "Rechter teen"
+msgstr "Right toe"
 
 #: frescobaldi_app/quickinsert/articulations.py:179
 msgid "Half open (e.g. hi-hat)"
-msgstr "Halfopen (bijv. hi-hat)"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/barlines.py:49
 #: frescobaldi_app/quickinsert/barlines.py:58
+#, fuzzy
 msgid "Bar Lines"
-msgstr "Maatstrepen"
+msgstr "&Тактовые черты"
 
 #: frescobaldi_app/quickinsert/barlines.py:53
 msgid "Bar lines, breathing signs, etcetera."
-msgstr "Maatstrepen, ademhalingstekens, etc."
+msgstr ""
 
 #: frescobaldi_app/quickinsert/barlines.py:61
 msgid "Double bar line"
-msgstr "Dubbele maatstreep"
+msgstr "Двойная тактовая черта"
 
 #: frescobaldi_app/quickinsert/barlines.py:62
 msgid "Ending bar line"
-msgstr "Eindmaatstreep"
+msgstr "Заключительная тактовая черта"
 
 #: frescobaldi_app/quickinsert/barlines.py:63
+#, fuzzy
 msgid "Dotted bar line"
-msgstr "Gestippelde maatstreep"
+msgstr "Без тактовых черт"
 
 #: frescobaldi_app/quickinsert/barlines.py:64
+#, fuzzy
 msgid "Dashed bar line"
-msgstr "Gestreepte maatstreep"
+msgstr "Пункти́рная та́ктовая черта́"
 
 #: frescobaldi_app/quickinsert/barlines.py:65
 msgid "Invisible bar line"
-msgstr "Onzichtbare maatstreep"
+msgstr "Невидимая тактовая черта"
 
 #: frescobaldi_app/quickinsert/barlines.py:66
 msgid "Repeat start"
-msgstr "Start herhaling"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/barlines.py:67
 msgid "Repeat both"
-msgstr "Herhaal beide"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/barlines.py:68
 msgid "Repeat end"
-msgstr "Eind herhaling"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/barlines.py:69
 msgid "Repeat both (old)"
-msgstr "Herhaal beide (oud)"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/barlines.py:70
 msgid "Repeat both (classic)"
-msgstr "Herhaal beide (klassiek)"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/barlines.py:71
+#, fuzzy
 msgid "Tick bar line"
-msgstr "Hoge maatstreep"
+msgstr "Без тактовых черт"
 
 #: frescobaldi_app/quickinsert/barlines.py:72
+#, fuzzy
 msgid "Single bar line"
-msgstr "Enkele maatstreep"
+msgstr "Одиночная тактовая черта"
 
 #: frescobaldi_app/quickinsert/barlines.py:73
 msgid "Small-Wide-Small bar line"
-msgstr "Dun-dik-dunne maatstreep"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/barlines.py:74
 msgid "Wide-Small bar line"
-msgstr "Dik-dunne maatstreep"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/barlines.py:75
+#, fuzzy
 msgid "Double wide bar line"
-msgstr "Dubbele dikke maatstreep"
+msgstr "Увеличить длительности в 2 раза"
 
 #: frescobaldi_app/quickinsert/barlines.py:76
+#, fuzzy
 msgid "Segno bar line"
-msgstr "Segno maatstreep"
+msgstr "Одиночная тактовая черта"
 
 #: frescobaldi_app/quickinsert/barlines.py:95
 msgid "Breathing Signs"
-msgstr "Ademhalingstekens"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/barlines.py:102
 msgid "Default Breathing Sign"
-msgstr "Standaard ademhalingsteken"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/barlines.py:103
 msgid "Straight Breathing Sign"
-msgstr "Recht ademhalingsteken"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/barlines.py:104
 msgid "Curved Caesura"
-msgstr "Gebogen cesuur"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/barlines.py:105
 msgid "Straight Caesura"
-msgstr "Rechte cesuur"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/__init__.py:47
 #: frescobaldi_app/quickinsert/__init__.py:69
 msgid "Quick Insert"
-msgstr "Quick Insert"
+msgstr "Быстрая вставка"
 
 #: frescobaldi_app/quickinsert/__init__.py:48
 #, fuzzy
 msgid "Quick &Insert"
-msgstr "Quick Insert"
+msgstr "Быстрая вставка"
 
 #: frescobaldi_app/quickinsert/buttongroup.py:175
 msgid "{name} ({key})"
 msgstr ""
 
 #: frescobaldi_app/quickinsert/buttongroup.py:182
-#, fuzzy
 msgid "Configure Keyboard Shortcut ({key})"
-msgstr "Sneltoets instellen (%1)"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/widget.py:102
 msgid ""
@@ -4439,24 +4453,24 @@ msgstr ""
 
 #: frescobaldi_app/quickinsert/widget.py:107
 msgid "Direction:"
-msgstr "Richting:"
+msgstr "Направление:"
 
 #: frescobaldi_app/quickinsert/widget.py:108
 msgid "Up"
-msgstr "Boven"
+msgstr "Вверх"
 
 #: frescobaldi_app/quickinsert/widget.py:108
 msgid "Neutral"
-msgstr "Neutraal"
+msgstr "Автоматически"
 
 #: frescobaldi_app/quickinsert/widget.py:108
 msgid "Down"
-msgstr "Onder"
+msgstr "Вниз"
 
 #: frescobaldi_app/quickinsert/widget.py:127
 #, fuzzy
 msgid "The Quick Insert Panel"
-msgstr "Quick Insert-paneel"
+msgstr "Быстрая вставка"
 
 #: frescobaldi_app/quickinsert/widget.py:130
 msgid ""
@@ -4483,98 +4497,99 @@ msgstr ""
 
 #: frescobaldi_app/quickinsert/dynamics.py:51
 msgid "Dynamics"
-msgstr "Dynamiek"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/dynamics.py:55
 msgid "Dynamic symbols."
-msgstr "Dynamische tekens."
+msgstr ""
 
 #: frescobaldi_app/quickinsert/dynamics.py:128
-#, fuzzy
 msgid "Dynamic sign {name}"
-msgstr "Dynamisch teken %1"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/dynamics.py:133
 #: frescobaldi_app/quickinsert/spanners.py:51
 #: frescobaldi_app/quickinsert/spanners.py:136
 msgid "Spanners"
-msgstr "Spanners"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/dynamics.py:142
 msgid "Hairpin crescendo"
-msgstr "Crescendo (lijnen)"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/dynamics.py:143
 msgid "Crescendo"
-msgstr "Crescendo"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/dynamics.py:144
 msgid "Hairpin diminuendo"
-msgstr "Diminuendo (lijnen)"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/dynamics.py:145
 msgid "Diminuendo"
-msgstr "Diminuendo"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/dynamics.py:146
 msgid "Decrescendo"
-msgstr "Decrescendo"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/spanners.py:55
 msgid "Slurs, spanners, etcetera."
-msgstr "Bogen, spanners, etc."
+msgstr ""
 
 #: frescobaldi_app/quickinsert/spanners.py:60
 msgid "Arpeggios"
-msgstr "Arpeggio's"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/spanners.py:69
 msgid "Arpeggio"
-msgstr "Arpeggio"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/spanners.py:70
 msgid "Arpeggio with Up Arrow"
-msgstr "Arpeggio met pijl omhoog"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/spanners.py:71
 msgid "Arpeggio with Down Arrow"
-msgstr "Arpeggio met pijl naar beneden"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/spanners.py:72
 msgid "Bracket Arpeggio"
-msgstr "Vierkante haak-arpeggio"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/spanners.py:73
 msgid "Parenthesis Arpeggio"
-msgstr "Ronde haak-arpeggio"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/spanners.py:105
 msgid "Glissandos"
-msgstr "Glissando's"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/spanners.py:114
 msgid "Glissando"
-msgstr "Glissando"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/spanners.py:115
+#, fuzzy
 msgid "Dashed Glissando"
-msgstr "Gestreept glissando"
+msgstr "Пункти́рная та́ктовая черта́"
 
 #: frescobaldi_app/quickinsert/spanners.py:116
+#, fuzzy
 msgid "Dotted Glissando"
-msgstr "Gestippeld glissando"
+msgstr "Без тактовых черт"
 
 #: frescobaldi_app/quickinsert/spanners.py:117
 msgid "Zigzag Glissando"
-msgstr "Zig-zag glissando"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/spanners.py:118
 msgid "Trill Glissando"
-msgstr "Triller-glissando"
+msgstr ""
 
 #: frescobaldi_app/quickinsert/spanners.py:144
 msgid "Phrasing Slur"
-msgstr "Fraseringsboog"
+msgstr ""
 
 #: frescobaldi_app/engrave/__init__.py:151
 msgid "&Always Engrave [{docname}]"
@@ -4608,17 +4623,17 @@ msgstr ""
 #, fuzzy
 msgctxt "window title"
 msgid "Edit Shortcut"
-msgstr "Sneltoets"
+msgstr "Сокращение"
 
 #: frescobaldi_app/widgets/shortcuteditdialog.py:95
 #, fuzzy
 msgid "&No shortcut"
-msgstr "Sneltoets"
+msgstr "Сокращение"
 
 #: frescobaldi_app/widgets/shortcuteditdialog.py:96
 #, fuzzy
 msgid "Use a &custom shortcut:"
-msgstr "Aangepast versienummer gebruiken:"
+msgstr "Использовать другую версию:"
 
 #: frescobaldi_app/widgets/shortcuteditdialog.py:98
 msgid "Alternative #{num}:"
@@ -4633,9 +4648,10 @@ msgid "Here you can edit the shortcuts for {name}"
 msgstr ""
 
 #: frescobaldi_app/widgets/shortcuteditdialog.py:127
+#, fuzzy
 msgctxt "no keyboard shortcut"
 msgid "none"
-msgstr ""
+msgstr "Нет"
 
 #: frescobaldi_app/widgets/shortcuteditdialog.py:128
 msgid "Use &default shortcut ({name})"
@@ -4652,7 +4668,7 @@ msgstr ""
 #: frescobaldi_app/widgets/keysequencewidget.py:115
 #, fuzzy
 msgid "Input"
-msgstr "MIDI invoer:"
+msgstr "Вход MIDI:"
 
 #: frescobaldi_app/widgets/listedit.py:91
 msgid "&Add..."
@@ -4661,469 +4677,135 @@ msgstr ""
 #: frescobaldi_app/widgets/listedit.py:92
 #, fuzzy
 msgid "&Edit..."
-msgstr "Afdrukken..."
+msgstr "Печать"
 
 #: frescobaldi_app/widgets/schemeselector.py:47
 #: frescobaldi_app/widgets/schemeselector.py:62
+#, fuzzy
 msgid "Scheme:"
-msgstr ""
+msgstr "Партитура:"
 
 #: frescobaldi_app/widgets/schemeselector.py:63
-#, fuzzy
 msgctxt "New Scheme"
 msgid "&New..."
-msgstr "Nieuw..."
+msgstr ""
 
 #: frescobaldi_app/widgets/schemeselector.py:93
 #, fuzzy
 msgid "Please enter a name for the new scheme:"
 msgstr ""
-"Geef de naam van de variable om de geselecteerde tekst aan toe te wijzen:"
+"Введите имя для переменной, которая будет присвоена выделенному тексту:"
 
 #: frescobaldi_app/widgets/urlrequester.py:72
 #, fuzzy
 msgid "Open file dialog"
-msgstr "Bestand openen"
+msgstr "Открыть файл"
 
 #: frescobaldi_app/widgets/urlrequester.py:92
 #, fuzzy
 msgid "Select a directory"
-msgstr "Standaardmap:"
+msgstr "Каталог по умолчанию:"
 
 #: frescobaldi_app/widgets/urlrequester.py:94
-#, fuzzy
 msgid "Select a file"
-msgstr "Alles selecteren"
+msgstr ""
 
 #: frescobaldi_app/widgets/tempobutton.py:51
 msgid "Click this button a few times to set the tempo."
-msgstr "Klik een paar keer op deze knop om het tempo in te stellen."
-
-#~ msgid "Frescobaldi"
-#~ msgstr "Frescobaldi"
-
-#~ msgid "LilyPond Music Editor"
-#~ msgstr "Muziek-editor voor LilyPond"
-
-#~ msgid "&Document"
-#~ msgstr "&Document"
-
-#~ msgid "&LilyPond"
-#~ msgstr "&LilyPond"
-
-#~ msgid "&Sessions"
-#~ msgstr "&Sessies"
-
-#~ msgid "&Lyrics"
-#~ msgstr "&Liedteksten"
-
-#~ msgid "&Source Document"
-#~ msgstr "&Brondocument"
-
-#~ msgid "Optionally describe what you were doing below:"
-#~ msgstr "Geef hier eventueel aan wat u aan het doen was:"
-
-#~ msgid "Bottom Sidebar"
-#~ msgstr "Onderste zijbalk"
-
-#~ msgid "&Tool Views"
-#~ msgstr "&Gereedschapsweergaven"
-
-#~ msgid "New..."
-#~ msgstr "Nieuw..."
-
-#~ msgid "Manage Sessions..."
-#~ msgstr "Sessies beheren..."
-
-#~ msgid "modified"
-#~ msgstr "gewijzigd"
-
-#~ msgid "Open File"
-#~ msgstr "Bestand openen"
-
-#~ msgid "Move To"
-#~ msgstr "Verplaatsen naar"
-
-#~ msgid "Undock"
-#~ msgstr "Losmaken"
-
-#~ msgid "Configure Keyboard Shortcut"
-#~ msgstr "Sneltoets instellen"
-
-#~ msgid "Press the button to configure the keyboard shortcut for:"
-#~ msgstr "Klik op de knop om de sneltoets in te stellen voor:"
-
-#~ msgid "Edit session: %1"
-#~ msgstr "Sessie bewerken: %1"
-
-#~ msgid "Please do not use the name '%1'."
-#~ msgstr "U kunt de naam '%1' niet gebruiken."
-
-#~ msgid ""
-#~ "Another session with the name %1 exists already.\n"
-#~ "\n"
-#~ "Do you want to overwrite it?"
-#~ msgstr ""
-#~ "Er bestaat reeds een sessie met de naam %1.\n"
-#~ "\n"
-#~ "Wilt u deze overschrijven?"
-
-#~ msgid "Select all"
-#~ msgstr "Alles selecteren"
-
-#~ msgid "Print 1 file"
-#~ msgid_plural "Print %1 files"
-#~ msgstr[0] "1 bestand afdrukken"
-#~ msgstr[1] "%1 bestanden afdrukken"
-
-#~ msgid "Action:"
-#~ msgstr "Actie:"
-
-#~ msgid "Paper"
-#~ msgstr "Papier"
-
-#~ msgid "Page count:"
-#~ msgstr "Aantal pagina's:"
-
-#~ msgid "Save PDF As..."
-#~ msgstr "PDF opslaan als..."
-
-#~ msgid "PDF Files"
-#~ msgstr "PDF-bestanden"
-
-#~ msgid "Print..."
-#~ msgstr "Afdrukken..."
-
-#~ msgid ""
-#~ "Enter as many letters (S, A, T or B) as there are staves.\n"
-#~ "See \"What's This\" for more information."
-#~ msgstr ""
-#~ "Voer zoveel letters (S, A, T of B) in als er balken zijn.\n"
-#~ "Zie \"Wat is dit\" voor meer informatie."
-
-#~ msgid "Connect bar lines"
-#~ msgstr "Maatstrepen verbinden"
-
-#~ msgid "Special Characters"
-#~ msgstr "Speciale tekens"
-
-#~ msgid ""
-#~ "Please enter the name for the variable to assign the selected text to:"
-#~ msgstr ""
-#~ "Geef de naam van de variable om de geselecteerde tekst aan toe te wijzen:"
-
-#~ msgid "Cut and Assign"
-#~ msgstr "Knippen en toewijzen"
-
-#~ msgid "Open %1"
-#~ msgstr "%1 openen"
-
-#~ msgid "Place the cursor on this spot."
-#~ msgstr "Zet de cursor op deze plaats."
-
-#~ msgid "First Page"
-#~ msgstr "Eerste pagina"
-
-#~ msgid "Previous"
-#~ msgstr "Vorige"
-
-#~ msgid "Next"
-#~ msgstr "Volgende"
-
-#~ msgid "Notation Reference"
-#~ msgstr "Notation Reference"
-
-#~ msgid "Configure Keyboard Shortcut (%1)"
-#~ msgstr "Sneltoets instellen (%1)"
-
-#~ msgid "Dynamic sign %1"
-#~ msgstr "Dynamisch teken %1"
-
-#~ msgid "LilyPond files"
-#~ msgstr "LilyPond-bestanden"
-
-#~ msgid "Print Music..."
-#~ msgstr "Muziek afdrukken..."
-
-#~ msgid "Remove hyphenation"
-#~ msgstr "Liedtekst-afbreking verwijderen"
-
-#~ msgid "Copy Lyrics with hyphenation removed"
-#~ msgstr "Liedteksten kopiëren met afbreking verwijderd"
-
-#~ msgid "Insert LilyPond version"
-#~ msgstr "LilyPond-versie invoegen"
-
-#~ msgid "Open Current Folder"
-#~ msgstr "Huidige map openen"
-
-#~ msgid "S&ynchronize Terminal with Current Document"
-#~ msgstr "Terminal met huidig document s&ynchroniseren"
-
-#~ msgid "PDF Preview"
-#~ msgstr "PDF vooruitblik"
-
-#~ msgid "LilyPond Documentation"
-#~ msgstr "LilyPond-documentatie"
-
-#~ msgid "Tempo:"
-#~ msgstr "Tempo:"
-
-#~ msgid "MIDI input:"
-#~ msgstr "MIDI invoer:"
-
-#~ msgid "Strip rests"
-#~ msgstr "Rusten verwijderen"
-
-#~ msgid "Auto"
-#~ msgstr "Auto"
-
-#~ msgid "preview mode"
-#~ msgstr "vooruitblik"
-
-#~ msgid "LilyPond [%1] exited with return code %2."
-#~ msgstr "LilyPond [%1] stopte met foutcode %2."
-
-#~ msgid "LilyPond [%1] exited with exit status %2."
-#~ msgstr "LilyPond [%1] stopte met status %2."
-
-#~ msgid "Could not start LilyPond. Please check path and permissions."
-#~ msgstr "Kon LilyPond niet starten. Controleer uw installatie."
-
-#~ msgid "Could not read from the LilyPond process."
-#~ msgstr "Kan de uitvoer van het LilyPond-proces niet lezen."
-
-#~ msgid "Default LilyPond Version."
-#~ msgstr "Standaard LilyPond-versie."
-
-#~ msgid "automatic"
-#~ msgstr "automatisch"
-
-#~ msgid ""
-#~ "Here you can set a fixed LilyPond version to run on documents in this "
-#~ "session.\n"
-#~ "See What's This (Shift+F1) for more information."
-#~ msgstr ""
-#~ "Hier kunt een vaste LilyPond-versie kiezen om te gebruiken op documenten "
-#~ "in deze sessie.\n"
-#~ "Raadpleeg \"Wat is dit\" (Shift+F1) voor meer informatie."
-
-#~ msgid "Let LilyPond delete intermediate output files"
-#~ msgstr "Laat LilyPond tussentijdse uitvoerbestanden verwijderen"
-
-#~ msgid "LilyPond versions to use:"
-#~ msgstr "De te gebruiken LilyPond-versies:"
-
-#~ msgid ""
-#~ "Enable automatic version selection (choose LilyPond version from document)"
-#~ msgstr ""
-#~ "Automatische versie-selectie inschakelen (kiest LilyPond-versie op basis "
-#~ "van document)"
-
-#~ msgid "Lilypond-book:"
-#~ msgstr "Lilypond-book:"
-
-#~ msgid "Path"
-#~ msgstr "Pad"
-
-#~ msgid "Can't determine LilyPond version."
-#~ msgstr "Kan LilyPond-versie niet bepalen."
-
-#~ msgid "Set as default"
-#~ msgstr "Als standaard instellen"
-
-#~ msgid "Tap"
-#~ msgstr "Tik"
-
-#~ msgid "Treble"
-#~ msgstr "Vioolsleutel"
-
-#~ msgid "Titles and Headers"
-#~ msgstr "Titels en koppen"
-
-#~ msgid "Parts"
-#~ msgstr "Partijen"
-
-#~ msgid "Score settings"
-#~ msgstr "Partituur-instellingen"
-
-#~ msgid "Basso continuo"
-#~ msgstr "Basso continuo"
-
-#~ msgid "Guitar"
-#~ msgstr "Gitaar"
-
-#~ msgctxt "abbreviation for Guitar"
-#~ msgid "Gt."
-#~ msgstr "Gt."
-
-#~ msgid "Oboe d'Amore"
-#~ msgstr "Liefdeshobo"
-
-#~ msgid "English Horn"
-#~ msgstr "Althobo (Engelse hoorn)"
-
-#~ msgctxt "abbreviation for Trumpet in C"
-#~ msgid "Tr.C"
-#~ msgstr "Tr.C"
-
-#~ msgctxt "abbreviation for Trumpet in Bb"
-#~ msgid "Tr.Bb"
-#~ msgstr "Tr.Bes"
-
-#~ msgid "Mezzo soprano"
-#~ msgstr "Mezzosopraan"
-
-#~ msgid "LilyPond version number to use for new documents"
-#~ msgstr "Het te gebruiken LilyPond-versienummer voor nieuwe documenten"
-
-#~ msgid "Use version number of installed LilyPond"
-#~ msgstr "Versienummer van geïnstalleerde LilyPond gebruiken"
-
-#~ msgid "Use custom version number:"
-#~ msgstr "Aangepast versienummer gebruiken:"
+msgstr "Щёлкните по кнопке несколько раз, чтобы установить темп."
 
 #~ msgid "Copyright (c) 2008-2010, Wilbert Berendsen"
 #~ msgstr "Copyright (c) 2008-2010, Wilbert Berendsen"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your name"
-#~ msgstr "Wilbert Berendsen"
+#~ msgstr "Сергей Полтавский,Артём Золочевский"
+
+#~ msgctxt "EMAIL OF TRANSLATORS"
+#~ msgid "i18n@frescobaldi.org"
+#~ msgstr "serge.uliss@gmail.com,artem.zolochevskiy@gmail.com"
 
 #~ msgid "Session to start"
-#~ msgstr "Te starten sessie"
+#~ msgstr "Используемая сессия"
 
 #~ msgid "Start a new instance"
-#~ msgstr "Een nieuw proces starten"
+#~ msgstr "Начать новую сессию"
 
 #~ msgid "Try to use smart line and column numbers"
-#~ msgstr "Probeer slimme regel- en kolomnummers te gebruiken"
+#~ msgstr "Пытаться использовать интеллигентные номера сток и столбцов"
 
 #~ msgid "LilyPond files to open, may also be textedit URLs"
-#~ msgstr "Te openen LilyPond-bestanden, mogen ook textedit URLs zijn"
+#~ msgstr "Файлы lilypond или URL"
 
 #~ msgid "Left Sidebar"
-#~ msgstr "Linker zijbalk"
+#~ msgstr "Левая панель"
 
 #~ msgid "Right Sidebar"
-#~ msgstr "Rechter zijbalk"
+#~ msgstr "Правая панель"
 
 #~ msgid "Top Sidebar"
-#~ msgstr "Bovenste zijbalk"
+#~ msgstr "Верхняя панель"
+
+#~ msgid "Bottom Sidebar"
+#~ msgstr "Нижняя панель"
 
 #~ msgid "Show Path"
-#~ msgstr "Pad tonen"
+#~ msgstr "Показать путь"
 
 #~ msgid "Show Document Tabs"
-#~ msgstr "Document-tabs tonen"
-
-#~ msgid ""
-#~ "Could not find the XMLGUI container \"%1\".\n"
-#~ "\n"
-#~ "Probably the local ui.rc file contains errors. It is recommended to "
-#~ "delete this file because elements in the user interface will be missing. "
-#~ "This is the full path of the file:\n"
-#~ "\n"
-#~ "%2\n"
-#~ msgstr ""
-#~ "Kan de XMLGUI container \"%1\" niet vinden.\n"
-#~ "\n"
-#~ "Dit betekent wellicht dat het lokale ui.rc-bestand niet up-to-date is. "
-#~ "Het is aanbevolen dit bestand te verwijderen omdat elementen in de "
-#~ "gebruikersinterface anders zullen ontbreken. Dit is het volledige bestand "
-#~ "van het bestand:\n"
-#~ "\n"
-#~ "%2\n"
+#~ msgstr "Показать закладки документов"
 
 #~ msgid "Please select some text first."
-#~ msgstr "Selecteer eerst de tekst waarop u de functie wilt toepassen."
+#~ msgstr "Сначала необходимо выбрать текст."
 
 #~ msgid "Line: %1 Col: %2"
-#~ msgstr "Regel: %1 Kol: %2"
+#~ msgstr "Строка: %1 Поз.: %2"
 
 #~ msgid "BLOCK"
-#~ msgstr "BLOK"
+#~ msgstr "БЛОК"
 
 #~ msgid "Block selection mode"
-#~ msgstr "Blokselectiemodus"
+#~ msgstr "Блочный режим выбора"
 
 #~ msgid "LINE"
-#~ msgstr "REGEL"
-
-#~ msgid "Line selection mode"
-#~ msgstr "Regelselectiemodus"
-
-#~ msgid "Right-click for tab options"
-#~ msgstr "Klik rechts voor tab-opties"
-
-#~ msgid "Could not load %1"
-#~ msgstr "Kan %1 niet laden"
+#~ msgstr "СТРОКА"
 
 #~ msgid "Please install %1"
-#~ msgstr "Installeer %1"
+#~ msgstr "Пожалуйста, установите %1"
 
+#, fuzzy
 #~ msgid "Session"
-#~ msgstr "Sessie"
-
-#~ msgid "Properties of this session"
-#~ msgstr "Eigenschappen van deze sessie"
-
-#~ msgid "Please do not use the ampersand (&) character in a session name."
-#~ msgstr "U kunt het ampersand-teken (&) niet in een sessienaam gebruiken."
+#~ msgstr "Используемая сессия"
 
 #~ msgid "Open %1 in external viewer"
-#~ msgstr "%1 openen in externe viewer"
+#~ msgstr "Открыть %1 во внешней программе просмотра"
 
 #~ msgid "Play %1"
-#~ msgstr "%1 afspelen"
-
-#~ msgid "(No up-to-date MIDI or PDF files available.)"
-#~ msgstr "(Geen bijgewerkte MIDI- of PDF-bestanden beschikbaar.)"
-
-#~ msgid ""
-#~ "There are no up-to-date MIDI or PDF files available. Please run LilyPond "
-#~ "to create one or more output files."
-#~ msgstr ""
-#~ "Er zijn geen bijgewerkte MIDI- of PDF-bestanden beschikbaar. Start "
-#~ "LilyPond om een of meer uitvoerbestanden te verkrijgen."
+#~ msgstr "Воспроизвести %1"
 
 #~ msgid "There are no files to send via email."
-#~ msgstr "Er zijn geen bestanden om te verzenden."
+#~ msgstr "Нет файлов для email."
 
 #~ msgid "No files to send"
-#~ msgstr "Geen bestanden te verzenden"
+#~ msgstr "Нет файлов для посылки."
 
-#~ msgid ""
-#~ "There are no PDF documents to print.\n"
-#~ "\n"
-#~ "You probably need to run LilyPond to create or update a PDF document. If "
-#~ "you are creating MIDI files, be sure you also put a \\layout { } section "
-#~ "in your score, otherwise LilyPond will not create a PDF."
-#~ msgstr ""
-#~ "Er zijn geen PDF-documenten om af te drukken.\n"
-#~ "\n"
-#~ "Het is wellicht nodig om LilyPond te starten om een PDF-document aan te "
-#~ "maken of bij te werken. Als u MIDI-bestanden aanmaakt, verzeker u ervan "
-#~ "dat u ook een \\layout { } sectie in uw partituur heeft, anders zal "
-#~ "LilyPond geen PDF-bestand aanmaken."
-
+#, fuzzy
 #~ msgid "No files to print"
-#~ msgstr "Geen bestanden af te drukken"
+#~ msgstr "Нет файлов для посылки."
 
 #~ msgid "Email documents"
-#~ msgstr "Documenten verzenden"
+#~ msgstr "Послать документы по email"
 
 #~ msgid "Please select the files you want to send:"
-#~ msgstr "Selecteer de bestanden die u wilt verzenden:"
+#~ msgstr "Выберите файлы, которые Вы хотите послать:"
 
 #~ msgid ""
 #~ "These are the files that are up-to-date (i.e. newer than the LilyPond "
 #~ "source document). Also LilyPond files included by the source document are "
 #~ "shown."
 #~ msgstr ""
-#~ "Dit zijn de bestanden die up-to-date zijn (later gewijzigd dan het "
-#~ "LilyPond brondocument). Ook LilyPond-bestanden die door het brondocument "
-#~ "ge\"include\"t worden zijn hier weergegeven."
+#~ "Эти файлы обновлены (т.е. созданы позже, чем исходные файлы LilyPond). "
+#~ "Также показаны файлы включенные в исходный документ."
 
 #~ msgid ""
 #~ "Note: this PDF file has been created with embedded point-and-click URLs "
@@ -5136,287 +4818,142 @@ msgstr "Klik een paar keer op deze knop om het tempo in te stellen."
 #~ "consider to rebuild the files in publish mode, because then the PDF files "
 #~ "are much smaller."
 #~ msgstr[0] ""
-#~ "Let op: Dit PDF-bestand is aangemaakt met ingebedde \"point-and-click\" "
-#~ "URLs (vooruitblik), waardoor het bestand veel groter is dan noodzakelijk. "
-#~ "Het is beter om het document opnieuw aan te maken via de optie "
-#~ "'publiceren', zodat het PDF-bestand veel kleiner is."
+#~ "Это PDF документ был создан с использованием \"point-and-click\" "
+#~ "технологии (режим просмотра), которая сильно увеличивает размер файла. "
+#~ "Возможно, лучше будет пересоздать файл в режиме публикации, так как "
+#~ "полученный PDF файл будет значительно меньшего размера."
 #~ msgstr[1] ""
-#~ "Let op: Deze PDF-bestanden zijn aangemaakt met \"point-and-click\" URLs "
-#~ "(vooruitblik), waardoor de bestanden veel groter zijn dan noodzakelijk. "
-#~ "Het is beter om de documenten opnieuw aan te maken via de optie "
-#~ "'publiceren', zodat de PDF-bestanden veel kleiner zijn."
+#~ "Эти PDF документы были созданы с использованием \"point-and-click\" "
+#~ "технологии (режим просмотра), которая сильно увеличивает размер файлов. "
+#~ "Возможно, лучше будет пересоздать файлы в режиме публикации, так как "
+#~ "полученные PDF файлы будет значительно меньшего размера."
+#~ msgstr[2] ""
+#~ "Это PDF документ был создан с использованием \"point-and-click\" "
+#~ "технологии (режим просмотра), которая сильно увеличивает размер файла. "
+#~ "Лучше отсылать по электронной почте документы без \"point-and-click\", "
+#~ "потому что они значительно меньше. Все равно продолжить?"
 
-#~ msgid ""
-#~ "Note: If there are no PDF and no MIDI files, you probably need to run "
-#~ "LilyPond to update those files, before sending the e-mail."
-#~ msgstr ""
-#~ "Let op: Als er geen PDF- en MIDI-bestanden zijn dient u wellicht LilyPond "
-#~ "te starten om deze bestanden bij te werken, alvorens deze via e-mail te "
-#~ "verzenden."
-
+#, fuzzy
 #~ msgid "Print documents"
-#~ msgstr "Documenten afdrukken"
+#~ msgstr "Послать документы по email"
 
+#, fuzzy
 #~ msgid "Please select the files you want to print:"
-#~ msgstr "Selecteer de bestanden die u wilt afdrukken:"
+#~ msgstr "Выберите файлы, которые Вы хотите послать:"
 
+#, fuzzy
 #~ msgid ""
 #~ "These are the PDF documents that are up-to-date (i.e. newer than the "
 #~ "LilyPond source document). Check the documents you want to send to the "
 #~ "printer."
 #~ msgstr ""
-#~ "Dit zijn de bestanden die up-to-date zijn (later gewijzigd dan het "
-#~ "LilyPond brondocument). Kruis de bestanden aan die u wilt afdrukken."
+#~ "Эти файлы обновлены (т.е. созданы позже, чем исходные файлы LilyPond). "
+#~ "Также показаны файлы включенные в исходный документ."
 
 #~ msgid "Print %1"
-#~ msgstr "%1 afdrukken"
+#~ msgstr "Печать %1"
 
-#~ msgid ""
-#~ "A print command (like 'lpr' or 'lp') could not be found on your system."
-#~ msgstr "Kan geen printcommando (zoals 'lpr' of 'lp') vinden op uw systeem."
-
-#~ msgid "The command '%1' could not be found on your system."
-#~ msgstr "Kan het commando '%1' niet vinden op uw systeem."
-
-#~ msgid ""
-#~ "The command below has been run, but exited with a return code %1.\n"
-#~ "\n"
-#~ "%2"
-#~ msgstr ""
-#~ "Het onderstaande command is gestart, maar werd beëindigd met code %1.\n"
-#~ "\n"
-#~ "%2"
-
-#~ msgid "Create blank staff paper"
-#~ msgstr "Blanco muziekpapier maken"
-
-#~ msgid "Choose what kind of empty staves you want to create."
-#~ msgstr "Kies welk type muziekbalken u wilt maken."
-
-#~ msgid "Choose which action happens when clicking \"Ok\"."
-#~ msgstr "Kies wat er gebeurt als u op \"Ok\" klikt."
-
-#~ msgid "Preview the empty staff paper."
-#~ msgstr " Klik voor een vooruitblik."
-
+#, fuzzy
 #~ msgid "Click to see more settings."
-#~ msgstr "Klik voor meer instellingen."
+#~ msgstr "Настройки партитуры"
 
+#, fuzzy
 #~ msgid "Settings"
-#~ msgstr "Instellingen"
+#~ msgstr "Струнные"
 
+#, fuzzy
 #~ msgid "Staff Size:"
-#~ msgstr "Balkgrootte:"
+#~ msgstr "Тип нотоносца:"
 
+#, fuzzy
 #~ msgid "Print Bar Lines"
-#~ msgstr "Maatstrepen afdrukken"
+#~ msgstr "&Тактовые черты"
 
+#, fuzzy
 #~ msgid "Bars per line:"
-#~ msgstr "Aantal maten per systeem:"
+#~ msgstr "Размер страницы:"
 
-#~ msgid "Start with:"
-#~ msgstr "Beginnen met:"
-
-#~ msgid "Blank staff paper preview"
-#~ msgstr "Vooruitblik blanco muziekpapier"
-
-#~ msgid "No PDF was created."
-#~ msgstr "Er is geen PDF aangemaakt."
-
+#, fuzzy
 #~ msgid "Open in PDF viewer"
-#~ msgstr "Openen in PDF-viewer"
+#~ msgstr "Открыть %1 во внешней программе просмотра"
 
-#~ msgid "Save PDF"
-#~ msgstr "PDF opslaan"
-
-#~ msgid "Print staff paper"
-#~ msgstr "Blanco muziekpapier afdrukken"
-
+#, fuzzy
 #~ msgid "Copy LilyPond code to editor"
-#~ msgstr "LilyPond-code naar editor kopiëren"
+#~ msgstr "Музыкальный нотатор LilyPond"
 
-#~ msgid "Staves per page:"
-#~ msgstr "Aantal balken per pagina:"
-
-#~ msgid "Clef:"
-#~ msgstr "Sleutel:"
-
+#, fuzzy
 #~ msgid "Single Staff"
-#~ msgstr "Enkele balk"
+#~ msgstr "Одинарная кавычка"
 
-#~ msgid "Systems per page:"
-#~ msgstr "Aantal systemen per pagina:"
-
+#, fuzzy
 #~ msgid "Clefs"
-#~ msgstr "Sleutels"
+#~ msgstr "Челеста"
 
+#, fuzzy
 #~ msgid "Piano Staff"
-#~ msgstr "Pianobalk"
+#~ msgstr "Фортепиано"
 
+#, fuzzy
 #~ msgid "Organ Staff"
-#~ msgstr "Orgelbalk"
+#~ msgstr "Орган"
 
+#, fuzzy
 #~ msgid "Staves per system:"
-#~ msgstr "Aantal notenbalken per systeem:"
+#~ msgstr "Остальные системы:"
 
+#, fuzzy
 #~ msgid "Clefs:"
-#~ msgstr "Sleutels:"
+#~ msgstr "Челеста"
 
-#~ msgid ""
-#~ "To configure clefs, first set the number of staves per system. Then enter "
-#~ "as many letters (S, A, T or B) as there are staves.\n"
-#~ "\n"
-#~ "S or A: treble clef,\n"
-#~ "T: treble clef with an \"8\" below,\n"
-#~ "B: bass clef\n"
-#~ "\n"
-#~ "So when you want to create music paper for a four-part mixed choir score, "
-#~ "first set the number of staves per system to 4. Then enter \"SATB"
-#~ "\" (without the quotes) here."
-#~ msgstr ""
-#~ "Om sleutels in te stellen, stel eerst het aantal balken per systeem in. "
-#~ "Voer dan zoveel letters (S, A, T of B) in als er balken zijn.\n"
-#~ "\n"
-#~ "S of A: vioolsleutel,\n"
-#~ "T: vioolsleutel met een \"8\" eronder,\n"
-#~ "B: bassleutel\n"
-#~ "\n"
-#~ "Dus als u muziekpapier wilt maken voor vierstemmig gemend koor, zet dan "
-#~ "eerst het aantal balken per systeem op 4. Voer dan hier \"SATB\" (zonder "
-#~ "de aanhalingstekens) in."
-
+#, fuzzy
 #~ msgid "Choir Staff"
-#~ msgstr "Koorbalk"
+#~ msgstr "Хор"
 
+#, fuzzy
 #~ msgid "Custom Staff"
-#~ msgstr "Aangepaste balk"
+#~ msgstr "Хор"
 
-#~ msgid "Space below:"
-#~ msgstr "Ruimte eronder:"
-
-#~ msgid "Square Bracket"
-#~ msgstr "Vierkante haak"
-
-#~ msgid "unknown"
-#~ msgstr "onbekend"
-
-#~ msgid "Please select a music expression, enclosed in << ... >> or { ... }."
-#~ msgstr "Selecteer een muziekexpressie, ingesloten in << ... >> of { ... }."
-
-#~ msgid "Please enter a start pitch and a destination pitch:"
-#~ msgstr "Geef de start- en doeltoonhoogte op:"
-
-#~ msgid "Transpose from:"
-#~ msgstr "Transponeren van:"
-
+#, fuzzy
 #~ msgid "to:"
-#~ msgstr "naar:"
+#~ msgstr "Направление:"
 
-#~ msgid "Install"
-#~ msgstr "Installeren"
-
+#, fuzzy
 #~ msgid "Download LilyPond"
-#~ msgstr "LilyPond downloaden"
+#~ msgstr "LilyPond"
 
-#~ msgid ""
-#~ "With this tool you can download packaged binary releases of LilyPond for "
-#~ "your operating system."
-#~ msgstr ""
-#~ "Met dit hulpmiddel kunt u binaire pakketten van LilyPond installeren."
-
+#, fuzzy
 #~ msgid "Select the LilyPond version you want to download."
-#~ msgstr "Selecteer de LilyPond-versie die u wilt downloaden."
+#~ msgstr "Выберите файлы, которые Вы хотите послать:"
 
-#~ msgid ""
-#~ "Select a writable directory you want to install LilyPond to.\n"
-#~ "(A version-numbered directory will be created in this directory.)"
-#~ msgstr ""
-#~ "Selecteer een beschrijfbare directory waar u LilyPond wilt installeren.\n"
-#~ "(Een versie-genummerde directory zal worden aangemaakt in deze directory.)"
-
+#, fuzzy
 #~ msgid "Install into:"
-#~ msgstr "Installeren in:"
+#~ msgstr "Итальянский"
 
-#~ msgid "Details"
-#~ msgstr "Details"
-
-#~ msgid "The website where LilyPond binaries can be downloaded."
-#~ msgstr ""
-#~ "De website waar de LilyPond binaire pakketten kunnen worden gedownload."
-
-#~ msgid "Download from:"
-#~ msgstr "Downloaden van:"
-
-#~ msgid "Machine type:"
-#~ msgstr "Type machine:"
-
-#~ msgid ""
-#~ "This is the URL to the package that will be downloaded and installed.\n"
-#~ "You can also browse to other places to select a LilyPond package."
-#~ msgstr ""
-#~ "Dit is de URL van het pakket dat zal worden gedownload en geïnstalleerd.\n"
-#~ "U kunt ook bladeren naar andere plaatsen om handmatig een LilyPond-pakket "
-#~ "te selecteren."
-
-#~ msgid "Package Url:"
-#~ msgstr "Pakket Url:"
-
-#~ msgid "Downloading directory listing..."
-#~ msgstr "Lijst wordt gedownload..."
-
-#~ msgid "No packages found. You can browse to a package manually."
-#~ msgstr "Geen pakketten gevonden. U kunt handmatig naar een pakket bladeren."
-
-#~ msgid "Latest Development Version (%1)"
-#~ msgstr "Laatste ontwikkelingsversie (%1)"
-
-#~ msgid "Latest Stable Version (%1)"
-#~ msgstr "Laatste stabiele versie (%1)"
-
-#~ msgid "Downloading %1..."
-#~ msgstr "Downloaden van %1..."
-
-#~ msgid "Download cancelled."
-#~ msgstr "Het downloaden is geannuleerd."
-
+#, fuzzy
 #~ msgid "Download failed: %1"
-#~ msgstr "Het downloaden is mislukt: %1"
+#~ msgstr "Печать завершилась с ошибкой: %1"
 
-#~ msgid ""
-#~ "LilyPond %1 seems already to be installed in %2.\n"
-#~ "\n"
-#~ "Do you want to use it or to remove and re-install?"
-#~ msgstr ""
-#~ "LilyPond %1 blijkt al geïnstalleerd te zijn in %2.\n"
-#~ "\n"
-#~ "Wilt u het gebruiken of verwijderen en her-installeren?"
-
+#, fuzzy
 #~ msgid "Use existing LilyPond"
-#~ msgstr "Bestaande LilyPond gebruiken"
+#~ msgstr "LilyPond"
 
+#, fuzzy
 #~ msgid "Remove and re-install"
-#~ msgstr "Verwijderen en her-installeren"
+#~ msgstr "Удалить длительности"
 
-#~ msgid "Unpacking %1..."
-#~ msgstr "Uitpakken van %1..."
-
-#~ msgid "Unpacking finished."
-#~ msgstr "Het uitpakken is voltooid."
-
+#, fuzzy
 #~ msgid "Unpacking failed."
-#~ msgstr "Het uitpakken is mislukt."
+#~ msgstr "Печать завершилась с ошибкой: %1"
 
+#, fuzzy
 #~ msgid ""
 #~ "An error occurred:\n"
 #~ "\n"
 #~ "%1"
-#~ msgstr ""
-#~ "Er is een fout opgetreden:\n"
-#~ "\n"
-#~ "%1"
+#~ msgstr "Неизвестная ошибка произошла."
 
 #~ msgid "Expansion Manager"
-#~ msgstr "Snelteksten beheren"
+#~ msgstr "Менеджер сокращений"
 
 #~ msgid ""
 #~ "This is the list of defined expansions.\n"
@@ -5432,355 +4969,232 @@ msgstr "Klik een paar keer op deze knop om het tempo in te stellen."
 #~ "(default shortcut: Ctrl+.), choose the expansion from the list and press "
 #~ "Enter or click Ok."
 #~ msgstr ""
-#~ "Dit is de lijst met gedefiniëerde snelteksten.\n"
+#~ "Это список определенных сокращений.\n"
 #~ "\n"
-#~ "Klik op een regel om de bijbehorende tekst te zien or bewerken. "
-#~ "Dubbelklik een sneltekst of beschrijving om deze te veranderen. U kunt "
-#~ "ook op F2 drukken om de sneltekst aan te passen.\n"
+#~ "Щёлкните на строке, чтобы увидеть или изменить связанный текст. Двойной "
+#~ "щелчок на сокращении или его описании изменит его. Вы можете также нажать "
+#~ "F2 для редактирования текущего сокращения. \n"
 #~ "\n"
-#~ "Gebruik de knoppen hieronder om snelteksten toe te voegen of te "
-#~ "verwijderen.\n"
+#~ "Используйте кнопки ниже для добавления или удаления сокращений.\n"
 #~ "\n"
-#~ "Er zijn twee manieren om de sneltekst-functie te gebruiken: Typ the "
-#~ "sneltekst in het document en roep dan de sneltekst-functie aan, of roep "
-#~ "de sneltekst-functie meteen aan (standaardtoets: Ctrl+.), kies de "
-#~ "sneltekst uit de lijst en druk op Enter of klik Ok."
+#~ "Есть два способа использования сокращений: набрать сокращение и затем "
+#~ "выбрать функцию \"Раскрыть сокращение\" (клавиатурная комбинация по "
+#~ "умолчанию: Ctrl+.) или же вызвать диалог сокращения, выбрать нужное, а "
+#~ "затем нажать Enter или Ok."
 
 #~ msgid ""
 #~ "This is the text associated with the selected shortcut. Some characters "
 #~ "have special meaning:"
 #~ msgstr ""
-#~ "Dit is de tekst die hoort bij de geselecteerde sneltekst. Sommige tekens "
-#~ "hebben een speciale betekenis:"
+#~ "Это текст связанный с выбранным сокращением. Некоторые символы имеют "
+#~ "особое значение:"
 
 #~ msgid "Translate the following pitch."
-#~ msgstr "Vertaal de volgende toonhoogte."
+#~ msgstr "Преобразовать следующие ноты."
 
 #~ msgid "New Item"
-#~ msgstr "Nieuw item"
+#~ msgstr "Новый пункт"
 
 #~ msgid ""
 #~ "Another expansion already uses this name.\n"
 #~ "\n"
 #~ "Please use a different name."
 #~ msgstr ""
-#~ "Er bestaat al een andere sneltekst onder deze naam.\n"
+#~ "Существующее сокращение уже использует это имя.\n"
 #~ "\n"
-#~ "Gebruik a.u.b. een andere naam."
+#~ "Выберите другое имя."
 
 #~ msgid ""
 #~ "Please only use letters, numbers and the underscore character in the "
 #~ "expansion name."
 #~ msgstr ""
-#~ "Gebruik alleen letters, cijfers en het onderstreepteken voor de sneltekst."
+#~ "Используйте только латинские буквы, цифры и символ подчеркивания в "
+#~ "названии расширения."
 
 #~ msgid "Please don't leave the description empty."
-#~ msgstr "U dient een omschrijving op te geven."
-
-#~ msgid ""
-#~ "Could not find any hyphenation dictionaries.\n"
-#~ "\n"
-#~ "Please install a package containing some and/or or configure the search "
-#~ "path to find them in the Frescobaldi settings under \"Paths.\""
-#~ msgstr ""
-#~ "Geen bestanden met afbreekpatronen gevonden.\n"
-#~ "\n"
-#~ "Installeer een pakket met deze bestanden en/of stel zoekpaden in om ze te "
-#~ "vinden in de Frescobaldi-instellingen onder \"Paden.\" "
-
-#~ msgid "Pause"
-#~ msgstr "Pauze"
-
-#~ msgid "Volume"
-#~ msgstr "Volume"
-
-#~ msgid "Larger text"
-#~ msgstr "Tekst vergroten"
-
-#~ msgid "Smaller text"
-#~ msgstr "Tekst verkleinen"
-
-#~ msgid "Up one level"
-#~ msgstr "Een niveau hoger"
+#~ msgstr "Пожалуйста, не оставляйте поле description пустым."
 
 #~ msgid "Table of contents"
-#~ msgstr "Inhoudsopgave"
+#~ msgstr "Оглавление"
 
+#, fuzzy
 #~ msgid "Index"
-#~ msgstr "Index"
+#~ msgstr "Инструмент"
 
 #~ msgid "Copy &Link"
-#~ msgstr "Koppeling &kopiëren"
+#~ msgstr "Копировать &ссылку"
 
 #~ msgid "Open Link in &New Window"
-#~ msgstr "Koppeling in &nieuw venster openen"
+#~ msgstr "Открыть ссылку в &новом окне"
 
 #~ msgid "Open Document in &New Window"
-#~ msgstr "Document in &nieuw venster openen"
+#~ msgstr "Открыть документ в &новом окне"
 
-#~ msgid "Loading..."
-#~ msgstr "Laden..."
-
+#, fuzzy
 #~ msgid "Not available"
-#~ msgstr "Niet beschikbaar"
+#~ msgstr "Настройки недоступны."
 
-#~ msgid "LilyPond Command Index"
-#~ msgstr "LilyPond Commando-index"
-
-#~ msgid "Learning Manual"
-#~ msgstr "Learning Manual"
-
-#~ msgid "Learning Manual Index"
-#~ msgstr "Learning Manual index"
-
-#~ msgid "Internals Reference"
-#~ msgstr "Internals Reference"
-
+#, fuzzy
 #~ msgid "The %1 context"
-#~ msgstr "De %1 context"
+#~ msgstr "Оглавление"
 
-#~ msgid "The %1 layout object"
-#~ msgstr "Het %1 layout-object"
-
+#, fuzzy
 #~ msgid "LilyPond &Help"
-#~ msgstr "LilyPond-&hulp"
-
-#~ msgid ""
-#~ "Where to add articulations et cetera: above or below the staff or in the "
-#~ "default position."
-#~ msgstr ""
-#~ "De plaats waar articulaties worden geplaatst: boven of onder de balk of "
-#~ "in de standaardpositie."
+#~ msgstr "LilyPond"
 
 #~ msgid "Click an articulation sign to add it to your document."
-#~ msgstr "Klik op een articulatie-teken om het aan uw document toe te voegen."
+#~ msgstr "Щёлкните на артикуляционном знаке, чтобы добавить его в документ."
 
 #~ msgid ""
 #~ "If you select some music first, the articulation will be added to all "
 #~ "notes in the selection."
 #~ msgstr ""
-#~ "Als u eerst muziek selecteert, wordt het articulatie-teken aan alle noten "
-#~ "in de selectie toegevoegd."
+#~ "Если сначала Вы выделите музыкальный фрагмент, то артикуляционные знаки "
+#~ "будут добавлены ко всем нотам выбранного фрагмента."
 
+#, fuzzy
 #~ msgid "Click a dynamic sign to add it to your document."
-#~ msgstr "Klik op een dynamisch teken om het aan uw document toe te voegen."
+#~ msgstr "Щёлкните на артикуляционном знаке, чтобы добавить его в документ."
 
+#, fuzzy
 #~ msgid ""
 #~ "If you select some music first, dynamic spanners will be added the "
 #~ "selected fragment."
 #~ msgstr ""
-#~ "Als u eerst muziek selecteert, worden dynamische spanners aan alle noten "
-#~ "in de selectie toegevoegd."
-
-#~ msgid ""
-#~ "If you have selected some music and you click a sign after a spanner, the "
-#~ "sign will terminate the spanner."
-#~ msgstr ""
-#~ "Als u muziek geselecteerd heeft en u klikt op een spanner en daarna een "
-#~ "teken, dan zal het teken de spanner beëindigen."
-
-#~ msgid "These spanners need a music fragment to be selected."
-#~ msgstr "Selecteer een muziekfragment om deze spanners te kunnen gebruiken."
-
-#~ msgid "Arpeggios are used with chords with multiple notes."
-#~ msgstr "Arpeggio's worden gebruikt bij akkoorden met meer dan één noot."
-
-#~ msgid ""
-#~ "Glissandos are attached to a note and automatically extend to the next "
-#~ "note."
-#~ msgstr ""
-#~ "Glissando's worden achter een noot geplaatst en wijzen automatisch naar "
-#~ "de volgende noot."
+#~ "Если сначала Вы выделите музыкальный фрагмент, то артикуляционные знаки "
+#~ "будут добавлены ко всем нотам выбранного фрагмента."
 
 #~ msgid "Run LilyPond (preview)"
-#~ msgstr "LilyPond starten (vooruitblik)"
+#~ msgstr "Запустить LilyPond (просмотр)"
 
 #~ msgid "Run LilyPond (publish)"
-#~ msgstr "LilyPond starten (publiceren)"
+#~ msgstr "Запустить LilyPond (публикация)"
 
+#, fuzzy
 #~ msgid "Run LilyPond (custom)..."
-#~ msgstr "LilyPond starten (aangepast)..."
+#~ msgstr "Запустить LilyPond (публикация)"
 
 #~ msgid "Interrupt LilyPond Job"
-#~ msgstr "LilyPond-taak afbreken"
+#~ msgstr "Прервать текущее задание"
 
+#, fuzzy
 #~ msgid "Email Documents..."
-#~ msgstr "Documenten verzenden..."
+#~ msgstr "Послать документы по email"
 
 #~ msgid "Cut selection and assign it to a LilyPond variable."
-#~ msgstr ""
-#~ "De geselecteerde tekst knippen en toewijzen aan een LilyPond variabele."
+#~ msgstr "Вырезать выделение и присвоить его переменной LilyPond."
 
 #~ msgid "Repeat last note or chord"
-#~ msgstr "Laatste noot of akkoord herhalen"
+#~ msgstr "Повторить последнюю ноту или аккорд"
 
 #~ msgid "Repeat the last music expression (note or chord)."
-#~ msgstr "Herhaalt de laatstgetypte muziekexpressie (noot of akkoord)."
-
-#~ msgid "Insert or Manage Expansions..."
-#~ msgstr "Snelteksten invoegen of beheren..."
+#~ msgstr "Повторить последнее музыкальное выражение (ноту или аккорд)."
 
 #~ msgid "Expand last word or open the expansions dialog."
-#~ msgstr "Laatst getypte woord uitbreiden of de lijst met snelteksten openen."
-
-#~ msgid "Special Characters..."
-#~ msgstr "Speciale tekens..."
-
-#~ msgid "Insert special characters."
-#~ msgstr "Speciale tekens invoegen."
-
-#~ msgid "Add to Expansions"
-#~ msgstr "Aan snelteksten toevoegen"
+#~ msgstr "Раскрыть сокращение или открыть диалог сокращений."
 
 #~ msgid "Next blank line"
-#~ msgstr "Volgende blanco regel"
+#~ msgstr "Следующая пустая строка"
 
 #~ msgid "Go to the next blank line."
-#~ msgstr "Ga naar de volgende blanco regel."
+#~ msgstr "Перейти к следующей пустой строке."
 
 #~ msgid "Previous blank line"
-#~ msgstr "Vorige blanco regel"
+#~ msgstr "Предыдущая пустая строка"
 
 #~ msgid "Go to the previous blank line."
-#~ msgstr "Ga naar de vorige blanco regel."
+#~ msgstr "Перейти к предыдущей пустой строке."
 
+#, fuzzy
 #~ msgid "Select to next blank line"
-#~ msgstr "Tot volgende blanco regel selecteren"
+#~ msgstr "Перейти к следующей пустой строке."
 
-#~ msgid ""
-#~ "Selects text from the current position down to and including the next "
-#~ "blank line."
-#~ msgstr ""
-#~ "Selecteert tekst vanaf de huidige cursorpositie tot en met de volgende "
-#~ "blanco regel."
-
+#, fuzzy
 #~ msgid "Select to previous blank line"
-#~ msgstr "Tot vorige blanco regel selecteren"
+#~ msgstr "Перейти к предыдущей пустой строке."
 
-#~ msgid ""
-#~ "Selects text from the current position up to right after the previous "
-#~ "blank line."
-#~ msgstr ""
-#~ "Selecteert tekst vanaf de huidige cursorpositie tot net na de vorige "
-#~ "blanco regel."
-
+#, fuzzy
 #~ msgid "Move selection to next blank line"
-#~ msgstr "Selectie verplaatsen naar volgende blanco regel"
+#~ msgstr "Перейти к следующей пустой строке."
 
+#, fuzzy
 #~ msgid "Moves selected block to next blank line."
-#~ msgstr "Verplaatst de geselecteerde tekst naar de volgende blanco regel."
+#~ msgstr "Перейти к следующей пустой строке."
 
+#, fuzzy
 #~ msgid "Move selection to previous blank line"
-#~ msgstr "Selectie verplaatsen naar vorige blanco regel"
+#~ msgstr "Перейти к предыдущей пустой строке."
 
+#, fuzzy
 #~ msgid "Moves selected block to previous blank line."
-#~ msgstr "Verplaatst de geselecteerde tekst naar de vorige blanco regel."
-
-#~ msgid "Play/View"
-#~ msgstr "Weergeven"
+#~ msgstr "Перейти к предыдущей пустой строке."
 
 #~ msgid "Single Quote"
-#~ msgstr "Enkel aanhalingsteken"
+#~ msgstr "Одинарная кавычка"
 
 #~ msgid "Double Quote"
-#~ msgstr "Dubbel aanhalingsteken"
+#~ msgstr "Двойная кавычка"
 
 #~ msgid "Align"
-#~ msgstr "Uitlijnen"
+#~ msgstr "Выровнять отступы"
 
 #~ msgid "Update with convert-ly"
-#~ msgstr "Bijwerken met convert-ly"
+#~ msgstr "Обновить с помощью convert-ly"
 
+#, fuzzy
 #~ msgid "Repeat selected music"
-#~ msgstr "Geselecteerde muziek herhalen"
-
-#~ msgid "Insert pair of braces"
-#~ msgstr "Accolades invoegen"
-
-#~ msgid ""
-#~ "Your document has been modified and needs to be saved before LilyPond can "
-#~ "be started.\n"
-#~ "\n"
-#~ "Save the document now?"
-#~ msgstr ""
-#~ "Uw document is gewijzigd en dient opgeslagen te worden voordat LilyPond "
-#~ "kan worden gestart.\n"
-#~ "\n"
-#~ "Wilt u het document nu opslaan?"
+#~ msgstr "Вставить ритм в выделенную музыку."
 
 #~ msgid "There is already a LilyPond job running for this document."
-#~ msgstr "Er is reeds een LilyPond-proces actief voor dit document."
+#~ msgstr "LilyPond уже запущен для этого документа."
 
 #~ msgid "Can't process document"
-#~ msgstr "Can document niet verwerken"
-
-#~ msgid "Continue anyway?"
-#~ msgstr "Toch doorgaan?"
-
-#~ msgid ""
-#~ "You want to run LilyPond in preview mode (with point and click enabled), "
-#~ "but your document contains a command to turn point and click off."
-#~ msgstr ""
-#~ "U wilt LilyPond starten in vooruitblik-modus (met point-and-click), maar "
-#~ "uw document bevat een commando dat point-and-click uitschakelt."
-
-#~ msgid ""
-#~ "You want to run LilyPond in publish mode (with point and click disabled), "
-#~ "but your document contains a command to turn point and click on."
-#~ msgstr ""
-#~ "U wilt LilyPond starten in publiceer-modus (zonder point-and-click), maar "
-#~ "uw document bevat een commando dat point-and-click inschakelt."
+#~ msgstr "Невозможно обработать документ"
 
 #~ msgid "Abort the running LilyPond process"
-#~ msgstr "Het actieve LilyPond-proces afbreken"
+#~ msgstr "Прервать запущенный процесс LilyPond"
 
+#, fuzzy
 #~ msgid "Run LilyPond in preview mode (Shift-click for custom dialog)"
-#~ msgstr "LilyPond starten (vooruitblik, shift-klik voor dialoog)"
+#~ msgstr "Запустить LilyPond в режиме предварительного просмотра"
 
-#~ msgid "LilyPond has successfully compiled %1."
-#~ msgstr "LilyPond heeft %1 succesvol gecompileerd."
-
+#, fuzzy
 #~ msgid "LilyPond exited with an error compiling %1."
-#~ msgstr "LilyPond stopte met een fout tijdens het compileren van %1."
+#~ msgstr "Программа LilyPond [%1] завершилась с кодом %2."
 
 #~ msgid ""
 #~ "Enter a rhythm using space separated duration values (e.g. 8. 16 8 4 8)"
 #~ msgstr ""
-#~ "Voer een ritme in met nootlengtes en spaties ertussen (bijv. 8. 16 8 4 8)"
+#~ "Введите ритм, используя пробел в качестве разделителя длительностей, "
+#~ "например, 8 16 8 4 8"
 
 #~ msgid "Terminal"
-#~ msgstr "Terminal"
+#~ msgstr "Консоль"
 
 #~ msgid "MIDI Player"
-#~ msgstr "MIDI-speler"
-
-#~ msgid ""
-#~ "Could not load the KMid part.\n"
-#~ "Please install KMid 2.4.0 or higher."
-#~ msgstr ""
-#~ "Kan de KMid-component niet laden.\n"
-#~ "Installeer KMid 2.4.0 of hoger."
+#~ msgstr "Программа воспроизведения MIDI"
 
 #~ msgid "Show PDF Navigation Panel"
-#~ msgstr "PDF-navigatiepaneel tonen"
+#~ msgstr "Показать панель навигации по PDF документу"
 
 #~ msgid "Show PDF minipager"
-#~ msgstr "PDF-minipager tonen"
+#~ msgstr "Показать PDF мини-пейджер"
 
 #~ msgid "Configure Okular..."
-#~ msgstr "Okular instellen..."
+#~ msgstr "Настройка Okular..."
 
 #~ msgid "S&ynchronize Preview with Current Document"
-#~ msgstr "Vooruitblik met huidig document s&ynchroniseren"
+#~ msgstr "Синхронизировать просмотр с текущим документом"
 
+#, fuzzy
 #~ msgid "Reload"
-#~ msgstr "Opnieuw laden"
+#~ msgstr "Запись"
 
 #~ msgid "no log"
-#~ msgstr "geen log"
+#~ msgstr "нет записей в журнале"
 
 #~ msgid "Only show on errors"
-#~ msgstr "Alleen tonen bij fouten"
+#~ msgstr "Показывать только при ошибках"
 
 #~ msgid "Rumor"
 #~ msgstr "Rumor"
@@ -5789,1141 +5203,474 @@ msgstr "Klik een paar keer op deze knop om het tempo in te stellen."
 #~ "The meter to use. Leave 'Auto' to let Frescobaldi determine the meter "
 #~ "from the LilyPond document."
 #~ msgstr ""
-#~ "De te gebruiken maatsoort. Indien 'Auto', bepaalt Frescobaldi de "
-#~ "maatsoort uit het huidige document."
+#~ "Используемый метр. Оставьте Auto, чтобы Frescobaldi определил метр исходя "
+#~ "из LilyPond документа."
 
 #~ msgid "Quantize:"
-#~ msgstr "Quantiseren:"
+#~ msgstr "Квант:"
 
 #~ msgid "The shortest note duration to use."
-#~ msgstr "De kortste toegestane toonduur."
+#~ msgstr "Самая короткая используемая длительность."
 
 #~ msgid "Step"
-#~ msgstr "Stap"
+#~ msgstr "Шаг"
 
 #~ msgid "Record LilyPond input note by note, without durations."
-#~ msgstr "Neem noot voor noot op, zonder toonduur te registreren."
+#~ msgstr "Записывать ввод LilyPond нота за нотой, без длительностей."
 
 #~ msgid "Mono"
-#~ msgstr "Mono"
+#~ msgstr "Моно"
 
 #~ msgid "Record monophonic input, without chords."
-#~ msgstr "Monofoon opnemen, zonder akkoorden."
+#~ msgstr "Записывать одноголосный ввод, без аккордов."
 
 #~ msgid ""
 #~ "The number of accidentals. A negative number designates flats. Leave "
 #~ "'Auto' to let Frescobaldi determine the key signature from the LilyPond "
 #~ "document."
 #~ msgstr ""
-#~ "Het aantal voortekens. Een negatieve waarde duidt mollen aan. Indien "
-#~ "'Auto', bepaalt Frescobaldi de toonsoort uit het huidige document."
+#~ "Количество ключевых знаков. Отрицательное число означает бемоли. Оставьте "
+#~ "\"Автоматически\", чтобы LilyPond определил их из документа."
+
+#~ msgid "Tempo:"
+#~ msgstr "Темп:"
 
 #~ msgid "Meter:"
-#~ msgstr "Maatsoort:"
+#~ msgstr "Метр:"
 
 #~ msgid "Key:"
-#~ msgstr "Toonsoort:"
+#~ msgstr "Ключ:"
 
 #~ msgid "Configure..."
-#~ msgstr "Instellen..."
+#~ msgstr "Настройка..."
 
 #~ msgid "Adjust more settings, like MIDI input and output."
-#~ msgstr "Meer instellingen, zoals MIDI in- en uitvoer."
+#~ msgstr "Другие настройки, такие как MIDI ввод и вывод."
 
 #~ msgid "Set these settings as default."
-#~ msgstr "Deze instelling opslaan en standaard gebruiken."
+#~ msgstr "Сохранить по умолчанию"
 
 #~ msgid "Found rumor version %1."
-#~ msgstr "Rumor versie %1 gevonden."
+#~ msgstr "Найдена версия Rumor %1."
 
 #~ msgid "Could not find Rumor: %1"
-#~ msgstr "Kon Rumor niet vinden: %1"
+#~ msgstr "Невозможно найти Rumor: %1"
 
 #~ msgid "Settings have been saved."
-#~ msgstr "De instellingen zijn opgeslagen."
+#~ msgstr "Настройки сохранены"
 
 #~ msgid "Record"
-#~ msgstr "Opnemen"
+#~ msgstr "Запись"
 
 #~ msgid "Start or stop Rumor MIDI-recording."
-#~ msgstr "Rumor MIDI-opname starten of stoppen."
+#~ msgstr "Запустить или остановить запись Rumor"
 
 #~ msgid "Rumor is recording, press ESC to stop."
-#~ msgstr "Rumor neemt op, druk op ESC om te stoppen."
+#~ msgstr "Идет запись Rumor, нажмите ESC для остановки."
 
 #~ msgid "Rumor stopped."
-#~ msgstr "Rumor is gestopt."
+#~ msgstr "Rumor остановлен."
 
 #~ msgid "TiMidity"
 #~ msgstr "TiMidity"
 
 #~ msgid "Start or stop the TiMidity ALSA MIDI client."
-#~ msgstr "De TiMidity ALSA MIDI-client starten of stoppen."
+#~ msgstr "Запустить или остановить TiMidity ALSA MIDI клиент."
 
 #~ msgid "Rumor Settings"
-#~ msgstr "Rumor instellingen"
+#~ msgstr "Настройки Rumor"
 
 #~ msgid "OSS device %1"
-#~ msgstr "OSS apparaat %1"
-
-#~ msgid "Keyboard"
-#~ msgstr "Toetsenbord"
+#~ msgstr "OSS устройство %1"
 
 #~ msgid ""
 #~ "MIDI input to use. Choose 'Keyboard' if you want to play on the keyboard "
 #~ "of your computer."
 #~ msgstr ""
-#~ "Het te gebruiken MIDI-invoerapparaat. Kies 'Toetsenbord' om op het "
-#~ "toetsenbord van uw computer te spelen."
+#~ "Вход MIDI. Выберите \"Клавиатура\", если хотите использовать клавиатуру "
+#~ "Вашего компьютера."
 
 #~ msgid "MIDI output:"
-#~ msgstr "MIDI uitvoer:"
+#~ msgstr "Выход MIDI:"
 
 #~ msgid "MIDI output to use."
-#~ msgstr "Het te gebruiken MIDI-uitvoerapparaat."
+#~ msgstr "Используемый MIDI выход."
 
 #~ msgid "The LilyPond language you want Rumor to output the pitches in."
-#~ msgstr "De LilyPond-taal die u wilt gebruiken voor de toonhoogtes."
+#~ msgstr "Язык LilyPond, в котором Rumor будет выводить названия нот."
 
 #~ msgid "Explicit durations"
-#~ msgstr "Expliciete toonduur"
+#~ msgstr "Явные длительности"
 
 #~ msgid ""
 #~ "Add a duration after every note, even if it is the same as the preceding "
 #~ "note."
 #~ msgstr ""
-#~ "De toonduur na elke noot weergeven, ook als deze hetzelfde is als de "
-#~ "vorige noot."
+#~ "Добавлять длительность после каждой ноты, даже если она совпадает с "
+#~ "предыдущей."
 
 #~ msgid "Absolute pitch"
-#~ msgstr "Absolute toonhoogte"
+#~ msgstr "Абсолютная высота нот"
 
 #~ msgid "Use absolute pitches instead of relative."
-#~ msgstr "Gebruik absolute octaafhoogte in plaats van relatieve."
+#~ msgstr "Использовать абсолютную высоту нот вместо относительной."
 
 #~ msgid "No barlines"
-#~ msgstr "Geen maatstrepen"
+#~ msgstr "Без тактовых черт"
 
 #~ msgid "Filter the barlines out of Rumor's output."
-#~ msgstr "Verwijder de maatstrepen uit Rumor's uitvoer."
+#~ msgstr "Удалять тактовые черты из вывода Rumor."
 
 #~ msgid "No dots"
-#~ msgstr "Geen punten"
+#~ msgstr "Без точек"
 
 #~ msgid "Do not use dotted notes, but ties instead."
-#~ msgstr "Plaats geen punt achter de noot, maar een overbindingsboogje."
+#~ msgstr "Использовать вместо точек связующие лиги."
 
 #~ msgid "Legato"
-#~ msgstr "Legato"
+#~ msgstr "Легато"
 
 #~ msgid "Do not use rests, but give all notes the maximum length."
-#~ msgstr "Gebruik geen rusten maar geef alle noten de maximale lengte."
+#~ msgstr ""
+#~ "Не использовать паузы, а делать ноты максимальной продолжительности."
 
 #~ msgid "Strip leading and trialing rests from output."
-#~ msgstr "Verwijder rusten aan het begin en het einde."
+#~ msgstr "Удалить паузы в начале и в конце документа."
 
 #~ msgid "Guile scripts to load:"
-#~ msgstr "Guile scripts om te laden:"
-
-#~ msgid ""
-#~ "Here you can select which Guile scripts you want Rumor to load. Check "
-#~ "\"What's this\" for more information."
-#~ msgstr ""
-#~ "Hier kunt u selecteren welke Guile scripts u met Rumor wilt gebruiken. "
-#~ "Raadpleeg \"Wat is dit\" voor meer informatie."
+#~ msgstr "Guile скрипт для загрузки:"
 
 #~ msgid ""
 #~ "Here you can select which Guile scripts you want Rumor to load. You can "
 #~ "add your own scripts by putting them in %1. If the first line of your "
 #~ "script starts with a semicolon (;) that line will be shown as description."
 #~ msgstr ""
-#~ "Hier kunt u selecteren welke Guile scripts u met Rumor wilt gebruiken. U "
-#~ "kunt uw eigen scripts toevoegen door deze in %1 te plaatsen. Als de "
-#~ "eerste regel van uw script met een puntkomma (;) begint wordt deze als "
-#~ "omschrijving weergegeven."
+#~ "Здесь Вы можете выбрать, какие Guile-скрипты должен загружать Rumor. Вы "
+#~ "можете добавить собственные скрипты в %1. Если первая строка Вашего "
+#~ "скрипта начинается с точки с запятой (;), она будет показана как описание."
 
 #~ msgid "publish mode"
-#~ msgstr "publiceren"
+#~ msgstr "режим публикации"
 
 #~ msgid "LilyPond %1 [%2] starting (%3)..."
-#~ msgstr "LilyPond %1 [%2] wordt gestart (%3)..."
+#~ msgstr "Запуск LilyPond %1 [%2] (%3)..."
 
 #~ msgid "LilyPond [%1] starting (%2)..."
-#~ msgstr "LilyPond [%1] wordt gestart (%2)..."
+#~ msgstr "Запуск LilyPond [%1] (%2)..."
 
 #~ msgid "LilyPond [%1] finished (%2)."
-#~ msgstr "LilyPond [%1] voltooid (%2)."
+#~ msgstr "LilyPond [%1] завершен (%2)."
 
+#, fuzzy
 #~ msgid "Run LilyPond"
-#~ msgstr "LilyPond starten"
+#~ msgstr "LilyPond"
 
+#, fuzzy
 #~ msgid "Select which LilyPond version you want to run:"
-#~ msgstr "Selecteer de LilyPond-versie die u wilt starten:"
+#~ msgstr "Выберите файлы, которые Вы хотите послать:"
 
+#, fuzzy
 #~ msgid "Run LilyPond in preview mode (with Point and Click)"
-#~ msgstr "LilyPond starten met Point and Click (vooruitblik)"
+#~ msgstr "Запустить LilyPond в режиме предварительного просмотра"
 
 #~ msgid "Run LilyPond with verbose output"
-#~ msgstr "LilyPond starten met uitgebreide uitvoerberichten"
+#~ msgstr "Запускать LilyPond в режиме вывода подробной информации"
 
+#, fuzzy
 #~ msgid "LilyPond %1"
-#~ msgstr "LilyPond %1"
+#~ msgstr "LilyPond"
 
+#, fuzzy
 #~ msgid "Use LilyPond version %1"
-#~ msgstr "LilyPond-versie %1 gebruiken"
+#~ msgstr "Вставить версию LilyPond"
 
-#~ msgid "Automatic LilyPond Version (determined from document)."
-#~ msgstr "Automatische LilyPond-versie (op basis van document)."
-
+#, fuzzy
 #~ msgid "Path: %1"
-#~ msgstr "Pad: %1"
+#~ msgstr "Воспроизвести %1"
 
+#, fuzzy
 #~ msgid "LilyPond (version unknown)"
-#~ msgstr "LilyPond (versie onbekend)"
+#~ msgstr "Вставить версию LilyPond"
 
+#, fuzzy
 #~ msgid ""
 #~ "Use LilyPond (version unknown)\n"
 #~ "Path: %1"
-#~ msgstr ""
-#~ "LilyPond (versie onbekend) gebruiken\n"
-#~ "Pad: %1"
+#~ msgstr "Вставить версию LilyPond"
 
 #~ msgid "Save LilyPond Log as"
-#~ msgstr "LilyPond-uitvoer opslaan als"
+#~ msgstr "Сохранить журнал LilyPond как"
 
 #~ msgid ""
 #~ "Could not save LilyPond log:\n"
 #~ "\n"
 #~ "%1"
 #~ msgstr ""
-#~ "Kan LilyPond-uitvoer niet opslaan:\n"
+#~ "Не удалось сохранить журнал LilyPond в файле:\n"
 #~ "\n"
 #~ "%1"
 
+#, fuzzy
 #~ msgid "LilyPond-related settings"
-#~ msgstr "LilyPond-gerelateerde instellingen"
+#~ msgstr "Файлы LilyPon"
 
+#, fuzzy
 #~ msgid "LilyPond version to use:"
-#~ msgstr "Te gebruiken LilyPond-versie:"
-
-#~ msgid ""
-#~ "Here you can set a fixed LilyPond version to run on documents in this "
-#~ "session.\n"
-#~ "\n"
-#~ "The LilyPond version selected here is run by default on your documents, "
-#~ "and it's also used by the \"Insert Version\" command."
-#~ msgstr ""
-#~ "Hier kunt een vaste LilyPond-versie kiezen om te gebruiken op documenten "
-#~ "in deze sessie.\n"
-#~ "\n"
-#~ "De versie die u hier selecteert wordt dan standaard gebruikt op uw "
-#~ "documenten, en wordt ook ingevoegd door het \"LilyPond-versie invoegen\"-"
-#~ "commando."
+#~ msgstr "Вставить версию LilyPond"
 
 #~ msgid "Configure"
-#~ msgstr "Instellen"
+#~ msgstr "Настройка"
 
 #~ msgid "General Frescobaldi Preferences"
-#~ msgstr "Algemene voorkeuren voor Frescobaldi"
+#~ msgstr "Общие настройки Frescobaldi"
 
 #~ msgid "Paths to programs or data used by Frescobaldi"
-#~ msgstr "Paden naar programma's of gegevens gebruikt door Frescobaldi"
+#~ msgstr "Пути к программам или данным, используемым Frescobaldi"
 
 #~ msgid "Rumor MIDI input"
-#~ msgstr "Rumor MIDI-invoer"
+#~ msgstr "Ввод MIDI Rumor"
 
 #~ msgid "Rumor MIDI input plugin settings"
-#~ msgstr "Instellingen voor de Rumor MIDI-invoerplugin"
+#~ msgstr "Настройки ввода MIDI Rumor"
 
 #~ msgid "Editor Component"
-#~ msgstr "Editor-component"
+#~ msgstr "Редактор"
 
 #~ msgid "Editor Component Options"
-#~ msgstr "Instellingen voor de editor"
+#~ msgstr "Настройки редактора"
+
+#~ msgid "LilyPond version number to use for new documents"
+#~ msgstr "Версия LilyPond используемая для новых документов"
+
+#~ msgid "Use version number of installed LilyPond"
+#~ msgstr "Использовать версию установленного LilyPond"
 
 #~ msgid "Use version number of last convert-ly rule"
-#~ msgstr "Versienummer van laatste convert-ly regel gebruiken"
+#~ msgstr "Использовать версию последнего запуска convert-ly"
 
 #~ msgid "Enter a valid LilyPond version number, e.g. 2.12.0"
-#~ msgstr "Voer een geldig LilyPond-versienummer in, bijv. 2.12.0"
+#~ msgstr "Введите версию Lilypond, например 2.12.0"
 
-#~ msgid "Warnings and Notifications"
-#~ msgstr "Waarschuwingen en notificaties"
-
-#~ msgid "Warn when a document contains a conflicting point and click setting"
-#~ msgstr ""
-#~ "Waarschuwing als een document een conflicterende point-and-click-"
-#~ "instelling bevat"
-
+#, fuzzy
 #~ msgid "Warn when a document needs to be saved before LilyPond is run"
-#~ msgstr ""
-#~ "Waarschuwing als een document moet worden opgeslagen voor LilyPond wordt "
-#~ "gestart"
-
-#~ msgid "Warn when saving a session would overwrite another"
-#~ msgstr ""
-#~ "Waarschuwing als het opslaan van een sessie een andere zou overschrijven"
-
-#~ msgid "Point and Click"
-#~ msgstr "Point en Click"
-
-#~ msgid "Enable Point and Click"
-#~ msgstr "Point en Click inschakelen"
-
-#~ msgid ""
-#~ "Click this button if Point and Click does not work. See Shift+F1 (What's "
-#~ "This) for more information."
-#~ msgstr ""
-#~ "Klik op deze knop als Point en Click niet werkt. Zie Shift+F1 (Wat is "
-#~ "dit) voor meer informatie."
-
-#~ msgid ""
-#~ "On its first run, Frescobaldi tries to auto-configure Okular (which "
-#~ "provides the PDF preview) to call Frescobaldi when a clickable object is "
-#~ "clicked.\n"
-#~ "\n"
-#~ "But this setting can get lost when you move Frescobaldi to a different "
-#~ "location or when other applications reconfigure Okular.\n"
-#~ "\n"
-#~ "Click this button to configure Frescobaldi as 'custom editor' inside "
-#~ "Okular.  This works best when all instances of Okular are closed and the "
-#~ "PDF preview has not yet been opened."
-#~ msgstr ""
-#~ "Bij de eerste start probeert Frescobaldi Okular (dat de PDF-weergave "
-#~ "verzorgt) automatisch in te stellen om Frescobaldi te starten als een "
-#~ "aanklikbaar object wordt aangeklikt.\n"
-#~ "\n"
-#~ "Deze instelling kan echter verloren raken als u Frescobaldi verplaatst "
-#~ "naar een andere directory of als andere programma's Okular anders "
-#~ "instellen.\n"
-#~ "\n"
-#~ "Klik op deze knop om Frescobaldi als 'aangepaste editor' in te stellen in "
-#~ "Okular.  Dit werkt het best als u alle vensters van Okular sluit en de "
-#~ "PDF-weergave nog niet geopend is."
-
-#~ msgid ""
-#~ "The Okular PDF preview has been reconfigured.\n"
-#~ "\n"
-#~ "If you already opened the PDF preview, restart Frescobaldi for the new "
-#~ "settings to take effect."
-#~ msgstr ""
-#~ "De Okular PDF-weergave is opnieuw ingesteld.\n"
-#~ "\n"
-#~ "Als u de PDF-weergave al geopend had, dient u Frescobaldi te herstarten "
-#~ "zodat de nieuwe instelling in werking treedt."
-
-#~ msgid "Helper applications"
-#~ msgstr "Hulpprogramma's"
+#~ msgstr "Сохранять документ перед запуском LilyPond"
 
 #~ msgid "PDF Viewer:"
-#~ msgstr "PDF-viewer:"
+#~ msgstr "Просмотрщик PDF:"
 
 #~ msgid "PDF Viewer"
-#~ msgstr "PDF-viewer"
+#~ msgstr "Просмотрщик PDF"
 
 #~ msgid "(leave empty for operating system default)"
-#~ msgstr "(als u niets opgeeft wordt de standaardapplicatie gebruikt)"
+#~ msgstr "(оставьте пустым для значения по умолчанию)"
 
 #~ msgid "MIDI Player:"
-#~ msgstr "MIDI-speler:"
-
-#~ msgid "Url:"
-#~ msgstr "Url:"
+#~ msgstr "Программа воспроизведения MIDI:"
 
 #~ msgid "Url or path to the LilyPond documentation."
-#~ msgstr "Url of pad naar de LilyPond-documentatie."
-
-#~ msgid "Lyrics Hyphenation"
-#~ msgstr "Afbreking van liedteksten"
+#~ msgstr "Url или путь к документации LilyPond."
 
 #~ msgid ""
 #~ "Paths to search for hyphenation dictionaries of OpenOffice.org, Scribus, "
 #~ "KOffice, etc, one per line. If you leave out the starting slash, the "
 #~ "prefixes from the KDEDIRS environment variable are prepended."
 #~ msgstr ""
-#~ "Paden om bestanden met afbreekpatronen te vinden van bijv. OpenOffice."
-#~ "org, Scribus of KOffice, één per regel.  Als u de beginslash weglaat, "
-#~ "wordt het pad gekoppeld aan alle paden in de KDEDIRS-omgevingsvariable."
+#~ "Пути поиска словарей для переносов слов от OpenOffice.org, Scribus, "
+#~ "KOffice и т.д., по одному на строку. Если опустить начальный слеш, "
+#~ "префиксы из KDEDIRS переменных окружения будут добавлены."
 
 #~ msgid "Commands used by the Rumor MIDI input module"
-#~ msgstr "Commando's gebruikt door de Rumor MIDI-invoermodule"
+#~ msgstr "Команды используемые модулем ввода MIDI Rumor"
 
 #~ msgid "Name or full path of the Rumor program."
-#~ msgstr "Naam of pad van het Rumor programma."
+#~ msgstr "Имя или полный путь к программе Rumor."
 
 #~ msgid ""
 #~ "Name or full path of the aconnect program (part of ALSA, for MIDI input "
 #~ "and playback using Rumor)."
 #~ msgstr ""
-#~ "Naam of pad van het aconnect programma (onderdeel van ALSA, voor MIDI in- "
-#~ "en uitvoer via Rumor)."
+#~ "Имя или полный путь к программе aconnect (часть пакета ALSA, для ввода и "
+#~ "воспроизведения MIDI, используя Rumor)"
 
 #~ msgid ""
 #~ "Full command to start Timidity (or any other program) as an ALSA MIDI "
 #~ "client."
 #~ msgstr ""
-#~ "Commandoregel om Timidity (of een ander programma) te starten als ALSA "
-#~ "MIDI-client."
+#~ "Полная команда запуска TiMidity или другой программы MIDI-клиента ALSA."
 
+#, fuzzy
 #~ msgid "Document Tabs"
-#~ msgstr "Document-tabs"
+#~ msgstr "Показать закладки документов"
 
-#~ msgid "Close Button"
-#~ msgstr "Sluitknop"
-
-#~ msgid "Large Tabs"
-#~ msgstr "Brede tabs"
-
-#~ msgid "Tabs can be moved"
-#~ msgstr "Tabs kunnen worden verplaatst"
-
+#, fuzzy
 #~ msgid "Version"
-#~ msgstr "Versie"
+#~ msgstr "Версия:"
 
-#~ msgid "Download..."
-#~ msgstr "Downloaden..."
-
-#~ msgid "Download new binary LilyPond releases."
-#~ msgstr "Nieuwe binaire LilyPond-releases downloaden."
-
+#, fuzzy
 #~ msgid "LilyPond Command"
-#~ msgstr "LilyPond-commando"
-
-#~ msgid "Choose a session."
-#~ msgstr "Kies een sessie."
-
-#~ msgid "Choose..."
-#~ msgstr "Kiezen..."
+#~ msgstr "Документация LilyPond:"
 
 #~ msgid "Your document has already a LilyPond version statement."
-#~ msgstr "Uw document heeft reeds een LilyPond versie-commando."
+#~ msgstr "Ваш документ уже содержит сведения о версии LilyPond"
 
 #~ msgid "Version already set"
-#~ msgstr "Versie al ingesteld"
+#~ msgstr "Версия уже установлена"
 
 #~ msgid ""
 #~ "Can't determine the version of LilyPond. Please check your LilyPond "
 #~ "installation."
-#~ msgstr ""
-#~ "Kan de versie van LilyPond niet bepalen. Controleer uw LilyPond-"
-#~ "installatie."
+#~ msgstr "Невозможно определить версию LilyPond. Проверьте установку."
 
 #~ msgid ""
 #~ "Can't determine the LilyPond version of the current document. Please add "
 #~ "a \\version statement with the correct version."
 #~ msgstr ""
-#~ "Kan de LilyPond-versie van het huidige document niet bepalen. Voeg een "
-#~ "\\version commando toe met de correcte versie van het document."
+#~ "Невозможно определить версию LilyPond у текущего документа. Добавьте "
+#~ "\\version утверждение с правильной версией."
 
 #~ msgid "This LilyPond document is already up-to-date."
-#~ msgstr "Dit LilyPond-document is reeds bijgewerkt."
+#~ msgstr "LilyPond документ уже обновлен"
 
 #~ msgid ""
 #~ "The document has been processed with convert-ly. You'll find the messages "
 #~ "of convert-ly in a comment block at the end. You still may have to edit "
 #~ "some parts manually."
 #~ msgstr ""
-#~ "Het document is verwerkt door convert-ly. De berichten van convert-ly "
-#~ "vindt u aan het eind in een commentaarblok. Het kan zijn dat u bepaalde "
-#~ "wijzigingen nog handmatig dient door te voeren."
+#~ "Документ был обработан при помощи convert-ly. Сообщения  программы в "
+#~ "блоке комментария, в конце. Возможно, Вам придется редактировать "
+#~ "некоторые части вручную."
 
 #~ msgid ""
 #~ "The document has been processed with convert-ly, but remained unchanged. "
 #~ "This is the message given by convert-ly: %1"
 #~ msgstr ""
-#~ "Het document is verwerkt door convert-ly, maar bleef ongewijzigd. Dit is "
-#~ "de melding die convert-ly gaf: %1"
+#~ "Документ был обработан при помощи convert-ly, но остался неизменным. "
+#~ "Сообщение от convert-ly: %1"
 
 #~ msgid "Could not start convert-ly: %1"
-#~ msgstr "Kan convert-ly niet starten: %1"
+#~ msgstr " Невозможно запустить convert-ly: %1"
 
 #~ msgid "The tempo in beats per minute."
-#~ msgstr "Het tempo in tellen per minuut."
+#~ msgstr "Темп в ударах в минуту."
 
-#~ msgid "Treble 8"
-#~ msgstr "Vioolsleutel met 8"
-
-#~ msgid "Tab clef"
-#~ msgstr "Tabulatuur"
-
-#~ msgid "No Clef"
-#~ msgstr "Geen sleutel"
+#, fuzzy
+#~ msgid "Treble"
+#~ msgstr "Заголовок"
 
 #~ msgid "Add selected part to your score."
-#~ msgstr "Geselecteerde partij aan uw partituur toevoegen."
+#~ msgstr "Добавить выбранные инструменты в партитуру."
 
 #~ msgid "A tempo indication, e.g. \"Allegro.\""
-#~ msgstr "Een tempo-aanduiding, zoals \"Allegro.\""
+#~ msgstr "Указание темпа, например, \"Allegro\""
 
-#~ msgid "Wrap score in \\book block"
-#~ msgstr "Partituur in \\book-blok plaatsen"
-
-#~ msgid "If checked, wraps the \\score block inside a \\book block."
-#~ msgstr "Indien aangekruist, plaatst het \\score-blok in een \\book-blok."
-
+#, fuzzy
 #~ msgid "How many voices to put in this staff."
-#~ msgstr "Hoeveel stemmen u in deze balk wilt."
-
-#~ msgid "Violin|Vl."
-#~ msgstr "Viool|Vl."
-
-#~ msgid "Viola|Vla."
-#~ msgstr "Altviool|Avl."
-
-#~ msgid "Cello|Cl."
-#~ msgstr "Cello|Cl."
-
-#~ msgid "Contrabass|Cb."
-#~ msgstr "Contrabas|Cb."
-
-#~ msgid "Basso Continuo|B.c."
-#~ msgstr "Basso continuo|B.c."
-
-#~ msgid "Mandolin|Mdl."
-#~ msgstr "Mandoline|Mdl."
-
-#~ msgid "Banjo|Bj."
-#~ msgstr "Banjo|Bj."
-
-#~ msgid "Guitar|Gt."
-#~ msgstr "Gitaar|Gt."
-
-#~ msgid "Jazz guitar|J.Gt."
-#~ msgstr "Jazzgitaar|J.gt."
-
-#~ msgid "Bass|Bs."
-#~ msgstr "Bas|Bs."
-
-#~ msgid "Electric bass|E.Bs."
-#~ msgstr "Electrische bas|E.Bs."
-
-#~ msgid "Harp|Hp."
-#~ msgstr "Harp|Hp."
-
-#~ msgid "Flute|Fl."
-#~ msgstr "Fluit|Fl."
-
-#~ msgid "Piccolo|Pic."
-#~ msgstr "Piccolo|Pic."
-
-#~ msgid "Bass flute|Bfl."
-#~ msgstr "Basfluit|Bfl."
-
-#~ msgid "Oboe|Ob."
-#~ msgstr "Hobo|Hb."
-
-#~ msgid "Oboe d'amore|Ob.d'am."
-#~ msgstr "Liefdeshobo|Lhb."
-
-#~ msgid "English horn|Eng.h."
-#~ msgstr "Althobo|Ahb."
-
-#~ msgid "Bassoon|Bn."
-#~ msgstr "Fagot|Fag."
-
-#~ msgid "Contrabassoon|C.Bn."
-#~ msgstr "Contrafagot|Cfag."
-
-#~ msgid "Clarinet|Cl."
-#~ msgstr "Klarinet|Klar."
-
-#~ msgid "Sopranino Sax|SiSx."
-#~ msgstr "Sopraninosax|Sisx."
-
-#~ msgid "Soprano Sax|SoSx."
-#~ msgstr "Sopraansax|Sosx."
-
-#~ msgid "Alto Sax|ASx."
-#~ msgstr "Altsax|Asx."
-
-#~ msgid "Tenor Sax|TSx."
-#~ msgstr "Tenorsax|Tsx."
-
-#~ msgid "Baritone Sax|BSx."
-#~ msgstr "Baritonsax|Bsx."
-
-#~ msgid "Bass Sax|BsSx."
-#~ msgstr "Bassax|Bssx."
-
-#~ msgid "Soprano recorder|S.rec."
-#~ msgstr "Sopraanblokfluit|Sbfl."
-
-#~ msgid "Alto recorder|A.rec."
-#~ msgstr "Altblokfluit|Ablf."
-
-#~ msgid "Tenor recorder|T.rec."
-#~ msgstr "Tenorblokfluit|Tblf."
-
-#~ msgid "Bass recorder|B.rec."
-#~ msgstr "Basblokfluit|Bblf."
-
-#~ msgid "Horn in F|Hn.F."
-#~ msgstr "Hoorn in F|Hn.F."
-
-#~ msgid "Trumpet in C|Tr.C"
-#~ msgstr "Trompet in C|Tr.C"
-
-#~ msgid "Trumpet in Bb|Tr.Bb"
-#~ msgstr "Trompet in Bes|Tr.Bes"
-
-#~ msgid "Trombone|Trb."
-#~ msgstr "Trombone|Trb."
-
-#~ msgid "Tuba|Tb."
-#~ msgstr "Tuba|Tb."
-
-#~ msgid "Bass Tuba|B.Tb."
-#~ msgstr "Bastuba|Btb."
-
-#~ msgid "Soprano|S."
-#~ msgstr "Sopraan|S."
-
-#~ msgid "Mezzo-soprano|Ms."
-#~ msgstr "Mezzosopraan|Ms."
-
-#~ msgid "Alto|A."
-#~ msgstr "Alt|A."
-
-#~ msgid "Tenor|T."
-#~ msgstr "Tenor|T."
-
-#~ msgid "Choir|Ch."
-#~ msgstr "Koor|K."
-
-#~ msgid "Piano|Pno."
-#~ msgstr "Piano|Pno."
-
-#~ msgid "Harpsichord|Hs."
-#~ msgstr "Klavecimbel|Kl."
-
-#~ msgid "Organ|Org."
-#~ msgstr "Orgel|Org."
-
-#~ msgid "Celesta|Cel."
-#~ msgstr "Celesta|Cel."
-
-#~ msgid "Timpani|Tmp."
-#~ msgstr "Pauken|Pkn."
-
-#~ msgid "Xylophone|Xyl."
-#~ msgstr "Xylofoon|Xyl."
-
-#~ msgid "Marimba|Mar."
-#~ msgstr "Marimba|Mar."
-
-#~ msgid "Vibraphone|Vib."
-#~ msgstr "Vibrafoon|Vib."
-
-#~ msgid "Tubular bells|Tub."
-#~ msgstr "Buisklokken|Bkl."
-
-#~ msgid "Glockenspiel|Gls."
-#~ msgstr "Klokkenspel|Kls."
-
-#~ msgid "Drums|Dr."
-#~ msgstr "Slagwerk|Slw."
+#~ msgstr "Количество голосов ударных инструментов на нотоносце."
 
 #~ msgid "Open PDF"
-#~ msgstr "PDF weergeven"
+#~ msgstr "Открыть PDF"
 
 #~ msgid "Play MIDI"
-#~ msgstr "MIDI afspelen"
+#~ msgstr "Воспроизвести MIDI"
 
 #~ msgid "Email..."
-#~ msgstr "Verzenden..."
+#~ msgstr "Email..."
 
 #~ msgid "Disable the built-in PDF preview"
-#~ msgstr "De ingebouwde PDF-vooruitblik uitschakelen"
+#~ msgstr "Запретить встроенный просмотр PDF"
 
 #~ msgid "The direction to use for the articulations."
-#~ msgstr "Plaatsing van de articulaties: onder of boven de balk of neutraal."
+#~ msgstr "Направление используемое для артикуляционных обозначений"
 
 #~ msgid "&Generated Files"
-#~ msgstr "&Aangemaakte bestanden"
+#~ msgstr "&Сгенерированные файлы"
 
 #~ msgid "Your document has been modified, please save first."
-#~ msgstr "Uw document is gewijzigd, gelieve het eerst op te slaan."
+#~ msgstr "Документ был изменен, необходимо сохранить его."
 
 #~ msgid "LilyPond documentation:"
-#~ msgstr "LilyPond-documentatie:"
+#~ msgstr "Документация LilyPond:"
 
 #~ msgid "The document has been sent to the printer."
-#~ msgstr "Het document is naar de printer gestuurd."
+#~ msgstr "Документ отправлен на печать"
 
 #~ msgid ""
 #~ "Printing failed: %1\n"
 #~ "\n"
 #~ "The print command %2 does probably not exist. Please check your settings."
 #~ msgstr ""
-#~ "Het afdrukken is mislukt: %1\n"
+#~ "Ошибка печати: %1\n"
 #~ "\n"
-#~ "Het printcommando %2 bestaat waarschijnlijk niet. Controleer uw "
-#~ "instellingen."
+#~ "Команда печати %2 не может быть выполнена. Проверьте настройки."
 
 #~ msgid "The print command contains errors. Please check your settings."
-#~ msgstr "Het printcommando bevat fouten. Controleer uw instellingen."
+#~ msgstr "Команда печати содержит ошибки. Пожалуйста, проверьте настройки."
 
-#~ msgid "Directly print on default printer"
-#~ msgstr "Direct afdrukken op de standaardprinter"
-
+#, fuzzy
 #~ msgid "Notify when a document has been sent to the printer"
-#~ msgstr "Melding wanneer een document naar de printer is gestuurd"
+#~ msgstr "Документ отправлен на печать"
 
 #~ msgid ""
 #~ "Command to print a PDF file, for example lpr or kprinter. You may add "
 #~ "some arguments, e.g. lpr -P myprinter."
 #~ msgstr ""
-#~ "Commando om een PDF-bestand af te drukken, bijvoorbeeld lpr of kprinter. "
-#~ "U kunt opties meegeven, bijv. lpr -P kantoor."
-
-#~ msgid "Space above:"
-#~ msgstr "Ruimte erboven:"
+#~ "Команда печати PDF файла, например, lpr или kprinter. Вы можете добавить "
+#~ "дополнительные аргументы, напр. lpr -P myprinter"
 
 #~ msgid "Name or full path of the convert-ly program."
-#~ msgstr "Naam of pad van het convert-ly programma."
+#~ msgstr "Имя или полный путь к программе convert-ly"
 
 #~ msgid "Expand"
-#~ msgstr "Sneltekst"
-
-#~ msgid ""
-#~ "Converts the notes in the selected music expression from relative to "
-#~ "absolute pitch."
-#~ msgstr ""
-#~ "Zet de noten in de geselecteerde muziekexpressie om naar relatieve "
-#~ "toonhoogte."
-
-#~ msgid "Dock"
-#~ msgstr "Vastmaken"
+#~ msgstr "Раскрыть сокращение"
 
 #~ msgid "Show"
-#~ msgstr "Weergeven"
+#~ msgstr "Показать"
 
-#~ msgid "Paper: indent = 0"
-#~ msgstr "Papier: indent = 0"
-
+#, fuzzy
 #~ msgid "Paper Size A4"
-#~ msgstr "Papierformaat A4"
+#~ msgstr "Размер страницы:"
 
-#~ msgid "Paper Size A4 Landscape"
-#~ msgstr "Papierformaat A4 oblong"
-
+#, fuzzy
 #~ msgid "Paper Size A5"
-#~ msgstr "Papierformaat A5"
+#~ msgstr "Размер страницы:"
 
+#, fuzzy
 #~ msgid "Paper Size Letter"
-#~ msgstr "Papierformaat Letter"
+#~ msgstr "Размер страницы:"
 
-#~ msgid "Once Override"
-#~ msgstr "Once Override"
-
+#, fuzzy
 #~ msgid "Stem Up"
-#~ msgstr "Stokken omhoog"
+#~ msgstr "Шаг"
 
-#~ msgid "Set Global Staffsize 18"
-#~ msgstr "Globale balk-grootte 18"
-
-#~ msgid "Repeat Alternative"
-#~ msgstr "Herhaling alternatief"
-
-#~ msgid "Header: No Tagline"
-#~ msgstr "Kopregels: geen tagline"
-
+#, fuzzy
 #~ msgid "Lyric Stanza"
-#~ msgstr "Couplet liedtekst"
+#~ msgstr "Строфы:"
 
-#~ msgid "Melody with Lyrics"
-#~ msgstr "Melodie met liedtekst"
-
+#, fuzzy
 #~ msgid "Midi section"
-#~ msgstr "Midi sectie"
+#~ msgstr "Посвящение"
 
-#~ msgid "Midi: Set Tempo"
-#~ msgstr "Midi: tempo instellen"
-
-#~ msgid "With (after \\new Staff, etc.)"
-#~ msgstr "With (na \\new Staff, etc.)"
-
+#, fuzzy
 #~ msgid "With: instrumentName"
-#~ msgstr "With: instrumentName"
+#~ msgstr "Названия инструментов"
 
+#, fuzzy
 #~ msgid "With: shortInstrumentName"
-#~ msgstr "With: shortInstrumentName"
+#~ msgstr "Названия инструментов"
 
-#~ msgid "With: Smaller Staffsize"
-#~ msgstr "With: notenbalk verkleinen"
-
-#~ msgid "Key C major"
-#~ msgstr "C-groot"
-
-#~ msgid "Key D major"
-#~ msgstr "D-groot"
-
-#~ msgid "Key E major"
-#~ msgstr "E-groot"
-
-#~ msgid "Key F major"
-#~ msgstr "F-groot"
-
-#~ msgid "Key G major"
-#~ msgstr "G-groot"
-
-#~ msgid "Key A major"
-#~ msgstr "A-groot"
-
-#~ msgid "Key C minor"
-#~ msgstr "C-klein"
-
-#~ msgid "Key D minor"
-#~ msgstr "D-klein"
-
-#~ msgid "Key E minor"
-#~ msgstr "E-klein"
-
-#~ msgid "Key F minor"
-#~ msgstr "F-klein"
-
-#~ msgid "Key G minor"
-#~ msgstr "G-klein"
-
-#~ msgid "Key A minor"
-#~ msgstr "A-klein"
-
-#~ msgid "Tactus Major (2/half note)"
-#~ msgstr "Tactus Major (2/halve noot)"
-
-#~ msgid "Tactus Minor (1/half note)"
-#~ msgstr "Tactus Minor (1/halve noot)"
-
-#~ msgid "Tactus Proportionatus (1/half dot)"
-#~ msgstr "Tactus Proportionatus (1/halve punt)"
-
-#~ msgid "Tactus Proportionatus (3/quarter note)"
-#~ msgstr "Tactus Proportionatus (3/kwartnoot)"
-
-#~ msgid "Tempo text mark"
-#~ msgstr "Tempo tekstaanduiding"
-
-#~ msgid "Two voices"
-#~ msgstr "Twee stemmen"
-
-#~ msgid "Two voices (long)"
-#~ msgstr "Twee stemmen (lang)"
-
+#, fuzzy
 #~ msgid "New Lyrics"
-#~ msgstr "Nieuwe liedtekst (Lyrics)"
+#~ msgstr "Тексты"
 
 #~ msgid "Your document currently has no filename, please save first."
-#~ msgstr "Uw document heeft geen bestandsnaam, gelieve het eerst op te slaan."
+#~ msgstr "У документа нет имени файла, сохраните его сначала."
 
 #~ msgid ""
 #~ "Sorry, support for remote files is not yet implemented.\n"
 #~ "Please save your document to a local file."
 #~ msgstr ""
-#~ "Helaas, netwerkbestanden worden nog niet ondersteund.\n"
-#~ "Gelieve uw document naar een locaal bestand op te slaan."
+#~ "Извините, еще нет поддержки удаленных файлов.\n"
+#~ "Сохраните Ваш документ локально."
 
 #~ msgid "Already Running"
-#~ msgstr "Reeds actief"
-
-#~ msgid "LilyPond crashed."
-#~ msgstr "LilyPond is gecrashed."
-
-#~ msgid ""
-#~ "A LilyPond Kate/Pate plugin.\n"
-#~ "\n"
-#~ "This is LilyKDE, a plugin to make it easy to run the LilyPond music "
-#~ "typesetter from within Kate.\n"
-#~ "\n"
-#~ "Version: $version\n"
-#~ "Homepage: $homepage\n"
-#~ msgstr ""
-#~ "Een Kate/Pate-plugin voor LilyPond.\n"
-#~ "\n"
-#~ "Dit is LilyKDE, een plugin waarmee het eenvoudig is om het LilyPond "
-#~ "muziekgraveer-programma vanuit Kate te gebruiken.\n"
-#~ "\n"
-#~ "Versie: $version\n"
-#~ "Homepage: $homepage\n"
-
-#~ msgid "LilyPond [$filename] starting ($mode)..."
-#~ msgstr "LilyPond [$filename] wordt gestart ($mode)..."
-
-#~ msgid "Could not start LilyPond."
-#~ msgstr "Kan LilyPond niet starten."
-
-#~ msgid "LilyPond [$filename] was terminated by signal $signal."
-#~ msgstr "LilyPond [$filename] werd beëindigd door signaal $signal."
-
-#~ msgid "LilyPond [$filename] exited with return code $retcode."
-#~ msgstr "LilyPond [$filename] stopte met foutcode $retcode."
-
-#~ msgid "LilyPond [$filename] finished."
-#~ msgstr "LilyPond [$filename] voltooid."
-
-#~ msgid "LilyPond [$filename] exited abnormally."
-#~ msgstr "LilyPond [$filename] werd afgebroken."
-
-#~ msgid "LilyPond did not write a PDF. You probably forgot <b>\\layout</b>?"
-#~ msgstr ""
-#~ "LilyPond heeft geen PDF-bestand geschreven. Waarschijnlijk bent u <b>"
-#~ "\\layout</b> vergeten?"
-
-#~ msgid "Clear LilyPond Log"
-#~ msgstr "LilyPond uitvoer wissen"
-
-#~ msgid "Record MIDI with Rumor"
-#~ msgstr "MIDI opnemen met Rumor"
-
-#~ msgid "Toggle PDF navigation panel"
-#~ msgstr "PDF-navigatiepaneel tonen of verbergen"
-
-#~ msgid "Dock/Undock PDF preview"
-#~ msgstr "PDF-weergave los- of aankoppelen"
-
-#~ msgid "Dock/Undock Quick Insert Panel"
-#~ msgstr "Quick Insert-paneel los- of aankoppelen"
-
-#~ msgid ""
-#~ "The document has been processed with convert-ly, but remained unchanged. "
-#~ "This is the message given by convert-ly: %s"
-#~ msgstr ""
-#~ "Het document is verwerkt door convert-ly, maar bleef ongewijzigd. Dit is "
-#~ "de melding die convert-ly gaf: %s"
-
-#~ msgid "Could not start convert-ly: %s"
-#~ msgstr "Kan convert-ly niet starten: %s"
-
-#~ msgid "PDF"
-#~ msgstr "PDF"
-
-#~ msgid "Name or full path of the pdftk program (see %s)."
-#~ msgstr "Naam of pad van het pdftk programma (zie %s)."
-
-#~ msgid ""
-#~ "Check the actions you want to display (if applicable) after LilyPond has "
-#~ "successfully compiled your document."
-#~ msgstr ""
-#~ "Selecteer de acties die u wilt laten weergeven (indien van toepassing) "
-#~ "nadat LilyPond uw document succesvol heeft verwerkt."
-
-#~ msgid "Keep undocked windows on top of Kate"
-#~ msgstr "Ontkoppelde vensters boven Kate houden"
-
-#~ msgid "Clear log before LilyPond is started"
-#~ msgstr "Log wissen als LilyPond wordt gestart"
-
-#~ msgid "Force reload of PDF preview when LilyPond has run"
-#~ msgstr "PDF-weergave herladen nadat LilyPond is gestart"
-
-#~ msgid "Always embed LilyPond source files in published PDF"
-#~ msgstr "LilyPond-bronbestanden altijd in gepubliceerde PDF inbedden"
-
-#~ msgid "TiMidity successfully started."
-#~ msgstr "TiMidity is gestart."
-
-#~ msgid "TiMidity stopped."
-#~ msgstr "TiMidity is gestopt."
-
-#~ msgid ""
-#~ "Could not start TiMidity. Please try the command %s in a terminal to find "
-#~ "out what went wrong."
-#~ msgstr ""
-#~ "Kon TiMidity niet starten. Probeer de commandoregel %s in een terminal om "
-#~ "uit te vinden wat er verkeerd ging."
-
-#~ msgid "Start or stop Rumor"
-#~ msgstr "Rumor starten of stoppen"
-
-#~ msgid ""
-#~ "The meter to use. Leave 'Auto' to let LilyKDE determine the meter from "
-#~ "the LilyPond document."
-#~ msgstr ""
-#~ "De te gebruiken maatsoort. Indien 'Auto', bepaalt LilyKDE de maatsoort "
-#~ "uit het huidige document."
-
-#~ msgid ""
-#~ "The number of accidentals. A negative number designates flats. Leave "
-#~ "'Auto' to let LilyKDE determine the key signature from the LilyPond "
-#~ "document."
-#~ msgstr ""
-#~ "Het aantal voortekens. Een negatieve waarde duidt mollen aan. Indien "
-#~ "'Auto', bepaalt LilyKDE de toonsoort uit het huidige document."
-
-#~ msgid "Found rumor version $version."
-#~ msgstr "Rumor versie $version gevonden."
-
-#~ msgid "Could not find Rumor: %s"
-#~ msgstr "Kon Rumor niet vinden: %s"
-
-#~ msgid "OSS device %d"
-#~ msgstr "OSS apparaat %d"
-
-#~ msgid ""
-#~ "Here you can select which Guile scripts you want Rumor to load. You can "
-#~ "add your own scripts by putting them in %s. If the first line of your "
-#~ "script starts with a semicolon (;) that line will be shown as description."
-#~ msgstr ""
-#~ "Hier kunt u selecteren welke Guile scripts u met Rumor wilt gebruiken. U "
-#~ "kunt uw eigen scripts toevoegen door deze in %s te plaatsen. Als de "
-#~ "eerste regel van uw script met een puntkomma (;) begint wordt deze als "
-#~ "omschrijving weergegeven."
-
-#~ msgid "Configure %s"
-#~ msgstr "%s instellen"
-
-#~ msgid "Remove selected part from your score."
-#~ msgstr "Geselecteerde partij uit uw partituur verwijderen."
-
-#~ msgid "Move selected part up."
-#~ msgstr "Geselecteerde partij omhoog verplaatsen."
-
-#~ msgid "Move selected part down."
-#~ msgstr "Geselecteerde partij omlaag verplaatsen."
-
-#~ msgid "Use no, short or long instrument names before the next systems."
-#~ msgstr ""
-#~ "Gebruik geen, korte of lange instrumentnamen voor de volgende systemen."
-
-#~ msgid "Italian names"
-#~ msgstr "Italiaanse namen"
-
-#~ msgid ""
-#~ "Choose standard Italian instrument names, like '%s' instead of 'Organ.'"
-#~ msgstr ""
-#~ "Kies standaard Italiaanse instrumentnamen, zoals '%s' in plaats van "
-#~ "'Orgel.'"
-
-#~ msgid "Could not start Pdftk: %s"
-#~ msgstr "Kan Pdftk niet starten: %s"
-
-#~ msgid "Embedded file %s in PDF."
-#~ msgid_plural "Embedded files %s in PDF."
-#~ msgstr[0] "Bestand %s ingebed in PDF."
-#~ msgstr[1] "Bestanden %s ingebed in PDF."
-
-#~ msgid "Embedding files in PDF failed."
-#~ msgstr "Het inbedden van de bestanden in de PDF is mislukt."
-
-#~ msgid "Return code: %i"
-#~ msgstr "Foutcode: %i"
-
-#~ msgid "Open the folder containing the LilyPond and PDF documents."
-#~ msgstr "Map met de LilyPond- en PDF-documenten openen."
-
-#~ msgid "Open the generated PDF file with the default PDF viewer."
-#~ msgstr ""
-#~ "Het aangemaakte PDF-bestand met het standaard weergaveprogramma bekijken."
-
-#~ msgid ""
-#~ "Print the PDF using the print command set in the Commands settings page."
-#~ msgstr ""
-#~ "De PDF afdrukken met het printcommando dat onder Commando's is ingesteld."
-
-#~ msgid "Email PDF"
-#~ msgstr "PDF e-mailen"
-
-#~ msgid "Attach the PDF to an email message."
-#~ msgstr "Het PDF-bestand bij een e-mailbericht voegen."
-
-#~ msgid ""
-#~ "Play the generated MIDI files using the default MIDI player (Timidity++ "
-#~ "is recommended)."
-#~ msgstr ""
-#~ "De aangemaakte MIDI-bestanden afspelen met de standaard MIDI-speler "
-#~ "(Timidity++ is aanbevolen)."
-
-#~ msgid "Embed source"
-#~ msgstr "Bron inbedden"
-
-#~ msgid "Embed the LilyPond source files in the published PDF (using pdftk)."
-#~ msgstr ""
-#~ "De LilyPond bronbestanden in de gepubliceerde PDF inbedden (gebruikmakend "
-#~ "van pdftk)."
-
-#~ msgid "Rhythm"
-#~ msgstr "Ritme"
-
-#~ msgid "Different tools to edit durations."
-#~ msgstr "Hulpmiddelen voor het bewerken van tijdsduren."
-
-#~ msgid ""
-#~ "Press to apply the entered rhythm to the selected music. This will delete "
-#~ "previously entered durations."
-#~ msgstr ""
-#~ "Klik om het ingevoerde ritme aan de geselecteerde muziek toe te voegen. "
-#~ "Eerder ingevoerde ritmiek gaat hierdoor verloren."
-
-#~ msgid "Finished"
-#~ msgstr "Beëindigd"
-
-#~ msgid "LilyKDE servicemenu helper"
-#~ msgstr "LilyKDE servicemenu hulpprogramma"
-
-#~ msgid "LilyPond files to convert"
-#~ msgstr "Te converteren LilyPond-bestanden"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Set this to your name"
-#~ msgstr "Wilbert Berendsen"
-
-#~ msgid "&amp;Lyrics"
-#~ msgstr "&amp;Liedteksten"
-
-#~ msgid ""
-#~ "Whether you want instrument names to be standard Italian (like 'Organo' "
-#~ "for 'Organ'), English or in your own language."
-#~ msgstr ""
-#~ "Of u instrumentnamen in standaard Italiaans wilt (bijv. 'Organo' voor "
-#~ "'Orgel'), in het Engels of in uw eigen taal."
-
-#~ msgid "Your language"
-#~ msgstr "Uw eigen taal"
-
-#~ msgid "Print"
-#~ msgstr "Afdrukken"
-
-#~ msgid "Printcommand:"
-#~ msgstr "Printcommando:"
-
-#, fuzzy
-#~ msgid "Could not understand the entered pitches."
-#~ msgstr "Kan de uitvoer van het LilyPond-proces niet lezen."
-
-#~ msgid "Override"
-#~ msgstr "Override"
-
-#~ msgid "Stem Down"
-#~ msgstr "Stokken omlaag"
-
-#~ msgid "Score section"
-#~ msgstr "Score sectie"
-
-#~ msgid "Layout Section"
-#~ msgstr "Layout sectie"
-
-#~ msgid "Layout: No Barnumbers"
-#~ msgstr "Layout: geen maatnummers"
-
-#~ msgid "&Source Text"
-#~ msgstr "&Brontekst"
-
-#, fuzzy
-#~ msgid "Save File"
-#~ msgstr "Bestand openen"
-
-#~ msgid "Quick Insert Panel"
-#~ msgstr "Quick Insert-paneel"
-
-#~ msgid "REC"
-#~ msgstr "REC"
-
-#~ msgid "Durations"
-#~ msgstr "Tijdsduren"
-
-#~ msgid "One document failed."
-#~ msgid_plural "$count documents failed."
-#~ msgstr[0] "Eén document gefaald."
-#~ msgstr[1] "$count documenten gefaald."
-
-#~ msgid "English"
-#~ msgstr "Engels"
+#~ msgstr "Уже запущен"

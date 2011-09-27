@@ -44,5 +44,38 @@ translators = {
     'nl': [
         "Wilbert Berendsen",
     ],
+    'fr': [
+        "Philippe Massart",
+        "Valentin Villenave",
+        "Yann Collette",
+        "David Bouriaud",
+        "Ryan Kavanagh",
+    ],
+    'tr': [
+        "Server ACİM",
+    ],
+    'es': [
+        "Francisco Vila",
+    ],
+    'ru': [
+        "Sergey Poltavski",
+        "Artem Zolochevskiy",
+    ],
+    'it': [
+        "Gianluca D'Orazio",
+    ],
+    'de': [
+        "Henrik Evers",
+        "Georg Hennig",
+    ],
+    'cs': [
+        "Pavel Fric",
+    ],
+    'pl': [
+        "Piotr Komorowski",
+    ],
+    'gl': [
+        "Manuel A. Vázquez",
+    ],
 }
 
