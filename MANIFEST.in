@@ -1,4 +1,4 @@
-include README* COPYING THANKS TODO
+include README* COPYING THANKS INSTALL TODO
 include frescobaldi.desktop
 include frescobaldi.pot
 include *.py
