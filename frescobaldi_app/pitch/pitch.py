@@ -380,7 +380,7 @@ def transpose(cursor, mainwindow):
     language = documentinfo.info(cursor.document()).pitchLanguage() or 'nederlands'
     text, ok = QInputDialog.getText(mainwindow, app.caption(_("Transpose")), _(
         "Please enter two absolute pitches, separated by a space,\n"
-        "using the pitch name language \"{language}.\"\n"
+        "using the pitch name language \"{language}\".\n"
         "The music will be transposed from the first pitch to the second,\n"
         "just as the \\transpose LilyPond command would do.").format(
         language=language))
@@ -392,8 +392,10 @@ def transpose(cursor, mainwindow):
         if r:
             result.append(ly.pitch.Pitch(*r, octave=ly.pitch.octaveToNum(octave)))
     if len(result) != 2:
-        QMessageBox.critical(mainwindow, app.caption(_("Transpose")),
-            _("Invalid pitches were entered."))
+        QMessageBox.critical(mainwindow, app.caption(_("Transpose")), _(
+            "Could not understand the entered pitches.\n\n"
+            "Please make sure you use pitch names in the language "
+            "\"{language}\".").format(language=language))
         return
     
     transposer = ly.pitch.Transposer(*result)
@@ -565,9 +567,16 @@ def transpose(cursor, mainwindow):
             transposeRelative(token, lastPitch)
 
     # Do it!
-    with util.busyCursor():
-        with cursortools.Editor() as editor:
-            absolute(tsource)
+    try:
+        with util.busyCursor():
+            with cursortools.Editor() as editor:
+                absolute(tsource)
+    except ly.pitch.PitchNameNotAvailable:
+        QMessageBox.critical(mainwindow, app.caption(_("Transpose")), _(
+            "Can't perform the requested transposition.\n\n"
+            "The transposed music would contain quarter-tone alterations "
+            "that are not available in the pitch language \"{language}\"."
+            ).format(language = pitches.language))
 
 
 class PitchIterator(object):
@@ -609,7 +618,7 @@ class PitchIterator(object):
             yield t
             if isinstance(t, ly.lex.lilypond.Keyword):
                 if t in ("\\include", "\\language"):
-                    for t in self.iterable:
+                    for t in self.source:
                         if not isinstance(t, ly.lex.Space) and t != '"':
                             lang = t[:-3] if t.endswith('.ly') else t[:]
                             if self.setLanguage(lang):
