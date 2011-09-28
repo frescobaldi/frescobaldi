@@ -23,14 +23,18 @@ A button to select a color.
 
 from __future__ import unicode_literals
 
-import os
-
 from PyQt4.QtCore import Qt, pyqtSignal
-from PyQt4.QtGui import QApplication, QColor, QColorDialog, QPainter, QPalette, QPushButton
+from PyQt4.QtGui import (
+    QColor, QColorDialog, QPainter, QPushButton, QStyle, QStyleOptionButton,
+    qDrawShadeRect)
 
 
 class ColorButton(QPushButton):
+    """A PushButton displaying a color.
     
+    When clicked, opens a color dialog to change the color.
+    
+    """
     colorChanged = pyqtSignal(QColor)
     
     def __init__(self, parent=None):
@@ -40,36 +44,41 @@ class ColorButton(QPushButton):
         self._color = QColor()
         self.clicked.connect(self.openDialog)
     
-    def _updateColor(self):
-        """Internal, can be reimplemented to update our display of the color."""
-        p = QApplication.palette()
-        if self._color.isValid():
-            p.setColor(QPalette.Button, self._color)
-        self.setPalette(p)
-
     def color(self):
+        """Returns the currently set color."""
         return self._color
     
     def setColor(self, color):
+        """Sets the current color. Maybe QColor() to indicate 'unset'."""
         if self._color != color:
             self._color = color
-            self._updateColor()
+            self.update()
             self.colorChanged.emit(color)
 
     def clear(self):
+        """Unsets the current color (setting it to QColor())."""
         self.setColor(QColor())
         
     def openDialog(self):
+        """Called when clicked, opens a dialog to change the color."""
         color = self._color if self._color.isValid() else QColor(Qt.white)
         color = QColorDialog.getColor(color, self)
         if color.isValid():
             self.setColor(color)
 
-    if os.name == "nt":
-        def paintEvent(self, ev):
-            QPushButton.paintEvent(self, ev)
-            if self._color.isValid():
-                p = QPainter(self)
-                r = self.rect().adjusted(6, 6, -6, -6)
-                p.fillRect(r, self._color)
-                
+    def paintEvent(self, ev):
+        """Reimplemented to display a colored rectangle."""
+        QPushButton.paintEvent(self, ev)
+        if not self._color.isValid():
+            return
+        style = self.style()
+        opt = QStyleOptionButton()
+        self.initStyleOption(opt)
+        r = style.subElementRect(QStyle.SE_PushButtonContents, opt, self)
+        if self.isChecked() or self.isDown():
+            dx = style.pixelMetric(QStyle.PM_ButtonShiftHorizontal, opt, self)
+            dy = style.pixelMetric(QStyle.PM_ButtonShiftVertical, opt, self)
+            r.translate(dx, dy)
+        p = QPainter(self)
+        qDrawShadeRect(p, r, self.palette(), True, 1, 0, self._color)
+
