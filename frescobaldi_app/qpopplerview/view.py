@@ -245,7 +245,7 @@ class View(QScrollArea):
                 self._centerPos = QPoint(0, 0)
             elif self._centerPos is None:
                 # store the point currently in the center
-                self._centerPos = QPoint(self.width(), self.height()) / 2 - self.surface().pos()
+                self._centerPos = self.viewport().rect().center() - self.surface().pos()
             if not self._resizeTimer.isActive():
                 self._resizeTimeout()
             self._resizeTimer.start(150)
@@ -253,13 +253,14 @@ class View(QScrollArea):
     def _resizeTimeout(self):
         if self._centerPos is None:
             return
-        x = self._centerPos.x() / float(self.surface().width())
-        y = self._centerPos.y() / float(self.surface().height())
+        oldSize = self.surface().size()
         # resize the layout
         self.fit()
         # restore our position
-        newPos = QPoint(round(x * self.surface().width()), round(y * self.surface().height()))
-        self.scrollSurface(newPos - self._centerPos)
+        newSize = self.surface().size()
+        newx = self._centerPos.x() * newSize.width() / oldSize.width()
+        newy = self._centerPos.y() * newSize.height() / oldSize.height()
+        self.center(QPoint(newx, newy))
         self._centerPos = None
 
     def zoom(self, scale, pos=None):
