@@ -279,7 +279,7 @@ class View(QScrollArea):
             return
             
         if pos is None:
-            pos = QPoint(self.width(), self.height()) / 2
+            pos = self.viewport().rect().center()
         
         surfacePos = pos - self.surface().pos()
         page = self.surface().pageLayout().pageAt(surfacePos)
@@ -314,7 +314,7 @@ class View(QScrollArea):
 
     def currentPage(self):
         """Returns the Page currently mostly in the center, or None if there are no pages."""
-        pos = QPoint(self.width(), self.height()) / 2 - self.surface().pos()
+        pos = self.viewport().rect().center() - self.surface().pos()
         layout = self.surface().pageLayout()
         if len(layout):
             d = layout.spacing() * 2
@@ -350,7 +350,7 @@ class View(QScrollArea):
         page = self.currentPage()
         if page:
             layout = self.surface().pageLayout()
-            pos = QPoint(self.width(), self.height()) / 2 - self.surface().pos()
+            pos = self.viewport().rect().center() - self.surface().pos()
             pagePos = pos - page.pos()
             x = pagePos.x() / float(page.width())
             y = pagePos.y() / float(page.height())
@@ -366,7 +366,6 @@ class View(QScrollArea):
         page = layout[pageNum]
         # center this point
         newPos = QPoint(round(x * page.width()), round(y * page.height())) + page.pos()
-        oldPos = QPoint(self.width(), self.height()) / 2 - self.surface().pos()
-        self.scrollSurface(newPos - oldPos)
+        self.center(newPos)
 
 
