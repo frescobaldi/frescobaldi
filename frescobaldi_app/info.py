@@ -45,6 +45,7 @@ translators = {
         "Wilbert Berendsen",
     ],
     'fr': [
+        "Raphaël Doursenaud",
         "Philippe Massart",
         "Valentin Villenave",
         "Yann Collette",
