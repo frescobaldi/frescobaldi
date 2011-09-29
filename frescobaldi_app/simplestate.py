@@ -80,6 +80,7 @@ parserClasses = {
     ly.lex.lilypond.ParseMidi: "midi",
     ly.lex.lilypond.ParseContext: "context",
     ly.lex.lilypond.ParseWith: "with",
+    ly.lex.lilypond.ParseNewContext: "new",
     ly.lex.lilypond.ParseMarkup: "markup",
     ly.lex.lilypond.ParseOverride: "override",
     ly.lex.lilypond.ParseString: "string",

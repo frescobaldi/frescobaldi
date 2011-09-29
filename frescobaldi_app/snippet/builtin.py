@@ -206,6 +206,25 @@ if state[-1] not in ('context', 'with'):
 """),
 
 
+'staff_size': T(_("Staff Size"),
+r"""-*- name: ss; python;
+if state[-1] == 'music':
+    text = (
+        "\\set Staff.fontSize = #-1\n"
+        "\\override Staff.StaffSymbol #'staff-space = #(magstep -1)\n")
+else:
+    text = (
+        "fontSize = #-1\n"
+        "\\override StaffSymbol #'staff-space = #(magstep -1)")
+    if state[-1] == 'new':
+        text = '\\with {\n%s\n}' % text
+    elif state[-1] not in ('context', 'with'):
+        text = '\\context {\n\\Staff\n%s\n}' % text
+        if state[-1] != 'layout':
+            text = '\\layout {\n%s\n}' % text
+"""),
+
+
 'comment': T(_("Comment"),
 r"""-*- python; indent: no;
 # determine state
