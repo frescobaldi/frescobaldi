@@ -30,6 +30,7 @@ from PyQt4.QtGui import QDialog, QDialogButtonBox, QLabel, QLayout, QTabWidget, 
 import app
 import info
 import icons
+import bugreport
 import language_names
 
 
@@ -72,6 +73,7 @@ class AboutDialog(QDialog):
         
         tabw.addTab(About(self), _("About"))
         tabw.addTab(Credits(self), _("Credits"))
+        tabw.addTab(Version(self), _("Version"))
         
         button = QDialogButtonBox(QDialogButtonBox.Ok)
         button.setCenterButtons(True)
@@ -106,6 +108,24 @@ class Credits(QTextBrowser):
         super(Credits, self).__init__(parent)
         self.setOpenExternalLinks(True)
         self.setHtml('\n'.join(map('<p>{0}</p>'.format, credits())))
+
+
+class Version(QTextBrowser):
+    """Version information."""
+    def __init__(self, parent=None):
+        super(Version, self).__init__(parent)
+        self.setHtml(
+            "<p>{app_name}: {app_version}</p>\n"
+            "<p>Python: {python_version}<br />"
+            "Qt: {qt_version}<br />\n"
+            "PyQt4: {pyqt_version}<br />\n"
+            "sip: {sip_version}</p>\n"
+            "<p>{operating_system}:<br />\n"
+            "{osname}</p>".format(
+                app_name = info.appname,
+                app_version = info.version,
+                operating_system = _("Operating System"),
+                **bugreport.versionInfo()))
 
 
 def html():

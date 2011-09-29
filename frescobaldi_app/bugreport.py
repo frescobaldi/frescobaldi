@@ -30,7 +30,7 @@ import info
 
 
 def versionInfo():
-    """Returns terse version and platform information as a human-readable string for debugging purposes."""
+    """Returns version and platform information as a dict for debugging purposes."""
     try:
         import sip
         sip_version = sip.SIP_VERSION_STR
@@ -56,18 +56,23 @@ def versionInfo():
         python_version = "unknown"
         osname = "unknown"
     
+    return locals()
+
+
+def versionInfoString():
+    """Returns the information from versionInfo() formatted as a terse string."""
     return (
         "Python: {python_version} -- "
         "Qt: {qt_version} -- "
         "PyQt4: {pyqt_version} -- "
         "sip: {sip_version}\n"
-        "OS: {osname}".format(**locals()))
-
+        "OS: {osname}".format(**versionInfo()))
+    
 
 def email(subject, body):
     """Opens the e-mail composer with the given subject and body, with version information added to it."""
     subject = "[{0} {1}] {2}".format(info.appname, info.version, subject)
-    body = "{0}: {1}\n\n{2}\n\n{3}\n\n".format(info.appname, info.version, versionInfo(), body)
+    body = "{0}: {1}\n\n{2}\n\n{3}\n\n".format(info.appname, info.version, versionInfoString(), body)
     url = QUrl("mailto:" + info.maintainer_email)
     url.addQueryItem("subject", subject)
     url.addQueryItem("body", body)
