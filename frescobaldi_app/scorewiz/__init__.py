@@ -27,6 +27,7 @@ from PyQt4.QtGui import QAction, QKeySequence
 
 import actioncollection
 import actioncollectionmanager
+import icons
 import plugin
 
 
@@ -51,6 +52,7 @@ class Actions(actioncollection.ActionCollection):
     name = 'scorewiz'
     def createActions(self, parent=None):
         self.scorewiz = QAction(parent)
+        self.scorewiz.setIcon(icons.get("score_wizard"))
         self.scorewiz.setShortcut(QKeySequence("Ctrl+Shift+N"))
         
     def translateUI(self):
