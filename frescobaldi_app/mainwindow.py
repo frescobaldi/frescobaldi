@@ -47,6 +47,7 @@ import sessions.manager
 import util
 import panels
 import engrave
+import scorewiz
 
 
 class MainWindow(QMainWindow):
@@ -761,6 +762,7 @@ class MainWindow(QMainWindow):
         t.addAction(ac.edit_undo)
         t.addAction(ac.edit_redo)
         t.addSeparator()
+        t.addAction(scorewiz.ScoreWizard.instance(self).actionCollection.scorewiz)
         t.addAction(engrave.engraver(self).actionCollection.engrave_runner)
         
         self.toolbar_music = t = self.addToolBar('')
