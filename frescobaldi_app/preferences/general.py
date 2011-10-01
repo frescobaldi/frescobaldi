@@ -64,12 +64,17 @@ class General(preferences.Group):
         grid.addWidget(self.langLabel, 0, 0)
         grid.addWidget(self.lang, 0, 1)
         
+        self.styleLabel = QLabel()
+        self.styleCombo = QComboBox(currentIndexChanged=self.changed)
+        grid.addWidget(self.styleLabel, 1, 0)
+        grid.addWidget(self.styleCombo, 1, 1)
+        
         self.systemIcons = QCheckBox(toggled=self.changed)
-        grid.addWidget(self.systemIcons, 1, 0, 1, 3)
+        grid.addWidget(self.systemIcons, 2, 0, 1, 3)
         
         grid.setColumnStretch(2, 1)
         
-        # fill in the combo
+        # fill in the language combo
         self._langs = ["none", ""]
         self.lang.addItems(('', ''))
         langnames = [(language_names.languageName(lang, lang), lang) for lang in po.available()]
@@ -78,6 +83,10 @@ class General(preferences.Group):
             self._langs.append(lang)
             self.lang.addItem(name)
         
+        # fill in style combo
+        self.styleCombo.addItem('')
+        self.styleCombo.addItems(QStyleFactory.keys())
+        
         app.translateUI(self)
     
     def loadSettings(self):
@@ -85,21 +94,34 @@ class General(preferences.Group):
         lang = s.value("language", "")
         try:
             index = self._langs.index(lang)
-        except IndexError:
+        except ValueError:
             index = 1
         self.lang.setCurrentIndex(index)
+        style = s.value("guistyle", "").lower()
+        styles = [name.lower() for name in QStyleFactory.keys()]
+        try:
+            index = styles.index(style) + 1
+        except ValueError:
+            index = 0
+        self.styleCombo.setCurrentIndex(index)
         self.systemIcons.setChecked(s.value("system_icons", True) not in (False, "false"))
     
     def saveSettings(self):
         s = QSettings()
         s.setValue("language", self._langs[self.lang.currentIndex()])
         s.setValue("system_icons", self.systemIcons.isChecked())
+        if self.styleCombo.currentIndex() == 0:
+            s.remove("guistyle")
+        else:
+            s.setValue("guistyle", self.styleCombo.currentText())
         
     def translateUI(self):
         self.setTitle(_("General Preferences"))
         self.langLabel.setText(_("Language:"))
         self.lang.setItemText(0, _("No Translation"))
         self.lang.setItemText(1, _("System Default Language (if available)"))
+        self.styleLabel.setText(_("Style:"))
+        self.styleCombo.setItemText(0, _("Default"))
         self.systemIcons.setText(_("Use System Icons"))
         self.systemIcons.setToolTip(_(
             "If checked, icons of the desktop icon theme "
