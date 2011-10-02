@@ -195,7 +195,9 @@ class SavingDocument(preferences.Group):
         layout = QVBoxLayout()
         self.setLayout(layout)
         
+        self.backup = QCheckBox(toggled=self.changed)
         self.metainfo = QCheckBox(toggled=self.changed)
+        layout.addWidget(self.backup)
         layout.addWidget(self.metainfo)
         
         hbox = QHBoxLayout()
@@ -210,17 +212,24 @@ class SavingDocument(preferences.Group):
         
     def translateUI(self):
         self.setTitle(_("When saving documents"))
+        self.backup.setText(_("Keep backup copy"))
+        self.backup.setToolTip(_(
+            "Frescobaldi always backups a file before overwriting it "
+            "with a new version.\n"
+            "If checked those backup copies are retained."))
         self.metainfo.setText(_("Remember cursor position, bookmarks, etc."))
         self.basedirLabel.setText(_("Default directory:"))
         self.basedirLabel.setToolTip(_("The default folder for your LilyPond documents (optional)."))
         
     def loadSettings(self):
         s = QSettings()
+        self.backup.setChecked(s.value("backup_keep", False) in (True, "true"))
         self.metainfo.setChecked(s.value("metainfo", True) not in (False, "false"))
         self.basedir.setPath(s.value("basedir", ""))
         
     def saveSettings(self):
         s = QSettings()
+        s.setValue("backup_keep", self.backup.isChecked())
         s.setValue("metainfo", self.metainfo.isChecked())
         s.setValue("basedir", self.basedir.path())
 
