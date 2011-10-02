@@ -28,6 +28,7 @@ import __builtin__
 from PyQt4.QtGui import QMenu
 
 import app
+import icons
 import bookmarkmanager
 import documentactions
 import documentmenu
@@ -228,6 +229,7 @@ def menu_tools_lyrics(mainwindow):
 
 def menu_tools_pitch(mainwindow):
     m = Menu(_('submenu title', "&Pitch"), mainwindow)
+    m.setIcon(icons.get('tools_pitch'))
     ac = pitch.Pitch.instance(mainwindow).actionCollection
     
     m.addAction(ac.pitch_language)
@@ -241,6 +243,7 @@ def menu_tools_pitch(mainwindow):
 
 def menu_tools_rhythm(mainwindow):
     m = Menu(_('submenu title', "&Rhythm"), mainwindow)
+    m.setIcon(icons.get('tools_rhythm'))
     ac = rhythm.Rhythm.instance(mainwindow).actionCollection
     
     m.addAction(ac.rhythm_double)

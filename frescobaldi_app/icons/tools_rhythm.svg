@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.2"
+   width="7.73mm"
+   height="7.73mm"
+   viewBox="0 0 4.4000 4.4000"
+   id="svg3978"
+   inkscape:version="0.48.0 r9654"
+   sodipodi:docname="tools_rhythm.svg">
+  <metadata
+     id="metadata4000">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs3998" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1024"
+     inkscape:window-height="724"
+     id="namedview3996"
+     showgrid="false"
+     inkscape:zoom="10.040247"
+     inkscape:cx="2.3527318"
+     inkscape:cy="13.694882"
+     inkscape:window-x="-3"
+     inkscape:window-y="-3"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3978" />
+  <!-- Page: 1/1 -->
+  <g
+     id="g4529-8"
+     transform="matrix(0.94181818,0,0,0.96871945,0.27973289,0.07073399)">
+    <polygon
+       id="polygon3980-3"
+       points="3.1738,0.2 0.04,0.2 0.04,-0.2 3.1738,-0.2 "
+       transform="translate(1.1862,0.4)"
+       style="fill:currentColor;stroke:currentColor;stroke-width:0.08;stroke-linecap:round;stroke-linejoin:round" />
+    <polygon
+       id="polygon3982-3"
+       points="3.1738,0.2 0.04,0.2 0.04,-0.2 3.1738,-0.2 "
+       transform="translate(1.1862,1.21)"
+       style="fill:currentColor;stroke:currentColor;stroke-width:0.08;stroke-linecap:round;stroke-linejoin:round" />
+    <polygon
+       id="polygon3984-3"
+       points="1.125,0.2 0.04,0.2 0.04,-0.2 1.125,-0.2 "
+       transform="translate(3.235,2.02)"
+       style="fill:currentColor;stroke:currentColor;stroke-width:0.08;stroke-linecap:round;stroke-linejoin:round" />
+    <rect
+       id="rect3986-8"
+       ry="0.039999999"
+       height="3.1122"
+       width="0.13"
+       y="-1.8"
+       x="-0.064999998"
+       transform="translate(1.2512,2.2)"
+       style="fill:currentColor" />
+    <path
+       id="path3988-0"
+       d="M 0,0 C 0,31 25,56 56,56 87,56 112,31 112,0 112,-31 87,-56 56,-56 25,-56 0,-31 0,0 z"
+       transform="matrix(0.004,0,0,-0.004,1.7662,3.7)"
+       inkscape:connector-curvature="0"
+       style="fill:currentColor" />
+    <rect
+       id="rect3990-4"
+       ry="0.039999999"
+       height="3.1122"
+       width="0.13"
+       y="-1.8"
+       x="-0.064999998"
+       transform="translate(4.335,2.2)"
+       style="fill:currentColor" />
+    <path
+       id="path3992-7"
+       d="m 220,138 c 56,0 109,-29 109,-91 0,-72 -56,-121 -103,-149 -36,-21 -76,-36 -117,-36 -56,0 -109,29 -109,91 0,72 56,121 103,149 36,21 76,36 117,36 z"
+       transform="matrix(0.004,0,0,-0.004,3.0838,3.7)"
+       inkscape:connector-curvature="0"
+       style="fill:currentColor" />
+    <path
+       id="path3994-6"
+       d="m 220,138 c 56,0 109,-29 109,-91 0,-72 -56,-121 -103,-149 -36,-21 -76,-36 -117,-36 -56,0 -109,29 -109,91 0,72 56,121 103,149 36,21 76,36 117,36 z"
+       transform="matrix(0.004,0,0,-0.004,0,3.7)"
+       inkscape:connector-curvature="0"
+       style="fill:currentColor" />
+  </g>
+  <g
+     id="g5161"
+     transform="translate(1.76,-1.248)">
+    <polygon
+       id="polygon3980-3-9"
+       points="3.1738,-0.2 3.1738,0.2 0.04,0.2 0.04,-0.2 "
+       transform="matrix(0.94181818,0,0,0.96871945,-0.45908237,1.7062218)"
+       style="fill:#052bff;fill-opacity:1;stroke:#052bff;stroke-width:0.08;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+    <polygon
+       id="polygon3982-3-9"
+       points="3.1738,-0.2 3.1738,0.2 0.04,0.2 0.04,-0.2 "
+       transform="matrix(0.94181818,0,0,0.96871945,-0.45908237,2.4908845)"
+       style="fill:#052bff;fill-opacity:1;stroke:#052bff;stroke-width:0.08;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+    <polygon
+       id="polygon3984-3-7"
+       points="1.125,-0.2 1.125,0.2 0.04,0.2 0.04,-0.2 "
+       transform="matrix(0.94181818,0,0,0.96871945,1.4705147,3.2755473)"
+       style="fill:#052bff;fill-opacity:1;stroke:#052bff;stroke-width:0.08;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+    <rect
+       id="rect3986-8-8"
+       ry="0.038748778"
+       height="3.0148487"
+       width="0.12243636"
+       y="1.7062218"
+       x="-0.45908237"
+       style="fill:#052bff;fill-opacity:1" />
+    <path
+       id="path3988-0-2"
+       d="m 0.08717217,4.902996 c 0,-0.1201213 0.09418175,-0.2169933 0.21096712,-0.2169933 0.11678537,0 0.21096712,0.096872 0.21096712,0.2169933 0,0.1201213 -0.0941817,0.2169933 -0.21096712,0.2169933 -0.11678537,0 -0.21096712,-0.096872 -0.21096712,-0.2169933 z"
+       inkscape:connector-curvature="0"
+       style="fill:#052bff;fill-opacity:1" />
+    <rect
+       id="rect3990-4-5"
+       ry="0.038748778"
+       height="3.0148487"
+       width="0.12243636"
+       y="1.7062218"
+       x="2.4452965"
+       style="fill:#052bff;fill-opacity:1" />
+    <path
+       id="path3992-7-3"
+       d="m 2.1569112,4.3682626 c 0.2109671,0 0.4106324,0.1123715 0.4106324,0.352614 0,0.2789914 -0.2109671,0.4688605 -0.3880288,0.5773572 -0.1356217,0.081372 -0.2863125,0.1394956 -0.4407706,0.1394956 -0.2109671,0 -0.4106324,-0.1123715 -0.4106324,-0.352614 0,-0.2789914 0.2109671,-0.4688605 0.3880288,-0.5773572 0.1356217,-0.081372 0.2863125,-0.1394956 0.4407706,-0.1394956 z"
+       inkscape:connector-curvature="0"
+       style="fill:#052bff;fill-opacity:1" />
+    <path
+       id="path3994-6-4"
+       d="m -0.7474677,4.3682626 c 0.21096712,0 0.41063243,0.1123715 0.41063243,0.352614 0,0.2789914 -0.21096712,0.4688605 -0.38802881,0.5773572 -0.13562172,0.081372 -0.28631252,0.1394956 -0.44077062,0.1394956 -0.2109671,0 -0.4106324,-0.1123715 -0.4106324,-0.352614 0,-0.2789914 0.2109671,-0.4688605 0.3880288,-0.5773572 0.1356217,-0.081372 0.28631253,-0.1394956 0.4407706,-0.1394956 z"
+       inkscape:connector-curvature="0"
+       style="fill:#052bff;fill-opacity:1" />
+  </g>
+</svg>
