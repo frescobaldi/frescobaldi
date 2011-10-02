@@ -31,6 +31,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import backup
 import info
 import icons
 import actioncollection
@@ -359,10 +360,13 @@ class MainWindow(QMainWindow):
             QMessageBox.warning(self, app.caption(_("Error")),
                 _("Can't write to destination:\n\n{url}").format(url=dest))
             return False
+        b = backup.backup(filename)
         success = doc.save()
         if not success:
             QMessageBox.warning(self, app.caption(_("Error")),
                 _("Can't write to destination:\n\n{url}").format(url=filename))
+        elif b:
+            backup.removeBackup(filename)
         return success
             
     def saveDocumentAs(self, doc):
