@@ -25,6 +25,7 @@ from __future__ import unicode_literals
 
 import difflib
 import os
+import re
 import subprocess
 
 from PyQt4.QtCore import QSettings, QSize
@@ -192,8 +193,11 @@ class Dialog(QDialog):
 def makeHtmlDiff(old, new):
     table = difflib.HtmlDiff(wrapcolumn=100).make_table(
         old.splitlines(), new.splitlines(),
-        _("Current Document"), _("Converted Document"))
-    table = table.replace('td class="diff_header"', 'td align="right" class="diff_header"')
+        _("Current Document"), _("Converted Document"), True, 3)
+    # overcome a QTextBrowser limitation (no text-align css support)
+    table = table.replace('<td class="diff_header"', '<td align="right" class="diff_header"')
+    # make horizontal lines between sections
+    table = re.sub(r'</tbody>\s*<tbody>', '<tr><td colspan="6"><hr/></td></tr>', table)
     legend = _legend.format(
         colors = _("Colors:"),
         added = _("Added"),
