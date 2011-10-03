@@ -103,5 +103,5 @@ class Actions(actioncollection.ActionCollection):
         self.view_highlighting.setText(_("Syntax &Highlighting"))
         self.tools_indent_auto.setText(_("&Automatic Indent"))
         self.tools_indent_indent.setText(_("Re-&Indent"))
-        self.tools_convert_ly.setText(_("Update with convert-ly...")) 
+        self.tools_convert_ly.setText(_("&Update with convert-ly...")) 
 

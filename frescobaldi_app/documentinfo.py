@@ -125,6 +125,10 @@ class DocumentInfo(plugin.DocumentPlugin):
             if m:
                 return mkver(m.group(1).split('.'))
     
+    def versionString(self):
+        """Returns the version of the document as a string, or an empty string."""
+        return '.'.join(map(str, self.version() or ()))
+    
     @resetoncontentschanged
     def pitchLanguage(self):
         """Returns the pitchname language used in the document, if defined."""
