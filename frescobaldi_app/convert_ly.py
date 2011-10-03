@@ -24,6 +24,7 @@ Updates a document using convert-ly.
 from __future__ import unicode_literals
 
 import difflib
+import textwrap
 import os
 import re
 import subprocess
@@ -54,7 +55,8 @@ def convert(mainwindow):
         c.select(c.Document)
         text = dlg.convertedText()
         if dlg.copyCheck.isChecked():
-            text += '\n\n%{\n' + dlg.messages.toPlainText() + '\n%}\n'
+            msgs = textwrap.fill(dlg.messages.toPlainText())
+            text += '\n\n%{\n' + msgs + '\n%}\n'
         c.insertText(text)
     dlg.deleteLater()
 
