@@ -212,6 +212,9 @@ def menu_tools(mainwindow):
     m.addMenu(menu_tools_rhythm(mainwindow))
     m.addMenu(menu_tools_lyrics(mainwindow))
     m.addSeparator()
+    ac = documentactions.get(mainwindow).actionCollection
+    m.addAction(ac.tools_convert_ly)
+    m.addSeparator()
     panels.manager(mainwindow).addActionsToMenu(m)
     return m
 
