@@ -218,6 +218,7 @@ def menu_tools(mainwindow):
 
 def menu_tools_lyrics(mainwindow):
     m = Menu(_('submenu title', "&Lyrics"), mainwindow)
+    m.setIcon(icons.get('audio-input-microphone'))
     ac = lyrics.lyrics(mainwindow).actionCollection
 
     m.addAction(ac.lyrics_hyphenate)
