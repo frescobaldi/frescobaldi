@@ -75,14 +75,16 @@ class SnippetModel(QAbstractItemModel):
         return len(self._names) if not parent.isValid() else 0
     
     def data(self, index, role=Qt.DisplayRole):
+        name = self.name(index)
         if role == Qt.DisplayRole:
-            name = self.name(index)
             if index.column() == 0:
                 return snippets.get(name).variables.get('name')
             elif index.column() == 1:
                 return snippets.title(name)
             else:
                 return shortcut(name)
+        elif role == Qt.DecorationRole and index.column() == 0:
+            return snippets.icon(name)
     
     # slots
     def slotSettingsChanged(self):

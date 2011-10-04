@@ -214,6 +214,12 @@ class snippet_edit_help(help.page):
                 _("The mnemonic to type to select the snippet.")),
             ('indent: no',
                 _("Do not auto-indent the snippet after inserting.")),
+            ('icon',
+                _("The icon to show in menu and snippet list.")),
+            ('symbol',
+                _("The symbol to show in menu and snippet list. Symbols are "
+                  "icons that use the default text color and can be found in "
+                  "{directory}.").format(directory="'frescobaldi_app/symbols'")),
             ('python',
                 _("Execute the snippet as a Python script. See {link}.").format(
                     link=python_snippets_help.link())),

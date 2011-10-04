@@ -116,7 +116,7 @@ r"""-*- menu;
 
 
 'repeat': T(_("Repeat"),
-r"""-*- menu: blocks; name: rep; selection: strip;
+r"""-*- menu: blocks; name: rep; selection: strip; symbol: bar_repeat_start;
 \repeat volta 2 { $SELECTION }"""),
 
 

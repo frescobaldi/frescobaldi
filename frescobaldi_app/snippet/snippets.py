@@ -31,6 +31,8 @@ import random
 import re
 
 import app
+import icons
+import symbols
 
 textvars = collections.namedtuple('textvars', 'text variables')
 
@@ -170,6 +172,17 @@ def parse(text):
     t = '\n'.join(lines[start:])
     d = dict(m.groups(True) for l in lines[:start] for m in _variables_re.finditer(l))
     return textvars(t, d)
+
+
+def icon(name):
+    """Returns an icon if defined."""
+    d = get(name).variables
+    icon = d.get('icon')
+    if icon:
+        return icons.get(icon)
+    icon = d.get('symbol')
+    if icon:
+        return symbols.icon(icon)
 
 
 @unmemoize
