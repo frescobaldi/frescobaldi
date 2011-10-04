@@ -191,13 +191,9 @@ class Dialog(QDialog):
                     "{message}\n").format(convert_ly = convert_ly, message = e))
                 return
             self.messages.setPlainText(err.decode('UTF-8'))
-            if out:
-                self.setConvertedText(out.decode('UTF-8'))
-                if self._convertedtext == self._text:
-                    self.messages.append('\n' + _("The document has not been changed."))
-            else:
-                self.setConvertedText()
-                self.messages.append('\n'+_("No output was generated."))
+            self.setConvertedText(out.decode('UTF-8'))
+            if not out or self._convertedtext == self._text:
+                self.messages.append('\n' + _("The document has not been changed."))
 
 
 def makeHtmlDiff(old, new):
