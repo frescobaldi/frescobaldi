@@ -76,9 +76,11 @@ class MusicViewPanel(panels.Panel):
         ac.music_fit_height.triggered.connect(self.fitHeight)
         ac.music_fit_both.triggered.connect(self.fitBoth)
         ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
+        ac.music_copy_image.triggered.connect(self.copyImage)
         ac.music_document_select.currentDocumentChanged.connect(self.openDocument)
         ac.music_document_select.documentClosed.connect(self.closeDocument)
         ac.music_document_select.documentsChanged.connect(self.updateActions)
+        ac.music_copy_image.setEnabled(False)
         
     def translateUI(self):
         self.setWindowTitle(_("window title", "Music View"))
@@ -89,7 +91,11 @@ class MusicViewPanel(panels.Panel):
         w = widget.MusicView(self)
         w.zoomChanged.connect(self.slotMusicZoomChanged)
         w.updateZoomInfo()
+        w.view.surface().selectionChanged.connect(self.updateSelection)
         return w
+    
+    def updateSelection(self, rect):
+        self.actionCollection.music_copy_image.setEnabled(bool(rect))
         
     def openDocument(self, doc):
         """Opens the documents.Document instance (wrapping a lazily loaded Poppler document)."""
@@ -127,6 +133,10 @@ class MusicViewPanel(panels.Panel):
         self.activate()
         self.widget().showCurrentLinks()
     
+    def copyImage(self):
+        from . import image
+        image.copy(self)
+        
     def slotZoomChanged(self, mode, scale):
         """Called when the combobox is changed, changes view zoom."""
         if mode == FixedScale:
@@ -155,7 +165,8 @@ class Actions(actioncollection.ActionCollection):
         self.music_fit_height = QAction(panel)
         self.music_fit_both = QAction(panel)
         self.music_jump_to_cursor = QAction(panel)
-        
+        self.music_copy_image = QAction(panel)
+
         self.music_fit_width.setCheckable(True)
         self.music_fit_height.setCheckable(True)
         self.music_fit_both.setCheckable(True)
@@ -173,6 +184,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_zoom_in.setShortcuts(QKeySequence.ZoomIn)
         self.music_zoom_out.setShortcuts(QKeySequence.ZoomOut)
         self.music_jump_to_cursor.setShortcut(QKeySequence(Qt.CTRL | Qt.Key_J))
+        self.music_copy_image.setShortcut(QKeySequence(Qt.SHIFT | Qt.CTRL | Qt.Key_C))
         
     def translateUI(self):
         self.music_document_select.setText(_("Select Music View Document"))
@@ -184,6 +196,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_fit_height.setText(_("Fit &Height"))
         self.music_fit_both.setText(_("Fit &Page"))
         self.music_jump_to_cursor.setText(_("&Jump to Cursor Position"))
+        self.music_copy_image.setText(_("Copy to &Image..."))
 
 
 class ComboBoxAction(QWidgetAction):
