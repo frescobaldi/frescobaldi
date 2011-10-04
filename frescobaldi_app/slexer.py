@@ -163,7 +163,7 @@ class State(object):
                 token.updateState(self)
                 yield token
                 pos = m.end()
-            elif parser.fallthrough(self):
+            elif pos == len(text) or parser.fallthrough(self):
                 break
         if parser.default and pos < len(text):
             token = parser.default(text[pos:], pos)
