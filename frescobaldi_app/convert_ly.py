@@ -177,11 +177,16 @@ class Dialog(QDialog):
         command = [convert_ly, '-f', fromVersion, '-t', toVersion, '-']
         
         with util.busyCursor():
-            out, err = subprocess.Popen(command,
-                stdin = subprocess.PIPE,
-                stdout = subprocess.PIPE,
-                stderr = subprocess.PIPE).communicate(self._text.encode(self._encoding))
-        
+            try:
+                out, err = subprocess.Popen(command,
+                    stdin = subprocess.PIPE,
+                    stdout = subprocess.PIPE,
+                    stderr = subprocess.PIPE).communicate(self._text.encode(self._encoding))
+            except OSError as e:
+                self.messages.setPlainText(_(
+                    "Could not start {convert_ly}:\n\n"
+                    "{message}\n").format(convert_ly = convert_ly, message = e))
+                return
             self.messages.setPlainText(err.decode('UTF-8'))
             if out:
                 self.setConvertedText(out.decode('UTF-8'))
