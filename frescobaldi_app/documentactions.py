@@ -44,6 +44,7 @@ class DocumentActions(plugin.MainWindowPlugin):
         ac.view_highlighting.triggered.connect(self.toggleHighlighting)
         ac.tools_indent_auto.triggered.connect(self.toggleAutoIndent)
         ac.tools_indent_indent.triggered.connect(self.reIndent)
+        ac.tools_reformat.triggered.connect(self.reFormat)
         ac.tools_convert_ly.triggered.connect(self.convertLy)
         mainwindow.currentDocumentChanged.connect(self.updateDocActions)
         
@@ -76,7 +77,11 @@ class DocumentActions(plugin.MainWindowPlugin):
     def reIndent(self):
         import indent
         indent.reIndent(self.currentView().textCursor())
-        
+    
+    def reFormat(self):
+        import reformat
+        reformat.reformat(self.currentView().textCursor())
+    
     def toggleHighlighting(self):
         doc = self.currentDocument()
         minfo = metainfo.info(doc)
@@ -97,11 +102,13 @@ class Actions(actioncollection.ActionCollection):
         self.tools_indent_auto = QAction(parent)
         self.tools_indent_auto.setCheckable(True)
         self.tools_indent_indent = QAction(parent)
+        self.tools_reformat = QAction(parent)
         self.tools_convert_ly = QAction(parent)
-        
+    
     def translateUI(self):
         self.view_highlighting.setText(_("Syntax &Highlighting"))
         self.tools_indent_auto.setText(_("&Automatic Indent"))
         self.tools_indent_indent.setText(_("Re-&Indent"))
+        self.tools_reformat.setText(_("Re&format"))
         self.tools_convert_ly.setText(_("&Update with convert-ly...")) 
 

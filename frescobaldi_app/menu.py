@@ -203,6 +203,7 @@ def menu_tools(mainwindow):
     ac = documentactions.get(mainwindow).actionCollection
     m.addAction(ac.tools_indent_auto)
     m.addAction(ac.tools_indent_indent)
+    m.addAction(ac.tools_reformat)
     m.addSeparator()
     ac = autocomplete.CompleterManager.instance(mainwindow).actionCollection
     m.addAction(ac.autocomplete)
