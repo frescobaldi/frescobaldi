@@ -160,6 +160,8 @@ class Dialog(QDialog):
         if v:
             self.fromVersion.setText(v)
             self.reason.setText(_("(set in document)"))
+        else:
+            self.reason.clear()
         self._text = doc.toPlainText()
         self._encoding = doc.encoding() or 'UTF-8'
         self.setConvertedText()
@@ -178,10 +180,11 @@ class Dialog(QDialog):
         
         with util.busyCursor():
             try:
-                out, err = subprocess.Popen(command,
+                proc = subprocess.Popen(command,
                     stdin = subprocess.PIPE,
                     stdout = subprocess.PIPE,
-                    stderr = subprocess.PIPE).communicate(self._text.encode(self._encoding))
+                    stderr = subprocess.PIPE)
+                out, err = proc.communicate(self._text.encode(self._encoding))
             except OSError as e:
                 self.messages.setPlainText(_(
                     "Could not start {convert_ly}:\n\n"
