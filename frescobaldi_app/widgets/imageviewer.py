@@ -27,6 +27,10 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 
+# internal constants
+MOVE = 1
+DRAG = 2
+
 
 class ImageViewer(QScrollArea):
     
@@ -35,9 +39,10 @@ class ImageViewer(QScrollArea):
     def __init__(self, parent=None):
         super(ImageViewer, self).__init__(parent, alignment=Qt.AlignCenter)
         self._actualsize = True
-        self.setWidget(ImageWidget())
+        self.setBackgroundRole(QPalette.Dark)
+        self.setWidget(ImageWidget(self))
         
-    def setActualSize(self, enabled):
+    def setActualSize(self, enabled=True):
         if enabled == self._actualsize:
             return
         self.setWidgetResizable(not enabled)
@@ -55,25 +60,74 @@ class ImageViewer(QScrollArea):
 
 
 class ImageWidget(QWidget):
-    def __init__(self, parent=None):
-        super(ImageWidget, self).__init__(parent)
+    def __init__(self, viewer):
+        super(ImageWidget, self).__init__()
+        self.viewer = viewer
         self.setBackgroundRole(QPalette.Dark)
         self.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Ignored)
         self.image = QImage()
+        self._pixmap = None
+        self._pixmapsize = None
+        self._mode = None
+        self._startpos = None
     
     def setActualSize(self):
         self.resize(self.image.size())
+        self._pixmap = None
+        self._pixmapsize = None
         
     def paintEvent(self, ev):
         painter = QPainter(self)
         if self.size() == self.image.size():
             painter.drawImage(ev.rect(), self.image, ev.rect())
-            return
-        s = self.image.size()
-        s.scale(self.size(), Qt.KeepAspectRatio)
-        r = QRect()
-        r.setSize(s)
-        r.moveCenter(self.rect().center())
-        painter.drawImage(r, self.image, self.image.rect())
+        else:
+            s = self.image.size()
+            s.scale(self.size(), Qt.KeepAspectRatio)
+            r = QRect()
+            r.setSize(s)
+            r.moveCenter(self.rect().center())
+            painter.drawPixmap(r, self.pixmap(s))
+
+    def pixmap(self, size):
+        if self._pixmapsize == size:
+            return self._pixmap
+        self._pixmap = QPixmap.fromImage(self.image.scaled(size, Qt.KeepAspectRatio, Qt.SmoothTransformation))
+        self._pixmapsize = size
+        return self._pixmap
+
+    def mousePressEvent(self, ev):
+        if ev.button() == Qt.LeftButton:
+            if ev.modifiers() & Qt.ControlModifier:
+                self._mode = MOVE
+            else:
+                self._mode = DRAG
+            self._startpos = ev.globalPos()
+    
+    def mouseMoveEvent(self, ev):
+        diff = self._startpos - ev.globalPos()
+        if self._mode == MOVE:
+            self._startpos = ev.globalPos()
+            h = self.viewer.horizontalScrollBar()
+            v = self.viewer.verticalScrollBar()
+            h.setValue(h.value() + diff.x())
+            v.setValue(v.value() + diff.y())
+        elif self._mode == DRAG and diff.manhattanLength() >= QApplication.startDragDistance():
+            self.startDrag()
+    
+    def mouseReleaseEvent(self, ev):
+        mode, self._mode = self._mode, None
+        if (ev.button() == Qt.LeftButton and
+                mode == DRAG and ev.globalPos() == self._startpos):
+            self.viewer.setActualSize(not self.viewer._actualsize)
+    
+    def startDrag(self):
+        data = QMimeData()
+        data.setImageData(self.image)
+        drag = QDrag(self.viewer)
+        drag.setMimeData(data)
+        pixmap = QPixmap.fromImage(self.image.scaled(QSize(256, 256), Qt.KeepAspectRatio, Qt.SmoothTransformation))
+        drag.setPixmap(pixmap)
+        drag.setHotSpot(pixmap.rect().center())
+        drag.exec_(Qt.CopyAction)
 
 
