@@ -24,6 +24,7 @@ Dialog to copy contents from PDF to a raster image.
 from __future__ import unicode_literals
 
 import os
+import tempfile
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -34,6 +35,7 @@ import icons
 import qpopplerview
 import widgets.imageviewer
 import widgets.colorbutton
+import widgets.drag
 
 try:
     import popplerqt4
@@ -80,6 +82,10 @@ class Dialog(QDialog):
         self.colorButton.setColor(QColor(Qt.white))
         self.crop = QCheckBox()
         self.antialias = QCheckBox(checked=True)
+        self.dragfile = QLabel()
+        self.dragfile.setPixmap(QFileIconProvider().icon(QFileInfo('test.png')).pixmap(22))
+        self.fileDragger = FileDragger()
+        self.dragfile.installEventFilter(self.fileDragger)
         self.buttons = QDialogButtonBox(QDialogButtonBox.Close)
         self.copyButton = self.buttons.addButton('', QDialogButtonBox.ApplyRole)
         self.copyButton.setIcon(icons.get('edit-copy'))
@@ -97,6 +103,7 @@ class Dialog(QDialog):
         controls.addWidget(self.crop)
         controls.addWidget(self.antialias)
         controls.addStretch()
+        controls.addWidget(self.dragfile)
         layout.addWidget(widgets.Separator())
         layout.addWidget(self.buttons)
 
@@ -116,6 +123,7 @@ class Dialog(QDialog):
         self.dpiLabel.setText(_("DPI:"))
         self.crop.setText(_("Auto-crop"))
         self.antialias.setText(_("Antialias"))
+        self.dragfile.setToolTip(_("Drag the image as a PNG file."))
         self.copyButton.setText(_("&Copy to Clipboard"))
         
     def readSettings(self):
@@ -145,8 +153,8 @@ class Dialog(QDialog):
     def setPage(self, page, rect):
         self._page = page
         self._rect = rect
-        print page.document()
         self._filename = documents.filename(page.document())
+        self.fileDragger.basename = os.path.splitext(os.path.basename(self._filename))[0]
         self.setCaption()
         self.drawImage()
 
@@ -171,9 +179,32 @@ class Dialog(QDialog):
         if self.crop.isChecked():
             image = image.copy(autoCropRect(image))
         self.imageViewer.setImage(image)
+        self.fileDragger.setImage(image)
     
     def copyToClipboard(self):
         QApplication.clipboard().setImage(self.imageViewer.image())
+
+
+class FileDragger(widgets.drag.FileDragger):
+    basename = None
+    currentFile = None
+    
+    def setImage(self, image):
+        self.image = image
+        self.currentFile = None
+        
+    def filename(self):
+        if self.currentFile:
+            return self.currentFile
+        elif not self.image:
+            return
+        # save the image as a PNG file
+        d = tempfile.mkdtemp()
+        basename = self.basename or 'image'
+        basename += '.png'
+        filename = os.path.join(d, basename)
+        self.image.save(filename)
+        self.currentFile = filename
 
 
 def autoCropRect(image):

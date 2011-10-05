@@ -70,6 +70,45 @@ class ComboDrag(QObject):
         dragFile(combobox, filename, icon, Qt.CopyAction)
 
 
+class Dragger(QObject):
+    """Drags anything from any widget.
+    
+    Use dragger.installEventFilter(widget) to have it drag.
+
+    """
+    def __init__(self, parent=None):
+        super(Dragger, self).__init__(parent)
+        self._dragpos = None
+        
+    def eventFilter(self, widget, ev):
+        if ev.type() == QEvent.MouseButtonPress and ev.button() == Qt.LeftButton:
+            self._dragpos = ev.pos()
+            return True
+        elif ev.type() == QEvent.MouseMove and ev.buttons() & Qt.LeftButton:
+            return self.mouseMoved(widget, ev.pos()) or False
+        return False
+    
+    def mouseMoved(self, widget, pos):
+        if (self._dragpos is not None
+            and (pos - self._dragpos).manhattanLength()
+                >= QApplication.startDragDistance()):
+            self.startDrag(widget)
+            return True
+    
+    def startDrag(self, widget):
+        """Reimplement to start a drag."""
+
+
+class FileDragger(Dragger):
+    def filename(self):
+        """Should return the filename to drag."""
+    
+    def startDrag(self, widget):
+        filename = self.filename()
+        if filename:
+            dragFile(widget, filename)
+
+
 def dragFile(widget, filename, icon=None, dropactions=Qt.CopyAction):
     """Starts dragging the given local file from the widget."""
     if icon is None or icon.isNull():

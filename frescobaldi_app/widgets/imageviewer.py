@@ -29,6 +29,9 @@ from PyQt4.QtGui import (
     QSizePolicy, QWidget)
 
 
+__all__ = ['ImageViewer']
+
+
 # internal constants
 MOVE = 1
 DRAG = 2
@@ -36,7 +39,7 @@ DRAG = 2
 
 class ImageViewer(QScrollArea):
     
-    fullSizeChanged = pyqtSignal(bool)
+    actualSizeChanged = pyqtSignal(bool)
     
     def __init__(self, parent=None):
         super(ImageViewer, self).__init__(parent, alignment=Qt.AlignCenter)
@@ -52,7 +55,7 @@ class ImageViewer(QScrollArea):
         if enabled and not self._image.isNull():
             self.widget().resize(self._image.size())
         self._actualsize = enabled
-        self.fullSizeChanged.emit(enabled)
+        self.actualSizeChanged.emit(enabled)
     
     def actualSize(self):
         return self._actualsize
