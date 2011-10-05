@@ -129,6 +129,16 @@ class Dialog(QDialog):
         self.dragfile.setToolTip(_("Drag the image as a PNG file."))
         self.copyButton.setText(_("&Copy to Clipboard"))
         self.saveButton.setText(_("&Save As..."))
+        self.imageViewer.setWhatsThis(_(
+            "<p>\n"
+            "Clicking toggles the display between 100% size and window size. "
+            "Drag to copy the image to another application. "
+            "Drag with Ctrl (or {command}) to scroll a large image.\n"
+            "</p>\n"
+            "<p>\n"
+            "You can also drag the small picture icon in the bottom right, "
+            "which drags the actual file on disk, e.g. to an e-mail message.\n"
+            "</p>").format(command="\u2318"))
         
     def readSettings(self):
         s = QSettings()
@@ -234,40 +244,22 @@ def autoCropRect(image):
     Edges of the image are trimmed if they have the same color.
     
     """
-    left, top, right, bottom = 0, 0, image.width(), image.height()
+    right, bottom = image.width(), image.height()
     pixel = image.pixel(0, 0)
-    # left border
-    for left in range(right):
-        for y in range(bottom):
-            if image.pixel(left, y) != pixel:
-                break
-        else:
-            continue
-        break
-    # top
-    for top in range(bottom):
-        for x in range(left, right):
-            if image.pixel(x, top) != pixel:
-                break
-        else:
-            continue
-        break
-    # right
-    for right in range(right-1, left, -1):
-        for y in range(top, bottom):
-            if image.pixel(right, y) != pixel:
-                break
-        else:
-            continue
-        break
-    # bottom
-    for bottom in range(bottom-1, top, -1):
-        for x in range(left, right):
-            if image.pixel(x, bottom) != pixel:
-                break
-        else:
-            continue
-        break
+    def hscan(horizontal, vertical):
+        for x in horizontal:
+            for y in vertical:
+                if image.pixel(x, y) != pixel:
+                    return x
+    def vscan(vertical, horizontal):
+        for y in vertical:
+            for x in horizontal:
+                if image.pixel(x, y) != pixel:
+                    return y
+    left = hscan(range(right), range(bottom))
+    top = vscan(range(bottom), range(left, right))
+    right = hscan(range(right-1, left, -1), range(top, bottom))
+    bottom = vscan(range(bottom-1, top, -1), range(left, right))
     return QRect(QPoint(left, top), QPoint(right, bottom))
 
 
