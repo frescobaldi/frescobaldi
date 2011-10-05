@@ -57,8 +57,7 @@ class ImageViewer(QScrollArea):
         self.widget().image = image
         if self._actualsize:
             self.widget().setActualSize()
-        else:
-            self.widget().update()
+        self.widget().update()
 
 
 class ImageWidget(QWidget):
@@ -127,7 +126,10 @@ class ImageWidget(QWidget):
         data.setImageData(self.image)
         drag = QDrag(self.viewer)
         drag.setMimeData(data)
-        pixmap = QPixmap.fromImage(self.image.scaled(QSize(256, 256), Qt.KeepAspectRatio, Qt.SmoothTransformation))
+        image = self.image
+        if max(self.image.width(), self.image.height()) > 256:
+            image = image.scaled(QSize(256, 256), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        pixmap = QPixmap.fromImage(image)
         drag.setPixmap(pixmap)
         drag.setHotSpot(pixmap.rect().center())
         drag.exec_(Qt.CopyAction)
