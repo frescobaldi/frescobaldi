@@ -23,11 +23,14 @@ Dialog to copy contents from PDF to a raster image.
 
 from __future__ import unicode_literals
 
+import itertools
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
 import util
+import icons
 import qpopplerview
 import widgets.imageviewer
 import widgets.colorbutton
@@ -53,8 +56,6 @@ def copy(musicviewpanel):
         size = page.rect().intersected(selection).size()
         return size.width() + size.height()
     page = max(pages, key = key)
-
-    
     dlg = Dialog(musicviewpanel)
     dlg.show()
     dlg.setPage(page, selection)
@@ -77,6 +78,8 @@ class Dialog(QDialog):
         self.crop = QCheckBox()
         self.antialias = QCheckBox(checked=True)
         self.buttons = QDialogButtonBox(QDialogButtonBox.Close)
+        self.copyButton = self.buttons.addButton('', QDialogButtonBox.ApplyRole)
+        self.copyButton.setIcon(icons.get('edit-copy'))
         
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -102,6 +105,7 @@ class Dialog(QDialog):
         self.antialias.toggled.connect(self.drawImage)
         self.crop.toggled.connect(self.cropImage)
         self.buttons.rejected.connect(self.reject)
+        self.copyButton.clicked.connect(self.copyToClipboard)
         util.saveDialogSize(self, "copy_image/dialog/size", QSize(480, 320))
     
     def translateUI(self):
@@ -109,7 +113,8 @@ class Dialog(QDialog):
         self.dpiLabel.setText(_("DPI:"))
         self.crop.setText(_("Auto-crop"))
         self.antialias.setText(_("Antialias"))
-    
+        self.copyButton.setText(_("&Copy to Clipboard"))
+        
     def readSettings(self):
         s = QSettings()
         s.beginGroup('copy_image')
@@ -148,41 +153,55 @@ class Dialog(QDialog):
         self.cropImage()
     
     def cropImage(self):
-        if not self.crop.isChecked():
-            self.imageViewer.setImage(self._image)
-            return
-        img = self._image
-        left, top, right, bottom = 0, 0, img.width(), img.height()
-        pixel = img.pixel(0, 0)
-        # left border
-        for x in range(right):
-            for y in range(bottom):
-                if img.pixel(x, y) != pixel:
-                    left = x
-                    break
-        # top
+        image = self._image
+        if self.crop.isChecked():
+            image = image.copy(autoCropRect(image))
+        self.imageViewer.setImage(image)
+    
+    def copyToClipboard(self):
+        QApplication.clipboard().setImage(self.imageViewer.image())
+
+
+def autoCropRect(image):
+    """Returns a QRect specifying the contents of the QImage.
+    
+    Edges of the image are trimmed if they have the same color.
+    
+    """
+    left, top, right, bottom = 0, 0, image.width(), image.height()
+    pixel = image.pixel(0, 0)
+    # left border
+    for left in range(right):
         for y in range(bottom):
-            for x in range(left, right):
-                if img.pixel(x, y) != pixel:
-                    top = y
-                    break
-        # right
-        for x in range(right-1, left, -1):
-            for y in range(top, bottom):
-                if img.pixel(x, y) != pixel:
-                    right = x + 1
-                    break
-        # bottom
-        for y in range(bottom-1, top, -1):
-            for x in range(left, right):
-                if img.pixel(x, y) != pixel:
-                    bottom = y + 1
-                    break
-        img = img.copy(QRect(QPoint(top, left), QPoint(bottom, right)))
-        self.imageViewer.setImage(img)
-
-
-
-
+            if image.pixel(left, y) != pixel:
+                break
+        else:
+            continue
+        break
+    # top
+    for top in range(bottom):
+        for x in range(left, right):
+            if image.pixel(x, top) != pixel:
+                break
+        else:
+            continue
+        break
+    # right
+    for right in range(right-1, left, -1):
+        for y in range(top, bottom):
+            if image.pixel(right, y) != pixel:
+                break
+        else:
+            continue
+        break
+    # bottom
+    for bottom in range(bottom-1, top, -1):
+        for x in range(left, right):
+            if image.pixel(x, bottom) != pixel:
+                break
+        else:
+            continue
+        break
+    return QRect(QPoint(left, top), QPoint(right, bottom))
 
 

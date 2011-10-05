@@ -41,6 +41,7 @@ class ImageViewer(QScrollArea):
     def __init__(self, parent=None):
         super(ImageViewer, self).__init__(parent, alignment=Qt.AlignCenter)
         self._actualsize = True
+        self._image = QImage()
         self.setBackgroundRole(QPalette.Dark)
         self.setWidget(ImageWidget(self))
         
@@ -48,16 +49,33 @@ class ImageViewer(QScrollArea):
         if enabled == self._actualsize:
             return
         self.setWidgetResizable(not enabled)
-        if enabled:
-            self.widget().setActualSize()
+        if enabled and not self._image.isNull():
+            self.widget().resize(self._image.size())
         self._actualsize = enabled
         self.fullSizeChanged.emit(enabled)
-        
+    
+    def actualSize(self):
+        return self._actualsize
+    
     def setImage(self, image):
-        self.widget().image = image
+        self._image = image
+        self._pixmap = None
+        self._pixmapsize = None
         if self._actualsize:
-            self.widget().setActualSize()
+            self.widget().resize(image.size())
         self.widget().update()
+    
+    def image(self):
+        return self._image
+        
+    def pixmap(self, size):
+        """Returns (and caches) a scaled pixmap for the image."""
+        if self._pixmapsize == size:
+            return self._pixmap
+        self._pixmap = QPixmap.fromImage(
+            self._image.scaled(size, Qt.KeepAspectRatio, Qt.SmoothTransformation))
+        self._pixmapsize = size
+        return self._pixmap
 
 
 class ImageWidget(QWidget):
@@ -66,35 +84,21 @@ class ImageWidget(QWidget):
         self.viewer = viewer
         self.setBackgroundRole(QPalette.Dark)
         self.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Ignored)
-        self.image = QImage()
-        self._pixmap = None
-        self._pixmapsize = None
         self._mode = None
         self._startpos = None
     
-    def setActualSize(self):
-        self.resize(self.image.size())
-        self._pixmap = None
-        self._pixmapsize = None
-        
     def paintEvent(self, ev):
+        image = self.viewer.image()
         painter = QPainter(self)
-        if self.size() == self.image.size():
-            painter.drawImage(ev.rect(), self.image, ev.rect())
+        if self.size() == image.size():
+            painter.drawImage(ev.rect(), image, ev.rect())
         else:
-            s = self.image.size()
+            s = image.size()
             s.scale(self.size(), Qt.KeepAspectRatio)
             r = QRect()
             r.setSize(s)
             r.moveCenter(self.rect().center())
-            painter.drawPixmap(r, self.pixmap(s))
-
-    def pixmap(self, size):
-        if self._pixmapsize == size:
-            return self._pixmap
-        self._pixmap = QPixmap.fromImage(self.image.scaled(size, Qt.KeepAspectRatio, Qt.SmoothTransformation))
-        self._pixmapsize = size
-        return self._pixmap
+            painter.drawPixmap(r, self.viewer.pixmap(s))
 
     def mousePressEvent(self, ev):
         if ev.button() == Qt.LeftButton:
@@ -119,15 +123,15 @@ class ImageWidget(QWidget):
         mode, self._mode = self._mode, None
         if (ev.button() == Qt.LeftButton and
                 mode == DRAG and ev.globalPos() == self._startpos):
-            self.viewer.setActualSize(not self.viewer._actualsize)
+            self.viewer.setActualSize(not self.viewer.actualSize())
     
     def startDrag(self):
+        image = self.viewer.image()
         data = QMimeData()
-        data.setImageData(self.image)
+        data.setImageData(image)
         drag = QDrag(self.viewer)
         drag.setMimeData(data)
-        image = self.image
-        if max(self.image.width(), self.image.height()) > 256:
+        if max(image.width(), image.height()) > 256:
             image = image.scaled(QSize(256, 256), Qt.KeepAspectRatio, Qt.SmoothTransformation)
         pixmap = QPixmap.fromImage(image)
         drag.setPixmap(pixmap)
