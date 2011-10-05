@@ -34,6 +34,7 @@ import weakref
 from PyQt4.QtCore import QSettings, QSize, Qt
 from PyQt4.QtGui import QApplication, QColor
 
+import info
 import variables
 
 
@@ -253,5 +254,21 @@ def busyCursor(cursor=Qt.WaitCursor, processEvents=True):
         yield
     finally:
         QApplication.restoreOverrideCursor()
+
+
+def tempdir():
+    """Returns a temporary directory that is erased on app quit."""
+    import tempfile
+    global _tempdir
+    try:
+        _tempdir
+    except NameError:
+        _tempdir = tempfile.mkdtemp(prefix = info.name +'-')
+        import atexit
+        @atexit.register
+        def remove():
+            import shutil
+            shutil.rmtree(_tempdir, ignore_errors=True)
+    return tempfile.mkdtemp(dir=_tempdir)
 
 

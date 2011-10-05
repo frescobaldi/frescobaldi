@@ -24,9 +24,8 @@ Manages a local temporary directory for a Document (e.g. unnamed or remote).
 from __future__ import unicode_literals
 
 import os
-import shutil
-import tempfile
 
+import util
 import ly.lex
 import documentinfo
 import plugin
@@ -39,20 +38,13 @@ def scratchdir(document):
 class ScratchDir(plugin.DocumentPlugin):
     
     def __init__(self, document):
-        document.closed.connect(self.delete)
         self._directory = None
         
     def create(self):
         """Creates the local temporary directory."""
         if not self._directory:
-            self._directory = tempfile.mkdtemp()
+            self._directory = util.tempdir()
     
-    def delete(self):
-        """Deletes our temporary area."""
-        if self._directory:
-            shutil.rmtree(self._directory, ignore_errors=True)
-            self._directory = None
-            
     def directory(self):
         """Returns the directory if a temporary area was created, else None."""
         return self._directory

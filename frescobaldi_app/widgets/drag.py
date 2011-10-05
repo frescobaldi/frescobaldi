@@ -79,6 +79,8 @@ class Dragger(QObject):
     def __init__(self, parent=None):
         super(Dragger, self).__init__(parent)
         self._dragpos = None
+        if parent:
+            parent.installEventFilter(self)
         
     def eventFilter(self, widget, ev):
         if ev.type() == QEvent.MouseButtonPress and ev.button() == Qt.LeftButton:

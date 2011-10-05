@@ -84,8 +84,7 @@ class Dialog(QDialog):
         self.antialias = QCheckBox(checked=True)
         self.dragfile = QLabel()
         self.dragfile.setPixmap(QFileIconProvider().icon(QFileInfo('test.png')).pixmap(22))
-        self.fileDragger = FileDragger()
-        self.dragfile.installEventFilter(self.fileDragger)
+        self.fileDragger = FileDragger(self.dragfile)
         self.buttons = QDialogButtonBox(QDialogButtonBox.Close)
         self.copyButton = self.buttons.addButton('', QDialogButtonBox.ApplyRole)
         self.copyButton.setIcon(icons.get('edit-copy'))
@@ -124,6 +123,7 @@ class Dialog(QDialog):
     def translateUI(self):
         self.setCaption()
         self.dpiLabel.setText(_("DPI:"))
+        self.colorButton.setToolTip(_("Paper Color"))
         self.crop.setText(_("Auto-crop"))
         self.antialias.setText(_("Antialias"))
         self.dragfile.setToolTip(_("Drag the image as a PNG file."))
@@ -205,6 +205,7 @@ class Dialog(QDialog):
 
 class FileDragger(widgets.drag.FileDragger):
     """Creates an image file on the fly as soon as a drag is started."""
+    image = None
     basename = None
     currentFile = None
     
@@ -218,7 +219,7 @@ class FileDragger(widgets.drag.FileDragger):
         elif not self.image:
             return
         # save the image as a PNG file
-        d = tempfile.mkdtemp()
+        d = util.tempdir()
         basename = self.basename or 'image'
         basename += '.png'
         filename = os.path.join(d, basename)
