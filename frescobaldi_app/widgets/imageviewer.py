@@ -76,6 +76,19 @@ class ImageViewer(QScrollArea):
             self._image.scaled(size, Qt.KeepAspectRatio, Qt.SmoothTransformation))
         self._pixmapsize = size
         return self._pixmap
+    
+    def startDrag(self):
+        image = self.image()
+        data = QMimeData()
+        data.setImageData(image)
+        drag = QDrag(self)
+        drag.setMimeData(data)
+        if max(image.width(), image.height()) > 256:
+            image = image.scaled(QSize(256, 256), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        pixmap = QPixmap.fromImage(image)
+        drag.setPixmap(pixmap)
+        drag.setHotSpot(pixmap.rect().center())
+        drag.exec_(Qt.CopyAction)
 
 
 class ImageWidget(QWidget):
@@ -117,25 +130,12 @@ class ImageWidget(QWidget):
             h.setValue(h.value() + diff.x())
             v.setValue(v.value() + diff.y())
         elif self._mode == DRAG and diff.manhattanLength() >= QApplication.startDragDistance():
-            self.startDrag()
+            self.viewer.startDrag()
     
     def mouseReleaseEvent(self, ev):
         mode, self._mode = self._mode, None
         if (ev.button() == Qt.LeftButton and
                 mode == DRAG and ev.globalPos() == self._startpos):
             self.viewer.setActualSize(not self.viewer.actualSize())
-    
-    def startDrag(self):
-        image = self.viewer.image()
-        data = QMimeData()
-        data.setImageData(image)
-        drag = QDrag(self.viewer)
-        drag.setMimeData(data)
-        if max(image.width(), image.height()) > 256:
-            image = image.scaled(QSize(256, 256), Qt.KeepAspectRatio, Qt.SmoothTransformation)
-        pixmap = QPixmap.fromImage(image)
-        drag.setPixmap(pixmap)
-        drag.setHotSpot(pixmap.rect().center())
-        drag.exec_(Qt.CopyAction)
 
 
