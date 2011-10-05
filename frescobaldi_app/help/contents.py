@@ -123,13 +123,14 @@ class starting(page):
   Join us now and share the soft -- ware!
 }""")
         import engrave
-        action = engrave.Engraver.instances()[0].actionCollection.engrave_preview
-        d['key_engrave'] = shortcut(action)
+        ac = engrave.Engraver.instances()[0].actionCollection
+        d['key_engrave'] = shortcut(ac.engrave_preview)
         import panels
-        action = panels.PanelManager.instances()[0].musicview.actionCollection.music_jump_to_cursor
-        d['key_jump'] = shortcut(action)
-        action = panels.PanelManager.instances()[0].logtool.actionCollection.log_next_error
-        d['key_error'] = shortcut(action)
+        ac = panels.PanelManager.instances()[0].musicview.actionCollection
+        d['key_jump'] = shortcut(ac.music_jump_to_cursor)
+        d['key_copy_image'] = shortcut(ac.music_copy_image)
+        ac = panels.PanelManager.instances()[0].logtool.actionCollection
+        d['key_error'] = shortcut(ac.log_next_error)
         d['menu_engrave'] = menu(_("LilyPond"), _("Engrave (publish)"))
         d['menu_preferences_lilypond'] = menu(
             _("menu title", "Edit"),
@@ -138,6 +139,9 @@ class starting(page):
         d['menu_clear_error_marks'] = menu(
             _("menu title", "View"),
             _("Clear Error Marks"))
+        d['menu_copy_image'] = menu(
+            _("menu title", "Edit"),
+            _("Copy to Image..."))
         return _("""\
 <p>
 The default screen of Frescobaldi shows a text document on the left and an
@@ -182,6 +186,12 @@ Ctrl-click on an empty place to show a magnifier glass
 Moving the text cursor or selecting text highlights the notes in the preview;
 press {key_jump} to explicitly center and highlight a note or other object
 in the preview.
+</li>
+
+<li>
+Shift-drag a selection and then press {key_copy_image} or {menu_copy_image}
+to copy the selected music as a raster image to the clipboard, a file or
+another application.
 </li>
 </ul>
 
