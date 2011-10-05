@@ -89,6 +89,8 @@ class Dialog(QDialog):
         self.buttons = QDialogButtonBox(QDialogButtonBox.Close)
         self.copyButton = self.buttons.addButton('', QDialogButtonBox.ApplyRole)
         self.copyButton.setIcon(icons.get('edit-copy'))
+        self.saveButton = self.buttons.addButton('', QDialogButtonBox.ApplyRole)
+        self.saveButton.setIcon(icons.get('document-save'))
         
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -116,6 +118,7 @@ class Dialog(QDialog):
         self.crop.toggled.connect(self.cropImage)
         self.buttons.rejected.connect(self.reject)
         self.copyButton.clicked.connect(self.copyToClipboard)
+        self.saveButton.clicked.connect(self.saveAs)
         util.saveDialogSize(self, "copy_image/dialog/size", QSize(480, 320))
     
     def translateUI(self):
@@ -125,6 +128,7 @@ class Dialog(QDialog):
         self.antialias.setText(_("Antialias"))
         self.dragfile.setToolTip(_("Drag the image as a PNG file."))
         self.copyButton.setText(_("&Copy to Clipboard"))
+        self.saveButton.setText(_("&Save As..."))
         
     def readSettings(self):
         s = QSettings()
@@ -184,8 +188,23 @@ class Dialog(QDialog):
     def copyToClipboard(self):
         QApplication.clipboard().setImage(self.imageViewer.image())
 
+    def saveAs(self):
+        if self._filename and not self.imageViewer.image().isNull():
+            filename = os.path.splitext(self._filename)[0] + ".png"
+        else:
+            filename = 'image.png'
+        filename = QFileDialog.getSaveFileName(self,
+            _("Save Image As"), filename)
+        if filename:
+            if not self.imageViewer.image().save(filename):
+                QMessageBox.critical(self, _("Error"), _(
+                    "Could not save the image."))
+            else:
+                self.fileDragger.currentFile = filename
+
 
 class FileDragger(widgets.drag.FileDragger):
+    """Creates an image file on the fly as soon as a drag is started."""
     basename = None
     currentFile = None
     
@@ -205,6 +224,7 @@ class FileDragger(widgets.drag.FileDragger):
         filename = os.path.join(d, basename)
         self.image.save(filename)
         self.currentFile = filename
+        return filename
 
 
 def autoCropRect(image):
