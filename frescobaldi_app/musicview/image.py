@@ -23,7 +23,7 @@ Dialog to copy contents from PDF to a raster image.
 
 from __future__ import unicode_literals
 
-import itertools
+import os
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -40,6 +40,7 @@ try:
 except ImportError:
     popplerqt4 = None
 
+from . import documents
 
 
 def copy(musicviewpanel):
@@ -66,7 +67,9 @@ def copy(musicviewpanel):
 class Dialog(QDialog):
     def __init__(self, parent=None):
         super(Dialog, self).__init__(parent)
-        
+        self._filename = None
+        self._page = None
+        self._rect = None
         self.imageViewer = widgets.imageviewer.ImageViewer()
         self.dpiLabel = QLabel()
         self.dpiCombo = QComboBox(insertPolicy=QComboBox.NoInsert, editable=True)
@@ -109,7 +112,7 @@ class Dialog(QDialog):
         util.saveDialogSize(self, "copy_image/dialog/size", QSize(480, 320))
     
     def translateUI(self):
-        self.setWindowTitle(app.caption(_("Copy Raster Image")))
+        self.setCaption()
         self.dpiLabel.setText(_("DPI:"))
         self.crop.setText(_("Auto-crop"))
         self.antialias.setText(_("Antialias"))
@@ -131,9 +134,20 @@ class Dialog(QDialog):
         s.setValue("autocrop", self.crop.isChecked())
         s.setValue("antialias", self.antialias.isChecked())
     
+    def setCaption(self):
+        if self._filename:
+            filename = os.path.basename(self._filename)
+        else:
+            filename = _("<unknown>")
+        title = _("Image from {filename}").format(filename = filename)
+        self.setWindowTitle(app.caption(title))
+        
     def setPage(self, page, rect):
         self._page = page
         self._rect = rect
+        print page.document()
+        self._filename = documents.filename(page.document())
+        self.setCaption()
         self.drawImage()
 
     def drawImage(self):

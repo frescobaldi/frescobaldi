@@ -79,6 +79,13 @@ def load(filename):
         return doc or None
 
 
+def filename(poppler_document):
+    """Returns the filename for the document if it was loaded via our cache."""
+    for (mtime, filename), doc in _cache.items():
+        if doc == poppler_document:
+            return filename
+
+
 class Document(popplertools.Document):
     """Represents a (lazily) loaded PDF document."""
     def load(self):
