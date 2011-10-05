@@ -23,8 +23,10 @@ A simple scrollarea that can display an image.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import pyqtSignal, QMimeData, QSize, QRect, Qt
+from PyQt4.QtGui import (
+    QApplication, QDrag, QImage, QPainter, QPalette, QPixmap, QScrollArea,
+    QSizePolicy, QWidget)
 
 
 # internal constants
