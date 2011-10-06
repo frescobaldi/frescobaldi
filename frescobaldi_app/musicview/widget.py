@@ -84,6 +84,8 @@ class MusicView(QWidget):
         
         self.view.viewModeChanged.connect(self.updateZoomInfo)
         self.view.surface().pageLayout().scaleChanged.connect(self.updateZoomInfo)
+        self.view.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.view.customContextMenuRequested.connect(self.showContextMenu)
         
         # react if cursor of current text document moves
         dockwidget.mainwindow().currentViewChanged.connect(self.slotCurrentViewChanged)
@@ -298,6 +300,20 @@ class MusicView(QWidget):
         rect.setSize(rect.size().boundedTo(self.view.viewport().size()))
         self.view.center(rect.center())
         self.highlight(links.destinations(), s, 10000)
+    
+    def showContextMenu(self):
+        """Called when the user right-clicks or presses the context menu key."""
+        pos = self.view.mapToGlobal(QPoint(0, 0))
+        link, cursor = None, None
+        # mouse inside view?
+        if self.view.mapFromGlobal(QCursor.pos()) in self.view.viewport().rect():
+            pos = QCursor.pos()
+            pos_in_surface = self.view.surface().mapFromGlobal(pos)
+            page, link = self.view.surface().pageLayout().linkAt(pos_in_surface)
+            if link:
+                cursor = self._links.cursor(link)
+        from . import contextmenu
+        contextmenu.show(pos, self.parent(), link, cursor)
 
 
 class Highlighter(qpopplerview.Highlighter):
