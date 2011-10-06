@@ -27,7 +27,6 @@ from __future__ import unicode_literals
 import os
 import glob
 import shutil
-import tempfile
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -50,7 +49,7 @@ import widgets.progressbar
 class MusicPreviewJob(job.Job):
     def __init__(self, text, title=None):
         super(MusicPreviewJob, self).__init__()
-        self.directory = tempfile.mkdtemp()
+        self.directory = util.tempdir()
         self.document = os.path.join(self.directory, 'document.ly')
         with open(self.document, 'w') as f:
             f.write(text.encode('utf-8'))
@@ -69,7 +68,7 @@ class MusicPreviewJob(job.Job):
         return glob.glob(os.path.join(self.directory, '*.pdf'))
         
     def cleanup(self):
-        shutil.rmtree(self.directory)
+        shutil.rmtree(self.directory, ignore_errors=True)
 
 
 class MusicPreviewWidget(QWidget):
