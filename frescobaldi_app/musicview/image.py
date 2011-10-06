@@ -23,6 +23,7 @@ Dialog to copy contents from PDF to a raster image.
 
 from __future__ import unicode_literals
 
+import collections
 import os
 import tempfile
 
@@ -75,8 +76,9 @@ class Dialog(QDialog):
         self.imageViewer = widgets.imageviewer.ImageViewer()
         self.dpiLabel = QLabel()
         self.dpiCombo = QComboBox(insertPolicy=QComboBox.NoInsert, editable=True)
+        self.dpiCombo.lineEdit().setCompleter(None)
         self.dpiCombo.setValidator(QDoubleValidator(10.0, 1200.0, 4, self.dpiCombo))
-        self.dpiCombo.addItems([format(i) for i in 72, 100, 200, 300, 600])
+        self.dpiCombo.addItems([format(i) for i in 72, 100, 200, 300, 600, 1200])
         
         self.colorButton = widgets.colorbutton.ColorButton()
         self.colorButton.setColor(QColor(Qt.white))
@@ -244,22 +246,14 @@ def autoCropRect(image):
     Edges of the image are trimmed if they have the same color.
     
     """
-    right, bottom = image.width(), image.height()
-    pixel = image.pixel(0, 0)
-    def hscan(horizontal, vertical):
-        for x in horizontal:
-            for y in vertical:
-                if image.pixel(x, y) != pixel:
-                    return x
-    def vscan(vertical, horizontal):
-        for y in vertical:
-            for x in horizontal:
-                if image.pixel(x, y) != pixel:
-                    return y
-    left = hscan(range(right), range(bottom))
-    top = vscan(range(bottom), range(left, right))
-    right = hscan(range(right-1, left, -1), range(top, bottom))
-    bottom = vscan(range(bottom-1, top, -1), range(left, right))
-    return QRect(QPoint(left, top), QPoint(right, bottom))
+    # pick the color at most of the corners
+    colors = collections.defaultdict(int)
+    w, h = image.width(), image.height()
+    for x, y in (0, 0), (w - 1, 0), (w - 1, h - 1), (0, h - 1):
+        colors[image.pixel(x, y)] += 1
+    most = max(colors, key=colors.get)
+    # let Qt do the masking work
+    mask = image.createMaskFromColor(most)
+    return QRegion(QBitmap.fromImage(mask)).boundingRect()
 
 
