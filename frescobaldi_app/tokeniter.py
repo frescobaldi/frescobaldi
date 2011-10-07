@@ -59,10 +59,7 @@ def state(blockOrCursor):
     
     """
     if isinstance(blockOrCursor, QTextCursor):
-        if blockOrCursor.hasSelection():
-            block = blockOrCursor.document().findBlock(blockOrCursor.selectionStart())
-        else:
-            block = blockOrCursor.block()
+        block = cursortools.block(blockOrCursor)
     else:
         block = blockOrCursor
     if block.userState() == -1:
@@ -118,10 +115,11 @@ def index(cursor):
     cursor is at the very end of the block).
     
     """
-    tokens_ = tokens(cursor.block())
+    block = cursortools.block(cursor)
+    tokens_ = tokens(block)
     if cursor.atBlockEnd():
         return len(tokens_)
-    pos = cursor.position() - cursor.block().position()
+    pos = cursor.selectionStart() - block.position()
     lo, hi = 0, len(tokens_)
     while lo < hi:
         mid = (lo + hi) // 2
@@ -143,10 +141,11 @@ def partition(cursor):
     right is a tuple of tokens right to the cursor.
     
     """
-    t = tokens(cursor.block())
+    block = cursortools.block(cursor)
+    t = tokens(block)
     i = index(cursor)
     if t:
-        if i < len(t) and t[i].pos < cursor.position() - cursor.block().position():
+        if i < len(t) and t[i].pos < cursor.selectionStart() - block.position():
             return Partition(t[:i], t[i], t[i+1:])
     return Partition(t[:i], None, t[i:])
 
@@ -167,7 +166,7 @@ def fromCursor(cursor, state=None, first=1):
     If first is 1 (default): starts with the first token to the right.
     
     """
-    block = cursor.document().findBlock(cursor.selectionStart())
+    block = cursortools.block(cursor)
     pos = cursor.selectionStart() - block.position()
     if state:
         def token_source(block):

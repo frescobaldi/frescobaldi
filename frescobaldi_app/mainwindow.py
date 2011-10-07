@@ -199,7 +199,6 @@ class MainWindow(QMainWindow):
             ac.edit_copy.setEnabled(selection)
             ac.edit_copy_colored_html.setEnabled(selection)
             ac.edit_cut.setEnabled(selection)
-            ac.edit_cut_assign.setEnabled(selection)
             ac.edit_select_none.setEnabled(selection)
     
     def updateDocActions(self):
@@ -806,7 +805,6 @@ class ActionCollection(actioncollection.ActionCollection):
         
         self.edit_undo = QAction(parent)
         self.edit_redo = QAction(parent)
-        self.edit_cut_assign = QAction(parent)
         self.edit_cut = QAction(parent)
         self.edit_copy = QAction(parent)
         self.edit_copy_colored_html = QAction(parent)
@@ -851,7 +849,6 @@ class ActionCollection(actioncollection.ActionCollection):
         
         self.edit_undo.setIcon(icons.get('edit-undo'))
         self.edit_redo.setIcon(icons.get('edit-redo'))
-        self.edit_cut_assign.setIcon(icons.get('edit-cut'))
         self.edit_cut.setIcon(icons.get('edit-cut'))
         self.edit_copy.setIcon(icons.get('edit-copy'))
         self.edit_paste.setIcon(icons.get('edit-paste'))
@@ -884,7 +881,6 @@ class ActionCollection(actioncollection.ActionCollection):
         
         self.edit_undo.setShortcuts(QKeySequence.Undo)
         self.edit_redo.setShortcuts(QKeySequence.Redo)
-        self.edit_cut_assign.setShortcut(QKeySequence(Qt.SHIFT + Qt.CTRL + Qt.Key_X))
         self.edit_cut.setShortcuts(QKeySequence.Cut)
         self.edit_copy.setShortcuts(QKeySequence.Copy)
         self.edit_paste.setShortcuts(QKeySequence.Paste)
@@ -930,7 +926,6 @@ class ActionCollection(actioncollection.ActionCollection):
         
         self.edit_undo.setText(_("&Undo"))
         self.edit_redo.setText(_("Re&do"))
-        self.edit_cut_assign.setText(_("Cut and Assign..."))
         self.edit_cut.setText(_("Cu&t"))
         self.edit_copy.setText(_("&Copy"))
         self.edit_copy_colored_html.setText(_("Copy as Colored &HTML"))

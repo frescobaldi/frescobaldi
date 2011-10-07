@@ -28,6 +28,18 @@ import contextlib
 from PyQt4.QtGui import QTextCursor
 
 
+def block(cursor):
+    """Returns the cursor's block.
+    
+    If the cursor has a selection, returns the block the selection starts in
+    (regardless of the cursor's position()).
+    
+    """
+    if cursor.hasSelection():
+        return cursor.document().findBlock(cursor.selectionStart())
+    return cursor.block()
+
+    
 def allBlocks(document):
     """Yields all blocks of the document."""
     block = document.firstBlock()

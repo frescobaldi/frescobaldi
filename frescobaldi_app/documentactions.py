@@ -23,13 +23,15 @@ Manages some actions and per-document preferences that are set in metainfo.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtGui import QAction
+from PyQt4.QtCore import Qt
+from PyQt4.QtGui import QAction, QKeySequence
 
 import actioncollection
 import actioncollectionmanager
 import highlighter
 import metainfo
 import plugin
+import icons
 
 
 def get(mainwindow):
@@ -41,12 +43,14 @@ class DocumentActions(plugin.MainWindowPlugin):
     def __init__(self, mainwindow):
         ac = self.actionCollection = Actions()
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
+        ac.edit_cut_assign.triggered.connect(self.cutAssign)
         ac.view_highlighting.triggered.connect(self.toggleHighlighting)
         ac.tools_indent_auto.triggered.connect(self.toggleAutoIndent)
         ac.tools_indent_indent.triggered.connect(self.reIndent)
         ac.tools_reformat.triggered.connect(self.reFormat)
         ac.tools_convert_ly.triggered.connect(self.convertLy)
         mainwindow.currentDocumentChanged.connect(self.updateDocActions)
+        mainwindow.selectionStateChanged.connect(self.updateSelectionActions)
         
     def updateDocActions(self, doc):
         minfo = metainfo.info(doc)
@@ -55,6 +59,9 @@ class DocumentActions(plugin.MainWindowPlugin):
         ac = self.actionCollection
         ac.view_highlighting.setChecked(minfo.highlighting)
         ac.tools_indent_auto.setChecked(minfo.autoindent)
+    
+    def updateSelectionActions(self, selection):
+        self.actionCollection.edit_cut_assign.setEnabled(selection)
         
     def currentView(self):
         return self.mainwindow().currentView()
@@ -68,6 +75,10 @@ class DocumentActions(plugin.MainWindowPlugin):
         for i in self.instances():
             if i is not self and i.currentDocument() == doc:
                 i.updateDocActions(doc)
+    
+    def cutAssign(self):
+        import cut_assign
+        cut_assign.cut_assign(self.currentView().textCursor())
         
     def toggleAutoIndent(self):
         minfo = metainfo.info(self.currentDocument())
@@ -97,15 +108,21 @@ class DocumentActions(plugin.MainWindowPlugin):
 class Actions(actioncollection.ActionCollection):
     name = "documentactions"
     def createActions(self, parent):
-        self.view_highlighting =QAction(parent)
+        self.edit_cut_assign = QAction(parent)
+        self.view_highlighting = QAction(parent)
         self.view_highlighting.setCheckable(True)
         self.tools_indent_auto = QAction(parent)
         self.tools_indent_auto.setCheckable(True)
         self.tools_indent_indent = QAction(parent)
         self.tools_reformat = QAction(parent)
         self.tools_convert_ly = QAction(parent)
+        
+        self.edit_cut_assign.setIcon(icons.get('edit-cut'))
+
+        self.edit_cut_assign.setShortcut(QKeySequence(Qt.SHIFT + Qt.CTRL + Qt.Key_X))
     
     def translateUI(self):
+        self.edit_cut_assign.setText(_("Cut and Assign..."))
         self.view_highlighting.setText(_("Syntax &Highlighting"))
         self.tools_indent_auto.setText(_("&Automatic Indent"))
         self.tools_indent_indent.setText(_("Re-&Indent"))

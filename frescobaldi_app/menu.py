@@ -121,7 +121,7 @@ def menu_edit(mainwindow):
     m.addAction(ac.edit_undo)
     m.addAction(ac.edit_redo)
     m.addSeparator()
-    m.addAction(ac.edit_cut_assign)
+    m.addAction(documentactions.get(mainwindow).actionCollection.edit_cut_assign)
     m.addAction(ac.edit_cut)
     m.addAction(ac.edit_copy)
     m.addAction(ac.edit_copy_colored_html)
