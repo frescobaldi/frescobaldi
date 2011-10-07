@@ -82,13 +82,13 @@ def cut_assign(cursor):
             break
     insert = QTextCursor(block)
     text = cursor.selection().toPlainText()
-    fmt = "{0} ={1} {{\n{2}\n}}" if '\n' in text else "{0} ={1} {{ {2} }}"
-    text = fmt.format(name, mode, text)
+    space = '\n' if '\n' in text else ' '
+    text = ''.join((name, ' =', mode, ' {', space, text, space, '}\n\n'))
     with cursortools.editBlock(cursor):
         cursor.insertText('\\' + name)
         if metainfo.info(cursor.document()).autoindent:
-            indent.insertText(insert, text + '\n\n')
+            indent.insertText(insert, text)
         else:
-            insert.insertText(text + '\n\n')
+            insert.insertText(text)
 
 
