@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: frescobaldi 1.9.0\n"
+"Project-Id-Version: frescobaldi 1.9.1\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-10-05 21:36+0200\n"
+"POT-Creation-Date: 2011-10-07 08:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,7 +47,7 @@ msgstr ""
 msgid "Run Again"
 msgstr ""
 
-#: frescobaldi_app/convert_ly.py:137 frescobaldi_app/musicview/image.py:163
+#: frescobaldi_app/convert_ly.py:137 frescobaldi_app/musicview/image.py:165
 msgid "<unknown>"
 msgstr ""
 
@@ -236,15 +236,15 @@ msgstr ""
 msgid "&Update with convert-ly..."
 msgstr ""
 
-#: frescobaldi_app/musicpreview.py:114
+#: frescobaldi_app/musicpreview.py:113
 msgid "Document:"
 msgstr ""
 
-#: frescobaldi_app/musicpreview.py:194
+#: frescobaldi_app/musicpreview.py:193
 msgid "&Print"
 msgstr ""
 
-#: frescobaldi_app/musicpreview.py:195
+#: frescobaldi_app/musicpreview.py:194
 msgid "Music Preview"
 msgstr ""
 
@@ -333,7 +333,7 @@ msgstr ""
 #: frescobaldi_app/mainwindow.py:510 frescobaldi_app/mainwindow.py:570
 #: frescobaldi_app/preferences/fontscolors.py:476
 #: frescobaldi_app/preferences/fontscolors.py:514
-#: frescobaldi_app/musicview/image.py:210
+#: frescobaldi_app/musicview/image.py:212
 msgid "Error"
 msgstr ""
 
@@ -3942,35 +3942,35 @@ msgstr ""
 msgid "Click to edit this file"
 msgstr ""
 
-#: frescobaldi_app/musicview/image.py:125
+#: frescobaldi_app/musicview/image.py:127
 msgid "DPI:"
 msgstr ""
 
-#: frescobaldi_app/musicview/image.py:126
+#: frescobaldi_app/musicview/image.py:128
 msgid "Paper Color"
 msgstr ""
 
-#: frescobaldi_app/musicview/image.py:127
+#: frescobaldi_app/musicview/image.py:129
 msgid "Auto-crop"
 msgstr ""
 
-#: frescobaldi_app/musicview/image.py:128
+#: frescobaldi_app/musicview/image.py:130
 msgid "Antialias"
 msgstr ""
 
-#: frescobaldi_app/musicview/image.py:129
+#: frescobaldi_app/musicview/image.py:131
 msgid "Drag the image as a PNG file."
 msgstr ""
 
-#: frescobaldi_app/musicview/image.py:130
+#: frescobaldi_app/musicview/image.py:132
 msgid "&Copy to Clipboard"
 msgstr ""
 
-#: frescobaldi_app/musicview/image.py:131
+#: frescobaldi_app/musicview/image.py:133
 msgid "&Save As..."
 msgstr ""
 
-#: frescobaldi_app/musicview/image.py:133
+#: frescobaldi_app/musicview/image.py:135
 #, python-format
 msgid ""
 "<p>\n"
@@ -3984,15 +3984,15 @@ msgid ""
 "</p>"
 msgstr ""
 
-#: frescobaldi_app/musicview/image.py:164
+#: frescobaldi_app/musicview/image.py:166
 msgid "Image from {filename}"
 msgstr ""
 
-#: frescobaldi_app/musicview/image.py:207
+#: frescobaldi_app/musicview/image.py:209
 msgid "Save Image As"
 msgstr ""
 
-#: frescobaldi_app/musicview/image.py:211
+#: frescobaldi_app/musicview/image.py:213
 msgid "Could not save the image."
 msgstr ""
 
