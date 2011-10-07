@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2011-10-07 14:26+0200\n"
-"PO-Revision-Date: 2011-10-07 14:55+0200\n"
+"PO-Revision-Date: 2011-10-07 15:00+0200\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -4256,7 +4256,7 @@ msgstr ""
 
 #: frescobaldi_app/musicview/__init__.py:200
 msgid "Copy to &Image..."
-msgstr ""
+msgstr "Naar afbeeld&ing kopiëren..."
 
 #: frescobaldi_app/musicview/__init__.py:340
 #, fuzzy
