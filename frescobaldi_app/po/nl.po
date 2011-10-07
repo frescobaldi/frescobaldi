@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2011-10-05 21:36+0200\n"
-"PO-Revision-Date: 2011-04-16 12:04+0200\n"
+"PO-Revision-Date: 2011-10-07 08:51+0200\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,189 +18,174 @@ msgstr ""
 "X-Generator: Lokalize 1.1\n"
 
 #: frescobaldi_app/convert_ly.py:118
-#, fuzzy
 msgid "From version:"
-msgstr "Versie {version}"
+msgstr "Van versie:"
 
 #: frescobaldi_app/convert_ly.py:119
-#, fuzzy
 msgid "To version:"
-msgstr "Versie:"
+msgstr "Naar versie:"
 
 #: frescobaldi_app/convert_ly.py:120
 msgid "Save convert-ly messages in document"
-msgstr ""
+msgstr "Convert-ly berichten in document bewaren"
 
 #: frescobaldi_app/convert_ly.py:122
 msgid ""
 "If checked, the messages of convert-ly are appended as a comment to the end "
 "of the document."
 msgstr ""
+"Indien ingeschakeld, worden berichten van convert-ly aan het eind van het "
+"document als commentaar toegevoegd."
 
 #: frescobaldi_app/convert_ly.py:124
 msgid "&Messages"
-msgstr ""
+msgstr "&Berichten"
 
 #: frescobaldi_app/convert_ly.py:125
 msgid "&Changes"
-msgstr ""
+msgstr "&Wijzigingen"
 
 #: frescobaldi_app/convert_ly.py:126
 msgid "Run Again"
-msgstr ""
+msgstr "Opnieuw uitvoeren"
 
 #: frescobaldi_app/convert_ly.py:137 frescobaldi_app/musicview/image.py:163
-#, fuzzy
 msgid "<unknown>"
-msgstr "onbekend"
+msgstr "<onbekend>"
 
 #: frescobaldi_app/convert_ly.py:138
-#, fuzzy
 msgid "Convert-ly from LilyPond {version}"
-msgstr "LilyPond-versie invoegen"
+msgstr "Convert-ly van LilyPond {version}"
 
 #: frescobaldi_app/convert_ly.py:162
-#, fuzzy
 msgid "(set in document)"
-msgstr "Documenten afdrukken"
+msgstr "(in document ingesteld)"
 
 #: frescobaldi_app/convert_ly.py:175
 msgid "Both 'from' and 'to' versions need to be set."
-msgstr ""
+msgstr "Zowel de 'van'- als 'naar' versie dient ingesteld te zijn."
 
 #: frescobaldi_app/convert_ly.py:190
-#, fuzzy
 msgid ""
 "Could not start {convert_ly}:\n"
 "\n"
 "{message}\n"
-msgstr "Kan convert-ly niet starten: %s"
+msgstr ""
+"Kan {convert_ly} niet starten:\n"
+"\n"
+"{message}\n"
 
 #: frescobaldi_app/convert_ly.py:196
-#, fuzzy
 msgid "The document has not been changed."
-msgstr "Het document is naar de printer gestuurd."
+msgstr "Het document is niet gewijzigd."
 
 #: frescobaldi_app/convert_ly.py:202
-#, fuzzy
 msgid "Current Document"
-msgstr "&Brondocument"
+msgstr "Huidig document"
 
 #: frescobaldi_app/convert_ly.py:202
-#, fuzzy
 msgid "Converted Document"
-msgstr "Andere documenten sluiten"
+msgstr "Bijgewerkt document"
 
 #: frescobaldi_app/convert_ly.py:208
-#, fuzzy
 msgid "Colors:"
-msgstr "Sleutels:"
+msgstr "Kleuren:"
 
 #: frescobaldi_app/convert_ly.py:209
 msgid "Added"
-msgstr ""
+msgstr "Toegevoegd"
 
 #: frescobaldi_app/convert_ly.py:210
 msgid "Changed"
-msgstr ""
+msgstr "Gewijzigd"
 
 #: frescobaldi_app/convert_ly.py:211
-#, fuzzy
 msgid "Deleted"
-msgstr "&Brontekst"
+msgstr "Verwijderd"
 
 #: frescobaldi_app/convert_ly.py:212
-#, fuzzy
 msgid "Links:"
-msgstr "Liedteksten:"
+msgstr "Koppelingen:"
 
 #: frescobaldi_app/convert_ly.py:213
-#, fuzzy
 msgid "First Change"
-msgstr "Eerste pagina"
+msgstr "Eerste wijziging"
 
 #: frescobaldi_app/convert_ly.py:214
-#, fuzzy
 msgid "Next Change"
-msgstr "Volgende blanco regel"
+msgstr "Volgende wijziging"
 
 #: frescobaldi_app/convert_ly.py:215
-#, fuzzy
 msgid "Top"
-msgstr "Tik"
+msgstr "Top"
 
 #: frescobaldi_app/job.py:188
 msgid "Starting {job}..."
-msgstr ""
+msgstr "Starten {job}..."
 
 #: frescobaldi_app/job.py:193
 msgid "Aborting {job}..."
-msgstr ""
+msgstr "Afbreken {job}..."
 
 #: frescobaldi_app/job.py:199
-#, fuzzy
 msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
-msgstr "Kon LilyPond niet starten. Controleer uw installatie."
+msgstr ""
+"Kan {program} niet starten.\n"
+"Controleer het pad en permissies."
 
 #: frescobaldi_app/job.py:202
-#, fuzzy
 msgid "Could not read from the process."
-msgstr "Kan de uitvoer van het LilyPond-proces niet lezen."
+msgstr "Kan de uitvoer van het proces niet lezen."
 
 #: frescobaldi_app/job.py:204
 msgid "An unknown error occured."
 msgstr "Er is een onbekende fout opgetreden."
 
 #: frescobaldi_app/job.py:209
-#, fuzzy
 msgid "Exited with return code {code}."
-msgstr "LilyPond [%1] stopte met foutcode %2."
+msgstr "Afgesloten met returncode {code}."
 
 #: frescobaldi_app/job.py:211
-#, fuzzy
 msgid "Exited with exit status {status}."
-msgstr "LilyPond [%1] stopte met status %2."
+msgstr "Afgesloten met status {status}."
 
 #: frescobaldi_app/job.py:214
 msgid "Completed successfully in {time}."
-msgstr ""
+msgstr "Succesvol beëindigd in {time}."
 
 #: frescobaldi_app/viewmanager.py:66 frescobaldi_app/viewmanager.py:213
 msgid "Line: {line}, Col: {column}"
-msgstr ""
+msgstr "Regel: {line}, Kol: {column}"
 
 #: frescobaldi_app/viewmanager.py:84 frescobaldi_app/viewmanager.py:441
 msgid "Split &Horizontally"
-msgstr ""
+msgstr "&Horizontaal splitsen"
 
 #: frescobaldi_app/viewmanager.py:87 frescobaldi_app/viewmanager.py:442
 msgid "Split &Vertically"
-msgstr ""
+msgstr "&Verticaal splitsen"
 
 #: frescobaldi_app/viewmanager.py:91
-#, fuzzy
 msgid "&Close View"
-msgstr "&Gereedschapsweergaven"
+msgstr "Weergave &sluiten"
 
 #: frescobaldi_app/viewmanager.py:443
 msgid "&Close Current View"
-msgstr ""
+msgstr "&Huidige weergave sluiten"
 
 #: frescobaldi_app/viewmanager.py:444
-#, fuzzy
 msgid "Close &Other Views"
-msgstr "Andere documenten sluiten"
+msgstr "&Andere weergaven sluiten"
 
 #: frescobaldi_app/viewmanager.py:445
 msgid "&Next View"
-msgstr ""
+msgstr "&Volgende weergave"
 
 #: frescobaldi_app/viewmanager.py:446
-#, fuzzy
 msgid "&Previous View"
-msgstr "Vorige"
+msgstr "V&orige weergave"
 
 #: frescobaldi_app/main.py:56
 msgid "{appname} [options] file ..."
@@ -240,41 +225,35 @@ msgstr "Te starten sessie ('{none}' voor lege sessie)"
 
 #: frescobaldi_app/documentactions.py:109
 msgid "Syntax &Highlighting"
-msgstr ""
+msgstr "&Syntaxis accentuering"
 
 #: frescobaldi_app/documentactions.py:110
-#, fuzzy
 msgid "&Automatic Indent"
-msgstr "automatisch"
+msgstr "&Automatisch inspringen"
 
 #: frescobaldi_app/documentactions.py:111
 msgid "Re-&Indent"
-msgstr ""
+msgstr "Opnieuw &inspringen"
 
 #: frescobaldi_app/documentactions.py:112
-#, fuzzy
 msgid "Re&format"
-msgstr "Fermate"
+msgstr "Opnieuw &formatteren"
 
 #: frescobaldi_app/documentactions.py:113
-#, fuzzy
 msgid "&Update with convert-ly..."
-msgstr "Bijwerken met convert-ly"
+msgstr "&Bijwerken met convert-ly..."
 
 #: frescobaldi_app/musicpreview.py:114
-#, fuzzy
 msgid "Document:"
-msgstr "&Document"
+msgstr "Document:"
 
 #: frescobaldi_app/musicpreview.py:194
-#, fuzzy
 msgid "&Print"
-msgstr "Afdrukken"
+msgstr "&Afdrukken"
 
 #: frescobaldi_app/musicpreview.py:195
-#, fuzzy
 msgid "Music Preview"
-msgstr "PDF vooruitblik"
+msgstr "Muziek vooruitblik"
 
 #: frescobaldi_app/exception.py:69
 msgid "An internal error has occurred:"
@@ -289,7 +268,6 @@ msgid "Email Bug Report..."
 msgstr "Bugrapport emailen..."
 
 #: frescobaldi_app/exception.py:79
-#, fuzzy
 msgid "Optionally describe below what you were doing:"
 msgstr "Geef hier eventueel aan wat u aan het doen was:"
 
@@ -309,7 +287,7 @@ msgstr "Liedteksten &kopiëren met afbreking verwijderd"
 #: frescobaldi_app/preferences/shortcuts.py:203
 msgid "This shortcut conflicts with the following command:"
 msgid_plural "This shortcut conflicts with the following commands:"
-msgstr[0] ""
+msgstr[0] "Deze sneltoets conflicteert met het onderstaande commando:"
 msgstr[1] ""
 
 #: frescobaldi_app/actioncollectionmanager.py:129
@@ -323,29 +301,28 @@ msgstr "Opnieuw bewerken"
 
 #. L10N: state of document in window titlebar
 #: frescobaldi_app/mainwindow.py:225
-#, fuzzy
 msgid "[modified]"
-msgstr "gewijzigd"
+msgstr "[gewijzigd]"
 
 #: frescobaldi_app/mainwindow.py:268
-#, fuzzy
 msgctxt "dialog title"
 msgid "Close Document"
-msgstr "Andere documenten sluiten"
+msgstr "Document sluiten"
 
 #: frescobaldi_app/mainwindow.py:269
 msgid ""
 "The document \"{name}\" has been modified.\n"
 "Do you want to save your changes or discard them?"
 msgstr ""
+"Het document \"{name}\" is gewijzigd.\n"
+"Wilt u uw wijzigingen bewaren of weggooien?"
 
 #: frescobaldi_app/mainwindow.py:322 frescobaldi_app/popplerprint.py:53
 #: frescobaldi_app/sessions/dialog.py:165
 #: frescobaldi_app/sessions/dialog.py:173
 #: frescobaldi_app/sessions/dialog.py:179
-#, fuzzy
 msgid "Warning"
-msgstr "Gitaarstemming"
+msgstr "Waarschuwing"
 
 #: frescobaldi_app/mainwindow.py:323
 msgid ""
@@ -353,9 +330,11 @@ msgid ""
 "\n"
 "{url}"
 msgstr ""
+"Kan niet-lokaal document niet laden:\n"
+"\n"
+"{url}"
 
 #: frescobaldi_app/mainwindow.py:341
-#, fuzzy
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Bestand openen"
@@ -368,7 +347,7 @@ msgstr "Bestand openen"
 #: frescobaldi_app/preferences/fontscolors.py:514
 #: frescobaldi_app/musicview/image.py:210
 msgid "Error"
-msgstr ""
+msgstr "Fout"
 
 #: frescobaldi_app/mainwindow.py:361 frescobaldi_app/mainwindow.py:367
 #: frescobaldi_app/mainwindow.py:392
@@ -377,24 +356,24 @@ msgid ""
 "\n"
 "{url}"
 msgstr ""
+"Kan niet schrijven naar bestemming:\n"
+"\n"
+"{url}"
 
 #: frescobaldi_app/mainwindow.py:386
-#, fuzzy
 msgctxt "dialog title"
 msgid "Save File"
-msgstr "Bestand openen"
+msgstr "Bestand opslaan"
 
 #: frescobaldi_app/mainwindow.py:426
-#, fuzzy
 msgctxt "dialog title"
 msgid "Save Copy"
-msgstr "Opslaan"
+msgstr "Kopie opslaan"
 
 #: frescobaldi_app/mainwindow.py:432
-#, fuzzy
 msgctxt "dialog title"
 msgid "Save Selection"
-msgstr "Score sectie"
+msgstr "Selectie opslaan"
 
 #: frescobaldi_app/mainwindow.py:443 frescobaldi_app/mainwindow.py:571
 msgid ""
@@ -404,11 +383,16 @@ msgid ""
 "\n"
 "{error}"
 msgstr ""
+"Kan niet schrijven naar bestemming:\n"
+"\n"
+"{url}\n"
+"\n"
+"{error}"
 
 #: frescobaldi_app/mainwindow.py:503
 msgctxt "dialog title"
 msgid "Insert From File"
-msgstr ""
+msgstr "Invoegen uit bestand"
 
 #: frescobaldi_app/mainwindow.py:511
 msgid ""
@@ -418,16 +402,20 @@ msgid ""
 "\n"
 "{error}"
 msgstr ""
+"Kan bron niet lezen:\n"
+"\n"
+"{url}\n"
+"\n"
+"{error}"
 
 #: frescobaldi_app/mainwindow.py:528
-#, fuzzy
 msgctxt "dialog title"
 msgid "Print Source"
-msgstr "Brontekst afdrukken..."
+msgstr "Brontekst afdrukken"
 
 #: frescobaldi_app/mainwindow.py:561
 msgid "Export as HTML"
-msgstr ""
+msgstr "Exporteren als HTML"
 
 #: frescobaldi_app/mainwindow.py:682
 msgid ""
@@ -436,56 +424,56 @@ msgid ""
 "\n"
 "\n"
 msgstr ""
+"Beschrijf het probleem of de gewenste functionaliteit.\n"
+"Geef zoveel mogelijk informatie.\n"
+"\n"
+"\n"
 
 #: frescobaldi_app/mainwindow.py:783
 msgid "Main Toolbar"
-msgstr ""
+msgstr "Hoofdwerkbalk"
 
 #: frescobaldi_app/mainwindow.py:784
 msgid "Music View Toolbar"
-msgstr ""
+msgstr "Muziekweergave-werkbalk"
 
 #: frescobaldi_app/mainwindow.py:913
 msgctxt "action: new document"
 msgid "&New"
-msgstr ""
+msgstr "&Nieuw"
 
 #: frescobaldi_app/mainwindow.py:914
 msgid "&Open..."
-msgstr ""
+msgstr "&Openen..."
 
 #: frescobaldi_app/mainwindow.py:915
 msgid "Open &Recent"
-msgstr ""
+msgstr "&Recent geopend"
 
 #: frescobaldi_app/mainwindow.py:916
 msgid "Insert from &File..."
-msgstr ""
+msgstr "&Invoegen uit bestand..."
 
 #: frescobaldi_app/mainwindow.py:917
-#, fuzzy
 msgid "Open Current Directory"
 msgstr "Huidige map openen"
 
 #: frescobaldi_app/mainwindow.py:918 frescobaldi_app/tabbar.py:167
 #: frescobaldi_app/sessions/manager.py:128
-#, fuzzy
 msgid "&Save"
-msgstr "Opslaan"
+msgstr "Op&slaan"
 
 #: frescobaldi_app/mainwindow.py:919 frescobaldi_app/tabbar.py:168
-#, fuzzy
 msgid "Save &As..."
-msgstr "PDF opslaan als..."
+msgstr "Opslaan &als..."
 
 #: frescobaldi_app/mainwindow.py:920
 msgid "Save Copy or Selection As..."
-msgstr ""
+msgstr "Kopie of selectie opslaan als..."
 
 #: frescobaldi_app/mainwindow.py:921
-#, fuzzy
 msgid "Save All"
-msgstr "Bestand openen"
+msgstr "Alles opslaan"
 
 #: frescobaldi_app/mainwindow.py:922
 msgid "Print Source..."
@@ -493,47 +481,43 @@ msgstr "Brontekst afdrukken..."
 
 #: frescobaldi_app/mainwindow.py:923 frescobaldi_app/tabbar.py:169
 msgid "&Close"
-msgstr ""
+msgstr "&Sluiten"
 
 #: frescobaldi_app/mainwindow.py:924
 msgid "Close Other Documents"
 msgstr "Andere documenten sluiten"
 
 #: frescobaldi_app/mainwindow.py:925
-#, fuzzy
 msgid "Close All Documents"
-msgstr "Andere documenten sluiten"
+msgstr "Alle documenten sluiten"
 
 #: frescobaldi_app/mainwindow.py:926
-#, fuzzy
 msgid "Closes all documents and leaves the current session."
-msgstr "Transponeert alle noten in de selectie of het document."
+msgstr "Sluit alle documenten en verlaat de huidige sessie."
 
 #: frescobaldi_app/mainwindow.py:927
 msgid "&Quit"
-msgstr ""
+msgstr "Afslui&ten"
 
 #: frescobaldi_app/mainwindow.py:929
 msgid "Export Source as Colored &HTML..."
-msgstr ""
+msgstr "Bron als gekleurde &HTML exporteren..."
 
 #: frescobaldi_app/mainwindow.py:931
-#, fuzzy
 msgid "&Undo"
-msgstr "Losmaken"
+msgstr "&Ongedaan maken"
 
 #: frescobaldi_app/mainwindow.py:932
 msgid "Re&do"
-msgstr ""
+msgstr "Opnie&uw"
 
 #: frescobaldi_app/mainwindow.py:933
-#, fuzzy
 msgid "Cut and Assign..."
-msgstr "Knippen en toewijzen"
+msgstr "Knippen en toewijzen..."
 
 #: frescobaldi_app/mainwindow.py:934
 msgid "Cu&t"
-msgstr ""
+msgstr "&Knippen"
 
 #: frescobaldi_app/mainwindow.py:935
 msgid "&Copy"
