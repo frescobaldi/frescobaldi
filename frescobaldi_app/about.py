@@ -42,10 +42,10 @@ def credits():
         python='<a href="http://www.python.org/">{0}</a>'.format(_("Python")),
         # L10N: the Qt4 application framework
         qt='<a href="http://qt.nokia.com/">{0}</a>'.format(_("Qt4")))
-    yield _("The Music View is powered by the {poppler} library by {authors} and others.".format(
+    yield _("The Music View is powered by the {poppler} library by {authors} and others.").format(
         # L10N: the Poppler PDF library
         poppler='<a href="http://poppler.freedesktop.org/">{0}</a>'.format(_("Poppler")),
-        authors='Kristian Høgsberg, Albert Astals Cid'))
+        authors='Kristian Høgsberg, Albert Astals Cid')
     yield _("Most of the bundled icons are created by {tango}.").format(
         tango='<a href="http://tango.freedesktop.org/">{0}</a>'.format(_("The Tango Desktop Project")))
     yield _("{appname} is translated into the following languages:").format(appname=info.appname)
