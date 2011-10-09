@@ -26,9 +26,11 @@ from __future__ import unicode_literals
 import itertools
 import re
 
-from PyQt4.QtGui import QInputDialog, QMessageBox, QTextCursor
+from PyQt4.QtGui import QMessageBox, QTextCursor
 
 import app
+import help
+import icons
 import ly.pitch
 import ly.lex.lilypond
 import cursortools
@@ -36,6 +38,7 @@ import util
 import tokeniter
 import documentinfo
 import lilypondinfo
+import inputdialog
 
 
 def changeLanguage(cursor, language):
@@ -378,27 +381,33 @@ def abs2rel(cursor):
 def transpose(cursor, mainwindow):
     """Transposes pitches."""
     language = documentinfo.info(cursor.document()).pitchLanguage() or 'nederlands'
-    text, ok = QInputDialog.getText(mainwindow, app.caption(_("Transpose")), _(
-        "Please enter two absolute pitches, separated by a space,\n"
-        "using the pitch name language \"{language}\".\n"
-        "The music will be transposed from the first pitch to the second,\n"
-        "just as the \\transpose LilyPond command would do.").format(
-        language=language))
-    if not ok:
-        return
-    result = []
-    for pitch, octave in re.findall(r"([a-z]+)([,']*)", text):
-        r = ly.pitch.pitchReader(language)(pitch)
-        if r:
-            result.append(ly.pitch.Pitch(*r, octave=ly.pitch.octaveToNum(octave)))
-    if len(result) != 2:
-        QMessageBox.critical(mainwindow, app.caption(_("Transpose")), _(
-            "Could not understand the entered pitches.\n\n"
-            "Please make sure you use pitch names in the language "
-            "\"{language}\".").format(language=language))
+    
+    def readpitches(text):
+        """Reads pitches from text."""
+        result = []
+        for pitch, octave in re.findall(r"([a-z]+)([,']*)", text):
+            r = ly.pitch.pitchReader(language)(pitch)
+            if r:
+                result.append(ly.pitch.Pitch(*r, octave=ly.pitch.octaveToNum(octave)))
+        return result
+    
+    def validate(text):
+        """Returns whether the text contains exactly two pitches."""
+        return len(readpitches(text)) == 2
+    
+    text = inputdialog.getText(mainwindow, app.caption(_("Transpose")), _(
+        "<p>Please enter two absolute pitches, separated by a space, "
+        "using the pitch name language \"{language}\".</p>\n"
+        "<p>The music will be transposed from the first pitch to the second, "
+        "just as the {transpose} LilyPond command would do.</p>").format(
+            transpose = '<code>\\transpose</code>', language=language),
+        icon = icons.get('tools_transpose'),
+        help = transpose_help,
+        validate = validate)
+    if text == None:
         return
     
-    transposer = ly.pitch.Transposer(*result)
+    transposer = ly.pitch.Transposer(*readpitches(text))
     
     selection = cursor.hasSelection()
     if selection:
@@ -700,5 +709,85 @@ def getpitches(iterable):
     for p in iterable:
         if isinstance(p, Pitch):
             yield p
+
+
+class pitch_help(help.page):
+    def title():
+        return _("Pitch manipulation")
+    
+    def body():
+        return _("""\
+<p>
+Frescobaldi offers the following pitch-manipulating functions,
+all in the menu {menu}:
+</p>
+
+<dl>
+
+<dt>Pitch language</dt>
+<dd>
+This translates pitch names in the whole document or a selection.
+</dd>
+
+<dt>Convert relative music to absolute</dt>
+<dd>
+This converts all <code>\\relative</code> music parts to absolute pitch names.
+It removes, but honours, octave checks.
+</dd>
+
+<dt>Convert absolute music to relative</dt>
+<dd>
+Checks all toplevel music expressions, changing them into
+<code>\\relative</code> mode as soon as the expression contains a pitch.
+If you want to make separate sub-expressions relative, it may be necessary to
+select music from the first expression, leaving out higher-level opening
+braces.
+</dd>
+
+</dl>
+""").format(menu=help.menu(_("menu title", "Tools"), _("submenu title", "Pitch")))
+
+    def children():
+        return (transpose_help,)
+
+
+class transpose_help(help.page):
+    def title():
+        return _("Transpose")
+    
+    def body():
+        return _("""\
+<p>
+When transposing music, two absolute pitches need to be given to specify
+the distance to transpose over. The pitches may include octave marks.
+The pitches must be entered in the pitch name language used in the document.
+</p>
+
+<p>
+E.g. when transposing a minor third upwards, one would enter:<br />
+<code>c es</code>
+</p>
+
+<p>
+To transpose down a major second, you can enter:<br />
+<code>c bes,</code>
+</p>
+
+<p>
+or:<br />
+<code>d c</code>
+</p>
+
+<p>
+It is also possible to use the transpose function to change a piece of music
+from C-sharp to D-flat, or to specify quarter tones if supported in the
+pitch name language that is used.
+</p>
+
+<p>
+The transpose function can transpose both relative and absolute music,
+correctly handling key signatures, chordmode and octave checks.
+</p>
+""")
 
 

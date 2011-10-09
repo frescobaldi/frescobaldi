@@ -233,9 +233,11 @@ class tools(page):
     def children():
         import quickinsert.widget
         import snippet.widget
+        import pitch.pitch
         return (
             quickinsert.widget.quickinsert_help,
             snippet.widget.snippet_help,
+            pitch.pitch.pitch_help,
         )
 
 

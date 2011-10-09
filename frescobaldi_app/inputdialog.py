@@ -38,8 +38,9 @@ def getText(
         text = "",
         icon = None,
         help = None,
-        validate_function = None,
+        validate = None,
         regexp = None,
+        wordWrap = True,
         ):
     """Asks a string of text from the user.
     
@@ -51,8 +52,7 @@ def getText(
     text: pre-entered text in the line edit
     icon: which icon to show
     help: help page or name
-    validate_function: a function that accepts text and returns whether
-        it is valid.
+    validate: a function that accepts text and returns whether it is valid.
     regexp: a regular expression string. If given it provides an alternate
         validation method using a QRegExpValidator.
     
@@ -65,8 +65,9 @@ def getText(
         dlg.setWindowModality(Qt.ApplicationModal)
     if regexp:
         dlg.setValidateRegExp(regexp)
-    elif validate_function:
-        dlg.setValidateFunction(validate_function)
+    elif validate:
+        dlg.setValidateFunction(validate)
+    dlg.messageLabel().setWordWrap(wordWrap)
     if dlg.exec_():
         return dlg.text()
 
