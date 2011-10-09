@@ -26,8 +26,11 @@ from __future__ import unicode_literals
 import functools
 import operator
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QSize, Qt
+from PyQt4.QtGui import (
+    QDialog, QDialogButtonBox, QGridLayout, QIcon, QLabel, QPixmap, QStyle,
+    QWidget)
+
 
 from . import Separator
 
@@ -61,12 +64,45 @@ standardbuttons = {
 
 
 class Dialog(QDialog):
-    def __init__(self, parent=None):
-        super(Dialog, self).__init__(parent)
+    """A Dialog with basic layout features:
+    
+    a main widget,
+    an icon or pixmap,
+    a separator,
+    buttons (provided by a QDialogButtonBox)
+    
+    """
+    def __init__(self,
+                 parent = None,
+                 title = "",
+                 text = "",
+                 icon = None,
+                 iconSize = QSize(64, 64),
+                 pixmap = None,
+                 separator = True,
+                 buttonOrientation = Qt.Horizontal,
+                 buttons = ('ok', 'cancel'),
+                 help = None,
+                 **kwargs):
+        """Initializes the dialog.
+        
+        parent = a parent widget or None.
+        
+        The following keyword arguments are recognized:
+        - text: the text to display in the label
+        - title: the window title
+        - icon or pixmap: shown in the left area
+        - iconSize: size of the icon in the left (QSize, default: 64x64)
+        - separator: draw a separator line or not (default: True)
+        - buttonOrientation: Qt.Horizontal (default) or Qt.Vertical
+        - buttons: which buttons to use (default: Ok, Cancel)
+        - help: function to call when a help button is clicked.
+        
+        Other keyword arguments are passed to QDialog.
+        
+        """
+        super(Dialog, self).__init__(parent, **kwargs)
         self._icon = QIcon()
-        self._iconSize = QSize(64, 64)
-        self._buttonOrientation = Qt.Horizontal
-        self._separator = True
         self._separatorWidget = Separator()
         self._mainWidget = QWidget()
         self._pixmap = QPixmap()
@@ -75,29 +111,51 @@ class Dialog(QDialog):
         self._buttonBox = b = QDialogButtonBox(self)
         b.accepted.connect(self.accept)
         b.rejected.connect(self.reject)
-        b.helpRequested.connect(self.helpRequest)
         layout = QGridLayout()
         layout.setSpacing(10)
         self.setLayout(layout)
-        self.setStandardButtons(['ok', 'cancel'])
+        
+        # handle keyword args
+        self._buttonOrientation = buttonOrientation
+        self._iconSize = iconSize
+        self._separator = separator
+        if text:
+            self.setText(text)
+        if icon:
+            self.setIcon(icon)
+        elif pixmap:
+            self.setPixmap(pixmap)
+        if text:
+            self.setText(text)
+        b.helpRequested.connect(help or self.helpRequest)
+        self.setStandardButtons(buttons)
         self.reLayout()
         
     def helpRequest(self):
+        """Called when a help button is clicked."""
         pass
     
     def setButtonOrientation(self, orientation):
+        """Sets the button orientation.
+        
+        Qt.Horizontal (default) puts the buttons at the bottom of the dialog
+        in a horizonzal row, Qt.Vertical puts the buttons at the right in a
+        vertical column.
+        
+        """
         if orientation != self._buttonOrientation:
             self._buttonOrientation = orientation
             self._buttonBox.setOrientation(orientation)
             self.reLayout()
     
     def buttonOrientation(self):
+        """Returns the button orientation."""
         return self._buttonOrientation
         
     def setIcon(self, icon):
-        """Sets the icon.
+        """Sets the icon to display in the left area.
         
-        Maybe:
+        May be:
         - None or QIcon()
         - one of 'info', 'warning', 'critical', 'question'
         - a QStyle.StandardPixmap
@@ -114,18 +172,24 @@ class Dialog(QDialog):
         self.setPixmap(icon.pixmap(self._iconSize))
     
     def icon(self):
+        """Returns the currently set icon as a QIcon."""
         return self._icon
         
     def setIconSize(self, size):
+        """Sets the icon size (QSize or int)."""
+        if isinstance(size, int):
+            size = QSize(size, size)
         changed = size != self._iconSize
         self._iconSize = size
         if changed and not self._icon.isNull():
             self.setPixmap(self._icon.pixmap(size))
     
     def iconSize(self):
+        """Returns the icon size (QSize)."""
         return self._iconSize
         
     def setPixmap(self, pixmap):
+        """Sets the pixmap to display in the left area."""
         changed = self._pixmap.isNull() != pixmap.isNull()
         self._pixmap = pixmap
         self._pixmapLabel.setPixmap(pixmap)
@@ -135,18 +199,32 @@ class Dialog(QDialog):
             self.reLayout()
         
     def pixmap(self):
+        """Returns the currently set pixmap."""
         return self._pixmap
     
     def setText(self, text):
+        """Sets the main text in the dialog."""
         self._textLabel.setText(text)
     
     def text(self):
+        """Returns the main text."""
         return self._textLabel.text()
     
+    def label(self):
+        """Returns the QLabel displaying the text."""
+        return self._textLabel
+        
     def buttonBox(self):
+        """Returns our QDialogButtonBox instance."""
         return self._buttonBox
     
     def setStandardButtons(self, buttons):
+        """Convenience method to set standard buttons in the button box.
+        
+        Accepts a sequence of string names from the standardbuttons constant,
+        or a QDialogButtonBox.StandardButtons value.
+        
+        """
         if isinstance(buttons, (set, tuple, list)):
             buttons = functools.reduce(operator.or_,
                 map(standardbuttons.get, buttons),
@@ -154,19 +232,27 @@ class Dialog(QDialog):
         self._buttonBox.setStandardButtons(buttons)
         
     def setSeparator(self, enabled):
+        """Sets whether to show a line between contents and buttons."""
         changed = self._separator != enabled
         self._separator = enabled
         if changed:
             self.reLayout()
-            
+    
+    def hasSeparator(self):
+        """Returns whether a separator line is shown."""
+        return self._separator
+        
     def setMainWidget(self, widget):
+        """Sets the specified widget as our main widget."""
         self._mainWidget = widget
         self.reLayout()
     
     def mainWidget(self):
+        """Returns the current main widget (an empty QWidget by default)."""
         return self._mainWidget
     
     def reLayout(self):
+        """(Internal) Lays out all items in this dialog."""
         layout = self.layout()
         while layout.takeAt(0):
             pass
@@ -191,3 +277,4 @@ class Dialog(QDialog):
             layout.addWidget(self._buttonBox, 0, col+2, 2, 1)
         self._separatorWidget.setVisible(self._separator)
             
+
