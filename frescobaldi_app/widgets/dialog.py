@@ -74,7 +74,7 @@ class Dialog(QDialog):
     """
     def __init__(self,
                  parent = None,
-                 labelText = "",
+                 message = "",
                  title = "",
                  icon = None,
                  iconSize = QSize(64, 64),
@@ -89,7 +89,7 @@ class Dialog(QDialog):
         parent = a parent widget or None.
         
         The following keyword arguments are recognized:
-        - labelText: the text to display in the label
+        - message: the text to display in the message label
         - title: the window title
         - icon or pixmap: shown in the left area
         - iconSize: size of the icon in the left (QSize, default: 64x64)
@@ -107,7 +107,7 @@ class Dialog(QDialog):
         self._mainWidget = QWidget()
         self._pixmap = QPixmap()
         self._pixmapLabel = QLabel(self)
-        self._textLabel = QLabel(self)
+        self._messageLabel = QLabel(self)
         self._buttonBox = b = QDialogButtonBox(self)
         b.accepted.connect(self.accept)
         b.rejected.connect(self.reject)
@@ -119,14 +119,13 @@ class Dialog(QDialog):
         self._buttonOrientation = buttonOrientation
         self._iconSize = iconSize
         self._separator = separator
-        if labelText:
-            self.setLabelText(labelText)
+        if title:
+            self.setWindowTitle(title)
+        self.setMessage(message)
         if icon:
             self.setIcon(icon)
         elif pixmap:
             self.setPixmap(pixmap)
-        if text:
-            self.setText(text)
         b.helpRequested.connect(help or self.helpRequest)
         self.setStandardButtons(buttons)
         self.reLayout()
@@ -202,17 +201,17 @@ class Dialog(QDialog):
         """Returns the currently set pixmap."""
         return self._pixmap
     
-    def setLabelText(self, text):
+    def setMessage(self, text):
         """Sets the main text in the dialog."""
-        self._textLabel.setText(text)
+        self._messageLabel.setText(text)
     
-    def labelText(self):
+    def message(self):
         """Returns the main text."""
-        return self._textLabel.text()
+        return self._messageLabel.text()
     
-    def textLabel(self):
-        """Returns the QLabel displaying the text."""
-        return self._textLabel
+    def messageLabel(self):
+        """Returns the QLabel displaying the message text."""
+        return self._messageLabel
         
     def buttonBox(self):
         """Returns our QDialogButtonBox instance."""
@@ -230,7 +229,17 @@ class Dialog(QDialog):
                 map(standardbuttons.get, buttons),
                 QDialogButtonBox.StandardButtons())
         self._buttonBox.setStandardButtons(buttons)
+    
+    def button(self, button):
+        """Returns the given button.
         
+        May be a QDialogButtonBox.StandardButton or a key from standardbuttons.
+        
+        """
+        if button in standardbuttons:
+            button = standardbuttons[button]
+        return self._buttonBox.button(button)
+    
     def setSeparator(self, enabled):
         """Sets whether to show a line between contents and buttons."""
         changed = self._separator != enabled
@@ -244,6 +253,9 @@ class Dialog(QDialog):
         
     def setMainWidget(self, widget):
         """Sets the specified widget as our main widget."""
+        old = self._mainWidget
+        if old:
+            old.setParent(None)
         self._mainWidget = widget
         self.reLayout()
     
@@ -265,7 +277,7 @@ class Dialog(QDialog):
             col = 0
         layout.setColumnStretch(col, 1)
         self._pixmapLabel.setVisible(not self._pixmap.isNull())    
-        layout.addWidget(self._textLabel, 0, col)
+        layout.addWidget(self._messageLabel, 0, col)
         layout.addWidget(self._mainWidget, 1, col)
         if self._buttonOrientation == Qt.Horizontal:
             if self._separator:
