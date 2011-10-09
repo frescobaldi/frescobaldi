@@ -74,8 +74,8 @@ class Dialog(QDialog):
     """
     def __init__(self,
                  parent = None,
+                 labelText = "",
                  title = "",
-                 text = "",
                  icon = None,
                  iconSize = QSize(64, 64),
                  pixmap = None,
@@ -89,7 +89,7 @@ class Dialog(QDialog):
         parent = a parent widget or None.
         
         The following keyword arguments are recognized:
-        - text: the text to display in the label
+        - labelText: the text to display in the label
         - title: the window title
         - icon or pixmap: shown in the left area
         - iconSize: size of the icon in the left (QSize, default: 64x64)
@@ -119,8 +119,8 @@ class Dialog(QDialog):
         self._buttonOrientation = buttonOrientation
         self._iconSize = iconSize
         self._separator = separator
-        if text:
-            self.setText(text)
+        if labelText:
+            self.setLabelText(labelText)
         if icon:
             self.setIcon(icon)
         elif pixmap:
@@ -202,15 +202,15 @@ class Dialog(QDialog):
         """Returns the currently set pixmap."""
         return self._pixmap
     
-    def setText(self, text):
+    def setLabelText(self, text):
         """Sets the main text in the dialog."""
         self._textLabel.setText(text)
     
-    def text(self):
+    def labelText(self):
         """Returns the main text."""
         return self._textLabel.text()
     
-    def label(self):
+    def textLabel(self):
         """Returns the QLabel displaying the text."""
         return self._textLabel
         
@@ -276,5 +276,5 @@ class Dialog(QDialog):
                 layout.addWidget(self._separatorWidget, 0, col+1, 2, 1)
             layout.addWidget(self._buttonBox, 0, col+2, 2, 1)
         self._separatorWidget.setVisible(self._separator)
-            
+
 
