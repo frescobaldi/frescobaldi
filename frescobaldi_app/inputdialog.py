@@ -58,6 +58,7 @@ def getText(
     
     """    
     dlg = TextDialog(parent, title=title, message=message, icon=icon)
+    dlg.setMinimumWidth(320)
     if help is not None:
         help_.addButton(dlg.buttonBox(), help)
         dlg.setWindowModality(Qt.WindowModal)

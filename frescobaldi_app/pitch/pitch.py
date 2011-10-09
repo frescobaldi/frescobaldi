@@ -396,14 +396,10 @@ def transpose(cursor, mainwindow):
         return len(readpitches(text)) == 2
     
     text = inputdialog.getText(mainwindow, app.caption(_("Transpose")), _(
-        "<p>Please enter two absolute pitches, separated by a space, "
-        "using the pitch name language \"{language}\".</p>\n"
-        "<p>The music will be transposed from the first pitch to the second, "
-        "just as the {transpose} LilyPond command would do.</p>").format(
-            transpose = '<code>\\transpose</code>', language=language),
-        icon = icons.get('tools_transpose'),
-        help = transpose_help,
-        validate = validate)
+        "Please enter two absolute pitches, separated by a space, "
+        "using the pitch name language \"{language}\"."
+        ).format(language=language), icon = icons.get('tools_transpose'),
+        help = transpose_help, validate = validate)
     if text == None:
         return
     
@@ -764,7 +760,12 @@ The pitches must be entered in the pitch name language used in the document.
 </p>
 
 <p>
-E.g. when transposing a minor third upwards, one would enter:<br />
+The music will then be transposed from the first pitch to the second,
+just as the <code>\\transpose</code> LilyPond command would do.
+</p>
+
+<p>
+E.g. when transposing a minor third upwards, you would enter:<br />
 <code>c es</code>
 </p>
 

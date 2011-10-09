@@ -27,9 +27,12 @@ from __future__ import unicode_literals
 
 import itertools
 
-from PyQt4.QtGui import QInputDialog, QTextCursor
+from PyQt4.QtGui import QTextCursor
 
 import app
+import help
+import icons
+import inputdialog
 import cursortools
 import tokeniter
 import ly.lex.lilypond
@@ -137,9 +140,10 @@ def rhythm_explicit(cursor):
                 e.insertText(c, ''.join(prev))
 
 def rhythm_apply(cursor, mainwindow):
-    durs, ok = QInputDialog.getText(mainwindow,
-        app.caption(_("Apply Rhythm")), _("Enter a rhythm:"))
-    if ok and durs.split():
+    durs = inputdialog.getText(mainwindow,
+        app.caption(_("Apply Rhythm")), _("Enter a rhythm:"),
+        help = rhythm_help, icon = icons.get('tools_rhythm'))
+    if durs and durs.split():
         duration_source = itertools.cycle(durs.split())
         with cursortools.Editor() as e:
             for c, d in duration_cursor_items(cursor):
@@ -222,4 +226,45 @@ def back(cursor):
     while block.previous().isValid():
         block = block.previous()
         yield reversed(tokeniter.tokens(block))
+
+
+class rhythm_help(help.page):
+    def title():
+        return _("Rhythm manipulation")
+    
+    def body():
+        return _("""\
+<p>
+The rhythm functions of Frescobaldi alter the durations written after notes,
+chords, rests, etcetera. Using those functions, all in menu {menu}, it
+is possible to double or halve the length of notes, to add or remove dots
+and to remove scaling factors.
+</p>
+
+<p>
+Also it is possible to change the way rhythm is specified: for every note
+(explicit), or only when the duration changes (implicit). Some users may prefer
+the option implicit per line, which always specifies the duration for the first
+note, chord or rest on a line.
+</p>
+
+<p>
+The last three menu commands can copy, paste or apply a rhythm that is entered
+in a dialog.
+</p>
+
+<p>
+In the "Apply Rhythm" dialog you can enter a series of durations, e.g.:
+</p>
+
+<p>
+<code>4. 8 4 16 16 8 2</code>
+</p>
+
+<p>
+which will then, repetitively, be applied to a selection of notes.
+</p>
+""").format(menu=help.menu(
+    _("menu title", "Tools"), _("submenu title", "Rhythm")))
+
 

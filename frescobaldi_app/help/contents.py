@@ -234,10 +234,14 @@ class tools(page):
         import quickinsert.widget
         import snippet.widget
         import pitch.pitch
+        import rhythm.rhythm
+        import hyphendialog
         return (
             quickinsert.widget.quickinsert_help,
             snippet.widget.snippet_help,
             pitch.pitch.pitch_help,
+            rhythm.rhythm.rhythm_help,
+            hyphendialog.lyrics_help,
         )
 
 

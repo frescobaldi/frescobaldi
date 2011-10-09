@@ -33,6 +33,7 @@ from PyQt4.QtGui import QDialog, QDialogButtonBox, QLabel, QListWidget, QVBoxLay
 
 import app
 import util
+import help
 import language_names
 import widgets
 import hyphdicts
@@ -88,7 +89,7 @@ def findDicts():
 class HyphenDialog(QDialog):
     def __init__(self, mainwindow):
         super(HyphenDialog, self).__init__(mainwindow)
-        
+        self.setWindowModality(Qt.WindowModal)
         layout = QVBoxLayout()
         self.setLayout(layout)
         self.topLabel = QLabel()
@@ -100,7 +101,8 @@ class HyphenDialog(QDialog):
         
         self.buttons = b = QDialogButtonBox()
         layout.addWidget(b)
-        b.setStandardButtons(QDialogButtonBox.Help | QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        b.setStandardButtons(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        help.addButton(b, lyrics_help)
         b.rejected.connect(self.reject)
         b.accepted.connect(self.accept)
         
@@ -149,3 +151,48 @@ class HyphenDialog(QDialog):
         self.deleteLater()
         return result
         
+
+class lyrics_help(help.page):
+    def title():
+        return _("Lyrics")
+    
+    def body():
+        import lyrics
+        ac = lyrics.Lyrics.instances()[0].actionCollection
+        d = {
+            'hyphen': "<code>&nbsp;--&nbsp;</code>",
+            'example': "<code>a&nbsp;--&nbsp;men</code>",
+            'key_hyphen': help.shortcut(ac.lyrics_hyphenate),
+            'menu_hyphen': help.menu(_("menu title", "Tools"), _("Lyrics")),
+            'menu_settings': help.menu(_("menu title", "Edit"), _("Preferences")),
+        }
+        return _("""\
+<p>
+Frescobaldi can automatically place hyphens '{hyphen}' inside texts to make
+those texts usable as lyrics.
+It can use hyphenation dictionaries of OpenOffice.org, Scribus, etc.
+</p>
+
+<p>
+To use this feature you must first select the text you want to hyphenate. Then
+press {key_hyphen} or choose {menu_hyphen}.
+In the dialog that appears, select the language.
+Click OK or press Enter to have the hyphenation take place. 
+</p>
+
+<p>
+A small limitation is that word processor hyphenation dictionaries often don't
+want to break a word right after the first letter (e.g. '{example}'), because that
+does not look nice in word processor texts. So it can happen that you
+have to add some hyphens after the first letter of such lyrics. 
+</p>
+
+<p>
+There is also a command to remove hyphenation. This can be useful if you have a
+stanza of lyrics that you just want to display as a markup below the music.
+Under {menu_settings} you can enter a list of directories to search for
+hyphenation pattern files.
+</p>
+""").format(**d)
+
+
