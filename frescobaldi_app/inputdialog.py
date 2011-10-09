@@ -39,7 +39,7 @@ def getText(
         icon = None,
         help = None,
         validate_function = None,
-        regex = None,
+        regexp = None,
         ):
     """Asks a string of text from the user.
     
@@ -57,28 +57,54 @@ def getText(
         validation method using a QRegExpValidator.
     
     """    
-    dlg = widgets.dialog.Dialog(parent,
-        title=title, message=message, icon=icon)
-    e = QLineEdit()
-    dlg.setMainWidget(e)
-    e.setText(text)
-    e.setFocus()
+    dlg = TextDialog(parent, title=title, message=message, icon=icon)
     if help is not None:
         help_.addButton(dlg.buttonBox(), help)
         dlg.setWindowModality(Qt.WindowModal)
     else:
         dlg.setWindowModality(Qt.ApplicationModal)
-    if regex:
-        rx = QRegExp(regex)
-        e.setValidator(QRegExpValidator(rx, e))
-        validate_function = rx.exactMatch
-    if validate_function:
-        def validate(text):
-            dlg.button('ok').setEnabled(validate_function(text))
-        e.textChanged.connect(validate)
-        validate(text)
-    
+    if regexp:
+        dlg.setValidateRegExp(regexp)
+    elif validate_function:
+        dlg.setValidateFunction(validate_function)
     if dlg.exec_():
-        return e.text()
+        return dlg.text()
+
+
+class TextDialog(widgets.dialog.Dialog):
+    """A dialog with text string input and validation."""
+    def __init__(self, parent, *args, **kwargs):
+        super(TextDialog, self).__init__(parent, *args, **kwargs)
+        self._validateFunction = None
+        self.setMainWidget(QLineEdit())
+        self.lineEdit().setFocus()
+    
+    def lineEdit(self):
+        return self.mainWidget()
+    
+    def setText(self, text):
+        self.lineEdit().setText(text)
+    
+    def text(self):
+        return self.lineEdit().text()
+        
+    def setValidateFunction(self, func):
+        old = self._validateFunction
+        self._validateFunction = func
+        if old and not func:
+            self.lineEdit().textChanged.disconnect(self._validate)
+            self.button('ok').setEnabled(True)
+        elif func:
+            self.lineEdit().textChanged.connect(self._validate)
+        if func:
+            self._validate(self.lineEdit().text())
+    
+    def setValidateRegExp(self, regexp):
+        rx = QRegExp(regexp)
+        self.lineEdit().setValidator(QRegExpValidator(rx, self.lineEdit()))
+        self.setValidateFunction(rx.exactMatch)
+    
+    def _validate(self, text):
+        self.button('ok').setEnabled(self._validateFunction(text))
 
 
