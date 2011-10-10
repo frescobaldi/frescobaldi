@@ -595,6 +595,7 @@ markupcommands_nargs = (
 (
     'abs-fontsize',
     'combine',
+    'customTabClef',
     'fontsize',
     'footnote',
     'fraction',
@@ -617,6 +618,7 @@ markupcommands_nargs = (
     'with-color',
     'with-link',
     'with-url',
+    'woodwind-diagram',
 ),
 # three arguments
 (
