@@ -70,7 +70,7 @@ class BookmarkManager(plugin.MainWindowPlugin):
     
     def clearErrorMarks(self):
         doc = self.mainwindow().currentDocument()
-        bookmarks.bookmarks(document).clear('error')
+        bookmarks.bookmarks(doc).clear('error')
         
     def clearAllMarks(self):
         doc = self.mainwindow().currentDocument()
