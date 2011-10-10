@@ -184,6 +184,20 @@ def lyricmode(self):
         self.column = self.lastpos
     return documentdata.doc(self.cursor.document()).lyriccommands(self.cursor)
     
+def music_glyph(self):
+    """Complete \markup \musicglyph names."""
+    try:
+        i = self.tokens.index('\\musicglyph', -5, -3)
+    except ValueError:
+        return
+    for t, cls in zip(self.tokens[i:], (
+        lp.MarkupCommand, lx.Space, lp.SchemeStart, scm.StringQuotedStart, scm.String)):
+        if type(t) is not cls:
+            return
+    if i + 4 < len(self.tokens):
+        self.column = self.tokens[i + 4].pos
+    return completiondata.music_glyphs
+
 def scheme_word(self):
     """Complete scheme word from scheme functions, etc."""
     if isinstance(self.last, scm.Word):
@@ -433,6 +447,9 @@ _tests = {
         tweak,
         markup_override,
         scheme_other,
+    ),
+    scm.ParseString: (
+        music_glyph,
     ),
     lp.ParseLyricMode: (
         lyricmode,
