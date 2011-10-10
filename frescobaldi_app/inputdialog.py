@@ -24,7 +24,7 @@ Simple dialogs to ask input from the user.
 from __future__ import unicode_literals
 
 from PyQt4.QtCore import Qt, QRegExp
-from PyQt4.QtGui import QLineEdit, QRegExpValidator
+from PyQt4.QtGui import QCompleter, QLineEdit, QRegExpValidator
 
 import widgets.dialog
 import help as help_
@@ -41,6 +41,7 @@ def getText(
         validate = None,
         regexp = None,
         wordWrap = True,
+        complete = None,
         ):
     """Asks a string of text from the user.
     
@@ -55,10 +56,14 @@ def getText(
     validate: a function that accepts text and returns whether it is valid.
     regexp: a regular expression string. If given it provides an alternate
         validation method using a QRegExpValidator.
+    wordWrap: whether to word-wrap the message text (default: True).
+    complete: a list of QAbstractItemModel to provide completions.
     
     """    
     dlg = TextDialog(parent, title=title, message=message, icon=icon)
+    dlg.setText(text)
     dlg.setMinimumWidth(320)
+    dlg.messageLabel().setWordWrap(wordWrap)
     if help is not None:
         help_.addButton(dlg.buttonBox(), help)
         dlg.setWindowModality(Qt.WindowModal)
@@ -68,7 +73,9 @@ def getText(
         dlg.setValidateRegExp(regexp)
     elif validate:
         dlg.setValidateFunction(validate)
-    dlg.messageLabel().setWordWrap(wordWrap)
+    if complete:
+        c = QCompleter(complete, dlg.lineEdit())
+        dlg.lineEdit().setCompleter(c)
     if dlg.exec_():
         return dlg.text()
 

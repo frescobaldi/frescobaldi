@@ -45,6 +45,8 @@ durations = ['\\maxima', '\\longa', '\\breve',
 
 _clipboard = [] # clipboard for rhythm copy and paste
 
+_history = set() # earlier rhythms typed in apply dialog
+
 
 def rhythm_double(cursor):
     with cursortools.Editor() as e:
@@ -142,8 +144,11 @@ def rhythm_explicit(cursor):
 def rhythm_apply(cursor, mainwindow):
     durs = inputdialog.getText(mainwindow,
         app.caption(_("Apply Rhythm")), _("Enter a rhythm:"),
+        complete = sorted(_history),
+        regexp = r'([0-9./* ]|\\breve|\\longa|\\maxima)+',
         help = rhythm_help, icon = icons.get('tools_rhythm'))
     if durs and durs.split():
+        _history.add(durs.strip())
         duration_source = itertools.cycle(durs.split())
         with cursortools.Editor() as e:
             for c, d in duration_cursor_items(cursor):
