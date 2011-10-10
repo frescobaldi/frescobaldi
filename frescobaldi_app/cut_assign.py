@@ -23,24 +23,24 @@ Cut selected text and assign it to a LilyPond variable.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtGui import QInputDialog, QTextCursor
+from PyQt4.QtGui import QTextCursor
 
 import cursortools
 import tokeniter
 import ly.lex.lilypond
 import metainfo
 import indent
+import inputdialog
 
 
 def cut_assign(cursor):
     """Cuts selected text and assigns it to a LilyPond variable."""
     # ask the variable name
-    name, ok = QInputDialog.getText(None, _("Cut and Assign"), _(
+    name = inputdialog.getText(None, _("Cut and Assign"), _(
         "Please enter the name for the variable to assign the selected "
-        "text to:"))
-    if not ok or not name:
+        "text to:"), regexp="[A-Za-z]+")
+    if not name:
         return
-    # TODO: validate name input
     
     cursortools.stripSelection(cursor)
     
