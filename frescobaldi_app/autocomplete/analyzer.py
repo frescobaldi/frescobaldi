@@ -178,6 +178,12 @@ def general_music(self):
         self.column = self.lastpos
     return documentdata.doc(self.cursor.document()).musiccommands(self.cursor)
 
+def lyricmode(self):
+    """Commands inside lyric mode."""
+    if self.last.startswith('\\'):
+        self.column = self.lastpos
+    return documentdata.doc(self.cursor.document()).lyriccommands(self.cursor)
+    
 def scheme_word(self):
     """Complete scheme word from scheme functions, etc."""
     if isinstance(self.last, scm.Word):
@@ -428,5 +434,8 @@ _tests = {
         markup_override,
         scheme_other,
     ),
+    lp.ParseLyricMode: (
+        lyricmode,
+    )
 }
 

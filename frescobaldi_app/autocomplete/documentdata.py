@@ -71,5 +71,10 @@ class DocumentDataSource(plugin.DocumentPlugin):
             ly.words.lilypond_music_commands,
             harvest.names(cursor)))), display = util.command)
 
+    @util.keep
+    def lyriccommands(self, cursor):
+        return listmodel.ListModel(sorted(set(itertools.chain(
+            ('set stanza = ', 'set', 'override', 'markup', 'notemode'),
+            harvest.names(cursor)))), display = util.command)
 
 
