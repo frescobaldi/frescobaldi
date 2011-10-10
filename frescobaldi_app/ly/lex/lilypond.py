@@ -1103,7 +1103,7 @@ class ExpectLyricMode(FallthroughParser):
     
     def updateState(self, state, token):
         if isinstance(token, (OpenBracket, OpenSimultaneous)):
-            state.enter(ParseLyricMode())
+            state.replace(ParseLyricMode())
         
 
 class ParseLyricMode(ParseInputMode):
@@ -1127,7 +1127,7 @@ class ParseLyricMode(ParseInputMode):
     
     def updateState(self, state, token):
         if isinstance(token, (OpenSimultaneous, OpenBracket)):
-            state.enter(ParseLyricMode())
+            state.replace(ParseLyricMode())
 
 
 class ExpectChordMode(FallthroughParser):
@@ -1138,7 +1138,7 @@ class ExpectChordMode(FallthroughParser):
     
     def updateState(self, state, token):
         if isinstance(token, (OpenBracket, OpenSimultaneous)):
-            state.enter(ParseChordMode())
+            state.replace(ParseChordMode())
         
 
 class ParseChordMode(ParseInputMode, ParseMusic):
@@ -1154,7 +1154,7 @@ class ExpectNoteMode(FallthroughParser):
     
     def updateState(self, state, token):
         if isinstance(token, (OpenBracket, OpenSimultaneous)):
-            state.enter(ParseNoteMode())
+            state.replace(ParseNoteMode())
         
 
 class ParseNoteMode(ParseInputMode, ParseMusic):
@@ -1169,7 +1169,7 @@ class ExpectDrumMode(FallthroughParser):
     
     def updateState(self, state, token):
         if isinstance(token, (OpenBracket, OpenSimultaneous)):
-            state.enter(ParseDrumMode())
+            state.replace(ParseDrumMode())
         
 
 class ParseDrumMode(ParseInputMode, ParseMusic):
@@ -1185,7 +1185,7 @@ class ExpectFigureMode(FallthroughParser):
     
     def updateState(self, state, token):
         if isinstance(token, (OpenBracket, OpenSimultaneous)):
-            state.enter(ParseFigureMode())
+            state.replace(ParseFigureMode())
         
 
 class ParseFigureMode(ParseInputMode, ParseMusic):
