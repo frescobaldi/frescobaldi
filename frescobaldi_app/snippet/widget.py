@@ -305,6 +305,8 @@ With the snippets manager you can store often used pieces of text called
 <p>
 The snippets manager can be activated via the menu {menu_snippets} or
 by pressing {key_snippets}.
+</p>
+
 <p>
 Snippets can be searched by browsing the list or by typing some characters
 in the search entry.

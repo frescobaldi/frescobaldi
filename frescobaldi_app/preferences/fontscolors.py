@@ -154,7 +154,7 @@ class FontsColors(preferences.Page):
                 w.setTitle("{0}: {1}".format(item.parent().text(0), item.text(0)))
                 inherit = textformats.inherits[group].get(name)
                 if inherit:
-                    toptext = _("(Inherits: {0})").format(self.defaultStyleNames[inherit])
+                    toptext = _("(Inherits: {name})").format(name=self.defaultStyleNames[inherit])
                 w.setTristate(bool(inherit))
                 w.setTextFormat(data.allStyles[group][name])
             w.setTopText(toptext)
