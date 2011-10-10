@@ -57,7 +57,7 @@ def getText(
     regexp: a regular expression string. If given it provides an alternate
         validation method using a QRegExpValidator.
     wordWrap: whether to word-wrap the message text (default: True).
-    complete: a list of QAbstractItemModel to provide completions.
+    complete: a string list or QAbstractItemModel to provide completions.
     
     """    
     dlg = TextDialog(parent, title=title, message=message, icon=icon)
