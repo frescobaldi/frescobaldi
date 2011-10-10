@@ -23,12 +23,11 @@ Simple dialogs to ask input from the user.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import Qt, QRegExp
-from PyQt4.QtGui import QCompleter, QLineEdit, QRegExpValidator
+from PyQt4.QtCore import Qt
+from PyQt4.QtGui import QCompleter
 
 import widgets.dialog
 import help as help_
-
 
 
 def getText(
@@ -60,7 +59,7 @@ def getText(
     complete: a string list or QAbstractItemModel to provide completions.
     
     """    
-    dlg = TextDialog(parent, title=title, message=message, icon=icon)
+    dlg = widgets.dialog.TextDialog(parent, title=title, message=message, icon=icon)
     dlg.setText(text)
     dlg.setMinimumWidth(320)
     dlg.messageLabel().setWordWrap(wordWrap)
@@ -78,42 +77,5 @@ def getText(
         dlg.lineEdit().setCompleter(c)
     if dlg.exec_():
         return dlg.text()
-
-
-class TextDialog(widgets.dialog.Dialog):
-    """A dialog with text string input and validation."""
-    def __init__(self, parent, *args, **kwargs):
-        super(TextDialog, self).__init__(parent, *args, **kwargs)
-        self._validateFunction = None
-        self.setMainWidget(QLineEdit())
-        self.lineEdit().setFocus()
-    
-    def lineEdit(self):
-        return self.mainWidget()
-    
-    def setText(self, text):
-        self.lineEdit().setText(text)
-    
-    def text(self):
-        return self.lineEdit().text()
-        
-    def setValidateFunction(self, func):
-        old = self._validateFunction
-        self._validateFunction = func
-        if old and not func:
-            self.lineEdit().textChanged.disconnect(self._validate)
-            self.button('ok').setEnabled(True)
-        elif func:
-            self.lineEdit().textChanged.connect(self._validate)
-        if func:
-            self._validate(self.lineEdit().text())
-    
-    def setValidateRegExp(self, regexp):
-        rx = QRegExp(regexp)
-        self.lineEdit().setValidator(QRegExpValidator(rx, self.lineEdit()))
-        self.setValidateFunction(rx.exactMatch)
-    
-    def _validate(self, text):
-        self.button('ok').setEnabled(self._validateFunction(text))
 
 

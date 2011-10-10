@@ -26,13 +26,16 @@ from __future__ import unicode_literals
 import functools
 import operator
 
-from PyQt4.QtCore import QSize, Qt
+from PyQt4.QtCore import QRegExp, QSize, Qt
 from PyQt4.QtGui import (
-    QDialog, QDialogButtonBox, QGridLayout, QIcon, QLabel, QPixmap, QStyle,
-    QWidget)
-
+    QDialog, QDialogButtonBox, QGridLayout, QIcon, QLabel, QLineEdit, QPixmap,
+    QRegExpValidator, QStyle, QWidget)
 
 from . import Separator
+
+
+__all__ = ['Dialog', 'TextDialog']
+
 
 standardicons = {
     'info': QStyle.SP_MessageBoxInformation,
@@ -288,5 +291,65 @@ class Dialog(QDialog):
                 layout.addWidget(self._separatorWidget, 0, col+1, 2, 1)
             layout.addWidget(self._buttonBox, 0, col+2, 2, 1)
         self._separatorWidget.setVisible(self._separator)
+
+
+class TextDialog(Dialog):
+    """A dialog with text string input and validation."""
+    def __init__(self, parent, *args, **kwargs):
+        super(TextDialog, self).__init__(parent, *args, **kwargs)
+        self._validateFunction = None
+        self.setMainWidget(QLineEdit())
+        self.lineEdit().setFocus()
+    
+    def lineEdit(self):
+        """Returns the QLineEdit widget."""
+        return self.mainWidget()
+    
+    def setText(self, text):
+        """Sets the tekst in the lineEdit()."""
+        self.lineEdit().setText(text)
+    
+    def text(self):
+        """Returns the text in the lineEdit()."""
+        return self.lineEdit().text()
+        
+    def setValidateFunction(self, func):
+        """Sets a function to run on every change in the lineEdit().
+        
+        If the function returns True, the OK button is enabled, otherwise
+        disabled.
+        
+        If func is None, an earlier validate function will be removed.
+        
+        """
+        old = self._validateFunction
+        self._validateFunction = func
+        if func:
+            self._validate(self.lineEdit().text())
+            if not old:
+                self.lineEdit().textChanged.connect(self._validate)
+        elif old:
+            self.lineEdit().textChanged.disconnect(self._validate)
+            self.button('ok').setEnabled(True)
+    
+    def setValidateRegExp(self, regexp):
+        """Sets a regular expression the text must match.
+        
+        If the regular expression matches the full text, the OK button is
+        enabled, otherwise disabled.
+        
+        If regexp is None, an earlier set regular expression is removed.
+        
+        """
+        validator = function = None
+        if regexp is not None:
+            rx = QRegExp(regexp)
+            validator = QRegExpValidator(rx, self.lineEdit())
+            function = rx.exactMatch
+        self.lineEdit().setValidator(validator)
+        self.setValidateFunction(function)
+    
+    def _validate(self, text):
+        self.button('ok').setEnabled(self._validateFunction(text))
 
 
