@@ -50,7 +50,7 @@ class DocumentDataSource(plugin.DocumentPlugin):
         """Scheme names, including those harvested from document."""
         schemewords = set(itertools.chain(
             ly.words.scheme_functions,
-            ('LEFT', 'UP', 'RIGHT', 'DOWN'),
+            ly.words.scheme_values,
             (unicode(t)
                 for t in harvest.schemewords(self.document())
                 if len(t) > 2),

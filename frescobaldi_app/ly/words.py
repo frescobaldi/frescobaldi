@@ -894,6 +894,19 @@ scheme_functions = (
 )
 
 
+scheme_values = (
+    'UP',
+    'DOWN',
+    'LEFT',
+    'RIGHT',
+    'CENTER',
+    'minimum-distance',
+    'basic-distance',
+    'padding',
+    'stretchability',
+)
+
+
 headervariables = (
     'dedication',
     'title',
