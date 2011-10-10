@@ -137,7 +137,8 @@ class LilyPondInfo(ly.info.LilyPondInfo):
         """Writes ourselves to a QSettings instance. We should be valid."""
         settings.setValue("command", self.command)
         settings.setValue("version", self.versionString)
-        settings.setValue("mtime", float(os.path.getmtime(self.abscommand)))
+        if self.abscommand:
+            settings.setValue("mtime", float(os.path.getmtime(self.abscommand)))
         settings.setValue("auto", self.auto)
         settings.setValue("lilypond-book", self.lilypond_book)
         settings.setValue("convert-ly", self.convert_ly)
