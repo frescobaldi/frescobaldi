@@ -149,7 +149,7 @@ def rhythm_apply(cursor, mainwindow):
         help = rhythm_help, icon = icons.get('tools_rhythm'))
     if durs and durs.split():
         _history.add(durs.strip())
-        duration_source = itertools.cycle(durs.split())
+        duration_source = remove_dups(itertools.cycle(durs.split()))
         with cursortools.Editor() as e:
             for c, d in duration_cursor_items(cursor):
                 e.insertText(c, next(duration_source))
@@ -168,6 +168,12 @@ def rhythm_paste(cursor):
     with cursortools.Editor() as e:
         for c, d in duration_cursor_items(cursor):
             e.insertText(c, next(duration_source))
+
+def remove_dups(iterable):
+    old = None
+    for i in iterable:
+        yield '' if i == old else i
+        old = i
 
 def duration_items(cursor, *classes):
     """Yields block, list where tokens in list are instance of *classes."""
