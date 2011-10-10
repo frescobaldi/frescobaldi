@@ -1,0 +1,30 @@
+ChangeLog of Frescobaldi, http://www.frescobaldi.org/
+=====================================================
+
+
+Changes in 1.9.1 -- 
+
+* Translation updates
+* Help in much more dialogs
+* New icons for some commands
+* It is now possible to set the preferred Qt GUI style
+* Always makes backup copy on save, config setting to retain it
+* Detailed version info in about dialog
+* Lots of small improvements, such as Apply Rhythm dialog remembering rhythms
+* New commands:
+  - Cut and Assign
+  - Copy to Image
+  - Tools -> Format to format whitespace
+  - Update with Convert-Ly (with diff view)
+* Bugfixes:
+  - fix error message on View->Clear error marks
+  - fix autocomplete picking second item if no item is highlighted
+  - some Parser (highlighting) fixes
+  - color buttons now show color on all platforms
+  - fix error message on saving settings if no LilyPond was installed
+
+
+Changes in 1.9.0 -- September 27th, 2011
+
+* Full rewrite, not depending on KDE4 libraries any more
+* All translations imported
