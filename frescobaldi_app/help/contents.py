@@ -77,7 +77,8 @@ revealed by pressing {key_whatsthis} or by selecting {menu_whatsthis}.
             starting,
             scorewiz.dialog.scorewiz_help,
             tools,
-            about,            
+            about,
+            toc,
         )
 
 
@@ -341,5 +342,29 @@ Frescobaldi 2.0 is a complete rewrite from scratch. Its release date is
 targeted at Christmas 2011.
 </p>
 """)
+
+
+class toc(page):
+    def title():
+        return _("Table of Contents")
+    
+    def body():
+        html = ['<ul>']
+        seen = set()
+        def addpage(page):
+            if page not in seen:
+                seen.add(page)
+                html.append('<li>')
+                html.append(page.link())
+                html.append('</li>')
+                if page.children():
+                    html.append('<ul>')
+                    for p in page.children():
+                        addpage(p)
+                    html.append('</ul>\n')
+        for page in contents.children():
+            addpage(page)
+        html.append('</ul>\n')
+        return ''.join(html)
 
 

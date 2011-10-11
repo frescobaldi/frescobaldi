@@ -48,9 +48,11 @@ class Window(QMainWindow):
         self._back = tb.addAction(icons.get('go-previous'), '')
         self._forw = tb.addAction(icons.get('go-next'), '')
         self._home = tb.addAction(icons.get('go-home'), '')
+        self._toc = tb.addAction(icons.get('help-contents'), '')
         self._back.triggered.connect(self.browser.backward)
         self._forw.triggered.connect(self.browser.forward)
         self._home.triggered.connect(self.home)
+        self._toc.triggered.connect(self.toc)
         
         self.browser.sourceChanged.connect(self.slotSourceChanged)
         self.browser.historyChanged.connect(self.slotHistoryChanged)
@@ -69,7 +71,9 @@ class Window(QMainWindow):
         self._toolbar.setWindowTitle(_("Toolbar"))
         self._back.setText(_("Back"))
         self._forw.setText(_("Forward"))
-    
+        self._home.setText(_("Start"))
+        self._toc.setText(_("Contents"))
+        
     def slotSourceChanged(self):
         self.setCaption()
     
@@ -84,6 +88,9 @@ class Window(QMainWindow):
     def home(self):
         self.displayHelp('contents')
         
+    def toc(self):
+        self.displayHelp('toc')
+    
     def displayHelp(self, page):
         """Opens the help browser showing the specified help page (by name or class)."""
         if isinstance(page, type) and issubclass(page, helpimpl.page):
