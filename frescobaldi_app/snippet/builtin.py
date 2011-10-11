@@ -269,5 +269,85 @@ if state[-1] != 'paper':
 """),
 
 
+'last_note': T(_("Last note or chord"),
+r"""-*- python; menu: music; symbol: note_4d;
+# This snippet reads back the last entered note or chord and 
+# inserts it again. It removes the octave mark from a note of the first
+# note of a chord if the music is in relative mode.
+
+from PyQt4.QtGui import QTextCursor
+import cursortools
+import tokeniter
+import ly.lex.lilypond as lp
+
+# look back
+block = cursortools.block(cursor)
+tokens = tokeniter.partition(cursor).left
+
+# space needed before cursor?
+beforecursor = block.text()[:cursor.selectionStart()-block.position()]
+spaceneeded = bool(beforecursor and beforecursor[-1] not in "\t ")
+
+chordstart, chordend = None, None
+notestart = None
+relative = False
+found = False
+
+while True:
+  pos = block.position()
+  for t in tokens[::-1]:
+    if t == '\\relative':
+      relative = True
+      break
+    elif isinstance(t, (lp.Score, lp.Book, lp.BookPart, lp.Name)):
+      break
+    if found:
+      continue
+    if chordend is not None:
+      if isinstance(t, lp.ChordStart):
+        chordstart = pos + t.pos
+        found = True
+      continue
+    if isinstance(t, lp.ChordEnd):
+      chordend = pos + t.pos + len(t)
+    elif isinstance(t, lp.Note) and t not in ('R' ,'q', 's', 'r'):
+      notestart = pos + t.pos
+      found = True
+  block = block.previous()
+  if block.isValid():
+    tokens = tokeniter.tokens(block)
+    continue
+  break
+
+if found:
+  c = QTextCursor(block)
+  if chordstart is not None:
+    text = []
+    removeOctave = 1 if relative else 0
+    c.setPosition(chordstart)
+    c.setPosition(chordend, c.KeepAnchor)
+    for t in tokeniter.Source.selection(c):
+      # remove octave from first pitch in relative
+      if isinstance(t, lp.Note):
+        removeOctave -= 1
+      elif isinstance(t, lp.Octave) and removeOctave == 0:
+        continue
+      text.append(t)
+    text = ''.join(text)
+  elif notestart is not None:
+    text = []
+    c.setPosition(notestart)
+    for t in tokeniter.Source.fromCursor(c):
+      if isinstance(t, lp.Note):
+        text.append(t)
+      elif not relative and isinstance(t, lp.Octave):
+        text.append(t)
+      else:
+        break
+    text = ''.join(text)
+  if spaceneeded:
+    text = " " + text
+"""),
+
 }
 
