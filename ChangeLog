@@ -10,7 +10,9 @@ Changes in 1.9.1 --
 * It is now possible to set the preferred Qt GUI style
 * Always makes backup copy on save, config setting to retain it
 * Detailed version info in about dialog
-* Lots of small improvements, such as Apply Rhythm dialog remembering rhythms
+* Lots of small improvements, such as:
+  - Apply Rhythm dialog remembering rhythms
+  - snippet error messagebox now has Edit Snippet button
 * New commands:
   - Cut and Assign
   - Copy to Image

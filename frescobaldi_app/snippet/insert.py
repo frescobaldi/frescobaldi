@@ -236,7 +236,13 @@ def handle_exception(name, view):
     widget = panels.manager(view.window()).snippettool.widget()
     textedit = edit.Edit(widget, name).text
     if lineno is not None:
-        block = textedit.document().findBlockByNumber(lineno)
+        # convert to line number in full snippet text
+        for block in cursortools.allBlocks(textedit.document()):
+            if block.text().startswith('-*- '):
+                lineno += 1
+            else:
+                break
+        block = textedit.document().findBlockByNumber(lineno-1)
         if block.isValid():
             textedit.setTextCursor(QTextCursor(block))
 
