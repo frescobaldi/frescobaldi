@@ -51,7 +51,7 @@ def insert(name, view):
         
         # insert the snippet, might return a new cursor
         if 'python' in variables:
-            new = insert_python(text, cursor)
+            new = insert_python(text, cursor, name, view)
         else:
             new = insert_snippet(text, cursor, variables)
         
@@ -137,10 +137,12 @@ def insert_snippet(text, cursor, variables):
         return new
 
 
-def insert_python(text, cursor):
+def insert_python(text, cursor, name, view):
     """Regards the text as Python code, and exec it.
     
-    the following variables are available:
+    name and view are given in case an exception occurs.
+    
+    The following variables are available:
     
     - text: contains selection or '', set it to insert new text
     - state: contains simplestate for the cursor position
@@ -160,14 +162,7 @@ def insert_python(text, cursor):
         code = compile(text, "<snippet>", "exec")
         exec code in namespace
     except Exception:
-        import sys, traceback
-        exc_type, exc_value, exc_traceback = sys.exc_info()
-        tb = traceback.extract_tb(exc_traceback)
-        while tb and tb[0][0] != "<snippet>":
-            del tb[0]
-        msg = ''.join(traceback.format_list(tb) +
-                      traceback.format_exception_only(exc_type, exc_value))
-        QMessageBox.critical(None, _("Snippet error"), msg)
+        handle_exception(name, view)
     else:
         text = namespace.get('text', '')
         if isinstance(text, (tuple, list)):
@@ -205,5 +200,44 @@ def state(cursor):
             break
         state.follow(t)
     return simplestate.state(state)
+
+
+def handle_exception(name, view):
+    """Called when a snippet raises a Python exception.
+    
+    Shows the error message and offers the option to edit the offending snippet.
+    
+    """
+    import sys, traceback
+    exc_type, exc_value, exc_traceback = sys.exc_info()
+    tb = traceback.extract_tb(exc_traceback)
+    while tb and tb[0][0] != "<snippet>":
+        del tb[0]
+    msg = ''.join(traceback.format_list(tb) +
+                    traceback.format_exception_only(exc_type, exc_value))
+    dlg = QMessageBox(QMessageBox.Critical, _("Snippet error"), msg,
+        QMessageBox.Ok | QMessageBox.Cancel)
+    dlg.button(QMessageBox.Ok).setText(_("Edit Snippet"))
+    dlg.setDefaultButton(QMessageBox.Cancel)
+    dlg.setEscapeButton(QMessageBox.Cancel)
+    if dlg.exec_() != QMessageBox.Ok:
+        return
+    
+    # determine line number
+    if exc_type is SyntaxError:
+        lineno = exc_value.lineno
+    elif tb:
+        lineno = tb[0][1]
+    else:
+        lineno = None
+    
+    import panels
+    from . import edit
+    widget = panels.manager(view.window()).snippettool.widget()
+    textedit = edit.Edit(widget, name).text
+    if lineno is not None:
+        block = textedit.document().findBlockByNumber(lineno)
+        if block.isValid():
+            textedit.setTextCursor(QTextCursor(block))
 
 
