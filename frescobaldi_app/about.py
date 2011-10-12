@@ -24,7 +24,7 @@ About dialog.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QSize, Qt
+from PyQt4.QtCore import QSettings, QSize, Qt
 from PyQt4.QtGui import QDialog, QDialogButtonBox, QLabel, QLayout, QTabWidget, QTextBrowser, QVBoxLayout, QWidget
 
 import app
@@ -49,7 +49,8 @@ def credits():
     yield _("Most of the bundled icons are created by {tango}.").format(
         tango='<a href="http://tango.freedesktop.org/">{0}</a>'.format(_("The Tango Desktop Project")))
     yield _("{appname} is translated into the following languages:").format(appname=info.appname)
-    langs = [(language_names.languageName(code, code), names) for code, names in info.translators.items()]
+    lang = QSettings().value("language", "") or None
+    langs = [(language_names.languageName(code, lang), names) for code, names in info.translators.items()]
     for lang, names in sorted(langs):
         yield lang + ": " + (', '.join(names))
 
