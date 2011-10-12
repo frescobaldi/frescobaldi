@@ -146,7 +146,7 @@ Click on a tab to select a tool. You can cycle through the tools with Ctrl
 All buttons in the Quick Insert Panel have configurable keyboard shortcuts;
 you can change them by right-clicking a button.
 </p>
-""").format(command="\u2318") + ("""\
+""").format(command="\u2318") + _("""\
 <h3>Articulations</h3>
 
 <p>
@@ -162,7 +162,7 @@ If <em>Allow shorthands</em> is checked, Frescobaldi will use short signs
 for articulations if they exist
 (e.g. <code>-.</code> instead of <code>-\staccato</code>).
 </p>
-""") + ("""\
+""") + _("""\
 <h3>Dynamics</h3>
 
 <p>
@@ -171,7 +171,7 @@ If you select a range of music, you can add spanners which will automatically
 terminate at the last note, rest or chord in the selection.
 If you then click a sign, it will replace the terminator.
 </p>
-""") + ("""\
+""") + _("""\
 <h3>Spanners</h3>
 
 <p>
@@ -186,7 +186,7 @@ The slurs, beams or trill apply to the current note and the next one
 if no music is selected,
 or to the first and the last note or chord in the selection.
 </p>
-""") + ("""\
+""") + _("""\
 <h3>Bar Lines</h3>
 
 <p>

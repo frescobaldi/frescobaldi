@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.1\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-10-11 14:38+0200\n"
+"POT-Creation-Date: 2011-10-12 08:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -184,7 +184,7 @@ msgstr ""
 msgid "{appname} [options] file ..."
 msgstr ""
 
-#: frescobaldi_app/main.py:58 frescobaldi_app/about.py:135
+#: frescobaldi_app/main.py:58 frescobaldi_app/about.py:136
 msgid "A LilyPond Music Editor"
 msgstr ""
 
@@ -759,13 +759,13 @@ msgctxt "menu title"
 msgid "Tools"
 msgstr ""
 
-#: frescobaldi_app/hyphendialog.py:167 frescobaldi_app/help/contents.py:136
-#: frescobaldi_app/help/contents.py:143
+#: frescobaldi_app/hyphendialog.py:167 frescobaldi_app/help/contents.py:137
+#: frescobaldi_app/help/contents.py:144
 msgctxt "menu title"
 msgid "Edit"
 msgstr ""
 
-#: frescobaldi_app/hyphendialog.py:167 frescobaldi_app/help/contents.py:137
+#: frescobaldi_app/hyphendialog.py:167 frescobaldi_app/help/contents.py:138
 #: frescobaldi_app/preferences/__init__.py:98
 msgid "Preferences"
 msgstr ""
@@ -898,44 +898,44 @@ msgstr ""
 msgid "{appname} is translated into the following languages:"
 msgstr ""
 
-#: frescobaldi_app/about.py:67
+#: frescobaldi_app/about.py:68
 msgid "About {appname}"
 msgstr ""
 
-#: frescobaldi_app/about.py:74
+#: frescobaldi_app/about.py:75
 msgid "About"
 msgstr ""
 
-#: frescobaldi_app/about.py:75 frescobaldi_app/help/contents.py:278
+#: frescobaldi_app/about.py:76 frescobaldi_app/help/contents.py:279
 msgid "Credits"
 msgstr ""
 
-#: frescobaldi_app/about.py:76
+#: frescobaldi_app/about.py:77
 msgid "Version"
 msgstr ""
 
-#: frescobaldi_app/about.py:127
+#: frescobaldi_app/about.py:128
 msgid "Operating System"
 msgstr ""
 
-#: frescobaldi_app/about.py:134
+#: frescobaldi_app/about.py:135
 msgid "Version {version}"
 msgstr ""
 
-#: frescobaldi_app/about.py:136
+#: frescobaldi_app/about.py:137
 msgid "Copyright (c) {year} by {author}"
 msgstr ""
 
-#: frescobaldi_app/about.py:140
+#: frescobaldi_app/about.py:141
 msgid "Send an e-mail message to the maintainers."
 msgstr ""
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: frescobaldi_app/about.py:143 frescobaldi_app/help/contents.py:57
+#: frescobaldi_app/about.py:144 frescobaldi_app/help/contents.py:57
 msgid "Translated by Your Name."
 msgstr ""
 
-#: frescobaldi_app/about.py:148
+#: frescobaldi_app/about.py:149
 msgid "Licensed under the {gpl}."
 msgstr ""
 
@@ -1109,21 +1109,29 @@ msgstr ""
 msgid "Show C&ompletions Popup"
 msgstr ""
 
-#: frescobaldi_app/help/browser.py:69
+#: frescobaldi_app/help/browser.py:71
 msgid "Toolbar"
 msgstr ""
 
-#: frescobaldi_app/help/browser.py:70
+#: frescobaldi_app/help/browser.py:72
 #: frescobaldi_app/helpbrowser/__init__.py:71
 msgid "Back"
 msgstr ""
 
-#: frescobaldi_app/help/browser.py:71
+#: frescobaldi_app/help/browser.py:73
 #: frescobaldi_app/helpbrowser/__init__.py:72
 msgid "Forward"
 msgstr ""
 
-#: frescobaldi_app/help/browser.py:77 frescobaldi_app/help/browser.py:78
+#: frescobaldi_app/help/browser.py:74
+msgid "Start"
+msgstr ""
+
+#: frescobaldi_app/help/browser.py:75
+msgid "Contents"
+msgstr ""
+
+#: frescobaldi_app/help/browser.py:81 frescobaldi_app/help/browser.py:82
 #: frescobaldi_app/help/contents.py:70 frescobaldi_app/snippet/widget.py:152
 #: frescobaldi_app/quickinsert/widget.py:106
 msgid "Help"
@@ -1183,11 +1191,11 @@ msgstr ""
 msgid "What's This"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:86
+#: frescobaldi_app/help/contents.py:87
 msgid "Introduction"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:89
+#: frescobaldi_app/help/contents.py:90
 msgid ""
 "<p>\n"
 "<a href=\"http://lilypond.org/\">LilyPond</a>\n"
@@ -1216,11 +1224,11 @@ msgid ""
 "</p>"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:114
+#: frescobaldi_app/help/contents.py:115
 msgid "Getting Started"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:134
+#: frescobaldi_app/help/contents.py:135
 #: frescobaldi_app/preferences/lilypond.py:231
 #: frescobaldi_app/preferences/fontscolors.py:482
 #: frescobaldi_app/scorewiz/settings.py:289
@@ -1228,29 +1236,29 @@ msgstr ""
 msgid "LilyPond"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:134
+#: frescobaldi_app/help/contents.py:135
 msgid "Engrave (publish)"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:138
+#: frescobaldi_app/help/contents.py:139
 #: frescobaldi_app/preferences/__init__.py:161
 msgid "LilyPond Preferences"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:140
+#: frescobaldi_app/help/contents.py:141
 msgctxt "menu title"
 msgid "View"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:141
+#: frescobaldi_app/help/contents.py:142
 msgid "Clear Error Marks"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:144
+#: frescobaldi_app/help/contents.py:145
 msgid "Copy to Image..."
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:145
+#: frescobaldi_app/help/contents.py:146
 msgid ""
 "<p>\n"
 "The default screen of Frescobaldi shows a text document on the left and an\n"
@@ -1335,19 +1343,19 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:226
+#: frescobaldi_app/help/contents.py:227
 msgid "Other Tools"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:229
+#: frescobaldi_app/help/contents.py:230
 msgid "<p>Some other important tools are listed here.</p>\n"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:250
+#: frescobaldi_app/help/contents.py:251
 msgid "About Frescobaldi"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:253
+#: frescobaldi_app/help/contents.py:254
 msgid ""
 "<p>\n"
 "Frescobaldi is named after\n"
@@ -1365,15 +1373,15 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:283
+#: frescobaldi_app/help/contents.py:284
 msgid "Frescobaldi's main author is {author}."
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:291
+#: frescobaldi_app/help/contents.py:292
 msgid "Contributing"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:294
+#: frescobaldi_app/help/contents.py:295
 msgid ""
 "<p>\n"
 "Frescobaldi is a <a href=\"http://www.gnu.org/philosophy/free-sw.html"
@@ -1400,11 +1408,11 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:319
+#: frescobaldi_app/help/contents.py:320
 msgid "History of Frescobaldi"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:322
+#: frescobaldi_app/help/contents.py:323
 msgid ""
 "<p>\n"
 "Frescobaldi has its roots in LilyKDE, which was a plugin for KDE3's editor "
@@ -1430,6 +1438,10 @@ msgid ""
 "Frescobaldi 2.0 is a complete rewrite from scratch. Its release date is\n"
 "targeted at Christmas 2011.\n"
 "</p>\n"
+msgstr ""
+
+#: frescobaldi_app/help/contents.py:349
+msgid "Table of Contents"
 msgstr ""
 
 #: frescobaldi_app/snippet/builtin.py:38
@@ -4597,6 +4609,66 @@ msgid ""
 "(or {command}) and the mouse wheel.\n"
 "All buttons in the Quick Insert Panel have configurable keyboard shortcuts;\n"
 "you can change them by right-clicking a button.\n"
+"</p>\n"
+msgstr ""
+
+#: frescobaldi_app/quickinsert/widget.py:149
+msgid ""
+"<h3>Articulations</h3>\n"
+"\n"
+"<p>\n"
+"These musical symbols can be added to a note or rest or a selected range\n"
+"of music.\n"
+"If you add them to a selection, rests will be skipped.\n"
+"If there is no text selected, the cursor will automatically move to the "
+"next\n"
+"pitch, rest, skip or chord.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"If <em>Allow shorthands</em> is checked, Frescobaldi will use short signs\n"
+"for articulations if they exist\n"
+"(e.g. <code>-.</code> instead of <code>-\\staccato</code>).\n"
+"</p>\n"
+msgstr ""
+
+#: frescobaldi_app/quickinsert/widget.py:165
+msgid ""
+"<h3>Dynamics</h3>\n"
+"\n"
+"<p>\n"
+"Dynamics can also be added to a note or rest.\n"
+"If you select a range of music, you can add spanners which will "
+"automatically\n"
+"terminate at the last note, rest or chord in the selection.\n"
+"If you then click a sign, it will replace the terminator.\n"
+"</p>\n"
+msgstr ""
+
+#: frescobaldi_app/quickinsert/widget.py:174
+msgid ""
+"<h3>Spanners</h3>\n"
+"\n"
+"<p>\n"
+"This tool lets you add arpeggio, glissandos and other spanners like slurs,\n"
+"phrasing slurs, manual beams or trills.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Arpeggios and glissandos apply to the current note;\n"
+"they need no music to be selected.\n"
+"The slurs, beams or trill apply to the current note and the next one\n"
+"if no music is selected,\n"
+"or to the first and the last note or chord in the selection.\n"
+"</p>\n"
+msgstr ""
+
+#: frescobaldi_app/quickinsert/widget.py:189
+msgid ""
+"<h3>Bar Lines</h3>\n"
+"\n"
+"<p>\n"
+"Here you can insert bar lines or various breathing signs.\n"
 "</p>\n"
 msgstr ""
 
