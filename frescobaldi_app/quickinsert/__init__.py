@@ -61,6 +61,7 @@ class QuickInsertActions(actioncollection.ShortcutCollection):
     
     def createDefaultShortcuts(self):
         self.setDefaultShortcuts('staccato', [QKeySequence('Ctrl+.')])
+        self.setDefaultShortcuts('spanner_slur', [QKeySequence('Ctrl+(')])
 
     def realAction(self, name):
         return self.panel().widget().actionForName(name)
