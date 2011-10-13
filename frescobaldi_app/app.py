@@ -96,8 +96,7 @@ def findDocument(url):
 
 def run():
     """Enter the Qt event loop."""
-    sys.excepthook = excepthook
-    sys.exit(qApp.exec_())
+    return qApp.exec_()
     
 def translateUI(obj, priority=0):
     """Translates texts in the object.
@@ -165,4 +164,9 @@ def excepthook(exctype, excvalue, exctb):
     if exctype != KeyboardInterrupt:
         import exception
         exception.ExceptionDialog(exctype, excvalue, exctb)
+
+def displayhook(obj):
+    """Prevent normal displayhook from overwriting __builtin__._"""
+    if obj is not None:
+        print repr(obj)
 

@@ -1,2 +1,5 @@
 #!/usr/bin/python
+import sys
 import frescobaldi_app.main
+import app
+sys.exit(app.run())
