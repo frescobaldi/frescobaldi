@@ -228,7 +228,10 @@ class LineEnd(slexer.Token):
     def updateState(self, state):
         state.leave()
 
-class PyVariable(Variable):
+class PyIdentifier(slexer.Token):
+    rx = r"\b[^\W\d]\w+"
+
+class PySpecialVariable(Variable):
     rx = r"\b(self|state|cursor|text|ANCHOR|CURSOR)\b"
 
 class PyValue(Value):
@@ -250,7 +253,8 @@ class Python(slexer.Parser):
     items = (
         PyKeyword,
         PyBuiltin,
-        PyVariable,
+        PySpecialVariable,
+        PyIdentifier,
         PyValue,
         PyStringStartDQ3,
         PyStringStartDQ1,
