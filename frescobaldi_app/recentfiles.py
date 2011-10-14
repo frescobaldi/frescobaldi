@@ -49,7 +49,7 @@ def load():
             if os.access(url.toLocalFile(), os.R_OK):
                 _recentfiles.append(url)
     del _recentfiles[MAXLEN:]
-    app.qApp.aboutToQuit.connect(save)
+    app.aboutToQuit.connect(save)
 
 def save():
     QSettings().setValue("recent_files", _recentfiles)

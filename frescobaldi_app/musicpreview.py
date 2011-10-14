@@ -106,7 +106,7 @@ class MusicPreviewWidget(QWidget):
         self._stack.addWidget(self._view)
         
         self._top.hide()
-        app.qApp.aboutToQuit.connect(self.cleanup)
+        app.aboutToQuit.connect(self.cleanup)
         app.translateUI(self)
     
     def translateUI(self):
