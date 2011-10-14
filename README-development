@@ -17,11 +17,79 @@ installation procedure can do this.
 so all modules and packages inside frescobaldi_app are available as toplevel
 modules and packages.
 
-Some larger components have their own packages:
 
+Running Frescobaldi in an interactive shell
+===========================================
+
+To test features or to experiment, you can run Frescobaldi in an interactive
+Python shell. It is recommended to open a shell (e.g. by simply running python
+without arguments, or by using Dreampie or IPython) and then enter:
+
+import frescobaldi_app.main
+
+This ensures the application starts up and uses the correct SIP api (2) for
+QString and QVariant.
+
+Currently Python 2.6 and 2.7 are supported, but the code should be designed such
+that Frescobaldi works as well with Python 3.
+
+
+How Frescobaldi is organized
+============================
+
+There can be one or more mainwindow.MainWindow instances and one or more
+document.Document instances (when the last Document is closed, another one is
+always constructed). The app module keeps references to those and contains the
+Signals emitted when something changes.
+
+Many parts inside Frescobaldi need to store or cache additional information or
+add features to Documents, MainWindows etc. Instead of clobbering those basic
+classes with an ever-growing number of unrelated groups of methods, a different
+approach is chosen: the plugin module.
+
+This keeps all classes small and only have methods that direcly apply to
+themselves and not to other parts of Frescobaldi.
+
+So e.g. the resultfiles, highlighter or documentinfo modules contain classes
+for objects that coexist with a Document, and providing their own relevant
+methods, while keeping a weak reference to the Document.
+
+Exchange of messages is done as much as possible using signals (PyQt4 signals
+or from the signals module), so adding new features changes as less existing
+code as possible.
+
+
+Some important modules:
+
+main:           Entry point
+info:           Information about the application, such as the version
+toplevel:       Adds the path of frescobaldi_app to sys.path, clears __path__
+                so all modules inside frescobaldi_app can be imported as
+                toplevel modules and packages
+app:            Central hub with global signals, also keeping references to
+                mainwindow and document instances
+mainwindow:     MainWindow (QMainWindow)
+document:       Document (QTextDocument)
+view:           View (QPlainTextEdit)
+menu:           Here the menubar is constructed (by importing all the relevant
+                modules and adding the actions they define)
+plugin:         A simple way to extend objects without them knowing it
 ly:             LilyPond and the LY file format, tokenizer for LY and related
+metainfo:       Stores (optionally) meta information about the document, such
+                as last cursor position, whether to enable auto indent, etc
+panels:         Both the base class for dock widgets and the manager of them
+symbols:        Provides icons of LilyPond-generated SVG files that draw
+                themselves in the default text color.
+
+
+Some completely generic modules (don't have anything to do with Frescobaldi or
+LilyPond):
+
 qpopplerview:   PDF viewer widget using the popplerqt4 binding to Poppler-Qt4
-
-
+signals:        An alternative to Qt signals that allows for connections to have
+                priorities, and objects don't have to be Qt objects
+slexer:         A Stateful Lexer, used to build regular expression-based parsers
+hyphenator:     Hyphenate text using hyphenation dictionaries
+cursortools:    Some useful functions manipulating QTextCursor instances
 
 
