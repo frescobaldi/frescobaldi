@@ -25,7 +25,9 @@ About dialog.
 from __future__ import unicode_literals
 
 from PyQt4.QtCore import QSettings, QSize, Qt
-from PyQt4.QtGui import QDialog, QDialogButtonBox, QLabel, QLayout, QTabWidget, QTextBrowser, QVBoxLayout, QWidget
+from PyQt4.QtGui import (
+    QDialog, QDialogButtonBox, QLabel, QLayout, QTabWidget, QTextBrowser,
+    QVBoxLayout, QWidget)
 
 import app
 import info
@@ -36,21 +38,30 @@ import language_names
 
 def credits():
     """Iterating over this should return paragraphs for the credits page."""
-    yield _("{appname} is written in {python} and uses the {qt} toolkit.").format(
+    yield _(
+        "{appname} is written in {python} and uses the {qt} toolkit.").format(
         appname=info.appname,
         # L10N: the Python programming language
         python='<a href="http://www.python.org/">{0}</a>'.format(_("Python")),
         # L10N: the Qt4 application framework
         qt='<a href="http://qt.nokia.com/">{0}</a>'.format(_("Qt4")))
-    yield _("The Music View is powered by the {poppler} library by {authors} and others.").format(
-        # L10N: the Poppler PDF library
-        poppler='<a href="http://poppler.freedesktop.org/">{0}</a>'.format(_("Poppler")),
+    yield _(
+        "The Music View is powered by the {poppler} library by "
+        "{authors} and others.").format(
+        poppler='<a href="http://poppler.freedesktop.org/">{0}</a>'.format(
+            # L10N: the Poppler PDF library
+            _("Poppler")),
         authors='Kristian Høgsberg, Albert Astals Cid')
-    yield _("Most of the bundled icons are created by {tango}.").format(
-        tango='<a href="http://tango.freedesktop.org/">{0}</a>'.format(_("The Tango Desktop Project")))
-    yield _("{appname} is translated into the following languages:").format(appname=info.appname)
+    yield _(
+        "Most of the bundled icons are created by {tango}.").format(
+        tango='<a href="http://tango.freedesktop.org/">{0}</a>'.format(_(
+            "The Tango Desktop Project")))
+    yield _(
+        "{appname} is translated into the following languages:").format(
+        appname=info.appname)
     lang = QSettings().value("language", "") or None
-    langs = [(language_names.languageName(code, lang), names) for code, names in info.translators.items()]
+    langs = [(language_names.languageName(code, lang), names)
+             for code, names in info.translators.items()]
     for lang, names in sorted(langs):
         yield lang + ": " + (', '.join(names))
 
