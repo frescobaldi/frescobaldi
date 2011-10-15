@@ -349,5 +349,42 @@ if found:
     text = " " + text
 """),
 
+
+'color_dialog': T(_("Color"),
+r"""-*- name: col; python; icon: applications-graphics;
+
+# Insert a color from a dialog
+
+
+from PyQt4.QtGui import QColorDialog
+colors = {
+    (0, 0, 0): "black",
+    (255, 255, 255): "white",
+    (255, 0, 0): "red",
+    (0, 255, 0): "green",
+    (0, 0, 255): "blue",
+    (0, 255, 255): "cyan",
+    (255, 0, 255): "magenta",
+    (255, 255, 0): "yellow",
+    (128, 128, 128): "grey",
+    (128, 0, 0): "darkred",
+    (0, 128, 0): "darkgreen",
+    (0, 0, 128): "darkblue",
+    (0, 128, 128): "darkcyan",
+    (128, 0, 128): "darkmagenta",
+    (128, 128, 0): "darkyellow",
+}
+
+color = QColorDialog.getColor()
+rgb = color.getRgb()[:-1]
+
+if rgb in colors:
+    text = '#' + colors[rgb]
+else:
+    rgb = tuple(map(lambda v: format(v / 255.0, ".4"), rgb))
+    text = "#(rgb-color {0} {1} {2})".format(*rgb)
+"""),
+
+
 }
 
