@@ -29,6 +29,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import help.contents
 import util
 import icons
 import preferences
@@ -68,6 +69,7 @@ class Versions(preferences.Group):
         self.auto = QCheckBox(clicked=self.changed)
         layout.addWidget(self.auto)
         app.translateUI(self)
+        help.openWhatsThis(self)
     
     def defaultButtonClicked(self):
         self._defaultCommand = self.instances.listBox.currentItem()._info.command
@@ -95,7 +97,8 @@ class Versions(preferences.Group):
             "documents like HTML, LaTeX, etc.</p>\n"
             "<p>If the document specifies a version, the oldest suitable LilyPond version "
             "is chosen. Otherwise, the default version is chosen.</p>\n"
-            ))
+            ) +
+            _("See also {link}.").format(link=help.contents.document_variables.link()))
 
     def loadSettings(self):
         s = settings()
