@@ -24,7 +24,7 @@ The Preferences Dialog.
 from __future__ import unicode_literals
 
 
-from PyQt4.QtCore import QSettings, QSize, pyqtSignal
+from PyQt4.QtCore import QSettings, QSize, Qt, pyqtSignal
 from PyQt4.QtGui import (
     QDialog, QDialogButtonBox, QGroupBox, QHBoxLayout, QListWidget,
     QListWidgetItem, QStackedWidget, QVBoxLayout, QWidget)
@@ -42,7 +42,7 @@ class PreferencesDialog(QDialog):
     
     def __init__(self, mainwindow):
         super(PreferencesDialog, self).__init__(mainwindow)
-        
+        self.setWindowModality(Qt.WindowModal)
         layout = QVBoxLayout()
         layout.setSpacing(10)
         self.setLayout(layout)
@@ -76,7 +76,6 @@ class PreferencesDialog(QDialog):
         # fill the pagelist
         self.pagelist.setIconSize(QSize(32, 32))
         self.pagelist.setSpacing(2)
-        self.pages = []
         for item in (
             General,
             LilyPond,
@@ -104,16 +103,21 @@ class PreferencesDialog(QDialog):
         global _prefsindex
         _prefsindex = self.pagelist.currentRow()
         super(PreferencesDialog, self).done(result)
-        
+    
+    def pages(self):
+        """Yields the settings pages that are already instantiated."""
+        for n in range(self.stack.count()):
+            yield self.stack.widget(n)
+    
     def loadSettings(self):
         """Loads the settings on reset."""
-        for page in self.pages:
+        for page in self.pages():
             page.loadSettings()
         self.buttons.button(QDialogButtonBox.Apply).setEnabled(False)
             
     def saveSettings(self):
         """Saves the settings and applies them."""
-        for page in self.pages:
+        for page in self.pages():
             page.saveSettings()
         self.buttons.button(QDialogButtonBox.Apply).setEnabled(False)
         
@@ -208,10 +212,6 @@ class Tools(PrefsItemBase):
 class Page(QWidget):
     """Base class for settings pages."""
     changed = pyqtSignal()
-    
-    def __init__(self, dialog):
-        QWidget.__init__(self)
-        dialog.pages.append(self)
     
     def loadSettings(self):
         """Should load settings from config into our widget."""
