@@ -6,290 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-10-15 13:51+0200\n"
-"PO-Revision-Date: 2011-10-15 14:11+0200\n"
+"POT-Creation-Date: 2011-10-15 23:46+0200\n"
+"PO-Revision-Date: 2011-10-15 23:48+0200\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
-"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 1.1\n"
-
-#: frescobaldi_app/documentactions.py:125
-msgid "Cut and Assign..."
-msgstr "Knippen en toewijzen..."
-
-#: frescobaldi_app/documentactions.py:126
-msgid "Syntax &Highlighting"
-msgstr "&Syntaxis accentuering"
-
-#: frescobaldi_app/documentactions.py:127
-msgid "&Automatic Indent"
-msgstr "&Automatisch inspringen"
-
-#: frescobaldi_app/documentactions.py:128
-msgid "Re-&Indent"
-msgstr "Opnieuw &inspringen"
-
-#: frescobaldi_app/documentactions.py:129
-msgid "&Format"
-msgstr "&Formatteren"
-
-#: frescobaldi_app/documentactions.py:130
-msgid "&Update with convert-ly..."
-msgstr "&Bijwerken met convert-ly..."
-
-#: frescobaldi_app/hyphendialog.py:114
-msgid "Hyphenate Lyrics Text"
-msgstr "Liedteksten afbreken"
-
-#: frescobaldi_app/hyphendialog.py:115
-msgid "Please select a language:"
-msgstr "Selecteer een taal:"
-
-#: frescobaldi_app/hyphendialog.py:157 frescobaldi_app/hyphendialog.py:166
-msgid "Lyrics"
-msgstr "Liedteksten"
-
-#: frescobaldi_app/hyphendialog.py:166 frescobaldi_app/pitch/pitch.py:744
-#: frescobaldi_app/scorewiz/dialog.py:198 frescobaldi_app/rhythm/rhythm.py:279
-msgctxt "menu title"
-msgid "Tools"
-msgstr "Gereedschap"
-
-#: frescobaldi_app/hyphendialog.py:167 frescobaldi_app/help/contents.py:138
-#: frescobaldi_app/help/contents.py:145
-msgctxt "menu title"
-msgid "Edit"
-msgstr "Bewerken"
-
-#: frescobaldi_app/hyphendialog.py:167 frescobaldi_app/help/contents.py:139
-#: frescobaldi_app/preferences/__init__.py:97
-msgid "Preferences"
-msgstr "Voorkeuren"
-
-#: frescobaldi_app/hyphendialog.py:169
-msgid ""
-"<p>\n"
-"Frescobaldi can automatically place hyphens '{hyphen}' inside texts to make\n"
-"those texts usable as lyrics.\n"
-"It can use hyphenation dictionaries of OpenOffice.org, Scribus, etc.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"To use this feature you must first select the text you want to hyphenate. "
-"Then\n"
-"press {key_hyphen} or choose {menu_hyphen}.\n"
-"In the dialog that appears, select the language.\n"
-"Click OK or press Enter to have the hyphenation take place. \n"
-"</p>\n"
-"\n"
-"<p>\n"
-"A small limitation is that word processor hyphenation dictionaries often "
-"don't\n"
-"want to break a word right after the first letter (e.g. '{example}'), "
-"because that\n"
-"does not look nice in word processor texts. So it can happen that you\n"
-"have to add some hyphens after the first letter of such lyrics. \n"
-"</p>\n"
-"\n"
-"<p>\n"
-"There is also a command to remove hyphenation. This can be useful if you "
-"have a\n"
-"stanza of lyrics that you just want to display as a markup below the music.\n"
-"Under {menu_settings} you can enter a list of directories to search for\n"
-"hyphenation pattern files.\n"
-"</p>\n"
-msgstr ""
-"<p>\n"
-"Frescobaldi kan automatisch afbreektekens '{hyphen}' in teksten plaatsen\n"
-"om deze als liedteksten bruikbaar te maken.\n"
-"Hierbij worden afbreekbestanden gebruikt van OpenOffice, Scribus, etc.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"Om deze functie te gebruiken selecteert u eerst de tekst die u in syllabes\n"
-"wilt verdelen.\n"
-"Druk daarna op {key_hyphen} of kies {menu_hyphen}.\n"
-"In die dialoog die daarop verschijnt kiest u de taal.\n"
-"Klik OK of druk op Enter om het afbreken te laten plaatsvinden.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"Een kleine beperking is dat afbreekbestanden van tekstverwerkers vaak niet\n"
-"willen afbreken direct na de eerste letter (bijvoorbeeld: '{example}'),\n"
-"omdat dat er in gewone teksten niet fraai uitziet.\n"
-"Het kan dus zijn dat u bij sommige woorden nog handmatig de afbreektekens "
-"moet toevoegen.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"Er is ook een commando om afbreektekens te verwijderen.\n"
-"Dit kan handig zijn als u een couplet liedteksten heeft dat u als gewone "
-"markup\n"
-"onder de muziek wilt weergeven.\n"
-"Onder {menu_settings} kunt u een lijst van directories opgeven waar "
-"Frescobaldi zal zoeken naar afbreekbestanden.\n"
-"</p>\n"
-
-#: frescobaldi_app/lyrics.py:131
-msgid "&Hyphenate Lyrics Text..."
-msgstr "&Liedteksten afbreken..."
-
-#: frescobaldi_app/lyrics.py:132
-msgid "&Remove hyphenation"
-msgstr "Liedtekst-afbreking ver&wijderen"
-
-#: frescobaldi_app/lyrics.py:133
-msgid "&Copy Lyrics with hyphenation removed"
-msgstr "Liedteksten &kopiëren met afbreking verwijderd"
-
-#: frescobaldi_app/popplerdummy.py:42
-msgid "Could not load the {name} module."
-msgstr "Kan de module {name} niet laden."
-
-#: frescobaldi_app/bookmarkmanager.py:112
-msgid "&Mark Current Line"
-msgstr "Huidige regel &markeren"
-
-#: frescobaldi_app/bookmarkmanager.py:113
-msgid "Clear &Error Marks"
-msgstr "Fout-mark&eringen verwijderen"
-
-#: frescobaldi_app/bookmarkmanager.py:114
-msgid "Clear &All Marks"
-msgstr "&Alle markeringen verwijderen"
-
-#: frescobaldi_app/bookmarkmanager.py:115
-msgid "Next Mark"
-msgstr "Volgende markering"
-
-#: frescobaldi_app/bookmarkmanager.py:116
-msgid "Previous Mark"
-msgstr "Vorige markering"
-
-#: frescobaldi_app/actioncollectionmanager.py:123
-#: frescobaldi_app/preferences/shortcuts.py:203
-msgid "This shortcut conflicts with the following command:"
-msgid_plural "This shortcut conflicts with the following commands:"
-msgstr[0] "Deze sneltoets conflicteert met het onderstaande commando:"
-msgstr[1] "Deze sneltoets conflicteert met onderstaande commando's:"
-
-#: frescobaldi_app/actioncollectionmanager.py:129
-#: frescobaldi_app/preferences/shortcuts.py:209
-msgid "Shortcut Conflict"
-msgstr "Sneltoetsconflict"
-
-#: frescobaldi_app/actioncollectionmanager.py:131
-msgid "Edit again"
-msgstr "Opnieuw bewerken"
-
-#: frescobaldi_app/main.py:57
-msgid "{appname} [options] file ..."
-msgstr "{appname} [opties] bestand ..."
-
-#: frescobaldi_app/main.py:59 frescobaldi_app/about.py:147
-msgid "A LilyPond Music Editor"
-msgstr "Een muziek-editor voor LilyPond"
-
-#: frescobaldi_app/main.py:60
-msgid "ENC"
-msgstr "ENC"
-
-#: frescobaldi_app/main.py:61
-msgid "Encoding to use"
-msgstr "Te gebruiken tekenset"
-
-#: frescobaldi_app/main.py:62 frescobaldi_app/main.py:64
-msgid "NUM"
-msgstr "NUM"
-
-#: frescobaldi_app/main.py:63
-msgid "Line number to go to, starting at 1"
-msgstr "Ga naar regel (start met 1)"
-
-#: frescobaldi_app/main.py:65
-msgid "Column to go to, starting at 0"
-msgstr "Ga naar kolom (start met 0)"
-
-#: frescobaldi_app/main.py:66
-msgid "NAME"
-msgstr "NAAM"
-
-#: frescobaldi_app/main.py:67
-msgid "Session to start ('{none}' for empty session)"
-msgstr "Te starten sessie ('{none}' voor lege sessie)"
-
-#: frescobaldi_app/menu.py:81
-msgctxt "menu title"
-msgid "&File"
-msgstr "&Bestand"
-
-#: frescobaldi_app/menu.py:110
-msgctxt "submenu title"
-msgid "&Export"
-msgstr "&Exporteren"
-
-#: frescobaldi_app/menu.py:118
-msgctxt "menu title"
-msgid "&Edit"
-msgstr "Be&werken"
-
-#: frescobaldi_app/menu.py:145
-msgctxt "menu title"
-msgid "&View"
-msgstr "B&eeld"
-
-#: frescobaldi_app/menu.py:168
-msgctxt "submenu title"
-msgid "Music &View"
-msgstr "&Muziekweergave"
-
-#: frescobaldi_app/menu.py:187
-msgctxt "menu title"
-msgid "&LilyPond"
-msgstr "&LilyPond"
-
-#: frescobaldi_app/menu.py:200
-msgctxt "menu title"
-msgid "&Tools"
-msgstr "&Gereedschap"
-
-#: frescobaldi_app/menu.py:225
-msgctxt "submenu title"
-msgid "&Lyrics"
-msgstr "&Liedteksten"
-
-#: frescobaldi_app/menu.py:237
-msgctxt "submenu title"
-msgid "&Pitch"
-msgstr "&Toonhoogte"
-
-#: frescobaldi_app/menu.py:251
-msgctxt "submenu title"
-msgid "&Rhythm"
-msgstr "&Ritme"
-
-#: frescobaldi_app/menu.py:279
-msgctxt "menu title"
-msgid "&Window"
-msgstr "&Venster"
-
-#: frescobaldi_app/menu.py:299
-msgctxt "menu title"
-msgid "&Help"
-msgstr "&Help"
-
-#: frescobaldi_app/cut_assign.py:39
-msgid "Cut and Assign"
-msgstr "Knippen en toewijzen"
-
-#: frescobaldi_app/cut_assign.py:40
-msgid "Please enter the name for the variable to assign the selected text to:"
-msgstr ""
-"Geef de naam van de variable om de geselecteerde tekst aan toe te wijzen:"
 
 #: frescobaldi_app/about.py:42
 msgid "{appname} is written in {python} and uses the {qt} toolkit."
@@ -353,6 +79,10 @@ msgstr "Besturingssysteem"
 msgid "Version {version}"
 msgstr "Versie {version}"
 
+#: frescobaldi_app/about.py:147 frescobaldi_app/main.py:59
+msgid "A LilyPond Music Editor"
+msgstr "Een muziek-editor voor LilyPond"
+
 #: frescobaldi_app/about.py:148
 msgid "Copyright (c) {year} by {author}"
 msgstr "Copyright (c) {year} door {author}"
@@ -369,6 +99,22 @@ msgstr "Vertaald door Wilbert Berendsen."
 #: frescobaldi_app/about.py:160
 msgid "Licensed under the {gpl}."
 msgstr "Beschikbaar onder de {gpl}."
+
+#: frescobaldi_app/actioncollectionmanager.py:123
+#: frescobaldi_app/preferences/shortcuts.py:203
+msgid "This shortcut conflicts with the following command:"
+msgid_plural "This shortcut conflicts with the following commands:"
+msgstr[0] "Deze sneltoets conflicteert met het onderstaande commando:"
+msgstr[1] "Deze sneltoets conflicteert met onderstaande commando's:"
+
+#: frescobaldi_app/actioncollectionmanager.py:129
+#: frescobaldi_app/preferences/shortcuts.py:209
+msgid "Shortcut Conflict"
+msgstr "Sneltoetsconflict"
+
+#: frescobaldi_app/actioncollectionmanager.py:131
+msgid "Edit again"
+msgstr "Opnieuw bewerken"
 
 #: frescobaldi_app/app.py:128
 msgid "LilyPond Files"
@@ -398,17 +144,25 @@ msgstr "Scheme-bestanden"
 msgid "All Files"
 msgstr "Alle bestanden"
 
-#: frescobaldi_app/musicpreview.py:113
-msgid "Document:"
-msgstr "Document:"
+#: frescobaldi_app/bookmarkmanager.py:112
+msgid "&Mark Current Line"
+msgstr "Huidige regel &markeren"
 
-#: frescobaldi_app/musicpreview.py:193
-msgid "&Print"
-msgstr "&Afdrukken"
+#: frescobaldi_app/bookmarkmanager.py:113
+msgid "Clear &Error Marks"
+msgstr "Fout-mark&eringen verwijderen"
 
-#: frescobaldi_app/musicpreview.py:194
-msgid "Music Preview"
-msgstr "Muziek vooruitblik"
+#: frescobaldi_app/bookmarkmanager.py:114
+msgid "Clear &All Marks"
+msgstr "&Alle markeringen verwijderen"
+
+#: frescobaldi_app/bookmarkmanager.py:115
+msgid "Next Mark"
+msgstr "Volgende markering"
+
+#: frescobaldi_app/bookmarkmanager.py:116
+msgid "Previous Mark"
+msgstr "Vorige markering"
 
 #: frescobaldi_app/convert_ly.py:118
 msgid "From version:"
@@ -512,6 +266,170 @@ msgstr "Volgende wijziging"
 msgid "Top"
 msgstr "Top"
 
+#: frescobaldi_app/cut_assign.py:39
+msgid "Cut and Assign"
+msgstr "Knippen en toewijzen"
+
+#: frescobaldi_app/cut_assign.py:40
+msgid "Please enter the name for the variable to assign the selected text to:"
+msgstr ""
+"Geef de naam van de variable om de geselecteerde tekst aan toe te wijzen:"
+
+#: frescobaldi_app/document.py:143 frescobaldi_app/snippet/edit.py:163
+msgid "Untitled"
+msgstr "Naamloos"
+
+#: frescobaldi_app/document.py:145
+msgid "Untitled ({num})"
+msgstr "Naamloos ({num})"
+
+#: frescobaldi_app/documentactions.py:125
+msgid "Cut and Assign..."
+msgstr "Knippen en toewijzen..."
+
+#: frescobaldi_app/documentactions.py:126
+msgid "Syntax &Highlighting"
+msgstr "&Syntaxis accentuering"
+
+#: frescobaldi_app/documentactions.py:127
+msgid "&Automatic Indent"
+msgstr "&Automatisch inspringen"
+
+#: frescobaldi_app/documentactions.py:128
+msgid "Re-&Indent"
+msgstr "Opnieuw &inspringen"
+
+#: frescobaldi_app/documentactions.py:129
+msgid "&Format"
+msgstr "&Formatteren"
+
+#: frescobaldi_app/documentactions.py:130
+msgid "&Update with convert-ly..."
+msgstr "&Bijwerken met convert-ly..."
+
+#: frescobaldi_app/documentmenu.py:42
+msgctxt "menu title"
+msgid "&Document"
+msgstr "&Document"
+
+#. L10N: 'always engraved': the document is marked as 'Always Engrave' in the LilyPond menu
+#: frescobaldi_app/documentmenu.py:109
+msgid "[always engraved]"
+msgstr "[altijd gegraveerd]"
+
+#: frescobaldi_app/exception.py:69
+msgid "An internal error has occurred:"
+msgstr "Er is een interne fout opgetreden:"
+
+#: frescobaldi_app/exception.py:70
+msgid "Internal Error"
+msgstr "Interne fout"
+
+#: frescobaldi_app/exception.py:71
+msgid "Email Bug Report..."
+msgstr "Bugrapport emailen..."
+
+#: frescobaldi_app/exception.py:79
+msgid "Optionally describe below what you were doing:"
+msgstr "Geef hier eventueel aan wat u aan het doen was:"
+
+#: frescobaldi_app/hyphendialog.py:114
+msgid "Hyphenate Lyrics Text"
+msgstr "Liedteksten afbreken"
+
+#: frescobaldi_app/hyphendialog.py:115
+msgid "Please select a language:"
+msgstr "Selecteer een taal:"
+
+#: frescobaldi_app/hyphendialog.py:157 frescobaldi_app/hyphendialog.py:166
+msgid "Lyrics"
+msgstr "Liedteksten"
+
+#: frescobaldi_app/hyphendialog.py:166 frescobaldi_app/pitch/pitch.py:744
+#: frescobaldi_app/rhythm/rhythm.py:279 frescobaldi_app/scorewiz/dialog.py:198
+msgctxt "menu title"
+msgid "Tools"
+msgstr "Gereedschap"
+
+#: frescobaldi_app/hyphendialog.py:167 frescobaldi_app/help/contents.py:138
+#: frescobaldi_app/help/contents.py:145
+msgctxt "menu title"
+msgid "Edit"
+msgstr "Bewerken"
+
+#: frescobaldi_app/hyphendialog.py:167 frescobaldi_app/help/contents.py:139
+#: frescobaldi_app/preferences/__init__.py:97
+msgid "Preferences"
+msgstr "Voorkeuren"
+
+#: frescobaldi_app/hyphendialog.py:169
+msgid ""
+"<p>\n"
+"Frescobaldi can automatically place hyphens '{hyphen}' inside texts to make\n"
+"those texts usable as lyrics.\n"
+"It can use hyphenation dictionaries of OpenOffice.org, Scribus, etc.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"To use this feature you must first select the text you want to hyphenate. "
+"Then\n"
+"press {key_hyphen} or choose {menu_hyphen}.\n"
+"In the dialog that appears, select the language.\n"
+"Click OK or press Enter to have the hyphenation take place. \n"
+"</p>\n"
+"\n"
+"<p>\n"
+"A small limitation is that word processor hyphenation dictionaries often "
+"don't\n"
+"want to break a word right after the first letter (e.g. '{example}'), "
+"because that\n"
+"does not look nice in word processor texts. So it can happen that you\n"
+"have to add some hyphens after the first letter of such lyrics. \n"
+"</p>\n"
+"\n"
+"<p>\n"
+"There is also a command to remove hyphenation. This can be useful if you "
+"have a\n"
+"stanza of lyrics that you just want to display as a markup below the music.\n"
+"Under {menu_settings} you can enter a list of directories to search for\n"
+"hyphenation pattern files.\n"
+"</p>\n"
+msgstr ""
+"<p>\n"
+"Frescobaldi kan automatisch afbreektekens '{hyphen}' in teksten plaatsen\n"
+"om deze als liedteksten bruikbaar te maken.\n"
+"Hierbij worden afbreekbestanden gebruikt van OpenOffice, Scribus, etc.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Om deze functie te gebruiken selecteert u eerst de tekst die u in syllabes\n"
+"wilt verdelen.\n"
+"Druk daarna op {key_hyphen} of kies {menu_hyphen}.\n"
+"In die dialoog die daarop verschijnt kiest u de taal.\n"
+"Klik OK of druk op Enter om het afbreken te laten plaatsvinden.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Een kleine beperking is dat afbreekbestanden van tekstverwerkers vaak niet\n"
+"willen afbreken direct na de eerste letter (bijvoorbeeld: '{example}'),\n"
+"omdat dat er in gewone teksten niet fraai uitziet.\n"
+"Het kan dus zijn dat u bij sommige woorden nog handmatig de afbreektekens "
+"moet toevoegen.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Er is ook een commando om afbreektekens te verwijderen.\n"
+"Dit kan handig zijn als u een couplet liedteksten heeft dat u als gewone "
+"markup\n"
+"onder de muziek wilt weergeven.\n"
+"Onder {menu_settings} kunt u een lijst van directories opgeven waar "
+"Frescobaldi zal zoeken naar afbreekbestanden.\n"
+"</p>\n"
+
+#: frescobaldi_app/inputdialog.py:100
+msgid "Select Color"
+msgstr "Kleur selecteren"
+
 #: frescobaldi_app/job.py:188
 msgid "Starting {job}..."
 msgstr "Starten {job}..."
@@ -548,65 +466,49 @@ msgstr "Afgesloten met status {status}."
 msgid "Completed successfully in {time}."
 msgstr "Succesvol beëindigd in {time}."
 
-#: frescobaldi_app/documentmenu.py:42
-msgctxt "menu title"
-msgid "&Document"
-msgstr "&Document"
+#: frescobaldi_app/lyrics.py:131
+msgid "&Hyphenate Lyrics Text..."
+msgstr "&Liedteksten afbreken..."
 
-#. L10N: 'always engraved': the document is marked as 'Always Engrave' in the LilyPond menu
-#: frescobaldi_app/documentmenu.py:109
-msgid "[always engraved]"
-msgstr "[altijd gegraveerd]"
+#: frescobaldi_app/lyrics.py:132
+msgid "&Remove hyphenation"
+msgstr "Liedtekst-afbreking ver&wijderen"
 
-#: frescobaldi_app/search.py:99
-msgid "Search:"
-msgstr "Zoeken:"
+#: frescobaldi_app/lyrics.py:133
+msgid "&Copy Lyrics with hyphenation removed"
+msgstr "Liedteksten &kopiëren met afbreking verwijderd"
 
-#: frescobaldi_app/search.py:100
-msgid "&Case"
-msgstr "&Hoofdl."
+#: frescobaldi_app/main.py:57
+msgid "{appname} [options] file ..."
+msgstr "{appname} [opties] bestand ..."
 
-#: frescobaldi_app/search.py:101
-msgid "Case Sensitive"
-msgstr "Maak onderscheid tussen hoofd- en kleine letters"
+#: frescobaldi_app/main.py:60
+msgid "ENC"
+msgstr "ENC"
 
-#: frescobaldi_app/search.py:102
-msgid "&Regex"
-msgstr "&Regex"
+#: frescobaldi_app/main.py:61
+msgid "Encoding to use"
+msgstr "Te gebruiken tekenset"
 
-#: frescobaldi_app/search.py:103
-msgid "Regular Expression"
-msgstr "Reguliere expressie"
+#: frescobaldi_app/main.py:62 frescobaldi_app/main.py:64
+msgid "NUM"
+msgstr "NUM"
 
-#: frescobaldi_app/search.py:104
-msgid "The total number of matches"
-msgstr "Het totale aantal overeenkomsten"
+#: frescobaldi_app/main.py:63
+msgid "Line number to go to, starting at 1"
+msgstr "Ga naar regel (start met 1)"
 
-#: frescobaldi_app/search.py:105
-msgid "Close"
-msgstr "Sluiten"
+#: frescobaldi_app/main.py:65
+msgid "Column to go to, starting at 0"
+msgstr "Ga naar kolom (start met 0)"
 
-#: frescobaldi_app/search.py:106
-msgid "Replace:"
-msgstr "Vervangen:"
+#: frescobaldi_app/main.py:66
+msgid "NAME"
+msgstr "NAAM"
 
-#: frescobaldi_app/search.py:107
-msgid "Re&place"
-msgstr "&Vervangen"
-
-#: frescobaldi_app/search.py:108
-msgid "Replaces the next occurrence of the search term."
-msgstr "Vervangt de volgende overeenkomst van de zoekterm."
-
-#: frescobaldi_app/search.py:109
-msgid "&All"
-msgstr "&Alles"
-
-#: frescobaldi_app/search.py:110
-msgid ""
-"Replaces all occurrences of the search term in the document or selection."
-msgstr ""
-"Vervangt alle overeenkomsten met de zoekterm in het document of de selectie."
+#: frescobaldi_app/main.py:67
+msgid "Session to start ('{none}' for empty session)"
+msgstr "Te starten sessie ('{none}' voor lege sessie)"
 
 #. L10N: state of document in window titlebar
 #: frescobaldi_app/mainwindow.py:224
@@ -916,61 +818,81 @@ msgstr "&Bug rapporteren..."
 msgid "&About {appname}..."
 msgstr "&Over {appname}..."
 
-#: frescobaldi_app/viewmanager.py:66 frescobaldi_app/viewmanager.py:213
-msgid "Line: {line}, Col: {column}"
-msgstr "Regel: {line}, Kol: {column}"
+#: frescobaldi_app/menu.py:81
+msgctxt "menu title"
+msgid "&File"
+msgstr "&Bestand"
 
-#: frescobaldi_app/viewmanager.py:84 frescobaldi_app/viewmanager.py:441
-msgid "Split &Horizontally"
-msgstr "&Horizontaal splitsen"
+#: frescobaldi_app/menu.py:110
+msgctxt "submenu title"
+msgid "&Export"
+msgstr "&Exporteren"
 
-#: frescobaldi_app/viewmanager.py:87 frescobaldi_app/viewmanager.py:442
-msgid "Split &Vertically"
-msgstr "&Verticaal splitsen"
+#: frescobaldi_app/menu.py:118
+msgctxt "menu title"
+msgid "&Edit"
+msgstr "Be&werken"
 
-#: frescobaldi_app/viewmanager.py:91
-msgid "&Close View"
-msgstr "Weergave &sluiten"
+#: frescobaldi_app/menu.py:145
+msgctxt "menu title"
+msgid "&View"
+msgstr "B&eeld"
 
-#: frescobaldi_app/viewmanager.py:443
-msgid "&Close Current View"
-msgstr "&Huidige weergave sluiten"
+#: frescobaldi_app/menu.py:168
+msgctxt "submenu title"
+msgid "Music &View"
+msgstr "&Muziekweergave"
 
-#: frescobaldi_app/viewmanager.py:444
-msgid "Close &Other Views"
-msgstr "&Andere weergaven sluiten"
+#: frescobaldi_app/menu.py:187
+msgctxt "menu title"
+msgid "&LilyPond"
+msgstr "&LilyPond"
 
-#: frescobaldi_app/viewmanager.py:445
-msgid "&Next View"
-msgstr "&Volgende weergave"
+#: frescobaldi_app/menu.py:200
+msgctxt "menu title"
+msgid "&Tools"
+msgstr "&Gereedschap"
 
-#: frescobaldi_app/viewmanager.py:446
-msgid "&Previous View"
-msgstr "V&orige weergave"
+#: frescobaldi_app/menu.py:225
+msgctxt "submenu title"
+msgid "&Lyrics"
+msgstr "&Liedteksten"
 
-#: frescobaldi_app/exception.py:69
-msgid "An internal error has occurred:"
-msgstr "Er is een interne fout opgetreden:"
+#: frescobaldi_app/menu.py:237
+msgctxt "submenu title"
+msgid "&Pitch"
+msgstr "&Toonhoogte"
 
-#: frescobaldi_app/exception.py:70
-msgid "Internal Error"
-msgstr "Interne fout"
+#: frescobaldi_app/menu.py:251
+msgctxt "submenu title"
+msgid "&Rhythm"
+msgstr "&Ritme"
 
-#: frescobaldi_app/exception.py:71
-msgid "Email Bug Report..."
-msgstr "Bugrapport emailen..."
+#: frescobaldi_app/menu.py:279
+msgctxt "menu title"
+msgid "&Window"
+msgstr "&Venster"
 
-#: frescobaldi_app/exception.py:79
-msgid "Optionally describe below what you were doing:"
-msgstr "Geef hier eventueel aan wat u aan het doen was:"
+#: frescobaldi_app/menu.py:299
+msgctxt "menu title"
+msgid "&Help"
+msgstr "&Help"
 
-#: frescobaldi_app/document.py:143 frescobaldi_app/snippet/edit.py:163
-msgid "Untitled"
-msgstr "Naamloos"
+#: frescobaldi_app/musicpreview.py:113
+msgid "Document:"
+msgstr "Document:"
 
-#: frescobaldi_app/document.py:145
-msgid "Untitled ({num})"
-msgstr "Naamloos ({num})"
+#: frescobaldi_app/musicpreview.py:193
+msgid "&Print"
+msgstr "&Afdrukken"
+
+#: frescobaldi_app/musicpreview.py:194
+msgid "Music Preview"
+msgstr "Muziek vooruitblik"
+
+#: frescobaldi_app/popplerdummy.py:42
+msgid "Could not load the {name} module."
+msgstr "Kan de module {name} niet laden."
 
 #: frescobaldi_app/popplerprint.py:54
 msgid ""
@@ -1009,167 +931,123 @@ msgstr "Kan het document niet naar de printer verzenden."
 msgid "Printing page {page} ({num} of {total})..."
 msgstr "Afdrukken pagina {page} ({num} van {total})..."
 
-#: frescobaldi_app/po/messages.py:27
-msgid "Usage"
-msgstr "Gebruik"
+#: frescobaldi_app/search.py:99
+msgid "Search:"
+msgstr "Zoeken:"
 
-#: frescobaldi_app/po/messages.py:28
-#, python-format
-msgid "Usage: %s\n"
-msgstr "Gebruik: %s\n"
+#: frescobaldi_app/search.py:100
+msgid "&Case"
+msgstr "&Hoofdl."
 
-#: frescobaldi_app/po/messages.py:29
-msgid "show this help message and exit"
-msgstr "toon deze hulp-informatie en sluit af"
+#: frescobaldi_app/search.py:101
+msgid "Case Sensitive"
+msgstr "Maak onderscheid tussen hoofd- en kleine letters"
 
-#: frescobaldi_app/po/messages.py:30
-msgid "show program's version number and exit"
-msgstr "toon het versienummer en sluit af"
+#: frescobaldi_app/search.py:102
+msgid "&Regex"
+msgstr "&Regex"
 
-#. L10N: Command line options
-#: frescobaldi_app/po/messages.py:32
-msgid "Options"
-msgstr "Opties"
+#: frescobaldi_app/search.py:103
+msgid "Regular Expression"
+msgstr "Reguliere expressie"
 
-#: frescobaldi_app/po/messages.py:36
-msgctxt "CloseButton"
-msgid "Close Tab"
-msgstr "Tab sluiten"
+#: frescobaldi_app/search.py:104
+msgid "The total number of matches"
+msgstr "Het totale aantal overeenkomsten"
 
-#: frescobaldi_app/po/messages.py:38
-msgctxt "QDialog"
-msgid "What's This?"
-msgstr "Wat is dit?"
-
-#: frescobaldi_app/po/messages.py:40
-msgctxt "QDialogButtonBox"
-msgid "Apply"
-msgstr "Toepassen"
-
-#: frescobaldi_app/po/messages.py:41
-msgctxt "QDialogButtonBox"
-msgid "OK"
-msgstr "OK"
-
-#: frescobaldi_app/po/messages.py:42
-msgctxt "QDialogButtonBox"
-msgid "Cancel"
-msgstr "Annuleren"
-
-#: frescobaldi_app/po/messages.py:43
-msgctxt "QDialogButtonBox"
-msgid "Discard"
-msgstr "Weggooien"
-
-#: frescobaldi_app/po/messages.py:44
-msgctxt "QDialogButtonBox"
-msgid "Save"
-msgstr "Opslaan"
-
-#: frescobaldi_app/po/messages.py:45
-msgctxt "QDialogButtonBox"
-msgid "Help"
-msgstr "Help"
-
-#: frescobaldi_app/po/messages.py:46
-msgctxt "QDialogButtonBox"
+#: frescobaldi_app/search.py:105
 msgid "Close"
 msgstr "Sluiten"
 
-#: frescobaldi_app/po/messages.py:47
-msgctxt "QDialogButtonBox"
-msgid "Open"
-msgstr "Openen"
+#: frescobaldi_app/search.py:106
+msgid "Replace:"
+msgstr "Vervangen:"
 
-#: frescobaldi_app/po/messages.py:48
-msgctxt "QDialogButtonBox"
-msgid "Reset"
-msgstr "Terugzetten"
+#: frescobaldi_app/search.py:107
+msgid "Re&place"
+msgstr "&Vervangen"
 
-#: frescobaldi_app/po/messages.py:50
-msgctxt "QFileDialog"
-msgid "File"
-msgstr "Bestand"
+#: frescobaldi_app/search.py:108
+msgid "Replaces the next occurrence of the search term."
+msgstr "Vervangt de volgende overeenkomst van de zoekterm."
 
-#: frescobaldi_app/po/messages.py:51
-msgctxt "QFileDialog"
-msgid "Folder"
-msgstr "Map"
+#: frescobaldi_app/search.py:109
+msgid "&All"
+msgstr "&Alles"
 
-#: frescobaldi_app/po/messages.py:52
-msgctxt "QFileDialog"
-msgid "Find Directory"
-msgstr "Map zoeken"
+#: frescobaldi_app/search.py:110
+msgid ""
+"Replaces all occurrences of the search term in the document or selection."
+msgstr ""
+"Vervangt alle overeenkomsten met de zoekterm in het document of de selectie."
 
-#: frescobaldi_app/po/messages.py:53
-msgctxt "QFileDialog"
-msgid "All Files (*)"
-msgstr "Alle bestanden (*)"
+#: frescobaldi_app/viewmanager.py:66 frescobaldi_app/viewmanager.py:213
+msgid "Line: {line}, Col: {column}"
+msgstr "Regel: {line}, Kol: {column}"
 
-#: frescobaldi_app/po/messages.py:55
-msgctxt "QScrollBar"
-msgid "Scroll here"
-msgstr "Hierheen schuiven"
+#: frescobaldi_app/viewmanager.py:84 frescobaldi_app/viewmanager.py:441
+msgid "Split &Horizontally"
+msgstr "&Horizontaal splitsen"
 
-#: frescobaldi_app/po/messages.py:56
-msgctxt "QScrollBar"
-msgid "Top"
-msgstr "Top"
+#: frescobaldi_app/viewmanager.py:87 frescobaldi_app/viewmanager.py:442
+msgid "Split &Vertically"
+msgstr "&Verticaal splitsen"
 
-#: frescobaldi_app/po/messages.py:57
-msgctxt "QScrollBar"
-msgid "Bottom"
-msgstr "Onder"
+#: frescobaldi_app/viewmanager.py:91
+msgid "&Close View"
+msgstr "Weergave &sluiten"
 
-#: frescobaldi_app/po/messages.py:58
-msgctxt "QScrollBar"
-msgid "Page up"
-msgstr "Pagina omhoog"
+#: frescobaldi_app/viewmanager.py:443
+msgid "&Close Current View"
+msgstr "&Huidige weergave sluiten"
 
-#: frescobaldi_app/po/messages.py:59
-msgctxt "QScrollBar"
-msgid "Page down"
-msgstr "Pagina omlaag"
+#: frescobaldi_app/viewmanager.py:444
+msgid "Close &Other Views"
+msgstr "&Andere weergaven sluiten"
 
-#: frescobaldi_app/po/messages.py:60
-msgctxt "QScrollBar"
-msgid "Scroll up"
-msgstr "Omhoog schuiven"
+#: frescobaldi_app/viewmanager.py:445
+msgid "&Next View"
+msgstr "&Volgende weergave"
 
-#: frescobaldi_app/po/messages.py:61
-msgctxt "QScrollBar"
-msgid "Scroll down"
-msgstr "Omlaag schuiven"
+#: frescobaldi_app/viewmanager.py:446
+msgid "&Previous View"
+msgstr "V&orige weergave"
 
-#: frescobaldi_app/po/messages.py:62
-msgctxt "QScrollBar"
-msgid "Left edge"
-msgstr "Linkerkant"
+#: frescobaldi_app/autocomplete/__init__.py:79
+msgid "Automatic &Completion"
+msgstr "Automatisch &aanvullen"
 
-#: frescobaldi_app/po/messages.py:63
-msgctxt "QScrollBar"
-msgid "Right edge"
-msgstr "Rechterkant"
+#: frescobaldi_app/autocomplete/__init__.py:80
+msgid "Show C&ompletions Popup"
+msgstr "Aanvullingen &weergeven"
 
-#: frescobaldi_app/po/messages.py:64
-msgctxt "QScrollBar"
-msgid "Page left"
-msgstr "Pagina naar links"
+#: frescobaldi_app/engrave/__init__.py:151
+msgid "&Always Engrave [{docname}]"
+msgstr "&Altijd graveren [{docname}]"
 
-#: frescobaldi_app/po/messages.py:65
-msgctxt "QScrollBar"
-msgid "Page right"
-msgstr "Pagina naar rechts"
+#: frescobaldi_app/engrave/__init__.py:153
+msgid "&Always Engrave This Document"
+msgstr "Dit document &altijd graveren"
 
-#: frescobaldi_app/po/messages.py:66
-msgctxt "QScrollBar"
-msgid "Scroll left"
-msgstr "Naar links schuiven"
+#: frescobaldi_app/engrave/__init__.py:182
+msgid "Engrave"
+msgstr "Graveren"
 
-#: frescobaldi_app/po/messages.py:67
-msgctxt "QScrollBar"
-msgid "Scroll right"
-msgstr "Naar rechts schuiven"
+#: frescobaldi_app/engrave/__init__.py:183
+msgid "&Engrave (preview)"
+msgstr "&Graveren (vooruitblik)"
+
+#: frescobaldi_app/engrave/__init__.py:184
+msgid "Engrave (&publish)"
+msgstr "Graveren (&publicatie)"
+
+#: frescobaldi_app/engrave/__init__.py:185
+msgid "Engrave (&custom)"
+msgstr "Gra&veren (aangepast)"
+
+#: frescobaldi_app/engrave/__init__.py:186
+msgid "Abort Engraving &Job"
+msgstr "Graveertaak af&breken"
 
 #: frescobaldi_app/help/browser.py:74
 msgid "Toolbar"
@@ -1312,10 +1190,10 @@ msgid "Getting Started"
 msgstr "Aan de slag"
 
 #: frescobaldi_app/help/contents.py:136
-#: frescobaldi_app/preferences/lilypond.py:234
-#: frescobaldi_app/preferences/fontscolors.py:482
-#: frescobaldi_app/scorewiz/settings.py:289
 #: frescobaldi_app/helpbrowser/__init__.py:75
+#: frescobaldi_app/preferences/fontscolors.py:482
+#: frescobaldi_app/preferences/lilypond.py:234
+#: frescobaldi_app/scorewiz/settings.py:289
 msgid "LilyPond"
 msgstr "LilyPond"
 
@@ -1765,11 +1643,11 @@ msgstr ""
 "<dd>voorafgaande groep of teken mag nul or meer keer achter elkaar "
 "voorkomen</dd>\n"
 "<dt><code>+</code></dt>\n"
-"<dd>voorafgaande groep of teken mag 1 of meer keer achter elkaar voorkomen<"
-"/dd>\n"
+"<dd>voorafgaande groep of teken mag 1 of meer keer achter elkaar voorkomen</"
+"dd>\n"
 "<dt><code>?</code></dt>\n"
-"<dd>voorafgaande groep of teken mag 0 of 1 keer achter elkaar voorkomen</dd>"
-"\n"
+"<dd>voorafgaande groep of teken mag 0 of 1 keer achter elkaar voorkomen</"
+"dd>\n"
 "<dt><code>[ ]</code></dt>\n"
 "<dd>komt overeen met 1 van de gegeven tekens</dd>\n"
 "<dt><code>( )</code></dt>\n"
@@ -1806,11 +1684,11 @@ msgid ""
 msgstr ""
 "Document variabeles zijn variabelen die het gedrag van Frescobaldi "
 "beïnvloeden.\n"
-"Ze kunnen worden gezet in de eerste of laatste vijf regels van een document."
-"\n"
+"Ze kunnen worden gezet in de eerste of laatste vijf regels van een "
+"document.\n"
 "Als een regel '<b><code>-*-</code></b>' bevat, probeert Frescobaldi in\n"
-"de rest van de regels variabele-definities te vinden in de vorm van <code>"
-"naam: waarde;</code>.\n"
+"de rest van de regels variabele-definities te vinden in de vorm van "
+"<code>naam: waarde;</code>.\n"
 
 #: frescobaldi_app/help/contents.py:439
 msgid "The following variables are recognized:"
@@ -1826,9 +1704,8 @@ msgid ""
 "Force mode to be one of lilypond, html, texinfo, latex, docbook or scheme. "
 "Default: automatic mode recognition."
 msgstr ""
-"Forceert de modus, één van lilypond, html, texinfo, latex, docbook of scheme."
-" "
-"Standaard automatische modus-herkenning."
+"Forceert de modus, één van lilypond, html, texinfo, latex, docbook of "
+"scheme. Standaard automatische modus-herkenning."
 
 #: frescobaldi_app/help/contents.py:448
 msgid "filename"
@@ -1854,8 +1731,8 @@ msgstr "versie"
 msgid ""
 "Set the LilyPond version to use, can be used for non-LilyPond documents."
 msgstr ""
-"De LilyPond-versie die u wilt gebruiken, kan worden gebruikt voor "
-"niet-LilyPond documenten."
+"De LilyPond-versie die u wilt gebruiken, kan worden gebruikt voor niet-"
+"LilyPond documenten."
 
 #: frescobaldi_app/help/contents.py:455 frescobaldi_app/help/contents.py:463
 msgid "number"
@@ -1901,597 +1778,232 @@ msgstr "Zie ook:"
 msgid "(no key defined)"
 msgstr "(geen toets ingesteld)"
 
-#: frescobaldi_app/quickinsert/articulations.py:73
-msgid "Allow shorthands"
-msgstr "Korte notatie"
-
-#: frescobaldi_app/quickinsert/articulations.py:75
-msgid "Use short notation for some articulations like staccato."
-msgstr "Korte notatie toestaan voor sommige articulaties zoals staccato."
-
-#: frescobaldi_app/quickinsert/articulations.py:83
-#: frescobaldi_app/quickinsert/articulations.py:115
-msgid "Articulations"
-msgstr "Articulaties"
-
-#: frescobaldi_app/quickinsert/articulations.py:87
-msgid "Different kinds of articulations and other signs."
-msgstr "Verschillende soorten articulatie en andere tekens."
-
-#: frescobaldi_app/quickinsert/articulations.py:118
-msgid "Accent"
-msgstr "Accent"
-
-#: frescobaldi_app/quickinsert/articulations.py:119
-msgid "Marcato"
-msgstr "Marcato"
-
-#: frescobaldi_app/quickinsert/articulations.py:120
-msgid "Staccatissimo"
-msgstr "Staccatissimo"
-
-#: frescobaldi_app/quickinsert/articulations.py:121
-msgid "Staccato"
-msgstr "Staccato"
-
-#: frescobaldi_app/quickinsert/articulations.py:122
-msgid "Portato"
-msgstr "Portato"
-
-#: frescobaldi_app/quickinsert/articulations.py:123
-msgid "Tenuto"
-msgstr "Tenuto"
-
-#: frescobaldi_app/quickinsert/articulations.py:124
-msgid "Espressivo"
-msgstr "Espressivo"
-
-#: frescobaldi_app/quickinsert/articulations.py:129
-msgid "Ornaments"
-msgstr "Versieringen"
-
-#: frescobaldi_app/quickinsert/articulations.py:132
-#: frescobaldi_app/quickinsert/spanners.py:146
-msgid "Trill"
-msgstr "Triller"
-
-#: frescobaldi_app/quickinsert/articulations.py:133
-msgid "Prall"
-msgstr "Praller"
-
-#: frescobaldi_app/quickinsert/articulations.py:134
-msgid "Mordent"
-msgstr "Mordent"
-
-#: frescobaldi_app/quickinsert/articulations.py:135
-msgid "Turn"
-msgstr "Dubbelslag"
-
-#: frescobaldi_app/quickinsert/articulations.py:136
-msgid "Prall prall"
-msgstr "Lange praller"
-
-#: frescobaldi_app/quickinsert/articulations.py:137
-msgid "Prall mordent"
-msgstr "Praller met mordent"
-
-#: frescobaldi_app/quickinsert/articulations.py:138
-msgid "Up prall"
-msgstr "Praller naar boven"
-
-#: frescobaldi_app/quickinsert/articulations.py:139
-msgid "Down prall"
-msgstr "Praller naar beneden"
-
-#: frescobaldi_app/quickinsert/articulations.py:140
-msgid "Up mordent"
-msgstr "Mordent naar boven"
-
-#: frescobaldi_app/quickinsert/articulations.py:141
-msgid "Down mordent"
-msgstr "Mordent naar beneden"
-
-#: frescobaldi_app/quickinsert/articulations.py:142
-msgid "Prall up"
-msgstr "Praller naar boven"
-
-#: frescobaldi_app/quickinsert/articulations.py:143
-msgid "Prall down"
-msgstr "Praller naar onder"
-
-#: frescobaldi_app/quickinsert/articulations.py:144
-msgid "Line prall"
-msgstr "Praller met lijn"
-
-#: frescobaldi_app/quickinsert/articulations.py:145
-msgid "Reverse turn"
-msgstr "Omgekeerde dubbelslag"
-
-#. L10N: dynamic signs
-#: frescobaldi_app/quickinsert/articulations.py:150
-#: frescobaldi_app/quickinsert/dynamics.py:115
-msgid "Signs"
-msgstr "Tekens"
-
-#: frescobaldi_app/quickinsert/articulations.py:153
-msgid "Fermata"
-msgstr "Fermate"
-
-#: frescobaldi_app/quickinsert/articulations.py:154
-msgid "Short fermata"
-msgstr "Korte fermate"
-
-#: frescobaldi_app/quickinsert/articulations.py:155
-msgid "Long fermata"
-msgstr "Lange fermate"
-
-#: frescobaldi_app/quickinsert/articulations.py:156
-msgid "Very long fermata"
-msgstr "Zeer lange fermate"
-
-#: frescobaldi_app/quickinsert/articulations.py:157
-msgid "Segno"
-msgstr "Teken"
-
-#: frescobaldi_app/quickinsert/articulations.py:158
-msgid "Coda"
-msgstr "Coda"
-
-#: frescobaldi_app/quickinsert/articulations.py:159
-msgid "Varcoda"
-msgstr "Varcoda"
-
-#: frescobaldi_app/quickinsert/articulations.py:160
-msgid "Signumcongruentiae"
-msgstr "Signumcongruentiae"
-
-#: frescobaldi_app/quickinsert/articulations.py:165
-msgid "Other"
-msgstr "Overig"
-
-#: frescobaldi_app/quickinsert/articulations.py:168
-msgid "Upbow"
-msgstr "Opstreek"
-
-#: frescobaldi_app/quickinsert/articulations.py:169
-msgid "Downbow"
-msgstr "Afstreek"
-
-#: frescobaldi_app/quickinsert/articulations.py:170
-msgid "Snappizzicato"
-msgstr "Bartók pizzicato"
-
-#: frescobaldi_app/quickinsert/articulations.py:171
-msgid "Open (e.g. brass)"
-msgstr "Open (koper)"
-
-#: frescobaldi_app/quickinsert/articulations.py:172
-msgid "Stopped (e.g. brass)"
-msgstr "Gestopt (koper)"
-
-#: frescobaldi_app/quickinsert/articulations.py:173
-msgid "Flageolet"
-msgstr "Flageolet"
-
-#: frescobaldi_app/quickinsert/articulations.py:174
-msgid "Thumb"
-msgstr "Duim"
-
-#: frescobaldi_app/quickinsert/articulations.py:175
-msgid "Left heel"
-msgstr "Linker hak"
-
-#: frescobaldi_app/quickinsert/articulations.py:176
-msgid "Right heel"
-msgstr "Rechter hak"
-
-#: frescobaldi_app/quickinsert/articulations.py:177
-msgid "Left toe"
-msgstr "Linker teen"
-
-#: frescobaldi_app/quickinsert/articulations.py:178
-msgid "Right toe"
-msgstr "Rechter teen"
-
-#: frescobaldi_app/quickinsert/articulations.py:179
-msgid "Half open (e.g. hi-hat)"
-msgstr "Halfopen (bijv. hi-hat)"
-
-#: frescobaldi_app/quickinsert/buttongroup.py:175
-msgid "{name} ({key})"
-msgstr "{name} ({key})"
-
-#: frescobaldi_app/quickinsert/buttongroup.py:182
-msgid "Configure Keyboard Shortcut ({key})"
-msgstr "Sneltoets instellen ({key})"
-
-#: frescobaldi_app/quickinsert/buttongroup.py:182
-#: frescobaldi_app/snippet/edit.py:125
-#: frescobaldi_app/scorewiz/scoreproperties.py:171
-#: frescobaldi_app/scorewiz/settings.py:189
-msgid "None"
-msgstr "Geen"
-
-#: frescobaldi_app/quickinsert/barlines.py:49
-#: frescobaldi_app/quickinsert/barlines.py:58
-msgid "Bar Lines"
-msgstr "Maatstrepen"
-
-#: frescobaldi_app/quickinsert/barlines.py:53
-msgid "Bar lines, breathing signs, etcetera."
-msgstr "Maatstrepen, ademhalingstekens, etc."
-
-#: frescobaldi_app/quickinsert/barlines.py:61
-msgid "Double bar line"
-msgstr "Dubbele maatstreep"
-
-#: frescobaldi_app/quickinsert/barlines.py:62
-msgid "Ending bar line"
-msgstr "Eindmaatstreep"
-
-#: frescobaldi_app/quickinsert/barlines.py:63
-msgid "Dotted bar line"
-msgstr "Gestippelde maatstreep"
-
-#: frescobaldi_app/quickinsert/barlines.py:64
-msgid "Dashed bar line"
-msgstr "Gestreepte maatstreep"
-
-#: frescobaldi_app/quickinsert/barlines.py:65
-msgid "Invisible bar line"
-msgstr "Onzichtbare maatstreep"
-
-#: frescobaldi_app/quickinsert/barlines.py:66
-msgid "Repeat start"
-msgstr "Start herhaling"
-
-#: frescobaldi_app/quickinsert/barlines.py:67
-msgid "Repeat both"
-msgstr "Herhaal beide"
-
-#: frescobaldi_app/quickinsert/barlines.py:68
-msgid "Repeat end"
-msgstr "Eind herhaling"
-
-#: frescobaldi_app/quickinsert/barlines.py:69
-msgid "Repeat both (old)"
-msgstr "Herhaal beide (oud)"
-
-#: frescobaldi_app/quickinsert/barlines.py:70
-msgid "Repeat both (classic)"
-msgstr "Herhaal beide (klassiek)"
-
-#: frescobaldi_app/quickinsert/barlines.py:71
-msgid "Tick bar line"
-msgstr "Hoge maatstreep"
-
-#: frescobaldi_app/quickinsert/barlines.py:72
-msgid "Single bar line"
-msgstr "Enkele maatstreep"
-
-#: frescobaldi_app/quickinsert/barlines.py:73
-msgid "Small-Wide-Small bar line"
-msgstr "Dun-dik-dunne maatstreep"
-
-#: frescobaldi_app/quickinsert/barlines.py:74
-msgid "Wide-Small bar line"
-msgstr "Dik-dunne maatstreep"
-
-#: frescobaldi_app/quickinsert/barlines.py:75
-msgid "Double wide bar line"
-msgstr "Dubbele dikke maatstreep"
-
-#: frescobaldi_app/quickinsert/barlines.py:76
-msgid "Segno bar line"
-msgstr "Segno maatstreep"
-
-#: frescobaldi_app/quickinsert/barlines.py:95
-msgid "Breathing Signs"
-msgstr "Ademhalingstekens"
-
-#: frescobaldi_app/quickinsert/barlines.py:102
-msgid "Default Breathing Sign"
-msgstr "Standaard ademhalingsteken"
-
-#: frescobaldi_app/quickinsert/barlines.py:103
-msgid "Straight Breathing Sign"
-msgstr "Recht ademhalingsteken"
-
-#: frescobaldi_app/quickinsert/barlines.py:104
-msgid "Curved Caesura"
-msgstr "Gebogen cesuur"
-
-#: frescobaldi_app/quickinsert/barlines.py:105
-msgid "Straight Caesura"
-msgstr "Rechte cesuur"
-
-#: frescobaldi_app/quickinsert/dynamics.py:51
-msgid "Dynamics"
-msgstr "Dynamiek"
-
-#: frescobaldi_app/quickinsert/dynamics.py:55
-msgid "Dynamic symbols."
-msgstr "Dynamische tekens."
-
-#: frescobaldi_app/quickinsert/dynamics.py:128
-msgid "Dynamic sign {name}"
-msgstr "Dynamisch teken {name}"
-
-#: frescobaldi_app/quickinsert/dynamics.py:133
-#: frescobaldi_app/quickinsert/spanners.py:51
-#: frescobaldi_app/quickinsert/spanners.py:136
-msgid "Spanners"
-msgstr "Spanners"
-
-#: frescobaldi_app/quickinsert/dynamics.py:142
-msgid "Hairpin crescendo"
-msgstr "Crescendo (lijnen)"
-
-#: frescobaldi_app/quickinsert/dynamics.py:143
-msgid "Crescendo"
-msgstr "Crescendo"
-
-#: frescobaldi_app/quickinsert/dynamics.py:144
-msgid "Hairpin diminuendo"
-msgstr "Diminuendo (lijnen)"
-
-#: frescobaldi_app/quickinsert/dynamics.py:145
-msgid "Diminuendo"
-msgstr "Diminuendo"
-
-#: frescobaldi_app/quickinsert/dynamics.py:146
-msgid "Decrescendo"
-msgstr "Decrescendo"
-
-#: frescobaldi_app/quickinsert/widget.py:102
+#: frescobaldi_app/helpbrowser/__init__.py:45
+#: frescobaldi_app/helpbrowser/__init__.py:57
+msgid "Help Browser"
+msgstr "Helpbrowser"
+
+#: frescobaldi_app/helpbrowser/__init__.py:46
+msgid "&Help Browser"
+msgstr "&Helpbrowser"
+
+#. L10N: Home page of the Frescobaldi manual
+#: frescobaldi_app/helpbrowser/__init__.py:74
+msgid "Home"
+msgstr "Begin"
+
+#: frescobaldi_app/helpbrowser/html.py:44
+msgid "Documentation"
+msgstr "Documentatie"
+
+#: frescobaldi_app/helpbrowser/html.py:45
+msgid "{appname} version {version}"
+msgstr "{appname} versie {version}"
+
+#: frescobaldi_app/helpbrowser/sourceviewer.py:59
+msgid "LilyPond Source"
+msgstr "LilyPond-bron"
+
+#: frescobaldi_app/logtool/__init__.py:50
+#: frescobaldi_app/preferences/tools.py:78
+msgid "LilyPond Log"
+msgstr "LilyPond-uitvoer"
+
+#: frescobaldi_app/logtool/__init__.py:51
+msgid "LilyPond &Log"
+msgstr "&LilyPond-uitvoer"
+
+#: frescobaldi_app/logtool/__init__.py:90
+msgid "Next Error Message"
+msgstr "Volgende foutmelding"
+
+#: frescobaldi_app/logtool/__init__.py:91
+msgid "Previous Error Message"
+msgstr "Vorige foutmelding"
+
+#: frescobaldi_app/logtool/logwidget.py:106
+msgid "Click to edit this file"
+msgstr "Klik om dit bestand te bewerken"
+
+#: frescobaldi_app/musicview/__init__.py:86
+msgctxt "window title"
+msgid "Music View"
+msgstr "Muziekweergave"
+
+#: frescobaldi_app/musicview/__init__.py:87
+msgid "&Music View"
+msgstr "&Muziekweergave"
+
+#: frescobaldi_app/musicview/__init__.py:191
+msgid "Select Music View Document"
+msgstr "Weer te geven document selecteren"
+
+#: frescobaldi_app/musicview/__init__.py:192
+msgid "&Print Music..."
+msgstr "&Muziek afdrukken..."
+
+#: frescobaldi_app/musicview/__init__.py:193
+msgid "Zoom &In"
+msgstr "&Inzoomen"
+
+#: frescobaldi_app/musicview/__init__.py:194
+msgid "Zoom &Out"
+msgstr "&Uitzoomen"
+
+#: frescobaldi_app/musicview/__init__.py:195
+msgid "Zoom Music"
+msgstr "Muziek zoomen"
+
+#: frescobaldi_app/musicview/__init__.py:196
+msgid "Fit &Width"
+msgstr "Passend in &breedte"
+
+#: frescobaldi_app/musicview/__init__.py:197
+msgid "Fit &Height"
+msgstr "Passend in &hoogte"
+
+#: frescobaldi_app/musicview/__init__.py:198
+msgid "Fit &Page"
+msgstr "Hele &pagina"
+
+#: frescobaldi_app/musicview/__init__.py:199
+msgid "&Jump to Cursor Position"
+msgstr "Naar cursor &springen"
+
+#: frescobaldi_app/musicview/__init__.py:200
+msgid "Copy to &Image..."
+msgstr "Naar afbeeld&ing kopiëren..."
+
+#: frescobaldi_app/musicview/__init__.py:340
+msgid "Choose the PDF document to display."
+msgstr "Kies het weer te geven PDF-document."
+
+#: frescobaldi_app/musicview/__init__.py:342
 msgid ""
-"<p>With the Quick Insert Panel you can add various music elements to the "
-"current note or selected music.</p>\n"
-"<p>See {link} for more information.</p>"
+"Choose the PDF document to display or drag the file to another application "
+"or location."
 msgstr ""
-"<p>Met het Quick Insert-paneel kunt u allerlei muzieksymbolen aan de huidige "
-"noot of geselecteerde muziek toevoegen.</p>\n"
-"<p>Zie {link} voor meer informatie.</p>"
+"Kies het weer te geven PDF-document of sleep het bestand naar een andere "
+"locatie of toepassing."
 
-#: frescobaldi_app/quickinsert/widget.py:107
-msgid "Direction:"
-msgstr "Richting:"
+#: frescobaldi_app/musicview/__init__.py:400
+msgid "Fit Width"
+msgstr "Passend in breedte"
 
-#: frescobaldi_app/quickinsert/widget.py:108
-msgid "Up"
-msgstr "Boven"
+#: frescobaldi_app/musicview/__init__.py:401
+msgid "Fit Height"
+msgstr "Passend in hoogte"
 
-#: frescobaldi_app/quickinsert/widget.py:108
-msgid "Neutral"
-msgstr "Neutraal"
+#: frescobaldi_app/musicview/__init__.py:402
+msgid "Fit Page"
+msgstr "Hele pagina"
 
-#: frescobaldi_app/quickinsert/widget.py:108
-msgid "Down"
-msgstr "Onder"
+#: frescobaldi_app/musicview/image.py:127
+msgid "DPI:"
+msgstr "DPI:"
 
-#: frescobaldi_app/quickinsert/widget.py:127
-msgid "The Quick Insert Panel"
-msgstr "Het Quick Insert-paneel"
+#: frescobaldi_app/musicview/image.py:128
+msgid "Paper Color"
+msgstr "Papierkleur"
 
-#: frescobaldi_app/quickinsert/widget.py:130
+#: frescobaldi_app/musicview/image.py:129
+msgid "Auto-crop"
+msgstr "Bijknippen"
+
+#: frescobaldi_app/musicview/image.py:130
+msgid "Antialias"
+msgstr "Vloeiend"
+
+#: frescobaldi_app/musicview/image.py:131
+msgid "Drag the image as a PNG file."
+msgstr "De afbeelding als PNG-bestand slepen."
+
+#: frescobaldi_app/musicview/image.py:132
+msgid "&Copy to Clipboard"
+msgstr "Naar klembord &kopiëren"
+
+#: frescobaldi_app/musicview/image.py:133
+msgid "&Save As..."
+msgstr "Opslaan &als..."
+
+#: frescobaldi_app/musicview/image.py:135
+#, python-format
 msgid ""
 "<p>\n"
-"With the tools in the Quick Insert Panel you can add various music elements\n"
-"to the current note or selected music.\n"
+"Clicking toggles the display between 100% size and window size. Drag to copy "
+"the image to another application. Drag with Ctrl (or {command}) to scroll a "
+"large image.\n"
 "</p>\n"
-"\n"
 "<p>\n"
-"The <em>Direction</em> chooser specifies if articulations, dynamics or "
-"slurs\n"
-"appear in a neutral position (e.g. determined by stem direction), or above\n"
-"or below the staff by prepending a <code>-</code>, <code>^</code> or\n"
-"<code>_</code> character.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"Click on a tab to select a tool. You can cycle through the tools with Ctrl\n"
-"(or {command}) and the mouse wheel.\n"
-"All buttons in the Quick Insert Panel have configurable keyboard shortcuts;\n"
-"you can change them by right-clicking a button.\n"
-"</p>\n"
+"You can also drag the small picture icon in the bottom right, which drags "
+"the actual file on disk, e.g. to an e-mail message.\n"
+"</p>"
 msgstr ""
 "<p>\n"
-"Met de gereedschappen in het Quick Insert-paneel kunt u allerlei "
-"muzieksymbolen  aan de huidige noot of de geselecteerde muziek toevoegen.\n"
+"Klik om de weergave te wisselen tussen 100%-grootte en venstergrootte. Sleep "
+"om de afbeelding naar een andere toepassing te kopiëren.\n"
+"Sleep met Control (of {command}) om een grotere afbeelding te schuiven.\n"
 "</p>\n"
-"\n"
 "<p>\n"
-"De <em>Richting</em> selectieknop bepaalt of articulaties, dynamische tekens "
-"of boogjes in een neutrale positie worden geplaatst (bijv. bepaald door "
-"stokrichting) of boven of onder de balk door een <code>-</code>, <code>^</"
-"code> of\n"
-"<code>_</code> teken ervoor te plaatsen.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"Klik op een tab om een categorie te selecteren. U kunt bladeren door alle "
-"tabs met Control (of {command}) en het muiswiel.\n"
-"Alle knoppen in het Quick Insert-paneel hebben instelbare sneltoetsen; u "
-"kunt deze aanpassen door rechts te klikken op een knop.\n"
-"</p>\n"
+"U kunt ook het kleine afbeeldingsicoon rechtsonder slepen, waarmee u het "
+"werkelijke bestand op schijf sleept, bijvoorbeeld naar een e-mailbericht.\n"
+"</p>"
 
-#: frescobaldi_app/quickinsert/widget.py:149
+#: frescobaldi_app/musicview/image.py:166
+msgid "Image from {filename}"
+msgstr "Afbeelding uit {filename}"
+
+#: frescobaldi_app/musicview/image.py:209
+msgid "Save Image As"
+msgstr "Afbeelding opslaan als"
+
+#: frescobaldi_app/musicview/image.py:213
+msgid "Could not save the image."
+msgstr "Kan de afbeelding niet opslaan."
+
+#: frescobaldi_app/pitch/__init__.py:99
+msgid "Pitch Name &Language"
+msgstr "Taal voor &nootnamen"
+
+#: frescobaldi_app/pitch/__init__.py:101
 msgid ""
-"<h3>Articulations</h3>\n"
-"\n"
-"<p>\n"
-"These musical symbols can be added to a note or rest or a selected range\n"
-"of music.\n"
-"If you add them to a selection, rests will be skipped.\n"
-"If there is no text selected, the cursor will automatically move to the "
-"next\n"
-"pitch, rest, skip or chord.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"If <em>Allow shorthands</em> is checked, Frescobaldi will use short signs\n"
-"for articulations if they exist\n"
-"(e.g. <code>-.</code> instead of <code>-\\staccato</code>).\n"
-"</p>\n"
+"Change the LilyPond language used for pitch names in this document or in the "
+"selection."
 msgstr ""
-"<h3>Articulaties</h3>\n"
-"\n"
-"<p>\n"
-"Deze muzieksymbolen kunnen aan een noot, rust of een geselecteerd bereik "
-"worden toegevoegd.\n"
-"Als u ze aan een selectie toevoegt worden rusten overgeslagen.\n"
-"Als er geen tekst geselecteerd is springt de cursor vanzelf naar de volgende "
-"noot, rust of het volgende akkoord.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"Als <em>Korte notatie</em> is ingeschakeld zal Frescobaldi korte tekens "
-"gebruiken indien beschikbaar (bijvoorbeeld <code>-.</code> in plaats van "
-"<code>-\\staccato</code>).\n"
-"</p>\n"
+"De LilyPond-taal voor de nootnamen aanpassen in het document of het "
+"geselecteerde gedeelte."
 
-#: frescobaldi_app/quickinsert/widget.py:165
+#: frescobaldi_app/pitch/__init__.py:103
+msgid "Convert Relative to &Absolute"
+msgstr "Relatief naar &absoluut omzetten"
+
+#: frescobaldi_app/pitch/__init__.py:105
 msgid ""
-"<h3>Dynamics</h3>\n"
-"\n"
-"<p>\n"
-"Dynamics can also be added to a note or rest.\n"
-"If you select a range of music, you can add spanners which will "
-"automatically\n"
-"terminate at the last note, rest or chord in the selection.\n"
-"If you then click a sign, it will replace the terminator.\n"
-"</p>\n"
+"Converts the notes in the document or selection from relative to absolute "
+"pitch."
 msgstr ""
-"<h3>Dynamische tekens</h3>\n"
-"\n"
-"<p>\n"
-"Dynamische tekens kunnen ook aan noten of rusten worden toegevoegd.\n"
-"Als u een muziekbereik selecteert kunt in spanners toevoegen die automatisch "
-"afsluiten op de laatste noot, rust of het laatste akkoord.\n"
-"Als u daarna een teken aanklikt, vervangt dat de afsluiter.\n"
-"</p>\n"
+"Zet de noten in het document of de selectie om van relatieve naar absolute "
+"toonhoogte."
 
-#: frescobaldi_app/quickinsert/widget.py:174
+#: frescobaldi_app/pitch/__init__.py:107
+msgid "Convert Absolute to &Relative"
+msgstr "Absoluut naar &relatief omzetten"
+
+#: frescobaldi_app/pitch/__init__.py:109
 msgid ""
-"<h3>Spanners</h3>\n"
-"\n"
-"<p>\n"
-"This tool lets you add arpeggio, glissandos and other spanners like slurs,\n"
-"phrasing slurs, manual beams or trills.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"Arpeggios and glissandos apply to the current note;\n"
-"they need no music to be selected.\n"
-"The slurs, beams or trill apply to the current note and the next one\n"
-"if no music is selected,\n"
-"or to the first and the last note or chord in the selection.\n"
-"</p>\n"
+"Converts the notes in the document or selection from absolute to relative "
+"pitch."
 msgstr ""
-"<h3>Spanners</h3>\n"
-"\n"
-"<p>\n"
-"Hiermee kunt u arpeggio's, glissando's en andere spanners zoals bogen, "
-"fraseringsbogen, handmatige waardestrepen of trillers toevoegen.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"Arpeggio's en glissando's gelden alleen voor de huidige noot;\n"
-"er hoeft geen muziek te zijn geselecteerd.\n"
-"De bogen, waardestreep of de triller gelden voor de huidige noot en de "
-"volgende als er geen muziek geselecteerd is,\n"
-"of voor de eerste en de laatste noot of akkoord in de selectie.\n"
-"</p>\n"
+"Zet de noten in het document of de selectie om van absolute naar relatieve "
+"toonhoogte."
 
-#: frescobaldi_app/quickinsert/widget.py:189
-msgid ""
-"<h3>Bar Lines</h3>\n"
-"\n"
-"<p>\n"
-"Here you can insert bar lines or various breathing signs.\n"
-"</p>\n"
-msgstr ""
-"<h3>Maatstrepen</h3>\n"
-"\n"
-"<p>\n"
-"Hiermee kunt u verschillende soorten maatstrepen en ademhalingstekens "
-"invoegen.\n"
-"</p>\n"
+#: frescobaldi_app/pitch/__init__.py:111
+msgid "&Transpose..."
+msgstr "&Transponeren..."
 
-#: frescobaldi_app/quickinsert/spanners.py:55
-msgid "Slurs, spanners, etcetera."
-msgstr "Bogen, spanners, etc."
-
-#: frescobaldi_app/quickinsert/spanners.py:60
-msgid "Arpeggios"
-msgstr "Arpeggio's"
-
-#: frescobaldi_app/quickinsert/spanners.py:69
-msgid "Arpeggio"
-msgstr "Arpeggio"
-
-#: frescobaldi_app/quickinsert/spanners.py:70
-msgid "Arpeggio with Up Arrow"
-msgstr "Arpeggio met pijl omhoog"
-
-#: frescobaldi_app/quickinsert/spanners.py:71
-msgid "Arpeggio with Down Arrow"
-msgstr "Arpeggio met pijl naar beneden"
-
-#: frescobaldi_app/quickinsert/spanners.py:72
-msgid "Bracket Arpeggio"
-msgstr "Vierkante haak-arpeggio"
-
-#: frescobaldi_app/quickinsert/spanners.py:73
-msgid "Parenthesis Arpeggio"
-msgstr "Ronde haak-arpeggio"
-
-#: frescobaldi_app/quickinsert/spanners.py:105
-msgid "Glissandos"
-msgstr "Glissando's"
-
-#: frescobaldi_app/quickinsert/spanners.py:114
-msgid "Glissando"
-msgstr "Glissando"
-
-#: frescobaldi_app/quickinsert/spanners.py:115
-msgid "Dashed Glissando"
-msgstr "Gestreept glissando"
-
-#: frescobaldi_app/quickinsert/spanners.py:116
-msgid "Dotted Glissando"
-msgstr "Gestippeld glissando"
-
-#: frescobaldi_app/quickinsert/spanners.py:117
-msgid "Zigzag Glissando"
-msgstr "Zig-zag glissando"
-
-#: frescobaldi_app/quickinsert/spanners.py:118
-msgid "Trill Glissando"
-msgstr "Triller-glissando"
-
-#: frescobaldi_app/quickinsert/spanners.py:143
-#: frescobaldi_app/preferences/fontscolors.py:490
-msgid "Slur"
-msgstr "Boogje"
-
-#: frescobaldi_app/quickinsert/spanners.py:144
-msgid "Phrasing Slur"
-msgstr "Fraseringsboog"
-
-#: frescobaldi_app/quickinsert/spanners.py:145
-#: frescobaldi_app/preferences/fontscolors.py:494
-msgid "Beam"
-msgstr "Waardestreep"
-
-#: frescobaldi_app/quickinsert/__init__.py:47
-#: frescobaldi_app/quickinsert/__init__.py:70
-msgid "Quick Insert"
-msgstr "Quick Insert"
-
-#: frescobaldi_app/quickinsert/__init__.py:48
-msgid "Quick &Insert"
-msgstr "Quick &Insert"
+#: frescobaldi_app/pitch/__init__.py:113
+msgid "Transposes all notes in the document or selection."
+msgstr "Transponeert alle noten in de selectie of het document."
 
 #: frescobaldi_app/pitch/pitch.py:81 frescobaldi_app/pitch/pitch.py:94
 msgid "Pitch Name Language"
@@ -2704,845 +2216,188 @@ msgstr ""
 "correct af.\n"
 "</p>\n"
 
-#: frescobaldi_app/pitch/__init__.py:99
-msgid "Pitch Name &Language"
-msgstr "Taal voor &nootnamen"
+#: frescobaldi_app/po/messages.py:27
+msgid "Usage"
+msgstr "Gebruik"
 
-#: frescobaldi_app/pitch/__init__.py:101
-msgid ""
-"Change the LilyPond language used for pitch names in this document or in the "
-"selection."
-msgstr ""
-"De LilyPond-taal voor de nootnamen aanpassen in het document of het "
-"geselecteerde gedeelte."
-
-#: frescobaldi_app/pitch/__init__.py:103
-msgid "Convert Relative to &Absolute"
-msgstr "Relatief naar &absoluut omzetten"
-
-#: frescobaldi_app/pitch/__init__.py:105
-msgid ""
-"Converts the notes in the document or selection from relative to absolute "
-"pitch."
-msgstr ""
-"Zet de noten in het document of de selectie om van relatieve naar absolute "
-"toonhoogte."
-
-#: frescobaldi_app/pitch/__init__.py:107
-msgid "Convert Absolute to &Relative"
-msgstr "Absoluut naar &relatief omzetten"
-
-#: frescobaldi_app/pitch/__init__.py:109
-msgid ""
-"Converts the notes in the document or selection from absolute to relative "
-"pitch."
-msgstr ""
-"Zet de noten in het document of de selectie om van absolute naar relatieve "
-"toonhoogte."
-
-#: frescobaldi_app/pitch/__init__.py:111
-msgid "&Transpose..."
-msgstr "&Transponeren..."
-
-#: frescobaldi_app/pitch/__init__.py:113
-msgid "Transposes all notes in the document or selection."
-msgstr "Transponeert alle noten in de selectie of het document."
-
-#: frescobaldi_app/engrave/__init__.py:151
-msgid "&Always Engrave [{docname}]"
-msgstr "&Altijd graveren [{docname}]"
-
-#: frescobaldi_app/engrave/__init__.py:153
-msgid "&Always Engrave This Document"
-msgstr "Dit document &altijd graveren"
-
-#: frescobaldi_app/engrave/__init__.py:182
-msgid "Engrave"
-msgstr "Graveren"
-
-#: frescobaldi_app/engrave/__init__.py:183
-msgid "&Engrave (preview)"
-msgstr "&Graveren (vooruitblik)"
-
-#: frescobaldi_app/engrave/__init__.py:184
-msgid "Engrave (&publish)"
-msgstr "Graveren (&publicatie)"
-
-#: frescobaldi_app/engrave/__init__.py:185
-msgid "Engrave (&custom)"
-msgstr "Gra&veren (aangepast)"
-
-#: frescobaldi_app/engrave/__init__.py:186
-msgid "Abort Engraving &Job"
-msgstr "Graveertaak af&breken"
-
-#: frescobaldi_app/logtool/logwidget.py:106
-msgid "Click to edit this file"
-msgstr "Klik om dit bestand te bewerken"
-
-#: frescobaldi_app/logtool/__init__.py:50
-#: frescobaldi_app/preferences/tools.py:78
-msgid "LilyPond Log"
-msgstr "LilyPond-uitvoer"
-
-#: frescobaldi_app/logtool/__init__.py:51
-msgid "LilyPond &Log"
-msgstr "&LilyPond-uitvoer"
-
-#: frescobaldi_app/logtool/__init__.py:90
-msgid "Next Error Message"
-msgstr "Volgende foutmelding"
-
-#: frescobaldi_app/logtool/__init__.py:91
-msgid "Previous Error Message"
-msgstr "Vorige foutmelding"
-
-#: frescobaldi_app/musicview/image.py:127
-msgid "DPI:"
-msgstr "DPI:"
-
-#: frescobaldi_app/musicview/image.py:128
-msgid "Paper Color"
-msgstr "Papierkleur"
-
-#: frescobaldi_app/musicview/image.py:129
-msgid "Auto-crop"
-msgstr "Bijknippen"
-
-#: frescobaldi_app/musicview/image.py:130
-msgid "Antialias"
-msgstr "Vloeiend"
-
-#: frescobaldi_app/musicview/image.py:131
-msgid "Drag the image as a PNG file."
-msgstr "De afbeelding als PNG-bestand slepen."
-
-#: frescobaldi_app/musicview/image.py:132
-msgid "&Copy to Clipboard"
-msgstr "Naar klembord &kopiëren"
-
-#: frescobaldi_app/musicview/image.py:133
-msgid "&Save As..."
-msgstr "Opslaan &als..."
-
-#: frescobaldi_app/musicview/image.py:135
+#: frescobaldi_app/po/messages.py:28
 #, python-format
-msgid ""
-"<p>\n"
-"Clicking toggles the display between 100% size and window size. Drag to copy "
-"the image to another application. Drag with Ctrl (or {command}) to scroll a "
-"large image.\n"
-"</p>\n"
-"<p>\n"
-"You can also drag the small picture icon in the bottom right, which drags "
-"the actual file on disk, e.g. to an e-mail message.\n"
-"</p>"
-msgstr ""
-"<p>\n"
-"Klik om de weergave te wisselen tussen 100%-grootte en venstergrootte. Sleep "
-"om de afbeelding naar een andere toepassing te kopiëren.\n"
-"Sleep met Control (of {command}) om een grotere afbeelding te schuiven.\n"
-"</p>\n"
-"<p>\n"
-"U kunt ook het kleine afbeeldingsicoon rechtsonder slepen, waarmee u het "
-"werkelijke bestand op schijf sleept, bijvoorbeeld naar een e-mailbericht.\n"
-"</p>"
-
-#: frescobaldi_app/musicview/image.py:166
-msgid "Image from {filename}"
-msgstr "Afbeelding uit {filename}"
-
-#: frescobaldi_app/musicview/image.py:209
-msgid "Save Image As"
-msgstr "Afbeelding opslaan als"
-
-#: frescobaldi_app/musicview/image.py:213
-msgid "Could not save the image."
-msgstr "Kan de afbeelding niet opslaan."
-
-#: frescobaldi_app/musicview/__init__.py:86
-msgctxt "window title"
-msgid "Music View"
-msgstr "Muziekweergave"
-
-#: frescobaldi_app/musicview/__init__.py:87
-msgid "&Music View"
-msgstr "&Muziekweergave"
-
-#: frescobaldi_app/musicview/__init__.py:191
-msgid "Select Music View Document"
-msgstr "Weer te geven document selecteren"
-
-#: frescobaldi_app/musicview/__init__.py:192
-msgid "&Print Music..."
-msgstr "&Muziek afdrukken..."
-
-#: frescobaldi_app/musicview/__init__.py:193
-msgid "Zoom &In"
-msgstr "&Inzoomen"
-
-#: frescobaldi_app/musicview/__init__.py:194
-msgid "Zoom &Out"
-msgstr "&Uitzoomen"
-
-#: frescobaldi_app/musicview/__init__.py:195
-msgid "Zoom Music"
-msgstr "Muziek zoomen"
-
-#: frescobaldi_app/musicview/__init__.py:196
-msgid "Fit &Width"
-msgstr "Passend in &breedte"
-
-#: frescobaldi_app/musicview/__init__.py:197
-msgid "Fit &Height"
-msgstr "Passend in &hoogte"
-
-#: frescobaldi_app/musicview/__init__.py:198
-msgid "Fit &Page"
-msgstr "Hele &pagina"
-
-#: frescobaldi_app/musicview/__init__.py:199
-msgid "&Jump to Cursor Position"
-msgstr "Naar cursor &springen"
-
-#: frescobaldi_app/musicview/__init__.py:200
-msgid "Copy to &Image..."
-msgstr "Naar afbeeld&ing kopiëren..."
-
-#: frescobaldi_app/musicview/__init__.py:340
-msgid "Choose the PDF document to display."
-msgstr "Kies het weer te geven PDF-document."
-
-#: frescobaldi_app/musicview/__init__.py:342
-msgid ""
-"Choose the PDF document to display or drag the file to another application "
-"or location."
-msgstr ""
-"Kies het weer te geven PDF-document of sleep het bestand naar een andere "
-"locatie of toepassing."
-
-#: frescobaldi_app/musicview/__init__.py:400
-msgid "Fit Width"
-msgstr "Passend in breedte"
-
-#: frescobaldi_app/musicview/__init__.py:401
-msgid "Fit Height"
-msgstr "Passend in hoogte"
-
-#: frescobaldi_app/musicview/__init__.py:402
-msgid "Fit Page"
-msgstr "Hele pagina"
-
-#: frescobaldi_app/snippet/expand.py:76
-msgid "The current date in YYYY-MM-DD format."
-msgstr "De huidige datum in JJJJ-MM-DD formaat."
-
-#: frescobaldi_app/snippet/expand.py:80
-msgid "The version of the default LilyPond program."
-msgstr "De versie van het standaard LilyPond programma."
-
-#: frescobaldi_app/snippet/expand.py:84
-msgid "The version of Frescobaldi."
-msgstr "De versie van Frescobaldi."
-
-#: frescobaldi_app/snippet/expand.py:88
-msgid "The URL of the current document."
-msgstr "De URL van het huidige document."
-
-#: frescobaldi_app/snippet/expand.py:92
-msgid "The full local filename of the current document."
-msgstr "De volledige lokale bestandsnaam van het huidige document."
-
-#: frescobaldi_app/snippet/expand.py:96
-msgid "The name of the current document."
-msgstr "De naam van het huidige document."
-
-#: frescobaldi_app/snippet/expand.py:100
-msgid "Moves the text cursor here after insert."
-msgstr "Verplaatst de tekstcursor hier na invoegen."
-
-#: frescobaldi_app/snippet/expand.py:104
-msgid ""
-"Selects text from here to the position given using the <code>$CURSOR</code> "
-"variable"
-msgstr ""
-"Selecteert tekst van hier tot aan de positie opgegeven met de <code>$CURSOR</"
-"code> variabele."
-
-#: frescobaldi_app/snippet/expand.py:108
-msgid "The selected text if available. If not, the text cursor is moved here."
-msgstr ""
-"De geselecteerde tekst indien beschikbaar. Indien niet, wordt de tekstcursor "
-"hier geplaatst."
-
-#: frescobaldi_app/snippet/edit.py:116 frescobaldi_app/snippet/insert.py:220
-msgid "Edit Snippet"
-msgstr "Knipsel bewerken"
-
-#: frescobaldi_app/snippet/edit.py:116
-msgid "New Snippet"
-msgstr "Nieuw knipsel"
-
-#: frescobaldi_app/snippet/edit.py:118
-msgid "Snippet Text:"
-msgstr "Knipseltekst:"
-
-#: frescobaldi_app/snippet/edit.py:119
-msgid "Title:"
-msgstr "Titel:"
-
-#: frescobaldi_app/snippet/edit.py:120
-msgid "Shortcut:"
-msgstr "Sneltoets:"
-
-#: frescobaldi_app/snippet/edit.py:131
-msgid "Click to change the keyboard shortcut."
-msgstr "Klik om de sneltoets in te stellen."
-
-#: frescobaldi_app/snippet/edit.py:136
-msgid "Empty Snippet"
-msgstr "Leeg knipsel"
-
-#: frescobaldi_app/snippet/edit.py:136
-msgid "A snippet can't be empty."
-msgstr "Een knipsel kan niet leeg zijn."
-
-#: frescobaldi_app/snippet/edit.py:198
-msgid "Snippet editor"
-msgstr "Knipsel-editor"
-
-#: frescobaldi_app/snippet/edit.py:203
-msgid ""
-"<p>Here you can edit the text of the snippet.</p><p>If you start the first "
-"line(s) with '<code>-*- </code>' (note the space), the remainder of that line"
-"(s) defines variables like <code>name: value;</code> or simply <code>name;</"
-"code> which influence the behaviour of the snippet. The following variables "
-"can be used:</p>"
-msgstr ""
-"<p>Hier kunt u de tekst van het knipsel bewerken.</p> <p>Als u de eerste "
-"regel(s) start met '<code>-*- </code>' (let op de spatie), definieert de "
-"rest van deze regels variabelen zoals <code>naam:waarde;</code> of eenvoudig "
-"<code>naam;</code>. Deze variabelen veranderen het gedrag van het knipsel. "
-"De volgende variabelen kunnen worden gebruikt:</p>"
-
-#: frescobaldi_app/snippet/edit.py:212
-msgid "Place the snippet in the insert menu, grouped by the (optional) value."
-msgstr ""
-"Plaats het knipsel in het menu Invoegen, gegroepeerd op de (optionele) "
-"waarde."
-
-#: frescobaldi_app/snippet/edit.py:214
-msgid "The mnemonic to type to select the snippet."
-msgstr "De mnemonic om het knipsel te selecteren."
-
-#: frescobaldi_app/snippet/edit.py:216
-msgid "Do not auto-indent the snippet after inserting."
-msgstr ""
-"De tekst niet automatisch inspringen na het knipsel te hebben toegepast."
-
-#: frescobaldi_app/snippet/edit.py:218
-msgid "The icon to show in menu and snippet list."
-msgstr "Het pictogram dat in de knipsellijst en het menu wordt afgebeeld."
-
-#: frescobaldi_app/snippet/edit.py:220
-msgid ""
-"The symbol to show in menu and snippet list. Symbols are icons that use the "
-"default text color and can be found in {directory}."
-msgstr ""
-"Het symbool dat in de knipsellijst of het menu wordt afgebeeld. Symbolen "
-"zijn pictogrammen die de standaard tekstkleur gebruiken en te vinden zijn in "
-"{directory}."
-
-#: frescobaldi_app/snippet/edit.py:224
-msgid "Execute the snippet as a Python script. See {link}."
-msgstr "Het knipsel uitvoeren als een Python script. Zie {link}."
-
-#: frescobaldi_app/snippet/edit.py:227
-msgid "One of more of the following words (separated with spaces or commas):"
-msgstr ""
-"Een of meer van de volgende woorden (gescheiden door komma's of spaties):"
-
-#: frescobaldi_app/snippet/edit.py:230
-msgid "Requires text to be selected."
-msgstr "Er moet tekst geselecteerd zijn."
-
-#: frescobaldi_app/snippet/edit.py:232
-msgid "Adjusts the selection to not include starting and trialing whitespace."
-msgstr "Verandert de selectie zodat witruimte erbuiten valt."
-
-#: frescobaldi_app/snippet/edit.py:234
-msgid "Selects all inserted text."
-msgstr "Selecteert alle ingevoegde tekst."
-
-#: frescobaldi_app/snippet/edit.py:240
-msgid ""
-"<p>The other lines of the snippet define the text to be inserted in the "
-"editor. Here, you can insert variables prefixed with a $. A double $ will be "
-"replaced with a single one. The following variables are recognized:</p>"
-msgstr ""
-"<p>De andere regels van het knipsel definiëren de tekst die moet worden "
-"ingevoegd. Hier kunt u ook variabelen gebruiken, voorafgegaan door een $. "
-"Een dubbele $ wordt vervangen door een enkele. De volgende variabelen worden "
-"herkend:</p>"
-
-#: frescobaldi_app/snippet/edit.py:256
-msgid "Python Snippets"
-msgstr "Python knipsels"
-
-#: frescobaldi_app/snippet/edit.py:261
-msgid ""
-"<p>Python snippets can read and should set the variable {text}. The variable "
-"{text} contains the currently selected text (which may be an empty string).</"
-"p>\n"
-"<p>You may set {text} to a string or a list of strings.</p>\n"
-"<p>Other variables that may be referenced:</p>"
-msgstr ""
-"<p>Python knipsels kunnen de variabele {text} uitlezen en veranderen. Deze "
-"variabele bevat de op dit moment geselecteerde tekst (kan een lege "
-"tekenreeks zijn).</p>\n"
-"<p>U kunt {text} instellen op een tekenreeks of een lijst van tekenreeksen.</"
-"p>\n"
-"<p>Andere variabelen die kunnen worden gebruikt:</p>"
-
-#: frescobaldi_app/snippet/edit.py:269
-msgid "A list of strings describing the type of text the cursor is at."
-msgstr "Een lijst van namen die het type text omschrijven waar de cursor is."
-
-#: frescobaldi_app/snippet/edit.py:271
-msgid ""
-"The current QTextCursor, giving access to the document. Don't change the "
-"document through the cursor, however."
-msgstr ""
-"De huidige QTextCursor, waarmee u toegang hebt tot het document. Verander "
-"het document echter niet via de cursor."
-
-#: frescobaldi_app/snippet/edit.py:274
-msgid ""
-"When setting {text} to a list instead of a string, you can use this value to "
-"specify the place the text cursor will be placed after inserting the snippet."
-msgstr ""
-"Als u {text} instelt op een lijst in plaats van een tekenreeks, kunt u deze "
-"waarde gebruiken om de plaats aan te geven waar de tekstcursor zal worden "
-"neergezet na het invoegen van het knipsel."
-
-#: frescobaldi_app/snippet/edit.py:278
-msgid ""
-"When setting {text} to a list instead of a string, this value can be used "
-"together with {cursor} to select text when inserting the string parts of the "
-"list."
-msgstr ""
-"Als u {text} instelt op een lijst in plaats van een tekenreeks, kunt u deze "
-"waarde gebruiken, samen met {cursor}, om het te selecteren bereik van tekst "
-"aan te geven na het invoegen."
-
-#: frescobaldi_app/snippet/model.py:59
-msgid "Name"
-msgstr "Naam"
-
-#: frescobaldi_app/snippet/model.py:61
-msgid "Description"
-msgstr "Omschrijving"
-
-#: frescobaldi_app/snippet/model.py:63
-#: frescobaldi_app/preferences/shortcuts.py:56
-msgid "Shortcut"
-msgstr "Sneltoets"
-
-#: frescobaldi_app/snippet/menu.py:54
-msgid "&Insert"
-msgstr "&Invoegen"
-
-#: frescobaldi_app/snippet/tool.py:52 frescobaldi_app/snippet/tool.py:112
-#: frescobaldi_app/snippet/widget.py:293
-msgid "Snippets"
-msgstr "Knipsels"
-
-#: frescobaldi_app/snippet/tool.py:53
-msgid "&Snippets"
-msgstr "&Knipsels"
-
-#: frescobaldi_app/snippet/tool.py:73
-msgid "&Snippets..."
-msgstr "&Knipsels..."
-
-#: frescobaldi_app/snippet/widget.py:137
-msgid "Search..."
-msgstr "Zoeken..."
-
-#: frescobaldi_app/snippet/widget.py:141
-msgid "Add..."
-msgstr "Toevoegen..."
-
-#: frescobaldi_app/snippet/widget.py:143
-msgid "Add a new snippet. ({key})"
-msgstr "Nieuw knipsel toevoegen. ({key})"
-
-#: frescobaldi_app/snippet/widget.py:144
-msgid "Edit..."
-msgstr "Bewerken..."
-
-#: frescobaldi_app/snippet/widget.py:146
-msgid "Edit the current snippet. ({key})"
-msgstr "Huidig knipsel bewerken. ({key})"
-
-#: frescobaldi_app/snippet/widget.py:147
-msgid "Remove"
-msgstr "Verwijderen"
-
-#: frescobaldi_app/snippet/widget.py:149
-msgid "Remove the current snippet. ({key})"
-msgstr "Huidig knipsel verwijderen. ({key})"
-
-#: frescobaldi_app/snippet/widget.py:150
+msgid "Usage: %s\n"
+msgstr "Gebruik: %s\n"
+
+#: frescobaldi_app/po/messages.py:29
+msgid "show this help message and exit"
+msgstr "toon deze hulp-informatie en sluit af"
+
+#: frescobaldi_app/po/messages.py:30
+msgid "show program's version number and exit"
+msgstr "toon het versienummer en sluit af"
+
+#. L10N: Command line options
+#: frescobaldi_app/po/messages.py:32
+msgid "Options"
+msgstr "Opties"
+
+#: frescobaldi_app/po/messages.py:36
+msgctxt "CloseButton"
+msgid "Close Tab"
+msgstr "Tab sluiten"
+
+#: frescobaldi_app/po/messages.py:38
+msgctxt "QDialog"
+msgid "What's This?"
+msgstr "Wat is dit?"
+
+#: frescobaldi_app/po/messages.py:40
+msgctxt "QDialogButtonBox"
 msgid "Apply"
 msgstr "Toepassen"
 
-#: frescobaldi_app/snippet/widget.py:151
-msgid "Apply the current snippet."
-msgstr "Toepassen"
+#: frescobaldi_app/po/messages.py:41
+msgctxt "QDialogButtonBox"
+msgid "OK"
+msgstr "OK"
 
-#: frescobaldi_app/snippet/widget.py:154
-msgid ""
-"Enter text to search in the snippets list.\n"
-"See \"What's This\" for more information."
-msgstr ""
-"Voer tekst in om in de lijst van knipsels te zoeken.Zie \"Wat is dit\" voor "
-"meer informatie."
+#: frescobaldi_app/po/messages.py:42
+msgctxt "QDialogButtonBox"
+msgid "Cancel"
+msgstr "Annuleren"
 
-#: frescobaldi_app/snippet/widget.py:157
-msgid ""
-"Enter text to search in the snippets list, and press Enter to apply the "
-"currently selected snippet."
-msgstr ""
-"Voer tekst in om in de lijst van knipsels te zoeken, en druk op Enter om het "
-"geselecteerde knipsel toe te passen."
+#: frescobaldi_app/po/messages.py:43
+msgctxt "QDialogButtonBox"
+msgid "Discard"
+msgstr "Weggooien"
 
-#: frescobaldi_app/snippet/widget.py:159
-msgid ""
-"If the search text fully matches the value of the '{name}' variable of a "
-"snippet, that snippet is selected."
-msgstr ""
-"Als de zoektekst volledig overeenkomt met de waarde van de '{name}' variable "
-"van een knipsel, wordt dat knipsel geselecteerd."
+#: frescobaldi_app/po/messages.py:44
+msgctxt "QDialogButtonBox"
+msgid "Save"
+msgstr "Opslaan"
 
-#: frescobaldi_app/snippet/widget.py:161
-msgid ""
-"If the search text starts with a colon ':', the rest of the search text "
-"filters snippets that define the given variable. After a space a value can "
-"also be entered, snippets will then match if the value of the given variable "
-"contains the text after the space."
-msgstr ""
-"Als de zoektekst start met een dubbelepunt ':', dan filtert de rest van de "
-"zoektekst knipsels die een variable van die naam definiëren. Na een spatie "
-"kan ook een waarde worden ingevoerd, knipsels worden dan alleen getoond als "
-"de waarde van de variable de gegeven tekst bevat."
+#: frescobaldi_app/po/messages.py:45
+msgctxt "QDialogButtonBox"
+msgid "Help"
+msgstr "Help"
 
-#: frescobaldi_app/snippet/widget.py:166
-msgid ""
-"E.g. entering {menu} will show all snippets that are displayed in the insert "
-"menu."
-msgstr ""
-"Bijvoorbeeld het invoeren van {menu} toont alle knipsels die in het menu "
-"Invoegen worden weergegeven."
+#: frescobaldi_app/po/messages.py:46
+msgctxt "QDialogButtonBox"
+msgid "Close"
+msgstr "Sluiten"
 
-#: frescobaldi_app/snippet/widget.py:299
-msgid ""
-"<p>\n"
-"With the snippets manager you can store often used pieces of text called\n"
-"\"snippets\", and easily paste them into the text editor.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"The snippets manager can be activated via the menu {menu_snippets} or\n"
-"by pressing {key_snippets}.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"Snippets can be searched by browsing the list or by typing some characters\n"
-"in the search entry.\n"
-"Snippets can also have a keyboard shortcut which directly applies them.\n"
-"Some snippets have a special mnemonic (short name) which you can also type\n"
-"in the search entry to select the snippet. Pressing the Return key will "
-"then\n"
-"apply the snippet to the text editor and hide the snippets manager.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"Add new snippets using {key_add}. Edit the selected snippet with "
-"{key_edit}.\n"
-"Remove selected snippets using {key_delete}. Warning: there's no undo!\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"Snippets can also be put in the menu (see {link}).\n"
-"And finally there are snippets which can include or alter selected text.\n"
-"Some snippets do this by using special variables, while others are small\n"
-"scripts written in Python.\n"
-"</p>\n"
-msgstr ""
-"<p>\n"
-"Met de knipselmanager kunt u vaak gebruikte stukjes tekst, \"knipsels\" "
-"genaamd, opslaan en eenvoudig in de teksteditor plakken.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"De knipselmanager wordt geactiveerd via het menu {menu_snippets} of door op "
-"{key_snippets} te drukken.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"U kunt zoeken naar knipsels door door de lijst te bladeren of enige tekens "
-"in het zoekvak te typen.\n"
-"Knipsels kunnen ook een sneltoets hebben die ze direct toepast.\n"
-"Sommige knipsels hebben een speciale mnemonic (korte naam) die u kunt typen "
-"in het zoekvak om het knipsel te selecteren. Als u daarna op Enter drukt "
-"wordt het knipsel direct toegepast en de knipselmanager weer verborgen.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"Voeg nieuwe knipsels toe met {key_add}. Bewerk het huidige knipsel met "
-"{key_edit}. Verwijder geselecteerde knipsels met {key_delete}. Waarschuwing: "
-"deze actie kan niet ongedaan worden gemaakt!\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"Knipsels kunnen ook worden weergegeven in het menu (zie {link}).\n"
-"Tenslotte zijn er ook knipsels die geselecteerde tekst kunnen meenemen of "
-"veranderen.\n"
-"Sommige knipsels doen dit door speciale variabelen te gebruiken,\n"
-"terwijl andere in feite kleine scripts zijn, geschreven in Python.\n"
-"</p>\n"
+#: frescobaldi_app/po/messages.py:47
+msgctxt "QDialogButtonBox"
+msgid "Open"
+msgstr "Openen"
 
-#: frescobaldi_app/snippet/widget.py:331
-msgctxt "menu title"
-msgid "Insert"
-msgstr "Invoegen"
+#: frescobaldi_app/po/messages.py:48
+msgctxt "QDialogButtonBox"
+msgid "Reset"
+msgstr "Terugzetten"
 
-#: frescobaldi_app/snippet/widget.py:331
-msgid "Snippets..."
-msgstr "Knipsels..."
+#: frescobaldi_app/po/messages.py:50
+msgctxt "QFileDialog"
+msgid "File"
+msgstr "Bestand"
 
-#: frescobaldi_app/snippet/builtin.py:38
-msgid "Blank Line"
-msgstr "Blanco regel"
+#: frescobaldi_app/po/messages.py:51
+msgctxt "QFileDialog"
+msgid "Folder"
+msgstr "Map"
 
-#: frescobaldi_app/snippet/builtin.py:44
-msgid "Single Typographical Quotes"
-msgstr "Enkele typografische aanhalingstekens"
+#: frescobaldi_app/po/messages.py:52
+msgctxt "QFileDialog"
+msgid "Find Directory"
+msgstr "Map zoeken"
 
-#: frescobaldi_app/snippet/builtin.py:49
-msgid "Double Typographical Quotes"
-msgstr "Dubbele typografische aanhalingstekens"
+#: frescobaldi_app/po/messages.py:53
+msgctxt "QFileDialog"
+msgid "All Files (*)"
+msgstr "Alle bestanden (*)"
 
-#: frescobaldi_app/snippet/builtin.py:79
-msgid "Tuplets"
-msgstr "Triolen"
+#: frescobaldi_app/po/messages.py:55
+msgctxt "QScrollBar"
+msgid "Scroll here"
+msgstr "Hierheen schuiven"
 
-#: frescobaldi_app/snippet/builtin.py:89
-msgid "Modern 2/2 Time Signature"
-msgstr "Moderne 2/2 maat"
+#: frescobaldi_app/po/messages.py:56
+msgctxt "QScrollBar"
+msgid "Top"
+msgstr "Top"
 
-#: frescobaldi_app/snippet/builtin.py:95
-msgid "Modern 4/4 Time Signature"
-msgstr "Moderne 4/4 maat"
+#: frescobaldi_app/po/messages.py:57
+msgctxt "QScrollBar"
+msgid "Bottom"
+msgstr "Onder"
 
-#: frescobaldi_app/snippet/builtin.py:101
-msgid "Tactus Time Signature (number with note)"
-msgstr "Tactus maataanduiding (nummer met noot)"
+#: frescobaldi_app/po/messages.py:58
+msgctxt "QScrollBar"
+msgid "Page up"
+msgstr "Pagina omhoog"
 
-#: frescobaldi_app/snippet/builtin.py:112
-msgid "LilyPond Version"
-msgstr "LilyPond-versie"
+#: frescobaldi_app/po/messages.py:59
+msgctxt "QScrollBar"
+msgid "Page down"
+msgstr "Pagina omlaag"
 
-#: frescobaldi_app/snippet/builtin.py:118
-#: frescobaldi_app/preferences/fontscolors.py:496
-msgid "Repeat"
-msgstr "Herhaling (\\repeat)"
+#: frescobaldi_app/po/messages.py:60
+msgctxt "QScrollBar"
+msgid "Scroll up"
+msgstr "Omhoog schuiven"
 
-#: frescobaldi_app/snippet/builtin.py:123
-msgid "Relative Music"
-msgstr "Relatieve muziek"
+#: frescobaldi_app/po/messages.py:61
+msgctxt "QScrollBar"
+msgid "Scroll down"
+msgstr "Omlaag schuiven"
 
-#: frescobaldi_app/snippet/builtin.py:130
-msgid "Upper case selection"
-msgstr "Hoofdletters"
+#: frescobaldi_app/po/messages.py:62
+msgctxt "QScrollBar"
+msgid "Left edge"
+msgstr "Linkerkant"
 
-#: frescobaldi_app/snippet/builtin.py:136
-msgid "Lower case selection"
-msgstr "Kleine letters"
+#: frescobaldi_app/po/messages.py:63
+msgctxt "QScrollBar"
+msgid "Right edge"
+msgstr "Rechterkant"
 
-#: frescobaldi_app/snippet/builtin.py:142
-msgid "Title case selection"
-msgstr "Titel-hoofdletters in selectie"
+#: frescobaldi_app/po/messages.py:64
+msgctxt "QScrollBar"
+msgid "Page left"
+msgstr "Pagina naar links"
 
-#: frescobaldi_app/snippet/builtin.py:148
-#: frescobaldi_app/preferences/fontscolors.py:501
-msgid "Markup"
-msgstr "Markup"
+#: frescobaldi_app/po/messages.py:65
+msgctxt "QScrollBar"
+msgid "Page right"
+msgstr "Pagina naar rechts"
 
-#: frescobaldi_app/snippet/builtin.py:153
-msgid "Markup lines"
-msgstr "Markup regels (line)"
+#: frescobaldi_app/po/messages.py:66
+msgctxt "QScrollBar"
+msgid "Scroll left"
+msgstr "Naar links schuiven"
 
-#: frescobaldi_app/snippet/builtin.py:161
-msgid "Markup column"
-msgstr "Markup kolom"
+#: frescobaldi_app/po/messages.py:67
+msgctxt "QScrollBar"
+msgid "Scroll right"
+msgstr "Naar rechts schuiven"
 
-#: frescobaldi_app/snippet/builtin.py:166
-msgid "Tagline with date and LilyPond version"
-msgstr "Voetregel met datum en LilyPond-versie"
+#: frescobaldi_app/preferences/__init__.py:155
+#: frescobaldi_app/preferences/general.py:119
+msgid "General Preferences"
+msgstr "Algemene voorkeuren"
 
-#: frescobaldi_app/snippet/builtin.py:176
-msgid "Header Template"
-msgstr "Kopregel-sjabloon"
+#: frescobaldi_app/preferences/__init__.py:175
+msgid "Paths"
+msgstr "Paden"
 
-#: frescobaldi_app/snippet/builtin.py:191
-msgid "No Tagline"
-msgstr "Geen voetregel"
+#: frescobaldi_app/preferences/__init__.py:185
+msgid "Keyboard Shortcuts"
+msgstr "Sneltoetsen"
 
-#: frescobaldi_app/snippet/builtin.py:199
-msgid "No Barnumbers"
-msgstr "Geen maatnummers"
+#: frescobaldi_app/preferences/__init__.py:195
+msgid "Fonts & Colors"
+msgstr "Tekst & kleur"
 
-#: frescobaldi_app/snippet/builtin.py:209
-msgid "Staff Size"
-msgstr "Balkgrootte"
-
-#. L10N: a basic type of input in the editor
-#: frescobaldi_app/snippet/builtin.py:228
-#: frescobaldi_app/preferences/fontscolors.py:474
-#: frescobaldi_app/preferences/fontscolors.py:513
-#: frescobaldi_app/preferences/fontscolors.py:522
-#: frescobaldi_app/preferences/fontscolors.py:530
-#: frescobaldi_app/preferences/fontscolors.py:538
-msgid "Comment"
-msgstr "Commentaar"
-
-#: frescobaldi_app/snippet/builtin.py:264
-msgid "A5 Paper"
-msgstr "A5-papier"
-
-#: frescobaldi_app/snippet/builtin.py:272
-msgid "Last note or chord"
-msgstr "Laatste noot of akkoord"
-
-#: frescobaldi_app/snippet/insert.py:218
-msgid "Snippet error"
-msgstr "Knipsel-fout"
-
-#: frescobaldi_app/preferences/lilypond.py:81
-msgid "LilyPond versions to use"
-msgstr "De te gebruiken LilyPond-versies"
-
-#: frescobaldi_app/preferences/lilypond.py:82
-msgid "Automatically choose LilyPond version from document"
-msgstr "Kies LilyPond-versie op basis van document"
-
-#: frescobaldi_app/preferences/lilypond.py:84
-msgid ""
-"If checked, the document's version determines the LilyPond version to use.\n"
-"See \"What's This\" for more information."
-msgstr ""
-"Indien ingeschakeld, bepaalt het versienummer in het document welke LilyPond-"
-"versie wordt gekozen.\n"
-"Zie \"Wat is dit\" voor meer informatie."
-
-#: frescobaldi_app/preferences/lilypond.py:87
-msgid ""
-"<p>If this setting is enabled, the document is searched for a LilyPond <code>"
-"\\version<code> command or a <code>version</code> document variable.</p>\n"
-"<p>The LilyPond version command looks like:</p>\n"
-"<pre>\\version \"2.14.0\"</pre>\n"
-"<p>The document variable looks like:</p>\n"
-"<pre>-*- version: 2.14.0;</pre>\n"
-"<p>somewhere (in a comments section) in the first or last 5 lines of the "
-"document. This way the LilyPond version to use can also be specified in non-"
-"LilyPond documents like HTML, LaTeX, etc.</p>\n"
-"<p>If the document specifies a version, the oldest suitable LilyPond version "
-"is chosen. Otherwise, the default version is chosen.</p>\n"
-msgstr ""
-"<p>Als deze optie is ingeschakeld, wordt gezocht naar een LilyPond <code>"
-"\\version<code> commando of een <code>version</code> document variabele.</"
-"p>\n"
-"<p>Het LilyPond versie-commando ziet er aldus uit:</p>\n"
-"<pre>\\version \"2.14.0\"</pre>\n"
-"<p>De document variabele ziet er zo uit:</p>\n"
-"<pre>-*- version: 2.14.0;</pre>\n"
-"<p>ergens (in een commentaarsectie) in de eerste of laatste 5 regels van het "
-"document.\n"
-"Op deze wijze kan de LilyPond-versie ook worden aangegeven in niet-LilyPond "
-"documenten zoals HTML, LaTeX, etc.</p>\n"
-"<p>Als het document een versie aangeeft, wordt de oudst bruikbare LilyPond-"
-"versie gekozen.\n"
-"Zo niet, wordt de als standaard ingestelde versie gekozen.</p>\n"
-
-#: frescobaldi_app/preferences/lilypond.py:101
-msgid "See also {link}."
-msgstr "Zie ook {link}:"
-
-#: frescobaldi_app/preferences/lilypond.py:149
-msgid "Set as &Default"
-msgstr "Als standaar&d instellen"
-
-#: frescobaldi_app/preferences/lilypond.py:187
-msgid "default"
-msgstr "standaard"
-
-#: frescobaldi_app/preferences/lilypond.py:235
-msgid "LilyPond Command:"
-msgstr "LilyPond-commando:"
-
-#: frescobaldi_app/preferences/lilypond.py:236
-msgid "Name or full path of the LilyPond program."
-msgstr "Naam of pad van het LilyPond programma."
-
-#: frescobaldi_app/preferences/lilypond.py:237
-msgid "Convert-ly:"
-msgstr "Convert-ly:"
-
-#: frescobaldi_app/preferences/lilypond.py:238
-msgid "LilyPond-book:"
-msgstr "Lilypond-book:"
-
-#: frescobaldi_app/preferences/lilypond.py:239
-msgid "Include in automatic version selection"
-msgstr "Meenemen in automatische versie-selectie"
-
-#: frescobaldi_app/preferences/lilypond.py:276
-msgid "Running LilyPond"
-msgstr "Bij het starten van LilyPond"
-
-#: frescobaldi_app/preferences/lilypond.py:277
-msgid "Save document if possible"
-msgstr "Document opslaan indien mogelijk"
-
-#: frescobaldi_app/preferences/lilypond.py:279
-msgid ""
-"If checked, the document is saved when it is local and modified.\n"
-"Otherwise a temporary file is used to run LilyPond."
-msgstr ""
-"Indien ingeschakeld, wordt het document eerst opgeslagen als het lokaal is "
-"en gewijzigd.\n"
-"Indien het document niet wordt opgeslagen, wordt een tijdelijk bestand "
-"gebruikt om LilyPond te starten."
-
-#: frescobaldi_app/preferences/lilypond.py:281
-msgid "Delete intermediate output files"
-msgstr "Tussentijdse uitvoerbestanden verwijderen"
-
-#: frescobaldi_app/preferences/lilypond.py:283
-msgid "If checked, LilyPond will delete intermediate PostScript files."
-msgstr ""
-"Indien ingeschakeld, zal LilyPond tussentijdse PostScript-uitvoerbestanden "
-"verwijderen."
-
-#: frescobaldi_app/preferences/lilypond.py:284
-msgid "LilyPond include path:"
-msgstr "LilyPond include-pad:"
-
-#: frescobaldi_app/preferences/paths.py:60
-msgid "Folders containing hyphenation dictionaries"
-msgstr "Mappen met afbreekbestanden"
+#: frescobaldi_app/preferences/__init__.py:205
+msgid "Tools"
+msgstr "Gereedschap"
 
 #: frescobaldi_app/preferences/fontscolors.py:121
 msgid "Use this scheme for printing"
@@ -3673,6 +2528,16 @@ msgstr "Tekenreeks"
 msgid "Escape"
 msgstr "Escape"
 
+#. L10N: a basic type of input in the editor
+#: frescobaldi_app/preferences/fontscolors.py:474
+#: frescobaldi_app/preferences/fontscolors.py:513
+#: frescobaldi_app/preferences/fontscolors.py:522
+#: frescobaldi_app/preferences/fontscolors.py:530
+#: frescobaldi_app/preferences/fontscolors.py:538
+#: frescobaldi_app/snippet/builtin.py:228
+msgid "Comment"
+msgstr "Commentaar"
+
 #: frescobaldi_app/preferences/fontscolors.py:483
 msgid "Pitch"
 msgstr "Toon"
@@ -3698,6 +2563,11 @@ msgstr "Vingerzetting"
 msgid "String Number"
 msgstr "Snaar"
 
+#: frescobaldi_app/preferences/fontscolors.py:490
+#: frescobaldi_app/quickinsert/spanners.py:143
+msgid "Slur"
+msgstr "Boogje"
+
 #: frescobaldi_app/preferences/fontscolors.py:491
 msgid "Dynamic"
 msgstr "Dynamiek"
@@ -3710,9 +2580,19 @@ msgstr "Articulatie"
 msgid "Chord"
 msgstr "Akkoord"
 
+#: frescobaldi_app/preferences/fontscolors.py:494
+#: frescobaldi_app/quickinsert/spanners.py:145
+msgid "Beam"
+msgstr "Waardestreep"
+
 #: frescobaldi_app/preferences/fontscolors.py:495
 msgid "Check"
 msgstr "Test"
+
+#: frescobaldi_app/preferences/fontscolors.py:496
+#: frescobaldi_app/snippet/builtin.py:118
+msgid "Repeat"
+msgstr "Herhaling (\\repeat)"
 
 #: frescobaldi_app/preferences/fontscolors.py:498
 #: frescobaldi_app/preferences/shortcuts.py:56
@@ -3726,6 +2606,11 @@ msgstr "Specifier"
 #: frescobaldi_app/preferences/fontscolors.py:500
 msgid "User Command"
 msgstr "Gebruikerscommando"
+
+#: frescobaldi_app/preferences/fontscolors.py:501
+#: frescobaldi_app/snippet/builtin.py:148
+msgid "Markup"
+msgstr "Markup"
 
 #: frescobaldi_app/preferences/fontscolors.py:502
 msgid "Lyric Mode"
@@ -3806,37 +2691,6 @@ msgstr "Blok"
 msgid "Verbatim"
 msgstr "Verbatim"
 
-#: frescobaldi_app/preferences/shortcuts.py:101
-msgid "Menu {name}:"
-msgstr "Menu {name}:"
-
-#: frescobaldi_app/preferences/shortcuts.py:125
-msgid "Other commands:"
-msgstr "Andere commando's:"
-
-#: frescobaldi_app/preferences/shortcuts.py:173
-msgid "&Edit Shortcut for \"{name}\""
-msgstr "Sn&eltoets instellen voor \"{name}\""
-
-#: frescobaldi_app/preferences/shortcuts.py:178
-msgid "(no shortcut)"
-msgstr "(geen sneltoets)"
-
-#: frescobaldi_app/preferences/shortcuts.py:206
-msgid "Remove the shortcut from that command?"
-msgid_plural "Remove the shortcut from those commands?"
-msgstr[0] "Sneltoets voor dat commando verwijderen?"
-msgstr[1] "Sneltoets van deze commando's verwijderen?"
-
-#: frescobaldi_app/preferences/shortcuts.py:304
-msgid "(default)"
-msgstr "(standaard)"
-
-#: frescobaldi_app/preferences/general.py:119
-#: frescobaldi_app/preferences/__init__.py:155
-msgid "General Preferences"
-msgstr "Algemene voorkeuren"
-
 #: frescobaldi_app/preferences/general.py:120
 #: frescobaldi_app/scorewiz/settings.py:216
 msgid "Language:"
@@ -3859,8 +2713,8 @@ msgstr "Stijl:"
 #: frescobaldi_app/scorewiz/settings.py:132
 #: frescobaldi_app/scorewiz/settings.py:198
 #: frescobaldi_app/scorewiz/settings.py:293
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:65
 #: frescobaldi_app/scorewiz/parts/_base.py:214
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:65
 #: frescobaldi_app/widgets/schemeselector.py:115
 msgid "Default"
 msgstr "Standaard"
@@ -3924,6 +2778,151 @@ msgstr "Standaardmap:"
 msgid "The default folder for your LilyPond documents (optional)."
 msgstr "De standaardmap voor uw LilyPond documenten (optioneel)."
 
+#: frescobaldi_app/preferences/lilypond.py:81
+msgid "LilyPond versions to use"
+msgstr "De te gebruiken LilyPond-versies"
+
+#: frescobaldi_app/preferences/lilypond.py:82
+msgid "Automatically choose LilyPond version from document"
+msgstr "Kies LilyPond-versie op basis van document"
+
+#: frescobaldi_app/preferences/lilypond.py:84
+msgid ""
+"If checked, the document's version determines the LilyPond version to use.\n"
+"See \"What's This\" for more information."
+msgstr ""
+"Indien ingeschakeld, bepaalt het versienummer in het document welke LilyPond-"
+"versie wordt gekozen.\n"
+"Zie \"Wat is dit\" voor meer informatie."
+
+#: frescobaldi_app/preferences/lilypond.py:87
+msgid ""
+"<p>If this setting is enabled, the document is searched for a LilyPond <code>"
+"\\version<code> command or a <code>version</code> document variable.</p>\n"
+"<p>The LilyPond version command looks like:</p>\n"
+"<pre>\\version \"2.14.0\"</pre>\n"
+"<p>The document variable looks like:</p>\n"
+"<pre>-*- version: 2.14.0;</pre>\n"
+"<p>somewhere (in a comments section) in the first or last 5 lines of the "
+"document. This way the LilyPond version to use can also be specified in non-"
+"LilyPond documents like HTML, LaTeX, etc.</p>\n"
+"<p>If the document specifies a version, the oldest suitable LilyPond version "
+"is chosen. Otherwise, the default version is chosen.</p>\n"
+msgstr ""
+"<p>Als deze optie is ingeschakeld, wordt gezocht naar een LilyPond <code>"
+"\\version<code> commando of een <code>version</code> document variabele.</"
+"p>\n"
+"<p>Het LilyPond versie-commando ziet er aldus uit:</p>\n"
+"<pre>\\version \"2.14.0\"</pre>\n"
+"<p>De document variabele ziet er zo uit:</p>\n"
+"<pre>-*- version: 2.14.0;</pre>\n"
+"<p>ergens (in een commentaarsectie) in de eerste of laatste 5 regels van het "
+"document.\n"
+"Op deze wijze kan de LilyPond-versie ook worden aangegeven in niet-LilyPond "
+"documenten zoals HTML, LaTeX, etc.</p>\n"
+"<p>Als het document een versie aangeeft, wordt de oudst bruikbare LilyPond-"
+"versie gekozen.\n"
+"Zo niet, wordt de als standaard ingestelde versie gekozen.</p>\n"
+
+#: frescobaldi_app/preferences/lilypond.py:101
+msgid "See also {link}."
+msgstr "Zie ook {link}:"
+
+#: frescobaldi_app/preferences/lilypond.py:149
+msgid "Set as &Default"
+msgstr "Als standaar&d instellen"
+
+#: frescobaldi_app/preferences/lilypond.py:187
+msgid "default"
+msgstr "standaard"
+
+#: frescobaldi_app/preferences/lilypond.py:235
+msgid "LilyPond Command:"
+msgstr "LilyPond-commando:"
+
+#: frescobaldi_app/preferences/lilypond.py:236
+msgid "Name or full path of the LilyPond program."
+msgstr "Naam of pad van het LilyPond programma."
+
+#: frescobaldi_app/preferences/lilypond.py:237
+msgid "Convert-ly:"
+msgstr "Convert-ly:"
+
+#: frescobaldi_app/preferences/lilypond.py:238
+msgid "LilyPond-book:"
+msgstr "Lilypond-book:"
+
+#: frescobaldi_app/preferences/lilypond.py:239
+msgid "Include in automatic version selection"
+msgstr "Meenemen in automatische versie-selectie"
+
+#: frescobaldi_app/preferences/lilypond.py:276
+msgid "Running LilyPond"
+msgstr "Bij het starten van LilyPond"
+
+#: frescobaldi_app/preferences/lilypond.py:277
+msgid "Save document if possible"
+msgstr "Document opslaan indien mogelijk"
+
+#: frescobaldi_app/preferences/lilypond.py:279
+msgid ""
+"If checked, the document is saved when it is local and modified.\n"
+"Otherwise a temporary file is used to run LilyPond."
+msgstr ""
+"Indien ingeschakeld, wordt het document eerst opgeslagen als het lokaal is "
+"en gewijzigd.\n"
+"Indien het document niet wordt opgeslagen, wordt een tijdelijk bestand "
+"gebruikt om LilyPond te starten."
+
+#: frescobaldi_app/preferences/lilypond.py:281
+msgid "Delete intermediate output files"
+msgstr "Tussentijdse uitvoerbestanden verwijderen"
+
+#: frescobaldi_app/preferences/lilypond.py:283
+msgid "If checked, LilyPond will delete intermediate PostScript files."
+msgstr ""
+"Indien ingeschakeld, zal LilyPond tussentijdse PostScript-uitvoerbestanden "
+"verwijderen."
+
+#: frescobaldi_app/preferences/lilypond.py:284
+msgid "LilyPond include path:"
+msgstr "LilyPond include-pad:"
+
+#: frescobaldi_app/preferences/paths.py:60
+msgid "Folders containing hyphenation dictionaries"
+msgstr "Mappen met afbreekbestanden"
+
+#: frescobaldi_app/preferences/shortcuts.py:56
+#: frescobaldi_app/snippet/model.py:63
+msgid "Shortcut"
+msgstr "Sneltoets"
+
+#: frescobaldi_app/preferences/shortcuts.py:101
+msgid "Menu {name}:"
+msgstr "Menu {name}:"
+
+#: frescobaldi_app/preferences/shortcuts.py:125
+msgid "Other commands:"
+msgstr "Andere commando's:"
+
+#: frescobaldi_app/preferences/shortcuts.py:173
+msgid "&Edit Shortcut for \"{name}\""
+msgstr "Sn&eltoets instellen voor \"{name}\""
+
+#: frescobaldi_app/preferences/shortcuts.py:178
+msgid "(no shortcut)"
+msgstr "(geen sneltoets)"
+
+#: frescobaldi_app/preferences/shortcuts.py:206
+msgid "Remove the shortcut from that command?"
+msgid_plural "Remove the shortcut from those commands?"
+msgstr[0] "Sneltoets voor dat commando verwijderen?"
+msgstr[1] "Sneltoets van deze commando's verwijderen?"
+
+#: frescobaldi_app/preferences/shortcuts.py:304
+msgid "(default)"
+msgstr "(standaard)"
+
 #: frescobaldi_app/preferences/tools.py:80
 msgid "Show log when a job is started"
 msgstr "Log weergeven als een taak wordt gestart"
@@ -3968,85 +2967,791 @@ msgctxt "percent unit sign"
 msgid "%"
 msgstr "%"
 
-#: frescobaldi_app/preferences/__init__.py:175
-msgid "Paths"
-msgstr "Paden"
+#: frescobaldi_app/quickinsert/__init__.py:47
+#: frescobaldi_app/quickinsert/__init__.py:70
+msgid "Quick Insert"
+msgstr "Quick Insert"
 
-#: frescobaldi_app/preferences/__init__.py:185
-msgid "Keyboard Shortcuts"
-msgstr "Sneltoetsen"
+#: frescobaldi_app/quickinsert/__init__.py:48
+msgid "Quick &Insert"
+msgstr "Quick &Insert"
 
-#: frescobaldi_app/preferences/__init__.py:195
-msgid "Fonts & Colors"
-msgstr "Tekst & kleur"
+#: frescobaldi_app/quickinsert/articulations.py:73
+msgid "Allow shorthands"
+msgstr "Korte notatie"
 
-#: frescobaldi_app/preferences/__init__.py:205
-msgid "Tools"
-msgstr "Gereedschap"
+#: frescobaldi_app/quickinsert/articulations.py:75
+msgid "Use short notation for some articulations like staccato."
+msgstr "Korte notatie toestaan voor sommige articulaties zoals staccato."
 
-#: frescobaldi_app/scorewiz/header.py:87
-msgid "Click to enter a value."
-msgstr "Klik om een waarde in te voeren."
+#: frescobaldi_app/quickinsert/articulations.py:83
+#: frescobaldi_app/quickinsert/articulations.py:115
+msgid "Articulations"
+msgstr "Articulaties"
 
-#: frescobaldi_app/scorewiz/header.py:89
-msgid "bottom of first page"
-msgstr "onderaan eerste pagina"
+#: frescobaldi_app/quickinsert/articulations.py:87
+msgid "Different kinds of articulations and other signs."
+msgstr "Verschillende soorten articulatie en andere tekens."
 
-#: frescobaldi_app/scorewiz/header.py:90
-msgid "bottom of last page"
-msgstr "onderaan laatste pagina"
+#: frescobaldi_app/quickinsert/articulations.py:118
+msgid "Accent"
+msgstr "Accent"
 
-#: frescobaldi_app/scorewiz/header.py:135
-msgid "Dedication"
-msgstr "Opdracht"
+#: frescobaldi_app/quickinsert/articulations.py:119
+msgid "Marcato"
+msgstr "Marcato"
 
-#: frescobaldi_app/scorewiz/header.py:136
-msgid "Title"
-msgstr "Titel"
+#: frescobaldi_app/quickinsert/articulations.py:120
+msgid "Staccatissimo"
+msgstr "Staccatissimo"
 
-#: frescobaldi_app/scorewiz/header.py:137
-msgid "Subtitle"
-msgstr "Subtitel"
+#: frescobaldi_app/quickinsert/articulations.py:121
+msgid "Staccato"
+msgstr "Staccato"
 
-#: frescobaldi_app/scorewiz/header.py:138
-msgid "Subsubtitle"
-msgstr "Subsubtitel"
+#: frescobaldi_app/quickinsert/articulations.py:122
+msgid "Portato"
+msgstr "Portato"
 
-#: frescobaldi_app/scorewiz/header.py:139
-msgid "Instrument"
-msgstr "Instrument"
+#: frescobaldi_app/quickinsert/articulations.py:123
+msgid "Tenuto"
+msgstr "Tenuto"
 
-#: frescobaldi_app/scorewiz/header.py:140
-msgid "Composer"
-msgstr "Componist"
+#: frescobaldi_app/quickinsert/articulations.py:124
+msgid "Espressivo"
+msgstr "Espressivo"
 
-#: frescobaldi_app/scorewiz/header.py:141
-msgid "Arranger"
-msgstr "Arrangeur"
+#: frescobaldi_app/quickinsert/articulations.py:129
+msgid "Ornaments"
+msgstr "Versieringen"
 
-#: frescobaldi_app/scorewiz/header.py:142
-msgid "Poet"
-msgstr "Dichter"
+#: frescobaldi_app/quickinsert/articulations.py:132
+#: frescobaldi_app/quickinsert/spanners.py:146
+msgid "Trill"
+msgstr "Triller"
 
-#: frescobaldi_app/scorewiz/header.py:143
-msgid "Meter"
-msgstr "Versvoet"
+#: frescobaldi_app/quickinsert/articulations.py:133
+msgid "Prall"
+msgstr "Praller"
 
-#: frescobaldi_app/scorewiz/header.py:144
-msgid "Piece"
-msgstr "Werk"
+#: frescobaldi_app/quickinsert/articulations.py:134
+msgid "Mordent"
+msgstr "Mordent"
 
-#: frescobaldi_app/scorewiz/header.py:145
-msgid "Opus"
-msgstr "Opus"
+#: frescobaldi_app/quickinsert/articulations.py:135
+msgid "Turn"
+msgstr "Dubbelslag"
 
-#: frescobaldi_app/scorewiz/header.py:146
-msgid "Copyright"
-msgstr "Copyright"
+#: frescobaldi_app/quickinsert/articulations.py:136
+msgid "Prall prall"
+msgstr "Lange praller"
 
-#: frescobaldi_app/scorewiz/header.py:147
-msgid "Tagline"
-msgstr "Tagline"
+#: frescobaldi_app/quickinsert/articulations.py:137
+msgid "Prall mordent"
+msgstr "Praller met mordent"
+
+#: frescobaldi_app/quickinsert/articulations.py:138
+msgid "Up prall"
+msgstr "Praller naar boven"
+
+#: frescobaldi_app/quickinsert/articulations.py:139
+msgid "Down prall"
+msgstr "Praller naar beneden"
+
+#: frescobaldi_app/quickinsert/articulations.py:140
+msgid "Up mordent"
+msgstr "Mordent naar boven"
+
+#: frescobaldi_app/quickinsert/articulations.py:141
+msgid "Down mordent"
+msgstr "Mordent naar beneden"
+
+#: frescobaldi_app/quickinsert/articulations.py:142
+msgid "Prall up"
+msgstr "Praller naar boven"
+
+#: frescobaldi_app/quickinsert/articulations.py:143
+msgid "Prall down"
+msgstr "Praller naar onder"
+
+#: frescobaldi_app/quickinsert/articulations.py:144
+msgid "Line prall"
+msgstr "Praller met lijn"
+
+#: frescobaldi_app/quickinsert/articulations.py:145
+msgid "Reverse turn"
+msgstr "Omgekeerde dubbelslag"
+
+#. L10N: dynamic signs
+#: frescobaldi_app/quickinsert/articulations.py:150
+#: frescobaldi_app/quickinsert/dynamics.py:115
+msgid "Signs"
+msgstr "Tekens"
+
+#: frescobaldi_app/quickinsert/articulations.py:153
+msgid "Fermata"
+msgstr "Fermate"
+
+#: frescobaldi_app/quickinsert/articulations.py:154
+msgid "Short fermata"
+msgstr "Korte fermate"
+
+#: frescobaldi_app/quickinsert/articulations.py:155
+msgid "Long fermata"
+msgstr "Lange fermate"
+
+#: frescobaldi_app/quickinsert/articulations.py:156
+msgid "Very long fermata"
+msgstr "Zeer lange fermate"
+
+#: frescobaldi_app/quickinsert/articulations.py:157
+msgid "Segno"
+msgstr "Teken"
+
+#: frescobaldi_app/quickinsert/articulations.py:158
+msgid "Coda"
+msgstr "Coda"
+
+#: frescobaldi_app/quickinsert/articulations.py:159
+msgid "Varcoda"
+msgstr "Varcoda"
+
+#: frescobaldi_app/quickinsert/articulations.py:160
+msgid "Signumcongruentiae"
+msgstr "Signumcongruentiae"
+
+#: frescobaldi_app/quickinsert/articulations.py:165
+msgid "Other"
+msgstr "Overig"
+
+#: frescobaldi_app/quickinsert/articulations.py:168
+msgid "Upbow"
+msgstr "Opstreek"
+
+#: frescobaldi_app/quickinsert/articulations.py:169
+msgid "Downbow"
+msgstr "Afstreek"
+
+#: frescobaldi_app/quickinsert/articulations.py:170
+msgid "Snappizzicato"
+msgstr "Bartók pizzicato"
+
+#: frescobaldi_app/quickinsert/articulations.py:171
+msgid "Open (e.g. brass)"
+msgstr "Open (koper)"
+
+#: frescobaldi_app/quickinsert/articulations.py:172
+msgid "Stopped (e.g. brass)"
+msgstr "Gestopt (koper)"
+
+#: frescobaldi_app/quickinsert/articulations.py:173
+msgid "Flageolet"
+msgstr "Flageolet"
+
+#: frescobaldi_app/quickinsert/articulations.py:174
+msgid "Thumb"
+msgstr "Duim"
+
+#: frescobaldi_app/quickinsert/articulations.py:175
+msgid "Left heel"
+msgstr "Linker hak"
+
+#: frescobaldi_app/quickinsert/articulations.py:176
+msgid "Right heel"
+msgstr "Rechter hak"
+
+#: frescobaldi_app/quickinsert/articulations.py:177
+msgid "Left toe"
+msgstr "Linker teen"
+
+#: frescobaldi_app/quickinsert/articulations.py:178
+msgid "Right toe"
+msgstr "Rechter teen"
+
+#: frescobaldi_app/quickinsert/articulations.py:179
+msgid "Half open (e.g. hi-hat)"
+msgstr "Halfopen (bijv. hi-hat)"
+
+#: frescobaldi_app/quickinsert/barlines.py:49
+#: frescobaldi_app/quickinsert/barlines.py:58
+msgid "Bar Lines"
+msgstr "Maatstrepen"
+
+#: frescobaldi_app/quickinsert/barlines.py:53
+msgid "Bar lines, breathing signs, etcetera."
+msgstr "Maatstrepen, ademhalingstekens, etc."
+
+#: frescobaldi_app/quickinsert/barlines.py:61
+msgid "Double bar line"
+msgstr "Dubbele maatstreep"
+
+#: frescobaldi_app/quickinsert/barlines.py:62
+msgid "Ending bar line"
+msgstr "Eindmaatstreep"
+
+#: frescobaldi_app/quickinsert/barlines.py:63
+msgid "Dotted bar line"
+msgstr "Gestippelde maatstreep"
+
+#: frescobaldi_app/quickinsert/barlines.py:64
+msgid "Dashed bar line"
+msgstr "Gestreepte maatstreep"
+
+#: frescobaldi_app/quickinsert/barlines.py:65
+msgid "Invisible bar line"
+msgstr "Onzichtbare maatstreep"
+
+#: frescobaldi_app/quickinsert/barlines.py:66
+msgid "Repeat start"
+msgstr "Start herhaling"
+
+#: frescobaldi_app/quickinsert/barlines.py:67
+msgid "Repeat both"
+msgstr "Herhaal beide"
+
+#: frescobaldi_app/quickinsert/barlines.py:68
+msgid "Repeat end"
+msgstr "Eind herhaling"
+
+#: frescobaldi_app/quickinsert/barlines.py:69
+msgid "Repeat both (old)"
+msgstr "Herhaal beide (oud)"
+
+#: frescobaldi_app/quickinsert/barlines.py:70
+msgid "Repeat both (classic)"
+msgstr "Herhaal beide (klassiek)"
+
+#: frescobaldi_app/quickinsert/barlines.py:71
+msgid "Tick bar line"
+msgstr "Hoge maatstreep"
+
+#: frescobaldi_app/quickinsert/barlines.py:72
+msgid "Single bar line"
+msgstr "Enkele maatstreep"
+
+#: frescobaldi_app/quickinsert/barlines.py:73
+msgid "Small-Wide-Small bar line"
+msgstr "Dun-dik-dunne maatstreep"
+
+#: frescobaldi_app/quickinsert/barlines.py:74
+msgid "Wide-Small bar line"
+msgstr "Dik-dunne maatstreep"
+
+#: frescobaldi_app/quickinsert/barlines.py:75
+msgid "Double wide bar line"
+msgstr "Dubbele dikke maatstreep"
+
+#: frescobaldi_app/quickinsert/barlines.py:76
+msgid "Segno bar line"
+msgstr "Segno maatstreep"
+
+#: frescobaldi_app/quickinsert/barlines.py:95
+msgid "Breathing Signs"
+msgstr "Ademhalingstekens"
+
+#: frescobaldi_app/quickinsert/barlines.py:102
+msgid "Default Breathing Sign"
+msgstr "Standaard ademhalingsteken"
+
+#: frescobaldi_app/quickinsert/barlines.py:103
+msgid "Straight Breathing Sign"
+msgstr "Recht ademhalingsteken"
+
+#: frescobaldi_app/quickinsert/barlines.py:104
+msgid "Curved Caesura"
+msgstr "Gebogen cesuur"
+
+#: frescobaldi_app/quickinsert/barlines.py:105
+msgid "Straight Caesura"
+msgstr "Rechte cesuur"
+
+#: frescobaldi_app/quickinsert/buttongroup.py:175
+msgid "{name} ({key})"
+msgstr "{name} ({key})"
+
+#: frescobaldi_app/quickinsert/buttongroup.py:182
+msgid "Configure Keyboard Shortcut ({key})"
+msgstr "Sneltoets instellen ({key})"
+
+#: frescobaldi_app/quickinsert/buttongroup.py:182
+#: frescobaldi_app/scorewiz/scoreproperties.py:171
+#: frescobaldi_app/scorewiz/settings.py:189
+#: frescobaldi_app/snippet/edit.py:125
+msgid "None"
+msgstr "Geen"
+
+#: frescobaldi_app/quickinsert/dynamics.py:51
+msgid "Dynamics"
+msgstr "Dynamiek"
+
+#: frescobaldi_app/quickinsert/dynamics.py:55
+msgid "Dynamic symbols."
+msgstr "Dynamische tekens."
+
+#: frescobaldi_app/quickinsert/dynamics.py:128
+msgid "Dynamic sign {name}"
+msgstr "Dynamisch teken {name}"
+
+#: frescobaldi_app/quickinsert/dynamics.py:133
+#: frescobaldi_app/quickinsert/spanners.py:51
+#: frescobaldi_app/quickinsert/spanners.py:136
+msgid "Spanners"
+msgstr "Spanners"
+
+#: frescobaldi_app/quickinsert/dynamics.py:142
+msgid "Hairpin crescendo"
+msgstr "Crescendo (lijnen)"
+
+#: frescobaldi_app/quickinsert/dynamics.py:143
+msgid "Crescendo"
+msgstr "Crescendo"
+
+#: frescobaldi_app/quickinsert/dynamics.py:144
+msgid "Hairpin diminuendo"
+msgstr "Diminuendo (lijnen)"
+
+#: frescobaldi_app/quickinsert/dynamics.py:145
+msgid "Diminuendo"
+msgstr "Diminuendo"
+
+#: frescobaldi_app/quickinsert/dynamics.py:146
+msgid "Decrescendo"
+msgstr "Decrescendo"
+
+#: frescobaldi_app/quickinsert/spanners.py:55
+msgid "Slurs, spanners, etcetera."
+msgstr "Bogen, spanners, etc."
+
+#: frescobaldi_app/quickinsert/spanners.py:60
+msgid "Arpeggios"
+msgstr "Arpeggio's"
+
+#: frescobaldi_app/quickinsert/spanners.py:69
+msgid "Arpeggio"
+msgstr "Arpeggio"
+
+#: frescobaldi_app/quickinsert/spanners.py:70
+msgid "Arpeggio with Up Arrow"
+msgstr "Arpeggio met pijl omhoog"
+
+#: frescobaldi_app/quickinsert/spanners.py:71
+msgid "Arpeggio with Down Arrow"
+msgstr "Arpeggio met pijl naar beneden"
+
+#: frescobaldi_app/quickinsert/spanners.py:72
+msgid "Bracket Arpeggio"
+msgstr "Vierkante haak-arpeggio"
+
+#: frescobaldi_app/quickinsert/spanners.py:73
+msgid "Parenthesis Arpeggio"
+msgstr "Ronde haak-arpeggio"
+
+#: frescobaldi_app/quickinsert/spanners.py:105
+msgid "Glissandos"
+msgstr "Glissando's"
+
+#: frescobaldi_app/quickinsert/spanners.py:114
+msgid "Glissando"
+msgstr "Glissando"
+
+#: frescobaldi_app/quickinsert/spanners.py:115
+msgid "Dashed Glissando"
+msgstr "Gestreept glissando"
+
+#: frescobaldi_app/quickinsert/spanners.py:116
+msgid "Dotted Glissando"
+msgstr "Gestippeld glissando"
+
+#: frescobaldi_app/quickinsert/spanners.py:117
+msgid "Zigzag Glissando"
+msgstr "Zig-zag glissando"
+
+#: frescobaldi_app/quickinsert/spanners.py:118
+msgid "Trill Glissando"
+msgstr "Triller-glissando"
+
+#: frescobaldi_app/quickinsert/spanners.py:144
+msgid "Phrasing Slur"
+msgstr "Fraseringsboog"
+
+#: frescobaldi_app/quickinsert/widget.py:102
+msgid ""
+"<p>With the Quick Insert Panel you can add various music elements to the "
+"current note or selected music.</p>\n"
+"<p>See {link} for more information.</p>"
+msgstr ""
+"<p>Met het Quick Insert-paneel kunt u allerlei muzieksymbolen aan de huidige "
+"noot of geselecteerde muziek toevoegen.</p>\n"
+"<p>Zie {link} voor meer informatie.</p>"
+
+#: frescobaldi_app/quickinsert/widget.py:107
+msgid "Direction:"
+msgstr "Richting:"
+
+#: frescobaldi_app/quickinsert/widget.py:108
+msgid "Up"
+msgstr "Boven"
+
+#: frescobaldi_app/quickinsert/widget.py:108
+msgid "Neutral"
+msgstr "Neutraal"
+
+#: frescobaldi_app/quickinsert/widget.py:108
+msgid "Down"
+msgstr "Onder"
+
+#: frescobaldi_app/quickinsert/widget.py:127
+msgid "The Quick Insert Panel"
+msgstr "Het Quick Insert-paneel"
+
+#: frescobaldi_app/quickinsert/widget.py:130
+msgid ""
+"<p>\n"
+"With the tools in the Quick Insert Panel you can add various music elements\n"
+"to the current note or selected music.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"The <em>Direction</em> chooser specifies if articulations, dynamics or "
+"slurs\n"
+"appear in a neutral position (e.g. determined by stem direction), or above\n"
+"or below the staff by prepending a <code>-</code>, <code>^</code> or\n"
+"<code>_</code> character.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Click on a tab to select a tool. You can cycle through the tools with Ctrl\n"
+"(or {command}) and the mouse wheel.\n"
+"All buttons in the Quick Insert Panel have configurable keyboard shortcuts;\n"
+"you can change them by right-clicking a button.\n"
+"</p>\n"
+msgstr ""
+"<p>\n"
+"Met de gereedschappen in het Quick Insert-paneel kunt u allerlei "
+"muzieksymbolen  aan de huidige noot of de geselecteerde muziek toevoegen.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"De <em>Richting</em> selectieknop bepaalt of articulaties, dynamische tekens "
+"of boogjes in een neutrale positie worden geplaatst (bijv. bepaald door "
+"stokrichting) of boven of onder de balk door een <code>-</code>, <code>^</"
+"code> of\n"
+"<code>_</code> teken ervoor te plaatsen.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Klik op een tab om een categorie te selecteren. U kunt bladeren door alle "
+"tabs met Control (of {command}) en het muiswiel.\n"
+"Alle knoppen in het Quick Insert-paneel hebben instelbare sneltoetsen; u "
+"kunt deze aanpassen door rechts te klikken op een knop.\n"
+"</p>\n"
+
+#: frescobaldi_app/quickinsert/widget.py:149
+msgid ""
+"<h3>Articulations</h3>\n"
+"\n"
+"<p>\n"
+"These musical symbols can be added to a note or rest or a selected range\n"
+"of music.\n"
+"If you add them to a selection, rests will be skipped.\n"
+"If there is no text selected, the cursor will automatically move to the "
+"next\n"
+"pitch, rest, skip or chord.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"If <em>Allow shorthands</em> is checked, Frescobaldi will use short signs\n"
+"for articulations if they exist\n"
+"(e.g. <code>-.</code> instead of <code>-\\staccato</code>).\n"
+"</p>\n"
+msgstr ""
+"<h3>Articulaties</h3>\n"
+"\n"
+"<p>\n"
+"Deze muzieksymbolen kunnen aan een noot, rust of een geselecteerd bereik "
+"worden toegevoegd.\n"
+"Als u ze aan een selectie toevoegt worden rusten overgeslagen.\n"
+"Als er geen tekst geselecteerd is springt de cursor vanzelf naar de volgende "
+"noot, rust of het volgende akkoord.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Als <em>Korte notatie</em> is ingeschakeld zal Frescobaldi korte tekens "
+"gebruiken indien beschikbaar (bijvoorbeeld <code>-.</code> in plaats van "
+"<code>-\\staccato</code>).\n"
+"</p>\n"
+
+#: frescobaldi_app/quickinsert/widget.py:165
+msgid ""
+"<h3>Dynamics</h3>\n"
+"\n"
+"<p>\n"
+"Dynamics can also be added to a note or rest.\n"
+"If you select a range of music, you can add spanners which will "
+"automatically\n"
+"terminate at the last note, rest or chord in the selection.\n"
+"If you then click a sign, it will replace the terminator.\n"
+"</p>\n"
+msgstr ""
+"<h3>Dynamische tekens</h3>\n"
+"\n"
+"<p>\n"
+"Dynamische tekens kunnen ook aan noten of rusten worden toegevoegd.\n"
+"Als u een muziekbereik selecteert kunt in spanners toevoegen die automatisch "
+"afsluiten op de laatste noot, rust of het laatste akkoord.\n"
+"Als u daarna een teken aanklikt, vervangt dat de afsluiter.\n"
+"</p>\n"
+
+#: frescobaldi_app/quickinsert/widget.py:174
+msgid ""
+"<h3>Spanners</h3>\n"
+"\n"
+"<p>\n"
+"This tool lets you add arpeggio, glissandos and other spanners like slurs,\n"
+"phrasing slurs, manual beams or trills.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Arpeggios and glissandos apply to the current note;\n"
+"they need no music to be selected.\n"
+"The slurs, beams or trill apply to the current note and the next one\n"
+"if no music is selected,\n"
+"or to the first and the last note or chord in the selection.\n"
+"</p>\n"
+msgstr ""
+"<h3>Spanners</h3>\n"
+"\n"
+"<p>\n"
+"Hiermee kunt u arpeggio's, glissando's en andere spanners zoals bogen, "
+"fraseringsbogen, handmatige waardestrepen of trillers toevoegen.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Arpeggio's en glissando's gelden alleen voor de huidige noot;\n"
+"er hoeft geen muziek te zijn geselecteerd.\n"
+"De bogen, waardestreep of de triller gelden voor de huidige noot en de "
+"volgende als er geen muziek geselecteerd is,\n"
+"of voor de eerste en de laatste noot of akkoord in de selectie.\n"
+"</p>\n"
+
+#: frescobaldi_app/quickinsert/widget.py:189
+msgid ""
+"<h3>Bar Lines</h3>\n"
+"\n"
+"<p>\n"
+"Here you can insert bar lines or various breathing signs.\n"
+"</p>\n"
+msgstr ""
+"<h3>Maatstrepen</h3>\n"
+"\n"
+"<p>\n"
+"Hiermee kunt u verschillende soorten maatstrepen en ademhalingstekens "
+"invoegen.\n"
+"</p>\n"
+
+#: frescobaldi_app/rhythm/__init__.py:146
+msgid "&Double durations"
+msgstr "Tijdsduur ver&dubbelen"
+
+#: frescobaldi_app/rhythm/__init__.py:148
+msgid "Double all the durations in the selection."
+msgstr "Alle nootlengtes in de selectie verdubbelen."
+
+#: frescobaldi_app/rhythm/__init__.py:149
+msgid "&Halve durations"
+msgstr "Tijdsduur &halveren"
+
+#: frescobaldi_app/rhythm/__init__.py:151
+msgid "Halve all the durations in the selection."
+msgstr "Alle nootlengtes in de selectie halveren."
+
+#: frescobaldi_app/rhythm/__init__.py:152
+msgid "Do&t durations"
+msgstr "Pun&t toevoegen"
+
+#: frescobaldi_app/rhythm/__init__.py:154
+msgid "Add a dot to all the durations in the selection."
+msgstr "Een punt toevoegen aan alle noten in de selectie."
+
+#: frescobaldi_app/rhythm/__init__.py:155
+msgid "&Undot durations"
+msgstr "P&unt verwijderen"
+
+#: frescobaldi_app/rhythm/__init__.py:157
+msgid "Remove one dot from all the durations in the selection."
+msgstr "Een punt verwijderen van alle noten in de selectie."
+
+#: frescobaldi_app/rhythm/__init__.py:158
+msgid "Remove &scaling"
+msgstr "&Schaling verwijderen"
+
+#: frescobaldi_app/rhythm/__init__.py:160
+msgid "Remove all scaling (*n/m) from the durations in the selection."
+msgstr "Alle schaling (*n/m) verwijderen van de nootlengtes in de selectie."
+
+#: frescobaldi_app/rhythm/__init__.py:161
+msgid "&Remove durations"
+msgstr "Tijdsduu&r verwijderen"
+
+#: frescobaldi_app/rhythm/__init__.py:163
+msgid "Remove all durations from the selection."
+msgstr "De volledige tijdsduur-informatie verwijderen uit de selectie."
+
+#: frescobaldi_app/rhythm/__init__.py:164
+msgid "Make &implicit"
+msgstr "&Impliciet maken"
+
+#: frescobaldi_app/rhythm/__init__.py:166
+msgid "Make durations implicit (remove repeated durations)."
+msgstr "Tijdsduren impliciet maken (herhaalde lengtes verwijderen)."
+
+#: frescobaldi_app/rhythm/__init__.py:167
+msgid "Make implicit (per &line)"
+msgstr "Imp&liciet maken (per regel)"
+
+#: frescobaldi_app/rhythm/__init__.py:169
+msgid ""
+"Make durations implicit (remove repeated durations), except for the first "
+"duration in a line."
+msgstr ""
+"Tijdsduren impliciet maken (herhaalde lengtes verwijderen), behalve de "
+"eerste tijdsduur in een regel."
+
+#: frescobaldi_app/rhythm/__init__.py:171
+msgid "Make &explicit"
+msgstr "&Expliciet maken"
+
+#: frescobaldi_app/rhythm/__init__.py:173
+msgid ""
+"Make durations explicit (add duration to every note, even if it is the same "
+"as the preceding note)."
+msgstr ""
+"De toonduur na elke noot weergeven, ook als deze hetzelfde is als de vorige "
+"noot."
+
+#: frescobaldi_app/rhythm/__init__.py:175
+msgid "&Apply rhythm..."
+msgstr "Ritme toep&assen..."
+
+#: frescobaldi_app/rhythm/__init__.py:177
+msgid "Apply an entered rhythm to the selected music."
+msgstr "Een ingevoerd ritme op de geselecteerde muziek toepassen."
+
+#: frescobaldi_app/rhythm/__init__.py:178
+msgid "&Copy rhythm"
+msgstr "Ritme &kopiëren"
+
+#: frescobaldi_app/rhythm/__init__.py:180
+msgid "Copy the rhythm of the selected music."
+msgstr "Het ritme van de geselecteerde muziek kopiëren."
+
+#: frescobaldi_app/rhythm/__init__.py:181
+msgid "&Paste rhythm"
+msgstr "Ritme &plakken"
+
+#: frescobaldi_app/rhythm/__init__.py:182
+msgid "Paste a rhythm to the selected music."
+msgstr "Een ritme in de geselecteerde muziek plakken."
+
+#: frescobaldi_app/rhythm/rhythm.py:146
+msgid "Apply Rhythm"
+msgstr "Ritme toepassen"
+
+#: frescobaldi_app/rhythm/rhythm.py:146
+msgid "Enter a rhythm:"
+msgstr "Voer een ritme in:"
+
+#: frescobaldi_app/rhythm/rhythm.py:244
+msgid "Rhythm manipulation"
+msgstr "Ritme bewerken"
+
+#: frescobaldi_app/rhythm/rhythm.py:247
+msgid ""
+"<p>\n"
+"The rhythm functions of Frescobaldi alter the durations written after "
+"notes,\n"
+"chords, rests, etcetera. Using those functions, all in menu {menu}, it\n"
+"is possible to double or halve the length of notes, to add or remove dots\n"
+"and to remove scaling factors.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Also it is possible to change the way rhythm is specified: for every note\n"
+"(explicit), or only when the duration changes (implicit). Some users may "
+"prefer\n"
+"the option implicit per line, which always specifies the duration for the "
+"first\n"
+"note, chord or rest on a line.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"The last three menu commands can copy, paste or apply a rhythm that is "
+"entered\n"
+"in a dialog.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"In the \"Apply Rhythm\" dialog you can enter a series of durations, e.g.:\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"<code>4. 8 4 16 16 8 2</code>\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"which will then, repetitively, be applied to a selection of notes.\n"
+"</p>\n"
+msgstr ""
+"<p>\n"
+"De ritmefuncties in Frescobaldi passen de duur van noten, akkoorden, rusten, "
+"etc. aan. Met deze functies, alle in menu {menu}, is het mogelijk om de "
+"lengte van noten te verdubbelen of halveren, stip toe te voegen of "
+"verwijderen of de schaling te verwijderen.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Ook is het mogelijk de manier waarop het ritme wordt ingevoerd aan te "
+"passen: voor elke noot (expliciet), of alleen wanneer de tijdsduur verandert "
+"(impliciet). Sommige gebruikers geven misschien de voorkeur aan de optie "
+"\"impliciet per regel\", die altijd de tijdsduur aangeeft voor de eerste "
+"noot, rust of het eerste akkoord op een regel.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"De laatste drie menucommando's kunnen een ritme kopiëren of plakken, of een "
+"ritme toepassen dat in een dialoog wordt opgegeven.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"In de dialoog \"Ritme toepassen\" kunt u een aantal tijdsduren aangeven, "
+"bijvoorbeeld:\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"<code>4. 8 4 16 16 8 2</code>\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Deze worden dan, steeds herhaald, toegepast op een geselecteerd bereik.\n"
+"</p>\n"
+
+#: frescobaldi_app/rhythm/rhythm.py:279
+msgctxt "submenu title"
+msgid "Rhythm"
+msgstr "Ritme"
+
+#: frescobaldi_app/scorewiz/__init__.py:59
+#: frescobaldi_app/scorewiz/dialog.py:198
+msgid "Setup New Score..."
+msgstr "Nieuwe partituur maken..."
+
+#: frescobaldi_app/scorewiz/build.py:136
+msgid "Music follows here."
+msgstr "Muziek volgt hier."
+
+#: frescobaldi_app/scorewiz/build.py:403
+msgid "Remove default LilyPond tagline"
+msgstr "Standaard LilyPond-tagline verwijderen"
 
 #: frescobaldi_app/scorewiz/dialog.py:77
 msgid "Score Setup Wizard"
@@ -4083,11 +3788,6 @@ msgstr "Partituur-in&stellingen"
 #: frescobaldi_app/scorewiz/dialog.py:191
 msgid "The Score Wizard"
 msgstr "Partituur opzetten"
-
-#: frescobaldi_app/scorewiz/dialog.py:198
-#: frescobaldi_app/scorewiz/__init__.py:59
-msgid "Setup New Score..."
-msgstr "Nieuwe partituur maken..."
 
 #: frescobaldi_app/scorewiz/dialog.py:199
 msgid ""
@@ -4204,6 +3904,70 @@ msgstr ""
 "daarna de Scores, zonder partijen aan de Scores toe te voegen.\n"
 "Alle Scores zullen dan de partijen uit de partituur gebruiken.</p>\n"
 
+#: frescobaldi_app/scorewiz/header.py:87
+msgid "Click to enter a value."
+msgstr "Klik om een waarde in te voeren."
+
+#: frescobaldi_app/scorewiz/header.py:89
+msgid "bottom of first page"
+msgstr "onderaan eerste pagina"
+
+#: frescobaldi_app/scorewiz/header.py:90
+msgid "bottom of last page"
+msgstr "onderaan laatste pagina"
+
+#: frescobaldi_app/scorewiz/header.py:135
+msgid "Dedication"
+msgstr "Opdracht"
+
+#: frescobaldi_app/scorewiz/header.py:136
+msgid "Title"
+msgstr "Titel"
+
+#: frescobaldi_app/scorewiz/header.py:137
+msgid "Subtitle"
+msgstr "Subtitel"
+
+#: frescobaldi_app/scorewiz/header.py:138
+msgid "Subsubtitle"
+msgstr "Subsubtitel"
+
+#: frescobaldi_app/scorewiz/header.py:139
+msgid "Instrument"
+msgstr "Instrument"
+
+#: frescobaldi_app/scorewiz/header.py:140
+msgid "Composer"
+msgstr "Componist"
+
+#: frescobaldi_app/scorewiz/header.py:141
+msgid "Arranger"
+msgstr "Arrangeur"
+
+#: frescobaldi_app/scorewiz/header.py:142
+msgid "Poet"
+msgstr "Dichter"
+
+#: frescobaldi_app/scorewiz/header.py:143
+msgid "Meter"
+msgstr "Versvoet"
+
+#: frescobaldi_app/scorewiz/header.py:144
+msgid "Piece"
+msgstr "Werk"
+
+#: frescobaldi_app/scorewiz/header.py:145
+msgid "Opus"
+msgstr "Opus"
+
+#: frescobaldi_app/scorewiz/header.py:146
+msgid "Copyright"
+msgstr "Copyright"
+
+#: frescobaldi_app/scorewiz/header.py:147
+msgid "Tagline"
+msgstr "Tagline"
+
 #: frescobaldi_app/scorewiz/score.py:100
 msgid "Available parts:"
 msgstr "Beschikbare partijen:"
@@ -4217,8 +3981,8 @@ msgid "&Add"
 msgstr "&Toevoegen"
 
 #: frescobaldi_app/scorewiz/score.py:103
-#: frescobaldi_app/widgets/schemeselector.py:64
 #: frescobaldi_app/widgets/listedit.py:93
+#: frescobaldi_app/widgets/schemeselector.py:64
 msgid "&Remove"
 msgstr "&Verwijderen"
 
@@ -4229,14 +3993,6 @@ msgstr "Omhoog"
 #: frescobaldi_app/scorewiz/score.py:105
 msgid "Move down"
 msgstr "Omlaag"
-
-#: frescobaldi_app/scorewiz/build.py:136
-msgid "Music follows here."
-msgstr "Muziek volgt hier."
-
-#: frescobaldi_app/scorewiz/build.py:403
-msgid "Remove default LilyPond tagline"
-msgstr "Standaard LilyPond-tagline verwijderen"
 
 #: frescobaldi_app/scorewiz/scoreproperties.py:99
 msgid "Key signature:"
@@ -4412,149 +4168,61 @@ msgstr "Versie:"
 msgid "The LilyPond version you will be using for this document."
 msgstr "De LilyPond-versie die u wilt gebruiken voor dit document."
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:76
-msgid "Staff type:"
-msgstr "Type balk:"
+#: frescobaldi_app/scorewiz/parts/_base.py:64
+msgid "No settings available."
+msgstr "Geen instellingen beschikbaar."
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:82
-msgid "Tuning:"
-msgstr "Stemming:"
+#: frescobaldi_app/scorewiz/parts/_base.py:133
+msgid "Adjust how many separate voices you want on each staff."
+msgstr "Hier kunt u instellen hoeveel aparte stemmen u in elke balk wilt."
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:172
-msgid "Normal staff"
-msgstr "Normaal"
+#: frescobaldi_app/scorewiz/parts/_base.py:134
+msgid "This is primarily useful when you write polyphonic music like a fuge."
+msgstr "Dit is vooral handig als u polyfone muziek schrijft zoals een fuga."
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:173
-msgid "Tablature"
-msgstr "Tabulatuur"
+#: frescobaldi_app/scorewiz/parts/_base.py:136
+msgid "Right hand:"
+msgstr "Rechts:"
 
-#. L10N: Both a Normal and a Tablature staff
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:175
-msgid "Both"
-msgstr "Beide"
+#: frescobaldi_app/scorewiz/parts/_base.py:137
+msgid "Left hand:"
+msgstr "Links:"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:182
-msgid "Mandolin"
-msgstr "Mandoline"
+#: frescobaldi_app/scorewiz/parts/_base.py:186
+msgid "Chord style:"
+msgstr "Akkoordstijl:"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:186
-msgctxt "abbreviation for Mandolin"
-msgid "Mdl."
-msgstr "Mdl."
+#: frescobaldi_app/scorewiz/parts/_base.py:187
+msgid "Guitar fret diagrams"
+msgstr "Gitaar-fretdiagrammen"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:190
-msgid "Mandolin tuning"
-msgstr "Mandoline-stemming"
+#: frescobaldi_app/scorewiz/parts/_base.py:189
+msgid ""
+"Show predefined guitar fret diagrams below the chord names (LilyPond 2.12 "
+"and above)."
+msgstr ""
+"Voorgedefiniëerde gitaar-fretdiagrammen afbeelden onder de akkoordnamen "
+"(LilyPond 2.12 en hoger)."
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:197
-msgid "Banjo"
-msgstr "Banjo"
+#: frescobaldi_app/scorewiz/parts/_base.py:203
+msgid "Chords follow here."
+msgstr "Akkoordnamen volgen."
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:201
-msgctxt "abbreviation for Banjo"
-msgid "Bj."
-msgstr "Bj."
+#: frescobaldi_app/scorewiz/parts/_base.py:215
+msgid "German"
+msgstr "Duits"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:206
-msgid "Open G-tuning (aDGBD)"
-msgstr "Open G-stemming (aDGBD)"
+#: frescobaldi_app/scorewiz/parts/_base.py:216
+msgid "Semi-German"
+msgstr "Semi-Duits"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:207
-msgid "C-tuning (gCGBD)"
-msgstr "C-stemming (gCGBD)"
+#: frescobaldi_app/scorewiz/parts/_base.py:217
+msgid "Italian"
+msgstr "Italiaans"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:208
-msgid "Modal tuning (gDGCD)"
-msgstr "Modale stemming (gDGCD)"
-
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:209
-msgid "Open D-tuning (aDF#AD)"
-msgstr "Open D-stemming (aDF#AD)"
-
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:210
-msgid "Open Dm-tuning (aDFAD)"
-msgstr "Open Dm-stemming (aDFAD)"
-
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:220
-msgid "Four strings (instead of five)"
-msgstr "Vier snaren (ipv vijf)"
-
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:234
-msgid "Classical guitar"
-msgstr "Klassiek gitaar"
-
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:238
-msgctxt "abbreviation for Classical guitar"
-msgid "Gt."
-msgstr "Gt."
-
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:243
-msgid "Guitar tuning"
-msgstr "Gitaarstemming"
-
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:244
-msgid "Open G-tuning"
-msgstr "Open G-stemming"
-
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:258
-#: frescobaldi_app/scorewiz/parts/percussion.py:186
-msgid "Voices:"
-msgstr "Stemmen:"
-
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:267
-msgid "Jazz guitar"
-msgstr "Jazzgitaar"
-
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:271
-msgctxt "abbreviation for Jazz guitar"
-msgid "J.Gt."
-msgstr "J.gt."
-
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:279
-#: frescobaldi_app/scorewiz/parts/vocal.py:171
-msgid "Bass"
-msgstr "Bas"
-
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:283
-msgctxt "abbreviation for Bass"
-msgid "Bs."
-msgstr "Bs."
-
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:289
-msgid "Bass tuning"
-msgstr "Basstemming"
-
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:296
-msgid "Electric bass"
-msgstr "Electrische bas"
-
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:300
-msgctxt "abbreviation for Electric bass"
-msgid "E.Bs."
-msgstr "E.Bs."
-
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:308
-msgid "Harp"
-msgstr "Harp"
-
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:312
-msgctxt "abbreviation for Harp"
-msgid "Hp."
-msgstr "Hp."
-
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:318
-#: frescobaldi_app/scorewiz/parts/percussion.py:84
-msgid "Upper staff:"
-msgstr "Bovenste balk:"
-
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:319
-#: frescobaldi_app/scorewiz/parts/percussion.py:85
-msgid "Lower staff:"
-msgstr "Onderste balk:"
-
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:335
-msgid "Plucked strings"
-msgstr "Getokkelde instrumenten"
+#: frescobaldi_app/scorewiz/parts/_base.py:218
+msgid "French"
+msgstr "Frans"
 
 #: frescobaldi_app/scorewiz/parts/brass.py:39
 msgid "Horn in F"
@@ -4613,205 +4281,6 @@ msgstr "Btb."
 #: frescobaldi_app/scorewiz/parts/brass.py:116
 msgid "Brass"
 msgstr "Koper"
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:45
-msgid "Timpani"
-msgstr "Pauken"
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:49
-msgctxt "abbreviation for Timpani"
-msgid "Tmp."
-msgstr "Pkn."
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:59
-msgid "Xylophone"
-msgstr "Xylofoon"
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:63
-msgctxt "abbreviation for Xylophone"
-msgid "Xyl."
-msgstr "Xyl."
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:71
-msgid "Marimba"
-msgstr "Marimba"
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:75
-msgctxt "abbreviation for Marimba"
-msgid "Mar."
-msgstr "Mar."
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:87
-msgid "Set the number of voices to 0 to disable the second staff."
-msgstr "Stel het aantal stemmen in op 0 om de tweede balk niet weer te geven."
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:99
-msgid "Vibraphone"
-msgstr "Vibrafoon"
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:103
-msgctxt "abbreviation for Vibraphone"
-msgid "Vib."
-msgstr "Vib."
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:111
-msgid "Tubular bells"
-msgstr "Buisklokken"
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:115
-msgctxt "abbreviation for Tubular bells"
-msgid "Tub."
-msgstr "Bkl."
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:123
-msgid "Glockenspiel"
-msgstr "Klokkenspel"
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:127
-msgctxt "abbreviation for Glockenspiel"
-msgid "Gls."
-msgstr "Kls."
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:135
-msgid "Carillon"
-msgstr "Beiaard"
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:139
-msgctxt "abbreviation for Carillon"
-msgid "Car."
-msgstr "Bd."
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:145
-msgid "Manual staff:"
-msgstr "Manuaalbalk:"
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:146
-msgid "Pedal staff:"
-msgstr "Pedaalbalk:"
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:161
-msgid "Drums"
-msgstr "Slagwerk"
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:165
-msgctxt "abbreviation for Drums"
-msgid "Dr."
-msgstr "Slw."
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:188
-msgid "Remove stems"
-msgstr "Stokken verwijderen"
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:189
-msgid "Remove the stems from the drum notes."
-msgstr "Verwijder de stokken van de slagwerknoten."
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:201
-msgid "Drums follow here."
-msgstr "Slagwerk volgt."
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:226
-msgid "keep some distance."
-msgstr "houd enige afstand."
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:232
-msgid "Drums (5 lines, default)"
-msgstr "Drums (5 lijnen, standaard)"
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:233
-msgid "Timbales-style (2 lines)"
-msgstr "Timbales-stijl (2 lijnen)"
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:234
-msgid "Congas-style (2 lines)"
-msgstr "Conga's-stijl (2 lijnen)"
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:235
-msgid "Bongos-style (2 lines)"
-msgstr "Bongo's-stijl (2 lijnen)"
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:236
-msgid "Percussion-style (1 line)"
-msgstr "Percussie-stijl (1 lijn)"
-
-#: frescobaldi_app/scorewiz/parts/percussion.py:242
-msgid "Percussion"
-msgstr "Percussie"
-
-#: frescobaldi_app/scorewiz/parts/special.py:39
-#: frescobaldi_app/scorewiz/parts/vocal.py:204
-msgid "Chord names"
-msgstr "Akkoordnamen"
-
-#: frescobaldi_app/scorewiz/parts/special.py:45
-msgid "Figured Bass"
-msgstr "Becijferde bas"
-
-#: frescobaldi_app/scorewiz/parts/special.py:52
-msgid "Use extender lines"
-msgstr "Extender-lijnen gebruiken"
-
-#: frescobaldi_app/scorewiz/parts/special.py:60
-#: frescobaldi_app/scorewiz/parts/strings.py:109
-msgid "Figures follow here."
-msgstr "Bas-becijfering volgt."
-
-#: frescobaldi_app/scorewiz/parts/special.py:70
-msgid "Staff"
-msgstr "Notenbalk"
-
-#: frescobaldi_app/scorewiz/parts/special.py:76
-msgid "Special"
-msgstr "Speciaal"
-
-#: frescobaldi_app/scorewiz/parts/strings.py:41
-msgid "Violin"
-msgstr "Viool"
-
-#: frescobaldi_app/scorewiz/parts/strings.py:45
-msgctxt "abbreviation for Violin"
-msgid "Vl."
-msgstr "Vl."
-
-#: frescobaldi_app/scorewiz/parts/strings.py:53
-msgid "Viola"
-msgstr "Altviool"
-
-#: frescobaldi_app/scorewiz/parts/strings.py:57
-msgctxt "abbreviation for Viola"
-msgid "Vla."
-msgstr "Avl."
-
-#: frescobaldi_app/scorewiz/parts/strings.py:67
-msgid "Cello"
-msgstr "Cello"
-
-#: frescobaldi_app/scorewiz/parts/strings.py:71
-msgctxt "abbreviation for Cello"
-msgid "Cl."
-msgstr "Cl."
-
-#: frescobaldi_app/scorewiz/parts/strings.py:81
-msgid "Contrabass"
-msgstr "Contrabas"
-
-#: frescobaldi_app/scorewiz/parts/strings.py:85
-msgctxt "abbreviation for Contrabass"
-msgid "Cb."
-msgstr "Cb."
-
-#: frescobaldi_app/scorewiz/parts/strings.py:95
-msgid "Basso Continuo"
-msgstr "Basso continuo"
-
-#: frescobaldi_app/scorewiz/parts/strings.py:99
-msgctxt "abbreviation for Basso Continuo"
-msgid "B.c."
-msgstr "B.c."
-
-#: frescobaldi_app/scorewiz/parts/strings.py:117
-msgid "Strings"
-msgstr "Snaarinstrumenten"
 
 #: frescobaldi_app/scorewiz/parts/containers.py:43
 msgid "Staff Group"
@@ -4899,180 +4368,405 @@ msgstr "Achtervoegsel"
 msgid "Containers"
 msgstr "Containers"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:39
-msgid "Flute"
-msgstr "Fluit"
+#: frescobaldi_app/scorewiz/parts/keyboard.py:44
+msgid "Piano"
+msgstr "Piano"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:43
-msgctxt "abbreviation for Flute"
-msgid "Fl."
-msgstr "Fl."
+#: frescobaldi_app/scorewiz/parts/keyboard.py:48
+msgctxt "abbreviation for Piano"
+msgid "Pno."
+msgstr "Pno."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:51
-msgid "Piccolo"
-msgstr "Piccolo"
+#: frescobaldi_app/scorewiz/parts/keyboard.py:56
+msgid "Harpsichord"
+msgstr "Klavecimbel"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:55
-msgctxt "abbreviation for Piccolo"
-msgid "Pic."
-msgstr "Pic."
+#: frescobaldi_app/scorewiz/parts/keyboard.py:60
+msgctxt "abbreviation for Harpsichord"
+msgid "Hs."
+msgstr "Kl."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:64
-msgid "Bass flute"
-msgstr "Basfluit"
+#: frescobaldi_app/scorewiz/parts/keyboard.py:68
+msgid "Clavichord"
+msgstr "Clavichord"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:68
-msgctxt "abbreviation for Bass flute"
-msgid "Bfl."
-msgstr "Bfl."
+#: frescobaldi_app/scorewiz/parts/keyboard.py:72
+msgctxt "abbreviation for Clavichord"
+msgid "Clv."
+msgstr "Clv."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:77
-msgid "Oboe"
-msgstr "Hobo"
+#: frescobaldi_app/scorewiz/parts/keyboard.py:80
+msgid "Organ"
+msgstr "Orgel"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:81
-msgctxt "abbreviation for Oboe"
-msgid "Ob."
-msgstr "Hb."
+#: frescobaldi_app/scorewiz/parts/keyboard.py:84
+msgctxt "abbreviation for Organ"
+msgid "Org."
+msgstr "Org."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:89
-msgid "Oboe d'amore"
-msgstr "Liefdeshobo"
+#: frescobaldi_app/scorewiz/parts/keyboard.py:99
+msgid "Pedal:"
+msgstr "Pedaal:"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:93
-msgctxt "abbreviation for Oboe d'amore"
-msgid "Ob.d'am."
-msgstr "Lhb."
+#: frescobaldi_app/scorewiz/parts/keyboard.py:101
+msgid "Set to 0 to disable the pedal altogether."
+msgstr "Stel 0 in om de pedaalbalk te verwijderen."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:102
-msgid "English horn"
-msgstr "Althobo"
+#: frescobaldi_app/scorewiz/parts/keyboard.py:114
+msgid "Celesta"
+msgstr "Celesta"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:106
-msgctxt "abbreviation for English horn"
-msgid "Eng.h."
-msgstr "Ahb."
+#: frescobaldi_app/scorewiz/parts/keyboard.py:118
+msgctxt "abbreviation for Celesta"
+msgid "Cel."
+msgstr "Cel."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:115
-msgid "Bassoon"
-msgstr "Fagot"
+#: frescobaldi_app/scorewiz/parts/keyboard.py:124
+msgid "Keyboard instruments"
+msgstr "Toetsinstrumenten"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:119
-msgctxt "abbreviation for Bassoon"
-msgid "Bn."
-msgstr "Fag."
+#: frescobaldi_app/scorewiz/parts/percussion.py:45
+msgid "Timpani"
+msgstr "Pauken"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:129
-msgid "Contrabassoon"
-msgstr "Contrafagot"
+#: frescobaldi_app/scorewiz/parts/percussion.py:49
+msgctxt "abbreviation for Timpani"
+msgid "Tmp."
+msgstr "Pkn."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:133
-msgctxt "abbreviation for Contrabassoon"
-msgid "C.Bn."
-msgstr "Cfag."
+#: frescobaldi_app/scorewiz/parts/percussion.py:59
+msgid "Xylophone"
+msgstr "Xylofoon"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:144
-msgid "Clarinet"
-msgstr "Klarinet"
+#: frescobaldi_app/scorewiz/parts/percussion.py:63
+msgctxt "abbreviation for Xylophone"
+msgid "Xyl."
+msgstr "Xyl."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:148
-msgctxt "abbreviation for Clarinet"
+#: frescobaldi_app/scorewiz/parts/percussion.py:71
+msgid "Marimba"
+msgstr "Marimba"
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:75
+msgctxt "abbreviation for Marimba"
+msgid "Mar."
+msgstr "Mar."
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:84
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:318
+msgid "Upper staff:"
+msgstr "Bovenste balk:"
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:85
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:319
+msgid "Lower staff:"
+msgstr "Onderste balk:"
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:87
+msgid "Set the number of voices to 0 to disable the second staff."
+msgstr "Stel het aantal stemmen in op 0 om de tweede balk niet weer te geven."
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:99
+msgid "Vibraphone"
+msgstr "Vibrafoon"
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:103
+msgctxt "abbreviation for Vibraphone"
+msgid "Vib."
+msgstr "Vib."
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:111
+msgid "Tubular bells"
+msgstr "Buisklokken"
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:115
+msgctxt "abbreviation for Tubular bells"
+msgid "Tub."
+msgstr "Bkl."
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:123
+msgid "Glockenspiel"
+msgstr "Klokkenspel"
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:127
+msgctxt "abbreviation for Glockenspiel"
+msgid "Gls."
+msgstr "Kls."
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:135
+msgid "Carillon"
+msgstr "Beiaard"
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:139
+msgctxt "abbreviation for Carillon"
+msgid "Car."
+msgstr "Bd."
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:145
+msgid "Manual staff:"
+msgstr "Manuaalbalk:"
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:146
+msgid "Pedal staff:"
+msgstr "Pedaalbalk:"
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:161
+msgid "Drums"
+msgstr "Slagwerk"
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:165
+msgctxt "abbreviation for Drums"
+msgid "Dr."
+msgstr "Slw."
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:186
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:258
+msgid "Voices:"
+msgstr "Stemmen:"
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:188
+msgid "Remove stems"
+msgstr "Stokken verwijderen"
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:189
+msgid "Remove the stems from the drum notes."
+msgstr "Verwijder de stokken van de slagwerknoten."
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:201
+msgid "Drums follow here."
+msgstr "Slagwerk volgt."
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:226
+msgid "keep some distance."
+msgstr "houd enige afstand."
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:232
+msgid "Drums (5 lines, default)"
+msgstr "Drums (5 lijnen, standaard)"
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:233
+msgid "Timbales-style (2 lines)"
+msgstr "Timbales-stijl (2 lijnen)"
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:234
+msgid "Congas-style (2 lines)"
+msgstr "Conga's-stijl (2 lijnen)"
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:235
+msgid "Bongos-style (2 lines)"
+msgstr "Bongo's-stijl (2 lijnen)"
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:236
+msgid "Percussion-style (1 line)"
+msgstr "Percussie-stijl (1 lijn)"
+
+#: frescobaldi_app/scorewiz/parts/percussion.py:242
+msgid "Percussion"
+msgstr "Percussie"
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:76
+msgid "Staff type:"
+msgstr "Type balk:"
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:82
+msgid "Tuning:"
+msgstr "Stemming:"
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:172
+msgid "Normal staff"
+msgstr "Normaal"
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:173
+msgid "Tablature"
+msgstr "Tabulatuur"
+
+#. L10N: Both a Normal and a Tablature staff
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:175
+msgid "Both"
+msgstr "Beide"
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:182
+msgid "Mandolin"
+msgstr "Mandoline"
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:186
+msgctxt "abbreviation for Mandolin"
+msgid "Mdl."
+msgstr "Mdl."
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:190
+msgid "Mandolin tuning"
+msgstr "Mandoline-stemming"
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:197
+msgid "Banjo"
+msgstr "Banjo"
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:201
+msgctxt "abbreviation for Banjo"
+msgid "Bj."
+msgstr "Bj."
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:206
+msgid "Open G-tuning (aDGBD)"
+msgstr "Open G-stemming (aDGBD)"
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:207
+msgid "C-tuning (gCGBD)"
+msgstr "C-stemming (gCGBD)"
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:208
+msgid "Modal tuning (gDGCD)"
+msgstr "Modale stemming (gDGCD)"
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:209
+msgid "Open D-tuning (aDF#AD)"
+msgstr "Open D-stemming (aDF#AD)"
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:210
+msgid "Open Dm-tuning (aDFAD)"
+msgstr "Open Dm-stemming (aDFAD)"
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:220
+msgid "Four strings (instead of five)"
+msgstr "Vier snaren (ipv vijf)"
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:234
+msgid "Classical guitar"
+msgstr "Klassiek gitaar"
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:238
+msgctxt "abbreviation for Classical guitar"
+msgid "Gt."
+msgstr "Gt."
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:243
+msgid "Guitar tuning"
+msgstr "Gitaarstemming"
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:244
+msgid "Open G-tuning"
+msgstr "Open G-stemming"
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:267
+msgid "Jazz guitar"
+msgstr "Jazzgitaar"
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:271
+msgctxt "abbreviation for Jazz guitar"
+msgid "J.Gt."
+msgstr "J.gt."
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:279
+#: frescobaldi_app/scorewiz/parts/vocal.py:171
+msgid "Bass"
+msgstr "Bas"
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:283
+msgctxt "abbreviation for Bass"
+msgid "Bs."
+msgstr "Bs."
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:289
+msgid "Bass tuning"
+msgstr "Basstemming"
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:296
+msgid "Electric bass"
+msgstr "Electrische bas"
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:300
+msgctxt "abbreviation for Electric bass"
+msgid "E.Bs."
+msgstr "E.Bs."
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:308
+msgid "Harp"
+msgstr "Harp"
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:312
+msgctxt "abbreviation for Harp"
+msgid "Hp."
+msgstr "Hp."
+
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:335
+msgid "Plucked strings"
+msgstr "Getokkelde instrumenten"
+
+#: frescobaldi_app/scorewiz/parts/special.py:39
+#: frescobaldi_app/scorewiz/parts/vocal.py:204
+msgid "Chord names"
+msgstr "Akkoordnamen"
+
+#: frescobaldi_app/scorewiz/parts/special.py:45
+msgid "Figured Bass"
+msgstr "Becijferde bas"
+
+#: frescobaldi_app/scorewiz/parts/special.py:52
+msgid "Use extender lines"
+msgstr "Extender-lijnen gebruiken"
+
+#: frescobaldi_app/scorewiz/parts/special.py:60
+#: frescobaldi_app/scorewiz/parts/strings.py:109
+msgid "Figures follow here."
+msgstr "Bas-becijfering volgt."
+
+#: frescobaldi_app/scorewiz/parts/special.py:70
+msgid "Staff"
+msgstr "Notenbalk"
+
+#: frescobaldi_app/scorewiz/parts/special.py:76
+msgid "Special"
+msgstr "Speciaal"
+
+#: frescobaldi_app/scorewiz/parts/strings.py:41
+msgid "Violin"
+msgstr "Viool"
+
+#: frescobaldi_app/scorewiz/parts/strings.py:45
+msgctxt "abbreviation for Violin"
+msgid "Vl."
+msgstr "Vl."
+
+#: frescobaldi_app/scorewiz/parts/strings.py:53
+msgid "Viola"
+msgstr "Altviool"
+
+#: frescobaldi_app/scorewiz/parts/strings.py:57
+msgctxt "abbreviation for Viola"
+msgid "Vla."
+msgstr "Avl."
+
+#: frescobaldi_app/scorewiz/parts/strings.py:67
+msgid "Cello"
+msgstr "Cello"
+
+#: frescobaldi_app/scorewiz/parts/strings.py:71
+msgctxt "abbreviation for Cello"
 msgid "Cl."
-msgstr "Klar."
+msgstr "Cl."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:157
-msgid "Sopranino Sax"
-msgstr "Sopraninosax"
+#: frescobaldi_app/scorewiz/parts/strings.py:81
+msgid "Contrabass"
+msgstr "Contrabas"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:161
-msgctxt "abbreviation for Sopranino Sax"
-msgid "SiSx."
-msgstr "Sisx."
+#: frescobaldi_app/scorewiz/parts/strings.py:85
+msgctxt "abbreviation for Contrabass"
+msgid "Cb."
+msgstr "Cb."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:170
-msgid "Soprano Sax"
-msgstr "Sopraansax"
+#: frescobaldi_app/scorewiz/parts/strings.py:95
+msgid "Basso Continuo"
+msgstr "Basso continuo"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:174
-msgctxt "abbreviation for Soprano Sax"
-msgid "SoSx."
-msgstr "Sosx."
+#: frescobaldi_app/scorewiz/parts/strings.py:99
+msgctxt "abbreviation for Basso Continuo"
+msgid "B.c."
+msgstr "B.c."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:183
-msgid "Alto Sax"
-msgstr "Altsax"
-
-#: frescobaldi_app/scorewiz/parts/woodwind.py:187
-msgctxt "abbreviation for Alto Sax"
-msgid "ASx."
-msgstr "Asx."
-
-#: frescobaldi_app/scorewiz/parts/woodwind.py:196
-msgid "Tenor Sax"
-msgstr "Tenorsax"
-
-#: frescobaldi_app/scorewiz/parts/woodwind.py:200
-msgctxt "abbreviation for Tenor Sax"
-msgid "TSx."
-msgstr "Tsx."
-
-#: frescobaldi_app/scorewiz/parts/woodwind.py:209
-msgid "Baritone Sax"
-msgstr "Baritonsax"
-
-#: frescobaldi_app/scorewiz/parts/woodwind.py:213
-msgctxt "abbreviation for Baritone Sax"
-msgid "BSx."
-msgstr "Bsx."
-
-#: frescobaldi_app/scorewiz/parts/woodwind.py:222
-msgid "Bass Sax"
-msgstr "Bassax"
-
-#: frescobaldi_app/scorewiz/parts/woodwind.py:226
-msgctxt "abbreviation for Bass Sax"
-msgid "BsSx."
-msgstr "Bssx."
-
-#: frescobaldi_app/scorewiz/parts/woodwind.py:235
-msgid "Soprano recorder"
-msgstr "Sopraanblokfluit"
-
-#: frescobaldi_app/scorewiz/parts/woodwind.py:239
-msgctxt "abbreviation for Soprano recorder"
-msgid "S.rec."
-msgstr "Sbfl."
-
-#: frescobaldi_app/scorewiz/parts/woodwind.py:248
-msgid "Alto recorder"
-msgstr "Altblokfluit"
-
-#: frescobaldi_app/scorewiz/parts/woodwind.py:252
-msgctxt "abbreviation for Alto recorder"
-msgid "A.rec."
-msgstr "Ablf."
-
-#: frescobaldi_app/scorewiz/parts/woodwind.py:260
-msgid "Tenor recorder"
-msgstr "Tenorblokfluit"
-
-#: frescobaldi_app/scorewiz/parts/woodwind.py:264
-msgctxt "abbreviation for Tenor recorder"
-msgid "T.rec."
-msgstr "Tblf."
-
-#: frescobaldi_app/scorewiz/parts/woodwind.py:272
-msgid "Bass recorder"
-msgstr "Basblokfluit"
-
-#: frescobaldi_app/scorewiz/parts/woodwind.py:276
-msgctxt "abbreviation for Bass recorder"
-msgid "B.rec."
-msgstr "Bblf."
-
-#: frescobaldi_app/scorewiz/parts/woodwind.py:285
-msgid "Woodwinds"
-msgstr "Houtblazers"
+#: frescobaldi_app/scorewiz/parts/strings.py:117
+msgid "Strings"
+msgstr "Snaarinstrumenten"
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:65
 msgid "Stanzas:"
@@ -5251,335 +4945,180 @@ msgstr "Een enkele set liedteksten wordt verdeeld over alle balken."
 msgid "Vocal"
 msgstr "Vocaal"
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:44
-msgid "Piano"
-msgstr "Piano"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:39
+msgid "Flute"
+msgstr "Fluit"
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:48
-msgctxt "abbreviation for Piano"
-msgid "Pno."
-msgstr "Pno."
+#: frescobaldi_app/scorewiz/parts/woodwind.py:43
+msgctxt "abbreviation for Flute"
+msgid "Fl."
+msgstr "Fl."
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:56
-msgid "Harpsichord"
-msgstr "Klavecimbel"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:51
+msgid "Piccolo"
+msgstr "Piccolo"
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:60
-msgctxt "abbreviation for Harpsichord"
-msgid "Hs."
-msgstr "Kl."
+#: frescobaldi_app/scorewiz/parts/woodwind.py:55
+msgctxt "abbreviation for Piccolo"
+msgid "Pic."
+msgstr "Pic."
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:68
-msgid "Clavichord"
-msgstr "Clavichord"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:64
+msgid "Bass flute"
+msgstr "Basfluit"
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:72
-msgctxt "abbreviation for Clavichord"
-msgid "Clv."
-msgstr "Clv."
+#: frescobaldi_app/scorewiz/parts/woodwind.py:68
+msgctxt "abbreviation for Bass flute"
+msgid "Bfl."
+msgstr "Bfl."
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:80
-msgid "Organ"
-msgstr "Orgel"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:77
+msgid "Oboe"
+msgstr "Hobo"
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:84
-msgctxt "abbreviation for Organ"
-msgid "Org."
-msgstr "Org."
+#: frescobaldi_app/scorewiz/parts/woodwind.py:81
+msgctxt "abbreviation for Oboe"
+msgid "Ob."
+msgstr "Hb."
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:99
-msgid "Pedal:"
-msgstr "Pedaal:"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:89
+msgid "Oboe d'amore"
+msgstr "Liefdeshobo"
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:101
-msgid "Set to 0 to disable the pedal altogether."
-msgstr "Stel 0 in om de pedaalbalk te verwijderen."
+#: frescobaldi_app/scorewiz/parts/woodwind.py:93
+msgctxt "abbreviation for Oboe d'amore"
+msgid "Ob.d'am."
+msgstr "Lhb."
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:114
-msgid "Celesta"
-msgstr "Celesta"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:102
+msgid "English horn"
+msgstr "Althobo"
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:118
-msgctxt "abbreviation for Celesta"
-msgid "Cel."
-msgstr "Cel."
+#: frescobaldi_app/scorewiz/parts/woodwind.py:106
+msgctxt "abbreviation for English horn"
+msgid "Eng.h."
+msgstr "Ahb."
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:124
-msgid "Keyboard instruments"
-msgstr "Toetsinstrumenten"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:115
+msgid "Bassoon"
+msgstr "Fagot"
 
-#: frescobaldi_app/scorewiz/parts/_base.py:64
-msgid "No settings available."
-msgstr "Geen instellingen beschikbaar."
+#: frescobaldi_app/scorewiz/parts/woodwind.py:119
+msgctxt "abbreviation for Bassoon"
+msgid "Bn."
+msgstr "Fag."
 
-#: frescobaldi_app/scorewiz/parts/_base.py:133
-msgid "Adjust how many separate voices you want on each staff."
-msgstr "Hier kunt u instellen hoeveel aparte stemmen u in elke balk wilt."
+#: frescobaldi_app/scorewiz/parts/woodwind.py:129
+msgid "Contrabassoon"
+msgstr "Contrafagot"
 
-#: frescobaldi_app/scorewiz/parts/_base.py:134
-msgid "This is primarily useful when you write polyphonic music like a fuge."
-msgstr "Dit is vooral handig als u polyfone muziek schrijft zoals een fuga."
+#: frescobaldi_app/scorewiz/parts/woodwind.py:133
+msgctxt "abbreviation for Contrabassoon"
+msgid "C.Bn."
+msgstr "Cfag."
 
-#: frescobaldi_app/scorewiz/parts/_base.py:136
-msgid "Right hand:"
-msgstr "Rechts:"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:144
+msgid "Clarinet"
+msgstr "Klarinet"
 
-#: frescobaldi_app/scorewiz/parts/_base.py:137
-msgid "Left hand:"
-msgstr "Links:"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:148
+msgctxt "abbreviation for Clarinet"
+msgid "Cl."
+msgstr "Klar."
 
-#: frescobaldi_app/scorewiz/parts/_base.py:186
-msgid "Chord style:"
-msgstr "Akkoordstijl:"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:157
+msgid "Sopranino Sax"
+msgstr "Sopraninosax"
 
-#: frescobaldi_app/scorewiz/parts/_base.py:187
-msgid "Guitar fret diagrams"
-msgstr "Gitaar-fretdiagrammen"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:161
+msgctxt "abbreviation for Sopranino Sax"
+msgid "SiSx."
+msgstr "Sisx."
 
-#: frescobaldi_app/scorewiz/parts/_base.py:189
-msgid ""
-"Show predefined guitar fret diagrams below the chord names (LilyPond 2.12 "
-"and above)."
-msgstr ""
-"Voorgedefiniëerde gitaar-fretdiagrammen afbeelden onder de akkoordnamen "
-"(LilyPond 2.12 en hoger)."
+#: frescobaldi_app/scorewiz/parts/woodwind.py:170
+msgid "Soprano Sax"
+msgstr "Sopraansax"
 
-#: frescobaldi_app/scorewiz/parts/_base.py:203
-msgid "Chords follow here."
-msgstr "Akkoordnamen volgen."
+#: frescobaldi_app/scorewiz/parts/woodwind.py:174
+msgctxt "abbreviation for Soprano Sax"
+msgid "SoSx."
+msgstr "Sosx."
 
-#: frescobaldi_app/scorewiz/parts/_base.py:215
-msgid "German"
-msgstr "Duits"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:183
+msgid "Alto Sax"
+msgstr "Altsax"
 
-#: frescobaldi_app/scorewiz/parts/_base.py:216
-msgid "Semi-German"
-msgstr "Semi-Duits"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:187
+msgctxt "abbreviation for Alto Sax"
+msgid "ASx."
+msgstr "Asx."
 
-#: frescobaldi_app/scorewiz/parts/_base.py:217
-msgid "Italian"
-msgstr "Italiaans"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:196
+msgid "Tenor Sax"
+msgstr "Tenorsax"
 
-#: frescobaldi_app/scorewiz/parts/_base.py:218
-msgid "French"
-msgstr "Frans"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:200
+msgctxt "abbreviation for Tenor Sax"
+msgid "TSx."
+msgstr "Tsx."
 
-#: frescobaldi_app/autocomplete/__init__.py:79
-msgid "Automatic &Completion"
-msgstr "Automatisch &aanvullen"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:209
+msgid "Baritone Sax"
+msgstr "Baritonsax"
 
-#: frescobaldi_app/autocomplete/__init__.py:80
-msgid "Show C&ompletions Popup"
-msgstr "Aanvullingen &weergeven"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:213
+msgctxt "abbreviation for Baritone Sax"
+msgid "BSx."
+msgstr "Bsx."
 
-#: frescobaldi_app/rhythm/rhythm.py:146
-msgid "Apply Rhythm"
-msgstr "Ritme toepassen"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:222
+msgid "Bass Sax"
+msgstr "Bassax"
 
-#: frescobaldi_app/rhythm/rhythm.py:146
-msgid "Enter a rhythm:"
-msgstr "Voer een ritme in:"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:226
+msgctxt "abbreviation for Bass Sax"
+msgid "BsSx."
+msgstr "Bssx."
 
-#: frescobaldi_app/rhythm/rhythm.py:244
-msgid "Rhythm manipulation"
-msgstr "Ritme bewerken"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:235
+msgid "Soprano recorder"
+msgstr "Sopraanblokfluit"
 
-#: frescobaldi_app/rhythm/rhythm.py:247
-msgid ""
-"<p>\n"
-"The rhythm functions of Frescobaldi alter the durations written after "
-"notes,\n"
-"chords, rests, etcetera. Using those functions, all in menu {menu}, it\n"
-"is possible to double or halve the length of notes, to add or remove dots\n"
-"and to remove scaling factors.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"Also it is possible to change the way rhythm is specified: for every note\n"
-"(explicit), or only when the duration changes (implicit). Some users may "
-"prefer\n"
-"the option implicit per line, which always specifies the duration for the "
-"first\n"
-"note, chord or rest on a line.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"The last three menu commands can copy, paste or apply a rhythm that is "
-"entered\n"
-"in a dialog.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"In the \"Apply Rhythm\" dialog you can enter a series of durations, e.g.:\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"<code>4. 8 4 16 16 8 2</code>\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"which will then, repetitively, be applied to a selection of notes.\n"
-"</p>\n"
-msgstr ""
-"<p>\n"
-"De ritmefuncties in Frescobaldi passen de duur van noten, akkoorden, rusten, "
-"etc. aan. Met deze functies, alle in menu {menu}, is het mogelijk om de "
-"lengte van noten te verdubbelen of halveren, stip toe te voegen of "
-"verwijderen of de schaling te verwijderen.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"Ook is het mogelijk de manier waarop het ritme wordt ingevoerd aan te "
-"passen: voor elke noot (expliciet), of alleen wanneer de tijdsduur verandert "
-"(impliciet). Sommige gebruikers geven misschien de voorkeur aan de optie "
-"\"impliciet per regel\", die altijd de tijdsduur aangeeft voor de eerste "
-"noot, rust of het eerste akkoord op een regel.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"De laatste drie menucommando's kunnen een ritme kopiëren of plakken, of een "
-"ritme toepassen dat in een dialoog wordt opgegeven.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"In de dialoog \"Ritme toepassen\" kunt u een aantal tijdsduren aangeven, "
-"bijvoorbeeld:\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"<code>4. 8 4 16 16 8 2</code>\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"Deze worden dan, steeds herhaald, toegepast op een geselecteerd bereik.\n"
-"</p>\n"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:239
+msgctxt "abbreviation for Soprano recorder"
+msgid "S.rec."
+msgstr "Sbfl."
 
-#: frescobaldi_app/rhythm/rhythm.py:279
-msgctxt "submenu title"
-msgid "Rhythm"
-msgstr "Ritme"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:248
+msgid "Alto recorder"
+msgstr "Altblokfluit"
 
-#: frescobaldi_app/rhythm/__init__.py:146
-msgid "&Double durations"
-msgstr "Tijdsduur ver&dubbelen"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:252
+msgctxt "abbreviation for Alto recorder"
+msgid "A.rec."
+msgstr "Ablf."
 
-#: frescobaldi_app/rhythm/__init__.py:148
-msgid "Double all the durations in the selection."
-msgstr "Alle nootlengtes in de selectie verdubbelen."
+#: frescobaldi_app/scorewiz/parts/woodwind.py:260
+msgid "Tenor recorder"
+msgstr "Tenorblokfluit"
 
-#: frescobaldi_app/rhythm/__init__.py:149
-msgid "&Halve durations"
-msgstr "Tijdsduur &halveren"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:264
+msgctxt "abbreviation for Tenor recorder"
+msgid "T.rec."
+msgstr "Tblf."
 
-#: frescobaldi_app/rhythm/__init__.py:151
-msgid "Halve all the durations in the selection."
-msgstr "Alle nootlengtes in de selectie halveren."
+#: frescobaldi_app/scorewiz/parts/woodwind.py:272
+msgid "Bass recorder"
+msgstr "Basblokfluit"
 
-#: frescobaldi_app/rhythm/__init__.py:152
-msgid "Do&t durations"
-msgstr "Pun&t toevoegen"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:276
+msgctxt "abbreviation for Bass recorder"
+msgid "B.rec."
+msgstr "Bblf."
 
-#: frescobaldi_app/rhythm/__init__.py:154
-msgid "Add a dot to all the durations in the selection."
-msgstr "Een punt toevoegen aan alle noten in de selectie."
-
-#: frescobaldi_app/rhythm/__init__.py:155
-msgid "&Undot durations"
-msgstr "P&unt verwijderen"
-
-#: frescobaldi_app/rhythm/__init__.py:157
-msgid "Remove one dot from all the durations in the selection."
-msgstr "Een punt verwijderen van alle noten in de selectie."
-
-#: frescobaldi_app/rhythm/__init__.py:158
-msgid "Remove &scaling"
-msgstr "&Schaling verwijderen"
-
-#: frescobaldi_app/rhythm/__init__.py:160
-msgid "Remove all scaling (*n/m) from the durations in the selection."
-msgstr "Alle schaling (*n/m) verwijderen van de nootlengtes in de selectie."
-
-#: frescobaldi_app/rhythm/__init__.py:161
-msgid "&Remove durations"
-msgstr "Tijdsduu&r verwijderen"
-
-#: frescobaldi_app/rhythm/__init__.py:163
-msgid "Remove all durations from the selection."
-msgstr "De volledige tijdsduur-informatie verwijderen uit de selectie."
-
-#: frescobaldi_app/rhythm/__init__.py:164
-msgid "Make &implicit"
-msgstr "&Impliciet maken"
-
-#: frescobaldi_app/rhythm/__init__.py:166
-msgid "Make durations implicit (remove repeated durations)."
-msgstr "Tijdsduren impliciet maken (herhaalde lengtes verwijderen)."
-
-#: frescobaldi_app/rhythm/__init__.py:167
-msgid "Make implicit (per &line)"
-msgstr "Imp&liciet maken (per regel)"
-
-#: frescobaldi_app/rhythm/__init__.py:169
-msgid ""
-"Make durations implicit (remove repeated durations), except for the first "
-"duration in a line."
-msgstr ""
-"Tijdsduren impliciet maken (herhaalde lengtes verwijderen), behalve de "
-"eerste tijdsduur in een regel."
-
-#: frescobaldi_app/rhythm/__init__.py:171
-msgid "Make &explicit"
-msgstr "&Expliciet maken"
-
-#: frescobaldi_app/rhythm/__init__.py:173
-msgid ""
-"Make durations explicit (add duration to every note, even if it is the same "
-"as the preceding note)."
-msgstr ""
-"De toonduur na elke noot weergeven, ook als deze hetzelfde is als de vorige "
-"noot."
-
-#: frescobaldi_app/rhythm/__init__.py:175
-msgid "&Apply rhythm..."
-msgstr "Ritme toep&assen..."
-
-#: frescobaldi_app/rhythm/__init__.py:177
-msgid "Apply an entered rhythm to the selected music."
-msgstr "Een ingevoerd ritme op de geselecteerde muziek toepassen."
-
-#: frescobaldi_app/rhythm/__init__.py:178
-msgid "&Copy rhythm"
-msgstr "Ritme &kopiëren"
-
-#: frescobaldi_app/rhythm/__init__.py:180
-msgid "Copy the rhythm of the selected music."
-msgstr "Het ritme van de geselecteerde muziek kopiëren."
-
-#: frescobaldi_app/rhythm/__init__.py:181
-msgid "&Paste rhythm"
-msgstr "Ritme &plakken"
-
-#: frescobaldi_app/rhythm/__init__.py:182
-msgid "Paste a rhythm to the selected music."
-msgstr "Een ritme in de geselecteerde muziek plakken."
-
-#: frescobaldi_app/sessions/manager.py:127
-msgctxt "New Session"
-msgid "&New..."
-msgstr "&Nieuw..."
-
-#: frescobaldi_app/sessions/manager.py:129
-msgid "&Manage..."
-msgstr "&Beheren..."
-
-#: frescobaldi_app/sessions/manager.py:130
-msgid "No Session"
-msgstr "Geen sessie"
-
-#: frescobaldi_app/sessions/menu.py:55
-msgctxt "menu title"
-msgid "&Session"
-msgstr "&Sessie"
+#: frescobaldi_app/scorewiz/parts/woodwind.py:285
+msgid "Woodwinds"
+msgstr "Houtblazers"
 
 #: frescobaldi_app/sessions/dialog.py:40
 msgid "Manage Sessions"
@@ -5627,6 +5166,500 @@ msgstr ""
 msgid "Overwrite"
 msgstr "Overschrijven"
 
+#: frescobaldi_app/sessions/manager.py:127
+msgctxt "New Session"
+msgid "&New..."
+msgstr "&Nieuw..."
+
+#: frescobaldi_app/sessions/manager.py:129
+msgid "&Manage..."
+msgstr "&Beheren..."
+
+#: frescobaldi_app/sessions/manager.py:130
+msgid "No Session"
+msgstr "Geen sessie"
+
+#: frescobaldi_app/sessions/menu.py:55
+msgctxt "menu title"
+msgid "&Session"
+msgstr "&Sessie"
+
+#: frescobaldi_app/snippet/builtin.py:38
+msgid "Blank Line"
+msgstr "Blanco regel"
+
+#: frescobaldi_app/snippet/builtin.py:44
+msgid "Single Typographical Quotes"
+msgstr "Enkele typografische aanhalingstekens"
+
+#: frescobaldi_app/snippet/builtin.py:49
+msgid "Double Typographical Quotes"
+msgstr "Dubbele typografische aanhalingstekens"
+
+#: frescobaldi_app/snippet/builtin.py:79
+msgid "Tuplets"
+msgstr "Triolen"
+
+#: frescobaldi_app/snippet/builtin.py:89
+msgid "Modern 2/2 Time Signature"
+msgstr "Moderne 2/2 maat"
+
+#: frescobaldi_app/snippet/builtin.py:95
+msgid "Modern 4/4 Time Signature"
+msgstr "Moderne 4/4 maat"
+
+#: frescobaldi_app/snippet/builtin.py:101
+msgid "Tactus Time Signature (number with note)"
+msgstr "Tactus maataanduiding (nummer met noot)"
+
+#: frescobaldi_app/snippet/builtin.py:112
+msgid "LilyPond Version"
+msgstr "LilyPond-versie"
+
+#: frescobaldi_app/snippet/builtin.py:123
+msgid "Relative Music"
+msgstr "Relatieve muziek"
+
+#: frescobaldi_app/snippet/builtin.py:130
+msgid "Upper case selection"
+msgstr "Hoofdletters"
+
+#: frescobaldi_app/snippet/builtin.py:136
+msgid "Lower case selection"
+msgstr "Kleine letters"
+
+#: frescobaldi_app/snippet/builtin.py:142
+msgid "Title case selection"
+msgstr "Titel-hoofdletters in selectie"
+
+#: frescobaldi_app/snippet/builtin.py:153
+msgid "Markup lines"
+msgstr "Markup regels (line)"
+
+#: frescobaldi_app/snippet/builtin.py:161
+msgid "Markup column"
+msgstr "Markup kolom"
+
+#: frescobaldi_app/snippet/builtin.py:166
+msgid "Tagline with date and LilyPond version"
+msgstr "Voetregel met datum en LilyPond-versie"
+
+#: frescobaldi_app/snippet/builtin.py:176
+msgid "Header Template"
+msgstr "Kopregel-sjabloon"
+
+#: frescobaldi_app/snippet/builtin.py:191
+msgid "No Tagline"
+msgstr "Geen voetregel"
+
+#: frescobaldi_app/snippet/builtin.py:199
+msgid "No Barnumbers"
+msgstr "Geen maatnummers"
+
+#: frescobaldi_app/snippet/builtin.py:209
+msgid "Staff Size"
+msgstr "Balkgrootte"
+
+#: frescobaldi_app/snippet/builtin.py:264
+msgid "A5 Paper"
+msgstr "A5-papier"
+
+#: frescobaldi_app/snippet/builtin.py:272
+msgid "Last note or chord"
+msgstr "Laatste noot of akkoord"
+
+#: frescobaldi_app/snippet/builtin.py:353
+msgid "Color"
+msgstr "Kleur"
+
+#: frescobaldi_app/snippet/edit.py:116 frescobaldi_app/snippet/insert.py:220
+msgid "Edit Snippet"
+msgstr "Knipsel bewerken"
+
+#: frescobaldi_app/snippet/edit.py:116
+msgid "New Snippet"
+msgstr "Nieuw knipsel"
+
+#: frescobaldi_app/snippet/edit.py:118
+msgid "Snippet Text:"
+msgstr "Knipseltekst:"
+
+#: frescobaldi_app/snippet/edit.py:119
+msgid "Title:"
+msgstr "Titel:"
+
+#: frescobaldi_app/snippet/edit.py:120
+msgid "Shortcut:"
+msgstr "Sneltoets:"
+
+#: frescobaldi_app/snippet/edit.py:131
+msgid "Click to change the keyboard shortcut."
+msgstr "Klik om de sneltoets in te stellen."
+
+#: frescobaldi_app/snippet/edit.py:136
+msgid "Empty Snippet"
+msgstr "Leeg knipsel"
+
+#: frescobaldi_app/snippet/edit.py:136
+msgid "A snippet can't be empty."
+msgstr "Een knipsel kan niet leeg zijn."
+
+#: frescobaldi_app/snippet/edit.py:198
+msgid "Snippet editor"
+msgstr "Knipsel-editor"
+
+#: frescobaldi_app/snippet/edit.py:203
+msgid ""
+"<p>Here you can edit the text of the snippet.</p><p>If you start the first "
+"line(s) with '<code>-*- </code>' (note the space), the remainder of that line"
+"(s) defines variables like <code>name: value;</code> or simply <code>name;</"
+"code> which influence the behaviour of the snippet. The following variables "
+"can be used:</p>"
+msgstr ""
+"<p>Hier kunt u de tekst van het knipsel bewerken.</p> <p>Als u de eerste "
+"regel(s) start met '<code>-*- </code>' (let op de spatie), definieert de "
+"rest van deze regels variabelen zoals <code>naam:waarde;</code> of eenvoudig "
+"<code>naam;</code>. Deze variabelen veranderen het gedrag van het knipsel. "
+"De volgende variabelen kunnen worden gebruikt:</p>"
+
+#: frescobaldi_app/snippet/edit.py:212
+msgid "Place the snippet in the insert menu, grouped by the (optional) value."
+msgstr ""
+"Plaats het knipsel in het menu Invoegen, gegroepeerd op de (optionele) "
+"waarde."
+
+#: frescobaldi_app/snippet/edit.py:214
+msgid "The mnemonic to type to select the snippet."
+msgstr "De mnemonic om het knipsel te selecteren."
+
+#: frescobaldi_app/snippet/edit.py:216
+msgid "Do not auto-indent the snippet after inserting."
+msgstr ""
+"De tekst niet automatisch inspringen na het knipsel te hebben toegepast."
+
+#: frescobaldi_app/snippet/edit.py:218
+msgid "The icon to show in menu and snippet list."
+msgstr "Het pictogram dat in de knipsellijst en het menu wordt afgebeeld."
+
+#: frescobaldi_app/snippet/edit.py:220
+msgid ""
+"The symbol to show in menu and snippet list. Symbols are icons that use the "
+"default text color and can be found in {directory}."
+msgstr ""
+"Het symbool dat in de knipsellijst of het menu wordt afgebeeld. Symbolen "
+"zijn pictogrammen die de standaard tekstkleur gebruiken en te vinden zijn in "
+"{directory}."
+
+#: frescobaldi_app/snippet/edit.py:224
+msgid "Execute the snippet as a Python script. See {link}."
+msgstr "Het knipsel uitvoeren als een Python script. Zie {link}."
+
+#: frescobaldi_app/snippet/edit.py:227
+msgid "One of more of the following words (separated with spaces or commas):"
+msgstr ""
+"Een of meer van de volgende woorden (gescheiden door komma's of spaties):"
+
+#: frescobaldi_app/snippet/edit.py:230
+msgid "Requires text to be selected."
+msgstr "Er moet tekst geselecteerd zijn."
+
+#: frescobaldi_app/snippet/edit.py:232
+msgid "Adjusts the selection to not include starting and trialing whitespace."
+msgstr "Verandert de selectie zodat witruimte erbuiten valt."
+
+#: frescobaldi_app/snippet/edit.py:234
+msgid "Selects all inserted text."
+msgstr "Selecteert alle ingevoegde tekst."
+
+#: frescobaldi_app/snippet/edit.py:240
+msgid ""
+"<p>The other lines of the snippet define the text to be inserted in the "
+"editor. Here, you can insert variables prefixed with a $. A double $ will be "
+"replaced with a single one. The following variables are recognized:</p>"
+msgstr ""
+"<p>De andere regels van het knipsel definiëren de tekst die moet worden "
+"ingevoegd. Hier kunt u ook variabelen gebruiken, voorafgegaan door een $. "
+"Een dubbele $ wordt vervangen door een enkele. De volgende variabelen worden "
+"herkend:</p>"
+
+#: frescobaldi_app/snippet/edit.py:256
+msgid "Python Snippets"
+msgstr "Python knipsels"
+
+#: frescobaldi_app/snippet/edit.py:261
+msgid ""
+"<p>Python snippets can read and should set the variable {text}. The variable "
+"{text} contains the currently selected text (which may be an empty string).</"
+"p>\n"
+"<p>You may set {text} to a string or a list of strings.</p>\n"
+"<p>Other variables that may be referenced:</p>"
+msgstr ""
+"<p>Python knipsels kunnen de variabele {text} uitlezen en veranderen. Deze "
+"variabele bevat de op dit moment geselecteerde tekst (kan een lege "
+"tekenreeks zijn).</p>\n"
+"<p>U kunt {text} instellen op een tekenreeks of een lijst van tekenreeksen.</"
+"p>\n"
+"<p>Andere variabelen die kunnen worden gebruikt:</p>"
+
+#: frescobaldi_app/snippet/edit.py:269
+msgid "A list of strings describing the type of text the cursor is at."
+msgstr "Een lijst van namen die het type text omschrijven waar de cursor is."
+
+#: frescobaldi_app/snippet/edit.py:271
+msgid ""
+"The current QTextCursor, giving access to the document. Don't change the "
+"document through the cursor, however."
+msgstr ""
+"De huidige QTextCursor, waarmee u toegang hebt tot het document. Verander "
+"het document echter niet via de cursor."
+
+#: frescobaldi_app/snippet/edit.py:274
+msgid ""
+"When setting {text} to a list instead of a string, you can use this value to "
+"specify the place the text cursor will be placed after inserting the snippet."
+msgstr ""
+"Als u {text} instelt op een lijst in plaats van een tekenreeks, kunt u deze "
+"waarde gebruiken om de plaats aan te geven waar de tekstcursor zal worden "
+"neergezet na het invoegen van het knipsel."
+
+#: frescobaldi_app/snippet/edit.py:278
+msgid ""
+"When setting {text} to a list instead of a string, this value can be used "
+"together with {cursor} to select text when inserting the string parts of the "
+"list."
+msgstr ""
+"Als u {text} instelt op een lijst in plaats van een tekenreeks, kunt u deze "
+"waarde gebruiken, samen met {cursor}, om het te selecteren bereik van tekst "
+"aan te geven na het invoegen."
+
+#: frescobaldi_app/snippet/expand.py:76
+msgid "The current date in YYYY-MM-DD format."
+msgstr "De huidige datum in JJJJ-MM-DD formaat."
+
+#: frescobaldi_app/snippet/expand.py:80
+msgid "The version of the default LilyPond program."
+msgstr "De versie van het standaard LilyPond programma."
+
+#: frescobaldi_app/snippet/expand.py:84
+msgid "The version of Frescobaldi."
+msgstr "De versie van Frescobaldi."
+
+#: frescobaldi_app/snippet/expand.py:88
+msgid "The URL of the current document."
+msgstr "De URL van het huidige document."
+
+#: frescobaldi_app/snippet/expand.py:92
+msgid "The full local filename of the current document."
+msgstr "De volledige lokale bestandsnaam van het huidige document."
+
+#: frescobaldi_app/snippet/expand.py:96
+msgid "The name of the current document."
+msgstr "De naam van het huidige document."
+
+#: frescobaldi_app/snippet/expand.py:100
+msgid "Moves the text cursor here after insert."
+msgstr "Verplaatst de tekstcursor hier na invoegen."
+
+#: frescobaldi_app/snippet/expand.py:104
+msgid ""
+"Selects text from here to the position given using the <code>$CURSOR</code> "
+"variable"
+msgstr ""
+"Selecteert tekst van hier tot aan de positie opgegeven met de <code>$CURSOR</"
+"code> variabele."
+
+#: frescobaldi_app/snippet/expand.py:108
+msgid "The selected text if available. If not, the text cursor is moved here."
+msgstr ""
+"De geselecteerde tekst indien beschikbaar. Indien niet, wordt de tekstcursor "
+"hier geplaatst."
+
+#: frescobaldi_app/snippet/insert.py:218
+msgid "Snippet error"
+msgstr "Knipsel-fout"
+
+#: frescobaldi_app/snippet/menu.py:54
+msgid "&Insert"
+msgstr "&Invoegen"
+
+#: frescobaldi_app/snippet/model.py:59
+msgid "Name"
+msgstr "Naam"
+
+#: frescobaldi_app/snippet/model.py:61
+msgid "Description"
+msgstr "Omschrijving"
+
+#: frescobaldi_app/snippet/tool.py:52 frescobaldi_app/snippet/tool.py:112
+#: frescobaldi_app/snippet/widget.py:293
+msgid "Snippets"
+msgstr "Knipsels"
+
+#: frescobaldi_app/snippet/tool.py:53
+msgid "&Snippets"
+msgstr "&Knipsels"
+
+#: frescobaldi_app/snippet/tool.py:73
+msgid "&Snippets..."
+msgstr "&Knipsels..."
+
+#: frescobaldi_app/snippet/widget.py:137
+msgid "Search..."
+msgstr "Zoeken..."
+
+#: frescobaldi_app/snippet/widget.py:141
+msgid "Add..."
+msgstr "Toevoegen..."
+
+#: frescobaldi_app/snippet/widget.py:143
+msgid "Add a new snippet. ({key})"
+msgstr "Nieuw knipsel toevoegen. ({key})"
+
+#: frescobaldi_app/snippet/widget.py:144
+msgid "Edit..."
+msgstr "Bewerken..."
+
+#: frescobaldi_app/snippet/widget.py:146
+msgid "Edit the current snippet. ({key})"
+msgstr "Huidig knipsel bewerken. ({key})"
+
+#: frescobaldi_app/snippet/widget.py:147
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: frescobaldi_app/snippet/widget.py:149
+msgid "Remove the current snippet. ({key})"
+msgstr "Huidig knipsel verwijderen. ({key})"
+
+#: frescobaldi_app/snippet/widget.py:150
+msgid "Apply"
+msgstr "Toepassen"
+
+#: frescobaldi_app/snippet/widget.py:151
+msgid "Apply the current snippet."
+msgstr "Toepassen"
+
+#: frescobaldi_app/snippet/widget.py:154
+msgid ""
+"Enter text to search in the snippets list.\n"
+"See \"What's This\" for more information."
+msgstr ""
+"Voer tekst in om in de lijst van knipsels te zoeken.Zie \"Wat is dit\" voor "
+"meer informatie."
+
+#: frescobaldi_app/snippet/widget.py:157
+msgid ""
+"Enter text to search in the snippets list, and press Enter to apply the "
+"currently selected snippet."
+msgstr ""
+"Voer tekst in om in de lijst van knipsels te zoeken, en druk op Enter om het "
+"geselecteerde knipsel toe te passen."
+
+#: frescobaldi_app/snippet/widget.py:159
+msgid ""
+"If the search text fully matches the value of the '{name}' variable of a "
+"snippet, that snippet is selected."
+msgstr ""
+"Als de zoektekst volledig overeenkomt met de waarde van de '{name}' variable "
+"van een knipsel, wordt dat knipsel geselecteerd."
+
+#: frescobaldi_app/snippet/widget.py:161
+msgid ""
+"If the search text starts with a colon ':', the rest of the search text "
+"filters snippets that define the given variable. After a space a value can "
+"also be entered, snippets will then match if the value of the given variable "
+"contains the text after the space."
+msgstr ""
+"Als de zoektekst start met een dubbelepunt ':', dan filtert de rest van de "
+"zoektekst knipsels die een variable van die naam definiëren. Na een spatie "
+"kan ook een waarde worden ingevoerd, knipsels worden dan alleen getoond als "
+"de waarde van de variable de gegeven tekst bevat."
+
+#: frescobaldi_app/snippet/widget.py:166
+msgid ""
+"E.g. entering {menu} will show all snippets that are displayed in the insert "
+"menu."
+msgstr ""
+"Bijvoorbeeld het invoeren van {menu} toont alle knipsels die in het menu "
+"Invoegen worden weergegeven."
+
+#: frescobaldi_app/snippet/widget.py:299
+msgid ""
+"<p>\n"
+"With the snippets manager you can store often used pieces of text called\n"
+"\"snippets\", and easily paste them into the text editor.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"The snippets manager can be activated via the menu {menu_snippets} or\n"
+"by pressing {key_snippets}.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Snippets can be searched by browsing the list or by typing some characters\n"
+"in the search entry.\n"
+"Snippets can also have a keyboard shortcut which directly applies them.\n"
+"Some snippets have a special mnemonic (short name) which you can also type\n"
+"in the search entry to select the snippet. Pressing the Return key will "
+"then\n"
+"apply the snippet to the text editor and hide the snippets manager.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Add new snippets using {key_add}. Edit the selected snippet with "
+"{key_edit}.\n"
+"Remove selected snippets using {key_delete}. Warning: there's no undo!\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Snippets can also be put in the menu (see {link}).\n"
+"And finally there are snippets which can include or alter selected text.\n"
+"Some snippets do this by using special variables, while others are small\n"
+"scripts written in Python.\n"
+"</p>\n"
+msgstr ""
+"<p>\n"
+"Met de knipselmanager kunt u vaak gebruikte stukjes tekst, \"knipsels\" "
+"genaamd, opslaan en eenvoudig in de teksteditor plakken.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"De knipselmanager wordt geactiveerd via het menu {menu_snippets} of door op "
+"{key_snippets} te drukken.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"U kunt zoeken naar knipsels door door de lijst te bladeren of enige tekens "
+"in het zoekvak te typen.\n"
+"Knipsels kunnen ook een sneltoets hebben die ze direct toepast.\n"
+"Sommige knipsels hebben een speciale mnemonic (korte naam) die u kunt typen "
+"in het zoekvak om het knipsel te selecteren. Als u daarna op Enter drukt "
+"wordt het knipsel direct toegepast en de knipselmanager weer verborgen.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Voeg nieuwe knipsels toe met {key_add}. Bewerk het huidige knipsel met "
+"{key_edit}. Verwijder geselecteerde knipsels met {key_delete}. Waarschuwing: "
+"deze actie kan niet ongedaan worden gemaakt!\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Knipsels kunnen ook worden weergegeven in het menu (zie {link}).\n"
+"Tenslotte zijn er ook knipsels die geselecteerde tekst kunnen meenemen of "
+"veranderen.\n"
+"Sommige knipsels doen dit door speciale variabelen te gebruiken,\n"
+"terwijl andere in feite kleine scripts zijn, geschreven in Python.\n"
+"</p>\n"
+
+#: frescobaldi_app/snippet/widget.py:331
+msgctxt "menu title"
+msgid "Insert"
+msgstr "Invoegen"
+
+#: frescobaldi_app/snippet/widget.py:331
+msgid "Snippets..."
+msgstr "Knipsels..."
+
 #: frescobaldi_app/widgets/keysequencewidget.py:60
 msgid "Start recording a key sequence."
 msgstr "Begin een toetscombinatie op te nemen."
@@ -5638,6 +5671,14 @@ msgstr "De toetscombinatie leegmaken."
 #: frescobaldi_app/widgets/keysequencewidget.py:115
 msgid "Input"
 msgstr "Invoer"
+
+#: frescobaldi_app/widgets/listedit.py:91
+msgid "&Add..."
+msgstr "&Toevoegen..."
+
+#: frescobaldi_app/widgets/listedit.py:92
+msgid "&Edit..."
+msgstr "B&ewerken..."
 
 #: frescobaldi_app/widgets/schemeselector.py:47
 #: frescobaldi_app/widgets/schemeselector.py:62
@@ -5687,6 +5728,10 @@ msgstr "geen"
 msgid "Use &default shortcut ({name})"
 msgstr "&Standaardsneltoets gebruiken ({name})"
 
+#: frescobaldi_app/widgets/tempobutton.py:51
+msgid "Click this button a few times to set the tempo."
+msgstr "Klik een paar keer op deze knop om het tempo in te stellen."
+
 #: frescobaldi_app/widgets/urlrequester.py:72
 msgid "Open file dialog"
 msgstr "Bestandsdialoog openen"
@@ -5698,44 +5743,6 @@ msgstr "Selecteer een map"
 #: frescobaldi_app/widgets/urlrequester.py:94
 msgid "Select a file"
 msgstr "Selecteer een bestand"
-
-#: frescobaldi_app/widgets/tempobutton.py:51
-msgid "Click this button a few times to set the tempo."
-msgstr "Klik een paar keer op deze knop om het tempo in te stellen."
-
-#: frescobaldi_app/widgets/listedit.py:91
-msgid "&Add..."
-msgstr "&Toevoegen..."
-
-#: frescobaldi_app/widgets/listedit.py:92
-msgid "&Edit..."
-msgstr "B&ewerken..."
-
-#: frescobaldi_app/helpbrowser/sourceviewer.py:59
-msgid "LilyPond Source"
-msgstr "LilyPond-bron"
-
-#: frescobaldi_app/helpbrowser/html.py:44
-msgid "Documentation"
-msgstr "Documentatie"
-
-#: frescobaldi_app/helpbrowser/html.py:45
-msgid "{appname} version {version}"
-msgstr "{appname} versie {version}"
-
-#: frescobaldi_app/helpbrowser/__init__.py:45
-#: frescobaldi_app/helpbrowser/__init__.py:57
-msgid "Help Browser"
-msgstr "Helpbrowser"
-
-#: frescobaldi_app/helpbrowser/__init__.py:46
-msgid "&Help Browser"
-msgstr "&Helpbrowser"
-
-#. L10N: Home page of the Frescobaldi manual
-#: frescobaldi_app/helpbrowser/__init__.py:74
-msgid "Home"
-msgstr "Begin"
 
 #~ msgid "Frescobaldi"
 #~ msgstr "Frescobaldi"
@@ -5802,9 +5809,6 @@ msgstr "Begin"
 #~ "Er bestaat reeds een sessie met de naam %1.\n"
 #~ "\n"
 #~ "Wilt u deze overschrijven?"
-
-#~ msgid "Select all"
-#~ msgstr "Alles selecteren"
 
 #~ msgid "Print 1 file"
 #~ msgid_plural "Print %1 files"
