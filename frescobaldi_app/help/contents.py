@@ -456,10 +456,10 @@ the lines for variable definitions like <code>name: value;</code>.
                 _("The width of a tab character, by default 8.")),
             ('indent-tabs', "yes/no",
                 _("Whether to use tabs in indent, by default {no}.").format(
-                no="no")),
+                no="<code>no</code>")),
             ('document-tabs', "yes/no",
                 _("Whether to use tabs elsewhere in the document, "
-                  "by default {yes}.").format(yes="yes")),
+                  "by default {yes}.").format(yes="<code>yes</code>")),
             ('indent-width', _("number"),
                 _("The number of spaces each indent level uses, by default 2.")),
         ):
