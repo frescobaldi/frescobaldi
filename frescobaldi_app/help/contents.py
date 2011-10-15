@@ -376,7 +376,7 @@ class search_replace(page):
             'key_replace': shortcut(ac.edit_replace),
             'edit_menu': menu(_("Edit")),
         }
-        return _("""
+        return _("""\
 <p>
 In the menu {edit_menu} the commands Find ({key_search})
 and Replace ({key_replace}) can be found, which open a small window at the
