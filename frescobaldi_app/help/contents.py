@@ -77,6 +77,7 @@ revealed by pressing {key_whatsthis} or by selecting {menu_whatsthis}.
             starting,
             scorewiz.dialog.scorewiz_help,
             tools,
+            editor,
             about,
             toc,
         )
@@ -342,6 +343,135 @@ Frescobaldi 2.0 is a complete rewrite from scratch. Its release date is
 targeted at Christmas 2011.
 </p>
 """)
+
+
+class editor(page):
+    def title():
+        return _("The editor")
+    
+    def body():
+        return _("""\
+<p>
+In this part the features of the editor are discussed,
+e.g. how to control auto-indenting, how to use search and replace,
+etcetera.
+</p>
+""")
+    def children():
+        return (
+            search_replace,
+            document_variables,
+        )
+
+
+class search_replace(page):
+    def title():
+        return _("Search and replace")
+    
+    def body():
+        import app
+        ac = app.windows[0].actionCollection
+        d = {
+            'key_search': shortcut(ac.edit_find),
+            'key_replace': shortcut(ac.edit_replace),
+            'edit_menu': menu(_("Edit")),
+        }
+        return _("""
+<p>
+In the menu {edit_menu} the commands Find ({key_search})
+and Replace ({key_replace}) can be found, which open a small window at the
+bottom of the view.
+It is possible to search for plain text or regular expressions.
+</p>
+
+<p>
+Regular expressions are advanced search texts that contain characters that can
+match multiple characters in the document.
+When replacing text, it is also possible to refer to parenthesized parts of the
+search text.
+</p>
+
+<p>
+In regular expression search mode, some characters have a special meaning:
+</p>
+
+<dl compact="compact">
+<dt><code>*</code></dt>
+<dd>matches the preceding character or group zero or more times</dd>
+<dt><code>+</code></dt>
+<dd>matches the preceding character or group one or more times</dd>
+<dt><code>?</code></dt>
+<dd>matches the preceding character or group zero or one time</dd>
+<dt><code>[ ]</code></dt>
+<dd>matches one of the contained characters</dd>
+<dt><code>( )</code></dt>
+<dd>group characters. This also saves the matched text in the group.
+When replacing, you can use characters like <code>\\1</code>, <code>\\2</code>
+etcetera, to write the text of the corresponding group in the replacement text.
+</dd>
+<dt><code>\\\\ \\n \\t \\s \\d \\w</code></dt>
+<dd>match, respectively, a backslash, a newline, a tab, any whitespace
+character, a digit, a generic word-like character.</dd>
+</dl>
+
+<p>
+A full discussion on regular expressions can be found in the
+<a href="http://docs.python.org/library/re.html#regular-expression-syntax">Python
+documentation</a>.
+</p>
+""").format(**d)
+
+
+class document_variables(page):
+    def title():
+        return _("Document variables")
+    
+    def body():
+        text = []
+        text.append('<p>')
+        text.append(_("""\
+Document variables are variables that influence the behaviour of Frescobaldi.
+They can be written in the first five or last five lines of a document.
+If a line contains '<b><code>-*-</code></b>', Frescobaldi searches the rest of
+the lines for variable definitions like <code>name: value;</code>.
+"""))
+        text.append('</p>\n<p>')
+        text.append(_("The following variables are recognized:"))
+        text.append('</p>')
+        text.append('<dl>')
+        
+        for name, arg, description in (
+            ('mode', _("mode"),
+                #L10N: do not translate the mode names lilypond, html, etc.
+                _("Force mode to be one of lilypond, html, texinfo, latex, "
+                  "docbook or scheme. Default: automatic mode recognition.")),
+            ('master', _("filename"),
+                _("Compiles another LilyPond document instead of the current.")),
+            ('coding', _("encoding"),
+                _("Use another encoding than the default UTF-8.")),
+            ('version', _("version"),
+                _("Set the LilyPond version to use, can be used for "
+                  "non-LilyPond documents.")),
+            ('tab-width', _("number"),
+                _("The width of a tab character, by default 8.")),
+            ('indent-tabs', "yes/no",
+                _("Whether to use tabs in indent, by default {no}.").format(
+                no="no")),
+            ('document-tabs', "yes/no",
+                _("Whether to use tabs elsewhere in the document, "
+                  "by default {yes}.").format(yes="yes")),
+            ('indent-width', _("number"),
+                _("The number of spaces each indent level uses, by default 2.")),
+        ):
+            text.append(
+                '<dt><code>{0}</code>: <i>{1}</i><code>;</code></dt>'
+                '<dd>{2}</dd>\n'
+                .format(name, arg, description))
+        text.append('</dl>\n')
+        text.append('<p>')
+        text.append(_("You can put document variables in comments."))
+        text.append('</p>')
+        return ''.join(text)
 
 
 class toc(page):
