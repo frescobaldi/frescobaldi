@@ -23,9 +23,10 @@ Simple dialogs to ask input from the user.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QCompleter
+from PyQt4.QtCore import QSettings, Qt
+from PyQt4.QtGui import QCompleter, QColor, QColorDialog, QWidget
 
+import app
 import widgets.dialog
 import help as help_
 
@@ -77,5 +78,30 @@ def getText(
         dlg.lineEdit().setCompleter(c)
     if dlg.exec_():
         return dlg.text()
+
+
+def getColor(
+        parent = None,
+        title = "",
+        color = None,
+        alpha = False,
+        ):
+    """Als the user a color."""
+    global _savedColor
+    if color is None:
+        color = _savedColor
+    dlg = QColorDialog(color, parent)
+    options = QColorDialog.ColorDialogOptions()
+    if alpha:
+        options |= QColorDialog.ShowAlphaChannel
+    if QSettings().value("native_dialogs/colordialog", True) in ('false', False):
+        options |= QColorDialog.DontUseNativeDialog
+    dlg.setOptions(options)
+    dlg.setWindowTitle(title or app.caption(_("Select Color")))
+    if dlg.exec_():
+        _savedColor = dlg.selectedColor()
+        return _savedColor
+
+_savedColor = QColor(Qt.white)
 
 

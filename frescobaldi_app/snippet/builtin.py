@@ -356,7 +356,7 @@ r"""-*- name: col; python; icon: applications-graphics;
 # Insert a color from a dialog
 
 
-from PyQt4.QtGui import QColorDialog
+import inputdialog
 colors = {
     (0, 0, 0): "black",
     (255, 255, 255): "white",
@@ -375,14 +375,15 @@ colors = {
     (128, 128, 0): "darkyellow",
 }
 
-color = QColorDialog.getColor()
-rgb = color.getRgb()[:-1]
+color = inputdialog.getColor()
+if color is not None:
+    rgb = color.getRgb()[:-1]
 
-if rgb in colors:
-    text = '#' + colors[rgb]
-else:
-    rgb = tuple(map(lambda v: format(v / 255.0, ".4"), rgb))
-    text = "#(rgb-color {0} {1} {2})".format(*rgb)
+    if rgb in colors:
+        text = '#' + colors[rgb]
+    else:
+        rgb = tuple(map(lambda v: format(v / 255.0, ".4"), rgb))
+        text = "#(rgb-color {0} {1} {2})".format(*rgb)
 """),
 
 
