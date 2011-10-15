@@ -170,7 +170,7 @@ class Shortcuts(preferences.Page):
     def slotCurrentItemChanged(self, item):
         if isinstance(item, ShortcutItem):
             self.edit.setText(
-                "&Edit Shortcut for \"{name}\"".format(name=item.text(0)))
+                _("&Edit Shortcut for \"{name}\"").format(name=item.text(0)))
             self.edit.setEnabled(True)
             global _lastaction
             _lastaction = item.name
