@@ -46,7 +46,7 @@ def infos():
             if info:
                 _infos.append(info)
         s.endArray()
-        app.qApp.aboutToQuit.connect(saveinfos)
+        app.aboutToQuit.connect(saveinfos)
     return _infos
 
 

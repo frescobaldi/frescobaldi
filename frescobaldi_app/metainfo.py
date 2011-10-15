@@ -103,7 +103,7 @@ class MetaInfo(plugin.DocumentPlugin):
                 s.remove(name) if value == _defaults[name][0] else s.setValue(name, value)
             
 
-@app.qApp.aboutToQuit.connect
+@app.aboutToQuit.connect
 def prune():
     """Prune old info."""
     s = app.settings('metainfo')

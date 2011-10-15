@@ -23,6 +23,7 @@ The global things in Frescobaldi.
 
 from __future__ import unicode_literals
 
+import atexit
 import os
 import sys
 
@@ -43,6 +44,7 @@ documents = []
 from signals import Signal
 
 # signals
+aboutToQuit = Signal()          # Use this and not qApp.aboutToQuit
 mainwindowCreated = Signal()    # MainWindow
 mainwindowClosed = Signal()     # MainWindow
 documentCreated = Signal()      # Document
@@ -58,6 +60,8 @@ sessionChanged = Signal()       # (name)
 saveSessionData = Signal()      # (name)
 jobStarted = Signal()           # (Document, Job)
 jobFinished = Signal()          # (Document, Job, bool success)
+
+atexit.register(aboutToQuit)
 
 
 def openUrl(url, encoding=None):

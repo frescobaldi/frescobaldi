@@ -38,7 +38,7 @@ import util
 _currentSession = None
 
 
-@app.qApp.aboutToQuit.connect
+@app.aboutToQuit.connect
 def _saveLastUsedSession():
     s = QSettings()
     s.beginGroup("session")

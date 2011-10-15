@@ -21,9 +21,10 @@
 A simple persistent completion model (e.g. for QLineEdits).
 """
 
+import atexit
 
 from PyQt4.QtCore import QSettings
-from PyQt4.QtGui import QApplication, QStringListModel
+from PyQt4.QtGui import QStringListModel
 
 _models = {}
 
@@ -40,6 +41,7 @@ def model(key):
         return _models[key]
     except KeyError:
         m = _models[key] = Model(key)
+        atexit.register(m.save)
         return m
 
 
@@ -49,15 +51,12 @@ class Model(QStringListModel):
     Instantiate the model with a QSettings key, e.g. 'somegroup/names'.
     Use the addString() method to add a string.
     
-    The completions are saved when the application exits.
-    
     """
     def __init__(self, key):
         super(Model, self).__init__()
         self.key = key
         self._changed = False
         self.load()
-        QApplication.instance().aboutToQuit.connect(self.save)
         
     def load(self):
         self.setStringList(sorted(QSettings().value(self.key) or []))

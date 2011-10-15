@@ -58,8 +58,11 @@ class Window(QMainWindow):
         self.browser.historyChanged.connect(self.slotHistoryChanged)
         app.translateUI(self)
         self.loadSettings()
-        app.qApp.aboutToQuit.connect(self.saveSettings)
     
+    def closeEvent(self, ev):
+        self.saveSettings()
+        super(Window, self).closeEvent(ev)
+        
     def loadSettings(self):
         self.resize(QSettings().value("helpbrowser/size", QSize(400, 300)))
     
@@ -123,7 +126,7 @@ class Browser(QTextBrowser):
     
     def keyPressEvent(self, ev):
         if ev.key() == Qt.Key_Escape and int(ev.modifiers()) == 0:
-            self.window().hide()
+            self.window().close()
         super(Browser, self).keyPressEvent(ev)
 
 
