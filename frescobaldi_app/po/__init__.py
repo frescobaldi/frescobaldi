@@ -44,7 +44,7 @@ def find(language):
     elif '_' in language:
         return find(language.split('_')[0])
     
-def translator(mofile):
+def translator(mo):
     """Returns a function that can translate messages using the specified MoFile object.
     
     The returned function can be called with one to four arguments:
@@ -56,40 +56,13 @@ def translator(mofile):
 
     In all cases a single string (the translation) is returned.
     
-    If mofile is None, returns a dummy translator that returns strings untranslated.
+    If mo is None, returns a dummy translator that returns strings untranslated.
     
     """
-    if mofile:
-        funcs = (
-            lambda: None,
-            mofile.gettext,
-            mofile.pgettext,
-            mofile.ngettext,
-            mofile.npgettext,
-        )
-    else:
-        funcs = (
-            lambda: None,
-            lambda message: message,
-            lambda context, message: message,
-            lambda message, plural, count: message if count == 1 else plural,
-            lambda context, message, plural, count: message if count == 1 else plural,
-        )
-    def translate(*args):
-        """Translates a message.
-        
-        Can be called with one to four arguments:
-        
-        - message
-        - context, message
-        - message, plural_message, count
-        - context, message, plural_message, count
-
-        In all cases a single string (the translation) is returned.
-        
-        """
-        return funcs[len(args)](*args)
-    return translate
+    if not mo:
+        mo = mofile.NullMoFile()
+    funcs = (None, mo.gettext, mo.pgettext, mo.ngettext, mo.npgettext)
+    return lambda *args: funcs[len(args)](*args)
     
 def install(filename):
     """Installs the translations from the given .mo file.
