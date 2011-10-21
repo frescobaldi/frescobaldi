@@ -213,13 +213,13 @@ class snippet_edit_help(help.page):
             ('template',
                 _("Place the snippet in the menu {file_new_from_template}, "
                   "grouped by the (optional) value. "
-                  "When triggered via the menu, the snippet is inserted info a "
+                  "When triggered via the menu, the snippet is inserted into a "
                   "new document.").format(file_new_from_template = help.menu(
                     _("menu title", "File"), 
                     _("menu subtitle", "New from Template")))),
             ('name',
                 _("The mnemonic to type to select the snippet.")),
-            ('indent: no',
+            ('indent: no;',
                 _("Do not auto-indent the snippet after inserting.")),
             ('icon',
                 _("The icon to show in menu and snippet list.")),
