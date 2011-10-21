@@ -210,6 +210,13 @@ class snippet_edit_help(help.page):
         text.extend(map("<dt><code>{0[0]}</code></dt><dd>{0[1]}</dd>".format, (
             ('menu',
                 _("Place the snippet in the insert menu, grouped by the (optional) value.")),
+            ('template',
+                _("Place the snippet in the menu {file_new_from_template}, "
+                  "grouped by the (optional) value. "
+                  "When triggered via the menu, the snippet is inserted info a "
+                  "new document.").format(file_new_from_template = help.menu(
+                    _("menu title", "File"), 
+                    _("menu subtitle", "New from Template")))),
             ('name',
                 _("The mnemonic to type to select the snippet.")),
             ('indent: no',

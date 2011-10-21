@@ -82,6 +82,7 @@ def menu_file(mainwindow):
     ac = mainwindow.actionCollection
     
     m.addAction(ac.file_new)
+    m.addMenu(snippet.menu.TemplateMenu(mainwindow))
     m.addSeparator()
     m.addAction(ac.file_open)
     m.addAction(ac.file_open_recent)

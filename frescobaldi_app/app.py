@@ -91,12 +91,13 @@ def openUrl(url, encoding=None):
 def findDocument(url):
     """Returns a Document instance for the given QUrl if already loaded.
     
-    Returns None if no document with given url exists.
+    Returns None if no document with given url exists or if the url is empty.
     
     """
-    for d in documents:
-        if url == d.url():
-            return d
+    if not url.isEmpty():
+        for d in documents:
+            if url == d.url():
+                return d
 
 def run():
     """Enter the Qt event loop."""

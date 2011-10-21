@@ -2,6 +2,12 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
+Changes in 1.9.2 -- 
+
+* New features:
+  - Snippets can also be put in File->New from Template. When triggered via that
+    menu, a new document is created.
+
 Changes in 1.9.1 -- October 11th, 2011
 
 * Translation updates
