@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-10-15 23:46+0200\n"
-"PO-Revision-Date: 2011-10-15 23:48+0200\n"
+"POT-Creation-Date: 2011-10-22 21:26+0200\n"
+"PO-Revision-Date: 2011-10-22 21:30+0200\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -116,31 +116,31 @@ msgstr "Sneltoetsconflict"
 msgid "Edit again"
 msgstr "Opnieuw bewerken"
 
-#: frescobaldi_app/app.py:128
+#: frescobaldi_app/app.py:129
 msgid "LilyPond Files"
 msgstr "LilyPond-bestanden"
 
-#: frescobaldi_app/app.py:129
+#: frescobaldi_app/app.py:130
 msgid "LaTeX Files"
 msgstr "LaTeX-bestanden"
 
-#: frescobaldi_app/app.py:130
+#: frescobaldi_app/app.py:131
 msgid "DocBook Files"
 msgstr "DocBook-bestanden"
 
-#: frescobaldi_app/app.py:131
+#: frescobaldi_app/app.py:132
 msgid "HTML Files"
 msgstr "HTML-bestanden"
 
-#: frescobaldi_app/app.py:132
+#: frescobaldi_app/app.py:133
 msgid "Texinfo Files"
 msgstr "Texinfo-bestanden"
 
-#: frescobaldi_app/app.py:133
+#: frescobaldi_app/app.py:134
 msgid "Scheme Files"
 msgstr "Scheme-bestanden"
 
-#: frescobaldi_app/app.py:134
+#: frescobaldi_app/app.py:135
 msgid "All Files"
 msgstr "Alle bestanden"
 
@@ -823,57 +823,57 @@ msgctxt "menu title"
 msgid "&File"
 msgstr "&Bestand"
 
-#: frescobaldi_app/menu.py:110
+#: frescobaldi_app/menu.py:112
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Exporteren"
 
-#: frescobaldi_app/menu.py:118
+#: frescobaldi_app/menu.py:120
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "Be&werken"
 
-#: frescobaldi_app/menu.py:145
+#: frescobaldi_app/menu.py:147
 msgctxt "menu title"
 msgid "&View"
 msgstr "B&eeld"
 
-#: frescobaldi_app/menu.py:168
+#: frescobaldi_app/menu.py:170
 msgctxt "submenu title"
 msgid "Music &View"
 msgstr "&Muziekweergave"
 
-#: frescobaldi_app/menu.py:187
+#: frescobaldi_app/menu.py:189
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: frescobaldi_app/menu.py:200
+#: frescobaldi_app/menu.py:202
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Gereedschap"
 
-#: frescobaldi_app/menu.py:225
+#: frescobaldi_app/menu.py:227
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Liedteksten"
 
-#: frescobaldi_app/menu.py:237
+#: frescobaldi_app/menu.py:239
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Toonhoogte"
 
-#: frescobaldi_app/menu.py:251
+#: frescobaldi_app/menu.py:253
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritme"
 
-#: frescobaldi_app/menu.py:279
+#: frescobaldi_app/menu.py:281
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Venster"
 
-#: frescobaldi_app/menu.py:299
+#: frescobaldi_app/menu.py:301
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Help"
@@ -5272,6 +5272,14 @@ msgstr "Laatste noot of akkoord"
 msgid "Color"
 msgstr "Kleur"
 
+#: frescobaldi_app/snippet/builtin.py:390
+msgid "Basic Leadsheet"
+msgstr "Eenvoudig Lead-sheet"
+
+#: frescobaldi_app/snippet/builtin.py:429
+msgid "Choir Hymn"
+msgstr "Koorhymne"
+
 #: frescobaldi_app/snippet/edit.py:116 frescobaldi_app/snippet/insert.py:220
 msgid "Edit Snippet"
 msgstr "Knipsel bewerken"
@@ -5329,19 +5337,40 @@ msgstr ""
 "waarde."
 
 #: frescobaldi_app/snippet/edit.py:214
+msgid ""
+"Place the snippet in the menu {file_new_from_template}, grouped by the "
+"(optional) value. When triggered via the menu, the snippet is inserted into "
+"a new document."
+msgstr ""
+"Plaats het knipsel in het menu {file_new_from_template}, gegroepeerd op de "
+"(optionele) "
+"waarde. Wanneer het knipsel wordt toegepast via dat menu, wordt het in een "
+"nieuw, leeg document ingevoegd."
+
+#: frescobaldi_app/snippet/edit.py:218
+msgctxt "menu title"
+msgid "File"
+msgstr "Bestand"
+
+#: frescobaldi_app/snippet/edit.py:219
+msgctxt "menu subtitle"
+msgid "New from Template"
+msgstr "Nieuw van sjabloon"
+
+#: frescobaldi_app/snippet/edit.py:221
 msgid "The mnemonic to type to select the snippet."
 msgstr "De mnemonic om het knipsel te selecteren."
 
-#: frescobaldi_app/snippet/edit.py:216
+#: frescobaldi_app/snippet/edit.py:223
 msgid "Do not auto-indent the snippet after inserting."
 msgstr ""
 "De tekst niet automatisch inspringen na het knipsel te hebben toegepast."
 
-#: frescobaldi_app/snippet/edit.py:218
+#: frescobaldi_app/snippet/edit.py:225
 msgid "The icon to show in menu and snippet list."
 msgstr "Het pictogram dat in de knipsellijst en het menu wordt afgebeeld."
 
-#: frescobaldi_app/snippet/edit.py:220
+#: frescobaldi_app/snippet/edit.py:227
 msgid ""
 "The symbol to show in menu and snippet list. Symbols are icons that use the "
 "default text color and can be found in {directory}."
@@ -5350,28 +5379,28 @@ msgstr ""
 "zijn pictogrammen die de standaard tekstkleur gebruiken en te vinden zijn in "
 "{directory}."
 
-#: frescobaldi_app/snippet/edit.py:224
+#: frescobaldi_app/snippet/edit.py:231
 msgid "Execute the snippet as a Python script. See {link}."
 msgstr "Het knipsel uitvoeren als een Python script. Zie {link}."
 
-#: frescobaldi_app/snippet/edit.py:227
+#: frescobaldi_app/snippet/edit.py:234
 msgid "One of more of the following words (separated with spaces or commas):"
 msgstr ""
 "Een of meer van de volgende woorden (gescheiden door komma's of spaties):"
 
-#: frescobaldi_app/snippet/edit.py:230
+#: frescobaldi_app/snippet/edit.py:237
 msgid "Requires text to be selected."
 msgstr "Er moet tekst geselecteerd zijn."
 
-#: frescobaldi_app/snippet/edit.py:232
+#: frescobaldi_app/snippet/edit.py:239
 msgid "Adjusts the selection to not include starting and trialing whitespace."
 msgstr "Verandert de selectie zodat witruimte erbuiten valt."
 
-#: frescobaldi_app/snippet/edit.py:234
+#: frescobaldi_app/snippet/edit.py:241
 msgid "Selects all inserted text."
 msgstr "Selecteert alle ingevoegde tekst."
 
-#: frescobaldi_app/snippet/edit.py:240
+#: frescobaldi_app/snippet/edit.py:247
 msgid ""
 "<p>The other lines of the snippet define the text to be inserted in the "
 "editor. Here, you can insert variables prefixed with a $. A double $ will be "
@@ -5382,11 +5411,11 @@ msgstr ""
 "Een dubbele $ wordt vervangen door een enkele. De volgende variabelen worden "
 "herkend:</p>"
 
-#: frescobaldi_app/snippet/edit.py:256
+#: frescobaldi_app/snippet/edit.py:263
 msgid "Python Snippets"
 msgstr "Python knipsels"
 
-#: frescobaldi_app/snippet/edit.py:261
+#: frescobaldi_app/snippet/edit.py:268
 msgid ""
 "<p>Python snippets can read and should set the variable {text}. The variable "
 "{text} contains the currently selected text (which may be an empty string).</"
@@ -5401,11 +5430,11 @@ msgstr ""
 "p>\n"
 "<p>Andere variabelen die kunnen worden gebruikt:</p>"
 
-#: frescobaldi_app/snippet/edit.py:269
+#: frescobaldi_app/snippet/edit.py:276
 msgid "A list of strings describing the type of text the cursor is at."
 msgstr "Een lijst van namen die het type text omschrijven waar de cursor is."
 
-#: frescobaldi_app/snippet/edit.py:271
+#: frescobaldi_app/snippet/edit.py:278
 msgid ""
 "The current QTextCursor, giving access to the document. Don't change the "
 "document through the cursor, however."
@@ -5413,7 +5442,7 @@ msgstr ""
 "De huidige QTextCursor, waarmee u toegang hebt tot het document. Verander "
 "het document echter niet via de cursor."
 
-#: frescobaldi_app/snippet/edit.py:274
+#: frescobaldi_app/snippet/edit.py:281
 msgid ""
 "When setting {text} to a list instead of a string, you can use this value to "
 "specify the place the text cursor will be placed after inserting the snippet."
@@ -5422,7 +5451,7 @@ msgstr ""
 "waarde gebruiken om de plaats aan te geven waar de tekstcursor zal worden "
 "neergezet na het invoegen van het knipsel."
 
-#: frescobaldi_app/snippet/edit.py:278
+#: frescobaldi_app/snippet/edit.py:285
 msgid ""
 "When setting {text} to a list instead of a string, this value can be used "
 "together with {cursor} to select text when inserting the string parts of the "
@@ -5478,9 +5507,13 @@ msgstr ""
 msgid "Snippet error"
 msgstr "Knipsel-fout"
 
-#: frescobaldi_app/snippet/menu.py:54
+#: frescobaldi_app/snippet/menu.py:117
 msgid "&Insert"
 msgstr "&Invoegen"
+
+#: frescobaldi_app/snippet/menu.py:138
+msgid "New from &Template"
+msgstr "Nieuw van s&jabloon"
 
 #: frescobaldi_app/snippet/model.py:59
 msgid "Name"
@@ -5490,16 +5523,28 @@ msgstr "Naam"
 msgid "Description"
 msgstr "Omschrijving"
 
-#: frescobaldi_app/snippet/tool.py:52 frescobaldi_app/snippet/tool.py:112
+#: frescobaldi_app/snippet/template.py:33
+msgid "Save as Template"
+msgstr "Opslaan als sjabloon"
+
+#: frescobaldi_app/snippet/template.py:34
+msgid "Please enter a template name:"
+msgstr "Voor een naam voor de sjabloon in:"
+
+#: frescobaldi_app/snippet/tool.py:53 frescobaldi_app/snippet/tool.py:119
 #: frescobaldi_app/snippet/widget.py:293
 msgid "Snippets"
 msgstr "Knipsels"
 
-#: frescobaldi_app/snippet/tool.py:53
+#: frescobaldi_app/snippet/tool.py:54
 msgid "&Snippets"
 msgstr "&Knipsels"
 
-#: frescobaldi_app/snippet/tool.py:73
+#: frescobaldi_app/snippet/tool.py:79
+msgid "Save as Template..."
+msgstr "Opslaan als sjabloon..."
+
+#: frescobaldi_app/snippet/tool.py:80
 msgid "&Snippets..."
 msgstr "&Knipsels..."
 

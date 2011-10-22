@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-10-15 23:46+0200\n"
+"POT-Creation-Date: 2011-10-22 21:26+0200\n"
 "PO-Revision-Date: 2009-10-08 21:17+0300\n"
 "Last-Translator: Artem Zolochevskiy <artem.zolochevskiy@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -129,36 +129,36 @@ msgstr "Сокращение"
 msgid "Edit again"
 msgstr ""
 
-#: frescobaldi_app/app.py:128
+#: frescobaldi_app/app.py:129
 #, fuzzy
 msgid "LilyPond Files"
 msgstr "Файлы LilyPon"
 
-#: frescobaldi_app/app.py:129
+#: frescobaldi_app/app.py:130
 #, fuzzy
 msgid "LaTeX Files"
 msgstr "Все файлы"
 
-#: frescobaldi_app/app.py:130
+#: frescobaldi_app/app.py:131
 #, fuzzy
 msgid "DocBook Files"
 msgstr "Все файлы"
 
-#: frescobaldi_app/app.py:131
+#: frescobaldi_app/app.py:132
 #, fuzzy
 msgid "HTML Files"
 msgstr "Все файлы"
 
-#: frescobaldi_app/app.py:132
+#: frescobaldi_app/app.py:133
 #, fuzzy
 msgid "Texinfo Files"
 msgstr "Открыть файл"
 
-#: frescobaldi_app/app.py:133
+#: frescobaldi_app/app.py:134
 msgid "Scheme Files"
 msgstr ""
 
-#: frescobaldi_app/app.py:134
+#: frescobaldi_app/app.py:135
 msgid "All Files"
 msgstr "Все файлы"
 
@@ -842,63 +842,63 @@ msgctxt "menu title"
 msgid "&File"
 msgstr "Заголовок"
 
-#: frescobaldi_app/menu.py:110
+#: frescobaldi_app/menu.py:112
 msgctxt "submenu title"
 msgid "&Export"
 msgstr ""
 
-#: frescobaldi_app/menu.py:118
+#: frescobaldi_app/menu.py:120
 msgctxt "menu title"
 msgid "&Edit"
 msgstr ""
 
-#: frescobaldi_app/menu.py:145
+#: frescobaldi_app/menu.py:147
 #, fuzzy
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Панели инструментов"
 
-#: frescobaldi_app/menu.py:168
+#: frescobaldi_app/menu.py:170
 msgctxt "submenu title"
 msgid "Music &View"
 msgstr ""
 
-#: frescobaldi_app/menu.py:187
+#: frescobaldi_app/menu.py:189
 #, fuzzy
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "LilyPond"
 
-#: frescobaldi_app/menu.py:200
+#: frescobaldi_app/menu.py:202
 #, fuzzy
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Панели инструментов"
 
-#: frescobaldi_app/menu.py:225
+#: frescobaldi_app/menu.py:227
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Тексты"
 
-#: frescobaldi_app/menu.py:237
+#: frescobaldi_app/menu.py:239
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Тон"
 
-#: frescobaldi_app/menu.py:251
+#: frescobaldi_app/menu.py:253
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ритм"
 
-#: frescobaldi_app/menu.py:279
+#: frescobaldi_app/menu.py:281
 msgctxt "menu title"
 msgid "&Window"
 msgstr ""
 
-#: frescobaldi_app/menu.py:299
+#: frescobaldi_app/menu.py:301
 msgctxt "menu title"
 msgid "&Help"
 msgstr ""
@@ -4969,6 +4969,16 @@ msgstr "Повторить последнюю ноту или аккорд"
 msgid "Color"
 msgstr "Композитор"
 
+#: frescobaldi_app/snippet/builtin.py:390
+#, fuzzy
+msgid "Basic Leadsheet"
+msgstr "Нотный стан"
+
+#: frescobaldi_app/snippet/builtin.py:429
+#, fuzzy
+msgid "Choir Hymn"
+msgstr "Хор"
+
 #: frescobaldi_app/snippet/edit.py:116 frescobaldi_app/snippet/insert.py:220
 msgid "Edit Snippet"
 msgstr ""
@@ -5021,55 +5031,73 @@ msgid "Place the snippet in the insert menu, grouped by the (optional) value."
 msgstr ""
 
 #: frescobaldi_app/snippet/edit.py:214
-msgid "The mnemonic to type to select the snippet."
-msgstr ""
-
-#: frescobaldi_app/snippet/edit.py:216
-msgid "Do not auto-indent the snippet after inserting."
+msgid ""
+"Place the snippet in the menu {file_new_from_template}, grouped by the "
+"(optional) value. When triggered via the menu, the snippet is inserted into "
+"a new document."
 msgstr ""
 
 #: frescobaldi_app/snippet/edit.py:218
+#, fuzzy
+msgctxt "menu title"
+msgid "File"
+msgstr "Заголовок"
+
+#: frescobaldi_app/snippet/edit.py:219
+msgctxt "menu subtitle"
+msgid "New from Template"
+msgstr ""
+
+#: frescobaldi_app/snippet/edit.py:221
+msgid "The mnemonic to type to select the snippet."
+msgstr ""
+
+#: frescobaldi_app/snippet/edit.py:223
+msgid "Do not auto-indent the snippet after inserting."
+msgstr ""
+
+#: frescobaldi_app/snippet/edit.py:225
 msgid "The icon to show in menu and snippet list."
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:220
+#: frescobaldi_app/snippet/edit.py:227
 msgid ""
 "The symbol to show in menu and snippet list. Symbols are icons that use the "
 "default text color and can be found in {directory}."
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:224
+#: frescobaldi_app/snippet/edit.py:231
 msgid "Execute the snippet as a Python script. See {link}."
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:227
+#: frescobaldi_app/snippet/edit.py:234
 msgid "One of more of the following words (separated with spaces or commas):"
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:230
+#: frescobaldi_app/snippet/edit.py:237
 msgid "Requires text to be selected."
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:232
+#: frescobaldi_app/snippet/edit.py:239
 msgid "Adjusts the selection to not include starting and trialing whitespace."
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:234
+#: frescobaldi_app/snippet/edit.py:241
 msgid "Selects all inserted text."
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:240
+#: frescobaldi_app/snippet/edit.py:247
 msgid ""
 "<p>The other lines of the snippet define the text to be inserted in the "
 "editor. Here, you can insert variables prefixed with a $. A double $ will be "
 "replaced with a single one. The following variables are recognized:</p>"
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:256
+#: frescobaldi_app/snippet/edit.py:263
 msgid "Python Snippets"
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:261
+#: frescobaldi_app/snippet/edit.py:268
 msgid ""
 "<p>Python snippets can read and should set the variable {text}. The variable "
 "{text} contains the currently selected text (which may be an empty string).</"
@@ -5078,23 +5106,23 @@ msgid ""
 "<p>Other variables that may be referenced:</p>"
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:269
+#: frescobaldi_app/snippet/edit.py:276
 msgid "A list of strings describing the type of text the cursor is at."
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:271
+#: frescobaldi_app/snippet/edit.py:278
 msgid ""
 "The current QTextCursor, giving access to the document. Don't change the "
 "document through the cursor, however."
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:274
+#: frescobaldi_app/snippet/edit.py:281
 msgid ""
 "When setting {text} to a list instead of a string, you can use this value to "
 "specify the place the text cursor will be placed after inserting the snippet."
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:278
+#: frescobaldi_app/snippet/edit.py:285
 msgid ""
 "When setting {text} to a list instead of a string, this value can be used "
 "together with {cursor} to select text when inserting the string parts of the "
@@ -5145,9 +5173,13 @@ msgstr ""
 msgid "Snippet error"
 msgstr ""
 
-#: frescobaldi_app/snippet/menu.py:54
+#: frescobaldi_app/snippet/menu.py:117
 msgid "&Insert"
 msgstr "&Вставка"
+
+#: frescobaldi_app/snippet/menu.py:138
+msgid "New from &Template"
+msgstr ""
 
 #: frescobaldi_app/snippet/model.py:59
 msgid "Name"
@@ -5157,18 +5189,34 @@ msgstr "Имя"
 msgid "Description"
 msgstr "Описание"
 
-#: frescobaldi_app/snippet/tool.py:52 frescobaldi_app/snippet/tool.py:112
+#: frescobaldi_app/snippet/template.py:33
+msgid "Save as Template"
+msgstr ""
+
+#: frescobaldi_app/snippet/template.py:34
+#, fuzzy
+msgid "Please enter a template name:"
+msgstr ""
+"Используйте только латинские буквы, цифры и символ подчеркивания в названии "
+"расширения."
+
+#: frescobaldi_app/snippet/tool.py:53 frescobaldi_app/snippet/tool.py:119
 #: frescobaldi_app/snippet/widget.py:293
 #, fuzzy
 msgid "Snippets"
 msgstr "Удалить паузы"
 
-#: frescobaldi_app/snippet/tool.py:53
+#: frescobaldi_app/snippet/tool.py:54
 #, fuzzy
 msgid "&Snippets"
 msgstr "Удалить паузы"
 
-#: frescobaldi_app/snippet/tool.py:73
+#: frescobaldi_app/snippet/tool.py:79
+#, fuzzy
+msgid "Save as Template..."
+msgstr "Сохранить"
+
+#: frescobaldi_app/snippet/tool.py:80
 msgid "&Snippets..."
 msgstr ""
 
