@@ -388,7 +388,7 @@ if color is not None:
 
 
 'template_leadsheet': T(_("Basic Leadsheet"),
-r"""-*- template;
+r"""-*- template; template-run;
 \version "$LILYPOND_VERSION"
 
 global = {
@@ -427,7 +427,7 @@ words = \lyricmode {
 """),
 
 'template_choir_hymn': T(_("Choir Hymn"),
-r"""-*- template;
+r"""-*- template; template-run;
 \version "$LILYPOND_VERSION"
 
 global = {

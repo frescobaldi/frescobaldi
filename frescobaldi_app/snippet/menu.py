@@ -157,9 +157,13 @@ class TemplateMenu(QMenu):
         if name:
             d = app.openUrl(QUrl())
             self.mainwindow().setCurrentDocument(d)
-            from . import insert
+            from . import insert, snippets
             view = self.mainwindow().currentView()
             view.setFocus()
             insert.insert(name, view)
+            if 'template-run' in snippets.get(name).variables:
+                import engrave
+                engrave.engraver(self.mainwindow()).engravePreview()
+
 
 
