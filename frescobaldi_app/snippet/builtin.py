@@ -391,6 +391,10 @@ if color is not None:
 r"""-*- template; template-run;
 \version "$LILYPOND_VERSION"
 
+\header {
+  title = ""
+}
+
 global = {
   \tempo 4=100
   \key c \major
@@ -429,6 +433,10 @@ words = \lyricmode {
 'template_choir_hymn': T(_("Choir Hymn"),
 r"""-*- template; template-run;
 \version "$LILYPOND_VERSION"
+
+\header {
+  title = ""
+}
 
 global = {
   \tempo 4=100
