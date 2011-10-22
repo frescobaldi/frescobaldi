@@ -387,5 +387,129 @@ if color is not None:
 """),
 
 
+'template_leadsheet': T(_("Basic Leadsheet"),
+r"""-*- template;
+\version "$LILYPOND_VERSION"
+
+global = {
+  \tempo 4=100
+  \key c \major
+  \time 4/4
+}
+
+chordNames = \chordmode {
+  \global
+  c1
+  
+}
+
+melody = \relative c'' {
+  \global
+  c4 d e f
+  $CURSOR
+}
+
+words = \lyricmode {
+  
+  
+}
+
+\score {
+  <<
+    \new ChordNames \chordNames
+    \new FretBoards \chordNames
+    \new Staff { \melody }
+    \addlyrics { \words }
+  >>
+  \layout { }
+  \midi { }
+}
+"""),
+
+'template_choir_hymn': T(_("Choir Hymn"),
+r"""-*- template;
+\version "$LILYPOND_VERSION"
+
+global = {
+  \tempo 4=100
+  \key c \major
+  \time 4/4
+}
+
+soprano = \relative c'' {
+  \global
+  $CURSORc4
+  
+}
+
+alto = \relative c' {
+  \global
+  c4
+  
+}
+
+tenor = \relative c' {
+  \global
+  c4
+  
+}
+
+bass = \relative c {
+  \global
+  c4
+  
+}
+
+verseOne = \lyricmode {
+  \set stanza = "1."
+  hi
+  
+}
+
+verseTwo = \lyricmode {
+  \set stanza = "2."
+  ha
+  
+}
+
+verseThree = \lyricmode {
+  \set stanza = "3."
+  ho
+  
+}
+
+\score {
+  \new ChoirStaff <<
+    \new Staff \with {
+      midiInstrument = "choir aahs"
+      instrumentName = \markup \center-column { S A }
+    } <<
+      \new Voice = "soprano" { \voiceOne \soprano }
+      \new Voice = "alto" { \voiceTwo \alto }
+    >>
+    \new Lyrics \with {
+      \override VerticalAxisGroup #'staff-affinity = #CENTER
+    } \lyricsto "soprano" \verseOne
+    \new Lyrics \with {
+      \override VerticalAxisGroup #'staff-affinity = #CENTER
+    } \lyricsto "soprano" \verseTwo
+    \new Lyrics \with {
+      \override VerticalAxisGroup #'staff-affinity = #CENTER
+    } \lyricsto "soprano" \verseThree
+    \new Staff \with {
+      midiInstrument = "choir aahs"
+      instrumentName = \markup \center-column { T B }
+    } <<
+      \clef bass
+      \new Voice = "tenor" { \voiceOne \tenor }
+      \new Voice = "bass" { \voiceTwo \bass }
+    >>
+  >>
+  \layout { }
+  \midi { }
+}
+"""),
+
+
 }
 
