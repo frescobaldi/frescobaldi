@@ -44,109 +44,52 @@ import util
 import panels
 
 
-class InsertMenu(QMenu):
+class SnippetMenu(QMenu):
     def __init__(self, parent=None):
-        super(InsertMenu, self).__init__(parent)
-        
+        super(SnippetMenu, self).__init__(parent)
         self.aboutToShow.connect(self.populate)
         self.aboutToHide.connect(self.clearMenu, Qt.QueuedConnection)
         self.triggered.connect(self.slotTriggered)
-        tool = panels.manager(self.mainwindow()).snippettool
-        self.addAction(tool.actionCollection.snippettool_activate)
         app.translateUI(self)
         
-    def translateUI(self):
-        self.setTitle(_("&Insert"))
-    
     def mainwindow(self):
         return self.parent().window()
-        
+    
+    def tool(self):
+        """Returns the snippets tool."""
+        return panels.manager(self.mainwindow()).snippettool
+    
     def populate(self):
-        """Inserts all snippets that have a menu variable in the menu.
-        
-        The snippets are inserted before the "Snippets..." action that
-        is inserted at construction.
-        
-        If the 'menu' snippet variable also has a value, it is used
-        to group snippets with the same value, sorted on internal id.
-        Groups are separated with a separator.
-        
-        """
+        """Populates the menu with snippet actions."""
         from . import model, snippets, actions
-        tool = panels.manager(self.mainwindow()).snippettool
-        last = tool.actionCollection.snippettool_activate
-        selection = self.mainwindow().hasSelection()
+        last = self.insertBeforeAction()
+        shortcuts = self.tool().snippetActions
         groups = {}
         for name in sorted(model.model().names()):
             variables = snippets.get(name).variables
-            menu = variables.get('menu')
-            if menu:
-                action = actions.action(name, self.mainwindow(), tool.snippetActions)
-                if 'yes' in variables.get('selection', ''):
-                    action.setEnabled(selection)
-                groups.setdefault(menu, []).append(action)
+            group = self.snippetGroup(variables)
+            if group:
+                action = actions.action(name, self.mainwindow(), shortcuts)
+                self.visitAction(action, variables)
+                groups.setdefault(group, []).append(action)
         for group in sorted(groups):
             for action in groups[group]:
                 self.insertAction(last, action)
             self.insertSeparator(last)
         util.addAccelerators(self.actions())
         
-    def clearMenu(self):
-        """Deletes the actions on menu hide, excepts the "Snippets..." action."""
-        for a in self.actions()[:-1]:
-            self.removeAction(a)
-            a.deleteLater()
+    def insertBeforeAction(self):
+        """Should return an action to insert out stuff before, or None."""
+        return None
     
-    def slotTriggered(self, action):
-        """Called when an action is triggered."""
-        name = action.objectName()
-        if name:
-            from . import insert
-            view = self.mainwindow().currentView()
-            view.setFocus()
-            insert.insert(name, view)
-
-
-class TemplateMenu(QMenu):
-    def __init__(self, parent=None):
-        super(TemplateMenu, self).__init__(parent)
-        
-        self.aboutToShow.connect(self.populate)
-        self.aboutToHide.connect(self.clearMenu, Qt.QueuedConnection)
-        self.triggered.connect(self.slotTriggered)
-        app.translateUI(self)
-        
-    def translateUI(self):
-        self.setTitle(_("New from &Template"))
+    def snippetGroup(self, variables):
+        """Should a group name if the snippet is to appear in the menu."""
     
-    def mainwindow(self):
-        return self.parent().window()
-        
-    def populate(self):
-        """Inserts all snippets that have a 'template' variable in the menu.
-        
-        If the 'template' snippet variable also has a value, it is used
-        to group snippets with the same value, sorted on internal id.
-        Groups are separated with a separator.
-        
-        """
-        from . import model, snippets, actions
-        tool = panels.manager(self.mainwindow()).snippettool
-        groups = {}
-        for name in sorted(model.model().names()):
-            variables = snippets.get(name).variables
-            template = variables.get('template')
-            if template:
-                action = actions.action(name, self.mainwindow(), tool.snippetActions)
-                groups.setdefault(template, []).append(action)
-        for group in sorted(groups):
-            for action in groups[group]:
-                self.addAction(action)
-            self.addSeparator()
-        util.addAccelerators(self.actions())
+    def visitAction(self, action, variables):
+        """May change the action depending on variables."""
         
     def clearMenu(self):
-        """Deletes the actions on menu hide, excepts the "Snippets..." action."""
+        """Should delete the inserted actions."""
         for a in self.actions():
             self.removeAction(a)
             a.deleteLater()
@@ -155,15 +98,55 @@ class TemplateMenu(QMenu):
         """Called when an action is triggered."""
         name = action.objectName()
         if name:
-            d = app.openUrl(QUrl())
-            self.mainwindow().setCurrentDocument(d)
-            from . import insert, snippets
-            view = self.mainwindow().currentView()
-            view.setFocus()
-            insert.insert(name, view)
-            if 'template-run' in snippets.get(name).variables:
-                import engrave
-                engrave.engraver(self.mainwindow()).engravePreview()
+            self.applySnippet(name)
 
+    def applySnippet(self, name):
+        """Applies the named snippet."""
+        from . import insert
+        view = self.mainwindow().currentView()
+        view.setFocus()
+        insert.insert(name, view)
+
+
+class InsertMenu(SnippetMenu):
+    def __init__(self, parent=None):
+        super(InsertMenu, self).__init__(parent)
+        self.addAction(self.tool().actionCollection.snippettool_activate)
+        
+    def translateUI(self):
+        self.setTitle(_("&Insert"))
+    
+    def insertBeforeAction(self):
+        return self.actions()[-1]
+    
+    def snippetGroup(self, variables):
+        return variables.get('menu')
+    
+    def visitAction(self, action, variables):
+        if 'yes' in variables.get('selection', ''):
+            action.setEnabled(self.mainwindow().hasSelection())
+    
+    def clearMenu(self):
+        """Deletes the actions on menu hide, excepts the "Snippets..." action."""
+        for a in self.actions()[:-1]:
+            self.removeAction(a)
+            a.deleteLater()
+
+
+class TemplateMenu(SnippetMenu):
+    def translateUI(self):
+        self.setTitle(_("New from &Template"))
+    
+    def snippetGroup(self, variables):
+        return variables.get('template')
+    
+    def applySnippet(self, name):
+        d = app.openUrl(QUrl())
+        self.mainwindow().setCurrentDocument(d)
+        super(TemplateMenu, self).applySnippet(name)
+        from . import snippets
+        if 'template-run' in snippets.get(name).variables:
+            import engrave
+            engrave.engraver(self.mainwindow()).engravePreview()
 
 
