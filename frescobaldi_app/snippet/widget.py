@@ -266,7 +266,7 @@ class Widget(QWidget):
         if name:
             s = snippets.get(name)
             self.highlighter.setPython('python' in s.variables)
-            self.textView.setText(s.text)
+            self.textView.setPlainText(s.text)
         
     def updateColumnSizes(self):
         self.treeView.resizeColumnToContents(0)
