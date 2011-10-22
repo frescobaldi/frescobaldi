@@ -5527,7 +5527,7 @@ msgstr "&Nuevo..."
 
 #: frescobaldi_app/widgets/schemeselector.py:93
 msgid "Please enter a name for the new scheme:"
-msgstr "Introduzca el nombre del código de Scheme nuevo:"
+msgstr "Introduzca el nombre del nuevo esquema:"
 
 #: frescobaldi_app/widgets/shortcuteditdialog.py:94
 msgctxt "window title"
