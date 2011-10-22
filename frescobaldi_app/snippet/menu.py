@@ -144,6 +144,9 @@ class TemplateMenu(SnippetMenu):
         d = app.openUrl(QUrl())
         self.mainwindow().setCurrentDocument(d)
         super(TemplateMenu, self).applySnippet(name)
+        d.setUndoRedoEnabled(False)
+        d.setUndoRedoEnabled(True) # d.clearUndoRedoStacks() only in Qt >= 4.7
+        d.setModified(False)
         from . import snippets
         if 'template-run' in snippets.get(name).variables:
             import engrave
