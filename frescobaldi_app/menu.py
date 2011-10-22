@@ -92,6 +92,7 @@ def menu_file(mainwindow):
     m.addAction(ac.file_save)
     m.addAction(ac.file_save_as)
     m.addAction(ac.file_save_copy_as)
+    m.addAction(panels.manager(mainwindow).snippettool.actionCollection.file_save_as_template)
     m.addSeparator()
     m.addAction(ac.file_save_all)
     m.addSeparator()

@@ -45,6 +45,7 @@ class SnippetTool(panels.Panel):
         ac = self.actionCollection = Actions()
         mainwindow.addAction(ac.snippettool_activate)
         ac.snippettool_activate.triggered.connect(self.activate)
+        ac.file_save_as_template.triggered.connect(self.saveAsTemplate)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         mainwindow.addDockWidget(Qt.BottomDockWidgetArea, self)
         
@@ -61,15 +62,21 @@ class SnippetTool(panels.Panel):
         self.mainwindow().currentView().ensureCursorVisible()
         self.widget().searchEntry.setFocus()
         self.widget().searchEntry.selectAll()
+    
+    def saveAsTemplate(self):
+        from . import template
+        template.save(self.mainwindow())
 
 
 class Actions(actioncollection.ActionCollection):
     name = "snippettool"
     def createActions(self, parent=None):
+        self.file_save_as_template = QAction(parent)
         self.snippettool_activate = QAction(parent)
         self.snippettool_activate.setShortcut(QKeySequence("Ctrl+T"))
 
     def translateUI(self):
+        self.file_save_as_template.setText(_("Save as Template..."))
         self.snippettool_activate.setText(_("&Snippets..."))
 
 
