@@ -395,7 +395,7 @@ def transpose(cursor, mainwindow):
         """Returns whether the text contains exactly two pitches."""
         return len(readpitches(text)) == 2
     
-    text = inputdialog.getText(mainwindow, app.caption(_("Transpose")), _(
+    text = inputdialog.getText(mainwindow, _("Transpose"), _(
         "Please enter two absolute pitches, separated by a space, "
         "using the pitch name language \"{language}\"."
         ).format(language=language), icon = icons.get('tools_transpose'),

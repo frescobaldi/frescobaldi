@@ -48,7 +48,7 @@ def getText(
     Arguments:
     
     parent: parent widget or None
-    title: dialog window title
+    title: dialog window title (without appname)
     message: message, question
     text: pre-entered text in the line edit
     icon: which icon to show
@@ -60,7 +60,8 @@ def getText(
     complete: a string list or QAbstractItemModel to provide completions.
     
     """    
-    dlg = widgets.dialog.TextDialog(parent, title=title, message=message, icon=icon)
+    dlg = widgets.dialog.TextDialog(parent,
+        title=app.caption(title), message=message, icon=icon)
     dlg.setText(text)
     dlg.setMinimumWidth(320)
     dlg.messageLabel().setWordWrap(wordWrap)

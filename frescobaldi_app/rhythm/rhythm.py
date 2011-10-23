@@ -143,7 +143,7 @@ def rhythm_explicit(cursor):
 
 def rhythm_apply(cursor, mainwindow):
     durs = inputdialog.getText(mainwindow,
-        app.caption(_("Apply Rhythm")), _("Enter a rhythm:"),
+        _("Apply Rhythm"), _("Enter a rhythm:"),
         complete = sorted(_history),
         regexp = r'([0-9./* ]|\\breve|\\longa|\\maxima)+',
         help = rhythm_help, icon = icons.get('tools_rhythm'))
