@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.1\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-10-22 21:26+0200\n"
+"POT-Creation-Date: 2011-10-25 00:13+0200\n"
 "PO-Revision-Date: 2010-12-23 10:52+0100\n"
 "Last-Translator: Piotr Komorowski <piotr-komorowski@wp.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pl\n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
@@ -153,7 +153,8 @@ msgstr "Otwórz plik"
 msgid "Scheme Files"
 msgstr ""
 
-#: frescobaldi_app/app.py:135
+#: frescobaldi_app/app.py:135 frescobaldi_app/snippet/widget.py:237
+#: frescobaldi_app/snippet/widget.py:254
 msgid "All Files"
 msgstr "Wszystkie pliki"
 
@@ -434,7 +435,7 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: frescobaldi_app/inputdialog.py:100
+#: frescobaldi_app/inputdialog.py:101
 #, fuzzy
 msgid "Select Color"
 msgstr "Zaznacz wszystko"
@@ -570,6 +571,8 @@ msgstr "Otwórz plik"
 #: frescobaldi_app/musicview/image.py:212
 #: frescobaldi_app/preferences/fontscolors.py:476
 #: frescobaldi_app/preferences/fontscolors.py:514
+#: frescobaldi_app/snippet/import_export.py:99
+#: frescobaldi_app/snippet/widget.py:264
 msgid "Error"
 msgstr ""
 
@@ -600,6 +603,7 @@ msgid "Save Selection"
 msgstr "Wybór języka"
 
 #: frescobaldi_app/mainwindow.py:442 frescobaldi_app/mainwindow.py:570
+#: frescobaldi_app/snippet/widget.py:265
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -614,6 +618,7 @@ msgid "Insert From File"
 msgstr ""
 
 #: frescobaldi_app/mainwindow.py:510
+#: frescobaldi_app/snippet/import_export.py:100
 msgid ""
 "Can't read from source:\n"
 "\n"
@@ -1110,7 +1115,7 @@ msgstr "Polecenie"
 #: frescobaldi_app/help/browser.py:84 frescobaldi_app/help/browser.py:85
 #: frescobaldi_app/help/contents.py:70
 #: frescobaldi_app/quickinsert/widget.py:106
-#: frescobaldi_app/snippet/widget.py:152
+#: frescobaldi_app/snippet/widget.py:165
 msgid "Help"
 msgstr ""
 
@@ -4977,7 +4982,7 @@ msgstr "Kompozytor"
 msgid "Basic Leadsheet"
 msgstr "Prymka"
 
-#: frescobaldi_app/snippet/builtin.py:429
+#: frescobaldi_app/snippet/builtin.py:433
 #, fuzzy
 msgid "Choir Hymn"
 msgstr "Chór"
@@ -5173,6 +5178,42 @@ msgstr ""
 msgid "The selected text if available. If not, the text cursor is moved here."
 msgstr ""
 
+#: frescobaldi_app/snippet/import_export.py:97
+msgid "No snippets found."
+msgstr ""
+
+#: frescobaldi_app/snippet/import_export.py:106
+#: frescobaldi_app/snippet/widget.py:238
+#, fuzzy
+msgctxt "dialog title"
+msgid "Import Snippets"
+msgstr "Usuń pauzy"
+
+#: frescobaldi_app/snippet/import_export.py:107
+#, fuzzy
+msgid "Choose which snippets you want to import:"
+msgstr "Proszę wybrać pliki do drukowania:"
+
+#: frescobaldi_app/snippet/import_export.py:115
+#, fuzzy
+msgid "New Snippets"
+msgstr "Usuń pauzy"
+
+#: frescobaldi_app/snippet/import_export.py:116
+#, fuzzy
+msgid "Updated Snippets"
+msgstr "Usuń pauzy"
+
+#: frescobaldi_app/snippet/import_export.py:117
+#, fuzzy
+msgid "Unchanged Snippets"
+msgstr "Usuń pauzy"
+
+#: frescobaldi_app/snippet/import_export.py:179
+#, fuzzy
+msgid "Import Keyboard Shortcuts"
+msgstr "Konfiguruj skróty klawiszowe"
+
 #: frescobaldi_app/snippet/insert.py:218
 msgid "Snippet error"
 msgstr ""
@@ -5204,7 +5245,7 @@ msgid "Please enter a template name:"
 msgstr "Proszę wpisać nazwę sesji."
 
 #: frescobaldi_app/snippet/tool.py:53 frescobaldi_app/snippet/tool.py:119
-#: frescobaldi_app/snippet/widget.py:293
+#: frescobaldi_app/snippet/widget.py:339
 #, fuzzy
 msgid "Snippets"
 msgstr "Usuń pauzy"
@@ -5223,46 +5264,68 @@ msgstr "Zapisz PDF jako..."
 msgid "&Snippets..."
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:137
+#: frescobaldi_app/snippet/widget.py:146
 msgid "Search..."
 msgstr "Szukaj..."
 
-#: frescobaldi_app/snippet/widget.py:141
+#: frescobaldi_app/snippet/widget.py:150
+msgid "Menu"
+msgstr ""
+
+#: frescobaldi_app/snippet/widget.py:151
 msgid "Add..."
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:143
+#: frescobaldi_app/snippet/widget.py:153
 msgid "Add a new snippet. ({key})"
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:144
+#: frescobaldi_app/snippet/widget.py:154
 #, fuzzy
 msgid "Edit..."
 msgstr "Drukuj..."
 
-#: frescobaldi_app/snippet/widget.py:146
+#: frescobaldi_app/snippet/widget.py:156
 msgid "Edit the current snippet. ({key})"
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:147
+#: frescobaldi_app/snippet/widget.py:157
 #, fuzzy
 msgid "Remove"
 msgstr "Usuń laseczki nut"
 
-#: frescobaldi_app/snippet/widget.py:149
-msgid "Remove the current snippet. ({key})"
-msgstr ""
+#: frescobaldi_app/snippet/widget.py:158
+#, fuzzy
+msgid "Remove the selected snippets."
+msgstr "Powtórz zaznaczony fragment muzyki"
 
-#: frescobaldi_app/snippet/widget.py:150
+#: frescobaldi_app/snippet/widget.py:159
 msgid "Apply"
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:151
+#: frescobaldi_app/snippet/widget.py:160
 #, fuzzy
 msgid "Apply the current snippet."
 msgstr "Umieść kursor w tym miejscu."
 
-#: frescobaldi_app/snippet/widget.py:154
+#: frescobaldi_app/snippet/widget.py:161
+msgid "Import..."
+msgstr ""
+
+#: frescobaldi_app/snippet/widget.py:162
+msgid "Import snippets from a file."
+msgstr ""
+
+#: frescobaldi_app/snippet/widget.py:163
+#, fuzzy
+msgid "Export..."
+msgstr "Drukuj..."
+
+#: frescobaldi_app/snippet/widget.py:164
+msgid "Export snippets to a file."
+msgstr ""
+
+#: frescobaldi_app/snippet/widget.py:167
 #, fuzzy
 msgid ""
 "Enter text to search in the snippets list.\n"
@@ -5271,19 +5334,19 @@ msgstr ""
 "Wstaw tyle liter (S, A, T lub B), ile jest pięciolinii.\n"
 "Zobacz \"Co to jest\", by uzyskać więcej informacji."
 
-#: frescobaldi_app/snippet/widget.py:157
+#: frescobaldi_app/snippet/widget.py:170
 msgid ""
 "Enter text to search in the snippets list, and press Enter to apply the "
 "currently selected snippet."
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:159
+#: frescobaldi_app/snippet/widget.py:172
 msgid ""
 "If the search text fully matches the value of the '{name}' variable of a "
 "snippet, that snippet is selected."
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:161
+#: frescobaldi_app/snippet/widget.py:174
 msgid ""
 "If the search text starts with a colon ':', the rest of the search text "
 "filters snippets that define the given variable. After a space a value can "
@@ -5291,13 +5354,26 @@ msgid ""
 "contains the text after the space."
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:166
+#: frescobaldi_app/snippet/widget.py:179
 msgid ""
 "E.g. entering {menu} will show all snippets that are displayed in the insert "
 "menu."
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:299
+#: frescobaldi_app/snippet/widget.py:237 frescobaldi_app/snippet/widget.py:254
+#, fuzzy
+msgid "XML Files"
+msgstr "Wszystkie pliki"
+
+#: frescobaldi_app/snippet/widget.py:257
+msgctxt "dialog title"
+msgid "Export {num} Snippet"
+msgid_plural "Export {num} Snippets"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: frescobaldi_app/snippet/widget.py:345
 msgid ""
 "<p>\n"
 "With the snippets manager you can store often used pieces of text called\n"
@@ -5333,13 +5409,13 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:331
+#: frescobaldi_app/snippet/widget.py:377
 #, fuzzy
 msgctxt "menu title"
 msgid "Insert"
 msgstr "&Wstaw "
 
-#: frescobaldi_app/snippet/widget.py:331
+#: frescobaldi_app/snippet/widget.py:377
 msgid "Snippets..."
 msgstr ""
 
@@ -5617,9 +5693,6 @@ msgstr "Zaznacz wszystko"
 #~ "Uwaga: Jeśli brak plików PDF, lub MIDI znaczy to prawdopodobnie, że "
 #~ "należy uruchomić LilyPonda, aby zaktualizować te pliki, zanim zostaną "
 #~ "wysłane e-mailem."
-
-#~ msgid "Please select the files you want to print:"
-#~ msgstr "Proszę wybrać pliki do drukowania:"
 
 #~ msgid ""
 #~ "These are the PDF documents that are up-to-date (i.e. newer than the "
@@ -6110,9 +6183,6 @@ msgstr "Zaznacz wszystko"
 
 #~ msgid "Align"
 #~ msgstr "Wyrównaj"
-
-#~ msgid "Repeat selected music"
-#~ msgstr "Powtórz zaznaczony fragment muzyki"
 
 #~ msgid "Insert pair of braces"
 #~ msgstr "Wstaw klamrę"

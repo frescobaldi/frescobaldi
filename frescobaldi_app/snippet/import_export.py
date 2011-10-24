@@ -97,7 +97,7 @@ def load(filename, widget):
             raise ValueError(_("No snippets found."))
     except Exception as e:
         QMessageBox.critical(widget, app.caption(_("Error")),
-        _("Can't load {url}\n\n{error}").format(
+        _("Can't read from source:\n\n{url}\n\n{error}").format(
             url=filename, error=e))
         return
 
