@@ -34,6 +34,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import util
 import widgets.dialog
 
 from . import model
@@ -44,13 +45,15 @@ from . import builtin
 def save(names, filename):
     """Saves the named snippets to a file."""
     root = ET.Element('snippets')
-    root.text = root.tail = '\n'
+    root.text = '\n\n'
+    root.tail = '\n'
     d = ET.ElementTree(root)
     
     for name in names:
         snippet = ET.Element('snippet')
         snippet.set('id', name)
-        snippet.text = snippet.tail = '\n'
+        snippet.text = '\n'
+        snippet.tail = '\n\n'
         
         title = ET.Element('title')
         title.text = snippets.title(name, False)
@@ -120,16 +123,20 @@ def load(filename, widget):
     new.setExpanded(True)
     updated.setExpanded(True)
     
+    items = []
     for snip in elements:
         item = QTreeWidgetItem()
         
-        body = snip.find('body').text
-        t = snippets.parse(body)
-        title = snip.find('title').text or snippets.maketitle(t.text)
+        item.body = snip.find('body').text
+        item.title = snip.find('title').text
+        item.shortcuts = list(e.text for e in snip.findall('shortcuts/shortcut'))
+        
+        title = item.title or snippets.maketitle(snippets.parse(item.body).text)
         item.setText(0, title)
         
         name = snip.get('id')
         name = name if name in builtins else None
+        
         
         # determine if new, updated or unchanged
         if not name:
@@ -138,11 +145,16 @@ def load(filename, widget):
         
         if not name or name not in allnames:
             new.addChild(item)
+            items.append(item)
             item.setFlags(Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
             item.setCheckState(0, Qt.Checked)
         elif name:
-            if body != snippets.text(name):
+            if (item.body != snippets.text(name)
+                or title != snippets.title(name)
+                or (item.shortcuts and item.shortcuts != 
+                    [s.toString() for s in model.shortcuts(name) or ()])):
                 updated.addChild(item)
+                items.append(item)
                 item.setFlags(Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
                 item.setCheckState(0, Qt.Checked)
             else:
@@ -165,12 +177,22 @@ def load(filename, widget):
     tree.itemChanged.connect(changed)
     
     importShortcuts = QTreeWidgetItem([_("Import Keyboard Shortcuts")])
-    if new.childCount() or updated.childCount():
+    if items:
         tree.addTopLevelItem(importShortcuts)
         importShortcuts.setFlags(Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
-        importShortcuts.setCheckState(0, Qt.Unchecked)
-    
-        
-    dlg.exec_()
-    
-    
+        importShortcuts.setCheckState(0, Qt.Checked)
+    util.saveDialogSize(dlg, "snippettool/import/size", QSize(400, 300))
+    if not dlg.exec_() or not items:
+        return
+    ac = model.collection()
+    m = model.model()
+    with util.busyCursor():
+        for i in items:
+            if i.checkState(0) == Qt.Checked:
+                index = m.saveSnippet(i.name, i.body, i.title)
+                if i.shortcuts and importShortcuts.checkState(0):
+                    shortcuts = list(map(QKeySequence.fromString, i.shortcuts))
+                    ac.setShortcuts(m.name(index), shortcuts)
+        widget.updateColumnSizes()
+
+

@@ -244,13 +244,18 @@ class Widget(QWidget):
         
     def slotExport(self):
         """Called when the user activates the export action."""
+        allrows = [row for row in range(model.model().rowCount())
+                       if not self.treeView.isRowHidden(row, QModelIndex())]
+        selectedrows = [i.row() for i in self.treeView.selectedIndexes()
+                                if i.column() == 0 and i.row() in allrows]
         names = self.treeView.model().names()
-        names = [names[i.row()] for i in self.treeView.selectedIndexes()] or names
+        names = [names[row] for row in selectedrows or allrows]
         
         filetypes = "{0} (*.xml);;{1} (*)".format(_("XML Files"), _("All Files"))
-        caption = app.caption(_("dialog title", "Export Snippets"))
-        filename = None
-        filename = QFileDialog.getSaveFileName(self, caption, filename, filetypes)
+        n = len(names)
+        caption = app.caption(_("dialog title",
+            "Export {num} Snippet", "Export {num} Snippets", n).format(num=n))
+        filename = QFileDialog.getSaveFileName(self, caption, None, filetypes)
         if filename:
             from . import import_export
             try:
