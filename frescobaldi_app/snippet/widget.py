@@ -51,11 +51,12 @@ class Widget(QWidget):
         self.treeView = QTreeView()
         self.textView = QTextBrowser()
         
-        addButton = QToolButton(autoRaise=True)
-        editButton = QToolButton(autoRaise=True)
-        removeButton = QToolButton(autoRaise=True)
         applyButton = QToolButton(autoRaise=True)
-        helpButton = QToolButton(autoRaise=True)
+        editButton = QToolButton(autoRaise=True)
+        addButton = QToolButton(autoRaise=True)
+        self.menuButton = QPushButton(flat=True)
+        menu = QMenu(self.menuButton)
+        self.menuButton.setMenu(menu)
         
         splitter = QSplitter(Qt.Vertical)
         top = QHBoxLayout()
@@ -71,9 +72,7 @@ class Widget(QWidget):
         top.addSpacing(10)
         top.addWidget(addButton)
         top.addWidget(editButton)
-        top.addWidget(removeButton)
-        top.addSpacing(10)
-        top.addWidget(helpButton)
+        top.addWidget(self.menuButton)
         
         # action generator for actions added to search entry
         def act(slot, icon=None):
@@ -87,6 +86,10 @@ class Widget(QWidget):
         a = act(self.slotEscapePressed)
         a.setShortcut(QKeySequence(Qt.Key_Escape))
         
+        # apply button
+        a = self.applyAction = act(self.slotApply, 'edit-paste')
+        applyButton.setDefaultAction(a)
+        
         # add button
         a = self.addAction_ = act(self.slotAdd, 'list-add')
         a.setShortcut(QKeySequence(Qt.Key_Insert))
@@ -97,18 +100,24 @@ class Widget(QWidget):
         a.setShortcut(QKeySequence(Qt.Key_F2))
         editButton.setDefaultAction(a)
         
-        # delete button
+        # import action
+        a = self.importAction = act(self.slotImport, 'document-open')
+        menu.addAction(a)
+        
+        # export action
+        a = self.exportAction = act(self.slotExport, 'document-save-as')
+        menu.addAction(a)
+        
+        # delete action
         a = self.deleteAction = act(self.slotDelete, 'list-remove')
         a.setShortcut(QKeySequence(Qt.CTRL + Qt.Key_Delete))
-        removeButton.setDefaultAction(a)
-        
-        # apply button
-        a = self.applyAction = act(self.slotApply, 'edit-paste')
-        applyButton.setDefaultAction(a)
+        menu.addSeparator()
+        menu.addAction(a)
         
         # help button
         a = self.helpAction = act(self.slotHelp, 'help-contents')
-        helpButton.setDefaultAction(a)
+        menu.addSeparator()
+        menu.addAction(a)
         
         self.treeView.setSelectionBehavior(QTreeView.SelectRows)
         self.treeView.setSelectionMode(QTreeView.ExtendedSelection)
@@ -138,6 +147,7 @@ class Widget(QWidget):
         except AttributeError:
             pass # not in Qt 4.6
         shortcut = lambda a: a.shortcut().toString(QKeySequence.NativeText)
+        self.menuButton.setText(_("Menu"))
         self.addAction_.setText(_("Add..."))
         self.addAction_.setToolTip(
             _("Add a new snippet. ({key})").format(key=shortcut(self.addAction_)))
@@ -145,10 +155,13 @@ class Widget(QWidget):
         self.editAction.setToolTip(
             _("Edit the current snippet. ({key})").format(key=shortcut(self.editAction)))
         self.deleteAction.setText(_("Remove"))
-        self.deleteAction.setToolTip(
-            _("Remove the current snippet. ({key})").format(key=shortcut(self.deleteAction)))
+        self.deleteAction.setToolTip(_("Remove the selected snippets."))
         self.applyAction.setText(_("Apply"))
         self.applyAction.setToolTip(_("Apply the current snippet."))
+        self.importAction.setText(_("Import..."))
+        self.importAction.setToolTip(_("Import snippets from a file."))
+        self.exportAction.setText(_("Export..."))
+        self.exportAction.setToolTip(_("Export snippets to a file."))
         self.helpAction.setText(_("Help"))
         self.searchEntry.setToolTip(_(
             "Enter text to search in the snippets list.\n"
@@ -219,6 +232,34 @@ class Widget(QWidget):
             view = self.parent().mainwindow().currentView()
             insert.insert(name, view)
     
+    def slotImport(self):
+        """Called when the user activates the import action."""
+        filetypes = "{0} (*.xml);;{1} (*)".format(_("XML Files"), _("All Files"))
+        caption = app.caption(_("dialog title", "Import Snippets"))
+        filename = None
+        filename = QFileDialog.getOpenFileName(self, caption, filename, filetypes)
+        if filename:
+            from . import import_export
+            import_export.load(filename, self)
+        
+    def slotExport(self):
+        """Called when the user activates the export action."""
+        names = self.treeView.model().names()
+        names = [names[i.row()] for i in self.treeView.selectedIndexes()] or names
+        
+        filetypes = "{0} (*.xml);;{1} (*)".format(_("XML Files"), _("All Files"))
+        caption = app.caption(_("dialog title", "Export Snippets"))
+        filename = None
+        filename = QFileDialog.getSaveFileName(self, caption, filename, filetypes)
+        if filename:
+            from . import import_export
+            try:
+                import_export.save(names, filename)
+            except (IOError, OSError) as e:
+                QMessageBox.critical(self, _("Error"), _(
+                    "Can't write to destination:\n\n{url}\n\n{error}").format(
+                    url=filename, error=e.strerror))
+        
     def slotHelp(self):
         """Called when the user clicks the small help button."""
         help.help(snippet_help)
