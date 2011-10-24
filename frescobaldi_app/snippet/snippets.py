@@ -123,7 +123,12 @@ def text(name):
 @memoize
 def shorttext(name):
     """Returns the abridged text, in most cases usable for display or matching."""
-    lines = _expansions_re.sub(' ... ', get(name).text).splitlines()
+    return maketitle(get(name).text)
+
+
+def maketitle(text):
+    """Returns the text abridged, usable as a title."""
+    lines = _expansions_re.sub(' ... ', text).splitlines()
     if not lines:
         return ''
     start, end  = 0, len(lines) - 1
@@ -135,7 +140,7 @@ def shorttext(name):
         return lines[start]
     else:
         return lines[start] + " ... " + lines[end]
-
+    
 
 @memoize
 def get(name):

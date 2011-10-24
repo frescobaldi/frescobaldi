@@ -172,18 +172,22 @@ class SnippetModel(QAbstractItemModel):
 
 def shortcut(name):
     """Returns a shortcut text for the named snippets, if any, else None."""
+    s = shortcuts(name)
+    if s:
+        text = s[0].toString(QKeySequence.NativeText)
+        if len(s) > 1:
+            text += "..."
+        return text
+
+
+def shortcuts(name):
+    """Returns a (maybe empty) list of QKeySequences for the named snippet."""
     try:
         # HACK alert :-) access an instance of the ShortcutCollection named 'snippets'
         ref = actioncollection.ShortcutCollection.others['snippets'][0]
     except (KeyError, IndexError):
         return
     collection = ref()
-    if collection:
-        shortcuts = collection.shortcuts(name)
-        if shortcuts:
-            text = shortcuts[0].toString(QKeySequence.NativeText)
-            if len(shortcuts) > 1:
-                text += "..."
-            return text
+    return collection and collection.shortcuts(name) or []
 
 
