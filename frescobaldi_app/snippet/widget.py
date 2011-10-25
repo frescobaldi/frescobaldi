@@ -86,20 +86,6 @@ class Widget(QWidget):
         a = act(self.slotEscapePressed)
         a.setShortcut(QKeySequence(Qt.Key_Escape))
         
-        # apply button
-        a = self.applyAction = act(self.slotApply, 'edit-paste')
-        applyButton.setDefaultAction(a)
-        
-        # add button
-        a = self.addAction_ = act(self.slotAdd, 'list-add')
-        a.setShortcut(QKeySequence(Qt.Key_Insert))
-        addButton.setDefaultAction(a)
-        
-        # edit button
-        a = self.editAction = act(self.slotEdit, 'document-edit')
-        a.setShortcut(QKeySequence(Qt.Key_F2))
-        editButton.setDefaultAction(a)
-        
         # import action
         a = self.importAction = act(self.slotImport, 'document-open')
         menu.addAction(a)
@@ -108,10 +94,28 @@ class Widget(QWidget):
         a = self.exportAction = act(self.slotExport, 'document-save-as')
         menu.addAction(a)
         
+        # apply button
+        a = self.applyAction = act(self.slotApply, 'edit-paste')
+        applyButton.setDefaultAction(a)
+        menu.addSeparator()
+        menu.addAction(a)
+        
+        # add button
+        a = self.addAction_ = act(self.slotAdd, 'list-add')
+        a.setShortcut(QKeySequence(Qt.Key_Insert))
+        addButton.setDefaultAction(a)
+        menu.addSeparator()
+        menu.addAction(a)
+        
+        # edit button
+        a = self.editAction = act(self.slotEdit, 'document-edit')
+        a.setShortcut(QKeySequence(Qt.Key_F2))
+        editButton.setDefaultAction(a)
+        menu.addAction(a)
+        
         # delete action
         a = self.deleteAction = act(self.slotDelete, 'list-remove')
         a.setShortcut(QKeySequence(Qt.CTRL + Qt.Key_Delete))
-        menu.addSeparator()
         menu.addAction(a)
         
         # help button
