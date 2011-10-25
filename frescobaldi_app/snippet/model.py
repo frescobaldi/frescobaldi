@@ -83,7 +83,7 @@ class SnippetModel(QAbstractItemModel):
                 return snippets.title(name)
             else:
                 return shortcut(name)
-        elif role == Qt.DecorationRole and index.column() == 0:
+        elif role == Qt.DecorationRole and index.column() == 1:
             return snippets.icon(name)
     
     # slots

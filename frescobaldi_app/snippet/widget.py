@@ -140,6 +140,10 @@ class Widget(QWidget):
         # highlight text
         self.highlighter = highlight.Highlighter(self.textView.document())
         
+        # complete on snippet variables
+        self.searchEntry.setCompleter(QCompleter([
+            ':icon', ':indent', ':menu', ':name', ':python', ':selection',
+            ':set', ':symbol', ':template', ':template-run'], self.searchEntry))
         self.readSettings()
         app.settingsChanged.connect(self.readSettings)
         app.translateUI(self)
