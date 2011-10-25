@@ -140,7 +140,20 @@ class Widget(QWidget):
         app.settingsChanged.connect(self.readSettings)
         app.translateUI(self)
         self.updateColumnSizes()
+        self.setAcceptDrops(True)
 
+    def dropEvent(self, ev):
+        if not ev.source() and ev.mimeData().hasUrls():
+            filename = ev.mimeData().urls()[0].toLocalFile()
+            if filename:
+                ev.accept()
+                from . import import_export
+                import_export.load(filename, self)
+        
+    def dragEnterEvent(self, ev):
+        if not ev.source() and ev.mimeData().hasUrls():
+            ev.accept()
+        
     def translateUI(self):
         try:
             self.searchEntry.setPlaceHolderText(_("Search..."))
