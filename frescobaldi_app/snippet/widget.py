@@ -164,22 +164,22 @@ class Widget(QWidget):
         except AttributeError:
             pass # not in Qt 4.6
         shortcut = lambda a: a.shortcut().toString(QKeySequence.NativeText)
-        self.menuButton.setText(_("Menu"))
-        self.addAction_.setText(_("Add..."))
+        self.menuButton.setText(_("&Menu"))
+        self.addAction_.setText(_("&Add..."))
         self.addAction_.setToolTip(
             _("Add a new snippet. ({key})").format(key=shortcut(self.addAction_)))
-        self.editAction.setText(_("Edit..."))
+        self.editAction.setText(_("&Edit..."))
         self.editAction.setToolTip(
             _("Edit the current snippet. ({key})").format(key=shortcut(self.editAction)))
-        self.deleteAction.setText(_("Remove"))
+        self.deleteAction.setText(_("&Remove"))
         self.deleteAction.setToolTip(_("Remove the selected snippets."))
-        self.applyAction.setText(_("Apply"))
+        self.applyAction.setText(_("A&pply"))
         self.applyAction.setToolTip(_("Apply the current snippet."))
-        self.importAction.setText(_("Import..."))
+        self.importAction.setText(_("&Import..."))
         self.importAction.setToolTip(_("Import snippets from a file."))
-        self.exportAction.setText(_("Export..."))
+        self.exportAction.setText(_("E&xport..."))
         self.exportAction.setToolTip(_("Export snippets to a file."))
-        self.helpAction.setText(_("Help"))
+        self.helpAction.setText(_("&Help"))
         self.searchEntry.setToolTip(_(
             "Enter text to search in the snippets list.\n"
             "See \"What's This\" for more information."))
@@ -237,10 +237,12 @@ class Widget(QWidget):
     def slotDelete(self):
         """Called when the user wants to delete the selected rows."""
         rows = sorted(set(i.row() for i in self.treeView.selectedIndexes()), reverse=True)
-        for row in rows:
-            self.parent().snippetActions.setShortcuts(self.treeView.model().names()[row], [])
-            self.treeView.model().removeRow(row)
-        self.updateFilter()
+        if rows:
+            for row in rows:
+                name = self.treeView.model().names()[row]
+                self.parent().snippetActions.setShortcuts(name, [])
+                self.treeView.model().removeRow(row)
+            self.updateFilter()
     
     def slotApply(self):
         """Called when the user clicks the apply button. Applies current snippet."""
