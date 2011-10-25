@@ -34,6 +34,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import info
 import util
 import widgets.dialog
 
@@ -48,6 +49,10 @@ def save(names, filename):
     root.text = '\n\n'
     root.tail = '\n'
     d = ET.ElementTree(root)
+    
+    comment = ET.Comment(_comment.format(info=info))
+    comment.tail = '\n\n'
+    root.append(comment)
     
     for name in names:
         snippet = ET.Element('snippet')
@@ -206,5 +211,19 @@ def load(filename, widget):
                     shortcuts = list(map(QKeySequence.fromString, i.shortcuts))
                     ac.setShortcuts(m.name(index), shortcuts)
         widget.updateColumnSizes()
+
+
+_comment = """
+  Created by {info.appname} {info.version}.
+  
+  Every snippet is represented by:
+    title:      title text
+    shortcuts:  list of shortcut elements, every shortcut is a key sequence
+    body:       the snippet text
+  
+  The snippet id attribute can be the name of a builtin snippet or a random
+  name like 'n123456'. In the latter case, the title is used to determine
+  whether a snippet is new or updated.
+"""
 
 
