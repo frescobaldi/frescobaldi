@@ -104,7 +104,6 @@ def load(filename, widget):
 
     dlg = widgets.dialog.Dialog(widget)
     dlg.setWindowTitle(app.caption(_("dialog title", "Import Snippets")))
-    dlg.setMessage(_("Choose which snippets you want to import:"))
     tree = QTreeWidget(headerHidden=True, rootIsDecorated=False)
     dlg.setMainWidget(tree)
     
@@ -181,6 +180,10 @@ def load(filename, widget):
         tree.addTopLevelItem(importShortcuts)
         importShortcuts.setFlags(Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
         importShortcuts.setCheckState(0, Qt.Checked)
+        dlg.setMessage(_("Choose which snippets you want to import:"))
+    else:
+        dlg.setMessage(_("There are no new or updated snippets in the file."))
+        unchanged.setExpanded(True)
     util.saveDialogSize(dlg, "snippettool/import/size", QSize(400, 300))
     if not dlg.exec_() or not items:
         return
