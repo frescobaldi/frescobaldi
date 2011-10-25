@@ -23,7 +23,7 @@ Import and export of snippets.
 
 from __future__ import unicode_literals
 
-import sys
+import os
 
 try:
     import xml.etree.cElementTree as ET
@@ -184,6 +184,15 @@ def load(filename, widget):
     else:
         dlg.setMessage(_("There are no new or updated snippets in the file."))
         unchanged.setExpanded(True)
+    
+    tree.setWhatsThis(_(
+        "<p>Here the snippets from {filename} are displayed.</p>\n"
+        "<p>If there are new or updated snippets, you can select or deselect "
+        "them one by one, or all at once, using the checkbox of the group. "
+        "Then click OK to import all the selected snippets.</p>\n"
+        "<p>Existing, unchanged snippets can't be imported.</p>\n"
+        ).format(filename=os.path.basename(filename)))
+        
     util.saveDialogSize(dlg, "snippettool/import/size", QSize(400, 300))
     if not dlg.exec_() or not items:
         return
