@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-10-25 00:13+0200\n"
+"POT-Creation-Date: 2011-10-25 10:23+0200\n"
 "PO-Revision-Date: 2011-09-28 12:35+0200\n"
 "Last-Translator: Raphaël Doursenaud <rdoursenaud@free.fr>\n"
 "Language-Team: Français <>\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bits\n"
+"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
 #: frescobaldi_app/about.py:42
@@ -142,8 +142,8 @@ msgstr "Fichiers Texinfo"
 msgid "Scheme Files"
 msgstr "Fichiers de Profil"
 
-#: frescobaldi_app/app.py:135 frescobaldi_app/snippet/widget.py:237
-#: frescobaldi_app/snippet/widget.py:254
+#: frescobaldi_app/app.py:135 frescobaldi_app/snippet/widget.py:254
+#: frescobaldi_app/snippet/widget.py:271
 msgid "All Files"
 msgstr "Tous les Fichiers"
 
@@ -553,7 +553,7 @@ msgstr "Ouvrir Fichier"
 #: frescobaldi_app/preferences/fontscolors.py:476
 #: frescobaldi_app/preferences/fontscolors.py:514
 #: frescobaldi_app/snippet/import_export.py:99
-#: frescobaldi_app/snippet/widget.py:264
+#: frescobaldi_app/snippet/widget.py:281
 msgid "Error"
 msgstr "Erreur"
 
@@ -584,7 +584,7 @@ msgid "Save Selection"
 msgstr "Enregistrer la Sélection"
 
 #: frescobaldi_app/mainwindow.py:442 frescobaldi_app/mainwindow.py:570
-#: frescobaldi_app/snippet/widget.py:265
+#: frescobaldi_app/snippet/widget.py:282
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -1076,7 +1076,6 @@ msgstr "Contexte"
 #: frescobaldi_app/help/browser.py:84 frescobaldi_app/help/browser.py:85
 #: frescobaldi_app/help/contents.py:70
 #: frescobaldi_app/quickinsert/widget.py:106
-#: frescobaldi_app/snippet/widget.py:165
 msgid "Help"
 msgstr "Aide"
 
@@ -3579,7 +3578,7 @@ msgstr "Partition :"
 msgid "&Add"
 msgstr "&Ajouter"
 
-#: frescobaldi_app/scorewiz/score.py:103
+#: frescobaldi_app/scorewiz/score.py:103 frescobaldi_app/snippet/widget.py:174
 #: frescobaldi_app/widgets/listedit.py:93
 #: frescobaldi_app/widgets/schemeselector.py:64
 msgid "&Remove"
@@ -5085,36 +5084,50 @@ msgid "No snippets found."
 msgstr ""
 
 #: frescobaldi_app/snippet/import_export.py:106
-#: frescobaldi_app/snippet/widget.py:238
+#: frescobaldi_app/snippet/widget.py:255
 #, fuzzy
 msgctxt "dialog title"
 msgid "Import Snippets"
 msgstr "Snippet Vide"
 
-#: frescobaldi_app/snippet/import_export.py:107
-#, fuzzy
-msgid "Choose which snippets you want to import:"
-msgstr "Veuillez choisir les fichiers à imprimer :"
-
-#: frescobaldi_app/snippet/import_export.py:115
+#: frescobaldi_app/snippet/import_export.py:114
 #, fuzzy
 msgid "New Snippets"
 msgstr "Nouveau Snippet"
 
-#: frescobaldi_app/snippet/import_export.py:116
+#: frescobaldi_app/snippet/import_export.py:115
 #, fuzzy
 msgid "Updated Snippets"
 msgstr "Éditer le Snippet"
 
-#: frescobaldi_app/snippet/import_export.py:117
+#: frescobaldi_app/snippet/import_export.py:116
 #, fuzzy
 msgid "Unchanged Snippets"
 msgstr "Snippets Python"
 
-#: frescobaldi_app/snippet/import_export.py:179
+#: frescobaldi_app/snippet/import_export.py:178
 #, fuzzy
 msgid "Import Keyboard Shortcuts"
 msgstr "Raccourcis Clavier"
+
+#: frescobaldi_app/snippet/import_export.py:183
+#, fuzzy
+msgid "Choose which snippets you want to import:"
+msgstr "Veuillez choisir les fichiers à imprimer :"
+
+#: frescobaldi_app/snippet/import_export.py:185
+#, fuzzy
+msgid "There are no new or updated snippets in the file."
+msgstr "Pas de fichier à envoyer par courriel."
+
+#: frescobaldi_app/snippet/import_export.py:189
+msgid ""
+"<p>Here the snippets from {filename} are displayed.</p>\n"
+"<p>If there are new or updated snippets, you can select or deselect them one "
+"by one, or all at once, using the checkbox of the group. Then click OK to "
+"import all the selected snippets.</p>\n"
+"<p>Existing, unchanged snippets can't be imported.</p>\n"
+msgstr ""
 
 #: frescobaldi_app/snippet/insert.py:218
 msgid "Snippet error"
@@ -5148,7 +5161,7 @@ msgid "Please enter a template name:"
 msgstr "Veuillez entrer un nom de session."
 
 #: frescobaldi_app/snippet/tool.py:53 frescobaldi_app/snippet/tool.py:119
-#: frescobaldi_app/snippet/widget.py:339
+#: frescobaldi_app/snippet/widget.py:356
 msgid "Snippets"
 msgstr "Snippets"
 
@@ -5165,65 +5178,70 @@ msgstr "Modèle d'entête"
 msgid "&Snippets..."
 msgstr "&Snippets..."
 
-#: frescobaldi_app/snippet/widget.py:146
+#: frescobaldi_app/snippet/widget.py:163
 msgid "Search..."
 msgstr "Rechercher..."
 
-#: frescobaldi_app/snippet/widget.py:150
-msgid "Menu"
+#: frescobaldi_app/snippet/widget.py:167
+msgid "&Menu"
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:151
-msgid "Add..."
-msgstr "Ajouter..."
+#: frescobaldi_app/snippet/widget.py:168
+#: frescobaldi_app/widgets/listedit.py:91
+msgid "&Add..."
+msgstr "&Ajouter..."
 
-#: frescobaldi_app/snippet/widget.py:153
+#: frescobaldi_app/snippet/widget.py:170
 msgid "Add a new snippet. ({key})"
 msgstr "Ajouter un nouveau snippet. ({key})"
 
-#: frescobaldi_app/snippet/widget.py:154
-msgid "Edit..."
-msgstr "Éditer..."
+#: frescobaldi_app/snippet/widget.py:171
+#: frescobaldi_app/widgets/listedit.py:92
+msgid "&Edit..."
+msgstr "&Éditer..."
 
-#: frescobaldi_app/snippet/widget.py:156
+#: frescobaldi_app/snippet/widget.py:173
 msgid "Edit the current snippet. ({key})"
 msgstr "Éditer le snippet courant. ({key})"
 
-#: frescobaldi_app/snippet/widget.py:157
-msgid "Remove"
-msgstr "Supprimer"
-
-#: frescobaldi_app/snippet/widget.py:158
+#: frescobaldi_app/snippet/widget.py:175
 #, fuzzy
 msgid "Remove the selected snippets."
 msgstr "Supprimer le snippet courant. ({key})"
 
-#: frescobaldi_app/snippet/widget.py:159
-msgid "Apply"
+#: frescobaldi_app/snippet/widget.py:176
+#, fuzzy
+msgid "A&pply"
 msgstr "Appliquer"
 
-#: frescobaldi_app/snippet/widget.py:160
+#: frescobaldi_app/snippet/widget.py:177
 msgid "Apply the current snippet."
 msgstr "Appliquer le snippet courrant."
 
-#: frescobaldi_app/snippet/widget.py:161
-msgid "Import..."
-msgstr ""
+#: frescobaldi_app/snippet/widget.py:178
+#, fuzzy
+msgid "&Import..."
+msgstr "&Exporter"
 
-#: frescobaldi_app/snippet/widget.py:162
+#: frescobaldi_app/snippet/widget.py:179
 msgid "Import snippets from a file."
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:163
+#: frescobaldi_app/snippet/widget.py:180
 #, fuzzy
-msgid "Export..."
+msgid "E&xport..."
 msgstr "&Exporter"
 
-#: frescobaldi_app/snippet/widget.py:164
+#: frescobaldi_app/snippet/widget.py:181
 msgid "Export snippets to a file."
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:167
+#: frescobaldi_app/snippet/widget.py:182
+#, fuzzy
+msgid "&Help"
+msgstr "Aide"
+
+#: frescobaldi_app/snippet/widget.py:184
 msgid ""
 "Enter text to search in the snippets list.\n"
 "See \"What's This\" for more information."
@@ -5231,7 +5249,7 @@ msgstr ""
 "Entrez le texte à rechercher dans la liste des snippets.\n"
 "Voir « Qu'es-ce que c'est ? » pour plus d'information."
 
-#: frescobaldi_app/snippet/widget.py:170
+#: frescobaldi_app/snippet/widget.py:187
 msgid ""
 "Enter text to search in the snippets list, and press Enter to apply the "
 "currently selected snippet."
@@ -5239,7 +5257,7 @@ msgstr ""
 "Entrez le texte à rechercher dans la liste des snippet et pressez Entrée "
 "pour appliquer le snippet sélectionné."
 
-#: frescobaldi_app/snippet/widget.py:172
+#: frescobaldi_app/snippet/widget.py:189
 msgid ""
 "If the search text fully matches the value of the '{name}' variable of a "
 "snippet, that snippet is selected."
@@ -5247,7 +5265,7 @@ msgstr ""
 "Si le texte recherché correspond parfaitement à la valeur de la variable "
 "'{name}' d'un snippet, ce snippet est sélectionné."
 
-#: frescobaldi_app/snippet/widget.py:174
+#: frescobaldi_app/snippet/widget.py:191
 msgid ""
 "If the search text starts with a colon ':', the rest of the search text "
 "filters snippets that define the given variable. After a space a value can "
@@ -5259,7 +5277,7 @@ msgstr ""
 "un espace, une valeur peut aussi être entrée. Les snippets seront alors "
 "triés un la valeur de la variable donnée contient le texte après l'espace."
 
-#: frescobaldi_app/snippet/widget.py:179
+#: frescobaldi_app/snippet/widget.py:196
 msgid ""
 "E.g. entering {menu} will show all snippets that are displayed in the insert "
 "menu."
@@ -5267,12 +5285,12 @@ msgstr ""
 "Par exemple, entrer {menu} montrera tous les snippets qui sont affichés dans "
 "le menu insérer."
 
-#: frescobaldi_app/snippet/widget.py:237 frescobaldi_app/snippet/widget.py:254
+#: frescobaldi_app/snippet/widget.py:254 frescobaldi_app/snippet/widget.py:271
 #, fuzzy
 msgid "XML Files"
 msgstr "Fichiers HTML"
 
-#: frescobaldi_app/snippet/widget.py:257
+#: frescobaldi_app/snippet/widget.py:274
 #, fuzzy
 msgctxt "dialog title"
 msgid "Export {num} Snippet"
@@ -5280,7 +5298,7 @@ msgid_plural "Export {num} Snippets"
 msgstr[0] "Snippet Vide"
 msgstr[1] "Snippet Vide"
 
-#: frescobaldi_app/snippet/widget.py:345
+#: frescobaldi_app/snippet/widget.py:362
 msgid ""
 "<p>\n"
 "With the snippets manager you can store often used pieces of text called\n"
@@ -5316,12 +5334,12 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:377
+#: frescobaldi_app/snippet/widget.py:394
 msgctxt "menu title"
 msgid "Insert"
 msgstr "Insérer"
 
-#: frescobaldi_app/snippet/widget.py:377
+#: frescobaldi_app/snippet/widget.py:394
 msgid "Snippets..."
 msgstr "Snippets..."
 
@@ -5336,14 +5354,6 @@ msgstr "Effacer la séquence de touches"
 #: frescobaldi_app/widgets/keysequencewidget.py:115
 msgid "Input"
 msgstr "Entrée"
-
-#: frescobaldi_app/widgets/listedit.py:91
-msgid "&Add..."
-msgstr "&Ajouter..."
-
-#: frescobaldi_app/widgets/listedit.py:92
-msgid "&Edit..."
-msgstr "&Éditer..."
 
 #: frescobaldi_app/widgets/schemeselector.py:47
 #: frescobaldi_app/widgets/schemeselector.py:62
@@ -5408,6 +5418,15 @@ msgstr "Sélectionner un dossier"
 #: frescobaldi_app/widgets/urlrequester.py:94
 msgid "Select a file"
 msgstr "Sélectionner un fichier"
+
+#~ msgid "Add..."
+#~ msgstr "Ajouter..."
+
+#~ msgid "Edit..."
+#~ msgstr "Éditer..."
+
+#~ msgid "Remove"
+#~ msgstr "Supprimer"
 
 #~ msgid ""
 #~ "Could not understand the entered pitches.\n"
@@ -5594,9 +5613,6 @@ msgstr "Sélectionner un fichier"
 #~ msgstr ""
 #~ "Aucun fichier MIDI ou PDF n'est disponible. Lancez Lilypond afin de créer "
 #~ "un ou plus de fichiers de rendu."
-
-#~ msgid "There are no files to send via email."
-#~ msgstr "Pas de fichier à envoyer par courriel."
 
 #~ msgid "No files to send"
 #~ msgstr "Pas de fichier à envoyer"
@@ -6640,8 +6656,8 @@ msgstr "Sélectionner un fichier"
 #~ "Click this button if Point and Click does not work. See Shift+F1 (What's "
 #~ "This) for more information."
 #~ msgstr ""
-#~ "Cliquez ici si le point-and-click ne fonctionne pas. Voir Maj+F1 "
-#~ "(« Qu'est-ce que c'est ? ») pour plus de détails."
+#~ "Cliquez ici si le point-and-click ne fonctionne pas. Voir Maj+F1 (« Qu'est-"
+#~ "ce que c'est ? ») pour plus de détails."
 
 #~ msgid ""
 #~ "On its first run, Frescobaldi tries to auto-configure Okular (which "
@@ -6662,9 +6678,9 @@ msgstr "Sélectionner un fichier"
 #~ "Cependant, ce réglage peut être perdu si Frescobaldi est déplacé ou si "
 #~ "d'autres applications reconfigurent Okular.\n"
 #~ "\n"
-#~ "Cliquez ici pour faire de Frescobaldi l'« éditeur personnalisé » "
-#~ "d'Okular. Ce changement ne sera pris en compte que si aucune fenêtre "
-#~ "d'Okular n'est ouverte, et si l'aperçu PDF n'a pas encore été activé."
+#~ "Cliquez ici pour faire de Frescobaldi l'« éditeur personnalisé » d'Okular. "
+#~ "Ce changement ne sera pris en compte que si aucune fenêtre d'Okular n'est "
+#~ "ouverte, et si l'aperçu PDF n'a pas encore été activé."
 
 #~ msgid ""
 #~ "The Okular PDF preview has been reconfigured.\n"
