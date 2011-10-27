@@ -48,7 +48,7 @@ PitchBendEvent = collections.namedtuple('PitchBendEvent', 'channel value')
 
 
 class EventHandler(object):
-    """Handlers for parsed MIDI events.
+    """Handler for parsed MIDI events.
     
     The default methods return namedtuple objects.
     
@@ -130,6 +130,8 @@ def parse_midi_events(s, handler=None):
     
     Yields two-tuples (delta, event).
     
+    Raises ValueError or IndexError on invalid MIDI data.
+    
     """
     if handler is None:
         handler = EventHandler()
@@ -142,56 +144,76 @@ def parse_midi_events(s, handler=None):
         delta, pos = read_var_len(s, pos)
         
         status = ord(s[pos])
-        if not status & 0x80:
-            status = running_status
-        else:
+        if status & 0x80:
             running_status = status
             pos += 1
-        
-        if status == 0xFF:
-            # meta event
-            meta_type = ord(s[pos])
-            meta_size, pos = read_var_len(s, pos+1)
-            meta_data = s[pos:pos+meta_size]
-            pos += meta_size
-            ev = handler.meta_event(meta_type, meta_data)
-        elif status >= 0xF0:
-            # some sort of sysex
-            sysex_size, pos = read_var_len(s, pos)
-            sysex_data = s[pos:pos+sysex_size]
-            pos += sysex_size
-            ev = handler.sysex_event(status, sysex_data)
+        elif not running_status:
+            raise ValueError("invalid running status")
         else:
-            # normal channel/voice event
-            channel = status & 0xF
-            event_type = status >> 4
-            if event_type <= 0xA:
-                # note on, off or aftertouch
-                note = ord(s[pos])
-                value = ord(s[pos+1])
-                pos += 2
-                ev = handler.note_event(event_type, channel, note, value)
-            elif event_type == 0xB:
-                # Controller
-                number = ord(s[pos])
-                value = ord(s[pos+1])
-                pos += 2
-                ev = handler.controller_event(channel, number, value)
-            elif event_type == 0xC:
-                # Program Change
-                number = ord(s[pos])
-                pos += 1
-                ev = handler.programchange_event(channel, number)
-            elif event_type == 0xD:
-                # Channel AfterTouch
-                value = ord(s[pos])
-                pos += 1
-                ev = handler.channelaftertouch_event(channel, value)
-            else: #event_type == 0xE:
-                # Pitch Bend
-                value = ord(s[pos]) + ord(s[pos+1]) * 128
-                pos += 2
-                ev = handler.pitchbend_event(channel, value)
+            status = running_status
+        
+        ev_type = status >> 4
+        channel = status & 0x0F
+        
+        if ev_type <= 0x0A:
+            # note on, off or aftertouch
+            note = ord(s[pos])
+            value = ord(s[pos+1])
+            pos += 2
+            ev = handler.note_event(ev_type, channel, note, value)
+        elif ev_type >= 0x0F:
+            running_status = None
+            if status == 0xFF:
+                # meta event
+                meta_type = ord(s[pos])
+                meta_size, pos = read_var_len(s, pos+1)
+                meta_data = s[pos:pos+meta_size]
+                pos += meta_size
+                ev = handler.meta_event(meta_type, meta_data)
+            else:
+                # some sort of sysex
+                sysex_size, pos = read_var_len(s, pos)
+                sysex_data = s[pos:pos+sysex_size]
+                pos += sysex_size
+                ev = handler.sysex_event(status, sysex_data)
+        elif ev_type == 0x0E:
+            # Pitch Bend
+            value = ord(s[pos]) + ord(s[pos+1]) * 128
+            pos += 2
+            ev = handler.pitchbend_event(channel, value)
+        elif ev_type == 0xD:
+            # Channel AfterTouch
+            value = ord(s[pos])
+            pos += 1
+            ev = handler.channelaftertouch_event(channel, value)
+        elif ev_type == 0xB:
+            # Controller
+            number = ord(s[pos])
+            value = ord(s[pos+1])
+            pos += 2
+            ev = handler.controller_event(channel, number, value)
+        else: # ev_type == 0xC
+            # Program Change
+            number = ord(s[pos])
+            pos += 1
+            ev = handler.programchange_event(channel, number)
         yield delta, ev
+
+
+
+if __name__ == '__main__':
+    """Test specified MIDI files."""
+    import sys
+    files = sys.argv[1:]
+    for f in files:
+        s = open(f, 'rb').read()
+        ftm, div, tracks = parse_midi_data(s)
+        try:
+            for t in tracks:
+                list(parse_midi_events(t))
+        except Exception as e:
+            print 'error in:', f
+            print e
+
 
 
