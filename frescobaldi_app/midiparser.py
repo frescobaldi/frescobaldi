@@ -23,10 +23,11 @@ midiparser.py -- parses MIDI file data.
 This is a simple module that can parse data from a MIDI file and
 its tracks.
 
-A basic event handler returns the MIDI events as simple named tuples,
-but you can subclass the event handler for more sophisticated behaviour.
+A basic event factory returns the MIDI events as simple named tuples,
+but you can subclass the event factory for more sophisticated behaviour.
 
-Runs with Python 2.5, 2.6, 2.7 and probably also 3.x
+Runs with Python 2.6, 2.7.
+For Python 3 you can remove the ord() calls.
 
 """
 
@@ -47,39 +48,20 @@ ChannelAfterTouchEvent = collections.namedtuple('ChannelAfterTouchEvent', 'chann
 PitchBendEvent = collections.namedtuple('PitchBendEvent', 'channel value')
 
 
-class EventHandler(object):
-    """Handler for parsed MIDI events.
+class EventFactory(object):
+    """Factory for parsed MIDI events.
     
-    The default methods return namedtuple objects.
+    The default 'methods' create namedtuple objects.
+    You can override one or more of those names to return other objects.
     
     """
-    def note_event(self, ev_type, channel, note, value):
-        """Called for NoteOn, NoteOff and AfterTouch events."""
-        return NoteEvent(ev_type, channel, note, value)
-    
-    def controller_event(self, channel, number, value):
-        """Called for a controller change event."""
-        return ControllerEvent(channel, number, value)
-    
-    def programchange_event(self, channel, number):
-        """Called for a program change event."""
-        return ProgramChangeEvent(channel, number)
-    
-    def channelaftertouch_event(self, channel, value):
-        """Called for a channel aftertouch event."""
-        return ChannelAfterTouchEvent(channel, value)
-    
-    def pitchbend_event(self, channel, value):
-        """Called for a pitch bend event."""
-        return PitchBendEvent(channel, value)
-
-    def sysex_event(self, status, data):
-        """Called for a SysEx event (F0 - FE)."""
-        return SysExEvent(status, data)
-    
-    def meta_event(self, ev_type, data):
-        """Called for a meta event (FF)."""
-        return MetaEvent(ev_type, data)
+    note_event = NoteEvent
+    controller_event = ControllerEvent
+    programchange_event = ProgramChangeEvent
+    channelaftertouch_event = ChannelAfterTouchEvent
+    pitchbend_event = PitchBendEvent
+    sysex_event = SysExEvent
+    meta_event = MetaEvent
 
 
 def parse_midi_data(s):
@@ -122,10 +104,10 @@ def read_var_len(s, pos):
             return value, pos
 
 
-def parse_midi_events(s, handler=None):
+def parse_midi_events(s, factory=None):
     """Parses the bytes string s (typically a track) for MIDI events.
     
-    If handler is given, it should be an EventHandler instance that
+    If factory is given, it should be an EventFactory instance that
     returns objects describing the event.
     
     Yields two-tuples (delta, event).
@@ -133,8 +115,8 @@ def parse_midi_events(s, handler=None):
     Raises ValueError or IndexError on invalid MIDI data.
     
     """
-    if handler is None:
-        handler = EventHandler()
+    if factory is None:
+        factory = EventFactory()
         
     running_status = None
     
@@ -160,7 +142,7 @@ def parse_midi_events(s, handler=None):
             note = ord(s[pos])
             value = ord(s[pos+1])
             pos += 2
-            ev = handler.note_event(ev_type, channel, note, value)
+            ev = factory.note_event(ev_type, channel, note, value)
         elif ev_type >= 0x0F:
             running_status = None
             if status == 0xFF:
@@ -169,34 +151,34 @@ def parse_midi_events(s, handler=None):
                 meta_size, pos = read_var_len(s, pos+1)
                 meta_data = s[pos:pos+meta_size]
                 pos += meta_size
-                ev = handler.meta_event(meta_type, meta_data)
+                ev = factory.meta_event(meta_type, meta_data)
             else:
                 # some sort of sysex
                 sysex_size, pos = read_var_len(s, pos)
                 sysex_data = s[pos:pos+sysex_size]
                 pos += sysex_size
-                ev = handler.sysex_event(status, sysex_data)
+                ev = factory.sysex_event(status, sysex_data)
         elif ev_type == 0x0E:
             # Pitch Bend
             value = ord(s[pos]) + ord(s[pos+1]) * 128
             pos += 2
-            ev = handler.pitchbend_event(channel, value)
+            ev = factory.pitchbend_event(channel, value)
         elif ev_type == 0xD:
             # Channel AfterTouch
             value = ord(s[pos])
             pos += 1
-            ev = handler.channelaftertouch_event(channel, value)
+            ev = factory.channelaftertouch_event(channel, value)
         elif ev_type == 0xB:
             # Controller
             number = ord(s[pos])
             value = ord(s[pos+1])
             pos += 2
-            ev = handler.controller_event(channel, number, value)
+            ev = factory.controller_event(channel, number, value)
         else: # ev_type == 0xC
             # Program Change
             number = ord(s[pos])
             pos += 1
-            ev = handler.programchange_event(channel, number)
+            ev = factory.programchange_event(channel, number)
         yield delta, ev
 
 
