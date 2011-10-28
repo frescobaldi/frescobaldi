@@ -35,7 +35,7 @@ import collections
 import struct
 
 
-unpack_midi_header = struct.Struct('>ihhh').unpack
+unpack_midi_header = struct.Struct('>hhh').unpack
 unpack_int = struct.Struct('>i').unpack
 
 
@@ -64,6 +64,20 @@ class EventFactory(object):
     meta_event = MetaEvent
 
 
+def get_chunks(s):
+    """Splits a MIDI file bytes string into chunks.
+    
+    Yields (b'Name', b'data') tuples.
+    
+    """
+    pos = 0
+    while pos < len(s):
+        name = s[pos:pos+4]
+        size, = unpack_int(s[pos+4:pos+8])
+        yield name, s[pos+8:pos+8+size]
+        pos += size + 8
+
+    
 def parse_midi_data(s):
     """Parses MIDI file data from the bytes string s.
     
@@ -73,20 +87,17 @@ def parse_midi_data(s):
     May raise ValueError or IndexError in case of invalid MIDI data.
     
     """
-    if s[:4] != b'MThd':
-        raise ValueError("invalid midi data")
-    size, fmt, ntracks, division = unpack_midi_header(s[4:14])
-    
-    pos = size + 8
-    
-    tracks = []
-    for i in range(ntracks):
-        if s[pos:pos+4] != b'MTrk':
-            raise ValueError("invalid midi track data")
-        size, = unpack_int(s[pos+4:pos+8])
-        tracks.append(s[pos+8:pos+8+size])
-        pos += size + 8
-    return fmt, division, tracks
+    chunks = get_chunks(s)
+    for name, data in chunks:
+        if name == b'MThd':
+            fmt, ntracks, division = unpack_midi_header(data[:6])
+            tracks = []
+            for name, data in chunks:
+                if name == b'MTrk':
+                    tracks.append(data)
+            return fmt, division, tracks
+        break
+    raise ValueError("invalid midi data")
 
 
 def read_var_len(s, pos):
