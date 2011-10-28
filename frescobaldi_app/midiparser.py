@@ -91,10 +91,7 @@ def parse_midi_data(s):
     for name, data in chunks:
         if name == b'MThd':
             fmt, ntracks, division = unpack_midi_header(data[:6])
-            tracks = []
-            for name, data in chunks:
-                if name == b'MTrk':
-                    tracks.append(data)
+            tracks = [data for name, data in chunks if name == b'MTrk']
             return fmt, division, tracks
         break
     raise ValueError("invalid midi data")
