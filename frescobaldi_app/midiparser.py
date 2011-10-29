@@ -190,6 +190,38 @@ def parse_midi_events(s, factory=None):
         yield delta, ev
 
 
+def time_events(track, time=0):
+    """Yields two-tuples (time, event).
+    
+    The track is the generator returned by parse_midi_events,
+    the time is accumulated from the given starting time (defaulting to 0).
+    
+    """
+    for delta, ev in track:
+        time += delta
+        yield time, ev
+
+
+def time_events_grouped(track, time=0):
+    """Yields two-tuples (time, event_list).
+    
+    Every event_list is a Python list of all events happening on that time.
+    The track is the generator returned by parse_midi_events,
+    the time is accumulated from the given starting time (defaulting to 0).
+    
+    """
+    evs = []
+    for delta, ev in track:
+        if delta:
+            if evs:
+                yield time, evs
+                evs = []
+            time += delta
+        evs.append(ev)
+    if evs:
+        yield time, evs
+
+
 
 if __name__ == '__main__':
     """Test specified MIDI files."""
