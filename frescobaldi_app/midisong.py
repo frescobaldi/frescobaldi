@@ -66,27 +66,77 @@ def events_dict_together(tracks):
     return d
 
 
+def is_tempo(e):
+    """Returns True if the event is a Set Tempo Meta-event."""
+    return isinstance(e, midiparser.MetaEvent) and e.type == 0x51
+
+
+def get_tempo(e):
+    """Returns the tempo from the Set Tempo Meta-event."""
+    return ord(e.data[0])*65536 + ord(e.data[1])*256 + ord(e.data[2])
+
+
 def tempo_map(d, division):
-    """Returns a list of two-tuples(time, events)."""
-    tempo = 500000  # 120 BPM
+    """Yields two-tuples(time, events).
+    
+    d should be a dictionary that maps MIDI times to lists or dicts (with a list
+    per track) of events. The division is from the MIDI header.
+    
+    The returned time is in milliseconds, although internally this function
+    uses microseconds for exactness. The events are returned unchanged.
+    Set Tempo meta-events are correctly interpreted, also in the middle of the
+    piece.
+    
+    """
+    # are the events one list (single-track) or a dict (per-track)?
+    for k in d:
+        if isinstance(d[k], dict):
+            def events(evs):
+                for k in sorted(evs):
+                    for e in evs[k]:
+                        yield e
+        else:
+            def events(evs):
+                return evs
+        break
+    else:
+        return # no events at all
+    tempo = 500000  # 120 BPM; 500000 microseconds per beat
     real_time = 0
     last_midi_time = 0
     last_real_time = 0
     for midi_time, evs in sorted(d.items()):
         real_time = last_real_time + (
-            (midi_time - last_midi_time) * tempo / division)
-        if 0: # new_tempo:
-            tempo = new_tempo
-            last_midi_time = midi_time
-            last_real_time = real_time
-        yield real_time, evs
-        
+            (midi_time - last_midi_time) * tempo // division)
+        for e in events(evs):
+            if is_tempo(e):
+                tempo = get_tempo(e)
+                last_midi_time = midi_time
+                last_real_time = real_time
+                break
+        yield real_time // 1000, evs
+
 
 class Song(object):
+    """A loaded MIDI file.
+    
+    The following instance attributes are set on init:
+    
+    division: the division set in the MIDI header
+    ntracks: the number of tracks
+    events: a list of two tuples(time, events), where time is the real time in
+            milliseconds, and events a dict with per-track lists of events.
+    length: the length in milliseconds of the song (same as the time of the last
+            event).
+    
+    """
     def __init__(self, division, tracks):
+        """Initialize the Song with the given division and track chunks."""
         self.division = division
-        
         self.ntracks = len(tracks)
-        self.events = events_dict(tracks)
-        
+        self.events = list(tempo_map(events_dict(tracks), division))
+        self.length = self.events[-1][0]
+
+
+
 
