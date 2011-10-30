@@ -76,6 +76,15 @@ def get_tempo(e):
     return ord(e.data[0])*65536 + ord(e.data[1])*256 + ord(e.data[2])
 
 
+def smpte_division(div):
+    """Converts a MIDI header division from a SMPTE type, if necessary."""
+    if div & 0x8000:
+        frames = 256 - (div >> 8)
+        resolution = div & 0xFF
+        div = frames * resolution
+    return div
+
+
 def tempo_map(d, division):
     """Yields two-tuples(time, events).
     
@@ -88,6 +97,8 @@ def tempo_map(d, division):
     piece.
     
     """
+    # SMPTE division?
+    division = smpte_division(division)
     # are the events one list (single-track) or a dict (per-track)?
     for k in d:
         if isinstance(d[k], dict):
