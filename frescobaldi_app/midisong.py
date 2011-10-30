@@ -76,6 +76,16 @@ def get_tempo(e):
     return ord(e.data[0])*65536 + ord(e.data[1])*256 + ord(e.data[2])
 
 
+def is_time_signature(e):
+    """Returns True if the event is a Set Time Signature Meta-event."""
+    return isinstance(e, midiparser.MetaEvent) and e.type == 0x58
+
+
+def get_time_signature(e):
+    """Returns the num, den, clocks, num_32s from the Time Signature event."""
+    return map(ord, e.data)
+
+
 def smpte_division(div):
     """Converts a MIDI header division from a SMPTE type, if necessary."""
     if div & 0x8000:
@@ -85,47 +95,98 @@ def smpte_division(div):
     return div
 
 
-def tempo_map(d, division):
-    """Yields two-tuples(time, events).
+def events_iter(d):
+    """Return an iterator function over the events in one value of dict d.
     
-    d should be a dictionary that maps MIDI times to lists or dicts (with a list
-    per track) of events. The division is from the MIDI header.
-    
-    The returned time is in milliseconds, although internally this function
-    uses microseconds for exactness. The events are returned unchanged.
-    Set Tempo meta-events are correctly interpreted, also in the middle of the
-    piece.
+    The values in d can be dicts (per-track) or lists (single track).
+    Returns None if the events dictionary is empty.
     
     """
-    # SMPTE division?
-    division = smpte_division(division)
-    # are the events one list (single-track) or a dict (per-track)?
     for k in d:
-        if isinstance(d[k], dict):
-            def events(evs):
-                for k in sorted(evs):
-                    for e in evs[k]:
-                        yield e
-        else:
-            def events(evs):
-                return evs
-        break
-    else:
-        return # no events at all
-    tempo = 500000  # 120 BPM; 500000 microseconds per beat
-    real_time = 0
-    last_midi_time = 0
-    last_real_time = 0
-    for midi_time, evs in sorted(d.items()):
-        real_time = last_real_time + (
-            (midi_time - last_midi_time) * tempo // division)
-        for e in events(evs):
-            if is_tempo(e):
-                tempo = get_tempo(e)
-                last_midi_time = midi_time
-                last_real_time = real_time
+        return iter_events_dict if isinstance(d[k], dict) else iter
+
+
+def iter_events_dict(evs):
+    """Iter over the (per-track) dictionary's events."""
+    for k in sorted(evs):
+        for e in evs[k]:
+            yield e
+
+
+class TempoMap(object):
+    """Converts midi time to real time in microseconds."""
+    def __init__(self, d, division):
+        """Initialize our tempo map based on events d and division."""
+        # are the events one list (single-track) or a dict (per-track)?
+        self.division = smpte_division(division)
+        self.times = times = []
+        events = events_iter(d)
+        if events:
+            real_time = 0
+            prev = 0
+            for midi_time, evs in sorted(d.items()):
+                for e in events(evs):
+                    if is_tempo(e):
+                        tempo = get_tempo(e)
+                        real_time += (midi_time - prev) * tempo // self.division
+                        times.append((midi_time, tempo, real_time))
+                        prev = midi_time
+                        break
+        if not times or times[0][0] != 0:
+            times.insert(0, (0, 500000, 0))
+        
+    def real_time(self, midi_time):
+        """Returns the real time in microseconds for the given MIDI time."""
+        for time, tempo, real_time in self.times:
+            if time > midi_time:
                 break
-        yield real_time // 1000, evs
+            prev = time
+        real_time += (midi_time - prev) * tempo // self.division
+        return real_time
+    
+    def msec(self, midi_time):
+        """Returns the real time in milliseconds."""
+        return self.real_time(midi_time) // 1000
+
+
+def beats(d, division):
+    """Yields tuples for every beat in the events dictionary d.
+    
+    Each tuple is:
+        (midi_time, beat_num, beat_total, denumerator)
+    
+    With this you can easily add measure numbers and find measure positions
+    in the MIDI.
+    
+    """
+    events = events_iter(d)
+    if not events:
+        return
+    time_sigs = []
+    times = sorted(d)
+    for midi_time in times:
+        for e in events(d[midi_time]):
+            if is_time_signature(e):
+                time_sigs.append((midi_time, get_time_signature(e)))
+    if not time_sigs or time_sigs[0][0] != 0:
+        # default time signature at start
+        time_sigs.insert(0, (0, (4, 4, 24, 8)))
+    
+    # now yield a tuple for every beat
+    time = 0
+    sigs_index = 0
+    while time <= times[-1]:
+        
+        if sigs_index < len(time_sigs) and time >= time_sigs[sigs_index][0]:
+            # new time signature
+            time, (num, den, clocks, n32s) = time_sigs[sigs_index]
+            step = (4 * division) / (2 ** den)
+            beat = 1
+            sigs_index += 1
+            
+        yield time, beat, num, den
+        time += step
+        beat = beat % num + 1
 
 
 class Song(object):
@@ -135,19 +196,30 @@ class Song(object):
     
     division: the division set in the MIDI header
     ntracks: the number of tracks
-    events: a list of two tuples(time, events), where time is the real time in
-            milliseconds, and events a dict with per-track lists of events.
+    events: a dict mapping MIDI times to a dict with per-track lists of events.
+    tempo_map: TempoMap instance that computes real time from MIDI time.
     length: the length in milliseconds of the song (same as the time of the last
             event).
+    
+    beats: a list of tuples(msec, measnum, beat, num, den) for every beat
+    music: a list of tuples(msec, d) where d is a dict mapping tracknr to events
     
     """
     def __init__(self, division, tracks):
         """Initialize the Song with the given division and track chunks."""
         self.division = division
         self.ntracks = len(tracks)
-        self.events = list(tempo_map(events_dict(tracks), division))
-        self.length = self.events[-1][0]
+        self.events = events_dict(tracks)
+        self.tempo_map = t = TempoMap(self.events, division)
+        self.length = t.msec(max(self.events))
 
-
+        self.beats = b = []
+        measnum = 0
+        for midi_time, beat, num, den in beats(self.events, division):
+            if beat == 1:
+                measnum += 1
+            b.append((t.msec(midi_time), measnum, beat, num, den))
+        self.music = [(t.msec(midi_time), evs)
+                      for midi_time, evs in sorted(self.events.items())]
 
 
