@@ -35,7 +35,7 @@ portmidi.init()
 
 
 # list devices:
-for i in range(portmidi.get_count):
+for i in range(portmidi.get_count()):
     print i, portmidi.get_device_info(i)
 
 
