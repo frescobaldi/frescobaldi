@@ -34,21 +34,12 @@ If available, the portmidi module api is in the pmidi global of this module.
 
 """
 
-pmidi = None
-for module in (
-    'pyportmidi.midi',
-    'portmidi_pygame',
-    'portmidi_ctypes',
-    ):
-    try:
-        pmidi = __import__(module)
-        break
-    except ImportError:
-        pass
-
-
+import portmidi
 
 def available():
     """Returns True if portmidi is available, False if not."""
-    return pmidi is not None
+    return portmidi.available()
+
+
+
 
