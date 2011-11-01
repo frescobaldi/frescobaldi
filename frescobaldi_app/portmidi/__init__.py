@@ -4,14 +4,20 @@
 This package brings the most important parts of the functionality of the
 PortMIDI library in a flexible way to Python.
 
-It tries to import the PyRex-based pyPortMidi interface by John Harrison in
-various ways, by trying 'pypm', 'pyportmidi._pyportmidi' or 'pygame.pypm'
-(without importing the rest of pygame).
-
-If that fails, the PortMIDI library is loaded (if found) via ctypes.
-
 This module provides a simple API to control the most important parts of
 PortMIDI, very much like the pygame.midi api.
+
+It needs the PortMIDI library to be installed, and it is also recommended to
+install the 'pypm' or 'pyportmidi' module providing a low-level access to the
+PortMIDI library. This is a PyRex-based interface by John Harrison, which is
+in some Linux distributions part of a package named 'python-portmidi' or
+'python-pypm', and also part of the official PortMIDI package, but quite often
+not installed by default.
+
+The PyGame package as of version 1.9.1 also installs the 'pypm' module.
+
+This module tries different ways to find the Python binding module. If that
+fails, the PortMIDI library itself is loaded (if found) via ctypes.
 
 To affect the order in which the _setup() function tries to import PortMIDI,
 the global try_order list can be changed. The first name in the list is tried
@@ -20,7 +26,9 @@ first. This only works before init() is called for the first time.
 This module can always be imported, but only init() and available() can be used
 if PortMIDI itself is not available.
 
-This module itself is in the public domain.
+This module itself is in the public domain, and written by Wilbert Berendsen
+in fall 2011.
+
 
 Usage:
 
@@ -173,7 +181,6 @@ class Input(object):
 
 class Output(object):
     """Writes MIDI output to a device."""
-
     def __init__(self, device_id, latency = 0, buffer_size = 4096):
         self._output = None
         _check_initialized()

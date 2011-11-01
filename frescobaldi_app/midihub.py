@@ -20,17 +20,18 @@
 """
 Place where MIDI is handled, output, input, signals, etc.
 
-This module tries to import PortMidi with the "new" api like pygame.midi.
-First pyportmidi.midi is tried. Then the pypm module of pygame is searched and
-if that fails, the portmidi c library is used (if available) via ctypes.
-
 The MIDI support in Frescobaldi is optional (i.e. if PortMidi is not found, the
 relevant functions should simply be disabled (with a message that PortMidi is
 not available)).
 
+This module uses the portmidi interface that is capable of using PortMIDI in
+different ways (via a Python extension module or by embedding the PortMIDI
+C library directly).
+
 The available() method returns True if portmidi is available, False if not.
 
-If available, the portmidi module api is in the pmidi global of this module.
+Inside Frescobaldi, interact with this module to get input and outpues etcetera,
+not with portmidi directly.
 
 """
 
@@ -39,7 +40,6 @@ import portmidi
 def available():
     """Returns True if portmidi is available, False if not."""
     return portmidi.available()
-
 
 
 
