@@ -30,7 +30,7 @@ C library directly).
 
 The available() method returns True if portmidi is available, False if not.
 
-Inside Frescobaldi, interact with this module to get input and outpues etcetera,
+Inside Frescobaldi, interact with this module to get input and outputs etcetera,
 not with portmidi directly.
 
 """
