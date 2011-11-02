@@ -3,19 +3,20 @@
 # Python midiplayer.py -- base class for a MIDI player
 # Copyright (C) 2011 by Wilbert Berendsen
 #
-# This library is free software; you can redistribute it and/or
-# modify it under the terms of the GNU Lesser General Public
-# License as published by the Free Software Foundation; either
-# version 2.1 of the License, or (at your option) any later version.
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
 #
-# This library is distributed in the hope that it will be useful,
+# This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# Lesser General Public License for more details.
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
 #
-# You should have received a copy of the GNU Lesser General Public
-# License along with this library; if not, write to the Free Software
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+# See http://www.gnu.org/licenses/ for more information.
 
 
 """
@@ -28,11 +29,21 @@ import midisong
 
 
 class Player(object):
-    """The base class for a MIDI player."""
+    """The base class for a MIDI player.
+    
+    It should be inherited to actually play MIDI:
+    - midi_event() should be implemented to play the MIDI to an output port.
+    - start() and stop() should be implemented for timing logic. These logic
+      should call next_event() and use the returned time offset to schedule
+      the next call to next_event().
+    - is_playing() should be implemented.
+    - set_position() should be implemented to enable seeking.
+    
+    """
     def __init__(self):
         self._song = None
         self._events = []
-        self._position = -1
+        self._position = 0
         self._tempo_factor = 1.0
     
     def load(self, filename, time=1000, beat=True):
@@ -73,9 +84,8 @@ class Player(object):
         Inherit to really return the current playing time.
         
         """
-        if self._position >= 0:
-            return self._events[self._position][0]
-        return 0
+        pos = self._position - 1
+        return self._events[pos][0] if pos >= 0 else 0
     
     def start(self):
         """Starts playing."""
@@ -132,7 +142,7 @@ class Player(object):
         return False
         
     def set_position(self, position, time_offset=0):
-        """Goes to the specified position in the internal events list.
+        """(Private) Goes to the specified position in the internal events list.
         
         The default implementation does nothing with the time offset,
         but inherited implementations may wait that many msec before
@@ -143,33 +153,67 @@ class Player(object):
         """
         self._position = position
         
-    def handle_event(self, position):
-        """Called for every event. Performs operations for event at index."""
-        time, e = self._events[position]
+    def next_event(self):
+        """(Private) Handles the current event and advances to the next.
+        
+        Returns the time in ms (not adjusted by tempo factor!) before
+        next_event should be called again.
+        
+        If there is no event to handle anymore, returns 0.
+        If this event was the last, calls finish() and returns 0.
+        
+        """
+        if self._events and self._position < len(self._events):
+            time, event = self._events[self._position]
+            self.handle_event(time, event)
+            self._position += 1
+            if self._position < len(self._events):
+                return self._events[self._position][0] - time
+            self.finish()
+        return 0
+    
+    def finish(self):
+        """(Private) Called when a played song reaches the end.
+        
+        The default implementation calls stop().
+        
+        """
+        self.stop()
+    
+    def handle_event(self, time, event):
+        """(Private) Called for every event."""
         if e.midi:
-            self.play_event(e.midi)
+            self.midi_event(e.midi)
         if e.time:
             self.time_event(time)
         if e.beat:
             self.beat_event(*e.beat)
     
-    def play_event(self, midi):
-        """Plays the specified MIDI events.
+    def midi_event(self, midi):
+        """(Private) Plays the specified MIDI events.
         
         The format depends on the way MIDI events are stored in the Song.
         
         """
     
     def time_event(self, msec):
-        """Called on every time update."""
+        """(Private) Called on every time update."""
     
     def beat_event(self, measnum, beat, num, den):
-        """Called on every beat."""
+        """(Private) Called on every beat."""
 
 
 
 class Event(object):
-    """Any event (MIDI, Time and/or Beat)."""
+    """Any event (MIDI, Time and/or Beat).
+    
+    Has three attributes that determine what the Player does:
+    
+    time: if True, time_event() is caled with the current music time.
+    beat: None or (measnum, beat, num, den), then beat_event() is called.
+    midi: If not None, midi_event() is called with the midi.
+    
+    """
     __slots__ = ['midi', 'time', 'beat']
     def __init__(self):
         self.midi = None
