@@ -35,12 +35,14 @@ class Player(QThread, midiplayer.Player):
     def __init__(self, parent=None):
         QThread.__init__(self, parent)
         midiplayer.Player.__init__(self)
-        self._timer = QTimer(singleShot=True, timeout=self.timer_timeout)
     
     def run(self):
+        self._timer = QTimer(singleShot=True)
+        self._timer.timeout.connect(self.timer_timeout, Qt.DirectConnection)
         self.timer_start_playing()
         self.exec_()
         self.timer_stop_playing()
+        self._timer = None
     
     def start(self):
         QThread.start(self)
