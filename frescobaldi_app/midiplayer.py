@@ -68,8 +68,15 @@ class Player(object):
         beat.
         
         """
+        playing = self._playing
+        if playing:
+            self.timer_stop_playing()
         self._song = song
         self._events = make_event_list(song, time, beat)
+        self._position = 0
+        self._offset = 0
+        if playing:
+            self.timer_start_playing()
     
     def song(self):
         """Returns the current Song."""
@@ -170,7 +177,7 @@ class Player(object):
         old, self._position = self._position, position
         if self._playing:
             self._stop_timer()
-            if old != self._position
+            if old != self._position:
                 self.position_event(old, self._position)
             self._schedule_next(offset)
         else:
