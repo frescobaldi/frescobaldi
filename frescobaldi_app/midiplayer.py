@@ -140,7 +140,8 @@ class Player(object):
                     pos = mid + 1
                 else:
                     end = mid
-            offset = self._events[pos][0] - time
+            if pos < len(self._events):
+                offset = self._events[pos][0] - time
         self.set_position(pos, offset)
     
     def seek_measure(self, measnum, beat=1):
@@ -176,10 +177,10 @@ class Player(object):
         """
         old, self._position = self._position, position
         if self._playing:
-            self._stop_timer()
+            self.timer_stop()
             if old != self._position:
                 self.position_event(old, self._position)
-            self._schedule_next(offset)
+            self.timer_schedule(offset)
         else:
             self._offset = offset
         
