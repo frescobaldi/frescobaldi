@@ -45,15 +45,15 @@ class Player(QThread, midiplayer.Player):
         self._timer = QTimer(singleShot=True)
         self._timer.timeout.connect(self.timer_timeout, Qt.DirectConnection)
         self.timer_start_playing()
-        self.exec_()
-        self.timer_stop_playing()
+        if self.exec_():
+            self.timer_stop_playing()
         self._timer = None
     
     def start(self):
         QThread.start(self)
     
     def stop(self):
-        self.quit()
+        self.exit(1)
     
     def timer_start(self, msec):
         """Starts the timer to fire once, the specified msec from now."""
@@ -69,6 +69,7 @@ class Player(QThread, midiplayer.Player):
         self.stateChanged.emit(False)
     
     def finish_event(self):
+        self.exit(0)
         self.stateChanged.emit(False)
 
     def time_event(self, time):
@@ -76,4 +77,5 @@ class Player(QThread, midiplayer.Player):
     
     def beat_event(self, measnum, beat, num, den):
         self.beat.emit(measnum, beat, num, den)
+
 
