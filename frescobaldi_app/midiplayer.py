@@ -23,6 +23,8 @@
 A MIDI Player.
 """
 
+import time
+import threading
 
 import collections
 import midisong
@@ -33,17 +35,19 @@ class Player(object):
     
     It should be inherited to actually play MIDI:
     - midi_event() should be implemented to play the MIDI to an output port.
-    - start() and stop() should be implemented for timing logic. These logic
-      should call next_event() and use the returned time offset to schedule
-      the next call to next_event().
-    - is_playing() should be implemented.
-    - set_position() should be implemented to enable seeking.
+    - stop_event() to maybe shut off all notes
+    - position_event() for the same reason
+    You can also override: timer_midi_time(), timer_start() and timer_stop()
+    to use another timing source than the Python threading.Timer instances.
     
     """
     def __init__(self):
         self._song = None
         self._events = []
         self._position = 0
+        self._offset = 0
+        self._target = 0
+        self._playing = False
         self._tempo_factor = 1.0
     
     def load(self, filename, time=1000, beat=True):
@@ -78,27 +82,39 @@ class Player(object):
         return 0
     
     def current_time(self):
-        """Returns the current time.
-        
-        This method simply returns the time of the last played event.
-        Inherit to really return the current playing time.
-        
-        """
-        pos = self._position - 1
-        return self._events[pos][0] if pos >= 0 else 0
+        """Returns the current time position."""
+        if self._position >= len(self._events):
+            time = self.total_time()
+        else:
+            time = self._events[self._position][0]
+        if self._playing:
+            return time - self.timer_offset()
+        return time - self._offset
     
     def start(self):
         """Starts playing."""
-    
+        self.timer_start_playing()
+        
     def stop(self):
         """Stops playing."""
+        self.timer_stop_playing()
     
     def is_playing(self):
         """Returns True if the player is playing, else False."""
+        return self._playing
     
     def set_tempo_factor(self, factor):
         """Sets the tempo factor as a floating point value (1.0 is normal)."""
-        self._tempo_factor = factor
+        factor = float(factor)
+        if factor == self._tempo_factor:
+            return
+        if self._playing:
+            self.timer_stop()
+            offset = self.timer_offset()
+            self._tempo_factor = factor
+            self.timer_schedule(offset)
+        else:
+            self._tempo_factor = factor
     
     def tempo_factor(self):
         """Returns the tempo factor (by default: 1.0)."""
@@ -141,7 +157,7 @@ class Player(object):
             return True
         return False
         
-    def set_position(self, position, time_offset=0):
+    def set_position(self, position, offset=0):
         """(Private) Goes to the specified position in the internal events list.
         
         The default implementation does nothing with the time offset,
@@ -151,7 +167,14 @@ class Player(object):
         This method is called by seek() and seek_measure().
         
         """
-        self._position = position
+        old, self._position = self._position, position
+        if self._playing:
+            self._stop_timer()
+            if old != self._position
+                self.position_event(old, self._position)
+            self._schedule_next(offset)
+        else:
+            self._offset = offset
         
     def next_event(self):
         """(Private) Handles the current event and advances to the next.
@@ -169,25 +192,17 @@ class Player(object):
             self._position += 1
             if self._position < len(self._events):
                 return self._events[self._position][0] - time
-            self.finish()
         return 0
-    
-    def finish(self):
-        """(Private) Called when a played song reaches the end.
-        
-        The default implementation calls stop().
-        
-        """
-        self.stop()
     
     def handle_event(self, time, event):
         """(Private) Called for every event."""
-        if e.midi:
-            self.midi_event(e.midi)
-        if e.time:
+        print event # DEBUG
+        if event.midi:
+            self.midi_event(event.midi)
+        if event.time:
             self.time_event(time)
-        if e.beat:
-            self.beat_event(*e.beat)
+        if event.beat:
+            self.beat_event(*event.beat)
     
     def midi_event(self, midi):
         """(Private) Plays the specified MIDI events.
@@ -201,6 +216,92 @@ class Player(object):
     
     def beat_event(self, measnum, beat, num, den):
         """(Private) Called on every beat."""
+    
+    def start_event(self):
+        """Called when playback is started."""
+    
+    def stop_event(self):
+        """Called when playback is stopped by the user."""
+        
+    def finish_event(self):
+        """Called when a song reaches the end by itself."""
+    
+    def position_event(self, old, new):
+        """Called when the user seeks while playing and the position changes.
+        
+        This means MIDI events are skipped and it might be necessary to 
+        issue an all notes off command to the MIDI output.
+        
+        """
+        
+    def timer_midi_time(self):
+        """Should return a continuing time value in msec, used while playing.
+        
+        The default implementation returns the time in msec from the Python
+        time module.
+        
+        """
+        return int(time.time() * 1000)
+    
+    def timer_schedule(self, delay):
+        """Schedules the upcoming event."""
+        msec = delay / self._tempo_factor
+        self._target += msec
+        real_delay = self._target - self.timer_midi_time()
+        self.timer_start(real_delay)
+    
+    def timer_start(self, msec):
+        """Starts the timer to fire once, the specified msec from now."""
+        self._timer = None
+        self._timer = threading.Timer(msec / 1000.0, self.timer_timeout)
+        self._timer.start()
+
+    def timer_stop(self):
+        """Stops the timer."""
+        if self._timer:
+            self._timer.cancel()
+            self._timer = None
+
+    def timer_offset(self):
+        """Returns the time before the next event.
+        
+        This value is only useful while playing.
+        
+        """
+        return int((self._target - self.timer_midi_time()) * self._tempo_factor)
+    
+    def timer_start_playing(self):
+        """Starts playing by starting the timer for the first upcoming event."""
+        self._playing = True
+        self._target = self.timer_midi_time()
+        self.start_event()
+        if self._offset:
+            self.timer_schedule(self._offset)
+        else:
+            self.timer_timeout()
+    
+    def timer_timeout(self):
+        """Called when the timer times out.
+        
+        Handles an event and schedules the next.
+        If the end of a song is reached, calls finish_event()
+        
+        """
+        offset = self.next_event()
+        if offset:
+            self.timer_schedule(offset)
+        else:
+            self._offset = 0
+            self._playing = False
+            self.finish_event()
+    
+    def timer_stop_playing(self):
+        self.timer_stop()
+        self._offset = self.timer_offset()
+        self._playing = False
+        self.stop_event()
+    
+
 
 
 

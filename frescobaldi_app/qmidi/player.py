@@ -31,9 +31,28 @@ from PyQt4.QtGui import *
 import midiplayer
 
 
-class Player(midiplayer.Player, QObject):
+class Player(QThread, midiplayer.Player):
     def __init__(self, parent=None):
-        QObject.__init__(self, parent)
+        QThread.__init__(self, parent)
         midiplayer.Player.__init__(self)
+        self._timer = QTimer(singleShot=True, timeout=self.timer_timeout)
     
+    def run(self):
+        self.timer_start_playing()
+        self.exec_()
+        self.timer_stop_playing()
     
+    def start(self):
+        QThread.start(self)
+    
+    def stop(self):
+        self.quit()
+    
+    def timer_start(self, msec):
+        """Starts the timer to fire once, the specified msec from now."""
+        self._timer.start(msec)
+    
+    def timer_stop(self):
+        self._timer.stop()
+
+
