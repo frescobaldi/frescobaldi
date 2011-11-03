@@ -32,6 +32,11 @@ import midiplayer
 
 
 class Player(QThread, midiplayer.Player):
+    
+    stateChanged = pyqtSignal(bool)
+    time = pyqtSignal(int)
+    beat = pyqtSignal(int, int, int, int)
+    
     def __init__(self, parent=None):
         QThread.__init__(self, parent)
         midiplayer.Player.__init__(self)
@@ -57,4 +62,18 @@ class Player(QThread, midiplayer.Player):
     def timer_stop(self):
         self._timer.stop()
 
+    def start_event(self):
+        self.stateChanged.emit(True)
+    
+    def stop_event(self):
+        self.stateChanged.emit(False)
+    
+    def finish_event(self):
+        self.stateChanged.emit(False)
+
+    def time_event(self, time):
+        self.time.emit(time)
+    
+    def beat_event(self, measnum, beat, num, den):
+        self.beat.emit(measnum, beat, num, den)
 

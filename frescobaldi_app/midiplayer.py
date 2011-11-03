@@ -204,7 +204,6 @@ class Player(object):
     
     def handle_event(self, time, event):
         """(Private) Called for every event."""
-        print event # DEBUG
         if event.midi:
             self.midi_event(event.midi)
         if event.time:
