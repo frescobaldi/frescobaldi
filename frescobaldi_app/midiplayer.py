@@ -331,9 +331,6 @@ class Player(object):
         self._offset = self.timer_offset()
         self._playing = False
         self.stop_event()
-    
-
-
 
 
 class Event(object):

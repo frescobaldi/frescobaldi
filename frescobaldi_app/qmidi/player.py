@@ -18,15 +18,14 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-MIDI stuff for Qt4.
+A MIDI player for PyQt4.
 """
 
 
 from __future__ import unicode_literals
 
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import pyqtSignal, Qt, QThread, QTimer
 
 import midiplayer
 import midioutput
@@ -34,7 +33,21 @@ import portmidi
 
 
 class Player(QThread, midiplayer.Player):
+    """An implementation of midiplayer.Player using a QThread and QTimer.
     
+    emit signals:
+    
+    stateChanged(playing):
+        True or False if playing state changes
+        
+    time(msec):
+        The playing time, emit by default every 1000ms
+        
+    beat(measnum, beat, num, den):
+        the measure number, beat number, time signature numerator and denom.,
+        where 0 = whole note, 1 = half note, 2 = quarter note, etc.
+    
+    """
     stateChanged = pyqtSignal(bool)
     time = pyqtSignal(int)
     beat = pyqtSignal(int, int, int, int)
@@ -89,13 +102,8 @@ class Player(QThread, midiplayer.Player):
         return portmidi.time()
 
 
-class Output(midioutput.Output):
+class Output(midioutput.PortMidiOutput):
     """TEMP: set a portmidi.Output in the output attribute!"""
     output = None
-    
-    def send_events(self, events):
-        if self.output:
-            t = portmidi.time()
-            self.output.write([[e, t] for e in events])
 
 

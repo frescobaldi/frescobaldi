@@ -41,8 +41,7 @@ class Output(object):
         if isinstance(midi, dict):
             # dict mapping track to events?
             midi = sum(map(midi.get, sorted(midi)), [])
-        evs = self.get_midi_events(midi)
-        self.send_events(evs)
+        self.send_events(midi)
     
     def all_sounds_off(self, channel=-1):
         """Sends an all_notes_off message to a channel.
@@ -51,31 +50,44 @@ class Output(object):
         
         """
         l = []
-        channels = range(16) if channel == -1 else channel,
+        channels = range(16) if channel == -1 else (channel,)
         for c in channels:
-            l.append([0xB0 + channel, MIDI_CTL_ALL_SOUNDS_OFF, 0])
-            l.append([0xB0 + channel, MIDI_CTL_ALL_NOTES_OFF, 0])
+            l.append(midiparser.ControllerEvent(c, MIDI_CTL_ALL_NOTES_OFF, 0))
+            l.append(midiparser.ControllerEvent(c, MIDI_CTL_ALL_SOUNDS_OFF, 0))
         self.send_events(l)
         
-    def get_midi_events(self, midi):
-        """Converts the list of events (like those in midiparser.py) to MIDI."""
-        l = []
-        for e in midi:
-            m = self.message(e)
-            if m:
-                l.append(m)
-        return l
-    
     def send_events(self, events):
-        """Sends the MIDI events to the output.
+        """Writes the list of events to the output port.
         
-        Each item in the events list is a message. Each message is again
-        a list of bytes.
+        Each event is one of the event types in midiparser.py
+        Implement to do the actual writing.
         
         """
-        print events
+        pass
+
+
+class PortMidiOutput(Output):
+    """Writes events to a PortMIDI Output instance.
     
-    def message(self, event):
+    The PortMIDI Output instance should be in the output attribute.
+    
+    """
+    output = None
+    
+    def send_events(self, events):
+        """Writes the list of events to the PortMIDI output port."""
+        l = []
+        for e in events:
+            m = self.convert_event(e)
+            if m:
+                l.append([m, 0])
+        while len(l) > 1024:
+            self.output.write(l[:1024])
+            l = l[1024:]
+        if l:
+            self.output.write(l)
+    
+    def convert_event(self, event):
         """Returns a list of integers representing a MIDI message from event."""
         t = type(event)
         if t is midiparser.NoteEvent:
