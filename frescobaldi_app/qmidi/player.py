@@ -29,6 +29,8 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import midiplayer
+import midioutput
+import portmidi
 
 
 class Player(QThread, midiplayer.Player):
@@ -69,9 +71,11 @@ class Player(QThread, midiplayer.Player):
         self.stateChanged.emit(True)
     
     def stop_event(self):
+        midiplayer.Player.stop_event(self)
         self.stateChanged.emit(False)
     
     def finish_event(self):
+        midiplayer.Player.finish_event(self)
         self.exit(0)
         self.stateChanged.emit(False)
 
@@ -80,5 +84,18 @@ class Player(QThread, midiplayer.Player):
     
     def beat_event(self, measnum, beat, num, den):
         self.beat.emit(measnum, beat, num, den)
+
+    def timer_midi_time(self):
+        return portmidi.time()
+
+
+class Output(midioutput.Output):
+    """TEMP: set a portmidi.Output in the output attribute!"""
+    output = None
+    
+    def send_events(self, events):
+        if self.output:
+            t = portmidi.time()
+            self.output.write([[e, t] for e in events])
 
 

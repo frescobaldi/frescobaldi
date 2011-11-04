@@ -33,11 +33,8 @@ import midisong
 class Player(object):
     """The base class for a MIDI player.
     
-    It should be inherited to actually play MIDI:
-    - midi_event() should be implemented to play the MIDI to an output port.
-    - stop_event() to maybe shut off all notes
-    - position_event() for the same reason
-    You can also override: timer_midi_time(), timer_start() and timer_stop()
+    Use set_output() to set a MIDI output instance (see midioutput.py).
+    You can override: timer_midi_time(), timer_start() and timer_stop()
     to use another timing source than the Python threading.Timer instances.
     
     """
@@ -49,11 +46,24 @@ class Player(object):
         self._sync_time = 0
         self._playing = False
         self._tempo_factor = 1.0
+        self._output = None
     
+    def set_output(self, output):
+        """Sets an Output instance that handles the MIDI events.
+        
+        Use None to disable all output.
+        
+        """
+        self._output = output
+    
+    def output(self):
+        """Returns the currently set Output instance."""
+        return self._output
+        
     def load(self, filename, time=1000, beat=True):
         """Convenience function, loads a MIDI file.
         
-        See setSong() for the other arguments.
+        See set_song() for the other arguments.
         
         """
         song = midisong.load(filename)
@@ -222,6 +232,8 @@ class Player(object):
         The format depends on the way MIDI events are stored in the Song.
         
         """
+        if self._output:
+            self._output.midi_event(midi)
     
     def time_event(self, msec):
         """(Private) Called on every time update."""
@@ -234,6 +246,8 @@ class Player(object):
     
     def stop_event(self):
         """Called when playback is stopped by the user."""
+        if self._output:
+            self._output.all_sounds_off()
         
     def finish_event(self):
         """Called when a song reaches the end by itself."""
@@ -245,6 +259,8 @@ class Player(object):
         issue an all notes off command to the MIDI output.
         
         """
+        if self._output:
+            self._output.all_sounds_off()
         
     def timer_midi_time(self):
         """Should return a continuing time value in msec, used while playing.
