@@ -267,7 +267,7 @@ class Player(object):
             msec = self._sync_time - self.timer_midi_time()
         else:
             self._sync_time = self.timer_midi_time() + msec
-        self.timer_start(msec)
+        self.timer_start(max(0, msec))
     
     def timer_start(self, msec):
         """Starts the timer to fire once, the specified msec from now."""
