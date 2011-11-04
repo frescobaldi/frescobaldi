@@ -40,6 +40,7 @@ class Player(QThread, midiplayer.Player):
     def __init__(self, parent=None):
         QThread.__init__(self, parent)
         midiplayer.Player.__init__(self)
+        self._timer = None
     
     def run(self):
         self._timer = QTimer(singleShot=True)
@@ -50,10 +51,12 @@ class Player(QThread, midiplayer.Player):
         self._timer = None
     
     def start(self):
-        QThread.start(self)
+        if self.has_events():
+            QThread.start(self)
     
     def stop(self):
-        self.exit(1)
+        if self.isRunning():
+            self.exit(1)
     
     def timer_start(self, msec):
         """Starts the timer to fire once, the specified msec from now."""

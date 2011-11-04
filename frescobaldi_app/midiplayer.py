@@ -46,7 +46,7 @@ class Player(object):
         self._events = []
         self._position = 0
         self._offset = 0
-        self._target = 0
+        self._sync_time = 0
         self._playing = False
         self._tempo_factor = 1.0
     
@@ -100,7 +100,8 @@ class Player(object):
     
     def start(self):
         """Starts playing."""
-        self.timer_start_playing()
+        if self.has_events():
+            self.timer_start_playing()
         
     def stop(self):
         """Stops playing."""
@@ -180,9 +181,13 @@ class Player(object):
             self.timer_stop()
             if old != self._position:
                 self.position_event(old, self._position)
-            self.timer_schedule(offset)
+            self.timer_schedule(offset, False)
         else:
             self._offset = offset
+        
+    def has_events(self):
+        """Returns True if there are events left to play."""
+        return bool(self._events) and self._position < len(self._events)
         
     def next_event(self):
         """(Private) Handles the current event and advances to the next.
@@ -194,7 +199,7 @@ class Player(object):
         If this event was the last, calls finish() and returns 0.
         
         """
-        if self._events and self._position < len(self._events):
+        if self.has_events():
             time, event = self._events[self._position]
             self.handle_event(time, event)
             self._position += 1
@@ -250,12 +255,19 @@ class Player(object):
         """
         return int(time.time() * 1000)
     
-    def timer_schedule(self, delay):
-        """Schedules the upcoming event."""
+    def timer_schedule(self, delay, sync=True):
+        """Schedules the upcoming event.
+        
+        If sync is False, don't look at the previous synchronisation time.
+        
+        """
         msec = delay / self._tempo_factor
-        self._target += msec
-        real_delay = self._target - self.timer_midi_time()
-        self.timer_start(real_delay)
+        if sync:
+            self._sync_time += msec
+            msec = self._sync_time - self.timer_midi_time()
+        else:
+            self._sync_time = self.timer_midi_time() + msec
+        self.timer_start(msec)
     
     def timer_start(self, msec):
         """Starts the timer to fire once, the specified msec from now."""
@@ -275,17 +287,13 @@ class Player(object):
         This value is only useful while playing.
         
         """
-        return int((self._target - self.timer_midi_time()) * self._tempo_factor)
+        return int((self._sync_time - self.timer_midi_time()) * self._tempo_factor)
     
     def timer_start_playing(self):
         """Starts playing by starting the timer for the first upcoming event."""
         self._playing = True
-        self._target = self.timer_midi_time()
         self.start_event()
-        if self._offset:
-            self.timer_schedule(self._offset)
-        else:
-            self.timer_timeout()
+        self.timer_schedule(self._offset, False)
     
     def timer_timeout(self):
         """Called when the timer times out.
