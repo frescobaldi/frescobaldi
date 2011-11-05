@@ -53,7 +53,8 @@ class PanelManager(plugin.MainWindowPlugin):
         self.helpbrowser = helpbrowser.HelpBrowser(mainwindow)
         import snippet.tool
         self.snippettool = snippet.tool.SnippetTool(mainwindow)
-        
+        import miditool
+        self.miditool = miditool.MidiTool(mainwindow)
         self.createActions()
         
         # make some default arrangements
@@ -70,6 +71,7 @@ class PanelManager(plugin.MainWindowPlugin):
         menu.addAction(self.actionCollection.panel_musicview)
         menu.addAction(self.actionCollection.panel_logtool)
         menu.addAction(self.actionCollection.panel_helpbrowser)
+        menu.addAction(self.actionCollection.panel_miditool)
 
 
 class Actions(actioncollection.ActionCollection):
@@ -83,6 +85,7 @@ class Actions(actioncollection.ActionCollection):
         self.panel_musicview = manager.musicview.toggleViewAction()
         self.panel_logtool = manager.logtool.toggleViewAction()
         self.panel_helpbrowser = manager.helpbrowser.toggleViewAction()
+        self.panel_miditool = manager.miditool.toggleViewAction()
 
 
 class Panel(QDockWidget):
