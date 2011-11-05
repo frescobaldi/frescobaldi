@@ -26,6 +26,7 @@ from __future__ import unicode_literals
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+import app
 import css
 
 
@@ -33,12 +34,14 @@ class Widget(QWidget):
     def __init__(self, dockwidget):
         super(Widget, self).__init__(dockwidget)
         
-        self._fileSelector = QComboBox()
+        self._fileSelector = QComboBox(editable=True)
+        self._fileSelector.lineEdit().setReadOnly(True)
+        self._fileSelector.lineEdit().setFocusPolicy(Qt.NoFocus)
         self._stopButton = QToolButton()
         self._playButton = QToolButton()
-        self._timeSlider = QSlider(Qt.Horizontal)
+        self._timeSlider = QSlider(Qt.Horizontal, tracking=False)
         self._timeDisplay = QLabel(alignment=Qt.AlignRight|Qt.AlignVCenter)
-        self._tempoFactor = QSlider(Qt.Vertical)
+        self._tempoFactor = QSlider(Qt.Vertical, minimum=-120, maximum=120)
         
         self._timeDisplay.setStyleSheet(css.lcd_screen)
         
@@ -52,8 +55,32 @@ class Widget(QWidget):
         grid.addWidget(self._timeDisplay, 2, 0, 1, 3)
         grid.addWidget(self._tempoFactor, 0, 3, 3, 1)
         
-        self._timeDisplay.setText('<h2>5:19  24.1</h2>')
+        app.translateUI(self)
+
+    def translateUI(self):
+        self.updateTimeDisplay()
+
+    def updateTimeDisplay(self):
+        """Updates the display of time, etc."""
+        self._timeDisplay.setText(_lcd_text.format(
+            _("midi lcd screen", "TIME"),
+            _("midi lcd screen", "BEAT"),
+            " 5:19",
+            "24. 1",
+        ))
 
 
 
+
+_lcd_text = """\
+<table width=100% border=0>
+<tr>
+<td align=right style="font-size:8px;">{0}</td>
+<td align=right style="font-size:8px;">{1}</td>
+</tr>
+<tr>
+<td align=right><h2>{2}</h2></td>
+<td align=right><h2>{3}</h2></td>
+</tr>
+</table>"""
 
