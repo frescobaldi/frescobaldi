@@ -30,7 +30,7 @@ QDir.addSearchPath('css', __path__[0])
 
 lcd_screen = """
 * {
-    border-width: 5 3 2 4;
+    border-width: 4 3 2 4;
     border-image: url('css:lcd-borders.png') repeat;
     background-image: url('css:lcd-background.png') repeat;
     color: #151B19;
