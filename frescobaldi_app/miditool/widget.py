@@ -62,7 +62,7 @@ class Widget(QWidget):
         self._timeSlider.valueChanged.connect(self.slotTimeSliderChanged)
         self._timeSlider.sliderMoved.connect(self.slotTimeSliderMoved)
         self._player.beat.connect(self._display.setBeat)
-        self._player.time.connect(self._display.setTime)
+        self._player.time.connect(self.updateDisplayTime)
         self._player.stateChanged.connect(self.slotPlayerStateChanged)
         self.slotPlayerStateChanged(False)
         app.translateUI(self)
@@ -117,9 +117,14 @@ class Widget(QWidget):
             self._playButton.setDefaultAction(ac.midi_play)
         
     def updateTimeSlider(self):
-        with util.signalsBlocked(self._timeSlider):
-            self._timeSlider.setMaximum(self._player.total_time())
-            self._timeSlider.setValue(self._player.current_time())
+        if not self._timeSlider.isSliderDown():
+            with util.signalsBlocked(self._timeSlider):
+                self._timeSlider.setMaximum(self._player.total_time())
+                self._timeSlider.setValue(self._player.current_time())
+
+    def updateDisplayTime(self, time):
+        if not self._timeSlider.isSliderDown():
+            self._display.setTime(time)
 
 
 class Display(QLabel):
