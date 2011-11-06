@@ -75,7 +75,7 @@ class Player(QThread, midiplayer.Player):
     
     def timer_start(self, msec):
         """Starts the timer to fire once, the specified msec from now."""
-        self._timer.start(msec)
+        self._timer.start(int(msec))
     
     def timer_stop(self):
         self._timer.stop()

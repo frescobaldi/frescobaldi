@@ -29,8 +29,12 @@ from PyQt4.QtGui import QAction, QKeySequence
 import actioncollection
 import actioncollectionmanager
 import app
+import icons
 import panels
 
+# TEMP!!!
+import portmidi
+portmidi.init()
 
 class MidiTool(panels.Panel):
     """Midi Tool."""
@@ -56,15 +60,19 @@ class MidiTool(panels.Panel):
         
     def slotPause(self):
         """Called on action Pause."""
-    
+        self.widget().stop()
+        
     def slotPlay(self):
         """Called on action Play."""
+        self.widget().play()
     
     def slotStop(self):
         """Called on action Stop."""
+        self.widget().stop()
     
     def slotRestart(self):
         """Called on action Restart."""
+        self.widget().restart()
 
 
 class Actions(actioncollection.ActionCollection):
@@ -82,6 +90,11 @@ class Actions(actioncollection.ActionCollection):
         self.midi_play.setShortcut(QKeySequence(Qt.Key_MediaPlay))
         self.midi_stop.setShortcut(QKeySequence(Qt.Key_MediaStop))
         self.midi_restart.setShortcut(QKeySequence(Qt.Key_MediaPrevious))
+        
+        self.midi_pause.setIcon(icons.get('media-playback-pause'))
+        self.midi_play.setIcon(icons.get('media-playback-start'))
+        self.midi_stop.setIcon(icons.get('media-playback-stop'))
+        self.midi_restart.setIcon(icons.get('media-skip-backward'))
         
     def translateUI(self):
         self.midi_pause.setText(_("midi player", "Pause"))

@@ -28,6 +28,8 @@ from PyQt4.QtGui import *
 
 import app
 import css
+import util
+import qmidi.player
 
 
 class Widget(QWidget):
@@ -39,11 +41,10 @@ class Widget(QWidget):
         self._fileSelector.lineEdit().setFocusPolicy(Qt.NoFocus)
         self._stopButton = QToolButton()
         self._playButton = QToolButton()
-        self._timeSlider = QSlider(Qt.Horizontal, tracking=False)
-        self._timeDisplay = QLabel(alignment=Qt.AlignRight|Qt.AlignVCenter)
+        self._timeSlider = QSlider(Qt.Horizontal, tracking=False,
+            singleStep=200, pageStep=10000)
+        self._display = Display()
         self._tempoFactor = QSlider(Qt.Vertical, minimum=-120, maximum=120)
-        
-        self._timeDisplay.setStyleSheet(css.lcd_screen)
         
         grid = QGridLayout(spacing=0)
         self.setLayout(grid)
@@ -52,35 +53,137 @@ class Widget(QWidget):
         grid.addWidget(self._stopButton, 1, 0)
         grid.addWidget(self._playButton, 1, 1)
         grid.addWidget(self._timeSlider, 1, 2)
-        grid.addWidget(self._timeDisplay, 2, 0, 1, 3)
+        grid.addWidget(self._display, 2, 0, 1, 3)
         grid.addWidget(self._tempoFactor, 0, 3, 3, 1)
-        
+
+        self._player = qmidi.player.Player()
+        self._timeSliderTicker = QTimer(interval=200, timeout=self.updateTimeSlider)
+        self._tempoFactor.valueChanged.connect(self.slotTempoChanged)
+        self._timeSlider.valueChanged.connect(self.slotTimeSliderChanged)
+        self._timeSlider.sliderMoved.connect(self.slotTimeSliderMoved)
+        self._player.beat.connect(self._display.setBeat)
+        self._player.time.connect(self._display.setTime)
+        self._player.stateChanged.connect(self.slotPlayerStateChanged)
+        self.slotPlayerStateChanged(False)
         app.translateUI(self)
+        # TEMP!!!
+        try:
+            self._player.load("/home/wilbert/if-we-believe.midi")
+            self.updateTimeSlider()
+        except:
+            pass
 
     def translateUI(self):
-        self.updateTimeDisplay()
+        pass
+    
+    def play(self):
+        self._player.start()
+    
+    def stop(self):
+        self._player.stop()
+    
+    def restart(self):
+        self._player.seek(0)
+        self.updateTimeSlider()
+        self._display.setTime(0)
+        self._display.setBeat(1, 1, 0, 0)
+        
+    def slotTempoChanged(self, value):
+        """Called when the user drags the tempo."""
+        # convert -120 to 120 to 0.5 to 2.0
+        factor = 2 ** (value / 120.0)
+        self._player.set_tempo_factor(factor)
+        self._display.setTempo("{0}%".format(int(factor * 100)))
+    
+    def slotTimeSliderChanged(self, value):
+        self._player.seek(value)
+    
+    def slotTimeSliderMoved(self, value):
+        self._display.setTime(value)
+    
+    def slotPlayerStateChanged(self, playing):
+        ac = self.parentWidget().actionCollection
+        # setDefaultAction also adds the action
+        for b in self._stopButton, self._playButton:
+            while b.actions():
+                b.removeAction(b.actions()[0])
+        if playing:
+            self._timeSliderTicker.start()
+            self._stopButton.setDefaultAction(ac.midi_stop)
+            self._playButton.setDefaultAction(ac.midi_pause)
+        else:
+            self._timeSliderTicker.stop()
+            self._stopButton.setDefaultAction(ac.midi_restart)
+            self._playButton.setDefaultAction(ac.midi_play)
+        
+    def updateTimeSlider(self):
+        with util.signalsBlocked(self._timeSlider):
+            self._timeSlider.setMaximum(self._player.total_time())
+            self._timeSlider.setValue(self._player.current_time())
 
-    def updateTimeDisplay(self):
-        """Updates the display of time, etc."""
-        self._timeDisplay.setText(_lcd_text.format(
-            _("midi lcd screen", "TIME"),
-            _("midi lcd screen", "BEAT"),
-            " 5:19",
-            "24. 1",
-        ))
 
+class Display(QLabel):
+    """Maintains values in the LCD display."""
+    def __init__(self):
+        QLabel.__init__(self)
+        self.setStyleSheet(css.lcd_screen)
+        self._tempoTimer = QTimer(interval=2000, singleShot=True,
+            timeout=self.setTempo)
+        self._tempo = None
+        self._time = 0
+        self._beat = 0, 0, 0, 0
+        app.translateUI(self)
+    
+    def translateUI(self):
+        self.updateDisplay()
+    
+    def setTime(self, time):
+        self._time = time
+        self.updateDisplay()
+    
+    def setBeat(self, measnum, beat, num, den):
+        self._beat = measnum, beat, num, den
+        self.updateDisplay()
+    
+    def setTempo(self, text=None):
+        self._tempo = text
+        if text:
+            self._tempoTimer.start()
+        self.updateDisplay()
+        
+    def updateDisplay(self):
+        minutes, seconds = divmod(self._time / 1000, 60)
+        measnum, beat = self._beat[:2]
+        
+        time_spec = "{0}:{1:02}".format(minutes, seconds)
+        
+        if self._tempo:
+            self.setText(_lcd_text.format(
+                _("midi lcd screen", "TIME"),
+                _("midi lcd screen", "TEMPO"),
+                time_spec,
+                self._tempo,
+            ))
+        else:
+            beat_spec = "{0}.{1:2}".format(measnum, beat)
+            self.setText(_lcd_text.format(
+                _("midi lcd screen", "TIME"),
+                _("midi lcd screen", "BEAT"),
+                time_spec,
+                beat_spec,
+            ))
 
 
 
 _lcd_text = """\
-<table width=100% border=0>
+<table width=100% border=0 cellspacing=0>
 <tr>
-<td align=right style="font-size:8px;">{0}</td>
-<td align=right style="font-size:8px;">{1}</td>
+<td width=50% align=right style="font-size:8px;">{0}</td>
+<td width=50% align=right style="font-size:8px;">{1}</td>
 </tr>
 <tr>
-<td align=right><h2>{2}</h2></td>
-<td align=right><h2>{3}</h2></td>
+<td width=50% align=right><h2>{2}</h2></td>
+<td width=50% align=right><h2>{3}</h2></td>
 </tr>
 </table>"""
 
