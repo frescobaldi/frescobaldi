@@ -92,6 +92,15 @@ class Player(object):
         """Returns the current Song."""
         return self._song
     
+    def clear(self):
+        """Unloads a loaded Song."""
+        if self._playing:
+            self.stop()
+        self._song = None
+        self._events = []
+        self._position = 0
+        self._offset = 0
+        
     def total_time(self):
         """Returns the length in msec of the current song."""
         if self._events:
@@ -123,16 +132,7 @@ class Player(object):
     
     def set_tempo_factor(self, factor):
         """Sets the tempo factor as a floating point value (1.0 is normal)."""
-        factor = float(factor)
-        if factor == self._tempo_factor:
-            return
-        if self._playing:
-            self.timer_stop()
-            offset = self.timer_offset()
-            self._tempo_factor = factor
-            self.timer_schedule(offset)
-        else:
-            self._tempo_factor = factor
+        self._tempo_factor = float(factor)
     
     def tempo_factor(self):
         """Returns the tempo factor (by default: 1.0)."""

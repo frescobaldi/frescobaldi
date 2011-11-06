@@ -65,6 +65,7 @@ class Widget(QWidget):
         self._player.time.connect(self.updateDisplayTime)
         self._player.stateChanged.connect(self.slotPlayerStateChanged)
         self.slotPlayerStateChanged(False)
+        app.aboutToQuit.connect(self._player.stop)
         app.translateUI(self)
         # TEMP!!!
         try:

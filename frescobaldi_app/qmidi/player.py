@@ -61,9 +61,11 @@ class Player(QThread, midiplayer.Player):
         self._timer = QTimer(singleShot=True)
         self._timer.timeout.connect(self.timer_timeout, Qt.DirectConnection)
         self.timer_start_playing()
+        self.stateChanged.emit(True)
         if self.exec_():
             self.timer_stop_playing()
         self._timer = None
+        self.stateChanged.emit(False)
     
     def start(self):
         if self.has_events():
@@ -72,6 +74,7 @@ class Player(QThread, midiplayer.Player):
     def stop(self):
         if self.isRunning():
             self.exit(1)
+            self.wait()
     
     def timer_start(self, msec):
         """Starts the timer to fire once, the specified msec from now."""
@@ -80,17 +83,9 @@ class Player(QThread, midiplayer.Player):
     def timer_stop(self):
         self._timer.stop()
 
-    def start_event(self):
-        self.stateChanged.emit(True)
-    
-    def stop_event(self):
-        midiplayer.Player.stop_event(self)
-        self.stateChanged.emit(False)
-    
     def finish_event(self):
         midiplayer.Player.finish_event(self)
         self.exit(0)
-        self.stateChanged.emit(False)
 
     def time_event(self, time):
         self.time.emit(time)
