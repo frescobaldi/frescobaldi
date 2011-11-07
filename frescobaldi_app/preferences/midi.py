@@ -28,6 +28,7 @@ from PyQt4.QtGui import *
 
 
 import app
+import util
 import icons
 import preferences
 import midihub
@@ -51,7 +52,8 @@ class MidiPorts(preferences.Group):
         super(MidiPorts, self).__init__(page)
         
         self._playerLabel = QLabel()
-        self._playerPort = QComboBox(editable=True, editTextChanged=self.changed)
+        self._playerPort = QComboBox(editable=True,
+            editTextChanged=self.changed, insertPolicy=QComboBox.NoInsert)
         
         self._reloadMidi = QPushButton(icon=icons.get('view-refresh'))
         self._reloadMidi.clicked.connect(self.refreshMidiPorts)
@@ -76,7 +78,9 @@ class MidiPorts(preferences.Group):
 
     def refreshMidiPorts(self):
         midihub.refresh_ports()
-        self.loadMidiPorts()
+        with util.signalsBlocked(self):
+            self.loadMidiPorts()
+            self.loadSettings()
 
     def loadSettings(self):
         port = midihub.default_output() or ""
