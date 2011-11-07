@@ -30,13 +30,17 @@ import app
 import css
 import util
 import qmidi.player
+import widgets.drag
+
+from . import midifiles
 
 
 class Widget(QWidget):
     def __init__(self, dockwidget):
         super(Widget, self).__init__(dockwidget)
-        
+        self._document = None
         self._fileSelector = QComboBox(editable=True)
+        widgets.drag.ComboDrag(self._fileSelector).role = Qt.UserRole
         self._fileSelector.lineEdit().setReadOnly(True)
         self._fileSelector.lineEdit().setFocusPolicy(Qt.NoFocus)
         self._stopButton = QToolButton()
@@ -59,22 +63,22 @@ class Widget(QWidget):
 
         self._player = qmidi.player.Player()
         self._timeSliderTicker = QTimer(interval=200, timeout=self.updateTimeSlider)
+        self._fileSelector.activated[int].connect(self.slotFileSelected)
         self._tempoFactor.valueChanged.connect(self.slotTempoChanged)
         self._timeSlider.valueChanged.connect(self.slotTimeSliderChanged)
         self._timeSlider.sliderMoved.connect(self.slotTimeSliderMoved)
-        #self._tempoFactor.actionTriggered.connect(trick)
         self._player.beat.connect(self._display.setBeat)
         self._player.time.connect(self.updateDisplayTime)
         self._player.stateChanged.connect(self.slotPlayerStateChanged)
         self.slotPlayerStateChanged(False)
+        dockwidget.mainwindow().currentDocumentChanged.connect(self.loadResults)
+        midifiles.updated.connect(self.slotUpdatedFiles)
         app.aboutToQuit.connect(self._player.stop)
+        app.documentClosed.connect(self.slotDocumentClosed)
         app.translateUI(self)
-        # TEMP!!!
-        try:
-            self._player.load("/home/wilbert/if-we-believe.midi")
-            self.updateTimeSlider()
-        except:
-            pass
+        d = dockwidget.mainwindow().currentDocument()
+        if d:
+            self.loadResults(d)
 
     def translateUI(self):
         pass
@@ -88,8 +92,12 @@ class Widget(QWidget):
     def restart(self):
         self._player.seek(0)
         self.updateTimeSlider()
-        self._display.setTime(0)
-        self._display.setBeat(0, 0, 0, 0)
+        self._display.reset()
+        if self._document:
+            files = midifiles.MidiFiles.instance(self._document)
+            index = self._fileSelector.currentIndex()
+            if files and (files.song(index) is not self._player.song()):
+                self._player.set_song(files.song(index))
         
     def slotTempoChanged(self, value):
         """Called when the user drags the tempo."""
@@ -100,6 +108,7 @@ class Widget(QWidget):
     
     def slotTimeSliderChanged(self, value):
         self._player.seek(value)
+        self._display.setTime(value)
     
     def slotTimeSliderMoved(self, value):
         self._display.setTime(value)
@@ -128,6 +137,37 @@ class Widget(QWidget):
     def updateDisplayTime(self, time):
         if not self._timeSlider.isSliderDown():
             self._display.setTime(time)
+    
+    def slotUpdatedFiles(self, document):
+        """Called when there are new MIDI files."""
+        if document == self.parentWidget().mainwindow().currentDocument():
+            self.loadResults(document)
+    
+    def loadResults(self, document):
+        self._document = document
+        files = midifiles.MidiFiles.instance(document)
+        self._fileSelector.setModel(files.model())
+        if files:
+            self._fileSelector.setCurrentIndex(files.current)
+            if not self._player.is_playing():
+                self._player.set_song(files.song(files.current))
+    
+    def slotFileSelected(self, index):
+        if self._document:
+            self._player.stop()
+            files = midifiles.MidiFiles.instance(self._document)
+            if files:
+                files.current = index
+                self.restart()
+    
+    def slotDocumentClosed(self, document):
+        if document == self._document:
+            self._document = None
+            self._fileSelector.clear()
+            self._player.stop()
+            self._player.clear()
+            self.updateTimeSlider()
+            self._display.reset()
 
 
 class Display(QLabel):
@@ -138,10 +178,15 @@ class Display(QLabel):
         self._tempoTimer = QTimer(interval=2000, singleShot=True,
             timeout=self.setTempo)
         self._tempo = None
-        self._time = 0
-        self._beat = 0, 0, 0, 0
+        self.reset()
         app.translateUI(self)
     
+    def reset(self):
+        """Sets everything to 0."""
+        self._time = 0
+        self._beat = 0, 0, 0, 0
+        self.updateDisplay()
+        
     def translateUI(self):
         self.updateDisplay()
     
