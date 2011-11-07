@@ -39,7 +39,7 @@ class Widget(QWidget):
     def __init__(self, dockwidget):
         super(Widget, self).__init__(dockwidget)
         self._document = None
-        self._fileSelector = QComboBox(editable=True)
+        self._fileSelector = QComboBox(editable=True, insertPolicy=QComboBox.NoInsert)
         widgets.drag.ComboDrag(self._fileSelector).role = Qt.UserRole
         self._fileSelector.lineEdit().setReadOnly(True)
         self._fileSelector.lineEdit().setFocusPolicy(Qt.NoFocus)
@@ -97,7 +97,7 @@ class Widget(QWidget):
             files = midifiles.MidiFiles.instance(self._document)
             index = self._fileSelector.currentIndex()
             if files and (files.song(index) is not self._player.song()):
-                self._player.set_song(files.song(index))
+                self.loadSong(index)
         
     def slotTempoChanged(self, value):
         """Called when the user drags the tempo."""
@@ -150,7 +150,18 @@ class Widget(QWidget):
         if files:
             self._fileSelector.setCurrentIndex(files.current)
             if not self._player.is_playing():
-                self._player.set_song(files.song(files.current))
+                self.loadSong(files.current)
+    
+    def loadSong(self, index):
+        files = midifiles.MidiFiles.instance(self._document)
+        self._player.set_song(files.song(index))
+        m, s = divmod(self._player.total_time() / 1000, 60)
+        name = self._fileSelector.currentText()
+        self.updateTimeSlider()
+        self._display.reset()
+        self._display.statusMessage([
+            _("midi lcd screen", "LOADED"), name,
+            _("midi lcd screen", "TOTAL"), "{0}:{1:02}".format(m, s)])
     
     def slotFileSelected(self, index):
         if self._document:
@@ -173,11 +184,14 @@ class Widget(QWidget):
 class Display(QLabel):
     """Maintains values in the LCD display."""
     def __init__(self):
-        QLabel.__init__(self)
+        QLabel.__init__(self, wordWrap=True)
         self.setStyleSheet(css.lcd_screen)
-        self._tempoTimer = QTimer(interval=2000, singleShot=True,
+        self._tempoTimer = QTimer(interval=1500, singleShot=True,
             timeout=self.setTempo)
+        self._statusTimer = QTimer(interval=2000, singleShot=True,
+            timeout=self.statusMessage)
         self._tempo = None
+        self._status = None
         self.reset()
         app.translateUI(self)
     
@@ -203,13 +217,30 @@ class Display(QLabel):
         if text:
             self._tempoTimer.start()
         self.updateDisplay()
+    
+    def statusMessage(self, msg=None):
+        """Status message should be a list like [name, value, <name2, value2>]."""
+        self._status = msg
+        if msg:
+            self._statusTimer.start()
+        self.updateDisplay()
         
     def updateDisplay(self):
         minutes, seconds = divmod(self._time / 1000, 60)
         
         time_spec = "{0}:{1:02}".format(minutes, seconds)
-        
-        if self._tempo:
+        if self._status:
+            items = self._status
+            if len(items) == 1:
+                self.setText(_lcd_status_one.format("&nbsp;", items[0]))
+            elif len(items) == 2:
+                self.setText(_lcd_status_one.format(*items))
+            elif len(items) == 3:
+                self.setText(_lcd_status_two.format(
+                    items[0], items[1], "&nbsp;", items[2]))
+            elif len(items) == 4:
+                self.setText(_lcd_status_two.format(*items))
+        elif self._tempo:
             self.setText(_lcd_text.format(
                 _("midi lcd screen", "TIME"),
                 _("midi lcd screen", "TEMPO"),
@@ -238,6 +269,28 @@ _lcd_text = """\
 <tr>
 <td width=50% align=right><h2>{2}</h2></td>
 <td width=50% align=right><h2>{3}</h2></td>
+</tr>
+</table>"""
+
+_lcd_status_one = """\
+<table width=100% border=0 cellspacing=0>
+<tr>
+<td align=left style="font-size:8px;">{0}</td>
+</tr>
+<tr>
+<td align=right><h2>{1}</h2></td>
+</tr>
+</table>"""
+
+_lcd_status_two = """\
+<table width=100% border=0 cellspacing=0>
+<tr>
+<td align=left style="font-size:8px;">{0}</td>
+<td align=right style="font-size:8px;">{2}</td>
+</tr>
+<tr>
+<td align=left><h2>{1}</h2></td>
+<td align=right><h2>{3}</h2></td>
 </tr>
 </table>"""
 
