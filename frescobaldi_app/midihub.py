@@ -84,3 +84,11 @@ def default_output():
                     return i.name
     return names[0] if names else ""
 
+def output_by_name(name):
+    """Returns a portmidi.Output instance for name."""
+    for n in range(portmidi.get_count()):
+        i = portmidi.get_device_info(n)
+        if i.isoutput and i.name.startswith(name) and not i.isopen:
+            return portmidi.Output(i)
+
+
