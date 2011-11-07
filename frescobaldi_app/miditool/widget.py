@@ -42,9 +42,10 @@ class Widget(QWidget):
         self._stopButton = QToolButton()
         self._playButton = QToolButton()
         self._timeSlider = QSlider(Qt.Horizontal, tracking=False,
-            singleStep=200, pageStep=10000)
+            singleStep=200, pageStep=10000, invertedControls=True)
         self._display = Display()
-        self._tempoFactor = QSlider(Qt.Vertical, minimum=-120, maximum=120)
+        self._tempoFactor = QSlider(Qt.Vertical, minimum=-50, maximum=50,
+            singleStep=1, pageStep=5)
         
         grid = QGridLayout(spacing=0)
         self.setLayout(grid)
@@ -61,6 +62,7 @@ class Widget(QWidget):
         self._tempoFactor.valueChanged.connect(self.slotTempoChanged)
         self._timeSlider.valueChanged.connect(self.slotTimeSliderChanged)
         self._timeSlider.sliderMoved.connect(self.slotTimeSliderMoved)
+        #self._tempoFactor.actionTriggered.connect(trick)
         self._player.beat.connect(self._display.setBeat)
         self._player.time.connect(self.updateDisplayTime)
         self._player.stateChanged.connect(self.slotPlayerStateChanged)
@@ -87,12 +89,12 @@ class Widget(QWidget):
         self._player.seek(0)
         self.updateTimeSlider()
         self._display.setTime(0)
-        self._display.setBeat(1, 1, 0, 0)
+        self._display.setBeat(0, 0, 0, 0)
         
     def slotTempoChanged(self, value):
         """Called when the user drags the tempo."""
-        # convert -120 to 120 to 0.5 to 2.0
-        factor = 2 ** (value / 120.0)
+        # convert -50 to 50 to 0.5 to 2.0
+        factor = 2 ** (value / 50.0)
         self._player.set_tempo_factor(factor)
         self._display.setTempo("{0}%".format(int(factor * 100)))
     
@@ -159,7 +161,6 @@ class Display(QLabel):
         
     def updateDisplay(self):
         minutes, seconds = divmod(self._time / 1000, 60)
-        measnum, beat = self._beat[:2]
         
         time_spec = "{0}:{1:02}".format(minutes, seconds)
         
@@ -171,10 +172,12 @@ class Display(QLabel):
                 self._tempo,
             ))
         else:
+            measnum, beat, num, den = self._beat
             beat_spec = "{0}.{1:2}".format(measnum, beat)
+            time_sig = "&nbsp;{0}/{1}".format(num, 2 ** den) if num else ""
             self.setText(_lcd_text.format(
                 _("midi lcd screen", "TIME"),
-                _("midi lcd screen", "BEAT"),
+                _("midi lcd screen", "BEAT") + time_sig,
                 time_spec,
                 beat_spec,
             ))
