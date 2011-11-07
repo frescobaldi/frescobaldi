@@ -79,6 +79,7 @@ class PreferencesDialog(QDialog):
         for item in (
             General,
             LilyPond,
+            Midi,
             Paths,
             Shortcuts,
             FontsColors,
@@ -167,6 +168,16 @@ class LilyPond(PrefsItemBase):
     def widget(self, dlg):
         import lilypond
         return lilypond.LilyPondPrefs(dlg)
+
+
+class Midi(PrefsItemBase):
+    iconName = "audio-midi"
+    def translateUI(self):
+        self.setText(_("MIDI Settings"))
+    
+    def widget(self, dlg):
+        from . import midi
+        return midi.MidiPrefs(dlg)
 
 
 class Paths(PrefsItemBase):

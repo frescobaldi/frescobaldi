@@ -36,10 +36,51 @@ not with portmidi directly.
 """
 
 import portmidi
+import signals
+
+
+portmidi.init()
+
+
+aboutToRestart = signals.Signal()       # emitted before re-init PortMIDI
+
 
 def available():
     """Returns True if portmidi is available, False if not."""
     return portmidi.available()
 
+def restart():
+    """Restarts PortMIDI."""
+    aboutToRestart()
+    portmidi.quit()
+    portmidi.init()
+    
+def refresh_ports():
+    """Refreshes the port list."""
+    restart()
 
+def device_infos():
+    """Yields the device info for all PortMIDI devices."""
+    for n in range(portmidi.get_count()):
+        yield portmidi.get_device_info(n)
+
+def output_ports():
+    """Returns a list of all the output port names."""
+    names = []
+    if available():
+        for i in device_infos():
+            if i.isoutput:
+                names.append(i.name)
+    return names
+
+def default_output():
+    """Returns a probably suitable default MIDI output port name."""
+    names = []
+    if available():
+        for i in device_infos():
+            if i.isoutput:
+                names.append(i.name)
+                if 'through' not in i.name.lower():
+                    return i.name
+    return names[0] if names else ""
 

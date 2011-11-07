@@ -134,9 +134,8 @@ def get_device_info(device_id):
     """Returns information about a midi device.
     
     A file-tuple is returned:
-    (api, device name, input, output, open),
-    where:
-        api: 
+    (interf, name, isinput, isoutput, isopen).
+    
     """
     _check_initialized()
     return device_info(*pypm.GetDeviceInfo(device_id))
@@ -245,7 +244,7 @@ class MidiException(Exception):
 # helper functions
 
 device_info = collections.namedtuple('device_info',
-    'api name isinput isoutput isopen')
+    'interf name isinput isoutput isopen')
 
 def _check_device_id(device_id):
     if not 0 <= device_id < get_count():

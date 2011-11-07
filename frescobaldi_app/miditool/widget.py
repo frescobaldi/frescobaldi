@@ -30,6 +30,7 @@ import app
 import css
 import util
 import qmidi.player
+import midihub
 import widgets.drag
 
 from . import midifiles
@@ -74,6 +75,7 @@ class Widget(QWidget):
         dockwidget.mainwindow().currentDocumentChanged.connect(self.loadResults)
         midifiles.updated.connect(self.slotUpdatedFiles)
         app.aboutToQuit.connect(self._player.stop)
+        midihub.aboutToRestart.connect(self._player.stop)
         app.documentClosed.connect(self.slotDocumentClosed)
         app.translateUI(self)
         d = dockwidget.mainwindow().currentDocument()
