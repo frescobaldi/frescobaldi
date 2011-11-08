@@ -69,7 +69,7 @@ class Widget(QWidget):
         self._tempoFactor.valueChanged.connect(self.slotTempoChanged)
         self._timeSlider.valueChanged.connect(self.slotTimeSliderChanged)
         self._timeSlider.sliderMoved.connect(self.slotTimeSliderMoved)
-        self._player.beat.connect(self._display.setBeat)
+        self._player.beat.connect(self.updateDisplayBeat)
         self._player.time.connect(self.updateDisplayTime)
         self._player.stateChanged.connect(self.slotPlayerStateChanged)
         self.slotPlayerStateChanged(False)
@@ -132,6 +132,8 @@ class Widget(QWidget):
     
     def slotTimeSliderMoved(self, value):
         self._display.setTime(value)
+        if self._player.song():
+            self._display.setBeat(*self._player.song().beat(value)[1:])
     
     def slotPlayerStateChanged(self, playing):
         ac = self.parentWidget().actionCollection
@@ -154,6 +156,10 @@ class Widget(QWidget):
                 self._timeSlider.setMaximum(self._player.total_time())
                 self._timeSlider.setValue(self._player.current_time())
 
+    def updateDisplayBeat(self, measnum, beat, num, den):
+        if not self._timeSlider.isSliderDown():
+            self._display.setBeat(measnum, beat, num, den)
+    
     def updateDisplayTime(self, time):
         if not self._timeSlider.isSliderDown():
             self._display.setTime(time)

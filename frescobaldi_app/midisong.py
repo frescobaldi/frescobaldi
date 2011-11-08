@@ -223,4 +223,20 @@ class Song(object):
         self.music = [(t.msec(midi_time), evs)
                       for midi_time, evs in sorted(self.events.items())]
 
+    def beat(self, time):
+        """Returns (time, measnum, beat, num, den) for the beat at time."""
+        if not self.beats:
+            return (0, 0, 0, 4, 2)
+        pos = 0
+        if time:
+            # bisect our way in the beats list.
+            end = len(self.beats)
+            while pos < end:
+                mid = (pos + end) // 2
+                if time > self.beats[mid][0]:
+                    pos = mid + 1
+                else:
+                    end = mid
+        return self.beats[min(pos, len(self.beats) - 1)]
+
 
