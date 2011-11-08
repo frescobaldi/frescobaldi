@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import os
 
-from PyQt4.QtCore import QFileInfo
+from PyQt4.QtCore import QFileInfo, Qt
 from PyQt4.QtGui import QFileIconProvider
 
 import app
@@ -75,8 +75,10 @@ class MidiFiles(plugin.DocumentPlugin):
         """Returns a model for a combobox."""
         if self._files is None:
             self.update()
-        return listmodel.ListModel(self._files,
+        m = listmodel.ListModel(self._files,
             display = os.path.basename,
             icon = lambda f: QFileIconProvider().icon(QFileInfo(f)))
+        m.setRoleFunction(Qt.UserRole, lambda f: f)
+        return m
 
 
