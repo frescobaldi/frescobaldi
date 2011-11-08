@@ -29,6 +29,10 @@ import midioutput
 
 class Output(midioutput.PortMidiOutput):
     """Handles the output, e.g. for a MIDI player."""
+    def __init__(self, output):
+        self.output = output
+
+
 
 
 

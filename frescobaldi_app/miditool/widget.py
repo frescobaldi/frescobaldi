@@ -34,6 +34,7 @@ import midihub
 import widgets.drag
 
 from . import midifiles
+from . import output
 
 
 class Widget(QWidget):
@@ -74,16 +75,33 @@ class Widget(QWidget):
         self.slotPlayerStateChanged(False)
         dockwidget.mainwindow().currentDocumentChanged.connect(self.loadResults)
         midifiles.updated.connect(self.slotUpdatedFiles)
-        app.aboutToQuit.connect(self._player.stop)
-        midihub.aboutToRestart.connect(self._player.stop)
+        app.aboutToQuit.connect(self.stop)
+        midihub.aboutToRestart.connect(self.slotAboutToRestart)
+        midihub.settingsChanged.connect(self.clearMidiSettings, -100)
+        midihub.settingsChanged.connect(self.readMidiSettings)
         app.documentClosed.connect(self.slotDocumentClosed)
         app.translateUI(self)
+        self.readMidiSettings()
         d = dockwidget.mainwindow().currentDocument()
         if d:
             self.loadResults(d)
 
     def translateUI(self):
         pass
+    
+    def slotAboutToRestart(self):
+        self.stop()
+        self._player.set_output(None)
+    
+    def clearMidiSettings(self):
+        self.stop()
+        self._player.set_output(None)
+        
+    def readMidiSettings(self):
+        p = QSettings().value("midi/player/output_port", midihub.default_output())
+        o = midihub.output_by_name(p)
+        if o:
+            self._player.set_output(output.Output(o))
     
     def play(self):
         self._player.start()

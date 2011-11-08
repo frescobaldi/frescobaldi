@@ -114,12 +114,15 @@ class PreferencesDialog(QDialog):
         """Loads the settings on reset."""
         for page in self.pages():
             page.loadSettings()
+            page.hasChanges = False
         self.buttons.button(QDialogButtonBox.Apply).setEnabled(False)
             
     def saveSettings(self):
         """Saves the settings and applies them."""
         for page in self.pages():
-            page.saveSettings()
+            if page.hasChanges:
+                page.saveSettings()
+                page.hasChanges = False
         self.buttons.button(QDialogButtonBox.Apply).setEnabled(False)
         
         # emit the signal
@@ -147,6 +150,7 @@ class PrefsItemBase(QListWidgetItem):
             dlg.stack.addWidget(w)
             w.loadSettings()
             w.changed.connect(dlg.changed)
+            w.changed.connect(w.markChanged)
         dlg.stack.setCurrentWidget(self._widget)
 
 
@@ -223,6 +227,11 @@ class Tools(PrefsItemBase):
 class Page(QWidget):
     """Base class for settings pages."""
     changed = pyqtSignal()
+    hasChanges = False
+    
+    def markChanged(self):
+        """Called when something changes in the dialog."""
+        self.hasChanges = True
     
     def loadSettings(self):
         """Should load settings from config into our widget."""

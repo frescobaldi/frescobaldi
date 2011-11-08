@@ -44,7 +44,10 @@ class MidiPrefs(preferences.GroupsPage):
         
         layout.addWidget(MidiPorts(self))
         layout.addStretch(0)
-
+    
+    def saveSettings(self):
+        super(MidiPrefs, self).saveSettings()
+        midihub.settingsChanged()
 
 
 class MidiPorts(preferences.Group):
@@ -83,7 +86,7 @@ class MidiPorts(preferences.Group):
             self.loadSettings()
 
     def loadSettings(self):
-        port = midihub.default_output() or ""
+        port = midihub.default_output()
         s = QSettings()
         s.beginGroup("midi")
         self._playerPort.setEditText(s.value("player/output_port", port))

@@ -43,6 +43,7 @@ portmidi.init()
 
 
 aboutToRestart = signals.Signal()       # emitted before re-init PortMIDI
+settingsChanged = signals.Signal()      # emitted when ports are changed, etc
 
 
 def available():
@@ -54,6 +55,7 @@ def restart():
     aboutToRestart()
     portmidi.quit()
     portmidi.init()
+    settingsChanged()
     
 def refresh_ports():
     """Refreshes the port list."""
@@ -89,6 +91,6 @@ def output_by_name(name):
     for n in range(portmidi.get_count()):
         i = portmidi.get_device_info(n)
         if i.isoutput and i.name.startswith(name) and not i.isopen:
-            return portmidi.Output(i)
+            return portmidi.Output(n)
 
 
