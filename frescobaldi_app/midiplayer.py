@@ -307,10 +307,11 @@ class Player(object):
     
     def timer_start_playing(self):
         """Starts playing by starting the timer for the first upcoming event."""
+        reset = self._output and self.current_time() == 0
         self._playing = True
         self.start_event()
-        if self.output and self.current_time() == 0:
-            self.output.reset()
+        if reset:
+            self._output.reset()
         self.timer_schedule(self._offset, False)
     
     def timer_timeout(self):
