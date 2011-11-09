@@ -89,7 +89,7 @@ class Widget(QWidget):
             self.loadResults(d)
 
     def translateUI(self):
-        pass
+        self._tempoFactor.setToolTip(_("Tempo"))
     
     def slotAboutToRestart(self):
         self.stop()

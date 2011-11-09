@@ -6,6 +6,7 @@ Changes in 1.9.2 --
 
 * Translation updates: es, nl
 * New features:
+  - Built-in MIDI player
   - Snippets can also be put in File->New from Template. When triggered via that
     menu, a new document is created. There's also a command to save the current
     document as a template.

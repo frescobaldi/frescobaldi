@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-10-25 10:23+0200\n"
+"POT-Creation-Date: 2011-11-09 10:21+0100\n"
 "PO-Revision-Date: 2010-12-12 07:48+0200\n"
 "Last-Translator: Server Acim <serveracim@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -151,8 +151,8 @@ msgstr "Dosya Aç"
 msgid "Scheme Files"
 msgstr ""
 
-#: frescobaldi_app/app.py:135 frescobaldi_app/snippet/widget.py:254
-#: frescobaldi_app/snippet/widget.py:271
+#: frescobaldi_app/app.py:135 frescobaldi_app/snippet/widget.py:260
+#: frescobaldi_app/snippet/widget.py:277
 msgid "All Files"
 msgstr "Tüm dosyalar"
 
@@ -393,7 +393,8 @@ msgid "Edit"
 msgstr ""
 
 #: frescobaldi_app/hyphendialog.py:167 frescobaldi_app/help/contents.py:139
-#: frescobaldi_app/preferences/__init__.py:97
+#: frescobaldi_app/preferences/__init__.py:98
+#: frescobaldi_app/preferences/midi.py:114
 #, fuzzy
 msgid "Preferences"
 msgstr "Genel Tercihler"
@@ -568,8 +569,8 @@ msgstr "Dosya Aç"
 #: frescobaldi_app/musicview/image.py:212
 #: frescobaldi_app/preferences/fontscolors.py:476
 #: frescobaldi_app/preferences/fontscolors.py:514
-#: frescobaldi_app/snippet/import_export.py:99
-#: frescobaldi_app/snippet/widget.py:281
+#: frescobaldi_app/snippet/import_export.py:104
+#: frescobaldi_app/snippet/widget.py:287
 msgid "Error"
 msgstr ""
 
@@ -600,7 +601,7 @@ msgid "Save Selection"
 msgstr "Partisyon ayarları"
 
 #: frescobaldi_app/mainwindow.py:442 frescobaldi_app/mainwindow.py:570
-#: frescobaldi_app/snippet/widget.py:282
+#: frescobaldi_app/snippet/widget.py:288
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -615,7 +616,7 @@ msgid "Insert From File"
 msgstr ""
 
 #: frescobaldi_app/mainwindow.py:510
-#: frescobaldi_app/snippet/import_export.py:100
+#: frescobaldi_app/snippet/import_export.py:105
 msgid ""
 "Can't read from source:\n"
 "\n"
@@ -1206,7 +1207,7 @@ msgid "Engrave (publish)"
 msgstr ""
 
 #: frescobaldi_app/help/contents.py:140
-#: frescobaldi_app/preferences/__init__.py:165
+#: frescobaldi_app/preferences/__init__.py:170
 msgid "LilyPond Preferences"
 msgstr "LilyPond Tercihleri"
 
@@ -1641,6 +1642,71 @@ msgstr ""
 #: frescobaldi_app/logtool/logwidget.py:106
 msgid "Click to edit this file"
 msgstr "Bu dosyayı düzenlemek için tıklayınız."
+
+#: frescobaldi_app/miditool/__init__.py:54
+#, fuzzy
+msgid "MIDI"
+msgstr "MIDI çal"
+
+#: frescobaldi_app/miditool/__init__.py:55
+#, fuzzy
+msgid "MIDI &Player"
+msgstr "MIDI Çalıcı"
+
+#: frescobaldi_app/miditool/__init__.py:100
+#, fuzzy
+msgctxt "midi player"
+msgid "Pause"
+msgstr "Durakla"
+
+#: frescobaldi_app/miditool/__init__.py:101
+#, fuzzy
+msgctxt "midi player"
+msgid "Play"
+msgstr "Çal %1"
+
+#: frescobaldi_app/miditool/__init__.py:102
+#, fuzzy
+msgctxt "midi player"
+msgid "Stop"
+msgstr "Adım"
+
+#: frescobaldi_app/miditool/__init__.py:103
+#, fuzzy
+msgctxt "midi player"
+msgid "Restart"
+msgstr "Tekrar başla"
+
+#: frescobaldi_app/miditool/widget.py:92
+#, fuzzy
+msgid "Tempo"
+msgstr "Hız:"
+
+#: frescobaldi_app/miditool/widget.py:216
+msgctxt "midi lcd screen"
+msgid "LOADED"
+msgstr ""
+
+#: frescobaldi_app/miditool/widget.py:217
+msgctxt "midi lcd screen"
+msgid "TOTAL"
+msgstr ""
+
+#: frescobaldi_app/miditool/widget.py:298
+#: frescobaldi_app/miditool/widget.py:308
+msgctxt "midi lcd screen"
+msgid "TIME"
+msgstr ""
+
+#: frescobaldi_app/miditool/widget.py:299
+msgctxt "midi lcd screen"
+msgid "TEMPO"
+msgstr ""
+
+#: frescobaldi_app/miditool/widget.py:309
+msgctxt "midi lcd screen"
+msgid "BEAT"
+msgstr ""
 
 #: frescobaldi_app/musicview/__init__.py:86
 msgctxt "window title"
@@ -2147,25 +2213,30 @@ msgctxt "QScrollBar"
 msgid "Scroll right"
 msgstr ""
 
-#: frescobaldi_app/preferences/__init__.py:155
+#: frescobaldi_app/preferences/__init__.py:160
 #: frescobaldi_app/preferences/general.py:119
 msgid "General Preferences"
 msgstr "Genel Tercihler"
 
-#: frescobaldi_app/preferences/__init__.py:175
+#: frescobaldi_app/preferences/__init__.py:180
+#, fuzzy
+msgid "MIDI Settings"
+msgstr "Ayarlar"
+
+#: frescobaldi_app/preferences/__init__.py:190
 msgid "Paths"
 msgstr "Yollar"
 
-#: frescobaldi_app/preferences/__init__.py:185
+#: frescobaldi_app/preferences/__init__.py:200
 #, fuzzy
 msgid "Keyboard Shortcuts"
 msgstr "Klavye Kısayollarını Yapılandır"
 
-#: frescobaldi_app/preferences/__init__.py:195
+#: frescobaldi_app/preferences/__init__.py:210
 msgid "Fonts & Colors"
 msgstr ""
 
-#: frescobaldi_app/preferences/__init__.py:205
+#: frescobaldi_app/preferences/__init__.py:220
 #, fuzzy
 msgid "Tools"
 msgstr "&Araç Görünümleri"
@@ -2677,6 +2748,45 @@ msgstr "LilyPond'un ara çıktı dosyalarını silmesine izin ver"
 #: frescobaldi_app/preferences/lilypond.py:284
 msgid "LilyPond include path:"
 msgstr "LilyPond içeren yol:"
+
+#: frescobaldi_app/preferences/midi.py:75
+#, fuzzy
+msgid "MIDI Ports"
+msgstr "MIDI Çalıcı"
+
+#: frescobaldi_app/preferences/midi.py:76
+#, fuzzy
+msgid "Player output:"
+msgstr "Sayfa numarası:"
+
+#: frescobaldi_app/preferences/midi.py:77
+msgid "Refresh MIDI ports"
+msgstr ""
+
+#: frescobaldi_app/preferences/midi.py:115
+#, fuzzy
+msgid "Close unused MIDI output"
+msgstr "MIDI çıktısı oluştur"
+
+#: frescobaldi_app/preferences/midi.py:117
+#, fuzzy
+msgid ""
+"Closes unused MIDI ports after one minute. See \"What's This\" for more "
+"information."
+msgstr ""
+"Dizek başlıklarını harf olarak giriniz (S, A, T veya B gibi).\n"
+"Daha fazla bilgi için \"Bu nedir\" kısmına bakın."
+
+#: frescobaldi_app/preferences/midi.py:120
+msgid ""
+"<p>If checked, Frescobaldi will close MIDI output ports that are not used "
+"for one minute.</p>\n"
+"<p>This could free up system resources that a software MIDI synthesizer "
+"might be using, thus saving battery power.</p>\n"
+"<p>A side effect is that if you pause a MIDI file for a long time the "
+"instruments are reset to the default piano (instrument 0). In that case, "
+"playing the file from the beginning sets up the instruments again.</p>\n"
+msgstr ""
 
 #: frescobaldi_app/preferences/paths.py:60
 msgid "Folders containing hyphenation dictionaries"
@@ -3647,7 +3757,7 @@ msgstr "Partisyon:"
 msgid "&Add"
 msgstr ""
 
-#: frescobaldi_app/scorewiz/score.py:103 frescobaldi_app/snippet/widget.py:174
+#: frescobaldi_app/scorewiz/score.py:103 frescobaldi_app/snippet/widget.py:178
 #: frescobaldi_app/widgets/listedit.py:93
 #: frescobaldi_app/widgets/schemeselector.py:64
 #, fuzzy
@@ -5178,48 +5288,48 @@ msgstr ""
 msgid "The selected text if available. If not, the text cursor is moved here."
 msgstr ""
 
-#: frescobaldi_app/snippet/import_export.py:97
+#: frescobaldi_app/snippet/import_export.py:102
 msgid "No snippets found."
 msgstr ""
 
-#: frescobaldi_app/snippet/import_export.py:106
-#: frescobaldi_app/snippet/widget.py:255
+#: frescobaldi_app/snippet/import_export.py:111
+#: frescobaldi_app/snippet/widget.py:261
 #, fuzzy
 msgctxt "dialog title"
 msgid "Import Snippets"
 msgstr "Susları çıkar"
 
-#: frescobaldi_app/snippet/import_export.py:114
+#: frescobaldi_app/snippet/import_export.py:119
 #, fuzzy
 msgid "New Snippets"
 msgstr "Susları çıkar"
 
-#: frescobaldi_app/snippet/import_export.py:115
+#: frescobaldi_app/snippet/import_export.py:120
 #, fuzzy
 msgid "Updated Snippets"
 msgstr "Susları çıkar"
 
-#: frescobaldi_app/snippet/import_export.py:116
+#: frescobaldi_app/snippet/import_export.py:121
 #, fuzzy
 msgid "Unchanged Snippets"
 msgstr "Susları çıkar"
 
-#: frescobaldi_app/snippet/import_export.py:178
+#: frescobaldi_app/snippet/import_export.py:183
 #, fuzzy
 msgid "Import Keyboard Shortcuts"
 msgstr "Klavye Kısayollarını Yapılandır"
 
-#: frescobaldi_app/snippet/import_export.py:183
+#: frescobaldi_app/snippet/import_export.py:188
 #, fuzzy
 msgid "Choose which snippets you want to import:"
 msgstr "Lütfen yazdırmak istediğiniz dosyaları seçiniz:"
 
-#: frescobaldi_app/snippet/import_export.py:185
+#: frescobaldi_app/snippet/import_export.py:190
 #, fuzzy
 msgid "There are no new or updated snippets in the file."
 msgstr "E-posta olarak gönderilecek dosya bulunmamaktadır."
 
-#: frescobaldi_app/snippet/import_export.py:189
+#: frescobaldi_app/snippet/import_export.py:194
 msgid ""
 "<p>Here the snippets from {filename} are displayed.</p>\n"
 "<p>If there are new or updated snippets, you can select or deselect them one "
@@ -5259,7 +5369,7 @@ msgid "Please enter a template name:"
 msgstr "Lütfen bir oturum adı giriniz."
 
 #: frescobaldi_app/snippet/tool.py:53 frescobaldi_app/snippet/tool.py:119
-#: frescobaldi_app/snippet/widget.py:356
+#: frescobaldi_app/snippet/widget.py:362
 #, fuzzy
 msgid "Snippets"
 msgstr "Susları çıkar"
@@ -5278,70 +5388,70 @@ msgstr "PDF'yi Farklı Kaydet..."
 msgid "&Snippets..."
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:163
+#: frescobaldi_app/snippet/widget.py:167
 msgid "Search..."
 msgstr "Ara..."
 
-#: frescobaldi_app/snippet/widget.py:167
+#: frescobaldi_app/snippet/widget.py:171
 msgid "&Menu"
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:168
+#: frescobaldi_app/snippet/widget.py:172
 #: frescobaldi_app/widgets/listedit.py:91
 msgid "&Add..."
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:170
+#: frescobaldi_app/snippet/widget.py:174
 msgid "Add a new snippet. ({key})"
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:171
+#: frescobaldi_app/snippet/widget.py:175
 #: frescobaldi_app/widgets/listedit.py:92
 #, fuzzy
 msgid "&Edit..."
 msgstr "Yazdır..."
 
-#: frescobaldi_app/snippet/widget.py:173
+#: frescobaldi_app/snippet/widget.py:177
 msgid "Edit the current snippet. ({key})"
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:175
+#: frescobaldi_app/snippet/widget.py:179
 #, fuzzy
 msgid "Remove the selected snippets."
 msgstr "Seçilen müziği tekrarla"
 
-#: frescobaldi_app/snippet/widget.py:176
+#: frescobaldi_app/snippet/widget.py:180
 msgid "A&pply"
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:177
+#: frescobaldi_app/snippet/widget.py:181
 #, fuzzy
 msgid "Apply the current snippet."
 msgstr "İmleçi bu unsura yerleştirin."
 
-#: frescobaldi_app/snippet/widget.py:178
+#: frescobaldi_app/snippet/widget.py:182
 #, fuzzy
 msgid "&Import..."
 msgstr "Yazdır..."
 
-#: frescobaldi_app/snippet/widget.py:179
+#: frescobaldi_app/snippet/widget.py:183
 msgid "Import snippets from a file."
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:180
+#: frescobaldi_app/snippet/widget.py:184
 #, fuzzy
 msgid "E&xport..."
 msgstr "Yazdır..."
 
-#: frescobaldi_app/snippet/widget.py:181
+#: frescobaldi_app/snippet/widget.py:185
 msgid "Export snippets to a file."
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:182
+#: frescobaldi_app/snippet/widget.py:186
 msgid "&Help"
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:184
+#: frescobaldi_app/snippet/widget.py:188
 #, fuzzy
 msgid ""
 "Enter text to search in the snippets list.\n"
@@ -5350,19 +5460,19 @@ msgstr ""
 "Dizek başlıklarını harf olarak giriniz (S, A, T veya B gibi).\n"
 "Daha fazla bilgi için \"Bu nedir\" kısmına bakın."
 
-#: frescobaldi_app/snippet/widget.py:187
+#: frescobaldi_app/snippet/widget.py:191
 msgid ""
 "Enter text to search in the snippets list, and press Enter to apply the "
 "currently selected snippet."
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:189
+#: frescobaldi_app/snippet/widget.py:193
 msgid ""
 "If the search text fully matches the value of the '{name}' variable of a "
 "snippet, that snippet is selected."
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:191
+#: frescobaldi_app/snippet/widget.py:195
 msgid ""
 "If the search text starts with a colon ':', the rest of the search text "
 "filters snippets that define the given variable. After a space a value can "
@@ -5370,24 +5480,24 @@ msgid ""
 "contains the text after the space."
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:196
+#: frescobaldi_app/snippet/widget.py:200
 msgid ""
 "E.g. entering {menu} will show all snippets that are displayed in the insert "
 "menu."
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:254 frescobaldi_app/snippet/widget.py:271
+#: frescobaldi_app/snippet/widget.py:260 frescobaldi_app/snippet/widget.py:277
 #, fuzzy
 msgid "XML Files"
 msgstr "Tüm dosyalar"
 
-#: frescobaldi_app/snippet/widget.py:274
+#: frescobaldi_app/snippet/widget.py:280
 msgctxt "dialog title"
 msgid "Export {num} Snippet"
 msgid_plural "Export {num} Snippets"
 msgstr[0] ""
 
-#: frescobaldi_app/snippet/widget.py:362
+#: frescobaldi_app/snippet/widget.py:368
 msgid ""
 "<p>\n"
 "With the snippets manager you can store often used pieces of text called\n"
@@ -5423,13 +5533,13 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:394
+#: frescobaldi_app/snippet/widget.py:400
 #, fuzzy
 msgctxt "menu title"
 msgid "Insert"
 msgstr "&Ekle"
 
-#: frescobaldi_app/snippet/widget.py:394
+#: frescobaldi_app/snippet/widget.py:400
 msgid "Snippets..."
 msgstr ""
 
@@ -5623,9 +5733,6 @@ msgstr "Hepsini seç"
 #~ msgid "Open %1 in external viewer"
 #~ msgstr "Bu dosyayı %1 dış görüntüleyicide aç"
 
-#~ msgid "Play %1"
-#~ msgstr "Çal %1"
-
 #~ msgid "(No up-to-date MIDI or PDF files available.)"
 #~ msgstr "(Hiç güncel MIDI veya PDF dosyası yok)"
 
@@ -5738,12 +5845,6 @@ msgstr "Hepsini seç"
 
 #~ msgid "Click to see more settings."
 #~ msgstr "Daha fazla ayarı görmek için tıklayın."
-
-#~ msgid "Settings"
-#~ msgstr "Ayarlar"
-
-#~ msgid "Page count:"
-#~ msgstr "Sayfa numarası:"
 
 #~ msgid "Print Bar Lines"
 #~ msgstr "Ölçü Çizgilerini Göster"
@@ -6251,9 +6352,6 @@ msgstr "Hepsini seç"
 #~ msgid "Terminal"
 #~ msgstr "Konsol"
 
-#~ msgid "MIDI Player"
-#~ msgstr "MIDI Çalıcı"
-
 #~ msgid ""
 #~ "Could not load the KMid part.\n"
 #~ "Please install KMid 2.4.0 or higher."
@@ -6298,9 +6396,6 @@ msgstr "Hepsini seç"
 #~ msgid "The shortest note duration to use."
 #~ msgstr "Kullanılacak en kısa nota."
 
-#~ msgid "Step"
-#~ msgstr "Adım"
-
 #~ msgid "Record LilyPond input note by note, without durations."
 #~ msgstr "Lilypond girişini süreler olmadan nota nota kaydet,"
 
@@ -6318,9 +6413,6 @@ msgstr "Hepsini seç"
 #~ "Arızaların sayısı. Eksi numara bemolleri nitelendirir. Frescobaldi'nin "
 #~ "Lilypond belgesinden yola çıkarak tonu ayarlaması için Otomatik "
 #~ "seçeneğini olduğu gibi bırakın."
-
-#~ msgid "Tempo:"
-#~ msgstr "Hız:"
 
 #~ msgid "Meter:"
 #~ msgstr "Ölçü:"
@@ -6754,9 +6846,6 @@ msgstr "Hepsini seç"
 
 #~ msgid "Open PDF"
 #~ msgstr "PDF aç"
-
-#~ msgid "Play MIDI"
-#~ msgstr "MIDI çal"
 
 #~ msgid "Email..."
 #~ msgstr "E-posta..."

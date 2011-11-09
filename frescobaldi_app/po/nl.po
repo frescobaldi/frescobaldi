@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-10-25 10:23+0200\n"
-"PO-Revision-Date: 2011-10-25 10:51+0200\n"
+"POT-Creation-Date: 2011-11-09 10:21+0100\n"
+"PO-Revision-Date: 2011-11-09 10:27+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -140,8 +140,8 @@ msgstr "Texinfo-bestanden"
 msgid "Scheme Files"
 msgstr "Scheme-bestanden"
 
-#: frescobaldi_app/app.py:135 frescobaldi_app/snippet/widget.py:254
-#: frescobaldi_app/snippet/widget.py:271
+#: frescobaldi_app/app.py:135 frescobaldi_app/snippet/widget.py:260
+#: frescobaldi_app/snippet/widget.py:277
 msgid "All Files"
 msgstr "Alle bestanden"
 
@@ -359,7 +359,8 @@ msgid "Edit"
 msgstr "Bewerken"
 
 #: frescobaldi_app/hyphendialog.py:167 frescobaldi_app/help/contents.py:139
-#: frescobaldi_app/preferences/__init__.py:97
+#: frescobaldi_app/preferences/__init__.py:98
+#: frescobaldi_app/preferences/midi.py:114
 msgid "Preferences"
 msgstr "Voorkeuren"
 
@@ -558,8 +559,8 @@ msgstr "Bestand openen"
 #: frescobaldi_app/musicview/image.py:212
 #: frescobaldi_app/preferences/fontscolors.py:476
 #: frescobaldi_app/preferences/fontscolors.py:514
-#: frescobaldi_app/snippet/import_export.py:99
-#: frescobaldi_app/snippet/widget.py:281
+#: frescobaldi_app/snippet/import_export.py:104
+#: frescobaldi_app/snippet/widget.py:287
 msgid "Error"
 msgstr "Fout"
 
@@ -590,7 +591,7 @@ msgid "Save Selection"
 msgstr "Selectie opslaan"
 
 #: frescobaldi_app/mainwindow.py:442 frescobaldi_app/mainwindow.py:570
-#: frescobaldi_app/snippet/widget.py:282
+#: frescobaldi_app/snippet/widget.py:288
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -610,7 +611,7 @@ msgid "Insert From File"
 msgstr "Invoegen uit bestand"
 
 #: frescobaldi_app/mainwindow.py:510
-#: frescobaldi_app/snippet/import_export.py:100
+#: frescobaldi_app/snippet/import_export.py:105
 msgid ""
 "Can't read from source:\n"
 "\n"
@@ -1206,7 +1207,7 @@ msgid "Engrave (publish)"
 msgstr "Graveren (publicatie)"
 
 #: frescobaldi_app/help/contents.py:140
-#: frescobaldi_app/preferences/__init__.py:165
+#: frescobaldi_app/preferences/__init__.py:170
 msgid "LilyPond Preferences"
 msgstr "LilyPond-voorkeuren"
 
@@ -1829,6 +1830,64 @@ msgstr "Vorige foutmelding"
 msgid "Click to edit this file"
 msgstr "Klik om dit bestand te bewerken"
 
+#: frescobaldi_app/miditool/__init__.py:54
+msgid "MIDI"
+msgstr "MIDI"
+
+#: frescobaldi_app/miditool/__init__.py:55
+msgid "MIDI &Player"
+msgstr "MIDI-s&peler"
+
+#: frescobaldi_app/miditool/__init__.py:100
+msgctxt "midi player"
+msgid "Pause"
+msgstr "Pauze"
+
+#: frescobaldi_app/miditool/__init__.py:101
+msgctxt "midi player"
+msgid "Play"
+msgstr "Afspelen"
+
+#: frescobaldi_app/miditool/__init__.py:102
+msgctxt "midi player"
+msgid "Stop"
+msgstr "Stop"
+
+#: frescobaldi_app/miditool/__init__.py:103
+msgctxt "midi player"
+msgid "Restart"
+msgstr "Herstarten"
+
+#: frescobaldi_app/miditool/widget.py:92
+msgid "Tempo"
+msgstr "Tempo"
+
+#: frescobaldi_app/miditool/widget.py:216
+msgctxt "midi lcd screen"
+msgid "LOADED"
+msgstr "GELADEN"
+
+#: frescobaldi_app/miditool/widget.py:217
+msgctxt "midi lcd screen"
+msgid "TOTAL"
+msgstr "TOTAAL"
+
+#: frescobaldi_app/miditool/widget.py:298
+#: frescobaldi_app/miditool/widget.py:308
+msgctxt "midi lcd screen"
+msgid "TIME"
+msgstr "TIJD"
+
+#: frescobaldi_app/miditool/widget.py:299
+msgctxt "midi lcd screen"
+msgid "TEMPO"
+msgstr "TEMPO"
+
+#: frescobaldi_app/miditool/widget.py:309
+msgctxt "midi lcd screen"
+msgid "BEAT"
+msgstr "MAAT"
+
 #: frescobaldi_app/musicview/__init__.py:86
 msgctxt "window title"
 msgid "Music View"
@@ -2382,24 +2441,28 @@ msgctxt "QScrollBar"
 msgid "Scroll right"
 msgstr "Naar rechts schuiven"
 
-#: frescobaldi_app/preferences/__init__.py:155
+#: frescobaldi_app/preferences/__init__.py:160
 #: frescobaldi_app/preferences/general.py:119
 msgid "General Preferences"
 msgstr "Algemene voorkeuren"
 
-#: frescobaldi_app/preferences/__init__.py:175
+#: frescobaldi_app/preferences/__init__.py:180
+msgid "MIDI Settings"
+msgstr "MIDI-instellingen"
+
+#: frescobaldi_app/preferences/__init__.py:190
 msgid "Paths"
 msgstr "Paden"
 
-#: frescobaldi_app/preferences/__init__.py:185
+#: frescobaldi_app/preferences/__init__.py:200
 msgid "Keyboard Shortcuts"
 msgstr "Sneltoetsen"
 
-#: frescobaldi_app/preferences/__init__.py:195
+#: frescobaldi_app/preferences/__init__.py:210
 msgid "Fonts & Colors"
 msgstr "Tekst & kleur"
 
-#: frescobaldi_app/preferences/__init__.py:205
+#: frescobaldi_app/preferences/__init__.py:220
 msgid "Tools"
 msgstr "Gereedschap"
 
@@ -2891,6 +2954,50 @@ msgstr ""
 #: frescobaldi_app/preferences/lilypond.py:284
 msgid "LilyPond include path:"
 msgstr "LilyPond include-pad:"
+
+#: frescobaldi_app/preferences/midi.py:75
+msgid "MIDI Ports"
+msgstr "MIDI-poorten"
+
+#: frescobaldi_app/preferences/midi.py:76
+msgid "Player output:"
+msgstr "Speler uitgang:"
+
+#: frescobaldi_app/preferences/midi.py:77
+msgid "Refresh MIDI ports"
+msgstr "MIDI-poorten verversen"
+
+#: frescobaldi_app/preferences/midi.py:115
+msgid "Close unused MIDI output"
+msgstr "Ongebruikte MIDI-uitvoer sluiten"
+
+#: frescobaldi_app/preferences/midi.py:117
+msgid ""
+"Closes unused MIDI ports after one minute. See \"What's This\" for more "
+"information."
+msgstr ""
+"Sluit ongebruikte MIDI-poorten na een minuut. Zie \"Wat is dit\" voor meer "
+"informatie."
+
+#: frescobaldi_app/preferences/midi.py:120
+msgid ""
+"<p>If checked, Frescobaldi will close MIDI output ports that are not used "
+"for one minute.</p>\n"
+"<p>This could free up system resources that a software MIDI synthesizer "
+"might be using, thus saving battery power.</p>\n"
+"<p>A side effect is that if you pause a MIDI file for a long time the "
+"instruments are reset to the default piano (instrument 0). In that case, "
+"playing the file from the beginning sets up the instruments again.</p>\n"
+msgstr ""
+"<p>Indien ingeschakeld, zal Frescobaldi ongebruikte MIDI-uitgangen na een "
+"minuut sluiten.</p>\n"
+"<p>Dit kan helpen om systeembronnen vrij te maken die anders gebruikt zouden "
+"worden door een software MIDI-synthesizer, en zodoende batterij-vermogen te "
+"sparen.</p>\n"
+"<p>Een neveneffect is dat als u een MIDI-bestand langdurig pauzeert en dan "
+"verder afspeelt, de instrumenten teruggezet zijn naar de standaard piano "
+"(instrument 0). In dat geval kunt u het bestand vanaf het begin afspelen om "
+"de instrumenten weer correct te horen.</p>\n"
 
 #: frescobaldi_app/preferences/paths.py:60
 msgid "Folders containing hyphenation dictionaries"
@@ -3984,7 +4091,7 @@ msgstr "Partituur:"
 msgid "&Add"
 msgstr "&Toevoegen"
 
-#: frescobaldi_app/scorewiz/score.py:103 frescobaldi_app/snippet/widget.py:174
+#: frescobaldi_app/scorewiz/score.py:103 frescobaldi_app/snippet/widget.py:178
 #: frescobaldi_app/widgets/listedit.py:93
 #: frescobaldi_app/widgets/schemeselector.py:64
 msgid "&Remove"
@@ -5506,41 +5613,41 @@ msgstr ""
 "De geselecteerde tekst indien beschikbaar. Indien niet, wordt de tekstcursor "
 "hier geplaatst."
 
-#: frescobaldi_app/snippet/import_export.py:97
+#: frescobaldi_app/snippet/import_export.py:102
 msgid "No snippets found."
 msgstr "Geen knipsels gevonden."
 
-#: frescobaldi_app/snippet/import_export.py:106
-#: frescobaldi_app/snippet/widget.py:255
+#: frescobaldi_app/snippet/import_export.py:111
+#: frescobaldi_app/snippet/widget.py:261
 msgctxt "dialog title"
 msgid "Import Snippets"
 msgstr "Knipsels importeren"
 
-#: frescobaldi_app/snippet/import_export.py:114
+#: frescobaldi_app/snippet/import_export.py:119
 msgid "New Snippets"
 msgstr "Nieuwe knipsels"
 
-#: frescobaldi_app/snippet/import_export.py:115
+#: frescobaldi_app/snippet/import_export.py:120
 msgid "Updated Snippets"
 msgstr "Gewijzigde knipsels"
 
-#: frescobaldi_app/snippet/import_export.py:116
+#: frescobaldi_app/snippet/import_export.py:121
 msgid "Unchanged Snippets"
 msgstr "Ongewijzigde knipsels"
 
-#: frescobaldi_app/snippet/import_export.py:178
+#: frescobaldi_app/snippet/import_export.py:183
 msgid "Import Keyboard Shortcuts"
 msgstr "Sneltoetsen ook importeren"
 
-#: frescobaldi_app/snippet/import_export.py:183
+#: frescobaldi_app/snippet/import_export.py:188
 msgid "Choose which snippets you want to import:"
 msgstr "Selecteer de knipsels die u wilt importeren:"
 
-#: frescobaldi_app/snippet/import_export.py:185
+#: frescobaldi_app/snippet/import_export.py:190
 msgid "There are no new or updated snippets in the file."
 msgstr "Er zijn geen nieuwe of bijgewerkte knipsels in het bestand."
 
-#: frescobaldi_app/snippet/import_export.py:189
+#: frescobaldi_app/snippet/import_export.py:194
 msgid ""
 "<p>Here the snippets from {filename} are displayed.</p>\n"
 "<p>If there are new or updated snippets, you can select or deselect them one "
@@ -5583,7 +5690,7 @@ msgid "Please enter a template name:"
 msgstr "Voor een naam voor de sjabloon in:"
 
 #: frescobaldi_app/snippet/tool.py:53 frescobaldi_app/snippet/tool.py:119
-#: frescobaldi_app/snippet/widget.py:356
+#: frescobaldi_app/snippet/widget.py:362
 msgid "Snippets"
 msgstr "Knipsels"
 
@@ -5599,65 +5706,65 @@ msgstr "Opslaan als sjabloon..."
 msgid "&Snippets..."
 msgstr "&Knipsels..."
 
-#: frescobaldi_app/snippet/widget.py:163
+#: frescobaldi_app/snippet/widget.py:167
 msgid "Search..."
 msgstr "Zoeken..."
 
-#: frescobaldi_app/snippet/widget.py:167
+#: frescobaldi_app/snippet/widget.py:171
 msgid "&Menu"
 msgstr "&Menu"
 
-#: frescobaldi_app/snippet/widget.py:168
+#: frescobaldi_app/snippet/widget.py:172
 #: frescobaldi_app/widgets/listedit.py:91
 msgid "&Add..."
 msgstr "&Toevoegen..."
 
-#: frescobaldi_app/snippet/widget.py:170
+#: frescobaldi_app/snippet/widget.py:174
 msgid "Add a new snippet. ({key})"
 msgstr "Nieuw knipsel toevoegen. ({key})"
 
-#: frescobaldi_app/snippet/widget.py:171
+#: frescobaldi_app/snippet/widget.py:175
 #: frescobaldi_app/widgets/listedit.py:92
 msgid "&Edit..."
 msgstr "B&ewerken..."
 
-#: frescobaldi_app/snippet/widget.py:173
+#: frescobaldi_app/snippet/widget.py:177
 msgid "Edit the current snippet. ({key})"
 msgstr "Huidig knipsel bewerken. ({key})"
 
-#: frescobaldi_app/snippet/widget.py:175
+#: frescobaldi_app/snippet/widget.py:179
 msgid "Remove the selected snippets."
 msgstr "Geselecteerde knipsels verwijderen."
 
-#: frescobaldi_app/snippet/widget.py:176
+#: frescobaldi_app/snippet/widget.py:180
 msgid "A&pply"
 msgstr "Toe&passen"
 
-#: frescobaldi_app/snippet/widget.py:177
+#: frescobaldi_app/snippet/widget.py:181
 msgid "Apply the current snippet."
 msgstr "Het huidige knipsel toepassen."
 
-#: frescobaldi_app/snippet/widget.py:178
+#: frescobaldi_app/snippet/widget.py:182
 msgid "&Import..."
 msgstr "&Importeren..."
 
-#: frescobaldi_app/snippet/widget.py:179
+#: frescobaldi_app/snippet/widget.py:183
 msgid "Import snippets from a file."
 msgstr "Knipsels importeren uit een bestand."
 
-#: frescobaldi_app/snippet/widget.py:180
+#: frescobaldi_app/snippet/widget.py:184
 msgid "E&xport..."
 msgstr "E&xporteren..."
 
-#: frescobaldi_app/snippet/widget.py:181
+#: frescobaldi_app/snippet/widget.py:185
 msgid "Export snippets to a file."
 msgstr "Knipsels exporteren naar een bestand."
 
-#: frescobaldi_app/snippet/widget.py:182
+#: frescobaldi_app/snippet/widget.py:186
 msgid "&Help"
 msgstr "&Help"
 
-#: frescobaldi_app/snippet/widget.py:184
+#: frescobaldi_app/snippet/widget.py:188
 msgid ""
 "Enter text to search in the snippets list.\n"
 "See \"What's This\" for more information."
@@ -5665,7 +5772,7 @@ msgstr ""
 "Voer tekst in om in de lijst van knipsels te zoeken.\n"
 "Zie \"Wat is dit\" voor meer informatie."
 
-#: frescobaldi_app/snippet/widget.py:187
+#: frescobaldi_app/snippet/widget.py:191
 msgid ""
 "Enter text to search in the snippets list, and press Enter to apply the "
 "currently selected snippet."
@@ -5673,7 +5780,7 @@ msgstr ""
 "Voer tekst in om in de lijst van knipsels te zoeken, en druk op Enter om het "
 "geselecteerde knipsel toe te passen."
 
-#: frescobaldi_app/snippet/widget.py:189
+#: frescobaldi_app/snippet/widget.py:193
 msgid ""
 "If the search text fully matches the value of the '{name}' variable of a "
 "snippet, that snippet is selected."
@@ -5681,7 +5788,7 @@ msgstr ""
 "Als de zoektekst volledig overeenkomt met de waarde van de '{name}' variable "
 "van een knipsel, wordt dat knipsel geselecteerd."
 
-#: frescobaldi_app/snippet/widget.py:191
+#: frescobaldi_app/snippet/widget.py:195
 msgid ""
 "If the search text starts with a colon ':', the rest of the search text "
 "filters snippets that define the given variable. After a space a value can "
@@ -5693,7 +5800,7 @@ msgstr ""
 "kan ook een waarde worden ingevoerd, knipsels worden dan alleen getoond als "
 "de waarde van de variable de gegeven tekst bevat."
 
-#: frescobaldi_app/snippet/widget.py:196
+#: frescobaldi_app/snippet/widget.py:200
 msgid ""
 "E.g. entering {menu} will show all snippets that are displayed in the insert "
 "menu."
@@ -5701,18 +5808,18 @@ msgstr ""
 "Bijvoorbeeld het invoeren van {menu} toont alle knipsels die in het menu "
 "Invoegen worden weergegeven."
 
-#: frescobaldi_app/snippet/widget.py:254 frescobaldi_app/snippet/widget.py:271
+#: frescobaldi_app/snippet/widget.py:260 frescobaldi_app/snippet/widget.py:277
 msgid "XML Files"
 msgstr "XML-bestanden"
 
-#: frescobaldi_app/snippet/widget.py:274
+#: frescobaldi_app/snippet/widget.py:280
 msgctxt "dialog title"
 msgid "Export {num} Snippet"
 msgid_plural "Export {num} Snippets"
 msgstr[0] "{num} Knipsel exporteren"
 msgstr[1] "{num} Knipsels exporteren"
 
-#: frescobaldi_app/snippet/widget.py:362
+#: frescobaldi_app/snippet/widget.py:368
 msgid ""
 "<p>\n"
 "With the snippets manager you can store often used pieces of text called\n"
@@ -5780,12 +5887,12 @@ msgstr ""
 "terwijl andere in feite kleine scripts zijn, geschreven in Python.\n"
 "</p>\n"
 
-#: frescobaldi_app/snippet/widget.py:394
+#: frescobaldi_app/snippet/widget.py:400
 msgctxt "menu title"
 msgid "Insert"
 msgstr "Invoegen"
 
-#: frescobaldi_app/snippet/widget.py:394
+#: frescobaldi_app/snippet/widget.py:400
 msgid "Snippets..."
 msgstr "Knipsels..."
 
@@ -5948,9 +6055,6 @@ msgstr "Selecteer een bestand"
 #~ msgid "Action:"
 #~ msgstr "Actie:"
 
-#~ msgid "Page count:"
-#~ msgstr "Aantal pagina's:"
-
 #~ msgid "Save PDF As..."
 #~ msgstr "PDF opslaan als..."
 
@@ -6017,9 +6121,6 @@ msgstr "Selecteer een bestand"
 
 #~ msgid "LilyPond Documentation"
 #~ msgstr "LilyPond-documentatie"
-
-#~ msgid "Tempo:"
-#~ msgstr "Tempo:"
 
 #~ msgid "MIDI input:"
 #~ msgstr "MIDI invoer:"
@@ -6223,9 +6324,6 @@ msgstr "Selecteer een bestand"
 #~ msgid "Open %1 in external viewer"
 #~ msgstr "%1 openen in externe viewer"
 
-#~ msgid "Play %1"
-#~ msgstr "%1 afspelen"
-
 #~ msgid "(No up-to-date MIDI or PDF files available.)"
 #~ msgstr "(Geen bijgewerkte MIDI- of PDF-bestanden beschikbaar.)"
 
@@ -6341,9 +6439,6 @@ msgstr "Selecteer een bestand"
 
 #~ msgid "Click to see more settings."
 #~ msgstr "Klik voor meer instellingen."
-
-#~ msgid "Settings"
-#~ msgstr "Instellingen"
 
 #~ msgid "Print Bar Lines"
 #~ msgstr "Maatstrepen afdrukken"
@@ -6616,9 +6711,6 @@ msgstr "Selecteer een bestand"
 #~ "Installeer een pakket met deze bestanden en/of stel zoekpaden in om ze te "
 #~ "vinden in de Frescobaldi-instellingen onder \"Paden.\" "
 
-#~ msgid "Pause"
-#~ msgstr "Pauze"
-
 #~ msgid "Volume"
 #~ msgstr "Volume"
 
@@ -6867,9 +6959,6 @@ msgstr "Selecteer een bestand"
 #~ msgid "Terminal"
 #~ msgstr "Terminal"
 
-#~ msgid "MIDI Player"
-#~ msgstr "MIDI-speler"
-
 #~ msgid ""
 #~ "Could not load the KMid part.\n"
 #~ "Please install KMid 2.4.0 or higher."
@@ -6913,9 +7002,6 @@ msgstr "Selecteer een bestand"
 
 #~ msgid "The shortest note duration to use."
 #~ msgstr "De kortste toegestane toonduur."
-
-#~ msgid "Step"
-#~ msgstr "Stap"
 
 #~ msgid "Record LilyPond input note by note, without durations."
 #~ msgstr "Neem noot voor noot op, zonder toonduur te registreren."
@@ -7535,9 +7621,6 @@ msgstr "Selecteer een bestand"
 
 #~ msgid "Open PDF"
 #~ msgstr "PDF weergeven"
-
-#~ msgid "Play MIDI"
-#~ msgstr "MIDI afspelen"
 
 #~ msgid "Email..."
 #~ msgstr "Verzenden..."
