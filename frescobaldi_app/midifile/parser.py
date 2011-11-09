@@ -34,7 +34,6 @@ For Python 3 you can remove the ord() calls.
 
 from __future__ import unicode_literals
 
-import collections
 import struct
 
 from . import event
