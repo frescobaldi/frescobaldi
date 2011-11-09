@@ -109,7 +109,7 @@ class Prefs(preferences.Group):
     def __init__(self, page):
         super(Prefs, self).__init__(page)
         
-        self._closeOutputs = QCheckBox()
+        self._closeOutputs = QCheckBox(clicked=self.changed)
         
         layout = QVBoxLayout()
         self.setLayout(layout)
