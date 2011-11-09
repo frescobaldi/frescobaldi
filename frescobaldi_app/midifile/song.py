@@ -126,24 +126,22 @@ class TempoMap(object):
         self.times = times = []
         events = events_iter(d)
         if events:
-            real_time = 0
-            prev = 0
             for midi_time, evs in sorted(d.items()):
                 for e in events(evs):
                     if is_tempo(e):
-                        tempo = get_tempo(e)
-                        real_time += (midi_time - prev) * tempo // self.division
-                        times.append((midi_time, tempo, real_time))
-                        prev = midi_time
+                        times.append((midi_time, get_tempo(e)))
                         break
         if not times or times[0][0] != 0:
-            times.insert(0, (0, 500000, 0))
+            times.insert(0, (0, 500000))
         
     def real_time(self, midi_time):
         """Returns the real time in microseconds for the given MIDI time."""
-        for time, tempo, real_time in self.times:
+        real_time = 0
+        prev = 0
+        for time, tempo in self.times:
             if time > midi_time:
                 break
+            real_time += (time - prev) * tempo // self.division
             prev = time
         real_time += (midi_time - prev) * tempo // self.division
         return real_time
