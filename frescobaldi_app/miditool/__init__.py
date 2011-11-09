@@ -32,9 +32,6 @@ import app
 import icons
 import panels
 
-# TEMP!!!
-import portmidi
-portmidi.init()
 
 class MidiTool(panels.Panel):
     """Midi Tool."""

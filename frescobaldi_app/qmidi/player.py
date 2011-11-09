@@ -29,7 +29,6 @@ from PyQt4.QtCore import pyqtSignal, Qt, QThread, QTimer
 
 import midiplayer
 import midioutput
-import portmidi
 
 
 class Player(QThread, midiplayer.Player):
@@ -92,13 +91,4 @@ class Player(QThread, midiplayer.Player):
     
     def beat_event(self, measnum, beat, num, den):
         self.beat.emit(measnum, beat, num, den)
-
-    def timer_midi_time(self):
-        return portmidi.time()
-
-
-class Output(midioutput.PortMidiOutput):
-    """TEMP: set a portmidi.Output in the output attribute!"""
-    output = None
-
 

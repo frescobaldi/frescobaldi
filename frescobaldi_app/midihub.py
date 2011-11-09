@@ -61,9 +61,13 @@ def refresh_ports():
     """Refreshes the port list."""
     restart()
 
+def get_count():
+    """Returns the number of available PortMIDI ports, or 0 if no PortMIDI."""
+    return portmidi.get_count() if available() else 0
+
 def device_infos():
     """Yields the device info for all PortMIDI devices."""
-    for n in range(portmidi.get_count()):
+    for n in range(get_count()):
         yield portmidi.get_device_info(n)
 
 def output_ports():
@@ -88,9 +92,18 @@ def default_output():
 
 def output_by_name(name):
     """Returns a portmidi.Output instance for name."""
-    for n in range(portmidi.get_count()):
+    for n in range(get_count()):
         i = portmidi.get_device_info(n)
         if i.isoutput and i.name.startswith(name) and not i.isopen:
             return portmidi.Output(n)
+
+# allow the MIDI player to run on python time if portmidi is not available:
+if available():
+    time = portmidi.time
+else:
+    from time import time as time_
+    def time():
+        """Returns a time value in msec."""
+        return int(time_() * 1000)
 
 

@@ -29,12 +29,12 @@ from PyQt4.QtGui import *
 import app
 import css
 import util
-import qmidi.player
 import midihub
 import widgets.drag
 
 from . import midifiles
 from . import output
+from . import player
 
 
 class Widget(QWidget):
@@ -63,7 +63,7 @@ class Widget(QWidget):
         grid.addWidget(self._display, 2, 0, 1, 3)
         grid.addWidget(self._tempoFactor, 0, 3, 3, 1)
 
-        self._player = qmidi.player.Player()
+        self._player = player.Player()
         self._outputCloseTimer = QTimer(interval=60000, singleShot=True,
             timeout=self.closeOutput)
         self._timeSliderTicker = QTimer(interval=200, timeout=self.updateTimeSlider)
