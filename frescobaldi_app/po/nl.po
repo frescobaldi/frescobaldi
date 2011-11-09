@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-11-09 10:21+0100\n"
-"PO-Revision-Date: 2011-11-09 10:27+0100\n"
+"POT-Creation-Date: 2011-11-09 11:13+0100\n"
+"PO-Revision-Date: 2011-11-09 11:15+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -360,7 +360,7 @@ msgstr "Bewerken"
 
 #: frescobaldi_app/hyphendialog.py:167 frescobaldi_app/help/contents.py:139
 #: frescobaldi_app/preferences/__init__.py:98
-#: frescobaldi_app/preferences/midi.py:114
+#: frescobaldi_app/preferences/midi.py:121
 msgid "Preferences"
 msgstr "Voorkeuren"
 
@@ -1830,30 +1830,30 @@ msgstr "Vorige foutmelding"
 msgid "Click to edit this file"
 msgstr "Klik om dit bestand te bewerken"
 
-#: frescobaldi_app/miditool/__init__.py:54
+#: frescobaldi_app/miditool/__init__.py:51
 msgid "MIDI"
 msgstr "MIDI"
 
-#: frescobaldi_app/miditool/__init__.py:55
+#: frescobaldi_app/miditool/__init__.py:52
 msgid "MIDI &Player"
 msgstr "MIDI-s&peler"
 
-#: frescobaldi_app/miditool/__init__.py:100
+#: frescobaldi_app/miditool/__init__.py:97
 msgctxt "midi player"
 msgid "Pause"
 msgstr "Pauze"
 
-#: frescobaldi_app/miditool/__init__.py:101
+#: frescobaldi_app/miditool/__init__.py:98
 msgctxt "midi player"
 msgid "Play"
 msgstr "Afspelen"
 
-#: frescobaldi_app/miditool/__init__.py:102
+#: frescobaldi_app/miditool/__init__.py:99
 msgctxt "midi player"
 msgid "Stop"
 msgstr "Stop"
 
-#: frescobaldi_app/miditool/__init__.py:103
+#: frescobaldi_app/miditool/__init__.py:100
 msgctxt "midi player"
 msgid "Restart"
 msgstr "Herstarten"
@@ -2955,23 +2955,33 @@ msgstr ""
 msgid "LilyPond include path:"
 msgstr "LilyPond include-pad:"
 
-#: frescobaldi_app/preferences/midi.py:75
+#: frescobaldi_app/preferences/midi.py:77
 msgid "MIDI Ports"
 msgstr "MIDI-poorten"
 
-#: frescobaldi_app/preferences/midi.py:76
+#: frescobaldi_app/preferences/midi.py:79
+msgid ""
+"Note: There are no MIDI output ports available on your system. To use MIDI, "
+"please check if PortMIDI is installed on your system and that a MIDI "
+"synthesizer is available or connected."
+msgstr ""
+"Let op: er zijn geen MIDI-uitgangen beschikbaar op uw systeem. Om MIDI te "
+"gebruiken, controleer of PortMIDI is geïnstalleerd en dat er een "
+"MIDI-synthesizer beschikbaar of aangesloten is."
+
+#: frescobaldi_app/preferences/midi.py:82
 msgid "Player output:"
 msgstr "Speler uitgang:"
 
-#: frescobaldi_app/preferences/midi.py:77
+#: frescobaldi_app/preferences/midi.py:83
 msgid "Refresh MIDI ports"
 msgstr "MIDI-poorten verversen"
 
-#: frescobaldi_app/preferences/midi.py:115
+#: frescobaldi_app/preferences/midi.py:122
 msgid "Close unused MIDI output"
 msgstr "Ongebruikte MIDI-uitvoer sluiten"
 
-#: frescobaldi_app/preferences/midi.py:117
+#: frescobaldi_app/preferences/midi.py:124
 msgid ""
 "Closes unused MIDI ports after one minute. See \"What's This\" for more "
 "information."
@@ -2979,7 +2989,7 @@ msgstr ""
 "Sluit ongebruikte MIDI-poorten na een minuut. Zie \"Wat is dit\" voor meer "
 "informatie."
 
-#: frescobaldi_app/preferences/midi.py:120
+#: frescobaldi_app/preferences/midi.py:127
 msgid ""
 "<p>If checked, Frescobaldi will close MIDI output ports that are not used "
 "for one minute.</p>\n"

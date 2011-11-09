@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.1\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-11-09 10:21+0100\n"
+"POT-Creation-Date: 2011-11-09 11:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -352,7 +352,7 @@ msgstr ""
 
 #: frescobaldi_app/hyphendialog.py:167 frescobaldi_app/help/contents.py:139
 #: frescobaldi_app/preferences/__init__.py:98
-#: frescobaldi_app/preferences/midi.py:114
+#: frescobaldi_app/preferences/midi.py:121
 msgid "Preferences"
 msgstr ""
 
@@ -1517,30 +1517,30 @@ msgstr ""
 msgid "Click to edit this file"
 msgstr ""
 
-#: frescobaldi_app/miditool/__init__.py:54
+#: frescobaldi_app/miditool/__init__.py:51
 msgid "MIDI"
 msgstr ""
 
-#: frescobaldi_app/miditool/__init__.py:55
+#: frescobaldi_app/miditool/__init__.py:52
 msgid "MIDI &Player"
 msgstr ""
 
-#: frescobaldi_app/miditool/__init__.py:100
+#: frescobaldi_app/miditool/__init__.py:97
 msgctxt "midi player"
 msgid "Pause"
 msgstr ""
 
-#: frescobaldi_app/miditool/__init__.py:101
+#: frescobaldi_app/miditool/__init__.py:98
 msgctxt "midi player"
 msgid "Play"
 msgstr ""
 
-#: frescobaldi_app/miditool/__init__.py:102
+#: frescobaldi_app/miditool/__init__.py:99
 msgctxt "midi player"
 msgid "Stop"
 msgstr ""
 
-#: frescobaldi_app/miditool/__init__.py:103
+#: frescobaldi_app/miditool/__init__.py:100
 msgctxt "midi player"
 msgid "Restart"
 msgstr ""
@@ -2515,29 +2515,36 @@ msgstr ""
 msgid "LilyPond include path:"
 msgstr ""
 
-#: frescobaldi_app/preferences/midi.py:75
+#: frescobaldi_app/preferences/midi.py:77
 msgid "MIDI Ports"
 msgstr ""
 
-#: frescobaldi_app/preferences/midi.py:76
+#: frescobaldi_app/preferences/midi.py:79
+msgid ""
+"Note: There are no MIDI output ports available on your system. To use MIDI, "
+"please check if PortMIDI is installed on your system and that a MIDI "
+"synthesizer is available or connected."
+msgstr ""
+
+#: frescobaldi_app/preferences/midi.py:82
 msgid "Player output:"
 msgstr ""
 
-#: frescobaldi_app/preferences/midi.py:77
+#: frescobaldi_app/preferences/midi.py:83
 msgid "Refresh MIDI ports"
 msgstr ""
 
-#: frescobaldi_app/preferences/midi.py:115
+#: frescobaldi_app/preferences/midi.py:122
 msgid "Close unused MIDI output"
 msgstr ""
 
-#: frescobaldi_app/preferences/midi.py:117
+#: frescobaldi_app/preferences/midi.py:124
 msgid ""
 "Closes unused MIDI ports after one minute. See \"What's This\" for more "
 "information."
 msgstr ""
 
-#: frescobaldi_app/preferences/midi.py:120
+#: frescobaldi_app/preferences/midi.py:127
 msgid ""
 "<p>If checked, Frescobaldi will close MIDI output ports that are not used "
 "for one minute.</p>\n"

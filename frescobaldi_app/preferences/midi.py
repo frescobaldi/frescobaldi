@@ -55,6 +55,7 @@ class MidiPorts(preferences.Group):
     def __init__(self, page):
         super(MidiPorts, self).__init__(page)
         
+        self._portsMessage = QLabel(wordWrap=True)
         self._playerLabel = QLabel()
         self._playerPort = QComboBox(editable=True,
             editTextChanged=self.changed, insertPolicy=QComboBox.NoInsert)
@@ -64,21 +65,27 @@ class MidiPorts(preferences.Group):
         
         grid = QGridLayout()
         self.setLayout(grid)
-        grid.addWidget(self._playerLabel, 0, 0)
-        grid.addWidget(self._playerPort, 0, 1, 1, 2)
-        grid.addWidget(self._reloadMidi, 1, 2)
+        grid.addWidget(self._portsMessage, 0, 0, 1, 3)
+        grid.addWidget(self._playerLabel, 1, 0)
+        grid.addWidget(self._playerPort, 1, 1, 1, 2)
+        grid.addWidget(self._reloadMidi, 2, 2)
         
         app.translateUI(self)
         self.loadMidiPorts()
     
     def translateUI(self):
         self.setTitle(_("MIDI Ports"))
+        self._portsMessage.setText(_(
+            "Note: There are no MIDI output ports available on your system. "
+            "To use MIDI, please check if PortMIDI is installed on your system "
+            "and that a MIDI synthesizer is available or connected."))
         self._playerLabel.setText(_("Player output:"))
         self._reloadMidi.setText(_("Refresh MIDI ports"))
 
     def loadMidiPorts(self):
-        output = listmodel.ListModel(midihub.output_ports())
-        self._playerPort.setModel(output)
+        output = midihub.output_ports()
+        self._playerPort.setModel(listmodel.ListModel(output))
+        self._portsMessage.setVisible(not output)
 
     def refreshMidiPorts(self):
         midihub.refresh_ports()
