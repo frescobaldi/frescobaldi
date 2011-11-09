@@ -43,6 +43,7 @@ class MidiPrefs(preferences.GroupsPage):
         self.setLayout(layout)
         
         layout.addWidget(MidiPorts(self))
+        layout.addWidget(Prefs(self))
         layout.addStretch(0)
     
     def saveSettings(self):
@@ -95,5 +96,42 @@ class MidiPorts(preferences.Group):
         s = QSettings()
         s.beginGroup("midi")
         s.setValue("player/output_port", self._playerPort.currentText())
+
+
+class Prefs(preferences.Group):
+    def __init__(self, page):
+        super(Prefs, self).__init__(page)
+        
+        self._closeOutputs = QCheckBox()
+        
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+        
+        layout.addWidget(self._closeOutputs)
+        app.translateUI(self)
+    
+    def translateUI(self):
+        self.setTitle(_("Preferences"))
+        self._closeOutputs.setText(_("Close unused MIDI output"))
+        self._closeOutputs.setToolTip(_(
+            "Closes unused MIDI ports after one minute. "
+            "See \"What's This\" for more information."))
+        self._closeOutputs.setWhatsThis(_(
+            "<p>If checked, Frescobaldi will close MIDI output ports that are not "
+            "used for one minute.</p>\n"
+            "<p>This could free up system resources that a software MIDI synthesizer "
+            "might be using, thus saving battery power.</p>\n"
+            "<p>A side effect is that if you pause a MIDI file for a long time "
+            "the instruments are reset to the default piano (instrument 0). "
+            "In that case, playing the file from the beginning sets up the "
+            "instruments again.</p>\n"))
+
+    def loadSettings(self):
+        self._closeOutputs.setChecked(
+            QSettings().value("midi/close_outputs", False) in (True, 'true'))
+    
+    def saveSettings(self):
+        QSettings().setValue("midi/close_outputs", self._closeOutputs.isChecked())
+
 
 

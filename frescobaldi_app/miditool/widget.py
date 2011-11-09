@@ -64,6 +64,8 @@ class Widget(QWidget):
         grid.addWidget(self._tempoFactor, 0, 3, 3, 1)
 
         self._player = qmidi.player.Player()
+        self._outputCloseTimer = QTimer(interval=60000, singleShot=True,
+            timeout=self.closeOutput)
         self._timeSliderTicker = QTimer(interval=200, timeout=self.updateTimeSlider)
         self._fileSelector.activated[int].connect(self.slotFileSelected)
         self._tempoFactor.valueChanged.connect(self.slotTempoChanged)
@@ -94,22 +96,62 @@ class Widget(QWidget):
         self._player.set_output(None)
     
     def clearMidiSettings(self):
+        """Called first when settings are changed."""
         self.stop()
+        self._outputCloseTimer.stop()
         self._player.set_output(None)
         
     def readMidiSettings(self):
-        p = QSettings().value("midi/player/output_port", midihub.default_output())
-        o = midihub.output_by_name(p)
-        if o:
-            self._player.set_output(output.Output(o))
+        """Called after clearMidiSettings(), and on first init."""
+        pass
+            
+    def openOutput(self):
+        """Called when playing starts. Ensures an output port is opened."""
+        self._outputCloseTimer.stop()
+        if not self._player.output():
+            p = QSettings().value("midi/player/output_port", midihub.default_output())
+            o = midihub.output_by_name(p)
+            if o:
+                self._player.set_output(output.Output(o))
     
+    def closeOutput(self):
+        """Called when the output close timer fires. Closes the output."""
+        self._player.set_output(None)
+        
+    def slotPlayerStateChanged(self, playing):
+        ac = self.parentWidget().actionCollection
+        # setDefaultAction also adds the action
+        for b in self._stopButton, self._playButton:
+            while b.actions():
+                b.removeAction(b.actions()[0])
+        if playing:
+            self._timeSliderTicker.start()
+            self._stopButton.setDefaultAction(ac.midi_stop)
+            self._playButton.setDefaultAction(ac.midi_pause)
+        else:
+            self._timeSliderTicker.stop()
+            self._stopButton.setDefaultAction(ac.midi_restart)
+            self._playButton.setDefaultAction(ac.midi_play)
+            # close the output if the preference is set
+            if QSettings().value("midi/close_outputs", False) in (True, 'true'):
+                self._outputCloseTimer.start()
+        
     def play(self):
+        """Starts the MIDI player, opening an output if necessary."""
+        self.openOutput()
         self._player.start()
     
     def stop(self):
+        """Stops the MIDI player."""
         self._player.stop()
     
     def restart(self):
+        """Restarts the MIDI player.
+        
+        If another file is in the file selector, or the file was updated,
+        the new file is loaded.
+        
+        """
         self._player.seek(0)
         self.updateTimeSlider()
         self._display.reset()
@@ -135,21 +177,6 @@ class Widget(QWidget):
         if self._player.song():
             self._display.setBeat(*self._player.song().beat(value)[1:])
     
-    def slotPlayerStateChanged(self, playing):
-        ac = self.parentWidget().actionCollection
-        # setDefaultAction also adds the action
-        for b in self._stopButton, self._playButton:
-            while b.actions():
-                b.removeAction(b.actions()[0])
-        if playing:
-            self._timeSliderTicker.start()
-            self._stopButton.setDefaultAction(ac.midi_stop)
-            self._playButton.setDefaultAction(ac.midi_pause)
-        else:
-            self._timeSliderTicker.stop()
-            self._stopButton.setDefaultAction(ac.midi_restart)
-            self._playButton.setDefaultAction(ac.midi_play)
-        
     def updateTimeSlider(self):
         if not self._timeSlider.isSliderDown():
             with util.signalsBlocked(self._timeSlider):
