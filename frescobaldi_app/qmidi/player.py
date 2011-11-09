@@ -27,12 +27,11 @@ from __future__ import unicode_literals
 
 from PyQt4.QtCore import pyqtSignal, Qt, QThread, QTimer
 
-import midiplayer
-import midioutput
+import midifile.player
 
 
-class Player(QThread, midiplayer.Player):
-    """An implementation of midiplayer.Player using a QThread and QTimer.
+class Player(QThread, midifile.player.Player):
+    """An implementation of midifile.player.Player using a QThread and QTimer.
     
     emit signals:
     
@@ -53,7 +52,7 @@ class Player(QThread, midiplayer.Player):
     
     def __init__(self, parent=None):
         QThread.__init__(self, parent)
-        midiplayer.Player.__init__(self)
+        midifile.player.Player.__init__(self)
         self._timer = None
     
     def run(self):
@@ -83,7 +82,7 @@ class Player(QThread, midiplayer.Player):
         self._timer.stop()
 
     def finish_event(self):
-        midiplayer.Player.finish_event(self)
+        midifile.player.Player.finish_event(self)
         self.exit(0)
 
     def time_event(self, time):

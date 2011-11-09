@@ -1,6 +1,6 @@
 #! python
 
-# Python midiparser.py -- parses MIDI files.
+# Python midifile package -- parse, load and play MIDI files.
 # Copyright (C) 2011 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
@@ -19,7 +19,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-midiparser.py -- parses MIDI file data.
+midifile.parser -- parses MIDI file data.
 
 This is a simple module that can parse data from a MIDI file and
 its tracks.
@@ -32,37 +32,15 @@ For Python 3 you can remove the ord() calls.
 
 """
 
+from __future__ import unicode_literals
+
 import collections
 import struct
 
+from . import event
 
-unpack_midi_header = struct.Struct('>hhh').unpack
-unpack_int = struct.Struct('>i').unpack
-
-
-MetaEvent = collections.namedtuple('MetaEvent', 'type data')
-SysExEvent = collections.namedtuple('SysExEvent', 'type data')
-NoteEvent = collections.namedtuple('NoteEvent', 'type channel note value')
-ControllerEvent = collections.namedtuple('ControllerEvent', 'channel number value')
-ProgramChangeEvent = collections.namedtuple('ProgramChangeEvent', 'channel number')
-ChannelAfterTouchEvent = collections.namedtuple('ChannelAfterTouchEvent', 'channel value')
-PitchBendEvent = collections.namedtuple('PitchBendEvent', 'channel value')
-
-
-class EventFactory(object):
-    """Factory for parsed MIDI events.
-    
-    The default 'methods' create namedtuple objects.
-    You can override one or more of those names to return other objects.
-    
-    """
-    note_event = NoteEvent
-    controller_event = ControllerEvent
-    programchange_event = ProgramChangeEvent
-    channelaftertouch_event = ChannelAfterTouchEvent
-    pitchbend_event = PitchBendEvent
-    sysex_event = SysExEvent
-    meta_event = MetaEvent
+unpack_midi_header = struct.Struct(b'>hhh').unpack
+unpack_int = struct.Struct(b'>i').unpack
 
 
 def get_chunks(s):
@@ -125,7 +103,7 @@ def parse_midi_events(s, factory=None):
     
     """
     if factory is None:
-        factory = EventFactory()
+        factory = event.EventFactory()
         
     running_status = None
     

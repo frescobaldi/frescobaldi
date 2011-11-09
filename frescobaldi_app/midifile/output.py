@@ -1,6 +1,6 @@
 #! python
 
-# Python midiplayer.py -- base class for a MIDI player
+# Python midifile package -- parse, load and play MIDI files.
 # Copyright (C) 2011 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
@@ -18,18 +18,16 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
-
 """
 Writes MIDI events to a MIDI output.
 """
 
-import contextlib
-import midiparser
+from __future__ import unicode_literals
 
-MIDI_CTL_MSB_MAIN_VOLUME = 0x07
-MIDI_CTL_ALL_SOUNDS_OFF = 0x78
-MIDI_CTL_RESET_CONTROLLERS = 0x79
-MIDI_CTL_ALL_NOTES_OFF  = 0x7B
+import contextlib
+
+from . import event
+
 
 class Output(object):
     """Abstract base class for a MIDI output.
@@ -61,13 +59,13 @@ class Output(object):
         channels = range(16) if channel == -1 else (channel,)
         with self.sender() as send:
             for c in channels:
-                send(midiparser.ControllerEvent(c, MIDI_CTL_MSB_MAIN_VOLUME, volume))
+                send(event.ControllerEvent(c, event.MIDI_CTL_MSB_MAIN_VOLUME, volume))
     
     def set_program_change(self, program, channel=-1):
         channels = range(16) if channel == -1 else (channel,)
         with self.sender() as send:
             for c in channels:
-                send(midiparser.ProgramChangeEvent(c, program))
+                send(event.ProgramChangeEvent(c, program))
         
     def reset_controllers(self, channel=-1):
         """Sends an all_notes_off message to a channel.
@@ -78,7 +76,7 @@ class Output(object):
         channels = range(16) if channel == -1 else (channel,)
         with self.sender() as send:
             for c in channels:
-                send(midiparser.ControllerEvent(c, MIDI_CTL_RESET_CONTROLLERS, 0))
+                send(event.ControllerEvent(c, event.MIDI_CTL_RESET_CONTROLLERS, 0))
         
     def all_sounds_off(self, channel=-1):
         """Sends an all_notes_off message to a channel.
@@ -89,13 +87,13 @@ class Output(object):
         channels = range(16) if channel == -1 else (channel,)
         with self.sender() as send:
             for c in channels:
-                send(midiparser.ControllerEvent(c, MIDI_CTL_ALL_NOTES_OFF, 0))
-                send(midiparser.ControllerEvent(c, MIDI_CTL_ALL_SOUNDS_OFF, 0))
+                send(event.ControllerEvent(c, event.MIDI_CTL_ALL_NOTES_OFF, 0))
+                send(event.ControllerEvent(c, event.MIDI_CTL_ALL_SOUNDS_OFF, 0))
         
     def send_events(self, events):
         """Writes the list of events to the output port.
         
-        Each event is one of the event types in midiparser.py
+        Each event is one of the event types in event.py
         Implement to do the actual writing.
         
         """
@@ -136,29 +134,29 @@ class PortMidiOutput(Output):
         if l:
             self.output.write(l)
     
-    def convert_event(self, event):
+    def convert_event(self, e):
         """Returns a list of integers representing a MIDI message from event."""
-        t = type(event)
-        if t is midiparser.NoteEvent:
-            return self.convert_note_event(event)
-        elif t is midiparser.PitchBendEvent:
-            return self.convert_pitchbend_event(event)
-        elif t is midiparser.ProgramChangeEvent:
-            return self.convert_programchange_event(event)
-        elif t is midiparser.ControllerEvent:
-            return self.convert_controller_event(event)
+        t = type(e)
+        if t is event.NoteEvent:
+            return self.convert_note_event(e)
+        elif t is event.PitchBendEvent:
+            return self.convert_pitchbend_event(e)
+        elif t is event.ProgramChangeEvent:
+            return self.convert_programchange_event(e)
+        elif t is event.ControllerEvent:
+            return self.convert_controller_event(e)
     
-    def convert_note_event(self, event):
-        return [event.type * 16 + event.channel, event.note, event.value]
+    def convert_note_event(self, e):
+        return [e.type * 16 + e.channel, e.note, e.value]
 
-    def convert_programchange_event(self, event):
-        return [0xC0 + event.channel, event.number]
+    def convert_programchange_event(self, e):
+        return [0xC0 + e.channel, e.number]
 
-    def convert_controller_event(self, event):
-        return [0xB0 + event.channel, event.number, event.value]
+    def convert_controller_event(self, e):
+        return [0xB0 + e.channel, e.number, e.value]
 
-    def convert_pitchbend_event(self, event):
-        return [0xE0 + event.channel, event.value & 0x7F, event.value >> 7]
+    def convert_pitchbend_event(self, e):
+        return [0xE0 + e.channel, e.value & 0x7F, e.value >> 7]
 
 
 

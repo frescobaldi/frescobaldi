@@ -1,6 +1,6 @@
 #! python
 
-# Python midisong.py -- structure for songs in MIDI files.
+# Python midifile package -- parse, load and play MIDI files.
 # Copyright (C) 2011 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
@@ -19,12 +19,15 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-midisong.py -- structures MIDI file data as a song.
+midifile.song -- structures MIDI file data as a song.
 """
+
+from __future__ import unicode_literals
 
 import collections
 
-import midiparser
+from . import event
+from . import parser
 
 
 def load(filename):
@@ -33,7 +36,7 @@ def load(filename):
     If the filename is a type 2 MIDI file, just returns the first track.
     
     """
-    fmt, div, tracks = midiparser.parse_midi_data(open(filename, 'rb').read())
+    fmt, div, tracks = parser.parse_midi_data(open(filename, 'rb').read())
     if fmt == 2:
         tracks = tracks[:1]
     return Song(div, tracks)
@@ -47,8 +50,8 @@ def events_dict(tracks):
     """
     d = collections.defaultdict(dict)
     for n, track in enumerate(tracks):
-        for time, evs in midiparser.time_events_grouped(
-                midiparser.parse_midi_events(track)):
+        for time, evs in parser.time_events_grouped(
+                parser.parse_midi_events(track)):
             d[time][n] = evs
     return d
 
@@ -61,15 +64,15 @@ def events_dict_together(tracks):
     """
     d = collections.defaultdict(list)
     for track in tracks:
-        for time, evs in midiparser.time_events_grouped(
-                midiparser.parse_midi_events(track)):
-            d[time].extent(evs)
+        for time, evs in parser.time_events_grouped(
+                parser.parse_midi_events(track)):
+            d[time].extend(evs)
     return d
 
 
 def is_tempo(e):
     """Returns True if the event is a Set Tempo Meta-event."""
-    return isinstance(e, midiparser.MetaEvent) and e.type == 0x51
+    return isinstance(e, event.MetaEvent) and e.type == 0x51
 
 
 def get_tempo(e):
@@ -79,7 +82,7 @@ def get_tempo(e):
 
 def is_time_signature(e):
     """Returns True if the event is a Set Time Signature Meta-event."""
-    return isinstance(e, midiparser.MetaEvent) and e.type == 0x58
+    return isinstance(e, event.MetaEvent) and e.type == 0x58
 
 
 def get_time_signature(e):

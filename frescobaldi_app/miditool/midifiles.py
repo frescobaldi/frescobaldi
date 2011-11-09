@@ -33,7 +33,7 @@ import plugin
 import signals
 import resultfiles
 import listmodel
-import midisong
+import midifile.song
 
 
 updated = signals.Signal() # Document; emitted if there are new MIDI files.
@@ -68,7 +68,7 @@ class MidiFiles(plugin.DocumentPlugin):
             self.update()
         song = self._songs[index]
         if not song:
-            song = self._songs[index] = midisong.load(self._files[index])
+            song = self._songs[index] = midifile.song.load(self._files[index])
         return song
     
     def model(self):

@@ -1,6 +1,6 @@
 #! python
 
-# Python midiplayer.py -- base class for a MIDI player
+# Python midifile package -- parse, load and play MIDI files.
 # Copyright (C) 2011 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
@@ -18,16 +18,17 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
-
 """
 A MIDI Player.
 """
 
+from __future__ import unicode_literals
+
+import collections
 import time
 import threading
 
-import collections
-import midisong
+from . import song
 
 
 class Player(object):
@@ -66,11 +67,10 @@ class Player(object):
         See set_song() for the other arguments.
         
         """
-        song = midisong.load(filename)
-        self.set_song(song, time, beat)
+        self.set_song(song.load(filename), time, beat)
     
     def set_song(self, song, time=1000, beat=True):
-        """Loads the specified Song (see midisong.py).
+        """Loads the specified Song (see song.py).
         
         If time is not None, it specifies at which interval (in msec) the
         time() method will be called. Default: 1000.
