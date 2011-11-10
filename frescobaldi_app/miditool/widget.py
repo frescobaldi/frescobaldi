@@ -130,6 +130,7 @@ class Widget(QWidget):
             self._playButton.setDefaultAction(ac.midi_pause)
         else:
             self._timeSliderTicker.stop()
+            self.updateTimeSlider()
             self._stopButton.setDefaultAction(ac.midi_restart)
             self._playButton.setDefaultAction(ac.midi_play)
             # close the output if the preference is set
@@ -138,6 +139,8 @@ class Widget(QWidget):
         
     def play(self):
         """Starts the MIDI player, opening an output if necessary."""
+        if not self._player.is_playing() and not self._player.has_events():
+            self.restart()
         self.openOutput()
         if not self._player.output():
             self._display.statusMessage(_("No output found!"))
