@@ -139,6 +139,8 @@ class Widget(QWidget):
     def play(self):
         """Starts the MIDI player, opening an output if necessary."""
         self.openOutput()
+        if not self._player.output():
+            self._display.statusMessage(_("No output found!"))
         self._player.start()
     
     def stop(self):
@@ -212,9 +214,9 @@ class Widget(QWidget):
         name = self._fileSelector.currentText()
         self.updateTimeSlider()
         self._display.reset()
-        self._display.statusMessage([
+        self._display.statusMessage(
             _("midi lcd screen", "LOADED"), name,
-            _("midi lcd screen", "TOTAL"), "{0}:{1:02}".format(m, s)])
+            _("midi lcd screen", "TOTAL"), "{0}:{1:02}".format(m, s))
     
     def slotFileSelected(self, index):
         if self._document:
@@ -271,8 +273,8 @@ class Display(QLabel):
             self._tempoTimer.start()
         self.updateDisplay()
     
-    def statusMessage(self, msg=None):
-        """Status message should be a list like [name, value, <name2, value2>]."""
+    def statusMessage(self, *msg):
+        """Status message can be multiple arguments (1 to 4)."""
         self._status = msg
         if msg:
             self._statusTimer.start()
@@ -331,7 +333,7 @@ _lcd_status_one = """\
 <td align=left style="font-size:8px;">{0}</td>
 </tr>
 <tr>
-<td align=right><h2>{1}</h2></td>
+<td align=left><h2>{1}</h2></td>
 </tr>
 </table>"""
 
