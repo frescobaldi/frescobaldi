@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2011-11-11 13:19+0100\n"
-"PO-Revision-Date: 2011-11-09 11:15+0100\n"
+"PO-Revision-Date: 2011-11-11 15:31+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -1863,9 +1863,8 @@ msgid "Tempo"
 msgstr "Tempo"
 
 #: frescobaldi_app/miditool/widget.py:146
-#, fuzzy
 msgid "No output found!"
-msgstr "Geen knipsels gevonden."
+msgstr "Geen uitgang gevonden!"
 
 #: frescobaldi_app/miditool/widget.py:221
 msgctxt "midi lcd screen"
