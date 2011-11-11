@@ -9,14 +9,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-11-09 11:13+0100\n"
+"POT-Creation-Date: 2011-11-11 13:19+0100\n"
 "PO-Revision-Date: 2011-02-16 01:00+0100\n"
 "Last-Translator: Gianluca D'Orazio <gianluca.dorazio@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: it\n"
 "#-#-#-#-#  it.po (it)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 1.2\n"
@@ -1685,28 +1685,32 @@ msgstr "Inizio ritornello"
 msgid "Tempo"
 msgstr "Velocità:"
 
-#: frescobaldi_app/miditool/widget.py:216
+#: frescobaldi_app/miditool/widget.py:146
+msgid "No output found!"
+msgstr ""
+
+#: frescobaldi_app/miditool/widget.py:221
 msgctxt "midi lcd screen"
 msgid "LOADED"
 msgstr ""
 
-#: frescobaldi_app/miditool/widget.py:217
+#: frescobaldi_app/miditool/widget.py:222
 msgctxt "midi lcd screen"
 msgid "TOTAL"
 msgstr ""
 
-#: frescobaldi_app/miditool/widget.py:298
-#: frescobaldi_app/miditool/widget.py:308
+#: frescobaldi_app/miditool/widget.py:303
+#: frescobaldi_app/miditool/widget.py:313
 msgctxt "midi lcd screen"
 msgid "TIME"
 msgstr ""
 
-#: frescobaldi_app/miditool/widget.py:299
+#: frescobaldi_app/miditool/widget.py:304
 msgctxt "midi lcd screen"
 msgid "TEMPO"
 msgstr ""
 
-#: frescobaldi_app/miditool/widget.py:309
+#: frescobaldi_app/miditool/widget.py:314
 msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr ""
