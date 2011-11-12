@@ -82,6 +82,7 @@ class Job(object):
         self.decoder = codecs.getdecoder("utf-8")
         
         self._title = ""
+        self._aborted = False
         self._process = None
         self._history = []
         self._starttime = 0.0
@@ -99,6 +100,7 @@ class Job(object):
     
     def start(self):
         """Starts the process."""
+        self._aborted = False
         self._history = []
         self._elapsed = 0.0
         self._starttime = time.time()
@@ -120,9 +122,14 @@ class Job(object):
     def abort(self):
         """Aborts the process."""
         if self._process:
+            self._aborted = True
             self.abortMessage()
             self._process.terminate()
     
+    def isAborted(self):
+        """Returns True if the job was aborted by calling abort()."""
+        return self._aborted
+        
     def isRunning(self):
         """Returns True if this job is running."""
         return bool(self._process)

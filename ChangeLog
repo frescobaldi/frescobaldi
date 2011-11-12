@@ -6,6 +6,7 @@ Changes in 1.9.3 --
 * Bug fixes:
   - cursor now remains in column while vertical moving after indent
   - add articulations etc to autocompletion
+  - dont show the log if the user aborted a job
 
 
 Changes in 1.9.2 -- November 11th, 2011

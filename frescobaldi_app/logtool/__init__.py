@@ -63,7 +63,8 @@ class LogTool(panels.Panel):
                 self.show()
 
     def slotJobFinished(self, document, job, success):
-        if not success and document == self.mainwindow().currentDocument():
+        if (not success and not job.isAborted()
+                and document == self.mainwindow().currentDocument()):
             self.show()
     
     def slotNextError(self):
