@@ -69,6 +69,11 @@ class DocumentDataSource(plugin.DocumentPlugin):
         return listmodel.ListModel(sorted(set(itertools.chain(
             ly.words.lilypond_keywords,
             ly.words.lilypond_music_commands,
+            ly.words.articulations,
+            ly.words.ornaments,
+            ly.words.fermatas,
+            ly.words.instrument_scripts,
+            ly.words.repeat_scripts,
             harvest.names(cursor)))), display = util.command)
 
     @util.keep
