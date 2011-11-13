@@ -227,7 +227,6 @@ _htmltemplate = """
 
 <body>
     {diff}
-    <hr />
     {legend}
 </body>
 </html>"""
