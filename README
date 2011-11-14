@@ -20,6 +20,8 @@ What do you need to run it?
 - PyQt4
 - Poppler
 - python-poppler-qt4 (binding to Poppler-Qt4 for viewing PDF documents)
+- the PortMIDI library and optionally (but recommended) the pyPortMIDI binding
+  to play MIDI files
 
 
 What does work?
@@ -39,6 +41,7 @@ What does work?
   - moving the text cursor or selecting text highlights the objects in the PDF
   - Ctrl-J lets the PDF jump to the objects the text cursor or selection is at
   - Ctrl-click to show a magnifier glass
+- MIDI player with display of time and measure number
 - lyrics hyphenation
 - metainfo like cursor position, marked lines, etc. can be remembered
 - preferences dialog:
@@ -50,14 +53,15 @@ What does work?
 - the QuickInsert panel
 - rhythm tools in Tools->Rhythm
 - music transpose, translate, relative<->absolute tools in Tools->Pitch
+- run convert-ly, with diff view
 - builtin help manual; help buttons on all dialogs
 
 
 TODO:
 
-- run other commands such as lilypond-book, convert-ly
+- run other commands such as lilypond-book
 - finish built-in lilypond documentation browser
 - test on Mac OS X and Windows, make easy installers
-- MIDI...
+- MIDI input and import
 
 

@@ -39,9 +39,10 @@ Frescobaldi 2.0 is written in Python version 2.6 or 2.7 (3.x support is planned)
 and depends on Qt4.7 and PyQt4.8, and uses the python-poppler-qt4 binding to
 Poppler for the built-in PDF preview.
 
-For MIDI the PortMidi library is used, either via importing pyportmidi.midi, or,
-if that is not available, loading the pygame.pypm module or, as a last resort,
-embedding the PortMidi C-library via ctypes. MIDI is optional.
+For MIDI the PortMidi library is used, either via importing 'pypm',
+'pyportmidi._pyportmidi, or, if that is not available, loading the pygame.pypm
+module from pygame; or, as a last resort, embedding the PortMidi C-library via
+ctypes. MIDI is optional.
 
 Required:
     Python:
