@@ -4,6 +4,7 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 Changes in 1.9.3 -- 
 
 * Bug fixes:
+  - fix scrollbars covering search box in some GUI styles (issue #2)
   - cursor now remains in column while vertical moving after indent
   - add articulations etc to autocompletion
   - dont show the log if the user aborted a job
