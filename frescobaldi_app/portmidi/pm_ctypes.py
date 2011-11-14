@@ -8,7 +8,7 @@ import os
 import sys
 
 from ctypes import (CDLL, CFUNCTYPE, POINTER, Structure, byref, c_char_p,
-    c_int, c_long, c_uint, c_void_p, cast, create_string_buffer)
+    c_int32, c_uint, c_void_p, cast, create_string_buffer)
 
 # the basename of the portmidi/porttime libraries on different platforms
 _PM_DLL = dict(
@@ -111,7 +111,7 @@ else:
 
 # portmidi.h
 
-PmError = c_int
+PmError = c_int32
 # PmError enum
 pmNoError = 0
 pmHostError = -10000
@@ -127,13 +127,13 @@ pmBufferMaxSize = -9992
 libpm.Pm_Initialize.restype = PmError
 libpm.Pm_Terminate.restype = PmError
 
-PmDeviceID = c_int
+PmDeviceID = c_int32
 
 PortMidiStreamPtr = c_void_p
 PmStreamPtr = PortMidiStreamPtr
 PortMidiStreamPtrPtr = POINTER(PortMidiStreamPtr)
 
-libpm.Pm_HasHostError.restype = c_int
+libpm.Pm_HasHostError.restype = c_int32
 libpm.Pm_HasHostError.argtypes = [PortMidiStreamPtr]
 
 libpm.Pm_GetErrorText.restype = c_char_p
@@ -144,20 +144,20 @@ libpm.Pm_GetHostErrorText.argtypes = [c_char_p, c_uint]
 pmNoDevice = -1
 
 class PmDeviceInfo(Structure):
-    _fields_ = [("structVersion", c_int),
+    _fields_ = [("structVersion", c_int32),
                 ("interf", c_char_p),
                 ("name", c_char_p),
-                ("input", c_int),
-                ("output", c_int),
-                ("opened", c_int)]
+                ("input", c_int32),
+                ("output", c_int32),
+                ("opened", c_int32)]
 
 PmDeviceInfoPtr = POINTER(PmDeviceInfo)
 
-libpm.Pm_CountDevices.restype = c_int
+libpm.Pm_CountDevices.restype = c_int32
 libpm.Pm_GetDefaultOutputDeviceID.restype = PmDeviceID
 libpm.Pm_GetDefaultInputDeviceID.restype = PmDeviceID
 
-PmTimestamp = c_long
+PmTimestamp = c_int32
 PmTimeProcPtr = CFUNCTYPE(PmTimestamp, c_void_p)
 NullTimeProcPtr = cast(None, PmTimeProcPtr)
 
@@ -170,7 +170,7 @@ libpm.Pm_OpenInput.restype = PmError
 libpm.Pm_OpenInput.argtypes = [PortMidiStreamPtrPtr,
                              PmDeviceID,
                              c_void_p,
-                             c_long,
+                             c_int32,
                              PmTimeProcPtr,
                              c_void_p]
 
@@ -178,16 +178,16 @@ libpm.Pm_OpenOutput.restype = PmError
 libpm.Pm_OpenOutput.argtypes = [PortMidiStreamPtrPtr,
                              PmDeviceID,
                              c_void_p,
-                             c_long,
+                             c_int32,
                              PmTimeProcPtr,
                              c_void_p,
-                             c_long]
+                             c_int32]
 
 libpm.Pm_SetFilter.restype = PmError
-libpm.Pm_SetFilter.argtypes = [PortMidiStreamPtr, c_long]
+libpm.Pm_SetFilter.argtypes = [PortMidiStreamPtr, c_int32]
 
 libpm.Pm_SetChannelMask.restype = PmError
-libpm.Pm_SetChannelMask.argtypes = [PortMidiStreamPtr, c_int]
+libpm.Pm_SetChannelMask.argtypes = [PortMidiStreamPtr, c_int32]
 
 libpm.Pm_Abort.restype = PmError
 libpm.Pm_Abort.argtypes = [PortMidiStreamPtr]
@@ -195,7 +195,7 @@ libpm.Pm_Abort.argtypes = [PortMidiStreamPtr]
 libpm.Pm_Close.restype = PmError
 libpm.Pm_Close.argtypes = [PortMidiStreamPtr]
 
-PmMessage = c_long
+PmMessage = c_int32
 
 class PmEvent(Structure):
     _fields_ = [("message", PmMessage),
@@ -204,16 +204,16 @@ class PmEvent(Structure):
 PmEventPtr = POINTER(PmEvent)
 
 libpm.Pm_Read.restype = PmError
-libpm.Pm_Read.argtypes = [PortMidiStreamPtr, PmEventPtr, c_long]
+libpm.Pm_Read.argtypes = [PortMidiStreamPtr, PmEventPtr, c_int32]
 
 libpm.Pm_Poll.restype = PmError
 libpm.Pm_Poll.argtypes = [PortMidiStreamPtr]
 
 libpm.Pm_Write.restype = PmError
-libpm.Pm_Write.argtypes = [PortMidiStreamPtr, PmEventPtr, c_long]
+libpm.Pm_Write.argtypes = [PortMidiStreamPtr, PmEventPtr, c_int32]
 
 libpm.Pm_WriteShort.restype = PmError
-libpm.Pm_WriteShort.argtypes = [PortMidiStreamPtr, PmTimestamp, c_long]
+libpm.Pm_WriteShort.argtypes = [PortMidiStreamPtr, PmTimestamp, c_int32]
 
 libpm.Pm_WriteSysEx.restype = PmError
 libpm.Pm_WriteSysEx.argtypes = [PortMidiStreamPtr, PmTimestamp, c_char_p]
@@ -221,20 +221,20 @@ libpm.Pm_WriteSysEx.argtypes = [PortMidiStreamPtr, PmTimestamp, c_char_p]
 # porttime.h
 
 # PtError enum
-PtError = c_int
+PtError = c_int32
 ptNoError = 0
 ptHostError = -10000
 ptAlreadyStarted = -9999
 ptAlreadyStopped = -9998
 ptInsufficientMemory = -9997
 
-PtTimestamp = c_long
+PtTimestamp = c_int32
 PtCallback = CFUNCTYPE(PmTimestamp, c_void_p)
 
 libpt.Pt_Start.restype = PtError
-libpt.Pt_Start.argtypes = [c_int, PtCallback, c_void_p]
+libpt.Pt_Start.argtypes = [c_int32, PtCallback, c_void_p]
 
 libpt.Pt_Stop.restype = PtError
-libpt.Pt_Started.restype = c_int
+libpt.Pt_Started.restype = c_int32
 libpt.Pt_Time.restype = PtTimestamp
 
