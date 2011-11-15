@@ -24,6 +24,7 @@ Handles Point and Click.
 from __future__ import unicode_literals
 
 import re
+import os
 import weakref
 
 from PyQt4.QtCore import QUrl
@@ -131,7 +132,7 @@ class Links(object):
             bound = self._docs.get(filename)
             if bound:
                 return bound.cursor(line, col)
-            elif load:
+            elif load and os.path.isfile(filename):
                 # this also calls bind(), via app.documentLoaded
                 app.openUrl(QUrl.fromLocalFile(filename))
                 bound = self._docs.get(filename)
@@ -165,7 +166,7 @@ class BoundLinks(object):
         
     def cursor(self, line, column):
         """Returns the QTextCursor for the give line/col."""
-        return self._cursor_dict[(line, column)]
+        return self._cursor_dict.get((line, column))
     
     def cursors(self):
         """Returns the list of cursors, sorted on cursor position."""
