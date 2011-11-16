@@ -81,12 +81,6 @@ class Analyzer(object):
         self.last = tokens[-1] if tokens else ''
         self.lastpos = self.last.pos if self.last else column
         
-        # DEBUG
-        print '================================'
-        for t in tokens:
-            print '{0} {1}'.format(t.__class__, repr(t))
-        print '========parser:', state.parser().__class__
-        
         parser = state.parser()
         
         # Map the parser class to a group of tests to return the model.
