@@ -48,6 +48,7 @@ class Player(object):
         self._playing = False
         self._tempo_factor = 1.0
         self._output = None
+        self._last_exception = None
     
     def set_output(self, output):
         """Sets an Output instance that handles the MIDI events.
@@ -233,7 +234,10 @@ class Player(object):
         
         """
         if self._output:
-            self._output.midi_event(midi)
+            try:
+                self._output.midi_event(midi)
+            except BaseException as e:
+                self.exception_event(e)
     
     def time_event(self, msec):
         """(Private) Called on every time update."""
@@ -261,6 +265,16 @@ class Player(object):
         """
         if self._output:
             self._output.all_sounds_off()
+    
+    def exception_event(self, exception):
+        """Called when an exception occurs while writing to a MIDI output.
+        
+        The default implementation stores the exception in self._last_exception
+        and sets the output to None.
+        
+        """
+        self._last_exception = exception
+        self.set_output(None)
         
     def timer_midi_time(self):
         """Should return a continuing time value in msec, used while playing.
@@ -307,11 +321,14 @@ class Player(object):
     
     def timer_start_playing(self):
         """Starts playing by starting the timer for the first upcoming event."""
-        reset = self._output and self.current_time() == 0
+        reset = self.current_time() == 0
         self._playing = True
         self.start_event()
-        if reset:
-            self._output.reset()
+        if reset and self._output:
+            try:
+                self._output.reset()
+            except BaseException as e:
+                self.exception_event(e)
         self.timer_schedule(self._offset, False)
     
     def timer_timeout(self):
