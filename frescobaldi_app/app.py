@@ -23,7 +23,6 @@ The global things in Frescobaldi.
 
 from __future__ import unicode_literals
 
-import atexit
 import os
 import sys
 
@@ -60,8 +59,6 @@ sessionChanged = Signal()       # (name)
 saveSessionData = Signal()      # (name)
 jobStarted = Signal()           # (Document, Job)
 jobFinished = Signal()          # (Document, Job, bool success)
-
-atexit.register(aboutToQuit)
 
 
 def openUrl(url, encoding=None):
@@ -101,7 +98,9 @@ def findDocument(url):
 
 def run():
     """Enter the Qt event loop."""
-    return qApp.exec_()
+    result = qApp.exec_()
+    aboutToQuit()
+    return result
     
 def translateUI(obj, priority=0):
     """Translates texts in the object.
