@@ -181,7 +181,7 @@ def _check_error(err_no):
     if err_no < 0:
         if err_no == pmHostError:
             err_msg = create_string_buffer('\000' * 256)
-            libpm.Pm_GetHostErrorText(err_msg, err_no)
+            libpm.Pm_GetHostErrorText(err_msg, 256)
             err_msg = err_msg.value
         else:
             err_msg = libpm.Pm_GetErrorText(err_no)
