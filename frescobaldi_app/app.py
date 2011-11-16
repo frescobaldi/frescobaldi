@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 import os
 import sys
 
-from PyQt4.QtCore import QSettings
+from PyQt4.QtCore import QSettings, QThread
 from PyQt4.QtGui import QApplication
 
 import info
@@ -166,8 +166,10 @@ def excepthook(exctype, excvalue, exctb):
     from traceback import format_exception
     sys.stderr.write(''.join(format_exception(exctype, excvalue, exctb)))
     if exctype != KeyboardInterrupt:
-        import exception
-        exception.ExceptionDialog(exctype, excvalue, exctb)
+        # show dialog, but not when in non-GUI thread
+        if QThread.currentThread() == qApp.thread():
+            import exception
+            exception.ExceptionDialog(exctype, excvalue, exctb)
 
 def displayhook(obj):
     """Prevent normal displayhook from overwriting __builtin__._"""
