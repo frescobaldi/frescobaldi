@@ -4,10 +4,12 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 Changes in 1.9.3 -- 
 
 * Bug fixes:
-  - fix error message on invalid textedit links, don't try to load non-existing
-    file when clicking a point-and click link
+  - fix crash when MIDI synth stopped or disconnected while playing (issue #4)
+  - fix using PortMidi via ctypes under 64bit Linux (issue #3)
+  - fix error message on invalid textedit links
+  - don't try to load non-existing file when clicking a point-and click link
   - fix scrollbars covering search box in some GUI styles (issue #2)
-  - cursor now remains in column while vertical moving after indent
+  - cursor now remains in same column while moving vertically after indent
   - add articulations etc to autocompletion
   - dont show the log if the user aborted a job
 
