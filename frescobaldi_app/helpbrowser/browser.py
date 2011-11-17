@@ -30,8 +30,6 @@ from PyQt4.QtWebKit import *
 
 import network
 
-from . import html
-
 
 class Browser(QWidget):
     """We use an embedded QMainWindow so we can add a toolbar nicely."""
@@ -51,7 +49,6 @@ class Browser(QWidget):
         ac.help_back.triggered.connect(self.webview.back)
         ac.help_forward.triggered.connect(self.webview.forward)
         ac.help_home.triggered.connect(self.showHomePage)
-        ac.help_home_lilypond.triggered.connect(self.showLilyPondHome)
         
         self.webview.page().setNetworkAccessManager(network.accessmanager())
         self.webview.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
@@ -64,7 +61,6 @@ class Browser(QWidget):
         tb.addAction(ac.help_forward)
         tb.addSeparator()
         tb.addAction(ac.help_home)
-        tb.addAction(ac.help_home_lilypond)
         
         dockwidget.mainwindow().iconSizeChanged.connect(self.updateToolBarSettings)
         dockwidget.mainwindow().toolButtonStyleChanged.connect(self.updateToolBarSettings)
@@ -103,10 +99,6 @@ class Browser(QWidget):
             return self._sourceviewer
     
     def showHomePage(self):
-        """Shows an initial welcome page."""
-        self.webview.load(QUrl("fhelp:titlepage"))
-        
-    def showLilyPondHome(self):
         """Shows the homepage of the LilyPond documentation."""
         #self.webview.load(QUrl("http://lilypond.org/doc")) # TEMP!!!
         self.webview.load(QUrl.fromLocalFile("/usr/share/doc/lilypond/html/index.html")) # TEMP

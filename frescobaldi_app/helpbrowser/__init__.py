@@ -60,19 +60,16 @@ class Actions(actioncollection.ActionCollection):
         self.help_back = QAction(parent)
         self.help_forward = QAction(parent)
         self.help_home = QAction(parent)
-        self.help_home_lilypond = QAction(parent)
         
         self.help_back.setIcon(icons.get("go-previous"))
         self.help_forward.setIcon(icons.get("go-next"))
         self.help_home.setIcon(icons.get("go-home"))
-        self.help_home_lilypond.setIcon(icons.get("lilypond-run"))
         
     def translateUI(self):
         self.help_back.setText(_("Back"))
         self.help_forward.setText(_("Forward"))
-        # L10N: Home page of the Frescobaldi manual
+        # L10N: Home page of the LilyPond manual
         self.help_home.setText(_("Home"))
-        self.help_home_lilypond.setText(_("LilyPond"))
 
 
 
