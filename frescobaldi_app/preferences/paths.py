@@ -29,6 +29,7 @@ from PyQt4.QtGui import *
 import app
 import icons
 import widgets.listedit
+import widgets.dialog
 import preferences
 
 
@@ -40,6 +41,7 @@ class Paths(preferences.GroupsPage):
         self.setLayout(layout)
         
         layout.addWidget(HyphenPaths(self))
+        layout.addWidget(LilyDocPaths(self))
         layout.addStretch(1)
 
 
@@ -72,5 +74,58 @@ class HyphenPaths(preferences.Group):
             s.setValue("paths", paths)
         else:
             s.remove("paths")
+
+
+class LilyDocPaths(preferences.Group):
+    def __init__(self, page):
+        super(LilyDocPaths, self).__init__(page)
+        
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+        
+        self.paths = LilyDocPathsList()
+        self.paths.changed.connect(self.changed)
+        layout.addWidget(self.paths)
+        
+        app.translateUI(self)
+    
+    def translateUI(self):
+        self.setTitle(_("Lilypond Documentation"))
+    
+    def loadSettings(self):
+        s = QSettings()
+        s.beginGroup("documentation")
+        self.paths.setValue(s.value("paths", []) or [])
+        
+    def saveSettings(self):
+        s = QSettings()
+        s.beginGroup("documentation")
+        paths = self.paths.value()
+        if paths:
+            s.setValue("paths", paths)
+        else:
+            s.remove("paths")
+
+
+class LilyDocPathsList(widgets.listedit.ListEdit):
+    def openEditor(self, item):
+        
+        dlg = widgets.dialog.Dialog(self,
+            _("Please enter a local path or a URL:"),
+            app.caption("LilyPond Documentation"),
+            icon = icons.get('lilypond-run'))
+        urlreq = widgets.urlrequester.UrlRequester()
+        urlreq.lineEdit.setCompleter(QCompleter([
+            "http://lilypond.org/doc/v2.12/",
+            "http://lilypond.org/doc/v2.14/",
+            "http://lilypond.org/doc/v2.15/",
+            ], urlreq.lineEdit))
+        dlg.setMainWidget(urlreq)
+        urlreq.setMinimumWidth(320)
+        urlreq.lineEdit.setFocus()
+        if dlg.exec_():
+            item.setText(urlreq.path())
+            return True
+        return False
 
 
