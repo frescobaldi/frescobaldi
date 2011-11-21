@@ -90,7 +90,7 @@ class LilyDocPaths(preferences.Group):
         app.translateUI(self)
     
     def translateUI(self):
-        self.setTitle(_("Lilypond Documentation"))
+        self.setTitle(_("LilyPond Documentation"))
     
     def loadSettings(self):
         s = QSettings()
