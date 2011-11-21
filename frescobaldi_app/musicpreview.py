@@ -148,7 +148,9 @@ class MusicPreviewWidget(QWidget):
             self._view.clear()
 
     def selectDocument(self, index):
-        self._view.load(self._documents[index].document())
+        doc = self._documents[index].document()
+        if doc:
+            self._view.load(doc)
 
     def cleanup(self):
         if self._running:
