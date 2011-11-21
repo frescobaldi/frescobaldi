@@ -192,6 +192,16 @@ def music_glyph(self):
         self.column = self.tokens[i + 4].pos
     return completiondata.music_glyphs
 
+def midi_instrument(self):
+    """Complete midiInstrument = #"... """
+    try:
+        i = self.tokens.index('midiInstrument', -7, -2)
+    except ValueError:
+        return
+    if self.last != '"':
+        self.column = self.lastpos
+    return completiondata.midi_instruments
+    
 def scheme_word(self):
     """Complete scheme word from scheme functions, etc."""
     if isinstance(self.last, scm.Word):
@@ -429,6 +439,7 @@ _tests = {
         engraver,
         clef,
         repeat,
+        midi_instrument,
     ),
     lp.ParseClef: (
         clef,
@@ -444,6 +455,7 @@ _tests = {
     ),
     scm.ParseString: (
         music_glyph,
+        midi_instrument,
     ),
     lp.ParseLyricMode: (
         lyricmode,

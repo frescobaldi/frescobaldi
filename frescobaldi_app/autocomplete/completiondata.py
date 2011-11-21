@@ -210,3 +210,5 @@ lilypond_repeat_types = listmodel.ListModel(ly.words.repeat_types)
 
 music_glyphs = listmodel.ListModel(ly.data.music_glyphs())
 
+midi_instruments = listmodel.ListModel(ly.words.midi_instruments)
+
