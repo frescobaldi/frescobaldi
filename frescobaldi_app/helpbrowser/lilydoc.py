@@ -28,8 +28,28 @@ import re
 
 from PyQt4.QtCore import pyqtSignal, QObject, QSettings, QUrl
 
+import app
 import network
 import util
+
+# cache the LilyPond Documentation instances
+_documentations = None
+
+
+def docs():
+    """Returns the list of Documentation instances that are found."""
+    global _documentations
+    if _documentations is None:
+        _documentations = [Documentation(url) for url in urls()]
+    return list(_documentations)
+
+
+def clear():
+    """Clears the cached documentation instances."""
+    global _documentations
+    _documentations = None
+
+app.settingsChanged.connect(clear, -100)
 
 
 def urls():

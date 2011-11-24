@@ -24,7 +24,7 @@ Documentation preferences.
 from __future__ import unicode_literals
 
 from PyQt4.QtCore import QSettings, Qt
-from PyQt4.QtGui import *
+from PyQt4.QtGui import QComboBox, QCompleter, QGridLayout, QLabel, QVBoxLayout
 
 import app
 import icons
