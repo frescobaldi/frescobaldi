@@ -41,7 +41,7 @@ This script needs not to be installed to be able to use the language_names packa
 # If empty, all are used. "C" must be named.
 
 # lang_names = []
-lang_names = ["C", "en", "de", "fr", "es", "nl", "pl", "cs", "ru", "hu", "gl", "it", "tr"]
+lang_names = ["C", "en", "de", "fr", "es", "nl", "pl", "cs", "ru", "hu", "gl", "it", "tr", "ja", "zh"]
 
 
 def generate_kde(fileName="/usr/share/locale/all_languages"):
@@ -94,5 +94,6 @@ def write_dict(langs):
 
 if __name__ == "__main__":
     langs = generate_kde()
+    langs['zh'] = langs['zh_CN']
     write_dict(langs)
 
