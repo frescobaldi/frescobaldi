@@ -81,6 +81,7 @@ class PreferencesDialog(QDialog):
             LilyPond,
             Midi,
             Paths,
+            Documentation,
             Shortcuts,
             FontsColors,
             Tools,
@@ -192,6 +193,16 @@ class Paths(PrefsItemBase):
     def widget(self, dlg):
         import paths
         return paths.Paths(dlg)
+
+
+class Documentation(PrefsItemBase):
+    iconName = "help-contents"
+    def translateUI(self):
+        self.setText(_("LilyPond Documentation"))
+        
+    def widget(self, dlg):
+        import documentation
+        return documentation.Documentation(dlg)
 
 
 class Shortcuts(PrefsItemBase):

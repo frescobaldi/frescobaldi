@@ -32,6 +32,10 @@ import icons
 import panels
 
 
+# languages the LilyPond documentation is translated in:
+translations = ['cs', 'de', 'es', 'fr', 'hu', 'it', 'ja', 'nl', 'zh']
+
+
 class HelpBrowser(panels.Panel):
     def __init__(self, mainwindow):
         super(HelpBrowser, self).__init__(mainwindow)
