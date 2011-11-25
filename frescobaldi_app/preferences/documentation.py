@@ -139,6 +139,7 @@ class LilyDocPathsList(widgets.listedit.ListEdit):
             "http://lilypond.org/doc/latest/",
             ], urlreq.lineEdit))
         dlg.setMainWidget(urlreq)
+        urlreq.setPath(item.text())
         urlreq.setMinimumWidth(320)
         urlreq.lineEdit.setFocus()
         if dlg.exec_():
