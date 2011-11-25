@@ -27,6 +27,7 @@ import os
 import re
 
 from PyQt4.QtCore import pyqtSignal, QObject, QSettings, QUrl
+from PyQt4.QtNetwork import QNetworkRequest
 
 import app
 import network
@@ -80,6 +81,7 @@ def urls():
     remote = []
     for p in user_paths:
         user_prefixes.append(p) if os.path.isdir(p) else remote.append(p)
+    remote.sort(key=util.naturalsort)
     
     # now find all instances of LilyPond documentation in the local paths
     def paths(path):
@@ -136,12 +138,30 @@ class Documentation(QObject):
         url = self.url()
         sep = '/' if not url.path().endswith('/') else ''
         url.setPath(url.path() + sep + 'VERSION')
-        reply = self._versionReply = network.get(url)
-        if reply.isFinished():
-            self._versionReplyFinished()
-        else:
-            reply.finished.connect(self._versionReplyFinished)
+        self._request(url)
     
+    def _request(self, url):
+        """Request a URL to read the version from."""
+        reply = self._reply = network.get(url)
+        if reply.isFinished():
+            self._handleReply()
+        else:
+            reply.finished.connect(self._handleReply)
+    
+    def _handleReply(self):
+        self._reply.deleteLater()
+        if self._reply.error():
+            self._versionString = ''
+        else:
+            # HTTP redirect?
+            url = self._reply.attribute(QNetworkRequest.RedirectionTargetAttribute)
+            if url is not None:
+                self._request(self._reply.url().resolved(url))
+                return
+            else:
+                self._versionString = bytes(self._reply.readAll()).strip()
+        self.versionLoaded.emit(bool(self._versionString))
+        
     def url(self):
         return QUrl(self._url)
     
@@ -160,6 +180,7 @@ class Documentation(QObject):
         if self._versionReply.error():
             self._versionString = ''
         else:
+            print self._versionReply.attribute(QNetworkRequest.RedirectionTargetAttribute)
             self._versionString = bytes(self._versionReply.readAll()).strip()
         self.versionLoaded.emit(bool(self._versionString))
         self._versionReply.deleteLater()

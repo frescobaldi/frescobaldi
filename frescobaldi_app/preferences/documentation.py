@@ -135,8 +135,8 @@ class LilyDocPathsList(widgets.listedit.ListEdit):
         urlreq = widgets.urlrequester.UrlRequester()
         urlreq.lineEdit.setCompleter(QCompleter([
             "http://lilypond.org/doc/v2.12/",
-            "http://lilypond.org/doc/v2.14/",
-            "http://lilypond.org/doc/v2.15/",
+            "http://lilypond.org/doc/stable/",
+            "http://lilypond.org/doc/latest/",
             ], urlreq.lineEdit))
         dlg.setMainWidget(urlreq)
         urlreq.setMinimumWidth(320)
