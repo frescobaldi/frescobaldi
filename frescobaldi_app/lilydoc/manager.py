@@ -24,14 +24,14 @@ Manage access to LilyPond documentation.
 from __future__ import unicode_literals
 
 import os
-import re
 
-from PyQt4.QtCore import pyqtSignal, QObject, QSettings, QUrl
-from PyQt4.QtNetwork import QNetworkRequest
+from PyQt4.QtCore import QSettings, QUrl
 
 import app
-import network
 import util
+
+from . import documentation
+
 
 # cache the LilyPond Documentation instances
 _documentations = None
@@ -41,7 +41,7 @@ def docs():
     """Returns the list of Documentation instances that are found."""
     global _documentations
     if _documentations is None:
-        _documentations = [Documentation(url) for url in urls()]
+        _documentations = [documentation.Documentation(url) for url in urls()]
     return list(_documentations)
 
 
@@ -121,91 +121,5 @@ def urls():
     if not urls:
         urls.append(QUrl("http://lilypond.org/doc/stable"))
     return urls
-
-
-
-class Documentation(QObject):
-    """An instance of LilyPond documentation."""
-    versionLoaded = pyqtSignal(bool)
-    
-    def __init__(self, url):
-        QObject.__init__(self)
-        self._url = url
-        self._localFile = url.toLocalFile()
-        self._versionString = None
-        
-        # determine version
-        url = self.url()
-        sep = '/' if not url.path().endswith('/') else ''
-        url.setPath(url.path() + sep + 'VERSION')
-        self._request(url)
-    
-    def _request(self, url):
-        """Request a URL to read the version from."""
-        reply = self._reply = network.get(url)
-        if reply.isFinished():
-            self._handleReply()
-        else:
-            reply.finished.connect(self._handleReply)
-    
-    def _handleReply(self):
-        self._reply.deleteLater()
-        if self._reply.error():
-            self._versionString = ''
-        else:
-            # HTTP redirect?
-            url = self._reply.attribute(QNetworkRequest.RedirectionTargetAttribute)
-            if url is not None:
-                self._request(self._reply.url().resolved(url))
-                return
-            else:
-                self._versionString = bytes(self._reply.readAll()).strip()
-        self.versionLoaded.emit(bool(self._versionString))
-        
-    def url(self):
-        return QUrl(self._url)
-    
-    def home(self):
-        """Returns the url with 'Documentation' appended."""
-        url = self.url()
-        sep = '/' if not url.path().endswith('/') else ''
-        url.setPath(url.path() + sep + 'Documentation')
-        if self.version() is not None and self.version() >= (2, 14):
-            url.setPath(url.path() + '/web/manuals')
-        else:
-            url.setPath(url.path() + '/index')
-        return url
-    
-    def _versionReplyFinished(self):
-        if self._versionReply.error():
-            self._versionString = ''
-        else:
-            print self._versionReply.attribute(QNetworkRequest.RedirectionTargetAttribute)
-            self._versionString = bytes(self._versionReply.readAll()).strip()
-        self.versionLoaded.emit(bool(self._versionString))
-        self._versionReply.deleteLater()
-    
-    def versionString(self):
-        """Returns the version as a string.
-        
-        If the version is not yet determined, returns None.
-        If the version could not be determined, returns the empty string.
-        
-        """
-        return self._versionString
-    
-    def version(self):
-        """Returns the version as a tuple of ints.
-        
-        If the version is not yet determined, returns None.
-        If the version could not be determined, returns the empty tuple.
-        
-        """
-        if self._versionString is not None:
-            return tuple(map(int, re.findall(br"\d+", self._versionString)))
-    
-    def isLocal(self):
-        """Returns True if the documentation is on the local system."""
-        return bool(self._localFile)
 
 

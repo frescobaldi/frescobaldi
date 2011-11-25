@@ -32,10 +32,6 @@ import icons
 import panels
 
 
-# languages the LilyPond documentation is translated in:
-translations = ['cs', 'de', 'es', 'fr', 'hu', 'it', 'ja', 'nl', 'zh']
-
-
 class HelpBrowser(panels.Panel):
     def __init__(self, mainwindow):
         super(HelpBrowser, self).__init__(mainwindow)
@@ -83,7 +79,5 @@ class Actions(actioncollection.ActionCollection):
         self.help_home.setText(_("Home"))
         self.help_lilypond_doc.setText(_("&LilyPond Documentation"))
         self.help_lilypond_context.setText(_("&Contextual LilyPond Help"))
-
-
 
 

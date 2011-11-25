@@ -31,7 +31,7 @@ import icons
 import preferences
 import widgets.listedit
 import widgets.dialog
-import helpbrowser
+import lilydoc
 import language_names
 
 
@@ -101,7 +101,7 @@ class Browser(preferences.Group):
         layout.addWidget(self.languages, 0, 1)
         
         items = ['']
-        items.extend(language_names.languageName(l, l) for l in helpbrowser.translations)
+        items.extend(language_names.languageName(l, l) for l in lilydoc.translations)
         self.languages.addItems(items)
         
         app.translateUI(self)
@@ -113,14 +113,14 @@ class Browser(preferences.Group):
 
     def loadSettings(self):
         lang = QSettings().value("documentation/language", "C")
-        if lang not in helpbrowser.translations:
+        if lang not in lilydoc.translations:
             i = 0
         else:
-            i = helpbrowser.translations.index(lang) + 1
+            i = lilydoc.translations.index(lang) + 1
         self.languages.setCurrentIndex(i)
     
     def saveSettings(self):
-        langs = ['C'] + helpbrowser.translations
+        langs = ['C'] + lilydoc.translations
         QSettings().setValue("documentation/language",
             langs[self.languages.currentIndex()])
 
