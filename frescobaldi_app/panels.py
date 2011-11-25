@@ -49,8 +49,8 @@ class PanelManager(plugin.MainWindowPlugin):
         self.musicview = musicview.MusicViewPanel(mainwindow)
         import logtool
         self.logtool = logtool.LogTool(mainwindow)
-        import helpbrowser
-        self.helpbrowser = helpbrowser.HelpBrowser(mainwindow)
+        import docbrowser
+        self.docbrowser = docbrowser.HelpBrowser(mainwindow)
         import snippet.tool
         self.snippettool = snippet.tool.SnippetTool(mainwindow)
         import miditool
@@ -58,7 +58,7 @@ class PanelManager(plugin.MainWindowPlugin):
         self.createActions()
         
         # make some default arrangements
-        mainwindow.tabifyDockWidget(self.musicview, self.helpbrowser)
+        mainwindow.tabifyDockWidget(self.musicview, self.docbrowser)
 
     def createActions(self):
         self.actionCollection = Actions(self)
@@ -70,7 +70,7 @@ class PanelManager(plugin.MainWindowPlugin):
         menu.addAction(self.actionCollection.panel_snippettool)
         menu.addAction(self.actionCollection.panel_musicview)
         menu.addAction(self.actionCollection.panel_logtool)
-        menu.addAction(self.actionCollection.panel_helpbrowser)
+        menu.addAction(self.actionCollection.panel_docbrowser)
         menu.addAction(self.actionCollection.panel_miditool)
 
 
@@ -84,7 +84,7 @@ class Actions(actioncollection.ActionCollection):
         self.panel_snippettool = manager.snippettool.toggleViewAction()
         self.panel_musicview = manager.musicview.toggleViewAction()
         self.panel_logtool = manager.logtool.toggleViewAction()
-        self.panel_helpbrowser = manager.helpbrowser.toggleViewAction()
+        self.panel_docbrowser = manager.docbrowser.toggleViewAction()
         self.panel_miditool = manager.miditool.toggleViewAction()
 
 

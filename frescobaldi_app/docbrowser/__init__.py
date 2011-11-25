@@ -35,7 +35,7 @@ import panels
 class HelpBrowser(panels.Panel):
     def __init__(self, mainwindow):
         super(HelpBrowser, self).__init__(mainwindow)
-        self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+H"))
+        self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+D"))
         self.hide()
         mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
         ac = self.actionCollection = Actions()
@@ -43,8 +43,8 @@ class HelpBrowser(panels.Panel):
         ac.help_lilypond_doc.triggered.connect(self.activate)
 
     def translateUI(self):
-        self.setWindowTitle(_("Help Browser"))
-        self.toggleViewAction().setText(_("&Help Browser"))
+        self.setWindowTitle(_("Documentation Browser"))
+        self.toggleViewAction().setText(_("&Documentation Browser"))
         
     def createWidget(self):
         from . import browser
@@ -52,10 +52,10 @@ class HelpBrowser(panels.Panel):
 
 
 class Actions(actioncollection.ActionCollection):
-    name = "helpbrowser"
+    name = "docbrowser"
     
     def title(self):
-        return _("Help Browser")
+        return _("Documentation Browser")
     
     def createActions(self, parent=None):
         self.help_back = QAction(parent)
