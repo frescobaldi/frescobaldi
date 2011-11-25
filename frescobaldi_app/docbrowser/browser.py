@@ -80,45 +80,34 @@ class Browser(QWidget):
     def showInitialPage(self):
         """Shows the preferred start page if all docs have their version loaded."""
         if self.webview.url().isEmpty():
-            docs = lilydoc.manager.docs()
-            for doc in docs:
-                if doc.version() is None:
-                    doc.versionLoaded.connect(self.showInitialPage)
-                    return
+            if not lilydoc.manager.loaded():
+                lilydoc.manager.allLoaded.connect(self.showInitialPage)
+                return
             # all are loaded
+            docs = lilydoc.manager.docs()
             version = lilypondinfo.preferred().version
+            index = len(docs) - 1
             if version:
                 for num, doc in enumerate(docs):
                     if doc.version() >= version:
-                        self.chooser.setCurrentIndex(num)
+                        index = num
                         break
-                else:
-                    self.chooser.setCurrentIndex(len(docs) - 1)
+            self.chooser.setCurrentIndex(index)
             self.showHomePage()
     
     def loadDocumentation(self):
         """Puts the available documentation instances in the combobox."""
-        docs = lilydoc.manager.docs()
+        if not lilydoc.manager.loaded():
+            lilydoc.manager.allLoaded.connect(self.loadDocumentation)
+            return
         self.chooser.clear()
-        self.chooser.addItems([''] * len(docs))
-        def settext(num, doc):
+        for doc in lilydoc.manager.docs():
             v = doc.versionString()
             if doc.isLocal():
                 t = _("(local)")
             else:
                 t = _("({hostname})").format(hostname=doc.url().host())
-            self.chooser.setItemText(num, "{0} {1}".format(v, t))
-            
-        for n, doc in enumerate(docs):
-            if doc.version() is not None:
-                settext(n, doc)
-            else:
-                def makefunc(n, doc):
-                    def func():
-                        settext(n, doc)
-                        doc.versionLoaded.disconnect(func)
-                    return func
-                doc.versionLoaded.connect(makefunc(n, doc))
+            self.chooser.addItem("{0} {1}".format(v, t))
         
     def updateToolBarSettings(self):
         mainwin = self.parentWidget().mainwindow()

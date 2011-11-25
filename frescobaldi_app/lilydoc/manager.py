@@ -29,6 +29,7 @@ from PyQt4.QtCore import QSettings, QUrl
 
 import app
 import util
+import signals
 
 from . import documentation
 
@@ -37,11 +38,16 @@ from . import documentation
 _documentations = None
 
 
+allLoaded = signals.Signal()
+
+
 def docs():
     """Returns the list of Documentation instances that are found."""
     global _documentations
     if _documentations is None:
         _documentations = [documentation.Documentation(url) for url in urls()]
+        # check whether they need to fully load their version number yet
+        _check_doc_versions()
     return list(_documentations)
 
 
@@ -50,7 +56,41 @@ def clear():
     global _documentations
     _documentations = None
 
+
 app.settingsChanged.connect(clear, -100)
+
+
+def loaded():
+    """Returns True if all Documentation are loaded (i.e. know their version)."""
+    for d in docs():
+        if d.versionString() is None:
+            return False
+    return True
+
+
+def _check_doc_versions():
+    """Checks if all documentation instances have their version loaded.
+    
+    Emits the allLoaded signal when all are loaded, also sorts the documentation
+    instances then on local/remote and then version number.
+    
+    """
+    for d in _documentations:
+        if d.versionString() is None:
+            def makefunc(doc):
+                def func():
+                    doc.versionLoaded.disconnect(func)
+                    _check_doc_versions()
+                return func
+            d.versionLoaded.connect(makefunc(d))
+            return
+    _sort_docs()
+    allLoaded.emit()
+
+
+def _sort_docs():
+    """Sorts all documentation instances on local/remote and then version."""
+    _documentations.sort(key = lambda d: (not d.isLocal(), d.version()))
 
 
 def urls():
