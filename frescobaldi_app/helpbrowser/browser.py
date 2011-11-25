@@ -28,7 +28,11 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtWebKit import *
 
+import app
 import network
+import lilypondinfo
+
+from . import lilydoc
 
 
 class Browser(QWidget):
@@ -41,8 +45,11 @@ class Browser(QWidget):
         self.setLayout(layout)
         
         self.toolbar = tb = QToolBar()
-        layout.addWidget(self.toolbar)
         self.webview = QWebView()
+        self.chooser = QComboBox(sizeAdjustPolicy=QComboBox.AdjustToContents)
+        self.chooser.activated[int].connect(self.showHomePage)
+        
+        layout.addWidget(self.toolbar)
         layout.addWidget(self.webview)
         
         ac = dockwidget.actionCollection
@@ -61,12 +68,59 @@ class Browser(QWidget):
         tb.addAction(ac.help_forward)
         tb.addSeparator()
         tb.addAction(ac.help_home)
+        tb.addSeparator()
+        tb.addWidget(self.chooser)
         
         dockwidget.mainwindow().iconSizeChanged.connect(self.updateToolBarSettings)
         dockwidget.mainwindow().toolButtonStyleChanged.connect(self.updateToolBarSettings)
         
-        self.showHomePage() # show an initial welcome page
+        self.populateDocChooser()
+        self.showInitialPage()
+        app.settingsChanged.connect(self.populateDocChooser)
     
+    def showInitialPage(self):
+        """Shows the preferred start page if all docs have their version loaded."""
+        if self.webview.url().isEmpty():
+            docs = lilydoc.docs()
+            for doc in docs:
+                if doc.version() is None:
+                    doc.versionLoaded.connect(self.showInitialPage)
+                    return
+            # all are loaded
+            version = lilypondinfo.preferred().version
+            if version:
+                for num, doc in enumerate(docs):
+                    if doc.version() >= version:
+                        self.chooser.setCurrentIndex(num)
+                        break
+                else:
+                    self.chooser.setCurrentIndex(len(docs) - 1)
+            self.showHomePage()
+    
+    def populateDocChooser(self):
+        """Puts the available documentation instances in the combobox."""
+        docs = lilydoc.docs()
+        self.chooser.clear()
+        self.chooser.addItems([''] * len(docs))
+        def settext(num, doc):
+            v = doc.versionString()
+            if doc.isLocal():
+                t = _("(local)")
+            else:
+                t = _("({hostname})").format(hostname=doc.url().host())
+            self.chooser.setItemText(num, "{0} {1}".format(v, t))
+            
+        for n, doc in enumerate(docs):
+            if doc.version() is not None:
+                settext(n, doc)
+            else:
+                def makefunc(n, doc):
+                    def func():
+                        settext(n, doc)
+                        doc.versionLoaded.disconnect(func)
+                    return func
+                doc.versionLoaded.connect(makefunc(n, doc))
+        
     def updateToolBarSettings(self):
         mainwin = self.parentWidget().mainwindow()
         self.toolbar.setIconSize(mainwin.iconSize())
@@ -100,8 +154,12 @@ class Browser(QWidget):
     
     def showHomePage(self):
         """Shows the homepage of the LilyPond documentation."""
-        #self.webview.load(QUrl("http://lilypond.org/doc")) # TEMP!!!
-        self.webview.load(QUrl.fromLocalFile("/usr/share/doc/lilypond/html/index.html")) # TEMP
-
+        doc = lilydoc.docs()[self.chooser.currentIndex()]
+        
+        url = doc.home()
+        if doc.isLocal():
+            # TODO: language
+            url = QUrl.fromLocalFile(url.toLocalFile() + '.html')
+        self.webview.load(url)
 
 

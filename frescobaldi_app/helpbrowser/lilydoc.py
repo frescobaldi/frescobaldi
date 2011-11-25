@@ -116,6 +116,8 @@ def urls():
     urls = []
     urls.extend(map(QUrl.fromLocalFile, local))
     urls.extend(map(QUrl, remote))
+    if not urls:
+        urls.append(QUrl("http://lilypond.org/doc/stable"))
     return urls
 
 
@@ -148,6 +150,10 @@ class Documentation(QObject):
         url = self.url()
         sep = '/' if not url.path().endswith('/') else ''
         url.setPath(url.path() + sep + 'Documentation')
+        if self.version() is not None and self.version() >= (2, 14):
+            url.setPath(url.path() + '/web/manuals')
+        else:
+            url.setPath(url.path() + '/index')
         return url
     
     def _versionReplyFinished(self):
