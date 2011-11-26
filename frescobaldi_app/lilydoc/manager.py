@@ -61,7 +61,14 @@ app.settingsChanged.connect(clear, -100)
 
 
 def loaded():
-    """Returns True if all Documentation are loaded (i.e. know their version)."""
+    """Returns True if all Documentation are loaded (i.e. know their version).
+    
+    If this function returns False, you can connect to the allLoaded signal
+    to get a notification when all Documentation instances have loaded their
+    version information. This signal will only be emitted once, after that all
+    connections will be removed from the signal.
+    
+    """
     for d in docs():
         if d.versionString() is None:
             return False
@@ -86,6 +93,7 @@ def _check_doc_versions():
             return
     _sort_docs()
     allLoaded.emit()
+    allLoaded.clear()
 
 
 def _sort_docs():
