@@ -102,7 +102,7 @@ class Browser(QWidget):
             return
         self.chooser.clear()
         for doc in lilydoc.manager.docs():
-            v = doc.versionString()
+            v = doc.versionString() or _("<unknown>")
             if doc.isLocal():
                 t = _("(local)")
             else:
@@ -142,7 +142,10 @@ class Browser(QWidget):
     
     def showHomePage(self):
         """Shows the homepage of the LilyPond documentation."""
-        doc = lilydoc.manager.docs()[self.chooser.currentIndex()]
+        i = self.chooser.currentIndex()
+        if i < 0:
+            i = 0
+        doc = lilydoc.manager.docs()[i]
         
         url = doc.home()
         if doc.isLocal():
