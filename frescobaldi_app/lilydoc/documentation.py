@@ -82,7 +82,7 @@ class Documentation(QObject):
         url = self.url()
         sep = '/' if not url.path().endswith('/') else ''
         url.setPath(url.path() + sep + 'Documentation')
-        if self.version() is not None and self.version() >= (2, 14):
+        if self.version() is not None and self.version() >= (2, 13, 8):
             url.setPath(url.path() + '/web/manuals')
         else:
             url.setPath(url.path() + '/index')
