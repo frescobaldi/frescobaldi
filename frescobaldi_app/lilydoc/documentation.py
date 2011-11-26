@@ -84,15 +84,6 @@ class Documentation(QObject):
             url.setPath(url.path() + '/index')
         return url
     
-    def _versionReplyFinished(self):
-        if self._versionReply.error():
-            self._versionString = ''
-        else:
-            print self._versionReply.attribute(QNetworkRequest.RedirectionTargetAttribute)
-            self._versionString = bytes(self._versionReply.readAll()).strip()
-        self.versionLoaded.emit(bool(self._versionString))
-        self._versionReply.deleteLater()
-    
     def versionString(self):
         """Returns the version as a string.
         
