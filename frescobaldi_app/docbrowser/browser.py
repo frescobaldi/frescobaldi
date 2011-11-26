@@ -98,7 +98,7 @@ class Browser(QWidget):
     def loadDocumentation(self):
         """Puts the available documentation instances in the combobox."""
         if not lilydoc.manager.loaded():
-            lilydoc.manager.allLoaded.connect(self.loadDocumentation)
+            lilydoc.manager.allLoaded.connect(self.loadDocumentation, -1)
             return
         self.chooser.clear()
         for doc in lilydoc.manager.docs():
