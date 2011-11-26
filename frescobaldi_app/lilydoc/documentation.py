@@ -64,10 +64,14 @@ class Documentation(QObject):
             # HTTP redirect?
             url = self._reply.attribute(QNetworkRequest.RedirectionTargetAttribute)
             if url is not None:
-                self._request(self._reply.url().resolved(url))
-                return
+                if url.path().endswith('/VERSION'):
+                    self._request(self._reply.url().resolved(url))
+                    return
+                else:
+                    # the redirect was not to a VERSION file, discard it
+                    self._versionString = ''
             else:
-                self._versionString = bytes(self._reply.readAll()).strip()
+                self._versionString = str(self._reply.readAll()).strip()
         self.versionLoaded.emit(bool(self._versionString))
         
     def url(self):
