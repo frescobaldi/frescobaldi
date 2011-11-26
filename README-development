@@ -91,5 +91,7 @@ signals:        An alternative to Qt signals that allows for connections to have
 slexer:         A Stateful Lexer, used to build regular expression-based parsers
 hyphenator:     Hyphenate text using hyphenation dictionaries
 cursortools:    Some useful functions manipulating QTextCursor instances
+portmidi:       Access the PortMidi library in different ways
+midifile:       Load and play MIDI files
 
 
