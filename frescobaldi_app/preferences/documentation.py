@@ -100,7 +100,7 @@ class Browser(preferences.Group):
         layout.addWidget(self.languagesLabel, 0, 0)
         layout.addWidget(self.languages, 0, 1)
         
-        items = ['']
+        items = ['', '']
         items.extend(language_names.languageName(l, l) for l in lilydoc.translations)
         self.languages.addItems(items)
         
@@ -109,18 +109,21 @@ class Browser(preferences.Group):
     def translateUI(self):
         self.setTitle(_("Help Browser"))
         self.languagesLabel.setText(_("Preferred Language:"))
-        self.languages.setItemText(0, _("English (untranslated)"))
+        self.languages.setItemText(0, _("Default"))
+        self.languages.setItemText(1, _("English (untranslated)"))
 
     def loadSettings(self):
-        lang = QSettings().value("documentation/language", "C")
-        if lang not in lilydoc.translations:
-            i = 0
+        lang = QSettings().value("documentation/language", "default")
+        if lang in lilydoc.translations:
+            i = lilydoc.translations.index(lang) + 2
+        elif lang == "C":
+            i = 1
         else:
-            i = lilydoc.translations.index(lang) + 1
+            i = 0
         self.languages.setCurrentIndex(i)
     
     def saveSettings(self):
-        langs = ['C'] + lilydoc.translations
+        langs = ['default', 'C'] + lilydoc.translations
         QSettings().setValue("documentation/language",
             langs[self.languages.currentIndex()])
 

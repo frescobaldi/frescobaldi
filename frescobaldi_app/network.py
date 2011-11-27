@@ -18,11 +18,12 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Network-related utility functions.
+Network-related utility functions for LilyPond Documentation.
 """
 
 import locale
 
+from PyQt4.QtCore import QSettings
 from PyQt4.QtNetwork import QNetworkReply, QNetworkRequest
 
 import app
@@ -53,14 +54,25 @@ class NetworkAccessManager(networkaccessmanager.NetworkAccessManager):
         self.readSettings()
     
     def readSettings(self):
-        # TODO: set language preference from config
-        langs = []
-        lang = locale.getdefaultlocale()[0]
-        if lang:
-            langs.append(lang)
-            if '_' in lang:
-                langs.append(lang.split('_')[0])
-        langs.append('en')
+        s = QSettings()
+        lang = s.value("documentation/language", "default")
+        if lang == "C":
+            lang = "en"
+        elif lang == "default":
+            lang = s.value("language", "")
+            if not lang:
+                try:
+                    lang = locale.getdefaultlocale()[0]
+                except ValueError:
+                    lang = "en"
+            elif lang == "none":
+                lang = "en"
+        if '_' in lang:
+            langs = [lang, lang.split('_')[0]]
+        else:
+            langs = [lang]
+        if 'en' not in langs:
+            langs.append('en')
         self.headers['Accept-Language'] = ','.join(langs)
 
 
