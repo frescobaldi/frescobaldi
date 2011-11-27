@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-11-11 13:19+0100\n"
-"PO-Revision-Date: 2011-11-11 15:31+0100\n"
+"POT-Creation-Date: 2011-11-27 20:16+0100\n"
+"PO-Revision-Date: 2011-11-27 20:24+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -116,31 +116,31 @@ msgstr "Sneltoetsconflict"
 msgid "Edit again"
 msgstr "Opnieuw bewerken"
 
-#: frescobaldi_app/app.py:129
+#: frescobaldi_app/app.py:128
 msgid "LilyPond Files"
 msgstr "LilyPond-bestanden"
 
-#: frescobaldi_app/app.py:130
+#: frescobaldi_app/app.py:129
 msgid "LaTeX Files"
 msgstr "LaTeX-bestanden"
 
-#: frescobaldi_app/app.py:131
+#: frescobaldi_app/app.py:130
 msgid "DocBook Files"
 msgstr "DocBook-bestanden"
 
-#: frescobaldi_app/app.py:132
+#: frescobaldi_app/app.py:131
 msgid "HTML Files"
 msgstr "HTML-bestanden"
 
-#: frescobaldi_app/app.py:133
+#: frescobaldi_app/app.py:132
 msgid "Texinfo Files"
 msgstr "Texinfo-bestanden"
 
-#: frescobaldi_app/app.py:134
+#: frescobaldi_app/app.py:133
 msgid "Scheme Files"
 msgstr "Scheme-bestanden"
 
-#: frescobaldi_app/app.py:135 frescobaldi_app/snippet/widget.py:260
+#: frescobaldi_app/app.py:134 frescobaldi_app/snippet/widget.py:260
 #: frescobaldi_app/snippet/widget.py:277
 msgid "All Files"
 msgstr "Alle bestanden"
@@ -197,7 +197,8 @@ msgstr "&Wijzigingen"
 msgid "Run Again"
 msgstr "Opnieuw uitvoeren"
 
-#: frescobaldi_app/convert_ly.py:137 frescobaldi_app/musicview/image.py:165
+#: frescobaldi_app/convert_ly.py:137 frescobaldi_app/docbrowser/browser.py:120
+#: frescobaldi_app/musicview/image.py:166
 msgid "<unknown>"
 msgstr "<onbekend>"
 
@@ -359,7 +360,7 @@ msgid "Edit"
 msgstr "Bewerken"
 
 #: frescobaldi_app/hyphendialog.py:167 frescobaldi_app/help/contents.py:139
-#: frescobaldi_app/preferences/__init__.py:98
+#: frescobaldi_app/preferences/__init__.py:99
 #: frescobaldi_app/preferences/midi.py:121
 msgid "Preferences"
 msgstr "Voorkeuren"
@@ -432,15 +433,15 @@ msgstr ""
 msgid "Select Color"
 msgstr "Kleur selecteren"
 
-#: frescobaldi_app/job.py:188
+#: frescobaldi_app/job.py:195
 msgid "Starting {job}..."
 msgstr "Starten {job}..."
 
-#: frescobaldi_app/job.py:193
+#: frescobaldi_app/job.py:200
 msgid "Aborting {job}..."
 msgstr "Afbreken {job}..."
 
-#: frescobaldi_app/job.py:199
+#: frescobaldi_app/job.py:206
 msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
@@ -448,23 +449,23 @@ msgstr ""
 "Kan {program} niet starten.\n"
 "Controleer het pad en permissies."
 
-#: frescobaldi_app/job.py:202
+#: frescobaldi_app/job.py:209
 msgid "Could not read from the process."
 msgstr "Kan de uitvoer van het proces niet lezen."
 
-#: frescobaldi_app/job.py:204
+#: frescobaldi_app/job.py:211
 msgid "An unknown error occured."
 msgstr "Er is een onbekende fout opgetreden."
 
-#: frescobaldi_app/job.py:209
+#: frescobaldi_app/job.py:216
 msgid "Exited with return code {code}."
 msgstr "Afgesloten met returncode {code}."
 
-#: frescobaldi_app/job.py:211
+#: frescobaldi_app/job.py:218
 msgid "Exited with exit status {status}."
 msgstr "Afgesloten met status {status}."
 
-#: frescobaldi_app/job.py:214
+#: frescobaldi_app/job.py:221
 msgid "Completed successfully in {time}."
 msgstr "Succesvol beëindigd in {time}."
 
@@ -556,7 +557,7 @@ msgstr "Bestand openen"
 #: frescobaldi_app/mainwindow.py:359 frescobaldi_app/mainwindow.py:365
 #: frescobaldi_app/mainwindow.py:390 frescobaldi_app/mainwindow.py:441
 #: frescobaldi_app/mainwindow.py:509 frescobaldi_app/mainwindow.py:569
-#: frescobaldi_app/musicview/image.py:212
+#: frescobaldi_app/musicview/image.py:213
 #: frescobaldi_app/preferences/fontscolors.py:476
 #: frescobaldi_app/preferences/fontscolors.py:514
 #: frescobaldi_app/snippet/import_export.py:104
@@ -888,11 +889,11 @@ msgstr "&Help"
 msgid "Document:"
 msgstr "Document:"
 
-#: frescobaldi_app/musicpreview.py:193
+#: frescobaldi_app/musicpreview.py:195
 msgid "&Print"
 msgstr "&Afdrukken"
 
-#: frescobaldi_app/musicpreview.py:194
+#: frescobaldi_app/musicpreview.py:196
 msgid "Music Preview"
 msgstr "Muziek vooruitblik"
 
@@ -1027,6 +1028,51 @@ msgstr "Automatisch &aanvullen"
 msgid "Show C&ompletions Popup"
 msgstr "Aanvullingen &weergeven"
 
+#: frescobaldi_app/docbrowser/__init__.py:46
+#: frescobaldi_app/docbrowser/__init__.py:58
+#: frescobaldi_app/preferences/documentation.py:110
+msgid "Documentation Browser"
+msgstr "Documentatie-browser"
+
+#: frescobaldi_app/docbrowser/__init__.py:47
+msgid "&Documentation Browser"
+msgstr "&Documentatie-browser"
+
+#: frescobaldi_app/docbrowser/__init__.py:76
+#: frescobaldi_app/help/browser.py:75
+msgid "Back"
+msgstr "Terug"
+
+#: frescobaldi_app/docbrowser/__init__.py:77
+#: frescobaldi_app/help/browser.py:76
+msgid "Forward"
+msgstr "Verder"
+
+#. L10N: Home page of the LilyPond manual
+#: frescobaldi_app/docbrowser/__init__.py:79
+msgid "Home"
+msgstr "Begin"
+
+#: frescobaldi_app/docbrowser/__init__.py:80
+msgid "&LilyPond Documentation"
+msgstr "&LilyPond-documentatie"
+
+#: frescobaldi_app/docbrowser/__init__.py:81
+msgid "&Contextual LilyPond Help"
+msgstr "LilyPond-&contexthulp"
+
+#: frescobaldi_app/docbrowser/browser.py:117
+msgid "(local)"
+msgstr "(lokaal)"
+
+#: frescobaldi_app/docbrowser/browser.py:119
+msgid "({hostname})"
+msgstr "({hostname})"
+
+#: frescobaldi_app/docbrowser/sourceviewer.py:59
+msgid "LilyPond Source"
+msgstr "LilyPond-bron"
+
 #: frescobaldi_app/engrave/__init__.py:151
 msgid "&Always Engrave [{docname}]"
 msgstr "&Altijd graveren [{docname}]"
@@ -1058,16 +1104,6 @@ msgstr "Graveertaak af&breken"
 #: frescobaldi_app/help/browser.py:74
 msgid "Toolbar"
 msgstr "Werkbalk"
-
-#: frescobaldi_app/help/browser.py:75
-#: frescobaldi_app/helpbrowser/__init__.py:71
-msgid "Back"
-msgstr "Terug"
-
-#: frescobaldi_app/help/browser.py:76
-#: frescobaldi_app/helpbrowser/__init__.py:72
-msgid "Forward"
-msgstr "Verder"
 
 #: frescobaldi_app/help/browser.py:77
 msgid "Start"
@@ -1195,7 +1231,6 @@ msgid "Getting Started"
 msgstr "Aan de slag"
 
 #: frescobaldi_app/help/contents.py:136
-#: frescobaldi_app/helpbrowser/__init__.py:75
 #: frescobaldi_app/preferences/fontscolors.py:482
 #: frescobaldi_app/preferences/lilypond.py:234
 #: frescobaldi_app/scorewiz/settings.py:289
@@ -1207,7 +1242,7 @@ msgid "Engrave (publish)"
 msgstr "Graveren (publicatie)"
 
 #: frescobaldi_app/help/contents.py:140
-#: frescobaldi_app/preferences/__init__.py:170
+#: frescobaldi_app/preferences/__init__.py:171
 msgid "LilyPond Preferences"
 msgstr "LilyPond-voorkeuren"
 
@@ -1783,32 +1818,6 @@ msgstr "Zie ook:"
 msgid "(no key defined)"
 msgstr "(geen toets ingesteld)"
 
-#: frescobaldi_app/helpbrowser/__init__.py:45
-#: frescobaldi_app/helpbrowser/__init__.py:57
-msgid "Help Browser"
-msgstr "Helpbrowser"
-
-#: frescobaldi_app/helpbrowser/__init__.py:46
-msgid "&Help Browser"
-msgstr "&Helpbrowser"
-
-#. L10N: Home page of the Frescobaldi manual
-#: frescobaldi_app/helpbrowser/__init__.py:74
-msgid "Home"
-msgstr "Begin"
-
-#: frescobaldi_app/helpbrowser/html.py:44
-msgid "Documentation"
-msgstr "Documentatie"
-
-#: frescobaldi_app/helpbrowser/html.py:45
-msgid "{appname} version {version}"
-msgstr "{appname} versie {version}"
-
-#: frescobaldi_app/helpbrowser/sourceviewer.py:59
-msgid "LilyPond Source"
-msgstr "LilyPond-bron"
-
 #: frescobaldi_app/logtool/__init__.py:50
 #: frescobaldi_app/preferences/tools.py:78
 msgid "LilyPond Log"
@@ -1818,11 +1827,11 @@ msgstr "LilyPond-uitvoer"
 msgid "LilyPond &Log"
 msgstr "&LilyPond-uitvoer"
 
-#: frescobaldi_app/logtool/__init__.py:90
+#: frescobaldi_app/logtool/__init__.py:91
 msgid "Next Error Message"
 msgstr "Volgende foutmelding"
 
-#: frescobaldi_app/logtool/__init__.py:91
+#: frescobaldi_app/logtool/__init__.py:92
 msgid "Previous Error Message"
 msgstr "Vorige foutmelding"
 
@@ -1993,8 +2002,8 @@ msgstr "Naar klembord &kopiëren"
 msgid "&Save As..."
 msgstr "Opslaan &als..."
 
-#: frescobaldi_app/musicview/image.py:135
-#, python-format
+#: frescobaldi_app/musicview/image.py:136
+#, no-python-format
 msgid ""
 "<p>\n"
 "Clicking toggles the display between 100% size and window size. Drag to copy "
@@ -2016,15 +2025,15 @@ msgstr ""
 "werkelijke bestand op schijf sleept, bijvoorbeeld naar een e-mailbericht.\n"
 "</p>"
 
-#: frescobaldi_app/musicview/image.py:166
+#: frescobaldi_app/musicview/image.py:167
 msgid "Image from {filename}"
 msgstr "Afbeelding uit {filename}"
 
-#: frescobaldi_app/musicview/image.py:209
+#: frescobaldi_app/musicview/image.py:210
 msgid "Save Image As"
 msgstr "Afbeelding opslaan als"
 
-#: frescobaldi_app/musicview/image.py:213
+#: frescobaldi_app/musicview/image.py:214
 msgid "Could not save the image."
 msgstr "Kan de afbeelding niet opslaan."
 
@@ -2445,30 +2454,90 @@ msgctxt "QScrollBar"
 msgid "Scroll right"
 msgstr "Naar rechts schuiven"
 
-#: frescobaldi_app/preferences/__init__.py:160
+#: frescobaldi_app/preferences/__init__.py:161
 #: frescobaldi_app/preferences/general.py:119
 msgid "General Preferences"
 msgstr "Algemene voorkeuren"
 
-#: frescobaldi_app/preferences/__init__.py:180
+#: frescobaldi_app/preferences/__init__.py:181
 msgid "MIDI Settings"
 msgstr "MIDI-instellingen"
 
-#: frescobaldi_app/preferences/__init__.py:190
+#: frescobaldi_app/preferences/__init__.py:191
 msgid "Paths"
 msgstr "Paden"
 
-#: frescobaldi_app/preferences/__init__.py:200
+#: frescobaldi_app/preferences/__init__.py:201
+msgid "LilyPond Documentation"
+msgstr "LilyPond-documentatie"
+
+#: frescobaldi_app/preferences/__init__.py:211
 msgid "Keyboard Shortcuts"
 msgstr "Sneltoetsen"
 
-#: frescobaldi_app/preferences/__init__.py:210
+#: frescobaldi_app/preferences/__init__.py:221
 msgid "Fonts & Colors"
 msgstr "Tekst & kleur"
 
-#: frescobaldi_app/preferences/__init__.py:220
+#: frescobaldi_app/preferences/__init__.py:231
 msgid "Tools"
 msgstr "Gereedschap"
+
+#: frescobaldi_app/preferences/documentation.py:64
+msgid "Paths to LilyPond Documentation"
+msgstr "Paden naar LilyPond-documentatie"
+
+#: frescobaldi_app/preferences/documentation.py:66
+msgid "Add paths or URLs. See \"What's This\" for more information."
+msgstr ""
+"Voeg paden of URLs toe. Zie \"Wat is dit\" voor meer "
+"informatie."
+
+#: frescobaldi_app/preferences/documentation.py:68
+msgid ""
+"<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
+"A local path should point to the directory where either the "
+"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
+"offline-root\" path.</p>\n"
+"<p>If those can't be found, documentation is looked for in all "
+"subdirectories of the given path, one level deep. This makes it possible to "
+"put multiple versions of LilyPond documentation in different subdirectories "
+"and have Frescobaldi automatically find them.</p>"
+msgstr ""
+"<p>Hier kunt u lokale bestandspaden of URLs voor LilyPond-documentatie "
+"toevoegen. "
+"Een lokaal pad moet naar een directorie wijzen waar de {documentation} map "
+"is, of "
+"het hele \"share/doc/lilypond/html/offline-root\" pad.</p>\n"
+"<p>Als deze niet gevonden worden, wordt een niveau diep gezocht in submappen."
+" "
+"Zodoende is het mogelijk om verschillende versies van de "
+"LilyPond-documentatie in verschillende submappen te plaatsen, en dat "
+"Frescobaldi ze automatisch vindt.</p>"
+
+#: frescobaldi_app/preferences/documentation.py:111
+msgid "Preferred Language:"
+msgstr "Voorkeurstaal:"
+
+#: frescobaldi_app/preferences/documentation.py:112
+#: frescobaldi_app/preferences/general.py:124
+#: frescobaldi_app/scorewiz/settings.py:132
+#: frescobaldi_app/scorewiz/settings.py:198
+#: frescobaldi_app/scorewiz/settings.py:293
+#: frescobaldi_app/scorewiz/parts/_base.py:214
+#: frescobaldi_app/scorewiz/parts/plucked_strings.py:65
+#: frescobaldi_app/widgets/schemeselector.py:115
+msgid "Default"
+msgstr "Standaard"
+
+#: frescobaldi_app/preferences/documentation.py:113
+#: frescobaldi_app/scorewiz/settings.py:196
+msgid "English (untranslated)"
+msgstr "Engels (onvertaald)"
+
+#: frescobaldi_app/preferences/documentation.py:135
+msgid "Please enter a local path or a URL:"
+msgstr "Voer een lokaal pad in of een URL:"
 
 #: frescobaldi_app/preferences/fontscolors.py:121
 msgid "Use this scheme for printing"
@@ -2780,16 +2849,6 @@ msgstr "Systeemstandaard (indien beschikbaar)"
 msgid "Style:"
 msgstr "Stijl:"
 
-#: frescobaldi_app/preferences/general.py:124
-#: frescobaldi_app/scorewiz/settings.py:132
-#: frescobaldi_app/scorewiz/settings.py:198
-#: frescobaldi_app/scorewiz/settings.py:293
-#: frescobaldi_app/scorewiz/parts/_base.py:214
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:65
-#: frescobaldi_app/widgets/schemeselector.py:115
-msgid "Default"
-msgstr "Standaard"
-
 #: frescobaldi_app/preferences/general.py:125
 msgid "Use System Icons"
 msgstr "Systeempictogrammen gebruiken"
@@ -3013,7 +3072,7 @@ msgstr ""
 "(instrument 0). In dat geval kunt u het bestand vanaf het begin afspelen om "
 "de instrumenten weer correct te horen.</p>\n"
 
-#: frescobaldi_app/preferences/paths.py:60
+#: frescobaldi_app/preferences/paths.py:59
 msgid "Folders containing hyphenation dictionaries"
 msgstr "Mappen met afbreekbestanden"
 
@@ -4247,10 +4306,6 @@ msgstr "Lang"
 #: frescobaldi_app/scorewiz/settings.py:189
 msgid "Short"
 msgstr "Kort"
-
-#: frescobaldi_app/scorewiz/settings.py:196
-msgid "English (untranslated)"
-msgstr "Engels (onvertaald)"
 
 #: frescobaldi_app/scorewiz/settings.py:213
 msgid "Instrument names"
@@ -5701,7 +5756,7 @@ msgstr "Opslaan als sjabloon"
 
 #: frescobaldi_app/snippet/template.py:34
 msgid "Please enter a template name:"
-msgstr "Voor een naam voor de sjabloon in:"
+msgstr "Voer een naam voor de sjabloon in:"
 
 #: frescobaldi_app/snippet/tool.py:53 frescobaldi_app/snippet/tool.py:119
 #: frescobaldi_app/snippet/widget.py:362
@@ -5986,6 +6041,15 @@ msgstr "Selecteer een map"
 msgid "Select a file"
 msgstr "Selecteer een bestand"
 
+#~ msgid "Help Browser"
+#~ msgstr "Helpbrowser"
+
+#~ msgid "&Help Browser"
+#~ msgstr "&Helpbrowser"
+
+#~ msgid "{appname} version {version}"
+#~ msgstr "{appname} versie {version}"
+
 #~ msgid "Add..."
 #~ msgstr "Toevoegen..."
 
@@ -6132,9 +6196,6 @@ msgstr "Selecteer een bestand"
 
 #~ msgid "PDF Preview"
 #~ msgstr "PDF vooruitblik"
-
-#~ msgid "LilyPond Documentation"
-#~ msgstr "LilyPond-documentatie"
 
 #~ msgid "MIDI input:"
 #~ msgstr "MIDI invoer:"
@@ -6772,9 +6833,6 @@ msgstr "Selecteer een bestand"
 
 #~ msgid "The %1 layout object"
 #~ msgstr "Het %1 layout-object"
-
-#~ msgid "LilyPond &Help"
-#~ msgstr "LilyPond-&hulp"
 
 #~ msgid ""
 #~ "Where to add articulations et cetera: above or below the staff or in the "
