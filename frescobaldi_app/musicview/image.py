@@ -132,6 +132,7 @@ class Dialog(QDialog):
         self.copyButton.setText(_("&Copy to Clipboard"))
         self.saveButton.setText(_("&Save As..."))
         self.imageViewer.setWhatsThis(_(
+            #xgettext:no-python-format
             "<p>\n"
             "Clicking toggles the display between 100% size and window size. "
             "Drag to copy the image to another application. "
