@@ -46,6 +46,31 @@ def get(url):
     return accessmanager().get(request)
 
 
+def langs():
+    """Returns a list of language codes wished for documentation.
+    
+    If the list is empty, english (untranslated) is assumed.
+    
+    """
+    s = QSettings()
+    lang = s.value("documentation/language", "default")
+    if lang == "C":
+        return []
+    elif lang == "default":
+        lang = s.value("language", "")
+        if not lang:
+            try:
+                lang = locale.getdefaultlocale()[0]
+            except ValueError:
+                return []
+        elif lang == "none":
+            return []
+    if '_' in lang:
+        return [lang, lang.split('_')[0]]
+    else:
+        return [lang]
+
+
 class NetworkAccessManager(networkaccessmanager.NetworkAccessManager):
     """A NetworkAccessManager that maintains some settings from the preferences."""
     def __init__(self, parent=None):
@@ -54,26 +79,10 @@ class NetworkAccessManager(networkaccessmanager.NetworkAccessManager):
         self.readSettings()
     
     def readSettings(self):
-        s = QSettings()
-        lang = s.value("documentation/language", "default")
-        if lang == "C":
-            lang = "en"
-        elif lang == "default":
-            lang = s.value("language", "")
-            if not lang:
-                try:
-                    lang = locale.getdefaultlocale()[0]
-                except ValueError:
-                    lang = "en"
-            elif lang == "none":
-                lang = "en"
-        if '_' in lang:
-            langs = [lang, lang.split('_')[0]]
-        else:
-            langs = [lang]
-        if 'en' not in langs:
-            langs.append('en')
-        self.headers['Accept-Language'] = ','.join(langs)
+        l = langs()
+        if 'en' not in l:
+            l.append('en')
+        self.headers['Accept-Language'] = ','.join(l)
 
 
 

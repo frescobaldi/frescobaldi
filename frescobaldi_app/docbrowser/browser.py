@@ -23,15 +23,16 @@ The browser widget for the help browser.
 
 from __future__ import unicode_literals
 
+import os
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtWebKit import *
 
 import app
-import network
 import lilypondinfo
 import lilydoc.manager
+import lilydoc.network
 
 
 class Browser(QWidget):
@@ -56,7 +57,7 @@ class Browser(QWidget):
         ac.help_forward.triggered.connect(self.webview.forward)
         ac.help_home.triggered.connect(self.showHomePage)
         
-        self.webview.page().setNetworkAccessManager(network.accessmanager())
+        self.webview.page().setNetworkAccessManager(lilydoc.network.accessmanager())
         self.webview.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
         self.webview.page().linkClicked.connect(self.openUrl)
         self.webview.page().setForwardUnsupportedContent(True)
@@ -125,7 +126,7 @@ class Browser(QWidget):
     
     def openUrl(self, url):
         if url.path().endswith(('.ily', '.lyi', '.ly')):
-            self.sourceViewer().showReply(network.get(url))
+            self.sourceViewer().showReply(lilydoc.network.get(url))
         else:
             self.webview.load(url)
     
@@ -149,8 +150,14 @@ class Browser(QWidget):
         
         url = doc.home()
         if doc.isLocal():
-            # TODO: language
-            url = QUrl.fromLocalFile(url.toLocalFile() + '.html')
+            path = url.toLocalFile()
+            langs = lilydoc.network.langs()
+            if langs:
+                for lang in langs:
+                    if os.path.exists(path + '.' + lang + '.html'):
+                        path += '.' + lang
+                        break
+            url = QUrl.fromLocalFile(path + '.html')
         self.webview.load(url)
 
 
