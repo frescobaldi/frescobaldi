@@ -107,7 +107,7 @@ class Browser(preferences.Group):
         app.translateUI(self)
     
     def translateUI(self):
-        self.setTitle(_("Help Browser"))
+        self.setTitle(_("Documentation Browser"))
         self.languagesLabel.setText(_("Preferred Language:"))
         self.languages.setItemText(0, _("Default"))
         self.languages.setItemText(1, _("English (untranslated)"))
