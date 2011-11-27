@@ -46,6 +46,7 @@ def docs():
     global _documentations
     if _documentations is None:
         _documentations = [documentation.Documentation(url) for url in urls()]
+        _sort_docs()
         # check whether they need to fully load their version number yet
         _check_doc_versions()
     return list(_documentations)
@@ -98,7 +99,7 @@ def _check_doc_versions():
 
 def _sort_docs():
     """Sorts all documentation instances on local/remote and then version."""
-    _documentations.sort(key = lambda d: (not d.isLocal(), d.version()))
+    _documentations.sort(key = lambda d: (not d.isLocal(), d.version() or ()))
 
 
 def urls():

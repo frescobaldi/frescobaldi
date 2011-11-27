@@ -79,36 +79,49 @@ class Browser(QWidget):
         app.settingsChanged.connect(self.loadDocumentation)
     
     def showInitialPage(self):
-        """Shows the preferred start page if all docs have their version loaded."""
+        """Shows the preferred start page.
+        
+        If a local documentation instance already has a suitable version,
+        just loads it. Otherwise connects to the allLoaded signal, that is
+        emitted when all the documentation instances have loaded their version
+        information and then shows the start page (if another page wasn't yet
+        loaded).
+        
+        """
         if self.webview.url().isEmpty():
-            if not lilydoc.manager.loaded():
-                lilydoc.manager.allLoaded.connect(self.showInitialPage)
-                return
-            # all are loaded
             docs = lilydoc.manager.docs()
             version = lilypondinfo.preferred().version
-            index = len(docs) - 1
+            index = -1
             if version:
                 for num, doc in enumerate(docs):
-                    if doc.version() >= version:
-                        index = num
+                    if doc.version() is not None and doc.version() >= version:
+                        index = num # a suitable documentation is found
                         break
+            if index == -1:
+                # nothing found (or LilyPond version not available),
+                # wait for loading or show the most recent version
+                if not lilydoc.manager.loaded():
+                    lilydoc.manager.allLoaded.connect(self.showInitialPage)
+                    return
+                index = len(docs) - 1
             self.chooser.setCurrentIndex(index)
             self.showHomePage()
     
     def loadDocumentation(self):
         """Puts the available documentation instances in the combobox."""
-        if not lilydoc.manager.loaded():
-            lilydoc.manager.allLoaded.connect(self.loadDocumentation, -1)
-            return
+        i = self.chooser.currentIndex()
         self.chooser.clear()
         for doc in lilydoc.manager.docs():
-            v = doc.versionString() or _("<unknown>")
+            v = doc.versionString()
             if doc.isLocal():
                 t = _("(local)")
             else:
                 t = _("({hostname})").format(hostname=doc.url().host())
-            self.chooser.addItem("{0} {1}".format(v, t))
+            self.chooser.addItem("{0} {1}".format(v or _("<unknown>"), t))
+        self.chooser.setCurrentIndex(i)
+        if not lilydoc.manager.loaded():
+            lilydoc.manager.allLoaded.connect(self.loadDocumentation, -1)
+            return
         
     def updateToolBarSettings(self):
         mainwin = self.parentWidget().mainwindow()
