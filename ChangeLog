@@ -3,6 +3,8 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 
 Changes in 1.9.3 -- 
 
+* LilyPond Documentation browser:
+  - multiple versions of LilyPond documentation can be browsed, local and remote
 * Bug fixes:
   - fix crash when MIDI synth stopped or disconnected while playing (issue #4)
   - fix using PortMidi via ctypes under 64bit Linux (issue #3)
