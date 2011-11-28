@@ -6,6 +6,8 @@ Changes in 1.9.3 --
 * LilyPond Documentation browser:
   - multiple versions of LilyPond documentation can be browsed, local and remote
 * Bug fixes:
+  - fix error message when running LilyPond on modified document with a name but
+    which was never saved before (happens e.g. when opening a non-existing file)
   - fix crash when MIDI synth stopped or disconnected while playing (issue #4)
   - fix using PortMidi via ctypes under 64bit Linux (issue #3)
   - fix error message on invalid textedit links

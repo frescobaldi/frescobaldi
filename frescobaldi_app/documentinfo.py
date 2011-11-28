@@ -216,7 +216,7 @@ class DocumentInfo(plugin.DocumentPlugin):
     def includefiles(self):
         """Returns a set of filenames that are included by the given document.
         
-        The document's own filename is also added to the set.
+        The document's own filename is not added to the set.
         The configured include path is used to find files.
         Included files are checked recursively, relative to our (master) file,
         relative to the including file, and if that still yields no file, relative
@@ -233,7 +233,6 @@ class DocumentInfo(plugin.DocumentPlugin):
                 return set()
             includeargs = self.includeargs()
         files = fileinfo.includefiles(filename, self.includepath(), includeargs)
-        files.add(filename)
         return files
 
     @resetoncontentschanged

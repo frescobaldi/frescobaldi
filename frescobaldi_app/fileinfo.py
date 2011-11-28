@@ -151,7 +151,6 @@ def basenames(filename, includefiles = None, initial_outputargs = None):
         basenames.append(basepath)
     
     includes = set(includefiles) if includefiles else set()
-    includes.discard(filename)
     
     if initial_outputargs is None:
         initial_outputargs = outputargs(filename)
