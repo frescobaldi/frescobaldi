@@ -12,6 +12,8 @@ def packagelist(directory):
 scripts = ['frescobaldi']
 packages = packagelist('frescobaldi_app')
 package_data = {
+    'frescobaldi_app.css': ['*.png'],
+    'frescobaldi_app.help': ['*.png'],
     'frescobaldi_app.hyphdicts': ['*.dic'],
     'frescobaldi_app.icons': [
         '*.ico',
@@ -33,7 +35,7 @@ else:
     ]
 
 classifiers = [
-    'Development Status :: 3 - Alpha',
+    'Development Status :: 4 - Beta',
     'Intended Audience :: End Users/Desktop',
     'License :: OSI Approved :: GNU General Public License (GPL)',
     'Operating System :: MacOS :: MacOS X',
