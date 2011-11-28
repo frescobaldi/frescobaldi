@@ -66,7 +66,7 @@ def files(basenames, extension = '*'):
     """Yields filenames with the given basenames matching the given extension."""
     def source():
         for name in basenames:
-            name = name.replace('[', '[[]')
+            name = name.replace('[', '[[]').replace('?', '[?]').replace('*', '[*]')
             yield glob.iglob(name + extension)
             yield sorted(glob.iglob(name + '-*[0-9]' + extension), key=naturalsort)
     return itertools.chain.from_iterable(source())
