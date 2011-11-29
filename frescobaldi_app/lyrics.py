@@ -55,7 +55,6 @@ class Lyrics(plugin.MainWindowPlugin):
         self.updateSelection(mainwindow.hasSelection())
         
     def updateSelection(self, selection):
-        self.actionCollection.lyrics_hyphenate.setEnabled(selection)
         self.actionCollection.lyrics_dehyphenate.setEnabled(selection)
         self.actionCollection.lyrics_copy_dehyphenated.setEnabled(selection)
     
@@ -65,13 +64,16 @@ class Lyrics(plugin.MainWindowPlugin):
         cursor = view.textCursor()
         found = []
         # find text to hyphenate
-        source = tokeniter.Source.selection(cursor)
+        if cursor.hasSelection():
+            source = tokeniter.Source.selection(cursor)
+        else:
+            source = tokeniter.Source.document(cursor)
         for token in source:
             if isinstance(token, ly.lex.lilypond.LyricText):
                 # a word found
                 for m in _word_re.finditer(token):
                     found.append((source.cursor(token, m.start(), m.end()), m.group()))
-        if not found:
+        if not found and cursor.hasSelection():
             # no tokens were found, then tokenize the text again as if in lyricmode
             start = cursor.selectionStart()
             state = ly.lex.State(ly.lex.lilypond.ParseLyricMode)
@@ -83,7 +85,7 @@ class Lyrics(plugin.MainWindowPlugin):
                         cur.setPosition(start + token.pos + m.start())
                         cur.setPosition(start + token.pos + m.end(), QTextCursor.KeepAnchor)
                         found.append((cur, m.group()))
-        if not found:
+        if not found and cursor.hasSelection():
             # still not succeeded, then try flat text
             for m in _word_re.finditer(cursor.selection().toPlainText()):
                 cur = QTextCursor(cursor)
@@ -94,12 +96,11 @@ class Lyrics(plugin.MainWindowPlugin):
             import hyphendialog
             h = hyphendialog.HyphenDialog(self.mainwindow()).hyphenator()
             if h:
-                with cursortools.keepSelection(cursor, view):
-                    with cursortools.editBlock(cursor):
-                        for cur, word in found:
-                            hyph_word = h.inserted(word, ' -- ')
-                            if word != hyph_word:
-                                cur.insertText(hyph_word)
+                with cursortools.editBlock(cursor):
+                    for cur, word in found:
+                        hyph_word = h.inserted(word, ' -- ')
+                        if word != hyph_word:
+                            cur.insertText(hyph_word)
             
     def dehyphenate(self):
         """De-hyphenates selected Lyrics text."""
