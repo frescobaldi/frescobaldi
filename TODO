@@ -1,0 +1,34 @@
+TODO/ideas for Frescobaldi 2.x
+==============================
+
+
+- Text editor context menu
+
+- LilyPond context help
+
+- LilyPond->Engrave custom
+
+- Edit->Select Block
+
+- interface for running lilypond-book
+
+- Midi input and import. Probably using a basic sequencer, allowing changes,
+  corrections and quantizing touchups before putting the LilyPond representation
+  in the editor.
+
+- define and extend api for script snippets
+
+- tool to separate out things from music and attach them to invisible rests (s)
+  in a separate expression
+
+- check or even auto-insert bar checks
+
+- document structure panel
+
+- editing via Music View:
+  * relevant context menu on right-clicking object
+  * drag an object to e.g. create an \override #'extra-offset command
+
+- tool or panel to insert special characters from a unicode character map
+
+
