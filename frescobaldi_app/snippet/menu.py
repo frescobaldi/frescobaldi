@@ -150,6 +150,6 @@ class TemplateMenu(SnippetMenu):
         from . import snippets
         if 'template-run' in snippets.get(name).variables:
             import engrave
-            engrave.engraver(self.mainwindow()).engravePreview()
+            engrave.engraver(self.mainwindow()).engrave(True, d)
 
 

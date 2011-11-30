@@ -95,8 +95,14 @@ class Engraver(plugin.MainWindowPlugin):
         """Opens a dialog to configure the job before starting it."""
         pass
     
-    def engrave(self, preview):
-        """Starts a default engraving job. The bool preview specifies preview mode."""
+    def engrave(self, preview, document=None):
+        """Starts a default engraving job.
+        
+        The bool preview specifies preview mode.
+        If document is not specified, it is either the sticky or current
+        document.
+        
+        """
         from . import command
         # save the current document if desired and it makes sense 
         # (i.e. the document is modified and has a local filename)
@@ -104,7 +110,7 @@ class Engraver(plugin.MainWindowPlugin):
             doc = self.mainwindow().currentDocument()
             if doc.isModified() and doc.url().toLocalFile():
                 doc.save()
-        doc = self.stickyDocument() or self.mainwindow().currentDocument()
+        doc = document or self.stickyDocument() or self.mainwindow().currentDocument()
         job = command.defaultJob(doc, preview)
         jobattributes.get(job).mainwindow = self.mainwindow()
         jobmanager.manager(doc).startJob(job)
