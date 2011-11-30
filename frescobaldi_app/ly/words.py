@@ -1015,6 +1015,9 @@ papervariables = (
     'tocItemMarkup',
     'tocTitleMarkup',
     
+    # fonts
+    'fonts',
+    
     # undocumented?
     #'blank-after-score-page-force',
     #'force-assignment',
