@@ -80,6 +80,19 @@ class MidiPorts(preferences.Group):
             "To use MIDI, please check if PortMIDI is installed on your system "
             "and that a MIDI synthesizer is available or connected."))
         self._playerLabel.setText(_("Player output:"))
+        self._playerPort.setToolTip(_(
+            "The MIDI port to play music to. "
+            "See \"What's This\" for more information."))
+        self._playerPort.setWhatsThis(_(
+            "<p>"
+            "This dropdown menu lists the available MIDI ports on your system. "
+            "You can select one, or just type part of a name. "
+            "In that case, the first available port name that starts with the "
+            "specified characters is used."
+            "</p>\n<p>"
+            "Click the button to refresh the list, e.g. when you connect a "
+            "MIDI device or start a software synthesizer."
+            "</p>"))
         self._reloadMidi.setText(_("Refresh MIDI ports"))
 
     def loadMidiPorts(self):

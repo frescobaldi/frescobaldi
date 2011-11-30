@@ -10,14 +10,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-11-27 20:16+0100\n"
+"POT-Creation-Date: 2011-11-30 09:57+0100\n"
 "PO-Revision-Date: 2010-12-13 19:14+0100\n"
 "Last-Translator: Pavel Fric <fripohled@blogspot.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
-"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Lokalize 1.1\n"
 
@@ -399,7 +399,7 @@ msgstr ""
 
 #: frescobaldi_app/hyphendialog.py:167 frescobaldi_app/help/contents.py:139
 #: frescobaldi_app/preferences/__init__.py:99
-#: frescobaldi_app/preferences/midi.py:121
+#: frescobaldi_app/preferences/midi.py:134
 #, fuzzy
 msgid "Preferences"
 msgstr "Obecné volby"
@@ -481,17 +481,17 @@ msgstr "LilyPond [%1] skončil ve stavu ukončení %2."
 msgid "Completed successfully in {time}."
 msgstr ""
 
-#: frescobaldi_app/lyrics.py:131
+#: frescobaldi_app/lyrics.py:132
 #, fuzzy
 msgid "&Hyphenate Lyrics Text..."
 msgstr "Rozdělit spojovníkem text se slovy písně"
 
-#: frescobaldi_app/lyrics.py:132
+#: frescobaldi_app/lyrics.py:133
 #, fuzzy
 msgid "&Remove hyphenation"
 msgstr "Odstranit dělení slov"
 
-#: frescobaldi_app/lyrics.py:133
+#: frescobaldi_app/lyrics.py:134
 #, fuzzy
 msgid "&Copy Lyrics with hyphenation removed"
 msgstr "Kopírovat slova s odstraněným dělením slov"
@@ -2282,9 +2282,9 @@ msgstr ""
 #: frescobaldi_app/preferences/documentation.py:68
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the "
-"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
-"offline-root\" path.</p>\n"
+"A local path should point to the directory where either the \"{documentation}"
+"\" directory lives, or the whole \"share/doc/lilypond/html/offline-root\" "
+"path.</p>\n"
 "<p>If those can't be found, documentation is looked for in all "
 "subdirectories of the given path, one level deep. This makes it possible to "
 "put multiple versions of LilyPond documentation in different subdirectories "
@@ -2831,16 +2831,33 @@ msgstr ""
 msgid "Player output:"
 msgstr "Počet stran:"
 
-#: frescobaldi_app/preferences/midi.py:83
+#: frescobaldi_app/preferences/midi.py:84
+#, fuzzy
+msgid ""
+"The MIDI port to play music to. See \"What's This\" for more information."
+msgstr ""
+"Zadejte tolik písmen (S, A, T nebo B), kolik je notových osnov.\n"
+"Pro další informace se podívejte na \"Co je toto\"."
+
+#: frescobaldi_app/preferences/midi.py:87
+msgid ""
+"<p>This dropdown menu lists the available MIDI ports on your system. You can "
+"select one, or just type part of a name. In that case, the first available "
+"port name that starts with the specified characters is used.</p>\n"
+"<p>Click the button to refresh the list, e.g. when you connect a MIDI device "
+"or start a software synthesizer.</p>"
+msgstr ""
+
+#: frescobaldi_app/preferences/midi.py:96
 msgid "Refresh MIDI ports"
 msgstr ""
 
-#: frescobaldi_app/preferences/midi.py:122
+#: frescobaldi_app/preferences/midi.py:135
 #, fuzzy
 msgid "Close unused MIDI output"
 msgstr "Vytvořit MIDI výstup"
 
-#: frescobaldi_app/preferences/midi.py:124
+#: frescobaldi_app/preferences/midi.py:137
 #, fuzzy
 msgid ""
 "Closes unused MIDI ports after one minute. See \"What's This\" for more "
@@ -2849,7 +2866,7 @@ msgstr ""
 "Zadejte tolik písmen (S, A, T nebo B), kolik je notových osnov.\n"
 "Pro další informace se podívejte na \"Co je toto\"."
 
-#: frescobaldi_app/preferences/midi.py:127
+#: frescobaldi_app/preferences/midi.py:140
 msgid ""
 "<p>If checked, Frescobaldi will close MIDI output ports that are not used "
 "for one minute.</p>\n"

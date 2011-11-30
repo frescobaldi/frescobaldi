@@ -1,5 +1,5 @@
-TODO/ideas for Frescobaldi 2.x
-==============================
+TODO for Frescobaldi 2.x
+========================
 
 
 - Text editor context menu
@@ -30,5 +30,14 @@ TODO/ideas for Frescobaldi 2.x
   * drag an object to e.g. create an \override #'extra-offset command
 
 - tool or panel to insert special characters from a unicode character map
+
+
+Other ideas/wishes
+==================
+
+
+- support for Git/Hg/Svn diff/revert/commit
+
+- play from cursor: plays music to MIDI output
 
 

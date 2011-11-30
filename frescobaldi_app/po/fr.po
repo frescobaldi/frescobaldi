@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-11-27 20:16+0100\n"
+"POT-Creation-Date: 2011-11-30 09:57+0100\n"
 "PO-Revision-Date: 2011-09-28 12:35+0200\n"
 "Last-Translator: Raphaël Doursenaud <rdoursenaud@free.fr>\n"
 "Language-Team: Français <>\n"
@@ -382,7 +382,7 @@ msgstr "Édition"
 
 #: frescobaldi_app/hyphendialog.py:167 frescobaldi_app/help/contents.py:139
 #: frescobaldi_app/preferences/__init__.py:99
-#: frescobaldi_app/preferences/midi.py:121
+#: frescobaldi_app/preferences/midi.py:134
 msgid "Preferences"
 msgstr "Préférences"
 
@@ -462,16 +462,16 @@ msgid "Completed successfully in {time}."
 msgstr "Terminé avec succès en {time}."
 
 # À vérifier
-#: frescobaldi_app/lyrics.py:131
+#: frescobaldi_app/lyrics.py:132
 #, fuzzy
 msgid "&Hyphenate Lyrics Text..."
 msgstr "Séparer les syllabes des paroles (césure)"
 
-#: frescobaldi_app/lyrics.py:132
+#: frescobaldi_app/lyrics.py:133
 msgid "&Remove hyphenation"
 msgstr "Supp&rimer la césure"
 
-#: frescobaldi_app/lyrics.py:133
+#: frescobaldi_app/lyrics.py:134
 msgid "&Copy Lyrics with hyphenation removed"
 msgstr "&Copier les Paroles en enlevant la césure"
 
@@ -2791,16 +2791,33 @@ msgstr ""
 msgid "Player output:"
 msgstr "Nombre de pages :"
 
-#: frescobaldi_app/preferences/midi.py:83
+#: frescobaldi_app/preferences/midi.py:84
+#, fuzzy
+msgid ""
+"The MIDI port to play music to. See \"What's This\" for more information."
+msgstr ""
+"Entrez le texte à rechercher dans la liste des snippets.\n"
+"Voir « Qu'est-ce que c'est ? » pour plus d'information."
+
+#: frescobaldi_app/preferences/midi.py:87
+msgid ""
+"<p>This dropdown menu lists the available MIDI ports on your system. You can "
+"select one, or just type part of a name. In that case, the first available "
+"port name that starts with the specified characters is used.</p>\n"
+"<p>Click the button to refresh the list, e.g. when you connect a MIDI device "
+"or start a software synthesizer.</p>"
+msgstr ""
+
+#: frescobaldi_app/preferences/midi.py:96
 msgid "Refresh MIDI ports"
 msgstr "Rafraîchir les ports MIDI"
 
-#: frescobaldi_app/preferences/midi.py:122
+#: frescobaldi_app/preferences/midi.py:135
 #, fuzzy
 msgid "Close unused MIDI output"
 msgstr "Créer un rendu MIDI"
 
-#: frescobaldi_app/preferences/midi.py:124
+#: frescobaldi_app/preferences/midi.py:137
 #, fuzzy
 msgid ""
 "Closes unused MIDI ports after one minute. See \"What's This\" for more "
@@ -2809,7 +2826,7 @@ msgstr ""
 "Entrez le texte à rechercher dans la liste des snippets.\n"
 "Voir « Qu'est-ce que c'est ? » pour plus d'information."
 
-#: frescobaldi_app/preferences/midi.py:127
+#: frescobaldi_app/preferences/midi.py:140
 msgid ""
 "<p>If checked, Frescobaldi will close MIDI output ports that are not used "
 "for one minute.</p>\n"

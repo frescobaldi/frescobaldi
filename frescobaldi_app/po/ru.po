@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-11-27 20:16+0100\n"
+"POT-Creation-Date: 2011-11-30 09:57+0100\n"
 "PO-Revision-Date: 2009-10-08 21:17+0300\n"
 "Last-Translator: Artem Zolochevskiy <artem.zolochevskiy@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
 "#-#-#-#-#  ru.po (ru)  #-#-#-#-#\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 1.0\n"
 
 #: frescobaldi_app/about.py:42
@@ -400,7 +400,7 @@ msgstr ""
 
 #: frescobaldi_app/hyphendialog.py:167 frescobaldi_app/help/contents.py:139
 #: frescobaldi_app/preferences/__init__.py:99
-#: frescobaldi_app/preferences/midi.py:121
+#: frescobaldi_app/preferences/midi.py:134
 #, fuzzy
 msgid "Preferences"
 msgstr "Общие настройки"
@@ -483,17 +483,17 @@ msgstr "Программа LilyPond [%1] завершилась с кодом %2
 msgid "Completed successfully in {time}."
 msgstr ""
 
-#: frescobaldi_app/lyrics.py:131
+#: frescobaldi_app/lyrics.py:132
 #, fuzzy
 msgid "&Hyphenate Lyrics Text..."
 msgstr "Расставить переносы в тексте"
 
-#: frescobaldi_app/lyrics.py:132
+#: frescobaldi_app/lyrics.py:133
 #, fuzzy
 msgid "&Remove hyphenation"
 msgstr "Удалить переносы"
 
-#: frescobaldi_app/lyrics.py:133
+#: frescobaldi_app/lyrics.py:134
 #, fuzzy
 msgid "&Copy Lyrics with hyphenation removed"
 msgstr "Удалить переносы"
@@ -2262,9 +2262,9 @@ msgstr "Здесь Вы можете выбрать, какие Guile скрип
 #: frescobaldi_app/preferences/documentation.py:68
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the "
-"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
-"offline-root\" path.</p>\n"
+"A local path should point to the directory where either the \"{documentation}"
+"\" directory lives, or the whole \"share/doc/lilypond/html/offline-root\" "
+"path.</p>\n"
 "<p>If those can't be found, documentation is looked for in all "
 "subdirectories of the given path, one level deep. This makes it possible to "
 "put multiple versions of LilyPond documentation in different subdirectories "
@@ -2808,23 +2808,38 @@ msgstr ""
 msgid "Player output:"
 msgstr "Выход MIDI:"
 
-#: frescobaldi_app/preferences/midi.py:83
+#: frescobaldi_app/preferences/midi.py:84
+#, fuzzy
+msgid ""
+"The MIDI port to play music to. See \"What's This\" for more information."
+msgstr "Здесь Вы можете выбрать, какие Guile скрипты загружать в Rumor."
+
+#: frescobaldi_app/preferences/midi.py:87
+msgid ""
+"<p>This dropdown menu lists the available MIDI ports on your system. You can "
+"select one, or just type part of a name. In that case, the first available "
+"port name that starts with the specified characters is used.</p>\n"
+"<p>Click the button to refresh the list, e.g. when you connect a MIDI device "
+"or start a software synthesizer.</p>"
+msgstr ""
+
+#: frescobaldi_app/preferences/midi.py:96
 msgid "Refresh MIDI ports"
 msgstr ""
 
-#: frescobaldi_app/preferences/midi.py:122
+#: frescobaldi_app/preferences/midi.py:135
 #, fuzzy
 msgid "Close unused MIDI output"
 msgstr "Создать MIDI"
 
-#: frescobaldi_app/preferences/midi.py:124
+#: frescobaldi_app/preferences/midi.py:137
 #, fuzzy
 msgid ""
 "Closes unused MIDI ports after one minute. See \"What's This\" for more "
 "information."
 msgstr "Здесь Вы можете выбрать, какие Guile скрипты загружать в Rumor."
 
-#: frescobaldi_app/preferences/midi.py:127
+#: frescobaldi_app/preferences/midi.py:140
 msgid ""
 "<p>If checked, Frescobaldi will close MIDI output ports that are not used "
 "for one minute.</p>\n"

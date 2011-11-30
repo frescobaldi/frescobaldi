@@ -6,14 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-11-27 20:16+0100\n"
-"PO-Revision-Date: 2011-11-28 07:45+0100\n"
+"POT-Creation-Date: 2011-11-30 09:57+0100\n"
+"PO-Revision-Date: 2011-11-30 10:00+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
-"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 1.1\n"
 
@@ -361,7 +361,7 @@ msgstr "Bewerken"
 
 #: frescobaldi_app/hyphendialog.py:167 frescobaldi_app/help/contents.py:139
 #: frescobaldi_app/preferences/__init__.py:99
-#: frescobaldi_app/preferences/midi.py:121
+#: frescobaldi_app/preferences/midi.py:134
 msgid "Preferences"
 msgstr "Voorkeuren"
 
@@ -469,15 +469,15 @@ msgstr "Afgesloten met status {status}."
 msgid "Completed successfully in {time}."
 msgstr "Succesvol beëindigd in {time}."
 
-#: frescobaldi_app/lyrics.py:131
+#: frescobaldi_app/lyrics.py:132
 msgid "&Hyphenate Lyrics Text..."
 msgstr "&Liedteksten afbreken..."
 
-#: frescobaldi_app/lyrics.py:132
+#: frescobaldi_app/lyrics.py:133
 msgid "&Remove hyphenation"
 msgstr "Liedtekst-afbreking ver&wijderen"
 
-#: frescobaldi_app/lyrics.py:133
+#: frescobaldi_app/lyrics.py:134
 msgid "&Copy Lyrics with hyphenation removed"
 msgstr "Liedteksten &kopiëren met afbreking verwijderd"
 
@@ -2489,31 +2489,27 @@ msgstr "Paden naar LilyPond-documentatie"
 
 #: frescobaldi_app/preferences/documentation.py:66
 msgid "Add paths or URLs. See \"What's This\" for more information."
-msgstr ""
-"Voeg paden of URLs toe. Zie \"Wat is dit\" voor meer "
-"informatie."
+msgstr "Voeg paden of URLs toe. Zie \"Wat is dit\" voor meer informatie."
 
 #: frescobaldi_app/preferences/documentation.py:68
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the "
-"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
-"offline-root\" path.</p>\n"
+"A local path should point to the directory where either the \"{documentation}"
+"\" directory lives, or the whole \"share/doc/lilypond/html/offline-root\" "
+"path.</p>\n"
 "<p>If those can't be found, documentation is looked for in all "
 "subdirectories of the given path, one level deep. This makes it possible to "
 "put multiple versions of LilyPond documentation in different subdirectories "
 "and have Frescobaldi automatically find them.</p>"
 msgstr ""
 "<p>Hier kunt u lokale bestandspaden of URLs voor LilyPond-documentatie "
-"toevoegen. "
-"Een lokaal pad moet naar een directorie wijzen waar de {documentation} map "
-"is, of "
-"het hele \"share/doc/lilypond/html/offline-root\" pad.</p>\n"
-"<p>Als deze niet gevonden worden, wordt een niveau diep gezocht in submappen."
-" "
-"Zodoende is het mogelijk om verschillende versies van de "
-"LilyPond-documentatie in verschillende submappen te plaatsen, en dat "
-"Frescobaldi ze automatisch vindt.</p>"
+"toevoegen. Een lokaal pad moet naar een directorie wijzen waar de "
+"{documentation} map is, of het hele \"share/doc/lilypond/html/offline-root\" "
+"pad.</p>\n"
+"<p>Als deze niet gevonden worden, wordt een niveau diep gezocht in "
+"submappen. Zodoende is het mogelijk om verschillende versies van de LilyPond-"
+"documentatie in verschillende submappen te plaatsen, en dat Frescobaldi ze "
+"automatisch vindt.</p>"
 
 #: frescobaldi_app/preferences/documentation.py:111
 msgid "Preferred Language:"
@@ -3036,15 +3032,37 @@ msgstr ""
 msgid "Player output:"
 msgstr "Speler uitgang:"
 
-#: frescobaldi_app/preferences/midi.py:83
+#: frescobaldi_app/preferences/midi.py:84
+msgid ""
+"The MIDI port to play music to. See \"What's This\" for more information."
+msgstr ""
+"De MIDI-poort om music naar af te spelen. "
+"Zie \"Wat is dit\" voor meer informatie."
+
+#: frescobaldi_app/preferences/midi.py:87
+msgid ""
+"<p>This dropdown menu lists the available MIDI ports on your system. You can "
+"select one, or just type part of a name. In that case, the first available "
+"port name that starts with the specified characters is used.</p>\n"
+"<p>Click the button to refresh the list, e.g. when you connect a MIDI device "
+"or start a software synthesizer.</p>"
+msgstr ""
+"<p>Dit uitklapmenu toont de beschikbare MIDI-poorten. "
+"U kunt er eentje selecteren, of een deel van de naam in typen. "
+"In dat geval wordt de eerste beschikbare poort waarvan de naam met de "
+"opgegeven tekens begint, gekozen.</p>\n"
+"<p>Klik op de knop om de lijst te vernieuwen, bijvoorbeeld wanneer u een "
+"MIDI-apparaat hebt aangekoppeld of een software-synthesizer hebt gestart.</p>"
+
+#: frescobaldi_app/preferences/midi.py:96
 msgid "Refresh MIDI ports"
 msgstr "MIDI-poorten verversen"
 
-#: frescobaldi_app/preferences/midi.py:122
+#: frescobaldi_app/preferences/midi.py:135
 msgid "Close unused MIDI output"
 msgstr "Ongebruikte MIDI-uitvoer sluiten"
 
-#: frescobaldi_app/preferences/midi.py:124
+#: frescobaldi_app/preferences/midi.py:137
 msgid ""
 "Closes unused MIDI ports after one minute. See \"What's This\" for more "
 "information."
@@ -3052,7 +3070,7 @@ msgstr ""
 "Sluit ongebruikte MIDI-poorten na een minuut. Zie \"Wat is dit\" voor meer "
 "informatie."
 
-#: frescobaldi_app/preferences/midi.py:127
+#: frescobaldi_app/preferences/midi.py:140
 msgid ""
 "<p>If checked, Frescobaldi will close MIDI output ports that are not used "
 "for one minute.</p>\n"
