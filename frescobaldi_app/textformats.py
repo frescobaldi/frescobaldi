@@ -214,7 +214,7 @@ baseColorDefaults = dict(
     error =               lambda: QColor(255, 192, 192),
     search =              lambda: QColor(192, 255, 192),
     match =               lambda: QColor(0, 192, 255),
-    paper =               lambda: QColor(242, 224, 168),
+    paper =               lambda: QColor(255, 238, 218),
     musichighlight =      lambda: QApplication.palette().color(QPalette.Highlight),
 )
 
@@ -266,24 +266,60 @@ def defaultStyleDefaults():
 
 @_result
 def allStyleDefaults():
+    
+    # LilyPond
     lilypond = {}
+    
+    lilypond['duration'] = f = QTextCharFormat()
+    f.setForeground(QColor(0, 128, 128))
+    
     lilypond['markup'] = f = QTextCharFormat()
     f.setForeground(QColor(0, 128, 0))
+    f.setFontWeight(QFont.Normal)
+    
+    lilypond['lyricmode'] = f = QTextCharFormat()
+    f.setForeground(QColor(0, 96, 0))
+    
+    lilypond['lyrictext'] = QTextCharFormat(f)
+    
     lilypond['grob'] = f = QTextCharFormat()
     f.setForeground(QColor(192, 0, 192))
+    
     lilypond['context'] = f = QTextCharFormat(f)
     f.setFontWeight(QFont.Bold)
     
+    lilypond['slur'] = QTextCharFormat(f)
+    
+    lilypond['articulation'] = f = QTextCharFormat()
+    f.setForeground(QColor(255, 128, 0))
+    f.setFontWeight(QFont.Bold)
+    
+    lilypond['dynamic'] = QTextCharFormat(f)
+    
+    lilypond['fingering'] = f = QTextCharFormat()
+    f.setForeground(QColor(255, 128, 0))
+    
+    lilypond['stringnumber'] = QTextCharFormat(f)
+    
+    # HTML
     html = {}
     
+    # Scheme
     scheme = {}
+    
     scheme['scheme'] = f = QTextCharFormat()
     f.setForeground(QColor(160, 73, 0))
+    
     scheme['lilypond'] = f = QTextCharFormat(f)
     f.setFontWeight(QFont.Bold)
     
+    # LaTeX
     latex = {}
+    
+    # DocBook
     docbook = {}
+    
+    # Texinfo
     texinfo = {}
     
     del f
@@ -355,6 +391,7 @@ inherits = {
         'keyword': 'keyword',
         'command': 'function',
         'markup': 'function',
+        'lyricmode': 'function',
         'repeat': 'function',
         'specifier': 'variable',
         'usercommand': 'variable',
