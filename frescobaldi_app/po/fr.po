@@ -36,7 +36,7 @@ msgstr "Qt4"
 msgid ""
 "The Music View is powered by the {poppler} library by {authors} and others."
 msgstr ""
-"L'Aperçu est propulsé par la bibliothèque {poppler} de {authors} et d'autres."
+"L'aperçu est propulsé par la bibliothèque {poppler} de {authors} et d'autres."
 
 #. L10N: the Poppler PDF library
 #: frescobaldi_app/about.py:53
@@ -465,7 +465,7 @@ msgstr "Terminé avec succès en {time}."
 #: frescobaldi_app/lyrics.py:132
 #, fuzzy
 msgid "&Hyphenate Lyrics Text..."
-msgstr "Séparer les syllabes des paroles (césure)"
+msgstr "&Séparer les syllabes des paroles (césure)"
 
 #: frescobaldi_app/lyrics.py:133
 msgid "&Remove hyphenation"
@@ -2248,7 +2248,7 @@ msgstr "Documentation LilyPond"
 
 #: frescobaldi_app/preferences/__init__.py:211
 msgid "Keyboard Shortcuts"
-msgstr "Raccourcis Clavier"
+msgstr "Raccourcis clavier"
 
 #: frescobaldi_app/preferences/__init__.py:221
 msgid "Fonts & Colors"
@@ -2261,7 +2261,7 @@ msgstr "Outils"
 #: frescobaldi_app/preferences/documentation.py:64
 #, fuzzy
 msgid "Paths to LilyPond Documentation"
-msgstr "Documentation LilyPond"
+msgstr "Chemin vers la documentation LilyPond"
 
 #: frescobaldi_app/preferences/documentation.py:66
 #, fuzzy
@@ -2774,7 +2774,7 @@ msgstr "Chemin d'inclusion LilyPond :"
 #: frescobaldi_app/preferences/midi.py:77
 #, fuzzy
 msgid "MIDI Ports"
-msgstr "Lecteur MIDI"
+msgstr "Ports MIDI"
 
 #: frescobaldi_app/preferences/midi.py:79
 msgid ""
@@ -2815,7 +2815,7 @@ msgstr "Rafraîchir les ports MIDI"
 #: frescobaldi_app/preferences/midi.py:135
 #, fuzzy
 msgid "Close unused MIDI output"
-msgstr "Créer un rendu MIDI"
+msgstr "Fermer les sorties MIDI non utilisées"
 
 #: frescobaldi_app/preferences/midi.py:137
 #, fuzzy
@@ -2823,7 +2823,7 @@ msgid ""
 "Closes unused MIDI ports after one minute. See \"What's This\" for more "
 "information."
 msgstr ""
-"Entrez le texte à rechercher dans la liste des snippets.\n"
+"Ceci ferme les ports MIDI non utilisés pendant une minute.\n"
 "Voir « Qu'est-ce que c'est ? » pour plus d'information."
 
 #: frescobaldi_app/preferences/midi.py:140
@@ -5143,6 +5143,9 @@ msgid ""
 "(optional) value. When triggered via the menu, the snippet is inserted into "
 "a new document."
 msgstr ""
+"Place le snippet dans le menu {file_new_from_template}, groupé par "
+"valeur (optionnelle). Quand il est utiliser via le menu, le snippet est inséré "
+"dans un nouveau document." 
 
 #: frescobaldi_app/snippet/edit.py:218
 #, fuzzy
@@ -5166,13 +5169,15 @@ msgstr "Ne pas indenter automatiquement le snippet après insertion."
 
 #: frescobaldi_app/snippet/edit.py:225
 msgid "The icon to show in menu and snippet list."
-msgstr ""
+msgstr "Le symbole à afficher dans le menu et la liste de snippets."
 
 #: frescobaldi_app/snippet/edit.py:227
 msgid ""
 "The symbol to show in menu and snippet list. Symbols are icons that use the "
 "default text color and can be found in {directory}."
 msgstr ""
+"Le symbole à afficher dans le menu et la liste de snippets. Les symboles sont des icones "
+"qui utilisent la couleur de texte par défaut et se trouvent dans le dossier {directory}."
 
 #: frescobaldi_app/snippet/edit.py:231
 msgid "Execute the snippet as a Python script. See {link}."
@@ -5215,6 +5220,11 @@ msgid ""
 "<p>You may set {text} to a string or a list of strings.</p>\n"
 "<p>Other variables that may be referenced:</p>"
 msgstr ""
+"<p>Les snippets Python peuvent lire et définir la variable {text}. La variable "
+"{text} contient le text actuellement sélectionné (qui peut être une chaîne vide).</"
+"p>\n"
+"<p>Vous pouvez définir {text} comme chaîne ou liste de chaînes.</p>\n"
+"<p>Autres variables qui peuvent être référencées :</p>"
 
 #: frescobaldi_app/snippet/edit.py:276
 msgid "A list of strings describing the type of text the cursor is at."
@@ -5227,12 +5237,16 @@ msgid ""
 "The current QTextCursor, giving access to the document. Don't change the "
 "document through the cursor, however."
 msgstr ""
+"The QTextCursor courant donne accès au document. Cependant, ne changez pas "
+"le document au moyen du curseur."
 
 #: frescobaldi_app/snippet/edit.py:281
 msgid ""
 "When setting {text} to a list instead of a string, you can use this value to "
 "specify the place the text cursor will be placed after inserting the snippet."
 msgstr ""
+"En définissant {text} comme une liste plutôt qu'une chaîne, vous pouvez utiliser "
+"cette valeur pour spécifier la place que le curseur de texet occupera après l'insertion du snippet."
 
 #: frescobaldi_app/snippet/edit.py:285
 msgid ""
@@ -5240,6 +5254,9 @@ msgid ""
 "together with {cursor} to select text when inserting the string parts of the "
 "list."
 msgstr ""
+"En définissant {text} comme une liste plutôt qu'une chaîne, cette valeur peut être "
+"utilisée conjointement au {cursor} pour sélectionner du text lors de l'insertion des morceaux "
+" de chaînes de la liste."
 
 #: frescobaldi_app/snippet/expand.py:76
 msgid "The current date in YYYY-MM-DD format."
@@ -5332,6 +5349,12 @@ msgid ""
 "import all the selected snippets.</p>\n"
 "<p>Existing, unchanged snippets can't be imported.</p>\n"
 msgstr ""
+"<p>Les snippets de {filename} sont affichés ici.</p>\n"
+"<p>S'il y a des snippets nouveaux ou mis à jour, vous pouvez "
+"les sélectionner ou les désélectionner un par un, ou tous ensemble"
+"en utilisant la case à cocher du groupe. Cliquez OK pour importer "
+"tous les snippets sélectionnés.</p>\n"
+"<p>Les snippets existants ou non modifiés ne peuvent pas être importés.</p>\n"
 
 #: frescobaldi_app/snippet/insert.py:218
 msgid "Snippet error"
@@ -5479,7 +5502,7 @@ msgstr ""
 "Si le texte de recherche commence par deux points \":\", le reste du texte "
 "de recherche filtre les snippets qui définissent la variable donnée. Après "
 "un espace, une valeur peut aussi être entrée. Les snippets seront alors "
-"triés un la valeur de la variable donnée contient le texte après l'espace."
+"triés si la valeur de la variable donnée contient le texte après l'espace."
 
 #: frescobaldi_app/snippet/widget.py:200
 msgid ""
@@ -5487,7 +5510,7 @@ msgid ""
 "menu."
 msgstr ""
 "Par exemple, entrer {menu} montrera tous les snippets qui sont affichés dans "
-"le menu insérer."
+"le menu Insérer."
 
 #: frescobaldi_app/snippet/widget.py:260 frescobaldi_app/snippet/widget.py:277
 #, fuzzy
@@ -5537,6 +5560,38 @@ msgid ""
 "scripts written in Python.\n"
 "</p>\n"
 msgstr ""
+"<p>\n"
+"Le gestionnaire de snippet vous permit de conserver des fragments de texte\n"
+"fréquemment utilisés appelés \"snippets\", et les coller facilement dans l'éditeur de texte.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Le gestionnaire de snippets peut être activé via le menu {menu_snippets} ou\n"
+"par le raccourci {key_snippets}.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Les snippets sony cherchantes en navigate dans la liste ou en tapant quelques caractères\n"
+"dans le champ de recherche.\n"
+"Les snippets peuvent également être appliqués par un raccourci clavier.\n"
+"Certains snippets ont un nom spécifique que vous pouvez entrer dans le champ de recherche.\n"
+"Il suffit ensuite de valider avec Entrée "
+"pour\n"
+"appliquer le snippet dans l'éditeur de texte et masquer le gestionnaire de snippets.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Ajoutez de nouveaux snippets avec {key_add}. Éditez le snippet sélectionné avec "
+"{key_edit}.\n"
+"Supprimer les snippets sélectionnés avec {key_delete}. Attention : impossible d'annuler !\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Les snippets peuvent également être placés dans le menu (voir {link}).\n"
+"Il y a aussi des snippets pouvant inclure ou modifier du texte sélectionné.\n"
+"Certains snippets utilisent pour cela des variables spéciales, d'autres sont de \n"
+" petits scripts écrits en Python.\n"
+"</p>\n"
 
 #: frescobaldi_app/snippet/widget.py:400
 msgctxt "menu title"
