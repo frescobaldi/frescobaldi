@@ -1,7 +1,8 @@
 ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
-Changes in 1.9.3 -- 
+
+Changes in 1.9.3 -- December 1st, 2011
 
 * LilyPond Documentation browser:
   - multiple versions of LilyPond documentation can be browsed, local and remote
