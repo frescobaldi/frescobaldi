@@ -25,10 +25,10 @@ from __future__ import unicode_literals
 
 import os
 
-from PyQt4.QtCore import QFileInfo, Qt
-from PyQt4.QtGui import QFileIconProvider
+from PyQt4.QtCore import Qt
 
 import app
+import icons
 import plugin
 import signals
 import resultfiles
@@ -76,8 +76,7 @@ class MidiFiles(plugin.DocumentPlugin):
         if self._files is None:
             self.update()
         m = listmodel.ListModel(self._files,
-            display = os.path.basename,
-            icon = lambda f: QFileIconProvider().icon(QFileInfo(f)))
+            display = os.path.basename, icon = icons.file_type)
         m.setRoleFunction(Qt.UserRole, lambda f: f)
         return m
 

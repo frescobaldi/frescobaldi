@@ -85,7 +85,7 @@ class Dialog(QDialog):
         self.crop = QCheckBox()
         self.antialias = QCheckBox(checked=True)
         self.dragfile = QLabel()
-        self.dragfile.setPixmap(QFileIconProvider().icon(QFileInfo('test.png')).pixmap(22))
+        self.dragfile.setPixmap(icons.file_type("png").pixmap(22))
         self.fileDragger = FileDragger(self.dragfile)
         self.buttons = QDialogButtonBox(QDialogButtonBox.Close)
         self.copyButton = self.buttons.addButton('', QDialogButtonBox.ApplyRole)

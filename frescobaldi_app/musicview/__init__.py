@@ -37,9 +37,9 @@ from __future__ import unicode_literals
 import os
 import weakref
 
-from PyQt4.QtCore import QFileInfo, Qt, pyqtSignal
+from PyQt4.QtCore import Qt, pyqtSignal
 from PyQt4.QtGui import (
-    QAction, QComboBox, QFileIconProvider, QLabel, QKeySequence, QWidgetAction)
+    QAction, QComboBox, QLabel, QKeySequence, QWidgetAction)
 
 import app
 import actioncollection
@@ -285,8 +285,7 @@ class DocumentChooserAction(ComboBoxAction):
         
         # make model for the docs
         m = self._model = listmodel.ListModel([d.filename() for d in docs],
-            display = os.path.basename,
-            icon = lambda f: QFileIconProvider().icon(QFileInfo(f)))
+            display = os.path.basename, icon = icons.file_type)
         m.setRoleFunction(Qt.UserRole, lambda f: f)
         for w in self.createdWidgets():
             w.setModel(m)
