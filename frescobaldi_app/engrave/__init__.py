@@ -93,8 +93,12 @@ class Engraver(plugin.MainWindowPlugin):
         
     def engraveCustom(self):
         """Opens a dialog to configure the job before starting it."""
-        pass
-    
+        from . import custom
+        dlg = custom.Dialog(self.mainwindow())
+        dlg.setWindowModality(Qt.WindowModal)
+        dlg.exec_()
+        dlg.deleteLater()
+            
     def engrave(self, preview, document=None):
         """Starts a default engraving job.
         
