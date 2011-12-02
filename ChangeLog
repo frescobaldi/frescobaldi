@@ -7,6 +7,8 @@ Changes in 1.9.4 --
 * Updated translations: es, fr, nl
 * New features:
   - Engrave custom dialog for specifying other engraving formats and options
+* Bugfixes:
+  - fix crash on 64bit Linux and Windows introduced in 1.9.3
 
 
 Changes in 1.9.3 -- December 1st, 2011

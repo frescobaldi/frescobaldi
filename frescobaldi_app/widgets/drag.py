@@ -46,12 +46,11 @@ class ComboDrag(QObject):
         combobox.installEventFilter(self)
     
     def eventFilter(self, combobox, ev):
-        if combobox.count() == 0:
-            return False
         if ev.type() == QEvent.MouseButtonPress and ev.button() == Qt.LeftButton:
             self._dragpos = ev.pos()
             return not combobox.isEditable()
-        elif ev.type() == QEvent.MouseMove and ev.buttons() & Qt.LeftButton:
+        elif (ev.type() == QEvent.MouseMove and ev.buttons() & Qt.LeftButton
+              and combobox.count() >0):
             return self.mouseMoved(combobox, ev.pos()) or False
         elif (ev.type() == QEvent.MouseButtonRelease
             and ev.button() == Qt.LeftButton and not combobox.isEditable()):
