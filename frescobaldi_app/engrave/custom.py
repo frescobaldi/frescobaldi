@@ -24,13 +24,18 @@ Custom engraving dialog.
 from __future__ import unicode_literals
 
 import collections
+import shlex
+import os
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import documentinfo
 import help
 import icons
+import job
+import jobmanager
 import lilypondinfo
 import listmodel
 import widgets
@@ -40,6 +45,7 @@ import util
 class Dialog(QDialog):
     def __init__(self, parent=None):
         super(Dialog, self).__init__(parent)
+        self._document = None
         
         layout = QGridLayout()
         self.setLayout(layout)
@@ -55,9 +61,10 @@ class Dialog(QDialog):
         
         self.previewCheck = QCheckBox()
         self.verboseCheck = QCheckBox()
+        self.deleteCheck = QCheckBox()
         
         self.commandLineLabel = QLabel()
-        self.commandLine = QTextEdit()
+        self.commandLine = QTextEdit(acceptRichText=False)
         
         self.buttons = QDialogButtonBox(
             QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
@@ -75,10 +82,11 @@ class Dialog(QDialog):
         layout.addWidget(self.resolutionCombo, 2, 1)
         layout.addWidget(self.previewCheck, 3, 0, 1, 2)
         layout.addWidget(self.verboseCheck, 4, 0, 1, 2)
-        layout.addWidget(self.commandLineLabel, 5, 0, 1, 2)
-        layout.addWidget(self.commandLine, 6, 0, 1, 2)
-        layout.addWidget(widgets.Separator(), 7, 0, 1, 2)
-        layout.addWidget(self.buttons, 8, 0, 1, 2)
+        layout.addWidget(self.deleteCheck, 5, 0, 1, 2)
+        layout.addWidget(self.commandLineLabel, 6, 0, 1, 2)
+        layout.addWidget(self.commandLine, 7, 0, 1, 2)
+        layout.addWidget(widgets.Separator(), 8, 0, 1, 2)
+        layout.addWidget(self.buttons, 9, 0, 1, 2)
         
         app.translateUI(self)
         util.saveDialogSize(self, "engrave/custom/dialog/size", QSize(480, 260))
@@ -87,16 +95,17 @@ class Dialog(QDialog):
         
         icon = QFileIconProvider().icon
         model = listmodel.ListModel(formats, display=lambda f: f.title(),
-            icon=lambda f: icon(QFileInfo('test.' + f.type)))
+            icon=lambda f: icons.file_type(f.type))
         self.outputCombo.setModel(model)
         
         self.loadLilyPondVersions()
         self.selectLilyPondInfo(lilypondinfo.preferred())
         app.settingsChanged.connect(self.loadLilyPondVersions)
-        
+        app.jobFinished.connect(self.slotJobFinished)
         self.outputCombo.currentIndexChanged.connect(self.makeCommandLine)
         self.previewCheck.toggled.connect(self.makeCommandLine)
         self.verboseCheck.toggled.connect(self.makeCommandLine)
+        self.deleteCheck.toggled.connect(self.makeCommandLine)
         self.resolutionCombo.editTextChanged.connect(self.makeCommandLine)
         self.makeCommandLine()
     
@@ -108,10 +117,21 @@ class Dialog(QDialog):
         self.previewCheck.setText(_(
             "Run LilyPond in preview mode (with Point and Click)"))
         self.verboseCheck.setText(_("Run LilyPond with verbose output"))
+        self.deleteCheck.setText(_("Delete intermediate output files"))
         self.commandLineLabel.setText(_("Command line:"))
         self.buttons.button(QDialogButtonBox.Ok).setText(_("Run LilyPond"))
         self.outputCombo.update()
     
+    def slotJobFinished(self, doc):
+        if doc == self._document:
+            self.buttons.button(QDialogButtonBox.Ok).setEnabled(True)
+            self._document = None
+    
+    def setDocument(self, doc):
+        if jobmanager.isRunning(doc):
+            self._document = doc
+            self.buttons.button(QDialogButtonBox.Ok).setEnabled(False)
+        
     def loadLilyPondVersions(self):
         infos = lilypondinfo.infos()
         infos.sort(key = lambda i: i.version or (999,))
@@ -132,20 +152,48 @@ class Dialog(QDialog):
         """Reads the widgets and builds a command line."""
         f = formats[self.outputCombo.currentIndex()]
         self.resolutionCombo.setEnabled('resolution' in f.widgets)
-        cmd = ["${lilypond}"]
+        cmd = ["$lilypond"]
         if self.verboseCheck.isChecked():
             cmd.append('--verbose')
         if self.previewCheck.isChecked():
             cmd.append('-dpoint-and-click')
         else:
             cmd.append('-dno-point-and-click')
+        if self.deleteCheck.isChecked():
+            cmd.append('-ddelete-intermediate-files')
+        else:
+            cmd.append('-dno-delete-intermediate-files')
         d = {
             'version': self._infos[self.versionCombo.currentIndex()].version,
             'resolution': self.resolutionCombo.currentText(),
         }
+        cmd.append("$include")
         cmd.extend(f.options(d))
-        cmd.append("${filename}")
+        cmd.append("$filename")
         self.commandLine.setText(' '.join(cmd))
+    
+    def getJob(self, document):
+        """Returns a Job to start."""
+        filename, mode, includepath = documentinfo.info(document).jobinfo(True)
+        includepath.extend(documentinfo.info(document).includepath())
+        i = self._infos[self.versionCombo.currentIndex()]
+        cmd = []
+        for t in self.commandLine.toPlainText().split():
+            if t == '$lilypond':
+                cmd.append(i.command)
+            elif t == '$filename':
+                cmd.append(filename)
+            elif t == '$include':
+                cmd.extend('-I' + path for path in includepath)
+            else:
+                cmd.append(t)
+        j = job.Job()
+        j.directory = os.path.dirname(filename)
+        j.command = cmd
+        j.setTitle("{0} {1} [{2}]".format(
+            os.path.basename(i.command), i.versionString, document.documentName()))
+        return j
+
 
 class help_engrave_custom(help.page):
     def title():
@@ -161,9 +209,9 @@ It is even possible to edit the command line itself.
         text.append(p(_("The following replacements will be made:")))
         text.append('<dl>\n')
         for name, msg in (
-            ('${lilypond}', _("The LilyPond executable")),
-            ('${filename}', _("The filename of the document")),
-            ('$$', _("A literal $ character")),
+            ('$lilypond', _("The LilyPond executable")),
+            ('$include', _("All the include paths")),
+            ('$filename', _("The filename of the document")),
             ):
             text.append('<dt><code>{0}</code></dt>'.format(name))
             text.append('<dd>{0}</dd>\n'.format(msg))

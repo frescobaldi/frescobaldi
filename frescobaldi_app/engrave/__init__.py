@@ -93,12 +93,17 @@ class Engraver(plugin.MainWindowPlugin):
         
     def engraveCustom(self):
         """Opens a dialog to configure the job before starting it."""
-        from . import custom
-        dlg = custom.Dialog(self.mainwindow())
-        dlg.setWindowModality(Qt.WindowModal)
-        dlg.exec_()
-        dlg.deleteLater()
-            
+        try:
+            dlg = self._customDialog
+        except AttributeError:
+            from . import custom
+            dlg = self._customDialog = custom.Dialog(self.mainwindow())
+            dlg.setWindowModality(Qt.WindowModal)
+        doc = self.stickyDocument() or self.mainwindow().currentDocument()
+        dlg.setDocument(doc)
+        if dlg.exec_():
+            self.runJob(dlg.getJob(doc), doc)
+    
     def engrave(self, preview, document=None):
         """Starts a default engraving job.
         
@@ -108,21 +113,24 @@ class Engraver(plugin.MainWindowPlugin):
         
         """
         from . import command
+        doc = document or self.stickyDocument() or self.mainwindow().currentDocument()
+        self.runJob(command.defaultJob(doc, preview), doc)
+    
+    def engraveAbort(self):
+        job = self.runningJob()
+        if job:
+            job.abort()
+    
+    def runJob(self, job, document):
+        """Runs the engraving job on behalf of document."""
         # save the current document if desired and it makes sense 
         # (i.e. the document is modified and has a local filename)
         if QSettings().value("lilypond_settings/save_on_run", False) in (True, "true"):
             doc = self.mainwindow().currentDocument()
             if doc.isModified() and doc.url().toLocalFile():
                 doc.save()
-        doc = document or self.stickyDocument() or self.mainwindow().currentDocument()
-        job = command.defaultJob(doc, preview)
         jobattributes.get(job).mainwindow = self.mainwindow()
-        jobmanager.manager(doc).startJob(job)
-    
-    def engraveAbort(self):
-        job = self.runningJob()
-        if job:
-            job.abort()
+        jobmanager.manager(document).startJob(job)
     
     def stickyToggled(self):
         """Called when the user toggles the 'Sticky' action."""

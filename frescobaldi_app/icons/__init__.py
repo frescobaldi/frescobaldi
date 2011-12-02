@@ -25,8 +25,8 @@ from __future__ import unicode_literals
 
 import os
 
-from PyQt4.QtCore import QDir, QFile, QSettings, QSize
-from PyQt4.QtGui import QIcon
+from PyQt4.QtCore import QDir, QFile, QFileInfo, QSettings, QSize
+from PyQt4.QtGui import QFileIconProvider, QIcon
 
 QDir.setSearchPaths("icons", [
     os.path.join(__path__[0], "tango"),
@@ -40,6 +40,7 @@ _preferSystemIcons = QSettings().value("system_icons", True) not in (False, "fal
 
 
 def get(name):
+    """Returns an icon with the specified name."""
     if _preferSystemIcons and QIcon.hasThemeIcon(name):
         return QIcon.fromTheme(name)
     try:
@@ -58,4 +59,12 @@ def get(name):
                     qsize = QSize(size, size) if size else QSize()
                     icon.addFile(fname, qsize)
         return icon
+
+
+def file_type(name):
+    """Returns an icon for the given filename or extension."""
+    if '.' not in name:
+        name = 'test.' + name
+    return QFileIconProvider().icon(QFileInfo(name))
+
 
