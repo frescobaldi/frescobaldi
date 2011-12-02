@@ -24,11 +24,11 @@ Custom engraving dialog.
 from __future__ import unicode_literals
 
 import collections
-import shlex
 import os
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QSize
+from PyQt4.QtGui import (QCheckBox, QComboBox, QDialog, QDialogButtonBox,
+    QGridLayout, QLabel, QTextEdit)
 
 import app
 import documentinfo
@@ -93,7 +93,6 @@ class Dialog(QDialog):
         self.buttons.accepted.connect(self.accept)
         self.buttons.rejected.connect(self.reject)
         
-        icon = QFileIconProvider().icon
         model = listmodel.ListModel(formats, display=lambda f: f.title(),
             icon=lambda f: icons.file_type(f.type))
         self.outputCombo.setModel(model)
