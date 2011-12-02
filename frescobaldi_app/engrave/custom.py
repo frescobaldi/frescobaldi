@@ -23,6 +23,8 @@ Custom engraving dialog.
 
 from __future__ import unicode_literals
 
+import collections
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
@@ -30,6 +32,7 @@ import app
 import help
 import icons
 import lilypondinfo
+import listmodel
 import widgets
 import util
 
@@ -47,6 +50,9 @@ class Dialog(QDialog):
         self.outputLabel = QLabel()
         self.outputCombo = QComboBox()
         
+        self.resolutionLabel = QLabel()
+        self.resolutionCombo = QComboBox(editable=True)
+        
         self.previewCheck = QCheckBox()
         self.verboseCheck = QCheckBox()
         
@@ -58,35 +64,53 @@ class Dialog(QDialog):
         self.buttons.button(QDialogButtonBox.Ok).setIcon(icons.get("lilypond-run"))
         help.addButton(self.buttons, help_engrave_custom)
         
+        self.resolutionCombo.addItems(['100', '200', '300', '600', '1200'])
+        self.resolutionCombo.setCurrentIndex(2)
+        
         layout.addWidget(self.versionLabel, 0, 0)
         layout.addWidget(self.versionCombo, 0, 1)
         layout.addWidget(self.outputLabel, 1, 0)
         layout.addWidget(self.outputCombo, 1, 1)
-        layout.addWidget(self.previewCheck, 2, 0, 1, 2)
-        layout.addWidget(self.verboseCheck, 3, 0, 1, 2)
-        layout.addWidget(self.commandLineLabel, 4, 0, 1, 2)
-        layout.addWidget(self.commandLine, 5, 0, 1, 2)
-        layout.addWidget(widgets.Separator(), 6, 0, 1, 2)
-        layout.addWidget(self.buttons, 7, 0, 1, 2)
+        layout.addWidget(self.resolutionLabel, 2, 0)
+        layout.addWidget(self.resolutionCombo, 2, 1)
+        layout.addWidget(self.previewCheck, 3, 0, 1, 2)
+        layout.addWidget(self.verboseCheck, 4, 0, 1, 2)
+        layout.addWidget(self.commandLineLabel, 5, 0, 1, 2)
+        layout.addWidget(self.commandLine, 6, 0, 1, 2)
+        layout.addWidget(widgets.Separator(), 7, 0, 1, 2)
+        layout.addWidget(self.buttons, 8, 0, 1, 2)
         
         app.translateUI(self)
         util.saveDialogSize(self, "engrave/custom/dialog/size", QSize(480, 260))
         self.buttons.accepted.connect(self.accept)
         self.buttons.rejected.connect(self.reject)
         
+        icon = QFileIconProvider().icon
+        model = listmodel.ListModel(formats, display=lambda f: f.title(),
+            icon=lambda f: icon(QFileInfo('test.' + f.type)))
+        self.outputCombo.setModel(model)
+        
         self.loadLilyPondVersions()
         self.selectLilyPondInfo(lilypondinfo.preferred())
         app.settingsChanged.connect(self.loadLilyPondVersions)
+        
+        self.outputCombo.currentIndexChanged.connect(self.makeCommandLine)
+        self.previewCheck.toggled.connect(self.makeCommandLine)
+        self.verboseCheck.toggled.connect(self.makeCommandLine)
+        self.resolutionCombo.editTextChanged.connect(self.makeCommandLine)
+        self.makeCommandLine()
     
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Engrave custom")))
         self.versionLabel.setText(_("LilyPond Version:"))
         self.outputLabel.setText(_("Output Format:"))
+        self.resolutionLabel.setText(_("Resolution:"))
         self.previewCheck.setText(_(
             "Run LilyPond in preview mode (with Point and Click)"))
         self.verboseCheck.setText(_("Run LilyPond with verbose output"))
         self.commandLineLabel.setText(_("Command line:"))
         self.buttons.button(QDialogButtonBox.Ok).setText(_("Run LilyPond"))
+        self.outputCombo.update()
     
     def loadLilyPondVersions(self):
         infos = lilypondinfo.infos()
@@ -103,7 +127,25 @@ class Dialog(QDialog):
     def selectLilyPondInfo(self, info):
         if info in self._infos:
             self.versionCombo.setCurrentIndex(self._infos.index(info))
-
+    
+    def makeCommandLine(self):
+        """Reads the widgets and builds a command line."""
+        f = formats[self.outputCombo.currentIndex()]
+        self.resolutionCombo.setEnabled('resolution' in f.widgets)
+        cmd = ["${lilypond}"]
+        if self.verboseCheck.isChecked():
+            cmd.append('--verbose')
+        if self.previewCheck.isChecked():
+            cmd.append('-dpoint-and-click')
+        else:
+            cmd.append('-dno-point-and-click')
+        d = {
+            'version': self._infos[self.versionCombo.currentIndex()].version,
+            'resolution': self.resolutionCombo.currentText(),
+        }
+        cmd.extend(f.options(d))
+        cmd.append("${filename}")
+        self.commandLine.setText(' '.join(cmd))
 
 class help_engrave_custom(help.page):
     def title():
@@ -127,5 +169,53 @@ It is even possible to edit the command line itself.
             text.append('<dd>{0}</dd>\n'.format(msg))
         text.append('</dl>')
         return ''.join(text)
+
+
+Format = collections.namedtuple("Format", "type title options widgets")
+
+formats = [
+    Format(
+        "pdf",
+        lambda: _("PDF"),
+        lambda d: ['--pdf'],
+        (),
+    ),
+    Format(
+        "ps",
+        lambda: _("PostScript"),
+        lambda d: ['--ps'],
+        (),
+    ),
+    Format(
+        "png",
+        lambda: _("PNG"),
+        lambda d: ['--png', '-dresolution={resolution}'.format(**d)],
+        ('resolution',),
+    ),
+    Format(
+        "svg",
+        lambda: _("SVG"),
+        lambda d: ['-dbackend=svg'],
+        (),
+    ),
+    Format(
+        "pdf",
+        lambda: _("PDF (EPS Backend)"),
+        lambda d: ['--pdf', '-dbackend=eps'],
+        (),
+    ),
+    Format(
+        "eps",
+        lambda: _("Encapsulated PostScript (EPS Backend)"),
+        lambda d: ['--ps', '-dbackend=eps'],
+        (),
+    ),
+    Format(
+        "png",
+        lambda: _("PNG (EPS Backend)"),
+        lambda d: ['--png', '-dbackend=eps', '-dresolution={resolution}'.format(**d)],
+        ('resolution',),
+    ),
+]
 
 
