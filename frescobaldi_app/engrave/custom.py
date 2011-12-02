@@ -29,6 +29,7 @@ from PyQt4.QtGui import *
 import app
 import help
 import icons
+import lilypondinfo
 import widgets
 import util
 
@@ -72,6 +73,10 @@ class Dialog(QDialog):
         util.saveDialogSize(self, "engrave/custom/dialog/size", QSize(480, 260))
         self.buttons.accepted.connect(self.accept)
         self.buttons.rejected.connect(self.reject)
+        
+        self.loadLilyPondVersions()
+        self.selectLilyPondInfo(lilypondinfo.preferred())
+        app.settingsChanged.connect(self.loadLilyPondVersions)
     
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Engrave custom")))
@@ -83,7 +88,21 @@ class Dialog(QDialog):
         self.commandLineLabel.setText(_("Command line:"))
         self.buttons.button(QDialogButtonBox.Ok).setText(_("Run LilyPond"))
     
-
+    def loadLilyPondVersions(self):
+        infos = lilypondinfo.infos()
+        infos.sort(key = lambda i: i.version or (999,))
+        self._infos = infos
+        index = self.versionCombo.currentIndex()
+        self.versionCombo.clear()
+        for i in infos:
+            icon = 'lilypond-run' if i.version else 'dialog-error'
+            text = _("LilyPond {version}").format(version=i.versionString)
+            self.versionCombo.addItem(icons.get(icon), text)
+        self.versionCombo.setCurrentIndex(index)
+    
+    def selectLilyPondInfo(self, info):
+        if info in self._infos:
+            self.versionCombo.setCurrentIndex(self._infos.index(info))
 
 
 class help_engrave_custom(help.page):
