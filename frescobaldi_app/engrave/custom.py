@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 import collections
 import os
 
-from PyQt4.QtCore import QSize
+from PyQt4.QtCore import QSettings, QSize
 from PyQt4.QtGui import (QCheckBox, QComboBox, QDialog, QDialogButtonBox,
     QGridLayout, QLabel, QTextEdit)
 
@@ -96,6 +96,10 @@ class Dialog(QDialog):
         model = listmodel.ListModel(formats, display=lambda f: f.title(),
             icon=lambda f: icons.file_type(f.type))
         self.outputCombo.setModel(model)
+        
+        self.deleteCheck.setChecked(QSettings().value(
+            "lilypond_settings/delete_intermediate_files", True) not in
+            (False, "false"))
         
         self.loadLilyPondVersions()
         self.selectLilyPondInfo(lilypondinfo.preferred())
