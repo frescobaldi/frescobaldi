@@ -41,6 +41,8 @@ import listmodel
 import widgets
 import util
 
+from . import command
+
 
 class Dialog(QDialog):
     def __init__(self, parent=None):
@@ -131,6 +133,7 @@ class Dialog(QDialog):
             self._document = None
     
     def setDocument(self, doc):
+        self.selectLilyPondInfo(command.info(doc))
         if jobmanager.isRunning(doc):
             self._document = doc
             self.buttons.button(QDialogButtonBox.Ok).setEnabled(False)
