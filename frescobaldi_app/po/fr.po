@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-11-30 09:57+0100\n"
+"POT-Creation-Date: 2011-12-03 06:34+0100\n"
 "PO-Revision-Date: 2011-09-28 12:35+0200\n"
 "Last-Translator: Raphaël Doursenaud <rdoursenaud@free.fr>\n"
 "Language-Team: Français <>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bits\n"
-"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
 #: frescobaldi_app/about.py:42
@@ -1075,33 +1075,136 @@ msgstr "(Hérite de : {0})"
 msgid "LilyPond Source"
 msgstr "Code source LilyPond"
 
-#: frescobaldi_app/engrave/__init__.py:151
+#: frescobaldi_app/engrave/__init__.py:169
 msgid "&Always Engrave [{docname}]"
 msgstr "Toujours gr&aver [{docname}]"
 
-#: frescobaldi_app/engrave/__init__.py:153
+#: frescobaldi_app/engrave/__init__.py:171
 msgid "&Always Engrave This Document"
 msgstr "Toujours gr&aver ce document"
 
-#: frescobaldi_app/engrave/__init__.py:182
+#: frescobaldi_app/engrave/__init__.py:200
 msgid "Engrave"
 msgstr "Graver"
 
-#: frescobaldi_app/engrave/__init__.py:183
+#: frescobaldi_app/engrave/__init__.py:201
 msgid "&Engrave (preview)"
 msgstr "Grav&er (aperçu)"
 
-#: frescobaldi_app/engrave/__init__.py:184
+#: frescobaldi_app/engrave/__init__.py:202
 msgid "Engrave (&publish)"
 msgstr "Graver (&publication)"
 
-#: frescobaldi_app/engrave/__init__.py:185
+#: frescobaldi_app/engrave/__init__.py:203
 msgid "Engrave (&custom)"
 msgstr "Graver (personnalisé)"
 
-#: frescobaldi_app/engrave/__init__.py:186
+#: frescobaldi_app/engrave/__init__.py:204
 msgid "Abort Engraving &Job"
 msgstr "Interrompre le travail de gravure"
+
+#: frescobaldi_app/engrave/custom.py:112 frescobaldi_app/engrave/custom.py:199
+#, fuzzy
+msgid "Engrave custom"
+msgstr "Graver (personnalisé)"
+
+#: frescobaldi_app/engrave/custom.py:113
+#, fuzzy
+msgid "LilyPond Version:"
+msgstr "Version de LilyPond"
+
+#: frescobaldi_app/engrave/custom.py:114
+#, fuzzy
+msgid "Output Format:"
+msgstr "Nom du fichier de sortie :"
+
+#: frescobaldi_app/engrave/custom.py:115
+#, fuzzy
+msgid "Resolution:"
+msgstr "Version :"
+
+#: frescobaldi_app/engrave/custom.py:117
+msgid "Run LilyPond in preview mode (with Point and Click)"
+msgstr "Lancer LilyPond en mode aperçu (avec l'option point-and-click)"
+
+#: frescobaldi_app/engrave/custom.py:118
+msgid "Run LilyPond with verbose output"
+msgstr "Lancer LilyPond avec des messages détaillés"
+
+#: frescobaldi_app/engrave/custom.py:119
+#: frescobaldi_app/preferences/lilypond.py:281
+msgid "Delete intermediate output files"
+msgstr "Effacer les fichiers de sortie intermédiaires"
+
+#: frescobaldi_app/engrave/custom.py:120
+#, fuzzy
+msgid "Command line:"
+msgstr "Commande"
+
+#: frescobaldi_app/engrave/custom.py:121
+msgid "Run LilyPond"
+msgstr "Lancer LilyPond"
+
+#: frescobaldi_app/engrave/custom.py:142
+#, fuzzy
+msgid "LilyPond {version}"
+msgstr "Version de LilyPond"
+
+#: frescobaldi_app/engrave/custom.py:203
+msgid ""
+"In this dialog you can set some parameters for the LilyPond command to be "
+"used\n"
+"to engrave your document.\n"
+"It is even possible to edit the command line itself.\n"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:208
+#, fuzzy
+msgid "The following replacements will be made:"
+msgstr "Les variables suivantes sont reconnues :"
+
+#: frescobaldi_app/engrave/custom.py:211
+#, fuzzy
+msgid "The LilyPond executable"
+msgstr "Préférences de LilyPond"
+
+#: frescobaldi_app/engrave/custom.py:212
+#, fuzzy
+msgid "All the include paths"
+msgstr "Chemin d'inclusion LilyPond :"
+
+#: frescobaldi_app/engrave/custom.py:213
+#, fuzzy
+msgid "The filename of the document"
+msgstr "Le nom du document courant."
+
+#: frescobaldi_app/engrave/custom.py:226
+msgid "PDF"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:232
+msgid "PostScript"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:238
+msgid "PNG"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:244
+msgid "SVG"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:250
+msgid "PDF (EPS Backend)"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:256
+msgid "Encapsulated PostScript (EPS Backend)"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:262
+msgid "PNG (EPS Backend)"
+msgstr ""
 
 #: frescobaldi_app/help/browser.py:74
 msgid "Toolbar"
@@ -1166,8 +1269,8 @@ msgstr ""
 "<p>\n"
 "Dans la plupart des fenêtres de dialogue vous pouvez cliquer sur\n"
 "un bouton Aide ou presser la touche {key_help}.\n"
-"La plupart des éléments d'interface ont aussi une information « Qu'est-ce que "
-"c'est ? »\n"
+"La plupart des éléments d'interface ont aussi une information « Qu'est-ce "
+"que c'est ? »\n"
 "qui peut être affichée en pressant {key_whatsthis} ou en sélectionnant "
 "{menu_whatsthis}.\n"
 "</p>\n"
@@ -1789,11 +1892,11 @@ msgstr "Aller à la position du curseur"
 msgid "Copy to &Image..."
 msgstr "Copier vers une image..."
 
-#: frescobaldi_app/musicview/__init__.py:340
+#: frescobaldi_app/musicview/__init__.py:339
 msgid "Choose the PDF document to display."
 msgstr "Choisir le document PDF à afficher."
 
-#: frescobaldi_app/musicview/__init__.py:342
+#: frescobaldi_app/musicview/__init__.py:341
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -1801,15 +1904,15 @@ msgstr ""
 "Choisir le document PDF à afficher ou déposer le fichier sur une autre "
 "application ou un autre emplacement."
 
-#: frescobaldi_app/musicview/__init__.py:400
+#: frescobaldi_app/musicview/__init__.py:399
 msgid "Fit Width"
 msgstr "Ajuster à la largeur"
 
-#: frescobaldi_app/musicview/__init__.py:401
+#: frescobaldi_app/musicview/__init__.py:400
 msgid "Fit Height"
 msgstr "Ajuster à la hauteur"
 
-#: frescobaldi_app/musicview/__init__.py:402
+#: frescobaldi_app/musicview/__init__.py:401
 msgid "Fit Page"
 msgstr "Ajuster à la page"
 
@@ -2273,9 +2376,9 @@ msgstr ""
 #: frescobaldi_app/preferences/documentation.py:68
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the \"{documentation}"
-"\" directory lives, or the whole \"share/doc/lilypond/html/offline-root\" "
-"path.</p>\n"
+"A local path should point to the directory where either the "
+"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
+"offline-root\" path.</p>\n"
 "<p>If those can't be found, documentation is looked for in all "
 "subdirectories of the given path, one level deep. This makes it possible to "
 "put multiple versions of LilyPond documentation in different subdirectories "
@@ -2758,10 +2861,6 @@ msgid ""
 msgstr ""
 "Si coché, le document est enregistré lorsqu'il est local et modifié.\n"
 "Sinon, un fichier temporaire est utilisé pour lancer LilyPond."
-
-#: frescobaldi_app/preferences/lilypond.py:281
-msgid "Delete intermediate output files"
-msgstr "Effacer les fichiers de sortie intermédiaires"
 
 #: frescobaldi_app/preferences/lilypond.py:283
 msgid "If checked, LilyPond will delete intermediate PostScript files."
@@ -5143,9 +5242,9 @@ msgid ""
 "(optional) value. When triggered via the menu, the snippet is inserted into "
 "a new document."
 msgstr ""
-"Place le snippet dans le menu {file_new_from_template}, groupé par "
-"valeur (optionnelle). Quand il est utiliser via le menu, le snippet est inséré "
-"dans un nouveau document." 
+"Place le snippet dans le menu {file_new_from_template}, groupé par valeur "
+"(optionnelle). Quand il est utiliser via le menu, le snippet est inséré dans "
+"un nouveau document."
 
 #: frescobaldi_app/snippet/edit.py:218
 #, fuzzy
@@ -5176,8 +5275,9 @@ msgid ""
 "The symbol to show in menu and snippet list. Symbols are icons that use the "
 "default text color and can be found in {directory}."
 msgstr ""
-"Le symbole à afficher dans le menu et la liste de snippets. Les symboles sont des icones "
-"qui utilisent la couleur de texte par défaut et se trouvent dans le dossier {directory}."
+"Le symbole à afficher dans le menu et la liste de snippets. Les symboles "
+"sont des icones qui utilisent la couleur de texte par défaut et se trouvent "
+"dans le dossier {directory}."
 
 #: frescobaldi_app/snippet/edit.py:231
 msgid "Execute the snippet as a Python script. See {link}."
@@ -5220,9 +5320,9 @@ msgid ""
 "<p>You may set {text} to a string or a list of strings.</p>\n"
 "<p>Other variables that may be referenced:</p>"
 msgstr ""
-"<p>Les snippets Python peuvent lire et définir la variable {text}. La variable "
-"{text} contient le text actuellement sélectionné (qui peut être une chaîne vide).</"
-"p>\n"
+"<p>Les snippets Python peuvent lire et définir la variable {text}. La "
+"variable {text} contient le text actuellement sélectionné (qui peut être une "
+"chaîne vide).</p>\n"
 "<p>Vous pouvez définir {text} comme chaîne ou liste de chaînes.</p>\n"
 "<p>Autres variables qui peuvent être référencées :</p>"
 
@@ -5245,8 +5345,9 @@ msgid ""
 "When setting {text} to a list instead of a string, you can use this value to "
 "specify the place the text cursor will be placed after inserting the snippet."
 msgstr ""
-"En définissant {text} comme une liste plutôt qu'une chaîne, vous pouvez utiliser "
-"cette valeur pour spécifier la place que le curseur de texet occupera après l'insertion du snippet."
+"En définissant {text} comme une liste plutôt qu'une chaîne, vous pouvez "
+"utiliser cette valeur pour spécifier la place que le curseur de texet "
+"occupera après l'insertion du snippet."
 
 #: frescobaldi_app/snippet/edit.py:285
 msgid ""
@@ -5254,9 +5355,9 @@ msgid ""
 "together with {cursor} to select text when inserting the string parts of the "
 "list."
 msgstr ""
-"En définissant {text} comme une liste plutôt qu'une chaîne, cette valeur peut être "
-"utilisée conjointement au {cursor} pour sélectionner du text lors de l'insertion des morceaux "
-" de chaînes de la liste."
+"En définissant {text} comme une liste plutôt qu'une chaîne, cette valeur "
+"peut être utilisée conjointement au {cursor} pour sélectionner du text lors "
+"de l'insertion des morceaux  de chaînes de la liste."
 
 #: frescobaldi_app/snippet/expand.py:76
 msgid "The current date in YYYY-MM-DD format."
@@ -5350,10 +5451,10 @@ msgid ""
 "<p>Existing, unchanged snippets can't be imported.</p>\n"
 msgstr ""
 "<p>Les snippets de {filename} sont affichés ici.</p>\n"
-"<p>S'il y a des snippets nouveaux ou mis à jour, vous pouvez "
-"les sélectionner ou les désélectionner un par un, ou tous ensemble"
-"en utilisant la case à cocher du groupe. Cliquez OK pour importer "
-"tous les snippets sélectionnés.</p>\n"
+"<p>S'il y a des snippets nouveaux ou mis à jour, vous pouvez les "
+"sélectionner ou les désélectionner un par un, ou tous ensembleen utilisant "
+"la case à cocher du groupe. Cliquez OK pour importer tous les snippets "
+"sélectionnés.</p>\n"
 "<p>Les snippets existants ou non modifiés ne peuvent pas être importés.</p>\n"
 
 #: frescobaldi_app/snippet/insert.py:218
@@ -5562,7 +5663,8 @@ msgid ""
 msgstr ""
 "<p>\n"
 "Le gestionnaire de snippet vous permit de conserver des fragments de texte\n"
-"fréquemment utilisés appelés \"snippets\", et les coller facilement dans l'éditeur de texte.\n"
+"fréquemment utilisés appelés \"snippets\", et les coller facilement dans "
+"l'éditeur de texte.\n"
 "</p>\n"
 "\n"
 "<p>\n"
@@ -5571,25 +5673,29 @@ msgstr ""
 "</p>\n"
 "\n"
 "<p>\n"
-"Les snippets sony cherchantes en navigate dans la liste ou en tapant quelques caractères\n"
+"Les snippets sony cherchantes en navigate dans la liste ou en tapant "
+"quelques caractères\n"
 "dans le champ de recherche.\n"
 "Les snippets peuvent également être appliqués par un raccourci clavier.\n"
-"Certains snippets ont un nom spécifique que vous pouvez entrer dans le champ de recherche.\n"
-"Il suffit ensuite de valider avec Entrée "
-"pour\n"
-"appliquer le snippet dans l'éditeur de texte et masquer le gestionnaire de snippets.\n"
+"Certains snippets ont un nom spécifique que vous pouvez entrer dans le champ "
+"de recherche.\n"
+"Il suffit ensuite de valider avec Entrée pour\n"
+"appliquer le snippet dans l'éditeur de texte et masquer le gestionnaire de "
+"snippets.\n"
 "</p>\n"
 "\n"
 "<p>\n"
-"Ajoutez de nouveaux snippets avec {key_add}. Éditez le snippet sélectionné avec "
-"{key_edit}.\n"
-"Supprimer les snippets sélectionnés avec {key_delete}. Attention : impossible d'annuler !\n"
+"Ajoutez de nouveaux snippets avec {key_add}. Éditez le snippet sélectionné "
+"avec {key_edit}.\n"
+"Supprimer les snippets sélectionnés avec {key_delete}. Attention : "
+"impossible d'annuler !\n"
 "</p>\n"
 "\n"
 "<p>\n"
 "Les snippets peuvent également être placés dans le menu (voir {link}).\n"
 "Il y a aussi des snippets pouvant inclure ou modifier du texte sélectionné.\n"
-"Certains snippets utilisent pour cela des variables spéciales, d'autres sont de \n"
+"Certains snippets utilisent pour cela des variables spéciales, d'autres sont "
+"de \n"
 " petits scripts écrits en Python.\n"
 "</p>\n"
 
@@ -6776,17 +6882,8 @@ msgstr "Sélectionner un fichier"
 #~ msgid "Could not read from the LilyPond process."
 #~ msgstr "Impossible de lire à partir du processus LilyPond."
 
-#~ msgid "Run LilyPond"
-#~ msgstr "Lancer LilyPond"
-
 #~ msgid "Select which LilyPond version you want to run:"
 #~ msgstr "Choisissez la version de LilyPond que vous voulez utiliser :"
-
-#~ msgid "Run LilyPond in preview mode (with Point and Click)"
-#~ msgstr "Lancer LilyPond en mode aperçu (avec l'option point-and-click)"
-
-#~ msgid "Run LilyPond with verbose output"
-#~ msgstr "Lancer LilyPond avec des messages détaillés"
 
 #~ msgid "LilyPond %1"
 #~ msgstr "LilyPond %1"
@@ -6897,8 +6994,8 @@ msgstr "Sélectionner un fichier"
 #~ "Click this button if Point and Click does not work. See Shift+F1 (What's "
 #~ "This) for more information."
 #~ msgstr ""
-#~ "Cliquez ici si le point-and-click ne fonctionne pas. Voir Maj+F1 (« Qu'est-"
-#~ "ce que c'est ? ») pour plus de détails."
+#~ "Cliquez ici si le point-and-click ne fonctionne pas. Voir Maj+F1 "
+#~ "(« Qu'est-ce que c'est ? ») pour plus de détails."
 
 #~ msgid ""
 #~ "On its first run, Frescobaldi tries to auto-configure Okular (which "
@@ -6919,9 +7016,9 @@ msgstr "Sélectionner un fichier"
 #~ "Cependant, ce réglage peut être perdu si Frescobaldi est déplacé ou si "
 #~ "d'autres applications reconfigurent Okular.\n"
 #~ "\n"
-#~ "Cliquez ici pour faire de Frescobaldi l'« éditeur personnalisé » d'Okular. "
-#~ "Ce changement ne sera pris en compte que si aucune fenêtre d'Okular n'est "
-#~ "ouverte, et si l'aperçu PDF n'a pas encore été activé."
+#~ "Cliquez ici pour faire de Frescobaldi l'« éditeur personnalisé » "
+#~ "d'Okular. Ce changement ne sera pris en compte que si aucune fenêtre "
+#~ "d'Okular n'est ouverte, et si l'aperçu PDF n'a pas encore été activé."
 
 #~ msgid ""
 #~ "The Okular PDF preview has been reconfigured.\n"

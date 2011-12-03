@@ -6,14 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-11-30 09:57+0100\n"
+"POT-Creation-Date: 2011-12-03 06:34+0100\n"
 "PO-Revision-Date: 2011-11-27 02:34+0100\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "#-#-#-#-#  es.po (es)  #-#-#-#-#\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
@@ -1085,33 +1085,138 @@ msgstr "(Hereda: {name})"
 msgid "LilyPond Source"
 msgstr "Fuente de LilyPond"
 
-#: frescobaldi_app/engrave/__init__.py:151
+#: frescobaldi_app/engrave/__init__.py:169
 msgid "&Always Engrave [{docname}]"
 msgstr "Proces&ar siemrpe [{docname}]"
 
-#: frescobaldi_app/engrave/__init__.py:153
+#: frescobaldi_app/engrave/__init__.py:171
 msgid "&Always Engrave This Document"
 msgstr "Proces&ar siempre este documento"
 
-#: frescobaldi_app/engrave/__init__.py:182
+#: frescobaldi_app/engrave/__init__.py:200
 msgid "Engrave"
 msgstr "Procesar"
 
-#: frescobaldi_app/engrave/__init__.py:183
+#: frescobaldi_app/engrave/__init__.py:201
 msgid "&Engrave (preview)"
 msgstr "Proc&esar (vista previa)"
 
-#: frescobaldi_app/engrave/__init__.py:184
+#: frescobaldi_app/engrave/__init__.py:202
 msgid "Engrave (&publish)"
 msgstr "Procesar (&publicación)"
 
-#: frescobaldi_app/engrave/__init__.py:185
+#: frescobaldi_app/engrave/__init__.py:203
 msgid "Engrave (&custom)"
 msgstr "Pro&cesar (personalizado)"
 
-#: frescobaldi_app/engrave/__init__.py:186
+#: frescobaldi_app/engrave/__init__.py:204
 msgid "Abort Engraving &Job"
 msgstr "A&bortar el procesado"
+
+#: frescobaldi_app/engrave/custom.py:112 frescobaldi_app/engrave/custom.py:199
+#, fuzzy
+msgid "Engrave custom"
+msgstr "Pro&cesar (personalizado)"
+
+#: frescobaldi_app/engrave/custom.py:113
+#, fuzzy
+msgid "LilyPond Version:"
+msgstr "Versión de LilyPond"
+
+#: frescobaldi_app/engrave/custom.py:114
+#, fuzzy
+msgid "Output Format:"
+msgstr "Nombre del archivo de salida:"
+
+#: frescobaldi_app/engrave/custom.py:115
+#, fuzzy
+msgid "Resolution:"
+msgstr "Versión:"
+
+#: frescobaldi_app/engrave/custom.py:117
+msgid "Run LilyPond in preview mode (with Point and Click)"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:118
+#, fuzzy
+msgid "Run LilyPond with verbose output"
+msgstr "Versiones de LilyPond que usar"
+
+#: frescobaldi_app/engrave/custom.py:119
+#: frescobaldi_app/preferences/lilypond.py:281
+msgid "Delete intermediate output files"
+msgstr "Borrar los archivos de salida intermedios"
+
+#: frescobaldi_app/engrave/custom.py:120
+#, fuzzy
+msgid "Command line:"
+msgstr "Instrucción"
+
+#: frescobaldi_app/engrave/custom.py:121
+#, fuzzy
+msgid "Run LilyPond"
+msgstr "Ejecutar LilyPond"
+
+#: frescobaldi_app/engrave/custom.py:142
+#, fuzzy
+msgid "LilyPond {version}"
+msgstr "Versión de LilyPond"
+
+#: frescobaldi_app/engrave/custom.py:203
+msgid ""
+"In this dialog you can set some parameters for the LilyPond command to be "
+"used\n"
+"to engrave your document.\n"
+"It is even possible to edit the command line itself.\n"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:208
+#, fuzzy
+msgid "The following replacements will be made:"
+msgstr "Se reconocen las siguientes variables:"
+
+#: frescobaldi_app/engrave/custom.py:211
+#, fuzzy
+msgid "The LilyPond executable"
+msgstr "Preferencias de LilyPond"
+
+#: frescobaldi_app/engrave/custom.py:212
+#, fuzzy
+msgid "All the include paths"
+msgstr "Ruta de inclusión para LilyPond:"
+
+#: frescobaldi_app/engrave/custom.py:213
+#, fuzzy
+msgid "The filename of the document"
+msgstr "Nombre del documento actual."
+
+#: frescobaldi_app/engrave/custom.py:226
+msgid "PDF"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:232
+msgid "PostScript"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:238
+msgid "PNG"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:244
+msgid "SVG"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:250
+msgid "PDF (EPS Backend)"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:256
+msgid "Encapsulated PostScript (EPS Backend)"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:262
+msgid "PNG (EPS Backend)"
+msgstr ""
 
 #: frescobaldi_app/help/browser.py:74
 msgid "Toolbar"
@@ -1979,11 +2084,11 @@ msgstr "Salta&r a la posición del cursor"
 msgid "Copy to &Image..."
 msgstr "Copiar a &imagen..."
 
-#: frescobaldi_app/musicview/__init__.py:340
+#: frescobaldi_app/musicview/__init__.py:339
 msgid "Choose the PDF document to display."
 msgstr "Selecicone el documento PDF para mostrar."
 
-#: frescobaldi_app/musicview/__init__.py:342
+#: frescobaldi_app/musicview/__init__.py:341
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -1991,15 +2096,15 @@ msgstr ""
 "Seleccione el documento PDF para mostrar o arrastre el archivo a otra "
 "aplicación o lugar."
 
-#: frescobaldi_app/musicview/__init__.py:400
+#: frescobaldi_app/musicview/__init__.py:399
 msgid "Fit Width"
 msgstr "Ajustar al ancho"
 
-#: frescobaldi_app/musicview/__init__.py:401
+#: frescobaldi_app/musicview/__init__.py:400
 msgid "Fit Height"
 msgstr "Ajustar a la altura"
 
-#: frescobaldi_app/musicview/__init__.py:402
+#: frescobaldi_app/musicview/__init__.py:401
 msgid "Fit Page"
 msgstr "Ajustar a la página"
 
@@ -2531,9 +2636,9 @@ msgstr ""
 #: frescobaldi_app/preferences/documentation.py:68
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the \"{documentation}"
-"\" directory lives, or the whole \"share/doc/lilypond/html/offline-root\" "
-"path.</p>\n"
+"A local path should point to the directory where either the "
+"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
+"offline-root\" path.</p>\n"
 "<p>If those can't be found, documentation is looked for in all "
 "subdirectories of the given path, one level deep. This makes it possible to "
 "put multiple versions of LilyPond documentation in different subdirectories "
@@ -3029,10 +3134,6 @@ msgstr ""
 "Se está activado, el documento se guarda cuando es un archivo local y ha "
 "sido modificado.\n"
 "En caso contrario, se usa un archivo temporal para ejecutar LilyPond."
-
-#: frescobaldi_app/preferences/lilypond.py:281
-msgid "Delete intermediate output files"
-msgstr "Borrar los archivos de salida intermedios"
 
 #: frescobaldi_app/preferences/lilypond.py:283
 msgid "If checked, LilyPond will delete intermediate PostScript files."

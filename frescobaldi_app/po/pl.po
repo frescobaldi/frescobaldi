@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.1\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-11-30 09:57+0100\n"
+"POT-Creation-Date: 2011-12-03 06:34+0100\n"
 "PO-Revision-Date: 2010-12-23 10:52+0100\n"
 "Last-Translator: Piotr Komorowski <piotr-komorowski@wp.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pl\n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
@@ -1113,32 +1113,133 @@ msgstr ""
 msgid "LilyPond Source"
 msgstr "LilyPond Log"
 
-#: frescobaldi_app/engrave/__init__.py:151
+#: frescobaldi_app/engrave/__init__.py:169
 msgid "&Always Engrave [{docname}]"
 msgstr ""
 
-#: frescobaldi_app/engrave/__init__.py:153
+#: frescobaldi_app/engrave/__init__.py:171
 msgid "&Always Engrave This Document"
 msgstr ""
 
-#: frescobaldi_app/engrave/__init__.py:182
+#: frescobaldi_app/engrave/__init__.py:200
 msgid "Engrave"
 msgstr ""
 
-#: frescobaldi_app/engrave/__init__.py:183
+#: frescobaldi_app/engrave/__init__.py:201
 msgid "&Engrave (preview)"
 msgstr ""
 
-#: frescobaldi_app/engrave/__init__.py:184
+#: frescobaldi_app/engrave/__init__.py:202
 msgid "Engrave (&publish)"
 msgstr ""
 
-#: frescobaldi_app/engrave/__init__.py:185
+#: frescobaldi_app/engrave/__init__.py:203
 msgid "Engrave (&custom)"
 msgstr ""
 
-#: frescobaldi_app/engrave/__init__.py:186
+#: frescobaldi_app/engrave/__init__.py:204
 msgid "Abort Engraving &Job"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:112 frescobaldi_app/engrave/custom.py:199
+msgid "Engrave custom"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:113
+#, fuzzy
+msgid "LilyPond Version:"
+msgstr "Domyślna wersja LilyPonda."
+
+#: frescobaldi_app/engrave/custom.py:114
+msgid "Output Format:"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:115
+#, fuzzy
+msgid "Resolution:"
+msgstr "Wersja:"
+
+#: frescobaldi_app/engrave/custom.py:117
+msgid "Run LilyPond in preview mode (with Point and Click)"
+msgstr "Uruchom LilyPonda w trybie podglądu (z funkcją Point and Click)"
+
+#: frescobaldi_app/engrave/custom.py:118
+msgid "Run LilyPond with verbose output"
+msgstr "Uruchom LilyPonda z wyświetlaniem szczegółów"
+
+#: frescobaldi_app/engrave/custom.py:119
+#: frescobaldi_app/preferences/lilypond.py:281
+#, fuzzy
+msgid "Delete intermediate output files"
+msgstr "Pozwól, by LilyPond usuwał wynikowe pliki pośrednie"
+
+#: frescobaldi_app/engrave/custom.py:120
+#, fuzzy
+msgid "Command line:"
+msgstr "Polecenie"
+
+#: frescobaldi_app/engrave/custom.py:121
+msgid "Run LilyPond"
+msgstr "Uruchom LilyPonda"
+
+#: frescobaldi_app/engrave/custom.py:142
+#, fuzzy
+msgid "LilyPond {version}"
+msgstr "Domyślna wersja LilyPonda."
+
+#: frescobaldi_app/engrave/custom.py:203
+msgid ""
+"In this dialog you can set some parameters for the LilyPond command to be "
+"used\n"
+"to engrave your document.\n"
+"It is even possible to edit the command line itself.\n"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:208
+msgid "The following replacements will be made:"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:211
+#, fuzzy
+msgid "The LilyPond executable"
+msgstr "Ustawienia LilyPonda "
+
+#: frescobaldi_app/engrave/custom.py:212
+#, fuzzy
+msgid "All the include paths"
+msgstr "Ścieżka LilyPonda:"
+
+#: frescobaldi_app/engrave/custom.py:213
+#, fuzzy
+msgid "The filename of the document"
+msgstr "S&ynchronizuj Terminal z obecnym dokumentem"
+
+#: frescobaldi_app/engrave/custom.py:226
+msgid "PDF"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:232
+msgid "PostScript"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:238
+msgid "PNG"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:244
+msgid "SVG"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:250
+msgid "PDF (EPS Backend)"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:256
+msgid "Encapsulated PostScript (EPS Backend)"
+msgstr ""
+
+#: frescobaldi_app/engrave/custom.py:262
+msgid "PNG (EPS Backend)"
 msgstr ""
 
 #: frescobaldi_app/help/browser.py:74
@@ -1779,26 +1880,26 @@ msgstr ""
 msgid "Copy to &Image..."
 msgstr ""
 
-#: frescobaldi_app/musicview/__init__.py:340
+#: frescobaldi_app/musicview/__init__.py:339
 #, fuzzy
 msgid "Choose the PDF document to display."
 msgstr "Zamknij inne dokumenty"
 
-#: frescobaldi_app/musicview/__init__.py:342
+#: frescobaldi_app/musicview/__init__.py:341
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
 msgstr ""
 
-#: frescobaldi_app/musicview/__init__.py:400
+#: frescobaldi_app/musicview/__init__.py:399
 msgid "Fit Width"
 msgstr ""
 
-#: frescobaldi_app/musicview/__init__.py:401
+#: frescobaldi_app/musicview/__init__.py:400
 msgid "Fit Height"
 msgstr ""
 
-#: frescobaldi_app/musicview/__init__.py:402
+#: frescobaldi_app/musicview/__init__.py:401
 #, fuzzy
 msgid "Fit Page"
 msgstr "Pierwsza strona"
@@ -2280,9 +2381,9 @@ msgstr ""
 #: frescobaldi_app/preferences/documentation.py:68
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the \"{documentation}"
-"\" directory lives, or the whole \"share/doc/lilypond/html/offline-root\" "
-"path.</p>\n"
+"A local path should point to the directory where either the "
+"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
+"offline-root\" path.</p>\n"
 "<p>If those can't be found, documentation is looked for in all "
 "subdirectories of the given path, one level deep. This makes it possible to "
 "put multiple versions of LilyPond documentation in different subdirectories "
@@ -2800,11 +2901,6 @@ msgid ""
 "If checked, the document is saved when it is local and modified.\n"
 "Otherwise a temporary file is used to run LilyPond."
 msgstr ""
-
-#: frescobaldi_app/preferences/lilypond.py:281
-#, fuzzy
-msgid "Delete intermediate output files"
-msgstr "Pozwól, by LilyPond usuwał wynikowe pliki pośrednie"
 
 #: frescobaldi_app/preferences/lilypond.py:283
 #, fuzzy
@@ -6628,17 +6724,8 @@ msgstr "Zaznacz wszystko"
 #~ msgid "LilyPond [%1] finished (%2)."
 #~ msgstr "LilyPond [%1] zakończył (%2)."
 
-#~ msgid "Run LilyPond"
-#~ msgstr "Uruchom LilyPonda"
-
 #~ msgid "Select which LilyPond version you want to run:"
 #~ msgstr "Proszę wybrać, którą wersję Lilyponda uruchomić:"
-
-#~ msgid "Run LilyPond in preview mode (with Point and Click)"
-#~ msgstr "Uruchom LilyPonda w trybie podglądu (z funkcją Point and Click)"
-
-#~ msgid "Run LilyPond with verbose output"
-#~ msgstr "Uruchom LilyPonda z wyświetlaniem szczegółów"
 
 #~ msgid "LilyPond %1"
 #~ msgstr "LilyPond %1"
