@@ -132,21 +132,22 @@ class CharMap(QWidget):
         selected_box = self.palette().color(QPalette.Highlight)
         
         text_pen = QPen(self.palette().text())
+        disabled_pen = QPen(self.palette().color(QPalette.Disabled, QPalette.Text))
         selection_pen = QPen(selected_box)
-        painter.setPen(text_pen)
         for row in rows:
             for col in cols:
                 char = row * self._column_count + col + self._range[0]
                 if char > self._range[1]:
                     break
+                printable = self.isprint(char)
                 painter.setClipRect(col * s, row * s, s, s)
                 if char == self._selected:
                     painter.fillRect(col * s + 1, row * s + 1, s - 2, s - 2, selected_tile)
                     painter.setPen(selection_pen)
                     painter.drawRect(col * s, row * s, s - 1, s - 1)
-                    painter.setPen(text_pen)
-                else:
+                elif printable:
                     painter.fillRect(col * s + 1, row * s + 1, s - 2, s - 2, tile)
+                painter.setPen(text_pen if printable else disabled_pen)
                 t = unichr(char)
                 x = col * s + s / 2 - metrics.width(t) / 2
                 y = row * s + 4 + metrics.ascent()
@@ -171,7 +172,7 @@ class CharMap(QWidget):
 
     def mousePressEvent(self, ev):
         charcode = self.charcodeAt(ev.pos())
-        if charcode != -1:
+        if charcode != -1 and self.isprint(charcode):
             self.select(charcode)
             if ev.button() != Qt.RightButton:
                 self.characterClicked.emit(unichr(charcode))
@@ -208,14 +209,15 @@ class CharMap(QWidget):
                 ev.accept()
                 return True
         elif ev.type() == QEvent.WhatsThis:
+            ev.accept()
             if self._showWhatsThis:
                 c = self.charcodeAt(ev.pos())
-                if c:
-                    ev.accept()
-                    text = self.getWhatsThisText(c)
-                    if text:
-                        QWhatsThis.showText(ev.globalPos(), text, self)
-                    return True
+                text = self.getWhatsThisText(c) if c else None
+                if text:
+                    QWhatsThis.showText(ev.globalPos(), text, self)
+                else:
+                    QWhatsThis.leaveWhatsThisMode()
+            return True
         return super(CharMap, self).event(ev)
     
     def getToolTipText(self, charcode):
@@ -242,6 +244,15 @@ class CharMap(QWidget):
     
     def showWhatsThis(self):
         return self._showWhatsThis
+
+    def isprint(self, charcode):
+        """Returns True if the given charcode is printable."""
+        return isprint(charcode)
+
+
+def isprint(charcode):
+    """Returns True if the given charcode is printable."""
+    return unicodedata.category(unichr(charcode)) not in ('Cc', 'Cn')
 
 
 whatsthis_html = """\
