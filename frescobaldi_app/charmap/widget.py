@@ -26,6 +26,7 @@ from __future__ import unicode_literals
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+import app
 import widgets.charmap
 import unicode_blocks
 import listmodel
@@ -68,6 +69,20 @@ class Widget(QWidget):
         
         self.blockCombo.activated[int].connect(self.updateBlock)
         self.updateBlock()
+        
+        self.loadSettings()
+        app.settingsChanged.connect(self.loadSettings)
+    
+    def loadSettings(self):
+        s = QSettings()
+        s.beginGroup("charmaptool")
+        font = self.font()
+        family = s.value("fontfamily", "")
+        if family:
+            font.setFamily(family)
+        self.charmap.charmap.setDisplayFont(font)
+        size = float(s.value("fontsize", font.pointSizeF()))
+        self.charmap.charmap.setDisplayFontSizeF(size)
     
     def updateBlock(self):
         i = self.blockCombo.currentIndex()

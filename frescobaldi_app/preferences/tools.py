@@ -43,6 +43,7 @@ class Tools(preferences.GroupsPage):
         
         layout.addWidget(LogTool(self))
         layout.addWidget(MusicView(self))
+        layout.addWidget(CharMap(self))
         layout.addStretch(1)
             
 
@@ -157,5 +158,49 @@ class MusicView(preferences.Group):
         s.size = self.magnifierSizeSlider.value()
         s.scale = self.magnifierScaleSlider.value()
         s.save()
+
+
+class CharMap(preferences.Group):
+    def __init__(self, page):
+        super(CharMap, self).__init__(page)
+        
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+        
+        self.fontLabel = QLabel()
+        self.fontChooser = QFontComboBox(currentFontChanged=self.changed)
+        self.fontSize = QDoubleSpinBox(valueChanged=self.changed)
+        self.fontSize.setRange(6.0, 32.0)
+        self.fontSize.setSingleStep(0.5)
+        self.fontSize.setDecimals(1)
+        
+        box = QHBoxLayout()
+        box.addWidget(self.fontLabel)
+        box.addWidget(self.fontChooser, 1)
+        box.addWidget(self.fontSize)
+        layout.addLayout(box)
+        app.translateUI(self)
+        
+    def translateUI(self):
+        self.setTitle(_("Special Characters"))
+        self.fontLabel.setText(_("Font:"))
+    
+    def loadSettings(self):
+        s = QSettings()
+        s.beginGroup("charmaptool")
+        font = self.font()
+        family = s.value("fontfamily", "")
+        if family:
+            font.setFamily(family)
+        font.setPointSizeF(float(s.value("fontsize", font.pointSizeF())))
+        with util.signalsBlocked(self.fontChooser, self.fontSize):
+            self.fontChooser.setCurrentFont(font)
+            self.fontSize.setValue(font.pointSizeF())
+
+    def saveSettings(self):
+        s = QSettings()
+        s.beginGroup("charmaptool")
+        s.setValue("fontfamily", self.fontChooser.currentFont().family())
+        s.setValue("fontsize", self.fontSize.value())
 
 

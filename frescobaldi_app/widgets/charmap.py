@@ -39,7 +39,6 @@ class CharMap(QWidget):
     
     def __init__(self, parent=None):
         super(CharMap, self).__init__(parent)
-        self.setBackgroundRole(QPalette.Base)
         self._showToolTips = True
         self._showWhatsThis = True
         self._selected = -1
@@ -90,6 +89,18 @@ class CharMap(QWidget):
         self.adjustSize()
         self.update()
     
+    def displayFontSize(self):
+        return self._font.pointSize()
+    
+    def setDisplayFontSizeF(self, size):
+        self._font.setPointSizeF(size)
+        self._square = max(24, QFontMetrics(self._font).xHeight() * 3)
+        self.adjustSize()
+        self.update()
+    
+    def displayFontSizeF(self):
+        return self._font.pointSizeF()
+    
     def setColumnCount(self, count):
         """Sets how many columns should be used."""
         count = max(1, count)
@@ -113,28 +124,30 @@ class CharMap(QWidget):
         painter.setPen(QPen(self.palette().color(QPalette.Window)))
         painter.setFont(self._font)
         metrics = QFontMetrics(self._font)
-        # draw squares
-        for row in rows:
-            for col in cols:
-                painter.drawRect(col * s, row * s, s - 1, s - 1)
-        # draw selection box?
-        if self._range[0] <= self._selected <= self._range[1]:
-            row, col = divmod(self._selected - self._range[0], self._column_count)
-            color = self.palette().color(QPalette.Highlight)
-            color.setAlpha(96)
-            painter.fillRect(col * s, row * s, s - 1, s - 1, color)
-            color.setAlpha(255)
-            painter.setPen(QPen(color))
-            painter.drawRect(col * s, row * s, s - 1, s - 1)
-        # draw the characters
-        painter.setPen(QPen(self.palette().text()))
+        
+        # draw characters on white tiles
+        tile = self.palette().color(QPalette.Base)
+        selected_tile = self.palette().color(QPalette.Highlight)
+        selected_tile.setAlpha(96)
+        selected_box = self.palette().color(QPalette.Highlight)
+        
+        text_pen = QPen(self.palette().text())
+        selection_pen = QPen(selected_box)
+        painter.setPen(text_pen)
         for row in rows:
             for col in cols:
                 char = row * self._column_count + col + self._range[0]
                 if char > self._range[1]:
                     break
-                t = unichr(char)
                 painter.setClipRect(col * s, row * s, s, s)
+                if char == self._selected:
+                    painter.fillRect(col * s + 1, row * s + 1, s - 2, s - 2, selected_tile)
+                    painter.setPen(selection_pen)
+                    painter.drawRect(col * s, row * s, s - 1, s - 1)
+                    painter.setPen(text_pen)
+                else:
+                    painter.fillRect(col * s + 1, row * s + 1, s - 2, s - 2, tile)
+                t = unichr(char)
                 x = col * s + s / 2 - metrics.width(t) / 2
                 y = row * s + 4 + metrics.ascent()
                 painter.drawText(x, y, t)
@@ -216,7 +229,7 @@ class CharMap(QWidget):
             name = unicodedata.name(unichr(charcode))
         except ValueError:
             return
-        return whatsthis_html.format(unichr(charcode), name)
+        return whatsthis_html.format(self._font.family(), unichr(charcode), name)
     
     def setShowToolTips(self, enabled):
         self._showToolTips = bool(enabled)
@@ -233,7 +246,7 @@ class CharMap(QWidget):
 
 whatsthis_html = """\
 <qt>
-<p align=center style="font-size: 32pt;">{0}</p>
-<p align=center>{1}</p>
+<p align=center style="font-size: 32pt; font-family: {0};">{1}</p>
+<p align=center>{2}</p>
 """
 
