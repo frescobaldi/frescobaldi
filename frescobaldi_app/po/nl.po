@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-03 06:34+0100\n"
-"PO-Revision-Date: 2011-12-03 06:38+0100\n"
+"POT-Creation-Date: 2011-12-04 20:29+0100\n"
+"PO-Revision-Date: 2011-12-04 20:30+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -1028,6 +1028,15 @@ msgstr "Automatisch &aanvullen"
 msgid "Show C&ompletions Popup"
 msgstr "Aanvullingen &weergeven"
 
+#: frescobaldi_app/charmap/__init__.py:40
+#: frescobaldi_app/preferences/tools.py:185
+msgid "Special Characters"
+msgstr "Speciale tekens"
+
+#: frescobaldi_app/charmap/__init__.py:41
+msgid "Special Charac&ters"
+msgstr "Speciale &tekens"
+
 #: frescobaldi_app/docbrowser/__init__.py:46
 #: frescobaldi_app/docbrowser/__init__.py:58
 #: frescobaldi_app/preferences/documentation.py:110
@@ -1101,48 +1110,48 @@ msgstr "Gra&veren (aangepast)"
 msgid "Abort Engraving &Job"
 msgstr "Graveertaak af&breken"
 
-#: frescobaldi_app/engrave/custom.py:112 frescobaldi_app/engrave/custom.py:199
+#: frescobaldi_app/engrave/custom.py:118 frescobaldi_app/engrave/custom.py:206
 msgid "Engrave custom"
 msgstr "Aangepast graveren"
 
-#: frescobaldi_app/engrave/custom.py:113
+#: frescobaldi_app/engrave/custom.py:119
 msgid "LilyPond Version:"
 msgstr "LilyPond-versie:"
 
-#: frescobaldi_app/engrave/custom.py:114
+#: frescobaldi_app/engrave/custom.py:120
 msgid "Output Format:"
 msgstr "Uitvoerformaat:"
 
-#: frescobaldi_app/engrave/custom.py:115
+#: frescobaldi_app/engrave/custom.py:121
 msgid "Resolution:"
 msgstr "Resolutie:"
 
-#: frescobaldi_app/engrave/custom.py:117
+#: frescobaldi_app/engrave/custom.py:123
 msgid "Run LilyPond in preview mode (with Point and Click)"
 msgstr "LilyPond starten met Point and Click (vooruitblik)"
 
-#: frescobaldi_app/engrave/custom.py:118
+#: frescobaldi_app/engrave/custom.py:124
 msgid "Run LilyPond with verbose output"
 msgstr "LilyPond starten met uitgebreide uitvoerberichten"
 
-#: frescobaldi_app/engrave/custom.py:119
+#: frescobaldi_app/engrave/custom.py:125
 #: frescobaldi_app/preferences/lilypond.py:281
 msgid "Delete intermediate output files"
 msgstr "Tussentijdse uitvoerbestanden verwijderen"
 
-#: frescobaldi_app/engrave/custom.py:120
+#: frescobaldi_app/engrave/custom.py:126
 msgid "Command line:"
 msgstr "Commandoregel:"
 
-#: frescobaldi_app/engrave/custom.py:121
+#: frescobaldi_app/engrave/custom.py:127
 msgid "Run LilyPond"
 msgstr "LilyPond starten"
 
-#: frescobaldi_app/engrave/custom.py:142
+#: frescobaldi_app/engrave/custom.py:149
 msgid "LilyPond {version}"
 msgstr "LilyPond {version}"
 
-#: frescobaldi_app/engrave/custom.py:203
+#: frescobaldi_app/engrave/custom.py:210
 msgid ""
 "In this dialog you can set some parameters for the LilyPond command to be "
 "used\n"
@@ -1153,47 +1162,47 @@ msgstr ""
 "LilyPond-commando om uw document te graveren.\n"
 "Het is zelfs mogelijk de commandoregel zelf aan te passen.\n"
 
-#: frescobaldi_app/engrave/custom.py:208
+#: frescobaldi_app/engrave/custom.py:215
 msgid "The following replacements will be made:"
 msgstr "De volgende variabelen worden vervangen:"
 
-#: frescobaldi_app/engrave/custom.py:211
+#: frescobaldi_app/engrave/custom.py:218
 msgid "The LilyPond executable"
 msgstr "Het LilyPond-programma"
 
-#: frescobaldi_app/engrave/custom.py:212
+#: frescobaldi_app/engrave/custom.py:219
 msgid "All the include paths"
 msgstr "Alle include-paden"
 
-#: frescobaldi_app/engrave/custom.py:213
+#: frescobaldi_app/engrave/custom.py:220
 msgid "The filename of the document"
 msgstr "De naam van het document"
 
-#: frescobaldi_app/engrave/custom.py:226
+#: frescobaldi_app/engrave/custom.py:233
 msgid "PDF"
 msgstr "PDF"
 
-#: frescobaldi_app/engrave/custom.py:232
+#: frescobaldi_app/engrave/custom.py:239
 msgid "PostScript"
 msgstr "PostScript"
 
-#: frescobaldi_app/engrave/custom.py:238
+#: frescobaldi_app/engrave/custom.py:245
 msgid "PNG"
 msgstr "PNG"
 
-#: frescobaldi_app/engrave/custom.py:244
+#: frescobaldi_app/engrave/custom.py:251
 msgid "SVG"
 msgstr "SVG"
 
-#: frescobaldi_app/engrave/custom.py:250
+#: frescobaldi_app/engrave/custom.py:257
 msgid "PDF (EPS Backend)"
 msgstr "PDF (EPS-backend)"
 
-#: frescobaldi_app/engrave/custom.py:256
+#: frescobaldi_app/engrave/custom.py:263
 msgid "Encapsulated PostScript (EPS Backend)"
 msgstr "Encapsulated PostScript (EPS-backend)"
 
-#: frescobaldi_app/engrave/custom.py:262
+#: frescobaldi_app/engrave/custom.py:269
 msgid "PNG (EPS Backend)"
 msgstr "PNG (EPS-backend)"
 
@@ -1915,7 +1924,7 @@ msgid "(no key defined)"
 msgstr "(geen toets ingesteld)"
 
 #: frescobaldi_app/logtool/__init__.py:50
-#: frescobaldi_app/preferences/tools.py:78
+#: frescobaldi_app/preferences/tools.py:79
 msgid "LilyPond Log"
 msgstr "LilyPond-uitvoer"
 
@@ -2636,7 +2645,8 @@ msgid "Use this scheme for printing"
 msgstr "Dit schema gebruiken voor afdrukken"
 
 #: frescobaldi_app/preferences/fontscolors.py:122
-#: frescobaldi_app/preferences/tools.py:79
+#: frescobaldi_app/preferences/tools.py:80
+#: frescobaldi_app/preferences/tools.py:186
 msgid "Font:"
 msgstr "Lettertype:"
 
@@ -3217,46 +3227,46 @@ msgstr[1] "Sneltoets van deze commando's verwijderen?"
 msgid "(default)"
 msgstr "(standaard)"
 
-#: frescobaldi_app/preferences/tools.py:80
+#: frescobaldi_app/preferences/tools.py:81
 msgid "Show log when a job is started"
 msgstr "Log weergeven als een taak wordt gestart"
 
-#: frescobaldi_app/preferences/tools.py:81
+#: frescobaldi_app/preferences/tools.py:82
 msgid "Display plain log output"
 msgstr "Ruwe loguitvoer weergeven"
 
-#: frescobaldi_app/preferences/tools.py:83
+#: frescobaldi_app/preferences/tools.py:84
 msgid "If checked, Frescobaldi will not shorten filenames in the log output."
 msgstr ""
 "Indien ingeschakeld, zal Frescobaldi lange bestandsnamen in de loguitvoer "
 "niet inkorten."
 
-#: frescobaldi_app/preferences/tools.py:139
+#: frescobaldi_app/preferences/tools.py:140
 msgid "Music View"
 msgstr "Muziekweergave"
 
-#: frescobaldi_app/preferences/tools.py:140
+#: frescobaldi_app/preferences/tools.py:141
 msgid "Magnifier Size:"
 msgstr "Grootte van vergrootglas:"
 
-#: frescobaldi_app/preferences/tools.py:142
+#: frescobaldi_app/preferences/tools.py:143
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr "Grootte van het vergrootglas (Control+klik in muziekweergave)."
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: frescobaldi_app/preferences/tools.py:144
+#: frescobaldi_app/preferences/tools.py:145
 msgid " pixels"
 msgstr " pixels"
 
-#: frescobaldi_app/preferences/tools.py:145
+#: frescobaldi_app/preferences/tools.py:146
 msgid "Magnifier Scale:"
 msgstr "Schaal van vergrootglas:"
 
-#: frescobaldi_app/preferences/tools.py:147
+#: frescobaldi_app/preferences/tools.py:148
 msgid "Magnification of the magnifier."
 msgstr "Vergroting van het vergrootglas."
 
-#: frescobaldi_app/preferences/tools.py:148
+#: frescobaldi_app/preferences/tools.py:149
 msgctxt "percent unit sign"
 msgid "%"
 msgstr "%"
@@ -6261,9 +6271,6 @@ msgstr "Selecteer een bestand"
 
 #~ msgid "Connect bar lines"
 #~ msgstr "Maatstrepen verbinden"
-
-#~ msgid "Special Characters"
-#~ msgstr "Speciale tekens"
 
 #~ msgid "Open %1"
 #~ msgstr "%1 openen"
