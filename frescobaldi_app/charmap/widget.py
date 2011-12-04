@@ -27,6 +27,8 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import widgets.charmap
+import unicode_blocks
+import listmodel
 
 
 class Widget(QWidget):
@@ -39,10 +41,40 @@ class Widget(QWidget):
         self.blockCombo = QComboBox()
         self.charmap = CharMapWidget()
 
-
         layout.addWidget(self.blockCombo)
         layout.addWidget(self.charmap)
 
+        # size policy of combo
+        p = self.blockCombo.sizePolicy()
+        p.setHorizontalPolicy(QSizePolicy.Ignored)
+        self.blockCombo.setSizePolicy(p)
+        
+        # size policy of combo popup
+        p = self.blockCombo.view().sizePolicy()
+        p.setHorizontalPolicy(QSizePolicy.MinimumExpanding)
+        self.blockCombo.view().setSizePolicy(p)
+        
+        model = listmodel.ListModel(unicode_blocks.blocks(),
+            display = lambda b: b.name)
+        self.blockCombo.setModel(model)
+        
+        # load block setting
+        name = QSettings().value("charmaptool/last_block", "")
+        if name:
+            for i, b in enumerate(unicode_blocks.blocks()):
+                if b.name == name:
+                    self.blockCombo.setCurrentIndex(i)
+                    break
+        
+        self.blockCombo.activated[int].connect(self.updateBlock)
+        self.updateBlock()
+    
+    def updateBlock(self):
+        i = self.blockCombo.currentIndex()
+        if 0 <= i < len(unicode_blocks.blocks()):
+            first, last, name = unicode_blocks.blocks()[i]
+            self.charmap.charmap.setRange(first, last)
+            QSettings().setValue("charmaptool/last_block", name)
 
 
 

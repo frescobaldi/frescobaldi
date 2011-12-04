@@ -41,6 +41,7 @@ class CharMap(QWidget):
         super(CharMap, self).__init__(parent)
         self.setBackgroundRole(QPalette.Base)
         self._showToolTips = True
+        self._showWhatsThis = True
         self._selected = -1
         self._column_count = 32
         self._square = 24
@@ -180,20 +181,42 @@ class CharMap(QWidget):
 
     def event(self, ev):
         if ev.type() == QEvent.ToolTip:
-            c = self.charcodeAt(ev.pos())
-            self.toolTipEvent(ev.globalPos(), c)
-            ev.accept()
-            return True
-        else:
-            return super(CharMap, self).event(ev)
+            if self._showToolTips:
+                c = self.charcodeAt(ev.pos())
+                if c:
+                    text = self.getToolTipText(c)
+                    if text:
+                        rect = self.charcodeRect(c)
+                        QToolTip.showText(ev.globalPos(), text, self, rect)
+                        ev.accept()
+                        return True
+        elif ev.type() == QEvent.QueryWhatsThis:
+            if self._showWhatsThis:
+                ev.accept()
+                return True
+        elif ev.type() == QEvent.WhatsThis:
+            if self._showWhatsThis:
+                c = self.charcodeAt(ev.pos())
+                if c:
+                    ev.accept()
+                    text = self.getWhatsThisText(c)
+                    if text:
+                        QWhatsThis.showText(ev.globalPos(), text, self)
+                    return True
+        return super(CharMap, self).event(ev)
     
-    def toolTipEvent(self, position, charcode):
-        if self._showToolTips:
-            try:
-                text = unicodedata.name(unichr(charcode))
-            except ValueError:
-                return
-            QToolTip.showText(position, text, self, self.charcodeRect(charcode))
+    def getToolTipText(self, charcode):
+        try:
+            return unicodedata.name(unichr(charcode))
+        except ValueError:
+            pass
+    
+    def getWhatsThisText(self, charcode):
+        try:
+            name = unicodedata.name(unichr(charcode))
+        except ValueError:
+            return
+        return whatsthis_html.format(unichr(charcode), name)
     
     def setShowToolTips(self, enabled):
         self._showToolTips = bool(enabled)
@@ -201,4 +224,16 @@ class CharMap(QWidget):
     def showToolTips(self):
         return self._showToolTips
 
+    def setShowWhatsThis(self, enabled):
+        self._showWhatsThis = bool(enabled)
+    
+    def showWhatsThis(self):
+        return self._showWhatsThis
+
+
+whatsthis_html = """\
+<qt>
+<p align=center style="font-size: 32pt;">{0}</p>
+<p align=center>{1}</p>
+"""
 
