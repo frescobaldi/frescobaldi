@@ -231,7 +231,8 @@ class CharMap(QWidget):
             name = unicodedata.name(unichr(charcode))
         except ValueError:
             return
-        return whatsthis_html.format(self._font.family(), unichr(charcode), name)
+        return whatsthis_html.format(
+            self._font.family(), unichr(charcode), name, charcode)
     
     def setShowToolTips(self, enabled):
         self._showToolTips = bool(enabled)
@@ -257,7 +258,8 @@ def isprint(charcode):
 
 whatsthis_html = """\
 <qt>
-<p align=center style="font-size: 32pt; font-family: {0};">{1}</p>
+<p align=center style="font-size: 40pt; font-family: {0};">{1}</p>
 <p align=center>{2}</p>
+<p align=center>0x{3:04X}</p>
 """
 
