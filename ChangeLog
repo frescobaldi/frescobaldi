@@ -2,12 +2,12 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
-Changes in 1.9.4 -- 
+Changes in 1.9.4 -- December 5th, 2011
 
 * Updated translations: es, fr, nl
 * New features:
   - Engrave custom dialog for specifying other engraving formats and options
-  - Basic character selection tool to insert characters from all unicode blocks
+  - Character selection tool to insert characters from all unicode blocks
 * Bugfixes:
   - fix crash on 64bit Linux and Windows introduced in 1.9.3
 
