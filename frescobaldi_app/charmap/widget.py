@@ -38,6 +38,7 @@ class Widget(QWidget):
         
         layout = QVBoxLayout()
         self.setLayout(layout)
+        layout.setContentsMargins(0, 0, 0, 0)
         
         self.blockCombo = QComboBox()
         self.charmap = CharMapWidget()
