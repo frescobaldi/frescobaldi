@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2011-12-04 20:29+0100\n"
-"PO-Revision-Date: 2011-11-27 02:34+0100\n"
+"PO-Revision-Date: 2011-12-07 10:02+0100\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1037,26 +1037,22 @@ msgstr "Mostrar diálogo de c&ompletar"
 
 #: frescobaldi_app/charmap/__init__.py:40
 #: frescobaldi_app/preferences/tools.py:185
-#, fuzzy
 msgid "Special Characters"
-msgstr "Carácter con escape"
+msgstr "Caracteres especiales"
 
 #: frescobaldi_app/charmap/__init__.py:41
-#, fuzzy
 msgid "Special Charac&ters"
-msgstr "Carácter con escape"
+msgstr "Carac&teres especiales"
 
 #: frescobaldi_app/docbrowser/__init__.py:46
 #: frescobaldi_app/docbrowser/__init__.py:58
 #: frescobaldi_app/preferences/documentation.py:110
-#, fuzzy
 msgid "Documentation Browser"
-msgstr "Documentación"
+msgstr "Navegador de documentación"
 
 #: frescobaldi_app/docbrowser/__init__.py:47
-#, fuzzy
 msgid "&Documentation Browser"
-msgstr "Documentación"
+msgstr "Navegador de &documentación"
 
 #: frescobaldi_app/docbrowser/__init__.py:76
 #: frescobaldi_app/help/browser.py:75
@@ -1074,23 +1070,20 @@ msgid "Home"
 msgstr "Inicio"
 
 #: frescobaldi_app/docbrowser/__init__.py:80
-#, fuzzy
 msgid "&LilyPond Documentation"
-msgstr "Documentación"
+msgstr "Documentación de &LilyPond"
 
 #: frescobaldi_app/docbrowser/__init__.py:81
 msgid "&Contextual LilyPond Help"
-msgstr ""
+msgstr "Ayuda &contextual de LilyPond"
 
 #: frescobaldi_app/docbrowser/browser.py:117
-#, fuzzy
 msgid "(local)"
-msgstr "Vocal"
+msgstr "(local)"
 
 #: frescobaldi_app/docbrowser/browser.py:119
-#, fuzzy
 msgid "({hostname})"
-msgstr "(Hereda: {name})"
+msgstr "({hostname})"
 
 #: frescobaldi_app/docbrowser/sourceviewer.py:59
 msgid "LilyPond Source"
@@ -1125,33 +1118,29 @@ msgid "Abort Engraving &Job"
 msgstr "A&bortar el procesado"
 
 #: frescobaldi_app/engrave/custom.py:118 frescobaldi_app/engrave/custom.py:206
-#, fuzzy
 msgid "Engrave custom"
-msgstr "Pro&cesar (personalizado)"
+msgstr "Procesar personalizado"
 
 #: frescobaldi_app/engrave/custom.py:119
-#, fuzzy
 msgid "LilyPond Version:"
-msgstr "Versión de LilyPond"
+msgstr "Versión de LilyPond:"
 
 #: frescobaldi_app/engrave/custom.py:120
-#, fuzzy
 msgid "Output Format:"
-msgstr "Nombre del archivo de salida:"
+msgstr "Formato de salida:"
 
 #: frescobaldi_app/engrave/custom.py:121
-#, fuzzy
 msgid "Resolution:"
-msgstr "Versión:"
+msgstr "Resolución:"
 
 #: frescobaldi_app/engrave/custom.py:123
 msgid "Run LilyPond in preview mode (with Point and Click)"
 msgstr ""
+"Ejecutar LilyPond en modo de vista previa (con enlaces de apuntar y pulsar)"
 
 #: frescobaldi_app/engrave/custom.py:124
-#, fuzzy
 msgid "Run LilyPond with verbose output"
-msgstr "Versiones de LilyPond que usar"
+msgstr "Ejecutar LilyPond con salida prolija"
 
 #: frescobaldi_app/engrave/custom.py:125
 #: frescobaldi_app/preferences/lilypond.py:281
@@ -1159,19 +1148,16 @@ msgid "Delete intermediate output files"
 msgstr "Borrar los archivos de salida intermedios"
 
 #: frescobaldi_app/engrave/custom.py:126
-#, fuzzy
 msgid "Command line:"
-msgstr "Instrucción"
+msgstr "Línea de órdenes:"
 
 #: frescobaldi_app/engrave/custom.py:127
-#, fuzzy
 msgid "Run LilyPond"
 msgstr "Ejecutar LilyPond"
 
 #: frescobaldi_app/engrave/custom.py:149
-#, fuzzy
 msgid "LilyPond {version}"
-msgstr "Versión de LilyPond"
+msgstr "LilyPond {version}"
 
 #: frescobaldi_app/engrave/custom.py:210
 msgid ""
@@ -1180,54 +1166,54 @@ msgid ""
 "to engrave your document.\n"
 "It is even possible to edit the command line itself.\n"
 msgstr ""
+"En este cuadro de diálogo puede ajustar ciertos parámetros para se "
+"utilizados por la orden LilyPond\n"
+"para tipografiar el documento.\n"
+"Es posible, incluso, editar la propia línea de órdenes.\n"
 
 #: frescobaldi_app/engrave/custom.py:215
-#, fuzzy
 msgid "The following replacements will be made:"
-msgstr "Se reconocen las siguientes variables:"
+msgstr "Se harán las siguientes sustituciones:"
 
 #: frescobaldi_app/engrave/custom.py:218
-#, fuzzy
 msgid "The LilyPond executable"
-msgstr "Preferencias de LilyPond"
+msgstr "El archivo ejecutable LilyPond"
 
 #: frescobaldi_app/engrave/custom.py:219
-#, fuzzy
 msgid "All the include paths"
-msgstr "Ruta de inclusión para LilyPond:"
+msgstr "Todas las rutas de inclusión"
 
 #: frescobaldi_app/engrave/custom.py:220
-#, fuzzy
 msgid "The filename of the document"
-msgstr "Nombre del documento actual."
+msgstr "Nombre de archivo del documento"
 
 #: frescobaldi_app/engrave/custom.py:233
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #: frescobaldi_app/engrave/custom.py:239
 msgid "PostScript"
-msgstr ""
+msgstr "PostScript"
 
 #: frescobaldi_app/engrave/custom.py:245
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 #: frescobaldi_app/engrave/custom.py:251
 msgid "SVG"
-msgstr ""
+msgstr "SVG"
 
 #: frescobaldi_app/engrave/custom.py:257
 msgid "PDF (EPS Backend)"
-msgstr ""
+msgstr "PDF (backend EPS)"
 
 #: frescobaldi_app/engrave/custom.py:263
 msgid "Encapsulated PostScript (EPS Backend)"
-msgstr ""
+msgstr "PostScript encapsulado (backend EPS)"
 
 #: frescobaldi_app/engrave/custom.py:269
 msgid "PNG (EPS Backend)"
-msgstr ""
+msgstr "PNG (backend EPS)"
 
 #: frescobaldi_app/help/browser.py:74
 msgid "Toolbar"
@@ -2617,9 +2603,8 @@ msgid "Paths"
 msgstr "Rutas"
 
 #: frescobaldi_app/preferences/__init__.py:201
-#, fuzzy
 msgid "LilyPond Documentation"
-msgstr "Documentación"
+msgstr "Documentación de LilyPond"
 
 #: frescobaldi_app/preferences/__init__.py:211
 msgid "Keyboard Shortcuts"
@@ -2635,31 +2620,36 @@ msgstr "Herramientas"
 
 #: frescobaldi_app/preferences/documentation.py:64
 msgid "Paths to LilyPond Documentation"
-msgstr ""
+msgstr "Rutas a la documentación de LilyPond"
 
 #: frescobaldi_app/preferences/documentation.py:66
-#, fuzzy
 msgid "Add paths or URLs. See \"What's This\" for more information."
 msgstr ""
-"Cierra los puertos MIDI no utilizados después de un minuto. Consulte \"Qué "
-"es esto\" para ver más información."
+"Añadir rutas o URLs. Consulte \"Qué es esto\" para ver más información."
 
 #: frescobaldi_app/preferences/documentation.py:68
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the \"{documentation}"
-"\" directory lives, or the whole \"share/doc/lilypond/html/offline-root\" "
-"path.</p>\n"
+"A local path should point to the directory where either the "
+"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
+"offline-root\" path.</p>\n"
 "<p>If those can't be found, documentation is looked for in all "
 "subdirectories of the given path, one level deep. This makes it possible to "
 "put multiple versions of LilyPond documentation in different subdirectories "
 "and have Frescobaldi automatically find them.</p>"
 msgstr ""
+"<p>Aquí puede añadir rutas o URLs locales que apunten a la documentación de "
+"LilyPond. Una ruta local debe apuntar a la carpeta en que reside el "
+"directorio \"{documentation}\", o la ruta completa \"share/doc/lilypond/html/"
+"offline-root\".</p>\n"
+"<p>Si no se encuentran, se busca la documentación en todas las subcarpetas "
+"de la ruta especificada, a un nivel de profundidad. Ello permite colocar "
+"varias versiones de la documentación de LilyPond en distintas subcarpetas y "
+"hacer que Frescobaldi las encuentre automáticamente.</p>"
 
 #: frescobaldi_app/preferences/documentation.py:111
-#, fuzzy
 msgid "Preferred Language:"
-msgstr "Idioma:"
+msgstr "Idioma preferido:"
 
 #: frescobaldi_app/preferences/documentation.py:112
 #: frescobaldi_app/preferences/general.py:124
@@ -2678,9 +2668,8 @@ msgid "English (untranslated)"
 msgstr "Inglés (sin traducir)"
 
 #: frescobaldi_app/preferences/documentation.py:135
-#, fuzzy
 msgid "Please enter a local path or a URL:"
-msgstr "Introduzca un nombre para la plantilla:"
+msgstr "Introduzca una ruta o URL local:"
 
 #: frescobaldi_app/preferences/fontscolors.py:121
 msgid "Use this scheme for printing"
@@ -3175,12 +3164,11 @@ msgid "Player output:"
 msgstr "Salida del reproductor:"
 
 #: frescobaldi_app/preferences/midi.py:84
-#, fuzzy
 msgid ""
 "The MIDI port to play music to. See \"What's This\" for more information."
 msgstr ""
-"Cierra los puertos MIDI no utilizados después de un minuto. Consulte \"Qué "
-"es esto\" para ver más información."
+"Puerto MIDI hacia el que enviar la reproducción de música. Consulte \"Qué es "
+"esto\" para ver más información."
 
 #: frescobaldi_app/preferences/midi.py:87
 msgid ""
@@ -3190,6 +3178,12 @@ msgid ""
 "<p>Click the button to refresh the list, e.g. when you connect a MIDI device "
 "or start a software synthesizer.</p>"
 msgstr ""
+"<p>Este menú desplegable relaciona los puertos MIDI disponibles en su "
+"sistema. Puede seleccionar uno, o tan sólo teclear parte de un nombre. En "
+"tal caso, se usa el nombre del primer puerto disponible que comienza con los "
+"caracteres especificados.</p>\n"
+"<p>Pulse el botón para refrescar la lista, p.ej. cuando conecta un "
+"dispositivo MIDI o inicia un sintetizador de software.</p>"
 
 #: frescobaldi_app/preferences/midi.py:96
 msgid "Refresh MIDI ports"
