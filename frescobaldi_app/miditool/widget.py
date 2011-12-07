@@ -62,6 +62,16 @@ class Widget(QWidget):
         grid.addWidget(self._timeSlider, 1, 2)
         grid.addWidget(self._display, 2, 0, 1, 3)
         grid.addWidget(self._tempoFactor, 0, 3, 3, 1)
+        
+        # size policy of combo
+        p = self._fileSelector.sizePolicy()
+        p.setHorizontalPolicy(QSizePolicy.Ignored)
+        self._fileSelector.setSizePolicy(p)
+        
+        # size policy of combo popup
+        p = self._fileSelector.view().sizePolicy()
+        p.setHorizontalPolicy(QSizePolicy.MinimumExpanding)
+        self._fileSelector.view().setSizePolicy(p)
 
         self._player = player.Player()
         self._outputCloseTimer = QTimer(interval=60000, singleShot=True,
@@ -243,6 +253,7 @@ class Display(QLabel):
     """Maintains values in the LCD display."""
     def __init__(self):
         QLabel.__init__(self, wordWrap=True)
+        self.setSizePolicy(QSizePolicy(QSizePolicy.Ignored, QSizePolicy.Preferred))
         self.setStyleSheet(css.lcd_screen)
         self._tempoTimer = QTimer(interval=1500, singleShot=True,
             timeout=self.setTempo)
