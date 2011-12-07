@@ -23,6 +23,9 @@ The special characters tool widget.
 
 from __future__ import unicode_literals
 
+import sys
+import itertools
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
@@ -30,6 +33,12 @@ import app
 import widgets.charmap
 import unicode_blocks
 import listmodel
+
+
+# avoid handling characters above 0xFFFF in narrow Python builds
+_blocks = tuple(itertools.takewhile(
+	lambda block: block.end < sys.maxunicode,
+	unicode_blocks.blocks()))
 
 
 class Widget(QWidget):
@@ -56,14 +65,14 @@ class Widget(QWidget):
         p.setHorizontalPolicy(QSizePolicy.MinimumExpanding)
         self.blockCombo.view().setSizePolicy(p)
         
-        model = listmodel.ListModel(unicode_blocks.blocks(),
+        model = listmodel.ListModel(_blocks,
             display = lambda b: b.name)
         self.blockCombo.setModel(model)
         
         # load block setting
         name = QSettings().value("charmaptool/last_block", "")
         if name:
-            for i, b in enumerate(unicode_blocks.blocks()):
+            for i, b in enumerate(_blocks):
                 if b.name == name:
                     self.blockCombo.setCurrentIndex(i)
                     break
@@ -87,8 +96,8 @@ class Widget(QWidget):
     
     def updateBlock(self):
         i = self.blockCombo.currentIndex()
-        if 0 <= i < len(unicode_blocks.blocks()):
-            first, last, name = unicode_blocks.blocks()[i]
+        if 0 <= i < len(_blocks):
+            first, last, name = _blocks[i]
             self.charmap.charmap.setRange(first, last)
             QSettings().setValue("charmaptool/last_block", name)
 
