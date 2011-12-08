@@ -131,12 +131,16 @@ class LilyPondInfo(ly.info.LilyPondInfo):
                 info.convert_ly = settings.value("convert-ly", "convert-ly")
                 if os.path.getmtime(info.abscommand) == float(settings.value("mtime", "0.0")):
                     info.versionString = settings.value("version")
+                    datadir = settings.value("datadir")
+                    if datadir and os.path.isdir(datadir):
+                        info.datadir = settings.value("datadir")
                 return info
     
     def write(self, settings):
         """Writes ourselves to a QSettings instance. We should be valid."""
         settings.setValue("command", self.command)
         settings.setValue("version", self.versionString)
+        settings.setValue("datadir", self.datadir)
         if self.abscommand:
             settings.setValue("mtime", float(os.path.getmtime(self.abscommand)))
         settings.setValue("auto", self.auto)

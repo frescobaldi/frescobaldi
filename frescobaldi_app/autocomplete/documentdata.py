@@ -24,6 +24,7 @@ Completions data harvested from a Document.
 from __future__ import unicode_literals
 
 import itertools
+import os
 
 import listmodel
 import plugin
@@ -81,5 +82,59 @@ class DocumentDataSource(plugin.DocumentPlugin):
         return listmodel.ListModel(sorted(set(itertools.chain(
             ('set stanza = ', 'set', 'override', 'markup', 'notemode'),
             harvest.names(cursor)))), display = util.command)
+
+    @util.keep
+    def includenames(self, cursor, directory=None):
+        """Finds files relative to the directory of the cursor's document.
+        
+        If the document has a local filename, looks in that directory,
+        also in a subdirectory of it, if the directory argument is given.
+        
+        Then looks in the user-set include paths, and finally in LilyPond's
+        own ly/ folder.
+        
+        """
+        names = []
+        # names in current dir
+        path = self.document().url().toLocalFile()
+        if path:
+            basedir = os.path.dirname(path)
+            if directory:
+                basedir = os.path.join(basedir, directory)
+                names.extend(sorted(os.path.join(directory, f)
+                    for f in get_filenames(basedir, True)))
+            else:
+                names.extend(sorted(get_filenames(basedir, True)))
+        
+        # names in specified include paths
+        import documentinfo
+        for basedir in documentinfo.info(self.document()).includepath():
+            names.extend(sorted(get_filenames(basedir)))
+        
+        # names from LilyPond itself
+        import engrave.command
+        datadir = engrave.command.info(self.document()).datadir
+        if datadir:
+            basedir = os.path.join(datadir, 'ly')
+            # get the filenames but avoid the -init files here
+            names.extend(sorted(f for f in get_filenames(basedir)
+                if not f.endswith('init.ly')
+                and f.islower()))
+        
+        return listmodel.ListModel(names)
+
+
+def get_filenames(path, directories = False):
+    for root, dirs, files in os.walk(path):
+        for f in files:
+            if f and f[0] not in '.~':
+                name, ext = os.path.splitext(f)
+                if ext.lower() in ('.ly', '.lyi', '.ily'):
+                    yield f
+        if directories:
+            for f in dirs:
+                if f and not f.startswith('.'):
+                    yield f + os.sep
+        return
 
 

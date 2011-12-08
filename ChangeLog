@@ -5,9 +5,11 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 Changes in 1.9.5 -- 
 
 * Updated translations: es
-* Small cosmetic improvements
 * Bug fixes:
   - charmap now avoids characters "narrow" builds of Python can't handle
+* Improvements:
+  - autocomplete on \include
+  - other small cosmetic improvements
 
 
 Changes in 1.9.4 -- December 5th, 2011

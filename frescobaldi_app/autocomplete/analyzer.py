@@ -24,6 +24,7 @@ Analyze text to determine suitable completions.
 from __future__ import unicode_literals
 
 import re
+import os
 
 import ly.lex as lx
 import ly.lex.lilypond as lp
@@ -165,7 +166,14 @@ def repeat(self):
     if '\\repeat' in self.tokens[-4:-1]:
         self.backuntil(lx.Space, lp.StringQuotedStart)
         return completiondata.lilypond_repeat_types
-        
+
+def include(self):
+    """complete \\include """
+    if '\\include' in self.tokens[-4:-2]:
+        self.backuntil(lp.StringQuotedStart)
+        dir = self.last[:self.last.rfind(os.sep)] if os.sep in self.last else None
+        return documentdata.doc(self.cursor.document()).includenames(self.cursor, dir)
+
 def general_music(self):
     """fall back: generic music commands and user-defined commands."""
     if self.last.startswith('\\'):
@@ -440,6 +448,7 @@ _tests = {
         clef,
         repeat,
         midi_instrument,
+        include,
     ),
     lp.ParseClef: (
         clef,
