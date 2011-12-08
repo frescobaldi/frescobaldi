@@ -129,7 +129,7 @@ class LilyPondInfo(ly.info.LilyPondInfo):
                 info.auto = settings.value("auto", True) in (True, "true")
                 info.lilypond_book = settings.value("lilypond-book", "lilypond-book")
                 info.convert_ly = settings.value("convert-ly", "convert-ly")
-                if os.path.getmtime(info.abscommand) == float(settings.value("mtime", "0.0")):
+                if int(os.path.getmtime(info.abscommand)) == int(float(settings.value("mtime", 0))):
                     info.versionString = settings.value("version")
                     datadir = settings.value("datadir")
                     if datadir and os.path.isdir(datadir):
@@ -142,7 +142,7 @@ class LilyPondInfo(ly.info.LilyPondInfo):
         settings.setValue("version", self.versionString)
         settings.setValue("datadir", self.datadir)
         if self.abscommand:
-            settings.setValue("mtime", float(os.path.getmtime(self.abscommand)))
+            settings.setValue("mtime", int(os.path.getmtime(self.abscommand)))
         settings.setValue("auto", self.auto)
         settings.setValue("lilypond-book", self.lilypond_book)
         settings.setValue("convert-ly", self.convert_ly)
