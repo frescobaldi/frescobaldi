@@ -83,7 +83,6 @@ class DocumentDataSource(plugin.DocumentPlugin):
             ('set stanza = ', 'set', 'override', 'markup', 'notemode'),
             harvest.names(cursor)))), display = util.command)
 
-    @util.keep
     def includenames(self, cursor, directory=None):
         """Finds files relative to the directory of the cursor's document.
         
