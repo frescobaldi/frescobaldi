@@ -28,6 +28,7 @@ import itertools
 import listmodel
 import ly.words
 import ly.data
+import ly.pitch
 
 from . import util
 
