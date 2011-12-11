@@ -167,6 +167,12 @@ def repeat(self):
         self.backuntil(lx.Space, lp.StringQuotedStart)
         return completiondata.lilypond_repeat_types
 
+def language(self):
+    """complete \\language "name" """
+    if '\\language' in self.tokens[-4:-1]:
+        self.backuntil(lp.StringQuotedStart)
+        return completiondata.language_names
+
 def include(self):
     """complete \\include """
     if '\\include' in self.tokens[-4:-2]:
@@ -449,6 +455,7 @@ _tests = {
         repeat,
         midi_instrument,
         include,
+        language,
     ),
     lp.ParseClef: (
         clef,

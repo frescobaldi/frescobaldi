@@ -8,7 +8,7 @@ Changes in 1.9.5 --
 * Bug fixes:
   - charmap now avoids characters "narrow" builds of Python can't handle
 * Improvements:
-  - autocomplete on \include
+  - autocomplete on \include, \language
   - other small cosmetic improvements
 
 

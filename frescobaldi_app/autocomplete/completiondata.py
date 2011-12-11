@@ -212,3 +212,5 @@ music_glyphs = listmodel.ListModel(ly.data.music_glyphs())
 
 midi_instruments = listmodel.ListModel(ly.words.midi_instruments)
 
+language_names = listmodel.ListModel(sorted(ly.pitch.pitchInfo))
+
