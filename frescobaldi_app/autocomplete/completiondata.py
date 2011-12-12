@@ -141,6 +141,10 @@ lilypond_layout_variables = listmodel.ListModel(
     ['\\context {',] + sorted(ly.words.layoutvariables),
     edit = util.cmd_or_var)
 
+lilypond_midi_variables = listmodel.ListModel(
+    ['\\context {',] + sorted(ly.words.midivariables),
+    edit = util.cmd_or_var)
+
 lilypond_contexts = listmodel.ListModel(sorted(ly.words.contexts))
 
 lilypond_grobs = listmodel.ListModel(ly.data.grobs())

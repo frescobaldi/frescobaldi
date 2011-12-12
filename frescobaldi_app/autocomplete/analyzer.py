@@ -261,6 +261,11 @@ def layout(self):
     self.backuntil(lx.Space)
     return completiondata.lilypond_layout_variables
 
+def midi(self):
+    """\\midi {"""
+    self.backuntil(lx.Space)
+    return completiondata.lilypond_midi_variables
+
 def engraver(self):
     """Complete engraver names."""
     cmd_in = lambda tokens: '\\remove' in tokens or '\\consists' in tokens
@@ -423,6 +428,9 @@ _tests = {
     ),
     lp.ParseLayout: (
         layout,
+    ),
+    lp.ParseMidi: (
+        midi,
     ),
     lp.ParseContext: (
         engraver,
