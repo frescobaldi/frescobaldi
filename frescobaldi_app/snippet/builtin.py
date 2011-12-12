@@ -206,6 +206,16 @@ if state[-1] not in ('context', 'with'):
 """),
 
 
+'midi_tempo': T(_("Midi Tempo"),
+r"""-*- name: mt; python;
+text = ['tempoWholesPerMinute = #(ly:make-moment ', CURSOR, '100 4)']
+if state[-1] not in ('context', 'with'):
+    text = ['\\context {\n\\Score\n'] + text + ['\n}']
+    if state[-1] != 'midi':
+        text = ['\\midi {\n'] + text + ['\n}']
+"""),
+
+
 'staff_size': T(_("Staff Size"),
 r"""-*- name: ss; python;
 if state[-1] == 'music':
