@@ -48,7 +48,7 @@ class Browser(QWidget):
         self.toolbar = tb = QToolBar()
         self.webview = QWebView()
         self.chooser = QComboBox(sizeAdjustPolicy=QComboBox.AdjustToContents)
-        self.search = SearchEntry()
+        self.search = SearchEntry(maximumWidth=200)
         
         layout.addWidget(self.toolbar)
         layout.addWidget(self.webview)
@@ -74,8 +74,8 @@ class Browser(QWidget):
         tb.addWidget(self.search)
         
         self.chooser.activated[int].connect(self.showHomePage)
-        self.search.textEdited.connect(self.slotSearch)
-        self.search.returnPressed.connect(self.slotSearch)
+        self.search.textEdited.connect(self.slotSearchChanged)
+        self.search.returnPressed.connect(self.slotSearchReturnPressed)
         dockwidget.mainwindow().iconSizeChanged.connect(self.updateToolBarSettings)
         dockwidget.mainwindow().toolButtonStyleChanged.connect(self.updateToolBarSettings)
         
@@ -164,9 +164,17 @@ class Browser(QWidget):
     def slotUnsupported(self, reply):
         QDesktopServices.openUrl(reply.url())
     
-    def slotSearch(self):
+    def slotSearchChanged(self):
         text = self.search.text()
-        self.webview.page().findText(text, QWebPage.FindWrapsAroundDocument)
+        if not text.startswith(':'):
+            self.webview.page().findText(text, QWebPage.FindWrapsAroundDocument)
+    
+    def slotSearchReturnPressed(self):
+        text = self.search.text()
+        if not text.startswith(':'):
+            self.slotSearchChanged()
+        else:
+            pass # TODO: implement full doc search
     
     def sourceViewer(self):
         try:
@@ -200,7 +208,12 @@ class SearchEntry(widgets.lineedit.LineEdit):
     """A line edit that clears itself when ESC is pressed."""
     def keyPressEvent(self, ev):
         if ev.key() == Qt.Key_Escape:
-            self.clear()
+            if self.text():
+                self.clear()
+            else:
+                webview = self.parentWidget().parentWidget().webview
+                webview.setFocus()
+                webview.page().findText(None)
         elif any(ev.matches(key) for key in (
             QKeySequence.MoveToNextLine, QKeySequence.MoveToPreviousLine,
             QKeySequence.MoveToNextPage, QKeySequence.MoveToPreviousPage,

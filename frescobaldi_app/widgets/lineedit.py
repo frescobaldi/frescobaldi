@@ -31,8 +31,8 @@ import icons
 
 class LineEdit(QLineEdit):
     """A QLineEdit with a clear button. No additional methods."""
-    def __init__(self, *args):
-        super(LineEdit, self).__init__(*args)
+    def __init__(self, *args, **kwargs):
+        super(LineEdit, self).__init__(*args, **kwargs)
         self._clearButton = b = QToolButton(self, iconSize=QSize(16,16), autoRaise=True)
         b.setFixedSize(QSize(16, 16))
         b.setStyleSheet("QToolButton { border: none; }")
