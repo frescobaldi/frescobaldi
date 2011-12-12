@@ -200,7 +200,7 @@ class Actions(actioncollection.ActionCollection):
         self.engrave_runner.setText(_("Engrave"))
         self.engrave_preview.setText(_("&Engrave (preview)"))
         self.engrave_publish.setText(_("Engrave (&publish)"))
-        self.engrave_custom.setText(_("Engrave (&custom)"))
+        self.engrave_custom.setText(_("Engrave (&custom)..."))
         self.engrave_abort.setText(_("Abort Engraving &Job"))
         
         

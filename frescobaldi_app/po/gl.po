@@ -6,14 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.17\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-04 20:29+0100\n"
+"POT-Creation-Date: 2011-12-12 16:41+0100\n"
 "PO-Revision-Date: 2011-01-03 17:37+0100\n"
 "Last-Translator: Manuel A. Vazquez <xixirei@yahoo.es>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
+"Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: gl\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 1.0\n"
 
@@ -1141,7 +1141,7 @@ msgid "Engrave (&publish)"
 msgstr ""
 
 #: frescobaldi_app/engrave/__init__.py:203
-msgid "Engrave (&custom)"
+msgid "Engrave (&custom)..."
 msgstr ""
 
 #: frescobaldi_app/engrave/__init__.py:204
@@ -1800,37 +1800,37 @@ msgctxt "midi player"
 msgid "Restart"
 msgstr "Inicio de repetición"
 
-#: frescobaldi_app/miditool/widget.py:92
+#: frescobaldi_app/miditool/widget.py:102
 #, fuzzy
 msgid "Tempo"
 msgstr "Tempo:"
 
-#: frescobaldi_app/miditool/widget.py:146
+#: frescobaldi_app/miditool/widget.py:156
 msgid "No output found!"
 msgstr ""
 
-#: frescobaldi_app/miditool/widget.py:221
+#: frescobaldi_app/miditool/widget.py:231
 msgctxt "midi lcd screen"
 msgid "LOADED"
 msgstr ""
 
-#: frescobaldi_app/miditool/widget.py:222
+#: frescobaldi_app/miditool/widget.py:232
 msgctxt "midi lcd screen"
 msgid "TOTAL"
 msgstr ""
 
-#: frescobaldi_app/miditool/widget.py:303
-#: frescobaldi_app/miditool/widget.py:313
+#: frescobaldi_app/miditool/widget.py:314
+#: frescobaldi_app/miditool/widget.py:324
 msgctxt "midi lcd screen"
 msgid "TIME"
 msgstr ""
 
-#: frescobaldi_app/miditool/widget.py:304
+#: frescobaldi_app/miditool/widget.py:315
 msgctxt "midi lcd screen"
 msgid "TEMPO"
 msgstr ""
 
-#: frescobaldi_app/miditool/widget.py:314
+#: frescobaldi_app/miditool/widget.py:325
 msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr ""
@@ -2390,9 +2390,9 @@ msgstr ""
 #: frescobaldi_app/preferences/documentation.py:68
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the \"{documentation}"
-"\" directory lives, or the whole \"share/doc/lilypond/html/offline-root\" "
-"path.</p>\n"
+"A local path should point to the directory where either the "
+"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
+"offline-root\" path.</p>\n"
 "<p>If those can't be found, documentation is looked for in all "
 "subdirectories of the given path, one level deep. This makes it possible to "
 "put multiple versions of LilyPond documentation in different subdirectories "
@@ -2575,7 +2575,7 @@ msgstr "Apaisado"
 #: frescobaldi_app/preferences/fontscolors.py:522
 #: frescobaldi_app/preferences/fontscolors.py:530
 #: frescobaldi_app/preferences/fontscolors.py:538
-#: frescobaldi_app/snippet/builtin.py:228
+#: frescobaldi_app/snippet/builtin.py:238
 #, fuzzy
 msgid "Comment"
 msgstr "Orde"
@@ -5265,30 +5265,35 @@ msgstr "Eliminar números de compás"
 
 #: frescobaldi_app/snippet/builtin.py:209
 #, fuzzy
+msgid "Midi Tempo"
+msgstr "Tempo:"
+
+#: frescobaldi_app/snippet/builtin.py:219
+#, fuzzy
 msgid "Staff Size"
 msgstr "Tamaño do pentagrama"
 
-#: frescobaldi_app/snippet/builtin.py:264
+#: frescobaldi_app/snippet/builtin.py:274
 #, fuzzy
 msgid "A5 Paper"
 msgstr "Papel"
 
-#: frescobaldi_app/snippet/builtin.py:272
+#: frescobaldi_app/snippet/builtin.py:282
 #, fuzzy
 msgid "Last note or chord"
 msgstr "Repetir a última nota ou acorde"
 
-#: frescobaldi_app/snippet/builtin.py:353
+#: frescobaldi_app/snippet/builtin.py:363
 #, fuzzy
 msgid "Color"
 msgstr "Compositor"
 
-#: frescobaldi_app/snippet/builtin.py:390
+#: frescobaldi_app/snippet/builtin.py:400
 #, fuzzy
 msgid "Basic Leadsheet"
 msgstr "Folla guía de acordes"
 
-#: frescobaldi_app/snippet/builtin.py:433
+#: frescobaldi_app/snippet/builtin.py:443
 #, fuzzy
 msgid "Choir Hymn"
 msgstr "Coro"
@@ -6028,8 +6033,8 @@ msgstr "Seleccionar todo"
 #~ "\n"
 #~ "%2"
 #~ msgstr ""
-#~ "Executouse a seguinte orde, pero fallou e devolveu un código de retorno %"
-#~ "1.\n"
+#~ "Executouse a seguinte orde, pero fallou e devolveu un código de retorno "
+#~ "%1.\n"
 #~ "\n"
 #~ "%2"
 

@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-04 20:29+0100\n"
+"POT-Creation-Date: 2011-12-12 16:41+0100\n"
 "PO-Revision-Date: 2010-12-12 07:48+0200\n"
 "Last-Translator: Server Acim <serveracim@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: tr\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 1.0\n"
 
@@ -1143,7 +1143,7 @@ msgid "Engrave (&publish)"
 msgstr ""
 
 #: frescobaldi_app/engrave/__init__.py:203
-msgid "Engrave (&custom)"
+msgid "Engrave (&custom)..."
 msgstr ""
 
 #: frescobaldi_app/engrave/__init__.py:204
@@ -1802,37 +1802,37 @@ msgctxt "midi player"
 msgid "Restart"
 msgstr "Tekrar başla"
 
-#: frescobaldi_app/miditool/widget.py:92
+#: frescobaldi_app/miditool/widget.py:102
 #, fuzzy
 msgid "Tempo"
 msgstr "Hız:"
 
-#: frescobaldi_app/miditool/widget.py:146
+#: frescobaldi_app/miditool/widget.py:156
 msgid "No output found!"
 msgstr ""
 
-#: frescobaldi_app/miditool/widget.py:221
+#: frescobaldi_app/miditool/widget.py:231
 msgctxt "midi lcd screen"
 msgid "LOADED"
 msgstr ""
 
-#: frescobaldi_app/miditool/widget.py:222
+#: frescobaldi_app/miditool/widget.py:232
 msgctxt "midi lcd screen"
 msgid "TOTAL"
 msgstr ""
 
-#: frescobaldi_app/miditool/widget.py:303
-#: frescobaldi_app/miditool/widget.py:313
+#: frescobaldi_app/miditool/widget.py:314
+#: frescobaldi_app/miditool/widget.py:324
 msgctxt "midi lcd screen"
 msgid "TIME"
 msgstr ""
 
-#: frescobaldi_app/miditool/widget.py:304
+#: frescobaldi_app/miditool/widget.py:315
 msgctxt "midi lcd screen"
 msgid "TEMPO"
 msgstr ""
 
-#: frescobaldi_app/miditool/widget.py:314
+#: frescobaldi_app/miditool/widget.py:325
 msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr ""
@@ -2390,9 +2390,9 @@ msgstr ""
 #: frescobaldi_app/preferences/documentation.py:68
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the \"{documentation}"
-"\" directory lives, or the whole \"share/doc/lilypond/html/offline-root\" "
-"path.</p>\n"
+"A local path should point to the directory where either the "
+"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
+"offline-root\" path.</p>\n"
 "<p>If those can't be found, documentation is looked for in all "
 "subdirectories of the given path, one level deep. This makes it possible to "
 "put multiple versions of LilyPond documentation in different subdirectories "
@@ -2575,7 +2575,7 @@ msgstr "Yatay"
 #: frescobaldi_app/preferences/fontscolors.py:522
 #: frescobaldi_app/preferences/fontscolors.py:530
 #: frescobaldi_app/preferences/fontscolors.py:538
-#: frescobaldi_app/snippet/builtin.py:228
+#: frescobaldi_app/snippet/builtin.py:238
 #, fuzzy
 msgid "Comment"
 msgstr "Komut"
@@ -5259,30 +5259,35 @@ msgstr "Ölçü numaralarını kaldır"
 
 #: frescobaldi_app/snippet/builtin.py:209
 #, fuzzy
+msgid "Midi Tempo"
+msgstr "Hız:"
+
+#: frescobaldi_app/snippet/builtin.py:219
+#, fuzzy
 msgid "Staff Size"
 msgstr "Dizek Boyutu:"
 
-#: frescobaldi_app/snippet/builtin.py:264
+#: frescobaldi_app/snippet/builtin.py:274
 #, fuzzy
 msgid "A5 Paper"
 msgstr "Sayfa"
 
-#: frescobaldi_app/snippet/builtin.py:272
+#: frescobaldi_app/snippet/builtin.py:282
 #, fuzzy
 msgid "Last note or chord"
 msgstr "Son notayı veya akoru tekrarlayın."
 
-#: frescobaldi_app/snippet/builtin.py:353
+#: frescobaldi_app/snippet/builtin.py:363
 #, fuzzy
 msgid "Color"
 msgstr "Besteci"
 
-#: frescobaldi_app/snippet/builtin.py:390
+#: frescobaldi_app/snippet/builtin.py:400
 #, fuzzy
 msgid "Basic Leadsheet"
 msgstr "Detaylı Şarkı Notası"
 
-#: frescobaldi_app/snippet/builtin.py:433
+#: frescobaldi_app/snippet/builtin.py:443
 #, fuzzy
 msgid "Choir Hymn"
 msgstr "Koro"
@@ -6014,8 +6019,8 @@ msgstr "Hepsini seç"
 #~ "\n"
 #~ "%2"
 #~ msgstr ""
-#~ "Aşağıdaki komut çalıştırılmış, ancak bir dönüş koduyla çıkmış durumda %"
-#~ "1.\n"
+#~ "Aşağıdaki komut çalıştırılmış, ancak bir dönüş koduyla çıkmış durumda "
+#~ "%1.\n"
 #~ "\n"
 #~ "%2"
 

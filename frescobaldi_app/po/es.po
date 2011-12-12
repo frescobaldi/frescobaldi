@@ -6,14 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-04 20:29+0100\n"
+"POT-Creation-Date: 2011-12-12 16:41+0100\n"
 "PO-Revision-Date: 2011-12-07 10:02+0100\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "#-#-#-#-#  es.po (es)  #-#-#-#-#\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
@@ -1110,7 +1110,8 @@ msgid "Engrave (&publish)"
 msgstr "Procesar (&publicación)"
 
 #: frescobaldi_app/engrave/__init__.py:203
-msgid "Engrave (&custom)"
+#, fuzzy
+msgid "Engrave (&custom)..."
 msgstr "Pro&cesar (personalizado)"
 
 #: frescobaldi_app/engrave/__init__.py:204
@@ -1998,36 +1999,36 @@ msgctxt "midi player"
 msgid "Restart"
 msgstr "Reinicio"
 
-#: frescobaldi_app/miditool/widget.py:92
+#: frescobaldi_app/miditool/widget.py:102
 msgid "Tempo"
 msgstr "Tempo"
 
-#: frescobaldi_app/miditool/widget.py:146
+#: frescobaldi_app/miditool/widget.py:156
 msgid "No output found!"
 msgstr "No se encontró ninguna salida"
 
-#: frescobaldi_app/miditool/widget.py:221
+#: frescobaldi_app/miditool/widget.py:231
 msgctxt "midi lcd screen"
 msgid "LOADED"
 msgstr "CARGADO"
 
-#: frescobaldi_app/miditool/widget.py:222
+#: frescobaldi_app/miditool/widget.py:232
 msgctxt "midi lcd screen"
 msgid "TOTAL"
 msgstr "TOTAL"
 
-#: frescobaldi_app/miditool/widget.py:303
-#: frescobaldi_app/miditool/widget.py:313
+#: frescobaldi_app/miditool/widget.py:314
+#: frescobaldi_app/miditool/widget.py:324
 msgctxt "midi lcd screen"
 msgid "TIME"
 msgstr "TIEMPO"
 
-#: frescobaldi_app/miditool/widget.py:304
+#: frescobaldi_app/miditool/widget.py:315
 msgctxt "midi lcd screen"
 msgid "TEMPO"
 msgstr "TEMPO"
 
-#: frescobaldi_app/miditool/widget.py:314
+#: frescobaldi_app/miditool/widget.py:325
 msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "PULSO"
@@ -2807,7 +2808,7 @@ msgstr "Escape"
 #: frescobaldi_app/preferences/fontscolors.py:522
 #: frescobaldi_app/preferences/fontscolors.py:530
 #: frescobaldi_app/preferences/fontscolors.py:538
-#: frescobaldi_app/snippet/builtin.py:228
+#: frescobaldi_app/snippet/builtin.py:238
 msgid "Comment"
 msgstr "Comentario"
 
@@ -5618,26 +5619,31 @@ msgid "No Barnumbers"
 msgstr "Sin números de compás"
 
 #: frescobaldi_app/snippet/builtin.py:209
+#, fuzzy
+msgid "Midi Tempo"
+msgstr "Tempo"
+
+#: frescobaldi_app/snippet/builtin.py:219
 msgid "Staff Size"
 msgstr "Tamaño del pentagrama"
 
-#: frescobaldi_app/snippet/builtin.py:264
+#: frescobaldi_app/snippet/builtin.py:274
 msgid "A5 Paper"
 msgstr "Hoja A5"
 
-#: frescobaldi_app/snippet/builtin.py:272
+#: frescobaldi_app/snippet/builtin.py:282
 msgid "Last note or chord"
 msgstr "Última nota o acorde"
 
-#: frescobaldi_app/snippet/builtin.py:353
+#: frescobaldi_app/snippet/builtin.py:363
 msgid "Color"
 msgstr "Color"
 
-#: frescobaldi_app/snippet/builtin.py:390
+#: frescobaldi_app/snippet/builtin.py:400
 msgid "Basic Leadsheet"
 msgstr "Hoja guía de acordes básica"
 
-#: frescobaldi_app/snippet/builtin.py:433
+#: frescobaldi_app/snippet/builtin.py:443
 msgid "Choir Hymn"
 msgstr "Himno coral"
 
