@@ -137,14 +137,15 @@ class TempoMap(object):
     def real_time(self, midi_time):
         """Returns the real time in microseconds for the given MIDI time."""
         real_time = 0
-        prev = 0
-        for time, tempo in self.times:
-            if time > midi_time:
+        times = self.times
+        for i in range(1, len(times)):
+            if times[i][0] >= midi_time:
+                real_time += (midi_time - times[i-1][0]) * times[i-1][1]
                 break
-            real_time += (time - prev) * tempo // self.division
-            prev = time
-        real_time += (midi_time - prev) * tempo // self.division
-        return real_time
+            real_time += (times[i][0] - times[i-1][0]) * times[i-1][1]
+        else:
+            real_time += (midi_time - times[-1][0]) * times[-1][1]
+        return real_time // self.division
     
     def msec(self, midi_time):
         """Returns the real time in milliseconds."""
