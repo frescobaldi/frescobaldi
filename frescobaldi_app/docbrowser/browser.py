@@ -30,6 +30,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtWebKit import *
 
 import app
+import widgets.lineedit
 import lilypondinfo
 import lilydoc.manager
 import lilydoc.network
@@ -47,7 +48,7 @@ class Browser(QWidget):
         self.toolbar = tb = QToolBar()
         self.webview = QWebView()
         self.chooser = QComboBox(sizeAdjustPolicy=QComboBox.AdjustToContents)
-        self.chooser.activated[int].connect(self.showHomePage)
+        self.search = SearchEntry()
         
         layout.addWidget(self.toolbar)
         layout.addWidget(self.webview)
@@ -70,13 +71,30 @@ class Browser(QWidget):
         tb.addAction(ac.help_home)
         tb.addSeparator()
         tb.addWidget(self.chooser)
+        tb.addWidget(self.search)
         
+        self.chooser.activated[int].connect(self.showHomePage)
+        self.search.textEdited.connect(self.slotSearch)
+        self.search.returnPressed.connect(self.slotSearch)
         dockwidget.mainwindow().iconSizeChanged.connect(self.updateToolBarSettings)
         dockwidget.mainwindow().toolButtonStyleChanged.connect(self.updateToolBarSettings)
         
         self.loadDocumentation()
         self.showInitialPage()
         app.settingsChanged.connect(self.loadDocumentation)
+        app.translateUI(self)
+    
+    def keyPressEvent(self, ev):
+        if ev.text() == "/":
+            self.search.setFocus()
+        else:
+            super(Browser, self).keyPressEvent(ev)
+        
+    def translateUI(self):
+        try:
+            self.search.setPlaceHolderText(_("Search..."))
+        except AttributeError:
+            pass # not in Qt 4.6
     
     def showInitialPage(self):
         """Shows the preferred start page.
@@ -146,6 +164,10 @@ class Browser(QWidget):
     def slotUnsupported(self, reply):
         QDesktopServices.openUrl(reply.url())
     
+    def slotSearch(self):
+        text = self.search.text()
+        self.webview.page().findText(text, QWebPage.FindWrapsAroundDocument)
+    
     def sourceViewer(self):
         try:
             return self._sourceviewer
@@ -172,5 +194,20 @@ class Browser(QWidget):
                         break
             url = QUrl.fromLocalFile(path + '.html')
         self.webview.load(url)
+
+
+class SearchEntry(widgets.lineedit.LineEdit):
+    """A line edit that clears itself when ESC is pressed."""
+    def keyPressEvent(self, ev):
+        if ev.key() == Qt.Key_Escape:
+            self.clear()
+        elif any(ev.matches(key) for key in (
+            QKeySequence.MoveToNextLine, QKeySequence.MoveToPreviousLine,
+            QKeySequence.MoveToNextPage, QKeySequence.MoveToPreviousPage,
+                )):
+            webview = self.parentWidget().parentWidget().webview
+            webview.keyPressEvent(ev)
+        else:
+            super(SearchEntry, self).keyPressEvent(ev)
 
 

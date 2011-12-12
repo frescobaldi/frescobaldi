@@ -49,6 +49,10 @@ class HelpBrowser(panels.Panel):
     def createWidget(self):
         from . import browser
         return browser.Browser(self)
+        
+    def activate(self):
+        super(HelpBrowser, self).activate()
+        self.widget().webview.setFocus()
 
 
 class Actions(actioncollection.ActionCollection):
