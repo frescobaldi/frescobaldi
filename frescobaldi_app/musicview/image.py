@@ -84,7 +84,7 @@ class Dialog(QDialog):
         self.colorButton.setColor(QColor(Qt.white))
         self.crop = QCheckBox()
         self.antialias = QCheckBox(checked=True)
-        self.dragfile = QPushButton(icons.file_type("png"), None, None)
+        self.dragfile = QPushButton(icons.get("image-x-generic"), None, None)
         self.fileDragger = FileDragger(self.dragfile)
         self.buttons = QDialogButtonBox(QDialogButtonBox.Close)
         self.copyButton = self.buttons.addButton('', QDialogButtonBox.ApplyRole)
