@@ -8,11 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-12 16:41+0100\n"
+"POT-Creation-Date: 2011-12-13 16:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -194,7 +193,7 @@ msgstr ""
 msgid "Run Again"
 msgstr ""
 
-#: frescobaldi_app/convert_ly.py:137 frescobaldi_app/docbrowser/browser.py:120
+#: frescobaldi_app/convert_ly.py:137 frescobaldi_app/docbrowser/browser.py:138
 #: frescobaldi_app/musicview/image.py:166
 msgid "<unknown>"
 msgstr ""
@@ -969,7 +968,7 @@ msgid "Special Charac&ters"
 msgstr ""
 
 #: frescobaldi_app/docbrowser/__init__.py:46
-#: frescobaldi_app/docbrowser/__init__.py:58
+#: frescobaldi_app/docbrowser/__init__.py:62
 #: frescobaldi_app/preferences/documentation.py:110
 msgid "Documentation Browser"
 msgstr ""
@@ -978,34 +977,39 @@ msgstr ""
 msgid "&Documentation Browser"
 msgstr ""
 
-#: frescobaldi_app/docbrowser/__init__.py:76
+#: frescobaldi_app/docbrowser/__init__.py:80
 #: frescobaldi_app/help/browser.py:75
 msgid "Back"
 msgstr ""
 
-#: frescobaldi_app/docbrowser/__init__.py:77
+#: frescobaldi_app/docbrowser/__init__.py:81
 #: frescobaldi_app/help/browser.py:76
 msgid "Forward"
 msgstr ""
 
 #. L10N: Home page of the LilyPond manual
-#: frescobaldi_app/docbrowser/__init__.py:79
+#: frescobaldi_app/docbrowser/__init__.py:83
 msgid "Home"
 msgstr ""
 
-#: frescobaldi_app/docbrowser/__init__.py:80
+#: frescobaldi_app/docbrowser/__init__.py:84
 msgid "&LilyPond Documentation"
 msgstr ""
 
-#: frescobaldi_app/docbrowser/__init__.py:81
+#: frescobaldi_app/docbrowser/__init__.py:85
 msgid "&Contextual LilyPond Help"
 msgstr ""
 
-#: frescobaldi_app/docbrowser/browser.py:117
+#: frescobaldi_app/docbrowser/browser.py:95
+#: frescobaldi_app/snippet/widget.py:167
+msgid "Search..."
+msgstr ""
+
+#: frescobaldi_app/docbrowser/browser.py:135
 msgid "(local)"
 msgstr ""
 
-#: frescobaldi_app/docbrowser/browser.py:119
+#: frescobaldi_app/docbrowser/browser.py:137
 msgid "({hostname})"
 msgstr ""
 
@@ -1762,20 +1766,24 @@ msgstr ""
 msgid "Fit Page"
 msgstr ""
 
-#: frescobaldi_app/musicview/image.py:127
+#: frescobaldi_app/musicview/image.py:126
 msgid "DPI:"
 msgstr ""
 
-#: frescobaldi_app/musicview/image.py:128
+#: frescobaldi_app/musicview/image.py:127
 msgid "Paper Color"
 msgstr ""
 
-#: frescobaldi_app/musicview/image.py:129
+#: frescobaldi_app/musicview/image.py:128
 msgid "Auto-crop"
 msgstr ""
 
-#: frescobaldi_app/musicview/image.py:130
+#: frescobaldi_app/musicview/image.py:129
 msgid "Antialias"
+msgstr ""
+
+#: frescobaldi_app/musicview/image.py:130
+msgid "Drag"
 msgstr ""
 
 #: frescobaldi_app/musicview/image.py:131
@@ -2186,9 +2194,9 @@ msgstr ""
 #: frescobaldi_app/preferences/documentation.py:68
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the "
-"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
-"offline-root\" path.</p>\n"
+"A local path should point to the directory where either the \"{documentation}"
+"\" directory lives, or the whole \"share/doc/lilypond/html/offline-root\" "
+"path.</p>\n"
 "<p>If those can't be found, documentation is looked for in all "
 "subdirectories of the given path, one level deep. This makes it possible to "
 "put multiple versions of LilyPond documentation in different subdirectories "
@@ -5202,10 +5210,6 @@ msgstr ""
 
 #: frescobaldi_app/snippet/tool.py:80
 msgid "&Snippets..."
-msgstr ""
-
-#: frescobaldi_app/snippet/widget.py:167
-msgid "Search..."
 msgstr ""
 
 #: frescobaldi_app/snippet/widget.py:171

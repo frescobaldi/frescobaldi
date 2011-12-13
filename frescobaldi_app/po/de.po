@@ -6,14 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.1.7\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-12 16:41+0100\n"
+"POT-Creation-Date: 2011-12-13 16:03+0100\n"
 "PO-Revision-Date: 2010-12-12 12:34+0100\n"
 "Last-Translator: Georg Hennig <georg.hennig@web.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
-"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
 "#-#-#-#-#  de.po (frescobaldi 1.1.7)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 1.1\n"
@@ -211,7 +211,7 @@ msgstr "Pause"
 msgid "Run Again"
 msgstr ""
 
-#: frescobaldi_app/convert_ly.py:137 frescobaldi_app/docbrowser/browser.py:120
+#: frescobaldi_app/convert_ly.py:137 frescobaldi_app/docbrowser/browser.py:138
 #: frescobaldi_app/musicview/image.py:166
 #, fuzzy
 msgid "<unknown>"
@@ -1076,7 +1076,7 @@ msgid "Special Charac&ters"
 msgstr "Besondere Zeichen..."
 
 #: frescobaldi_app/docbrowser/__init__.py:46
-#: frescobaldi_app/docbrowser/__init__.py:58
+#: frescobaldi_app/docbrowser/__init__.py:62
 #: frescobaldi_app/preferences/documentation.py:110
 #, fuzzy
 msgid "Documentation Browser"
@@ -1087,38 +1087,43 @@ msgstr "LilyPond-Dokumentation"
 msgid "&Documentation Browser"
 msgstr "LilyPond-Dokumentation"
 
-#: frescobaldi_app/docbrowser/__init__.py:76
+#: frescobaldi_app/docbrowser/__init__.py:80
 #: frescobaldi_app/help/browser.py:75
 #, fuzzy
 msgid "Back"
 msgstr "Runde Klammer"
 
-#: frescobaldi_app/docbrowser/__init__.py:77
+#: frescobaldi_app/docbrowser/__init__.py:81
 #: frescobaldi_app/help/browser.py:76
 msgid "Forward"
 msgstr ""
 
 #. L10N: Home page of the LilyPond manual
-#: frescobaldi_app/docbrowser/__init__.py:79
+#: frescobaldi_app/docbrowser/__init__.py:83
 msgid "Home"
 msgstr "Nach Hause"
 
-#: frescobaldi_app/docbrowser/__init__.py:80
+#: frescobaldi_app/docbrowser/__init__.py:84
 #, fuzzy
 msgid "&LilyPond Documentation"
 msgstr "LilyPond-Dokumentation:"
 
-#: frescobaldi_app/docbrowser/__init__.py:81
+#: frescobaldi_app/docbrowser/__init__.py:85
 #, fuzzy
 msgid "&Contextual LilyPond Help"
 msgstr "LilyPond-&Hilfe"
 
-#: frescobaldi_app/docbrowser/browser.py:117
+#: frescobaldi_app/docbrowser/browser.py:95
+#: frescobaldi_app/snippet/widget.py:167
+msgid "Search..."
+msgstr "Suche..."
+
+#: frescobaldi_app/docbrowser/browser.py:135
 #, fuzzy
 msgid "(local)"
 msgstr "Vokal"
 
-#: frescobaldi_app/docbrowser/browser.py:119
+#: frescobaldi_app/docbrowser/browser.py:137
 msgid "({hostname})"
 msgstr ""
 
@@ -1918,22 +1923,27 @@ msgstr ""
 msgid "Fit Page"
 msgstr "Erste Seite:"
 
-#: frescobaldi_app/musicview/image.py:127
+#: frescobaldi_app/musicview/image.py:126
 msgid "DPI:"
 msgstr ""
 
-#: frescobaldi_app/musicview/image.py:128
+#: frescobaldi_app/musicview/image.py:127
 msgid "Paper Color"
 msgstr ""
 
-#: frescobaldi_app/musicview/image.py:129
+#: frescobaldi_app/musicview/image.py:128
 msgid "Auto-crop"
 msgstr ""
 
-#: frescobaldi_app/musicview/image.py:130
+#: frescobaldi_app/musicview/image.py:129
 #, fuzzy
 msgid "Antialias"
 msgstr "Italienisch"
+
+#: frescobaldi_app/musicview/image.py:130
+#, fuzzy
+msgid "Drag"
+msgstr "Dorich"
 
 #: frescobaldi_app/musicview/image.py:131
 msgid "Drag the image as a PNG file."
@@ -2399,9 +2409,9 @@ msgstr ""
 #: frescobaldi_app/preferences/documentation.py:68
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the "
-"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
-"offline-root\" path.</p>\n"
+"A local path should point to the directory where either the \"{documentation}"
+"\" directory lives, or the whole \"share/doc/lilypond/html/offline-root\" "
+"path.</p>\n"
 "<p>If those can't be found, documentation is looked for in all "
 "subdirectories of the given path, one level deep. This makes it possible to "
 "put multiple versions of LilyPond documentation in different subdirectories "
@@ -5600,10 +5610,6 @@ msgstr "Speichere PDF unter..."
 msgid "&Snippets..."
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:167
-msgid "Search..."
-msgstr "Suche..."
-
 #: frescobaldi_app/snippet/widget.py:171
 msgid "&Menu"
 msgstr ""
@@ -6051,8 +6057,8 @@ msgstr "Alle auswählen"
 #~ "\n"
 #~ "%2"
 #~ msgstr ""
-#~ "Der unten stehende Befehl wurde ausgeführt, wurde aber mit Rückgabewert "
-#~ "%1 beendet.\n"
+#~ "Der unten stehende Befehl wurde ausgeführt, wurde aber mit Rückgabewert %"
+#~ "1 beendet.\n"
 #~ "\n"
 #~ "%2"
 

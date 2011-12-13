@@ -6,14 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-12 16:41+0100\n"
-"PO-Revision-Date: 2011-12-12 16:44+0100\n"
+"POT-Creation-Date: 2011-12-13 16:03+0100\n"
+"PO-Revision-Date: 2011-12-13 16:03+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
-"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 1.1\n"
 
@@ -197,7 +197,7 @@ msgstr "&Wijzigingen"
 msgid "Run Again"
 msgstr "Opnieuw uitvoeren"
 
-#: frescobaldi_app/convert_ly.py:137 frescobaldi_app/docbrowser/browser.py:120
+#: frescobaldi_app/convert_ly.py:137 frescobaldi_app/docbrowser/browser.py:138
 #: frescobaldi_app/musicview/image.py:166
 msgid "<unknown>"
 msgstr "<onbekend>"
@@ -1038,7 +1038,7 @@ msgid "Special Charac&ters"
 msgstr "Speciale &tekens"
 
 #: frescobaldi_app/docbrowser/__init__.py:46
-#: frescobaldi_app/docbrowser/__init__.py:58
+#: frescobaldi_app/docbrowser/__init__.py:62
 #: frescobaldi_app/preferences/documentation.py:110
 msgid "Documentation Browser"
 msgstr "Documentatie-browser"
@@ -1047,34 +1047,39 @@ msgstr "Documentatie-browser"
 msgid "&Documentation Browser"
 msgstr "&Documentatie-browser"
 
-#: frescobaldi_app/docbrowser/__init__.py:76
+#: frescobaldi_app/docbrowser/__init__.py:80
 #: frescobaldi_app/help/browser.py:75
 msgid "Back"
 msgstr "Terug"
 
-#: frescobaldi_app/docbrowser/__init__.py:77
+#: frescobaldi_app/docbrowser/__init__.py:81
 #: frescobaldi_app/help/browser.py:76
 msgid "Forward"
 msgstr "Verder"
 
 #. L10N: Home page of the LilyPond manual
-#: frescobaldi_app/docbrowser/__init__.py:79
+#: frescobaldi_app/docbrowser/__init__.py:83
 msgid "Home"
 msgstr "Begin"
 
-#: frescobaldi_app/docbrowser/__init__.py:80
+#: frescobaldi_app/docbrowser/__init__.py:84
 msgid "&LilyPond Documentation"
 msgstr "&LilyPond-documentatie"
 
-#: frescobaldi_app/docbrowser/__init__.py:81
+#: frescobaldi_app/docbrowser/__init__.py:85
 msgid "&Contextual LilyPond Help"
 msgstr "LilyPond-&contexthulp"
 
-#: frescobaldi_app/docbrowser/browser.py:117
+#: frescobaldi_app/docbrowser/browser.py:95
+#: frescobaldi_app/snippet/widget.py:167
+msgid "Search..."
+msgstr "Zoeken..."
+
+#: frescobaldi_app/docbrowser/browser.py:135
 msgid "(local)"
 msgstr "(lokaal)"
 
-#: frescobaldi_app/docbrowser/browser.py:119
+#: frescobaldi_app/docbrowser/browser.py:137
 msgid "({hostname})"
 msgstr "({hostname})"
 
@@ -2079,21 +2084,25 @@ msgstr "Passend in hoogte"
 msgid "Fit Page"
 msgstr "Hele pagina"
 
-#: frescobaldi_app/musicview/image.py:127
+#: frescobaldi_app/musicview/image.py:126
 msgid "DPI:"
 msgstr "DPI:"
 
-#: frescobaldi_app/musicview/image.py:128
+#: frescobaldi_app/musicview/image.py:127
 msgid "Paper Color"
 msgstr "Papierkleur"
 
-#: frescobaldi_app/musicview/image.py:129
+#: frescobaldi_app/musicview/image.py:128
 msgid "Auto-crop"
 msgstr "Bijknippen"
 
-#: frescobaldi_app/musicview/image.py:130
+#: frescobaldi_app/musicview/image.py:129
 msgid "Antialias"
 msgstr "Vloeiend"
+
+#: frescobaldi_app/musicview/image.py:130
+msgid "Drag"
+msgstr "Slepen"
 
 #: frescobaldi_app/musicview/image.py:131
 msgid "Drag the image as a PNG file."
@@ -2599,9 +2608,9 @@ msgstr "Voeg paden of URLs toe. Zie \"Wat is dit\" voor meer informatie."
 #: frescobaldi_app/preferences/documentation.py:68
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the "
-"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
-"offline-root\" path.</p>\n"
+"A local path should point to the directory where either the \"{documentation}"
+"\" directory lives, or the whole \"share/doc/lilypond/html/offline-root\" "
+"path.</p>\n"
 "<p>If those can't be found, documentation is looked for in all "
 "subdirectories of the given path, one level deep. This makes it possible to "
 "put multiple versions of LilyPond documentation in different subdirectories "
@@ -5898,10 +5907,6 @@ msgstr "Opslaan als sjabloon..."
 #: frescobaldi_app/snippet/tool.py:80
 msgid "&Snippets..."
 msgstr "&Knipsels..."
-
-#: frescobaldi_app/snippet/widget.py:167
-msgid "Search..."
-msgstr "Zoeken..."
 
 #: frescobaldi_app/snippet/widget.py:171
 msgid "&Menu"
