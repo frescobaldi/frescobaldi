@@ -9,6 +9,7 @@ Changes in 1.9.5 --
   - charmap now avoids characters "narrow" builds of Python can't handle
   - fix incorrect midi tempo when midi file contains tempo changes
 * Improvements:
+  - search bar in documentation browser
   - autocomplete on \include, \language
   - other small cosmetic improvements
 

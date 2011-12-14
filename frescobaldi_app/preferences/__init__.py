@@ -80,6 +80,7 @@ class PreferencesDialog(QDialog):
             General,
             LilyPond,
             Midi,
+            Helpers,
             Paths,
             Documentation,
             Shortcuts,
@@ -185,13 +186,23 @@ class Midi(PrefsItemBase):
         return midi.MidiPrefs(dlg)
 
 
+class Helpers(PrefsItemBase):
+    iconName = "applications-other"
+    def translateUI(self):
+        self.setText(_("Helper Applications"))
+        
+    def widget(self, dlg):
+        import helpers
+        return helpers.Helpers(dlg)
+
+
 class Paths(PrefsItemBase):
     iconName = "folder-open"
     def translateUI(self):
         self.setText(_("Paths"))
         
     def widget(self, dlg):
-        import paths
+        from . import paths
         return paths.Paths(dlg)
 
 
@@ -201,7 +212,7 @@ class Documentation(PrefsItemBase):
         self.setText(_("LilyPond Documentation"))
         
     def widget(self, dlg):
-        import documentation
+        from . import documentation
         return documentation.Documentation(dlg)
 
 
@@ -211,7 +222,7 @@ class Shortcuts(PrefsItemBase):
         self.setText(_("Keyboard Shortcuts"))
         
     def widget(self, dlg):
-        import shortcuts
+        from . import shortcuts
         return shortcuts.Shortcuts(dlg)
         
 
@@ -221,7 +232,7 @@ class FontsColors(PrefsItemBase):
         self.setText(_("Fonts & Colors"))
         
     def widget(self, dlg):
-        import fontscolors
+        from . import fontscolors
         return fontscolors.FontsColors(dlg)
 
 
@@ -231,7 +242,7 @@ class Tools(PrefsItemBase):
         self.setText(_("Tools"))
         
     def widget(self, dlg):
-        import tools
+        from . import tools
         return tools.Tools(dlg)
 
 
