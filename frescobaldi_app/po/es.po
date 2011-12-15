@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-13 16:03+0100\n"
+"POT-Creation-Date: 2011-12-15 11:20+0100\n"
 "PO-Revision-Date: 2011-12-07 10:02+0100\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -199,7 +199,7 @@ msgstr "&Cambios"
 msgid "Run Again"
 msgstr "Ejecutar de nuevo"
 
-#: frescobaldi_app/convert_ly.py:137 frescobaldi_app/docbrowser/browser.py:138
+#: frescobaldi_app/convert_ly.py:137 frescobaldi_app/docbrowser/browser.py:139
 #: frescobaldi_app/musicview/image.py:166
 msgid "<unknown>"
 msgstr "<desconocido>"
@@ -362,7 +362,7 @@ msgid "Edit"
 msgstr "Editar"
 
 #: frescobaldi_app/hyphendialog.py:167 frescobaldi_app/help/contents.py:139
-#: frescobaldi_app/preferences/__init__.py:99
+#: frescobaldi_app/preferences/__init__.py:100
 #: frescobaldi_app/preferences/midi.py:134
 msgid "Preferences"
 msgstr "Preferencias"
@@ -519,16 +519,16 @@ msgid "Session to start ('{none}' for empty session)"
 msgstr "Sesión que iniciar ('{none}' para sesión vacía)"
 
 #. L10N: state of document in window titlebar
-#: frescobaldi_app/mainwindow.py:224
+#: frescobaldi_app/mainwindow.py:225
 msgid "[modified]"
 msgstr "[modificado]"
 
-#: frescobaldi_app/mainwindow.py:267
+#: frescobaldi_app/mainwindow.py:268
 msgctxt "dialog title"
 msgid "Close Document"
 msgstr "Cerrar el documento"
 
-#: frescobaldi_app/mainwindow.py:268
+#: frescobaldi_app/mainwindow.py:269
 msgid ""
 "The document \"{name}\" has been modified.\n"
 "Do you want to save your changes or discard them?"
@@ -536,14 +536,14 @@ msgstr ""
 "El documento \"{name}\" se ha modificado.\n"
 "¿Quiere guardar los cambios o descartarlos?"
 
-#: frescobaldi_app/mainwindow.py:321 frescobaldi_app/popplerprint.py:53
+#: frescobaldi_app/mainwindow.py:322 frescobaldi_app/popplerprint.py:53
 #: frescobaldi_app/sessions/dialog.py:165
 #: frescobaldi_app/sessions/dialog.py:173
 #: frescobaldi_app/sessions/dialog.py:179
 msgid "Warning"
 msgstr "Advertencia"
 
-#: frescobaldi_app/mainwindow.py:322
+#: frescobaldi_app/mainwindow.py:323
 msgid ""
 "Can't load non-local document:\n"
 "\n"
@@ -553,15 +553,15 @@ msgstr ""
 "\n"
 "{url}"
 
-#: frescobaldi_app/mainwindow.py:340
+#: frescobaldi_app/mainwindow.py:341
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Abrir archivo"
 
 #. L10N: a basic type of input in the editor
-#: frescobaldi_app/mainwindow.py:359 frescobaldi_app/mainwindow.py:365
-#: frescobaldi_app/mainwindow.py:390 frescobaldi_app/mainwindow.py:441
-#: frescobaldi_app/mainwindow.py:509 frescobaldi_app/mainwindow.py:569
+#: frescobaldi_app/mainwindow.py:360 frescobaldi_app/mainwindow.py:366
+#: frescobaldi_app/mainwindow.py:391 frescobaldi_app/mainwindow.py:442
+#: frescobaldi_app/mainwindow.py:510 frescobaldi_app/mainwindow.py:570
 #: frescobaldi_app/musicview/image.py:213
 #: frescobaldi_app/preferences/fontscolors.py:476
 #: frescobaldi_app/preferences/fontscolors.py:514
@@ -570,8 +570,8 @@ msgstr "Abrir archivo"
 msgid "Error"
 msgstr "Error"
 
-#: frescobaldi_app/mainwindow.py:360 frescobaldi_app/mainwindow.py:366
-#: frescobaldi_app/mainwindow.py:391
+#: frescobaldi_app/mainwindow.py:361 frescobaldi_app/mainwindow.py:367
+#: frescobaldi_app/mainwindow.py:392
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -581,22 +581,22 @@ msgstr ""
 "\n"
 "{url}"
 
-#: frescobaldi_app/mainwindow.py:385
+#: frescobaldi_app/mainwindow.py:386
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "Guardar archivo"
 
-#: frescobaldi_app/mainwindow.py:425
+#: frescobaldi_app/mainwindow.py:426
 msgctxt "dialog title"
 msgid "Save Copy"
 msgstr "Guardar copia"
 
-#: frescobaldi_app/mainwindow.py:431
+#: frescobaldi_app/mainwindow.py:432
 msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Guardar selección"
 
-#: frescobaldi_app/mainwindow.py:442 frescobaldi_app/mainwindow.py:570
+#: frescobaldi_app/mainwindow.py:443 frescobaldi_app/mainwindow.py:571
 #: frescobaldi_app/snippet/widget.py:288
 msgid ""
 "Can't write to destination:\n"
@@ -611,12 +611,12 @@ msgstr ""
 "\n"
 "{error}"
 
-#: frescobaldi_app/mainwindow.py:502
+#: frescobaldi_app/mainwindow.py:503
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Insertar desde archivo"
 
-#: frescobaldi_app/mainwindow.py:510
+#: frescobaldi_app/mainwindow.py:511
 #: frescobaldi_app/snippet/import_export.py:105
 msgid ""
 "Can't read from source:\n"
@@ -631,16 +631,16 @@ msgstr ""
 "\n"
 "{error}"
 
-#: frescobaldi_app/mainwindow.py:527
+#: frescobaldi_app/mainwindow.py:528
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Imprimir fuente"
 
-#: frescobaldi_app/mainwindow.py:560
+#: frescobaldi_app/mainwindow.py:561
 msgid "Export as HTML"
 msgstr "Exportar como HTML"
 
-#: frescobaldi_app/mainwindow.py:681
+#: frescobaldi_app/mainwindow.py:682
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -652,181 +652,181 @@ msgstr ""
 "\n"
 "\n"
 
-#: frescobaldi_app/mainwindow.py:782
+#: frescobaldi_app/mainwindow.py:783
 msgid "Main Toolbar"
 msgstr "Barra principal"
 
-#: frescobaldi_app/mainwindow.py:783
+#: frescobaldi_app/mainwindow.py:784
 msgid "Music View Toolbar"
 msgstr "Barra de vista de música"
 
-#: frescobaldi_app/mainwindow.py:909
+#: frescobaldi_app/mainwindow.py:910
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nuevo"
 
-#: frescobaldi_app/mainwindow.py:910
+#: frescobaldi_app/mainwindow.py:911
 msgid "&Open..."
 msgstr "&Abrir..."
 
-#: frescobaldi_app/mainwindow.py:911
+#: frescobaldi_app/mainwindow.py:912
 msgid "Open &Recent"
 msgstr "Abrir &reciente"
 
-#: frescobaldi_app/mainwindow.py:912
+#: frescobaldi_app/mainwindow.py:913
 msgid "Insert from &File..."
 msgstr "&Insertar desde archivo..."
 
-#: frescobaldi_app/mainwindow.py:913
+#: frescobaldi_app/mainwindow.py:914
 msgid "Open Current Directory"
 msgstr "Abrir carpeta actual"
 
-#: frescobaldi_app/mainwindow.py:914 frescobaldi_app/tabbar.py:167
+#: frescobaldi_app/mainwindow.py:915 frescobaldi_app/tabbar.py:167
 #: frescobaldi_app/sessions/manager.py:128
 msgid "&Save"
 msgstr "&Guardar"
 
-#: frescobaldi_app/mainwindow.py:915 frescobaldi_app/tabbar.py:168
+#: frescobaldi_app/mainwindow.py:916 frescobaldi_app/tabbar.py:168
 msgid "Save &As..."
 msgstr "Guard&ar como..."
 
-#: frescobaldi_app/mainwindow.py:916
+#: frescobaldi_app/mainwindow.py:917
 msgid "Save Copy or Selection As..."
 msgstr "Guardar copia o selección como..."
 
-#: frescobaldi_app/mainwindow.py:917
+#: frescobaldi_app/mainwindow.py:918
 msgid "Save All"
 msgstr "Guardar todo"
 
-#: frescobaldi_app/mainwindow.py:918
+#: frescobaldi_app/mainwindow.py:919
 msgid "Print Source..."
 msgstr "Imprimir fuente..."
 
-#: frescobaldi_app/mainwindow.py:919 frescobaldi_app/tabbar.py:169
+#: frescobaldi_app/mainwindow.py:920 frescobaldi_app/tabbar.py:169
 msgid "&Close"
 msgstr "&Cerrar"
 
-#: frescobaldi_app/mainwindow.py:920
+#: frescobaldi_app/mainwindow.py:921
 msgid "Close Other Documents"
 msgstr "Cerrar otros documentos"
 
-#: frescobaldi_app/mainwindow.py:921
+#: frescobaldi_app/mainwindow.py:922
 msgid "Close All Documents"
 msgstr "Cerrar todos los documentos"
 
-#: frescobaldi_app/mainwindow.py:922
+#: frescobaldi_app/mainwindow.py:923
 msgid "Closes all documents and leaves the current session."
 msgstr "Cierra todos los documentos y deja la sesión actual."
 
-#: frescobaldi_app/mainwindow.py:923
+#: frescobaldi_app/mainwindow.py:924
 msgid "&Quit"
 msgstr "Sal&ir"
 
-#: frescobaldi_app/mainwindow.py:925
+#: frescobaldi_app/mainwindow.py:926
 msgid "Export Source as Colored &HTML..."
 msgstr "Exportar fuente como &HTML coloreado..."
 
-#: frescobaldi_app/mainwindow.py:927
+#: frescobaldi_app/mainwindow.py:928
 msgid "&Undo"
 msgstr "Des&hacer"
 
-#: frescobaldi_app/mainwindow.py:928
+#: frescobaldi_app/mainwindow.py:929
 msgid "Re&do"
 msgstr "Reha&cer"
 
-#: frescobaldi_app/mainwindow.py:929
+#: frescobaldi_app/mainwindow.py:930
 msgid "Cu&t"
 msgstr "Cor&tar"
 
-#: frescobaldi_app/mainwindow.py:930
+#: frescobaldi_app/mainwindow.py:931
 msgid "&Copy"
 msgstr "&Copiar"
 
-#: frescobaldi_app/mainwindow.py:931
+#: frescobaldi_app/mainwindow.py:932
 msgid "Copy as Colored &HTML"
 msgstr "Copiar como &HTML coloreado"
 
-#: frescobaldi_app/mainwindow.py:932
+#: frescobaldi_app/mainwindow.py:933
 msgid "&Paste"
 msgstr "&Pegar"
 
-#: frescobaldi_app/mainwindow.py:933
+#: frescobaldi_app/mainwindow.py:934
 msgid "Select &All"
 msgstr "Seleccion&ar todo"
 
-#: frescobaldi_app/mainwindow.py:934
+#: frescobaldi_app/mainwindow.py:935
 msgid "Select &Block"
 msgstr "Seleccionar &bloque"
 
-#: frescobaldi_app/mainwindow.py:935
+#: frescobaldi_app/mainwindow.py:936
 msgid "Select &None"
 msgstr "Seleccionar &nada"
 
-#: frescobaldi_app/mainwindow.py:936
+#: frescobaldi_app/mainwindow.py:937
 msgid "Select Whole Lines Up"
 msgstr "Seleccionar líneas completas hacia arriba"
 
-#: frescobaldi_app/mainwindow.py:937
+#: frescobaldi_app/mainwindow.py:938
 msgid "Select Whole Lines Down"
 msgstr "Seleccionar líneas completas hacia abajo"
 
-#: frescobaldi_app/mainwindow.py:938
+#: frescobaldi_app/mainwindow.py:939
 msgid "&Find..."
 msgstr "&Buscar..."
 
-#: frescobaldi_app/mainwindow.py:939
+#: frescobaldi_app/mainwindow.py:940
 msgid "Find Ne&xt"
 msgstr "Buscar siguien&te"
 
-#: frescobaldi_app/mainwindow.py:940
+#: frescobaldi_app/mainwindow.py:941
 msgid "Find Pre&vious"
 msgstr "Buscar an&terior"
 
-#: frescobaldi_app/mainwindow.py:941
+#: frescobaldi_app/mainwindow.py:942
 msgid "&Replace..."
 msgstr "Sustitui&r..."
 
-#: frescobaldi_app/mainwindow.py:942
+#: frescobaldi_app/mainwindow.py:943
 msgid "Pr&eferences..."
 msgstr "Pr&eferencias..."
 
-#: frescobaldi_app/mainwindow.py:944
+#: frescobaldi_app/mainwindow.py:945
 msgid "&Next Document"
 msgstr "Docume&nto siguiente"
 
-#: frescobaldi_app/mainwindow.py:945
+#: frescobaldi_app/mainwindow.py:946
 msgid "&Previous Document"
 msgstr "Documento an&terior"
 
-#: frescobaldi_app/mainwindow.py:946
+#: frescobaldi_app/mainwindow.py:947
 msgid "Scroll Up"
 msgstr "Desplazar hacia arriba"
 
-#: frescobaldi_app/mainwindow.py:947
+#: frescobaldi_app/mainwindow.py:948
 msgid "Scroll Down"
 msgstr "Desplazar hacia abajo"
 
-#: frescobaldi_app/mainwindow.py:949
+#: frescobaldi_app/mainwindow.py:950
 msgid "New &Window"
 msgstr "&Ventana siguiente"
 
-#: frescobaldi_app/mainwindow.py:950
+#: frescobaldi_app/mainwindow.py:951
 msgid "&Fullscreen"
 msgstr "Pantalla co&mpleta"
 
-#: frescobaldi_app/mainwindow.py:952
+#: frescobaldi_app/mainwindow.py:953
 msgid "&User Guide"
 msgstr "Manual del &usuario"
 
-#: frescobaldi_app/mainwindow.py:953
+#: frescobaldi_app/mainwindow.py:954
 msgid "&What's This?"
 msgstr "¿&Qué es esto?"
 
-#: frescobaldi_app/mainwindow.py:954
+#: frescobaldi_app/mainwindow.py:955
 msgid "Report a &Bug..."
 msgstr "Informe de &fallo..."
 
-#: frescobaldi_app/mainwindow.py:955
+#: frescobaldi_app/mainwindow.py:956
 msgid "&About {appname}..."
 msgstr "&Acerca de {appname}..."
 
@@ -1055,12 +1055,12 @@ msgid "&Documentation Browser"
 msgstr "Navegador de &documentación"
 
 #: frescobaldi_app/docbrowser/__init__.py:80
-#: frescobaldi_app/help/browser.py:75
+#: frescobaldi_app/help/browser.py:76
 msgid "Back"
 msgstr "Atrás"
 
 #: frescobaldi_app/docbrowser/__init__.py:81
-#: frescobaldi_app/help/browser.py:76
+#: frescobaldi_app/help/browser.py:77
 msgid "Forward"
 msgstr "Adelante"
 
@@ -1077,16 +1077,16 @@ msgstr "Documentación de &LilyPond"
 msgid "&Contextual LilyPond Help"
 msgstr "Ayuda &contextual de LilyPond"
 
-#: frescobaldi_app/docbrowser/browser.py:95
+#: frescobaldi_app/docbrowser/browser.py:96
 #: frescobaldi_app/snippet/widget.py:167
 msgid "Search..."
 msgstr "Buscar..."
 
-#: frescobaldi_app/docbrowser/browser.py:135
+#: frescobaldi_app/docbrowser/browser.py:136
 msgid "(local)"
 msgstr "(local)"
 
-#: frescobaldi_app/docbrowser/browser.py:137
+#: frescobaldi_app/docbrowser/browser.py:138
 msgid "({hostname})"
 msgstr "({hostname})"
 
@@ -1221,19 +1221,19 @@ msgstr "PostScript encapsulado (backend EPS)"
 msgid "PNG (EPS Backend)"
 msgstr "PNG (backend EPS)"
 
-#: frescobaldi_app/help/browser.py:74
+#: frescobaldi_app/help/browser.py:75
 msgid "Toolbar"
 msgstr "Barra de herramientas"
 
-#: frescobaldi_app/help/browser.py:77
+#: frescobaldi_app/help/browser.py:78
 msgid "Start"
 msgstr "Inicio"
 
-#: frescobaldi_app/help/browser.py:78
+#: frescobaldi_app/help/browser.py:79
 msgid "Contents"
 msgstr "Contenido"
 
-#: frescobaldi_app/help/browser.py:84 frescobaldi_app/help/browser.py:85
+#: frescobaldi_app/help/browser.py:85 frescobaldi_app/help/browser.py:86
 #: frescobaldi_app/help/contents.py:70
 #: frescobaldi_app/quickinsert/widget.py:106
 msgid "Help"
@@ -1365,7 +1365,7 @@ msgid "Engrave (publish)"
 msgstr "Procesar (publicación)"
 
 #: frescobaldi_app/help/contents.py:140
-#: frescobaldi_app/preferences/__init__.py:171
+#: frescobaldi_app/preferences/__init__.py:172
 msgid "LilyPond Preferences"
 msgstr "Preferencias de LilyPond"
 
@@ -2600,32 +2600,37 @@ msgctxt "QScrollBar"
 msgid "Scroll right"
 msgstr "Desplazar a la derecha"
 
-#: frescobaldi_app/preferences/__init__.py:161
+#: frescobaldi_app/preferences/__init__.py:162
 #: frescobaldi_app/preferences/general.py:119
 msgid "General Preferences"
 msgstr "Preferencias generales"
 
-#: frescobaldi_app/preferences/__init__.py:181
+#: frescobaldi_app/preferences/__init__.py:182
 msgid "MIDI Settings"
 msgstr "Ajustes de MIDI"
 
-#: frescobaldi_app/preferences/__init__.py:191
+#: frescobaldi_app/preferences/__init__.py:192
+#: frescobaldi_app/preferences/helpers.py:80
+msgid "Helper Applications"
+msgstr ""
+
+#: frescobaldi_app/preferences/__init__.py:202
 msgid "Paths"
 msgstr "Rutas"
 
-#: frescobaldi_app/preferences/__init__.py:201
+#: frescobaldi_app/preferences/__init__.py:212
 msgid "LilyPond Documentation"
 msgstr "Documentación de LilyPond"
 
-#: frescobaldi_app/preferences/__init__.py:211
+#: frescobaldi_app/preferences/__init__.py:222
 msgid "Keyboard Shortcuts"
 msgstr "Combinaciones de teclas"
 
-#: frescobaldi_app/preferences/__init__.py:221
+#: frescobaldi_app/preferences/__init__.py:232
 msgid "Fonts & Colors"
 msgstr "Tipografías y colores"
 
-#: frescobaldi_app/preferences/__init__.py:231
+#: frescobaldi_app/preferences/__init__.py:242
 msgid "Tools"
 msgstr "Herramientas"
 
@@ -3051,6 +3056,55 @@ msgstr "Directorio predeterminado:"
 #: frescobaldi_app/preferences/general.py:222
 msgid "The default folder for your LilyPond documents (optional)."
 msgstr "La carpeta predeterminada para los documentos de LilyPond (opcional)."
+
+#: frescobaldi_app/preferences/helpers.py:70
+#, fuzzy
+msgid "PDF:"
+msgstr "PDF"
+
+#: frescobaldi_app/preferences/helpers.py:71
+#, fuzzy
+msgid "MIDI:"
+msgstr "MIDI"
+
+#: frescobaldi_app/preferences/helpers.py:72
+#, fuzzy
+msgid "SVG:"
+msgstr "SVG"
+
+#: frescobaldi_app/preferences/helpers.py:73
+msgid "Image:"
+msgstr ""
+
+#: frescobaldi_app/preferences/helpers.py:74
+#, fuzzy
+msgid "Browser:"
+msgstr "Navegador de ayuda"
+
+#: frescobaldi_app/preferences/helpers.py:75
+msgid "E-Mail:"
+msgstr ""
+
+#: frescobaldi_app/preferences/helpers.py:76
+#, fuzzy
+msgid "File Manager:"
+msgstr "Nombre de archivo"
+
+#: frescobaldi_app/preferences/helpers.py:77
+#, fuzzy
+msgid "Shell:"
+msgstr "Esquema:"
+
+#: frescobaldi_app/preferences/helpers.py:82
+msgid ""
+"Below you can enter commands to open different file types. <code>$f</code> "
+"is replaced with the filename, <code>$u</code> with the URL. Leave a field "
+"empty to use the operating system default application."
+msgstr ""
+
+#: frescobaldi_app/preferences/helpers.py:90
+msgid "Command that should accept a mailto: URL."
+msgstr ""
 
 #: frescobaldi_app/preferences/lilypond.py:81
 msgid "LilyPond versions to use"
@@ -6239,9 +6293,6 @@ msgstr "Seleccione un directorio"
 #: frescobaldi_app/widgets/urlrequester.py:94
 msgid "Select a file"
 msgstr "Seleccione un archivo"
-
-#~ msgid "Help Browser"
-#~ msgstr "Navegador de ayuda"
 
 #~ msgid "&Help Browser"
 #~ msgstr "Navegador de a&yuda"

@@ -83,7 +83,7 @@ class Apps(preferences.Group):
             "<code>$f</code> is replaced with the filename, "
             "<code>$u</code> with the URL. "
             "Leave a field empty to use the operating system default "
-            "application. "))
+            "application."))
         for name, title in self.items():
             self.labels[name].setText(title)
         self.entries["email"].setToolTip(_(
