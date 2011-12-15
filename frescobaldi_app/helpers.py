@@ -53,12 +53,12 @@ def command(type):
 
 def openUrl(url, type="browser"):
     """Opens the specified QUrl, using the specified type."""
-    # pick a suitable type for a local url
-    if type == "browser" and url.toLocalFile():
+    # be sure to pick a suitable type
+    if url.scheme() == "mailto":
+        type = "email"
+    elif type == "browser" and url.toLocalFile():
         ext = os.path.splitext(url.toLocalFile())[1]
-        if url.scheme() == "mailto":
-            type = "email"
-        elif os.path.isdir(url.toLocalFile()):
+        if os.path.isdir(url.toLocalFile()):
             type = "directory"
         elif ext in ('.pdf', '.PDF'):
             type = "pdf"
@@ -83,7 +83,7 @@ def openUrl(url, type="browser"):
         cmd = [a.replace('$u', url.toString())
                 if '$u' in a else a.replace('$f', url.toLocalFile())
                 for a in cmd]
-    elif type == "browser":
+    elif type in ("browser", "email"):
         cmd.append(url.toString())
     elif type != "shell":
         cmd.append(url.toLocalFile())

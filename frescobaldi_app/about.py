@@ -24,7 +24,7 @@ About dialog.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QSettings, QSize, Qt
+from PyQt4.QtCore import QSettings, QSize, Qt, QUrl
 from PyQt4.QtGui import (
     QDialog, QDialogButtonBox, QLabel, QLayout, QTabWidget, QTextBrowser,
     QVBoxLayout, QWidget)
@@ -32,6 +32,7 @@ from PyQt4.QtGui import (
 import app
 import info
 import icons
+import helpers
 import bugreport
 import language_names
 
@@ -110,15 +111,19 @@ class About(QWidget):
 
         text = QLabel()
         text.setText(html())
-        text.setOpenExternalLinks(True)
+        text.linkActivated.connect(self.openLink)
         layout.addWidget(text)
+    
+    def openLink(self, url):
+        helpers.openUrl(QUrl(url))
 
 
 class Credits(QTextBrowser):
     """Credits widget."""
     def __init__(self, parent=None):
         super(Credits, self).__init__(parent)
-        self.setOpenExternalLinks(True)
+        self.setOpenLinks(False)
+        self.anchorClicked.connect(helpers.openUrl)
         self.setHtml('\n'.join(map('<p>{0}</p>'.format, credits())))
 
 
