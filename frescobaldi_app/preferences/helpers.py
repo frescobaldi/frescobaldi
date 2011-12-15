@@ -23,13 +23,13 @@ Helper application preferences
 from __future__ import unicode_literals
 
 from PyQt4.QtCore import QSettings
-from PyQt4.QtGui import QGridLayout, QLabel, QVBoxLayout
+from PyQt4.QtGui import QFileDialog, QGridLayout, QLabel, QVBoxLayout
 
 import app
 import util
 import icons
 import preferences
-import widgets.lineedit
+import widgets.urlrequester
 
 
 class Helpers(preferences.GroupsPage):
@@ -50,68 +50,43 @@ class Apps(preferences.Group):
         layout = QGridLayout()
         self.setLayout(layout)
         
-        self.pdfLabel = QLabel()
-        self.pdfEntry = widgets.lineedit.LineEdit(textChanged=self.changed)
-        self.midiLabel = QLabel()
-        self.midiEntry = widgets.lineedit.LineEdit(textChanged=self.changed)
-        self.svgLabel = QLabel()
-        self.svgEntry = widgets.lineedit.LineEdit(textChanged=self.changed)
-        self.browserLabel = QLabel()
-        self.browserEntry = widgets.lineedit.LineEdit(textChanged=self.changed)
-        self.emailLabel = QLabel()
-        self.emailEntry = widgets.lineedit.LineEdit(textChanged=self.changed)
-        self.directoryLabel = QLabel()
-        self.directoryEntry = widgets.lineedit.LineEdit(textChanged=self.changed)
-        self.terminalLabel = QLabel()
-        self.terminalEntry = widgets.lineedit.LineEdit(textChanged=self.changed)
-        
-        layout.addWidget(self.pdfLabel, 0, 0)
-        layout.addWidget(self.pdfEntry, 0, 1)
-        layout.addWidget(self.midiLabel, 1, 0)
-        layout.addWidget(self.midiEntry, 1, 1)
-        layout.addWidget(self.svgLabel, 2, 0)
-        layout.addWidget(self.svgEntry, 2, 1)
-        layout.addWidget(self.browserLabel, 3, 0)
-        layout.addWidget(self.browserEntry, 3, 1)
-        layout.addWidget(self.emailLabel, 4, 0)
-        layout.addWidget(self.emailEntry, 4, 1)
-        layout.addWidget(self.directoryLabel, 5, 0)
-        layout.addWidget(self.directoryEntry, 5, 1)
-        layout.addWidget(self.terminalLabel, 6, 0)
-        layout.addWidget(self.terminalEntry, 6, 1)
-        
+        self.labels = {}
+        self.entries = {}
+        for row, (name, title) in enumerate(self.items()):
+            self.labels[name] = l = QLabel()
+            self.entries[name] = e = widgets.urlrequester.UrlRequester()
+            e.setFileMode(QFileDialog.ExistingFile)
+            e.changed.connect(page.changed)
+            layout.addWidget(l, row, 0)
+            layout.addWidget(e, row, 1)
+            
         app.translateUI(self)
     
+    def items(self):
+        """Yields (name, title) tuples for every setting in this group."""
+        yield "pdf", _("PDF:")
+        yield "midi", _("MIDI:")
+        yield "svg", _("SVG:")
+        yield "browser", _("Browser:")
+        yield "email", _("E-Mail:")
+        yield "directory", _("File Manager:")
+        yield "shell", _("Shell:")
+        
     def translateUI(self):
         self.setTitle(_("Helper Applications"))
-        self.pdfLabel.setText(_("PDF:"))
-        self.midiLabel.setText(_("MIDI:"))
-        self.svgLabel.setText(_("SVG:"))
-        self.browserLabel.setText(_("Browser:"))
-        self.emailLabel.setText(_("E-Mail:"))
-        self.directoryLabel.setText(_("File Manager:"))
-        self.terminalLabel.setText(_("Shell:"))
+        for name, title in self.items():
+            self.labels[name].setText(title)
 
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("helper_applications")
-        self.pdfEntry.setText(s.value("pdf", ""))
-        self.midiEntry.setText(s.value("midi", ""))
-        self.svgEntry.setText(s.value("svg", ""))
-        self.browserEntry.setText(s.value("browser", ""))
-        self.emailEntry.setText(s.value("email", ""))
-        self.directoryEntry.setText(s.value("directory", ""))
-        self.terminalEntry.setText(s.value("terminal", ""))
+        for name, title in self.items():
+            self.entries[name].setPath(s.value(name, ""))
     
     def saveSettings(self):
         s= QSettings()
         s.beginGroup("helper_applications")
-        s.setValue("pdf", self.pdfEntry.text())
-        s.setValue("midi", self.midiEntry.text())
-        s.setValue("svg", self.svgEntry.text())
-        s.setValue("browser", self.browserEntry.text())
-        s.setValue("email", self.emailEntry.text())
-        s.setValue("directory", self.directoryEntry.text())
-        s.setValue("terminal", self.terminalEntry.text())
+        for name, title in self.items():
+            s.setValue(name, self.entries[name].path())
 
 
