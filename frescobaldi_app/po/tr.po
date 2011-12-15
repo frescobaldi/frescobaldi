@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-15 11:20+0100\n"
+"POT-Creation-Date: 2011-12-15 14:04+0100\n"
 "PO-Revision-Date: 2010-12-12 07:48+0200\n"
 "Last-Translator: Server Acim <serveracim@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -19,90 +19,90 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 1.0\n"
 
-#: frescobaldi_app/about.py:42
+#: frescobaldi_app/about.py:43
 msgid "{appname} is written in {python} and uses the {qt} toolkit."
 msgstr ""
 
 #. L10N: the Python programming language
-#: frescobaldi_app/about.py:45
+#: frescobaldi_app/about.py:46
 #, fuzzy
 msgid "Python"
 msgstr "Yol"
 
 #. L10N: the Qt4 application framework
-#: frescobaldi_app/about.py:47
+#: frescobaldi_app/about.py:48
 msgid "Qt4"
 msgstr ""
 
-#: frescobaldi_app/about.py:49
+#: frescobaldi_app/about.py:50
 msgid ""
 "The Music View is powered by the {poppler} library by {authors} and others."
 msgstr ""
 
 #. L10N: the Poppler PDF library
-#: frescobaldi_app/about.py:53
+#: frescobaldi_app/about.py:54
 #, fuzzy
 msgid "Poppler"
 msgstr "Sayfa"
 
-#: frescobaldi_app/about.py:56
+#: frescobaldi_app/about.py:57
 msgid "Most of the bundled icons are created by {tango}."
 msgstr ""
 
-#: frescobaldi_app/about.py:58
+#: frescobaldi_app/about.py:59
 msgid "The Tango Desktop Project"
 msgstr ""
 
-#: frescobaldi_app/about.py:60
+#: frescobaldi_app/about.py:61
 msgid "{appname} is translated into the following languages:"
 msgstr ""
 
-#: frescobaldi_app/about.py:79
+#: frescobaldi_app/about.py:80
 msgid "About {appname}"
 msgstr ""
 
-#: frescobaldi_app/about.py:86
+#: frescobaldi_app/about.py:87
 #, fuzzy
 msgid "About"
 msgstr "Otomatik"
 
-#: frescobaldi_app/about.py:87 frescobaldi_app/help/contents.py:280
+#: frescobaldi_app/about.py:88 frescobaldi_app/help/contents.py:280
 msgid "Credits"
 msgstr ""
 
-#: frescobaldi_app/about.py:88
+#: frescobaldi_app/about.py:89
 msgid "Version"
 msgstr "Sürüm"
 
-#: frescobaldi_app/about.py:139
+#: frescobaldi_app/about.py:144
 #, fuzzy
 msgid "Operating System"
 msgstr "Diğer satırlar:"
 
-#: frescobaldi_app/about.py:146
+#: frescobaldi_app/about.py:151
 #, fuzzy
 msgid "Version {version}"
 msgstr "LilyPond Sürümünü ekle"
 
-#: frescobaldi_app/about.py:147 frescobaldi_app/main.py:59
+#: frescobaldi_app/about.py:152 frescobaldi_app/main.py:59
 #, fuzzy
 msgid "A LilyPond Music Editor"
 msgstr "LilyPond Müzik Düzenleyicisi"
 
-#: frescobaldi_app/about.py:148
+#: frescobaldi_app/about.py:153
 msgid "Copyright (c) {year} by {author}"
 msgstr ""
 
-#: frescobaldi_app/about.py:152
+#: frescobaldi_app/about.py:157
 msgid "Send an e-mail message to the maintainers."
 msgstr ""
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: frescobaldi_app/about.py:155 frescobaldi_app/help/contents.py:57
+#: frescobaldi_app/about.py:160 frescobaldi_app/help/contents.py:57
 msgid "Translated by Your Name."
 msgstr ""
 
-#: frescobaldi_app/about.py:160
+#: frescobaldi_app/about.py:165
 msgid "Licensed under the {gpl}."
 msgstr ""
 
@@ -2885,6 +2885,10 @@ msgstr ""
 
 #: frescobaldi_app/preferences/helpers.py:90
 msgid "Command that should accept a mailto: URL."
+msgstr ""
+
+#: frescobaldi_app/preferences/helpers.py:92
+msgid "Command to open a Terminal or Command window."
 msgstr ""
 
 #: frescobaldi_app/preferences/lilypond.py:81
@@ -5868,17 +5872,17 @@ msgstr ""
 msgid "Click this button a few times to set the tempo."
 msgstr "Hızı ayarlamak için bu düğmeye bir kaç kez tıklayınız."
 
-#: frescobaldi_app/widgets/urlrequester.py:72
+#: frescobaldi_app/widgets/urlrequester.py:75
 #, fuzzy
 msgid "Open file dialog"
 msgstr "Dosya Aç"
 
-#: frescobaldi_app/widgets/urlrequester.py:92
+#: frescobaldi_app/widgets/urlrequester.py:119
 #, fuzzy
 msgid "Select a directory"
 msgstr "Öntanımlı dizin:"
 
-#: frescobaldi_app/widgets/urlrequester.py:94
+#: frescobaldi_app/widgets/urlrequester.py:121
 #, fuzzy
 msgid "Select a file"
 msgstr "Hepsini seç"

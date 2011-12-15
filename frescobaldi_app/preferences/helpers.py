@@ -88,7 +88,9 @@ class Apps(preferences.Group):
             self.labels[name].setText(title)
         self.entries["email"].setToolTip(_(
             "Command that should accept a mailto: URL."))
-        
+        self.entries["shell"].setToolTip(_(
+            "Command to open a Terminal or Command window."))
+    
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("helper_applications")

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-15 11:20+0100\n"
-"PO-Revision-Date: 2011-12-15 11:20+0100\n"
+"POT-Creation-Date: 2011-12-15 14:04+0100\n"
+"PO-Revision-Date: 2011-12-15 14:04+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,21 +17,21 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 1.1\n"
 
-#: frescobaldi_app/about.py:42
+#: frescobaldi_app/about.py:43
 msgid "{appname} is written in {python} and uses the {qt} toolkit."
 msgstr "{appname} is geschreven in {python} en gebruikt de {qt} toolkit."
 
 #. L10N: the Python programming language
-#: frescobaldi_app/about.py:45
+#: frescobaldi_app/about.py:46
 msgid "Python"
 msgstr "Python"
 
 #. L10N: the Qt4 application framework
-#: frescobaldi_app/about.py:47
+#: frescobaldi_app/about.py:48
 msgid "Qt4"
 msgstr "Qt4"
 
-#: frescobaldi_app/about.py:49
+#: frescobaldi_app/about.py:50
 msgid ""
 "The Music View is powered by the {poppler} library by {authors} and others."
 msgstr ""
@@ -39,64 +39,64 @@ msgstr ""
 "anderen."
 
 #. L10N: the Poppler PDF library
-#: frescobaldi_app/about.py:53
+#: frescobaldi_app/about.py:54
 msgid "Poppler"
 msgstr "Poppler"
 
-#: frescobaldi_app/about.py:56
+#: frescobaldi_app/about.py:57
 msgid "Most of the bundled icons are created by {tango}."
 msgstr "De meeste bijgeleverde pictogrammen zijn gemaakt door {tango}."
 
-#: frescobaldi_app/about.py:58
+#: frescobaldi_app/about.py:59
 msgid "The Tango Desktop Project"
 msgstr "Het Tango Desktop-project"
 
-#: frescobaldi_app/about.py:60
+#: frescobaldi_app/about.py:61
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} is vertaald in de volgende talen:"
 
-#: frescobaldi_app/about.py:79
+#: frescobaldi_app/about.py:80
 msgid "About {appname}"
 msgstr "Over {appname}"
 
-#: frescobaldi_app/about.py:86
+#: frescobaldi_app/about.py:87
 msgid "About"
 msgstr "Over"
 
-#: frescobaldi_app/about.py:87 frescobaldi_app/help/contents.py:280
+#: frescobaldi_app/about.py:88 frescobaldi_app/help/contents.py:280
 msgid "Credits"
 msgstr "Dank aan"
 
-#: frescobaldi_app/about.py:88
+#: frescobaldi_app/about.py:89
 msgid "Version"
 msgstr "Versie"
 
-#: frescobaldi_app/about.py:139
+#: frescobaldi_app/about.py:144
 msgid "Operating System"
 msgstr "Besturingssysteem"
 
-#: frescobaldi_app/about.py:146
+#: frescobaldi_app/about.py:151
 msgid "Version {version}"
 msgstr "Versie {version}"
 
-#: frescobaldi_app/about.py:147 frescobaldi_app/main.py:59
+#: frescobaldi_app/about.py:152 frescobaldi_app/main.py:59
 msgid "A LilyPond Music Editor"
 msgstr "Een muziek-editor voor LilyPond"
 
-#: frescobaldi_app/about.py:148
+#: frescobaldi_app/about.py:153
 msgid "Copyright (c) {year} by {author}"
 msgstr "Copyright (c) {year} door {author}"
 
-#: frescobaldi_app/about.py:152
+#: frescobaldi_app/about.py:157
 msgid "Send an e-mail message to the maintainers."
 msgstr "Een e-mailbericht sturen naar de auteurs."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: frescobaldi_app/about.py:155 frescobaldi_app/help/contents.py:57
+#: frescobaldi_app/about.py:160 frescobaldi_app/help/contents.py:57
 msgid "Translated by Your Name."
 msgstr "Vertaald door Wilbert Berendsen."
 
-#: frescobaldi_app/about.py:160
+#: frescobaldi_app/about.py:165
 msgid "Licensed under the {gpl}."
 msgstr "Beschikbaar onder de {gpl}."
 
@@ -3070,6 +3070,10 @@ msgstr ""
 #: frescobaldi_app/preferences/helpers.py:90
 msgid "Command that should accept a mailto: URL."
 msgstr "Commando dat een mailto: URL accepteert."
+
+#: frescobaldi_app/preferences/helpers.py:92
+msgid "Command to open a Terminal or Command window."
+msgstr "Commando dat een terminal of commandovenster opent."
 
 #: frescobaldi_app/preferences/lilypond.py:81
 msgid "LilyPond versions to use"
@@ -6210,15 +6214,15 @@ msgstr "&Standaardsneltoets gebruiken ({name})"
 msgid "Click this button a few times to set the tempo."
 msgstr "Klik een paar keer op deze knop om het tempo in te stellen."
 
-#: frescobaldi_app/widgets/urlrequester.py:72
+#: frescobaldi_app/widgets/urlrequester.py:75
 msgid "Open file dialog"
 msgstr "Bestandsdialoog openen"
 
-#: frescobaldi_app/widgets/urlrequester.py:92
+#: frescobaldi_app/widgets/urlrequester.py:119
 msgid "Select a directory"
 msgstr "Selecteer een map"
 
-#: frescobaldi_app/widgets/urlrequester.py:94
+#: frescobaldi_app/widgets/urlrequester.py:121
 msgid "Select a file"
 msgstr "Selecteer een bestand"
 
