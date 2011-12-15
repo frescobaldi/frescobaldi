@@ -44,6 +44,10 @@ class UrlRequester(QWidget):
     def __init__(self, parent=None):
         super(UrlRequester, self).__init__(parent)
         
+        self._fileDialog = None
+        self._dialogTitle = None
+        self._fileMode = None
+        
         layout = QHBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(2)
@@ -54,7 +58,6 @@ class UrlRequester(QWidget):
         self.button = QToolButton(clicked=self.browse)
         layout.addWidget(self.button)
         
-        self.fileDialog = QFileDialog(self)
         self.setFileMode(QFileDialog.Directory)
         
         self.lineEdit.textChanged.connect(self.changed)
@@ -71,6 +74,16 @@ class UrlRequester(QWidget):
     def translateUI(self):
         self.button.setToolTip(_("Open file dialog"))
     
+    def fileDialog(self, create = False):
+        """Returns the QFileDialog, if already instantiated.
+        
+        If create is True, the dialog is instantiated anyhow.
+        
+        """
+        if create and self._fileDialog is None:
+            self._fileDialog = QFileDialog(self)
+        return self._fileDialog
+            
     def setPath(self, path):
         self.lineEdit.setText(path)
         
@@ -83,19 +96,33 @@ class UrlRequester(QWidget):
             self.button.setIcon(icons.get('folder-open'))
         else:
             self.button.setIcon(icons.get('document-open'))
-        self.fileDialog.setFileMode(mode)
+        self._fileMode = mode
     
+    def fileMode(self):
+        return self._fileMode
+    
+    def setDialogTitle(self, title):
+        self._dialogTitle = title
+        if self._fileDialog:
+            self._fileDialog.setWindowTitle(title)
+    
+    def dialogTitle(self):
+        return self._dialogTitle
+        
     def browse(self):
         """Opens the dialog."""
-        if not self.fileDialog.windowTitle():
-            if self.fileDialog.fileMode() == QFileDialog.Directory:
-                title = _("Select a directory")
-            else:
-                title = _("Select a file")
-            self.fileDialog.setWindowTitle(app.caption(title))
-        self.fileDialog.selectFile(self.path())
-        result =  self.fileDialog.exec_()
+        dlg = self.fileDialog(True)
+        dlg.setFileMode(self._fileMode)
+        if self._dialogTitle:
+            title = self._dialogTitle
+        elif self.fileMode() == QFileDialog.Directory:
+            title = _("Select a directory")
+        else:
+            title = _("Select a file")
+        dlg.setWindowTitle(app.caption(title))
+        dlg.selectFile(self.path())
+        result = dlg.exec_()
         if result:
-            self.lineEdit.setText(self.fileDialog.selectedFiles()[0])
+            self.lineEdit.setText(dlg.selectedFiles()[0])
         
 
