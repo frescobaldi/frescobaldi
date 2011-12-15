@@ -70,6 +70,7 @@ class Apps(preferences.Group):
         yield "pdf", _("PDF:")
         yield "midi", _("MIDI:")
         yield "svg", _("SVG:")
+        yield "image", _("Image:")
         yield "browser", _("Browser:")
         yield "email", _("E-Mail:")
         yield "directory", _("File Manager:")

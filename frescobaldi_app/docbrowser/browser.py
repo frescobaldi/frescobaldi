@@ -30,6 +30,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtWebKit import *
 
 import app
+import helpers
 import widgets.lineedit
 import lilypondinfo
 import lilydoc.manager

@@ -53,6 +53,21 @@ def command(type):
 
 def openUrl(url, type="browser"):
     """Opens the specified QUrl, using the specified type."""
+    # pick a suitable type for a local url
+    if type == "browser" and url.toLocalFile():
+        ext = os.path.splitext(url.toLocalFile())[1]
+        if url.scheme() == "mailto":
+            type = "email"
+        elif os.path.isdir(url.toLocalFile()):
+            type = "directory"
+        elif ext in ('.pdf', '.PDF'):
+            type = "pdf"
+        elif ext in ('.png', '.PNG', '.jpg', '.JPG', '.jpeg'):
+            type = "image"
+        elif ext in ('.midi', '.mid', '.MIDI', '.MID'):
+            type = "midi"
+    
+    # get the command
     cmd = command(type)
     if not cmd:
         QDesktopServices.openUrl(url)
