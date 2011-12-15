@@ -48,7 +48,7 @@ class Apps(preferences.Group):
     def __init__(self, page):
         super(Apps, self).__init__(page)
         
-        layout = QGridLayout()
+        layout = QGridLayout(spacing=1)
         self.setLayout(layout)
         
         self.messageLabel = QLabel(wordWrap=True)
