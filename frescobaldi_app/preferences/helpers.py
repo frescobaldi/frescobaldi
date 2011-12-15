@@ -58,6 +58,8 @@ class Apps(preferences.Group):
         self.svgEntry = widgets.lineedit.LineEdit(textChanged=self.changed)
         self.browserLabel = QLabel()
         self.browserEntry = widgets.lineedit.LineEdit(textChanged=self.changed)
+        self.emailLabel = QLabel()
+        self.emailEntry = widgets.lineedit.LineEdit(textChanged=self.changed)
         self.directoryLabel = QLabel()
         self.directoryEntry = widgets.lineedit.LineEdit(textChanged=self.changed)
         self.terminalLabel = QLabel()
@@ -71,10 +73,12 @@ class Apps(preferences.Group):
         layout.addWidget(self.svgEntry, 2, 1)
         layout.addWidget(self.browserLabel, 3, 0)
         layout.addWidget(self.browserEntry, 3, 1)
-        layout.addWidget(self.directoryLabel, 4, 0)
-        layout.addWidget(self.directoryEntry, 4, 1)
-        layout.addWidget(self.terminalLabel, 5, 0)
-        layout.addWidget(self.terminalEntry, 5, 1)
+        layout.addWidget(self.emailLabel, 4, 0)
+        layout.addWidget(self.emailEntry, 4, 1)
+        layout.addWidget(self.directoryLabel, 5, 0)
+        layout.addWidget(self.directoryEntry, 5, 1)
+        layout.addWidget(self.terminalLabel, 6, 0)
+        layout.addWidget(self.terminalEntry, 6, 1)
         
         app.translateUI(self)
     
@@ -84,6 +88,7 @@ class Apps(preferences.Group):
         self.midiLabel.setText(_("MIDI:"))
         self.svgLabel.setText(_("SVG:"))
         self.browserLabel.setText(_("Browser:"))
+        self.emailLabel.setText(_("E-Mail:"))
         self.directoryLabel.setText(_("File Manager:"))
         self.terminalLabel.setText(_("Shell:"))
 
@@ -94,6 +99,7 @@ class Apps(preferences.Group):
         self.midiEntry.setText(s.value("midi", ""))
         self.svgEntry.setText(s.value("svg", ""))
         self.browserEntry.setText(s.value("browser", ""))
+        self.emailEntry.setText(s.value("email", ""))
         self.directoryEntry.setText(s.value("directory", ""))
         self.terminalEntry.setText(s.value("terminal", ""))
     
@@ -104,6 +110,7 @@ class Apps(preferences.Group):
         s.setValue("midi", self.midiEntry.text())
         s.setValue("svg", self.svgEntry.text())
         s.setValue("browser", self.browserEntry.text())
+        s.setValue("email", self.emailEntry.text())
         s.setValue("directory", self.directoryEntry.text())
         s.setValue("terminal", self.terminalEntry.text())
 
