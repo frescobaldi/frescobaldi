@@ -162,7 +162,7 @@ class Browser(QWidget):
             self.webview.load(url)
     
     def slotUnsupported(self, reply):
-        QDesktopServices.openUrl(reply.url())
+        helpers.openUrl(reply.url())
     
     def slotSearchChanged(self):
         text = self.search.text()

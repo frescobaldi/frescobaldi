@@ -1,3 +1,4 @@
+# This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
 # Copyright (c) 2008 - 2011 by Wilbert Berendsen
 #
@@ -17,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Helper application preferences
+Helper application preferences.
 """
 
 from __future__ import unicode_literals
@@ -50,9 +51,11 @@ class Apps(preferences.Group):
         layout = QGridLayout()
         self.setLayout(layout)
         
+        self.messageLabel = QLabel(wordWrap=True)
+        layout.addWidget(self.messageLabel, 0, 0, 1, 2)
         self.labels = {}
         self.entries = {}
-        for row, (name, title) in enumerate(self.items()):
+        for row, (name, title) in enumerate(self.items(), 1):
             self.labels[name] = l = QLabel()
             self.entries[name] = e = widgets.urlrequester.UrlRequester()
             e.setFileMode(QFileDialog.ExistingFile)
@@ -74,9 +77,17 @@ class Apps(preferences.Group):
         
     def translateUI(self):
         self.setTitle(_("Helper Applications"))
+        self.messageLabel.setText(_(
+            "Below you can enter commands to open different file types. "
+            "<code>$f</code> is replaced with the filename, "
+            "<code>$u</code> with the URL. "
+            "Leave a field empty to use the operating system default "
+            "application. "))
         for name, title in self.items():
             self.labels[name].setText(title)
-
+        self.entries["email"].setToolTip(_(
+            "Command that should accept a mailto: URL."))
+        
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("helper_applications")

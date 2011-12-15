@@ -24,8 +24,8 @@ Functions to compose a bugreport via e-mail and to get version information.
 from __future__ import unicode_literals
 
 from PyQt4.QtCore import QUrl
-from PyQt4.QtGui import QDesktopServices
 
+import helpers
 import info
 
 
@@ -76,5 +76,5 @@ def email(subject, body):
     url = QUrl("mailto:" + info.maintainer_email)
     url.addQueryItem("subject", subject)
     url.addQueryItem("body", body)
-    QDesktopServices.openUrl(url)
+    helpers.openUrl(url, "email")
 

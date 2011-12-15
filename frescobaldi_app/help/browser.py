@@ -29,6 +29,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import helpers
 import icons
 
 from . import __path__
@@ -115,7 +116,7 @@ class Browser(QTextBrowser):
         if url.scheme() == "help":
             self.setSource(url)
         else:
-            QDesktopServices.openUrl(url)
+            helpers.openUrl(url)
         
     def loadResource(self, type, url):
         if type == QTextDocument.HtmlResource:

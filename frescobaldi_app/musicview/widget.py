@@ -40,6 +40,7 @@ import popplerview
 
 import app
 import icons
+import helpers
 import textformats
 import tokeniter
 import viewhighlighter
@@ -136,14 +137,14 @@ class MusicView(QWidget):
         """Called when the use clicks a link.
         
         If the links is a textedit link, opens the document and puts the cursor there.
-        Otherwise, call the QDesktopServices to open the destination.
+        Otherwise, call the helpers module to open the destination.
         
         """
         cursor = self._links.cursor(link, True)
         if cursor:
             self.parent().mainwindow().setTextCursor(cursor, findOpenView=True)
         elif ev.button() != Qt.RightButton and isinstance(link, popplerqt4.Poppler.LinkBrowse):
-            QDesktopServices.openUrl(QUrl(link.url()))
+            helpers.openUrl(QUrl(link.url()))
 
     def slotLinkHovered(self, page, link):
         """Called when the mouse hovers a link.

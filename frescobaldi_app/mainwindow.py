@@ -46,6 +46,7 @@ import historymanager
 import recentfiles
 import sessions.manager
 import util
+import helpers
 import panels
 import engrave
 import scorewiz
@@ -518,7 +519,7 @@ class MainWindow(QMainWindow):
         directory = resultfiles.results(self.currentDocument()).currentDirectory()
         if not directory:
             directory = app.basedir() or os.getcwdu()
-        QDesktopServices.openUrl(QUrl.fromLocalFile(directory))
+        helpers.openUrl(QUrl.fromLocalFile(directory), "directory")
     
     def printSource(self):
         cursor = self.currentView().textCursor()
