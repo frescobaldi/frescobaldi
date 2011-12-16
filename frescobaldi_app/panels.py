@@ -57,6 +57,8 @@ class PanelManager(plugin.MainWindowPlugin):
         self.miditool = miditool.MidiTool(mainwindow)
         import charmap
         self.charmap = charmap.CharMap(mainwindow)
+        import doclist
+        self.doclist = doclist.DocumentList(mainwindow)
         self.createActions()
         
         # make some default arrangements
@@ -75,6 +77,7 @@ class PanelManager(plugin.MainWindowPlugin):
         menu.addAction(self.actionCollection.panel_docbrowser)
         menu.addAction(self.actionCollection.panel_miditool)
         menu.addAction(self.actionCollection.panel_charmap)
+        menu.addAction(self.actionCollection.panel_doclist)
 
 
 class Actions(actioncollection.ActionCollection):
@@ -90,6 +93,7 @@ class Actions(actioncollection.ActionCollection):
         self.panel_docbrowser = manager.docbrowser.toggleViewAction()
         self.panel_miditool = manager.miditool.toggleViewAction()
         self.panel_charmap = manager.charmap.toggleViewAction()
+        self.panel_doclist = manager.doclist.toggleViewAction()
 
 
 class Panel(QDockWidget):
