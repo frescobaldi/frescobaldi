@@ -53,7 +53,7 @@ class Widget(QTreeWidget):
         if doc:
             self.selectDocument(doc)
         self.currentItemChanged.connect(self.slotItemActivated)
-            
+	
     def addDocument(self, doc):
         self._items[doc] = QTreeWidgetItem(self)
         self.setDocumentStatus(doc)
@@ -77,6 +77,8 @@ class Widget(QTreeWidget):
         else:
             icon = 'text-plain'
         i.setIcon(0, icons.get(icon))
+        if not doc.url().isEmpty():
+            i.setToolTip(0, doc.url().toString(QUrl.RemoveUserInfo))
         self.sortItems(0, Qt.AscendingOrder)
     
     def slotItemActivated(self, item):
