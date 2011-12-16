@@ -2,6 +2,7 @@ These icons were, with thanks, taken from the Tango Icon Library, version 0.8, f
 http://tango.freedesktop.org/Tango_Desktop_Project
 
 Changes:
+renamed text-x-generic to text-plain
 added document-save-all (based on document-save)
 renamed system-log-out to application-exit
 
