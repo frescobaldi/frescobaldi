@@ -49,7 +49,9 @@ class Widget(QTreeWidget):
         self._items = {}
         for d in app.documents:
             self.addDocument(d)
-        
+        doc = tool.mainwindow().currentDocument()
+        if doc:
+            self.selectDocument(doc)
         self.currentItemChanged.connect(self.slotItemActivated)
             
     def addDocument(self, doc):
