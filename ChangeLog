@@ -4,11 +4,12 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 
 Changes in 1.9.5 -- 
 
-* Updated translations: es
+* Updated translations: es, nl
 * Bug fixes:
   - charmap now avoids characters "narrow" builds of Python can't handle
   - fix incorrect midi tempo when midi file contains tempo changes
 * New features:
+  - Documents list with optional per-directory grouping
   - helper applications can be specified to override operating system defaults
 * Improvements:
   - search bar in documentation browser
