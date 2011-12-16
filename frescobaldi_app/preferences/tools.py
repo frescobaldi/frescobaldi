@@ -44,6 +44,7 @@ class Tools(preferences.GroupsPage):
         layout.addWidget(LogTool(self))
         layout.addWidget(MusicView(self))
         layout.addWidget(CharMap(self))
+        layout.addWidget(DocumentList(self))
         layout.addStretch(1)
             
 
@@ -202,5 +203,31 @@ class CharMap(preferences.Group):
         s.beginGroup("charmaptool")
         s.setValue("fontfamily", self.fontChooser.currentFont().family())
         s.setValue("fontsize", self.fontSize.value())
+
+
+class DocumentList(preferences.Group):
+    def __init__(self, page):
+        super(DocumentList, self).__init__(page)
+        
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+        self.groupCheck = QCheckBox(toggled=self.changed)
+        layout.addWidget(self.groupCheck)
+        app.translateUI(self)
+        
+    def translateUI(self):
+        self.setTitle(_("Documents"))
+        self.groupCheck.setText(_("Group documents by directory"))
+    
+    def loadSettings(self):
+        s = QSettings()
+        s.beginGroup("document_list")
+        self.groupCheck.setChecked(s.value("group_by_folder", False)
+            in (True, "true"))
+
+    def saveSettings(self):
+        s = QSettings()
+        s.beginGroup("document_list")
+        s.setValue("group_by_folder", self.groupCheck.isChecked())
 
 
