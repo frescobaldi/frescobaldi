@@ -23,18 +23,39 @@ The documents list tool widget.
 
 from __future__ import unicode_literals
 
+import os
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import util
 import icons
 import jobmanager
+
+
+def path(url):
+    """Returns the path, as a string, of the url to group documents.
+    
+    Returns None if the document is nameless.
+    
+    """
+    if url.isEmpty():
+        return None
+    elif url.toLocalFile():
+        return util.homify(os.path.dirname(url.toLocalFile()))
+    else:
+        return url.resolved(QUrl('.')).toString(QUrl.RemoveUserInfo)
 
 
 class Widget(QTreeWidget):
     def __init__(self, tool):
         super(Widget, self).__init__(tool, headerHidden=True)
+        self._paths = {}
+        self._items = {}
         
+        self.readSettings()
+        app.settingsChanged.connect(self.readSettingsAgain)
         app.documentCreated.connect(self.addDocument)
         app.documentClosed.connect(self.removeDocument)
         app.documentLoaded.connect(self.setDocumentStatus)
@@ -44,9 +65,8 @@ class Widget(QTreeWidget):
         app.jobFinished.connect(self.setDocumentStatus)
        
         tool.mainwindow().currentDocumentChanged.connect(self.selectDocument)
-
+        
         # add all existing docs to the list
-        self._items = {}
         for d in app.documents:
             self.addDocument(d)
         doc = tool.mainwindow().currentDocument()
@@ -54,6 +74,13 @@ class Widget(QTreeWidget):
             self.selectDocument(doc)
         self.currentItemChanged.connect(self.slotItemActivated)
 	
+    def readSettings(self):
+        self._group = QSettings().value(
+            "document_list/group_by_folder", False) in (True, "true")
+    
+    def readSettingsAgain(self):
+        self.readSettings()
+        
     def addDocument(self, doc):
         self._items[doc] = QTreeWidgetItem(self)
         self.setDocumentStatus(doc)
@@ -77,8 +104,7 @@ class Widget(QTreeWidget):
         else:
             icon = 'text-plain'
         i.setIcon(0, icons.get(icon))
-        if not doc.url().isEmpty():
-            i.setToolTip(0, doc.url().toString(QUrl.RemoveUserInfo))
+        i.setToolTip(0, path(doc.url()))
         self.sortItems(0, Qt.AscendingOrder)
     
     def slotItemActivated(self, item):
