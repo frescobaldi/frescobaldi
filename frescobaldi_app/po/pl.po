@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.1\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-15 14:04+0100\n"
+"POT-Creation-Date: 2011-12-16 20:18+0100\n"
 "PO-Revision-Date: 2010-12-23 10:52+0100\n"
 "Last-Translator: Piotr Komorowski <piotr-komorowski@wp.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -305,7 +305,8 @@ msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr ""
 "Proszę wybrać nazwę dla zmniennej przyporządkowanej do wybranego tekstu:"
 
-#: frescobaldi_app/document.py:143 frescobaldi_app/snippet/edit.py:163
+#: frescobaldi_app/document.py:143 frescobaldi_app/doclist/widget.py:126
+#: frescobaldi_app/snippet/edit.py:163
 msgid "Untitled"
 msgstr "Bez tytułu"
 
@@ -1062,7 +1063,7 @@ msgid "Show C&ompletions Popup"
 msgstr ""
 
 #: frescobaldi_app/charmap/__init__.py:40
-#: frescobaldi_app/preferences/tools.py:185
+#: frescobaldi_app/preferences/tools.py:186
 #, fuzzy
 msgid "Special Characters"
 msgstr "Znaki specjalne..."
@@ -1128,6 +1129,17 @@ msgstr ""
 #, fuzzy
 msgid "LilyPond Source"
 msgstr "LilyPond Log"
+
+#: frescobaldi_app/doclist/__init__.py:39
+#: frescobaldi_app/preferences/tools.py:219
+#, fuzzy
+msgid "Documents"
+msgstr "&Dokument "
+
+#: frescobaldi_app/doclist/__init__.py:40
+#, fuzzy
+msgid "Docum&ents"
+msgstr "&Dokument "
 
 #: frescobaldi_app/engrave/__init__.py:169
 msgid "&Always Engrave [{docname}]"
@@ -1754,7 +1766,7 @@ msgid "(no key defined)"
 msgstr ""
 
 #: frescobaldi_app/logtool/__init__.py:50
-#: frescobaldi_app/preferences/tools.py:79
+#: frescobaldi_app/preferences/tools.py:80
 msgid "LilyPond Log"
 msgstr "LilyPond Log"
 
@@ -2448,8 +2460,8 @@ msgid "Use this scheme for printing"
 msgstr ""
 
 #: frescobaldi_app/preferences/fontscolors.py:122
-#: frescobaldi_app/preferences/tools.py:80
-#: frescobaldi_app/preferences/tools.py:186
+#: frescobaldi_app/preferences/tools.py:81
+#: frescobaldi_app/preferences/tools.py:187
 msgid "Font:"
 msgstr ""
 
@@ -3093,48 +3105,53 @@ msgstr[2] "Usuń laseczki z nut perkusyjnych"
 msgid "(default)"
 msgstr "domyślny"
 
-#: frescobaldi_app/preferences/tools.py:81
+#: frescobaldi_app/preferences/tools.py:82
 msgid "Show log when a job is started"
 msgstr ""
 
-#: frescobaldi_app/preferences/tools.py:82
+#: frescobaldi_app/preferences/tools.py:83
 msgid "Display plain log output"
 msgstr ""
 
-#: frescobaldi_app/preferences/tools.py:84
+#: frescobaldi_app/preferences/tools.py:85
 msgid "If checked, Frescobaldi will not shorten filenames in the log output."
 msgstr ""
 
-#: frescobaldi_app/preferences/tools.py:140
+#: frescobaldi_app/preferences/tools.py:141
 msgid "Music View"
 msgstr ""
 
-#: frescobaldi_app/preferences/tools.py:141
+#: frescobaldi_app/preferences/tools.py:142
 #, fuzzy
 msgid "Magnifier Size:"
 msgstr "Rozmiar papieru:"
 
-#: frescobaldi_app/preferences/tools.py:143
+#: frescobaldi_app/preferences/tools.py:144
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr ""
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: frescobaldi_app/preferences/tools.py:145
+#: frescobaldi_app/preferences/tools.py:146
 msgid " pixels"
 msgstr ""
 
-#: frescobaldi_app/preferences/tools.py:146
+#: frescobaldi_app/preferences/tools.py:147
 msgid "Magnifier Scale:"
 msgstr ""
 
-#: frescobaldi_app/preferences/tools.py:148
+#: frescobaldi_app/preferences/tools.py:149
 msgid "Magnification of the magnifier."
 msgstr ""
 
-#: frescobaldi_app/preferences/tools.py:149
+#: frescobaldi_app/preferences/tools.py:150
 msgctxt "percent unit sign"
 msgid "%"
 msgstr ""
+
+#: frescobaldi_app/preferences/tools.py:220
+#, fuzzy
+msgid "Group documents by directory"
+msgstr "Otwórz obecny folder"
 
 #: frescobaldi_app/quickinsert/__init__.py:47
 #: frescobaldi_app/quickinsert/__init__.py:70
