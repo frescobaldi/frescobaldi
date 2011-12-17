@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2011-12-17 14:14+0100\n"
-"PO-Revision-Date: 2011-12-17 14:15+0100\n"
+"PO-Revision-Date: 2011-12-17 14:18+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -1223,7 +1223,7 @@ msgstr "PNG (EPS-backend)"
 
 #: frescobaldi_app/engrave/result_menu.py:44
 msgid "Generated &Files"
-msgstr "Aangemaakte &bestanden"
+msgstr "Aange&maakte bestanden"
 
 #: frescobaldi_app/engrave/result_menu.py:53
 msgid "No files available"
