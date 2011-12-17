@@ -140,11 +140,27 @@ class Widget(QTreeWidget):
             self.takeTopLevelItem(self.indexOfTopLevelItem(i))
         new_parent.addChild(i)
         new_parent.sortChildren(0, Qt.AscendingOrder)
-        
-    def slotItemActivated(self, item):
+    
+    def document(self, item):
+        """Returns the document for item."""
         for d, i in self._items.items():
             if i == item:
-                self.parentWidget().mainwindow().setCurrentDocument(d)
-                break
+                return d
+        
+    def slotItemActivated(self, item):
+        doc = self.document(item)
+        if doc:
+            self.parentWidget().mainwindow().setCurrentDocument(doc)
+    
+    def contextMenuEvent(self, ev):
+        item = self.itemAt(ev.pos())
+        if item:
+            doc = self.document(item)
+            if doc:
+                import documentcontextmenu
+                mainwindow = self.parentWidget().mainwindow()
+                menu = documentcontextmenu.DocumentContextMenu(mainwindow)
+                menu.exec_(doc, ev.globalPos())
+                menu.deleteLater()
 
 
