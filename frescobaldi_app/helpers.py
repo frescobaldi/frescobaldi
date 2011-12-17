@@ -57,14 +57,14 @@ def openUrl(url, type="browser"):
     if url.scheme() == "mailto":
         type = "email"
     elif type == "browser" and url.toLocalFile():
-        ext = os.path.splitext(url.toLocalFile())[1]
+        ext = os.path.splitext(url.toLocalFile())[1].lower()
         if os.path.isdir(url.toLocalFile()):
             type = "directory"
-        elif ext in ('.pdf', '.PDF'):
+        elif ext == '.pdf':
             type = "pdf"
-        elif ext in ('.png', '.PNG', '.jpg', '.JPG', '.jpeg'):
+        elif ext in ('.png', '.jpg', '.jpeg'):
             type = "image"
-        elif ext in ('.midi', '.mid', '.MIDI', '.MID'):
+        elif ext in ('.midi', '.mid'):
             type = "midi"
     
     # get the command

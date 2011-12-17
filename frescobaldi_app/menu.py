@@ -37,7 +37,7 @@ import pitch
 import rhythm
 import lyrics
 import panels
-import engrave
+import engrave.result_menu
 import snippet.menu
 import scorewiz
 import autocomplete
@@ -195,7 +195,13 @@ def menu_lilypond(mainwindow):
     m.addAction(ac.engrave_publish)
     m.addAction(ac.engrave_custom)
     m.addAction(ac.engrave_abort)
+    m.addSeparator()
+    m.addMenu(menu_lilypond_generated_files(mainwindow))
     return m
+
+
+def menu_lilypond_generated_files(mainwindow):
+    return engrave.result_menu.Menu(mainwindow)
 
 
 def menu_tools(mainwindow):
