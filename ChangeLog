@@ -8,9 +8,11 @@ Changes in 1.9.5 --
 * Bug fixes:
   - charmap now avoids characters "narrow" builds of Python can't handle
   - fix incorrect midi tempo when midi file contains tempo changes
+  - really honor 'delete intermediate files' option
 * New features:
   - Documents list with optional per-directory grouping
   - helper applications can be specified to override operating system defaults
+  - list of generated files in LilyPond menu
 * Improvements:
   - search bar in documentation browser
   - autocomplete on \include, \language

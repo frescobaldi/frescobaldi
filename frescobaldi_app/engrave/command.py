@@ -47,8 +47,12 @@ def defaultJob(document, preview):
     i = info(document)
     j = job.Job()
     
-    # TEMP!!!
     command = [i.command]
+    if (QSettings().value("lilypond_settings/delete_intermediate_files", True)
+        not in (False, "false")):
+        command.append('-ddelete-intermediate-files')
+    else:
+        command.append('-dno-delete-intermediate-files')
     command.append('-dpoint-and-click' if preview else '-dno-point-and-click')
     command.append('--pdf')
     command.extend('-I' + path for path in includepath)
