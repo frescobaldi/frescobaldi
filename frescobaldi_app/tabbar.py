@@ -23,14 +23,13 @@ The tab bar with the documents.
 
 from __future__ import unicode_literals
 
-import weakref
-
 from PyQt4.QtCore import Qt, QUrl, pyqtSignal
 from PyQt4.QtGui import QMenu, QTabBar
 
 import app
 import icons
 import document
+import documentcontextmenu
 import jobmanager
 
 
@@ -144,47 +143,9 @@ class TabBar(QTabBar):
         try:
             return self._contextMenu
         except AttributeError:
-            self._contextMenu = TabContextMenu(self)
+            import documentcontextmenu
+            self._contextMenu = documentcontextmenu.DocumentContextMenu(
+                self.window())
         return self._contextMenu
-
-
-class TabContextMenu(QMenu):
-    def __init__(self, parent):
-        super(TabContextMenu, self).__init__(parent)
-        self._doc = lambda: None
-        self.doc_save = self.addAction(icons.get('document-save'), '')
-        self.doc_save_as = self.addAction(icons.get('document-save-as'), '')
-        self.addSeparator()
-        self.doc_close = self.addAction(icons.get('document-close'), '')
-        
-        self.doc_save.triggered.connect(self.docSave)
-        self.doc_save_as.triggered.connect(self.docSaveAs)
-        self.doc_close.triggered.connect(self.docClose)
-        app.languageChanged.connect(self.translateUI)
-        self.translateUI()
-    
-    def translateUI(self):
-        self.doc_save.setText(_("&Save"))
-        self.doc_save_as.setText(_("Save &As..."))
-        self.doc_close.setText(_("&Close"))
-        
-    def exec_(self, document, pos):
-        self._doc = weakref.ref(document)
-        super(TabContextMenu, self).exec_(pos)
-    
-    def docSave(self):
-        doc = self._doc()
-        if doc:
-            self.parent().window().saveDocument(doc)
-    
-    def docSaveAs(self):
-        doc = self._doc()
-        if doc:
-            self.parent().window().saveDocumentAs(doc)
-    
-    def docClose(self):
-        doc = self._doc()
-        if doc:
-            self.parent().window().closeDocument(doc)
 
 
