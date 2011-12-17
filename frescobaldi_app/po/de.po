@@ -6,14 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.1.7\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-16 20:18+0100\n"
+"POT-Creation-Date: 2011-12-17 14:14+0100\n"
 "PO-Revision-Date: 2010-12-12 12:34+0100\n"
 "Last-Translator: Georg Hennig <georg.hennig@web.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
 "#-#-#-#-#  de.po (frescobaldi 1.1.7)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 1.1\n"
@@ -342,6 +342,21 @@ msgstr "Fermate"
 #, fuzzy
 msgid "&Update with convert-ly..."
 msgstr "Mittels convert-ly aktualisieren"
+
+#: frescobaldi_app/documentcontextmenu.py:55 frescobaldi_app/mainwindow.py:915
+#: frescobaldi_app/sessions/manager.py:128
+#, fuzzy
+msgid "&Save"
+msgstr "Speichern"
+
+#: frescobaldi_app/documentcontextmenu.py:56 frescobaldi_app/mainwindow.py:916
+#, fuzzy
+msgid "Save &As..."
+msgstr "Speichere PDF unter..."
+
+#: frescobaldi_app/documentcontextmenu.py:57 frescobaldi_app/mainwindow.py:920
+msgid "&Close"
+msgstr ""
 
 #: frescobaldi_app/documentmenu.py:42
 #, fuzzy
@@ -681,17 +696,6 @@ msgstr ""
 msgid "Open Current Directory"
 msgstr "Öffne aktuellen Ordner"
 
-#: frescobaldi_app/mainwindow.py:915 frescobaldi_app/tabbar.py:167
-#: frescobaldi_app/sessions/manager.py:128
-#, fuzzy
-msgid "&Save"
-msgstr "Speichern"
-
-#: frescobaldi_app/mainwindow.py:916 frescobaldi_app/tabbar.py:168
-#, fuzzy
-msgid "Save &As..."
-msgstr "Speichere PDF unter..."
-
 #: frescobaldi_app/mainwindow.py:917
 msgid "Save Copy or Selection As..."
 msgstr ""
@@ -704,10 +708,6 @@ msgstr "Speichern"
 #: frescobaldi_app/mainwindow.py:919
 msgid "Print Source..."
 msgstr "Quelltext drucken..."
-
-#: frescobaldi_app/mainwindow.py:920 frescobaldi_app/tabbar.py:169
-msgid "&Close"
-msgstr ""
 
 #: frescobaldi_app/mainwindow.py:921
 msgid "Close Other Documents"
@@ -880,36 +880,36 @@ msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: frescobaldi_app/menu.py:202
+#: frescobaldi_app/menu.py:208
 #, fuzzy
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "Werkzeugansich&t"
 
-#: frescobaldi_app/menu.py:227
+#: frescobaldi_app/menu.py:233
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Text"
 
-#: frescobaldi_app/menu.py:239
+#: frescobaldi_app/menu.py:245
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "Ton&lage"
 
-#: frescobaldi_app/menu.py:253
+#: frescobaldi_app/menu.py:259
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Rhythmus"
 
-#: frescobaldi_app/menu.py:281
+#: frescobaldi_app/menu.py:287
 msgctxt "menu title"
 msgid "&Window"
 msgstr ""
 
-#: frescobaldi_app/menu.py:301
+#: frescobaldi_app/menu.py:307
 msgctxt "menu title"
 msgid "&Help"
 msgstr ""
@@ -1272,6 +1272,16 @@ msgstr ""
 #: frescobaldi_app/engrave/custom.py:269
 msgid "PNG (EPS Backend)"
 msgstr ""
+
+#: frescobaldi_app/engrave/result_menu.py:44
+#, fuzzy
+msgid "Generated &Files"
+msgstr "Erzeu&gte Dateien"
+
+#: frescobaldi_app/engrave/result_menu.py:53
+#, fuzzy
+msgid "No files available"
+msgstr "Nicht verfügbar"
 
 #: frescobaldi_app/help/browser.py:75
 msgid "Toolbar"
@@ -2427,9 +2437,9 @@ msgstr ""
 #: frescobaldi_app/preferences/documentation.py:68
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the \"{documentation}"
-"\" directory lives, or the whole \"share/doc/lilypond/html/offline-root\" "
-"path.</p>\n"
+"A local path should point to the directory where either the "
+"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
+"offline-root\" path.</p>\n"
 "<p>If those can't be found, documentation is looked for in all "
 "subdirectories of the given path, one level deep. This makes it possible to "
 "put multiple versions of LilyPond documentation in different subdirectories "
@@ -6131,8 +6141,8 @@ msgstr "Alle auswählen"
 #~ "\n"
 #~ "%2"
 #~ msgstr ""
-#~ "Der unten stehende Befehl wurde ausgeführt, wurde aber mit Rückgabewert %"
-#~ "1 beendet.\n"
+#~ "Der unten stehende Befehl wurde ausgeführt, wurde aber mit Rückgabewert "
+#~ "%1 beendet.\n"
 #~ "\n"
 #~ "%2"
 
@@ -6442,9 +6452,6 @@ msgstr "Alle auswählen"
 
 #~ msgid "Loading..."
 #~ msgstr "Lade..."
-
-#~ msgid "Not available"
-#~ msgstr "Nicht verfügbar"
 
 #~ msgid "LilyPond Command Index"
 #~ msgstr "LilyPond-Befehlsindex"
@@ -7177,9 +7184,6 @@ msgstr "Alle auswählen"
 
 #~ msgid "The direction to use for the articulations."
 #~ msgstr "Die Richtung für die Artikulationszeichen."
-
-#~ msgid "&Generated Files"
-#~ msgstr "Erzeu&gte Dateien"
 
 #~ msgid "Your document has been modified, please save first."
 #~ msgstr "Ihr Dokument wurde verändert, bitte speichern Sie es zuerst ab."

@@ -6,14 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-16 20:18+0100\n"
-"PO-Revision-Date: 2011-12-16 20:19+0100\n"
+"POT-Creation-Date: 2011-12-17 14:14+0100\n"
+"PO-Revision-Date: 2011-12-17 14:15+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 1.1\n"
 
@@ -309,6 +309,19 @@ msgstr "&Formatteren"
 #: frescobaldi_app/documentactions.py:130
 msgid "&Update with convert-ly..."
 msgstr "&Bijwerken met convert-ly..."
+
+#: frescobaldi_app/documentcontextmenu.py:55 frescobaldi_app/mainwindow.py:915
+#: frescobaldi_app/sessions/manager.py:128
+msgid "&Save"
+msgstr "Op&slaan"
+
+#: frescobaldi_app/documentcontextmenu.py:56 frescobaldi_app/mainwindow.py:916
+msgid "Save &As..."
+msgstr "Opslaan &als..."
+
+#: frescobaldi_app/documentcontextmenu.py:57 frescobaldi_app/mainwindow.py:920
+msgid "&Close"
+msgstr "&Sluiten"
 
 #: frescobaldi_app/documentmenu.py:42
 msgctxt "menu title"
@@ -677,15 +690,6 @@ msgstr "&Invoegen uit bestand..."
 msgid "Open Current Directory"
 msgstr "Huidige map openen"
 
-#: frescobaldi_app/mainwindow.py:915 frescobaldi_app/tabbar.py:167
-#: frescobaldi_app/sessions/manager.py:128
-msgid "&Save"
-msgstr "Op&slaan"
-
-#: frescobaldi_app/mainwindow.py:916 frescobaldi_app/tabbar.py:168
-msgid "Save &As..."
-msgstr "Opslaan &als..."
-
 #: frescobaldi_app/mainwindow.py:917
 msgid "Save Copy or Selection As..."
 msgstr "Kopie of selectie opslaan als..."
@@ -697,10 +701,6 @@ msgstr "Alles opslaan"
 #: frescobaldi_app/mainwindow.py:919
 msgid "Print Source..."
 msgstr "Brontekst afdrukken..."
-
-#: frescobaldi_app/mainwindow.py:920 frescobaldi_app/tabbar.py:169
-msgid "&Close"
-msgstr "&Sluiten"
 
 #: frescobaldi_app/mainwindow.py:921
 msgid "Close Other Documents"
@@ -856,32 +856,32 @@ msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: frescobaldi_app/menu.py:202
+#: frescobaldi_app/menu.py:208
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Gereedschap"
 
-#: frescobaldi_app/menu.py:227
+#: frescobaldi_app/menu.py:233
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Liedteksten"
 
-#: frescobaldi_app/menu.py:239
+#: frescobaldi_app/menu.py:245
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Toonhoogte"
 
-#: frescobaldi_app/menu.py:253
+#: frescobaldi_app/menu.py:259
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritme"
 
-#: frescobaldi_app/menu.py:281
+#: frescobaldi_app/menu.py:287
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Venster"
 
-#: frescobaldi_app/menu.py:301
+#: frescobaldi_app/menu.py:307
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Help"
@@ -1220,6 +1220,14 @@ msgstr "Encapsulated PostScript (EPS-backend)"
 #: frescobaldi_app/engrave/custom.py:269
 msgid "PNG (EPS Backend)"
 msgstr "PNG (EPS-backend)"
+
+#: frescobaldi_app/engrave/result_menu.py:44
+msgid "Generated &Files"
+msgstr "Aangemaakte &bestanden"
+
+#: frescobaldi_app/engrave/result_menu.py:53
+msgid "No files available"
+msgstr "Geen bestanden beschikbaar"
 
 #: frescobaldi_app/help/browser.py:75
 msgid "Toolbar"
@@ -2623,9 +2631,9 @@ msgstr "Voeg paden of URLs toe. Zie \"Wat is dit\" voor meer informatie."
 #: frescobaldi_app/preferences/documentation.py:68
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the \"{documentation}"
-"\" directory lives, or the whole \"share/doc/lilypond/html/offline-root\" "
-"path.</p>\n"
+"A local path should point to the directory where either the "
+"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
+"offline-root\" path.</p>\n"
 "<p>If those can't be found, documentation is looked for in all "
 "subdirectories of the given path, one level deep. This makes it possible to "
 "put multiple versions of LilyPond documentation in different subdirectories "
@@ -7006,9 +7014,6 @@ msgstr "Selecteer een bestand"
 #~ msgid "Loading..."
 #~ msgstr "Laden..."
 
-#~ msgid "Not available"
-#~ msgstr "Niet beschikbaar"
-
 #~ msgid "LilyPond Command Index"
 #~ msgstr "LilyPond Commando-index"
 
@@ -7883,9 +7888,6 @@ msgstr "Selecteer een bestand"
 
 #~ msgid "The direction to use for the articulations."
 #~ msgstr "Plaatsing van de articulaties: onder of boven de balk of neutraal."
-
-#~ msgid "&Generated Files"
-#~ msgstr "&Aangemaakte bestanden"
 
 #~ msgid "Your document has been modified, please save first."
 #~ msgstr "Uw document is gewijzigd, gelieve het eerst op te slaan."

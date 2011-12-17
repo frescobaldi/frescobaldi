@@ -9,14 +9,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-16 20:18+0100\n"
+"POT-Creation-Date: 2011-12-17 14:14+0100\n"
 "PO-Revision-Date: 2011-02-16 01:00+0100\n"
 "Last-Translator: Gianluca D'Orazio <gianluca.dorazio@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: it\n"
 "#-#-#-#-#  it.po (it)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 1.2\n"
@@ -342,6 +342,21 @@ msgstr "Corona"
 #, fuzzy
 msgid "&Update with convert-ly..."
 msgstr "Aggiorna con convert-ly"
+
+#: frescobaldi_app/documentcontextmenu.py:55 frescobaldi_app/mainwindow.py:915
+#: frescobaldi_app/sessions/manager.py:128
+#, fuzzy
+msgid "&Save"
+msgstr "Salva"
+
+#: frescobaldi_app/documentcontextmenu.py:56 frescobaldi_app/mainwindow.py:916
+#, fuzzy
+msgid "Save &As..."
+msgstr "Salva il PDF come..."
+
+#: frescobaldi_app/documentcontextmenu.py:57 frescobaldi_app/mainwindow.py:920
+msgid "&Close"
+msgstr ""
 
 #: frescobaldi_app/documentmenu.py:42
 #, fuzzy
@@ -679,17 +694,6 @@ msgstr ""
 msgid "Open Current Directory"
 msgstr "Apri la cartella attuale"
 
-#: frescobaldi_app/mainwindow.py:915 frescobaldi_app/tabbar.py:167
-#: frescobaldi_app/sessions/manager.py:128
-#, fuzzy
-msgid "&Save"
-msgstr "Salva"
-
-#: frescobaldi_app/mainwindow.py:916 frescobaldi_app/tabbar.py:168
-#, fuzzy
-msgid "Save &As..."
-msgstr "Salva il PDF come..."
-
 #: frescobaldi_app/mainwindow.py:917
 msgid "Save Copy or Selection As..."
 msgstr ""
@@ -702,10 +706,6 @@ msgstr "Salva"
 #: frescobaldi_app/mainwindow.py:919
 msgid "Print Source..."
 msgstr "Stampa documento sorgente..."
-
-#: frescobaldi_app/mainwindow.py:920 frescobaldi_app/tabbar.py:169
-msgid "&Close"
-msgstr ""
 
 #: frescobaldi_app/mainwindow.py:921
 msgid "Close Other Documents"
@@ -878,36 +878,36 @@ msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: frescobaldi_app/menu.py:202
+#: frescobaldi_app/menu.py:208
 #, fuzzy
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Finestre degli strumenti"
 
-#: frescobaldi_app/menu.py:227
+#: frescobaldi_app/menu.py:233
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Parole"
 
-#: frescobaldi_app/menu.py:239
+#: frescobaldi_app/menu.py:245
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Note"
 
-#: frescobaldi_app/menu.py:253
+#: frescobaldi_app/menu.py:259
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritmo"
 
-#: frescobaldi_app/menu.py:281
+#: frescobaldi_app/menu.py:287
 msgctxt "menu title"
 msgid "&Window"
 msgstr ""
 
-#: frescobaldi_app/menu.py:301
+#: frescobaldi_app/menu.py:307
 msgctxt "menu title"
 msgid "&Help"
 msgstr ""
@@ -1270,6 +1270,16 @@ msgstr ""
 #: frescobaldi_app/engrave/custom.py:269
 msgid "PNG (EPS Backend)"
 msgstr ""
+
+#: frescobaldi_app/engrave/result_menu.py:44
+#, fuzzy
+msgid "Generated &Files"
+msgstr "&File generati"
+
+#: frescobaldi_app/engrave/result_menu.py:53
+#, fuzzy
+msgid "No files available"
+msgstr "Non disponibile"
 
 #: frescobaldi_app/help/browser.py:75
 msgid "Toolbar"
@@ -2423,9 +2433,9 @@ msgstr ""
 #: frescobaldi_app/preferences/documentation.py:68
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the \"{documentation}"
-"\" directory lives, or the whole \"share/doc/lilypond/html/offline-root\" "
-"path.</p>\n"
+"A local path should point to the directory where either the "
+"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
+"offline-root\" path.</p>\n"
 "<p>If those can't be found, documentation is looked for in all "
 "subdirectories of the given path, one level deep. This makes it possible to "
 "put multiple versions of LilyPond documentation in different subdirectories "
@@ -6431,9 +6441,6 @@ msgstr "Seleziona tutto"
 #~ msgid "Loading..."
 #~ msgstr "Caricamento..."
 
-#~ msgid "Not available"
-#~ msgstr "Non disponibile"
-
 #~ msgid "LilyPond Command Index"
 #~ msgstr "Indice dei comandi LilyPond"
 
@@ -7156,9 +7163,6 @@ msgstr "Seleziona tutto"
 
 #~ msgid "The direction to use for the articulations."
 #~ msgstr "La posizione dei segni rispetto al rigo."
-
-#~ msgid "&Generated Files"
-#~ msgstr "&File generati"
 
 #~ msgid "Your document has been modified, please save first."
 #~ msgstr "Il documento è stato modificato, salvare prima."

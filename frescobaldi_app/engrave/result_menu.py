@@ -30,6 +30,7 @@ from PyQt4.QtGui import QMenu
 
 import app
 import icons
+import util
 
 
 class Menu(QMenu):
@@ -80,6 +81,7 @@ class Menu(QMenu):
                         a = self.addAction(name)
                         a.setIcon(icons.file_type(f))
                         a.filename = f
+            util.addAccelerators(self.actions())
     
     def actionTriggered(self, action):
         import helpers
