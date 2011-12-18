@@ -4,7 +4,7 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 
 Changes in 1.9.5 -- 
 
-* Updated translations: es, nl
+* Updated translations: es, nl, cs
 * Bug fixes:
   - charmap now avoids characters "narrow" builds of Python can't handle
   - fix incorrect midi tempo when midi file contains tempo changes
