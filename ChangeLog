@@ -8,6 +8,7 @@ Changes in 1.9.5 --
 * Bug fixes:
   - charmap now avoids characters "narrow" builds of Python can't handle
   - fix incorrect midi tempo when midi file contains tempo changes
+  - fix importing the pyportmidi._pyportmidi module if that is used
   - really honor 'delete intermediate files' option
 * New features:
   - Documents list with optional per-directory grouping

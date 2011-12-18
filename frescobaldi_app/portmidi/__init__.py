@@ -277,15 +277,29 @@ def _setup():
             pypm = False
     return bool(pypm)
 
+def _load_module(name):
+    """Loads and returns a single module.
+    
+    The name may be dotted, but no parent modules are imported.
+    Raises ImportError when the module can't be found.
+    
+    """
+    import imp
+    path = None
+    for n in name.split('.'):
+        file_handle, path, desc = imp.find_module(n, path and [path])
+    return imp.load_module(n, file_handle, path, desc)
 
-# theses functions try to import PortMIDI, returning the module
+
+# these functions try to import PortMIDI, returning the module
 def _do_import_pypm():
     """Tries to import pypm (the c binding module) directly.
     
     Newer Ubuntu releases provide a python-pypm package with this module.
     
     """
-    return __import__('pypm')
+    import pypm
+    return pypm
 
 def _do_import_pyportmidi():
     """This tries to import the c Python module from the PortMIDI distribution.
@@ -293,20 +307,13 @@ def _do_import_pyportmidi():
     Unfortunately not many Linux distros also install the Python binding.
     
     """
-    return __import__('pyportmidi._pyportmidi')
+    return _load_module('pyportmidi._pyportmidi')
 
 def _do_import_pygame():
-    """This tries to import the pypm module from the pygame package.
-    
-    We don't use 'from pygame import pypm' as that also imports a large
-    part of pygame which we probably don't use.
-    
-    """
-    import imp
-    # raises ImportError when not found
-    pygame_path = imp.find_module('pygame')[1]
-    file_handle, path, description = imp.find_module('pypm', [pygame_path])
-    return imp.load_module('pypm', file_handle, path, description)
+    """This tries to import the pypm module from the pygame package."""
+    # We don't use 'from pygame import pypm' as that also imports a large
+    # part of pygame which we probably don't use.
+    return _load_module('pygame.pypm')
 
 def _do_import_ctypes():
     """This tries to load PortMIDI via ctypes."""
