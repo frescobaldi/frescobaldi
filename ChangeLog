@@ -89,4 +89,5 @@ Changes in 1.9.1 -- October 11th, 2011
 Changes in 1.9.0 -- September 27th, 2011
 
 * Full rewrite, not depending on KDE4 libraries any more
+* Much more modular internal design, easier to add features
 * All translations imported
