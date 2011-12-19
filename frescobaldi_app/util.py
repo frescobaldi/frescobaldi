@@ -19,6 +19,9 @@
 
 """
 Some utility functions.
+
+The functions that are directly Qt-related use camelCaps,
+but the other utility functions use the python_convention.
 """
 
 from __future__ import unicode_literals
@@ -62,7 +65,7 @@ def homify(path):
     return path
 
 
-def files(basenames, extension = '*'):
+def files(basenames, extension = '.*'):
     """Yields filenames with the given basenames matching the given extension."""
     def source():
         for name in basenames:
@@ -70,6 +73,36 @@ def files(basenames, extension = '*'):
             yield glob.iglob(name + extension)
             yield sorted(glob.iglob(name + '-*[0-9]' + extension), key=naturalsort)
     return itertools.chain.from_iterable(source())
+
+
+def group_files(names, groups):
+    """Groups the given filenames by extension.
+    
+    names: an iterable (or list or tuple) yielding filenames.
+    groups: an iterable (or list or tuple) yielding strings.
+    
+    Each group is a string containing one or more extensions, without period,
+    separated by a space. If a filename has one of the extensions in the group,
+    the names is added to the list of file for that group.
+    An exclamation sign at the beginning of the string negates the match.
+    
+    Yields the same number of lists as there were group arguments.
+    
+    """
+    allgroups = []
+    for group in groups:
+        if group.startswith('!'):
+            pred = lambda e, ext=group[1:].split(): e not in ext
+        else:
+            pred = lambda e, ext=group.split(): e in ext
+        allgroups.append(([], pred))
+    for name in names:
+        ext = os.path.splitext(name)[1][1:].lower()
+        for files, pred in allgroups:
+            if pred(ext):
+                files.append(name)
+                break
+    return (files for files, pred in allgroups)
 
 
 @contextlib.contextmanager

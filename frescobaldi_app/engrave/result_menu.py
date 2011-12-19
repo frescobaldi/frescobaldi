@@ -49,29 +49,9 @@ class Menu(QMenu):
         if doc:
             import resultfiles
             files = resultfiles.results(doc).files()
-            if not files:
-                a = self.addAction(_("No files available"))
-                a.setEnabled(False)
-                return
-            pdfs = []
-            midis = []
-            svgs = []
-            pngs = []
-            others = []
-            for f in files:
-                ext = os.path.splitext(f)[1].lower()
-                if ext == '.pdf':
-                    pdfs.append(f)
-                elif ext in ('.midi', '.mid'):
-                    midis.append(f)
-                elif ext in ('.svg', '.svgz'):
-                    svgs.append(f)
-                elif ext == '.png':
-                    pngs.append(f)
-                elif ext not in ('.ly', '.lyi', '.ily'):
-                    others.append(f)
             first = True
-            for group in (pdfs, midis, svgs, pngs, others):
+            for group in util.group_files(files,
+                    ('pdf', 'mid midi', 'svg svgz', 'png', '!ly ily lyi')):
                 if group:
                     if not first:
                         self.addSeparator()
@@ -81,7 +61,11 @@ class Menu(QMenu):
                         a = self.addAction(name)
                         a.setIcon(icons.file_type(f))
                         a.filename = f
-            util.addAccelerators(self.actions())
+            if not self.actions():
+                a = self.addAction(_("No files available"))
+                a.setEnabled(False)
+            else:
+                util.addAccelerators(self.actions())
     
     def actionTriggered(self, action):
         import helpers
