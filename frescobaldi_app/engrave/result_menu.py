@@ -37,6 +37,7 @@ class Menu(QMenu):
     def __init__(self, mainwindow):
         super(Menu, self).__init__(mainwindow)
         self.aboutToShow.connect(self.populate)
+        app.jobFinished.connect(self.slotJobFinished)
         self.triggered.connect(self.actionTriggered)
         app.translateUI(self)
     
@@ -70,5 +71,9 @@ class Menu(QMenu):
     def actionTriggered(self, action):
         import helpers
         helpers.openUrl(QUrl.fromLocalFile(action.filename))
+    
+    def slotJobFinished(self, doc):
+        if self.isVisible() and doc == self.parentWidget().currentDocument():
+            self.populate()
 
 
