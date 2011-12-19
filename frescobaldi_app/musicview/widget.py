@@ -220,12 +220,17 @@ class MusicView(QWidget):
     def slotLinkHelpRequested(self, pos, page, link):
         """Called when a ToolTip wants to appear above the hovered link."""
         if isinstance(link, popplerqt4.Poppler.LinkBrowse):
-            text = link.url()
             cursor = self._links.cursor(link)
-            m = pointandclick.textedit_match(link.url())
-            if m:
-                filename, line, column = pointandclick.readurl(m)
-                text = "{0}  {1}:{2}".format(os.path.basename(filename), line, column)
+            if cursor:
+                from . import tooltip
+                text = tooltip.text(cursor)
+            else:
+                m = pointandclick.textedit_match(link.url())
+                if m:
+                    filename, line, column = pointandclick.readurl(m)
+                    text = "{0} ({1}:{2})".format(os.path.basename(filename), line, column)
+                else:
+                    text = link.url()
             QToolTip.showText(pos, text, self.view.surface(), page.linkRect(link.linkArea()))
 
     def slotCurrentViewChanged(self, view, old=None):

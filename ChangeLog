@@ -15,6 +15,7 @@ Changes in 1.9.5 --
   - helper applications can be specified to override operating system defaults
   - list of generated files in LilyPond menu
 * Improvements:
+  - tooltips in music view show variable name of music definition
   - search bar in documentation browser
   - autocomplete on \include, \language
   - other small cosmetic improvements
