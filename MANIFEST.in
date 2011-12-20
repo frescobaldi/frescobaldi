@@ -7,4 +7,4 @@ recursive-include frescobaldi_app README*
 recursive-include frescobaldi_app *.png *.svg *.ico
 recursive-include frescobaldi_app *.ly *.ily Makefile
 recursive-include frescobaldi_app *.po *.mo
-exclude *~
+global-exclude *~
