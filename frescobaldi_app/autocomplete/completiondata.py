@@ -69,6 +69,8 @@ toplevel = (
     'version',
     'sourcefileline',
     'sourcefilename',
+    'showFirstLength',
+    'showLastLength',
 )
 
 # other commands that can start a music expression

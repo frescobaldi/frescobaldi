@@ -161,8 +161,11 @@ class InfoList(widgets.listedit.ListEdit):
     def openEditor(self, item):
         dlg = self.infoDialog()
         dlg.loadInfo(item._info)
+        was_default = item._info.command == self.parentWidget()._defaultCommand
         if dlg.exec_():
             item._info = dlg.newInfo()
+            if was_default:
+                self.parentWidget()._defaultCommand = item._info.command
             return True
         return False
 
