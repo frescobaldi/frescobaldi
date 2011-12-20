@@ -2,6 +2,12 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
+Changes in 2.0.0 -- December 26th, 2011
+
+* Bug fixes:
+  - when changing LilyPond instance that was default, keep it as default
+
+
 Changes in 1.9.5 -- December 20th, 2011
 
 * Updated translations: es, nl, cs

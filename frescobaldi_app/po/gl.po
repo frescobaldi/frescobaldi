@@ -6,14 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.17\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-20 10:54+0100\n"
+"POT-Creation-Date: 2011-12-20 14:27+0100\n"
 "PO-Revision-Date: 2011-01-03 17:37+0100\n"
 "Last-Translator: Manuel A. Vazquez <xixirei@yahoo.es>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
+"Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: gl\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 1.0\n"
 
@@ -1192,7 +1192,7 @@ msgid "Run LilyPond with verbose output"
 msgstr "Executar LilyPond con saída detallada"
 
 #: frescobaldi_app/engrave/custom.py:125
-#: frescobaldi_app/preferences/lilypond.py:281
+#: frescobaldi_app/preferences/lilypond.py:284
 #, fuzzy
 msgid "Delete intermediate output files"
 msgstr "Permitir a LilyPond eliminar os ficheiros de saída intermedios"
@@ -1375,7 +1375,7 @@ msgstr ""
 
 #: frescobaldi_app/help/contents.py:136
 #: frescobaldi_app/preferences/fontscolors.py:482
-#: frescobaldi_app/preferences/lilypond.py:234
+#: frescobaldi_app/preferences/lilypond.py:237
 #: frescobaldi_app/scorewiz/settings.py:289
 msgid "LilyPond"
 msgstr "LilyPond"
@@ -2428,9 +2428,9 @@ msgstr ""
 #: frescobaldi_app/preferences/documentation.py:68
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the \"{documentation}"
-"\" directory lives, or the whole \"share/doc/lilypond/html/offline-root\" "
-"path.</p>\n"
+"A local path should point to the directory where either the "
+"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
+"offline-root\" path.</p>\n"
 "<p>If those can't be found, documentation is looked for in all "
 "subdirectories of the given path, one level deep. This makes it possible to "
 "put multiple versions of LilyPond documentation in different subdirectories "
@@ -2959,51 +2959,51 @@ msgstr "Seleccionar todo"
 msgid "Set as &Default"
 msgstr "Fixar como predeterminado"
 
-#: frescobaldi_app/preferences/lilypond.py:187
+#: frescobaldi_app/preferences/lilypond.py:190
 msgid "default"
 msgstr "predeterminado"
 
-#: frescobaldi_app/preferences/lilypond.py:235
+#: frescobaldi_app/preferences/lilypond.py:238
 msgid "LilyPond Command:"
 msgstr "Orde de LilyPond:"
 
-#: frescobaldi_app/preferences/lilypond.py:236
+#: frescobaldi_app/preferences/lilypond.py:239
 msgid "Name or full path of the LilyPond program."
 msgstr "O nome ou a ruta completa do aplicativo LilyPond."
 
-#: frescobaldi_app/preferences/lilypond.py:237
+#: frescobaldi_app/preferences/lilypond.py:240
 msgid "Convert-ly:"
 msgstr "Convert-ly:"
 
-#: frescobaldi_app/preferences/lilypond.py:238
+#: frescobaldi_app/preferences/lilypond.py:241
 #, fuzzy
 msgid "LilyPond-book:"
 msgstr "Lilypond-book:"
 
-#: frescobaldi_app/preferences/lilypond.py:239
+#: frescobaldi_app/preferences/lilypond.py:242
 msgid "Include in automatic version selection"
 msgstr "Incluír na selección automática da versión"
 
-#: frescobaldi_app/preferences/lilypond.py:276
+#: frescobaldi_app/preferences/lilypond.py:279
 msgid "Running LilyPond"
 msgstr "Executando LilyPond"
 
-#: frescobaldi_app/preferences/lilypond.py:277
+#: frescobaldi_app/preferences/lilypond.py:280
 msgid "Save document if possible"
 msgstr ""
 
-#: frescobaldi_app/preferences/lilypond.py:279
+#: frescobaldi_app/preferences/lilypond.py:282
 msgid ""
 "If checked, the document is saved when it is local and modified.\n"
 "Otherwise a temporary file is used to run LilyPond."
 msgstr ""
 
-#: frescobaldi_app/preferences/lilypond.py:283
+#: frescobaldi_app/preferences/lilypond.py:286
 #, fuzzy
 msgid "If checked, LilyPond will delete intermediate PostScript files."
 msgstr "Permitir a LilyPond eliminar os ficheiros de saída intermedios"
 
-#: frescobaldi_app/preferences/lilypond.py:284
+#: frescobaldi_app/preferences/lilypond.py:287
 msgid "LilyPond include path:"
 msgstr "Ruta de inclusión para LilyPond:"
 
@@ -6122,8 +6122,8 @@ msgstr "Seleccionar todo"
 #~ "\n"
 #~ "%2"
 #~ msgstr ""
-#~ "Executouse a seguinte orde, pero fallou e devolveu un código de retorno %"
-#~ "1.\n"
+#~ "Executouse a seguinte orde, pero fallou e devolveu un código de retorno "
+#~ "%1.\n"
 #~ "\n"
 #~ "%2"
 

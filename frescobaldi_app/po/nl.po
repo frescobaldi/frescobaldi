@@ -6,14 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-20 10:54+0100\n"
+"POT-Creation-Date: 2011-12-20 14:27+0100\n"
 "PO-Revision-Date: 2011-12-17 14:18+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 1.1\n"
 
@@ -1150,7 +1150,7 @@ msgid "Run LilyPond with verbose output"
 msgstr "LilyPond starten met uitgebreide uitvoerberichten"
 
 #: frescobaldi_app/engrave/custom.py:125
-#: frescobaldi_app/preferences/lilypond.py:281
+#: frescobaldi_app/preferences/lilypond.py:284
 msgid "Delete intermediate output files"
 msgstr "Tussentijdse uitvoerbestanden verwijderen"
 
@@ -1360,7 +1360,7 @@ msgstr "Aan de slag"
 
 #: frescobaldi_app/help/contents.py:136
 #: frescobaldi_app/preferences/fontscolors.py:482
-#: frescobaldi_app/preferences/lilypond.py:234
+#: frescobaldi_app/preferences/lilypond.py:237
 #: frescobaldi_app/scorewiz/settings.py:289
 msgid "LilyPond"
 msgstr "LilyPond"
@@ -2631,9 +2631,9 @@ msgstr "Voeg paden of URLs toe. Zie \"Wat is dit\" voor meer informatie."
 #: frescobaldi_app/preferences/documentation.py:68
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the \"{documentation}"
-"\" directory lives, or the whole \"share/doc/lilypond/html/offline-root\" "
-"path.</p>\n"
+"A local path should point to the directory where either the "
+"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
+"offline-root\" path.</p>\n"
 "<p>If those can't be found, documentation is looked for in all "
 "subdirectories of the given path, one level deep. This makes it possible to "
 "put multiple versions of LilyPond documentation in different subdirectories "
@@ -3147,39 +3147,39 @@ msgstr "Zie ook {link}:"
 msgid "Set as &Default"
 msgstr "Als standaar&d instellen"
 
-#: frescobaldi_app/preferences/lilypond.py:187
+#: frescobaldi_app/preferences/lilypond.py:190
 msgid "default"
 msgstr "standaard"
 
-#: frescobaldi_app/preferences/lilypond.py:235
+#: frescobaldi_app/preferences/lilypond.py:238
 msgid "LilyPond Command:"
 msgstr "LilyPond-commando:"
 
-#: frescobaldi_app/preferences/lilypond.py:236
+#: frescobaldi_app/preferences/lilypond.py:239
 msgid "Name or full path of the LilyPond program."
 msgstr "Naam of pad van het LilyPond programma."
 
-#: frescobaldi_app/preferences/lilypond.py:237
+#: frescobaldi_app/preferences/lilypond.py:240
 msgid "Convert-ly:"
 msgstr "Convert-ly:"
 
-#: frescobaldi_app/preferences/lilypond.py:238
+#: frescobaldi_app/preferences/lilypond.py:241
 msgid "LilyPond-book:"
 msgstr "Lilypond-book:"
 
-#: frescobaldi_app/preferences/lilypond.py:239
+#: frescobaldi_app/preferences/lilypond.py:242
 msgid "Include in automatic version selection"
 msgstr "Meenemen in automatische versie-selectie"
 
-#: frescobaldi_app/preferences/lilypond.py:276
+#: frescobaldi_app/preferences/lilypond.py:279
 msgid "Running LilyPond"
 msgstr "Bij het starten van LilyPond"
 
-#: frescobaldi_app/preferences/lilypond.py:277
+#: frescobaldi_app/preferences/lilypond.py:280
 msgid "Save document if possible"
 msgstr "Document opslaan indien mogelijk"
 
-#: frescobaldi_app/preferences/lilypond.py:279
+#: frescobaldi_app/preferences/lilypond.py:282
 msgid ""
 "If checked, the document is saved when it is local and modified.\n"
 "Otherwise a temporary file is used to run LilyPond."
@@ -3189,13 +3189,13 @@ msgstr ""
 "Indien het document niet wordt opgeslagen, wordt een tijdelijk bestand "
 "gebruikt om LilyPond te starten."
 
-#: frescobaldi_app/preferences/lilypond.py:283
+#: frescobaldi_app/preferences/lilypond.py:286
 msgid "If checked, LilyPond will delete intermediate PostScript files."
 msgstr ""
 "Indien ingeschakeld, zal LilyPond tussentijdse PostScript-uitvoerbestanden "
 "verwijderen."
 
-#: frescobaldi_app/preferences/lilypond.py:284
+#: frescobaldi_app/preferences/lilypond.py:287
 msgid "LilyPond include path:"
 msgstr "LilyPond include-pad:"
 
