@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-17 14:14+0100\n"
+"POT-Creation-Date: 2011-12-20 10:54+0100\n"
 "PO-Revision-Date: 2011-12-18 14:25+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -1229,12 +1229,12 @@ msgstr "Encapsulated PostScript (jádro EPS)"
 msgid "PNG (EPS Backend)"
 msgstr "PNG (jádro EPS)"
 
-#: frescobaldi_app/engrave/result_menu.py:44
+#: frescobaldi_app/engrave/result_menu.py:45
 #, fuzzy
 msgid "Generated &Files"
 msgstr "&Vytvořené soubory"
 
-#: frescobaldi_app/engrave/result_menu.py:53
+#: frescobaldi_app/engrave/result_menu.py:66
 #, fuzzy
 msgid "No files available"
 msgstr "Nedostupné"

@@ -6,14 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.17\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-17 14:14+0100\n"
+"POT-Creation-Date: 2011-12-20 10:54+0100\n"
 "PO-Revision-Date: 2011-01-03 17:37+0100\n"
 "Last-Translator: Manuel A. Vazquez <xixirei@yahoo.es>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
-"Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: gl\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 1.0\n"
 
@@ -1266,12 +1266,12 @@ msgstr ""
 msgid "PNG (EPS Backend)"
 msgstr ""
 
-#: frescobaldi_app/engrave/result_menu.py:44
+#: frescobaldi_app/engrave/result_menu.py:45
 #, fuzzy
 msgid "Generated &Files"
 msgstr "Ficheiros &xerados"
 
-#: frescobaldi_app/engrave/result_menu.py:53
+#: frescobaldi_app/engrave/result_menu.py:66
 #, fuzzy
 msgid "No files available"
 msgstr "Non dispoñible"
@@ -2428,9 +2428,9 @@ msgstr ""
 #: frescobaldi_app/preferences/documentation.py:68
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the "
-"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
-"offline-root\" path.</p>\n"
+"A local path should point to the directory where either the \"{documentation}"
+"\" directory lives, or the whole \"share/doc/lilypond/html/offline-root\" "
+"path.</p>\n"
 "<p>If those can't be found, documentation is looked for in all "
 "subdirectories of the given path, one level deep. This makes it possible to "
 "put multiple versions of LilyPond documentation in different subdirectories "
@@ -6122,8 +6122,8 @@ msgstr "Seleccionar todo"
 #~ "\n"
 #~ "%2"
 #~ msgstr ""
-#~ "Executouse a seguinte orde, pero fallou e devolveu un código de retorno "
-#~ "%1.\n"
+#~ "Executouse a seguinte orde, pero fallou e devolveu un código de retorno %"
+#~ "1.\n"
 #~ "\n"
 #~ "%2"
 
