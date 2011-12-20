@@ -2648,7 +2648,6 @@ msgstr "Réglages MIDI"
 
 #: frescobaldi_app/preferences/__init__.py:192
 #: frescobaldi_app/preferences/helpers.py:80
-#, fuzzy
 msgid "Helper Applications"
 msgstr "Applications auxiliaires"
 
@@ -3116,23 +3115,20 @@ msgid "Image:"
 msgstr ""
 
 #: frescobaldi_app/preferences/helpers.py:74
-#, fuzzy
 msgid "Browser:"
-msgstr "Navigateur d'aide"
+msgstr "Navigateur :"
 
 #: frescobaldi_app/preferences/helpers.py:75
 msgid "E-Mail:"
 msgstr ""
 
 #: frescobaldi_app/preferences/helpers.py:76
-#, fuzzy
 msgid "File Manager:"
-msgstr "Nom de Fichier"
+msgstr "Gestionnaire de fichiers :"
 
 #: frescobaldi_app/preferences/helpers.py:77
-#, fuzzy
 msgid "Shell:"
-msgstr "Profil :"
+msgstr "Ligne de commande :"
 
 #: frescobaldi_app/preferences/helpers.py:82
 msgid ""
@@ -3140,14 +3136,18 @@ msgid ""
 "is replaced with the filename, <code>$u</code> with the URL. Leave a field "
 "empty to use the operating system default application."
 msgstr ""
+"Vous pouvez préciser ci-dessous des commander pour ouvrir différents "
+"types de fichiers. <code>$f</code> est remplacer par le nom du fichier, "
+"<code>$f</code> par l'URL. Laissez le champ vide pour utiliser l'application "
+"par défaut du système."
 
 #: frescobaldi_app/preferences/helpers.py:90
 msgid "Command that should accept a mailto: URL."
-msgstr ""
+msgstr "Commande acceptant une URL mailto:."
 
 #: frescobaldi_app/preferences/helpers.py:92
 msgid "Command to open a Terminal or Command window."
-msgstr ""
+msgstr "Commande pour ouvrir une fenêtre de terminal ou ligne de commande"
 
 #: frescobaldi_app/preferences/lilypond.py:81
 msgid "LilyPond versions to use"
@@ -3180,6 +3180,18 @@ msgid ""
 "<p>If the document specifies a version, the oldest suitable LilyPond version "
 "is chosen. Otherwise, the default version is chosen.</p>\n"
 msgstr ""
+"<p>Si ce réglage est activé, une commande LilyPond \\version<code> "
+"ou une variable de document <code>version</code> est recherchée dans le document.</p>\n"
+"<p>La commande de version LilyPond ressemble à ceci :</p>\n"
+"<pre>\\version \"2.14.0\"</pre>\n"
+"<p>La variable de documentressemble à :</p>\n"
+"<pre>-*- version: 2.14.0;</pre>\n"
+"<p>quelque part (dans une section de commentaires) dans les 5 premièresou dernières lignes "
+"du document. De cette façon, la version de LilyPond à utiliser peut également être spécifiée "
+"dans des documents non-LilyPond comme HTML, LaTeX, etc.</p>\n"
+"<p>Si le document spécifie une version, la plus ancienne version utilisable de LilyPond est "
+"choisie. Sinon, la version par défaut est choisie.</p>\n"
+
 
 #: frescobaldi_app/preferences/lilypond.py:101
 msgid "See also {link}."
@@ -3303,7 +3315,7 @@ msgid ""
 "instruments are reset to the default piano (instrument 0). In that case, "
 "playing the file from the beginning sets up the instruments again.</p>\n"
 msgstr ""
-"<p>i coché, Frescobaldi fermera les ports de sortie MIDI inutilisés depuis "
+"<p>Si coché, Frescobaldi fermera les ports de sortie MIDI inutilisés depuis "
 "une minute.</p>\n"
 "<p>Cela permet de libérer des ressources système qu'un synthétiseur logiciel "
 "MIDI pour utiliser, économisant ainsi de l'énergie.</p>\n"
