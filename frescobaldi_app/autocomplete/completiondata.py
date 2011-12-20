@@ -69,8 +69,6 @@ toplevel = (
     'version',
     'sourcefileline',
     'sourcefilename',
-    'showFirstLength',
-    'showLastLength',
 )
 
 # other commands that can start a music expression
@@ -127,6 +125,14 @@ cmds_context = (
 cmds_with = cmds_context[:3]
 
 
+# variables that make sense to be set at toplevel
+toplevel_variables = (
+    'pipeSymbol',
+    'showFirstLength',
+    'showLastLength',
+)
+    
+
 lilypond_markup = listmodel.ListModel(['\\markup'])
 
 lilypond_markup_commands = listmodel.ListModel(
@@ -171,10 +177,10 @@ lilypond_with_contents = listmodel.ListModel(sorted(itertools.chain(
     util.make_cmds(cmds_with),
     )), edit = util.cmd_or_var)
 
-lilypond_toplevel = listmodel.ListModel(sorted(
+lilypond_toplevel = listmodel.ListModel(sorted(itertools.chain(util.make_cmds(
     toplevel + everywhere + inputmodes + markup + start_music + tweaks
     + modes + blocks
-    ), display = util.command)
+    ), toplevel_variables)), edit = util.cmd_or_var)
 
 lilypond_book = listmodel.ListModel(sorted(
     everywhere + inputmodes + markup + start_music
