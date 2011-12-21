@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-20 14:27+0100\n"
+"POT-Creation-Date: 2011-12-21 15:27+0100\n"
 "PO-Revision-Date: 2011-09-28 12:35+0200\n"
 "Last-Translator: Raphaël Doursenaud <rdoursenaud@free.fr>\n"
 "Language-Team: Français <>\n"
@@ -350,6 +350,37 @@ msgstr "Rapport de bogue par email..."
 #: frescobaldi_app/exception.py:79
 msgid "Optionally describe below what you were doing:"
 msgstr "Décrivez ci-dessous ce que vous étiez en train de faire (optionnel) :"
+
+#: frescobaldi_app/globalfontdialog.py:69
+msgid "Global Fonts"
+msgstr ""
+
+#: frescobaldi_app/globalfontdialog.py:71
+msgid ""
+"Please select the three global fonts to use for <code>\\roman</code>, <code>"
+"\\sans</code>, and <code>\\typewriter</code> respectively. You should also "
+"set the staff size to the global staff size you use in the document (20 by "
+"default)."
+msgstr ""
+
+#: frescobaldi_app/globalfontdialog.py:76
+#, fuzzy
+msgid "Roman Font:"
+msgstr "Police :"
+
+#: frescobaldi_app/globalfontdialog.py:77
+#, fuzzy
+msgid "Sans Font:"
+msgstr "Police :"
+
+#: frescobaldi_app/globalfontdialog.py:78
+msgid "Typewriter Font:"
+msgstr ""
+
+#: frescobaldi_app/globalfontdialog.py:79
+#, fuzzy
+msgid "Staff Size:"
+msgstr "Taille des portées :"
 
 #: frescobaldi_app/hyphendialog.py:114
 msgid "Hyphenate Lyrics Text"
@@ -2861,7 +2892,7 @@ msgstr "Échappement"
 #: frescobaldi_app/preferences/fontscolors.py:522
 #: frescobaldi_app/preferences/fontscolors.py:530
 #: frescobaldi_app/preferences/fontscolors.py:538
-#: frescobaldi_app/snippet/builtin.py:238
+#: frescobaldi_app/snippet/builtin.py:274
 msgid "Comment"
 msgstr "Commentaire"
 
@@ -2917,7 +2948,7 @@ msgid "Check"
 msgstr "Repère"
 
 #: frescobaldi_app/preferences/fontscolors.py:496
-#: frescobaldi_app/snippet/builtin.py:118
+#: frescobaldi_app/snippet/builtin.py:154
 msgid "Repeat"
 msgstr "Reprise"
 
@@ -2935,7 +2966,7 @@ msgid "User Command"
 msgstr "Commande utilisateur"
 
 #: frescobaldi_app/preferences/fontscolors.py:501
-#: frescobaldi_app/snippet/builtin.py:148
+#: frescobaldi_app/snippet/builtin.py:184
 msgid "Markup"
 msgstr "Repérage"
 
@@ -3136,10 +3167,10 @@ msgid ""
 "is replaced with the filename, <code>$u</code> with the URL. Leave a field "
 "empty to use the operating system default application."
 msgstr ""
-"Vous pouvez préciser ci-dessous des commander pour ouvrir différents "
-"types de fichiers. <code>$f</code> est remplacer par le nom du fichier, "
-"<code>$f</code> par l'URL. Laissez le champ vide pour utiliser l'application "
-"par défaut du système."
+"Vous pouvez préciser ci-dessous des commander pour ouvrir différents types "
+"de fichiers. <code>$f</code> est remplacer par le nom du fichier, <code>$f</"
+"code> par l'URL. Laissez le champ vide pour utiliser l'application par "
+"défaut du système."
 
 #: frescobaldi_app/preferences/helpers.py:90
 msgid "Command that should accept a mailto: URL."
@@ -3180,18 +3211,19 @@ msgid ""
 "<p>If the document specifies a version, the oldest suitable LilyPond version "
 "is chosen. Otherwise, the default version is chosen.</p>\n"
 msgstr ""
-"<p>Si ce réglage est activé, une commande LilyPond \\version<code> "
-"ou une variable de document <code>version</code> est recherchée dans le document.</p>\n"
+"<p>Si ce réglage est activé, une commande LilyPond \\version<code> ou une "
+"variable de document <code>version</code> est recherchée dans le document.</"
+"p>\n"
 "<p>La commande de version LilyPond ressemble à ceci :</p>\n"
 "<pre>\\version \"2.14.0\"</pre>\n"
 "<p>La variable de documentressemble à :</p>\n"
 "<pre>-*- version: 2.14.0;</pre>\n"
-"<p>quelque part (dans une section de commentaires) dans les 5 premièresou dernières lignes "
-"du document. De cette façon, la version de LilyPond à utiliser peut également être spécifiée "
-"dans des documents non-LilyPond comme HTML, LaTeX, etc.</p>\n"
-"<p>Si le document spécifie une version, la plus ancienne version utilisable de LilyPond est "
-"choisie. Sinon, la version par défaut est choisie.</p>\n"
-
+"<p>quelque part (dans une section de commentaires) dans les 5 premièresou "
+"dernières lignes du document. De cette façon, la version de LilyPond à "
+"utiliser peut également être spécifiée dans des documents non-LilyPond comme "
+"HTML, LaTeX, etc.</p>\n"
+"<p>Si le document spécifie une version, la plus ancienne version utilisable "
+"de LilyPond est choisie. Sinon, la version par défaut est choisie.</p>\n"
 
 #: frescobaldi_app/preferences/lilypond.py:101
 msgid "See also {link}."
@@ -5665,92 +5697,97 @@ msgstr "Guillemets Typographiques Simples"
 msgid "Double Typographical Quotes"
 msgstr "Guillemets Typographiques Doubles"
 
-#: frescobaldi_app/snippet/builtin.py:79
+#: frescobaldi_app/snippet/builtin.py:115
 msgid "Tuplets"
 msgstr "Tuplets"
 
-#: frescobaldi_app/snippet/builtin.py:89
+#: frescobaldi_app/snippet/builtin.py:125
 msgid "Modern 2/2 Time Signature"
 msgstr "Indicateur de Mesure 2/2 Moderne"
 
-#: frescobaldi_app/snippet/builtin.py:95
+#: frescobaldi_app/snippet/builtin.py:131
 msgid "Modern 4/4 Time Signature"
 msgstr "Indicateur de Mesure 4/4 Moderne"
 
-#: frescobaldi_app/snippet/builtin.py:101
+#: frescobaldi_app/snippet/builtin.py:137
 msgid "Tactus Time Signature (number with note)"
 msgstr "Indicateur de Mesure Tactus (nombre avec note)"
 
-#: frescobaldi_app/snippet/builtin.py:112
+#: frescobaldi_app/snippet/builtin.py:148
 msgid "LilyPond Version"
 msgstr "Version de LilyPond"
 
-#: frescobaldi_app/snippet/builtin.py:123
+#: frescobaldi_app/snippet/builtin.py:159
 msgid "Relative Music"
 msgstr "Musique Relative"
 
-#: frescobaldi_app/snippet/builtin.py:130
+#: frescobaldi_app/snippet/builtin.py:166
 msgid "Upper case selection"
 msgstr "Sélection en haut de casse"
 
-#: frescobaldi_app/snippet/builtin.py:136
+#: frescobaldi_app/snippet/builtin.py:172
 msgid "Lower case selection"
 msgstr "Sélection en bas de casse"
 
-#: frescobaldi_app/snippet/builtin.py:142
+#: frescobaldi_app/snippet/builtin.py:178
 msgid "Title case selection"
 msgstr "Sélection en casse de titre"
 
-#: frescobaldi_app/snippet/builtin.py:153
+#: frescobaldi_app/snippet/builtin.py:189
 msgid "Markup lines"
 msgstr "Repérer les lignes"
 
-#: frescobaldi_app/snippet/builtin.py:161
+#: frescobaldi_app/snippet/builtin.py:197
 msgid "Markup column"
 msgstr "Repérer la colonne"
 
-#: frescobaldi_app/snippet/builtin.py:166
+#: frescobaldi_app/snippet/builtin.py:202
 msgid "Tagline with date and LilyPond version"
 msgstr "Slogan avec date et version de LilyPond"
 
-#: frescobaldi_app/snippet/builtin.py:176
+#: frescobaldi_app/snippet/builtin.py:212
 msgid "Header Template"
 msgstr "Modèle d'entête"
 
-#: frescobaldi_app/snippet/builtin.py:191
+#: frescobaldi_app/snippet/builtin.py:227
 msgid "No Tagline"
 msgstr "Pas de slogan"
 
-#: frescobaldi_app/snippet/builtin.py:199
+#: frescobaldi_app/snippet/builtin.py:235
 msgid "No Barnumbers"
 msgstr "Pas de nNuméros de mesure"
 
-#: frescobaldi_app/snippet/builtin.py:209
+#: frescobaldi_app/snippet/builtin.py:245
 #, fuzzy
 msgid "Midi Tempo"
 msgstr "Tempo :"
 
-#: frescobaldi_app/snippet/builtin.py:219
+#: frescobaldi_app/snippet/builtin.py:255
 msgid "Staff Size"
 msgstr "Taille des portées :"
 
-#: frescobaldi_app/snippet/builtin.py:274
+#: frescobaldi_app/snippet/builtin.py:310
 msgid "A5 Paper"
 msgstr "Papier A5"
 
-#: frescobaldi_app/snippet/builtin.py:282
+#: frescobaldi_app/snippet/builtin.py:318
+#, fuzzy
+msgid "Document Fonts"
+msgstr "Document :"
+
+#: frescobaldi_app/snippet/builtin.py:346
 msgid "Last note or chord"
 msgstr "Répéter la dernière note ou accord"
 
-#: frescobaldi_app/snippet/builtin.py:363
+#: frescobaldi_app/snippet/builtin.py:427
 msgid "Color"
 msgstr "Couleur"
 
-#: frescobaldi_app/snippet/builtin.py:400
+#: frescobaldi_app/snippet/builtin.py:464
 msgid "Basic Leadsheet"
 msgstr "Grille d'accords basique"
 
-#: frescobaldi_app/snippet/builtin.py:443
+#: frescobaldi_app/snippet/builtin.py:508
 msgid "Choir Hymn"
 msgstr "Chœur"
 

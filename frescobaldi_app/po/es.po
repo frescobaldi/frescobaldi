@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-20 14:27+0100\n"
+"POT-Creation-Date: 2011-12-21 15:27+0100\n"
 "PO-Revision-Date: 2011-12-07 10:02+0100\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -350,6 +350,37 @@ msgstr "Enviar informe de fallo..."
 #: frescobaldi_app/exception.py:79
 msgid "Optionally describe below what you were doing:"
 msgstr "Opcionalmente, describa debajo lo que estaba haciendo:"
+
+#: frescobaldi_app/globalfontdialog.py:69
+msgid "Global Fonts"
+msgstr ""
+
+#: frescobaldi_app/globalfontdialog.py:71
+msgid ""
+"Please select the three global fonts to use for <code>\\roman</code>, <code>"
+"\\sans</code>, and <code>\\typewriter</code> respectively. You should also "
+"set the staff size to the global staff size you use in the document (20 by "
+"default)."
+msgstr ""
+
+#: frescobaldi_app/globalfontdialog.py:76
+#, fuzzy
+msgid "Roman Font:"
+msgstr "Tipografía:"
+
+#: frescobaldi_app/globalfontdialog.py:77
+#, fuzzy
+msgid "Sans Font:"
+msgstr "Tipografía:"
+
+#: frescobaldi_app/globalfontdialog.py:78
+msgid "Typewriter Font:"
+msgstr ""
+
+#: frescobaldi_app/globalfontdialog.py:79
+#, fuzzy
+msgid "Staff Size:"
+msgstr "Tamaño del pentagrama"
 
 #: frescobaldi_app/hyphendialog.py:114
 msgid "Hyphenate Lyrics Text"
@@ -2844,7 +2875,7 @@ msgstr "Escape"
 #: frescobaldi_app/preferences/fontscolors.py:522
 #: frescobaldi_app/preferences/fontscolors.py:530
 #: frescobaldi_app/preferences/fontscolors.py:538
-#: frescobaldi_app/snippet/builtin.py:238
+#: frescobaldi_app/snippet/builtin.py:274
 msgid "Comment"
 msgstr "Comentario"
 
@@ -2900,7 +2931,7 @@ msgid "Check"
 msgstr "Comprobación"
 
 #: frescobaldi_app/preferences/fontscolors.py:496
-#: frescobaldi_app/snippet/builtin.py:118
+#: frescobaldi_app/snippet/builtin.py:154
 msgid "Repeat"
 msgstr "Repetición"
 
@@ -2918,7 +2949,7 @@ msgid "User Command"
 msgstr "Instrucción de usuario"
 
 #: frescobaldi_app/preferences/fontscolors.py:501
-#: frescobaldi_app/snippet/builtin.py:148
+#: frescobaldi_app/snippet/builtin.py:184
 msgid "Markup"
 msgstr "Marcado"
 
@@ -5652,92 +5683,97 @@ msgstr "Comilla tipográfica simple"
 msgid "Double Typographical Quotes"
 msgstr "Comillas tipográficas dobles"
 
-#: frescobaldi_app/snippet/builtin.py:79
+#: frescobaldi_app/snippet/builtin.py:115
 msgid "Tuplets"
 msgstr "Tresillos"
 
-#: frescobaldi_app/snippet/builtin.py:89
+#: frescobaldi_app/snippet/builtin.py:125
 msgid "Modern 2/2 Time Signature"
 msgstr "Compás de 2/2 moderno"
 
-#: frescobaldi_app/snippet/builtin.py:95
+#: frescobaldi_app/snippet/builtin.py:131
 msgid "Modern 4/4 Time Signature"
 msgstr "Compás de 4/4 moderno"
 
-#: frescobaldi_app/snippet/builtin.py:101
+#: frescobaldi_app/snippet/builtin.py:137
 msgid "Tactus Time Signature (number with note)"
 msgstr "Compás de «tactus» (número con nota)"
 
-#: frescobaldi_app/snippet/builtin.py:112
+#: frescobaldi_app/snippet/builtin.py:148
 msgid "LilyPond Version"
 msgstr "Versión de LilyPond"
 
-#: frescobaldi_app/snippet/builtin.py:123
+#: frescobaldi_app/snippet/builtin.py:159
 msgid "Relative Music"
 msgstr "Música relativa"
 
-#: frescobaldi_app/snippet/builtin.py:130
+#: frescobaldi_app/snippet/builtin.py:166
 msgid "Upper case selection"
 msgstr "Selección a mayúsculas"
 
-#: frescobaldi_app/snippet/builtin.py:136
+#: frescobaldi_app/snippet/builtin.py:172
 msgid "Lower case selection"
 msgstr "Selección a minúsculas"
 
-#: frescobaldi_app/snippet/builtin.py:142
+#: frescobaldi_app/snippet/builtin.py:178
 msgid "Title case selection"
 msgstr "Selección a tamaño título"
 
-#: frescobaldi_app/snippet/builtin.py:153
+#: frescobaldi_app/snippet/builtin.py:189
 msgid "Markup lines"
 msgstr "Líneas de marcado"
 
-#: frescobaldi_app/snippet/builtin.py:161
+#: frescobaldi_app/snippet/builtin.py:197
 msgid "Markup column"
 msgstr "Columna de marcado"
 
-#: frescobaldi_app/snippet/builtin.py:166
+#: frescobaldi_app/snippet/builtin.py:202
 msgid "Tagline with date and LilyPond version"
 msgstr "Pie de página con fecha y versión de LilyPond"
 
-#: frescobaldi_app/snippet/builtin.py:176
+#: frescobaldi_app/snippet/builtin.py:212
 msgid "Header Template"
 msgstr "Plantilla de encabezamiento"
 
-#: frescobaldi_app/snippet/builtin.py:191
+#: frescobaldi_app/snippet/builtin.py:227
 msgid "No Tagline"
 msgstr "Sin pie de página"
 
-#: frescobaldi_app/snippet/builtin.py:199
+#: frescobaldi_app/snippet/builtin.py:235
 msgid "No Barnumbers"
 msgstr "Sin números de compás"
 
-#: frescobaldi_app/snippet/builtin.py:209
+#: frescobaldi_app/snippet/builtin.py:245
 #, fuzzy
 msgid "Midi Tempo"
 msgstr "Tempo"
 
-#: frescobaldi_app/snippet/builtin.py:219
+#: frescobaldi_app/snippet/builtin.py:255
 msgid "Staff Size"
 msgstr "Tamaño del pentagrama"
 
-#: frescobaldi_app/snippet/builtin.py:274
+#: frescobaldi_app/snippet/builtin.py:310
 msgid "A5 Paper"
 msgstr "Hoja A5"
 
-#: frescobaldi_app/snippet/builtin.py:282
+#: frescobaldi_app/snippet/builtin.py:318
+#, fuzzy
+msgid "Document Fonts"
+msgstr "Documento:"
+
+#: frescobaldi_app/snippet/builtin.py:346
 msgid "Last note or chord"
 msgstr "Última nota o acorde"
 
-#: frescobaldi_app/snippet/builtin.py:363
+#: frescobaldi_app/snippet/builtin.py:427
 msgid "Color"
 msgstr "Color"
 
-#: frescobaldi_app/snippet/builtin.py:400
+#: frescobaldi_app/snippet/builtin.py:464
 msgid "Basic Leadsheet"
 msgstr "Hoja guía de acordes básica"
 
-#: frescobaldi_app/snippet/builtin.py:443
+#: frescobaldi_app/snippet/builtin.py:508
 msgid "Choir Hymn"
 msgstr "Himno coral"
 

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-20 14:27+0100\n"
+"POT-Creation-Date: 2011-12-21 15:27+0100\n"
 "PO-Revision-Date: 2009-10-08 21:17+0300\n"
 "Last-Translator: Artem Zolochevskiy <artem.zolochevskiy@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -386,6 +386,35 @@ msgstr "Послать отчет об ошибке по Email"
 #, fuzzy
 msgid "Optionally describe below what you were doing:"
 msgstr "Дополнительно опишите ваши действия:"
+
+#: frescobaldi_app/globalfontdialog.py:69
+msgid "Global Fonts"
+msgstr ""
+
+#: frescobaldi_app/globalfontdialog.py:71
+msgid ""
+"Please select the three global fonts to use for <code>\\roman</code>, <code>"
+"\\sans</code>, and <code>\\typewriter</code> respectively. You should also "
+"set the staff size to the global staff size you use in the document (20 by "
+"default)."
+msgstr ""
+
+#: frescobaldi_app/globalfontdialog.py:76
+msgid "Roman Font:"
+msgstr ""
+
+#: frescobaldi_app/globalfontdialog.py:77
+msgid "Sans Font:"
+msgstr ""
+
+#: frescobaldi_app/globalfontdialog.py:78
+msgid "Typewriter Font:"
+msgstr ""
+
+#: frescobaldi_app/globalfontdialog.py:79
+#, fuzzy
+msgid "Staff Size:"
+msgstr "Тип нотоносца:"
 
 #: frescobaldi_app/hyphendialog.py:114
 msgid "Hyphenate Lyrics Text"
@@ -2595,7 +2624,7 @@ msgstr "Альбомная"
 #: frescobaldi_app/preferences/fontscolors.py:522
 #: frescobaldi_app/preferences/fontscolors.py:530
 #: frescobaldi_app/preferences/fontscolors.py:538
-#: frescobaldi_app/snippet/builtin.py:238
+#: frescobaldi_app/snippet/builtin.py:274
 #, fuzzy
 msgid "Comment"
 msgstr "Команда печати:"
@@ -2657,7 +2686,7 @@ msgid "Check"
 msgstr ""
 
 #: frescobaldi_app/preferences/fontscolors.py:496
-#: frescobaldi_app/snippet/builtin.py:118
+#: frescobaldi_app/snippet/builtin.py:154
 msgid "Repeat"
 msgstr ""
 
@@ -2678,7 +2707,7 @@ msgid "User Command"
 msgstr "Команда печати:"
 
 #: frescobaldi_app/preferences/fontscolors.py:501
-#: frescobaldi_app/snippet/builtin.py:148
+#: frescobaldi_app/snippet/builtin.py:184
 #, fuzzy
 msgid "Markup"
 msgstr "Арфа"
@@ -5271,107 +5300,112 @@ msgstr "Использовать типографские кавычки"
 msgid "Double Typographical Quotes"
 msgstr "Использовать типографские кавычки"
 
-#: frescobaldi_app/snippet/builtin.py:79
+#: frescobaldi_app/snippet/builtin.py:115
 msgid "Tuplets"
 msgstr ""
 
-#: frescobaldi_app/snippet/builtin.py:89
+#: frescobaldi_app/snippet/builtin.py:125
 #, fuzzy
 msgid "Modern 2/2 Time Signature"
 msgstr "Размер:"
 
-#: frescobaldi_app/snippet/builtin.py:95
+#: frescobaldi_app/snippet/builtin.py:131
 #, fuzzy
 msgid "Modern 4/4 Time Signature"
 msgstr "Размер:"
 
-#: frescobaldi_app/snippet/builtin.py:101
+#: frescobaldi_app/snippet/builtin.py:137
 msgid "Tactus Time Signature (number with note)"
 msgstr ""
 
-#: frescobaldi_app/snippet/builtin.py:112
+#: frescobaldi_app/snippet/builtin.py:148
 #, fuzzy
 msgid "LilyPond Version"
 msgstr "Вставить версию LilyPond"
 
-#: frescobaldi_app/snippet/builtin.py:123
+#: frescobaldi_app/snippet/builtin.py:159
 msgid "Relative Music"
-msgstr ""
-
-#: frescobaldi_app/snippet/builtin.py:130
-#, fuzzy
-msgid "Upper case selection"
-msgstr "Настройки партитуры"
-
-#: frescobaldi_app/snippet/builtin.py:136
-#, fuzzy
-msgid "Lower case selection"
-msgstr "Настройки партитуры"
-
-#: frescobaldi_app/snippet/builtin.py:142
-#, fuzzy
-msgid "Title case selection"
-msgstr "Построчный режим выбора"
-
-#: frescobaldi_app/snippet/builtin.py:153
-#, fuzzy
-msgid "Markup lines"
-msgstr "&Тактовые черты"
-
-#: frescobaldi_app/snippet/builtin.py:161
-msgid "Markup column"
 msgstr ""
 
 #: frescobaldi_app/snippet/builtin.py:166
 #, fuzzy
+msgid "Upper case selection"
+msgstr "Настройки партитуры"
+
+#: frescobaldi_app/snippet/builtin.py:172
+#, fuzzy
+msgid "Lower case selection"
+msgstr "Настройки партитуры"
+
+#: frescobaldi_app/snippet/builtin.py:178
+#, fuzzy
+msgid "Title case selection"
+msgstr "Построчный режим выбора"
+
+#: frescobaldi_app/snippet/builtin.py:189
+#, fuzzy
+msgid "Markup lines"
+msgstr "&Тактовые черты"
+
+#: frescobaldi_app/snippet/builtin.py:197
+msgid "Markup column"
+msgstr ""
+
+#: frescobaldi_app/snippet/builtin.py:202
+#, fuzzy
 msgid "Tagline with date and LilyPond version"
 msgstr "Вставить версию LilyPond"
 
-#: frescobaldi_app/snippet/builtin.py:176
+#: frescobaldi_app/snippet/builtin.py:212
 msgid "Header Template"
 msgstr ""
 
-#: frescobaldi_app/snippet/builtin.py:191
+#: frescobaldi_app/snippet/builtin.py:227
 #, fuzzy
 msgid "No Tagline"
 msgstr "Строка программы"
 
-#: frescobaldi_app/snippet/builtin.py:199
+#: frescobaldi_app/snippet/builtin.py:235
 #, fuzzy
 msgid "No Barnumbers"
 msgstr "Удалить номера тактов"
 
-#: frescobaldi_app/snippet/builtin.py:209
+#: frescobaldi_app/snippet/builtin.py:245
 #, fuzzy
 msgid "Midi Tempo"
 msgstr "Темп:"
 
-#: frescobaldi_app/snippet/builtin.py:219
+#: frescobaldi_app/snippet/builtin.py:255
 #, fuzzy
 msgid "Staff Size"
 msgstr "Тип нотоносца:"
 
-#: frescobaldi_app/snippet/builtin.py:274
+#: frescobaldi_app/snippet/builtin.py:310
 #, fuzzy
 msgid "A5 Paper"
 msgstr "Размер страницы:"
 
-#: frescobaldi_app/snippet/builtin.py:282
+#: frescobaldi_app/snippet/builtin.py:318
+#, fuzzy
+msgid "Document Fonts"
+msgstr "&Документ"
+
+#: frescobaldi_app/snippet/builtin.py:346
 #, fuzzy
 msgid "Last note or chord"
 msgstr "Повторить последнюю ноту или аккорд"
 
-#: frescobaldi_app/snippet/builtin.py:363
+#: frescobaldi_app/snippet/builtin.py:427
 #, fuzzy
 msgid "Color"
 msgstr "Композитор"
 
-#: frescobaldi_app/snippet/builtin.py:400
+#: frescobaldi_app/snippet/builtin.py:464
 #, fuzzy
 msgid "Basic Leadsheet"
 msgstr "Нотный стан"
 
-#: frescobaldi_app/snippet/builtin.py:443
+#: frescobaldi_app/snippet/builtin.py:508
 #, fuzzy
 msgid "Choir Hymn"
 msgstr "Хор"

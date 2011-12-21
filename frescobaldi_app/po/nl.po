@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-20 14:27+0100\n"
-"PO-Revision-Date: 2011-12-17 14:18+0100\n"
+"POT-Creation-Date: 2011-12-21 15:27+0100\n"
+"PO-Revision-Date: 2011-12-21 15:31+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -348,6 +348,40 @@ msgstr "Bugrapport emailen..."
 #: frescobaldi_app/exception.py:79
 msgid "Optionally describe below what you were doing:"
 msgstr "Geef hier eventueel aan wat u aan het doen was:"
+
+#: frescobaldi_app/globalfontdialog.py:69
+msgid "Global Fonts"
+msgstr "Algemene lettertypen"
+
+#: frescobaldi_app/globalfontdialog.py:71
+msgid ""
+"Please select the three global fonts to use for <code>\\roman</code>, <code>"
+"\\sans</code>, and <code>\\typewriter</code> respectively. You should also "
+"set the staff size to the global staff size you use in the document (20 by "
+"default)."
+msgstr ""
+"Selecteer de drie algemene lettertypen om te gebruiken voor respectievelijk "
+"<code>\\roman</code>, "
+"<code>\\sans</code>, en <code>\\typewriter</code>. "
+"U dient ook de balkgrootte in te stellen op de globale balkgrootte die u in "
+"het document gebruikt "
+"(standaard 20)."
+
+#: frescobaldi_app/globalfontdialog.py:76
+msgid "Roman Font:"
+msgstr "Schreef-lettertype:"
+
+#: frescobaldi_app/globalfontdialog.py:77
+msgid "Sans Font:"
+msgstr "Schreefloos lettertype:"
+
+#: frescobaldi_app/globalfontdialog.py:78
+msgid "Typewriter Font:"
+msgstr "Schrijfmachine-lettertype:"
+
+#: frescobaldi_app/globalfontdialog.py:79
+msgid "Staff Size:"
+msgstr "Balkgrootte:"
 
 #: frescobaldi_app/hyphendialog.py:114
 msgid "Hyphenate Lyrics Text"
@@ -2808,7 +2842,7 @@ msgstr "Escape"
 #: frescobaldi_app/preferences/fontscolors.py:522
 #: frescobaldi_app/preferences/fontscolors.py:530
 #: frescobaldi_app/preferences/fontscolors.py:538
-#: frescobaldi_app/snippet/builtin.py:238
+#: frescobaldi_app/snippet/builtin.py:274
 msgid "Comment"
 msgstr "Commentaar"
 
@@ -2864,7 +2898,7 @@ msgid "Check"
 msgstr "Test"
 
 #: frescobaldi_app/preferences/fontscolors.py:496
-#: frescobaldi_app/snippet/builtin.py:118
+#: frescobaldi_app/snippet/builtin.py:154
 msgid "Repeat"
 msgstr "Herhaling (\\repeat)"
 
@@ -2882,7 +2916,7 @@ msgid "User Command"
 msgstr "Gebruikerscommando"
 
 #: frescobaldi_app/preferences/fontscolors.py:501
-#: frescobaldi_app/snippet/builtin.py:148
+#: frescobaldi_app/snippet/builtin.py:184
 msgid "Markup"
 msgstr "Markup"
 
@@ -5583,91 +5617,95 @@ msgstr "Enkele typografische aanhalingstekens"
 msgid "Double Typographical Quotes"
 msgstr "Dubbele typografische aanhalingstekens"
 
-#: frescobaldi_app/snippet/builtin.py:79
+#: frescobaldi_app/snippet/builtin.py:115
 msgid "Tuplets"
 msgstr "Triolen"
 
-#: frescobaldi_app/snippet/builtin.py:89
+#: frescobaldi_app/snippet/builtin.py:125
 msgid "Modern 2/2 Time Signature"
 msgstr "Moderne 2/2 maat"
 
-#: frescobaldi_app/snippet/builtin.py:95
+#: frescobaldi_app/snippet/builtin.py:131
 msgid "Modern 4/4 Time Signature"
 msgstr "Moderne 4/4 maat"
 
-#: frescobaldi_app/snippet/builtin.py:101
+#: frescobaldi_app/snippet/builtin.py:137
 msgid "Tactus Time Signature (number with note)"
 msgstr "Tactus maataanduiding (nummer met noot)"
 
-#: frescobaldi_app/snippet/builtin.py:112
+#: frescobaldi_app/snippet/builtin.py:148
 msgid "LilyPond Version"
 msgstr "LilyPond-versie"
 
-#: frescobaldi_app/snippet/builtin.py:123
+#: frescobaldi_app/snippet/builtin.py:159
 msgid "Relative Music"
 msgstr "Relatieve muziek"
 
-#: frescobaldi_app/snippet/builtin.py:130
+#: frescobaldi_app/snippet/builtin.py:166
 msgid "Upper case selection"
 msgstr "Hoofdletters"
 
-#: frescobaldi_app/snippet/builtin.py:136
+#: frescobaldi_app/snippet/builtin.py:172
 msgid "Lower case selection"
 msgstr "Kleine letters"
 
-#: frescobaldi_app/snippet/builtin.py:142
+#: frescobaldi_app/snippet/builtin.py:178
 msgid "Title case selection"
 msgstr "Titel-hoofdletters in selectie"
 
-#: frescobaldi_app/snippet/builtin.py:153
+#: frescobaldi_app/snippet/builtin.py:189
 msgid "Markup lines"
 msgstr "Markup regels (line)"
 
-#: frescobaldi_app/snippet/builtin.py:161
+#: frescobaldi_app/snippet/builtin.py:197
 msgid "Markup column"
 msgstr "Markup kolom"
 
-#: frescobaldi_app/snippet/builtin.py:166
+#: frescobaldi_app/snippet/builtin.py:202
 msgid "Tagline with date and LilyPond version"
 msgstr "Voetregel met datum en LilyPond-versie"
 
-#: frescobaldi_app/snippet/builtin.py:176
+#: frescobaldi_app/snippet/builtin.py:212
 msgid "Header Template"
 msgstr "Kopregel-sjabloon"
 
-#: frescobaldi_app/snippet/builtin.py:191
+#: frescobaldi_app/snippet/builtin.py:227
 msgid "No Tagline"
 msgstr "Geen voetregel"
 
-#: frescobaldi_app/snippet/builtin.py:199
+#: frescobaldi_app/snippet/builtin.py:235
 msgid "No Barnumbers"
 msgstr "Geen maatnummers"
 
-#: frescobaldi_app/snippet/builtin.py:209
+#: frescobaldi_app/snippet/builtin.py:245
 msgid "Midi Tempo"
 msgstr "Midi: tempo instellen"
 
-#: frescobaldi_app/snippet/builtin.py:219
+#: frescobaldi_app/snippet/builtin.py:255
 msgid "Staff Size"
 msgstr "Balkgrootte"
 
-#: frescobaldi_app/snippet/builtin.py:274
+#: frescobaldi_app/snippet/builtin.py:310
 msgid "A5 Paper"
 msgstr "A5-papier"
 
-#: frescobaldi_app/snippet/builtin.py:282
+#: frescobaldi_app/snippet/builtin.py:318
+msgid "Document Fonts"
+msgstr "Document-lettertypen"
+
+#: frescobaldi_app/snippet/builtin.py:346
 msgid "Last note or chord"
 msgstr "Laatste noot of akkoord"
 
-#: frescobaldi_app/snippet/builtin.py:363
+#: frescobaldi_app/snippet/builtin.py:427
 msgid "Color"
 msgstr "Kleur"
 
-#: frescobaldi_app/snippet/builtin.py:400
+#: frescobaldi_app/snippet/builtin.py:464
 msgid "Basic Leadsheet"
 msgstr "Eenvoudig Lead-sheet"
 
-#: frescobaldi_app/snippet/builtin.py:443
+#: frescobaldi_app/snippet/builtin.py:508
 msgid "Choir Hymn"
 msgstr "Koorhymne"
 
