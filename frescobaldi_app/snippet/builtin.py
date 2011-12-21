@@ -76,6 +76,42 @@ r"""-*- name: 1v;
 \oneVoice"""),
 
 
+'stanza1': T(None,
+r"""-*- name: s1;
+\set stanza = "1."
+"""),
+
+
+'stanza2': T(None,
+r"""-*- name: s2;
+\set stanza = "2."
+"""),
+
+
+'stanza3': T(None,
+r"""-*- name: s3;
+\set stanza = "3."
+"""),
+
+
+'stanza4': T(None,
+r"""-*- name: s4;
+\set stanza = "4."
+"""),
+
+
+'stanza5': T(None,
+r"""-*- name: s5;
+\set stanza = "5."
+"""),
+
+
+'stanza6': T(None,
+r"""-*- name: s6;
+\set stanza = "6."
+"""),
+
+
 'times23': T(_("Tuplets"),
 r"""-*- menu: blocks; selection: strip;
 \times 2/3 { $SELECTION }"""),
@@ -406,9 +442,9 @@ r"""-*- template; template-run;
 }
 
 global = {
-  \tempo 4=100
-  \key c \major
   \time 4/4
+  \key c \major
+  \tempo 4=100
 }
 
 chordNames = \chordmode {
@@ -449,9 +485,9 @@ r"""-*- template; template-run;
 }
 
 global = {
-  \tempo 4=100
-  \key c \major
   \time 4/4
+  \key c \major
+  \tempo 4=100
 }
 
 soprano = \relative c'' {
