@@ -152,6 +152,21 @@ class DocumentInfo(plugin.DocumentPlugin):
                     if lang in languages:
                         return lang
     
+    @resetoncontentschanged
+    def globalStaffSize(self, default=20):
+        """Returns the global staff size, if set, else the default value."""
+        for block in cursortools.allBlocks(self.document()):
+            tokens = tokeniter.tokens(block)
+            try:
+                i = tokens.index('set-global-staff-size')
+            except ValueError:
+                continue
+            try:
+                return int(tokens[i+2], 10)
+            except (IndexError, ValueError):
+                pass
+        return default
+    
     def master(self):
         """Returns the master filename for the document, if it exists."""
         filename = self.document().url().toLocalFile()
