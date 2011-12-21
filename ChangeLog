@@ -7,6 +7,8 @@ Changes in 2.0.0 -- December 26th, 2011
 * Updated translations: fr, nl
 * Bug fixes:
   - when changing LilyPond instance that was default, keep it as default
+* New features:
+  - new dialog and snippet to set the fonts for a LilyPond document
 
 
 Changes in 1.9.5 -- December 20th, 2011

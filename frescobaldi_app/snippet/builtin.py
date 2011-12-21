@@ -42,12 +42,12 @@ $CURSOR
 
 
 'quotes_s': T(_("Single Typographical Quotes"),
-"""-*- menu: quotes;
+"""-*- menu: text;
 \u2018$SELECTION\u2019"""),
 
 
 'quotes_d': T(_("Double Typographical Quotes"),
-"""-*- menu: quotes;
+"""-*- menu: text;
 \u201C$SELECTION\u201D"""),
 
 
@@ -315,6 +315,34 @@ if state[-1] != 'paper':
 """),
 
 
+'document_fonts': T(_("Document Fonts"),
+r"""-*- menu: paper; name: fo; python;
+snippet = '''\
+myStaffSize = #{staffsize}
+fonts = #(make-pango-font-tree
+  "{roman}"
+  "{sans}"
+  "{typewriter}"
+  (/ myStaffSize 20))
+'''
+
+import documentinfo
+import globalfontdialog
+size = documentinfo.info(cursor.document()).globalStaffSize()
+dlg = globalfontdialog.GlobalFontDialog()
+dlg.setStaffSize(size)
+if dlg.exec_():
+    text = snippet.format(
+        staffsize = dlg.staffSize(),
+        roman = dlg.romanFont(),
+        sans = dlg.sansFont(),
+        typewriter = dlg.typewriterFont())
+    if state[-1] != "paper":
+       text = "\\paper{\n%s}\n" % text
+
+"""),
+
+
 'last_note': T(_("Last note or chord"),
 r"""-*- python; menu: music; symbol: note_4d;
 # This snippet reads back the last entered note or chord and 
@@ -475,6 +503,7 @@ words = \lyricmode {
   \midi { }
 }
 """),
+
 
 'template_choir_hymn': T(_("Choir Hymn"),
 r"""-*- template; template-run;
