@@ -216,6 +216,16 @@ def midi_instrument(self):
         self.column = self.lastpos
     return completiondata.midi_instruments
     
+def font_name(self):
+    """Complete #'font-name = #"..."""
+    try:
+        i = self.tokens.index('font-name', -7, -3)
+    except ValueError:
+        return
+    if self.last != '"':
+        self.column = self.lastpos
+    return completiondata.font_names()
+    
 def scheme_word(self):
     """Complete scheme word from scheme functions, etc."""
     if isinstance(self.last, scm.Word):
@@ -480,6 +490,7 @@ _tests = {
     scm.ParseString: (
         music_glyph,
         midi_instrument,
+        font_name,
     ),
     lp.ParseLyricMode: (
         lyricmode,

@@ -25,6 +25,9 @@ from __future__ import unicode_literals
 
 import itertools
 
+from PyQt4.QtCore import Qt
+from PyQt4.QtGui import QFont, QFontDatabase
+
 import listmodel
 import ly.words
 import ly.data
@@ -226,4 +229,9 @@ music_glyphs = listmodel.ListModel(ly.data.music_glyphs())
 midi_instruments = listmodel.ListModel(ly.words.midi_instruments)
 
 language_names = listmodel.ListModel(sorted(ly.pitch.pitchInfo))
+
+def font_names():
+    model = listmodel.ListModel(sorted(QFontDatabase().families()))
+    model.setRoleFunction(Qt.FontRole, QFont)
+    return model
 

@@ -9,6 +9,7 @@ Changes in 2.0.0 -- December 26th, 2011
   - when changing LilyPond instance that was default, keep it as default
 * New features:
   - new dialog and snippet to set the fonts for a LilyPond document
+  - completion on #'font-name, with font preview
 
 
 Changes in 1.9.5 -- December 20th, 2011
