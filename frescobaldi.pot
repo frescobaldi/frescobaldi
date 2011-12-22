@@ -8,11 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-21 15:27+0100\n"
+"POT-Creation-Date: 2011-12-22 09:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2246,9 +2245,9 @@ msgstr ""
 #: frescobaldi_app/preferences/documentation.py:68
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the "
-"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
-"offline-root\" path.</p>\n"
+"A local path should point to the directory where either the \"{documentation}"
+"\" directory lives, or the whole \"share/doc/lilypond/html/offline-root\" "
+"path.</p>\n"
 "<p>If those can't be found, documentation is looked for in all "
 "subdirectories of the given path, one level deep. This makes it possible to "
 "put multiple versions of LilyPond documentation in different subdirectories "
@@ -5027,7 +5026,7 @@ msgid "A5 Paper"
 msgstr ""
 
 #: frescobaldi_app/snippet/builtin.py:318
-msgid "Document Fonts"
+msgid "Document Fonts..."
 msgstr ""
 
 #: frescobaldi_app/snippet/builtin.py:346
@@ -5046,7 +5045,7 @@ msgstr ""
 msgid "Choir Hymn"
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:116 frescobaldi_app/snippet/insert.py:220
+#: frescobaldi_app/snippet/edit.py:116 frescobaldi_app/snippet/insert.py:221
 msgid "Edit Snippet"
 msgstr ""
 
@@ -5274,7 +5273,7 @@ msgid ""
 "<p>Existing, unchanged snippets can't be imported.</p>\n"
 msgstr ""
 
-#: frescobaldi_app/snippet/insert.py:218
+#: frescobaldi_app/snippet/insert.py:219
 msgid "Snippet error"
 msgstr ""
 

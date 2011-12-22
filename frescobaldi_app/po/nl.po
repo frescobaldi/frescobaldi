@@ -6,14 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-21 15:27+0100\n"
-"PO-Revision-Date: 2011-12-21 15:31+0100\n"
+"POT-Creation-Date: 2011-12-22 09:18+0100\n"
+"PO-Revision-Date: 2011-12-22 09:18+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
-"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 1.1\n"
 
@@ -361,11 +361,9 @@ msgid ""
 "default)."
 msgstr ""
 "Selecteer de drie algemene lettertypen om te gebruiken voor respectievelijk "
-"<code>\\roman</code>, "
-"<code>\\sans</code>, en <code>\\typewriter</code>. "
-"U dient ook de balkgrootte in te stellen op de globale balkgrootte die u in "
-"het document gebruikt "
-"(standaard 20)."
+"<code>\\roman</code>, <code>\\sans</code>, en <code>\\typewriter</code>. U "
+"dient ook de balkgrootte in te stellen op de globale balkgrootte die u in "
+"het document gebruikt (standaard 20)."
 
 #: frescobaldi_app/globalfontdialog.py:76
 msgid "Roman Font:"
@@ -2665,9 +2663,9 @@ msgstr "Voeg paden of URLs toe. Zie \"Wat is dit\" voor meer informatie."
 #: frescobaldi_app/preferences/documentation.py:68
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the "
-"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
-"offline-root\" path.</p>\n"
+"A local path should point to the directory where either the \"{documentation}"
+"\" directory lives, or the whole \"share/doc/lilypond/html/offline-root\" "
+"path.</p>\n"
 "<p>If those can't be found, documentation is looked for in all "
 "subdirectories of the given path, one level deep. This makes it possible to "
 "put multiple versions of LilyPond documentation in different subdirectories "
@@ -5690,8 +5688,8 @@ msgid "A5 Paper"
 msgstr "A5-papier"
 
 #: frescobaldi_app/snippet/builtin.py:318
-msgid "Document Fonts"
-msgstr "Document-lettertypen"
+msgid "Document Fonts..."
+msgstr "Document-lettertypen..."
 
 #: frescobaldi_app/snippet/builtin.py:346
 msgid "Last note or chord"
@@ -5709,7 +5707,7 @@ msgstr "Eenvoudig Lead-sheet"
 msgid "Choir Hymn"
 msgstr "Koorhymne"
 
-#: frescobaldi_app/snippet/edit.py:116 frescobaldi_app/snippet/insert.py:220
+#: frescobaldi_app/snippet/edit.py:116 frescobaldi_app/snippet/insert.py:221
 msgid "Edit Snippet"
 msgstr "Knipsel bewerken"
 
@@ -5979,7 +5977,7 @@ msgstr ""
 "Klik dan op OK om de aangevinkte knipsels te importeren.</p>\n"
 "<p>Bestaande, ongewijzigde knipsels kunnen niet worden geïmporteerd.</p>\n"
 
-#: frescobaldi_app/snippet/insert.py:218
+#: frescobaldi_app/snippet/insert.py:219
 msgid "Snippet error"
 msgstr "Knipsel-fout"
 

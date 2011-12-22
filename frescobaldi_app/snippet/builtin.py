@@ -315,8 +315,8 @@ if state[-1] != 'paper':
 """),
 
 
-'document_fonts': T(_("Document Fonts"),
-r"""-*- menu: paper; name: fo; python;
+'document_fonts': T(_("Document Fonts..."),
+r"""-*- menu: paper; name: fo; python; icon: preferences-desktop-font;
 snippet = '''\
 myStaffSize = #{staffsize}
 fonts = #(make-pango-font-tree
@@ -329,7 +329,7 @@ fonts = #(make-pango-font-tree
 import documentinfo
 import globalfontdialog
 size = documentinfo.info(cursor.document()).globalStaffSize()
-dlg = globalfontdialog.GlobalFontDialog()
+dlg = globalfontdialog.GlobalFontDialog(view)
 dlg.setStaffSize(size)
 if dlg.exec_():
     text = snippet.format(
@@ -449,7 +449,7 @@ colors = {
     (128, 128, 0): "darkyellow",
 }
 
-color = inputdialog.getColor()
+color = inputdialog.getColor(view)
 if color is not None:
     rgb = color.getRgb()[:-1]
 

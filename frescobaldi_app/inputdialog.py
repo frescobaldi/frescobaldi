@@ -87,7 +87,7 @@ def getColor(
         color = None,
         alpha = False,
         ):
-    """Als the user a color."""
+    """Ask the user a color."""
     global _savedColor
     if color is None:
         color = _savedColor

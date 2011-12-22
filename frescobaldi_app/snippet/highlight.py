@@ -232,7 +232,7 @@ class PyIdentifier(slexer.Token):
     rx = r"\b[^\W\d]\w+"
 
 class PySpecialVariable(Variable):
-    rx = r"\b(self|state|cursor|text|ANCHOR|CURSOR)\b"
+    rx = r"\b(self|state|cursor|text|view|ANCHOR|CURSOR)\b"
 
 class PyValue(Value):
     rx = (

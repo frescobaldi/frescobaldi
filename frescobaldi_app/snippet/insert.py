@@ -155,6 +155,7 @@ def insert_python(text, cursor, name, view):
         'cursor': QTextCursor(cursor),
         'state': state(cursor),
         'text': cursor.selection().toPlainText(),
+        'view': view,
         'ANCHOR': 1,
         'CURSOR': 2,
     }
