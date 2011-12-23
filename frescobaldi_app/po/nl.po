@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-22 09:18+0100\n"
-"PO-Revision-Date: 2011-12-22 09:18+0100\n"
+"POT-Creation-Date: 2011-12-23 09:24+0100\n"
+"PO-Revision-Date: 2011-12-23 09:24+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -310,16 +310,16 @@ msgstr "&Formatteren"
 msgid "&Update with convert-ly..."
 msgstr "&Bijwerken met convert-ly..."
 
-#: frescobaldi_app/documentcontextmenu.py:55 frescobaldi_app/mainwindow.py:915
+#: frescobaldi_app/documentcontextmenu.py:55 frescobaldi_app/mainwindow.py:928
 #: frescobaldi_app/sessions/manager.py:128
 msgid "&Save"
 msgstr "Op&slaan"
 
-#: frescobaldi_app/documentcontextmenu.py:56 frescobaldi_app/mainwindow.py:916
+#: frescobaldi_app/documentcontextmenu.py:56 frescobaldi_app/mainwindow.py:929
 msgid "Save &As..."
 msgstr "Opslaan &als..."
 
-#: frescobaldi_app/documentcontextmenu.py:57 frescobaldi_app/mainwindow.py:920
+#: frescobaldi_app/documentcontextmenu.py:57 frescobaldi_app/mainwindow.py:933
 msgid "&Close"
 msgstr "&Sluiten"
 
@@ -577,14 +577,18 @@ msgstr ""
 "Het document \"{name}\" is gewijzigd.\n"
 "Wilt u uw wijzigingen bewaren of weggooien?"
 
-#: frescobaldi_app/mainwindow.py:322 frescobaldi_app/popplerprint.py:53
+#: frescobaldi_app/mainwindow.py:281
+msgid "Tab Bar"
+msgstr "Tabbalk"
+
+#: frescobaldi_app/mainwindow.py:335 frescobaldi_app/popplerprint.py:53
 #: frescobaldi_app/sessions/dialog.py:165
 #: frescobaldi_app/sessions/dialog.py:173
 #: frescobaldi_app/sessions/dialog.py:179
 msgid "Warning"
 msgstr "Waarschuwing"
 
-#: frescobaldi_app/mainwindow.py:323
+#: frescobaldi_app/mainwindow.py:336
 msgid ""
 "Can't load non-local document:\n"
 "\n"
@@ -594,15 +598,15 @@ msgstr ""
 "\n"
 "{url}"
 
-#: frescobaldi_app/mainwindow.py:341
+#: frescobaldi_app/mainwindow.py:354
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Bestand openen"
 
 #. L10N: a basic type of input in the editor
-#: frescobaldi_app/mainwindow.py:360 frescobaldi_app/mainwindow.py:366
-#: frescobaldi_app/mainwindow.py:391 frescobaldi_app/mainwindow.py:442
-#: frescobaldi_app/mainwindow.py:510 frescobaldi_app/mainwindow.py:570
+#: frescobaldi_app/mainwindow.py:373 frescobaldi_app/mainwindow.py:379
+#: frescobaldi_app/mainwindow.py:404 frescobaldi_app/mainwindow.py:455
+#: frescobaldi_app/mainwindow.py:523 frescobaldi_app/mainwindow.py:583
 #: frescobaldi_app/musicview/image.py:213
 #: frescobaldi_app/preferences/fontscolors.py:476
 #: frescobaldi_app/preferences/fontscolors.py:514
@@ -611,8 +615,8 @@ msgstr "Bestand openen"
 msgid "Error"
 msgstr "Fout"
 
-#: frescobaldi_app/mainwindow.py:361 frescobaldi_app/mainwindow.py:367
-#: frescobaldi_app/mainwindow.py:392
+#: frescobaldi_app/mainwindow.py:374 frescobaldi_app/mainwindow.py:380
+#: frescobaldi_app/mainwindow.py:405
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -622,22 +626,22 @@ msgstr ""
 "\n"
 "{url}"
 
-#: frescobaldi_app/mainwindow.py:386
+#: frescobaldi_app/mainwindow.py:399
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "Bestand opslaan"
 
-#: frescobaldi_app/mainwindow.py:426
+#: frescobaldi_app/mainwindow.py:439
 msgctxt "dialog title"
 msgid "Save Copy"
 msgstr "Kopie opslaan"
 
-#: frescobaldi_app/mainwindow.py:432
+#: frescobaldi_app/mainwindow.py:445
 msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Selectie opslaan"
 
-#: frescobaldi_app/mainwindow.py:443 frescobaldi_app/mainwindow.py:571
+#: frescobaldi_app/mainwindow.py:456 frescobaldi_app/mainwindow.py:584
 #: frescobaldi_app/snippet/widget.py:288
 msgid ""
 "Can't write to destination:\n"
@@ -652,12 +656,12 @@ msgstr ""
 "\n"
 "{error}"
 
-#: frescobaldi_app/mainwindow.py:503
+#: frescobaldi_app/mainwindow.py:516
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Invoegen uit bestand"
 
-#: frescobaldi_app/mainwindow.py:511
+#: frescobaldi_app/mainwindow.py:524
 #: frescobaldi_app/snippet/import_export.py:105
 msgid ""
 "Can't read from source:\n"
@@ -672,16 +676,16 @@ msgstr ""
 "\n"
 "{error}"
 
-#: frescobaldi_app/mainwindow.py:528
+#: frescobaldi_app/mainwindow.py:541
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Brontekst afdrukken"
 
-#: frescobaldi_app/mainwindow.py:561
+#: frescobaldi_app/mainwindow.py:574
 msgid "Export as HTML"
 msgstr "Exporteren als HTML"
 
-#: frescobaldi_app/mainwindow.py:682
+#: frescobaldi_app/mainwindow.py:695
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -693,168 +697,168 @@ msgstr ""
 "\n"
 "\n"
 
-#: frescobaldi_app/mainwindow.py:783
+#: frescobaldi_app/mainwindow.py:796
 msgid "Main Toolbar"
 msgstr "Hoofdwerkbalk"
 
-#: frescobaldi_app/mainwindow.py:784
+#: frescobaldi_app/mainwindow.py:797
 msgid "Music View Toolbar"
 msgstr "Muziekweergave-werkbalk"
 
-#: frescobaldi_app/mainwindow.py:910
+#: frescobaldi_app/mainwindow.py:923
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nieuw"
 
-#: frescobaldi_app/mainwindow.py:911
+#: frescobaldi_app/mainwindow.py:924
 msgid "&Open..."
 msgstr "&Openen..."
 
-#: frescobaldi_app/mainwindow.py:912
+#: frescobaldi_app/mainwindow.py:925
 msgid "Open &Recent"
 msgstr "&Recent geopend"
 
-#: frescobaldi_app/mainwindow.py:913
+#: frescobaldi_app/mainwindow.py:926
 msgid "Insert from &File..."
 msgstr "&Invoegen uit bestand..."
 
-#: frescobaldi_app/mainwindow.py:914
+#: frescobaldi_app/mainwindow.py:927
 msgid "Open Current Directory"
 msgstr "Huidige map openen"
 
-#: frescobaldi_app/mainwindow.py:917
+#: frescobaldi_app/mainwindow.py:930
 msgid "Save Copy or Selection As..."
 msgstr "Kopie of selectie opslaan als..."
 
-#: frescobaldi_app/mainwindow.py:918
+#: frescobaldi_app/mainwindow.py:931
 msgid "Save All"
 msgstr "Alles opslaan"
 
-#: frescobaldi_app/mainwindow.py:919
+#: frescobaldi_app/mainwindow.py:932
 msgid "Print Source..."
 msgstr "Brontekst afdrukken..."
 
-#: frescobaldi_app/mainwindow.py:921
+#: frescobaldi_app/mainwindow.py:934
 msgid "Close Other Documents"
 msgstr "Andere documenten sluiten"
 
-#: frescobaldi_app/mainwindow.py:922
+#: frescobaldi_app/mainwindow.py:935
 msgid "Close All Documents"
 msgstr "Alle documenten sluiten"
 
-#: frescobaldi_app/mainwindow.py:923
+#: frescobaldi_app/mainwindow.py:936
 msgid "Closes all documents and leaves the current session."
 msgstr "Sluit alle documenten en verlaat de huidige sessie."
 
-#: frescobaldi_app/mainwindow.py:924
+#: frescobaldi_app/mainwindow.py:937
 msgid "&Quit"
 msgstr "Afslui&ten"
 
-#: frescobaldi_app/mainwindow.py:926
+#: frescobaldi_app/mainwindow.py:939
 msgid "Export Source as Colored &HTML..."
 msgstr "Bron als gekleurde &HTML exporteren..."
 
-#: frescobaldi_app/mainwindow.py:928
+#: frescobaldi_app/mainwindow.py:941
 msgid "&Undo"
 msgstr "&Ongedaan maken"
 
-#: frescobaldi_app/mainwindow.py:929
+#: frescobaldi_app/mainwindow.py:942
 msgid "Re&do"
 msgstr "Opnie&uw"
 
-#: frescobaldi_app/mainwindow.py:930
+#: frescobaldi_app/mainwindow.py:943
 msgid "Cu&t"
 msgstr "&Knippen"
 
-#: frescobaldi_app/mainwindow.py:931
+#: frescobaldi_app/mainwindow.py:944
 msgid "&Copy"
 msgstr "&Kopiëren"
 
-#: frescobaldi_app/mainwindow.py:932
+#: frescobaldi_app/mainwindow.py:945
 msgid "Copy as Colored &HTML"
 msgstr "Als gekleurde HTML kopiëren"
 
-#: frescobaldi_app/mainwindow.py:933
+#: frescobaldi_app/mainwindow.py:946
 msgid "&Paste"
 msgstr "&Plakken"
 
-#: frescobaldi_app/mainwindow.py:934
+#: frescobaldi_app/mainwindow.py:947
 msgid "Select &All"
 msgstr "&Alles selecteren"
 
-#: frescobaldi_app/mainwindow.py:935
+#: frescobaldi_app/mainwindow.py:948
 msgid "Select &Block"
 msgstr "&Blok selecteren"
 
-#: frescobaldi_app/mainwindow.py:936
+#: frescobaldi_app/mainwindow.py:949
 msgid "Select &None"
 msgstr "&Niets selecteren"
 
-#: frescobaldi_app/mainwindow.py:937
+#: frescobaldi_app/mainwindow.py:950
 msgid "Select Whole Lines Up"
 msgstr "Volledige regels omhoog selecteren"
 
-#: frescobaldi_app/mainwindow.py:938
+#: frescobaldi_app/mainwindow.py:951
 msgid "Select Whole Lines Down"
 msgstr "Volledige regels omlaag selecteren"
 
-#: frescobaldi_app/mainwindow.py:939
+#: frescobaldi_app/mainwindow.py:952
 msgid "&Find..."
 msgstr "&Zoeken..."
 
-#: frescobaldi_app/mainwindow.py:940
+#: frescobaldi_app/mainwindow.py:953
 msgid "Find Ne&xt"
 msgstr "&Volgende zoeken"
 
-#: frescobaldi_app/mainwindow.py:941
+#: frescobaldi_app/mainwindow.py:954
 msgid "Find Pre&vious"
 msgstr "V&orige zoeken"
 
-#: frescobaldi_app/mainwindow.py:942
+#: frescobaldi_app/mainwindow.py:955
 msgid "&Replace..."
 msgstr "Ve&rvangen"
 
-#: frescobaldi_app/mainwindow.py:943
+#: frescobaldi_app/mainwindow.py:956
 msgid "Pr&eferences..."
 msgstr "Voork&euren..."
 
-#: frescobaldi_app/mainwindow.py:945
+#: frescobaldi_app/mainwindow.py:958
 msgid "&Next Document"
 msgstr "&Volgende document"
 
-#: frescobaldi_app/mainwindow.py:946
+#: frescobaldi_app/mainwindow.py:959
 msgid "&Previous Document"
 msgstr "V&orige document"
 
-#: frescobaldi_app/mainwindow.py:947
+#: frescobaldi_app/mainwindow.py:960
 msgid "Scroll Up"
 msgstr "Omhoog schuiven"
 
-#: frescobaldi_app/mainwindow.py:948
+#: frescobaldi_app/mainwindow.py:961
 msgid "Scroll Down"
 msgstr "Omlaag schuiven"
 
-#: frescobaldi_app/mainwindow.py:950
+#: frescobaldi_app/mainwindow.py:963
 msgid "New &Window"
 msgstr "Nieuw &venster"
 
-#: frescobaldi_app/mainwindow.py:951
+#: frescobaldi_app/mainwindow.py:964
 msgid "&Fullscreen"
 msgstr "Volledig &scherm"
 
-#: frescobaldi_app/mainwindow.py:953
+#: frescobaldi_app/mainwindow.py:966
 msgid "&User Guide"
 msgstr "&Handleiding"
 
-#: frescobaldi_app/mainwindow.py:954
+#: frescobaldi_app/mainwindow.py:967
 msgid "&What's This?"
 msgstr "&Wat is dit?"
 
-#: frescobaldi_app/mainwindow.py:955
+#: frescobaldi_app/mainwindow.py:968
 msgid "Report a &Bug..."
 msgstr "&Bug rapporteren..."
 
-#: frescobaldi_app/mainwindow.py:956
+#: frescobaldi_app/mainwindow.py:969
 msgid "&About {appname}..."
 msgstr "&Over {appname}..."
 
