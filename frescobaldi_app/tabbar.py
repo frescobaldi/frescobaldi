@@ -31,6 +31,7 @@ import icons
 import document
 import documentcontextmenu
 import jobmanager
+import util
 
 
 class TabBar(QTabBar):
@@ -87,9 +88,12 @@ class TabBar(QTabBar):
         if doc in self.docs:
             index = self.docs.index(doc)
             self.setTabText(index, doc.documentName())
-            tooltip = None
-            if not doc.url().isEmpty():
+            if doc.url().toLocalFile():
+                tooltip = util.homify(doc.url().toLocalFile())
+            elif not doc.url().isEmpty():
                 tooltip = doc.url().toString(QUrl.RemoveUserInfo)
+            else:
+                tooltip = None
             self.setTabToolTip(index, tooltip)
             # icon
             if jobmanager.isRunning(doc):
