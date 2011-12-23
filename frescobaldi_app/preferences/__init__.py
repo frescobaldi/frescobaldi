@@ -43,10 +43,10 @@ class PreferencesDialog(QDialog):
     def __init__(self, mainwindow):
         super(PreferencesDialog, self).__init__(mainwindow)
         self.setWindowModality(Qt.WindowModal)
+        self.addAction(mainwindow.actionCollection.help_whatsthis)
         layout = QVBoxLayout()
         layout.setSpacing(10)
         self.setLayout(layout)
-        
         
         # listview to the left, stacked widget to the right
         top = QHBoxLayout()

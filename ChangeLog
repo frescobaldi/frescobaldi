@@ -11,6 +11,9 @@ Changes in 2.0.0 -- December 26th, 2011
   - new dialog and snippet to set the fonts for a LilyPond document
   - the tabs can be hidden and shown via the mainwindow context menu
   - autocomplete on #'font-name, with font preview
+* Improvements:
+  - Shift-F1 (What's This) now works in dialogs
+  - the tab bar can be hidden via the main window context menu
 
 
 Changes in 1.9.5 -- December 20th, 2011

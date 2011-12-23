@@ -45,6 +45,7 @@ import textformats
 def convert(mainwindow):
     """Shows the dialog."""
     dlg = Dialog(mainwindow)
+    dlg.addAction(mainwindow.actionCollection.help_whatsthis)
     dlg.setLilyPondInfo(lilypondinfo.preferred())
     dlg.setDocument(mainwindow.currentDocument())
     dlg.setModal(True)

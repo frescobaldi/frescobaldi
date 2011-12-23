@@ -98,6 +98,7 @@ class Engraver(plugin.MainWindowPlugin):
         except AttributeError:
             from . import custom
             dlg = self._customDialog = custom.Dialog(self.mainwindow())
+            dlg.addAction(self.mainwindow().actionCollection.help_whatsthis)
             dlg.setWindowModality(Qt.WindowModal)
         doc = self.stickyDocument() or self.mainwindow().currentDocument()
         dlg.setDocument(doc)

@@ -39,7 +39,7 @@ class ScoreWizardDialog(QDialog):
     
     def __init__(self, mainwindow):
         super(ScoreWizardDialog, self).__init__(mainwindow)
-        
+        self.addAction(mainwindow.actionCollection.help_whatsthis)
         self._pitchLanguage = None
         
         layout = QVBoxLayout()
