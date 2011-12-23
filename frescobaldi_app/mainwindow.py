@@ -274,6 +274,16 @@ class MainWindow(QMainWindow):
         else:
             return res == QMessageBox.Discard
         
+    def createPopupMenu(self):
+        """ Adds an entry to the popup menu to show/hide the tab bar. """
+        menu = QMainWindow.createPopupMenu(self)
+        menu.addSeparator()
+        a = menu.addAction(_("Tab Bar"))
+        a.setCheckable(True)
+        a.setChecked(self.tabBar.isVisible())
+        a.toggled.connect(self.tabBar.setVisible)
+        return menu
+        
     def readSettings(self):
         """ Read a few settings from the application global config. """
         settings = QSettings()
@@ -281,6 +291,8 @@ class MainWindow(QMainWindow):
         defaultSize = QApplication.desktop().screen().size() * 2 / 3
         self.resize(settings.value("size", defaultSize))
         self.restoreState(settings.value('state', QByteArray()))
+        self.tabBar.setVisible(settings.value('tabbar', True)
+            not in (False, "false"))
         
     def writeSettings(self):
         """ Write a few settings to the application global config. """
@@ -289,6 +301,7 @@ class MainWindow(QMainWindow):
         if not self.isFullScreen():
             settings.setValue("size", self.size())
         settings.setValue('state', self.saveState())
+        settings.setValue('tabbar', self.tabBar.isVisible())
         
     def readSessionSettings(self, settings):
         """Restore ourselves from session manager settings.
