@@ -144,5 +144,4 @@ class Panel(QDockWidget):
         self.show()
         if self.mainwindow().tabifiedDockWidgets(self) or self.isFloating():
             self.raise_()
-            self.activateWindow()
 
