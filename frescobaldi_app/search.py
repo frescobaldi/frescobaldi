@@ -249,6 +249,10 @@ class Search(QWidget, plugin.MainWindowPlugin):
             elif ev.key() ==  Qt.Key_Down:
                 self.findNext()
                 return
+        # use enter or return for search next
+        if ev.key() in (Qt.Key_Enter, Qt.Key_Return):
+            self.findNext()
+            return
         super(Search, self).keyPressEvent(ev)
 
     def doReplace(self, cursor):
