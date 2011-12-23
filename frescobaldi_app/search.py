@@ -138,6 +138,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
             viewhighlighter.highlighter(view).clear("search")
             view.hideWidget(self)
             self.hide()
+            self._positions = []
     
     def viewChanged(self, new):
         self.setParent(None)
