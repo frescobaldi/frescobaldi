@@ -398,6 +398,12 @@ class MarkupLines(Markup):
         state.enter(ParseMarkup(1))
 
 
+class MarkupList(Markup):
+    rx = r"\\markuplist(?![A-Za-z])"
+    def updateState(self, state):
+        state.enter(ParseMarkup(1))
+
+
 class MarkupCommand(Markup):
     rx = r"\\[A-Za-z]+(-[A-Za-z]+)*(?![A-Za-z])"
     def updateState(self, state):
@@ -727,8 +733,7 @@ command_items = (
     With,
     Clef,
     ChordMode, DrumMode, FigureMode, LyricMode, NoteMode,
-    Markup,
-    MarkupLines,
+    Markup, MarkupLines, MarkupList,
     Keyword,
     Command,
     UserCommand,
@@ -790,7 +795,7 @@ class ParseGlobal(ParseLilyPond):
         Book,
         BookPart,
         Score,
-        Markup, MarkupLines,
+        Markup, MarkupLines, MarkupList,
         Paper, Header, Layout,
     ) + toplevel_base_items + (
         Name,
@@ -845,7 +850,7 @@ class ParseBook(ParseLilyPond):
     """Parses the expression after \book {, leaving at } """
     items = (
         CloseBracket,
-        Markup, MarkupLines,
+        Markup, MarkupLines, MarkupList,
         BookPart,
         Score,
         Paper, Header, Layout,
@@ -861,7 +866,7 @@ class ParseBookPart(ParseLilyPond):
     """Parses the expression after \score {, leaving at } """
     items = (
         CloseBracket,
-        Markup, MarkupLines,
+        Markup, MarkupLines, MarkupList,
         Score,
         Paper, Header, Layout,
     ) + toplevel_base_items
@@ -875,7 +880,7 @@ class ParsePaper(ParseLilyPond):
     """Parses the expression after \score {, leaving at } """
     items = base_items + (
         CloseBracket,
-        Markup, MarkupLines,
+        Markup, MarkupLines, MarkupList,
         PaperVariable,
         EqualSign,
         DecimalValue,
@@ -891,7 +896,7 @@ class ParseHeader(ParseLilyPond):
     """Parses the expression after \score {, leaving at } """
     items = (
         CloseBracket,
-        Markup, MarkupLines,
+        Markup, MarkupLines, MarkupList,
         HeaderVariable,
         EqualSign,
     ) + toplevel_base_items
@@ -1028,7 +1033,7 @@ class ParseOverride(ParseLilyPond):
         GrobName,
         EqualSignSetOverride,
         Name,
-        Markup, MarkupLines,
+        Markup, MarkupLines, MarkupList,
     ) + base_items
     
 
@@ -1050,7 +1055,7 @@ class ParseSet(ParseLilyPond):
         ContextProperty,
         EqualSignSetOverride,
         Name,
-        Markup, MarkupLines,
+        Markup, MarkupLines, MarkupList,
     ) + base_items
     
     
@@ -1122,7 +1127,7 @@ class ParseLyricMode(ParseInputMode):
         Dynamic,
         Skip,
         Length,
-        Markup, MarkupLines,
+        Markup, MarkupLines, MarkupList,
     ) + command_items
     
     def updateState(self, state, token):

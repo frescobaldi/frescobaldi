@@ -42,6 +42,7 @@ from . import util
 markup = (
     'markup',
     'markuplines',
+    'markuplist',
     'pageBreak',
     'noPageBreak',
 )

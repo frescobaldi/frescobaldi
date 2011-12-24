@@ -234,7 +234,8 @@ lilypond_music_commands = (
     'makeClusters',
     'mark',
     'markup',
-    'markuplines',
+    'markuplines', # deprecated, till 2.14
+    'markuplist', # from 2.16
     'maxima',
     'melisma',
     'melismaEnd',
