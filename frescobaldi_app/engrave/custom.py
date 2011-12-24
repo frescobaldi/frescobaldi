@@ -139,7 +139,7 @@ class Dialog(QDialog):
             self.buttons.button(QDialogButtonBox.Ok).setEnabled(False)
         
     def loadLilyPondVersions(self):
-        infos = lilypondinfo.infos()
+        infos = lilypondinfo.infos() or [lilypondinfo.default()]
         infos.sort(key = lambda i: i.version or (999,))
         self._infos = infos
         index = self.versionCombo.currentIndex()
