@@ -353,7 +353,7 @@ msgstr "Décrivez ci-dessous ce que vous étiez en train de faire (optionnel) :"
 
 #: frescobaldi_app/globalfontdialog.py:69
 msgid "Global Fonts"
-msgstr ""
+msgstr "Polices globales"
 
 #: frescobaldi_app/globalfontdialog.py:71
 msgid ""
@@ -362,23 +362,24 @@ msgid ""
 "set the staff size to the global staff size you use in the document (20 by "
 "default)."
 msgstr ""
+"Veuillez sélectionner les trois polices globales à utiliser respectivement pour "
+"<code>\\roman</code>, <code>\\sans</code> et <code>\\typewriter</code>. Vous pouvez "
+"également définir la taille de portée globale que vous utilisez dans le document "
+"(20 par défaut)."
 
 #: frescobaldi_app/globalfontdialog.py:76
-#, fuzzy
 msgid "Roman Font:"
-msgstr "Police :"
+msgstr "Police « roman » :"
 
 #: frescobaldi_app/globalfontdialog.py:77
-#, fuzzy
 msgid "Sans Font:"
-msgstr "Police :"
+msgstr "Police « sans » :"
 
 #: frescobaldi_app/globalfontdialog.py:78
 msgid "Typewriter Font:"
-msgstr ""
+msgstr "Police « typewriter » :"
 
 #: frescobaldi_app/globalfontdialog.py:79
-#, fuzzy
 msgid "Staff Size:"
 msgstr "Taille des portées :"
 
@@ -585,9 +586,8 @@ msgstr ""
 "Voulez-vous enregistrer les changements ou les supprimer ?"
 
 #: frescobaldi_app/mainwindow.py:281
-#, fuzzy
 msgid "Tab Bar"
-msgstr "Tablature"
+msgstr "Barre d'onglets"
 
 #: frescobaldi_app/mainwindow.py:335 frescobaldi_app/popplerprint.py:53
 #: frescobaldi_app/sessions/dialog.py:165
@@ -1134,14 +1134,12 @@ msgstr "Code source LilyPond"
 
 #: frescobaldi_app/doclist/__init__.py:39
 #: frescobaldi_app/preferences/tools.py:219
-#, fuzzy
 msgid "Documents"
 msgstr "Document :"
 
 #: frescobaldi_app/doclist/__init__.py:40
-#, fuzzy
 msgid "Docum&ents"
-msgstr "Document :"
+msgstr "Docum&ents :"
 
 #: frescobaldi_app/engrave/__init__.py:169
 msgid "&Always Engrave [{docname}]"
@@ -1269,14 +1267,12 @@ msgid "PNG (EPS Backend)"
 msgstr "PNG (Backend EPS)"
 
 #: frescobaldi_app/engrave/result_menu.py:45
-#, fuzzy
 msgid "Generated &Files"
 msgstr "Fichiers &générés"
 
 #: frescobaldi_app/engrave/result_menu.py:66
-#, fuzzy
 msgid "No files available"
-msgstr "Indisponible"
+msgstr "Pas de fichier disponible"
 
 #: frescobaldi_app/help/browser.py:75
 msgid "Toolbar"
@@ -2193,9 +2189,8 @@ msgid "Antialias"
 msgstr "Lissage"
 
 #: frescobaldi_app/musicview/image.py:130
-#, fuzzy
 msgid "Drag"
-msgstr "Dorien"
+msgstr "Glisser"
 
 #: frescobaldi_app/musicview/image.py:131
 msgid "Drag the image as a PNG file."
@@ -2973,7 +2968,7 @@ msgstr "Commande utilisateur"
 #: frescobaldi_app/preferences/fontscolors.py:501
 #: frescobaldi_app/snippet/builtin.py:184
 msgid "Markup"
-msgstr "Repérage"
+msgstr "Markup"
 
 #: frescobaldi_app/preferences/fontscolors.py:502
 msgid "Lyric Mode"
@@ -3132,23 +3127,20 @@ msgid "The default folder for your LilyPond documents (optional)."
 msgstr "Le dossier par défaut pour vos documents LilyPond (optionnel)."
 
 #: frescobaldi_app/preferences/helpers.py:70
-#, fuzzy
 msgid "PDF:"
-msgstr "PDF"
+msgstr "PDF :"
 
 #: frescobaldi_app/preferences/helpers.py:71
-#, fuzzy
 msgid "MIDI:"
-msgstr "MIDI"
+msgstr "MIDI :"
 
 #: frescobaldi_app/preferences/helpers.py:72
-#, fuzzy
 msgid "SVG:"
-msgstr "SVG"
+msgstr "SVG :"
 
 #: frescobaldi_app/preferences/helpers.py:73
 msgid "Image:"
-msgstr ""
+msgstr "Image :"
 
 #: frescobaldi_app/preferences/helpers.py:74
 msgid "Browser:"
@@ -3156,7 +3148,7 @@ msgstr "Navigateur :"
 
 #: frescobaldi_app/preferences/helpers.py:75
 msgid "E-Mail:"
-msgstr ""
+msgstr "E-mail :"
 
 #: frescobaldi_app/preferences/helpers.py:76
 msgid "File Manager:"
@@ -3441,9 +3433,8 @@ msgid "%"
 msgstr "%"
 
 #: frescobaldi_app/preferences/tools.py:220
-#, fuzzy
 msgid "Group documents by directory"
-msgstr "Ouvrir le dossier courant"
+msgstr "Grouper les documents par dossier"
 
 #: frescobaldi_app/quickinsert/__init__.py:47
 #: frescobaldi_app/quickinsert/__init__.py:70
@@ -4970,7 +4961,7 @@ msgstr "Portée inférieure :"
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:87
 msgid "Set the number of voices to 0 to disable the second staff."
-msgstr "Régler le nombre de voies à 0 pour désactiver la seconde portée."
+msgstr "Régler le nombre de voix à 0 pour désactiver la seconde portée."
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:99
 msgid "Vibraphone"
@@ -5692,15 +5683,15 @@ msgstr "&Session"
 
 #: frescobaldi_app/snippet/builtin.py:38
 msgid "Blank Line"
-msgstr "Ligne Vierge"
+msgstr "Ligne vierge"
 
 #: frescobaldi_app/snippet/builtin.py:44
 msgid "Single Typographical Quotes"
-msgstr "Guillemets Typographiques Simples"
+msgstr "Guillemets typographiques simples"
 
 #: frescobaldi_app/snippet/builtin.py:49
 msgid "Double Typographical Quotes"
-msgstr "Guillemets Typographiques Doubles"
+msgstr "Guillemets typographiques doubles"
 
 #: frescobaldi_app/snippet/builtin.py:115
 msgid "Tuplets"
@@ -5708,15 +5699,15 @@ msgstr "Tuplets"
 
 #: frescobaldi_app/snippet/builtin.py:125
 msgid "Modern 2/2 Time Signature"
-msgstr "Indicateur de Mesure 2/2 Moderne"
+msgstr "Indicateur de mesure 2/2 moderne"
 
 #: frescobaldi_app/snippet/builtin.py:131
 msgid "Modern 4/4 Time Signature"
-msgstr "Indicateur de Mesure 4/4 Moderne"
+msgstr "Indicateur de mesure 4/4 moderne"
 
 #: frescobaldi_app/snippet/builtin.py:137
 msgid "Tactus Time Signature (number with note)"
-msgstr "Indicateur de Mesure Tactus (nombre avec note)"
+msgstr "Indicateur de mesure tactus (nombre avec note)"
 
 #: frescobaldi_app/snippet/builtin.py:148
 msgid "LilyPond Version"
@@ -5724,7 +5715,7 @@ msgstr "Version de LilyPond"
 
 #: frescobaldi_app/snippet/builtin.py:159
 msgid "Relative Music"
-msgstr "Musique Relative"
+msgstr "Musique relative"
 
 #: frescobaldi_app/snippet/builtin.py:166
 msgid "Upper case selection"
@@ -5740,11 +5731,11 @@ msgstr "Sélection en casse de titre"
 
 #: frescobaldi_app/snippet/builtin.py:189
 msgid "Markup lines"
-msgstr "Repérer les lignes"
+msgstr "Markup en lignes"
 
 #: frescobaldi_app/snippet/builtin.py:197
 msgid "Markup column"
-msgstr "Repérer la colonne"
+msgstr "Markup en colonne"
 
 #: frescobaldi_app/snippet/builtin.py:202
 msgid "Tagline with date and LilyPond version"
@@ -5752,7 +5743,7 @@ msgstr "Slogan avec date et version de LilyPond"
 
 #: frescobaldi_app/snippet/builtin.py:212
 msgid "Header Template"
-msgstr "Modèle d'entête"
+msgstr "Modèle d'en-tête"
 
 #: frescobaldi_app/snippet/builtin.py:227
 msgid "No Tagline"
@@ -5760,25 +5751,23 @@ msgstr "Pas de slogan"
 
 #: frescobaldi_app/snippet/builtin.py:235
 msgid "No Barnumbers"
-msgstr "Pas de nNuméros de mesure"
+msgstr "Pas de numéros de mesure"
 
 #: frescobaldi_app/snippet/builtin.py:245
-#, fuzzy
 msgid "Midi Tempo"
-msgstr "Tempo :"
+msgstr "Tempo MIDI"
 
 #: frescobaldi_app/snippet/builtin.py:255
 msgid "Staff Size"
-msgstr "Taille des portées :"
+msgstr "Taille des portées"
 
 #: frescobaldi_app/snippet/builtin.py:310
 msgid "A5 Paper"
 msgstr "Papier A5"
 
 #: frescobaldi_app/snippet/builtin.py:318
-#, fuzzy
 msgid "Document Fonts..."
-msgstr "Document :"
+msgstr "Polices du document..."
 
 #: frescobaldi_app/snippet/builtin.py:346
 msgid "Last note or chord"
@@ -7877,7 +7866,7 @@ msgstr "Sélectionner un fichier"
 #~ msgstr "Section Layout (mise en page)"
 
 #~ msgid "Midi section"
-#~ msgstr "Section Midi"
+#~ msgstr "Section MIDI"
 
 #~ msgid "With: instrumentName"
 #~ msgstr "Avec instrumentName (nom de l'instrument)"
