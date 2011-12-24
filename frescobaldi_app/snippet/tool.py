@@ -59,6 +59,8 @@ class SnippetTool(panels.Panel):
 
     def activate(self):
         super(SnippetTool, self).activate()
+        if self.isFloating():
+            self.activateWindow()
         self.mainwindow().currentView().ensureCursorVisible()
         self.widget().searchEntry.setFocus()
         self.widget().searchEntry.selectAll()
