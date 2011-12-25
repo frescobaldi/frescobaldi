@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2011-12-23 09:24+0100\n"
-"PO-Revision-Date: 2011-12-18 14:25+0100\n"
+"PO-Revision-Date: 2011-12-25 14:06+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -1130,14 +1130,12 @@ msgstr "Zdroj LilyPond"
 
 #: frescobaldi_app/doclist/__init__.py:39
 #: frescobaldi_app/preferences/tools.py:219
-#, fuzzy
 msgid "Documents"
-msgstr "Dokument:"
+msgstr "Dokumenty"
 
 #: frescobaldi_app/doclist/__init__.py:40
-#, fuzzy
 msgid "Docum&ents"
-msgstr "Dokument:"
+msgstr "Dokum&enty"
 
 #: frescobaldi_app/engrave/__init__.py:169
 msgid "&Always Engrave [{docname}]"
@@ -1160,9 +1158,8 @@ msgid "Engrave (&publish)"
 msgstr "Vyrýt (&vydat)"
 
 #: frescobaldi_app/engrave/__init__.py:203
-#, fuzzy
 msgid "Engrave (&custom)..."
-msgstr "Vyrýt (v&lastní)"
+msgstr "Vyrýt (v&lastní)..."
 
 #: frescobaldi_app/engrave/__init__.py:204
 msgid "Abort Engraving &Job"
@@ -1266,14 +1263,12 @@ msgid "PNG (EPS Backend)"
 msgstr "PNG (jádro EPS)"
 
 #: frescobaldi_app/engrave/result_menu.py:45
-#, fuzzy
 msgid "Generated &Files"
-msgstr "&Vytvořené soubory"
+msgstr "Vytvořené &soubory"
 
 #: frescobaldi_app/engrave/result_menu.py:66
-#, fuzzy
 msgid "No files available"
-msgstr "Nedostupné"
+msgstr "Nejsou dostupné žádné soubory"
 
 #: frescobaldi_app/help/browser.py:75
 msgid "Toolbar"
@@ -2165,12 +2160,11 @@ msgstr "Automaticky oříznout"
 
 #: frescobaldi_app/musicview/image.py:129
 msgid "Antialias"
-msgstr "Vyhlazování"
+msgstr "Vyhlazovat"
 
 #: frescobaldi_app/musicview/image.py:130
-#, fuzzy
 msgid "Drag"
-msgstr "Dórský"
+msgstr "Táhnout"
 
 #: frescobaldi_app/musicview/image.py:131
 msgid "Drag the image as a PNG file."
@@ -2643,7 +2637,6 @@ msgstr "Nastavení MIDI"
 
 #: frescobaldi_app/preferences/__init__.py:192
 #: frescobaldi_app/preferences/helpers.py:80
-#, fuzzy
 msgid "Helper Applications"
 msgstr "Pomocné programy"
 
@@ -3091,41 +3084,36 @@ msgid "The default folder for your LilyPond documents (optional)."
 msgstr "Výchozí složka pro vaše dokumenty LilyPond (volitelná)."
 
 #: frescobaldi_app/preferences/helpers.py:70
-#, fuzzy
 msgid "PDF:"
-msgstr "PDF"
+msgstr "PDF:"
 
 #: frescobaldi_app/preferences/helpers.py:71
-#, fuzzy
 msgid "MIDI:"
-msgstr "MIDI"
+msgstr "MIDI:"
 
 #: frescobaldi_app/preferences/helpers.py:72
-#, fuzzy
 msgid "SVG:"
-msgstr "SVG"
+msgstr "SVG:"
 
 #: frescobaldi_app/preferences/helpers.py:73
 msgid "Image:"
-msgstr ""
+msgstr "Obrázek:"
 
 #: frescobaldi_app/preferences/helpers.py:74
 msgid "Browser:"
-msgstr ""
+msgstr "Prohlížeč:"
 
 #: frescobaldi_app/preferences/helpers.py:75
 msgid "E-Mail:"
-msgstr ""
+msgstr "El. pošta:"
 
 #: frescobaldi_app/preferences/helpers.py:76
-#, fuzzy
 msgid "File Manager:"
-msgstr "Souborový název"
+msgstr "Správce souborů:"
 
 #: frescobaldi_app/preferences/helpers.py:77
-#, fuzzy
 msgid "Shell:"
-msgstr "Nákres:"
+msgstr "Shell:"
 
 #: frescobaldi_app/preferences/helpers.py:82
 msgid ""
@@ -3133,14 +3121,19 @@ msgid ""
 "is replaced with the filename, <code>$u</code> with the URL. Leave a field "
 "empty to use the operating system default application."
 msgstr ""
+"Níže můžete zadat příkazy pro otevírání různých typů souborů. <code>$f</"
+"code> je nahrazen názvem souboru, <code>$u</code> s adresou (URL). Aby se "
+"použil program nastavený v operačním systému jako výchozí, ponechejte pole "
+"prázdné."
 
 #: frescobaldi_app/preferences/helpers.py:90
 msgid "Command that should accept a mailto: URL."
 msgstr ""
+"Příkaz, který má přijmout adresu (URL) pro poslání elektronickou poštou"
 
 #: frescobaldi_app/preferences/helpers.py:92
 msgid "Command to open a Terminal or Command window."
-msgstr ""
+msgstr "Příkaz pro otevření okna s terminálem nebo příkazovým řádkem."
 
 #: frescobaldi_app/preferences/lilypond.py:81
 msgid "LilyPond versions to use"
@@ -3394,9 +3387,8 @@ msgid "%"
 msgstr "%"
 
 #: frescobaldi_app/preferences/tools.py:220
-#, fuzzy
 msgid "Group documents by directory"
-msgstr "Otevřít nynější adresář"
+msgstr "Seskupit dokumenty podle adresáře"
 
 #: frescobaldi_app/quickinsert/__init__.py:47
 #: frescobaldi_app/quickinsert/__init__.py:70
@@ -5696,9 +5688,8 @@ msgid "No Barnumbers"
 msgstr "Žádná čísla taktů"
 
 #: frescobaldi_app/snippet/builtin.py:245
-#, fuzzy
 msgid "Midi Tempo"
-msgstr "Tempo"
+msgstr "Tempo MIDI"
 
 #: frescobaldi_app/snippet/builtin.py:255
 msgid "Staff Size"
@@ -5711,7 +5702,7 @@ msgstr "Papír A5"
 #: frescobaldi_app/snippet/builtin.py:318
 #, fuzzy
 msgid "Document Fonts..."
-msgstr "Dokument:"
+msgstr "Dokumenty"
 
 #: frescobaldi_app/snippet/builtin.py:346
 msgid "Last note or chord"
