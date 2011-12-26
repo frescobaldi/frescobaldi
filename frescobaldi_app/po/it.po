@@ -3202,7 +3202,7 @@ msgstr ""
 #: frescobaldi_app/preferences/lilypond.py:87
 msgid ""
 "<p>If this setting is enabled, the document is searched for a LilyPond <code>"
-"\\version<code> command or a <code>version</code> document variable.</p>\n"
+"\\version</code> command or a <code>version</code> document variable.</p>\n"
 "<p>The LilyPond version command looks like:</p>\n"
 "<pre>\\version \"2.14.0\"</pre>\n"
 "<p>The document variable looks like:</p>\n"

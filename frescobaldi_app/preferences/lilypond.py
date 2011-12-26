@@ -85,7 +85,7 @@ class Versions(preferences.Group):
             "See \"What's This\" for more information."))
         self.auto.setWhatsThis(_(
             "<p>If this setting is enabled, the document is searched for a "
-            "LilyPond <code>\\version<code> command or a <code>version</code> "
+            "LilyPond <code>\\version</code> command or a <code>version</code> "
             "document variable.</p>\n"
             "<p>The LilyPond version command looks like:</p>\n"
             "<pre>\\version \"2.14.0\"</pre>\n"
