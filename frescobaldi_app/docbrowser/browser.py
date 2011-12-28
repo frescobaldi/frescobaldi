@@ -93,11 +93,12 @@ class Browser(QWidget):
         s.beginGroup("documentation")
         ws = self.webview.page().settings()
         family = s.value("fontfamily", self.font().family())
-        ws.setFontFamily(QWebSettings.StandardFont, family)
-        ws.setFontFamily(QWebSettings.FixedFont,
-            textformats.formatData('editor').font.family())
         size = int(s.value("fontsize", 16))
-        self.webview.page().settings().setFontSize(QWebSettings.DefaultFontSize, size)
+        ws.setFontFamily(QWebSettings.StandardFont, family)
+        ws.setFontSize(QWebSettings.DefaultFontSize, size)
+        fixed = textformats.formatData('editor').font
+        ws.setFontFamily(QWebSettings.FixedFont, fixed.family())
+        ws.setFontSize(QWebSettings.DefaultFixedFontSize, fixed.pointSizeF() * 96 / 72)
         
     def keyPressEvent(self, ev):
         if ev.text() == "/":
