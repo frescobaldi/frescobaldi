@@ -11,15 +11,15 @@ msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2011-12-23 09:24+0100\n"
-"PO-Revision-Date: 2011-12-25 14:06+0100\n"
+"PO-Revision-Date: 2011-12-27 22:03+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 1.1\n"
+"X-Generator: Lokalize 1.0\n"
 
 #: frescobaldi_app/about.py:43
 msgid "{appname} is written in {python} and uses the {qt} toolkit."
@@ -38,7 +38,7 @@ msgstr "Qt4"
 #: frescobaldi_app/about.py:50
 msgid ""
 "The Music View is powered by the {poppler} library by {authors} and others."
-msgstr "Pohled na noty je napájen knihovnou {poppler} od {authors} a dalších."
+msgstr "Pohled na noty je živen knihovnou {poppler} od {authors} a dalších."
 
 #. L10N: the Poppler PDF library
 #: frescobaldi_app/about.py:54
@@ -581,9 +581,8 @@ msgstr ""
 "Chcete uložit změny nebo je zahodit?"
 
 #: frescobaldi_app/mainwindow.py:281
-#, fuzzy
 msgid "Tab Bar"
-msgstr "Tabulatura"
+msgstr ""
 
 #: frescobaldi_app/mainwindow.py:335 frescobaldi_app/popplerprint.py:53
 #: frescobaldi_app/sessions/dialog.py:165
@@ -889,7 +888,7 @@ msgstr "&Pohled"
 #: frescobaldi_app/menu.py:170
 msgctxt "submenu title"
 msgid "Music &View"
-msgstr "P&ohled na hudbu"
+msgstr "P&ohled na noty"
 
 #: frescobaldi_app/menu.py:189
 msgctxt "menu title"
@@ -936,7 +935,7 @@ msgstr "&Tisk"
 
 #: frescobaldi_app/musicpreview.py:196
 msgid "Music Preview"
-msgstr "Náhled na hudbu"
+msgstr "Náhled na noty"
 
 #: frescobaldi_app/popplerdummy.py:42
 msgid "Could not load the {name} module."
@@ -1517,7 +1516,7 @@ msgid ""
 msgstr ""
 "<p>\n"
 "Výchozí obrazovka Frescobaldi ukazuje textový dokument nalevo a prázdný\n"
-"náhled na hudbu napravo.\n"
+"náhled na noty napravo.\n"
 "</p>\n"
 "\n"
 "<p>\n"
@@ -1533,13 +1532,13 @@ msgstr ""
 "Ve spodní části obrazovky můžete sledovat postup LilyPondu.\n"
 "Pokud se na vaší straně LilyPond nesetká s nějakými chybami, vytvoří soubor "
 "PDF,\n"
-"který se zobrazí v náhledu na hudbu:\n"
+"který se zobrazí v náhledu na noty:\n"
 "</p>\n"
 "\n"
 "<p><img src=\"getting_started1.png\"></p>\n"
 "\n"
 "<p>\n"
-"Náhled na hudbu má mnoho možností:\n"
+"Náhled na noty má mnoho možností:\n"
 "<p>\n"
 "\n"
 "<ul>\n"
@@ -1997,7 +1996,7 @@ msgstr "Záznam o průběhu činnosti od LilyPondu"
 
 #: frescobaldi_app/logtool/__init__.py:51
 msgid "LilyPond &Log"
-msgstr "&Zápis LilyPond"
+msgstr "&Zápis o LilyPondu"
 
 #: frescobaldi_app/logtool/__init__.py:91
 msgid "Next Error Message"
@@ -2084,7 +2083,7 @@ msgstr "Pohled na &hudbu"
 
 #: frescobaldi_app/musicview/__init__.py:191
 msgid "Select Music View Document"
-msgstr "Vybrat dokument s pohledem na hudbu"
+msgstr "Vybrat dokument s pohledem na noty"
 
 #: frescobaldi_app/musicview/__init__.py:192
 msgid "&Print Music..."
@@ -2673,9 +2672,9 @@ msgstr ""
 #: frescobaldi_app/preferences/documentation.py:68
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the \"{documentation}"
-"\" directory lives, or the whole \"share/doc/lilypond/html/offline-root\" "
-"path.</p>\n"
+"A local path should point to the directory where either the "
+"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
+"offline-root\" path.</p>\n"
 "<p>If those can't be found, documentation is looked for in all "
 "subdirectories of the given path, one level deep. This makes it possible to "
 "put multiple versions of LilyPond documentation in different subdirectories "
@@ -2716,7 +2715,7 @@ msgstr "Zadejte, prosím, místní cestu nebo adresu (URL):"
 
 #: frescobaldi_app/preferences/fontscolors.py:121
 msgid "Use this scheme for printing"
-msgstr "Použít tento nákres pro tisk"
+msgstr "Použít toto schéma pro tisk"
 
 #: frescobaldi_app/preferences/fontscolors.py:122
 #: frescobaldi_app/preferences/tools.py:81
@@ -3105,7 +3104,7 @@ msgstr "Prohlížeč:"
 
 #: frescobaldi_app/preferences/helpers.py:75
 msgid "E-Mail:"
-msgstr "El. pošta:"
+msgstr "Elektronická pošta:"
 
 #: frescobaldi_app/preferences/helpers.py:76
 msgid "File Manager:"
@@ -3152,6 +3151,7 @@ msgstr ""
 "Pro další informace se podívejte na \"Co je toto\"."
 
 #: frescobaldi_app/preferences/lilypond.py:87
+#, fuzzy
 msgid ""
 "<p>If this setting is enabled, the document is searched for a LilyPond <code>"
 "\\version</code> command or a <code>version</code> document variable.</p>\n"
@@ -3166,7 +3166,7 @@ msgid ""
 "is chosen. Otherwise, the default version is chosen.</p>\n"
 msgstr ""
 "<p>Je-li povoleno toto nastavení, dokument se prohledává na příkaz LilyPondu "
-"<code>\\version</code> nebo proměnnou dokumentu <code>version</code>.</p>\n"
+"<code>\\version<code> nebo proměnnou dokumentu <code>version</code>.</p>\n"
 "<p>Příkaz pro verzi LilyPondu vypadá takto:</p>\n"
 "<pre>\\version \"2.14.0\"</pre>\n"
 "<p>Proměnná dokumentu vypadá takto:</p>\n"
@@ -3231,7 +3231,7 @@ msgstr "Je-li zaškrtnuto, LilyPond smaže prostřední soubory PostScript."
 
 #: frescobaldi_app/preferences/lilypond.py:287
 msgid "LilyPond include path:"
-msgstr "Vyhledávací cesta pro LilyPond:"
+msgstr "Cesta obsahující LilyPond:"
 
 #: frescobaldi_app/preferences/midi.py:77
 msgid "MIDI Ports"
@@ -4454,11 +4454,11 @@ msgstr "Údaj o tempu:"
 
 #: frescobaldi_app/scorewiz/scoreproperties.py:385
 msgid "Major"
-msgstr "Durová (Major)"
+msgstr "Dur"
 
 #: frescobaldi_app/scorewiz/scoreproperties.py:386
 msgid "Minor"
-msgstr "Mollová (Minor)"
+msgstr "Moll"
 
 #: frescobaldi_app/scorewiz/scoreproperties.py:387
 msgid "Ionian"
@@ -4506,7 +4506,7 @@ msgstr "Nahradit normální uvozovky v názvech hezkými typografickými uvozovk
 
 #: frescobaldi_app/scorewiz/settings.py:116
 msgid "Remove default tagline"
-msgstr "Odstranit výchozí motto"
+msgstr "Odstranit výchozí heslo"
 
 #: frescobaldi_app/scorewiz/settings.py:118
 msgid "Suppress the default tagline output by LilyPond."
@@ -4565,7 +4565,7 @@ msgstr "Názvy nástrojů"
 
 #: frescobaldi_app/scorewiz/settings.py:214
 msgid "First system:"
-msgstr "První systém:"
+msgstr "První osnova:"
 
 #: frescobaldi_app/scorewiz/settings.py:215
 msgid "Other systems:"
@@ -5600,7 +5600,7 @@ msgstr "Přepsat"
 #: frescobaldi_app/sessions/manager.py:127
 msgctxt "New Session"
 msgid "&New..."
-msgstr "&Nový..."
+msgstr "&Nové..."
 
 #: frescobaldi_app/sessions/manager.py:129
 msgid "&Manage..."
@@ -6228,16 +6228,16 @@ msgstr "Vstup"
 #: frescobaldi_app/widgets/schemeselector.py:47
 #: frescobaldi_app/widgets/schemeselector.py:62
 msgid "Scheme:"
-msgstr "Nákres:"
+msgstr "Schéma:"
 
 #: frescobaldi_app/widgets/schemeselector.py:63
 msgctxt "New Scheme"
 msgid "&New..."
-msgstr "&Nový..."
+msgstr "&Nové..."
 
 #: frescobaldi_app/widgets/schemeselector.py:93
 msgid "Please enter a name for the new scheme:"
-msgstr "Zadejte, prosím, název pro nový nákres:"
+msgstr "Zadejte, prosím, název pro nový schéma:"
 
 #: frescobaldi_app/widgets/shortcuteditdialog.py:94
 msgctxt "window title"
