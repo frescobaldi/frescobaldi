@@ -250,7 +250,7 @@ language_names = {
  "fy":"Fríský",
  "ga":"Galský (irština)",
  "gd":"Galský",
- "gl":"Haličský",
+ "gl":"Galicijský", # NOTE!!!! This is corrected from an apparent mistake in KDE's all_languages
  "gn":"Guarani",
  "gu":"Gujarati",
  "gv":"Manx",
