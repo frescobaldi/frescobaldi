@@ -35,6 +35,7 @@ import widgets.lineedit
 import lilypondinfo
 import lilydoc.manager
 import lilydoc.network
+import textformats
 
 
 class Browser(QWidget):
@@ -80,11 +81,24 @@ class Browser(QWidget):
         dockwidget.mainwindow().iconSizeChanged.connect(self.updateToolBarSettings)
         dockwidget.mainwindow().toolButtonStyleChanged.connect(self.updateToolBarSettings)
         
+        app.settingsChanged.connect(self.readSettings)
+        self.readSettings()
         self.loadDocumentation()
         self.showInitialPage()
         app.settingsChanged.connect(self.loadDocumentation)
         app.translateUI(self)
     
+    def readSettings(self):
+        s = QSettings()
+        s.beginGroup("documentation")
+        ws = self.webview.page().settings()
+        family = s.value("fontfamily", self.font().family())
+        ws.setFontFamily(QWebSettings.StandardFont, family)
+        ws.setFontFamily(QWebSettings.FixedFont,
+            textformats.formatData('editor').font.family())
+        size = int(s.value("fontsize", 16))
+        self.webview.page().settings().setFontSize(QWebSettings.DefaultFontSize, size)
+        
     def keyPressEvent(self, ev):
         if ev.text() == "/":
             self.search.setFocus()

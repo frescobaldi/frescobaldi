@@ -24,9 +24,11 @@ Documentation preferences.
 from __future__ import unicode_literals
 
 from PyQt4.QtCore import QSettings, Qt
-from PyQt4.QtGui import QComboBox, QCompleter, QGridLayout, QLabel, QVBoxLayout
+from PyQt4.QtGui import (QComboBox, QCompleter, QFontComboBox,
+    QGridLayout, QLabel, QSpinBox, QVBoxLayout)
 
 import app
+import util
 import icons
 import preferences
 import widgets.listedit
@@ -104,6 +106,16 @@ class Browser(preferences.Group):
         items.extend(language_names.languageName(l, l) for l in lilydoc.translations)
         self.languages.addItems(items)
         
+        self.fontLabel = QLabel()
+        self.fontChooser = QFontComboBox(currentFontChanged=self.changed)
+        self.fontSize = QSpinBox(valueChanged=self.changed)
+        self.fontSize.setRange(6, 32)
+        self.fontSize.setSingleStep(1)
+        
+        layout.addWidget(self.fontLabel, 1, 0)
+        layout.addWidget(self.fontChooser, 1, 1)
+        layout.addWidget(self.fontSize, 1, 2)
+        
         app.translateUI(self)
     
     def translateUI(self):
@@ -111,9 +123,12 @@ class Browser(preferences.Group):
         self.languagesLabel.setText(_("Preferred Language:"))
         self.languages.setItemText(0, _("Default"))
         self.languages.setItemText(1, _("English (untranslated)"))
-
+        self.fontLabel.setText(_("Font:"))
+        
     def loadSettings(self):
-        lang = QSettings().value("documentation/language", "default")
+        s = QSettings()
+        s.beginGroup("documentation")
+        lang = s.value("language", "default")
         if lang in lilydoc.translations:
             i = lilydoc.translations.index(lang) + 2
         elif lang == "C":
@@ -121,11 +136,23 @@ class Browser(preferences.Group):
         else:
             i = 0
         self.languages.setCurrentIndex(i)
-    
+        
+        font = self.font()
+        family = s.value("fontfamily", "")
+        if family:
+            font.setFamily(family)
+        size = int(s.value("fontsize", 16))
+        with util.signalsBlocked(self.fontChooser, self.fontSize):
+            self.fontChooser.setCurrentFont(font)
+            self.fontSize.setValue(size)
+
     def saveSettings(self):
+        s = QSettings()
+        s.beginGroup("documentation")
         langs = ['default', 'C'] + lilydoc.translations
-        QSettings().setValue("documentation/language",
-            langs[self.languages.currentIndex()])
+        s.setValue("language", langs[self.languages.currentIndex()])
+        s.setValue("fontfamily", self.fontChooser.currentFont().family())
+        s.setValue("fontsize", self.fontSize.value())
 
 
 class LilyDocPathsList(widgets.listedit.ListEdit):
