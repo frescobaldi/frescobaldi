@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2011-12-23 09:24+0100\n"
-"PO-Revision-Date: 2011-12-27 22:03+0100\n"
+"PO-Revision-Date: 2011-12-28 18:57+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -362,25 +362,27 @@ msgid ""
 "set the staff size to the global staff size you use in the document (20 by "
 "default)."
 msgstr ""
+"Vyberte, prosím, tři celková písma, která se v uvedeném "
+"pořadí budou používat pro <code>\\roman</code>, <code>"
+"\\sans</code>, a <code>\\typewriter</code>. Měli byste také "
+"nastavit velikost notové osnovy k celkové velikosti notové osnovy, "
+"kterou používáte v dokumentu (výchozí hodnota je 20)."
 
 #: frescobaldi_app/globalfontdialog.py:76
-#, fuzzy
 msgid "Roman Font:"
-msgstr "Písmo:"
+msgstr "Antikvové písmo:"
 
 #: frescobaldi_app/globalfontdialog.py:77
-#, fuzzy
 msgid "Sans Font:"
-msgstr "Písmo:"
+msgstr "Bezpatkové písmo:"
 
 #: frescobaldi_app/globalfontdialog.py:78
 msgid "Typewriter Font:"
-msgstr ""
+msgstr "Písmo psacího stroje:"
 
 #: frescobaldi_app/globalfontdialog.py:79
-#, fuzzy
 msgid "Staff Size:"
-msgstr "Velikost notové osnovy"
+msgstr "Velikost osnovy:"
 
 #: frescobaldi_app/hyphendialog.py:114
 msgid "Hyphenate Lyrics Text"
@@ -582,7 +584,7 @@ msgstr ""
 
 #: frescobaldi_app/mainwindow.py:281
 msgid "Tab Bar"
-msgstr ""
+msgstr "Pruh s kartami"
 
 #: frescobaldi_app/mainwindow.py:335 frescobaldi_app/popplerprint.py:53
 #: frescobaldi_app/sessions/dialog.py:165
@@ -3151,7 +3153,6 @@ msgstr ""
 "Pro další informace se podívejte na \"Co je toto\"."
 
 #: frescobaldi_app/preferences/lilypond.py:87
-#, fuzzy
 msgid ""
 "<p>If this setting is enabled, the document is searched for a LilyPond <code>"
 "\\version</code> command or a <code>version</code> document variable.</p>\n"
@@ -4380,7 +4381,7 @@ msgstr "Skladatel"
 
 #: frescobaldi_app/scorewiz/header.py:141
 msgid "Arranger"
-msgstr "Hudební aranžér"
+msgstr "Aranžér"
 
 #: frescobaldi_app/scorewiz/header.py:142
 msgid "Poet"
@@ -4523,7 +4524,7 @@ msgstr "Potlačit zobrazení čísel taktů na začátku každé osnovy."
 
 #: frescobaldi_app/scorewiz/settings.py:123
 msgid "Create MIDI output"
-msgstr "Vytvořit MIDI výstup"
+msgstr "Vytvořit výstup MIDI"
 
 #: frescobaldi_app/scorewiz/settings.py:125
 msgid "Create a MIDI file in addition to the PDF file."
@@ -4641,19 +4642,19 @@ msgstr "Zde následují akordy."
 
 #: frescobaldi_app/scorewiz/parts/_base.py:215
 msgid "German"
-msgstr "německý"
+msgstr "Německý"
 
 #: frescobaldi_app/scorewiz/parts/_base.py:216
 msgid "Semi-German"
-msgstr "na půl německý"
+msgstr "Na půl německý"
 
 #: frescobaldi_app/scorewiz/parts/_base.py:217
 msgid "Italian"
-msgstr "italský"
+msgstr "Italský"
 
 #: frescobaldi_app/scorewiz/parts/_base.py:218
 msgid "French"
-msgstr "francouzský"
+msgstr "Francouzský"
 
 #: frescobaldi_app/scorewiz/parts/brass.py:39
 msgid "Horn in F"
@@ -5700,9 +5701,8 @@ msgid "A5 Paper"
 msgstr "Papír A5"
 
 #: frescobaldi_app/snippet/builtin.py:318
-#, fuzzy
 msgid "Document Fonts..."
-msgstr "Dokumenty"
+msgstr "Písma v dokumentu..."
 
 #: frescobaldi_app/snippet/builtin.py:346
 msgid "Last note or chord"
