@@ -5,7 +5,9 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 Changes in 2.0.1 -- 
 
 * Updated translations: cs
-* New features:
+* Bug fixes:
+  - fix accented letters in filenames on Windows
+* Improvements:
   - font preference for documentation browser
 
 
