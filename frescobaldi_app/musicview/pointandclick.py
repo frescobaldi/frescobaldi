@@ -25,6 +25,7 @@ from __future__ import unicode_literals
 
 import re
 import os
+import sys
 import weakref
 
 from PyQt4.QtCore import QUrl
@@ -46,9 +47,19 @@ _cache = weakref.WeakKeyDictionary()
 textedit_match = re.compile(r"^textedit://(.*?):(\d+):(\d+)(?::\d+)$").match
 
 
+def percent_decode(s):
+    """Percent-decodes all %HH sequences in the specified bytes string."""
+    l = s.split(b'%')
+    res = [l[0]]
+    for i in l[1:]:
+        res.append(chr(int(i[:2], 16)))
+        res.append(i[2:])
+    return b''.join(res)
+
+
 def readfilename(match):
     """Returns the filename from the match object resulting from textedit_match."""
-    return QUrl.fromPercentEncoding(match.group(1))
+    return percent_decode(match.group(1).encode('latin1')).decode(sys.getfilesystemencoding())
 
 
 def readurl(match):
@@ -88,7 +99,8 @@ class Links(object):
 
         for filename in self._links:
             for d in app.documents:
-                if (util.equal_paths(filename, scratchdir.scratchdir(d).path())
+                s = scratchdir.scratchdir(d)
+                if (s.directory() and util.equal_paths(filename, s.path())
                     or d.url().toLocalFile() == filename):
                     self.bind(filename, d)
         app.documentLoaded.connect(self.slotDocumentLoaded)

@@ -26,6 +26,7 @@ from __future__ import unicode_literals
 
 import codecs
 import os
+import sys
 import time
 
 from PyQt4.QtCore import QCoreApplication, QProcess
@@ -79,7 +80,7 @@ class Job(object):
     def __init__(self):
         self.command = []
         self.directory = ""
-        self.decoder = codecs.getdecoder("utf-8")
+        self.decoder = codecs.getdecoder(sys.getfilesystemencoding())
         
         self._title = ""
         self._aborted = False
