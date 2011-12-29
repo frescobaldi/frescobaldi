@@ -32,9 +32,10 @@ import glob
 import itertools
 import os
 import re
+import sys
 import weakref
 
-from PyQt4.QtCore import QSettings, QSize, Qt
+from PyQt4.QtCore import QDir, QSettings, QSize, Qt
 from PyQt4.QtGui import QApplication, QColor
 
 import info
@@ -59,7 +60,7 @@ else:
 
 def homify(path):
     """Replaces the homedirectory (if present) in the path with a tilde (~)."""
-    homedir = os.path.expanduser('~')
+    homedir = QDir.homePath()
     if equal_paths(path[:len(homedir)+1], homedir + '/'):
         path = "~" + path[len(homedir):]
     return path
