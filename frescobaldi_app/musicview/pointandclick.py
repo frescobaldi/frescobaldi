@@ -33,6 +33,7 @@ from PyQt4.QtGui import QTextCursor
 import qpopplerview
 
 import app
+import util
 import scratchdir
 import ly.lex
 import tokeniter
@@ -87,7 +88,7 @@ class Links(object):
 
         for filename in self._links:
             for d in app.documents:
-                if (scratchdir.scratchdir(d).path() == filename
+                if (util.equal_paths(filename, scratchdir.scratchdir(d).path())
                     or d.url().toLocalFile() == filename):
                     self.bind(filename, d)
         app.documentLoaded.connect(self.slotDocumentLoaded)
