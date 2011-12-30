@@ -224,7 +224,7 @@ class MusicView(QWidget):
             if cursor:
                 from . import tooltip
                 text = tooltip.text(cursor)
-            else:
+            elif link.url():
                 m = pointandclick.textedit_match(link.url())
                 if m:
                     filename, line, column = pointandclick.readurl(m)

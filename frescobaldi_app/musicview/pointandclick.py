@@ -90,7 +90,7 @@ class Links(object):
             for num in range(document.numPages()):
                 page = document.page(num)
                 for link in page.links():
-                    if isinstance(link, popplerqt4.Poppler.LinkBrowse):
+                    if isinstance(link, popplerqt4.Poppler.LinkBrowse) and link.url():
                         m = textedit_match(link.url())
                         if m:
                             filename, line, col = readurl(m)
@@ -139,6 +139,9 @@ class Links(object):
         Returns None if the url was not valid or the document could not be loaded.
         
         """
+        import popplerqt4
+        if not isinstance(link, popplerqt4.Poppler.LinkBrowse) or not link.url():
+            return
         m = textedit_match(link.url())
         if m:
             filename, line, col = readurl(m)
