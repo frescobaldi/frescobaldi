@@ -1,155 +1,145 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Georg Hennig <georg.hennig@web.de>, 2009, 2010.
+# Georg Hennig <georg.hennig@web.de>, 2009, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: frescobaldi 1.1.7\n"
+"Project-Id-Version: frescobaldi 2.0.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2011-12-23 09:24+0100\n"
-"PO-Revision-Date: 2010-12-12 12:34+0100\n"
+"PO-Revision-Date: 2011-12-30 18:12+0100\n"
 "Last-Translator: Georg Hennig <georg.hennig@web.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
-"#-#-#-#-#  de.po (frescobaldi 1.1.7)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (frescobaldi 2.0.0)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.1\n"
+"X-Generator: Lokalize 1.2\n"
 
 #: frescobaldi_app/about.py:43
 msgid "{appname} is written in {python} and uses the {qt} toolkit."
-msgstr ""
+msgstr "{appname} wurde in {python} geschrieben und benutzt das {qt} Toolkit."
 
 #. L10N: the Python programming language
 #: frescobaldi_app/about.py:46
-#, fuzzy
 msgid "Python"
-msgstr "Pfad"
+msgstr "Python"
 
 #. L10N: the Qt4 application framework
 #: frescobaldi_app/about.py:48
 msgid "Qt4"
-msgstr ""
+msgstr "Qt4"
 
 #: frescobaldi_app/about.py:50
 msgid ""
 "The Music View is powered by the {poppler} library by {authors} and others."
 msgstr ""
+"Die {poppler} Bibliothek von {authors} und anderen ermöglicht die "
+"Notenansicht."
 
 #. L10N: the Poppler PDF library
 #: frescobaldi_app/about.py:54
-#, fuzzy
 msgid "Poppler"
-msgstr "Papier"
+msgstr "Poppler"
 
 #: frescobaldi_app/about.py:57
 msgid "Most of the bundled icons are created by {tango}."
-msgstr ""
+msgstr "Die meisten Icons wurden mit {tango} erstellt."
 
 #: frescobaldi_app/about.py:59
 msgid "The Tango Desktop Project"
-msgstr ""
+msgstr "Das Tango Desktop-Projekt"
 
 #: frescobaldi_app/about.py:61
 msgid "{appname} is translated into the following languages:"
-msgstr ""
+msgstr "{appname} ist in die folgenden Sprachen übersetzt worden:"
 
 #: frescobaldi_app/about.py:80
 msgid "About {appname}"
-msgstr ""
+msgstr "Über {appname}"
 
 #: frescobaldi_app/about.py:87
-#, fuzzy
 msgid "About"
-msgstr "Auto"
+msgstr "Über"
 
 #: frescobaldi_app/about.py:88 frescobaldi_app/help/contents.py:280
 msgid "Credits"
-msgstr ""
+msgstr "Danksagung"
 
 #: frescobaldi_app/about.py:89
 msgid "Version"
 msgstr "Version"
 
 #: frescobaldi_app/about.py:144
-#, fuzzy
 msgid "Operating System"
-msgstr "Andere Systeme:"
+msgstr "Betriebssystem"
 
 #: frescobaldi_app/about.py:151
-#, fuzzy
 msgid "Version {version}"
-msgstr "Füge LilyPond-Version ein"
+msgstr "Version {version}"
 
 #: frescobaldi_app/about.py:152 frescobaldi_app/main.py:59
-#, fuzzy
 msgid "A LilyPond Music Editor"
-msgstr "LilyPond Musik-Editor"
+msgstr "Ein LilyPond Musik-Editor"
 
 #: frescobaldi_app/about.py:153
 msgid "Copyright (c) {year} by {author}"
-msgstr ""
+msgstr "Copyright (c) {year}: {author}"
 
 #: frescobaldi_app/about.py:157
 msgid "Send an e-mail message to the maintainers."
-msgstr ""
+msgstr "Sende eine E-Mail an die Entwickler."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
 #: frescobaldi_app/about.py:160 frescobaldi_app/help/contents.py:57
 msgid "Translated by Your Name."
-msgstr ""
+msgstr "Übersetzt von Markus W. Kropp und Georg Hennig."
 
 #: frescobaldi_app/about.py:165
 msgid "Licensed under the {gpl}."
-msgstr ""
+msgstr "Lizensiert unter der {gpl}."
 
 #: frescobaldi_app/actioncollectionmanager.py:123
 #: frescobaldi_app/preferences/shortcuts.py:203
 msgid "This shortcut conflicts with the following command:"
 msgid_plural "This shortcut conflicts with the following commands:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Dieser Kurzbefehl steht im Konflikt mit folgendem Befehl:"
+msgstr[1] "Dieser shortcut steht im Konflikt mit den folgenden Befehlen:"
 
 #: frescobaldi_app/actioncollectionmanager.py:129
 #: frescobaldi_app/preferences/shortcuts.py:209
-#, fuzzy
 msgid "Shortcut Conflict"
-msgstr "Verknüpfung"
+msgstr "Kurzbefehl-Konflikt"
 
 #: frescobaldi_app/actioncollectionmanager.py:131
 msgid "Edit again"
-msgstr ""
+msgstr "Nochmal bearbeiten"
 
 #: frescobaldi_app/app.py:128
-#, fuzzy
 msgid "LilyPond Files"
 msgstr "LilyPond-Dateien"
 
 #: frescobaldi_app/app.py:129
-#, fuzzy
 msgid "LaTeX Files"
-msgstr "Alle Dateien"
+msgstr "LaTeX-Dateien"
 
 #: frescobaldi_app/app.py:130
-#, fuzzy
 msgid "DocBook Files"
-msgstr "PDF-Dateien"
+msgstr "DocBook-Dateien"
 
 #: frescobaldi_app/app.py:131
-#, fuzzy
 msgid "HTML Files"
-msgstr "Alle Dateien"
+msgstr "HTML-Dateien"
 
 #: frescobaldi_app/app.py:132
-#, fuzzy
 msgid "Texinfo Files"
-msgstr "Öffne Datei"
+msgstr "Texinfo-Dateien"
 
 #: frescobaldi_app/app.py:133
 msgid "Scheme Files"
-msgstr ""
+msgstr "Scheme-Dateien"
 
 #: frescobaldi_app/app.py:134 frescobaldi_app/snippet/widget.py:260
 #: frescobaldi_app/snippet/widget.py:277
@@ -158,147 +148,132 @@ msgstr "Alle Dateien"
 
 #: frescobaldi_app/bookmarkmanager.py:112
 msgid "&Mark Current Line"
-msgstr ""
+msgstr "&Markiere aktuelle Zeile"
 
 #: frescobaldi_app/bookmarkmanager.py:113
 msgid "Clear &Error Marks"
-msgstr ""
+msgstr "F&ehlermarkierungen löschen"
 
 #: frescobaldi_app/bookmarkmanager.py:114
 msgid "Clear &All Marks"
-msgstr ""
+msgstr "&Alle Markierungen löschen"
 
 #: frescobaldi_app/bookmarkmanager.py:115
-#, fuzzy
 msgid "Next Mark"
-msgstr "Nächste"
+msgstr "Nächste Markierung"
 
 #: frescobaldi_app/bookmarkmanager.py:116
-#, fuzzy
 msgid "Previous Mark"
-msgstr "Vorherige"
+msgstr "Vorherige Markierung"
 
 #: frescobaldi_app/convert_ly.py:118
-#, fuzzy
 msgid "From version:"
-msgstr "Füge LilyPond-Version ein"
+msgstr "Von Version:"
 
 #: frescobaldi_app/convert_ly.py:119
-#, fuzzy
 msgid "To version:"
-msgstr "Version:"
+msgstr "Bis Version:"
 
 #: frescobaldi_app/convert_ly.py:120
 msgid "Save convert-ly messages in document"
-msgstr ""
+msgstr "Speichere convert-ly Nachrichten in das Dokument"
 
 #: frescobaldi_app/convert_ly.py:122
 msgid ""
 "If checked, the messages of convert-ly are appended as a comment to the end "
 "of the document."
 msgstr ""
+"Wenn aktiviert werden die Nachrichten von convert-ly als Kommentar ans Ende "
+"des Dokuments angehängt."
 
 #: frescobaldi_app/convert_ly.py:124
 msgid "&Messages"
-msgstr ""
+msgstr "&Nachrichten"
 
 #: frescobaldi_app/convert_ly.py:125
-#, fuzzy
 msgid "&Changes"
-msgstr "Pause"
+msgstr "Än&derungen"
 
 #: frescobaldi_app/convert_ly.py:126
 msgid "Run Again"
-msgstr ""
+msgstr "Nochmal ausführen"
 
 #: frescobaldi_app/convert_ly.py:137 frescobaldi_app/docbrowser/browser.py:139
 #: frescobaldi_app/musicview/image.py:166
-#, fuzzy
 msgid "<unknown>"
-msgstr "unbekannt"
+msgstr "<unbekannt>"
 
 #: frescobaldi_app/convert_ly.py:138
-#, fuzzy
 msgid "Convert-ly from LilyPond {version}"
-msgstr "Benutze LilyPond-Version %1"
+msgstr "Convert-ly von LilyPond {version}"
 
 #: frescobaldi_app/convert_ly.py:162
-#, fuzzy
 msgid "(set in document)"
-msgstr "Dokumente drucken"
+msgstr "(setze im Dokument)"
 
 #: frescobaldi_app/convert_ly.py:175
 msgid "Both 'from' and 'to' versions need to be set."
-msgstr ""
+msgstr "Beide Versionen 'von' und 'bis' müssen eingestellt sein."
 
 #: frescobaldi_app/convert_ly.py:190
-#, fuzzy
 msgid ""
 "Could not start {convert_ly}:\n"
 "\n"
 "{message}\n"
-msgstr "Konnte convert-ly nicht starten: %s"
+msgstr ""
+"Konnte {convert_ly} nicht starten:\n"
+"\n"
+"{message}\n"
 
 #: frescobaldi_app/convert_ly.py:196
-#, fuzzy
 msgid "The document has not been changed."
-msgstr "Das Dokument wurde zum Drucker geschickt."
+msgstr "Das Dokument wurde nicht verändert."
 
 #: frescobaldi_app/convert_ly.py:202
-#, fuzzy
 msgid "Current Document"
-msgstr "&Dokument"
+msgstr "Aktuelles Dokument"
 
 #: frescobaldi_app/convert_ly.py:202
-#, fuzzy
 msgid "Converted Document"
-msgstr "Andere Dokumente schließen"
+msgstr "Konvertiertes Dokument"
 
 #: frescobaldi_app/convert_ly.py:208
-#, fuzzy
 msgid "Colors:"
-msgstr "Komponist"
+msgstr "Farben:"
 
 #: frescobaldi_app/convert_ly.py:209
 msgid "Added"
-msgstr ""
+msgstr "Hinzugefügt"
 
 #: frescobaldi_app/convert_ly.py:210
 msgid "Changed"
-msgstr ""
+msgstr "Geändert"
 
 #: frescobaldi_app/convert_ly.py:211
-#, fuzzy
 msgid "Deleted"
-msgstr "Alle auswählen"
+msgstr "Gelöscht"
 
 #: frescobaldi_app/convert_ly.py:212
-#, fuzzy
 msgid "Links:"
-msgstr "Text:"
+msgstr "Verknüpfungen:"
 
 #: frescobaldi_app/convert_ly.py:213
-#, fuzzy
 msgid "First Change"
-msgstr "Erste Seite:"
+msgstr "Erste Änderung:"
 
 #: frescobaldi_app/convert_ly.py:214
-#, fuzzy
 msgid "Next Change"
-msgstr "Nächste Leerzeile"
+msgstr "Nächste Änderung"
 
 #: frescobaldi_app/convert_ly.py:215
-#, fuzzy
 msgid "Top"
-msgstr "Tap"
+msgstr "Oben"
 
 #: frescobaldi_app/cut_assign.py:39
-#, fuzzy
 msgid "Cut and Assign"
 msgstr "Ausschneiden und zuweisen"
 
 #: frescobaldi_app/cut_assign.py:40
-#, fuzzy
 msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr ""
 "Bitte geben Sie den Namen der Variable ein, der der ausgewählte Text "
@@ -306,72 +281,63 @@ msgstr ""
 
 #: frescobaldi_app/document.py:143 frescobaldi_app/doclist/widget.py:126
 #: frescobaldi_app/snippet/edit.py:163
-#, fuzzy
 msgid "Untitled"
-msgstr "Untertitel"
+msgstr "Ohne Titel"
 
 #: frescobaldi_app/document.py:145
-#, fuzzy
 msgid "Untitled ({num})"
-msgstr "Untertitel"
+msgstr "Ohne Titel ({num})"
 
 #: frescobaldi_app/documentactions.py:125
-#, fuzzy
 msgid "Cut and Assign..."
-msgstr "Ausschneiden und zuweisen"
+msgstr "Ausschneiden und zuweisen..."
 
 #: frescobaldi_app/documentactions.py:126
 msgid "Syntax &Highlighting"
-msgstr ""
+msgstr "Syntax &hervorheben"
 
 #: frescobaldi_app/documentactions.py:127
-#, fuzzy
 msgid "&Automatic Indent"
-msgstr "automatisch"
+msgstr "&Automatische Einrückung"
 
 #: frescobaldi_app/documentactions.py:128
 msgid "Re-&Indent"
-msgstr ""
+msgstr "Neu e&inrücken"
 
 #: frescobaldi_app/documentactions.py:129
-#, fuzzy
 msgid "&Format"
-msgstr "Fermate"
+msgstr "&Formatierung"
 
 #: frescobaldi_app/documentactions.py:130
-#, fuzzy
 msgid "&Update with convert-ly..."
-msgstr "Mittels convert-ly aktualisieren"
+msgstr "Mittels convert-ly akt&ualisieren"
 
 #: frescobaldi_app/documentcontextmenu.py:55 frescobaldi_app/mainwindow.py:928
 #: frescobaldi_app/sessions/manager.py:128
-#, fuzzy
 msgid "&Save"
-msgstr "Speichern"
+msgstr "&Speichern"
 
 #: frescobaldi_app/documentcontextmenu.py:56 frescobaldi_app/mainwindow.py:929
-#, fuzzy
 msgid "Save &As..."
-msgstr "Speichere PDF unter..."
+msgstr "Speichern &unter"
 
 #: frescobaldi_app/documentcontextmenu.py:57 frescobaldi_app/mainwindow.py:933
 msgid "&Close"
-msgstr ""
+msgstr "Schließ&en"
 
 #: frescobaldi_app/documentmenu.py:42
-#, fuzzy
 msgctxt "menu title"
 msgid "&Document"
-msgstr "&Dokument"
+msgstr "D&okument"
 
 #. L10N: 'always engraved': the document is marked as 'Always Engrave' in the LilyPond menu
 #: frescobaldi_app/documentmenu.py:109
 msgid "[always engraved]"
-msgstr ""
+msgstr "[immer Noten stechen]"
 
 #: frescobaldi_app/exception.py:69
 msgid "An internal error has occurred:"
-msgstr "Ein unbekannter Fehler ist aufgetreten:"
+msgstr "Ein interner Fehler ist aufgetreten:"
 
 #: frescobaldi_app/exception.py:70
 msgid "Internal Error"
@@ -379,16 +345,15 @@ msgstr "Interner Fehler"
 
 #: frescobaldi_app/exception.py:71
 msgid "Email Bug Report..."
-msgstr "Fehlerbericht per Email senden..."
+msgstr "Fehlerbericht per E-Mail senden..."
 
 #: frescobaldi_app/exception.py:79
-#, fuzzy
 msgid "Optionally describe below what you were doing:"
 msgstr "Beschreiben Sie, was Sie getan haben (optional):"
 
 #: frescobaldi_app/globalfontdialog.py:69
 msgid "Global Fonts"
-msgstr ""
+msgstr "Globale Schriftarten"
 
 #: frescobaldi_app/globalfontdialog.py:71
 msgid ""
@@ -397,21 +362,25 @@ msgid ""
 "set the staff size to the global staff size you use in the document (20 by "
 "default)."
 msgstr ""
+"Bitte wählen Sie die drei globalen Schriftarten aus, die für <code>\\roman<"
+"/code>, <code>"
+"\\sans</code>, und <code>\\typewriter</code> benutzt werden. Sie sollten auch "
+"die Notenzeilengröße auf die globale Notenzeilengröße setzen (Standard ist "
+"20)."
 
 #: frescobaldi_app/globalfontdialog.py:76
 msgid "Roman Font:"
-msgstr ""
+msgstr "Schriftart Roman:"
 
 #: frescobaldi_app/globalfontdialog.py:77
 msgid "Sans Font:"
-msgstr ""
+msgstr "Schriftart Sans:"
 
 #: frescobaldi_app/globalfontdialog.py:78
 msgid "Typewriter Font:"
-msgstr ""
+msgstr "Schriftarte Typewriter:"
 
 #: frescobaldi_app/globalfontdialog.py:79
-#, fuzzy
 msgid "Staff Size:"
 msgstr "Notenzeilen-Größe:"
 
@@ -424,29 +393,26 @@ msgid "Please select a language:"
 msgstr "Bitte wählen Sie eine Sprache:"
 
 #: frescobaldi_app/hyphendialog.py:157 frescobaldi_app/hyphendialog.py:166
-#, fuzzy
 msgid "Lyrics"
-msgstr "Text:"
+msgstr "Text"
 
 #: frescobaldi_app/hyphendialog.py:166 frescobaldi_app/pitch/pitch.py:744
 #: frescobaldi_app/rhythm/rhythm.py:279 frescobaldi_app/scorewiz/dialog.py:198
-#, fuzzy
 msgctxt "menu title"
 msgid "Tools"
-msgstr "Werkzeugansich&t"
+msgstr "Werkzeuge"
 
 #: frescobaldi_app/hyphendialog.py:167 frescobaldi_app/help/contents.py:138
 #: frescobaldi_app/help/contents.py:145
 msgctxt "menu title"
 msgid "Edit"
-msgstr ""
+msgstr "Bearbeiten"
 
 #: frescobaldi_app/hyphendialog.py:167 frescobaldi_app/help/contents.py:139
 #: frescobaldi_app/preferences/__init__.py:100
 #: frescobaldi_app/preferences/midi.py:134
-#, fuzzy
 msgid "Preferences"
-msgstr "Allgemeine Einstellungen"
+msgstr "Einstellungen"
 
 #: frescobaldi_app/hyphendialog.py:169
 msgid ""
@@ -481,30 +447,54 @@ msgid ""
 "hyphenation pattern files.\n"
 "</p>\n"
 msgstr ""
+"<p>\n"
+"Frescobaldi fügt automatisch Trennstriche '{hyphen}' ein, um diesen "
+"Textautomatisch als Liedtext benutzen zu können.\n"
+"Es kann die Trennstrich-Wörterbücher von OpenOffice.org, Scribus und anderen "
+"nutzen.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Um dieses Feature nutzen zu können, müssen Sie den Text markieren, der "
+"getrennt werden soll. Drücken Sie dann die Taste {key_hyphen} oder wählen "
+"Sie {menu_hyphen} aus.\n"
+"Im folgenden Dialog wählen Sie die Sprache aus.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Eine kleine Einschränkung kann sein, dass mit den Wörterbüchern Wörter nach "
+"dem ersten Buchstaben nicht getrennt werden (z. B. '{example}'), weil dies "
+"in Textverarbeitungsprogrammen nicht gut aussehen würde.Es kann also sein, "
+"dass Sie nach einem ersten Buchstaben den Trennstrich von Hand setzen müssen."
+"</p>\n"
+"\n"
+"<p>\n"
+"Es gibt auch einen Befehl, um die Trennstriche zu entfernen. Das kann dann "
+"benutzt werden, wenn Sie Liedtexte als Strophen unter den Notenzeilen als "
+"Markup anzeigen wollen.Unter {menu_settings} können Sie eine Liste von "
+"Wörterbüchern erstellen, in denen nach Trennstrichmustern gesucht wird.</p>\n"
 
 #: frescobaldi_app/inputdialog.py:101
-#, fuzzy
 msgid "Select Color"
-msgstr "Alle auswählen"
+msgstr "Farbe wählen"
 
 #: frescobaldi_app/job.py:195
 msgid "Starting {job}..."
-msgstr ""
+msgstr "Starte {job}..."
 
 #: frescobaldi_app/job.py:200
 msgid "Aborting {job}..."
-msgstr ""
+msgstr "Breche {job} ab..."
 
 #: frescobaldi_app/job.py:206
-#, fuzzy
 msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
 msgstr ""
-"Konnte LilyPond nicht starten. Bitte überprüfen Sie Pfad und Berechtigungen."
+"Konnte {program} nicht starten.\n"
+"Bitte überprüfen Sie den Pfad und die Berechtigungen."
 
 #: frescobaldi_app/job.py:209
-#, fuzzy
 msgid "Could not read from the process."
 msgstr "Konnte Ausgabe des LilyPond-Prozesses nicht lesen."
 
@@ -513,97 +503,89 @@ msgid "An unknown error occured."
 msgstr "Ein unbekannter Fehler ist aufgetreten."
 
 #: frescobaldi_app/job.py:216
-#, fuzzy
 msgid "Exited with return code {code}."
-msgstr "LilyPond [%1] wurde mit dem Return-Code %2 beendet."
+msgstr "Wurde mit dem Return-Code {code} beendet."
 
 #: frescobaldi_app/job.py:218
-#, fuzzy
 msgid "Exited with exit status {status}."
-msgstr "LilyPond [%1] wurde mit dem Exit-Status %2 beendet."
+msgstr "Wurde mit dem Exit-Status {status} beendet."
 
 #: frescobaldi_app/job.py:221
 msgid "Completed successfully in {time}."
-msgstr ""
+msgstr "Erfolgreich abgeschlossen in {time}."
 
 #: frescobaldi_app/lyrics.py:132
-#, fuzzy
 msgid "&Hyphenate Lyrics Text..."
-msgstr "Trennungsstriche für Text einfügen"
+msgstr "Trennungsstric&he in Text einfügen"
 
 #: frescobaldi_app/lyrics.py:133
-#, fuzzy
 msgid "&Remove hyphenation"
-msgstr "Entferne Trennungsstriche"
+msgstr "T&rennungsstriche entfernen"
 
 #: frescobaldi_app/lyrics.py:134
-#, fuzzy
 msgid "&Copy Lyrics with hyphenation removed"
-msgstr "Kopiere Text ohne Silbentrennzeichen"
+msgstr "&Kopiere Text ohne Silbentrennzeichen"
 
 #: frescobaldi_app/main.py:57
 msgid "{appname} [options] file ..."
-msgstr ""
+msgstr "{appname} [Optionen] Datei ..."
 
 #: frescobaldi_app/main.py:60
-#, fuzzy
 msgid "ENC"
-msgstr "REC"
+msgstr "ENC"
 
 #: frescobaldi_app/main.py:61
 msgid "Encoding to use"
-msgstr "Encoding"
+msgstr "Zu benutzender Zeichensatz"
 
 #: frescobaldi_app/main.py:62 frescobaldi_app/main.py:64
 msgid "NUM"
-msgstr ""
+msgstr "NUM"
 
 #: frescobaldi_app/main.py:63
 msgid "Line number to go to, starting at 1"
-msgstr "Zeilennummer, beginnend mit 1"
+msgstr "Ziel-Zeilennummer, beginnend mit 1"
 
 #: frescobaldi_app/main.py:65
 msgid "Column to go to, starting at 0"
-msgstr "Spalte, beginnend mit 0"
+msgstr "Ziel-Spalte, beginnend mit 0"
 
 #: frescobaldi_app/main.py:66
 msgid "NAME"
-msgstr ""
+msgstr "NAME"
 
 #: frescobaldi_app/main.py:67
 msgid "Session to start ('{none}' for empty session)"
-msgstr ""
+msgstr "Zu startende Sitzung ('{none}' für leere Sitzung)"
 
 #. L10N: state of document in window titlebar
 #: frescobaldi_app/mainwindow.py:225
-#, fuzzy
 msgid "[modified]"
-msgstr "geändert"
+msgstr "[geändert]"
 
 #: frescobaldi_app/mainwindow.py:268
-#, fuzzy
 msgctxt "dialog title"
 msgid "Close Document"
-msgstr "Andere Dokumente schließen"
+msgstr "Dokument schließen"
 
 #: frescobaldi_app/mainwindow.py:269
 msgid ""
 "The document \"{name}\" has been modified.\n"
 "Do you want to save your changes or discard them?"
 msgstr ""
+"Das Dokument \"{name}\" wurde geändert.\n"
+"Wollen Sie die Änderungen speichern oder verwerfen?"
 
 #: frescobaldi_app/mainwindow.py:281
-#, fuzzy
 msgid "Tab Bar"
-msgstr "Tabulatur"
+msgstr "Tab-Balken"
 
 #: frescobaldi_app/mainwindow.py:335 frescobaldi_app/popplerprint.py:53
 #: frescobaldi_app/sessions/dialog.py:165
 #: frescobaldi_app/sessions/dialog.py:173
 #: frescobaldi_app/sessions/dialog.py:179
-#, fuzzy
 msgid "Warning"
-msgstr "Gitarren-Stimmung"
+msgstr "Warnung"
 
 #: frescobaldi_app/mainwindow.py:336
 msgid ""
@@ -611,12 +593,14 @@ msgid ""
 "\n"
 "{url}"
 msgstr ""
+"Konnte nicht-lokales Dokument nicht öffnen:\n"
+"\n"
+"{url}"
 
 #: frescobaldi_app/mainwindow.py:354
-#, fuzzy
 msgctxt "dialog title"
 msgid "Open File"
-msgstr "Öffne Datei"
+msgstr "Datei öffnen"
 
 #. L10N: a basic type of input in the editor
 #: frescobaldi_app/mainwindow.py:373 frescobaldi_app/mainwindow.py:379
@@ -628,7 +612,7 @@ msgstr "Öffne Datei"
 #: frescobaldi_app/snippet/import_export.py:104
 #: frescobaldi_app/snippet/widget.py:287
 msgid "Error"
-msgstr ""
+msgstr "Fehler"
 
 #: frescobaldi_app/mainwindow.py:374 frescobaldi_app/mainwindow.py:380
 #: frescobaldi_app/mainwindow.py:405
@@ -637,24 +621,24 @@ msgid ""
 "\n"
 "{url}"
 msgstr ""
+"Ziel nicht beschreibbar:\n"
+"\n"
+"{url}"
 
 #: frescobaldi_app/mainwindow.py:399
-#, fuzzy
 msgctxt "dialog title"
 msgid "Save File"
-msgstr "Speichere PDF"
+msgstr "Datei speichern"
 
 #: frescobaldi_app/mainwindow.py:439
-#, fuzzy
 msgctxt "dialog title"
 msgid "Save Copy"
-msgstr "Speichern"
+msgstr "Kopie speichern"
 
 #: frescobaldi_app/mainwindow.py:445
-#, fuzzy
 msgctxt "dialog title"
 msgid "Save Selection"
-msgstr "Partitur-Einstellungen"
+msgstr "Auswahl speichern"
 
 #: frescobaldi_app/mainwindow.py:456 frescobaldi_app/mainwindow.py:584
 #: frescobaldi_app/snippet/widget.py:288
@@ -665,11 +649,15 @@ msgid ""
 "\n"
 "{error}"
 msgstr ""
+"Ziel nicht beschreibbar:\n"
+"\n"
+"{url}\n"
+"{error}"
 
 #: frescobaldi_app/mainwindow.py:516
 msgctxt "dialog title"
 msgid "Insert From File"
-msgstr ""
+msgstr "Aus Datei einfügen"
 
 #: frescobaldi_app/mainwindow.py:524
 #: frescobaldi_app/snippet/import_export.py:105
@@ -680,16 +668,20 @@ msgid ""
 "\n"
 "{error}"
 msgstr ""
+"Kann die Quelldatei nicht lesen:\n"
+"\n"
+"{url}\n"
+"\n"
+"{error}"
 
 #: frescobaldi_app/mainwindow.py:541
-#, fuzzy
 msgctxt "dialog title"
 msgid "Print Source"
-msgstr "Quelltext drucken..."
+msgstr "Quelltext drucken"
 
 #: frescobaldi_app/mainwindow.py:574
 msgid "Export as HTML"
-msgstr ""
+msgstr "Als HTML exportieren"
 
 #: frescobaldi_app/mainwindow.py:695
 msgid ""
@@ -698,46 +690,47 @@ msgid ""
 "\n"
 "\n"
 msgstr ""
+"Bitte beschreiben Sie das Problem oder die Feature-Anfrage.\n"
+"Bitte geben Sie so detailliert Auskunft wie möglich.\n"
+"\n"
+"\n"
 
 #: frescobaldi_app/mainwindow.py:796
 msgid "Main Toolbar"
-msgstr ""
+msgstr "Haupt-Werkzeugleiste"
 
 #: frescobaldi_app/mainwindow.py:797
 msgid "Music View Toolbar"
-msgstr ""
+msgstr "Musik-Ansicht-Werkzeugleiste"
 
 #: frescobaldi_app/mainwindow.py:923
-#, fuzzy
 msgctxt "action: new document"
 msgid "&New"
-msgstr "Neu..."
+msgstr "&Neu"
 
 #: frescobaldi_app/mainwindow.py:924
 msgid "&Open..."
-msgstr ""
+msgstr "Ö&ffnen"
 
 #: frescobaldi_app/mainwindow.py:925
 msgid "Open &Recent"
-msgstr ""
+msgstr "A&ktuelle Datei öffnen"
 
 #: frescobaldi_app/mainwindow.py:926
 msgid "Insert from &File..."
-msgstr ""
+msgstr "Aus Datei ein&fügen..."
 
 #: frescobaldi_app/mainwindow.py:927
-#, fuzzy
 msgid "Open Current Directory"
 msgstr "Öffne aktuellen Ordner"
 
 #: frescobaldi_app/mainwindow.py:930
 msgid "Save Copy or Selection As..."
-msgstr ""
+msgstr "Speichere Kopie oder Auswahl unter ..."
 
 #: frescobaldi_app/mainwindow.py:931
-#, fuzzy
 msgid "Save All"
-msgstr "Speichern"
+msgstr "Alles speichern"
 
 #: frescobaldi_app/mainwindow.py:932
 msgid "Print Source..."
@@ -748,35 +741,32 @@ msgid "Close Other Documents"
 msgstr "Andere Dokumente schließen"
 
 #: frescobaldi_app/mainwindow.py:935
-#, fuzzy
 msgid "Close All Documents"
-msgstr "Andere Dokumente schließen"
+msgstr "Alle Dokumente schließen"
 
 #: frescobaldi_app/mainwindow.py:936
-#, fuzzy
 msgid "Closes all documents and leaves the current session."
-msgstr "Transponiere alle Noten im gesamten Dokument oder der Auswahl."
+msgstr "Schließe alle Dokumente und beende die Sitzung."
 
 #: frescobaldi_app/mainwindow.py:937
 msgid "&Quit"
-msgstr ""
+msgstr "Bee&nden"
 
 #: frescobaldi_app/mainwindow.py:939
 msgid "Export Source as Colored &HTML..."
-msgstr ""
+msgstr "Quelle als farbiges HTML exportieren..."
 
 #: frescobaldi_app/mainwindow.py:941
-#, fuzzy
 msgid "&Undo"
-msgstr "Entdocken"
+msgstr "Rück&gängig"
 
 #: frescobaldi_app/mainwindow.py:942
 msgid "Re&do"
-msgstr ""
+msgstr "Wieder&holen"
 
 #: frescobaldi_app/mainwindow.py:943
 msgid "Cu&t"
-msgstr ""
+msgstr "A&usschneiden"
 
 #: frescobaldi_app/mainwindow.py:944
 msgid "&Copy"
@@ -784,156 +774,138 @@ msgstr "&Kopieren"
 
 #: frescobaldi_app/mainwindow.py:945
 msgid "Copy as Colored &HTML"
-msgstr ""
+msgstr "Als farbiges HTML kopieren"
 
 #: frescobaldi_app/mainwindow.py:946
-#, fuzzy
 msgid "&Paste"
-msgstr "Pause"
+msgstr "Ein&fügen"
 
 #: frescobaldi_app/mainwindow.py:947
-#, fuzzy
 msgid "Select &All"
-msgstr "Alle auswählen"
+msgstr "&Alles auswählen"
 
 #: frescobaldi_app/mainwindow.py:948
-#, fuzzy
 msgid "Select &Block"
-msgstr "Alle auswählen"
+msgstr "&Block auswählen"
 
 #: frescobaldi_app/mainwindow.py:949
-#, fuzzy
 msgid "Select &None"
-msgstr "Alle auswählen"
+msgstr "&Nichts auswählen"
 
 #: frescobaldi_app/mainwindow.py:950
 msgid "Select Whole Lines Up"
-msgstr ""
+msgstr "Alle Zeile oberhalb auswählen"
 
 #: frescobaldi_app/mainwindow.py:951
 msgid "Select Whole Lines Down"
-msgstr ""
+msgstr "Alle Zeilen unterhalb auswählen"
 
 #: frescobaldi_app/mainwindow.py:952
-#, fuzzy
 msgid "&Find..."
-msgstr "Drucken..."
+msgstr "&Suchen..."
 
 #: frescobaldi_app/mainwindow.py:953
 msgid "Find Ne&xt"
-msgstr ""
+msgstr "Nä&chstes finden"
 
 #: frescobaldi_app/mainwindow.py:954
-#, fuzzy
 msgid "Find Pre&vious"
-msgstr "Vorherige"
+msgstr "&Vorheriges finden"
 
 #: frescobaldi_app/mainwindow.py:955
-#, fuzzy
 msgid "&Replace..."
-msgstr "Suche..."
+msgstr "E&rsetzen..."
 
 #: frescobaldi_app/mainwindow.py:956
-#, fuzzy
 msgid "Pr&eferences..."
-msgstr "Allgemeine Einstellungen"
+msgstr "&Einstellungen"
 
 #: frescobaldi_app/mainwindow.py:958
-#, fuzzy
 msgid "&Next Document"
-msgstr "&Dokument"
+msgstr "&Nächstes Dokument"
 
 #: frescobaldi_app/mainwindow.py:959
-#, fuzzy
 msgid "&Previous Document"
-msgstr "&Quell-Dokument"
+msgstr "&Vorheriges Dokument"
 
 #: frescobaldi_app/mainwindow.py:960
 msgid "Scroll Up"
-msgstr ""
+msgstr "Hochscrollen"
 
 #: frescobaldi_app/mainwindow.py:961
-#, fuzzy
 msgid "Scroll Down"
-msgstr "Pralltriller abwärts"
+msgstr "Herunterscrollen"
 
 #: frescobaldi_app/mainwindow.py:963
 msgid "New &Window"
-msgstr ""
+msgstr "Neues &Fenster"
 
 #: frescobaldi_app/mainwindow.py:964
 msgid "&Fullscreen"
-msgstr ""
+msgstr "Voll&bild"
 
 #: frescobaldi_app/mainwindow.py:966
 msgid "&User Guide"
-msgstr ""
+msgstr "&Handbuch"
 
 #: frescobaldi_app/mainwindow.py:967
 msgid "&What's This?"
-msgstr ""
+msgstr "&Was ist das?"
 
 #: frescobaldi_app/mainwindow.py:968
 msgid "Report a &Bug..."
-msgstr ""
+msgstr "Programmfehler mel&den..."
 
 #: frescobaldi_app/mainwindow.py:969
 msgid "&About {appname}..."
-msgstr ""
+msgstr "Ü&ber {appname}..."
 
 #: frescobaldi_app/menu.py:81
-#, fuzzy
 msgctxt "menu title"
 msgid "&File"
-msgstr "Titel"
+msgstr "&Datei"
 
 #: frescobaldi_app/menu.py:112
 msgctxt "submenu title"
 msgid "&Export"
-msgstr ""
+msgstr "E&xportieren"
 
 #: frescobaldi_app/menu.py:120
 msgctxt "menu title"
 msgid "&Edit"
-msgstr ""
+msgstr "&Bearbeiten"
 
 #: frescobaldi_app/menu.py:147
-#, fuzzy
 msgctxt "menu title"
 msgid "&View"
-msgstr "Werkzeugansich&t"
+msgstr "&Ansicht"
 
 #: frescobaldi_app/menu.py:170
 msgctxt "submenu title"
 msgid "Music &View"
-msgstr ""
+msgstr "N&otenansicht"
 
 #: frescobaldi_app/menu.py:189
-#, fuzzy
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
 #: frescobaldi_app/menu.py:208
-#, fuzzy
 msgctxt "menu title"
 msgid "&Tools"
-msgstr "Werkzeugansich&t"
+msgstr "&Werkzeugansicht"
 
 #: frescobaldi_app/menu.py:233
-#, fuzzy
 msgctxt "submenu title"
 msgid "&Lyrics"
-msgstr "&Text"
+msgstr "Liedte&xt"
 
 #: frescobaldi_app/menu.py:245
-#, fuzzy
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "Ton&lage"
 
 #: frescobaldi_app/menu.py:259
-#, fuzzy
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Rhythmus"
@@ -941,32 +913,28 @@ msgstr "&Rhythmus"
 #: frescobaldi_app/menu.py:287
 msgctxt "menu title"
 msgid "&Window"
-msgstr ""
+msgstr "&Fenster"
 
 #: frescobaldi_app/menu.py:307
 msgctxt "menu title"
 msgid "&Help"
-msgstr ""
+msgstr "&Hilfe"
 
 #: frescobaldi_app/musicpreview.py:113
-#, fuzzy
 msgid "Document:"
-msgstr "&Dokument"
+msgstr "Dokument:"
 
 #: frescobaldi_app/musicpreview.py:195
-#, fuzzy
 msgid "&Print"
-msgstr "Drucken"
+msgstr "&Drucken"
 
 #: frescobaldi_app/musicpreview.py:196
-#, fuzzy
 msgid "Music Preview"
-msgstr "PDF-Vorschau"
+msgstr "Notenvorschau"
 
 #: frescobaldi_app/popplerdummy.py:42
-#, fuzzy
 msgid "Could not load the {name} module."
-msgstr "Konnte %1 nicht laden"
+msgstr "Konnte Modul {name} nicht laden."
 
 #: frescobaldi_app/popplerprint.py:54
 msgid ""
@@ -977,161 +945,150 @@ msgid ""
 "\n"
 "Do you want to continue?"
 msgstr ""
+"Es wurde kein Druckbefehl gefunden, der das PostScript drucken könnte.\n"
+"\n"
+"Deshalb wird das Dokument als Pixelgrafik mit der Auflösung {resolution} DPI "
+"gedruckt.Es wird empfohlen, einen PDF-Viewer zum Drucken zu benutzen.\n"
+"\n"
+"Wollen Sie fortfahren?"
 
 #: frescobaldi_app/popplerprint.py:61
-#, fuzzy
 msgid "PDF Document"
-msgstr "&Dokument"
+msgstr "PDF-Dokument"
 
 #: frescobaldi_app/popplerprint.py:69
-#, fuzzy
 msgid "Print {filename}"
-msgstr "Drucke 1 Datei"
+msgstr "Drucke {filename}"
 
 #: frescobaldi_app/popplerprint.py:87 frescobaldi_app/popplerprint.py:116
-#, fuzzy
 msgid "Printing Error"
-msgstr "Interner Fehler"
+msgstr "Druckerfehler"
 
 #: frescobaldi_app/popplerprint.py:88 frescobaldi_app/popplerprint.py:117
-#, fuzzy
 msgid "Could not send the document to the printer."
-msgstr "Konnte Ausgabe des LilyPond-Prozesses nicht lesen."
+msgstr "Konnte das Dokument nicht zum Drucker senden."
 
 #: frescobaldi_app/popplerprint.py:108
 msgid "Printing page {page} ({num} of {total})..."
-msgstr ""
+msgstr "Drucke Seite {page} ({num} von {total})..."
 
 #: frescobaldi_app/search.py:99
-#, fuzzy
 msgid "Search:"
-msgstr "Suche..."
+msgstr "Suche:"
 
 #: frescobaldi_app/search.py:100
-#, fuzzy
 msgid "&Case"
-msgstr "Pause"
+msgstr "&Groß-/Kleinschreibung"
 
 #: frescobaldi_app/search.py:101
 msgid "Case Sensitive"
-msgstr ""
+msgstr "Groß-/Kleinschreibung beachten"
 
 #: frescobaldi_app/search.py:102
 msgid "&Regex"
-msgstr ""
+msgstr "&Regulärer Ausdruck"
 
 #: frescobaldi_app/search.py:103
 msgid "Regular Expression"
-msgstr ""
+msgstr "Regulärer Ausdruck"
 
 #: frescobaldi_app/search.py:104
-#, fuzzy
 msgid "The total number of matches"
-msgstr "Die Anzahl der Strophen."
+msgstr "Gesamtzahl an Treffern"
 
 #: frescobaldi_app/search.py:105
-#, fuzzy
 msgid "Close"
-msgstr "Komponist"
+msgstr "Schließen"
 
 #: frescobaldi_app/search.py:106
 msgid "Replace:"
-msgstr ""
+msgstr "Ersetzen:"
 
 #: frescobaldi_app/search.py:107
 msgid "Re&place"
-msgstr ""
+msgstr "Erset&zen"
 
 #: frescobaldi_app/search.py:108
 msgid "Replaces the next occurrence of the search term."
-msgstr ""
+msgstr "Ersetze das nächste Auftreten des Suchbegriffs."
 
 #: frescobaldi_app/search.py:109
 msgid "&All"
-msgstr ""
+msgstr "&Alle"
 
 #: frescobaldi_app/search.py:110
-#, fuzzy
 msgid ""
 "Replaces all occurrences of the search term in the document or selection."
-msgstr "Transponiere alle Noten im gesamten Dokument oder der Auswahl."
+msgstr "Ersetzt jedes Auftreten des Suchbegriffs im ausgewählten Text."
 
 #: frescobaldi_app/viewmanager.py:66 frescobaldi_app/viewmanager.py:213
 msgid "Line: {line}, Col: {column}"
-msgstr ""
+msgstr "Zeile: {line}, Spalte: {column}"
 
 #: frescobaldi_app/viewmanager.py:84 frescobaldi_app/viewmanager.py:441
 msgid "Split &Horizontally"
-msgstr ""
+msgstr "&Horizontal teilen"
 
 #: frescobaldi_app/viewmanager.py:87 frescobaldi_app/viewmanager.py:442
 msgid "Split &Vertically"
-msgstr ""
+msgstr "&Vertikal teilen"
 
 #: frescobaldi_app/viewmanager.py:91
-#, fuzzy
 msgid "&Close View"
-msgstr "Werkzeugansich&t"
+msgstr "Ansicht &schließen"
 
 #: frescobaldi_app/viewmanager.py:443
 msgid "&Close Current View"
-msgstr ""
+msgstr "&Momentane Ansicht schließen"
 
 #: frescobaldi_app/viewmanager.py:444
-#, fuzzy
 msgid "Close &Other Views"
-msgstr "Andere Dokumente schließen"
+msgstr "&Andere Ansichten schließen"
 
 #: frescobaldi_app/viewmanager.py:445
 msgid "&Next View"
-msgstr ""
+msgstr "&Nächste Ansicht"
 
 #: frescobaldi_app/viewmanager.py:446
-#, fuzzy
 msgid "&Previous View"
-msgstr "Vorherige"
+msgstr "Vo&rherige Ansicht"
 
 #: frescobaldi_app/autocomplete/__init__.py:79
 msgid "Automatic &Completion"
-msgstr ""
+msgstr "A&utomatisch vervollständigen"
 
 #: frescobaldi_app/autocomplete/__init__.py:80
 msgid "Show C&ompletions Popup"
-msgstr ""
+msgstr "Zeige &Popup zum Vervollständigen"
 
 #: frescobaldi_app/charmap/__init__.py:40
 #: frescobaldi_app/preferences/tools.py:186
-#, fuzzy
 msgid "Special Characters"
-msgstr "Besondere Zeichen..."
+msgstr "Besondere Zeichen"
 
 #: frescobaldi_app/charmap/__init__.py:41
-#, fuzzy
 msgid "Special Charac&ters"
-msgstr "Besondere Zeichen..."
+msgstr "Besondere &Zeichen"
 
 #: frescobaldi_app/docbrowser/__init__.py:46
 #: frescobaldi_app/docbrowser/__init__.py:62
 #: frescobaldi_app/preferences/documentation.py:110
-#, fuzzy
 msgid "Documentation Browser"
-msgstr "LilyPond-Dokumentation"
+msgstr "Dokumentation-Browser"
 
 #: frescobaldi_app/docbrowser/__init__.py:47
-#, fuzzy
 msgid "&Documentation Browser"
-msgstr "LilyPond-Dokumentation"
+msgstr "&Dokumentation-Browser"
 
 #: frescobaldi_app/docbrowser/__init__.py:80
 #: frescobaldi_app/help/browser.py:76
-#, fuzzy
 msgid "Back"
-msgstr "Runde Klammer"
+msgstr "Zurück"
 
 #: frescobaldi_app/docbrowser/__init__.py:81
 #: frescobaldi_app/help/browser.py:77
 msgid "Forward"
-msgstr ""
+msgstr "Vorwärts"
 
 #. L10N: Home page of the LilyPond manual
 #: frescobaldi_app/docbrowser/__init__.py:83
@@ -1139,14 +1096,12 @@ msgid "Home"
 msgstr "Nach Hause"
 
 #: frescobaldi_app/docbrowser/__init__.py:84
-#, fuzzy
 msgid "&LilyPond Documentation"
-msgstr "LilyPond-Dokumentation:"
+msgstr "&LilyPond-Dokumentation"
 
 #: frescobaldi_app/docbrowser/__init__.py:85
-#, fuzzy
 msgid "&Contextual LilyPond Help"
-msgstr "LilyPond-&Hilfe"
+msgstr "LilyPond-&Kontext-Hilfe"
 
 #: frescobaldi_app/docbrowser/browser.py:96
 #: frescobaldi_app/snippet/widget.py:167
@@ -1154,75 +1109,69 @@ msgid "Search..."
 msgstr "Suche..."
 
 #: frescobaldi_app/docbrowser/browser.py:136
-#, fuzzy
 msgid "(local)"
-msgstr "Vokal"
+msgstr "(lokal)"
 
 #: frescobaldi_app/docbrowser/browser.py:138
 msgid "({hostname})"
-msgstr ""
+msgstr "({hostname})"
 
 #: frescobaldi_app/docbrowser/sourceviewer.py:59
-#, fuzzy
 msgid "LilyPond Source"
-msgstr "LilyPond-Log"
+msgstr "LilyPond-Quelltext"
 
 #: frescobaldi_app/doclist/__init__.py:39
 #: frescobaldi_app/preferences/tools.py:219
-#, fuzzy
 msgid "Documents"
-msgstr "&Dokument"
+msgstr "Dokumente"
 
 #: frescobaldi_app/doclist/__init__.py:40
-#, fuzzy
 msgid "Docum&ents"
-msgstr "&Dokument"
+msgstr "Dokum&ente"
 
 #: frescobaldi_app/engrave/__init__.py:169
 msgid "&Always Engrave [{docname}]"
-msgstr ""
+msgstr "&Immer Noten stechen [{docname}]"
 
 #: frescobaldi_app/engrave/__init__.py:171
 msgid "&Always Engrave This Document"
-msgstr ""
+msgstr "In diesem &Dokument immer Noten stechen"
 
 #: frescobaldi_app/engrave/__init__.py:200
 msgid "Engrave"
-msgstr ""
+msgstr "Noten stechen"
 
 #: frescobaldi_app/engrave/__init__.py:201
 msgid "&Engrave (preview)"
-msgstr ""
+msgstr "Noten stechen (Vor&schau)"
 
 #: frescobaldi_app/engrave/__init__.py:202
 msgid "Engrave (&publish)"
-msgstr ""
+msgstr "Noten stechen (&Veröffentlichung)"
 
 #: frescobaldi_app/engrave/__init__.py:203
 msgid "Engrave (&custom)..."
-msgstr ""
+msgstr "Noten stechen (&eigene Einstellungen)..."
 
 #: frescobaldi_app/engrave/__init__.py:204
 msgid "Abort Engraving &Job"
-msgstr ""
+msgstr "Noten stechen &abbrechen"
 
 #: frescobaldi_app/engrave/custom.py:118 frescobaldi_app/engrave/custom.py:206
 msgid "Engrave custom"
-msgstr ""
+msgstr "Noten stechen (eigene Einstellungen)"
 
 #: frescobaldi_app/engrave/custom.py:119
-#, fuzzy
 msgid "LilyPond Version:"
-msgstr "Standard-LilyPond-Version"
+msgstr "LilyPond-Version:"
 
 #: frescobaldi_app/engrave/custom.py:120
 msgid "Output Format:"
-msgstr ""
+msgstr "Ausgabe-Format:"
 
 #: frescobaldi_app/engrave/custom.py:121
-#, fuzzy
 msgid "Resolution:"
-msgstr "Version:"
+msgstr "Auflösung:"
 
 #: frescobaldi_app/engrave/custom.py:123
 msgid "Run LilyPond in preview mode (with Point and Click)"
@@ -1234,23 +1183,20 @@ msgstr "LilyPond mit geschwätziger Ausgabe starten"
 
 #: frescobaldi_app/engrave/custom.py:125
 #: frescobaldi_app/preferences/lilypond.py:284
-#, fuzzy
 msgid "Delete intermediate output files"
-msgstr "Erlaube LilyPond, die temporären Output-Dateien zu löschen"
+msgstr "Lösche temporäre Ausgabedateien"
 
 #: frescobaldi_app/engrave/custom.py:126
-#, fuzzy
 msgid "Command line:"
-msgstr "Befehl"
+msgstr "Kommandozeile:"
 
 #: frescobaldi_app/engrave/custom.py:127
 msgid "Run LilyPond"
 msgstr "LilyPond starten"
 
 #: frescobaldi_app/engrave/custom.py:149
-#, fuzzy
 msgid "LilyPond {version}"
-msgstr "Standard-LilyPond-Version"
+msgstr "LilyPond {version}"
 
 #: frescobaldi_app/engrave/custom.py:210
 msgid ""
@@ -1259,25 +1205,25 @@ msgid ""
 "to engrave your document.\n"
 "It is even possible to edit the command line itself.\n"
 msgstr ""
+"In diesem Dialog können Sie einige Parameter für den LilyPond-Befehl "
+"einstellen, der für das stechen der Noten Ihres Dokuments benutzt wird.\n"
+"Es ist sogar möglich, den Befehl selbst zu bearbeiten.\n"
 
 #: frescobaldi_app/engrave/custom.py:215
 msgid "The following replacements will be made:"
-msgstr ""
+msgstr "Die folgenden Ersetzungen werden durchgeführt:"
 
 #: frescobaldi_app/engrave/custom.py:218
-#, fuzzy
 msgid "The LilyPond executable"
-msgstr "LilyPond-Einstellungen"
+msgstr "Das LilyPond-Programm"
 
 #: frescobaldi_app/engrave/custom.py:219
-#, fuzzy
 msgid "All the include paths"
-msgstr "LilyPond-Include-Verzeichnis:"
+msgstr "Alle Include-Verzeichnisse"
 
 #: frescobaldi_app/engrave/custom.py:220
-#, fuzzy
 msgid "The filename of the document"
-msgstr "S&ynchronisiere Terminal mit aktuellem Dokument"
+msgstr "Der Dateiname des aktuellen Dokuments"
 
 #: frescobaldi_app/engrave/custom.py:233
 msgid "PDF"
@@ -1285,70 +1231,65 @@ msgstr "PDF"
 
 #: frescobaldi_app/engrave/custom.py:239
 msgid "PostScript"
-msgstr ""
+msgstr "PostScript"
 
 #: frescobaldi_app/engrave/custom.py:245
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 #: frescobaldi_app/engrave/custom.py:251
 msgid "SVG"
-msgstr ""
+msgstr "SVG"
 
 #: frescobaldi_app/engrave/custom.py:257
 msgid "PDF (EPS Backend)"
-msgstr ""
+msgstr "PDF (EPS-Backend)"
 
 #: frescobaldi_app/engrave/custom.py:263
 msgid "Encapsulated PostScript (EPS Backend)"
-msgstr ""
+msgstr "Encapsulated PostScript (EPS-Backend)"
 
 #: frescobaldi_app/engrave/custom.py:269
 msgid "PNG (EPS Backend)"
-msgstr ""
+msgstr "PNG (EPS-Backend)"
 
 #: frescobaldi_app/engrave/result_menu.py:45
-#, fuzzy
 msgid "Generated &Files"
 msgstr "Erzeu&gte Dateien"
 
 #: frescobaldi_app/engrave/result_menu.py:66
-#, fuzzy
 msgid "No files available"
-msgstr "Nicht verfügbar"
+msgstr "Keine Dateien verfügbar"
 
 #: frescobaldi_app/help/browser.py:75
 msgid "Toolbar"
-msgstr ""
+msgstr "Werkzeugleiste"
 
 #: frescobaldi_app/help/browser.py:78
-#, fuzzy
 msgid "Start"
-msgstr "Beginne mit:"
+msgstr "Start"
 
 #: frescobaldi_app/help/browser.py:79
-#, fuzzy
 msgid "Contents"
-msgstr "Befehl"
+msgstr "Inhalt"
 
 #: frescobaldi_app/help/browser.py:85 frescobaldi_app/help/browser.py:86
 #: frescobaldi_app/help/contents.py:70
 #: frescobaldi_app/quickinsert/widget.py:106
 msgid "Help"
-msgstr ""
+msgstr "Hilfe"
 
 #: frescobaldi_app/help/contents.py:37
 msgid "No Help"
-msgstr ""
+msgstr "Keine Hilfe"
 
 #: frescobaldi_app/help/contents.py:40
 msgid "No help has been found on this topic."
-msgstr ""
+msgstr "Zu dem Thema wurde keine Hilfe gefunden."
 
 #: frescobaldi_app/help/contents.py:46
-#, fuzzy
 msgid "Frescobaldi Manual"
-msgstr "Frescobaldi"
+msgstr "Frescobaldi Handbuch"
 
 #: frescobaldi_app/help/contents.py:49
 msgid ""
@@ -1359,6 +1300,12 @@ msgid ""
 "{version}.\n"
 "</p>\n"
 msgstr ""
+"<p>\n"
+"Frescobaldi ist ein leichter und mächtiger Editor für LilyPond Noten-"
+"Dokumente.\n"
+"Dieses Handbuch wurde von {author} geschrieben und dokumentiert die "
+"{appname} Version {version}.\n"
+"</p>\n"
 
 #: frescobaldi_app/help/contents.py:60
 msgid ""
@@ -1371,15 +1318,23 @@ msgid ""
 "revealed by pressing {key_whatsthis} or by selecting {menu_whatsthis}.\n"
 "</p>\n"
 msgstr ""
+"<h3>Hilfe innerhalb von Frescobaldi</h3>\n"
+"\n"
+"<p>\n"
+"In vielen Dialogen können Sie den Hilfe-Knopf oder die {key_help} Taste "
+"drücken.\n"
+"Viele Elemente der Oberfläche besitzen auch Informationen über die \"Was ist "
+"das?\"-Hilfe, die man mittels {key_whatsthis} oder durch Auswahl von "
+"{menu_whatsthis} anzeigen kann.\n"
+"</p>\n"
 
 #: frescobaldi_app/help/contents.py:70
 msgid "What's This"
-msgstr ""
+msgstr "Was ist das?"
 
 #: frescobaldi_app/help/contents.py:88
-#, fuzzy
 msgid "Introduction"
-msgstr "Klavierauszug"
+msgstr "Einführung"
 
 #: frescobaldi_app/help/contents.py:91
 msgid ""
@@ -1412,7 +1367,7 @@ msgstr ""
 
 #: frescobaldi_app/help/contents.py:116
 msgid "Getting Started"
-msgstr ""
+msgstr "Loslegen"
 
 #: frescobaldi_app/help/contents.py:136
 #: frescobaldi_app/preferences/fontscolors.py:482
@@ -1423,7 +1378,7 @@ msgstr "LilyPond"
 
 #: frescobaldi_app/help/contents.py:136
 msgid "Engrave (publish)"
-msgstr ""
+msgstr "Noten stechen (Veröffentlichung)"
 
 #: frescobaldi_app/help/contents.py:140
 #: frescobaldi_app/preferences/__init__.py:172
@@ -1431,18 +1386,17 @@ msgid "LilyPond Preferences"
 msgstr "LilyPond-Einstellungen"
 
 #: frescobaldi_app/help/contents.py:142
-#, fuzzy
 msgctxt "menu title"
 msgid "View"
-msgstr "Abspielen/Anzeigen"
+msgstr "Ansicht"
 
 #: frescobaldi_app/help/contents.py:143
 msgid "Clear Error Marks"
-msgstr ""
+msgstr "Fehler-Markierungen löschen"
 
 #: frescobaldi_app/help/contents.py:146
 msgid "Copy to Image..."
-msgstr ""
+msgstr "In Bild kopieren..."
 
 #: frescobaldi_app/help/contents.py:147
 msgid ""
@@ -1530,18 +1484,16 @@ msgid ""
 msgstr ""
 
 #: frescobaldi_app/help/contents.py:228
-#, fuzzy
 msgid "Other Tools"
-msgstr "S&pezielle Werkzeuge"
+msgstr "Andere Werkzeuge"
 
 #: frescobaldi_app/help/contents.py:231
 msgid "<p>Some other important tools are listed here.</p>\n"
-msgstr ""
+msgstr "<p>Ein paar wichtige Werkzeuge sind hier aufgelistet.</p>\n"
 
 #: frescobaldi_app/help/contents.py:252
-#, fuzzy
 msgid "About Frescobaldi"
-msgstr "Frescobaldi"
+msgstr "Über Frescobaldi"
 
 #: frescobaldi_app/help/contents.py:255
 msgid ""
@@ -1560,14 +1512,30 @@ msgid ""
 "(<a href=\"http://groups.google.com/group/frescobaldi\">more info</a>).\n"
 "</p>\n"
 msgstr ""
+"<p>\n"
+"Frescobaldi ist nach\n"
+"<a href=\"http://de.wikipedia.org/wiki/Girolamo_Frescobaldi\">Girolamo\n"
+"Frescobaldi (1583 &#8211; 1643)</a> benannt, ein italianischer Organist und "
+"Komponist.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Die Homepage von Frescobaldi liegt auf\n"
+"<a href=\"http://www.frescobaldi.org/\">www.frescobaldi.org</a>\n"
+"und es gibt eine Mailing-Liste auf\n"
+"<a href=\"mailto:frescobaldi@googlegroups.com\">frescobaldi@googlegroups."
+"com</a>\n"
+"(<a href=\"http://groups.google.com/group/frescobaldi\">mehr Informationen</"
+"a>).\n"
+"</p>\n"
 
 #: frescobaldi_app/help/contents.py:285
 msgid "Frescobaldi's main author is {author}."
-msgstr ""
+msgstr "Frescobaldis Hauptentwickler ist {author}."
 
 #: frescobaldi_app/help/contents.py:293
 msgid "Contributing"
-msgstr ""
+msgstr "Mitwirkende"
 
 #: frescobaldi_app/help/contents.py:296
 msgid ""
@@ -1597,9 +1565,8 @@ msgid ""
 msgstr ""
 
 #: frescobaldi_app/help/contents.py:321
-#, fuzzy
 msgid "History of Frescobaldi"
-msgstr "Frescobaldi"
+msgstr "Entwicklungsgeschichte von Frescobaldi"
 
 #: frescobaldi_app/help/contents.py:324
 msgid ""
@@ -1631,7 +1598,7 @@ msgstr ""
 
 #: frescobaldi_app/help/contents.py:350
 msgid "The editor"
-msgstr ""
+msgstr "Der Editor"
 
 #: frescobaldi_app/help/contents.py:353
 msgid ""
@@ -1641,15 +1608,20 @@ msgid ""
 "etcetera.\n"
 "</p>\n"
 msgstr ""
+"<p>\n"
+"In diesem Teil werden die Features des Editors diskutiert,\n"
+"z. B. wie automatisches Einrücken kontrolliert wird, wie Suche und Ersetzen "
+"benutzt wird,\n"
+"usw.\n"
+"</p>\n"
 
 #: frescobaldi_app/help/contents.py:369
 msgid "Search and replace"
-msgstr ""
+msgstr "Suchen und ersetzen"
 
 #: frescobaldi_app/help/contents.py:377
-#, fuzzy
 msgid "Edit"
-msgstr "Drucken..."
+msgstr "Bearbeiten"
 
 #: frescobaldi_app/help/contents.py:379
 msgid ""
@@ -1703,9 +1675,8 @@ msgid ""
 msgstr ""
 
 #: frescobaldi_app/help/contents.py:427
-#, fuzzy
 msgid "Document variables"
-msgstr "Dokumenten-Reiter"
+msgstr "Dokumenten-Variablen"
 
 #: frescobaldi_app/help/contents.py:432
 msgid ""
@@ -1716,15 +1687,19 @@ msgid ""
 "of\n"
 "the lines for variable definitions like <code>name: value;</code>.\n"
 msgstr ""
+"Dokumentenvariablen beeinflussen das Verhalten von Frescobaldi.\n"
+"Sie können in den ersten oder letzten fünf Zeilen des Dokuments stehen.\n"
+"Falls eine Zeile '<b><code>-*-</code></b>' enthält, durchsucht Frescobaldi "
+"den Rest der Zeilen nach Variablendefinitionen wie <code>Name: Wert;</"
+"code>.\n"
 
 #: frescobaldi_app/help/contents.py:439
 msgid "The following variables are recognized:"
-msgstr ""
+msgstr "Die folgenden Variablen werden erkannt:"
 
 #: frescobaldi_app/help/contents.py:444
-#, fuzzy
 msgid "mode"
-msgstr "Entferne Notenhälse"
+msgstr "Modus"
 
 #. L10N: do not translate the mode names lilypond, html, etc.
 #: frescobaldi_app/help/contents.py:446
@@ -1732,287 +1707,269 @@ msgid ""
 "Force mode to be one of lilypond, html, texinfo, latex, docbook or scheme. "
 "Default: automatic mode recognition."
 msgstr ""
+"Erzwinge LilyPond-, HTML-, Texinfo-, LaTeX-, Docbook- oder Scheme-Modus. "
+"Standard: Automatische Modus-Erkennung."
 
 #: frescobaldi_app/help/contents.py:448
-#, fuzzy
 msgid "filename"
-msgstr "Drucke 1 Datei"
+msgstr "Dateiname"
 
 #: frescobaldi_app/help/contents.py:449
-#, fuzzy
 msgid "Compiles another LilyPond document instead of the current."
-msgstr "Konnte Ausgabe des LilyPond-Prozesses nicht lesen."
+msgstr ""
+"Verarbeitet anstelle des aktuellen Dokuments ein anderes LilyPond-Dokument."
 
 #: frescobaldi_app/help/contents.py:450
-#, fuzzy
 msgid "encoding"
-msgstr "Encoding"
+msgstr "Zeichensatz"
 
 #: frescobaldi_app/help/contents.py:451
 msgid "Use another encoding than the default UTF-8."
-msgstr ""
+msgstr "Benutze einen anderen Zeichensatz als den Standard (UTF-8)."
 
 #: frescobaldi_app/help/contents.py:452
-#, fuzzy
 msgid "version"
 msgstr "Version"
 
 #: frescobaldi_app/help/contents.py:453
-#, fuzzy
 msgid ""
 "Set the LilyPond version to use, can be used for non-LilyPond documents."
-msgstr "Die LilyPond-Version für dieses Dokument."
+msgstr ""
+"Die zu verwendende LilyPond-Version; kann für Nicht-LilyPond-Dokumente "
+"benutzt werden."
 
 #: frescobaldi_app/help/contents.py:455 frescobaldi_app/help/contents.py:463
-#, fuzzy
 msgid "number"
-msgstr "Name"
+msgstr "Nummer"
 
 #: frescobaldi_app/help/contents.py:456
 msgid "The width of a tab character, by default 8."
-msgstr ""
+msgstr "Die Breite von Tabulatoren, Standard ist 8."
 
 #: frescobaldi_app/help/contents.py:458
 msgid "Whether to use tabs in indent, by default {no}."
-msgstr ""
+msgstr "Benutze Tabulatoren bei Einrückungen, Standard ist {no}."
 
 #: frescobaldi_app/help/contents.py:461
 msgid "Whether to use tabs elsewhere in the document, by default {yes}."
-msgstr ""
+msgstr "Benutze Tabulatoren an anderer Stelle im Dokument, Standard ist {yes}."
 
 #: frescobaldi_app/help/contents.py:464
 msgid "The number of spaces each indent level uses, by default 2."
 msgstr ""
+"Anzahl von Leerzeichen, aus denen jede Einrückung besteht, Standard ist 2."
 
 #: frescobaldi_app/help/contents.py:472
 msgid "You can put document variables in comments."
-msgstr ""
+msgstr "Sie können Dokumenten-Variable als Kommentar einfügen."
 
 #: frescobaldi_app/help/contents.py:479
-#, fuzzy
 msgid "Table of Contents"
 msgstr "Inhaltsverzeichnis"
 
 #: frescobaldi_app/help/helpimpl.py:115
-#, fuzzy
 msgid "Up:"
-msgstr "Oben"
+msgstr "Hoch:"
 
 #: frescobaldi_app/help/helpimpl.py:130
-#, fuzzy
 msgid "Next:"
-msgstr "Nächste"
+msgstr "Nächstes:"
 
 #: frescobaldi_app/help/helpimpl.py:133
-#, fuzzy
 msgid "See also:"
-msgstr "Alle auswählen"
+msgstr "Siehe auch:"
 
 #: frescobaldi_app/help/helpimpl.py:165
 msgid "(no key defined)"
-msgstr ""
+msgstr "(keine Taste definiert)"
 
 #: frescobaldi_app/logtool/__init__.py:50
 #: frescobaldi_app/preferences/tools.py:80
 msgid "LilyPond Log"
-msgstr "LilyPond-Log"
+msgstr "LilyPond-Protokoll"
 
 #: frescobaldi_app/logtool/__init__.py:51
-#, fuzzy
 msgid "LilyPond &Log"
-msgstr "LilyPond-Log"
+msgstr "LilyPond-Proto&koll"
 
 #: frescobaldi_app/logtool/__init__.py:91
 msgid "Next Error Message"
-msgstr ""
+msgstr "Nächste Fehlmeldung"
 
 #: frescobaldi_app/logtool/__init__.py:92
 msgid "Previous Error Message"
-msgstr ""
+msgstr "Vorherige Fehlmeldung"
 
 #: frescobaldi_app/logtool/logwidget.py:106
 msgid "Click to edit this file"
 msgstr "Klicken, um Datei zu bearbeiten"
 
 #: frescobaldi_app/miditool/__init__.py:51
-#, fuzzy
 msgid "MIDI"
-msgstr "Spiele MIDI"
+msgstr "MIDI"
 
 #: frescobaldi_app/miditool/__init__.py:52
-#, fuzzy
 msgid "MIDI &Player"
-msgstr "MIDI-Player"
+msgstr "MIDI-Pla&yer"
 
 #: frescobaldi_app/miditool/__init__.py:97
-#, fuzzy
 msgctxt "midi player"
 msgid "Pause"
 msgstr "Pause"
 
 #: frescobaldi_app/miditool/__init__.py:98
-#, fuzzy
 msgctxt "midi player"
 msgid "Play"
-msgstr "Spiele %1"
+msgstr "Abspielen"
 
 #: frescobaldi_app/miditool/__init__.py:99
-#, fuzzy
 msgctxt "midi player"
 msgid "Stop"
-msgstr "Schritt"
+msgstr "Stop"
 
 #: frescobaldi_app/miditool/__init__.py:100
-#, fuzzy
 msgctxt "midi player"
 msgid "Restart"
-msgstr "Wiederholungsanfang"
+msgstr "Wiederholen"
 
 #: frescobaldi_app/miditool/widget.py:102
-#, fuzzy
 msgid "Tempo"
-msgstr "Tempo:"
+msgstr "Tempo"
 
 #: frescobaldi_app/miditool/widget.py:156
 msgid "No output found!"
-msgstr ""
+msgstr "Keine Ausgabe gefunden!"
 
 #: frescobaldi_app/miditool/widget.py:231
 msgctxt "midi lcd screen"
 msgid "LOADED"
-msgstr ""
+msgstr "LOADED"
 
 #: frescobaldi_app/miditool/widget.py:232
 msgctxt "midi lcd screen"
 msgid "TOTAL"
-msgstr ""
+msgstr "TOTAL"
 
 #: frescobaldi_app/miditool/widget.py:314
 #: frescobaldi_app/miditool/widget.py:324
 msgctxt "midi lcd screen"
 msgid "TIME"
-msgstr ""
+msgstr "TIME"
 
 #: frescobaldi_app/miditool/widget.py:315
 msgctxt "midi lcd screen"
 msgid "TEMPO"
-msgstr ""
+msgstr "TEMPO"
 
 #: frescobaldi_app/miditool/widget.py:325
 msgctxt "midi lcd screen"
 msgid "BEAT"
-msgstr ""
+msgstr "BEAT"
 
 #: frescobaldi_app/musicview/__init__.py:86
 msgctxt "window title"
 msgid "Music View"
-msgstr ""
+msgstr "Notenansicht"
 
 #: frescobaldi_app/musicview/__init__.py:87
 msgid "&Music View"
-msgstr ""
+msgstr "&Notenansicht"
 
 #: frescobaldi_app/musicview/__init__.py:191
-#, fuzzy
 msgid "Select Music View Document"
-msgstr "&Quell-Dokument"
+msgstr "Wähle Dokument für Notenansicht"
 
 #: frescobaldi_app/musicview/__init__.py:192
-#, fuzzy
 msgid "&Print Music..."
-msgstr "Musik drucken..."
+msgstr "Noten &drucken..."
 
 #: frescobaldi_app/musicview/__init__.py:193
 msgid "Zoom &In"
-msgstr ""
+msgstr "Ver&größern"
 
 #: frescobaldi_app/musicview/__init__.py:194
 msgid "Zoom &Out"
-msgstr ""
+msgstr "Ver&kleinern"
 
 #: frescobaldi_app/musicview/__init__.py:195
 msgid "Zoom Music"
-msgstr ""
+msgstr "Noten vergrößern"
 
 #: frescobaldi_app/musicview/__init__.py:196
 msgid "Fit &Width"
-msgstr ""
+msgstr "Auf &Breite anpassen"
 
 #: frescobaldi_app/musicview/__init__.py:197
 msgid "Fit &Height"
-msgstr ""
+msgstr "Auf &Höhe anpassen"
 
 #: frescobaldi_app/musicview/__init__.py:198
-#, fuzzy
 msgid "Fit &Page"
-msgstr "Erste Seite:"
+msgstr "Auf &Seite anpassen"
 
 #: frescobaldi_app/musicview/__init__.py:199
 msgid "&Jump to Cursor Position"
-msgstr ""
+msgstr "Springe zur &Cursorposition"
 
 #: frescobaldi_app/musicview/__init__.py:200
 msgid "Copy to &Image..."
-msgstr ""
+msgstr "Kopiere in &Bild..."
 
 #: frescobaldi_app/musicview/__init__.py:339
-#, fuzzy
 msgid "Choose the PDF document to display."
-msgstr "Andere Dokumente schließen"
+msgstr "Wählen Sie das anzuzeigende PDF-Dokument aus."
 
 #: frescobaldi_app/musicview/__init__.py:341
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
 msgstr ""
+"Wählen Sie zur Ansicht das PDF-Dokument aus oder ziehen Sie es in eine "
+"andere Anwenung oder an einen anderen Ort."
 
 #: frescobaldi_app/musicview/__init__.py:399
 msgid "Fit Width"
-msgstr ""
+msgstr "Auf Breite anpassen"
 
 #: frescobaldi_app/musicview/__init__.py:400
 msgid "Fit Height"
-msgstr ""
+msgstr "Auf Höhe anpassen"
 
 #: frescobaldi_app/musicview/__init__.py:401
-#, fuzzy
 msgid "Fit Page"
-msgstr "Erste Seite:"
+msgstr "Auf Seite anpassen"
 
 #: frescobaldi_app/musicview/image.py:126
 msgid "DPI:"
-msgstr ""
+msgstr "DPI:"
 
 #: frescobaldi_app/musicview/image.py:127
 msgid "Paper Color"
-msgstr ""
+msgstr "Papier-Farbe"
 
 #: frescobaldi_app/musicview/image.py:128
 msgid "Auto-crop"
-msgstr ""
+msgstr "Automatisches zuschneiden"
 
 #: frescobaldi_app/musicview/image.py:129
-#, fuzzy
 msgid "Antialias"
-msgstr "Italienisch"
+msgstr "Kantenglättung"
 
 #: frescobaldi_app/musicview/image.py:130
-#, fuzzy
 msgid "Drag"
-msgstr "Dorich"
+msgstr "Ziehen"
 
 #: frescobaldi_app/musicview/image.py:131
 msgid "Drag the image as a PNG file."
-msgstr ""
+msgstr "Ziehe das Bild als PNG-Datei."
 
 #: frescobaldi_app/musicview/image.py:132
 msgid "&Copy to Clipboard"
-msgstr ""
+msgstr "In die Zwischenanlage &kopieren"
 
 #: frescobaldi_app/musicview/image.py:133
-#, fuzzy
 msgid "&Save As..."
-msgstr "Speichere PDF unter..."
+msgstr "&Speichern unter..."
 
 #: frescobaldi_app/musicview/image.py:136
 #, no-python-format
@@ -2027,37 +1984,43 @@ msgid ""
 "the actual file on disk, e.g. to an e-mail message.\n"
 "</p>"
 msgstr ""
+"<p>\n"
+"Klicken schaltet zwischen Größe von 100% und Fenstergröße um. Ziehen, um das "
+"Bild in eine andere Anwenung zu kopieren. Ziehen mit Strg (oder {command}) "
+"für ein großes Bild.\n"
+"</p>\n"
+"<p>\n"
+"Sie können auch das kleine Bild-Icon in der rechten unteren Ecke ziehen, was "
+"die tatsächlich gespeicherte Datei zieht, z. B. in eine Email-Nachricht.\n"
+"</p>"
 
 #: frescobaldi_app/musicview/image.py:167
-#, fuzzy
 msgid "Image from {filename}"
-msgstr "Drucke 1 Datei"
+msgstr "Bild von {filename}"
 
 #: frescobaldi_app/musicview/image.py:210
 msgid "Save Image As"
-msgstr ""
+msgstr "Speichere &Bild unter"
 
 #: frescobaldi_app/musicview/image.py:214
-#, fuzzy
 msgid "Could not save the image."
-msgstr "Konnte %1 nicht laden"
+msgstr "Konnte das Bild nicht speichern."
 
 #: frescobaldi_app/pitch/__init__.py:99
-#, fuzzy
 msgid "Pitch Name &Language"
-msgstr "Sprache für Tonlagen"
+msgstr "&Sprache für Tonhöhenbezeichnungen"
 
 #: frescobaldi_app/pitch/__init__.py:101
 msgid ""
 "Change the LilyPond language used for pitch names in this document or in the "
 "selection."
 msgstr ""
-"Ändere die LilyPond-Sprache, die für die Tonlagen in diesem Dokument oder in "
-"der Auswahl benutzt werden soll."
+"Ändere die LilyPond-Sprache, die für die Tonhöhenbezeichnungen in diesem "
+"Dokument oder in der Auswahl benutzt werden soll."
 
 #: frescobaldi_app/pitch/__init__.py:103
 msgid "Convert Relative to &Absolute"
-msgstr "Wandle relative in a&bsolute Tonhöhen um"
+msgstr "Relative in &absolute Tonhöhen umwandeln"
 
 #: frescobaldi_app/pitch/__init__.py:105
 msgid ""
@@ -2069,20 +2032,19 @@ msgstr ""
 
 #: frescobaldi_app/pitch/__init__.py:107
 msgid "Convert Absolute to &Relative"
-msgstr "Wandle absolute in re&lative Tonhöhen um"
+msgstr "Absolute in &relative Tonhöhen umwandeln"
 
 #: frescobaldi_app/pitch/__init__.py:109
 msgid ""
 "Converts the notes in the document or selection from absolute to relative "
 "pitch."
 msgstr ""
-"Wandelt die Noten im gesamten Dokument oder in der Auswahl von absoluten zu "
-"relativen Tonhöhen."
+"Wandelt die Noten im gesamten Dokument oder in der Auswahl von absoluten in "
+"relativen Tonhöhen um."
 
 #: frescobaldi_app/pitch/__init__.py:111
-#, fuzzy
 msgid "&Transpose..."
-msgstr "Transponieren..."
+msgstr "&Transponieren..."
 
 #: frescobaldi_app/pitch/__init__.py:113
 msgid "Transposes all notes in the document or selection."
@@ -2090,10 +2052,9 @@ msgstr "Transponiere alle Noten im gesamten Dokument oder der Auswahl."
 
 #: frescobaldi_app/pitch/pitch.py:81 frescobaldi_app/pitch/pitch.py:94
 msgid "Pitch Name Language"
-msgstr "Sprache für Tonlagen"
+msgstr "Sprache für Tonhöhenbezeichnungen"
 
 #: frescobaldi_app/pitch/pitch.py:82
-#, fuzzy
 msgid ""
 "Can't perform the requested translation.\n"
 "\n"
@@ -2102,7 +2063,7 @@ msgid ""
 msgstr ""
 "Kann die angeforderte Übersetzung nicht durchführen.\n"
 "\n"
-"Die Musik enthält Viertelton-Schritte, die in der Tonlagensprache \"%1\" "
+"Die Musik enthält Viertelton-Schritte, die in der Tonlagensprache \"{name}\" "
 "nicht verfügbar sind."
 
 #: frescobaldi_app/pitch/pitch.py:98
@@ -2127,17 +2088,14 @@ msgid "Transpose"
 msgstr "Transponieren"
 
 #: frescobaldi_app/pitch/pitch.py:399
-#, fuzzy
 msgid ""
 "Please enter two absolute pitches, separated by a space, using the pitch "
 "name language \"{language}\"."
 msgstr ""
-"Konnte die eingegebenen Tonarten nicht verstehen.\n"
-"\n"
-"Bitte benutzen Sie nur Tonartnamen in der Sprache \"%1\"."
+"Bitte geben Sie zwei absolute Tonhöhen ein, getrennt mit einem Leerzeichen, "
+"mit der Sprache \"{language}\" für Tonhöhenbezeichnungen."
 
 #: frescobaldi_app/pitch/pitch.py:581
-#, fuzzy
 msgid ""
 "Can't perform the requested transposition.\n"
 "\n"
@@ -2147,10 +2105,9 @@ msgstr ""
 "Kann die angeforderte Transponierung nicht durchführen.\n"
 "\n"
 "Die transponierte Musik enthielte Viertelton-Schritte, die in der "
-"Tondarstellung \"%1\" nicht verfügbar sind."
+"Tondarstellung \"{language}\" nicht verfügbar sind."
 
 #: frescobaldi_app/pitch/pitch.py:712
-#, fuzzy
 msgid "Pitch manipulation"
 msgstr "Artikulation"
 
@@ -2189,10 +2146,9 @@ msgid ""
 msgstr ""
 
 #: frescobaldi_app/pitch/pitch.py:744
-#, fuzzy
 msgctxt "submenu title"
 msgid "Pitch"
-msgstr "Ton&lage"
+msgstr "Tonlage"
 
 #: frescobaldi_app/pitch/pitch.py:755
 msgid ""
@@ -2238,39 +2194,37 @@ msgstr ""
 
 #: frescobaldi_app/po/messages.py:27
 msgid "Usage"
-msgstr ""
+msgstr "Verwendung"
 
 #: frescobaldi_app/po/messages.py:28
 #, python-format
 msgid "Usage: %s\n"
-msgstr ""
+msgstr "Verwendung: %s\n"
 
 #: frescobaldi_app/po/messages.py:29
 msgid "show this help message and exit"
-msgstr ""
+msgstr "Hilfenachricht zeigen und verlassen"
 
 #: frescobaldi_app/po/messages.py:30
 msgid "show program's version number and exit"
-msgstr ""
+msgstr "Versionsnummer des Programms anzeigen und verlassen"
 
 #. L10N: Command line options
 #: frescobaldi_app/po/messages.py:32
-#, fuzzy
 msgid "Options"
-msgstr "Werte"
+msgstr "Optionen"
 
 #: frescobaldi_app/po/messages.py:36
 msgctxt "CloseButton"
 msgid "Close Tab"
-msgstr ""
+msgstr "Tab schließen"
 
 #: frescobaldi_app/po/messages.py:38
 msgctxt "QDialog"
 msgid "What's This?"
-msgstr ""
+msgstr "Was ist das?"
 
 #: frescobaldi_app/po/messages.py:40
-#, fuzzy
 msgctxt "QDialogButtonBox"
 msgid "Apply"
 msgstr "Anwenden"
@@ -2278,20 +2232,19 @@ msgstr "Anwenden"
 #: frescobaldi_app/po/messages.py:41
 msgctxt "QDialogButtonBox"
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: frescobaldi_app/po/messages.py:42
 msgctxt "QDialogButtonBox"
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
 #: frescobaldi_app/po/messages.py:43
 msgctxt "QDialogButtonBox"
 msgid "Discard"
-msgstr ""
+msgstr "Verwerfen"
 
 #: frescobaldi_app/po/messages.py:44
-#, fuzzy
 msgctxt "QDialogButtonBox"
 msgid "Save"
 msgstr "Speichern"
@@ -2299,123 +2252,107 @@ msgstr "Speichern"
 #: frescobaldi_app/po/messages.py:45
 msgctxt "QDialogButtonBox"
 msgid "Help"
-msgstr ""
+msgstr "Hilfe"
 
 #: frescobaldi_app/po/messages.py:46
-#, fuzzy
 msgctxt "QDialogButtonBox"
 msgid "Close"
-msgstr "Komponist"
+msgstr "Schließen"
 
 #: frescobaldi_app/po/messages.py:47
-#, fuzzy
 msgctxt "QDialogButtonBox"
 msgid "Open"
-msgstr "Öffne %1"
+msgstr "Öffnen"
 
 #: frescobaldi_app/po/messages.py:48
 msgctxt "QDialogButtonBox"
 msgid "Reset"
-msgstr ""
+msgstr "Zurücksetzen"
 
 #: frescobaldi_app/po/messages.py:50
-#, fuzzy
 msgctxt "QFileDialog"
 msgid "File"
-msgstr "Titel"
+msgstr "Datei"
 
 #: frescobaldi_app/po/messages.py:51
 msgctxt "QFileDialog"
 msgid "Folder"
-msgstr ""
+msgstr "Ordner"
 
 #: frescobaldi_app/po/messages.py:52
-#, fuzzy
 msgctxt "QFileDialog"
 msgid "Find Directory"
-msgstr "Basis-Verzeichnis:"
+msgstr "Ordner finden"
 
 #: frescobaldi_app/po/messages.py:53
-#, fuzzy
 msgctxt "QFileDialog"
 msgid "All Files (*)"
-msgstr "Alle Dateien"
+msgstr "Alle Dateien (*)"
 
 #: frescobaldi_app/po/messages.py:55
-#, fuzzy
 msgctxt "QScrollBar"
 msgid "Scroll here"
-msgstr "Schlagzeug folgt hier."
+msgstr "Hierhin scrollen"
 
 #: frescobaldi_app/po/messages.py:56
-#, fuzzy
 msgctxt "QScrollBar"
 msgid "Top"
-msgstr "Tap"
+msgstr "Oben"
 
 #: frescobaldi_app/po/messages.py:57
-#, fuzzy
 msgctxt "QScrollBar"
 msgid "Bottom"
-msgstr "Portato"
+msgstr "Unten"
 
 #: frescobaldi_app/po/messages.py:58
-#, fuzzy
 msgctxt "QScrollBar"
 msgid "Page up"
-msgstr "Pralltriller aufwärts"
+msgstr "Seite hoch"
 
 #: frescobaldi_app/po/messages.py:59
-#, fuzzy
 msgctxt "QScrollBar"
 msgid "Page down"
-msgstr "Pralltriller abwärts"
+msgstr "Seite hinunter"
 
 #: frescobaldi_app/po/messages.py:60
-#, fuzzy
 msgctxt "QScrollBar"
 msgid "Scroll up"
-msgstr "Pralltriller aufwärts"
+msgstr "Hochscrollen"
 
 #: frescobaldi_app/po/messages.py:61
-#, fuzzy
 msgctxt "QScrollBar"
 msgid "Scroll down"
-msgstr "Pralltriller abwärts"
+msgstr "Herunterscrollen"
 
 #: frescobaldi_app/po/messages.py:62
-#, fuzzy
 msgctxt "QScrollBar"
 msgid "Left edge"
-msgstr "Linke Ferse"
+msgstr "Linke Kante"
 
 #: frescobaldi_app/po/messages.py:63
-#, fuzzy
 msgctxt "QScrollBar"
 msgid "Right edge"
-msgstr "Rechte Ferse"
+msgstr "Rechte Kante"
 
 #: frescobaldi_app/po/messages.py:64
-#, fuzzy
 msgctxt "QScrollBar"
 msgid "Page left"
-msgstr "Flageolet"
+msgstr "Seite links"
 
 #: frescobaldi_app/po/messages.py:65
-#, fuzzy
 msgctxt "QScrollBar"
 msgid "Page right"
-msgstr "Rhythmus einfügen"
+msgstr "Seite rechts"
 
 #: frescobaldi_app/po/messages.py:66
 msgctxt "QScrollBar"
 msgid "Scroll left"
-msgstr ""
+msgstr "Nach links scrollen"
 
 #: frescobaldi_app/po/messages.py:67
 msgctxt "QScrollBar"
 msgid "Scroll right"
-msgstr ""
+msgstr "Nach rechts scrollen"
 
 #: frescobaldi_app/preferences/__init__.py:162
 #: frescobaldi_app/preferences/general.py:119
@@ -2423,13 +2360,11 @@ msgid "General Preferences"
 msgstr "Allgemeine Einstellungen"
 
 #: frescobaldi_app/preferences/__init__.py:182
-#, fuzzy
 msgid "MIDI Settings"
-msgstr "Einstellungen"
+msgstr "MIDI-Einstellungen"
 
 #: frescobaldi_app/preferences/__init__.py:192
 #: frescobaldi_app/preferences/helpers.py:80
-#, fuzzy
 msgid "Helper Applications"
 msgstr "Hilfsprogramme"
 
@@ -2438,52 +2373,56 @@ msgid "Paths"
 msgstr "Pfade"
 
 #: frescobaldi_app/preferences/__init__.py:212
-#, fuzzy
 msgid "LilyPond Documentation"
-msgstr "LilyPond-Dokumentation:"
+msgstr "LilyPond-Dokumentation"
 
 #: frescobaldi_app/preferences/__init__.py:222
-#, fuzzy
 msgid "Keyboard Shortcuts"
 msgstr "Tastatur-Kurzbefehle festlegen"
 
 #: frescobaldi_app/preferences/__init__.py:232
 msgid "Fonts & Colors"
-msgstr ""
+msgstr "Schriftsätze & Farben"
 
 #: frescobaldi_app/preferences/__init__.py:242
-#, fuzzy
 msgid "Tools"
-msgstr "Werkzeugansich&t"
+msgstr "Werkzeugansicht"
 
 #: frescobaldi_app/preferences/documentation.py:64
-#, fuzzy
 msgid "Paths to LilyPond Documentation"
-msgstr "LilyPond-Dokumentation:"
+msgstr "Pfade zur LilyPond-Dokumentation"
 
 #: frescobaldi_app/preferences/documentation.py:66
-#, fuzzy
 msgid "Add paths or URLs. See \"What's This\" for more information."
 msgstr ""
-"Geben Sie so viele Buchstaben (S, A, T oder B) wie es Notenzeilen gibt.\n"
-"Benutzen Sie die \"Was ist das\"-Hilfe für weitere Informationen."
+"Pfade oder URLs hinzufügen. Benutzen Sie die \"Was ist das\"-Hilfe für "
+"weitere Informationen."
 
 #: frescobaldi_app/preferences/documentation.py:68
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the \"{documentation}"
-"\" directory lives, or the whole \"share/doc/lilypond/html/offline-root\" "
-"path.</p>\n"
+"A local path should point to the directory where either the "
+"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
+"offline-root\" path.</p>\n"
 "<p>If those can't be found, documentation is looked for in all "
 "subdirectories of the given path, one level deep. This makes it possible to "
 "put multiple versions of LilyPond documentation in different subdirectories "
 "and have Frescobaldi automatically find them.</p>"
 msgstr ""
+"<p>Hier können Sie lokale Pfade oder URLs der LilyPond-Dokumentation "
+"hinzufügen."
+"Ein lokaler Pfad sollte auf einen Ordner zeigen, in dem entweder die "
+"\"{documentation}\" gespeichert ist, oder der ganze \"share/doc/lilypond/html/"
+"offline-root\" Pfad.</p>\n"
+"<p>Falls diese nicht gefunden werden können, werden alle Unterordner im "
+"angegebenen Pfad durchsucht, ein Level tief. "
+"Dadurch können verschiedene Versionen der LilyPond-Dokumentation in eigenen "
+"Unterordnern liegen "
+"und Frescobaldi kann sie automatisch finden.</p>"
 
 #: frescobaldi_app/preferences/documentation.py:111
-#, fuzzy
 msgid "Preferred Language:"
-msgstr "Sprache:"
+msgstr "Bevorzugte Sprache:"
 
 #: frescobaldi_app/preferences/documentation.py:112
 #: frescobaldi_app/preferences/general.py:124
@@ -2499,156 +2438,141 @@ msgstr "Standard"
 #: frescobaldi_app/preferences/documentation.py:113
 #: frescobaldi_app/scorewiz/settings.py:196
 msgid "English (untranslated)"
-msgstr ""
+msgstr "Englisch (nicht übersetzt)"
 
 #: frescobaldi_app/preferences/documentation.py:135
-#, fuzzy
 msgid "Please enter a local path or a URL:"
-msgstr "Bitte Namen für die Sitzung eingeben."
+msgstr "Bitte geben Sie einen lokalen Pfad oder eine URL ein:"
 
 #: frescobaldi_app/preferences/fontscolors.py:121
 msgid "Use this scheme for printing"
-msgstr ""
+msgstr "Benutze dieses Schema zum Drucken"
 
 #: frescobaldi_app/preferences/fontscolors.py:122
 #: frescobaldi_app/preferences/tools.py:81
 #: frescobaldi_app/preferences/tools.py:187
 msgid "Font:"
-msgstr ""
+msgstr "Schriftsatz:"
 
 #: frescobaldi_app/preferences/fontscolors.py:123
 #: frescobaldi_app/preferences/fontscolors.py:298
 msgid "Base Colors"
-msgstr ""
+msgstr "Grundfarben"
 
 #: frescobaldi_app/preferences/fontscolors.py:124
-#, fuzzy
 msgid "Default Styles"
-msgstr "Standard"
+msgstr "Standard-Stil"
 
 #: frescobaldi_app/preferences/fontscolors.py:157
 msgid "(Inherits: {name})"
-msgstr ""
+msgstr "(Vererbt: {name})"
 
 #. L10N: color of Text
 #: frescobaldi_app/preferences/fontscolors.py:360
 #: frescobaldi_app/preferences/fontscolors.py:435
-#, fuzzy
 msgid "Text"
-msgstr "Nächste"
+msgstr "Text"
 
 #. L10N: color of Background
 #: frescobaldi_app/preferences/fontscolors.py:361
 #: frescobaldi_app/preferences/fontscolors.py:437
 msgid "Background"
-msgstr ""
+msgstr "Hintergrund"
 
 #: frescobaldi_app/preferences/fontscolors.py:362
 msgid "Bold"
-msgstr ""
+msgstr "Fett"
 
 #: frescobaldi_app/preferences/fontscolors.py:363
-#, fuzzy
 msgid "Italic"
-msgstr "Italienisch"
+msgstr "Schräg"
 
 #: frescobaldi_app/preferences/fontscolors.py:364
-#, fuzzy
 msgid "Underline"
-msgstr "Benutzer erweiterte Linien"
+msgstr "Unterstrichen"
 
 #. L10N: color of Selected Text
 #: frescobaldi_app/preferences/fontscolors.py:439
-#, fuzzy
 msgid "Selected Text"
-msgstr "Alle auswählen"
+msgstr "Ausgewählter Text"
 
 #. L10N: color of Selection Background
 #: frescobaldi_app/preferences/fontscolors.py:441
 msgid "Selection Background"
-msgstr ""
+msgstr "Hintergrund der Auswahl"
 
 #. L10N: color of Current Line
 #: frescobaldi_app/preferences/fontscolors.py:443
 msgid "Current Line"
-msgstr ""
+msgstr "Momentane Zeile"
 
 #. L10N: color of Marked Line (bookmark)
 #: frescobaldi_app/preferences/fontscolors.py:445
-#, fuzzy
 msgid "Marked Line"
-msgstr "T&aktstriche"
+msgstr "Markierte Zeile"
 
 #. L10N: color of line with Error
 #: frescobaldi_app/preferences/fontscolors.py:447
-#, fuzzy
 msgid "Error Line"
-msgstr "T&aktstriche"
+msgstr "Fehler-Zeile"
 
 #. L10N: color of highlighted search result
 #: frescobaldi_app/preferences/fontscolors.py:449
 msgid "Search Result"
-msgstr ""
+msgstr "Suchergebnis"
 
 #. L10N: color of characters that match (e.g. braces, parentheses)
 #: frescobaldi_app/preferences/fontscolors.py:451
-#, fuzzy
 msgid "Matching Character"
-msgstr "Besondere Zeichen"
+msgstr "Übereinstimmender Buchstabe"
 
 #. L10N: color of paper in music preview
 #: frescobaldi_app/preferences/fontscolors.py:453
-#, fuzzy
 msgid "Preview Background"
-msgstr "Vorschau-Modus"
+msgstr "Vorschau Hintergrund"
 
 #. L10N: color of objects highlighting in preview
 #: frescobaldi_app/preferences/fontscolors.py:455
 msgid "Preview Highlight"
-msgstr ""
+msgstr "Vorschau Hervorgehoben"
 
 #. L10N: a basic type of input in the editor
 #: frescobaldi_app/preferences/fontscolors.py:462
 #: frescobaldi_app/preferences/fontscolors.py:497
 #: frescobaldi_app/preferences/fontscolors.py:533
-#, fuzzy
 msgid "Keyword"
-msgstr "Keyboard"
+msgstr "Keyword"
 
 #. L10N: a basic type of input in the editor
 #: frescobaldi_app/preferences/fontscolors.py:464
-#, fuzzy
 msgid "Function"
-msgstr "Aktion:"
+msgstr "Funktion"
 
 #. L10N: a basic type of input in the editor
 #: frescobaldi_app/preferences/fontscolors.py:466
 #: frescobaldi_app/preferences/fontscolors.py:508
 msgid "Variable"
-msgstr ""
+msgstr "Variable"
 
 #. L10N: a basic type of input in the editor
 #: frescobaldi_app/preferences/fontscolors.py:468
 #: frescobaldi_app/preferences/fontscolors.py:510
 #: frescobaldi_app/preferences/fontscolors.py:520
-#, fuzzy
 msgid "Value"
-msgstr "Band"
+msgstr "Wert"
 
 #. L10N: a basic type of input in the editor
 #: frescobaldi_app/preferences/fontscolors.py:470
 #: frescobaldi_app/preferences/fontscolors.py:511
 #: frescobaldi_app/preferences/fontscolors.py:523
 #: frescobaldi_app/preferences/fontscolors.py:529
-#, fuzzy
 msgid "String"
 msgstr "Streicher"
 
 #. L10N: a basic type of input in the editor
 #: frescobaldi_app/preferences/fontscolors.py:472
-#, fuzzy
 msgid "Escape"
-msgstr "Quer"
+msgstr "Escape"
 
 #. L10N: a basic type of input in the editor
 #: frescobaldi_app/preferences/fontscolors.py:474
@@ -2657,38 +2581,33 @@ msgstr "Quer"
 #: frescobaldi_app/preferences/fontscolors.py:530
 #: frescobaldi_app/preferences/fontscolors.py:538
 #: frescobaldi_app/snippet/builtin.py:274
-#, fuzzy
 msgid "Comment"
-msgstr "Befehl"
+msgstr "Kommentar"
 
 #: frescobaldi_app/preferences/fontscolors.py:483
-#, fuzzy
 msgid "Pitch"
-msgstr "Ton&lage"
+msgstr "Tonlage"
 
 #: frescobaldi_app/preferences/fontscolors.py:484
-#, fuzzy
 msgid "Octave"
-msgstr "Speichern"
+msgstr "Oktave"
 
 #: frescobaldi_app/preferences/fontscolors.py:485
-#, fuzzy
 msgid "Duration"
-msgstr "Werte"
+msgstr "Dauer"
 
 #: frescobaldi_app/preferences/fontscolors.py:486
 msgid "Octave Check"
-msgstr ""
+msgstr "Überprüfe Oktaven"
 
 #: frescobaldi_app/preferences/fontscolors.py:487
 msgid "Fingering"
-msgstr ""
+msgstr "Fingersatz"
 
 #. L10N: For String instruments like Guitar
 #: frescobaldi_app/preferences/fontscolors.py:489
-#, fuzzy
 msgid "String Number"
-msgstr "Erzeuge Seitenzahlen"
+msgstr "Saiten-Anzahl"
 
 #: frescobaldi_app/preferences/fontscolors.py:490
 #: frescobaldi_app/quickinsert/spanners.py:143
@@ -2696,7 +2615,6 @@ msgid "Slur"
 msgstr "Bindebogen"
 
 #: frescobaldi_app/preferences/fontscolors.py:491
-#, fuzzy
 msgid "Dynamic"
 msgstr "Dynamik"
 
@@ -2705,9 +2623,8 @@ msgid "Articulation"
 msgstr "Artikulation"
 
 #: frescobaldi_app/preferences/fontscolors.py:493
-#, fuzzy
 msgid "Chord"
-msgstr "Chor"
+msgstr "Akkord"
 
 #: frescobaldi_app/preferences/fontscolors.py:494
 #: frescobaldi_app/quickinsert/spanners.py:145
@@ -2716,11 +2633,10 @@ msgstr "Balken"
 
 #: frescobaldi_app/preferences/fontscolors.py:495
 msgid "Check"
-msgstr ""
+msgstr "Überprüfen"
 
 #: frescobaldi_app/preferences/fontscolors.py:496
 #: frescobaldi_app/snippet/builtin.py:154
-#, fuzzy
 msgid "Repeat"
 msgstr "Wiederholungsende"
 
@@ -2730,110 +2646,96 @@ msgid "Command"
 msgstr "Befehl"
 
 #: frescobaldi_app/preferences/fontscolors.py:499
-#, fuzzy
 msgid "Specifier"
 msgstr "Spezial"
 
 #: frescobaldi_app/preferences/fontscolors.py:500
-#, fuzzy
 msgid "User Command"
-msgstr "Befehl"
+msgstr "Benutzer-Befehl"
 
 #: frescobaldi_app/preferences/fontscolors.py:501
 #: frescobaldi_app/snippet/builtin.py:184
-#, fuzzy
 msgid "Markup"
-msgstr "Harfe"
+msgstr "Markup"
 
 #: frescobaldi_app/preferences/fontscolors.py:502
 msgid "Lyric Mode"
-msgstr ""
+msgstr "Liedtextmodus"
 
 #: frescobaldi_app/preferences/fontscolors.py:503
-#, fuzzy
 msgid "Lyric Text"
-msgstr "Trennungsstriche für Text einfügen"
+msgstr "Liedtext"
 
 #: frescobaldi_app/preferences/fontscolors.py:504
 msgid "Delimiter"
-msgstr ""
+msgstr "Abstand"
 
 #: frescobaldi_app/preferences/fontscolors.py:505
 msgid "Context"
-msgstr ""
+msgstr "Kontext"
 
 #: frescobaldi_app/preferences/fontscolors.py:506
-#, fuzzy
 msgid "Layout Object"
-msgstr "Sprach-Auswahl"
+msgstr "Layout-Objekt"
 
 #: frescobaldi_app/preferences/fontscolors.py:507
-#, fuzzy
 msgid "Property"
-msgstr "Dichter"
+msgstr "Merkmal"
 
 #: frescobaldi_app/preferences/fontscolors.py:509
 msgid "User Variable"
-msgstr ""
+msgstr "Benutzervariable"
 
 #: frescobaldi_app/preferences/fontscolors.py:512
 #: frescobaldi_app/preferences/fontscolors.py:535
-#, fuzzy
 msgid "Escaped Character"
-msgstr "Besondere Zeichen"
+msgstr "Besonderes Zeichen"
 
 #: frescobaldi_app/preferences/fontscolors.py:516
 msgid "HTML"
-msgstr ""
+msgstr "HTML"
 
 #: frescobaldi_app/preferences/fontscolors.py:517
-#, fuzzy
 msgid "Tag"
-msgstr "Tap"
+msgstr "Tag"
 
 #: frescobaldi_app/preferences/fontscolors.py:518
-#, fuzzy
 msgid "LilyPond Tag"
-msgstr "LilyPond-Log"
+msgstr "LilyPond-Tag"
 
 #: frescobaldi_app/preferences/fontscolors.py:519
 #: frescobaldi_app/preferences/fontscolors.py:536
 msgid "Attribute"
-msgstr ""
+msgstr "Merkmal"
 
 #: frescobaldi_app/preferences/fontscolors.py:521
-#, fuzzy
 msgid "Entity Reference"
-msgstr "Notationsreferenz"
+msgstr "Referenz der Instanz"
 
 #: frescobaldi_app/preferences/fontscolors.py:525
 #: frescobaldi_app/preferences/fontscolors.py:526
 msgid "Scheme"
-msgstr ""
+msgstr "Schema"
 
 #: frescobaldi_app/preferences/fontscolors.py:527
-#, fuzzy
 msgid "Number"
-msgstr "Name"
+msgstr "Nummer"
 
 #: frescobaldi_app/preferences/fontscolors.py:528
-#, fuzzy
 msgid "LilyPond Environment"
-msgstr "LilyPond-Dokumentation"
+msgstr "LilyPond-Umgebung"
 
 #: frescobaldi_app/preferences/fontscolors.py:532
-#, fuzzy
 msgid "Texinfo"
-msgstr "Tenor"
+msgstr "Texinfo"
 
 #: frescobaldi_app/preferences/fontscolors.py:534
-#, fuzzy
 msgid "Block"
-msgstr "Dock"
+msgstr "Block"
 
 #: frescobaldi_app/preferences/fontscolors.py:537
 msgid "Verbatim"
-msgstr ""
+msgstr "Wort für Wort"
 
 #: frescobaldi_app/preferences/general.py:120
 #: frescobaldi_app/scorewiz/settings.py:216
@@ -2842,11 +2744,11 @@ msgstr "Sprache:"
 
 #: frescobaldi_app/preferences/general.py:121
 msgid "No Translation"
-msgstr ""
+msgstr "Keine Übersetzung"
 
 #: frescobaldi_app/preferences/general.py:122
 msgid "System Default Language (if available)"
-msgstr ""
+msgstr "Standard Systemsprache (wenn verfügbar)"
 
 #: frescobaldi_app/preferences/general.py:123
 #: frescobaldi_app/scorewiz/parts/percussion.py:187
@@ -2855,7 +2757,7 @@ msgstr "Stil:"
 
 #: frescobaldi_app/preferences/general.py:125
 msgid "Use System Icons"
-msgstr ""
+msgstr "Benutze System-Icons"
 
 #: frescobaldi_app/preferences/general.py:127
 msgid ""
@@ -2863,6 +2765,9 @@ msgid ""
 "bundled icons.\n"
 "This setting takes effect on the next start of {appname}."
 msgstr ""
+"Falls aktiviert, werden Icons des Deskop-Schemas benutzt anstelle der "
+"mitgelieferten Icons.\n"
+"Diese Einstellung wird erst nach Neustart von {appname} aktiv."
 
 #: frescobaldi_app/preferences/general.py:156
 msgid "Session to load if Frescobaldi is started without arguments"
@@ -2887,13 +2792,16 @@ msgstr "Speichern von Dokumenten"
 
 #: frescobaldi_app/preferences/general.py:215
 msgid "Keep backup copy"
-msgstr ""
+msgstr "Behalte die Sicherungskopie"
 
 #: frescobaldi_app/preferences/general.py:217
 msgid ""
 "Frescobaldi always backups a file before overwriting it with a new version.\n"
 "If checked those backup copies are retained."
 msgstr ""
+"Frescobaldi macht von der Datei immer eine Sicherheitskopie, bevor es mit "
+"einer neueren Version überschrieben wird.\n"
+"Wenn hier ein Häkchen gesetzt ist, werden die Sicherheitskopien aufbewahrt."
 
 #: frescobaldi_app/preferences/general.py:220
 msgid "Remember cursor position, bookmarks, etc."
@@ -2905,43 +2813,39 @@ msgstr "Standard-Verzeichnis:"
 
 #: frescobaldi_app/preferences/general.py:222
 msgid "The default folder for your LilyPond documents (optional)."
-msgstr "Der Standard-Ordner der LilyPond-Dokumente (optional)."
+msgstr "Der Standard-Ordner für LilyPond-Dokumente (optional)."
 
 #: frescobaldi_app/preferences/helpers.py:70
-#, fuzzy
 msgid "PDF:"
-msgstr "PDF"
+msgstr "PDF:"
 
 #: frescobaldi_app/preferences/helpers.py:71
-#, fuzzy
 msgid "MIDI:"
-msgstr "Spiele MIDI"
+msgstr "MIDI:"
 
 #: frescobaldi_app/preferences/helpers.py:72
 msgid "SVG:"
-msgstr ""
+msgstr "SVG:"
 
 #: frescobaldi_app/preferences/helpers.py:73
 msgid "Image:"
-msgstr ""
+msgstr "Bild:"
 
 #: frescobaldi_app/preferences/helpers.py:74
 msgid "Browser:"
-msgstr ""
+msgstr "Browser:"
 
 #: frescobaldi_app/preferences/helpers.py:75
 msgid "E-Mail:"
-msgstr ""
+msgstr "E-Mail:"
 
 #: frescobaldi_app/preferences/helpers.py:76
-#, fuzzy
 msgid "File Manager:"
-msgstr "Erweiterungsmanager"
+msgstr "Dateimanager:"
 
 #: frescobaldi_app/preferences/helpers.py:77
-#, fuzzy
 msgid "Shell:"
-msgstr "Partitur:"
+msgstr "Konsole:"
 
 #: frescobaldi_app/preferences/helpers.py:82
 msgid ""
@@ -2949,36 +2853,37 @@ msgid ""
 "is replaced with the filename, <code>$u</code> with the URL. Leave a field "
 "empty to use the operating system default application."
 msgstr ""
+"Unten können Sie Kommandos eingeben, umd verschiedene Dateitypen zu öffnen. <"
+"code>$f</code> "
+"wird durch den Dateinamen ersetzt, <code>$u</code> durch die URL. Bei leerem "
+"Feld wird die Standardanwendung des Betriebssystems benutzt."
 
 #: frescobaldi_app/preferences/helpers.py:90
 msgid "Command that should accept a mailto: URL."
-msgstr ""
+msgstr "Kommando, das eine mailto: URL akzeptieren sollte."
 
 #: frescobaldi_app/preferences/helpers.py:92
 msgid "Command to open a Terminal or Command window."
-msgstr ""
+msgstr "Kommando, um ein Fenster zur Kommandozeileneingabe zu öffnen."
 
 #: frescobaldi_app/preferences/lilypond.py:81
-#, fuzzy
 msgid "LilyPond versions to use"
-msgstr "Zu nutzende LilyPond-Versionen:"
+msgstr "Zu benutzende LilyPond-Versionen"
 
 #: frescobaldi_app/preferences/lilypond.py:82
-#, fuzzy
 msgid "Automatically choose LilyPond version from document"
 msgstr ""
 "Automatische Versionserkennung aktivieren (bestimme LilyPond-Version aus dem "
 "Dokument)"
 
 #: frescobaldi_app/preferences/lilypond.py:84
-#, fuzzy
 msgid ""
 "If checked, the document's version determines the LilyPond version to use.\n"
 "See \"What's This\" for more information."
 msgstr ""
-"Hier können Sie eine feste LilyPond-Version auswählen, die für Dokumente in "
-"dieser Sitzung benutzt wird.\n"
-"Siehe \"Was ist das?\"-Hilfe (Umschalten + F1) für mehr Informationen."
+"Hier wird festgelegt, ob die Versionsnummer im Dokument festlegt, welche "
+"LilyPond-Version benutzt wird.\n"
+"Siehe \"Was ist das?\"-Hilfe für mehr Informationen."
 
 #: frescobaldi_app/preferences/lilypond.py:87
 msgid ""
@@ -2996,14 +2901,12 @@ msgid ""
 msgstr ""
 
 #: frescobaldi_app/preferences/lilypond.py:101
-#, fuzzy
 msgid "See also {link}."
-msgstr "Alle auswählen"
+msgstr "Siehe auch {link}."
 
 #: frescobaldi_app/preferences/lilypond.py:149
-#, fuzzy
 msgid "Set as &Default"
-msgstr "Als Standardeinstellung speichern"
+msgstr "Als &Standardeinstellung setzen"
 
 #: frescobaldi_app/preferences/lilypond.py:190
 msgid "default"
@@ -3022,7 +2925,6 @@ msgid "Convert-ly:"
 msgstr "Convert-ly:"
 
 #: frescobaldi_app/preferences/lilypond.py:241
-#, fuzzy
 msgid "LilyPond-book:"
 msgstr "LilyPond-Buch:"
 
@@ -3035,29 +2937,29 @@ msgid "Running LilyPond"
 msgstr "LilyPond starten"
 
 #: frescobaldi_app/preferences/lilypond.py:280
-#, fuzzy
 msgid "Save document if possible"
-msgstr "Ein Dokument hat es nicht geschafft."
+msgstr "Dokument speichern, wenn möglich"
 
 #: frescobaldi_app/preferences/lilypond.py:282
 msgid ""
 "If checked, the document is saved when it is local and modified.\n"
 "Otherwise a temporary file is used to run LilyPond."
 msgstr ""
+"Wählen Sie hier, ob das Dokument gespeichert werden soll, wenn es lokal "
+"verändert wurde.\n"
+"Andernfalls wird eine temporäre Datei verwendet, um LilyPond zu starten."
 
 #: frescobaldi_app/preferences/lilypond.py:286
-#, fuzzy
 msgid "If checked, LilyPond will delete intermediate PostScript files."
-msgstr "Erlaube LilyPond, die temporären Output-Dateien zu löschen"
+msgstr "Erlaube LilyPond, die temporären PostScript-Dateien zu löschen."
 
 #: frescobaldi_app/preferences/lilypond.py:287
 msgid "LilyPond include path:"
 msgstr "LilyPond-Include-Verzeichnis:"
 
 #: frescobaldi_app/preferences/midi.py:77
-#, fuzzy
 msgid "MIDI Ports"
-msgstr "MIDI-Player"
+msgstr "MIDI-Ports"
 
 #: frescobaldi_app/preferences/midi.py:79
 msgid ""
@@ -3065,19 +2967,20 @@ msgid ""
 "please check if PortMIDI is installed on your system and that a MIDI "
 "synthesizer is available or connected."
 msgstr ""
+"Bitte beachten: Auf Ihrem System gibt es keine MIDI-Output-Ports. Um MIDI zu "
+"benutzten, installieren Sie PortMIDI und schließen Sie einen MIDI-Synthesizer "
+"an und installieren Sie ihn."
 
 #: frescobaldi_app/preferences/midi.py:82
-#, fuzzy
 msgid "Player output:"
-msgstr "Gesamte Seitenzahl:"
+msgstr "Player-Ausgabe:"
 
 #: frescobaldi_app/preferences/midi.py:84
-#, fuzzy
 msgid ""
 "The MIDI port to play music to. See \"What's This\" for more information."
 msgstr ""
-"Geben Sie so viele Buchstaben (S, A, T oder B) wie es Notenzeilen gibt.\n"
-"Benutzen Sie die \"Was ist das\"-Hilfe für weitere Informationen."
+"Der MIDI-Port, auf dem die Musik abgespielt wird. Benutzen Sie die \"Was ist "
+"das\"-Hilfe für weitere Informationen."
 
 #: frescobaldi_app/preferences/midi.py:87
 msgid ""
@@ -3090,21 +2993,19 @@ msgstr ""
 
 #: frescobaldi_app/preferences/midi.py:96
 msgid "Refresh MIDI ports"
-msgstr ""
+msgstr "MIDI-Ports aktualisieren"
 
 #: frescobaldi_app/preferences/midi.py:135
-#, fuzzy
 msgid "Close unused MIDI output"
-msgstr "MIDI-Ausgabe erstellen"
+msgstr "Unbenutzte MIDI-Ports schließen"
 
 #: frescobaldi_app/preferences/midi.py:137
-#, fuzzy
 msgid ""
 "Closes unused MIDI ports after one minute. See \"What's This\" for more "
 "information."
 msgstr ""
-"Geben Sie so viele Buchstaben (S, A, T oder B) wie es Notenzeilen gibt.\n"
-"Benutzen Sie die \"Was ist das\"-Hilfe für weitere Informationen."
+"Schließe unbenutzt MIDI-Ports nach einer Minute. Benutzen Sie die \"Was ist "
+"das\"-Hilfe für weitere Informationen."
 
 #: frescobaldi_app/preferences/midi.py:140
 msgid ""
@@ -3119,91 +3020,86 @@ msgstr ""
 
 #: frescobaldi_app/preferences/paths.py:59
 msgid "Folders containing hyphenation dictionaries"
-msgstr ""
+msgstr "Ordner, die ein Silbentrennungswörterbuch enthalten"
 
 #: frescobaldi_app/preferences/shortcuts.py:56
 #: frescobaldi_app/snippet/model.py:63
 msgid "Shortcut"
-msgstr "Verknüpfung"
+msgstr "Kurzbefehl"
 
 #: frescobaldi_app/preferences/shortcuts.py:101
 msgid "Menu {name}:"
-msgstr ""
+msgstr "Menu {name}:"
 
 #: frescobaldi_app/preferences/shortcuts.py:125
-#, fuzzy
 msgid "Other commands:"
-msgstr "Druckbefehl:"
+msgstr "Andere Befehle:"
 
 #: frescobaldi_app/preferences/shortcuts.py:173
-#, fuzzy
 msgid "&Edit Shortcut for \"{name}\""
-msgstr "Verknüpfung"
+msgstr "&Bearbeite Kurzbefehl für \"{name}\""
 
 #: frescobaldi_app/preferences/shortcuts.py:178
-#, fuzzy
 msgid "(no shortcut)"
-msgstr "Verknüpfung"
+msgstr "(kein Kurzbefehl)"
 
 #: frescobaldi_app/preferences/shortcuts.py:206
-#, fuzzy
 msgid "Remove the shortcut from that command?"
 msgid_plural "Remove the shortcut from those commands?"
-msgstr[0] "Entferne Notenhälse von den Schlagzeugnoten."
-msgstr[1] "Entferne Notenhälse von den Schlagzeugnoten."
+msgstr[0] "Soll der Kurzbefehl zu diesem Befehl entfernt werden?"
+msgstr[1] "Soll die Verknüpfung zu diesen Befehlen entfernt werden?"
 
 #: frescobaldi_app/preferences/shortcuts.py:304
-#, fuzzy
 msgid "(default)"
-msgstr "Standard"
+msgstr "(Standard)"
 
 #: frescobaldi_app/preferences/tools.py:82
 msgid "Show log when a job is started"
-msgstr ""
+msgstr "Zeige das Protokoll, wenn ein Vorgang gestartet wurde"
 
 #: frescobaldi_app/preferences/tools.py:83
 msgid "Display plain log output"
-msgstr ""
+msgstr "Zeige das Protokoll in Textform"
 
 #: frescobaldi_app/preferences/tools.py:85
 msgid "If checked, Frescobaldi will not shorten filenames in the log output."
 msgstr ""
+"Wenn hier ein Häkchen gesetzt ist, wird Frescobaldi keine gekürzten "
+"Dateinamen als Protokoll ausgeben."
 
 #: frescobaldi_app/preferences/tools.py:141
 msgid "Music View"
-msgstr ""
+msgstr "Notenansicht"
 
 #: frescobaldi_app/preferences/tools.py:142
-#, fuzzy
 msgid "Magnifier Size:"
-msgstr "Papier-Format:"
+msgstr "Vergrößerungsstufe:"
 
 #: frescobaldi_app/preferences/tools.py:144
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
-msgstr ""
+msgstr "Größe des Vergrößerungsglases (Strg+Klick in der Notenansicht)"
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
 #: frescobaldi_app/preferences/tools.py:146
 msgid " pixels"
-msgstr ""
+msgstr " Pixel"
 
 #: frescobaldi_app/preferences/tools.py:147
 msgid "Magnifier Scale:"
-msgstr ""
+msgstr "Vergrößerungsstufe:"
 
 #: frescobaldi_app/preferences/tools.py:149
 msgid "Magnification of the magnifier."
-msgstr ""
+msgstr "Vergrößerung des Vergrößerungsglases."
 
 #: frescobaldi_app/preferences/tools.py:150
 msgctxt "percent unit sign"
 msgid "%"
-msgstr ""
+msgstr "%"
 
 #: frescobaldi_app/preferences/tools.py:220
-#, fuzzy
 msgid "Group documents by directory"
-msgstr "Öffne aktuellen Ordner"
+msgstr "Dokumente nach Verzeichnis gruppieren"
 
 #: frescobaldi_app/quickinsert/__init__.py:47
 #: frescobaldi_app/quickinsert/__init__.py:70
@@ -3211,9 +3107,8 @@ msgid "Quick Insert"
 msgstr "Schnell einfügen"
 
 #: frescobaldi_app/quickinsert/__init__.py:48
-#, fuzzy
 msgid "Quick &Insert"
-msgstr "Schnell einfügen"
+msgstr "Schnell &einfügen"
 
 #: frescobaldi_app/quickinsert/articulations.py:73
 msgid "Allow shorthands"
@@ -3230,7 +3125,7 @@ msgstr "Artikulationszeichen"
 
 #: frescobaldi_app/quickinsert/articulations.py:87
 msgid "Different kinds of articulations and other signs."
-msgstr "Unterschiedliche Artikulationszeichen und andere Zeichen."
+msgstr "Verschiedene Artikulationszeichen und andere Zeichen."
 
 #: frescobaldi_app/quickinsert/articulations.py:118
 msgid "Accent"
@@ -3377,11 +3272,11 @@ msgstr "Bartók-Pizzicato"
 
 #: frescobaldi_app/quickinsert/articulations.py:171
 msgid "Open (e.g. brass)"
-msgstr "Offen (z.B. Bläser)"
+msgstr "Offen (z. B. Bläser)"
 
 #: frescobaldi_app/quickinsert/articulations.py:172
 msgid "Stopped (e.g. brass)"
-msgstr "Gestopft (z.B. Bläser)"
+msgstr "Gestopft (z. B. Bläser)"
 
 #: frescobaldi_app/quickinsert/articulations.py:173
 msgid "Flageolet"
@@ -3409,12 +3304,12 @@ msgstr "Rechte Fußspitze"
 
 #: frescobaldi_app/quickinsert/articulations.py:179
 msgid "Half open (e.g. hi-hat)"
-msgstr "Halb offen (z.B. Hi-Hat)"
+msgstr "Halb offen (z. B. Hi-Hat)"
 
 #: frescobaldi_app/quickinsert/barlines.py:49
 #: frescobaldi_app/quickinsert/barlines.py:58
 msgid "Bar Lines"
-msgstr "T&aktstriche"
+msgstr "Taktstriche"
 
 #: frescobaldi_app/quickinsert/barlines.py:53
 msgid "Bar lines, breathing signs, etcetera."
@@ -3506,12 +3401,11 @@ msgstr "Gerade Zäsur"
 
 #: frescobaldi_app/quickinsert/buttongroup.py:175
 msgid "{name} ({key})"
-msgstr ""
+msgstr "{name} ({key})"
 
 #: frescobaldi_app/quickinsert/buttongroup.py:182
-#, fuzzy
 msgid "Configure Keyboard Shortcut ({key})"
-msgstr "Richte Tastatur-Kurzbefehl ein (%1)"
+msgstr "Tastatur-Kurzbefehl einrichten ({key})"
 
 #: frescobaldi_app/quickinsert/buttongroup.py:182
 #: frescobaldi_app/scorewiz/scoreproperties.py:171
@@ -3529,9 +3423,8 @@ msgid "Dynamic symbols."
 msgstr "Dynamik-Symbole."
 
 #: frescobaldi_app/quickinsert/dynamics.py:128
-#, fuzzy
 msgid "Dynamic sign {name}"
-msgstr "Dynamikzeichen %1"
+msgstr "Dynamikzeichen {name}"
 
 #: frescobaldi_app/quickinsert/dynamics.py:133
 #: frescobaldi_app/quickinsert/spanners.py:51
@@ -3621,6 +3514,9 @@ msgid ""
 "current note or selected music.</p>\n"
 "<p>See {link} for more information.</p>"
 msgstr ""
+"<p>Mit dem Schnelleinfüge-Panel kann man Musik-Elemente zuraktuellen Note "
+"oder zu ausgewählten Notenabschnitten hinzufügen.</p>\n"
+"<p>Mehr Informationen unter {link}.</p>"
 
 #: frescobaldi_app/quickinsert/widget.py:107
 msgid "Direction:"
@@ -3628,7 +3524,7 @@ msgstr "Richtung:"
 
 #: frescobaldi_app/quickinsert/widget.py:108
 msgid "Up"
-msgstr "Oben"
+msgstr "Nach oben"
 
 #: frescobaldi_app/quickinsert/widget.py:108
 msgid "Neutral"
@@ -3636,12 +3532,11 @@ msgstr "Neutral"
 
 #: frescobaldi_app/quickinsert/widget.py:108
 msgid "Down"
-msgstr "Unten"
+msgstr "Nach unten"
 
 #: frescobaldi_app/quickinsert/widget.py:127
-#, fuzzy
 msgid "The Quick Insert Panel"
-msgstr "Schnell einfügen"
+msgstr "Das Schnelleinfüge-Panel"
 
 #: frescobaldi_app/quickinsert/widget.py:130
 msgid ""
@@ -3725,74 +3620,71 @@ msgid ""
 "Here you can insert bar lines or various breathing signs.\n"
 "</p>\n"
 msgstr ""
+"<h3>Taktstriche</h3>\n"
+"\n"
+"<p>\n"
+"Hier können Taktstriche oder verschiedene Atemzeichen eingefügt werden.\n"
+"</p>\n"
 
 #: frescobaldi_app/rhythm/__init__.py:146
-#, fuzzy
 msgid "&Double durations"
-msgstr "Notenlängen verdoppeln"
+msgstr "Notenlängen ver&doppeln"
 
 #: frescobaldi_app/rhythm/__init__.py:148
 msgid "Double all the durations in the selection."
 msgstr "Verdopple alle Notenlängen in der Auswahl."
 
 #: frescobaldi_app/rhythm/__init__.py:149
-#, fuzzy
 msgid "&Halve durations"
-msgstr "Notenlängen halbieren"
+msgstr "Notenlängen &halbieren"
 
 #: frescobaldi_app/rhythm/__init__.py:151
 msgid "Halve all the durations in the selection."
 msgstr "Halbiere alle Notenlängen in der Auswahl."
 
 #: frescobaldi_app/rhythm/__init__.py:152
-#, fuzzy
 msgid "Do&t durations"
-msgstr "Notenlängen punktieren"
+msgstr "Notenlängen punk&tieren"
 
 #: frescobaldi_app/rhythm/__init__.py:154
 msgid "Add a dot to all the durations in the selection."
 msgstr "Alle Notenlängen in der Auswahl punktieren."
 
 #: frescobaldi_app/rhythm/__init__.py:155
-#, fuzzy
 msgid "&Undot durations"
-msgstr "Punktierung aller Notenlängen entfernen"
+msgstr "P&unktierung aller Notenlängen entfernen"
 
 #: frescobaldi_app/rhythm/__init__.py:157
 msgid "Remove one dot from all the durations in the selection."
 msgstr "Entferne Punktierung von allen Werten der Auswahl."
 
 #: frescobaldi_app/rhythm/__init__.py:158
-#, fuzzy
 msgid "Remove &scaling"
-msgstr "Entferne Skalierung"
+msgstr "&Skalierung entfernen"
 
 #: frescobaldi_app/rhythm/__init__.py:160
 msgid "Remove all scaling (*n/m) from the durations in the selection."
 msgstr "Entferne alle Normierungen (*n/m) von den Notenlängen in der Auswahl."
 
 #: frescobaldi_app/rhythm/__init__.py:161
-#, fuzzy
 msgid "&Remove durations"
-msgstr "Notenlängen entfernen"
+msgstr "N&otenlängen entfernen"
 
 #: frescobaldi_app/rhythm/__init__.py:163
 msgid "Remove all durations from the selection."
 msgstr "Entferne alle Notenlängen der Auswahl."
 
 #: frescobaldi_app/rhythm/__init__.py:164
-#, fuzzy
 msgid "Make &implicit"
-msgstr "Implizit machen"
+msgstr "&Implizit machen"
 
 #: frescobaldi_app/rhythm/__init__.py:166
 msgid "Make durations implicit (remove repeated durations)."
 msgstr "Gib Notenlängen implizit an (wiederholte Werte entfernen)."
 
 #: frescobaldi_app/rhythm/__init__.py:167
-#, fuzzy
 msgid "Make implicit (per &line)"
-msgstr "Implizit machen (pro Zeile)"
+msgstr "Implizit machen (pro &Zeile)"
 
 #: frescobaldi_app/rhythm/__init__.py:169
 msgid ""
@@ -3803,9 +3695,8 @@ msgstr ""
 "erste Notenlänge pro Zeile."
 
 #: frescobaldi_app/rhythm/__init__.py:171
-#, fuzzy
 msgid "Make &explicit"
-msgstr "Explizit machen"
+msgstr "&Explizit machen"
 
 #: frescobaldi_app/rhythm/__init__.py:173
 msgid ""
@@ -3816,27 +3707,24 @@ msgstr ""
 "wenn es die gleiche ist wie die vorhergehende)."
 
 #: frescobaldi_app/rhythm/__init__.py:175
-#, fuzzy
 msgid "&Apply rhythm..."
-msgstr "Rhytmus anwenden..."
+msgstr "Rhytmus &anwenden..."
 
 #: frescobaldi_app/rhythm/__init__.py:177
 msgid "Apply an entered rhythm to the selected music."
 msgstr "Wende den eingegebenen Rhythmus auf die ausgewählte Musik an."
 
 #: frescobaldi_app/rhythm/__init__.py:178
-#, fuzzy
 msgid "&Copy rhythm"
-msgstr "Rhytmus kopieren"
+msgstr "Rhytmus &kopieren"
 
 #: frescobaldi_app/rhythm/__init__.py:180
 msgid "Copy the rhythm of the selected music."
 msgstr "Kopiere den Rhythmus der ausgewählten Musik."
 
 #: frescobaldi_app/rhythm/__init__.py:181
-#, fuzzy
 msgid "&Paste rhythm"
-msgstr "Rhythmus einfügen"
+msgstr "Rhythmus ein&fügen"
 
 #: frescobaldi_app/rhythm/__init__.py:182
 msgid "Paste a rhythm to the selected music."
@@ -3844,7 +3732,7 @@ msgstr "Füge Rhythmus in die ausgewählte Musik ein."
 
 #: frescobaldi_app/rhythm/rhythm.py:146
 msgid "Apply Rhythm"
-msgstr "Rhythmus anwenden"
+msgstr "Rhythmus an&wenden"
 
 #: frescobaldi_app/rhythm/rhythm.py:146
 msgid "Enter a rhythm:"
@@ -3852,7 +3740,7 @@ msgstr "Rhythmus eingeben:"
 
 #: frescobaldi_app/rhythm/rhythm.py:244
 msgid "Rhythm manipulation"
-msgstr ""
+msgstr "Rhythmus-Manipulation"
 
 #: frescobaldi_app/rhythm/rhythm.py:247
 msgid ""
@@ -3893,7 +3781,6 @@ msgid ""
 msgstr ""
 
 #: frescobaldi_app/rhythm/rhythm.py:279
-#, fuzzy
 msgctxt "submenu title"
 msgid "Rhythm"
 msgstr "Rhythmus"
@@ -3905,7 +3792,7 @@ msgstr "Neue Partitur vorbereiten..."
 
 #: frescobaldi_app/scorewiz/build.py:136
 msgid "Music follows here."
-msgstr "Musik folgt hier."
+msgstr "Die Noten folgen hier."
 
 #: frescobaldi_app/scorewiz/build.py:403
 msgid "Remove default LilyPond tagline"
@@ -3916,41 +3803,34 @@ msgid "Score Setup Wizard"
 msgstr "Assistent zum Erstellen einer Partitur"
 
 #: frescobaldi_app/scorewiz/dialog.py:80
-#, fuzzy
 msgid "Clear"
-msgstr "Celesta"
+msgstr "Löschen"
 
 #: frescobaldi_app/scorewiz/dialog.py:82
 msgid "Clears the current page of the Score Wizard."
-msgstr ""
+msgstr "Löscht die aktuelle Seite des Partiturassistenten."
 
 #: frescobaldi_app/scorewiz/dialog.py:83
-#, fuzzy
 msgid "Preview"
-msgstr "PDF-Vorschau"
+msgstr "Vorschau"
 
 #: frescobaldi_app/scorewiz/dialog.py:130
-#, fuzzy
 msgid "Score Preview"
-msgstr "PDF-Vorschau"
+msgstr "Noten-Vorschau"
 
 #: frescobaldi_app/scorewiz/dialog.py:164
-#, fuzzy
 msgid "&Titles and Headers"
-msgstr "Titel und Kopfzeilen"
+msgstr "Titel und &Kopfzeilen"
 
 #: frescobaldi_app/scorewiz/dialog.py:173
-#, fuzzy
 msgid "&Parts"
-msgstr "Teile"
+msgstr "&Teile"
 
 #: frescobaldi_app/scorewiz/dialog.py:182
-#, fuzzy
 msgid "&Score settings"
-msgstr "Partitur-Einstellungen"
+msgstr "&Partitur-Einstellungen"
 
 #: frescobaldi_app/scorewiz/dialog.py:191
-#, fuzzy
 msgid "The Score Wizard"
 msgstr "Assistent zum Erstellen einer Partitur"
 
@@ -4090,24 +3970,21 @@ msgstr "Partitur:"
 
 #: frescobaldi_app/scorewiz/score.py:102
 msgid "&Add"
-msgstr ""
+msgstr "&Hinzufügen"
 
 #: frescobaldi_app/scorewiz/score.py:103 frescobaldi_app/snippet/widget.py:178
 #: frescobaldi_app/widgets/listedit.py:93
 #: frescobaldi_app/widgets/schemeselector.py:64
-#, fuzzy
 msgid "&Remove"
-msgstr "Entferne Notenhälse"
+msgstr "&Entfernen"
 
 #: frescobaldi_app/scorewiz/score.py:104
-#, fuzzy
 msgid "Move up"
-msgstr "Verschiebe nach"
+msgstr "Nach oben verschieben"
 
 #: frescobaldi_app/scorewiz/score.py:105
-#, fuzzy
 msgid "Move down"
-msgstr "Verschiebe nach"
+msgstr "Nach unten verschieben"
 
 #: frescobaldi_app/scorewiz/scoreproperties.py:99
 msgid "Key signature:"
@@ -4166,7 +4043,6 @@ msgid "Locrian"
 msgstr "Lokrisch"
 
 #: frescobaldi_app/scorewiz/settings.py:73
-#, fuzzy
 msgid "Score properties"
 msgstr "Partitur-Einstellungen"
 
@@ -4185,7 +4061,7 @@ msgstr ""
 
 #: frescobaldi_app/scorewiz/settings.py:116
 msgid "Remove default tagline"
-msgstr "Lösche Standard-Tagline"
+msgstr "Entferne Standard-Tagline"
 
 #: frescobaldi_app/scorewiz/settings.py:118
 msgid "Suppress the default tagline output by LilyPond."
@@ -4193,7 +4069,7 @@ msgstr "Unterdrücke LilyPond-Standard-Tagline."
 
 #: frescobaldi_app/scorewiz/settings.py:119
 msgid "Remove bar numbers"
-msgstr "Lösche Taktzahlen"
+msgstr "Entferne Taktzahlen"
 
 #: frescobaldi_app/scorewiz/settings.py:121
 msgid ""
@@ -4265,11 +4141,11 @@ msgstr "Welche Sprache für die Instrumentennamen benutzt werden sollen."
 
 #: frescobaldi_app/scorewiz/settings.py:290
 msgid "Pitch name language:"
-msgstr "Sprache für die Name der Tonlagenn:"
+msgstr "Sprache für die Tonhöhenbezeichnungen:"
 
 #: frescobaldi_app/scorewiz/settings.py:292
 msgid "The LilyPond language you want to use for the pitch names."
-msgstr "Die LilyPond-Sprache für die Namen der Tonlagen."
+msgstr "Die LilyPond-Sprache für die Tonhöhenbezeichnungen."
 
 #: frescobaldi_app/scorewiz/settings.py:294
 msgid "Version:"
@@ -4290,7 +4166,7 @@ msgstr "Passen Sie die Anzahl separater Stimmen pro Zeile an."
 #: frescobaldi_app/scorewiz/parts/_base.py:134
 msgid "This is primarily useful when you write polyphonic music like a fuge."
 msgstr ""
-"Das ist vor allem dann nützlich, wenn Sie polyphone Musik schreiben, wie z."
+"Das ist vor allem dann nützlich, wenn Sie polyphone Musik schreiben, wiez. "
 "B. eine Fuge."
 
 #: frescobaldi_app/scorewiz/parts/_base.py:136
@@ -4351,7 +4227,6 @@ msgid "Trumpet in C"
 msgstr "Trompete in C"
 
 #: frescobaldi_app/scorewiz/parts/brass.py:56
-#, fuzzy
 msgctxt "abbreviation for Trumpet in C"
 msgid "Tr.C."
 msgstr "Tr.C"
@@ -4361,7 +4236,6 @@ msgid "Trumpet in Bb"
 msgstr "Trompete in B"
 
 #: frescobaldi_app/scorewiz/parts/brass.py:68
-#, fuzzy
 msgctxt "abbreviation for Trumpet in Bb"
 msgid "Tr.Bb."
 msgstr "Tr.B"
@@ -4398,9 +4272,8 @@ msgid "Brass"
 msgstr "Bläser"
 
 #: frescobaldi_app/scorewiz/parts/containers.py:43
-#, fuzzy
 msgid "Staff Group"
-msgstr "Notenzeilen-Typ:"
+msgstr "Notenzeilen-Gruppe"
 
 #. L10N: Brace like a piano staff
 #: frescobaldi_app/scorewiz/parts/containers.py:54
@@ -4414,7 +4287,6 @@ msgstr "Runde Klammer"
 
 #. L10N: Square bracket like a sub-group
 #: frescobaldi_app/scorewiz/parts/containers.py:58
-#, fuzzy
 msgid "Square"
 msgstr "Eckige Klammer"
 
@@ -4423,40 +4295,37 @@ msgid "Type:"
 msgstr "Art:"
 
 #: frescobaldi_app/scorewiz/parts/containers.py:72
-#, fuzzy
 msgid "Connect Barlines"
 msgstr "Verbinde Taktstriche"
 
 #: frescobaldi_app/scorewiz/parts/containers.py:73
 msgid "If checked, barlines are connected between the staves."
 msgstr ""
+"Wenn ausgewählt, werden die Taktstriche zwischen den Notenlinien verbunden."
 
 #: frescobaldi_app/scorewiz/parts/containers.py:94
-#, fuzzy
 msgid "Score"
-msgstr "Partitur:"
+msgstr "Partitur"
 
 #: frescobaldi_app/scorewiz/parts/containers.py:123
-#, fuzzy
 msgid "Piece:"
-msgstr "Stück"
+msgstr "Stück:"
 
 #: frescobaldi_app/scorewiz/parts/containers.py:124
-#, fuzzy
 msgid "Opus:"
-msgstr "Opus"
+msgstr "Opus:"
 
 #: frescobaldi_app/scorewiz/parts/containers.py:125
 msgid "Properties"
-msgstr ""
+msgstr "Eigenschaften"
 
 #: frescobaldi_app/scorewiz/parts/containers.py:153
 msgid "Book Part"
-msgstr ""
+msgstr "Buch-Teil"
 
 #: frescobaldi_app/scorewiz/parts/containers.py:166
 msgid "Book"
-msgstr ""
+msgstr "Buch"
 
 #: frescobaldi_app/scorewiz/parts/containers.py:188
 msgid ""
@@ -4469,20 +4338,19 @@ msgstr ""
 
 #: frescobaldi_app/scorewiz/parts/containers.py:193
 msgid "Output Filename:"
-msgstr ""
+msgstr "Ausgabe-Dateiname:"
 
 #: frescobaldi_app/scorewiz/parts/containers.py:194
 msgid "Filename"
-msgstr ""
+msgstr "Dateiname"
 
 #: frescobaldi_app/scorewiz/parts/containers.py:195
 msgid "Suffix"
-msgstr ""
+msgstr "Endung"
 
 #: frescobaldi_app/scorewiz/parts/containers.py:207
-#, fuzzy
 msgid "Containers"
-msgstr "Verbinde Taktstriche"
+msgstr "Container"
 
 #: frescobaldi_app/scorewiz/parts/keyboard.py:44
 msgid "Piano"
@@ -4491,7 +4359,7 @@ msgstr "Klavier"
 #: frescobaldi_app/scorewiz/parts/keyboard.py:48
 msgctxt "abbreviation for Piano"
 msgid "Pno."
-msgstr "Klav."
+msgstr "Kl."
 
 #: frescobaldi_app/scorewiz/parts/keyboard.py:56
 msgid "Harpsichord"
@@ -4581,10 +4449,11 @@ msgstr "Untere Notenzeile:"
 #: frescobaldi_app/scorewiz/parts/percussion.py:87
 msgid "Set the number of voices to 0 to disable the second staff."
 msgstr ""
+"Setze die Anzahl der Stimmen auf 0, um die zweite Notenzeile zu deaktivieren."
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:99
 msgid "Vibraphone"
-msgstr "Vibrafon"
+msgstr "Vibraphon"
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:103
 msgctxt "abbreviation for Vibraphone"
@@ -4610,25 +4479,21 @@ msgid "Gls."
 msgstr "Gls."
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:135
-#, fuzzy
 msgid "Carillon"
-msgstr "Klarinette"
+msgstr "Glockenspiel"
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:139
-#, fuzzy
 msgctxt "abbreviation for Carillon"
 msgid "Car."
-msgstr "Mar."
+msgstr "Glo."
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:145
-#, fuzzy
 msgid "Manual staff:"
-msgstr "Normale Notenzeilen"
+msgstr "Manual-Notenzeile:"
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:146
-#, fuzzy
 msgid "Pedal staff:"
-msgstr "Normale Notenzeilen"
+msgstr "Pedal-Notenzeile:"
 
 #: frescobaldi_app/scorewiz/parts/percussion.py:161
 msgid "Drums"
@@ -4749,17 +4614,16 @@ msgstr "Offene D-moll-Stimmung (aDFAD)"
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:220
 msgid "Four strings (instead of five)"
-msgstr "Vier Streicher (statt fünf)"
+msgstr "Vier Saiten (statt fünf)"
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:234
 msgid "Classical guitar"
 msgstr "Klassische Gitarre"
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:238
-#, fuzzy
 msgctxt "abbreviation for Classical guitar"
 msgid "Gt."
-msgstr "Gt."
+msgstr "Git."
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:243
 msgid "Guitar tuning"
@@ -4776,7 +4640,7 @@ msgstr "Jazz-Gitarre"
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:271
 msgctxt "abbreviation for Jazz guitar"
 msgid "J.Gt."
-msgstr "J.Gt."
+msgstr "J.Git."
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:279
 #: frescobaldi_app/scorewiz/parts/vocal.py:171
@@ -4790,7 +4654,7 @@ msgstr "Bs."
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:289
 msgid "Bass tuning"
-msgstr "Bas- Stimmung"
+msgstr "Bass-Stimmung"
 
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:296
 msgid "Electric bass"
@@ -4821,16 +4685,16 @@ msgstr "Akkord-Namen"
 
 #: frescobaldi_app/scorewiz/parts/special.py:45
 msgid "Figured Bass"
-msgstr "Firgurierter Bass"
+msgstr "Figurierter Bass"
 
 #: frescobaldi_app/scorewiz/parts/special.py:52
 msgid "Use extender lines"
-msgstr "Benutzer erweiterte Linien"
+msgstr "Benutze erweiterte Linien"
 
 #: frescobaldi_app/scorewiz/parts/special.py:60
 #: frescobaldi_app/scorewiz/parts/strings.py:109
 msgid "Figures follow here."
-msgstr "Figur folgt hier."
+msgstr "Abbildungen folgen hier."
 
 #: frescobaldi_app/scorewiz/parts/special.py:70
 msgid "Staff"
@@ -4868,13 +4732,8 @@ msgid "Cl."
 msgstr "Cl."
 
 #: frescobaldi_app/scorewiz/parts/strings.py:81
-#, fuzzy
 msgid "Contrabass"
-msgstr ""
-"#-#-#-#-#  de.po (frescobaldi 1.1.7)  #-#-#-#-#\n"
-"Konrabass\n"
-"#-#-#-#-#  de.po (frescobaldi 1.1.7)  #-#-#-#-#\n"
-"Kontrabass"
+msgstr "Kontrabass"
 
 #: frescobaldi_app/scorewiz/parts/strings.py:85
 msgctxt "abbreviation for Contrabass"
@@ -4912,7 +4771,7 @@ msgstr "Zeige den Tonumfang jeder Stimme am Anfang jedes Systems."
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:89
 msgid "Lyrics follow here."
-msgstr "Text folgt hier."
+msgstr "Liedtext folgt hier."
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:126
 msgid "Soprano"
@@ -5002,7 +4861,7 @@ msgstr "Stimmen:"
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:323
 msgid "Lyrics:"
-msgstr "Text:"
+msgstr "Liedtext:"
 
 #: frescobaldi_app/scorewiz/parts/vocal.py:324
 msgid "Piano reduction"
@@ -5264,9 +5123,8 @@ msgid "Base directory:"
 msgstr "Basis-Verzeichnis:"
 
 #: frescobaldi_app/sessions/dialog.py:133
-#, fuzzy
 msgid "Edit session: {name}"
-msgstr "Bearbeite Sitzung: %1"
+msgstr "Bearbeite Sitzung: {name}"
 
 #: frescobaldi_app/sessions/dialog.py:137
 msgid "Edit new session"
@@ -5277,209 +5135,180 @@ msgid "Please enter a session name."
 msgstr "Bitte Namen für die Sitzung eingeben."
 
 #: frescobaldi_app/sessions/dialog.py:174
-#, fuzzy
 msgid "Please do not use the name '{name}'."
-msgstr "Bitte nicht den Namen '%1' benutzen."
+msgstr "Bitte nicht den Namen '{name}' benutzen."
 
 #: frescobaldi_app/sessions/dialog.py:180
-#, fuzzy
 msgid ""
 "Another session with the name {name} already exists.\n"
 "\n"
 "Do you want to overwrite it?"
 msgstr ""
-"Eine andere Sitzung mit dem Namen %1 existiert bereits.\n"
+"Eine andere Sitzung mit dem Namen {name} existiert bereits.\n"
 "\n"
 "Wollen Sie sie überschreiben?"
 
 #: frescobaldi_app/sessions/dialog.py:183
 msgid "Overwrite"
-msgstr ""
+msgstr "Überschreiben"
 
 #: frescobaldi_app/sessions/manager.py:127
-#, fuzzy
 msgctxt "New Session"
 msgid "&New..."
-msgstr "Neu..."
+msgstr "&Neu..."
 
 #: frescobaldi_app/sessions/manager.py:129
-#, fuzzy
 msgid "&Manage..."
-msgstr "Sitzungen verwalten..."
+msgstr "Sitzungen &verwalten..."
 
 #: frescobaldi_app/sessions/manager.py:130
 msgid "No Session"
 msgstr "Keine Sitzung"
 
 #: frescobaldi_app/sessions/menu.py:55
-#, fuzzy
 msgctxt "menu title"
 msgid "&Session"
 msgstr "&Sitzung"
 
 #: frescobaldi_app/snippet/builtin.py:38
-#, fuzzy
 msgid "Blank Line"
-msgstr "T&aktstriche"
+msgstr "Leerzeile"
 
 #: frescobaldi_app/snippet/builtin.py:44
-#, fuzzy
 msgid "Single Typographical Quotes"
-msgstr "Benutze typografische Anführungszeichen"
+msgstr "Einzelne typografische Anführungszeichen"
 
 #: frescobaldi_app/snippet/builtin.py:49
-#, fuzzy
 msgid "Double Typographical Quotes"
-msgstr "Benutze typografische Anführungszeichen"
+msgstr "Doppelte typografische Anführungszeichen"
 
 #: frescobaldi_app/snippet/builtin.py:115
 msgid "Tuplets"
-msgstr ""
+msgstr "N-Tolen"
 
 #: frescobaldi_app/snippet/builtin.py:125
-#, fuzzy
 msgid "Modern 2/2 Time Signature"
-msgstr "Taktart:"
+msgstr "Moderne 2/2 Taktart:"
 
 #: frescobaldi_app/snippet/builtin.py:131
-#, fuzzy
 msgid "Modern 4/4 Time Signature"
-msgstr "Taktart:"
+msgstr "Moderne 4/4 Taktart"
 
 #: frescobaldi_app/snippet/builtin.py:137
 msgid "Tactus Time Signature (number with note)"
-msgstr ""
+msgstr "Taktart (Zahl mit Note)"
 
 #: frescobaldi_app/snippet/builtin.py:148
-#, fuzzy
 msgid "LilyPond Version"
-msgstr "Standard-LilyPond-Version"
+msgstr "LilyPond-Version"
 
 #: frescobaldi_app/snippet/builtin.py:159
 msgid "Relative Music"
-msgstr ""
+msgstr "Relative Noten"
 
 #: frescobaldi_app/snippet/builtin.py:166
-#, fuzzy
 msgid "Upper case selection"
-msgstr "Partitur-Einstellungen"
+msgstr "Auswahl zu Großbuchstaben"
 
 #: frescobaldi_app/snippet/builtin.py:172
-#, fuzzy
 msgid "Lower case selection"
-msgstr "Partitur-Einstellungen"
+msgstr "Auswahl zu Kleinbuchstaben"
 
 #: frescobaldi_app/snippet/builtin.py:178
-#, fuzzy
 msgid "Title case selection"
-msgstr "Zeilen-Auswahlmodus"
+msgstr "Auswahl der Groß-/Kleinschreibung des Titels"
 
 #: frescobaldi_app/snippet/builtin.py:189
-#, fuzzy
 msgid "Markup lines"
-msgstr "T&aktstriche"
+msgstr "Markup-Zeilen"
 
 #: frescobaldi_app/snippet/builtin.py:197
 msgid "Markup column"
-msgstr ""
+msgstr "Markup-Spalte"
 
 #: frescobaldi_app/snippet/builtin.py:202
-#, fuzzy
 msgid "Tagline with date and LilyPond version"
-msgstr "Kann LilyPond-Version nicht bestimmen."
+msgstr "Tagline mit Datum und LilyPond-Version"
 
 #: frescobaldi_app/snippet/builtin.py:212
 msgid "Header Template"
-msgstr ""
+msgstr "Kopfzeilen-Vorlage"
 
 #: frescobaldi_app/snippet/builtin.py:227
-#, fuzzy
 msgid "No Tagline"
-msgstr "Tagline"
+msgstr "Keine Tagline"
 
 #: frescobaldi_app/snippet/builtin.py:235
-#, fuzzy
 msgid "No Barnumbers"
-msgstr "Lösche Taktzahlen"
+msgstr "Keine Taktzahlen"
 
 #: frescobaldi_app/snippet/builtin.py:245
-#, fuzzy
 msgid "Midi Tempo"
-msgstr "Tempo:"
+msgstr "MIDI-Tempo"
 
 #: frescobaldi_app/snippet/builtin.py:255
-#, fuzzy
 msgid "Staff Size"
-msgstr "Notenzeilen-Größe:"
+msgstr "Notenzeilen-Größe"
 
 #: frescobaldi_app/snippet/builtin.py:310
-#, fuzzy
 msgid "A5 Paper"
-msgstr "Papier"
+msgstr "A5-Papier"
 
 #: frescobaldi_app/snippet/builtin.py:318
-#, fuzzy
 msgid "Document Fonts..."
-msgstr "&Dokument"
+msgstr "Schriftarten des Dokuments..."
 
 #: frescobaldi_app/snippet/builtin.py:346
-#, fuzzy
 msgid "Last note or chord"
-msgstr "Wiederhole letzte Note oder Akkord"
+msgstr "Letzte Note oder Akkord"
 
 #: frescobaldi_app/snippet/builtin.py:427
-#, fuzzy
 msgid "Color"
-msgstr "Komponist"
+msgstr "Farbe"
 
 #: frescobaldi_app/snippet/builtin.py:464
-#, fuzzy
 msgid "Basic Leadsheet"
-msgstr "Leadsheet"
+msgstr "Basis-Leadsheet"
 
 #: frescobaldi_app/snippet/builtin.py:508
-#, fuzzy
 msgid "Choir Hymn"
-msgstr "Chor"
+msgstr "Chor-Hymnus"
 
 #: frescobaldi_app/snippet/edit.py:116 frescobaldi_app/snippet/insert.py:221
 msgid "Edit Snippet"
-msgstr ""
+msgstr "Bearbeite Schnipsel"
 
 #: frescobaldi_app/snippet/edit.py:116
 msgid "New Snippet"
-msgstr ""
+msgstr "Neuer Schnipsel"
 
 #: frescobaldi_app/snippet/edit.py:118
 msgid "Snippet Text:"
-msgstr ""
+msgstr "Schnipsel-Text:"
 
 #: frescobaldi_app/snippet/edit.py:119
-#, fuzzy
 msgid "Title:"
-msgstr "Titel"
+msgstr "Titel:"
 
 #: frescobaldi_app/snippet/edit.py:120
-#, fuzzy
 msgid "Shortcut:"
-msgstr "Verknüpfung"
+msgstr "Kurzbefehl:"
 
 #: frescobaldi_app/snippet/edit.py:131
-#, fuzzy
 msgid "Click to change the keyboard shortcut."
 msgstr "Tastatur-Kurzbefehle festlegen"
 
 #: frescobaldi_app/snippet/edit.py:136
 msgid "Empty Snippet"
-msgstr ""
+msgstr "Leerer Schnipsel"
 
 #: frescobaldi_app/snippet/edit.py:136
 msgid "A snippet can't be empty."
-msgstr ""
+msgstr "Ein Schnipsel kann nicht leer sein."
 
 #: frescobaldi_app/snippet/edit.py:198
 msgid "Snippet editor"
-msgstr ""
+msgstr "Schnipsel-Editor"
 
 #: frescobaldi_app/snippet/edit.py:203
 msgid ""
@@ -5493,6 +5322,8 @@ msgstr ""
 #: frescobaldi_app/snippet/edit.py:212
 msgid "Place the snippet in the insert menu, grouped by the (optional) value."
 msgstr ""
+"Platziere den Schnipsel in das Einfüge-Menü, gruppiert nach dem (optionalen) "
+"Wert."
 
 #: frescobaldi_app/snippet/edit.py:214
 msgid ""
@@ -5500,55 +5331,64 @@ msgid ""
 "(optional) value. When triggered via the menu, the snippet is inserted into "
 "a new document."
 msgstr ""
+"Platziere den Schnipsel im Menü {file_new_from_template}, gruppiert nach dem "
+"(optionalen) Wert. Wenn der Schnipsel im Menü ausgewählt wird, wird der "
+"Schnipsel in ein neues Dokument eingefügt."
 
 #: frescobaldi_app/snippet/edit.py:218
-#, fuzzy
 msgctxt "menu title"
 msgid "File"
-msgstr "Titel"
+msgstr "Datei"
 
 #: frescobaldi_app/snippet/edit.py:219
 msgctxt "menu subtitle"
 msgid "New from Template"
-msgstr ""
+msgstr "Neu von Vorlage"
 
 #: frescobaldi_app/snippet/edit.py:221
 msgid "The mnemonic to type to select the snippet."
-msgstr ""
+msgstr "Das Kürzel für die Auswahl des Schnipsels."
 
 #: frescobaldi_app/snippet/edit.py:223
 msgid "Do not auto-indent the snippet after inserting."
-msgstr ""
+msgstr "Rücke den Schnipsel nach dem Einfügen nicht automatisch ein."
 
 #: frescobaldi_app/snippet/edit.py:225
 msgid "The icon to show in menu and snippet list."
-msgstr ""
+msgstr "Das Icon, das im Menü und der Schnipsel-Liste angezeigt werden soll."
 
 #: frescobaldi_app/snippet/edit.py:227
 msgid ""
 "The symbol to show in menu and snippet list. Symbols are icons that use the "
 "default text color and can be found in {directory}."
 msgstr ""
+"Das anzuzeigende Symbol im Menü oder der Schnipsel-Liste. Symbole sind Icons,"
+"die die Standardtextfarbe verwenden und können unter {directory} gefunden "
+"werden."
 
 #: frescobaldi_app/snippet/edit.py:231
 msgid "Execute the snippet as a Python script. See {link}."
-msgstr ""
+msgstr "Führe das Schnipsel als Python-Skript aus. Siehe {link}."
 
 #: frescobaldi_app/snippet/edit.py:234
 msgid "One of more of the following words (separated with spaces or commas):"
 msgstr ""
+"Eines oder mehrere der folgenden Wörter (abgegrenzt durch Leerzeichen oder "
+"Kommata):"
 
 #: frescobaldi_app/snippet/edit.py:237
 msgid "Requires text to be selected."
-msgstr ""
+msgstr "Es muss Text ausgewählt sein."
 
 #: frescobaldi_app/snippet/edit.py:239
 msgid "Adjusts the selection to not include starting and trialing whitespace."
 msgstr ""
+"Schließe Leerzeichen am Anfang und am Ende der Auswahl nicht in die Auswahl "
+"ein."
 
 #: frescobaldi_app/snippet/edit.py:241
 msgid "Selects all inserted text."
-msgstr ""
+msgstr "Wählt den eingefügten Text aus."
 
 #: frescobaldi_app/snippet/edit.py:247
 msgid ""
@@ -5559,7 +5399,7 @@ msgstr ""
 
 #: frescobaldi_app/snippet/edit.py:263
 msgid "Python Snippets"
-msgstr ""
+msgstr "Python-Schnipsel"
 
 #: frescobaldi_app/snippet/edit.py:268
 msgid ""
@@ -5572,19 +5412,23 @@ msgstr ""
 
 #: frescobaldi_app/snippet/edit.py:276
 msgid "A list of strings describing the type of text the cursor is at."
-msgstr ""
+msgstr "Eine Liste von Ausdrücken, die den Typ des Textcursors anzeigen."
 
 #: frescobaldi_app/snippet/edit.py:278
 msgid ""
 "The current QTextCursor, giving access to the document. Don't change the "
 "document through the cursor, however."
 msgstr ""
+"Der aktuelle QTextCursor, der Zugriff zum Dokument gewährt. Bitte ändern "
+"Siedas Dokument trotzdem nicht mit diesem Cursor."
 
 #: frescobaldi_app/snippet/edit.py:281
 msgid ""
 "When setting {text} to a list instead of a string, you can use this value to "
 "specify the place the text cursor will be placed after inserting the snippet."
 msgstr ""
+"Wenn {text} auf eine Liste anstelle einer Zeichenfolge gesetzt wird, können "
+"Sie damit angeben, wo der Cursor nach Einfügen des Schnipsels platziert wird."
 
 #: frescobaldi_app/snippet/edit.py:285
 msgid ""
@@ -5592,87 +5436,85 @@ msgid ""
 "together with {cursor} to select text when inserting the string parts of the "
 "list."
 msgstr ""
+"Wenn {text} auf eine Liste anstelle einer Zeichenfolge gesetzt wird, kann "
+"dieser Wert zusammen mit dem Cursor benutzt werden, Text beim Einfügen der "
+"Zeichenfolge aus der Liste auszuwählen."
 
 #: frescobaldi_app/snippet/expand.py:76
 msgid "The current date in YYYY-MM-DD format."
-msgstr ""
+msgstr "Das aktuelle Datum im Format JJJJ-MM-TT."
 
 #: frescobaldi_app/snippet/expand.py:80
-#, fuzzy
 msgid "The version of the default LilyPond program."
-msgstr "Name oder vollständiger Pfad des LilyPond-Programms."
+msgstr "Version des Standard-LilyPond-Programms."
 
 #: frescobaldi_app/snippet/expand.py:84
 msgid "The version of Frescobaldi."
-msgstr ""
+msgstr "Die Version von Frescobaldi."
 
 #: frescobaldi_app/snippet/expand.py:88
 msgid "The URL of the current document."
-msgstr ""
+msgstr "Die URL des aktuellen Dokuments."
 
 #: frescobaldi_app/snippet/expand.py:92
 msgid "The full local filename of the current document."
-msgstr ""
+msgstr "Der volle, lokale Dateiname des aktuellen Dokuments."
 
 #: frescobaldi_app/snippet/expand.py:96
-#, fuzzy
 msgid "The name of the current document."
-msgstr "S&ynchronisiere Terminal mit aktuellem Dokument"
+msgstr "Der Name des aktuellen Dokuments."
 
 #: frescobaldi_app/snippet/expand.py:100
 msgid "Moves the text cursor here after insert."
-msgstr ""
+msgstr "Bewege des Textcursor nach dem Einfügen hierhin."
 
 #: frescobaldi_app/snippet/expand.py:104
 msgid ""
 "Selects text from here to the position given using the <code>$CURSOR</code> "
 "variable"
 msgstr ""
+"Wählt Text von hier bis zur Position aus, die durch die <code>$CURSOR</"
+"code>Variable vorgegeben ist."
 
 #: frescobaldi_app/snippet/expand.py:108
 msgid "The selected text if available. If not, the text cursor is moved here."
 msgstr ""
+"Der ausgewählte Text, wenn verfügbar. Wenn nicht, bewegt sich der Textcursor "
+"hierhin."
 
 #: frescobaldi_app/snippet/import_export.py:102
 msgid "No snippets found."
-msgstr ""
+msgstr "Keine Schnipsel gefunden."
 
 #: frescobaldi_app/snippet/import_export.py:111
 #: frescobaldi_app/snippet/widget.py:261
-#, fuzzy
 msgctxt "dialog title"
 msgid "Import Snippets"
-msgstr "Pausen abschneiden"
+msgstr "Schnipsel importieren"
 
 #: frescobaldi_app/snippet/import_export.py:119
-#, fuzzy
 msgid "New Snippets"
-msgstr "Pausen abschneiden"
+msgstr "Neue Schnipsel"
 
 #: frescobaldi_app/snippet/import_export.py:120
-#, fuzzy
 msgid "Updated Snippets"
-msgstr "Pausen abschneiden"
+msgstr "Aktualisierte Schnipsel"
 
 #: frescobaldi_app/snippet/import_export.py:121
-#, fuzzy
 msgid "Unchanged Snippets"
-msgstr "Pausen abschneiden"
+msgstr "Unveränderte Schnipsel"
 
 #: frescobaldi_app/snippet/import_export.py:183
-#, fuzzy
 msgid "Import Keyboard Shortcuts"
-msgstr "Tastatur-Kurzbefehle festlegen"
+msgstr "Tastatur-Kurzbefehle importieren"
 
 #: frescobaldi_app/snippet/import_export.py:188
-#, fuzzy
 msgid "Choose which snippets you want to import:"
-msgstr "Bitte wählen Sie die Dateien aus, die Sie drucken wollen:"
+msgstr "Bitte wählen Sie die zu importierenden Schnipsel aus:"
 
 #: frescobaldi_app/snippet/import_export.py:190
-#, fuzzy
 msgid "There are no new or updated snippets in the file."
-msgstr "Es gibt keine Dateien, die via Email verschickt werden können."
+msgstr "Es gibt keine neuen oder aktualisierte Schnipsel in der Datei."
 
 #: frescobaldi_app/snippet/import_export.py:194
 msgid ""
@@ -5685,7 +5527,7 @@ msgstr ""
 
 #: frescobaldi_app/snippet/insert.py:219
 msgid "Snippet error"
-msgstr ""
+msgstr "Schnipsel-Fehler"
 
 #: frescobaldi_app/snippet/menu.py:117
 msgid "&Insert"
@@ -5693,7 +5535,7 @@ msgstr "&Einfügen"
 
 #: frescobaldi_app/snippet/menu.py:138
 msgid "New from &Template"
-msgstr ""
+msgstr "Neu von &Vorlage"
 
 #: frescobaldi_app/snippet/model.py:59
 msgid "Name"
@@ -5704,102 +5546,90 @@ msgid "Description"
 msgstr "Beschreibung"
 
 #: frescobaldi_app/snippet/template.py:33
-#, fuzzy
 msgid "Save as Template"
-msgstr "Notenzeilen pro Seite:"
+msgstr "Als Vorlage speichern"
 
 #: frescobaldi_app/snippet/template.py:34
-#, fuzzy
 msgid "Please enter a template name:"
-msgstr "Bitte Namen für die Sitzung eingeben."
+msgstr "Bitte geben Sie einen Vorlagen-Namen ein:"
 
 #: frescobaldi_app/snippet/tool.py:53 frescobaldi_app/snippet/tool.py:119
 #: frescobaldi_app/snippet/widget.py:362
-#, fuzzy
 msgid "Snippets"
-msgstr "Pausen abschneiden"
+msgstr "Schnipsel"
 
 #: frescobaldi_app/snippet/tool.py:54
-#, fuzzy
 msgid "&Snippets"
-msgstr "Pausen abschneiden"
+msgstr "&Schnipsel"
 
 #: frescobaldi_app/snippet/tool.py:79
-#, fuzzy
 msgid "Save as Template..."
-msgstr "Speichere PDF unter..."
+msgstr "Als Vorlage speichern..."
 
 #: frescobaldi_app/snippet/tool.py:80
 msgid "&Snippets..."
-msgstr ""
+msgstr "&Schnipsel..."
 
 #: frescobaldi_app/snippet/widget.py:171
 msgid "&Menu"
-msgstr ""
+msgstr "&Menü"
 
 #: frescobaldi_app/snippet/widget.py:172
 #: frescobaldi_app/widgets/listedit.py:91
 msgid "&Add..."
-msgstr ""
+msgstr "Hin&zufügen..."
 
 #: frescobaldi_app/snippet/widget.py:174
 msgid "Add a new snippet. ({key})"
-msgstr ""
+msgstr "Neuen Schnipsel hinzufügen. ({key})"
 
 #: frescobaldi_app/snippet/widget.py:175
 #: frescobaldi_app/widgets/listedit.py:92
-#, fuzzy
 msgid "&Edit..."
-msgstr "Drucken..."
+msgstr "&Bearbeiten..."
 
 #: frescobaldi_app/snippet/widget.py:177
 msgid "Edit the current snippet. ({key})"
-msgstr ""
+msgstr "Bearbeite den aktuelle Schnipsel. ({key})"
 
 #: frescobaldi_app/snippet/widget.py:179
-#, fuzzy
 msgid "Remove the selected snippets."
-msgstr "Wiederhole ausgewählte Musik"
+msgstr "Entferne die ausgewählten Schnipsel."
 
 #: frescobaldi_app/snippet/widget.py:180
-#, fuzzy
 msgid "A&pply"
-msgstr "Anwenden"
+msgstr "An&wenden"
 
 #: frescobaldi_app/snippet/widget.py:181
-#, fuzzy
 msgid "Apply the current snippet."
-msgstr "Den Cursor an diesem Punkt plazieren."
+msgstr "Wende aktuellen Schnipsel an."
 
 #: frescobaldi_app/snippet/widget.py:182
-#, fuzzy
 msgid "&Import..."
-msgstr "Drucken..."
+msgstr "&Importieren..."
 
 #: frescobaldi_app/snippet/widget.py:183
 msgid "Import snippets from a file."
-msgstr ""
+msgstr "Importiere Schnipsel aus einer Datei."
 
 #: frescobaldi_app/snippet/widget.py:184
-#, fuzzy
 msgid "E&xport..."
-msgstr "Drucken..."
+msgstr "E&xportieren..."
 
 #: frescobaldi_app/snippet/widget.py:185
 msgid "Export snippets to a file."
-msgstr ""
+msgstr "Exportiere Schnipsel in eine Datei."
 
 #: frescobaldi_app/snippet/widget.py:186
 msgid "&Help"
-msgstr ""
+msgstr "&Hilfe"
 
 #: frescobaldi_app/snippet/widget.py:188
-#, fuzzy
 msgid ""
 "Enter text to search in the snippets list.\n"
 "See \"What's This\" for more information."
 msgstr ""
-"Geben Sie so viele Buchstaben (S, A, T oder B) wie es Notenzeilen gibt.\n"
+"Geben Sie Text ein, um die Schnipsel-Liste zu durchsuchen.\n"
 "Benutzen Sie die \"Was ist das\"-Hilfe für weitere Informationen."
 
 #: frescobaldi_app/snippet/widget.py:191
@@ -5807,12 +5637,16 @@ msgid ""
 "Enter text to search in the snippets list, and press Enter to apply the "
 "currently selected snippet."
 msgstr ""
+"Geben Sie den Suchtext in den Schnipselliste ein und drücken Sie Enter,um "
+"die momentan ausgewählten Schnipsel anzuwenden."
 
 #: frescobaldi_app/snippet/widget.py:193
 msgid ""
 "If the search text fully matches the value of the '{name}' variable of a "
 "snippet, that snippet is selected."
 msgstr ""
+"Wenn der Suchtext voll auf die '{name}' Variable einesSchnipsels passt, wird "
+"dieser Schnipsel ausgewählt."
 
 #: frescobaldi_app/snippet/widget.py:195
 msgid ""
@@ -5827,18 +5661,19 @@ msgid ""
 "E.g. entering {menu} will show all snippets that are displayed in the insert "
 "menu."
 msgstr ""
+"Das Öffnen von {menu} zeigt alle Schnipsel, die im Einfüge-Menü angezeigt "
+"werden."
 
 #: frescobaldi_app/snippet/widget.py:260 frescobaldi_app/snippet/widget.py:277
-#, fuzzy
 msgid "XML Files"
-msgstr "Alle Dateien"
+msgstr "XML-Dateien"
 
 #: frescobaldi_app/snippet/widget.py:280
 msgctxt "dialog title"
 msgid "Export {num} Snippet"
 msgid_plural "Export {num} Snippets"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Exportiere {num} Schnipsel"
+msgstr[1] "Exportiere {num} Schnipsel"
 
 #: frescobaldi_app/snippet/widget.py:368
 msgid ""
@@ -5877,107 +5712,95 @@ msgid ""
 msgstr ""
 
 #: frescobaldi_app/snippet/widget.py:400
-#, fuzzy
 msgctxt "menu title"
 msgid "Insert"
-msgstr "&Einfügen"
+msgstr "Einfügen"
 
 #: frescobaldi_app/snippet/widget.py:400
 msgid "Snippets..."
-msgstr ""
+msgstr "Schnipsel..."
 
 #: frescobaldi_app/widgets/keysequencewidget.py:60
 msgid "Start recording a key sequence."
-msgstr ""
+msgstr "Starte die Aufnahme von einer Tastensequenz."
 
 #: frescobaldi_app/widgets/keysequencewidget.py:61
 msgid "Clear the key sequence."
-msgstr ""
+msgstr "Lösche die Tastensequenz."
 
 #: frescobaldi_app/widgets/keysequencewidget.py:115
-#, fuzzy
 msgid "Input"
-msgstr "MIDI-Eingang:"
+msgstr "Eingabe"
 
 #: frescobaldi_app/widgets/schemeselector.py:47
 #: frescobaldi_app/widgets/schemeselector.py:62
-#, fuzzy
 msgid "Scheme:"
-msgstr "Partitur:"
+msgstr "Schema:"
 
 #: frescobaldi_app/widgets/schemeselector.py:63
-#, fuzzy
 msgctxt "New Scheme"
 msgid "&New..."
-msgstr "Neu..."
+msgstr "&Neu..."
 
 #: frescobaldi_app/widgets/schemeselector.py:93
-#, fuzzy
 msgid "Please enter a name for the new scheme:"
-msgstr ""
-"Bitte geben Sie den Namen der Variable ein, der der ausgewählte Text "
-"zugewiesen werden soll:"
+msgstr "Bitte geben Sie den Namen des neuen Schemas ein:"
 
 #: frescobaldi_app/widgets/shortcuteditdialog.py:94
-#, fuzzy
 msgctxt "window title"
 msgid "Edit Shortcut"
-msgstr "Verknüpfung"
+msgstr "Kurzbefehl bearbeiten"
 
 #: frescobaldi_app/widgets/shortcuteditdialog.py:95
-#, fuzzy
 msgid "&No shortcut"
-msgstr "Verknüpfung"
+msgstr "&Kein Kurzbefehl"
 
 #: frescobaldi_app/widgets/shortcuteditdialog.py:96
-#, fuzzy
 msgid "Use a &custom shortcut:"
-msgstr "Benutze eigene Versionsnummer:"
+msgstr "&Eigenen Kurzbefehl verwenden:"
 
 #: frescobaldi_app/widgets/shortcuteditdialog.py:98
 msgid "Alternative #{num}:"
-msgstr ""
+msgstr "Alternative #{num}:"
 
 #: frescobaldi_app/widgets/shortcuteditdialog.py:98
 msgid "Primary shortcut:"
-msgstr ""
+msgstr "Primärer Kurzbefehl:"
 
 #: frescobaldi_app/widgets/shortcuteditdialog.py:109
 msgid "Here you can edit the shortcuts for {name}"
-msgstr ""
+msgstr "Hier können Sie den Kurzbefehl für {name} bearbeiten"
 
 #: frescobaldi_app/widgets/shortcuteditdialog.py:127
-#, fuzzy
 msgctxt "no keyboard shortcut"
 msgid "none"
 msgstr "Nichts"
 
 #: frescobaldi_app/widgets/shortcuteditdialog.py:128
 msgid "Use &default shortcut ({name})"
-msgstr ""
+msgstr "Benutze &Standardkurzbefehl ({name})"
 
 #: frescobaldi_app/widgets/tempobutton.py:51
 msgid "Click this button a few times to set the tempo."
-msgstr "Klicken Sie auf diesen Knopf, um das Tempo einzustellen."
+msgstr "Klicken Sie mehrfach auf diesen Knopf, um das Tempo einzustellen."
 
 #: frescobaldi_app/widgets/urlrequester.py:75
-#, fuzzy
 msgid "Open file dialog"
-msgstr "Öffne Datei"
+msgstr "Dateidialog öffnen"
 
 #: frescobaldi_app/widgets/urlrequester.py:119
-#, fuzzy
 msgid "Select a directory"
-msgstr "Standard-Verzeichnis:"
+msgstr "Verzeichnis auswählen"
 
 #: frescobaldi_app/widgets/urlrequester.py:121
-#, fuzzy
 msgid "Select a file"
-msgstr "Alle auswählen"
+msgstr "Datei auswählen"
 
-#, fuzzy
+#~ msgid "&Help Browser"
+#~ msgstr "&Hilfe-Browser"
+
 #~ msgid "{appname} version {version}"
-#~ msgstr "Rumor Version $version gefunden."
+#~ msgstr "{appname} Version {version}"
 
 #, fuzzy
 #~ msgid "Edit..."
@@ -6180,8 +6003,8 @@ msgstr "Alle auswählen"
 #~ "\n"
 #~ "%2"
 #~ msgstr ""
-#~ "Der unten stehende Befehl wurde ausgeführt, wurde aber mit Rückgabewert %"
-#~ "1 beendet.\n"
+#~ "Der unten stehende Befehl wurde ausgeführt, wurde aber mit Rückgabewert "
+#~ "%1 beendet.\n"
 #~ "\n"
 #~ "%2"
 
@@ -6200,6 +6023,9 @@ msgstr "Alle auswählen"
 
 #~ msgid "Click to see more settings."
 #~ msgstr "Anklicken für weitere Einstellungen."
+
+#~ msgid "Page count:"
+#~ msgstr "Gesamte Seitenzahl:"
 
 #~ msgid "Print Bar Lines"
 #~ msgstr "Erzeuge Taktstriche"
@@ -6396,6 +6222,9 @@ msgstr "Alle auswählen"
 #~ "\n"
 #~ "%1"
 
+#~ msgid "Expansion Manager"
+#~ msgstr "Erweiterungsmanager"
+
 #~ msgid ""
 #~ "This is the list of defined expansions.\n"
 #~ "\n"
@@ -6568,9 +6397,6 @@ msgstr "Alle auswählen"
 
 #~ msgid "Interrupt LilyPond Job"
 #~ msgstr "Unterbreche LilyPond-Job"
-
-#~ msgid "Email Documents..."
-#~ msgstr "Email-Dokumente..."
 
 #~ msgid "Cut selection and assign it to a LilyPond variable."
 #~ msgstr "Schneide Auswahl aus und weise sie einer LilyPond-Variable zu."
@@ -6745,6 +6571,9 @@ msgstr "Alle auswählen"
 #~ msgid "The shortest note duration to use."
 #~ msgstr "Kürzester zu benutzender Notenwert."
 
+#~ msgid "Step"
+#~ msgstr "Schritt"
+
 #~ msgid "Record LilyPond input note by note, without durations."
 #~ msgstr "Nehme LilyPond-Input Note für Note auf, ohne Notenlängen."
 
@@ -6816,9 +6645,6 @@ msgstr "Alle auswählen"
 #~ msgstr ""
 #~ "Zu benutzende MIDI-Quelle. Wählen Sie 'Keyboard', wenn Sie auf der "
 #~ "Tastatur ihres Rechners spielen möchten."
-
-#~ msgid "MIDI output:"
-#~ msgstr "MIDI-Ausgabe:"
 
 #~ msgid "MIDI output to use."
 #~ msgstr "Zu benutzende MIDI-Ausgabe."
@@ -7290,10 +7116,6 @@ msgstr "Alle auswählen"
 #, fuzzy
 #~ msgid "Lyric Stanza"
 #~ msgstr "Strophen:"
-
-#, fuzzy
-#~ msgid "Midi section"
-#~ msgstr "Gewidmet"
 
 #, fuzzy
 #~ msgid "With: instrumentName"

@@ -4,7 +4,7 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 
 Changes in 2.0.1 -- 
 
-* Updated translations: cs
+* Updated translations: cs, de
 * Bug fixes:
   - fix accented letters in filenames on Windows
 * Improvements:
