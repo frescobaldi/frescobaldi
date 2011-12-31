@@ -35,6 +35,7 @@ import plugin
 import job
 import jobmanager
 import scratchdir
+import util
 
 
 # finds file references (filename:line:col:) in messages
@@ -132,7 +133,8 @@ class Reference(object):
         
         app.documentLoaded.connect(self.trybind)
         for d in app.documents:
-            if (scratchdir.scratchdir(d).path() == filename
+            s = scratchdir.scratchdir(d)
+            if (s.directory() and util.equal_paths(filename, s.path())
                 or d.url().toLocalFile() == filename):
                 self.bind(d)
                 break
