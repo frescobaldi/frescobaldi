@@ -24,6 +24,7 @@ Manages cursor positions of file-references in error messages.
 from __future__ import unicode_literals
 
 import re
+import sys
 
 from PyQt4.QtCore import QUrl
 from PyQt4.QtGui import QTextCursor
@@ -37,7 +38,7 @@ import scratchdir
 
 
 # finds file references (filename:line:col:) in messages
-message_re = re.compile(r"^((.*?):(\d+)(?::(\d+))?)(?=:)", re.M)
+message_re = re.compile(br"^((.*?):(\d+)(?::(\d+))?)(?=:)", re.M)
 
 
 def errors(document):
@@ -92,9 +93,11 @@ class Errors(plugin.DocumentPlugin):
         
         """
         if type == job.STDERR:
-            for m in message_re.finditer(message):
-                url, filename = m.group(1, 2)
-                line, column = int(m.group(3)), int(m.group(4) or "0")
+            enc = sys.getfilesystemencoding()
+            for m in message_re.finditer(message.encode('latin1')):
+                url = m.group(1).decode(enc)
+                filename = m.group(2).decode(enc)
+                line, column = int(m.group(3)), int(m.group(4) or 0)
                 self._refs[url] = Reference(filename, line, column)
         
     def cursor(self, url, load=False):

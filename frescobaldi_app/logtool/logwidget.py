@@ -26,6 +26,7 @@ from __future__ import unicode_literals
 import itertools
 import os
 import re
+import sys
 import weakref
 
 from PyQt4.QtCore import QSettings
@@ -88,13 +89,24 @@ class LogWidget(log.Log):
         super(LogWidget, self).clear()
     
     def writeMessage(self, message, type):
+        """This writes both status and output messages to the log.
+        
+        For output messages also the correct encoding is re-applied:
+        LilyPond writes filenames out in the system's filesystemencoding,
+        while the messages are always written in UTF-8 encoding...
+        
+        """
         if type == job.STDERR:
             # find filenames in message:
-            parts = iter(errors.message_re.split(message))
-            self.cursor.insertText(next(parts), self.textFormat(type))
+            parts = iter(errors.message_re.split(message.encode('latin1')))
+            msg = next(parts).decode('utf-8', 'replace')
+            self.cursor.insertText(msg, self.textFormat(type))
+            enc = sys.getfilesystemencoding()
             
             for url, path, line, col, msg in zip(*itertools.repeat(parts, 5)):
-                
+                url = url.decode(enc)
+                path = path.decode(enc)
+                msg = msg.decode('utf-8', 'replace')
                 if self._rawView:
                     fmt = QTextCharFormat(self.textFormat(type))
                     display_url = url
@@ -109,8 +121,9 @@ class LogWidget(log.Log):
                 self.cursor.insertText(display_url, fmt)
                 self.cursor.insertText(msg, self.textFormat(type))
                 self._errors.append((pos, self.cursor.position(), url))
-
         else:
+            if type == job.STDOUT:
+                message = message.encode('latin1').decode('utf-8')
             super(LogWidget, self).writeMessage(message, type)
 
     def slotAnchorClicked(self, url):

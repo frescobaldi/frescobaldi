@@ -26,7 +26,6 @@ from __future__ import unicode_literals
 
 import codecs
 import os
-import sys
 import time
 
 from PyQt4.QtCore import QCoreApplication, QProcess
@@ -54,11 +53,9 @@ ALL = OUTPUT | STATUS
 class Job(object):
     """Manages a process.
     
-    Set the command attribute to a list of strings describing the program and its arguments.
+    Set the command attribute to a list of strings describing the program and
+    its arguments.
     Set the directory attribute to a working directory.
-    The decoder attribute may be set to a decoder function, it defaults to
-    codecs.getdecoder('utf-8'). It is used to decode the output from the process
-    to python (unicode) strings.
     
     Call start() to start the process.
     The output() signal emits output (stderr or stdout) from the process.
@@ -80,15 +77,25 @@ class Job(object):
     def __init__(self):
         self.command = []
         self.directory = ""
-        self.decoder = codecs.getdecoder(sys.getfilesystemencoding())
-        
         self._title = ""
         self._aborted = False
         self._process = None
         self._history = []
         self._starttime = 0.0
         self._elapsed = 0.0
+        self.decoder_stdout = self.createDecoder(STDOUT)
+        self.decoder_stderr = self.createDecoder(STDERR)
     
+    def createDecoder(self, channel):
+        """Should return a decoder for the given channel (STDOUT/STDERR).
+        
+        This decoder is then used to decode the 8bit bytestrings into Python
+        unicode strings. The default implementation returns a 'latin1'
+        decoder for both channels.
+        
+        """
+        return codecs.getdecoder('latin1')
+        
     def title(self):
         """Returns the job title, set with setTitle(), defaults to an empty string."""
         return self._title
@@ -183,12 +190,12 @@ class Job(object):
     def _readstderr(self):
         """Called when STDERR can be read."""
         output = self._process.readAllStandardError()
-        self.message(self.decoder(output)[0], STDERR)
+        self.message(self.decoder_stderr(output)[0], STDERR)
         
     def _readstdout(self):
         """Called when STDOUT can be read."""
         output = self._process.readAllStandardOutput()
-        self.message(self.decoder(output)[0], STDOUT)
+        self.message(self.decoder_stdout(output)[0], STDOUT)
 
     def startMessage(self):
         """Outputs a message the process has started."""
