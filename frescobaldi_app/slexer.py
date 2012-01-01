@@ -1,6 +1,6 @@
 # === Python slexer (Stateful Lexer) module ===
 #
-# Copyright (c) 2008 - 2011 by Wilbert Berendsen
+# Copyright (c) 2008 - 2012 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
