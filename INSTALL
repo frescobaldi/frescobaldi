@@ -62,3 +62,11 @@ Optional:
 
 Of course you'll need to install one or more versions of LilyPond!
 
+
+"Freeze" installer:
+===================
+
+The freeze.py script can create a self-contained Windows-installer, bundling all
+of Python, PyQt4, popplerqt4 and pypm (from pygame) when used on MS Windows.
+To use the script you need cx_Freeze and Inno Setup.
+
