@@ -8,7 +8,9 @@ Changes in 2.0.1 --
 * Bug fixes:
   - fix accented letters in filenames on Windows
 * Improvements:
+  - some hyphenation dictionaries are now bundled
   - font preference for documentation browser
+  - new installer containing everything for MS Windows
 
 
 Changes in 2.0.0 -- December 26th, 2011
