@@ -67,10 +67,11 @@ def startmain():
         help=_("Session to start ('{none}' for empty session)").format(none="none"),
         dest="session")
 
-    if os.name == 'nt':
-        args = QApplication.arguments()[2:]
+    args = QApplication.arguments()
+    if os.name == 'nt' and args and 'python' in os.path.basename(args[0]).lower():
+        args = args[2:]
     else:
-        args = QApplication.arguments()[1:]
+        args = args[1:]
     options, files = parser.parse_args(args)
 
     # load specified session
