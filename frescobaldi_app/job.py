@@ -30,6 +30,11 @@ import time
 
 from PyQt4.QtCore import QCoreApplication, QProcess
 
+try:
+    from PyQt4.QtCore import QProcessEnvironment # only in Qt >= 4.6
+except ImportError:
+    QProcessEnvironment = None
+
 import signals
 
 
@@ -56,6 +61,9 @@ class Job(object):
     Set the command attribute to a list of strings describing the program and
     its arguments.
     Set the directory attribute to a working directory.
+    The environment attribute is a dictionary; if you set an item it will be
+    added to the environment for the process (the rest will be inherited from
+    the system); if you set an item to None, it will be unset.
     
     Call start() to start the process.
     The output() signal emits output (stderr or stdout) from the process.
@@ -77,6 +85,7 @@ class Job(object):
     def __init__(self):
         self.command = []
         self.directory = ""
+        self.environment = {}
         self._title = ""
         self._aborted = False
         self._process = None
@@ -117,6 +126,8 @@ class Job(object):
         self.startMessage()
         if os.path.isdir(self.directory):
             self._process.setWorkingDirectory(self.directory)
+        if self.environment:
+            self._updateProcessEnvironment()
         self._process.start(self.command[0], self.command[1:])
     
     def elapsed(self):
@@ -151,6 +162,28 @@ class Job(object):
         process.error.connect(self._error)
         process.readyReadStandardError.connect(self._readstderr)
         process.readyReadStandardOutput.connect(self._readstdout)
+    
+    if QProcessEnvironment is not None:
+        # use the preferred method (Qt >= 4.6)
+        def _updateProcessEnvironment(self):
+            """Called internally; initializes the environment for the process."""
+            se = QProcessEnvironment.systemEnvironment()
+            for k, v in self.environment.items():
+                se.remove(k) if v is None else se.insert(k, v)
+            self._process.setProcessEnvironment(se)
+    else:
+        # use the deprecated method (Qt < 4.6)
+        def _updateProcessEnvironment(self):
+            """Called internally; initializes the environment for the process."""
+            env = dict(os.environ) # copy
+            for k, v in self.environment.items():
+                if v is None:
+                    if k in env:
+                        del env[k]
+                else:
+                    env[k] = v
+            se = [k + '=' + v for k, v in env.items()]
+            self._process.setEnvironment(se)
     
     def message(self, text, type=NEUTRAL):
         """Outputs some text as the given type (NEUTRAL, SUCCESS, FAILURE, STDOUT or STDERR)."""
