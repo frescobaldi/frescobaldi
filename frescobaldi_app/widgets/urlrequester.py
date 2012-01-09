@@ -64,7 +64,6 @@ class UrlRequester(QWidget):
         
         completer = QCompleter(self.lineEdit)
         model = QFileSystemModel(completer)
-        model.setRootPath(QDir.homePath())
         model.setFilter(QDir.Dirs | QDir.NoDotAndDotDot)
         completer.setModel(model)
         self.lineEdit.setCompleter(completer)
