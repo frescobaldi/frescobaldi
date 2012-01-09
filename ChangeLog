@@ -2,7 +2,7 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
-Changes in 2.0.1 -- 
+Changes in 2.0.1 -- January 8th, 2012
 
 * Updated translations: cs, de
 * Bug fixes:
@@ -10,7 +10,7 @@ Changes in 2.0.1 --
 * Improvements:
   - some hyphenation dictionaries are now bundled
   - font preference for documentation browser
-  - new installer containing everything for MS Windows
+  - new self-contained installer for MS Windows
 
 
 Changes in 2.0.0 -- December 26th, 2011
