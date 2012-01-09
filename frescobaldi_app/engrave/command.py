@@ -48,8 +48,9 @@ def defaultJob(document, preview):
     j = job.Job()
     
     command = [i.command]
-    if (QSettings().value("lilypond_settings/delete_intermediate_files", True)
-        not in (False, "false")):
+    s = QSettings()
+    s.beginGroup("lilypond_settings")
+    if s.value("delete_intermediate_files", True) not in (False, "false"):
         command.append('-ddelete-intermediate-files')
     else:
         command.append('-dno-delete-intermediate-files')
@@ -59,6 +60,8 @@ def defaultJob(document, preview):
     j.directory = os.path.dirname(filename)
     command.append(filename)
     j.command = command
+    if s.value("no_translation", False) in (True, "true"):
+        j.environment['LANG'] = 'C'
     j.setTitle("{0} {1} [{2}]".format(
         os.path.basename(i.command), i.versionString, document.documentName()))
     return j

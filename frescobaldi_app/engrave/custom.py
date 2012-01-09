@@ -63,6 +63,7 @@ class Dialog(QDialog):
         
         self.previewCheck = QCheckBox()
         self.verboseCheck = QCheckBox()
+        self.englishCheck = QCheckBox()
         self.deleteCheck = QCheckBox()
         
         self.commandLineLabel = QLabel()
@@ -84,11 +85,12 @@ class Dialog(QDialog):
         layout.addWidget(self.resolutionCombo, 2, 1)
         layout.addWidget(self.previewCheck, 3, 0, 1, 2)
         layout.addWidget(self.verboseCheck, 4, 0, 1, 2)
-        layout.addWidget(self.deleteCheck, 5, 0, 1, 2)
-        layout.addWidget(self.commandLineLabel, 6, 0, 1, 2)
-        layout.addWidget(self.commandLine, 7, 0, 1, 2)
-        layout.addWidget(widgets.Separator(), 8, 0, 1, 2)
-        layout.addWidget(self.buttons, 9, 0, 1, 2)
+        layout.addWidget(self.englishCheck, 5, 0, 1, 2)
+        layout.addWidget(self.deleteCheck, 6, 0, 1, 2)
+        layout.addWidget(self.commandLineLabel, 7, 0, 1, 2)
+        layout.addWidget(self.commandLine, 8, 0, 1, 2)
+        layout.addWidget(widgets.Separator(), 9, 0, 1, 2)
+        layout.addWidget(self.buttons, 10, 0, 1, 2)
         
         app.translateUI(self)
         util.saveDialogSize(self, "engrave/custom/dialog/size", QSize(480, 260))
@@ -99,9 +101,12 @@ class Dialog(QDialog):
             icon=lambda f: icons.file_type(f.type))
         self.outputCombo.setModel(model)
         
-        self.deleteCheck.setChecked(QSettings().value(
-            "lilypond_settings/delete_intermediate_files", True) not in
-            (False, "false"))
+        s = QSettings()
+        s.beginGroup("lilypond_settings")
+        self.englishCheck.setChecked(
+            s.value("no_translation", False) in (True, "true"))
+        self.deleteCheck.setChecked(
+            s.value("delete_intermediate_files", True) not in (False, "false"))
         
         self.loadLilyPondVersions()
         self.selectLilyPondInfo(lilypondinfo.preferred())
@@ -122,6 +127,7 @@ class Dialog(QDialog):
         self.previewCheck.setText(_(
             "Run LilyPond in preview mode (with Point and Click)"))
         self.verboseCheck.setText(_("Run LilyPond with verbose output"))
+        self.englishCheck.setText(_("Run LilyPond with English messages"))
         self.deleteCheck.setText(_("Delete intermediate output files"))
         self.commandLineLabel.setText(_("Command line:"))
         self.buttons.button(QDialogButtonBox.Ok).setText(_("Run LilyPond"))
@@ -196,6 +202,8 @@ class Dialog(QDialog):
         j = job.Job()
         j.directory = os.path.dirname(filename)
         j.command = cmd
+        if self.englishCheck.isChecked():
+            j.environment['LANG'] = 'C'
         j.setTitle("{0} {1} [{2}]".format(
             os.path.basename(i.command), i.versionString, document.documentName()))
         return j

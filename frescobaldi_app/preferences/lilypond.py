@@ -266,11 +266,13 @@ class Running(preferences.Group):
         
         self.saveDocument = QCheckBox(clicked=self.changed)
         self.deleteFiles = QCheckBox(clicked=self.changed)
+        self.noTranslation = QCheckBox(clicked=self.changed)
         self.includeLabel = QLabel()
         self.include = widgets.listedit.FilePathEdit()
         self.include.changed.connect(self.changed)
         layout.addWidget(self.saveDocument)
         layout.addWidget(self.deleteFiles)
+        layout.addWidget(self.noTranslation)
         layout.addWidget(self.includeLabel)
         layout.addWidget(self.include)
         app.translateUI(self)
@@ -284,18 +286,24 @@ class Running(preferences.Group):
         self.deleteFiles.setText(_("Delete intermediate output files"))
         self.deleteFiles.setToolTip(_(
             "If checked, LilyPond will delete intermediate PostScript files."))
+        self.noTranslation.setText(_("Run LilyPond with English messages"))
+        self.noTranslation.setToolTip(_(
+            "If checked, LilyPond's output messages will be in English.\n"
+            "This can be useful for bug reports."))
         self.includeLabel.setText(_("LilyPond include path:"))
     
     def loadSettings(self):
         s = settings()
         self.saveDocument.setChecked(s.value("save_on_run", False) in (True, "true"))
         self.deleteFiles.setChecked(s.value("delete_intermediate_files", True) not in (False, "false"))
+        self.noTranslation.setChecked(s.value("no_translation", False) in (True, "true"))
         self.include.setValue(s.value("include_path", []) or [])
         
     def saveSettings(self):
         s = settings()
         s.setValue("save_on_run", self.saveDocument.isChecked())
         s.setValue("delete_intermediate_files", self.deleteFiles.isChecked())
+        s.setValue("no_translation", self.noTranslation.isChecked())
         s.setValue("include_path", self.include.value())
 
 
