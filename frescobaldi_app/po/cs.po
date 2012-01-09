@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-23 09:24+0100\n"
+"POT-Creation-Date: 2012-01-08 23:55+0100\n"
 "PO-Revision-Date: 2011-12-28 18:57+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -168,19 +168,19 @@ msgstr "Další značka"
 msgid "Previous Mark"
 msgstr "Předchozí značka"
 
-#: frescobaldi_app/convert_ly.py:118
+#: frescobaldi_app/convert_ly.py:119
 msgid "From version:"
 msgstr "Od verze:"
 
-#: frescobaldi_app/convert_ly.py:119
+#: frescobaldi_app/convert_ly.py:120
 msgid "To version:"
 msgstr "Po verzi:"
 
-#: frescobaldi_app/convert_ly.py:120
+#: frescobaldi_app/convert_ly.py:121
 msgid "Save convert-ly messages in document"
 msgstr "Uložit zprávy convert-ly v dokumentu"
 
-#: frescobaldi_app/convert_ly.py:122
+#: frescobaldi_app/convert_ly.py:123
 msgid ""
 "If checked, the messages of convert-ly are appended as a comment to the end "
 "of the document."
@@ -188,36 +188,36 @@ msgstr ""
 "Je-li zaškrtnuto, jsou zprávy convert-ly připojeny jako poznámka na konci "
 "dokumentu."
 
-#: frescobaldi_app/convert_ly.py:124
+#: frescobaldi_app/convert_ly.py:125
 msgid "&Messages"
 msgstr "&Zprávy"
 
-#: frescobaldi_app/convert_ly.py:125
+#: frescobaldi_app/convert_ly.py:126
 msgid "&Changes"
 msgstr "&Změny"
 
-#: frescobaldi_app/convert_ly.py:126
+#: frescobaldi_app/convert_ly.py:127
 msgid "Run Again"
 msgstr "Spustit znovu"
 
-#: frescobaldi_app/convert_ly.py:137 frescobaldi_app/docbrowser/browser.py:139
+#: frescobaldi_app/convert_ly.py:138 frescobaldi_app/docbrowser/browser.py:154
 #: frescobaldi_app/musicview/image.py:166
 msgid "<unknown>"
 msgstr "<neznámý>"
 
-#: frescobaldi_app/convert_ly.py:138
+#: frescobaldi_app/convert_ly.py:139
 msgid "Convert-ly from LilyPond {version}"
 msgstr "Convert-ly z LilyPondu {version}"
 
-#: frescobaldi_app/convert_ly.py:162
+#: frescobaldi_app/convert_ly.py:163
 msgid "(set in document)"
 msgstr "(nastavit v dokumentu)"
 
-#: frescobaldi_app/convert_ly.py:175
+#: frescobaldi_app/convert_ly.py:176
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr "Je potřeba nastavit jak verzi 'od'tak verzi 'po'."
 
-#: frescobaldi_app/convert_ly.py:190
+#: frescobaldi_app/convert_ly.py:191
 msgid ""
 "Could not start {convert_ly}:\n"
 "\n"
@@ -227,47 +227,47 @@ msgstr ""
 "\n"
 "{message}\n"
 
-#: frescobaldi_app/convert_ly.py:196
+#: frescobaldi_app/convert_ly.py:197
 msgid "The document has not been changed."
 msgstr "Dokument byl změněn."
 
-#: frescobaldi_app/convert_ly.py:202
+#: frescobaldi_app/convert_ly.py:203
 msgid "Current Document"
 msgstr "Nynější dokument"
 
-#: frescobaldi_app/convert_ly.py:202
+#: frescobaldi_app/convert_ly.py:203
 msgid "Converted Document"
 msgstr "Převedený dokument"
 
-#: frescobaldi_app/convert_ly.py:208
+#: frescobaldi_app/convert_ly.py:209
 msgid "Colors:"
 msgstr "Barvy:"
 
-#: frescobaldi_app/convert_ly.py:209
+#: frescobaldi_app/convert_ly.py:210
 msgid "Added"
 msgstr "Přidáno"
 
-#: frescobaldi_app/convert_ly.py:210
+#: frescobaldi_app/convert_ly.py:211
 msgid "Changed"
 msgstr "Změněno"
 
-#: frescobaldi_app/convert_ly.py:211
+#: frescobaldi_app/convert_ly.py:212
 msgid "Deleted"
 msgstr "Smazáno"
 
-#: frescobaldi_app/convert_ly.py:212
+#: frescobaldi_app/convert_ly.py:213
 msgid "Links:"
 msgstr "Odkazy:"
 
-#: frescobaldi_app/convert_ly.py:213
+#: frescobaldi_app/convert_ly.py:214
 msgid "First Change"
 msgstr "První změna"
 
-#: frescobaldi_app/convert_ly.py:214
+#: frescobaldi_app/convert_ly.py:215
 msgid "Next Change"
 msgstr "Další změna"
 
-#: frescobaldi_app/convert_ly.py:215
+#: frescobaldi_app/convert_ly.py:216
 msgid "Top"
 msgstr "Nejdůležitější"
 
@@ -362,11 +362,11 @@ msgid ""
 "set the staff size to the global staff size you use in the document (20 by "
 "default)."
 msgstr ""
-"Vyberte, prosím, tři celková písma, která se v uvedeném "
-"pořadí budou používat pro <code>\\roman</code>, <code>"
-"\\sans</code>, a <code>\\typewriter</code>. Měli byste také "
-"nastavit velikost notové osnovy k celkové velikosti notové osnovy, "
-"kterou používáte v dokumentu (výchozí hodnota je 20)."
+"Vyberte, prosím, tři celková písma, která se v uvedeném pořadí budou "
+"používat pro <code>\\roman</code>, <code>\\sans</code>, a <code>"
+"\\typewriter</code>. Měli byste také nastavit velikost notové osnovy k "
+"celkové velikosti notové osnovy, kterou používáte v dokumentu (výchozí "
+"hodnota je 20)."
 
 #: frescobaldi_app/globalfontdialog.py:76
 msgid "Roman Font:"
@@ -484,15 +484,15 @@ msgstr ""
 msgid "Select Color"
 msgstr "Vybrat barvu"
 
-#: frescobaldi_app/job.py:195
+#: frescobaldi_app/job.py:203
 msgid "Starting {job}..."
 msgstr "Spouští se {job}..."
 
-#: frescobaldi_app/job.py:200
+#: frescobaldi_app/job.py:208
 msgid "Aborting {job}..."
 msgstr "Ruší se {job}..."
 
-#: frescobaldi_app/job.py:206
+#: frescobaldi_app/job.py:214
 msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
@@ -500,23 +500,23 @@ msgstr ""
 "Nepodařilo se spustit {program}.\n"
 "Ověřte, prosím, cestu a oprávnění."
 
-#: frescobaldi_app/job.py:209
+#: frescobaldi_app/job.py:217
 msgid "Could not read from the process."
 msgstr "Z procesu nešlo číst."
 
-#: frescobaldi_app/job.py:211
+#: frescobaldi_app/job.py:219
 msgid "An unknown error occured."
 msgstr "Vyskytla se neznámá chyba."
 
-#: frescobaldi_app/job.py:216
+#: frescobaldi_app/job.py:224
 msgid "Exited with return code {code}."
 msgstr "Skončilo s návratovým kódem {code}."
 
-#: frescobaldi_app/job.py:218
+#: frescobaldi_app/job.py:226
 msgid "Exited with exit status {status}."
 msgstr "Skončilo se stavem ukončení {status}."
 
-#: frescobaldi_app/job.py:221
+#: frescobaldi_app/job.py:229
 msgid "Completed successfully in {time}."
 msgstr "Dokončeno úspěšně v {time}."
 
@@ -1081,7 +1081,7 @@ msgstr "Zvláštní &znaky"
 
 #: frescobaldi_app/docbrowser/__init__.py:46
 #: frescobaldi_app/docbrowser/__init__.py:62
-#: frescobaldi_app/preferences/documentation.py:110
+#: frescobaldi_app/preferences/documentation.py:122
 msgid "Documentation Browser"
 msgstr "Prohlížeč dokumentace"
 
@@ -1112,16 +1112,16 @@ msgstr "Dokumentace k &LilyPondu"
 msgid "&Contextual LilyPond Help"
 msgstr "Nápověda k LilyPondu vyplývající ze &souvislosti"
 
-#: frescobaldi_app/docbrowser/browser.py:96
+#: frescobaldi_app/docbrowser/browser.py:111
 #: frescobaldi_app/snippet/widget.py:167
 msgid "Search..."
 msgstr "Hledat..."
 
-#: frescobaldi_app/docbrowser/browser.py:136
+#: frescobaldi_app/docbrowser/browser.py:151
 msgid "(local)"
 msgstr "(místní)"
 
-#: frescobaldi_app/docbrowser/browser.py:138
+#: frescobaldi_app/docbrowser/browser.py:153
 msgid "({hostname})"
 msgstr "({hostname})"
 
@@ -1138,31 +1138,31 @@ msgstr "Dokumenty"
 msgid "Docum&ents"
 msgstr "Dokum&enty"
 
-#: frescobaldi_app/engrave/__init__.py:169
+#: frescobaldi_app/engrave/__init__.py:170
 msgid "&Always Engrave [{docname}]"
 msgstr "&Vždy vyrýt [{docname}]"
 
-#: frescobaldi_app/engrave/__init__.py:171
+#: frescobaldi_app/engrave/__init__.py:172
 msgid "&Always Engrave This Document"
 msgstr "Tento dokument vyrýt &vždy"
 
-#: frescobaldi_app/engrave/__init__.py:200
+#: frescobaldi_app/engrave/__init__.py:201
 msgid "Engrave"
 msgstr "Vyrýt"
 
-#: frescobaldi_app/engrave/__init__.py:201
+#: frescobaldi_app/engrave/__init__.py:202
 msgid "&Engrave (preview)"
 msgstr "&Vyrýt (náhled)"
 
-#: frescobaldi_app/engrave/__init__.py:202
+#: frescobaldi_app/engrave/__init__.py:203
 msgid "Engrave (&publish)"
 msgstr "Vyrýt (&vydat)"
 
-#: frescobaldi_app/engrave/__init__.py:203
+#: frescobaldi_app/engrave/__init__.py:204
 msgid "Engrave (&custom)..."
 msgstr "Vyrýt (v&lastní)..."
 
-#: frescobaldi_app/engrave/__init__.py:204
+#: frescobaldi_app/engrave/__init__.py:205
 msgid "Abort Engraving &Job"
 msgstr "Zrušit ryteckou &práci"
 
@@ -2008,7 +2008,7 @@ msgstr "Další chybové hlášení"
 msgid "Previous Error Message"
 msgstr "Předchozí chybové hlášení"
 
-#: frescobaldi_app/logtool/logwidget.py:106
+#: frescobaldi_app/logtool/logwidget.py:118
 msgid "Click to edit this file"
 msgstr "Klepněte, abyste mohl upravovat tento soubor"
 
@@ -2661,17 +2661,17 @@ msgstr "Písma a barvy"
 msgid "Tools"
 msgstr "Nástroje"
 
-#: frescobaldi_app/preferences/documentation.py:64
+#: frescobaldi_app/preferences/documentation.py:66
 msgid "Paths to LilyPond Documentation"
 msgstr "Cesty k dokumentaci k LilyPondu"
 
-#: frescobaldi_app/preferences/documentation.py:66
+#: frescobaldi_app/preferences/documentation.py:68
 msgid "Add paths or URLs. See \"What's This\" for more information."
 msgstr ""
 "Přidat cesty nebo adresy (URL). Podívejte se na \"Co je toto\" pro další "
 "informace."
 
-#: frescobaldi_app/preferences/documentation.py:68
+#: frescobaldi_app/preferences/documentation.py:70
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
 "A local path should point to the directory where either the "
@@ -2691,11 +2691,11 @@ msgstr ""
 "dokumentace k LilyPondu do různých podadresářů a nechat Frescobaldi, aby je "
 "automaticky našel.</p>"
 
-#: frescobaldi_app/preferences/documentation.py:111
+#: frescobaldi_app/preferences/documentation.py:123
 msgid "Preferred Language:"
 msgstr "Upřednostňovaný jazyk:"
 
-#: frescobaldi_app/preferences/documentation.py:112
+#: frescobaldi_app/preferences/documentation.py:124
 #: frescobaldi_app/preferences/general.py:124
 #: frescobaldi_app/scorewiz/settings.py:132
 #: frescobaldi_app/scorewiz/settings.py:198
@@ -2706,24 +2706,25 @@ msgstr "Upřednostňovaný jazyk:"
 msgid "Default"
 msgstr "Výchozí"
 
-#: frescobaldi_app/preferences/documentation.py:113
+#: frescobaldi_app/preferences/documentation.py:125
 #: frescobaldi_app/scorewiz/settings.py:196
 msgid "English (untranslated)"
 msgstr "Anglický (nepřeloženo)"
 
-#: frescobaldi_app/preferences/documentation.py:135
+#: frescobaldi_app/preferences/documentation.py:126
+#: frescobaldi_app/preferences/fontscolors.py:122
+#: frescobaldi_app/preferences/tools.py:81
+#: frescobaldi_app/preferences/tools.py:187
+msgid "Font:"
+msgstr "Písmo:"
+
+#: frescobaldi_app/preferences/documentation.py:162
 msgid "Please enter a local path or a URL:"
 msgstr "Zadejte, prosím, místní cestu nebo adresu (URL):"
 
 #: frescobaldi_app/preferences/fontscolors.py:121
 msgid "Use this scheme for printing"
 msgstr "Použít toto schéma pro tisk"
-
-#: frescobaldi_app/preferences/fontscolors.py:122
-#: frescobaldi_app/preferences/tools.py:81
-#: frescobaldi_app/preferences/tools.py:187
-msgid "Font:"
-msgstr "Písmo:"
 
 #: frescobaldi_app/preferences/fontscolors.py:123
 #: frescobaldi_app/preferences/fontscolors.py:298
@@ -6008,7 +6009,7 @@ msgstr "Uložit jako předlohu"
 msgid "Please enter a template name:"
 msgstr "Zadejte, prosím, název předlohy:"
 
-#: frescobaldi_app/snippet/tool.py:53 frescobaldi_app/snippet/tool.py:119
+#: frescobaldi_app/snippet/tool.py:53 frescobaldi_app/snippet/tool.py:121
 #: frescobaldi_app/snippet/widget.py:362
 msgid "Snippets"
 msgstr "Kousky"
@@ -6017,11 +6018,11 @@ msgstr "Kousky"
 msgid "&Snippets"
 msgstr "&Kousky"
 
-#: frescobaldi_app/snippet/tool.py:79
+#: frescobaldi_app/snippet/tool.py:81
 msgid "Save as Template..."
 msgstr "Uložit jako předlohu..."
 
-#: frescobaldi_app/snippet/tool.py:80
+#: frescobaldi_app/snippet/tool.py:82
 msgid "&Snippets..."
 msgstr "&Kousky..."
 

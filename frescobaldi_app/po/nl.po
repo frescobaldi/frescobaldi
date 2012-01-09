@@ -6,14 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2011-12-23 09:24+0100\n"
+"POT-Creation-Date: 2012-01-08 23:55+0100\n"
 "PO-Revision-Date: 2011-12-23 09:24+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 1.1\n"
 
@@ -165,19 +165,19 @@ msgstr "Volgende markering"
 msgid "Previous Mark"
 msgstr "Vorige markering"
 
-#: frescobaldi_app/convert_ly.py:118
+#: frescobaldi_app/convert_ly.py:119
 msgid "From version:"
 msgstr "Van versie:"
 
-#: frescobaldi_app/convert_ly.py:119
+#: frescobaldi_app/convert_ly.py:120
 msgid "To version:"
 msgstr "Naar versie:"
 
-#: frescobaldi_app/convert_ly.py:120
+#: frescobaldi_app/convert_ly.py:121
 msgid "Save convert-ly messages in document"
 msgstr "Convert-ly berichten in document bewaren"
 
-#: frescobaldi_app/convert_ly.py:122
+#: frescobaldi_app/convert_ly.py:123
 msgid ""
 "If checked, the messages of convert-ly are appended as a comment to the end "
 "of the document."
@@ -185,36 +185,36 @@ msgstr ""
 "Indien ingeschakeld, worden berichten van convert-ly aan het eind van het "
 "document als commentaar toegevoegd."
 
-#: frescobaldi_app/convert_ly.py:124
+#: frescobaldi_app/convert_ly.py:125
 msgid "&Messages"
 msgstr "&Berichten"
 
-#: frescobaldi_app/convert_ly.py:125
+#: frescobaldi_app/convert_ly.py:126
 msgid "&Changes"
 msgstr "&Wijzigingen"
 
-#: frescobaldi_app/convert_ly.py:126
+#: frescobaldi_app/convert_ly.py:127
 msgid "Run Again"
 msgstr "Opnieuw uitvoeren"
 
-#: frescobaldi_app/convert_ly.py:137 frescobaldi_app/docbrowser/browser.py:139
+#: frescobaldi_app/convert_ly.py:138 frescobaldi_app/docbrowser/browser.py:154
 #: frescobaldi_app/musicview/image.py:166
 msgid "<unknown>"
 msgstr "<onbekend>"
 
-#: frescobaldi_app/convert_ly.py:138
+#: frescobaldi_app/convert_ly.py:139
 msgid "Convert-ly from LilyPond {version}"
 msgstr "Convert-ly van LilyPond {version}"
 
-#: frescobaldi_app/convert_ly.py:162
+#: frescobaldi_app/convert_ly.py:163
 msgid "(set in document)"
 msgstr "(in document ingesteld)"
 
-#: frescobaldi_app/convert_ly.py:175
+#: frescobaldi_app/convert_ly.py:176
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr "Zowel de 'van'- als 'naar' versie dient ingesteld te zijn."
 
-#: frescobaldi_app/convert_ly.py:190
+#: frescobaldi_app/convert_ly.py:191
 msgid ""
 "Could not start {convert_ly}:\n"
 "\n"
@@ -224,47 +224,47 @@ msgstr ""
 "\n"
 "{message}\n"
 
-#: frescobaldi_app/convert_ly.py:196
+#: frescobaldi_app/convert_ly.py:197
 msgid "The document has not been changed."
 msgstr "Het document is niet gewijzigd."
 
-#: frescobaldi_app/convert_ly.py:202
+#: frescobaldi_app/convert_ly.py:203
 msgid "Current Document"
 msgstr "Huidig document"
 
-#: frescobaldi_app/convert_ly.py:202
+#: frescobaldi_app/convert_ly.py:203
 msgid "Converted Document"
 msgstr "Bijgewerkt document"
 
-#: frescobaldi_app/convert_ly.py:208
+#: frescobaldi_app/convert_ly.py:209
 msgid "Colors:"
 msgstr "Kleuren:"
 
-#: frescobaldi_app/convert_ly.py:209
+#: frescobaldi_app/convert_ly.py:210
 msgid "Added"
 msgstr "Toegevoegd"
 
-#: frescobaldi_app/convert_ly.py:210
+#: frescobaldi_app/convert_ly.py:211
 msgid "Changed"
 msgstr "Gewijzigd"
 
-#: frescobaldi_app/convert_ly.py:211
+#: frescobaldi_app/convert_ly.py:212
 msgid "Deleted"
 msgstr "Verwijderd"
 
-#: frescobaldi_app/convert_ly.py:212
+#: frescobaldi_app/convert_ly.py:213
 msgid "Links:"
 msgstr "Koppelingen:"
 
-#: frescobaldi_app/convert_ly.py:213
+#: frescobaldi_app/convert_ly.py:214
 msgid "First Change"
 msgstr "Eerste wijziging"
 
-#: frescobaldi_app/convert_ly.py:214
+#: frescobaldi_app/convert_ly.py:215
 msgid "Next Change"
 msgstr "Volgende wijziging"
 
-#: frescobaldi_app/convert_ly.py:215
+#: frescobaldi_app/convert_ly.py:216
 msgid "Top"
 msgstr "Top"
 
@@ -479,15 +479,15 @@ msgstr ""
 msgid "Select Color"
 msgstr "Kleur selecteren"
 
-#: frescobaldi_app/job.py:195
+#: frescobaldi_app/job.py:203
 msgid "Starting {job}..."
 msgstr "Starten {job}..."
 
-#: frescobaldi_app/job.py:200
+#: frescobaldi_app/job.py:208
 msgid "Aborting {job}..."
 msgstr "Afbreken {job}..."
 
-#: frescobaldi_app/job.py:206
+#: frescobaldi_app/job.py:214
 msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
@@ -495,23 +495,23 @@ msgstr ""
 "Kan {program} niet starten.\n"
 "Controleer het pad en permissies."
 
-#: frescobaldi_app/job.py:209
+#: frescobaldi_app/job.py:217
 msgid "Could not read from the process."
 msgstr "Kan de uitvoer van het proces niet lezen."
 
-#: frescobaldi_app/job.py:211
+#: frescobaldi_app/job.py:219
 msgid "An unknown error occured."
 msgstr "Er is een onbekende fout opgetreden."
 
-#: frescobaldi_app/job.py:216
+#: frescobaldi_app/job.py:224
 msgid "Exited with return code {code}."
 msgstr "Afgesloten met returncode {code}."
 
-#: frescobaldi_app/job.py:218
+#: frescobaldi_app/job.py:226
 msgid "Exited with exit status {status}."
 msgstr "Afgesloten met status {status}."
 
-#: frescobaldi_app/job.py:221
+#: frescobaldi_app/job.py:229
 msgid "Completed successfully in {time}."
 msgstr "Succesvol beëindigd in {time}."
 
@@ -1076,7 +1076,7 @@ msgstr "Speciale &tekens"
 
 #: frescobaldi_app/docbrowser/__init__.py:46
 #: frescobaldi_app/docbrowser/__init__.py:62
-#: frescobaldi_app/preferences/documentation.py:110
+#: frescobaldi_app/preferences/documentation.py:122
 msgid "Documentation Browser"
 msgstr "Documentatie-browser"
 
@@ -1107,16 +1107,16 @@ msgstr "&LilyPond-documentatie"
 msgid "&Contextual LilyPond Help"
 msgstr "LilyPond-&contexthulp"
 
-#: frescobaldi_app/docbrowser/browser.py:96
+#: frescobaldi_app/docbrowser/browser.py:111
 #: frescobaldi_app/snippet/widget.py:167
 msgid "Search..."
 msgstr "Zoeken..."
 
-#: frescobaldi_app/docbrowser/browser.py:136
+#: frescobaldi_app/docbrowser/browser.py:151
 msgid "(local)"
 msgstr "(lokaal)"
 
-#: frescobaldi_app/docbrowser/browser.py:138
+#: frescobaldi_app/docbrowser/browser.py:153
 msgid "({hostname})"
 msgstr "({hostname})"
 
@@ -1133,31 +1133,31 @@ msgstr "Documenten"
 msgid "Docum&ents"
 msgstr "Docum&enten"
 
-#: frescobaldi_app/engrave/__init__.py:169
+#: frescobaldi_app/engrave/__init__.py:170
 msgid "&Always Engrave [{docname}]"
 msgstr "&Altijd graveren [{docname}]"
 
-#: frescobaldi_app/engrave/__init__.py:171
+#: frescobaldi_app/engrave/__init__.py:172
 msgid "&Always Engrave This Document"
 msgstr "Dit document &altijd graveren"
 
-#: frescobaldi_app/engrave/__init__.py:200
+#: frescobaldi_app/engrave/__init__.py:201
 msgid "Engrave"
 msgstr "Graveren"
 
-#: frescobaldi_app/engrave/__init__.py:201
+#: frescobaldi_app/engrave/__init__.py:202
 msgid "&Engrave (preview)"
 msgstr "&Graveren (vooruitblik)"
 
-#: frescobaldi_app/engrave/__init__.py:202
+#: frescobaldi_app/engrave/__init__.py:203
 msgid "Engrave (&publish)"
 msgstr "Graveren (&publicatie)"
 
-#: frescobaldi_app/engrave/__init__.py:203
+#: frescobaldi_app/engrave/__init__.py:204
 msgid "Engrave (&custom)..."
 msgstr "Gra&veren (aangepast)..."
 
-#: frescobaldi_app/engrave/__init__.py:204
+#: frescobaldi_app/engrave/__init__.py:205
 msgid "Abort Engraving &Job"
 msgstr "Graveertaak af&breken"
 
@@ -1999,7 +1999,7 @@ msgstr "Volgende foutmelding"
 msgid "Previous Error Message"
 msgstr "Vorige foutmelding"
 
-#: frescobaldi_app/logtool/logwidget.py:106
+#: frescobaldi_app/logtool/logwidget.py:118
 msgid "Click to edit this file"
 msgstr "Klik om dit bestand te bewerken"
 
@@ -2656,20 +2656,20 @@ msgstr "Tekst & kleur"
 msgid "Tools"
 msgstr "Gereedschap"
 
-#: frescobaldi_app/preferences/documentation.py:64
+#: frescobaldi_app/preferences/documentation.py:66
 msgid "Paths to LilyPond Documentation"
 msgstr "Paden naar LilyPond-documentatie"
 
-#: frescobaldi_app/preferences/documentation.py:66
+#: frescobaldi_app/preferences/documentation.py:68
 msgid "Add paths or URLs. See \"What's This\" for more information."
 msgstr "Voeg paden of URLs toe. Zie \"Wat is dit\" voor meer informatie."
 
-#: frescobaldi_app/preferences/documentation.py:68
+#: frescobaldi_app/preferences/documentation.py:70
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the \"{documentation}"
-"\" directory lives, or the whole \"share/doc/lilypond/html/offline-root\" "
-"path.</p>\n"
+"A local path should point to the directory where either the "
+"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
+"offline-root\" path.</p>\n"
 "<p>If those can't be found, documentation is looked for in all "
 "subdirectories of the given path, one level deep. This makes it possible to "
 "put multiple versions of LilyPond documentation in different subdirectories "
@@ -2684,11 +2684,11 @@ msgstr ""
 "documentatie in verschillende submappen te plaatsen, en dat Frescobaldi ze "
 "automatisch vindt.</p>"
 
-#: frescobaldi_app/preferences/documentation.py:111
+#: frescobaldi_app/preferences/documentation.py:123
 msgid "Preferred Language:"
 msgstr "Voorkeurstaal:"
 
-#: frescobaldi_app/preferences/documentation.py:112
+#: frescobaldi_app/preferences/documentation.py:124
 #: frescobaldi_app/preferences/general.py:124
 #: frescobaldi_app/scorewiz/settings.py:132
 #: frescobaldi_app/scorewiz/settings.py:198
@@ -2699,24 +2699,25 @@ msgstr "Voorkeurstaal:"
 msgid "Default"
 msgstr "Standaard"
 
-#: frescobaldi_app/preferences/documentation.py:113
+#: frescobaldi_app/preferences/documentation.py:125
 #: frescobaldi_app/scorewiz/settings.py:196
 msgid "English (untranslated)"
 msgstr "Engels (onvertaald)"
 
-#: frescobaldi_app/preferences/documentation.py:135
+#: frescobaldi_app/preferences/documentation.py:126
+#: frescobaldi_app/preferences/fontscolors.py:122
+#: frescobaldi_app/preferences/tools.py:81
+#: frescobaldi_app/preferences/tools.py:187
+msgid "Font:"
+msgstr "Lettertype:"
+
+#: frescobaldi_app/preferences/documentation.py:162
 msgid "Please enter a local path or a URL:"
 msgstr "Voer een lokaal pad in of een URL:"
 
 #: frescobaldi_app/preferences/fontscolors.py:121
 msgid "Use this scheme for printing"
 msgstr "Dit schema gebruiken voor afdrukken"
-
-#: frescobaldi_app/preferences/fontscolors.py:122
-#: frescobaldi_app/preferences/tools.py:81
-#: frescobaldi_app/preferences/tools.py:187
-msgid "Font:"
-msgstr "Lettertype:"
 
 #: frescobaldi_app/preferences/fontscolors.py:123
 #: frescobaldi_app/preferences/fontscolors.py:298
@@ -6009,7 +6010,7 @@ msgstr "Opslaan als sjabloon"
 msgid "Please enter a template name:"
 msgstr "Voer een naam voor de sjabloon in:"
 
-#: frescobaldi_app/snippet/tool.py:53 frescobaldi_app/snippet/tool.py:119
+#: frescobaldi_app/snippet/tool.py:53 frescobaldi_app/snippet/tool.py:121
 #: frescobaldi_app/snippet/widget.py:362
 msgid "Snippets"
 msgstr "Knipsels"
@@ -6018,11 +6019,11 @@ msgstr "Knipsels"
 msgid "&Snippets"
 msgstr "&Knipsels"
 
-#: frescobaldi_app/snippet/tool.py:79
+#: frescobaldi_app/snippet/tool.py:81
 msgid "Save as Template..."
 msgstr "Opslaan als sjabloon..."
 
-#: frescobaldi_app/snippet/tool.py:80
+#: frescobaldi_app/snippet/tool.py:82
 msgid "&Snippets..."
 msgstr "&Knipsels..."
 
