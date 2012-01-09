@@ -23,7 +23,7 @@ UrlRequester, a lineedit with a Browse-button.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QDir, pyqtSignal
+from PyQt4.QtCore import QDir, QEvent, pyqtSignal
 from PyQt4.QtGui import (
     QCompleter, QFileDialog, QFileSystemModel, QHBoxLayout, QLineEdit,
     QToolButton, QWidget)
@@ -58,18 +58,21 @@ class UrlRequester(QWidget):
         self.button = QToolButton(clicked=self.browse)
         layout.addWidget(self.button)
         
-        self.setFileMode(QFileDialog.Directory)
-        
         self.lineEdit.textChanged.connect(self.changed)
-        
-        completer = QCompleter(self.lineEdit)
-        model = QFileSystemModel(completer)
-        model.setFilter(QDir.Dirs | QDir.NoDotAndDotDot)
-        completer.setModel(model)
-        self.lineEdit.setCompleter(completer)
-        
+        self.setFileMode(QFileDialog.Directory)
         app.translateUI(self)
-        
+        # lazily create completer with model when keyboard focus enters
+        self.lineEdit.installEventFilter(self)
+    
+    def eventFilter(self, obj, ev):
+        # install the completer with filesystem model on first focus in
+        if obj is self.lineEdit and ev.type() == QEvent.FocusIn:
+            self.lineEdit.removeEventFilter(self)
+            if not self.lineEdit.completer():
+                self._instantiateCompleter()
+            self._updateFileSystemModelMode()
+        return False
+    
     def translateUI(self):
         self.button.setToolTip(_("Open file dialog"))
     
@@ -96,6 +99,7 @@ class UrlRequester(QWidget):
         else:
             self.button.setIcon(icons.get('document-open'))
         self._fileMode = mode
+        self._updateFileSystemModelMode()
     
     def fileMode(self):
         return self._fileMode
@@ -123,5 +127,22 @@ class UrlRequester(QWidget):
         result = dlg.exec_()
         if result:
             self.lineEdit.setText(dlg.selectedFiles()[0])
+    
+    def _instantiateCompleter(self):
+        """Called once, to instantiate the completer with model."""
+        completer = QCompleter(self.lineEdit)
+        model = QFileSystemModel(completer)
+        model.setRootPath(QDir.rootPath())
+        completer.setModel(model)
+        self.lineEdit.setCompleter(completer)
         
+    def _updateFileSystemModelMode(self):
+        """Called on fileMode change, updates completer model (if any)."""
+        c = self.lineEdit.completer()
+        if c and isinstance(c.model(), QFileSystemModel):
+            filter = QDir.Drives | QDir.Dirs | QDir.NoDotAndDotDot
+            if self._fileMode != QFileDialog.Directory:
+                filter |= QDir.Files
+            c.model().setFilter(filter)
+
 
