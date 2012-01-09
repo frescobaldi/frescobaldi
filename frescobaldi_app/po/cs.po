@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-08 23:55+0100\n"
+"POT-Creation-Date: 2012-01-09 17:58+0100\n"
 "PO-Revision-Date: 2011-12-28 18:57+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -484,15 +484,15 @@ msgstr ""
 msgid "Select Color"
 msgstr "Vybrat barvu"
 
-#: frescobaldi_app/job.py:203
+#: frescobaldi_app/job.py:236
 msgid "Starting {job}..."
 msgstr "Spouští se {job}..."
 
-#: frescobaldi_app/job.py:208
+#: frescobaldi_app/job.py:241
 msgid "Aborting {job}..."
 msgstr "Ruší se {job}..."
 
-#: frescobaldi_app/job.py:214
+#: frescobaldi_app/job.py:247
 msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
@@ -500,23 +500,23 @@ msgstr ""
 "Nepodařilo se spustit {program}.\n"
 "Ověřte, prosím, cestu a oprávnění."
 
-#: frescobaldi_app/job.py:217
+#: frescobaldi_app/job.py:250
 msgid "Could not read from the process."
 msgstr "Z procesu nešlo číst."
 
-#: frescobaldi_app/job.py:219
+#: frescobaldi_app/job.py:252
 msgid "An unknown error occured."
 msgstr "Vyskytla se neznámá chyba."
 
-#: frescobaldi_app/job.py:224
+#: frescobaldi_app/job.py:257
 msgid "Exited with return code {code}."
 msgstr "Skončilo s návratovým kódem {code}."
 
-#: frescobaldi_app/job.py:226
+#: frescobaldi_app/job.py:259
 msgid "Exited with exit status {status}."
 msgstr "Skončilo se stavem ukončení {status}."
 
-#: frescobaldi_app/job.py:229
+#: frescobaldi_app/job.py:262
 msgid "Completed successfully in {time}."
 msgstr "Dokončeno úspěšně v {time}."
 
@@ -1166,48 +1166,54 @@ msgstr "Vyrýt (v&lastní)..."
 msgid "Abort Engraving &Job"
 msgstr "Zrušit ryteckou &práci"
 
-#: frescobaldi_app/engrave/custom.py:118 frescobaldi_app/engrave/custom.py:206
+#: frescobaldi_app/engrave/custom.py:123 frescobaldi_app/engrave/custom.py:214
 msgid "Engrave custom"
 msgstr "Vyrýt vlastní"
 
-#: frescobaldi_app/engrave/custom.py:119
+#: frescobaldi_app/engrave/custom.py:124
 msgid "LilyPond Version:"
 msgstr "Verze LilyPondu:"
 
-#: frescobaldi_app/engrave/custom.py:120
+#: frescobaldi_app/engrave/custom.py:125
 msgid "Output Format:"
 msgstr "Výstupní formát:"
 
-#: frescobaldi_app/engrave/custom.py:121
+#: frescobaldi_app/engrave/custom.py:126
 msgid "Resolution:"
 msgstr "Rozlišení:"
 
-#: frescobaldi_app/engrave/custom.py:123
+#: frescobaldi_app/engrave/custom.py:128
 msgid "Run LilyPond in preview mode (with Point and Click)"
 msgstr "Spustit LilyPond v režimu náhledu (s funkcí ukázat a klepnout)"
 
-#: frescobaldi_app/engrave/custom.py:124
+#: frescobaldi_app/engrave/custom.py:129
 msgid "Run LilyPond with verbose output"
 msgstr "Spustit LilyPond s podrobným výstupem"
 
-#: frescobaldi_app/engrave/custom.py:125
-#: frescobaldi_app/preferences/lilypond.py:284
+#: frescobaldi_app/engrave/custom.py:130
+#: frescobaldi_app/preferences/lilypond.py:289
+#, fuzzy
+msgid "Run LilyPond with English messages"
+msgstr "Spustit LilyPond s podrobným výstupem"
+
+#: frescobaldi_app/engrave/custom.py:131
+#: frescobaldi_app/preferences/lilypond.py:286
 msgid "Delete intermediate output files"
 msgstr "Smazat mezi výstupní soubory"
 
-#: frescobaldi_app/engrave/custom.py:126
+#: frescobaldi_app/engrave/custom.py:132
 msgid "Command line:"
 msgstr "Příkazový řádek:"
 
-#: frescobaldi_app/engrave/custom.py:127
+#: frescobaldi_app/engrave/custom.py:133
 msgid "Run LilyPond"
 msgstr "Spustit LilyPond"
 
-#: frescobaldi_app/engrave/custom.py:149
+#: frescobaldi_app/engrave/custom.py:155
 msgid "LilyPond {version}"
 msgstr "LilyPond {version}"
 
-#: frescobaldi_app/engrave/custom.py:210
+#: frescobaldi_app/engrave/custom.py:218
 msgid ""
 "In this dialog you can set some parameters for the LilyPond command to be "
 "used\n"
@@ -1219,47 +1225,47 @@ msgstr ""
 "pro rytí vašeho dokumentu.\n"
 "Je dokonce možné upravit samotný příkazový řádek.\n"
 
-#: frescobaldi_app/engrave/custom.py:215
+#: frescobaldi_app/engrave/custom.py:223
 msgid "The following replacements will be made:"
 msgstr "Budou provedena následující nahrazení:"
 
-#: frescobaldi_app/engrave/custom.py:218
+#: frescobaldi_app/engrave/custom.py:226
 msgid "The LilyPond executable"
 msgstr "Spustitelný soubor pro LilyPond"
 
-#: frescobaldi_app/engrave/custom.py:219
+#: frescobaldi_app/engrave/custom.py:227
 msgid "All the include paths"
 msgstr "Všechny zařazené cesty"
 
-#: frescobaldi_app/engrave/custom.py:220
+#: frescobaldi_app/engrave/custom.py:228
 msgid "The filename of the document"
 msgstr "Souborový název dokumentu"
 
-#: frescobaldi_app/engrave/custom.py:233
+#: frescobaldi_app/engrave/custom.py:241
 msgid "PDF"
 msgstr "PDF"
 
-#: frescobaldi_app/engrave/custom.py:239
+#: frescobaldi_app/engrave/custom.py:247
 msgid "PostScript"
 msgstr "PostScript"
 
-#: frescobaldi_app/engrave/custom.py:245
+#: frescobaldi_app/engrave/custom.py:253
 msgid "PNG"
 msgstr "PNG"
 
-#: frescobaldi_app/engrave/custom.py:251
+#: frescobaldi_app/engrave/custom.py:259
 msgid "SVG"
 msgstr "SVG"
 
-#: frescobaldi_app/engrave/custom.py:257
+#: frescobaldi_app/engrave/custom.py:265
 msgid "PDF (EPS Backend)"
 msgstr "PDF (jádro EPS)"
 
-#: frescobaldi_app/engrave/custom.py:263
+#: frescobaldi_app/engrave/custom.py:271
 msgid "Encapsulated PostScript (EPS Backend)"
 msgstr "Encapsulated PostScript (jádro EPS)"
 
-#: frescobaldi_app/engrave/custom.py:269
+#: frescobaldi_app/engrave/custom.py:277
 msgid "PNG (EPS Backend)"
 msgstr "PNG (jádro EPS)"
 
@@ -3211,15 +3217,15 @@ msgstr "LilyPond-book:"
 msgid "Include in automatic version selection"
 msgstr "Zahrnout do automatického výběru verze"
 
-#: frescobaldi_app/preferences/lilypond.py:279
+#: frescobaldi_app/preferences/lilypond.py:281
 msgid "Running LilyPond"
 msgstr "Spuštění LilyPondu"
 
-#: frescobaldi_app/preferences/lilypond.py:280
+#: frescobaldi_app/preferences/lilypond.py:282
 msgid "Save document if possible"
 msgstr "Uložit dokument, je-li to možné"
 
-#: frescobaldi_app/preferences/lilypond.py:282
+#: frescobaldi_app/preferences/lilypond.py:284
 msgid ""
 "If checked, the document is saved when it is local and modified.\n"
 "Otherwise a temporary file is used to run LilyPond."
@@ -3227,11 +3233,17 @@ msgstr ""
 "Je-li zaškrtnuto, dokument je uložen, když je místní nebo upravený.\n"
 "Jinak je pro běh LilyPondu použit dočasný soubor."
 
-#: frescobaldi_app/preferences/lilypond.py:286
+#: frescobaldi_app/preferences/lilypond.py:288
 msgid "If checked, LilyPond will delete intermediate PostScript files."
 msgstr "Je-li zaškrtnuto, LilyPond smaže prostřední soubory PostScript."
 
-#: frescobaldi_app/preferences/lilypond.py:287
+#: frescobaldi_app/preferences/lilypond.py:291
+msgid ""
+"If checked, LilyPond's output messages will be in English.\n"
+"This can be useful for bug reports."
+msgstr ""
+
+#: frescobaldi_app/preferences/lilypond.py:293
 msgid "LilyPond include path:"
 msgstr "Cesta obsahující LilyPond:"
 

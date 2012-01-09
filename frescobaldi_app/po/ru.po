@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-08 23:55+0100\n"
+"POT-Creation-Date: 2012-01-09 17:58+0100\n"
 "PO-Revision-Date: 2009-10-08 21:17+0300\n"
 "Last-Translator: Artem Zolochevskiy <artem.zolochevskiy@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -488,15 +488,15 @@ msgstr ""
 msgid "Select Color"
 msgstr "Каталог по умолчанию:"
 
-#: frescobaldi_app/job.py:203
+#: frescobaldi_app/job.py:236
 msgid "Starting {job}..."
 msgstr ""
 
-#: frescobaldi_app/job.py:208
+#: frescobaldi_app/job.py:241
 msgid "Aborting {job}..."
 msgstr ""
 
-#: frescobaldi_app/job.py:214
+#: frescobaldi_app/job.py:247
 #, fuzzy
 msgid ""
 "Could not start {program}.\n"
@@ -504,26 +504,26 @@ msgid ""
 msgstr ""
 "Невозможно запустить LilyPond/ Проверьте путь к программе и разрешения."
 
-#: frescobaldi_app/job.py:217
+#: frescobaldi_app/job.py:250
 #, fuzzy
 msgid "Could not read from the process."
 msgstr "Невозможно чтение из процесса LilyPond."
 
-#: frescobaldi_app/job.py:219
+#: frescobaldi_app/job.py:252
 msgid "An unknown error occured."
 msgstr "Неизвестная ошибка произошла."
 
-#: frescobaldi_app/job.py:224
+#: frescobaldi_app/job.py:257
 #, fuzzy
 msgid "Exited with return code {code}."
 msgstr "Программа LilyPond [%1] завершилась с кодом %2."
 
-#: frescobaldi_app/job.py:226
+#: frescobaldi_app/job.py:259
 #, fuzzy
 msgid "Exited with exit status {status}."
 msgstr "Программа LilyPond [%1] завершилась с кодом %2."
 
-#: frescobaldi_app/job.py:229
+#: frescobaldi_app/job.py:262
 msgid "Completed successfully in {time}."
 msgstr ""
 
@@ -1200,55 +1200,61 @@ msgstr ""
 msgid "Abort Engraving &Job"
 msgstr ""
 
-#: frescobaldi_app/engrave/custom.py:118 frescobaldi_app/engrave/custom.py:206
+#: frescobaldi_app/engrave/custom.py:123 frescobaldi_app/engrave/custom.py:214
 msgid "Engrave custom"
 msgstr ""
 
-#: frescobaldi_app/engrave/custom.py:119
+#: frescobaldi_app/engrave/custom.py:124
 #, fuzzy
 msgid "LilyPond Version:"
 msgstr "Вставить версию LilyPond"
 
-#: frescobaldi_app/engrave/custom.py:120
+#: frescobaldi_app/engrave/custom.py:125
 msgid "Output Format:"
 msgstr ""
 
-#: frescobaldi_app/engrave/custom.py:121
+#: frescobaldi_app/engrave/custom.py:126
 #, fuzzy
 msgid "Resolution:"
 msgstr "Версия:"
 
-#: frescobaldi_app/engrave/custom.py:123
+#: frescobaldi_app/engrave/custom.py:128
 #, fuzzy
 msgid "Run LilyPond in preview mode (with Point and Click)"
 msgstr "Запустить LilyPond в режиме предварительного просмотра"
 
-#: frescobaldi_app/engrave/custom.py:124
+#: frescobaldi_app/engrave/custom.py:129
 msgid "Run LilyPond with verbose output"
 msgstr "Запускать LilyPond в режиме вывода подробной информации"
 
-#: frescobaldi_app/engrave/custom.py:125
-#: frescobaldi_app/preferences/lilypond.py:284
+#: frescobaldi_app/engrave/custom.py:130
+#: frescobaldi_app/preferences/lilypond.py:289
+#, fuzzy
+msgid "Run LilyPond with English messages"
+msgstr "Запускать LilyPond в режиме вывода подробной информации"
+
+#: frescobaldi_app/engrave/custom.py:131
+#: frescobaldi_app/preferences/lilypond.py:286
 #, fuzzy
 msgid "Delete intermediate output files"
 msgstr "Удалить служебные файлы LilyPond."
 
-#: frescobaldi_app/engrave/custom.py:126
+#: frescobaldi_app/engrave/custom.py:132
 #, fuzzy
 msgid "Command line:"
 msgstr "Команда печати:"
 
-#: frescobaldi_app/engrave/custom.py:127
+#: frescobaldi_app/engrave/custom.py:133
 #, fuzzy
 msgid "Run LilyPond"
 msgstr "LilyPond"
 
-#: frescobaldi_app/engrave/custom.py:149
+#: frescobaldi_app/engrave/custom.py:155
 #, fuzzy
 msgid "LilyPond {version}"
 msgstr "Вставить версию LilyPond"
 
-#: frescobaldi_app/engrave/custom.py:210
+#: frescobaldi_app/engrave/custom.py:218
 msgid ""
 "In this dialog you can set some parameters for the LilyPond command to be "
 "used\n"
@@ -1256,50 +1262,50 @@ msgid ""
 "It is even possible to edit the command line itself.\n"
 msgstr ""
 
-#: frescobaldi_app/engrave/custom.py:215
+#: frescobaldi_app/engrave/custom.py:223
 msgid "The following replacements will be made:"
 msgstr ""
 
-#: frescobaldi_app/engrave/custom.py:218
+#: frescobaldi_app/engrave/custom.py:226
 #, fuzzy
 msgid "The LilyPond executable"
 msgstr "Файлы LilyPon"
 
-#: frescobaldi_app/engrave/custom.py:219
+#: frescobaldi_app/engrave/custom.py:227
 #, fuzzy
 msgid "All the include paths"
 msgstr "Файлы LilyPon"
 
-#: frescobaldi_app/engrave/custom.py:220
+#: frescobaldi_app/engrave/custom.py:228
 #, fuzzy
 msgid "The filename of the document"
 msgstr "Синхронизировать консоль с текущим документом"
 
-#: frescobaldi_app/engrave/custom.py:233
+#: frescobaldi_app/engrave/custom.py:241
 msgid "PDF"
 msgstr ""
 
-#: frescobaldi_app/engrave/custom.py:239
+#: frescobaldi_app/engrave/custom.py:247
 msgid "PostScript"
 msgstr ""
 
-#: frescobaldi_app/engrave/custom.py:245
+#: frescobaldi_app/engrave/custom.py:253
 msgid "PNG"
 msgstr ""
 
-#: frescobaldi_app/engrave/custom.py:251
+#: frescobaldi_app/engrave/custom.py:259
 msgid "SVG"
 msgstr ""
 
-#: frescobaldi_app/engrave/custom.py:257
+#: frescobaldi_app/engrave/custom.py:265
 msgid "PDF (EPS Backend)"
 msgstr ""
 
-#: frescobaldi_app/engrave/custom.py:263
+#: frescobaldi_app/engrave/custom.py:271
 msgid "Encapsulated PostScript (EPS Backend)"
 msgstr ""
 
-#: frescobaldi_app/engrave/custom.py:269
+#: frescobaldi_app/engrave/custom.py:277
 msgid "PNG (EPS Backend)"
 msgstr ""
 
@@ -2996,27 +3002,33 @@ msgstr "LilyPond"
 msgid "Include in automatic version selection"
 msgstr ""
 
-#: frescobaldi_app/preferences/lilypond.py:279
+#: frescobaldi_app/preferences/lilypond.py:281
 #, fuzzy
 msgid "Running LilyPond"
 msgstr "LilyPond"
 
-#: frescobaldi_app/preferences/lilypond.py:280
+#: frescobaldi_app/preferences/lilypond.py:282
 msgid "Save document if possible"
 msgstr ""
 
-#: frescobaldi_app/preferences/lilypond.py:282
+#: frescobaldi_app/preferences/lilypond.py:284
 msgid ""
 "If checked, the document is saved when it is local and modified.\n"
 "Otherwise a temporary file is used to run LilyPond."
 msgstr ""
 
-#: frescobaldi_app/preferences/lilypond.py:286
+#: frescobaldi_app/preferences/lilypond.py:288
 #, fuzzy
 msgid "If checked, LilyPond will delete intermediate PostScript files."
 msgstr "Удалить служебные файлы LilyPond."
 
-#: frescobaldi_app/preferences/lilypond.py:287
+#: frescobaldi_app/preferences/lilypond.py:291
+msgid ""
+"If checked, LilyPond's output messages will be in English.\n"
+"This can be useful for bug reports."
+msgstr ""
+
+#: frescobaldi_app/preferences/lilypond.py:293
 #, fuzzy
 msgid "LilyPond include path:"
 msgstr "Файлы LilyPon"

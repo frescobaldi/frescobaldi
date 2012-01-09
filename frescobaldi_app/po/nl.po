@@ -1,13 +1,13 @@
 # translation of nl.po to Nederlands
 #
 # Wilbert Berendsen <wbsoft@xs4all.nl>, 2008.
-# Wilbert Berendsen <info@wilbertberendsen.nl>, 2008, 2009, 2010, 2011.
+# Wilbert Berendsen <info@wilbertberendsen.nl>, 2008, 2009, 2010, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-08 23:55+0100\n"
-"PO-Revision-Date: 2011-12-23 09:24+0100\n"
+"POT-Creation-Date: 2012-01-09 17:58+0100\n"
+"PO-Revision-Date: 2012-01-09 18:00+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.1\n"
+"X-Generator: Lokalize 1.2\n"
 
 #: frescobaldi_app/about.py:43
 msgid "{appname} is written in {python} and uses the {qt} toolkit."
@@ -479,15 +479,15 @@ msgstr ""
 msgid "Select Color"
 msgstr "Kleur selecteren"
 
-#: frescobaldi_app/job.py:203
+#: frescobaldi_app/job.py:236
 msgid "Starting {job}..."
 msgstr "Starten {job}..."
 
-#: frescobaldi_app/job.py:208
+#: frescobaldi_app/job.py:241
 msgid "Aborting {job}..."
 msgstr "Afbreken {job}..."
 
-#: frescobaldi_app/job.py:214
+#: frescobaldi_app/job.py:247
 msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
@@ -495,23 +495,23 @@ msgstr ""
 "Kan {program} niet starten.\n"
 "Controleer het pad en permissies."
 
-#: frescobaldi_app/job.py:217
+#: frescobaldi_app/job.py:250
 msgid "Could not read from the process."
 msgstr "Kan de uitvoer van het proces niet lezen."
 
-#: frescobaldi_app/job.py:219
+#: frescobaldi_app/job.py:252
 msgid "An unknown error occured."
 msgstr "Er is een onbekende fout opgetreden."
 
-#: frescobaldi_app/job.py:224
+#: frescobaldi_app/job.py:257
 msgid "Exited with return code {code}."
 msgstr "Afgesloten met returncode {code}."
 
-#: frescobaldi_app/job.py:226
+#: frescobaldi_app/job.py:259
 msgid "Exited with exit status {status}."
 msgstr "Afgesloten met status {status}."
 
-#: frescobaldi_app/job.py:229
+#: frescobaldi_app/job.py:262
 msgid "Completed successfully in {time}."
 msgstr "Succesvol beëindigd in {time}."
 
@@ -1161,48 +1161,53 @@ msgstr "Gra&veren (aangepast)..."
 msgid "Abort Engraving &Job"
 msgstr "Graveertaak af&breken"
 
-#: frescobaldi_app/engrave/custom.py:118 frescobaldi_app/engrave/custom.py:206
+#: frescobaldi_app/engrave/custom.py:123 frescobaldi_app/engrave/custom.py:214
 msgid "Engrave custom"
 msgstr "Aangepast graveren"
 
-#: frescobaldi_app/engrave/custom.py:119
+#: frescobaldi_app/engrave/custom.py:124
 msgid "LilyPond Version:"
 msgstr "LilyPond-versie:"
 
-#: frescobaldi_app/engrave/custom.py:120
+#: frescobaldi_app/engrave/custom.py:125
 msgid "Output Format:"
 msgstr "Uitvoerformaat:"
 
-#: frescobaldi_app/engrave/custom.py:121
+#: frescobaldi_app/engrave/custom.py:126
 msgid "Resolution:"
 msgstr "Resolutie:"
 
-#: frescobaldi_app/engrave/custom.py:123
+#: frescobaldi_app/engrave/custom.py:128
 msgid "Run LilyPond in preview mode (with Point and Click)"
 msgstr "LilyPond starten met Point and Click (vooruitblik)"
 
-#: frescobaldi_app/engrave/custom.py:124
+#: frescobaldi_app/engrave/custom.py:129
 msgid "Run LilyPond with verbose output"
 msgstr "LilyPond starten met uitgebreide uitvoerberichten"
 
-#: frescobaldi_app/engrave/custom.py:125
-#: frescobaldi_app/preferences/lilypond.py:284
+#: frescobaldi_app/engrave/custom.py:130
+#: frescobaldi_app/preferences/lilypond.py:289
+msgid "Run LilyPond with English messages"
+msgstr "LilyPond starten met Engelstalige uitvoerberichten"
+
+#: frescobaldi_app/engrave/custom.py:131
+#: frescobaldi_app/preferences/lilypond.py:286
 msgid "Delete intermediate output files"
 msgstr "Tussentijdse uitvoerbestanden verwijderen"
 
-#: frescobaldi_app/engrave/custom.py:126
+#: frescobaldi_app/engrave/custom.py:132
 msgid "Command line:"
 msgstr "Commandoregel:"
 
-#: frescobaldi_app/engrave/custom.py:127
+#: frescobaldi_app/engrave/custom.py:133
 msgid "Run LilyPond"
 msgstr "LilyPond starten"
 
-#: frescobaldi_app/engrave/custom.py:149
+#: frescobaldi_app/engrave/custom.py:155
 msgid "LilyPond {version}"
 msgstr "LilyPond {version}"
 
-#: frescobaldi_app/engrave/custom.py:210
+#: frescobaldi_app/engrave/custom.py:218
 msgid ""
 "In this dialog you can set some parameters for the LilyPond command to be "
 "used\n"
@@ -1213,47 +1218,47 @@ msgstr ""
 "LilyPond-commando om uw document te graveren.\n"
 "Het is zelfs mogelijk de commandoregel zelf aan te passen.\n"
 
-#: frescobaldi_app/engrave/custom.py:215
+#: frescobaldi_app/engrave/custom.py:223
 msgid "The following replacements will be made:"
 msgstr "De volgende variabelen worden vervangen:"
 
-#: frescobaldi_app/engrave/custom.py:218
+#: frescobaldi_app/engrave/custom.py:226
 msgid "The LilyPond executable"
 msgstr "Het LilyPond-programma"
 
-#: frescobaldi_app/engrave/custom.py:219
+#: frescobaldi_app/engrave/custom.py:227
 msgid "All the include paths"
 msgstr "Alle include-paden"
 
-#: frescobaldi_app/engrave/custom.py:220
+#: frescobaldi_app/engrave/custom.py:228
 msgid "The filename of the document"
 msgstr "De naam van het document"
 
-#: frescobaldi_app/engrave/custom.py:233
+#: frescobaldi_app/engrave/custom.py:241
 msgid "PDF"
 msgstr "PDF"
 
-#: frescobaldi_app/engrave/custom.py:239
+#: frescobaldi_app/engrave/custom.py:247
 msgid "PostScript"
 msgstr "PostScript"
 
-#: frescobaldi_app/engrave/custom.py:245
+#: frescobaldi_app/engrave/custom.py:253
 msgid "PNG"
 msgstr "PNG"
 
-#: frescobaldi_app/engrave/custom.py:251
+#: frescobaldi_app/engrave/custom.py:259
 msgid "SVG"
 msgstr "SVG"
 
-#: frescobaldi_app/engrave/custom.py:257
+#: frescobaldi_app/engrave/custom.py:265
 msgid "PDF (EPS Backend)"
 msgstr "PDF (EPS-backend)"
 
-#: frescobaldi_app/engrave/custom.py:263
+#: frescobaldi_app/engrave/custom.py:271
 msgid "Encapsulated PostScript (EPS Backend)"
 msgstr "Encapsulated PostScript (EPS-backend)"
 
-#: frescobaldi_app/engrave/custom.py:269
+#: frescobaldi_app/engrave/custom.py:277
 msgid "PNG (EPS Backend)"
 msgstr "PNG (EPS-backend)"
 
@@ -3208,15 +3213,15 @@ msgstr "Lilypond-book:"
 msgid "Include in automatic version selection"
 msgstr "Meenemen in automatische versie-selectie"
 
-#: frescobaldi_app/preferences/lilypond.py:279
+#: frescobaldi_app/preferences/lilypond.py:281
 msgid "Running LilyPond"
 msgstr "Bij het starten van LilyPond"
 
-#: frescobaldi_app/preferences/lilypond.py:280
+#: frescobaldi_app/preferences/lilypond.py:282
 msgid "Save document if possible"
 msgstr "Document opslaan indien mogelijk"
 
-#: frescobaldi_app/preferences/lilypond.py:282
+#: frescobaldi_app/preferences/lilypond.py:284
 msgid ""
 "If checked, the document is saved when it is local and modified.\n"
 "Otherwise a temporary file is used to run LilyPond."
@@ -3226,13 +3231,21 @@ msgstr ""
 "Indien het document niet wordt opgeslagen, wordt een tijdelijk bestand "
 "gebruikt om LilyPond te starten."
 
-#: frescobaldi_app/preferences/lilypond.py:286
+#: frescobaldi_app/preferences/lilypond.py:288
 msgid "If checked, LilyPond will delete intermediate PostScript files."
 msgstr ""
 "Indien ingeschakeld, zal LilyPond tussentijdse PostScript-uitvoerbestanden "
 "verwijderen."
 
-#: frescobaldi_app/preferences/lilypond.py:287
+#: frescobaldi_app/preferences/lilypond.py:291
+msgid ""
+"If checked, LilyPond's output messages will be in English.\n"
+"This can be useful for bug reports."
+msgstr ""
+"Indien ingeschakeld, zullen LilyPond's uitvoerberichten in het Engels zijn.\n"
+"Dit kan handig zijn voor bug-rapportages."
+
+#: frescobaldi_app/preferences/lilypond.py:293
 msgid "LilyPond include path:"
 msgstr "LilyPond include-pad:"
 
