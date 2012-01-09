@@ -56,6 +56,7 @@ includes = [
     'functools',
     'optparse',
     'os',
+    'platform',
     're',
     'sys',
     'shutil',
