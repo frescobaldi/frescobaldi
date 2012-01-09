@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-09 17:58+0100\n"
+"POT-Creation-Date: 2012-01-09 18:50+0100\n"
 "PO-Revision-Date: 2009-10-08 21:17+0300\n"
 "Last-Translator: Artem Zolochevskiy <artem.zolochevskiy@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -5942,17 +5942,17 @@ msgstr ""
 msgid "Click this button a few times to set the tempo."
 msgstr "Щёлкните по кнопке несколько раз, чтобы установить темп."
 
-#: frescobaldi_app/widgets/urlrequester.py:75
+#: frescobaldi_app/widgets/urlrequester.py:74
 #, fuzzy
 msgid "Open file dialog"
 msgstr "Открыть файл"
 
-#: frescobaldi_app/widgets/urlrequester.py:119
+#: frescobaldi_app/widgets/urlrequester.py:118
 #, fuzzy
 msgid "Select a directory"
 msgstr "Каталог по умолчанию:"
 
-#: frescobaldi_app/widgets/urlrequester.py:121
+#: frescobaldi_app/widgets/urlrequester.py:120
 msgid "Select a file"
 msgstr ""
 

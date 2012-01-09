@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-09 17:58+0100\n"
+"POT-Creation-Date: 2012-01-09 18:50+0100\n"
 "PO-Revision-Date: 2011-12-01 17:39+0100\n"
 "Last-Translator: .billyBoh <billyboh@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -6370,15 +6370,15 @@ msgstr "Usa la scorciatoia &predefinita ({name})"
 msgid "Click this button a few times to set the tempo."
 msgstr "Fare clic a tempo su questo pulsante per impostare la velocità."
 
-#: frescobaldi_app/widgets/urlrequester.py:75
+#: frescobaldi_app/widgets/urlrequester.py:74
 msgid "Open file dialog"
 msgstr "Finestra di apertura dei file"
 
-#: frescobaldi_app/widgets/urlrequester.py:119
+#: frescobaldi_app/widgets/urlrequester.py:118
 msgid "Select a directory"
 msgstr "Scegliere una cartella"
 
-#: frescobaldi_app/widgets/urlrequester.py:121
+#: frescobaldi_app/widgets/urlrequester.py:120
 msgid "Select a file"
 msgstr "Scegliere un file"
 

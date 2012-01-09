@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-09 17:58+0100\n"
+"POT-Creation-Date: 2012-01-09 18:50+0100\n"
 "PO-Revision-Date: 2011-12-21 01:04+0100\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -6357,15 +6357,15 @@ msgstr "Usar la combinación pre&determinada ({name})"
 msgid "Click this button a few times to set the tempo."
 msgstr "Pulse este botón varias veces para establecer el tempo."
 
-#: frescobaldi_app/widgets/urlrequester.py:75
+#: frescobaldi_app/widgets/urlrequester.py:74
 msgid "Open file dialog"
 msgstr "Diálogo de abrir archivo"
 
-#: frescobaldi_app/widgets/urlrequester.py:119
+#: frescobaldi_app/widgets/urlrequester.py:118
 msgid "Select a directory"
 msgstr "Seleccione un directorio"
 
-#: frescobaldi_app/widgets/urlrequester.py:121
+#: frescobaldi_app/widgets/urlrequester.py:120
 msgid "Select a file"
 msgstr "Seleccione un archivo"
 

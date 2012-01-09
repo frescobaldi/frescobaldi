@@ -2,6 +2,14 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
+Changes in 2.0.2 -- 
+
+* New features:
+  - run LilyPond with English (untranslated) messages
+* Improvements:
+  - file entry fields (like in preferences) are faster
+
+
 Changes in 2.0.1 -- January 8th, 2012
 
 * Updated translations: cs, de

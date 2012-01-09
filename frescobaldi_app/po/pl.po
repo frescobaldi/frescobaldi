@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.1\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-09 17:58+0100\n"
+"POT-Creation-Date: 2012-01-09 18:50+0100\n"
 "PO-Revision-Date: 2010-12-23 10:52+0100\n"
 "Last-Translator: Piotr Komorowski <piotr-komorowski@wp.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -5953,17 +5953,17 @@ msgstr ""
 msgid "Click this button a few times to set the tempo."
 msgstr "Kliknij na ten przycisk by ustalić tempo."
 
-#: frescobaldi_app/widgets/urlrequester.py:75
+#: frescobaldi_app/widgets/urlrequester.py:74
 #, fuzzy
 msgid "Open file dialog"
 msgstr "Otwórz plik"
 
-#: frescobaldi_app/widgets/urlrequester.py:119
+#: frescobaldi_app/widgets/urlrequester.py:118
 #, fuzzy
 msgid "Select a directory"
 msgstr "Domyślna lokalizacja:"
 
-#: frescobaldi_app/widgets/urlrequester.py:121
+#: frescobaldi_app/widgets/urlrequester.py:120
 #, fuzzy
 msgid "Select a file"
 msgstr "Zaznacz wszystko"

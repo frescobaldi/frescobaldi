@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-09 17:58+0100\n"
+"POT-Creation-Date: 2012-01-09 18:50+0100\n"
 "PO-Revision-Date: 2011-12-28 18:57+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -6290,15 +6290,15 @@ msgstr "Použít &výchozí zkratku ({name})"
 msgid "Click this button a few times to set the tempo."
 msgstr "Klepněte na toto tlačítko několikrát, abyste nastavili tempo."
 
-#: frescobaldi_app/widgets/urlrequester.py:75
+#: frescobaldi_app/widgets/urlrequester.py:74
 msgid "Open file dialog"
 msgstr "Otevřít souborový dialog"
 
-#: frescobaldi_app/widgets/urlrequester.py:119
+#: frescobaldi_app/widgets/urlrequester.py:118
 msgid "Select a directory"
 msgstr "Vybrat adresář"
 
-#: frescobaldi_app/widgets/urlrequester.py:121
+#: frescobaldi_app/widgets/urlrequester.py:120
 msgid "Select a file"
 msgstr "Vybrat soubor"
 

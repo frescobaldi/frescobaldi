@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-09 17:58+0100\n"
+"POT-Creation-Date: 2012-01-09 18:50+0100\n"
 "PO-Revision-Date: 2011-12-25 14:42-0500\n"
 "Last-Translator: Ryan Kavanagh <ryanakca@kubuntu.org>\n"
 "Language-Team: Français <>\n"
@@ -6380,15 +6380,15 @@ msgstr "Utiliser le raccourci par &défaut ({name})"
 msgid "Click this button a few times to set the tempo."
 msgstr "Cliquez plusieurs fois sur ce bouton pour régler le tempo."
 
-#: frescobaldi_app/widgets/urlrequester.py:75
+#: frescobaldi_app/widgets/urlrequester.py:74
 msgid "Open file dialog"
 msgstr "Fenêtre d'ouverture de fichier"
 
-#: frescobaldi_app/widgets/urlrequester.py:119
+#: frescobaldi_app/widgets/urlrequester.py:118
 msgid "Select a directory"
 msgstr "Sélectionner un dossier"
 
-#: frescobaldi_app/widgets/urlrequester.py:121
+#: frescobaldi_app/widgets/urlrequester.py:120
 msgid "Select a file"
 msgstr "Sélectionner un fichier"
 
