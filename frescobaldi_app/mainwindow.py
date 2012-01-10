@@ -293,6 +293,8 @@ class MainWindow(QMainWindow):
         self.restoreState(settings.value('state', QByteArray()))
         self.tabBar.setVisible(settings.value('tabbar', True)
             not in (False, "false"))
+        if os.name != "posix" and settings.value('maximized', False) in (True, "true"):
+            self.showMaximized()
         
     def writeSettings(self):
         """ Write a few settings to the application global config. """
@@ -302,7 +304,8 @@ class MainWindow(QMainWindow):
             settings.setValue("size", self.size())
         settings.setValue('state', self.saveState())
         settings.setValue('tabbar', self.tabBar.isVisible())
-        
+        settings.setValue('maximized', self.isMaximized())
+    
     def readSessionSettings(self, settings):
         """Restore ourselves from session manager settings.
         

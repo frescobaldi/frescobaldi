@@ -10,6 +10,7 @@ Changes in 2.0.2 --
   - enlarged some too small icons
   - added some more hyphenation dictionaries
   - file entry fields (like in preferences) are faster
+  - on non-X11 platforms the maximized state of the window is remembered
 
 
 Changes in 2.0.1 -- January 8th, 2012
