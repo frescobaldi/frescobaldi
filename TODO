@@ -1,6 +1,8 @@
 TODO for Frescobaldi 2.x
 ========================
 
+- Make convert-ly.py working in Windows, where it should use the python from
+  the LilyPond package
 
 - Text editor context menu
 
