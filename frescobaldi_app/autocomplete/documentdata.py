@@ -124,16 +124,21 @@ class DocumentDataSource(plugin.DocumentPlugin):
 
 
 def get_filenames(path, directories = False):
-    for root, dirs, files in os.walk(path):
-        for f in files:
-            if f and f[0] not in '.~':
-                name, ext = os.path.splitext(f)
-                if ext.lower() in ('.ly', '.lyi', '.ily'):
-                    yield f
-        if directories:
-            for f in dirs:
-                if f and not f.startswith('.'):
-                    yield f + os.sep
-        return
+    try:
+        for root, dirs, files in os.walk(path):
+            for f in files:
+                if f and f[0] not in '.~':
+                    name, ext = os.path.splitext(f)
+                    if ext.lower() in ('.ly', '.lyi', '.ily'):
+                        yield f
+            if directories:
+                for f in dirs:
+                    if f and not f.startswith('.'):
+                        yield f + os.sep
+            return
+    except UnicodeDecodeError:
+        # this only happens when there are filenames in the wrong encoding,
+        # but never ever bug the user about this while typing :)
+        pass
 
 
