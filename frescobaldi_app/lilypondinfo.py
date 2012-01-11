@@ -147,4 +147,18 @@ class LilyPondInfo(ly.info.LilyPondInfo):
         settings.setValue("lilypond-book", self.lilypond_book)
         settings.setValue("convert-ly", self.convert_ly)
 
+    def python(self):
+        """Returns the path to the LilyPond-provided Python interpreter.
+        
+        This is only used on Windows, where tools like convert-ly can't be
+        run directly.
+        
+        """
+        if self.bindir:
+            for python in ('python-windows.exe', 'pythonw.exe', 'python.exe'):
+                interpreter = os.path.join(self.bindir, python)
+                if os.access(interpreter, os.X_OK):
+                    return interpreter
+        return 'pythonw.exe'
+
 
