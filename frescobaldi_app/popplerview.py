@@ -37,6 +37,7 @@ import qpopplerview
 def _setbackground():
     colors = textformats.formatData('editor').baseColors
     qpopplerview.cache.options().setPaperColor(colors['paper'])
+    qpopplerview.cache.clear()
 app.settingsChanged.connect(_setbackground, -1)
 _setbackground()
 
