@@ -188,9 +188,16 @@ class Dialog(QDialog):
             command = [convert_ly]
         command += ['-f', fromVersion, '-t', toVersion, '-']
         
+        # if the user wants english messages, do it also here
+        env = None
+        if QSettings().value("lilypond_settings/no_translation", False) in (True, "true"):
+            env = dict(os.environ)
+            env['LANGUAGE'] = 'C'
+        
         with util.busyCursor():
             try:
                 proc = subprocess.Popen(command,
+                    env = env,
                     stdin = subprocess.PIPE,
                     stdout = subprocess.PIPE,
                     stderr = subprocess.PIPE)
