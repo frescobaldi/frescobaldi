@@ -1,14 +1,13 @@
 TODO for Frescobaldi 2.x
 ========================
 
-- Make convert-ly.py working in Windows, where it should use the python from
-  the LilyPond package
-
 - Text editor context menu
 
 - LilyPond context help
 
 - Edit->Select Block
+
+- Load .ly file specifying other encoding than UTF-8
 
 - interface for running lilypond-book
 

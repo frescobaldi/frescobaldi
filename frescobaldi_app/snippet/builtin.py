@@ -117,6 +117,10 @@ r"""-*- menu: blocks; selection: strip;
 \times 2/3 { $SELECTION }"""),
 
 
+'breathe': T(None,
+r"""\breathe"""),
+
+
 'onceoverride': T(None,
 r"""-*- name: oo;
 \once \override """),
@@ -161,6 +165,16 @@ r"""-*- name: rel;
 \relative c$CURSOR'$ANCHOR {
 """ '  ' r"""  
 }"""),
+
+
+'score': T(None,
+r"""-*- menu: blocks;
+\score {
+  $SELECTION
+  \layout {}
+  \midi {}
+}
+"""),
 
 
 'uppercase': T(_("Upper case selection"),
@@ -210,7 +224,7 @@ r"""tagline = \markup {
 
 
 'header': T(_("Header Template"),
-r"""-*- name: h;
+r"""-*- name: h; menu: blocks;
 \header {
   title = "$CURSOR"
   composer = ""
@@ -225,7 +239,7 @@ r"""-*- name: h;
 
 
 'no_tagline': T(_("No Tagline"),
-r"""-*- name: nt; python;
+r"""-*- name: nt; python; menu: properties;
 text = 'tagline = ##f'
 if state[-1] != 'header':
     text = '\\header {\n%s\n}' % text
@@ -233,7 +247,7 @@ if state[-1] != 'header':
 
 
 'no_barnumbers': T(_("No Barnumbers"),
-r"""-*- name: nb; python;
+r"""-*- name: nb; python; menu: properties;
 text = r'\remove "Bar_number_engraver"'
 if state[-1] not in ('context', 'with'):
     text = '\\context {\n\\Score\n%s\n}' % text
