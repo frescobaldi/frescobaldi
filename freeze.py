@@ -66,6 +66,7 @@ includes = [
     'types',
     'unicodedata',
     'weakref',
+    'xml.etree.ElementTree',
 ]
 
 excludes = [
