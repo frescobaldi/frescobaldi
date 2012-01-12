@@ -134,8 +134,15 @@ class InsertMenu(SnippetMenu):
 
 
 class TemplateMenu(SnippetMenu):
+    def __init__(self, parent=None):
+        super(TemplateMenu, self).__init__(parent)
+        self.addAction(self.tool().actionCollection.templates_manage)
+        
     def translateUI(self):
         self.setTitle(_("New from &Template"))
+    
+    def insertBeforeAction(self):
+        return self.actions()[-1]
     
     def snippetGroup(self, variables):
         return variables.get('template')
@@ -151,5 +158,11 @@ class TemplateMenu(SnippetMenu):
         if 'template-run' in snippets.get(name).variables:
             import engrave
             engrave.engraver(self.mainwindow()).engrave(True, d)
+    
+    def clearMenu(self):
+        """Deletes the actions on menu hide, except "Manage templates..."."""
+        for a in self.actions()[:-1]:
+            self.removeAction(a)
+            a.deleteLater()
 
 
