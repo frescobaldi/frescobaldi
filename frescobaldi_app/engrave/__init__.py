@@ -103,6 +103,7 @@ class Engraver(plugin.MainWindowPlugin):
         doc = self.stickyDocument() or self.mainwindow().currentDocument()
         dlg.setDocument(doc)
         if dlg.exec_():
+            self.saveDocumentIfDesired()
             self.runJob(dlg.getJob(doc), doc)
     
     def engrave(self, preview, document=None):
@@ -115,6 +116,7 @@ class Engraver(plugin.MainWindowPlugin):
         """
         from . import command
         doc = document or self.stickyDocument() or self.mainwindow().currentDocument()
+        self.saveDocumentIfDesired()
         self.runJob(command.defaultJob(doc, preview), doc)
     
     def engraveAbort(self):
@@ -122,14 +124,19 @@ class Engraver(plugin.MainWindowPlugin):
         if job:
             job.abort()
     
-    def runJob(self, job, document):
-        """Runs the engraving job on behalf of document."""
-        # save the current document if desired and it makes sense 
-        # (i.e. the document is modified and has a local filename)
+    def saveDocumentIfDesired(self):
+        """Saves the current document if desired and it makes sense.
+        
+        (i.e. the document is modified and has a local filename)
+        
+        """
         if QSettings().value("lilypond_settings/save_on_run", False) in (True, "true"):
             doc = self.mainwindow().currentDocument()
             if doc.isModified() and doc.url().toLocalFile():
                 doc.save()
+    
+    def runJob(self, job, document):
+        """Runs the engraving job on behalf of document."""
         jobattributes.get(job).mainwindow = self.mainwindow()
         jobmanager.manager(document).startJob(job)
     
