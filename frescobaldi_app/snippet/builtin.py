@@ -117,10 +117,6 @@ r"""-*- menu: blocks; selection: strip;
 \times 2/3 { $SELECTION }"""),
 
 
-'breathe': T(None,
-r"""\breathe"""),
-
-
 'onceoverride': T(None,
 r"""-*- name: oo;
 \once \override """),

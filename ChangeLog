@@ -5,14 +5,16 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 Changes in 2.0.2 -- 
 
 * New features:
-  - run LilyPond with English (untranslated) messages
+  - optionally run LilyPond with English (untranslated) messages
 * Improvements:
-  - make convert-ly work under Windows
+  - "Manage templates" command added in File->templates menu
+  - more snippets in Insert menu
   - enlarged some too small icons
   - added some more hyphenation dictionaries
   - file entry fields (like in preferences) are faster
   - on non-X11 platforms the maximized state of the window is remembered
 * Bug fixes:
+  - make convert-ly work under Windows
   - snippet import/export now works in the Windows-installer binary
   - PDF now correctly updates when "Save document on compile" is enabled
 
