@@ -48,7 +48,7 @@ class Widget(QWidget):
         layout.setSpacing(0)
         
         self.searchEntry = SearchLineEdit()
-        self.treeView = QTreeView()
+        self.treeView = QTreeView(contextMenuPolicy=Qt.CustomContextMenu)
         self.textView = QTextBrowser()
         
         applyButton = QToolButton(autoRaise=True)
@@ -134,6 +134,7 @@ class Widget(QWidget):
         self.searchEntry.returnPressed.connect(self.slotReturnPressed)
         self.searchEntry.textChanged.connect(self.updateFilter)
         self.treeView.doubleClicked.connect(self.slotDoubleClicked)
+        self.treeView.customContextMenuRequested.connect(self.showContextMenu)
         self.treeView.selectionModel().currentChanged.connect(self.updateText)
         self.treeView.model().dataChanged.connect(self.updateFilter)
         
@@ -209,6 +210,10 @@ class Widget(QWidget):
         self.textView.setFont(data.font)
         self.textView.setPalette(data.palette())
 
+    def showContextMenu(self, pos):
+        """Called when the user right-clicks the tree view."""
+        self.menuButton.menu().popup(self.treeView.viewport().mapToGlobal(pos))
+    
     def slotReturnPressed(self):
         """Called when the user presses Return in the search entry. Applies current snippet."""
         name = self.currentSnippet()
