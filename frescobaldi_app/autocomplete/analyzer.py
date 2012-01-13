@@ -308,12 +308,12 @@ def with_(self):
     self.backuntil(lx.Space)
     return completiondata.lilypond_with_contents
 
-def new_context(self):
+def translator(self):
     """complete context name after \\new, \\change or \\context in music"""
     for t in self.tokens[-2::-1]:
         if isinstance(t, lp.ContextName):
             return
-        elif isinstance(t, lp.New):
+        elif isinstance(t, lp.Translator):
             break
     self.backuntil(lx.Space)
     return completiondata.lilypond_contexts
@@ -452,8 +452,11 @@ _tests = {
         context_variable_set,
         with_,
     ),
-    lp.ParseNewContext: (
-        new_context,
+    lp.ParseTranslator: (
+        translator,
+    ),
+    lp.ExpectTranslatorId: (
+        translator,
     ),
     lp.ParseOverride: (
         override,

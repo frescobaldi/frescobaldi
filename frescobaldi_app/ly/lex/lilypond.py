@@ -494,20 +494,23 @@ class Unset(Keyword):
         state.enter(ParseUnset())
 
 
-class New(Command):
-    rx = r"\\new\b"
+class Translator(Command):
     def updateState(self, state):
-        state.enter(ParseNewContext())
-        
-        
-class Context(New):
-    rx = r"\\context\b"
-    
+        state.enter(ParseTranslator())
 
-class Change(New):
+
+class New(Translator):
+    rx = r"\\new\b"
+
+
+class Context(Translator):
+    rx = r"\\context\b"
+
+
+class Change(Translator):
     rx = r"\\change\b"
-    
-    
+
+
 class Clef(Command):
     rx = r"\\clef\b"
     def updateState(self, state):
@@ -1068,13 +1071,37 @@ class ParseUnset(FallthroughParser):
     )
 
 
-class ParseNewContext(FallthroughParser):
+class ParseTranslator(FallthroughParser):
     items = space_items + (
         ContextName,
         Name,
+    )
+    
+    def updateState(self, state, token):
+        if isinstance(token, (Name, ContextName)):
+            state.replace(ExpectTranslatorId())
+
+
+class ExpectTranslatorId(FallthroughParser):
+    items = space_items + (
         EqualSign,
+    )
+    
+    def updateState(self, state, token):
+        if token == '=':
+            state.replace(ParseTranslatorId())
+
+
+class ParseTranslatorId(FallthroughParser):
+    argcount = 1
+    items = space_items + (
+        Name,
         StringQuotedStart,
     )
+    
+    def updateState(self, state, token):
+        if isinstance(token, Name):
+            state.leave()
 
 
 class ParseClef(FallthroughParser):

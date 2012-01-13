@@ -211,7 +211,7 @@ def rel2abs(cursor):
         
         while True:
             # eat stuff like \new Staff == "bla" \new Voice \notes etc.
-            if isinstance(source.state.parser(), ly.lex.lilypond.ParseNewContext):
+            if isinstance(source.state.parser(), ly.lex.lilypond.ParseTranslator):
                 t = consume()
             elif isinstance(t, (ly.lex.lilypond.ChordMode, ly.lex.lilypond.NoteMode)):
                 t = next(tsource)
@@ -329,7 +329,7 @@ def abs2rel(cursor):
         
         while True:
             # eat stuff like \new Staff == "bla" \new Voice \notes etc.
-            if isinstance(source.state.parser(), ly.lex.lilypond.ParseNewContext):
+            if isinstance(source.state.parser(), ly.lex.lilypond.ParseTranslator):
                 t = consume()
             elif isinstance(t, ly.lex.lilypond.NoteMode):
                 t = next(tsource)
@@ -537,7 +537,7 @@ def transpose(cursor, mainwindow):
         
         while True:
             # eat stuff like \new Staff == "bla" \new Voice \notes etc.
-            if isinstance(source.state.parser(), ly.lex.lilypond.ParseNewContext):
+            if isinstance(source.state.parser(), ly.lex.lilypond.ParseTranslator):
                 t = consume()
             elif isinstance(t, ly.lex.lilypond.NoteMode):
                 t = next(tsource)
