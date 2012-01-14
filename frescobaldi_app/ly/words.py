@@ -614,6 +614,7 @@ markupcommands_nargs = (
     'path',     # added in LP 2.13.31
     'raise',
     'rotate',
+    'scale',
     'translate',
     'translate-scaled',
     'with-color',

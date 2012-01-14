@@ -62,7 +62,7 @@ class DocumentDataSource(plugin.DocumentPlugin):
     def markup(self):
         """Completes markup commands and normal text from the document."""
         return listmodel.ListModel(
-            ['\\' + w for w in ly.words.markupcommands]
+            ['\\' + w for w in sorted(ly.words.markupcommands)]
             + sorted(set(harvest.words(self.document()))))
 
     @util.keep
