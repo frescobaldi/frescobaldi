@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-12 10:14+0100\n"
+"POT-Creation-Date: 2012-01-14 12:50+0100\n"
 "PO-Revision-Date: 2009-10-08 21:17+0300\n"
 "Last-Translator: Artem Zolochevskiy <artem.zolochevskiy@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -218,7 +218,7 @@ msgstr "Размер страницы:"
 msgid "Run Again"
 msgstr ""
 
-#: frescobaldi_app/convert_ly.py:138 frescobaldi_app/docbrowser/browser.py:154
+#: frescobaldi_app/convert_ly.py:138 frescobaldi_app/docbrowser/browser.py:156
 #: frescobaldi_app/musicview/image.py:166
 msgid "<unknown>"
 msgstr ""
@@ -430,7 +430,7 @@ msgid "Lyrics"
 msgstr "Тексты"
 
 #: frescobaldi_app/hyphendialog.py:166 frescobaldi_app/pitch/pitch.py:744
-#: frescobaldi_app/rhythm/rhythm.py:279 frescobaldi_app/scorewiz/dialog.py:198
+#: frescobaldi_app/rhythm/rhythm.py:279 frescobaldi_app/scorewiz/dialog.py:194
 #, fuzzy
 msgctxt "menu title"
 msgid "Tools"
@@ -1116,45 +1116,55 @@ msgstr "Документация LilyPond"
 msgid "&Documentation Browser"
 msgstr "Документация LilyPond"
 
-#: frescobaldi_app/docbrowser/__init__.py:80
+#: frescobaldi_app/docbrowser/__init__.py:82
 #: frescobaldi_app/help/browser.py:76
 #, fuzzy
 msgid "Back"
 msgstr "Медные духовые"
 
-#: frescobaldi_app/docbrowser/__init__.py:81
+#: frescobaldi_app/docbrowser/__init__.py:83
 #: frescobaldi_app/help/browser.py:77
 msgid "Forward"
 msgstr ""
 
 #. L10N: Home page of the LilyPond manual
-#: frescobaldi_app/docbrowser/__init__.py:83
+#: frescobaldi_app/docbrowser/__init__.py:85
 msgid "Home"
 msgstr ""
 
-#: frescobaldi_app/docbrowser/__init__.py:84
+#: frescobaldi_app/docbrowser/__init__.py:86
+#, fuzzy
+msgid "Print..."
+msgstr "Печать"
+
+#: frescobaldi_app/docbrowser/__init__.py:87
 #, fuzzy
 msgid "&LilyPond Documentation"
 msgstr "Документация LilyPond:"
 
-#: frescobaldi_app/docbrowser/__init__.py:85
+#: frescobaldi_app/docbrowser/__init__.py:88
 #, fuzzy
 msgid "&Contextual LilyPond Help"
 msgstr "LilyPond"
 
-#: frescobaldi_app/docbrowser/browser.py:111
+#: frescobaldi_app/docbrowser/browser.py:113
 #: frescobaldi_app/snippet/widget.py:168
 msgid "Search..."
 msgstr "Поиск..."
 
-#: frescobaldi_app/docbrowser/browser.py:151
+#: frescobaldi_app/docbrowser/browser.py:153
 #, fuzzy
 msgid "(local)"
 msgstr "Голос"
 
-#: frescobaldi_app/docbrowser/browser.py:153
+#: frescobaldi_app/docbrowser/browser.py:155
 msgid "({hostname})"
 msgstr ""
+
+#: frescobaldi_app/docbrowser/browser.py:227
+#, fuzzy
+msgid "Print"
+msgstr "Печать"
 
 #: frescobaldi_app/docbrowser/sourceviewer.py:59
 #, fuzzy
@@ -1172,31 +1182,31 @@ msgstr "&Документ"
 msgid "Docum&ents"
 msgstr "&Документ"
 
-#: frescobaldi_app/engrave/__init__.py:170
+#: frescobaldi_app/engrave/__init__.py:177
 msgid "&Always Engrave [{docname}]"
 msgstr ""
 
-#: frescobaldi_app/engrave/__init__.py:172
+#: frescobaldi_app/engrave/__init__.py:179
 msgid "&Always Engrave This Document"
 msgstr ""
 
-#: frescobaldi_app/engrave/__init__.py:201
+#: frescobaldi_app/engrave/__init__.py:208
 msgid "Engrave"
 msgstr ""
 
-#: frescobaldi_app/engrave/__init__.py:202
+#: frescobaldi_app/engrave/__init__.py:209
 msgid "&Engrave (preview)"
 msgstr ""
 
-#: frescobaldi_app/engrave/__init__.py:203
+#: frescobaldi_app/engrave/__init__.py:210
 msgid "Engrave (&publish)"
 msgstr ""
 
-#: frescobaldi_app/engrave/__init__.py:204
+#: frescobaldi_app/engrave/__init__.py:211
 msgid "Engrave (&custom)..."
 msgstr ""
 
-#: frescobaldi_app/engrave/__init__.py:205
+#: frescobaldi_app/engrave/__init__.py:212
 msgid "Abort Engraving &Job"
 msgstr ""
 
@@ -1419,7 +1429,7 @@ msgstr ""
 #: frescobaldi_app/help/contents.py:136
 #: frescobaldi_app/preferences/fontscolors.py:482
 #: frescobaldi_app/preferences/lilypond.py:237
-#: frescobaldi_app/scorewiz/settings.py:289
+#: frescobaldi_app/scorewiz/settings.py:295
 msgid "LilyPond"
 msgstr "LilyPond"
 
@@ -2467,9 +2477,9 @@ msgstr "Язык:"
 
 #: frescobaldi_app/preferences/documentation.py:124
 #: frescobaldi_app/preferences/general.py:124
-#: frescobaldi_app/scorewiz/settings.py:132
-#: frescobaldi_app/scorewiz/settings.py:198
-#: frescobaldi_app/scorewiz/settings.py:293
+#: frescobaldi_app/scorewiz/settings.py:138
+#: frescobaldi_app/scorewiz/settings.py:204
+#: frescobaldi_app/scorewiz/settings.py:299
 #: frescobaldi_app/scorewiz/parts/_base.py:214
 #: frescobaldi_app/scorewiz/parts/plucked_strings.py:65
 #: frescobaldi_app/widgets/schemeselector.py:115
@@ -2477,7 +2487,7 @@ msgid "Default"
 msgstr "По умолчанию"
 
 #: frescobaldi_app/preferences/documentation.py:125
-#: frescobaldi_app/scorewiz/settings.py:196
+#: frescobaldi_app/scorewiz/settings.py:202
 msgid "English (untranslated)"
 msgstr ""
 
@@ -2636,7 +2646,7 @@ msgstr "Альбомная"
 #: frescobaldi_app/preferences/fontscolors.py:522
 #: frescobaldi_app/preferences/fontscolors.py:530
 #: frescobaldi_app/preferences/fontscolors.py:538
-#: frescobaldi_app/snippet/builtin.py:288
+#: frescobaldi_app/snippet/builtin.py:284
 #, fuzzy
 msgid "Comment"
 msgstr "Команда печати:"
@@ -2698,7 +2708,7 @@ msgid "Check"
 msgstr ""
 
 #: frescobaldi_app/preferences/fontscolors.py:496
-#: frescobaldi_app/snippet/builtin.py:158
+#: frescobaldi_app/snippet/builtin.py:154
 msgid "Repeat"
 msgstr ""
 
@@ -2719,7 +2729,7 @@ msgid "User Command"
 msgstr "Команда печати:"
 
 #: frescobaldi_app/preferences/fontscolors.py:501
-#: frescobaldi_app/snippet/builtin.py:198
+#: frescobaldi_app/snippet/builtin.py:194
 #, fuzzy
 msgid "Markup"
 msgstr "Арфа"
@@ -2813,7 +2823,7 @@ msgid "Verbatim"
 msgstr ""
 
 #: frescobaldi_app/preferences/general.py:120
-#: frescobaldi_app/scorewiz/settings.py:216
+#: frescobaldi_app/scorewiz/settings.py:222
 msgid "Language:"
 msgstr "Язык:"
 
@@ -3182,7 +3192,7 @@ msgid "Group documents by directory"
 msgstr "Открыть текущую папку"
 
 #: frescobaldi_app/quickinsert/__init__.py:47
-#: frescobaldi_app/quickinsert/__init__.py:70
+#: frescobaldi_app/quickinsert/__init__.py:71
 msgid "Quick Insert"
 msgstr "Быстрая вставка"
 
@@ -3499,7 +3509,7 @@ msgstr ""
 
 #: frescobaldi_app/quickinsert/buttongroup.py:182
 #: frescobaldi_app/scorewiz/scoreproperties.py:171
-#: frescobaldi_app/scorewiz/settings.py:189
+#: frescobaldi_app/scorewiz/settings.py:195
 #: frescobaldi_app/snippet/edit.py:125
 msgid "None"
 msgstr "Нет"
@@ -3881,7 +3891,7 @@ msgid "Rhythm"
 msgstr "&Ритм"
 
 #: frescobaldi_app/scorewiz/__init__.py:59
-#: frescobaldi_app/scorewiz/dialog.py:198
+#: frescobaldi_app/scorewiz/dialog.py:194
 msgid "Setup New Score..."
 msgstr "Новая партитура"
 
@@ -3911,32 +3921,32 @@ msgstr ""
 msgid "Preview"
 msgstr "Предпросмотр PDF"
 
-#: frescobaldi_app/scorewiz/dialog.py:130
+#: frescobaldi_app/scorewiz/dialog.py:126
 #, fuzzy
 msgid "Score Preview"
 msgstr "Предпросмотр PDF"
 
-#: frescobaldi_app/scorewiz/dialog.py:164
+#: frescobaldi_app/scorewiz/dialog.py:160
 #, fuzzy
 msgid "&Titles and Headers"
 msgstr "Заголовки"
 
-#: frescobaldi_app/scorewiz/dialog.py:173
+#: frescobaldi_app/scorewiz/dialog.py:169
 #, fuzzy
 msgid "&Parts"
 msgstr "Инструменты"
 
-#: frescobaldi_app/scorewiz/dialog.py:182
+#: frescobaldi_app/scorewiz/dialog.py:178
 #, fuzzy
 msgid "&Score settings"
 msgstr "Настройки партитуры"
 
-#: frescobaldi_app/scorewiz/dialog.py:191
+#: frescobaldi_app/scorewiz/dialog.py:187
 #, fuzzy
 msgid "The Score Wizard"
 msgstr "Мастер Настройки Партитуры"
 
-#: frescobaldi_app/scorewiz/dialog.py:199
+#: frescobaldi_app/scorewiz/dialog.py:195
 msgid ""
 "<p>\n"
 "The Score Setup Wizard ({key}) in {menu} is designed\n"
@@ -4147,53 +4157,53 @@ msgstr "Эолийский"
 msgid "Locrian"
 msgstr "Локрийский"
 
-#: frescobaldi_app/scorewiz/settings.py:73
+#: frescobaldi_app/scorewiz/settings.py:79
 #, fuzzy
 msgid "Score properties"
 msgstr "Настройки партитуры"
 
-#: frescobaldi_app/scorewiz/settings.py:112
+#: frescobaldi_app/scorewiz/settings.py:118
 msgid "General preferences"
 msgstr "Общие настройки"
 
-#: frescobaldi_app/scorewiz/settings.py:113
+#: frescobaldi_app/scorewiz/settings.py:119
 msgid "Use typographical quotes"
 msgstr "Использовать типографские кавычки"
 
-#: frescobaldi_app/scorewiz/settings.py:115
+#: frescobaldi_app/scorewiz/settings.py:121
 msgid "Replace normal quotes in titles with nice typographical quotes."
 msgstr "Заменить обычные кавычки в заголовках на типографские."
 
-#: frescobaldi_app/scorewiz/settings.py:116
+#: frescobaldi_app/scorewiz/settings.py:122
 msgid "Remove default tagline"
 msgstr "Удалить строку программы по умолчанию"
 
-#: frescobaldi_app/scorewiz/settings.py:118
+#: frescobaldi_app/scorewiz/settings.py:124
 msgid "Suppress the default tagline output by LilyPond."
 msgstr "Удаляет строку программы выводимую LilyPond по умолчанию."
 
-#: frescobaldi_app/scorewiz/settings.py:119
+#: frescobaldi_app/scorewiz/settings.py:125
 msgid "Remove bar numbers"
 msgstr "Удалить номера тактов"
 
-#: frescobaldi_app/scorewiz/settings.py:121
+#: frescobaldi_app/scorewiz/settings.py:127
 msgid ""
 "Suppress the display of measure numbers at the beginning of every system."
 msgstr "Удаляет номера тактов в начале каждой системы."
 
-#: frescobaldi_app/scorewiz/settings.py:123
+#: frescobaldi_app/scorewiz/settings.py:129
 msgid "Create MIDI output"
 msgstr "Создать MIDI"
 
-#: frescobaldi_app/scorewiz/settings.py:125
+#: frescobaldi_app/scorewiz/settings.py:131
 msgid "Create a MIDI file in addition to the PDF file."
 msgstr "Создать MIDI файл, в дополнение к PDF"
 
-#: frescobaldi_app/scorewiz/settings.py:126
+#: frescobaldi_app/scorewiz/settings.py:132
 msgid "Show metronome mark"
 msgstr "Показать метроном"
 
-#: frescobaldi_app/scorewiz/settings.py:128
+#: frescobaldi_app/scorewiz/settings.py:134
 msgid ""
 "If checked, show the metronome mark at the beginning of the score. The MIDI "
 "output also uses the metronome setting."
@@ -4201,64 +4211,64 @@ msgstr ""
 "Если выбрано, показывает значение метронома в начале партитуры. Вывод MIDI "
 "также использует значение метронома."
 
-#: frescobaldi_app/scorewiz/settings.py:131
+#: frescobaldi_app/scorewiz/settings.py:137
 msgid "Paper size:"
 msgstr "Размер страницы:"
 
-#: frescobaldi_app/scorewiz/settings.py:133
+#: frescobaldi_app/scorewiz/settings.py:139
 msgid "Landscape"
 msgstr "Альбомная"
 
-#: frescobaldi_app/scorewiz/settings.py:186
-#: frescobaldi_app/scorewiz/settings.py:189
+#: frescobaldi_app/scorewiz/settings.py:192
+#: frescobaldi_app/scorewiz/settings.py:195
 msgid "Long"
 msgstr "Длинный"
 
-#: frescobaldi_app/scorewiz/settings.py:186
-#: frescobaldi_app/scorewiz/settings.py:189
+#: frescobaldi_app/scorewiz/settings.py:192
+#: frescobaldi_app/scorewiz/settings.py:195
 msgid "Short"
 msgstr "Короткий"
 
-#: frescobaldi_app/scorewiz/settings.py:213
+#: frescobaldi_app/scorewiz/settings.py:219
 msgid "Instrument names"
 msgstr "Названия инструментов"
 
-#: frescobaldi_app/scorewiz/settings.py:214
+#: frescobaldi_app/scorewiz/settings.py:220
 msgid "First system:"
 msgstr "Первая система:"
 
-#: frescobaldi_app/scorewiz/settings.py:215
+#: frescobaldi_app/scorewiz/settings.py:221
 msgid "Other systems:"
 msgstr "Остальные системы:"
 
-#: frescobaldi_app/scorewiz/settings.py:218
+#: frescobaldi_app/scorewiz/settings.py:224
 msgid "Use long or short instrument names before the first system."
 msgstr ""
 "Использовать длинные или короткие имена инструментов перед первой системой."
 
-#: frescobaldi_app/scorewiz/settings.py:220
+#: frescobaldi_app/scorewiz/settings.py:226
 msgid "Use short, long or no instrument names before the next systems."
 msgstr ""
 "(Не)Показывать сокращенные или длинные названия инструментов перед "
 "следующими системами."
 
-#: frescobaldi_app/scorewiz/settings.py:222
+#: frescobaldi_app/scorewiz/settings.py:228
 msgid "Which language to use for the instrument names."
 msgstr "Язык LilyPond для названий инструментов."
 
-#: frescobaldi_app/scorewiz/settings.py:290
+#: frescobaldi_app/scorewiz/settings.py:296
 msgid "Pitch name language:"
 msgstr "Язык нотной записи:"
 
-#: frescobaldi_app/scorewiz/settings.py:292
+#: frescobaldi_app/scorewiz/settings.py:298
 msgid "The LilyPond language you want to use for the pitch names."
 msgstr "Язык LilyPond для обозначения нот."
 
-#: frescobaldi_app/scorewiz/settings.py:294
+#: frescobaldi_app/scorewiz/settings.py:300
 msgid "Version:"
 msgstr "Версия:"
 
-#: frescobaldi_app/scorewiz/settings.py:296
+#: frescobaldi_app/scorewiz/settings.py:302
 msgid "The LilyPond version you will be using for this document."
 msgstr "Версия LilyPond используемая для текущего документа."
 
@@ -5322,108 +5332,108 @@ msgstr "Использовать типографские кавычки"
 msgid "Tuplets"
 msgstr ""
 
-#: frescobaldi_app/snippet/builtin.py:129
+#: frescobaldi_app/snippet/builtin.py:125
 #, fuzzy
 msgid "Modern 2/2 Time Signature"
 msgstr "Размер:"
 
-#: frescobaldi_app/snippet/builtin.py:135
+#: frescobaldi_app/snippet/builtin.py:131
 #, fuzzy
 msgid "Modern 4/4 Time Signature"
 msgstr "Размер:"
 
-#: frescobaldi_app/snippet/builtin.py:141
+#: frescobaldi_app/snippet/builtin.py:137
 msgid "Tactus Time Signature (number with note)"
 msgstr ""
 
-#: frescobaldi_app/snippet/builtin.py:152
+#: frescobaldi_app/snippet/builtin.py:148
 #, fuzzy
 msgid "LilyPond Version"
 msgstr "Вставить версию LilyPond"
 
-#: frescobaldi_app/snippet/builtin.py:163
+#: frescobaldi_app/snippet/builtin.py:159
 msgid "Relative Music"
 msgstr ""
 
-#: frescobaldi_app/snippet/builtin.py:180
+#: frescobaldi_app/snippet/builtin.py:176
 #, fuzzy
 msgid "Upper case selection"
 msgstr "Настройки партитуры"
 
-#: frescobaldi_app/snippet/builtin.py:186
+#: frescobaldi_app/snippet/builtin.py:182
 #, fuzzy
 msgid "Lower case selection"
 msgstr "Настройки партитуры"
 
-#: frescobaldi_app/snippet/builtin.py:192
+#: frescobaldi_app/snippet/builtin.py:188
 #, fuzzy
 msgid "Title case selection"
 msgstr "Построчный режим выбора"
 
-#: frescobaldi_app/snippet/builtin.py:203
+#: frescobaldi_app/snippet/builtin.py:199
 #, fuzzy
 msgid "Markup lines"
 msgstr "&Тактовые черты"
 
-#: frescobaldi_app/snippet/builtin.py:211
+#: frescobaldi_app/snippet/builtin.py:207
 msgid "Markup column"
 msgstr ""
 
-#: frescobaldi_app/snippet/builtin.py:216
+#: frescobaldi_app/snippet/builtin.py:212
 #, fuzzy
 msgid "Tagline with date and LilyPond version"
 msgstr "Вставить версию LilyPond"
 
-#: frescobaldi_app/snippet/builtin.py:226
+#: frescobaldi_app/snippet/builtin.py:222
 msgid "Header Template"
 msgstr ""
 
-#: frescobaldi_app/snippet/builtin.py:241
+#: frescobaldi_app/snippet/builtin.py:237
 #, fuzzy
 msgid "No Tagline"
 msgstr "Строка программы"
 
-#: frescobaldi_app/snippet/builtin.py:249
+#: frescobaldi_app/snippet/builtin.py:245
 #, fuzzy
 msgid "No Barnumbers"
 msgstr "Удалить номера тактов"
 
-#: frescobaldi_app/snippet/builtin.py:259
+#: frescobaldi_app/snippet/builtin.py:255
 #, fuzzy
 msgid "Midi Tempo"
 msgstr "Темп:"
 
-#: frescobaldi_app/snippet/builtin.py:269
+#: frescobaldi_app/snippet/builtin.py:265
 #, fuzzy
 msgid "Staff Size"
 msgstr "Тип нотоносца:"
 
-#: frescobaldi_app/snippet/builtin.py:324
+#: frescobaldi_app/snippet/builtin.py:320
 #, fuzzy
 msgid "A5 Paper"
 msgstr "Размер страницы:"
 
-#: frescobaldi_app/snippet/builtin.py:332
+#: frescobaldi_app/snippet/builtin.py:328
 #, fuzzy
 msgid "Document Fonts..."
 msgstr "&Документ"
 
-#: frescobaldi_app/snippet/builtin.py:360
+#: frescobaldi_app/snippet/builtin.py:356
 #, fuzzy
 msgid "Last note or chord"
 msgstr "Повторить последнюю ноту или аккорд"
 
-#: frescobaldi_app/snippet/builtin.py:441
+#: frescobaldi_app/snippet/builtin.py:437
 #, fuzzy
 msgid "Color"
 msgstr "Композитор"
 
-#: frescobaldi_app/snippet/builtin.py:478
+#: frescobaldi_app/snippet/builtin.py:474
 #, fuzzy
 msgid "Basic Leadsheet"
 msgstr "Нотный стан"
 
-#: frescobaldi_app/snippet/builtin.py:522
+#: frescobaldi_app/snippet/builtin.py:518
 #, fuzzy
 msgid "Choir Hymn"
 msgstr "Хор"
@@ -5699,7 +5709,7 @@ msgstr ""
 "Используйте только латинские буквы, цифры и символ подчеркивания в названии "
 "расширения."
 
-#: frescobaldi_app/snippet/tool.py:54 frescobaldi_app/snippet/tool.py:131
+#: frescobaldi_app/snippet/tool.py:54 frescobaldi_app/snippet/tool.py:130
 #: frescobaldi_app/snippet/widget.py:367
 #, fuzzy
 msgid "Snippets"
