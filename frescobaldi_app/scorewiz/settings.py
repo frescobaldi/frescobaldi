@@ -35,7 +35,7 @@ import lilypondinfo
 from . import scoreproperties
 
 class SettingsWidget(QWidget):
-   def __init__(self, parent):
+    def __init__(self, parent):
         super(SettingsWidget, self).__init__(parent)
         grid = QGridLayout()
         self.setLayout(grid)
@@ -49,6 +49,12 @@ class SettingsWidget(QWidget):
         grid.addWidget(self.generalPreferences, 0, 1)
         grid.addWidget(self.lilyPondPreferences, 1, 0)
         grid.addWidget(self.instrumentNames, 1, 1)
+    
+    def clear(self):
+        self.scoreProperties.tempo.clear()
+        self.scoreProperties.keyNote.setCurrentIndex(0)
+        self.scoreProperties.keyMode.setCurrentIndex(0)
+        self.scoreProperties.pickup.setCurrentIndex(0)
 
 
 class ScoreProperties(QGroupBox, scoreproperties.ScoreProperties):
