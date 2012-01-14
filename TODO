@@ -1,7 +1,5 @@
-TODO for Frescobaldi 2.x
-========================
-
-- Text editor context menu
+TODO and wishes for Frescobaldi 2.x
+===================================
 
 - LilyPond context help
 
@@ -14,8 +12,6 @@ TODO for Frescobaldi 2.x
 - Midi input and import. Probably using a basic sequencer, allowing changes,
   corrections and quantizing touchups before putting the LilyPond representation
   in the editor.
-
-- define and extend api for script snippets
 
 - tool to separate out things from music and attach them to invisible rests (s)
   in a separate expression
@@ -36,5 +32,12 @@ Other ideas/wishes
 - support for Git/Hg/Svn diff/revert/commit
 
 - play from cursor: plays music to MIDI output
+
+- editor:
+    * context menu (with help, open filename, etc)
+    * folding
+    * vi-mode
+
+- define and extend api for script snippets
 
 

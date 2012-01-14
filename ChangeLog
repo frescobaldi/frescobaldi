@@ -9,6 +9,7 @@ Changes in 2.0.2 --
 * Improvements:
   - "Manage templates" command added in File->templates menu
   - more snippets in Insert menu
+  - context menu on snippet list
   - enlarged some too small icons
   - added some more hyphenation dictionaries
   - file entry fields (like in preferences) are faster
