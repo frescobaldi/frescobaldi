@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Manages a local temporary directory for a Document (e.g. unnamed or remote).
+A widget and dialog to show an output preview of a LilyPond document.
 """
 
 from __future__ import unicode_literals
