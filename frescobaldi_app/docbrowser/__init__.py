@@ -65,6 +65,7 @@ class Actions(actioncollection.ActionCollection):
         self.help_back = QAction(parent)
         self.help_forward = QAction(parent)
         self.help_home = QAction(parent)
+        self.help_print = QAction(parent)
         self.help_lilypond_doc= QAction(parent)
         self.help_lilypond_context = QAction(parent)
         
@@ -72,6 +73,7 @@ class Actions(actioncollection.ActionCollection):
         self.help_forward.setIcon(icons.get("go-next"))
         self.help_home.setIcon(icons.get("go-home"))
         self.help_lilypond_doc.setIcon(icons.get("lilypond-run"))
+        self.help_print.setIcon(icons.get("document-print"))
         
         self.help_lilypond_doc.setShortcut(QKeySequence("F9"))
         self.help_lilypond_context.setShortcut(QKeySequence("Shift+F9"))
@@ -81,6 +83,7 @@ class Actions(actioncollection.ActionCollection):
         self.help_forward.setText(_("Forward"))
         # L10N: Home page of the LilyPond manual
         self.help_home.setText(_("Home"))
+        self.help_print.setText(_("Print..."))
         self.help_lilypond_doc.setText(_("&LilyPond Documentation"))
         self.help_lilypond_context.setText(_("&Contextual LilyPond Help"))
 

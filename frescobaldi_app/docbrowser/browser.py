@@ -39,7 +39,7 @@ import textformats
 
 
 class Browser(QWidget):
-    """We use an embedded QMainWindow so we can add a toolbar nicely."""
+    """LilyPond documentation browser widget."""
     def __init__(self, dockwidget):
         super(Browser, self).__init__(dockwidget)
         
@@ -59,6 +59,7 @@ class Browser(QWidget):
         ac.help_back.triggered.connect(self.webview.back)
         ac.help_forward.triggered.connect(self.webview.forward)
         ac.help_home.triggered.connect(self.showHomePage)
+        ac.help_print.triggered.connect(self.slotPrint)
         
         self.webview.page().setNetworkAccessManager(lilydoc.network.accessmanager())
         self.webview.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
@@ -71,6 +72,7 @@ class Browser(QWidget):
         tb.addAction(ac.help_forward)
         tb.addSeparator()
         tb.addAction(ac.help_home)
+        tb.addAction(ac.help_print)
         tb.addSeparator()
         tb.addWidget(self.chooser)
         tb.addWidget(self.search)
@@ -108,7 +110,7 @@ class Browser(QWidget):
         
     def translateUI(self):
         try:
-            self.search.setPlaceHolderText(_("Search..."))
+            self.search.setPlaceholderText(_("Search..."))
         except AttributeError:
             pass # not in Qt 4.6
     
@@ -218,6 +220,13 @@ class Browser(QWidget):
                         break
             url = QUrl.fromLocalFile(path + '.html')
         self.webview.load(url)
+    
+    def slotPrint(self):
+        printer = QPrinter()
+        dlg = QPrintDialog(printer, self)
+        dlg.setWindowTitle(app.caption(_("Print")))
+        if dlg.exec_():
+            self.webview.print_(printer)
 
 
 class SearchEntry(widgets.lineedit.LineEdit):
