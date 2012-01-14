@@ -165,7 +165,7 @@ class Widget(QWidget):
         
     def translateUI(self):
         try:
-            self.searchEntry.setPlaceHolderText(_("Search..."))
+            self.searchEntry.setPlaceholderText(_("Search..."))
         except AttributeError:
             pass # not in Qt 4.6
         shortcut = lambda a: a.shortcut().toString(QKeySequence.NativeText)
