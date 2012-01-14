@@ -15,6 +15,7 @@ Changes in 2.0.2 --
   - file entry fields (like in preferences) are faster
   - on non-X11 platforms the maximized state of the window is remembered
 * Bug fixes:
+  - make terminating LilyPond work under Windows
   - make convert-ly work under Windows
   - snippet import/export now works in the Windows-installer binary
   - PDF now correctly updates when "Save document on compile" is enabled

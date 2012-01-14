@@ -143,7 +143,10 @@ class Job(object):
         if self._process:
             self._aborted = True
             self.abortMessage()
-            self._process.terminate()
+            if os.name == "nt":
+                self._process.kill()
+            else:
+                self._process.terminate()
     
     def isAborted(self):
         """Returns True if the job was aborted by calling abort()."""
