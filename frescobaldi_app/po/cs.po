@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-14 12:50+0100\n"
+"POT-Creation-Date: 2012-01-14 13:24+0100\n"
 "PO-Revision-Date: 2011-12-28 18:57+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -200,7 +200,7 @@ msgstr "&Změny"
 msgid "Run Again"
 msgstr "Spustit znovu"
 
-#: frescobaldi_app/convert_ly.py:138 frescobaldi_app/docbrowser/browser.py:156
+#: frescobaldi_app/convert_ly.py:138 frescobaldi_app/docbrowser/browser.py:158
 #: frescobaldi_app/musicview/image.py:166
 msgid "<unknown>"
 msgstr "<neznámý>"
@@ -775,7 +775,7 @@ msgstr "&Znovu"
 msgid "Cu&t"
 msgstr "Vyjmou&t"
 
-#: frescobaldi_app/mainwindow.py:947
+#: frescobaldi_app/mainwindow.py:947 frescobaldi_app/docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Kopírovat"
 
@@ -1116,22 +1116,34 @@ msgstr "Dokumentace k &LilyPondu"
 msgid "&Contextual LilyPond Help"
 msgstr "Nápověda k LilyPondu vyplývající ze &souvislosti"
 
-#: frescobaldi_app/docbrowser/browser.py:113
+#: frescobaldi_app/docbrowser/browser.py:115
 #: frescobaldi_app/snippet/widget.py:168
 msgid "Search..."
 msgstr "Hledat..."
 
-#: frescobaldi_app/docbrowser/browser.py:153
+#: frescobaldi_app/docbrowser/browser.py:155
 msgid "(local)"
 msgstr "(místní)"
 
-#: frescobaldi_app/docbrowser/browser.py:155
+#: frescobaldi_app/docbrowser/browser.py:157
 msgid "({hostname})"
 msgstr "({hostname})"
 
-#: frescobaldi_app/docbrowser/browser.py:227
+#: frescobaldi_app/docbrowser/browser.py:229
 msgid "Print"
 msgstr "Tisk"
+
+#: frescobaldi_app/docbrowser/browser.py:239
+msgid "Copy &Link"
+msgstr "Kopírovat &odkaz"
+
+#: frescobaldi_app/docbrowser/browser.py:242
+msgid "Open Link in &New Window"
+msgstr "Otevřít odkaz v &novém okně"
+
+#: frescobaldi_app/docbrowser/browser.py:251
+msgid "Open Document in &New Window"
+msgstr "Otevřít dokument v &novém okně"
 
 #: frescobaldi_app/docbrowser/sourceviewer.py:59
 msgid "LilyPond Source"
@@ -6817,15 +6829,6 @@ msgstr "Vybrat soubor"
 
 #~ msgid "Index"
 #~ msgstr "Rejstřík"
-
-#~ msgid "Copy &Link"
-#~ msgstr "Kopírovat &odkaz"
-
-#~ msgid "Open Link in &New Window"
-#~ msgstr "Otevřít odkaz v &novém okně"
-
-#~ msgid "Open Document in &New Window"
-#~ msgstr "Otevřít dokument v &novém okně"
 
 #~ msgid "Loading..."
 #~ msgstr "Nahrává se ..."

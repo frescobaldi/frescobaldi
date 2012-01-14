@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-14 12:50+0100\n"
+"POT-Creation-Date: 2012-01-14 13:24+0100\n"
 "PO-Revision-Date: 2011-12-21 01:04+0100\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -199,7 +199,7 @@ msgstr "&Cambios"
 msgid "Run Again"
 msgstr "Ejecutar de nuevo"
 
-#: frescobaldi_app/convert_ly.py:138 frescobaldi_app/docbrowser/browser.py:156
+#: frescobaldi_app/convert_ly.py:138 frescobaldi_app/docbrowser/browser.py:158
 #: frescobaldi_app/musicview/image.py:166
 msgid "<unknown>"
 msgstr "<desconocido>"
@@ -775,7 +775,7 @@ msgstr "Reha&cer"
 msgid "Cu&t"
 msgstr "Cor&tar"
 
-#: frescobaldi_app/mainwindow.py:947
+#: frescobaldi_app/mainwindow.py:947 frescobaldi_app/docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Copiar"
 
@@ -1118,22 +1118,34 @@ msgstr "Documentación de &LilyPond"
 msgid "&Contextual LilyPond Help"
 msgstr "Ayuda &contextual de LilyPond"
 
-#: frescobaldi_app/docbrowser/browser.py:113
+#: frescobaldi_app/docbrowser/browser.py:115
 #: frescobaldi_app/snippet/widget.py:168
 msgid "Search..."
 msgstr "Buscar..."
 
-#: frescobaldi_app/docbrowser/browser.py:153
+#: frescobaldi_app/docbrowser/browser.py:155
 msgid "(local)"
 msgstr "(local)"
 
-#: frescobaldi_app/docbrowser/browser.py:155
+#: frescobaldi_app/docbrowser/browser.py:157
 msgid "({hostname})"
 msgstr "({hostname})"
 
-#: frescobaldi_app/docbrowser/browser.py:227
+#: frescobaldi_app/docbrowser/browser.py:229
 msgid "Print"
 msgstr "Imprimir"
+
+#: frescobaldi_app/docbrowser/browser.py:239
+msgid "Copy &Link"
+msgstr ""
+
+#: frescobaldi_app/docbrowser/browser.py:242
+msgid "Open Link in &New Window"
+msgstr ""
+
+#: frescobaldi_app/docbrowser/browser.py:251
+msgid "Open Document in &New Window"
+msgstr ""
 
 #: frescobaldi_app/docbrowser/sourceviewer.py:59
 msgid "LilyPond Source"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-14 12:50+0100\n"
+"POT-Creation-Date: 2012-01-14 13:24+0100\n"
 "PO-Revision-Date: 2010-12-12 07:48+0200\n"
 "Last-Translator: Server Acim <serveracim@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -211,7 +211,7 @@ msgstr "Durakla"
 msgid "Run Again"
 msgstr ""
 
-#: frescobaldi_app/convert_ly.py:138 frescobaldi_app/docbrowser/browser.py:156
+#: frescobaldi_app/convert_ly.py:138 frescobaldi_app/docbrowser/browser.py:158
 #: frescobaldi_app/musicview/image.py:166
 #, fuzzy
 msgid "<unknown>"
@@ -773,7 +773,7 @@ msgstr ""
 msgid "Cu&t"
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:947
+#: frescobaldi_app/mainwindow.py:947 frescobaldi_app/docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Kopyala"
 
@@ -1148,24 +1148,36 @@ msgstr "LilyPond belgelendirmesi:"
 msgid "&Contextual LilyPond Help"
 msgstr "LilyPond &Yardım"
 
-#: frescobaldi_app/docbrowser/browser.py:113
+#: frescobaldi_app/docbrowser/browser.py:115
 #: frescobaldi_app/snippet/widget.py:168
 msgid "Search..."
 msgstr "Ara..."
 
-#: frescobaldi_app/docbrowser/browser.py:153
+#: frescobaldi_app/docbrowser/browser.py:155
 #, fuzzy
 msgid "(local)"
 msgstr "İnsan sesi"
 
-#: frescobaldi_app/docbrowser/browser.py:155
+#: frescobaldi_app/docbrowser/browser.py:157
 msgid "({hostname})"
 msgstr ""
 
-#: frescobaldi_app/docbrowser/browser.py:227
+#: frescobaldi_app/docbrowser/browser.py:229
 #, fuzzy
 msgid "Print"
 msgstr "Yazdır"
+
+#: frescobaldi_app/docbrowser/browser.py:239
+msgid "Copy &Link"
+msgstr "Kopyala &Bağlantı"
+
+#: frescobaldi_app/docbrowser/browser.py:242
+msgid "Open Link in &New Window"
+msgstr "Bağlantıyı Aç &Yeni Pencerede"
+
+#: frescobaldi_app/docbrowser/browser.py:251
+msgid "Open Document in &New Window"
+msgstr "Belgeyi Aç &Yeni Pencerede"
 
 #: frescobaldi_app/docbrowser/sourceviewer.py:59
 #, fuzzy
@@ -6470,15 +6482,6 @@ msgstr "Hepsini seç"
 
 #~ msgid "Index"
 #~ msgstr "İçindekiler"
-
-#~ msgid "Copy &Link"
-#~ msgstr "Kopyala &Bağlantı"
-
-#~ msgid "Open Link in &New Window"
-#~ msgstr "Bağlantıyı Aç &Yeni Pencerede"
-
-#~ msgid "Open Document in &New Window"
-#~ msgstr "Belgeyi Aç &Yeni Pencerede"
 
 #~ msgid "Loading..."
 #~ msgstr "Yüklüyor..."

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-14 12:50+0100\n"
+"POT-Creation-Date: 2012-01-14 13:24+0100\n"
 "PO-Revision-Date: 2011-12-30 18:12+0100\n"
 "Last-Translator: Georg Hennig <georg.hennig@web.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -198,7 +198,7 @@ msgstr "Än&derungen"
 msgid "Run Again"
 msgstr "Nochmal ausführen"
 
-#: frescobaldi_app/convert_ly.py:138 frescobaldi_app/docbrowser/browser.py:156
+#: frescobaldi_app/convert_ly.py:138 frescobaldi_app/docbrowser/browser.py:158
 #: frescobaldi_app/musicview/image.py:166
 msgid "<unknown>"
 msgstr "<unbekannt>"
@@ -767,7 +767,7 @@ msgstr "Wieder&holen"
 msgid "Cu&t"
 msgstr "A&usschneiden"
 
-#: frescobaldi_app/mainwindow.py:947
+#: frescobaldi_app/mainwindow.py:947 frescobaldi_app/docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Kopieren"
 
@@ -1106,22 +1106,34 @@ msgstr "&LilyPond-Dokumentation"
 msgid "&Contextual LilyPond Help"
 msgstr "LilyPond-&Kontext-Hilfe"
 
-#: frescobaldi_app/docbrowser/browser.py:113
+#: frescobaldi_app/docbrowser/browser.py:115
 #: frescobaldi_app/snippet/widget.py:168
 msgid "Search..."
 msgstr "Suche..."
 
-#: frescobaldi_app/docbrowser/browser.py:153
+#: frescobaldi_app/docbrowser/browser.py:155
 msgid "(local)"
 msgstr "(lokal)"
 
-#: frescobaldi_app/docbrowser/browser.py:155
+#: frescobaldi_app/docbrowser/browser.py:157
 msgid "({hostname})"
 msgstr "({hostname})"
 
-#: frescobaldi_app/docbrowser/browser.py:227
+#: frescobaldi_app/docbrowser/browser.py:229
 msgid "Print"
 msgstr "Drucken"
+
+#: frescobaldi_app/docbrowser/browser.py:239
+msgid "Copy &Link"
+msgstr "Kopiere L&ink"
+
+#: frescobaldi_app/docbrowser/browser.py:242
+msgid "Open Link in &New Window"
+msgstr "Öffne Link in &neuem Fenster"
+
+#: frescobaldi_app/docbrowser/browser.py:251
+msgid "Open Document in &New Window"
+msgstr "Öffne Dokument in N&euem Fenster"
 
 #: frescobaldi_app/docbrowser/sourceviewer.py:59
 msgid "LilyPond Source"
@@ -6330,15 +6342,6 @@ msgstr "Datei auswählen"
 
 #~ msgid "Index"
 #~ msgstr "Index"
-
-#~ msgid "Copy &Link"
-#~ msgstr "Kopiere L&ink"
-
-#~ msgid "Open Link in &New Window"
-#~ msgstr "Öffne Link in &neuem Fenster"
-
-#~ msgid "Open Document in &New Window"
-#~ msgstr "Öffne Dokument in N&euem Fenster"
 
 #~ msgid "Loading..."
 #~ msgstr "Lade..."

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-14 12:50+0100\n"
+"POT-Creation-Date: 2012-01-14 13:24+0100\n"
 "PO-Revision-Date: 2012-01-12 10:14+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -197,7 +197,7 @@ msgstr "&Wijzigingen"
 msgid "Run Again"
 msgstr "Opnieuw uitvoeren"
 
-#: frescobaldi_app/convert_ly.py:138 frescobaldi_app/docbrowser/browser.py:156
+#: frescobaldi_app/convert_ly.py:138 frescobaldi_app/docbrowser/browser.py:158
 #: frescobaldi_app/musicview/image.py:166
 msgid "<unknown>"
 msgstr "<onbekend>"
@@ -770,7 +770,7 @@ msgstr "Opnie&uw"
 msgid "Cu&t"
 msgstr "&Knippen"
 
-#: frescobaldi_app/mainwindow.py:947
+#: frescobaldi_app/mainwindow.py:947 frescobaldi_app/docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Kopiëren"
 
@@ -1111,22 +1111,34 @@ msgstr "&LilyPond-documentatie"
 msgid "&Contextual LilyPond Help"
 msgstr "LilyPond-&contexthulp"
 
-#: frescobaldi_app/docbrowser/browser.py:113
+#: frescobaldi_app/docbrowser/browser.py:115
 #: frescobaldi_app/snippet/widget.py:168
 msgid "Search..."
 msgstr "Zoeken..."
 
-#: frescobaldi_app/docbrowser/browser.py:153
+#: frescobaldi_app/docbrowser/browser.py:155
 msgid "(local)"
 msgstr "(lokaal)"
 
-#: frescobaldi_app/docbrowser/browser.py:155
+#: frescobaldi_app/docbrowser/browser.py:157
 msgid "({hostname})"
 msgstr "({hostname})"
 
-#: frescobaldi_app/docbrowser/browser.py:227
+#: frescobaldi_app/docbrowser/browser.py:229
 msgid "Print"
 msgstr "Afdrukken"
+
+#: frescobaldi_app/docbrowser/browser.py:239
+msgid "Copy &Link"
+msgstr "Koppeling &kopiëren"
+
+#: frescobaldi_app/docbrowser/browser.py:242
+msgid "Open Link in &New Window"
+msgstr "Koppeling in &nieuw venster openen"
+
+#: frescobaldi_app/docbrowser/browser.py:251
+msgid "Open Document in &New Window"
+msgstr "Document in &nieuw venster openen"
 
 #: frescobaldi_app/docbrowser/sourceviewer.py:59
 msgid "LilyPond Source"
@@ -7064,15 +7076,6 @@ msgstr "Selecteer een bestand"
 
 #~ msgid "Index"
 #~ msgstr "Index"
-
-#~ msgid "Copy &Link"
-#~ msgstr "Koppeling &kopiëren"
-
-#~ msgid "Open Link in &New Window"
-#~ msgstr "Koppeling in &nieuw venster openen"
-
-#~ msgid "Open Document in &New Window"
-#~ msgstr "Document in &nieuw venster openen"
 
 #~ msgid "Loading..."
 #~ msgstr "Laden..."

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.17\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-14 12:50+0100\n"
+"POT-Creation-Date: 2012-01-14 13:24+0100\n"
 "PO-Revision-Date: 2011-01-03 17:37+0100\n"
 "Last-Translator: Manuel A. Vazquez <xixirei@yahoo.es>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -210,7 +210,7 @@ msgstr "Pausa"
 msgid "Run Again"
 msgstr ""
 
-#: frescobaldi_app/convert_ly.py:138 frescobaldi_app/docbrowser/browser.py:156
+#: frescobaldi_app/convert_ly.py:138 frescobaldi_app/docbrowser/browser.py:158
 #: frescobaldi_app/musicview/image.py:166
 #, fuzzy
 msgid "<unknown>"
@@ -771,7 +771,7 @@ msgstr ""
 msgid "Cu&t"
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:947
+#: frescobaldi_app/mainwindow.py:947 frescobaldi_app/docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Copiar"
 
@@ -1146,24 +1146,36 @@ msgstr "Documentación de LilyPond:"
 msgid "&Contextual LilyPond Help"
 msgstr "A&xuda de LilyPond"
 
-#: frescobaldi_app/docbrowser/browser.py:113
+#: frescobaldi_app/docbrowser/browser.py:115
 #: frescobaldi_app/snippet/widget.py:168
 msgid "Search..."
 msgstr "Busca..."
 
-#: frescobaldi_app/docbrowser/browser.py:153
+#: frescobaldi_app/docbrowser/browser.py:155
 #, fuzzy
 msgid "(local)"
 msgstr "Vocal"
 
-#: frescobaldi_app/docbrowser/browser.py:155
+#: frescobaldi_app/docbrowser/browser.py:157
 msgid "({hostname})"
 msgstr ""
 
-#: frescobaldi_app/docbrowser/browser.py:227
+#: frescobaldi_app/docbrowser/browser.py:229
 #, fuzzy
 msgid "Print"
 msgstr "Imprimir"
+
+#: frescobaldi_app/docbrowser/browser.py:239
+msgid "Copy &Link"
+msgstr "Copiar &ligazón"
+
+#: frescobaldi_app/docbrowser/browser.py:242
+msgid "Open Link in &New Window"
+msgstr "Abrir a ligazón nunha &nova fiestra"
+
+#: frescobaldi_app/docbrowser/browser.py:251
+msgid "Open Document in &New Window"
+msgstr "Abrir o documento nunha &nova fiestra"
 
 #: frescobaldi_app/docbrowser/sourceviewer.py:59
 #, fuzzy
@@ -6483,15 +6495,6 @@ msgstr "Seleccionar todo"
 
 #~ msgid "Index"
 #~ msgstr "Índice"
-
-#~ msgid "Copy &Link"
-#~ msgstr "Copiar &ligazón"
-
-#~ msgid "Open Link in &New Window"
-#~ msgstr "Abrir a ligazón nunha &nova fiestra"
-
-#~ msgid "Open Document in &New Window"
-#~ msgstr "Abrir o documento nunha &nova fiestra"
 
 #~ msgid "Loading..."
 #~ msgstr "A cargar..."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.1\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-14 12:50+0100\n"
+"POT-Creation-Date: 2012-01-14 13:24+0100\n"
 "PO-Revision-Date: 2010-12-23 10:52+0100\n"
 "Last-Translator: Piotr Komorowski <piotr-komorowski@wp.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -213,7 +213,7 @@ msgstr "Pauza"
 msgid "Run Again"
 msgstr ""
 
-#: frescobaldi_app/convert_ly.py:138 frescobaldi_app/docbrowser/browser.py:156
+#: frescobaldi_app/convert_ly.py:138 frescobaldi_app/docbrowser/browser.py:158
 #: frescobaldi_app/musicview/image.py:166
 #, fuzzy
 msgid "<unknown>"
@@ -776,7 +776,7 @@ msgstr ""
 msgid "Cu&t"
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:947
+#: frescobaldi_app/mainwindow.py:947 frescobaldi_app/docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Kopiuj"
 
@@ -1150,24 +1150,36 @@ msgstr "Dokumentacja LilyPonda:"
 msgid "&Contextual LilyPond Help"
 msgstr "&Pomoc LilyPond"
 
-#: frescobaldi_app/docbrowser/browser.py:113
+#: frescobaldi_app/docbrowser/browser.py:115
 #: frescobaldi_app/snippet/widget.py:168
 msgid "Search..."
 msgstr "Szukaj..."
 
-#: frescobaldi_app/docbrowser/browser.py:153
+#: frescobaldi_app/docbrowser/browser.py:155
 #, fuzzy
 msgid "(local)"
 msgstr "Głos"
 
-#: frescobaldi_app/docbrowser/browser.py:155
+#: frescobaldi_app/docbrowser/browser.py:157
 msgid "({hostname})"
 msgstr ""
 
-#: frescobaldi_app/docbrowser/browser.py:227
+#: frescobaldi_app/docbrowser/browser.py:229
 #, fuzzy
 msgid "Print"
 msgstr "Drukuj"
+
+#: frescobaldi_app/docbrowser/browser.py:239
+msgid "Copy &Link"
+msgstr "Kopiuj &Odnośnik"
+
+#: frescobaldi_app/docbrowser/browser.py:242
+msgid "Open Link in &New Window"
+msgstr "Otwórz Odnośnik w &Nowym Oknie"
+
+#: frescobaldi_app/docbrowser/browser.py:251
+msgid "Open Document in &New Window"
+msgstr "Otwórz Dokument w &Nowym Oknie"
 
 #: frescobaldi_app/docbrowser/sourceviewer.py:59
 #, fuzzy
@@ -6481,15 +6493,6 @@ msgstr "Zaznacz wszystko"
 
 #~ msgid "Index"
 #~ msgstr "Indeks"
-
-#~ msgid "Copy &Link"
-#~ msgstr "Kopiuj &Odnośnik"
-
-#~ msgid "Open Link in &New Window"
-#~ msgstr "Otwórz Odnośnik w &Nowym Oknie"
-
-#~ msgid "Open Document in &New Window"
-#~ msgstr "Otwórz Dokument w &Nowym Oknie"
 
 #~ msgid "Loading..."
 #~ msgstr "Ładowanie..."

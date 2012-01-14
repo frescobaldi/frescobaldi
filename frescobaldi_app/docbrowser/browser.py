@@ -30,6 +30,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtWebKit import *
 
 import app
+import icons
 import helpers
 import widgets.lineedit
 import lilypondinfo
@@ -48,7 +49,7 @@ class Browser(QWidget):
         self.setLayout(layout)
         
         self.toolbar = tb = QToolBar()
-        self.webview = QWebView()
+        self.webview = QWebView(contextMenuPolicy=Qt.CustomContextMenu)
         self.chooser = QComboBox(sizeAdjustPolicy=QComboBox.AdjustToContents)
         self.search = SearchEntry(maximumWidth=200)
         
@@ -67,6 +68,7 @@ class Browser(QWidget):
         self.webview.page().setForwardUnsupportedContent(True)
         self.webview.page().unsupportedContent.connect(self.slotUnsupported)
         self.webview.urlChanged.connect(self.slotUrlChanged)
+        self.webview.customContextMenuRequested.connect(self.slotShowContextMenu)
         
         tb.addAction(ac.help_back)
         tb.addAction(ac.help_forward)
@@ -227,6 +229,32 @@ class Browser(QWidget):
         dlg.setWindowTitle(app.caption(_("Print")))
         if dlg.exec_():
             self.webview.print_(printer)
+    
+    def slotShowContextMenu(self, pos):
+        hit = self.webview.page().currentFrame().hitTestContent(pos)
+        menu = QMenu()
+        if hit.linkUrl().isValid():
+            a = self.webview.pageAction(QWebPage.CopyLinkToClipboard)
+            a.setIcon(icons.get("edit-copy"))
+            a.setText(_("Copy &Link"))
+            menu.addAction(a)
+            menu.addSeparator()
+            a = menu.addAction(icons.get("window-new"), _("Open Link in &New Window"))
+            a.triggered.connect((lambda url: lambda: self.slotNewWindow(url))(hit.linkUrl()))
+        else:
+            if hit.isContentSelected():
+                a = self.webview.pageAction(QWebPage.Copy)
+                a.setIcon(icons.get("edit-copy"))
+                a.setText(_("&Copy"))
+                menu.addAction(a)
+                menu.addSeparator()
+            a = menu.addAction(icons.get("window-new"), _("Open Document in &New Window"))
+            a.triggered.connect((lambda url: lambda: self.slotNewWindow(url))(self.webview.url()))
+        if menu.actions():
+            menu.exec_(self.webview.mapToGlobal(pos))
+    
+    def slotNewWindow(self, url):
+        helpers.openUrl(url)
 
 
 class SearchEntry(widgets.lineedit.LineEdit):
