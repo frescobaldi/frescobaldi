@@ -138,7 +138,7 @@ toplevel_variables = (
     
 
 lilypond_markup = listmodel.ListModel(['\\markup'])
-print sorted(ly.words.markupcommands)
+
 lilypond_markup_commands = listmodel.ListModel(
     sorted(ly.words.markupcommands),
     display = util.command)
