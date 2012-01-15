@@ -6,6 +6,7 @@ Changes in 2.0.2 --
 
 * New features:
   - optionally run LilyPond with English (untranslated) messages
+  - print button in help browser and documentation browser
 * Improvements:
   - "Manage templates" command added in File->templates menu
   - more snippets in Insert menu

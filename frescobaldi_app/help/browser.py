@@ -50,10 +50,12 @@ class Window(QMainWindow):
         self._forw = tb.addAction(icons.get('go-next'), '')
         self._home = tb.addAction(icons.get('go-home'), '')
         self._toc = tb.addAction(icons.get('help-contents'), '')
+        self._print = tb.addAction(icons.get('document-print'), '')
         self._back.triggered.connect(self.browser.backward)
         self._forw.triggered.connect(self.browser.forward)
         self._home.triggered.connect(self.home)
         self._toc.triggered.connect(self.toc)
+        self._print.triggered.connect(self.print_)
         
         self.browser.sourceChanged.connect(self.slotSourceChanged)
         self.browser.historyChanged.connect(self.slotHistoryChanged)
@@ -77,6 +79,7 @@ class Window(QMainWindow):
         self._forw.setText(_("Forward"))
         self._home.setText(_("Start"))
         self._toc.setText(_("Contents"))
+        self._print.setText(_("Print"))
         
     def slotSourceChanged(self):
         self.setCaption()
@@ -103,6 +106,19 @@ class Window(QMainWindow):
         self.show()
         self.activateWindow()
         self.raise_()
+    
+    def print_(self):
+        printer = QPrinter()
+        dlg = QPrintDialog(printer, self)
+        dlg.setWindowTitle(app.caption(_("Print")))
+        options = (QAbstractPrintDialog.PrintToFile
+                   | QAbstractPrintDialog.PrintShowPageSize
+                   | QAbstractPrintDialog.PrintPageRange)
+        if self.browser.textCursor().hasSelection():
+            options |= QAbstractPrintDialog.PrintSelection
+        dlg.setOptions(options)
+        if dlg.exec_():
+            self.browser.print_(printer)
 
 
 class Browser(QTextBrowser):
