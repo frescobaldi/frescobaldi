@@ -136,7 +136,6 @@ class View(QPlainTextEdit):
                 self.setTextCursor(cursor)
             
     def focusInEvent(self, ev):
-        print 'focus in', self.isVisible()
         super(View, self).focusInEvent(ev)
         self.focusChanged.emit(True)
         self._paintcursor = False
