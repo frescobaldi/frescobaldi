@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-16 10:43+0100\n"
+"POT-Creation-Date: 2012-01-16 19:09+0100\n"
 "PO-Revision-Date: 2011-12-25 14:42-0500\n"
 "Last-Translator: Ryan Kavanagh <ryanakca@kubuntu.org>\n"
 "Language-Team: Français <>\n"
@@ -5803,27 +5803,32 @@ msgstr "Tempo MIDI :"
 msgid "Staff Size"
 msgstr "Taille des portées"
 
-#: frescobaldi_app/snippet/builtin.py:320
+#: frescobaldi_app/snippet/builtin.py:322
+#, fuzzy
+msgid "Uncomment"
+msgstr "Commentaire"
+
+#: frescobaldi_app/snippet/builtin.py:365
 msgid "A5 Paper"
 msgstr "Papier A5"
 
-#: frescobaldi_app/snippet/builtin.py:328
+#: frescobaldi_app/snippet/builtin.py:373
 msgid "Document Fonts..."
 msgstr "Polices du document..."
 
-#: frescobaldi_app/snippet/builtin.py:356
+#: frescobaldi_app/snippet/builtin.py:401
 msgid "Last note or chord"
 msgstr "Répéter la dernière note ou accord"
 
-#: frescobaldi_app/snippet/builtin.py:437
+#: frescobaldi_app/snippet/builtin.py:482
 msgid "Color"
 msgstr "Couleur"
 
-#: frescobaldi_app/snippet/builtin.py:474
+#: frescobaldi_app/snippet/builtin.py:519
 msgid "Basic Leadsheet"
 msgstr "Grille d'accords basique"
 
-#: frescobaldi_app/snippet/builtin.py:518
+#: frescobaldi_app/snippet/builtin.py:563
 msgid "Choir Hymn"
 msgstr "Chœur"
 

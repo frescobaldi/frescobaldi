@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-16 10:43+0100\n"
-"PO-Revision-Date: 2012-01-12 10:14+0100\n"
+"POT-Creation-Date: 2012-01-16 19:09+0100\n"
+"PO-Revision-Date: 2012-01-16 19:09+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -5722,27 +5722,31 @@ msgstr "Midi: tempo instellen"
 msgid "Staff Size"
 msgstr "Balkgrootte"
 
-#: frescobaldi_app/snippet/builtin.py:320
+#: frescobaldi_app/snippet/builtin.py:322
+msgid "Uncomment"
+msgstr "Commentaar verwijderen"
+
+#: frescobaldi_app/snippet/builtin.py:365
 msgid "A5 Paper"
 msgstr "A5-papier"
 
-#: frescobaldi_app/snippet/builtin.py:328
+#: frescobaldi_app/snippet/builtin.py:373
 msgid "Document Fonts..."
 msgstr "Document-lettertypen..."
 
-#: frescobaldi_app/snippet/builtin.py:356
+#: frescobaldi_app/snippet/builtin.py:401
 msgid "Last note or chord"
 msgstr "Laatste noot of akkoord"
 
-#: frescobaldi_app/snippet/builtin.py:437
+#: frescobaldi_app/snippet/builtin.py:482
 msgid "Color"
 msgstr "Kleur"
 
-#: frescobaldi_app/snippet/builtin.py:474
+#: frescobaldi_app/snippet/builtin.py:519
 msgid "Basic Leadsheet"
 msgstr "Eenvoudig Lead-sheet"
 
-#: frescobaldi_app/snippet/builtin.py:518
+#: frescobaldi_app/snippet/builtin.py:563
 msgid "Choir Hymn"
 msgstr "Koorhymne"
 

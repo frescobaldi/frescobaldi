@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-16 10:43+0100\n"
+"POT-Creation-Date: 2012-01-16 19:09+0100\n"
 "PO-Revision-Date: 2009-10-08 21:17+0300\n"
 "Last-Translator: Artem Zolochevskiy <artem.zolochevskiy@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -5421,32 +5421,37 @@ msgstr "Темп:"
 msgid "Staff Size"
 msgstr "Тип нотоносца:"
 
-#: frescobaldi_app/snippet/builtin.py:320
+#: frescobaldi_app/snippet/builtin.py:322
+#, fuzzy
+msgid "Uncomment"
+msgstr "Команда печати:"
+
+#: frescobaldi_app/snippet/builtin.py:365
 #, fuzzy
 msgid "A5 Paper"
 msgstr "Размер страницы:"
 
-#: frescobaldi_app/snippet/builtin.py:328
+#: frescobaldi_app/snippet/builtin.py:373
 #, fuzzy
 msgid "Document Fonts..."
 msgstr "&Документ"
 
-#: frescobaldi_app/snippet/builtin.py:356
+#: frescobaldi_app/snippet/builtin.py:401
 #, fuzzy
 msgid "Last note or chord"
 msgstr "Повторить последнюю ноту или аккорд"
 
-#: frescobaldi_app/snippet/builtin.py:437
+#: frescobaldi_app/snippet/builtin.py:482
 #, fuzzy
 msgid "Color"
 msgstr "Композитор"
 
-#: frescobaldi_app/snippet/builtin.py:474
+#: frescobaldi_app/snippet/builtin.py:519
 #, fuzzy
 msgid "Basic Leadsheet"
 msgstr "Нотный стан"
 
-#: frescobaldi_app/snippet/builtin.py:518
+#: frescobaldi_app/snippet/builtin.py:563
 #, fuzzy
 msgid "Choir Hymn"
 msgstr "Хор"

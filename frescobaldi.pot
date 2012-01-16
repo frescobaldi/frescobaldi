@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.2\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-16 10:43+0100\n"
+"POT-Creation-Date: 2012-01-16 19:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5059,27 +5059,31 @@ msgstr ""
 msgid "Staff Size"
 msgstr ""
 
-#: frescobaldi_app/snippet/builtin.py:320
+#: frescobaldi_app/snippet/builtin.py:322
+msgid "Uncomment"
+msgstr ""
+
+#: frescobaldi_app/snippet/builtin.py:365
 msgid "A5 Paper"
 msgstr ""
 
-#: frescobaldi_app/snippet/builtin.py:328
+#: frescobaldi_app/snippet/builtin.py:373
 msgid "Document Fonts..."
 msgstr ""
 
-#: frescobaldi_app/snippet/builtin.py:356
+#: frescobaldi_app/snippet/builtin.py:401
 msgid "Last note or chord"
 msgstr ""
 
-#: frescobaldi_app/snippet/builtin.py:437
+#: frescobaldi_app/snippet/builtin.py:482
 msgid "Color"
 msgstr ""
 
-#: frescobaldi_app/snippet/builtin.py:474
+#: frescobaldi_app/snippet/builtin.py:519
 msgid "Basic Leadsheet"
 msgstr ""
 
-#: frescobaldi_app/snippet/builtin.py:518
+#: frescobaldi_app/snippet/builtin.py:563
 msgid "Choir Hymn"
 msgstr ""
 

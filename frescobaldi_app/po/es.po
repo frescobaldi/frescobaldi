@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-16 10:43+0100\n"
+"POT-Creation-Date: 2012-01-16 19:09+0100\n"
 "PO-Revision-Date: 2012-01-16 12:36+0100\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -5783,27 +5783,32 @@ msgstr "Tempo del MIDI"
 msgid "Staff Size"
 msgstr "Tamaño del pentagrama"
 
-#: frescobaldi_app/snippet/builtin.py:320
+#: frescobaldi_app/snippet/builtin.py:322
+#, fuzzy
+msgid "Uncomment"
+msgstr "Comentario"
+
+#: frescobaldi_app/snippet/builtin.py:365
 msgid "A5 Paper"
 msgstr "Hoja A5"
 
-#: frescobaldi_app/snippet/builtin.py:328
+#: frescobaldi_app/snippet/builtin.py:373
 msgid "Document Fonts..."
 msgstr "Tipografías del documento..."
 
-#: frescobaldi_app/snippet/builtin.py:356
+#: frescobaldi_app/snippet/builtin.py:401
 msgid "Last note or chord"
 msgstr "Última nota o acorde"
 
-#: frescobaldi_app/snippet/builtin.py:437
+#: frescobaldi_app/snippet/builtin.py:482
 msgid "Color"
 msgstr "Color"
 
-#: frescobaldi_app/snippet/builtin.py:474
+#: frescobaldi_app/snippet/builtin.py:519
 msgid "Basic Leadsheet"
 msgstr "Hoja guía de acordes básica"
 
-#: frescobaldi_app/snippet/builtin.py:518
+#: frescobaldi_app/snippet/builtin.py:563
 msgid "Choir Hymn"
 msgstr "Himno coral"
 

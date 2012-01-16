@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-16 10:43+0100\n"
+"POT-Creation-Date: 2012-01-16 19:09+0100\n"
 "PO-Revision-Date: 2011-12-28 18:57+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -5730,27 +5730,32 @@ msgstr "Tempo MIDI"
 msgid "Staff Size"
 msgstr "Velikost notové osnovy"
 
-#: frescobaldi_app/snippet/builtin.py:320
+#: frescobaldi_app/snippet/builtin.py:322
+#, fuzzy
+msgid "Uncomment"
+msgstr "Poznámka"
+
+#: frescobaldi_app/snippet/builtin.py:365
 msgid "A5 Paper"
 msgstr "Papír A5"
 
-#: frescobaldi_app/snippet/builtin.py:328
+#: frescobaldi_app/snippet/builtin.py:373
 msgid "Document Fonts..."
 msgstr "Písma v dokumentu..."
 
-#: frescobaldi_app/snippet/builtin.py:356
+#: frescobaldi_app/snippet/builtin.py:401
 msgid "Last note or chord"
 msgstr "Poslední nota nebo akord"
 
-#: frescobaldi_app/snippet/builtin.py:437
+#: frescobaldi_app/snippet/builtin.py:482
 msgid "Color"
 msgstr "Barva"
 
-#: frescobaldi_app/snippet/builtin.py:474
+#: frescobaldi_app/snippet/builtin.py:519
 msgid "Basic Leadsheet"
 msgstr "Základní vzorový list"
 
-#: frescobaldi_app/snippet/builtin.py:518
+#: frescobaldi_app/snippet/builtin.py:563
 msgid "Choir Hymn"
 msgstr "Sborový chvalozpěv"
 

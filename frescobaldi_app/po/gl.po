@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.17\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-16 10:43+0100\n"
+"POT-Creation-Date: 2012-01-16 19:09+0100\n"
 "PO-Revision-Date: 2011-01-03 17:37+0100\n"
 "Last-Translator: Manuel A. Vazquez <xixirei@yahoo.es>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -5436,32 +5436,37 @@ msgstr "Tempo:"
 msgid "Staff Size"
 msgstr "Tamaño do pentagrama"
 
-#: frescobaldi_app/snippet/builtin.py:320
+#: frescobaldi_app/snippet/builtin.py:322
+#, fuzzy
+msgid "Uncomment"
+msgstr "Orde"
+
+#: frescobaldi_app/snippet/builtin.py:365
 #, fuzzy
 msgid "A5 Paper"
 msgstr "Papel"
 
-#: frescobaldi_app/snippet/builtin.py:328
+#: frescobaldi_app/snippet/builtin.py:373
 #, fuzzy
 msgid "Document Fonts..."
 msgstr "&Documento"
 
-#: frescobaldi_app/snippet/builtin.py:356
+#: frescobaldi_app/snippet/builtin.py:401
 #, fuzzy
 msgid "Last note or chord"
 msgstr "Repetir a última nota ou acorde"
 
-#: frescobaldi_app/snippet/builtin.py:437
+#: frescobaldi_app/snippet/builtin.py:482
 #, fuzzy
 msgid "Color"
 msgstr "Compositor"
 
-#: frescobaldi_app/snippet/builtin.py:474
+#: frescobaldi_app/snippet/builtin.py:519
 #, fuzzy
 msgid "Basic Leadsheet"
 msgstr "Folla guía de acordes"
 
-#: frescobaldi_app/snippet/builtin.py:518
+#: frescobaldi_app/snippet/builtin.py:563
 #, fuzzy
 msgid "Choir Hymn"
 msgstr "Coro"
