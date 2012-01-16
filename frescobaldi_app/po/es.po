@@ -1,13 +1,13 @@
 # translation of es.po to Español
 # Header entry was created by KBabel!
-# Francisco Vila <francisco.vila@hispalinux.es>, 2008, 2009, 2010, 2011.
+# Francisco Vila <francisco.vila@hispalinux.es>, 2008, 2009, 2010, 2011, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2012-01-16 10:43+0100\n"
-"PO-Revision-Date: 2011-12-21 01:04+0100\n"
+"PO-Revision-Date: 2012-01-16 12:36+0100\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -353,7 +353,7 @@ msgstr "Opcionalmente, describa debajo lo que estaba haciendo:"
 
 #: frescobaldi_app/globalfontdialog.py:69
 msgid "Global Fonts"
-msgstr ""
+msgstr "Tipografías globales"
 
 #: frescobaldi_app/globalfontdialog.py:71
 msgid ""
@@ -362,25 +362,26 @@ msgid ""
 "set the staff size to the global staff size you use in the document (20 by "
 "default)."
 msgstr ""
+"Seleccione las tres tipografías goblaes que usar para <code>\\roman</code>, "
+"<code>\\sans</code> y <code>\\typewriter</code> respectivamente. También "
+"debe ajustar el tamaño del pentagrama al tamaño global de pentagrama que "
+"está utilizando en el documento (20 por omisión)."
 
 #: frescobaldi_app/globalfontdialog.py:76
-#, fuzzy
 msgid "Roman Font:"
-msgstr "Tipografía:"
+msgstr "Tipo Romano:"
 
 #: frescobaldi_app/globalfontdialog.py:77
-#, fuzzy
 msgid "Sans Font:"
-msgstr "Tipografía:"
+msgstr "Tipo Sans:"
 
 #: frescobaldi_app/globalfontdialog.py:78
 msgid "Typewriter Font:"
-msgstr ""
+msgstr "Tipo Monoespaciado:"
 
 #: frescobaldi_app/globalfontdialog.py:79
-#, fuzzy
 msgid "Staff Size:"
-msgstr "Tamaño del pentagrama"
+msgstr "Tamaño del pentagrama:"
 
 #: frescobaldi_app/hyphendialog.py:114
 msgid "Hyphenate Lyrics Text"
@@ -582,9 +583,8 @@ msgstr ""
 "¿Quiere guardar los cambios o descartarlos?"
 
 #: frescobaldi_app/mainwindow.py:281
-#, fuzzy
 msgid "Tab Bar"
-msgstr "Tablatura"
+msgstr "Compás de tablatura"
 
 #: frescobaldi_app/mainwindow.py:338 frescobaldi_app/popplerprint.py:53
 #: frescobaldi_app/sessions/dialog.py:165
@@ -1138,15 +1138,15 @@ msgstr "Imprimir"
 
 #: frescobaldi_app/docbrowser/browser.py:239
 msgid "Copy &Link"
-msgstr ""
+msgstr "Copiar en&lace"
 
 #: frescobaldi_app/docbrowser/browser.py:242
 msgid "Open Link in &New Window"
-msgstr ""
+msgstr "Abrir enlace en una ventana &nueva"
 
 #: frescobaldi_app/docbrowser/browser.py:251
 msgid "Open Document in &New Window"
-msgstr ""
+msgstr "Abrir documento en una ventana &nueva"
 
 #: frescobaldi_app/docbrowser/sourceviewer.py:59
 msgid "LilyPond Source"
@@ -1216,9 +1216,8 @@ msgstr "Ejecutar LilyPond con salida prolija"
 
 #: frescobaldi_app/engrave/custom.py:130
 #: frescobaldi_app/preferences/lilypond.py:289
-#, fuzzy
 msgid "Run LilyPond with English messages"
-msgstr "Ejecutar LilyPond con salida prolija"
+msgstr "Ejecutar LilyPond con mensajes en inglés"
 
 #: frescobaldi_app/engrave/custom.py:131
 #: frescobaldi_app/preferences/lilypond.py:286
@@ -3293,6 +3292,8 @@ msgid ""
 "If checked, LilyPond's output messages will be in English.\n"
 "This can be useful for bug reports."
 msgstr ""
+"Si está activado, los mensajes de salida de LilyPond estarán en inglés.\n"
+"Puede ser útil para enviar informes de fallo."
 
 #: frescobaldi_app/preferences/lilypond.py:293
 msgid "LilyPond include path:"
@@ -5787,9 +5788,8 @@ msgid "A5 Paper"
 msgstr "Hoja A5"
 
 #: frescobaldi_app/snippet/builtin.py:328
-#, fuzzy
 msgid "Document Fonts..."
-msgstr "Documentos"
+msgstr "Tipografías del documento..."
 
 #: frescobaldi_app/snippet/builtin.py:356
 msgid "Last note or chord"
@@ -6119,9 +6119,8 @@ msgid "Save as Template..."
 msgstr "Guardar como plantilla..."
 
 #: frescobaldi_app/snippet/tool.py:90
-#, fuzzy
 msgid "Manage Templates..."
-msgstr "Guardar como plantilla..."
+msgstr "Gestionar plantillas..."
 
 #: frescobaldi_app/snippet/tool.py:91
 msgid "&Snippets..."
