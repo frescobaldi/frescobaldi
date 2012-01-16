@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-14 13:24+0100\n"
+"POT-Creation-Date: 2012-01-16 10:43+0100\n"
 "PO-Revision-Date: 2011-12-01 17:39+0100\n"
 "Last-Translator: .billyBoh <billyboh@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -486,37 +486,37 @@ msgstr ""
 msgid "Select Color"
 msgstr "Scelta del colore"
 
-#: frescobaldi_app/job.py:236
+#: frescobaldi_app/job.py:239
 msgid "Starting {job}..."
 msgstr "{job} in avvio..."
 
-#: frescobaldi_app/job.py:241
+#: frescobaldi_app/job.py:244
 msgid "Aborting {job}..."
 msgstr "{job} in arresto..."
 
-#: frescobaldi_app/job.py:247
+#: frescobaldi_app/job.py:250
 msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
 msgstr "Impossibile avviare {program}. Controllare il percorso e i permessi."
 
-#: frescobaldi_app/job.py:250
+#: frescobaldi_app/job.py:253
 msgid "Could not read from the process."
 msgstr "Impossibile avere informazioni dall'esecuzione di LilyPond."
 
-#: frescobaldi_app/job.py:252
+#: frescobaldi_app/job.py:255
 msgid "An unknown error occured."
 msgstr "Si è verificato un errore sconosciuto."
 
-#: frescobaldi_app/job.py:257
+#: frescobaldi_app/job.py:260
 msgid "Exited with return code {code}."
 msgstr "Uscito con codice {code}."
 
-#: frescobaldi_app/job.py:259
+#: frescobaldi_app/job.py:262
 msgid "Exited with exit status {status}."
 msgstr "Uscito con lo stato {status}."
 
-#: frescobaldi_app/job.py:262
+#: frescobaldi_app/job.py:265
 msgid "Completed successfully in {time}."
 msgstr "Completato con successo in {time}."
 
@@ -1092,12 +1092,12 @@ msgid "&Documentation Browser"
 msgstr "Navigatore per la &documentazione"
 
 #: frescobaldi_app/docbrowser/__init__.py:82
-#: frescobaldi_app/help/browser.py:76
+#: frescobaldi_app/help/browser.py:78
 msgid "Back"
 msgstr "Indietro"
 
 #: frescobaldi_app/docbrowser/__init__.py:83
-#: frescobaldi_app/help/browser.py:77
+#: frescobaldi_app/help/browser.py:79
 msgid "Forward"
 msgstr "Avanti"
 
@@ -1133,6 +1133,7 @@ msgid "({hostname})"
 msgstr "({hostname})"
 
 #: frescobaldi_app/docbrowser/browser.py:229
+#: frescobaldi_app/help/browser.py:82 frescobaldi_app/help/browser.py:113
 #, fuzzy
 msgid "Print"
 msgstr "&Stampa"
@@ -1312,19 +1313,19 @@ msgstr "&File generati"
 msgid "No files available"
 msgstr "Non disponibile"
 
-#: frescobaldi_app/help/browser.py:75
+#: frescobaldi_app/help/browser.py:77
 msgid "Toolbar"
 msgstr "Barra degli strumenti"
 
-#: frescobaldi_app/help/browser.py:78
+#: frescobaldi_app/help/browser.py:80
 msgid "Start"
 msgstr "Inizio"
 
-#: frescobaldi_app/help/browser.py:79
+#: frescobaldi_app/help/browser.py:81
 msgid "Contents"
 msgstr "Indice"
 
-#: frescobaldi_app/help/browser.py:85 frescobaldi_app/help/browser.py:86
+#: frescobaldi_app/help/browser.py:88 frescobaldi_app/help/browser.py:89
 #: frescobaldi_app/help/contents.py:70
 #: frescobaldi_app/quickinsert/widget.py:106
 msgid "Help"

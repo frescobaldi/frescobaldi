@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-14 13:24+0100\n"
+"POT-Creation-Date: 2012-01-16 10:43+0100\n"
 "PO-Revision-Date: 2012-01-12 10:14+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -479,15 +479,15 @@ msgstr ""
 msgid "Select Color"
 msgstr "Kleur selecteren"
 
-#: frescobaldi_app/job.py:236
+#: frescobaldi_app/job.py:239
 msgid "Starting {job}..."
 msgstr "Starten {job}..."
 
-#: frescobaldi_app/job.py:241
+#: frescobaldi_app/job.py:244
 msgid "Aborting {job}..."
 msgstr "Afbreken {job}..."
 
-#: frescobaldi_app/job.py:247
+#: frescobaldi_app/job.py:250
 msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
@@ -495,23 +495,23 @@ msgstr ""
 "Kan {program} niet starten.\n"
 "Controleer het pad en permissies."
 
-#: frescobaldi_app/job.py:250
+#: frescobaldi_app/job.py:253
 msgid "Could not read from the process."
 msgstr "Kan de uitvoer van het proces niet lezen."
 
-#: frescobaldi_app/job.py:252
+#: frescobaldi_app/job.py:255
 msgid "An unknown error occured."
 msgstr "Er is een onbekende fout opgetreden."
 
-#: frescobaldi_app/job.py:257
+#: frescobaldi_app/job.py:260
 msgid "Exited with return code {code}."
 msgstr "Afgesloten met returncode {code}."
 
-#: frescobaldi_app/job.py:259
+#: frescobaldi_app/job.py:262
 msgid "Exited with exit status {status}."
 msgstr "Afgesloten met status {status}."
 
-#: frescobaldi_app/job.py:262
+#: frescobaldi_app/job.py:265
 msgid "Completed successfully in {time}."
 msgstr "Succesvol beëindigd in {time}."
 
@@ -1085,12 +1085,12 @@ msgid "&Documentation Browser"
 msgstr "&Documentatie-browser"
 
 #: frescobaldi_app/docbrowser/__init__.py:82
-#: frescobaldi_app/help/browser.py:76
+#: frescobaldi_app/help/browser.py:78
 msgid "Back"
 msgstr "Terug"
 
 #: frescobaldi_app/docbrowser/__init__.py:83
-#: frescobaldi_app/help/browser.py:77
+#: frescobaldi_app/help/browser.py:79
 msgid "Forward"
 msgstr "Verder"
 
@@ -1125,6 +1125,7 @@ msgid "({hostname})"
 msgstr "({hostname})"
 
 #: frescobaldi_app/docbrowser/browser.py:229
+#: frescobaldi_app/help/browser.py:82 frescobaldi_app/help/browser.py:113
 msgid "Print"
 msgstr "Afdrukken"
 
@@ -1290,19 +1291,19 @@ msgstr "Aange&maakte bestanden"
 msgid "No files available"
 msgstr "Geen bestanden beschikbaar"
 
-#: frescobaldi_app/help/browser.py:75
+#: frescobaldi_app/help/browser.py:77
 msgid "Toolbar"
 msgstr "Werkbalk"
 
-#: frescobaldi_app/help/browser.py:78
+#: frescobaldi_app/help/browser.py:80
 msgid "Start"
 msgstr "Start"
 
-#: frescobaldi_app/help/browser.py:79
+#: frescobaldi_app/help/browser.py:81
 msgid "Contents"
 msgstr "Inhoud"
 
-#: frescobaldi_app/help/browser.py:85 frescobaldi_app/help/browser.py:86
+#: frescobaldi_app/help/browser.py:88 frescobaldi_app/help/browser.py:89
 #: frescobaldi_app/help/contents.py:70
 #: frescobaldi_app/quickinsert/widget.py:106
 msgid "Help"
