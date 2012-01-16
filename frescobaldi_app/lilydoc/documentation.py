@@ -71,7 +71,12 @@ class Documentation(QObject):
                     # the redirect was not to a VERSION file, discard it
                     self._versionString = ''
             else:
-                self._versionString = str(self._reply.readAll()).strip()
+                v = bytes(self._reply.readAll()).strip()
+                if v.startswith(b'<'):
+                    # probably some HTML network error message
+                    self._versionString = ''
+                else:
+                    self._versionString = v[:16].decode('utf-8', 'replace')
         self.versionLoaded.emit(bool(self._versionString))
         
     def url(self):

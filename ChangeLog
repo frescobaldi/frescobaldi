@@ -5,7 +5,9 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 Changes in 2.0.3 -- 
 
 * Updated translations: es
-
+* Bug fixes:
+  - in doc browser, don't display bogus versions when network is inaccessible
+  
 
 Changes in 2.0.2 -- January 16th, 2012
 
