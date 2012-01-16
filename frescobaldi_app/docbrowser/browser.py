@@ -44,7 +44,7 @@ class Browser(QWidget):
     def __init__(self, dockwidget):
         super(Browser, self).__init__(dockwidget)
         
-        layout = QVBoxLayout()
+        layout = QVBoxLayout(spacing=0)
         layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
         
