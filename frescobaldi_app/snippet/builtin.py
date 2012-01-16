@@ -285,35 +285,80 @@ else:
 r"""-*- python; indent: no;
 # determine state
 for s in state[::-1]:
-  if s in ('lilypond', 'html', 'scheme'):
-    break
+    if s in ('lilypond', 'html', 'scheme'):
+        break
 else:
-  s = 'lilypond'
+    s = 'lilypond'
 
 def html():
-  if text:
-    return '<!-- ' + text + ' -->'
-  else:
-    return ['<!-- ', CURSOR, ' -->']
+    if text:
+        return '<!-- ' + text + ' -->'
+    else:
+        return ['<!-- ', CURSOR, ' -->']
 
 def lilypond():
-  if text:
-    return '%{ ' + text + '%}'
-  else:
-    return '% '
+    if '\n' in text:
+        return '% ' + text.replace('\n', '\n% ')
+    elif text:
+        return '%{ ' + text + '%}'
+    else:
+        return '% '
 
 def scheme():
-  if text:
-    return '; ' + text.replace('\n', '\n; ')
-  else:
-    return '; '
+    if text:
+        return '; ' + text.replace('\n', '\n; ')
+    else:
+        return '; '
 
 if s == 'lilypond':
-  text = lilypond()
+    text = lilypond()
 elif s == 'html':
-  text = html()
+    text = html()
 elif s == 'scheme':
-  text = scheme()
+    text = scheme()
+"""),
+
+
+'uncomment': T(_("Uncomment"),
+r"""-*- python; indent: no;
+import re
+
+# determine state
+for s in state[::-1]:
+    if s in ('lilypond', 'html', 'scheme'):
+        break
+else:
+    s = 'lilypond'
+
+def html(text):
+    if text:
+        text = text.replace('<!-- ', '')
+        text = text.replace(' -->', '')
+        text = text.replace('<!--', '')
+        text = text.replace('-->', '')
+        return text
+
+def lilypond(text):
+    if text.lstrip().startswith('%{'):
+        if text.lstrip().startswith('%{ '):
+            text = text.lstrip()[3:]
+        else:
+            text = text.lstrip()[2:]
+        if text.rstrip().endswith('%}'):
+            text = text.rstrip()[:-2]
+    else:
+        text = re.compile(r'^(\s*)%+ ?', re.M).sub(r'\1', text)
+    return text
+
+def scheme(text):
+    return re.compile(r'^(\s*);+', re.M).sub(r'\1', text)
+
+if s == 'lilypond':
+    text = lilypond(text)
+elif s == 'html':
+    text = html(text)
+elif s == 'scheme':
+    text = scheme(text)
 """),
 
 
