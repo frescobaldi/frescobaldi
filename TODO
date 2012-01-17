@@ -1,9 +1,6 @@
 TODO and wishes for Frescobaldi 2.x
 ===================================
 
-- in music view: next and prev buttons and a display of current page number and
-  total number of pages
-
 - LilyPond context help
 
 - wizard to download and unpack LilyPond documentation and/or LilyPond itself

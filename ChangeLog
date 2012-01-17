@@ -5,6 +5,8 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 Changes in 2.0.3 -- 
 
 * Updated translations: es
+* New features:
+  - pager in musicview toolbar
 * Improvements:
   - improved "Comment" snippet; add "Uncomment"
 * Bug fixes:

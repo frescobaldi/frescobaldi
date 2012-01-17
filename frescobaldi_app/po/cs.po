@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-16 19:09+0100\n"
+"POT-Creation-Date: 2012-01-18 00:11+0100\n"
 "PO-Revision-Date: 2011-12-28 18:57+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -312,16 +312,16 @@ msgstr "&Formát"
 msgid "&Update with convert-ly..."
 msgstr "&Obnovit za použití convert-ly..."
 
-#: frescobaldi_app/documentcontextmenu.py:55 frescobaldi_app/mainwindow.py:931
+#: frescobaldi_app/documentcontextmenu.py:55 frescobaldi_app/mainwindow.py:933
 #: frescobaldi_app/sessions/manager.py:128
 msgid "&Save"
 msgstr "&Uložit"
 
-#: frescobaldi_app/documentcontextmenu.py:56 frescobaldi_app/mainwindow.py:932
+#: frescobaldi_app/documentcontextmenu.py:56 frescobaldi_app/mainwindow.py:934
 msgid "Save &As..."
 msgstr "Uložit &jako..."
 
-#: frescobaldi_app/documentcontextmenu.py:57 frescobaldi_app/mainwindow.py:936
+#: frescobaldi_app/documentcontextmenu.py:57 frescobaldi_app/mainwindow.py:938
 msgid "&Close"
 msgstr "&Zavřít"
 
@@ -702,168 +702,168 @@ msgstr ""
 "\n"
 "\n"
 
-#: frescobaldi_app/mainwindow.py:799
+#: frescobaldi_app/mainwindow.py:801
 msgid "Main Toolbar"
 msgstr "Hlavní nástrojový pruh"
 
-#: frescobaldi_app/mainwindow.py:800
+#: frescobaldi_app/mainwindow.py:802
 msgid "Music View Toolbar"
 msgstr "Nástrojový pruh pro pohled na noty"
 
-#: frescobaldi_app/mainwindow.py:926
+#: frescobaldi_app/mainwindow.py:928
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nový"
 
-#: frescobaldi_app/mainwindow.py:927
+#: frescobaldi_app/mainwindow.py:929
 msgid "&Open..."
 msgstr "&Otevřít..."
 
-#: frescobaldi_app/mainwindow.py:928
+#: frescobaldi_app/mainwindow.py:930
 msgid "Open &Recent"
 msgstr "Otevřít &nedávný"
 
-#: frescobaldi_app/mainwindow.py:929
+#: frescobaldi_app/mainwindow.py:931
 msgid "Insert from &File..."
 msgstr "Vložit ze &souboru..."
 
-#: frescobaldi_app/mainwindow.py:930
+#: frescobaldi_app/mainwindow.py:932
 msgid "Open Current Directory"
 msgstr "Otevřít nynější adresář"
 
-#: frescobaldi_app/mainwindow.py:933
+#: frescobaldi_app/mainwindow.py:935
 msgid "Save Copy or Selection As..."
 msgstr "Uložit kopii nebo výběr jako..."
 
-#: frescobaldi_app/mainwindow.py:934
+#: frescobaldi_app/mainwindow.py:936
 msgid "Save All"
 msgstr "Uložit vše"
 
-#: frescobaldi_app/mainwindow.py:935
+#: frescobaldi_app/mainwindow.py:937
 msgid "Print Source..."
 msgstr "Vytisknout zdroj..."
 
-#: frescobaldi_app/mainwindow.py:937
+#: frescobaldi_app/mainwindow.py:939
 msgid "Close Other Documents"
 msgstr "Zavřít jiné dokumenty"
 
-#: frescobaldi_app/mainwindow.py:938
+#: frescobaldi_app/mainwindow.py:940
 msgid "Close All Documents"
 msgstr "Zavřít všechny dokumenty"
 
-#: frescobaldi_app/mainwindow.py:939
+#: frescobaldi_app/mainwindow.py:941
 msgid "Closes all documents and leaves the current session."
 msgstr "Zavře všechny dokumenty a opustí současné sezení."
 
-#: frescobaldi_app/mainwindow.py:940
+#: frescobaldi_app/mainwindow.py:942
 msgid "&Quit"
 msgstr "&Ukončit"
 
-#: frescobaldi_app/mainwindow.py:942
+#: frescobaldi_app/mainwindow.py:944
 msgid "Export Source as Colored &HTML..."
 msgstr "Vyvést zdroj jako barevné &HTML..."
 
-#: frescobaldi_app/mainwindow.py:944
+#: frescobaldi_app/mainwindow.py:946
 msgid "&Undo"
 msgstr "&Zpět"
 
-#: frescobaldi_app/mainwindow.py:945
+#: frescobaldi_app/mainwindow.py:947
 msgid "Re&do"
 msgstr "&Znovu"
 
-#: frescobaldi_app/mainwindow.py:946
+#: frescobaldi_app/mainwindow.py:948
 msgid "Cu&t"
 msgstr "Vyjmou&t"
 
-#: frescobaldi_app/mainwindow.py:947 frescobaldi_app/docbrowser/browser.py:248
+#: frescobaldi_app/mainwindow.py:949 frescobaldi_app/docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Kopírovat"
 
-#: frescobaldi_app/mainwindow.py:948
+#: frescobaldi_app/mainwindow.py:950
 msgid "Copy as Colored &HTML"
 msgstr "Kopírovat jako barevné &HTML"
 
-#: frescobaldi_app/mainwindow.py:949
+#: frescobaldi_app/mainwindow.py:951
 msgid "&Paste"
 msgstr "&Vložit"
 
-#: frescobaldi_app/mainwindow.py:950
+#: frescobaldi_app/mainwindow.py:952
 msgid "Select &All"
 msgstr "Vybr&at vše"
 
-#: frescobaldi_app/mainwindow.py:951
+#: frescobaldi_app/mainwindow.py:953
 msgid "Select &Block"
 msgstr "Vybrat &blok"
 
-#: frescobaldi_app/mainwindow.py:952
+#: frescobaldi_app/mainwindow.py:954
 msgid "Select &None"
 msgstr "Nevybrat nic"
 
-#: frescobaldi_app/mainwindow.py:953
+#: frescobaldi_app/mainwindow.py:955
 msgid "Select Whole Lines Up"
 msgstr "Vybrat celé řádky nahoru"
 
-#: frescobaldi_app/mainwindow.py:954
+#: frescobaldi_app/mainwindow.py:956
 msgid "Select Whole Lines Down"
 msgstr "Vybrat celé řádky dolů"
 
-#: frescobaldi_app/mainwindow.py:955
+#: frescobaldi_app/mainwindow.py:957
 msgid "&Find..."
 msgstr "&Najít..."
 
-#: frescobaldi_app/mainwindow.py:956
+#: frescobaldi_app/mainwindow.py:958
 msgid "Find Ne&xt"
 msgstr "Najít &další"
 
-#: frescobaldi_app/mainwindow.py:957
+#: frescobaldi_app/mainwindow.py:959
 msgid "Find Pre&vious"
 msgstr "Najít &předchozí"
 
-#: frescobaldi_app/mainwindow.py:958
+#: frescobaldi_app/mainwindow.py:960
 msgid "&Replace..."
 msgstr "&Nahradit..."
 
-#: frescobaldi_app/mainwindow.py:959
+#: frescobaldi_app/mainwindow.py:961
 msgid "Pr&eferences..."
 msgstr "&Nastavení..."
 
-#: frescobaldi_app/mainwindow.py:961
+#: frescobaldi_app/mainwindow.py:963
 msgid "&Next Document"
 msgstr "&Další dokument"
 
-#: frescobaldi_app/mainwindow.py:962
+#: frescobaldi_app/mainwindow.py:964
 msgid "&Previous Document"
 msgstr "&Předchozí dokument"
 
-#: frescobaldi_app/mainwindow.py:963
+#: frescobaldi_app/mainwindow.py:965
 msgid "Scroll Up"
 msgstr "Projíždět nahoru"
 
-#: frescobaldi_app/mainwindow.py:964
+#: frescobaldi_app/mainwindow.py:966
 msgid "Scroll Down"
 msgstr "Projíždět dolů"
 
-#: frescobaldi_app/mainwindow.py:966
+#: frescobaldi_app/mainwindow.py:968
 msgid "New &Window"
 msgstr "Nové &okno"
 
-#: frescobaldi_app/mainwindow.py:967
+#: frescobaldi_app/mainwindow.py:969
 msgid "&Fullscreen"
 msgstr "&Celá obrazovka"
 
-#: frescobaldi_app/mainwindow.py:969
+#: frescobaldi_app/mainwindow.py:971
 msgid "&User Guide"
 msgstr "Průvodce pro &uživatele"
 
-#: frescobaldi_app/mainwindow.py:970
+#: frescobaldi_app/mainwindow.py:972
 msgid "&What's This?"
 msgstr "&Co je toto?"
 
-#: frescobaldi_app/mainwindow.py:971
+#: frescobaldi_app/mainwindow.py:973
 msgid "Report a &Bug..."
 msgstr "Nahlásit &chybu..."
 
-#: frescobaldi_app/mainwindow.py:972
+#: frescobaldi_app/mainwindow.py:974
 msgid "&About {appname}..."
 msgstr "&O {appname}..."
 
@@ -2101,60 +2101,60 @@ msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "DOBA"
 
-#: frescobaldi_app/musicview/__init__.py:86
+#: frescobaldi_app/musicview/__init__.py:88
 msgctxt "window title"
 msgid "Music View"
 msgstr "Pohled na noty"
 
-#: frescobaldi_app/musicview/__init__.py:87
+#: frescobaldi_app/musicview/__init__.py:89
 msgid "&Music View"
 msgstr "Pohled na &hudbu"
 
-#: frescobaldi_app/musicview/__init__.py:191
+#: frescobaldi_app/musicview/__init__.py:200
 msgid "Select Music View Document"
 msgstr "Vybrat dokument s pohledem na noty"
 
-#: frescobaldi_app/musicview/__init__.py:192
+#: frescobaldi_app/musicview/__init__.py:201
 msgid "&Print Music..."
 msgstr "&Vytisknout noty..."
 
-#: frescobaldi_app/musicview/__init__.py:193
+#: frescobaldi_app/musicview/__init__.py:202
 msgid "Zoom &In"
 msgstr "&Přiblížit"
 
-#: frescobaldi_app/musicview/__init__.py:194
+#: frescobaldi_app/musicview/__init__.py:203
 msgid "Zoom &Out"
 msgstr "&Oddálit"
 
-#: frescobaldi_app/musicview/__init__.py:195
+#: frescobaldi_app/musicview/__init__.py:204
 msgid "Zoom Music"
 msgstr "Zvětšení hudby"
 
-#: frescobaldi_app/musicview/__init__.py:196
+#: frescobaldi_app/musicview/__init__.py:205
 msgid "Fit &Width"
 msgstr "Přizpůsobit šíř&ce"
 
-#: frescobaldi_app/musicview/__init__.py:197
+#: frescobaldi_app/musicview/__init__.py:206
 msgid "Fit &Height"
 msgstr "Přizpůsobit &výšce"
 
-#: frescobaldi_app/musicview/__init__.py:198
+#: frescobaldi_app/musicview/__init__.py:207
 msgid "Fit &Page"
 msgstr "Přizpůsobit &straně"
 
-#: frescobaldi_app/musicview/__init__.py:199
+#: frescobaldi_app/musicview/__init__.py:208
 msgid "&Jump to Cursor Position"
 msgstr "&Skočit na polohu ukazovátka"
 
-#: frescobaldi_app/musicview/__init__.py:200
+#: frescobaldi_app/musicview/__init__.py:209
 msgid "Copy to &Image..."
 msgstr "Kopírovat do &obrázku..."
 
-#: frescobaldi_app/musicview/__init__.py:339
+#: frescobaldi_app/musicview/__init__.py:348
 msgid "Choose the PDF document to display."
 msgstr "Vybrat dokument PDF k zobrazení."
 
-#: frescobaldi_app/musicview/__init__.py:341
+#: frescobaldi_app/musicview/__init__.py:350
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -2162,17 +2162,22 @@ msgstr ""
 "Vyberte dokument PDF k zobrazení nebo soubor přetáhněte do jiného programu "
 "nebo umístění.."
 
-#: frescobaldi_app/musicview/__init__.py:399
+#: frescobaldi_app/musicview/__init__.py:408
 msgid "Fit Width"
 msgstr "Přizpůsobit šířce"
 
-#: frescobaldi_app/musicview/__init__.py:400
+#: frescobaldi_app/musicview/__init__.py:409
 msgid "Fit Height"
 msgstr "Přizpůsobit výšce"
 
-#: frescobaldi_app/musicview/__init__.py:401
+#: frescobaldi_app/musicview/__init__.py:410
 msgid "Fit Page"
 msgstr "Přizpůsobit straně"
+
+#. L10N: page numbering: page {num} of {total}
+#: frescobaldi_app/musicview/__init__.py:431
+msgid "{num} of {total}"
+msgstr ""
 
 #: frescobaldi_app/musicview/image.py:126
 msgid "DPI:"
