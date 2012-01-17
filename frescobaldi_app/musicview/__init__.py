@@ -39,12 +39,13 @@ import weakref
 
 from PyQt4.QtCore import Qt, pyqtSignal
 from PyQt4.QtGui import (
-    QAction, QComboBox, QLabel, QKeySequence, QWidgetAction)
+    QAction, QComboBox, QLabel, QKeySequence, QSpinBox, QWidgetAction)
 
 import app
 import actioncollection
 import actioncollectionmanager
 import icons
+import util
 import panels
 import listmodel
 import widgets.drag
@@ -85,6 +86,7 @@ class MusicViewPanel(panels.Panel):
     def translateUI(self):
         self.setWindowTitle(_("window title", "Music View"))
         self.toggleViewAction().setText(_("&Music View"))
+        self.updatePageInfo()
     
     def createWidget(self):
         import widget
@@ -92,10 +94,16 @@ class MusicViewPanel(panels.Panel):
         w.zoomChanged.connect(self.slotMusicZoomChanged)
         w.updateZoomInfo()
         w.view.surface().selectionChanged.connect(self.updateSelection)
+        w.pageInfoUpdated.connect(self.updatePageInfo)
         return w
     
     def updateSelection(self, rect):
         self.actionCollection.music_copy_image.setEnabled(bool(rect))
+    
+    def updatePageInfo(self):
+        num = self.widget().view.currentPageNumber() + 1
+        total = len(self.widget().view.surface().pageLayout())
+        self.actionCollection.music_pager.setPageInfo(num, total)
         
     def openDocument(self, doc):
         """Opens the documents.Document instance (wrapping a lazily loaded Poppler document)."""
@@ -166,6 +174,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_fit_both = QAction(panel)
         self.music_jump_to_cursor = QAction(panel)
         self.music_copy_image = QAction(panel)
+        self.music_pager = PagerAction(panel)
 
         self.music_fit_width.setCheckable(True)
         self.music_fit_height.setCheckable(True)
@@ -400,4 +409,40 @@ class Zoomer(QComboBox):
         self.setItemText(1, _("Fit Height"))
         self.setItemText(2, _("Fit Page"))
         
+
+class PagerAction(QWidgetAction):
+    def __init__(self, panel):
+        super(PagerAction, self).__init__(panel)
+    
+    def createWidget(self, parent):
+        w = QSpinBox(parent, buttonSymbols=QSpinBox.PlusMinus)
+        w.setFocusPolicy(Qt.ClickFocus)
+        w.valueChanged[int].connect(self.slotValueChanged)
+        return w
+        
+    def setPageInfo(self, num, total):
+        if total == 0:
+            self.setVisible(False)
+            def adjust(w):
+                w.setRange(0, 0)
+        else:
+            self.setVisible(True)
+            # L10N: page numbering: page {num} of {total}
+            prefix, suffix = _("{num} of {total}").split('{num}')
+            def adjust(w):
+                w.setRange(1, total)
+                w.setSuffix(suffix.format(total=total))
+                w.setPrefix(prefix.format(total=total))
+                w.setValue(num)
+                
+        for w in self.createdWidgets():
+            with util.signalsBlocked(w):
+                adjust(w)
+    
+    def slotValueChanged(self, num):
+        self.parent().widget().view.gotoPageNumber(num - 1)
+
+
+
+
 

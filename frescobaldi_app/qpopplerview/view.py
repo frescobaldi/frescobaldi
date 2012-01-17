@@ -325,10 +325,11 @@ class View(QScrollArea):
                     return page
     
     def currentPageNumber(self):
-        """Returns the number (index in the layout) of the currentPage(), or None if there are no pages."""
+        """Returns the number (index in the layout) of the currentPage(), or -1 if there are no pages."""
         page = self.currentPage()
         if page:
             return self.surface().pageLayout().index(page)
+        return -1
 
     def gotoPageNumber(self, num):
         """Aligns the page at the given index in the layout to the topleft of our View."""
