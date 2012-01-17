@@ -82,11 +82,11 @@ class MusicViewPanel(panels.Panel):
         ac.music_document_select.documentClosed.connect(self.closeDocument)
         ac.music_document_select.documentsChanged.connect(self.updateActions)
         ac.music_copy_image.setEnabled(False)
+        app.languageChanged.connect(self.updatePageInfo)
         
     def translateUI(self):
         self.setWindowTitle(_("window title", "Music View"))
         self.toggleViewAction().setText(_("&Music View"))
-        self.updatePageInfo()
     
     def createWidget(self):
         import widget
