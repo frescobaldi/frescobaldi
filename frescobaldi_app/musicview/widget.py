@@ -162,7 +162,9 @@ class MusicView(QWidget):
         cursor = self._links.cursor(link, True)
         if cursor:
             self.parent().mainwindow().setTextCursor(cursor, findOpenView=True)
-        elif ev.button() != Qt.RightButton and isinstance(link, popplerqt4.Poppler.LinkBrowse):
+        elif (ev.button() != Qt.RightButton
+              and isinstance(link, popplerqt4.Poppler.LinkBrowse)
+              and not link.url().startswith('textedit:')):
             helpers.openUrl(QUrl(link.url()))
 
     def slotLinkHovered(self, page, link):
