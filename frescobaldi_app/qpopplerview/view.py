@@ -335,7 +335,8 @@ class View(QScrollArea):
         """Aligns the page at the given index in the layout to the topleft of our View."""
         layout = self.surface().pageLayout()
         if num < len(layout) and num != self.currentPageNumber():
-            self.scrollSurface(layout[num].pos() + self.surface().pos())
+            margin = QPoint(layout.margin(), layout.margin())
+            self.scrollSurface(layout[num].pos() + self.surface().pos() - margin)
             
     def position(self):
         """Returns a three-tuple(num, x, y) describing the page currently in the center of the View.
