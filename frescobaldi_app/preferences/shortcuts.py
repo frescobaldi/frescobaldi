@@ -124,7 +124,7 @@ class Shortcuts(preferences.Page):
         # show other actions that were not in the menus
         item = QTreeWidgetItem([_("Other commands:")])
         for a in left:
-            if not a.menu():
+            if a.text() and not a.menu():
                 item.addChild(ShortcutItem(a, *allactions[a]))
         if item.childCount():
             self.tree.addTopLevelItem(item)
