@@ -85,6 +85,8 @@ class MusicViewPanel(panels.Panel):
         ac.music_next_page.triggered.connect(self.slotNextPage)
         ac.music_prev_page.triggered.connect(self.slotPreviousPage)
         self.slotPageCountChanged(0)
+        ac.music_next_page.setEnabled(False)
+        ac.music_prev_page.setEnabled(False)
         
     def translateUI(self):
         self.setWindowTitle(_("window title", "Music View"))
