@@ -459,6 +459,7 @@ class PagerAction(QWidgetAction):
         for w in self.createdWidgets():
             with util.signalsBlocked(w):
                 adjust(w)
+                w.lineEdit().deselect()
     
     def slotValueChanged(self, num):
         self.parent().widget().view.gotoPageNumber(num - 1)
