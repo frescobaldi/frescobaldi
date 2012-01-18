@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-18 00:11+0100\n"
+"POT-Creation-Date: 2012-01-18 15:29+0100\n"
 "PO-Revision-Date: 2009-10-08 21:17+0300\n"
 "Last-Translator: Artem Zolochevskiy <artem.zolochevskiy@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -345,17 +345,17 @@ msgstr "Фермата"
 msgid "&Update with convert-ly..."
 msgstr "Обновить с помощью convert-ly"
 
-#: frescobaldi_app/documentcontextmenu.py:55 frescobaldi_app/mainwindow.py:933
+#: frescobaldi_app/documentcontextmenu.py:55 frescobaldi_app/mainwindow.py:935
 #: frescobaldi_app/sessions/manager.py:128
 #, fuzzy
 msgid "&Save"
 msgstr "Сохранить"
 
-#: frescobaldi_app/documentcontextmenu.py:56 frescobaldi_app/mainwindow.py:934
+#: frescobaldi_app/documentcontextmenu.py:56 frescobaldi_app/mainwindow.py:936
 msgid "Save &As..."
 msgstr ""
 
-#: frescobaldi_app/documentcontextmenu.py:57 frescobaldi_app/mainwindow.py:938
+#: frescobaldi_app/documentcontextmenu.py:57 frescobaldi_app/mainwindow.py:940
 msgid "&Close"
 msgstr ""
 
@@ -699,182 +699,182 @@ msgid ""
 "\n"
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:801
+#: frescobaldi_app/mainwindow.py:803
 msgid "Main Toolbar"
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:802
+#: frescobaldi_app/mainwindow.py:804
 msgid "Music View Toolbar"
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:928
+#: frescobaldi_app/mainwindow.py:930
 msgctxt "action: new document"
 msgid "&New"
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:929
+#: frescobaldi_app/mainwindow.py:931
 msgid "&Open..."
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:930
+#: frescobaldi_app/mainwindow.py:932
 msgid "Open &Recent"
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:931
+#: frescobaldi_app/mainwindow.py:933
 msgid "Insert from &File..."
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:932
+#: frescobaldi_app/mainwindow.py:934
 #, fuzzy
 msgid "Open Current Directory"
 msgstr "Открыть текущую папку"
 
-#: frescobaldi_app/mainwindow.py:935
+#: frescobaldi_app/mainwindow.py:937
 msgid "Save Copy or Selection As..."
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:936
+#: frescobaldi_app/mainwindow.py:938
 #, fuzzy
 msgid "Save All"
 msgstr "Сохранить"
 
-#: frescobaldi_app/mainwindow.py:937
+#: frescobaldi_app/mainwindow.py:939
 #, fuzzy
 msgid "Print Source..."
 msgstr "Печать"
 
-#: frescobaldi_app/mainwindow.py:939
+#: frescobaldi_app/mainwindow.py:941
 msgid "Close Other Documents"
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:940
+#: frescobaldi_app/mainwindow.py:942
 #, fuzzy
 msgid "Close All Documents"
 msgstr "&Исходный документ"
 
-#: frescobaldi_app/mainwindow.py:941
+#: frescobaldi_app/mainwindow.py:943
 #, fuzzy
 msgid "Closes all documents and leaves the current session."
 msgstr "Уменьшает длительности в 2 раза в выделенном фрагменте."
 
-#: frescobaldi_app/mainwindow.py:942
+#: frescobaldi_app/mainwindow.py:944
 msgid "&Quit"
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:944
+#: frescobaldi_app/mainwindow.py:946
 msgid "Export Source as Colored &HTML..."
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:946
+#: frescobaldi_app/mainwindow.py:948
 #, fuzzy
 msgid "&Undo"
 msgstr "Скрыть док"
 
-#: frescobaldi_app/mainwindow.py:947
+#: frescobaldi_app/mainwindow.py:949
 msgid "Re&do"
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:948
+#: frescobaldi_app/mainwindow.py:950
 msgid "Cu&t"
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:949 frescobaldi_app/docbrowser/browser.py:248
+#: frescobaldi_app/mainwindow.py:951 frescobaldi_app/docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Копировать"
 
-#: frescobaldi_app/mainwindow.py:950
+#: frescobaldi_app/mainwindow.py:952
 msgid "Copy as Colored &HTML"
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:951
+#: frescobaldi_app/mainwindow.py:953
 #, fuzzy
 msgid "&Paste"
 msgstr "Размер страницы:"
 
-#: frescobaldi_app/mainwindow.py:952
+#: frescobaldi_app/mainwindow.py:954
 msgid "Select &All"
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:953
+#: frescobaldi_app/mainwindow.py:955
 msgid "Select &Block"
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:954
+#: frescobaldi_app/mainwindow.py:956
 msgid "Select &None"
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:955
+#: frescobaldi_app/mainwindow.py:957
 msgid "Select Whole Lines Up"
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:956
-msgid "Select Whole Lines Down"
-msgstr ""
-
-#: frescobaldi_app/mainwindow.py:957
-#, fuzzy
-msgid "&Find..."
-msgstr "Печать"
-
 #: frescobaldi_app/mainwindow.py:958
-msgid "Find Ne&xt"
+msgid "Select Whole Lines Down"
 msgstr ""
 
 #: frescobaldi_app/mainwindow.py:959
 #, fuzzy
+msgid "&Find..."
+msgstr "Печать"
+
+#: frescobaldi_app/mainwindow.py:960
+msgid "Find Ne&xt"
+msgstr ""
+
+#: frescobaldi_app/mainwindow.py:961
+#, fuzzy
 msgid "Find Pre&vious"
 msgstr "Предыдущий"
 
-#: frescobaldi_app/mainwindow.py:960
+#: frescobaldi_app/mainwindow.py:962
 #, fuzzy
 msgid "&Replace..."
 msgstr "Поиск..."
 
-#: frescobaldi_app/mainwindow.py:961
+#: frescobaldi_app/mainwindow.py:963
 #, fuzzy
 msgid "Pr&eferences..."
 msgstr "Общие настройки"
 
-#: frescobaldi_app/mainwindow.py:963
+#: frescobaldi_app/mainwindow.py:965
 #, fuzzy
 msgid "&Next Document"
 msgstr "&Документ"
 
-#: frescobaldi_app/mainwindow.py:964
+#: frescobaldi_app/mainwindow.py:966
 #, fuzzy
 msgid "&Previous Document"
 msgstr "&Исходный документ"
 
-#: frescobaldi_app/mainwindow.py:965
+#: frescobaldi_app/mainwindow.py:967
 msgid "Scroll Up"
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:966
+#: frescobaldi_app/mainwindow.py:968
 #, fuzzy
 msgid "Scroll Down"
 msgstr "Вниз"
 
-#: frescobaldi_app/mainwindow.py:968
+#: frescobaldi_app/mainwindow.py:970
 msgid "New &Window"
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:969
+#: frescobaldi_app/mainwindow.py:971
 msgid "&Fullscreen"
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:971
+#: frescobaldi_app/mainwindow.py:973
 msgid "&User Guide"
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:972
+#: frescobaldi_app/mainwindow.py:974
 msgid "&What's This?"
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:973
+#: frescobaldi_app/mainwindow.py:975
 msgid "Report a &Bug..."
 msgstr ""
 
-#: frescobaldi_app/mainwindow.py:974
+#: frescobaldi_app/mainwindow.py:976
 msgid "&About {appname}..."
 msgstr ""
 
@@ -1927,83 +1927,103 @@ msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr ""
 
-#: frescobaldi_app/musicview/__init__.py:88
+#: frescobaldi_app/musicview/__init__.py:90
 msgctxt "window title"
 msgid "Music View"
 msgstr ""
 
-#: frescobaldi_app/musicview/__init__.py:89
+#: frescobaldi_app/musicview/__init__.py:91
 msgid "&Music View"
 msgstr ""
 
-#: frescobaldi_app/musicview/__init__.py:200
+#: frescobaldi_app/musicview/__init__.py:217
 #, fuzzy
 msgid "Select Music View Document"
 msgstr "&Исходный документ"
 
-#: frescobaldi_app/musicview/__init__.py:201
+#: frescobaldi_app/musicview/__init__.py:218
 #, fuzzy
 msgid "&Print Music..."
 msgstr "Печать"
 
-#: frescobaldi_app/musicview/__init__.py:202
+#: frescobaldi_app/musicview/__init__.py:219
 msgid "Zoom &In"
 msgstr ""
 
-#: frescobaldi_app/musicview/__init__.py:203
+#: frescobaldi_app/musicview/__init__.py:220
 msgid "Zoom &Out"
 msgstr ""
 
-#: frescobaldi_app/musicview/__init__.py:204
+#: frescobaldi_app/musicview/__init__.py:221
 msgid "Zoom Music"
 msgstr ""
 
-#: frescobaldi_app/musicview/__init__.py:205
+#: frescobaldi_app/musicview/__init__.py:222
 msgid "Fit &Width"
 msgstr ""
 
-#: frescobaldi_app/musicview/__init__.py:206
+#: frescobaldi_app/musicview/__init__.py:223
 msgid "Fit &Height"
 msgstr ""
 
-#: frescobaldi_app/musicview/__init__.py:207
+#: frescobaldi_app/musicview/__init__.py:224
 #, fuzzy
 msgid "Fit &Page"
 msgstr "Первая страница"
 
-#: frescobaldi_app/musicview/__init__.py:208
+#: frescobaldi_app/musicview/__init__.py:225
 msgid "&Jump to Cursor Position"
 msgstr ""
 
-#: frescobaldi_app/musicview/__init__.py:209
+#: frescobaldi_app/musicview/__init__.py:226
 msgid "Copy to &Image..."
 msgstr ""
 
-#: frescobaldi_app/musicview/__init__.py:348
+#: frescobaldi_app/musicview/__init__.py:227
+#, fuzzy
+msgid "Next Page"
+msgstr "Следующая пустая строка"
+
+#: frescobaldi_app/musicview/__init__.py:228
+#, fuzzy
+msgid "Next"
+msgstr "Далее"
+
+#: frescobaldi_app/musicview/__init__.py:229
+#, fuzzy
+msgid "Previous Page"
+msgstr "Предыдущий"
+
+#: frescobaldi_app/musicview/__init__.py:230
+#, fuzzy
+msgid "Previous"
+msgstr "Предыдущий"
+
+#: frescobaldi_app/musicview/__init__.py:369
 msgid "Choose the PDF document to display."
 msgstr ""
 
-#: frescobaldi_app/musicview/__init__.py:350
+#: frescobaldi_app/musicview/__init__.py:371
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
 msgstr ""
 
-#: frescobaldi_app/musicview/__init__.py:408
+#: frescobaldi_app/musicview/__init__.py:429
 msgid "Fit Width"
 msgstr ""
 
-#: frescobaldi_app/musicview/__init__.py:409
+#: frescobaldi_app/musicview/__init__.py:430
 msgid "Fit Height"
 msgstr ""
 
-#: frescobaldi_app/musicview/__init__.py:410
+#: frescobaldi_app/musicview/__init__.py:431
 #, fuzzy
 msgid "Fit Page"
 msgstr "Первая страница"
 
 #. L10N: page numbering: page {num} of {total}
-#: frescobaldi_app/musicview/__init__.py:431
+#: frescobaldi_app/musicview/__init__.py:452
 msgid "{num} of {total}"
 msgstr ""
 

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-18 00:11+0100\n"
-"PO-Revision-Date: 2012-01-18 00:11+0100\n"
+"POT-Creation-Date: 2012-01-18 15:29+0100\n"
+"PO-Revision-Date: 2012-01-18 15:30+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -310,16 +310,16 @@ msgstr "&Formatteren"
 msgid "&Update with convert-ly..."
 msgstr "&Bijwerken met convert-ly..."
 
-#: frescobaldi_app/documentcontextmenu.py:55 frescobaldi_app/mainwindow.py:933
+#: frescobaldi_app/documentcontextmenu.py:55 frescobaldi_app/mainwindow.py:935
 #: frescobaldi_app/sessions/manager.py:128
 msgid "&Save"
 msgstr "Op&slaan"
 
-#: frescobaldi_app/documentcontextmenu.py:56 frescobaldi_app/mainwindow.py:934
+#: frescobaldi_app/documentcontextmenu.py:56 frescobaldi_app/mainwindow.py:936
 msgid "Save &As..."
 msgstr "Opslaan &als..."
 
-#: frescobaldi_app/documentcontextmenu.py:57 frescobaldi_app/mainwindow.py:938
+#: frescobaldi_app/documentcontextmenu.py:57 frescobaldi_app/mainwindow.py:940
 msgid "&Close"
 msgstr "&Sluiten"
 
@@ -697,168 +697,168 @@ msgstr ""
 "\n"
 "\n"
 
-#: frescobaldi_app/mainwindow.py:801
+#: frescobaldi_app/mainwindow.py:803
 msgid "Main Toolbar"
 msgstr "Hoofdwerkbalk"
 
-#: frescobaldi_app/mainwindow.py:802
+#: frescobaldi_app/mainwindow.py:804
 msgid "Music View Toolbar"
 msgstr "Muziekweergave-werkbalk"
 
-#: frescobaldi_app/mainwindow.py:928
+#: frescobaldi_app/mainwindow.py:930
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nieuw"
 
-#: frescobaldi_app/mainwindow.py:929
+#: frescobaldi_app/mainwindow.py:931
 msgid "&Open..."
 msgstr "&Openen..."
 
-#: frescobaldi_app/mainwindow.py:930
+#: frescobaldi_app/mainwindow.py:932
 msgid "Open &Recent"
 msgstr "&Recent geopend"
 
-#: frescobaldi_app/mainwindow.py:931
+#: frescobaldi_app/mainwindow.py:933
 msgid "Insert from &File..."
 msgstr "&Invoegen uit bestand..."
 
-#: frescobaldi_app/mainwindow.py:932
+#: frescobaldi_app/mainwindow.py:934
 msgid "Open Current Directory"
 msgstr "Huidige map openen"
 
-#: frescobaldi_app/mainwindow.py:935
+#: frescobaldi_app/mainwindow.py:937
 msgid "Save Copy or Selection As..."
 msgstr "Kopie of selectie opslaan als..."
 
-#: frescobaldi_app/mainwindow.py:936
+#: frescobaldi_app/mainwindow.py:938
 msgid "Save All"
 msgstr "Alles opslaan"
 
-#: frescobaldi_app/mainwindow.py:937
+#: frescobaldi_app/mainwindow.py:939
 msgid "Print Source..."
 msgstr "Brontekst afdrukken..."
 
-#: frescobaldi_app/mainwindow.py:939
+#: frescobaldi_app/mainwindow.py:941
 msgid "Close Other Documents"
 msgstr "Andere documenten sluiten"
 
-#: frescobaldi_app/mainwindow.py:940
+#: frescobaldi_app/mainwindow.py:942
 msgid "Close All Documents"
 msgstr "Alle documenten sluiten"
 
-#: frescobaldi_app/mainwindow.py:941
+#: frescobaldi_app/mainwindow.py:943
 msgid "Closes all documents and leaves the current session."
 msgstr "Sluit alle documenten en verlaat de huidige sessie."
 
-#: frescobaldi_app/mainwindow.py:942
+#: frescobaldi_app/mainwindow.py:944
 msgid "&Quit"
 msgstr "Afslui&ten"
 
-#: frescobaldi_app/mainwindow.py:944
+#: frescobaldi_app/mainwindow.py:946
 msgid "Export Source as Colored &HTML..."
 msgstr "Bron als gekleurde &HTML exporteren..."
 
-#: frescobaldi_app/mainwindow.py:946
+#: frescobaldi_app/mainwindow.py:948
 msgid "&Undo"
 msgstr "&Ongedaan maken"
 
-#: frescobaldi_app/mainwindow.py:947
+#: frescobaldi_app/mainwindow.py:949
 msgid "Re&do"
 msgstr "Opnie&uw"
 
-#: frescobaldi_app/mainwindow.py:948
+#: frescobaldi_app/mainwindow.py:950
 msgid "Cu&t"
 msgstr "&Knippen"
 
-#: frescobaldi_app/mainwindow.py:949 frescobaldi_app/docbrowser/browser.py:248
+#: frescobaldi_app/mainwindow.py:951 frescobaldi_app/docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Kopiëren"
 
-#: frescobaldi_app/mainwindow.py:950
+#: frescobaldi_app/mainwindow.py:952
 msgid "Copy as Colored &HTML"
 msgstr "Als gekleurde HTML kopiëren"
 
-#: frescobaldi_app/mainwindow.py:951
+#: frescobaldi_app/mainwindow.py:953
 msgid "&Paste"
 msgstr "&Plakken"
 
-#: frescobaldi_app/mainwindow.py:952
+#: frescobaldi_app/mainwindow.py:954
 msgid "Select &All"
 msgstr "&Alles selecteren"
 
-#: frescobaldi_app/mainwindow.py:953
+#: frescobaldi_app/mainwindow.py:955
 msgid "Select &Block"
 msgstr "&Blok selecteren"
 
-#: frescobaldi_app/mainwindow.py:954
+#: frescobaldi_app/mainwindow.py:956
 msgid "Select &None"
 msgstr "&Niets selecteren"
 
-#: frescobaldi_app/mainwindow.py:955
+#: frescobaldi_app/mainwindow.py:957
 msgid "Select Whole Lines Up"
 msgstr "Volledige regels omhoog selecteren"
 
-#: frescobaldi_app/mainwindow.py:956
+#: frescobaldi_app/mainwindow.py:958
 msgid "Select Whole Lines Down"
 msgstr "Volledige regels omlaag selecteren"
 
-#: frescobaldi_app/mainwindow.py:957
+#: frescobaldi_app/mainwindow.py:959
 msgid "&Find..."
 msgstr "&Zoeken..."
 
-#: frescobaldi_app/mainwindow.py:958
+#: frescobaldi_app/mainwindow.py:960
 msgid "Find Ne&xt"
 msgstr "&Volgende zoeken"
 
-#: frescobaldi_app/mainwindow.py:959
+#: frescobaldi_app/mainwindow.py:961
 msgid "Find Pre&vious"
 msgstr "V&orige zoeken"
 
-#: frescobaldi_app/mainwindow.py:960
+#: frescobaldi_app/mainwindow.py:962
 msgid "&Replace..."
 msgstr "Ve&rvangen"
 
-#: frescobaldi_app/mainwindow.py:961
+#: frescobaldi_app/mainwindow.py:963
 msgid "Pr&eferences..."
 msgstr "Voork&euren..."
 
-#: frescobaldi_app/mainwindow.py:963
+#: frescobaldi_app/mainwindow.py:965
 msgid "&Next Document"
 msgstr "&Volgende document"
 
-#: frescobaldi_app/mainwindow.py:964
+#: frescobaldi_app/mainwindow.py:966
 msgid "&Previous Document"
 msgstr "V&orige document"
 
-#: frescobaldi_app/mainwindow.py:965
+#: frescobaldi_app/mainwindow.py:967
 msgid "Scroll Up"
 msgstr "Omhoog schuiven"
 
-#: frescobaldi_app/mainwindow.py:966
+#: frescobaldi_app/mainwindow.py:968
 msgid "Scroll Down"
 msgstr "Omlaag schuiven"
 
-#: frescobaldi_app/mainwindow.py:968
+#: frescobaldi_app/mainwindow.py:970
 msgid "New &Window"
 msgstr "Nieuw &venster"
 
-#: frescobaldi_app/mainwindow.py:969
+#: frescobaldi_app/mainwindow.py:971
 msgid "&Fullscreen"
 msgstr "Volledig &scherm"
 
-#: frescobaldi_app/mainwindow.py:971
+#: frescobaldi_app/mainwindow.py:973
 msgid "&User Guide"
 msgstr "&Handleiding"
 
-#: frescobaldi_app/mainwindow.py:972
+#: frescobaldi_app/mainwindow.py:974
 msgid "&What's This?"
 msgstr "&Wat is dit?"
 
-#: frescobaldi_app/mainwindow.py:973
+#: frescobaldi_app/mainwindow.py:975
 msgid "Report a &Bug..."
 msgstr "&Bug rapporteren..."
 
-#: frescobaldi_app/mainwindow.py:974
+#: frescobaldi_app/mainwindow.py:976
 msgid "&About {appname}..."
 msgstr "&Over {appname}..."
 
@@ -2091,60 +2091,76 @@ msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "MAAT"
 
-#: frescobaldi_app/musicview/__init__.py:88
+#: frescobaldi_app/musicview/__init__.py:90
 msgctxt "window title"
 msgid "Music View"
 msgstr "Muziekweergave"
 
-#: frescobaldi_app/musicview/__init__.py:89
+#: frescobaldi_app/musicview/__init__.py:91
 msgid "&Music View"
 msgstr "&Muziekweergave"
 
-#: frescobaldi_app/musicview/__init__.py:200
+#: frescobaldi_app/musicview/__init__.py:217
 msgid "Select Music View Document"
 msgstr "Weer te geven document selecteren"
 
-#: frescobaldi_app/musicview/__init__.py:201
+#: frescobaldi_app/musicview/__init__.py:218
 msgid "&Print Music..."
 msgstr "&Muziek afdrukken..."
 
-#: frescobaldi_app/musicview/__init__.py:202
+#: frescobaldi_app/musicview/__init__.py:219
 msgid "Zoom &In"
 msgstr "&Inzoomen"
 
-#: frescobaldi_app/musicview/__init__.py:203
+#: frescobaldi_app/musicview/__init__.py:220
 msgid "Zoom &Out"
 msgstr "&Uitzoomen"
 
-#: frescobaldi_app/musicview/__init__.py:204
+#: frescobaldi_app/musicview/__init__.py:221
 msgid "Zoom Music"
 msgstr "Muziek zoomen"
 
-#: frescobaldi_app/musicview/__init__.py:205
+#: frescobaldi_app/musicview/__init__.py:222
 msgid "Fit &Width"
 msgstr "Passend in &breedte"
 
-#: frescobaldi_app/musicview/__init__.py:206
+#: frescobaldi_app/musicview/__init__.py:223
 msgid "Fit &Height"
 msgstr "Passend in &hoogte"
 
-#: frescobaldi_app/musicview/__init__.py:207
+#: frescobaldi_app/musicview/__init__.py:224
 msgid "Fit &Page"
 msgstr "Hele &pagina"
 
-#: frescobaldi_app/musicview/__init__.py:208
+#: frescobaldi_app/musicview/__init__.py:225
 msgid "&Jump to Cursor Position"
 msgstr "Naar cursor &springen"
 
-#: frescobaldi_app/musicview/__init__.py:209
+#: frescobaldi_app/musicview/__init__.py:226
 msgid "Copy to &Image..."
 msgstr "Naar afbeeld&ing kopiëren..."
 
-#: frescobaldi_app/musicview/__init__.py:348
+#: frescobaldi_app/musicview/__init__.py:227
+msgid "Next Page"
+msgstr "Volgende pagina"
+
+#: frescobaldi_app/musicview/__init__.py:228
+msgid "Next"
+msgstr "Volgende"
+
+#: frescobaldi_app/musicview/__init__.py:229
+msgid "Previous Page"
+msgstr "Vorige pagina"
+
+#: frescobaldi_app/musicview/__init__.py:230
+msgid "Previous"
+msgstr "Vorige"
+
+#: frescobaldi_app/musicview/__init__.py:369
 msgid "Choose the PDF document to display."
 msgstr "Kies het weer te geven PDF-document."
 
-#: frescobaldi_app/musicview/__init__.py:350
+#: frescobaldi_app/musicview/__init__.py:371
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -2152,20 +2168,20 @@ msgstr ""
 "Kies het weer te geven PDF-document of sleep het bestand naar een andere "
 "locatie of toepassing."
 
-#: frescobaldi_app/musicview/__init__.py:408
+#: frescobaldi_app/musicview/__init__.py:429
 msgid "Fit Width"
 msgstr "Passend in breedte"
 
-#: frescobaldi_app/musicview/__init__.py:409
+#: frescobaldi_app/musicview/__init__.py:430
 msgid "Fit Height"
 msgstr "Passend in hoogte"
 
-#: frescobaldi_app/musicview/__init__.py:410
+#: frescobaldi_app/musicview/__init__.py:431
 msgid "Fit Page"
 msgstr "Hele pagina"
 
 #. L10N: page numbering: page {num} of {total}
-#: frescobaldi_app/musicview/__init__.py:431
+#: frescobaldi_app/musicview/__init__.py:452
 msgid "{num} of {total}"
 msgstr "{num} van {total}"
 
@@ -6446,12 +6462,6 @@ msgstr "Selecteer een bestand"
 
 #~ msgid "Place the cursor on this spot."
 #~ msgstr "Zet de cursor op deze plaats."
-
-#~ msgid "Previous"
-#~ msgstr "Vorige"
-
-#~ msgid "Next"
-#~ msgstr "Volgende"
 
 #~ msgid "Notation Reference"
 #~ msgstr "Notation Reference"
