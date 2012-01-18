@@ -53,7 +53,6 @@ class MusicView(QWidget):
     """Widget containing the qpopplerview.View."""
     
     zoomChanged = pyqtSignal(int, float) # mode, scale
-    pageInfoUpdated = pyqtSignal()
     
     def __init__(self, dockwidget):
         """Creates the Music View for the dockwidget."""
@@ -68,7 +67,6 @@ class MusicView(QWidget):
         self._highlightRange = None
         self._highlightTimer = QTimer(singleShot=True, interval= 250, timeout=self.updateHighlighting)
         self._highlightRemoveTimer = QTimer(singleShot=True, timeout=self.clearHighlighting)
-        self._pageInfoTimer = QTimer(singleShot=True, interval=100, timeout=self.pageInfoUpdated)
         
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
@@ -90,23 +88,11 @@ class MusicView(QWidget):
         self.view.setContextMenuPolicy(Qt.CustomContextMenu)
         self.view.customContextMenuRequested.connect(self.showContextMenu)
         
-        # get notified about scrolling and moving the view
-        self.view.surface().pageLayout().changed.connect(self.updatePageInfo)
-        self.view.surface().installEventFilter(self)
-        self.view.installEventFilter(self)
-        
         # react if cursor of current text document moves
         dockwidget.mainwindow().currentViewChanged.connect(self.slotCurrentViewChanged)
         view = dockwidget.mainwindow().currentView()
         if view:
             self.slotCurrentViewChanged(view)
-    
-    def eventFilter(self, obj, ev):
-        """Reimplemented to follow scrolling the surface and resizing the view."""
-        if ((obj is self.view and ev.type() == QEvent.Resize)
-            or (obj is self.view.surface() and ev.type() == QEvent.Move)):
-            self.updatePageInfo()
-        return super(MusicView, self).eventFilter(obj, ev)
     
     def sizeHint(self):
         """Returns the initial size the PDF (Music) View prefers."""
@@ -116,11 +102,6 @@ class MusicView(QWidget):
         """Called when zoom and viewmode of the qpopplerview change, emit zoomChanged."""
         self.zoomChanged.emit(self.view.viewMode(), self.view.surface().pageLayout().scale())
     
-    def updatePageInfo(self):
-        """Called whenever another page could be in the center of the view."""
-        if not self._pageInfoTimer.isActive():
-            self._pageInfoTimer.start()
-        
     def openDocument(self, doc):
         """Opens a documents.Document instance."""
         self.clear()

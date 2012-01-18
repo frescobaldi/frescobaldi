@@ -84,7 +84,7 @@ class MusicViewPanel(panels.Panel):
         ac.music_copy_image.setEnabled(False)
         ac.music_next_page.triggered.connect(self.slotNextPage)
         ac.music_prev_page.triggered.connect(self.slotPreviousPage)
-        app.languageChanged.connect(self.updatePageInfo)
+        self.slotPageCountChanged(0)
         
     def translateUI(self):
         self.setWindowTitle(_("window title", "Music View"))
@@ -96,27 +96,33 @@ class MusicViewPanel(panels.Panel):
         w.zoomChanged.connect(self.slotMusicZoomChanged)
         w.updateZoomInfo()
         w.view.surface().selectionChanged.connect(self.updateSelection)
-        w.pageInfoUpdated.connect(self.updatePageInfo)
+        
+        import qpopplerview.pager
+        self._pager = p = qpopplerview.pager.Pager(w.view)
+        p.pageCountChanged.connect(self.slotPageCountChanged)
+        p.currentPageChanged.connect(self.slotCurrentPageChanged)
+        app.languageChanged.connect(self.updatePagerLanguage)
         return w
     
     def updateSelection(self, rect):
         self.actionCollection.music_copy_image.setEnabled(bool(rect))
     
-    def updatePageInfo(self):
-        num = self.widget().view.currentPageNumber() + 1
-        total = len(self.widget().view.surface().pageLayout())
-        ac = self.actionCollection
-        ac.music_next_page.setEnabled(num < total)
-        ac.music_prev_page.setEnabled(num > 1)
-        ac.music_pager.setPageInfo(num, total)
+    def updatePagerLanguage(self):
+        self.actionCollection.music_pager.setPageCount(self._pager.pageCount())
     
+    def slotPageCountChanged(self, total):
+        self.actionCollection.music_pager.setPageCount(total)
+        
+    def slotCurrentPageChanged(self, num):
+        self.actionCollection.music_pager.setCurrentPage(num)
+        self.actionCollection.music_next_page.setEnabled(num < self._pager.pageCount())
+        self.actionCollection.music_prev_page.setEnabled(num > 1)
+        
     def slotNextPage(self):
-        view = self.widget().view
-        view.gotoPageNumber(view.currentPageNumber() + 1)
+        self._pager.setCurrentPage(self._pager.currentPage() + 1)
     
     def slotPreviousPage(self):
-        view = self.widget().view
-        view.gotoPageNumber(view.currentPageNumber() - 1)
+        self._pager.setCurrentPage(self._pager.currentPage() - 1)
         
     def openDocument(self, doc):
         """Opens the documents.Document instance (wrapping a lazily loaded Poppler document)."""
@@ -440,13 +446,9 @@ class PagerAction(QWidgetAction):
         w.setFocusPolicy(Qt.ClickFocus)
         w.valueChanged[int].connect(self.slotValueChanged)
         return w
-        
-    def setPageInfo(self, num, total):
-        if total == 0:
-            self.setVisible(False)
-            def adjust(w):
-                w.setRange(0, 0)
-        else:
+    
+    def setPageCount(self, total):
+        if total:
             self.setVisible(True)
             # L10N: page numbering: page {num} of {total}
             prefix, suffix = _("{num} of {total}").split('{num}')
@@ -454,17 +456,23 @@ class PagerAction(QWidgetAction):
                 w.setRange(1, total)
                 w.setSuffix(suffix.format(total=total))
                 w.setPrefix(prefix.format(total=total))
-                w.setValue(num)
-                
+        else:
+            self.setVisible(False)
+            def adjust(w):
+                w.setRange(0, 0)
+                w.clear()
         for w in self.createdWidgets():
             with util.signalsBlocked(w):
                 adjust(w)
-                w.lineEdit().deselect()
+    
+    def setCurrentPage(self, num):
+        if num:
+            for w in self.createdWidgets():
+                with util.signalsBlocked(w):
+                    w.setValue(num)
+                    w.lineEdit().deselect()
     
     def slotValueChanged(self, num):
-        self.parent().widget().view.gotoPageNumber(num - 1)
-
-
-
+        self.parent()._pager.setCurrentPage(num)
 
 

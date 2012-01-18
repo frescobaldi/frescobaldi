@@ -1,0 +1,99 @@
+# This file is part of the qpopplerview package.
+#
+# Copyright (c) 2010 - 2012 by Wilbert Berendsen
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+# See http://www.gnu.org/licenses/ for more information.
+
+
+"""
+Provides an interface for paging in a View by page number.
+"""
+
+
+from PyQt4.QtCore import pyqtSignal, QEvent, QTimer, QObject
+
+
+class Pager(QObject):
+    """Provides an interface for paging in a View by page number.
+    
+    Pages are numbered starting with 1 in this api!
+    
+    """
+    currentPageChanged = pyqtSignal(int)
+    pageCountChanged = pyqtSignal(int)
+    
+    def __init__(self, view):
+        """Initializes the Pager with the View.
+        
+        Also connects with the Surface of the View and its Layout,
+        so don't interchange them after initializing the Pager.
+        
+        """
+        super(Pager, self).__init__(view)
+        self._currentPage = 0
+        self._pageCount = 0
+        self._listen = True
+        self._updateTimer = QTimer(
+            singleShot=True, interval=100, timeout=self._updatePageNumber)
+        
+        # connect
+        view.installEventFilter(self)
+        view.surface().installEventFilter(self)
+        view.surface().pageLayout().changed.connect(self._layoutChanged)
+        
+    def currentPage(self):
+        """Returns the current page number (0 if there are no pages)."""
+        return self._currentPage
+        
+    def setCurrentPage(self, num):
+        """Shows the specified page number."""
+        changed, self._currentPage = self._currentPage != num, num
+        self._listen = False
+        self.view().gotoPageNumber(num - 1)
+        self._listen = True
+        if changed:
+            self.currentPageChanged.emit(self._currentPage)
+        
+    def pageCount(self):
+        """Returns the number of pages."""
+        return self._pageCount
+    
+    def view(self):
+        return self.parent()
+    
+    def _layoutChanged(self):
+        """Called internally whenever the layout is updated."""
+        layout = self.view().surface().pageLayout()
+        self._pageCount, old = len(layout), self._pageCount
+        if old != self._pageCount:
+            self.pageCountChanged.emit(self._pageCount)
+        self._updatePageNumber()
+    
+    def _updatePageNumber(self):
+        """Called internally on layout change or view resize or surface move."""
+        self._currentPage, old = self.view().currentPageNumber() + 1, self._currentPage
+        if old != self._currentPage:
+            self.currentPageChanged.emit(self._currentPage)
+
+    def eventFilter(self, obj, ev):
+        if (self._listen and
+            ((ev.type() == QEvent.Resize and obj is self.view())
+             or (ev.type() == QEvent.Move and obj is self.view().surface()))
+            and not self._updateTimer.isActive()):
+            self._updateTimer.start()
+        return False
+
+
