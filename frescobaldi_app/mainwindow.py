@@ -795,7 +795,9 @@ class MainWindow(QMainWindow):
         t.addAction(ma.music_zoom_combo)
         t.addAction(ma.music_zoom_out)
         t.addSeparator()
+        t.addAction(ma.music_prev_page)
         t.addAction(ma.music_pager)
+        t.addAction(ma.music_next_page)
         
     def translateUI(self):
         self.toolbar_main.setWindowTitle(_("Main Toolbar"))

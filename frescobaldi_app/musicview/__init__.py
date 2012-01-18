@@ -82,6 +82,8 @@ class MusicViewPanel(panels.Panel):
         ac.music_document_select.documentClosed.connect(self.closeDocument)
         ac.music_document_select.documentsChanged.connect(self.updateActions)
         ac.music_copy_image.setEnabled(False)
+        ac.music_next_page.triggered.connect(self.slotNextPage)
+        ac.music_prev_page.triggered.connect(self.slotPreviousPage)
         app.languageChanged.connect(self.updatePageInfo)
         
     def translateUI(self):
@@ -103,7 +105,18 @@ class MusicViewPanel(panels.Panel):
     def updatePageInfo(self):
         num = self.widget().view.currentPageNumber() + 1
         total = len(self.widget().view.surface().pageLayout())
-        self.actionCollection.music_pager.setPageInfo(num, total)
+        ac = self.actionCollection
+        ac.music_next_page.setEnabled(num < total)
+        ac.music_prev_page.setEnabled(num > 1)
+        ac.music_pager.setPageInfo(num, total)
+    
+    def slotNextPage(self):
+        view = self.widget().view
+        view.gotoPageNumber(view.currentPageNumber() + 1)
+    
+    def slotPreviousPage(self):
+        view = self.widget().view
+        view.gotoPageNumber(view.currentPageNumber() - 1)
         
     def openDocument(self, doc):
         """Opens the documents.Document instance (wrapping a lazily loaded Poppler document)."""
@@ -175,6 +188,8 @@ class Actions(actioncollection.ActionCollection):
         self.music_jump_to_cursor = QAction(panel)
         self.music_copy_image = QAction(panel)
         self.music_pager = PagerAction(panel)
+        self.music_next_page = QAction(panel)
+        self.music_prev_page = QAction(panel)
 
         self.music_fit_width.setCheckable(True)
         self.music_fit_height.setCheckable(True)
@@ -188,6 +203,8 @@ class Actions(actioncollection.ActionCollection):
         self.music_fit_both.setIcon(icons.get('zoom-fit-best'))
         self.music_jump_to_cursor.setIcon(icons.get('go-jump'))
         self.music_copy_image.setIcon(icons.get('edit-copy'))
+        self.music_next_page.setIcon(icons.get('go-next'))
+        self.music_prev_page.setIcon(icons.get('go-previous'))
         
         self.music_document_select.setShortcut(QKeySequence(Qt.SHIFT | Qt.CTRL | Qt.Key_O))
         self.music_print.setShortcuts(QKeySequence.Print)
@@ -207,6 +224,10 @@ class Actions(actioncollection.ActionCollection):
         self.music_fit_both.setText(_("Fit &Page"))
         self.music_jump_to_cursor.setText(_("&Jump to Cursor Position"))
         self.music_copy_image.setText(_("Copy to &Image..."))
+        self.music_next_page.setText(_("Next Page"))
+        self.music_next_page.setIconText(_("Next"))
+        self.music_prev_page.setText(_("Previous Page"))
+        self.music_prev_page.setIconText(_("Previous"))
 
 
 class ComboBoxAction(QWidgetAction):
@@ -415,7 +436,7 @@ class PagerAction(QWidgetAction):
         super(PagerAction, self).__init__(panel)
     
     def createWidget(self, parent):
-        w = QSpinBox(parent, buttonSymbols=QSpinBox.PlusMinus)
+        w = QSpinBox(parent, buttonSymbols=QSpinBox.NoButtons)
         w.setFocusPolicy(Qt.ClickFocus)
         w.valueChanged[int].connect(self.slotValueChanged)
         return w
