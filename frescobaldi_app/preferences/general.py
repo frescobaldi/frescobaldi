@@ -75,7 +75,7 @@ class General(preferences.Group):
         grid.setColumnStretch(2, 1)
         
         # fill in the language combo
-        self._langs = ["none", ""]
+        self._langs = ["C", ""]
         self.lang.addItems(('', ''))
         langnames = [(language_names.languageName(lang, lang), lang) for lang in po.available()]
         langnames.sort()

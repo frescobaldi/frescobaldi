@@ -34,28 +34,39 @@ from . import qtranslator
 _currentlanguage = None
 
 
-def setup():
-    """Set application language according to settings."""
-    global _currentlanguage
+def current():
+    """Returns the current (user-set or default) UI language setting.
     
+    A name is always returned, which can be "C", meaning no translation
+    is desired.
+    
+    """
     language = QSettings().value("language", "")
     if not language:
         try:
             language = locale.getdefaultlocale()[0]
         except ValueError:
             pass
-    if language:
-        if _currentlanguage is not None and language != _currentlanguage:
-            QTimer.singleShot(0, app.languageChanged)
-        _currentlanguage = language
-        if language != "none":
-            mo = find(language)
-            if mo:
-                try:
-                    install(mo)
-                    return
-                except Exception:
-                    pass
+    if not language:
+        language = "C"
+    return language
+    
+    
+def setup():
+    """Set application language according to settings."""
+    global _currentlanguage
+    language = current()
+    if _currentlanguage is not None and language != _currentlanguage:
+        QTimer.singleShot(0, app.languageChanged)
+    _currentlanguage = language
+    if language != "C":
+        mo = find(language)
+        if mo:
+            try:
+                install(mo)
+                return
+            except Exception:
+                pass
     install(None)
 
 app.settingsChanged.connect(setup)

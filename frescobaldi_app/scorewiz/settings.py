@@ -27,7 +27,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
-import po
+import po.setup
 import language_names
 import listmodel
 import lilypondinfo
@@ -202,7 +202,7 @@ class InstrumentNames(QGroupBox):
                 return _("English (untranslated)")
             elif not lang:
                 return _("Default")
-            return language_names.languageName(lang)
+            return language_names.languageName(lang, po.setup.current())
         self.language.setModel(listmodel.ListModel(l, self.language, display=display))
         
         grid.addWidget(self.firstSystemLabel, 0, 0)
