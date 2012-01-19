@@ -62,7 +62,7 @@ def generate_kde(fileName="/usr/share/locale/all_languages"):
         m = re.match(r"\[([^]]+)\]", line)
         if m:
             group = m.group(1)
-        elif group:
+        elif group and group != 'x-test':
             m = re.match(r"Name(?:\[([^]]+)\])?\s*=(.*)$", line)
             if m:
                 lang, name = m.group(1) or "C", m.group(2)
