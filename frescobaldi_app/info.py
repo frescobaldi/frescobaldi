@@ -79,5 +79,8 @@ translators = {
     'gl': [
         "Manuel A. Vázquez",
     ],
+    'pt_BR': [
+        "Édio Mazera",
+    ],
 }
 

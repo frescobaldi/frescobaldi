@@ -49,6 +49,7 @@ classifiers = [
     'Natural Language :: German',
     'Natural Language :: Italian',
     'Natural Language :: Polish',
+    'Natural Language :: Portuguese (Brazilian)'
     'Natural Language :: Russian',
     'Natural Language :: Spanish',
     'Natural Language :: Turkish',

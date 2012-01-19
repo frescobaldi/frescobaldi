@@ -4,7 +4,9 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 
 Changes in 2.0.3 -- 
 
-* Updated translations: es
+* Translations:
+  - New translation: Brazillian, by Édio Mazera, thanks!
+  - updated translations: es
 * New features:
   - pager in musicview toolbar
 * Improvements:
