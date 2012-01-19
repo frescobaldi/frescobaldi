@@ -779,6 +779,8 @@ class MainWindow(QMainWindow):
         t.addAction(ac.file_save)
         t.addAction(ac.file_save_as)
         t.addSeparator()
+        t.addAction(ac.file_close)
+        t.addSeparator()
         t.addAction(ac.edit_undo)
         t.addAction(ac.edit_redo)
         t.addSeparator()
