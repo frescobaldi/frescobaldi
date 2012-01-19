@@ -1,5 +1,4 @@
 #! python
-# -*- coding: utf-8 -*-
 
 """
 This module provides one function, languageName(), that returns
@@ -20,9 +19,6 @@ from __future__ import unicode_literals
 import itertools
 import locale
 from .data import language_names
-
-# correction from a mistake in KDE's all_languages
-language_names["cs"]["gl"] = "Galicijský"
 
 
 __all__ = ['languageName']

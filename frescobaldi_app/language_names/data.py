@@ -250,7 +250,7 @@ language_names = {
  "fy":"Fríský",
  "ga":"Galský (irština)",
  "gd":"Galský",
- "gl":"Haličský",
+ "gl":"Galicijský",
  "gn":"Guarani",
  "gu":"Gujarati",
  "gv":"Manx",

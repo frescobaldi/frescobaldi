@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
 
@@ -68,6 +69,8 @@ def generate_kde(fileName="/usr/share/locale/all_languages"):
                 lang, name = m.group(1) or "C", m.group(2)
                 langs[lang][group] = name
     
+    # correct KDE mistake
+    langs["cs"]["gl"] = "Galicijský"
     return dict(langs)
     
 
