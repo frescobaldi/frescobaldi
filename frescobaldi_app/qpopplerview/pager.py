@@ -85,6 +85,9 @@ class Pager(QObject):
     def _updatePageNumber(self):
         """Called internally on layout change or view resize or surface move."""
         self._currentPage, old = self.view().currentPageNumber() + 1, self._currentPage
+        if self._currentPage == 0 and self._pageCount > 0:
+            # the view may not be initialized
+            self._currentPage = 1
         if old != self._currentPage:
             self.currentPageChanged.emit(self._currentPage)
 

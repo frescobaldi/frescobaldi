@@ -121,10 +121,16 @@ class MusicViewPanel(panels.Panel):
         self.actionCollection.music_prev_page.setEnabled(num > 1)
         
     def slotNextPage(self):
+        self.activate()
         self._pager.setCurrentPage(self._pager.currentPage() + 1)
     
     def slotPreviousPage(self):
+        self.activate()
         self._pager.setCurrentPage(self._pager.currentPage() - 1)
+    
+    def setCurrentPage(self, num):
+        self.activate()
+        self._pager.setCurrentPage(num)
         
     def openDocument(self, doc):
         """Opens the documents.Document instance (wrapping a lazily loaded Poppler document)."""
@@ -144,18 +150,23 @@ class MusicViewPanel(panels.Panel):
             popplerprint.printDocument(doc, self)
     
     def zoomIn(self):
+        self.activate()
         self.widget().view.zoomIn()
     
     def zoomOut(self):
+        self.activate()
         self.widget().view.zoomOut()
     
     def fitWidth(self):
+        self.activate()
         self.widget().view.setViewMode(FitWidth)
     
     def fitHeight(self):
+        self.activate()
         self.widget().view.setViewMode(FitHeight)
 
     def fitBoth(self):
+        self.activate()
         self.widget().view.setViewMode(FitBoth)
     
     def jumpToCursor(self):
@@ -168,6 +179,7 @@ class MusicViewPanel(panels.Panel):
         
     def slotZoomChanged(self, mode, scale):
         """Called when the combobox is changed, changes view zoom."""
+        self.activate()
         if mode == FixedScale:
             self.widget().view.zoom(scale)
         else:
@@ -475,6 +487,6 @@ class PagerAction(QWidgetAction):
                     w.lineEdit().deselect()
     
     def slotValueChanged(self, num):
-        self.parent()._pager.setCurrentPage(num)
+        self.parent().setCurrentPage(num)
 
 
