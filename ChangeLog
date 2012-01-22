@@ -12,6 +12,7 @@ Changes in 2.0.3 --
 * Improvements:
   - improved "Comment" snippet; add "Uncomment"
 * Bug fixes:
+  - fix { } or << >> inside lyricmode
   - in doc browser, don't display bogus versions when network is inaccessible
 
 

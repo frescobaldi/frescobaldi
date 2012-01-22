@@ -1159,7 +1159,7 @@ class ParseLyricMode(ParseInputMode):
     
     def updateState(self, state, token):
         if isinstance(token, (OpenSimultaneous, OpenBracket)):
-            state.replace(ParseLyricMode())
+            state.enter(ParseLyricMode())
 
 
 class ExpectChordMode(FallthroughParser):
