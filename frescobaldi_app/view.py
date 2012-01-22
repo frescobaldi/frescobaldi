@@ -30,7 +30,7 @@ import weakref
 
 from PyQt4.QtCore import QEvent, Qt, QTimer, pyqtSignal
 from PyQt4.QtGui import (
-    QApplication, QPainter, QPlainTextEdit, QTextCursor, QVBoxLayout)
+    QApplication, QKeySequence, QPainter, QPlainTextEdit, QTextCursor)
 
 import app
 import metainfo
@@ -119,6 +119,18 @@ class View(QPlainTextEdit):
         return super(View, self).event(ev)
 
     def keyPressEvent(self, ev):
+        home = ev == QKeySequence.MoveToStartOfLine
+        s_home = ev == QKeySequence.SelectStartOfLine
+        if home or s_home:
+            # go to first non-space character if not already there
+            cursor = self.textCursor()
+            text = cursor.block().text()
+            pos = cursor.block().position() + len(text) - len(text.lstrip())
+            if cursor.position() != pos:
+                mode = QTextCursor.KeepAnchor if s_home else QTextCursor.MoveAnchor
+                cursor.setPosition(pos, mode)
+                self.setTextCursor(cursor)
+                return
         super(View, self).keyPressEvent(ev)
         
         if metainfo.info(self.document()).autoindent:

@@ -11,6 +11,7 @@ Changes in 2.0.3 --
   - pager in musicview toolbar
 * Improvements:
   - improved "Comment" snippet; add "Uncomment"
+  - Home and Shift+Home now move the cursor to the first non-space character
 * Bug fixes:
   - fix { } or << >> inside lyricmode
   - in doc browser, don't display bogus versions when network is inaccessible
