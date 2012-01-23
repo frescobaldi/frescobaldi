@@ -33,6 +33,7 @@ from PyQt4.QtGui import (
     QApplication, QKeySequence, QPainter, QPlainTextEdit, QTextCursor)
 
 import app
+import homekey
 import metainfo
 import textformats
 import cursortools
@@ -119,18 +120,8 @@ class View(QPlainTextEdit):
         return super(View, self).event(ev)
 
     def keyPressEvent(self, ev):
-        home = ev == QKeySequence.MoveToStartOfLine
-        s_home = ev == QKeySequence.SelectStartOfLine
-        if home or s_home:
-            # go to first non-space character if not already there
-            cursor = self.textCursor()
-            text = cursor.block().text()
-            pos = cursor.block().position() + len(text) - len(text.lstrip())
-            if cursor.position() != pos:
-                mode = QTextCursor.KeepAnchor if s_home else QTextCursor.MoveAnchor
-                cursor.setPosition(pos, mode)
-                self.setTextCursor(cursor)
-                return
+        if homekey.handle(self, ev):
+            return
         super(View, self).keyPressEvent(ev)
         
         if metainfo.info(self.document()).autoindent:

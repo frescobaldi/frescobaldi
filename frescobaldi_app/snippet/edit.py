@@ -33,6 +33,7 @@ import actioncollectionmanager
 import app
 import util
 import help
+import homekey
 import icons
 import textformats
 import widgets.indenter
@@ -95,6 +96,7 @@ class Edit(QDialog):
         highlight.Highlighter(self.text.document())
         Matcher(self.text)
         widgets.indenter.Indenter(self.text)
+        self.text.installEventFilter(homekey.handler)
         
         if name:
             self.titleEntry.setText(snippets.title(name, False) or '')
