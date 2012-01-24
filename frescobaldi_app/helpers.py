@@ -70,14 +70,18 @@ def openUrl(url, type="browser"):
     # get the command
     cmd = command(type)
     if not cmd:
-        QDesktopServices.openUrl(url)
-        return
+        if type != "shell":
+            QDesktopServices.openUrl(url)
+            return
+        cmd = terminalCommand()
     
     prog = cmd.pop(0)
     
     workdir = None
     if url.toLocalFile():
-        workdir = os.path.dirname(url.toLocalFile())
+        workdir = url.toLocalFile()
+        if type != "shell":
+            workdir = os.path.dirname(workdir)
     
     if any('$f' in a or '$u' in a for a in cmd):
         cmd = [a.replace('$u', url.toString())
@@ -89,5 +93,28 @@ def openUrl(url, type="browser"):
         cmd.append(url.toLocalFile())
     
     subprocess.Popen([prog] + cmd, cwd=workdir)
+
+
+def terminalCommand():
+    """Returns a suitable default command to open a terminal/shell window."""
+    if os.name == "nt":
+        return ['cmd.exe', '/K', 'cd "$f"']
+    if sys.platform == 'darwin':
+        return ['open', '-a', 'Terminal', '$f']
+    
+    # find a default linux terminal
+    paths = os.environ.get('PATH', os.defpath).split(os.pathsep)
+    for cmd in (
+        ['lxterminal', '--working-directory=$f'],
+        ['xfce4-terminal', '--working-directory=$f'],
+        ['konsole', '--workdir', '$f'],
+        ['gnome-terminal', '--working-directory=$f'],
+        ):
+        for p in paths:
+            if p:
+                prog = os.path.join(p, cmd[0])
+                if os.access(prog, os.X_OK):
+                    return cmd
+    return ['xterm']
 
 
