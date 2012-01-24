@@ -9,6 +9,7 @@ Changes in 2.0.3 --
   - updated translations: es
 * New features:
   - pager in musicview toolbar
+  - tools->open command prompt to open a terminal window
 * Improvements:
   - improved "Comment" snippet; add "Uncomment"
   - Home and Shift+Home now move the cursor to the first non-space character

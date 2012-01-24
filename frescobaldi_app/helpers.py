@@ -26,9 +26,11 @@ from __future__ import unicode_literals
 import os
 import re
 import subprocess
+import sys
 
 from PyQt4.QtCore import QSettings
 from PyQt4.QtGui import QDesktopServices
+
 
 def command(type):
     """Returns the command for the specified type as a list.
@@ -73,7 +75,8 @@ def openUrl(url, type="browser"):
         if type != "shell":
             QDesktopServices.openUrl(url)
             return
-        cmd = terminalCommand()
+        for cmd in terminalCommands():
+            break # get the first
     
     prog = cmd.pop(0)
     
@@ -95,26 +98,30 @@ def openUrl(url, type="browser"):
     subprocess.Popen([prog] + cmd, cwd=workdir)
 
 
-def terminalCommand():
-    """Returns a suitable default command to open a terminal/shell window."""
-    if os.name == "nt":
-        return ['cmd.exe', '/K', 'cd "$f"']
-    if sys.platform == 'darwin':
-        return ['open', '-a', 'Terminal', '$f']
+def terminalCommands():
+    """Yields suitable commands to open a terminal/shell window.
     
-    # find a default linux terminal
-    paths = os.environ.get('PATH', os.defpath).split(os.pathsep)
-    for cmd in (
-        ['lxterminal', '--working-directory=$f'],
-        ['xfce4-terminal', '--working-directory=$f'],
-        ['konsole', '--workdir', '$f'],
-        ['gnome-terminal', '--working-directory=$f'],
-        ):
-        for p in paths:
-            if p:
-                prog = os.path.join(p, cmd[0])
-                if os.access(prog, os.X_OK):
-                    return cmd
-    return ['xterm']
+    There is always yielded at least one, which is suitable as default.
+    
+    """
+    if os.name == "nt":
+        yield ['cmd.exe', '/K', 'cd "$f"']
+    elif sys.platform == 'darwin':
+        yield ['open', '-a', 'Terminal', '$f']
+    else:
+        # find a default linux terminal
+        paths = os.environ.get('PATH', os.defpath).split(os.pathsep)
+        for cmd in (
+            ['lxterminal', '--working-directory=$f'],
+            ['xfce4-terminal', '--working-directory=$f'],
+            ['konsole', '--workdir', '$f'],
+            ['gnome-terminal', '--working-directory=$f'],
+            ):
+            for p in paths:
+                if p:
+                    prog = os.path.join(p, cmd[0])
+                    if os.access(prog, os.X_OK):
+                         yield cmd
+        yield ['xterm']
 
 

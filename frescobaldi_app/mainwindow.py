@@ -342,6 +342,19 @@ class MainWindow(QMainWindow):
             recentfiles.add(url)
         return app.openUrl(url, encoding)
     
+    def currentDirectory(self):
+        """Returns the current directory of the current document.
+        
+        If the document has no filename yet, returns the configured default
+        directory, or the user's home directory.
+        Is that is not set as well, returns the current directory
+        of the application.
+        
+        """
+        import resultfiles
+        return (resultfiles.results(self.currentDocument()).currentDirectory()
+                or app.basedir() or QDir.homePath() or os.getcwdu())
+    
     ##
     # Implementations of menu actions
     ##
@@ -531,11 +544,10 @@ class MainWindow(QMainWindow):
                 self.currentView().textCursor().insertText(text)
         
     def openCurrentDirectory(self):
-        import resultfiles
-        directory = resultfiles.results(self.currentDocument()).currentDirectory()
-        if not directory:
-            directory = app.basedir() or os.getcwdu()
-        helpers.openUrl(QUrl.fromLocalFile(directory), "directory")
+        helpers.openUrl(QUrl.fromLocalFile(self.currentDirectory()), "directory")
+    
+    def openCommandPrompt(self):
+        helpers.openUrl(QUrl.fromLocalFile(self.currentDirectory()), "shell")
     
     def printSource(self):
         cursor = self.currentView().textCursor()
@@ -713,6 +725,7 @@ class MainWindow(QMainWindow):
         ac.file_open.triggered.connect(self.openDocument)
         ac.file_insert_file.triggered.connect(self.insertFromFile)
         ac.file_open_current_directory.triggered.connect(self.openCurrentDirectory)
+        ac.file_open_command_prompt.triggered.connect(self.openCommandPrompt)
         ac.file_save.triggered.connect(self.saveCurrentDocument)
         ac.file_save_as.triggered.connect(self.saveCurrentDocumentAs)
         ac.file_save_copy_as.triggered.connect(self.saveCopyAs)
@@ -814,6 +827,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_open_recent = QAction(parent)
         self.file_insert_file = QAction(parent)
         self.file_open_current_directory = QAction(parent)
+        self.file_open_command_prompt = QAction(parent)
         self.file_save = QAction(parent)
         self.file_save_as = QAction(parent)
         self.file_save_copy_as = QAction(parent)
@@ -934,6 +948,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_open_recent.setText(_("Open &Recent"))
         self.file_insert_file.setText(_("Insert from &File..."))
         self.file_open_current_directory.setText(_("Open Current Directory"))
+        self.file_open_command_prompt.setText(_("Open Command Prompt"))
         self.file_save.setText(_("&Save"))
         self.file_save_as.setText(_("Save &As..."))
         self.file_save_copy_as.setText(_("Save Copy or Selection As..."))

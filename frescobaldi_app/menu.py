@@ -224,6 +224,7 @@ def menu_tools(mainwindow):
     m.addSeparator()
     ac = documentactions.get(mainwindow).actionCollection
     m.addAction(ac.tools_convert_ly)
+    m.addAction(mainwindow.actionCollection.file_open_command_prompt)
     m.addSeparator()
     panels.manager(mainwindow).addActionsToMenu(m)
     return m
