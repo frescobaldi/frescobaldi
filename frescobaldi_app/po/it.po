@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-18 15:29+0100\n"
+"POT-Creation-Date: 2012-01-24 17:34+0100\n"
 "PO-Revision-Date: 2011-12-01 17:39+0100\n"
 "Last-Translator: .billyBoh <billyboh@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -283,7 +283,7 @@ msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr "Inserire il nome della variabile a cui assegnare il testo selezionato:"
 
 #: frescobaldi_app/document.py:143 frescobaldi_app/doclist/widget.py:126
-#: frescobaldi_app/snippet/edit.py:163
+#: frescobaldi_app/snippet/edit.py:165
 msgid "Untitled"
 msgstr "Senza nome"
 
@@ -315,16 +315,16 @@ msgstr "&Ordina indentazione"
 msgid "&Update with convert-ly..."
 msgstr "&Aggiorna con convert-ly"
 
-#: frescobaldi_app/documentcontextmenu.py:55 frescobaldi_app/mainwindow.py:935
+#: frescobaldi_app/documentcontextmenu.py:55 frescobaldi_app/mainwindow.py:952
 #: frescobaldi_app/sessions/manager.py:128
 msgid "&Save"
 msgstr "&Salva"
 
-#: frescobaldi_app/documentcontextmenu.py:56 frescobaldi_app/mainwindow.py:936
+#: frescobaldi_app/documentcontextmenu.py:56 frescobaldi_app/mainwindow.py:953
 msgid "Save &As..."
 msgstr "&Salva come..."
 
-#: frescobaldi_app/documentcontextmenu.py:57 frescobaldi_app/mainwindow.py:940
+#: frescobaldi_app/documentcontextmenu.py:57 frescobaldi_app/mainwindow.py:957
 msgid "&Close"
 msgstr "&Chiudi"
 
@@ -604,15 +604,15 @@ msgstr ""
 "\n"
 "{url}"
 
-#: frescobaldi_app/mainwindow.py:357
+#: frescobaldi_app/mainwindow.py:370
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Apri file"
 
 #. L10N: a basic type of input in the editor
-#: frescobaldi_app/mainwindow.py:376 frescobaldi_app/mainwindow.py:382
-#: frescobaldi_app/mainwindow.py:407 frescobaldi_app/mainwindow.py:458
-#: frescobaldi_app/mainwindow.py:526 frescobaldi_app/mainwindow.py:586
+#: frescobaldi_app/mainwindow.py:389 frescobaldi_app/mainwindow.py:395
+#: frescobaldi_app/mainwindow.py:420 frescobaldi_app/mainwindow.py:471
+#: frescobaldi_app/mainwindow.py:539 frescobaldi_app/mainwindow.py:598
 #: frescobaldi_app/musicview/image.py:213
 #: frescobaldi_app/preferences/fontscolors.py:476
 #: frescobaldi_app/preferences/fontscolors.py:514
@@ -621,8 +621,8 @@ msgstr "Apri file"
 msgid "Error"
 msgstr "Errore"
 
-#: frescobaldi_app/mainwindow.py:377 frescobaldi_app/mainwindow.py:383
-#: frescobaldi_app/mainwindow.py:408
+#: frescobaldi_app/mainwindow.py:390 frescobaldi_app/mainwindow.py:396
+#: frescobaldi_app/mainwindow.py:421
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -632,22 +632,22 @@ msgstr ""
 "\n"
 "{url}"
 
-#: frescobaldi_app/mainwindow.py:402
+#: frescobaldi_app/mainwindow.py:415
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "Salva documento"
 
-#: frescobaldi_app/mainwindow.py:442
+#: frescobaldi_app/mainwindow.py:455
 msgctxt "dialog title"
 msgid "Save Copy"
 msgstr "Salva copia"
 
-#: frescobaldi_app/mainwindow.py:448
+#: frescobaldi_app/mainwindow.py:461
 msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Salva selezione"
 
-#: frescobaldi_app/mainwindow.py:459 frescobaldi_app/mainwindow.py:587
+#: frescobaldi_app/mainwindow.py:472 frescobaldi_app/mainwindow.py:599
 #: frescobaldi_app/snippet/widget.py:293
 msgid ""
 "Can't write to destination:\n"
@@ -662,12 +662,12 @@ msgstr ""
 "\n"
 "{error}"
 
-#: frescobaldi_app/mainwindow.py:519
+#: frescobaldi_app/mainwindow.py:532
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Inserisci dal file"
 
-#: frescobaldi_app/mainwindow.py:527
+#: frescobaldi_app/mainwindow.py:540
 #: frescobaldi_app/snippet/import_export.py:105
 msgid ""
 "Can't read from source:\n"
@@ -681,16 +681,16 @@ msgstr ""
 "\n"
 "{error}"
 
-#: frescobaldi_app/mainwindow.py:544
+#: frescobaldi_app/mainwindow.py:556
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Stampa documento sorgente..."
 
-#: frescobaldi_app/mainwindow.py:577
+#: frescobaldi_app/mainwindow.py:589
 msgid "Export as HTML"
 msgstr "Esporta come HTML"
 
-#: frescobaldi_app/mainwindow.py:698
+#: frescobaldi_app/mainwindow.py:710
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -702,168 +702,172 @@ msgstr ""
 "\n"
 "\n"
 
-#: frescobaldi_app/mainwindow.py:803
+#: frescobaldi_app/mainwindow.py:818
 msgid "Main Toolbar"
 msgstr "Barra degli strumenti principale"
 
-#: frescobaldi_app/mainwindow.py:804
+#: frescobaldi_app/mainwindow.py:819
 msgid "Music View Toolbar"
 msgstr "Barra dell'anteprima spartito"
 
-#: frescobaldi_app/mainwindow.py:930
+#: frescobaldi_app/mainwindow.py:946
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nuovo"
 
-#: frescobaldi_app/mainwindow.py:931
+#: frescobaldi_app/mainwindow.py:947
 msgid "&Open..."
 msgstr "&Apri..."
 
-#: frescobaldi_app/mainwindow.py:932
+#: frescobaldi_app/mainwindow.py:948
 msgid "Open &Recent"
 msgstr "Apri &recenti"
 
-#: frescobaldi_app/mainwindow.py:933
+#: frescobaldi_app/mainwindow.py:949
 msgid "Insert from &File..."
 msgstr "Inserisci dal &file..."
 
-#: frescobaldi_app/mainwindow.py:934
+#: frescobaldi_app/mainwindow.py:950
 msgid "Open Current Directory"
 msgstr "Apri la cartella attuale"
 
-#: frescobaldi_app/mainwindow.py:937
+#: frescobaldi_app/mainwindow.py:951
+msgid "Open Command Prompt"
+msgstr ""
+
+#: frescobaldi_app/mainwindow.py:954
 msgid "Save Copy or Selection As..."
 msgstr "Salva copia o selezione come..."
 
-#: frescobaldi_app/mainwindow.py:938
+#: frescobaldi_app/mainwindow.py:955
 msgid "Save All"
 msgstr "Salva tutto"
 
-#: frescobaldi_app/mainwindow.py:939
+#: frescobaldi_app/mainwindow.py:956
 msgid "Print Source..."
 msgstr "Stampa documento sorgente..."
 
-#: frescobaldi_app/mainwindow.py:941
+#: frescobaldi_app/mainwindow.py:958
 msgid "Close Other Documents"
 msgstr "Chiudi gli altri documenti"
 
-#: frescobaldi_app/mainwindow.py:942
+#: frescobaldi_app/mainwindow.py:959
 msgid "Close All Documents"
 msgstr "Chiudi tutti i documenti"
 
-#: frescobaldi_app/mainwindow.py:943
+#: frescobaldi_app/mainwindow.py:960
 msgid "Closes all documents and leaves the current session."
 msgstr "Chiude tutti i documenti ed esce dalla sessione corrente."
 
-#: frescobaldi_app/mainwindow.py:944
+#: frescobaldi_app/mainwindow.py:961
 msgid "&Quit"
 msgstr "&Esci"
 
-#: frescobaldi_app/mainwindow.py:946
+#: frescobaldi_app/mainwindow.py:963
 msgid "Export Source as Colored &HTML..."
 msgstr "Esporta il documento sorgente come &HTML colorato..."
 
-#: frescobaldi_app/mainwindow.py:948
+#: frescobaldi_app/mainwindow.py:965
 msgid "&Undo"
 msgstr "&Annulla"
 
-#: frescobaldi_app/mainwindow.py:949
+#: frescobaldi_app/mainwindow.py:966
 msgid "Re&do"
 msgstr "Ri&peti"
 
-#: frescobaldi_app/mainwindow.py:950
+#: frescobaldi_app/mainwindow.py:967
 msgid "Cu&t"
 msgstr "Ta&glia"
 
-#: frescobaldi_app/mainwindow.py:951 frescobaldi_app/docbrowser/browser.py:248
+#: frescobaldi_app/mainwindow.py:968 frescobaldi_app/docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Copia"
 
-#: frescobaldi_app/mainwindow.py:952
+#: frescobaldi_app/mainwindow.py:969
 msgid "Copy as Colored &HTML"
 msgstr "Copia come &HTML colorato"
 
-#: frescobaldi_app/mainwindow.py:953
+#: frescobaldi_app/mainwindow.py:970
 msgid "&Paste"
 msgstr "&Incolla"
 
-#: frescobaldi_app/mainwindow.py:954
+#: frescobaldi_app/mainwindow.py:971
 msgid "Select &All"
 msgstr "Seleziona &tutto"
 
-#: frescobaldi_app/mainwindow.py:955
+#: frescobaldi_app/mainwindow.py:972
 msgid "Select &Block"
 msgstr "Seleziona &blocco"
 
-#: frescobaldi_app/mainwindow.py:956
+#: frescobaldi_app/mainwindow.py:973
 msgid "Select &None"
 msgstr "Annulla &ogni selezione"
 
-#: frescobaldi_app/mainwindow.py:957
+#: frescobaldi_app/mainwindow.py:974
 msgid "Select Whole Lines Up"
 msgstr "Seleziona tutte le righe precedenti"
 
-#: frescobaldi_app/mainwindow.py:958
+#: frescobaldi_app/mainwindow.py:975
 msgid "Select Whole Lines Down"
 msgstr "Seleziona tutte le righe seguenti"
 
-#: frescobaldi_app/mainwindow.py:959
+#: frescobaldi_app/mainwindow.py:976
 msgid "&Find..."
 msgstr "&Trova..."
 
-#: frescobaldi_app/mainwindow.py:960
+#: frescobaldi_app/mainwindow.py:977
 msgid "Find Ne&xt"
 msgstr "Trova &successivo"
 
-#: frescobaldi_app/mainwindow.py:961
+#: frescobaldi_app/mainwindow.py:978
 msgid "Find Pre&vious"
 msgstr "Trova pre&cedente"
 
-#: frescobaldi_app/mainwindow.py:962
+#: frescobaldi_app/mainwindow.py:979
 msgid "&Replace..."
 msgstr "&Sostituisci..."
 
-#: frescobaldi_app/mainwindow.py:963
+#: frescobaldi_app/mainwindow.py:980
 msgid "Pr&eferences..."
 msgstr "Pr&eferenze..."
 
-#: frescobaldi_app/mainwindow.py:965
+#: frescobaldi_app/mainwindow.py:982
 msgid "&Next Document"
 msgstr "Documento &successivo"
 
-#: frescobaldi_app/mainwindow.py:966
+#: frescobaldi_app/mainwindow.py:983
 msgid "&Previous Document"
 msgstr "Documento &precedente"
 
-#: frescobaldi_app/mainwindow.py:967
+#: frescobaldi_app/mainwindow.py:984
 msgid "Scroll Up"
 msgstr "Scorri in alto"
 
-#: frescobaldi_app/mainwindow.py:968
+#: frescobaldi_app/mainwindow.py:985
 msgid "Scroll Down"
 msgstr "Scorri in basso"
 
-#: frescobaldi_app/mainwindow.py:970
+#: frescobaldi_app/mainwindow.py:987
 msgid "New &Window"
 msgstr "Nuova &finestra"
 
-#: frescobaldi_app/mainwindow.py:971
+#: frescobaldi_app/mainwindow.py:988
 msgid "&Fullscreen"
 msgstr "&Schermo intero"
 
-#: frescobaldi_app/mainwindow.py:973
+#: frescobaldi_app/mainwindow.py:990
 msgid "&User Guide"
 msgstr "&Guida"
 
-#: frescobaldi_app/mainwindow.py:974
+#: frescobaldi_app/mainwindow.py:991
 msgid "&What's This?"
 msgstr "&Che cos'è?"
 
-#: frescobaldi_app/mainwindow.py:975
+#: frescobaldi_app/mainwindow.py:992
 msgid "Report a &Bug..."
 msgstr "Segnala un &bug..."
 
-#: frescobaldi_app/mainwindow.py:976
+#: frescobaldi_app/mainwindow.py:993
 msgid "&About {appname}..."
 msgstr "&A proposito di {appname}"
 
@@ -902,27 +906,27 @@ msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Strumenti"
 
-#: frescobaldi_app/menu.py:233
+#: frescobaldi_app/menu.py:234
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Parole"
 
-#: frescobaldi_app/menu.py:245
+#: frescobaldi_app/menu.py:246
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Note"
 
-#: frescobaldi_app/menu.py:259
+#: frescobaldi_app/menu.py:260
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritmo"
 
-#: frescobaldi_app/menu.py:287
+#: frescobaldi_app/menu.py:288
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Finestra"
 
-#: frescobaldi_app/menu.py:307
+#: frescobaldi_app/menu.py:308
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Aiuto"
@@ -2142,80 +2146,80 @@ msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "TEMPO"
 
-#: frescobaldi_app/musicview/__init__.py:90
+#: frescobaldi_app/musicview/__init__.py:92
 msgctxt "window title"
 msgid "Music View"
 msgstr "Anteprima spartito"
 
-#: frescobaldi_app/musicview/__init__.py:91
+#: frescobaldi_app/musicview/__init__.py:93
 msgid "&Music View"
 msgstr "Anteprima &spartito"
 
-#: frescobaldi_app/musicview/__init__.py:217
+#: frescobaldi_app/musicview/__init__.py:237
 msgid "Select Music View Document"
 msgstr "Scegliere un documento per l'Anteprima spartito"
 
-#: frescobaldi_app/musicview/__init__.py:218
+#: frescobaldi_app/musicview/__init__.py:238
 msgid "&Print Music..."
 msgstr "&Stampa la musica..."
 
-#: frescobaldi_app/musicview/__init__.py:219
+#: frescobaldi_app/musicview/__init__.py:239
 msgid "Zoom &In"
 msgstr "&Aumenta zoom"
 
-#: frescobaldi_app/musicview/__init__.py:220
+#: frescobaldi_app/musicview/__init__.py:240
 msgid "Zoom &Out"
 msgstr "&Diminuisci zoom"
 
-#: frescobaldi_app/musicview/__init__.py:221
+#: frescobaldi_app/musicview/__init__.py:241
 msgid "Zoom Music"
 msgstr "Fai zoom sullo spartito"
 
-#: frescobaldi_app/musicview/__init__.py:222
+#: frescobaldi_app/musicview/__init__.py:242
 msgid "Fit &Width"
 msgstr "Adatta alla &larghezza"
 
-#: frescobaldi_app/musicview/__init__.py:223
+#: frescobaldi_app/musicview/__init__.py:243
 msgid "Fit &Height"
 msgstr "Adatta all'&altezza"
 
-#: frescobaldi_app/musicview/__init__.py:224
+#: frescobaldi_app/musicview/__init__.py:244
 msgid "Fit &Page"
 msgstr "Adatta alla &pagina"
 
-#: frescobaldi_app/musicview/__init__.py:225
+#: frescobaldi_app/musicview/__init__.py:245
 msgid "&Jump to Cursor Position"
 msgstr "&Salta alla posizione del cursore"
 
-#: frescobaldi_app/musicview/__init__.py:226
+#: frescobaldi_app/musicview/__init__.py:246
 msgid "Copy to &Image..."
 msgstr "Copia come &immagine..."
 
-#: frescobaldi_app/musicview/__init__.py:227
+#: frescobaldi_app/musicview/__init__.py:247
 #, fuzzy
 msgid "Next Page"
 msgstr "Modifica successiva"
 
-#: frescobaldi_app/musicview/__init__.py:228
+#: frescobaldi_app/musicview/__init__.py:248
 #, fuzzy
 msgid "Next"
 msgstr "Avanti:"
 
-#: frescobaldi_app/musicview/__init__.py:229
+#: frescobaldi_app/musicview/__init__.py:249
 #, fuzzy
 msgid "Previous Page"
 msgstr "Contrassegno precedente"
 
-#: frescobaldi_app/musicview/__init__.py:230
+#: frescobaldi_app/musicview/__init__.py:250
 #, fuzzy
 msgid "Previous"
 msgstr "Contrassegno precedente"
 
-#: frescobaldi_app/musicview/__init__.py:369
+#: frescobaldi_app/musicview/__init__.py:389
 msgid "Choose the PDF document to display."
 msgstr "Scegli il documento PDF da mostrare."
 
-#: frescobaldi_app/musicview/__init__.py:371
+#: frescobaldi_app/musicview/__init__.py:391
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -2223,20 +2227,20 @@ msgstr ""
 "Scegli il documento PDF da mostrare o trascina il file ad un'altra "
 "applicazione o posizione."
 
-#: frescobaldi_app/musicview/__init__.py:429
+#: frescobaldi_app/musicview/__init__.py:449
 msgid "Fit Width"
 msgstr "Adatta alla larghezza"
 
-#: frescobaldi_app/musicview/__init__.py:430
+#: frescobaldi_app/musicview/__init__.py:450
 msgid "Fit Height"
 msgstr "Adatta all'altezza"
 
-#: frescobaldi_app/musicview/__init__.py:431
+#: frescobaldi_app/musicview/__init__.py:451
 msgid "Fit Page"
 msgstr "Adatta alla pagina"
 
 #. L10N: page numbering: page {num} of {total}
-#: frescobaldi_app/musicview/__init__.py:452
+#: frescobaldi_app/musicview/__init__.py:468
 msgid "{num} of {total}"
 msgstr ""
 
@@ -3813,7 +3817,7 @@ msgstr "Configura la scorciatoia ({key})"
 #: frescobaldi_app/quickinsert/buttongroup.py:182
 #: frescobaldi_app/scorewiz/scoreproperties.py:171
 #: frescobaldi_app/scorewiz/settings.py:195
-#: frescobaldi_app/snippet/edit.py:125
+#: frescobaldi_app/snippet/edit.py:127
 msgid "None"
 msgstr "Niente"
 
@@ -5854,43 +5858,43 @@ msgstr "Spartito semplificato"
 msgid "Choir Hymn"
 msgstr "Corale"
 
-#: frescobaldi_app/snippet/edit.py:116 frescobaldi_app/snippet/insert.py:221
+#: frescobaldi_app/snippet/edit.py:118 frescobaldi_app/snippet/insert.py:221
 msgid "Edit Snippet"
 msgstr "Modifica frammento"
 
-#: frescobaldi_app/snippet/edit.py:116
+#: frescobaldi_app/snippet/edit.py:118
 msgid "New Snippet"
 msgstr "Nuovo frammento"
 
-#: frescobaldi_app/snippet/edit.py:118
+#: frescobaldi_app/snippet/edit.py:120
 msgid "Snippet Text:"
 msgstr "Testo del frammento:"
 
-#: frescobaldi_app/snippet/edit.py:119
+#: frescobaldi_app/snippet/edit.py:121
 msgid "Title:"
 msgstr "Titolo:"
 
-#: frescobaldi_app/snippet/edit.py:120
+#: frescobaldi_app/snippet/edit.py:122
 msgid "Shortcut:"
 msgstr "Scorciatoia:"
 
-#: frescobaldi_app/snippet/edit.py:131
+#: frescobaldi_app/snippet/edit.py:133
 msgid "Click to change the keyboard shortcut."
 msgstr "Fare click per configurare la scorciatoia."
 
-#: frescobaldi_app/snippet/edit.py:136
+#: frescobaldi_app/snippet/edit.py:138
 msgid "Empty Snippet"
 msgstr "Frammento vuoto"
 
-#: frescobaldi_app/snippet/edit.py:136
+#: frescobaldi_app/snippet/edit.py:138
 msgid "A snippet can't be empty."
 msgstr "Un frammento non può essere vuoto."
 
-#: frescobaldi_app/snippet/edit.py:198
+#: frescobaldi_app/snippet/edit.py:200
 msgid "Snippet editor"
 msgstr "Editor dei frammenti"
 
-#: frescobaldi_app/snippet/edit.py:203
+#: frescobaldi_app/snippet/edit.py:205
 msgid ""
 "<p>Here you can edit the text of the snippet.</p><p>If you start the first "
 "line(s) with '<code>-*- </code>' (note the space), the remainder of that line"
@@ -5905,13 +5909,13 @@ msgstr ""
 "influenzeranno il comportamento del frammento. Si possono usare le seguenti "
 "variabili:</p>"
 
-#: frescobaldi_app/snippet/edit.py:212
+#: frescobaldi_app/snippet/edit.py:214
 msgid "Place the snippet in the insert menu, grouped by the (optional) value."
 msgstr ""
 "Aggiunge il frammento al menu di inserimento, raggruppato secondo il valore "
 "(opzionale)."
 
-#: frescobaldi_app/snippet/edit.py:214
+#: frescobaldi_app/snippet/edit.py:216
 msgid ""
 "Place the snippet in the menu {file_new_from_template}, grouped by the "
 "(optional) value. When triggered via the menu, the snippet is inserted into "
@@ -5921,29 +5925,29 @@ msgstr ""
 "il valore (opzionale). Quando attivato tramite il menu, il frammento sarà "
 "inserito nel documento."
 
-#: frescobaldi_app/snippet/edit.py:218
+#: frescobaldi_app/snippet/edit.py:220
 msgctxt "menu title"
 msgid "File"
 msgstr "File"
 
-#: frescobaldi_app/snippet/edit.py:219
+#: frescobaldi_app/snippet/edit.py:221
 msgctxt "menu subtitle"
 msgid "New from Template"
 msgstr "Nuovo da Modello"
 
-#: frescobaldi_app/snippet/edit.py:221
+#: frescobaldi_app/snippet/edit.py:223
 msgid "The mnemonic to type to select the snippet."
 msgstr "La scorciatoia da digitare per scegliere il frammento."
 
-#: frescobaldi_app/snippet/edit.py:223
+#: frescobaldi_app/snippet/edit.py:225
 msgid "Do not auto-indent the snippet after inserting."
 msgstr "Non indentare automaticamente il frammento dopo averlo inserito."
 
-#: frescobaldi_app/snippet/edit.py:225
+#: frescobaldi_app/snippet/edit.py:227
 msgid "The icon to show in menu and snippet list."
 msgstr "Icona da mostrare nel menu e nell'elenco dei frammenti."
 
-#: frescobaldi_app/snippet/edit.py:227
+#: frescobaldi_app/snippet/edit.py:229
 msgid ""
 "The symbol to show in menu and snippet list. Symbols are icons that use the "
 "default text color and can be found in {directory}."
@@ -5952,27 +5956,27 @@ msgstr ""
 "icone che usano il colore predefinito del testo e si possono trovare in "
 "{directory}."
 
-#: frescobaldi_app/snippet/edit.py:231
+#: frescobaldi_app/snippet/edit.py:233
 msgid "Execute the snippet as a Python script. See {link}."
 msgstr "Esegui il frammento come un script Python. Consultare {link}."
 
-#: frescobaldi_app/snippet/edit.py:234
+#: frescobaldi_app/snippet/edit.py:236
 msgid "One of more of the following words (separated with spaces or commas):"
 msgstr "Una o più delle seguenti parole (separate da spazi o virgole):"
 
-#: frescobaldi_app/snippet/edit.py:237
+#: frescobaldi_app/snippet/edit.py:239
 msgid "Requires text to be selected."
 msgstr "È necessario che ci sia del testo selezionato."
 
-#: frescobaldi_app/snippet/edit.py:239
+#: frescobaldi_app/snippet/edit.py:241
 msgid "Adjusts the selection to not include starting and trialing whitespace."
 msgstr "Regola la selezione escludendo spazi bianchi all'inizio e alla fine."
 
-#: frescobaldi_app/snippet/edit.py:241
+#: frescobaldi_app/snippet/edit.py:243
 msgid "Selects all inserted text."
 msgstr "Seleziona tutto il testo inserito."
 
-#: frescobaldi_app/snippet/edit.py:247
+#: frescobaldi_app/snippet/edit.py:249
 msgid ""
 "<p>The other lines of the snippet define the text to be inserted in the "
 "editor. Here, you can insert variables prefixed with a $. A double $ will be "
@@ -5983,11 +5987,11 @@ msgstr ""
 "$ sarà sostituito con uno singolo. Sono riconosciute le seguenti variabili:</"
 "p>"
 
-#: frescobaldi_app/snippet/edit.py:263
+#: frescobaldi_app/snippet/edit.py:265
 msgid "Python Snippets"
 msgstr "Frammenti Python"
 
-#: frescobaldi_app/snippet/edit.py:268
+#: frescobaldi_app/snippet/edit.py:270
 msgid ""
 "<p>Python snippets can read and should set the variable {text}. The variable "
 "{text} contains the currently selected text (which may be an empty string).</"
@@ -6001,13 +6005,13 @@ msgstr ""
 "<p>Si può impostare {text} come stringa o lista di stringhe.</p>\n"
 "<p>Altre variabili che si possono usare:</p>"
 
-#: frescobaldi_app/snippet/edit.py:276
+#: frescobaldi_app/snippet/edit.py:278
 msgid "A list of strings describing the type of text the cursor is at."
 msgstr ""
 "Una lista di stringhe che descrivono il tipo di testo su cui si trova il "
 "cursore."
 
-#: frescobaldi_app/snippet/edit.py:278
+#: frescobaldi_app/snippet/edit.py:280
 msgid ""
 "The current QTextCursor, giving access to the document. Don't change the "
 "document through the cursor, however."
@@ -6015,7 +6019,7 @@ msgstr ""
 "Il QTextCursor corrente, con cui si ha accesso al documento. Tuttavia, non "
 "permette di modificare il testo."
 
-#: frescobaldi_app/snippet/edit.py:281
+#: frescobaldi_app/snippet/edit.py:283
 msgid ""
 "When setting {text} to a list instead of a string, you can use this value to "
 "specify the place the text cursor will be placed after inserting the snippet."
@@ -6024,7 +6028,7 @@ msgstr ""
 "questo valore per specificare il luogo in cui sarà posto il cursore dopo "
 "l'inserimento del frammento."
 
-#: frescobaldi_app/snippet/edit.py:285
+#: frescobaldi_app/snippet/edit.py:287
 msgid ""
 "When setting {text} to a list instead of a string, this value can be used "
 "together with {cursor} to select text when inserting the string parts of the "

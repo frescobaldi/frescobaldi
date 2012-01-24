@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-18 15:29+0100\n"
+"POT-Creation-Date: 2012-01-24 17:34+0100\n"
 "PO-Revision-Date: 2011-12-28 18:57+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -280,7 +280,7 @@ msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr "Zadejte, prosím, název proměnné, které má být vybraný text přiřazen:"
 
 #: frescobaldi_app/document.py:143 frescobaldi_app/doclist/widget.py:126
-#: frescobaldi_app/snippet/edit.py:163
+#: frescobaldi_app/snippet/edit.py:165
 msgid "Untitled"
 msgstr "Bez názvu"
 
@@ -312,16 +312,16 @@ msgstr "&Formát"
 msgid "&Update with convert-ly..."
 msgstr "&Obnovit za použití convert-ly..."
 
-#: frescobaldi_app/documentcontextmenu.py:55 frescobaldi_app/mainwindow.py:935
+#: frescobaldi_app/documentcontextmenu.py:55 frescobaldi_app/mainwindow.py:952
 #: frescobaldi_app/sessions/manager.py:128
 msgid "&Save"
 msgstr "&Uložit"
 
-#: frescobaldi_app/documentcontextmenu.py:56 frescobaldi_app/mainwindow.py:936
+#: frescobaldi_app/documentcontextmenu.py:56 frescobaldi_app/mainwindow.py:953
 msgid "Save &As..."
 msgstr "Uložit &jako..."
 
-#: frescobaldi_app/documentcontextmenu.py:57 frescobaldi_app/mainwindow.py:940
+#: frescobaldi_app/documentcontextmenu.py:57 frescobaldi_app/mainwindow.py:957
 msgid "&Close"
 msgstr "&Zavřít"
 
@@ -603,15 +603,15 @@ msgstr ""
 "\n"
 "{url}"
 
-#: frescobaldi_app/mainwindow.py:357
+#: frescobaldi_app/mainwindow.py:370
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Otevřít soubor"
 
 #. L10N: a basic type of input in the editor
-#: frescobaldi_app/mainwindow.py:376 frescobaldi_app/mainwindow.py:382
-#: frescobaldi_app/mainwindow.py:407 frescobaldi_app/mainwindow.py:458
-#: frescobaldi_app/mainwindow.py:526 frescobaldi_app/mainwindow.py:586
+#: frescobaldi_app/mainwindow.py:389 frescobaldi_app/mainwindow.py:395
+#: frescobaldi_app/mainwindow.py:420 frescobaldi_app/mainwindow.py:471
+#: frescobaldi_app/mainwindow.py:539 frescobaldi_app/mainwindow.py:598
 #: frescobaldi_app/musicview/image.py:213
 #: frescobaldi_app/preferences/fontscolors.py:476
 #: frescobaldi_app/preferences/fontscolors.py:514
@@ -620,8 +620,8 @@ msgstr "Otevřít soubor"
 msgid "Error"
 msgstr "Chyba"
 
-#: frescobaldi_app/mainwindow.py:377 frescobaldi_app/mainwindow.py:383
-#: frescobaldi_app/mainwindow.py:408
+#: frescobaldi_app/mainwindow.py:390 frescobaldi_app/mainwindow.py:396
+#: frescobaldi_app/mainwindow.py:421
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -631,22 +631,22 @@ msgstr ""
 "\n"
 "{url}"
 
-#: frescobaldi_app/mainwindow.py:402
+#: frescobaldi_app/mainwindow.py:415
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "Uložit soubor"
 
-#: frescobaldi_app/mainwindow.py:442
+#: frescobaldi_app/mainwindow.py:455
 msgctxt "dialog title"
 msgid "Save Copy"
 msgstr "Uložit kopii"
 
-#: frescobaldi_app/mainwindow.py:448
+#: frescobaldi_app/mainwindow.py:461
 msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Uložit výběr"
 
-#: frescobaldi_app/mainwindow.py:459 frescobaldi_app/mainwindow.py:587
+#: frescobaldi_app/mainwindow.py:472 frescobaldi_app/mainwindow.py:599
 #: frescobaldi_app/snippet/widget.py:293
 msgid ""
 "Can't write to destination:\n"
@@ -661,12 +661,12 @@ msgstr ""
 "\n"
 "{error}"
 
-#: frescobaldi_app/mainwindow.py:519
+#: frescobaldi_app/mainwindow.py:532
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Vložit ze souboru"
 
-#: frescobaldi_app/mainwindow.py:527
+#: frescobaldi_app/mainwindow.py:540
 #: frescobaldi_app/snippet/import_export.py:105
 msgid ""
 "Can't read from source:\n"
@@ -681,16 +681,16 @@ msgstr ""
 "\n"
 "{error}"
 
-#: frescobaldi_app/mainwindow.py:544
+#: frescobaldi_app/mainwindow.py:556
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Vytisknout zdroj"
 
-#: frescobaldi_app/mainwindow.py:577
+#: frescobaldi_app/mainwindow.py:589
 msgid "Export as HTML"
 msgstr "Vyvést jako HTML"
 
-#: frescobaldi_app/mainwindow.py:698
+#: frescobaldi_app/mainwindow.py:710
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -702,168 +702,172 @@ msgstr ""
 "\n"
 "\n"
 
-#: frescobaldi_app/mainwindow.py:803
+#: frescobaldi_app/mainwindow.py:818
 msgid "Main Toolbar"
 msgstr "Hlavní nástrojový pruh"
 
-#: frescobaldi_app/mainwindow.py:804
+#: frescobaldi_app/mainwindow.py:819
 msgid "Music View Toolbar"
 msgstr "Nástrojový pruh pro pohled na noty"
 
-#: frescobaldi_app/mainwindow.py:930
+#: frescobaldi_app/mainwindow.py:946
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nový"
 
-#: frescobaldi_app/mainwindow.py:931
+#: frescobaldi_app/mainwindow.py:947
 msgid "&Open..."
 msgstr "&Otevřít..."
 
-#: frescobaldi_app/mainwindow.py:932
+#: frescobaldi_app/mainwindow.py:948
 msgid "Open &Recent"
 msgstr "Otevřít &nedávný"
 
-#: frescobaldi_app/mainwindow.py:933
+#: frescobaldi_app/mainwindow.py:949
 msgid "Insert from &File..."
 msgstr "Vložit ze &souboru..."
 
-#: frescobaldi_app/mainwindow.py:934
+#: frescobaldi_app/mainwindow.py:950
 msgid "Open Current Directory"
 msgstr "Otevřít nynější adresář"
 
-#: frescobaldi_app/mainwindow.py:937
+#: frescobaldi_app/mainwindow.py:951
+msgid "Open Command Prompt"
+msgstr ""
+
+#: frescobaldi_app/mainwindow.py:954
 msgid "Save Copy or Selection As..."
 msgstr "Uložit kopii nebo výběr jako..."
 
-#: frescobaldi_app/mainwindow.py:938
+#: frescobaldi_app/mainwindow.py:955
 msgid "Save All"
 msgstr "Uložit vše"
 
-#: frescobaldi_app/mainwindow.py:939
+#: frescobaldi_app/mainwindow.py:956
 msgid "Print Source..."
 msgstr "Vytisknout zdroj..."
 
-#: frescobaldi_app/mainwindow.py:941
+#: frescobaldi_app/mainwindow.py:958
 msgid "Close Other Documents"
 msgstr "Zavřít jiné dokumenty"
 
-#: frescobaldi_app/mainwindow.py:942
+#: frescobaldi_app/mainwindow.py:959
 msgid "Close All Documents"
 msgstr "Zavřít všechny dokumenty"
 
-#: frescobaldi_app/mainwindow.py:943
+#: frescobaldi_app/mainwindow.py:960
 msgid "Closes all documents and leaves the current session."
 msgstr "Zavře všechny dokumenty a opustí současné sezení."
 
-#: frescobaldi_app/mainwindow.py:944
+#: frescobaldi_app/mainwindow.py:961
 msgid "&Quit"
 msgstr "&Ukončit"
 
-#: frescobaldi_app/mainwindow.py:946
+#: frescobaldi_app/mainwindow.py:963
 msgid "Export Source as Colored &HTML..."
 msgstr "Vyvést zdroj jako barevné &HTML..."
 
-#: frescobaldi_app/mainwindow.py:948
+#: frescobaldi_app/mainwindow.py:965
 msgid "&Undo"
 msgstr "&Zpět"
 
-#: frescobaldi_app/mainwindow.py:949
+#: frescobaldi_app/mainwindow.py:966
 msgid "Re&do"
 msgstr "&Znovu"
 
-#: frescobaldi_app/mainwindow.py:950
+#: frescobaldi_app/mainwindow.py:967
 msgid "Cu&t"
 msgstr "Vyjmou&t"
 
-#: frescobaldi_app/mainwindow.py:951 frescobaldi_app/docbrowser/browser.py:248
+#: frescobaldi_app/mainwindow.py:968 frescobaldi_app/docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Kopírovat"
 
-#: frescobaldi_app/mainwindow.py:952
+#: frescobaldi_app/mainwindow.py:969
 msgid "Copy as Colored &HTML"
 msgstr "Kopírovat jako barevné &HTML"
 
-#: frescobaldi_app/mainwindow.py:953
+#: frescobaldi_app/mainwindow.py:970
 msgid "&Paste"
 msgstr "&Vložit"
 
-#: frescobaldi_app/mainwindow.py:954
+#: frescobaldi_app/mainwindow.py:971
 msgid "Select &All"
 msgstr "Vybr&at vše"
 
-#: frescobaldi_app/mainwindow.py:955
+#: frescobaldi_app/mainwindow.py:972
 msgid "Select &Block"
 msgstr "Vybrat &blok"
 
-#: frescobaldi_app/mainwindow.py:956
+#: frescobaldi_app/mainwindow.py:973
 msgid "Select &None"
 msgstr "Nevybrat nic"
 
-#: frescobaldi_app/mainwindow.py:957
+#: frescobaldi_app/mainwindow.py:974
 msgid "Select Whole Lines Up"
 msgstr "Vybrat celé řádky nahoru"
 
-#: frescobaldi_app/mainwindow.py:958
+#: frescobaldi_app/mainwindow.py:975
 msgid "Select Whole Lines Down"
 msgstr "Vybrat celé řádky dolů"
 
-#: frescobaldi_app/mainwindow.py:959
+#: frescobaldi_app/mainwindow.py:976
 msgid "&Find..."
 msgstr "&Najít..."
 
-#: frescobaldi_app/mainwindow.py:960
+#: frescobaldi_app/mainwindow.py:977
 msgid "Find Ne&xt"
 msgstr "Najít &další"
 
-#: frescobaldi_app/mainwindow.py:961
+#: frescobaldi_app/mainwindow.py:978
 msgid "Find Pre&vious"
 msgstr "Najít &předchozí"
 
-#: frescobaldi_app/mainwindow.py:962
+#: frescobaldi_app/mainwindow.py:979
 msgid "&Replace..."
 msgstr "&Nahradit..."
 
-#: frescobaldi_app/mainwindow.py:963
+#: frescobaldi_app/mainwindow.py:980
 msgid "Pr&eferences..."
 msgstr "&Nastavení..."
 
-#: frescobaldi_app/mainwindow.py:965
+#: frescobaldi_app/mainwindow.py:982
 msgid "&Next Document"
 msgstr "&Další dokument"
 
-#: frescobaldi_app/mainwindow.py:966
+#: frescobaldi_app/mainwindow.py:983
 msgid "&Previous Document"
 msgstr "&Předchozí dokument"
 
-#: frescobaldi_app/mainwindow.py:967
+#: frescobaldi_app/mainwindow.py:984
 msgid "Scroll Up"
 msgstr "Projíždět nahoru"
 
-#: frescobaldi_app/mainwindow.py:968
+#: frescobaldi_app/mainwindow.py:985
 msgid "Scroll Down"
 msgstr "Projíždět dolů"
 
-#: frescobaldi_app/mainwindow.py:970
+#: frescobaldi_app/mainwindow.py:987
 msgid "New &Window"
 msgstr "Nové &okno"
 
-#: frescobaldi_app/mainwindow.py:971
+#: frescobaldi_app/mainwindow.py:988
 msgid "&Fullscreen"
 msgstr "&Celá obrazovka"
 
-#: frescobaldi_app/mainwindow.py:973
+#: frescobaldi_app/mainwindow.py:990
 msgid "&User Guide"
 msgstr "Průvodce pro &uživatele"
 
-#: frescobaldi_app/mainwindow.py:974
+#: frescobaldi_app/mainwindow.py:991
 msgid "&What's This?"
 msgstr "&Co je toto?"
 
-#: frescobaldi_app/mainwindow.py:975
+#: frescobaldi_app/mainwindow.py:992
 msgid "Report a &Bug..."
 msgstr "Nahlásit &chybu..."
 
-#: frescobaldi_app/mainwindow.py:976
+#: frescobaldi_app/mainwindow.py:993
 msgid "&About {appname}..."
 msgstr "&O {appname}..."
 
@@ -902,27 +906,27 @@ msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Nástroje"
 
-#: frescobaldi_app/menu.py:233
+#: frescobaldi_app/menu.py:234
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Slova písně"
 
-#: frescobaldi_app/menu.py:245
+#: frescobaldi_app/menu.py:246
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Výška tónu"
 
-#: frescobaldi_app/menu.py:259
+#: frescobaldi_app/menu.py:260
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Rytmus"
 
-#: frescobaldi_app/menu.py:287
+#: frescobaldi_app/menu.py:288
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Okno"
 
-#: frescobaldi_app/menu.py:307
+#: frescobaldi_app/menu.py:308
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Nápověda"
@@ -2101,80 +2105,80 @@ msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "DOBA"
 
-#: frescobaldi_app/musicview/__init__.py:90
+#: frescobaldi_app/musicview/__init__.py:92
 msgctxt "window title"
 msgid "Music View"
 msgstr "Pohled na noty"
 
-#: frescobaldi_app/musicview/__init__.py:91
+#: frescobaldi_app/musicview/__init__.py:93
 msgid "&Music View"
 msgstr "Pohled na &hudbu"
 
-#: frescobaldi_app/musicview/__init__.py:217
+#: frescobaldi_app/musicview/__init__.py:237
 msgid "Select Music View Document"
 msgstr "Vybrat dokument s pohledem na noty"
 
-#: frescobaldi_app/musicview/__init__.py:218
+#: frescobaldi_app/musicview/__init__.py:238
 msgid "&Print Music..."
 msgstr "&Vytisknout noty..."
 
-#: frescobaldi_app/musicview/__init__.py:219
+#: frescobaldi_app/musicview/__init__.py:239
 msgid "Zoom &In"
 msgstr "&Přiblížit"
 
-#: frescobaldi_app/musicview/__init__.py:220
+#: frescobaldi_app/musicview/__init__.py:240
 msgid "Zoom &Out"
 msgstr "&Oddálit"
 
-#: frescobaldi_app/musicview/__init__.py:221
+#: frescobaldi_app/musicview/__init__.py:241
 msgid "Zoom Music"
 msgstr "Zvětšení hudby"
 
-#: frescobaldi_app/musicview/__init__.py:222
+#: frescobaldi_app/musicview/__init__.py:242
 msgid "Fit &Width"
 msgstr "Přizpůsobit šíř&ce"
 
-#: frescobaldi_app/musicview/__init__.py:223
+#: frescobaldi_app/musicview/__init__.py:243
 msgid "Fit &Height"
 msgstr "Přizpůsobit &výšce"
 
-#: frescobaldi_app/musicview/__init__.py:224
+#: frescobaldi_app/musicview/__init__.py:244
 msgid "Fit &Page"
 msgstr "Přizpůsobit &straně"
 
-#: frescobaldi_app/musicview/__init__.py:225
+#: frescobaldi_app/musicview/__init__.py:245
 msgid "&Jump to Cursor Position"
 msgstr "&Skočit na polohu ukazovátka"
 
-#: frescobaldi_app/musicview/__init__.py:226
+#: frescobaldi_app/musicview/__init__.py:246
 msgid "Copy to &Image..."
 msgstr "Kopírovat do &obrázku..."
 
-#: frescobaldi_app/musicview/__init__.py:227
+#: frescobaldi_app/musicview/__init__.py:247
 #, fuzzy
 msgid "Next Page"
 msgstr "Další změna"
 
-#: frescobaldi_app/musicview/__init__.py:228
+#: frescobaldi_app/musicview/__init__.py:248
 #, fuzzy
 msgid "Next"
 msgstr "Další:"
 
-#: frescobaldi_app/musicview/__init__.py:229
+#: frescobaldi_app/musicview/__init__.py:249
 #, fuzzy
 msgid "Previous Page"
 msgstr "Předchozí značka"
 
-#: frescobaldi_app/musicview/__init__.py:230
+#: frescobaldi_app/musicview/__init__.py:250
 #, fuzzy
 msgid "Previous"
 msgstr "Předchozí značka"
 
-#: frescobaldi_app/musicview/__init__.py:369
+#: frescobaldi_app/musicview/__init__.py:389
 msgid "Choose the PDF document to display."
 msgstr "Vybrat dokument PDF k zobrazení."
 
-#: frescobaldi_app/musicview/__init__.py:371
+#: frescobaldi_app/musicview/__init__.py:391
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -2182,20 +2186,20 @@ msgstr ""
 "Vyberte dokument PDF k zobrazení nebo soubor přetáhněte do jiného programu "
 "nebo umístění.."
 
-#: frescobaldi_app/musicview/__init__.py:429
+#: frescobaldi_app/musicview/__init__.py:449
 msgid "Fit Width"
 msgstr "Přizpůsobit šířce"
 
-#: frescobaldi_app/musicview/__init__.py:430
+#: frescobaldi_app/musicview/__init__.py:450
 msgid "Fit Height"
 msgstr "Přizpůsobit výšce"
 
-#: frescobaldi_app/musicview/__init__.py:431
+#: frescobaldi_app/musicview/__init__.py:451
 msgid "Fit Page"
 msgstr "Přizpůsobit straně"
 
 #. L10N: page numbering: page {num} of {total}
-#: frescobaldi_app/musicview/__init__.py:452
+#: frescobaldi_app/musicview/__init__.py:468
 msgid "{num} of {total}"
 msgstr ""
 
@@ -3759,7 +3763,7 @@ msgstr "Nastavit klávesovou zkratku ({key})"
 #: frescobaldi_app/quickinsert/buttongroup.py:182
 #: frescobaldi_app/scorewiz/scoreproperties.py:171
 #: frescobaldi_app/scorewiz/settings.py:195
-#: frescobaldi_app/snippet/edit.py:125
+#: frescobaldi_app/snippet/edit.py:127
 msgid "None"
 msgstr "Žádný"
 
@@ -5784,43 +5788,43 @@ msgstr "Základní vzorový list"
 msgid "Choir Hymn"
 msgstr "Sborový chvalozpěv"
 
-#: frescobaldi_app/snippet/edit.py:116 frescobaldi_app/snippet/insert.py:221
+#: frescobaldi_app/snippet/edit.py:118 frescobaldi_app/snippet/insert.py:221
 msgid "Edit Snippet"
 msgstr "Upravit kousek"
 
-#: frescobaldi_app/snippet/edit.py:116
+#: frescobaldi_app/snippet/edit.py:118
 msgid "New Snippet"
 msgstr "Nový kousek"
 
-#: frescobaldi_app/snippet/edit.py:118
+#: frescobaldi_app/snippet/edit.py:120
 msgid "Snippet Text:"
 msgstr "Text kousku:"
 
-#: frescobaldi_app/snippet/edit.py:119
+#: frescobaldi_app/snippet/edit.py:121
 msgid "Title:"
 msgstr "Název:"
 
-#: frescobaldi_app/snippet/edit.py:120
+#: frescobaldi_app/snippet/edit.py:122
 msgid "Shortcut:"
 msgstr "Zkratka:"
 
-#: frescobaldi_app/snippet/edit.py:131
+#: frescobaldi_app/snippet/edit.py:133
 msgid "Click to change the keyboard shortcut."
 msgstr "Klepněte pro změnu klávesové zkratky."
 
-#: frescobaldi_app/snippet/edit.py:136
+#: frescobaldi_app/snippet/edit.py:138
 msgid "Empty Snippet"
 msgstr "Prázdný kousek"
 
-#: frescobaldi_app/snippet/edit.py:136
+#: frescobaldi_app/snippet/edit.py:138
 msgid "A snippet can't be empty."
 msgstr "Kousek nemůže být prázdný."
 
-#: frescobaldi_app/snippet/edit.py:198
+#: frescobaldi_app/snippet/edit.py:200
 msgid "Snippet editor"
 msgstr "Editor kousku"
 
-#: frescobaldi_app/snippet/edit.py:203
+#: frescobaldi_app/snippet/edit.py:205
 msgid ""
 "<p>Here you can edit the text of the snippet.</p><p>If you start the first "
 "line(s) with '<code>-*- </code>' (note the space), the remainder of that line"
@@ -5833,12 +5837,12 @@ msgstr ""
 "proměnné jako <code>name: value;</code> nebo jednoduše <code>name;</code>, "
 "což ovlivní chování kousku. Lze použít následující proměnné:</p>"
 
-#: frescobaldi_app/snippet/edit.py:212
+#: frescobaldi_app/snippet/edit.py:214
 msgid "Place the snippet in the insert menu, grouped by the (optional) value."
 msgstr ""
 "Zařadit kousek do nabídky pro vložení, seskupeno podle (volitelné) hodnoty."
 
-#: frescobaldi_app/snippet/edit.py:214
+#: frescobaldi_app/snippet/edit.py:216
 msgid ""
 "Place the snippet in the menu {file_new_from_template}, grouped by the "
 "(optional) value. When triggered via the menu, the snippet is inserted into "
@@ -5848,29 +5852,29 @@ msgstr ""
 "(volitelné) hodnoty. Když je vyvolán přes nabídku, kousek je vložen do "
 "nového dokumentu."
 
-#: frescobaldi_app/snippet/edit.py:218
+#: frescobaldi_app/snippet/edit.py:220
 msgctxt "menu title"
 msgid "File"
 msgstr "Soubor"
 
-#: frescobaldi_app/snippet/edit.py:219
+#: frescobaldi_app/snippet/edit.py:221
 msgctxt "menu subtitle"
 msgid "New from Template"
 msgstr "Nový z předlohy"
 
-#: frescobaldi_app/snippet/edit.py:221
+#: frescobaldi_app/snippet/edit.py:223
 msgid "The mnemonic to type to select the snippet."
 msgstr "Pomůcka pro zapamatování k napsání pro výběr kousku."
 
-#: frescobaldi_app/snippet/edit.py:223
+#: frescobaldi_app/snippet/edit.py:225
 msgid "Do not auto-indent the snippet after inserting."
 msgstr "Neodsazovat kousek po vložení automaticky."
 
-#: frescobaldi_app/snippet/edit.py:225
+#: frescobaldi_app/snippet/edit.py:227
 msgid "The icon to show in menu and snippet list."
 msgstr "Ikona k ukázání v nabídce a v seznamu kousků."
 
-#: frescobaldi_app/snippet/edit.py:227
+#: frescobaldi_app/snippet/edit.py:229
 msgid ""
 "The symbol to show in menu and snippet list. Symbols are icons that use the "
 "default text color and can be found in {directory}."
@@ -5878,27 +5882,27 @@ msgstr ""
 "Symbol k ukázání v nabídce a v seznamu kousků. Symboly jsou ikony, které "
 "používají výchozí barvu textu a lze je najít v {directory}."
 
-#: frescobaldi_app/snippet/edit.py:231
+#: frescobaldi_app/snippet/edit.py:233
 msgid "Execute the snippet as a Python script. See {link}."
 msgstr "Spustit kousek jako pythonovský skript. Podívejte se na {link}."
 
-#: frescobaldi_app/snippet/edit.py:234
+#: frescobaldi_app/snippet/edit.py:236
 msgid "One of more of the following words (separated with spaces or commas):"
 msgstr "Jedno z více následujících slov (oddělených mezerami nebo čárkami):"
 
-#: frescobaldi_app/snippet/edit.py:237
+#: frescobaldi_app/snippet/edit.py:239
 msgid "Requires text to be selected."
 msgstr "Vyžaduje, aby byl vybrán text."
 
-#: frescobaldi_app/snippet/edit.py:239
+#: frescobaldi_app/snippet/edit.py:241
 msgid "Adjusts the selection to not include starting and trialing whitespace."
 msgstr "Upraví výběr, aby nezahrnoval prázdná místa na začátku a na konci."
 
-#: frescobaldi_app/snippet/edit.py:241
+#: frescobaldi_app/snippet/edit.py:243
 msgid "Selects all inserted text."
 msgstr "Vybere všechen vložený text."
 
-#: frescobaldi_app/snippet/edit.py:247
+#: frescobaldi_app/snippet/edit.py:249
 msgid ""
 "<p>The other lines of the snippet define the text to be inserted in the "
 "editor. Here, you can insert variables prefixed with a $. A double $ will be "
@@ -5908,11 +5912,11 @@ msgstr ""
 "proměnné uvozené znakem $. Zdvojený $ bude nahrazen jedním. Jsou uznávány "
 "následující proměnné:</p>"
 
-#: frescobaldi_app/snippet/edit.py:263
+#: frescobaldi_app/snippet/edit.py:265
 msgid "Python Snippets"
 msgstr "Kousky v Pythonu"
 
-#: frescobaldi_app/snippet/edit.py:268
+#: frescobaldi_app/snippet/edit.py:270
 msgid ""
 "<p>Python snippets can read and should set the variable {text}. The variable "
 "{text} contains the currently selected text (which may be an empty string).</"
@@ -5925,11 +5929,11 @@ msgstr ""
 "<p>Můžete nastavit {text} na řetězec nebo seznam řetězců.</p>\n"
 "<p>Další proměnné, na něž lze odkazovat:</p>"
 
-#: frescobaldi_app/snippet/edit.py:276
+#: frescobaldi_app/snippet/edit.py:278
 msgid "A list of strings describing the type of text the cursor is at."
 msgstr "Seznam řetězců popisující typ textu, na něm stojí ukazovátko."
 
-#: frescobaldi_app/snippet/edit.py:278
+#: frescobaldi_app/snippet/edit.py:280
 msgid ""
 "The current QTextCursor, giving access to the document. Don't change the "
 "document through the cursor, however."
@@ -5937,7 +5941,7 @@ msgstr ""
 "Nynější QTextCursor dávající přístup k dokumentu. Nicméně neměňte dokument "
 "přes ukazovátko."
 
-#: frescobaldi_app/snippet/edit.py:281
+#: frescobaldi_app/snippet/edit.py:283
 msgid ""
 "When setting {text} to a list instead of a string, you can use this value to "
 "specify the place the text cursor will be placed after inserting the snippet."
@@ -5946,7 +5950,7 @@ msgstr ""
 "použít pro určení místa, na něž bude ukazovátko textu umístěno po vložení "
 "kousku."
 
-#: frescobaldi_app/snippet/edit.py:285
+#: frescobaldi_app/snippet/edit.py:287
 msgid ""
 "When setting {text} to a list instead of a string, this value can be used "
 "together with {cursor} to select text when inserting the string parts of the "
