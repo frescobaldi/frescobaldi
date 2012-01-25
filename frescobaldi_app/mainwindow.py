@@ -876,6 +876,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_open.setIcon(icons.get('document-open'))
         self.file_open_recent.setIcon(icons.get('document-open-recent'))
         self.file_open_current_directory.setIcon(icons.get('folder-open'))
+        self.file_open_command_prompt.setIcon(icons.get('utilities-terminal'))
         self.file_save.setIcon(icons.get('document-save'))
         self.file_save_as.setIcon(icons.get('document-save-as'))
         self.file_save_copy_as.setIcon(icons.get('document-save-as'))
