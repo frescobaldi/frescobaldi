@@ -384,7 +384,7 @@ by pressing {key_snippets}.
 <p>
 Snippets can be searched by browsing the list or by typing some characters
 in the search entry.
-Snippets can also have a keyboard shortcut which directly applies them.
+Snippets can also have keyboard shortcuts applied to them.
 Some snippets have a special mnemonic (short name) which you can also type
 in the search entry to select the snippet. Pressing the Return key will then
 apply the snippet to the text editor and hide the snippets manager.
@@ -392,12 +392,12 @@ apply the snippet to the text editor and hide the snippets manager.
 
 <p>
 Add new snippets using {key_add}. Edit the selected snippet with {key_edit}.
-Remove selected snippets using {key_delete}. Warning: there's no undo!
+Remove selected snippets using {key_delete}. Warning: this cannot be undone!
 </p>
 
 <p>
 Snippets can also be put in the menu (see {link}).
-And finally there are snippets which can include or alter selected text.
+And finally, there are snippets which can include or alter selected text.
 Some snippets do this by using special variables, while others are small
 scripts written in Python.
 </p>

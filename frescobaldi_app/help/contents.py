@@ -48,8 +48,7 @@ class contents(page):
     def body():
         text = _("""\
 <p>
-Frescobaldi is a light-weight and powerful editor for LilyPond
-sheet music documents.
+Frescobaldi is a light-weight, but powerful editor for LilyPond music files.
 This manual is written by {author} and documents {appname} version {version}.
 </p>
 """).format(author=info.maintainer, appname=info.appname, version=info.version)
@@ -61,7 +60,7 @@ This manual is written by {author} and documents {appname} version {version}.
 <h3>How to get help inside Frescobaldi</h3>
 
 <p>
-In many dialogs you can click a Help button or press the {key_help} key.
+In many dialogs there are Help buttons or you can press the {key_help} key.
 Many user interface items also have "What's This" information which can be
 revealed by pressing {key_whatsthis} or by selecting {menu_whatsthis}.
 </p>
@@ -93,19 +92,20 @@ class introduction(page):
 <a href="http://lilypond.org/">LilyPond</a>
 is an open-source music engraving program, producing very high-quality sheet
 music printouts from fairly simple text input files.
-Those text files can be created with any text editor, and LilyPond then loads
-the text file and outputs a beautiful engraving, by default in PDF format.
+Input files can be created using virtually any text editor, which LilyPond 
+can then compile and output beautiful engraving, by default but not restricted to, PDF.
 </p>
 
 <p>
-Frescobaldi is an application designed to make editing LilyPond music scores
-faster and easier. You still will need to learn the LilyPond input language.
-If you read the {getting_started} section of this User Guide, you'll also pickup
-some LilyPond basics.
+Frescobaldi is an application to make editing LilyPond music scores
+faster and easier. You will still need to learn LilyPond's input language
+but if you read the {getting_started} section of this User Guide, you'll pickup
+some LilyPond basics to get you started.
 </p>
 
 <p>
-Then you can continue to learn using the Learning Manual from 
+Once you have grasped the basics, the next step would be to use the LilyPond 
+Learning Manual from 
 <a href="http://lilypond.org/doc/">LilyPond's excellent online documentation</a>.
 </p>""").format(getting_started=starting.link())
 
@@ -147,7 +147,7 @@ class starting(page):
         return _("""\
 <p>
 The default screen of Frescobaldi shows a text document on the left and an
-empty music preview on the right.
+empty Music View window on the right.
 </p>
 
 <p>
@@ -158,10 +158,9 @@ Now, in the text view, enter some LilyPond code, like this:
 
 <p>
 Then click the Lily toolbar button or press {key_engrave}.
-If all is well, LilyPond starts now and processes your file.
-At the bottom of the screen you can follow LilyPond's progress.
-If LilyPond does not encounter any mistakes on your part, it will produce a PDF
-file that will be displayed in the music preview:
+LilyPond will start to processes your file and the PDF will be displayed 
+in the Music View on the right. If LilyPond encounters any errors or 
+warnings they will be displayed in the LilyPond Log at the bottom of the screen.
 </p>
 
 <p><img src="getting_started1.png"></p>
@@ -172,22 +171,25 @@ The Music View has many possibilities:
 
 <ul>
 <li>
-Hovering notes and other objects will highlight them in the text;
-click objects to move the text cursor to them
+Hovering over notes and other music objects will highlight them in the text
+on the left window; clicking on them will place a cursor to the left of the
+object also in the left window.
 </li>
 
 <li>
-Ctrl-wheel to change the zoom. Zooming will center at the mouse pointer
+Use the Ctrl key and your mouse wheel to zoom in and out. Zooming will center 
+around the mouse pointer.
 </li>
 
 <li>
-Ctrl-click on an empty place to show a magnifier glass
+Ctrl-left-click-and-hold the mouse to magnify a small section of the Music View
+without zooming in the whole view.
 </li>
 
 <li>
-Moving the text cursor or selecting text highlights the notes in the preview;
-press {key_jump} to explicitly center and highlight a note or other object
-in the preview.
+Selecting text in the main text window will highlight corresponding notes in the 
+Music View; press {key_jump} to explicitly center and highlight a note or other objects
+in the Music View.
 </li>
 
 <li>
@@ -198,9 +200,9 @@ another application.
 </ul>
 
 <p>
-If your music score is finished, it is recommended to run LilyPond once again
-with clickable notes turned off: menu {menu_engrave}.
-This will result in much smaller PDF documents.
+When your music score is complete, run LilyPond once more but with
+clickable notes turned off: menu {menu_engrave}. This significantly
+reduces the size of the PDF.
 </p>
 
 <p>
@@ -211,14 +213,14 @@ variable. If needed, provide the exact path to your LilyPond executable under
 </p>
 
 <p>
-If LilyPond encounters errors in your document they will show up in the log,
-and Frescobaldi will mark the lines in your document where the errors were
-found. Clicking the error in the log or pressing {key_error} immediately
-brings the text cursor to the offending place. Pressing {key_error} again
-will move to the next error message and so forth. When running LilyPond
-again, the error line marks will be removed.
-You can manually remove the error line markings with the option
-{menu_clear_error_marks}.
+If LilyPond encounters any warnings or errors in your document they will show up in the 
+LilyPond Log window at the bottom of the screen. Frescobaldi will then highlight 
+these lines in the text view where the errors are. Clicking the error in 
+the Log Window or pressing {key_error} immediately brings the text cursor to the 
+offending line in your text view. Pressing {key_error} again will move to the 
+next error message, and so on. LilyPond will remove any previous error line 
+highlights the next time it is run but you can also remove any error line markings 
+manually with the option {menu_clear_error_marks}.
 </p>
 """).format(**d)
 

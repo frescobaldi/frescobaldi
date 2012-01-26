@@ -223,7 +223,7 @@ Click the Preview button to get a preview with some example music filled in.
 Click OK to copy the generated LilyPond source text to the editor.
 </p>
 
-<h3>Multiple pieces or mouvements</h3>
+<h3>Multiple pieces or movements</h3>
 
 <p>
 A special and powerful feature of the <em>Parts</em> tab is hidden in the 

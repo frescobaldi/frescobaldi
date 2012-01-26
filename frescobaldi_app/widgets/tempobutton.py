@@ -48,7 +48,7 @@ class TempoButton(QToolButton):
         app.translateUI(self)
         
     def translateUI(self):
-        self.setToolTip(_("Click this button a few times to set the tempo."))
+        self.setToolTip(_("The tempo is set as you click this button."))
 
     def slotPressed(self):
         self.tapTime, t = time.time(), self.tapTime
