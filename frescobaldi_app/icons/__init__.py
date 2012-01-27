@@ -31,12 +31,12 @@ from PyQt4.QtGui import QFileIconProvider, QIcon
 _cache = {}
 
 QDir.setSearchPaths("icons", __path__)
-QIcon.setThemeSearchPaths(QIcon.themeSearchPaths() + __path__)
 
 
 # use our icon theme (that builds on Tango) if there are no system icons
 if (not QIcon.themeName() or QIcon.themeName() == "hicolor"
     or QSettings().value("system_icons", True) in (False, "false")):
+    QIcon.setThemeSearchPaths(QIcon.themeSearchPaths() + __path__)
     QIcon.setThemeName("TangoExt")
 
 
