@@ -93,12 +93,19 @@ f = Freezer(
 
 f.Freeze()
 
-# copy PyQt4 imageformat plugins
-path = imp.find_module('PyQt4')[1]
-img_formats = os.path.join(path, 'plugins', 'imageformats')
-img_formats_target = os.path.join(target_dir, 'imageformats')
-shutil.rmtree(img_formats_target, ignore_errors = True)
-shutil.copytree(img_formats, img_formats_target)
+def copy_plugins(name):
+    """Copies a folder from the Qt4 plugins directory."""
+    path = imp.find_module('PyQt4')[1]
+    folder = os.path.join(path, 'plugins', name)
+    target = os.path.join(target_dir, name)
+    shutil.rmtree(target, ignore_errors = True)
+    shutil.copytree(folder, target)
+
+# copy Qt4 imageformat plugins
+copy_plugins('imageformats')
+
+# copy Qt4 iconengine plugins
+copy_plugins('iconengines')
 
 # copy the frescobaldi_app directory
 f_app = os.path.join(target_dir, 'frescobaldi_app')
