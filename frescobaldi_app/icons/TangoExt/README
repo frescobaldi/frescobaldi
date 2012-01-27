@@ -1,0 +1,40 @@
+This icon theme (TangoExt) just extends Tango (version 0.8.90) with some
+suitable that were created by Wilbert Berendsen based on other Tango icons,
+or found elswhere.
+
+Here is information per-icon:
+
+application-exit:
+same as "system-log-out" from Tango
+
+configure-shortcuts:
+http://commons.wikimedia.org/wiki/File:Preferences-desktop-keyboard-shortcuts.svg
+
+document-close:
+created by Wilbert Berendsen from document-new and audio-volume-muted
+
+document-edit:
+http://commons.wikimedia.org/wiki/File:Edit-find-replace.svg (minus magnifiying glass)
+
+document-save-all:
+created by Wilbert Berendsen, based on document-save
+
+help-about:
+same as "help-browser" from Tango
+
+help-contents:
+http://commons.wikimedia.org/wiki/File:Help-contents.svg
+
+preferences-other:
+http://commons.wikimedia.org/wiki/File:Gnome-preferences-other.svg (GPL!)
+
+text-plain:
+same as "text-x-generic" from Tango
+
+zoom-in:
+http://commons.wikimedia.org/wiki/File:View-zoom-in.svg
+
+zoom-out:
+http://commons.wikimedia.org/wiki/File:View-zoom-out.svg
+
+

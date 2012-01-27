@@ -1,0 +1,9 @@
+[Icon Theme]
+Name=Tango
+Comment=Tango (Subset)
+Directories=scalable
+
+[scalable]
+Type=Scalable
+Size=48
+

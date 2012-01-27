@@ -1,0 +1,10 @@
+[Icon Theme]
+Name=TangoExt
+Comment=Tango (Extended by WB)
+Directories=scalable
+Hidden=True
+Inherits=Tango
+
+[scalable]
+Type=Scalable
+Size=48

@@ -28,20 +28,21 @@ import os
 from PyQt4.QtCore import QDir, QFile, QFileInfo, QSettings, QSize
 from PyQt4.QtGui import QFileIconProvider, QIcon
 
-QDir.setSearchPaths("icons", [
-    os.path.join(__path__[0], "tango"),
-    __path__[0],
-])
-
 _cache = {}
 
+QDir.setSearchPaths("icons", __path__)
+QIcon.setThemeSearchPaths(QIcon.themeSearchPaths() + __path__)
 
-_preferSystemIcons = QSettings().value("system_icons", True) not in (False, "false")
+
+# use our icon theme (that builds on Tango) if there are no system icons
+if (not QIcon.themeName() or QIcon.themeName() == "hicolor"
+    or QSettings().value("system_icons", True) in (False, "false")):
+    QIcon.setThemeName("TangoExt")
 
 
 def get(name):
     """Returns an icon with the specified name."""
-    if _preferSystemIcons and QIcon.hasThemeIcon(name):
+    if QIcon.hasThemeIcon(name):
         return QIcon.fromTheme(name)
     try:
         return _cache[name]
