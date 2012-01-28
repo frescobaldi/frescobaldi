@@ -1322,7 +1322,6 @@ msgid "Frescobaldi Manual"
 msgstr "Frescobaldi Handbuch"
 
 #: frescobaldi_app/help/contents.py:49
-#, fuzzy
 msgid ""
 "<p>\n"
 "Frescobaldi is a light-weight, but powerful editor for LilyPond music "
@@ -1339,7 +1338,6 @@ msgstr ""
 "</p>\n"
 
 #: frescobaldi_app/help/contents.py:59
-#, fuzzy
 msgid ""
 "<h3>How to get help inside Frescobaldi</h3>\n"
 "\n"

@@ -1342,7 +1342,6 @@ msgid "Frescobaldi Manual"
 msgstr "Manuel de Frescobaldi"
 
 #: frescobaldi_app/help/contents.py:49
-#, fuzzy
 msgid ""
 "<p>\n"
 "Frescobaldi is a light-weight, but powerful editor for LilyPond music "
@@ -1358,7 +1357,6 @@ msgstr ""
 "</p>\n"
 
 #: frescobaldi_app/help/contents.py:59
-#, fuzzy
 msgid ""
 "<h3>How to get help inside Frescobaldi</h3>\n"
 "\n"
@@ -1389,7 +1387,6 @@ msgid "Introduction"
 msgstr "Introduction"
 
 #: frescobaldi_app/help/contents.py:90
-#, fuzzy
 msgid ""
 "<p>\n"
 "<a href=\"http://lilypond.org/\">LilyPond</a>\n"
@@ -1479,7 +1476,6 @@ msgid "Copy to Image..."
 msgstr "Copier vers une image..."
 
 #: frescobaldi_app/help/contents.py:147
-#, fuzzy
 msgid ""
 "<p>\n"
 "The default screen of Frescobaldi shows a text document on the left and an\n"
@@ -4361,7 +4357,6 @@ msgid "The Score Wizard"
 msgstr "L'assistant de partition"
 
 #: frescobaldi_app/scorewiz/dialog.py:195
-#, fuzzy
 msgid ""
 "<p>\n"
 "The Score Setup Wizard ({key}) in {menu} is designed\n"
@@ -6131,7 +6126,6 @@ msgid "There are no new or updated snippets in the file."
 msgstr "Il n'y a aucun fragment nouveau ou mis à jour dans ce fichier."
 
 #: frescobaldi_app/snippet/import_export.py:194
-#, fuzzy
 msgid ""
 "<p>Here the snippets from {filename} are displayed.</p>\n"
 "<p>If there are new or updated snippets, you can select or deselect them one "
@@ -6307,7 +6301,6 @@ msgstr[0] "Exporter {num} fragment"
 msgstr[1] "Exporter {num} fragments"
 
 #: frescobaldi_app/snippet/widget.py:373
-#, fuzzy
 msgid ""
 "<p>\n"
 "With the snippets manager you can store often used pieces of text called\n"

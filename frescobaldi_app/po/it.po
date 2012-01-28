@@ -1365,7 +1365,6 @@ msgstr ""
 "</p>\n"
 
 #: frescobaldi_app/help/contents.py:59
-#, fuzzy
 msgid ""
 "<h3>How to get help inside Frescobaldi</h3>\n"
 "\n"
@@ -1396,7 +1395,6 @@ msgid "Introduction"
 msgstr "Introduzione"
 
 #: frescobaldi_app/help/contents.py:90
-#, fuzzy
 msgid ""
 "<p>\n"
 "<a href=\"http://lilypond.org/\">LilyPond</a>\n"
@@ -1484,7 +1482,6 @@ msgid "Copy to Image..."
 msgstr "Copia come immagine..."
 
 #: frescobaldi_app/help/contents.py:147
-#, fuzzy
 msgid ""
 "<p>\n"
 "The default screen of Frescobaldi shows a text document on the left and an\n"
@@ -4357,7 +4354,6 @@ msgid "The Score Wizard"
 msgstr "Configurazione assistita di un nuovo spartito"
 
 #: frescobaldi_app/scorewiz/dialog.py:195
-#, fuzzy
 msgid ""
 "<p>\n"
 "The Score Setup Wizard ({key}) in {menu} is designed\n"
@@ -6302,7 +6298,6 @@ msgstr[0] "Esporta {num} frammento"
 msgstr[1] "Esporta {num} frammenti"
 
 #: frescobaldi_app/snippet/widget.py:373
-#, fuzzy
 msgid ""
 "<p>\n"
 "With the snippets manager you can store often used pieces of text called\n"
