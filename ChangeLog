@@ -13,9 +13,15 @@ Changes in 2.0.3 --
 * Improvements:
   - improved "Comment" snippet; add "Uncomment"
   - Home and Shift+Home now move the cursor to the first non-space character
+  - Shift+Return now does not enter a line separator anymore, which could
+    cause wrong point and click locations
 * Bug fixes:
   - fix { } or << >> inside lyricmode
   - in doc browser, don't display bogus versions when network is inaccessible
+* For Linux distribution packagers:
+  - the bundled Tango icon set is now used as an icon theme, which makes it
+    possible for distribution packagers to remove the icons/Tango directory and
+    instead make Frescobaldi depend on the tango-icon-theme package.
 
 
 Changes in 2.0.2 -- January 16th, 2012
