@@ -24,6 +24,7 @@ the current line, marked lines, search results etc.
 
 from __future__ import unicode_literals
 
+from PyQt4.QtCore import QEvent
 from PyQt4.QtGui import QColor, QTextCharFormat, QTextFormat
 
 import app
@@ -50,13 +51,21 @@ class ViewHighlighter(widgets.arbitraryhighlighter.ArbitraryHighlighter, plugin.
         bookmarks.bookmarks(view.document()).marksChanged.connect(self.updateMarkedLines)
         self.updateMarkedLines()
         view.cursorPositionChanged.connect(self.updateCursor)
-        view.focusChanged.connect(self.updateCursor)
+        view.installEventFilter(self)
 
     def updateMarkedLines(self):
         """Called when something changes in the bookmarks."""
         for type, marks in bookmarks.bookmarks(self.view().document()).marks().items():
             self.highlight(type, marks, -1)
-
+    
+    def eventFilter(self, view, ev):
+        if ev.type() in (QEvent.FocusIn, QEvent.FocusOut):
+            # avoid calling anything if the view already is gone
+            view = self.view()
+            if view:
+                self.updateCursor()
+        return False
+    
     def updateCursor(self):
         """Called when the textCursor has moved. Highlights the current line."""
         # highlight current line

@@ -56,12 +56,9 @@ class View(QPlainTextEdit):
     - it can display a widget in the bottom using showWidget and hideWidget.
     
     """
-    focusChanged = pyqtSignal(bool)
-    
     def __init__(self, document):
         """Creates the View for the given document."""
         super(View, self).__init__()
-        self._paintcursor = False
         self._widget = None
         self.setDocument(document)
         self.setLineWrapMode(QPlainTextEdit.NoWrap)
@@ -138,16 +135,10 @@ class View(QPlainTextEdit):
                 cursor.setPosition(pos) # move back to position
                 self.setTextCursor(cursor)
             
-    def focusInEvent(self, ev):
-        super(View, self).focusInEvent(ev)
-        self.focusChanged.emit(True)
-        self._paintcursor = False
-        
     def focusOutEvent(self, ev):
+        """Reimplemented to store the cursor position on focus out."""
         super(View, self).focusOutEvent(ev)
-        self.focusChanged.emit(False)
         self.storeCursor()
-        self._paintcursor = True # display the textcursor even if we have no focus
 
     def dragEnterEvent(self, ev):
         """Reimplemented to avoid showing the cursor when dropping URLs."""
@@ -177,7 +168,7 @@ class View(QPlainTextEdit):
     def paintEvent(self, ev):
         """Reimplemented to paint a cursor if we have no focus."""
         super(View, self).paintEvent(ev)
-        if self._paintcursor:
+        if not self.hasFocus():
             rect = self.cursorRect()
             if rect.intersects(ev.rect()):
                 color = self.palette().text().color()
