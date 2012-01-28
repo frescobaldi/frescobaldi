@@ -146,7 +146,7 @@ def rhythm_apply(cursor, mainwindow):
         _("Apply Rhythm"), _("Enter a rhythm:"),
         complete = sorted(_history),
         regexp = r'([0-9./* ]|\\breve|\\longa|\\maxima)+',
-        help = rhythm_help, icon = icons.get('tools_rhythm'))
+        help = rhythm_help, icon = icons.get('tools-rhythm'))
     if durs and durs.split():
         _history.add(durs.strip())
         duration_source = remove_dups(itertools.cycle(durs.split()))

@@ -92,8 +92,8 @@ class Actions(actioncollection.ActionCollection):
         self.pitch_abs2rel = QAction(parent)
         self.pitch_transpose = QAction(parent)
 
-        self.pitch_language.setIcon(icons.get('tools_pitch_language'))
-        self.pitch_transpose.setIcon(icons.get('tools_transpose'))
+        self.pitch_language.setIcon(icons.get('tools-pitch-language'))
+        self.pitch_transpose.setIcon(icons.get('tools-transpose'))
         
     def translateUI(self):
         self.pitch_language.setText(_("Pitch Name &Language"))

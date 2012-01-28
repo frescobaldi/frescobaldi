@@ -244,7 +244,7 @@ def menu_tools_lyrics(mainwindow):
 
 def menu_tools_pitch(mainwindow):
     m = Menu(_('submenu title', "&Pitch"), mainwindow)
-    m.setIcon(icons.get('tools_pitch'))
+    m.setIcon(icons.get('tools-pitch'))
     ac = pitch.Pitch.instance(mainwindow).actionCollection
     
     m.addAction(ac.pitch_language)
