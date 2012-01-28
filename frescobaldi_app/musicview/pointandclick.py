@@ -111,7 +111,7 @@ class Links(object):
         
         When the document disappears, the binding is removed automatically.
         While a document is bound, textedit links are stored as QTextCursors,
-        to they keep their position even if the user changes the document.
+        so they keep their position even if the user changes the document.
         
         """
         if filename not in self._docs:
@@ -133,7 +133,7 @@ class Links(object):
         del self._docs[filename]
     
     def cursor(self, link, load=False):
-        """Returns the destination of a link as a QTextCursor of the destination document).
+        """Returns the destination of a link as a QTextCursor of the destination document.
         
         If load (defaulting to False) is True, the document is loaded if it is not yet loaded.
         Returns None if the url was not valid or the document could not be loaded.
