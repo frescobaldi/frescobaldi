@@ -55,7 +55,7 @@ class ViewHighlighter(widgets.arbitraryhighlighter.ArbitraryHighlighter, plugin.
 
     def updateMarkedLines(self):
         """Called when something changes in the bookmarks."""
-        for type, marks in bookmarks.bookmarks(self.view().document()).marks().items():
+        for type, marks in bookmarks.bookmarks(self.parent().document()).marks().items():
             self.highlight(type, marks, -1)
     
     def eventFilter(self, view, ev):
