@@ -41,7 +41,7 @@ def highlighter(view):
 app.viewCreated.connect(highlighter)
 
 
-class ViewHighlighter(widgets.arbitraryhighlighter.ArbitraryHighlighter, plugin.ViewPlugin):
+class ViewHighlighter(widgets.arbitraryhighlighter.ArbitraryHighlighter, plugin.Plugin):
     def __init__(self, view):
         super(ViewHighlighter, self).__init__(view)
         self._cursorFormat = QTextCharFormat()
@@ -60,19 +60,17 @@ class ViewHighlighter(widgets.arbitraryhighlighter.ArbitraryHighlighter, plugin.
     
     def eventFilter(self, view, ev):
         if ev.type() in (QEvent.FocusIn, QEvent.FocusOut):
-            # avoid calling anything if the view already is gone
-            view = self.view()
-            if view:
-                self.updateCursor()
+            self.updateCursor()
         return False
     
     def updateCursor(self):
         """Called when the textCursor has moved. Highlights the current line."""
+        view = self.parent()
         # highlight current line
         color = QColor(self._baseColors['current'])
-        color.setAlpha(200 if self.view().hasFocus() else 100)
+        color.setAlpha(200 if view.hasFocus() else 100)
         self._cursorFormat.setBackground(color)
-        cursor = self.view().textCursor()
+        cursor = view.textCursor()
         cursor.clearSelection()
         self.highlight(self._cursorFormat, [cursor], 0)
         
