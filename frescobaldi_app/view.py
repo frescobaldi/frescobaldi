@@ -103,6 +103,9 @@ class View(QPlainTextEdit):
             self.updateWidgetPosition()
         
     def event(self, ev):
+        # avoid the line separator, makes no sense in plain text
+        if ev == QKeySequence.InsertLineSeparator:
+            return False
         # handle Tab and Backtab
         if ev.type() == QEvent.KeyPress:
             modifiers = int(ev.modifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
