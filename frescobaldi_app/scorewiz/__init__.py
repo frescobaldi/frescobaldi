@@ -52,7 +52,7 @@ class Actions(actioncollection.ActionCollection):
     name = 'scorewiz'
     def createActions(self, parent=None):
         self.scorewiz = QAction(parent)
-        self.scorewiz.setIcon(icons.get("score-wizard"))
+        self.scorewiz.setIcon(icons.get("tools-score-wizard"))
         self.scorewiz.setShortcut(QKeySequence("Ctrl+Shift+N"))
         
     def translateUI(self):

@@ -258,7 +258,7 @@ def menu_tools_pitch(mainwindow):
 
 def menu_tools_rhythm(mainwindow):
     m = Menu(_('submenu title', "&Rhythm"), mainwindow)
-    m.setIcon(icons.get('tools_rhythm'))
+    m.setIcon(icons.get('tools-rhythm'))
     ac = rhythm.Rhythm.instance(mainwindow).actionCollection
     
     m.addAction(ac.rhythm_double)

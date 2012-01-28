@@ -398,7 +398,7 @@ def transpose(cursor, mainwindow):
     text = inputdialog.getText(mainwindow, _("Transpose"), _(
         "Please enter two absolute pitches, separated by a space, "
         "using the pitch name language \"{language}\"."
-        ).format(language=language), icon = icons.get('tools_transpose'),
+        ).format(language=language), icon = icons.get('tools-transpose'),
         help = transpose_help, validate = validate)
     if text == None:
         return
