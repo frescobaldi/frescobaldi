@@ -105,7 +105,7 @@ def terminalCommands():
     
     """
     if os.name == "nt":
-        yield ['cmd.exe', '/K', 'cd "$f"']
+        yield ['cmd.exe']
     elif sys.platform == 'darwin':
         yield ['open', '-a', 'Terminal', '$f']
     else:
