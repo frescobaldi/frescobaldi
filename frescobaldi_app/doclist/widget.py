@@ -52,6 +52,7 @@ class Widget(QTreeWidget):
     def __init__(self, tool):
         super(Widget, self).__init__(tool, headerHidden=True)
         self.setAlternatingRowColors(True)
+        self.setRootIsDecorated(False)
         app.documentCreated.connect(self.addDocument)
         app.documentClosed.connect(self.removeDocument)
         app.documentLoaded.connect(self.setDocumentStatus)
@@ -67,7 +68,6 @@ class Widget(QTreeWidget):
     def populate(self):
         self._group = QSettings().value(
             "document_list/group_by_folder", False) in (True, "true")
-        self.setRootIsDecorated(not self._group)
         self.clear()
         self._paths = {}
         self._items = {}
