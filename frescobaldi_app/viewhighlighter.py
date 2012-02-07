@@ -60,12 +60,21 @@ class ViewHighlighter(widgets.arbitraryhighlighter.ArbitraryHighlighter, plugin.
     
     def eventFilter(self, view, ev):
         if ev.type() in (QEvent.FocusIn, QEvent.FocusOut):
-            self.updateCursor()
+            self.updateCursor(view)
         return False
     
-    def updateCursor(self):
-        """Called when the textCursor has moved. Highlights the current line."""
-        view = self.parent()
+    def updateCursor(self, view=None):
+        """Called when the textCursor has moved. Highlights the current line.
+        
+        If view is None (the default), our parent() is assumed to be the
+        view. The eventFilter() method calls us with the view, this is
+        done because the event filter is sometimes called very late in
+        the destructor phase, when our parent is possibly not valid
+        anymore.
+        
+        """
+        if view is None:
+			view = self.parent()
         # highlight current line
         color = QColor(self._baseColors['current'])
         color.setAlpha(200 if view.hasFocus() else 100)
@@ -91,4 +100,5 @@ class ViewHighlighter(widgets.arbitraryhighlighter.ArbitraryHighlighter, plugin.
         if name in ('current', 'mark', 'error'):
             f.setProperty(QTextFormat.FullWidthSelection, True)
         return f
-            
+
+
