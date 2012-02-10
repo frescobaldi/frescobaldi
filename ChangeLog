@@ -16,6 +16,7 @@ Changes in 2.0.3 --
   - Shift+Return now does not enter a line separator anymore, which could
     cause wrong point and click locations
 * Bug fixes:
+  - changing keyboard shortcuts in preferences now works on Mac OS X
   - fix { } or << >> inside lyricmode
   - in doc browser, don't display bogus versions when network is inaccessible
 * For Linux distribution packagers:
