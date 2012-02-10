@@ -218,4 +218,3 @@ class KeySequenceButton(QPushButton):
         self.updateDisplay()
 
 
-    
