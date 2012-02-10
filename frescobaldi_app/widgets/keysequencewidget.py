@@ -193,6 +193,7 @@ class KeySequenceButton(QPushButton):
             self._timer.start(600)
     
     def startRecording(self):
+        self.setFocus(True) # because of QTBUG 17810
         self.setDown(True)
         self.setStyleSheet("text-align: left;")
         self._isrecording = True
