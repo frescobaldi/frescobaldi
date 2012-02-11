@@ -47,8 +47,8 @@ class Blinker(QWidget):
     
     finished = pyqtSignal()
     
-    lineWidth = 8
-    radius = 4
+    lineWidth = 4
+    radius = 3
     
     def __init__(self, widget):
         """Initializes ourselves to draw on the widget."""

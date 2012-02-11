@@ -15,6 +15,7 @@ Changes in 2.0.3 --
   - Home and Shift+Home now move the cursor to the first non-space character
   - Shift+Return now does not enter a line separator anymore, which could
     cause wrong point and click locations
+  - blinking rectangle highlights new cursor position on point and click
 * Bug fixes:
   - changing keyboard shortcuts in preferences now works on Mac OS X
   - fix { } or << >> inside lyricmode
