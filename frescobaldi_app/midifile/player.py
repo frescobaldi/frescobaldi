@@ -34,7 +34,7 @@ from . import song
 class Player(object):
     """The base class for a MIDI player.
     
-    Use set_output() to set a MIDI output instance (see midioutput.py).
+    Use set_output() to set a MIDI output instance (see output.py).
     You can override: timer_midi_time(), timer_start() and timer_stop()
     to use another timing source than the Python threading.Timer instances.
     
@@ -180,18 +180,14 @@ class Player(object):
     def set_position(self, position, offset=0):
         """(Private) Goes to the specified position in the internal events list.
         
-        The default implementation does nothing with the time offset,
-        but inherited implementations may wait that many msec before
-        triggering the event at that position.
-        
         This method is called by seek() and seek_measure().
         
         """
         old, self._position = self._position, position
+        if old != self._position:
+            self.position_event(old, self._position)
         if self._playing:
             self.timer_stop()
-            if old != self._position:
-                self.position_event(old, self._position)
             self.timer_schedule(offset, False)
         else:
             self._offset = offset
@@ -257,13 +253,17 @@ class Player(object):
         """Called when a song reaches the end by itself."""
     
     def position_event(self, old, new):
-        """Called when the user seeks while playing and the position changes.
+        """Called when the user seeks and the position changes.
         
         This means MIDI events are skipped and it might be necessary to 
-        issue an all notes off command to the MIDI output.
+        issue an all notes off command to the MIDI output, or to perform
+        program changes.
+        
+        The default implementation issues an all_notes_off if the
+        player is playing.
         
         """
-        if self._output:
+        if self._playing and self._output:
             self._output.all_sounds_off()
     
     def exception_event(self, exception):
