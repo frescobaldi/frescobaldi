@@ -145,9 +145,7 @@ class MusicView(QWidget):
             mainwindow = self.parent().mainwindow()
             mainwindow.setTextCursor(cursor, findOpenView=True)
             import widgets.blink
-            view = mainwindow.currentView()
-            rect = view.cursorRect().normalized().adjusted(0, 2, 10, 2)
-            widgets.blink.blink(view, rect)
+            widgets.blink.blink_cursor(mainwindow.currentView())
             
         elif (ev.button() != Qt.RightButton
               and isinstance(link, popplerqt4.Poppler.LinkBrowse)

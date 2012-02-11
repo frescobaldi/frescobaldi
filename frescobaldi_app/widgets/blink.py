@@ -21,8 +21,8 @@
 Shortly blinks a region on a widget.
 """
 
-from PyQt4.QtCore import QTimeLine, pyqtSignal
-from PyQt4.QtGui import QPainter, QPalette, QPen, QWidget
+from PyQt4.QtCore import QTimer, pyqtSignal
+from PyQt4.QtGui import QColor, QFontMetrics, QPainter, QPalette, QPen, QWidget
 
 
 def blink(widget, rect, color=None):
@@ -42,23 +42,28 @@ def blink(widget, rect, color=None):
     b.finished.connect(b.deleteLater)
 
 
+def blink_cursor(textedit, color=None):
+    """Highlights the cursor in a Q(Plain)TextEdit."""
+    metrics = QFontMetrics(textedit.textCursor().charFormat().font())
+    width = metrics.boundingRect("m").width()
+    rect = textedit.cursorRect().normalized().adjusted(0, 2, width, 2)
+    blink(textedit, rect, color)
+
+
 class Blinker(QWidget):
     """Can draw a blinking region above its parent widget."""
     
     finished = pyqtSignal()
     
-    lineWidth = 4
+    lineWidth = 3
     radius = 3
     
     def __init__(self, widget):
         """Initializes ourselves to draw on the widget."""
         super(Blinker, self).__init__(widget)
-        self.timeLine = QTimeLine()
-        self.timeLine.setDuration(1000)
-        self.timeLine.setCurveShape(QTimeLine.LinearCurve)
-        self.timeLine.setUpdateInterval(40)
-        self.timeLine.frameChanged.connect(self._updateFrame)
-        self.timeLine.finished.connect(self.done)
+        self._color = None
+        self._animation = ()
+        self._timer = QTimer(singleShot=True, timeout=self._updateAnimation)
         
     def blink(self, rect):
         """Starts blinking the specified rectangle."""
@@ -66,35 +71,46 @@ class Blinker(QWidget):
         adj = self.lineWidth
         self.setGeometry(rect.adjusted(-adj, -adj, adj, adj))
         self.show()
-        self.timeLine.setFrameRange(1040, 40)
-        self.timeLine.start()
+        self._animation = self.animateColor()
+        self._updateAnimation()
         
     def done(self):
         """(Internal) Called when the animation ends."""
         self.hide()
+        self._animation = ()
         self.finished.emit()
     
-    def _updateFrame(self, frame):
+    def _updateAnimation(self):
+        try:
+            delta, self._color = next(self._animation)
+        except StopIteration:
+            self.done()
+            return
         self.update()
-    
-    def animationColor(self):
-        """Returns a color to animate the blinking."""
-        frame = self.timeLine.currentFrame()
-        if frame > 255:
-            if (frame + 1) % 200 > 100:
-                alpha = 0
-            else:
-                alpha = 255
-        else:
-            alpha = frame
-        color = self.palette().color(QPalette.Highlight)
-        if color.alpha() > alpha:
-            color.setAlpha(alpha)
-        return color
+        self._timer.start(delta)
         
+    def animateColor(self):
+        """A generator yielding tuples (msec_delta, color) to animate colors.
+        
+        When the generator exits, the animation ends.
+        The color is taken from the Highlight palette value.
+        
+        """
+        color = self.palette().color(QPalette.Highlight)
+        for delta, alpha in self.animateAlpha():
+            color.setAlpha(alpha)
+            yield delta, color
+    
+    def animateAlpha(self):
+        """A generator yielding (msec_delta, alpha) tuples."""
+        for alpha in (255, 0) * 3:
+            yield 100, alpha
+        for alpha in range(255, 0, -20):
+            yield 40, alpha
+    
     def paintEvent(self, ev):
-        color = self.animationColor()
-        if color.alpha() == 0:
+        color = self._color
+        if not color or color.alpha() == 0:
             return
         painter = QPainter(self)
         adj = self.lineWidth / 2
