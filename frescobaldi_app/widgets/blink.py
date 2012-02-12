@@ -103,9 +103,9 @@ class Blinker(QWidget):
     
     def animateAlpha(self):
         """A generator yielding (msec_delta, alpha) tuples."""
-        for alpha in (255, 0) * 3:
-            yield 100, alpha
-        for alpha in range(255, 0, -20):
+        for alpha in (255, 0, 255, 0, 255):
+            yield 120, alpha
+        for alpha in range(255, 0, -15):
             yield 40, alpha
     
     def paintEvent(self, ev):
