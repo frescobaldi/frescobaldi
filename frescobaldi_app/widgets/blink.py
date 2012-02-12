@@ -25,31 +25,6 @@ from PyQt4.QtCore import QTimer, pyqtSignal
 from PyQt4.QtGui import QColor, QFontMetrics, QPainter, QPalette, QPen, QWidget
 
 
-def blink(widget, rect, color=None):
-    """Shortly blinks a rectangular region on a widget.
-    
-    If color is not given, the highlight color of the widget is used.
-    
-    """
-    window = widget.window()
-    rect.moveTo(widget.mapTo(window, rect.topLeft()))
-    b = Blinker(window)
-    p = widget.palette()
-    if color:
-        p.setColor(QPalette.Highlight, color)
-    b.setPalette(p)
-    b.blink(rect)
-    b.finished.connect(b.deleteLater)
-
-
-def blink_cursor(textedit, color=None):
-    """Highlights the cursor in a Q(Plain)TextEdit."""
-    metrics = QFontMetrics(textedit.textCursor().charFormat().font())
-    width = metrics.boundingRect("m").width()
-    rect = textedit.cursorRect().normalized().adjusted(0, 2, width, 2)
-    blink(textedit, rect, color)
-
-
 class Blinker(QWidget):
     """Can draw a blinking region above its parent widget."""
     
@@ -58,6 +33,35 @@ class Blinker(QWidget):
     lineWidth = 3
     radius = 3
     
+    @classmethod
+    def blink(cls, widget, rect=None, color=None):
+        """Shortly blinks a rectangular region on a widget.
+        
+        If rect is not given, the full rect() of the widget is used.
+        If color is not given, the highlight color of the widget is used.
+        This method instantiates a Blinker widget and discards it after use.
+        
+        """
+        window = widget.window()
+        if rect is None:
+            rect = widget.rect()
+        rect.moveTo(widget.mapTo(window, rect.topLeft()))
+        b = cls(window)
+        p = widget.palette()
+        if color:
+            p.setColor(QPalette.Highlight, color)
+        b.setPalette(p)
+        b.start(rect)
+        b.finished.connect(b.deleteLater)
+
+    @classmethod
+    def blink_cursor(cls, textedit, color=None):
+        """Highlights the cursor in a Q(Plain)TextEdit."""
+        metrics = QFontMetrics(textedit.textCursor().charFormat().font())
+        width = metrics.boundingRect("m").width()
+        rect = textedit.cursorRect().normalized().adjusted(0, 2, width, 2)
+        cls.blink(textedit, rect, color)
+    
     def __init__(self, widget):
         """Initializes ourselves to draw on the widget."""
         super(Blinker, self).__init__(widget)
@@ -65,7 +69,7 @@ class Blinker(QWidget):
         self._animation = ()
         self._timer = QTimer(singleShot=True, timeout=self._updateAnimation)
         
-    def blink(self, rect):
+    def start(self, rect):
         """Starts blinking the specified rectangle."""
         self._blink_rect = rect
         adj = self.lineWidth
