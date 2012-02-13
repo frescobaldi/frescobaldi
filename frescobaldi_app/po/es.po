@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2012-01-27 09:17+0100\n"
-"PO-Revision-Date: 2012-01-16 12:36+0100\n"
+"PO-Revision-Date: 2012-02-13 12:03+0100\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -733,7 +733,7 @@ msgstr "Abrir carpeta actual"
 
 #: frescobaldi_app/mainwindow.py:952
 msgid "Open Command Prompt"
-msgstr ""
+msgstr "Abrir consola de órdenes"
 
 #: frescobaldi_app/mainwindow.py:955
 msgid "Save Copy or Selection As..."
@@ -2180,24 +2180,20 @@ msgid "Copy to &Image..."
 msgstr "Copiar a &imagen..."
 
 #: frescobaldi_app/musicview/__init__.py:247
-#, fuzzy
 msgid "Next Page"
-msgstr "Siguiente cambio"
+msgstr "Página siguiente"
 
 #: frescobaldi_app/musicview/__init__.py:248
-#, fuzzy
 msgid "Next"
-msgstr "Siguiente:"
+msgstr "Siguiente"
 
 #: frescobaldi_app/musicview/__init__.py:249
-#, fuzzy
 msgid "Previous Page"
-msgstr "Marca anterior"
+msgstr "Página anterior"
 
 #: frescobaldi_app/musicview/__init__.py:250
-#, fuzzy
 msgid "Previous"
-msgstr "Marca anterior"
+msgstr "Anterior"
 
 #: frescobaldi_app/musicview/__init__.py:389
 msgid "Choose the PDF document to display."
@@ -2226,7 +2222,7 @@ msgstr "Ajustar a la página"
 #. L10N: page numbering: page {num} of {total}
 #: frescobaldi_app/musicview/__init__.py:468
 msgid "{num} of {total}"
-msgstr ""
+msgstr "{num} de {total}"
 
 #: frescobaldi_app/musicview/image.py:126
 msgid "DPI:"
@@ -5822,9 +5818,8 @@ msgid "Staff Size"
 msgstr "Tamaño del pentagrama"
 
 #: frescobaldi_app/snippet/builtin.py:322
-#, fuzzy
 msgid "Uncomment"
-msgstr "Comentario"
+msgstr "Quitar marca de comentario"
 
 #: frescobaldi_app/snippet/builtin.py:365
 msgid "A5 Paper"
@@ -6424,7 +6419,7 @@ msgstr "Usar la combinación pre&determinada ({name})"
 
 #: frescobaldi_app/widgets/tempobutton.py:51
 msgid "The tempo is set as you click this button."
-msgstr ""
+msgstr "El tempo se establece según pulse este botón."
 
 #: frescobaldi_app/widgets/urlrequester.py:65
 msgid "Open file dialog"
