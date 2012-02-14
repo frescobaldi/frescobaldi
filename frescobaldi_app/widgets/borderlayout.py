@@ -35,6 +35,7 @@ class BorderLayout(QObject):
     def __init__(self, scrollarea):
         super(BorderLayout, self).__init__(scrollarea)
         self._resizing = False
+        self._margins = 0, 0, 0, 0
         self._widgets = ([], [], [], [])
         scrollarea.viewport().installEventFilter(self)
     
@@ -52,15 +53,6 @@ class BorderLayout(QObject):
     
     def scrollarea(self):
         return self.parent()
-    
-    def eventFilter(self, obj, ev):
-        if self._resizing:
-            return False
-        elif ev.type() == QEvent.Resize and obj is self.scrollarea().viewport():
-            self.updateGeometry()
-        elif ev.type() in (QEvent.Resize, QEvent.ShowToParent, QEvent.HideToParent):
-            self.updateGeometry()
-        return False
     
     def addWidget(self, widget, side):
         """Adds a widget to our scrollarea."""
@@ -95,12 +87,30 @@ class BorderLayout(QObject):
                 return True
         self.updateGeometry()
     
+    def setViewportMargins(self, left, top, right, bottom):
+        self._margins = (left, top, right, bottom)
+        self.scrollarea().setViewportMargins(left, top, right, bottom)
+    
+    def viewportGeometry(self):
+        g = self.scrollarea().viewport().geometry()
+        left, top, right, bottom = self._margins
+        return g.adjusted(-left, -top, right, bottom)
+        
+    def eventFilter(self, obj, ev):
+        if self._resizing:
+            return False
+        elif ev.type() == QEvent.Resize and obj is self.scrollarea().viewport():
+            self.updateGeometry()
+        elif ev.type() in (QEvent.Resize, QEvent.ShowToParent, QEvent.HideToParent):
+            self.updateGeometry()
+        return False
+    
     def updateGeometry(self):
         """Positions all widgets in the scrollarea edges."""
         self._resizing = True
-        self.scrollarea().setViewportMargins(0, 0, 0, 0)
-        pos = self.scrollarea().viewport().pos()
-        size = self.scrollarea().viewport().size()
+        g = self.viewportGeometry()
+        pos = g.topLeft()
+        size = g.size()
         left, right, top, bottom = 0, 0, 0, 0
         
         for side in self.order:
@@ -148,7 +158,7 @@ class BorderLayout(QObject):
                     g = QRect(pos + QPoint(x, y), QSize(w, h))
                     widget.setGeometry(g)
                     bottom += h
-        self.scrollarea().setViewportMargins(left, top, right, bottom)
+        self.setViewportMargins(left, top, right, bottom)
         self._resizing = False
 
 
