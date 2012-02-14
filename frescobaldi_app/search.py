@@ -37,6 +37,7 @@ import util
 import plugin
 import textformats
 import viewhighlighter
+import widgets.borderlayout
 
 
 class Search(QWidget, plugin.MainWindowPlugin):
@@ -127,17 +128,18 @@ class Search(QWidget, plugin.MainWindowPlugin):
         if self.isVisible():
             self.hideWidget()
         view = self.window().currentView()
-        self.setFixedHeight(self.sizeHint().height())
-        view.showWidget(self)
         self.setCurrentView(view)
+        layout = widgets.borderlayout.BorderLayout.get(view)
+        layout.addWidget(self, widgets.borderlayout.BOTTOM)
         self.show()
         
     def hideWidget(self):
         view = self.currentView()
         if view:
             viewhighlighter.highlighter(view).clear("search")
-            view.hideWidget(self)
             self.hide()
+            layout = widgets.borderlayout.BorderLayout.get(view)
+            layout.removeWidget(self)
     
     def viewChanged(self, new):
         self.setParent(None)

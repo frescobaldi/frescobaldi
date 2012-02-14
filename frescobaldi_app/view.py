@@ -59,7 +59,6 @@ class View(QPlainTextEdit):
     def __init__(self, document):
         """Creates the View for the given document."""
         super(View, self).__init__()
-        self._widget = None
         self.setDocument(document)
         self.setLineWrapMode(QPlainTextEdit.NoWrap)
         self.setCursorWidth(2)
@@ -72,35 +71,6 @@ class View(QPlainTextEdit):
         app.settingsChanged.connect(self.readSettings)
         self.readSettings() # will also call updateCursor
         app.viewCreated(self)
-        
-    def showWidget(self, widget):
-        """Displays the widget in the bottom of the View."""
-        widget.setParent(self)
-        self._widget = widget
-        self.updateWidgetPosition()
-    
-    def hideWidget(self, widget):
-        """Removes the widget from the bottom of the View."""
-        widget.setParent(None)
-        self._widget = None
-        self.setViewportMargins(0, 0, 0, 0)
-    
-    def updateWidgetPosition(self):
-        """Moves and resizes the widget embedded with showWidget()."""
-        geom = self.viewport().geometry()
-        height = self._widget.heightForWidth(geom.width())
-        if height == -1:
-            height = self._widget.sizeHint().height()
-        geom.translate(0, geom.height())
-        geom.setHeight(height)
-        self._widget.setGeometry(geom)
-        self.setViewportMargins(0, 0, 0, height)
-    
-    def resizeEvent(self, ev):
-        """Reimplemented to re-position widget embedded with showWidget()."""
-        super(View, self).resizeEvent(ev)
-        if self._widget:
-            self.updateWidgetPosition()
         
     def event(self, ev):
         # avoid the line separator, makes no sense in plain text
