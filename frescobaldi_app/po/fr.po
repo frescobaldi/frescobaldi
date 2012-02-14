@@ -741,7 +741,7 @@ msgstr "Ouvrir le dossier courant"
 
 #: frescobaldi_app/mainwindow.py:952
 msgid "Open Command Prompt"
-msgstr ""
+msgstr "Ouvrir la ligne de commande (Terminal)"
 
 #: frescobaldi_app/mainwindow.py:955
 msgid "Save Copy or Selection As..."
@@ -1226,9 +1226,8 @@ msgstr "Lancer LilyPond avec des messages détaillés"
 
 #: frescobaldi_app/engrave/custom.py:130
 #: frescobaldi_app/preferences/lilypond.py:289
-#, fuzzy
 msgid "Run LilyPond with English messages"
-msgstr "Lancer LilyPond avec des messages détaillés"
+msgstr "Lancer LilyPond avec des messages en anglais"
 
 #: frescobaldi_app/engrave/custom.py:131
 #: frescobaldi_app/preferences/lilypond.py:286
@@ -2196,19 +2195,16 @@ msgid "Copy to &Image..."
 msgstr "Copier vers une image..."
 
 #: frescobaldi_app/musicview/__init__.py:247
-#, fuzzy
 msgid "Next Page"
-msgstr "Modification suivante"
+msgstr "Page suivante"
 
 #: frescobaldi_app/musicview/__init__.py:248
-#, fuzzy
 msgid "Next"
 msgstr "Suivant :"
 
 #: frescobaldi_app/musicview/__init__.py:249
-#, fuzzy
 msgid "Previous Page"
-msgstr "Repère précédent"
+msgstr "Page précédente"
 
 #: frescobaldi_app/musicview/__init__.py:250
 msgid "Previous"
@@ -5841,9 +5837,8 @@ msgid "Staff Size"
 msgstr "Taille des portées"
 
 #: frescobaldi_app/snippet/builtin.py:322
-#, fuzzy
 msgid "Uncomment"
-msgstr "Commentaire"
+msgstr "Dé-commenter"
 
 #: frescobaldi_app/snippet/builtin.py:365
 msgid "A5 Paper"
@@ -5895,7 +5890,7 @@ msgstr "Cliquez pour changer le raccourci clavier"
 
 #: frescobaldi_app/snippet/edit.py:138
 msgid "Empty Snippet"
-msgstr "Snippet vide"
+msgstr "Fragment vide"
 
 #: frescobaldi_app/snippet/edit.py:138
 msgid "A snippet can't be empty."
@@ -6000,7 +5995,7 @@ msgstr ""
 
 #: frescobaldi_app/snippet/edit.py:265
 msgid "Python Snippets"
-msgstr "Snippets Python"
+msgstr "Fragments Python"
 
 #: frescobaldi_app/snippet/edit.py:270
 msgid ""
@@ -6107,11 +6102,11 @@ msgstr "Nouveaux fragments"
 
 #: frescobaldi_app/snippet/import_export.py:120
 msgid "Updated Snippets"
-msgstr "Snippets mis à jour"
+msgstr "Fragments mis à jour"
 
 #: frescobaldi_app/snippet/import_export.py:121
 msgid "Unchanged Snippets"
-msgstr "Snippets non modifiés"
+msgstr "Fragments non modifiés"
 
 #: frescobaldi_app/snippet/import_export.py:183
 msgid "Import Keyboard Shortcuts"
@@ -6172,7 +6167,7 @@ msgstr "Veuillez saisir un nom de modèle."
 #: frescobaldi_app/snippet/tool.py:54 frescobaldi_app/snippet/tool.py:130
 #: frescobaldi_app/snippet/widget.py:367
 msgid "Snippets"
-msgstr "Snippets"
+msgstr "Fragments"
 
 #: frescobaldi_app/snippet/tool.py:55
 msgid "&Snippets"
@@ -6183,7 +6178,6 @@ msgid "Save as Template..."
 msgstr "Enregistrer comme modèle..."
 
 #: frescobaldi_app/snippet/tool.py:90
-#, fuzzy
 msgid "Manage Templates..."
 msgstr "Enregistrer comme modèle..."
 
@@ -6382,7 +6376,7 @@ msgstr "Insérer"
 
 #: frescobaldi_app/snippet/widget.py:405
 msgid "Snippets..."
-msgstr "Snippets..."
+msgstr "Fragments..."
 
 #: frescobaldi_app/widgets/keysequencewidget.py:60
 msgid "Start recording a key sequence."
