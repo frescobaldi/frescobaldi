@@ -78,7 +78,6 @@ class BorderLayout(QObject):
             new = True
             widget.installEventFilter(self)
             widget.setParent(self.scrollarea())
-            widget.setAutoFillBackground(True)
         if position == -1:
             self._widgets[side].append(widget)
         else:
@@ -88,9 +87,9 @@ class BorderLayout(QObject):
         self.updateGeometry()
             
     def removeWidget(self, widget):
-        for side in LEFT, TOP, RIGHT, BOTTOM:
-            if widget in self._widgets[side]:
-                self._widgets[side].remove(widget)
+        for l in self._widgets:
+            if widget in l:
+                l.remove(widget)
                 widget.removeEventFilter(self)
                 widget.setParent(None)
                 return True
