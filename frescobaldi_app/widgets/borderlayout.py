@@ -52,6 +52,7 @@ class BorderLayout(QObject):
         return cls(scrollarea)
     
     def scrollarea(self):
+        """Returns our scrollarea instance (our parent)."""
         return self.parent()
     
     def addWidget(self, widget, side):
@@ -79,6 +80,7 @@ class BorderLayout(QObject):
         self.updateGeometry()
             
     def removeWidget(self, widget):
+        """Removes the widget, it is not deleted."""
         for l in self._widgets:
             if widget in l:
                 l.remove(widget)
@@ -88,15 +90,18 @@ class BorderLayout(QObject):
         self.updateGeometry()
     
     def setViewportMargins(self, left, top, right, bottom):
+        """(Internal) Sets the viewport margins and remembers them."""
         self._margins = (left, top, right, bottom)
         self.scrollarea().setViewportMargins(left, top, right, bottom)
     
     def viewportGeometry(self):
+        """(Internal) Returns the viewport geometry as if with 0 margins."""
         g = self.scrollarea().viewport().geometry()
         left, top, right, bottom = self._margins
         return g.adjusted(-left, -top, right, bottom)
         
     def eventFilter(self, obj, ev):
+        """Reimplemented to handle resizes and avoid resize loops."""
         if self._resizing:
             return False
         elif ev.type() == QEvent.Resize and obj is self.scrollarea().viewport():
@@ -106,7 +111,7 @@ class BorderLayout(QObject):
         return False
     
     def updateGeometry(self):
-        """Positions all widgets in the scrollarea edges."""
+        """(Internal) Positions all widgets in the scrollarea edges."""
         self._resizing = True
         g = self.viewportGeometry()
         pos = g.topLeft()
