@@ -86,8 +86,7 @@ class BorderLayout(QObject):
                 l.remove(widget)
                 widget.removeEventFilter(self)
                 widget.setParent(None)
-                return True
-        self.updateGeometry()
+                self.updateGeometry()
     
     def setViewportMargins(self, left, top, right, bottom):
         """(Internal) Sets the viewport margins and remembers them."""
