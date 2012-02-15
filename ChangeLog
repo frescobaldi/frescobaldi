@@ -6,7 +6,7 @@ Changes in 2.0.3 --
 
 * Translations:
   - New translation: Brazillian, by Édio Mazera, thanks!
-  - updated translations: es, fr
+  - updated translations: es, fr, it, nl
 * New features:
   - pager in musicview toolbar
   - tools->open command prompt to open a terminal window

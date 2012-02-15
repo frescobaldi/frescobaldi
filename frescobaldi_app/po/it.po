@@ -4,13 +4,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Gianluca D'Orazio <gianluca.dorazio@gmail.com>, 2008, 2009, 2010, 2011.
-# .billyBoh <billyboh@gmail.com>, 2011.
+# .billyBoh <billyboh@gmail.com>, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2012-01-27 09:17+0100\n"
-"PO-Revision-Date: 2011-12-01 17:39+0100\n"
+"PO-Revision-Date: 2012-02-15 16:30+0100\n"
 "Last-Translator: .billyBoh <billyboh@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -356,7 +356,7 @@ msgstr "È possibile descrivere sotto quel che si stava facendo:"
 
 #: frescobaldi_app/globalfontdialog.py:69
 msgid "Global Fonts"
-msgstr ""
+msgstr "Impostazioni generali dei caratteri"
 
 #: frescobaldi_app/globalfontdialog.py:71
 msgid ""
@@ -365,25 +365,27 @@ msgid ""
 "set the staff size to the global staff size you use in the document (20 by "
 "default)."
 msgstr ""
+"Scegliere i tre caratteri predefiniti da usare per <code>\\roman</code>, "
+"<code>\\sans</code> e <code>\\typewriter</code> rispettivamente. "
+"Inoltre è utile impostare la dimensione del rigo al valore della dimensione "
+"generale "
+"del rigo in uso nel documento (valore predefinito 20)."
 
 #: frescobaldi_app/globalfontdialog.py:76
-#, fuzzy
 msgid "Roman Font:"
-msgstr "Carattere:"
+msgstr "Carattere con grazie:"
 
 #: frescobaldi_app/globalfontdialog.py:77
-#, fuzzy
 msgid "Sans Font:"
-msgstr "Carattere:"
+msgstr "Carattere senza grazie:"
 
 #: frescobaldi_app/globalfontdialog.py:78
 msgid "Typewriter Font:"
-msgstr ""
+msgstr "Carattere a spaziatura fissa:"
 
 #: frescobaldi_app/globalfontdialog.py:79
-#, fuzzy
 msgid "Staff Size:"
-msgstr "Dimensione del rigo"
+msgstr "Dimensione del rigo:"
 
 #: frescobaldi_app/hyphendialog.py:114
 msgid "Hyphenate Lyrics Text"
@@ -583,9 +585,8 @@ msgstr ""
 "Salvare le modifiche o scartarle?"
 
 #: frescobaldi_app/mainwindow.py:281
-#, fuzzy
 msgid "Tab Bar"
-msgstr "Intavolatura"
+msgstr "Barra delle linguette"
 
 #: frescobaldi_app/mainwindow.py:338 frescobaldi_app/popplerprint.py:53
 #: frescobaldi_app/sessions/dialog.py:165
@@ -733,7 +734,7 @@ msgstr "Apri la cartella attuale"
 
 #: frescobaldi_app/mainwindow.py:952
 msgid "Open Command Prompt"
-msgstr ""
+msgstr "Apri riga di comando"
 
 #: frescobaldi_app/mainwindow.py:955
 msgid "Save Copy or Selection As..."
@@ -1076,14 +1077,12 @@ msgstr "Mostra la finestra dei c&ompletamenti"
 
 #: frescobaldi_app/charmap/__init__.py:40
 #: frescobaldi_app/preferences/tools.py:186
-#, fuzzy
 msgid "Special Characters"
-msgstr "Caratteri speciali..."
+msgstr "Caratteri speciali"
 
 #: frescobaldi_app/charmap/__init__.py:41
-#, fuzzy
 msgid "Special Charac&ters"
-msgstr "Caratteri speciali..."
+msgstr "Cara&tteri speciali"
 
 #: frescobaldi_app/docbrowser/__init__.py:46
 #: frescobaldi_app/docbrowser/__init__.py:62
@@ -1111,9 +1110,8 @@ msgid "Home"
 msgstr "Home"
 
 #: frescobaldi_app/docbrowser/__init__.py:86
-#, fuzzy
 msgid "Print..."
-msgstr "&Stampa"
+msgstr "Stampa..."
 
 #: frescobaldi_app/docbrowser/__init__.py:87
 msgid "&LilyPond Documentation"
@@ -1138,9 +1136,8 @@ msgstr "({hostname})"
 
 #: frescobaldi_app/docbrowser/browser.py:229
 #: frescobaldi_app/help/browser.py:82 frescobaldi_app/help/browser.py:113
-#, fuzzy
 msgid "Print"
-msgstr "&Stampa"
+msgstr "Stampa"
 
 #: frescobaldi_app/docbrowser/browser.py:239
 msgid "Copy &Link"
@@ -1160,14 +1157,12 @@ msgstr "Documento LilyPond sorgente"
 
 #: frescobaldi_app/doclist/__init__.py:39
 #: frescobaldi_app/preferences/tools.py:219
-#, fuzzy
 msgid "Documents"
-msgstr "Documento:"
+msgstr "Documenti"
 
 #: frescobaldi_app/doclist/__init__.py:40
-#, fuzzy
 msgid "Docum&ents"
-msgstr "Documento:"
+msgstr "Docum&enti"
 
 #: frescobaldi_app/engrave/__init__.py:177
 msgid "&Always Engrave [{docname}]"
@@ -1190,33 +1185,28 @@ msgid "Engrave (&publish)"
 msgstr "Compila (&pubblicazione)"
 
 #: frescobaldi_app/engrave/__init__.py:211
-#, fuzzy
 msgid "Engrave (&custom)..."
-msgstr "Compila (&personalizzata)"
+msgstr "Compila (&personalizzata)..."
 
 #: frescobaldi_app/engrave/__init__.py:212
 msgid "Abort Engraving &Job"
 msgstr "&Interrompi compilazione"
 
 #: frescobaldi_app/engrave/custom.py:123 frescobaldi_app/engrave/custom.py:214
-#, fuzzy
 msgid "Engrave custom"
-msgstr "Compila (&personalizzata)"
+msgstr "Compilazione personalizzata"
 
 #: frescobaldi_app/engrave/custom.py:124
-#, fuzzy
 msgid "LilyPond Version:"
-msgstr "Versione di LilyPond"
+msgstr "Versione di LilyPond:"
 
 #: frescobaldi_app/engrave/custom.py:125
-#, fuzzy
 msgid "Output Format:"
-msgstr "Nome dei file generati:"
+msgstr "Formato di uscita:"
 
 #: frescobaldi_app/engrave/custom.py:126
-#, fuzzy
 msgid "Resolution:"
-msgstr "Versione:"
+msgstr "Risoluzione:"
 
 #: frescobaldi_app/engrave/custom.py:128
 msgid "Run LilyPond in preview mode (with Point and Click)"
@@ -1228,9 +1218,8 @@ msgstr "Esegui LilyPond con output molto dettagliato"
 
 #: frescobaldi_app/engrave/custom.py:130
 #: frescobaldi_app/preferences/lilypond.py:289
-#, fuzzy
 msgid "Run LilyPond with English messages"
-msgstr "Esegui LilyPond con output molto dettagliato"
+msgstr "Esegui LilyPond con messaggi di esecuzione in inglese"
 
 #: frescobaldi_app/engrave/custom.py:131
 #: frescobaldi_app/preferences/lilypond.py:286
@@ -1238,18 +1227,16 @@ msgid "Delete intermediate output files"
 msgstr "Lascia che LilyPond cancelli i file di output intermedi"
 
 #: frescobaldi_app/engrave/custom.py:132
-#, fuzzy
 msgid "Command line:"
-msgstr "Comando"
+msgstr "Comando:"
 
 #: frescobaldi_app/engrave/custom.py:133
 msgid "Run LilyPond"
 msgstr "Esegui LilyPond"
 
 #: frescobaldi_app/engrave/custom.py:155
-#, fuzzy
 msgid "LilyPond {version}"
-msgstr "Versione di LilyPond"
+msgstr "LilyPond {version}"
 
 #: frescobaldi_app/engrave/custom.py:218
 msgid ""
@@ -1258,64 +1245,63 @@ msgid ""
 "to engrave your document.\n"
 "It is even possible to edit the command line itself.\n"
 msgstr ""
+"In questa finestra è possibile impostare alcuni parametri "
+"da usare\n"
+"con il comando di LilyPond per compilare il documento.\n"
+"È anche possibile modificare direttamente il comando "
+"che lancia l'eseguibile.\n"
 
 #: frescobaldi_app/engrave/custom.py:223
-#, fuzzy
 msgid "The following replacements will be made:"
-msgstr "Sono riconosciute le seguenti variabili:"
+msgstr "Saranno fatte le seguenti sostituzioni:"
 
 #: frescobaldi_app/engrave/custom.py:226
-#, fuzzy
 msgid "The LilyPond executable"
-msgstr "Impostazioni di LilyPond"
+msgstr "L'eseguibile di LilyPond"
 
 #: frescobaldi_app/engrave/custom.py:227
-#, fuzzy
 msgid "All the include paths"
-msgstr "Percorso dei file aggiuntivi per LilyPond:"
+msgstr "Tutt i percorsi dei file aggiuntivi per LilyPond"
 
 #: frescobaldi_app/engrave/custom.py:228
-#, fuzzy
 msgid "The filename of the document"
-msgstr "Il nome del documento attuale."
+msgstr "Il nome del documento."
 
 #: frescobaldi_app/engrave/custom.py:241
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #: frescobaldi_app/engrave/custom.py:247
 msgid "PostScript"
-msgstr ""
+msgstr "PostScript"
 
 #: frescobaldi_app/engrave/custom.py:253
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 #: frescobaldi_app/engrave/custom.py:259
 msgid "SVG"
-msgstr ""
+msgstr "SVG"
 
 #: frescobaldi_app/engrave/custom.py:265
 msgid "PDF (EPS Backend)"
-msgstr ""
+msgstr "PDF (tramite EPS)"
 
 #: frescobaldi_app/engrave/custom.py:271
 msgid "Encapsulated PostScript (EPS Backend)"
-msgstr ""
+msgstr "PostScript incapsulato (tramite EPS)"
 
 #: frescobaldi_app/engrave/custom.py:277
 msgid "PNG (EPS Backend)"
-msgstr ""
+msgstr "PNG (tramite EPS)"
 
 #: frescobaldi_app/engrave/result_menu.py:45
-#, fuzzy
 msgid "Generated &Files"
 msgstr "&File generati"
 
 #: frescobaldi_app/engrave/result_menu.py:66
-#, fuzzy
 msgid "No files available"
-msgstr "Non disponibile"
+msgstr "Nessun file disponibile"
 
 #: frescobaldi_app/help/browser.py:77
 msgid "Toolbar"
@@ -1348,7 +1334,6 @@ msgid "Frescobaldi Manual"
 msgstr "Manuale di Frescobaldi"
 
 #: frescobaldi_app/help/contents.py:49
-#, fuzzy
 msgid ""
 "<p>\n"
 "Frescobaldi is a light-weight, but powerful editor for LilyPond music "
@@ -1358,7 +1343,7 @@ msgid ""
 "</p>\n"
 msgstr ""
 "<p>\n"
-"Frescobaldi è un editor leggero e versatile per documenti\n"
+"Frescobaldi è un editor leggero e versatile per documenti"
 "musicali da compilare con LilyPond.\n"
 "Questo manuale è stato scritto da {author} e si riferisce a {appname} "
 "versione {version}.\n"
@@ -2076,7 +2061,7 @@ msgstr "(nessun tasto definito)"
 #: frescobaldi_app/logtool/__init__.py:50
 #: frescobaldi_app/preferences/tools.py:80
 msgid "LilyPond Log"
-msgstr "LilyPond log"
+msgstr "Messaggi LilyPond"
 
 #: frescobaldi_app/logtool/__init__.py:51
 msgid "LilyPond &Log"
@@ -2206,24 +2191,20 @@ msgid "Copy to &Image..."
 msgstr "Copia come &immagine..."
 
 #: frescobaldi_app/musicview/__init__.py:247
-#, fuzzy
 msgid "Next Page"
-msgstr "Modifica successiva"
+msgstr "Pagina successiva"
 
 #: frescobaldi_app/musicview/__init__.py:248
-#, fuzzy
 msgid "Next"
-msgstr "Avanti:"
+msgstr "Avanti"
 
 #: frescobaldi_app/musicview/__init__.py:249
-#, fuzzy
 msgid "Previous Page"
-msgstr "Contrassegno precedente"
+msgstr "Pagina precedente"
 
 #: frescobaldi_app/musicview/__init__.py:250
-#, fuzzy
 msgid "Previous"
-msgstr "Contrassegno precedente"
+msgstr "Indietro"
 
 #: frescobaldi_app/musicview/__init__.py:389
 msgid "Choose the PDF document to display."
@@ -2252,7 +2233,7 @@ msgstr "Adatta alla pagina"
 #. L10N: page numbering: page {num} of {total}
 #: frescobaldi_app/musicview/__init__.py:468
 msgid "{num} of {total}"
-msgstr ""
+msgstr "{num} di {total}"
 
 #: frescobaldi_app/musicview/image.py:126
 msgid "DPI:"
@@ -2271,9 +2252,8 @@ msgid "Antialias"
 msgstr "Antialias"
 
 #: frescobaldi_app/musicview/image.py:130
-#, fuzzy
 msgid "Drag"
-msgstr "Dorico"
+msgstr "Trascina"
 
 #: frescobaldi_app/musicview/image.py:131
 msgid "Drag the image as a PNG file."
@@ -2751,9 +2731,8 @@ msgstr "Impostazioni MIDI"
 
 #: frescobaldi_app/preferences/__init__.py:192
 #: frescobaldi_app/preferences/helpers.py:80
-#, fuzzy
 msgid "Helper Applications"
-msgstr "Applicazioni ausiliarie"
+msgstr "Applicazioni esterne"
 
 #: frescobaldi_app/preferences/__init__.py:202
 msgid "Paths"
@@ -3140,7 +3119,7 @@ msgstr "Lingua predefinita del sistema (se disponibile)"
 #: frescobaldi_app/preferences/general.py:123
 #: frescobaldi_app/scorewiz/parts/percussion.py:187
 msgid "Style:"
-msgstr "Tipo:"
+msgstr "Stile:"
 
 #: frescobaldi_app/preferences/general.py:125
 msgid "Use System Icons"
@@ -3203,38 +3182,35 @@ msgstr "La cartella predefinita dei documenti LilyPond (facoltativo)."
 
 #: frescobaldi_app/preferences/helpers.py:70
 msgid "PDF:"
-msgstr ""
+msgstr "PDF:"
 
 #: frescobaldi_app/preferences/helpers.py:71
-#, fuzzy
 msgid "MIDI:"
-msgstr "MIDI"
+msgstr "MIDI:"
 
 #: frescobaldi_app/preferences/helpers.py:72
 msgid "SVG:"
-msgstr ""
+msgstr "SVG:"
 
 #: frescobaldi_app/preferences/helpers.py:73
 msgid "Image:"
-msgstr ""
+msgstr "Immagine:"
 
 #: frescobaldi_app/preferences/helpers.py:74
 msgid "Browser:"
-msgstr ""
+msgstr "Navigatore:"
 
 #: frescobaldi_app/preferences/helpers.py:75
 msgid "E-Mail:"
-msgstr ""
+msgstr "Posta elettronica:"
 
 #: frescobaldi_app/preferences/helpers.py:76
-#, fuzzy
 msgid "File Manager:"
-msgstr "Nome dei file"
+msgstr "Gestore dei file:"
 
 #: frescobaldi_app/preferences/helpers.py:77
-#, fuzzy
 msgid "Shell:"
-msgstr "Schema:"
+msgstr "Shell:"
 
 #: frescobaldi_app/preferences/helpers.py:82
 msgid ""
@@ -3242,14 +3218,18 @@ msgid ""
 "is replaced with the filename, <code>$u</code> with the URL. Leave a field "
 "empty to use the operating system default application."
 msgstr ""
+"Di seguito è possibile inserire i comandi per aprire diversi tipi di file. "
+"<code>$f<code/> è sostituito dal nome del file, <code>$u<code/> dall'URL. "
+"Lasciare un campo vuoto per usare la relativa applicazione predefinita del "
+"sistema."
 
 #: frescobaldi_app/preferences/helpers.py:90
 msgid "Command that should accept a mailto: URL."
-msgstr ""
+msgstr "Comando per gestire una mailto: URL."
 
 #: frescobaldi_app/preferences/helpers.py:92
 msgid "Command to open a Terminal or Command window."
-msgstr ""
+msgstr "Comando per aprire un terminale o una finestra con linea di comando."
 
 #: frescobaldi_app/preferences/lilypond.py:81
 msgid "LilyPond versions to use"
@@ -3328,7 +3308,7 @@ msgstr "Abilita per la selezione automatica della versione"
 
 #: frescobaldi_app/preferences/lilypond.py:281
 msgid "Running LilyPond"
-msgstr "LilyPond in esecuzione"
+msgstr "Esecuzione di LilyPond"
 
 #: frescobaldi_app/preferences/lilypond.py:282
 msgid "Save document if possible"
@@ -3354,6 +3334,8 @@ msgid ""
 "If checked, LilyPond's output messages will be in English.\n"
 "This can be useful for bug reports."
 msgstr ""
+"Se selezionato, i messaggi di esecuzione di LilyPond saranno in inglese.\n"
+"Questo può essere utile per la segnalazione dei bug."
 
 #: frescobaldi_app/preferences/lilypond.py:293
 msgid "LilyPond include path:"
@@ -3514,9 +3496,8 @@ msgid "%"
 msgstr "%"
 
 #: frescobaldi_app/preferences/tools.py:220
-#, fuzzy
 msgid "Group documents by directory"
-msgstr "Apri la cartella attuale"
+msgstr "Raggruppa documenti per cartella"
 
 #: frescobaldi_app/quickinsert/__init__.py:47
 #: frescobaldi_app/quickinsert/__init__.py:71
@@ -5830,27 +5811,24 @@ msgid "No Barnumbers"
 msgstr "Togli i numeri di battuta"
 
 #: frescobaldi_app/snippet/builtin.py:255
-#, fuzzy
 msgid "Midi Tempo"
-msgstr "Tempo"
+msgstr "Velocità del midi"
 
 #: frescobaldi_app/snippet/builtin.py:265
 msgid "Staff Size"
 msgstr "Dimensione del rigo"
 
 #: frescobaldi_app/snippet/builtin.py:322
-#, fuzzy
 msgid "Uncomment"
-msgstr "Commento"
+msgstr "Togli commento"
 
 #: frescobaldi_app/snippet/builtin.py:365
 msgid "A5 Paper"
 msgstr "Formato A5"
 
 #: frescobaldi_app/snippet/builtin.py:373
-#, fuzzy
 msgid "Document Fonts..."
-msgstr "Spedisci documenti..."
+msgstr "Caratteri del documento..."
 
 #: frescobaldi_app/snippet/builtin.py:401
 msgid "Last note or chord"
@@ -6180,9 +6158,8 @@ msgid "Save as Template..."
 msgstr "Salva come modello..."
 
 #: frescobaldi_app/snippet/tool.py:90
-#, fuzzy
 msgid "Manage Templates..."
-msgstr "Salva come modello..."
+msgstr "Gestisci modelli..."
 
 #: frescobaldi_app/snippet/tool.py:91
 msgid "&Snippets..."
@@ -6441,7 +6418,7 @@ msgstr "Usa la scorciatoia &predefinita ({name})"
 
 #: frescobaldi_app/widgets/tempobutton.py:51
 msgid "The tempo is set as you click this button."
-msgstr ""
+msgstr "Facendo click sul bottone si imposta la velocità."
 
 #: frescobaldi_app/widgets/urlrequester.py:65
 msgid "Open file dialog"
