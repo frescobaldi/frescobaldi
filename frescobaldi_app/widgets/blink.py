@@ -59,8 +59,8 @@ class Blinker(QWidget):
         """Highlights the cursor in a Q(Plain)TextEdit."""
         metrics = QFontMetrics(textedit.textCursor().charFormat().font())
         width = metrics.boundingRect("m").width()
-        rect = textedit.cursorRect().normalized().adjusted(0, 2, width, 2)
-        cls.blink(textedit, rect, color)
+        rect = textedit.cursorRect().normalized().adjusted(0, 0, width, 0)
+        cls.blink(textedit.viewport(), rect, color)
     
     def __init__(self, widget):
         """Initializes ourselves to draw on the widget."""
