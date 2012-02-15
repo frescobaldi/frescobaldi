@@ -231,6 +231,9 @@ class ViewManager(QSplitter):
     # real View changes.
     viewChanged = pyqtSignal(view_.View)
     
+    # This signal is emitted when another ViewSpace becomes active.
+    activeViewSpaceChanged = pyqtSignal(ViewSpace, ViewSpace)
+    
     def __init__(self, parent=None):
         super(ViewManager, self).__init__(parent)
         self._viewSpaces = []
@@ -273,6 +276,7 @@ class ViewManager(QSplitter):
         self._viewSpaces.append(space)
         prev.status.setEnabled(False)
         space.status.setEnabled(True)
+        self.activeViewSpaceChanged.emit(space, prev)
         self.viewChanged.emit(space.activeView())
 
     def slotDocumentClosed(self, doc):
