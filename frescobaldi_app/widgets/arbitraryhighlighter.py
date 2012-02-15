@@ -79,7 +79,7 @@ class ArbitraryHighlighter(QObject):
 
     def textFormat(self, name):
         """Implement this to return a QTextCharFormat for the given name."""
-        raise NotImplemented
+        raise NotImplementedError
 
     def update(self):
         """(Internal) Called whenever the arbitrary highlighting changes."""
