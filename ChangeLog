@@ -17,6 +17,7 @@ Changes in 2.0.3 --
     cause wrong point and click locations
   - blinking rectangle highlights new cursor position on point and click
 * Bug fixes:
+  - fix zooming Music View out while on last page (issue #32)
   - changing keyboard shortcuts in preferences now works on Mac OS X
   - fix { } or << >> inside lyricmode
   - in doc browser, don't display bogus versions when network is inaccessible

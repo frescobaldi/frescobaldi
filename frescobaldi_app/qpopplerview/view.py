@@ -294,7 +294,7 @@ class View(QScrollArea):
             y = surfacePos.y() / float(self.surface().height())
             self.setScale(scale)
             newPos = QPoint(round(x * self.surface().width()), round(y * self.surface().height()))
-        
+        surfacePos = pos - self.surface().pos()
         self.scrollSurface(newPos - surfacePos)
             
     def zoomIn(self, pos=None, factor=1.1):
