@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-27 09:17+0100\n"
+"POT-Creation-Date: 2012-02-17 21:58+0100\n"
 "PO-Revision-Date: 2011-12-30 18:12+0100\n"
 "Last-Translator: Georg Hennig <georg.hennig@web.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -863,62 +863,62 @@ msgstr "Programmfehler mel&den..."
 msgid "&About {appname}..."
 msgstr "Ü&ber {appname}..."
 
-#: frescobaldi_app/menu.py:81
+#: frescobaldi_app/menu.py:82
 msgctxt "menu title"
 msgid "&File"
 msgstr "&Datei"
 
-#: frescobaldi_app/menu.py:112
+#: frescobaldi_app/menu.py:113
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "E&xportieren"
 
-#: frescobaldi_app/menu.py:120
+#: frescobaldi_app/menu.py:121
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "&Bearbeiten"
 
-#: frescobaldi_app/menu.py:147
+#: frescobaldi_app/menu.py:148
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Ansicht"
 
-#: frescobaldi_app/menu.py:170
+#: frescobaldi_app/menu.py:172
 msgctxt "submenu title"
 msgid "Music &View"
 msgstr "N&otenansicht"
 
-#: frescobaldi_app/menu.py:189
+#: frescobaldi_app/menu.py:191
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: frescobaldi_app/menu.py:208
+#: frescobaldi_app/menu.py:210
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Werkzeugansicht"
 
-#: frescobaldi_app/menu.py:234
+#: frescobaldi_app/menu.py:236
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "Liedte&xt"
 
-#: frescobaldi_app/menu.py:246
+#: frescobaldi_app/menu.py:248
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "Ton&lage"
 
-#: frescobaldi_app/menu.py:260
+#: frescobaldi_app/menu.py:262
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Rhythmus"
 
-#: frescobaldi_app/menu.py:288
+#: frescobaldi_app/menu.py:290
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Fenster"
 
-#: frescobaldi_app/menu.py:308
+#: frescobaldi_app/menu.py:310
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Hilfe"
@@ -975,64 +975,64 @@ msgstr "Konnte das Dokument nicht zum Drucker senden."
 msgid "Printing page {page} ({num} of {total})..."
 msgstr "Drucke Seite {page} ({num} von {total})..."
 
-#: frescobaldi_app/search.py:99
+#: frescobaldi_app/search.py:100
 msgid "Search:"
 msgstr "Suche:"
 
-#: frescobaldi_app/search.py:100
+#: frescobaldi_app/search.py:101
 msgid "&Case"
 msgstr "&Groß-/Kleinschreibung"
 
-#: frescobaldi_app/search.py:101
+#: frescobaldi_app/search.py:102
 msgid "Case Sensitive"
 msgstr "Groß-/Kleinschreibung beachten"
 
-#: frescobaldi_app/search.py:102
+#: frescobaldi_app/search.py:103
 msgid "&Regex"
 msgstr "&Regulärer Ausdruck"
 
-#: frescobaldi_app/search.py:103
+#: frescobaldi_app/search.py:104
 msgid "Regular Expression"
 msgstr "Regulärer Ausdruck"
 
-#: frescobaldi_app/search.py:104
+#: frescobaldi_app/search.py:105
 msgid "The total number of matches"
 msgstr "Gesamtzahl an Treffern"
 
-#: frescobaldi_app/search.py:105
+#: frescobaldi_app/search.py:106
 msgid "Close"
 msgstr "Schließen"
 
-#: frescobaldi_app/search.py:106
+#: frescobaldi_app/search.py:107
 msgid "Replace:"
 msgstr "Ersetzen:"
 
-#: frescobaldi_app/search.py:107
+#: frescobaldi_app/search.py:108
 msgid "Re&place"
 msgstr "Erset&zen"
 
-#: frescobaldi_app/search.py:108
+#: frescobaldi_app/search.py:109
 msgid "Replaces the next occurrence of the search term."
 msgstr "Ersetze das nächste Auftreten des Suchbegriffs."
 
-#: frescobaldi_app/search.py:109
+#: frescobaldi_app/search.py:110
 msgid "&All"
 msgstr "&Alle"
 
-#: frescobaldi_app/search.py:110
+#: frescobaldi_app/search.py:111
 msgid ""
 "Replaces all occurrences of the search term in the document or selection."
 msgstr "Ersetzt jedes Auftreten des Suchbegriffs im ausgewählten Text."
 
-#: frescobaldi_app/viewmanager.py:66 frescobaldi_app/viewmanager.py:213
+#: frescobaldi_app/viewmanager.py:66 frescobaldi_app/viewmanager.py:214
 msgid "Line: {line}, Col: {column}"
 msgstr "Zeile: {line}, Spalte: {column}"
 
-#: frescobaldi_app/viewmanager.py:84 frescobaldi_app/viewmanager.py:441
+#: frescobaldi_app/viewmanager.py:84 frescobaldi_app/viewmanager.py:446
 msgid "Split &Horizontally"
 msgstr "&Horizontal teilen"
 
-#: frescobaldi_app/viewmanager.py:87 frescobaldi_app/viewmanager.py:442
+#: frescobaldi_app/viewmanager.py:87 frescobaldi_app/viewmanager.py:447
 msgid "Split &Vertically"
 msgstr "&Vertikal teilen"
 
@@ -1040,19 +1040,19 @@ msgstr "&Vertikal teilen"
 msgid "&Close View"
 msgstr "Ansicht &schließen"
 
-#: frescobaldi_app/viewmanager.py:443
+#: frescobaldi_app/viewmanager.py:448
 msgid "&Close Current View"
 msgstr "&Momentane Ansicht schließen"
 
-#: frescobaldi_app/viewmanager.py:444
+#: frescobaldi_app/viewmanager.py:449
 msgid "Close &Other Views"
 msgstr "&Andere Ansichten schließen"
 
-#: frescobaldi_app/viewmanager.py:445
+#: frescobaldi_app/viewmanager.py:450
 msgid "&Next View"
 msgstr "&Nächste Ansicht"
 
-#: frescobaldi_app/viewmanager.py:446
+#: frescobaldi_app/viewmanager.py:451
 msgid "&Previous View"
 msgstr "Vo&rherige Ansicht"
 
@@ -5237,6 +5237,11 @@ msgstr "Keine Sitzung"
 msgctxt "menu title"
 msgid "&Session"
 msgstr "&Sitzung"
+
+#: frescobaldi_app/sidebar/__init__.py:135
+#, fuzzy
+msgid "&Line Numbers"
+msgstr "Saiten-Anzahl"
 
 #: frescobaldi_app/snippet/builtin.py:38
 msgid "Blank Line"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-27 09:17+0100\n"
+"POT-Creation-Date: 2012-02-17 21:58+0100\n"
 "PO-Revision-Date: 2012-02-15 16:30+0100\n"
 "Last-Translator: .billyBoh <billyboh@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -366,9 +366,8 @@ msgid ""
 "default)."
 msgstr ""
 "Scegliere i tre caratteri predefiniti da usare per <code>\\roman</code>, "
-"<code>\\sans</code> e <code>\\typewriter</code> rispettivamente. "
-"Inoltre è utile impostare la dimensione del rigo al valore della dimensione "
-"generale "
+"<code>\\sans</code> e <code>\\typewriter</code> rispettivamente. Inoltre è "
+"utile impostare la dimensione del rigo al valore della dimensione generale "
 "del rigo in uso nel documento (valore predefinito 20)."
 
 #: frescobaldi_app/globalfontdialog.py:76
@@ -872,62 +871,62 @@ msgstr "Segnala un &bug..."
 msgid "&About {appname}..."
 msgstr "&A proposito di {appname}"
 
-#: frescobaldi_app/menu.py:81
+#: frescobaldi_app/menu.py:82
 msgctxt "menu title"
 msgid "&File"
 msgstr "&File"
 
-#: frescobaldi_app/menu.py:112
+#: frescobaldi_app/menu.py:113
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Esporta"
 
-#: frescobaldi_app/menu.py:120
+#: frescobaldi_app/menu.py:121
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "&Modifica"
 
-#: frescobaldi_app/menu.py:147
+#: frescobaldi_app/menu.py:148
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Visualizza"
 
-#: frescobaldi_app/menu.py:170
+#: frescobaldi_app/menu.py:172
 msgctxt "submenu title"
 msgid "Music &View"
 msgstr "Anteprima &spartito"
 
-#: frescobaldi_app/menu.py:189
+#: frescobaldi_app/menu.py:191
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: frescobaldi_app/menu.py:208
+#: frescobaldi_app/menu.py:210
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Strumenti"
 
-#: frescobaldi_app/menu.py:234
+#: frescobaldi_app/menu.py:236
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Parole"
 
-#: frescobaldi_app/menu.py:246
+#: frescobaldi_app/menu.py:248
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Note"
 
-#: frescobaldi_app/menu.py:260
+#: frescobaldi_app/menu.py:262
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritmo"
 
-#: frescobaldi_app/menu.py:288
+#: frescobaldi_app/menu.py:290
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Finestra"
 
-#: frescobaldi_app/menu.py:308
+#: frescobaldi_app/menu.py:310
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Aiuto"
@@ -984,66 +983,66 @@ msgstr "Impossibile inviare il documento alla stampante."
 msgid "Printing page {page} ({num} of {total})..."
 msgstr "Stampa in corso di pagina {page} ({num} di {total})..."
 
-#: frescobaldi_app/search.py:99
+#: frescobaldi_app/search.py:100
 msgid "Search:"
 msgstr "Cerca..."
 
-#: frescobaldi_app/search.py:100
+#: frescobaldi_app/search.py:101
 msgid "&Case"
 msgstr "&Distingui"
 
-#: frescobaldi_app/search.py:101
+#: frescobaldi_app/search.py:102
 msgid "Case Sensitive"
 msgstr "Distingui le maiuscole dalle minuscole"
 
-#: frescobaldi_app/search.py:102
+#: frescobaldi_app/search.py:103
 msgid "&Regex"
 msgstr "&Regex"
 
-#: frescobaldi_app/search.py:103
+#: frescobaldi_app/search.py:104
 msgid "Regular Expression"
 msgstr "Espressione regolare"
 
-#: frescobaldi_app/search.py:104
+#: frescobaldi_app/search.py:105
 msgid "The total number of matches"
 msgstr "Numero totale di corrispondenze"
 
-#: frescobaldi_app/search.py:105
+#: frescobaldi_app/search.py:106
 msgid "Close"
 msgstr "Chiudi"
 
-#: frescobaldi_app/search.py:106
+#: frescobaldi_app/search.py:107
 msgid "Replace:"
 msgstr "Sostituisci:"
 
-#: frescobaldi_app/search.py:107
+#: frescobaldi_app/search.py:108
 msgid "Re&place"
 msgstr "So&stituisci"
 
-#: frescobaldi_app/search.py:108
+#: frescobaldi_app/search.py:109
 msgid "Replaces the next occurrence of the search term."
 msgstr "Sostituisce la prossima corrispondenza dell'espressione cercata."
 
-#: frescobaldi_app/search.py:109
+#: frescobaldi_app/search.py:110
 msgid "&All"
 msgstr "&Tutto"
 
-#: frescobaldi_app/search.py:110
+#: frescobaldi_app/search.py:111
 msgid ""
 "Replaces all occurrences of the search term in the document or selection."
 msgstr ""
 "Sostituisce tutte le corrispondenze dell'espressione cercata nel documento o "
 "nella selezione."
 
-#: frescobaldi_app/viewmanager.py:66 frescobaldi_app/viewmanager.py:213
+#: frescobaldi_app/viewmanager.py:66 frescobaldi_app/viewmanager.py:214
 msgid "Line: {line}, Col: {column}"
 msgstr "Riga: {line}, Col: {column}"
 
-#: frescobaldi_app/viewmanager.py:84 frescobaldi_app/viewmanager.py:441
+#: frescobaldi_app/viewmanager.py:84 frescobaldi_app/viewmanager.py:446
 msgid "Split &Horizontally"
 msgstr "Dividi &orizzontalmente"
 
-#: frescobaldi_app/viewmanager.py:87 frescobaldi_app/viewmanager.py:442
+#: frescobaldi_app/viewmanager.py:87 frescobaldi_app/viewmanager.py:447
 msgid "Split &Vertically"
 msgstr "Dividi &verticalmente"
 
@@ -1051,19 +1050,19 @@ msgstr "Dividi &verticalmente"
 msgid "&Close View"
 msgstr "&Chiudi riquadro"
 
-#: frescobaldi_app/viewmanager.py:443
+#: frescobaldi_app/viewmanager.py:448
 msgid "&Close Current View"
 msgstr "&Chiudi il riquadro attuale"
 
-#: frescobaldi_app/viewmanager.py:444
+#: frescobaldi_app/viewmanager.py:449
 msgid "Close &Other Views"
 msgstr "Chiudi gli &altri riquadri"
 
-#: frescobaldi_app/viewmanager.py:445
+#: frescobaldi_app/viewmanager.py:450
 msgid "&Next View"
 msgstr "&Riquadro successivo"
 
-#: frescobaldi_app/viewmanager.py:446
+#: frescobaldi_app/viewmanager.py:451
 msgid "&Previous View"
 msgstr "&Riquadro precedente"
 
@@ -1245,11 +1244,10 @@ msgid ""
 "to engrave your document.\n"
 "It is even possible to edit the command line itself.\n"
 msgstr ""
-"In questa finestra è possibile impostare alcuni parametri "
-"da usare\n"
+"In questa finestra è possibile impostare alcuni parametri da usare\n"
 "con il comando di LilyPond per compilare il documento.\n"
-"È anche possibile modificare direttamente il comando "
-"che lancia l'eseguibile.\n"
+"È anche possibile modificare direttamente il comando che lancia "
+"l'eseguibile.\n"
 
 #: frescobaldi_app/engrave/custom.py:223
 msgid "The following replacements will be made:"
@@ -1343,8 +1341,8 @@ msgid ""
 "</p>\n"
 msgstr ""
 "<p>\n"
-"Frescobaldi è un editor leggero e versatile per documenti"
-"musicali da compilare con LilyPond.\n"
+"Frescobaldi è un editor leggero e versatile per documentimusicali da "
+"compilare con LilyPond.\n"
 "Questo manuale è stato scritto da {author} e si riferisce a {appname} "
 "versione {version}.\n"
 "</p>\n"
@@ -5737,6 +5735,11 @@ msgstr "Nessuna sessione"
 msgctxt "menu title"
 msgid "&Session"
 msgstr "&Sessione"
+
+#: frescobaldi_app/sidebar/__init__.py:135
+#, fuzzy
+msgid "&Line Numbers"
+msgstr "Numero di corda"
 
 #: frescobaldi_app/snippet/builtin.py:38
 msgid "Blank Line"

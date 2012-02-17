@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-27 09:17+0100\n"
+"POT-Creation-Date: 2012-02-17 21:58+0100\n"
 "PO-Revision-Date: 2010-12-12 07:48+0200\n"
 "Last-Translator: Server Acim <serveracim@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -880,69 +880,69 @@ msgstr ""
 msgid "&About {appname}..."
 msgstr ""
 
-#: frescobaldi_app/menu.py:81
+#: frescobaldi_app/menu.py:82
 #, fuzzy
 msgctxt "menu title"
 msgid "&File"
 msgstr "Başlık"
 
-#: frescobaldi_app/menu.py:112
+#: frescobaldi_app/menu.py:113
 msgctxt "submenu title"
 msgid "&Export"
 msgstr ""
 
-#: frescobaldi_app/menu.py:120
+#: frescobaldi_app/menu.py:121
 msgctxt "menu title"
 msgid "&Edit"
 msgstr ""
 
-#: frescobaldi_app/menu.py:147
+#: frescobaldi_app/menu.py:148
 #, fuzzy
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Araç Görünümleri"
 
-#: frescobaldi_app/menu.py:170
+#: frescobaldi_app/menu.py:172
 msgctxt "submenu title"
 msgid "Music &View"
 msgstr ""
 
-#: frescobaldi_app/menu.py:189
+#: frescobaldi_app/menu.py:191
 #, fuzzy
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: frescobaldi_app/menu.py:208
+#: frescobaldi_app/menu.py:210
 #, fuzzy
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Araç Görünümleri"
 
-#: frescobaldi_app/menu.py:234
+#: frescobaldi_app/menu.py:236
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "Şarkı &Sözleri"
 
-#: frescobaldi_app/menu.py:246
+#: frescobaldi_app/menu.py:248
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "Ses noktası"
 
-#: frescobaldi_app/menu.py:260
+#: frescobaldi_app/menu.py:262
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritm"
 
-#: frescobaldi_app/menu.py:288
+#: frescobaldi_app/menu.py:290
 msgctxt "menu title"
 msgid "&Window"
 msgstr ""
 
-#: frescobaldi_app/menu.py:308
+#: frescobaldi_app/menu.py:310
 msgctxt "menu title"
 msgid "&Help"
 msgstr ""
@@ -1001,69 +1001,69 @@ msgstr "Lilypond işlemi okunamadı"
 msgid "Printing page {page} ({num} of {total})..."
 msgstr ""
 
-#: frescobaldi_app/search.py:99
+#: frescobaldi_app/search.py:100
 #, fuzzy
 msgid "Search:"
 msgstr "Ara..."
 
-#: frescobaldi_app/search.py:100
+#: frescobaldi_app/search.py:101
 #, fuzzy
 msgid "&Case"
 msgstr "Durakla"
 
-#: frescobaldi_app/search.py:101
+#: frescobaldi_app/search.py:102
 msgid "Case Sensitive"
 msgstr ""
 
-#: frescobaldi_app/search.py:102
+#: frescobaldi_app/search.py:103
 msgid "&Regex"
 msgstr ""
 
-#: frescobaldi_app/search.py:103
+#: frescobaldi_app/search.py:104
 msgid "Regular Expression"
 msgstr ""
 
-#: frescobaldi_app/search.py:104
+#: frescobaldi_app/search.py:105
 #, fuzzy
 msgid "The total number of matches"
 msgstr "Kıtaların numarası."
 
-#: frescobaldi_app/search.py:105
+#: frescobaldi_app/search.py:106
 #, fuzzy
 msgid "Close"
 msgstr "Besteci"
 
-#: frescobaldi_app/search.py:106
+#: frescobaldi_app/search.py:107
 msgid "Replace:"
 msgstr ""
 
-#: frescobaldi_app/search.py:107
+#: frescobaldi_app/search.py:108
 msgid "Re&place"
 msgstr ""
 
-#: frescobaldi_app/search.py:108
+#: frescobaldi_app/search.py:109
 msgid "Replaces the next occurrence of the search term."
 msgstr ""
 
-#: frescobaldi_app/search.py:109
+#: frescobaldi_app/search.py:110
 msgid "&All"
 msgstr ""
 
-#: frescobaldi_app/search.py:110
+#: frescobaldi_app/search.py:111
 #, fuzzy
 msgid ""
 "Replaces all occurrences of the search term in the document or selection."
 msgstr "Belgede veya seçimdeki tüm notaların aktarımını yapar."
 
-#: frescobaldi_app/viewmanager.py:66 frescobaldi_app/viewmanager.py:213
+#: frescobaldi_app/viewmanager.py:66 frescobaldi_app/viewmanager.py:214
 msgid "Line: {line}, Col: {column}"
 msgstr ""
 
-#: frescobaldi_app/viewmanager.py:84 frescobaldi_app/viewmanager.py:441
+#: frescobaldi_app/viewmanager.py:84 frescobaldi_app/viewmanager.py:446
 msgid "Split &Horizontally"
 msgstr ""
 
-#: frescobaldi_app/viewmanager.py:87 frescobaldi_app/viewmanager.py:442
+#: frescobaldi_app/viewmanager.py:87 frescobaldi_app/viewmanager.py:447
 msgid "Split &Vertically"
 msgstr ""
 
@@ -1072,20 +1072,20 @@ msgstr ""
 msgid "&Close View"
 msgstr "&Araç Görünümleri"
 
-#: frescobaldi_app/viewmanager.py:443
+#: frescobaldi_app/viewmanager.py:448
 msgid "&Close Current View"
 msgstr ""
 
-#: frescobaldi_app/viewmanager.py:444
+#: frescobaldi_app/viewmanager.py:449
 #, fuzzy
 msgid "Close &Other Views"
 msgstr "Diğer Belgeleri Kapat"
 
-#: frescobaldi_app/viewmanager.py:445
+#: frescobaldi_app/viewmanager.py:450
 msgid "&Next View"
 msgstr ""
 
-#: frescobaldi_app/viewmanager.py:446
+#: frescobaldi_app/viewmanager.py:451
 #, fuzzy
 msgid "&Previous View"
 msgstr "Önceki"
@@ -5372,6 +5372,11 @@ msgstr "Hiç Oturum Yok"
 msgctxt "menu title"
 msgid "&Session"
 msgstr "&Oturumlar"
+
+#: frescobaldi_app/sidebar/__init__.py:135
+#, fuzzy
+msgid "&Line Numbers"
+msgstr "Sayfa Numaralarını Göster"
 
 #: frescobaldi_app/snippet/builtin.py:38
 #, fuzzy

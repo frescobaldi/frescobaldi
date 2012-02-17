@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 
 # these variables are also used by the distutils setup
 name = "frescobaldi"
-version = "2.0.3"
+version = "2.0.4"
 description = "LilyPond Music Editor"
 long_description = \
     "Frescobaldi is an advanced text editor to edit LilyPond sheet music files. " \

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-27 09:17+0100\n"
+"POT-Creation-Date: 2012-02-17 21:58+0100\n"
 "PO-Revision-Date: 2011-12-28 18:57+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -871,62 +871,62 @@ msgstr "Nahlásit &chybu..."
 msgid "&About {appname}..."
 msgstr "&O {appname}..."
 
-#: frescobaldi_app/menu.py:81
+#: frescobaldi_app/menu.py:82
 msgctxt "menu title"
 msgid "&File"
 msgstr "&Soubor"
 
-#: frescobaldi_app/menu.py:112
+#: frescobaldi_app/menu.py:113
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Vyvést"
 
-#: frescobaldi_app/menu.py:120
+#: frescobaldi_app/menu.py:121
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "&Úpravy"
 
-#: frescobaldi_app/menu.py:147
+#: frescobaldi_app/menu.py:148
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Pohled"
 
-#: frescobaldi_app/menu.py:170
+#: frescobaldi_app/menu.py:172
 msgctxt "submenu title"
 msgid "Music &View"
 msgstr "P&ohled na noty"
 
-#: frescobaldi_app/menu.py:189
+#: frescobaldi_app/menu.py:191
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: frescobaldi_app/menu.py:208
+#: frescobaldi_app/menu.py:210
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Nástroje"
 
-#: frescobaldi_app/menu.py:234
+#: frescobaldi_app/menu.py:236
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Slova písně"
 
-#: frescobaldi_app/menu.py:246
+#: frescobaldi_app/menu.py:248
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Výška tónu"
 
-#: frescobaldi_app/menu.py:260
+#: frescobaldi_app/menu.py:262
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Rytmus"
 
-#: frescobaldi_app/menu.py:288
+#: frescobaldi_app/menu.py:290
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Okno"
 
-#: frescobaldi_app/menu.py:308
+#: frescobaldi_app/menu.py:310
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Nápověda"
@@ -985,64 +985,64 @@ msgstr "Dokument se nepodařilo poslat tiskárně."
 msgid "Printing page {page} ({num} of {total})..."
 msgstr "Tiskne se strana {page} ({num} z {total})..."
 
-#: frescobaldi_app/search.py:99
+#: frescobaldi_app/search.py:100
 msgid "Search:"
 msgstr "Hledat:"
 
-#: frescobaldi_app/search.py:100
+#: frescobaldi_app/search.py:101
 msgid "&Case"
 msgstr "&Písmovka"
 
-#: frescobaldi_app/search.py:101
+#: frescobaldi_app/search.py:102
 msgid "Case Sensitive"
 msgstr "Rozlišovat velká/malá písmena"
 
-#: frescobaldi_app/search.py:102
+#: frescobaldi_app/search.py:103
 msgid "&Regex"
 msgstr "&Regulární výraz"
 
-#: frescobaldi_app/search.py:103
+#: frescobaldi_app/search.py:104
 msgid "Regular Expression"
 msgstr "Regulární výraz"
 
-#: frescobaldi_app/search.py:104
+#: frescobaldi_app/search.py:105
 msgid "The total number of matches"
 msgstr "Celkový počet shod"
 
-#: frescobaldi_app/search.py:105
+#: frescobaldi_app/search.py:106
 msgid "Close"
 msgstr "Zavřít"
 
-#: frescobaldi_app/search.py:106
+#: frescobaldi_app/search.py:107
 msgid "Replace:"
 msgstr "Nahradit:"
 
-#: frescobaldi_app/search.py:107
+#: frescobaldi_app/search.py:108
 msgid "Re&place"
 msgstr "Na&hradit"
 
-#: frescobaldi_app/search.py:108
+#: frescobaldi_app/search.py:109
 msgid "Replaces the next occurrence of the search term."
 msgstr "Nahradit další výskyt hledaného pojmu."
 
-#: frescobaldi_app/search.py:109
+#: frescobaldi_app/search.py:110
 msgid "&All"
 msgstr "&Vše"
 
-#: frescobaldi_app/search.py:110
+#: frescobaldi_app/search.py:111
 msgid ""
 "Replaces all occurrences of the search term in the document or selection."
 msgstr "Nahradit všechny výskyty hledaného pojmu v dokumentu nebo ve výběru."
 
-#: frescobaldi_app/viewmanager.py:66 frescobaldi_app/viewmanager.py:213
+#: frescobaldi_app/viewmanager.py:66 frescobaldi_app/viewmanager.py:214
 msgid "Line: {line}, Col: {column}"
 msgstr "Řádek: {line}, Sloupec: {column}"
 
-#: frescobaldi_app/viewmanager.py:84 frescobaldi_app/viewmanager.py:441
+#: frescobaldi_app/viewmanager.py:84 frescobaldi_app/viewmanager.py:446
 msgid "Split &Horizontally"
 msgstr "Rozdělit &vodorovně"
 
-#: frescobaldi_app/viewmanager.py:87 frescobaldi_app/viewmanager.py:442
+#: frescobaldi_app/viewmanager.py:87 frescobaldi_app/viewmanager.py:447
 msgid "Split &Vertically"
 msgstr "Rozdělit &svisle"
 
@@ -1050,19 +1050,19 @@ msgstr "Rozdělit &svisle"
 msgid "&Close View"
 msgstr "&Zavřít pohled"
 
-#: frescobaldi_app/viewmanager.py:443
+#: frescobaldi_app/viewmanager.py:448
 msgid "&Close Current View"
 msgstr "&Zavřít nynější pohled"
 
-#: frescobaldi_app/viewmanager.py:444
+#: frescobaldi_app/viewmanager.py:449
 msgid "Close &Other Views"
 msgstr "Zavřít &jiné pohledy"
 
-#: frescobaldi_app/viewmanager.py:445
+#: frescobaldi_app/viewmanager.py:450
 msgid "&Next View"
 msgstr "&Další pohled"
 
-#: frescobaldi_app/viewmanager.py:446
+#: frescobaldi_app/viewmanager.py:451
 msgid "&Previous View"
 msgstr "&Předchozí pohled"
 
@@ -5687,6 +5687,11 @@ msgstr "Žádné sezení"
 msgctxt "menu title"
 msgid "&Session"
 msgstr "&Sezení"
+
+#: frescobaldi_app/sidebar/__init__.py:135
+#, fuzzy
+msgid "&Line Numbers"
+msgstr "Číslo struny"
 
 #: frescobaldi_app/snippet/builtin.py:38
 msgid "Blank Line"

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-01-27 09:17+0100\n"
-"PO-Revision-Date: 2012-01-27 09:20+0100\n"
+"POT-Creation-Date: 2012-02-17 21:58+0100\n"
+"PO-Revision-Date: 2012-02-17 21:59+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -866,62 +866,62 @@ msgstr "&Bug rapporteren..."
 msgid "&About {appname}..."
 msgstr "&Over {appname}..."
 
-#: frescobaldi_app/menu.py:81
+#: frescobaldi_app/menu.py:82
 msgctxt "menu title"
 msgid "&File"
 msgstr "&Bestand"
 
-#: frescobaldi_app/menu.py:112
+#: frescobaldi_app/menu.py:113
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Exporteren"
 
-#: frescobaldi_app/menu.py:120
+#: frescobaldi_app/menu.py:121
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "Be&werken"
 
-#: frescobaldi_app/menu.py:147
+#: frescobaldi_app/menu.py:148
 msgctxt "menu title"
 msgid "&View"
 msgstr "B&eeld"
 
-#: frescobaldi_app/menu.py:170
+#: frescobaldi_app/menu.py:172
 msgctxt "submenu title"
 msgid "Music &View"
 msgstr "&Muziekweergave"
 
-#: frescobaldi_app/menu.py:189
+#: frescobaldi_app/menu.py:191
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: frescobaldi_app/menu.py:208
+#: frescobaldi_app/menu.py:210
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Gereedschap"
 
-#: frescobaldi_app/menu.py:234
+#: frescobaldi_app/menu.py:236
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Liedteksten"
 
-#: frescobaldi_app/menu.py:246
+#: frescobaldi_app/menu.py:248
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Toonhoogte"
 
-#: frescobaldi_app/menu.py:260
+#: frescobaldi_app/menu.py:262
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritme"
 
-#: frescobaldi_app/menu.py:288
+#: frescobaldi_app/menu.py:290
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Venster"
 
-#: frescobaldi_app/menu.py:308
+#: frescobaldi_app/menu.py:310
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Help"
@@ -979,65 +979,65 @@ msgstr "Kan het document niet naar de printer verzenden."
 msgid "Printing page {page} ({num} of {total})..."
 msgstr "Afdrukken pagina {page} ({num} van {total})..."
 
-#: frescobaldi_app/search.py:99
+#: frescobaldi_app/search.py:100
 msgid "Search:"
 msgstr "Zoeken:"
 
-#: frescobaldi_app/search.py:100
+#: frescobaldi_app/search.py:101
 msgid "&Case"
 msgstr "&Hoofdl."
 
-#: frescobaldi_app/search.py:101
+#: frescobaldi_app/search.py:102
 msgid "Case Sensitive"
 msgstr "Maak onderscheid tussen hoofd- en kleine letters"
 
-#: frescobaldi_app/search.py:102
+#: frescobaldi_app/search.py:103
 msgid "&Regex"
 msgstr "&Regex"
 
-#: frescobaldi_app/search.py:103
+#: frescobaldi_app/search.py:104
 msgid "Regular Expression"
 msgstr "Reguliere expressie"
 
-#: frescobaldi_app/search.py:104
+#: frescobaldi_app/search.py:105
 msgid "The total number of matches"
 msgstr "Het totale aantal overeenkomsten"
 
-#: frescobaldi_app/search.py:105
+#: frescobaldi_app/search.py:106
 msgid "Close"
 msgstr "Sluiten"
 
-#: frescobaldi_app/search.py:106
+#: frescobaldi_app/search.py:107
 msgid "Replace:"
 msgstr "Vervangen:"
 
-#: frescobaldi_app/search.py:107
+#: frescobaldi_app/search.py:108
 msgid "Re&place"
 msgstr "&Vervangen"
 
-#: frescobaldi_app/search.py:108
+#: frescobaldi_app/search.py:109
 msgid "Replaces the next occurrence of the search term."
 msgstr "Vervangt de volgende overeenkomst van de zoekterm."
 
-#: frescobaldi_app/search.py:109
+#: frescobaldi_app/search.py:110
 msgid "&All"
 msgstr "&Alles"
 
-#: frescobaldi_app/search.py:110
+#: frescobaldi_app/search.py:111
 msgid ""
 "Replaces all occurrences of the search term in the document or selection."
 msgstr ""
 "Vervangt alle overeenkomsten met de zoekterm in het document of de selectie."
 
-#: frescobaldi_app/viewmanager.py:66 frescobaldi_app/viewmanager.py:213
+#: frescobaldi_app/viewmanager.py:66 frescobaldi_app/viewmanager.py:214
 msgid "Line: {line}, Col: {column}"
 msgstr "Regel: {line}, Kol: {column}"
 
-#: frescobaldi_app/viewmanager.py:84 frescobaldi_app/viewmanager.py:441
+#: frescobaldi_app/viewmanager.py:84 frescobaldi_app/viewmanager.py:446
 msgid "Split &Horizontally"
 msgstr "&Horizontaal splitsen"
 
-#: frescobaldi_app/viewmanager.py:87 frescobaldi_app/viewmanager.py:442
+#: frescobaldi_app/viewmanager.py:87 frescobaldi_app/viewmanager.py:447
 msgid "Split &Vertically"
 msgstr "&Verticaal splitsen"
 
@@ -1045,19 +1045,19 @@ msgstr "&Verticaal splitsen"
 msgid "&Close View"
 msgstr "Weergave &sluiten"
 
-#: frescobaldi_app/viewmanager.py:443
+#: frescobaldi_app/viewmanager.py:448
 msgid "&Close Current View"
 msgstr "&Huidige weergave sluiten"
 
-#: frescobaldi_app/viewmanager.py:444
+#: frescobaldi_app/viewmanager.py:449
 msgid "Close &Other Views"
 msgstr "&Andere weergaven sluiten"
 
-#: frescobaldi_app/viewmanager.py:445
+#: frescobaldi_app/viewmanager.py:450
 msgid "&Next View"
 msgstr "&Volgende weergave"
 
-#: frescobaldi_app/viewmanager.py:446
+#: frescobaldi_app/viewmanager.py:451
 msgid "&Previous View"
 msgstr "V&orige weergave"
 
@@ -1407,8 +1407,8 @@ msgstr ""
 "</p>\n"
 "\n"
 "<p>\n"
-"Frescobaldi is ontworpen om het bewerken van LilyPond "
-"muziekbestanden sneller en gemakkelijker te maken.\n"
+"Frescobaldi is ontworpen om het bewerken van LilyPond muziekbestanden "
+"sneller en gemakkelijker te maken.\n"
 "Het blijft echter noodzakelijk de LilyPond invoertaal te leren doorgronden.\n"
 "Als u het gedeelte {getting_started} leest in deze handleiding, zult u ook "
 "al wat LilyPond basiskennis opdoen.\n"
@@ -5675,6 +5675,10 @@ msgstr "Geen sessie"
 msgctxt "menu title"
 msgid "&Session"
 msgstr "&Sessie"
+
+#: frescobaldi_app/sidebar/__init__.py:135
+msgid "&Line Numbers"
+msgstr "Regel&nummers"
 
 #: frescobaldi_app/snippet/builtin.py:38
 msgid "Blank Line"
