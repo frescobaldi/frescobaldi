@@ -21,8 +21,8 @@
 A line number area to be used in a QPlainTextEdit.
 """
 
-from PyQt4.QtCore import QSize, Qt
-from PyQt4.QtGui import QFontMetrics, QPainter, QWidget
+from PyQt4.QtCore import QEvent, QPoint, QSize, Qt
+from PyQt4.QtGui import QApplication, QFontMetrics, QMouseEvent, QPainter, QWidget
 
 
 class LineNumberArea(QWidget):
@@ -65,7 +65,19 @@ class LineNumberArea(QWidget):
                 break
             if block.isVisible() and geom.bottom() > ev.rect().top() + 1:
                 txt = format(block.blockNumber() + 1, 'd')
-                painter.drawText(0, geom.top(), self.width() - 1, height,
+                painter.drawText(0, geom.top(), self.width() - 2, height,
                     Qt.AlignRight, txt)
             block = block.next()
+
+    def event(self, ev):
+        if ((ev.type() in (QEvent.MouseButtonPress, QEvent.MouseButtonRelease)
+             and ev.button() == Qt.LeftButton)
+            or (ev.type() == QEvent.MouseMove and ev.buttons() & Qt.LeftButton)):
+            new = QMouseEvent(ev.type(), QPoint(0, ev.y()), ev.button(), ev.buttons(), ev.modifiers())
+            return QApplication.sendEvent(self.textedit().viewport(), new)
+        elif ev.type() == QEvent.Wheel:
+            return QApplication.sendEvent(self.textedit().viewport(), ev)
+        return super(LineNumberArea, self).event(ev)
+
+
 
