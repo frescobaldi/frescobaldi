@@ -120,7 +120,7 @@ class BorderLayout(QObject):
         for side in self.order:
             def widgets():
                 for w in self._widgets[side][::-1]:
-                    if w.isVisible():
+                    if w.isVisibleTo(self.scrollarea()):
                         yield w
             if side is LEFT:
                 for widget in widgets():

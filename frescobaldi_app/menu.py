@@ -41,6 +41,7 @@ import engrave.result_menu
 import snippet.menu
 import scorewiz
 import autocomplete
+import sidebar
 
 
 # postpone translation
@@ -151,6 +152,7 @@ def menu_view(mainwindow):
     m.addAction(ac.view_previous_document)
     m.addSeparator()
     m.addAction(documentactions.get(mainwindow).actionCollection.view_highlighting)
+    m.addAction(sidebar.SideBarManager.instance(mainwindow).actionCollection.view_linenumbers)
     m.addMenu(menu_view_music(mainwindow))
     m.addSeparator()
     ac = bookmarkmanager.BookmarkManager.instance(mainwindow).actionCollection
