@@ -21,7 +21,7 @@
 A line number area to be used in a QPlainTextEdit.
 """
 
-from PyQt4.QtCore import QEvent, QPoint, QSize, Qt
+from PyQt4.QtCore import QEvent, QPoint, QRect, QSize, Qt
 from PyQt4.QtGui import QApplication, QFontMetrics, QMouseEvent, QPainter, QWidget
 
 
@@ -42,8 +42,8 @@ class LineNumberArea(QWidget):
 
     def updateWidth(self):
         fm = QFontMetrics(self.parent().font())
-        txt = format(self.parent().blockCount(), 'd')
-        self._width = fm.width(txt) + 3
+        text = format(self.parent().blockCount(), 'd')
+        self._width = fm.width(text) + 3
         self.adjustSize()
 
     def slotUpdateRequest(self, rect, dy):
@@ -56,7 +56,7 @@ class LineNumberArea(QWidget):
         edit = self.parent()
         painter = QPainter(self)
         painter.setFont(edit.font())
-        height = QFontMetrics(edit.font()).height()
+        rect = QRect(0, 0, self.width() - 2, QFontMetrics(edit.font()).height())
         block = edit.firstVisibleBlock()
         while block.isValid():
             geom = edit.blockBoundingGeometry(block)
@@ -64,9 +64,9 @@ class LineNumberArea(QWidget):
             if geom.top() >= ev.rect().bottom():
                 break
             if block.isVisible() and geom.bottom() > ev.rect().top() + 1:
-                txt = format(block.blockNumber() + 1, 'd')
-                painter.drawText(0, geom.top(), self.width() - 2, height,
-                    Qt.AlignRight, txt)
+                rect.moveTop(geom.top())
+                text = format(block.blockNumber() + 1, 'd')
+                painter.drawText(rect, Qt.AlignRight, text)
             block = block.next()
 
     def event(self, ev):
