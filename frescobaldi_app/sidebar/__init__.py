@@ -72,7 +72,7 @@ class ViewSpaceSideBarManager(plugin.ViewSpacePlugin):
     def __init__(self, viewspace):
         self._line_numbers = False
         self._linenumberarea = None
-        viewspace.viewChanged.connect(self.slotViewChanged)
+        viewspace.viewChanged.connect(self.updateView)
         
     def loadSettings(self):
         """Loads the settings from config."""
@@ -102,29 +102,33 @@ class ViewSpaceSideBarManager(plugin.ViewSpacePlugin):
         """Returns whether line numbers are shown."""
         return self._line_numbers
     
-    def slotViewChanged(self, view):
-        """Called when another View in the ViewSpace becomes active."""
-        if self._line_numbers:
-            # take over the linenumber bar
-            if not self._linenumberarea:
-                from . import linenumberarea
-                self._linenumberarea = linenumberarea.LineNumberArea(view)
-            else:
-                self._linenumberarea.setTextEdit(view)
-        
     def updateView(self):
         """Adjust the sidebar in the current View in the sidebar."""
-        # currently just shows/hides the sidebar 
         view = self.viewSpace().activeView()
         if not view:
             return
+        
+        def add(widget):
+            """Adds a widget to the side of the view."""
+            from widgets import borderlayout
+            if QApplication.isRightToLeft():
+                side = borderlayout.RIGHT
+            else:
+                side = borderlayout.LEFT
+            borderlayout.BorderLayout.get(view).addWidget(widget, side)
+
+        # add of remove the linenumbers widget
         if self._line_numbers:
-            from . import linenumberarea
-            self._linenumberarea = linenumberarea.LineNumberArea(view)
-        else:
-            self._linenumberarea.setTextEdit(None)
+            if not self._linenumberarea:
+                from widgets import linenumberarea
+                self._linenumberarea = linenumberarea.LineNumberArea()
+            self._linenumberarea.setTextEdit(view)
+            add(self._linenumberarea)
+        elif self._linenumberarea:
             self._linenumberarea.deleteLater()
             self._linenumberarea = None
+
+
 
 
 class Actions(actioncollection.ActionCollection):

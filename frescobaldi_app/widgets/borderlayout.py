@@ -69,8 +69,8 @@ class BorderLayout(QObject):
                 break
         else:
             new = True
-            widget.installEventFilter(self)
             widget.setParent(self.scrollarea())
+            widget.installEventFilter(self)
         if position == -1:
             self._widgets[side].append(widget)
         else:
@@ -107,6 +107,13 @@ class BorderLayout(QObject):
             self.updateGeometry()
         elif ev.type() in (QEvent.Resize, QEvent.ShowToParent, QEvent.HideToParent):
             self.updateGeometry()
+        elif ev.type() in (QEvent.ParentChange, QEvent.DeferredDelete) and obj is not self.scrollarea().viewport():
+            for l in self._widgets:
+                if obj in l:
+                    l.remove(obj)
+                    obj.removeEventFilter(self)
+                    self.updateGeometry()
+                    break
         return False
     
     def updateGeometry(self):
