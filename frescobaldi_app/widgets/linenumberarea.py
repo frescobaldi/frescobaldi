@@ -22,27 +22,41 @@ A line number area to be used in a QPlainTextEdit.
 """
 
 from PyQt4.QtCore import QEvent, QPoint, QRect, QSize, Qt
-from PyQt4.QtGui import QApplication, QFontMetrics, QMouseEvent, QPainter, QWidget
+from PyQt4.QtGui import (
+    QApplication, QFontMetrics, QMouseEvent, QPainter, QWidget)
 
 
 class LineNumberArea(QWidget):
-    def __init__(self, textedit):
+    def __init__(self, textedit=None):
         super(LineNumberArea, self).__init__(textedit)
-        self._width = 0
+        self._textedit = None
         self.setAutoFillBackground(True)
-        textedit.updateRequest.connect(self.slotUpdateRequest)
-        textedit.blockCountChanged.connect(self.updateWidth)
-        self.updateWidth()
+        self.setTextEdit(textedit)
+    
+    def setTextEdit(self, edit):
+        """Sets a QPlainTextEdit instance to show linenumbers for, or None."""
+        if self._textedit:
+            self._textedit.updateRequest.disconnect(self.slotUpdateRequest)
+            self._textedit.blockCountChanged.disconnect(self.updateWidth)
+        self._textedit = edit
+        if edit:
+            edit.updateRequest.connect(self.slotUpdateRequest)
+            edit.blockCountChanged.connect(self.updateWidth)
+            self.updateWidth()
+        else:
+            self._width = 0
+        self.update()
         
-    def textedit(self):
-        return self.parent()
+    def textEdit(self):
+        """Returns our QPlainTextEdit."""
+        return self._textedit
         
     def sizeHint(self):
         return QSize(self._width, 50)
 
     def updateWidth(self):
-        fm = QFontMetrics(self.parent().font())
-        text = format(self.parent().blockCount(), 'd')
+        fm = QFontMetrics(self._textedit.font())
+        text = format(self._textedit.blockCount(), 'd')
         self._width = fm.width(text) + 3
         self.adjustSize()
 
@@ -53,7 +67,9 @@ class LineNumberArea(QWidget):
             self.update(0, rect.y(), self.width(), rect.height())
 
     def paintEvent(self, ev):
-        edit = self.parent()
+        edit = self._textedit
+        if not edit:
+            return
         painter = QPainter(self)
         painter.setFont(edit.font())
         rect = QRect(0, 0, self.width() - 2, QFontMetrics(edit.font()).height())
@@ -70,13 +86,15 @@ class LineNumberArea(QWidget):
             block = block.next()
 
     def event(self, ev):
-        if ((ev.type() in (QEvent.MouseButtonPress, QEvent.MouseButtonRelease)
-             and ev.button() == Qt.LeftButton)
-            or (ev.type() == QEvent.MouseMove and ev.buttons() & Qt.LeftButton)):
-            new = QMouseEvent(ev.type(), QPoint(0, ev.y()), ev.button(), ev.buttons(), ev.modifiers())
-            return QApplication.sendEvent(self.textedit().viewport(), new)
-        elif ev.type() == QEvent.Wheel:
-            return QApplication.sendEvent(self.textedit().viewport(), ev)
+        if self._textedit:
+            if ((ev.type() in (QEvent.MouseButtonPress, QEvent.MouseButtonRelease)
+                 and ev.button() == Qt.LeftButton)
+                or (ev.type() == QEvent.MouseMove and ev.buttons() & Qt.LeftButton)):
+                new = QMouseEvent(ev.type(), QPoint(0, ev.y()),
+                    ev.button(), ev.buttons(), ev.modifiers())
+                return QApplication.sendEvent(self._textedit.viewport(), new)
+            elif ev.type() == QEvent.Wheel:
+                return QApplication.sendEvent(self._textedit.viewport(), ev)
         return super(LineNumberArea, self).event(ev)
 
 

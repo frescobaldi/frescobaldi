@@ -21,21 +21,27 @@
 The line number area to be used in a View.
 """
 
+from PyQt4.QtGui import QApplication
+
 import widgets.linenumberarea
 
 
 class LineNumberArea(widgets.linenumberarea.LineNumberArea):
     def __init__(self, textedit):
         super(LineNumberArea, self).__init__(textedit)
-        
-    @classmethod
-    def find(cls, textedit):
-        for c in textedit.children():
-            if type(c) is cls:
-                return c
-    
-    @classmethod
-    def get(cls, textedit):
-        return cls.find(textedit) or cls(textedit)
+
+    def setTextEdit(self, edit):
+        """Adds ourselves to the borderlayout as well."""
+        from widgets import borderlayout
+        old = self.textEdit()
+        super(LineNumberArea, self).setTextEdit(edit)
+        if old:
+            borderlayout.BorderLayout.get(old).removeWidget(self)
+        if QApplication.isRightToLeft():
+            side = borderlayout.RIGHT
+        else:
+            side = borderlayout.LEFT
+        if edit:
+            borderlayout.BorderLayout.get(edit).addWidget(self, side)
 
 
