@@ -288,6 +288,12 @@ class python_snippets_help(help.page):
                   "this value can be used together with {cursor} to select text "
                   "when inserting the string parts of the list.").format(
                     text="<code>text</code>", cursor="<code>CURSOR</code>")),
+            ('main',
+                _("When you define a function with this name, it is called "
+                "without arguments, instead of inserting the text from the "
+                "{text} variable. "
+                "In this case you may alter the document through the {cursor}."
+                ).format(text="<code>text</code>", cursor="<code>cursor</code>")),
         )))
         text.append("</dl>")
         return ''.join(text)
