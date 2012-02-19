@@ -162,6 +162,8 @@ def insert_python(text, cursor, name, view):
     try:
         code = compile(text, "<snippet>", "exec")
         exec code in namespace
+        if 'main' in namespace:
+            return namespace['main']()
     except Exception:
         handle_exception(name, view)
     else:
