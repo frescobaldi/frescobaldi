@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-02-17 21:58+0100\n"
+"POT-Creation-Date: 2012-02-19 18:32+0100\n"
 "PO-Revision-Date: 2011-12-30 18:12+0100\n"
 "Last-Translator: Georg Hennig <georg.hennig@web.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -5238,7 +5238,7 @@ msgctxt "menu title"
 msgid "&Session"
 msgstr "&Sitzung"
 
-#: frescobaldi_app/sidebar/__init__.py:135
+#: frescobaldi_app/sidebar/__init__.py:140
 #, fuzzy
 msgid "&Line Numbers"
 msgstr "Saiten-Anzahl"
@@ -5352,7 +5352,7 @@ msgstr "Basis-Leadsheet"
 msgid "Choir Hymn"
 msgstr "Chor-Hymnus"
 
-#: frescobaldi_app/snippet/edit.py:118 frescobaldi_app/snippet/insert.py:221
+#: frescobaldi_app/snippet/edit.py:118 frescobaldi_app/snippet/insert.py:223
 msgid "Edit Snippet"
 msgstr "Bearbeite Schnipsel"
 
@@ -5518,6 +5518,13 @@ msgstr ""
 "dieser Wert zusammen mit dem Cursor benutzt werden, Text beim Einfügen der "
 "Zeichenfolge aus der Liste auszuwählen."
 
+#: frescobaldi_app/snippet/edit.py:292
+msgid ""
+"When you define a function with this name, it is called without arguments, "
+"instead of inserting the text from the {text} variable. In this case you may "
+"alter the document through the {cursor}."
+msgstr ""
+
 #: frescobaldi_app/snippet/expand.py:76
 msgid "The current date in YYYY-MM-DD format."
 msgstr "Das aktuelle Datum im Format JJJJ-MM-TT."
@@ -5603,7 +5610,7 @@ msgid ""
 "<p>Existing, unchanged snippets can't be imported.</p>\n"
 msgstr ""
 
-#: frescobaldi_app/snippet/insert.py:219
+#: frescobaldi_app/snippet/insert.py:221
 msgid "Snippet error"
 msgstr "Schnipsel-Fehler"
 

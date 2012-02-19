@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-02-17 21:58+0100\n"
-"PO-Revision-Date: 2012-02-17 21:59+0100\n"
+"POT-Creation-Date: 2012-02-19 18:32+0100\n"
+"PO-Revision-Date: 2012-02-19 18:37+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -275,7 +275,7 @@ msgstr "Knippen en toewijzen"
 #: frescobaldi_app/cut_assign.py:40
 msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr ""
-"Geef de naam van de variable om de geselecteerde tekst aan toe te wijzen:"
+"Geef de naam van de variabele om de geselecteerde tekst aan toe te wijzen:"
 
 #: frescobaldi_app/document.py:143 frescobaldi_app/doclist/widget.py:126
 #: frescobaldi_app/snippet/edit.py:165
@@ -1609,14 +1609,14 @@ msgstr ""
 "\n"
 "<p>\n"
 "Als LilyPond niet start, kijk of LilyPond correct geïnstalleerd is en dat "
-"het commando in de PATH omgevingsvariable van uw besturingssysteem is "
+"het commando in de PATH omgevingsvariabele van uw besturingssysteem is "
 "ingesteld.\n"
 "Indien nodig kunt u het volledige pad naar LilyPond instellen onder\n"
 "{menu_preferences_lilypond}.\n"
 "</p>\n"
 "\n"
 "<p>\n"
-"Als LilyPond fouten in uw document tekenkomt worden deze in de log "
+"Als LilyPond fouten in uw document tegenkomt worden deze in de log "
 "weergegeven\n"
 "en Frescobaldi markeert de regels waar de fouten werden gevonden.\n"
 "Klik op de foutmeldingen of druk op {key_error} om meteen naar de fout te "
@@ -3009,7 +3009,7 @@ msgstr "Property"
 
 #: frescobaldi_app/preferences/fontscolors.py:509
 msgid "User Variable"
-msgstr "Gebruikersvariable"
+msgstr "Gebruikersvariabele"
 
 #: frescobaldi_app/preferences/fontscolors.py:512
 #: frescobaldi_app/preferences/fontscolors.py:535
@@ -5676,7 +5676,7 @@ msgctxt "menu title"
 msgid "&Session"
 msgstr "&Sessie"
 
-#: frescobaldi_app/sidebar/__init__.py:135
+#: frescobaldi_app/sidebar/__init__.py:140
 msgid "&Line Numbers"
 msgstr "Regel&nummers"
 
@@ -5788,7 +5788,7 @@ msgstr "Eenvoudig Lead-sheet"
 msgid "Choir Hymn"
 msgstr "Koorhymne"
 
-#: frescobaldi_app/snippet/edit.py:118 frescobaldi_app/snippet/insert.py:221
+#: frescobaldi_app/snippet/edit.py:118 frescobaldi_app/snippet/insert.py:223
 msgid "Edit Snippet"
 msgstr "Knipsel bewerken"
 
@@ -5968,6 +5968,16 @@ msgstr ""
 "waarde gebruiken, samen met {cursor}, om het te selecteren bereik van tekst "
 "aan te geven na het invoegen."
 
+#: frescobaldi_app/snippet/edit.py:292
+msgid ""
+"When you define a function with this name, it is called without arguments, "
+"instead of inserting the text from the {text} variable. In this case you may "
+"alter the document through the {cursor}."
+msgstr ""
+"Als u een functie definieert met deze naam, wordt hij (zonder argumenten) "
+"aangeroepen, in plaats van het invoegen van de tekst in de {text} variabele. "
+"In dit geval kunt u het document aanpassen via de {cursor}."
+
 #: frescobaldi_app/snippet/expand.py:76
 msgid "The current date in YYYY-MM-DD format."
 msgstr "De huidige datum in JJJJ-MM-DD formaat."
@@ -6058,7 +6068,7 @@ msgstr ""
 "Klik dan op OK om de aangevinkte knipsels te importeren.</p>\n"
 "<p>Bestaande, ongewijzigde knipsels kunnen niet worden geïmporteerd.</p>\n"
 
-#: frescobaldi_app/snippet/insert.py:219
+#: frescobaldi_app/snippet/insert.py:221
 msgid "Snippet error"
 msgstr "Knipsel-fout"
 
@@ -6182,7 +6192,7 @@ msgid ""
 "If the search text fully matches the value of the '{name}' variable of a "
 "snippet, that snippet is selected."
 msgstr ""
-"Als de zoektekst volledig overeenkomt met de waarde van de '{name}' variable "
+"Als de zoektekst volledig overeenkomt met de waarde van de '{name}' variabele "
 "van een knipsel, wordt dat knipsel geselecteerd."
 
 #: frescobaldi_app/snippet/widget.py:196
@@ -6193,9 +6203,9 @@ msgid ""
 "contains the text after the space."
 msgstr ""
 "Als de zoektekst start met een dubbelepunt ':', dan filtert de rest van de "
-"zoektekst knipsels die een variable van die naam definiëren. Na een spatie "
+"zoektekst knipsels die een variabele van die naam definiëren. Na een spatie "
 "kan ook een waarde worden ingevoerd, knipsels worden dan alleen getoond als "
-"de waarde van de variable de gegeven tekst bevat."
+"de waarde van de variabele de gegeven tekst bevat."
 
 #: frescobaldi_app/snippet/widget.py:201
 msgid ""

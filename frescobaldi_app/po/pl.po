@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.3\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-02-17 21:58+0100\n"
+"POT-Creation-Date: 2012-02-19 18:32+0100\n"
 "PO-Revision-Date: 2012-02-17 00:26+0100\n"
 "Last-Translator: Piotr Komorowski <piotr-komorowski@wp.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -5244,7 +5244,7 @@ msgctxt "menu title"
 msgid "&Session"
 msgstr "&Sesja"
 
-#: frescobaldi_app/sidebar/__init__.py:135
+#: frescobaldi_app/sidebar/__init__.py:140
 #, fuzzy
 msgid "&Line Numbers"
 msgstr "Liczba strun"
@@ -5359,7 +5359,7 @@ msgstr "Prymka"
 msgid "Choir Hymn"
 msgstr "Hymn chóralny"
 
-#: frescobaldi_app/snippet/edit.py:118 frescobaldi_app/snippet/insert.py:221
+#: frescobaldi_app/snippet/edit.py:118 frescobaldi_app/snippet/insert.py:223
 msgid "Edit Snippet"
 msgstr "Edytuj wstawkę"
 
@@ -5506,6 +5506,13 @@ msgid ""
 "list."
 msgstr ""
 
+#: frescobaldi_app/snippet/edit.py:292
+msgid ""
+"When you define a function with this name, it is called without arguments, "
+"instead of inserting the text from the {text} variable. In this case you may "
+"alter the document through the {cursor}."
+msgstr ""
+
 #: frescobaldi_app/snippet/expand.py:76
 msgid "The current date in YYYY-MM-DD format."
 msgstr "Bieżąca data w formacie RRRR-MM-DD."
@@ -5589,7 +5596,7 @@ msgid ""
 "<p>Existing, unchanged snippets can't be imported.</p>\n"
 msgstr ""
 
-#: frescobaldi_app/snippet/insert.py:219
+#: frescobaldi_app/snippet/insert.py:221
 msgid "Snippet error"
 msgstr "Błąd wstawki"
 

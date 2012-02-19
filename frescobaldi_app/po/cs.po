@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-02-17 21:58+0100\n"
+"POT-Creation-Date: 2012-02-19 18:32+0100\n"
 "PO-Revision-Date: 2011-12-28 18:57+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -5688,7 +5688,7 @@ msgctxt "menu title"
 msgid "&Session"
 msgstr "&Sezení"
 
-#: frescobaldi_app/sidebar/__init__.py:135
+#: frescobaldi_app/sidebar/__init__.py:140
 #, fuzzy
 msgid "&Line Numbers"
 msgstr "Číslo struny"
@@ -5802,7 +5802,7 @@ msgstr "Základní vzorový list"
 msgid "Choir Hymn"
 msgstr "Sborový chvalozpěv"
 
-#: frescobaldi_app/snippet/edit.py:118 frescobaldi_app/snippet/insert.py:221
+#: frescobaldi_app/snippet/edit.py:118 frescobaldi_app/snippet/insert.py:223
 msgid "Edit Snippet"
 msgstr "Upravit kousek"
 
@@ -5974,6 +5974,13 @@ msgstr ""
 "společně s {cursor} pro výběr textu, když jsou vkládány části seznamu s "
 "řetězci."
 
+#: frescobaldi_app/snippet/edit.py:292
+msgid ""
+"When you define a function with this name, it is called without arguments, "
+"instead of inserting the text from the {text} variable. In this case you may "
+"alter the document through the {cursor}."
+msgstr ""
+
 #: frescobaldi_app/snippet/expand.py:76
 msgid "The current date in YYYY-MM-DD format."
 msgstr "Nynější datum ve formátu RRRR-MM-DD."
@@ -6062,7 +6069,7 @@ msgstr ""
 "kousků.</p>\n"
 "<p>Stávající, nezměněné kousky nelze zavést.</p>\n"
 
-#: frescobaldi_app/snippet/insert.py:219
+#: frescobaldi_app/snippet/insert.py:221
 msgid "Snippet error"
 msgstr "Chyba kousku"
 
