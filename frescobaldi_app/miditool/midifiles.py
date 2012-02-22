@@ -27,26 +27,21 @@ import os
 
 from PyQt4.QtCore import Qt
 
-import app
 import icons
 import plugin
 import signals
+import jobmanager
 import resultfiles
 import listmodel
 import midifile.song
-
-
-def _update(document):
-    MidiFiles.instance(document).invalidate()
-
-app.documentLoaded.connect(_update, -100)
-app.jobFinished.connect(_update, -100)
 
 
 class MidiFiles(plugin.DocumentPlugin):
     def __init__(self, document):
         self._files = None
         self.current = 0
+        document.loaded.connect(self.invalidate, -100)
+        jobmanager.manager(document).finished.connect(self.invalidate, -100)
     
     def invalidate(self):
         self._files = None
