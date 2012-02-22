@@ -36,15 +36,11 @@ import listmodel
 import midifile.song
 
 
-updated = signals.Signal() # Document; emitted if there are new MIDI files.
-
 def _update(document):
-    """Checks if MIDI files were updated for the document."""
-    if MidiFiles.instance(document).update():
-        updated(document)
+    MidiFiles.instance(document).invalidate()
 
-app.jobFinished.connect(_update)
-app.documentLoaded.connect(_update)
+app.documentLoaded.connect(_update, -100)
+app.jobFinished.connect(_update, -100)
 
 
 class MidiFiles(plugin.DocumentPlugin):
@@ -52,6 +48,9 @@ class MidiFiles(plugin.DocumentPlugin):
         self._files = None
         self.current = 0
     
+    def invalidate(self):
+        self._files = None
+        
     def update(self):
         files = resultfiles.results(self.document()).files('.mid*')
         self._files = files

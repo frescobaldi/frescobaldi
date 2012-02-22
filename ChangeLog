@@ -8,8 +8,10 @@ Changes in 2.0.4 --
   - updated: pl, nl, cs
 * New features:
   - view->line numbers
+* Improvements:
+  - opening many documents (e.g. a large session) much faster
 
-
+  
 Changes in 2.0.3 -- February 17th, 2012
 
 * Translations:
