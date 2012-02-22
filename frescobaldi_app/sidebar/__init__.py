@@ -122,8 +122,8 @@ class ViewSpaceSideBarManager(plugin.ViewSpacePlugin):
             if not self._linenumberarea:
                 from widgets import linenumberarea
                 self._linenumberarea = linenumberarea.LineNumberArea()
-            self._linenumberarea.setTextEdit(view)
             add(self._linenumberarea)
+            self._linenumberarea.setTextEdit(view)
         elif self._linenumberarea:
             self._linenumberarea.deleteLater()
             self._linenumberarea = None
