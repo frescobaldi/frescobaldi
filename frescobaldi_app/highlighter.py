@@ -164,7 +164,6 @@ class HighlightFormats(object):
 class Highlighter(QSyntaxHighlighter, plugin.Plugin):
     def __init__(self, document):
         QSyntaxHighlighter.__init__(self, document)
-        self.setDocument(document)
         self._fridge = ly.lex.Fridge()
         app.settingsChanged.connect(self.rehighlight)
         self._highlighting = metainfo.info(document).highlighting
