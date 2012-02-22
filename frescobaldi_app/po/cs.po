@@ -4,14 +4,14 @@
 #
 #  <pavelfric@seznam.cz>, 2009.
 # Pavel Fric <pavel@seznam.cz>, 2009.
-# Pavel Fric <pavelfric@seznam.cz>, 2009, 2011.
+# Pavel Fric <pavelfric@seznam.cz>, 2009, 2011, 2012.
 # Pavel Fric <fripohled@blogspot.com>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2012-02-19 18:32+0100\n"
-"PO-Revision-Date: 2011-12-28 18:57+0100\n"
+"PO-Revision-Date: 2012-02-17 22:29+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.2\n"
 
 #: frescobaldi_app/about.py:43
 msgid "{appname} is written in {python} and uses the {qt} toolkit."
@@ -353,7 +353,7 @@ msgstr "Dole volitelně popište, co jste dělal:"
 
 #: frescobaldi_app/globalfontdialog.py:69
 msgid "Global Fonts"
-msgstr ""
+msgstr "Celková písma"
 
 #: frescobaldi_app/globalfontdialog.py:71
 msgid ""
@@ -733,7 +733,7 @@ msgstr "Otevřít nynější adresář"
 
 #: frescobaldi_app/mainwindow.py:952
 msgid "Open Command Prompt"
-msgstr ""
+msgstr "Otevřít výzvu k příkazu"
 
 #: frescobaldi_app/mainwindow.py:955
 msgid "Save Copy or Selection As..."
@@ -1217,9 +1217,8 @@ msgstr "Spustit LilyPond s podrobným výstupem"
 
 #: frescobaldi_app/engrave/custom.py:130
 #: frescobaldi_app/preferences/lilypond.py:289
-#, fuzzy
 msgid "Run LilyPond with English messages"
-msgstr "Spustit LilyPond s podrobným výstupem"
+msgstr "Spustit LilyPond s anglickými zprávami"
 
 #: frescobaldi_app/engrave/custom.py:131
 #: frescobaldi_app/preferences/lilypond.py:286
@@ -2164,24 +2163,20 @@ msgid "Copy to &Image..."
 msgstr "Kopírovat do &obrázku..."
 
 #: frescobaldi_app/musicview/__init__.py:247
-#, fuzzy
 msgid "Next Page"
-msgstr "Další změna"
+msgstr "Další strana"
 
 #: frescobaldi_app/musicview/__init__.py:248
-#, fuzzy
 msgid "Next"
-msgstr "Další:"
+msgstr "Další"
 
 #: frescobaldi_app/musicview/__init__.py:249
-#, fuzzy
 msgid "Previous Page"
-msgstr "Předchozí značka"
+msgstr "Předchozí strana"
 
 #: frescobaldi_app/musicview/__init__.py:250
-#, fuzzy
 msgid "Previous"
-msgstr "Předchozí značka"
+msgstr "Předchozí"
 
 #: frescobaldi_app/musicview/__init__.py:389
 msgid "Choose the PDF document to display."
@@ -2210,7 +2205,7 @@ msgstr "Přizpůsobit straně"
 #. L10N: page numbering: page {num} of {total}
 #: frescobaldi_app/musicview/__init__.py:468
 msgid "{num} of {total}"
-msgstr ""
+msgstr "{num} z {total}"
 
 #: frescobaldi_app/musicview/image.py:126
 msgid "DPI:"
@@ -3301,6 +3296,8 @@ msgid ""
 "If checked, LilyPond's output messages will be in English.\n"
 "This can be useful for bug reports."
 msgstr ""
+"Je-li zaškrtnuto, výstupní zprávy LilyPondu budou v anglickém jazyce.\n"
+"To může být užitečné pro hlášení o chybách."
 
 #: frescobaldi_app/preferences/lilypond.py:293
 msgid "LilyPond include path:"
@@ -5774,9 +5771,8 @@ msgid "Staff Size"
 msgstr "Velikost notové osnovy"
 
 #: frescobaldi_app/snippet/builtin.py:322
-#, fuzzy
 msgid "Uncomment"
-msgstr "Poznámka"
+msgstr "Zrušit poznámku"
 
 #: frescobaldi_app/snippet/builtin.py:365
 msgid "A5 Paper"
@@ -6111,9 +6107,8 @@ msgid "Save as Template..."
 msgstr "Uložit jako předlohu..."
 
 #: frescobaldi_app/snippet/tool.py:90
-#, fuzzy
 msgid "Manage Templates..."
-msgstr "Uložit jako předlohu..."
+msgstr "Spravovat předlohy..."
 
 #: frescobaldi_app/snippet/tool.py:91
 msgid "&Snippets..."
@@ -6370,7 +6365,7 @@ msgstr "Použít &výchozí zkratku ({name})"
 
 #: frescobaldi_app/widgets/tempobutton.py:51
 msgid "The tempo is set as you click this button."
-msgstr ""
+msgstr "Tempo je nastaveno, když klepnete na toto tlačítko."
 
 #: frescobaldi_app/widgets/urlrequester.py:65
 msgid "Open file dialog"
