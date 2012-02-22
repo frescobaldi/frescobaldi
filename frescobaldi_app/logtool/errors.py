@@ -54,16 +54,7 @@ class Errors(plugin.DocumentPlugin):
         mgr = jobmanager.manager(document)
         if mgr.job():
             self.connectJob(mgr.job())
-        mgr.stateChanged.connect(self.slotJobManagerStateChanged)
-        
-    def slotJobManagerStateChanged(self, job):
-        """Called when a job starts or stops.
-        
-        On start, we connect to it immediately.
-        
-        """
-        if job:
-            self.connectJob(job)
+        mgr.started.connect(self.connectJob)
         
     def connectJob(self, job):
         """Starts collecting the references of a started Job.
