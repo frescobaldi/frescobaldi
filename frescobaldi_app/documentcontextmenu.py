@@ -38,8 +38,7 @@ class DocumentContextMenu(QMenu):
         self._doc = lambda: None
         
         self.createActions()
-        app.languageChanged.connect(self.translateUI)
-        self.translateUI()
+        app.translateUI(self)
     
     def createActions(self):
         self.doc_save = self.addAction(icons.get('document-save'), '')

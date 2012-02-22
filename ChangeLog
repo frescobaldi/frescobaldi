@@ -8,10 +8,13 @@ Changes in 2.0.4 --
   - updated: pl, nl, cs
 * New features:
   - view->line numbers
+  - in the documents list, it is now possible to right-click a group of selected
+    documents (or a directory name, if grouping is enabled), to close or save
+    multiple documents at once.
 * Improvements:
   - opening many documents (e.g. a large session) much faster
 
-  
+
 Changes in 2.0.3 -- February 17th, 2012
 
 * Translations:

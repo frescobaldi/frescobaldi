@@ -53,6 +53,7 @@ class Widget(QTreeWidget):
         super(Widget, self).__init__(tool, headerHidden=True)
         self.setAlternatingRowColors(True)
         self.setRootIsDecorated(False)
+        self.setSelectionMode(QTreeWidget.ExtendedSelection)
         app.documentCreated.connect(self.addDocument)
         app.documentClosed.connect(self.removeDocument)
         app.documentLoaded.connect(self.setDocumentStatus)
@@ -61,7 +62,7 @@ class Widget(QTreeWidget):
         app.jobStarted.connect(self.setDocumentStatus)
         app.jobFinished.connect(self.setDocumentStatus)
         tool.mainwindow().currentDocumentChanged.connect(self.selectDocument)
-        self.currentItemChanged.connect(self.slotItemActivated)
+        self.itemSelectionChanged.connect(self.slotItemSelectionChanged)
         app.settingsChanged.connect(self.populate)
         self.populate()
     
@@ -147,20 +148,66 @@ class Widget(QTreeWidget):
             if i == item:
                 return d
         
-    def slotItemActivated(self, item):
-        doc = self.document(item)
-        if doc:
-            self.parentWidget().mainwindow().setCurrentDocument(doc)
+    def slotItemSelectionChanged(self):
+        if len(self.selectedItems()) == 1:
+            doc = self.document(self.selectedItems()[0])
+            if doc:
+                self.parentWidget().mainwindow().setCurrentDocument(doc)
     
     def contextMenuEvent(self, ev):
         item = self.itemAt(ev.pos())
-        if item:
-            doc = self.document(item)
-            if doc:
-                import documentcontextmenu
-                mainwindow = self.parentWidget().mainwindow()
-                menu = documentcontextmenu.DocumentContextMenu(mainwindow)
-                menu.exec_(doc, ev.globalPos())
-                menu.deleteLater()
+        if not item:
+            return
+        
+        mainwindow = self.parentWidget().mainwindow()
+        
+        selection = self.selectedItems()
+        doc = self.document(item)
+        
+        if len(selection) <= 1 and doc:
+            # a single document is right-clicked
+            import documentcontextmenu
+            menu = documentcontextmenu.DocumentContextMenu(mainwindow)
+            menu.exec_(doc, ev.globalPos())
+            menu.deleteLater()
+            return
+        
+        menu = QMenu(mainwindow)
+        save = menu.addAction(icons.get('document-save'), '')
+        menu.addSeparator()
+        close = menu.addAction(icons.get('document-close'), '')
+        
+        if len(selection) > 1:
+            # multiple documents are selected
+            save.setText(_("Save selected documents"))
+            close.setText(_("Close selected documents"))
+            documents = [self.document(item) for item in selection]
+        else:
+            documents = [self.document(item.child(i)) for i in range(item.childCount())]
+            if item._path:
+                # a directory item is right-clicked
+                save.setText(_("Save documents in this folder"))
+                close.setText(_("Close documents in this folder"))
+            else:
+                # the "Untitled" group is right-clicked
+                save.setText(_("Save all untitled documents"))
+                close.setText(_("Close all untitled documents"))
+        
+        @save.triggered.connect
+        def savedocuments():
+            for d in documents:
+                if d.url().isEmpty() or d.isModified():
+                    mainwindow.setCurrentDocument(d)
+                if not mainwindow.saveDocument(d):
+                    break
+        
+        @close.triggered.connect
+        def close_documents():
+            for d in documents:
+                if not mainwindow.closeDocument(d):
+                    break
+        
+        menu.exec_(ev.globalPos())
+        menu.deleteLater()
 
 
