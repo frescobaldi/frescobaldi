@@ -94,7 +94,7 @@ class Signal(object):
             self._instances = weakref.WeakKeyDictionary()
         except KeyError:
             pass
-        ret = self._instances[instance] = Signal(owner=instance)
+        ret = self._instances[instance] = type(self)(owner=instance)
         return ret
     
     def owner(self):
@@ -122,7 +122,7 @@ class Signal(object):
         keep a reference to that object in that case!
         
         """
-        key = makeListener(slot, owner)
+        key = self.makeListener(slot, owner)
         if key not in self.listeners:
             key.add(self, priority)
             
@@ -132,7 +132,7 @@ class Signal(object):
         No exception is raised if there wasn't a connection.
         
         """
-        key = makeListener(func)
+        key = self.makeListener(func)
         try:
             self.listeners.remove(key)
         except ValueError:
@@ -177,13 +177,14 @@ class Signal(object):
     __call__ = emit
 
 
-def makeListener(func, owner=None):
-    if isinstance(func, (types.MethodType, types.BuiltinMethodType)):
-        return MethodListener(func)
-    elif isinstance(func, Signal):
-        return FunctionListener(func, owner or func.owner())
-    else:
-        return FunctionListener(func, owner)
+    def makeListener(self, func, owner=None):
+        """Returns a suitable listener for the given method or function."""
+        if isinstance(func, (types.MethodType, types.BuiltinMethodType)):
+            return MethodListener(func)
+        elif isinstance(func, Signal):
+            return FunctionListener(func, owner or func.owner())
+        else:
+            return FunctionListener(func, owner)
 
 
 class ListenerBase(object):
