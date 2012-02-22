@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.3\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-02-19 18:32+0100\n"
+"POT-Creation-Date: 2012-02-22 20:34+0100\n"
 "PO-Revision-Date: 2012-02-17 00:26+0100\n"
 "Last-Translator: Piotr Komorowski <piotr-komorowski@wp.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -22,22 +22,22 @@ msgstr ""
 "X-Poedit-Country: POLAND\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: frescobaldi_app/about.py:43
+#: ../about.py:43
 msgid "{appname} is written in {python} and uses the {qt} toolkit."
 msgstr ""
 "{appname} jest napisany w {python}ie i korzysta z zestawu narzędzi {qt}. "
 
 #. L10N: the Python programming language
-#: frescobaldi_app/about.py:46
+#: ../about.py:46
 msgid "Python"
 msgstr "Python"
 
 #. L10N: the Qt4 application framework
-#: frescobaldi_app/about.py:48
+#: ../about.py:48
 msgid "Qt4"
 msgstr "Qt4"
 
-#: frescobaldi_app/about.py:50
+#: ../about.py:50
 msgid ""
 "The Music View is powered by the {poppler} library by {authors} and others."
 msgstr ""
@@ -45,146 +45,143 @@ msgstr ""
 "{authors} i innych."
 
 #. L10N: the Poppler PDF library
-#: frescobaldi_app/about.py:54
+#: ../about.py:54
 msgid "Poppler"
 msgstr "Poppler"
 
-#: frescobaldi_app/about.py:57
+#: ../about.py:57
 msgid "Most of the bundled icons are created by {tango}."
 msgstr "Większość ikon w pakiecie stworzonych jest przez {tango}."
 
-#: frescobaldi_app/about.py:59
+#: ../about.py:59
 msgid "The Tango Desktop Project"
 msgstr "The Tango Desktop Project"
 
-#: frescobaldi_app/about.py:61
+#: ../about.py:61
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} przetłumaczony jest na następujące języki:"
 
-#: frescobaldi_app/about.py:80
+#: ../about.py:80
 msgid "About {appname}"
 msgstr "O programie {appname}"
 
-#: frescobaldi_app/about.py:87
+#: ../about.py:87
 msgid "About"
 msgstr "O"
 
-#: frescobaldi_app/about.py:88 frescobaldi_app/help/contents.py:282
+#: ../about.py:88 ../help/contents.py:282
 msgid "Credits"
 msgstr "Zasługi"
 
-#: frescobaldi_app/about.py:89
+#: ../about.py:89
 msgid "Version"
 msgstr "Wersja"
 
-#: frescobaldi_app/about.py:144
+#: ../about.py:144
 msgid "Operating System"
 msgstr "System operacyjny"
 
-#: frescobaldi_app/about.py:151
+#: ../about.py:151
 msgid "Version {version}"
 msgstr "Wersja {version}"
 
-#: frescobaldi_app/about.py:152 frescobaldi_app/main.py:59
+#: ../about.py:152 ../main.py:59
 msgid "A LilyPond Music Editor"
 msgstr "Edytor nutowy LilyPond"
 
-#: frescobaldi_app/about.py:153
+#: ../about.py:153
 msgid "Copyright (c) {year} by {author}"
 msgstr "Copyright (c) {year} by {author}"
 
-#: frescobaldi_app/about.py:157
+#: ../about.py:157
 msgid "Send an e-mail message to the maintainers."
 msgstr "Wyślij e-mail do opiekunów programu."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: frescobaldi_app/about.py:160 frescobaldi_app/help/contents.py:56
+#: ../about.py:160 ../help/contents.py:56
 msgid "Translated by Your Name."
 msgstr "Przetłumaczone przez Piotra Komorowskiego "
 
-#: frescobaldi_app/about.py:165
+#: ../about.py:165
 msgid "Licensed under the {gpl}."
 msgstr "Na licencji {gpl}."
 
-#: frescobaldi_app/actioncollectionmanager.py:123
-#: frescobaldi_app/preferences/shortcuts.py:203
+#: ../actioncollectionmanager.py:123 ../preferences/shortcuts.py:203
 msgid "This shortcut conflicts with the following command:"
 msgid_plural "This shortcut conflicts with the following commands:"
 msgstr[0] "Ten skrót klawiszowy koliduje z następującym poleceniem:"
 msgstr[1] "Ten skrót klawiszowy koliduje z następującym poleceniem:"
 msgstr[2] "Ten skrót klawiszowy koliduje z następującym poleceniem:"
 
-#: frescobaldi_app/actioncollectionmanager.py:129
-#: frescobaldi_app/preferences/shortcuts.py:209
+#: ../actioncollectionmanager.py:129 ../preferences/shortcuts.py:209
 msgid "Shortcut Conflict"
 msgstr "Konflikty skrótów klawiszowych"
 
-#: frescobaldi_app/actioncollectionmanager.py:131
+#: ../actioncollectionmanager.py:131
 msgid "Edit again"
 msgstr "Edytuj ponownie"
 
-#: frescobaldi_app/app.py:128
+#: ../app.py:128
 msgid "LilyPond Files"
 msgstr "Pliki LilyPond"
 
-#: frescobaldi_app/app.py:129
+#: ../app.py:129
 msgid "LaTeX Files"
 msgstr "Pliki LaTeX"
 
-#: frescobaldi_app/app.py:130
+#: ../app.py:130
 msgid "DocBook Files"
 msgstr "Pliki DocBook"
 
-#: frescobaldi_app/app.py:131
+#: ../app.py:131
 msgid "HTML Files"
 msgstr "Pliki HTML"
 
-#: frescobaldi_app/app.py:132
+#: ../app.py:132
 msgid "Texinfo Files"
 msgstr "Plik Texinfo"
 
-#: frescobaldi_app/app.py:133
+#: ../app.py:133
 msgid "Scheme Files"
 msgstr "Pliki Scheme"
 
-#: frescobaldi_app/app.py:134 frescobaldi_app/snippet/widget.py:265
-#: frescobaldi_app/snippet/widget.py:282
+#: ../app.py:134 ../snippet/widget.py:265 ../snippet/widget.py:282
 msgid "All Files"
 msgstr "Wszystkie pliki"
 
-#: frescobaldi_app/bookmarkmanager.py:112
+#: ../bookmarkmanager.py:112
 msgid "&Mark Current Line"
 msgstr "&Podkreślaj aktualną linię"
 
-#: frescobaldi_app/bookmarkmanager.py:113
+#: ../bookmarkmanager.py:113
 msgid "Clear &Error Marks"
 msgstr "&Wyczyść zaznaczenia błędów"
 
-#: frescobaldi_app/bookmarkmanager.py:114
+#: ../bookmarkmanager.py:114
 msgid "Clear &All Marks"
 msgstr "Wyczyść wszystkie zaznaczenia"
 
-#: frescobaldi_app/bookmarkmanager.py:115
+#: ../bookmarkmanager.py:115
 msgid "Next Mark"
 msgstr "Następne zaznaczenie"
 
-#: frescobaldi_app/bookmarkmanager.py:116
+#: ../bookmarkmanager.py:116
 msgid "Previous Mark"
 msgstr "Poprzednie zaznaczenie"
 
-#: frescobaldi_app/convert_ly.py:119
+#: ../convert_ly.py:119
 msgid "From version:"
 msgstr "Wersja źródłowa:"
 
-#: frescobaldi_app/convert_ly.py:120
+#: ../convert_ly.py:120
 msgid "To version:"
 msgstr "Wersja docelowa:"
 
-#: frescobaldi_app/convert_ly.py:121
+#: ../convert_ly.py:121
 msgid "Save convert-ly messages in document"
 msgstr "Zapisz komunikaty z convert-ly w dokumencie"
 
-#: frescobaldi_app/convert_ly.py:123
+#: ../convert_ly.py:123
 msgid ""
 "If checked, the messages of convert-ly are appended as a comment to the end "
 "of the document."
@@ -192,36 +189,35 @@ msgstr ""
 "Po zaznaczeniu komunikaty convert-ly są dołączane w postaci komentarza na "
 "końcu dokumentu."
 
-#: frescobaldi_app/convert_ly.py:125
+#: ../convert_ly.py:125
 msgid "&Messages"
 msgstr "&Komunikaty"
 
-#: frescobaldi_app/convert_ly.py:126
+#: ../convert_ly.py:126
 msgid "&Changes"
 msgstr "Zmiany"
 
-#: frescobaldi_app/convert_ly.py:127
+#: ../convert_ly.py:127
 msgid "Run Again"
 msgstr "Uruchom ponownie"
 
-#: frescobaldi_app/convert_ly.py:138 frescobaldi_app/docbrowser/browser.py:158
-#: frescobaldi_app/musicview/image.py:166
+#: ../convert_ly.py:138 ../docbrowser/browser.py:158 ../musicview/image.py:166
 msgid "<unknown>"
 msgstr "<nieznany>"
 
-#: frescobaldi_app/convert_ly.py:139
+#: ../convert_ly.py:139
 msgid "Convert-ly from LilyPond {version}"
 msgstr "Convert-ly z LilyPond {version}"
 
-#: frescobaldi_app/convert_ly.py:163
+#: ../convert_ly.py:163
 msgid "(set in document)"
 msgstr "(określony w dokumencie)"
 
-#: frescobaldi_app/convert_ly.py:176
+#: ../convert_ly.py:176
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr "Należy określić zarówno wersję źródłową, jak i docelową."
 
-#: frescobaldi_app/convert_ly.py:207
+#: ../convert_ly.py:207
 msgid ""
 "Could not start {convert_ly}:\n"
 "\n"
@@ -231,136 +227,135 @@ msgstr ""
 "\n"
 "{message}\n"
 
-#: frescobaldi_app/convert_ly.py:213
+#: ../convert_ly.py:213
 msgid "The document has not been changed."
 msgstr "Dokument został zmieniony."
 
-#: frescobaldi_app/convert_ly.py:219
+#: ../convert_ly.py:219
 msgid "Current Document"
 msgstr "Obecny dokument "
 
-#: frescobaldi_app/convert_ly.py:219
+#: ../convert_ly.py:219
 msgid "Converted Document"
 msgstr "Dokument przekonwertowany"
 
-#: frescobaldi_app/convert_ly.py:225
+#: ../convert_ly.py:225
 msgid "Colors:"
 msgstr "Kolory:"
 
-#: frescobaldi_app/convert_ly.py:226
+#: ../convert_ly.py:226
 msgid "Added"
 msgstr "Dodane"
 
-#: frescobaldi_app/convert_ly.py:227
+#: ../convert_ly.py:227
 msgid "Changed"
 msgstr "Zmienione"
 
-#: frescobaldi_app/convert_ly.py:228
+#: ../convert_ly.py:228
 msgid "Deleted"
 msgstr "Usunięto"
 
-#: frescobaldi_app/convert_ly.py:229
+#: ../convert_ly.py:229
 msgid "Links:"
 msgstr "Linki:"
 
-#: frescobaldi_app/convert_ly.py:230
+#: ../convert_ly.py:230
 msgid "First Change"
 msgstr "Pierwsza zmiana"
 
-#: frescobaldi_app/convert_ly.py:231
+#: ../convert_ly.py:231
 msgid "Next Change"
 msgstr "Następna zmiana"
 
-#: frescobaldi_app/convert_ly.py:232
+#: ../convert_ly.py:232
 msgid "Top"
 msgstr "Góra"
 
-#: frescobaldi_app/cut_assign.py:39
+#: ../cut_assign.py:39
 msgid "Cut and Assign"
 msgstr "Wytnij i przypisz"
 
-#: frescobaldi_app/cut_assign.py:40
+#: ../cut_assign.py:40
 msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr ""
 "Proszę wprowadzić nazwę dla zmniennej przyporządkowanej do wybranego tekstu:"
 
-#: frescobaldi_app/document.py:143 frescobaldi_app/doclist/widget.py:126
-#: frescobaldi_app/snippet/edit.py:165
+#: ../document.py:143 ../doclist/widget.py:127 ../snippet/edit.py:165
 msgid "Untitled"
 msgstr "Bez tytułu"
 
-#: frescobaldi_app/document.py:145
+#: ../document.py:145
 msgid "Untitled ({num})"
 msgstr "Bez tytułu ({num})"
 
-#: frescobaldi_app/documentactions.py:125
+#: ../documentactions.py:125
 msgid "Cut and Assign..."
 msgstr "Wytnij i przypisz..."
 
-#: frescobaldi_app/documentactions.py:126
+#: ../documentactions.py:126
 msgid "Syntax &Highlighting"
 msgstr "Wyróżnianie elementów składni"
 
-#: frescobaldi_app/documentactions.py:127
+#: ../documentactions.py:127
 msgid "&Automatic Indent"
 msgstr "&Automatycznie wcięcie"
 
-#: frescobaldi_app/documentactions.py:128
+#: ../documentactions.py:128
 msgid "Re-&Indent"
 msgstr "Ponów wcięcie"
 
-#: frescobaldi_app/documentactions.py:129
+#: ../documentactions.py:129
 msgid "&Format"
 msgstr "&Format"
 
-#: frescobaldi_app/documentactions.py:130
+#: ../documentactions.py:130
 msgid "&Update with convert-ly..."
 msgstr "&Uaktualnij z convert-ly..."
 
-#: frescobaldi_app/documentcontextmenu.py:55 frescobaldi_app/mainwindow.py:953
-#: frescobaldi_app/sessions/manager.py:128
+#: ../documentcontextmenu.py:54 ../mainwindow.py:953
+#: ../sessions/manager.py:128
 msgid "&Save"
 msgstr "Zapi&sz"
 
-#: frescobaldi_app/documentcontextmenu.py:56 frescobaldi_app/mainwindow.py:954
+#: ../documentcontextmenu.py:55 ../mainwindow.py:954
 msgid "Save &As..."
 msgstr "Z&apisz jako..."
 
-#: frescobaldi_app/documentcontextmenu.py:57 frescobaldi_app/mainwindow.py:958
+#: ../documentcontextmenu.py:56 ../mainwindow.py:958
 msgid "&Close"
 msgstr "&Zamknij"
 
-#: frescobaldi_app/documentmenu.py:42
+#: ../documentmenu.py:42
 msgctxt "menu title"
 msgid "&Document"
 msgstr "&Dokument "
 
 #. L10N: 'always engraved': the document is marked as 'Always Engrave' in the LilyPond menu
-#: frescobaldi_app/documentmenu.py:109
+#: ../documentmenu.py:109
 msgid "[always engraved]"
 msgstr "[zawsze narysowane]"
 
-#: frescobaldi_app/exception.py:69
+#: ../exception.py:69
 msgid "An internal error has occurred:"
 msgstr "Pojawił się błąd wewnętrzny:"
 
-#: frescobaldi_app/exception.py:70
+#: ../exception.py:70
 msgid "Internal Error"
 msgstr "Błąd wewnętrzny "
 
-#: frescobaldi_app/exception.py:71
+#: ../exception.py:71
 msgid "Email Bug Report..."
 msgstr "Wyślij raport o błędzie..."
 
-#: frescobaldi_app/exception.py:79
+#: ../exception.py:79
 msgid "Optionally describe below what you were doing:"
 msgstr "Należy opisać wykonane operacje:"
 
-#: frescobaldi_app/globalfontdialog.py:69
+#: ../globalfontdialog.py:69
 msgid "Global Fonts"
 msgstr "Czcionka ogólnego zastosowania"
 
-#: frescobaldi_app/globalfontdialog.py:71
+#: ../globalfontdialog.py:71
 msgid ""
 "Please select the three global fonts to use for <code>\\roman</code>, <code>"
 "\\sans</code>, and <code>\\typewriter</code> respectively. You should also "
@@ -372,53 +367,51 @@ msgstr ""
 "określić domyślny rozmiar pięciolinii (staff size) jaki zostanie użyty w "
 "dokumencie (domyślnie 20)."
 
-#: frescobaldi_app/globalfontdialog.py:76
+#: ../globalfontdialog.py:76
 msgid "Roman Font:"
 msgstr "Czcionka typu roman:"
 
-#: frescobaldi_app/globalfontdialog.py:77
+#: ../globalfontdialog.py:77
 msgid "Sans Font:"
 msgstr "Czcionka sans:"
 
-#: frescobaldi_app/globalfontdialog.py:78
+#: ../globalfontdialog.py:78
 msgid "Typewriter Font:"
 msgstr "Czcionka maszynowa:"
 
-#: frescobaldi_app/globalfontdialog.py:79
+#: ../globalfontdialog.py:79
 msgid "Staff Size:"
 msgstr "Rozmiar pięciolinii:"
 
-#: frescobaldi_app/hyphendialog.py:114
+#: ../hyphendialog.py:114
 msgid "Hyphenate Lyrics Text"
 msgstr "Rozdziel tekst myślnikami"
 
-#: frescobaldi_app/hyphendialog.py:115
+#: ../hyphendialog.py:115
 msgid "Please select a language:"
 msgstr "Proszę wybrać język:"
 
-#: frescobaldi_app/hyphendialog.py:157 frescobaldi_app/hyphendialog.py:166
+#: ../hyphendialog.py:157 ../hyphendialog.py:166
 msgid "Lyrics"
 msgstr "Słowa:"
 
-#: frescobaldi_app/hyphendialog.py:166 frescobaldi_app/pitch/pitch.py:744
-#: frescobaldi_app/rhythm/rhythm.py:279 frescobaldi_app/scorewiz/dialog.py:194
+#: ../hyphendialog.py:166 ../pitch/pitch.py:744 ../rhythm/rhythm.py:279
+#: ../scorewiz/dialog.py:194
 msgctxt "menu title"
 msgid "Tools"
 msgstr "Narzędzia"
 
-#: frescobaldi_app/hyphendialog.py:167 frescobaldi_app/help/contents.py:138
-#: frescobaldi_app/help/contents.py:145
+#: ../hyphendialog.py:167 ../help/contents.py:138 ../help/contents.py:145
 msgctxt "menu title"
 msgid "Edit"
 msgstr "Edytuj"
 
-#: frescobaldi_app/hyphendialog.py:167 frescobaldi_app/help/contents.py:139
-#: frescobaldi_app/preferences/__init__.py:100
-#: frescobaldi_app/preferences/midi.py:134
+#: ../hyphendialog.py:167 ../help/contents.py:139
+#: ../preferences/__init__.py:100 ../preferences/midi.py:134
 msgid "Preferences"
 msgstr "Preferencje"
 
-#: frescobaldi_app/hyphendialog.py:169
+#: ../hyphendialog.py:169
 msgid ""
 "<p>\n"
 "Frescobaldi can automatically place hyphens '{hyphen}' inside texts to make\n"
@@ -452,100 +445,100 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: frescobaldi_app/inputdialog.py:101
+#: ../inputdialog.py:101
 msgid "Select Color"
 msgstr "Wybierz kolor"
 
-#: frescobaldi_app/job.py:239
+#: ../job.py:239
 msgid "Starting {job}..."
 msgstr "Rozpoczynanie {job}..."
 
-#: frescobaldi_app/job.py:244
+#: ../job.py:244
 msgid "Aborting {job}..."
 msgstr "Przerywanie {job}..."
 
-#: frescobaldi_app/job.py:250
+#: ../job.py:250
 msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
 msgstr ""
 "Nie można uruchomić {program}. Należy sprawdzić scieżkę oraz uprawnienia."
 
-#: frescobaldi_app/job.py:253
+#: ../job.py:253
 msgid "Could not read from the process."
 msgstr "Nie można odczytać z tego procesu."
 
-#: frescobaldi_app/job.py:255
+#: ../job.py:255
 msgid "An unknown error occured."
 msgstr "Pojawił się nieznany błąd."
 
-#: frescobaldi_app/job.py:260
+#: ../job.py:260
 msgid "Exited with return code {code}."
 msgstr "Zakończono z kodem zwrotnym {code}."
 
-#: frescobaldi_app/job.py:262
+#: ../job.py:262
 msgid "Exited with exit status {status}."
 msgstr "Zakończono ze statusem wyjściowym {status}."
 
-#: frescobaldi_app/job.py:265
+#: ../job.py:265
 msgid "Completed successfully in {time}."
 msgstr "Zakończono pomyślnie w {time}."
 
-#: frescobaldi_app/lyrics.py:132
+#: ../lyrics.py:132
 msgid "&Hyphenate Lyrics Text..."
 msgstr "Rozdziel tekst myślnikami..."
 
-#: frescobaldi_app/lyrics.py:133
+#: ../lyrics.py:133
 msgid "&Remove hyphenation"
 msgstr "Usuń rozdzielenie tekstu myślnikami"
 
-#: frescobaldi_app/lyrics.py:134
+#: ../lyrics.py:134
 msgid "&Copy Lyrics with hyphenation removed"
 msgstr "Skopiuj słowa bez podziału wyrazów"
 
-#: frescobaldi_app/main.py:57
+#: ../main.py:57
 msgid "{appname} [options] file ..."
 msgstr "{appname} [opcje] plik..."
 
-#: frescobaldi_app/main.py:60
+#: ../main.py:60
 msgid "ENC"
 msgstr "ENC"
 
-#: frescobaldi_app/main.py:61
+#: ../main.py:61
 msgid "Encoding to use"
 msgstr "Używane kodowanie"
 
-#: frescobaldi_app/main.py:62 frescobaldi_app/main.py:64
+#: ../main.py:62 ../main.py:64
 msgid "NUM"
 msgstr ""
 
-#: frescobaldi_app/main.py:63
+#: ../main.py:63
 msgid "Line number to go to, starting at 1"
 msgstr "Do której linii dojść, zaczynając w 1"
 
-#: frescobaldi_app/main.py:65
+#: ../main.py:65
 msgid "Column to go to, starting at 0"
 msgstr "Do której kolumny dojść, zaczynając w 0"
 
-#: frescobaldi_app/main.py:66
+#: ../main.py:66
 msgid "NAME"
 msgstr "NAZWA"
 
-#: frescobaldi_app/main.py:67
+#: ../main.py:67
 msgid "Session to start ('{none}' for empty session)"
 msgstr "Sesja startowa ('{none}' w przypadku pustej)"
 
 #. L10N: state of document in window titlebar
-#: frescobaldi_app/mainwindow.py:225
+#: ../mainwindow.py:225
 msgid "[modified]"
 msgstr "[zmieniony]"
 
-#: frescobaldi_app/mainwindow.py:268
+#: ../mainwindow.py:268
 msgctxt "dialog title"
 msgid "Close Document"
 msgstr "Zamknij dokument"
 
-#: frescobaldi_app/mainwindow.py:269
+#: ../mainwindow.py:269
 msgid ""
 "The document \"{name}\" has been modified.\n"
 "Do you want to save your changes or discard them?"
@@ -553,18 +546,16 @@ msgstr ""
 "Dokument \"{name}\" został zmodyfikowany.\n"
 "Czy chcesz zachować zmiany, czy porzucić je?"
 
-#: frescobaldi_app/mainwindow.py:281
+#: ../mainwindow.py:281
 msgid "Tab Bar"
 msgstr "Pasek zakładek"
 
-#: frescobaldi_app/mainwindow.py:338 frescobaldi_app/popplerprint.py:53
-#: frescobaldi_app/sessions/dialog.py:165
-#: frescobaldi_app/sessions/dialog.py:173
-#: frescobaldi_app/sessions/dialog.py:179
+#: ../mainwindow.py:338 ../popplerprint.py:53 ../sessions/dialog.py:165
+#: ../sessions/dialog.py:173 ../sessions/dialog.py:179
 msgid "Warning"
 msgstr "Ostrzeżenie"
 
-#: frescobaldi_app/mainwindow.py:339
+#: ../mainwindow.py:339
 msgid ""
 "Can't load non-local document:\n"
 "\n"
@@ -574,25 +565,21 @@ msgstr ""
 "\n"
 "{url} "
 
-#: frescobaldi_app/mainwindow.py:370
+#: ../mainwindow.py:370
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Otwórz plik"
 
 #. L10N: a basic type of input in the editor
-#: frescobaldi_app/mainwindow.py:389 frescobaldi_app/mainwindow.py:395
-#: frescobaldi_app/mainwindow.py:420 frescobaldi_app/mainwindow.py:471
-#: frescobaldi_app/mainwindow.py:539 frescobaldi_app/mainwindow.py:598
-#: frescobaldi_app/musicview/image.py:213
-#: frescobaldi_app/preferences/fontscolors.py:476
-#: frescobaldi_app/preferences/fontscolors.py:514
-#: frescobaldi_app/snippet/import_export.py:104
-#: frescobaldi_app/snippet/widget.py:292
+#: ../mainwindow.py:389 ../mainwindow.py:395 ../mainwindow.py:420
+#: ../mainwindow.py:471 ../mainwindow.py:539 ../mainwindow.py:598
+#: ../musicview/image.py:213 ../preferences/fontscolors.py:476
+#: ../preferences/fontscolors.py:514 ../snippet/import_export.py:104
+#: ../snippet/widget.py:292
 msgid "Error"
 msgstr "Błąd"
 
-#: frescobaldi_app/mainwindow.py:390 frescobaldi_app/mainwindow.py:396
-#: frescobaldi_app/mainwindow.py:421
+#: ../mainwindow.py:390 ../mainwindow.py:396 ../mainwindow.py:421
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -602,23 +589,22 @@ msgstr ""
 "\n"
 "{url}"
 
-#: frescobaldi_app/mainwindow.py:415
+#: ../mainwindow.py:415
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "Zapisz plik"
 
-#: frescobaldi_app/mainwindow.py:455
+#: ../mainwindow.py:455
 msgctxt "dialog title"
 msgid "Save Copy"
 msgstr "Zapisz kopię"
 
-#: frescobaldi_app/mainwindow.py:461
+#: ../mainwindow.py:461
 msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Zapisz zaznaczenie"
 
-#: frescobaldi_app/mainwindow.py:472 frescobaldi_app/mainwindow.py:599
-#: frescobaldi_app/snippet/widget.py:293
+#: ../mainwindow.py:472 ../mainwindow.py:599 ../snippet/widget.py:293
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -632,13 +618,12 @@ msgstr ""
 "\n"
 "{error}"
 
-#: frescobaldi_app/mainwindow.py:532
+#: ../mainwindow.py:532
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Wklej z pliku"
 
-#: frescobaldi_app/mainwindow.py:540
-#: frescobaldi_app/snippet/import_export.py:105
+#: ../mainwindow.py:540 ../snippet/import_export.py:105
 msgid ""
 "Can't read from source:\n"
 "\n"
@@ -652,16 +637,16 @@ msgstr ""
 "\n"
 "{error}"
 
-#: frescobaldi_app/mainwindow.py:556
+#: ../mainwindow.py:556
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Drukuj źródło"
 
-#: frescobaldi_app/mainwindow.py:589
+#: ../mainwindow.py:589
 msgid "Export as HTML"
 msgstr "Eksportuj jako HTML"
 
-#: frescobaldi_app/mainwindow.py:710
+#: ../mainwindow.py:710
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -673,252 +658,252 @@ msgstr ""
 "\n"
 "\n"
 
-#: frescobaldi_app/mainwindow.py:818
+#: ../mainwindow.py:818
 msgid "Main Toolbar"
 msgstr "Główny pasek narzędzi"
 
-#: frescobaldi_app/mainwindow.py:819
+#: ../mainwindow.py:819
 msgid "Music View Toolbar"
 msgstr "Pasek narzędziowy okna partytury"
 
-#: frescobaldi_app/mainwindow.py:947
+#: ../mainwindow.py:947
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nowy"
 
-#: frescobaldi_app/mainwindow.py:948
+#: ../mainwindow.py:948
 msgid "&Open..."
 msgstr "&Otwórz..."
 
-#: frescobaldi_app/mainwindow.py:949
+#: ../mainwindow.py:949
 msgid "Open &Recent"
 msgstr "Otwórz o&statni"
 
-#: frescobaldi_app/mainwindow.py:950
+#: ../mainwindow.py:950
 msgid "Insert from &File..."
 msgstr "Wstaw z &pliku..."
 
-#: frescobaldi_app/mainwindow.py:951
+#: ../mainwindow.py:951
 msgid "Open Current Directory"
 msgstr "Otwórz obecny folder"
 
-#: frescobaldi_app/mainwindow.py:952
+#: ../mainwindow.py:952
 msgid "Open Command Prompt"
 msgstr "Otwórz wiersz poleceń"
 
-#: frescobaldi_app/mainwindow.py:955
+#: ../mainwindow.py:955
 msgid "Save Copy or Selection As..."
 msgstr "Zapisz kopię lub zaznaczenie jako..."
 
-#: frescobaldi_app/mainwindow.py:956
+#: ../mainwindow.py:956
 msgid "Save All"
 msgstr "Zapisz wszystko"
 
-#: frescobaldi_app/mainwindow.py:957
+#: ../mainwindow.py:957
 msgid "Print Source..."
 msgstr "Drukuj źródło..."
 
-#: frescobaldi_app/mainwindow.py:959
+#: ../mainwindow.py:959
 msgid "Close Other Documents"
 msgstr "Zamknij inne dokumenty"
 
-#: frescobaldi_app/mainwindow.py:960
+#: ../mainwindow.py:960
 msgid "Close All Documents"
 msgstr "Zamknij wszystkie dokumenty"
 
-#: frescobaldi_app/mainwindow.py:961
+#: ../mainwindow.py:961
 msgid "Closes all documents and leaves the current session."
 msgstr "Zamyka wszystkie dokumenty i pozostawia bieżącą sesję."
 
-#: frescobaldi_app/mainwindow.py:962
+#: ../mainwindow.py:962
 msgid "&Quit"
 msgstr "&Za&kończ"
 
-#: frescobaldi_app/mainwindow.py:964
+#: ../mainwindow.py:964
 msgid "Export Source as Colored &HTML..."
 msgstr "Eksportuj plik źródłowy jako kolorowy &HTML..."
 
-#: frescobaldi_app/mainwindow.py:966
+#: ../mainwindow.py:966
 msgid "&Undo"
 msgstr "&Cofnij"
 
-#: frescobaldi_app/mainwindow.py:967
+#: ../mainwindow.py:967
 msgid "Re&do"
 msgstr "Ponów"
 
-#: frescobaldi_app/mainwindow.py:968
+#: ../mainwindow.py:968
 msgid "Cu&t"
 msgstr "Wytnij"
 
-#: frescobaldi_app/mainwindow.py:969 frescobaldi_app/docbrowser/browser.py:248
+#: ../mainwindow.py:969 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "S&kopiuj"
 
-#: frescobaldi_app/mainwindow.py:970
+#: ../mainwindow.py:970
 msgid "Copy as Colored &HTML"
 msgstr "Skopiuj jako kolorowy &HTML"
 
-#: frescobaldi_app/mainwindow.py:971
+#: ../mainwindow.py:971
 msgid "&Paste"
 msgstr "&Wklej"
 
-#: frescobaldi_app/mainwindow.py:972
+#: ../mainwindow.py:972
 msgid "Select &All"
 msgstr "Zaznacz wszystko"
 
-#: frescobaldi_app/mainwindow.py:973
+#: ../mainwindow.py:973
 msgid "Select &Block"
 msgstr "Zaznacz odcinek"
 
-#: frescobaldi_app/mainwindow.py:974
+#: ../mainwindow.py:974
 msgid "Select &None"
 msgstr "Nie zaznaczaj żadnego"
 
-#: frescobaldi_app/mainwindow.py:975
+#: ../mainwindow.py:975
 msgid "Select Whole Lines Up"
 msgstr "Zaznacz linie powyżej"
 
-#: frescobaldi_app/mainwindow.py:976
+#: ../mainwindow.py:976
 msgid "Select Whole Lines Down"
 msgstr "Zaznacz linie poniżej"
 
-#: frescobaldi_app/mainwindow.py:977
+#: ../mainwindow.py:977
 msgid "&Find..."
 msgstr "&Znajdź..."
 
-#: frescobaldi_app/mainwindow.py:978
+#: ../mainwindow.py:978
 msgid "Find Ne&xt"
 msgstr "Znajdź następny"
 
-#: frescobaldi_app/mainwindow.py:979
+#: ../mainwindow.py:979
 msgid "Find Pre&vious"
 msgstr "Znajdź poprzedni"
 
-#: frescobaldi_app/mainwindow.py:980
+#: ../mainwindow.py:980
 msgid "&Replace..."
 msgstr "Zastąp..."
 
-#: frescobaldi_app/mainwindow.py:981
+#: ../mainwindow.py:981
 msgid "Pr&eferences..."
 msgstr "Pr&eferencje..."
 
-#: frescobaldi_app/mainwindow.py:983
+#: ../mainwindow.py:983
 msgid "&Next Document"
 msgstr "&Następny dokument "
 
-#: frescobaldi_app/mainwindow.py:984
+#: ../mainwindow.py:984
 msgid "&Previous Document"
 msgstr "&Poprzedni dokument"
 
-#: frescobaldi_app/mainwindow.py:985
+#: ../mainwindow.py:985
 msgid "Scroll Up"
 msgstr "Przewiń do góry"
 
-#: frescobaldi_app/mainwindow.py:986
+#: ../mainwindow.py:986
 msgid "Scroll Down"
 msgstr "Przewiń na dół"
 
-#: frescobaldi_app/mainwindow.py:988
+#: ../mainwindow.py:988
 msgid "New &Window"
 msgstr "Nowe &okno"
 
-#: frescobaldi_app/mainwindow.py:989
+#: ../mainwindow.py:989
 msgid "&Fullscreen"
 msgstr "Pełen &ekran"
 
-#: frescobaldi_app/mainwindow.py:991
+#: ../mainwindow.py:991
 msgid "&User Guide"
 msgstr "Podręcznik &użytkownika"
 
-#: frescobaldi_app/mainwindow.py:992
+#: ../mainwindow.py:992
 msgid "&What's This?"
 msgstr "&Co to jest?"
 
-#: frescobaldi_app/mainwindow.py:993
+#: ../mainwindow.py:993
 msgid "Report a &Bug..."
 msgstr "Raportowanie &błędów..."
 
-#: frescobaldi_app/mainwindow.py:994
+#: ../mainwindow.py:994
 msgid "&About {appname}..."
 msgstr "O p&rogramie {appname}..."
 
-#: frescobaldi_app/menu.py:82
+#: ../menu.py:82
 msgctxt "menu title"
 msgid "&File"
 msgstr "&Plik"
 
-#: frescobaldi_app/menu.py:113
+#: ../menu.py:113
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Eksportuj"
 
-#: frescobaldi_app/menu.py:121
+#: ../menu.py:121
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "&Edycja"
 
-#: frescobaldi_app/menu.py:148
+#: ../menu.py:148
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Widok "
 
-#: frescobaldi_app/menu.py:172
+#: ../menu.py:172
 msgctxt "submenu title"
 msgid "Music &View"
 msgstr "Okno &partytury"
 
-#: frescobaldi_app/menu.py:191
+#: ../menu.py:191
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: frescobaldi_app/menu.py:210
+#: ../menu.py:210
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Narzędzia"
 
-#: frescobaldi_app/menu.py:236
+#: ../menu.py:236
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Tekst"
 
-#: frescobaldi_app/menu.py:248
+#: ../menu.py:248
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Dźwięk"
 
-#: frescobaldi_app/menu.py:262
+#: ../menu.py:262
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Rytm"
 
-#: frescobaldi_app/menu.py:290
+#: ../menu.py:290
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Okno"
 
-#: frescobaldi_app/menu.py:310
+#: ../menu.py:310
 msgctxt "menu title"
 msgid "&Help"
 msgstr "Pomo&c"
 
-#: frescobaldi_app/musicpreview.py:113
+#: ../musicpreview.py:113
 msgid "Document:"
 msgstr "Dokument: "
 
-#: frescobaldi_app/musicpreview.py:195
+#: ../musicpreview.py:195
 msgid "&Print"
 msgstr "Wydrukuj"
 
-#: frescobaldi_app/musicpreview.py:196
+#: ../musicpreview.py:196
 msgid "Music Preview"
 msgstr "Podgląd partytury"
 
-#: frescobaldi_app/popplerdummy.py:42
+#: ../popplerdummy.py:42
 msgid "Could not load the {name} module."
 msgstr "Nie można wczytać modułu {name}"
 
-#: frescobaldi_app/popplerprint.py:54
+#: ../popplerprint.py:54
 msgid ""
 "No print command to print a PostScript file could be found.\n"
 "\n"
@@ -935,282 +920,302 @@ msgstr ""
 "\n"
 "Kontynuować?"
 
-#: frescobaldi_app/popplerprint.py:61
+#: ../popplerprint.py:61
 msgid "PDF Document"
 msgstr "Dokument PDF"
 
-#: frescobaldi_app/popplerprint.py:69
+#: ../popplerprint.py:69
 msgid "Print {filename}"
 msgstr "Wydrukuj {filename}"
 
-#: frescobaldi_app/popplerprint.py:87 frescobaldi_app/popplerprint.py:116
+#: ../popplerprint.py:87 ../popplerprint.py:116
 msgid "Printing Error"
 msgstr "Błąd drukowania"
 
-#: frescobaldi_app/popplerprint.py:88 frescobaldi_app/popplerprint.py:117
+#: ../popplerprint.py:88 ../popplerprint.py:117
 msgid "Could not send the document to the printer."
 msgstr "Nie można wysłać tego dokumentu do drukarki."
 
-#: frescobaldi_app/popplerprint.py:108
+#: ../popplerprint.py:108
 msgid "Printing page {page} ({num} of {total})..."
 msgstr "Drukowanie strony {page} ({num} z {total})..."
 
-#: frescobaldi_app/search.py:100
+#: ../search.py:100
 msgid "Search:"
 msgstr "Szukaj:"
 
-#: frescobaldi_app/search.py:101
+#: ../search.py:101
 #, fuzzy
 msgid "&Case"
 msgstr "Pauza"
 
-#: frescobaldi_app/search.py:102
+#: ../search.py:102
 msgid "Case Sensitive"
 msgstr "Uwzględniaj wielkość liter"
 
-#: frescobaldi_app/search.py:103
+#: ../search.py:103
 msgid "&Regex"
 msgstr "&Regex"
 
-#: frescobaldi_app/search.py:104
+#: ../search.py:104
 msgid "Regular Expression"
 msgstr "Wyrażenia regularne"
 
-#: frescobaldi_app/search.py:105
+#: ../search.py:105
 msgid "The total number of matches"
 msgstr "Całkowita liczba dopasowań"
 
-#: frescobaldi_app/search.py:106
+#: ../search.py:106
 msgid "Close"
 msgstr "Zamknij"
 
-#: frescobaldi_app/search.py:107
+#: ../search.py:107
 msgid "Replace:"
 msgstr "Zastąp:"
 
-#: frescobaldi_app/search.py:108
+#: ../search.py:108
 msgid "Re&place"
 msgstr "Zastąp"
 
-#: frescobaldi_app/search.py:109
+#: ../search.py:109
 msgid "Replaces the next occurrence of the search term."
 msgstr "Zastępuje następne wystąpienie szukanego terminu."
 
-#: frescobaldi_app/search.py:110
+#: ../search.py:110
 msgid "&All"
 msgstr "Wszystko"
 
-#: frescobaldi_app/search.py:111
+#: ../search.py:111
 msgid ""
 "Replaces all occurrences of the search term in the document or selection."
 msgstr ""
 "Zastępuje wszystkie wystąpienia szukanego terminu w tym dokumencie lub "
 "zaznaczeniu."
 
-#: frescobaldi_app/viewmanager.py:66 frescobaldi_app/viewmanager.py:214
+#: ../viewmanager.py:66 ../viewmanager.py:214
 msgid "Line: {line}, Col: {column}"
 msgstr "Linia: {line}, kolumna: {column}"
 
-#: frescobaldi_app/viewmanager.py:84 frescobaldi_app/viewmanager.py:446
+#: ../viewmanager.py:84 ../viewmanager.py:446
 msgid "Split &Horizontally"
 msgstr "Podziel poziomo"
 
-#: frescobaldi_app/viewmanager.py:87 frescobaldi_app/viewmanager.py:447
+#: ../viewmanager.py:87 ../viewmanager.py:447
 msgid "Split &Vertically"
 msgstr "Podziel pionowo"
 
-#: frescobaldi_app/viewmanager.py:91
+#: ../viewmanager.py:91
 msgid "&Close View"
 msgstr "Zamnkij okno"
 
-#: frescobaldi_app/viewmanager.py:448
+#: ../viewmanager.py:448
 msgid "&Close Current View"
 msgstr "Zamknij bieżące okno"
 
-#: frescobaldi_app/viewmanager.py:449
+#: ../viewmanager.py:449
 msgid "Close &Other Views"
 msgstr "Zamknij inne &okna"
 
-#: frescobaldi_app/viewmanager.py:450
+#: ../viewmanager.py:450
 msgid "&Next View"
 msgstr "&Następne okno"
 
-#: frescobaldi_app/viewmanager.py:451
+#: ../viewmanager.py:451
 msgid "&Previous View"
 msgstr "&Poprzedni okno"
 
-#: frescobaldi_app/autocomplete/__init__.py:79
+#: ../autocomplete/__init__.py:79
 msgid "Automatic &Completion"
 msgstr "Automatyczne &uzupełnianie"
 
-#: frescobaldi_app/autocomplete/__init__.py:80
+#: ../autocomplete/__init__.py:80
 msgid "Show C&ompletions Popup"
 msgstr "Pokaż okno podręczne uzupełniania"
 
-#: frescobaldi_app/charmap/__init__.py:40
-#: frescobaldi_app/preferences/tools.py:186
+#: ../charmap/__init__.py:40 ../preferences/tools.py:186
 msgid "Special Characters"
 msgstr "Znaki specjalne"
 
-#: frescobaldi_app/charmap/__init__.py:41
+#: ../charmap/__init__.py:41
 msgid "Special Charac&ters"
 msgstr "Znaki &specjalne."
 
-#: frescobaldi_app/docbrowser/__init__.py:46
-#: frescobaldi_app/docbrowser/__init__.py:62
-#: frescobaldi_app/preferences/documentation.py:122
+#: ../docbrowser/__init__.py:46 ../docbrowser/__init__.py:62
+#: ../preferences/documentation.py:122
 msgid "Documentation Browser"
 msgstr "Przeglądarka dokumentacji"
 
-#: frescobaldi_app/docbrowser/__init__.py:47
+#: ../docbrowser/__init__.py:47
 msgid "&Documentation Browser"
 msgstr "Przeglądarka &dokumentacji"
 
-#: frescobaldi_app/docbrowser/__init__.py:82
-#: frescobaldi_app/help/browser.py:78
+#: ../docbrowser/__init__.py:82 ../help/browser.py:78
 msgid "Back"
 msgstr "Wstecz"
 
-#: frescobaldi_app/docbrowser/__init__.py:83
-#: frescobaldi_app/help/browser.py:79
+#: ../docbrowser/__init__.py:83 ../help/browser.py:79
 msgid "Forward"
 msgstr "Naprzód"
 
 #. L10N: Home page of the LilyPond manual
-#: frescobaldi_app/docbrowser/__init__.py:85
+#: ../docbrowser/__init__.py:85
 msgid "Home"
 msgstr "Home"
 
-#: frescobaldi_app/docbrowser/__init__.py:86
+#: ../docbrowser/__init__.py:86
 msgid "Print..."
 msgstr "Wydrukuj..."
 
-#: frescobaldi_app/docbrowser/__init__.py:87
+#: ../docbrowser/__init__.py:87
 msgid "&LilyPond Documentation"
 msgstr "Dokumentacja &LilyPonda"
 
-#: frescobaldi_app/docbrowser/__init__.py:88
+#: ../docbrowser/__init__.py:88
 msgid "&Contextual LilyPond Help"
 msgstr "&Kontekstowa pomoc LilyPonda"
 
-#: frescobaldi_app/docbrowser/browser.py:115
-#: frescobaldi_app/snippet/widget.py:168
+#: ../docbrowser/browser.py:115 ../snippet/widget.py:168
 msgid "Search..."
 msgstr "Szukaj..."
 
-#: frescobaldi_app/docbrowser/browser.py:155
+#: ../docbrowser/browser.py:155
 msgid "(local)"
 msgstr "(lokalny)"
 
-#: frescobaldi_app/docbrowser/browser.py:157
+#: ../docbrowser/browser.py:157
 msgid "({hostname})"
 msgstr "({hostname})"
 
-#: frescobaldi_app/docbrowser/browser.py:229
-#: frescobaldi_app/help/browser.py:82 frescobaldi_app/help/browser.py:113
+#: ../docbrowser/browser.py:229 ../help/browser.py:82 ../help/browser.py:113
 msgid "Print"
 msgstr "Wydrukuj"
 
-#: frescobaldi_app/docbrowser/browser.py:239
+#: ../docbrowser/browser.py:239
 msgid "Copy &Link"
 msgstr "Skopiuj &odnośnik"
 
-#: frescobaldi_app/docbrowser/browser.py:242
+#: ../docbrowser/browser.py:242
 msgid "Open Link in &New Window"
 msgstr "Otwórz Odnośnik w &Nowym Oknie"
 
-#: frescobaldi_app/docbrowser/browser.py:251
+#: ../docbrowser/browser.py:251
 msgid "Open Document in &New Window"
 msgstr "Otwórz Dokument w &Nowym Oknie"
 
-#: frescobaldi_app/docbrowser/sourceviewer.py:59
+#: ../docbrowser/sourceviewer.py:59
 msgid "LilyPond Source"
 msgstr "Dokument źródłowy LilyPond "
 
-#: frescobaldi_app/doclist/__init__.py:39
-#: frescobaldi_app/preferences/tools.py:219
+#: ../doclist/__init__.py:39 ../preferences/tools.py:219
 msgid "Documents"
 msgstr "Dokumenty"
 
-#: frescobaldi_app/doclist/__init__.py:40
+#: ../doclist/__init__.py:40
 msgid "Docum&ents"
 msgstr "Dokum&enty"
 
-#: frescobaldi_app/engrave/__init__.py:177
+#: ../doclist/widget.py:182
+#, fuzzy
+msgid "Save selected documents"
+msgstr "Zapisz zaznaczenie"
+
+#: ../doclist/widget.py:183
+#, fuzzy
+msgid "Close selected documents"
+msgstr "Zamknij inne dokumenty"
+
+#: ../doclist/widget.py:189
+#, fuzzy
+msgid "Save documents in this folder"
+msgstr "Zapisz dokument jeśli to możliwe"
+
+#: ../doclist/widget.py:190
+msgid "Close documents in this folder"
+msgstr ""
+
+#: ../doclist/widget.py:193
+#, fuzzy
+msgid "Save all untitled documents"
+msgstr "Wyślij dokumenty e-mailem"
+
+#: ../doclist/widget.py:194
+#, fuzzy
+msgid "Close all untitled documents"
+msgstr "Zamknij wszystkie dokumenty"
+
+#: ../engrave/__init__.py:177
 msgid "&Always Engrave [{docname}]"
 msgstr "Z&awsze rysuj [{docname}]"
 
-#: frescobaldi_app/engrave/__init__.py:179
+#: ../engrave/__init__.py:179
 msgid "&Always Engrave This Document"
 msgstr "Z&awsze rysuj ten dokument"
 
-#: frescobaldi_app/engrave/__init__.py:208
+#: ../engrave/__init__.py:208
 msgid "Engrave"
 msgstr "Narysuj"
 
-#: frescobaldi_app/engrave/__init__.py:209
+#: ../engrave/__init__.py:209
 msgid "&Engrave (preview)"
 msgstr "Podgląd partytury"
 
-#: frescobaldi_app/engrave/__init__.py:210
+#: ../engrave/__init__.py:210
 msgid "Engrave (&publish)"
 msgstr "Narysuj (&publikacja)"
 
-#: frescobaldi_app/engrave/__init__.py:211
+#: ../engrave/__init__.py:211
 msgid "Engrave (&custom)..."
 msgstr "Narysuj (&użytkownik)..."
 
-#: frescobaldi_app/engrave/__init__.py:212
+#: ../engrave/__init__.py:212
 msgid "Abort Engraving &Job"
 msgstr "Porzuć rysowanie"
 
-#: frescobaldi_app/engrave/custom.py:123 frescobaldi_app/engrave/custom.py:214
+#: ../engrave/custom.py:123 ../engrave/custom.py:214
 msgid "Engrave custom"
 msgstr "Rysowanie zdefiniowane przez użytkownika"
 
-#: frescobaldi_app/engrave/custom.py:124
+#: ../engrave/custom.py:124
 msgid "LilyPond Version:"
 msgstr "Wersja LilyPonda:"
 
-#: frescobaldi_app/engrave/custom.py:125
+#: ../engrave/custom.py:125
 msgid "Output Format:"
 msgstr "Format wyjściowy:"
 
-#: frescobaldi_app/engrave/custom.py:126
+#: ../engrave/custom.py:126
 msgid "Resolution:"
 msgstr "Rozdzielczość:"
 
-#: frescobaldi_app/engrave/custom.py:128
+#: ../engrave/custom.py:128
 msgid "Run LilyPond in preview mode (with Point and Click)"
 msgstr "Uruchom LilyPonda w trybie podglądu (z funkcją Point and Click)"
 
-#: frescobaldi_app/engrave/custom.py:129
+#: ../engrave/custom.py:129
 msgid "Run LilyPond with verbose output"
 msgstr "Uruchom LilyPonda z wyświetlaniem szczegółów"
 
-#: frescobaldi_app/engrave/custom.py:130
-#: frescobaldi_app/preferences/lilypond.py:289
+#: ../engrave/custom.py:130 ../preferences/lilypond.py:289
 msgid "Run LilyPond with English messages"
 msgstr "Uruchom LilyPonda z wyświetlaniem komunikatów po angielsku"
 
-#: frescobaldi_app/engrave/custom.py:131
-#: frescobaldi_app/preferences/lilypond.py:286
+#: ../engrave/custom.py:131 ../preferences/lilypond.py:286
 msgid "Delete intermediate output files"
 msgstr "Usuwaj wynikowe pliki pośrednie"
 
-#: frescobaldi_app/engrave/custom.py:132
+#: ../engrave/custom.py:132
 msgid "Command line:"
 msgstr "Wiersz poleceń"
 
-#: frescobaldi_app/engrave/custom.py:133
+#: ../engrave/custom.py:133
 msgid "Run LilyPond"
 msgstr "Uruchom LilyPonda"
 
-#: frescobaldi_app/engrave/custom.py:155
+#: ../engrave/custom.py:155
 msgid "LilyPond {version}"
 msgstr "LilyPonda {version}"
 
-#: frescobaldi_app/engrave/custom.py:218
+#: ../engrave/custom.py:218
 msgid ""
 "In this dialog you can set some parameters for the LilyPond command to be "
 "used\n"
@@ -1221,89 +1226,88 @@ msgstr ""
 "które zostaną użyte podczas tworzenia partytury.\n"
 "Można także edytować komendę w wierszu poleceń.\n"
 
-#: frescobaldi_app/engrave/custom.py:223
+#: ../engrave/custom.py:223
 msgid "The following replacements will be made:"
 msgstr "Zostaną dokonane następujące zamiany:"
 
-#: frescobaldi_app/engrave/custom.py:226
+#: ../engrave/custom.py:226
 msgid "The LilyPond executable"
 msgstr "Plik wykonywalny LilyPonda "
 
-#: frescobaldi_app/engrave/custom.py:227
+#: ../engrave/custom.py:227
 msgid "All the include paths"
 msgstr "Wszystkie zawarte ścieżki"
 
-#: frescobaldi_app/engrave/custom.py:228
+#: ../engrave/custom.py:228
 msgid "The filename of the document"
 msgstr "Nazwa pliku tego dokumentu"
 
-#: frescobaldi_app/engrave/custom.py:241
+#: ../engrave/custom.py:241
 msgid "PDF"
 msgstr "PDF"
 
-#: frescobaldi_app/engrave/custom.py:247
+#: ../engrave/custom.py:247
 msgid "PostScript"
 msgstr "PostScript"
 
-#: frescobaldi_app/engrave/custom.py:253
+#: ../engrave/custom.py:253
 msgid "PNG"
 msgstr "PNG"
 
-#: frescobaldi_app/engrave/custom.py:259
+#: ../engrave/custom.py:259
 msgid "SVG"
 msgstr "SVG"
 
-#: frescobaldi_app/engrave/custom.py:265
+#: ../engrave/custom.py:265
 msgid "PDF (EPS Backend)"
 msgstr "PDF (moduł przetwarzający EPS)"
 
-#: frescobaldi_app/engrave/custom.py:271
+#: ../engrave/custom.py:271
 msgid "Encapsulated PostScript (EPS Backend)"
 msgstr "Encapsulated PostScript (moduł przetwarzający EPS)"
 
-#: frescobaldi_app/engrave/custom.py:277
+#: ../engrave/custom.py:277
 msgid "PNG (EPS Backend)"
 msgstr "PNG (moduł przetwarzający EPS)"
 
-#: frescobaldi_app/engrave/result_menu.py:45
+#: ../engrave/result_menu.py:45
 msgid "Generated &Files"
 msgstr "Wygenerowane &pliki"
 
-#: frescobaldi_app/engrave/result_menu.py:66
+#: ../engrave/result_menu.py:66
 msgid "No files available"
 msgstr "Brak dostępnych plików"
 
-#: frescobaldi_app/help/browser.py:77
+#: ../help/browser.py:77
 msgid "Toolbar"
 msgstr "Pasek narzędziowy"
 
-#: frescobaldi_app/help/browser.py:80
+#: ../help/browser.py:80
 msgid "Start"
 msgstr "Rozpocznij"
 
-#: frescobaldi_app/help/browser.py:81
+#: ../help/browser.py:81
 msgid "Contents"
 msgstr "Treść"
 
-#: frescobaldi_app/help/browser.py:88 frescobaldi_app/help/browser.py:89
-#: frescobaldi_app/help/contents.py:69
-#: frescobaldi_app/quickinsert/widget.py:106
+#: ../help/browser.py:88 ../help/browser.py:89 ../help/contents.py:69
+#: ../quickinsert/widget.py:106
 msgid "Help"
 msgstr "Pomoc"
 
-#: frescobaldi_app/help/contents.py:37
+#: ../help/contents.py:37
 msgid "No Help"
 msgstr "Brak pomocy"
 
-#: frescobaldi_app/help/contents.py:40
+#: ../help/contents.py:40
 msgid "No help has been found on this topic."
 msgstr "Brak pomocy dla tego tematu."
 
-#: frescobaldi_app/help/contents.py:46
+#: ../help/contents.py:46
 msgid "Frescobaldi Manual"
 msgstr "Podręcznik programu Frescobaldi"
 
-#: frescobaldi_app/help/contents.py:49
+#: ../help/contents.py:49
 msgid ""
 "<p>\n"
 "Frescobaldi is a light-weight, but powerful editor for LilyPond music "
@@ -1318,7 +1322,7 @@ msgstr ""
 "Podręcznik ten napisał {author}, wersja {version} dokumentacji {appname}.\n"
 "</p>\n"
 
-#: frescobaldi_app/help/contents.py:59
+#: ../help/contents.py:59
 msgid ""
 "<h3>How to get help inside Frescobaldi</h3>\n"
 "\n"
@@ -1339,15 +1343,15 @@ msgstr ""
 "można wyświetlić wciskając {key_whatsthis} lub wybierając {menu_whatsthis}.\n"
 "</p>\n"
 
-#: frescobaldi_app/help/contents.py:69
+#: ../help/contents.py:69
 msgid "What's This"
 msgstr "Co to jest"
 
-#: frescobaldi_app/help/contents.py:87
+#: ../help/contents.py:87
 msgid "Introduction"
 msgstr "Wprowadzenie"
 
-#: frescobaldi_app/help/contents.py:90
+#: ../help/contents.py:90
 msgid ""
 "<p>\n"
 "<a href=\"http://lilypond.org/\">LilyPond</a>\n"
@@ -1376,40 +1380,37 @@ msgid ""
 "</p>"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:116
+#: ../help/contents.py:116
 msgid "Getting Started"
 msgstr "Pierwsze kroki"
 
-#: frescobaldi_app/help/contents.py:136
-#: frescobaldi_app/preferences/fontscolors.py:482
-#: frescobaldi_app/preferences/lilypond.py:237
-#: frescobaldi_app/scorewiz/settings.py:295
+#: ../help/contents.py:136 ../preferences/fontscolors.py:482
+#: ../preferences/lilypond.py:237 ../scorewiz/settings.py:295
 msgid "LilyPond"
 msgstr "LilyPond"
 
-#: frescobaldi_app/help/contents.py:136
+#: ../help/contents.py:136
 msgid "Engrave (publish)"
 msgstr "Narysuj (publikacja)"
 
-#: frescobaldi_app/help/contents.py:140
-#: frescobaldi_app/preferences/__init__.py:172
+#: ../help/contents.py:140 ../preferences/__init__.py:172
 msgid "LilyPond Preferences"
 msgstr "Ustawienia LilyPonda "
 
-#: frescobaldi_app/help/contents.py:142
+#: ../help/contents.py:142
 msgctxt "menu title"
 msgid "View"
 msgstr "Widok"
 
-#: frescobaldi_app/help/contents.py:143
+#: ../help/contents.py:143
 msgid "Clear Error Marks"
 msgstr "Wyczyść oznaczenia błędów"
 
-#: frescobaldi_app/help/contents.py:146
+#: ../help/contents.py:146
 msgid "Copy to Image..."
 msgstr "Skopiuj do obrazu..."
 
-#: frescobaldi_app/help/contents.py:147
+#: ../help/contents.py:147
 msgid ""
 "<p>\n"
 "The default screen of Frescobaldi shows a text document on the left and an\n"
@@ -1598,19 +1599,19 @@ msgstr ""
 "za pomocą opcji {menu_clear_error_marks}.\n"
 "</p>\n"
 
-#: frescobaldi_app/help/contents.py:230
+#: ../help/contents.py:230
 msgid "Other Tools"
 msgstr "Inne narzędzia"
 
-#: frescobaldi_app/help/contents.py:233
+#: ../help/contents.py:233
 msgid "<p>Some other important tools are listed here.</p>\n"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:254
+#: ../help/contents.py:254
 msgid "About Frescobaldi"
 msgstr "O programie Frescobaldi"
 
-#: frescobaldi_app/help/contents.py:257
+#: ../help/contents.py:257
 msgid ""
 "<p>\n"
 "Frescobaldi is named after\n"
@@ -1628,15 +1629,15 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:287
+#: ../help/contents.py:287
 msgid "Frescobaldi's main author is {author}."
 msgstr "Głównym autorem programu Frescobaldi jest {author}."
 
-#: frescobaldi_app/help/contents.py:295
+#: ../help/contents.py:295
 msgid "Contributing"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:298
+#: ../help/contents.py:298
 msgid ""
 "<p>\n"
 "Frescobaldi is a <a href=\"http://www.gnu.org/philosophy/free-sw.html"
@@ -1663,11 +1664,11 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:323
+#: ../help/contents.py:323
 msgid "History of Frescobaldi"
 msgstr "Historia programu Frescobaldi"
 
-#: frescobaldi_app/help/contents.py:326
+#: ../help/contents.py:326
 msgid ""
 "<p>\n"
 "Frescobaldi has its roots in LilyKDE, which was a plugin for KDE3's editor "
@@ -1695,11 +1696,11 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:352
+#: ../help/contents.py:352
 msgid "The editor"
 msgstr "Edytor"
 
-#: frescobaldi_app/help/contents.py:355
+#: ../help/contents.py:355
 msgid ""
 "<p>\n"
 "In this part the features of the editor are discussed,\n"
@@ -1708,15 +1709,15 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:371
+#: ../help/contents.py:371
 msgid "Search and replace"
 msgstr "Znajdź i zastąp"
 
-#: frescobaldi_app/help/contents.py:379
+#: ../help/contents.py:379
 msgid "Edit"
 msgstr "Edytuj"
 
-#: frescobaldi_app/help/contents.py:381
+#: ../help/contents.py:381
 msgid ""
 "<p>\n"
 "In the menu {edit_menu} the commands Find ({key_search})\n"
@@ -1767,11 +1768,11 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:429
+#: ../help/contents.py:429
 msgid "Document variables"
 msgstr "Zmienne dokumentu"
 
-#: frescobaldi_app/help/contents.py:434
+#: ../help/contents.py:434
 msgid ""
 "Document variables are variables that influence the behaviour of "
 "Frescobaldi.\n"
@@ -1781,16 +1782,16 @@ msgid ""
 "the lines for variable definitions like <code>name: value;</code>.\n"
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:441
+#: ../help/contents.py:441
 msgid "The following variables are recognized:"
 msgstr "Rozpoznano następnujące zmienne:"
 
-#: frescobaldi_app/help/contents.py:446
+#: ../help/contents.py:446
 msgid "mode"
 msgstr "tryb"
 
 #. L10N: do not translate the mode names lilypond, html, etc.
-#: frescobaldi_app/help/contents.py:448
+#: ../help/contents.py:448
 msgid ""
 "Force mode to be one of lilypond, html, texinfo, latex, docbook or scheme. "
 "Default: automatic mode recognition."
@@ -1798,230 +1799,228 @@ msgstr ""
 "Wymuś jeden z następujących trybów: lilypond, html, texinfo, latex, docbook "
 "lub scheme. Domyślnie: automatyczne rozpoznanie trybu."
 
-#: frescobaldi_app/help/contents.py:450
+#: ../help/contents.py:450
 msgid "filename"
 msgstr "nazwa pliku"
 
-#: frescobaldi_app/help/contents.py:451
+#: ../help/contents.py:451
 msgid "Compiles another LilyPond document instead of the current."
 msgstr "Kompiluje inny dokument LilyPonda w miejsce bieżącego."
 
-#: frescobaldi_app/help/contents.py:452
+#: ../help/contents.py:452
 msgid "encoding"
 msgstr "kodowanie"
 
-#: frescobaldi_app/help/contents.py:453
+#: ../help/contents.py:453
 msgid "Use another encoding than the default UTF-8."
 msgstr "Użyj innego kodowania niż domyślne UTF-8."
 
-#: frescobaldi_app/help/contents.py:454
+#: ../help/contents.py:454
 msgid "version"
 msgstr "wersja"
 
-#: frescobaldi_app/help/contents.py:455
+#: ../help/contents.py:455
 msgid ""
 "Set the LilyPond version to use, can be used for non-LilyPond documents."
 msgstr ""
 "Ustaw wersję LilyPonda, której można użyć także dla dokumentów innych "
 "programów."
 
-#: frescobaldi_app/help/contents.py:457 frescobaldi_app/help/contents.py:465
+#: ../help/contents.py:457 ../help/contents.py:465
 msgid "number"
 msgstr "numer"
 
-#: frescobaldi_app/help/contents.py:458
+#: ../help/contents.py:458
 msgid "The width of a tab character, by default 8."
 msgstr "Szerokość znaku tabulacji -  domyślnie 8."
 
-#: frescobaldi_app/help/contents.py:460
+#: ../help/contents.py:460
 msgid "Whether to use tabs in indent, by default {no}."
 msgstr "Czy używać znaku tabulacji we wcięciach, domyślnie {no}."
 
-#: frescobaldi_app/help/contents.py:463
+#: ../help/contents.py:463
 msgid "Whether to use tabs elsewhere in the document, by default {yes}."
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:466
+#: ../help/contents.py:466
 msgid "The number of spaces each indent level uses, by default 2."
 msgstr ""
 
-#: frescobaldi_app/help/contents.py:474
+#: ../help/contents.py:474
 msgid "You can put document variables in comments."
 msgstr "Można umieścić zmienne użyte w dokumencie w postaci komentarzy."
 
-#: frescobaldi_app/help/contents.py:481
+#: ../help/contents.py:481
 msgid "Table of Contents"
 msgstr "Spis treści"
 
-#: frescobaldi_app/help/helpimpl.py:115
+#: ../help/helpimpl.py:115
 msgid "Up:"
 msgstr "Do góry:"
 
-#: frescobaldi_app/help/helpimpl.py:130
+#: ../help/helpimpl.py:130
 msgid "Next:"
 msgstr "Następny:"
 
-#: frescobaldi_app/help/helpimpl.py:133
+#: ../help/helpimpl.py:133
 msgid "See also:"
 msgstr "Zobacz także"
 
-#: frescobaldi_app/help/helpimpl.py:165
+#: ../help/helpimpl.py:165
 msgid "(no key defined)"
 msgstr "(nie zdefiniowano klawisza)"
 
-#: frescobaldi_app/logtool/__init__.py:50
-#: frescobaldi_app/preferences/tools.py:80
+#: ../logtool/__init__.py:50 ../preferences/tools.py:80
 msgid "LilyPond Log"
 msgstr "LilyPond Log"
 
-#: frescobaldi_app/logtool/__init__.py:51
+#: ../logtool/__init__.py:51
 msgid "LilyPond &Log"
 msgstr "Raport LilyPond "
 
-#: frescobaldi_app/logtool/__init__.py:91
+#: ../logtool/__init__.py:91
 msgid "Next Error Message"
 msgstr "Następny komunikat błędu"
 
-#: frescobaldi_app/logtool/__init__.py:92
+#: ../logtool/__init__.py:92
 msgid "Previous Error Message"
 msgstr "Poprzedni komunikat błędu"
 
-#: frescobaldi_app/logtool/logwidget.py:118
+#: ../logtool/logwidget.py:118
 msgid "Click to edit this file"
 msgstr "Kliknij by rozpocząć edycję pliku"
 
-#: frescobaldi_app/miditool/__init__.py:51
+#: ../miditool/__init__.py:51
 msgid "MIDI"
 msgstr "MIDI"
 
-#: frescobaldi_app/miditool/__init__.py:52
+#: ../miditool/__init__.py:52
 msgid "MIDI &Player"
 msgstr "Odtwarzacz MIDI"
 
-#: frescobaldi_app/miditool/__init__.py:97
+#: ../miditool/__init__.py:97
 msgctxt "midi player"
 msgid "Pause"
 msgstr "Pauza"
 
-#: frescobaldi_app/miditool/__init__.py:98
+#: ../miditool/__init__.py:98
 msgctxt "midi player"
 msgid "Play"
 msgstr "Graj"
 
-#: frescobaldi_app/miditool/__init__.py:99
+#: ../miditool/__init__.py:99
 msgctxt "midi player"
 msgid "Stop"
 msgstr "Stop"
 
-#: frescobaldi_app/miditool/__init__.py:100
+#: ../miditool/__init__.py:100
 msgctxt "midi player"
 msgid "Restart"
 msgstr "Zrestartuj"
 
-#: frescobaldi_app/miditool/widget.py:102
+#: ../miditool/widget.py:103
 msgid "Tempo"
 msgstr "Tempo"
 
-#: frescobaldi_app/miditool/widget.py:156
+#: ../miditool/widget.py:157
 msgid "No output found!"
 msgstr "Nie znaleziono plików wynikowych!"
 
-#: frescobaldi_app/miditool/widget.py:231
+#: ../miditool/widget.py:232
 msgctxt "midi lcd screen"
 msgid "LOADED"
 msgstr "Wczytano"
 
-#: frescobaldi_app/miditool/widget.py:232
+#: ../miditool/widget.py:233
 msgctxt "midi lcd screen"
 msgid "TOTAL"
 msgstr ""
 
-#: frescobaldi_app/miditool/widget.py:314
-#: frescobaldi_app/miditool/widget.py:324
+#: ../miditool/widget.py:315 ../miditool/widget.py:325
 msgctxt "midi lcd screen"
 msgid "TIME"
 msgstr "CZAS"
 
-#: frescobaldi_app/miditool/widget.py:315
+#: ../miditool/widget.py:316
 msgctxt "midi lcd screen"
 msgid "TEMPO"
 msgstr "TEMPO"
 
-#: frescobaldi_app/miditool/widget.py:325
+#: ../miditool/widget.py:326
 msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "PULS"
 
-#: frescobaldi_app/musicview/__init__.py:92
+#: ../musicview/__init__.py:92
 msgctxt "window title"
 msgid "Music View"
 msgstr "Okno partytury"
 
-#: frescobaldi_app/musicview/__init__.py:93
+#: ../musicview/__init__.py:93
 msgid "&Music View"
 msgstr "Okno &parytury"
 
-#: frescobaldi_app/musicview/__init__.py:237
+#: ../musicview/__init__.py:237
 msgid "Select Music View Document"
 msgstr "Wybierz dokument w oknie partytury"
 
-#: frescobaldi_app/musicview/__init__.py:238
+#: ../musicview/__init__.py:238
 msgid "&Print Music..."
 msgstr "Wydrukuj partyturę...."
 
-#: frescobaldi_app/musicview/__init__.py:239
+#: ../musicview/__init__.py:239
 msgid "Zoom &In"
 msgstr "Powiększ"
 
-#: frescobaldi_app/musicview/__init__.py:240
+#: ../musicview/__init__.py:240
 msgid "Zoom &Out"
 msgstr "Po&większ"
 
-#: frescobaldi_app/musicview/__init__.py:241
+#: ../musicview/__init__.py:241
 msgid "Zoom Music"
 msgstr "Powiększ partyturę"
 
-#: frescobaldi_app/musicview/__init__.py:242
+#: ../musicview/__init__.py:242
 msgid "Fit &Width"
 msgstr "Dopasuj &szerokość"
 
-#: frescobaldi_app/musicview/__init__.py:243
+#: ../musicview/__init__.py:243
 msgid "Fit &Height"
 msgstr "Dopasuj &wysokość"
 
-#: frescobaldi_app/musicview/__init__.py:244
+#: ../musicview/__init__.py:244
 msgid "Fit &Page"
 msgstr "Dopasuj stronę"
 
-#: frescobaldi_app/musicview/__init__.py:245
+#: ../musicview/__init__.py:245
 msgid "&Jump to Cursor Position"
 msgstr "Skocz do pozycji &kursora"
 
-#: frescobaldi_app/musicview/__init__.py:246
+#: ../musicview/__init__.py:246
 msgid "Copy to &Image..."
 msgstr "Skopiuj do &obrazu..."
 
-#: frescobaldi_app/musicview/__init__.py:247
+#: ../musicview/__init__.py:247
 msgid "Next Page"
 msgstr "Następna strona"
 
-#: frescobaldi_app/musicview/__init__.py:248
+#: ../musicview/__init__.py:248
 msgid "Next"
 msgstr "Następny"
 
-#: frescobaldi_app/musicview/__init__.py:249
+#: ../musicview/__init__.py:249
 msgid "Previous Page"
 msgstr "Poprzednia strona"
 
-#: frescobaldi_app/musicview/__init__.py:250
+#: ../musicview/__init__.py:250
 msgid "Previous"
 msgstr "Poprzedni"
 
-#: frescobaldi_app/musicview/__init__.py:389
+#: ../musicview/__init__.py:389
 msgid "Choose the PDF document to display."
 msgstr "Wybierz dokument PDF do wyświetlenia."
 
-#: frescobaldi_app/musicview/__init__.py:391
+#: ../musicview/__init__.py:391
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -2029,56 +2028,56 @@ msgstr ""
 "Wybierz dokument PDF do wyświetlenia lub przeciągnij plik do innej aplikacji "
 "lub położenia."
 
-#: frescobaldi_app/musicview/__init__.py:449
+#: ../musicview/__init__.py:449
 msgid "Fit Width"
 msgstr "Dopasuj szerokość"
 
-#: frescobaldi_app/musicview/__init__.py:450
+#: ../musicview/__init__.py:450
 msgid "Fit Height"
 msgstr "Dopasuj wysokość"
 
-#: frescobaldi_app/musicview/__init__.py:451
+#: ../musicview/__init__.py:451
 msgid "Fit Page"
 msgstr "Dopasuj stronę"
 
 #. L10N: page numbering: page {num} of {total}
-#: frescobaldi_app/musicview/__init__.py:468
+#: ../musicview/__init__.py:468
 msgid "{num} of {total}"
 msgstr "{num} z {total}"
 
-#: frescobaldi_app/musicview/image.py:126
+#: ../musicview/image.py:126
 msgid "DPI:"
 msgstr "DPI:"
 
-#: frescobaldi_app/musicview/image.py:127
+#: ../musicview/image.py:127
 msgid "Paper Color"
 msgstr "Kolor papieru"
 
-#: frescobaldi_app/musicview/image.py:128
+#: ../musicview/image.py:128
 msgid "Auto-crop"
 msgstr "Automatyczne przycinanie"
 
-#: frescobaldi_app/musicview/image.py:129
+#: ../musicview/image.py:129
 msgid "Antialias"
 msgstr "Antyaliasing"
 
-#: frescobaldi_app/musicview/image.py:130
+#: ../musicview/image.py:130
 msgid "Drag"
 msgstr "Przeciągnij"
 
-#: frescobaldi_app/musicview/image.py:131
+#: ../musicview/image.py:131
 msgid "Drag the image as a PNG file."
 msgstr "Przeciągnij obraz w postaci pliku PNG."
 
-#: frescobaldi_app/musicview/image.py:132
+#: ../musicview/image.py:132
 msgid "&Copy to Clipboard"
 msgstr "S&kopiuj do schowka"
 
-#: frescobaldi_app/musicview/image.py:133
+#: ../musicview/image.py:133
 msgid "&Save As..."
 msgstr "Zapisz jako..."
 
-#: frescobaldi_app/musicview/image.py:136
+#: ../musicview/image.py:136
 #, no-python-format
 msgid ""
 "<p>\n"
@@ -2092,23 +2091,23 @@ msgid ""
 "</p>"
 msgstr ""
 
-#: frescobaldi_app/musicview/image.py:167
+#: ../musicview/image.py:167
 msgid "Image from {filename}"
 msgstr "Obraz z {filename}"
 
-#: frescobaldi_app/musicview/image.py:210
+#: ../musicview/image.py:210
 msgid "Save Image As"
 msgstr "Zapisz obraz jako"
 
-#: frescobaldi_app/musicview/image.py:214
+#: ../musicview/image.py:214
 msgid "Could not save the image."
 msgstr "Nie można zapisać obrazu."
 
-#: frescobaldi_app/pitch/__init__.py:99
+#: ../pitch/__init__.py:99
 msgid "Pitch Name &Language"
 msgstr "&Język nazw dźwięków"
 
-#: frescobaldi_app/pitch/__init__.py:101
+#: ../pitch/__init__.py:101
 msgid ""
 "Change the LilyPond language used for pitch names in this document or in the "
 "selection."
@@ -2116,11 +2115,11 @@ msgstr ""
 "Zmień języku używany przez LilyPonda dla nazw dźwięków dla tego dokumentu, "
 "lub w danym zaznaczeniu."
 
-#: frescobaldi_app/pitch/__init__.py:103
+#: ../pitch/__init__.py:103
 msgid "Convert Relative to &Absolute"
 msgstr "Konwertuj Relatywne do &Absolutnych"
 
-#: frescobaldi_app/pitch/__init__.py:105
+#: ../pitch/__init__.py:105
 msgid ""
 "Converts the notes in the document or selection from relative to absolute "
 "pitch."
@@ -2128,11 +2127,11 @@ msgstr ""
 "Konwertuje nuty w danym dokumencie lub fragmencie z wysokości relatywnych do "
 "absolutnych."
 
-#: frescobaldi_app/pitch/__init__.py:107
+#: ../pitch/__init__.py:107
 msgid "Convert Absolute to &Relative"
 msgstr "Konwertuj Absolutne do &Relatywnych"
 
-#: frescobaldi_app/pitch/__init__.py:109
+#: ../pitch/__init__.py:109
 msgid ""
 "Converts the notes in the document or selection from absolute to relative "
 "pitch."
@@ -2140,19 +2139,19 @@ msgstr ""
 "Zmienia nuty w danym dokumencie, lub fragmencie z zapisu absolutnego na "
 "relatywny."
 
-#: frescobaldi_app/pitch/__init__.py:111
+#: ../pitch/__init__.py:111
 msgid "&Transpose..."
 msgstr "&Transponuj"
 
-#: frescobaldi_app/pitch/__init__.py:113
+#: ../pitch/__init__.py:113
 msgid "Transposes all notes in the document or selection."
 msgstr "Transponuje wszystkie nuty w danym dokumencie, lub jego fragmencie."
 
-#: frescobaldi_app/pitch/pitch.py:81 frescobaldi_app/pitch/pitch.py:94
+#: ../pitch/pitch.py:81 ../pitch/pitch.py:94
 msgid "Pitch Name Language"
 msgstr "Język nazw dźwięków"
 
-#: frescobaldi_app/pitch/pitch.py:82
+#: ../pitch/pitch.py:82
 msgid ""
 "Can't perform the requested translation.\n"
 "\n"
@@ -2164,7 +2163,7 @@ msgstr ""
 "Muzyka zawiera ćwierćtonowe znaki chromatyczne, które nie są dostępne w tym "
 "języku \"%1\"."
 
-#: frescobaldi_app/pitch/pitch.py:98
+#: ../pitch/pitch.py:98
 msgid ""
 "The pitch language of the selected text has been updated, but you need to "
 "manually add the following command to your document:"
@@ -2172,20 +2171,19 @@ msgstr ""
 "Język nazw dźwięków w zaznaczonym obszarze został zaktualizowany, musisz "
 "jednak ręcznie dodać do swojego dokumentu następujące polecenie: "
 
-#: frescobaldi_app/pitch/pitch.py:102
+#: ../pitch/pitch.py:102
 msgid "(for LilyPond below 2.14), or"
 msgstr "(dla LilyPonda poniżej 2.14) lub"
 
-#: frescobaldi_app/pitch/pitch.py:103
+#: ../pitch/pitch.py:103
 msgid "(for LilyPond 2.14 and higher.)"
 msgstr "(dla Lilyponda 2.14 lub wyższego)."
 
-#: frescobaldi_app/pitch/pitch.py:398 frescobaldi_app/pitch/pitch.py:580
-#: frescobaldi_app/pitch/pitch.py:752
+#: ../pitch/pitch.py:398 ../pitch/pitch.py:580 ../pitch/pitch.py:752
 msgid "Transpose"
 msgstr "Transponuj"
 
-#: frescobaldi_app/pitch/pitch.py:399
+#: ../pitch/pitch.py:399
 msgid ""
 "Please enter two absolute pitches, separated by a space, using the pitch "
 "name language \"{language}\"."
@@ -2193,7 +2191,7 @@ msgstr ""
 "Proszę wpisać dwie absolutne wysokości oddzielone spacją, posługując się "
 "nazwami z języka \"{language}\"."
 
-#: frescobaldi_app/pitch/pitch.py:581
+#: ../pitch/pitch.py:581
 msgid ""
 "Can't perform the requested transposition.\n"
 "\n"
@@ -2205,11 +2203,11 @@ msgstr ""
 "Muzyka może zawierać ćwierćtonowe znaki chromatyczne, które nie są dostępne "
 "w tym języku \"{language}\"."
 
-#: frescobaldi_app/pitch/pitch.py:712
+#: ../pitch/pitch.py:712
 msgid "Pitch manipulation"
 msgstr "Manipulacja dźwiękami"
 
-#: frescobaldi_app/pitch/pitch.py:715
+#: ../pitch/pitch.py:715
 msgid ""
 "<p>\n"
 "Frescobaldi offers the following pitch-manipulating functions,\n"
@@ -2243,12 +2241,12 @@ msgid ""
 "</dl>\n"
 msgstr ""
 
-#: frescobaldi_app/pitch/pitch.py:744
+#: ../pitch/pitch.py:744
 msgctxt "submenu title"
 msgid "Pitch"
 msgstr "Dźwięk"
 
-#: frescobaldi_app/pitch/pitch.py:755
+#: ../pitch/pitch.py:755
 msgid ""
 "<p>\n"
 "When transposing music, two absolute pitches need to be given to specify\n"
@@ -2290,216 +2288,214 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:27
+#: ../po/messages.py:27
 msgid "Usage"
 msgstr "Wykorzystanie"
 
-#: frescobaldi_app/po/messages.py:28
+#: ../po/messages.py:28
 #, python-format
 msgid "Usage: %s\n"
 msgstr "Wykorzystanie: %s\n"
 
-#: frescobaldi_app/po/messages.py:29
+#: ../po/messages.py:29
 msgid "show this help message and exit"
 msgstr "pokazuje komunikat pomocy i kończy"
 
-#: frescobaldi_app/po/messages.py:30
+#: ../po/messages.py:30
 msgid "show program's version number and exit"
 msgstr "pokazuje numer wersji programu i kończy"
 
 #. L10N: Command line options
-#: frescobaldi_app/po/messages.py:32
+#: ../po/messages.py:32
 msgid "Options"
 msgstr "Opcję"
 
-#: frescobaldi_app/po/messages.py:36
+#: ../po/messages.py:36
 msgctxt "CloseButton"
 msgid "Close Tab"
 msgstr "Zamknij zakładkę"
 
-#: frescobaldi_app/po/messages.py:38
+#: ../po/messages.py:38
 msgctxt "QDialog"
 msgid "What's This?"
 msgstr "Co to jest?"
 
-#: frescobaldi_app/po/messages.py:40
+#: ../po/messages.py:40
 msgctxt "QDialogButtonBox"
 msgid "Apply"
 msgstr "Zastosuj"
 
-#: frescobaldi_app/po/messages.py:41
+#: ../po/messages.py:41
 msgctxt "QDialogButtonBox"
 msgid "OK"
 msgstr "OK"
 
-#: frescobaldi_app/po/messages.py:42
+#: ../po/messages.py:42
 msgctxt "QDialogButtonBox"
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: frescobaldi_app/po/messages.py:43
+#: ../po/messages.py:43
 msgctxt "QDialogButtonBox"
 msgid "Discard"
 msgstr "Porzuć"
 
-#: frescobaldi_app/po/messages.py:44
+#: ../po/messages.py:44
 msgctxt "QDialogButtonBox"
 msgid "Save"
 msgstr "Zapisz"
 
-#: frescobaldi_app/po/messages.py:45
+#: ../po/messages.py:45
 msgctxt "QDialogButtonBox"
 msgid "Help"
 msgstr "Pomoc"
 
-#: frescobaldi_app/po/messages.py:46
+#: ../po/messages.py:46
 msgctxt "QDialogButtonBox"
 msgid "Close"
 msgstr "Zamknij"
 
-#: frescobaldi_app/po/messages.py:47
+#: ../po/messages.py:47
 msgctxt "QDialogButtonBox"
 msgid "Open"
 msgstr "Otwórz "
 
-#: frescobaldi_app/po/messages.py:48
+#: ../po/messages.py:48
 msgctxt "QDialogButtonBox"
 msgid "Reset"
 msgstr "Resetuj"
 
-#: frescobaldi_app/po/messages.py:50
+#: ../po/messages.py:50
 msgctxt "QFileDialog"
 msgid "File"
 msgstr "Plik"
 
-#: frescobaldi_app/po/messages.py:51
+#: ../po/messages.py:51
 msgctxt "QFileDialog"
 msgid "Folder"
 msgstr "Katalog"
 
-#: frescobaldi_app/po/messages.py:52
+#: ../po/messages.py:52
 msgctxt "QFileDialog"
 msgid "Find Directory"
 msgstr "Znajdź katalog"
 
-#: frescobaldi_app/po/messages.py:53
+#: ../po/messages.py:53
 msgctxt "QFileDialog"
 msgid "All Files (*)"
 msgstr "Wszystkie pliki (*)"
 
-#: frescobaldi_app/po/messages.py:55
+#: ../po/messages.py:55
 msgctxt "QScrollBar"
 msgid "Scroll here"
 msgstr "Przewiń tutaj"
 
-#: frescobaldi_app/po/messages.py:56
+#: ../po/messages.py:56
 msgctxt "QScrollBar"
 msgid "Top"
 msgstr "Góra"
 
-#: frescobaldi_app/po/messages.py:57
+#: ../po/messages.py:57
 msgctxt "QScrollBar"
 msgid "Bottom"
 msgstr "Dół"
 
-#: frescobaldi_app/po/messages.py:58
+#: ../po/messages.py:58
 msgctxt "QScrollBar"
 msgid "Page up"
 msgstr ""
 
-#: frescobaldi_app/po/messages.py:59
+#: ../po/messages.py:59
 #, fuzzy
 msgctxt "QScrollBar"
 msgid "Page down"
 msgstr "Numery stron:"
 
-#: frescobaldi_app/po/messages.py:60
+#: ../po/messages.py:60
 msgctxt "QScrollBar"
 msgid "Scroll up"
 msgstr "Przewiń w górę"
 
-#: frescobaldi_app/po/messages.py:61
+#: ../po/messages.py:61
 msgctxt "QScrollBar"
 msgid "Scroll down"
 msgstr "Przewiń w dół"
 
-#: frescobaldi_app/po/messages.py:62
+#: ../po/messages.py:62
 msgctxt "QScrollBar"
 msgid "Left edge"
 msgstr "Lewa krawędź"
 
-#: frescobaldi_app/po/messages.py:63
+#: ../po/messages.py:63
 msgctxt "QScrollBar"
 msgid "Right edge"
 msgstr "Prawa krawędź"
 
-#: frescobaldi_app/po/messages.py:64
+#: ../po/messages.py:64
 #, fuzzy
 msgctxt "QScrollBar"
 msgid "Page left"
 msgstr "Flażolet"
 
-#: frescobaldi_app/po/messages.py:65
+#: ../po/messages.py:65
 #, fuzzy
 msgctxt "QScrollBar"
 msgid "Page right"
 msgstr "Wklej rytm"
 
-#: frescobaldi_app/po/messages.py:66
+#: ../po/messages.py:66
 msgctxt "QScrollBar"
 msgid "Scroll left"
 msgstr "Przewiń w lewo"
 
-#: frescobaldi_app/po/messages.py:67
+#: ../po/messages.py:67
 msgctxt "QScrollBar"
 msgid "Scroll right"
 msgstr "Przewiń w prawo"
 
-#: frescobaldi_app/preferences/__init__.py:162
-#: frescobaldi_app/preferences/general.py:119
+#: ../preferences/__init__.py:162 ../preferences/general.py:119
 msgid "General Preferences"
 msgstr "Ustawienia ogólne"
 
-#: frescobaldi_app/preferences/__init__.py:182
+#: ../preferences/__init__.py:182
 msgid "MIDI Settings"
 msgstr "Ustawienia MIDI"
 
-#: frescobaldi_app/preferences/__init__.py:192
-#: frescobaldi_app/preferences/helpers.py:80
+#: ../preferences/__init__.py:192 ../preferences/helpers.py:80
 msgid "Helper Applications"
 msgstr "Pomocne programy"
 
-#: frescobaldi_app/preferences/__init__.py:202
+#: ../preferences/__init__.py:202
 msgid "Paths"
 msgstr "Ścieżki"
 
-#: frescobaldi_app/preferences/__init__.py:212
+#: ../preferences/__init__.py:212
 msgid "LilyPond Documentation"
 msgstr "Dokumentacja LilyPonda"
 
-#: frescobaldi_app/preferences/__init__.py:222
+#: ../preferences/__init__.py:222
 msgid "Keyboard Shortcuts"
 msgstr "Skróty klawiszowe"
 
-#: frescobaldi_app/preferences/__init__.py:232
+#: ../preferences/__init__.py:232
 msgid "Fonts & Colors"
 msgstr "Czcionki i kolory"
 
-#: frescobaldi_app/preferences/__init__.py:242
+#: ../preferences/__init__.py:242
 msgid "Tools"
 msgstr "Narzędzia"
 
-#: frescobaldi_app/preferences/documentation.py:66
+#: ../preferences/documentation.py:66
 msgid "Paths to LilyPond Documentation"
 msgstr "Ścieżka do dokumentacji LilyPonda"
 
-#: frescobaldi_app/preferences/documentation.py:68
+#: ../preferences/documentation.py:68
 msgid "Add paths or URLs. See \"What's This\" for more information."
 msgstr ""
 "Dodaj ścieżkę lub adres URL. Zobacz \"Co to jest\", aby uzyskać więcej "
 "informacji."
 
-#: frescobaldi_app/preferences/documentation.py:70
+#: ../preferences/documentation.py:70
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
 "A local path should point to the directory where either the "
@@ -2511,433 +2507,405 @@ msgid ""
 "and have Frescobaldi automatically find them.</p>"
 msgstr ""
 
-#: frescobaldi_app/preferences/documentation.py:123
+#: ../preferences/documentation.py:123
 msgid "Preferred Language:"
 msgstr "Język preferowany:"
 
-#: frescobaldi_app/preferences/documentation.py:124
-#: frescobaldi_app/preferences/general.py:124
-#: frescobaldi_app/scorewiz/settings.py:138
-#: frescobaldi_app/scorewiz/settings.py:204
-#: frescobaldi_app/scorewiz/settings.py:299
-#: frescobaldi_app/scorewiz/parts/_base.py:214
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:65
-#: frescobaldi_app/widgets/schemeselector.py:115
+#: ../preferences/documentation.py:124 ../preferences/general.py:124
+#: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
+#: ../scorewiz/settings.py:299 ../scorewiz/parts/_base.py:214
+#: ../scorewiz/parts/plucked_strings.py:65 ../widgets/schemeselector.py:115
 msgid "Default"
 msgstr "Domyślny"
 
-#: frescobaldi_app/preferences/documentation.py:125
-#: frescobaldi_app/scorewiz/settings.py:202
+#: ../preferences/documentation.py:125 ../scorewiz/settings.py:202
 msgid "English (untranslated)"
 msgstr "Angielski (bez tłumaczenia)"
 
-#: frescobaldi_app/preferences/documentation.py:126
-#: frescobaldi_app/preferences/fontscolors.py:122
-#: frescobaldi_app/preferences/tools.py:81
-#: frescobaldi_app/preferences/tools.py:187
+#: ../preferences/documentation.py:126 ../preferences/fontscolors.py:122
+#: ../preferences/tools.py:81 ../preferences/tools.py:187
 msgid "Font:"
 msgstr "Czcionka:"
 
-#: frescobaldi_app/preferences/documentation.py:162
+#: ../preferences/documentation.py:162
 msgid "Please enter a local path or a URL:"
 msgstr "Proszę wpisać ścieżkę lokalną lub adres URL:"
 
-#: frescobaldi_app/preferences/fontscolors.py:121
+#: ../preferences/fontscolors.py:121
 msgid "Use this scheme for printing"
 msgstr "Użyj tego schematu dla wydruków"
 
-#: frescobaldi_app/preferences/fontscolors.py:123
-#: frescobaldi_app/preferences/fontscolors.py:298
+#: ../preferences/fontscolors.py:123 ../preferences/fontscolors.py:298
 msgid "Base Colors"
 msgstr "Kolory podstawowe"
 
-#: frescobaldi_app/preferences/fontscolors.py:124
+#: ../preferences/fontscolors.py:124
 msgid "Default Styles"
 msgstr "Styl domyślny"
 
-#: frescobaldi_app/preferences/fontscolors.py:157
+#: ../preferences/fontscolors.py:157
 msgid "(Inherits: {name})"
 msgstr ""
 
 #. L10N: color of Text
-#: frescobaldi_app/preferences/fontscolors.py:360
-#: frescobaldi_app/preferences/fontscolors.py:435
+#: ../preferences/fontscolors.py:360 ../preferences/fontscolors.py:435
 msgid "Text"
 msgstr "Tekst"
 
 #. L10N: color of Background
-#: frescobaldi_app/preferences/fontscolors.py:361
-#: frescobaldi_app/preferences/fontscolors.py:437
+#: ../preferences/fontscolors.py:361 ../preferences/fontscolors.py:437
 msgid "Background"
 msgstr "Kolor tła"
 
-#: frescobaldi_app/preferences/fontscolors.py:362
+#: ../preferences/fontscolors.py:362
 msgid "Bold"
 msgstr "Pogrubiona"
 
-#: frescobaldi_app/preferences/fontscolors.py:363
+#: ../preferences/fontscolors.py:363
 msgid "Italic"
 msgstr "Kursywa"
 
-#: frescobaldi_app/preferences/fontscolors.py:364
+#: ../preferences/fontscolors.py:364
 msgid "Underline"
 msgstr "Podkreślenie"
 
 #. L10N: color of Selected Text
-#: frescobaldi_app/preferences/fontscolors.py:439
+#: ../preferences/fontscolors.py:439
 msgid "Selected Text"
 msgstr "Tekst zaznaczony"
 
 #. L10N: color of Selection Background
-#: frescobaldi_app/preferences/fontscolors.py:441
+#: ../preferences/fontscolors.py:441
 msgid "Selection Background"
 msgstr "Kolor tła zaznaczenia"
 
 #. L10N: color of Current Line
-#: frescobaldi_app/preferences/fontscolors.py:443
+#: ../preferences/fontscolors.py:443
 msgid "Current Line"
 msgstr "Bieżąca linia"
 
 #. L10N: color of Marked Line (bookmark)
-#: frescobaldi_app/preferences/fontscolors.py:445
+#: ../preferences/fontscolors.py:445
 #, fuzzy
 msgid "Marked Line"
 msgstr "Kreski taktowe"
 
 #. L10N: color of line with Error
-#: frescobaldi_app/preferences/fontscolors.py:447
+#: ../preferences/fontscolors.py:447
 msgid "Error Line"
 msgstr "Wiersz błędu"
 
 #. L10N: color of highlighted search result
-#: frescobaldi_app/preferences/fontscolors.py:449
+#: ../preferences/fontscolors.py:449
 msgid "Search Result"
 msgstr "Wyniki wyszukiwania"
 
 #. L10N: color of characters that match (e.g. braces, parentheses)
-#: frescobaldi_app/preferences/fontscolors.py:451
+#: ../preferences/fontscolors.py:451
 msgid "Matching Character"
 msgstr "Znak dopasowany"
 
 #. L10N: color of paper in music preview
-#: frescobaldi_app/preferences/fontscolors.py:453
+#: ../preferences/fontscolors.py:453
 msgid "Preview Background"
 msgstr "Podgląd tła"
 
 #. L10N: color of objects highlighting in preview
-#: frescobaldi_app/preferences/fontscolors.py:455
+#: ../preferences/fontscolors.py:455
 msgid "Preview Highlight"
 msgstr "Podgląd zaznaczenia"
 
 #. L10N: a basic type of input in the editor
-#: frescobaldi_app/preferences/fontscolors.py:462
-#: frescobaldi_app/preferences/fontscolors.py:497
-#: frescobaldi_app/preferences/fontscolors.py:533
+#: ../preferences/fontscolors.py:462 ../preferences/fontscolors.py:497
+#: ../preferences/fontscolors.py:533
 msgid "Keyword"
 msgstr "Słowo kluczowe"
 
 #. L10N: a basic type of input in the editor
-#: frescobaldi_app/preferences/fontscolors.py:464
+#: ../preferences/fontscolors.py:464
 msgid "Function"
 msgstr "Działanie"
 
 #. L10N: a basic type of input in the editor
-#: frescobaldi_app/preferences/fontscolors.py:466
-#: frescobaldi_app/preferences/fontscolors.py:508
+#: ../preferences/fontscolors.py:466 ../preferences/fontscolors.py:508
 msgid "Variable"
 msgstr "Zmienna"
 
 #. L10N: a basic type of input in the editor
-#: frescobaldi_app/preferences/fontscolors.py:468
-#: frescobaldi_app/preferences/fontscolors.py:510
-#: frescobaldi_app/preferences/fontscolors.py:520
+#: ../preferences/fontscolors.py:468 ../preferences/fontscolors.py:510
+#: ../preferences/fontscolors.py:520
 msgid "Value"
 msgstr "Wartość"
 
 #. L10N: a basic type of input in the editor
-#: frescobaldi_app/preferences/fontscolors.py:470
-#: frescobaldi_app/preferences/fontscolors.py:511
-#: frescobaldi_app/preferences/fontscolors.py:523
-#: frescobaldi_app/preferences/fontscolors.py:529
+#: ../preferences/fontscolors.py:470 ../preferences/fontscolors.py:511
+#: ../preferences/fontscolors.py:523 ../preferences/fontscolors.py:529
 msgid "String"
 msgstr "Łańcuch znaków"
 
 #. L10N: a basic type of input in the editor
-#: frescobaldi_app/preferences/fontscolors.py:472
+#: ../preferences/fontscolors.py:472
 msgid "Escape"
 msgstr "Escape"
 
 #. L10N: a basic type of input in the editor
-#: frescobaldi_app/preferences/fontscolors.py:474
-#: frescobaldi_app/preferences/fontscolors.py:513
-#: frescobaldi_app/preferences/fontscolors.py:522
-#: frescobaldi_app/preferences/fontscolors.py:530
-#: frescobaldi_app/preferences/fontscolors.py:538
-#: frescobaldi_app/snippet/builtin.py:284
+#: ../preferences/fontscolors.py:474 ../preferences/fontscolors.py:513
+#: ../preferences/fontscolors.py:522 ../preferences/fontscolors.py:530
+#: ../preferences/fontscolors.py:538 ../snippet/builtin.py:284
 msgid "Comment"
 msgstr "Komentarz"
 
-#: frescobaldi_app/preferences/fontscolors.py:483
+#: ../preferences/fontscolors.py:483
 msgid "Pitch"
 msgstr "Dźwięk"
 
-#: frescobaldi_app/preferences/fontscolors.py:484
+#: ../preferences/fontscolors.py:484
 msgid "Octave"
 msgstr "Oktawa"
 
-#: frescobaldi_app/preferences/fontscolors.py:485
+#: ../preferences/fontscolors.py:485
 msgid "Duration"
 msgstr "Wartość"
 
-#: frescobaldi_app/preferences/fontscolors.py:486
+#: ../preferences/fontscolors.py:486
 msgid "Octave Check"
 msgstr ""
 
-#: frescobaldi_app/preferences/fontscolors.py:487
+#: ../preferences/fontscolors.py:487
 msgid "Fingering"
 msgstr "Palcowanie"
 
 #. L10N: For String instruments like Guitar
-#: frescobaldi_app/preferences/fontscolors.py:489
+#: ../preferences/fontscolors.py:489
 msgid "String Number"
 msgstr "Liczba strun"
 
-#: frescobaldi_app/preferences/fontscolors.py:490
-#: frescobaldi_app/quickinsert/spanners.py:143
+#: ../preferences/fontscolors.py:490 ../quickinsert/spanners.py:143
 msgid "Slur"
 msgstr "Łuk"
 
-#: frescobaldi_app/preferences/fontscolors.py:491
+#: ../preferences/fontscolors.py:491
 msgid "Dynamic"
 msgstr "Dynamika"
 
-#: frescobaldi_app/preferences/fontscolors.py:492
+#: ../preferences/fontscolors.py:492
 msgid "Articulation"
 msgstr "Artykulacja"
 
-#: frescobaldi_app/preferences/fontscolors.py:493
+#: ../preferences/fontscolors.py:493
 msgid "Chord"
 msgstr "Akord"
 
-#: frescobaldi_app/preferences/fontscolors.py:494
-#: frescobaldi_app/quickinsert/spanners.py:145
+#: ../preferences/fontscolors.py:494 ../quickinsert/spanners.py:145
 msgid "Beam"
 msgstr "Belka"
 
-#: frescobaldi_app/preferences/fontscolors.py:495
+#: ../preferences/fontscolors.py:495
 msgid "Check"
 msgstr ""
 
-#: frescobaldi_app/preferences/fontscolors.py:496
-#: frescobaldi_app/snippet/builtin.py:154
+#: ../preferences/fontscolors.py:496 ../snippet/builtin.py:154
 msgid "Repeat"
 msgstr "Powtórzenie"
 
-#: frescobaldi_app/preferences/fontscolors.py:498
-#: frescobaldi_app/preferences/shortcuts.py:56
+#: ../preferences/fontscolors.py:498 ../preferences/shortcuts.py:56
 msgid "Command"
 msgstr "Polecenie"
 
-#: frescobaldi_app/preferences/fontscolors.py:499
+#: ../preferences/fontscolors.py:499
 msgid "Specifier"
 msgstr "Specyfikator"
 
-#: frescobaldi_app/preferences/fontscolors.py:500
+#: ../preferences/fontscolors.py:500
 msgid "User Command"
 msgstr "Polecenie użytkownika"
 
-#: frescobaldi_app/preferences/fontscolors.py:501
-#: frescobaldi_app/snippet/builtin.py:194
+#: ../preferences/fontscolors.py:501 ../snippet/builtin.py:194
 msgid "Markup"
 msgstr "Znacznik"
 
-#: frescobaldi_app/preferences/fontscolors.py:502
+#: ../preferences/fontscolors.py:502
 msgid "Lyric Mode"
 msgstr "Tryb wpisywania słów"
 
-#: frescobaldi_app/preferences/fontscolors.py:503
+#: ../preferences/fontscolors.py:503
 msgid "Lyric Text"
 msgstr "Tekst słowny"
 
-#: frescobaldi_app/preferences/fontscolors.py:504
+#: ../preferences/fontscolors.py:504
 msgid "Delimiter"
 msgstr ""
 
-#: frescobaldi_app/preferences/fontscolors.py:505
+#: ../preferences/fontscolors.py:505
 msgid "Context"
 msgstr ""
 
-#: frescobaldi_app/preferences/fontscolors.py:506
+#: ../preferences/fontscolors.py:506
 msgid "Layout Object"
 msgstr ""
 
-#: frescobaldi_app/preferences/fontscolors.py:507
+#: ../preferences/fontscolors.py:507
 msgid "Property"
 msgstr "Właściwość"
 
-#: frescobaldi_app/preferences/fontscolors.py:509
+#: ../preferences/fontscolors.py:509
 msgid "User Variable"
 msgstr "Zmienne użytkownika"
 
-#: frescobaldi_app/preferences/fontscolors.py:512
-#: frescobaldi_app/preferences/fontscolors.py:535
+#: ../preferences/fontscolors.py:512 ../preferences/fontscolors.py:535
 #, fuzzy
 msgid "Escaped Character"
 msgstr "Znaki specjalne"
 
-#: frescobaldi_app/preferences/fontscolors.py:516
+#: ../preferences/fontscolors.py:516
 msgid "HTML"
 msgstr "HTML"
 
-#: frescobaldi_app/preferences/fontscolors.py:517
+#: ../preferences/fontscolors.py:517
 msgid "Tag"
 msgstr "Znacznik"
 
-#: frescobaldi_app/preferences/fontscolors.py:518
+#: ../preferences/fontscolors.py:518
 msgid "LilyPond Tag"
 msgstr "Znacznik LilyPond"
 
-#: frescobaldi_app/preferences/fontscolors.py:519
-#: frescobaldi_app/preferences/fontscolors.py:536
+#: ../preferences/fontscolors.py:519 ../preferences/fontscolors.py:536
 msgid "Attribute"
 msgstr "Atrybut"
 
-#: frescobaldi_app/preferences/fontscolors.py:521
+#: ../preferences/fontscolors.py:521
 #, fuzzy
 msgid "Entity Reference"
 msgstr "Słownik notacji"
 
-#: frescobaldi_app/preferences/fontscolors.py:525
-#: frescobaldi_app/preferences/fontscolors.py:526
+#: ../preferences/fontscolors.py:525 ../preferences/fontscolors.py:526
 msgid "Scheme"
 msgstr ""
 
-#: frescobaldi_app/preferences/fontscolors.py:527
+#: ../preferences/fontscolors.py:527
 msgid "Number"
 msgstr "Numer"
 
-#: frescobaldi_app/preferences/fontscolors.py:528
+#: ../preferences/fontscolors.py:528
 msgid "LilyPond Environment"
 msgstr "Środowisko LilyPonda"
 
-#: frescobaldi_app/preferences/fontscolors.py:532
+#: ../preferences/fontscolors.py:532
 msgid "Texinfo"
 msgstr "Texinfo"
 
-#: frescobaldi_app/preferences/fontscolors.py:534
+#: ../preferences/fontscolors.py:534
 msgid "Block"
 msgstr "Odcinek"
 
-#: frescobaldi_app/preferences/fontscolors.py:537
+#: ../preferences/fontscolors.py:537
 msgid "Verbatim"
 msgstr ""
 
-#: frescobaldi_app/preferences/general.py:120
-#: frescobaldi_app/scorewiz/settings.py:222
+#: ../preferences/general.py:120 ../scorewiz/settings.py:222
 msgid "Language:"
 msgstr "Język:"
 
-#: frescobaldi_app/preferences/general.py:121
+#: ../preferences/general.py:121
 msgid "No Translation"
 msgstr "Brak tłumaczenia"
 
-#: frescobaldi_app/preferences/general.py:122
+#: ../preferences/general.py:122
 msgid "System Default Language (if available)"
 msgstr "Domyślny język systemu (jeśli dostępny)"
 
-#: frescobaldi_app/preferences/general.py:123
-#: frescobaldi_app/scorewiz/parts/percussion.py:187
+#: ../preferences/general.py:123 ../scorewiz/parts/percussion.py:187
 msgid "Style:"
 msgstr "Styl:"
 
-#: frescobaldi_app/preferences/general.py:125
+#: ../preferences/general.py:125
 msgid "Use System Icons"
 msgstr "Użyj ikon systemowych"
 
-#: frescobaldi_app/preferences/general.py:127
+#: ../preferences/general.py:127
 msgid ""
 "If checked, icons of the desktop icon theme will be used instead of the "
 "bundled icons.\n"
 "This setting takes effect on the next start of {appname}."
 msgstr ""
 
-#: frescobaldi_app/preferences/general.py:156
+#: ../preferences/general.py:156
 msgid "Session to load if Frescobaldi is started without arguments"
 msgstr ""
 "Jaką sesję wczytać, gdy Frescobaldi zostanie uruchomiony bez dodatkowych "
 "argumentów"
 
-#: frescobaldi_app/preferences/general.py:157
+#: ../preferences/general.py:157
 msgid "Start with no session"
 msgstr "Startuj bez żadnej sesji"
 
-#: frescobaldi_app/preferences/general.py:158
+#: ../preferences/general.py:158
 msgid "Start with last used session"
 msgstr "Startuj z ostatnią używaną sesją"
 
-#: frescobaldi_app/preferences/general.py:159
+#: ../preferences/general.py:159
 msgid "Start with session:"
 msgstr "Startuj z sesją:"
 
-#: frescobaldi_app/preferences/general.py:214
+#: ../preferences/general.py:214
 msgid "When saving documents"
 msgstr "Podczas zapisywania dokumentów"
 
-#: frescobaldi_app/preferences/general.py:215
+#: ../preferences/general.py:215
 msgid "Keep backup copy"
 msgstr "Zachowuj kopię zapasową"
 
-#: frescobaldi_app/preferences/general.py:217
+#: ../preferences/general.py:217
 msgid ""
 "Frescobaldi always backups a file before overwriting it with a new version.\n"
 "If checked those backup copies are retained."
 msgstr ""
 
-#: frescobaldi_app/preferences/general.py:220
+#: ../preferences/general.py:220
 msgid "Remember cursor position, bookmarks, etc."
 msgstr "Zapamietaj pozycje kursora, zakładki, itd."
 
-#: frescobaldi_app/preferences/general.py:221
+#: ../preferences/general.py:221
 msgid "Default directory:"
 msgstr "Domyślna lokalizacja:"
 
-#: frescobaldi_app/preferences/general.py:222
+#: ../preferences/general.py:222
 msgid "The default folder for your LilyPond documents (optional)."
 msgstr "Domyślny folder dla Twoich dokumentów LilyPonda (do wyboru)."
 
-#: frescobaldi_app/preferences/helpers.py:70
+#: ../preferences/helpers.py:70
 msgid "PDF:"
 msgstr "PDF:"
 
-#: frescobaldi_app/preferences/helpers.py:71
+#: ../preferences/helpers.py:71
 msgid "MIDI:"
 msgstr "MIDI:"
 
-#: frescobaldi_app/preferences/helpers.py:72
+#: ../preferences/helpers.py:72
 msgid "SVG:"
 msgstr "SVG:"
 
-#: frescobaldi_app/preferences/helpers.py:73
+#: ../preferences/helpers.py:73
 msgid "Image:"
 msgstr "Obraz:"
 
-#: frescobaldi_app/preferences/helpers.py:74
+#: ../preferences/helpers.py:74
 msgid "Browser:"
 msgstr "Przeglądarka:"
 
-#: frescobaldi_app/preferences/helpers.py:75
+#: ../preferences/helpers.py:75
 msgid "E-Mail:"
 msgstr "E-Mail:"
 
-#: frescobaldi_app/preferences/helpers.py:76
+#: ../preferences/helpers.py:76
 msgid "File Manager:"
 msgstr "Menadżer plików:"
 
-#: frescobaldi_app/preferences/helpers.py:77
+#: ../preferences/helpers.py:77
 msgid "Shell:"
 msgstr "Powłoka:"
 
-#: frescobaldi_app/preferences/helpers.py:82
+#: ../preferences/helpers.py:82
 msgid ""
 "Below you can enter commands to open different file types. <code>$f</code> "
 "is replaced with the filename, <code>$u</code> with the URL. Leave a field "
@@ -2948,24 +2916,24 @@ msgstr ""
 "pozostawić pole puste, aby uruchamiać programy domyślne dla danego systemu "
 "operacyjnego."
 
-#: frescobaldi_app/preferences/helpers.py:90
+#: ../preferences/helpers.py:90
 msgid "Command that should accept a mailto: URL."
 msgstr ""
 
-#: frescobaldi_app/preferences/helpers.py:92
+#: ../preferences/helpers.py:92
 msgid "Command to open a Terminal or Command window."
 msgstr "Polecenie uruchomienia terminalu lub wiersza poleceń."
 
-#: frescobaldi_app/preferences/lilypond.py:81
+#: ../preferences/lilypond.py:81
 msgid "LilyPond versions to use"
 msgstr "Używana wersja LilyPonda"
 
-#: frescobaldi_app/preferences/lilypond.py:82
+#: ../preferences/lilypond.py:82
 msgid "Automatically choose LilyPond version from document"
 msgstr ""
 "Automatyczny wybór wersji LilyPonda (wybór wersji użytej w danym dokumencie)"
 
-#: frescobaldi_app/preferences/lilypond.py:84
+#: ../preferences/lilypond.py:84
 msgid ""
 "If checked, the document's version determines the LilyPond version to use.\n"
 "See \"What's This\" for more information."
@@ -2974,7 +2942,7 @@ msgstr ""
 "dokumencie.\n"
 "Zobacz \"Co to jest\", aby uzyskać więcej informacji."
 
-#: frescobaldi_app/preferences/lilypond.py:87
+#: ../preferences/lilypond.py:87
 msgid ""
 "<p>If this setting is enabled, the document is searched for a LilyPond <code>"
 "\\version</code> command or a <code>version</code> document variable.</p>\n"
@@ -2989,89 +2957,89 @@ msgid ""
 "is chosen. Otherwise, the default version is chosen.</p>\n"
 msgstr ""
 
-#: frescobaldi_app/preferences/lilypond.py:101
+#: ../preferences/lilypond.py:101
 msgid "See also {link}."
 msgstr "Zobacz także {link}."
 
-#: frescobaldi_app/preferences/lilypond.py:149
+#: ../preferences/lilypond.py:149
 msgid "Set as &Default"
 msgstr "Ustaw jako domyślny"
 
-#: frescobaldi_app/preferences/lilypond.py:190
+#: ../preferences/lilypond.py:190
 msgid "default"
 msgstr "domyślny"
 
-#: frescobaldi_app/preferences/lilypond.py:238
+#: ../preferences/lilypond.py:238
 msgid "LilyPond Command:"
 msgstr "Polecenie LilyPonda:"
 
-#: frescobaldi_app/preferences/lilypond.py:239
+#: ../preferences/lilypond.py:239
 msgid "Name or full path of the LilyPond program."
 msgstr "Nazwa lub pełna ścieżka do programu LilyPond."
 
-#: frescobaldi_app/preferences/lilypond.py:240
+#: ../preferences/lilypond.py:240
 msgid "Convert-ly:"
 msgstr "Convert-ly"
 
-#: frescobaldi_app/preferences/lilypond.py:241
+#: ../preferences/lilypond.py:241
 msgid "LilyPond-book:"
 msgstr "LilyPond-book:"
 
-#: frescobaldi_app/preferences/lilypond.py:242
+#: ../preferences/lilypond.py:242
 msgid "Include in automatic version selection"
 msgstr "Dołącz do automatycznego wyboru wersji"
 
-#: frescobaldi_app/preferences/lilypond.py:281
+#: ../preferences/lilypond.py:281
 msgid "Running LilyPond"
 msgstr "Uruchamianie LilyPonda"
 
-#: frescobaldi_app/preferences/lilypond.py:282
+#: ../preferences/lilypond.py:282
 msgid "Save document if possible"
 msgstr "Zapisz dokument jeśli to możliwe"
 
-#: frescobaldi_app/preferences/lilypond.py:284
+#: ../preferences/lilypond.py:284
 msgid ""
 "If checked, the document is saved when it is local and modified.\n"
 "Otherwise a temporary file is used to run LilyPond."
 msgstr ""
 
-#: frescobaldi_app/preferences/lilypond.py:288
+#: ../preferences/lilypond.py:288
 msgid "If checked, LilyPond will delete intermediate PostScript files."
 msgstr "Po zaznaczeniu LilyPond usunie pośrednie pliki Postscriptowe."
 
-#: frescobaldi_app/preferences/lilypond.py:291
+#: ../preferences/lilypond.py:291
 msgid ""
 "If checked, LilyPond's output messages will be in English.\n"
 "This can be useful for bug reports."
 msgstr ""
 
-#: frescobaldi_app/preferences/lilypond.py:293
+#: ../preferences/lilypond.py:293
 msgid "LilyPond include path:"
 msgstr "Ścieżka LilyPonda:"
 
-#: frescobaldi_app/preferences/midi.py:77
+#: ../preferences/midi.py:77
 msgid "MIDI Ports"
 msgstr "Porty MIDI"
 
-#: frescobaldi_app/preferences/midi.py:79
+#: ../preferences/midi.py:79
 msgid ""
 "Note: There are no MIDI output ports available on your system. To use MIDI, "
 "please check if PortMIDI is installed on your system and that a MIDI "
 "synthesizer is available or connected."
 msgstr ""
 
-#: frescobaldi_app/preferences/midi.py:82
+#: ../preferences/midi.py:82
 msgid "Player output:"
 msgstr "Wyjście odtwarzacza:"
 
-#: frescobaldi_app/preferences/midi.py:84
+#: ../preferences/midi.py:84
 msgid ""
 "The MIDI port to play music to. See \"What's This\" for more information."
 msgstr ""
 "Port MIDI dla odtwarzania muzyki. Zobacz \"Co to jest\", by uzyskać więcej "
 "informacji."
 
-#: frescobaldi_app/preferences/midi.py:87
+#: ../preferences/midi.py:87
 msgid ""
 "<p>This dropdown menu lists the available MIDI ports on your system. You can "
 "select one, or just type part of a name. In that case, the first available "
@@ -3080,15 +3048,15 @@ msgid ""
 "or start a software synthesizer.</p>"
 msgstr ""
 
-#: frescobaldi_app/preferences/midi.py:96
+#: ../preferences/midi.py:96
 msgid "Refresh MIDI ports"
 msgstr "Odśwież porty MIDI"
 
-#: frescobaldi_app/preferences/midi.py:135
+#: ../preferences/midi.py:135
 msgid "Close unused MIDI output"
 msgstr "Zamknij nieużywane wyjście MIDI"
 
-#: frescobaldi_app/preferences/midi.py:137
+#: ../preferences/midi.py:137
 msgid ""
 "Closes unused MIDI ports after one minute. See \"What's This\" for more "
 "information."
@@ -3096,7 +3064,7 @@ msgstr ""
 "Zamyka nieużywane porty MIDI po upływie jednej minuty. Zobacz \"Co to jest"
 "\", aby uzyskać więcej informacji."
 
-#: frescobaldi_app/preferences/midi.py:140
+#: ../preferences/midi.py:140
 msgid ""
 "<p>If checked, Frescobaldi will close MIDI output ports that are not used "
 "for one minute.</p>\n"
@@ -3107,523 +3075,514 @@ msgid ""
 "playing the file from the beginning sets up the instruments again.</p>\n"
 msgstr ""
 
-#: frescobaldi_app/preferences/paths.py:59
+#: ../preferences/paths.py:59
 msgid "Folders containing hyphenation dictionaries"
 msgstr "Katalogi zawierające słowniki z regułami dzielenia wyrazów"
 
-#: frescobaldi_app/preferences/shortcuts.py:56
-#: frescobaldi_app/snippet/model.py:63
+#: ../preferences/shortcuts.py:56 ../snippet/model.py:63
 msgid "Shortcut"
 msgstr "Skrót"
 
-#: frescobaldi_app/preferences/shortcuts.py:101
+#: ../preferences/shortcuts.py:101
 msgid "Menu {name}:"
 msgstr "Menu {name}:"
 
-#: frescobaldi_app/preferences/shortcuts.py:125
+#: ../preferences/shortcuts.py:125
 msgid "Other commands:"
 msgstr "Inne polecenia:"
 
-#: frescobaldi_app/preferences/shortcuts.py:173
+#: ../preferences/shortcuts.py:173
 msgid "&Edit Shortcut for \"{name}\""
 msgstr "Edytuj skrót klawiszowy dla \"{name}\""
 
-#: frescobaldi_app/preferences/shortcuts.py:178
+#: ../preferences/shortcuts.py:178
 msgid "(no shortcut)"
 msgstr "(brak skrótu)"
 
-#: frescobaldi_app/preferences/shortcuts.py:206
+#: ../preferences/shortcuts.py:206
 msgid "Remove the shortcut from that command?"
 msgid_plural "Remove the shortcut from those commands?"
 msgstr[0] "Czy usunąć skrót klawiszowy dla tego polecenia? "
 msgstr[1] "Czy usunąć skróty klawiszowe dla tych poleceń? "
 msgstr[2] "Czy usunąć skróty klawiszowe dla tych poleceń? "
 
-#: frescobaldi_app/preferences/shortcuts.py:304
+#: ../preferences/shortcuts.py:304
 msgid "(default)"
 msgstr "(domyślny)"
 
-#: frescobaldi_app/preferences/tools.py:82
+#: ../preferences/tools.py:82
 msgid "Show log when a job is started"
 msgstr "Pokazuj raport przy rozpoczęciu zadania"
 
-#: frescobaldi_app/preferences/tools.py:83
+#: ../preferences/tools.py:83
 msgid "Display plain log output"
 msgstr "Wyświetlaj zwykły raport"
 
-#: frescobaldi_app/preferences/tools.py:85
+#: ../preferences/tools.py:85
 msgid "If checked, Frescobaldi will not shorten filenames in the log output."
 msgstr "Po zaznaczeniu Frescobaldi nie będzie skracał nazw plików w raporcie."
 
-#: frescobaldi_app/preferences/tools.py:141
+#: ../preferences/tools.py:141
 msgid "Music View"
 msgstr "Okno partytury"
 
-#: frescobaldi_app/preferences/tools.py:142
+#: ../preferences/tools.py:142
 msgid "Magnifier Size:"
 msgstr "Wielkość powiększenia:"
 
-#: frescobaldi_app/preferences/tools.py:144
+#: ../preferences/tools.py:144
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr "Wielkość szkła powiększającego (Ctrl+klik w oknie partytury)."
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: frescobaldi_app/preferences/tools.py:146
+#: ../preferences/tools.py:146
 msgid " pixels"
 msgstr "piksele"
 
-#: frescobaldi_app/preferences/tools.py:147
+#: ../preferences/tools.py:147
 msgid "Magnifier Scale:"
 msgstr "Skala powiększenia:"
 
-#: frescobaldi_app/preferences/tools.py:149
+#: ../preferences/tools.py:149
 msgid "Magnification of the magnifier."
 msgstr "Skala powiększenie lupy "
 
-#: frescobaldi_app/preferences/tools.py:150
+#: ../preferences/tools.py:150
 msgctxt "percent unit sign"
 msgid "%"
 msgstr "%"
 
-#: frescobaldi_app/preferences/tools.py:220
+#: ../preferences/tools.py:220
 msgid "Group documents by directory"
 msgstr "Grupuj dokumenty wg katalogów"
 
-#: frescobaldi_app/quickinsert/__init__.py:47
-#: frescobaldi_app/quickinsert/__init__.py:71
+#: ../quickinsert/__init__.py:47 ../quickinsert/__init__.py:71
 msgid "Quick Insert"
 msgstr "Szybkie wstawianie"
 
-#: frescobaldi_app/quickinsert/__init__.py:48
+#: ../quickinsert/__init__.py:48
 msgid "Quick &Insert"
 msgstr "Szybkie &wstawianie"
 
-#: frescobaldi_app/quickinsert/articulations.py:73
+#: ../quickinsert/articulations.py:73
 msgid "Allow shorthands"
 msgstr "Pozwól na stenografowanie"
 
-#: frescobaldi_app/quickinsert/articulations.py:75
+#: ../quickinsert/articulations.py:75
 msgid "Use short notation for some articulations like staccato."
 msgstr "Użyj skrótowej notacji dla artykulacji takich jak staccato"
 
-#: frescobaldi_app/quickinsert/articulations.py:83
-#: frescobaldi_app/quickinsert/articulations.py:115
+#: ../quickinsert/articulations.py:83 ../quickinsert/articulations.py:115
 msgid "Articulations"
 msgstr "Artykulacja"
 
-#: frescobaldi_app/quickinsert/articulations.py:87
+#: ../quickinsert/articulations.py:87
 msgid "Different kinds of articulations and other signs."
 msgstr "Różne rodzaje artykulacji i inne znaki."
 
-#: frescobaldi_app/quickinsert/articulations.py:118
+#: ../quickinsert/articulations.py:118
 msgid "Accent"
 msgstr "Akcent"
 
-#: frescobaldi_app/quickinsert/articulations.py:119
+#: ../quickinsert/articulations.py:119
 msgid "Marcato"
 msgstr "Marcato"
 
-#: frescobaldi_app/quickinsert/articulations.py:120
+#: ../quickinsert/articulations.py:120
 msgid "Staccatissimo"
 msgstr "Staccatissimo"
 
-#: frescobaldi_app/quickinsert/articulations.py:121
+#: ../quickinsert/articulations.py:121
 msgid "Staccato"
 msgstr "Staccato"
 
-#: frescobaldi_app/quickinsert/articulations.py:122
+#: ../quickinsert/articulations.py:122
 msgid "Portato"
 msgstr "Portato"
 
-#: frescobaldi_app/quickinsert/articulations.py:123
+#: ../quickinsert/articulations.py:123
 msgid "Tenuto"
 msgstr "Tenuto"
 
-#: frescobaldi_app/quickinsert/articulations.py:124
+#: ../quickinsert/articulations.py:124
 msgid "Espressivo"
 msgstr "Espressivo"
 
-#: frescobaldi_app/quickinsert/articulations.py:129
+#: ../quickinsert/articulations.py:129
 msgid "Ornaments"
 msgstr "Ozdobniki"
 
-#: frescobaldi_app/quickinsert/articulations.py:132
-#: frescobaldi_app/quickinsert/spanners.py:146
+#: ../quickinsert/articulations.py:132 ../quickinsert/spanners.py:146
 msgid "Trill"
 msgstr "Tryl"
 
-#: frescobaldi_app/quickinsert/articulations.py:133
+#: ../quickinsert/articulations.py:133
 msgid "Prall"
 msgstr "Mordent"
 
-#: frescobaldi_app/quickinsert/articulations.py:134
+#: ../quickinsert/articulations.py:134
 msgid "Mordent"
 msgstr "Mordent przekreślony"
 
-#: frescobaldi_app/quickinsert/articulations.py:135
+#: ../quickinsert/articulations.py:135
 msgid "Turn"
 msgstr "Obiegnik"
 
-#: frescobaldi_app/quickinsert/articulations.py:136
+#: ../quickinsert/articulations.py:136
 msgid "Prall prall"
 msgstr ""
 
-#: frescobaldi_app/quickinsert/articulations.py:137
+#: ../quickinsert/articulations.py:137
 msgid "Prall mordent"
 msgstr ""
 
-#: frescobaldi_app/quickinsert/articulations.py:138
+#: ../quickinsert/articulations.py:138
 msgid "Up prall"
 msgstr ""
 
-#: frescobaldi_app/quickinsert/articulations.py:139
+#: ../quickinsert/articulations.py:139
 msgid "Down prall"
 msgstr ""
 
-#: frescobaldi_app/quickinsert/articulations.py:140
+#: ../quickinsert/articulations.py:140
 msgid "Up mordent"
 msgstr ""
 
-#: frescobaldi_app/quickinsert/articulations.py:141
+#: ../quickinsert/articulations.py:141
 msgid "Down mordent"
 msgstr ""
 
-#: frescobaldi_app/quickinsert/articulations.py:142
+#: ../quickinsert/articulations.py:142
 msgid "Prall up"
 msgstr ""
 
-#: frescobaldi_app/quickinsert/articulations.py:143
+#: ../quickinsert/articulations.py:143
 msgid "Prall down"
 msgstr ""
 
-#: frescobaldi_app/quickinsert/articulations.py:144
+#: ../quickinsert/articulations.py:144
 msgid "Line prall"
 msgstr ""
 
-#: frescobaldi_app/quickinsert/articulations.py:145
+#: ../quickinsert/articulations.py:145
 msgid "Reverse turn"
 msgstr "Obiegnik odwrócony"
 
 #. L10N: dynamic signs
-#: frescobaldi_app/quickinsert/articulations.py:150
-#: frescobaldi_app/quickinsert/dynamics.py:115
+#: ../quickinsert/articulations.py:150 ../quickinsert/dynamics.py:115
 msgid "Signs"
 msgstr "Symbole"
 
-#: frescobaldi_app/quickinsert/articulations.py:153
+#: ../quickinsert/articulations.py:153
 msgid "Fermata"
 msgstr "Fermata"
 
-#: frescobaldi_app/quickinsert/articulations.py:154
+#: ../quickinsert/articulations.py:154
 msgid "Short fermata"
 msgstr "Krótka fermata"
 
-#: frescobaldi_app/quickinsert/articulations.py:155
+#: ../quickinsert/articulations.py:155
 msgid "Long fermata"
 msgstr "Długa fermata"
 
-#: frescobaldi_app/quickinsert/articulations.py:156
+#: ../quickinsert/articulations.py:156
 msgid "Very long fermata"
 msgstr "Bardzo długa fermata"
 
-#: frescobaldi_app/quickinsert/articulations.py:157
+#: ../quickinsert/articulations.py:157
 msgid "Segno"
 msgstr "Segno"
 
-#: frescobaldi_app/quickinsert/articulations.py:158
+#: ../quickinsert/articulations.py:158
 msgid "Coda"
 msgstr "Coda"
 
-#: frescobaldi_app/quickinsert/articulations.py:159
+#: ../quickinsert/articulations.py:159
 msgid "Varcoda"
 msgstr "Varcoda"
 
-#: frescobaldi_app/quickinsert/articulations.py:160
+#: ../quickinsert/articulations.py:160
 msgid "Signumcongruentiae"
 msgstr "Signumcongruetiae"
 
-#: frescobaldi_app/quickinsert/articulations.py:165
+#: ../quickinsert/articulations.py:165
 msgid "Other"
 msgstr "Inne"
 
-#: frescobaldi_app/quickinsert/articulations.py:168
+#: ../quickinsert/articulations.py:168
 msgid "Upbow"
 msgstr "Smyczek do góry"
 
-#: frescobaldi_app/quickinsert/articulations.py:169
+#: ../quickinsert/articulations.py:169
 msgid "Downbow"
 msgstr "Smyczek na dół"
 
-#: frescobaldi_app/quickinsert/articulations.py:170
+#: ../quickinsert/articulations.py:170
 msgid "Snappizzicato"
 msgstr "Pizzicato bartokowskie"
 
-#: frescobaldi_app/quickinsert/articulations.py:171
+#: ../quickinsert/articulations.py:171
 msgid "Open (e.g. brass)"
 msgstr "Otwarty (np.dęte)"
 
-#: frescobaldi_app/quickinsert/articulations.py:172
+#: ../quickinsert/articulations.py:172
 msgid "Stopped (e.g. brass)"
 msgstr "Zakryty (np. dęte)"
 
-#: frescobaldi_app/quickinsert/articulations.py:173
+#: ../quickinsert/articulations.py:173
 msgid "Flageolet"
 msgstr "Flażolet"
 
-#: frescobaldi_app/quickinsert/articulations.py:174
+#: ../quickinsert/articulations.py:174
 msgid "Thumb"
 msgstr "Kciuk"
 
-#: frescobaldi_app/quickinsert/articulations.py:175
+#: ../quickinsert/articulations.py:175
 msgid "Left heel"
 msgstr "Lewa pięta"
 
-#: frescobaldi_app/quickinsert/articulations.py:176
+#: ../quickinsert/articulations.py:176
 msgid "Right heel"
 msgstr "Prawa pięta"
 
-#: frescobaldi_app/quickinsert/articulations.py:177
+#: ../quickinsert/articulations.py:177
 msgid "Left toe"
 msgstr "Lewy nos"
 
-#: frescobaldi_app/quickinsert/articulations.py:178
+#: ../quickinsert/articulations.py:178
 msgid "Right toe"
 msgstr "Prawy nos"
 
-#: frescobaldi_app/quickinsert/articulations.py:179
+#: ../quickinsert/articulations.py:179
 msgid "Half open (e.g. hi-hat)"
 msgstr "Pół otwarty (np. hi-hat)"
 
-#: frescobaldi_app/quickinsert/barlines.py:49
-#: frescobaldi_app/quickinsert/barlines.py:58
+#: ../quickinsert/barlines.py:49 ../quickinsert/barlines.py:58
 msgid "Bar Lines"
 msgstr "Kreski taktowe"
 
-#: frescobaldi_app/quickinsert/barlines.py:53
+#: ../quickinsert/barlines.py:53
 msgid "Bar lines, breathing signs, etcetera."
 msgstr "Kreski taktowe, znaki oddechów, etc."
 
-#: frescobaldi_app/quickinsert/barlines.py:61
+#: ../quickinsert/barlines.py:61
 msgid "Double bar line"
 msgstr "Podwójna kreska taktowa"
 
-#: frescobaldi_app/quickinsert/barlines.py:62
+#: ../quickinsert/barlines.py:62
 msgid "Ending bar line"
 msgstr "Końcowa kreska taktowa"
 
-#: frescobaldi_app/quickinsert/barlines.py:63
+#: ../quickinsert/barlines.py:63
 msgid "Dotted bar line"
 msgstr "Kropkowana kreska taktowa"
 
-#: frescobaldi_app/quickinsert/barlines.py:64
+#: ../quickinsert/barlines.py:64
 msgid "Dashed bar line"
 msgstr "Przerywana kreska taktowa"
 
-#: frescobaldi_app/quickinsert/barlines.py:65
+#: ../quickinsert/barlines.py:65
 msgid "Invisible bar line"
 msgstr "Niewidzialna kreska taktowa"
 
-#: frescobaldi_app/quickinsert/barlines.py:66
+#: ../quickinsert/barlines.py:66
 msgid "Repeat start"
 msgstr "Powtórz początek"
 
-#: frescobaldi_app/quickinsert/barlines.py:67
+#: ../quickinsert/barlines.py:67
 msgid "Repeat both"
 msgstr "Powtórz obydwa"
 
-#: frescobaldi_app/quickinsert/barlines.py:68
+#: ../quickinsert/barlines.py:68
 msgid "Repeat end"
 msgstr "Powtórz koniec"
 
-#: frescobaldi_app/quickinsert/barlines.py:69
+#: ../quickinsert/barlines.py:69
 msgid "Repeat both (old)"
 msgstr "Powtórz obydwa (stary)"
 
-#: frescobaldi_app/quickinsert/barlines.py:70
+#: ../quickinsert/barlines.py:70
 msgid "Repeat both (classic)"
 msgstr "Powtórz obydwa (klasyczny)"
 
-#: frescobaldi_app/quickinsert/barlines.py:71
+#: ../quickinsert/barlines.py:71
 msgid "Tick bar line"
 msgstr "Bez kresek taktowych (apostrofy)"
 
-#: frescobaldi_app/quickinsert/barlines.py:72
+#: ../quickinsert/barlines.py:72
 msgid "Single bar line"
 msgstr "Pojedyncza kreska taktowa"
 
-#: frescobaldi_app/quickinsert/barlines.py:73
+#: ../quickinsert/barlines.py:73
 msgid "Small-Wide-Small bar line"
 msgstr "Potrójna kreska taktowa"
 
-#: frescobaldi_app/quickinsert/barlines.py:74
+#: ../quickinsert/barlines.py:74
 msgid "Wide-Small bar line"
 msgstr "Podwójna kreska taktowa"
 
-#: frescobaldi_app/quickinsert/barlines.py:75
+#: ../quickinsert/barlines.py:75
 msgid "Double wide bar line"
 msgstr "Kreska taktowa o podwójnej szerokości"
 
-#: frescobaldi_app/quickinsert/barlines.py:76
+#: ../quickinsert/barlines.py:76
 msgid "Segno bar line"
 msgstr "Kreska taktowe Segno"
 
-#: frescobaldi_app/quickinsert/barlines.py:95
+#: ../quickinsert/barlines.py:95
 msgid "Breathing Signs"
 msgstr "Znaki oddechów"
 
-#: frescobaldi_app/quickinsert/barlines.py:102
+#: ../quickinsert/barlines.py:102
 msgid "Default Breathing Sign"
 msgstr "Dymyślny znak oddechu"
 
-#: frescobaldi_app/quickinsert/barlines.py:103
+#: ../quickinsert/barlines.py:103
 msgid "Straight Breathing Sign"
 msgstr "Znak oddechu - prosty"
 
-#: frescobaldi_app/quickinsert/barlines.py:104
+#: ../quickinsert/barlines.py:104
 msgid "Curved Caesura"
 msgstr "Caesura - łuk"
 
-#: frescobaldi_app/quickinsert/barlines.py:105
+#: ../quickinsert/barlines.py:105
 msgid "Straight Caesura"
 msgstr "Caesura - prosta"
 
-#: frescobaldi_app/quickinsert/buttongroup.py:175
+#: ../quickinsert/buttongroup.py:175
 msgid "{name} ({key})"
 msgstr "{name} ({key})"
 
-#: frescobaldi_app/quickinsert/buttongroup.py:182
+#: ../quickinsert/buttongroup.py:182
 msgid "Configure Keyboard Shortcut ({key})"
 msgstr "Konfiguracja skrótów klawiszowych ({key})"
 
-#: frescobaldi_app/quickinsert/buttongroup.py:182
-#: frescobaldi_app/scorewiz/scoreproperties.py:171
-#: frescobaldi_app/scorewiz/settings.py:195
-#: frescobaldi_app/snippet/edit.py:127
+#: ../quickinsert/buttongroup.py:182 ../scorewiz/scoreproperties.py:171
+#: ../scorewiz/settings.py:195 ../snippet/edit.py:127
 msgid "None"
 msgstr "Brak"
 
-#: frescobaldi_app/quickinsert/dynamics.py:51
+#: ../quickinsert/dynamics.py:51
 msgid "Dynamics"
 msgstr "Dynamika"
 
-#: frescobaldi_app/quickinsert/dynamics.py:55
+#: ../quickinsert/dynamics.py:55
 msgid "Dynamic symbols."
 msgstr "Symbole dynamiki."
 
-#: frescobaldi_app/quickinsert/dynamics.py:128
+#: ../quickinsert/dynamics.py:128
 msgid "Dynamic sign {name}"
 msgstr "Oznaczenie dynamiki {name}"
 
-#: frescobaldi_app/quickinsert/dynamics.py:133
-#: frescobaldi_app/quickinsert/spanners.py:51
-#: frescobaldi_app/quickinsert/spanners.py:136
+#: ../quickinsert/dynamics.py:133 ../quickinsert/spanners.py:51
+#: ../quickinsert/spanners.py:136
 msgid "Spanners"
 msgstr "Linie"
 
-#: frescobaldi_app/quickinsert/dynamics.py:142
+#: ../quickinsert/dynamics.py:142
 msgid "Hairpin crescendo"
 msgstr "Linia crescendo"
 
-#: frescobaldi_app/quickinsert/dynamics.py:143
+#: ../quickinsert/dynamics.py:143
 msgid "Crescendo"
 msgstr "Crescendo"
 
-#: frescobaldi_app/quickinsert/dynamics.py:144
+#: ../quickinsert/dynamics.py:144
 msgid "Hairpin diminuendo"
 msgstr "Linia diminuendo"
 
-#: frescobaldi_app/quickinsert/dynamics.py:145
+#: ../quickinsert/dynamics.py:145
 msgid "Diminuendo"
 msgstr "Diminuendo"
 
-#: frescobaldi_app/quickinsert/dynamics.py:146
+#: ../quickinsert/dynamics.py:146
 msgid "Decrescendo"
 msgstr "Decrescendo"
 
-#: frescobaldi_app/quickinsert/spanners.py:55
+#: ../quickinsert/spanners.py:55
 msgid "Slurs, spanners, etcetera."
 msgstr "Łuki, linie, etc."
 
-#: frescobaldi_app/quickinsert/spanners.py:60
+#: ../quickinsert/spanners.py:60
 msgid "Arpeggios"
 msgstr "Arpeggia"
 
-#: frescobaldi_app/quickinsert/spanners.py:69
+#: ../quickinsert/spanners.py:69
 msgid "Arpeggio"
 msgstr "Arpeggio"
 
-#: frescobaldi_app/quickinsert/spanners.py:70
+#: ../quickinsert/spanners.py:70
 msgid "Arpeggio with Up Arrow"
 msgstr "Arpeggio ze strzałką w górę"
 
-#: frescobaldi_app/quickinsert/spanners.py:71
+#: ../quickinsert/spanners.py:71
 msgid "Arpeggio with Down Arrow"
 msgstr "Arpeggio ze strzałką na dół"
 
-#: frescobaldi_app/quickinsert/spanners.py:72
+#: ../quickinsert/spanners.py:72
 msgid "Bracket Arpeggio"
 msgstr "Arpeggio z klamrą"
 
-#: frescobaldi_app/quickinsert/spanners.py:73
+#: ../quickinsert/spanners.py:73
 msgid "Parenthesis Arpeggio"
 msgstr "Arpeggio w nawiasie"
 
-#: frescobaldi_app/quickinsert/spanners.py:105
+#: ../quickinsert/spanners.py:105
 msgid "Glissandos"
 msgstr "Glissanda"
 
-#: frescobaldi_app/quickinsert/spanners.py:114
+#: ../quickinsert/spanners.py:114
 msgid "Glissando"
 msgstr "Glissando"
 
-#: frescobaldi_app/quickinsert/spanners.py:115
+#: ../quickinsert/spanners.py:115
 msgid "Dashed Glissando"
 msgstr "Glissando przerywane"
 
-#: frescobaldi_app/quickinsert/spanners.py:116
+#: ../quickinsert/spanners.py:116
 msgid "Dotted Glissando"
 msgstr "Glissando kropkowane"
 
-#: frescobaldi_app/quickinsert/spanners.py:117
+#: ../quickinsert/spanners.py:117
 msgid "Zigzag Glissando"
 msgstr "Glissando zygzak"
 
-#: frescobaldi_app/quickinsert/spanners.py:118
+#: ../quickinsert/spanners.py:118
 msgid "Trill Glissando"
 msgstr "Glissando tryl"
 
-#: frescobaldi_app/quickinsert/spanners.py:144
+#: ../quickinsert/spanners.py:144
 msgid "Phrasing Slur"
 msgstr "Łuk frazowy"
 
-#: frescobaldi_app/quickinsert/widget.py:102
+#: ../quickinsert/widget.py:102
 msgid ""
 "<p>With the Quick Insert Panel you can add various music elements to the "
 "current note or selected music.</p>\n"
 "<p>See {link} for more information.</p>"
 msgstr ""
 
-#: frescobaldi_app/quickinsert/widget.py:107
+#: ../quickinsert/widget.py:107
 msgid "Direction:"
 msgstr "Kierunek:"
 
-#: frescobaldi_app/quickinsert/widget.py:108
+#: ../quickinsert/widget.py:108
 msgid "Up"
 msgstr "Do góry"
 
-#: frescobaldi_app/quickinsert/widget.py:108
+#: ../quickinsert/widget.py:108
 msgid "Neutral"
 msgstr "Neutralnie"
 
-#: frescobaldi_app/quickinsert/widget.py:108
+#: ../quickinsert/widget.py:108
 msgid "Down"
 msgstr "Na dół"
 
-#: frescobaldi_app/quickinsert/widget.py:127
+#: ../quickinsert/widget.py:127
 msgid "The Quick Insert Panel"
 msgstr "Panel szybkiego wstawiania"
 
-#: frescobaldi_app/quickinsert/widget.py:130
+#: ../quickinsert/widget.py:130
 msgid ""
 "<p>\n"
 "With the tools in the Quick Insert Panel you can add various music elements\n"
@@ -3646,7 +3605,7 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: frescobaldi_app/quickinsert/widget.py:149
+#: ../quickinsert/widget.py:149
 msgid ""
 "<h3>Articulations</h3>\n"
 "\n"
@@ -3666,7 +3625,7 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: frescobaldi_app/quickinsert/widget.py:165
+#: ../quickinsert/widget.py:165
 msgid ""
 "<h3>Dynamics</h3>\n"
 "\n"
@@ -3679,7 +3638,7 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: frescobaldi_app/quickinsert/widget.py:174
+#: ../quickinsert/widget.py:174
 msgid ""
 "<h3>Spanners</h3>\n"
 "\n"
@@ -3697,7 +3656,7 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: frescobaldi_app/quickinsert/widget.py:189
+#: ../quickinsert/widget.py:189
 msgid ""
 "<h3>Bar Lines</h3>\n"
 "\n"
@@ -3706,67 +3665,67 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: frescobaldi_app/rhythm/__init__.py:146
+#: ../rhythm/__init__.py:146
 msgid "&Double durations"
 msgstr "Z&dubluj wartości"
 
-#: frescobaldi_app/rhythm/__init__.py:148
+#: ../rhythm/__init__.py:148
 msgid "Double all the durations in the selection."
 msgstr "Zdubluj wartości w danym fragmencie. "
 
-#: frescobaldi_app/rhythm/__init__.py:149
+#: ../rhythm/__init__.py:149
 msgid "&Halve durations"
 msgstr "Zmniejsz wartości o połowę"
 
-#: frescobaldi_app/rhythm/__init__.py:151
+#: ../rhythm/__init__.py:151
 msgid "Halve all the durations in the selection."
 msgstr "Zmniejsz wartości o połowę w danym fragmencie."
 
-#: frescobaldi_app/rhythm/__init__.py:152
+#: ../rhythm/__init__.py:152
 msgid "Do&t durations"
 msgstr "Dodaj kropkę"
 
-#: frescobaldi_app/rhythm/__init__.py:154
+#: ../rhythm/__init__.py:154
 msgid "Add a dot to all the durations in the selection."
 msgstr "Dodaj kropkę do wszystkich wartości w danym fragmencie."
 
-#: frescobaldi_app/rhythm/__init__.py:155
+#: ../rhythm/__init__.py:155
 msgid "&Undot durations"
 msgstr "Odejmij kropkę od wartości"
 
-#: frescobaldi_app/rhythm/__init__.py:157
+#: ../rhythm/__init__.py:157
 msgid "Remove one dot from all the durations in the selection."
 msgstr "Usuń po jednej kropce z wszystkich nut w danym fragmencie."
 
-#: frescobaldi_app/rhythm/__init__.py:158
+#: ../rhythm/__init__.py:158
 msgid "Remove &scaling"
 msgstr "Usuń skalowanie"
 
-#: frescobaldi_app/rhythm/__init__.py:160
+#: ../rhythm/__init__.py:160
 msgid "Remove all scaling (*n/m) from the durations in the selection."
 msgstr "Usuń skalowanie (*n/m) z wartości rytmicznych w tym fragmencie."
 
-#: frescobaldi_app/rhythm/__init__.py:161
+#: ../rhythm/__init__.py:161
 msgid "&Remove durations"
 msgstr "Wyczyść wartości"
 
-#: frescobaldi_app/rhythm/__init__.py:163
+#: ../rhythm/__init__.py:163
 msgid "Remove all durations from the selection."
 msgstr "Wyczyść wszystkie wartości w danym fragmencie."
 
-#: frescobaldi_app/rhythm/__init__.py:164
+#: ../rhythm/__init__.py:164
 msgid "Make &implicit"
 msgstr "Ukryj wartości rytmiczne"
 
-#: frescobaldi_app/rhythm/__init__.py:166
+#: ../rhythm/__init__.py:166
 msgid "Make durations implicit (remove repeated durations)."
 msgstr "Ukryj symbole wartości rytmicznych (ukryj powtarzające się wartości)."
 
-#: frescobaldi_app/rhythm/__init__.py:167
+#: ../rhythm/__init__.py:167
 msgid "Make implicit (per &line)"
 msgstr "Ukryj wartości (w &linii)"
 
-#: frescobaldi_app/rhythm/__init__.py:169
+#: ../rhythm/__init__.py:169
 msgid ""
 "Make durations implicit (remove repeated durations), except for the first "
 "duration in a line."
@@ -3774,11 +3733,11 @@ msgstr ""
 "Ukryj symbole wartości rytmicznych (usuń powtarzające się wartości), z "
 "wyjątkiem pierwszej w każdej z linii."
 
-#: frescobaldi_app/rhythm/__init__.py:171
+#: ../rhythm/__init__.py:171
 msgid "Make &explicit"
 msgstr "Pokaż &wartości rytmiczne"
 
-#: frescobaldi_app/rhythm/__init__.py:173
+#: ../rhythm/__init__.py:173
 msgid ""
 "Make durations explicit (add duration to every note, even if it is the same "
 "as the preceding note)."
@@ -3786,43 +3745,43 @@ msgstr ""
 "Pokaż wszystkie wartości rytmiczne (pokazuje wartość rytmiczną przy każdej "
 "nuty, nawet jeśli jest taka sama jak poprzednia)."
 
-#: frescobaldi_app/rhythm/__init__.py:175
+#: ../rhythm/__init__.py:175
 msgid "&Apply rhythm..."
 msgstr "Dodaj rytm..."
 
-#: frescobaldi_app/rhythm/__init__.py:177
+#: ../rhythm/__init__.py:177
 msgid "Apply an entered rhythm to the selected music."
 msgstr "Dodaj podany rytm do zaznaczonego fragmentu muzyki."
 
-#: frescobaldi_app/rhythm/__init__.py:178
+#: ../rhythm/__init__.py:178
 msgid "&Copy rhythm"
 msgstr "S&kopiuj rytm"
 
-#: frescobaldi_app/rhythm/__init__.py:180
+#: ../rhythm/__init__.py:180
 msgid "Copy the rhythm of the selected music."
 msgstr "Kopiuj rytm z zaznaczonego fragmentu muzyki."
 
-#: frescobaldi_app/rhythm/__init__.py:181
+#: ../rhythm/__init__.py:181
 msgid "&Paste rhythm"
 msgstr "Wklej rytm"
 
-#: frescobaldi_app/rhythm/__init__.py:182
+#: ../rhythm/__init__.py:182
 msgid "Paste a rhythm to the selected music."
 msgstr "Wklej rytm do wybranego fragmentu muzyki."
 
-#: frescobaldi_app/rhythm/rhythm.py:146
+#: ../rhythm/rhythm.py:146
 msgid "Apply Rhythm"
 msgstr "Dodaj rytm"
 
-#: frescobaldi_app/rhythm/rhythm.py:146
+#: ../rhythm/rhythm.py:146
 msgid "Enter a rhythm:"
 msgstr "Wprowadź rytm:"
 
-#: frescobaldi_app/rhythm/rhythm.py:244
+#: ../rhythm/rhythm.py:244
 msgid "Rhythm manipulation"
 msgstr "Manipulowanie rytmem"
 
-#: frescobaldi_app/rhythm/rhythm.py:247
+#: ../rhythm/rhythm.py:247
 msgid ""
 "<p>\n"
 "The rhythm functions of Frescobaldi alter the durations written after "
@@ -3860,61 +3819,60 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: frescobaldi_app/rhythm/rhythm.py:279
+#: ../rhythm/rhythm.py:279
 msgctxt "submenu title"
 msgid "Rhythm"
 msgstr "Rytm"
 
-#: frescobaldi_app/scorewiz/__init__.py:59
-#: frescobaldi_app/scorewiz/dialog.py:194
+#: ../scorewiz/__init__.py:59 ../scorewiz/dialog.py:194
 msgid "Setup New Score..."
 msgstr "Stwórz Nową Partyturę..."
 
-#: frescobaldi_app/scorewiz/build.py:136
+#: ../scorewiz/build.py:136
 msgid "Music follows here."
 msgstr "Poniżej wpisz nuty."
 
-#: frescobaldi_app/scorewiz/build.py:403
+#: ../scorewiz/build.py:403
 msgid "Remove default LilyPond tagline"
 msgstr "Usuń domyślną stopkę LilyPonda"
 
-#: frescobaldi_app/scorewiz/dialog.py:77
+#: ../scorewiz/dialog.py:77
 msgid "Score Setup Wizard"
 msgstr "Kreator partytury"
 
-#: frescobaldi_app/scorewiz/dialog.py:80
+#: ../scorewiz/dialog.py:80
 msgid "Clear"
 msgstr "Wyczyść"
 
-#: frescobaldi_app/scorewiz/dialog.py:82
+#: ../scorewiz/dialog.py:82
 msgid "Clears the current page of the Score Wizard."
 msgstr "Czyści obecną stronę z kreatora partytury."
 
-#: frescobaldi_app/scorewiz/dialog.py:83
+#: ../scorewiz/dialog.py:83
 msgid "Preview"
 msgstr "Podgląd"
 
-#: frescobaldi_app/scorewiz/dialog.py:126
+#: ../scorewiz/dialog.py:126
 msgid "Score Preview"
 msgstr "Podgląd partytury"
 
-#: frescobaldi_app/scorewiz/dialog.py:160
+#: ../scorewiz/dialog.py:160
 msgid "&Titles and Headers"
 msgstr "&Tytuły i nagłówki"
 
-#: frescobaldi_app/scorewiz/dialog.py:169
+#: ../scorewiz/dialog.py:169
 msgid "&Parts"
 msgstr "&Głosy"
 
-#: frescobaldi_app/scorewiz/dialog.py:178
+#: ../scorewiz/dialog.py:178
 msgid "&Score settings"
 msgstr "&Ustawienia partytury"
 
-#: frescobaldi_app/scorewiz/dialog.py:187
+#: ../scorewiz/dialog.py:187
 msgid "The Score Wizard"
 msgstr "Kreator partytury"
 
-#: frescobaldi_app/scorewiz/dialog.py:195
+#: ../scorewiz/dialog.py:195
 msgid ""
 "<p>\n"
 "The Score Setup Wizard ({key}) in {menu} is designed\n"
@@ -3976,198 +3934,197 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: frescobaldi_app/scorewiz/header.py:87
+#: ../scorewiz/header.py:87
 msgid "Click to enter a value."
 msgstr "Kliknij by wprowadzić wartość."
 
-#: frescobaldi_app/scorewiz/header.py:89
+#: ../scorewiz/header.py:89
 msgid "bottom of first page"
 msgstr "stopka pierwszej strony"
 
-#: frescobaldi_app/scorewiz/header.py:90
+#: ../scorewiz/header.py:90
 msgid "bottom of last page"
 msgstr "stopka ostatniej strony"
 
-#: frescobaldi_app/scorewiz/header.py:135
+#: ../scorewiz/header.py:135
 msgid "Dedication"
 msgstr "Dedykacja"
 
-#: frescobaldi_app/scorewiz/header.py:136
+#: ../scorewiz/header.py:136
 msgid "Title"
 msgstr "Tytuł"
 
-#: frescobaldi_app/scorewiz/header.py:137
+#: ../scorewiz/header.py:137
 msgid "Subtitle"
 msgstr "Podtytuł"
 
-#: frescobaldi_app/scorewiz/header.py:138
+#: ../scorewiz/header.py:138
 msgid "Subsubtitle"
 msgstr "Podpodtytuł"
 
-#: frescobaldi_app/scorewiz/header.py:139
+#: ../scorewiz/header.py:139
 msgid "Instrument"
 msgstr "Instrument"
 
-#: frescobaldi_app/scorewiz/header.py:140
+#: ../scorewiz/header.py:140
 msgid "Composer"
 msgstr "Kompozytor"
 
-#: frescobaldi_app/scorewiz/header.py:141
+#: ../scorewiz/header.py:141
 msgid "Arranger"
 msgstr "Aranżer"
 
-#: frescobaldi_app/scorewiz/header.py:142
+#: ../scorewiz/header.py:142
 msgid "Poet"
 msgstr "Autor tekstu"
 
-#: frescobaldi_app/scorewiz/header.py:143
+#: ../scorewiz/header.py:143
 msgid "Meter"
 msgstr "Licznik"
 
-#: frescobaldi_app/scorewiz/header.py:144
+#: ../scorewiz/header.py:144
 msgid "Piece"
 msgstr "Utwór"
 
-#: frescobaldi_app/scorewiz/header.py:145
+#: ../scorewiz/header.py:145
 msgid "Opus"
 msgstr "Opus"
 
-#: frescobaldi_app/scorewiz/header.py:146
+#: ../scorewiz/header.py:146
 msgid "Copyright"
 msgstr "Copyright"
 
-#: frescobaldi_app/scorewiz/header.py:147
+#: ../scorewiz/header.py:147
 msgid "Tagline"
 msgstr "Przypis"
 
-#: frescobaldi_app/scorewiz/score.py:100
+#: ../scorewiz/score.py:100
 msgid "Available parts:"
 msgstr "Dostępne głosy:"
 
-#: frescobaldi_app/scorewiz/score.py:101
+#: ../scorewiz/score.py:101
 msgid "Score:"
 msgstr "Partytura:"
 
-#: frescobaldi_app/scorewiz/score.py:102
+#: ../scorewiz/score.py:102
 msgid "&Add"
 msgstr "&Dodaj"
 
-#: frescobaldi_app/scorewiz/score.py:103 frescobaldi_app/snippet/widget.py:179
-#: frescobaldi_app/widgets/listedit.py:93
-#: frescobaldi_app/widgets/schemeselector.py:64
+#: ../scorewiz/score.py:103 ../snippet/widget.py:179 ../widgets/listedit.py:93
+#: ../widgets/schemeselector.py:64
 msgid "&Remove"
 msgstr "&Usuń"
 
-#: frescobaldi_app/scorewiz/score.py:104
+#: ../scorewiz/score.py:104
 msgid "Move up"
 msgstr "Przesuń w górę"
 
-#: frescobaldi_app/scorewiz/score.py:105
+#: ../scorewiz/score.py:105
 msgid "Move down"
 msgstr "Przesuń w dół"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:99
+#: ../scorewiz/scoreproperties.py:99
 msgid "Key signature:"
 msgstr "Tonacja:"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:135
+#: ../scorewiz/scoreproperties.py:135
 msgid "Time signature:"
 msgstr "Metrum:"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:177
+#: ../scorewiz/scoreproperties.py:177
 msgid "Pickup measure:"
 msgstr "Przedtakt:"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:221
+#: ../scorewiz/scoreproperties.py:221
 msgid "Metronome mark:"
 msgstr "Oznaczenie metronomiczne:"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:246
+#: ../scorewiz/scoreproperties.py:246
 msgid "Tempo indication:"
 msgstr "Oznaczenie tempa:"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:385
+#: ../scorewiz/scoreproperties.py:385
 msgid "Major"
 msgstr "Dur"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:386
+#: ../scorewiz/scoreproperties.py:386
 msgid "Minor"
 msgstr "Moll"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:387
+#: ../scorewiz/scoreproperties.py:387
 msgid "Ionian"
 msgstr "Jońska"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:388
+#: ../scorewiz/scoreproperties.py:388
 msgid "Dorian"
 msgstr "Dorycka"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:389
+#: ../scorewiz/scoreproperties.py:389
 msgid "Phrygian"
 msgstr "Frygijska"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:390
+#: ../scorewiz/scoreproperties.py:390
 msgid "Lydian"
 msgstr "Lidyjska"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:391
+#: ../scorewiz/scoreproperties.py:391
 msgid "Mixolydian"
 msgstr "Miksolidyjska"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:392
+#: ../scorewiz/scoreproperties.py:392
 msgid "Aeolian"
 msgstr "Eolska"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:393
+#: ../scorewiz/scoreproperties.py:393
 msgid "Locrian"
 msgstr "Lokryjska"
 
-#: frescobaldi_app/scorewiz/settings.py:79
+#: ../scorewiz/settings.py:79
 msgid "Score properties"
 msgstr "Ustawienia partytury"
 
-#: frescobaldi_app/scorewiz/settings.py:118
+#: ../scorewiz/settings.py:118
 msgid "General preferences"
 msgstr "Ustawienia ogólne"
 
-#: frescobaldi_app/scorewiz/settings.py:119
+#: ../scorewiz/settings.py:119
 msgid "Use typographical quotes"
 msgstr "Użyj cudzysłowu drukarskiego"
 
-#: frescobaldi_app/scorewiz/settings.py:121
+#: ../scorewiz/settings.py:121
 msgid "Replace normal quotes in titles with nice typographical quotes."
 msgstr "Zamień normalny cudzysłów na cudzysłów drukarski."
 
-#: frescobaldi_app/scorewiz/settings.py:122
+#: ../scorewiz/settings.py:122
 msgid "Remove default tagline"
 msgstr "Usuń domyślną stopkę"
 
-#: frescobaldi_app/scorewiz/settings.py:124
+#: ../scorewiz/settings.py:124
 msgid "Suppress the default tagline output by LilyPond."
 msgstr "Ukryj domyślną stopkę dodawaną przez LilyPond."
 
-#: frescobaldi_app/scorewiz/settings.py:125
+#: ../scorewiz/settings.py:125
 msgid "Remove bar numbers"
 msgstr "Usuń numery taktów"
 
-#: frescobaldi_app/scorewiz/settings.py:127
+#: ../scorewiz/settings.py:127
 msgid ""
 "Suppress the display of measure numbers at the beginning of every system."
 msgstr "Ukryj numery taktów na początku każdego systemu."
 
-#: frescobaldi_app/scorewiz/settings.py:129
+#: ../scorewiz/settings.py:129
 msgid "Create MIDI output"
 msgstr "Generuj plik MIDI"
 
-#: frescobaldi_app/scorewiz/settings.py:131
+#: ../scorewiz/settings.py:131
 msgid "Create a MIDI file in addition to the PDF file."
 msgstr "Generuj plik MIDI oraz PDF."
 
-#: frescobaldi_app/scorewiz/settings.py:132
+#: ../scorewiz/settings.py:132
 msgid "Show metronome mark"
 msgstr "Pokaż oznaczenie metronomiczne"
 
-#: frescobaldi_app/scorewiz/settings.py:134
+#: ../scorewiz/settings.py:134
 msgid ""
 "If checked, show the metronome mark at the beginning of the score. The MIDI "
 "output also uses the metronome setting."
@@ -4175,95 +4132,93 @@ msgstr ""
 "Jeśli zaznaczysz, oznaczenie metronomiczne pojawi się na początkupartytury. "
 "Użyte zostanie także w pliku MIDI."
 
-#: frescobaldi_app/scorewiz/settings.py:137
+#: ../scorewiz/settings.py:137
 msgid "Paper size:"
 msgstr "Rozmiar papieru:"
 
-#: frescobaldi_app/scorewiz/settings.py:139
+#: ../scorewiz/settings.py:139
 msgid "Landscape"
 msgstr "Układ poziomy"
 
-#: frescobaldi_app/scorewiz/settings.py:192
-#: frescobaldi_app/scorewiz/settings.py:195
+#: ../scorewiz/settings.py:192 ../scorewiz/settings.py:195
 msgid "Long"
 msgstr "Pełna nazwa"
 
-#: frescobaldi_app/scorewiz/settings.py:192
-#: frescobaldi_app/scorewiz/settings.py:195
+#: ../scorewiz/settings.py:192 ../scorewiz/settings.py:195
 msgid "Short"
 msgstr "Skrót"
 
-#: frescobaldi_app/scorewiz/settings.py:219
+#: ../scorewiz/settings.py:219
 msgid "Instrument names"
 msgstr "Nazwy instrumentów"
 
-#: frescobaldi_app/scorewiz/settings.py:220
+#: ../scorewiz/settings.py:220
 msgid "First system:"
 msgstr "Pierwszy system:"
 
-#: frescobaldi_app/scorewiz/settings.py:221
+#: ../scorewiz/settings.py:221
 msgid "Other systems:"
 msgstr "Inne systemy:"
 
-#: frescobaldi_app/scorewiz/settings.py:224
+#: ../scorewiz/settings.py:224
 msgid "Use long or short instrument names before the first system."
 msgstr "Użyj pełnej nazwy lub skrótu na początku pierwszego systemu. "
 
-#: frescobaldi_app/scorewiz/settings.py:226
+#: ../scorewiz/settings.py:226
 msgid "Use short, long or no instrument names before the next systems."
 msgstr ""
 "Użyj skrótów, pełnych nazw lub nie używaj nazw przed kolejnymi systemami."
 
-#: frescobaldi_app/scorewiz/settings.py:228
+#: ../scorewiz/settings.py:228
 msgid "Which language to use for the instrument names."
 msgstr "Język dla nazw instrumentów."
 
-#: frescobaldi_app/scorewiz/settings.py:296
+#: ../scorewiz/settings.py:296
 msgid "Pitch name language:"
 msgstr "Język dla nazw dźwięków:"
 
-#: frescobaldi_app/scorewiz/settings.py:298
+#: ../scorewiz/settings.py:298
 msgid "The LilyPond language you want to use for the pitch names."
 msgstr "Wybierz język,którego Lilypond użyje dla zapisywania wysokości"
 
-#: frescobaldi_app/scorewiz/settings.py:300
+#: ../scorewiz/settings.py:300
 msgid "Version:"
 msgstr "Wersja:"
 
-#: frescobaldi_app/scorewiz/settings.py:302
+#: ../scorewiz/settings.py:302
 msgid "The LilyPond version you will be using for this document."
 msgstr "Wersja LilyPond jakiej użyjesz dla tego dokumentu."
 
-#: frescobaldi_app/scorewiz/parts/_base.py:64
+#: ../scorewiz/parts/_base.py:64
 msgid "No settings available."
 msgstr "Brak dostępnych ustawień."
 
-#: frescobaldi_app/scorewiz/parts/_base.py:133
+#: ../scorewiz/parts/_base.py:133
 msgid "Adjust how many separate voices you want on each staff."
 msgstr "Ustal ilość oddzielnych głosów dla każdej pięciolinii. "
 
-#: frescobaldi_app/scorewiz/parts/_base.py:134
+#: ../scorewiz/parts/_base.py:134
 msgid "This is primarily useful when you write polyphonic music like a fuge."
 msgstr ""
 "Jest to szczególnie użyteczne w pisaniu muzyki polifonicznej, np. fugi."
 
-#: frescobaldi_app/scorewiz/parts/_base.py:136
+#: ../scorewiz/parts/_base.py:136
 msgid "Right hand:"
 msgstr "Prawa ręka:"
 
-#: frescobaldi_app/scorewiz/parts/_base.py:137
+#: ../scorewiz/parts/_base.py:137
 msgid "Left hand:"
 msgstr "Lewa ręka:"
 
-#: frescobaldi_app/scorewiz/parts/_base.py:186
+#: ../scorewiz/parts/_base.py:186
 msgid "Chord style:"
 msgstr "Styl akordów:"
 
-#: frescobaldi_app/scorewiz/parts/_base.py:187
+#: ../scorewiz/parts/_base.py:187
 msgid "Guitar fret diagrams"
 msgstr "Wykres progów gitary"
 
-#: frescobaldi_app/scorewiz/parts/_base.py:189
+#: ../scorewiz/parts/_base.py:189
 msgid ""
 "Show predefined guitar fret diagrams below the chord names (LilyPond 2.12 "
 "and above)."
@@ -4271,141 +4226,141 @@ msgstr ""
 "Pokaż tabulaturowy wykres progów gitary pod nazwami akordów (LilyPond 2.12 i "
 "wyższy)."
 
-#: frescobaldi_app/scorewiz/parts/_base.py:203
+#: ../scorewiz/parts/_base.py:203
 msgid "Chords follow here."
 msgstr "Poniżej wpisz akordy."
 
-#: frescobaldi_app/scorewiz/parts/_base.py:215
+#: ../scorewiz/parts/_base.py:215
 msgid "German"
 msgstr "Niemiecki"
 
-#: frescobaldi_app/scorewiz/parts/_base.py:216
+#: ../scorewiz/parts/_base.py:216
 msgid "Semi-German"
 msgstr "Pół-Niemiecki"
 
-#: frescobaldi_app/scorewiz/parts/_base.py:217
+#: ../scorewiz/parts/_base.py:217
 msgid "Italian"
 msgstr "Włoski"
 
-#: frescobaldi_app/scorewiz/parts/_base.py:218
+#: ../scorewiz/parts/_base.py:218
 msgid "French"
 msgstr "Francuski"
 
-#: frescobaldi_app/scorewiz/parts/brass.py:39
+#: ../scorewiz/parts/brass.py:39
 msgid "Horn in F"
 msgstr "Róg F"
 
-#: frescobaldi_app/scorewiz/parts/brass.py:43
+#: ../scorewiz/parts/brass.py:43
 msgctxt "abbreviation for Horn in F"
 msgid "Hn.F."
 msgstr "R. F"
 
-#: frescobaldi_app/scorewiz/parts/brass.py:52
+#: ../scorewiz/parts/brass.py:52
 msgid "Trumpet in C"
 msgstr "Trąbka C"
 
-#: frescobaldi_app/scorewiz/parts/brass.py:56
+#: ../scorewiz/parts/brass.py:56
 msgctxt "abbreviation for Trumpet in C"
 msgid "Tr.C."
 msgstr "Tr.C."
 
-#: frescobaldi_app/scorewiz/parts/brass.py:64
+#: ../scorewiz/parts/brass.py:64
 msgid "Trumpet in Bb"
 msgstr "Trąbka Bb"
 
-#: frescobaldi_app/scorewiz/parts/brass.py:68
+#: ../scorewiz/parts/brass.py:68
 msgctxt "abbreviation for Trumpet in Bb"
 msgid "Tr.Bb."
 msgstr "Tr.Bb."
 
-#: frescobaldi_app/scorewiz/parts/brass.py:76
+#: ../scorewiz/parts/brass.py:76
 msgid "Trombone"
 msgstr "Puzon"
 
-#: frescobaldi_app/scorewiz/parts/brass.py:80
+#: ../scorewiz/parts/brass.py:80
 msgctxt "abbreviation for Trombone"
 msgid "Trb."
 msgstr "Puz."
 
-#: frescobaldi_app/scorewiz/parts/brass.py:90
+#: ../scorewiz/parts/brass.py:90
 msgid "Tuba"
 msgstr "Tuba"
 
-#: frescobaldi_app/scorewiz/parts/brass.py:94
+#: ../scorewiz/parts/brass.py:94
 msgctxt "abbreviation for Tuba"
 msgid "Tb."
 msgstr "Tb."
 
-#: frescobaldi_app/scorewiz/parts/brass.py:103
+#: ../scorewiz/parts/brass.py:103
 msgid "Bass Tuba"
 msgstr "Tuba basowa"
 
-#: frescobaldi_app/scorewiz/parts/brass.py:107
+#: ../scorewiz/parts/brass.py:107
 msgctxt "abbreviation for Bass Tuba"
 msgid "B.Tb."
 msgstr "Tb.b."
 
-#: frescobaldi_app/scorewiz/parts/brass.py:116
+#: ../scorewiz/parts/brass.py:116
 msgid "Brass"
 msgstr "Dęte blaszane"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:43
+#: ../scorewiz/parts/containers.py:43
 msgid "Staff Group"
 msgstr "Grupa pięciolinii"
 
 #. L10N: Brace like a piano staff
-#: frescobaldi_app/scorewiz/parts/containers.py:54
+#: ../scorewiz/parts/containers.py:54
 msgid "Brace"
 msgstr "Klamra"
 
 #. L10N: Bracket like a choir staff
-#: frescobaldi_app/scorewiz/parts/containers.py:56
+#: ../scorewiz/parts/containers.py:56
 msgid "Bracket"
 msgstr "Klamra"
 
 #. L10N: Square bracket like a sub-group
-#: frescobaldi_app/scorewiz/parts/containers.py:58
+#: ../scorewiz/parts/containers.py:58
 msgid "Square"
 msgstr "Kwadrat"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:71
+#: ../scorewiz/parts/containers.py:71
 msgid "Type:"
 msgstr "Typ:"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:72
+#: ../scorewiz/parts/containers.py:72
 msgid "Connect Barlines"
 msgstr "Łącz kreski taktowe"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:73
+#: ../scorewiz/parts/containers.py:73
 msgid "If checked, barlines are connected between the staves."
 msgstr ""
 "Po zaznaczeniu kreski taktowe będą przeciągnięte pomiędzy pięcioliniami"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:94
+#: ../scorewiz/parts/containers.py:94
 msgid "Score"
 msgstr "Partytura"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:123
+#: ../scorewiz/parts/containers.py:123
 msgid "Piece:"
 msgstr "Utwór:"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:124
+#: ../scorewiz/parts/containers.py:124
 msgid "Opus:"
 msgstr "Opus:"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:125
+#: ../scorewiz/parts/containers.py:125
 msgid "Properties"
 msgstr "Właściwości"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:153
+#: ../scorewiz/parts/containers.py:153
 msgid "Book Part"
 msgstr ""
 
-#: frescobaldi_app/scorewiz/parts/containers.py:166
+#: ../scorewiz/parts/containers.py:166
 msgid "Book"
 msgstr ""
 
-#: frescobaldi_app/scorewiz/parts/containers.py:188
+#: ../scorewiz/parts/containers.py:188
 msgid ""
 "<p>Here you can specify a filename or suffix (without extension) to set the "
 "names of generated output files for this book.</p>\n"
@@ -4414,488 +4369,483 @@ msgid ""
 "be used.</p>"
 msgstr ""
 
-#: frescobaldi_app/scorewiz/parts/containers.py:193
+#: ../scorewiz/parts/containers.py:193
 msgid "Output Filename:"
 msgstr "Nazwa pliku wynikowego:"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:194
+#: ../scorewiz/parts/containers.py:194
 msgid "Filename"
 msgstr "Nazwa pliku"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:195
+#: ../scorewiz/parts/containers.py:195
 msgid "Suffix"
 msgstr "Przyrostek"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:207
+#: ../scorewiz/parts/containers.py:207
 msgid "Containers"
 msgstr "Kontenery"
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:44
+#: ../scorewiz/parts/keyboard.py:44
 msgid "Piano"
 msgstr "Fortepian"
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:48
+#: ../scorewiz/parts/keyboard.py:48
 msgctxt "abbreviation for Piano"
 msgid "Pno."
 msgstr "Pf."
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:56
+#: ../scorewiz/parts/keyboard.py:56
 msgid "Harpsichord"
 msgstr "Klawesyn"
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:60
+#: ../scorewiz/parts/keyboard.py:60
 msgctxt "abbreviation for Harpsichord"
 msgid "Hs."
 msgstr "Klws."
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:68
+#: ../scorewiz/parts/keyboard.py:68
 msgid "Clavichord"
 msgstr "Klawikord"
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:72
+#: ../scorewiz/parts/keyboard.py:72
 msgctxt "abbreviation for Clavichord"
 msgid "Clv."
 msgstr "Klwk."
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:80
+#: ../scorewiz/parts/keyboard.py:80
 msgid "Organ"
 msgstr "Organy"
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:84
+#: ../scorewiz/parts/keyboard.py:84
 msgctxt "abbreviation for Organ"
 msgid "Org."
 msgstr "Org."
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:99
+#: ../scorewiz/parts/keyboard.py:99
 msgid "Pedal:"
 msgstr "Pedał:"
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:101
+#: ../scorewiz/parts/keyboard.py:101
 msgid "Set to 0 to disable the pedal altogether."
 msgstr "Ustaw na zero, aby zupełnie wyłączyć pedał. "
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:114
+#: ../scorewiz/parts/keyboard.py:114
 msgid "Celesta"
 msgstr "Czelesta"
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:118
+#: ../scorewiz/parts/keyboard.py:118
 msgctxt "abbreviation for Celesta"
 msgid "Cel."
 msgstr "Czel."
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:124
+#: ../scorewiz/parts/keyboard.py:124
 msgid "Keyboard instruments"
 msgstr "Instrumenty klawiszowe"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:45
+#: ../scorewiz/parts/percussion.py:45
 msgid "Timpani"
 msgstr "Kotły"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:49
+#: ../scorewiz/parts/percussion.py:49
 msgctxt "abbreviation for Timpani"
 msgid "Tmp."
 msgstr "Ktł."
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:59
+#: ../scorewiz/parts/percussion.py:59
 msgid "Xylophone"
 msgstr "Ksylofon"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:63
+#: ../scorewiz/parts/percussion.py:63
 msgctxt "abbreviation for Xylophone"
 msgid "Xyl."
 msgstr "Ksf."
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:71
+#: ../scorewiz/parts/percussion.py:71
 msgid "Marimba"
 msgstr "Marimba"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:75
+#: ../scorewiz/parts/percussion.py:75
 msgctxt "abbreviation for Marimba"
 msgid "Mar."
 msgstr "Mar."
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:84
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:318
+#: ../scorewiz/parts/percussion.py:84 ../scorewiz/parts/plucked_strings.py:318
 msgid "Upper staff:"
 msgstr "Górna pięciolinia:"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:85
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:319
+#: ../scorewiz/parts/percussion.py:85 ../scorewiz/parts/plucked_strings.py:319
 msgid "Lower staff:"
 msgstr "Dolna pięciolinia:"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:87
+#: ../scorewiz/parts/percussion.py:87
 msgid "Set the number of voices to 0 to disable the second staff."
 msgstr "Ustaw liczbę głosów na 0, aby zlikwidować drugą pięciolinię."
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:99
+#: ../scorewiz/parts/percussion.py:99
 msgid "Vibraphone"
 msgstr "Wibrafon"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:103
+#: ../scorewiz/parts/percussion.py:103
 msgctxt "abbreviation for Vibraphone"
 msgid "Vib."
 msgstr "Wibr."
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:111
+#: ../scorewiz/parts/percussion.py:111
 msgid "Tubular bells"
 msgstr "Dzwony rurowe"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:115
+#: ../scorewiz/parts/percussion.py:115
 msgctxt "abbreviation for Tubular bells"
 msgid "Tub."
 msgstr "Dzw.r."
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:123
+#: ../scorewiz/parts/percussion.py:123
 msgid "Glockenspiel"
 msgstr "Dzwonki orkiestrowe"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:127
+#: ../scorewiz/parts/percussion.py:127
 msgctxt "abbreviation for Glockenspiel"
 msgid "Gls."
 msgstr "Dzw.o."
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:135
+#: ../scorewiz/parts/percussion.py:135
 msgid "Carillon"
 msgstr "Carillon"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:139
+#: ../scorewiz/parts/percussion.py:139
 msgctxt "abbreviation for Carillon"
 msgid "Car."
 msgstr "Car."
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:145
+#: ../scorewiz/parts/percussion.py:145
 msgid "Manual staff:"
 msgstr "Pięciolinia manualna:"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:146
+#: ../scorewiz/parts/percussion.py:146
 msgid "Pedal staff:"
 msgstr "Pięciolinia pedałowa:"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:161
+#: ../scorewiz/parts/percussion.py:161
 msgid "Drums"
 msgstr "Perkusja"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:165
+#: ../scorewiz/parts/percussion.py:165
 msgctxt "abbreviation for Drums"
 msgid "Dr."
 msgstr "Perk."
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:186
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:258
+#: ../scorewiz/parts/percussion.py:186
+#: ../scorewiz/parts/plucked_strings.py:258
 msgid "Voices:"
 msgstr "Głosy:"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:188
+#: ../scorewiz/parts/percussion.py:188
 msgid "Remove stems"
 msgstr "Usuń laseczki nut"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:189
+#: ../scorewiz/parts/percussion.py:189
 msgid "Remove the stems from the drum notes."
 msgstr "Usuń laseczki z nut perkusyjnych"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:201
+#: ../scorewiz/parts/percussion.py:201
 msgid "Drums follow here."
 msgstr "Poniżej wpisz nuty dla perkusji."
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:226
+#: ../scorewiz/parts/percussion.py:226
 msgid "keep some distance."
 msgstr "zachowaj odstęp."
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:232
+#: ../scorewiz/parts/percussion.py:232
 msgid "Drums (5 lines, default)"
 msgstr "Perkusja (domyślnie 5 linii)"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:233
+#: ../scorewiz/parts/percussion.py:233
 msgid "Timbales-style (2 lines)"
 msgstr "Zapis timbalesów (2 linie)"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:234
+#: ../scorewiz/parts/percussion.py:234
 msgid "Congas-style (2 lines)"
 msgstr "Zapis congi (2 linie)"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:235
+#: ../scorewiz/parts/percussion.py:235
 msgid "Bongos-style (2 lines)"
 msgstr "Zapis bongosów (2 linie)"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:236
+#: ../scorewiz/parts/percussion.py:236
 msgid "Percussion-style (1 line)"
 msgstr "Zapis perkusyjny (1 linia)"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:242
+#: ../scorewiz/parts/percussion.py:242
 msgid "Percussion"
 msgstr "Perkusja"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:76
+#: ../scorewiz/parts/plucked_strings.py:76
 msgid "Staff type:"
 msgstr "Rodzaj pięciolinii:"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:82
+#: ../scorewiz/parts/plucked_strings.py:82
 msgid "Tuning:"
 msgstr "Strój:"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:172
+#: ../scorewiz/parts/plucked_strings.py:172
 msgid "Normal staff"
 msgstr "Normalna pięciolinia"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:173
+#: ../scorewiz/parts/plucked_strings.py:173
 msgid "Tablature"
 msgstr "Tabulatura"
 
 #. L10N: Both a Normal and a Tablature staff
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:175
+#: ../scorewiz/parts/plucked_strings.py:175
 msgid "Both"
 msgstr "Obydwa"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:182
+#: ../scorewiz/parts/plucked_strings.py:182
 msgid "Mandolin"
 msgstr "Mandolina"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:186
+#: ../scorewiz/parts/plucked_strings.py:186
 msgctxt "abbreviation for Mandolin"
 msgid "Mdl."
 msgstr "Mdl."
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:190
+#: ../scorewiz/parts/plucked_strings.py:190
 msgid "Mandolin tuning"
 msgstr "Strój mandoliny"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:197
+#: ../scorewiz/parts/plucked_strings.py:197
 msgid "Banjo"
 msgstr "Banjo"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:201
+#: ../scorewiz/parts/plucked_strings.py:201
 msgctxt "abbreviation for Banjo"
 msgid "Bj."
 msgstr "Bj."
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:206
+#: ../scorewiz/parts/plucked_strings.py:206
 msgid "Open G-tuning (aDGBD)"
 msgstr "Strój G (aDGHD)"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:207
+#: ../scorewiz/parts/plucked_strings.py:207
 msgid "C-tuning (gCGBD)"
 msgstr "Strój C (gCGHD)"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:208
+#: ../scorewiz/parts/plucked_strings.py:208
 msgid "Modal tuning (gDGCD)"
 msgstr "Strój modalny(gDGCD)"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:209
+#: ../scorewiz/parts/plucked_strings.py:209
 msgid "Open D-tuning (aDF#AD)"
 msgstr "Strój D (aDF#AD)"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:210
+#: ../scorewiz/parts/plucked_strings.py:210
 msgid "Open Dm-tuning (aDFAD)"
 msgstr "Strój d-moll (aDFAD)"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:220
+#: ../scorewiz/parts/plucked_strings.py:220
 msgid "Four strings (instead of five)"
 msgstr "Cztery struny (zamiast pięciu)"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:234
+#: ../scorewiz/parts/plucked_strings.py:234
 msgid "Classical guitar"
 msgstr "Gitara "
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:238
+#: ../scorewiz/parts/plucked_strings.py:238
 msgctxt "abbreviation for Classical guitar"
 msgid "Gt."
 msgstr "Gt."
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:243
+#: ../scorewiz/parts/plucked_strings.py:243
 msgid "Guitar tuning"
 msgstr "Strój gitarowy"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:244
+#: ../scorewiz/parts/plucked_strings.py:244
 msgid "Open G-tuning"
 msgstr "Strój G"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:267
+#: ../scorewiz/parts/plucked_strings.py:267
 msgid "Jazz guitar"
 msgstr "Gitara jazzowa"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:271
+#: ../scorewiz/parts/plucked_strings.py:271
 msgctxt "abbreviation for Jazz guitar"
 msgid "J.Gt."
 msgstr "Git.jazz."
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:279
-#: frescobaldi_app/scorewiz/parts/vocal.py:171
+#: ../scorewiz/parts/plucked_strings.py:279 ../scorewiz/parts/vocal.py:171
 msgid "Bass"
 msgstr "Bas"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:283
+#: ../scorewiz/parts/plucked_strings.py:283
 msgctxt "abbreviation for Bass"
 msgid "Bs."
 msgstr "B."
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:289
+#: ../scorewiz/parts/plucked_strings.py:289
 msgid "Bass tuning"
 msgstr "Strój basu"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:296
+#: ../scorewiz/parts/plucked_strings.py:296
 msgid "Electric bass"
 msgstr "Bas elektryczny"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:300
+#: ../scorewiz/parts/plucked_strings.py:300
 msgctxt "abbreviation for Electric bass"
 msgid "E.Bs."
 msgstr "E.b."
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:308
+#: ../scorewiz/parts/plucked_strings.py:308
 msgid "Harp"
 msgstr "Harfa"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:312
+#: ../scorewiz/parts/plucked_strings.py:312
 msgctxt "abbreviation for Harp"
 msgid "Hp."
 msgstr "Hf."
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:335
+#: ../scorewiz/parts/plucked_strings.py:335
 msgid "Plucked strings"
 msgstr "Strunowe szarpane"
 
-#: frescobaldi_app/scorewiz/parts/special.py:39
-#: frescobaldi_app/scorewiz/parts/vocal.py:204
+#: ../scorewiz/parts/special.py:39 ../scorewiz/parts/vocal.py:204
 msgid "Chord names"
 msgstr "Nazwy akordów"
 
-#: frescobaldi_app/scorewiz/parts/special.py:45
+#: ../scorewiz/parts/special.py:45
 msgid "Figured Bass"
 msgstr "Bas cyfrowany"
 
-#: frescobaldi_app/scorewiz/parts/special.py:52
+#: ../scorewiz/parts/special.py:52
 msgid "Use extender lines"
 msgstr "Użyj wypełniających linii"
 
-#: frescobaldi_app/scorewiz/parts/special.py:60
-#: frescobaldi_app/scorewiz/parts/strings.py:109
+#: ../scorewiz/parts/special.py:60 ../scorewiz/parts/strings.py:109
 msgid "Figures follow here."
 msgstr "Poniżej wpisz cyfowanie basu."
 
-#: frescobaldi_app/scorewiz/parts/special.py:70
+#: ../scorewiz/parts/special.py:70
 msgid "Staff"
 msgstr "Pięciolinia:"
 
-#: frescobaldi_app/scorewiz/parts/special.py:76
+#: ../scorewiz/parts/special.py:76
 msgid "Special"
 msgstr "Specjalne"
 
-#: frescobaldi_app/scorewiz/parts/strings.py:41
+#: ../scorewiz/parts/strings.py:41
 msgid "Violin"
 msgstr "Skrzypce"
 
-#: frescobaldi_app/scorewiz/parts/strings.py:45
+#: ../scorewiz/parts/strings.py:45
 msgctxt "abbreviation for Violin"
 msgid "Vl."
 msgstr "Skrz."
 
-#: frescobaldi_app/scorewiz/parts/strings.py:53
+#: ../scorewiz/parts/strings.py:53
 msgid "Viola"
 msgstr "Altówka"
 
-#: frescobaldi_app/scorewiz/parts/strings.py:57
+#: ../scorewiz/parts/strings.py:57
 msgctxt "abbreviation for Viola"
 msgid "Vla."
 msgstr "Alt."
 
-#: frescobaldi_app/scorewiz/parts/strings.py:67
+#: ../scorewiz/parts/strings.py:67
 msgid "Cello"
 msgstr "Wiolonczela"
 
-#: frescobaldi_app/scorewiz/parts/strings.py:71
+#: ../scorewiz/parts/strings.py:71
 msgctxt "abbreviation for Cello"
 msgid "Cl."
 msgstr "Wiol."
 
-#: frescobaldi_app/scorewiz/parts/strings.py:81
+#: ../scorewiz/parts/strings.py:81
 msgid "Contrabass"
 msgstr "Kontrabas"
 
-#: frescobaldi_app/scorewiz/parts/strings.py:85
+#: ../scorewiz/parts/strings.py:85
 msgctxt "abbreviation for Contrabass"
 msgid "Cb."
 msgstr "Kb."
 
-#: frescobaldi_app/scorewiz/parts/strings.py:95
+#: ../scorewiz/parts/strings.py:95
 msgid "Basso Continuo"
 msgstr "Basso Continuo"
 
-#: frescobaldi_app/scorewiz/parts/strings.py:99
+#: ../scorewiz/parts/strings.py:99
 msgctxt "abbreviation for Basso Continuo"
 msgid "B.c."
 msgstr "B.c."
 
-#: frescobaldi_app/scorewiz/parts/strings.py:117
+#: ../scorewiz/parts/strings.py:117
 msgid "Strings"
 msgstr "Smyczki"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:65
+#: ../scorewiz/parts/vocal.py:65
 msgid "Stanzas:"
 msgstr "Zwrotki:"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:66
+#: ../scorewiz/parts/vocal.py:66
 msgid "The number of stanzas."
 msgstr "Liczba strof."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:73
+#: ../scorewiz/parts/vocal.py:73
 msgid "Ambitus"
 msgstr "Ambitus"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:75
+#: ../scorewiz/parts/vocal.py:75
 msgid "Show the pitch range of the voice at the beginning of the staff."
 msgstr "Pokaż skalę głosu na początku pięciolinii."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:89
+#: ../scorewiz/parts/vocal.py:89
 msgid "Lyrics follow here."
 msgstr "Poniżej wpisz tekst."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:126
+#: ../scorewiz/parts/vocal.py:126
 msgid "Soprano"
 msgstr "Sopran"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:130
+#: ../scorewiz/parts/vocal.py:130
 msgctxt "abbreviation for Soprano"
 msgid "S."
 msgstr "S."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:136
+#: ../scorewiz/parts/vocal.py:136
 msgid "Mezzo-soprano"
 msgstr "Mezzo-sopran"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:140
+#: ../scorewiz/parts/vocal.py:140
 msgctxt "abbreviation for Mezzo-soprano"
 msgid "Ms."
 msgstr "Ms."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:146
+#: ../scorewiz/parts/vocal.py:146
 msgid "Alto"
 msgstr "Alt"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:150
+#: ../scorewiz/parts/vocal.py:150
 msgctxt "abbreviation for Alto"
 msgid "A."
 msgstr "A."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:158
+#: ../scorewiz/parts/vocal.py:158
 msgid "Tenor"
 msgstr "Tenor"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:162
+#: ../scorewiz/parts/vocal.py:162
 msgctxt "abbreviation for Tenor"
 msgid "T."
 msgstr "T."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:175
+#: ../scorewiz/parts/vocal.py:175
 msgctxt "abbreviation for Bass"
 msgid "B."
 msgstr "B."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:184
+#: ../scorewiz/parts/vocal.py:184
 msgid "Lead sheet"
 msgstr "Prymka"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:202
+#: ../scorewiz/parts/vocal.py:202
 msgid ""
 "The Lead Sheet provides a staff with chord names above and lyrics below it. "
 "A second staff is optional."
@@ -4903,54 +4853,53 @@ msgstr ""
 "Prymka zawiera pięciolinię z akordami powyżej oraz tekstem poniżej.Drugi "
 "system jest opcjonalny."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:205
+#: ../scorewiz/parts/vocal.py:205
 msgid "Add accompaniment staff"
 msgstr "Dodaj pięciolinię z akompaniamentem"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:207
+#: ../scorewiz/parts/vocal.py:207
 msgid ""
 "Adds an accompaniment staff and also puts an accompaniment voice in the "
 "upper staff."
 msgstr ""
 "Dodaje pięciolinię z akompaniamentem, a także głos na górnej pięciolinii."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:273
-#: frescobaldi_app/scorewiz/parts/vocal.py:360
+#: ../scorewiz/parts/vocal.py:273 ../scorewiz/parts/vocal.py:360
 msgid "Choir"
 msgstr "Chór"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:319
+#: ../scorewiz/parts/vocal.py:319
 msgid ""
 "Please select the voices for the choir. Use the letters S, A, T, or B. A "
 "hyphen denotes a new staff."
 msgstr ""
 "Wybierz głosy chóralne. Użyj liter S, A, T, B.Myślnik oznacza nowy system."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:321
+#: ../scorewiz/parts/vocal.py:321
 msgid "Hint: For a double choir you can use two choir parts."
 msgstr "Porada: Dla chóru podwójnego użyj dwóch systemów chóralnych."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:322
+#: ../scorewiz/parts/vocal.py:322
 msgid "Voicing:"
 msgstr "Prowadzenie głosów:"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:323
+#: ../scorewiz/parts/vocal.py:323
 msgid "Lyrics:"
 msgstr "Słowa:"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:324
+#: ../scorewiz/parts/vocal.py:324
 msgid "Piano reduction"
 msgstr "Wyciąg fortepianowy:"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:326
+#: ../scorewiz/parts/vocal.py:326
 msgid "Adds an automatically generated piano reduction."
 msgstr "Dodaje automatycznie wygenerowany wyciąg fortepianowy."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:327
+#: ../scorewiz/parts/vocal.py:327
 msgid "Rehearsal MIDI files"
 msgstr "Pliki MIDI do ćwiczeń"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:329
+#: ../scorewiz/parts/vocal.py:329
 msgid ""
 "Creates a rehearsal MIDI file for every voice, even if no MIDI output is "
 "generated for the main score."
@@ -4958,261 +4907,261 @@ msgstr ""
 "Tworzy pliki MIDI do ćwiczeń dla każdego głosu, nawet jeśli plik MIDI dla "
 "partytury nie został wygenerowany."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:361
+#: ../scorewiz/parts/vocal.py:361
 msgctxt "abbreviation for Choir"
 msgid "Ch."
 msgstr "Ch."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:612
+#: ../scorewiz/parts/vocal.py:612
 msgid "Rehearsal MIDI files:"
 msgstr "Pliki MIDI do ćwiczeń: "
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:658
+#: ../scorewiz/parts/vocal.py:658
 msgid "All voices same lyrics"
 msgstr "Ten sam tekst do wszystkich głosów"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:659
+#: ../scorewiz/parts/vocal.py:659
 msgid "A set of the same lyrics is placed between all staves."
 msgstr "Grupa tych samych słów jest umieszczona pomiędzy wszystkimi systemami."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:660
+#: ../scorewiz/parts/vocal.py:660
 msgid "Every voice same lyrics"
 msgstr "Ten sam tekst dla każdego głosu"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:661
+#: ../scorewiz/parts/vocal.py:661
 msgid ""
 "Every voice gets its own lyrics, using the same text as the other voices."
 msgstr ""
 "Każdy głos ma własne słowa, używając tego samego tekstu jak pozostałe głosy."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:663
+#: ../scorewiz/parts/vocal.py:663
 msgid "Every voice different lyrics"
 msgstr "Każdy głos z innym tekstem"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:664
+#: ../scorewiz/parts/vocal.py:664
 msgid "Every voice gets a different set of lyrics."
 msgstr "Każdy głos dostaje inny fragment tekstu."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:665
+#: ../scorewiz/parts/vocal.py:665
 msgid "Distribute stanzas"
 msgstr "Rozmieść zwrotki"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:666
+#: ../scorewiz/parts/vocal.py:666
 msgid "One set of stanzas is distributed across the staves."
 msgstr "Zwrotki są umieszczane pomiędzy systemami."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:691
+#: ../scorewiz/parts/vocal.py:691
 msgid "Vocal"
 msgstr "Głos"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:39
+#: ../scorewiz/parts/woodwind.py:39
 msgid "Flute"
 msgstr "Flet"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:43
+#: ../scorewiz/parts/woodwind.py:43
 msgctxt "abbreviation for Flute"
 msgid "Fl."
 msgstr "Fl."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:51
+#: ../scorewiz/parts/woodwind.py:51
 msgid "Piccolo"
 msgstr "Pikulina"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:55
+#: ../scorewiz/parts/woodwind.py:55
 msgctxt "abbreviation for Piccolo"
 msgid "Pic."
 msgstr "Pik."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:64
+#: ../scorewiz/parts/woodwind.py:64
 msgid "Bass flute"
 msgstr "Flet basowy"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:68
+#: ../scorewiz/parts/woodwind.py:68
 msgctxt "abbreviation for Bass flute"
 msgid "Bfl."
 msgstr "Fl.b."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:77
+#: ../scorewiz/parts/woodwind.py:77
 msgid "Oboe"
 msgstr "Obój"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:81
+#: ../scorewiz/parts/woodwind.py:81
 msgctxt "abbreviation for Oboe"
 msgid "Ob."
 msgstr "Ob."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:89
+#: ../scorewiz/parts/woodwind.py:89
 msgid "Oboe d'amore"
 msgstr "Obój miłosny"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:93
+#: ../scorewiz/parts/woodwind.py:93
 msgctxt "abbreviation for Oboe d'amore"
 msgid "Ob.d'am."
 msgstr "Ob.mił."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:102
+#: ../scorewiz/parts/woodwind.py:102
 msgid "English horn"
 msgstr "Rożek angielski"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:106
+#: ../scorewiz/parts/woodwind.py:106
 msgctxt "abbreviation for English horn"
 msgid "Eng.h."
 msgstr "R.ang."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:115
+#: ../scorewiz/parts/woodwind.py:115
 msgid "Bassoon"
 msgstr "Fagot"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:119
+#: ../scorewiz/parts/woodwind.py:119
 msgctxt "abbreviation for Bassoon"
 msgid "Bn."
 msgstr "Fg."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:129
+#: ../scorewiz/parts/woodwind.py:129
 msgid "Contrabassoon"
 msgstr "Kontrafagot"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:133
+#: ../scorewiz/parts/woodwind.py:133
 msgctxt "abbreviation for Contrabassoon"
 msgid "C.Bn."
 msgstr "Kfg."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:144
+#: ../scorewiz/parts/woodwind.py:144
 msgid "Clarinet"
 msgstr "Klarnet"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:148
+#: ../scorewiz/parts/woodwind.py:148
 msgctxt "abbreviation for Clarinet"
 msgid "Cl."
 msgstr "Kl."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:157
+#: ../scorewiz/parts/woodwind.py:157
 msgid "Sopranino Sax"
 msgstr "Saksofon sopranino"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:161
+#: ../scorewiz/parts/woodwind.py:161
 msgctxt "abbreviation for Sopranino Sax"
 msgid "SiSx."
 msgstr "Sx.Sno"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:170
+#: ../scorewiz/parts/woodwind.py:170
 msgid "Soprano Sax"
 msgstr "Saksofon sopranowy"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:174
+#: ../scorewiz/parts/woodwind.py:174
 msgctxt "abbreviation for Soprano Sax"
 msgid "SoSx."
 msgstr "S.Sx"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:183
+#: ../scorewiz/parts/woodwind.py:183
 msgid "Alto Sax"
 msgstr "Saksofon altowy"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:187
+#: ../scorewiz/parts/woodwind.py:187
 msgctxt "abbreviation for Alto Sax"
 msgid "ASx."
 msgstr "Sx.a."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:196
+#: ../scorewiz/parts/woodwind.py:196
 msgid "Tenor Sax"
 msgstr "Saksofon tenorowy"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:200
+#: ../scorewiz/parts/woodwind.py:200
 msgctxt "abbreviation for Tenor Sax"
 msgid "TSx."
 msgstr "Sx.t."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:209
+#: ../scorewiz/parts/woodwind.py:209
 msgid "Baritone Sax"
 msgstr "Saksofon barytonowy"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:213
+#: ../scorewiz/parts/woodwind.py:213
 msgctxt "abbreviation for Baritone Sax"
 msgid "BSx."
 msgstr "Sx.b"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:222
+#: ../scorewiz/parts/woodwind.py:222
 msgid "Bass Sax"
 msgstr "Saksofon basowy"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:226
+#: ../scorewiz/parts/woodwind.py:226
 msgctxt "abbreviation for Bass Sax"
 msgid "BsSx."
 msgstr "Sx.bs"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:235
+#: ../scorewiz/parts/woodwind.py:235
 msgid "Soprano recorder"
 msgstr "Flet prosty sopranowy"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:239
+#: ../scorewiz/parts/woodwind.py:239
 msgctxt "abbreviation for Soprano recorder"
 msgid "S.rec."
 msgstr "Fl.s."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:248
+#: ../scorewiz/parts/woodwind.py:248
 msgid "Alto recorder"
 msgstr "Flet prosty altowy"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:252
+#: ../scorewiz/parts/woodwind.py:252
 msgctxt "abbreviation for Alto recorder"
 msgid "A.rec."
 msgstr "Fl.a."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:260
+#: ../scorewiz/parts/woodwind.py:260
 msgid "Tenor recorder"
 msgstr "Flet prosty tenorowy"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:264
+#: ../scorewiz/parts/woodwind.py:264
 msgctxt "abbreviation for Tenor recorder"
 msgid "T.rec."
 msgstr "Fl.t."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:272
+#: ../scorewiz/parts/woodwind.py:272
 msgid "Bass recorder"
 msgstr "Flet prosty basowy"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:276
+#: ../scorewiz/parts/woodwind.py:276
 msgctxt "abbreviation for Bass recorder"
 msgid "B.rec."
 msgstr "Fl.b."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:285
+#: ../scorewiz/parts/woodwind.py:285
 msgid "Woodwinds"
 msgstr "Dęte drewniane"
 
-#: frescobaldi_app/sessions/dialog.py:40
+#: ../sessions/dialog.py:40
 msgid "Manage Sessions"
 msgstr "Zarządzaj sesjami"
 
-#: frescobaldi_app/sessions/dialog.py:109
+#: ../sessions/dialog.py:109
 msgid "Name:"
 msgstr "Nazwa:"
 
-#: frescobaldi_app/sessions/dialog.py:110
+#: ../sessions/dialog.py:110
 msgid "Always save the list of documents in this session"
 msgstr "Zawsze zapisuj listę dokumentów w tej sesji"
 
-#: frescobaldi_app/sessions/dialog.py:111
+#: ../sessions/dialog.py:111
 msgid "Base directory:"
 msgstr "Katalog główny:"
 
-#: frescobaldi_app/sessions/dialog.py:133
+#: ../sessions/dialog.py:133
 msgid "Edit session: {name}"
 msgstr "Edytuj sesję: {name}"
 
-#: frescobaldi_app/sessions/dialog.py:137
+#: ../sessions/dialog.py:137
 msgid "Edit new session"
 msgstr "Edytuj nową sesję"
 
-#: frescobaldi_app/sessions/dialog.py:166
+#: ../sessions/dialog.py:166
 msgid "Please enter a session name."
 msgstr "Proszę wpisać nazwę sesji."
 
-#: frescobaldi_app/sessions/dialog.py:174
+#: ../sessions/dialog.py:174
 msgid "Please do not use the name '{name}'."
 msgstr "Proszę nie używać nazwy '{name}'."
 
-#: frescobaldi_app/sessions/dialog.py:180
+#: ../sessions/dialog.py:180
 msgid ""
 "Another session with the name {name} already exists.\n"
 "\n"
@@ -5222,180 +5171,180 @@ msgstr ""
 "\n"
 "Czy chcesz ją nadpisać?"
 
-#: frescobaldi_app/sessions/dialog.py:183
+#: ../sessions/dialog.py:183
 msgid "Overwrite"
 msgstr "Nadpisz"
 
-#: frescobaldi_app/sessions/manager.py:127
+#: ../sessions/manager.py:127
 msgctxt "New Session"
 msgid "&New..."
 msgstr "&Nowy..."
 
-#: frescobaldi_app/sessions/manager.py:129
+#: ../sessions/manager.py:129
 msgid "&Manage..."
 msgstr "&Zarządzaj... "
 
-#: frescobaldi_app/sessions/manager.py:130
+#: ../sessions/manager.py:130
 msgid "No Session"
 msgstr "Brak sesji"
 
-#: frescobaldi_app/sessions/menu.py:55
+#: ../sessions/menu.py:55
 msgctxt "menu title"
 msgid "&Session"
 msgstr "&Sesja"
 
-#: frescobaldi_app/sidebar/__init__.py:140
+#: ../sidebar/__init__.py:140
 #, fuzzy
 msgid "&Line Numbers"
 msgstr "Liczba strun"
 
-#: frescobaldi_app/snippet/builtin.py:38
+#: ../snippet/builtin.py:38
 msgid "Blank Line"
 msgstr "Pusta linia"
 
-#: frescobaldi_app/snippet/builtin.py:44
+#: ../snippet/builtin.py:44
 msgid "Single Typographical Quotes"
 msgstr "Pojedynczy cudzysłow drukarski"
 
-#: frescobaldi_app/snippet/builtin.py:49
+#: ../snippet/builtin.py:49
 msgid "Double Typographical Quotes"
 msgstr "Podwójny cudzysłow drukarski"
 
-#: frescobaldi_app/snippet/builtin.py:115
+#: ../snippet/builtin.py:115
 msgid "Tuplets"
 msgstr "Grupy niemiarowe"
 
-#: frescobaldi_app/snippet/builtin.py:125
+#: ../snippet/builtin.py:125
 msgid "Modern 2/2 Time Signature"
 msgstr "Nowoczesne metrum 2/2"
 
-#: frescobaldi_app/snippet/builtin.py:131
+#: ../snippet/builtin.py:131
 msgid "Modern 4/4 Time Signature"
 msgstr "Nowoczesne metrum 4/4"
 
-#: frescobaldi_app/snippet/builtin.py:137
+#: ../snippet/builtin.py:137
 msgid "Tactus Time Signature (number with note)"
 msgstr "Tactus-metrum (liczba z nutą)"
 
-#: frescobaldi_app/snippet/builtin.py:148
+#: ../snippet/builtin.py:148
 msgid "LilyPond Version"
 msgstr "Wersja LilyPonda"
 
-#: frescobaldi_app/snippet/builtin.py:159
+#: ../snippet/builtin.py:159
 msgid "Relative Music"
 msgstr "Relatywny zapis muzyki"
 
-#: frescobaldi_app/snippet/builtin.py:176
+#: ../snippet/builtin.py:176
 msgid "Upper case selection"
 msgstr "Zaznaczenie wielkich liter"
 
-#: frescobaldi_app/snippet/builtin.py:182
+#: ../snippet/builtin.py:182
 msgid "Lower case selection"
 msgstr "Zaznaczenie małych liter"
 
-#: frescobaldi_app/snippet/builtin.py:188
+#: ../snippet/builtin.py:188
 #, fuzzy
 msgid "Title case selection"
 msgstr "Wybór języka"
 
-#: frescobaldi_app/snippet/builtin.py:199
+#: ../snippet/builtin.py:199
 #, fuzzy
 msgid "Markup lines"
 msgstr "Kreski taktowe"
 
-#: frescobaldi_app/snippet/builtin.py:207
+#: ../snippet/builtin.py:207
 msgid "Markup column"
 msgstr ""
 
-#: frescobaldi_app/snippet/builtin.py:212
+#: ../snippet/builtin.py:212
 msgid "Tagline with date and LilyPond version"
 msgstr "Stopka z datą oraz wersją LilyPonda"
 
-#: frescobaldi_app/snippet/builtin.py:222
+#: ../snippet/builtin.py:222
 msgid "Header Template"
 msgstr "Szablony nagłówków"
 
-#: frescobaldi_app/snippet/builtin.py:237
+#: ../snippet/builtin.py:237
 msgid "No Tagline"
 msgstr "Bez stopki"
 
-#: frescobaldi_app/snippet/builtin.py:245
+#: ../snippet/builtin.py:245
 msgid "No Barnumbers"
 msgstr "Bez numerów taktów"
 
-#: frescobaldi_app/snippet/builtin.py:255
+#: ../snippet/builtin.py:255
 msgid "Midi Tempo"
 msgstr "Tempo midi:"
 
-#: frescobaldi_app/snippet/builtin.py:265
+#: ../snippet/builtin.py:265
 msgid "Staff Size"
 msgstr "Rozmiar pięciolinii"
 
-#: frescobaldi_app/snippet/builtin.py:322
+#: ../snippet/builtin.py:322
 msgid "Uncomment"
 msgstr "Usuń komentarz"
 
-#: frescobaldi_app/snippet/builtin.py:365
+#: ../snippet/builtin.py:365
 msgid "A5 Paper"
 msgstr "Papier A5"
 
-#: frescobaldi_app/snippet/builtin.py:373
+#: ../snippet/builtin.py:373
 msgid "Document Fonts..."
 msgstr "Czcionki w dokumencie..."
 
-#: frescobaldi_app/snippet/builtin.py:401
+#: ../snippet/builtin.py:401
 msgid "Last note or chord"
 msgstr "Ostatnia nuta lub akord"
 
-#: frescobaldi_app/snippet/builtin.py:482
+#: ../snippet/builtin.py:482
 msgid "Color"
 msgstr "Kolor"
 
-#: frescobaldi_app/snippet/builtin.py:519
+#: ../snippet/builtin.py:519
 msgid "Basic Leadsheet"
 msgstr "Prymka"
 
-#: frescobaldi_app/snippet/builtin.py:563
+#: ../snippet/builtin.py:563
 msgid "Choir Hymn"
 msgstr "Hymn chóralny"
 
-#: frescobaldi_app/snippet/edit.py:118 frescobaldi_app/snippet/insert.py:223
+#: ../snippet/edit.py:118 ../snippet/insert.py:223
 msgid "Edit Snippet"
 msgstr "Edytuj wstawkę"
 
-#: frescobaldi_app/snippet/edit.py:118
+#: ../snippet/edit.py:118
 msgid "New Snippet"
 msgstr "Nowa wstawka"
 
-#: frescobaldi_app/snippet/edit.py:120
+#: ../snippet/edit.py:120
 msgid "Snippet Text:"
 msgstr "Tekst wstawki:"
 
-#: frescobaldi_app/snippet/edit.py:121
+#: ../snippet/edit.py:121
 msgid "Title:"
 msgstr "Tytuł:"
 
-#: frescobaldi_app/snippet/edit.py:122
+#: ../snippet/edit.py:122
 msgid "Shortcut:"
 msgstr "Skrót:"
 
-#: frescobaldi_app/snippet/edit.py:133
+#: ../snippet/edit.py:133
 msgid "Click to change the keyboard shortcut."
 msgstr "Należy kliknąć, aby zmienić skróty klawiszowe."
 
-#: frescobaldi_app/snippet/edit.py:138
+#: ../snippet/edit.py:138
 msgid "Empty Snippet"
 msgstr "Pusta wstawka"
 
-#: frescobaldi_app/snippet/edit.py:138
+#: ../snippet/edit.py:138
 msgid "A snippet can't be empty."
 msgstr "Wstawka nie może być pusta."
 
-#: frescobaldi_app/snippet/edit.py:200
+#: ../snippet/edit.py:200
 msgid "Snippet editor"
 msgstr "Edytor wstawek"
 
-#: frescobaldi_app/snippet/edit.py:205
+#: ../snippet/edit.py:205
 msgid ""
 "<p>Here you can edit the text of the snippet.</p><p>If you start the first "
 "line(s) with '<code>-*- </code>' (note the space), the remainder of that line"
@@ -5404,77 +5353,77 @@ msgid ""
 "can be used:</p>"
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:214
+#: ../snippet/edit.py:214
 msgid "Place the snippet in the insert menu, grouped by the (optional) value."
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:216
+#: ../snippet/edit.py:216
 msgid ""
 "Place the snippet in the menu {file_new_from_template}, grouped by the "
 "(optional) value. When triggered via the menu, the snippet is inserted into "
 "a new document."
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:220
+#: ../snippet/edit.py:220
 msgctxt "menu title"
 msgid "File"
 msgstr "Plik"
 
-#: frescobaldi_app/snippet/edit.py:221
+#: ../snippet/edit.py:221
 msgctxt "menu subtitle"
 msgid "New from Template"
 msgstr "Nowy z szablonu"
 
-#: frescobaldi_app/snippet/edit.py:223
+#: ../snippet/edit.py:223
 msgid "The mnemonic to type to select the snippet."
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:225
+#: ../snippet/edit.py:225
 msgid "Do not auto-indent the snippet after inserting."
 msgstr "Nie stosuj automatycznego wcięcia po umieszczeniu wstawki."
 
-#: frescobaldi_app/snippet/edit.py:227
+#: ../snippet/edit.py:227
 msgid "The icon to show in menu and snippet list."
 msgstr "Ikona wstawki używana w menu i na liście wstawek."
 
-#: frescobaldi_app/snippet/edit.py:229
+#: ../snippet/edit.py:229
 msgid ""
 "The symbol to show in menu and snippet list. Symbols are icons that use the "
 "default text color and can be found in {directory}."
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:233
+#: ../snippet/edit.py:233
 msgid "Execute the snippet as a Python script. See {link}."
 msgstr "Wykonaj wstawkę jako skrypt Pythona. Zobacz {link}."
 
-#: frescobaldi_app/snippet/edit.py:236
+#: ../snippet/edit.py:236
 msgid "One of more of the following words (separated with spaces or commas):"
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:239
+#: ../snippet/edit.py:239
 msgid "Requires text to be selected."
 msgstr "Wymaga zaznaczenia tekstu."
 
-#: frescobaldi_app/snippet/edit.py:241
+#: ../snippet/edit.py:241
 msgid "Adjusts the selection to not include starting and trialing whitespace."
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:243
+#: ../snippet/edit.py:243
 msgid "Selects all inserted text."
 msgstr "Zaznacza cały wprowadzony tekst."
 
-#: frescobaldi_app/snippet/edit.py:249
+#: ../snippet/edit.py:249
 msgid ""
 "<p>The other lines of the snippet define the text to be inserted in the "
 "editor. Here, you can insert variables prefixed with a $. A double $ will be "
 "replaced with a single one. The following variables are recognized:</p>"
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:265
+#: ../snippet/edit.py:265
 msgid "Python Snippets"
 msgstr "Wstawki Pythona"
 
-#: frescobaldi_app/snippet/edit.py:270
+#: ../snippet/edit.py:270
 msgid ""
 "<p>Python snippets can read and should set the variable {text}. The variable "
 "{text} contains the currently selected text (which may be an empty string).</"
@@ -5483,65 +5432,65 @@ msgid ""
 "<p>Other variables that may be referenced:</p>"
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:278
+#: ../snippet/edit.py:278
 msgid "A list of strings describing the type of text the cursor is at."
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:280
+#: ../snippet/edit.py:280
 msgid ""
 "The current QTextCursor, giving access to the document. Don't change the "
 "document through the cursor, however."
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:283
+#: ../snippet/edit.py:283
 msgid ""
 "When setting {text} to a list instead of a string, you can use this value to "
 "specify the place the text cursor will be placed after inserting the snippet."
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:287
+#: ../snippet/edit.py:287
 msgid ""
 "When setting {text} to a list instead of a string, this value can be used "
 "together with {cursor} to select text when inserting the string parts of the "
 "list."
 msgstr ""
 
-#: frescobaldi_app/snippet/edit.py:292
+#: ../snippet/edit.py:292
 msgid ""
 "When you define a function with this name, it is called without arguments, "
 "instead of inserting the text from the {text} variable. In this case you may "
 "alter the document through the {cursor}."
 msgstr ""
 
-#: frescobaldi_app/snippet/expand.py:76
+#: ../snippet/expand.py:76
 msgid "The current date in YYYY-MM-DD format."
 msgstr "Bieżąca data w formacie RRRR-MM-DD."
 
-#: frescobaldi_app/snippet/expand.py:80
+#: ../snippet/expand.py:80
 msgid "The version of the default LilyPond program."
 msgstr "Domyślna wersja programu LilyPond."
 
-#: frescobaldi_app/snippet/expand.py:84
+#: ../snippet/expand.py:84
 msgid "The version of Frescobaldi."
 msgstr "Wersja programu Frescobaldi."
 
-#: frescobaldi_app/snippet/expand.py:88
+#: ../snippet/expand.py:88
 msgid "The URL of the current document."
 msgstr "Adres URL obecnego dokumentu."
 
-#: frescobaldi_app/snippet/expand.py:92
+#: ../snippet/expand.py:92
 msgid "The full local filename of the current document."
 msgstr "Pełna nazwa i ścieżka bieżącego dokumentu lokalnego."
 
-#: frescobaldi_app/snippet/expand.py:96
+#: ../snippet/expand.py:96
 msgid "The name of the current document."
 msgstr "Nazwa obecnego dokumentu"
 
-#: frescobaldi_app/snippet/expand.py:100
+#: ../snippet/expand.py:100
 msgid "Moves the text cursor here after insert."
 msgstr "Przesuwa kursor tutaj po wstawieniu."
 
-#: frescobaldi_app/snippet/expand.py:104
+#: ../snippet/expand.py:104
 msgid ""
 "Selects text from here to the position given using the <code>$CURSOR</code> "
 "variable"
@@ -5549,45 +5498,44 @@ msgstr ""
 "Zaznacza tekst od tego miejsca do pozycji przekazanej w zmiennej <code>"
 "$CURSOR</code>"
 
-#: frescobaldi_app/snippet/expand.py:108
+#: ../snippet/expand.py:108
 msgid "The selected text if available. If not, the text cursor is moved here."
 msgstr ""
 
-#: frescobaldi_app/snippet/import_export.py:102
+#: ../snippet/import_export.py:102
 msgid "No snippets found."
 msgstr "Nie znaleziono żadnych wstawek."
 
-#: frescobaldi_app/snippet/import_export.py:111
-#: frescobaldi_app/snippet/widget.py:266
+#: ../snippet/import_export.py:111 ../snippet/widget.py:266
 msgctxt "dialog title"
 msgid "Import Snippets"
 msgstr "Importuj wstawki"
 
-#: frescobaldi_app/snippet/import_export.py:119
+#: ../snippet/import_export.py:119
 msgid "New Snippets"
 msgstr "Nowe wstawki"
 
-#: frescobaldi_app/snippet/import_export.py:120
+#: ../snippet/import_export.py:120
 msgid "Updated Snippets"
 msgstr "Zaktualizowane wstawki"
 
-#: frescobaldi_app/snippet/import_export.py:121
+#: ../snippet/import_export.py:121
 msgid "Unchanged Snippets"
 msgstr "Niezmienione wstawki"
 
-#: frescobaldi_app/snippet/import_export.py:183
+#: ../snippet/import_export.py:183
 msgid "Import Keyboard Shortcuts"
 msgstr "Importuj skróty klawiszowe"
 
-#: frescobaldi_app/snippet/import_export.py:188
+#: ../snippet/import_export.py:188
 msgid "Choose which snippets you want to import:"
 msgstr "Proszę wybrać, wstawkę do zaimportowania:"
 
-#: frescobaldi_app/snippet/import_export.py:190
+#: ../snippet/import_export.py:190
 msgid "There are no new or updated snippets in the file."
 msgstr "Brak nowych lub zaktualizowanych wstawek w tym pliku."
 
-#: frescobaldi_app/snippet/import_export.py:194
+#: ../snippet/import_export.py:194
 msgid ""
 "<p>Here the snippets from {filename} are displayed.</p>\n"
 "<p>If there are new or updated snippets, you can select or deselect them one "
@@ -5596,128 +5544,125 @@ msgid ""
 "<p>Existing, unchanged snippets can't be imported.</p>\n"
 msgstr ""
 
-#: frescobaldi_app/snippet/insert.py:221
+#: ../snippet/insert.py:221
 msgid "Snippet error"
 msgstr "Błąd wstawki"
 
-#: frescobaldi_app/snippet/menu.py:117
+#: ../snippet/menu.py:117
 msgid "&Insert"
 msgstr "&Wstaw "
 
-#: frescobaldi_app/snippet/menu.py:142
+#: ../snippet/menu.py:142
 msgid "New from &Template"
 msgstr "Nowy z &szablonu"
 
-#: frescobaldi_app/snippet/model.py:59
+#: ../snippet/model.py:59
 msgid "Name"
 msgstr "Nazwa"
 
-#: frescobaldi_app/snippet/model.py:61
+#: ../snippet/model.py:61
 msgid "Description"
 msgstr "Opis"
 
-#: frescobaldi_app/snippet/template.py:33
+#: ../snippet/template.py:33
 msgid "Save as Template"
 msgstr "Zapisz jako szablon"
 
-#: frescobaldi_app/snippet/template.py:34
+#: ../snippet/template.py:34
 msgid "Please enter a template name:"
 msgstr "Proszę wpisać nazwę szablonu:"
 
-#: frescobaldi_app/snippet/tool.py:54 frescobaldi_app/snippet/tool.py:130
-#: frescobaldi_app/snippet/widget.py:367
+#: ../snippet/tool.py:54 ../snippet/tool.py:130 ../snippet/widget.py:367
 msgid "Snippets"
 msgstr "Wstawki"
 
-#: frescobaldi_app/snippet/tool.py:55
+#: ../snippet/tool.py:55
 msgid "&Snippets"
 msgstr "W&stawki"
 
-#: frescobaldi_app/snippet/tool.py:89
+#: ../snippet/tool.py:89
 msgid "Save as Template..."
 msgstr "Zapisz jako szablon..."
 
-#: frescobaldi_app/snippet/tool.py:90
+#: ../snippet/tool.py:90
 msgid "Manage Templates..."
 msgstr "Zarządzaj szablonami..."
 
-#: frescobaldi_app/snippet/tool.py:91
+#: ../snippet/tool.py:91
 msgid "&Snippets..."
 msgstr "W&stawki..."
 
-#: frescobaldi_app/snippet/widget.py:172
+#: ../snippet/widget.py:172
 msgid "&Menu"
 msgstr "&Menu"
 
-#: frescobaldi_app/snippet/widget.py:173
-#: frescobaldi_app/widgets/listedit.py:91
+#: ../snippet/widget.py:173 ../widgets/listedit.py:91
 msgid "&Add..."
 msgstr "&Dodaj..."
 
-#: frescobaldi_app/snippet/widget.py:175
+#: ../snippet/widget.py:175
 msgid "Add a new snippet. ({key})"
 msgstr "Dodaj nową wstawkę. ({key})"
 
-#: frescobaldi_app/snippet/widget.py:176
-#: frescobaldi_app/widgets/listedit.py:92
+#: ../snippet/widget.py:176 ../widgets/listedit.py:92
 msgid "&Edit..."
 msgstr "&Edytuj..."
 
-#: frescobaldi_app/snippet/widget.py:178
+#: ../snippet/widget.py:178
 msgid "Edit the current snippet. ({key})"
 msgstr "Edytuj obecną wstawkę. ({key})"
 
-#: frescobaldi_app/snippet/widget.py:180
+#: ../snippet/widget.py:180
 msgid "Remove the selected snippets."
 msgstr "Usuń zaznaczone wstawki."
 
-#: frescobaldi_app/snippet/widget.py:181
+#: ../snippet/widget.py:181
 msgid "A&pply"
 msgstr "Zastosuj"
 
-#: frescobaldi_app/snippet/widget.py:182
+#: ../snippet/widget.py:182
 msgid "Apply the current snippet."
 msgstr "Zatwierdź bieżącą wstawkę."
 
-#: frescobaldi_app/snippet/widget.py:183
+#: ../snippet/widget.py:183
 msgid "&Import..."
 msgstr "&Importuj..."
 
-#: frescobaldi_app/snippet/widget.py:184
+#: ../snippet/widget.py:184
 msgid "Import snippets from a file."
 msgstr "Importuj wstawkę z pliku."
 
-#: frescobaldi_app/snippet/widget.py:185
+#: ../snippet/widget.py:185
 msgid "E&xport..."
 msgstr "E&ksportuj..."
 
-#: frescobaldi_app/snippet/widget.py:186
+#: ../snippet/widget.py:186
 msgid "Export snippets to a file."
 msgstr "Eksportuj wstawkę do pliku."
 
-#: frescobaldi_app/snippet/widget.py:187
+#: ../snippet/widget.py:187
 msgid "&Help"
 msgstr "Pomo&c"
 
-#: frescobaldi_app/snippet/widget.py:189
+#: ../snippet/widget.py:189
 msgid ""
 "Enter text to search in the snippets list.\n"
 "See \"What's This\" for more information."
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:192
+#: ../snippet/widget.py:192
 msgid ""
 "Enter text to search in the snippets list, and press Enter to apply the "
 "currently selected snippet."
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:194
+#: ../snippet/widget.py:194
 msgid ""
 "If the search text fully matches the value of the '{name}' variable of a "
 "snippet, that snippet is selected."
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:196
+#: ../snippet/widget.py:196
 msgid ""
 "If the search text starts with a colon ':', the rest of the search text "
 "filters snippets that define the given variable. After a space a value can "
@@ -5725,17 +5670,17 @@ msgid ""
 "contains the text after the space."
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:201
+#: ../snippet/widget.py:201
 msgid ""
 "E.g. entering {menu} will show all snippets that are displayed in the insert "
 "menu."
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:265 frescobaldi_app/snippet/widget.py:282
+#: ../snippet/widget.py:265 ../snippet/widget.py:282
 msgid "XML Files"
 msgstr "Pliki XML"
 
-#: frescobaldi_app/snippet/widget.py:285
+#: ../snippet/widget.py:285
 msgctxt "dialog title"
 msgid "Export {num} Snippet"
 msgid_plural "Export {num} Snippets"
@@ -5743,7 +5688,7 @@ msgstr[0] "Ekportuj {num} wstawkę"
 msgstr[1] "Eksportuj {num} wstawki"
 msgstr[2] "Eksportuj {num} wstawek"
 
-#: frescobaldi_app/snippet/widget.py:373
+#: ../snippet/widget.py:373
 msgid ""
 "<p>\n"
 "With the snippets manager you can store often used pieces of text called\n"
@@ -5780,88 +5725,87 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: frescobaldi_app/snippet/widget.py:405
+#: ../snippet/widget.py:405
 msgctxt "menu title"
 msgid "Insert"
 msgstr "Wstaw "
 
-#: frescobaldi_app/snippet/widget.py:405
+#: ../snippet/widget.py:405
 msgid "Snippets..."
 msgstr "Wstawki..."
 
-#: frescobaldi_app/widgets/keysequencewidget.py:60
+#: ../widgets/keysequencewidget.py:60
 msgid "Start recording a key sequence."
 msgstr "Rozpocznij nagrywanie sekwencji klawiszy."
 
-#: frescobaldi_app/widgets/keysequencewidget.py:61
+#: ../widgets/keysequencewidget.py:61
 msgid "Clear the key sequence."
 msgstr "Usuń sekwencję klawiszy."
 
-#: frescobaldi_app/widgets/keysequencewidget.py:115
+#: ../widgets/keysequencewidget.py:115
 msgid "Input"
 msgstr "Wejście"
 
-#: frescobaldi_app/widgets/schemeselector.py:47
-#: frescobaldi_app/widgets/schemeselector.py:62
+#: ../widgets/schemeselector.py:47 ../widgets/schemeselector.py:62
 msgid "Scheme:"
 msgstr "Schemat:"
 
-#: frescobaldi_app/widgets/schemeselector.py:63
+#: ../widgets/schemeselector.py:63
 msgctxt "New Scheme"
 msgid "&New..."
 msgstr "&Nowy..."
 
-#: frescobaldi_app/widgets/schemeselector.py:93
+#: ../widgets/schemeselector.py:93
 msgid "Please enter a name for the new scheme:"
 msgstr "Proszę wybrać nazwę dla nowego schematu:"
 
-#: frescobaldi_app/widgets/shortcuteditdialog.py:94
+#: ../widgets/shortcuteditdialog.py:94
 msgctxt "window title"
 msgid "Edit Shortcut"
 msgstr "Edytuj skrót"
 
-#: frescobaldi_app/widgets/shortcuteditdialog.py:95
+#: ../widgets/shortcuteditdialog.py:95
 msgid "&No shortcut"
 msgstr "&Brak skrótu"
 
-#: frescobaldi_app/widgets/shortcuteditdialog.py:96
+#: ../widgets/shortcuteditdialog.py:96
 msgid "Use a &custom shortcut:"
 msgstr "Użyj skrótu klawiszowego &użytkownika:"
 
-#: frescobaldi_app/widgets/shortcuteditdialog.py:98
+#: ../widgets/shortcuteditdialog.py:98
 msgid "Alternative #{num}:"
 msgstr "Alternatywa nr {num}:"
 
-#: frescobaldi_app/widgets/shortcuteditdialog.py:98
+#: ../widgets/shortcuteditdialog.py:98
 msgid "Primary shortcut:"
 msgstr "Podstawowy skrót klawiszowy:"
 
-#: frescobaldi_app/widgets/shortcuteditdialog.py:109
+#: ../widgets/shortcuteditdialog.py:109
 msgid "Here you can edit the shortcuts for {name}"
 msgstr "Tutaj można modyfikować skróty klawiszowe dla {name}"
 
-#: frescobaldi_app/widgets/shortcuteditdialog.py:127
+#: ../widgets/shortcuteditdialog.py:127
 msgctxt "no keyboard shortcut"
 msgid "none"
 msgstr "brak"
 
-#: frescobaldi_app/widgets/shortcuteditdialog.py:128
+#: ../widgets/shortcuteditdialog.py:128
 msgid "Use &default shortcut ({name})"
 msgstr "Użyj &domyślnego skrótu klawiszowego ({name})"
 
-#: frescobaldi_app/widgets/tempobutton.py:51
+#: ../widgets/tempobutton.py:51
 msgid "The tempo is set as you click this button."
 msgstr "Tempo zostanie ustalone po kliknięciu na ten przycisk."
 
-#: frescobaldi_app/widgets/urlrequester.py:65
+#: ../widgets/urlrequester.py:65
 msgid "Open file dialog"
 msgstr "Otwórz okno dialogowe pliku"
 
-#: frescobaldi_app/widgets/urlrequester.py:109
+#: ../widgets/urlrequester.py:109
 msgid "Select a directory"
 msgstr "Wybierz katalog"
 
-#: frescobaldi_app/widgets/urlrequester.py:111
+#: ../widgets/urlrequester.py:111
 msgid "Select a file"
 msgstr "Wybierz plik"
 
@@ -6002,9 +5946,6 @@ msgstr "Wybierz plik"
 
 #~ msgid "No files to print"
 #~ msgstr "Brak plików do wydrukowania"
-
-#~ msgid "Email documents"
-#~ msgstr "Wyślij dokumenty e-mailem"
 
 #~ msgid "Please select the files you want to send:"
 #~ msgstr "Proszę wybrać pliki do wysłania:"

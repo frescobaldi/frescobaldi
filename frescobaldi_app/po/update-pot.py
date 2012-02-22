@@ -28,7 +28,7 @@ command = [
     '--add-comments=L10N',
 ]
 
-for root, dirs, files in sorted(os.walk('frescobaldi_app')):
+for root, dirs, files in sorted(os.walk('..')):
     for f in sorted(files):
         if f.endswith('.py') and f[0] != '.':
             command.append(os.path.join(root, f))

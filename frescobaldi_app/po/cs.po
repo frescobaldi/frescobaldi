@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-02-19 18:32+0100\n"
+"POT-Creation-Date: 2012-02-22 20:34+0100\n"
 "PO-Revision-Date: 2012-02-17 22:29+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -21,166 +21,163 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Lokalize 1.2\n"
 
-#: frescobaldi_app/about.py:43
+#: ../about.py:43
 msgid "{appname} is written in {python} and uses the {qt} toolkit."
 msgstr "{appname} je napsán v {python} a používá sadu nástrojů {qt}."
 
 #. L10N: the Python programming language
-#: frescobaldi_app/about.py:46
+#: ../about.py:46
 msgid "Python"
 msgstr "Python"
 
 #. L10N: the Qt4 application framework
-#: frescobaldi_app/about.py:48
+#: ../about.py:48
 msgid "Qt4"
 msgstr "Qt4"
 
-#: frescobaldi_app/about.py:50
+#: ../about.py:50
 msgid ""
 "The Music View is powered by the {poppler} library by {authors} and others."
 msgstr "Pohled na noty je živen knihovnou {poppler} od {authors} a dalších."
 
 #. L10N: the Poppler PDF library
-#: frescobaldi_app/about.py:54
+#: ../about.py:54
 msgid "Poppler"
 msgstr "Poppler"
 
-#: frescobaldi_app/about.py:57
+#: ../about.py:57
 msgid "Most of the bundled icons are created by {tango}."
 msgstr "Většina ikon v balíku je vytvořena {tango}."
 
-#: frescobaldi_app/about.py:59
+#: ../about.py:59
 msgid "The Tango Desktop Project"
 msgstr "Projekt pro pracovní plochu Tango"
 
-#: frescobaldi_app/about.py:61
+#: ../about.py:61
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} je přeložen do následujících jazyků:"
 
-#: frescobaldi_app/about.py:80
+#: ../about.py:80
 msgid "About {appname}"
 msgstr "O {appname}"
 
-#: frescobaldi_app/about.py:87
+#: ../about.py:87
 msgid "About"
 msgstr "O programu"
 
-#: frescobaldi_app/about.py:88 frescobaldi_app/help/contents.py:282
+#: ../about.py:88 ../help/contents.py:282
 msgid "Credits"
 msgstr "Zásluhy"
 
-#: frescobaldi_app/about.py:89
+#: ../about.py:89
 msgid "Version"
 msgstr "Verze"
 
-#: frescobaldi_app/about.py:144
+#: ../about.py:144
 msgid "Operating System"
 msgstr "Operační systém"
 
-#: frescobaldi_app/about.py:151
+#: ../about.py:151
 msgid "Version {version}"
 msgstr "Verze {version}"
 
-#: frescobaldi_app/about.py:152 frescobaldi_app/main.py:59
+#: ../about.py:152 ../main.py:59
 msgid "A LilyPond Music Editor"
 msgstr "Hudební editor pro LilyPond"
 
-#: frescobaldi_app/about.py:153
+#: ../about.py:153
 msgid "Copyright (c) {year} by {author}"
 msgstr "Autorské právo (c) {year} od {author}"
 
-#: frescobaldi_app/about.py:157
+#: ../about.py:157
 msgid "Send an e-mail message to the maintainers."
 msgstr "Poslat zprávu jako dopis elektronické pošty údržbářům."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: frescobaldi_app/about.py:160 frescobaldi_app/help/contents.py:56
+#: ../about.py:160 ../help/contents.py:56
 msgid "Translated by Your Name."
 msgstr "Přeloženo: Pavel Fric."
 
-#: frescobaldi_app/about.py:165
+#: ../about.py:165
 msgid "Licensed under the {gpl}."
 msgstr "Licencováno pod {gpl}."
 
-#: frescobaldi_app/actioncollectionmanager.py:123
-#: frescobaldi_app/preferences/shortcuts.py:203
+#: ../actioncollectionmanager.py:123 ../preferences/shortcuts.py:203
 msgid "This shortcut conflicts with the following command:"
 msgid_plural "This shortcut conflicts with the following commands:"
 msgstr[0] "Tato zkratka se střetává s následujícím příkazem:"
 msgstr[1] "Tato zkratka se střetává s následujícími příkazy:"
 msgstr[2] "Tato zkratka se střetává s následujícími příkazy:"
 
-#: frescobaldi_app/actioncollectionmanager.py:129
-#: frescobaldi_app/preferences/shortcuts.py:209
+#: ../actioncollectionmanager.py:129 ../preferences/shortcuts.py:209
 msgid "Shortcut Conflict"
 msgstr "Střet zkratky"
 
-#: frescobaldi_app/actioncollectionmanager.py:131
+#: ../actioncollectionmanager.py:131
 msgid "Edit again"
 msgstr "Upravit znovu"
 
-#: frescobaldi_app/app.py:128
+#: ../app.py:128
 msgid "LilyPond Files"
 msgstr "Soubory LilyPond"
 
-#: frescobaldi_app/app.py:129
+#: ../app.py:129
 msgid "LaTeX Files"
 msgstr "Soubory LaTeX"
 
-#: frescobaldi_app/app.py:130
+#: ../app.py:130
 msgid "DocBook Files"
 msgstr "Soubory DocBook"
 
-#: frescobaldi_app/app.py:131
+#: ../app.py:131
 msgid "HTML Files"
 msgstr "Soubory HTML "
 
-#: frescobaldi_app/app.py:132
+#: ../app.py:132
 msgid "Texinfo Files"
 msgstr "Soubory Texinfo"
 
-#: frescobaldi_app/app.py:133
+#: ../app.py:133
 msgid "Scheme Files"
 msgstr "Soubory Scheme"
 
-#: frescobaldi_app/app.py:134 frescobaldi_app/snippet/widget.py:265
-#: frescobaldi_app/snippet/widget.py:282
+#: ../app.py:134 ../snippet/widget.py:265 ../snippet/widget.py:282
 msgid "All Files"
 msgstr "Všechny soubory"
 
-#: frescobaldi_app/bookmarkmanager.py:112
+#: ../bookmarkmanager.py:112
 msgid "&Mark Current Line"
 msgstr "&Označit nynější řádek"
 
-#: frescobaldi_app/bookmarkmanager.py:113
+#: ../bookmarkmanager.py:113
 msgid "Clear &Error Marks"
 msgstr "Smazat značky &chyb"
 
-#: frescobaldi_app/bookmarkmanager.py:114
+#: ../bookmarkmanager.py:114
 msgid "Clear &All Marks"
 msgstr "Smazat &všechny značky"
 
-#: frescobaldi_app/bookmarkmanager.py:115
+#: ../bookmarkmanager.py:115
 msgid "Next Mark"
 msgstr "Další značka"
 
-#: frescobaldi_app/bookmarkmanager.py:116
+#: ../bookmarkmanager.py:116
 msgid "Previous Mark"
 msgstr "Předchozí značka"
 
-#: frescobaldi_app/convert_ly.py:119
+#: ../convert_ly.py:119
 msgid "From version:"
 msgstr "Od verze:"
 
-#: frescobaldi_app/convert_ly.py:120
+#: ../convert_ly.py:120
 msgid "To version:"
 msgstr "Po verzi:"
 
-#: frescobaldi_app/convert_ly.py:121
+#: ../convert_ly.py:121
 msgid "Save convert-ly messages in document"
 msgstr "Uložit zprávy convert-ly v dokumentu"
 
-#: frescobaldi_app/convert_ly.py:123
+#: ../convert_ly.py:123
 msgid ""
 "If checked, the messages of convert-ly are appended as a comment to the end "
 "of the document."
@@ -188,36 +185,35 @@ msgstr ""
 "Je-li zaškrtnuto, jsou zprávy convert-ly připojeny jako poznámka na konci "
 "dokumentu."
 
-#: frescobaldi_app/convert_ly.py:125
+#: ../convert_ly.py:125
 msgid "&Messages"
 msgstr "&Zprávy"
 
-#: frescobaldi_app/convert_ly.py:126
+#: ../convert_ly.py:126
 msgid "&Changes"
 msgstr "&Změny"
 
-#: frescobaldi_app/convert_ly.py:127
+#: ../convert_ly.py:127
 msgid "Run Again"
 msgstr "Spustit znovu"
 
-#: frescobaldi_app/convert_ly.py:138 frescobaldi_app/docbrowser/browser.py:158
-#: frescobaldi_app/musicview/image.py:166
+#: ../convert_ly.py:138 ../docbrowser/browser.py:158 ../musicview/image.py:166
 msgid "<unknown>"
 msgstr "<neznámý>"
 
-#: frescobaldi_app/convert_ly.py:139
+#: ../convert_ly.py:139
 msgid "Convert-ly from LilyPond {version}"
 msgstr "Convert-ly z LilyPondu {version}"
 
-#: frescobaldi_app/convert_ly.py:163
+#: ../convert_ly.py:163
 msgid "(set in document)"
 msgstr "(nastavit v dokumentu)"
 
-#: frescobaldi_app/convert_ly.py:176
+#: ../convert_ly.py:176
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr "Je potřeba nastavit jak verzi 'od'tak verzi 'po'."
 
-#: frescobaldi_app/convert_ly.py:207
+#: ../convert_ly.py:207
 msgid ""
 "Could not start {convert_ly}:\n"
 "\n"
@@ -227,135 +223,134 @@ msgstr ""
 "\n"
 "{message}\n"
 
-#: frescobaldi_app/convert_ly.py:213
+#: ../convert_ly.py:213
 msgid "The document has not been changed."
 msgstr "Dokument byl změněn."
 
-#: frescobaldi_app/convert_ly.py:219
+#: ../convert_ly.py:219
 msgid "Current Document"
 msgstr "Nynější dokument"
 
-#: frescobaldi_app/convert_ly.py:219
+#: ../convert_ly.py:219
 msgid "Converted Document"
 msgstr "Převedený dokument"
 
-#: frescobaldi_app/convert_ly.py:225
+#: ../convert_ly.py:225
 msgid "Colors:"
 msgstr "Barvy:"
 
-#: frescobaldi_app/convert_ly.py:226
+#: ../convert_ly.py:226
 msgid "Added"
 msgstr "Přidáno"
 
-#: frescobaldi_app/convert_ly.py:227
+#: ../convert_ly.py:227
 msgid "Changed"
 msgstr "Změněno"
 
-#: frescobaldi_app/convert_ly.py:228
+#: ../convert_ly.py:228
 msgid "Deleted"
 msgstr "Smazáno"
 
-#: frescobaldi_app/convert_ly.py:229
+#: ../convert_ly.py:229
 msgid "Links:"
 msgstr "Odkazy:"
 
-#: frescobaldi_app/convert_ly.py:230
+#: ../convert_ly.py:230
 msgid "First Change"
 msgstr "První změna"
 
-#: frescobaldi_app/convert_ly.py:231
+#: ../convert_ly.py:231
 msgid "Next Change"
 msgstr "Další změna"
 
-#: frescobaldi_app/convert_ly.py:232
+#: ../convert_ly.py:232
 msgid "Top"
 msgstr "Nejdůležitější"
 
-#: frescobaldi_app/cut_assign.py:39
+#: ../cut_assign.py:39
 msgid "Cut and Assign"
 msgstr "Vyjmout a přiřadit"
 
-#: frescobaldi_app/cut_assign.py:40
+#: ../cut_assign.py:40
 msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr "Zadejte, prosím, název proměnné, které má být vybraný text přiřazen:"
 
-#: frescobaldi_app/document.py:143 frescobaldi_app/doclist/widget.py:126
-#: frescobaldi_app/snippet/edit.py:165
+#: ../document.py:143 ../doclist/widget.py:127 ../snippet/edit.py:165
 msgid "Untitled"
 msgstr "Bez názvu"
 
-#: frescobaldi_app/document.py:145
+#: ../document.py:145
 msgid "Untitled ({num})"
 msgstr "Bez názvu ({num})"
 
-#: frescobaldi_app/documentactions.py:125
+#: ../documentactions.py:125
 msgid "Cut and Assign..."
 msgstr "Vyjmout a přiřadit..."
 
-#: frescobaldi_app/documentactions.py:126
+#: ../documentactions.py:126
 msgid "Syntax &Highlighting"
 msgstr "&Zvýraznění skladby"
 
-#: frescobaldi_app/documentactions.py:127
+#: ../documentactions.py:127
 msgid "&Automatic Indent"
 msgstr "&Automatické odsazení"
 
-#: frescobaldi_app/documentactions.py:128
+#: ../documentactions.py:128
 msgid "Re-&Indent"
 msgstr "&Odsadit znovu"
 
-#: frescobaldi_app/documentactions.py:129
+#: ../documentactions.py:129
 msgid "&Format"
 msgstr "&Formát"
 
-#: frescobaldi_app/documentactions.py:130
+#: ../documentactions.py:130
 msgid "&Update with convert-ly..."
 msgstr "&Obnovit za použití convert-ly..."
 
-#: frescobaldi_app/documentcontextmenu.py:55 frescobaldi_app/mainwindow.py:953
-#: frescobaldi_app/sessions/manager.py:128
+#: ../documentcontextmenu.py:54 ../mainwindow.py:953
+#: ../sessions/manager.py:128
 msgid "&Save"
 msgstr "&Uložit"
 
-#: frescobaldi_app/documentcontextmenu.py:56 frescobaldi_app/mainwindow.py:954
+#: ../documentcontextmenu.py:55 ../mainwindow.py:954
 msgid "Save &As..."
 msgstr "Uložit &jako..."
 
-#: frescobaldi_app/documentcontextmenu.py:57 frescobaldi_app/mainwindow.py:958
+#: ../documentcontextmenu.py:56 ../mainwindow.py:958
 msgid "&Close"
 msgstr "&Zavřít"
 
-#: frescobaldi_app/documentmenu.py:42
+#: ../documentmenu.py:42
 msgctxt "menu title"
 msgid "&Document"
 msgstr "&Dokument"
 
 #. L10N: 'always engraved': the document is marked as 'Always Engrave' in the LilyPond menu
-#: frescobaldi_app/documentmenu.py:109
+#: ../documentmenu.py:109
 msgid "[always engraved]"
 msgstr "[vždy vyryto]"
 
-#: frescobaldi_app/exception.py:69
+#: ../exception.py:69
 msgid "An internal error has occurred:"
 msgstr "Vyskytla se vnitřní chyba:"
 
-#: frescobaldi_app/exception.py:70
+#: ../exception.py:70
 msgid "Internal Error"
 msgstr "Vnitřní chyba"
 
-#: frescobaldi_app/exception.py:71
+#: ../exception.py:71
 msgid "Email Bug Report..."
 msgstr "Hlášení chyb elektronickou poštou..."
 
-#: frescobaldi_app/exception.py:79
+#: ../exception.py:79
 msgid "Optionally describe below what you were doing:"
 msgstr "Dole volitelně popište, co jste dělal:"
 
-#: frescobaldi_app/globalfontdialog.py:69
+#: ../globalfontdialog.py:69
 msgid "Global Fonts"
 msgstr "Celková písma"
 
-#: frescobaldi_app/globalfontdialog.py:71
+#: ../globalfontdialog.py:71
 msgid ""
 "Please select the three global fonts to use for <code>\\roman</code>, <code>"
 "\\sans</code>, and <code>\\typewriter</code> respectively. You should also "
@@ -368,53 +363,51 @@ msgstr ""
 "celkové velikosti notové osnovy, kterou používáte v dokumentu (výchozí "
 "hodnota je 20)."
 
-#: frescobaldi_app/globalfontdialog.py:76
+#: ../globalfontdialog.py:76
 msgid "Roman Font:"
 msgstr "Antikvové písmo:"
 
-#: frescobaldi_app/globalfontdialog.py:77
+#: ../globalfontdialog.py:77
 msgid "Sans Font:"
 msgstr "Bezpatkové písmo:"
 
-#: frescobaldi_app/globalfontdialog.py:78
+#: ../globalfontdialog.py:78
 msgid "Typewriter Font:"
 msgstr "Písmo psacího stroje:"
 
-#: frescobaldi_app/globalfontdialog.py:79
+#: ../globalfontdialog.py:79
 msgid "Staff Size:"
 msgstr "Velikost osnovy:"
 
-#: frescobaldi_app/hyphendialog.py:114
+#: ../hyphendialog.py:114
 msgid "Hyphenate Lyrics Text"
 msgstr "Rozdělit spojovníkem text se slovy písně"
 
-#: frescobaldi_app/hyphendialog.py:115
+#: ../hyphendialog.py:115
 msgid "Please select a language:"
 msgstr "Vyberte, prosím, jazyk:"
 
-#: frescobaldi_app/hyphendialog.py:157 frescobaldi_app/hyphendialog.py:166
+#: ../hyphendialog.py:157 ../hyphendialog.py:166
 msgid "Lyrics"
 msgstr "Slova písně"
 
-#: frescobaldi_app/hyphendialog.py:166 frescobaldi_app/pitch/pitch.py:744
-#: frescobaldi_app/rhythm/rhythm.py:279 frescobaldi_app/scorewiz/dialog.py:194
+#: ../hyphendialog.py:166 ../pitch/pitch.py:744 ../rhythm/rhythm.py:279
+#: ../scorewiz/dialog.py:194
 msgctxt "menu title"
 msgid "Tools"
 msgstr "Nástroje"
 
-#: frescobaldi_app/hyphendialog.py:167 frescobaldi_app/help/contents.py:138
-#: frescobaldi_app/help/contents.py:145
+#: ../hyphendialog.py:167 ../help/contents.py:138 ../help/contents.py:145
 msgctxt "menu title"
 msgid "Edit"
 msgstr "Úpravy"
 
-#: frescobaldi_app/hyphendialog.py:167 frescobaldi_app/help/contents.py:139
-#: frescobaldi_app/preferences/__init__.py:100
-#: frescobaldi_app/preferences/midi.py:134
+#: ../hyphendialog.py:167 ../help/contents.py:139
+#: ../preferences/__init__.py:100 ../preferences/midi.py:134
 msgid "Preferences"
 msgstr "Nastavení"
 
-#: frescobaldi_app/hyphendialog.py:169
+#: ../hyphendialog.py:169
 msgid ""
 "<p>\n"
 "Frescobaldi can automatically place hyphens '{hyphen}' inside texts to make\n"
@@ -480,19 +473,19 @@ msgstr ""
 "s dělením slov.\n"
 "</p>\n"
 
-#: frescobaldi_app/inputdialog.py:101
+#: ../inputdialog.py:101
 msgid "Select Color"
 msgstr "Vybrat barvu"
 
-#: frescobaldi_app/job.py:239
+#: ../job.py:239
 msgid "Starting {job}..."
 msgstr "Spouští se {job}..."
 
-#: frescobaldi_app/job.py:244
+#: ../job.py:244
 msgid "Aborting {job}..."
 msgstr "Ruší se {job}..."
 
-#: frescobaldi_app/job.py:250
+#: ../job.py:250
 msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
@@ -500,81 +493,81 @@ msgstr ""
 "Nepodařilo se spustit {program}.\n"
 "Ověřte, prosím, cestu a oprávnění."
 
-#: frescobaldi_app/job.py:253
+#: ../job.py:253
 msgid "Could not read from the process."
 msgstr "Z procesu nešlo číst."
 
-#: frescobaldi_app/job.py:255
+#: ../job.py:255
 msgid "An unknown error occured."
 msgstr "Vyskytla se neznámá chyba."
 
-#: frescobaldi_app/job.py:260
+#: ../job.py:260
 msgid "Exited with return code {code}."
 msgstr "Skončilo s návratovým kódem {code}."
 
-#: frescobaldi_app/job.py:262
+#: ../job.py:262
 msgid "Exited with exit status {status}."
 msgstr "Skončilo se stavem ukončení {status}."
 
-#: frescobaldi_app/job.py:265
+#: ../job.py:265
 msgid "Completed successfully in {time}."
 msgstr "Dokončeno úspěšně v {time}."
 
-#: frescobaldi_app/lyrics.py:132
+#: ../lyrics.py:132
 msgid "&Hyphenate Lyrics Text..."
 msgstr "&Rozdělit spojovníkem text se slovy písně..."
 
-#: frescobaldi_app/lyrics.py:133
+#: ../lyrics.py:133
 msgid "&Remove hyphenation"
 msgstr "&Odstranit dělení slov"
 
-#: frescobaldi_app/lyrics.py:134
+#: ../lyrics.py:134
 msgid "&Copy Lyrics with hyphenation removed"
 msgstr "&Kopírovat slova písně s odstraněným dělením slov"
 
-#: frescobaldi_app/main.py:57
+#: ../main.py:57
 msgid "{appname} [options] file ..."
 msgstr "{appname} [options] soubor..."
 
-#: frescobaldi_app/main.py:60
+#: ../main.py:60
 msgid "ENC"
 msgstr "KÓD"
 
-#: frescobaldi_app/main.py:61
+#: ../main.py:61
 msgid "Encoding to use"
 msgstr "Použít kódování"
 
-#: frescobaldi_app/main.py:62 frescobaldi_app/main.py:64
+#: ../main.py:62 ../main.py:64
 msgid "NUM"
 msgstr "ČÍS"
 
-#: frescobaldi_app/main.py:63
+#: ../main.py:63
 msgid "Line number to go to, starting at 1"
 msgstr "Přejít na řádek číslo. Začíná prvním"
 
-#: frescobaldi_app/main.py:65
+#: ../main.py:65
 msgid "Column to go to, starting at 0"
 msgstr "Přejít na sloupec. Začíná nulou"
 
-#: frescobaldi_app/main.py:66
+#: ../main.py:66
 msgid "NAME"
 msgstr "NÁZEV"
 
-#: frescobaldi_app/main.py:67
+#: ../main.py:67
 msgid "Session to start ('{none}' for empty session)"
 msgstr "Sezení ke spuštění ('{none}' pro prázdné sezení)"
 
 #. L10N: state of document in window titlebar
-#: frescobaldi_app/mainwindow.py:225
+#: ../mainwindow.py:225
 msgid "[modified]"
 msgstr "[změněno]"
 
-#: frescobaldi_app/mainwindow.py:268
+#: ../mainwindow.py:268
 msgctxt "dialog title"
 msgid "Close Document"
 msgstr "Zavřít dokument"
 
-#: frescobaldi_app/mainwindow.py:269
+#: ../mainwindow.py:269
 msgid ""
 "The document \"{name}\" has been modified.\n"
 "Do you want to save your changes or discard them?"
@@ -582,18 +575,16 @@ msgstr ""
 "Dokument \"{name}\" byl změněn.\n"
 "Chcete uložit změny nebo je zahodit?"
 
-#: frescobaldi_app/mainwindow.py:281
+#: ../mainwindow.py:281
 msgid "Tab Bar"
 msgstr "Pruh s kartami"
 
-#: frescobaldi_app/mainwindow.py:338 frescobaldi_app/popplerprint.py:53
-#: frescobaldi_app/sessions/dialog.py:165
-#: frescobaldi_app/sessions/dialog.py:173
-#: frescobaldi_app/sessions/dialog.py:179
+#: ../mainwindow.py:338 ../popplerprint.py:53 ../sessions/dialog.py:165
+#: ../sessions/dialog.py:173 ../sessions/dialog.py:179
 msgid "Warning"
 msgstr "Varování"
 
-#: frescobaldi_app/mainwindow.py:339
+#: ../mainwindow.py:339
 msgid ""
 "Can't load non-local document:\n"
 "\n"
@@ -603,25 +594,21 @@ msgstr ""
 "\n"
 "{url}"
 
-#: frescobaldi_app/mainwindow.py:370
+#: ../mainwindow.py:370
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Otevřít soubor"
 
 #. L10N: a basic type of input in the editor
-#: frescobaldi_app/mainwindow.py:389 frescobaldi_app/mainwindow.py:395
-#: frescobaldi_app/mainwindow.py:420 frescobaldi_app/mainwindow.py:471
-#: frescobaldi_app/mainwindow.py:539 frescobaldi_app/mainwindow.py:598
-#: frescobaldi_app/musicview/image.py:213
-#: frescobaldi_app/preferences/fontscolors.py:476
-#: frescobaldi_app/preferences/fontscolors.py:514
-#: frescobaldi_app/snippet/import_export.py:104
-#: frescobaldi_app/snippet/widget.py:292
+#: ../mainwindow.py:389 ../mainwindow.py:395 ../mainwindow.py:420
+#: ../mainwindow.py:471 ../mainwindow.py:539 ../mainwindow.py:598
+#: ../musicview/image.py:213 ../preferences/fontscolors.py:476
+#: ../preferences/fontscolors.py:514 ../snippet/import_export.py:104
+#: ../snippet/widget.py:292
 msgid "Error"
 msgstr "Chyba"
 
-#: frescobaldi_app/mainwindow.py:390 frescobaldi_app/mainwindow.py:396
-#: frescobaldi_app/mainwindow.py:421
+#: ../mainwindow.py:390 ../mainwindow.py:396 ../mainwindow.py:421
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -631,23 +618,22 @@ msgstr ""
 "\n"
 "{url}"
 
-#: frescobaldi_app/mainwindow.py:415
+#: ../mainwindow.py:415
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "Uložit soubor"
 
-#: frescobaldi_app/mainwindow.py:455
+#: ../mainwindow.py:455
 msgctxt "dialog title"
 msgid "Save Copy"
 msgstr "Uložit kopii"
 
-#: frescobaldi_app/mainwindow.py:461
+#: ../mainwindow.py:461
 msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Uložit výběr"
 
-#: frescobaldi_app/mainwindow.py:472 frescobaldi_app/mainwindow.py:599
-#: frescobaldi_app/snippet/widget.py:293
+#: ../mainwindow.py:472 ../mainwindow.py:599 ../snippet/widget.py:293
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -661,13 +647,12 @@ msgstr ""
 "\n"
 "{error}"
 
-#: frescobaldi_app/mainwindow.py:532
+#: ../mainwindow.py:532
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Vložit ze souboru"
 
-#: frescobaldi_app/mainwindow.py:540
-#: frescobaldi_app/snippet/import_export.py:105
+#: ../mainwindow.py:540 ../snippet/import_export.py:105
 msgid ""
 "Can't read from source:\n"
 "\n"
@@ -681,16 +666,16 @@ msgstr ""
 "\n"
 "{error}"
 
-#: frescobaldi_app/mainwindow.py:556
+#: ../mainwindow.py:556
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Vytisknout zdroj"
 
-#: frescobaldi_app/mainwindow.py:589
+#: ../mainwindow.py:589
 msgid "Export as HTML"
 msgstr "Vyvést jako HTML"
 
-#: frescobaldi_app/mainwindow.py:710
+#: ../mainwindow.py:710
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -702,252 +687,252 @@ msgstr ""
 "\n"
 "\n"
 
-#: frescobaldi_app/mainwindow.py:818
+#: ../mainwindow.py:818
 msgid "Main Toolbar"
 msgstr "Hlavní nástrojový pruh"
 
-#: frescobaldi_app/mainwindow.py:819
+#: ../mainwindow.py:819
 msgid "Music View Toolbar"
 msgstr "Nástrojový pruh pro pohled na noty"
 
-#: frescobaldi_app/mainwindow.py:947
+#: ../mainwindow.py:947
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nový"
 
-#: frescobaldi_app/mainwindow.py:948
+#: ../mainwindow.py:948
 msgid "&Open..."
 msgstr "&Otevřít..."
 
-#: frescobaldi_app/mainwindow.py:949
+#: ../mainwindow.py:949
 msgid "Open &Recent"
 msgstr "Otevřít &nedávný"
 
-#: frescobaldi_app/mainwindow.py:950
+#: ../mainwindow.py:950
 msgid "Insert from &File..."
 msgstr "Vložit ze &souboru..."
 
-#: frescobaldi_app/mainwindow.py:951
+#: ../mainwindow.py:951
 msgid "Open Current Directory"
 msgstr "Otevřít nynější adresář"
 
-#: frescobaldi_app/mainwindow.py:952
+#: ../mainwindow.py:952
 msgid "Open Command Prompt"
 msgstr "Otevřít výzvu k příkazu"
 
-#: frescobaldi_app/mainwindow.py:955
+#: ../mainwindow.py:955
 msgid "Save Copy or Selection As..."
 msgstr "Uložit kopii nebo výběr jako..."
 
-#: frescobaldi_app/mainwindow.py:956
+#: ../mainwindow.py:956
 msgid "Save All"
 msgstr "Uložit vše"
 
-#: frescobaldi_app/mainwindow.py:957
+#: ../mainwindow.py:957
 msgid "Print Source..."
 msgstr "Vytisknout zdroj..."
 
-#: frescobaldi_app/mainwindow.py:959
+#: ../mainwindow.py:959
 msgid "Close Other Documents"
 msgstr "Zavřít jiné dokumenty"
 
-#: frescobaldi_app/mainwindow.py:960
+#: ../mainwindow.py:960
 msgid "Close All Documents"
 msgstr "Zavřít všechny dokumenty"
 
-#: frescobaldi_app/mainwindow.py:961
+#: ../mainwindow.py:961
 msgid "Closes all documents and leaves the current session."
 msgstr "Zavře všechny dokumenty a opustí současné sezení."
 
-#: frescobaldi_app/mainwindow.py:962
+#: ../mainwindow.py:962
 msgid "&Quit"
 msgstr "&Ukončit"
 
-#: frescobaldi_app/mainwindow.py:964
+#: ../mainwindow.py:964
 msgid "Export Source as Colored &HTML..."
 msgstr "Vyvést zdroj jako barevné &HTML..."
 
-#: frescobaldi_app/mainwindow.py:966
+#: ../mainwindow.py:966
 msgid "&Undo"
 msgstr "&Zpět"
 
-#: frescobaldi_app/mainwindow.py:967
+#: ../mainwindow.py:967
 msgid "Re&do"
 msgstr "&Znovu"
 
-#: frescobaldi_app/mainwindow.py:968
+#: ../mainwindow.py:968
 msgid "Cu&t"
 msgstr "Vyjmou&t"
 
-#: frescobaldi_app/mainwindow.py:969 frescobaldi_app/docbrowser/browser.py:248
+#: ../mainwindow.py:969 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Kopírovat"
 
-#: frescobaldi_app/mainwindow.py:970
+#: ../mainwindow.py:970
 msgid "Copy as Colored &HTML"
 msgstr "Kopírovat jako barevné &HTML"
 
-#: frescobaldi_app/mainwindow.py:971
+#: ../mainwindow.py:971
 msgid "&Paste"
 msgstr "&Vložit"
 
-#: frescobaldi_app/mainwindow.py:972
+#: ../mainwindow.py:972
 msgid "Select &All"
 msgstr "Vybr&at vše"
 
-#: frescobaldi_app/mainwindow.py:973
+#: ../mainwindow.py:973
 msgid "Select &Block"
 msgstr "Vybrat &blok"
 
-#: frescobaldi_app/mainwindow.py:974
+#: ../mainwindow.py:974
 msgid "Select &None"
 msgstr "Nevybrat nic"
 
-#: frescobaldi_app/mainwindow.py:975
+#: ../mainwindow.py:975
 msgid "Select Whole Lines Up"
 msgstr "Vybrat celé řádky nahoru"
 
-#: frescobaldi_app/mainwindow.py:976
+#: ../mainwindow.py:976
 msgid "Select Whole Lines Down"
 msgstr "Vybrat celé řádky dolů"
 
-#: frescobaldi_app/mainwindow.py:977
+#: ../mainwindow.py:977
 msgid "&Find..."
 msgstr "&Najít..."
 
-#: frescobaldi_app/mainwindow.py:978
+#: ../mainwindow.py:978
 msgid "Find Ne&xt"
 msgstr "Najít &další"
 
-#: frescobaldi_app/mainwindow.py:979
+#: ../mainwindow.py:979
 msgid "Find Pre&vious"
 msgstr "Najít &předchozí"
 
-#: frescobaldi_app/mainwindow.py:980
+#: ../mainwindow.py:980
 msgid "&Replace..."
 msgstr "&Nahradit..."
 
-#: frescobaldi_app/mainwindow.py:981
+#: ../mainwindow.py:981
 msgid "Pr&eferences..."
 msgstr "&Nastavení..."
 
-#: frescobaldi_app/mainwindow.py:983
+#: ../mainwindow.py:983
 msgid "&Next Document"
 msgstr "&Další dokument"
 
-#: frescobaldi_app/mainwindow.py:984
+#: ../mainwindow.py:984
 msgid "&Previous Document"
 msgstr "&Předchozí dokument"
 
-#: frescobaldi_app/mainwindow.py:985
+#: ../mainwindow.py:985
 msgid "Scroll Up"
 msgstr "Projíždět nahoru"
 
-#: frescobaldi_app/mainwindow.py:986
+#: ../mainwindow.py:986
 msgid "Scroll Down"
 msgstr "Projíždět dolů"
 
-#: frescobaldi_app/mainwindow.py:988
+#: ../mainwindow.py:988
 msgid "New &Window"
 msgstr "Nové &okno"
 
-#: frescobaldi_app/mainwindow.py:989
+#: ../mainwindow.py:989
 msgid "&Fullscreen"
 msgstr "&Celá obrazovka"
 
-#: frescobaldi_app/mainwindow.py:991
+#: ../mainwindow.py:991
 msgid "&User Guide"
 msgstr "Průvodce pro &uživatele"
 
-#: frescobaldi_app/mainwindow.py:992
+#: ../mainwindow.py:992
 msgid "&What's This?"
 msgstr "&Co je toto?"
 
-#: frescobaldi_app/mainwindow.py:993
+#: ../mainwindow.py:993
 msgid "Report a &Bug..."
 msgstr "Nahlásit &chybu..."
 
-#: frescobaldi_app/mainwindow.py:994
+#: ../mainwindow.py:994
 msgid "&About {appname}..."
 msgstr "&O {appname}..."
 
-#: frescobaldi_app/menu.py:82
+#: ../menu.py:82
 msgctxt "menu title"
 msgid "&File"
 msgstr "&Soubor"
 
-#: frescobaldi_app/menu.py:113
+#: ../menu.py:113
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Vyvést"
 
-#: frescobaldi_app/menu.py:121
+#: ../menu.py:121
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "&Úpravy"
 
-#: frescobaldi_app/menu.py:148
+#: ../menu.py:148
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Pohled"
 
-#: frescobaldi_app/menu.py:172
+#: ../menu.py:172
 msgctxt "submenu title"
 msgid "Music &View"
 msgstr "P&ohled na noty"
 
-#: frescobaldi_app/menu.py:191
+#: ../menu.py:191
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: frescobaldi_app/menu.py:210
+#: ../menu.py:210
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Nástroje"
 
-#: frescobaldi_app/menu.py:236
+#: ../menu.py:236
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Slova písně"
 
-#: frescobaldi_app/menu.py:248
+#: ../menu.py:248
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Výška tónu"
 
-#: frescobaldi_app/menu.py:262
+#: ../menu.py:262
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Rytmus"
 
-#: frescobaldi_app/menu.py:290
+#: ../menu.py:290
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Okno"
 
-#: frescobaldi_app/menu.py:310
+#: ../menu.py:310
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Nápověda"
 
-#: frescobaldi_app/musicpreview.py:113
+#: ../musicpreview.py:113
 msgid "Document:"
 msgstr "Dokument:"
 
-#: frescobaldi_app/musicpreview.py:195
+#: ../musicpreview.py:195
 msgid "&Print"
 msgstr "&Tisk"
 
-#: frescobaldi_app/musicpreview.py:196
+#: ../musicpreview.py:196
 msgid "Music Preview"
 msgstr "Náhled na noty"
 
-#: frescobaldi_app/popplerdummy.py:42
+#: ../popplerdummy.py:42
 msgid "Could not load the {name} module."
 msgstr "Nepodařilo se nahrát modul {name}."
 
-#: frescobaldi_app/popplerprint.py:54
+#: ../popplerprint.py:54
 msgid ""
 "No print command to print a PostScript file could be found.\n"
 "\n"
@@ -965,279 +950,299 @@ msgstr ""
 "\n"
 "Chcete pokračovat?"
 
-#: frescobaldi_app/popplerprint.py:61
+#: ../popplerprint.py:61
 msgid "PDF Document"
 msgstr "Dokument PDF"
 
-#: frescobaldi_app/popplerprint.py:69
+#: ../popplerprint.py:69
 msgid "Print {filename}"
 msgstr "Tisk {filename}"
 
-#: frescobaldi_app/popplerprint.py:87 frescobaldi_app/popplerprint.py:116
+#: ../popplerprint.py:87 ../popplerprint.py:116
 msgid "Printing Error"
 msgstr "Chyba tisku"
 
-#: frescobaldi_app/popplerprint.py:88 frescobaldi_app/popplerprint.py:117
+#: ../popplerprint.py:88 ../popplerprint.py:117
 msgid "Could not send the document to the printer."
 msgstr "Dokument se nepodařilo poslat tiskárně."
 
-#: frescobaldi_app/popplerprint.py:108
+#: ../popplerprint.py:108
 msgid "Printing page {page} ({num} of {total})..."
 msgstr "Tiskne se strana {page} ({num} z {total})..."
 
-#: frescobaldi_app/search.py:100
+#: ../search.py:100
 msgid "Search:"
 msgstr "Hledat:"
 
-#: frescobaldi_app/search.py:101
+#: ../search.py:101
 msgid "&Case"
 msgstr "&Písmovka"
 
-#: frescobaldi_app/search.py:102
+#: ../search.py:102
 msgid "Case Sensitive"
 msgstr "Rozlišovat velká/malá písmena"
 
-#: frescobaldi_app/search.py:103
+#: ../search.py:103
 msgid "&Regex"
 msgstr "&Regulární výraz"
 
-#: frescobaldi_app/search.py:104
+#: ../search.py:104
 msgid "Regular Expression"
 msgstr "Regulární výraz"
 
-#: frescobaldi_app/search.py:105
+#: ../search.py:105
 msgid "The total number of matches"
 msgstr "Celkový počet shod"
 
-#: frescobaldi_app/search.py:106
+#: ../search.py:106
 msgid "Close"
 msgstr "Zavřít"
 
-#: frescobaldi_app/search.py:107
+#: ../search.py:107
 msgid "Replace:"
 msgstr "Nahradit:"
 
-#: frescobaldi_app/search.py:108
+#: ../search.py:108
 msgid "Re&place"
 msgstr "Na&hradit"
 
-#: frescobaldi_app/search.py:109
+#: ../search.py:109
 msgid "Replaces the next occurrence of the search term."
 msgstr "Nahradit další výskyt hledaného pojmu."
 
-#: frescobaldi_app/search.py:110
+#: ../search.py:110
 msgid "&All"
 msgstr "&Vše"
 
-#: frescobaldi_app/search.py:111
+#: ../search.py:111
 msgid ""
 "Replaces all occurrences of the search term in the document or selection."
 msgstr "Nahradit všechny výskyty hledaného pojmu v dokumentu nebo ve výběru."
 
-#: frescobaldi_app/viewmanager.py:66 frescobaldi_app/viewmanager.py:214
+#: ../viewmanager.py:66 ../viewmanager.py:214
 msgid "Line: {line}, Col: {column}"
 msgstr "Řádek: {line}, Sloupec: {column}"
 
-#: frescobaldi_app/viewmanager.py:84 frescobaldi_app/viewmanager.py:446
+#: ../viewmanager.py:84 ../viewmanager.py:446
 msgid "Split &Horizontally"
 msgstr "Rozdělit &vodorovně"
 
-#: frescobaldi_app/viewmanager.py:87 frescobaldi_app/viewmanager.py:447
+#: ../viewmanager.py:87 ../viewmanager.py:447
 msgid "Split &Vertically"
 msgstr "Rozdělit &svisle"
 
-#: frescobaldi_app/viewmanager.py:91
+#: ../viewmanager.py:91
 msgid "&Close View"
 msgstr "&Zavřít pohled"
 
-#: frescobaldi_app/viewmanager.py:448
+#: ../viewmanager.py:448
 msgid "&Close Current View"
 msgstr "&Zavřít nynější pohled"
 
-#: frescobaldi_app/viewmanager.py:449
+#: ../viewmanager.py:449
 msgid "Close &Other Views"
 msgstr "Zavřít &jiné pohledy"
 
-#: frescobaldi_app/viewmanager.py:450
+#: ../viewmanager.py:450
 msgid "&Next View"
 msgstr "&Další pohled"
 
-#: frescobaldi_app/viewmanager.py:451
+#: ../viewmanager.py:451
 msgid "&Previous View"
 msgstr "&Předchozí pohled"
 
-#: frescobaldi_app/autocomplete/__init__.py:79
+#: ../autocomplete/__init__.py:79
 msgid "Automatic &Completion"
 msgstr "Automatické &dokončení"
 
-#: frescobaldi_app/autocomplete/__init__.py:80
+#: ../autocomplete/__init__.py:80
 msgid "Show C&ompletions Popup"
 msgstr "Ukázat vyskakovací do&končení"
 
-#: frescobaldi_app/charmap/__init__.py:40
-#: frescobaldi_app/preferences/tools.py:186
+#: ../charmap/__init__.py:40 ../preferences/tools.py:186
 msgid "Special Characters"
 msgstr "Zvláštní znaky"
 
-#: frescobaldi_app/charmap/__init__.py:41
+#: ../charmap/__init__.py:41
 msgid "Special Charac&ters"
 msgstr "Zvláštní &znaky"
 
-#: frescobaldi_app/docbrowser/__init__.py:46
-#: frescobaldi_app/docbrowser/__init__.py:62
-#: frescobaldi_app/preferences/documentation.py:122
+#: ../docbrowser/__init__.py:46 ../docbrowser/__init__.py:62
+#: ../preferences/documentation.py:122
 msgid "Documentation Browser"
 msgstr "Prohlížeč dokumentace"
 
-#: frescobaldi_app/docbrowser/__init__.py:47
+#: ../docbrowser/__init__.py:47
 msgid "&Documentation Browser"
 msgstr "&Prohlížeč dokumentace"
 
-#: frescobaldi_app/docbrowser/__init__.py:82
-#: frescobaldi_app/help/browser.py:78
+#: ../docbrowser/__init__.py:82 ../help/browser.py:78
 msgid "Back"
 msgstr "Zpět"
 
-#: frescobaldi_app/docbrowser/__init__.py:83
-#: frescobaldi_app/help/browser.py:79
+#: ../docbrowser/__init__.py:83 ../help/browser.py:79
 msgid "Forward"
 msgstr "Vpřed"
 
 #. L10N: Home page of the LilyPond manual
-#: frescobaldi_app/docbrowser/__init__.py:85
+#: ../docbrowser/__init__.py:85
 msgid "Home"
 msgstr "Domovská složka"
 
-#: frescobaldi_app/docbrowser/__init__.py:86
+#: ../docbrowser/__init__.py:86
 msgid "Print..."
 msgstr "Tisk..."
 
-#: frescobaldi_app/docbrowser/__init__.py:87
+#: ../docbrowser/__init__.py:87
 msgid "&LilyPond Documentation"
 msgstr "Dokumentace k &LilyPondu"
 
-#: frescobaldi_app/docbrowser/__init__.py:88
+#: ../docbrowser/__init__.py:88
 msgid "&Contextual LilyPond Help"
 msgstr "Nápověda k LilyPondu vyplývající ze &souvislosti"
 
-#: frescobaldi_app/docbrowser/browser.py:115
-#: frescobaldi_app/snippet/widget.py:168
+#: ../docbrowser/browser.py:115 ../snippet/widget.py:168
 msgid "Search..."
 msgstr "Hledat..."
 
-#: frescobaldi_app/docbrowser/browser.py:155
+#: ../docbrowser/browser.py:155
 msgid "(local)"
 msgstr "(místní)"
 
-#: frescobaldi_app/docbrowser/browser.py:157
+#: ../docbrowser/browser.py:157
 msgid "({hostname})"
 msgstr "({hostname})"
 
-#: frescobaldi_app/docbrowser/browser.py:229
-#: frescobaldi_app/help/browser.py:82 frescobaldi_app/help/browser.py:113
+#: ../docbrowser/browser.py:229 ../help/browser.py:82 ../help/browser.py:113
 msgid "Print"
 msgstr "Tisk"
 
-#: frescobaldi_app/docbrowser/browser.py:239
+#: ../docbrowser/browser.py:239
 msgid "Copy &Link"
 msgstr "Kopírovat &odkaz"
 
-#: frescobaldi_app/docbrowser/browser.py:242
+#: ../docbrowser/browser.py:242
 msgid "Open Link in &New Window"
 msgstr "Otevřít odkaz v &novém okně"
 
-#: frescobaldi_app/docbrowser/browser.py:251
+#: ../docbrowser/browser.py:251
 msgid "Open Document in &New Window"
 msgstr "Otevřít dokument v &novém okně"
 
-#: frescobaldi_app/docbrowser/sourceviewer.py:59
+#: ../docbrowser/sourceviewer.py:59
 msgid "LilyPond Source"
 msgstr "Zdroj LilyPond"
 
-#: frescobaldi_app/doclist/__init__.py:39
-#: frescobaldi_app/preferences/tools.py:219
+#: ../doclist/__init__.py:39 ../preferences/tools.py:219
 msgid "Documents"
 msgstr "Dokumenty"
 
-#: frescobaldi_app/doclist/__init__.py:40
+#: ../doclist/__init__.py:40
 msgid "Docum&ents"
 msgstr "Dokum&enty"
 
-#: frescobaldi_app/engrave/__init__.py:177
+#: ../doclist/widget.py:182
+#, fuzzy
+msgid "Save selected documents"
+msgstr "Uložit výběr"
+
+#: ../doclist/widget.py:183
+#, fuzzy
+msgid "Close selected documents"
+msgstr "Zavřít jiné dokumenty"
+
+#: ../doclist/widget.py:189
+#, fuzzy
+msgid "Save documents in this folder"
+msgstr "Uložit dokument, je-li to možné"
+
+#: ../doclist/widget.py:190
+msgid "Close documents in this folder"
+msgstr ""
+
+#: ../doclist/widget.py:193
+#, fuzzy
+msgid "Save all untitled documents"
+msgstr "E-mailové dokumenty"
+
+#: ../doclist/widget.py:194
+#, fuzzy
+msgid "Close all untitled documents"
+msgstr "Zavřít všechny dokumenty"
+
+#: ../engrave/__init__.py:177
 msgid "&Always Engrave [{docname}]"
 msgstr "&Vždy vyrýt [{docname}]"
 
-#: frescobaldi_app/engrave/__init__.py:179
+#: ../engrave/__init__.py:179
 msgid "&Always Engrave This Document"
 msgstr "Tento dokument vyrýt &vždy"
 
-#: frescobaldi_app/engrave/__init__.py:208
+#: ../engrave/__init__.py:208
 msgid "Engrave"
 msgstr "Vyrýt"
 
-#: frescobaldi_app/engrave/__init__.py:209
+#: ../engrave/__init__.py:209
 msgid "&Engrave (preview)"
 msgstr "&Vyrýt (náhled)"
 
-#: frescobaldi_app/engrave/__init__.py:210
+#: ../engrave/__init__.py:210
 msgid "Engrave (&publish)"
 msgstr "Vyrýt (&vydat)"
 
-#: frescobaldi_app/engrave/__init__.py:211
+#: ../engrave/__init__.py:211
 msgid "Engrave (&custom)..."
 msgstr "Vyrýt (v&lastní)..."
 
-#: frescobaldi_app/engrave/__init__.py:212
+#: ../engrave/__init__.py:212
 msgid "Abort Engraving &Job"
 msgstr "Zrušit ryteckou &práci"
 
-#: frescobaldi_app/engrave/custom.py:123 frescobaldi_app/engrave/custom.py:214
+#: ../engrave/custom.py:123 ../engrave/custom.py:214
 msgid "Engrave custom"
 msgstr "Vyrýt vlastní"
 
-#: frescobaldi_app/engrave/custom.py:124
+#: ../engrave/custom.py:124
 msgid "LilyPond Version:"
 msgstr "Verze LilyPondu:"
 
-#: frescobaldi_app/engrave/custom.py:125
+#: ../engrave/custom.py:125
 msgid "Output Format:"
 msgstr "Výstupní formát:"
 
-#: frescobaldi_app/engrave/custom.py:126
+#: ../engrave/custom.py:126
 msgid "Resolution:"
 msgstr "Rozlišení:"
 
-#: frescobaldi_app/engrave/custom.py:128
+#: ../engrave/custom.py:128
 msgid "Run LilyPond in preview mode (with Point and Click)"
 msgstr "Spustit LilyPond v režimu náhledu (s funkcí ukázat a klepnout)"
 
-#: frescobaldi_app/engrave/custom.py:129
+#: ../engrave/custom.py:129
 msgid "Run LilyPond with verbose output"
 msgstr "Spustit LilyPond s podrobným výstupem"
 
-#: frescobaldi_app/engrave/custom.py:130
-#: frescobaldi_app/preferences/lilypond.py:289
+#: ../engrave/custom.py:130 ../preferences/lilypond.py:289
 msgid "Run LilyPond with English messages"
 msgstr "Spustit LilyPond s anglickými zprávami"
 
-#: frescobaldi_app/engrave/custom.py:131
-#: frescobaldi_app/preferences/lilypond.py:286
+#: ../engrave/custom.py:131 ../preferences/lilypond.py:286
 msgid "Delete intermediate output files"
 msgstr "Smazat mezi výstupní soubory"
 
-#: frescobaldi_app/engrave/custom.py:132
+#: ../engrave/custom.py:132
 msgid "Command line:"
 msgstr "Příkazový řádek:"
 
-#: frescobaldi_app/engrave/custom.py:133
+#: ../engrave/custom.py:133
 msgid "Run LilyPond"
 msgstr "Spustit LilyPond"
 
-#: frescobaldi_app/engrave/custom.py:155
+#: ../engrave/custom.py:155
 msgid "LilyPond {version}"
 msgstr "LilyPond {version}"
 
-#: frescobaldi_app/engrave/custom.py:218
+#: ../engrave/custom.py:218
 msgid ""
 "In this dialog you can set some parameters for the LilyPond command to be "
 "used\n"
@@ -1249,89 +1254,88 @@ msgstr ""
 "pro rytí vašeho dokumentu.\n"
 "Je dokonce možné upravit samotný příkazový řádek.\n"
 
-#: frescobaldi_app/engrave/custom.py:223
+#: ../engrave/custom.py:223
 msgid "The following replacements will be made:"
 msgstr "Budou provedena následující nahrazení:"
 
-#: frescobaldi_app/engrave/custom.py:226
+#: ../engrave/custom.py:226
 msgid "The LilyPond executable"
 msgstr "Spustitelný soubor pro LilyPond"
 
-#: frescobaldi_app/engrave/custom.py:227
+#: ../engrave/custom.py:227
 msgid "All the include paths"
 msgstr "Všechny zařazené cesty"
 
-#: frescobaldi_app/engrave/custom.py:228
+#: ../engrave/custom.py:228
 msgid "The filename of the document"
 msgstr "Souborový název dokumentu"
 
-#: frescobaldi_app/engrave/custom.py:241
+#: ../engrave/custom.py:241
 msgid "PDF"
 msgstr "PDF"
 
-#: frescobaldi_app/engrave/custom.py:247
+#: ../engrave/custom.py:247
 msgid "PostScript"
 msgstr "PostScript"
 
-#: frescobaldi_app/engrave/custom.py:253
+#: ../engrave/custom.py:253
 msgid "PNG"
 msgstr "PNG"
 
-#: frescobaldi_app/engrave/custom.py:259
+#: ../engrave/custom.py:259
 msgid "SVG"
 msgstr "SVG"
 
-#: frescobaldi_app/engrave/custom.py:265
+#: ../engrave/custom.py:265
 msgid "PDF (EPS Backend)"
 msgstr "PDF (jádro EPS)"
 
-#: frescobaldi_app/engrave/custom.py:271
+#: ../engrave/custom.py:271
 msgid "Encapsulated PostScript (EPS Backend)"
 msgstr "Encapsulated PostScript (jádro EPS)"
 
-#: frescobaldi_app/engrave/custom.py:277
+#: ../engrave/custom.py:277
 msgid "PNG (EPS Backend)"
 msgstr "PNG (jádro EPS)"
 
-#: frescobaldi_app/engrave/result_menu.py:45
+#: ../engrave/result_menu.py:45
 msgid "Generated &Files"
 msgstr "Vytvořené &soubory"
 
-#: frescobaldi_app/engrave/result_menu.py:66
+#: ../engrave/result_menu.py:66
 msgid "No files available"
 msgstr "Nejsou dostupné žádné soubory"
 
-#: frescobaldi_app/help/browser.py:77
+#: ../help/browser.py:77
 msgid "Toolbar"
 msgstr "Nástrojový pruh"
 
-#: frescobaldi_app/help/browser.py:80
+#: ../help/browser.py:80
 msgid "Start"
 msgstr "Začátek"
 
-#: frescobaldi_app/help/browser.py:81
+#: ../help/browser.py:81
 msgid "Contents"
 msgstr "Obsah"
 
-#: frescobaldi_app/help/browser.py:88 frescobaldi_app/help/browser.py:89
-#: frescobaldi_app/help/contents.py:69
-#: frescobaldi_app/quickinsert/widget.py:106
+#: ../help/browser.py:88 ../help/browser.py:89 ../help/contents.py:69
+#: ../quickinsert/widget.py:106
 msgid "Help"
 msgstr "Nápověda"
 
-#: frescobaldi_app/help/contents.py:37
+#: ../help/contents.py:37
 msgid "No Help"
 msgstr "Žádná nápověda"
 
-#: frescobaldi_app/help/contents.py:40
+#: ../help/contents.py:40
 msgid "No help has been found on this topic."
 msgstr "K tomuto námětu nebyla nalezena žádná nápověda."
 
-#: frescobaldi_app/help/contents.py:46
+#: ../help/contents.py:46
 msgid "Frescobaldi Manual"
 msgstr "Příručka k Frescobaldi"
 
-#: frescobaldi_app/help/contents.py:49
+#: ../help/contents.py:49
 msgid ""
 "<p>\n"
 "Frescobaldi is a light-weight, but powerful editor for LilyPond music "
@@ -1346,7 +1350,7 @@ msgstr ""
 "Tato příručka je napsána {author} a dokumentuje {appname} verze {version}.\n"
 "</p>\n"
 
-#: frescobaldi_app/help/contents.py:59
+#: ../help/contents.py:59
 msgid ""
 "<h3>How to get help inside Frescobaldi</h3>\n"
 "\n"
@@ -1367,15 +1371,15 @@ msgstr ""
 "odhalit stiskem {key_whatsthis} nebo výběrem {menu_whatsthis}.\n"
 "</p>\n"
 
-#: frescobaldi_app/help/contents.py:69
+#: ../help/contents.py:69
 msgid "What's This"
 msgstr "Co je toto"
 
-#: frescobaldi_app/help/contents.py:87
+#: ../help/contents.py:87
 msgid "Introduction"
 msgstr "Úvod"
 
-#: frescobaldi_app/help/contents.py:90
+#: ../help/contents.py:90
 msgid ""
 "<p>\n"
 "<a href=\"http://lilypond.org/\">LilyPond</a>\n"
@@ -1429,40 +1433,37 @@ msgstr ""
 "LilyPond</a>.\n"
 "</p>"
 
-#: frescobaldi_app/help/contents.py:116
+#: ../help/contents.py:116
 msgid "Getting Started"
 msgstr "První kroky"
 
-#: frescobaldi_app/help/contents.py:136
-#: frescobaldi_app/preferences/fontscolors.py:482
-#: frescobaldi_app/preferences/lilypond.py:237
-#: frescobaldi_app/scorewiz/settings.py:295
+#: ../help/contents.py:136 ../preferences/fontscolors.py:482
+#: ../preferences/lilypond.py:237 ../scorewiz/settings.py:295
 msgid "LilyPond"
 msgstr "LilyPond"
 
-#: frescobaldi_app/help/contents.py:136
+#: ../help/contents.py:136
 msgid "Engrave (publish)"
 msgstr "Vyrýt (vydat)"
 
-#: frescobaldi_app/help/contents.py:140
-#: frescobaldi_app/preferences/__init__.py:172
+#: ../help/contents.py:140 ../preferences/__init__.py:172
 msgid "LilyPond Preferences"
 msgstr "Nastavení LilyPondu"
 
-#: frescobaldi_app/help/contents.py:142
+#: ../help/contents.py:142
 msgctxt "menu title"
 msgid "View"
 msgstr "Pohled"
 
-#: frescobaldi_app/help/contents.py:143
+#: ../help/contents.py:143
 msgid "Clear Error Marks"
 msgstr "Vymazat značky chyb"
 
-#: frescobaldi_app/help/contents.py:146
+#: ../help/contents.py:146
 msgid "Copy to Image..."
 msgstr "Zkopírovat do obrázku..."
 
-#: frescobaldi_app/help/contents.py:147
+#: ../help/contents.py:147
 msgid ""
 "<p>\n"
 "The default screen of Frescobaldi shows a text document on the left and an\n"
@@ -1642,19 +1643,19 @@ msgstr ""
 "{menu_clear_error_marks}.\n"
 "</p>\n"
 
-#: frescobaldi_app/help/contents.py:230
+#: ../help/contents.py:230
 msgid "Other Tools"
 msgstr "Jiné nástroje"
 
-#: frescobaldi_app/help/contents.py:233
+#: ../help/contents.py:233
 msgid "<p>Some other important tools are listed here.</p>\n"
 msgstr "<p>Zde jsou v seznamu uvedeny některé další důležité nástroje.</p>\n"
 
-#: frescobaldi_app/help/contents.py:254
+#: ../help/contents.py:254
 msgid "About Frescobaldi"
 msgstr "O Frescobaldi"
 
-#: frescobaldi_app/help/contents.py:257
+#: ../help/contents.py:257
 msgid ""
 "<p>\n"
 "Frescobaldi is named after\n"
@@ -1686,15 +1687,15 @@ msgstr ""
 "(<a href=\"http://groups.google.com/group/frescobaldi\">more info</a>).\n"
 "</p>\n"
 
-#: frescobaldi_app/help/contents.py:287
+#: ../help/contents.py:287
 msgid "Frescobaldi's main author is {author}."
 msgstr "Hlavním autorem Frescobaldi je {author}."
 
-#: frescobaldi_app/help/contents.py:295
+#: ../help/contents.py:295
 msgid "Contributing"
 msgstr "Příspěvky"
 
-#: frescobaldi_app/help/contents.py:298
+#: ../help/contents.py:298
 msgid ""
 "<p>\n"
 "Frescobaldi is a <a href=\"http://www.gnu.org/philosophy/free-sw.html"
@@ -1743,11 +1744,11 @@ msgstr ""
 "v souboru README-development.\n"
 "</p>\n"
 
-#: frescobaldi_app/help/contents.py:323
+#: ../help/contents.py:323
 msgid "History of Frescobaldi"
 msgstr "Historie Frescobaldi"
 
-#: frescobaldi_app/help/contents.py:326
+#: ../help/contents.py:326
 msgid ""
 "<p>\n"
 "Frescobaldi has its roots in LilyKDE, which was a plugin for KDE3's editor "
@@ -1799,11 +1800,11 @@ msgstr ""
 "je cíleno na Vánoce 2011.\n"
 "</p>\n"
 
-#: frescobaldi_app/help/contents.py:352
+#: ../help/contents.py:352
 msgid "The editor"
 msgstr "Editor"
 
-#: frescobaldi_app/help/contents.py:355
+#: ../help/contents.py:355
 msgid ""
 "<p>\n"
 "In this part the features of the editor are discussed,\n"
@@ -1817,15 +1818,15 @@ msgstr ""
 "atd.\n"
 "</p>\n"
 
-#: frescobaldi_app/help/contents.py:371
+#: ../help/contents.py:371
 msgid "Search and replace"
 msgstr "Hledat a nahradit"
 
-#: frescobaldi_app/help/contents.py:379
+#: ../help/contents.py:379
 msgid "Edit"
 msgstr "Úpravy"
 
-#: frescobaldi_app/help/contents.py:381
+#: ../help/contents.py:381
 msgid ""
 "<p>\n"
 "In the menu {edit_menu} the commands Find ({key_search})\n"
@@ -1921,11 +1922,11 @@ msgstr ""
 "\"></a>.\n"
 "</p>\n"
 
-#: frescobaldi_app/help/contents.py:429
+#: ../help/contents.py:429
 msgid "Document variables"
 msgstr "Proměnné pro dokument"
 
-#: frescobaldi_app/help/contents.py:434
+#: ../help/contents.py:434
 msgid ""
 "Document variables are variables that influence the behaviour of "
 "Frescobaldi.\n"
@@ -1940,16 +1941,16 @@ msgstr ""
 "Pokud řádek obsahuje '<b><code>-*-</code></b>', Frescobaldi hledá zbytek\n"
 "řádků pro vymezení proměnných jako <code>name: value;</code>.\n"
 
-#: frescobaldi_app/help/contents.py:441
+#: ../help/contents.py:441
 msgid "The following variables are recognized:"
 msgstr "Jsou uznávány následující proměnné:"
 
-#: frescobaldi_app/help/contents.py:446
+#: ../help/contents.py:446
 msgid "mode"
 msgstr "Režim"
 
 #. L10N: do not translate the mode names lilypond, html, etc.
-#: frescobaldi_app/help/contents.py:448
+#: ../help/contents.py:448
 msgid ""
 "Force mode to be one of lilypond, html, texinfo, latex, docbook or scheme. "
 "Default: automatic mode recognition."
@@ -1957,232 +1958,230 @@ msgstr ""
 "Vynutit režim, aby byl jedním z lilypond, html, texinfo, latex, docbook nebo "
 "scheme. Výchozí: automatické rozpoznání režimu."
 
-#: frescobaldi_app/help/contents.py:450
+#: ../help/contents.py:450
 msgid "filename"
 msgstr "Souborový název"
 
-#: frescobaldi_app/help/contents.py:451
+#: ../help/contents.py:451
 msgid "Compiles another LilyPond document instead of the current."
 msgstr "Sestaví jiný dokument LilyPond namísto nynějšího."
 
-#: frescobaldi_app/help/contents.py:452
+#: ../help/contents.py:452
 msgid "encoding"
 msgstr "Kódování"
 
-#: frescobaldi_app/help/contents.py:453
+#: ../help/contents.py:453
 msgid "Use another encoding than the default UTF-8."
 msgstr "Použít jiné kódování než výchozí UTF-8."
 
-#: frescobaldi_app/help/contents.py:454
+#: ../help/contents.py:454
 msgid "version"
 msgstr "Verze"
 
-#: frescobaldi_app/help/contents.py:455
+#: ../help/contents.py:455
 msgid ""
 "Set the LilyPond version to use, can be used for non-LilyPond documents."
 msgstr ""
 "Nastavit verzi LilyPondu, která se bude používat. Lze ji používat pro "
 "dokumenty, které nejsou v LilyPondu."
 
-#: frescobaldi_app/help/contents.py:457 frescobaldi_app/help/contents.py:465
+#: ../help/contents.py:457 ../help/contents.py:465
 msgid "number"
 msgstr "Číslo"
 
-#: frescobaldi_app/help/contents.py:458
+#: ../help/contents.py:458
 msgid "The width of a tab character, by default 8."
 msgstr "Šířka znaku pro zarážku; ve výchozím nastavení je to 8."
 
-#: frescobaldi_app/help/contents.py:460
+#: ../help/contents.py:460
 msgid "Whether to use tabs in indent, by default {no}."
 msgstr "Zda používat pro odsazování zarážek; ve výchozím nastavení {no}."
 
-#: frescobaldi_app/help/contents.py:463
+#: ../help/contents.py:463
 msgid "Whether to use tabs elsewhere in the document, by default {yes}."
 msgstr ""
 "Zda používat zarážky někde jinde v dokumentu; ve výchozím nastavení {yes}."
 
-#: frescobaldi_app/help/contents.py:466
+#: ../help/contents.py:466
 msgid "The number of spaces each indent level uses, by default 2."
 msgstr ""
 "Počet mezer, který používá každá úroveň odsazení; ve výchozím nastavení 2."
 
-#: frescobaldi_app/help/contents.py:474
+#: ../help/contents.py:474
 msgid "You can put document variables in comments."
 msgstr "Proměnné pro dokument můžete dát do poznámek."
 
-#: frescobaldi_app/help/contents.py:481
+#: ../help/contents.py:481
 msgid "Table of Contents"
 msgstr "Obsah"
 
-#: frescobaldi_app/help/helpimpl.py:115
+#: ../help/helpimpl.py:115
 msgid "Up:"
 msgstr "Nahoru:"
 
-#: frescobaldi_app/help/helpimpl.py:130
+#: ../help/helpimpl.py:130
 msgid "Next:"
 msgstr "Další:"
 
-#: frescobaldi_app/help/helpimpl.py:133
+#: ../help/helpimpl.py:133
 msgid "See also:"
 msgstr "Podívejte se také na:"
 
-#: frescobaldi_app/help/helpimpl.py:165
+#: ../help/helpimpl.py:165
 msgid "(no key defined)"
 msgstr "(nestanoven žádný klíč)"
 
-#: frescobaldi_app/logtool/__init__.py:50
-#: frescobaldi_app/preferences/tools.py:80
+#: ../logtool/__init__.py:50 ../preferences/tools.py:80
 msgid "LilyPond Log"
 msgstr "Záznam o průběhu činnosti od LilyPondu"
 
-#: frescobaldi_app/logtool/__init__.py:51
+#: ../logtool/__init__.py:51
 msgid "LilyPond &Log"
 msgstr "&Zápis o LilyPondu"
 
-#: frescobaldi_app/logtool/__init__.py:91
+#: ../logtool/__init__.py:91
 msgid "Next Error Message"
 msgstr "Další chybové hlášení"
 
-#: frescobaldi_app/logtool/__init__.py:92
+#: ../logtool/__init__.py:92
 msgid "Previous Error Message"
 msgstr "Předchozí chybové hlášení"
 
-#: frescobaldi_app/logtool/logwidget.py:118
+#: ../logtool/logwidget.py:118
 msgid "Click to edit this file"
 msgstr "Klepněte, abyste mohl upravovat tento soubor"
 
-#: frescobaldi_app/miditool/__init__.py:51
+#: ../miditool/__init__.py:51
 msgid "MIDI"
 msgstr "MIDI"
 
-#: frescobaldi_app/miditool/__init__.py:52
+#: ../miditool/__init__.py:52
 msgid "MIDI &Player"
 msgstr "&Přehrávač MIDI"
 
-#: frescobaldi_app/miditool/__init__.py:97
+#: ../miditool/__init__.py:97
 msgctxt "midi player"
 msgid "Pause"
 msgstr "Pozastavit"
 
-#: frescobaldi_app/miditool/__init__.py:98
+#: ../miditool/__init__.py:98
 msgctxt "midi player"
 msgid "Play"
 msgstr "Přehrát"
 
-#: frescobaldi_app/miditool/__init__.py:99
+#: ../miditool/__init__.py:99
 msgctxt "midi player"
 msgid "Stop"
 msgstr "Zastavit"
 
-#: frescobaldi_app/miditool/__init__.py:100
+#: ../miditool/__init__.py:100
 msgctxt "midi player"
 msgid "Restart"
 msgstr "Spustit znovu"
 
-#: frescobaldi_app/miditool/widget.py:102
+#: ../miditool/widget.py:103
 msgid "Tempo"
 msgstr "Tempo"
 
-#: frescobaldi_app/miditool/widget.py:156
+#: ../miditool/widget.py:157
 msgid "No output found!"
 msgstr "Nenalezen žádný výstup!"
 
-#: frescobaldi_app/miditool/widget.py:231
+#: ../miditool/widget.py:232
 msgctxt "midi lcd screen"
 msgid "LOADED"
 msgstr "NAHRÁNO"
 
-#: frescobaldi_app/miditool/widget.py:232
+#: ../miditool/widget.py:233
 msgctxt "midi lcd screen"
 msgid "TOTAL"
 msgstr "CELKEM"
 
-#: frescobaldi_app/miditool/widget.py:314
-#: frescobaldi_app/miditool/widget.py:324
+#: ../miditool/widget.py:315 ../miditool/widget.py:325
 msgctxt "midi lcd screen"
 msgid "TIME"
 msgstr "ČAS"
 
-#: frescobaldi_app/miditool/widget.py:315
+#: ../miditool/widget.py:316
 msgctxt "midi lcd screen"
 msgid "TEMPO"
 msgstr "TEMPO"
 
-#: frescobaldi_app/miditool/widget.py:325
+#: ../miditool/widget.py:326
 msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "DOBA"
 
-#: frescobaldi_app/musicview/__init__.py:92
+#: ../musicview/__init__.py:92
 msgctxt "window title"
 msgid "Music View"
 msgstr "Pohled na noty"
 
-#: frescobaldi_app/musicview/__init__.py:93
+#: ../musicview/__init__.py:93
 msgid "&Music View"
 msgstr "Pohled na &hudbu"
 
-#: frescobaldi_app/musicview/__init__.py:237
+#: ../musicview/__init__.py:237
 msgid "Select Music View Document"
 msgstr "Vybrat dokument s pohledem na noty"
 
-#: frescobaldi_app/musicview/__init__.py:238
+#: ../musicview/__init__.py:238
 msgid "&Print Music..."
 msgstr "&Vytisknout noty..."
 
-#: frescobaldi_app/musicview/__init__.py:239
+#: ../musicview/__init__.py:239
 msgid "Zoom &In"
 msgstr "&Přiblížit"
 
-#: frescobaldi_app/musicview/__init__.py:240
+#: ../musicview/__init__.py:240
 msgid "Zoom &Out"
 msgstr "&Oddálit"
 
-#: frescobaldi_app/musicview/__init__.py:241
+#: ../musicview/__init__.py:241
 msgid "Zoom Music"
 msgstr "Zvětšení hudby"
 
-#: frescobaldi_app/musicview/__init__.py:242
+#: ../musicview/__init__.py:242
 msgid "Fit &Width"
 msgstr "Přizpůsobit šíř&ce"
 
-#: frescobaldi_app/musicview/__init__.py:243
+#: ../musicview/__init__.py:243
 msgid "Fit &Height"
 msgstr "Přizpůsobit &výšce"
 
-#: frescobaldi_app/musicview/__init__.py:244
+#: ../musicview/__init__.py:244
 msgid "Fit &Page"
 msgstr "Přizpůsobit &straně"
 
-#: frescobaldi_app/musicview/__init__.py:245
+#: ../musicview/__init__.py:245
 msgid "&Jump to Cursor Position"
 msgstr "&Skočit na polohu ukazovátka"
 
-#: frescobaldi_app/musicview/__init__.py:246
+#: ../musicview/__init__.py:246
 msgid "Copy to &Image..."
 msgstr "Kopírovat do &obrázku..."
 
-#: frescobaldi_app/musicview/__init__.py:247
+#: ../musicview/__init__.py:247
 msgid "Next Page"
 msgstr "Další strana"
 
-#: frescobaldi_app/musicview/__init__.py:248
+#: ../musicview/__init__.py:248
 msgid "Next"
 msgstr "Další"
 
-#: frescobaldi_app/musicview/__init__.py:249
+#: ../musicview/__init__.py:249
 msgid "Previous Page"
 msgstr "Předchozí strana"
 
-#: frescobaldi_app/musicview/__init__.py:250
+#: ../musicview/__init__.py:250
 msgid "Previous"
 msgstr "Předchozí"
 
-#: frescobaldi_app/musicview/__init__.py:389
+#: ../musicview/__init__.py:389
 msgid "Choose the PDF document to display."
 msgstr "Vybrat dokument PDF k zobrazení."
 
-#: frescobaldi_app/musicview/__init__.py:391
+#: ../musicview/__init__.py:391
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -2190,56 +2189,56 @@ msgstr ""
 "Vyberte dokument PDF k zobrazení nebo soubor přetáhněte do jiného programu "
 "nebo umístění.."
 
-#: frescobaldi_app/musicview/__init__.py:449
+#: ../musicview/__init__.py:449
 msgid "Fit Width"
 msgstr "Přizpůsobit šířce"
 
-#: frescobaldi_app/musicview/__init__.py:450
+#: ../musicview/__init__.py:450
 msgid "Fit Height"
 msgstr "Přizpůsobit výšce"
 
-#: frescobaldi_app/musicview/__init__.py:451
+#: ../musicview/__init__.py:451
 msgid "Fit Page"
 msgstr "Přizpůsobit straně"
 
 #. L10N: page numbering: page {num} of {total}
-#: frescobaldi_app/musicview/__init__.py:468
+#: ../musicview/__init__.py:468
 msgid "{num} of {total}"
 msgstr "{num} z {total}"
 
-#: frescobaldi_app/musicview/image.py:126
+#: ../musicview/image.py:126
 msgid "DPI:"
 msgstr "DPI:"
 
-#: frescobaldi_app/musicview/image.py:127
+#: ../musicview/image.py:127
 msgid "Paper Color"
 msgstr "Barva papíru"
 
-#: frescobaldi_app/musicview/image.py:128
+#: ../musicview/image.py:128
 msgid "Auto-crop"
 msgstr "Automaticky oříznout"
 
-#: frescobaldi_app/musicview/image.py:129
+#: ../musicview/image.py:129
 msgid "Antialias"
 msgstr "Vyhlazovat"
 
-#: frescobaldi_app/musicview/image.py:130
+#: ../musicview/image.py:130
 msgid "Drag"
 msgstr "Táhnout"
 
-#: frescobaldi_app/musicview/image.py:131
+#: ../musicview/image.py:131
 msgid "Drag the image as a PNG file."
 msgstr "Táhnout obrázek jako soubor PNG."
 
-#: frescobaldi_app/musicview/image.py:132
+#: ../musicview/image.py:132
 msgid "&Copy to Clipboard"
 msgstr "&Kopírovat do schránky"
 
-#: frescobaldi_app/musicview/image.py:133
+#: ../musicview/image.py:133
 msgid "&Save As..."
 msgstr "&Uložit jako..."
 
-#: frescobaldi_app/musicview/image.py:136
+#: ../musicview/image.py:136
 #, no-python-format
 msgid ""
 "<p>\n"
@@ -2262,23 +2261,23 @@ msgstr ""
 "soubor na disku, např. do zprávy elektronické pošty.\n"
 "</p>"
 
-#: frescobaldi_app/musicview/image.py:167
+#: ../musicview/image.py:167
 msgid "Image from {filename}"
 msgstr "Obrázek z {filename}"
 
-#: frescobaldi_app/musicview/image.py:210
+#: ../musicview/image.py:210
 msgid "Save Image As"
 msgstr "Uložit obrázek jako"
 
-#: frescobaldi_app/musicview/image.py:214
+#: ../musicview/image.py:214
 msgid "Could not save the image."
 msgstr "Obrázek se nepodařilo uložit."
 
-#: frescobaldi_app/pitch/__init__.py:99
+#: ../pitch/__init__.py:99
 msgid "Pitch Name &Language"
 msgstr "&Jazyk názvu výšky tónu"
 
-#: frescobaldi_app/pitch/__init__.py:101
+#: ../pitch/__init__.py:101
 msgid ""
 "Change the LilyPond language used for pitch names in this document or in the "
 "selection."
@@ -2286,41 +2285,41 @@ msgstr ""
 "Změnit jazyk LilyPondu, který se používá pro názvy výšek tónů v tomto "
 "dokumentu nebo ve výběru."
 
-#: frescobaldi_app/pitch/__init__.py:103
+#: ../pitch/__init__.py:103
 msgid "Convert Relative to &Absolute"
 msgstr "Převést poměrnou na &naprostou"
 
-#: frescobaldi_app/pitch/__init__.py:105
+#: ../pitch/__init__.py:105
 msgid ""
 "Converts the notes in the document or selection from relative to absolute "
 "pitch."
 msgstr ""
 "Převede noty v dokumentu nebo ve výběru z poměrné na naprostou výšku tónu."
 
-#: frescobaldi_app/pitch/__init__.py:107
+#: ../pitch/__init__.py:107
 msgid "Convert Absolute to &Relative"
 msgstr "Převést naprostou na &poměrnou"
 
-#: frescobaldi_app/pitch/__init__.py:109
+#: ../pitch/__init__.py:109
 msgid ""
 "Converts the notes in the document or selection from absolute to relative "
 "pitch."
 msgstr ""
 "Převede noty v dokumentu nebo ve výběru z naprosté na poměrnou výšku tónu."
 
-#: frescobaldi_app/pitch/__init__.py:111
+#: ../pitch/__init__.py:111
 msgid "&Transpose..."
 msgstr "&Převést..."
 
-#: frescobaldi_app/pitch/__init__.py:113
+#: ../pitch/__init__.py:113
 msgid "Transposes all notes in the document or selection."
 msgstr "Převede všechny noty v dokumentu nebo ve výběru."
 
-#: frescobaldi_app/pitch/pitch.py:81 frescobaldi_app/pitch/pitch.py:94
+#: ../pitch/pitch.py:81 ../pitch/pitch.py:94
 msgid "Pitch Name Language"
 msgstr "Jazyk názvu polohy tónu"
 
-#: frescobaldi_app/pitch/pitch.py:82
+#: ../pitch/pitch.py:82
 msgid ""
 "Can't perform the requested translation.\n"
 "\n"
@@ -2332,7 +2331,7 @@ msgstr ""
 "Noty obsahují čtvrttónové úpravy, ale tyto úpravy nejsou dostupné v jazyku "
 "výšky tónu \"{name}\"."
 
-#: frescobaldi_app/pitch/pitch.py:98
+#: ../pitch/pitch.py:98
 msgid ""
 "The pitch language of the selected text has been updated, but you need to "
 "manually add the following command to your document:"
@@ -2340,20 +2339,19 @@ msgstr ""
 "Jazyk polohy tónu vybraného textu byl aktualizován, ale budete ještě muset "
 "do vašeho dokumentu vlastnoručně přidat následující příkaz:"
 
-#: frescobaldi_app/pitch/pitch.py:102
+#: ../pitch/pitch.py:102
 msgid "(for LilyPond below 2.14), or"
 msgstr "(pro LilyPond s menším číslem verze než 2.14), nebo"
 
-#: frescobaldi_app/pitch/pitch.py:103
+#: ../pitch/pitch.py:103
 msgid "(for LilyPond 2.14 and higher.)"
 msgstr "(pro LilyPond ve verzi 2.14 a vyšší.)"
 
-#: frescobaldi_app/pitch/pitch.py:398 frescobaldi_app/pitch/pitch.py:580
-#: frescobaldi_app/pitch/pitch.py:752
+#: ../pitch/pitch.py:398 ../pitch/pitch.py:580 ../pitch/pitch.py:752
 msgid "Transpose"
 msgstr "Převést"
 
-#: frescobaldi_app/pitch/pitch.py:399
+#: ../pitch/pitch.py:399
 msgid ""
 "Please enter two absolute pitches, separated by a space, using the pitch "
 "name language \"{language}\"."
@@ -2361,7 +2359,7 @@ msgstr ""
 "Zadejte, prosím, dvě absolutní výšky tónů, oddělené mezerou, za použití "
 "jazyka výšky tónu \"{language}\"."
 
-#: frescobaldi_app/pitch/pitch.py:581
+#: ../pitch/pitch.py:581
 msgid ""
 "Can't perform the requested transposition.\n"
 "\n"
@@ -2373,11 +2371,11 @@ msgstr ""
 "Převedené noty obsahují čtvrttónové úpravy, ale tyto úpravy nejsou dostupné "
 "v jazyku výšky tónu \"{language}\"."
 
-#: frescobaldi_app/pitch/pitch.py:712
+#: ../pitch/pitch.py:712
 msgid "Pitch manipulation"
 msgstr "Zacházení s výškou tónu"
 
-#: frescobaldi_app/pitch/pitch.py:715
+#: ../pitch/pitch.py:715
 msgid ""
 "<p>\n"
 "Frescobaldi offers the following pitch-manipulating functions,\n"
@@ -2441,12 +2439,12 @@ msgstr ""
 "\n"
 "</dl>\n"
 
-#: frescobaldi_app/pitch/pitch.py:744
+#: ../pitch/pitch.py:744
 msgctxt "submenu title"
 msgid "Pitch"
 msgstr "Výška tónu"
 
-#: frescobaldi_app/pitch/pitch.py:755
+#: ../pitch/pitch.py:755
 msgid ""
 "<p>\n"
 "When transposing music, two absolute pitches need to be given to specify\n"
@@ -2525,213 +2523,211 @@ msgstr ""
 "správně zacházet s předznamenáními, režimem akordů a zastaveními oktáv.\n"
 "</p>\n"
 
-#: frescobaldi_app/po/messages.py:27
+#: ../po/messages.py:27
 msgid "Usage"
 msgstr "Použití"
 
-#: frescobaldi_app/po/messages.py:28
+#: ../po/messages.py:28
 #, python-format
 msgid "Usage: %s\n"
 msgstr "Použití: %s\n"
 
-#: frescobaldi_app/po/messages.py:29
+#: ../po/messages.py:29
 msgid "show this help message and exit"
 msgstr "Ukázat tuto zprávu s nápovědou a ukončit"
 
-#: frescobaldi_app/po/messages.py:30
+#: ../po/messages.py:30
 msgid "show program's version number and exit"
 msgstr "Ukázat číslo s verzí programu a ukončit"
 
 #. L10N: Command line options
-#: frescobaldi_app/po/messages.py:32
+#: ../po/messages.py:32
 msgid "Options"
 msgstr "Volby"
 
-#: frescobaldi_app/po/messages.py:36
+#: ../po/messages.py:36
 msgctxt "CloseButton"
 msgid "Close Tab"
 msgstr "Zavřít kartu"
 
-#: frescobaldi_app/po/messages.py:38
+#: ../po/messages.py:38
 msgctxt "QDialog"
 msgid "What's This?"
 msgstr "Co je toto?"
 
-#: frescobaldi_app/po/messages.py:40
+#: ../po/messages.py:40
 msgctxt "QDialogButtonBox"
 msgid "Apply"
 msgstr "Použít"
 
-#: frescobaldi_app/po/messages.py:41
+#: ../po/messages.py:41
 msgctxt "QDialogButtonBox"
 msgid "OK"
 msgstr "OK"
 
-#: frescobaldi_app/po/messages.py:42
+#: ../po/messages.py:42
 msgctxt "QDialogButtonBox"
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: frescobaldi_app/po/messages.py:43
+#: ../po/messages.py:43
 msgctxt "QDialogButtonBox"
 msgid "Discard"
 msgstr "Zahodit"
 
-#: frescobaldi_app/po/messages.py:44
+#: ../po/messages.py:44
 msgctxt "QDialogButtonBox"
 msgid "Save"
 msgstr "Uložit"
 
-#: frescobaldi_app/po/messages.py:45
+#: ../po/messages.py:45
 msgctxt "QDialogButtonBox"
 msgid "Help"
 msgstr "Nápověda"
 
-#: frescobaldi_app/po/messages.py:46
+#: ../po/messages.py:46
 msgctxt "QDialogButtonBox"
 msgid "Close"
 msgstr "Zavřít"
 
-#: frescobaldi_app/po/messages.py:47
+#: ../po/messages.py:47
 msgctxt "QDialogButtonBox"
 msgid "Open"
 msgstr "Otevřít"
 
-#: frescobaldi_app/po/messages.py:48
+#: ../po/messages.py:48
 msgctxt "QDialogButtonBox"
 msgid "Reset"
 msgstr "Nastavit znovu"
 
-#: frescobaldi_app/po/messages.py:50
+#: ../po/messages.py:50
 msgctxt "QFileDialog"
 msgid "File"
 msgstr "Soubor"
 
-#: frescobaldi_app/po/messages.py:51
+#: ../po/messages.py:51
 msgctxt "QFileDialog"
 msgid "Folder"
 msgstr "Složka"
 
-#: frescobaldi_app/po/messages.py:52
+#: ../po/messages.py:52
 msgctxt "QFileDialog"
 msgid "Find Directory"
 msgstr "Adresář hledání"
 
-#: frescobaldi_app/po/messages.py:53
+#: ../po/messages.py:53
 msgctxt "QFileDialog"
 msgid "All Files (*)"
 msgstr "Všechny soubory (*)"
 
-#: frescobaldi_app/po/messages.py:55
+#: ../po/messages.py:55
 msgctxt "QScrollBar"
 msgid "Scroll here"
 msgstr "Projíždět zde"
 
-#: frescobaldi_app/po/messages.py:56
+#: ../po/messages.py:56
 msgctxt "QScrollBar"
 msgid "Top"
 msgstr "Nahoře"
 
-#: frescobaldi_app/po/messages.py:57
+#: ../po/messages.py:57
 msgctxt "QScrollBar"
 msgid "Bottom"
 msgstr "Dole"
 
-#: frescobaldi_app/po/messages.py:58
+#: ../po/messages.py:58
 msgctxt "QScrollBar"
 msgid "Page up"
 msgstr "Strana nahoru"
 
-#: frescobaldi_app/po/messages.py:59
+#: ../po/messages.py:59
 msgctxt "QScrollBar"
 msgid "Page down"
 msgstr "Strana dolů"
 
-#: frescobaldi_app/po/messages.py:60
+#: ../po/messages.py:60
 msgctxt "QScrollBar"
 msgid "Scroll up"
 msgstr "Projíždět nahoru"
 
-#: frescobaldi_app/po/messages.py:61
+#: ../po/messages.py:61
 msgctxt "QScrollBar"
 msgid "Scroll down"
 msgstr "Projíždět dolů"
 
-#: frescobaldi_app/po/messages.py:62
+#: ../po/messages.py:62
 msgctxt "QScrollBar"
 msgid "Left edge"
 msgstr "Levý okraj"
 
-#: frescobaldi_app/po/messages.py:63
+#: ../po/messages.py:63
 msgctxt "QScrollBar"
 msgid "Right edge"
 msgstr "Pravý okraj"
 
-#: frescobaldi_app/po/messages.py:64
+#: ../po/messages.py:64
 msgctxt "QScrollBar"
 msgid "Page left"
 msgstr "Strana vlevo"
 
-#: frescobaldi_app/po/messages.py:65
+#: ../po/messages.py:65
 msgctxt "QScrollBar"
 msgid "Page right"
 msgstr "Strana vpravo"
 
-#: frescobaldi_app/po/messages.py:66
+#: ../po/messages.py:66
 msgctxt "QScrollBar"
 msgid "Scroll left"
 msgstr "Projíždět vlevo"
 
-#: frescobaldi_app/po/messages.py:67
+#: ../po/messages.py:67
 msgctxt "QScrollBar"
 msgid "Scroll right"
 msgstr "Projíždět vpravo"
 
-#: frescobaldi_app/preferences/__init__.py:162
-#: frescobaldi_app/preferences/general.py:119
+#: ../preferences/__init__.py:162 ../preferences/general.py:119
 msgid "General Preferences"
 msgstr "Obecné volby"
 
-#: frescobaldi_app/preferences/__init__.py:182
+#: ../preferences/__init__.py:182
 msgid "MIDI Settings"
 msgstr "Nastavení MIDI"
 
-#: frescobaldi_app/preferences/__init__.py:192
-#: frescobaldi_app/preferences/helpers.py:80
+#: ../preferences/__init__.py:192 ../preferences/helpers.py:80
 msgid "Helper Applications"
 msgstr "Pomocné programy"
 
-#: frescobaldi_app/preferences/__init__.py:202
+#: ../preferences/__init__.py:202
 msgid "Paths"
 msgstr "Cesty"
 
-#: frescobaldi_app/preferences/__init__.py:212
+#: ../preferences/__init__.py:212
 msgid "LilyPond Documentation"
 msgstr "Dokumentace k LilyPondu"
 
-#: frescobaldi_app/preferences/__init__.py:222
+#: ../preferences/__init__.py:222
 msgid "Keyboard Shortcuts"
 msgstr "Klávesové zkratky"
 
-#: frescobaldi_app/preferences/__init__.py:232
+#: ../preferences/__init__.py:232
 msgid "Fonts & Colors"
 msgstr "Písma a barvy"
 
-#: frescobaldi_app/preferences/__init__.py:242
+#: ../preferences/__init__.py:242
 msgid "Tools"
 msgstr "Nástroje"
 
-#: frescobaldi_app/preferences/documentation.py:66
+#: ../preferences/documentation.py:66
 msgid "Paths to LilyPond Documentation"
 msgstr "Cesty k dokumentaci k LilyPondu"
 
-#: frescobaldi_app/preferences/documentation.py:68
+#: ../preferences/documentation.py:68
 msgid "Add paths or URLs. See \"What's This\" for more information."
 msgstr ""
 "Přidat cesty nebo adresy (URL). Podívejte se na \"Co je toto\" pro další "
 "informace."
 
-#: frescobaldi_app/preferences/documentation.py:70
+#: ../preferences/documentation.py:70
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
 "A local path should point to the directory where either the "
@@ -2751,347 +2747,319 @@ msgstr ""
 "dokumentace k LilyPondu do různých podadresářů a nechat Frescobaldi, aby je "
 "automaticky našel.</p>"
 
-#: frescobaldi_app/preferences/documentation.py:123
+#: ../preferences/documentation.py:123
 msgid "Preferred Language:"
 msgstr "Upřednostňovaný jazyk:"
 
-#: frescobaldi_app/preferences/documentation.py:124
-#: frescobaldi_app/preferences/general.py:124
-#: frescobaldi_app/scorewiz/settings.py:138
-#: frescobaldi_app/scorewiz/settings.py:204
-#: frescobaldi_app/scorewiz/settings.py:299
-#: frescobaldi_app/scorewiz/parts/_base.py:214
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:65
-#: frescobaldi_app/widgets/schemeselector.py:115
+#: ../preferences/documentation.py:124 ../preferences/general.py:124
+#: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
+#: ../scorewiz/settings.py:299 ../scorewiz/parts/_base.py:214
+#: ../scorewiz/parts/plucked_strings.py:65 ../widgets/schemeselector.py:115
 msgid "Default"
 msgstr "Výchozí"
 
-#: frescobaldi_app/preferences/documentation.py:125
-#: frescobaldi_app/scorewiz/settings.py:202
+#: ../preferences/documentation.py:125 ../scorewiz/settings.py:202
 msgid "English (untranslated)"
 msgstr "Anglický (nepřeloženo)"
 
-#: frescobaldi_app/preferences/documentation.py:126
-#: frescobaldi_app/preferences/fontscolors.py:122
-#: frescobaldi_app/preferences/tools.py:81
-#: frescobaldi_app/preferences/tools.py:187
+#: ../preferences/documentation.py:126 ../preferences/fontscolors.py:122
+#: ../preferences/tools.py:81 ../preferences/tools.py:187
 msgid "Font:"
 msgstr "Písmo:"
 
-#: frescobaldi_app/preferences/documentation.py:162
+#: ../preferences/documentation.py:162
 msgid "Please enter a local path or a URL:"
 msgstr "Zadejte, prosím, místní cestu nebo adresu (URL):"
 
-#: frescobaldi_app/preferences/fontscolors.py:121
+#: ../preferences/fontscolors.py:121
 msgid "Use this scheme for printing"
 msgstr "Použít toto schéma pro tisk"
 
-#: frescobaldi_app/preferences/fontscolors.py:123
-#: frescobaldi_app/preferences/fontscolors.py:298
+#: ../preferences/fontscolors.py:123 ../preferences/fontscolors.py:298
 msgid "Base Colors"
 msgstr "Základní barvy"
 
-#: frescobaldi_app/preferences/fontscolors.py:124
+#: ../preferences/fontscolors.py:124
 msgid "Default Styles"
 msgstr "Výchozí styly"
 
-#: frescobaldi_app/preferences/fontscolors.py:157
+#: ../preferences/fontscolors.py:157
 msgid "(Inherits: {name})"
 msgstr "(Zdědí: {name})"
 
 #. L10N: color of Text
-#: frescobaldi_app/preferences/fontscolors.py:360
-#: frescobaldi_app/preferences/fontscolors.py:435
+#: ../preferences/fontscolors.py:360 ../preferences/fontscolors.py:435
 msgid "Text"
 msgstr "Text"
 
 #. L10N: color of Background
-#: frescobaldi_app/preferences/fontscolors.py:361
-#: frescobaldi_app/preferences/fontscolors.py:437
+#: ../preferences/fontscolors.py:361 ../preferences/fontscolors.py:437
 msgid "Background"
 msgstr "Pozadí"
 
-#: frescobaldi_app/preferences/fontscolors.py:362
+#: ../preferences/fontscolors.py:362
 msgid "Bold"
 msgstr "Tučné"
 
-#: frescobaldi_app/preferences/fontscolors.py:363
+#: ../preferences/fontscolors.py:363
 msgid "Italic"
 msgstr "Kurzíva"
 
-#: frescobaldi_app/preferences/fontscolors.py:364
+#: ../preferences/fontscolors.py:364
 msgid "Underline"
 msgstr "Podtržení"
 
 #. L10N: color of Selected Text
-#: frescobaldi_app/preferences/fontscolors.py:439
+#: ../preferences/fontscolors.py:439
 msgid "Selected Text"
 msgstr "Vybraný text"
 
 #. L10N: color of Selection Background
-#: frescobaldi_app/preferences/fontscolors.py:441
+#: ../preferences/fontscolors.py:441
 msgid "Selection Background"
 msgstr "Pozadí výběru"
 
 #. L10N: color of Current Line
-#: frescobaldi_app/preferences/fontscolors.py:443
+#: ../preferences/fontscolors.py:443
 msgid "Current Line"
 msgstr "Nynější řádek"
 
 #. L10N: color of Marked Line (bookmark)
-#: frescobaldi_app/preferences/fontscolors.py:445
+#: ../preferences/fontscolors.py:445
 msgid "Marked Line"
 msgstr "Označený řádek"
 
 #. L10N: color of line with Error
-#: frescobaldi_app/preferences/fontscolors.py:447
+#: ../preferences/fontscolors.py:447
 msgid "Error Line"
 msgstr "Řádek s chybou"
 
 #. L10N: color of highlighted search result
-#: frescobaldi_app/preferences/fontscolors.py:449
+#: ../preferences/fontscolors.py:449
 msgid "Search Result"
 msgstr "Výsledek hledání"
 
 #. L10N: color of characters that match (e.g. braces, parentheses)
-#: frescobaldi_app/preferences/fontscolors.py:451
+#: ../preferences/fontscolors.py:451
 msgid "Matching Character"
 msgstr "Odpovídající znak"
 
 #. L10N: color of paper in music preview
-#: frescobaldi_app/preferences/fontscolors.py:453
+#: ../preferences/fontscolors.py:453
 msgid "Preview Background"
 msgstr "Pozadí náhledu"
 
 #. L10N: color of objects highlighting in preview
-#: frescobaldi_app/preferences/fontscolors.py:455
+#: ../preferences/fontscolors.py:455
 msgid "Preview Highlight"
 msgstr "Zvýraznění náhledu"
 
 #. L10N: a basic type of input in the editor
-#: frescobaldi_app/preferences/fontscolors.py:462
-#: frescobaldi_app/preferences/fontscolors.py:497
-#: frescobaldi_app/preferences/fontscolors.py:533
+#: ../preferences/fontscolors.py:462 ../preferences/fontscolors.py:497
+#: ../preferences/fontscolors.py:533
 msgid "Keyword"
 msgstr "Klíčové slovo"
 
 #. L10N: a basic type of input in the editor
-#: frescobaldi_app/preferences/fontscolors.py:464
+#: ../preferences/fontscolors.py:464
 msgid "Function"
 msgstr "Funkce"
 
 #. L10N: a basic type of input in the editor
-#: frescobaldi_app/preferences/fontscolors.py:466
-#: frescobaldi_app/preferences/fontscolors.py:508
+#: ../preferences/fontscolors.py:466 ../preferences/fontscolors.py:508
 msgid "Variable"
 msgstr "Proměnná"
 
 #. L10N: a basic type of input in the editor
-#: frescobaldi_app/preferences/fontscolors.py:468
-#: frescobaldi_app/preferences/fontscolors.py:510
-#: frescobaldi_app/preferences/fontscolors.py:520
+#: ../preferences/fontscolors.py:468 ../preferences/fontscolors.py:510
+#: ../preferences/fontscolors.py:520
 msgid "Value"
 msgstr "Hodnota"
 
 #. L10N: a basic type of input in the editor
-#: frescobaldi_app/preferences/fontscolors.py:470
-#: frescobaldi_app/preferences/fontscolors.py:511
-#: frescobaldi_app/preferences/fontscolors.py:523
-#: frescobaldi_app/preferences/fontscolors.py:529
+#: ../preferences/fontscolors.py:470 ../preferences/fontscolors.py:511
+#: ../preferences/fontscolors.py:523 ../preferences/fontscolors.py:529
 msgid "String"
 msgstr "Řetězec"
 
 #. L10N: a basic type of input in the editor
-#: frescobaldi_app/preferences/fontscolors.py:472
+#: ../preferences/fontscolors.py:472
 msgid "Escape"
 msgstr "Únik"
 
 #. L10N: a basic type of input in the editor
-#: frescobaldi_app/preferences/fontscolors.py:474
-#: frescobaldi_app/preferences/fontscolors.py:513
-#: frescobaldi_app/preferences/fontscolors.py:522
-#: frescobaldi_app/preferences/fontscolors.py:530
-#: frescobaldi_app/preferences/fontscolors.py:538
-#: frescobaldi_app/snippet/builtin.py:284
+#: ../preferences/fontscolors.py:474 ../preferences/fontscolors.py:513
+#: ../preferences/fontscolors.py:522 ../preferences/fontscolors.py:530
+#: ../preferences/fontscolors.py:538 ../snippet/builtin.py:284
 msgid "Comment"
 msgstr "Poznámka"
 
-#: frescobaldi_app/preferences/fontscolors.py:483
+#: ../preferences/fontscolors.py:483
 msgid "Pitch"
 msgstr "Výška tónu"
 
-#: frescobaldi_app/preferences/fontscolors.py:484
+#: ../preferences/fontscolors.py:484
 msgid "Octave"
 msgstr "Oktáva"
 
-#: frescobaldi_app/preferences/fontscolors.py:485
+#: ../preferences/fontscolors.py:485
 msgid "Duration"
 msgstr "Doba trvání"
 
-#: frescobaldi_app/preferences/fontscolors.py:486
+#: ../preferences/fontscolors.py:486
 msgid "Octave Check"
 msgstr "Zastavení oktávy"
 
-#: frescobaldi_app/preferences/fontscolors.py:487
+#: ../preferences/fontscolors.py:487
 msgid "Fingering"
 msgstr "Prstoklad"
 
 #. L10N: For String instruments like Guitar
-#: frescobaldi_app/preferences/fontscolors.py:489
+#: ../preferences/fontscolors.py:489
 msgid "String Number"
 msgstr "Číslo struny"
 
-#: frescobaldi_app/preferences/fontscolors.py:490
-#: frescobaldi_app/quickinsert/spanners.py:143
+#: ../preferences/fontscolors.py:490 ../quickinsert/spanners.py:143
 msgid "Slur"
 msgstr "Legatový oblouček"
 
-#: frescobaldi_app/preferences/fontscolors.py:491
+#: ../preferences/fontscolors.py:491
 msgid "Dynamic"
 msgstr "Dynamika"
 
-#: frescobaldi_app/preferences/fontscolors.py:492
+#: ../preferences/fontscolors.py:492
 msgid "Articulation"
 msgstr "Artikulace"
 
-#: frescobaldi_app/preferences/fontscolors.py:493
+#: ../preferences/fontscolors.py:493
 msgid "Chord"
 msgstr "Akord"
 
-#: frescobaldi_app/preferences/fontscolors.py:494
-#: frescobaldi_app/quickinsert/spanners.py:145
+#: ../preferences/fontscolors.py:494 ../quickinsert/spanners.py:145
 msgid "Beam"
 msgstr "Trámec"
 
-#: frescobaldi_app/preferences/fontscolors.py:495
+#: ../preferences/fontscolors.py:495
 msgid "Check"
 msgstr "Zastavení"
 
-#: frescobaldi_app/preferences/fontscolors.py:496
-#: frescobaldi_app/snippet/builtin.py:154
+#: ../preferences/fontscolors.py:496 ../snippet/builtin.py:154
 msgid "Repeat"
 msgstr "Opakování"
 
-#: frescobaldi_app/preferences/fontscolors.py:498
-#: frescobaldi_app/preferences/shortcuts.py:56
+#: ../preferences/fontscolors.py:498 ../preferences/shortcuts.py:56
 msgid "Command"
 msgstr "Příkaz"
 
-#: frescobaldi_app/preferences/fontscolors.py:499
+#: ../preferences/fontscolors.py:499
 msgid "Specifier"
 msgstr "Vymezovač"
 
-#: frescobaldi_app/preferences/fontscolors.py:500
+#: ../preferences/fontscolors.py:500
 msgid "User Command"
 msgstr "Uživatelský příkaz"
 
-#: frescobaldi_app/preferences/fontscolors.py:501
-#: frescobaldi_app/snippet/builtin.py:194
+#: ../preferences/fontscolors.py:501 ../snippet/builtin.py:194
 msgid "Markup"
 msgstr "Značení"
 
-#: frescobaldi_app/preferences/fontscolors.py:502
+#: ../preferences/fontscolors.py:502
 msgid "Lyric Mode"
 msgstr "Režim slov písně"
 
-#: frescobaldi_app/preferences/fontscolors.py:503
+#: ../preferences/fontscolors.py:503
 msgid "Lyric Text"
 msgstr "Text slov písně"
 
-#: frescobaldi_app/preferences/fontscolors.py:504
+#: ../preferences/fontscolors.py:504
 msgid "Delimiter"
 msgstr "Oddělovač"
 
-#: frescobaldi_app/preferences/fontscolors.py:505
+#: ../preferences/fontscolors.py:505
 msgid "Context"
 msgstr "Prostředí"
 
-#: frescobaldi_app/preferences/fontscolors.py:506
+#: ../preferences/fontscolors.py:506
 msgid "Layout Object"
 msgstr "Předmět rozvržení"
 
-#: frescobaldi_app/preferences/fontscolors.py:507
+#: ../preferences/fontscolors.py:507
 msgid "Property"
 msgstr "Vlastnictví"
 
-#: frescobaldi_app/preferences/fontscolors.py:509
+#: ../preferences/fontscolors.py:509
 msgid "User Variable"
 msgstr "Uživatelská proměnná"
 
-#: frescobaldi_app/preferences/fontscolors.py:512
-#: frescobaldi_app/preferences/fontscolors.py:535
+#: ../preferences/fontscolors.py:512 ../preferences/fontscolors.py:535
 msgid "Escaped Character"
 msgstr "Uprchlý znak"
 
-#: frescobaldi_app/preferences/fontscolors.py:516
+#: ../preferences/fontscolors.py:516
 msgid "HTML"
 msgstr "HTML"
 
-#: frescobaldi_app/preferences/fontscolors.py:517
+#: ../preferences/fontscolors.py:517
 msgid "Tag"
 msgstr "Značka"
 
-#: frescobaldi_app/preferences/fontscolors.py:518
+#: ../preferences/fontscolors.py:518
 msgid "LilyPond Tag"
 msgstr "Značka LilyPondu"
 
-#: frescobaldi_app/preferences/fontscolors.py:519
-#: frescobaldi_app/preferences/fontscolors.py:536
+#: ../preferences/fontscolors.py:519 ../preferences/fontscolors.py:536
 msgid "Attribute"
 msgstr "Vlastnost"
 
-#: frescobaldi_app/preferences/fontscolors.py:521
+#: ../preferences/fontscolors.py:521
 msgid "Entity Reference"
 msgstr "Odkaz na entitu"
 
-#: frescobaldi_app/preferences/fontscolors.py:525
-#: frescobaldi_app/preferences/fontscolors.py:526
+#: ../preferences/fontscolors.py:525 ../preferences/fontscolors.py:526
 msgid "Scheme"
 msgstr "Scheme"
 
-#: frescobaldi_app/preferences/fontscolors.py:527
+#: ../preferences/fontscolors.py:527
 msgid "Number"
 msgstr "Číslo"
 
-#: frescobaldi_app/preferences/fontscolors.py:528
+#: ../preferences/fontscolors.py:528
 msgid "LilyPond Environment"
 msgstr "Prostředí LilyPondu"
 
-#: frescobaldi_app/preferences/fontscolors.py:532
+#: ../preferences/fontscolors.py:532
 msgid "Texinfo"
 msgstr "Texinfo"
 
-#: frescobaldi_app/preferences/fontscolors.py:534
+#: ../preferences/fontscolors.py:534
 msgid "Block"
 msgstr "Blok"
 
-#: frescobaldi_app/preferences/fontscolors.py:537
+#: ../preferences/fontscolors.py:537
 msgid "Verbatim"
 msgstr "Podrobný"
 
-#: frescobaldi_app/preferences/general.py:120
-#: frescobaldi_app/scorewiz/settings.py:222
+#: ../preferences/general.py:120 ../scorewiz/settings.py:222
 msgid "Language:"
 msgstr "Jazyk:"
 
-#: frescobaldi_app/preferences/general.py:121
+#: ../preferences/general.py:121
 msgid "No Translation"
 msgstr "Žádný překlad"
 
-#: frescobaldi_app/preferences/general.py:122
+#: ../preferences/general.py:122
 msgid "System Default Language (if available)"
 msgstr "Výchozí jazyk systému (je-li dostupný)"
 
-#: frescobaldi_app/preferences/general.py:123
-#: frescobaldi_app/scorewiz/parts/percussion.py:187
+#: ../preferences/general.py:123 ../scorewiz/parts/percussion.py:187
 msgid "Style:"
 msgstr "Styl:"
 
-#: frescobaldi_app/preferences/general.py:125
+#: ../preferences/general.py:125
 msgid "Use System Icons"
 msgstr "Použít systémové ikony"
 
-#: frescobaldi_app/preferences/general.py:127
+#: ../preferences/general.py:127
 msgid ""
 "If checked, icons of the desktop icon theme will be used instead of the "
 "bundled icons.\n"
@@ -3101,31 +3069,31 @@ msgstr ""
 "ikon.\n"
 "Toto nastavení se projeví při příštím spuštění {appname}."
 
-#: frescobaldi_app/preferences/general.py:156
+#: ../preferences/general.py:156
 msgid "Session to load if Frescobaldi is started without arguments"
 msgstr "Sezení, které se má nahrát, je-li Frescobaldi spuštěn bez argumentů"
 
-#: frescobaldi_app/preferences/general.py:157
+#: ../preferences/general.py:157
 msgid "Start with no session"
 msgstr "Začít bez sezení"
 
-#: frescobaldi_app/preferences/general.py:158
+#: ../preferences/general.py:158
 msgid "Start with last used session"
 msgstr "Začít s naposledy použitým sezením"
 
-#: frescobaldi_app/preferences/general.py:159
+#: ../preferences/general.py:159
 msgid "Start with session:"
 msgstr "Začít se sezením:"
 
-#: frescobaldi_app/preferences/general.py:214
+#: ../preferences/general.py:214
 msgid "When saving documents"
 msgstr "Při ukládání dokumentů"
 
-#: frescobaldi_app/preferences/general.py:215
+#: ../preferences/general.py:215
 msgid "Keep backup copy"
 msgstr "Ponechat záložní kopii"
 
-#: frescobaldi_app/preferences/general.py:217
+#: ../preferences/general.py:217
 msgid ""
 "Frescobaldi always backups a file before overwriting it with a new version.\n"
 "If checked those backup copies are retained."
@@ -3133,51 +3101,51 @@ msgstr ""
 "Frescobaldi vždy zálohuje soubor, předtím než jej přepíše novou verzí.\n"
 "Je-li to zaškrtnuto, jsou tyto záložní kopie ponechány."
 
-#: frescobaldi_app/preferences/general.py:220
+#: ../preferences/general.py:220
 msgid "Remember cursor position, bookmarks, etc."
 msgstr "Zapamatovat si pozici ukazovátka, záložky atd."
 
-#: frescobaldi_app/preferences/general.py:221
+#: ../preferences/general.py:221
 msgid "Default directory:"
 msgstr "Výchozí adresář:"
 
-#: frescobaldi_app/preferences/general.py:222
+#: ../preferences/general.py:222
 msgid "The default folder for your LilyPond documents (optional)."
 msgstr "Výchozí složka pro vaše dokumenty LilyPond (volitelná)."
 
-#: frescobaldi_app/preferences/helpers.py:70
+#: ../preferences/helpers.py:70
 msgid "PDF:"
 msgstr "PDF:"
 
-#: frescobaldi_app/preferences/helpers.py:71
+#: ../preferences/helpers.py:71
 msgid "MIDI:"
 msgstr "MIDI:"
 
-#: frescobaldi_app/preferences/helpers.py:72
+#: ../preferences/helpers.py:72
 msgid "SVG:"
 msgstr "SVG:"
 
-#: frescobaldi_app/preferences/helpers.py:73
+#: ../preferences/helpers.py:73
 msgid "Image:"
 msgstr "Obrázek:"
 
-#: frescobaldi_app/preferences/helpers.py:74
+#: ../preferences/helpers.py:74
 msgid "Browser:"
 msgstr "Prohlížeč:"
 
-#: frescobaldi_app/preferences/helpers.py:75
+#: ../preferences/helpers.py:75
 msgid "E-Mail:"
 msgstr "Elektronická pošta:"
 
-#: frescobaldi_app/preferences/helpers.py:76
+#: ../preferences/helpers.py:76
 msgid "File Manager:"
 msgstr "Správce souborů:"
 
-#: frescobaldi_app/preferences/helpers.py:77
+#: ../preferences/helpers.py:77
 msgid "Shell:"
 msgstr "Shell:"
 
-#: frescobaldi_app/preferences/helpers.py:82
+#: ../preferences/helpers.py:82
 msgid ""
 "Below you can enter commands to open different file types. <code>$f</code> "
 "is replaced with the filename, <code>$u</code> with the URL. Leave a field "
@@ -3188,24 +3156,24 @@ msgstr ""
 "použil program nastavený v operačním systému jako výchozí, ponechejte pole "
 "prázdné."
 
-#: frescobaldi_app/preferences/helpers.py:90
+#: ../preferences/helpers.py:90
 msgid "Command that should accept a mailto: URL."
 msgstr ""
 "Příkaz, který má přijmout adresu (URL) pro poslání elektronickou poštou"
 
-#: frescobaldi_app/preferences/helpers.py:92
+#: ../preferences/helpers.py:92
 msgid "Command to open a Terminal or Command window."
 msgstr "Příkaz pro otevření okna s terminálem nebo příkazovým řádkem."
 
-#: frescobaldi_app/preferences/lilypond.py:81
+#: ../preferences/lilypond.py:81
 msgid "LilyPond versions to use"
 msgstr "Verze LilyPondu k použití"
 
-#: frescobaldi_app/preferences/lilypond.py:82
+#: ../preferences/lilypond.py:82
 msgid "Automatically choose LilyPond version from document"
 msgstr "Automaticky vybrat verzi LilyPondu z dokumentu."
 
-#: frescobaldi_app/preferences/lilypond.py:84
+#: ../preferences/lilypond.py:84
 msgid ""
 "If checked, the document's version determines the LilyPond version to use.\n"
 "See \"What's This\" for more information."
@@ -3213,7 +3181,7 @@ msgstr ""
 "Je-li zaškrtnuto, verze dokumentu určuje, která verze LilyPondu se použije.\n"
 "Pro další informace se podívejte na \"Co je toto\"."
 
-#: frescobaldi_app/preferences/lilypond.py:87
+#: ../preferences/lilypond.py:87
 msgid ""
 "<p>If this setting is enabled, the document is searched for a LilyPond <code>"
 "\\version</code> command or a <code>version</code> document variable.</p>\n"
@@ -3239,47 +3207,47 @@ msgstr ""
 "<p>Pokud dokument stanoví verzi, je vybrána nejstarší vhodná verze "
 "LilyPondu. Jinak je zvolena výchozí verze.</p>\n"
 
-#: frescobaldi_app/preferences/lilypond.py:101
+#: ../preferences/lilypond.py:101
 msgid "See also {link}."
 msgstr "Podívejte se také na {link}."
 
-#: frescobaldi_app/preferences/lilypond.py:149
+#: ../preferences/lilypond.py:149
 msgid "Set as &Default"
 msgstr "Nastavit jako &výchozí"
 
-#: frescobaldi_app/preferences/lilypond.py:190
+#: ../preferences/lilypond.py:190
 msgid "default"
 msgstr "Výchozí"
 
-#: frescobaldi_app/preferences/lilypond.py:238
+#: ../preferences/lilypond.py:238
 msgid "LilyPond Command:"
 msgstr "Příkaz pro LilyPond:"
 
-#: frescobaldi_app/preferences/lilypond.py:239
+#: ../preferences/lilypond.py:239
 msgid "Name or full path of the LilyPond program."
 msgstr "Název nebo úplná cesta k programu LilyPond."
 
-#: frescobaldi_app/preferences/lilypond.py:240
+#: ../preferences/lilypond.py:240
 msgid "Convert-ly:"
 msgstr "Convert-ly:"
 
-#: frescobaldi_app/preferences/lilypond.py:241
+#: ../preferences/lilypond.py:241
 msgid "LilyPond-book:"
 msgstr "LilyPond-book:"
 
-#: frescobaldi_app/preferences/lilypond.py:242
+#: ../preferences/lilypond.py:242
 msgid "Include in automatic version selection"
 msgstr "Zahrnout do automatického výběru verze"
 
-#: frescobaldi_app/preferences/lilypond.py:281
+#: ../preferences/lilypond.py:281
 msgid "Running LilyPond"
 msgstr "Spuštění LilyPondu"
 
-#: frescobaldi_app/preferences/lilypond.py:282
+#: ../preferences/lilypond.py:282
 msgid "Save document if possible"
 msgstr "Uložit dokument, je-li to možné"
 
-#: frescobaldi_app/preferences/lilypond.py:284
+#: ../preferences/lilypond.py:284
 msgid ""
 "If checked, the document is saved when it is local and modified.\n"
 "Otherwise a temporary file is used to run LilyPond."
@@ -3287,11 +3255,11 @@ msgstr ""
 "Je-li zaškrtnuto, dokument je uložen, když je místní nebo upravený.\n"
 "Jinak je pro běh LilyPondu použit dočasný soubor."
 
-#: frescobaldi_app/preferences/lilypond.py:288
+#: ../preferences/lilypond.py:288
 msgid "If checked, LilyPond will delete intermediate PostScript files."
 msgstr "Je-li zaškrtnuto, LilyPond smaže prostřední soubory PostScript."
 
-#: frescobaldi_app/preferences/lilypond.py:291
+#: ../preferences/lilypond.py:291
 msgid ""
 "If checked, LilyPond's output messages will be in English.\n"
 "This can be useful for bug reports."
@@ -3299,15 +3267,15 @@ msgstr ""
 "Je-li zaškrtnuto, výstupní zprávy LilyPondu budou v anglickém jazyce.\n"
 "To může být užitečné pro hlášení o chybách."
 
-#: frescobaldi_app/preferences/lilypond.py:293
+#: ../preferences/lilypond.py:293
 msgid "LilyPond include path:"
 msgstr "Cesta obsahující LilyPond:"
 
-#: frescobaldi_app/preferences/midi.py:77
+#: ../preferences/midi.py:77
 msgid "MIDI Ports"
 msgstr "Přípojky MIDI"
 
-#: frescobaldi_app/preferences/midi.py:79
+#: ../preferences/midi.py:79
 msgid ""
 "Note: There are no MIDI output ports available on your system. To use MIDI, "
 "please check if PortMIDI is installed on your system and that a MIDI "
@@ -3317,18 +3285,18 @@ msgstr ""
 "použití MIDI prověřte, prosím, zda je PortMIDI nainstalován ve vašem systému "
 "a že syntetizátor MIDI je dostupný nebo připojený."
 
-#: frescobaldi_app/preferences/midi.py:82
+#: ../preferences/midi.py:82
 msgid "Player output:"
 msgstr "Výstup přehrávače:"
 
-#: frescobaldi_app/preferences/midi.py:84
+#: ../preferences/midi.py:84
 msgid ""
 "The MIDI port to play music to. See \"What's This\" for more information."
 msgstr ""
 "Přípojka MIDI pro přehrávání not. Pro další informace se podívejte na \"Co "
 "je toto\"."
 
-#: frescobaldi_app/preferences/midi.py:87
+#: ../preferences/midi.py:87
 msgid ""
 "<p>This dropdown menu lists the available MIDI ports on your system. You can "
 "select one, or just type part of a name. In that case, the first available "
@@ -3342,15 +3310,15 @@ msgstr ""
 "<p>Klepněte na tlačítko pro obnovení seznamu, např. když připojíte zařízení "
 "MIDI nebo spustíte softwarový syntetizátor.</p>"
 
-#: frescobaldi_app/preferences/midi.py:96
+#: ../preferences/midi.py:96
 msgid "Refresh MIDI ports"
 msgstr "Obnovit přípojky MIDI"
 
-#: frescobaldi_app/preferences/midi.py:135
+#: ../preferences/midi.py:135
 msgid "Close unused MIDI output"
 msgstr "Zavřít nepoužívaný výstup MIDI"
 
-#: frescobaldi_app/preferences/midi.py:137
+#: ../preferences/midi.py:137
 msgid ""
 "Closes unused MIDI ports after one minute. See \"What's This\" for more "
 "information."
@@ -3358,7 +3326,7 @@ msgstr ""
 "Po jedné minutě zavře nepoužívané přípojky MIDI. Pro další informace se "
 "podívejte na \"Co je toto\"."
 
-#: frescobaldi_app/preferences/midi.py:140
+#: ../preferences/midi.py:140
 msgid ""
 "<p>If checked, Frescobaldi will close MIDI output ports that are not used "
 "for one minute.</p>\n"
@@ -3376,498 +3344,489 @@ msgstr ""
 "nástroje jsou nastaveny znovu na výchozí klavír (nástroj 0). V tom případě "
 "přehrávání souboru od začátku nastaví nástroje znovu.</p>\n"
 
-#: frescobaldi_app/preferences/paths.py:59
+#: ../preferences/paths.py:59
 msgid "Folders containing hyphenation dictionaries"
 msgstr "Složky obsahující slovníky s dělením slov"
 
-#: frescobaldi_app/preferences/shortcuts.py:56
-#: frescobaldi_app/snippet/model.py:63
+#: ../preferences/shortcuts.py:56 ../snippet/model.py:63
 msgid "Shortcut"
 msgstr "Zkratka"
 
-#: frescobaldi_app/preferences/shortcuts.py:101
+#: ../preferences/shortcuts.py:101
 msgid "Menu {name}:"
 msgstr "Nabídka {name}:"
 
-#: frescobaldi_app/preferences/shortcuts.py:125
+#: ../preferences/shortcuts.py:125
 msgid "Other commands:"
 msgstr "Jiné příkazy:"
 
-#: frescobaldi_app/preferences/shortcuts.py:173
+#: ../preferences/shortcuts.py:173
 msgid "&Edit Shortcut for \"{name}\""
 msgstr "&Upravit zkratku pro \"{name}\""
 
-#: frescobaldi_app/preferences/shortcuts.py:178
+#: ../preferences/shortcuts.py:178
 msgid "(no shortcut)"
 msgstr "(žádná zkratka)"
 
-#: frescobaldi_app/preferences/shortcuts.py:206
+#: ../preferences/shortcuts.py:206
 msgid "Remove the shortcut from that command?"
 msgid_plural "Remove the shortcut from those commands?"
 msgstr[0] "Odstranit zkratku z tohoto příkazu?"
 msgstr[1] "Odstranit zkratku z těchto příkazů?"
 msgstr[2] "Odstranit zkratku z těchto příkazů?"
 
-#: frescobaldi_app/preferences/shortcuts.py:304
+#: ../preferences/shortcuts.py:304
 msgid "(default)"
 msgstr "(výchozí)"
 
-#: frescobaldi_app/preferences/tools.py:82
+#: ../preferences/tools.py:82
 msgid "Show log when a job is started"
 msgstr "Ukázat zápis při započetí s prací"
 
-#: frescobaldi_app/preferences/tools.py:83
+#: ../preferences/tools.py:83
 msgid "Display plain log output"
 msgstr "Zobrazit prostý výstup zápisu"
 
-#: frescobaldi_app/preferences/tools.py:85
+#: ../preferences/tools.py:85
 msgid "If checked, Frescobaldi will not shorten filenames in the log output."
 msgstr ""
 "Je-li zaškrtnuto, Frescobaldi nebude zkracovat názvy souborů ve výstupu se "
 "zápisem."
 
-#: frescobaldi_app/preferences/tools.py:141
+#: ../preferences/tools.py:141
 msgid "Music View"
 msgstr "Pohled na noty"
 
-#: frescobaldi_app/preferences/tools.py:142
+#: ../preferences/tools.py:142
 msgid "Magnifier Size:"
 msgstr "Velikost lupy:"
 
-#: frescobaldi_app/preferences/tools.py:144
+#: ../preferences/tools.py:144
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr "Velikost zvětšovacího skla (Ctrl+klepnutí v pohledu na noty)."
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: frescobaldi_app/preferences/tools.py:146
+#: ../preferences/tools.py:146
 msgid " pixels"
 msgstr " pixelů"
 
-#: frescobaldi_app/preferences/tools.py:147
+#: ../preferences/tools.py:147
 msgid "Magnifier Scale:"
 msgstr "Měřítko lupy:"
 
-#: frescobaldi_app/preferences/tools.py:149
+#: ../preferences/tools.py:149
 msgid "Magnification of the magnifier."
 msgstr "Zvětšení lupy."
 
-#: frescobaldi_app/preferences/tools.py:150
+#: ../preferences/tools.py:150
 msgctxt "percent unit sign"
 msgid "%"
 msgstr "%"
 
-#: frescobaldi_app/preferences/tools.py:220
+#: ../preferences/tools.py:220
 msgid "Group documents by directory"
 msgstr "Seskupit dokumenty podle adresáře"
 
-#: frescobaldi_app/quickinsert/__init__.py:47
-#: frescobaldi_app/quickinsert/__init__.py:71
+#: ../quickinsert/__init__.py:47 ../quickinsert/__init__.py:71
 msgid "Quick Insert"
 msgstr "Rychlé vložení"
 
-#: frescobaldi_app/quickinsert/__init__.py:48
+#: ../quickinsert/__init__.py:48
 msgid "Quick &Insert"
 msgstr "Rychlé &vložení"
 
-#: frescobaldi_app/quickinsert/articulations.py:73
+#: ../quickinsert/articulations.py:73
 msgid "Allow shorthands"
 msgstr "Povolit zkrácený zápis"
 
-#: frescobaldi_app/quickinsert/articulations.py:75
+#: ../quickinsert/articulations.py:75
 msgid "Use short notation for some articulations like staccato."
 msgstr "Použít krátký zápis pro některé artikulace jako je staccato."
 
-#: frescobaldi_app/quickinsert/articulations.py:83
-#: frescobaldi_app/quickinsert/articulations.py:115
+#: ../quickinsert/articulations.py:83 ../quickinsert/articulations.py:115
 msgid "Articulations"
 msgstr "Artikulace"
 
-#: frescobaldi_app/quickinsert/articulations.py:87
+#: ../quickinsert/articulations.py:87
 msgid "Different kinds of articulations and other signs."
 msgstr "Různé druhy artikulací a dalších značek."
 
-#: frescobaldi_app/quickinsert/articulations.py:118
+#: ../quickinsert/articulations.py:118
 msgid "Accent"
 msgstr "Akcent (důraz)"
 
-#: frescobaldi_app/quickinsert/articulations.py:119
+#: ../quickinsert/articulations.py:119
 msgid "Marcato"
 msgstr "Marcato (důrazně)"
 
-#: frescobaldi_app/quickinsert/articulations.py:120
+#: ../quickinsert/articulations.py:120
 msgid "Staccatissimo"
 msgstr "Staccatissimo (nejkratčeji)"
 
-#: frescobaldi_app/quickinsert/articulations.py:121
+#: ../quickinsert/articulations.py:121
 msgid "Staccato"
 msgstr "Staccato (krátce)"
 
-#: frescobaldi_app/quickinsert/articulations.py:122
+#: ../quickinsert/articulations.py:122
 msgid "Portato"
 msgstr "Portato"
 
-#: frescobaldi_app/quickinsert/articulations.py:123
+#: ../quickinsert/articulations.py:123
 msgid "Tenuto"
 msgstr "Tenuto (drženě)"
 
-#: frescobaldi_app/quickinsert/articulations.py:124
+#: ../quickinsert/articulations.py:124
 msgid "Espressivo"
 msgstr "Espressivo (výrazně)"
 
-#: frescobaldi_app/quickinsert/articulations.py:129
+#: ../quickinsert/articulations.py:129
 msgid "Ornaments"
 msgstr "Ozdoby"
 
-#: frescobaldi_app/quickinsert/articulations.py:132
-#: frescobaldi_app/quickinsert/spanners.py:146
+#: ../quickinsert/articulations.py:132 ../quickinsert/spanners.py:146
 msgid "Trill"
 msgstr "Trylek"
 
-#: frescobaldi_app/quickinsert/articulations.py:133
+#: ../quickinsert/articulations.py:133
 msgid "Prall"
 msgstr "Nátryl"
 
-#: frescobaldi_app/quickinsert/articulations.py:134
+#: ../quickinsert/articulations.py:134
 msgid "Mordent"
 msgstr "Mordent"
 
-#: frescobaldi_app/quickinsert/articulations.py:135
+#: ../quickinsert/articulations.py:135
 msgid "Turn"
 msgstr "Obal"
 
-#: frescobaldi_app/quickinsert/articulations.py:136
+#: ../quickinsert/articulations.py:136
 msgid "Prall prall"
 msgstr "Nátryl nátrylu"
 
-#: frescobaldi_app/quickinsert/articulations.py:137
+#: ../quickinsert/articulations.py:137
 msgid "Prall mordent"
 msgstr "Mordent nátrylu"
 
-#: frescobaldi_app/quickinsert/articulations.py:138
+#: ../quickinsert/articulations.py:138
 msgid "Up prall"
 msgstr "Nátryl nahoru"
 
-#: frescobaldi_app/quickinsert/articulations.py:139
+#: ../quickinsert/articulations.py:139
 msgid "Down prall"
 msgstr "Nátryl dolů"
 
-#: frescobaldi_app/quickinsert/articulations.py:140
+#: ../quickinsert/articulations.py:140
 msgid "Up mordent"
 msgstr "Mordent nahoru"
 
-#: frescobaldi_app/quickinsert/articulations.py:141
+#: ../quickinsert/articulations.py:141
 msgid "Down mordent"
 msgstr "Mordent dolů"
 
-#: frescobaldi_app/quickinsert/articulations.py:142
+#: ../quickinsert/articulations.py:142
 msgid "Prall up"
 msgstr "Nátryl nahoru"
 
-#: frescobaldi_app/quickinsert/articulations.py:143
+#: ../quickinsert/articulations.py:143
 msgid "Prall down"
 msgstr "Nátryl dolů"
 
-#: frescobaldi_app/quickinsert/articulations.py:144
+#: ../quickinsert/articulations.py:144
 msgid "Line prall"
 msgstr "Nátryl na lince notové osnovy"
 
-#: frescobaldi_app/quickinsert/articulations.py:145
+#: ../quickinsert/articulations.py:145
 msgid "Reverse turn"
 msgstr "Obrátit obal"
 
 #. L10N: dynamic signs
-#: frescobaldi_app/quickinsert/articulations.py:150
-#: frescobaldi_app/quickinsert/dynamics.py:115
+#: ../quickinsert/articulations.py:150 ../quickinsert/dynamics.py:115
 msgid "Signs"
 msgstr "Předznamenání"
 
-#: frescobaldi_app/quickinsert/articulations.py:153
+#: ../quickinsert/articulations.py:153
 msgid "Fermata"
 msgstr "Koruna (fermata)"
 
-#: frescobaldi_app/quickinsert/articulations.py:154
+#: ../quickinsert/articulations.py:154
 msgid "Short fermata"
 msgstr "Krátká koruna (~ fermata)"
 
-#: frescobaldi_app/quickinsert/articulations.py:155
+#: ../quickinsert/articulations.py:155
 msgid "Long fermata"
 msgstr "Dlouhá koruna (~ fermata)"
 
-#: frescobaldi_app/quickinsert/articulations.py:156
+#: ../quickinsert/articulations.py:156
 msgid "Very long fermata"
 msgstr "Velmi dlouhá koruna (~ fermata)"
 
-#: frescobaldi_app/quickinsert/articulations.py:157
+#: ../quickinsert/articulations.py:157
 msgid "Segno"
 msgstr "Segno"
 
-#: frescobaldi_app/quickinsert/articulations.py:158
+#: ../quickinsert/articulations.py:158
 msgid "Coda"
 msgstr "Coda"
 
-#: frescobaldi_app/quickinsert/articulations.py:159
+#: ../quickinsert/articulations.py:159
 msgid "Varcoda"
 msgstr "Varcoda"
 
-#: frescobaldi_app/quickinsert/articulations.py:160
+#: ../quickinsert/articulations.py:160
 msgid "Signumcongruentiae"
 msgstr "Signum congruentiae (značka pro shodu)"
 
-#: frescobaldi_app/quickinsert/articulations.py:165
+#: ../quickinsert/articulations.py:165
 msgid "Other"
 msgstr "Jiné"
 
-#: frescobaldi_app/quickinsert/articulations.py:168
+#: ../quickinsert/articulations.py:168
 msgid "Upbow"
 msgstr "Tah smyčcem nahoru"
 
-#: frescobaldi_app/quickinsert/articulations.py:169
+#: ../quickinsert/articulations.py:169
 msgid "Downbow"
 msgstr "Tah smyčcem dolů"
 
-#: frescobaldi_app/quickinsert/articulations.py:170
+#: ../quickinsert/articulations.py:170
 msgid "Snappizzicato"
 msgstr "Kvapné pizzicato"
 
-#: frescobaldi_app/quickinsert/articulations.py:171
+#: ../quickinsert/articulations.py:171
 msgid "Open (e.g. brass)"
 msgstr "Otevřeno (např. žestě)"
 
-#: frescobaldi_app/quickinsert/articulations.py:172
+#: ../quickinsert/articulations.py:172
 msgid "Stopped (e.g. brass)"
 msgstr "Zastaveno (např. žestě)"
 
-#: frescobaldi_app/quickinsert/articulations.py:173
+#: ../quickinsert/articulations.py:173
 msgid "Flageolet"
 msgstr "Flažolet"
 
-#: frescobaldi_app/quickinsert/articulations.py:174
+#: ../quickinsert/articulations.py:174
 msgid "Thumb"
 msgstr "Palec"
 
-#: frescobaldi_app/quickinsert/articulations.py:175
+#: ../quickinsert/articulations.py:175
 msgid "Left heel"
 msgstr "Levá pata"
 
-#: frescobaldi_app/quickinsert/articulations.py:176
+#: ../quickinsert/articulations.py:176
 msgid "Right heel"
 msgstr "Pravá pata"
 
-#: frescobaldi_app/quickinsert/articulations.py:177
+#: ../quickinsert/articulations.py:177
 msgid "Left toe"
 msgstr "Levý prst"
 
-#: frescobaldi_app/quickinsert/articulations.py:178
+#: ../quickinsert/articulations.py:178
 msgid "Right toe"
 msgstr "Pravý prst"
 
-#: frescobaldi_app/quickinsert/articulations.py:179
+#: ../quickinsert/articulations.py:179
 msgid "Half open (e.g. hi-hat)"
 msgstr "Napůl otevřeno (např. hajtka)"
 
-#: frescobaldi_app/quickinsert/barlines.py:49
-#: frescobaldi_app/quickinsert/barlines.py:58
+#: ../quickinsert/barlines.py:49 ../quickinsert/barlines.py:58
 msgid "Bar Lines"
 msgstr "Taktové čáry"
 
-#: frescobaldi_app/quickinsert/barlines.py:53
+#: ../quickinsert/barlines.py:53
 msgid "Bar lines, breathing signs, etcetera."
 msgstr "Taktové čáry, značky pro dýchání atd."
 
-#: frescobaldi_app/quickinsert/barlines.py:61
+#: ../quickinsert/barlines.py:61
 msgid "Double bar line"
 msgstr "Dvojitá taktová čára"
 
-#: frescobaldi_app/quickinsert/barlines.py:62
+#: ../quickinsert/barlines.py:62
 msgid "Ending bar line"
 msgstr "koncová taktová čára"
 
-#: frescobaldi_app/quickinsert/barlines.py:63
+#: ../quickinsert/barlines.py:63
 msgid "Dotted bar line"
 msgstr "Tečkovaná taktová čára"
 
-#: frescobaldi_app/quickinsert/barlines.py:64
+#: ../quickinsert/barlines.py:64
 msgid "Dashed bar line"
 msgstr "Čárkovaná taktová čára"
 
-#: frescobaldi_app/quickinsert/barlines.py:65
+#: ../quickinsert/barlines.py:65
 msgid "Invisible bar line"
 msgstr "Neviditelná taktová čára"
 
-#: frescobaldi_app/quickinsert/barlines.py:66
+#: ../quickinsert/barlines.py:66
 msgid "Repeat start"
 msgstr "Opakovat začátek"
 
-#: frescobaldi_app/quickinsert/barlines.py:67
+#: ../quickinsert/barlines.py:67
 msgid "Repeat both"
 msgstr "Opakovat obojí"
 
-#: frescobaldi_app/quickinsert/barlines.py:68
+#: ../quickinsert/barlines.py:68
 msgid "Repeat end"
 msgstr "Opakovat konec"
 
-#: frescobaldi_app/quickinsert/barlines.py:69
+#: ../quickinsert/barlines.py:69
 msgid "Repeat both (old)"
 msgstr "Opakovat obojí (starý)"
 
-#: frescobaldi_app/quickinsert/barlines.py:70
+#: ../quickinsert/barlines.py:70
 msgid "Repeat both (classic)"
 msgstr "Opakovat obojí (klasický)"
 
-#: frescobaldi_app/quickinsert/barlines.py:71
+#: ../quickinsert/barlines.py:71
 msgid "Tick bar line"
 msgstr "Zaškrtnutá taktová čára"
 
-#: frescobaldi_app/quickinsert/barlines.py:72
+#: ../quickinsert/barlines.py:72
 msgid "Single bar line"
 msgstr "Jednoduchá taktová čára"
 
-#: frescobaldi_app/quickinsert/barlines.py:73
+#: ../quickinsert/barlines.py:73
 msgid "Small-Wide-Small bar line"
 msgstr "Malá-Široká-Malá taktová čára"
 
-#: frescobaldi_app/quickinsert/barlines.py:74
+#: ../quickinsert/barlines.py:74
 msgid "Wide-Small bar line"
 msgstr "Široká-Malá taktová čára"
 
-#: frescobaldi_app/quickinsert/barlines.py:75
+#: ../quickinsert/barlines.py:75
 msgid "Double wide bar line"
 msgstr "Dvojita široká taktová čára"
 
-#: frescobaldi_app/quickinsert/barlines.py:76
+#: ../quickinsert/barlines.py:76
 msgid "Segno bar line"
 msgstr "Taktová čára Segno"
 
-#: frescobaldi_app/quickinsert/barlines.py:95
+#: ../quickinsert/barlines.py:95
 msgid "Breathing Signs"
 msgstr "Značky pro dýchání"
 
-#: frescobaldi_app/quickinsert/barlines.py:102
+#: ../quickinsert/barlines.py:102
 msgid "Default Breathing Sign"
 msgstr "Výchozí značka pro dýchání"
 
-#: frescobaldi_app/quickinsert/barlines.py:103
+#: ../quickinsert/barlines.py:103
 msgid "Straight Breathing Sign"
 msgstr "Přímá značka pro dýchání"
 
-#: frescobaldi_app/quickinsert/barlines.py:104
+#: ../quickinsert/barlines.py:104
 msgid "Curved Caesura"
 msgstr "Zahnuté přerušení (césura)"
 
-#: frescobaldi_app/quickinsert/barlines.py:105
+#: ../quickinsert/barlines.py:105
 msgid "Straight Caesura"
 msgstr "Přímé přerušení (césura)"
 
-#: frescobaldi_app/quickinsert/buttongroup.py:175
+#: ../quickinsert/buttongroup.py:175
 msgid "{name} ({key})"
 msgstr "{name} ({key})"
 
-#: frescobaldi_app/quickinsert/buttongroup.py:182
+#: ../quickinsert/buttongroup.py:182
 msgid "Configure Keyboard Shortcut ({key})"
 msgstr "Nastavit klávesovou zkratku ({key})"
 
-#: frescobaldi_app/quickinsert/buttongroup.py:182
-#: frescobaldi_app/scorewiz/scoreproperties.py:171
-#: frescobaldi_app/scorewiz/settings.py:195
-#: frescobaldi_app/snippet/edit.py:127
+#: ../quickinsert/buttongroup.py:182 ../scorewiz/scoreproperties.py:171
+#: ../scorewiz/settings.py:195 ../snippet/edit.py:127
 msgid "None"
 msgstr "Žádný"
 
-#: frescobaldi_app/quickinsert/dynamics.py:51
+#: ../quickinsert/dynamics.py:51
 msgid "Dynamics"
 msgstr "Dynamika"
 
-#: frescobaldi_app/quickinsert/dynamics.py:55
+#: ../quickinsert/dynamics.py:55
 msgid "Dynamic symbols."
 msgstr "Symboly pro dynamiku."
 
-#: frescobaldi_app/quickinsert/dynamics.py:128
+#: ../quickinsert/dynamics.py:128
 msgid "Dynamic sign {name}"
 msgstr "Značka dynamiky {name}"
 
-#: frescobaldi_app/quickinsert/dynamics.py:133
-#: frescobaldi_app/quickinsert/spanners.py:51
-#: frescobaldi_app/quickinsert/spanners.py:136
+#: ../quickinsert/dynamics.py:133 ../quickinsert/spanners.py:51
+#: ../quickinsert/spanners.py:136
 msgid "Spanners"
 msgstr "Natahovače"
 
-#: frescobaldi_app/quickinsert/dynamics.py:142
+#: ../quickinsert/dynamics.py:142
 msgid "Hairpin crescendo"
 msgstr "Sponka crescenda"
 
-#: frescobaldi_app/quickinsert/dynamics.py:143
+#: ../quickinsert/dynamics.py:143
 msgid "Crescendo"
 msgstr "Crescendo"
 
-#: frescobaldi_app/quickinsert/dynamics.py:144
+#: ../quickinsert/dynamics.py:144
 msgid "Hairpin diminuendo"
 msgstr "Sponka diminuenda"
 
-#: frescobaldi_app/quickinsert/dynamics.py:145
+#: ../quickinsert/dynamics.py:145
 msgid "Diminuendo"
 msgstr "Diminuendo"
 
-#: frescobaldi_app/quickinsert/dynamics.py:146
+#: ../quickinsert/dynamics.py:146
 msgid "Decrescendo"
 msgstr "Decrescendo"
 
-#: frescobaldi_app/quickinsert/spanners.py:55
+#: ../quickinsert/spanners.py:55
 msgid "Slurs, spanners, etcetera."
 msgstr "Legatové obloučky, natahovače atd."
 
-#: frescobaldi_app/quickinsert/spanners.py:60
+#: ../quickinsert/spanners.py:60
 msgid "Arpeggios"
 msgstr "Arpeggia"
 
-#: frescobaldi_app/quickinsert/spanners.py:69
+#: ../quickinsert/spanners.py:69
 msgid "Arpeggio"
 msgstr "Arpeggio"
 
-#: frescobaldi_app/quickinsert/spanners.py:70
+#: ../quickinsert/spanners.py:70
 msgid "Arpeggio with Up Arrow"
 msgstr "Arpeggio s šipkou nahoru"
 
-#: frescobaldi_app/quickinsert/spanners.py:71
+#: ../quickinsert/spanners.py:71
 msgid "Arpeggio with Down Arrow"
 msgstr "Arpeggio s šipkou dolů"
 
-#: frescobaldi_app/quickinsert/spanners.py:72
+#: ../quickinsert/spanners.py:72
 msgid "Bracket Arpeggio"
 msgstr "Arpeggio v závorce"
 
-#: frescobaldi_app/quickinsert/spanners.py:73
+#: ../quickinsert/spanners.py:73
 msgid "Parenthesis Arpeggio"
 msgstr "Arpeggio v kulaté závorce"
 
-#: frescobaldi_app/quickinsert/spanners.py:105
+#: ../quickinsert/spanners.py:105
 msgid "Glissandos"
 msgstr "Glissanda"
 
-#: frescobaldi_app/quickinsert/spanners.py:114
+#: ../quickinsert/spanners.py:114
 msgid "Glissando"
 msgstr "Glissando"
 
-#: frescobaldi_app/quickinsert/spanners.py:115
+#: ../quickinsert/spanners.py:115
 msgid "Dashed Glissando"
 msgstr "Čárkované glissando"
 
-#: frescobaldi_app/quickinsert/spanners.py:116
+#: ../quickinsert/spanners.py:116
 msgid "Dotted Glissando"
 msgstr "Tečkované glissando"
 
-#: frescobaldi_app/quickinsert/spanners.py:117
+#: ../quickinsert/spanners.py:117
 msgid "Zigzag Glissando"
 msgstr "Klikaté glissando"
 
-#: frescobaldi_app/quickinsert/spanners.py:118
+#: ../quickinsert/spanners.py:118
 msgid "Trill Glissando"
 msgstr "Trylkové glissando"
 
-#: frescobaldi_app/quickinsert/spanners.py:144
+#: ../quickinsert/spanners.py:144
 msgid "Phrasing Slur"
 msgstr "Frázovací oblouček"
 
-#: frescobaldi_app/quickinsert/widget.py:102
+#: ../quickinsert/widget.py:102
 msgid ""
 "<p>With the Quick Insert Panel you can add various music elements to the "
 "current note or selected music.</p>\n"
@@ -3877,27 +3836,27 @@ msgstr ""
 "přidat různé hudební prvky.</p>\n"
 "<p>Pro více informací se podívejte na {link}.</p>"
 
-#: frescobaldi_app/quickinsert/widget.py:107
+#: ../quickinsert/widget.py:107
 msgid "Direction:"
 msgstr "Směr:"
 
-#: frescobaldi_app/quickinsert/widget.py:108
+#: ../quickinsert/widget.py:108
 msgid "Up"
 msgstr "Nahoru"
 
-#: frescobaldi_app/quickinsert/widget.py:108
+#: ../quickinsert/widget.py:108
 msgid "Neutral"
 msgstr "Neutrální"
 
-#: frescobaldi_app/quickinsert/widget.py:108
+#: ../quickinsert/widget.py:108
 msgid "Down"
 msgstr "Dolů"
 
-#: frescobaldi_app/quickinsert/widget.py:127
+#: ../quickinsert/widget.py:127
 msgid "The Quick Insert Panel"
 msgstr "Panelem pro rychlé vložení"
 
-#: frescobaldi_app/quickinsert/widget.py:130
+#: ../quickinsert/widget.py:130
 msgid ""
 "<p>\n"
 "With the tools in the Quick Insert Panel you can add various music elements\n"
@@ -3940,7 +3899,7 @@ msgstr ""
 "změnit je můžete klepnutím pravým tlačítkem myši na tlačítko.\n"
 "</p>\n"
 
-#: frescobaldi_app/quickinsert/widget.py:149
+#: ../quickinsert/widget.py:149
 msgid ""
 "<h3>Articulations</h3>\n"
 "\n"
@@ -3976,7 +3935,7 @@ msgstr ""
 "(např. <code>-.</code> místo <code>-\\staccato</code>).\n"
 "</p>\n"
 
-#: frescobaldi_app/quickinsert/widget.py:165
+#: ../quickinsert/widget.py:165
 msgid ""
 "<h3>Dynamics</h3>\n"
 "\n"
@@ -3998,7 +3957,7 @@ msgstr ""
 "Pokud potom klepnete na značku, tato nahradí ukončovatele.\n"
 "</p>\n"
 
-#: frescobaldi_app/quickinsert/widget.py:174
+#: ../quickinsert/widget.py:174
 msgid ""
 "<h3>Spanners</h3>\n"
 "\n"
@@ -4032,7 +3991,7 @@ msgstr ""
 "nebo k první a poslední notě nebo akordu ve výběru.\n"
 "</p>\n"
 
-#: frescobaldi_app/quickinsert/widget.py:189
+#: ../quickinsert/widget.py:189
 msgid ""
 "<h3>Bar Lines</h3>\n"
 "\n"
@@ -4046,67 +4005,67 @@ msgstr ""
 "Zde můžete vložit taktové čáry nebo různé dechové značky.\n"
 "</p>\n"
 
-#: frescobaldi_app/rhythm/__init__.py:146
+#: ../rhythm/__init__.py:146
 msgid "&Double durations"
 msgstr "&Zdvojnásobit doby trvání"
 
-#: frescobaldi_app/rhythm/__init__.py:148
+#: ../rhythm/__init__.py:148
 msgid "Double all the durations in the selection."
 msgstr "Zdvojnásobit všechny doby trvání ve výběru."
 
-#: frescobaldi_app/rhythm/__init__.py:149
+#: ../rhythm/__init__.py:149
 msgid "&Halve durations"
 msgstr "Zkrátit doby trvání na &polovinu"
 
-#: frescobaldi_app/rhythm/__init__.py:151
+#: ../rhythm/__init__.py:151
 msgid "Halve all the durations in the selection."
 msgstr "Zkrátit na polovinu všechny doby trvání ve výběru."
 
-#: frescobaldi_app/rhythm/__init__.py:152
+#: ../rhythm/__init__.py:152
 msgid "Do&t durations"
 msgstr "Udělat na dobách trvání &tečky"
 
-#: frescobaldi_app/rhythm/__init__.py:154
+#: ../rhythm/__init__.py:154
 msgid "Add a dot to all the durations in the selection."
 msgstr "Přidat tečku ke všem dobám trvání ve výběru."
 
-#: frescobaldi_app/rhythm/__init__.py:155
+#: ../rhythm/__init__.py:155
 msgid "&Undot durations"
 msgstr "&Odstranit z dob trvání tečky"
 
-#: frescobaldi_app/rhythm/__init__.py:157
+#: ../rhythm/__init__.py:157
 msgid "Remove one dot from all the durations in the selection."
 msgstr "Odstranit tečku ze všech dob trvání ve výběru."
 
-#: frescobaldi_app/rhythm/__init__.py:158
+#: ../rhythm/__init__.py:158
 msgid "Remove &scaling"
 msgstr "Odstranit &změny velikosti"
 
-#: frescobaldi_app/rhythm/__init__.py:160
+#: ../rhythm/__init__.py:160
 msgid "Remove all scaling (*n/m) from the durations in the selection."
 msgstr "Odstranit změny velikosti (*n/m) z dob trvání ve výběru."
 
-#: frescobaldi_app/rhythm/__init__.py:161
+#: ../rhythm/__init__.py:161
 msgid "&Remove durations"
 msgstr "O&dstranit doby trvání"
 
-#: frescobaldi_app/rhythm/__init__.py:163
+#: ../rhythm/__init__.py:163
 msgid "Remove all durations from the selection."
 msgstr "Odstranit všechny doby trvání ve výběru."
 
-#: frescobaldi_app/rhythm/__init__.py:164
+#: ../rhythm/__init__.py:164
 msgid "Make &implicit"
 msgstr "Vyjádřit &nepřímo"
 
-#: frescobaldi_app/rhythm/__init__.py:166
+#: ../rhythm/__init__.py:166
 msgid "Make durations implicit (remove repeated durations)."
 msgstr "Vyjádřit doby trvání nepřímo (odstranit opakované doby trvání)."
 
-#: frescobaldi_app/rhythm/__init__.py:167
+#: ../rhythm/__init__.py:167
 msgid "Make implicit (per &line)"
 msgstr "Vyjádřit nepřímo (na řád&ek)"
 
-#: frescobaldi_app/rhythm/__init__.py:169
+#: ../rhythm/__init__.py:169
 msgid ""
 "Make durations implicit (remove repeated durations), except for the first "
 "duration in a line."
@@ -4114,11 +4073,11 @@ msgstr ""
 "Vyjádřit doby trvání nepřímo (odstranit opakované doby trvání), kromě první "
 "doby trvání v řádku."
 
-#: frescobaldi_app/rhythm/__init__.py:171
+#: ../rhythm/__init__.py:171
 msgid "Make &explicit"
 msgstr "Vyjádřit &přímo"
 
-#: frescobaldi_app/rhythm/__init__.py:173
+#: ../rhythm/__init__.py:173
 msgid ""
 "Make durations explicit (add duration to every note, even if it is the same "
 "as the preceding note)."
@@ -4126,43 +4085,43 @@ msgstr ""
 "Přímo vyjádřit doby trvání (přidat dobu trvání ke každé notě, i když se "
 "jedná o tu samou notu, jako je předcházející nota)."
 
-#: frescobaldi_app/rhythm/__init__.py:175
+#: ../rhythm/__init__.py:175
 msgid "&Apply rhythm..."
 msgstr "&Použít rytmus..."
 
-#: frescobaldi_app/rhythm/__init__.py:177
+#: ../rhythm/__init__.py:177
 msgid "Apply an entered rhythm to the selected music."
 msgstr "Použít zadaný rytmus na vybrané noty."
 
-#: frescobaldi_app/rhythm/__init__.py:178
+#: ../rhythm/__init__.py:178
 msgid "&Copy rhythm"
 msgstr "&Kopírovat rytmus"
 
-#: frescobaldi_app/rhythm/__init__.py:180
+#: ../rhythm/__init__.py:180
 msgid "Copy the rhythm of the selected music."
 msgstr "Kopírovat rytmus vybraných not."
 
-#: frescobaldi_app/rhythm/__init__.py:181
+#: ../rhythm/__init__.py:181
 msgid "&Paste rhythm"
 msgstr "&Vložit rytmus"
 
-#: frescobaldi_app/rhythm/__init__.py:182
+#: ../rhythm/__init__.py:182
 msgid "Paste a rhythm to the selected music."
 msgstr "Vložit rytmus do vybraných not."
 
-#: frescobaldi_app/rhythm/rhythm.py:146
+#: ../rhythm/rhythm.py:146
 msgid "Apply Rhythm"
 msgstr "Použít rytmus"
 
-#: frescobaldi_app/rhythm/rhythm.py:146
+#: ../rhythm/rhythm.py:146
 msgid "Enter a rhythm:"
 msgstr "Zadat rytmus:"
 
-#: frescobaldi_app/rhythm/rhythm.py:244
+#: ../rhythm/rhythm.py:244
 msgid "Rhythm manipulation"
 msgstr "Zacházení s rytmem"
 
-#: frescobaldi_app/rhythm/rhythm.py:247
+#: ../rhythm/rhythm.py:247
 msgid ""
 "<p>\n"
 "The rhythm functions of Frescobaldi alter the durations written after "
@@ -4233,61 +4192,60 @@ msgstr ""
 "který potom bude opakovaně použit na výběr not.\n"
 "</p>\n"
 
-#: frescobaldi_app/rhythm/rhythm.py:279
+#: ../rhythm/rhythm.py:279
 msgctxt "submenu title"
 msgid "Rhythm"
 msgstr "Rytmus"
 
-#: frescobaldi_app/scorewiz/__init__.py:59
-#: frescobaldi_app/scorewiz/dialog.py:194
+#: ../scorewiz/__init__.py:59 ../scorewiz/dialog.py:194
 msgid "Setup New Score..."
 msgstr "Nastavit nový notový zápis..."
 
-#: frescobaldi_app/scorewiz/build.py:136
+#: ../scorewiz/build.py:136
 msgid "Music follows here."
 msgstr "Hudba následuje zde."
 
-#: frescobaldi_app/scorewiz/build.py:403
+#: ../scorewiz/build.py:403
 msgid "Remove default LilyPond tagline"
 msgstr "Odstranit výchozí heslo programu LilyPond"
 
-#: frescobaldi_app/scorewiz/dialog.py:77
+#: ../scorewiz/dialog.py:77
 msgid "Score Setup Wizard"
 msgstr "Průvodce pro způsob uspořádání notového zápisu"
 
-#: frescobaldi_app/scorewiz/dialog.py:80
+#: ../scorewiz/dialog.py:80
 msgid "Clear"
 msgstr "Smazat"
 
-#: frescobaldi_app/scorewiz/dialog.py:82
+#: ../scorewiz/dialog.py:82
 msgid "Clears the current page of the Score Wizard."
 msgstr "Smaže nynější stranu průvodce notovým zápisem"
 
-#: frescobaldi_app/scorewiz/dialog.py:83
+#: ../scorewiz/dialog.py:83
 msgid "Preview"
 msgstr "Náhled"
 
-#: frescobaldi_app/scorewiz/dialog.py:126
+#: ../scorewiz/dialog.py:126
 msgid "Score Preview"
 msgstr "Náhled na notový zápis"
 
-#: frescobaldi_app/scorewiz/dialog.py:160
+#: ../scorewiz/dialog.py:160
 msgid "&Titles and Headers"
 msgstr "&Názvy a hlavičky"
 
-#: frescobaldi_app/scorewiz/dialog.py:169
+#: ../scorewiz/dialog.py:169
 msgid "&Parts"
 msgstr "&Hlasy"
 
-#: frescobaldi_app/scorewiz/dialog.py:178
+#: ../scorewiz/dialog.py:178
 msgid "&Score settings"
 msgstr "Nastavení &notového zápisu"
 
-#: frescobaldi_app/scorewiz/dialog.py:187
+#: ../scorewiz/dialog.py:187
 msgid "The Score Wizard"
 msgstr "Průvodce pro notový zápis"
 
-#: frescobaldi_app/scorewiz/dialog.py:195
+#: ../scorewiz/dialog.py:195
 msgid ""
 "<p>\n"
 "The Score Setup Wizard ({key}) in {menu} is designed\n"
@@ -4412,198 +4370,197 @@ msgstr ""
 "Notové zápisy pak budou používat hlasy na nejvyšší úrovni notového zápisu.\n"
 "</p>\n"
 
-#: frescobaldi_app/scorewiz/header.py:87
+#: ../scorewiz/header.py:87
 msgid "Click to enter a value."
 msgstr "Klepněte pro zadání hodnoty."
 
-#: frescobaldi_app/scorewiz/header.py:89
+#: ../scorewiz/header.py:89
 msgid "bottom of first page"
 msgstr "úpatí první strany"
 
-#: frescobaldi_app/scorewiz/header.py:90
+#: ../scorewiz/header.py:90
 msgid "bottom of last page"
 msgstr "úpatí poslední strany"
 
-#: frescobaldi_app/scorewiz/header.py:135
+#: ../scorewiz/header.py:135
 msgid "Dedication"
 msgstr "Věnování"
 
-#: frescobaldi_app/scorewiz/header.py:136
+#: ../scorewiz/header.py:136
 msgid "Title"
 msgstr "Název"
 
-#: frescobaldi_app/scorewiz/header.py:137
+#: ../scorewiz/header.py:137
 msgid "Subtitle"
 msgstr "Podnázev"
 
-#: frescobaldi_app/scorewiz/header.py:138
+#: ../scorewiz/header.py:138
 msgid "Subsubtitle"
 msgstr "Podpodnázev"
 
-#: frescobaldi_app/scorewiz/header.py:139
+#: ../scorewiz/header.py:139
 msgid "Instrument"
 msgstr "Nástroj"
 
-#: frescobaldi_app/scorewiz/header.py:140
+#: ../scorewiz/header.py:140
 msgid "Composer"
 msgstr "Skladatel"
 
-#: frescobaldi_app/scorewiz/header.py:141
+#: ../scorewiz/header.py:141
 msgid "Arranger"
 msgstr "Aranžér"
 
-#: frescobaldi_app/scorewiz/header.py:142
+#: ../scorewiz/header.py:142
 msgid "Poet"
 msgstr "Básník"
 
-#: frescobaldi_app/scorewiz/header.py:143
+#: ../scorewiz/header.py:143
 msgid "Meter"
 msgstr "Metrum"
 
-#: frescobaldi_app/scorewiz/header.py:144
+#: ../scorewiz/header.py:144
 msgid "Piece"
 msgstr "Kus"
 
-#: frescobaldi_app/scorewiz/header.py:145
+#: ../scorewiz/header.py:145
 msgid "Opus"
 msgstr "Dílo"
 
-#: frescobaldi_app/scorewiz/header.py:146
+#: ../scorewiz/header.py:146
 msgid "Copyright"
 msgstr "Autorské právo"
 
-#: frescobaldi_app/scorewiz/header.py:147
+#: ../scorewiz/header.py:147
 msgid "Tagline"
 msgstr "Heslo"
 
-#: frescobaldi_app/scorewiz/score.py:100
+#: ../scorewiz/score.py:100
 msgid "Available parts:"
 msgstr "Dostupné hlasy:"
 
-#: frescobaldi_app/scorewiz/score.py:101
+#: ../scorewiz/score.py:101
 msgid "Score:"
 msgstr "Notový zápis:"
 
-#: frescobaldi_app/scorewiz/score.py:102
+#: ../scorewiz/score.py:102
 msgid "&Add"
 msgstr "&Přidat"
 
-#: frescobaldi_app/scorewiz/score.py:103 frescobaldi_app/snippet/widget.py:179
-#: frescobaldi_app/widgets/listedit.py:93
-#: frescobaldi_app/widgets/schemeselector.py:64
+#: ../scorewiz/score.py:103 ../snippet/widget.py:179 ../widgets/listedit.py:93
+#: ../widgets/schemeselector.py:64
 msgid "&Remove"
 msgstr "&Odstranit"
 
-#: frescobaldi_app/scorewiz/score.py:104
+#: ../scorewiz/score.py:104
 msgid "Move up"
 msgstr "Přesunout nahoru"
 
-#: frescobaldi_app/scorewiz/score.py:105
+#: ../scorewiz/score.py:105
 msgid "Move down"
 msgstr "Přesunout dolů"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:99
+#: ../scorewiz/scoreproperties.py:99
 msgid "Key signature:"
 msgstr "Předznamenání"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:135
+#: ../scorewiz/scoreproperties.py:135
 msgid "Time signature:"
 msgstr "Taktové označení:"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:177
+#: ../scorewiz/scoreproperties.py:177
 msgid "Pickup measure:"
 msgstr "Předtaktí:"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:221
+#: ../scorewiz/scoreproperties.py:221
 msgid "Metronome mark:"
 msgstr "Hodnota na metronomu:"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:246
+#: ../scorewiz/scoreproperties.py:246
 msgid "Tempo indication:"
 msgstr "Údaj o tempu:"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:385
+#: ../scorewiz/scoreproperties.py:385
 msgid "Major"
 msgstr "Dur"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:386
+#: ../scorewiz/scoreproperties.py:386
 msgid "Minor"
 msgstr "Moll"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:387
+#: ../scorewiz/scoreproperties.py:387
 msgid "Ionian"
 msgstr "Jónský"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:388
+#: ../scorewiz/scoreproperties.py:388
 msgid "Dorian"
 msgstr "Dórský"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:389
+#: ../scorewiz/scoreproperties.py:389
 msgid "Phrygian"
 msgstr "Frýgický"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:390
+#: ../scorewiz/scoreproperties.py:390
 msgid "Lydian"
 msgstr "Lýdický"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:391
+#: ../scorewiz/scoreproperties.py:391
 msgid "Mixolydian"
 msgstr "Mixolýdický"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:392
+#: ../scorewiz/scoreproperties.py:392
 msgid "Aeolian"
 msgstr "Éolský"
 
-#: frescobaldi_app/scorewiz/scoreproperties.py:393
+#: ../scorewiz/scoreproperties.py:393
 msgid "Locrian"
 msgstr "Lokrijský"
 
-#: frescobaldi_app/scorewiz/settings.py:79
+#: ../scorewiz/settings.py:79
 msgid "Score properties"
 msgstr "Vlastnosti notového zápisu"
 
-#: frescobaldi_app/scorewiz/settings.py:118
+#: ../scorewiz/settings.py:118
 msgid "General preferences"
 msgstr "Obecné volby"
 
-#: frescobaldi_app/scorewiz/settings.py:119
+#: ../scorewiz/settings.py:119
 msgid "Use typographical quotes"
 msgstr "Použít typografické uvozovky"
 
-#: frescobaldi_app/scorewiz/settings.py:121
+#: ../scorewiz/settings.py:121
 msgid "Replace normal quotes in titles with nice typographical quotes."
 msgstr "Nahradit normální uvozovky v názvech hezkými typografickými uvozovkami"
 
-#: frescobaldi_app/scorewiz/settings.py:122
+#: ../scorewiz/settings.py:122
 msgid "Remove default tagline"
 msgstr "Odstranit výchozí heslo"
 
-#: frescobaldi_app/scorewiz/settings.py:124
+#: ../scorewiz/settings.py:124
 msgid "Suppress the default tagline output by LilyPond."
 msgstr "Potlačit výstup výchozího motta pomocí LilyPondu"
 
-#: frescobaldi_app/scorewiz/settings.py:125
+#: ../scorewiz/settings.py:125
 msgid "Remove bar numbers"
 msgstr "Odstranit čísla taktů"
 
-#: frescobaldi_app/scorewiz/settings.py:127
+#: ../scorewiz/settings.py:127
 msgid ""
 "Suppress the display of measure numbers at the beginning of every system."
 msgstr "Potlačit zobrazení čísel taktů na začátku každé osnovy."
 
-#: frescobaldi_app/scorewiz/settings.py:129
+#: ../scorewiz/settings.py:129
 msgid "Create MIDI output"
 msgstr "Vytvořit výstup MIDI"
 
-#: frescobaldi_app/scorewiz/settings.py:131
+#: ../scorewiz/settings.py:131
 msgid "Create a MIDI file in addition to the PDF file."
 msgstr "Vytvořit soubor MIDI vedle souboru PDF."
 
-#: frescobaldi_app/scorewiz/settings.py:132
+#: ../scorewiz/settings.py:132
 msgid "Show metronome mark"
 msgstr "Ukázat hodnotu na metronomu"
 
-#: frescobaldi_app/scorewiz/settings.py:134
+#: ../scorewiz/settings.py:134
 msgid ""
 "If checked, show the metronome mark at the beginning of the score. The MIDI "
 "output also uses the metronome setting."
@@ -4611,93 +4568,91 @@ msgstr ""
 "V případě, že je zaškrtnuto, hodnota na metronomu se ukáže na začátku "
 "notového zápisu. MIDI výstup používá nastavení metronomu také."
 
-#: frescobaldi_app/scorewiz/settings.py:137
+#: ../scorewiz/settings.py:137
 msgid "Paper size:"
 msgstr "Velikost papíru:"
 
-#: frescobaldi_app/scorewiz/settings.py:139
+#: ../scorewiz/settings.py:139
 msgid "Landscape"
 msgstr "Formát na šířku"
 
-#: frescobaldi_app/scorewiz/settings.py:192
-#: frescobaldi_app/scorewiz/settings.py:195
+#: ../scorewiz/settings.py:192 ../scorewiz/settings.py:195
 msgid "Long"
 msgstr "Dlouhý"
 
-#: frescobaldi_app/scorewiz/settings.py:192
-#: frescobaldi_app/scorewiz/settings.py:195
+#: ../scorewiz/settings.py:192 ../scorewiz/settings.py:195
 msgid "Short"
 msgstr "Krátký"
 
-#: frescobaldi_app/scorewiz/settings.py:219
+#: ../scorewiz/settings.py:219
 msgid "Instrument names"
 msgstr "Názvy nástrojů"
 
-#: frescobaldi_app/scorewiz/settings.py:220
+#: ../scorewiz/settings.py:220
 msgid "First system:"
 msgstr "První osnova:"
 
-#: frescobaldi_app/scorewiz/settings.py:221
+#: ../scorewiz/settings.py:221
 msgid "Other systems:"
 msgstr "Jiné osnovy:"
 
-#: frescobaldi_app/scorewiz/settings.py:224
+#: ../scorewiz/settings.py:224
 msgid "Use long or short instrument names before the first system."
 msgstr "Požít dlouhé nebo krátké názvy nástrojů před první osnovou."
 
-#: frescobaldi_app/scorewiz/settings.py:226
+#: ../scorewiz/settings.py:226
 msgid "Use short, long or no instrument names before the next systems."
 msgstr "Požít krátké, dlouhé nebo žádné názvy nástrojů před dalšími osnovami."
 
-#: frescobaldi_app/scorewiz/settings.py:228
+#: ../scorewiz/settings.py:228
 msgid "Which language to use for the instrument names."
 msgstr "Jaký použít jazyk pro názvy nástrojů."
 
-#: frescobaldi_app/scorewiz/settings.py:296
+#: ../scorewiz/settings.py:296
 msgid "Pitch name language:"
 msgstr "Jazyk názvu polohy tónu:"
 
-#: frescobaldi_app/scorewiz/settings.py:298
+#: ../scorewiz/settings.py:298
 msgid "The LilyPond language you want to use for the pitch names."
 msgstr "Jazyk programu LilyPond, který chcete použít pro názvy výšek tónů."
 
-#: frescobaldi_app/scorewiz/settings.py:300
+#: ../scorewiz/settings.py:300
 msgid "Version:"
 msgstr "Verze:"
 
-#: frescobaldi_app/scorewiz/settings.py:302
+#: ../scorewiz/settings.py:302
 msgid "The LilyPond version you will be using for this document."
 msgstr "Verze programu LilyPond, kterou budete používat v tomto dokumentu."
 
-#: frescobaldi_app/scorewiz/parts/_base.py:64
+#: ../scorewiz/parts/_base.py:64
 msgid "No settings available."
 msgstr "Nejsou dostupná žádná nastavení."
 
-#: frescobaldi_app/scorewiz/parts/_base.py:133
+#: ../scorewiz/parts/_base.py:133
 msgid "Adjust how many separate voices you want on each staff."
 msgstr "Nastavit, kolik oddělených hlasů chcete mít na každé notové osnově."
 
-#: frescobaldi_app/scorewiz/parts/_base.py:134
+#: ../scorewiz/parts/_base.py:134
 msgid "This is primarily useful when you write polyphonic music like a fuge."
 msgstr "Toto je užitečné zejména, když píšete polyfonní hudbu, jakou je fuga."
 
-#: frescobaldi_app/scorewiz/parts/_base.py:136
+#: ../scorewiz/parts/_base.py:136
 msgid "Right hand:"
 msgstr "Pravá ruka:"
 
-#: frescobaldi_app/scorewiz/parts/_base.py:137
+#: ../scorewiz/parts/_base.py:137
 msgid "Left hand:"
 msgstr "Levá ruka:"
 
-#: frescobaldi_app/scorewiz/parts/_base.py:186
+#: ../scorewiz/parts/_base.py:186
 msgid "Chord style:"
 msgstr "Akordový styl:"
 
-#: frescobaldi_app/scorewiz/parts/_base.py:187
+#: ../scorewiz/parts/_base.py:187
 msgid "Guitar fret diagrams"
 msgstr "Kytarové hmaty"
 
-#: frescobaldi_app/scorewiz/parts/_base.py:189
+#: ../scorewiz/parts/_base.py:189
 msgid ""
 "Show predefined guitar fret diagrams below the chord names (LilyPond 2.12 "
 "and above)."
@@ -4705,140 +4660,140 @@ msgstr ""
 "Ukázat přednastavené kytarové hmaty pod názvy akordů (LilyPond 2.12 a a "
 "vyšší)."
 
-#: frescobaldi_app/scorewiz/parts/_base.py:203
+#: ../scorewiz/parts/_base.py:203
 msgid "Chords follow here."
 msgstr "Zde následují akordy."
 
-#: frescobaldi_app/scorewiz/parts/_base.py:215
+#: ../scorewiz/parts/_base.py:215
 msgid "German"
 msgstr "Německý"
 
-#: frescobaldi_app/scorewiz/parts/_base.py:216
+#: ../scorewiz/parts/_base.py:216
 msgid "Semi-German"
 msgstr "Na půl německý"
 
-#: frescobaldi_app/scorewiz/parts/_base.py:217
+#: ../scorewiz/parts/_base.py:217
 msgid "Italian"
 msgstr "Italský"
 
-#: frescobaldi_app/scorewiz/parts/_base.py:218
+#: ../scorewiz/parts/_base.py:218
 msgid "French"
 msgstr "Francouzský"
 
-#: frescobaldi_app/scorewiz/parts/brass.py:39
+#: ../scorewiz/parts/brass.py:39
 msgid "Horn in F"
 msgstr "Trubka v F"
 
-#: frescobaldi_app/scorewiz/parts/brass.py:43
+#: ../scorewiz/parts/brass.py:43
 msgctxt "abbreviation for Horn in F"
 msgid "Hn.F."
 msgstr "Tr. F"
 
-#: frescobaldi_app/scorewiz/parts/brass.py:52
+#: ../scorewiz/parts/brass.py:52
 msgid "Trumpet in C"
 msgstr "Trubka v C"
 
-#: frescobaldi_app/scorewiz/parts/brass.py:56
+#: ../scorewiz/parts/brass.py:56
 msgctxt "abbreviation for Trumpet in C"
 msgid "Tr.C."
 msgstr "Tr. C."
 
-#: frescobaldi_app/scorewiz/parts/brass.py:64
+#: ../scorewiz/parts/brass.py:64
 msgid "Trumpet in Bb"
 msgstr "Trubka v B"
 
-#: frescobaldi_app/scorewiz/parts/brass.py:68
+#: ../scorewiz/parts/brass.py:68
 msgctxt "abbreviation for Trumpet in Bb"
 msgid "Tr.Bb."
 msgstr "Tr. B."
 
-#: frescobaldi_app/scorewiz/parts/brass.py:76
+#: ../scorewiz/parts/brass.py:76
 msgid "Trombone"
 msgstr "Pozoun"
 
-#: frescobaldi_app/scorewiz/parts/brass.py:80
+#: ../scorewiz/parts/brass.py:80
 msgctxt "abbreviation for Trombone"
 msgid "Trb."
 msgstr "Poz"
 
-#: frescobaldi_app/scorewiz/parts/brass.py:90
+#: ../scorewiz/parts/brass.py:90
 msgid "Tuba"
 msgstr "Tuba"
 
-#: frescobaldi_app/scorewiz/parts/brass.py:94
+#: ../scorewiz/parts/brass.py:94
 msgctxt "abbreviation for Tuba"
 msgid "Tb."
 msgstr "Tb."
 
-#: frescobaldi_app/scorewiz/parts/brass.py:103
+#: ../scorewiz/parts/brass.py:103
 msgid "Bass Tuba"
 msgstr "Basová tuba"
 
-#: frescobaldi_app/scorewiz/parts/brass.py:107
+#: ../scorewiz/parts/brass.py:107
 msgctxt "abbreviation for Bass Tuba"
 msgid "B.Tb."
 msgstr "B.Tb."
 
-#: frescobaldi_app/scorewiz/parts/brass.py:116
+#: ../scorewiz/parts/brass.py:116
 msgid "Brass"
 msgstr "Žesťové nástroje"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:43
+#: ../scorewiz/parts/containers.py:43
 msgid "Staff Group"
 msgstr "Skupina osnov"
 
 #. L10N: Brace like a piano staff
-#: frescobaldi_app/scorewiz/parts/containers.py:54
+#: ../scorewiz/parts/containers.py:54
 msgid "Brace"
 msgstr "Složená závorka"
 
 #. L10N: Bracket like a choir staff
-#: frescobaldi_app/scorewiz/parts/containers.py:56
+#: ../scorewiz/parts/containers.py:56
 msgid "Bracket"
 msgstr "Kulatá závorka"
 
 #. L10N: Square bracket like a sub-group
-#: frescobaldi_app/scorewiz/parts/containers.py:58
+#: ../scorewiz/parts/containers.py:58
 msgid "Square"
 msgstr "Hranatá závorka"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:71
+#: ../scorewiz/parts/containers.py:71
 msgid "Type:"
 msgstr "Typ:"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:72
+#: ../scorewiz/parts/containers.py:72
 msgid "Connect Barlines"
 msgstr "Spojit taktové čáry"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:73
+#: ../scorewiz/parts/containers.py:73
 msgid "If checked, barlines are connected between the staves."
 msgstr "Je-li zaškrtnuto, jsou taktové čáry mezi osnovami spojeny."
 
-#: frescobaldi_app/scorewiz/parts/containers.py:94
+#: ../scorewiz/parts/containers.py:94
 msgid "Score"
 msgstr "Notový zápis"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:123
+#: ../scorewiz/parts/containers.py:123
 msgid "Piece:"
 msgstr "Kus:"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:124
+#: ../scorewiz/parts/containers.py:124
 msgid "Opus:"
 msgstr "Dílo:"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:125
+#: ../scorewiz/parts/containers.py:125
 msgid "Properties"
 msgstr "Vlastnosti"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:153
+#: ../scorewiz/parts/containers.py:153
 msgid "Book Part"
 msgstr "Část knihy"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:166
+#: ../scorewiz/parts/containers.py:166
 msgid "Book"
 msgstr "Kniha"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:188
+#: ../scorewiz/parts/containers.py:188
 msgid ""
 "<p>Here you can specify a filename or suffix (without extension) to set the "
 "names of generated output files for this book.</p>\n"
@@ -4852,488 +4807,483 @@ msgstr ""
 "dokumentu; pokud zvolíte \"Souborový název\", použije se pouze zadaný název."
 "</p>"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:193
+#: ../scorewiz/parts/containers.py:193
 msgid "Output Filename:"
 msgstr "Výstupní souborový název:"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:194
+#: ../scorewiz/parts/containers.py:194
 msgid "Filename"
 msgstr "Souborový název"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:195
+#: ../scorewiz/parts/containers.py:195
 msgid "Suffix"
 msgstr "Přípona"
 
-#: frescobaldi_app/scorewiz/parts/containers.py:207
+#: ../scorewiz/parts/containers.py:207
 msgid "Containers"
 msgstr "Nádoby"
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:44
+#: ../scorewiz/parts/keyboard.py:44
 msgid "Piano"
 msgstr "Klavír"
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:48
+#: ../scorewiz/parts/keyboard.py:48
 msgctxt "abbreviation for Piano"
 msgid "Pno."
 msgstr "Klav."
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:56
+#: ../scorewiz/parts/keyboard.py:56
 msgid "Harpsichord"
 msgstr "Cembalo"
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:60
+#: ../scorewiz/parts/keyboard.py:60
 msgctxt "abbreviation for Harpsichord"
 msgid "Hs."
 msgstr "Cem."
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:68
+#: ../scorewiz/parts/keyboard.py:68
 msgid "Clavichord"
 msgstr "Clavichord"
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:72
+#: ../scorewiz/parts/keyboard.py:72
 msgctxt "abbreviation for Clavichord"
 msgid "Clv."
 msgstr "Clv."
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:80
+#: ../scorewiz/parts/keyboard.py:80
 msgid "Organ"
 msgstr "Varhany"
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:84
+#: ../scorewiz/parts/keyboard.py:84
 msgctxt "abbreviation for Organ"
 msgid "Org."
 msgstr "Var."
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:99
+#: ../scorewiz/parts/keyboard.py:99
 msgid "Pedal:"
 msgstr "Pedál:"
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:101
+#: ../scorewiz/parts/keyboard.py:101
 msgid "Set to 0 to disable the pedal altogether."
 msgstr "Nastavit na nulu pro úplné znemožnění pedálu."
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:114
+#: ../scorewiz/parts/keyboard.py:114
 msgid "Celesta"
 msgstr "Celesta"
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:118
+#: ../scorewiz/parts/keyboard.py:118
 msgctxt "abbreviation for Celesta"
 msgid "Cel."
 msgstr "Cel."
 
-#: frescobaldi_app/scorewiz/parts/keyboard.py:124
+#: ../scorewiz/parts/keyboard.py:124
 msgid "Keyboard instruments"
 msgstr "Klávesové nástroje"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:45
+#: ../scorewiz/parts/percussion.py:45
 msgid "Timpani"
 msgstr "Kotle"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:49
+#: ../scorewiz/parts/percussion.py:49
 msgctxt "abbreviation for Timpani"
 msgid "Tmp."
 msgstr "Kot."
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:59
+#: ../scorewiz/parts/percussion.py:59
 msgid "Xylophone"
 msgstr "Xylofon"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:63
+#: ../scorewiz/parts/percussion.py:63
 msgctxt "abbreviation for Xylophone"
 msgid "Xyl."
 msgstr "Xyl."
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:71
+#: ../scorewiz/parts/percussion.py:71
 msgid "Marimba"
 msgstr "Marimba"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:75
+#: ../scorewiz/parts/percussion.py:75
 msgctxt "abbreviation for Marimba"
 msgid "Mar."
 msgstr "Mar."
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:84
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:318
+#: ../scorewiz/parts/percussion.py:84 ../scorewiz/parts/plucked_strings.py:318
 msgid "Upper staff:"
 msgstr "Horní notová osnova:"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:85
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:319
+#: ../scorewiz/parts/percussion.py:85 ../scorewiz/parts/plucked_strings.py:319
 msgid "Lower staff:"
 msgstr "Dolní notová osnova:"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:87
+#: ../scorewiz/parts/percussion.py:87
 msgid "Set the number of voices to 0 to disable the second staff."
 msgstr "Nastavte počet hlasů na 0 pro zakázání druhé osnovy."
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:99
+#: ../scorewiz/parts/percussion.py:99
 msgid "Vibraphone"
 msgstr "Vibrafon"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:103
+#: ../scorewiz/parts/percussion.py:103
 msgctxt "abbreviation for Vibraphone"
 msgid "Vib."
 msgstr "Vib."
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:111
+#: ../scorewiz/parts/percussion.py:111
 msgid "Tubular bells"
 msgstr "Trubkové zvony"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:115
+#: ../scorewiz/parts/percussion.py:115
 msgctxt "abbreviation for Tubular bells"
 msgid "Tub."
 msgstr "Tru. zv."
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:123
+#: ../scorewiz/parts/percussion.py:123
 msgid "Glockenspiel"
 msgstr "Zvonková hra"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:127
+#: ../scorewiz/parts/percussion.py:127
 msgctxt "abbreviation for Glockenspiel"
 msgid "Gls."
 msgstr "Zvo."
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:135
+#: ../scorewiz/parts/percussion.py:135
 msgid "Carillon"
 msgstr "Zvonkohra"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:139
+#: ../scorewiz/parts/percussion.py:139
 msgctxt "abbreviation for Carillon"
 msgid "Car."
 msgstr "Zvon."
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:145
+#: ../scorewiz/parts/percussion.py:145
 msgid "Manual staff:"
 msgstr "Ruční osnova:"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:146
+#: ../scorewiz/parts/percussion.py:146
 msgid "Pedal staff:"
 msgstr "Pedálová osnova:"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:161
+#: ../scorewiz/parts/percussion.py:161
 msgid "Drums"
 msgstr "Bubny"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:165
+#: ../scorewiz/parts/percussion.py:165
 msgctxt "abbreviation for Drums"
 msgid "Dr."
 msgstr "Bub."
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:186
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:258
+#: ../scorewiz/parts/percussion.py:186
+#: ../scorewiz/parts/plucked_strings.py:258
 msgid "Voices:"
 msgstr "Pěvecké hlasy:"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:188
+#: ../scorewiz/parts/percussion.py:188
 msgid "Remove stems"
 msgstr "Odstranit nožky not"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:189
+#: ../scorewiz/parts/percussion.py:189
 msgid "Remove the stems from the drum notes."
 msgstr "Odstranit nožky z not pro bicí."
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:201
+#: ../scorewiz/parts/percussion.py:201
 msgid "Drums follow here."
 msgstr "Zde následují bubny."
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:226
+#: ../scorewiz/parts/percussion.py:226
 msgid "keep some distance."
 msgstr "Udržovat trochu odstup."
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:232
+#: ../scorewiz/parts/percussion.py:232
 msgid "Drums (5 lines, default)"
 msgstr "Bubny (pět linek, výchozí)"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:233
+#: ../scorewiz/parts/percussion.py:233
 msgid "Timbales-style (2 lines)"
 msgstr "Styl timbále (dvě linky)"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:234
+#: ../scorewiz/parts/percussion.py:234
 msgid "Congas-style (2 lines)"
 msgstr "Styl konga (dvě linky; vysoký a úzký buben, na který se hraje dlaněmi)"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:235
+#: ../scorewiz/parts/percussion.py:235
 msgid "Bongos-style (2 lines)"
 msgstr "Styl bonga (dvě linky; buben)"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:236
+#: ../scorewiz/parts/percussion.py:236
 msgid "Percussion-style (1 line)"
 msgstr "Styl bicí (dvě linky)"
 
-#: frescobaldi_app/scorewiz/parts/percussion.py:242
+#: ../scorewiz/parts/percussion.py:242
 msgid "Percussion"
 msgstr "Bicí nástroje"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:76
+#: ../scorewiz/parts/plucked_strings.py:76
 msgid "Staff type:"
 msgstr "Druh notové osnovy:"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:82
+#: ../scorewiz/parts/plucked_strings.py:82
 msgid "Tuning:"
 msgstr "Intonace:"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:172
+#: ../scorewiz/parts/plucked_strings.py:172
 msgid "Normal staff"
 msgstr "Normální notová osnova"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:173
+#: ../scorewiz/parts/plucked_strings.py:173
 msgid "Tablature"
 msgstr "Tabulatura"
 
 #. L10N: Both a Normal and a Tablature staff
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:175
+#: ../scorewiz/parts/plucked_strings.py:175
 msgid "Both"
 msgstr "Oba"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:182
+#: ../scorewiz/parts/plucked_strings.py:182
 msgid "Mandolin"
 msgstr "Mandolína"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:186
+#: ../scorewiz/parts/plucked_strings.py:186
 msgctxt "abbreviation for Mandolin"
 msgid "Mdl."
 msgstr "Mna"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:190
+#: ../scorewiz/parts/plucked_strings.py:190
 msgid "Mandolin tuning"
 msgstr "Ladění mandolíny"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:197
+#: ../scorewiz/parts/plucked_strings.py:197
 msgid "Banjo"
 msgstr "Bendžo"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:201
+#: ../scorewiz/parts/plucked_strings.py:201
 msgctxt "abbreviation for Banjo"
 msgid "Bj."
 msgstr "Bžo."
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:206
+#: ../scorewiz/parts/plucked_strings.py:206
 msgid "Open G-tuning (aDGBD)"
 msgstr "Otevřít ladění v G (aDGBD)"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:207
+#: ../scorewiz/parts/plucked_strings.py:207
 msgid "C-tuning (gCGBD)"
 msgstr "Ladění v C (gCGBD)"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:208
+#: ../scorewiz/parts/plucked_strings.py:208
 msgid "Modal tuning (gDGCD)"
 msgstr "Modální ladění (gDGCD)"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:209
+#: ../scorewiz/parts/plucked_strings.py:209
 msgid "Open D-tuning (aDF#AD)"
 msgstr "Otevřít ladění v D (aDF#AD)"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:210
+#: ../scorewiz/parts/plucked_strings.py:210
 msgid "Open Dm-tuning (aDFAD)"
 msgstr "Otevřít ladění v D moll (aDFAD)"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:220
+#: ../scorewiz/parts/plucked_strings.py:220
 msgid "Four strings (instead of five)"
 msgstr "Čtyři smyčce (namísto pěti)"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:234
+#: ../scorewiz/parts/plucked_strings.py:234
 msgid "Classical guitar"
 msgstr "Klasická kytara"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:238
+#: ../scorewiz/parts/plucked_strings.py:238
 msgctxt "abbreviation for Classical guitar"
 msgid "Gt."
 msgstr "Kra."
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:243
+#: ../scorewiz/parts/plucked_strings.py:243
 msgid "Guitar tuning"
 msgstr "Kytarové ladění"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:244
+#: ../scorewiz/parts/plucked_strings.py:244
 msgid "Open G-tuning"
 msgstr "Otevřít ladění v G"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:267
+#: ../scorewiz/parts/plucked_strings.py:267
 msgid "Jazz guitar"
 msgstr "Džezová kytara"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:271
+#: ../scorewiz/parts/plucked_strings.py:271
 msgctxt "abbreviation for Jazz guitar"
 msgid "J.Gt."
 msgstr "Dž. kra."
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:279
-#: frescobaldi_app/scorewiz/parts/vocal.py:171
+#: ../scorewiz/parts/plucked_strings.py:279 ../scorewiz/parts/vocal.py:171
 msgid "Bass"
 msgstr "Basová kytara"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:283
+#: ../scorewiz/parts/plucked_strings.py:283
 msgctxt "abbreviation for Bass"
 msgid "Bs."
 msgstr "Bs. kra."
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:289
+#: ../scorewiz/parts/plucked_strings.py:289
 msgid "Bass tuning"
 msgstr "Basové ladění"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:296
+#: ../scorewiz/parts/plucked_strings.py:296
 msgid "Electric bass"
 msgstr "Elektrická basová kytara"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:300
+#: ../scorewiz/parts/plucked_strings.py:300
 msgctxt "abbreviation for Electric bass"
 msgid "E.Bs."
 msgstr "El. bs. kra."
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:308
+#: ../scorewiz/parts/plucked_strings.py:308
 msgid "Harp"
 msgstr "Harfa"
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:312
+#: ../scorewiz/parts/plucked_strings.py:312
 msgctxt "abbreviation for Harp"
 msgid "Hp."
 msgstr "Hfa."
 
-#: frescobaldi_app/scorewiz/parts/plucked_strings.py:335
+#: ../scorewiz/parts/plucked_strings.py:335
 msgid "Plucked strings"
 msgstr "Drnkací smyčcové nástroje"
 
-#: frescobaldi_app/scorewiz/parts/special.py:39
-#: frescobaldi_app/scorewiz/parts/vocal.py:204
+#: ../scorewiz/parts/special.py:39 ../scorewiz/parts/vocal.py:204
 msgid "Chord names"
 msgstr "Názvy akordů"
 
-#: frescobaldi_app/scorewiz/parts/special.py:45
+#: ../scorewiz/parts/special.py:45
 msgid "Figured Bass"
 msgstr "Číslovaný bas (generální bas, basso continuo)"
 
-#: frescobaldi_app/scorewiz/parts/special.py:52
+#: ../scorewiz/parts/special.py:52
 msgid "Use extender lines"
 msgstr "Použít pomocné linky"
 
-#: frescobaldi_app/scorewiz/parts/special.py:60
-#: frescobaldi_app/scorewiz/parts/strings.py:109
+#: ../scorewiz/parts/special.py:60 ../scorewiz/parts/strings.py:109
 msgid "Figures follow here."
 msgstr "Zde následují čísla."
 
-#: frescobaldi_app/scorewiz/parts/special.py:70
+#: ../scorewiz/parts/special.py:70
 msgid "Staff"
 msgstr "Notová osnova"
 
-#: frescobaldi_app/scorewiz/parts/special.py:76
+#: ../scorewiz/parts/special.py:76
 msgid "Special"
 msgstr "Speciální"
 
-#: frescobaldi_app/scorewiz/parts/strings.py:41
+#: ../scorewiz/parts/strings.py:41
 msgid "Violin"
 msgstr "Housle"
 
-#: frescobaldi_app/scorewiz/parts/strings.py:45
+#: ../scorewiz/parts/strings.py:45
 msgctxt "abbreviation for Violin"
 msgid "Vl."
 msgstr "Hle."
 
-#: frescobaldi_app/scorewiz/parts/strings.py:53
+#: ../scorewiz/parts/strings.py:53
 msgid "Viola"
 msgstr "Viola"
 
-#: frescobaldi_app/scorewiz/parts/strings.py:57
+#: ../scorewiz/parts/strings.py:57
 msgctxt "abbreviation for Viola"
 msgid "Vla."
 msgstr "Vla."
 
-#: frescobaldi_app/scorewiz/parts/strings.py:67
+#: ../scorewiz/parts/strings.py:67
 msgid "Cello"
 msgstr "Violoncello"
 
-#: frescobaldi_app/scorewiz/parts/strings.py:71
+#: ../scorewiz/parts/strings.py:71
 msgctxt "abbreviation for Cello"
 msgid "Cl."
 msgstr "Vlo."
 
-#: frescobaldi_app/scorewiz/parts/strings.py:81
+#: ../scorewiz/parts/strings.py:81
 msgid "Contrabass"
 msgstr "Kontrabas"
 
-#: frescobaldi_app/scorewiz/parts/strings.py:85
+#: ../scorewiz/parts/strings.py:85
 msgctxt "abbreviation for Contrabass"
 msgid "Cb."
 msgstr "Kbas"
 
-#: frescobaldi_app/scorewiz/parts/strings.py:95
+#: ../scorewiz/parts/strings.py:95
 msgid "Basso Continuo"
 msgstr "Generální bas (Basso continuo)"
 
-#: frescobaldi_app/scorewiz/parts/strings.py:99
+#: ../scorewiz/parts/strings.py:99
 msgctxt "abbreviation for Basso Continuo"
 msgid "B.c."
 msgstr "G. b."
 
-#: frescobaldi_app/scorewiz/parts/strings.py:117
+#: ../scorewiz/parts/strings.py:117
 msgid "Strings"
 msgstr "Smyčcové nástroje"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:65
+#: ../scorewiz/parts/vocal.py:65
 msgid "Stanzas:"
 msgstr "Sloka:"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:66
+#: ../scorewiz/parts/vocal.py:66
 msgid "The number of stanzas."
 msgstr "Počet slok:"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:73
+#: ../scorewiz/parts/vocal.py:73
 msgid "Ambitus"
 msgstr "Hlasový rozsah"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:75
+#: ../scorewiz/parts/vocal.py:75
 msgid "Show the pitch range of the voice at the beginning of the staff."
 msgstr "Ukázat výšku hlasového rozsahu na začátku notové osnovy."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:89
+#: ../scorewiz/parts/vocal.py:89
 msgid "Lyrics follow here."
 msgstr "Zde následují slova písně."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:126
+#: ../scorewiz/parts/vocal.py:126
 msgid "Soprano"
 msgstr "Soprán"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:130
+#: ../scorewiz/parts/vocal.py:130
 msgctxt "abbreviation for Soprano"
 msgid "S."
 msgstr "S."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:136
+#: ../scorewiz/parts/vocal.py:136
 msgid "Mezzo-soprano"
 msgstr "Mezzosoprán"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:140
+#: ../scorewiz/parts/vocal.py:140
 msgctxt "abbreviation for Mezzo-soprano"
 msgid "Ms."
 msgstr "Ms."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:146
+#: ../scorewiz/parts/vocal.py:146
 msgid "Alto"
 msgstr "Alt"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:150
+#: ../scorewiz/parts/vocal.py:150
 msgctxt "abbreviation for Alto"
 msgid "A."
 msgstr "A."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:158
+#: ../scorewiz/parts/vocal.py:158
 msgid "Tenor"
 msgstr "Tenor"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:162
+#: ../scorewiz/parts/vocal.py:162
 msgctxt "abbreviation for Tenor"
 msgid "T."
 msgstr "T."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:175
+#: ../scorewiz/parts/vocal.py:175
 msgctxt "abbreviation for Bass"
 msgid "B."
 msgstr "B."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:184
+#: ../scorewiz/parts/vocal.py:184
 msgid "Lead sheet"
 msgstr "Hlavní list"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:202
+#: ../scorewiz/parts/vocal.py:202
 msgid ""
 "The Lead Sheet provides a staff with chord names above and lyrics below it. "
 "A second staff is optional."
@@ -5341,11 +5291,11 @@ msgstr ""
 "Hlavní list poskytuje notovou osnovu s názvy akordů nad ní a slovy písně pod "
 "ní. Druhá notová osnova je volitelná."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:205
+#: ../scorewiz/parts/vocal.py:205
 msgid "Add accompaniment staff"
 msgstr "Přidat notovou osnovu hudebního doprovodu"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:207
+#: ../scorewiz/parts/vocal.py:207
 msgid ""
 "Adds an accompaniment staff and also puts an accompaniment voice in the "
 "upper staff."
@@ -5353,12 +5303,11 @@ msgstr ""
 "Přidá notovou osnovu hudebního doprovodu a rovněž vloží doprovodný hlas do "
 "horní notové osnovy."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:273
-#: frescobaldi_app/scorewiz/parts/vocal.py:360
+#: ../scorewiz/parts/vocal.py:273 ../scorewiz/parts/vocal.py:360
 msgid "Choir"
 msgstr "Sbor"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:319
+#: ../scorewiz/parts/vocal.py:319
 msgid ""
 "Please select the voices for the choir. Use the letters S, A, T, or B. A "
 "hyphen denotes a new staff."
@@ -5366,31 +5315,31 @@ msgstr ""
 "Vyberte, prosím, hlasy pro sbor. Použijte písmena S, A, T, nebo B. Spojovník "
 "označuje novou notovou osnovu."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:321
+#: ../scorewiz/parts/vocal.py:321
 msgid "Hint: For a double choir you can use two choir parts."
 msgstr "Rada: Můžete použít dva sborové hlasy pro zdvojený sbor."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:322
+#: ../scorewiz/parts/vocal.py:322
 msgid "Voicing:"
 msgstr "Úprava barvy zvuku "
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:323
+#: ../scorewiz/parts/vocal.py:323
 msgid "Lyrics:"
 msgstr "Slova písně:"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:324
+#: ../scorewiz/parts/vocal.py:324
 msgid "Piano reduction"
 msgstr "Klavírní výtah"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:326
+#: ../scorewiz/parts/vocal.py:326
 msgid "Adds an automatically generated piano reduction."
 msgstr "Přidá automaticky vytvořené klavírní výtah."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:327
+#: ../scorewiz/parts/vocal.py:327
 msgid "Rehearsal MIDI files"
 msgstr "Zkušební soubory MIDI"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:329
+#: ../scorewiz/parts/vocal.py:329
 msgid ""
 "Creates a rehearsal MIDI file for every voice, even if no MIDI output is "
 "generated for the main score."
@@ -5398,262 +5347,262 @@ msgstr ""
 "Vytvoří zkušební soubor MIDI pro každý hlas, i když pro hlavní notový zápis "
 "není vytvořen žádný výstup MIDI."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:361
+#: ../scorewiz/parts/vocal.py:361
 msgctxt "abbreviation for Choir"
 msgid "Ch."
 msgstr "Sb."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:612
+#: ../scorewiz/parts/vocal.py:612
 msgid "Rehearsal MIDI files:"
 msgstr "Zkušební soubory MIDI:"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:658
+#: ../scorewiz/parts/vocal.py:658
 msgid "All voices same lyrics"
 msgstr "Všechny pěvecké hlasy mají stejná slova písně"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:659
+#: ../scorewiz/parts/vocal.py:659
 msgid "A set of the same lyrics is placed between all staves."
 msgstr "Soubor stejných slov písně je umístěn mezi všechny notové osnovy."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:660
+#: ../scorewiz/parts/vocal.py:660
 msgid "Every voice same lyrics"
 msgstr "Každý pěvecký hlas má stejná slova písně"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:661
+#: ../scorewiz/parts/vocal.py:661
 msgid ""
 "Every voice gets its own lyrics, using the same text as the other voices."
 msgstr ""
 "Každý pěvecký hlas dostává svá vlastní slova písně za použití stejného "
 "textu, jaký mají jiné pěvecké hlasy."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:663
+#: ../scorewiz/parts/vocal.py:663
 msgid "Every voice different lyrics"
 msgstr "Každý pěvecký hlas má jiná slova písně"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:664
+#: ../scorewiz/parts/vocal.py:664
 msgid "Every voice gets a different set of lyrics."
 msgstr "Každý pěvecký hlas dostává jiný soubor se slovy písně."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:665
+#: ../scorewiz/parts/vocal.py:665
 msgid "Distribute stanzas"
 msgstr "Umístit sloky"
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:666
+#: ../scorewiz/parts/vocal.py:666
 msgid "One set of stanzas is distributed across the staves."
 msgstr "Jeden soubor slok je umístěn mezi všechny notové osnovy."
 
-#: frescobaldi_app/scorewiz/parts/vocal.py:691
+#: ../scorewiz/parts/vocal.py:691
 msgid "Vocal"
 msgstr "Zpěv"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:39
+#: ../scorewiz/parts/woodwind.py:39
 msgid "Flute"
 msgstr "Flétna"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:43
+#: ../scorewiz/parts/woodwind.py:43
 msgctxt "abbreviation for Flute"
 msgid "Fl."
 msgstr "Fl."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:51
+#: ../scorewiz/parts/woodwind.py:51
 msgid "Piccolo"
 msgstr "Pikola"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:55
+#: ../scorewiz/parts/woodwind.py:55
 msgctxt "abbreviation for Piccolo"
 msgid "Pic."
 msgstr "Pik."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:64
+#: ../scorewiz/parts/woodwind.py:64
 msgid "Bass flute"
 msgstr "Basová flétna"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:68
+#: ../scorewiz/parts/woodwind.py:68
 msgctxt "abbreviation for Bass flute"
 msgid "Bfl."
 msgstr "Bs. fl."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:77
+#: ../scorewiz/parts/woodwind.py:77
 msgid "Oboe"
 msgstr "Hoboj"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:81
+#: ../scorewiz/parts/woodwind.py:81
 msgctxt "abbreviation for Oboe"
 msgid "Ob."
 msgstr "Hob."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:89
+#: ../scorewiz/parts/woodwind.py:89
 msgid "Oboe d'amore"
 msgstr "Hoboj d'amore"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:93
+#: ../scorewiz/parts/woodwind.py:93
 msgctxt "abbreviation for Oboe d'amore"
 msgid "Ob.d'am."
 msgstr "Hob. d'am."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:102
+#: ../scorewiz/parts/woodwind.py:102
 msgid "English horn"
 msgstr "Anglický roh"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:106
+#: ../scorewiz/parts/woodwind.py:106
 msgctxt "abbreviation for English horn"
 msgid "Eng.h."
 msgstr "A. roh"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:115
+#: ../scorewiz/parts/woodwind.py:115
 msgid "Bassoon"
 msgstr "Fagot"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:119
+#: ../scorewiz/parts/woodwind.py:119
 msgctxt "abbreviation for Bassoon"
 msgid "Bn."
 msgstr "Fag."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:129
+#: ../scorewiz/parts/woodwind.py:129
 msgid "Contrabassoon"
 msgstr "Kontrafagot"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:133
+#: ../scorewiz/parts/woodwind.py:133
 msgctxt "abbreviation for Contrabassoon"
 msgid "C.Bn."
 msgstr "Kfag."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:144
+#: ../scorewiz/parts/woodwind.py:144
 msgid "Clarinet"
 msgstr "Klarinet"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:148
+#: ../scorewiz/parts/woodwind.py:148
 msgctxt "abbreviation for Clarinet"
 msgid "Cl."
 msgstr "Kl."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:157
+#: ../scorewiz/parts/woodwind.py:157
 msgid "Sopranino Sax"
 msgstr "Sopraninový saxofon"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:161
+#: ../scorewiz/parts/woodwind.py:161
 msgctxt "abbreviation for Sopranino Sax"
 msgid "SiSx."
 msgstr "Snino Sax."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:170
+#: ../scorewiz/parts/woodwind.py:170
 msgid "Soprano Sax"
 msgstr "Sopránový saxofon"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:174
+#: ../scorewiz/parts/woodwind.py:174
 msgctxt "abbreviation for Soprano Sax"
 msgid "SoSx."
 msgstr "Sno Sax."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:183
+#: ../scorewiz/parts/woodwind.py:183
 msgid "Alto Sax"
 msgstr "Altový saxofon"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:187
+#: ../scorewiz/parts/woodwind.py:187
 msgctxt "abbreviation for Alto Sax"
 msgid "ASx."
 msgstr "A. Sax."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:196
+#: ../scorewiz/parts/woodwind.py:196
 msgid "Tenor Sax"
 msgstr "Tenorový saxofon"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:200
+#: ../scorewiz/parts/woodwind.py:200
 msgctxt "abbreviation for Tenor Sax"
 msgid "TSx."
 msgstr "T. Sax."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:209
+#: ../scorewiz/parts/woodwind.py:209
 msgid "Baritone Sax"
 msgstr "Barytonový saxofon"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:213
+#: ../scorewiz/parts/woodwind.py:213
 msgctxt "abbreviation for Baritone Sax"
 msgid "BSx."
 msgstr "Bar. Sax."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:222
+#: ../scorewiz/parts/woodwind.py:222
 msgid "Bass Sax"
 msgstr "Basový saxofon"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:226
+#: ../scorewiz/parts/woodwind.py:226
 msgctxt "abbreviation for Bass Sax"
 msgid "BsSx."
 msgstr "Bas. Sax."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:235
+#: ../scorewiz/parts/woodwind.py:235
 msgid "Soprano recorder"
 msgstr "Sopránová zobcová flétna"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:239
+#: ../scorewiz/parts/woodwind.py:239
 msgctxt "abbreviation for Soprano recorder"
 msgid "S.rec."
 msgstr "S. z. fl."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:248
+#: ../scorewiz/parts/woodwind.py:248
 msgid "Alto recorder"
 msgstr "Altová zobcová flétna"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:252
+#: ../scorewiz/parts/woodwind.py:252
 msgctxt "abbreviation for Alto recorder"
 msgid "A.rec."
 msgstr "A. z. fl."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:260
+#: ../scorewiz/parts/woodwind.py:260
 msgid "Tenor recorder"
 msgstr "Tenorová zobcová flétna"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:264
+#: ../scorewiz/parts/woodwind.py:264
 msgctxt "abbreviation for Tenor recorder"
 msgid "T.rec."
 msgstr "T. z. fl."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:272
+#: ../scorewiz/parts/woodwind.py:272
 msgid "Bass recorder"
 msgstr "Basová zobcová flétna"
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:276
+#: ../scorewiz/parts/woodwind.py:276
 msgctxt "abbreviation for Bass recorder"
 msgid "B.rec."
 msgstr "Bas. z. fl."
 
-#: frescobaldi_app/scorewiz/parts/woodwind.py:285
+#: ../scorewiz/parts/woodwind.py:285
 msgid "Woodwinds"
 msgstr "Dřevěné dechové nástroje"
 
-#: frescobaldi_app/sessions/dialog.py:40
+#: ../sessions/dialog.py:40
 msgid "Manage Sessions"
 msgstr "Spravovat sezení"
 
-#: frescobaldi_app/sessions/dialog.py:109
+#: ../sessions/dialog.py:109
 msgid "Name:"
 msgstr "Název:"
 
-#: frescobaldi_app/sessions/dialog.py:110
+#: ../sessions/dialog.py:110
 msgid "Always save the list of documents in this session"
 msgstr "Vždy uložit seznam dokumentů v tomto sezení"
 
-#: frescobaldi_app/sessions/dialog.py:111
+#: ../sessions/dialog.py:111
 msgid "Base directory:"
 msgstr "Základní adresář:"
 
-#: frescobaldi_app/sessions/dialog.py:133
+#: ../sessions/dialog.py:133
 msgid "Edit session: {name}"
 msgstr "Upravit sezení: {name}"
 
-#: frescobaldi_app/sessions/dialog.py:137
+#: ../sessions/dialog.py:137
 msgid "Edit new session"
 msgstr "Upravit nové sezení"
 
-#: frescobaldi_app/sessions/dialog.py:166
+#: ../sessions/dialog.py:166
 msgid "Please enter a session name."
 msgstr "Zadejte, prosím, název sezení."
 
-#: frescobaldi_app/sessions/dialog.py:174
+#: ../sessions/dialog.py:174
 msgid "Please do not use the name '{name}'."
 msgstr "Nepoužívejte, prosím, název '{name}'."
 
-#: frescobaldi_app/sessions/dialog.py:180
+#: ../sessions/dialog.py:180
 msgid ""
 "Another session with the name {name} already exists.\n"
 "\n"
@@ -5663,178 +5612,178 @@ msgstr ""
 "\n"
 "Chcete je přepsat?"
 
-#: frescobaldi_app/sessions/dialog.py:183
+#: ../sessions/dialog.py:183
 msgid "Overwrite"
 msgstr "Přepsat"
 
-#: frescobaldi_app/sessions/manager.py:127
+#: ../sessions/manager.py:127
 msgctxt "New Session"
 msgid "&New..."
 msgstr "&Nové..."
 
-#: frescobaldi_app/sessions/manager.py:129
+#: ../sessions/manager.py:129
 msgid "&Manage..."
 msgstr "&Spravovat..."
 
-#: frescobaldi_app/sessions/manager.py:130
+#: ../sessions/manager.py:130
 msgid "No Session"
 msgstr "Žádné sezení"
 
-#: frescobaldi_app/sessions/menu.py:55
+#: ../sessions/menu.py:55
 msgctxt "menu title"
 msgid "&Session"
 msgstr "&Sezení"
 
-#: frescobaldi_app/sidebar/__init__.py:140
+#: ../sidebar/__init__.py:140
 #, fuzzy
 msgid "&Line Numbers"
 msgstr "Číslo struny"
 
-#: frescobaldi_app/snippet/builtin.py:38
+#: ../snippet/builtin.py:38
 msgid "Blank Line"
 msgstr "Prázdný řádek"
 
-#: frescobaldi_app/snippet/builtin.py:44
+#: ../snippet/builtin.py:44
 msgid "Single Typographical Quotes"
 msgstr "Jednoduché typografické uvozovky"
 
-#: frescobaldi_app/snippet/builtin.py:49
+#: ../snippet/builtin.py:49
 msgid "Double Typographical Quotes"
 msgstr "Dvojité typografické uvozovky"
 
-#: frescobaldi_app/snippet/builtin.py:115
+#: ../snippet/builtin.py:115
 msgid "Tuplets"
 msgstr "Rytmické notové skupiny"
 
-#: frescobaldi_app/snippet/builtin.py:125
+#: ../snippet/builtin.py:125
 msgid "Modern 2/2 Time Signature"
 msgstr "Moderní 2/2 taktové označení"
 
-#: frescobaldi_app/snippet/builtin.py:131
+#: ../snippet/builtin.py:131
 msgid "Modern 4/4 Time Signature"
 msgstr "Moderní 4/4 taktové označení"
 
-#: frescobaldi_app/snippet/builtin.py:137
+#: ../snippet/builtin.py:137
 msgid "Tactus Time Signature (number with note)"
 msgstr "Taktové označení Tactus (číslo s notou)"
 
-#: frescobaldi_app/snippet/builtin.py:148
+#: ../snippet/builtin.py:148
 msgid "LilyPond Version"
 msgstr "Verze LilyPondu"
 
-#: frescobaldi_app/snippet/builtin.py:159
+#: ../snippet/builtin.py:159
 msgid "Relative Music"
 msgstr "Poměrné noty"
 
-#: frescobaldi_app/snippet/builtin.py:176
+#: ../snippet/builtin.py:176
 msgid "Upper case selection"
 msgstr "Výběr velkých písmen"
 
-#: frescobaldi_app/snippet/builtin.py:182
+#: ../snippet/builtin.py:182
 msgid "Lower case selection"
 msgstr "Výběr malých písmen"
 
-#: frescobaldi_app/snippet/builtin.py:188
+#: ../snippet/builtin.py:188
 msgid "Title case selection"
 msgstr "Výběr velikosti názvu"
 
-#: frescobaldi_app/snippet/builtin.py:199
+#: ../snippet/builtin.py:199
 msgid "Markup lines"
 msgstr "Značení řádků"
 
-#: frescobaldi_app/snippet/builtin.py:207
+#: ../snippet/builtin.py:207
 msgid "Markup column"
 msgstr "Značení sloupce"
 
-#: frescobaldi_app/snippet/builtin.py:212
+#: ../snippet/builtin.py:212
 msgid "Tagline with date and LilyPond version"
 msgstr "Heslo s datem a verzí LilyPondu."
 
-#: frescobaldi_app/snippet/builtin.py:222
+#: ../snippet/builtin.py:222
 msgid "Header Template"
 msgstr "Předloha hlavičky"
 
-#: frescobaldi_app/snippet/builtin.py:237
+#: ../snippet/builtin.py:237
 msgid "No Tagline"
 msgstr "Žádné heslo"
 
-#: frescobaldi_app/snippet/builtin.py:245
+#: ../snippet/builtin.py:245
 msgid "No Barnumbers"
 msgstr "Žádná čísla taktů"
 
-#: frescobaldi_app/snippet/builtin.py:255
+#: ../snippet/builtin.py:255
 msgid "Midi Tempo"
 msgstr "Tempo MIDI"
 
-#: frescobaldi_app/snippet/builtin.py:265
+#: ../snippet/builtin.py:265
 msgid "Staff Size"
 msgstr "Velikost notové osnovy"
 
-#: frescobaldi_app/snippet/builtin.py:322
+#: ../snippet/builtin.py:322
 msgid "Uncomment"
 msgstr "Zrušit poznámku"
 
-#: frescobaldi_app/snippet/builtin.py:365
+#: ../snippet/builtin.py:365
 msgid "A5 Paper"
 msgstr "Papír A5"
 
-#: frescobaldi_app/snippet/builtin.py:373
+#: ../snippet/builtin.py:373
 msgid "Document Fonts..."
 msgstr "Písma v dokumentu..."
 
-#: frescobaldi_app/snippet/builtin.py:401
+#: ../snippet/builtin.py:401
 msgid "Last note or chord"
 msgstr "Poslední nota nebo akord"
 
-#: frescobaldi_app/snippet/builtin.py:482
+#: ../snippet/builtin.py:482
 msgid "Color"
 msgstr "Barva"
 
-#: frescobaldi_app/snippet/builtin.py:519
+#: ../snippet/builtin.py:519
 msgid "Basic Leadsheet"
 msgstr "Základní vzorový list"
 
-#: frescobaldi_app/snippet/builtin.py:563
+#: ../snippet/builtin.py:563
 msgid "Choir Hymn"
 msgstr "Sborový chvalozpěv"
 
-#: frescobaldi_app/snippet/edit.py:118 frescobaldi_app/snippet/insert.py:223
+#: ../snippet/edit.py:118 ../snippet/insert.py:223
 msgid "Edit Snippet"
 msgstr "Upravit kousek"
 
-#: frescobaldi_app/snippet/edit.py:118
+#: ../snippet/edit.py:118
 msgid "New Snippet"
 msgstr "Nový kousek"
 
-#: frescobaldi_app/snippet/edit.py:120
+#: ../snippet/edit.py:120
 msgid "Snippet Text:"
 msgstr "Text kousku:"
 
-#: frescobaldi_app/snippet/edit.py:121
+#: ../snippet/edit.py:121
 msgid "Title:"
 msgstr "Název:"
 
-#: frescobaldi_app/snippet/edit.py:122
+#: ../snippet/edit.py:122
 msgid "Shortcut:"
 msgstr "Zkratka:"
 
-#: frescobaldi_app/snippet/edit.py:133
+#: ../snippet/edit.py:133
 msgid "Click to change the keyboard shortcut."
 msgstr "Klepněte pro změnu klávesové zkratky."
 
-#: frescobaldi_app/snippet/edit.py:138
+#: ../snippet/edit.py:138
 msgid "Empty Snippet"
 msgstr "Prázdný kousek"
 
-#: frescobaldi_app/snippet/edit.py:138
+#: ../snippet/edit.py:138
 msgid "A snippet can't be empty."
 msgstr "Kousek nemůže být prázdný."
 
-#: frescobaldi_app/snippet/edit.py:200
+#: ../snippet/edit.py:200
 msgid "Snippet editor"
 msgstr "Editor kousku"
 
-#: frescobaldi_app/snippet/edit.py:205
+#: ../snippet/edit.py:205
 msgid ""
 "<p>Here you can edit the text of the snippet.</p><p>If you start the first "
 "line(s) with '<code>-*- </code>' (note the space), the remainder of that line"
@@ -5847,12 +5796,12 @@ msgstr ""
 "proměnné jako <code>name: value;</code> nebo jednoduše <code>name;</code>, "
 "což ovlivní chování kousku. Lze použít následující proměnné:</p>"
 
-#: frescobaldi_app/snippet/edit.py:214
+#: ../snippet/edit.py:214
 msgid "Place the snippet in the insert menu, grouped by the (optional) value."
 msgstr ""
 "Zařadit kousek do nabídky pro vložení, seskupeno podle (volitelné) hodnoty."
 
-#: frescobaldi_app/snippet/edit.py:216
+#: ../snippet/edit.py:216
 msgid ""
 "Place the snippet in the menu {file_new_from_template}, grouped by the "
 "(optional) value. When triggered via the menu, the snippet is inserted into "
@@ -5862,29 +5811,29 @@ msgstr ""
 "(volitelné) hodnoty. Když je vyvolán přes nabídku, kousek je vložen do "
 "nového dokumentu."
 
-#: frescobaldi_app/snippet/edit.py:220
+#: ../snippet/edit.py:220
 msgctxt "menu title"
 msgid "File"
 msgstr "Soubor"
 
-#: frescobaldi_app/snippet/edit.py:221
+#: ../snippet/edit.py:221
 msgctxt "menu subtitle"
 msgid "New from Template"
 msgstr "Nový z předlohy"
 
-#: frescobaldi_app/snippet/edit.py:223
+#: ../snippet/edit.py:223
 msgid "The mnemonic to type to select the snippet."
 msgstr "Pomůcka pro zapamatování k napsání pro výběr kousku."
 
-#: frescobaldi_app/snippet/edit.py:225
+#: ../snippet/edit.py:225
 msgid "Do not auto-indent the snippet after inserting."
 msgstr "Neodsazovat kousek po vložení automaticky."
 
-#: frescobaldi_app/snippet/edit.py:227
+#: ../snippet/edit.py:227
 msgid "The icon to show in menu and snippet list."
 msgstr "Ikona k ukázání v nabídce a v seznamu kousků."
 
-#: frescobaldi_app/snippet/edit.py:229
+#: ../snippet/edit.py:229
 msgid ""
 "The symbol to show in menu and snippet list. Symbols are icons that use the "
 "default text color and can be found in {directory}."
@@ -5892,27 +5841,27 @@ msgstr ""
 "Symbol k ukázání v nabídce a v seznamu kousků. Symboly jsou ikony, které "
 "používají výchozí barvu textu a lze je najít v {directory}."
 
-#: frescobaldi_app/snippet/edit.py:233
+#: ../snippet/edit.py:233
 msgid "Execute the snippet as a Python script. See {link}."
 msgstr "Spustit kousek jako pythonovský skript. Podívejte se na {link}."
 
-#: frescobaldi_app/snippet/edit.py:236
+#: ../snippet/edit.py:236
 msgid "One of more of the following words (separated with spaces or commas):"
 msgstr "Jedno z více následujících slov (oddělených mezerami nebo čárkami):"
 
-#: frescobaldi_app/snippet/edit.py:239
+#: ../snippet/edit.py:239
 msgid "Requires text to be selected."
 msgstr "Vyžaduje, aby byl vybrán text."
 
-#: frescobaldi_app/snippet/edit.py:241
+#: ../snippet/edit.py:241
 msgid "Adjusts the selection to not include starting and trialing whitespace."
 msgstr "Upraví výběr, aby nezahrnoval prázdná místa na začátku a na konci."
 
-#: frescobaldi_app/snippet/edit.py:243
+#: ../snippet/edit.py:243
 msgid "Selects all inserted text."
 msgstr "Vybere všechen vložený text."
 
-#: frescobaldi_app/snippet/edit.py:249
+#: ../snippet/edit.py:249
 msgid ""
 "<p>The other lines of the snippet define the text to be inserted in the "
 "editor. Here, you can insert variables prefixed with a $. A double $ will be "
@@ -5922,11 +5871,11 @@ msgstr ""
 "proměnné uvozené znakem $. Zdvojený $ bude nahrazen jedním. Jsou uznávány "
 "následující proměnné:</p>"
 
-#: frescobaldi_app/snippet/edit.py:265
+#: ../snippet/edit.py:265
 msgid "Python Snippets"
 msgstr "Kousky v Pythonu"
 
-#: frescobaldi_app/snippet/edit.py:270
+#: ../snippet/edit.py:270
 msgid ""
 "<p>Python snippets can read and should set the variable {text}. The variable "
 "{text} contains the currently selected text (which may be an empty string).</"
@@ -5939,11 +5888,11 @@ msgstr ""
 "<p>Můžete nastavit {text} na řetězec nebo seznam řetězců.</p>\n"
 "<p>Další proměnné, na něž lze odkazovat:</p>"
 
-#: frescobaldi_app/snippet/edit.py:278
+#: ../snippet/edit.py:278
 msgid "A list of strings describing the type of text the cursor is at."
 msgstr "Seznam řetězců popisující typ textu, na něm stojí ukazovátko."
 
-#: frescobaldi_app/snippet/edit.py:280
+#: ../snippet/edit.py:280
 msgid ""
 "The current QTextCursor, giving access to the document. Don't change the "
 "document through the cursor, however."
@@ -5951,7 +5900,7 @@ msgstr ""
 "Nynější QTextCursor dávající přístup k dokumentu. Nicméně neměňte dokument "
 "přes ukazovátko."
 
-#: frescobaldi_app/snippet/edit.py:283
+#: ../snippet/edit.py:283
 msgid ""
 "When setting {text} to a list instead of a string, you can use this value to "
 "specify the place the text cursor will be placed after inserting the snippet."
@@ -5960,7 +5909,7 @@ msgstr ""
 "použít pro určení místa, na něž bude ukazovátko textu umístěno po vložení "
 "kousku."
 
-#: frescobaldi_app/snippet/edit.py:287
+#: ../snippet/edit.py:287
 msgid ""
 "When setting {text} to a list instead of a string, this value can be used "
 "together with {cursor} to select text when inserting the string parts of the "
@@ -5970,87 +5919,86 @@ msgstr ""
 "společně s {cursor} pro výběr textu, když jsou vkládány části seznamu s "
 "řetězci."
 
-#: frescobaldi_app/snippet/edit.py:292
+#: ../snippet/edit.py:292
 msgid ""
 "When you define a function with this name, it is called without arguments, "
 "instead of inserting the text from the {text} variable. In this case you may "
 "alter the document through the {cursor}."
 msgstr ""
 
-#: frescobaldi_app/snippet/expand.py:76
+#: ../snippet/expand.py:76
 msgid "The current date in YYYY-MM-DD format."
 msgstr "Nynější datum ve formátu RRRR-MM-DD."
 
-#: frescobaldi_app/snippet/expand.py:80
+#: ../snippet/expand.py:80
 msgid "The version of the default LilyPond program."
 msgstr "Verze výchozího programu LilyPond."
 
-#: frescobaldi_app/snippet/expand.py:84
+#: ../snippet/expand.py:84
 msgid "The version of Frescobaldi."
 msgstr "Verze Frescobaldi."
 
-#: frescobaldi_app/snippet/expand.py:88
+#: ../snippet/expand.py:88
 msgid "The URL of the current document."
 msgstr "Adresa (URL) nynějšího dokumentu."
 
-#: frescobaldi_app/snippet/expand.py:92
+#: ../snippet/expand.py:92
 msgid "The full local filename of the current document."
 msgstr "Úplný místní souborový název nynějšího dokumentu."
 
-#: frescobaldi_app/snippet/expand.py:96
+#: ../snippet/expand.py:96
 msgid "The name of the current document."
 msgstr "Název nynějšího dokumentu."
 
-#: frescobaldi_app/snippet/expand.py:100
+#: ../snippet/expand.py:100
 msgid "Moves the text cursor here after insert."
 msgstr "Přesune ukazovátko textu po vložení sem."
 
-#: frescobaldi_app/snippet/expand.py:104
+#: ../snippet/expand.py:104
 msgid ""
 "Selects text from here to the position given using the <code>$CURSOR</code> "
 "variable"
 msgstr "Vybere text odtud po místo dané pomocí proměnné <code>$CURSOR</code>"
 
-#: frescobaldi_app/snippet/expand.py:108
+#: ../snippet/expand.py:108
 msgid "The selected text if available. If not, the text cursor is moved here."
 msgstr ""
 "Vybraný text, je-li dostupný. Pokud není, ukazovátko textu je přesunuto sem."
 
-#: frescobaldi_app/snippet/import_export.py:102
+#: ../snippet/import_export.py:102
 msgid "No snippets found."
 msgstr "Nenalezeny žádné kousky."
 
-#: frescobaldi_app/snippet/import_export.py:111
-#: frescobaldi_app/snippet/widget.py:266
+#: ../snippet/import_export.py:111 ../snippet/widget.py:266
 msgctxt "dialog title"
 msgid "Import Snippets"
 msgstr "Zavést kousky"
 
-#: frescobaldi_app/snippet/import_export.py:119
+#: ../snippet/import_export.py:119
 msgid "New Snippets"
 msgstr "Nové kousky"
 
-#: frescobaldi_app/snippet/import_export.py:120
+#: ../snippet/import_export.py:120
 msgid "Updated Snippets"
 msgstr "Aktualizované kousky"
 
-#: frescobaldi_app/snippet/import_export.py:121
+#: ../snippet/import_export.py:121
 msgid "Unchanged Snippets"
 msgstr "Nezměněné kousky"
 
-#: frescobaldi_app/snippet/import_export.py:183
+#: ../snippet/import_export.py:183
 msgid "Import Keyboard Shortcuts"
 msgstr "Zavést klávesové zkratky"
 
-#: frescobaldi_app/snippet/import_export.py:188
+#: ../snippet/import_export.py:188
 msgid "Choose which snippets you want to import:"
 msgstr "Vyberte, prosím, kousky, které si přejete zavést:"
 
-#: frescobaldi_app/snippet/import_export.py:190
+#: ../snippet/import_export.py:190
 msgid "There are no new or updated snippets in the file."
 msgstr "V souboru nejsou žádné nové nebo aktualizované kousky."
 
-#: frescobaldi_app/snippet/import_export.py:194
+#: ../snippet/import_export.py:194
 msgid ""
 "<p>Here the snippets from {filename} are displayed.</p>\n"
 "<p>If there are new or updated snippets, you can select or deselect them one "
@@ -6065,110 +6013,107 @@ msgstr ""
 "kousků.</p>\n"
 "<p>Stávající, nezměněné kousky nelze zavést.</p>\n"
 
-#: frescobaldi_app/snippet/insert.py:221
+#: ../snippet/insert.py:221
 msgid "Snippet error"
 msgstr "Chyba kousku"
 
-#: frescobaldi_app/snippet/menu.py:117
+#: ../snippet/menu.py:117
 msgid "&Insert"
 msgstr "&Vložka"
 
-#: frescobaldi_app/snippet/menu.py:142
+#: ../snippet/menu.py:142
 msgid "New from &Template"
 msgstr "Nový z &předlohy"
 
-#: frescobaldi_app/snippet/model.py:59
+#: ../snippet/model.py:59
 msgid "Name"
 msgstr "Název"
 
-#: frescobaldi_app/snippet/model.py:61
+#: ../snippet/model.py:61
 msgid "Description"
 msgstr "Popis"
 
-#: frescobaldi_app/snippet/template.py:33
+#: ../snippet/template.py:33
 msgid "Save as Template"
 msgstr "Uložit jako předlohu"
 
-#: frescobaldi_app/snippet/template.py:34
+#: ../snippet/template.py:34
 msgid "Please enter a template name:"
 msgstr "Zadejte, prosím, název předlohy:"
 
-#: frescobaldi_app/snippet/tool.py:54 frescobaldi_app/snippet/tool.py:130
-#: frescobaldi_app/snippet/widget.py:367
+#: ../snippet/tool.py:54 ../snippet/tool.py:130 ../snippet/widget.py:367
 msgid "Snippets"
 msgstr "Kousky"
 
-#: frescobaldi_app/snippet/tool.py:55
+#: ../snippet/tool.py:55
 msgid "&Snippets"
 msgstr "&Kousky"
 
-#: frescobaldi_app/snippet/tool.py:89
+#: ../snippet/tool.py:89
 msgid "Save as Template..."
 msgstr "Uložit jako předlohu..."
 
-#: frescobaldi_app/snippet/tool.py:90
+#: ../snippet/tool.py:90
 msgid "Manage Templates..."
 msgstr "Spravovat předlohy..."
 
-#: frescobaldi_app/snippet/tool.py:91
+#: ../snippet/tool.py:91
 msgid "&Snippets..."
 msgstr "&Kousky..."
 
-#: frescobaldi_app/snippet/widget.py:172
+#: ../snippet/widget.py:172
 msgid "&Menu"
 msgstr "&Nabídka"
 
-#: frescobaldi_app/snippet/widget.py:173
-#: frescobaldi_app/widgets/listedit.py:91
+#: ../snippet/widget.py:173 ../widgets/listedit.py:91
 msgid "&Add..."
 msgstr "&Přidat..."
 
-#: frescobaldi_app/snippet/widget.py:175
+#: ../snippet/widget.py:175
 msgid "Add a new snippet. ({key})"
 msgstr "Přidat nový kousek. ({key})"
 
-#: frescobaldi_app/snippet/widget.py:176
-#: frescobaldi_app/widgets/listedit.py:92
+#: ../snippet/widget.py:176 ../widgets/listedit.py:92
 msgid "&Edit..."
 msgstr "&Upravit..."
 
-#: frescobaldi_app/snippet/widget.py:178
+#: ../snippet/widget.py:178
 msgid "Edit the current snippet. ({key})"
 msgstr "Upravit nynější kousek. ({key})"
 
-#: frescobaldi_app/snippet/widget.py:180
+#: ../snippet/widget.py:180
 msgid "Remove the selected snippets."
 msgstr "Odstranit vybrané kousky."
 
-#: frescobaldi_app/snippet/widget.py:181
+#: ../snippet/widget.py:181
 msgid "A&pply"
 msgstr "&Použít"
 
-#: frescobaldi_app/snippet/widget.py:182
+#: ../snippet/widget.py:182
 msgid "Apply the current snippet."
 msgstr "Použít nynější kousek."
 
-#: frescobaldi_app/snippet/widget.py:183
+#: ../snippet/widget.py:183
 msgid "&Import..."
 msgstr "&Zavést..."
 
-#: frescobaldi_app/snippet/widget.py:184
+#: ../snippet/widget.py:184
 msgid "Import snippets from a file."
 msgstr "Zavést kousky ze souboru."
 
-#: frescobaldi_app/snippet/widget.py:185
+#: ../snippet/widget.py:185
 msgid "E&xport..."
 msgstr "&Vyvést..."
 
-#: frescobaldi_app/snippet/widget.py:186
+#: ../snippet/widget.py:186
 msgid "Export snippets to a file."
 msgstr "Vyvést kousky do souboru."
 
-#: frescobaldi_app/snippet/widget.py:187
+#: ../snippet/widget.py:187
 msgid "&Help"
 msgstr "&Nápověda"
 
-#: frescobaldi_app/snippet/widget.py:189
+#: ../snippet/widget.py:189
 msgid ""
 "Enter text to search in the snippets list.\n"
 "See \"What's This\" for more information."
@@ -6176,7 +6121,7 @@ msgstr ""
 "Zadejte text k hledání v seznamu kousků.\n"
 "Pro další informace se podívejte na \"Co je toto\"."
 
-#: frescobaldi_app/snippet/widget.py:192
+#: ../snippet/widget.py:192
 msgid ""
 "Enter text to search in the snippets list, and press Enter to apply the "
 "currently selected snippet."
@@ -6184,7 +6129,7 @@ msgstr ""
 "Zadejte text k hledání v seznamu kousků a stiskněte klávesu Enter pro "
 "použití nyní vybraného kousku."
 
-#: frescobaldi_app/snippet/widget.py:194
+#: ../snippet/widget.py:194
 msgid ""
 "If the search text fully matches the value of the '{name}' variable of a "
 "snippet, that snippet is selected."
@@ -6192,7 +6137,7 @@ msgstr ""
 "Pokud hledaný text plně odpovídá hodnotě proměnné kousku '{name}', je vybrán "
 "tento kousek."
 
-#: frescobaldi_app/snippet/widget.py:196
+#: ../snippet/widget.py:196
 msgid ""
 "If the search text starts with a colon ':', the rest of the search text "
 "filters snippets that define the given variable. After a space a value can "
@@ -6204,7 +6149,7 @@ msgstr ""
 "kousky pak budou odpovídat, pokud hodnota dané proměnné obsahuje text po "
 "mezeře."
 
-#: frescobaldi_app/snippet/widget.py:201
+#: ../snippet/widget.py:201
 msgid ""
 "E.g. entering {menu} will show all snippets that are displayed in the insert "
 "menu."
@@ -6212,11 +6157,11 @@ msgstr ""
 "Např. zadání {menu} ukáže všechny kousky, které jsou vloženy v nabídce pro "
 "vkládání."
 
-#: frescobaldi_app/snippet/widget.py:265 frescobaldi_app/snippet/widget.py:282
+#: ../snippet/widget.py:265 ../snippet/widget.py:282
 msgid "XML Files"
 msgstr "Soubory XML"
 
-#: frescobaldi_app/snippet/widget.py:285
+#: ../snippet/widget.py:285
 msgctxt "dialog title"
 msgid "Export {num} Snippet"
 msgid_plural "Export {num} Snippets"
@@ -6224,7 +6169,7 @@ msgstr[0] "Vyvést {num}kousek"
 msgstr[1] "Vyvést {num}kousky"
 msgstr[2] "Vyvést {num}kousků"
 
-#: frescobaldi_app/snippet/widget.py:373
+#: ../snippet/widget.py:373
 msgid ""
 "<p>\n"
 "With the snippets manager you can store often used pieces of text called\n"
@@ -6294,88 +6239,87 @@ msgstr ""
 "skripty napsanými v Pythonu.\n"
 "</p>\n"
 
-#: frescobaldi_app/snippet/widget.py:405
+#: ../snippet/widget.py:405
 msgctxt "menu title"
 msgid "Insert"
 msgstr "Vložka"
 
-#: frescobaldi_app/snippet/widget.py:405
+#: ../snippet/widget.py:405
 msgid "Snippets..."
 msgstr "Kousky..."
 
-#: frescobaldi_app/widgets/keysequencewidget.py:60
+#: ../widgets/keysequencewidget.py:60
 msgid "Start recording a key sequence."
 msgstr "Začít nahrávání řady kláves."
 
-#: frescobaldi_app/widgets/keysequencewidget.py:61
+#: ../widgets/keysequencewidget.py:61
 msgid "Clear the key sequence."
 msgstr "Smazat řadu kláves."
 
-#: frescobaldi_app/widgets/keysequencewidget.py:115
+#: ../widgets/keysequencewidget.py:115
 msgid "Input"
 msgstr "Vstup"
 
-#: frescobaldi_app/widgets/schemeselector.py:47
-#: frescobaldi_app/widgets/schemeselector.py:62
+#: ../widgets/schemeselector.py:47 ../widgets/schemeselector.py:62
 msgid "Scheme:"
 msgstr "Schéma:"
 
-#: frescobaldi_app/widgets/schemeselector.py:63
+#: ../widgets/schemeselector.py:63
 msgctxt "New Scheme"
 msgid "&New..."
 msgstr "&Nové..."
 
-#: frescobaldi_app/widgets/schemeselector.py:93
+#: ../widgets/schemeselector.py:93
 msgid "Please enter a name for the new scheme:"
 msgstr "Zadejte, prosím, název pro nový schéma:"
 
-#: frescobaldi_app/widgets/shortcuteditdialog.py:94
+#: ../widgets/shortcuteditdialog.py:94
 msgctxt "window title"
 msgid "Edit Shortcut"
 msgstr "Upravit zkratku"
 
-#: frescobaldi_app/widgets/shortcuteditdialog.py:95
+#: ../widgets/shortcuteditdialog.py:95
 msgid "&No shortcut"
 msgstr "Žá&dná zkratka"
 
-#: frescobaldi_app/widgets/shortcuteditdialog.py:96
+#: ../widgets/shortcuteditdialog.py:96
 msgid "Use a &custom shortcut:"
 msgstr "Použít &vlastní zkratku:"
 
-#: frescobaldi_app/widgets/shortcuteditdialog.py:98
+#: ../widgets/shortcuteditdialog.py:98
 msgid "Alternative #{num}:"
 msgstr "Náhradní #{num}:"
 
-#: frescobaldi_app/widgets/shortcuteditdialog.py:98
+#: ../widgets/shortcuteditdialog.py:98
 msgid "Primary shortcut:"
 msgstr "Základní zkratka:"
 
-#: frescobaldi_app/widgets/shortcuteditdialog.py:109
+#: ../widgets/shortcuteditdialog.py:109
 msgid "Here you can edit the shortcuts for {name}"
 msgstr "Zde můžete upravit zkratky pro {name}"
 
-#: frescobaldi_app/widgets/shortcuteditdialog.py:127
+#: ../widgets/shortcuteditdialog.py:127
 msgctxt "no keyboard shortcut"
 msgid "none"
 msgstr "Žádná"
 
-#: frescobaldi_app/widgets/shortcuteditdialog.py:128
+#: ../widgets/shortcuteditdialog.py:128
 msgid "Use &default shortcut ({name})"
 msgstr "Použít &výchozí zkratku ({name})"
 
-#: frescobaldi_app/widgets/tempobutton.py:51
+#: ../widgets/tempobutton.py:51
 msgid "The tempo is set as you click this button."
 msgstr "Tempo je nastaveno, když klepnete na toto tlačítko."
 
-#: frescobaldi_app/widgets/urlrequester.py:65
+#: ../widgets/urlrequester.py:65
 msgid "Open file dialog"
 msgstr "Otevřít souborový dialog"
 
-#: frescobaldi_app/widgets/urlrequester.py:109
+#: ../widgets/urlrequester.py:109
 msgid "Select a directory"
 msgstr "Vybrat adresář"
 
-#: frescobaldi_app/widgets/urlrequester.py:111
+#: ../widgets/urlrequester.py:111
 msgid "Select a file"
 msgstr "Vybrat soubor"
 
@@ -6514,9 +6458,6 @@ msgstr "Vybrat soubor"
 
 #~ msgid "No files to print"
 #~ msgstr "Žádné soubory k tisku"
-
-#~ msgid "Email documents"
-#~ msgstr "E-mailové dokumenty"
 
 #~ msgid "Please select the files you want to send:"
 #~ msgstr "Vyberte, prosím, soubory, které si přejete odeslat:"

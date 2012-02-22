@@ -14,7 +14,7 @@ Changes in 2.0.4 --
 * Improvements:
   - opening many documents (e.g. a large session) much faster
 * Bug fixes:
-  - fixed memory leak (closed documents remained in memory)
+  - fixed memory leak (closed documents that had been shown remained in memory)
 
 
 Changes in 2.0.3 -- February 17th, 2012

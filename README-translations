@@ -1,11 +1,12 @@
 README for developers and translators
 =====================================
 
-Frescobaldi is translated using GNU Gettext. The 'update-pot.py' script creates
-a POT file from all the Python source files. The POT file is written in the top
-directory of the Frescobaldi package as 'frescobaldi.pot'.
+Frescobaldi is translated using GNU Gettext.
 
-The PO files live in frescobaldi_app/po/.
+The translations (in PO files) and the template file ('frescobaldi.pot') live in
+the frescobaldi_app/po directory. The 'update-pot.py' script creates a POT file
+from all the Python source files. This script must be run if new translatable
+strings are added to Frescobaldi.
 
 
 For developers:
@@ -54,11 +55,11 @@ You should create or update a PO file for your language.
 If you want to translate Frescobaldi to your current locale, simply enter:
 
 $ cd frescobaldi_app/po/
-$ msginit -i ../../frescobaldi.pot
+$ msginit -i frescobaldi.pot
 
 otherwise specify the desired language with:
 
-$ msginit -i ../../frescobaldi.pot -l xx_CC
+$ msginit -i frescobaldi.pot -l xx_CC
 
 where 'xx_CC' is e.g. 'nl_NL' (or simply 'nl').
 
