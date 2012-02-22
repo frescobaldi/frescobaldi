@@ -53,7 +53,7 @@ class Signal(object):
     >>> o = MyObject()
     >>> o.somethingChanged.connect(receiver)
     >>> o.doSomething()
-    Hi there!
+    Received message: Hi there!
     
     A Signal() can be used directly or as a class attribute, but can also be
     accessed as an attribute of an instance, in which case it creates a Signal
