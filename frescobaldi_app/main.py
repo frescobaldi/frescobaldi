@@ -39,6 +39,7 @@ import info             # Information about our application
 import app              # Construct QApplication
 import guistyle         # Setup GUI style
 import po.setup         # Setup language
+import splashscreen     # Splash screen
 import mainwindow       # contains MainWindow class
 import session          # Initialize QSessionManager support
 import sessions         # Initialize our own named session support

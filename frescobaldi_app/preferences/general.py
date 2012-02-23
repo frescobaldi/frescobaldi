@@ -71,6 +71,8 @@ class General(preferences.Group):
         
         self.systemIcons = QCheckBox(toggled=self.changed)
         grid.addWidget(self.systemIcons, 2, 0, 1, 3)
+        self.splashScreen = QCheckBox(toggled=self.changed)
+        grid.addWidget(self.splashScreen, 3, 0, 1, 3)
         
         grid.setColumnStretch(2, 1)
         
@@ -105,11 +107,13 @@ class General(preferences.Group):
             index = 0
         self.styleCombo.setCurrentIndex(index)
         self.systemIcons.setChecked(s.value("system_icons", True) not in (False, "false"))
+        self.splashScreen.setChecked(s.value("splash_screen", True) not in (False, "false"))
     
     def saveSettings(self):
         s = QSettings()
         s.setValue("language", self._langs[self.lang.currentIndex()])
         s.setValue("system_icons", self.systemIcons.isChecked())
+        s.setValue("splash_screen", self.splashScreen.isChecked())
         if self.styleCombo.currentIndex() == 0:
             s.remove("guistyle")
         else:
@@ -127,6 +131,7 @@ class General(preferences.Group):
             "If checked, icons of the desktop icon theme "
             "will be used instead of the bundled icons.\n"
             "This setting takes effect on the next start of {appname}.").format(appname=info.appname))
+        self.splashScreen.setText(_("Show Splash Screen on Startup"))
 
 
 class StartSession(preferences.Group):
