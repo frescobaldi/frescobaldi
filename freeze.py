@@ -108,20 +108,8 @@ copy_plugins('imageformats')
 copy_plugins('iconengines')
 
 # copy the frescobaldi_app directory
-f_app = os.path.join(target_dir, 'frescobaldi_app')
-shutil.rmtree(f_app, ignore_errors=True)
-shutil.copytree('frescobaldi_app', f_app, ignore=shutil.ignore_patterns('*~'))
-
-# bytecompile frescobaldi_app
-current_dir = os.getcwd()
-os.chdir(target_dir)
-for root, dirs, files in os.walk('frescobaldi_app'):
-    for f in files:
-        if f.endswith('.py'):
-            f = os.path.join(root, f)
-            sys.stdout.write('Byte-compiling %s\n' % f)
-            py_compile.compile(f)
-os.chdir(current_dir)
+subprocess.call([sys.executable, 'setup.py', 'build_py',
+	'--build-lib', target_dir, '--compile'])
 
 # make an Inno Setup installer
 inno_script = b'''
