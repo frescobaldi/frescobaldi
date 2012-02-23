@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-02-22 20:34+0100\n"
-"PO-Revision-Date: 2012-02-22 20:12+0100\n"
+"POT-Creation-Date: 2012-02-23 18:16+0100\n"
+"PO-Revision-Date: 2012-02-23 18:17+0100\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -78,7 +78,7 @@ msgstr "Besturingssysteem"
 msgid "Version {version}"
 msgstr "Versie {version}"
 
-#: ../about.py:152 ../main.py:59
+#: ../about.py:152 ../main.py:60
 msgid "A LilyPond Music Editor"
 msgstr "Een muziek-editor voor LilyPond"
 
@@ -272,7 +272,7 @@ msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr ""
 "Geef de naam van de variabele om de geselecteerde tekst aan toe te wijzen:"
 
-#: ../document.py:143 ../doclist/widget.py:127 ../snippet/edit.py:165
+#: ../document.py:143 ../doclist/widget.py:126 ../snippet/edit.py:165
 msgid "Untitled"
 msgstr "Naamloos"
 
@@ -519,35 +519,35 @@ msgstr "Liedtekst-afbreking ver&wijderen"
 msgid "&Copy Lyrics with hyphenation removed"
 msgstr "Liedteksten &kopiëren met afbreking verwijderd"
 
-#: ../main.py:57
+#: ../main.py:58
 msgid "{appname} [options] file ..."
 msgstr "{appname} [opties] bestand ..."
 
-#: ../main.py:60
+#: ../main.py:61
 msgid "ENC"
 msgstr "ENC"
 
-#: ../main.py:61
+#: ../main.py:62
 msgid "Encoding to use"
 msgstr "Te gebruiken tekenset"
 
-#: ../main.py:62 ../main.py:64
+#: ../main.py:63 ../main.py:65
 msgid "NUM"
 msgstr "NUM"
 
-#: ../main.py:63
+#: ../main.py:64
 msgid "Line number to go to, starting at 1"
 msgstr "Ga naar regel (start met 1)"
 
-#: ../main.py:65
+#: ../main.py:66
 msgid "Column to go to, starting at 0"
 msgstr "Ga naar kolom (start met 0)"
 
-#: ../main.py:66
+#: ../main.py:67
 msgid "NAME"
 msgstr "NAAM"
 
-#: ../main.py:67
+#: ../main.py:68
 msgid "Session to start ('{none}' for empty session)"
 msgstr "Te starten sessie ('{none}' voor lege sessie)"
 
@@ -1135,27 +1135,27 @@ msgstr "Documenten"
 msgid "Docum&ents"
 msgstr "Docum&enten"
 
-#: ../doclist/widget.py:182
+#: ../doclist/widget.py:181
 msgid "Save selected documents"
 msgstr "Geselecteerde documenten opslaan"
 
-#: ../doclist/widget.py:183
+#: ../doclist/widget.py:182
 msgid "Close selected documents"
 msgstr "Geselecteerde documenten sluiten"
 
-#: ../doclist/widget.py:189
+#: ../doclist/widget.py:188
 msgid "Save documents in this folder"
 msgstr "Documenten in deze map opslaan"
 
-#: ../doclist/widget.py:190
+#: ../doclist/widget.py:189
 msgid "Close documents in this folder"
 msgstr "Documenten in deze map sluiten"
 
-#: ../doclist/widget.py:193
+#: ../doclist/widget.py:192
 msgid "Save all untitled documents"
 msgstr "Alle naamloze documenten opslaan"
 
-#: ../doclist/widget.py:194
+#: ../doclist/widget.py:193
 msgid "Close all untitled documents"
 msgstr "Alle naamloze documenten sluiten"
 
@@ -2674,7 +2674,7 @@ msgctxt "QScrollBar"
 msgid "Scroll right"
 msgstr "Naar rechts schuiven"
 
-#: ../preferences/__init__.py:162 ../preferences/general.py:119
+#: ../preferences/__init__.py:162 ../preferences/general.py:123
 msgid "General Preferences"
 msgstr "Algemene voorkeuren"
 
@@ -2738,7 +2738,7 @@ msgstr ""
 msgid "Preferred Language:"
 msgstr "Voorkeurstaal:"
 
-#: ../preferences/documentation.py:124 ../preferences/general.py:124
+#: ../preferences/documentation.py:124 ../preferences/general.py:128
 #: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
 #: ../scorewiz/settings.py:299 ../scorewiz/parts/_base.py:214
 #: ../scorewiz/parts/plucked_strings.py:65 ../widgets/schemeselector.py:115
@@ -3026,27 +3026,27 @@ msgstr "Blok"
 msgid "Verbatim"
 msgstr "Verbatim"
 
-#: ../preferences/general.py:120 ../scorewiz/settings.py:222
+#: ../preferences/general.py:124 ../scorewiz/settings.py:222
 msgid "Language:"
 msgstr "Taal:"
 
-#: ../preferences/general.py:121
+#: ../preferences/general.py:125
 msgid "No Translation"
 msgstr "Geen vertaling"
 
-#: ../preferences/general.py:122
+#: ../preferences/general.py:126
 msgid "System Default Language (if available)"
 msgstr "Systeemstandaard (indien beschikbaar)"
 
-#: ../preferences/general.py:123 ../scorewiz/parts/percussion.py:187
+#: ../preferences/general.py:127 ../scorewiz/parts/percussion.py:187
 msgid "Style:"
 msgstr "Stijl:"
 
-#: ../preferences/general.py:125
+#: ../preferences/general.py:129
 msgid "Use System Icons"
 msgstr "Systeempictogrammen gebruiken"
 
-#: ../preferences/general.py:127
+#: ../preferences/general.py:131
 msgid ""
 "If checked, icons of the desktop icon theme will be used instead of the "
 "bundled icons.\n"
@@ -3056,31 +3056,35 @@ msgstr ""
 "in plaats van de meegeleverde pictogrammen.\n"
 "Deze instelling wordt pas van kracht na herstarten van {appname}."
 
-#: ../preferences/general.py:156
+#: ../preferences/general.py:134
+msgid "Show Splash Screen on Startup"
+msgstr "Welkomstschem bij opstarten tonen"
+
+#: ../preferences/general.py:161
 msgid "Session to load if Frescobaldi is started without arguments"
 msgstr "Als Frescobaldi zonder argumenten wordt gestart,"
 
-#: ../preferences/general.py:157
+#: ../preferences/general.py:162
 msgid "Start with no session"
 msgstr "Lege sessie starten"
 
-#: ../preferences/general.py:158
+#: ../preferences/general.py:163
 msgid "Start with last used session"
 msgstr "Laatstgebruikte sessie starten"
 
-#: ../preferences/general.py:159
+#: ../preferences/general.py:164
 msgid "Start with session:"
 msgstr "Met deze sessie starten:"
 
-#: ../preferences/general.py:214
+#: ../preferences/general.py:219
 msgid "When saving documents"
 msgstr "Bij het opslaan van documenten"
 
-#: ../preferences/general.py:215
+#: ../preferences/general.py:220
 msgid "Keep backup copy"
 msgstr "Veiligheidskopie bewaren"
 
-#: ../preferences/general.py:217
+#: ../preferences/general.py:222
 msgid ""
 "Frescobaldi always backups a file before overwriting it with a new version.\n"
 "If checked those backup copies are retained."
@@ -3089,15 +3093,15 @@ msgstr ""
 "overschrijven.\n"
 "Indien ingeschakeld, worden deze bestanden bewaard."
 
-#: ../preferences/general.py:220
+#: ../preferences/general.py:225
 msgid "Remember cursor position, bookmarks, etc."
 msgstr "Cursorpositie, bladwijzers, etc. onthouden"
 
-#: ../preferences/general.py:221
+#: ../preferences/general.py:226
 msgid "Default directory:"
 msgstr "Standaardmap:"
 
-#: ../preferences/general.py:222
+#: ../preferences/general.py:227
 msgid "The default folder for your LilyPond documents (optional)."
 msgstr "De standaardmap voor uw LilyPond documenten (optioneel)."
 

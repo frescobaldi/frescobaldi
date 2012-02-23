@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-02-22 20:34+0100\n"
+"POT-Creation-Date: 2012-02-23 18:16+0100\n"
 "PO-Revision-Date: 2012-02-15 16:30+0100\n"
 "Last-Translator: .billyBoh <billyboh@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -84,7 +84,7 @@ msgstr "Sistema operativo"
 msgid "Version {version}"
 msgstr "Versione {version}"
 
-#: ../about.py:152 ../main.py:59
+#: ../about.py:152 ../main.py:60
 msgid "A LilyPond Music Editor"
 msgstr "Editor musicale per LilyPond"
 
@@ -278,7 +278,7 @@ msgstr "Taglia e assegna"
 msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr "Inserire il nome della variabile a cui assegnare il testo selezionato:"
 
-#: ../document.py:143 ../doclist/widget.py:127 ../snippet/edit.py:165
+#: ../document.py:143 ../doclist/widget.py:126 ../snippet/edit.py:165
 msgid "Untitled"
 msgstr "Senza nome"
 
@@ -526,35 +526,35 @@ msgstr "&Rimuovi la sillabazione"
 msgid "&Copy Lyrics with hyphenation removed"
 msgstr "&Copia le parole senza la divisione in sillabe"
 
-#: ../main.py:57
+#: ../main.py:58
 msgid "{appname} [options] file ..."
 msgstr "{appname} [opzioni] file..."
 
-#: ../main.py:60
+#: ../main.py:61
 msgid "ENC"
 msgstr "ENC"
 
-#: ../main.py:61
+#: ../main.py:62
 msgid "Encoding to use"
 msgstr "Codifica da usare"
 
-#: ../main.py:62 ../main.py:64
+#: ../main.py:63 ../main.py:65
 msgid "NUM"
 msgstr "NUM"
 
-#: ../main.py:63
+#: ../main.py:64
 msgid "Line number to go to, starting at 1"
 msgstr "Numero di riga a cui andare, partendo da 1"
 
-#: ../main.py:65
+#: ../main.py:66
 msgid "Column to go to, starting at 0"
 msgstr "Colonna a cui andare, partendo da 0"
 
-#: ../main.py:66
+#: ../main.py:67
 msgid "NAME"
 msgstr "NOME"
 
-#: ../main.py:67
+#: ../main.py:68
 msgid "Session to start ('{none}' for empty session)"
 msgstr "Sessione da avviare ('{none}' per una sessione vuota)"
 
@@ -1141,31 +1141,31 @@ msgstr "Documenti"
 msgid "Docum&ents"
 msgstr "Docum&enti"
 
-#: ../doclist/widget.py:182
+#: ../doclist/widget.py:181
 #, fuzzy
 msgid "Save selected documents"
 msgstr "Salva selezione"
 
-#: ../doclist/widget.py:183
+#: ../doclist/widget.py:182
 #, fuzzy
 msgid "Close selected documents"
 msgstr "Chiudi gli altri documenti"
 
-#: ../doclist/widget.py:189
+#: ../doclist/widget.py:188
 #, fuzzy
 msgid "Save documents in this folder"
 msgstr "Salva il documento se possibile"
 
-#: ../doclist/widget.py:190
+#: ../doclist/widget.py:189
 msgid "Close documents in this folder"
 msgstr ""
 
-#: ../doclist/widget.py:193
+#: ../doclist/widget.py:192
 #, fuzzy
 msgid "Save all untitled documents"
 msgstr "Spedisci documenti"
 
-#: ../doclist/widget.py:194
+#: ../doclist/widget.py:193
 #, fuzzy
 msgid "Close all untitled documents"
 msgstr "Chiudi tutti i documenti"
@@ -2716,7 +2716,7 @@ msgctxt "QScrollBar"
 msgid "Scroll right"
 msgstr "Scorri a destra"
 
-#: ../preferences/__init__.py:162 ../preferences/general.py:119
+#: ../preferences/__init__.py:162 ../preferences/general.py:123
 msgid "General Preferences"
 msgstr "Opzioni generali"
 
@@ -2783,7 +2783,7 @@ msgstr ""
 msgid "Preferred Language:"
 msgstr "Lingua preferita:"
 
-#: ../preferences/documentation.py:124 ../preferences/general.py:124
+#: ../preferences/documentation.py:124 ../preferences/general.py:128
 #: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
 #: ../scorewiz/settings.py:299 ../scorewiz/parts/_base.py:214
 #: ../scorewiz/parts/plucked_strings.py:65 ../widgets/schemeselector.py:115
@@ -3071,27 +3071,27 @@ msgstr "Blocco"
 msgid "Verbatim"
 msgstr "Verbatim"
 
-#: ../preferences/general.py:120 ../scorewiz/settings.py:222
+#: ../preferences/general.py:124 ../scorewiz/settings.py:222
 msgid "Language:"
 msgstr "Lingua:"
 
-#: ../preferences/general.py:121
+#: ../preferences/general.py:125
 msgid "No Translation"
 msgstr "Nessuna traduzione"
 
-#: ../preferences/general.py:122
+#: ../preferences/general.py:126
 msgid "System Default Language (if available)"
 msgstr "Lingua predefinita del sistema (se disponibile)"
 
-#: ../preferences/general.py:123 ../scorewiz/parts/percussion.py:187
+#: ../preferences/general.py:127 ../scorewiz/parts/percussion.py:187
 msgid "Style:"
 msgstr "Stile:"
 
-#: ../preferences/general.py:125
+#: ../preferences/general.py:129
 msgid "Use System Icons"
 msgstr "Usa le icone del sistema"
 
-#: ../preferences/general.py:127
+#: ../preferences/general.py:131
 msgid ""
 "If checked, icons of the desktop icon theme will be used instead of the "
 "bundled icons.\n"
@@ -3101,31 +3101,35 @@ msgstr ""
 "programma.\n"
 "Questa impostazione avrà effetto dopo il riavvio di {appname}."
 
-#: ../preferences/general.py:156
+#: ../preferences/general.py:134
+msgid "Show Splash Screen on Startup"
+msgstr ""
+
+#: ../preferences/general.py:161
 msgid "Session to load if Frescobaldi is started without arguments"
 msgstr "Sessione da caricare se Frescobaldi è avviato senza argomenti"
 
-#: ../preferences/general.py:157
+#: ../preferences/general.py:162
 msgid "Start with no session"
 msgstr "Avvia senza sessione"
 
-#: ../preferences/general.py:158
+#: ../preferences/general.py:163
 msgid "Start with last used session"
 msgstr "Avvia con l'ultima sessione utilizzata"
 
-#: ../preferences/general.py:159
+#: ../preferences/general.py:164
 msgid "Start with session:"
 msgstr "Avvia con la sessione:"
 
-#: ../preferences/general.py:214
+#: ../preferences/general.py:219
 msgid "When saving documents"
 msgstr "Al salvataggio dei documenti"
 
-#: ../preferences/general.py:215
+#: ../preferences/general.py:220
 msgid "Keep backup copy"
 msgstr "Mantieni la copia di sicurezza"
 
-#: ../preferences/general.py:217
+#: ../preferences/general.py:222
 msgid ""
 "Frescobaldi always backups a file before overwriting it with a new version.\n"
 "If checked those backup copies are retained."
@@ -3134,15 +3138,15 @@ msgstr ""
 "sovrascriverlo con una nuova versione.\n"
 "Se questo è selezionato, le copie di sicurezza vengono conservate."
 
-#: ../preferences/general.py:220
+#: ../preferences/general.py:225
 msgid "Remember cursor position, bookmarks, etc."
 msgstr "Ricorda la posizione del cursore, i segnalibri, ecc."
 
-#: ../preferences/general.py:221
+#: ../preferences/general.py:226
 msgid "Default directory:"
 msgstr "Cartella predefinita:"
 
-#: ../preferences/general.py:222
+#: ../preferences/general.py:227
 msgid "The default folder for your LilyPond documents (optional)."
 msgstr "La cartella predefinita dei documenti LilyPond (facoltativo)."
 
