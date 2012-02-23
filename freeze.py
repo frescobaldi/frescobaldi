@@ -153,6 +153,11 @@ Root: HKCR; Subkey: "LilyPond\\shell\\frescobaldi\\command";\
 Tasks: assocly; Root: HKCR; Subkey: "LilyPond\\shell";\
  ValueType: string; ValueName: ""; ValueData: "frescobaldi";
 
+[Run]
+Filename: "{{app}}\\frescobaldi.exe";\
+ Description: {{cm:LaunchProgram,Frescobaldi}};\
+ Flags: postinstall nowait skipifsilent;
+
 '''.format(
     version=info.version,
     homepage=info.url,
