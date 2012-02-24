@@ -185,7 +185,7 @@ def changeIndent(cursor, direction):
     # get some variables from the document
     indent_vars = indentVariables(cursor.document())
     
-    blocks = list(cursortools.selectedBlocks(cursor))
+    blocks = list(cursortools.blocks(cursor))
     block = blocks[0]
     pos = cursor.selectionStart() - block.position()
     token = tokeniter.tokens(block)[0] if tokeniter.tokens(block) else None
@@ -208,7 +208,7 @@ def changeIndent(cursor, direction):
 def reIndent(cursor):
     """Re-indents the selected region or the whole document."""
     if cursor.hasSelection():
-        blocks = cursortools.selectedBlocks(cursor)
+        blocks = cursortools.blocks(cursor)
     else:
         blocks = cursortools.allBlocks(cursor.document())
     with cursortools.editBlock(cursor):

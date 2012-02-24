@@ -49,9 +49,9 @@ import ly.lex.scheme
 
 
 def get_blocks(cursor):
-    """Returns all or the selected blocks."""
+    """Yields all or the selected blocks."""
     if cursor.hasSelection():
-        return cursortools.selectedBlocks(cursor) 
+        return cursortools.blocks(cursor) 
     else:
         return cursortools.allBlocks(cursor.document())
 

@@ -40,15 +40,7 @@ def block(cursor):
     return cursor.block()
 
     
-def allBlocks(document):
-    """Yields all blocks of the document."""
-    block = document.firstBlock()
-    while block.isValid():
-        yield block
-        block = block.next()
-
-
-def selectedBlocks(cursor):
+def blocks(cursor):
     """Yields the block(s) containing the cursor or selection."""
     d = cursor.document()
     block = d.findBlock(cursor.selectionStart())
@@ -59,6 +51,14 @@ def selectedBlocks(cursor):
             break
         block = block.next()
      
+
+def allBlocks(document):
+    """Yields all blocks of the document."""
+    block = document.firstBlock()
+    while block.isValid():
+        yield block
+        block = block.next()
+
 
 @contextlib.contextmanager
 def editBlock(cursor, joinPrevious = False):
