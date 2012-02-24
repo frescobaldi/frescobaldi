@@ -41,6 +41,22 @@ $CURSOR
 """),
 
 
+'removelines': T(_("Delete Line(s)"),
+r"""-*- python;
+
+import cursortools
+
+def main():
+    blocks = list(cursortools.blocks(cursor))
+    cursor.setPosition(blocks[0].position())
+    cursor.setPosition(blocks[-1].position(), cursor.KeepAnchor)
+    cursor.movePosition(cursor.EndOfBlock, cursor.KeepAnchor)
+    cursor.movePosition(cursor.NextBlock, cursor.KeepAnchor)
+    cursor.removeSelectedText()
+
+"""),
+
+
 'quotes_s': T(_("Single Typographical Quotes"),
 """-*- menu: text;
 \u2018$SELECTION\u2019"""),
