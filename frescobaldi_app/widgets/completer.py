@@ -141,8 +141,10 @@ class Completer(QCompleter):
             rect = self.widget().cursorRect(cursor)
             rect.setWidth(self.popup().sizeHintForColumn(0)
                 + self.popup().verticalScrollBar().sizeHint().width())
+            rect.translate(self.widget().viewport().pos())
             frameWidth = self.popup().frameWidth()
             rect.translate(-frameWidth, frameWidth + 2)
+            rect.translate(-self.popup().viewport().pos())
             self.complete(rect)
         
     def insertCompletion(self, index):
