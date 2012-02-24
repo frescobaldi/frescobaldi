@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-02-23 18:16+0100\n"
+"POT-Creation-Date: 2012-02-24 13:12+0100\n"
 "PO-Revision-Date: 2010-12-12 07:48+0200\n"
 "Last-Translator: Server Acim <serveracim@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -298,7 +298,7 @@ msgstr "Kes ve Ata:"
 msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr "Lütfen, metne atamak üzere değişkene bir ad veriniz:"
 
-#: ../document.py:143 ../doclist/widget.py:126 ../snippet/edit.py:165
+#: ../document.py:143 ../doclist/widget.py:126 ../snippet/edit.py:167
 msgid "Untitled"
 msgstr "Başlıksız"
 
@@ -2692,7 +2692,7 @@ msgstr "Yatay"
 #. L10N: a basic type of input in the editor
 #: ../preferences/fontscolors.py:474 ../preferences/fontscolors.py:513
 #: ../preferences/fontscolors.py:522 ../preferences/fontscolors.py:530
-#: ../preferences/fontscolors.py:538 ../snippet/builtin.py:284
+#: ../preferences/fontscolors.py:538 ../snippet/builtin.py:302
 #, fuzzy
 msgid "Comment"
 msgstr "Komut"
@@ -2752,7 +2752,7 @@ msgstr "Kuyruk Birleştiricisi"
 msgid "Check"
 msgstr ""
 
-#: ../preferences/fontscolors.py:496 ../snippet/builtin.py:154
+#: ../preferences/fontscolors.py:496 ../snippet/builtin.py:172
 #, fuzzy
 msgid "Repeat"
 msgstr "Tekrar sonu"
@@ -2771,7 +2771,7 @@ msgstr "Özel"
 msgid "User Command"
 msgstr "Komut"
 
-#: ../preferences/fontscolors.py:501 ../snippet/builtin.py:194
+#: ../preferences/fontscolors.py:501 ../snippet/builtin.py:212
 #, fuzzy
 msgid "Markup"
 msgstr "Harp"
@@ -3539,7 +3539,7 @@ msgid "Configure Keyboard Shortcut ({key})"
 msgstr "Klavye Kısayollarını Yapılandır (%1)"
 
 #: ../quickinsert/buttongroup.py:182 ../scorewiz/scoreproperties.py:171
-#: ../scorewiz/settings.py:195 ../snippet/edit.py:127
+#: ../scorewiz/settings.py:195 ../snippet/edit.py:129
 msgid "None"
 msgstr "Yok"
 
@@ -5336,170 +5336,174 @@ msgid "Blank Line"
 msgstr "Ölçü Çizgileri"
 
 #: ../snippet/builtin.py:44
+msgid "Delete Line(s)"
+msgstr ""
+
+#: ../snippet/builtin.py:62
 #, fuzzy
 msgid "Single Typographical Quotes"
 msgstr "Tipografik tırnak işaretini kullan"
 
-#: ../snippet/builtin.py:49
+#: ../snippet/builtin.py:67
 #, fuzzy
 msgid "Double Typographical Quotes"
 msgstr "Tipografik tırnak işaretini kullan"
 
-#: ../snippet/builtin.py:115
+#: ../snippet/builtin.py:133
 msgid "Tuplets"
 msgstr ""
 
-#: ../snippet/builtin.py:125
+#: ../snippet/builtin.py:143
 #, fuzzy
 msgid "Modern 2/2 Time Signature"
 msgstr "Ölçü birimi:"
 
-#: ../snippet/builtin.py:131
+#: ../snippet/builtin.py:149
 #, fuzzy
 msgid "Modern 4/4 Time Signature"
 msgstr "Ölçü birimi:"
 
-#: ../snippet/builtin.py:137
+#: ../snippet/builtin.py:155
 msgid "Tactus Time Signature (number with note)"
 msgstr ""
 
-#: ../snippet/builtin.py:148
+#: ../snippet/builtin.py:166
 #, fuzzy
 msgid "LilyPond Version"
 msgstr "Varsayılan LilyPond Sürüm Numarası."
 
-#: ../snippet/builtin.py:159
+#: ../snippet/builtin.py:177
 msgid "Relative Music"
 msgstr ""
 
-#: ../snippet/builtin.py:176
+#: ../snippet/builtin.py:194
 #, fuzzy
 msgid "Upper case selection"
 msgstr "Partisyon ayarları"
 
-#: ../snippet/builtin.py:182
+#: ../snippet/builtin.py:200
 #, fuzzy
 msgid "Lower case selection"
 msgstr "Partisyon ayarları"
 
-#: ../snippet/builtin.py:188
+#: ../snippet/builtin.py:206
 #, fuzzy
 msgid "Title case selection"
 msgstr "Satır seçim kipi"
 
-#: ../snippet/builtin.py:199
+#: ../snippet/builtin.py:217
 #, fuzzy
 msgid "Markup lines"
 msgstr "Ölçü Çizgileri"
 
-#: ../snippet/builtin.py:207
+#: ../snippet/builtin.py:225
 msgid "Markup column"
 msgstr ""
 
-#: ../snippet/builtin.py:212
+#: ../snippet/builtin.py:230
 #, fuzzy
 msgid "Tagline with date and LilyPond version"
 msgstr "LilyPond sürümü tanımlanamıyor."
 
-#: ../snippet/builtin.py:222
+#: ../snippet/builtin.py:240
 msgid "Header Template"
 msgstr ""
 
-#: ../snippet/builtin.py:237
+#: ../snippet/builtin.py:255
 #, fuzzy
 msgid "No Tagline"
 msgstr "Slogan"
 
-#: ../snippet/builtin.py:245
+#: ../snippet/builtin.py:263
 #, fuzzy
 msgid "No Barnumbers"
 msgstr "Ölçü numaralarını kaldır"
 
-#: ../snippet/builtin.py:255
+#: ../snippet/builtin.py:273
 #, fuzzy
 msgid "Midi Tempo"
 msgstr "Hız:"
 
-#: ../snippet/builtin.py:265
+#: ../snippet/builtin.py:283
 #, fuzzy
 msgid "Staff Size"
 msgstr "Dizek Boyutu:"
 
-#: ../snippet/builtin.py:322
+#: ../snippet/builtin.py:340
 #, fuzzy
 msgid "Uncomment"
 msgstr "Komut"
 
-#: ../snippet/builtin.py:365
+#: ../snippet/builtin.py:383
 #, fuzzy
 msgid "A5 Paper"
 msgstr "Sayfa"
 
-#: ../snippet/builtin.py:373
+#: ../snippet/builtin.py:391
 #, fuzzy
 msgid "Document Fonts..."
 msgstr "&Belge"
 
-#: ../snippet/builtin.py:401
+#: ../snippet/builtin.py:419
 #, fuzzy
 msgid "Last note or chord"
 msgstr "Son notayı veya akoru tekrarlayın."
 
-#: ../snippet/builtin.py:482
+#: ../snippet/builtin.py:500
 #, fuzzy
 msgid "Color"
 msgstr "Besteci"
 
-#: ../snippet/builtin.py:519
+#: ../snippet/builtin.py:537
 #, fuzzy
 msgid "Basic Leadsheet"
 msgstr "Detaylı Şarkı Notası"
 
-#: ../snippet/builtin.py:563
+#: ../snippet/builtin.py:581
 #, fuzzy
 msgid "Choir Hymn"
 msgstr "Koro"
 
-#: ../snippet/edit.py:118 ../snippet/insert.py:223
+#: ../snippet/edit.py:120 ../snippet/insert.py:223
 msgid "Edit Snippet"
 msgstr ""
 
-#: ../snippet/edit.py:118
+#: ../snippet/edit.py:120
 msgid "New Snippet"
 msgstr ""
 
-#: ../snippet/edit.py:120
+#: ../snippet/edit.py:122
 msgid "Snippet Text:"
 msgstr ""
 
-#: ../snippet/edit.py:121
+#: ../snippet/edit.py:123
 #, fuzzy
 msgid "Title:"
 msgstr "Başlık"
 
-#: ../snippet/edit.py:122
+#: ../snippet/edit.py:124
 #, fuzzy
 msgid "Shortcut:"
 msgstr "Kısayol"
 
-#: ../snippet/edit.py:133
+#: ../snippet/edit.py:135
 #, fuzzy
 msgid "Click to change the keyboard shortcut."
 msgstr "Klavye Kısayollarını Yapılandır"
 
-#: ../snippet/edit.py:138
+#: ../snippet/edit.py:140
 msgid "Empty Snippet"
 msgstr ""
 
-#: ../snippet/edit.py:138
+#: ../snippet/edit.py:140
 msgid "A snippet can't be empty."
 msgstr ""
 
-#: ../snippet/edit.py:200
+#: ../snippet/edit.py:202
 msgid "Snippet editor"
 msgstr ""
 
-#: ../snippet/edit.py:205
+#: ../snippet/edit.py:207
 msgid ""
 "<p>Here you can edit the text of the snippet.</p><p>If you start the first "
 "line(s) with '<code>-*- </code>' (note the space), the remainder of that line"
@@ -5508,78 +5512,78 @@ msgid ""
 "can be used:</p>"
 msgstr ""
 
-#: ../snippet/edit.py:214
+#: ../snippet/edit.py:216
 msgid "Place the snippet in the insert menu, grouped by the (optional) value."
 msgstr ""
 
-#: ../snippet/edit.py:216
+#: ../snippet/edit.py:218
 msgid ""
 "Place the snippet in the menu {file_new_from_template}, grouped by the "
 "(optional) value. When triggered via the menu, the snippet is inserted into "
 "a new document."
 msgstr ""
 
-#: ../snippet/edit.py:220
+#: ../snippet/edit.py:222
 #, fuzzy
 msgctxt "menu title"
 msgid "File"
 msgstr "Başlık"
 
-#: ../snippet/edit.py:221
+#: ../snippet/edit.py:223
 msgctxt "menu subtitle"
 msgid "New from Template"
 msgstr ""
 
-#: ../snippet/edit.py:223
+#: ../snippet/edit.py:225
 msgid "The mnemonic to type to select the snippet."
 msgstr ""
 
-#: ../snippet/edit.py:225
+#: ../snippet/edit.py:227
 msgid "Do not auto-indent the snippet after inserting."
 msgstr ""
 
-#: ../snippet/edit.py:227
+#: ../snippet/edit.py:229
 msgid "The icon to show in menu and snippet list."
 msgstr ""
 
-#: ../snippet/edit.py:229
+#: ../snippet/edit.py:231
 msgid ""
 "The symbol to show in menu and snippet list. Symbols are icons that use the "
 "default text color and can be found in {directory}."
 msgstr ""
 
-#: ../snippet/edit.py:233
+#: ../snippet/edit.py:235
 msgid "Execute the snippet as a Python script. See {link}."
 msgstr ""
 
-#: ../snippet/edit.py:236
+#: ../snippet/edit.py:238
 msgid "One of more of the following words (separated with spaces or commas):"
 msgstr ""
 
-#: ../snippet/edit.py:239
+#: ../snippet/edit.py:241
 msgid "Requires text to be selected."
 msgstr ""
 
-#: ../snippet/edit.py:241
+#: ../snippet/edit.py:243
 msgid "Adjusts the selection to not include starting and trialing whitespace."
 msgstr ""
 
-#: ../snippet/edit.py:243
+#: ../snippet/edit.py:245
 msgid "Selects all inserted text."
 msgstr ""
 
-#: ../snippet/edit.py:249
+#: ../snippet/edit.py:251
 msgid ""
 "<p>The other lines of the snippet define the text to be inserted in the "
 "editor. Here, you can insert variables prefixed with a $. A double $ will be "
 "replaced with a single one. The following variables are recognized:</p>"
 msgstr ""
 
-#: ../snippet/edit.py:265
+#: ../snippet/edit.py:267
 msgid "Python Snippets"
 msgstr ""
 
-#: ../snippet/edit.py:270
+#: ../snippet/edit.py:272
 msgid ""
 "<p>Python snippets can read and should set the variable {text}. The variable "
 "{text} contains the currently selected text (which may be an empty string).</"
@@ -5588,30 +5592,30 @@ msgid ""
 "<p>Other variables that may be referenced:</p>"
 msgstr ""
 
-#: ../snippet/edit.py:278
+#: ../snippet/edit.py:280
 msgid "A list of strings describing the type of text the cursor is at."
 msgstr ""
 
-#: ../snippet/edit.py:280
+#: ../snippet/edit.py:282
 msgid ""
 "The current QTextCursor, giving access to the document. Don't change the "
 "document through the cursor, however."
 msgstr ""
 
-#: ../snippet/edit.py:283
+#: ../snippet/edit.py:285
 msgid ""
 "When setting {text} to a list instead of a string, you can use this value to "
 "specify the place the text cursor will be placed after inserting the snippet."
 msgstr ""
 
-#: ../snippet/edit.py:287
+#: ../snippet/edit.py:289
 msgid ""
 "When setting {text} to a list instead of a string, this value can be used "
 "together with {cursor} to select text when inserting the string parts of the "
 "list."
 msgstr ""
 
-#: ../snippet/edit.py:292
+#: ../snippet/edit.py:294
 msgid ""
 "When you define a function with this name, it is called without arguments, "
 "instead of inserting the text from the {text} variable. In this case you may "
@@ -5737,7 +5741,7 @@ msgstr "Sayfa başına düşen dizek sayısı:"
 msgid "Please enter a template name:"
 msgstr "Lütfen bir oturum adı giriniz."
 
-#: ../snippet/tool.py:54 ../snippet/tool.py:130 ../snippet/widget.py:367
+#: ../snippet/tool.py:54 ../snippet/tool.py:131 ../snippet/widget.py:367
 #, fuzzy
 msgid "Snippets"
 msgstr "Susları çıkar"

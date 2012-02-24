@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-02-23 18:16+0100\n"
+"POT-Creation-Date: 2012-02-24 13:12+0100\n"
 "PO-Revision-Date: 2012-02-15 16:30+0100\n"
 "Last-Translator: .billyBoh <billyboh@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -278,7 +278,7 @@ msgstr "Taglia e assegna"
 msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr "Inserire il nome della variabile a cui assegnare il testo selezionato:"
 
-#: ../document.py:143 ../doclist/widget.py:126 ../snippet/edit.py:165
+#: ../document.py:143 ../doclist/widget.py:126 ../snippet/edit.py:167
 msgid "Untitled"
 msgstr "Senza nome"
 
@@ -2922,7 +2922,7 @@ msgstr "Escape"
 #. L10N: a basic type of input in the editor
 #: ../preferences/fontscolors.py:474 ../preferences/fontscolors.py:513
 #: ../preferences/fontscolors.py:522 ../preferences/fontscolors.py:530
-#: ../preferences/fontscolors.py:538 ../snippet/builtin.py:284
+#: ../preferences/fontscolors.py:538 ../snippet/builtin.py:302
 msgid "Comment"
 msgstr "Commento"
 
@@ -2975,7 +2975,7 @@ msgstr "Raggruppamento"
 msgid "Check"
 msgstr "Controllo"
 
-#: ../preferences/fontscolors.py:496 ../snippet/builtin.py:154
+#: ../preferences/fontscolors.py:496 ../snippet/builtin.py:172
 msgid "Repeat"
 msgstr "Ritornello"
 
@@ -2991,7 +2991,7 @@ msgstr "Specificatore"
 msgid "User Command"
 msgstr "Comando dell'utente"
 
-#: ../preferences/fontscolors.py:501 ../snippet/builtin.py:194
+#: ../preferences/fontscolors.py:501 ../snippet/builtin.py:212
 msgid "Markup"
 msgstr "Blocco di testo (markup)"
 
@@ -3770,7 +3770,7 @@ msgid "Configure Keyboard Shortcut ({key})"
 msgstr "Configura la scorciatoia ({key})"
 
 #: ../quickinsert/buttongroup.py:182 ../scorewiz/scoreproperties.py:171
-#: ../scorewiz/settings.py:195 ../snippet/edit.py:127
+#: ../scorewiz/settings.py:195 ../snippet/edit.py:129
 msgid "None"
 msgstr "Niente"
 
@@ -5699,146 +5699,151 @@ msgid "Blank Line"
 msgstr "Linea vuota"
 
 #: ../snippet/builtin.py:44
+#, fuzzy
+msgid "Delete Line(s)"
+msgstr "Seleziona tutte le righe precedenti"
+
+#: ../snippet/builtin.py:62
 msgid "Single Typographical Quotes"
 msgstr "Virgolette tipografiche singole"
 
-#: ../snippet/builtin.py:49
+#: ../snippet/builtin.py:67
 msgid "Double Typographical Quotes"
 msgstr "Virgolette tipografiche doppie"
 
-#: ../snippet/builtin.py:115
+#: ../snippet/builtin.py:133
 msgid "Tuplets"
 msgstr "Terzine"
 
-#: ../snippet/builtin.py:125
+#: ../snippet/builtin.py:143
 msgid "Modern 2/2 Time Signature"
 msgstr "2/2, indicazione di tempo moderna"
 
-#: ../snippet/builtin.py:131
+#: ../snippet/builtin.py:149
 msgid "Modern 4/4 Time Signature"
 msgstr "4/4, indicazione di tempo moderna"
 
-#: ../snippet/builtin.py:137
+#: ../snippet/builtin.py:155
 msgid "Tactus Time Signature (number with note)"
 msgstr "Indicazione figurata di tempo (numero con nota)"
 
-#: ../snippet/builtin.py:148
+#: ../snippet/builtin.py:166
 msgid "LilyPond Version"
 msgstr "Versione di LilyPond"
 
-#: ../snippet/builtin.py:159
+#: ../snippet/builtin.py:177
 msgid "Relative Music"
 msgstr "Musica (mod. Relative)"
 
-#: ../snippet/builtin.py:176
+#: ../snippet/builtin.py:194
 msgid "Upper case selection"
 msgstr "Tutto in maiuscolo"
 
-#: ../snippet/builtin.py:182
+#: ../snippet/builtin.py:200
 msgid "Lower case selection"
 msgstr "Tutto in minuscolo"
 
-#: ../snippet/builtin.py:188
+#: ../snippet/builtin.py:206
 msgid "Title case selection"
 msgstr "Maiuscola la prima lettera di ogni parola"
 
-#: ../snippet/builtin.py:199
+#: ../snippet/builtin.py:217
 msgid "Markup lines"
 msgstr "Allinea il testo"
 
-#: ../snippet/builtin.py:207
+#: ../snippet/builtin.py:225
 msgid "Markup column"
 msgstr "Incolonna il testo"
 
-#: ../snippet/builtin.py:212
+#: ../snippet/builtin.py:230
 msgid "Tagline with date and LilyPond version"
 msgstr "Tagline con la data e la versione di LilyPond"
 
-#: ../snippet/builtin.py:222
+#: ../snippet/builtin.py:240
 msgid "Header Template"
 msgstr "Modello per il titolo"
 
-#: ../snippet/builtin.py:237
+#: ../snippet/builtin.py:255
 msgid "No Tagline"
 msgstr "Nessuna tagline"
 
-#: ../snippet/builtin.py:245
+#: ../snippet/builtin.py:263
 msgid "No Barnumbers"
 msgstr "Togli i numeri di battuta"
 
-#: ../snippet/builtin.py:255
+#: ../snippet/builtin.py:273
 msgid "Midi Tempo"
 msgstr "Velocità del midi"
 
-#: ../snippet/builtin.py:265
+#: ../snippet/builtin.py:283
 msgid "Staff Size"
 msgstr "Dimensione del rigo"
 
-#: ../snippet/builtin.py:322
+#: ../snippet/builtin.py:340
 msgid "Uncomment"
 msgstr "Togli commento"
 
-#: ../snippet/builtin.py:365
+#: ../snippet/builtin.py:383
 msgid "A5 Paper"
 msgstr "Formato A5"
 
-#: ../snippet/builtin.py:373
+#: ../snippet/builtin.py:391
 msgid "Document Fonts..."
 msgstr "Caratteri del documento..."
 
-#: ../snippet/builtin.py:401
+#: ../snippet/builtin.py:419
 msgid "Last note or chord"
 msgstr "Ultima nota o accordo"
 
-#: ../snippet/builtin.py:482
+#: ../snippet/builtin.py:500
 msgid "Color"
 msgstr "Colore"
 
-#: ../snippet/builtin.py:519
+#: ../snippet/builtin.py:537
 msgid "Basic Leadsheet"
 msgstr "Spartito semplificato"
 
-#: ../snippet/builtin.py:563
+#: ../snippet/builtin.py:581
 msgid "Choir Hymn"
 msgstr "Corale"
 
-#: ../snippet/edit.py:118 ../snippet/insert.py:223
+#: ../snippet/edit.py:120 ../snippet/insert.py:223
 msgid "Edit Snippet"
 msgstr "Modifica frammento"
 
-#: ../snippet/edit.py:118
+#: ../snippet/edit.py:120
 msgid "New Snippet"
 msgstr "Nuovo frammento"
 
-#: ../snippet/edit.py:120
+#: ../snippet/edit.py:122
 msgid "Snippet Text:"
 msgstr "Testo del frammento:"
 
-#: ../snippet/edit.py:121
+#: ../snippet/edit.py:123
 msgid "Title:"
 msgstr "Titolo:"
 
-#: ../snippet/edit.py:122
+#: ../snippet/edit.py:124
 msgid "Shortcut:"
 msgstr "Scorciatoia:"
 
-#: ../snippet/edit.py:133
+#: ../snippet/edit.py:135
 msgid "Click to change the keyboard shortcut."
 msgstr "Fare click per configurare la scorciatoia."
 
-#: ../snippet/edit.py:138
+#: ../snippet/edit.py:140
 msgid "Empty Snippet"
 msgstr "Frammento vuoto"
 
-#: ../snippet/edit.py:138
+#: ../snippet/edit.py:140
 msgid "A snippet can't be empty."
 msgstr "Un frammento non può essere vuoto."
 
-#: ../snippet/edit.py:200
+#: ../snippet/edit.py:202
 msgid "Snippet editor"
 msgstr "Editor dei frammenti"
 
-#: ../snippet/edit.py:205
+#: ../snippet/edit.py:207
 msgid ""
 "<p>Here you can edit the text of the snippet.</p><p>If you start the first "
 "line(s) with '<code>-*- </code>' (note the space), the remainder of that line"
@@ -5853,13 +5858,13 @@ msgstr ""
 "influenzeranno il comportamento del frammento. Si possono usare le seguenti "
 "variabili:</p>"
 
-#: ../snippet/edit.py:214
+#: ../snippet/edit.py:216
 msgid "Place the snippet in the insert menu, grouped by the (optional) value."
 msgstr ""
 "Aggiunge il frammento al menu di inserimento, raggruppato secondo il valore "
 "(opzionale)."
 
-#: ../snippet/edit.py:216
+#: ../snippet/edit.py:218
 msgid ""
 "Place the snippet in the menu {file_new_from_template}, grouped by the "
 "(optional) value. When triggered via the menu, the snippet is inserted into "
@@ -5869,29 +5874,29 @@ msgstr ""
 "il valore (opzionale). Quando attivato tramite il menu, il frammento sarà "
 "inserito nel documento."
 
-#: ../snippet/edit.py:220
+#: ../snippet/edit.py:222
 msgctxt "menu title"
 msgid "File"
 msgstr "File"
 
-#: ../snippet/edit.py:221
+#: ../snippet/edit.py:223
 msgctxt "menu subtitle"
 msgid "New from Template"
 msgstr "Nuovo da Modello"
 
-#: ../snippet/edit.py:223
+#: ../snippet/edit.py:225
 msgid "The mnemonic to type to select the snippet."
 msgstr "La scorciatoia da digitare per scegliere il frammento."
 
-#: ../snippet/edit.py:225
+#: ../snippet/edit.py:227
 msgid "Do not auto-indent the snippet after inserting."
 msgstr "Non indentare automaticamente il frammento dopo averlo inserito."
 
-#: ../snippet/edit.py:227
+#: ../snippet/edit.py:229
 msgid "The icon to show in menu and snippet list."
 msgstr "Icona da mostrare nel menu e nell'elenco dei frammenti."
 
-#: ../snippet/edit.py:229
+#: ../snippet/edit.py:231
 msgid ""
 "The symbol to show in menu and snippet list. Symbols are icons that use the "
 "default text color and can be found in {directory}."
@@ -5900,27 +5905,27 @@ msgstr ""
 "icone che usano il colore predefinito del testo e si possono trovare in "
 "{directory}."
 
-#: ../snippet/edit.py:233
+#: ../snippet/edit.py:235
 msgid "Execute the snippet as a Python script. See {link}."
 msgstr "Esegui il frammento come un script Python. Consultare {link}."
 
-#: ../snippet/edit.py:236
+#: ../snippet/edit.py:238
 msgid "One of more of the following words (separated with spaces or commas):"
 msgstr "Una o più delle seguenti parole (separate da spazi o virgole):"
 
-#: ../snippet/edit.py:239
+#: ../snippet/edit.py:241
 msgid "Requires text to be selected."
 msgstr "È necessario che ci sia del testo selezionato."
 
-#: ../snippet/edit.py:241
+#: ../snippet/edit.py:243
 msgid "Adjusts the selection to not include starting and trialing whitespace."
 msgstr "Regola la selezione escludendo spazi bianchi all'inizio e alla fine."
 
-#: ../snippet/edit.py:243
+#: ../snippet/edit.py:245
 msgid "Selects all inserted text."
 msgstr "Seleziona tutto il testo inserito."
 
-#: ../snippet/edit.py:249
+#: ../snippet/edit.py:251
 msgid ""
 "<p>The other lines of the snippet define the text to be inserted in the "
 "editor. Here, you can insert variables prefixed with a $. A double $ will be "
@@ -5931,11 +5936,11 @@ msgstr ""
 "$ sarà sostituito con uno singolo. Sono riconosciute le seguenti variabili:</"
 "p>"
 
-#: ../snippet/edit.py:265
+#: ../snippet/edit.py:267
 msgid "Python Snippets"
 msgstr "Frammenti Python"
 
-#: ../snippet/edit.py:270
+#: ../snippet/edit.py:272
 msgid ""
 "<p>Python snippets can read and should set the variable {text}. The variable "
 "{text} contains the currently selected text (which may be an empty string).</"
@@ -5949,13 +5954,13 @@ msgstr ""
 "<p>Si può impostare {text} come stringa o lista di stringhe.</p>\n"
 "<p>Altre variabili che si possono usare:</p>"
 
-#: ../snippet/edit.py:278
+#: ../snippet/edit.py:280
 msgid "A list of strings describing the type of text the cursor is at."
 msgstr ""
 "Una lista di stringhe che descrivono il tipo di testo su cui si trova il "
 "cursore."
 
-#: ../snippet/edit.py:280
+#: ../snippet/edit.py:282
 msgid ""
 "The current QTextCursor, giving access to the document. Don't change the "
 "document through the cursor, however."
@@ -5963,7 +5968,7 @@ msgstr ""
 "Il QTextCursor corrente, con cui si ha accesso al documento. Tuttavia, non "
 "permette di modificare il testo."
 
-#: ../snippet/edit.py:283
+#: ../snippet/edit.py:285
 msgid ""
 "When setting {text} to a list instead of a string, you can use this value to "
 "specify the place the text cursor will be placed after inserting the snippet."
@@ -5972,7 +5977,7 @@ msgstr ""
 "questo valore per specificare il luogo in cui sarà posto il cursore dopo "
 "l'inserimento del frammento."
 
-#: ../snippet/edit.py:287
+#: ../snippet/edit.py:289
 msgid ""
 "When setting {text} to a list instead of a string, this value can be used "
 "together with {cursor} to select text when inserting the string parts of the "
@@ -5982,7 +5987,7 @@ msgstr ""
 "può essere usato con {cursor} per selezionare il testo quando vengono "
 "inserite stringhe che fanno parte della lista."
 
-#: ../snippet/edit.py:292
+#: ../snippet/edit.py:294
 msgid ""
 "When you define a function with this name, it is called without arguments, "
 "instead of inserting the text from the {text} variable. In this case you may "
@@ -6106,7 +6111,7 @@ msgstr "Salva come modello"
 msgid "Please enter a template name:"
 msgstr "Inserire un nome per il modello:"
 
-#: ../snippet/tool.py:54 ../snippet/tool.py:130 ../snippet/widget.py:367
+#: ../snippet/tool.py:54 ../snippet/tool.py:131 ../snippet/widget.py:367
 msgid "Snippets"
 msgstr "Frammenti"
 
