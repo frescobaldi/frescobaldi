@@ -44,6 +44,7 @@ from . import snippets
 from . import builtin
 from . import expand
 from . import highlight
+from . import completer
 
 
 class Edit(QDialog):
@@ -97,6 +98,7 @@ class Edit(QDialog):
         Matcher(self.text)
         widgets.indenter.Indenter(self.text)
         self.text.installEventFilter(homekey.handler)
+        completer.Completer(self.text)
         
         if name:
             self.titleEntry.setText(snippets.title(name, False) or '')
