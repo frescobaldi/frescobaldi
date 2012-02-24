@@ -60,7 +60,7 @@ class Blinker(QWidget):
         metrics = QFontMetrics(textedit.textCursor().charFormat().font())
         width = metrics.boundingRect("m").width()
         rect = textedit.cursorRect().normalized().adjusted(0, 0, width, 0)
-        cls.blink(textedit.viewport(), rect, color)
+        cls.blink(textedit, rect.translated(textedit.viewport().pos()), color)
     
     def __init__(self, widget):
         """Initializes ourselves to draw on the widget."""
