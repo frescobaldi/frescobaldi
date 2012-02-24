@@ -76,7 +76,7 @@ class Completer(widgets.completer.Completer):
         if python:
             pattern = r'\w+'
         else:
-            pattern = r'\\[\w-]+'
+            pattern = r'\\?[\w-]+'
         rx = re.compile(pattern)
         words = set(m.group() for m in rx.finditer(text, start)
                     if len(m.group()) > 4 and m.end() != pos)
