@@ -47,9 +47,11 @@ r"""-*- python;
 import cursortools
 
 def main():
-    blocks = list(cursortools.blocks(cursor))
-    cursor.setPosition(blocks[0].position())
-    cursor.setPosition(blocks[-1].position(), cursor.KeepAnchor)
+    start = end = cursortools.block(cursor)
+    while end.position() < cursor.selectionEnd():
+        end = end.next()
+    cursor.setPosition(start.position())
+    cursor.setPosition(end.position(), cursor.KeepAnchor)
     cursor.movePosition(cursor.EndOfBlock, cursor.KeepAnchor)
     cursor.movePosition(cursor.NextBlock, cursor.KeepAnchor)
     cursor.removeSelectedText()
