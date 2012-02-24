@@ -11,6 +11,8 @@ Changes in 2.0.4 --
   - in the documents list, it is now possible to right-click a group of selected
     documents (or a directory name, if grouping is enabled), to close or save
     multiple documents at once.
+  - automatic completion in the snippet editor
+  - python snippets may now define a main() function that can do everything
   - splash screen on startup (can be turned off in the preferences)
 * Improvements:
   - opening many documents (e.g. a large session) much faster
