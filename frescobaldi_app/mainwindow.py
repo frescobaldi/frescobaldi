@@ -755,7 +755,6 @@ class MainWindow(QMainWindow):
         ac.window_new.triggered.connect(self.newWindow)
         ac.window_fullscreen.toggled.connect(self.toggleFullScreen)
         ac.help_manual.triggered.connect(self.showManual)
-        ac.help_whatsthis.triggered.connect(QWhatsThis.enterWhatsThisMode)
         ac.help_about.triggered.connect(self.showAbout)
         ac.help_bugreport.triggered.connect(self.reportBug)
         
@@ -867,7 +866,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.window_fullscreen.setCheckable(True)
         
         self.help_manual = QAction(parent)
-        self.help_whatsthis = QAction(parent)
+        self.help_whatsthis = QWhatsThis.createAction(parent)
         self.help_about = QAction(parent)
         self.help_bugreport = QAction(parent)
         
@@ -941,7 +940,6 @@ class ActionCollection(actioncollection.ActionCollection):
         self.window_fullscreen.setShortcuts([QKeySequence(Qt.CTRL + Qt.SHIFT + Qt.Key_F), QKeySequence(Qt.Key_F11)])
         
         self.help_manual.setShortcuts(QKeySequence.HelpContents)
-        self.help_whatsthis.setShortcuts(QKeySequence.WhatsThis)
         
     def translateUI(self):
         self.file_new.setText(_("action: new document", "&New"))
