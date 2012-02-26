@@ -78,8 +78,6 @@ class MusicViewPanel(panels.Panel):
         ac.music_fit_both.triggered.connect(self.fitBoth)
         ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
         ac.music_copy_image.triggered.connect(self.copyImage)
-        ac.music_document_select.currentDocumentChanged.connect(self.openDocument)
-        ac.music_document_select.documentClosed.connect(self.closeDocument)
         ac.music_document_select.documentsChanged.connect(self.updateActions)
         ac.music_copy_image.setEnabled(False)
         ac.music_next_page.triggered.connect(self.slotNextPage)
@@ -104,6 +102,12 @@ class MusicViewPanel(panels.Panel):
         p.pageCountChanged.connect(self.slotPageCountChanged)
         p.currentPageChanged.connect(self.slotCurrentPageChanged)
         app.languageChanged.connect(self.updatePagerLanguage)
+        
+        selector = self.actionCollection.music_document_select
+        if selector.currentDocument():
+            w.openDocument(selector.currentDocument())
+        selector.currentDocumentChanged.connect(w.openDocument)
+        selector.documentClosed.connect(w.clear)
         return w
     
     def updateSelection(self, rect):
@@ -131,13 +135,6 @@ class MusicViewPanel(panels.Panel):
     def setCurrentPage(self, num):
         self.activate()
         self._pager.setCurrentPage(num)
-        
-    def openDocument(self, doc):
-        """Opens the documents.Document instance (wrapping a lazily loaded Poppler document)."""
-        self.widget().openDocument(doc)
-    
-    def closeDocument(self):
-        self.widget().clear()
         
     def updateActions(self):
         ac = self.actionCollection
