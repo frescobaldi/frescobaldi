@@ -92,8 +92,7 @@ class PanelManager(plugin.MainWindowPlugin):
     def addActionsToMenu(self, menu):
         """Adds all toggleViewActions to the given menu."""
         for name, panel in self._panels:
-            action = getattr(self.actionCollection, 'panel_' + name)
-            menu.addAction(action)
+            menu.addAction(panel.toggleViewAction())
 
 
 class Actions(actioncollection.ActionCollection):
