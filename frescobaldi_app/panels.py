@@ -25,6 +25,7 @@ When the panel must be shown its widget is instantiated.
 
 from __future__ import unicode_literals
 
+import sys
 import weakref
 
 from PyQt4.QtCore import Qt
@@ -42,27 +43,47 @@ def manager(mainwindow):
 
 class PanelManager(plugin.MainWindowPlugin):
     def __init__(self, mainwindow):
-        # instantiate the panel stubs here
-        import quickinsert
-        self.quickinsert = quickinsert.QuickInsertPanel(mainwindow)
-        import musicview
-        self.musicview = musicview.MusicViewPanel(mainwindow)
-        import logtool
-        self.logtool = logtool.LogTool(mainwindow)
-        import docbrowser
-        self.docbrowser = docbrowser.HelpBrowser(mainwindow)
-        import snippet.tool
-        self.snippettool = snippet.tool.SnippetTool(mainwindow)
-        import miditool
-        self.miditool = miditool.MidiTool(mainwindow)
-        import charmap
-        self.charmap = charmap.CharMap(mainwindow)
-        import doclist
-        self.doclist = doclist.DocumentList(mainwindow)
-        self.createActions()
+        """Instantiate the Panel Manager.
         
+        In this method you can also load the modules that implement
+        panel tools.
+        
+        """
+        self._panels = []
+        
+        # add the the panel stubs here
+        self.loadModule("quickinsert")
+        self.loadModule("musicview")
+        self.loadModule("logtool")
+        self.loadModule("docbrowser")
+        self.loadModule("snippet.tool")
+        self.loadModule("miditool")
+        self.loadModule("charmap")
+        self.loadModule("doclist")
+        
+        self.createActions()
         # make some default arrangements
         mainwindow.tabifyDockWidget(self.musicview, self.docbrowser)
+    
+    def loadModule(self, name):
+        """Loads the specified module.
+        
+        The Panel subclass is automatically found and instantiated, and
+        the instance is saved in an attribute 'name', with dots removed.
+        So if you call self.loadModule("foo.bar"), you can find the instantiated
+        panel in the 'foobar' attribute.
+        
+        """
+        __import__(name)
+        module = sys.modules[name]
+        name = name.replace('.', '')
+        
+        for cls in vars(module).values():
+            if isinstance(cls, type) and issubclass(cls, Panel):
+                panel = cls(self.mainwindow())
+                break
+        self._panels.append((name, panel))
+        setattr(self, name, panel)
 
     def createActions(self):
         self.actionCollection = Actions(self)
@@ -70,14 +91,9 @@ class PanelManager(plugin.MainWindowPlugin):
 
     def addActionsToMenu(self, menu):
         """Adds all toggleViewActions to the given menu."""
-        menu.addAction(self.actionCollection.panel_quickinsert)
-        menu.addAction(self.actionCollection.panel_snippettool)
-        menu.addAction(self.actionCollection.panel_musicview)
-        menu.addAction(self.actionCollection.panel_logtool)
-        menu.addAction(self.actionCollection.panel_docbrowser)
-        menu.addAction(self.actionCollection.panel_miditool)
-        menu.addAction(self.actionCollection.panel_charmap)
-        menu.addAction(self.actionCollection.panel_doclist)
+        for name, panel in self._panels:
+            action = getattr(self.actionCollection, 'panel_' + name)
+            menu.addAction(action)
 
 
 class Actions(actioncollection.ActionCollection):
@@ -86,14 +102,8 @@ class Actions(actioncollection.ActionCollection):
     
     def createActions(self, manager):
         # add the actions for the plugins
-        self.panel_quickinsert = manager.quickinsert.toggleViewAction()
-        self.panel_snippettool = manager.snippettool.toggleViewAction()
-        self.panel_musicview = manager.musicview.toggleViewAction()
-        self.panel_logtool = manager.logtool.toggleViewAction()
-        self.panel_docbrowser = manager.docbrowser.toggleViewAction()
-        self.panel_miditool = manager.miditool.toggleViewAction()
-        self.panel_charmap = manager.charmap.toggleViewAction()
-        self.panel_doclist = manager.doclist.toggleViewAction()
+        for name, panel in manager._panels:
+            setattr(self, 'panel_' + name, panel.toggleViewAction())
 
 
 class Panel(QDockWidget):
