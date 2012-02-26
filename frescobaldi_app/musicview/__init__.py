@@ -37,7 +37,7 @@ from __future__ import unicode_literals
 import os
 import weakref
 
-from PyQt4.QtCore import Qt, pyqtSignal
+from PyQt4.QtCore import QTimer, Qt, pyqtSignal
 from PyQt4.QtGui import (
     QAction, QComboBox, QLabel, QKeySequence, QSpinBox, QWidgetAction)
 
@@ -104,10 +104,16 @@ class MusicViewPanel(panels.Panel):
         app.languageChanged.connect(self.updatePagerLanguage)
         
         selector = self.actionCollection.music_document_select
-        if selector.currentDocument():
-            w.openDocument(selector.currentDocument())
         selector.currentDocumentChanged.connect(w.openDocument)
         selector.documentClosed.connect(w.clear)
+        
+        if selector.currentDocument():
+            # open a document only after the widget has been created;
+            # this prevents many superfluous resizes
+            def open():
+                if selector.currentDocument():
+                    w.openDocument(selector.currentDocument())
+            QTimer.singleShot(0, open)
         return w
     
     def updateSelection(self, rect):
