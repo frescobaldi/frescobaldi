@@ -120,7 +120,6 @@ class Panel(QDockWidget):
         """
         super(Panel, self).__init__(mainwindow)
         self.setObjectName(self.__class__.__name__.lower())
-        self.visibilityChanged.connect(self.slotVisibilityChanged)
         app.translateUI(self)
     
     def mainwindow(self):
@@ -137,12 +136,11 @@ class Panel(QDockWidget):
         if not w:
             w = self.createWidget()
             self.setWidget(w)
-            self.visibilityChanged.disconnect(self.slotVisibilityChanged)
         return w
     
-    def slotVisibilityChanged(self, visible):
-        if visible:
-            self.widget()
+    def showEvent(self, ev):
+        """Re-implemented to force creation of widget."""
+        self.widget()
         
     def createWidget(self):
         """Re-implement this to return the widget for this tool."""
