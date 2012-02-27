@@ -52,38 +52,38 @@ class PanelManager(plugin.MainWindowPlugin):
         self._panels = []
         
         # add the the panel stubs here
-        self.loadModule("quickinsert")
-        self.loadModule("musicview")
-        self.loadModule("logtool")
-        self.loadModule("docbrowser")
-        self.loadModule("snippet.tool")
-        self.loadModule("miditool")
-        self.loadModule("charmap")
-        self.loadModule("doclist")
+        self.loadTool("quickinsert.QuickInsertPanel")
+        self.loadTool("musicview.MusicViewPanel")
+        self.loadTool("logtool.LogTool")
+        self.loadTool("docbrowser.HelpBrowser")
+        self.loadTool("snippet.tool.SnippetTool")
+        self.loadTool("miditool.MidiTool")
+        self.loadTool("charmap.CharMap")
+        self.loadTool("doclist.DocumentList")
         
         self.createActions()
         # make some default arrangements
         mainwindow.tabifyDockWidget(self.musicview, self.docbrowser)
     
-    def loadModule(self, name):
-        """Loads the specified module.
+    def loadTool(self, name):
+        """Loads the named tool.
         
-        The Panel subclass is automatically found and instantiated, and
-        the instance is saved in an attribute 'name', with dots removed.
-        So if you call self.loadModule("foo.bar"), you can find the instantiated
-        panel in the 'foobar' attribute.
+        The name consists of a module name and the class name of the Panel
+        subclass to instantiate.
+        
+        The instance is saved in an attribute 'name', with dots and the class
+        name removed. So if you call self.loadTool("foo.bar.FooBar"), you can
+        find the instantiated FooBar panel in the 'foobar' attribute.
         
         """
-        __import__(name)
-        module = sys.modules[name]
-        name = name.replace('.', '')
-        
-        for cls in vars(module).values():
-            if isinstance(cls, type) and issubclass(cls, Panel):
-                panel = cls(self.mainwindow())
-                break
-        self._panels.append((name, panel))
-        setattr(self, name, panel)
+        module_name, class_name = name.rsplit('.', 1)
+        __import__(module_name)
+        module = sys.modules[module_name]
+        attribute_name = module_name.replace('.', '')
+        cls = vars(module)[class_name]
+        panel = cls(self.mainwindow())
+        self._panels.append((attribute_name, panel))
+        setattr(self, attribute_name, panel)
 
     def createActions(self):
         self.actionCollection = Actions(self)
