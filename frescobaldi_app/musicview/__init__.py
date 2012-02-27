@@ -34,6 +34,7 @@ All the point & click stuff is handled in the pointandclick module.
 
 from __future__ import unicode_literals
 
+import functools
 import os
 import weakref
 
@@ -59,6 +60,25 @@ _zoomvalues = [50, 75, 100, 125, 150, 175, 200, 250, 300]
 
 # viewModes from qpopplerview:
 from qpopplerview import FixedScale, FitWidth, FitHeight, FitBoth
+
+
+def activate(func):
+    """Decorator for MusicViewPanel methods/slots.
+    
+    The purpose is to first activate the widget and only perform an action
+    when the event loop starts. This gives the PDF widget the chance to resize
+    and position itself correctly.
+    
+    """
+    @functools.wraps(func)
+    def wrapper(self):
+        instantiated = bool(super(panels.Panel, self).widget())
+        self.activate()
+        if instantiated:
+            func(self)
+        else:
+            QTimer.singleShot(0, lambda: func(self))
+    return wrapper
 
 
 class MusicViewPanel(panels.Panel):
@@ -108,7 +128,12 @@ class MusicViewPanel(panels.Panel):
         selector.documentClosed.connect(w.clear)
         
         if selector.currentDocument():
-            w.openDocument(selector.currentDocument())
+            # open a document only after the widget has been created;
+            # this prevents many superfluous resizes
+            def open():
+                if selector.currentDocument():
+                    w.openDocument(selector.currentDocument())
+            QTimer.singleShot(0, open)
         return w
     
     def updateSelection(self, rect):
@@ -125,12 +150,12 @@ class MusicViewPanel(panels.Panel):
         self.actionCollection.music_next_page.setEnabled(num < self._pager.pageCount())
         self.actionCollection.music_prev_page.setEnabled(num > 1)
         
+    @activate
     def slotNextPage(self):
-        self.activate()
         self._pager.setCurrentPage(self._pager.currentPage() + 1)
     
+    @activate
     def slotPreviousPage(self):
-        self.activate()
         self._pager.setCurrentPage(self._pager.currentPage() - 1)
     
     def setCurrentPage(self, num):
@@ -147,28 +172,28 @@ class MusicViewPanel(panels.Panel):
             import popplerprint
             popplerprint.printDocument(doc, self)
     
+    @activate
     def zoomIn(self):
-        self.activate()
         self.widget().view.zoomIn()
     
+    @activate
     def zoomOut(self):
-        self.activate()
         self.widget().view.zoomOut()
     
+    @activate
     def fitWidth(self):
-        self.activate()
         self.widget().view.setViewMode(FitWidth)
     
+    @activate
     def fitHeight(self):
-        self.activate()
         self.widget().view.setViewMode(FitHeight)
 
+    @activate
     def fitBoth(self):
-        self.activate()
         self.widget().view.setViewMode(FitBoth)
     
+    @activate
     def jumpToCursor(self):
-        self.activate()
         self.widget().showCurrentLinks()
     
     def copyImage(self):
