@@ -108,12 +108,7 @@ class MusicViewPanel(panels.Panel):
         selector.documentClosed.connect(w.clear)
         
         if selector.currentDocument():
-            # open a document only after the widget has been created;
-            # this prevents many superfluous resizes
-            def open():
-                if selector.currentDocument():
-                    w.openDocument(selector.currentDocument())
-            QTimer.singleShot(0, open)
+            w.openDocument(selector.currentDocument())
         return w
     
     def updateSelection(self, rect):
