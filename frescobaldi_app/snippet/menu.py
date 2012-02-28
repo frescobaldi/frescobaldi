@@ -41,7 +41,7 @@ from PyQt4.QtGui import QMenu
 import app
 import document
 import util
-import panels
+import panelmanager
 
 
 class SnippetMenu(QMenu):
@@ -57,7 +57,7 @@ class SnippetMenu(QMenu):
     
     def tool(self):
         """Returns the snippets tool."""
-        return panels.manager(self.mainwindow()).snippettool
+        return panelmanager.manager(self.mainwindow()).snippettool
     
     def populate(self):
         """Populates the menu with snippet actions."""

@@ -29,10 +29,10 @@ from PyQt4.QtGui import QAction, QKeySequence
 import actioncollection
 import actioncollectionmanager
 import app
-import panels
+import panel
 
 
-class LogTool(panels.Panel):
+class LogTool(panel.Panel):
     """A dockwidget showing the log of running Jobs."""
     def __init__(self, mainwindow):
         super(LogTool, self).__init__(mainwindow)

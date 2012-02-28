@@ -367,8 +367,8 @@ class snippet_help(help.page):
         return _("Snippets")
     
     def body():
-        import panels
-        ac = panels.PanelManager.instances()[0].snippettool.actionCollection
+        import panelmanager
+        ac = panelmanager.PanelManager.instances()[0].snippettool.actionCollection
         key_snippets = help.shortcut(ac.snippettool_activate)
         return _("""\
 <p>

@@ -30,10 +30,10 @@ import actioncollection
 import actioncollectionmanager
 import app
 import icons
-import panels
+import panel
 
 
-class MidiTool(panels.Panel):
+class MidiTool(panel.Panel):
     """Midi Tool."""
     def __init__(self, mainwindow):
         super(MidiTool, self).__init__(mainwindow)

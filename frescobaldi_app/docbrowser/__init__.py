@@ -29,10 +29,10 @@ from PyQt4.QtGui import QAction, QKeySequence
 import actioncollection
 import actioncollectionmanager
 import icons
-import panels
+import panel
 
 
-class HelpBrowser(panels.Panel):
+class HelpBrowser(panel.Panel):
     def __init__(self, mainwindow):
         super(HelpBrowser, self).__init__(mainwindow)
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+D"))

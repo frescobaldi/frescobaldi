@@ -47,7 +47,7 @@ import recentfiles
 import sessions.manager
 import util
 import helpers
-import panels
+import panelmanager
 import engrave
 import scorewiz
 
@@ -801,7 +801,7 @@ class MainWindow(QMainWindow):
         
         self.toolbar_music = t = self.addToolBar('')
         t.setObjectName('toolbar_music')
-        ma = panels.manager(self).musicview.actionCollection
+        ma = panelmanager.manager(self).musicview.actionCollection
         t.addAction(ma.music_document_select)
         t.addAction(ma.music_print)
         t.addSeparator()

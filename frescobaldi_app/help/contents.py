@@ -127,11 +127,11 @@ class starting(page):
         import engrave
         ac = engrave.Engraver.instances()[0].actionCollection
         d['key_engrave'] = shortcut(ac.engrave_preview)
-        import panels
-        ac = panels.PanelManager.instances()[0].musicview.actionCollection
+        import panelmanager
+        ac = panelmanager.PanelManager.instances()[0].musicview.actionCollection
         d['key_jump'] = shortcut(ac.music_jump_to_cursor)
         d['key_copy_image'] = shortcut(ac.music_copy_image)
-        ac = panels.PanelManager.instances()[0].logtool.actionCollection
+        ac = panelmanager.PanelManager.instances()[0].logtool.actionCollection
         d['key_error'] = shortcut(ac.log_next_error)
         d['menu_engrave'] = menu(_("LilyPond"), _("Engrave (publish)"))
         d['menu_preferences_lilypond'] = menu(

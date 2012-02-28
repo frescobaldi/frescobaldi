@@ -30,10 +30,10 @@ from PyQt4.QtGui import QKeySequence
 
 import actioncollection
 import actioncollectionmanager
-import panels
+import panel
 
 
-class QuickInsertPanel(panels.Panel):
+class QuickInsertPanel(panel.Panel):
     def __init__(self, mainwindow):
         super(QuickInsertPanel, self).__init__(mainwindow)
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)

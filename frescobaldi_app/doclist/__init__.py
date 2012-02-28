@@ -26,9 +26,9 @@ from __future__ import unicode_literals
 from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QKeySequence
 
-import panels
+import panel
 
-class DocumentList(panels.Panel):
+class DocumentList(panel.Panel):
     def __init__(self, mainwindow):
         super(DocumentList, self).__init__(mainwindow)
         self.hide()

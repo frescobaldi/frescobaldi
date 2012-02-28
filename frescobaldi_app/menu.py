@@ -36,7 +36,7 @@ import sessions.menu
 import pitch
 import rhythm
 import lyrics
-import panels
+import panelmanager
 import engrave.result_menu
 import snippet.menu
 import scorewiz
@@ -93,11 +93,11 @@ def menu_file(mainwindow):
     m.addAction(ac.file_save)
     m.addAction(ac.file_save_as)
     m.addAction(ac.file_save_copy_as)
-    m.addAction(panels.manager(mainwindow).snippettool.actionCollection.file_save_as_template)
+    m.addAction(panelmanager.manager(mainwindow).snippettool.actionCollection.file_save_as_template)
     m.addSeparator()
     m.addAction(ac.file_save_all)
     m.addSeparator()
-    m.addAction(panels.manager(mainwindow).musicview.actionCollection.music_print)
+    m.addAction(panelmanager.manager(mainwindow).musicview.actionCollection.music_print)
     m.addAction(ac.file_print_source)
     m.addMenu(menu_file_export(mainwindow))
     m.addSeparator()
@@ -128,7 +128,7 @@ def menu_edit(mainwindow):
     m.addAction(ac.edit_cut)
     m.addAction(ac.edit_copy)
     m.addAction(ac.edit_copy_colored_html)
-    m.addAction(panels.manager(mainwindow).musicview.actionCollection.music_copy_image)
+    m.addAction(panelmanager.manager(mainwindow).musicview.actionCollection.music_copy_image)
     m.addAction(ac.edit_paste)
     m.addSeparator()
     m.addAction(ac.edit_select_all)
@@ -162,7 +162,7 @@ def menu_view(mainwindow):
     m.addAction(ac.view_clear_error_marks)
     m.addAction(ac.view_clear_all_marks)
     m.addSeparator()
-    ac = panels.manager(mainwindow).logtool.actionCollection
+    ac = panelmanager.manager(mainwindow).logtool.actionCollection
     m.addAction(ac.log_next_error)
     m.addAction(ac.log_previous_error)
     return m
@@ -170,7 +170,7 @@ def menu_view(mainwindow):
 
 def menu_view_music(mainwindow):
     m = Menu(_("submenu title", "Music &View"), mainwindow)
-    ac = panels.manager(mainwindow).musicview.actionCollection
+    ac = panelmanager.manager(mainwindow).musicview.actionCollection
     
     m.addAction(ac.music_zoom_in)
     m.addAction(ac.music_zoom_out)
@@ -228,7 +228,7 @@ def menu_tools(mainwindow):
     m.addAction(ac.tools_convert_ly)
     m.addAction(mainwindow.actionCollection.file_open_command_prompt)
     m.addSeparator()
-    panels.manager(mainwindow).addActionsToMenu(m)
+    panelmanager.manager(mainwindow).addActionsToMenu(m)
     return m
 
 
@@ -312,8 +312,8 @@ def menu_help(mainwindow):
     m.addAction(ac.help_manual)
     m.addAction(ac.help_whatsthis)
     m.addSeparator()
-    m.addAction(panels.manager(mainwindow).docbrowser.actionCollection.help_lilypond_doc)
-    m.addAction(panels.manager(mainwindow).docbrowser.actionCollection.help_lilypond_context)
+    m.addAction(panelmanager.manager(mainwindow).docbrowser.actionCollection.help_lilypond_doc)
+    m.addAction(panelmanager.manager(mainwindow).docbrowser.actionCollection.help_lilypond_context)
     m.addSeparator()
     m.addAction(ac.help_bugreport)
     m.addSeparator()

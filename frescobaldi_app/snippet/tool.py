@@ -31,10 +31,10 @@ from PyQt4.QtGui import QAction, QKeySequence
 import actioncollection
 import actioncollectionmanager
 import app
-import panels
+import panel
 
 
-class SnippetTool(panels.Panel):
+class SnippetTool(panel.Panel):
     """A dockwidget for selecting, applying and editing the list of snippets."""
     def __init__(self, mainwindow):
         super(SnippetTool, self).__init__(mainwindow)

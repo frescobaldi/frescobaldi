@@ -234,9 +234,9 @@ def handle_exception(name, view):
     else:
         lineno = None
     
-    import panels
+    import panelmanager
     from . import edit
-    widget = panels.manager(view.window()).snippettool.widget()
+    widget = panelmanager.manager(view.window()).snippettool.widget()
     textedit = edit.Edit(widget, name).text
     if lineno is not None:
         # convert to line number in full snippet text

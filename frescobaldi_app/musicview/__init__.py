@@ -47,7 +47,7 @@ import actioncollection
 import actioncollectionmanager
 import icons
 import util
-import panels
+import panel
 import listmodel
 import widgets.drag
 import jobattributes
@@ -72,7 +72,7 @@ def activate(func):
     """
     @functools.wraps(func)
     def wrapper(self):
-        instantiated = bool(super(panels.Panel, self).widget())
+        instantiated = bool(super(panel.Panel, self).widget())
         self.activate()
         if instantiated:
             func(self)
@@ -81,7 +81,7 @@ def activate(func):
     return wrapper
 
 
-class MusicViewPanel(panels.Panel):
+class MusicViewPanel(panel.Panel):
     def __init__(self, mainwindow):
         super(MusicViewPanel, self).__init__(mainwindow)
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+M"))

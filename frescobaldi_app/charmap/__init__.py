@@ -26,10 +26,10 @@ from __future__ import unicode_literals
 from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QKeySequence
 
-import panels
+import panel
 
 
-class CharMap(panels.Panel):
+class CharMap(panel.Panel):
     def __init__(self, mainwindow):
         super(CharMap, self).__init__(mainwindow)
         self.hide()
