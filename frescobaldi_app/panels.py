@@ -109,11 +109,14 @@ class Panel(QDockWidget):
     """Base class for Panels.
     
     You should implement __init__(), createWidget() and translateUI().
-    On the first call to sizeHint() our widget is created.
+    
+    This QDockWidget subclass implements lazy loading of the panel's widget.
+    When one of sizeHint() or showEvent() is called for the first time, the
+    widget is created by calling createWidget().
     
     """
     def __init__(self, mainwindow):
-        """You should implement this method to set a title and add yourself to the mainwindow.
+        """Implement this method to add yourself to the mainwindow.
         
         First call this super method as it calls the Qt constructor.
         
@@ -123,10 +126,11 @@ class Panel(QDockWidget):
         app.translateUI(self)
     
     def mainwindow(self):
+        """Returns the MainWindow."""
         return self.parentWidget()
         
     def sizeHint(self):
-        """This is always called when the panel needs to be shown. Instantiate if not already done."""
+        """Re-implemented to force creation of our widget."""
         self.widget()
         return super(Panel, self).sizeHint()
     
@@ -143,12 +147,19 @@ class Panel(QDockWidget):
         self.widget()
         
     def createWidget(self):
-        """Re-implement this to return the widget for this tool."""
+        """Implement this to return the widget for this tool."""
         return QLabel("<test>", self)
         
     def activate(self):
-        """Really shows the dock widget, even if tabified."""
+        """Really shows the dock widget, even if tabified or floating."""
         self.show()
         if self.mainwindow().tabifiedDockWidgets(self) or self.isFloating():
             self.raise_()
+    
+    def translateUI(self):
+        """Implement to set a title for the widget and its toggleViewAction."""
+        raise NotImplementedError(
+            "Please implement this method to at least set a title "
+            "for the dockwidget and its toggleViewAction().")
+
 
