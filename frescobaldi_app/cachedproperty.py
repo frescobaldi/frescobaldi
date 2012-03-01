@@ -19,7 +19,7 @@
 
 """
 An advanced property that computes and caches expensive operations
-(such as running an external command) and reading its output.
+(such as running an external command and reading its output).
 
 A callback when a value is computed/read is also supported.
 
@@ -62,6 +62,11 @@ which will call myfunction either now or later with the value.
 Properties can also depend on each other:
 
 class MyClass(object):
+
+    @cachedproperty.cachedproperty
+    def command(self):
+        # ....
+    
     @cachedproperty.cachedproperty(depends=command)
     def version(self):
         cmd = self.instance().command
