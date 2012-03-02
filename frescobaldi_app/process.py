@@ -1,4 +1,4 @@
-# This file is part of the Frescobaldi project, http://www.frescobaldi.org/
+# process.py -- A very simple wrapper around QProcess
 #
 # Copyright (c) 2012 by Wilbert Berendsen
 #
@@ -49,11 +49,14 @@ class Process(QObject):
     
     def start(self):
         """Really starts a QProcess, executing the command line."""
+        self.process.start(self.command[0], self.command[1:])
+    
+    def setup(self):
+        """Called on start(), sets up the QProcess in the process attribute."""
         self.process = p = QProcess()
         p.finished.connect(self._finished)
         p.error.connect(self._error)
-        p.start(self.command[0], self.command[1:])
-    
+        
     def _finished(self, exitCode):
         self._done(exitCode == 0)
     
@@ -62,12 +65,21 @@ class Process(QObject):
     
     def _done(self, success):
         self.done.emit(success)
+        self.cleanup()
+    
+    def cleanup(self):
+        """Deletes the process."""
         self.process.deleteLater()
         del self.process
 
 
 class Scheduler(object):
-    """A very simple scheduler that runs one Process at a time."""
+    """A very simple scheduler that runs one Process at a time.
+    
+    You can use this to run e.g. commandline tools asynchronuously and you
+    don't want to have them running at the same time.
+    
+    """
     def __init__(self):
         self._schedule = []
     
@@ -77,6 +89,16 @@ class Scheduler(object):
         self._schedule.append(process)
         if len(self._schedule) == 1:
             self._schedule[0].start()
+    
+    def remove(self, process):
+        """Removes the process from the schedule.
+        
+        This only works if the process has not been started yet.
+        
+        """
+        if process in self._schedule[1:]:
+            self._schedule.remove(process)
+            process.done.disconnect(self._done)
     
     def _done(self):
         del self._schedule[0]

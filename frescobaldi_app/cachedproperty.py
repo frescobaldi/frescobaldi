@@ -1,4 +1,4 @@
-# This file is part of the Frescobaldi project, http://www.frescobaldi.org/
+# cachedproperty.py -- a property that caches its asynchronously computed value
 #
 # Copyright (c) 2012 by Wilbert Berendsen
 #
@@ -24,9 +24,9 @@ An advanced property that computes and caches expensive operations
 A callback when a value is computed/read is also supported.
 
 You may inherit from CachedProperty to implement the logic to compute
-or retrieve the value, or you my initialize the CachedProperty with a function
-that runs in the context of the CachedProperty, which is called in the context
-of the property.
+or retrieve the value, or you may use the CachedProperty as a decorator,
+where the function is called once to return the result or to assign it
+to the property.
 
 If you are using the property as a descriptor e.g.:
 
@@ -41,7 +41,12 @@ you can retrieve the value with
 
     obj.version()
 
-you can force the value to be computed with
+Note that, unlike the Python 'property' built-in, parentheses are needed to get
+the value. Without parentheses the property itself is returned, which has some
+additional features. obj.version() is equivalent to obj.version.get()
+
+If the returned value is None, the property is considered to be unset (i.e.
+not set or computed yet). You can force the value to be computed with:
 
     obj.version.start()
 
@@ -49,9 +54,15 @@ you can force the value to be computed with
 
     obj.version.computed.connect(myfunction)
 
-), and delete the value with
+), and delete the value with:
 
     del obj.version
+
+You can also assign a value:
+
+    obj.version = 123
+
+In that case, the value will not be computed anymore.
 
 If you want the value now or later, you can also use
 
@@ -69,9 +80,14 @@ class MyClass(object):
     
     @cachedproperty.cachedproperty(depends=command)
     def version(self):
-        cmd = self.instance().command
+        cmd = self.command()
         # command has already been computed when this function runs.
 
+
+When used this way, the function can either return the value for the property
+or set if directly. If the function returns None, it is assumed to set the
+property by itself now or later. If the function returns a different value, the
+default implementation sets the property to the returned value.
 
 This module uses the signals module for the callback logic.
 
@@ -171,11 +187,19 @@ class CachedProperty(object):
     
     __call__ = get
     
+    def isset(self):
+        """Returns True if the property is set."""
+        return self._value is not None
+    
+    def iscomputing(self):
+        """Returns True if the property is being computed."""
+        return self._running
+        
     def callback(self, func):
         """Calls the specified function back with the value.
         
         If the value already is known, the callback is performed immediately
-        (synchronuous) and this method returns True.
+        (synchronous) and this method returns True.
         
         If the value yet has to be computed, the function is connected to the
         computed() signal and start() is called, so the function is called later
