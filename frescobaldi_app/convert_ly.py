@@ -135,14 +135,14 @@ class Dialog(QDialog):
         self.diff.setFont(font)
         
     def setCaption(self):
-        version = self._info and self._info.versionString or _("<unknown>")
+        version = self._info and self._info.versionString() or _("<unknown>")
         title = _("Convert-ly from LilyPond {version}").format(version=version)
         self.setWindowTitle(app.caption(title))
 
     def setLilyPondInfo(self, info):
         self._info = info
         self.setCaption()
-        self.toVersion.setText(info.versionString)
+        self.toVersion.setText(info.versionString())
         self.setConvertedText()
     
     def setConvertedText(self, text=''):
@@ -176,7 +176,7 @@ class Dialog(QDialog):
                 "Both 'from' and 'to' versions need to be set."))
             return
         info = self._info
-        convert_ly = os.path.join(info.bindir, info.convert_ly)
+        convert_ly = os.path.join(info.bindir(), info.convert_ly)
         
         # on Windows the convert-ly command is not directly executable, but
         # must be started using the LilyPond-provided Python interpreter

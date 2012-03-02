@@ -128,7 +128,7 @@ class Browser(QWidget):
         """
         if self.webview.url().isEmpty():
             docs = lilydoc.manager.docs()
-            version = lilypondinfo.preferred().version
+            version = lilypondinfo.preferred().version()
             index = -1
             if version:
                 for num, doc in enumerate(docs):

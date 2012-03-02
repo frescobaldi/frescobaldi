@@ -24,11 +24,18 @@ Settings stuff and handling for different LilyPond versions.
 from __future__ import unicode_literals
 
 import os
+import re
 
-from PyQt4.QtCore import QSettings
+from PyQt4.QtCore import QEventLoop, QSettings, QTimer
+from PyQt4.QtGui import QProgressDialog
 
-import ly.info
 import app
+import cachedproperty
+import process
+import util
+
+
+scheduler = process.Scheduler()
 
 
 _infos = None   # this can hold a list of configured LilyPondInfo instances
@@ -101,20 +108,132 @@ def preferred():
 
 def suitable(version):
     """Returns a LilyPondInfo with a suitable version if found, else returns preferred()."""
-    for i in sorted(infos(), key=lambda i: i.version):
+    for i in sorted(infos(), key=lambda i: i.version()):
         if i.version >= version:
             return i
     return preferred()
- 
 
-class LilyPondInfo(ly.info.LilyPondInfo):
-    """Manages information about a LilyPond instance, partially cached to speed up Frescobaldi."""
+
+class CachedProperty(cachedproperty.CachedProperty):
+    def wait(self, msg=None, timeout=0):
+        """Returns the value for the property, waiting for it to be computed.
+        
+        If this lasts longer than 2 seconds, a progress dialog is displayed.
+        
+        """
+        if self._value is not None:
+            return self._value
+        self.start()
+        if self._value is None:
+            loop = QEventLoop()
+            dlg = QProgressDialog()
+            dlg.setLabelText(msg or _("Running LilyPond..."))
+            dlg.setMinimum(0)
+            dlg.setMaximum(0)
+            QTimer.singleShot(2000, dlg.show)
+            dlg.canceled.connect(loop.quit)
+            if timeout:
+                QTimer.singleShot(timeout, loop.quit)
+            stop = lambda: loop.quit()
+            self.computed.connect(stop)
+            loop.exec_(QEventLoop.ExcludeUserInputEvents)
+            self.computed.disconnect(stop)
+            dlg.hide()
+            dlg.deleteLater()
+        return self._value
+    
+    __call__ = wait
+
+
+class LilyPondInfo(object):
     def __init__(self, command):
-        super(LilyPondInfo, self).__init__(command)
+        self._command = command
         self.auto = True
         self.lilypond_book = 'lilypond-book'
         self.convert_ly = 'convert-ly'
     
+    @property
+    def command(self):
+        return self._command
+    
+    @CachedProperty.cachedproperty
+    def abscommand(self):
+        """The absolute path of the command."""
+        return util.findexe(self.command) or False
+
+    @CachedProperty.cachedproperty(depends=abscommand)
+    def versionString(self):
+        if not self.abscommand():
+            return ""
+        
+        p = process.Process([self.abscommand(), '--version'])
+        
+        @p.done.connect
+        def done(success):
+            if success:
+                output = unicode(p.process.readLine())
+                m = re.search(r"\d+\.\d+(.\d+)?", output)
+                self.versionString = m.group() if m else ""
+            else:
+                self.versionString = ""
+        
+        scheduler.add(p)
+    
+    @CachedProperty.cachedproperty(depends=versionString)
+    def version(self):
+        if self.versionString():
+            return tuple(map(int, self.versionString().split('.')))
+        return ()
+    
+    @CachedProperty.cachedproperty(depends=abscommand)
+    def bindir(self):
+        """Returns the directory the LilyPond command is in."""
+        if self.abscommand():
+            return os.path.dirname(self.abscommand())
+        return False
+    
+    @CachedProperty.cachedproperty(depends=bindir)
+    def prefix(self):
+        """Returns the prefix LilyPond was installed to."""
+        if self.bindir():
+            return os.path.dirname(self.bindir())
+        return False
+        
+    @CachedProperty.cachedproperty(depends=(prefix, versionString))
+    def datadir(self):
+        """Returns the datadir of this LilyPond instance.
+        
+        Most times this is something like "/usr/share/lilypond/2.13.3/"
+        If this method returns False, the datadir could not be determined.
+        
+        """
+        if not self.abscommand():
+            return False
+        
+        # First ask LilyPond itself.
+        p = process.Process([self.abscommand(), '-e',
+            "(display (ly:get-option 'datadir)) (newline) (exit)"])
+        @p.done.connect
+        def done(success):
+            if success:
+                d = unicode(p.process.readLine()).strip('\n')
+                if os.path.isabs(d) and os.path.isdir(d):
+                    self.datadir = d
+                    return
+            
+            # Then find out via the prefix.
+            if self.prefix():
+                dirs = ['current']
+                if self.versionString():
+                    dirs.append(self.versionString())
+                for suffix in dirs:
+                    d = os.path.join(self.prefix(), 'share', 'lilypond', suffix)
+                    if os.path.isdir(d):
+                        self.datadir = d
+                        return
+            self.datadir = False
+        scheduler.add(p)
+
     @classmethod
     def read(cls, settings):
         """Returns a new LilyPondInfo instance, filled from a QSettings instance.
@@ -125,24 +244,24 @@ class LilyPondInfo(ly.info.LilyPondInfo):
         cmd = settings.value("command", "")
         if cmd:
             info = cls(cmd)
-            if info.abscommand:
+            if info.abscommand.wait():
                 info.auto = settings.value("auto", True) in (True, "true")
                 info.lilypond_book = settings.value("lilypond-book", "lilypond-book")
                 info.convert_ly = settings.value("convert-ly", "convert-ly")
-                if int(os.path.getmtime(info.abscommand)) == int(float(settings.value("mtime", 0))):
+                if int(os.path.getmtime(info.abscommand())) == int(float(settings.value("mtime", 0))):
                     info.versionString = settings.value("version")
                     datadir = settings.value("datadir")
                     if datadir and os.path.isdir(datadir):
                         info.datadir = settings.value("datadir")
                 return info
-    
+
     def write(self, settings):
         """Writes ourselves to a QSettings instance. We should be valid."""
         settings.setValue("command", self.command)
-        settings.setValue("version", self.versionString)
-        settings.setValue("datadir", self.datadir)
-        if self.abscommand:
-            settings.setValue("mtime", int(os.path.getmtime(self.abscommand)))
+        settings.setValue("version", self.versionString.wait())
+        settings.setValue("datadir", self.datadir.wait())
+        if self.abscommand.wait():
+            settings.setValue("mtime", int(os.path.getmtime(self.abscommand())))
         settings.setValue("auto", self.auto)
         settings.setValue("lilypond-book", self.lilypond_book)
         settings.setValue("convert-ly", self.convert_ly)
@@ -154,9 +273,9 @@ class LilyPondInfo(ly.info.LilyPondInfo):
         run directly.
         
         """
-        if self.bindir:
+        if self.bindir.wait():
             for python in ('python-windows.exe', 'pythonw.exe', 'python.exe'):
-                interpreter = os.path.join(self.bindir, python)
+                interpreter = os.path.join(self.bindir(), python)
                 if os.access(interpreter, os.X_OK):
                     return interpreter
         return 'pythonw.exe'

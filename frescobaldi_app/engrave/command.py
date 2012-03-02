@@ -63,7 +63,7 @@ def defaultJob(document, preview):
     if s.value("no_translation", False) in (True, "true"):
         j.environment['LANG'] = 'C'
     j.setTitle("{0} {1} [{2}]".format(
-        os.path.basename(i.command), i.versionString, document.documentName()))
+        os.path.basename(i.command), i.versionString(), document.documentName()))
     return j
 
 

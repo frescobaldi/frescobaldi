@@ -112,7 +112,7 @@ def insertLanguage(document, language):
     
     """
     version = (documentinfo.info(document).version()
-               or lilypondinfo.preferred().version)
+               or lilypondinfo.preferred().version())
     if version and version < (2, 13, 38):
         text = '\\include "{0}.ly"'
     else:

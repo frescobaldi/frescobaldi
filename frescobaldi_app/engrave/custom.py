@@ -146,13 +146,13 @@ class Dialog(QDialog):
         
     def loadLilyPondVersions(self):
         infos = lilypondinfo.infos() or [lilypondinfo.default()]
-        infos.sort(key = lambda i: i.version or (999,))
+        infos.sort(key = lambda i: i.version() or (999,))
         self._infos = infos
         index = self.versionCombo.currentIndex()
         self.versionCombo.clear()
         for i in infos:
-            icon = 'lilypond-run' if i.version else 'dialog-error'
-            text = _("LilyPond {version}").format(version=i.versionString)
+            icon = 'lilypond-run' if i.version() else 'dialog-error'
+            text = _("LilyPond {version}").format(version=i.versionString())
             self.versionCombo.addItem(icons.get(icon), text)
         self.versionCombo.setCurrentIndex(index)
     
@@ -205,7 +205,7 @@ class Dialog(QDialog):
         if self.englishCheck.isChecked():
             j.environment['LANG'] = 'C'
         j.setTitle("{0} {1} [{2}]".format(
-            os.path.basename(i.command), i.versionString, document.documentName()))
+            os.path.basename(i.command), i.versionString(), document.documentName()))
         return j
 
 

@@ -23,51 +23,7 @@ Utility functions.
 
 from __future__ import unicode_literals
 
-import os
 import string
-import weakref
-
-
-def findexe(cmd):
-    """Checks the PATH for the executable and returns the absolute path or None."""
-    if os.path.isabs(cmd):
-        return cmd if os.access(cmd, os.X_OK) else None
-    else:
-        ucmd = os.path.expanduser(cmd)
-        if os.path.isabs(ucmd):
-            return ucmd if os.access(ucmd, os.X_OK) else None
-        elif os.sep in cmd and os.access(cmd, os.X_OK):
-            return os.path.abspath(cmd)
-        else:
-            for p in os.environ.get("PATH", os.defpath).split(os.pathsep):
-                if os.access(os.path.join(p, cmd), os.X_OK):
-                    return os.path.join(p, cmd)
-
-
-class cachedproperty(object):
-    """Stores a value that is computed at first request and can be read and unset."""
-    def __init__(self, method):
-        self.method = method
-        self.instances = weakref.WeakKeyDictionary()
-        self.__doc__ = method.__doc__
-    
-    def __get__(self, instance, cls):
-        if instance is None:
-            return self
-        try:
-            return self.instances[instance]
-        except KeyError:
-            value = self.instances[instance] = self.method(instance)
-            return value
-    
-    def __set__(self, instance, value):
-        self.instances[instance] = value
-        
-    def __delete__(self, instance):
-        try:
-            del self.instances[instance]
-        except KeyError:
-            pass
 
 
 _nums = (

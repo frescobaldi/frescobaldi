@@ -79,7 +79,7 @@ class Expander(object):
 
     @_("The version of the default LilyPond program.")
     def LILYPOND_VERSION(self):
-        return lilypondinfo.preferred().versionString
+        return lilypondinfo.preferred().versionString()
 
     @_("The version of Frescobaldi.")
     def FRESCOBALDI_VERSION(self):

@@ -187,6 +187,11 @@ class CachedProperty(object):
     
     __call__ = get
     
+    def name(self):
+        """Returns the name of the property, if given via the function."""
+        if self._func:
+            return self._func.__name__
+    
     def isset(self):
         """Returns True if the property is set."""
         return self._value is not None

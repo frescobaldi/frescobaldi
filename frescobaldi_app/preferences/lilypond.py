@@ -105,7 +105,7 @@ class Versions(preferences.Group):
         default = lilypondinfo.default()
         self._defaultCommand = s.value("default", default.command)
         self.auto.setChecked(s.value("autoversion", True) in (True, "true"))
-        infos = sorted(lilypondinfo.infos(), key=lambda i: i.version)
+        infos = sorted(lilypondinfo.infos(), key=lambda i: i.version())
         if not infos:
             infos = [default]
         items = [InfoItem(info) for info in infos]
@@ -181,8 +181,8 @@ class InfoItem(QListWidgetItem):
     
     def display(self):
         text = util.homify(self._info.command)
-        if self._info.version:
-            text += " ({0})".format(self._info.versionString)
+        if self._info.version():
+            text += " ({0})".format(self._info.versionString())
             self.setIcon(icons.get("lilypond-run"))
         else:
             self.setIcon(icons.get("dialog-error"))

@@ -276,9 +276,9 @@ class LilyPondPreferences(QGroupBox):
         
         self.pitchLanguage.addItem('')
         self.pitchLanguage.addItems([lang.title() for lang in sorted(scoreproperties.keyNames)])
-        self.version.addItem(lilypondinfo.preferred().versionString)
+        self.version.addItem(lilypondinfo.preferred().versionString())
         for v in ("2.14.0", "2.12.0"):
-            if v != lilypondinfo.preferred().versionString:
+            if v != lilypondinfo.preferred().versionString():
                 self.version.addItem(v)
         
         grid.addWidget(self.pitchLanguageLabel, 0, 0)

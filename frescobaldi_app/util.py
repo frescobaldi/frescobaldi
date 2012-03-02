@@ -42,6 +42,22 @@ import info
 import variables
 
 
+def findexe(cmd):
+    """Checks the PATH for the executable and returns the absolute path or None."""
+    if os.path.isabs(cmd):
+        return cmd if os.access(cmd, os.X_OK) else None
+    else:
+        ucmd = os.path.expanduser(cmd)
+        if os.path.isabs(ucmd):
+            return ucmd if os.access(ucmd, os.X_OK) else None
+        elif os.sep in cmd and os.access(cmd, os.X_OK):
+            return os.path.abspath(cmd)
+        else:
+            for p in os.environ.get("PATH", os.defpath).split(os.pathsep):
+                if os.access(os.path.join(p, cmd), os.X_OK):
+                    return os.path.join(p, cmd)
+
+
 def iswritable(path):
     """Returns True if the path can be written to or created."""
     return ((os.path.exists(path) and os.access(path, os.W_OK))

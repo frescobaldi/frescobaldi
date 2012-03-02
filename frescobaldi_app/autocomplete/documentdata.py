@@ -112,7 +112,7 @@ class DocumentDataSource(plugin.DocumentPlugin):
         
         # names from LilyPond itself
         import engrave.command
-        datadir = engrave.command.info(self.document()).datadir
+        datadir = engrave.command.info(self.document()).datadir()
         if datadir:
             basedir = os.path.join(datadir, 'ly')
             # get the filenames but avoid the -init files here
