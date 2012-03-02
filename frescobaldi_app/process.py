@@ -49,6 +49,7 @@ class Process(QObject):
     
     def start(self):
         """Really starts a QProcess, executing the command line."""
+        self.setup()
         self.process.start(self.command[0], self.command[1:])
     
     def setup(self):
