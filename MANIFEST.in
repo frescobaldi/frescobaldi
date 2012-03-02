@@ -4,7 +4,7 @@ include frescobaldi.pot
 include *.py
 include frescobaldi-wininst.bmp
 recursive-include frescobaldi_app README*
-recursive-include frescobaldi_app *.png *.svg *.ico
+recursive-include frescobaldi_app *.png *.svg *.ico index.theme
 recursive-include frescobaldi_app *.ly *.ily Makefile
 recursive-include frescobaldi_app *.po *.mo
 global-exclude *~
