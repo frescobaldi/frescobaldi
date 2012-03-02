@@ -35,7 +35,7 @@ import process
 import util
 
 
-scheduler = process.Scheduler()
+_scheduler = process.Scheduler()
 
 
 _infos = None   # this can hold a list of configured LilyPondInfo instances
@@ -177,7 +177,7 @@ class LilyPondInfo(object):
             else:
                 self.versionString = ""
         
-        scheduler.add(p)
+        _scheduler.add(p)
     
     @CachedProperty.cachedproperty(depends=versionString)
     def version(self):
@@ -232,7 +232,7 @@ class LilyPondInfo(object):
                         self.datadir = d
                         return
             self.datadir = False
-        scheduler.add(p)
+        _scheduler.add(p)
 
     @classmethod
     def read(cls, settings):
@@ -258,9 +258,9 @@ class LilyPondInfo(object):
     def write(self, settings):
         """Writes ourselves to a QSettings instance. We should be valid."""
         settings.setValue("command", self.command)
-        settings.setValue("version", self.versionString.wait())
-        settings.setValue("datadir", self.datadir.wait())
-        if self.abscommand.wait():
+        settings.setValue("version", self.versionString())
+        settings.setValue("datadir", self.datadir())
+        if self.abscommand():
             settings.setValue("mtime", int(os.path.getmtime(self.abscommand())))
         settings.setValue("auto", self.auto)
         settings.setValue("lilypond-book", self.lilypond_book)
@@ -273,7 +273,7 @@ class LilyPondInfo(object):
         run directly.
         
         """
-        if self.bindir.wait():
+        if self.bindir():
             for python in ('python-windows.exe', 'pythonw.exe', 'python.exe'):
                 interpreter = os.path.join(self.bindir(), python)
                 if os.access(interpreter, os.X_OK):
