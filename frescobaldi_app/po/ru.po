@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-02-24 13:12+0100\n"
+"POT-Creation-Date: 2012-03-03 22:24+0100\n"
 "PO-Revision-Date: 2009-10-08 21:17+0300\n"
 "Last-Translator: Artem Zolochevskiy <artem.zolochevskiy@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -340,17 +340,17 @@ msgstr "Фермата"
 msgid "&Update with convert-ly..."
 msgstr "Обновить с помощью convert-ly"
 
-#: ../documentcontextmenu.py:54 ../mainwindow.py:953
+#: ../documentcontextmenu.py:54 ../mainwindow.py:951
 #: ../sessions/manager.py:128
 #, fuzzy
 msgid "&Save"
 msgstr "Сохранить"
 
-#: ../documentcontextmenu.py:55 ../mainwindow.py:954
+#: ../documentcontextmenu.py:55 ../mainwindow.py:952
 msgid "Save &As..."
 msgstr ""
 
-#: ../documentcontextmenu.py:56 ../mainwindow.py:958
+#: ../documentcontextmenu.py:56 ../mainwindow.py:956
 msgid "&Close"
 msgstr ""
 
@@ -520,6 +520,10 @@ msgstr "Программа LilyPond [%1] завершилась с кодом %2
 msgid "Completed successfully in {time}."
 msgstr ""
 
+#: ../lilypondinfo.py:132
+msgid "Running LilyPond, this can take some time..."
+msgstr ""
+
 #: ../lyrics.py:132
 #, fuzzy
 msgid "&Hyphenate Lyrics Text..."
@@ -684,186 +688,186 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../mainwindow.py:818
+#: ../mainwindow.py:817
 msgid "Main Toolbar"
 msgstr ""
 
-#: ../mainwindow.py:819
+#: ../mainwindow.py:818
 msgid "Music View Toolbar"
 msgstr ""
 
-#: ../mainwindow.py:947
+#: ../mainwindow.py:945
 msgctxt "action: new document"
 msgid "&New"
 msgstr ""
 
-#: ../mainwindow.py:948
+#: ../mainwindow.py:946
 msgid "&Open..."
 msgstr ""
 
-#: ../mainwindow.py:949
+#: ../mainwindow.py:947
 msgid "Open &Recent"
 msgstr ""
 
-#: ../mainwindow.py:950
+#: ../mainwindow.py:948
 msgid "Insert from &File..."
 msgstr ""
 
-#: ../mainwindow.py:951
+#: ../mainwindow.py:949
 #, fuzzy
 msgid "Open Current Directory"
 msgstr "Открыть текущую папку"
 
-#: ../mainwindow.py:952
+#: ../mainwindow.py:950
 msgid "Open Command Prompt"
 msgstr ""
 
-#: ../mainwindow.py:955
+#: ../mainwindow.py:953
 msgid "Save Copy or Selection As..."
 msgstr ""
 
-#: ../mainwindow.py:956
+#: ../mainwindow.py:954
 #, fuzzy
 msgid "Save All"
 msgstr "Сохранить"
 
-#: ../mainwindow.py:957
+#: ../mainwindow.py:955
 #, fuzzy
 msgid "Print Source..."
 msgstr "Печать"
 
-#: ../mainwindow.py:959
+#: ../mainwindow.py:957
 msgid "Close Other Documents"
 msgstr ""
 
-#: ../mainwindow.py:960
+#: ../mainwindow.py:958
 #, fuzzy
 msgid "Close All Documents"
 msgstr "&Исходный документ"
 
-#: ../mainwindow.py:961
+#: ../mainwindow.py:959
 #, fuzzy
 msgid "Closes all documents and leaves the current session."
 msgstr "Уменьшает длительности в 2 раза в выделенном фрагменте."
 
-#: ../mainwindow.py:962
+#: ../mainwindow.py:960
 msgid "&Quit"
 msgstr ""
 
-#: ../mainwindow.py:964
+#: ../mainwindow.py:962
 msgid "Export Source as Colored &HTML..."
 msgstr ""
 
-#: ../mainwindow.py:966
+#: ../mainwindow.py:964
 #, fuzzy
 msgid "&Undo"
 msgstr "Скрыть док"
 
-#: ../mainwindow.py:967
+#: ../mainwindow.py:965
 msgid "Re&do"
 msgstr ""
 
-#: ../mainwindow.py:968
+#: ../mainwindow.py:966
 msgid "Cu&t"
 msgstr ""
 
-#: ../mainwindow.py:969 ../docbrowser/browser.py:248
+#: ../mainwindow.py:967 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Копировать"
 
-#: ../mainwindow.py:970
+#: ../mainwindow.py:968
 msgid "Copy as Colored &HTML"
 msgstr ""
 
-#: ../mainwindow.py:971
+#: ../mainwindow.py:969
 #, fuzzy
 msgid "&Paste"
 msgstr "Размер страницы:"
 
-#: ../mainwindow.py:972
+#: ../mainwindow.py:970
 msgid "Select &All"
 msgstr ""
 
-#: ../mainwindow.py:973
+#: ../mainwindow.py:971
 msgid "Select &Block"
 msgstr ""
 
-#: ../mainwindow.py:974
+#: ../mainwindow.py:972
 msgid "Select &None"
 msgstr ""
 
-#: ../mainwindow.py:975
+#: ../mainwindow.py:973
 msgid "Select Whole Lines Up"
 msgstr ""
 
-#: ../mainwindow.py:976
+#: ../mainwindow.py:974
 msgid "Select Whole Lines Down"
 msgstr ""
 
-#: ../mainwindow.py:977
+#: ../mainwindow.py:975
 #, fuzzy
 msgid "&Find..."
 msgstr "Печать"
 
-#: ../mainwindow.py:978
+#: ../mainwindow.py:976
 msgid "Find Ne&xt"
 msgstr ""
 
-#: ../mainwindow.py:979
+#: ../mainwindow.py:977
 #, fuzzy
 msgid "Find Pre&vious"
 msgstr "Предыдущий"
 
-#: ../mainwindow.py:980
+#: ../mainwindow.py:978
 #, fuzzy
 msgid "&Replace..."
 msgstr "Поиск..."
 
-#: ../mainwindow.py:981
+#: ../mainwindow.py:979
 #, fuzzy
 msgid "Pr&eferences..."
 msgstr "Общие настройки"
 
-#: ../mainwindow.py:983
+#: ../mainwindow.py:981
 #, fuzzy
 msgid "&Next Document"
 msgstr "&Документ"
 
-#: ../mainwindow.py:984
+#: ../mainwindow.py:982
 #, fuzzy
 msgid "&Previous Document"
 msgstr "&Исходный документ"
 
-#: ../mainwindow.py:985
+#: ../mainwindow.py:983
 msgid "Scroll Up"
 msgstr ""
 
-#: ../mainwindow.py:986
+#: ../mainwindow.py:984
 #, fuzzy
 msgid "Scroll Down"
 msgstr "Вниз"
 
-#: ../mainwindow.py:988
+#: ../mainwindow.py:986
 msgid "New &Window"
 msgstr ""
 
-#: ../mainwindow.py:989
+#: ../mainwindow.py:987
 msgid "&Fullscreen"
 msgstr ""
 
-#: ../mainwindow.py:991
+#: ../mainwindow.py:989
 msgid "&User Guide"
 msgstr ""
 
-#: ../mainwindow.py:992
+#: ../mainwindow.py:990
 msgid "&What's This?"
 msgstr ""
 
-#: ../mainwindow.py:993
+#: ../mainwindow.py:991
 msgid "Report a &Bug..."
 msgstr ""
 
-#: ../mainwindow.py:994
+#: ../mainwindow.py:992
 msgid "&About {appname}..."
 msgstr ""
 
@@ -1938,103 +1942,103 @@ msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr ""
 
-#: ../musicview/__init__.py:92
+#: ../musicview/__init__.py:110
 msgctxt "window title"
 msgid "Music View"
 msgstr ""
 
-#: ../musicview/__init__.py:93
+#: ../musicview/__init__.py:111
 msgid "&Music View"
 msgstr ""
 
-#: ../musicview/__init__.py:237
+#: ../musicview/__init__.py:260
 #, fuzzy
 msgid "Select Music View Document"
 msgstr "&Исходный документ"
 
-#: ../musicview/__init__.py:238
+#: ../musicview/__init__.py:261
 #, fuzzy
 msgid "&Print Music..."
 msgstr "Печать"
 
-#: ../musicview/__init__.py:239
+#: ../musicview/__init__.py:262
 msgid "Zoom &In"
 msgstr ""
 
-#: ../musicview/__init__.py:240
+#: ../musicview/__init__.py:263
 msgid "Zoom &Out"
 msgstr ""
 
-#: ../musicview/__init__.py:241
+#: ../musicview/__init__.py:264
 msgid "Zoom Music"
 msgstr ""
 
-#: ../musicview/__init__.py:242
+#: ../musicview/__init__.py:265
 msgid "Fit &Width"
 msgstr ""
 
-#: ../musicview/__init__.py:243
+#: ../musicview/__init__.py:266
 msgid "Fit &Height"
 msgstr ""
 
-#: ../musicview/__init__.py:244
+#: ../musicview/__init__.py:267
 #, fuzzy
 msgid "Fit &Page"
 msgstr "Первая страница"
 
-#: ../musicview/__init__.py:245
+#: ../musicview/__init__.py:268
 msgid "&Jump to Cursor Position"
 msgstr ""
 
-#: ../musicview/__init__.py:246
+#: ../musicview/__init__.py:269
 msgid "Copy to &Image..."
 msgstr ""
 
-#: ../musicview/__init__.py:247
+#: ../musicview/__init__.py:270
 #, fuzzy
 msgid "Next Page"
 msgstr "Следующая пустая строка"
 
-#: ../musicview/__init__.py:248
+#: ../musicview/__init__.py:271
 #, fuzzy
 msgid "Next"
 msgstr "Далее"
 
-#: ../musicview/__init__.py:249
+#: ../musicview/__init__.py:272
 #, fuzzy
 msgid "Previous Page"
 msgstr "Предыдущий"
 
-#: ../musicview/__init__.py:250
+#: ../musicview/__init__.py:273
 #, fuzzy
 msgid "Previous"
 msgstr "Предыдущий"
 
-#: ../musicview/__init__.py:389
+#: ../musicview/__init__.py:412
 msgid "Choose the PDF document to display."
 msgstr ""
 
-#: ../musicview/__init__.py:391
+#: ../musicview/__init__.py:414
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
 msgstr ""
 
-#: ../musicview/__init__.py:449
+#: ../musicview/__init__.py:472
 msgid "Fit Width"
 msgstr ""
 
-#: ../musicview/__init__.py:450
+#: ../musicview/__init__.py:473
 msgid "Fit Height"
 msgstr ""
 
-#: ../musicview/__init__.py:451
+#: ../musicview/__init__.py:474
 #, fuzzy
 msgid "Fit Page"
 msgstr "Первая страница"
 
 #. L10N: page numbering: page {num} of {total}
-#: ../musicview/__init__.py:468
+#: ../musicview/__init__.py:491
 msgid "{num} of {total}"
 msgstr ""
 

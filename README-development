@@ -77,7 +77,8 @@ plugin:         A simple way to extend objects without them knowing it
 ly:             LilyPond and the LY file format, tokenizer for LY and related
 metainfo:       Stores (optionally) meta information about the document, such
                 as last cursor position, whether to enable auto indent, etc
-panels:         Both the base class for dock widgets and the manager of them
+panel:          The base class of all dock widgets
+panelmanager:   Add new dock widget tools here
 symbols:        Provides icons of LilyPond-generated SVG files that draw
                 themselves in the default text color.
 
@@ -88,6 +89,7 @@ LilyPond):
 qpopplerview:   PDF viewer widget using the popplerqt4 binding to Poppler-Qt4
 signals:        An alternative to Qt signals that allows for connections to have
                 priorities, and objects don't have to be Qt objects
+cachedproperty: Caches properties that can be asynchronously computed
 slexer:         A Stateful Lexer, used to build regular expression-based parsers
 hyphenator:     Hyphenate text using hyphenation dictionaries
 cursortools:    Some useful functions manipulating QTextCursor instances

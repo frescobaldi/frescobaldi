@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-02-24 13:12+0100\n"
+"POT-Creation-Date: 2012-03-03 22:24+0100\n"
 "PO-Revision-Date: 2011-12-25 14:42-0500\n"
 "Last-Translator: Ryan Kavanagh <ryanakca@kubuntu.org>\n"
 "Language-Team: Français <>\n"
@@ -312,16 +312,16 @@ msgstr "&Format"
 msgid "&Update with convert-ly..."
 msgstr "Mettre à jour avec convert-ly"
 
-#: ../documentcontextmenu.py:54 ../mainwindow.py:953
+#: ../documentcontextmenu.py:54 ../mainwindow.py:951
 #: ../sessions/manager.py:128
 msgid "&Save"
 msgstr "Enregistrer"
 
-#: ../documentcontextmenu.py:55 ../mainwindow.py:954
+#: ../documentcontextmenu.py:55 ../mainwindow.py:952
 msgid "Save &As..."
 msgstr "Enregistrer sous..."
 
-#: ../documentcontextmenu.py:56 ../mainwindow.py:958
+#: ../documentcontextmenu.py:56 ../mainwindow.py:956
 msgid "&Close"
 msgstr "Fermer"
 
@@ -521,6 +521,10 @@ msgstr "Arrêté avec l'état de sortie {status}."
 msgid "Completed successfully in {time}."
 msgstr "Terminé avec succès en {time}."
 
+#: ../lilypondinfo.py:132
+msgid "Running LilyPond, this can take some time..."
+msgstr ""
+
 #: ../lyrics.py:132
 msgid "&Hyphenate Lyrics Text..."
 msgstr "&Séparer les syllabes des paroles (césure)"
@@ -695,172 +699,172 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../mainwindow.py:818
+#: ../mainwindow.py:817
 msgid "Main Toolbar"
 msgstr "Barre principale"
 
-#: ../mainwindow.py:819
+#: ../mainwindow.py:818
 msgid "Music View Toolbar"
 msgstr "Barre d'aperçu"
 
-#: ../mainwindow.py:947
+#: ../mainwindow.py:945
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nouveau"
 
-#: ../mainwindow.py:948
+#: ../mainwindow.py:946
 msgid "&Open..."
 msgstr "&Ouvrir..."
 
-#: ../mainwindow.py:949
+#: ../mainwindow.py:947
 msgid "Open &Recent"
 msgstr "Ouvrir &récent"
 
-#: ../mainwindow.py:950
+#: ../mainwindow.py:948
 msgid "Insert from &File..."
 msgstr "Insérer depuis le fichier..."
 
-#: ../mainwindow.py:951
+#: ../mainwindow.py:949
 msgid "Open Current Directory"
 msgstr "Ouvrir le dossier courant"
 
-#: ../mainwindow.py:952
+#: ../mainwindow.py:950
 msgid "Open Command Prompt"
 msgstr "Ouvrir la ligne de commande (Terminal)"
 
-#: ../mainwindow.py:955
+#: ../mainwindow.py:953
 msgid "Save Copy or Selection As..."
 msgstr "Enregistrer une copie ou la sélection sous..."
 
-#: ../mainwindow.py:956
+#: ../mainwindow.py:954
 msgid "Save All"
 msgstr "Tout enregistrer"
 
-#: ../mainwindow.py:957
+#: ../mainwindow.py:955
 msgid "Print Source..."
 msgstr "Imprimer le code source"
 
-#: ../mainwindow.py:959
+#: ../mainwindow.py:957
 msgid "Close Other Documents"
 msgstr "Fermer les autres documents"
 
-#: ../mainwindow.py:960
+#: ../mainwindow.py:958
 msgid "Close All Documents"
 msgstr "Fermer tous les documents"
 
-#: ../mainwindow.py:961
+#: ../mainwindow.py:959
 msgid "Closes all documents and leaves the current session."
 msgstr "Fermer tous les documents et quitter la session courante"
 
-#: ../mainwindow.py:962
+#: ../mainwindow.py:960
 msgid "&Quit"
 msgstr "&Quitter"
 
-#: ../mainwindow.py:964
+#: ../mainwindow.py:962
 msgid "Export Source as Colored &HTML..."
 msgstr "Exporter le code source en &HTML coloré..."
 
-#: ../mainwindow.py:966
+#: ../mainwindow.py:964
 msgid "&Undo"
 msgstr "Annuler"
 
-#: ../mainwindow.py:967
+#: ../mainwindow.py:965
 msgid "Re&do"
 msgstr "Refaire"
 
-#: ../mainwindow.py:968
+#: ../mainwindow.py:966
 msgid "Cu&t"
 msgstr "Couper"
 
-#: ../mainwindow.py:969 ../docbrowser/browser.py:248
+#: ../mainwindow.py:967 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Copier"
 
-#: ../mainwindow.py:970
+#: ../mainwindow.py:968
 msgid "Copy as Colored &HTML"
 msgstr "Copier en HTML coloré"
 
-#: ../mainwindow.py:971
+#: ../mainwindow.py:969
 msgid "&Paste"
 msgstr "Coller"
 
-#: ../mainwindow.py:972
+#: ../mainwindow.py:970
 msgid "Select &All"
 msgstr "Tout sélectionner"
 
-#: ../mainwindow.py:973
+#: ../mainwindow.py:971
 msgid "Select &Block"
 msgstr "Sélectionner le bloc"
 
-#: ../mainwindow.py:974
+#: ../mainwindow.py:972
 msgid "Select &None"
 msgstr "Ne rien sélectionner"
 
-#: ../mainwindow.py:975
+#: ../mainwindow.py:973
 msgid "Select Whole Lines Up"
 msgstr "Sélectionner des lignes entières au-dessus"
 
-#: ../mainwindow.py:976
+#: ../mainwindow.py:974
 msgid "Select Whole Lines Down"
 msgstr "Sélectionner des lignes entières en-dessous"
 
-#: ../mainwindow.py:977
+#: ../mainwindow.py:975
 msgid "&Find..."
 msgstr "Rechercher..."
 
-#: ../mainwindow.py:978
+#: ../mainwindow.py:976
 msgid "Find Ne&xt"
 msgstr "Rechercher le suivant"
 
-#: ../mainwindow.py:979
+#: ../mainwindow.py:977
 msgid "Find Pre&vious"
 msgstr "Rechercher le précédent"
 
-#: ../mainwindow.py:980
+#: ../mainwindow.py:978
 msgid "&Replace..."
 msgstr "&Remplacer..."
 
-#: ../mainwindow.py:981
+#: ../mainwindow.py:979
 msgid "Pr&eferences..."
 msgstr "Préfér&ences..."
 
-#: ../mainwindow.py:983
+#: ../mainwindow.py:981
 msgid "&Next Document"
 msgstr "Document suivant"
 
-#: ../mainwindow.py:984
+#: ../mainwindow.py:982
 msgid "&Previous Document"
 msgstr "Document précédent"
 
-#: ../mainwindow.py:985
+#: ../mainwindow.py:983
 msgid "Scroll Up"
 msgstr "Défiler vers le haut"
 
-#: ../mainwindow.py:986
+#: ../mainwindow.py:984
 msgid "Scroll Down"
 msgstr "Défiler vers le bas"
 
-#: ../mainwindow.py:988
+#: ../mainwindow.py:986
 msgid "New &Window"
 msgstr "Nouvelle fenêtre"
 
-#: ../mainwindow.py:989
+#: ../mainwindow.py:987
 msgid "&Fullscreen"
 msgstr "Plein écran"
 
-#: ../mainwindow.py:991
+#: ../mainwindow.py:989
 msgid "&User Guide"
 msgstr "Manuel utilisateur"
 
-#: ../mainwindow.py:992
+#: ../mainwindow.py:990
 msgid "&What's This?"
 msgstr "Qu'est-ce que c'est ?"
 
-#: ../mainwindow.py:993
+#: ../mainwindow.py:991
 msgid "Report a &Bug..."
 msgstr "Rapporter un &bogue..."
 
-#: ../mainwindow.py:994
+#: ../mainwindow.py:992
 msgid "&About {appname}..."
 msgstr "&À propos de {appname}..."
 
@@ -2144,76 +2148,76 @@ msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "PULSATION"
 
-#: ../musicview/__init__.py:92
+#: ../musicview/__init__.py:110
 msgctxt "window title"
 msgid "Music View"
 msgstr "Aperçu"
 
-#: ../musicview/__init__.py:93
+#: ../musicview/__init__.py:111
 msgid "&Music View"
 msgstr "Aperçu"
 
-#: ../musicview/__init__.py:237
+#: ../musicview/__init__.py:260
 msgid "Select Music View Document"
 msgstr "Sélectionner le document de l'aperçu"
 
-#: ../musicview/__init__.py:238
+#: ../musicview/__init__.py:261
 msgid "&Print Music..."
 msgstr "&Imprimer la partition..."
 
-#: ../musicview/__init__.py:239
+#: ../musicview/__init__.py:262
 msgid "Zoom &In"
 msgstr "Zoom avant"
 
-#: ../musicview/__init__.py:240
+#: ../musicview/__init__.py:263
 msgid "Zoom &Out"
 msgstr "Zoom arrière"
 
-#: ../musicview/__init__.py:241
+#: ../musicview/__init__.py:264
 msgid "Zoom Music"
 msgstr "Zoom partition"
 
-#: ../musicview/__init__.py:242
+#: ../musicview/__init__.py:265
 msgid "Fit &Width"
 msgstr "Ajuster à la largeur"
 
-#: ../musicview/__init__.py:243
+#: ../musicview/__init__.py:266
 msgid "Fit &Height"
 msgstr "Ajuster à la &hauteur"
 
-#: ../musicview/__init__.py:244
+#: ../musicview/__init__.py:267
 msgid "Fit &Page"
 msgstr "Ajuster à la &page"
 
-#: ../musicview/__init__.py:245
+#: ../musicview/__init__.py:268
 msgid "&Jump to Cursor Position"
 msgstr "Aller à la position du curseur"
 
-#: ../musicview/__init__.py:246
+#: ../musicview/__init__.py:269
 msgid "Copy to &Image..."
 msgstr "Copier vers une image..."
 
-#: ../musicview/__init__.py:247
+#: ../musicview/__init__.py:270
 msgid "Next Page"
 msgstr "Page suivante"
 
-#: ../musicview/__init__.py:248
+#: ../musicview/__init__.py:271
 msgid "Next"
 msgstr "Suivant :"
 
-#: ../musicview/__init__.py:249
+#: ../musicview/__init__.py:272
 msgid "Previous Page"
 msgstr "Page précédente"
 
-#: ../musicview/__init__.py:250
+#: ../musicview/__init__.py:273
 msgid "Previous"
 msgstr "Précédent"
 
-#: ../musicview/__init__.py:389
+#: ../musicview/__init__.py:412
 msgid "Choose the PDF document to display."
 msgstr "Choisir le document PDF à afficher."
 
-#: ../musicview/__init__.py:391
+#: ../musicview/__init__.py:414
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -2221,20 +2225,20 @@ msgstr ""
 "Choisir le document PDF à afficher ou déposer le fichier sur une autre "
 "application ou un autre emplacement."
 
-#: ../musicview/__init__.py:449
+#: ../musicview/__init__.py:472
 msgid "Fit Width"
 msgstr "Ajuster à la largeur"
 
-#: ../musicview/__init__.py:450
+#: ../musicview/__init__.py:473
 msgid "Fit Height"
 msgstr "Ajuster à la hauteur"
 
-#: ../musicview/__init__.py:451
+#: ../musicview/__init__.py:474
 msgid "Fit Page"
 msgstr "Ajuster à la page"
 
 #. L10N: page numbering: page {num} of {total}
-#: ../musicview/__init__.py:468
+#: ../musicview/__init__.py:491
 msgid "{num} of {total}"
 msgstr ""
 
