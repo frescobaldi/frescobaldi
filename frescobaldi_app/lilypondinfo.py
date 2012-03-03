@@ -53,6 +53,10 @@ def infos():
             if info:
                 _infos.append(info)
         s.endArray()
+        if not _infos:
+            info = default()
+            if info.abscommand():
+                _infos.append(info)
         app.aboutToQuit.connect(saveinfos)
     return _infos
 
