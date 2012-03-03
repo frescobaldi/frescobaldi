@@ -16,7 +16,10 @@ Changes in 2.0.4 --
   - splash screen on startup (can be turned off in the preferences)
 * Improvements:
   - opening many documents (e.g. a large session) much faster
+  - waiting for LilyPond to return information on Settings->Ok now does not
+    block the user interface anymore and shows progress if it takes some time
 * Bug fixes:
+  - fix icon theme index files not in source tarball (regression since 2.0.3)
   - fixed memory leak (closed documents that had been shown remained in memory)
 
 
