@@ -35,8 +35,8 @@ import re
 import sys
 import weakref
 
-from PyQt4.QtCore import QDir, QSettings, QSize, Qt
-from PyQt4.QtGui import QApplication, QColor
+from PyQt4.QtCore import QDir, QEventLoop, QSettings, QSize, QTimer, Qt
+from PyQt4.QtGui import QApplication, QColor, QProgressDialog
 
 import info
 import variables
@@ -321,5 +321,30 @@ def tempdir():
             import shutil
             shutil.rmtree(_tempdir, ignore_errors=True)
     return tempfile.mkdtemp(dir=_tempdir)
+
+
+def waitForSignal(signal, message="", timeout=0):
+    """Waits (max timeout msecs if given) for a signal to be emitted.
+    
+    It the waiting lasts more than 2 seconds, a progress dialog is displayed
+    with the message.
+    
+    Returns True if the signal was emitted.
+    Return False if the wait timed out or the dialog was canceled by the user.
+    
+    """
+    loop = QEventLoop()
+    dlg = QProgressDialog(minimum=0, maximum=0, labelText=message)
+    QTimer.singleShot(2000, dlg.show)
+    dlg.canceled.connect(loop.quit)
+    if timeout:
+        QTimer.singleShot(timeout, dlg.cancel)
+    stop = lambda: loop.quit()
+    signal.connect(stop)
+    loop.exec_(QEventLoop.ExcludeUserInputEvents)
+    signal.disconnect(stop)
+    dlg.hide()
+    dlg.deleteLater()
+    return not dlg.wasCanceled()
 
 

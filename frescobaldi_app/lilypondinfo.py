@@ -121,25 +121,12 @@ class CachedProperty(cachedproperty.CachedProperty):
         If this lasts longer than 2 seconds, a progress dialog is displayed.
         
         """
-        if self._value is not None:
-            return self._value
-        self.start()
         if self._value is None:
-            loop = QEventLoop()
-            dlg = QProgressDialog()
-            dlg.setLabelText(msg or _("Running LilyPond..."))
-            dlg.setMinimum(0)
-            dlg.setMaximum(0)
-            QTimer.singleShot(2000, dlg.show)
-            dlg.canceled.connect(loop.quit)
-            if timeout:
-                QTimer.singleShot(timeout, loop.quit)
-            stop = lambda: loop.quit()
-            self.computed.connect(stop)
-            loop.exec_(QEventLoop.ExcludeUserInputEvents)
-            self.computed.disconnect(stop)
-            dlg.hide()
-            dlg.deleteLater()
+            self.start()
+            if self._value is None:
+                if msg is None:
+                    msg = _("Running LilyPond...")
+                util.waitForSignal(self.computed, msg, timeout)
         return self._value
     
     __call__ = wait
