@@ -121,13 +121,13 @@ class CachedProperty(cachedproperty.CachedProperty):
         If this lasts longer than 2 seconds, a progress dialog is displayed.
         
         """
-        if self._value is None:
+        if self.get() is None:
             self.start()
-            if self._value is None:
+            if self.get() is None:
                 if msg is None:
                     msg = _("Running LilyPond, this can take some time...")
                 util.waitForSignal(self.computed, msg, timeout)
-        return self._value
+        return self.get()
     
     __call__ = wait
 

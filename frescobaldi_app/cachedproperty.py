@@ -109,50 +109,33 @@ class CachedProperty(object):
     the callback() method or the computed() signal.
     
     """
-    
-    # emitted when the value for the property is computed.
-    # the value is given as argument.
-    computed = signals.Signal()
-    
+    # descriptor part
     @classmethod
     def cachedproperty(cls, func=None, depends=None):
         """Decorator to make cached properties."""
         if func is not None:
-            return cls(func, depends=depends)
+            return cls(func, depends)
         elif depends is None:
             return cls
         def decorator(func):
-            return cls(func, depends=depends)
+            return cls(func, depends)
         return decorator
     
-    def __init__(self, func=None, instance=None, depends=None):
-        self._value = None
-        self._running = False
+    def __init__(self, func=None, depends=None):
+        """Initialize the property/descriptor."""
         self._func = func
-        if instance:
-            self._instance = weakref.ref(instance)
-        else:
-            self._instance = lambda: None
         if depends is None:
             self._depends = ()
         elif not isinstance(depends, (tuple, list)):
             self._depends = (depends,)
         else:
             self._depends = depends
-            
-    # descriptor part
+        self._state = weakref.WeakKeyDictionary()
+        
     def __get__(self, instance, cls=None):
         if instance is None:
             return self._func or self
-        try:
-            return instance.__cachedproperties[self]
-        except AttributeError:
-            instance.__cachedproperties = {}
-        except KeyError:
-            pass
-        ret = type(self)(self._func, instance, depends=self._depends)
-        instance.__cachedproperties[self] = ret
-        return ret
+        return self.bound(instance)
     
     def __set__(self, instance, value):
         self.__get__(instance).set(value)
@@ -160,45 +143,75 @@ class CachedProperty(object):
     def __delete__(self, instance):
         self.__get__(instance).unset()
     
-    # property part
+    def bound(self, instance):
+        """Returns a bound instance."""
+        cls = type(self)
+        prop = cls.__new__(cls)
+        prop._instance = instance
+        prop._property = self
+        return prop
+    
+    # instance part
+    class State(object):
+        signal = signals.Signal()
+        def __init__(self):
+            self.value = None
+            self.running = False
+    
+    def state(self):
+        """Returns the state for the instance."""
+        instance = self.instance()
+        d = self._property._state
+        try:
+            state = d[instance]
+        except KeyError:
+            state = d[instance] = self.State()
+        return state
+    
     def instance(self):
-        """Returns the instance we are a property for."""
-        return self._instance()
-        
+        """The instance we are a property for."""
+        return self._instance
+    
+    @property
+    def computed(self):
+        """The signal that is emitted when the value is set."""
+        return self.state().signal
+    
     def set(self, value):
         """Sets a value.
         
         If the value is not None, the computed(value) signal is emitted.
         
         """
-        self._value = value
-        self._running = False
+        state = self.state()
+        state.value = value
+        state.running = False
         if value is not None:
             self.computed.emit(value)
             self.computed.clear()
         
     def unset(self):
         """Sets the value to None, the property is considered unset."""
-        self._value = None
+        self.state().value = None
     
     def get(self):
         """Retrieves the value, which may be None (unset)."""
-        return self._value
+        return self.state().value
     
     __call__ = get
     
     def name(self):
         """Returns the name of the property, if given via the function."""
-        if self._func:
-            return self._func.__name__
+        if self._property._func:
+            return self._property._func.__name__
     
     def isset(self):
         """Returns True if the property is set."""
-        return self._value is not None
+        return self.state().value is not None
     
     def iscomputing(self):
         """Returns True if the property is being computed."""
-        return self._running
+        return self.state().running
         
     def callback(self, func):
         """Calls the specified function back with the value.
@@ -211,8 +224,9 @@ class CachedProperty(object):
         with the value. In that case this method returns None.
         
         """
-        if self._value is not None:
-            func(self._value)
+        value = self.state().value
+        if value is not None:
+            func(value)
             return True
         self.computed.connect(func)
         self.start()
@@ -224,13 +238,14 @@ class CachedProperty(object):
         to perform the actual action.
         
         """
-        if not self._running:
-            self._running = True
+        state = self.state()
+        if not state.running:
+            state.running = True
             self.checkstart()
     
     def checkstart(self):
         """Starts if all dependencies are met."""
-        for d in self._depends:
+        for d in self._property._depends:
             prop = d.__get__(self.instance())
             if prop.get() is None:
                 prop.computed.connect(self.checkstart)
@@ -240,7 +255,7 @@ class CachedProperty(object):
             self.run()
     
     def run(self):
-        """Implement this method to start the computation.
+        """Starts the computation.
         
         The result must be set using self.set(value), which will automatically
         call all registered callbacks once.
@@ -248,12 +263,10 @@ class CachedProperty(object):
         The default implementation starts the function, if given on init.
         
         """
-        if self._func:
-            instance = self.instance()
-            if instance:
-                result = self._func(instance)
-                if result is not None:
-                    self.set(result)
+        if self._property._func:
+            result = self._property._func(self.instance())
+            if result is not None:
+                self.set(result)
         else:
             self.set("(null)")
 
