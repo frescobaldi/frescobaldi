@@ -335,6 +335,7 @@ def waitForSignal(signal, message="", timeout=0):
     """
     loop = QEventLoop()
     dlg = QProgressDialog(minimum=0, maximum=0, labelText=message)
+    dlg.setWindowTitle(info.appname)
     QTimer.singleShot(2000, dlg.show)
     dlg.canceled.connect(loop.quit)
     if timeout:

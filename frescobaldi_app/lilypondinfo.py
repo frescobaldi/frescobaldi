@@ -125,7 +125,7 @@ class CachedProperty(cachedproperty.CachedProperty):
             self.start()
             if self._value is None:
                 if msg is None:
-                    msg = _("Running LilyPond...")
+                    msg = _("Running LilyPond, this can take some time...")
                 util.waitForSignal(self.computed, msg, timeout)
         return self._value
     
