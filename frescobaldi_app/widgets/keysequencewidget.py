@@ -26,7 +26,7 @@ Loosely based on kkeysequencewidget.cpp from KDE :-)
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QEvent, Qt, QTimer, pyqtSignal
+from PyQt4.QtCore import QEvent, QSize, Qt, QTimer, pyqtSignal
 from PyQt4.QtGui import (
     QApplication, QHBoxLayout, QKeySequence, QPushButton, QToolButton, QWidget)
 
@@ -49,7 +49,7 @@ class KeySequenceWidget(QWidget):
         self.setLayout(layout)
         
         self.button = KeySequenceButton(self)
-        self.clearButton = ClearButton(self)
+        self.clearButton = ClearButton(self, iconSize=QSize(16, 16))
         layout.addWidget(self.button)
         layout.addWidget(self.clearButton)
         

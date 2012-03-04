@@ -320,7 +320,7 @@ class CustomAttributes(QGroupBox):
         l.setBuddy(self.textColor)
         grid.addWidget(l, 1, 0)
         grid.addWidget(self.textColor, 1, 1)
-        c = ClearButton()
+        c = ClearButton(iconSize=QSize(16, 16))
         c.clicked.connect(self.textColor.clear)
         grid.addWidget(c, 1, 2)
         
@@ -329,7 +329,7 @@ class CustomAttributes(QGroupBox):
         l.setBuddy(self.backgroundColor)
         grid.addWidget(l, 2, 0)
         grid.addWidget(self.backgroundColor, 2, 1)
-        c = ClearButton()
+        c = ClearButton(iconSize=QSize(16, 16))
         c.clicked.connect(self.backgroundColor.clear)
         grid.addWidget(c, 2, 2)
         
@@ -342,7 +342,7 @@ class CustomAttributes(QGroupBox):
         
         self.underlineColor = ColorButton()
         grid.addWidget(self.underlineColor, 5, 1)
-        c = ClearButton()
+        c = ClearButton(iconSize=QSize(16, 16))
         c.clicked.connect(self.underlineColor.clear)
         grid.addWidget(c, 5, 2)
         grid.setRowStretch(6, 2)
