@@ -71,12 +71,14 @@ revealed by pressing {key_whatsthis} or by selecting {menu_whatsthis}.
     
     def children():
         import scorewiz.dialog
+        import preferences.prefshelp
         return (
             introduction,
             starting,
             scorewiz.dialog.scorewiz_help,
             tools,
             editor,
+            preferences.prefshelp.preferences_dialog,
             about,
             toc,
         )

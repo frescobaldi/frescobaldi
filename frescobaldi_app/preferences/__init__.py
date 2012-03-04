@@ -26,16 +26,30 @@ from __future__ import unicode_literals
 
 from PyQt4.QtCore import QSettings, QSize, Qt, pyqtSignal
 from PyQt4.QtGui import (
-    QDialog, QDialogButtonBox, QGroupBox, QHBoxLayout, QListWidget,
-    QListWidgetItem, QStackedWidget, QVBoxLayout, QWidget)
+    QDialog, QDialogButtonBox, QGroupBox, QHBoxLayout, QKeySequence,
+    QListWidget, QListWidgetItem, QStackedWidget, QVBoxLayout, QWidget)
 
 import app
 import util
+import help
 import icons
 import widgets
 
+from . import prefshelp
 
 _prefsindex = 0 # global setting for selected prefs page but not saved on exit
+
+def pageorder():
+    """Yields the page item classes in order."""
+    yield General
+    yield LilyPond
+    yield Midi
+    yield Helpers
+    yield Paths
+    yield Documentation
+    yield Shortcuts
+    yield FontsColors
+    yield Tools
 
 
 class PreferencesDialog(QDialog):
@@ -71,22 +85,14 @@ class PreferencesDialog(QDialog):
         b.rejected.connect(self.reject)
         b.button(QDialogButtonBox.Apply).clicked.connect(self.saveSettings)
         b.button(QDialogButtonBox.Reset).clicked.connect(self.loadSettings)
+        b.button(QDialogButtonBox.Help).clicked.connect(self.showHelp)
+        b.button(QDialogButtonBox.Help).setShortcut(QKeySequence.HelpContents)
         b.button(QDialogButtonBox.Apply).setEnabled(False)
         
         # fill the pagelist
         self.pagelist.setIconSize(QSize(32, 32))
         self.pagelist.setSpacing(2)
-        for item in (
-            General,
-            LilyPond,
-            Midi,
-            Helpers,
-            Paths,
-            Documentation,
-            Shortcuts,
-            FontsColors,
-            Tools,
-                ):
+        for item in pageorder():
             self.pagelist.addItem(item())
         self.pagelist.currentItemChanged.connect(self.slotCurrentItemChanged)
         
@@ -112,6 +118,9 @@ class PreferencesDialog(QDialog):
         for n in range(self.stack.count()):
             yield self.stack.widget(n)
     
+    def showHelp(self):
+        help.help(self.pagelist.currentItem().help)
+        
     def loadSettings(self):
         """Loads the settings on reset."""
         for page in self.pages():
@@ -139,6 +148,7 @@ class PreferencesDialog(QDialog):
 
 
 class PrefsItemBase(QListWidgetItem):
+    help = prefshelp.preferences_dialog
     def __init__(self):
         super(PrefsItemBase, self).__init__()
         self._widget = None
@@ -157,6 +167,7 @@ class PrefsItemBase(QListWidgetItem):
 
 
 class General(PrefsItemBase):
+    help = prefshelp.preferences_general
     iconName = "preferences-system"
     def translateUI(self):
         self.setText(_("General Preferences"))
@@ -167,6 +178,7 @@ class General(PrefsItemBase):
         
 
 class LilyPond(PrefsItemBase):
+    help = prefshelp.preferences_lilypond
     iconName = "lilypond-run"
     def translateUI(self):
         self.setText(_("LilyPond Preferences"))
@@ -177,6 +189,7 @@ class LilyPond(PrefsItemBase):
 
 
 class Midi(PrefsItemBase):
+    help = prefshelp.preferences_midi
     iconName = "audio-volume-medium"
     def translateUI(self):
         self.setText(_("MIDI Settings"))
@@ -187,6 +200,7 @@ class Midi(PrefsItemBase):
 
 
 class Helpers(PrefsItemBase):
+    help = prefshelp.preferences_helpers
     iconName = "applications-other"
     def translateUI(self):
         self.setText(_("Helper Applications"))
@@ -197,6 +211,7 @@ class Helpers(PrefsItemBase):
 
 
 class Paths(PrefsItemBase):
+    help = prefshelp.preferences_paths
     iconName = "folder-open"
     def translateUI(self):
         self.setText(_("Paths"))
@@ -207,6 +222,7 @@ class Paths(PrefsItemBase):
 
 
 class Documentation(PrefsItemBase):
+    help = prefshelp.preferences_documentation
     iconName = "help-contents"
     def translateUI(self):
         self.setText(_("LilyPond Documentation"))
@@ -217,6 +233,7 @@ class Documentation(PrefsItemBase):
 
 
 class Shortcuts(PrefsItemBase):
+    help = prefshelp.preferences_shortcuts
     iconName = "configure-shortcuts"
     def translateUI(self):
         self.setText(_("Keyboard Shortcuts"))
@@ -227,6 +244,7 @@ class Shortcuts(PrefsItemBase):
         
 
 class FontsColors(PrefsItemBase):
+    help = prefshelp.preferences_fontscolors
     iconName = "applications-graphics"
     def translateUI(self):
         self.setText(_("Fonts & Colors"))
@@ -237,6 +255,7 @@ class FontsColors(PrefsItemBase):
 
 
 class Tools(PrefsItemBase):
+    help = prefshelp.preferences_tools
     iconName = "preferences-other"
     def translateUI(self):
         self.setText(_("Tools"))
