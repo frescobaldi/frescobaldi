@@ -42,7 +42,8 @@ class preferences_dialog(help.page):
 
     def children():
         from . import pageorder
-        return tuple(cls.help for cls in pageorder())
+        return tuple(cls.help for cls in pageorder()
+                              if cls.help is not preferences_dialog)
 
 
 class preferences_general(help.page):
