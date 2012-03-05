@@ -158,7 +158,7 @@ class preferences_paths(help.page):
         return '\n'.join((
         p(_("Here, directories can be added that contain "
             "<code>hyph_*.dic</code> files, where the <code>*</code> "
-            "stands for different language codes. ")),
+            "stands for different language codes.")),
         p(_("These hyphenation dictionaries are used by Frescobaldi to break "
             "lyrics text into syllabes.")),
         ))

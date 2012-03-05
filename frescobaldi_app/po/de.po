@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-03-03 22:24+0100\n"
+"POT-Creation-Date: 2012-03-05 09:26+0100\n"
 "PO-Revision-Date: 2011-12-30 18:12+0100\n"
 "Last-Translator: Georg Hennig <georg.hennig@web.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -64,7 +64,7 @@ msgstr "Über {appname}"
 msgid "About"
 msgstr "Über"
 
-#: ../about.py:88 ../help/contents.py:282
+#: ../about.py:88 ../help/contents.py:284
 msgid "Credits"
 msgstr "Danksagung"
 
@@ -396,13 +396,14 @@ msgctxt "menu title"
 msgid "Tools"
 msgstr "Werkzeuge"
 
-#: ../hyphendialog.py:167 ../help/contents.py:138 ../help/contents.py:145
+#: ../hyphendialog.py:167 ../help/contents.py:140 ../help/contents.py:147
 msgctxt "menu title"
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: ../hyphendialog.py:167 ../help/contents.py:139
-#: ../preferences/__init__.py:100 ../preferences/midi.py:134
+#: ../hyphendialog.py:167 ../help/contents.py:141
+#: ../preferences/__init__.py:106 ../preferences/midi.py:134
+#: ../preferences/prefshelp.py:36 ../preferences/prefshelp.py:42
 msgid "Preferences"
 msgstr "Einstellungen"
 
@@ -576,8 +577,8 @@ msgstr ""
 msgid "Tab Bar"
 msgstr "Tab-Balken"
 
-#: ../mainwindow.py:338 ../popplerprint.py:53 ../sessions/dialog.py:165
-#: ../sessions/dialog.py:173 ../sessions/dialog.py:179
+#: ../mainwindow.py:338 ../popplerprint.py:53 ../sessions/dialog.py:171
+#: ../sessions/dialog.py:179 ../sessions/dialog.py:185
 msgid "Warning"
 msgstr "Warnung"
 
@@ -1070,11 +1071,11 @@ msgstr "Dokumentation-Browser"
 msgid "&Documentation Browser"
 msgstr "&Dokumentation-Browser"
 
-#: ../docbrowser/__init__.py:82 ../help/browser.py:78
+#: ../docbrowser/__init__.py:82 ../help/browser.py:79
 msgid "Back"
 msgstr "Zurück"
 
-#: ../docbrowser/__init__.py:83 ../help/browser.py:79
+#: ../docbrowser/__init__.py:83 ../help/browser.py:80
 msgid "Forward"
 msgstr "Vorwärts"
 
@@ -1107,7 +1108,7 @@ msgstr "(lokal)"
 msgid "({hostname})"
 msgstr "({hostname})"
 
-#: ../docbrowser/browser.py:229 ../help/browser.py:82 ../help/browser.py:113
+#: ../docbrowser/browser.py:229 ../help/browser.py:83 ../help/browser.py:114
 msgid "Print"
 msgstr "Drucken"
 
@@ -1300,19 +1301,19 @@ msgstr "Erzeu&gte Dateien"
 msgid "No files available"
 msgstr "Keine Dateien verfügbar"
 
-#: ../help/browser.py:77
+#: ../help/browser.py:78
 msgid "Toolbar"
 msgstr "Werkzeugleiste"
 
-#: ../help/browser.py:80
+#: ../help/browser.py:81
 msgid "Start"
 msgstr "Start"
 
-#: ../help/browser.py:81
+#: ../help/browser.py:82
 msgid "Contents"
 msgstr "Inhalt"
 
-#: ../help/browser.py:88 ../help/browser.py:89 ../help/contents.py:69
+#: ../help/browser.py:89 ../help/browser.py:90 ../help/contents.py:69
 #: ../quickinsert/widget.py:106
 msgid "Help"
 msgstr "Hilfe"
@@ -1370,11 +1371,11 @@ msgstr ""
 msgid "What's This"
 msgstr "Was ist das?"
 
-#: ../help/contents.py:87
+#: ../help/contents.py:89
 msgid "Introduction"
 msgstr "Einführung"
 
-#: ../help/contents.py:90
+#: ../help/contents.py:92
 msgid ""
 "<p>\n"
 "<a href=\"http://lilypond.org/\">LilyPond</a>\n"
@@ -1403,37 +1404,38 @@ msgid ""
 "</p>"
 msgstr ""
 
-#: ../help/contents.py:116
+#: ../help/contents.py:118
 msgid "Getting Started"
 msgstr "Loslegen"
 
-#: ../help/contents.py:136 ../preferences/fontscolors.py:482
+#: ../help/contents.py:138 ../preferences/fontscolors.py:482
 #: ../preferences/lilypond.py:237 ../scorewiz/settings.py:295
 msgid "LilyPond"
 msgstr "LilyPond"
 
-#: ../help/contents.py:136
+#: ../help/contents.py:138
 msgid "Engrave (publish)"
 msgstr "Noten stechen (Veröffentlichung)"
 
-#: ../help/contents.py:140 ../preferences/__init__.py:172
+#: ../help/contents.py:142 ../preferences/__init__.py:184
+#: ../preferences/prefshelp.py:83
 msgid "LilyPond Preferences"
 msgstr "LilyPond-Einstellungen"
 
-#: ../help/contents.py:142
+#: ../help/contents.py:144
 msgctxt "menu title"
 msgid "View"
 msgstr "Ansicht"
 
-#: ../help/contents.py:143
+#: ../help/contents.py:145
 msgid "Clear Error Marks"
 msgstr "Fehler-Markierungen löschen"
 
-#: ../help/contents.py:146
+#: ../help/contents.py:148
 msgid "Copy to Image..."
 msgstr "In Bild kopieren..."
 
-#: ../help/contents.py:147
+#: ../help/contents.py:149
 msgid ""
 "<p>\n"
 "The default screen of Frescobaldi shows a text document on the left and an\n"
@@ -1527,19 +1529,19 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:230
+#: ../help/contents.py:232
 msgid "Other Tools"
 msgstr "Andere Werkzeuge"
 
-#: ../help/contents.py:233
+#: ../help/contents.py:235
 msgid "<p>Some other important tools are listed here.</p>\n"
 msgstr "<p>Ein paar wichtige Werkzeuge sind hier aufgelistet.</p>\n"
 
-#: ../help/contents.py:254
+#: ../help/contents.py:256
 msgid "About Frescobaldi"
 msgstr "Über Frescobaldi"
 
-#: ../help/contents.py:257
+#: ../help/contents.py:259
 msgid ""
 "<p>\n"
 "Frescobaldi is named after\n"
@@ -1573,15 +1575,15 @@ msgstr ""
 "a>).\n"
 "</p>\n"
 
-#: ../help/contents.py:287
+#: ../help/contents.py:289
 msgid "Frescobaldi's main author is {author}."
 msgstr "Frescobaldis Hauptentwickler ist {author}."
 
-#: ../help/contents.py:295
+#: ../help/contents.py:297
 msgid "Contributing"
 msgstr "Mitwirkende"
 
-#: ../help/contents.py:298
+#: ../help/contents.py:300
 msgid ""
 "<p>\n"
 "Frescobaldi is a <a href=\"http://www.gnu.org/philosophy/free-sw.html"
@@ -1608,11 +1610,11 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:323
+#: ../help/contents.py:325
 msgid "History of Frescobaldi"
 msgstr "Entwicklungsgeschichte von Frescobaldi"
 
-#: ../help/contents.py:326
+#: ../help/contents.py:328
 msgid ""
 "<p>\n"
 "Frescobaldi has its roots in LilyKDE, which was a plugin for KDE3's editor "
@@ -1640,11 +1642,11 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:352
+#: ../help/contents.py:354
 msgid "The editor"
 msgstr "Der Editor"
 
-#: ../help/contents.py:355
+#: ../help/contents.py:357
 msgid ""
 "<p>\n"
 "In this part the features of the editor are discussed,\n"
@@ -1659,15 +1661,15 @@ msgstr ""
 "usw.\n"
 "</p>\n"
 
-#: ../help/contents.py:371
+#: ../help/contents.py:374
 msgid "Search and replace"
 msgstr "Suchen und ersetzen"
 
-#: ../help/contents.py:379
+#: ../help/contents.py:382 ../preferences/prefshelp.py:42
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: ../help/contents.py:381
+#: ../help/contents.py:384
 msgid ""
 "<p>\n"
 "In the menu {edit_menu} the commands Find ({key_search})\n"
@@ -1718,11 +1720,11 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:429
+#: ../help/contents.py:432
 msgid "Document variables"
 msgstr "Dokumenten-Variablen"
 
-#: ../help/contents.py:434
+#: ../help/contents.py:437
 msgid ""
 "Document variables are variables that influence the behaviour of "
 "Frescobaldi.\n"
@@ -1737,16 +1739,16 @@ msgstr ""
 "den Rest der Zeilen nach Variablendefinitionen wie <code>Name: Wert;</"
 "code>.\n"
 
-#: ../help/contents.py:441
+#: ../help/contents.py:444
 msgid "The following variables are recognized:"
 msgstr "Die folgenden Variablen werden erkannt:"
 
-#: ../help/contents.py:446
+#: ../help/contents.py:449
 msgid "mode"
 msgstr "Modus"
 
 #. L10N: do not translate the mode names lilypond, html, etc.
-#: ../help/contents.py:448
+#: ../help/contents.py:451
 msgid ""
 "Force mode to be one of lilypond, html, texinfo, latex, docbook or scheme. "
 "Default: automatic mode recognition."
@@ -1754,60 +1756,106 @@ msgstr ""
 "Erzwinge LilyPond-, HTML-, Texinfo-, LaTeX-, Docbook- oder Scheme-Modus. "
 "Standard: Automatische Modus-Erkennung."
 
-#: ../help/contents.py:450
+#: ../help/contents.py:453
 msgid "filename"
 msgstr "Dateiname"
 
-#: ../help/contents.py:451
+#: ../help/contents.py:454
 msgid "Compiles another LilyPond document instead of the current."
 msgstr ""
 "Verarbeitet anstelle des aktuellen Dokuments ein anderes LilyPond-Dokument."
 
-#: ../help/contents.py:452
+#: ../help/contents.py:455
 msgid "encoding"
 msgstr "Zeichensatz"
 
-#: ../help/contents.py:453
+#: ../help/contents.py:456
 msgid "Use another encoding than the default UTF-8."
 msgstr "Benutze einen anderen Zeichensatz als den Standard (UTF-8)."
 
-#: ../help/contents.py:454
+#: ../help/contents.py:457
 msgid "version"
 msgstr "Version"
 
-#: ../help/contents.py:455
+#: ../help/contents.py:458
 msgid ""
 "Set the LilyPond version to use, can be used for non-LilyPond documents."
 msgstr ""
 "Die zu verwendende LilyPond-Version; kann für Nicht-LilyPond-Dokumente "
 "benutzt werden."
 
-#: ../help/contents.py:457 ../help/contents.py:465
+#: ../help/contents.py:460 ../help/contents.py:468
 msgid "number"
 msgstr "Nummer"
 
-#: ../help/contents.py:458
+#: ../help/contents.py:461
 msgid "The width of a tab character, by default 8."
 msgstr "Die Breite von Tabulatoren, Standard ist 8."
 
-#: ../help/contents.py:460
+#: ../help/contents.py:463
 msgid "Whether to use tabs in indent, by default {no}."
 msgstr "Benutze Tabulatoren bei Einrückungen, Standard ist {no}."
 
-#: ../help/contents.py:463
+#: ../help/contents.py:466
 msgid "Whether to use tabs elsewhere in the document, by default {yes}."
 msgstr "Benutze Tabulatoren an anderer Stelle im Dokument, Standard ist {yes}."
 
-#: ../help/contents.py:466
+#: ../help/contents.py:469
 msgid "The number of spaces each indent level uses, by default 2."
 msgstr ""
 "Anzahl von Leerzeichen, aus denen jede Einrückung besteht, Standard ist 2."
 
-#: ../help/contents.py:474
+#: ../help/contents.py:477
 msgid "You can put document variables in comments."
 msgstr "Sie können Dokumenten-Variable als Kommentar einfügen."
 
-#: ../help/contents.py:481
+#: ../help/contents.py:484
+#, fuzzy
+msgid "Sessions"
+msgstr "Sitzung"
+
+#: ../help/contents.py:489
+msgid ""
+"A session is basically a list of open files. At any time you can choose "
+"{menu_session_save} or {menu_session_new} and save the current list of open "
+"files to a named session."
+msgstr ""
+
+#: ../help/contents.py:492 ../help/contents.py:493 ../help/contents.py:502
+msgid "Session"
+msgstr "Sitzung"
+
+#: ../help/contents.py:492 ../help/contents.py:502
+#, fuzzy
+msgid "Save"
+msgstr "Speichern"
+
+#: ../help/contents.py:493
+#, fuzzy
+msgctxt "New Session"
+msgid "New"
+msgstr "&Neu"
+
+#: ../help/contents.py:494
+msgid ""
+"When you switch sessions, all current documents are closed first and then "
+"the documents of the other session are opened."
+msgstr ""
+
+#: ../help/contents.py:496
+msgid ""
+"Inside the session properties dialog, you can choose whether to always save "
+"the list of open documents to that session, or to only save on creation (or "
+"via {menu_session_save}). This can be useful if you want to keep the list of "
+"documents in session the same, even if you open or close documents while "
+"working."
+msgstr ""
+
+#: ../help/contents.py:503
+msgid "You can also specify a default directory for the session."
+msgstr ""
+
+#: ../help/contents.py:513
 msgid "Table of Contents"
 msgstr "Inhaltsverzeichnis"
 
@@ -2420,35 +2468,37 @@ msgctxt "QScrollBar"
 msgid "Scroll right"
 msgstr "Nach rechts scrollen"
 
-#: ../preferences/__init__.py:162 ../preferences/general.py:123
+#: ../preferences/__init__.py:173 ../preferences/general.py:123
+#: ../preferences/prefshelp.py:52 ../preferences/prefshelp.py:61
 msgid "General Preferences"
 msgstr "Allgemeine Einstellungen"
 
-#: ../preferences/__init__.py:182
+#: ../preferences/__init__.py:195 ../preferences/prefshelp.py:102
 msgid "MIDI Settings"
 msgstr "MIDI-Einstellungen"
 
-#: ../preferences/__init__.py:192 ../preferences/helpers.py:80
+#: ../preferences/__init__.py:206 ../preferences/helpers.py:80
+#: ../preferences/prefshelp.py:134
 msgid "Helper Applications"
 msgstr "Hilfsprogramme"
 
-#: ../preferences/__init__.py:202
+#: ../preferences/__init__.py:217 ../preferences/prefshelp.py:155
 msgid "Paths"
 msgstr "Pfade"
 
-#: ../preferences/__init__.py:212
+#: ../preferences/__init__.py:228 ../preferences/prefshelp.py:169
 msgid "LilyPond Documentation"
 msgstr "LilyPond-Dokumentation"
 
-#: ../preferences/__init__.py:222
+#: ../preferences/__init__.py:239 ../preferences/prefshelp.py:187
 msgid "Keyboard Shortcuts"
 msgstr "Tastatur-Kurzbefehle festlegen"
 
-#: ../preferences/__init__.py:232
+#: ../preferences/__init__.py:250 ../preferences/prefshelp.py:206
 msgid "Fonts & Colors"
 msgstr "Schriftsätze & Farben"
 
-#: ../preferences/__init__.py:242
+#: ../preferences/__init__.py:261 ../preferences/prefshelp.py:229
 msgid "Tools"
 msgstr "Werkzeugansicht"
 
@@ -2462,7 +2512,7 @@ msgstr ""
 "Pfade oder URLs hinzufügen. Benutzen Sie die \"Was ist das\"-Hilfe für "
 "weitere Informationen."
 
-#: ../preferences/documentation.py:70
+#: ../preferences/documentation.py:70 ../preferences/prefshelp.py:174
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
 "A local path should point to the directory where either the "
@@ -2808,7 +2858,7 @@ msgstr ""
 msgid "Show Splash Screen on Startup"
 msgstr ""
 
-#: ../preferences/general.py:161
+#: ../preferences/general.py:161 ../preferences/prefshelp.py:69
 msgid "Session to load if Frescobaldi is started without arguments"
 msgstr ""
 "Sitzung, die geladen wird, wenn Frescobaldi ohne Argumente gestarted wird"
@@ -2825,7 +2875,7 @@ msgstr "Starte mit zuletzt geöffneter Sitzung"
 msgid "Start with session:"
 msgstr "Starte mit Sitzung:"
 
-#: ../preferences/general.py:219
+#: ../preferences/general.py:219 ../preferences/prefshelp.py:77
 msgid "When saving documents"
 msgstr "Speichern von Dokumenten"
 
@@ -3039,7 +3089,7 @@ msgstr ""
 msgid "Refresh MIDI ports"
 msgstr "MIDI-Ports aktualisieren"
 
-#: ../preferences/midi.py:135
+#: ../preferences/midi.py:135 ../preferences/prefshelp.py:119
 msgid "Close unused MIDI output"
 msgstr "Unbenutzte MIDI-Ports schließen"
 
@@ -3051,7 +3101,7 @@ msgstr ""
 "Schließe unbenutzt MIDI-Ports nach einer Minute. Benutzen Sie die \"Was ist "
 "das\"-Hilfe für weitere Informationen."
 
-#: ../preferences/midi.py:140
+#: ../preferences/midi.py:140 ../preferences/prefshelp.py:121
 msgid ""
 "<p>If checked, Frescobaldi will close MIDI output ports that are not used "
 "for one minute.</p>\n"
@@ -3065,6 +3115,188 @@ msgstr ""
 #: ../preferences/paths.py:59
 msgid "Folders containing hyphenation dictionaries"
 msgstr "Ordner, die ein Silbentrennungswörterbuch enthalten"
+
+#: ../preferences/prefshelp.py:40
+msgid ""
+"In the Preferences Dialog (under {menu}) you can configure many aspects of "
+"Frescobaldi and LilyPond."
+msgstr ""
+
+#: ../preferences/prefshelp.py:56
+msgid ""
+"Under <em>{general_preferences}</em>, you can choose in which language "
+"Frescobaldi's user interface is translated, which user interface style you "
+"want to use, and whether you want to use the built-in Tango iconset or to "
+"use the system-wide configured icon set."
+msgstr ""
+
+#: ../preferences/prefshelp.py:62
+msgid ""
+"Language and style take effect immediately, but the new iconset is visible "
+"after Frescobaldi has been restarted."
+msgstr ""
+
+#: ../preferences/prefshelp.py:64
+msgid ""
+"Under <em>{startup}</em> you can configure which session to load if "
+"Frescobaldi is started without a filename. You can choose whether to start "
+"with one empty document, with the last used session, or with a specific "
+"session. See also {link}."
+msgstr ""
+
+#: ../preferences/prefshelp.py:71
+msgid ""
+"Under <em>{saving}</em>, you can choose what to do when a document is saved, "
+"such as remembering the cursor position and marked lines, or leaving a "
+"backup copy of the document (with a ~ appended). Also, you can specify a "
+"default folder in which you keep your LilyPond documents."
+msgstr ""
+
+#: ../preferences/prefshelp.py:87
+msgid ""
+"Here you can configure how LilyPond is run when you engrave your document."
+msgstr ""
+
+#: ../preferences/prefshelp.py:89
+msgid ""
+"If you have multiple versions of LilyPond installed you can specify them "
+"here, and configure Frescobaldi to automatically choose the right one, based "
+"on the version number that it set in the document."
+msgstr ""
+
+#: ../preferences/prefshelp.py:93
+msgid ""
+"You can also configure how LilyPond is run. See the tooltips of the settings "
+"for more information."
+msgstr ""
+
+#: ../preferences/prefshelp.py:95
+msgid ""
+"Finally, you can specify a list of paths where the LilyPond <code>\\include</"
+"code> command looks for files."
+msgstr ""
+
+#: ../preferences/prefshelp.py:106
+msgid "Here you can configure Frescobaldi's MIDI settings."
+msgstr ""
+
+#: ../preferences/prefshelp.py:107
+msgid "You can specify the MIDI port name to play to. "
+msgstr ""
+
+#: ../preferences/prefshelp.py:108
+msgid ""
+"If there are no port names visible in the drop-down box, it may be necessary "
+"to connect a hardware MIDI synthesizer to your computer, or to start a "
+"software synthesizer program such as TiMidity or Fluidsynth."
+msgstr ""
+
+#: ../preferences/prefshelp.py:112
+msgid "On Linux, the synthesizer should be available as an ALSA MIDI device."
+msgstr ""
+
+#: ../preferences/prefshelp.py:114
+msgid ""
+"If you have a device with multiple ports, you can specify the first letters "
+"of the name, to have Frescobaldi automatically pick the first available one."
+msgstr ""
+
+#: ../preferences/prefshelp.py:117
+msgid ""
+"And finally, when using a software synthesizer it is recommended to enable "
+"the option <em>{close_unused}</em>."
+msgstr ""
+
+#: ../preferences/prefshelp.py:139
+#, fuzzy
+msgid ""
+"In this page you can enter commands to open different file types. <code>$f</"
+"code> is replaced with the filename, <code>$u</code> with the URL. Leave a "
+"field empty to use the operating system default application."
+msgstr ""
+"Unten können Sie Kommandos eingeben, umd verschiedene Dateitypen zu öffnen. "
+"<code>$f</code> wird durch den Dateinamen ersetzt, <code>$u</code> durch die "
+"URL. Bei leerem Feld wird die Standardanwendung des Betriebssystems benutzt."
+
+#: ../preferences/prefshelp.py:145
+msgid ""
+"For the e-mail setting, the command should accept a <code>mailto:</code> "
+"url. For the command prompt, the command should open a console window. A "
+"<code>$f</code> value is replaced with the directory of the current document."
+msgstr ""
+
+#: ../preferences/prefshelp.py:159
+msgid ""
+"Here, directories can be added that contain <code>hyph_*.dic</code> files, "
+"where the <code>*</code> stands for different language codes."
+msgstr ""
+
+#: ../preferences/prefshelp.py:162
+msgid ""
+"These hyphenation dictionaries are used by Frescobaldi to break lyrics text "
+"into syllabes."
+msgstr ""
+
+#: ../preferences/prefshelp.py:191
+msgid ""
+"Here you can add keyboard shortcuts to all commands available. Also the "
+"{snippets} or {quickinsert} buttons that have keyboard shortcuts are listed "
+"here."
+msgstr ""
+
+#: ../preferences/prefshelp.py:194 ../snippet/tool.py:54
+#: ../snippet/tool.py:131 ../snippet/widget.py:367
+msgid "Snippets"
+msgstr "Schnipsel"
+
+#: ../preferences/prefshelp.py:195 ../quickinsert/__init__.py:47
+#: ../quickinsert/__init__.py:71
+msgid "Quick Insert"
+msgstr "Schnell einfügen"
+
+#: ../preferences/prefshelp.py:196
+msgid ""
+"To change a keyboard shortcut, highlight an action in the list and click the "
+"Edit button, or double-click an action. In the dialog that appears, you can "
+"enter up to four shortcuts for the action by clicking the button and typing "
+"the shortcut. "
+msgstr ""
+
+#: ../preferences/prefshelp.py:200 ../preferences/prefshelp.py:223
+msgid "You can define a new scheme by using the New button."
+msgstr ""
+
+#: ../preferences/prefshelp.py:210
+msgid ""
+"Here you can set the editor font (a monospace font is recommended) and all "
+"colors."
+msgstr ""
+
+#: ../preferences/prefshelp.py:212
+msgid ""
+"The first item lets you set the colors for the text editor backgroud, "
+"foreground, selection background, the current line, line markings, the paper "
+"color in the Music View, etcetera."
+msgstr ""
+
+#: ../preferences/prefshelp.py:215
+msgid ""
+"The second item lets you set color and other attributes of the general "
+"highlighting styles, e.g. keyword, variable, value, comment, etcetera."
+msgstr ""
+
+#: ../preferences/prefshelp.py:218
+msgid ""
+"The other items contain the types of text the syntax highlighter recognizes "
+"for every particular document type Frescobaldi supports. Some of these types "
+"inherit a general style. It is possible to set the attributes bold, italic, "
+"underline and the foreground, background and underline color."
+msgstr ""
+
+#: ../preferences/prefshelp.py:233
+#, fuzzy
+msgid "Here you can change the settings for various tools."
+msgstr "Hier können Sie den Kurzbefehl für {name} bearbeiten"
 
 #: ../preferences/shortcuts.py:56 ../snippet/model.py:63
 msgid "Shortcut"
@@ -3143,10 +3375,6 @@ msgstr "%"
 #: ../preferences/tools.py:220
 msgid "Group documents by directory"
 msgstr "Dokumente nach Verzeichnis gruppieren"
-
-#: ../quickinsert/__init__.py:47 ../quickinsert/__init__.py:71
-msgid "Quick Insert"
-msgstr "Schnell einfügen"
 
 #: ../quickinsert/__init__.py:48
 msgid "Quick &Insert"
@@ -5131,39 +5359,39 @@ msgstr "B.Bl."
 msgid "Woodwinds"
 msgstr "Holzbläser"
 
-#: ../sessions/dialog.py:40
+#: ../sessions/dialog.py:43
 msgid "Manage Sessions"
 msgstr "Sitzungen verwalten"
 
-#: ../sessions/dialog.py:109
+#: ../sessions/dialog.py:115
 msgid "Name:"
 msgstr "Name:"
 
-#: ../sessions/dialog.py:110
+#: ../sessions/dialog.py:116
 msgid "Always save the list of documents in this session"
 msgstr "Immer die Liste der Dokumente in dieser Sitzung speichern"
 
-#: ../sessions/dialog.py:111
+#: ../sessions/dialog.py:117
 msgid "Base directory:"
 msgstr "Basis-Verzeichnis:"
 
-#: ../sessions/dialog.py:133
+#: ../sessions/dialog.py:139
 msgid "Edit session: {name}"
 msgstr "Bearbeite Sitzung: {name}"
 
-#: ../sessions/dialog.py:137
+#: ../sessions/dialog.py:143
 msgid "Edit new session"
 msgstr "Neue Sitzung bearbeiten"
 
-#: ../sessions/dialog.py:166
+#: ../sessions/dialog.py:172
 msgid "Please enter a session name."
 msgstr "Bitte Namen für die Sitzung eingeben."
 
-#: ../sessions/dialog.py:174
+#: ../sessions/dialog.py:180
 msgid "Please do not use the name '{name}'."
 msgstr "Bitte nicht den Namen '{name}' benutzen."
 
-#: ../sessions/dialog.py:180
+#: ../sessions/dialog.py:186
 msgid ""
 "Another session with the name {name} already exists.\n"
 "\n"
@@ -5173,7 +5401,7 @@ msgstr ""
 "\n"
 "Wollen Sie sie überschreiben?"
 
-#: ../sessions/dialog.py:183
+#: ../sessions/dialog.py:189
 msgid "Overwrite"
 msgstr "Überschreiben"
 
@@ -5599,10 +5827,6 @@ msgstr "Als Vorlage speichern"
 msgid "Please enter a template name:"
 msgstr "Bitte geben Sie einen Vorlagen-Namen ein:"
 
-#: ../snippet/tool.py:54 ../snippet/tool.py:131 ../snippet/widget.py:367
-msgid "Snippets"
-msgstr "Schnipsel"
-
 #: ../snippet/tool.py:55
 msgid "&Snippets"
 msgstr "&Schnipsel"
@@ -5942,9 +6166,6 @@ msgstr "Datei auswählen"
 
 #~ msgid "Press the button to configure the keyboard shortcut for:"
 #~ msgstr "Knopf drücken um Tastatur-Kurzbefehle einzurichten für:"
-
-#~ msgid "Session"
-#~ msgstr "Sitzung"
 
 #~ msgid "Properties of this session"
 #~ msgstr "Eigenschaften dieser Sitzung"
