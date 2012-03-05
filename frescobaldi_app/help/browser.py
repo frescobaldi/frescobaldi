@@ -41,6 +41,7 @@ class Window(QMainWindow):
     def __init__(self):
         super(Window, self).__init__()
         self.setAttribute(Qt.WA_QuitOnClose, False)
+        self.setWindowIcon(icons.get('frescobaldi'))
         
         self.browser = Browser(self)
         self.setCentralWidget(self.browser)

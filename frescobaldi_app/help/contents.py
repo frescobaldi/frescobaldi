@@ -365,6 +365,7 @@ etcetera.
         return (
             search_replace,
             document_variables,
+            sessions,
         )
 
 
@@ -476,6 +477,35 @@ the lines for variable definitions like <code>name: value;</code>.
         text.append(_("You can put document variables in comments."))
         text.append('</p>')
         return ''.join(text)
+
+
+class sessions(page):
+    def title():
+        return _("Sessions")
+    
+    def body():
+        p = '<p>{0}</p>'.format
+        return '\n'.join((
+        p(_("A session is basically a list of open files. At any time you can "
+            "choose {menu_session_save} or {menu_session_new} and save the "
+            "current list of open files to a named session.").format(
+            menu_session_save=menu(_("Session"), _("Save")),
+            menu_session_new=menu(_("Session"), _("New Session", "New")))),
+        p(_("When you switch sessions, all current documents are closed first "
+            "and then the documents of the other session are opened.")),
+        p(_("Inside the session properties dialog, you can choose whether to "
+            "always save the list of open documents to that session, or to "
+            "only save on creation (or via {menu_session_save}). "
+            "This can be useful if you want to keep the list of documents in "
+            "session the same, even if you open or close documents while "
+            "working.").format(
+            menu_session_save=menu(_("Session"), _("Save")))),
+        p(_("You can also specify a default directory for the session.")),
+        ))
+    
+    def seealso():
+        import preferences.prefshelp
+        return (preferences.prefshelp.preferences_general,)
 
 
 class toc(page):

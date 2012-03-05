@@ -24,6 +24,7 @@ Session dialog for named session stuff.
 from __future__ import unicode_literals
 
 
+from PyQt4.QtCore import Qt
 from PyQt4.QtGui import (
     QCheckBox, QDialog, QDialogButtonBox, QGridLayout, QLabel, QLineEdit,
     QMessageBox, QVBoxLayout)
@@ -32,11 +33,13 @@ import app
 import widgets.listedit
 import widgets.urlrequester
 import sessions
+import help
 
 
 class SessionManagerDialog(QDialog):
     def __init__(self, mainwindow):
         super(SessionManagerDialog, self).__init__(mainwindow)
+        self.setWindowModality(Qt.WindowModal)
         self.setWindowTitle(app.caption(_("Manage Sessions")))
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -47,8 +50,9 @@ class SessionManagerDialog(QDialog):
         
         self.buttons = b = QDialogButtonBox(self)
         layout.addWidget(b)
-        b.setStandardButtons(QDialogButtonBox.Help | QDialogButtonBox.Close)
+        b.setStandardButtons(QDialogButtonBox.Close)
         b.rejected.connect(self.accept)
+        help.addButton(b, "sessions")
         self.sessions.load()
 
 
@@ -75,6 +79,7 @@ class SessionList(widgets.listedit.ListEdit):
 class SessionEditor(QDialog):
     def __init__(self, parent=None):
         super(SessionEditor, self).__init__(parent)
+        self.setWindowModality(Qt.WindowModal)
         
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -100,9 +105,10 @@ class SessionEditor(QDialog):
         layout.addWidget(widgets.Separator())
         self.buttons = b = QDialogButtonBox(self)
         layout.addWidget(b)
-        b.setStandardButtons(QDialogButtonBox.Help | QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        b.setStandardButtons(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         b.accepted.connect(self.accept)
         b.rejected.connect(self.reject)
+        help.addButton(b, "sessions")
         app.translateUI(self)
         
     def translateUI(self):
