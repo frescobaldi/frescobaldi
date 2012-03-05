@@ -52,12 +52,36 @@ def blocks(cursor):
         block = block.next()
      
 
+def contains(c1, c2):
+    """Returns True if cursor2's selection falls inside cursor1's."""
+    return (c1.selectionStart() <= c2.selectionStart()
+            and c1.selectionEnd() >= c2.selectionEnd())
+
+
 def allBlocks(document):
     """Yields all blocks of the document."""
     block = document.firstBlock()
     while block.isValid():
         yield block
         block = block.next()
+
+
+def partition(cursor):
+    """Returns a three-tuple of strings (before, selection, after).
+    
+    'before' is the text before the cursor's position or selection start,
+    'after' is the text after the cursor's position or selection end,
+    'selection' is the selected text.
+    
+    before and after never contain a newline.
+    
+    """
+    start = cursor.document().findBlock(cursor.selectionStart())
+    end = cursor.document().findBlock(cursor.selectionEnd())
+    before = start.text()[:cursor.selectionStart() - start.position()]
+    selection = cursor.selection().toPlainText()
+    after = end.text()[cursor.selectionEnd() - end.position():]
+    return before, selection, after
 
 
 @contextlib.contextmanager
@@ -94,27 +118,21 @@ def keepSelection(cursor, edit=None):
             edit.setTextCursor(cursor)
 
 
-def stripSelection(cursor):
-    """Adjusts the selection to not include whitespace on both ends."""
+def strip(cursor, chars=None):
+    """Adjusts the selection of the cursor just like Python's strip()."""
     if not cursor.hasSelection():
         return
     text = cursor.selection().toPlainText()
-    if text.isspace():
+    if not text.strip(chars):
         return
-    start, end = cursor.selectionStart(), cursor.selectionEnd()
-    atStart = start == cursor.position()
-    
-    s, e = 0, -1
-    while text[s].isspace():
-        s += 1
-    while text[e].isspace():
-        e -= 1
-    start += s
-    end += e + 1
-    if atStart:
-        start, end = end, start
-    cursor.setPosition(start)
-    cursor.setPosition(end, QTextCursor.KeepAnchor)
+    l = len(text) - len(text.lstrip(chars))
+    r = len(text) - len(text.rstrip(chars))
+    s = cursor.selectionStart() + l
+    e = cursor.selectionEnd() - r
+    if cursor.position() < cursor.anchor():
+        s, e = e, s
+    cursor.setPosition(s)
+    cursor.setPosition(e, QTextCursor.KeepAnchor)
 
 
 def insertText(cursor, text):

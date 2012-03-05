@@ -42,7 +42,7 @@ def cut_assign(cursor):
     if not name:
         return
     
-    cursortools.stripSelection(cursor)
+    cursortools.strip(cursor)
     
     # determine state at cursor
     block = cursortools.block(cursor)

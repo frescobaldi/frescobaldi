@@ -35,6 +35,7 @@ from PyQt4.QtGui import (
 import app
 import util
 import plugin
+import cursortools
 import textformats
 import viewhighlighter
 import widgets.borderlayout
@@ -298,7 +299,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
             replaced = False
             cursors = self._positions
             if view.textCursor().hasSelection():
-                cursors = [cursor for cursor in cursors if cursorContains(view.textCursor(), cursor)]
+                cursors = [cursor for cursor in cursors if cursortools.contains(view.textCursor(), cursor)]
             view.textCursor().beginEditBlock()
             for cursor in cursors:
                 if self.doReplace(cursor):
@@ -307,8 +308,4 @@ class Search(QWidget, plugin.MainWindowPlugin):
             if replaced:
                 viewhighlighter.highlighter(view).highlight("search", self._positions, 1)
 
-
-def cursorContains(c1, c2):
-    """Returns True if the selection of cursor2 entirely falls inside the selection of cursor1."""
-    return c1.selectionStart() <= c2.selectionStart() and c1.selectionEnd() >= c2.selectionEnd()
 

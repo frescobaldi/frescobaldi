@@ -43,7 +43,7 @@ def insert(name, view):
     if 'yes' in selection and not cursor.hasSelection():
         return
     if 'strip' in selection:
-        cursortools.stripSelection(cursor)
+        cursortools.strip(cursor)
     
     pos = cursor.selectionStart()
     line = cursor.document().findBlock(pos).blockNumber()
