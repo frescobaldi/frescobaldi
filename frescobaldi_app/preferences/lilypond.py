@@ -194,6 +194,7 @@ class InfoItem(QListWidgetItem):
 class InfoDialog(QDialog):
     def __init__(self, parent):
         super(InfoDialog, self).__init__(parent)
+        self.setWindowModality(Qt.WindowModal)
         
         layout = QVBoxLayout()
         layout.setSpacing(10)
@@ -228,9 +229,10 @@ class InfoDialog(QDialog):
         b = self.buttons = QDialogButtonBox(self)
         layout.addWidget(b)
         
-        b.setStandardButtons(QDialogButtonBox.Help | QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        b.setStandardButtons(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         b.accepted.connect(self.accept)
         b.rejected.connect(self.reject)
+        help.addButton(b, "preferences_lilypond")
         app.translateUI(self)
         
     def translateUI(self):
