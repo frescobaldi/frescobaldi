@@ -88,13 +88,39 @@ class preferences_lilypond(help.page):
             "document.")),
         p(_("If you have multiple versions of LilyPond installed you can "
             "specify them here, and configure Frescobaldi to automatically "
-            "choose the right one, based on the version number that it set in "
-            "the document.")),
+            "choose the right one, based on the version number that is set in "
+            "the document ({more_info}).").format(
+            more_info=preferences_lilypond_autoversion.link(_("more info")))),
         p(_("You can also configure how LilyPond is run. See the tooltips of "
             "the settings for more information.")),
         p(_("Finally, you can specify a list of paths where the LilyPond "
             "<code>\include</code> command looks for files.")),
         ))
+
+
+class preferences_lilypond_autoversion(help.page):
+    def title():
+        return _("Automatically choose LilyPond version from document")
+    
+    def body():
+        return _(
+        # same as whatsthis in lilypond.py
+        "<p>If this setting is enabled, the document is searched for a "
+        "LilyPond <code>\\version</code> command or a <code>version</code> "
+        "document variable.</p>\n"
+        "<p>The LilyPond version command looks like:</p>\n"
+        "<pre>\\version \"2.14.0\"</pre>\n"
+        "<p>The document variable looks like:</p>\n"
+        "<pre>-*- version: 2.14.0;</pre>\n"
+        "<p>somewhere (in a comments section) in the first or last 5 lines "
+        "of the document. "
+        "This way the LilyPond version to use can also be specified in non-LilyPond "
+        "documents like HTML, LaTeX, etc.</p>\n"
+        "<p>If the document specifies a version, the oldest suitable LilyPond version "
+        "is chosen. Otherwise, the default version is chosen.</p>\n")
+    
+    def seealso():
+        return (help.contents.document_variables,)
 
 
 class preferences_midi(help.page):

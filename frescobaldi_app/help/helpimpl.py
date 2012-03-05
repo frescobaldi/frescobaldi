@@ -77,8 +77,8 @@ class page(object):
     popup = False
     
     @classmethod
-    def link(cls):
-        return '<a href="help:{0}">{1}</a>'.format(cls.name, cls.title())
+    def link(cls, title=None):
+        return '<a href="help:{0}">{1}</a>'.format(cls.name, title or cls.title())
     
     def title():
         return ""
@@ -178,5 +178,17 @@ def menu(*titles):
     
     """
     return '<em>{0}</em>'.format('&#8594;'.join(titles))
+
+
+def link(helppage, title=None):
+    """Returns a HTML link to the given help page.
+    
+    The help page maybe a string name, or the class.
+    If no title is given, the page's title is used.
+    
+    """
+    if not isinstance(helppage, type):
+        helppage = all_pages[helppage]
+    return helppage.link(title)
 
 
