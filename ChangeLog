@@ -22,6 +22,7 @@ Changes in 2.0.4 -- March 7th, 2012
   - built-in manual now documents settings and session dialog
 * Bug fixes:
   - fix icon theme index files not in source tarball (regression since 2.0.3)
+  - fix hyphenation dictionaries not in source tarball
   - fixed memory leak (closed documents that had been shown remained in memory)
 
 

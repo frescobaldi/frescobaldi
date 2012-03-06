@@ -1,10 +1,10 @@
 include README* COPYING THANKS INSTALL TODO ChangeLog
 include frescobaldi.desktop
-include frescobaldi.pot
 include *.py
 include frescobaldi-wininst.bmp
 recursive-include frescobaldi_app README*
 recursive-include frescobaldi_app *.png *.svg *.ico index.theme
 recursive-include frescobaldi_app *.ly *.ily Makefile
-recursive-include frescobaldi_app *.po *.mo
+recursive-include frescobaldi_app *.pot *.po *.mo
+recursive-include frescobaldi_app *.dic
 global-exclude *~
