@@ -119,7 +119,12 @@ def keepSelection(cursor, edit=None):
 
 
 def strip(cursor, chars=None):
-    """Adjusts the selection of the cursor just like Python's strip()."""
+    """Adjusts the selection of the cursor just like Python's strip().
+    
+    If there is no selection or the selection would vanish completely,
+    nothing is done.
+    
+    """
     if not cursor.hasSelection():
         return
     text = cursor.selection().toPlainText()
@@ -181,7 +186,16 @@ def stripIndent(cursor):
 
 class Editor(object):
     """A context manager that stores edits until it is exited.
-
+    
+    Usage:
+    
+    with Editor() as e:
+        e.insertText(cursor, "text")
+        e.removeSelectedText(cursor)
+        # ... etc
+    # when the code block ends, the edits will be done.
+    
+    All cursors should belong to the same text document.
     The edits will not be applied if the context is exited with an exception.
     
     """
