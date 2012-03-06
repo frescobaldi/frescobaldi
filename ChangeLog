@@ -2,7 +2,7 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
-Changes in 2.0.4 -- 
+Changes in 2.0.4 -- March 7th, 2012
 
 * Translations:
   - updated: pl, nl, cs
@@ -16,7 +16,7 @@ Changes in 2.0.4 --
   - new delete-lines snippet, bound by default to Ctrl-K
   - splash screen on startup (can be turned off in the preferences)
 * Improvements:
-  - opening many documents (e.g. a large session) much faster
+  - opening many documents (e.g. a large session) is now much faster
   - waiting for LilyPond to return information on Settings->Ok now does not
     block the user interface anymore and shows progress if it takes some time
   - built-in manual now documents settings and session dialog
