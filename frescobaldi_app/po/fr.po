@@ -1156,33 +1156,28 @@ msgid "Docum&ents"
 msgstr "Docum&ents :"
 
 #: ../doclist/widget.py:181
-#, fuzzy
 msgid "Save selected documents"
-msgstr "Enregistrer la sélection"
+msgstr "Enregistrer les documents sélectionnés"
 
 #: ../doclist/widget.py:182
-#, fuzzy
 msgid "Close selected documents"
-msgstr "Fermer les autres documents"
+msgstr "Fermer les documents sélectionnés"
 
 #: ../doclist/widget.py:188
-#, fuzzy
 msgid "Save documents in this folder"
-msgstr "Enregistrer le document si possible"
+msgstr "Enregistrer les documents dans ce dossier"
 
 #: ../doclist/widget.py:189
 msgid "Close documents in this folder"
-msgstr ""
+msgstr "Fermer les documents dans ce dossier"
 
 #: ../doclist/widget.py:192
-#, fuzzy
 msgid "Save all untitled documents"
-msgstr "Envoyer les documents par courriel"
+msgstr "Enregistrer tous les documents sans titre"
 
 #: ../doclist/widget.py:193
-#, fuzzy
 msgid "Close all untitled documents"
-msgstr "Fermer tous les documents"
+msgstr "Fermer tous les documents sans titre"
 
 #: ../engrave/__init__.py:177
 msgid "&Always Engrave [{docname}]"
@@ -2050,28 +2045,28 @@ msgid "You can put document variables in comments."
 msgstr "Vous pouvez placer des variables de document dans les commentaires."
 
 #: ../help/contents.py:484
-#, fuzzy
 msgid "Sessions"
-msgstr "&Sessions"
+msgstr "Sessions"
 
 #: ../help/contents.py:489
 msgid ""
 "A session is basically a list of open files. At any time you can choose "
 "{menu_session_save} or {menu_session_new} and save the current list of open "
 "files to a named session."
-msgstr ""
+msgstr "" 
+"Une session est une liste de fichiers ouverts. À n'importe quel moment vous "
+"pouvez choisir {menu_session_save} ou {menu_session_new} et enregistrer la "
+"liste de fichiers ouverts vers une session."
 
 #: ../help/contents.py:492 ../help/contents.py:493 ../help/contents.py:502
 msgid "Session"
 msgstr "Session"
 
 #: ../help/contents.py:492 ../help/contents.py:502
-#, fuzzy
 msgid "Save"
 msgstr "Enregistrer"
 
 #: ../help/contents.py:493
-#, fuzzy
 msgctxt "New Session"
 msgid "New"
 msgstr "&Nouveau"
@@ -2081,6 +2076,8 @@ msgid ""
 "When you switch sessions, all current documents are closed first and then "
 "the documents of the other session are opened."
 msgstr ""
+"Quand vous changez de session, tous les documents en cours sont d'abord fermés "
+"puis les documents de l'autre session sont ouverts."
 
 #: ../help/contents.py:496
 msgid ""
@@ -2090,10 +2087,15 @@ msgid ""
 "documents in session the same, even if you open or close documents while "
 "working."
 msgstr ""
+"Dans le dialogue des propriétés de session, vous pouvez choisir de toujours "
+"enregistrer la liste des documents ouverts dans cette session, ou d'enregistrer "
+"uniquement à la création (ou via {menu_session_save}). Ceci peut être utile si vous "
+"désirez garder une liste identique de fichiers dans une session, même si vous ouvrez "
+"ou fermez des documents en cours de travail."
 
 #: ../help/contents.py:503
 msgid "You can also specify a default directory for the session."
-msgstr ""
+msgstr "Vous pouvez également définir un dossier par défaut pour la session."
 
 #: ../help/contents.py:513
 msgid "Table of Contents"
@@ -2288,7 +2290,7 @@ msgstr "Ajuster à la page"
 #. L10N: page numbering: page {num} of {total}
 #: ../musicview/__init__.py:491
 msgid "{num} of {total}"
-msgstr ""
+msgstr "{num} sur {total}"
 
 #: ../musicview/image.py:126
 msgid "DPI:"
@@ -3463,6 +3465,8 @@ msgid ""
 "In the Preferences Dialog (under {menu}) you can configure many aspects of "
 "Frescobaldi and LilyPond."
 msgstr ""
+"Dans le dialogue Préférences (sous {menu}) vous pouvez configurer de nombreux "
+"aspects de Frescobaldi et LilyPond."
 
 #: ../preferences/prefshelp.py:56
 msgid ""
@@ -3471,12 +3475,18 @@ msgid ""
 "want to use, and whether you want to use the built-in Tango iconset or to "
 "use the system-wide configured icon set."
 msgstr ""
+"Sous <em>{general_preferences}</em>, vous pouvez choisir dans quelle langue "
+"l'interface utilisateur de Frescobaldi est traduite, quel style d'interface vous "
+"désirez utiliser, et si vous préférez utiliser les icones Tango incluses ou les "
+"par défaut pour votre système."
 
 #: ../preferences/prefshelp.py:62
 msgid ""
 "Language and style take effect immediately, but the new iconset is visible "
 "after Frescobaldi has been restarted."
 msgstr ""
+"Le choix de langage et de style s'effectue immédiatement, mais le changement d'icones "
+"n'est effectif qu'après redémarrage de Frescobaldi."
 
 #: ../preferences/prefshelp.py:64
 msgid ""
@@ -3485,6 +3495,9 @@ msgid ""
 "with one empty document, with the last used session, or with a specific "
 "session. See also {link}."
 msgstr ""
+"Sous <em>{startup}</em> vous pouvez définir quelle session est chargée si Frescobaldi "
+"est lancé sans nom de fichier. Vous pouvez choisir de démarrer avec un document vide, "
+"avec la dernière session utilisée, ou avec une session définie. Voir aussi {link}."
 
 #: ../preferences/prefshelp.py:71
 msgid ""
@@ -3493,11 +3506,17 @@ msgid ""
 "backup copy of the document (with a ~ appended). Also, you can specify a "
 "default folder in which you keep your LilyPond documents."
 msgstr ""
+"Sous <em>{saving}</em>, vous pouvez choisir que faire lorsqu'un document est "
+"enregistrée, comme se souvenir de la position du curseur, des lignes repérées, ou "
+"laisser une copie de sauvegarde du document (avec une extension ~). Vous pouvez "
+"également définir un dossier par défaut dans lequel vous rangez vos documents LilyPond."
 
 #: ../preferences/prefshelp.py:87
 msgid ""
 "Here you can configure how LilyPond is run when you engrave your document."
 msgstr ""
+"Ici vous pouvez configurer la manière dont LilyPond est lancé lorsque vous "
+"compilez votre document."
 
 #: ../preferences/prefshelp.py:89
 msgid ""
@@ -3505,31 +3524,37 @@ msgid ""
 "here, and configure Frescobaldi to automatically choose the right one, based "
 "on the version number that is set in the document ({more_info})."
 msgstr ""
+"Si vous avez plusieurs versions de LilyPond installés, vous les pouvez spécifier "
+"ici, et configurer Frescobaldi pour automatiquement choisir la bonne, en fonction du "
+"numéro de version défini dans le document ({more_info})."
 
 #: ../preferences/prefshelp.py:93
-#, fuzzy
 msgid "more info"
-msgstr "Texinfo"
+msgstr "Plus d'informations"
 
 #: ../preferences/prefshelp.py:94
 msgid ""
 "You can also configure how LilyPond is run. See the tooltips of the settings "
 "for more information."
 msgstr ""
+"Vous pouvez également configurer la façon dont sera lancée Frescobaldi. Utilisez "
+"les info-bulles des réglages pour plus d'informations."
 
 #: ../preferences/prefshelp.py:96
 msgid ""
 "Finally, you can specify a list of paths where the LilyPond <code>\\include</"
 "code> command looks for files."
 msgstr ""
+"Enfin, vous pouvez définir une liste de chemins d'accès où la commande LilyPond "
+"<code>\\include</code> cherchera des fichiers."
 
 #: ../preferences/prefshelp.py:132
 msgid "Here you can configure Frescobaldi's MIDI settings."
-msgstr ""
+msgstr "Ici, vous pouvez configurer les réglages MIDI de Frescobaldi."
 
 #: ../preferences/prefshelp.py:133
 msgid "You can specify the MIDI port name to play to. "
-msgstr ""
+msgstr "Vous pouvez définir le nom du port MIDI vers lequel jouer."
 
 #: ../preferences/prefshelp.py:134
 msgid ""
@@ -3537,25 +3562,33 @@ msgid ""
 "to connect a hardware MIDI synthesizer to your computer, or to start a "
 "software synthesizer program such as TiMidity or Fluidsynth."
 msgstr ""
+"S'il n'y a aucun nom de port visible dans le menu déroulant, il peut être "
+"nécessaire de connecter un synthétiseur MIDI matériel à votre ordinateur, "
+"ou de démarrer un synthétiseur logiciel tel que TiMidity ou Fluidsynth."
 
 #: ../preferences/prefshelp.py:138
 msgid "On Linux, the synthesizer should be available as an ALSA MIDI device."
 msgstr ""
+"Sous Linux, le synthétiseur devrait être disponible en tant que "
+"périphérique ALSA MIDI."
 
 #: ../preferences/prefshelp.py:140
 msgid ""
 "If you have a device with multiple ports, you can specify the first letters "
 "of the name, to have Frescobaldi automatically pick the first available one."
-msgstr ""
+msgstr "Si vous avez un périphérique avec plusieurs ports, vous pouvez spécifier "
+"les premières lettres du nom, pour que Frescobaldi choisisse automatiquement "
+"le premier disponible."
 
 #: ../preferences/prefshelp.py:143
 msgid ""
 "And finally, when using a software synthesizer it is recommended to enable "
 "the option <em>{close_unused}</em>."
 msgstr ""
+"Et finalement, lorsque vous utilisez un synthétiseur logiciel, il est recommandé "
+"d'activer l'option <em>{close_unused}</em>."
 
 #: ../preferences/prefshelp.py:165
-#, fuzzy
 msgid ""
 "In this page you can enter commands to open different file types. <code>$f</"
 "code> is replaced with the filename, <code>$u</code> with the URL. Leave a "
@@ -3572,18 +3605,26 @@ msgid ""
 "url. For the command prompt, the command should open a console window. A "
 "<code>$f</code> value is replaced with the directory of the current document."
 msgstr ""
+"Pour les réglages d'email, la commande doit acception une adresse <code>mailto:</code>. "
+"Pour la ligne de commande, la commande doit ouvrir une fenêtre de console. Une "
+"valeur <code>$f</code> sera remplacée par le dossier du document en cours."
 
 #: ../preferences/prefshelp.py:185
 msgid ""
 "Here, directories can be added that contain <code>hyph_*.dic</code> files, "
 "where the <code>*</code> stands for different language codes."
 msgstr ""
+"Ici, il est possible d'ajouter des dossiers qui contiennent des fichiers "
+"<code>hyph_*.dic</code> où le caractère <code>*</code> sert pour les codes "
+"de différentes langues."
 
 #: ../preferences/prefshelp.py:188
 msgid ""
 "These hyphenation dictionaries are used by Frescobaldi to break lyrics text "
 "into syllabes."
 msgstr ""
+"Les dictionnaires de césure sont utilisés par Frescobaldi pour séparer les "
+"textes des paroles en syllabes."
 
 #: ../preferences/prefshelp.py:217
 msgid ""
@@ -3591,6 +3632,9 @@ msgid ""
 "{snippets} or {quickinsert} buttons that have keyboard shortcuts are listed "
 "here."
 msgstr ""
+"Ici, vous pouvez ajouter des raccourcis clavier pour toutes les commandes disponibles. "
+"Les {snippets} d'{quickinsert} qui ont un raccourci clavier sont "
+"listés ici."
 
 #: ../preferences/prefshelp.py:220 ../snippet/tool.py:54
 #: ../snippet/tool.py:131 ../snippet/widget.py:367
@@ -3608,17 +3652,23 @@ msgid ""
 "Edit button, or double-click an action. In the dialog that appears, you can "
 "enter up to four shortcuts for the action by clicking the button and typing "
 "the shortcut. "
-msgstr ""
+msgstr "Pour modifier un raccourci clavier, sélectionnez une action dans la liste et "
+"cliquez le bouton Éditer, ou double-cliquez sur l'action. Dans la boîte de dialogue "
+"qui apparaît, vous pouvez entrer jusqu'à quatre raccourci pour cette action en cliquant "
+"le bouton et en entrant le raccourci."
+
 
 #: ../preferences/prefshelp.py:226 ../preferences/prefshelp.py:249
 msgid "You can define a new scheme by using the New button."
-msgstr ""
+msgstr "Vous pouvez définir un nouveau profil en utilisant le bouton Nouveau."
 
 #: ../preferences/prefshelp.py:236
 msgid ""
 "Here you can set the editor font (a monospace font is recommended) and all "
 "colors."
 msgstr ""
+"Ici, vous pouvez définir la police de l'éditeur (une police à largeur fixe "
+"est recommandée) et toutes les couleurs."
 
 #: ../preferences/prefshelp.py:238
 msgid ""
@@ -3626,12 +3676,17 @@ msgid ""
 "foreground, selection background, the current line, line markings, the paper "
 "color in the Music View, etcetera."
 msgstr ""
+"Le premier élément vous permet de définir les couleurs pour l'arrière-plan, l'avant-plan, "
+"l'arrière-plan de sélection, la ligne courante, les lignes repérées, la couleur de papier "
+"de l'aperçu, etc."
 
 #: ../preferences/prefshelp.py:241
 msgid ""
 "The second item lets you set color and other attributes of the general "
 "highlighting styles, e.g. keyword, variable, value, comment, etcetera."
 msgstr ""
+"Le deuxième élément vous permet de définir la couleur et d'autres attributs des styles "
+"généraux de colorisation syntaxique, p. ex. mot-clé, variable, valeur, commentaire, etc."
 
 #: ../preferences/prefshelp.py:244
 msgid ""
@@ -3640,11 +3695,14 @@ msgid ""
 "inherit a general style. It is possible to set the attributes bold, italic, "
 "underline and the foreground, background and underline color."
 msgstr ""
+"Les autres éléments contiennent les types de texte que la colorisation syntaxique "
+"de Frescobaldi reconnaît pour un type de document particulier. Certains de ces types "
+"héritent d'un style général. Il est possible de définir des attributs tels que gras, italique, "
+"souligné ainsi que la couleur d'avant-plan, d'arrière-plan et de soulignement."
 
 #: ../preferences/prefshelp.py:259
-#, fuzzy
 msgid "Here you can change the settings for various tools."
-msgstr "Vous pouvez éditer les raccourcis pour {name}"
+msgstr "Vous pouvez modifier les réglages pour différents outils."
 
 #: ../preferences/shortcuts.py:56 ../snippet/model.py:63
 msgid "Shortcut"
@@ -5948,16 +6006,14 @@ msgid "&Session"
 msgstr "&Session"
 
 #: ../sidebar/__init__.py:140
-#, fuzzy
 msgid "&Line Numbers"
-msgstr "Numéro de corde"
+msgstr "Numéro de ligne"
 
 #: ../snippet/builtin.py:38
 msgid "Blank Line"
 msgstr "Ligne vierge"
 
 #: ../snippet/builtin.py:44
-#, fuzzy
 msgid "Delete Line(s)"
 msgstr "Sélectionner des lignes entières au-dessus"
 
