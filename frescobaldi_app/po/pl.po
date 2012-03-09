@@ -233,7 +233,7 @@ msgstr "Dokument został zmieniony."
 
 #: ../convert_ly.py:219
 msgid "Current Document"
-msgstr "Obecny dokument "
+msgstr "Bieżący dokument "
 
 #: ../convert_ly.py:219
 msgid "Converted Document"
@@ -690,7 +690,7 @@ msgstr "Wstaw z &pliku..."
 
 #: ../mainwindow.py:949
 msgid "Open Current Directory"
-msgstr "Otwórz obecny folder"
+msgstr "Otwórz bieżący folder"
 
 #: ../mainwindow.py:950
 msgid "Open Command Prompt"
@@ -762,7 +762,7 @@ msgstr "Zaznacz odcinek"
 
 #: ../mainwindow.py:972
 msgid "Select &None"
-msgstr "Nie zaznaczaj żadnego"
+msgstr "Wyczyść zaznaczenie"
 
 #: ../mainwindow.py:973
 msgid "Select Whole Lines Up"
@@ -4088,7 +4088,7 @@ msgstr "Wyczyść"
 
 #: ../scorewiz/dialog.py:82
 msgid "Clears the current page of the Score Wizard."
-msgstr "Czyści obecną stronę z kreatora partytury."
+msgstr "Czyści bieżącą stronę z kreatora partytury."
 
 #: ../scorewiz/dialog.py:83
 msgid "Preview"
@@ -5420,7 +5420,7 @@ msgstr "Nadpisz"
 #: ../sessions/manager.py:127
 msgctxt "New Session"
 msgid "&New..."
-msgstr "&Nowy..."
+msgstr "&Nowa..."
 
 #: ../sessions/manager.py:129
 msgid "&Manage..."
@@ -5723,7 +5723,7 @@ msgstr "Wersja programu Frescobaldi."
 
 #: ../snippet/expand.py:88
 msgid "The URL of the current document."
-msgstr "Adres URL obecnego dokumentu."
+msgstr "Adres URL bieżącego dokumentu."
 
 #: ../snippet/expand.py:92
 msgid "The full local filename of the current document."
@@ -5731,7 +5731,7 @@ msgstr "Pełna nazwa i ścieżka bieżącego dokumentu lokalnego."
 
 #: ../snippet/expand.py:96
 msgid "The name of the current document."
-msgstr "Nazwa obecnego dokumentu"
+msgstr "Nazwa bieżącego dokumentu"
 
 #: ../snippet/expand.py:100
 msgid "Moves the text cursor here after insert."
@@ -5853,7 +5853,7 @@ msgstr "&Edytuj..."
 
 #: ../snippet/widget.py:178
 msgid "Edit the current snippet. ({key})"
-msgstr "Edytuj obecną wstawkę. ({key})"
+msgstr "Edytuj bieżącą wstawkę. ({key})"
 
 #: ../snippet/widget.py:180
 msgid "Remove the selected snippets."
@@ -6483,7 +6483,7 @@ msgstr "Wybierz plik"
 #~ "\n"
 #~ "Kliknij na wybrany rząd, aby zobaczyć lub zmienić skojarzony z nim tekst. "
 #~ "Kliknij dwukrotnie na skrót lub jego opis, aby go zmnienić. Możesz "
-#~ "również wcisnąć F2, żeby edytować obecny skrót.\n"
+#~ "również wcisnąć F2, żeby edytować bieżący skrót.\n"
 #~ "\n"
 #~ "Użyj przycisków poniżej, aby dodać lub usunąć rozszerzenia.\n"
 #~ "\n"
@@ -6661,7 +6661,7 @@ msgstr "Wybierz plik"
 #~ "Selects text from the current position down to and including the next "
 #~ "blank line."
 #~ msgstr ""
-#~ "Zaznacza tekst od obecnej pozycji aż do (i razem z) następnej pustej "
+#~ "Zaznacza tekst od bieżącej pozycji aż do (i razem z) następnej pustej "
 #~ "linii."
 
 #~ msgid "Select to previous blank line"
@@ -6671,7 +6671,7 @@ msgstr "Wybierz plik"
 #~ "Selects text from the current position up to right after the previous "
 #~ "blank line."
 #~ msgstr ""
-#~ "Zaznacza tekst od obecnej pozycji, aż do miejsca zaraz za poprzednią "
+#~ "Zaznacza tekst od bieżącej pozycji, aż do miejsca zaraz za poprzednią "
 #~ "pustą linią."
 
 #~ msgid "Move selection to next blank line"
@@ -6770,7 +6770,7 @@ msgstr "Wybierz plik"
 #~ msgstr "Ustawienia Okular..."
 
 #~ msgid "S&ynchronize Preview with Current Document"
-#~ msgstr "S&ynchronizuj podgląd z obecnym dokumentem"
+#~ msgstr "S&ynchronizuj podgląd z bieżącym dokumentem"
 
 #~ msgid "Reload"
 #~ msgstr "Odśwież"
@@ -7187,7 +7187,7 @@ msgstr "Wybierz plik"
 #~ "Can't determine the LilyPond version of the current document. Please add "
 #~ "a \\version statement with the correct version."
 #~ msgstr ""
-#~ "Nie można ustalić wersji LilyPonda dla obecnego dokumentu. Proszędodać "
+#~ "Nie można ustalić wersji LilyPonda dla bieżącego dokumentu. Proszę dodać "
 #~ "wyrażenie \\version z poprawnym numerem wersji."
 
 #~ msgid "This LilyPond document is already up-to-date."
