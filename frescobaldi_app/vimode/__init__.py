@@ -1,6 +1,6 @@
 # vimode -- Vi Mode package for QPlainTextEdit
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2012 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -21,13 +21,16 @@
 ViMode implements a Vi-like mode for QPlainTextEdit.
 """
 
+from __future__ import unicode_literals
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 # the Vi modes
-COMMAND = 0
+NORMAL = 0
 VISUAL = 1
 INSERT = 2
+REPLACE = 3
 
 
 class ViMode(QObject):
@@ -36,12 +39,10 @@ class ViMode(QObject):
         QObject.__init__(self)
         
         # init all internal variables
-        self._mode = COMMAND
+        self._mode = None
+        self._handlers = [None] * 4
         self._textedit = None
         self._originalCursorWidth = 1
-        
-        self._count = 0
-        self._command = ''
         
         self.setTextEdit(textedit)
     
@@ -63,53 +64,64 @@ class ViMode(QObject):
             edit.cursorPositionChanged.connect(self.updateCursorPosition)
             edit.selectionChanged.connect(self.updateCursorPosition)
             self._originalCursorWidth = edit.cursorWidth()
+        self.setMode(NORMAL)
+        if edit:
             self.updateCursorPosition()
-        self.setMode(COMMAND)
-    
+
     def textEdit(self):
         return self._textedit
     
-    def textCursor(self):
-        return self._textedit.textCursor()
-    
     def setMode(self, mode):
-        """Sets the mode (COMMAND, VISUAL or INSERT)."""
+        """Sets the mode (NORMAL, VISUAL, INSERT or REPLACE)."""
+        if mode is self._mode:
+            return
+        assert mode in (NORMAL, VISUAL, INSERT, REPLACE)
+        if self._mode is not None and self.handler():
+            self.handler().leave()
         self._mode = mode
-        self._command = ''
+        if self._handlers[mode] is None:
+            self._handlers[mode] = self.createModeHandler(mode)
+        self.handler().enter()
         self.updateCursorPosition()
-        e = self.textEdit()
-        if e:
-            if mode is INSERT:
-                e.setCursorWidth(self._originalCursorWidth)
-            else:
-                e.setCursorWidth(0)
     
     def mode(self):
-        """Return the current mode (COMMAND, VISUAL or INSERT)."""
+        """Return the current mode (NORMAL, VISUAL, INSERT or REPLACE)."""
         return self._mode
     
-    def isCommand(self):
-        return self._mode is COMMAND
-    
-    def isInsert(self):
-        return self._mode is INSERT
+    def isNormal(self):
+        return self._mode is NORMAL
     
     def isVisual(self):
         return self._mode is VISUAL
     
+    def isInsert(self):
+        return self._mode is INSERT
+    
+    def isReplace(self):
+        return self._mode is REPLACE
+    
+    def createModeHandler(self, mode):
+        """Returns a Handler for the specified mode."""
+        if mode == NORMAL:
+            from . import normal
+            return normal.NormalMode(self)
+        elif mode == VISUAL:
+            from . import visual
+            return visual.VisualMode(self)
+        elif mode == INSERT:
+            from . import insert
+            return insert.InsertMode(self)
+        elif mode == REPLACE:
+            from . import replace
+            return replace.ReplaceMode(self)
+    
+    def handler(self):
+        """Returns the current mode handler."""
+        return self._handlers[self._mode]
+        
     def updateCursorPosition(self):
         """If in command mode, shows a square cursor on the right spot."""
-        cursor = self.textCursor()
-        if cursor.hasSelection() and cursor.position() > cursor.anchor():
-            cursor.clearSelection()
-            cursor.movePosition(QTextCursor.PreviousCharacter, QTextCursor.KeepAnchor)
-        else:
-            cursor.clearSelection()
-            cursor.movePosition(QTextCursor.NextCharacter, QTextCursor.KeepAnchor)
-        if self.mode() in (COMMAND, VISUAL):
-            self.drawCursor(cursor)
-        else:
-            self.clearCursor()
+        self.handler().updateCursorPosition()
     
     def drawCursor(self, cursor):
         """Draws the cursor position as the selection of the specified cursor."""
@@ -128,56 +140,12 @@ class ViMode(QObject):
             ev.key() in (Qt.Key_Shift, Qt.Key_Control, Qt.Key_Alt, Qt.Key_Meta)):
             return False
         if ev.type() == QEvent.KeyPress:
-            if self.isInsert():
-                return self.insertKeyPressEvent(ev) or False
-            return self.commandKeyPressEvent(ev) or False
-        elif ev.type() == QEvent.KeyRelease:
-            if self.isInsert():
-                return self.insertKeyReleaseEvent(ev) or False
-            return self.commandKeyReleaseEvent(ev) or False
+            return self.handler().handleKeyPress(ev) or False
         return False
-    
-    def insertKeyPressEvent(self, ev):
-        """Called when a key is pressed in INSERT mode.
-        
-        Returns True when the key event should not be handled anymore by the
-        textEdit().
-        
-        """
-        if ev.key() == Qt.Key_Escape:
-            self.setMode(COMMAND)
-            return True
-    
-    def insertKeyReleaseEvent(self, ev):
-        """Called when a key is released in INSERT mode.
-        
-        Returns True when the key event should not be handled anymore by the
-        textEdit().
-        
-        """
-    
-    def commandKeyPressEvent(self, ev):
-        """Called when a key is pressed in COMMAND or VISUAL mode.
-        
-        Returns True when the key event should not be handled anymore by the
-        textEdit().
-        
-        """
-        if not self._command and Qt.Key_0 <= ev.key() <= Qt.Key_9:
-            self._count = self._count * 10 + (ev.key() - Qt.Key_0)
-        
-        return True
-        
-    def commandKeyReleaseEvent(self, ev):
-        """Called when a key is released in COMMAND or VISUAL mode.
-        
-        Returns True when the key event should not be handled anymore by the
-        textEdit().
-        
-        """
+
 
             
-if __name__ == "__main__":
+def test():
     a = QApplication([])
     e = QTextEdit()
     e.setCursorWidth(2)
