@@ -31,7 +31,7 @@ import os
 import re
 import sys
 
-from PyQt4.QtCore import QUrl
+from PyQt4.QtCore import QSettings, QUrl
 from PyQt4.QtGui import QApplication, QTextCursor
 
 import toplevel         # Find all modules and packages as toplevel
@@ -39,19 +39,15 @@ import info             # Information about our application
 import app              # Construct QApplication
 import guistyle         # Setup GUI style
 import po.setup         # Setup language
-import splashscreen     # Splash screen
-import mainwindow       # contains MainWindow class
-import session          # Initialize QSessionManager support
-import sessions         # Initialize our own named session support
-import document         # contains Document class
 
-# boot Frescobaldi-specific stuff that should be running on startup
-import viewhighlighter  # highlight arbitrary ranges in text
-import matcher          # matches braces etc in active text window
-import progress         # creates progress bar in view space
-import autocomplete     # auto-complete input
 
-def startmain():
+def parse_commandline():
+    """Parses the command line; returns options and filenames.
+    
+    If --version, --help or invalid options were given, the application will
+    exit.
+    
+    """
     import optparse
     optparse._ = _ # let optparse use our translations
     parser = optparse.OptionParser(
@@ -74,6 +70,45 @@ def startmain():
     else:
         args = args[1:]
     options, files = parser.parse_args(args)
+    return options, files
+
+
+def url(arg):
+    """Converts a filename-like argument to a QUrl."""
+    if re.match(r'^(https?|s?ftp)://', arg):
+        return QUrl(arg)
+    elif arg.startswith('file://'):
+        return QUrl.fromLocalFile(arg[7:])
+    elif arg.startswith('file:'):
+        return QUrl.fromLocalFile(os.path.abspath(arg[5:]))
+    else:
+        return QUrl.fromLocalFile(os.path.abspath(arg))
+
+
+def main():
+    """Main function."""
+    options, files = parse_commandline()
+    
+    if (QSettings().value("splash_screen", True) not in ("false", False)
+        and not app.qApp.isSessionRestored()):
+        import splashscreen
+        splashscreen.show()
+
+    import mainwindow       # contains MainWindow class
+    import session          # Initialize QSessionManager support
+    import sessions         # Initialize our own named session support
+    import document         # contains Document class
+
+    # boot Frescobaldi-specific stuff that should be running on startup
+    import viewhighlighter  # highlight arbitrary ranges in text
+    import matcher          # matches braces etc in active text window
+    import progress         # creates progress bar in view space
+    import autocomplete     # auto-complete input
+    
+    if app.qApp.isSessionRestored():
+        # Restore session, we are started by the session manager
+        session.restoreSession()
+        return
 
     # load specified session
     doc = None
@@ -85,17 +120,8 @@ def startmain():
     win.show()
     
     if files:
-        # make urls
         for arg in files:
-            if re.match(r'^(https?|s?ftp)://', arg):
-                url = QUrl(arg)
-            elif arg.startswith('file://'):
-                url = QUrl.fromLocalFile(arg[7:])
-            elif arg.startswith('file:'):
-                url = QUrl.fromLocalFile(os.path.abspath(arg[5:]))
-            else:
-                url = QUrl.fromLocalFile(os.path.abspath(arg))
-            doc = win.openUrl(url, options.encoding)
+            doc = win.openUrl(url(arg), options.encoding)
     elif not options.session:
         # no docs, load default session
         doc = sessions.loadDefaultSession()
@@ -108,12 +134,8 @@ def startmain():
         win.currentView().setTextCursor(cursor)
         win.currentView().centerCursor()
 
-if app.qApp.isSessionRestored():
-    # Restore session, we are started by the session manager
-    session.restoreSession()
-else:
-    # Parse command line arguments
-    startmain()
+
+main()
 
 sys.excepthook = app.excepthook
 sys.displayhook = app.displayhook

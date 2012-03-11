@@ -21,7 +21,7 @@
 
 import os
 
-from PyQt4.QtCore import QSettings, Qt
+from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QApplication, QFont, QPixmap, QSplashScreen
 
 import app
@@ -50,8 +50,4 @@ def show():
     app.qApp.processEvents()
     splash.deleteLater()
 
-
-if (QSettings().value("splash_screen", True) not in ("false", False)
-    and not app.qApp.isSessionRestored()):
-    show()
 
