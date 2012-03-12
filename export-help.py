@@ -36,14 +36,11 @@ if not os.path.isdir(output_dir):
 for img in glob.glob('frescobaldi_app/help/*.png'):
     shutil.copy(img, output_dir)
 
+# avoid reading settings
+os.environ["XDG_CONFIG_HOME"] = ""
+
 # make frescobaldi_app accessible
 import frescobaldi_app.toplevel
-
-
-# force scheme etc to be default, by avoiding reading settings
-import info
-info.name = 'dummy'
-
 import po
 import help.helpimpl
 import help.contents
