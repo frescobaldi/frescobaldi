@@ -132,8 +132,20 @@ if not os.path.isdir(output_dir):
     os.makedirs(output_dir)
 
 # copy images
+images = []
+images_dir = os.path.join(output_dir, 'images')
+images_prefix = 'uguide_'
+if not os.path.isdir(images_dir):
+    os.makedirs(images_dir)
 for img in glob.glob('frescobaldi_app/help/*.png'):
-    shutil.copy(img, output_dir)
+    name = os.path.basename(img)
+    images.append(name)
+    shutil.copy(img, os.path.join(images_dir, images_prefix + name))
+
+# regexp to adjust links to images in html
+images_re = re.compile(
+    r'''([Ss][Rr][Cc]\s*=\s*'''
+    r'''['"])((?:''' + '|'.join(map(re.escape, images)) + r''')['"])''')
 
 # avoid reading settings
 os.environ["XDG_CONFIG_HOME"] = ""
@@ -192,6 +204,12 @@ def make_page(lang):
     add(page, children)
     
     html = ''.join(html)
+    
+    # make image links work
+    html = images_re.sub(
+        lambda m: m.group(1) + 'images/' + images_prefix + m.group(2), html)
+    
+    # make help links work
     html = html.replace('<a href="help:', '<a href="#help_')
     
     others = []
@@ -202,7 +220,8 @@ def make_page(lang):
                 "English" if l == "C" else language_names.languageName(l, l),
             ))
     footer = ', '.join(others)
-    footer += ' | Last Modified: ' + time.strftime('%d %b %Y')
+    footer += ' | '
+    footer += _("Last Modified: {date}").format(date=time.strftime('%d %b %Y'))
     
     html = templates.get(lang, templates['C']).format(
         page_title = _("Frescobaldi Manual"),
