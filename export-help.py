@@ -23,6 +23,9 @@ import shutil
 ### set output directory here:
 output_dir = os.path.abspath('help')
 
+### languages to export help pages for:
+export_languages = 'C nl es fr it cs'.split()
+
 
 ### HTML templates for every page to be generated:
 templates = {
@@ -56,6 +59,8 @@ templates = {
 </div>
 
 <div id="maincontents">
+
+<p>(<a href="uguide-1">Frescobaldi 1.x User Guide</a>)</p>
 
 {page_contents}
 
@@ -98,6 +103,8 @@ templates = {
 </div>
 
 <div id="maincontents">
+
+<p>(<a href="uguide-1">Frescobaldi 1.x User Guide</a>)</p>
 
 {page_contents}
 
@@ -188,7 +195,7 @@ def make_page(lang):
     html = html.replace('<a href="help:', '<a href="#help_')
     
     others = []
-    for l in templates:
+    for l in export_languages:
         if l is not lang:
             others.append('<a href="{0}">{1}</a>'.format(
                 make_filename('uguide.html', l),
@@ -197,17 +204,17 @@ def make_page(lang):
     footer = ', '.join(others)
     footer += ' | Last Modified: ' + time.strftime('%d %b %Y')
     
-    html = templates[lang].format(
+    html = templates.get(lang, templates['C']).format(
         page_title = _("Frescobaldi Manual"),
         page_contents = html,
         page_address = footer)
     
-    filename = make_filename('uguide.html', lang)
-    print os.path.join(output_dir, filename)
-    with open(os.path.join(output_dir, filename), 'w') as f:
+    filename = os.path.join(output_dir, make_filename('uguide.html', lang))
+    print 'Exporting to:', filename
+    with open(filename, 'w') as f:
         f.write(html.encode('utf-8'))
 
 
-for lang in templates:
+for lang in export_languages:
     make_page(lang)
 
