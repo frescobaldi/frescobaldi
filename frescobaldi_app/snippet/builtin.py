@@ -59,6 +59,58 @@ def main():
 """),
 
 
+'next_blank_line': T(_("Next Blank Line"),
+r"""-*- python;
+
+def blocks():
+    block = cursor.block()
+    while block.isValid():
+        yield block
+        block = block.next()
+
+def isblank(block):
+    return not block.text() or block.text().isspace()
+
+def main():
+    bb = blocks()
+    for b in bb:
+        if not isblank(b):
+            for b in bb:
+                if isblank(b):
+                    cursor.setPosition(b.position() + b.length() - 1)
+                    return cursor
+
+"""),
+
+
+'previous_blank_line': T(_("Previous Blank Line"),
+r"""-*- python;
+
+def blocks():
+    block = cursor.block()
+    while block.isValid():
+        yield block
+        block = block.previous()
+
+def isblank(block):
+    return not block.text() or block.text().isspace()
+
+def main():
+    bb = blocks()
+    for b in bb:
+        if not isblank(b):
+            for b in bb:
+                if isblank(b):
+                    for b in bb:
+                        if not isblank(b):
+                            b = b.next()
+                            break
+                    cursor.setPosition(b.position() + b.length() - 1)
+                    return cursor
+
+"""),
+
+
 'quotes_s': T(_("Single Typographical Quotes"),
 """-*- menu: text;
 \u2018$SELECTION\u2019"""),
