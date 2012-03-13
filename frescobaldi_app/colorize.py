@@ -41,7 +41,7 @@ def colorize(text, state=None):
     h = highlighter.highlightFormats()
     d = textformats.formatData('editor')
     result.append('<pre style="color: {0}; background: {1}; '
-        'font-family: \"{2}\"; font-size: {3}pt;">'.format(
+        'font-family: &quot;{2}&quot;; font-size: {3}pt;">'.format(
         d.baseColors['text'].name(), d.baseColors['background'].name(),
         d.font.family(), d.font.pointSizeF()))
     for t in state.tokens(text):
