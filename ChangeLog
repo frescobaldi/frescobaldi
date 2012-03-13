@@ -6,6 +6,10 @@ Changes in 2.0.5 --
 
 * Translations:
   - updated: fr
+* Improvements:
+  - Alt+Up and Alt+Down jump between blank lines (implemented as snippets)
+* Bugfixes:
+  - fix Ctrl+K deleting a line too much in some cases
 
 
 Changes in 2.0.4 -- March 7th, 2012
