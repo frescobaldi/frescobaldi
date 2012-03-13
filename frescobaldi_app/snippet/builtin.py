@@ -48,7 +48,7 @@ import cursortools
 
 def main():
     start = end = cursortools.block(cursor)
-    while end.position() < cursor.selectionEnd():
+    while end.position() + end.length() < cursor.selectionEnd():
         end = end.next()
     cursor.setPosition(start.position())
     cursor.setPosition(end.position(), cursor.KeepAnchor)
