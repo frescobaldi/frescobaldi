@@ -214,7 +214,7 @@ baseColorDefaults = dict(
     error =               lambda: QColor(255, 192, 192),
     search =              lambda: QColor(192, 255, 192),
     match =               lambda: QColor(0, 192, 255),
-    paper =               lambda: QColor(255, 238, 218),
+    paper =               lambda: QColor(255, 253, 240),
     musichighlight =      lambda: QApplication.palette().color(QPalette.Highlight),
 )
 
