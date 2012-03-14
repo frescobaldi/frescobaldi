@@ -94,10 +94,6 @@ class Widget(QWidget):
         a = self.exportAction = act(self.slotExport, 'document-save-as')
         menu.addAction(a)
         
-        # restore action
-        a = self.restoreAction = act(self.slotRestore)
-        menu.addAction(a)
-        
         # apply button
         a = self.applyAction = act(self.slotApply, 'edit-paste')
         applyButton.setDefaultAction(a)
@@ -120,6 +116,11 @@ class Widget(QWidget):
         # delete action
         a = self.deleteAction = act(self.slotDelete, 'list-remove')
         a.setShortcut(QKeySequence(Qt.CTRL + Qt.Key_Delete))
+        menu.addAction(a)
+        
+        # restore action
+        a = self.restoreAction = act(self.slotRestore)
+        menu.addSeparator()
         menu.addAction(a)
         
         # help button
