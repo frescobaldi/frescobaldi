@@ -236,6 +236,11 @@ def save(name, text, title=None):
         s.remove(name)
 
 
+def isoriginal(name):
+    """Returns True if the built-in snippet is not changed or deleted."""
+    return name in builtin_snippets and name not in settings().childGroups()
+
+
 def expand(text):
     """Yields tuples (text, expansion) for text.
     

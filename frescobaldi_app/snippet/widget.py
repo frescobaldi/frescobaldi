@@ -94,6 +94,10 @@ class Widget(QWidget):
         a = self.exportAction = act(self.slotExport, 'document-save-as')
         menu.addAction(a)
         
+        # restore action
+        a = self.restoreAction = act(self.slotRestore)
+        menu.addAction(a)
+        
         # apply button
         a = self.applyAction = act(self.slotApply, 'edit-paste')
         applyButton.setDefaultAction(a)
@@ -184,6 +188,9 @@ class Widget(QWidget):
         self.importAction.setToolTip(_("Import snippets from a file."))
         self.exportAction.setText(_("E&xport..."))
         self.exportAction.setToolTip(_("Export snippets to a file."))
+        self.restoreAction.setText(_("Restore &Built-in Snippets..."))
+        self.restoreAction.setToolTip(
+            _("Restore deleted or changed built-in snippets."))
         self.helpAction.setText(_("&Help"))
         self.searchEntry.setToolTip(_(
             "Enter text to search in the snippets list.\n"
@@ -292,6 +299,15 @@ class Widget(QWidget):
                 QMessageBox.critical(self, _("Error"), _(
                     "Can't write to destination:\n\n{url}\n\n{error}").format(
                     url=filename, error=e.strerror))
+        
+    def slotRestore(self):
+        """Called when the user activates the Restore action."""
+        from . import restore
+        dlg = restore.RestoreDialog(self)
+        dlg.setWindowModality(Qt.WindowModal)
+        dlg.populate()
+        dlg.show()
+        dlg.finished.connect(dlg.deleteLater)
         
     def slotHelp(self):
         """Called when the user clicks the small help button."""

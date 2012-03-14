@@ -6,6 +6,8 @@ Changes in 2.0.5 --
 
 * Translations:
   - updated: fr
+* New features:
+  - new snippet action to recover changed or deleted built-in snippets
 * Improvements:
   - Alt+Up and Alt+Down jump between blank lines (implemented as snippets)
 * Bugfixes:
