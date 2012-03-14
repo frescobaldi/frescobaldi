@@ -89,7 +89,7 @@ class SchemeSelector(QWidget):
     
     def addClicked(self):
         name, ok = QInputDialog.getText(self,
-            app.caption("Add Scheme"),
+            app.caption(_("Add Scheme")),
             _("Please enter a name for the new scheme:"))
         if not ok:
             return
