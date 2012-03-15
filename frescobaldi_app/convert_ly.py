@@ -37,6 +37,7 @@ from PyQt4.QtGui import (
 import app
 import util
 import widgets
+import cursordiff
 import lilypondinfo
 import documentinfo
 import textformats
@@ -58,7 +59,7 @@ def convert(mainwindow):
         if dlg.copyCheck.isChecked():
             msgs = textwrap.fill(dlg.messages.toPlainText())
             text += '\n\n%{\n' + msgs + '\n%}\n'
-        c.insertText(text)
+        cursordiff.insertText(c, text)
     dlg.deleteLater()
 
 

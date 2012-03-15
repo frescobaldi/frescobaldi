@@ -8,8 +8,10 @@ Changes in 2.0.5 --
   - updated: fr
 * New features:
   - new snippet action to recover changed or deleted built-in snippets
-* Improvements:
   - Alt+Up and Alt+Down jump between blank lines (implemented as snippets)
+* Improvements:
+  - Running convert-ly (or undoing it) does not erase point and click positions
+    anymore
 * Bugfixes:
   - fix Ctrl+K deleting a line too much in some cases
 
