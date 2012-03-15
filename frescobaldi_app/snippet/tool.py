@@ -109,6 +109,8 @@ class SnippetActions(actioncollection.ShortcutCollection):
         self.setDefaultShortcuts('blankline', [QKeySequence('Ctrl+Shift+Return')])
         self.setDefaultShortcuts('next_blank_line', [QKeySequence('Alt+Down')])
         self.setDefaultShortcuts('previous_blank_line', [QKeySequence('Alt+Up')])
+        self.setDefaultShortcuts('next_blank_line_select', [QKeySequence('Alt+Shift+Down')])
+        self.setDefaultShortcuts('previous_blank_line_select', [QKeySequence('Alt+Shift+Up')])
         self.setDefaultShortcuts('removelines', [QKeySequence('Ctrl+K')])
         self.setDefaultShortcuts('repeat', [QKeySequence('Ctrl+Shift+R')])
         self.setDefaultShortcuts('quotes_s', [QKeySequence("Ctrl+'")])

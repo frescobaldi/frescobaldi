@@ -177,6 +177,46 @@ def isBlankLine(cursor):
     return not text or text.isspace()
 
 
+def nextBlank(block):
+    """Returns the next block that is the first block of one or more blank blocks."""
+    def blocks(block):
+        while block.isValid():
+            yield block
+            block = block.next()
+    
+    def isblank(block):
+        return not block.text() or block.text().isspace()
+
+    bb = blocks(block)
+    for b in bb:
+        if not isblank(b):
+            for b in bb:
+                if isblank(b):
+                    return b
+
+
+def previousBlank(block):
+    """Returns the previous block that is the first block of one or more blank blocks."""
+    def blocks(block):
+        while block.isValid():
+            yield block
+            block = block.previous()
+    
+    def isblank(block):
+        return not block.text() or block.text().isspace()
+
+    bb = blocks(block)
+    for b in bb:
+        if not isblank(b):
+            for b in bb:
+                if isblank(b):
+                    for b in bb:
+                        if not isblank(b):
+                            b = b.next()
+                            break
+                    return b
+
+
 def stripIndent(cursor):
     """Moves the cursor in its block to the first non-space character."""
     text = cursor.block().text()
