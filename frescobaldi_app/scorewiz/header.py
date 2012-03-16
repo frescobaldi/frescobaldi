@@ -88,6 +88,7 @@ class HeaderWidget(QWidget):
         self.htmlView.setHtml(titles_html.format(
             copyrightmsg = _("bottom of first page"),
             taglinemsg = _("bottom of last page"),
+            imgurl = QUrl.fromLocalFile(__path__[0]).toString(),
             **dict((name, "<a title='{0}' href='{1}'>{2}</a>".format(msg, name, desc))
                     for name, desc in headers())))
         for name, desc in headers():
@@ -176,7 +177,7 @@ a {{
     <td> </td>
     <td align=right>{opus}</td>
 </tr>
-<tr><td colspan=3 align=center><img src='scorewiz.png'></td></tr>
+<tr><td colspan=3 align=center><img src="{imgurl}/scorewiz.png"></td></tr>
 <tr><td colspan=3 align=center>{copyright} <i>({copyrightmsg})</i></td></tr>
 <tr><td colspan=3 align=center>{tagline} <i>({taglinemsg})</i></td></tr>
 </table></body></html>
