@@ -1,4 +1,4 @@
-# This file is part of the Frescobaldi project, http://www.frescobaldi.org/
+# cursortools.py -- QTextCursor utility functions
 #
 # Copyright (c) 2008 - 2012 by Wilbert Berendsen
 #
@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Function manipulating QTextCursors and their selections.
+Functions manipulating QTextCursors and their selections.
 """
 
 from __future__ import unicode_literals
