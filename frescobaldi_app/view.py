@@ -99,8 +99,8 @@ class View(QPlainTextEdit):
             import indent
             cursor = self.textCursor()
             if ev.text() == '\r' or (ev.text() in ('}', '#', '>') and indent.indentable(cursor)):
-                with cursortools.editBlock(cursor, True):
-                    indent.autoIndentBlock(cursor.block())
+                with cursortools.compress_undo(cursor, True):
+                    indent.auto_indent_block(cursor.block())
                 # keep the cursor at the indent position on vertical move
                 cursor = self.textCursor()
                 pos = cursor.position()

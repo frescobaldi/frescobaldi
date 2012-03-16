@@ -64,7 +64,7 @@ def insert(name, view):
             tokeniter.update(block) # tokenize inserted lines
             while True:
                 block = block.next()
-                if indent.setIndent(block, indent.computeIndent(block)):
+                if indent.setIndent(block, indent.compute_indent(block)):
                     tokeniter.update(block)
                 if block == last:
                     break

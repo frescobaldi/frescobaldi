@@ -94,7 +94,7 @@ class Indenter(QObject):
         
     def indent(self, cursor):
         """Indents the line with the cursor or the selected lines (one step more)."""
-        with editBlock(cursor):
+        with compress_undo(cursor):
             for block in blocks(cursor):
                 cursor.setPosition(block.position())
                 cursor.setPosition(block.position() + len(self.getIndent(cursor)))
@@ -102,7 +102,7 @@ class Indenter(QObject):
     
     def dedent(self, cursor):
         """Dedents the line with the cursor or the selected lines (one step less)."""
-        with editBlock(cursor):
+        with compress_undo(cursor):
             for block in blocks(cursor):
                 cursor.setPosition(block.position())
                 end = len(self.getIndent(cursor))
@@ -125,7 +125,7 @@ def blocks(cursor):
 
 
 @contextlib.contextmanager
-def editBlock(cursor):
+def compress_undo(cursor):
     """Returns a context manager to perform operations on cursor as a single undo-item."""
     cursor.beginEditBlock()
     try:

@@ -42,12 +42,12 @@ scheme_sync_args = (
 )
 
 
-def autoIndentBlock(block):
+def auto_indent_block(block):
     """Auto-indents the given block."""
-    setIndent(block, computeIndent(block))
+    setIndent(block, compute_indent(block))
 
 
-def computeIndent(block):
+def compute_indent(block):
     """Returns the indent the given block should have."""
     
     # get some variables from the document
@@ -195,7 +195,7 @@ def changeIndent(cursor, direction):
         current_indent = getIndent(block)
         new_indent = current_indent + direction * indent_vars['indent-width']
         if state.mode() in ('lilypond', 'scheme'):
-            computed_indent = computeIndent(block)
+            computed_indent = compute_indent(block)
             if cmp(computed_indent, new_indent) == direction:
                 new_indent = computed_indent
         diff = new_indent - current_indent
@@ -215,7 +215,7 @@ def reIndent(cursor):
         for block in blocks:
             tokeniter.update(block)
             if tokeniter.state(block).mode() in ('lilypond', 'scheme'):
-                indent = computeIndent(block)
+                indent = compute_indent(block)
             else:
                 indent = getIndent(block)
             if setIndent(block, indent):
@@ -304,7 +304,7 @@ def insertText(cursor, text):
         tokeniter.update(block) # tokenize inserted lines
         while last != block:
             block = block.next()
-            if setIndent(block, computeIndent(block)):
+            if setIndent(block, compute_indent(block)):
                 tokeniter.update(block)
 
 
