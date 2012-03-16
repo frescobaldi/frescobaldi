@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 from PyQt4.QtGui import QActionGroup, QMenu
 
 import app
-import util
+import qutil
 import sessions
 
 from . import manager
@@ -69,7 +69,7 @@ class SessionMenu(QMenu):
                 a.setChecked(True)
             a.setObjectName(name)
             ag.addAction(a)
-        util.addAccelerators(self.actions())
+        qutil.addAccelerators(self.actions())
 
     def slotSessionsAction(self, action):
         if action.objectName() in sessions.sessionNames():

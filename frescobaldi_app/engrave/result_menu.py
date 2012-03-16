@@ -31,6 +31,7 @@ from PyQt4.QtGui import QMenu
 import app
 import icons
 import util
+import qutil
 
 
 class Menu(QMenu):
@@ -66,7 +67,7 @@ class Menu(QMenu):
                 a = self.addAction(_("No files available"))
                 a.setEnabled(False)
             else:
-                util.addAccelerators(self.actions())
+                qutil.addAccelerators(self.actions())
     
     def actionTriggered(self, action):
         import helpers

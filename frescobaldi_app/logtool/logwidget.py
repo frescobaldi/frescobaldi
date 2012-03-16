@@ -37,7 +37,7 @@ import app
 import log
 import job
 import jobmanager
-import util
+import qutil
 
 from . import errors
 
@@ -151,7 +151,7 @@ class LogWidget(log.Log):
         es.cursor = QTextCursor(self.document())
         es.cursor.setPosition(pos)
         es.cursor.setPosition(anchor, QTextCursor.KeepAnchor)
-        bg = util.mixcolor(self.palette().highlight().color(), self.palette().base().color(), 0.4)
+        bg = qutil.mixcolor(self.palette().highlight().color(), self.palette().base().color(), 0.4)
         es.format.setBackground(bg)
         es.format.setProperty(QTextFormat.FullWidthSelection, True)
         self.setExtraSelections([es])

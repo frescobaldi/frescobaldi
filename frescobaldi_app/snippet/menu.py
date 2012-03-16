@@ -40,7 +40,7 @@ from PyQt4.QtGui import QMenu
 
 import app
 import document
-import util
+import qutil
 import panelmanager
 
 
@@ -76,7 +76,7 @@ class SnippetMenu(QMenu):
             for action in groups[group]:
                 self.insertAction(last, action)
             self.insertSeparator(last)
-        util.addAccelerators(self.actions())
+        qutil.addAccelerators(self.actions())
         
     def insertBeforeAction(self):
         """Should return an action to insert out stuff before, or None."""

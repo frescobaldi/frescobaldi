@@ -39,6 +39,7 @@ import icons
 import job
 import log
 import util
+import qutil
 import fileinfo
 import lilypondinfo
 import popplerview
@@ -188,7 +189,7 @@ class MusicPreviewDialog(QDialog):
         self._printButton.setIcon(icons.get("document-print"))
         self._printButton.clicked.connect(self._widget.print_)
         self._printButton.hide()
-        util.saveDialogSize(self, "musicpreview/dialog/size", QSize(500, 350))
+        qutil.saveDialogSize(self, "musicpreview/dialog/size", QSize(500, 350))
         app.translateUI(self)
     
     def translateUI(self):

@@ -35,7 +35,7 @@ from PyQt4.QtGui import (
     QTabWidget, QTextBrowser, QVBoxLayout)
 
 import app
-import util
+import qutil
 import widgets
 import cursordiff
 import lilypondinfo
@@ -111,7 +111,7 @@ class Dialog(QDialog):
         layout.addWidget(self.buttons)
         
         app.translateUI(self)
-        util.saveDialogSize(self, 'convert_ly/dialog/size', QSize(600, 300))
+        qutil.saveDialogSize(self, 'convert_ly/dialog/size', QSize(600, 300))
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
         self.finished.connect(self.saveCopyCheckSetting)
@@ -195,7 +195,7 @@ class Dialog(QDialog):
             env = dict(os.environ)
             env['LANGUAGE'] = 'C'
         
-        with util.busyCursor():
+        with qutil.busyCursor():
             try:
                 proc = subprocess.Popen(command,
                     env = env,

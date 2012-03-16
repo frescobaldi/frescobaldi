@@ -28,7 +28,7 @@ from PyQt4.QtGui import (QComboBox, QCompleter, QFontComboBox,
     QGridLayout, QLabel, QSpinBox, QVBoxLayout)
 
 import app
-import util
+import qutil
 import icons
 import preferences
 import widgets.listedit
@@ -142,7 +142,7 @@ class Browser(preferences.Group):
         if family:
             font.setFamily(family)
         size = int(s.value("fontsize", 16))
-        with util.signalsBlocked(self.fontChooser, self.fontSize):
+        with qutil.signalsBlocked(self.fontChooser, self.fontSize):
             self.fontChooser.setCurrentFont(font)
             self.fontSize.setValue(size)
 

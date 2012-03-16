@@ -28,7 +28,7 @@ from PyQt4.QtGui import *
 
 import app
 import css
-import util
+import qutil
 import midihub
 import widgets.drag
 
@@ -195,7 +195,7 @@ class Widget(QWidget):
     
     def updateTimeSlider(self):
         if not self._timeSlider.isSliderDown():
-            with util.signalsBlocked(self._timeSlider):
+            with qutil.signalsBlocked(self._timeSlider):
                 self._timeSlider.setMaximum(self._player.total_time())
                 self._timeSlider.setValue(self._player.current_time())
 

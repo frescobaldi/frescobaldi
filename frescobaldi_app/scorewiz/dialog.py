@@ -29,7 +29,7 @@ from PyQt4.QtGui import *
 import app
 import cursortools
 import indent
-import util
+import qutil
 import help
 
 
@@ -69,7 +69,7 @@ class ScoreWizardDialog(QDialog):
         self.tabs.setCurrentIndex(0)
         self.tabs.widget(0).widget() # activate it
         self.tabs.currentChanged.connect(self.slotCurrentChanged)
-        util.saveDialogSize(self, "scorewiz/dialog/size")
+        qutil.saveDialogSize(self, "scorewiz/dialog/size")
         app.translateUI(self)
         self.accepted.connect(self.slotAccepted)
     

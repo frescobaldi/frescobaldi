@@ -29,7 +29,7 @@ from PyQt4.QtGui import QDialog, QLabel, QSizePolicy, QTextBrowser, QVBoxLayout
 
 
 import app
-import util
+import qutil
 import highlighter
 import textformats
 
@@ -53,7 +53,7 @@ class SourceViewer(QDialog):
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
         app.translateUI(self)
-        util.saveDialogSize(self, "helpbrowser/sourceviewer/size", QSize(400, 300))
+        qutil.saveDialogSize(self, "helpbrowser/sourceviewer/size", QSize(400, 300))
         
     def translateUI(self):
         self.setWindowTitle(app.caption(_("LilyPond Source")))

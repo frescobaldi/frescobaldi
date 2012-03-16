@@ -33,6 +33,7 @@ import app
 import cachedproperty
 import process
 import util
+import qutil
 
 
 _scheduler = process.Scheduler()
@@ -130,7 +131,7 @@ class CachedProperty(cachedproperty.CachedProperty):
             if self.get() is None:
                 if msg is None:
                     msg = _("Running LilyPond, this can take some time...")
-                util.waitForSignal(self.computed, msg, timeout)
+                qutil.waitForSignal(self.computed, msg, timeout)
         return self.get()
     
     __call__ = wait

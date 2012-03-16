@@ -46,7 +46,7 @@ import app
 import actioncollection
 import actioncollectionmanager
 import icons
-import util
+import qutil
 import panel
 import listmodel
 import widgets.drag
@@ -499,13 +499,13 @@ class PagerAction(QWidgetAction):
                 w.setRange(0, 0)
                 w.clear()
         for w in self.createdWidgets():
-            with util.signalsBlocked(w):
+            with qutil.signalsBlocked(w):
                 adjust(w)
     
     def setCurrentPage(self, num):
         if num:
             for w in self.createdWidgets():
-                with util.signalsBlocked(w):
+                with qutil.signalsBlocked(w):
                     w.setValue(num)
                     w.lineEdit().deselect()
     

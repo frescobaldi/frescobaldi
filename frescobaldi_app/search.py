@@ -33,7 +33,7 @@ from PyQt4.QtGui import (
     QLineEdit, QPalette, QPushButton, QStyle, QTextCursor, QToolButton, QWidget)
 
 import app
-import util
+import qutil
 import plugin
 import cursortools
 import textformats
@@ -163,7 +163,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
         self._replace = False # we are not in replace mode
         visible = self.isVisible()
         if not visible:
-            with util.signalsBlocked(self.searchEntry):
+            with qutil.signalsBlocked(self.searchEntry):
                 self.searchEntry.clear()
         self.showWidget()
         if not visible and self.currentView():

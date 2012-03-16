@@ -33,7 +33,7 @@ from PyQt4.QtGui import QMessageBox
 
 import actioncollection
 import plugin
-import util
+import qutil
 
 
 def manager(mainwindow):
@@ -99,7 +99,7 @@ class ActionCollectionManager(plugin.MainWindowPlugin):
         from widgets import shortcuteditdialog
         dlg = shortcuteditdialog.ShortcutEditDialog(parent)
         
-        with util.deleteLater(dlg):
+        with qutil.deleteLater(dlg):
             while dlg.editAction(action, default):
                 # conflict checking
                 shortcuts = action.shortcuts()

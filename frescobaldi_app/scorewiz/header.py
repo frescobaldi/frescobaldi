@@ -27,7 +27,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
-import util
+import qutil
 import textformats
 import completionmodel
 
@@ -95,9 +95,9 @@ class HeaderWidget(QWidget):
             self.labels[name].setText(desc + ":")
         # add accelerators to names, avoiding the tab names
         tabwidget = self.window().tabs
-        used = filter(None, (util.getAccelerator(tabwidget.widget(i).title())
+        used = filter(None, (qutil.getAccelerator(tabwidget.widget(i).title())
                              for i in range(tabwidget.count())))
-        util.addAccelerators([self.labels[name] for name, desc in headers()], used)
+        qutil.addAccelerators([self.labels[name] for name, desc in headers()], used)
 
     def saveCompletions(self):
         for edit in self.edits.values():

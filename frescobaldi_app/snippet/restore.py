@@ -29,7 +29,7 @@ from PyQt4.QtGui import *
 
 import app
 import help
-import util
+import qutil
 import widgets.dialog
 
 from . import builtin
@@ -55,7 +55,7 @@ class RestoreDialog(widgets.dialog.Dialog):
         app.translateUI(self)
         app.languageChanged.connect(self.populate)
         self.accepted.connect(self.updateSnippets)
-        util.saveDialogSize(self, "snippettool/restoredialog/size")
+        qutil.saveDialogSize(self, "snippettool/restoredialog/size")
     
     def translateUI(self):
         self.setWindowTitle(

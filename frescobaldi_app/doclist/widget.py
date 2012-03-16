@@ -30,6 +30,8 @@ from PyQt4.QtGui import *
 
 import app
 import util
+import qutil
+
 import icons
 import jobmanager
 
@@ -71,7 +73,7 @@ class Widget(QTreeWidget):
         self.clear()
         self._paths = {}
         self._items = {}
-        with util.signalsBlocked(self):
+        with qutil.signalsBlocked(self):
             # add all existing docs to the list
             for d in app.documents:
                 self.addDocument(d)

@@ -32,6 +32,7 @@ from PyQt4.QtGui import *
 
 import app
 import util
+import qutil
 import icons
 import qpopplerview
 import widgets.imageviewer
@@ -119,7 +120,7 @@ class Dialog(QDialog):
         self.buttons.rejected.connect(self.reject)
         self.copyButton.clicked.connect(self.copyToClipboard)
         self.saveButton.clicked.connect(self.saveAs)
-        util.saveDialogSize(self, "copy_image/dialog/size", QSize(480, 320))
+        qutil.saveDialogSize(self, "copy_image/dialog/size", QSize(480, 320))
     
     def translateUI(self):
         self.setCaption()

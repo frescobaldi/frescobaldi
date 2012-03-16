@@ -30,7 +30,7 @@ import app
 import icons
 import preferences
 import textformats
-import util
+import qutil
 
 from widgets import ClearButton
 from widgets.schemeselector import SchemeSelector
@@ -166,7 +166,7 @@ class FontsColors(preferences.Page):
         self.updateDisplay()
         if self.tree.currentItem():
             self.currentItemChanged(self.tree.currentItem(), None)
-        with util.signalsBlocked(self.printScheme):
+        with qutil.signalsBlocked(self.printScheme):
             self.printScheme.setChecked(scheme == self._printScheme)
     
     def fontChanged(self):
@@ -186,11 +186,11 @@ class FontsColors(preferences.Page):
     def updateDisplay(self):
         data = self.data[self.scheme.currentScheme()]
         
-        with util.signalsBlocked(self.fontChooser, self.fontSize):
+        with qutil.signalsBlocked(self.fontChooser, self.fontSize):
             self.fontChooser.setCurrentFont(data.font)
             self.fontSize.setValue(data.font.pointSizeF())
         
-        with util.signalsBlocked(self):
+        with qutil.signalsBlocked(self):
             # update base colors
             for name in textformats.baseColors:
                 self.baseColorsWidget.color[name].setColor(data.baseColors[name])

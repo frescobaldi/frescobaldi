@@ -30,7 +30,7 @@ from PyQt4.QtGui import (
     QListWidget, QListWidgetItem, QStackedWidget, QVBoxLayout, QWidget)
 
 import app
-import util
+import qutil
 import help
 import icons
 import widgets
@@ -98,7 +98,7 @@ class PreferencesDialog(QDialog):
         
         app.translateUI(self, 100)
         # read our size and selected page
-        util.saveDialogSize(self, "preferences/dialog/size", QSize(500, 300))
+        qutil.saveDialogSize(self, "preferences/dialog/size", QSize(500, 300))
         self.pagelist.setCurrentRow(_prefsindex)
         
     def translateUI(self):

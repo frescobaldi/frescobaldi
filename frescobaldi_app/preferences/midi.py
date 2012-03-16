@@ -28,7 +28,7 @@ from PyQt4.QtGui import *
 
 
 import app
-import util
+import qutil
 import icons
 import preferences
 import midihub
@@ -102,7 +102,7 @@ class MidiPorts(preferences.Group):
 
     def refreshMidiPorts(self):
         midihub.refresh_ports()
-        with util.signalsBlocked(self):
+        with qutil.signalsBlocked(self):
             self.loadMidiPorts()
             self.loadSettings()
 

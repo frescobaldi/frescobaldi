@@ -29,7 +29,7 @@ import app
 import actioncollection
 import actioncollectionmanager
 import plugin
-import util
+import qutil
 import icons
 import ly.pitch
 
@@ -45,7 +45,7 @@ class Pitch(plugin.MainWindowPlugin):
             a.setObjectName(name)
             a.setCheckable(True)
             g.addAction(a)
-        util.addAccelerators(m.actions())
+        qutil.addAccelerators(m.actions())
         ac.pitch_language.setMenu(m)
         m.aboutToShow.connect(self.setLanguageMenu)
         g.triggered.connect(self.changeLanguage)

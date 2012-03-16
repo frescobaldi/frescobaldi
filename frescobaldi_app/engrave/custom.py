@@ -39,7 +39,7 @@ import jobmanager
 import lilypondinfo
 import listmodel
 import widgets
-import util
+import qutil
 
 from . import command
 
@@ -93,7 +93,7 @@ class Dialog(QDialog):
         layout.addWidget(self.buttons, 10, 0, 1, 2)
         
         app.translateUI(self)
-        util.saveDialogSize(self, "engrave/custom/dialog/size", QSize(480, 260))
+        qutil.saveDialogSize(self, "engrave/custom/dialog/size", QSize(480, 260))
         self.buttons.accepted.connect(self.accept)
         self.buttons.rejected.connect(self.reject)
         

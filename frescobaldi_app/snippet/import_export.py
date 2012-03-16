@@ -35,7 +35,7 @@ from PyQt4.QtGui import *
 
 import app
 import info
-import util
+import qutil
 import widgets.dialog
 
 from . import model
@@ -198,12 +198,12 @@ def load(filename, widget):
         "<p>Existing, unchanged snippets can't be imported.</p>\n"
         ).format(filename=os.path.basename(filename)))
         
-    util.saveDialogSize(dlg, "snippettool/import/size", QSize(400, 300))
+    qutil.saveDialogSize(dlg, "snippettool/import/size", QSize(400, 300))
     if not dlg.exec_() or not items:
         return
     ac = model.collection()
     m = model.model()
-    with util.busyCursor():
+    with qutil.busyCursor():
         for i in items:
             if i.checkState(0) == Qt.Checked:
                 index = m.saveSnippet(i.name, i.body, i.title)

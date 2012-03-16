@@ -46,6 +46,7 @@ import historymanager
 import recentfiles
 import sessions.manager
 import util
+import qutil
 import helpers
 import panelmanager
 import engrave
@@ -765,7 +766,7 @@ class MainWindow(QMainWindow):
             dirname, basename = os.path.split(f)
             text = "{0}  ({1})".format(basename, util.homify(dirname))
             self.menu_recent_files.addAction(text).url = url
-        util.addAccelerators(self.menu_recent_files.actions())
+        qutil.addAccelerators(self.menu_recent_files.actions())
     
     def slotRecentFilesAction(self, action):
         """Called when a recent files menu action is triggered."""

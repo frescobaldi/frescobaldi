@@ -29,7 +29,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import job
-import util
+import qutil
 
 
 class Log(QTextBrowser):
@@ -92,10 +92,10 @@ class Log(QTextBrowser):
         
         """
         textColor = QApplication.palette().color(QPalette.WindowText)
-        successColor = util.addcolor(textColor, 0, 128, 0) # more green
-        failureColor = util.addcolor(textColor, 128, 0, 0) # more red
-        linkColor    = util.addcolor(textColor, 0, 0, 128) # more blue
-        stdoutColor  = util.addcolor(textColor, 64, 64, 0) # more purple
+        successColor = qutil.addcolor(textColor, 0, 128, 0) # more green
+        failureColor = qutil.addcolor(textColor, 128, 0, 0) # more red
+        linkColor    = qutil.addcolor(textColor, 0, 0, 128) # more blue
+        stdoutColor  = qutil.addcolor(textColor, 64, 64, 0) # more purple
         
         s = QSettings()
         s.beginGroup("log")

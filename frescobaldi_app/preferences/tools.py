@@ -29,7 +29,7 @@ from PyQt4.QtGui import (
     QLabel, QSlider, QSpinBox, QVBoxLayout)
 
 import app
-import util
+import qutil
 import preferences
 import popplerview
 
@@ -89,7 +89,7 @@ class LogTool(preferences.Group):
         s.beginGroup("log")
         font = QFont(s.value("fontfamily", "monospace"))
         font.setPointSizeF(float(s.value("fontsize", 9.0)))
-        with util.signalsBlocked(self.fontChooser, self.fontSize):
+        with qutil.signalsBlocked(self.fontChooser, self.fontSize):
             self.fontChooser.setCurrentFont(font)
             self.fontSize.setValue(font.pointSizeF())
         self.showlog.setChecked(s.value("show_on_start", True) not in (False, "false"))
@@ -194,7 +194,7 @@ class CharMap(preferences.Group):
         if family:
             font.setFamily(family)
         font.setPointSizeF(float(s.value("fontsize", font.pointSizeF())))
-        with util.signalsBlocked(self.fontChooser, self.fontSize):
+        with qutil.signalsBlocked(self.fontChooser, self.fontSize):
             self.fontChooser.setCurrentFont(font)
             self.fontSize.setValue(font.pointSizeF())
 

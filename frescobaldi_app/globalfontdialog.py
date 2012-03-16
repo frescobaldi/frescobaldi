@@ -30,7 +30,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
-import util
+import qutil
 import widgets.dialog
 
 class GlobalFontDialog(widgets.dialog.Dialog):
@@ -63,7 +63,7 @@ class GlobalFontDialog(widgets.dialog.Dialog):
         self.loadSettings()
         self.finished.connect(self.saveSettings)
         app.translateUI(self)
-        util.saveDialogSize(self, "global_font_dialog/dialog/size")
+        qutil.saveDialogSize(self, "global_font_dialog/dialog/size")
         
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Global Fonts")))

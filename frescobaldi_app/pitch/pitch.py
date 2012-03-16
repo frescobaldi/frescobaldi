@@ -34,7 +34,7 @@ import icons
 import ly.pitch
 import ly.lex.lilypond
 import cursortools
-import util
+import qutil
 import tokeniter
 import documentinfo
 import lilypondinfo
@@ -63,7 +63,7 @@ def changeLanguage(cursor, language):
     changed = False # track change of \language or \include language command
     with cursortools.compress_undo(cursor):
         try:
-            with util.busyCursor():
+            with qutil.busyCursor():
                 with cursortools.Editor() as e:
                     for t in tokens:
                         if isinstance(t, ly.lex.lilypond.Note):
@@ -254,7 +254,7 @@ def rel2abs(cursor):
             makeAbsolute(t, lastPitch)
     
     # Do it!
-    with util.busyCursor():
+    with qutil.busyCursor():
         with cursortools.Editor() as editor:
             for t in tsource:
                 pass
@@ -340,7 +340,7 @@ def abs2rel(cursor):
             consume()
     
     # Do it!
-    with util.busyCursor():
+    with qutil.busyCursor():
         with cursortools.Editor() as editor:
             for t in tsource:
                 if t in ('{', '<<'):
@@ -573,7 +573,7 @@ def transpose(cursor, mainwindow):
 
     # Do it!
     try:
-        with util.busyCursor():
+        with qutil.busyCursor():
             with cursortools.Editor() as editor:
                 absolute(tsource)
     except ly.pitch.PitchNameNotAvailable:

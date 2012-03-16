@@ -31,7 +31,7 @@ from PyQt4.QtGui import *
 
 import actioncollectionmanager
 import app
-import util
+import qutil
 import help
 import homekey
 import icons
@@ -113,7 +113,7 @@ class Edit(QDialog):
         
         self.readSettings()
         app.settingsChanged.connect(self.readSettings)
-        util.saveDialogSize(self, "snippettool/editor/size", QSize(400, 300))
+        qutil.saveDialogSize(self, "snippettool/editor/size", QSize(400, 300))
         self.show()
         
     def translateUI(self):
