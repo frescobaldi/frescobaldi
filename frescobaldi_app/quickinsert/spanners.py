@@ -88,12 +88,12 @@ class ArpeggioGroup(buttongroup.ButtonGroup):
             block = block.previous()
         # where to insert
         source = tokeniter.Source.fromCursor(cursor, True, -1)
-        with cursortools.editBlock(cursor):
+        with cursortools.compress_undo(cursor):
             for p in music.music_items(source, tokens=source.tokens):
                 c = source.cursor(p[-1], start=len(p[-1]))
                 c.insertText('\\arpeggio')
                 if name != lastused:
-                    cursortools.stripIndent(c)
+                    cursortools.strip_indent(c)
                     import indent
                     indent.insertText(c, name + '\n')
                 # just pick the first place
@@ -157,7 +157,7 @@ class SpannerGroup(buttongroup.ButtonGroup):
             spanner = '\\startTrillSpan', '\\stopTrillSpan'
 
         cursor = self.mainwindow().textCursor()
-        with cursortools.editBlock(cursor):
+        with cursortools.compress_undo(cursor):
             for s, c in zip(spanner, spanner_positions(cursor)):
                 c.insertText(s)
 

@@ -101,7 +101,7 @@ class Group(buttongroup.ButtonGroup):
         selection = cursor.hasSelection()
         cursors = articulation_positions(cursor)
         if cursors:
-            with cursortools.editBlock(cursor):
+            with cursortools.compress_undo(cursor):
                 for c in cursors:
                     c.insertText(text)
             if not selection:

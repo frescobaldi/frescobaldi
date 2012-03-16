@@ -199,7 +199,7 @@ def changeIndent(cursor, direction):
             if cmp(computed_indent, new_indent) == direction:
                 new_indent = computed_indent
         diff = new_indent - current_indent
-        with cursortools.editBlock(cursor):
+        with cursortools.compress_undo(cursor):
             for block in blocks:
                 setIndent(block, getIndent(block) + diff)
         return True
@@ -210,8 +210,8 @@ def reIndent(cursor):
     if cursor.hasSelection():
         blocks = cursortools.blocks(cursor)
     else:
-        blocks = cursortools.allBlocks(cursor.document())
-    with cursortools.editBlock(cursor):
+        blocks = cursortools.all_blocks(cursor.document())
+    with cursortools.compress_undo(cursor):
         for block in blocks:
             tokeniter.update(block)
             if tokeniter.state(block).mode() in ('lilypond', 'scheme'):
@@ -297,7 +297,7 @@ def insertText(cursor, text):
         cursor.insertText(text)
         return
     line = cursor.document().findBlock(cursor.selectionStart()).blockNumber()
-    with cursortools.editBlock(cursor):
+    with cursortools.compress_undo(cursor):
         cursor.insertText(text)
         block = cursor.document().findBlockByNumber(line)
         last = cursor.block()

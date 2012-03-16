@@ -42,7 +42,7 @@ def cut_assign(cursor):
     if not name:
         return
     
-    cursortools.strip(cursor)
+    cursortools.strip_selection(cursor)
     
     # determine state at cursor
     block = cursortools.block(cursor)
@@ -84,7 +84,7 @@ def cut_assign(cursor):
     text = cursor.selection().toPlainText()
     space = '\n' if '\n' in text else ' '
     text = ''.join((name, ' =', mode, ' {', space, text, space, '}\n\n'))
-    with cursortools.editBlock(cursor):
+    with cursortools.compress_undo(cursor):
         cursor.insertText('\\' + name)
         if metainfo.info(cursor.document()).autoindent:
             indent.insertText(insert, text)

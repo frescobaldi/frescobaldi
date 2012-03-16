@@ -53,7 +53,7 @@ def get_blocks(cursor):
     if cursor.hasSelection():
         return cursortools.blocks(cursor) 
     else:
-        return cursortools.allBlocks(cursor.document())
+        return cursortools.all_blocks(cursor.document())
 
 
 def reformat(cursor):
@@ -66,7 +66,7 @@ def reformat(cursor):
     
     indent_vars = indent.indentVariables(cursor.document())
     
-    with cursortools.editBlock(cursor):
+    with cursortools.compress_undo(cursor):
         indent.reIndent(cursor)
         with cursortools.Editor() as editor:
             for block in get_blocks(cursor):

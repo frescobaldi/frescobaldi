@@ -152,7 +152,7 @@ def partition(cursor):
 
 def allTokens(document):
     """Yields all tokens of a document."""
-    return (token for block in cursortools.allBlocks(document) for token in tokens(block))
+    return (token for block in cursortools.all_blocks(document) for token in tokens(block))
 
 
 def fromCursor(cursor, state=None, first=1):
@@ -276,7 +276,7 @@ def document(cursor, state=None):
                 yield t
     else:
         gen = iter
-    for block in cursortools.allBlocks(cursor.document()):
+    for block in cursortools.all_blocks(cursor.document()):
         yield block, gen(tokens(block))
 
 

@@ -83,12 +83,12 @@ def rhythm_undot(cursor):
                 e.removeSelectedText(tokeniter.cursor(b, d[0]))
 
 def rhythm_remove_scaling(cursor):
-    with cursortools.editBlock(cursor):
+    with cursortools.compress_undo(cursor):
         for c in cursors(cursor, ly.lex.lilypond.Scaling):
             c.removeSelectedText()
 
 def rhythm_remove(cursor):
-    with cursortools.editBlock(cursor):
+    with cursortools.compress_undo(cursor):
         for c in cursors(cursor, ly.lex.lilypond.Duration):
             c.removeSelectedText()
 

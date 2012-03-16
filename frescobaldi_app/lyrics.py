@@ -96,7 +96,7 @@ class Lyrics(plugin.MainWindowPlugin):
             import hyphendialog
             h = hyphendialog.HyphenDialog(self.mainwindow()).hyphenator()
             if h:
-                with cursortools.editBlock(cursor):
+                with cursortools.compress_undo(cursor):
                     for cur, word in found:
                         hyph_word = h.inserted(word, ' -- ')
                         if word != hyph_word:
@@ -108,7 +108,7 @@ class Lyrics(plugin.MainWindowPlugin):
         cursor = view.textCursor()
         text = cursor.selection().toPlainText()
         if ' --' in text:
-            with cursortools.keepSelection(cursor, view):
+            with cursortools.keep_selection(cursor, view):
                 cursor.insertText(removehyphens(text))
             
     def copy_dehyphenated(self):

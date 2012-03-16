@@ -58,12 +58,23 @@ def contains(c1, c2):
             and c1.selectionEnd() >= c2.selectionEnd())
 
 
-def allBlocks(document):
-    """Yields all blocks of the document."""
-    block = document.firstBlock()
+def forwards(block):
+    """Yields the block and all following blocks."""
     while block.isValid():
         yield block
         block = block.next()
+
+
+def backwards(block):
+    """Yields the block and all preceding blocks."""
+    while block.isValid():
+        yield block
+        block = block.previous()
+
+    
+def all_blocks(document):
+    """Yields all blocks of the document."""
+    return forwards(document.firstBlock())
 
 
 def partition(cursor):
@@ -85,9 +96,9 @@ def partition(cursor):
 
 
 @contextlib.contextmanager
-def editBlock(cursor, joinPrevious = False):
+def compress_undo(cursor, join_previous = False):
     """Returns a context manager to perform operations on cursor as a single undo-item."""
-    cursor.joinPreviousEditBlock() if joinPrevious else cursor.beginEditBlock()
+    cursor.joinPreviousEditBlock() if join_previous else cursor.beginEditBlock()
     try:
         yield
     finally:
@@ -95,7 +106,7 @@ def editBlock(cursor, joinPrevious = False):
 
 
 @contextlib.contextmanager
-def keepSelection(cursor, edit=None):
+def keep_selection(cursor, edit=None):
     """Performs operations inside the selection and restore the selection afterwards.
     
     If edit is given, call setTextCursor(cursor) on the Q(Plain)TextEdit afterwards.
@@ -118,7 +129,7 @@ def keepSelection(cursor, edit=None):
             edit.setTextCursor(cursor)
 
 
-def strip(cursor, chars=None):
+def strip_selection(cursor, chars=None):
     """Adjusts the selection of the cursor just like Python's strip().
     
     If there is no selection or the selection would vanish completely,
@@ -140,7 +151,14 @@ def strip(cursor, chars=None):
     cursor.setPosition(e, QTextCursor.KeepAnchor)
 
 
-def insertText(cursor, text):
+def strip_indent(cursor):
+    """Moves the cursor in its block to the first non-space character."""
+    text = cursor.block().text()
+    pos = len(text) - len(text.lstrip())
+    cursor.setPosition(cursor.block().position() + pos)
+
+
+def insert_select(cursor, text):
     """Inserts text and then selects all inserted text in the cursor."""
     pos = cursor.selectionStart()
     cursor.insertText(text)
@@ -149,45 +167,31 @@ def insertText(cursor, text):
     cursor.setPosition(new, QTextCursor.KeepAnchor)
 
 
-def isBlankBefore(cursor):
-    """Returns True if there's no text on the current line before the cursor."""
-    if cursor.hasSelection():
-        return False
-    if cursor.atBlockStart():
-        return True
-    c = QTextCursor(cursor)
-    c.movePosition(QTextCursor.StartOfBlock, QTextCursor.KeepAnchor)
-    return c.selection().toPlainText().isspace()
-
-
-def isBlankAfter(cursor):
-    """Returns True if there's no text on the current line after the cursor."""
-    if cursor.hasSelection():
-        return False
-    if cursor.atBlockEnd():
-        return True
-    c = QTextCursor(cursor)
-    c.movePosition(QTextCursor.EndOfBlock, QTextCursor.KeepAnchor)
-    return c.selection().toPlainText().isspace()
-
-
-def isBlankLine(cursor):
-    """Returns True if the cursor is on an empty or blank line."""
-    text = cursor.block().text()
+def isblank(block):
+    """Returns True if the block is an empty or blank line."""
+    text = block().text()
     return not text or text.isspace()
 
 
-def nextBlank(block):
-    """Returns the next block that is the first block of one or more blank blocks."""
-    def blocks(block):
-        while block.isValid():
-            yield block
-            block = block.next()
-    
-    def isblank(block):
-        return not block.text() or block.text().isspace()
+def isblank_before(cursor):
+    """Returns True if there's no text on the current line before the cursor."""
+    if cursor.atBlockStart():
+        return True
+    text = cursor.block().text()[:cursor.position() - cursor.block().position()]
+    return not text or text.isspace()
 
-    bb = blocks(block)
+
+def isblank_after(cursor):
+    """Returns True if there's no text on the current line after the cursor."""
+    if cursor.atBlockEnd():
+        return True
+    text = cursor.block().text()[cursor.position() - cursor.block().position():]
+    return not text or text.isspace()
+
+
+def next_blank(block):
+    """Returns the next block that is the first block of one or more blank blocks."""
+    bb = forwards(block)
     for b in bb:
         if not isblank(b):
             for b in bb:
@@ -195,17 +199,9 @@ def nextBlank(block):
                     return b
 
 
-def previousBlank(block):
+def previous_blank(block):
     """Returns the previous block that is the first block of one or more blank blocks."""
-    def blocks(block):
-        while block.isValid():
-            yield block
-            block = block.previous()
-    
-    def isblank(block):
-        return not block.text() or block.text().isspace()
-
-    bb = blocks(block)
+    bb = backwards(block)
     for b in bb:
         if not isblank(b):
             for b in bb:
@@ -215,13 +211,6 @@ def previousBlank(block):
                             b = b.next()
                             break
                     return b
-
-
-def stripIndent(cursor):
-    """Moves the cursor in its block to the first non-space character."""
-    text = cursor.block().text()
-    pos = len(text) - len(text.lstrip())
-    cursor.setPosition(cursor.block().position() + pos)
 
 
 class Editor(object):
@@ -270,7 +259,7 @@ class Editor(object):
             edits.reverse()
             cursor = self.edits[0][0]
             del self.edits[:]
-            with editBlock(cursor):
+            with compress_undo(cursor):
                 for start, end, text in edits:
                     cursor.setPosition(end)
                     cursor.setPosition(start, QTextCursor.KeepAnchor)

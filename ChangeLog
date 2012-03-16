@@ -8,7 +8,8 @@ Changes in 2.0.5 --
   - updated: fr
 * New features:
   - new snippet action to recover changed or deleted built-in snippets
-  - Alt+Up and Alt+Down jump between blank lines (implemented as snippets)
+  - Alt+Up and Alt+Down jump between blank lines (implemented as snippets),
+    with Shift they select text
 * Improvements:
   - Running convert-ly (or undoing it) does not erase point and click positions
     anymore

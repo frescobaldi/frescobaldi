@@ -61,7 +61,7 @@ def changeLanguage(cursor, language):
         source.consume(tokens, start)
     
     changed = False # track change of \language or \include language command
-    with cursortools.editBlock(cursor):
+    with cursortools.compress_undo(cursor):
         try:
             with util.busyCursor():
                 with cursortools.Editor() as e:

@@ -43,11 +43,11 @@ def insert(name, view):
     if 'yes' in selection and not cursor.hasSelection():
         return
     if 'strip' in selection:
-        cursortools.strip(cursor)
+        cursortools.strip_selection(cursor)
     
     pos = cursor.selectionStart()
     line = cursor.document().findBlock(pos).blockNumber()
-    with cursortools.editBlock(cursor):
+    with cursortools.compress_undo(cursor):
         
         # insert the snippet, might return a new cursor
         if 'python' in variables:
@@ -240,7 +240,7 @@ def handle_exception(name, view):
     textedit = edit.Edit(widget, name).text
     if lineno is not None:
         # convert to line number in full snippet text
-        for block in cursortools.allBlocks(textedit.document()):
+        for block in cursortools.all_blocks(textedit.document()):
             if block.text().startswith('-*- '):
                 lineno += 1
             else:

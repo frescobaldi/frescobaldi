@@ -138,7 +138,7 @@ class ButtonGroup(QGroupBox):
         
         """
         cursor = self.mainwindow().textCursor()
-        if blankline and not cursortools.isBlankBefore(cursor):
+        if blankline and not cursor.hasSelection() and not cursortools.isblank_before(cursor):
             text = '\n' + text
         if indent and '\n' in text:
             import indent

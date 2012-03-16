@@ -65,7 +65,7 @@ r"""-*- python; indent: no;
 import cursortools
 
 def main():
-    block = cursortools.nextBlank(cursor.block())
+    block = cursortools.next_blank(cursor.block())
     if block:
         cursor.setPosition(block.position() + block.length() - 1)
         return cursor
@@ -79,7 +79,7 @@ r"""-*- python; indent: no;
 import cursortools
 
 def main():
-    block = cursortools.previousBlank(cursor.block())
+    block = cursortools.previous_blank(cursor.block())
     if block:
         cursor.setPosition(block.position() + block.length() - 1)
         return cursor
@@ -93,7 +93,7 @@ r"""-*- python; indent: no;
 import cursortools
 
 def main():
-    block = cursortools.nextBlank(cursor.block())
+    block = cursortools.next_blank(cursor.block())
     if block:
         cursor.setPosition(block.position() + block.length() - 1, cursor.KeepAnchor)
         return cursor
@@ -107,7 +107,7 @@ r"""-*- python; indent: no;
 import cursortools
 
 def main():
-    block = cursortools.previousBlank(cursor.block())
+    block = cursortools.previous_blank(cursor.block())
     if block:
         cursor.setPosition(block.position() + block.length() - 1, cursor.KeepAnchor)
         return cursor

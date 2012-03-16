@@ -88,7 +88,7 @@ class Group(buttongroup.ButtonGroup):
             d1 = dynamics(c1)
             if d1:
                 c1 = tokeniter.cursor(c1.block(), d1[-1], start=len(d1[-1]))
-            with cursortools.editBlock(cursor):
+            with cursortools.compress_undo(cursor):
                 if len(cursors) > 1:
                     # dynamics after the end cursor?
                     d2 = dynamics(c2)

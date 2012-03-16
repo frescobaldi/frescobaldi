@@ -32,7 +32,7 @@ import difflib
 import cursortools
 
 
-def insertText(cursor, text):
+def insert_text(cursor, text):
     """Replaces selected text of a QTextCursor.
     
     This is done without erasing all the other QTextCursor instances that could
@@ -58,7 +58,7 @@ def insertText(cursor, text):
         reverse = True)
     
     # perform the edits
-    with cursortools.editBlock(cursor):
+    with cursortools.compress_undo(cursor):
         for pos, end, text in edits:
             cursor.setPosition(pos)
             cursor.setPosition(end, cursor.KeepAnchor)

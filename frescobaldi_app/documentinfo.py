@@ -133,7 +133,7 @@ class DocumentInfo(plugin.DocumentPlugin):
     def pitchLanguage(self):
         """Returns the pitchname language used in the document, if defined."""
         languages = ly.pitch.pitchInfo.keys()
-        for block in cursortools.allBlocks(self.document()):
+        for block in cursortools.all_blocks(self.document()):
             tokens = tokeniter.tokens(block)
             try:
                 i = tokens.index('\\language')
@@ -155,7 +155,7 @@ class DocumentInfo(plugin.DocumentPlugin):
     @resetoncontentschanged
     def globalStaffSize(self, default=20):
         """Returns the global staff size, if set, else the default value."""
-        for block in cursortools.allBlocks(self.document()):
+        for block in cursortools.all_blocks(self.document()):
             tokens = tokeniter.tokens(block)
             try:
                 i = tokens.index('set-global-staff-size')
