@@ -87,7 +87,7 @@ def cut_assign(cursor):
     with cursortools.compress_undo(cursor):
         cursor.insertText('\\' + name)
         if metainfo.info(cursor.document()).autoindent:
-            indent.insertText(insert, text)
+            indent.insert_text(insert, text)
         else:
             insert.insertText(text)
 

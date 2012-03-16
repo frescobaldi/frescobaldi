@@ -84,10 +84,10 @@ class Indenter(QObject):
 
     def newline(self, cursor):
         """Inserts a newline and then the same indent as the current line."""
-        indent = self.getIndent(cursor)
+        indent = self.get_indent(cursor)
         cursor.insertText('\n' + indent)
     
-    def getIndent(self, cursor):
+    def get_indent(self, cursor):
         """Returns the whitespace with which the current line starts."""
         text = cursor.document().findBlock(cursor.selectionStart()).text()
         return text[:len(text) - len(text.lstrip())]
@@ -97,7 +97,7 @@ class Indenter(QObject):
         with compress_undo(cursor):
             for block in blocks(cursor):
                 cursor.setPosition(block.position())
-                cursor.setPosition(block.position() + len(self.getIndent(cursor)))
+                cursor.setPosition(block.position() + len(self.get_indent(cursor)))
                 cursor.insertText(self.indentChar * self.indentWidth)
     
     def dedent(self, cursor):
@@ -105,7 +105,7 @@ class Indenter(QObject):
         with compress_undo(cursor):
             for block in blocks(cursor):
                 cursor.setPosition(block.position())
-                end = len(self.getIndent(cursor))
+                end = len(self.get_indent(cursor))
                 start = max(0, end - self.indentWidth)
                 if start < end:
                     cursor.setPosition(block.position() + start)

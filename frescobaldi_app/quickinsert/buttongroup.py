@@ -142,7 +142,7 @@ class ButtonGroup(QGroupBox):
             text = '\n' + text
         if indent and '\n' in text:
             import indent
-            indent.insertText(cursor, text)
+            indent.insert_text(cursor, text)
         else:
             cursor.insertText(text)
 

@@ -67,7 +67,7 @@ def reformat(cursor):
     indent_vars = indent.indentVariables(cursor.document())
     
     with cursortools.compress_undo(cursor):
-        indent.reIndent(cursor)
+        indent.re_indent(cursor)
         with cursortools.Editor() as editor:
             for block in get_blocks(cursor):
                 
@@ -91,7 +91,7 @@ def reformat(cursor):
                     
                 # TODO: wrap long lines
         
-        indent.reIndent(cursor)
+        indent.re_indent(cursor)
         
         with cursortools.Editor() as editor:
             for block in get_blocks(cursor):

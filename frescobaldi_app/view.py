@@ -40,7 +40,7 @@ import cursortools
 import variables
 
 
-metainfo.define('autoindent', True)
+metainfo.define('auto_indent', True)
 metainfo.define('position', 0)
 
 
@@ -52,7 +52,7 @@ class View(QPlainTextEdit):
     - it reads basic palette colors from the preferences
     - it determines tab width from the document variables (defaulting to 8 characters)
     - it stores the cursor position in the metainfo
-    - it runs the autoindenter when enabled (also checked via metainfo)
+    - it runs the auto_indenter when enabled (also checked via metainfo)
     - it can display a widget in the bottom using showWidget and hideWidget.
     
     """
@@ -81,11 +81,11 @@ class View(QPlainTextEdit):
             modifiers = int(ev.modifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
             if ev.key() == Qt.Key_Tab and modifiers == 0:
                 import indent
-                indent.increaseIndent(self.textCursor())
+                indent.increase_indent(self.textCursor())
                 return True
             elif ev.key() == Qt.Key_Backtab and modifiers & ~Qt.SHIFT == 0:
                 import indent
-                indent.decreaseIndent(self.textCursor())
+                indent.decrease_indent(self.textCursor())
                 return True
         return super(View, self).event(ev)
 
@@ -94,7 +94,7 @@ class View(QPlainTextEdit):
             return
         super(View, self).keyPressEvent(ev)
         
-        if metainfo.info(self.document()).autoindent:
+        if metainfo.info(self.document()).auto_indent:
             # run the indenter on Return or when the user entered a dedent token.
             import indent
             cursor = self.textCursor()

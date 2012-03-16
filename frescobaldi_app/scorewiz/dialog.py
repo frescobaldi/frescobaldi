@@ -111,7 +111,7 @@ class ScoreWizardDialog(QDialog):
         cursor = self.parent().currentView().textCursor()
         with cursortools.compress_undo(cursor):
             cursortools.insert_text(cursor, builder.text())
-            indent.reIndent(cursor)
+            indent.re_indent(cursor)
     
     def showPreview(self):
         """Shows a preview."""

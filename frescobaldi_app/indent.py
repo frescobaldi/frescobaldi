@@ -44,14 +44,14 @@ scheme_sync_args = (
 
 def auto_indent_block(block):
     """Auto-indents the given block."""
-    setIndent(block, compute_indent(block))
+    set_indent(block, compute_indent(block))
 
 
 def compute_indent(block):
     """Returns the indent the given block should have."""
     
     # get some variables from the document
-    indent_vars = indentVariables(block.document())
+    indent_vars = indent_variables(block.document())
     
     # count the dedent tokens at the beginning of the block
     indents = 0
@@ -134,7 +134,7 @@ def compute_indent(block):
             continue
         
         # translate indent to real columns (expanding tabs)
-        return columnPosition(prev.text(), indent_pos, indent_vars['tab-width']) + indent_add
+        return column_position(prev.text(), indent_pos, indent_vars['tab-width']) + indent_add
     # e.g. on first line
     return 0
 
@@ -150,32 +150,32 @@ def indentable(cursor):
             return
 
 
-def increaseIndent(cursor):
+def increase_indent(cursor):
     """Increases the indent of the line the cursor is at (or the selected lines).
     
     If there is no selection or the cursor is not in the first indent space,
     just inserts a Tab (or spaces).
     
     """
-    if not changeIndent(cursor, 1):
+    if not change_indent(cursor, 1):
         # just insert a tab
-        indent_vars = indentVariables(cursor.document())
+        indent_vars = indent_variables(cursor.document())
         if indent_vars['document-tabs']:
             cursor.insertText('\t')
         else:
             block = cursor.block()
             tabwidth = indent_vars['tab-width']
-            pos = columnPosition(block.text(), cursor.position() - block.position(), tabwidth)
+            pos = column_position(block.text(), cursor.position() - block.position(), tabwidth)
             spaces = tabwidth - pos % tabwidth
             cursor.insertText(' ' * spaces)
 
 
-def decreaseIndent(cursor):
+def decrease_indent(cursor):
     """Decreases the indent of the line the cursor is at (or the selected lines)."""
-    changeIndent(cursor, -1)
+    change_indent(cursor, -1)
 
 
-def changeIndent(cursor, direction):
+def change_indent(cursor, direction):
     """Changes the indent in the desired direction (-1 for left and +1 for right).
     
     Returns True if the indent operation was applied.
@@ -183,7 +183,7 @@ def changeIndent(cursor, direction):
     
     """
     # get some variables from the document
-    indent_vars = indentVariables(cursor.document())
+    indent_vars = indent_variables(cursor.document())
     
     blocks = list(cursortools.blocks(cursor))
     block = blocks[0]
@@ -192,7 +192,7 @@ def changeIndent(cursor, direction):
     if cursor.hasSelection() or pos == 0 or (token and isinstance(token, ly.lex.Space) and token.end >= pos):
         # decrease the indent
         state = tokeniter.state(block)
-        current_indent = getIndent(block)
+        current_indent = get_indent(block)
         new_indent = current_indent + direction * indent_vars['indent-width']
         if state.mode() in ('lilypond', 'scheme'):
             computed_indent = compute_indent(block)
@@ -201,11 +201,11 @@ def changeIndent(cursor, direction):
         diff = new_indent - current_indent
         with cursortools.compress_undo(cursor):
             for block in blocks:
-                setIndent(block, getIndent(block) + diff)
+                set_indent(block, get_indent(block) + diff)
         return True
 
 
-def reIndent(cursor):
+def re_indent(cursor):
     """Re-indents the selected region or the whole document."""
     if cursor.hasSelection():
         blocks = cursortools.blocks(cursor)
@@ -217,24 +217,24 @@ def reIndent(cursor):
             if tokeniter.state(block).mode() in ('lilypond', 'scheme'):
                 indent = compute_indent(block)
             else:
-                indent = getIndent(block)
-            if setIndent(block, indent):
+                indent = get_indent(block)
+            if set_indent(block, indent):
                 tokeniter.update(block) # force token update if changed
 
 
-def getIndent(block):
+def get_indent(block):
     """Returns the indent of the given block."""
     
     # get some variables from the document
-    indent_vars = indentVariables(block.document())
+    indent_vars = indent_variables(block.document())
     
     tokens = tokeniter.tokens(block)
     if tokens and isinstance(tokens[0], ly.lex.Space):
-        return columnPosition(tokens[0], tabwidth = indent_vars['tab-width'])
+        return column_position(tokens[0], tabwidth = indent_vars['tab-width'])
     return 0
 
 
-def setIndent(block, indent):
+def set_indent(block, indent):
     """Sets the indent of block to tabs/spaces of length indent.
     
     Does not change the document if the indent does not need a change.
@@ -242,9 +242,9 @@ def setIndent(block, indent):
     
     """
     # get some variables from the document
-    indent_vars = indentVariables(block.document())
+    indent_vars = indent_variables(block.document())
     
-    space = makeIndent(indent, indent_vars['tab-width'], indent_vars['indent-tabs'])
+    space = make_indent(indent, indent_vars['tab-width'], indent_vars['indent-tabs'])
     tokens = tokeniter.tokens(block)
     if tokens and isinstance(tokens[0], ly.lex.Space):
         changed = tokens[0] != space
@@ -257,7 +257,7 @@ def setIndent(block, indent):
     return changed
 
 
-def indentVariables(document):
+def indent_variables(document):
     """Returns a dictionary with some variables regarding document indenting."""
     return variables.update(document, {
         'indent-width': 2,
@@ -267,7 +267,7 @@ def indentVariables(document):
     })
 
 
-def columnPosition(text, position=None, tabwidth = 8):
+def column_position(text, position=None, tabwidth = 8):
     """Converts position (or the length of the text) to real column position, expanding tabs."""
     column, pos = 0, 0
     end = len(text) if position is None else position
@@ -280,7 +280,7 @@ def columnPosition(text, position=None, tabwidth = 8):
         pos = tab + 1
 
 
-def makeIndent(indent, tabwidth = 8, allowTabs = False):
+def make_indent(indent, tabwidth = 8, allowTabs = False):
     """Creates a string of indent length indent, using spaces (and tabs if allowTabs)."""
     if indent <= 0:
         return ''
@@ -291,7 +291,7 @@ def makeIndent(indent, tabwidth = 8, allowTabs = False):
         return ' ' * indent
 
 
-def insertText(cursor, text):
+def insert_text(cursor, text):
     """Inserts text and indents it if there are newlines in it."""
     if '\n' not in text:
         cursor.insertText(text)
@@ -304,7 +304,7 @@ def insertText(cursor, text):
         tokeniter.update(block) # tokenize inserted lines
         while last != block:
             block = block.next()
-            if setIndent(block, compute_indent(block)):
+            if set_indent(block, compute_indent(block)):
                 tokeniter.update(block)
 
 

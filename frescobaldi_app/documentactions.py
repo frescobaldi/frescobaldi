@@ -45,8 +45,8 @@ class DocumentActions(plugin.MainWindowPlugin):
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         ac.edit_cut_assign.triggered.connect(self.cutAssign)
         ac.view_highlighting.triggered.connect(self.toggleHighlighting)
-        ac.tools_indent_auto.triggered.connect(self.toggleAutoIndent)
-        ac.tools_indent_indent.triggered.connect(self.reIndent)
+        ac.tools_indent_auto.triggered.connect(self.toggleAuto_indent)
+        ac.tools_indent_indent.triggered.connect(self.re_indent)
         ac.tools_reformat.triggered.connect(self.reFormat)
         ac.tools_convert_ly.triggered.connect(self.convertLy)
         mainwindow.currentDocumentChanged.connect(self.updateDocActions)
@@ -58,7 +58,7 @@ class DocumentActions(plugin.MainWindowPlugin):
             highlighter.highlighter(doc)
         ac = self.actionCollection
         ac.view_highlighting.setChecked(minfo.highlighting)
-        ac.tools_indent_auto.setChecked(minfo.autoindent)
+        ac.tools_indent_auto.setChecked(minfo.auto_indent)
     
     def updateSelectionActions(self, selection):
         self.actionCollection.edit_cut_assign.setEnabled(selection)
@@ -80,14 +80,14 @@ class DocumentActions(plugin.MainWindowPlugin):
         import cut_assign
         cut_assign.cut_assign(self.currentView().textCursor())
         
-    def toggleAutoIndent(self):
+    def toggleAuto_indent(self):
         minfo = metainfo.info(self.currentDocument())
-        minfo.autoindent = not minfo.autoindent
+        minfo.auto_indent = not minfo.auto_indent
         self.updateOtherDocActions()
     
-    def reIndent(self):
+    def re_indent(self):
         import indent
-        indent.reIndent(self.currentView().textCursor())
+        indent.re_indent(self.currentView().textCursor())
     
     def reFormat(self):
         import reformat
