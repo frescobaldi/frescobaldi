@@ -150,7 +150,15 @@ class LilyPondInfo(object):
     @CachedProperty.cachedproperty
     def abscommand(self):
         """The absolute path of the command."""
-        return util.findexe(self.command) or False
+        if os.name == "nt":
+            # on Windows, newer versions of LilyPond don't add themselves to the
+            # PATH, so add a probable path here
+            path = [
+                'C:\\Program Files\\LilyPond\\usr\\bin',
+            ]
+        else:
+            path = None
+        return util.findexe(self.command, path)
 
     @CachedProperty.cachedproperty(depends=abscommand)
     def versionString(self):
