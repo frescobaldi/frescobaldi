@@ -44,7 +44,7 @@ def names(cursor):
 
 def schemewords(document):
     """Harvests all schemewords from the document."""
-    for t in tokeniter.allTokens(document):
+    for t in tokeniter.all_tokens(document):
         if type(t) is ly.lex.scheme.Word:
             yield t
 
@@ -56,7 +56,7 @@ _word_types = (
 
 def words(document):
     """Harvests words from strings, lyrics, markup and comments."""
-    for t in tokeniter.allTokens(document):
+    for t in tokeniter.all_tokens(document):
         if isinstance(t, _word_types):
             for m in _words(t):
                 yield m.group()

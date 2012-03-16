@@ -191,7 +191,7 @@ def articulation_positions(cursor):
         tokens = None
         rests = False
     else:
-        source = tokeniter.Source.fromCursor(cursor, True, -1)
+        source = tokeniter.Source.from_cursor(cursor, True, -1)
         tokens = source.tokens # only current line
         rests = True
     

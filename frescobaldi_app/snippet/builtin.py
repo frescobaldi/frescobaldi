@@ -540,7 +540,7 @@ if found:
     elif notestart is not None:
         text = []
         c.setPosition(notestart)
-        for t in tokeniter.Source.fromCursor(c):
+        for t in tokeniter.Source.from_cursor(c):
             if isinstance(t, lp.Note):
                 text.append(t)
             elif not relative and isinstance(t, lp.Octave):

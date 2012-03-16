@@ -87,7 +87,7 @@ class ArpeggioGroup(buttongroup.ButtonGroup):
                 break
             block = block.previous()
         # where to insert
-        source = tokeniter.Source.fromCursor(cursor, True, -1)
+        source = tokeniter.Source.from_cursor(cursor, True, -1)
         with cursortools.compress_undo(cursor):
             for p in music.music_items(source, tokens=source.tokens):
                 c = source.cursor(p[-1], start=len(p[-1]))
@@ -120,7 +120,7 @@ class GlissandoGroup(buttongroup.ButtonGroup):
     def actionTriggered(self, name):
         cursor = self.mainwindow().textCursor()
         style = _glissandoStyles[name]
-        source = tokeniter.Source.fromCursor(cursor, True, -1)
+        source = tokeniter.Source.from_cursor(cursor, True, -1)
         for p in music.music_items(source, tokens=source.tokens):
             c = source.cursor(p[-1], start=len(p[-1]))
             if style:
@@ -167,7 +167,7 @@ def spanner_positions(cursor):
         source = tokeniter.Source.selection(cursor, True)
         tokens = None
     else:
-        source = tokeniter.Source.fromCursor(cursor, True, -1)
+        source = tokeniter.Source.from_cursor(cursor, True, -1)
         tokens = source.tokens # only current line
     
     positions = [source.cursor(p[-1], start=len(p[-1]))

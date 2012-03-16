@@ -112,7 +112,7 @@ class DocumentInfo(plugin.DocumentPlugin):
         """
         mkver = lambda strings: tuple(map(int, strings))
         
-        version = ly.parse.version(tokeniter.allTokens(self.document()))
+        version = ly.parse.version(tokeniter.all_tokens(self.document()))
         if version:
             return mkver(re.findall(r"\d+", version))
         # look at document variables
@@ -226,7 +226,7 @@ class DocumentInfo(plugin.DocumentPlugin):
         See ly.parse.includeargs().
         
         """
-        return list(ly.parse.includeargs(tokeniter.allTokens(self.document())))
+        return list(ly.parse.includeargs(tokeniter.all_tokens(self.document())))
 
     def includefiles(self):
         """Returns a set of filenames that are included by the given document.
@@ -257,7 +257,7 @@ class DocumentInfo(plugin.DocumentPlugin):
         See ly.parse.outputargs().
         
         """
-        return list(ly.parse.outputargs(tokeniter.allTokens(self.document())))
+        return list(ly.parse.outputargs(tokeniter.all_tokens(self.document())))
         
     def basenames(self):
         """Returns a list of basenames that our document is expected to create.

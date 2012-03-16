@@ -170,7 +170,7 @@ class MusicView(QWidget):
             return
         
         # highlight token(s) at this cursor
-        source = tokeniter.Source.fromCursor(cursor, True)
+        source = tokeniter.Source.from_cursor(cursor, True)
         for token in source.tokens:
             break
         else:

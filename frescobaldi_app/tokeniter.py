@@ -150,12 +150,12 @@ def partition(cursor):
     return Partition(t[:i], None, t[i:])
 
 
-def allTokens(document):
+def all_tokens(document):
     """Yields all tokens of a document."""
     return (token for block in cursortools.all_blocks(document) for token in tokens(block))
 
 
-def fromCursor(cursor, state=None, first=1):
+def from_cursor(cursor, state=None, first=1):
     """Yields block, tokens starting at the cursor position.
     
     If state is given, it should be the state at the start of the block
@@ -284,7 +284,7 @@ class Source(object):
     """Helper iterator.
     
     Iterates over the (block, tokens) tuples such as yielded by selection()
-    and fromCursor(). Stores the current block in the block attribute and the
+    and from_cursor(). Stores the current block in the block attribute and the
     tokens (which also should be a generator) in the tokens attribute. 
     
     Iterating over the source object itself just yields the tokens, while the
@@ -293,7 +293,7 @@ class Source(object):
     You can also iterate over the tokens attribute, which will yield the
     remaining tokens of the current block and then stop.
     
-    Use the fromCursor() and selection() class methods with the same arguments
+    Use the from_cursor() and selection() class methods with the same arguments
     as the corresponding global functions to create a source iterator.
     
     So this:
@@ -365,22 +365,22 @@ class Source(object):
                         return
     
     @classmethod
-    def fromCursor(cls, cursor, state=None, first=1):
-        """Initializes a source object with a fromCursor generator.
+    def from_cursor(cls, cursor, state=None, first=1):
+        """Initializes a source object with a from_cursor generator.
         
         If state is True, the state(cursor) module function is called and the
         result is put in the state attribute. Otherwise state is just passed to
-        the global fromCursor() function.
-        See the documentation for the global fromCursor() function.
+        the global from_cursor() function.
+        See the documentation for the global from_cursor() function.
         
         """
         if state is True:
             state = globals()['state'](cursor)
-        return cls(fromCursor(cursor, state, first), state)
+        return cls(from_cursor(cursor, state, first), state)
     
     @classmethod
     def selection(cls, cursor, state=None, partial=True):
-        """Initializes a source object with a fromCursor generator.
+        """Initializes a source object with a from_cursor generator.
         
         If state is True, the state(cursor) module function is called and the
         result is put in the state attribute. Otherwise state is just passed to
@@ -449,11 +449,11 @@ class Runner(object):
                 yield t
             self.__init__(self.block.previous(), True)
     
-    def atBlockStart(self):
+    def at_block_start(self):
         """Returns True if the iterator is at the start of the current block."""
         return self._index <= 0
     
-    def atBlockEnd(self):
+    def at_block_end(self):
         """Returns True if the iterator is at the end of the current block."""
         return self._index >= len(self._tokens) - 1
         
