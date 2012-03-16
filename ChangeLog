@@ -13,6 +13,8 @@ Changes in 2.0.5 --
 * Improvements:
   - Running convert-ly (or undoing it) does not erase point and click positions
     anymore
+  - Much better default background color for the Music View
+  - On Windows, better try to find LilyPond even if it is not in the PATH
 * Bugfixes:
   - fix Ctrl+K deleting a line too much in some cases
 
