@@ -38,13 +38,13 @@ class String(_token.String):
 
 class StringQuotedStart(String, _token.StringStart):
     rx = r'"'
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(ParseString())
         
 
 class StringQuotedEnd(String, _token.StringEnd):
     rx = r'"'
-    def updateState(self, state):
+    def update_state(self, state):
         state.leave()
         state.endArgument()
     
@@ -63,7 +63,7 @@ class LineComment(Comment, _token.LineComment):
 
 class BlockCommentStart(Comment, _token.BlockCommentStart, _token.Indent):
     rx = r"#!"
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(ParseBlockComment())
         
 
@@ -78,14 +78,14 @@ class BlockCommentSpace(Comment, _token.Space):
 class OpenParen(Scheme, _token.MatchStart, _token.Indent):
     rx = r"\("
     matchname = "schemeparen"
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(ParseScheme())
 
 
 class CloseParen(Scheme, _token.MatchEnd, _token.Dedent):
     rx = r"\)"
     matchname = "schemeparen"
-    def updateState(self, state):
+    def update_state(self, state):
         state.leave()
         state.endArgument()
         
@@ -125,7 +125,7 @@ class LilyPond(_token.Token):
 class LilyPondStart(LilyPond, _token.MatchStart, _token.Indent):
     rx = r"#{"
     matchname = "schemelily"
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(ParseLilyPond())
         
 

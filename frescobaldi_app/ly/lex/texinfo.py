@@ -37,7 +37,7 @@ class LineComment(Comment, _token.LineComment):
 
 class BlockCommentStart(Comment, _token.BlockCommentStart):
     rx = r"@ignore\b"
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(ParseComment())
         
         
@@ -59,7 +59,7 @@ class Block(_token.Token):
 
 class BlockStart(Block):
     rx = r"@[a-zA-Z]+\{"
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(ParseBlock())
 
 
@@ -81,7 +81,7 @@ class Verbatim(_token.Token):
 
 class VerbatimStart(Keyword):
     rx = r"@verbatim\b"
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(ParseVerbatim())
 
 
@@ -91,13 +91,13 @@ class VerbatimEnd(Keyword, _token.Leaver):
     
 class LilyPondBlockStart(Block):
     rx = r"@lilypond(?=(\[[a-zA-Z,=0-9\\\s]+\])?\{)"
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(ParseLilyPondBlockAttr())
 
 
 class LilyPondBlockStartBrace(Block):
     rx = r"\{"
-    def updateState(self, state):
+    def update_state(self, state):
         state.replace(ParseLilyPondBlock())
 
 
@@ -107,7 +107,7 @@ class LilyPondBlockEnd(Block, _token.Leaver):
     
 class LilyPondEnvStart(Keyword):
     rx = r"@lilypond\b"
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(ParseLilyPondEnvAttr())
     
     
@@ -117,19 +117,19 @@ class LilyPondEnvEnd(Keyword, _token.Leaver):
 
 class LilyPondFileStart(Block):
     rx = r"@lilypondfile\b"
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(ParseLilyPondFile())
 
 
 class LilyPondFileStartBrace(Block):
     rx = r"\{"
-    def updateState(self, state):
+    def update_state(self, state):
         state.replace(ParseBlock())
 
 
 class LilyPondAttrStart(Attribute):
     rx = r"\["
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(ParseLilyPondAttr())
     
     

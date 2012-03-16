@@ -65,13 +65,13 @@ class Unparsed(Token):
 # some token types with special behaviour:
 class Item(Token):
     """A token that decreases the argument count of the current parser."""
-    def updateState(self, state):
+    def update_state(self, state):
         state.endArgument()
 
 
 class Leaver(Token):
     """A token that leaves the current parser."""
-    def updateState(self, state):
+    def update_state(self, state):
         state.leave()
 
 

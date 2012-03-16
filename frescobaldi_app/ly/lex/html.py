@@ -35,7 +35,7 @@ class Comment(_token.Comment):
 
 class CommentStart(Comment, _token.BlockCommentStart):
     rx = r"<!--"
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(ParseComment())
         
         
@@ -53,7 +53,7 @@ class Tag(_token.Token):
 
 class TagStart(Tag):
     rx = r"</?\w[-_:\w]*\b"
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(ParseAttr())
         
 
@@ -67,7 +67,7 @@ class AttrName(_token.Token):
     
 class EqualSign(_token.Token):
     rx = "="
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(ParseValue())
 
 
@@ -77,13 +77,13 @@ class Value(_token.Leaver):
 
 class StringDQStart(String, _token.StringStart):
     rx = r'"'
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(ParseStringDQ())
 
 
 class StringSQStart(String, _token.StringStart):
     rx = r"'"
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(ParseStringSQ())
     
 
@@ -109,7 +109,7 @@ class LilyPondVersionTag(LilyPondTag):
 
 class LilyPondFileTag(LilyPondTag):
     rx = r"</?lilypondfile\b"
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(ParseLilyPondFileOptions())
 
 
@@ -119,7 +119,7 @@ class LilyPondFileTagEnd(LilyPondTag, _token.Leaver):
 
 class LilyPondInlineTag(LilyPondTag):
     rx = r"<lilypond\b"
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(ParseLilyPondAttr())
 
 
@@ -129,7 +129,7 @@ class LilyPondCloseTag(LilyPondTag, _token.Leaver):
     
 class LilyPondTagEnd(LilyPondTag):
     rx = r">"
-    def updateState(self, state):
+    def update_state(self, state):
         state.replace(ParseLilyPond())
 
 
@@ -139,7 +139,7 @@ class LilyPondInlineTagEnd(LilyPondTag, _token.Leaver):
 
 class SemiColon(_token.Token):
     rx = r":"
-    def updateState(self, state):
+    def update_state(self, state):
         state.replace(ParseLilyPondInline())
 
 

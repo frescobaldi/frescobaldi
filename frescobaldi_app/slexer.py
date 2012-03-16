@@ -31,7 +31,7 @@ attribute containing the regular expression to search for.
 
 The parser yields Token instances. A token may cause a different Parser to be
 enterend, of the current Parser to be left, etc. This is done by implementing
-the updateState() method of the Token subclass.
+the update_state() method of the Token subclass.
 
 The State maintains the parsing state (the list of active Parser instances).
 
@@ -55,12 +55,12 @@ class String(Token):
 
 class StringStart(String):
     rx = '"'
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(PString())
 
 class StringEnd(String):
     rx = '"'
-    def updateState(self, state):
+    def update_state(self, state):
         state.leave()
 
 # create parsers:
@@ -157,17 +157,17 @@ class State(object):
             if m:
                 if parser.default and pos < m.start():
                     token =  parser.default(text[pos:m.start()], pos)
-                    token.updateState(self)
+                    token.update_state(self)
                     yield token
                 token = parser.token(m)
-                token.updateState(self)
+                token.update_state(self)
                 yield token
                 pos = m.end()
             elif pos == len(text) or parser.fallthrough(self):
                 break
         if parser.default and pos < len(text):
             token = parser.default(text[pos:], pos)
-            token.updateState(self)
+            token.update_state(self)
             yield token
     
     def enter(self, parser):
@@ -195,7 +195,7 @@ class State(object):
         """
         while self.parser()._follow(token, self):
             pass
-        token.updateState(self)
+        token.update_state(self)
 
     def freeze(self):
         """Returns the current state as a tuple (hashable object)."""
@@ -231,7 +231,7 @@ class Token(str):
         token.end = pos + len(token)
         return token
         
-    def updateState(self, state):
+    def update_state(self, state):
         """Lets the token update the state, e.g. enter a different parser.
         
         This method is called by the State upon instantiation of the tokens.
@@ -244,7 +244,7 @@ class Token(str):
         The default implementation lets the Parser decide on state change.
         
         """
-        state.parser().updateState(state, self)
+        state.parser().update_state(state, self)
 
 
 class PatternProperty(object):
@@ -294,8 +294,8 @@ class Parser(object):
     When creating Parser subclasses, you should set the 'items' attribute to a
     tuple of Token subclasses.
     
-    Additionally, you may implement the updateState() method which is called
-    by the default implementation of updateState() in Token.
+    Additionally, you may implement the update_state() method which is called
+    by the default implementation of update_state() in Token.
     
     """
     default = None # if not None, the default class for unparsed pieces of text
@@ -307,14 +307,14 @@ class Parser(object):
         """Parses text from position pos and returns a Match Object or None."""
         return self.pattern.search(text, pos)
     
-    def token(self, matchObj):
+    def token(self, match):
         """Returns a Token instance of the correct class.
         
-        The matchObj is returned by the parse() method.
+        The match object is returned by the parse() method.
         
         """
-        tokenClass = self.index[matchObj.lastindex]
-        return tokenClass(matchObj.group(), matchObj.start())
+        tokenClass = self.index[match.lastindex]
+        return tokenClass(match.group(), match.start())
     
     def _follow(self, token, state):
         """(Internal) Called by State.follow()."""
@@ -341,8 +341,8 @@ class Parser(object):
         """
         return True
 
-    def updateState(self, state, token):
-        """Called by the default implementation of Token.updateState().
+    def update_state(self, state, token):
+        """Called by the default implementation of Token.update_state().
         
         Does nothing by default.
         
@@ -431,12 +431,12 @@ if __name__ == "__main__":
     
     class StringStart(String):
         rx = '"'
-        def updateState(self, state):
+        def update_state(self, state):
             state.enter(PString())
     
     class StringEnd(String):
         rx = '"'
-        def updateState(self, state):
+        def update_state(self, state):
             state.leave()
     
     class PTest(Parser):

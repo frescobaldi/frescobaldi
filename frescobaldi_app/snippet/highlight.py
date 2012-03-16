@@ -115,11 +115,11 @@ class Value(Stylable):
 
 class StringStart(String):
     rx = '"'
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(StringParser())
 
 class StringEnd(StringStart):
-    def updateState(self, state):
+    def update_state(self, state):
         state.leave()
 
 class StringEscape(Escape):
@@ -138,42 +138,42 @@ class PyBuiltin(Function):
 
 class PyStringStartDQ1(String):
     rx = '[uUbB]?"'
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(PyStringParserDQ1())
 
 class PyStringStartDQ3(String):
     rx = '[uUbB]?"""'
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(PyStringParserDQ3())
 
 class PyStringStartSQ1(String):
     rx = "[uUbB]?'"
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(PyStringParserSQ1())
 
 class PyStringStartSQ3(String):
     rx = "[uUbB]?'''"
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(PyStringParserSQ3())
 
 class PyStringStartDQ1R(String):
     rx = '[uUbB]?[rR]"'
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(PyStringParserDQ1R())
 
 class PyStringStartDQ3R(String):
     rx = '[uUbB]?[rR]"""'
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(PyStringParserDQ3R())
 
 class PyStringStartSQ1R(String):
     rx = "[uUbB]?[rR]'"
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(PyStringParserSQ1R())
 
 class PyStringStartSQ3R(String):
     rx = "[uUbB]?[rR]'''"
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(PyStringParserSQ3R())
 
 class PyStringEndDQ1(StringEnd):
@@ -202,30 +202,30 @@ class PyStringEscapedNewline(Escape):
 class PyStringDoubleBackslashAtLineEnd(PyStringEscape):
     """Use this to leave a string at line end. Prevents staying in PyStringEOL."""
     rx = r'\\\\$'
-    def updateState(self, state):
+    def update_state(self, state):
         state.leave()
 
 class PyStringDoubleBackslashAtLineEndR(String):
     """Use this to leave a string at line end in raw. Prevents staying in PyStringEOL."""
     rx = r'\\\\$'
-    def updateState(self, state):
+    def update_state(self, state):
         state.leave()
 
 class PyStringEOL(slexer.Token):
     """Leaves a string at unescaped Newline."""
     rx = r'(?<!\\)$'
-    def updateState(self, state):
+    def update_state(self, state):
         state.leave()
 
 class PyComment(Comment):
     rx = "#"
-    def updateState(self, state):
+    def update_state(self, state):
         state.enter(PyCommentParser())
 
 class LineEnd(slexer.Token):
     """Newline to leave context."""
     rx = r'$'
-    def updateState(self, state):
+    def update_state(self, state):
         state.leave()
 
 class PyIdentifier(slexer.Token):
