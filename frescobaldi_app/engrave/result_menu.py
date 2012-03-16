@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Frescobaldi main menu.
+Frescobaldi "Generated Files" menu.
 """
 
 from __future__ import unicode_literals

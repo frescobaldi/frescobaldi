@@ -19,9 +19,6 @@
 
 """
 Some utility functions.
-
-The functions that are directly Qt-related use camelCaps,
-but the other utility functions use the python_convention.
 """
 
 from __future__ import unicode_literals
