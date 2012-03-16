@@ -42,8 +42,13 @@ import info
 import variables
 
 
-def findexe(cmd):
-    """Checks the PATH for the executable and returns the absolute path or None."""
+def findexe(cmd, path=None):
+    """Checks the PATH for the executable and returns the absolute path or None.
+    
+    If path (a list or tuple of directory names) is given, it is searched as
+    well when the operating system's PATH did not contain the executable.
+    
+    """
     if os.path.isabs(cmd):
         return cmd if os.access(cmd, os.X_OK) else None
     else:
@@ -53,7 +58,10 @@ def findexe(cmd):
         elif os.sep in cmd and os.access(cmd, os.X_OK):
             return os.path.abspath(cmd)
         else:
-            for p in os.environ.get("PATH", os.defpath).split(os.pathsep):
+            paths = os.environ.get("PATH", os.defpath).split(os.pathsep)
+            if path:
+                paths = itertools.chain(paths, path)
+            for p in paths:
                 if os.access(os.path.join(p, cmd), os.X_OK):
                     return os.path.join(p, cmd)
 
