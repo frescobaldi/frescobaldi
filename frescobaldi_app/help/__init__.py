@@ -26,7 +26,7 @@ See helpimpl.py.
 
 from PyQt4.QtGui import QDialogButtonBox, QKeySequence
 
-from .helpimpl import page, shortcut, menu, link
+from .helpimpl import page, action, shortcut, menu, link
 
 
 def help(page):

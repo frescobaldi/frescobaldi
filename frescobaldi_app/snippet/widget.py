@@ -384,9 +384,7 @@ class snippet_help(help.page):
         return _("Snippets")
     
     def body():
-        import panelmanager
-        ac = panelmanager.PanelManager.instances()[0].snippettool.actionCollection
-        key_snippets = help.shortcut(ac.snippettool_activate)
+        key_snippets = help.shortcut(help.action("snippettool", "snippettool_activate"))
         return _("""\
 <p>
 With the snippets manager you can store often used pieces of text called
