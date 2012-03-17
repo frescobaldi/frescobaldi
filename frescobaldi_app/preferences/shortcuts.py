@@ -31,9 +31,9 @@ from PyQt4.QtGui import (
     QTreeWidgetItem, QVBoxLayout)
 
 import app
-import actioncollection
 import actioncollectionmanager
 import icons
+import qutil
 import preferences
 
 from widgets.shortcuteditdialog import ShortcutEditDialog
