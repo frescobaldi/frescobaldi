@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.3\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-03-05 11:17+0100\n"
+"POT-Creation-Date: 2012-03-17 07:31+0100\n"
 "PO-Revision-Date: 2012-02-17 00:26+0100\n"
 "Last-Translator: Piotr Komorowski <piotr-komorowski@wp.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -85,7 +85,7 @@ msgstr "System operacyjny"
 msgid "Version {version}"
 msgstr "Wersja {version}"
 
-#: ../about.py:152 ../main.py:60
+#: ../about.py:152 ../main.py:56
 msgid "A LilyPond Music Editor"
 msgstr "Edytor nutowy LilyPond"
 
@@ -145,7 +145,7 @@ msgstr "Plik Texinfo"
 msgid "Scheme Files"
 msgstr "Pliki Scheme"
 
-#: ../app.py:134 ../snippet/widget.py:265 ../snippet/widget.py:282
+#: ../app.py:134 ../snippet/widget.py:273 ../snippet/widget.py:290
 msgid "All Files"
 msgstr "Wszystkie pliki"
 
@@ -169,19 +169,19 @@ msgstr "Następne zaznaczenie"
 msgid "Previous Mark"
 msgstr "Poprzednie zaznaczenie"
 
-#: ../convert_ly.py:119
+#: ../convert_ly.py:120
 msgid "From version:"
 msgstr "Wersja źródłowa:"
 
-#: ../convert_ly.py:120
+#: ../convert_ly.py:121
 msgid "To version:"
 msgstr "Wersja docelowa:"
 
-#: ../convert_ly.py:121
+#: ../convert_ly.py:122
 msgid "Save convert-ly messages in document"
 msgstr "Zapisz komunikaty z convert-ly w dokumencie"
 
-#: ../convert_ly.py:123
+#: ../convert_ly.py:124
 msgid ""
 "If checked, the messages of convert-ly are appended as a comment to the end "
 "of the document."
@@ -189,35 +189,35 @@ msgstr ""
 "Po zaznaczeniu komunikaty convert-ly są dołączane w postaci komentarza na "
 "końcu dokumentu."
 
-#: ../convert_ly.py:125
+#: ../convert_ly.py:126
 msgid "&Messages"
 msgstr "&Komunikaty"
 
-#: ../convert_ly.py:126
+#: ../convert_ly.py:127
 msgid "&Changes"
 msgstr "Zmiany"
 
-#: ../convert_ly.py:127
+#: ../convert_ly.py:128
 msgid "Run Again"
 msgstr "Uruchom ponownie"
 
-#: ../convert_ly.py:138 ../docbrowser/browser.py:158 ../musicview/image.py:166
+#: ../convert_ly.py:139 ../docbrowser/browser.py:158 ../musicview/image.py:167
 msgid "<unknown>"
 msgstr "<nieznany>"
 
-#: ../convert_ly.py:139
+#: ../convert_ly.py:140
 msgid "Convert-ly from LilyPond {version}"
 msgstr "Convert-ly z LilyPond {version}"
 
-#: ../convert_ly.py:163
+#: ../convert_ly.py:164
 msgid "(set in document)"
 msgstr "(określony w dokumencie)"
 
-#: ../convert_ly.py:176
+#: ../convert_ly.py:177
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr "Należy określić zarówno wersję źródłową, jak i docelową."
 
-#: ../convert_ly.py:207
+#: ../convert_ly.py:208
 msgid ""
 "Could not start {convert_ly}:\n"
 "\n"
@@ -227,47 +227,47 @@ msgstr ""
 "\n"
 "{message}\n"
 
-#: ../convert_ly.py:213
+#: ../convert_ly.py:214
 msgid "The document has not been changed."
 msgstr "Dokument został zmieniony."
 
-#: ../convert_ly.py:219
+#: ../convert_ly.py:220
 msgid "Current Document"
 msgstr "Bieżący dokument "
 
-#: ../convert_ly.py:219
+#: ../convert_ly.py:220
 msgid "Converted Document"
 msgstr "Dokument przekonwertowany"
 
-#: ../convert_ly.py:225
+#: ../convert_ly.py:226
 msgid "Colors:"
 msgstr "Kolory:"
 
-#: ../convert_ly.py:226
+#: ../convert_ly.py:227
 msgid "Added"
 msgstr "Dodane"
 
-#: ../convert_ly.py:227
+#: ../convert_ly.py:228
 msgid "Changed"
 msgstr "Zmienione"
 
-#: ../convert_ly.py:228
+#: ../convert_ly.py:229
 msgid "Deleted"
 msgstr "Usunięto"
 
-#: ../convert_ly.py:229
+#: ../convert_ly.py:230
 msgid "Links:"
 msgstr "Linki:"
 
-#: ../convert_ly.py:230
+#: ../convert_ly.py:231
 msgid "First Change"
 msgstr "Pierwsza zmiana"
 
-#: ../convert_ly.py:231
+#: ../convert_ly.py:232
 msgid "Next Change"
 msgstr "Następna zmiana"
 
-#: ../convert_ly.py:232
+#: ../convert_ly.py:233
 msgid "Top"
 msgstr "Góra"
 
@@ -280,7 +280,7 @@ msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr ""
 "Proszę wprowadzić nazwę dla zmniennej przyporządkowanej do wybranego tekstu:"
 
-#: ../document.py:143 ../doclist/widget.py:126 ../snippet/edit.py:167
+#: ../document.py:143 ../doclist/widget.py:128 ../snippet/edit.py:167
 msgid "Untitled"
 msgstr "Bez tytułu"
 
@@ -312,16 +312,16 @@ msgstr "&Format"
 msgid "&Update with convert-ly..."
 msgstr "&Uaktualnij z convert-ly..."
 
-#: ../documentcontextmenu.py:54 ../mainwindow.py:951
+#: ../documentcontextmenu.py:54 ../mainwindow.py:952
 #: ../sessions/manager.py:128
 msgid "&Save"
 msgstr "Zapi&sz"
 
-#: ../documentcontextmenu.py:55 ../mainwindow.py:952
+#: ../documentcontextmenu.py:55 ../mainwindow.py:953
 msgid "Save &As..."
 msgstr "Z&apisz jako..."
 
-#: ../documentcontextmenu.py:56 ../mainwindow.py:956
+#: ../documentcontextmenu.py:56 ../mainwindow.py:957
 msgid "&Close"
 msgstr "&Zamknij"
 
@@ -485,7 +485,7 @@ msgstr "Zakończono ze statusem wyjściowym {status}."
 msgid "Completed successfully in {time}."
 msgstr "Zakończono pomyślnie w {time}."
 
-#: ../lilypondinfo.py:132
+#: ../lilypondinfo.py:133
 msgid "Running LilyPond, this can take some time..."
 msgstr ""
 
@@ -501,49 +501,49 @@ msgstr "Usuń rozdzielenie tekstu myślnikami"
 msgid "&Copy Lyrics with hyphenation removed"
 msgstr "Skopiuj słowa bez podziału wyrazów"
 
-#: ../main.py:58
+#: ../main.py:54
 msgid "{appname} [options] file ..."
 msgstr "{appname} [opcje] plik..."
 
-#: ../main.py:61
+#: ../main.py:57
 msgid "ENC"
 msgstr "ENC"
 
-#: ../main.py:62
+#: ../main.py:58
 msgid "Encoding to use"
 msgstr "Używane kodowanie"
 
-#: ../main.py:63 ../main.py:65
+#: ../main.py:59 ../main.py:61
 msgid "NUM"
 msgstr ""
 
-#: ../main.py:64
+#: ../main.py:60
 msgid "Line number to go to, starting at 1"
 msgstr "Do której linii dojść, zaczynając w 1"
 
-#: ../main.py:66
+#: ../main.py:62
 msgid "Column to go to, starting at 0"
 msgstr "Do której kolumny dojść, zaczynając w 0"
 
-#: ../main.py:67
+#: ../main.py:63
 msgid "NAME"
 msgstr "NAZWA"
 
-#: ../main.py:68
+#: ../main.py:64
 msgid "Session to start ('{none}' for empty session)"
 msgstr "Sesja startowa ('{none}' w przypadku pustej)"
 
 #. L10N: state of document in window titlebar
-#: ../mainwindow.py:225
+#: ../mainwindow.py:226
 msgid "[modified]"
 msgstr "[zmieniony]"
 
-#: ../mainwindow.py:268
+#: ../mainwindow.py:269
 msgctxt "dialog title"
 msgid "Close Document"
 msgstr "Zamknij dokument"
 
-#: ../mainwindow.py:269
+#: ../mainwindow.py:270
 msgid ""
 "The document \"{name}\" has been modified.\n"
 "Do you want to save your changes or discard them?"
@@ -551,16 +551,16 @@ msgstr ""
 "Dokument \"{name}\" został zmodyfikowany.\n"
 "Czy chcesz zachować zmiany, czy porzucić je?"
 
-#: ../mainwindow.py:281
+#: ../mainwindow.py:282
 msgid "Tab Bar"
 msgstr "Pasek zakładek"
 
-#: ../mainwindow.py:338 ../popplerprint.py:53 ../sessions/dialog.py:171
+#: ../mainwindow.py:339 ../popplerprint.py:53 ../sessions/dialog.py:171
 #: ../sessions/dialog.py:179 ../sessions/dialog.py:185
 msgid "Warning"
 msgstr "Ostrzeżenie"
 
-#: ../mainwindow.py:339
+#: ../mainwindow.py:340
 msgid ""
 "Can't load non-local document:\n"
 "\n"
@@ -570,21 +570,21 @@ msgstr ""
 "\n"
 "{url} "
 
-#: ../mainwindow.py:370
+#: ../mainwindow.py:371
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Otwórz plik"
 
 #. L10N: a basic type of input in the editor
-#: ../mainwindow.py:389 ../mainwindow.py:395 ../mainwindow.py:420
-#: ../mainwindow.py:471 ../mainwindow.py:539 ../mainwindow.py:598
-#: ../musicview/image.py:213 ../preferences/fontscolors.py:476
+#: ../mainwindow.py:390 ../mainwindow.py:396 ../mainwindow.py:421
+#: ../mainwindow.py:472 ../mainwindow.py:540 ../mainwindow.py:599
+#: ../musicview/image.py:214 ../preferences/fontscolors.py:476
 #: ../preferences/fontscolors.py:514 ../snippet/import_export.py:104
-#: ../snippet/widget.py:292
+#: ../snippet/widget.py:300
 msgid "Error"
 msgstr "Błąd"
 
-#: ../mainwindow.py:390 ../mainwindow.py:396 ../mainwindow.py:421
+#: ../mainwindow.py:391 ../mainwindow.py:397 ../mainwindow.py:422
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -594,22 +594,22 @@ msgstr ""
 "\n"
 "{url}"
 
-#: ../mainwindow.py:415
+#: ../mainwindow.py:416
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "Zapisz plik"
 
-#: ../mainwindow.py:455
+#: ../mainwindow.py:456
 msgctxt "dialog title"
 msgid "Save Copy"
 msgstr "Zapisz kopię"
 
-#: ../mainwindow.py:461
+#: ../mainwindow.py:462
 msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Zapisz zaznaczenie"
 
-#: ../mainwindow.py:472 ../mainwindow.py:599 ../snippet/widget.py:293
+#: ../mainwindow.py:473 ../mainwindow.py:600 ../snippet/widget.py:301
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -623,12 +623,12 @@ msgstr ""
 "\n"
 "{error}"
 
-#: ../mainwindow.py:532
+#: ../mainwindow.py:533
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Wklej z pliku"
 
-#: ../mainwindow.py:540 ../snippet/import_export.py:105
+#: ../mainwindow.py:541 ../snippet/import_export.py:105
 msgid ""
 "Can't read from source:\n"
 "\n"
@@ -642,16 +642,16 @@ msgstr ""
 "\n"
 "{error}"
 
-#: ../mainwindow.py:556
+#: ../mainwindow.py:557
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Drukuj źródło"
 
-#: ../mainwindow.py:589
+#: ../mainwindow.py:590
 msgid "Export as HTML"
 msgstr "Eksportuj jako HTML"
 
-#: ../mainwindow.py:710
+#: ../mainwindow.py:711
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -663,172 +663,172 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../mainwindow.py:817
+#: ../mainwindow.py:818
 msgid "Main Toolbar"
 msgstr "Główny pasek narzędzi"
 
-#: ../mainwindow.py:818
+#: ../mainwindow.py:819
 msgid "Music View Toolbar"
 msgstr "Pasek narzędziowy okna partytury"
 
-#: ../mainwindow.py:945
+#: ../mainwindow.py:946
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nowy"
 
-#: ../mainwindow.py:946
+#: ../mainwindow.py:947
 msgid "&Open..."
 msgstr "&Otwórz..."
 
-#: ../mainwindow.py:947
+#: ../mainwindow.py:948
 msgid "Open &Recent"
 msgstr "Otwórz o&statni"
 
-#: ../mainwindow.py:948
+#: ../mainwindow.py:949
 msgid "Insert from &File..."
 msgstr "Wstaw z &pliku..."
 
-#: ../mainwindow.py:949
+#: ../mainwindow.py:950
 msgid "Open Current Directory"
 msgstr "Otwórz bieżący folder"
 
-#: ../mainwindow.py:950
+#: ../mainwindow.py:951
 msgid "Open Command Prompt"
 msgstr "Otwórz wiersz poleceń"
 
-#: ../mainwindow.py:953
+#: ../mainwindow.py:954
 msgid "Save Copy or Selection As..."
 msgstr "Zapisz kopię lub zaznaczenie jako..."
 
-#: ../mainwindow.py:954
+#: ../mainwindow.py:955
 msgid "Save All"
 msgstr "Zapisz wszystko"
 
-#: ../mainwindow.py:955
+#: ../mainwindow.py:956
 msgid "Print Source..."
 msgstr "Drukuj źródło..."
 
-#: ../mainwindow.py:957
+#: ../mainwindow.py:958
 msgid "Close Other Documents"
 msgstr "Zamknij inne dokumenty"
 
-#: ../mainwindow.py:958
+#: ../mainwindow.py:959
 msgid "Close All Documents"
 msgstr "Zamknij wszystkie dokumenty"
 
-#: ../mainwindow.py:959
+#: ../mainwindow.py:960
 msgid "Closes all documents and leaves the current session."
 msgstr "Zamyka wszystkie dokumenty i pozostawia bieżącą sesję."
 
-#: ../mainwindow.py:960
+#: ../mainwindow.py:961
 msgid "&Quit"
 msgstr "&Za&kończ"
 
-#: ../mainwindow.py:962
+#: ../mainwindow.py:963
 msgid "Export Source as Colored &HTML..."
 msgstr "Eksportuj plik źródłowy jako kolorowy &HTML..."
 
-#: ../mainwindow.py:964
+#: ../mainwindow.py:965
 msgid "&Undo"
 msgstr "&Cofnij"
 
-#: ../mainwindow.py:965
+#: ../mainwindow.py:966
 msgid "Re&do"
 msgstr "Ponów"
 
-#: ../mainwindow.py:966
+#: ../mainwindow.py:967
 msgid "Cu&t"
 msgstr "Wytnij"
 
-#: ../mainwindow.py:967 ../docbrowser/browser.py:248
+#: ../mainwindow.py:968 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "S&kopiuj"
 
-#: ../mainwindow.py:968
+#: ../mainwindow.py:969
 msgid "Copy as Colored &HTML"
 msgstr "Skopiuj jako kolorowy &HTML"
 
-#: ../mainwindow.py:969
+#: ../mainwindow.py:970
 msgid "&Paste"
 msgstr "&Wklej"
 
-#: ../mainwindow.py:970
+#: ../mainwindow.py:971
 msgid "Select &All"
 msgstr "Zaznacz wszystko"
 
-#: ../mainwindow.py:971
+#: ../mainwindow.py:972
 msgid "Select &Block"
 msgstr "Zaznacz odcinek"
 
-#: ../mainwindow.py:972
+#: ../mainwindow.py:973
 msgid "Select &None"
 msgstr "Wyczyść zaznaczenie"
 
-#: ../mainwindow.py:973
+#: ../mainwindow.py:974
 msgid "Select Whole Lines Up"
 msgstr "Zaznacz linie powyżej"
 
-#: ../mainwindow.py:974
+#: ../mainwindow.py:975
 msgid "Select Whole Lines Down"
 msgstr "Zaznacz linie poniżej"
 
-#: ../mainwindow.py:975
+#: ../mainwindow.py:976
 msgid "&Find..."
 msgstr "&Znajdź..."
 
-#: ../mainwindow.py:976
+#: ../mainwindow.py:977
 msgid "Find Ne&xt"
 msgstr "Znajdź następny"
 
-#: ../mainwindow.py:977
+#: ../mainwindow.py:978
 msgid "Find Pre&vious"
 msgstr "Znajdź poprzedni"
 
-#: ../mainwindow.py:978
+#: ../mainwindow.py:979
 msgid "&Replace..."
 msgstr "Zastąp..."
 
-#: ../mainwindow.py:979
+#: ../mainwindow.py:980
 msgid "Pr&eferences..."
 msgstr "Pr&eferencje..."
 
-#: ../mainwindow.py:981
+#: ../mainwindow.py:982
 msgid "&Next Document"
 msgstr "&Następny dokument "
 
-#: ../mainwindow.py:982
+#: ../mainwindow.py:983
 msgid "&Previous Document"
 msgstr "&Poprzedni dokument"
 
-#: ../mainwindow.py:983
+#: ../mainwindow.py:984
 msgid "Scroll Up"
 msgstr "Przewiń do góry"
 
-#: ../mainwindow.py:984
+#: ../mainwindow.py:985
 msgid "Scroll Down"
 msgstr "Przewiń na dół"
 
-#: ../mainwindow.py:986
+#: ../mainwindow.py:987
 msgid "New &Window"
 msgstr "Nowe &okno"
 
-#: ../mainwindow.py:987
+#: ../mainwindow.py:988
 msgid "&Fullscreen"
 msgstr "Pełen &ekran"
 
-#: ../mainwindow.py:989
+#: ../mainwindow.py:990
 msgid "&User Guide"
 msgstr "Podręcznik &użytkownika"
 
-#: ../mainwindow.py:990
+#: ../mainwindow.py:991
 msgid "&What's This?"
 msgstr "&Co to jest?"
 
-#: ../mainwindow.py:991
+#: ../mainwindow.py:992
 msgid "Report a &Bug..."
 msgstr "Raportowanie &błędów..."
 
-#: ../mainwindow.py:992
+#: ../mainwindow.py:993
 msgid "&About {appname}..."
 msgstr "O p&rogramie {appname}..."
 
@@ -892,15 +892,15 @@ msgctxt "menu title"
 msgid "&Help"
 msgstr "Pomo&c"
 
-#: ../musicpreview.py:113
+#: ../musicpreview.py:114
 msgid "Document:"
 msgstr "Dokument: "
 
-#: ../musicpreview.py:195
+#: ../musicpreview.py:196
 msgid "&Print"
 msgstr "Wydrukuj"
 
-#: ../musicpreview.py:196
+#: ../musicpreview.py:197
 msgid "Music Preview"
 msgstr "Podgląd partytury"
 
@@ -945,52 +945,52 @@ msgstr "Nie można wysłać tego dokumentu do drukarki."
 msgid "Printing page {page} ({num} of {total})..."
 msgstr "Drukowanie strony {page} ({num} z {total})..."
 
-#: ../search.py:100
+#: ../search.py:101
 msgid "Search:"
 msgstr "Szukaj:"
 
-#: ../search.py:101
+#: ../search.py:102
 #, fuzzy
 msgid "&Case"
 msgstr "Pauza"
 
-#: ../search.py:102
+#: ../search.py:103
 msgid "Case Sensitive"
 msgstr "Uwzględniaj wielkość liter"
 
-#: ../search.py:103
+#: ../search.py:104
 msgid "&Regex"
 msgstr "&Regex"
 
-#: ../search.py:104
+#: ../search.py:105
 msgid "Regular Expression"
 msgstr "Wyrażenia regularne"
 
-#: ../search.py:105
+#: ../search.py:106
 msgid "The total number of matches"
 msgstr "Całkowita liczba dopasowań"
 
-#: ../search.py:106
+#: ../search.py:107
 msgid "Close"
 msgstr "Zamknij"
 
-#: ../search.py:107
+#: ../search.py:108
 msgid "Replace:"
 msgstr "Zastąp:"
 
-#: ../search.py:108
+#: ../search.py:109
 msgid "Re&place"
 msgstr "Zastąp"
 
-#: ../search.py:109
+#: ../search.py:110
 msgid "Replaces the next occurrence of the search term."
 msgstr "Zastępuje następne wystąpienie szukanego terminu."
 
-#: ../search.py:110
+#: ../search.py:111
 msgid "&All"
 msgstr "Wszystko"
 
-#: ../search.py:111
+#: ../search.py:112
 msgid ""
 "Replaces all occurrences of the search term in the document or selection."
 msgstr ""
@@ -1079,7 +1079,7 @@ msgstr "Dokumentacja &LilyPonda"
 msgid "&Contextual LilyPond Help"
 msgstr "&Kontekstowa pomoc LilyPonda"
 
-#: ../docbrowser/browser.py:115 ../snippet/widget.py:168
+#: ../docbrowser/browser.py:115 ../snippet/widget.py:173
 msgid "Search..."
 msgstr "Szukaj..."
 
@@ -1119,31 +1119,31 @@ msgstr "Dokumenty"
 msgid "Docum&ents"
 msgstr "Dokum&enty"
 
-#: ../doclist/widget.py:181
+#: ../doclist/widget.py:183
 #, fuzzy
 msgid "Save selected documents"
 msgstr "Zapisz zaznaczenie"
 
-#: ../doclist/widget.py:182
+#: ../doclist/widget.py:184
 #, fuzzy
 msgid "Close selected documents"
 msgstr "Zamknij inne dokumenty"
 
-#: ../doclist/widget.py:188
+#: ../doclist/widget.py:190
 #, fuzzy
 msgid "Save documents in this folder"
 msgstr "Zapisz dokument jeśli to możliwe"
 
-#: ../doclist/widget.py:189
+#: ../doclist/widget.py:191
 msgid "Close documents in this folder"
 msgstr ""
 
-#: ../doclist/widget.py:192
+#: ../doclist/widget.py:194
 #, fuzzy
 msgid "Save all untitled documents"
 msgstr "Wyślij dokumenty e-mailem"
 
-#: ../doclist/widget.py:193
+#: ../doclist/widget.py:195
 #, fuzzy
 msgid "Close all untitled documents"
 msgstr "Zamknij wszystkie dokumenty"
@@ -1275,11 +1275,11 @@ msgstr "Encapsulated PostScript (moduł przetwarzający EPS)"
 msgid "PNG (EPS Backend)"
 msgstr "PNG (moduł przetwarzający EPS)"
 
-#: ../engrave/result_menu.py:45
+#: ../engrave/result_menu.py:46
 msgid "Generated &Files"
 msgstr "Wygenerowane &pliki"
 
-#: ../engrave/result_menu.py:66
+#: ../engrave/result_menu.py:67
 msgid "No files available"
 msgstr "Brak dostępnych plików"
 
@@ -2097,39 +2097,39 @@ msgstr "Dopasuj stronę"
 msgid "{num} of {total}"
 msgstr "{num} z {total}"
 
-#: ../musicview/image.py:126
+#: ../musicview/image.py:127
 msgid "DPI:"
 msgstr "DPI:"
 
-#: ../musicview/image.py:127
+#: ../musicview/image.py:128
 msgid "Paper Color"
 msgstr "Kolor papieru"
 
-#: ../musicview/image.py:128
+#: ../musicview/image.py:129
 msgid "Auto-crop"
 msgstr "Automatyczne przycinanie"
 
-#: ../musicview/image.py:129
+#: ../musicview/image.py:130
 msgid "Antialias"
 msgstr "Antyaliasing"
 
-#: ../musicview/image.py:130
+#: ../musicview/image.py:131
 msgid "Drag"
 msgstr "Przeciągnij"
 
-#: ../musicview/image.py:131
+#: ../musicview/image.py:132
 msgid "Drag the image as a PNG file."
 msgstr "Przeciągnij obraz w postaci pliku PNG."
 
-#: ../musicview/image.py:132
+#: ../musicview/image.py:133
 msgid "&Copy to Clipboard"
 msgstr "S&kopiuj do schowka"
 
-#: ../musicview/image.py:133
+#: ../musicview/image.py:134
 msgid "&Save As..."
 msgstr "Zapisz jako..."
 
-#: ../musicview/image.py:136
+#: ../musicview/image.py:137
 #, no-python-format
 msgid ""
 "<p>\n"
@@ -2143,15 +2143,15 @@ msgid ""
 "</p>"
 msgstr ""
 
-#: ../musicview/image.py:167
+#: ../musicview/image.py:168
 msgid "Image from {filename}"
 msgstr "Obraz z {filename}"
 
-#: ../musicview/image.py:210
+#: ../musicview/image.py:211
 msgid "Save Image As"
 msgstr "Zapisz obraz jako"
 
-#: ../musicview/image.py:214
+#: ../musicview/image.py:215
 msgid "Could not save the image."
 msgstr "Nie można zapisać obrazu."
 
@@ -2705,7 +2705,7 @@ msgstr "Escape"
 #. L10N: a basic type of input in the editor
 #: ../preferences/fontscolors.py:474 ../preferences/fontscolors.py:513
 #: ../preferences/fontscolors.py:522 ../preferences/fontscolors.py:530
-#: ../preferences/fontscolors.py:538 ../snippet/builtin.py:302
+#: ../preferences/fontscolors.py:538 ../snippet/builtin.py:358
 msgid "Comment"
 msgstr "Komentarz"
 
@@ -2758,7 +2758,7 @@ msgstr "Belka"
 msgid "Check"
 msgstr ""
 
-#: ../preferences/fontscolors.py:496 ../snippet/builtin.py:172
+#: ../preferences/fontscolors.py:496 ../snippet/builtin.py:228
 msgid "Repeat"
 msgstr "Powtórzenie"
 
@@ -2774,7 +2774,7 @@ msgstr "Specyfikator"
 msgid "User Command"
 msgstr "Polecenie użytkownika"
 
-#: ../preferences/fontscolors.py:501 ../snippet/builtin.py:212
+#: ../preferences/fontscolors.py:501 ../snippet/builtin.py:268
 msgid "Markup"
 msgstr "Znacznik"
 
@@ -3272,7 +3272,7 @@ msgid ""
 msgstr ""
 
 #: ../preferences/prefshelp.py:220 ../snippet/tool.py:54
-#: ../snippet/tool.py:131 ../snippet/widget.py:367
+#: ../snippet/tool.py:135 ../snippet/widget.py:384
 msgid "Snippets"
 msgstr "Wstawki"
 
@@ -4188,55 +4188,55 @@ msgstr "stopka pierwszej strony"
 msgid "bottom of last page"
 msgstr "stopka ostatniej strony"
 
-#: ../scorewiz/header.py:135
+#: ../scorewiz/header.py:136
 msgid "Dedication"
 msgstr "Dedykacja"
 
-#: ../scorewiz/header.py:136
+#: ../scorewiz/header.py:137
 msgid "Title"
 msgstr "Tytuł"
 
-#: ../scorewiz/header.py:137
+#: ../scorewiz/header.py:138
 msgid "Subtitle"
 msgstr "Podtytuł"
 
-#: ../scorewiz/header.py:138
+#: ../scorewiz/header.py:139
 msgid "Subsubtitle"
 msgstr "Podpodtytuł"
 
-#: ../scorewiz/header.py:139
+#: ../scorewiz/header.py:140
 msgid "Instrument"
 msgstr "Instrument"
 
-#: ../scorewiz/header.py:140
+#: ../scorewiz/header.py:141
 msgid "Composer"
 msgstr "Kompozytor"
 
-#: ../scorewiz/header.py:141
+#: ../scorewiz/header.py:142
 msgid "Arranger"
 msgstr "Aranżer"
 
-#: ../scorewiz/header.py:142
+#: ../scorewiz/header.py:143
 msgid "Poet"
 msgstr "Autor tekstu"
 
-#: ../scorewiz/header.py:143
+#: ../scorewiz/header.py:144
 msgid "Meter"
 msgstr "Licznik"
 
-#: ../scorewiz/header.py:144
+#: ../scorewiz/header.py:145
 msgid "Piece"
 msgstr "Utwór"
 
-#: ../scorewiz/header.py:145
+#: ../scorewiz/header.py:146
 msgid "Opus"
 msgstr "Opus"
 
-#: ../scorewiz/header.py:146
+#: ../scorewiz/header.py:147
 msgid "Copyright"
 msgstr "Copyright"
 
-#: ../scorewiz/header.py:147
+#: ../scorewiz/header.py:148
 msgid "Tagline"
 msgstr "Przypis"
 
@@ -4252,7 +4252,7 @@ msgstr "Partytura:"
 msgid "&Add"
 msgstr "&Dodaj"
 
-#: ../scorewiz/score.py:103 ../snippet/widget.py:179 ../widgets/listedit.py:93
+#: ../scorewiz/score.py:103 ../snippet/widget.py:184 ../widgets/listedit.py:93
 #: ../widgets/schemeselector.py:64
 msgid "&Remove"
 msgstr "&Usuń"
@@ -5450,108 +5450,128 @@ msgid "Delete Line(s)"
 msgstr "Zaznacz linie powyżej"
 
 #: ../snippet/builtin.py:62
+#, fuzzy
+msgid "Next Blank Line"
+msgstr "Pusta linia"
+
+#: ../snippet/builtin.py:76
+#, fuzzy
+msgid "Previous Blank Line"
+msgstr "Poprzednia pusta linia."
+
+#: ../snippet/builtin.py:90
+#, fuzzy
+msgid "Select until Next Blank Line"
+msgstr "Zaznacz do następnej pustej linii."
+
+#: ../snippet/builtin.py:104
+#, fuzzy
+msgid "Select until Previous Blank Line"
+msgstr "Zaznacz do poprzedniej pustej linii."
+
+#: ../snippet/builtin.py:118
 msgid "Single Typographical Quotes"
 msgstr "Pojedynczy cudzysłow drukarski"
 
-#: ../snippet/builtin.py:67
+#: ../snippet/builtin.py:123
 msgid "Double Typographical Quotes"
 msgstr "Podwójny cudzysłow drukarski"
 
-#: ../snippet/builtin.py:133
+#: ../snippet/builtin.py:189
 msgid "Tuplets"
 msgstr "Grupy niemiarowe"
 
-#: ../snippet/builtin.py:143
+#: ../snippet/builtin.py:199
 msgid "Modern 2/2 Time Signature"
 msgstr "Nowoczesne metrum 2/2"
 
-#: ../snippet/builtin.py:149
+#: ../snippet/builtin.py:205
 msgid "Modern 4/4 Time Signature"
 msgstr "Nowoczesne metrum 4/4"
 
-#: ../snippet/builtin.py:155
+#: ../snippet/builtin.py:211
 msgid "Tactus Time Signature (number with note)"
 msgstr "Tactus-metrum (liczba z nutą)"
 
-#: ../snippet/builtin.py:166
+#: ../snippet/builtin.py:222
 msgid "LilyPond Version"
 msgstr "Wersja LilyPonda"
 
-#: ../snippet/builtin.py:177
+#: ../snippet/builtin.py:233
 msgid "Relative Music"
 msgstr "Relatywny zapis muzyki"
 
-#: ../snippet/builtin.py:194
+#: ../snippet/builtin.py:250
 msgid "Upper case selection"
 msgstr "Zaznaczenie wielkich liter"
 
-#: ../snippet/builtin.py:200
+#: ../snippet/builtin.py:256
 msgid "Lower case selection"
 msgstr "Zaznaczenie małych liter"
 
-#: ../snippet/builtin.py:206
+#: ../snippet/builtin.py:262
 #, fuzzy
 msgid "Title case selection"
 msgstr "Wybór języka"
 
-#: ../snippet/builtin.py:217
+#: ../snippet/builtin.py:273
 #, fuzzy
 msgid "Markup lines"
 msgstr "Kreski taktowe"
 
-#: ../snippet/builtin.py:225
+#: ../snippet/builtin.py:281
 msgid "Markup column"
 msgstr ""
 
-#: ../snippet/builtin.py:230
+#: ../snippet/builtin.py:286
 msgid "Tagline with date and LilyPond version"
 msgstr "Stopka z datą oraz wersją LilyPonda"
 
-#: ../snippet/builtin.py:240
+#: ../snippet/builtin.py:296
 msgid "Header Template"
 msgstr "Szablony nagłówków"
 
-#: ../snippet/builtin.py:255
+#: ../snippet/builtin.py:311
 msgid "No Tagline"
 msgstr "Bez stopki"
 
-#: ../snippet/builtin.py:263
+#: ../snippet/builtin.py:319
 msgid "No Barnumbers"
 msgstr "Bez numerów taktów"
 
-#: ../snippet/builtin.py:273
+#: ../snippet/builtin.py:329
 msgid "Midi Tempo"
 msgstr "Tempo midi:"
 
-#: ../snippet/builtin.py:283
+#: ../snippet/builtin.py:339
 msgid "Staff Size"
 msgstr "Rozmiar pięciolinii"
 
-#: ../snippet/builtin.py:340
+#: ../snippet/builtin.py:396
 msgid "Uncomment"
 msgstr "Usuń komentarz"
 
-#: ../snippet/builtin.py:383
+#: ../snippet/builtin.py:439
 msgid "A5 Paper"
 msgstr "Papier A5"
 
-#: ../snippet/builtin.py:391
+#: ../snippet/builtin.py:447
 msgid "Document Fonts..."
 msgstr "Czcionki w dokumencie..."
 
-#: ../snippet/builtin.py:419
+#: ../snippet/builtin.py:475
 msgid "Last note or chord"
 msgstr "Ostatnia nuta lub akord"
 
-#: ../snippet/builtin.py:500
+#: ../snippet/builtin.py:556
 msgid "Color"
 msgstr "Kolor"
 
-#: ../snippet/builtin.py:537
+#: ../snippet/builtin.py:593
 msgid "Basic Leadsheet"
 msgstr "Prymka"
 
-#: ../snippet/builtin.py:581
+#: ../snippet/builtin.py:637
 msgid "Choir Hymn"
 msgstr "Hymn chóralny"
 
@@ -5753,7 +5773,7 @@ msgstr ""
 msgid "No snippets found."
 msgstr "Nie znaleziono żadnych wstawek."
 
-#: ../snippet/import_export.py:111 ../snippet/widget.py:266
+#: ../snippet/import_export.py:111 ../snippet/widget.py:274
 msgctxt "dialog title"
 msgid "Import Snippets"
 msgstr "Importuj wstawki"
@@ -5811,6 +5831,34 @@ msgstr "Nazwa"
 msgid "Description"
 msgstr "Opis"
 
+#: ../snippet/restore.py:62
+#, fuzzy
+msgctxt "dialog title"
+msgid "Restore Built-in Snippets"
+msgstr "Wstawki Pythona"
+
+#: ../snippet/restore.py:64
+msgid ""
+"This dialog allows you to recover built-in snippets that have been changed "
+"or deleted. Check the snippets you want to recover and click the button "
+"\"Restore Checked Snippets.\""
+msgstr ""
+
+#: ../snippet/restore.py:67
+#, fuzzy
+msgid "Restore Checked Snippets"
+msgstr "Usuń zaznaczone wstawki."
+
+#: ../snippet/restore.py:68
+#, fuzzy
+msgid "Deleted Snippets"
+msgstr "Zaktualizowane wstawki"
+
+#: ../snippet/restore.py:69
+#, fuzzy
+msgid "Changed Snippets"
+msgstr "Niezmienione wstawki"
+
 #: ../snippet/template.py:33
 msgid "Save as Template"
 msgstr "Zapisz jako szablon"
@@ -5835,77 +5883,85 @@ msgstr "Zarządzaj szablonami..."
 msgid "&Snippets..."
 msgstr "W&stawki..."
 
-#: ../snippet/widget.py:172
+#: ../snippet/widget.py:177
 msgid "&Menu"
 msgstr "&Menu"
 
-#: ../snippet/widget.py:173 ../widgets/listedit.py:91
+#: ../snippet/widget.py:178 ../widgets/listedit.py:91
 msgid "&Add..."
 msgstr "&Dodaj..."
 
-#: ../snippet/widget.py:175
+#: ../snippet/widget.py:180
 msgid "Add a new snippet. ({key})"
 msgstr "Dodaj nową wstawkę. ({key})"
 
-#: ../snippet/widget.py:176 ../widgets/listedit.py:92
+#: ../snippet/widget.py:181 ../widgets/listedit.py:92
 msgid "&Edit..."
 msgstr "&Edytuj..."
 
-#: ../snippet/widget.py:178
+#: ../snippet/widget.py:183
 msgid "Edit the current snippet. ({key})"
 msgstr "Edytuj bieżącą wstawkę. ({key})"
 
-#: ../snippet/widget.py:180
+#: ../snippet/widget.py:185
 msgid "Remove the selected snippets."
 msgstr "Usuń zaznaczone wstawki."
 
-#: ../snippet/widget.py:181
+#: ../snippet/widget.py:186
 msgid "A&pply"
 msgstr "Zastosuj"
 
-#: ../snippet/widget.py:182
+#: ../snippet/widget.py:187
 msgid "Apply the current snippet."
 msgstr "Zatwierdź bieżącą wstawkę."
 
-#: ../snippet/widget.py:183
+#: ../snippet/widget.py:188
 msgid "&Import..."
 msgstr "&Importuj..."
 
-#: ../snippet/widget.py:184
+#: ../snippet/widget.py:189
 msgid "Import snippets from a file."
 msgstr "Importuj wstawkę z pliku."
 
-#: ../snippet/widget.py:185
+#: ../snippet/widget.py:190
 msgid "E&xport..."
 msgstr "E&ksportuj..."
 
-#: ../snippet/widget.py:186
+#: ../snippet/widget.py:191
 msgid "Export snippets to a file."
 msgstr "Eksportuj wstawkę do pliku."
 
-#: ../snippet/widget.py:187
+#: ../snippet/widget.py:192
+msgid "Restore &Built-in Snippets..."
+msgstr ""
+
+#: ../snippet/widget.py:194
+msgid "Restore deleted or changed built-in snippets."
+msgstr ""
+
+#: ../snippet/widget.py:195
 msgid "&Help"
 msgstr "Pomo&c"
 
-#: ../snippet/widget.py:189
+#: ../snippet/widget.py:197
 msgid ""
 "Enter text to search in the snippets list.\n"
 "See \"What's This\" for more information."
 msgstr ""
 
-#: ../snippet/widget.py:192
+#: ../snippet/widget.py:200
 msgid ""
 "Enter text to search in the snippets list, and press Enter to apply the "
 "currently selected snippet."
 msgstr ""
 
-#: ../snippet/widget.py:194
+#: ../snippet/widget.py:202
 msgid ""
 "If the search text fully matches the value of the '{name}' variable of a "
 "snippet, that snippet is selected."
 msgstr ""
 
-#: ../snippet/widget.py:196
+#: ../snippet/widget.py:204
 msgid ""
 "If the search text starts with a colon ':', the rest of the search text "
 "filters snippets that define the given variable. After a space a value can "
@@ -5913,17 +5969,17 @@ msgid ""
 "contains the text after the space."
 msgstr ""
 
-#: ../snippet/widget.py:201
+#: ../snippet/widget.py:209
 msgid ""
 "E.g. entering {menu} will show all snippets that are displayed in the insert "
 "menu."
 msgstr ""
 
-#: ../snippet/widget.py:265 ../snippet/widget.py:282
+#: ../snippet/widget.py:273 ../snippet/widget.py:290
 msgid "XML Files"
 msgstr "Pliki XML"
 
-#: ../snippet/widget.py:285
+#: ../snippet/widget.py:293
 msgctxt "dialog title"
 msgid "Export {num} Snippet"
 msgid_plural "Export {num} Snippets"
@@ -5931,7 +5987,7 @@ msgstr[0] "Ekportuj {num} wstawkę"
 msgstr[1] "Eksportuj {num} wstawki"
 msgstr[2] "Eksportuj {num} wstawek"
 
-#: ../snippet/widget.py:373
+#: ../snippet/widget.py:390
 msgid ""
 "<p>\n"
 "With the snippets manager you can store often used pieces of text called\n"
@@ -5968,12 +6024,12 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../snippet/widget.py:405
+#: ../snippet/widget.py:422
 msgctxt "menu title"
 msgid "Insert"
 msgstr "Wstaw "
 
-#: ../snippet/widget.py:405
+#: ../snippet/widget.py:422
 msgid "Snippets..."
 msgstr "Wstawki..."
 
@@ -5997,6 +6053,11 @@ msgstr "Schemat:"
 msgctxt "New Scheme"
 msgid "&New..."
 msgstr "&Nowy..."
+
+#: ../widgets/schemeselector.py:92
+#, fuzzy
+msgid "Add Scheme"
+msgstr "Schemat:"
 
 #: ../widgets/schemeselector.py:93
 msgid "Please enter a name for the new scheme:"
@@ -6648,14 +6709,8 @@ msgstr "Wybierz plik"
 #~ msgid "Go to the next blank line."
 #~ msgstr "Przejdź do następnej pustej lini."
 
-#~ msgid "Previous blank line"
-#~ msgstr "Poprzednia pusta linia."
-
 #~ msgid "Go to the previous blank line."
 #~ msgstr "Przejdź do poprzedniej pustej lini."
-
-#~ msgid "Select to next blank line"
-#~ msgstr "Zaznacz do następnej pustej linii."
 
 #~ msgid ""
 #~ "Selects text from the current position down to and including the next "
@@ -6663,9 +6718,6 @@ msgstr "Wybierz plik"
 #~ msgstr ""
 #~ "Zaznacza tekst od bieżącej pozycji aż do (i razem z) następnej pustej "
 #~ "linii."
-
-#~ msgid "Select to previous blank line"
-#~ msgstr "Zaznacz do poprzedniej pustej linii."
 
 #~ msgid ""
 #~ "Selects text from the current position up to right after the previous "
