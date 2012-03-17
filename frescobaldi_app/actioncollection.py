@@ -326,13 +326,3 @@ class ShortcutCollection(ActionCollectionBase):
                 other.load()
 
 
-def removeShortcut(action, key):
-    """Removes matching QKeySequence from the list of the action."""
-    key = QKeySequence(key)
-    shortcuts = action.shortcuts()
-    for s in action.shortcuts():
-        if key.matches(s) or s.matches(key):
-            shortcuts.remove(s)
-    action.setShortcuts(shortcuts)
-
-

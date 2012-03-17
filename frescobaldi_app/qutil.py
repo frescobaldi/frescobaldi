@@ -29,7 +29,7 @@ import re
 import weakref
 
 from PyQt4.QtCore import QEventLoop, QSettings, QSize, QTimer, Qt
-from PyQt4.QtGui import QApplication, QColor, QProgressDialog
+from PyQt4.QtGui import QApplication, QColor, QKeySequence, QProgressDialog
 
 
 def saveDialogSize(dialog, key, default=QSize()):
@@ -114,6 +114,16 @@ def getAccelerator(text):
 def removeAccelelator(s):
     """Removes accelerator ampersands from a QAction.text() string."""
     return s.replace('&&', '\0').replace('&', '').replace('\0', '&')
+
+
+def removeShortcut(action, key):
+    """Removes matching QKeySequence from the list of the action."""
+    key = QKeySequence(key)
+    shortcuts = action.shortcuts()
+    for s in action.shortcuts():
+        if key.matches(s) or s.matches(key):
+            shortcuts.remove(s)
+    action.setShortcuts(shortcuts)
 
 
 def addcolor(color, r, g, b):

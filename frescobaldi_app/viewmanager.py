@@ -38,6 +38,7 @@ import actioncollection
 import app
 import icons
 import view as view_
+import qutil
 
 
 class ViewStatusBar(QWidget):
@@ -438,9 +439,9 @@ class ViewActions(actioncollection.ActionCollection):
         # shortcuts
         self.window_close_view.setShortcut(Qt.CTRL + Qt.SHIFT + Qt.Key_W)
         self.window_next_view.setShortcuts(QKeySequence.NextChild)
-        actioncollection.removeShortcut(self.window_next_view, "Ctrl+,")
+        qutil.removeShortcut(self.window_next_view, "Ctrl+,")
         self.window_previous_view.setShortcuts(QKeySequence.PreviousChild)
-        actioncollection.removeShortcut(self.window_previous_view, "Ctrl+.")
+        qutil.removeShortcut(self.window_previous_view, "Ctrl+.")
 
     def translateUI(self):
         self.window_split_horizontal.setText(_("Split &Horizontally"))
