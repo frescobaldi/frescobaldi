@@ -45,7 +45,7 @@ class ActionCollectionManager(plugin.MainWindowPlugin):
     """Manages ActionCollections for a MainWindow."""
     def __init__(self, mainwindow):
         """Creates the ActionCollectionManager for the given mainwindow."""
-        self._actioncollections = []
+        self._actioncollections = weakref.WeakValueDictionary()
     
     def addActionCollection(self, collection):
         """Add an actioncollection to our list (used for changing keyboard shortcuts).
@@ -54,27 +54,26 @@ class ActionCollectionManager(plugin.MainWindowPlugin):
         it is removed automatically from our list.
         
         """
-        ref = weakref.ref(collection)
-        if ref not in self._actioncollections:
-            self._actioncollections.append(ref)
+        if collection.name not in self._actioncollections:
+            self._actioncollections[collection.name] = collection
         
     def removeActionCollection(self, collection):
         """Removes the given ActionCollection from our list."""
-        ref = weakref.ref(collection)
-        try:
-            self._actioncollections.remove(ref)
-        except ValueError:
-            pass
+        if collection.name in self._actioncollections:
+            del self._actioncollections[collection.name]
 
     def actionCollections(self):
         """Iterate over the ActionCollections in our list."""
-        for ref in self._actioncollections[:]: # copy
-            collection = ref()
-            if collection:
-                yield collection
-            else:
-                self._actioncollections.remove(ref)
+        return self._actioncollections.values()
         
+    def action(self, collection_name, action_name):
+        """Returns the named action from the named collection."""
+        collection = self._actioncollections.get(collection_name)
+        if collection:
+            if isinstance(collection, actioncollection.ShortcutCollection):
+                return collection.realAction(action_name)
+            return getattr(collection, action_name, None)
+    
     def editAction(self, parent, action, default=None, skip=None):
         """Edits the keyboard shortcut for a single action.
         

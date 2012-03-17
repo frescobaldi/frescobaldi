@@ -145,6 +145,17 @@ def markexternal(text):
     return pat.sub(r'\g<0>&#11008;', text)
 
 
+def action(collection_name, action_name):
+    """Returns a QAction from the application.
+    
+    May return None, if the named collection or action does not exist.
+    
+    """
+    import actioncollectionmanager
+    mgr = actioncollectionmanager.ActionCollectionManager.instances()[0]
+    return mgr.action(collection_name, action_name)
+
+
 def shortcut(item):
     """Returns a suitable text for the keyboard shortcut of the given item.
     
@@ -163,6 +174,7 @@ def shortcut(item):
     else:
         seq = item
     return seq.toString(QKeySequence.NativeText) or _("(no key defined)")
+
 
 
 def menu(*titles):

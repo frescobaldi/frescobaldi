@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 from PyQt4.QtGui import QKeySequence
 
-from .helpimpl import page, shortcut, menu
+from .helpimpl import action, page, shortcut, menu
 from colorize import colorize
 
 import info
@@ -118,34 +118,30 @@ class starting(page):
         return _("Getting Started")
     
     def body(cls):
-        d = {}
-        d['example'] = colorize(r"""\relative c'' {
+        d = dict(
+            example = colorize(r"""\relative c'' {
   \time 7/4
   c2 bes4 a2 g a bes4 a( g) f2
 }
 \addlyrics {
   Join us now and share the soft -- ware!
-}""")
-        import engrave
-        ac = engrave.Engraver.instances()[0].actionCollection
-        d['key_engrave'] = shortcut(ac.engrave_preview)
-        import panelmanager
-        ac = panelmanager.PanelManager.instances()[0].musicview.actionCollection
-        d['key_jump'] = shortcut(ac.music_jump_to_cursor)
-        d['key_copy_image'] = shortcut(ac.music_copy_image)
-        ac = panelmanager.PanelManager.instances()[0].logtool.actionCollection
-        d['key_error'] = shortcut(ac.log_next_error)
-        d['menu_engrave'] = menu(_("LilyPond"), _("Engrave (publish)"))
-        d['menu_preferences_lilypond'] = menu(
-            _("menu title", "Edit"),
-            _("Preferences"),
-            _("LilyPond Preferences"))
-        d['menu_clear_error_marks'] = menu(
-            _("menu title", "View"),
-            _("Clear Error Marks"))
-        d['menu_copy_image'] = menu(
-            _("menu title", "Edit"),
-            _("Copy to Image..."))
+}"""),
+            key_engrave = shortcut(action("engrave", "engrave_preview")),
+            key_jump = shortcut(action("musicview", "music_jump_to_cursor")),
+            key_copy_image = shortcut(action("musicview", "music_copy_image")),
+            key_error = shortcut(action("logtool", "log_next_error")),
+            menu_engrave = menu(_("LilyPond"), _("Engrave (publish)")),
+            menu_preferences_lilypond = menu(
+                _("menu title", "Edit"),
+                _("Preferences"),
+                _("LilyPond Preferences")),
+            menu_clear_error_marks = menu(
+                _("menu title", "View"),
+                _("Clear Error Marks")),
+            menu_copy_image = menu(
+                _("menu title", "Edit"),
+                _("Copy to Image...")),
+        )
         return _("""\
 <p>
 The default screen of Frescobaldi shows a text document on the left and an
@@ -374,13 +370,11 @@ class search_replace(page):
         return _("Search and replace")
     
     def body():
-        import app
-        ac = app.windows[0].actionCollection
-        d = {
-            'key_search': shortcut(ac.edit_find),
-            'key_replace': shortcut(ac.edit_replace),
-            'edit_menu': menu(_("Edit")),
-        }
+        d = dict(
+            key_search = shortcut(action("main", "edit_find")),
+            key_replace = shortcut(action("main", "edit_replace")),
+            edit_menu = menu(_("Edit")),
+        )
         return _("""\
 <p>
 In the menu {edit_menu} the commands Find ({key_search})
