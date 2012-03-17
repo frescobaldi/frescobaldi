@@ -111,6 +111,11 @@ def getAccelerator(text):
         return m.group(1).lower()
 
 
+def removeAccelelator(s):
+    """Removes accelerator ampersands from a QAction.text() string."""
+    return s.replace('&&', '\0').replace('&', '').replace('\0', '&')
+
+
 def addcolor(color, r, g, b):
     """Adds r, g and b values to the given color and returns a new QColor instance."""
     r += color.red()

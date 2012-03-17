@@ -336,7 +336,3 @@ def removeShortcut(action, key):
     action.setShortcuts(shortcuts)
 
 
-def removeAccels(s):
-    """Removes accels from a QAction.text() string."""
-    return s.replace('&&', '\0').replace('&', '').replace('\0', '&')
-

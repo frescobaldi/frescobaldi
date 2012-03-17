@@ -122,7 +122,7 @@ class ActionCollectionManager(plugin.MainWindowPlugin):
                         msg = [_("This shortcut conflicts with the following command:",
                                 "This shortcut conflicts with the following commands:", len(conflicts))]
                         msg.append("<br/>".join("{name} ({key})".format(
-                            name = actioncollection.removeAccels(a.text()),
+                            name = qutil.removeAccelelator(a.text()),
                             key=' \u2014 '.join(s.toString() for s in conflicts[a])) for a in conflicts))
                         msg = '<p>{0}</p>'.format('</p><p>'.join(msg))
                         box = QMessageBox(QMessageBox.Warning, _("Shortcut Conflict"), msg,

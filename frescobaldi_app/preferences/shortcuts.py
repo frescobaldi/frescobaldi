@@ -94,7 +94,7 @@ class Shortcuts(preferences.Page):
         for a in win.menuBar().actions():
             menuitem = QTreeWidgetItem()
             menu = a.menu()
-            text = actioncollection.removeAccels(a.text())
+            text = qutil.removeAccelelator(a.text())
             for a in childactions(menu):
                 menuitem.addChild(ShortcutItem(a, *allactions[a]))
             if menuitem.childCount():
@@ -237,7 +237,7 @@ class ShortcutItem(QTreeWidgetItem):
         self.collection = collection
         self.name = name
         self.setIcon(0, action.icon())
-        self.setText(0, actioncollection.removeAccels(action.text()))
+        self.setText(0, qutil.removeAccelelator(action.text()))
         self._shortcuts = {}
         
     def clearSettings(self):
