@@ -157,15 +157,13 @@ class lyrics_help(help.page):
         return _("Lyrics")
     
     def body():
-        import lyrics
-        ac = lyrics.Lyrics.instances()[0].actionCollection
-        d = {
-            'hyphen': "<code>&nbsp;--&nbsp;</code>",
-            'example': "<code>a&nbsp;--&nbsp;men</code>",
-            'key_hyphen': help.shortcut(ac.lyrics_hyphenate),
-            'menu_hyphen': help.menu(_("menu title", "Tools"), _("Lyrics")),
-            'menu_settings': help.menu(_("menu title", "Edit"), _("Preferences")),
-        }
+        d = dict(
+            hyphen = "<code>&nbsp;--&nbsp;</code>",
+            example = "<code>a&nbsp;--&nbsp;men</code>",
+            key_hyphen = help.shortcut(help.action("lyrics", "lyrics_hyphenate")),
+            menu_hyphen = help.menu(_("menu title", "Tools"), _("Lyrics")),
+            menu_settings = help.menu(_("menu title", "Edit"), _("Preferences")),
+        )
         return _("""\
 <p>
 Frescobaldi can automatically place hyphens '{hyphen}' inside texts to make

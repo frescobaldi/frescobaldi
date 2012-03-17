@@ -187,10 +187,8 @@ class scorewiz_help(help.page):
         return _("The Score Wizard")
     
     def body():
-        from . import ScoreWizard
         d = {}
-        action = ScoreWizard.instances()[0].actionCollection.scorewiz
-        d['key'] = help.shortcut(action)
+        d['key'] = help.shortcut(help.action("scorewiz", "scorewiz"))
         d['menu'] = help.menu(_("menu title", "Tools"), _("Setup New Score..."))
         return _("""\
 <p>

@@ -45,9 +45,6 @@ class ScoreWizard(plugin.MainWindowPlugin):
         self._dlg.show()
 
 
-
-
-
 class Actions(actioncollection.ActionCollection):
     name = 'scorewiz'
     def createActions(self, parent=None):
