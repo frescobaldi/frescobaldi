@@ -116,7 +116,9 @@ class RestoreDialog(widgets.dialog.Dialog):
     
     def updateSnippets(self):
         """Restores the checked snippets."""
+        collection = self.parent().parent().snippetActions
         for name in self.checkedSnippets():
+            collection.restoreDefaultShortcuts(name)
             model.model().saveSnippet(name, None, None)
 
     def checkOkButton(self):

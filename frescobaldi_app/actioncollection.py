@@ -73,6 +73,14 @@ class ActionCollectionBase(object):
         """Set a default list of QKeySequence objects for the named action."""
         self._defaults[name] = shortcuts
         
+    def defaultShortcuts(self, name):
+        """Returns the default shortcuts (list of QKeySequences) for the action.
+        
+        If not defined, returns None.
+        
+        """
+        return self._defaults.get(name)
+        
     def actions(self):
         """Returns the dictionary with actions."""
         return self._actions
@@ -244,6 +252,16 @@ class ShortcutCollection(ActionCollectionBase):
                 self.settingsGroup().remove(name)
         self.reloadOthers()
     
+    def restoreDefaultShortcuts(self, name):
+        """Resets the shortcuts for the specified action to their default value."""
+        shortcuts = self.defaultShortcuts(name)
+        if shortcuts:
+            self.action(name).setShortcuts(shortcuts)
+        else:
+            self.removeAction(name)
+        self.settingsGroup().remove(name)
+        self.reloadOthers()
+        
     def removeAction(self, name):
         """(Internal) Removes the named action, returning True it it did exist."""
         try:
