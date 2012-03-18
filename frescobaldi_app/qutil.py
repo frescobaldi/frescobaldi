@@ -84,6 +84,7 @@ def addAccelerators(actions, used=[]):
     used is a sequence of already used accelerators (in lower case).
     
     """
+    # filter out the actions that already have an accelerator
     todo = []
     used = set(used)
     for a in actions:
@@ -99,7 +100,7 @@ def addAccelerators(actions, used=[]):
         
         """
         text = action.text()
-        # if the action as a shortcut with A-Z or 0-9, match that character
+        # if the action has a shortcut with A-Z or 0-9, match that character
         if action.shortcut():
             key = action.shortcut()[-1] & ~Qt.ALT & ~Qt.SHIFT & ~Qt.CTRL & ~Qt.META
             if 48 < key < 58 or 64 < key < 91 or 96 < key < 123:
@@ -142,14 +143,14 @@ def getAccelerator(text):
     An accelerator is a character preceded by an ampersand &.
     
     """
-    m = re.search(r'(?<!&)&(\w)', text)
+    m = re.search(r'&(\w)', text.replace('&&', ''))
     if m:
         return m.group(1).lower()
 
 
-def removeAccelelator(s):
+def removeAccelelator(text):
     """Removes accelerator ampersands from a QAction.text() string."""
-    return s.replace('&&', '\0').replace('&', '').replace('\0', '&')
+    return text.replace('&&', '\0').replace('&', '').replace('\0', '&')
 
 
 def removeShortcut(action, key):
