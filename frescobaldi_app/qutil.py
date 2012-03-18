@@ -85,19 +85,55 @@ def addAccelerators(actions, used=[]):
     
     """
     todo = []
-    used = list(used)
+    used = set(used)
     for a in actions:
         if a.text():
             accel = getAccelerator(a.text())
-            used.append(accel) if accel else todo.append(a)
-    for a in todo:
-        text = a.text()
-        for m in itertools.chain(re.finditer(r'\b\w', text),
-                                 re.finditer(r'\B\w', text)):
-            if m.group().lower() not in used:
-                used.append(m.group().lower())
-                a.setText(text[:m.start()] + '&' + text[m.start():])
-                break
+            used.add(accel) if accel else todo.append(a)
+    
+    def finditers(action):
+        """Yields two-tuples (priority, re.finditer object).
+        
+        The finditer object finds suitable accelerator positions.
+        The priority can be used if multiple actions want the same shortcut.
+        
+        """
+        text = action.text()
+        # if the action as a shortcut with A-Z or 0-9, match that character
+        if action.shortcut():
+            key = action.shortcut()[-1] & ~Qt.ALT & ~Qt.SHIFT & ~Qt.CTRL & ~Qt.META
+            if 48 < key < 58 or 64 < key < 91 or 96 < key < 123:
+                yield 0, re.finditer(r'\b{0:c}'.format(key), text, re.I)
+        yield 1, re.finditer(r'\b\w', text)
+        yield 2, re.finditer(r'\B\w', text)
+    
+    def find(action):
+        """Yields three-tuples (priority, pos, accel) from finditers()."""
+        for prio, matches in finditers(action):
+            for m in matches:
+                yield prio, m.start(), m.group().lower()
+    
+    todo = [(a, find(a)) for a in todo]
+    
+    while todo:
+        # check if the actions would get the same accelerator
+        accels = {}
+        for a, source in todo:
+            for prio, pos, accel in source:
+                if accel not in used:
+                    accels.setdefault(accel, []).append((prio, pos, a, source))
+                    break
+        
+        todo = []
+        used.update(accels)
+        for action_list in accels.itervalues():
+            # sort actions on priority, position, else original order ...
+            action_list.sort(key=lambda i: i[:2])
+            # ... give the accelerator to the most important one ...
+            pos, a = action_list[0][1:3]
+            a.setText(a.text()[:pos] + '&' + a.text()[pos:])
+            # ... and try again for the other(s):
+            todo.extend((a, source) for prio, pos, a, source in action_list[1:])
 
 
 def getAccelerator(text):
