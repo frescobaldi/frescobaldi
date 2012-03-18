@@ -24,7 +24,6 @@ Some Qt4-related utility functions.
 from __future__ import unicode_literals
 
 import contextlib
-import itertools
 import re
 import weakref
 
