@@ -28,7 +28,8 @@ import re
 import weakref
 
 from PyQt4.QtCore import QEventLoop, QSettings, QSize, QTimer, Qt
-from PyQt4.QtGui import QApplication, QColor, QKeySequence, QProgressDialog
+from PyQt4.QtGui import (
+    QAction, QApplication, QColor, QKeySequence, QProgressDialog)
 
 
 def saveDialogSize(dialog, key, default=QSize()):
@@ -75,7 +76,7 @@ def deleteLater(*qobjs):
 
 
 def addAccelerators(actions, used=[]):
-    """Adds accelerators to the list of actions.
+    """Adds accelerators to the list of QActions (or QLabels used as buddy).
     
     Actions that have accelerators are skipped, the accelerators that they use
     are not used. This can be used for e.g. menus that are created on the fly.
@@ -99,8 +100,8 @@ def addAccelerators(actions, used=[]):
         
         """
         text = action.text()
-        # if the action has a shortcut with A-Z or 0-9, match that character
-        if action.shortcut():
+        if isinstance(action, QAction) and action.shortcut():
+            # if the action has a shortcut with A-Z or 0-9, match that character
             key = action.shortcut()[-1] & ~Qt.ALT & ~Qt.SHIFT & ~Qt.CTRL & ~Qt.META
             if 48 < key < 58 or 64 < key < 91 or 96 < key < 123:
                 yield 0, re.finditer(r'\b{0:c}'.format(key), text, re.I)

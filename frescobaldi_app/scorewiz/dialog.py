@@ -110,7 +110,7 @@ class ScoreWizardDialog(QDialog):
         builder = build.Builder(self)
         cursor = self.parent().currentView().textCursor()
         with cursortools.compress_undo(cursor):
-            cursortools.insert_text(cursor, builder.text())
+            cursortools.insert_select(cursor, builder.text())
             indent.re_indent(cursor)
     
     def showPreview(self):
