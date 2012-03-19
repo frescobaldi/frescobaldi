@@ -137,9 +137,20 @@ class Edit(QDialog):
     def done(self, result):
         if result:
             if not self.text.toPlainText():
-                QMessageBox.warning(self, _("Empty Snippet"), _("A snippet can't be empty."))
+                QMessageBox.warning(self,
+                    _("Empty Snippet"),
+                    _("A snippet can't be empty."))
                 return
             self.saveSnippet()
+        elif self.text.document().isModified():
+            res = QMessageBox.warning(self, self.windowTitle(),
+                _("The snippet has been modified.\n"
+                  "Do you want to save your changes or discard them?"),
+                QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel)
+            if res == QMessageBox.Cancel:
+                return
+            elif res != QMessageBox.Discard:
+                self.saveSnippet()
         super(Edit, self).done(result)
         self.deleteLater()
 
@@ -178,6 +189,7 @@ class Edit(QDialog):
         # get the name that was used
         name = model.model().name(index)
         self.parent().parent().snippetActions.setShortcuts(name, self._shortcuts)
+        self.text.document().setModified(False)
 
     def slotDefaults(self):
         t = builtin.builtin_snippets[self._name]
