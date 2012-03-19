@@ -23,6 +23,7 @@ Settings stuff and handling for different LilyPond versions.
 
 from __future__ import unicode_literals
 
+import glob
 import os
 import re
 
@@ -154,9 +155,9 @@ class LilyPondInfo(object):
         if os.name == "nt":
             # on Windows, newer versions of LilyPond don't add themselves to the
             # PATH, so add a probable path here
-            path = [
-                'C:\\Program Files\\LilyPond\\usr\\bin',
-            ]
+            path = glob.glob(os.path.join(
+                os.environ.get('ProgramFiles', 'C:\\Program Files'),
+                'LilyPond*', 'usr', 'bin'))
         else:
             path = None
         return util.findexe(self.command, path)
