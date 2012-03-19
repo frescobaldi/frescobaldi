@@ -5,9 +5,10 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 Changes in 2.0.5 -- 
 
 * Translations:
-  - updated: fr
+  - updated: fr, nl
 * New features:
-  - new snippet action to recover changed or deleted built-in snippets
+  - New snippet action to recover changed or deleted built-in snippets
+  - New snippet action to configure keyboard shortcut without opening editor
   - Alt+Up and Alt+Down jump between blank lines (implemented as snippets),
     with Shift they select text
 * Improvements:
@@ -15,6 +16,7 @@ Changes in 2.0.5 --
     anymore
   - Much better default background color for the Music View
   - On Windows, better try to find LilyPond even if it is not in the PATH
+  - Snippet editor warns when closing modified snippet
 * Bugfixes:
   - fix Ctrl+K deleting a line too much in some cases
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.3\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-03-17 07:31+0100\n"
+"POT-Creation-Date: 2012-03-19 22:50+0100\n"
 "PO-Revision-Date: 2012-02-17 00:26+0100\n"
 "Last-Translator: Piotr Komorowski <piotr-komorowski@wp.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -69,7 +69,7 @@ msgstr "O programie {appname}"
 msgid "About"
 msgstr "O"
 
-#: ../about.py:88 ../help/contents.py:284
+#: ../about.py:88 ../help/contents.py:280
 msgid "Credits"
 msgstr "Zasługi"
 
@@ -106,18 +106,18 @@ msgstr "Przetłumaczone przez Piotra Komorowskiego "
 msgid "Licensed under the {gpl}."
 msgstr "Na licencji {gpl}."
 
-#: ../actioncollectionmanager.py:123 ../preferences/shortcuts.py:203
+#: ../actioncollectionmanager.py:122 ../preferences/shortcuts.py:203
 msgid "This shortcut conflicts with the following command:"
 msgid_plural "This shortcut conflicts with the following commands:"
 msgstr[0] "Ten skrót klawiszowy koliduje z następującym poleceniem:"
 msgstr[1] "Ten skrót klawiszowy koliduje z następującym poleceniem:"
 msgstr[2] "Ten skrót klawiszowy koliduje z następującym poleceniem:"
 
-#: ../actioncollectionmanager.py:129 ../preferences/shortcuts.py:209
+#: ../actioncollectionmanager.py:128 ../preferences/shortcuts.py:209
 msgid "Shortcut Conflict"
 msgstr "Konflikty skrótów klawiszowych"
 
-#: ../actioncollectionmanager.py:131
+#: ../actioncollectionmanager.py:130
 msgid "Edit again"
 msgstr "Edytuj ponownie"
 
@@ -145,7 +145,7 @@ msgstr "Plik Texinfo"
 msgid "Scheme Files"
 msgstr "Pliki Scheme"
 
-#: ../app.py:134 ../snippet/widget.py:273 ../snippet/widget.py:290
+#: ../app.py:134 ../snippet/widget.py:292 ../snippet/widget.py:309
 msgid "All Files"
 msgstr "Wszystkie pliki"
 
@@ -280,7 +280,7 @@ msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr ""
 "Proszę wprowadzić nazwę dla zmniennej przyporządkowanej do wybranego tekstu:"
 
-#: ../document.py:143 ../doclist/widget.py:128 ../snippet/edit.py:167
+#: ../document.py:143 ../doclist/widget.py:128 ../snippet/edit.py:178
 msgid "Untitled"
 msgstr "Bez tytułu"
 
@@ -391,28 +391,28 @@ msgstr "Rozdziel tekst myślnikami"
 msgid "Please select a language:"
 msgstr "Proszę wybrać język:"
 
-#: ../hyphendialog.py:157 ../hyphendialog.py:166
+#: ../hyphendialog.py:157 ../hyphendialog.py:164
 msgid "Lyrics"
 msgstr "Słowa:"
 
-#: ../hyphendialog.py:166 ../pitch/pitch.py:744 ../rhythm/rhythm.py:279
-#: ../scorewiz/dialog.py:194
+#: ../hyphendialog.py:164 ../pitch/pitch.py:744 ../rhythm/rhythm.py:279
+#: ../scorewiz/dialog.py:192
 msgctxt "menu title"
 msgid "Tools"
 msgstr "Narzędzia"
 
-#: ../hyphendialog.py:167 ../help/contents.py:140 ../help/contents.py:147
+#: ../hyphendialog.py:165 ../help/contents.py:135 ../help/contents.py:142
 msgctxt "menu title"
 msgid "Edit"
 msgstr "Edytuj"
 
-#: ../hyphendialog.py:167 ../help/contents.py:141
+#: ../hyphendialog.py:165 ../help/contents.py:136
 #: ../preferences/__init__.py:106 ../preferences/midi.py:134
 #: ../preferences/prefshelp.py:36 ../preferences/prefshelp.py:42
 msgid "Preferences"
 msgstr "Preferencje"
 
-#: ../hyphendialog.py:169
+#: ../hyphendialog.py:167
 msgid ""
 "<p>\n"
 "Frescobaldi can automatically place hyphens '{hyphen}' inside texts to make\n"
@@ -485,7 +485,7 @@ msgstr "Zakończono ze statusem wyjściowym {status}."
 msgid "Completed successfully in {time}."
 msgstr "Zakończono pomyślnie w {time}."
 
-#: ../lilypondinfo.py:133
+#: ../lilypondinfo.py:134
 msgid "Running LilyPond, this can take some time..."
 msgstr ""
 
@@ -580,7 +580,7 @@ msgstr "Otwórz plik"
 #: ../mainwindow.py:472 ../mainwindow.py:540 ../mainwindow.py:599
 #: ../musicview/image.py:214 ../preferences/fontscolors.py:476
 #: ../preferences/fontscolors.py:514 ../snippet/import_export.py:104
-#: ../snippet/widget.py:300
+#: ../snippet/widget.py:319
 msgid "Error"
 msgstr "Błąd"
 
@@ -609,7 +609,7 @@ msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Zapisz zaznaczenie"
 
-#: ../mainwindow.py:473 ../mainwindow.py:600 ../snippet/widget.py:301
+#: ../mainwindow.py:473 ../mainwindow.py:600 ../snippet/widget.py:320
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -997,35 +997,35 @@ msgstr ""
 "Zastępuje wszystkie wystąpienia szukanego terminu w tym dokumencie lub "
 "zaznaczeniu."
 
-#: ../viewmanager.py:66 ../viewmanager.py:214
+#: ../viewmanager.py:67 ../viewmanager.py:215
 msgid "Line: {line}, Col: {column}"
 msgstr "Linia: {line}, kolumna: {column}"
 
-#: ../viewmanager.py:84 ../viewmanager.py:446
+#: ../viewmanager.py:85 ../viewmanager.py:447
 msgid "Split &Horizontally"
 msgstr "Podziel poziomo"
 
-#: ../viewmanager.py:87 ../viewmanager.py:447
+#: ../viewmanager.py:88 ../viewmanager.py:448
 msgid "Split &Vertically"
 msgstr "Podziel pionowo"
 
-#: ../viewmanager.py:91
+#: ../viewmanager.py:92
 msgid "&Close View"
 msgstr "Zamnkij okno"
 
-#: ../viewmanager.py:448
+#: ../viewmanager.py:449
 msgid "&Close Current View"
 msgstr "Zamknij bieżące okno"
 
-#: ../viewmanager.py:449
+#: ../viewmanager.py:450
 msgid "Close &Other Views"
 msgstr "Zamknij inne &okna"
 
-#: ../viewmanager.py:450
+#: ../viewmanager.py:451
 msgid "&Next View"
 msgstr "&Następne okno"
 
-#: ../viewmanager.py:451
+#: ../viewmanager.py:452
 msgid "&Previous View"
 msgstr "&Poprzedni okno"
 
@@ -1079,7 +1079,7 @@ msgstr "Dokumentacja &LilyPonda"
 msgid "&Contextual LilyPond Help"
 msgstr "&Kontekstowa pomoc LilyPonda"
 
-#: ../docbrowser/browser.py:115 ../snippet/widget.py:173
+#: ../docbrowser/browser.py:115 ../snippet/widget.py:179
 msgid "Search..."
 msgstr "Szukaj..."
 
@@ -1389,34 +1389,34 @@ msgstr ""
 msgid "Getting Started"
 msgstr "Pierwsze kroki"
 
-#: ../help/contents.py:138 ../preferences/fontscolors.py:482
+#: ../help/contents.py:133 ../preferences/fontscolors.py:482
 #: ../preferences/lilypond.py:239 ../scorewiz/settings.py:295
 msgid "LilyPond"
 msgstr "LilyPond"
 
-#: ../help/contents.py:138
+#: ../help/contents.py:133
 msgid "Engrave (publish)"
 msgstr "Narysuj (publikacja)"
 
-#: ../help/contents.py:142 ../preferences/__init__.py:184
+#: ../help/contents.py:137 ../preferences/__init__.py:184
 #: ../preferences/prefshelp.py:83
 msgid "LilyPond Preferences"
 msgstr "Ustawienia LilyPonda "
 
-#: ../help/contents.py:144
+#: ../help/contents.py:139
 msgctxt "menu title"
 msgid "View"
 msgstr "Widok"
 
-#: ../help/contents.py:145
+#: ../help/contents.py:140
 msgid "Clear Error Marks"
 msgstr "Wyczyść oznaczenia błędów"
 
-#: ../help/contents.py:148
+#: ../help/contents.py:143
 msgid "Copy to Image..."
 msgstr "Skopiuj do obrazu..."
 
-#: ../help/contents.py:149
+#: ../help/contents.py:145
 msgid ""
 "<p>\n"
 "The default screen of Frescobaldi shows a text document on the left and an\n"
@@ -1605,19 +1605,19 @@ msgstr ""
 "za pomocą opcji {menu_clear_error_marks}.\n"
 "</p>\n"
 
-#: ../help/contents.py:232
+#: ../help/contents.py:228
 msgid "Other Tools"
 msgstr "Inne narzędzia"
 
-#: ../help/contents.py:235
+#: ../help/contents.py:231
 msgid "<p>Some other important tools are listed here.</p>\n"
 msgstr ""
 
-#: ../help/contents.py:256
+#: ../help/contents.py:252
 msgid "About Frescobaldi"
 msgstr "O programie Frescobaldi"
 
-#: ../help/contents.py:259
+#: ../help/contents.py:255
 msgid ""
 "<p>\n"
 "Frescobaldi is named after\n"
@@ -1635,15 +1635,15 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:289
+#: ../help/contents.py:285
 msgid "Frescobaldi's main author is {author}."
 msgstr "Głównym autorem programu Frescobaldi jest {author}."
 
-#: ../help/contents.py:297
+#: ../help/contents.py:293
 msgid "Contributing"
 msgstr ""
 
-#: ../help/contents.py:300
+#: ../help/contents.py:296
 msgid ""
 "<p>\n"
 "Frescobaldi is a <a href=\"http://www.gnu.org/philosophy/free-sw.html"
@@ -1670,11 +1670,11 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:325
+#: ../help/contents.py:321
 msgid "History of Frescobaldi"
 msgstr "Historia programu Frescobaldi"
 
-#: ../help/contents.py:328
+#: ../help/contents.py:324
 msgid ""
 "<p>\n"
 "Frescobaldi has its roots in LilyKDE, which was a plugin for KDE3's editor "
@@ -1702,11 +1702,11 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:354
+#: ../help/contents.py:350
 msgid "The editor"
 msgstr "Edytor"
 
-#: ../help/contents.py:357
+#: ../help/contents.py:353
 msgid ""
 "<p>\n"
 "In this part the features of the editor are discussed,\n"
@@ -1715,15 +1715,15 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:374
+#: ../help/contents.py:370
 msgid "Search and replace"
 msgstr "Znajdź i zastąp"
 
-#: ../help/contents.py:382 ../preferences/prefshelp.py:42
+#: ../help/contents.py:376 ../preferences/prefshelp.py:42
 msgid "Edit"
 msgstr "Edytuj"
 
-#: ../help/contents.py:384
+#: ../help/contents.py:378
 msgid ""
 "<p>\n"
 "In the menu {edit_menu} the commands Find ({key_search})\n"
@@ -1774,11 +1774,11 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:432
+#: ../help/contents.py:426
 msgid "Document variables"
 msgstr "Zmienne dokumentu"
 
-#: ../help/contents.py:437
+#: ../help/contents.py:431
 msgid ""
 "Document variables are variables that influence the behaviour of "
 "Frescobaldi.\n"
@@ -1788,16 +1788,16 @@ msgid ""
 "the lines for variable definitions like <code>name: value;</code>.\n"
 msgstr ""
 
-#: ../help/contents.py:444
+#: ../help/contents.py:438
 msgid "The following variables are recognized:"
 msgstr "Rozpoznano następnujące zmienne:"
 
-#: ../help/contents.py:449
+#: ../help/contents.py:443
 msgid "mode"
 msgstr "tryb"
 
 #. L10N: do not translate the mode names lilypond, html, etc.
-#: ../help/contents.py:451
+#: ../help/contents.py:445
 msgid ""
 "Force mode to be one of lilypond, html, texinfo, latex, docbook or scheme. "
 "Default: automatic mode recognition."
@@ -1805,91 +1805,91 @@ msgstr ""
 "Wymuś jeden z następujących trybów: lilypond, html, texinfo, latex, docbook "
 "lub scheme. Domyślnie: automatyczne rozpoznanie trybu."
 
-#: ../help/contents.py:453
+#: ../help/contents.py:447
 msgid "filename"
 msgstr "nazwa pliku"
 
-#: ../help/contents.py:454
+#: ../help/contents.py:448
 msgid "Compiles another LilyPond document instead of the current."
 msgstr "Kompiluje inny dokument LilyPonda w miejsce bieżącego."
 
-#: ../help/contents.py:455
+#: ../help/contents.py:449
 msgid "encoding"
 msgstr "kodowanie"
 
-#: ../help/contents.py:456
+#: ../help/contents.py:450
 msgid "Use another encoding than the default UTF-8."
 msgstr "Użyj innego kodowania niż domyślne UTF-8."
 
-#: ../help/contents.py:457
+#: ../help/contents.py:451
 msgid "version"
 msgstr "wersja"
 
-#: ../help/contents.py:458
+#: ../help/contents.py:452
 msgid ""
 "Set the LilyPond version to use, can be used for non-LilyPond documents."
 msgstr ""
 "Ustaw wersję LilyPonda, której można użyć także dla dokumentów innych "
 "programów."
 
-#: ../help/contents.py:460 ../help/contents.py:468
+#: ../help/contents.py:454 ../help/contents.py:462
 msgid "number"
 msgstr "numer"
 
-#: ../help/contents.py:461
+#: ../help/contents.py:455
 msgid "The width of a tab character, by default 8."
 msgstr "Szerokość znaku tabulacji -  domyślnie 8."
 
-#: ../help/contents.py:463
+#: ../help/contents.py:457
 msgid "Whether to use tabs in indent, by default {no}."
 msgstr "Czy używać znaku tabulacji we wcięciach, domyślnie {no}."
 
-#: ../help/contents.py:466
+#: ../help/contents.py:460
 msgid "Whether to use tabs elsewhere in the document, by default {yes}."
 msgstr ""
 
-#: ../help/contents.py:469
+#: ../help/contents.py:463
 msgid "The number of spaces each indent level uses, by default 2."
 msgstr ""
 
-#: ../help/contents.py:477
+#: ../help/contents.py:471
 msgid "You can put document variables in comments."
 msgstr "Można umieścić zmienne użyte w dokumencie w postaci komentarzy."
 
-#: ../help/contents.py:484
+#: ../help/contents.py:478
 #, fuzzy
 msgid "Sessions"
 msgstr "Sesja "
 
-#: ../help/contents.py:489
+#: ../help/contents.py:483
 msgid ""
 "A session is basically a list of open files. At any time you can choose "
 "{menu_session_save} or {menu_session_new} and save the current list of open "
 "files to a named session."
 msgstr ""
 
-#: ../help/contents.py:492 ../help/contents.py:493 ../help/contents.py:502
+#: ../help/contents.py:486 ../help/contents.py:487 ../help/contents.py:496
 msgid "Session"
 msgstr "Sesja "
 
-#: ../help/contents.py:492 ../help/contents.py:502
+#: ../help/contents.py:486 ../help/contents.py:496
 #, fuzzy
 msgid "Save"
 msgstr "Zapisz"
 
-#: ../help/contents.py:493
+#: ../help/contents.py:487
 #, fuzzy
 msgctxt "New Session"
 msgid "New"
 msgstr "&Nowy"
 
-#: ../help/contents.py:494
+#: ../help/contents.py:488
 msgid ""
 "When you switch sessions, all current documents are closed first and then "
 "the documents of the other session are opened."
 msgstr ""
 
-#: ../help/contents.py:496
+#: ../help/contents.py:490
 msgid ""
 "Inside the session properties dialog, you can choose whether to always save "
 "the list of open documents to that session, or to only save on creation (or "
@@ -1898,11 +1898,11 @@ msgid ""
 "working."
 msgstr ""
 
-#: ../help/contents.py:503
+#: ../help/contents.py:497
 msgid "You can also specify a default directory for the session."
 msgstr ""
 
-#: ../help/contents.py:513
+#: ../help/contents.py:507
 msgid "Table of Contents"
 msgstr "Spis treści"
 
@@ -1918,7 +1918,7 @@ msgstr "Następny:"
 msgid "See also:"
 msgstr "Zobacz także"
 
-#: ../help/helpimpl.py:165
+#: ../help/helpimpl.py:176
 msgid "(no key defined)"
 msgstr "(nie zdefiniowano klawisza)"
 
@@ -3272,7 +3272,7 @@ msgid ""
 msgstr ""
 
 #: ../preferences/prefshelp.py:220 ../snippet/tool.py:54
-#: ../snippet/tool.py:135 ../snippet/widget.py:384
+#: ../snippet/tool.py:135 ../snippet/widget.py:403
 msgid "Snippets"
 msgstr "Wstawki"
 
@@ -4066,7 +4066,7 @@ msgctxt "submenu title"
 msgid "Rhythm"
 msgstr "Rytm"
 
-#: ../scorewiz/__init__.py:59 ../scorewiz/dialog.py:194
+#: ../scorewiz/__init__.py:56 ../scorewiz/dialog.py:192
 msgid "Setup New Score..."
 msgstr "Stwórz Nową Partyturę..."
 
@@ -4114,7 +4114,7 @@ msgstr "&Ustawienia partytury"
 msgid "The Score Wizard"
 msgstr "Kreator partytury"
 
-#: ../scorewiz/dialog.py:195
+#: ../scorewiz/dialog.py:193
 msgid ""
 "<p>\n"
 "The Score Setup Wizard ({key}) in {menu} is designed\n"
@@ -4252,7 +4252,7 @@ msgstr "Partytura:"
 msgid "&Add"
 msgstr "&Dodaj"
 
-#: ../scorewiz/score.py:103 ../snippet/widget.py:184 ../widgets/listedit.py:93
+#: ../scorewiz/score.py:103 ../snippet/widget.py:191 ../widgets/listedit.py:93
 #: ../widgets/schemeselector.py:64
 msgid "&Remove"
 msgstr "&Usuń"
@@ -5599,19 +5599,28 @@ msgstr "Skrót:"
 msgid "Click to change the keyboard shortcut."
 msgstr "Należy kliknąć, aby zmienić skróty klawiszowe."
 
-#: ../snippet/edit.py:140
+#: ../snippet/edit.py:141
 msgid "Empty Snippet"
 msgstr "Pusta wstawka"
 
-#: ../snippet/edit.py:140
+#: ../snippet/edit.py:142
 msgid "A snippet can't be empty."
 msgstr "Wstawka nie może być pusta."
 
-#: ../snippet/edit.py:202
+#: ../snippet/edit.py:147
+#, fuzzy
+msgid ""
+"The snippet has been modified.\n"
+"Do you want to save your changes or discard them?"
+msgstr ""
+"Dokument \"{name}\" został zmodyfikowany.\n"
+"Czy chcesz zachować zmiany, czy porzucić je?"
+
+#: ../snippet/edit.py:214
 msgid "Snippet editor"
 msgstr "Edytor wstawek"
 
-#: ../snippet/edit.py:207
+#: ../snippet/edit.py:219
 msgid ""
 "<p>Here you can edit the text of the snippet.</p><p>If you start the first "
 "line(s) with '<code>-*- </code>' (note the space), the remainder of that line"
@@ -5620,77 +5629,77 @@ msgid ""
 "can be used:</p>"
 msgstr ""
 
-#: ../snippet/edit.py:216
+#: ../snippet/edit.py:228
 msgid "Place the snippet in the insert menu, grouped by the (optional) value."
 msgstr ""
 
-#: ../snippet/edit.py:218
+#: ../snippet/edit.py:230
 msgid ""
 "Place the snippet in the menu {file_new_from_template}, grouped by the "
 "(optional) value. When triggered via the menu, the snippet is inserted into "
 "a new document."
 msgstr ""
 
-#: ../snippet/edit.py:222
+#: ../snippet/edit.py:234
 msgctxt "menu title"
 msgid "File"
 msgstr "Plik"
 
-#: ../snippet/edit.py:223
+#: ../snippet/edit.py:235
 msgctxt "menu subtitle"
 msgid "New from Template"
 msgstr "Nowy z szablonu"
 
-#: ../snippet/edit.py:225
+#: ../snippet/edit.py:237
 msgid "The mnemonic to type to select the snippet."
 msgstr ""
 
-#: ../snippet/edit.py:227
+#: ../snippet/edit.py:239
 msgid "Do not auto-indent the snippet after inserting."
 msgstr "Nie stosuj automatycznego wcięcia po umieszczeniu wstawki."
 
-#: ../snippet/edit.py:229
+#: ../snippet/edit.py:241
 msgid "The icon to show in menu and snippet list."
 msgstr "Ikona wstawki używana w menu i na liście wstawek."
 
-#: ../snippet/edit.py:231
+#: ../snippet/edit.py:243
 msgid ""
 "The symbol to show in menu and snippet list. Symbols are icons that use the "
 "default text color and can be found in {directory}."
 msgstr ""
 
-#: ../snippet/edit.py:235
+#: ../snippet/edit.py:247
 msgid "Execute the snippet as a Python script. See {link}."
 msgstr "Wykonaj wstawkę jako skrypt Pythona. Zobacz {link}."
 
-#: ../snippet/edit.py:238
+#: ../snippet/edit.py:250
 msgid "One of more of the following words (separated with spaces or commas):"
 msgstr ""
 
-#: ../snippet/edit.py:241
+#: ../snippet/edit.py:253
 msgid "Requires text to be selected."
 msgstr "Wymaga zaznaczenia tekstu."
 
-#: ../snippet/edit.py:243
+#: ../snippet/edit.py:255
 msgid "Adjusts the selection to not include starting and trialing whitespace."
 msgstr ""
 
-#: ../snippet/edit.py:245
+#: ../snippet/edit.py:257
 msgid "Selects all inserted text."
 msgstr "Zaznacza cały wprowadzony tekst."
 
-#: ../snippet/edit.py:251
+#: ../snippet/edit.py:263
 msgid ""
 "<p>The other lines of the snippet define the text to be inserted in the "
 "editor. Here, you can insert variables prefixed with a $. A double $ will be "
 "replaced with a single one. The following variables are recognized:</p>"
 msgstr ""
 
-#: ../snippet/edit.py:267
+#: ../snippet/edit.py:279
 msgid "Python Snippets"
 msgstr "Wstawki Pythona"
 
-#: ../snippet/edit.py:272
+#: ../snippet/edit.py:284
 msgid ""
 "<p>Python snippets can read and should set the variable {text}. The variable "
 "{text} contains the currently selected text (which may be an empty string).</"
@@ -5699,30 +5708,30 @@ msgid ""
 "<p>Other variables that may be referenced:</p>"
 msgstr ""
 
-#: ../snippet/edit.py:280
+#: ../snippet/edit.py:292
 msgid "A list of strings describing the type of text the cursor is at."
 msgstr ""
 
-#: ../snippet/edit.py:282
+#: ../snippet/edit.py:294
 msgid ""
 "The current QTextCursor, giving access to the document. Don't change the "
 "document through the cursor, however."
 msgstr ""
 
-#: ../snippet/edit.py:285
+#: ../snippet/edit.py:297
 msgid ""
 "When setting {text} to a list instead of a string, you can use this value to "
 "specify the place the text cursor will be placed after inserting the snippet."
 msgstr ""
 
-#: ../snippet/edit.py:289
+#: ../snippet/edit.py:301
 msgid ""
 "When setting {text} to a list instead of a string, this value can be used "
 "together with {cursor} to select text when inserting the string parts of the "
 "list."
 msgstr ""
 
-#: ../snippet/edit.py:294
+#: ../snippet/edit.py:306
 msgid ""
 "When you define a function with this name, it is called without arguments, "
 "instead of inserting the text from the {text} variable. In this case you may "
@@ -5773,7 +5782,7 @@ msgstr ""
 msgid "No snippets found."
 msgstr "Nie znaleziono żadnych wstawek."
 
-#: ../snippet/import_export.py:111 ../snippet/widget.py:274
+#: ../snippet/import_export.py:111 ../snippet/widget.py:293
 msgctxt "dialog title"
 msgid "Import Snippets"
 msgstr "Importuj wstawki"
@@ -5883,85 +5892,90 @@ msgstr "Zarządzaj szablonami..."
 msgid "&Snippets..."
 msgstr "W&stawki..."
 
-#: ../snippet/widget.py:177
+#: ../snippet/widget.py:183
 msgid "&Menu"
 msgstr "&Menu"
 
-#: ../snippet/widget.py:178 ../widgets/listedit.py:91
+#: ../snippet/widget.py:184 ../widgets/listedit.py:91
 msgid "&Add..."
 msgstr "&Dodaj..."
 
-#: ../snippet/widget.py:180
+#: ../snippet/widget.py:186
 msgid "Add a new snippet. ({key})"
 msgstr "Dodaj nową wstawkę. ({key})"
 
-#: ../snippet/widget.py:181 ../widgets/listedit.py:92
+#: ../snippet/widget.py:187 ../widgets/listedit.py:92
 msgid "&Edit..."
 msgstr "&Edytuj..."
 
-#: ../snippet/widget.py:183
+#: ../snippet/widget.py:189
 msgid "Edit the current snippet. ({key})"
 msgstr "Edytuj bieżącą wstawkę. ({key})"
 
-#: ../snippet/widget.py:185
+#: ../snippet/widget.py:190
+#, fuzzy
+msgid "Configure Keyboard &Shortcut..."
+msgstr "Konfiguracja skrótów klawiszowych ({key})"
+
+#: ../snippet/widget.py:192
 msgid "Remove the selected snippets."
 msgstr "Usuń zaznaczone wstawki."
 
-#: ../snippet/widget.py:186
+#: ../snippet/widget.py:193
 msgid "A&pply"
 msgstr "Zastosuj"
 
-#: ../snippet/widget.py:187
+#: ../snippet/widget.py:194
 msgid "Apply the current snippet."
 msgstr "Zatwierdź bieżącą wstawkę."
 
-#: ../snippet/widget.py:188
+#: ../snippet/widget.py:195
 msgid "&Import..."
 msgstr "&Importuj..."
 
-#: ../snippet/widget.py:189
+#: ../snippet/widget.py:196
 msgid "Import snippets from a file."
 msgstr "Importuj wstawkę z pliku."
 
-#: ../snippet/widget.py:190
+#: ../snippet/widget.py:197
 msgid "E&xport..."
 msgstr "E&ksportuj..."
 
-#: ../snippet/widget.py:191
+#: ../snippet/widget.py:198
 msgid "Export snippets to a file."
 msgstr "Eksportuj wstawkę do pliku."
 
-#: ../snippet/widget.py:192
+#: ../snippet/widget.py:199
 msgid "Restore &Built-in Snippets..."
 msgstr ""
 
-#: ../snippet/widget.py:194
+#: ../snippet/widget.py:201
 msgid "Restore deleted or changed built-in snippets."
 msgstr ""
 
-#: ../snippet/widget.py:195
+#: ../snippet/widget.py:202
 msgid "&Help"
 msgstr "Pomo&c"
 
-#: ../snippet/widget.py:197
+#: ../snippet/widget.py:204
 msgid ""
 "Enter text to search in the snippets list.\n"
 "See \"What's This\" for more information."
 msgstr ""
 
-#: ../snippet/widget.py:200
+#: ../snippet/widget.py:207
 msgid ""
 "Enter text to search in the snippets list, and press Enter to apply the "
 "currently selected snippet."
 msgstr ""
 
-#: ../snippet/widget.py:202
+#: ../snippet/widget.py:209
 msgid ""
 "If the search text fully matches the value of the '{name}' variable of a "
 "snippet, that snippet is selected."
 msgstr ""
 
-#: ../snippet/widget.py:204
+#: ../snippet/widget.py:211
 msgid ""
 "If the search text starts with a colon ':', the rest of the search text "
 "filters snippets that define the given variable. After a space a value can "
@@ -5969,17 +5983,17 @@ msgid ""
 "contains the text after the space."
 msgstr ""
 
-#: ../snippet/widget.py:209
+#: ../snippet/widget.py:216
 msgid ""
 "E.g. entering {menu} will show all snippets that are displayed in the insert "
 "menu."
 msgstr ""
 
-#: ../snippet/widget.py:273 ../snippet/widget.py:290
+#: ../snippet/widget.py:292 ../snippet/widget.py:309
 msgid "XML Files"
 msgstr "Pliki XML"
 
-#: ../snippet/widget.py:293
+#: ../snippet/widget.py:312
 msgctxt "dialog title"
 msgid "Export {num} Snippet"
 msgid_plural "Export {num} Snippets"
@@ -5987,7 +6001,7 @@ msgstr[0] "Ekportuj {num} wstawkę"
 msgstr[1] "Eksportuj {num} wstawki"
 msgstr[2] "Eksportuj {num} wstawek"
 
-#: ../snippet/widget.py:390
+#: ../snippet/widget.py:407
 msgid ""
 "<p>\n"
 "With the snippets manager you can store often used pieces of text called\n"
@@ -6024,12 +6038,12 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../snippet/widget.py:422
+#: ../snippet/widget.py:439
 msgctxt "menu title"
 msgid "Insert"
 msgstr "Wstaw "
 
-#: ../snippet/widget.py:422
+#: ../snippet/widget.py:439
 msgid "Snippets..."
 msgstr "Wstawki..."
 
