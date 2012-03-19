@@ -116,7 +116,7 @@ def addAccelerators(actions, used=[]):
     todo = [(a, find(a)) for a in todo]
     
     while todo:
-        # check if the actions would get the same accelerator
+        # just pick the first accel for every action
         accels = {}
         for a, source in todo:
             for prio, pos, accel in source:
@@ -124,15 +124,15 @@ def addAccelerators(actions, used=[]):
                     accels.setdefault(accel, []).append((prio, pos, a, source))
                     break
         
+        # now, fore every accel, if more than one action wants the same accel,
+        # pick the action with the first priority or position, and try again the
+        # other actions.
         todo = []
         used.update(accels)
         for action_list in accels.itervalues():
-            # sort actions on priority, position, else original order ...
             action_list.sort(key=lambda i: i[:2])
-            # ... give the accelerator to the most important one ...
             pos, a = action_list[0][1:3]
             a.setText(a.text()[:pos] + '&' + a.text()[pos:])
-            # ... and try again for the other(s):
             todo.extend((a, source) for prio, pos, a, source in action_list[1:])
 
 
