@@ -31,7 +31,9 @@ import help
 import icons
 import widgets.lineedit
 import textformats
+import actioncollectionmanager
 
+from . import actions
 from . import model
 from . import snippets
 from . import edit
@@ -113,6 +115,10 @@ class Widget(QWidget):
         editButton.setDefaultAction(a)
         menu.addAction(a)
         
+        # set shortcut action
+        a = self.shortcutAction = act(self.slotShortcut, 'configure-shortcuts')
+        menu.addAction(a)
+        
         # delete action
         a = self.deleteAction = act(self.slotDelete, 'list-remove')
         a.setShortcut(QKeySequence(Qt.CTRL + Qt.Key_Delete))
@@ -181,6 +187,7 @@ class Widget(QWidget):
         self.editAction.setText(_("&Edit..."))
         self.editAction.setToolTip(
             _("Edit the current snippet. ({key})").format(key=shortcut(self.editAction)))
+        self.shortcutAction.setText(_("Configure Keyboard &Shortcut..."))
         self.deleteAction.setText(_("&Remove"))
         self.deleteAction.setToolTip(_("Remove the selected snippets."))
         self.applyAction.setText(_("A&pply"))
@@ -250,6 +257,18 @@ class Widget(QWidget):
         name = self.currentSnippet()
         if name:
             edit.Edit(self, name)
+        
+    def slotShortcut(self):
+        """Called when the user selects the Configure Shortcut action."""
+        name = self.currentSnippet()
+        if name:
+            collection = self.parent().snippetActions
+            action = actions.action(name, None, collection)
+            mgr = actioncollectionmanager.manager(self.parent().mainwindow())
+            if mgr.editAction(self, action, collection.defaults().get(name),
+                              (collection, name)):
+                collection.setShortcuts(name, action.shortcuts())
+                self.treeView.update()
         
     def slotDelete(self):
         """Called when the user wants to delete the selected rows."""
