@@ -47,7 +47,6 @@ def show(position, panel, link, cursor):
     if not m.actions():
         m.addAction(panel.actionCollection.music_fit_width)
         m.addAction(panel.actionCollection.music_fit_height)
-        m.addAction(panel.actionCollection.music_fit_both)
         m.addAction(panel.actionCollection.music_zoom_original)
     
     # show it!
