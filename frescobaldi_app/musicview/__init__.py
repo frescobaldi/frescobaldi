@@ -92,6 +92,7 @@ class MusicViewPanel(panel.Panel):
         ac.music_print.triggered.connect(self.printMusic)
         ac.music_zoom_in.triggered.connect(self.zoomIn)
         ac.music_zoom_out.triggered.connect(self.zoomOut)
+        ac.music_zoom_original.triggered.connect(self.zoomOriginal)
         ac.music_zoom_combo.zoomChanged.connect(self.slotZoomChanged)
         ac.music_fit_width.triggered.connect(self.fitWidth)
         ac.music_fit_height.triggered.connect(self.fitHeight)
@@ -181,6 +182,10 @@ class MusicViewPanel(panel.Panel):
         self.widget().view.zoomOut()
     
     @activate
+    def zoomOriginal(self):
+        self.widget().view.zoom(1.0)
+    
+    @activate
     def fitWidth(self):
         self.widget().view.setViewMode(FitWidth)
     
@@ -224,6 +229,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_print = QAction(panel)
         self.music_zoom_in = QAction(panel)
         self.music_zoom_out = QAction(panel)
+        self.music_zoom_original = QAction(panel)
         self.music_zoom_combo = ZoomerAction(panel)
         self.music_fit_width = QAction(panel)
         self.music_fit_height = QAction(panel)
@@ -241,6 +247,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_print.setIcon(icons.get('document-print'))
         self.music_zoom_in.setIcon(icons.get('zoom-in'))
         self.music_zoom_out.setIcon(icons.get('zoom-out'))
+        self.music_zoom_original.setIcon(icons.get('zoom-original'))
         self.music_fit_width.setIcon(icons.get('zoom-fit-width'))
         self.music_fit_height.setIcon(icons.get('zoom-fit-height'))
         self.music_fit_both.setIcon(icons.get('zoom-fit-best'))
@@ -261,6 +268,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_print.setText(_("&Print Music..."))
         self.music_zoom_in.setText(_("Zoom &In"))
         self.music_zoom_out.setText(_("Zoom &Out"))
+        self.music_zoom_original.setText(_("Original &Size"))
         self.music_zoom_combo.setText(_("Zoom Music"))
         self.music_fit_width.setText(_("Fit &Width"))
         self.music_fit_height.setText(_("Fit &Height"))

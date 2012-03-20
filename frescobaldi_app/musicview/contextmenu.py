@@ -43,16 +43,17 @@ def show(position, panel, link, cursor):
         m.addAction(panel.actionCollection.music_copy_image)
     
     
-    # no actions yet? insert Fit Width
+    # no actions yet? insert Fit Width/Height
     if not m.actions():
-        a = panel.actionCollection.music_fit_width
-        if not a.isChecked():
-            m.addAction(a)
+        m.addAction(panel.actionCollection.music_fit_width)
+        m.addAction(panel.actionCollection.music_fit_height)
+        m.addAction(panel.actionCollection.music_fit_both)
+        m.addAction(panel.actionCollection.music_zoom_original)
     
     # show it!
     if m.actions():
         m.exec_(position)
-        m.deleteLater()
+    m.deleteLater()
 
 
 

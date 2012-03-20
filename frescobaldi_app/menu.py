@@ -174,6 +174,7 @@ def menu_view_music(mainwindow):
     
     m.addAction(ac.music_zoom_in)
     m.addAction(ac.music_zoom_out)
+    m.addAction(ac.music_zoom_original)
     m.addSeparator()
     m.addAction(ac.music_fit_width)
     m.addAction(ac.music_fit_height)
