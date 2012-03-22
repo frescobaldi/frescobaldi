@@ -35,7 +35,7 @@ import lilypondinfo
 def info(document):
     """Returns a LilyPondInfo instance that should be used by default to engrave the document."""
     version = documentinfo.info(document).version()
-    if version and QSettings().value("lilypond_settings/autoversion", True) in (True, "true"):
+    if version and QSettings().value("lilypond_settings/autoversion", False) in (True, "true"):
         return lilypondinfo.suitable(version)
     return lilypondinfo.preferred()
         

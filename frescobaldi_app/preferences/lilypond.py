@@ -104,7 +104,7 @@ class Versions(preferences.Group):
         s = settings()
         default = lilypondinfo.default()
         self._defaultCommand = s.value("default", default.command)
-        self.auto.setChecked(s.value("autoversion", True) in (True, "true"))
+        self.auto.setChecked(s.value("autoversion", False) in (True, "true"))
         infos = sorted(lilypondinfo.infos(), key=lambda i: i.version())
         if not infos:
             infos = [default]
