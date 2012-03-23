@@ -48,7 +48,7 @@ class Widget(QWidget):
         self._stopButton = QToolButton()
         self._playButton = QToolButton()
         self._timeSlider = QSlider(Qt.Horizontal, tracking=False,
-            singleStep=200, pageStep=5000, invertedControls=True)
+            singleStep=500, pageStep=5000, invertedControls=True)
         self._display = Display()
         self._tempoFactor = QSlider(Qt.Vertical, minimum=-50, maximum=50,
             singleStep=1, pageStep=5)
