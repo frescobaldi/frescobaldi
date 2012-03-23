@@ -11,14 +11,22 @@ Changes in 2.0.5 --
   - New snippet action to configure keyboard shortcut without opening editor
   - Alt+Up and Alt+Down jump between blank lines (implemented as snippets),
     with Shift they select text
+  - New command in View->Music View and Music View contextmenu: "Original Size"
 * Improvements:
   - Running convert-ly (or undoing it) does not erase point and click positions
     anymore
   - Much better default background color for the Music View
+  - When dragging the time slider in a MIDI file, program and controller changes
+    are followed (issue #26)
   - On Windows, better try to find LilyPond even if it is not in the PATH
   - Snippet editor warns when closing modified snippet
+  - Accelerators (the underlined characters) in menus such as Recent Files,
+    Session and Insert that are are automatically created, are determined in
+    a smarter way
 * Bugfixes:
   - fix Ctrl+K deleting a line too much in some cases
+* For Linux distribution packagers:
+  - The CC-licensed zoom-{in,out} icons are now replaced with GPLled ones
 
 
 Changes in 2.0.4 -- March 7th, 2012
