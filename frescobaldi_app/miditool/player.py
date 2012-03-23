@@ -23,13 +23,42 @@ The MIDI player for Frescobaldi.
 
 from __future__ import unicode_literals
 
+from midifile.event import ControllerEvent, ProgramChangeEvent
 import qmidi.player
 import midihub
+
+
+def event_filter(midi_event):
+    """If this function returns True, the MIDI event is sent while seeking."""
+    return isinstance(midi_event, (ControllerEvent, ProgramChangeEvent))
 
 
 class Player(qmidi.player.Player):
     """This Player uses the time from midihub."""
     def timer_midi_time(self):
         return midihub.time()
+
+    def position_event(self, old, new):
+        """Called when seeking. Performs program changes."""
+        super(Player, self).position_event(old, new)
+        output = self.output()
+        if not output:
+            return
+        if new > old:
+            evs = self._events[old:new]
+        else:
+            evs = self._events[:new]
+            output.reset()
+        for time, e in evs:
+            if e.midi:
+                if isinstance(e.midi, dict):
+                    # dict mapping track to events?
+                    midi = sum(map(e.midi.get, sorted(e.midi)), [])
+                else:
+                    midi = e.midi
+                # no note events of course
+                midi = [mev for mev in midi if event_filter(mev)]
+                if midi:
+                    output.send_events(midi)
 
 
