@@ -100,7 +100,7 @@ def addAccelerators(actions, used=[]):
         
         """
         text = action.text()
-        if isinstance(action, QAction) and action.shortcut():
+        if isinstance(action, QAction) and len(action.shortcut()) > 0:
             # if the action has a shortcut with A-Z or 0-9, match that character
             key = action.shortcut()[-1] & ~Qt.ALT & ~Qt.SHIFT & ~Qt.CTRL & ~Qt.META
             if 48 < key < 58 or 64 < key < 91 or 96 < key < 123:
