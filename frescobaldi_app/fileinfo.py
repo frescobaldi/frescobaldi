@@ -84,11 +84,10 @@ class FileInfo(object):
         
     def tokens(self):
         """Generator, yielding the token stream from the file."""
-        if self._tokensource is None:
-            self.mode.start()
-            self._tokensource = ly.lex.state(self.mode()).tokens(self.text())
-        elif self._tokensource is False:
+        if self._tokensource is False:
             return iter(self._tokens)
+        elif self._tokensource is None:
+            self._tokensource = ly.lex.state(self.mode()).tokens(self.text())
         return self._token_iterator()
     
     def _token_iterator(self):
