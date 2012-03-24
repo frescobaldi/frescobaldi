@@ -26,25 +26,118 @@ from __future__ import unicode_literals
 import functools
 import itertools
 import os
+import re
 
 import ly.parse
 import ly.lex
 import filecache
+import cachedproperty
 import util
 import variables
 
 
-def _cache(func):
-    """Wraps a function to make it use a FileCache."""
-    cache = filecache.FileCache()
-    @functools.wraps(func)
-    def wrapper(filename):
+class CachedProperty(cachedproperty.CachedProperty):
+    """CachedProperty that always computes the return value if requested."""
+    def __call__(self):
+        value = self.get()
+        if value is not None:
+            return value
+        self.start()
+        return self.get()
+
+
+class FileInfo(object):
+    """Caches information about files."""
+    _cache = filecache.FileCache()
+    
+    @classmethod
+    def info(cls, filename):
         try:
-            return cache[filename]
+            info = cls._cache[filename]
         except KeyError:
-            result = cache[filename] = func(filename)
-            return result
-    return wrapper
+            info = cls._cache[filename] = cls(filename)
+        return info
+    
+    def __init__(self, filename):
+        self.filename = filename
+        self._tokens = []
+        self._tokensource = None
+    
+    @CachedProperty.cachedproperty
+    def text(self):
+        """The text of the file (as unicode string)."""
+        with open(self.filename) as f:
+            return util.decode(f.read())
+    
+    @CachedProperty.cachedproperty(depends=text)
+    def variables(self):
+        """A dictionary with variables defined in the text."""
+        return variables.variables(self.text())
+    
+    @CachedProperty.cachedproperty(depends=variables)
+    def mode(self):
+        """The mode of the text (e.g. 'lilypond', 'html', etc)."""
+        mode = self.variables().get("mode")
+        if mode in ly.lex.modes:
+            return mode
+        return ly.lex.guessMode(self.text())
+        
+    def tokens(self):
+        """Generator, yielding the token stream from the file."""
+        if self._tokensource is None:
+            self.mode.start()
+            self._tokensource = ly.lex.state(self.mode()).tokens(self.text())
+        elif self._tokensource is False:
+            return iter(self._tokens)
+        return self._token_iterator()
+    
+    def _token_iterator(self):
+        """(Internal) the caching iterator self.tokens() uses."""
+        for i in itertools.count():
+            try:
+                yield self._tokens[i]
+            except IndexError:
+                if self._tokensource is False:
+                    return
+                try:
+                    token = next(self._tokensource)
+                    self._tokens.append(token)
+                    yield token
+                except StopIteration:
+                    self._tokensource = False
+    
+    @CachedProperty.cachedproperty(depends=mode)    
+    def version(self):
+        """Returns the LilyPond version if set in the file, as a tuple of ints.
+        
+        First the function searches inside LilyPond syntax.
+        Then it looks at the 'version' document variable.
+        Then, if the document is not a LilyPond document, it simply searches for a
+        \\version command string, possibly embedded in a comment.
+        
+        """
+        mkver = lambda strings: tuple(map(int, strings))
+        version = ly.parse.version(self.tokens())
+        if version:
+            return mkver(re.findall(r"\d+", version))
+        # look at document variables
+        version = self.variables().get("version")
+        if version:
+            return mkver(re.findall(r"\d+", version))
+        # parse whole document for non-lilypond comments
+        m = re.search(r'\\version\s*"(\d+\.\d+(\.\d+)*)"', text)
+        if m:
+            return mkver(m.group(1).split('.'))
+
+    @CachedProperty.cachedproperty(depends=mode)
+    def includeargs(self):
+        """The list of arguments of \\include commands in the given file."""
+        return list(ly.parse.includeargs(self.tokens()))
+
+    @CachedProperty.cachedproperty(depends=mode)
+    def outputargs(self):
+        """The list of arguments of \\bookOutputName, \\bookOutputSuffix etc."""
+        return list(ly.parse.outputargs(self.tokens()))
 
 
 def textmode(text, guess=True):
@@ -58,31 +151,6 @@ def textmode(text, guess=True):
         return mode
     if guess:
         return ly.lex.guessMode(text)
-
-
-@_cache
-def mode(filename):
-    """Returns the type of the text in the given filename."""
-    with open(filename) as f:
-        text = util.decode(f.read())
-    return textmode(text)
-
-
-def tokens(filename):
-    """Returns a token stream from the given filename."""
-    with open(filename) as f:
-        text = util.decode(f.read())
-    return ly.lex.state(textmode(text)).tokens(text)
-
-
-@_cache
-def includeargs(filename):
-    """Returns the list of arguments of \\include commands in the given file.
-    
-    The return value is cached until the mtime of the file changes.
-    
-    """
-    return list(ly.parse.includeargs(tokens(filename)))
 
 
 def includefiles(filename, include_path=[], initial_args=None):
@@ -103,7 +171,7 @@ def includefiles(filename, include_path=[], initial_args=None):
         path = os.path.join(directory, arg)
         if os.path.exists(path) and path not in files:
             files.add(path)
-            args = includeargs(path)
+            args = FileInfo.info(path).includeargs()
             find(args, os.path.dirname(path))
             return True
             
@@ -119,20 +187,10 @@ def includefiles(filename, include_path=[], initial_args=None):
                             break
     
     if initial_args is None:
-        initial_args = includeargs(filename)
+        initial_args = FileInfo.info(filename).includeargs()
     basedir = os.path.dirname(filename)
     find(initial_args, basedir)
     return files
-
-
-@_cache
-def outputargs(filename):
-    """Returns the list of arguments of \\bookOutputName, \\bookOutputSuffix etc. commands.
-    
-    See outputargs(). The return value is cached until the mtime of the file changes.
-    
-    """
-    return list(ly.parse.outputargs(tokens(filename)))
 
 
 def basenames(filename, includefiles = None, initial_outputargs = None):
@@ -153,12 +211,12 @@ def basenames(filename, includefiles = None, initial_outputargs = None):
     includes = set(includefiles) if includefiles else set()
     
     if initial_outputargs is None:
-        initial_outputargs = outputargs(filename)
+        initial_outputargs = FileInfo.info(filename).outputargs()
     
     def args():
         yield initial_outputargs
         for filename in includes:
-            yield outputargs(filename)
+            yield FileInfo.info(filename).outputargs()
                 
     for type, arg in itertools.chain.from_iterable(args()):
         if type == "suffix":
@@ -168,34 +226,4 @@ def basenames(filename, includefiles = None, initial_outputargs = None):
             basenames.append(path)
     return basenames
 
-@_cache
-def version(filename):
-    """Returns the LilyPond version if set in the file, as a tuple of ints.
-    
-    First the function searches inside LilyPond syntax.
-    Then it looks at the 'version' document variable.
-    Then, if the document is not a LilyPond document, it simply searches for a
-    \\version command string, possibly embedded in a comment.
-    
-    The version is cached until the file changes.
-    
-    """
-    mkver = lambda strings: tuple(map(int, strings))
-    with open(filename) as f:
-        text = util.decode(f.read())
-    mode = textmode(text)
-    tokens_ = list(ly.lex.state(mode).tokens(text))
-
-    version = ly.parse.version(tokens_)
-    if version:
-        return mkver(re.findall(r"\d+", version))
-    # look at document variables
-    version = variables.variables(text).get("version")
-    if version:
-        return mkver(re.findall(r"\d+", version))
-    # parse whole document for non-lilypond comments
-    if mode != "lilypond":
-        m = re.search(r'\\version\s*"(\d+\.\d+(\.\d+)*)"', text)
-        if m:
-            return mkver(m.group(1).split('.'))
 

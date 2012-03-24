@@ -40,7 +40,6 @@ import job
 import log
 import util
 import qutil
-import fileinfo
 import lilypondinfo
 import popplerview
 import popplertools

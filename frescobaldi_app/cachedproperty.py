@@ -239,7 +239,7 @@ class CachedProperty(object):
         
         """
         state = self.state()
-        if not state.running:
+        if not state.running and state.value is None:
             state.running = True
             self.checkstart()
     

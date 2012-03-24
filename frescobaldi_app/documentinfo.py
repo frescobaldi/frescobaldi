@@ -200,7 +200,7 @@ class DocumentInfo(plugin.DocumentPlugin):
         includepath = []
         filename = self.master()
         if filename:
-            mode_ = fileinfo.mode(filename)
+            mode_ = fileinfo.FileInfo.info(filename).mode()
         else:
             filename = self.document().url().toLocalFile()
             mode_ = self.mode()
