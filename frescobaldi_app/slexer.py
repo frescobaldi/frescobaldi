@@ -266,7 +266,8 @@ class PatternProperty(object):
             clss = list(uniq(owner.items))
             # make the pattern
             owner.pattern = self.pattern = pattern = re.compile("|".join(
-                "(?P<g_{0}>{1})".format(i, cls.rx) for i, cls in enumerate(clss)))
+                "(?P<g_{0}>{1})".format(i, cls.rx)
+                for i, cls in enumerate(clss)), owner.re_flags)
             # make a fast mapping list from matchObj.lastindex to the token class
             indices = sorted(v for k, v in pattern.groupindex.items() if k.startswith('g_'))
             owner.index = self.index = index = [None] * (indices[-1] + 1)
@@ -298,6 +299,7 @@ class Parser(object):
     by the default implementation of update_state() in Token.
     
     """
+    re_flags = None # the re.compile flags to use
     default = None # if not None, the default class for unparsed pieces of text
     
     # tuple of Token classes to look for in text
