@@ -105,7 +105,7 @@ class FileInfo(object):
                 except StopIteration:
                     self._tokensource = False
     
-    @CachedProperty.cachedproperty(depends=mode)    
+    @CachedProperty.cachedproperty(depends=variables)
     def version(self):
         """Returns the LilyPond version if set in the file, as a tuple of ints.
         
@@ -124,7 +124,7 @@ class FileInfo(object):
         if version:
             return mkver(re.findall(r"\d+", version))
         # parse whole document for non-lilypond comments
-        m = re.search(r'\\version\s*"(\d+\.\d+(\.\d+)*)"', text)
+        m = re.search(r'\\version\s*"(\d+\.\d+(\.\d+)*)"', self.text())
         if m:
             return mkver(m.group(1).split('.'))
 
