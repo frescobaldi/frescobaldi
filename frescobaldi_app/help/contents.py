@@ -450,15 +450,7 @@ the lines for variable definitions like <code>name: value;</code>.
             ('output', _("name"), ' '.join((
                 _("Looks for output documents (PDF, MIDI, etc.) starting with "
                   "the specified name or comma-separated list of names."),
-                _("If a name ends with a directory separator, output files are "
-                  "looked for in the specified directory. "),
-                _("All names are relative to the document's filename."),
-                _("You can set this variable if you want to override the "
-                  "automatic output file name determination (which can be time-"
-                  "consuming, as Frescobaldi parses the document and all the "
-                  "documents it includes, searching for the LilyPond commands "
-                  "that specify the output name, such as "
-                  "<code>\\bookOutputName</code>, etc)."),
+                docvar_output.link(_("More information.")),
                 ))),
             ('coding', _("encoding"),
                 _("Use another encoding than the default UTF-8.")),
@@ -485,6 +477,46 @@ the lines for variable definitions like <code>name: value;</code>.
         text.append(_("You can put document variables in comments."))
         text.append('</p>')
         return ''.join(text)
+    
+    def children():
+        return (
+            docvar_output,
+        )
+
+
+class docvar_output(page):
+    def title():
+        return _("The \"{output}\" document variable").format(
+            output='<code>output</code>')
+    
+    def body():
+        return '\n'.join(map('<p>{0}</p>'.format, (
+            _("Setting this variable suppresses the automatic output file name "
+              "determination and makes Frescobaldi look for output documents "
+              "(PDF, MIDI, etc.) with the specified basename, or comma-"
+              "separated list of names."),
+            _("If a name ends with a directory separator, output files are "
+              "looked for in the specified directory. "),
+            _("All names are relative to the document's filename."),
+            _("For example:"),
+            colorize(r"""\version "2.14.2"
+% -*- output: pdfs/;
+\book {
+  \bookOutputName #(string-append "pdfs/" some-variable)
+  \score {
+    \relative c' {
+      c d e f g
+    }
+  }
+}"""),
+            _("You can set this variable if the automatic output file name "
+              "determination would be time-consuming (as Frescobaldi parses "
+              "the document and all the documents it includes, searching for "
+              "the LilyPond commands that specify the output name, such as "
+              "<code>\\bookOutputName</code>, etc); or when the automatic "
+              "output file name determination does not work due to complicated "
+              "LilyPond code."),
+            )))
 
 
 class sessions(page):
@@ -559,10 +591,15 @@ class ts_no_music_visible(page):
                 "to specify the output filenames, Frescobaldi may not be able "
                 "to correctly determine those filenames.")),
             p(_("In that case you can override the base name(s) using the "
-                "{output} document variable.").format(output='<code>output</code>')),
-            p(_("See also {link}.").format(link=document_variables.link())),
+                "{output} document variable.").format(
+                    output=docvar_output.link('<code>output</code>'))),
             ))),
         )))
+    
+    def seealso():
+        return (
+            document_variables,
+        )
 
 
 class toc(page):
