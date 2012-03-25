@@ -169,7 +169,7 @@ def insert_select(cursor, text):
 
 def isblank(block):
     """Returns True if the block is an empty or blank line."""
-    text = block().text()
+    text = block.text()
     return not text or text.isspace()
 
 
