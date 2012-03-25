@@ -198,7 +198,17 @@ class CachedProperty(object):
         """Retrieves the value, which may be None (unset)."""
         return self.state().value
     
-    __call__ = get
+    def __call__(self):
+        """Retrieves the value, starting the computation if needed.
+        
+        If the function immediately returns a value it is returned;
+        otherwise None is returned.
+        
+        """
+        state = self.state()
+        if state.value is None:
+            self.start()
+        return state.value
     
     def name(self):
         """Returns the name of the property, if given via the function."""

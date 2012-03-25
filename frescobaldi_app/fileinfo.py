@@ -36,16 +36,6 @@ import util
 import variables
 
 
-class CachedProperty(cachedproperty.CachedProperty):
-    """CachedProperty that always computes the return value if requested."""
-    def __call__(self):
-        value = self.get()
-        if value is not None:
-            return value
-        self.start()
-        return self.get()
-
-
 class FileInfo(object):
     """Caches information about files."""
     _cache = filecache.FileCache()
@@ -63,18 +53,18 @@ class FileInfo(object):
         self._tokens = []
         self._tokensource = None
     
-    @CachedProperty.cachedproperty
+    @cachedproperty.cachedproperty
     def text(self):
         """The text of the file (as unicode string)."""
         with open(self.filename) as f:
             return util.decode(f.read())
     
-    @CachedProperty.cachedproperty(depends=text)
+    @cachedproperty.cachedproperty(depends=text)
     def variables(self):
         """A dictionary with variables defined in the text."""
         return variables.variables(self.text())
     
-    @CachedProperty.cachedproperty(depends=variables)
+    @cachedproperty.cachedproperty(depends=variables)
     def mode(self):
         """The mode of the text (e.g. 'lilypond', 'html', etc)."""
         mode = self.variables().get("mode")
@@ -105,7 +95,7 @@ class FileInfo(object):
                 except StopIteration:
                     self._tokensource = False
     
-    @CachedProperty.cachedproperty(depends=variables)
+    @cachedproperty.cachedproperty(depends=variables)
     def version(self):
         """Returns the LilyPond version if set in the file, as a tuple of ints.
         
@@ -128,12 +118,12 @@ class FileInfo(object):
         if m:
             return mkver(m.group(1).split('.'))
 
-    @CachedProperty.cachedproperty(depends=mode)
+    @cachedproperty.cachedproperty(depends=mode)
     def includeargs(self):
         """The list of arguments of \\include commands in the given file."""
         return list(ly.parse.includeargs(self.tokens()))
 
-    @CachedProperty.cachedproperty(depends=mode)
+    @cachedproperty.cachedproperty(depends=mode)
     def outputargs(self):
         """The list of arguments of \\bookOutputName, \\bookOutputSuffix etc."""
         return list(ly.parse.outputargs(self.tokens()))
