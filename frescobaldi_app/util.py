@@ -104,8 +104,11 @@ def files(basenames, extension = '.*'):
     def source():
         for name in basenames:
             name = name.replace('[', '[[]').replace('?', '[?]').replace('*', '[*]')
-            yield glob.iglob(name + extension)
-            yield sorted(glob.iglob(name + '-*[0-9]' + extension), key=naturalsort)
+            if name.endswith(('/', '\\')):
+                yield sorted(glob.iglob(name + '*' + extension), key=naturalsort)
+            else:
+                yield glob.iglob(name + extension)
+                yield sorted(glob.iglob(name + '-*[0-9]' + extension), key=naturalsort)
     return itertools.chain.from_iterable(source())
 
 

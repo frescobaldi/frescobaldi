@@ -446,6 +446,19 @@ the lines for variable definitions like <code>name: value;</code>.
                   "docbook or scheme. Default: automatic mode recognition.")),
             ('master', _("filename"),
                 _("Compiles another LilyPond document instead of the current.")),
+            ('output', _("name"), ' '.join((
+                _("Looks for output documents (PDF, MIDI, etc.) starting with "
+                  "the specified name or comma-separated list of names."),
+                _("If a name ends with a directory separator, output files are "
+                  "sought for in the specified directory. "),
+                _("All names are relative to the document's filename."),
+                _("You can set this variable if you want to override the "
+                  "automatic output file name determination (which can be time-"
+                  "consuming, as Frescobaldi parses the document and all the "
+                  "documents it includes, searching for the LilyPond commands "
+                  "that specify the output name, such as "
+                  "<code>\\bookOutputName</code>, etc)."),
+                ))),
             ('coding', _("encoding"),
                 _("Use another encoding than the default UTF-8.")),
             ('version', _("version"),
