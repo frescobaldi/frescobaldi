@@ -79,6 +79,7 @@ revealed by pressing {key_whatsthis} or by selecting {menu_whatsthis}.
             tools,
             editor,
             preferences.prefshelp.preferences_dialog,
+            troubleshooting,
             about,
             toc,
         )
@@ -450,7 +451,7 @@ the lines for variable definitions like <code>name: value;</code>.
                 _("Looks for output documents (PDF, MIDI, etc.) starting with "
                   "the specified name or comma-separated list of names."),
                 _("If a name ends with a directory separator, output files are "
-                  "sought for in the specified directory. "),
+                  "looked for in the specified directory. "),
                 _("All names are relative to the document's filename."),
                 _("You can set this variable if you want to override the "
                   "automatic output file name determination (which can be time-"
@@ -513,6 +514,55 @@ class sessions(page):
     def seealso():
         import preferences.prefshelp
         return (preferences.prefshelp.preferences_general,)
+
+
+class troubleshooting(page):
+    def title():
+        return _("Troubleshooting")
+    
+    def body():
+        p = '<p>{0}</p>'.format
+        return p(_("Sometimes things don't go the way you would expect; "
+                   "this section may give some solutions."))
+    
+    def children():
+        return (
+            ts_no_music_visible,
+        )
+
+
+class ts_no_music_visible(page):
+    def title():
+        return _("After engraving a score, the Music View does not show the music")
+    
+    def body():
+        tag = '<{0}>{{0}}</{0}>'.format
+        p = tag('p').format
+        li = tag('li').format
+        ol = tag('ol').format
+        return ol('\n'.join((
+        li('\n'.join((
+            p(_("Does the <code>\\score</code> block have a layout section?")),
+            p(_("If a <code>\\score</code> block has a <code>\\midi</code> "
+                "section but no <code>\\layout</code> section, no PDF output "
+                "is generated.")),
+        ))),
+        li('\n'.join((
+            p(_("Do you use an exotic way to specify the output filename?")),
+            p(_("Frescobaldi is able to determine the output file names by "
+                "looking at the document's filename and the various LilyPond "
+                "commands that specify the output filename or -suffix. "
+                "Frescobaldi even searches <code>\\include</code> files for "
+                "commands like <code>\\bookOutputName</code> and "
+                "<code>\\bookOutputSuffix</code>.")),
+            p(_("But if you use more complicated Scheme code in your document "
+                "to specify the output filenames, Frescobaldi may not be able "
+                "to correctly determine those filenames.")),
+            p(_("In that case you can override the base name(s) using the "
+                "{output} document variable.").format(output='<code>output</code>')),
+            p(_("See also {link}.").format(link=document_variables.link())),
+            ))),
+        )))
 
 
 class toc(page):
