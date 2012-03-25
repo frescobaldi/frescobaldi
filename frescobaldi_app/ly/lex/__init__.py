@@ -84,6 +84,8 @@ See for more information the documentation of the slexer module.
 
 from __future__ import unicode_literals
 
+import re
+
 import slexer
 from ._token import *
 from ._mode import extensions, modes, guessMode
@@ -118,6 +120,7 @@ __all__ = [
 
 
 class Parser(slexer.Parser):
+    re_flags = re.M
     argcount = 0
     default = Unparsed
     mode = None
