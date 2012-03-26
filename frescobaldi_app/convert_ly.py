@@ -59,7 +59,7 @@ def convert(mainwindow):
         if dlg.copyCheck.isChecked():
             msgs = textwrap.fill(dlg.messages.toPlainText())
             text += '\n\n%{\n' + msgs + '\n%}\n'
-        cursordiff.insertText(c, text)
+        cursordiff.insert_text(c, text)
     dlg.deleteLater()
 
 
