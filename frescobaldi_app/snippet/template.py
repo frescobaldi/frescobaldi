@@ -26,14 +26,34 @@ from __future__ import unicode_literals
 import documentinfo
 import inputdialog
 
+from PyQt4.QtGui import QMessageBox
+
 from . import model
+from . import snippets
+
 
 def save(mainwindow):
+    
+    titles = dict((snippets.title(name), name)
+                  for name in model.model().names()
+                  if 'template' in snippets.get(name).variables)
     title = inputdialog.getText(mainwindow,
         _("Save as Template"),
-        _("Please enter a template name:"), regexp=r"\w(.*\w)?")
+        _("Please enter a template name:"),
+        regexp=r"\w(.*\w)?", complete=sorted(titles))
     if not title:
         return
+    
+    if title in titles:
+        if QMessageBox.critical(mainwindow,
+            _("Overwrite Template?"),
+            _("A template named \"{name}\" already exists.\n\n"
+              "Do you want to overwrite it?").format(name=title),
+            QMessageBox.Yes | QMessageBox.Cancel) != QMessageBox.Yes:
+            return
+        name = titles[title]
+    else:
+        name = None
     
     # get the text and insert cursor position or selection
     cursor = mainwindow.textCursor()
@@ -60,6 +80,6 @@ def save(mainwindow):
     text = headerline + '\n' + text
     
     # save the new snippet
-    model.model().saveSnippet(None, text, title)
+    model.model().saveSnippet(name, text, title)
 
 
