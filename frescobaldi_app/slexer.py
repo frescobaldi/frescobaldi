@@ -299,7 +299,7 @@ class Parser(object):
     by the default implementation of update_state() in Token.
     
     """
-    re_flags = None # the re.compile flags to use
+    re_flags = 0   # the re.compile flags to use
     default = None # if not None, the default class for unparsed pieces of text
     
     # tuple of Token classes to look for in text
