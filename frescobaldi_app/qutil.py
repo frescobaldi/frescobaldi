@@ -31,6 +31,8 @@ from PyQt4.QtCore import QEventLoop, QSettings, QSize, QTimer, Qt
 from PyQt4.QtGui import (
     QAction, QApplication, QColor, QKeySequence, QProgressDialog)
 
+import info
+
 
 def saveDialogSize(dialog, key, default=QSize()):
     """Makes the size of a QDialog persistent.
