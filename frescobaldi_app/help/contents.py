@@ -560,6 +560,7 @@ class troubleshooting(page):
     def children():
         return (
             ts_no_music_visible,
+            ts_midi_generate,
         )
 
 
@@ -600,6 +601,32 @@ class ts_no_music_visible(page):
         return (
             document_variables,
         )
+
+
+class ts_midi_generate(page):
+    def title():
+        return _("How to generate a MIDI file?")
+    
+    def body():
+        return '\n'.join(map('<p>{0}</p>'.format, (
+        _("By default, LilyPond creates only a PDF file of the music. "
+          "To create a MIDI file, you must wrap the music in a <code>\\score"
+          "</code> block and add a <code>\\midi</code> block to it."),
+        _("For example:"),
+        colorize(r"""\version "2.14.2"
+
+music = \relative c' {
+  c4 d e f g2
+}
+
+\score {
+  \music
+  \layout {}
+  \midi {}
+}"""),
+        _("If you omit the <code>\\layout</code> block, no PDF file will be "
+          "generated, only a MIDI file."),
+        )))
 
 
 class toc(page):
