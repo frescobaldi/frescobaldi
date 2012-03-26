@@ -19,6 +19,8 @@ Changes in 2.0.5 --
 * Improvements:
   - Running convert-ly (or undoing it) does not erase point and click positions
     anymore
+  - Saving a template now shows existing template names in a popup and warns
+    when (but allows) overwriting an existing template
   - Much better default background color for the Music View
   - When dragging the time slider in a MIDI file, program and controller changes
     are followed (issue #26)
