@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-03-20 10:40+0100\n"
+"POT-Creation-Date: 2012-03-26 22:38+0200\n"
 "PO-Revision-Date: 2010-12-12 07:48+0200\n"
 "Last-Translator: Server Acim <serveracim@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -66,7 +66,7 @@ msgstr ""
 msgid "About"
 msgstr "Otomatik"
 
-#: ../about.py:88 ../help/contents.py:280
+#: ../about.py:88 ../help/contents.py:281
 msgid "Credits"
 msgstr ""
 
@@ -427,12 +427,12 @@ msgctxt "menu title"
 msgid "Tools"
 msgstr "&Araç Görünümleri"
 
-#: ../hyphendialog.py:165 ../help/contents.py:135 ../help/contents.py:142
+#: ../hyphendialog.py:165 ../help/contents.py:136 ../help/contents.py:143
 msgctxt "menu title"
 msgid "Edit"
 msgstr ""
 
-#: ../hyphendialog.py:165 ../help/contents.py:136
+#: ../hyphendialog.py:165 ../help/contents.py:137
 #: ../preferences/__init__.py:106 ../preferences/midi.py:134
 #: ../preferences/prefshelp.py:36 ../preferences/prefshelp.py:42
 #, fuzzy
@@ -937,17 +937,17 @@ msgctxt "menu title"
 msgid "&Help"
 msgstr ""
 
-#: ../musicpreview.py:114
+#: ../musicpreview.py:113
 #, fuzzy
 msgid "Document:"
 msgstr "&Belge"
 
-#: ../musicpreview.py:196
+#: ../musicpreview.py:195
 #, fuzzy
 msgid "&Print"
 msgstr "Yazdır"
 
-#: ../musicpreview.py:197
+#: ../musicpreview.py:196
 #, fuzzy
 msgid "Music Preview"
 msgstr "PDF Önizleme"
@@ -1412,12 +1412,12 @@ msgstr ""
 msgid "What's This"
 msgstr ""
 
-#: ../help/contents.py:89
+#: ../help/contents.py:90
 #, fuzzy
 msgid "Introduction"
 msgstr "Piyano indirgemesi"
 
-#: ../help/contents.py:92
+#: ../help/contents.py:93
 msgid ""
 "<p>\n"
 "<a href=\"http://lilypond.org/\">LilyPond</a>\n"
@@ -1446,39 +1446,39 @@ msgid ""
 "</p>"
 msgstr ""
 
-#: ../help/contents.py:118
+#: ../help/contents.py:119
 msgid "Getting Started"
 msgstr ""
 
-#: ../help/contents.py:133 ../preferences/fontscolors.py:482
+#: ../help/contents.py:134 ../preferences/fontscolors.py:482
 #: ../preferences/lilypond.py:239 ../scorewiz/settings.py:295
 msgid "LilyPond"
 msgstr "LilyPond"
 
-#: ../help/contents.py:133
+#: ../help/contents.py:134
 msgid "Engrave (publish)"
 msgstr ""
 
-#: ../help/contents.py:137 ../preferences/__init__.py:184
+#: ../help/contents.py:138 ../preferences/__init__.py:184
 #: ../preferences/prefshelp.py:83
 msgid "LilyPond Preferences"
 msgstr "LilyPond Tercihleri"
 
-#: ../help/contents.py:139
+#: ../help/contents.py:140
 #, fuzzy
 msgctxt "menu title"
 msgid "View"
 msgstr "Çal/Görüntüle"
 
-#: ../help/contents.py:140
+#: ../help/contents.py:141
 msgid "Clear Error Marks"
 msgstr ""
 
-#: ../help/contents.py:143
+#: ../help/contents.py:144
 msgid "Copy to Image..."
 msgstr ""
 
-#: ../help/contents.py:145
+#: ../help/contents.py:146
 msgid ""
 "<p>\n"
 "The default screen of Frescobaldi shows a text document on the left and an\n"
@@ -1572,21 +1572,21 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:228
+#: ../help/contents.py:229
 #, fuzzy
 msgid "Other Tools"
 msgstr "&Ekstra Araçlar"
 
-#: ../help/contents.py:231
+#: ../help/contents.py:232
 msgid "<p>Some other important tools are listed here.</p>\n"
 msgstr ""
 
-#: ../help/contents.py:252
+#: ../help/contents.py:253
 #, fuzzy
 msgid "About Frescobaldi"
 msgstr "Frescobaldi"
 
-#: ../help/contents.py:255
+#: ../help/contents.py:256
 msgid ""
 "<p>\n"
 "Frescobaldi is named after\n"
@@ -1604,15 +1604,15 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:285
+#: ../help/contents.py:286
 msgid "Frescobaldi's main author is {author}."
 msgstr ""
 
-#: ../help/contents.py:293
+#: ../help/contents.py:294
 msgid "Contributing"
 msgstr ""
 
-#: ../help/contents.py:296
+#: ../help/contents.py:297
 msgid ""
 "<p>\n"
 "Frescobaldi is a <a href=\"http://www.gnu.org/philosophy/free-sw.html"
@@ -1639,12 +1639,12 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:321
+#: ../help/contents.py:322
 #, fuzzy
 msgid "History of Frescobaldi"
 msgstr "Frescobaldi"
 
-#: ../help/contents.py:324
+#: ../help/contents.py:325
 msgid ""
 "<p>\n"
 "Frescobaldi has its roots in LilyKDE, which was a plugin for KDE3's editor "
@@ -1672,11 +1672,11 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:350
+#: ../help/contents.py:351
 msgid "The editor"
 msgstr ""
 
-#: ../help/contents.py:353
+#: ../help/contents.py:354
 msgid ""
 "<p>\n"
 "In this part the features of the editor are discussed,\n"
@@ -1685,16 +1685,16 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:370
+#: ../help/contents.py:371
 msgid "Search and replace"
 msgstr ""
 
-#: ../help/contents.py:376 ../preferences/prefshelp.py:42
+#: ../help/contents.py:377 ../preferences/prefshelp.py:42
 #, fuzzy
 msgid "Edit"
 msgstr "Yazdır..."
 
-#: ../help/contents.py:378
+#: ../help/contents.py:379
 msgid ""
 "<p>\n"
 "In the menu {edit_menu} the commands Find ({key_search})\n"
@@ -1745,12 +1745,12 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:426
+#: ../help/contents.py:427
 #, fuzzy
 msgid "Document variables"
 msgstr "Belge Sekmeleri"
 
-#: ../help/contents.py:431
+#: ../help/contents.py:432
 msgid ""
 "Document variables are variables that influence the behaviour of "
 "Frescobaldi.\n"
@@ -1760,111 +1760,163 @@ msgid ""
 "the lines for variable definitions like <code>name: value;</code>.\n"
 msgstr ""
 
-#: ../help/contents.py:438
+#: ../help/contents.py:439
 msgid "The following variables are recognized:"
 msgstr ""
 
-#: ../help/contents.py:443
+#: ../help/contents.py:444
 #, fuzzy
 msgid "mode"
 msgstr "Kuyrukları kaldır"
 
 #. L10N: do not translate the mode names lilypond, html, etc.
-#: ../help/contents.py:445
+#: ../help/contents.py:446
 msgid ""
 "Force mode to be one of lilypond, html, texinfo, latex, docbook or scheme. "
 "Default: automatic mode recognition."
 msgstr ""
 
-#: ../help/contents.py:447
+#: ../help/contents.py:448
 #, fuzzy
 msgid "filename"
 msgstr "%1 dosyalarını yazdır"
 
-#: ../help/contents.py:448
+#: ../help/contents.py:449
 #, fuzzy
 msgid "Compiles another LilyPond document instead of the current."
 msgstr "Lilypond işlemi okunamadı"
 
-#: ../help/contents.py:449
+#: ../help/contents.py:450
+#, fuzzy
+msgid "name"
+msgstr "%1 dosyalarını yazdır"
+
+#: ../help/contents.py:451
+msgid ""
+"Looks for output documents (PDF, MIDI, etc.) starting with the specified "
+"name or comma-separated list of names."
+msgstr ""
+
+#: ../help/contents.py:453
+#, fuzzy
+msgid "More information."
+msgstr "Tenor"
+
+#: ../help/contents.py:455
 #, fuzzy
 msgid "encoding"
 msgstr "Kullanılacak dil kodlaması"
 
-#: ../help/contents.py:450
+#: ../help/contents.py:456
 msgid "Use another encoding than the default UTF-8."
 msgstr ""
 
-#: ../help/contents.py:451
+#: ../help/contents.py:457
 #, fuzzy
 msgid "version"
 msgstr "Sürüm"
 
-#: ../help/contents.py:452
+#: ../help/contents.py:458
 #, fuzzy
 msgid ""
 "Set the LilyPond version to use, can be used for non-LilyPond documents."
 msgstr "Bu belge için kullanacağınız Lilypond sürüm numarası:"
 
-#: ../help/contents.py:454 ../help/contents.py:462
+#: ../help/contents.py:460 ../help/contents.py:468
 #, fuzzy
 msgid "number"
 msgstr "İsim"
 
-#: ../help/contents.py:455
+#: ../help/contents.py:461
 msgid "The width of a tab character, by default 8."
 msgstr ""
 
-#: ../help/contents.py:457
+#: ../help/contents.py:463
 msgid "Whether to use tabs in indent, by default {no}."
 msgstr ""
 
-#: ../help/contents.py:460
+#: ../help/contents.py:466
 msgid "Whether to use tabs elsewhere in the document, by default {yes}."
 msgstr ""
 
-#: ../help/contents.py:463
+#: ../help/contents.py:469
 msgid "The number of spaces each indent level uses, by default 2."
 msgstr ""
 
-#: ../help/contents.py:471
+#: ../help/contents.py:477
 msgid "You can put document variables in comments."
 msgstr ""
 
-#: ../help/contents.py:478
+#: ../help/contents.py:489
+#, fuzzy
+msgid "The \"{output}\" document variable"
+msgstr "Belge Sekmeleri"
+
+#: ../help/contents.py:494
+msgid ""
+"Setting this variable suppresses the automatic output file name "
+"determination and makes Frescobaldi look for output documents (PDF, MIDI, "
+"etc.) with the specified basename, or comma-separated list of names."
+msgstr ""
+
+#: ../help/contents.py:498
+msgid ""
+"If a name ends with a directory separator, output files are looked for in "
+"the specified directory. "
+msgstr ""
+
+#: ../help/contents.py:500
+msgid "All names are relative to the document's filename."
+msgstr ""
+
+#: ../help/contents.py:501 ../help/contents.py:615
+msgid "For example:"
+msgstr ""
+
+#: ../help/contents.py:512
+msgid ""
+"You can set this variable if the automatic output file name determination "
+"would be time-consuming (as Frescobaldi parses the document and all the "
+"documents it includes, searching for the LilyPond commands that specify the "
+"output name, such as <code>\\bookOutputName</code>, etc); or when the "
+"automatic output file name determination does not work due to complicated "
+"LilyPond code."
+msgstr ""
+
+#: ../help/contents.py:524
 #, fuzzy
 msgid "Sessions"
 msgstr "Oturum"
 
-#: ../help/contents.py:483
+#: ../help/contents.py:529
 msgid ""
 "A session is basically a list of open files. At any time you can choose "
 "{menu_session_save} or {menu_session_new} and save the current list of open "
 "files to a named session."
 msgstr ""
 
-#: ../help/contents.py:486 ../help/contents.py:487 ../help/contents.py:496
+#: ../help/contents.py:532 ../help/contents.py:533 ../help/contents.py:542
 msgid "Session"
 msgstr "Oturum"
 
-#: ../help/contents.py:486 ../help/contents.py:496
+#: ../help/contents.py:532 ../help/contents.py:542
 #, fuzzy
 msgid "Save"
 msgstr "Kaydet"
 
-#: ../help/contents.py:487
+#: ../help/contents.py:533
 #, fuzzy
 msgctxt "New Session"
 msgid "New"
 msgstr "Yeni..."
 
-#: ../help/contents.py:488
+#: ../help/contents.py:534
 msgid ""
 "When you switch sessions, all current documents are closed first and then "
 "the documents of the other session are opened."
 msgstr ""
 
-#: ../help/contents.py:490
+#: ../help/contents.py:536
 msgid ""
 "Inside the session properties dialog, you can choose whether to always save "
 "the list of open documents to that session, or to only save on creation (or "
@@ -1873,31 +1925,98 @@ msgid ""
 "working."
 msgstr ""
 
-#: ../help/contents.py:497
+#: ../help/contents.py:543
 msgid "You can also specify a default directory for the session."
 msgstr ""
 
-#: ../help/contents.py:507
+#: ../help/contents.py:553
+msgid "Troubleshooting"
+msgstr ""
+
+#: ../help/contents.py:557
+msgid ""
+"Sometimes things don't go the way you would expect; this section may give "
+"some solutions."
+msgstr ""
+
+#: ../help/contents.py:569
+msgid "After engraving a score, the Music View does not show the music"
+msgstr ""
+
+#: ../help/contents.py:578
+msgid "Does the <code>\\score</code> block have a layout section?"
+msgstr ""
+
+#: ../help/contents.py:579
+msgid ""
+"If a <code>\\score</code> block has a <code>\\midi</code> section but no "
+"<code>\\layout</code> section, no PDF output is generated."
+msgstr ""
+
+#: ../help/contents.py:584
+msgid "Do you use an exotic way to specify the output filename?"
+msgstr ""
+
+#: ../help/contents.py:585
+msgid ""
+"Frescobaldi is able to determine the output file names by looking at the "
+"document's filename and the various LilyPond commands that specify the "
+"output filename or -suffix. Frescobaldi even searches <code>\\include</code> "
+"files for commands like <code>\\bookOutputName</code> and <code>"
+"\\bookOutputSuffix</code>."
+msgstr ""
+
+#: ../help/contents.py:591
+msgid ""
+"But if you use more complicated Scheme code in your document to specify the "
+"output filenames, Frescobaldi may not be able to correctly determine those "
+"filenames."
+msgstr ""
+
+#: ../help/contents.py:594
+msgid ""
+"In that case you can override the base name(s) using the {output} document "
+"variable."
+msgstr ""
+
+#: ../help/contents.py:608
+msgid "How to generate a MIDI file?"
+msgstr ""
+
+#: ../help/contents.py:612
+msgid ""
+"By default, LilyPond creates only a PDF file of the music. To create a MIDI "
+"file, you must wrap the music in a <code>\\score</code> block and add a "
+"<code>\\midi</code> block to it."
+msgstr ""
+
+#: ../help/contents.py:627
+msgid ""
+"If you omit the <code>\\layout</code> block, no PDF file will be generated, "
+"only a MIDI file."
+msgstr ""
+
+#: ../help/contents.py:634
 #, fuzzy
 msgid "Table of Contents"
 msgstr "İçindekiler"
 
-#: ../help/helpimpl.py:115
+#: ../help/helpimpl.py:116
 #, fuzzy
 msgid "Up:"
 msgstr "Yukarı"
 
-#: ../help/helpimpl.py:130
+#: ../help/helpimpl.py:131
 #, fuzzy
 msgid "Next:"
 msgstr "Sonraki"
 
-#: ../help/helpimpl.py:133
+#: ../help/helpimpl.py:134
 #, fuzzy
 msgid "See also:"
 msgstr "Hepsini seç"
 
-#: ../help/helpimpl.py:176
+#: ../help/helpimpl.py:177
 msgid "(no key defined)"
 msgstr ""
 
@@ -6022,15 +6141,31 @@ msgstr "Susları çıkar"
 msgid "Changed Snippets"
 msgstr "Susları çıkar"
 
-#: ../snippet/template.py:33
+#: ../snippet/template.py:41
 #, fuzzy
 msgid "Save as Template"
 msgstr "Sayfa başına düşen dizek sayısı:"
 
-#: ../snippet/template.py:34
+#: ../snippet/template.py:42
 #, fuzzy
 msgid "Please enter a template name:"
 msgstr "Lütfen bir oturum adı giriniz."
+
+#: ../snippet/template.py:49
+#, fuzzy
+msgid "Overwrite Template?"
+msgstr "Sayfa başına düşen dizek sayısı:"
+
+#: ../snippet/template.py:50
+#, fuzzy
+msgid ""
+"A template named \"{name}\" already exists.\n"
+"\n"
+"Do you want to overwrite it?"
+msgstr ""
+"Bu isimle %1 başka bir oturum zaten var.\n"
+"\n"
+"Üzerine yazmak ister misiniz?"
 
 #: ../snippet/tool.py:55
 #, fuzzy
