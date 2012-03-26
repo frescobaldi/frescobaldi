@@ -103,7 +103,8 @@ def html(name):
     import info
     page = all_pages.get(name, contents.nohelp)
     html = []
-    html.append('<html><head><title>{0}</title></head><body>'.format(page.title()))
+    html.append('<html><head><title>{0}</title></head><body>'.format(
+        striptags(page.title())))
     if page.popup:
         # make this a popup (see QTextBrowser docs)
         html.insert(0, '<qt type=detail>')
@@ -202,5 +203,10 @@ def link(helppage, title=None):
     if not isinstance(helppage, type):
         helppage = all_pages[helppage]
     return helppage.link(title)
+
+
+def striptags(text):
+    """Strips HTML tags from text."""
+    return re.sub(r'<[^<>]+>', '', text)
 
 
