@@ -180,8 +180,10 @@ def make_page(lang):
     """Makes the HTML user guide for the given language."""
     
     html = []
+    seen = set()
     
     def add(page, children=None, level=1):
+        seen.add(page)
         html.append(
             '<h{1} id="help_{0}"><a name="help_{0}"></a>{2}</h{1}>\n'
             .format(page.name, min(5, level+1), page.title()))
@@ -202,6 +204,15 @@ def make_page(lang):
     children = list(page.children())
     children.insert(0, children.pop())
     add(page, children)
+    
+    left = [page for page in help.helpimpl.all_pages.values()
+            if page not in seen and page.name not in ('nohelp', 'page')]
+    
+    # add pages not in the toc structure
+    if left:
+        html.append('\n\n<hr />\n\n')
+        for page in left:
+            add(page, None, 2)
     
     html = ''.join(html)
     
