@@ -64,7 +64,7 @@ def reformat(cursor):
     def newlineafter(t):
         editor.insertText(tokeniter.cursor(block, t, start=len(t)), '\n')
     
-    indent_vars = indent.indentVariables(cursor.document())
+    indent_vars = indent.indent_variables(cursor.document())
     
     with cursortools.compress_undo(cursor):
         indent.re_indent(cursor)
