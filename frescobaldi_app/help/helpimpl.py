@@ -189,8 +189,12 @@ def menu(*titles):
     
     '<em>Edit-&gt;Preferences</em>'
     
+    Single ampersands are removed and double ampersands are replaced with one.
+    
     """
-    return '<em>{0}</em>'.format('&#8594;'.join(titles))
+    return '<em>{0}</em>'.format('&#8594;'.join(
+        t.replace('&&', '\0').replace('&', '').replace('\0', '&')
+        for t in titles))
 
 
 def link(helppage, title=None):
