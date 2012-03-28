@@ -36,6 +36,7 @@ from PyQt4.QtGui import *
 import app
 import info
 import qutil
+import help
 import widgets.dialog
 
 from . import model
@@ -108,9 +109,11 @@ def load(filename, widget):
 
 
     dlg = widgets.dialog.Dialog(widget)
+    dlg.setWindowModality(Qt.WindowModal)
     dlg.setWindowTitle(app.caption(_("dialog title", "Import Snippets")))
     tree = QTreeWidget(headerHidden=True, rootIsDecorated=False)
     dlg.setMainWidget(tree)
+    help.addButton(dlg.buttonBox(), snippet_import_export_help)
     
     allnames = frozenset(snippets.names())
     builtins = frozenset(builtin.builtin_snippets)
@@ -225,5 +228,27 @@ _comment = """
   name like 'n123456'. In the latter case, the title is used to determine
   whether a snippet is new or updated.
 """
+
+
+class snippet_import_export_help(help.page):
+    def title():
+        return _("Importing and exporting snippets")
+    
+    def body():
+        return ''.join(map('<p>{0}</p>\n'.format, (
+        _("Snippets can be imported from and exported to XML files."),
+        _("To export snippets, either select them in the snippet manager, "
+          "or filter the snippets using the search bar and select none, so "
+          "that all the snippets visible in the snippet manager are exported. "
+          "Export the snippets by selecting {menu}, and then choose a file "
+          "name, preferably ending in <code>.xml</code>.").format(
+            menu=help.menu(_("&Menu"), _("E&xport..."))),
+        _("To import snippets, select {menu} and choose the file you want to "
+          "import. You may also drop an XML file on the snippet manager. "
+          "A dialog will be displayed where you can select which snippets you "
+          "want to import."),
+        _("The XML format of the snippet library files is simple and "
+          "documented inside the XML file."),
+        )))
 
 

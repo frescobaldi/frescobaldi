@@ -443,7 +443,32 @@ scripts written in Python.
             key_delete = help.shortcut(QKeySequence(Qt.CTRL + Qt.Key_Delete)))
 
     def children():
-        return (edit.snippet_edit_help,)
+        from . import import_export
+        return (
+            edit.snippet_edit_help,
+            snippet_maintaining_library,
+            import_export.snippet_import_export_help,
+        )
+
+
+class snippet_maintaining_library(help.page):
+    def title():
+        return _("Maintaining a library of snippets")
+    
+    def body():
+        return ''.join(map('<p>{0}</p>\n'.format, (
+        _("To keep a certain group of snippets manageable as a snippet "
+          "library, you can of course prefix the snippet titles with some sort "
+          "of special name. But a smarter way is to use a snippet variable. "),
+        _("It is suggested to use the \"{set}\" variable, and set it to the "
+          "name of the library you want the snippet to belong to.").format(
+          set='<code>set</code>'),
+        _("Then in the snippet manager, you can easily select all the snippets "
+          "belonging to the library by entering <code>:{set} name</code> in "
+          "the snippet search bar, where \"name\" is the name you want to use. "
+          "And then e.g. export the snippets to an XML "
+          "file for sharing the snippets with others.").format(set="set"),
+        )))
 
 
 
