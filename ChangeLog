@@ -17,6 +17,7 @@ Changes in 2.0.5 --
     with Shift they select text
   - New command in View->Music View and Music View contextmenu: "Original Size"
 * Improvements:
+  - Autocomplete also looks for variable definitions in \include files
   - Running convert-ly (or undoing it) does not erase point and click positions
     anymore
   - Saving a template now shows existing template names in a popup and warns
