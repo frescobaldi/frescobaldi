@@ -23,6 +23,7 @@ Harvest strings from document for autocompletion purposes.
 
 from __future__ import unicode_literals
 
+import itertools
 import re
 
 import documentinfo
@@ -53,9 +54,19 @@ def schemewords(document):
 
 def include_identifiers(cursor):
     """Harvests identifier definitions from included files."""
-    for f in documentinfo.info(cursor.document()).includefiles():
-        for name in fileinfo.FileInfo.info(f).names():
-            yield name
+    def tokens():
+        end = cursor.block()
+        block = cursor.document().firstBlock()
+        while block < end:
+            yield tokeniter.tokens(block)
+            block = block.next()
+    
+    includeargs = ly.parse.includeargs(itertools.chain.from_iterable(tokens()))
+    dinfo = documentinfo.info(cursor.document())
+    fname = cursor.document().url().toLocalFile()
+    files = fileinfo.includefiles(fname, dinfo.includepath(), includeargs)
+    return itertools.chain.from_iterable(fileinfo.FileInfo.info(f).names()
+                                         for f in files)
 
 
 _words = re.compile(r'\w{5,}|\w{2,}(?:[:-]\w+)+').finditer

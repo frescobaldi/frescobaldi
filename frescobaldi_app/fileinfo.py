@@ -169,6 +169,8 @@ def includefiles(filename, include_path=[], initial_args=None):
     
     If initial_args is given, the filename itself is not scanned for include_args.
     
+    If the filename is None, only the include_path is searched for files.
+    
     """
     files = set()
     
@@ -191,9 +193,9 @@ def includefiles(filename, include_path=[], initial_args=None):
                         if tryarg(p, arg):
                             break
     
+    basedir = os.path.dirname(filename) if filename else None
     if initial_args is None:
-        initial_args = FileInfo.info(filename).includeargs()
-    basedir = os.path.dirname(filename)
+        initial_args = FileInfo.info(filename).includeargs() if filename else ()
     find(initial_args, basedir)
     return files
 
