@@ -176,7 +176,7 @@ def includefiles(filename, include_path=[], initial_args=None):
     
     def tryarg(directory, arg):
         path = os.path.join(directory, arg)
-        if os.path.exists(path) and path not in files:
+        if os.path.isfile(path) and path not in files:
             files.add(path)
             args = FileInfo.info(path).includeargs()
             find(args, os.path.dirname(path))
