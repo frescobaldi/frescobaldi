@@ -25,6 +25,8 @@ from __future__ import unicode_literals
 
 import re
 
+import documentinfo
+import fileinfo
 import tokeniter
 import ly.lex.lilypond
 import ly.lex.scheme
@@ -47,6 +49,13 @@ def schemewords(document):
     for t in tokeniter.all_tokens(document):
         if type(t) is ly.lex.scheme.Word:
             yield t
+
+
+def include_identifiers(cursor):
+    """Harvests identifier definitions from included files."""
+    for f in documentinfo.info(cursor.document()).includefiles():
+        for name in fileinfo.FileInfo.info(f).names():
+            yield name
 
 
 _words = re.compile(r'\w{5,}|\w{2,}(?:[:-]\w+)+').finditer

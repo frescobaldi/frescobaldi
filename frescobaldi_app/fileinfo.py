@@ -128,6 +128,22 @@ class FileInfo(object):
         """The list of arguments of \\bookOutputName, \\bookOutputSuffix etc."""
         return list(ly.parse.outputargs(self.tokens()))
 
+    @cachedproperty.cachedproperty(depends=mode)
+    def names(self):
+        """The list of LilyPond identifiers that the file defines."""
+        maybe_name = True
+        result = []
+        for t in self.tokens():
+            if maybe_name and isinstance(t, ly.lex.lilypond.Name):
+                result.append(t)
+                maybe_name = False
+            elif t.isspace():
+                if '\n' in t:
+                    maybe_name = True
+            else:
+                maybe_name = False
+        return result
+
 
 def textmode(text, guess=True):
     """Returns the type of the given text ('lilypond, 'html', etc.).

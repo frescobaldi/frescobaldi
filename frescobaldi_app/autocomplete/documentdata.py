@@ -75,6 +75,7 @@ class DocumentDataSource(plugin.DocumentPlugin):
             ly.words.fermatas,
             ly.words.instrument_scripts,
             ly.words.repeat_scripts,
+            harvest.include_identifiers(cursor),
             harvest.names(cursor)))), display = util.command)
 
     @util.keep
