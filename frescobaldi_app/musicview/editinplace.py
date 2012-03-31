@@ -99,13 +99,13 @@ class Dialog(widgets.dialog.Dialog):
         self.updateMessage()
         
     def popup(self, position):
-        geom = self.frameGeometry()
+        geom = self.geometry()
         geom.moveCenter(position)
-        if position.y() <= geom.height() + 30:
-            geom.moveTop(position.y() + 20)
+        if position.y() <= geom.height() + 60:
+            geom.moveTop(position.y() + 60)
         else:
-            geom.moveBottom(position.y() - 30)
-        self.move(geom.topLeft())
+            geom.moveBottom(position.y() - 60)
+        self.setGeometry(geom)
         self.view.setFocus()
         self.show()
     
