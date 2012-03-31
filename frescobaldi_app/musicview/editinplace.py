@@ -33,6 +33,7 @@ import help
 import highlighter
 import homekey
 import indent
+import matcher
 import metainfo
 import qutil
 import textformats
@@ -56,6 +57,7 @@ class Dialog(widgets.dialog.Dialog):
         self.messageLabel().setWordWrap(True)
         self.view = View()
         self.highlighter = highlighter.highlighter(self.view.document())
+        self.matcher = Matcher(self.view)
         self.setMainWidget(self.view)
         app.translateUI(self)
         
@@ -159,4 +161,30 @@ class View(QPlainTextEdit):
         if homekey.handle(self, ev):
             return
         super(View, self).keyPressEvent(ev)
+
+
+class Matcher(matcher.MatcherBase):
+    def __init__(self, view):
+        self.view = view
+        self.highlighter = MatchHighlighter(view)
+        view.cursorPositionChanged.connect(self.checkMatches)
+    
+    def checkMatches(self):
+        self.showMatches(self.view, self.highlighter)
+
+
+class MatchHighlighter(widgets.arbitraryhighlighter.ArbitraryHighlighter):
+    def __init__(self, edit):
+        super(MatchHighlighter, self).__init__(edit)
+        app.settingsChanged.connect(self.readSettings)
+        self.readSettings()
+    
+    def readSettings(self):
+        self._baseColors = textformats.formatData('editor').baseColors
+        self.reload()
+    
+    def textFormat(self, name):
+        f = QTextCharFormat()
+        f.setBackground(self._baseColors[name])
+        return f
 
