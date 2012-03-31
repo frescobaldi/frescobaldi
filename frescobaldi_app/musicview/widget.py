@@ -140,6 +140,8 @@ class MusicView(QWidget):
         Otherwise, call the helpers module to open the destination.
         
         """
+        if ev.button() == Qt.RightButton:
+            return
         cursor = self._links.cursor(link, True)
         if cursor:
             mainwindow = self.parent().mainwindow()
@@ -147,12 +149,11 @@ class MusicView(QWidget):
                 mainwindow.setCurrentDocument(cursor.document(), findOpenView=True)
                 from . import editinplace
                 editinplace.edit(self, cursor, ev.globalPos())
-            elif ev.button() != Qt.RightButton:
+            else:
                 mainwindow.setTextCursor(cursor, findOpenView=True)
                 import widgets.blink
                 widgets.blink.Blinker.blink_cursor(mainwindow.currentView())
-        elif (ev.button() != Qt.RightButton
-              and isinstance(link, popplerqt4.Poppler.LinkBrowse)
+        elif (isinstance(link, popplerqt4.Poppler.LinkBrowse)
               and not link.url().startswith('textedit:')):
             helpers.openUrl(QUrl(link.url()))
 
