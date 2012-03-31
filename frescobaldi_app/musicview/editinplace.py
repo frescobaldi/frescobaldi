@@ -62,7 +62,7 @@ class Dialog(widgets.dialog.Dialog):
         self.matcher = Matcher(self.view)
         self.setMainWidget(self.view)
         app.translateUI(self)
-        
+        help.addButton(self.buttonBox(), help_musicview_editinplace)
         # make Ctrl+Return accept the dialog
         self.button("ok").setShortcut(QKeySequence("Ctrl+Return"))
         qutil.saveDialogSize(self, "musicview/editinplace/dialog/size")
@@ -186,4 +186,20 @@ class MatchHighlighter(widgets.arbitraryhighlighter.ArbitraryHighlighter):
         f = QTextCharFormat()
         f.setBackground(self._baseColors[name])
         return f
+
+
+class help_musicview_editinplace(help.page):
+    def title():
+        return _("Edit in place")
+    
+    def body():
+        return ''.join(map('<p>{0}</p>\n'.format, (
+        _("In this dialog you can edit one line of the text document."),
+        _("Click OK or press {key} to place the modified text in the document.").format(
+        key=QKeySequence("Ctrl+Return").toString(QKeySequence.NativeText)),
+        _("You can open the \"Edit in Place\" dialog by Shift-clicking a "
+          "clickable object in the Music View or by right-clicking the object "
+          "and selecting {menu}.").format(menu=help.menu(_("Edit in Place"))),
+        )))
+
 
