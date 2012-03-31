@@ -144,12 +144,11 @@ class MusicView(QWidget):
             return
         cursor = self._links.cursor(link, True)
         if cursor:
-            mainwindow = self.parent().mainwindow()
             if ev.modifiers() & Qt.ShiftModifier:
-                mainwindow.setCurrentDocument(cursor.document(), findOpenView=True)
                 from . import editinplace
                 editinplace.edit(self, cursor, ev.globalPos())
             else:
+                mainwindow = self.parent().mainwindow()
                 mainwindow.setTextCursor(cursor, findOpenView=True)
                 import widgets.blink
                 widgets.blink.Blinker.blink_cursor(mainwindow.currentView())
