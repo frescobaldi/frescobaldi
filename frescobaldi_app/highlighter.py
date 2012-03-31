@@ -166,6 +166,14 @@ class Highlighter(QSyntaxHighlighter, plugin.Plugin):
         QSyntaxHighlighter.__init__(self, document)
         self._fridge = ly.lex.Fridge()
         app.settingsChanged.connect(self.rehighlight)
+        self._initialState = None
+        self._highlighting = True
+        self._mode = None
+        if hasattr(document, 'loaded'):
+            self._initDocument(document)
+    
+    def _initDocument(self, document):
+        """Additional initialization for document.Document instances."""
         self._highlighting = metainfo.info(document).highlighting
         document.loaded.connect(self._resetHighlighting)
         self._mode = documentinfo.mode(document, False)
@@ -228,10 +236,16 @@ class Highlighter(QSyntaxHighlighter, plugin.Plugin):
         userState = block.previous().userState()
         return self._fridge.thaw(userState) or self.initialState()
 
+    def setInitialState(self, state):
+        """Forces the initial state. Use None for auto-detection."""
+        self._initialState = self._fridge.freeze(state) if state else None
+        
     def initialState(self):
         """Returns the initial State for this document."""
-        mode = self._mode or ly.lex.guessMode(self.document().toPlainText())
-        return ly.lex.state(mode)
+        if self._initialState is None:
+            mode = self._mode or ly.lex.guessMode(self.document().toPlainText())
+            return ly.lex.state(mode)
+        return self._fridge.thaw(self._initialState)
 
 
 def userData(block):

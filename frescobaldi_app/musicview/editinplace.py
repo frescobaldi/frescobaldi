@@ -30,10 +30,13 @@ import app
 import cursordiff
 import cursortools
 import help
+import highlighter
 import homekey
 import indent
+import metainfo
 import qutil
 import textformats
+import tokeniter
 import widgets.dialog
 
 from . import tooltip
@@ -41,8 +44,9 @@ from . import tooltip
 
 def edit(parent, cursor, position=None):
     dlg = Dialog(parent)
-    dlg.edit(cursor, position)
     dlg.finished.connect(dlg.deleteLater)
+    dlg.edit(cursor)
+    dlg.popup(position)
 
 
 class Dialog(widgets.dialog.Dialog):
@@ -51,6 +55,7 @@ class Dialog(widgets.dialog.Dialog):
         self._document = None
         self.messageLabel().setWordWrap(True)
         self.view = View()
+        self.highlighter = highlighter.highlighter(self.view.document())
         self.setMainWidget(self.view)
         app.translateUI(self)
         
@@ -64,7 +69,8 @@ class Dialog(widgets.dialog.Dialog):
         self.setWindowTitle(app.caption(_("Edit in Place")))
         self.updateMessage()
     
-    def edit(self, cursor, position=None):
+    def edit(self, cursor):
+        """Edit the block at the specified QTextCursor."""
         if self._document:
             self._document.closed.disconnect(self.reject)
         self._document = cursor.document()
@@ -78,22 +84,25 @@ class Dialog(widgets.dialog.Dialog):
         c.movePosition(QTextCursor.EndOfBlock, QTextCursor.KeepAnchor)
         self.view.setPlainText(c.selection().toPlainText())
         
+        self.highlighter.setInitialState(tokeniter.state(cursor))
+        self.highlighter.setHighlighting(metainfo.info(cursor.document()).highlighting)
+        self.highlighter.rehighlight()
+        
         cursor = self.view.textCursor()
         cursor.setPosition(max(0, cursorpos-indentpos))
         self.view.setTextCursor(cursor)
         
         self.updateMessage()
-        self.view.setFocus()
         
-        # now, take into account position to popup
-        if position:
-            geom = self.frameGeometry()
-            geom.moveCenter(position)
-            if position.y() <= geom.height() + 30:
-                geom.moveTop(position.y() + 20)
-            else:
-                geom.moveBottom(position.y() - 30)
-            self.move(geom.topLeft())
+    def popup(self, position):
+        geom = self.frameGeometry()
+        geom.moveCenter(position)
+        if position.y() <= geom.height() + 30:
+            geom.moveTop(position.y() + 20)
+        else:
+            geom.moveBottom(position.y() - 30)
+        self.move(geom.topLeft())
+        self.view.setFocus()
         self.show()
     
     def save(self):
