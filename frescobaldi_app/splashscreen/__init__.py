@@ -21,7 +21,7 @@
 
 import os
 
-from PyQt4.QtCore import Qt
+from PyQt4.QtCore import QEventLoop, QTimer, Qt
 from PyQt4.QtGui import QApplication, QFont, QPixmap, QSplashScreen
 
 import app
@@ -46,8 +46,16 @@ def show():
 
     splash.showMessage(message, Qt.AlignRight | Qt.AlignTop, Qt.white)
     splash.show()
-
-    app.qApp.processEvents()
+    
+    QApplication.processEvents()
+    
+    # trickery on X11 to really let the widget draw, it remains blank on my
+    # system in many cases (seems random, a bit...)
+    # This runs an eventloop for 10 msec :-)
+    loop = QEventLoop()
+    QTimer.singleShot(10, loop.quit)
+    loop.exec_()
+    
     splash.deleteLater()
 
 

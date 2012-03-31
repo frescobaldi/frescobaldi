@@ -16,6 +16,7 @@ Changes in 2.0.5 --
   - Alt+Up and Alt+Down jump between blank lines (implemented as snippets),
     with Shift they select text
   - New command in View->Music View and Music View contextmenu: "Original Size"
+  - In-place editing by Shift-clicking a note or right-click->Edit in Place
 * Improvements:
   - Autocomplete also looks for variable definitions in \include files
   - Running convert-ly (or undoing it) does not erase point and click positions
