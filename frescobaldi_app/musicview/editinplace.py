@@ -51,6 +51,7 @@ def edit(parent, cursor, position=None):
 
 
 class Dialog(widgets.dialog.Dialog):
+    """Dialog containing a short text edit field to edit one line."""
     def __init__(self, parent=None):
         super(Dialog, self).__init__(parent)
         self._document = None
@@ -99,6 +100,7 @@ class Dialog(widgets.dialog.Dialog):
         self.updateMessage()
         
     def popup(self, position):
+        """Show the dialog at the specified global QPoint."""
         geom = self.geometry()
         geom.moveCenter(position)
         if position.y() <= geom.height() + 60:
@@ -121,6 +123,7 @@ class Dialog(widgets.dialog.Dialog):
             indent.re_indent(cursor)
         
     def updateMessage(self):
+        """Called when a new cursor is set to edit, updates the message text."""
         if self._document:
             self.setMessage(
               _("Editing line {linenum} of \"{document}\" ({variable})").format(
@@ -133,6 +136,7 @@ class Dialog(widgets.dialog.Dialog):
 
 
 class View(QPlainTextEdit):
+    """The text edit in the "Edit in Place" dialog."""
     def __init__(self, document):
         super(View, self).__init__()
         self.setDocument(document)
@@ -151,15 +155,10 @@ class View(QPlainTextEdit):
         return QSize(80 * metrics.width(" "),3 * metrics.height())
     
     def event(self, ev):
-        # avoid the line separator, makes no sense in plain text
+        """Reimplemented to avoid typing the line separator."""
         if ev == QKeySequence.InsertLineSeparator:
             return False
         return super(View, self).event(ev)
-
-    def keyPressEvent(self, ev):
-        if homekey.handle(self, ev):
-            return
-        super(View, self).keyPressEvent(ev)
 
 
 class Matcher(matcher.MatcherBase):
