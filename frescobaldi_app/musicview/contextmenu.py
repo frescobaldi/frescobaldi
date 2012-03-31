@@ -42,6 +42,12 @@ def show(position, panel, link, cursor):
     if panel.widget().view.surface().hasSelection():
         m.addAction(panel.actionCollection.music_copy_image)
     
+    if cursor:
+        a = m.addAction(_("Edit in Place"))
+        @a.triggered.connect
+        def edit():
+            from . import editinplace
+            editinplace.edit(panel.widget(), cursor, position)
     
     # no actions yet? insert Fit Width/Height
     if not m.actions():

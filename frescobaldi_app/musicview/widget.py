@@ -143,10 +143,14 @@ class MusicView(QWidget):
         cursor = self._links.cursor(link, True)
         if cursor:
             mainwindow = self.parent().mainwindow()
-            mainwindow.setTextCursor(cursor, findOpenView=True)
-            import widgets.blink
-            widgets.blink.Blinker.blink_cursor(mainwindow.currentView())
-            
+            if ev.modifiers() & Qt.ShiftModifier:
+                mainwindow.setCurrentDocument(cursor.document(), findOpenView=True)
+                from . import editinplace
+                editinplace.edit(self, cursor, ev.globalPos())
+            elif ev.button() != Qt.RightButton:
+                mainwindow.setTextCursor(cursor, findOpenView=True)
+                import widgets.blink
+                widgets.blink.Blinker.blink_cursor(mainwindow.currentView())
         elif (ev.button() != Qt.RightButton
               and isinstance(link, popplerqt4.Poppler.LinkBrowse)
               and not link.url().startswith('textedit:')):
