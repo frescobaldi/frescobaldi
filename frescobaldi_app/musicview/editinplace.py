@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-The PDF preview panel context menu.
+The Music View's Edit in Place dialog.
 """
 
 from __future__ import unicode_literals
@@ -55,8 +55,10 @@ class Dialog(widgets.dialog.Dialog):
         super(Dialog, self).__init__(parent)
         self._document = None
         self.messageLabel().setWordWrap(True)
-        self.view = View()
-        self.highlighter = highlighter.highlighter(self.view.document())
+        self.document = d = QTextDocument()
+        d.setDocumentLayout(QPlainTextDocumentLayout(d))
+        self.highlighter = highlighter.highlighter(d)
+        self.view = View(d)
         self.matcher = Matcher(self.view)
         self.setMainWidget(self.view)
         app.translateUI(self)
@@ -130,13 +132,10 @@ class Dialog(widgets.dialog.Dialog):
             self.setMessage("<no document set>") # should never appear
 
 
-
-
-
-
 class View(QPlainTextEdit):
-    def __init__(self):
+    def __init__(self, document):
         super(View, self).__init__()
+        self.setDocument(document)
         self.setLineWrapMode(QPlainTextEdit.NoWrap)
         self.setCursorWidth(2)
         app.settingsChanged.connect(self.readSettings)
