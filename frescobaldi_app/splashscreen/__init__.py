@@ -47,14 +47,14 @@ def show():
     splash.showMessage(message, Qt.AlignRight | Qt.AlignTop, Qt.white)
     splash.show()
     
-    QApplication.processEvents()
+    QApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
     
     # trickery on X11 to really let the widget draw, it remains blank on my
     # system in many cases (seems random, a bit...)
     # This runs an eventloop for 10 msec :-)
     loop = QEventLoop()
     QTimer.singleShot(10, loop.quit)
-    loop.exec_()
+    loop.exec_(QEventLoop.ExcludeUserInputEvents)
     
     splash.deleteLater()
 
