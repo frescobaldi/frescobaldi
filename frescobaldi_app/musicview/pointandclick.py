@@ -59,7 +59,12 @@ def percent_decode(s):
 
 def readfilename(match):
     """Returns the filename from the match object resulting from textedit_match."""
-    return percent_decode(match.group(1).encode('latin1')).decode(sys.getfilesystemencoding())
+    fname = match.group(1)
+    try:
+        fname = fname.encode('latin1')).decode(sys.getfilesystemencoding())
+    except UnicodeError:
+        pass
+    return percent_decode(fname)
 
 
 def readurl(match):
