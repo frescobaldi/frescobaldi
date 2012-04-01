@@ -29,13 +29,13 @@ from PyQt4.QtGui import QApplication, QColor, QFont, QPalette, QTextCharFormat, 
 import app
 
 
-# When textFormatData() is requested for the first time, it is loaded from the config
+# When formatData() is requested for the first time, it is loaded from the config
 # When the settings are changed, it is cleared again so that it is reloaded when
 # requested again.
 
 
 def formatData(type):
-    """Returns a TextFormatData instance of type 'editor' or 'printer'."""
+    """Return a TextFormatData instance of type 'editor' or 'printer'."""
     if _currentData[type] is None:
         _currentData[type] = TextFormatData(QSettings().value('{0}_scheme'.format(type), 'default'))
     return _currentData[type]
@@ -62,6 +62,7 @@ class TextFormatData(object):
         self.load(scheme)
         
     def load(self, scheme):
+        """Load the settings for the scheme. Called on init."""
         s = QSettings()
         s.beginGroup("fontscolors/" + scheme)
         
@@ -83,7 +84,7 @@ class TextFormatData(object):
         for name in defaultStyles:
             self.defaultStyles[name] = f = QTextCharFormat(defaultStyleDefaults[name])
             s.beginGroup(name)
-            loadTextFormat(f, s)
+            self.loadTextFormat(f, s)
             s.endGroup()
         s.endGroup()
         
@@ -96,12 +97,13 @@ class TextFormatData(object):
                 default = allStyleDefaults[group].get(name)
                 self.allStyles[group][name] = f = QTextCharFormat(default) if default else QTextCharFormat()
                 s.beginGroup(name)
-                loadTextFormat(f, s)
+                self.loadTextFormat(f, s)
                 s.endGroup()
             s.endGroup()
         s.endGroup()
         
     def save(self, scheme):
+        """Save the settings to the scheme."""
         s = QSettings()
         s.beginGroup("fontscolors/" + scheme)
         
@@ -117,7 +119,7 @@ class TextFormatData(object):
         s.beginGroup("defaultstyles")
         for name in defaultStyles:
             s.beginGroup(name)
-            saveTextFormat(self.defaultStyles[name], s)
+            self.saveTextFormat(self.defaultStyles[name], s)
             s.endGroup()
         s.endGroup()
         
@@ -127,19 +129,20 @@ class TextFormatData(object):
             s.beginGroup(group)
             for name in styles:
                 s.beginGroup(name)
-                saveTextFormat(self.allStyles[group][name], s)
+                self.saveTextFormat(self.allStyles[group][name], s)
                 s.endGroup()
             s.endGroup()
         s.endGroup()
 
     def textFormat(self, group, name):
+        """Return a QTextCharFormat() for the specified group and name."""
         inherit = inherits[group].get(name)
         f = QTextCharFormat(self.defaultStyles[inherit]) if inherit else QTextCharFormat()
         f.merge(self.allStyles[group][name])
         return f
     
     def palette(self):
-        """Returns a basic palette with text, background, selection and selection background filled in."""
+        """Return a basic palette with text, background, selection and selection background filled in."""
         p = QApplication.palette()
         p.setColor(QPalette.Text, self.baseColors['text'])
         p.setColor(QPalette.Base, self.baseColors['background'])
@@ -147,46 +150,47 @@ class TextFormatData(object):
         p.setColor(QPalette.Highlight, self.baseColors['selectionbackground'])
         return p
         
-
-def saveTextFormat(fmt, settings):
-    if fmt.hasProperty(QTextFormat.FontWeight):
-        settings.setValue('bold', fmt.fontWeight() >= 70)
-    else:
-        settings.remove('bold')
-    if fmt.hasProperty(QTextFormat.FontItalic):
-        settings.setValue('italic', fmt.fontItalic())
-    else:
-        settings.remove('italic')
-    if fmt.hasProperty(QTextFormat.TextUnderlineStyle):
-        settings.setValue('underline', fmt.fontUnderline())
-    else:
-        settings.remove('underline')
-    if fmt.hasProperty(QTextFormat.ForegroundBrush):
-        settings.setValue('textColor', fmt.foreground().color().name())
-    else:
-        settings.remove('textColor')
-    if fmt.hasProperty(QTextFormat.BackgroundBrush):
-        settings.setValue('backgroundColor', fmt.background().color().name())
-    else:
-        settings.remove('backgroundColor')
-    if fmt.hasProperty(QTextFormat.TextUnderlineColor):
-        settings.setValue('underlineColor', fmt.underlineColor().name())
-    else:
-        settings.remove('underlineColor')
-    
-def loadTextFormat(fmt, settings):
-    if settings.contains('bold'):
-        fmt.setFontWeight(QFont.Bold if settings.value('bold') in (True, 'true') else QFont.Normal)
-    if settings.contains('italic'):
-        fmt.setFontItalic(settings.value('italic') in (True, 'true'))
-    if settings.contains('underline'):
-        fmt.setFontUnderline(settings.value('underline') in (True, 'true'))
-    if settings.contains('textColor'):
-        fmt.setForeground(QColor(settings.value('textColor')))
-    if settings.contains('backgroundColor'):
-        fmt.setBackground(QColor(settings.value('backgroundColor')))
-    if settings.contains('underlineColor'):
-        fmt.setUnderlineColor(QColor(settings.value('underlineColor')))
+    def saveTextFormat(self, fmt, settings):
+        """(Internal) Store one QTextCharFormat in the QSettings instance."""
+        if fmt.hasProperty(QTextFormat.FontWeight):
+            settings.setValue('bold', fmt.fontWeight() >= 70)
+        else:
+            settings.remove('bold')
+        if fmt.hasProperty(QTextFormat.FontItalic):
+            settings.setValue('italic', fmt.fontItalic())
+        else:
+            settings.remove('italic')
+        if fmt.hasProperty(QTextFormat.TextUnderlineStyle):
+            settings.setValue('underline', fmt.fontUnderline())
+        else:
+            settings.remove('underline')
+        if fmt.hasProperty(QTextFormat.ForegroundBrush):
+            settings.setValue('textColor', fmt.foreground().color().name())
+        else:
+            settings.remove('textColor')
+        if fmt.hasProperty(QTextFormat.BackgroundBrush):
+            settings.setValue('backgroundColor', fmt.background().color().name())
+        else:
+            settings.remove('backgroundColor')
+        if fmt.hasProperty(QTextFormat.TextUnderlineColor):
+            settings.setValue('underlineColor', fmt.underlineColor().name())
+        else:
+            settings.remove('underlineColor')
+        
+    def loadTextFormat(self, fmt, settings):
+        """(Internal) Merge values from the QSettings instance into the QTextCharFormat."""
+        if settings.contains('bold'):
+            fmt.setFontWeight(QFont.Bold if settings.value('bold') in (True, 'true') else QFont.Normal)
+        if settings.contains('italic'):
+            fmt.setFontItalic(settings.value('italic') in (True, 'true'))
+        if settings.contains('underline'):
+            fmt.setFontUnderline(settings.value('underline') in (True, 'true'))
+        if settings.contains('textColor'):
+            fmt.setForeground(QColor(settings.value('textColor')))
+        if settings.contains('backgroundColor'):
+            fmt.setBackground(QColor(settings.value('backgroundColor')))
+        if settings.contains('underlineColor'):
+            fmt.setUnderlineColor(QColor(settings.value('underlineColor')))
 
 
 
