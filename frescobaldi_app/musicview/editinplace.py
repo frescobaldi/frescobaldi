@@ -63,8 +63,7 @@ class Dialog(widgets.dialog.Dialog):
         self.highlighter = highlighter.highlighter(d)
         self.view = View(d)
         self.matcher = Matcher(self.view)
-        self.completer = Completer()
-        self.completer.setWidget(self.view)
+        self.completer = Completer(self.view)
         self.setMainWidget(self.view)
         help.addButton(self.buttonBox(), help_musicview_editinplace)
         # action for completion popup
@@ -105,6 +104,9 @@ class Dialog(widgets.dialog.Dialog):
         self.highlighter.setInitialState(tokeniter.state(cursor))
         self.highlighter.setHighlighting(metainfo.info(cursor.document()).highlighting)
         self.highlighter.rehighlight()
+        
+        # let autocomplete query the real document as if we're at the start
+        # of the current block
         self.completer.document_cursor = QTextCursor(cursor.block())
         
         cursor = self.view.textCursor()
@@ -179,6 +181,7 @@ class View(QPlainTextEdit):
 
 
 class Matcher(matcher.MatcherBase):
+    """Looks for matches if the cursor moves."""
     def __init__(self, view):
         self.view = view
         self.highlighter = MatchHighlighter(view)
@@ -189,6 +192,7 @@ class Matcher(matcher.MatcherBase):
 
 
 class MatchHighlighter(widgets.arbitraryhighlighter.ArbitraryHighlighter):
+    """Highlights the matches like { } or << >>."""
     def __init__(self, edit):
         super(MatchHighlighter, self).__init__(edit)
         app.settingsChanged.connect(self.readSettings)
@@ -205,16 +209,34 @@ class MatchHighlighter(widgets.arbitraryhighlighter.ArbitraryHighlighter):
 
 
 class Completer(autocomplete.completer.Completer):
+    """A Completer providing completions for the Edit in Place popup.
+    
+    It can request information from the document specified by the
+    document_cursor which can be set as an instance attribute.
+    
+    """
     document_cursor = None
+    def __init__(self, view):
+        super(Completer, self).__init__()
+        self.setWidget(view)
+    
     def analyzer(self):
         return Analyzer(self.document_cursor)
 
 
 class Analyzer(autocomplete.analyzer.Analyzer):
+    """An Analyzer looking at the line of text in the Edit in Place popup.
+    
+    It takes the document_cursor attribute on init from the Completer,
+    so that the document the Edit in Place popup belongs to can be queried
+    for information like defined variables, etc.
+    
+    """
     def __init__(self, cursor):
         self._document_cursor = cursor
     
     def document_cursor(self):
+        """Reimplemented to return the cursor of the real document."""
         return self._document_cursor
 
 
