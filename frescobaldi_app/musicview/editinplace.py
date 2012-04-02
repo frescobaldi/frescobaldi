@@ -27,6 +27,8 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import autocomplete.analyzer
+import autocomplete.completer
 import cursordiff
 import cursortools
 import help
@@ -61,19 +63,30 @@ class Dialog(widgets.dialog.Dialog):
         self.highlighter = highlighter.highlighter(d)
         self.view = View(d)
         self.matcher = Matcher(self.view)
+        self.completer = Completer()
+        self.completer.setWidget(self.view)
         self.setMainWidget(self.view)
-        app.translateUI(self)
         help.addButton(self.buttonBox(), help_musicview_editinplace)
+        # action for completion popup
+        self._showPopupAction = QAction(None, triggered=self.slotCompletionPopup)
+        self.addAction(self._showPopupAction)
         # make Ctrl+Return accept the dialog
         self.button("ok").setShortcut(QKeySequence("Ctrl+Return"))
         qutil.saveDialogSize(self, "musicview/editinplace/dialog/size")
         
         self.accepted.connect(self.save)
-    
+        app.translateUI(self)
+        app.settingsChanged.connect(self.readSettings)
+        self.readSettings()
+        
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Edit in Place")))
         self.updateMessage()
     
+    def readSettings(self):
+        self._showPopupAction.setShortcut(
+            help.action("autocomplete", "popup_completions").shortcut())
+        
     def edit(self, cursor):
         """Edit the block at the specified QTextCursor."""
         if self._document:
@@ -92,6 +105,7 @@ class Dialog(widgets.dialog.Dialog):
         self.highlighter.setInitialState(tokeniter.state(cursor))
         self.highlighter.setHighlighting(metainfo.info(cursor.document()).highlighting)
         self.highlighter.rehighlight()
+        self.completer.document_cursor = QTextCursor(cursor.block())
         
         cursor = self.view.textCursor()
         cursor.setPosition(max(0, cursorpos-indentpos))
@@ -133,6 +147,9 @@ class Dialog(widgets.dialog.Dialog):
             ))
         else:
             self.setMessage("<no document set>") # should never appear
+    
+    def slotCompletionPopup(self):
+        self.completer.showCompletionPopup()
 
 
 class View(QPlainTextEdit):
@@ -185,6 +202,20 @@ class MatchHighlighter(widgets.arbitraryhighlighter.ArbitraryHighlighter):
         f = QTextCharFormat()
         f.setBackground(self._baseColors[name])
         return f
+
+
+class Completer(autocomplete.completer.Completer):
+    document_cursor = None
+    def analyzer(self):
+        return Analyzer(self.document_cursor)
+
+
+class Analyzer(autocomplete.analyzer.Analyzer):
+    def __init__(self, cursor):
+        self._document_cursor = cursor
+    
+    def document_cursor(self):
+        return self._document_cursor
 
 
 class help_musicview_editinplace(help.page):

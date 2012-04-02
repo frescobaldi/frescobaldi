@@ -94,6 +94,17 @@ class Analyzer(object):
         self.analyze(cursor)
         return self.column, self.model
     
+    def document_cursor(self):
+        """Return the current QTextCursor, to harvest info from its document.
+        
+        By default this is simply the cursor given on analyze() or completions()
+        but you can override this method to provide another cursor. This can
+        be useful when the completion occurs in a small QTextDocument, which is
+        in fact a part of the main document.
+        
+        """
+        return self.cursor
+    
     def tokenclasses(self):
         """Return the list of classes of the tokens."""
         return list(map(type, self.tokens))
@@ -173,19 +184,22 @@ class Analyzer(object):
         if '\\include' in self.tokens[-4:-2]:
             self.backuntil(lp.StringQuotedStart)
             dir = self.last[:self.last.rfind(os.sep)] if os.sep in self.last else None
-            return documentdata.doc(self.cursor.document()).includenames(self.cursor, dir)
+            cursor = self.document_cursor()
+            return documentdata.doc(cursor.document()).includenames(cursor, dir)
 
     def general_music(self):
         """fall back: generic music commands and user-defined commands."""
         if self.last.startswith('\\'):
             self.column = self.lastpos
-        return documentdata.doc(self.cursor.document()).musiccommands(self.cursor)
+        cursor = self.document_cursor()
+        return documentdata.doc(cursor.document()).musiccommands(cursor)
 
     def lyricmode(self):
         """Commands inside lyric mode."""
         if self.last.startswith('\\'):
             self.column = self.lastpos
-        return documentdata.doc(self.cursor.document()).lyriccommands(self.cursor)
+        cursor = self.document_cursor()
+        return documentdata.doc(cursor.document()).lyriccommands(cursor)
         
     def music_glyph(self):
         """Complete \markup \musicglyph names."""
@@ -225,7 +239,8 @@ class Analyzer(object):
         """Complete scheme word from scheme functions, etc."""
         if isinstance(self.last, scm.Word):
             self.column = self.lastpos
-            return documentdata.doc(self.cursor.document()).schemewords()
+            cursor = self.document_cursor()
+            return documentdata.doc(cursor.document()).schemewords()
         
     def markup(self):
         """\\markup {"""
@@ -239,7 +254,8 @@ class Analyzer(object):
             m = re.search(r'\w+$', self.last)
             if m:
                 self.column = self.lastpos + m.start()
-        return documentdata.doc(self.cursor.document()).markup()
+        cursor = self.document_cursor()
+        return documentdata.doc(cursor.document()).markup()
         
     def header(self):
         """\\header {"""
@@ -290,7 +306,8 @@ class Analyzer(object):
         if '=' in self.tokens[-4:]:
             if isinstance(self.last, scm.Word):
                 self.column = self.lastpos
-                return documentdata.doc(self.cursor.document()).schemewords()
+                cursor = self.document_cursor()
+                return documentdata.doc(cursor.document()).schemewords()
             if self.last.startswith('\\'):
                 self.column = self.lastpos
             return completiondata.lilypond_markup
@@ -388,7 +405,8 @@ class Analyzer(object):
             )):
             if isinstance(self.last, scm.Word):
                 self.column = self.lastpos
-            return documentdata.doc(self.cursor.document()).schemewords()
+            cursor = self.document_cursor()
+            return documentdata.doc(cursor.document()).schemewords()
     
     # Mapping from Parsers to the lists of functions to run.
     tests = {
