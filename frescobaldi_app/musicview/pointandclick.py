@@ -47,24 +47,39 @@ _cache = weakref.WeakKeyDictionary()
 textedit_match = re.compile(r"^textedit://(.*?):(\d+):(\d+)(?::\d+)$").match
 
 
-def percent_decode(s):
-    """Percent-decodes all %HH sequences in the specified bytes string."""
-    l = s.split(b'%')
-    res = [l[0]]
-    for i in l[1:]:
-        res.append(chr(int(i[:2], 16)))
-        res.append(i[2:])
-    return b''.join(res)
+if sys.version_info[0] < 3:
+    def percent_decode(s):
+        """Percent-decodes all %HH sequences in the specified bytes string."""
+        l = s.split(b'%')
+        res = [l[0]]
+        for i in l[1:]:
+            res.append(chr(int(i[:2], 16)))
+            res.append(i[2:])
+        return b''.join(res)
+else:
+    def percent_decode(s):
+        """Percent-decodes all %HH sequences in the specified bytes string."""
+        l = s.split(b'%')
+        res = bytearray(l[0])
+        for i in l[1:]:
+            res.append(int(i[:2], 16))
+            res.extend(i[2:])
+        return bytes(res)
 
 
 def readfilename(match):
     """Returns the filename from the match object resulting from textedit_match."""
     fname = match.group(1)
+    lat1 = fname.encode('latin1')
     try:
-        fname = fname.encode('latin1').decode(sys.getfilesystemencoding())
+        lat1 = percent_decode(lat1)
+    except ValueError:
+        pass
+    try:
+        fname = lat1.decode(sys.getfilesystemencoding())
     except UnicodeError:
         pass
-    return percent_decode(fname)
+    return fname
 
 
 def readurl(match):
@@ -95,7 +110,7 @@ class Links(object):
             for num in range(document.numPages()):
                 page = document.page(num)
                 for link in page.links():
-                    if isinstance(link, popplerqt4.Poppler.LinkBrowse) and link.url():
+                    if isinstance(link, popplerqt4.Poppler.LinkBrowse):
                         m = textedit_match(link.url())
                         if m:
                             filename, line, col = readurl(m)
