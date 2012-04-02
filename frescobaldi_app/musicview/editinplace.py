@@ -108,6 +108,8 @@ class Dialog(widgets.dialog.Dialog):
         # let autocomplete query the real document as if we're at the start
         # of the current block
         self.completer.document_cursor = QTextCursor(cursor.block())
+        self.completer.autoComplete = QSettings().value(
+                        "autocomplete", True) not in ('false', False)
         
         cursor = self.view.textCursor()
         cursor.setPosition(max(0, cursorpos-indentpos))
