@@ -48,7 +48,7 @@ class Completer(widgets.completer.Completer):
         cursor = self.textCursor()
         # trick: if we are still visible we don't have to analyze the text again
         if not (self.popup().isVisible() and self._pos < cursor.position()):
-            from . import analyzer
+            analyzer = self.analyzer()
             pos, model = analyzer.completions(cursor)
             if not model:
                 return
@@ -57,5 +57,9 @@ class Completer(widgets.completer.Completer):
                 self.setModel(model)
         cursor.setPosition(self._pos, QTextCursor.KeepAnchor)
         return cursor
+
+    def analyzer(self):
+        from . import analyzer
+        return analyzer.Analyzer()
 
 
