@@ -182,15 +182,14 @@ class View(QPlainTextEdit):
         return super(View, self).event(ev)
 
 
-class Matcher(matcher.MatcherBase):
+class Matcher(matcher.AbstractMatcher):
     """Looks for matches if the cursor moves."""
     def __init__(self, view):
-        self.view = view
-        self.highlighter = MatchHighlighter(view)
-        view.cursorPositionChanged.connect(self.checkMatches)
+        super(Matcher, self).__init__(view)
+        self._highlighter = MatchHighlighter(view)
     
-    def checkMatches(self):
-        self.showMatches(self.view, self.highlighter)
+    def highlighter(self):
+        return self._highlighter
 
 
 class MatchHighlighter(widgets.arbitraryhighlighter.ArbitraryHighlighter):

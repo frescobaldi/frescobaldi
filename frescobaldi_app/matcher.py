@@ -23,6 +23,8 @@ Highlights matching tokens such as { and }, << and >> etc.
 
 from __future__ import unicode_literals
 
+import weakref
+
 import app
 import plugin
 import ly.lex
@@ -30,9 +32,35 @@ import tokeniter
 import viewhighlighter
 
 
-class MatcherBase(object):
-    def showMatches(self, view, highlighter):
-        cursor = view.textCursor()
+class AbstractMatcher(object):
+    def __init__(self, view=None):
+        """Initialize with an optional View. (Does not keep a reference.)"""
+        self._view = lambda: None
+        if view:
+            self.setView(view)
+    
+    def setView(self, view):
+        """Set the current View (to monitor for cursor position changes)."""
+        old = self._view()
+        if old:
+            old.cursorPositionChanged.disconnect(self.showMatches)
+        if view:
+            self._view = weakref.ref(view)
+            view.cursorPositionChanged.connect(self.showMatches)
+        else:
+            self._view = lambda: None
+    
+    def view(self):
+        """Return the current View."""
+        return self._view()
+    
+    def highlighter(self):
+        """Implement to return an ArbitraryHighlighter for the current View."""
+        pass
+    
+    def showMatches(self):
+        """Highlights matching tokens if the view's cursor is at such a token."""
+        cursor = self.view().textCursor()
         block = cursor.block()
         column = cursor.position() - block.position()
         tokens = tokeniter.Runner(block)
@@ -56,31 +84,26 @@ class MatcherBase(object):
                     if nest == 0:
                         # we've found the matching item!
                         cursor2 = tokens.cursor()
-                        highlighter.highlight("match", (cursor1, cursor2), 2, 1000)
+                        self.highlighter().highlight("match", (cursor1, cursor2), 2, 1000)
                         return
                     else:
                         nest -= 1
                 elif isinstance(token2, match) and token2.matchname == token.matchname:
                     nest += 1
-        highlighter.clear("match")
+        self.highlighter().clear("match")
 
 
-class Matcher(MatcherBase, plugin.MainWindowPlugin):
+class Matcher(AbstractMatcher, plugin.MainWindowPlugin):
+    """One Matcher automatically handling the current View."""
     def __init__(self, mainwindow):
-        mainwindow.currentViewChanged.connect(self.newView)
+        super(Matcher, self).__init__()
+        mainwindow.currentViewChanged.connect(self.setView)
         view = mainwindow.currentView()
         if view:
-            self.newView(view)
+            self.setView(view)
         
-    def newView(self, view, old=None):
-        if old:
-            old.cursorPositionChanged.disconnect(self.checkMatches)
-        view.cursorPositionChanged.connect(self.checkMatches)
-            
-    def checkMatches(self):
-        # see if there are matches
-        view = self.mainwindow().currentView()
-        self.showMatches(view, viewhighlighter.highlighter(view))
+    def highlighter(self):
+        return viewhighlighter.highlighter(self.view())
 
 
 app.mainwindowCreated.connect(Matcher.instance)
