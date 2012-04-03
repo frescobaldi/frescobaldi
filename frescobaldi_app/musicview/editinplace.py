@@ -31,7 +31,7 @@ import autocomplete.analyzer
 import autocomplete.completer
 import cursordiff
 import cursortools
-import help
+import help.html
 import highlighter
 import homekey
 import indent
@@ -246,13 +246,13 @@ class help_musicview_editinplace(help.page):
         return _("Edit in place")
     
     def body():
-        return ''.join(map('<p>{0}</p>\n'.format, (
+        return help.html.p(
         _("In this dialog you can edit one line of the text document."),
         _("Click OK or press {key} to place the modified text in the document.").format(
         key=QKeySequence("Ctrl+Return").toString(QKeySequence.NativeText)),
         _("You can open the \"Edit in Place\" dialog by Shift-clicking a "
           "clickable object in the Music View or by right-clicking the object "
           "and selecting {menu}.").format(menu=help.menu(_("Edit in Place"))),
-        )))
+        )
 
 

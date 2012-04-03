@@ -26,6 +26,7 @@ from __future__ import unicode_literals
 from PyQt4.QtGui import QKeySequence
 
 from .helpimpl import action, page, shortcut, menu
+from .html import p, ol, ul, li
 from colorize import colorize
 
 import info
@@ -55,7 +56,7 @@ This manual is written by {author} and documents {appname} version {version}.
         # L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
         translator = _("Translated by Your Name.")
         if translator != "Translated by Your Name.":
-            text += "<p>{0}</p>".format(translator)
+            text += p(translator)
         text += _("""\
 <h3>How to get help inside Frescobaldi</h3>
 
@@ -76,6 +77,7 @@ revealed by pressing {key_whatsthis} or by selecting {menu_whatsthis}.
             introduction,
             starting,
             scorewiz.dialog.scorewiz_help,
+            music_view,
             tools,
             editor,
             preferences.prefshelp.preferences_dialog,
@@ -224,6 +226,53 @@ manually with the option {menu_clear_error_marks}.
 """).format(**d)
 
 
+class music_view(page):
+    def title():
+        return _("The Music View")
+    
+    def body():
+        from musicview.editinplace import help_musicview_editinplace
+        return (p(
+        _("The Music View displays the PDF document created by LilyPond."),
+        _("When LilyPond was run in preview mode (i.e. with Point &amp; Click "
+          "turned on), the PDF contains a clickable link for every music "
+          "object, pointing to its definition in the text document."),
+        _("The Music View uses this information to provide smart, two-way "
+          "integration with the text document:"),
+        ) + ul(li(
+        _("Move the mouse pointer over music objects to highlight them in the text"),
+        _("Click an object to move the text cursor to that object"),
+        _("Shift-click an object to edit its text in a small window (see "
+          "{link})").format(link=help_musicview_editinplace.link()),
+        _("Move the text cursor to highlight them in the music view, press "
+          "{key} to scroll them into view.").format(
+            key=shortcut(action("musicview", "music_jump_to_cursor"))),
+        )) + p(_("You can also adjust the view:")) +
+        ul(li(
+        _("Use the Control (or Command) key with the mouse wheel to zoom in "
+          "and out"),
+        _("Hold Control or Command and left-click to display a magnifier glass"),
+        _("Configure the background color under {menu}").format(
+          menu=menu(_("Edit"), _("Preferences"), _("Fonts & Colors"),
+                    _("Base Colors"), _("Preview Background"))),
+        )) + p(
+        _("You can copy music right from the PDF view to a raster image: "
+          "Hold Shift and drag a rectangular selection (or use the right mouse "
+          "button) and then press {key} or select {menu} to copy the selected "
+          "music as a raster image to the clipboard, a file or another "
+          "application.").format(
+                key=shortcut(action("musicview", "music_copy_image")),
+                menu=menu(_("menu title", "Edit"), _("Copy to Image..."))),
+        ))
+    
+    def seealso():
+        from musicview.editinplace import help_musicview_editinplace
+        return (
+            help_musicview_editinplace,
+            ts_no_music_visible,
+        )
+
+
 class tools(page):
     def title():
         return _("Other Tools")
@@ -286,7 +335,7 @@ class credits(page):
             _("Frescobaldi's main author is {author}.").format(author=info.maintainer))
         import about
         text.extend(about.credits())
-        return '\n'.join(map('<p>{0}</p>'.format, text))
+        return p(*text)
 
 
 class contributing(page):
@@ -428,16 +477,14 @@ class document_variables(page):
     
     def body():
         text = []
-        text.append('<p>')
-        text.append(_("""\
+        text.append(p(
+        _("""\
 Document variables are variables that influence the behaviour of Frescobaldi.
 They can be written in the first five or last five lines of a document.
 If a line contains '<b><code>-*-</code></b>', Frescobaldi searches the rest of
 the lines for variable definitions like <code>name: value;</code>.
-"""))
-        text.append('</p>\n<p>')
-        text.append(_("The following variables are recognized:"))
-        text.append('</p>')
+"""),
+        _("The following variables are recognized:")))
         text.append('<dl>')
         
         for name, arg, description in (
@@ -473,9 +520,7 @@ the lines for variable definitions like <code>name: value;</code>.
                 '<dd>{2}</dd>\n'
                 .format(name, arg, description))
         text.append('</dl>\n')
-        text.append('<p>')
-        text.append(_("You can put document variables in comments."))
-        text.append('</p>')
+        text.append(p(_("You can put document variables in comments.")))
         return ''.join(text)
     
     def children():
@@ -490,7 +535,7 @@ class docvar_output(page):
             output='<code>output</code>')
     
     def body():
-        return '\n'.join(map('<p>{0}</p>'.format, (
+        return p(
             _("Setting this variable suppresses the automatic output file name "
               "determination and makes Frescobaldi look for output documents "
               "(PDF, MIDI, etc.) with the specified basename, or comma-"
@@ -516,7 +561,7 @@ class docvar_output(page):
               "<code>\\bookOutputName</code>, etc); or when the automatic "
               "output file name determination does not work due to complicated "
               "LilyPond code."),
-            )))
+            )
 
 
 class sessions(page):
@@ -524,24 +569,23 @@ class sessions(page):
         return _("Sessions")
     
     def body():
-        p = '<p>{0}</p>'.format
-        return '\n'.join((
-        p(_("A session is basically a list of open files. At any time you can "
+        return p(
+          _("A session is basically a list of open files. At any time you can "
             "choose {menu_session_save} or {menu_session_new} and save the "
             "current list of open files to a named session.").format(
             menu_session_save=menu(_("Session"), _("Save")),
-            menu_session_new=menu(_("Session"), _("New Session", "New")))),
-        p(_("When you switch sessions, all current documents are closed first "
-            "and then the documents of the other session are opened.")),
-        p(_("Inside the session properties dialog, you can choose whether to "
+            menu_session_new=menu(_("Session"), _("New Session", "New"))),
+          _("When you switch sessions, all current documents are closed first "
+            "and then the documents of the other session are opened."),
+          _("Inside the session properties dialog, you can choose whether to "
             "always save the list of open documents to that session, or to "
             "only save on creation (or via {menu_session_save}). "
             "This can be useful if you want to keep the list of documents in "
             "session the same, even if you open or close documents while "
             "working.").format(
-            menu_session_save=menu(_("Session"), _("Save")))),
-        p(_("You can also specify a default directory for the session.")),
-        ))
+            menu_session_save=menu(_("Session"), _("Save"))),
+          _("You can also specify a default directory for the session."),
+        )
     
     def seealso():
         import preferences.prefshelp
@@ -553,7 +597,6 @@ class troubleshooting(page):
         return _("Troubleshooting")
     
     def body():
-        p = '<p>{0}</p>'.format
         return p(_("Sometimes things don't go the way you would expect; "
                    "this section may give some solutions."))
     
@@ -569,33 +612,25 @@ class ts_no_music_visible(page):
         return _("After engraving a score, the Music View does not show the music")
     
     def body():
-        tag = '<{0}>{{0}}</{0}>'.format
-        p = tag('p').format
-        li = tag('li').format
-        ol = tag('ol').format
-        return ol('\n'.join((
-        li('\n'.join((
-            p(_("Does the <code>\\score</code> block have a layout section?")),
-            p(_("If a <code>\\score</code> block has a <code>\\midi</code> "
+        return ol(li(
+            p(_("Does the <code>\\score</code> block have a layout section?"),
+              _("If a <code>\\score</code> block has a <code>\\midi</code> "
                 "section but no <code>\\layout</code> section, no PDF output "
                 "is generated.")),
-        ))),
-        li('\n'.join((
-            p(_("Do you use an exotic way to specify the output filename?")),
-            p(_("Frescobaldi is able to determine the output file names by "
+            p(_("Do you use an exotic way to specify the output filename?"),
+              _("Frescobaldi is able to determine the output file names by "
                 "looking at the document's filename and the various LilyPond "
                 "commands that specify the output filename or -suffix. "
                 "Frescobaldi even searches <code>\\include</code> files for "
                 "commands like <code>\\bookOutputName</code> and "
-                "<code>\\bookOutputSuffix</code>.")),
-            p(_("But if you use more complicated Scheme code in your document "
+                "<code>\\bookOutputSuffix</code>."),
+              _("But if you use more complicated Scheme code in your document "
                 "to specify the output filenames, Frescobaldi may not be able "
-                "to correctly determine those filenames.")),
-            p(_("In that case you can override the base name(s) using the "
+                "to correctly determine those filenames."),
+              _("In that case you can override the base name(s) using the "
                 "{output} document variable.").format(
                     output=docvar_output.link('<code>output</code>'))),
-            ))),
-        )))
+        ))
     
     def seealso():
         return (
@@ -608,7 +643,7 @@ class ts_midi_generate(page):
         return _("How to generate a MIDI file?")
     
     def body():
-        return '\n'.join(map('<p>{0}</p>'.format, (
+        return p(
         _("By default, LilyPond creates only a PDF file of the music. "
           "To create a MIDI file, you must wrap the music in a <code>\\score"
           "</code> block and add a <code>\\midi</code> block to it."),
@@ -626,7 +661,7 @@ music = \relative c' {
 }"""),
         _("If you omit the <code>\\layout</code> block, no PDF file will be "
           "generated, only a MIDI file."),
-        )))
+        )
 
 
 class toc(page):
@@ -639,9 +674,7 @@ class toc(page):
         def addpage(page):
             if page not in seen:
                 seen.add(page)
-                html.append('<li>')
-                html.append(page.link())
-                html.append('</li>')
+                html.append(li(page.link()))
                 if page.children():
                     html.append('<ul>')
                     for p in page.children():
