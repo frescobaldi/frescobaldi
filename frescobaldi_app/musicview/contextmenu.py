@@ -27,6 +27,9 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 
+import icons
+
+
 def show(position, panel, link, cursor):
     """Shows a context menu.
     
@@ -54,6 +57,14 @@ def show(position, panel, link, cursor):
         m.addAction(panel.actionCollection.music_fit_width)
         m.addAction(panel.actionCollection.music_fit_height)
         m.addAction(panel.actionCollection.music_zoom_original)
+    
+    # help
+    m.addSeparator()
+    a = m.addAction(icons.get("help-contents"), _("Help"))
+    @a.triggered.connect
+    def help():
+        import help
+        help.help("music_view")
     
     # show it!
     if m.actions():
