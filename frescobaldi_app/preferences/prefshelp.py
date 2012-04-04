@@ -24,11 +24,7 @@ Help for the Preferences Dialog.
 from __future__ import unicode_literals
 
 import help.contents
-
-
-# html helpers
-p = "<p>{0}</p>\n".format
-link = '<a href="help:{0}">{1}</a>'.format
+from help.html import p
 
 
 class preferences_dialog(help.page):
@@ -52,30 +48,30 @@ class preferences_general(help.page):
         return _("General Preferences")
     
     def body():
-        return '\n'.join((
-        p(_("Under <em>{general_preferences}</em>, you can choose in "
+        return p(
+          _("Under <em>{general_preferences}</em>, you can choose in "
             "which language Frescobaldi's user interface is translated, "
             "which user interface style you want to use, "
             "and whether you want to use the built-in Tango iconset or to use "
             "the system-wide configured icon set.").format(
-            general_preferences=_("General Preferences"))),
-        p(_("Language and style take effect immediately, but the new iconset "
-            "is visible after Frescobaldi has been restarted.")),
-        p(_("Under <em>{startup}</em> you can configure which session "
+            general_preferences=_("General Preferences")),
+          _("Language and style take effect immediately, but the new iconset "
+            "is visible after Frescobaldi has been restarted."),
+          _("Under <em>{startup}</em> you can configure which session "
             "to load if Frescobaldi is started without a filename. "
             "You can choose whether to start with one empty document, with the "
             "last used session, or with a specific session. "
             "See also {link}.").format(
             startup=_("Session to load if Frescobaldi is started without arguments"),
-            link=help.contents.sessions.link())),
-        p(_("Under <em>{saving}</em>, you can choose what to do when "
+            link=help.contents.sessions.link()),
+          _("Under <em>{saving}</em>, you can choose what to do when "
             "a document is saved, such as remembering the cursor position and "
             "marked lines, or leaving a backup copy of the document (with a ~ "
             "appended). "
             "Also, you can specify a default folder in which you keep your "
             "LilyPond documents.").format(
-            saving=_("When saving documents"))),
-        ))
+            saving=_("When saving documents")),
+        )
 
 
 class preferences_lilypond(help.page):
@@ -83,19 +79,19 @@ class preferences_lilypond(help.page):
         return _("LilyPond Preferences")
     
     def body():
-        return '\n'.join((
-        p(_("Here you can configure how LilyPond is run when you engrave your "
-            "document.")),
-        p(_("If you have multiple versions of LilyPond installed you can "
+        return p(
+          _("Here you can configure how LilyPond is run when you engrave your "
+            "document."),
+          _("If you have multiple versions of LilyPond installed you can "
             "specify them here, and configure Frescobaldi to automatically "
             "choose the right one, based on the version number that is set in "
             "the document ({more_info}).").format(
-            more_info=preferences_lilypond_autoversion.link(_("more info")))),
-        p(_("You can also configure how LilyPond is run. See the tooltips of "
-            "the settings for more information.")),
-        p(_("Finally, you can specify a list of paths where the LilyPond "
-            "<code>\include</code> command looks for files.")),
-        ))
+            more_info=preferences_lilypond_autoversion.link(_("more info"))),
+          _("You can also configure how LilyPond is run. See the tooltips of "
+            "the settings for more information."),
+          _("Finally, you can specify a list of paths where the LilyPond "
+            "<code>\include</code> command looks for files."),
+        )
 
 
 class preferences_lilypond_autoversion(help.page):
@@ -128,22 +124,23 @@ class preferences_midi(help.page):
         return _("MIDI Settings")
     
     def body():
-        return '\n'.join((
-        p(_("Here you can configure Frescobaldi's MIDI settings.")),
-        p(_("You can specify the MIDI port name to play to. ") +
+        return p(
+          _("Here you can configure Frescobaldi's MIDI settings."),
+          ' '.join((
+          _("You can specify the MIDI port name to play to."),
           _("If there are no port names visible in the drop-down box, "
             "it may be necessary to connect a hardware MIDI synthesizer to "
             "your computer, or to start a software synthesizer program such "
-            "as TiMidity or Fluidsynth.") +
+            "as TiMidity or Fluidsynth."),
           _("On Linux, the synthesizer should be available as an ALSA MIDI "
-            "device.")),
-        p(_("If you have a device with multiple ports, you can specify the "
+            "device."))),
+          _("If you have a device with multiple ports, you can specify the "
             "first letters of the name, to have Frescobaldi automatically pick "
-            "the first available one.")),
-        p(_("And finally, when using a software synthesizer it is recommended "
+            "the first available one."),
+          _("And finally, when using a software synthesizer it is recommended "
             "to enable the option <em>{close_unused}</em>.").format(
-                close_unused=_("Close unused MIDI output"))),
-        _( # keep this text in sync with the whatsthis in midi.py
+                close_unused=_("Close unused MIDI output")),
+        ) + _( # keep this text in sync with the whatsthis in midi.py
         "<p>If checked, Frescobaldi will close MIDI output ports that are not "
         "used for one minute.</p>\n"
         "<p>This could free up system resources that a software MIDI synthesizer "
@@ -151,8 +148,7 @@ class preferences_midi(help.page):
         "<p>A side effect is that if you pause a MIDI file for a long time "
         "the instruments are reset to the default piano (instrument 0). "
         "In that case, playing the file from the beginning sets up the "
-        "instruments again.</p>\n"),
-        ))
+        "instruments again.</p>\n")
 
 
 class preferences_helpers(help.page):
@@ -160,20 +156,18 @@ class preferences_helpers(help.page):
         return _("Helper Applications")
     
     def body():
-        return '\n'.join((
-        p(_(
-        "In this page you can enter commands to open different file types. "
-        "<code>$f</code> is replaced with the filename, "
-        "<code>$u</code> with the URL. "
-        "Leave a field empty to use the operating system default "
-        "application.")),
-        p(_(
-        "For the e-mail setting, the command should accept a "
-        "<code>mailto:</code> url. "
-        "For the command prompt, the command should open a console window. "
-        "A <code>$f</code> value is replaced with the directory of the "
-        "current document.")),
-        ))
+        return p(
+          _("In this page you can enter commands to open different file types. "
+            "<code>$f</code> is replaced with the filename, "
+            "<code>$u</code> with the URL. "
+            "Leave a field empty to use the operating system default "
+            "application."),
+          _("For the e-mail setting, the command should accept a "
+            "<code>mailto:</code> url. "
+            "For the command prompt, the command should open a console window. "
+            "A <code>$f</code> value is replaced with the directory of the "
+            "current document."),
+        )
 
 
 class preferences_paths(help.page):
@@ -181,13 +175,13 @@ class preferences_paths(help.page):
         return _("Paths")
     
     def body():
-        return '\n'.join((
-        p(_("Here, directories can be added that contain "
+        return p(
+          _("Here, directories can be added that contain "
             "<code>hyph_*.dic</code> files, where the <code>*</code> "
-            "stands for different language codes.")),
-        p(_("These hyphenation dictionaries are used by Frescobaldi to break "
-            "lyrics text into syllabes.")),
-        ))
+            "stands for different language codes."),
+          _("These hyphenation dictionaries are used by Frescobaldi to break "
+            "lyrics text into syllabes."),
+        )
 
 
 class preferences_documentation(help.page):
@@ -213,18 +207,19 @@ class preferences_shortcuts(help.page):
         return _("Keyboard Shortcuts")
     
     def body():
-        return '\n'.join((
-        p(_("Here you can add keyboard shortcuts to all commands available. "
+        link = '<a href="help:{0}">{1}</a>'.format
+        return p(
+          _("Here you can add keyboard shortcuts to all commands available. "
             "Also the {snippets} or {quickinsert} buttons that have keyboard "
             "shortcuts are listed here.").format(
                 snippets=link("snippet_help", _("Snippets")),
-                quickinsert=link("quickinsert_help", _("Quick Insert")))),
-        p(_("To change a keyboard shortcut, highlight an action in the list "
+                quickinsert=link("quickinsert_help", _("Quick Insert"))),
+          _("To change a keyboard shortcut, highlight an action in the list "
             "and click the Edit button, or double-click an action. "
             "In the dialog that appears, you can enter up to four shortcuts "
-            "for the action by clicking the button and typing the shortcut. ")),
-        p(_("You can define a new scheme by using the New button.")),
-        ))
+            "for the action by clicking the button and typing the shortcut. "),
+          _("You can define a new scheme by using the New button."),
+        )
 
 
 class preferences_fontscolors(help.page):
@@ -232,22 +227,22 @@ class preferences_fontscolors(help.page):
         return _("Fonts & Colors")
     
     def body():
-        return '\n'.join((
-        p(_("Here you can set the editor font (a monospace font is "
-            "recommended) and all colors.")),
-        p(_("The first item lets you set the colors for the text editor "
+        return p(
+          _("Here you can set the editor font (a monospace font is "
+            "recommended) and all colors."),
+          _("The first item lets you set the colors for the text editor "
             "backgroud, foreground, selection background, the current line, "
-            "line markings, the paper color in the Music View, etcetera.")),
-        p(_("The second item lets you set color and other attributes of the "
+            "line markings, the paper color in the Music View, etcetera."),
+          _("The second item lets you set color and other attributes of the "
             "general highlighting styles, e.g. keyword, variable, value, "
-            "comment, etcetera.")),
-        p(_("The other items contain the types of text the syntax highlighter "
+            "comment, etcetera."),
+          _("The other items contain the types of text the syntax highlighter "
             "recognizes for every particular document type Frescobaldi "
             "supports. Some of these types inherit a general style. "
             "It is possible to set the attributes bold, italic, underline and "
-            "the foreground, background and underline color.")),
-        p(_("You can define a new scheme by using the New button.")),
-        ))
+            "the foreground, background and underline color."),
+          _("You can define a new scheme by using the New button."),
+        )
 
 
 class preferences_tools(help.page):
@@ -255,8 +250,7 @@ class preferences_tools(help.page):
         return _("Tools")
     
     def body():
-        return '\n'.join((
-        p(_("Here you can change the settings for various tools.")),
-        ))
+        return p(_("Here you can change the settings for various tools."))
+
 
 
