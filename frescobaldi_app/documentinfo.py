@@ -267,14 +267,18 @@ class DocumentInfo(plugin.DocumentPlugin):
         You should add '.ext' and/or '-[0-9]+.ext' to find created files.
         
         """
-        filename, mode = self.jobinfo()[:2]
-        
         # if the file defines an 'output' variable, it is used instead
-        output = fileinfo.FileInfo.info(filename).variables().get('output')
+        filename = self.master()
+        if filename:
+            output = fileinfo.FileInfo.info(filename).variables().get('output')
+        else:
+            output = variables.get(self.document(), 'output')
         if output:
             dirname = os.path.dirname(filename)
             return [os.path.join(dirname, name.strip())
                     for name in output.split(',')]
+        
+        filename, mode = self.jobinfo()[:2]
         
         if mode == "lilypond":
             return fileinfo.basenames(filename, self.includefiles(), self.outputargs())
