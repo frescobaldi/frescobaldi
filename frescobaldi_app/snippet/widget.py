@@ -456,10 +456,11 @@ class snippet_maintaining_library(help.page):
         return _("Maintaining a library of snippets")
     
     def body():
-        return ''.join(map('<p>{0}</p>\n'.format, (
+        from help.html import p
+        return p(
         _("To keep a certain group of snippets manageable as a snippet "
           "library, you can of course prefix the snippet titles with some sort "
-          "of special name. But a smarter way is to use a snippet variable. "),
+          "of special name. But a smarter way is to use a snippet variable."),
         _("It is suggested to use the \"{set}\" variable, and set it to the "
           "name of the library you want the snippet to belong to.").format(
           set='<code>set</code>'),
@@ -468,7 +469,7 @@ class snippet_maintaining_library(help.page):
           "the snippet search bar, where \"name\" is the name you want to use. "
           "And then e.g. export the snippets to an XML "
           "file for sharing the snippets with others.").format(set="set"),
-        )))
+        )
 
 
 

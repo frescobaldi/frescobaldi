@@ -243,7 +243,7 @@ class Analyzer(autocomplete.analyzer.Analyzer):
 
 class help_musicview_editinplace(help.page):
     def title():
-        return _("Edit in place")
+        return _("Edit in Place")
     
     def body():
         return help.html.p(
