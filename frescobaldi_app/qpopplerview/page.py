@@ -214,8 +214,11 @@ class Page(object):
         with lock(self.document()):
             options and options.write(self.document())
             page = self.document().page(self._pageNumber)
-            return page.renderToImage(xdpi, ydpi, x, y, w, h, self._rotation)
-        
+            image = page.renderToImage(xdpi, ydpi, x, y, w, h, self._rotation)
+        image.setDotsPerMeterX(int(xdpi * 39.37))
+        image.setDotsPerMeterY(int(ydpi * 39.37))
+        return image
+    
     def linksAt(self, point):
         """Returns a list() of zero or more links touched by point (relative to surface).
         

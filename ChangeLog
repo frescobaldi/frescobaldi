@@ -18,6 +18,7 @@ Changes in 2.0.5 --
   - New command in View->Music View and Music View contextmenu: "Original Size"
   - In-place editing by Shift-clicking a note or right-click->Edit in Place
 * Improvements:
+  - Copied images from Music View carry correct DPI information
   - Autocomplete also looks for variable definitions in \include files
   - Running convert-ly (or undoing it) does not erase point and click positions
     anymore
