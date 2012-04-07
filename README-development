@@ -92,6 +92,7 @@ signals:        An alternative to Qt signals that allows for connections to have
 cachedproperty: Caches properties that can be asynchronously computed
 slexer:         A Stateful Lexer, used to build regular expression-based parsers
 hyphenator:     Hyphenate text using hyphenation dictionaries
+node:           A list-like type to build tree structures with
 cursortools:    Some useful functions manipulating QTextCursor instances
 portmidi:       Access the PortMidi library in different ways
 midifile:       Load and play MIDI files

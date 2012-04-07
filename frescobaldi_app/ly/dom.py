@@ -40,13 +40,13 @@ from __future__ import unicode_literals
 import fractions
 import re
 
+import node
+
 import ly.pitch
 import ly.duration
 
-from .node import Node
 
-
-class LyNode(Node):
+class LyNode(node.WeakNode):
     """
     Base class for LilyPond objects, based on Node,
     which takes care of the tree structure.
@@ -220,7 +220,7 @@ class HandleVars(object):
 
     @ifbasestring
     def __getitem__(self, name):
-        for node in self.findChildren(self.childClass, 1):
+        for node in self.find_children(self.childClass, 1):
             if node.name == name:
                 return node
 
@@ -256,7 +256,7 @@ class AddDuration(object):
     """ Mixin to add a duration (as child). """
     def ly(self, printer):
         s = super(AddDuration, self).ly(printer)
-        dur = self.findChild(Duration, 1)
+        dur = self.find_child(Duration, 1)
         if dur:
             s += dur.ly(printer)
         return s
@@ -669,7 +669,7 @@ class ContextProperty(Leaf):
     def ly(self, printer):
         if self.context:
             # In \lyrics or \lyricmode: put spaces around dot.
-            p = self.findParent(InputMode)
+            p = self.find_parent(InputMode)
             if p and isinstance(p, LyricMode):
                 f = '{0} . {1}'
             else:
@@ -769,12 +769,12 @@ class Chord(Container):
     This is a bit of a hack, awaiting real music object support.
     """
     def ly(self, printer):
-        pitches = list(self.findChildren(Pitch, 1))
+        pitches = list(self.find_children(Pitch, 1))
         if len(pitches) == 1:
             s = pitches[0].ly(printer)
         else:
             s = "<{0}>".format(' '.join(p.ly(printer) for p in pitches))
-        duration = self.findChild(Duration, 1)
+        duration = self.find_child(Duration, 1)
         if duration:
             s += duration.ly(printer)
         return s

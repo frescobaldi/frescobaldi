@@ -33,18 +33,18 @@ def examplify(doc):
     """Fills in some example music in the given ly.dom.Document."""
     stubs = []
     globals = {}
-    for a in doc.findChildren(ly.dom.Assignment, 2):
+    for a in doc.find_children(ly.dom.Assignment, 2):
         if isinstance(a.name, ly.dom.Reference):
             g = None
-            for i in a.findChildren(ly.dom.Identifier):
+            for i in a.find_children(ly.dom.Identifier):
                 if not isinstance(i.name, ly.dom.Reference):
                     g = i.name
                     break
             stubs.append((g, a[-1]))
         else:
-            keysig = a.findChild(ly.dom.KeySignature) 
-            timesig = a.findChild(ly.dom.TimeSignature)
-            partial = a.findChild(ly.dom.Partial)
+            keysig = a.find_child(ly.dom.KeySignature) 
+            timesig = a.find_child(ly.dom.TimeSignature)
+            partial = a.find_child(ly.dom.Partial)
             
             # create a list of durations for the example notes.
             durations = []
