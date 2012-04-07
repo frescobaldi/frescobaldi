@@ -119,7 +119,7 @@ class Results(plugin.DocumentPlugin):
         
         """
         if documentinfo.info(self.document()).master():
-            filename = self.document().url().toLocalfile()
+            filename = self.document().url().toLocalFile()
         else:
             filename = self.jobfile()
         directory = os.path.dirname(filename)
