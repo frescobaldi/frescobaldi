@@ -31,7 +31,11 @@ A Node has children with list-like access methods and keeps also a reference to
 its parent. A Node can have one parent; appending a Node to another Node causes
 it to be removed from its parent node (if any).
 
-You should inherit from Node to make meaningful tree node types.
+You should inherit from Node to make meaningful tree node types, e.g. to add
+custom attributes or multiple sub-types.
+
+A WeakNode class is provided as well, which uses a weak reference to the parent,
+so that no cyclic references are created which might improve garbage collection.
 
 """
 
@@ -65,7 +69,7 @@ class Node(object):
 
     def children(self):
         """Our children, may be an empty list."""
-        return self._children
+        return list(self._children)
 
     def index(self, node):
         """Return the index of the given child node."""
@@ -195,7 +199,7 @@ class Node(object):
             node = node.parent()
 
     def previous(self):
-        """Return the object just before us in our parents list.
+        """Return the sibling object just before us in our parents list.
         
         Returns None if this is the first child, or if we have no parent.
         
@@ -207,7 +211,7 @@ class Node(object):
                 return parent[i-1]
 
     def next(self):
-        """Return the object just after us in our parents list.
+        """Return the sibling object just after us in our parents list.
         
         Returns None if this is the last child, or if we have no parent.
         
@@ -223,14 +227,14 @@ class Node(object):
         node = self.previous()
         while node:
             yield node
-            node = self.previous()
+            node = node.previous()
 
     def forward(self):
         """Iterate over the following siblings."""
         node = self.next()
         while node:
             yield node
-            node = self.next()
+            node = node.next()
 
     def is_descendant(self, node):
         """Return True if node is somewhere in our ancestors(), else False."""
@@ -298,10 +302,7 @@ class WeakNode(Node):
     """A Node type using a weak reference to the parent."""
     __slots__ = ()
     def _set_parent(self, node):
-        if node is None:
-            self._parent = None
-        else:
-            self._parent = weakref.ref(node)
+        self._parent = None if node is None else weakref.ref(node)
     
     def parent(self):
         """The parent, or None if the node has no parent."""
