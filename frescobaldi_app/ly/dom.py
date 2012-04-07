@@ -36,6 +36,7 @@ Note: elements keep a weak reference to their parent.
 """
 
 from __future__ import unicode_literals
+from __future__ import absolute_import # prevent picking old stale node.py from package
 
 import fractions
 import re

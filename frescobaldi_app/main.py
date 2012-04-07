@@ -34,7 +34,7 @@ import sys
 from PyQt4.QtCore import QSettings, QUrl
 from PyQt4.QtGui import QApplication, QTextCursor
 
-import toplevel         # Find all modules and packages as toplevel
+from . import toplevel  # Find all modules and packages as toplevel
 import info             # Information about our application
 import app              # Construct QApplication
 import guistyle         # Setup GUI style
