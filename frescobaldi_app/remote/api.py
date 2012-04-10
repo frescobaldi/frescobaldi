@@ -1,0 +1,127 @@
+# This file is part of the Frescobaldi project, http://www.frescobaldi.org/
+#
+# Copyright (c) 2012 - 2012 by Wilbert Berendsen
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+# See http://www.gnu.org/licenses/ for more information.
+
+"""
+Inter-Process Communication with already running Frescobaldi instances.
+
+This is done via a local (unix domain) socket, to which simple commands
+are written. Every command is a line of ASCII characters, terminated by a
+newline. Arguments are separated with spaces.
+"""
+
+from __future__ import unicode_literals
+
+from PyQt4.QtCore import QUrl
+from PyQt4.QtGui import QApplication
+from PyQt4.QtNetwork import QLocalSocket
+
+import app
+
+
+_incoming_handlers = []
+
+
+class Remote(object):
+    """Speak to the remote Frescobaldi."""
+    def __init__(self, socket):
+        self.socket = socket
+    
+    def close(self):
+        """Close and disconnect."""
+        self.write(b'bye\n')
+        self.socket.waitForBytesWritten()
+        self.socket.disconnectFromServer()
+        if self.socket.state() == QLocalSocket.ConnectedState:
+            self.socket.waitForDisconnected(5000)
+    
+    def write(self, data):
+        """Writes binary data."""
+        while data:
+            l = self.socket.write(data)
+            data = data[l:]
+    
+    def command_line(self, options, urls):
+        """Let remote Frescobaldi handle a command line."""
+        if urls:
+            self.write(b'encoding {0}\n'.format(options.encoding))
+            for u in urls:
+                self.write(b'open {0}\n'.format(u.toEncoded()))
+            self.write(b'set_current {0}\n'.format(u.toEncoded()))
+            if options.line is not None:
+                self.write(b'set_cursor {0} {1}\n'.format(options.line, options.column))
+        self.write(b'activate_window\n')
+
+
+class Incoming(object):
+    """Handle an incoming connection."""
+    def __init__(self, socket):
+        """Start reading from the socket and perform the commands."""
+        self.socket = socket
+        self.data = bytearray()
+        self.encoding = None
+        _incoming_handlers.append(self)
+        socket.readyRead.connect(self.read)
+        socket.disconnected.connect(self.close)
+    
+    def close(self):
+        self.socket.deleteLater()
+        _incoming_handlers.remove(self)
+    
+    def read(self):
+        """Read from the socket and let command() handle the commands."""
+        self.data.extend(self.socket.readAll())
+        pos = self.data.find(b'\n')
+        end = 0
+        while pos != -1:
+            self.command(self.data[end:pos])
+            end = pos + 1
+            pos = self.data.find(b'\n', end)
+        del self.data[:end]
+    
+    def command(self, command):
+        """Perform one command."""
+        command = command.split()
+        cmd = command[0]
+        args = command[1:]
+        
+        win = QApplication.activeWindow()
+        if win not in app.windows:
+            win = app.windows[0]
+        
+        if cmd == b'open':
+            url = QUrl.fromEncoded(args[0])
+            app.openUrl(url, self.encoding)
+        elif cmd == b'encoding':
+            self.encoding = args[0]
+        elif cmd == b'activate_window':
+            win.activateWindow()
+            win.raise_()
+        elif cmd == b'set_current':
+            url = QUrl.fromEncoded(args[0])
+            win.setCurrentDocument(app.openUrl(url, self.encoding))
+        elif cmd == b'set_cursor':
+            line, column = map(int, args)
+            cursor = win.textCursor()
+            pos = cursor.document().findBlockByNumber(line - 1).position() + column
+            cursor.setPosition(pos)
+            win.currentView().setTextCursor(cursor)
+        elif cmd == b'bye':
+            self.close()
+
+

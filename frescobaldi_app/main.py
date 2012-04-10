@@ -39,6 +39,7 @@ import info             # Information about our application
 import app              # Construct QApplication
 import guistyle         # Setup GUI style
 import po.setup         # Setup language
+import remote           # IPC with other Frescobaldi instances
 
 
 def parse_commandline():
@@ -63,6 +64,8 @@ def parse_commandline():
     parser.add_option('--start', metavar=_("NAME"),
         help=_("Session to start ('{none}' for empty session)").format(none="none"),
         dest="session")
+    parser.add_option('-n', '--new', action="store_true", default=False,
+        help=_("Always start a new instance"))
 
     args = QApplication.arguments()
     if os.name == 'nt' and args and 'python' in os.path.basename(args[0]).lower():
@@ -88,12 +91,22 @@ def url(arg):
 def main():
     """Main function."""
     options, files = parse_commandline()
+    files = list(map(url, files))
     
-    if (QSettings().value("splash_screen", True) not in ("false", False)
-        and not app.qApp.isSessionRestored()):
-        import splashscreen
-        splashscreen.show()
+    if not app.qApp.isSessionRestored():
+        if not options.new and remote.enabled():
+            api = remote.get()
+            if api:
+                api.command_line(options, files)
+                api.close()
+                sys.exit(0)
+    
+        if QSettings().value("splash_screen", True) not in ("false", False):
+            import splashscreen
+            splashscreen.show()
 
+    remote.setup()          # Start listening for IPC
+    
     import mainwindow       # contains MainWindow class
     import session          # Initialize QSessionManager support
     import sessions         # Initialize our own named session support
@@ -121,7 +134,7 @@ def main():
     
     if files:
         for arg in files:
-            doc = win.openUrl(url(arg), options.encoding)
+            doc = win.openUrl(arg, options.encoding)
     elif not options.session:
         # no docs, load default session
         doc = sessions.loadDefaultSession()

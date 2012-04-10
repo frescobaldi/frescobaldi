@@ -7,6 +7,7 @@ Changes in 2.0.5 --
 * Translations:
   - updated: fr, nl
 * New features:
+  - Files can be opened in running instance, if enabled in settings
   - New document variable: 'output' which can be set to the basename, folder, or
     list of names or folders to look for output documents. Overrides the default
     behaviour of parsing the document for all the included files and LilyPond
