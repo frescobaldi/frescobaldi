@@ -81,7 +81,7 @@ def url(arg):
     if re.match(r'^(https?|s?ftp)://', arg):
         return QUrl(arg)
     elif arg.startswith('file://'):
-        return QUrl.fromLocalFile(arg[7:])
+        return QUrl.fromLocalFile(os.path.abspath(arg[7:]))
     elif arg.startswith('file:'):
         return QUrl.fromLocalFile(os.path.abspath(arg[5:]))
     else:
@@ -91,13 +91,13 @@ def url(arg):
 def main():
     """Main function."""
     options, files = parse_commandline()
-    files = list(map(url, files))
+    urls = list(map(url, files))
     
     if not app.qApp.isSessionRestored():
         if not options.new and remote.enabled():
             api = remote.get()
             if api:
-                api.command_line(options, files)
+                api.command_line(options, urls)
                 api.close()
                 sys.exit(0)
     
@@ -132,14 +132,14 @@ def main():
     win = mainwindow.MainWindow()
     win.show()
     
-    if files:
-        for arg in files:
-            doc = win.openUrl(arg, options.encoding)
+    if urls:
+        for u in urls:
+            doc = win.openUrl(u, options.encoding)
     elif not options.session:
         # no docs, load default session
         doc = sessions.loadDefaultSession()
     win.setCurrentDocument(doc or document.Document())
-    if files and options.line is not None:
+    if urls and options.line is not None:
         # set the last loaded document active and apply navigation if requested
         pos = doc.findBlockByNumber(options.line - 1).position() + options.column
         cursor = QTextCursor(doc)

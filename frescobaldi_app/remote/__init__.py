@@ -58,15 +58,28 @@ def init():
     # find a free socket name to use
     for name in ids():
         if server.listen(name):
-            app.aboutToQuit.connect(server.close)
-            server.newConnection.connect(slot_new_connection)
-            os.environ["FRESCOBALDI_SOCKET"] = name
-            _server = server
+            break
+    else:
+        # all names failed, try to contact and remove stale file if that fails
+        socket = QLocalSocket()
+        for name in ids():
+            socket.connectToServer(name)
+            if not socket.waitForConnected(10000):
+                QLocalServer.removeServer(name)
+                if server.listen(name):
+                    break
+            else:
+                socket.disconnectFromServer()
+        else:
+            # no ids left, dont listen
             return
-    # all names failed
+    app.aboutToQuit.connect(server.close)
+    server.newConnection.connect(slot_new_connection)
+    os.environ["FRESCOBALDI_SOCKET"] = name
+    _server = server
 
 
-def exit():
+def quit():
     """Stop listening to incoming connections."""
     global _server
     if _server is not None:
@@ -85,7 +98,7 @@ def ids(count=3):
     i = generate_id()
     yield i
     for c in range(1, count):
-        yield i + format(c)
+        yield '{0}#{1}'.format(i, c)
 
 
 def generate_id():
@@ -100,9 +113,9 @@ def generate_id():
     
     display = os.environ.get("DISPLAY")
     if display:
-        name.append(display.replace(':', '-'))
+        name.append(display)
     
-    return '_'.join(name)
+    return '-'.join(name)
 
 
 def enabled():
@@ -117,7 +130,7 @@ def enabled():
 
 def setup():
     """Enable or disable the remote server according to settings."""
-    init() if enabled() else exit()
+    init() if enabled() else quit()
 
 app.settingsChanged.connect(setup)
 
