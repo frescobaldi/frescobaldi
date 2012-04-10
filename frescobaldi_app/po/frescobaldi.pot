@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-04 09:46+0200\n"
+"POT-Creation-Date: 2012-04-10 13:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,7 +78,7 @@ msgstr ""
 msgid "Version {version}"
 msgstr ""
 
-#: ../about.py:152 ../main.py:56
+#: ../about.py:152 ../main.py:57
 msgid "A LilyPond Music Editor"
 msgstr ""
 
@@ -484,36 +484,40 @@ msgstr ""
 msgid "&Copy Lyrics with hyphenation removed"
 msgstr ""
 
-#: ../main.py:54
+#: ../main.py:55
 msgid "{appname} [options] file ..."
 msgstr ""
 
-#: ../main.py:57
+#: ../main.py:58
 msgid "ENC"
 msgstr ""
 
-#: ../main.py:58
+#: ../main.py:59
 msgid "Encoding to use"
 msgstr ""
 
-#: ../main.py:59 ../main.py:61
+#: ../main.py:60 ../main.py:62
 msgid "NUM"
 msgstr ""
 
-#: ../main.py:60
+#: ../main.py:61
 msgid "Line number to go to, starting at 1"
 msgstr ""
 
-#: ../main.py:62
+#: ../main.py:63
 msgid "Column to go to, starting at 0"
 msgstr ""
 
-#: ../main.py:63
+#: ../main.py:64
 msgid "NAME"
 msgstr ""
 
-#: ../main.py:64
+#: ../main.py:65
 msgid "Session to start ('{none}' for empty session)"
+msgstr ""
+
+#: ../main.py:68
+msgid "Always start a new instance"
 msgstr ""
 
 #. L10N: state of document in window titlebar
@@ -2533,7 +2537,7 @@ msgctxt "QScrollBar"
 msgid "Scroll right"
 msgstr ""
 
-#: ../preferences/__init__.py:173 ../preferences/general.py:123
+#: ../preferences/__init__.py:173 ../preferences/general.py:128
 #: ../preferences/prefshelp.py:48 ../preferences/prefshelp.py:57
 msgid "General Preferences"
 msgstr ""
@@ -2587,7 +2591,7 @@ msgstr ""
 msgid "Preferred Language:"
 msgstr ""
 
-#: ../preferences/documentation.py:124 ../preferences/general.py:128
+#: ../preferences/documentation.py:124 ../preferences/general.py:133
 #: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
 #: ../scorewiz/settings.py:299 ../scorewiz/parts/_base.py:214
 #: ../scorewiz/parts/plucked_strings.py:65 ../widgets/schemeselector.py:115
@@ -2866,76 +2870,86 @@ msgstr ""
 msgid "Verbatim"
 msgstr ""
 
-#: ../preferences/general.py:124 ../scorewiz/settings.py:222
+#: ../preferences/general.py:129 ../scorewiz/settings.py:222
 msgid "Language:"
 msgstr ""
 
-#: ../preferences/general.py:125
+#: ../preferences/general.py:130
 msgid "No Translation"
 msgstr ""
 
-#: ../preferences/general.py:126
+#: ../preferences/general.py:131
 msgid "System Default Language (if available)"
 msgstr ""
 
-#: ../preferences/general.py:127 ../scorewiz/parts/percussion.py:187
+#: ../preferences/general.py:132 ../scorewiz/parts/percussion.py:187
 msgid "Style:"
 msgstr ""
 
-#: ../preferences/general.py:129
+#: ../preferences/general.py:134
 msgid "Use System Icons"
 msgstr ""
 
-#: ../preferences/general.py:131
+#: ../preferences/general.py:136
 msgid ""
 "If checked, icons of the desktop icon theme will be used instead of the "
 "bundled icons.\n"
 "This setting takes effect on the next start of {appname}."
 msgstr ""
 
-#: ../preferences/general.py:134
+#: ../preferences/general.py:139
 msgid "Show Splash Screen on Startup"
 msgstr ""
 
-#: ../preferences/general.py:161 ../preferences/prefshelp.py:65
+#: ../preferences/general.py:140
+msgid "Open Files in Running Instance"
+msgstr ""
+
+#: ../preferences/general.py:142
+msgid ""
+"If checked, files will be opened in a running Frescobaldi application if "
+"available, instead of starting a new instance."
+msgstr ""
+
+#: ../preferences/general.py:170 ../preferences/prefshelp.py:65
 msgid "Session to load if Frescobaldi is started without arguments"
 msgstr ""
 
-#: ../preferences/general.py:162
+#: ../preferences/general.py:171
 msgid "Start with no session"
 msgstr ""
 
-#: ../preferences/general.py:163
+#: ../preferences/general.py:172
 msgid "Start with last used session"
 msgstr ""
 
-#: ../preferences/general.py:164
+#: ../preferences/general.py:173
 msgid "Start with session:"
 msgstr ""
 
-#: ../preferences/general.py:219 ../preferences/prefshelp.py:73
+#: ../preferences/general.py:228 ../preferences/prefshelp.py:73
 msgid "When saving documents"
 msgstr ""
 
-#: ../preferences/general.py:220
+#: ../preferences/general.py:229
 msgid "Keep backup copy"
 msgstr ""
 
-#: ../preferences/general.py:222
+#: ../preferences/general.py:231
 msgid ""
 "Frescobaldi always backups a file before overwriting it with a new version.\n"
 "If checked those backup copies are retained."
 msgstr ""
 
-#: ../preferences/general.py:225
+#: ../preferences/general.py:234
 msgid "Remember cursor position, bookmarks, etc."
 msgstr ""
 
-#: ../preferences/general.py:226
+#: ../preferences/general.py:235
 msgid "Default directory:"
 msgstr ""
 
-#: ../preferences/general.py:227
+#: ../preferences/general.py:236
 msgid "The default folder for your LilyPond documents (optional)."
 msgstr ""
 

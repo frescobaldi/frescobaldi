@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-04 09:46+0200\n"
+"POT-Creation-Date: 2012-04-10 13:29+0200\n"
 "PO-Revision-Date: 2012-02-17 22:29+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -81,7 +81,7 @@ msgstr "Operační systém"
 msgid "Version {version}"
 msgstr "Verze {version}"
 
-#: ../about.py:152 ../main.py:56
+#: ../about.py:152 ../main.py:57
 msgid "A LilyPond Music Editor"
 msgstr "Hudební editor pro LilyPond"
 
@@ -532,37 +532,42 @@ msgstr "&Odstranit dělení slov"
 msgid "&Copy Lyrics with hyphenation removed"
 msgstr "&Kopírovat slova písně s odstraněným dělením slov"
 
-#: ../main.py:54
+#: ../main.py:55
 msgid "{appname} [options] file ..."
 msgstr "{appname} [options] soubor..."
 
-#: ../main.py:57
+#: ../main.py:58
 msgid "ENC"
 msgstr "KÓD"
 
-#: ../main.py:58
+#: ../main.py:59
 msgid "Encoding to use"
 msgstr "Použít kódování"
 
-#: ../main.py:59 ../main.py:61
+#: ../main.py:60 ../main.py:62
 msgid "NUM"
 msgstr "ČÍS"
 
-#: ../main.py:60
+#: ../main.py:61
 msgid "Line number to go to, starting at 1"
 msgstr "Přejít na řádek číslo. Začíná prvním"
 
-#: ../main.py:62
+#: ../main.py:63
 msgid "Column to go to, starting at 0"
 msgstr "Přejít na sloupec. Začíná nulou"
 
-#: ../main.py:63
+#: ../main.py:64
 msgid "NAME"
 msgstr "NÁZEV"
 
-#: ../main.py:64
+#: ../main.py:65
 msgid "Session to start ('{none}' for empty session)"
 msgstr "Sezení ke spuštění ('{none}' pro prázdné sezení)"
+
+#: ../main.py:68
+#, fuzzy
+msgid "Always start a new instance"
+msgstr "Začít nový příklad"
 
 #. L10N: state of document in window titlebar
 #: ../mainwindow.py:226
@@ -2969,7 +2974,7 @@ msgctxt "QScrollBar"
 msgid "Scroll right"
 msgstr "Projíždět vpravo"
 
-#: ../preferences/__init__.py:173 ../preferences/general.py:123
+#: ../preferences/__init__.py:173 ../preferences/general.py:128
 #: ../preferences/prefshelp.py:48 ../preferences/prefshelp.py:57
 msgid "General Preferences"
 msgstr "Obecné volby"
@@ -3033,7 +3038,7 @@ msgstr ""
 msgid "Preferred Language:"
 msgstr "Upřednostňovaný jazyk:"
 
-#: ../preferences/documentation.py:124 ../preferences/general.py:128
+#: ../preferences/documentation.py:124 ../preferences/general.py:133
 #: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
 #: ../scorewiz/settings.py:299 ../scorewiz/parts/_base.py:214
 #: ../scorewiz/parts/plucked_strings.py:65 ../widgets/schemeselector.py:115
@@ -3312,27 +3317,27 @@ msgstr "Blok"
 msgid "Verbatim"
 msgstr "Podrobný"
 
-#: ../preferences/general.py:124 ../scorewiz/settings.py:222
+#: ../preferences/general.py:129 ../scorewiz/settings.py:222
 msgid "Language:"
 msgstr "Jazyk:"
 
-#: ../preferences/general.py:125
+#: ../preferences/general.py:130
 msgid "No Translation"
 msgstr "Žádný překlad"
 
-#: ../preferences/general.py:126
+#: ../preferences/general.py:131
 msgid "System Default Language (if available)"
 msgstr "Výchozí jazyk systému (je-li dostupný)"
 
-#: ../preferences/general.py:127 ../scorewiz/parts/percussion.py:187
+#: ../preferences/general.py:132 ../scorewiz/parts/percussion.py:187
 msgid "Style:"
 msgstr "Styl:"
 
-#: ../preferences/general.py:129
+#: ../preferences/general.py:134
 msgid "Use System Icons"
 msgstr "Použít systémové ikony"
 
-#: ../preferences/general.py:131
+#: ../preferences/general.py:136
 msgid ""
 "If checked, icons of the desktop icon theme will be used instead of the "
 "bundled icons.\n"
@@ -3342,35 +3347,45 @@ msgstr ""
 "ikon.\n"
 "Toto nastavení se projeví při příštím spuštění {appname}."
 
-#: ../preferences/general.py:134
+#: ../preferences/general.py:139
 msgid "Show Splash Screen on Startup"
 msgstr ""
 
-#: ../preferences/general.py:161 ../preferences/prefshelp.py:65
+#: ../preferences/general.py:140
+msgid "Open Files in Running Instance"
+msgstr ""
+
+#: ../preferences/general.py:142
+msgid ""
+"If checked, files will be opened in a running Frescobaldi application if "
+"available, instead of starting a new instance."
+msgstr ""
+
+#: ../preferences/general.py:170 ../preferences/prefshelp.py:65
 msgid "Session to load if Frescobaldi is started without arguments"
 msgstr "Sezení, které se má nahrát, je-li Frescobaldi spuštěn bez argumentů"
 
-#: ../preferences/general.py:162
+#: ../preferences/general.py:171
 msgid "Start with no session"
 msgstr "Začít bez sezení"
 
-#: ../preferences/general.py:163
+#: ../preferences/general.py:172
 msgid "Start with last used session"
 msgstr "Začít s naposledy použitým sezením"
 
-#: ../preferences/general.py:164
+#: ../preferences/general.py:173
 msgid "Start with session:"
 msgstr "Začít se sezením:"
 
-#: ../preferences/general.py:219 ../preferences/prefshelp.py:73
+#: ../preferences/general.py:228 ../preferences/prefshelp.py:73
 msgid "When saving documents"
 msgstr "Při ukládání dokumentů"
 
-#: ../preferences/general.py:220
+#: ../preferences/general.py:229
 msgid "Keep backup copy"
 msgstr "Ponechat záložní kopii"
 
-#: ../preferences/general.py:222
+#: ../preferences/general.py:231
 msgid ""
 "Frescobaldi always backups a file before overwriting it with a new version.\n"
 "If checked those backup copies are retained."
@@ -3378,15 +3393,15 @@ msgstr ""
 "Frescobaldi vždy zálohuje soubor, předtím než jej přepíše novou verzí.\n"
 "Je-li to zaškrtnuto, jsou tyto záložní kopie ponechány."
 
-#: ../preferences/general.py:225
+#: ../preferences/general.py:234
 msgid "Remember cursor position, bookmarks, etc."
 msgstr "Zapamatovat si pozici ukazovátka, záložky atd."
 
-#: ../preferences/general.py:226
+#: ../preferences/general.py:235
 msgid "Default directory:"
 msgstr "Výchozí adresář:"
 
-#: ../preferences/general.py:227
+#: ../preferences/general.py:236
 msgid "The default folder for your LilyPond documents (optional)."
 msgstr "Výchozí složka pro vaše dokumenty LilyPond (volitelná)."
 
@@ -6959,9 +6974,6 @@ msgstr "Vybrat soubor"
 
 #~ msgid "Session to start"
 #~ msgstr "Začít sezení"
-
-#~ msgid "Start a new instance"
-#~ msgstr "Začít nový příklad"
 
 #~ msgid "Try to use smart line and column numbers"
 #~ msgstr "Zkusit použít chytrá čísla řádků a sloupců"

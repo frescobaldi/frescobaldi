@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-04 09:46+0200\n"
-"PO-Revision-Date: 2012-04-05 17:35+0200\n"
+"POT-Creation-Date: 2012-04-10 13:29+0200\n"
+"PO-Revision-Date: 2012-04-10 13:31+0200\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -78,7 +78,7 @@ msgstr "Besturingssysteem"
 msgid "Version {version}"
 msgstr "Versie {version}"
 
-#: ../about.py:152 ../main.py:56
+#: ../about.py:152 ../main.py:57
 msgid "A LilyPond Music Editor"
 msgstr "Een muziek-editor voor LilyPond"
 
@@ -526,37 +526,41 @@ msgstr "Liedtekst-afbreking ver&wijderen"
 msgid "&Copy Lyrics with hyphenation removed"
 msgstr "Liedteksten &kopiëren met afbreking verwijderd"
 
-#: ../main.py:54
+#: ../main.py:55
 msgid "{appname} [options] file ..."
 msgstr "{appname} [opties] bestand ..."
 
-#: ../main.py:57
+#: ../main.py:58
 msgid "ENC"
 msgstr "ENC"
 
-#: ../main.py:58
+#: ../main.py:59
 msgid "Encoding to use"
 msgstr "Te gebruiken tekenset"
 
-#: ../main.py:59 ../main.py:61
+#: ../main.py:60 ../main.py:62
 msgid "NUM"
 msgstr "NUM"
 
-#: ../main.py:60
+#: ../main.py:61
 msgid "Line number to go to, starting at 1"
 msgstr "Ga naar regel (start met 1)"
 
-#: ../main.py:62
+#: ../main.py:63
 msgid "Column to go to, starting at 0"
 msgstr "Ga naar kolom (start met 0)"
 
-#: ../main.py:63
+#: ../main.py:64
 msgid "NAME"
 msgstr "NAAM"
 
-#: ../main.py:64
+#: ../main.py:65
 msgid "Session to start ('{none}' for empty session)"
 msgstr "Te starten sessie ('{none}' voor lege sessie)"
+
+#: ../main.py:68
+msgid "Always start a new instance"
+msgstr "Altijd een nieuw proces starten"
 
 #. L10N: state of document in window titlebar
 #: ../mainwindow.py:226
@@ -3015,7 +3019,7 @@ msgctxt "QScrollBar"
 msgid "Scroll right"
 msgstr "Naar rechts schuiven"
 
-#: ../preferences/__init__.py:173 ../preferences/general.py:123
+#: ../preferences/__init__.py:173 ../preferences/general.py:128
 #: ../preferences/prefshelp.py:48 ../preferences/prefshelp.py:57
 msgid "General Preferences"
 msgstr "Algemene voorkeuren"
@@ -3077,7 +3081,7 @@ msgstr ""
 msgid "Preferred Language:"
 msgstr "Voorkeurstaal:"
 
-#: ../preferences/documentation.py:124 ../preferences/general.py:128
+#: ../preferences/documentation.py:124 ../preferences/general.py:133
 #: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
 #: ../scorewiz/settings.py:299 ../scorewiz/parts/_base.py:214
 #: ../scorewiz/parts/plucked_strings.py:65 ../widgets/schemeselector.py:115
@@ -3356,27 +3360,27 @@ msgstr "Blok"
 msgid "Verbatim"
 msgstr "Verbatim"
 
-#: ../preferences/general.py:124 ../scorewiz/settings.py:222
+#: ../preferences/general.py:129 ../scorewiz/settings.py:222
 msgid "Language:"
 msgstr "Taal:"
 
-#: ../preferences/general.py:125
+#: ../preferences/general.py:130
 msgid "No Translation"
 msgstr "Geen vertaling"
 
-#: ../preferences/general.py:126
+#: ../preferences/general.py:131
 msgid "System Default Language (if available)"
 msgstr "Systeemstandaard (indien beschikbaar)"
 
-#: ../preferences/general.py:127 ../scorewiz/parts/percussion.py:187
+#: ../preferences/general.py:132 ../scorewiz/parts/percussion.py:187
 msgid "Style:"
 msgstr "Stijl:"
 
-#: ../preferences/general.py:129
+#: ../preferences/general.py:134
 msgid "Use System Icons"
 msgstr "Systeempictogrammen gebruiken"
 
-#: ../preferences/general.py:131
+#: ../preferences/general.py:136
 msgid ""
 "If checked, icons of the desktop icon theme will be used instead of the "
 "bundled icons.\n"
@@ -3386,35 +3390,47 @@ msgstr ""
 "in plaats van de meegeleverde pictogrammen.\n"
 "Deze instelling wordt pas van kracht na herstarten van {appname}."
 
-#: ../preferences/general.py:134
+#: ../preferences/general.py:139
 msgid "Show Splash Screen on Startup"
 msgstr "Welkomstscherm bij opstarten tonen"
 
-#: ../preferences/general.py:161 ../preferences/prefshelp.py:65
+#: ../preferences/general.py:140
+msgid "Open Files in Running Instance"
+msgstr "Bestanden openen in actief programma"
+
+#: ../preferences/general.py:142
+msgid ""
+"If checked, files will be opened in a running Frescobaldi application if "
+"available, instead of starting a new instance."
+msgstr ""
+"Indien ingeschakeld, worden bestanden geopend in een reeds actief "
+"Frescobaldi-programma, in plaats van een nieuw proces op te starten."
+
+#: ../preferences/general.py:170 ../preferences/prefshelp.py:65
 msgid "Session to load if Frescobaldi is started without arguments"
 msgstr "Als Frescobaldi zonder argumenten wordt gestart,"
 
-#: ../preferences/general.py:162
+#: ../preferences/general.py:171
 msgid "Start with no session"
 msgstr "Lege sessie starten"
 
-#: ../preferences/general.py:163
+#: ../preferences/general.py:172
 msgid "Start with last used session"
 msgstr "Laatstgebruikte sessie starten"
 
-#: ../preferences/general.py:164
+#: ../preferences/general.py:173
 msgid "Start with session:"
 msgstr "Met deze sessie starten:"
 
-#: ../preferences/general.py:219 ../preferences/prefshelp.py:73
+#: ../preferences/general.py:228 ../preferences/prefshelp.py:73
 msgid "When saving documents"
 msgstr "Bij het opslaan van documenten"
 
-#: ../preferences/general.py:220
+#: ../preferences/general.py:229
 msgid "Keep backup copy"
 msgstr "Veiligheidskopie bewaren"
 
-#: ../preferences/general.py:222
+#: ../preferences/general.py:231
 msgid ""
 "Frescobaldi always backups a file before overwriting it with a new version.\n"
 "If checked those backup copies are retained."
@@ -3423,15 +3439,15 @@ msgstr ""
 "overschrijven.\n"
 "Indien ingeschakeld, worden deze bestanden bewaard."
 
-#: ../preferences/general.py:225
+#: ../preferences/general.py:234
 msgid "Remember cursor position, bookmarks, etc."
 msgstr "Cursorpositie, bladwijzers, etc. onthouden"
 
-#: ../preferences/general.py:226
+#: ../preferences/general.py:235
 msgid "Default directory:"
 msgstr "Standaardmap:"
 
-#: ../preferences/general.py:227
+#: ../preferences/general.py:236
 msgid "The default folder for your LilyPond documents (optional)."
 msgstr "De standaardmap voor uw LilyPond documenten (optioneel)."
 
@@ -7313,9 +7329,6 @@ msgstr "Selecteer een bestand"
 
 #~ msgid "Session to start"
 #~ msgstr "Te starten sessie"
-
-#~ msgid "Start a new instance"
-#~ msgstr "Een nieuw proces starten"
 
 #~ msgid "Try to use smart line and column numbers"
 #~ msgstr "Probeer slimme regel- en kolomnummers te gebruiken"

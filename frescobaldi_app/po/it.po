@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-04 09:46+0200\n"
+"POT-Creation-Date: 2012-04-10 13:29+0200\n"
 "PO-Revision-Date: 2012-02-15 16:30+0100\n"
 "Last-Translator: .billyBoh <billyboh@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -84,7 +84,7 @@ msgstr "Sistema operativo"
 msgid "Version {version}"
 msgstr "Versione {version}"
 
-#: ../about.py:152 ../main.py:56
+#: ../about.py:152 ../main.py:57
 msgid "A LilyPond Music Editor"
 msgstr "Editor musicale per LilyPond"
 
@@ -533,37 +533,42 @@ msgstr "&Rimuovi la sillabazione"
 msgid "&Copy Lyrics with hyphenation removed"
 msgstr "&Copia le parole senza la divisione in sillabe"
 
-#: ../main.py:54
+#: ../main.py:55
 msgid "{appname} [options] file ..."
 msgstr "{appname} [opzioni] file..."
 
-#: ../main.py:57
+#: ../main.py:58
 msgid "ENC"
 msgstr "ENC"
 
-#: ../main.py:58
+#: ../main.py:59
 msgid "Encoding to use"
 msgstr "Codifica da usare"
 
-#: ../main.py:59 ../main.py:61
+#: ../main.py:60 ../main.py:62
 msgid "NUM"
 msgstr "NUM"
 
-#: ../main.py:60
+#: ../main.py:61
 msgid "Line number to go to, starting at 1"
 msgstr "Numero di riga a cui andare, partendo da 1"
 
-#: ../main.py:62
+#: ../main.py:63
 msgid "Column to go to, starting at 0"
 msgstr "Colonna a cui andare, partendo da 0"
 
-#: ../main.py:63
+#: ../main.py:64
 msgid "NAME"
 msgstr "NOME"
 
-#: ../main.py:64
+#: ../main.py:65
 msgid "Session to start ('{none}' for empty session)"
 msgstr "Sessione da avviare ('{none}' per una sessione vuota)"
+
+#: ../main.py:68
+#, fuzzy
+msgid "Always start a new instance"
+msgstr "Avvia una nuova istanza"
 
 #. L10N: state of document in window titlebar
 #: ../mainwindow.py:226
@@ -3000,7 +3005,7 @@ msgctxt "QScrollBar"
 msgid "Scroll right"
 msgstr "Scorri a destra"
 
-#: ../preferences/__init__.py:173 ../preferences/general.py:123
+#: ../preferences/__init__.py:173 ../preferences/general.py:128
 #: ../preferences/prefshelp.py:48 ../preferences/prefshelp.py:57
 msgid "General Preferences"
 msgstr "Opzioni generali"
@@ -3065,7 +3070,7 @@ msgstr ""
 msgid "Preferred Language:"
 msgstr "Lingua preferita:"
 
-#: ../preferences/documentation.py:124 ../preferences/general.py:128
+#: ../preferences/documentation.py:124 ../preferences/general.py:133
 #: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
 #: ../scorewiz/settings.py:299 ../scorewiz/parts/_base.py:214
 #: ../scorewiz/parts/plucked_strings.py:65 ../widgets/schemeselector.py:115
@@ -3344,27 +3349,27 @@ msgstr "Blocco"
 msgid "Verbatim"
 msgstr "Verbatim"
 
-#: ../preferences/general.py:124 ../scorewiz/settings.py:222
+#: ../preferences/general.py:129 ../scorewiz/settings.py:222
 msgid "Language:"
 msgstr "Lingua:"
 
-#: ../preferences/general.py:125
+#: ../preferences/general.py:130
 msgid "No Translation"
 msgstr "Nessuna traduzione"
 
-#: ../preferences/general.py:126
+#: ../preferences/general.py:131
 msgid "System Default Language (if available)"
 msgstr "Lingua predefinita del sistema (se disponibile)"
 
-#: ../preferences/general.py:127 ../scorewiz/parts/percussion.py:187
+#: ../preferences/general.py:132 ../scorewiz/parts/percussion.py:187
 msgid "Style:"
 msgstr "Stile:"
 
-#: ../preferences/general.py:129
+#: ../preferences/general.py:134
 msgid "Use System Icons"
 msgstr "Usa le icone del sistema"
 
-#: ../preferences/general.py:131
+#: ../preferences/general.py:136
 msgid ""
 "If checked, icons of the desktop icon theme will be used instead of the "
 "bundled icons.\n"
@@ -3374,35 +3379,45 @@ msgstr ""
 "programma.\n"
 "Questa impostazione avrà effetto dopo il riavvio di {appname}."
 
-#: ../preferences/general.py:134
+#: ../preferences/general.py:139
 msgid "Show Splash Screen on Startup"
 msgstr ""
 
-#: ../preferences/general.py:161 ../preferences/prefshelp.py:65
+#: ../preferences/general.py:140
+msgid "Open Files in Running Instance"
+msgstr ""
+
+#: ../preferences/general.py:142
+msgid ""
+"If checked, files will be opened in a running Frescobaldi application if "
+"available, instead of starting a new instance."
+msgstr ""
+
+#: ../preferences/general.py:170 ../preferences/prefshelp.py:65
 msgid "Session to load if Frescobaldi is started without arguments"
 msgstr "Sessione da caricare se Frescobaldi è avviato senza argomenti"
 
-#: ../preferences/general.py:162
+#: ../preferences/general.py:171
 msgid "Start with no session"
 msgstr "Avvia senza sessione"
 
-#: ../preferences/general.py:163
+#: ../preferences/general.py:172
 msgid "Start with last used session"
 msgstr "Avvia con l'ultima sessione utilizzata"
 
-#: ../preferences/general.py:164
+#: ../preferences/general.py:173
 msgid "Start with session:"
 msgstr "Avvia con la sessione:"
 
-#: ../preferences/general.py:219 ../preferences/prefshelp.py:73
+#: ../preferences/general.py:228 ../preferences/prefshelp.py:73
 msgid "When saving documents"
 msgstr "Al salvataggio dei documenti"
 
-#: ../preferences/general.py:220
+#: ../preferences/general.py:229
 msgid "Keep backup copy"
 msgstr "Mantieni la copia di sicurezza"
 
-#: ../preferences/general.py:222
+#: ../preferences/general.py:231
 msgid ""
 "Frescobaldi always backups a file before overwriting it with a new version.\n"
 "If checked those backup copies are retained."
@@ -3411,15 +3426,15 @@ msgstr ""
 "sovrascriverlo con una nuova versione.\n"
 "Se questo è selezionato, le copie di sicurezza vengono conservate."
 
-#: ../preferences/general.py:225
+#: ../preferences/general.py:234
 msgid "Remember cursor position, bookmarks, etc."
 msgstr "Ricorda la posizione del cursore, i segnalibri, ecc."
 
-#: ../preferences/general.py:226
+#: ../preferences/general.py:235
 msgid "Default directory:"
 msgstr "Cartella predefinita:"
 
-#: ../preferences/general.py:227
+#: ../preferences/general.py:236
 msgid "The default folder for your LilyPond documents (optional)."
 msgstr "La cartella predefinita dei documenti LilyPond (facoltativo)."
 
@@ -7022,9 +7037,6 @@ msgstr "Scegliere un file"
 
 #~ msgid "Session to start"
 #~ msgstr "Sessione da avviare"
-
-#~ msgid "Start a new instance"
-#~ msgstr "Avvia una nuova istanza"
 
 #~ msgid "Try to use smart line and column numbers"
 #~ msgstr "Prova ad usare la numerazione intelligente per righe e colonne"
