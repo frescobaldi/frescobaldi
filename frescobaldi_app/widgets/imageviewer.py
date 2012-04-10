@@ -61,7 +61,6 @@ class ImageViewer(QScrollArea):
         return self._actualsize
     
     def setImage(self, image):
-        print 'image dpi', image.dotsPerMeterX(), image.dotsPerMeterY()
         self._image = image
         self._pixmap = None
         self._pixmapsize = None
