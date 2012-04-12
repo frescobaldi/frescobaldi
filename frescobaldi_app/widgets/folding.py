@@ -63,8 +63,10 @@ class LinePainter(QObject):
             next_block = block.next()
             if block.isVisible() and next_block.isValid() and not next_block.isVisible():
                 # draw a line
-                x1, y1, x2, y2 = geom.getCoords()
-                painter.drawLine(x1, y2, x2, y2)
+                y = geom.bottom() - 1
+                x1 = ev.rect().left()
+                x2 = ev.rect().right()
+                painter.drawLine(x1, y, x2, y)
             block = next_block
         return True
 
