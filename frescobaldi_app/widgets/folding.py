@@ -53,21 +53,34 @@ class LinePainter(QObject):
         edit = obj.parent()
         edit.paintEvent(ev)
         painter = QPainter(obj)
-        block = edit.firstVisibleBlock()
         offset = edit.contentOffset()
-        while block.isValid():
-            geom = edit.blockBoundingGeometry(block)
-            geom.translate(offset)
-            if geom.top() >= ev.rect().bottom():
-                break
-            next_block = block.next()
-            if block.isVisible() and next_block.isValid() and not next_block.isVisible():
+        for block in self.visible_blocks(edit, ev.rect()):
+            n = block.next()
+            if n.isValid() and not n.isVisible():
                 # draw a line
-                y = geom.bottom() - 1
+                y = edit.blockBoundingGeometry(block).translated(offset).bottom() - 1
                 x1 = ev.rect().left()
                 x2 = ev.rect().right()
                 painter.drawLine(x1, y, x2, y)
-            block = next_block
         return True
+
+
+    @staticmethod
+    def visible_blocks(edit, rect=None):
+        """Yield the visible blocks in the specified rectangle.
+        
+        If no rectangle is given, the edit's viewport() is used.
+        
+        """
+        if rect is None:
+            rect = edit.viewport().rect()
+        block = edit.firstVisibleBlock()
+        while block.isValid():
+            if not block.isVisible():
+                continue
+            if not edit.blockBoundingGeometry(block).toRect() & rect:
+                return
+            yield block
+            block = block.next()
 
 
