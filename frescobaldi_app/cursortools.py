@@ -213,48 +213,13 @@ def previous_blank(block):
                     return b
 
 
-def set_data(block, name, value):
-    """Set the named attribute of the block's QTextBlockUserData.
-    
-    If the value is None, deletes the attribute.
-    
-    """
+def data(block):
+    """Get the block's QTextBlockUserData, creating it if necessary.""" 
     data = block.userData()
-    if value is not None:
-        if not data:
-            data = QTextBlockUserData()
-            block.setUserData(data)
-        setattr(data, name, value)
-    elif data:
-        try:
-            delattr(data, name)
-        except AttributeError:
-            pass
-
-
-def data(block, name, default=None, set_default=None):
-    """Return the named attribute of the block's QTextBlockUserData.
-    
-    If the attribute is not set:
-        if default is given, return that
-        else if set_default is given (as keyword) set that value and return it.
-    
-    When only reading a value you can do just this:
-    
-    try:
-        value = block.userData().attribute
-    except AttributeError:
-        ....
-    
-    """
-    data = block.userData()
-    if set_default is None:
-        return getattr(data, name, default)
-    elif not data:
+    if not data:
         data = QTextBlockUserData()
         block.setUserData(data)
-    setattr(data, name, set_default)
-    return set_default
+    return data
 
 
 class Editor(object):

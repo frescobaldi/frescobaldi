@@ -229,7 +229,7 @@ class Highlighter(QSyntaxHighlighter, plugin.Plugin):
 
         # collect and save the tokens
         tokens = tuple(state.tokens(text))
-        cursortools.set_data(self.currentBlock(), 'tokens', tokens)
+        cursortools.data(self.currentBlock()).tokens = tokens
         
         # if blank thus far, keep the highlighter coming back
         # because the parsing state is not yet known; else save the state
