@@ -43,11 +43,11 @@ import highlighter
 def tokens(block):
     """Returns the tokens for the given block as a (possibly empty) tuple."""
     try:
-        return highlighter.userData(block).tokens
+        return block.userData().tokens
     except AttributeError:
         highlighter.highlighter(block.document()).rehighlight()
     try:
-        return highlighter.userData(block).tokens
+        return block.userData().tokens
     except AttributeError:
         return ()
 

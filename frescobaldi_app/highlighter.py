@@ -36,6 +36,7 @@ import ly.lex.html
 import ly.lex.texinfo
 
 import app
+import cursortools
 import textformats
 import metainfo
 import plugin
@@ -227,8 +228,8 @@ class Highlighter(QSyntaxHighlighter, plugin.Plugin):
             state = self.initialState()
 
         # collect and save the tokens
-        data = userData(self.currentBlock())
-        data.tokens = tokens = tuple(state.tokens(text))
+        tokens = tuple(state.tokens(text))
+        cursortools.set_data(self.currentBlock(), 'tokens', tokens)
         
         # if blank thus far, keep the highlighter coming back
         # because the parsing state is not yet known; else save the state
@@ -274,15 +275,6 @@ class Highlighter(QSyntaxHighlighter, plugin.Plugin):
             mode = self._mode or ly.lex.guessMode(self.document().toPlainText())
             return ly.lex.state(mode)
         return self._fridge.thaw(self._initialState)
-
-
-def userData(block):
-    """Get the block data for this block, setting an empty one if not yet set."""
-    data = block.userData()
-    if not data:
-        data = QTextBlockUserData()
-        block.setUserData(data)
-    return data
 
 
 def htmlCopy(document, type='editor'):
