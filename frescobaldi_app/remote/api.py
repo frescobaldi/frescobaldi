@@ -59,7 +59,8 @@ class Remote(object):
     def command_line(self, options, urls):
         """Let remote Frescobaldi handle a command line."""
         if urls:
-            self.write(b'encoding {0}\n'.format(options.encoding))
+            if options.encoding:
+                self.write(b'encoding {0}\n'.format(options.encoding))
             for u in urls:
                 self.write(b'open {0}\n'.format(u.toEncoded()))
             self.write(b'set_current {0}\n'.format(u.toEncoded()))
@@ -108,7 +109,7 @@ class Incoming(object):
             url = QUrl.fromEncoded(args[0])
             app.openUrl(url, self.encoding)
         elif cmd == b'encoding':
-            self.encoding = args[0]
+            self.encoding = str(args[0])
         elif cmd == b'activate_window':
             win.activateWindow()
             win.raise_()
