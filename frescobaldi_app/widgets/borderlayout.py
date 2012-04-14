@@ -91,7 +91,12 @@ class BorderLayout(QObject):
     def setViewportMargins(self, left, top, right, bottom):
         """(Internal) Sets the viewport margins and remembers them."""
         self._margins = (left, top, right, bottom)
-        self.scrollarea().setViewportMargins(left, top, right, bottom)
+        try:
+            self.scrollarea().setViewportMargins(left, top, right, bottom)
+        except RuntimeError:
+            # this can happen when the scrollarea already is deleted by Python
+            # because setViewportMargins is a protected method
+            pass
     
     def viewportGeometry(self):
         """(Internal) Returns the viewport geometry as if with 0 margins."""
