@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import contextlib
 
-from PyQt4.QtGui import QTextBlockUserData, QTextCursor
+from PyQt4.QtGui import QTextBlock, QTextBlockUserData, QTextCursor
 
 
 def block(cursor):
@@ -58,18 +58,36 @@ def contains(c1, c2):
             and c1.selectionEnd() >= c2.selectionEnd())
 
 
-def forwards(block):
-    """Yields the block and all following blocks."""
-    while block.isValid():
-        yield block
-        block = block.next()
+def forwards(block, until=QTextBlock()):
+    """Yields the block and all following blocks.
+    
+    If until is a valid block, yields the blocks until the specified block.
+    
+    """
+    if until.isValid():
+        while block.isValid() and block <= until:
+            yield block
+            block = block.next()
+    else:
+        while block.isValid():
+            yield block
+            block = block.next()
 
 
-def backwards(block):
-    """Yields the block and all preceding blocks."""
-    while block.isValid():
-        yield block
-        block = block.previous()
+def backwards(block, until=QTextBlock()):
+    """Yields the block and all preceding blocks.
+    
+    If until is a valid block, yields the blocks until the specified block.
+    
+    """
+    if until.isValid():
+        while block.isValid() and block >= until:
+            yield block
+            block = block.previous()
+    else:
+        while block.isValid():
+            yield block
+            block = block.previous()
 
     
 def all_blocks(document):
