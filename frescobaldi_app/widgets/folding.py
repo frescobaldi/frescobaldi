@@ -23,6 +23,16 @@ Fold regions in a QTextDocument/Q(Plain)TextEdit.
 Due to Qt4's design the folding applies to a QTextDocument instead of its
 Q(Plain)TextEdit.
 
+To get foldable regions in your QPlainTextEdit, you need to subclass Folder,
+and implement its fold_events() method. It should yield START or STOP events
+(which are simply integers) in the order they occur on the line.
+
+Then you should subclass FoldingArea, just to provide your Folder subclass
+as a class attribute. Then add the FoldingArea to the left of your text edit.
+
+Folding is handled automatically and needs no further data structures or state
+information.
+
 """
 
 from __future__ import unicode_literals
@@ -63,7 +73,7 @@ class LinePainter(QObject):
         edit.paintEvent(ev)
         painter = QPainter(obj)
         offset = edit.contentOffset()
-        for block in self.visible_blocks(edit, ev.rect()):
+        for block in visible_blocks(edit, ev.rect()):
             n = block.next()
             if n.isValid() and not n.isVisible():
                 # draw a line
@@ -72,22 +82,6 @@ class LinePainter(QObject):
                 x2 = ev.rect().right()
                 painter.drawLine(x1, y, x2, y)
         return True
-
-    @staticmethod
-    def visible_blocks(edit, rect=None):
-        """Yield the visible blocks in the specified rectangle.
-        
-        If no rectangle is given, the edit's viewport() is used.
-        
-        """
-        if rect is None:
-            rect = edit.viewport().rect()
-        for block in cursortools.forwards(edit.firstVisibleBlock()):
-            if not block.isVisible():
-                continue
-            if not edit.blockBoundingGeometry(block).toRect() & rect:
-                return
-            yield block
 
 
 
@@ -228,17 +222,44 @@ class Folder(QObject):
         else:
             for block in blocks:
                 # is there a sub-region? then skip if marked as collapsed
-                if block not in r and self.mark(block):
+                if block not in r:
                     count = sum(self.fold_events(block))
                     if count > 0:
-                        for block in blocks:
-                            count += sum(self.fold_events(block))
-                            if count <= 0:
-                                break
-                        continue
+                        if full:
+                            self.mark(block, False)
+                        elif self.mark(block):
+                            for block in blocks:
+                                count += sum(self.fold_events(block))
+                                if count <= 0:
+                                    break
+                            continue
                 block.setVisible(True)
         self.mark(r.start, False)
         self.document().markContentsDirty(r.start.position(), r.end.position())
+        
+    def fold_all(self):
+        """Folds all toplevel regions."""
+        for block in cursortools.all_blocks(self.document()):
+            if not block.isVisible():
+                continue
+            else:
+                evs = list(self.fold_events(block))
+                if any(evs) and sum(evs) >= 0:
+                    self.fold(block)
+    
+    def unfold_all(self):
+        """Fully unfolds the document."""
+        first = None
+        for block in cursortools.all_blocks(self.document()):
+            evs = list(self.fold_events(block))
+            if any(evs) and sum(evs) >= 0:
+                self.mark(block, False)
+            if not block.isVisible():
+                if first is None:
+                    first = block
+                last = block
+        if first:
+            self.document().markContentsDirty(first.position(), last.position())
         
     def mark(self, block, state=None):
         """This can be used to remember the folded state of a block.
@@ -255,7 +276,7 @@ class Folder(QObject):
         """ 
         pass
 
-    def make_visible(self, block):
+    def ensure_visible(self, block):
         """Unfolds everything needed to make just the block visible."""
         if block.isVisible():
             return
@@ -264,4 +285,128 @@ class Folder(QObject):
             if block.isVisible():
                 return
 
+
+class FoldingArea(QWidget):
+    
+    Folder = Folder
+    
+    class Painter(object):
+        """Used for one paint event, draws the folding area per-block."""
+        def __init__(self, widget):
+            self.w = widget
+            self.p = QPainter(widget)
+        
+        def draw(self, rect, icon, depth, new_depth):
+            p = self.p
+            if depth:
+                p.drawLine(rect.center(), QPoint(rect.center().x(), rect.y()))
+            if new_depth:
+                p.drawLine(rect.center(), QPoint(rect.center().x(), rect.bottom()))
+            if new_depth < depth and not icon:
+                p.drawLine(rect.center(), QPoint(rect.right(), rect.center().y()))
+            if icon:
+                square = QRect(0, 0, 8, 8)
+                square.moveCenter(rect.center() - QPoint(1, 1))
+                p.fillRect(square, self.w.palette().color(QPalette.Base))
+                p.drawRect(square)
+                x = rect.center().x()
+                y = rect.center().y()
+                p.drawLine(QPoint(x-2, y), QPoint(x+2, y))
+                if icon == "open":
+                    p.drawLine(QPoint(x, y-2), QPoint(x, y+2))
+    
+    def __init__(self, textedit=None):
+        super(FoldingArea, self).__init__(textedit)
+        self._textedit = None
+        self.setAutoFillBackground(True)
+        self.setTextEdit(textedit)
+    
+    def setTextEdit(self, edit):
+        """Set a QPlainTextEdit instance to show linenumbers for, or None."""
+        if self._textedit:
+            self._textedit.updateRequest.disconnect(self.slotUpdateRequest)
+        self._textedit = edit
+        if edit:
+            edit.updateRequest.connect(self.slotUpdateRequest)
+        self.update()
+        
+    def textEdit(self):
+        """Return our QPlainTextEdit."""
+        return self._textedit
+        
+    def sizeHint(self):
+        return QSize(12, 50)
+    
+    def folder(self):
+        """Return the Folder instance for our document."""
+        return self.Folder.get(self.textEdit().document())
+        
+    def slotUpdateRequest(self, rect, dy):
+        if dy:
+            self.scroll(0, dy)
+        else:
+            self.update(0, rect.y(), self.width(), rect.height())
+
+    def paintEvent(self, ev):
+        edit = self._textedit
+        if not edit:
+            return
+        painter = self.Painter(self)
+        block = edit.firstVisibleBlock()
+        folder = self.folder()
+        depth = folder.depth(block)
+        offset = edit.contentOffset()
+        while block.isValid():
+            next_block = block.next()
+            if not block.isVisible():
+                depth += sum(folder.fold_events(block))
+                block = next_block
+                continue
+            rect = edit.blockBoundingGeometry(block).translated(offset).toRect()
+            if rect.top() >= ev.rect().bottom():
+                break
+            rect.setX(0)
+            rect.setWidth(self.width())
+            # draw a folder icon, even if a fold ends and a new starts
+            count = 0
+            icon = None
+            for e in folder.fold_events(block):
+                count += e
+                if count < 0:
+                    icon = True
+            if count < 0:
+                icon = None
+            elif count > 0:
+                icon = True
+            
+            if icon:
+                folded = next_block.isValid() and not next_block.isVisible()
+                if folded:
+                    icon = "open"
+                    while next_block.isValid() and not next_block.isVisible():
+                        count += sum(folder.fold_events(next_block))
+                        next_block = next_block.next()
+                else:
+                    icon = "close"
+            new_depth = depth + count
+            painter.draw(rect, icon, depth, new_depth)
+            depth = new_depth
+            block = next_block
+
+
+
+def visible_blocks(edit, rect=None):
+    """Yield the visible blocks in the specified rectangle.
+    
+    If no rectangle is given, the edit's viewport() is used.
+    
+    """
+    if rect is None:
+        rect = edit.viewport().rect()
+    for block in cursortools.forwards(edit.firstVisibleBlock()):
+        if not block.isVisible():
+            continue
+        if not edit.blockBoundingGeometry(block).toRect() & rect:
+            return
+        yield block
 
