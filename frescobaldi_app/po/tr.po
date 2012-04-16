@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-10 13:29+0200\n"
+"POT-Creation-Date: 2012-04-16 18:48+0200\n"
 "PO-Revision-Date: 2010-12-12 07:48+0200\n"
 "Last-Translator: Server Acim <serveracim@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -899,47 +899,53 @@ msgctxt "menu title"
 msgid "&View"
 msgstr "&Araç Görünümleri"
 
-#: ../menu.py:172
+#: ../menu.py:173
+#, fuzzy
+msgctxt "submenu title"
+msgid "&Folding"
+msgstr "Kullanılacak dil kodlaması"
+
+#: ../menu.py:187
 msgctxt "submenu title"
 msgid "Music &View"
 msgstr ""
 
-#: ../menu.py:192
+#: ../menu.py:207
 #, fuzzy
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:211
+#: ../menu.py:226
 #, fuzzy
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Araç Görünümleri"
 
-#: ../menu.py:237
+#: ../menu.py:252
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "Şarkı &Sözleri"
 
-#: ../menu.py:249
+#: ../menu.py:264
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "Ses noktası"
 
-#: ../menu.py:263
+#: ../menu.py:278
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritm"
 
-#: ../menu.py:291
+#: ../menu.py:306
 msgctxt "menu title"
 msgid "&Window"
 msgstr ""
 
-#: ../menu.py:311
+#: ../menu.py:326
 msgctxt "menu title"
 msgid "&Help"
 msgstr ""
@@ -5791,10 +5797,31 @@ msgctxt "menu title"
 msgid "&Session"
 msgstr "&Oturumlar"
 
-#: ../sidebar/__init__.py:140
+#: ../sidebar/__init__.py:228
 #, fuzzy
 msgid "&Line Numbers"
 msgstr "Sayfa Numaralarını Göster"
+
+#: ../sidebar/__init__.py:229
+msgid "&Enable Folding"
+msgstr ""
+
+#: ../sidebar/__init__.py:230
+msgid "&Fold Current Region"
+msgstr ""
+
+#: ../sidebar/__init__.py:231
+msgid "&Unfold Current Region"
+msgstr ""
+
+#: ../sidebar/__init__.py:232
+#, fuzzy
+msgid "Fold &All"
+msgstr "Hepsini seç"
+
+#: ../sidebar/__init__.py:233
+msgid "U&nfold All"
+msgstr ""
 
 #: ../snippet/builtin.py:38
 #, fuzzy

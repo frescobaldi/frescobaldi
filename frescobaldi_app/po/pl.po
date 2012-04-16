@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.3\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-10 13:29+0200\n"
+"POT-Creation-Date: 2012-04-16 18:48+0200\n"
 "PO-Revision-Date: 2012-02-17 00:26+0100\n"
 "Last-Translator: Piotr Komorowski <piotr-komorowski@wp.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -859,42 +859,48 @@ msgctxt "menu title"
 msgid "&View"
 msgstr "&Widok "
 
-#: ../menu.py:172
+#: ../menu.py:173
+#, fuzzy
+msgctxt "submenu title"
+msgid "&Folding"
+msgstr "kodowanie"
+
+#: ../menu.py:187
 msgctxt "submenu title"
 msgid "Music &View"
 msgstr "Okno &partytury"
 
-#: ../menu.py:192
+#: ../menu.py:207
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:211
+#: ../menu.py:226
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Narzędzia"
 
-#: ../menu.py:237
+#: ../menu.py:252
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Tekst"
 
-#: ../menu.py:249
+#: ../menu.py:264
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Dźwięk"
 
-#: ../menu.py:263
+#: ../menu.py:278
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Rytm"
 
-#: ../menu.py:291
+#: ../menu.py:306
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Okno"
 
-#: ../menu.py:311
+#: ../menu.py:326
 msgctxt "menu title"
 msgid "&Help"
 msgstr "Pomo&c"
@@ -5669,10 +5675,33 @@ msgctxt "menu title"
 msgid "&Session"
 msgstr "&Sesja"
 
-#: ../sidebar/__init__.py:140
+#: ../sidebar/__init__.py:228
 #, fuzzy
 msgid "&Line Numbers"
 msgstr "Liczba strun"
+
+#: ../sidebar/__init__.py:229
+msgid "&Enable Folding"
+msgstr ""
+
+#: ../sidebar/__init__.py:230
+#, fuzzy
+msgid "&Fold Current Region"
+msgstr "&Podkreślaj aktualną linię"
+
+#: ../sidebar/__init__.py:231
+#, fuzzy
+msgid "&Unfold Current Region"
+msgstr "&Podkreślaj aktualną linię"
+
+#: ../sidebar/__init__.py:232
+#, fuzzy
+msgid "Fold &All"
+msgstr "Wszystko"
+
+#: ../sidebar/__init__.py:233
+msgid "U&nfold All"
+msgstr ""
 
 #: ../snippet/builtin.py:38
 msgid "Blank Line"

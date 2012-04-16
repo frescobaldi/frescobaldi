@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-10 13:29+0200\n"
+"POT-Creation-Date: 2012-04-16 18:48+0200\n"
 "PO-Revision-Date: 2012-02-13 12:03+0100\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -887,42 +887,48 @@ msgctxt "menu title"
 msgid "&View"
 msgstr "&Vista"
 
-#: ../menu.py:172
+#: ../menu.py:173
+#, fuzzy
+msgctxt "submenu title"
+msgid "&Folding"
+msgstr "codificación"
+
+#: ../menu.py:187
 msgctxt "submenu title"
 msgid "Music &View"
 msgstr "&Vista de música"
 
-#: ../menu.py:192
+#: ../menu.py:207
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:211
+#: ../menu.py:226
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "Herramien&tas"
 
-#: ../menu.py:237
+#: ../menu.py:252
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Letra"
 
-#: ../menu.py:249
+#: ../menu.py:264
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Altura"
 
-#: ../menu.py:263
+#: ../menu.py:278
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "Du&raciones"
 
-#: ../menu.py:291
+#: ../menu.py:306
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Ventana"
 
-#: ../menu.py:311
+#: ../menu.py:326
 msgctxt "menu title"
 msgid "&Help"
 msgstr "Ay&uda"
@@ -6161,10 +6167,33 @@ msgctxt "menu title"
 msgid "&Session"
 msgstr "&Sesión"
 
-#: ../sidebar/__init__.py:140
+#: ../sidebar/__init__.py:228
 #, fuzzy
 msgid "&Line Numbers"
 msgstr "Número de cuerda"
+
+#: ../sidebar/__init__.py:229
+msgid "&Enable Folding"
+msgstr ""
+
+#: ../sidebar/__init__.py:230
+#, fuzzy
+msgid "&Fold Current Region"
+msgstr "&Marcar línea actual"
+
+#: ../sidebar/__init__.py:231
+#, fuzzy
+msgid "&Unfold Current Region"
+msgstr "&Marcar línea actual"
+
+#: ../sidebar/__init__.py:232
+#, fuzzy
+msgid "Fold &All"
+msgstr "&Todo"
+
+#: ../sidebar/__init__.py:233
+msgid "U&nfold All"
+msgstr ""
 
 #: ../snippet/builtin.py:38
 msgid "Blank Line"

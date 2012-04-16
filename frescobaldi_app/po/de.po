@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-10 13:29+0200\n"
+"POT-Creation-Date: 2012-04-16 18:48+0200\n"
 "PO-Revision-Date: 2011-12-30 18:12+0100\n"
 "Last-Translator: Georg Hennig <georg.hennig@web.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -880,42 +880,48 @@ msgctxt "menu title"
 msgid "&View"
 msgstr "&Ansicht"
 
-#: ../menu.py:172
+#: ../menu.py:173
+#, fuzzy
+msgctxt "submenu title"
+msgid "&Folding"
+msgstr "Zeichensatz"
+
+#: ../menu.py:187
 msgctxt "submenu title"
 msgid "Music &View"
 msgstr "N&otenansicht"
 
-#: ../menu.py:192
+#: ../menu.py:207
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:211
+#: ../menu.py:226
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Werkzeugansicht"
 
-#: ../menu.py:237
+#: ../menu.py:252
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "Liedte&xt"
 
-#: ../menu.py:249
+#: ../menu.py:264
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "Ton&lage"
 
-#: ../menu.py:263
+#: ../menu.py:278
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Rhythmus"
 
-#: ../menu.py:291
+#: ../menu.py:306
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Fenster"
 
-#: ../menu.py:311
+#: ../menu.py:326
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Hilfe"
@@ -5662,10 +5668,33 @@ msgctxt "menu title"
 msgid "&Session"
 msgstr "&Sitzung"
 
-#: ../sidebar/__init__.py:140
+#: ../sidebar/__init__.py:228
 #, fuzzy
 msgid "&Line Numbers"
 msgstr "Saiten-Anzahl"
+
+#: ../sidebar/__init__.py:229
+msgid "&Enable Folding"
+msgstr ""
+
+#: ../sidebar/__init__.py:230
+#, fuzzy
+msgid "&Fold Current Region"
+msgstr "&Markiere aktuelle Zeile"
+
+#: ../sidebar/__init__.py:231
+#, fuzzy
+msgid "&Unfold Current Region"
+msgstr "&Markiere aktuelle Zeile"
+
+#: ../sidebar/__init__.py:232
+#, fuzzy
+msgid "Fold &All"
+msgstr "&Alle"
+
+#: ../sidebar/__init__.py:233
+msgid "U&nfold All"
+msgstr ""
 
 #: ../snippet/builtin.py:38
 msgid "Blank Line"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-10 13:29+0200\n"
+"POT-Creation-Date: 2012-04-16 18:48+0200\n"
 "PO-Revision-Date: 2009-10-08 21:17+0300\n"
 "Last-Translator: Artem Zolochevskiy <artem.zolochevskiy@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -901,47 +901,53 @@ msgctxt "menu title"
 msgid "&View"
 msgstr "&Панели инструментов"
 
-#: ../menu.py:172
+#: ../menu.py:173
+#, fuzzy
+msgctxt "submenu title"
+msgid "&Folding"
+msgstr "Используемая кодировка"
+
+#: ../menu.py:187
 msgctxt "submenu title"
 msgid "Music &View"
 msgstr ""
 
-#: ../menu.py:192
+#: ../menu.py:207
 #, fuzzy
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "LilyPond"
 
-#: ../menu.py:211
+#: ../menu.py:226
 #, fuzzy
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Панели инструментов"
 
-#: ../menu.py:237
+#: ../menu.py:252
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Тексты"
 
-#: ../menu.py:249
+#: ../menu.py:264
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Тон"
 
-#: ../menu.py:263
+#: ../menu.py:278
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ритм"
 
-#: ../menu.py:291
+#: ../menu.py:306
 msgctxt "menu title"
 msgid "&Window"
 msgstr ""
 
-#: ../menu.py:311
+#: ../menu.py:326
 msgctxt "menu title"
 msgid "&Help"
 msgstr ""
@@ -5781,10 +5787,30 @@ msgctxt "menu title"
 msgid "&Session"
 msgstr "Используемая сессия"
 
-#: ../sidebar/__init__.py:140
+#: ../sidebar/__init__.py:228
 #, fuzzy
 msgid "&Line Numbers"
 msgstr "&Тактовые черты"
+
+#: ../sidebar/__init__.py:229
+msgid "&Enable Folding"
+msgstr ""
+
+#: ../sidebar/__init__.py:230
+msgid "&Fold Current Region"
+msgstr ""
+
+#: ../sidebar/__init__.py:231
+msgid "&Unfold Current Region"
+msgstr ""
+
+#: ../sidebar/__init__.py:232
+msgid "Fold &All"
+msgstr ""
+
+#: ../sidebar/__init__.py:233
+msgid "U&nfold All"
+msgstr ""
 
 #: ../snippet/builtin.py:38
 #, fuzzy
