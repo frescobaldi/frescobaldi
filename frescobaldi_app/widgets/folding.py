@@ -210,7 +210,7 @@ class Folder(QObject):
         for block in cursortools.forwards(r.start.next(), end):
             block.setVisible(False)
         self.mark(r.start, True)
-        self.document().markContentsDirty(r.start.position(), end.position())
+        self.document().markContentsDirty(r.start.next().position(), end.position())
 
     def unfold(self, block, depth=0, full=False):
         """Unfolds the region the block is in.
