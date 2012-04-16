@@ -401,10 +401,11 @@ def visible_blocks(edit, rect=None):
     """
     if rect is None:
         rect = edit.viewport().rect()
+    bottom = rect.bottom()
     for block in cursortools.forwards(edit.firstVisibleBlock()):
         if not block.isVisible():
             continue
-        if not edit.blockBoundingGeometry(block).toRect() & rect:
+        elif edit.blockBoundingGeometry(block).top() >= bottom:
             return
         yield block
 

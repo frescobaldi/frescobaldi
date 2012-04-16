@@ -72,25 +72,32 @@ class SideBarManager(plugin.MainWindowPlugin):
                 m.setFoldingVisible(enable)
         # and also update in other windows
         for i in self.instances():
-            if i is not self:
-                i.updateActions()
+            i.updateActions()
         manager.saveSettings()
         # unfold the document if disabled
         if not enable:
-            import folding
-            folding.Folder.get(document).unfold_all()
+            self.folder().unfold_all()
+    
+    def folder(self):
+        """Get the Folder for the current document."""
+        import folding
+        return folding.Folder.get(self.mainwindow().currentDocument())
     
     def foldCurrent(self):
         """Fold current region."""
+        self.folder().fold(self.mainwindow().textCursor().block())
     
     def unfoldCurrent(self):
         """Unfold current region."""
+        self.folder().unfold(self.mainwindow().textCursor().block())
     
     def foldAll(self):
         """Fold the whole document."""
+        self.folder().fold_all()
     
     def unfoldAll(self):
         """Unfold the whole document."""
+        self.folder().unfold_all()
         
     def updateActions(self):
         manager = self.manager()
@@ -139,6 +146,7 @@ class ViewSpaceSideBarManager(plugin.ViewSpacePlugin):
     def copySettings(self, other):
         """Takes over the settings from another viewspace's manager."""
         self.setLineNumbersVisible(other.lineNumbersVisible())
+        self.setFoldingVisible(other.foldingVisible())
         
     def setLineNumbersVisible(self, visible):
         """Set whether line numbers are to be shown."""
@@ -199,6 +207,11 @@ class ViewSpaceSideBarManager(plugin.ViewSpacePlugin):
             self._linenumberarea.deleteLater()
             self._linenumberarea = None
 
+        import folding
+        if self._folding:
+            view.viewport().installEventFilter(folding.line_painter)
+        else:
+            view.viewport().removeEventFilter(folding.line_painter)
 
 
 class Actions(actioncollection.ActionCollection):

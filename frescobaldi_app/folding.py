@@ -26,15 +26,26 @@ The sidebar/ manages the visibility of the folding area.
 
 from __future__ import unicode_literals
 
+import tokeniter
+import ly.lex
 import widgets.folding
 
 
+line_painter = widgets.folding.LinePainter()
+
+
 class Folder(widgets.folding.Folder):
-    pass
+    def fold_events(self, block):
+        """Provides folding information by looking at indent/dedent tokens."""
+        for t in tokeniter.tokens(block):
+            if isinstance(t, ly.lex.Indent):
+                yield widgets.folding.START
+            elif isinstance(t, ly.lex.Dedent):
+                yield widgets.folding.STOP
 
 
 class FoldingArea(widgets.folding.FoldingArea):
-    pass
+    Folder = Folder
 
 
 
