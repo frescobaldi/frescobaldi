@@ -167,19 +167,21 @@ class Folder(QObject):
         find one more above that, etc. Use -1 to get the top-most region.
         
         """
-        count = 0
         start = None
-        
+        start_depth = 0
+        count = 0
         for b in cursortools.backwards(block):
             l = self.fold_level(b)
             if l.start:
-                start = b
-            count += l.start
-            if count > depth > -1:
-                count += l.stop
-                break
+                count += l.start
+                if count > start_depth:
+                    start = b
+                    start_depth = count
+                    if count > depth > -1:
+                        break
             count += l.stop
         if start:
+            count = start_depth
             for end in cursortools.forwards(block.next()):
                 l = self.fold_level(end)
                 if count <= -l.stop:
