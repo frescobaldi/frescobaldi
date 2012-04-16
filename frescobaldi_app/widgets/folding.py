@@ -372,23 +372,24 @@ class FoldingArea(QWidget):
             count = sum(level)
             if block.isVisible():
                 rect = edit.blockBoundingGeometry(block).translated(offset).toRect()
-                if rect.top() >= ev.rect().bottom():
+                if rect.top() > ev.rect().bottom():
                     break
-                rect.setX(0)
-                rect.setWidth(self.width())
-                # draw a folder indicator
-                if level.start:
-                    folded = next_block.isValid() and not next_block.isVisible()
-                    if folded:
-                        indicator = OPEN
-                        while next_block.isValid() and not next_block.isVisible():
-                            count += sum(folder.fold_events(next_block))
-                            next_block = next_block.next()
+                elif rect.bottom() >= ev.rect().top():
+                    rect.setX(0)
+                    rect.setWidth(self.width())
+                    # draw a folder indicator
+                    if level.start:
+                        folded = next_block.isValid() and not next_block.isVisible()
+                        if folded:
+                            indicator = OPEN
+                            while next_block.isValid() and not next_block.isVisible():
+                                count += sum(folder.fold_events(next_block))
+                                next_block = next_block.next()
+                        else:
+                            indicator = CLOSE
                     else:
-                        indicator = CLOSE
-                else:
-                    indicator = None
-                painter.draw(rect, indicator, depth, depth + count)
+                        indicator = None
+                    painter.draw(rect, indicator, depth, depth + count)
             depth += count
             block = next_block
 
@@ -401,11 +402,12 @@ def visible_blocks(edit, rect=None):
     """
     if rect is None:
         rect = edit.viewport().rect()
-    bottom = rect.bottom()
+    offset = edit.contentOffset()
     for block in cursortools.forwards(edit.firstVisibleBlock()):
-        if not block.isVisible():
-            continue
-        elif edit.blockBoundingGeometry(block).top() >= bottom:
-            return
-        yield block
+        if block.isVisible():
+            geom = edit.blockBoundingGeometry(block).translated(offset).toRect()
+            if geom.top() >= rect.bottom():
+                return
+            elif geom.bottom() >= rect.top():
+                yield block
 
