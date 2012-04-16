@@ -318,7 +318,7 @@ class Folder(QObject):
         """Unfolds everything needed to make just the block visible."""
         if block.isVisible():
             return
-        for d in range(self.depth(block) - 1, -1, -1):
+        for d in range(self.depth(block), -1, -1):
             self.unfold(block, d)
             if block.isVisible():
                 return
