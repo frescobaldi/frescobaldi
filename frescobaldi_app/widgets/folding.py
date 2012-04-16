@@ -313,7 +313,7 @@ class FoldingArea(QWidget):
             if new_depth:
                 p.drawLine(rect.center(), QPoint(rect.center().x(), rect.bottom()))
             if new_depth < depth and not indicator:
-                p.drawLine(rect.center(), QPoint(rect.right(), rect.center().y()))
+                p.drawLine(rect.center(), QPoint(rect.right()-1, rect.center().y()))
             if indicator:
                 square = QRect(0, 0, 8, 8)
                 square.moveCenter(rect.center() - QPoint(1, 1))
@@ -345,7 +345,7 @@ class FoldingArea(QWidget):
         return self._textedit
         
     def sizeHint(self):
-        return QSize(12, 50)
+        return QSize(11, 50)
     
     def folder(self):
         """Return the Folder instance for our document."""
@@ -392,6 +392,16 @@ class FoldingArea(QWidget):
                     painter.draw(rect, indicator, depth, depth + count)
             depth += count
             block = next_block
+    
+    def mousePressEvent(self, ev):
+        if ev.buttons() == Qt.LeftButton:
+            block = self.textEdit().cursorForPosition(QPoint(0, ev.y())).block()
+            folder = self.folder()
+            if folder.fold_level(block).start:
+                if block.next().isValid() and not block.next().isVisible():
+                    folder.unfold(block)
+                else:
+                    folder.fold(block)
 
 
 def visible_blocks(edit, rect=None):
