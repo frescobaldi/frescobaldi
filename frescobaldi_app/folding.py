@@ -26,6 +26,7 @@ The sidebar/ manages the visibility of the folding area.
 
 from __future__ import unicode_literals
 
+import cursortools
 import tokeniter
 import ly.lex
 import widgets.folding
@@ -42,6 +43,20 @@ class Folder(widgets.folding.Folder):
                 yield widgets.folding.START
             elif isinstance(t, ly.lex.Dedent):
                 yield widgets.folding.STOP
+    
+    def mark(self, block, state=None):
+        if state is None:
+            try:
+                return block.userData().folded
+            except AttributeError:
+                return False
+        elif state:
+            cursortools.data(block).folded = state
+        else:
+            try:
+                del block.userData().folded
+            except AttributeError:
+                pass
 
 
 class FoldingArea(widgets.folding.FoldingArea):
