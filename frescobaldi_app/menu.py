@@ -153,6 +153,7 @@ def menu_view(mainwindow):
     m.addSeparator()
     m.addAction(documentactions.get(mainwindow).actionCollection.view_highlighting)
     m.addAction(sidebar.SideBarManager.instance(mainwindow).actionCollection.view_linenumbers)
+    m.addMenu(menu_view_folding(mainwindow))
     m.addMenu(menu_view_music(mainwindow))
     m.addSeparator()
     ac = bookmarkmanager.BookmarkManager.instance(mainwindow).actionCollection
@@ -165,6 +166,20 @@ def menu_view(mainwindow):
     ac = panelmanager.manager(mainwindow).logtool.actionCollection
     m.addAction(ac.log_next_error)
     m.addAction(ac.log_previous_error)
+    return m
+
+
+def menu_view_folding(mainwindow):
+    m = Menu(_("submenu title", "&Folding"), mainwindow)
+    ac = sidebar.SideBarManager.instance(mainwindow).actionCollection
+    
+    m.addAction(ac.folding_enable)
+    m.addSeparator()
+    m.addAction(ac.folding_fold_current)
+    m.addAction(ac.folding_unfold_current)
+    m.addSeparator()
+    m.addAction(ac.folding_fold_all)
+    m.addAction(ac.folding_unfold_all)
     return m
 
 

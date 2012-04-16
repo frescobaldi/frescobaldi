@@ -47,6 +47,9 @@ import cursortools
 START = 1
 STOP = -1
 
+OPEN = 1
+CLOSE = -1
+
 Region = collections.namedtuple('Region', 'start end')
 Level = collections.namedtuple('Level', 'stop start')
 
@@ -303,15 +306,15 @@ class FoldingArea(QWidget):
             self.w = widget
             self.p = QPainter(widget)
         
-        def draw(self, rect, icon, depth, new_depth):
+        def draw(self, rect, indicator, depth, new_depth):
             p = self.p
             if depth:
                 p.drawLine(rect.center(), QPoint(rect.center().x(), rect.y()))
             if new_depth:
                 p.drawLine(rect.center(), QPoint(rect.center().x(), rect.bottom()))
-            if new_depth < depth and not icon:
+            if new_depth < depth and not indicator:
                 p.drawLine(rect.center(), QPoint(rect.right(), rect.center().y()))
-            if icon:
+            if indicator:
                 square = QRect(0, 0, 8, 8)
                 square.moveCenter(rect.center() - QPoint(1, 1))
                 p.fillRect(square, self.w.palette().color(QPalette.Base))
@@ -319,7 +322,7 @@ class FoldingArea(QWidget):
                 x = rect.center().x()
                 y = rect.center().y()
                 p.drawLine(QPoint(x-2, y), QPoint(x+2, y))
-                if icon == "open":
+                if indicator == OPEN:
                     p.drawLine(QPoint(x, y-2), QPoint(x, y+2))
     
     def __init__(self, textedit=None):
@@ -373,20 +376,19 @@ class FoldingArea(QWidget):
                     break
                 rect.setX(0)
                 rect.setWidth(self.width())
-                
-                # draw a folder icon, even if a fold ends and a new starts
+                # draw a folder indicator
                 if level.start:
                     folded = next_block.isValid() and not next_block.isVisible()
                     if folded:
-                        icon = "open"
+                        indicator = OPEN
                         while next_block.isValid() and not next_block.isVisible():
                             count += sum(folder.fold_events(next_block))
                             next_block = next_block.next()
                     else:
-                        icon = "close"
+                        indicator = CLOSE
                 else:
-                    icon = None
-                painter.draw(rect, icon, depth, depth + count)
+                    indicator = None
+                painter.draw(rect, indicator, depth, depth + count)
             depth += count
             block = next_block
 

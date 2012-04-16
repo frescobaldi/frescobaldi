@@ -37,6 +37,11 @@ class SideBarManager(plugin.MainWindowPlugin):
         self.actionCollection = ac = Actions()
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         ac.view_linenumbers.triggered.connect(self.toggleLineNumbers)
+        ac.folding_enable.triggered.connect(self.toggleFolding)
+        ac.folding_fold_current.triggered.connect(self.foldCurrent)
+        ac.folding_unfold_current.triggered.connect(self.unfoldCurrent)
+        ac.folding_fold_all.triggered.connect(self.foldAll)
+        ac.folding_unfold_all.triggered.connect(self.unfoldAll)
         mainwindow.viewManager.activeViewSpaceChanged.connect(self.updateActions)
         app.viewSpaceCreated.connect(self.newViewSpace)
         # there is always one ViewSpace, initialize it
@@ -53,11 +58,50 @@ class SideBarManager(plugin.MainWindowPlugin):
         manager = self.manager()
         manager.setLineNumbersVisible(not manager.lineNumbersVisible())
         manager.saveSettings()
+    
+    def toggleFolding(self):
+        """Toggle folding in the current view."""
+        viewspace = self.mainwindow().viewManager.activeViewSpace()
+        manager = self.manager(viewspace)
+        enable = not manager.foldingVisible()
+        document = viewspace.document()
+        
+        # do it for all managers that display our document
+        for m in manager.instances():
+            if m.viewSpace().document() is document:
+                m.setFoldingVisible(enable)
+        # and also update in other windows
+        for i in self.instances():
+            if i is not self:
+                i.updateActions()
+        manager.saveSettings()
+        # unfold the document if disabled
+        if not enable:
+            import folding
+            folding.Folder.get(document).unfold_all()
+    
+    def foldCurrent(self):
+        """Fold current region."""
+    
+    def unfoldCurrent(self):
+        """Unfold current region."""
+    
+    def foldAll(self):
+        """Fold the whole document."""
+    
+    def unfoldAll(self):
+        """Unfold the whole document."""
         
     def updateActions(self):
         manager = self.manager()
         ac = self.actionCollection
         ac.view_linenumbers.setChecked(manager.lineNumbersVisible())
+        folding = manager.foldingVisible()
+        ac.folding_enable.setChecked(folding)
+        ac.folding_fold_current.setEnabled(folding)
+        ac.folding_unfold_current.setEnabled(folding)
+        ac.folding_fold_all.setEnabled(folding)
+        ac.folding_unfold_all.setEnabled(folding)
     
     def newViewSpace(self, viewspace):
         viewmanager = viewspace.manager()
@@ -72,6 +116,8 @@ class ViewSpaceSideBarManager(plugin.ViewSpacePlugin):
     def __init__(self, viewspace):
         self._line_numbers = False
         self._linenumberarea = None
+        self._folding = False
+        self._foldingarea = None
         viewspace.viewChanged.connect(self.updateView)
         
     def loadSettings(self):
@@ -80,12 +126,15 @@ class ViewSpaceSideBarManager(plugin.ViewSpacePlugin):
         s.beginGroup("sidebar")
         line_numbers = s.value("line_numbers", self._line_numbers) in (True, "true")
         self.setLineNumbersVisible(line_numbers)
+        folding = s.value("folding", self._folding) in (True, "true")
+        self.setFoldingVisible(folding)
     
     def saveSettings(self):
         """Saves the settings to config."""
         s = QSettings()
         s.beginGroup("sidebar")
         s.setValue("line_numbers", self.lineNumbersVisible())
+        s.setValue("folding",self.foldingVisible())
     
     def copySettings(self, other):
         """Takes over the settings from another viewspace's manager."""
@@ -102,6 +151,17 @@ class ViewSpaceSideBarManager(plugin.ViewSpacePlugin):
         """Returns whether line numbers are shown."""
         return self._line_numbers
     
+    def setFoldingVisible(self, visible):
+        """Set whether folding indicators are to be shown."""
+        if visible == self._folding:
+            return
+        self._folding = visible
+        self.updateView()
+    
+    def foldingVisible(self):
+        """Return whether folding indicators are to be shown."""
+        return self._folding
+    
     def updateView(self):
         """Adjust the sidebar in the current View in the sidebar."""
         view = self.viewSpace().activeView()
@@ -117,6 +177,17 @@ class ViewSpaceSideBarManager(plugin.ViewSpacePlugin):
                 side = borderlayout.LEFT
             borderlayout.BorderLayout.get(view).addWidget(widget, side)
 
+        # add or remove the folding widget
+        if self._folding:
+            if not self._foldingarea:
+                import folding
+                self._foldingarea = folding.FoldingArea()
+            add(self._foldingarea)
+            self._foldingarea.setTextEdit(view)
+        elif self._foldingarea:
+            self._foldingarea.deleteLater()
+            self._foldingarea = None
+
         # add of remove the linenumbers widget
         if self._line_numbers:
             if not self._linenumberarea:
@@ -130,14 +201,22 @@ class ViewSpaceSideBarManager(plugin.ViewSpacePlugin):
 
 
 
-
 class Actions(actioncollection.ActionCollection):
     name = "sidebar"
     def createActions(self, parent):
         self.view_linenumbers = QAction(parent, checkable=True)
-    
+        self.folding_enable = QAction(parent, checkable=True)
+        self.folding_fold_current = QAction(parent)
+        self.folding_unfold_current = QAction(parent)
+        self.folding_fold_all = QAction(parent)
+        self.folding_unfold_all = QAction(parent)
+        
     def translateUI(self):
         self.view_linenumbers.setText(_("&Line Numbers"))
-
+        self.folding_enable.setText(_("&Enable Folding"))
+        self.folding_fold_current.setText(_("&Fold Current Region"))
+        self.folding_unfold_current.setText(_("&Unfold Current Region"))
+        self.folding_fold_all.setText(_("Fold &All"))
+        self.folding_unfold_all.setText(_("U&nfold All"))
 
 
