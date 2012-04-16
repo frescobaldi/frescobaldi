@@ -98,6 +98,7 @@ class Folder(QObject):
     """
     def __init__(self, doc):
         QObject.__init__(self, doc)
+        doc.contentsChange.connect(self.slotContentsChange)
     
     @classmethod
     def find(cls, doc):
@@ -109,6 +110,33 @@ class Folder(QObject):
     def get(cls, doc):
         return cls.find(doc) or cls(doc)
     
+    def slotContentsChange(self, position, removed, added):
+        """Called when the document changes.
+        
+        Provides limited support for unhiding regions when the user types
+        text in it.
+        
+        """
+        block = self.document().findBlock(position)
+        if not block.isVisible():
+            self.ensure_visible(block)
+        else:
+            n = block.next()
+            if n.isValid() and not n.isVisible() and not self.fold_level(block).start:
+                # the block is visible, but not the next. Just unfold the lines,
+                # skipping sub-regions, until a visible block is encountered.
+                self.mark(block, False)
+                while n.isValid() and not n.isVisible():
+                    n.setVisible(True)
+                    if self.fold_level(n).start:
+                        r = self.region(n)
+                        if r:
+                            n = r.end
+                            if self.fold_level(n).start:
+                                continue
+                    n = n.next()
+                self.document().markContentsDirty(block.next().position(), n.position())
+        
     def document(self):
         """Return our document."""
         return self.parent()
