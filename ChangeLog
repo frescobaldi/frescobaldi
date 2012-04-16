@@ -7,6 +7,7 @@ Changes in 2.0.5 --
 * Translations:
   - updated: fr, nl
 * New features:
+  - Regions of text can be collapsed/expanded (View->Folding->Enable Folding)
   - Files can be opened in running instance, if enabled in settings
   - New document variable: 'output' which can be set to the basename, folder, or
     list of names or folders to look for output documents. Overrides the default
