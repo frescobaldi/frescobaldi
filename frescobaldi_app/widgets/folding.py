@@ -48,6 +48,7 @@ START = 1
 STOP = -1
 
 Region = collections.namedtuple('Region', 'start end')
+Level = collections.namedtuple('Level', 'stop start')
 
 
 class LinePainter(QObject):
@@ -113,8 +114,7 @@ class Folder(QObject):
         """Return an iterable of fold events for the block.
         
         An event is simply an integer constant START or END.
-        It is expected that END events come before START events!
-        The default implementation returns nothing.
+        The default implementation considers '{' as a start and '}' as end.
         
         """
         for c in block.text():
@@ -123,10 +123,26 @@ class Folder(QObject):
             elif c == '}':
                 yield STOP
     
-    def fold_events_backwards(self, block):
-        """Yield fold events in reverse order."""
-        return list(self.fold_events(block))[::-1]
-    
+    def fold_level(self, block):
+        """Returns a named two-tuple Level(stop, start) about the block.
+        
+        stop is the number (negative!) of fold-levels that end in that block,
+        start is the number of fold-levels that start in that block.
+        
+        This methods uses fold_events() to get the information, it discards
+        folding regions that start and stop on the same text line.
+        
+        """
+        start, stop = 0, 0
+        for e in self.fold_events(block):
+            if e is START:
+                start += 1
+            elif start:
+                start -= 1
+            else:
+                stop -= 1
+        return Level(stop, start)
+        
     def depth(self, block):
         """Return the number of active regions at the start of this block.
         
@@ -139,20 +155,6 @@ class Folder(QObject):
             count += sum(self.fold_events(block))
         return count
 
-    def is_active(self, block):
-        """Return whether there is a fold active at the start of this block.
-        
-        The default implementation just looks backward until a START is found.
-        
-        """
-        count = 0
-        for block in cursortools.backwards(block.previous()):
-            for ev in self.fold_events_backwards(block):
-                count += ev
-                if count > 0:
-                    return True
-        return False
-    
     def region(self, block, depth=0):
         """Return as Region (start, end) the region of the specified block.
         
@@ -167,34 +169,38 @@ class Folder(QObject):
         """
         count = 0
         start = None
+        
         for b in cursortools.backwards(block):
-            s = sum(self.fold_events(b))
-            if s > 0:
+            l = self.fold_level(b)
+            if l.start:
                 start = b
-            count += s
+            count += l.start
             if count > depth > -1:
+                count += l.stop
                 break
+            count += l.stop
         if start:
             for end in cursortools.forwards(block.next()):
-                for ev in self.fold_events(end):
-                    count += ev
-                    if count <= 0:
-                        return Region(start, end)
+                l = self.fold_level(end)
+                if count <= -l.stop:
+                    return Region(start, end)
+                count += sum(l)
             return Region(start, end)
         
     def fold(self, block, depth=0):
-        """Folds the region the block is in."""
+        """Fold the region the block is in.
+        
+        The depth argument specifies how deep a region may be nested.
+        The default value 0 searches the first containing region, 1 tries to
+        find one more above that, etc. Use -1 to get the top-most region.
+        
+        """
         r = self.region(block, depth)
         if not r:
             return
         # if the last block starts a new region, don't hide it
         count = 0
-        end = r.end
-        for ev in self.fold_events_backwards(r.end):
-            count += ev
-            if count > 0:
-                end = r.end.previous()
-                break
+        end = r.end.previous() if self.fold_level(r.end).start else r.end
         # don't hide the first block of the region
         for block in cursortools.forwards(r.start.next(), end):
             block.setVisible(False)
@@ -208,6 +214,10 @@ class Folder(QObject):
         If multiple regions start at the same starting block, they will unfold
         all.
         
+        The depth argument specifies how deep a region may be nested.
+        The default value 0 searches the first containing region, 1 tries to
+        find one more above that, etc. Use -1 to get the top-most region.
+        
         If full is False (the default) sub-regions that were collapsed remain
         collapsed (provided that the mark() method is implemented).
         
@@ -216,45 +226,40 @@ class Folder(QObject):
         if not r:
             return
         blocks = cursortools.forwards(r.start, r.end)
-        if full:
-            for block in blocks:
-                block.setVisible(True)
-        else:
-            for block in blocks:
-                # is there a sub-region? then skip if marked as collapsed
-                if block not in r:
-                    count = sum(self.fold_events(block))
-                    if count > 0:
-                        if full:
-                            self.mark(block, False)
-                        elif self.mark(block):
-                            for block in blocks:
-                                count += sum(self.fold_events(block))
-                                if count <= 0:
-                                    break
-                            continue
-                block.setVisible(True)
+        for block in blocks:
+            # is there a sub-region? then skip if marked as collapsed
+            if block not in r:
+                l = self.fold_level(block)
+                if l.start:
+                    if full:
+                        self.mark(block, False)
+                    elif self.mark(block):
+                        count = l.start
+                        for b in blocks:
+                            l = self.fold_level(b)
+                            if count <= -l.stop:
+                                break
+                            count += sum(l)
+            block.setVisible(True)
         self.mark(r.start, False)
         self.document().markContentsDirty(r.start.position(), r.end.position())
         
     def fold_all(self):
-        """Folds all toplevel regions."""
+        """Folds all toplevel regions, without touching inner regions."""
         for block in cursortools.all_blocks(self.document()):
             if not block.isVisible():
                 continue
-            else:
-                evs = list(self.fold_events(block))
-                if any(evs) and sum(evs) >= 0:
-                    self.fold(block)
+            elif self.fold_level(block).start:
+                self.fold(block)
     
     def unfold_all(self):
         """Fully unfolds the document."""
         first = None
         for block in cursortools.all_blocks(self.document()):
-            evs = list(self.fold_events(block))
-            if any(evs) and sum(evs) >= 0:
+            if self.fold_level(block).start:
                 self.mark(block, False)
             if not block.isVisible():
+                block.setVisible(True)
                 if first is None:
                     first = block
                 last = block
@@ -358,41 +363,30 @@ class FoldingArea(QWidget):
         offset = edit.contentOffset()
         while block.isValid():
             next_block = block.next()
-            if not block.isVisible():
-                depth += sum(folder.fold_events(block))
-                block = next_block
-                continue
-            rect = edit.blockBoundingGeometry(block).translated(offset).toRect()
-            if rect.top() >= ev.rect().bottom():
-                break
-            rect.setX(0)
-            rect.setWidth(self.width())
-            # draw a folder icon, even if a fold ends and a new starts
-            count = 0
-            icon = None
-            for e in folder.fold_events(block):
-                count += e
-                if count < 0:
-                    icon = True
-            if count < 0:
-                icon = None
-            elif count > 0:
-                icon = True
-            
-            if icon:
-                folded = next_block.isValid() and not next_block.isVisible()
-                if folded:
-                    icon = "open"
-                    while next_block.isValid() and not next_block.isVisible():
-                        count += sum(folder.fold_events(next_block))
-                        next_block = next_block.next()
+            level = folder.fold_level(block)
+            count = sum(level)
+            if block.isVisible():
+                rect = edit.blockBoundingGeometry(block).translated(offset).toRect()
+                if rect.top() >= ev.rect().bottom():
+                    break
+                rect.setX(0)
+                rect.setWidth(self.width())
+                
+                # draw a folder icon, even if a fold ends and a new starts
+                if level.start:
+                    folded = next_block.isValid() and not next_block.isVisible()
+                    if folded:
+                        icon = "open"
+                        while next_block.isValid() and not next_block.isVisible():
+                            count += sum(folder.fold_events(next_block))
+                            next_block = next_block.next()
+                    else:
+                        icon = "close"
                 else:
-                    icon = "close"
-            new_depth = depth + count
-            painter.draw(rect, icon, depth, new_depth)
-            depth = new_depth
+                    icon = None
+                painter.draw(rect, icon, depth, depth + count)
+            depth += count
             block = next_block
-
 
 
 def visible_blocks(edit, rect=None):
