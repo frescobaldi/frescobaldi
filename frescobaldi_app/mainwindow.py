@@ -240,7 +240,6 @@ class MainWindow(QMainWindow):
     def closeEvent(self, ev):
         lastWindow = len(app.windows) == 1
         if lastWindow:
-            sessions.manager.get(self).saveCurrentSessionIfDesired()
             self.writeSettings()
         if not lastWindow or self.queryClose():
             app.windows.remove(self)
@@ -254,6 +253,7 @@ class MainWindow(QMainWindow):
         for doc in self.historyManager.documents():
             if not self.queryCloseDocument(doc):
                 return False
+        sessions.manager.get(self).saveCurrentSessionIfDesired()
         for doc in self.historyManager.documents()[::-1]:
             doc.close()
         return True

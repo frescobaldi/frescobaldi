@@ -87,7 +87,6 @@ class SessionManager(plugin.MainWindowPlugin):
         """Switches to the given session."""
         if name == sessions.currentSession():
             return
-        self.saveCurrentSessionIfDesired()
         if self.mainwindow().queryClose():
             active = sessions.loadSession(name) or document.Document()
             self.mainwindow().setCurrentDocument(active)
