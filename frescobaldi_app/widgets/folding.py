@@ -99,8 +99,7 @@ class Folder(QObject):
     def __init__(self, doc):
         QObject.__init__(self, doc)
         doc.contentsChange.connect(self.slot_contents_change)
-        self._timer = QTimer(singleShot=True, interval=1000,
-                             timeout=self.check_consistency)
+        self._timer = QTimer(singleShot=True, timeout=self.check_consistency)
     
     @classmethod
     def find(cls, doc):
@@ -138,7 +137,7 @@ class Folder(QObject):
                                 continue
                     n = n.next()
                 self.document().markContentsDirty(block.next().position(), n.position())
-        self._timer.start()
+        self._timer.start(250 + self.document().blockCount())
     
     def check_consistency(self):
         """Called some time after the last document change.
@@ -191,7 +190,9 @@ class Folder(QObject):
                     must_show_region, depth, block, level = check_region(block, depth + sum(level))
                     if must_show_region:
                         must_show = True
-
+            # happens if region is not closed
+            return must_show, 0, None, Level(0, 0)
+        
         # toplevel
         for depth, block, level in blocks:
             if not block.isVisible():
