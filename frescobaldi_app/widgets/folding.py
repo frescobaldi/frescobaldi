@@ -98,7 +98,9 @@ class Folder(QObject):
     """
     def __init__(self, doc):
         QObject.__init__(self, doc)
-        doc.contentsChange.connect(self.slotContentsChange)
+        doc.contentsChange.connect(self.slot_contents_change)
+        self._timer = QTimer(singleShot=True, interval=1000,
+                             timeout=self.check_consistency)
     
     @classmethod
     def find(cls, doc):
@@ -110,7 +112,7 @@ class Folder(QObject):
     def get(cls, doc):
         return cls.find(doc) or cls(doc)
     
-    def slotContentsChange(self, position, removed, added):
+    def slot_contents_change(self, position, removed, added):
         """Called when the document changes.
         
         Provides limited support for unhiding regions when the user types
@@ -128,7 +130,7 @@ class Folder(QObject):
                 self.mark(block, False)
                 while n.isValid() and not n.isVisible():
                     n.setVisible(True)
-                    if self.fold_level(n).start:
+                    if self.fold_level(n).start and self.mark(n):
                         r = self.region(n)
                         if r:
                             n = r.end
@@ -136,7 +138,74 @@ class Folder(QObject):
                                 continue
                     n = n.next()
                 self.document().markContentsDirty(block.next().position(), n.position())
+        self._timer.start()
+    
+    def check_consistency(self):
+        """Called some time after the last document change.
         
+        Walk through the whole document, unfolding folded lines that
+        - are in the toplevel
+        - are in regions that have visible lines
+        - are in regions that have visible sub-regions
+        
+        """
+        print 'check consistency'
+        must_show_blocks = []
+        
+        def blocks_gen():
+            """Yield depth (before block), block and fold_level per block."""
+            depth = 0
+            for b in cursortools.all_blocks(self.document()):
+                l = self.fold_level(b)
+                yield depth, b, l
+                depth += sum(l)
+
+        blocks = blocks_gen()
+        
+        def check_region(start_block, start_depth):
+            """Check a region from a starting block for visible lines.
+            
+            Return a four-tuple (must_show, depth, block, level).
+            must_show is True if the region contains visible lines (in that case
+                the invisible lines are already made visible)
+            depth, block, and level are the result of the last block_gen yield.
+            If level.start is True, a new region starts on the same line the
+            former one ends.
+            
+            """
+            must_show = False
+            invisible_blocks = []
+            for depth, block, level in blocks:
+                if not block.isVisible():
+                    invisible_blocks.append(block)
+                if depth + level.stop < start_depth:
+                    # the region ends
+                    if block.isVisible() and not level.start:
+                        must_show = True
+                    if must_show:
+                        must_show_blocks.extend(invisible_blocks)
+                    return must_show, depth, block, level
+                elif block.isVisible():
+                    must_show = True
+                while level.start:
+                    must_show_region, depth, block, level = check_region(block, depth + sum(level))
+                    if must_show_region:
+                        must_show = True
+
+        # toplevel
+        for depth, block, level in blocks:
+            if not block.isVisible():
+                must_show_blocks.append(block)
+            while level.start:
+                must_show, depth, block, level = check_region(block, depth + sum(level))
+        
+        if must_show_blocks:
+            for block in must_show_blocks:
+                block.setVisible(True)
+            self.document().markContentsDirty(
+                min(must_show_blocks).position(),
+                max(must_show_blocks).position())
+    
     def document(self):
         """Return our document."""
         return self.parent()
