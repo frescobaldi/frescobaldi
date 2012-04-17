@@ -148,7 +148,7 @@ class Folder(QObject):
         - are in regions that have visible sub-regions
         
         """
-        must_show_blocks = []
+        show_blocks = set()
         
         def blocks_gen():
             """Yield depth (before block), block and fold_level per block."""
@@ -173,15 +173,15 @@ class Folder(QObject):
             """
             must_show = False
             invisible_blocks = []
+            start_block.isVisible() or invisible_blocks.append(start_block)
             for depth, block, level in blocks:
-                if not block.isVisible():
-                    invisible_blocks.append(block)
+                block.isVisible() or invisible_blocks.append(block)
                 if depth + level.stop < start_depth:
                     # the region ends
                     if block.isVisible() and not level.start:
                         must_show = True
                     if must_show:
-                        must_show_blocks.extend(invisible_blocks)
+                        show_blocks.update(invisible_blocks)
                     return must_show, depth, block, level
                 elif block.isVisible():
                     must_show = True
@@ -194,17 +194,15 @@ class Folder(QObject):
         
         # toplevel
         for depth, block, level in blocks:
-            if not block.isVisible():
-                must_show_blocks.append(block)
+            block.isVisible() or show_blocks.add(block)
             while level.start:
                 must_show, depth, block, level = check_region(block, depth + sum(level))
         
-        if must_show_blocks:
-            for block in must_show_blocks:
+        if show_blocks:
+            for block in show_blocks:
                 block.setVisible(True)
             self.document().markContentsDirty(
-                min(must_show_blocks).position(),
-                max(must_show_blocks).position())
+                min(show_blocks).position(), max(show_blocks).position())
     
     def document(self):
         """Return our document."""
