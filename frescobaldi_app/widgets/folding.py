@@ -148,7 +148,6 @@ class Folder(QObject):
         - are in regions that have visible sub-regions
         
         """
-        print 'check consistency'
         must_show_blocks = []
         
         def blocks_gen():
