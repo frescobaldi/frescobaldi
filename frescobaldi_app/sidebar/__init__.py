@@ -23,6 +23,8 @@ The sidebar in the editor View.
 
 from __future__ import unicode_literals
 
+import sys
+
 from PyQt4.QtCore import QSettings
 from PyQt4.QtGui import QAction, QApplication
 
@@ -207,11 +209,15 @@ class ViewSpaceSideBarManager(plugin.ViewSpacePlugin):
             self._linenumberarea.deleteLater()
             self._linenumberarea = None
 
-        import folding
+        # display horizontal lines where text is collapsed
         if self._folding:
+            import folding
             view.viewport().installEventFilter(folding.line_painter)
         else:
-            view.viewport().removeEventFilter(folding.line_painter)
+            # don't import the folding module if it was not loaded anyway
+            folding = sys.modules.get('folding')
+            if folding:
+                view.viewport().removeEventFilter(folding.line_painter)
 
 
 class Actions(actioncollection.ActionCollection):
