@@ -192,6 +192,7 @@ class ViewSpaceSideBarManager(plugin.ViewSpacePlugin):
             if not self._foldingarea:
                 import folding
                 self._foldingarea = folding.FoldingArea()
+                self._foldingarea.setPalette(QApplication.palette())
             add(self._foldingarea)
             self._foldingarea.setTextEdit(view)
         elif self._foldingarea:
