@@ -48,15 +48,15 @@ classes with an ever-growing number of unrelated groups of methods, a different
 approach is chosen: the plugin module.
 
 This keeps all classes small and only have methods that direcly apply to
-themselves and not to other parts of Frescobaldi.
+themselves and not to other parts of Frescobaldi (separation of concerns).
 
 So e.g. the resultfiles, highlighter or documentinfo modules contain classes
 for objects that coexist with a Document, and providing their own relevant
 methods, while keeping a weak reference to the Document.
 
 Exchange of messages is done as much as possible using signals (PyQt4 signals
-or from the signals module), so adding new features changes as less existing
-code as possible.
+or from the signals module), or event filters, so adding new features changes as
+less existing code as possible.
 
 
 Some important modules:
