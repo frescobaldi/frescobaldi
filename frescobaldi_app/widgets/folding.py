@@ -39,8 +39,8 @@ from __future__ import unicode_literals
 
 import collections
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QEvent, QObject, QPoint, QRect, QSize, Qt, QTimer
+from PyQt4.QtGui import QPainter, QPalette, QWidget
 
 import cursortools
 
@@ -88,7 +88,6 @@ class LinePainter(QObject):
         return True
 
 
-
 class Folder(QObject):
     """Manages the folding of a QTextDocument.
     
@@ -98,6 +97,7 @@ class Folder(QObject):
     """
     def __init__(self, doc):
         QObject.__init__(self, doc)
+        self._all_visible = None    # True when all are certainly visible
         doc.contentsChange.connect(self.slot_contents_change)
         self._timer = QTimer(singleShot=True, timeout=self.check_consistency)
     
@@ -118,6 +118,9 @@ class Folder(QObject):
         text in it.
         
         """
+        if self._all_visible:
+            return
+        
         block = self.document().findBlock(position)
         if not block.isVisible():
             self.ensure_visible(block)
@@ -149,6 +152,7 @@ class Folder(QObject):
         
         """
         show_blocks = set()
+        all_visible = [True]   # a list so check_region() can change the value
         
         def blocks_gen():
             """Yield depth (before block), block and fold_level per block."""
@@ -182,6 +186,8 @@ class Folder(QObject):
                         must_show = True
                     if must_show:
                         show_blocks.update(invisible_blocks)
+                    elif invisible_blocks:
+                        all_visible[0] = False
                     return must_show, depth, block, level
                 elif block.isVisible():
                     must_show = True
@@ -203,6 +209,7 @@ class Folder(QObject):
                 block.setVisible(True)
             self.document().markContentsDirty(
                 min(show_blocks).position(), max(show_blocks).position())
+            self._all_visible = all_visible[0]
     
     def document(self):
         """Return our document."""
@@ -306,6 +313,7 @@ class Folder(QObject):
             block.setVisible(False)
         self.mark(r.start, True)
         self.document().markContentsDirty(r.start.next().position(), end.position())
+        self._all_visible = False
 
     def unfold(self, block, depth=0, full=False):
         """Unfolds the region the block is in.
@@ -365,6 +373,9 @@ class Folder(QObject):
                 last = block
         if first:
             self.document().markContentsDirty(first.position(), last.position())
+        # no need to check consistency
+        self._all_visible = True
+        self._timer.isActive() and self._timer.stop()
         
     def mark(self, block, state=None):
         """This can be used to remember the folded state of a block.
