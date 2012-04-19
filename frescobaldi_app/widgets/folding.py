@@ -25,10 +25,16 @@ Q(Plain)TextEdit.
 
 To get foldable regions in your QPlainTextEdit, you need to subclass Folder,
 and implement its fold_events() method. It should yield START or STOP events
-(which are simply integers) in the order they occur on the line.
+(which are simply integers) in the order they occur in the specified text block.
 
 Then you should subclass FoldingArea, just to provide your Folder subclass
 as a class attribute. Then add the FoldingArea to the left of your text edit.
+The folding area will automatically instantiate the Folder for the document
+of the text edit and use it for the lifetime of the document.
+
+Finally, install a LinePainter as event filter on the viewport() of the text-
+edit. This can be one global instance. It simply draws a line below any text
+block that is followed by an invisible block.
 
 Folding is handled automatically and needs no further data structures or state
 information.
@@ -55,7 +61,7 @@ Level = collections.namedtuple('Level', 'stop start')
 
 
 class LinePainter(QObject):
-    """Paints a line below a block is the next block is invisible.
+    """Paints a line below a block if the next block is invisible.
     
     Install this as an event filter on the viewport() of a textedit,
     it then intercepts the paint event.
@@ -99,7 +105,7 @@ class Folder(QObject):
     the fold_events() for every block from the beginning of the document.
     
     The depth() caching expects that the fold_events that a text block
-    generates, do not depend on the contents of a text block later in the
+    generates do not depend on the contents of a text block later in the
     document.
     
     If your fold_events() method generates events for a text block that depend
@@ -172,7 +178,7 @@ class Folder(QObject):
         
         """
         show_blocks = set()
-        all_visible = [True]   # a list so check_region() can change the value
+        self._all_visible = True    # for now at least ...
         
         def blocks_gen():
             """Yield depth (before block), block and fold_level per block."""
@@ -207,7 +213,7 @@ class Folder(QObject):
                     if must_show:
                         show_blocks.update(invisible_blocks)
                     elif invisible_blocks:
-                        all_visible[0] = False
+                        self._all_visible = False
                     return must_show, depth, block, level
                 elif block.isVisible():
                     must_show = True
@@ -229,7 +235,6 @@ class Folder(QObject):
                 block.setVisible(True)
             self.document().markContentsDirty(
                 min(show_blocks).position(), max(show_blocks).position())
-        self._all_visible = all_visible[0]
     
     def document(self):
         """Return our document."""
