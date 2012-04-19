@@ -160,7 +160,7 @@ class LilyPondInfo(object):
                 'LilyPond*', 'usr', 'bin'))
         else:
             path = None
-        return util.findexe(self.command, path)
+        return util.findexe(self.command, path) or False
 
     @CachedProperty.cachedproperty(depends=abscommand)
     def versionString(self):
