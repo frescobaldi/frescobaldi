@@ -287,12 +287,14 @@ class Folder(QObject):
             count += l.stop
         if start:
             count = start_depth
+            end = None
             for end in cursortools.forwards(block.next()):
                 l = self.fold_level(end)
                 if count <= -l.stop:
                     return Region(start, end)
                 count += sum(l)
-            return Region(start, end)
+            if end:
+                return Region(start, end)
         
     def fold(self, block, depth=0):
         """Fold the region the block is in.
