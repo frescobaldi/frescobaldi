@@ -246,7 +246,8 @@ class snippet_import_export_help(help.page):
         _("To import snippets, select {menu} and choose the file you want to "
           "import. You may also drop an XML file on the snippet manager. "
           "A dialog will be displayed where you can select which snippets you "
-          "want to import."),
+          "want to import.").format(
+            menu=help.menu(_("&Menu"), _("&Import..."))),
         _("The XML format of the snippet library files is simple and "
           "documented inside the XML file."),
         )))
