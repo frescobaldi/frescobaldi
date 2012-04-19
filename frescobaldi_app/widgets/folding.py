@@ -209,7 +209,7 @@ class Folder(QObject):
                 block.setVisible(True)
             self.document().markContentsDirty(
                 min(show_blocks).position(), max(show_blocks).position())
-            self._all_visible = all_visible[0]
+        self._all_visible = all_visible[0]
     
     def document(self):
         """Return our document."""
