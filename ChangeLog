@@ -5,7 +5,7 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 Changes in 2.0.5 -- 
 
 * Translations:
-  - updated: fr, nl
+  - updated: fr, nl, es
 * New features:
   - Regions of text can be collapsed/expanded (View->Folding->Enable Folding)
   - Files can be opened in running instance, if enabled in settings
