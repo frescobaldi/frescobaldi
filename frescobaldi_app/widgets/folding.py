@@ -168,6 +168,12 @@ class Folder(QObject):
                 self.document().markContentsDirty(block.next().position(), n.position())
         self._timer.start(250 + self.document().blockCount())
     
+    def invalidate_depth_cache(self, block):
+        """Makes sure the depth is recomputed from the specified block."""
+        if self.cache_depth_lines:
+            chunk = block.blockNumber() // self.cache_depth_lines
+            del self._depth_cache[chunk:]
+    
     def check_consistency(self):
         """Called some time after the last document change.
         
