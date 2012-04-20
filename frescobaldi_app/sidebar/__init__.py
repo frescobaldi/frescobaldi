@@ -91,7 +91,7 @@ class SideBarManager(plugin.MainWindowPlugin):
     
     def unfoldCurrent(self):
         """Unfold current region."""
-        self.folder().unfold(self.mainwindow().textCursor().block())
+        self.folder().ensure_visible(self.mainwindow().textCursor().block())
     
     def foldAll(self):
         """Fold the whole document."""
