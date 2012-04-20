@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.17\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-16 18:48+0200\n"
+"POT-Creation-Date: 2012-04-20 14:50+0200\n"
 "PO-Revision-Date: 2011-01-03 17:37+0100\n"
 "Last-Translator: Manuel A. Vazquez <xixirei@yahoo.es>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -335,7 +335,7 @@ msgid "&Update with convert-ly..."
 msgstr "Actualizar mediante convert-ly"
 
 #: ../documentcontextmenu.py:54 ../mainwindow.py:952
-#: ../sessions/manager.py:128
+#: ../sessions/manager.py:127
 #, fuzzy
 msgid "&Save"
 msgstr "Gardar"
@@ -903,47 +903,47 @@ msgctxt "submenu title"
 msgid "&Folding"
 msgstr "Codificación para usar"
 
-#: ../menu.py:187
+#: ../menu.py:188
 msgctxt "submenu title"
 msgid "Music &View"
 msgstr ""
 
-#: ../menu.py:207
+#: ../menu.py:208
 #, fuzzy
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:226
+#: ../menu.py:227
 #, fuzzy
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "Vistas de ferramen&tas"
 
-#: ../menu.py:252
+#: ../menu.py:253
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Letra"
 
-#: ../menu.py:264
+#: ../menu.py:265
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Altura"
 
-#: ../menu.py:278
+#: ../menu.py:279
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "Du&racións"
 
-#: ../menu.py:306
+#: ../menu.py:307
 msgctxt "menu title"
 msgid "&Window"
 msgstr ""
 
-#: ../menu.py:326
+#: ../menu.py:327
 msgctxt "menu title"
 msgid "&Help"
 msgstr ""
@@ -5783,18 +5783,18 @@ msgstr ""
 msgid "Overwrite"
 msgstr "&Sobreescribir"
 
-#: ../sessions/manager.py:127
+#: ../sessions/manager.py:126
 #, fuzzy
 msgctxt "New Session"
 msgid "&New..."
 msgstr "Novo..."
 
-#: ../sessions/manager.py:129
+#: ../sessions/manager.py:128
 #, fuzzy
 msgid "&Manage..."
 msgstr "Xestionar sesións..."
 
-#: ../sessions/manager.py:130
+#: ../sessions/manager.py:129
 msgid "No Session"
 msgstr "Sen sesión"
 
@@ -5804,29 +5804,33 @@ msgctxt "menu title"
 msgid "&Session"
 msgstr "&Sesións"
 
-#: ../sidebar/__init__.py:228
+#: ../sidebar/__init__.py:245
 #, fuzzy
 msgid "&Line Numbers"
 msgstr "Imprimir os números de páxina"
 
-#: ../sidebar/__init__.py:229
+#: ../sidebar/__init__.py:246
 msgid "&Enable Folding"
 msgstr ""
 
-#: ../sidebar/__init__.py:230
+#: ../sidebar/__init__.py:247
 msgid "&Fold Current Region"
 msgstr ""
 
-#: ../sidebar/__init__.py:231
+#: ../sidebar/__init__.py:248
+msgid "Fold &Top Region"
+msgstr ""
+
+#: ../sidebar/__init__.py:249
 msgid "&Unfold Current Region"
 msgstr ""
 
-#: ../sidebar/__init__.py:232
+#: ../sidebar/__init__.py:250
 #, fuzzy
 msgid "Fold &All"
 msgstr "Seleccionar todo"
 
-#: ../sidebar/__init__.py:233
+#: ../sidebar/__init__.py:251
 msgid "U&nfold All"
 msgstr ""
 
@@ -6253,7 +6257,8 @@ msgid ""
 "xml</code>."
 msgstr ""
 
-#: ../snippet/import_export.py:245 ../snippet/widget.py:183
+#: ../snippet/import_export.py:245 ../snippet/import_export.py:250
+#: ../snippet/widget.py:183
 msgid "&Menu"
 msgstr ""
 
@@ -6269,7 +6274,12 @@ msgid ""
 "displayed where you can select which snippets you want to import."
 msgstr ""
 
-#: ../snippet/import_export.py:250
+#: ../snippet/import_export.py:250 ../snippet/widget.py:195
+#, fuzzy
+msgid "&Import..."
+msgstr "Imprimir..."
+
+#: ../snippet/import_export.py:251
 msgid ""
 "The XML format of the snippet library files is simple and documented inside "
 "the XML file."
@@ -6403,11 +6413,6 @@ msgstr ""
 #, fuzzy
 msgid "Apply the current snippet."
 msgstr "Situar o cursor sobre este punto."
-
-#: ../snippet/widget.py:195
-#, fuzzy
-msgid "&Import..."
-msgstr "Imprimir..."
 
 #: ../snippet/widget.py:196
 msgid "Import snippets from a file."

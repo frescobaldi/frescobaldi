@@ -41,6 +41,7 @@ class SideBarManager(plugin.MainWindowPlugin):
         ac.view_linenumbers.triggered.connect(self.toggleLineNumbers)
         ac.folding_enable.triggered.connect(self.toggleFolding)
         ac.folding_fold_current.triggered.connect(self.foldCurrent)
+        ac.folding_fold_top.triggered.connect(self.foldTop)
         ac.folding_unfold_current.triggered.connect(self.unfoldCurrent)
         ac.folding_fold_all.triggered.connect(self.foldAll)
         ac.folding_unfold_all.triggered.connect(self.unfoldAll)
@@ -89,6 +90,10 @@ class SideBarManager(plugin.MainWindowPlugin):
         """Fold current region."""
         self.folder().fold(self.mainwindow().textCursor().block())
     
+    def foldTop(self):
+        """Fold current region to toplevel."""
+        self.folder().fold(self.mainwindow().textCursor().block(), -1)
+    
     def unfoldCurrent(self):
         """Unfold current region."""
         block = self.mainwindow().textCursor().block()
@@ -111,6 +116,7 @@ class SideBarManager(plugin.MainWindowPlugin):
         folding = manager.foldingVisible()
         ac.folding_enable.setChecked(folding)
         ac.folding_fold_current.setEnabled(folding)
+        ac.folding_fold_top.setEnabled(folding)
         ac.folding_unfold_current.setEnabled(folding)
         ac.folding_fold_all.setEnabled(folding)
         ac.folding_unfold_all.setEnabled(folding)
@@ -230,6 +236,7 @@ class Actions(actioncollection.ActionCollection):
         self.view_linenumbers = QAction(parent, checkable=True)
         self.folding_enable = QAction(parent, checkable=True)
         self.folding_fold_current = QAction(parent)
+        self.folding_fold_top = QAction(parent)
         self.folding_unfold_current = QAction(parent)
         self.folding_fold_all = QAction(parent)
         self.folding_unfold_all = QAction(parent)
@@ -238,6 +245,7 @@ class Actions(actioncollection.ActionCollection):
         self.view_linenumbers.setText(_("&Line Numbers"))
         self.folding_enable.setText(_("&Enable Folding"))
         self.folding_fold_current.setText(_("&Fold Current Region"))
+        self.folding_fold_top.setText(_("Fold &Top Region"))
         self.folding_unfold_current.setText(_("&Unfold Current Region"))
         self.folding_fold_all.setText(_("Fold &All"))
         self.folding_unfold_all.setText(_("U&nfold All"))

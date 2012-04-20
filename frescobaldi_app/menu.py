@@ -176,6 +176,7 @@ def menu_view_folding(mainwindow):
     m.addAction(ac.folding_enable)
     m.addSeparator()
     m.addAction(ac.folding_fold_current)
+    m.addAction(ac.folding_fold_top)
     m.addAction(ac.folding_unfold_current)
     m.addSeparator()
     m.addAction(ac.folding_fold_all)
