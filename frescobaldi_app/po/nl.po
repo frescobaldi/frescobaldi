@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-20 13:11+0200\n"
-"PO-Revision-Date: 2012-04-20 13:12+0200\n"
+"POT-Creation-Date: 2012-04-20 14:50+0200\n"
+"PO-Revision-Date: 2012-04-20 14:51+0200\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -6230,8 +6230,8 @@ msgid "&Fold Current Region"
 msgstr "Huidige gebied in&vouwen"
 
 #: ../sidebar/__init__.py:248
-msgid "&Fold Top Region"
-msgstr "Bovenste gebied in&vouwen"
+msgid "Fold &Top Region"
+msgstr "&Bovenste gebied invouwen"
 
 #: ../sidebar/__init__.py:249
 msgid "&Unfold Current Region"

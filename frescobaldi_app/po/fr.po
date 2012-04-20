@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-20 13:11+0200\n"
+"POT-Creation-Date: 2012-04-20 14:50+0200\n"
 "PO-Revision-Date: 2011-12-25 14:42-0500\n"
 "Last-Translator: Ryan Kavanagh <ryanakca@kubuntu.org>\n"
 "Language-Team: Français <>\n"
@@ -6268,7 +6268,7 @@ msgstr "&Repérer la ligne courante"
 
 #: ../sidebar/__init__.py:248
 #, fuzzy
-msgid "&Fold Top Region"
+msgid "Fold &Top Region"
 msgstr "&Repérer la ligne courante"
 
 #: ../sidebar/__init__.py:249

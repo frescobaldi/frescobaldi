@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-20 13:11+0200\n"
+"POT-Creation-Date: 2012-04-20 14:50+0200\n"
 "PO-Revision-Date: 2012-04-18 20:30+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -6305,7 +6305,7 @@ msgstr "Plegar &región actual"
 
 #: ../sidebar/__init__.py:248
 #, fuzzy
-msgid "&Fold Top Region"
+msgid "Fold &Top Region"
 msgstr "Plegar &región actual"
 
 #: ../sidebar/__init__.py:249

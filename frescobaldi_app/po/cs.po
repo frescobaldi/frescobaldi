@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-20 13:11+0200\n"
+"POT-Creation-Date: 2012-04-20 14:50+0200\n"
 "PO-Revision-Date: 2012-02-17 22:29+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -6132,7 +6132,7 @@ msgstr "&Označit nynější řádek"
 
 #: ../sidebar/__init__.py:248
 #, fuzzy
-msgid "&Fold Top Region"
+msgid "Fold &Top Region"
 msgstr "&Označit nynější řádek"
 
 #: ../sidebar/__init__.py:249

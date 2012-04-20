@@ -245,7 +245,7 @@ class Actions(actioncollection.ActionCollection):
         self.view_linenumbers.setText(_("&Line Numbers"))
         self.folding_enable.setText(_("&Enable Folding"))
         self.folding_fold_current.setText(_("&Fold Current Region"))
-        self.folding_fold_top.setText(_("&Fold Top Region"))
+        self.folding_fold_top.setText(_("Fold &Top Region"))
         self.folding_unfold_current.setText(_("&Unfold Current Region"))
         self.folding_fold_all.setText(_("Fold &All"))
         self.folding_unfold_all.setText(_("U&nfold All"))

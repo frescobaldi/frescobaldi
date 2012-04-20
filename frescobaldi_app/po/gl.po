@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.17\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-20 13:11+0200\n"
+"POT-Creation-Date: 2012-04-20 14:50+0200\n"
 "PO-Revision-Date: 2011-01-03 17:37+0100\n"
 "Last-Translator: Manuel A. Vazquez <xixirei@yahoo.es>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -5818,7 +5818,7 @@ msgid "&Fold Current Region"
 msgstr ""
 
 #: ../sidebar/__init__.py:248
-msgid "&Fold Top Region"
+msgid "Fold &Top Region"
 msgstr ""
 
 #: ../sidebar/__init__.py:249

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-20 13:11+0200\n"
+"POT-Creation-Date: 2012-04-20 14:50+0200\n"
 "PO-Revision-Date: 2012-02-15 16:30+0100\n"
 "Last-Translator: .billyBoh <billyboh@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -6183,7 +6183,7 @@ msgstr "&Contrassegna la riga attuale"
 
 #: ../sidebar/__init__.py:248
 #, fuzzy
-msgid "&Fold Top Region"
+msgid "Fold &Top Region"
 msgstr "&Contrassegna la riga attuale"
 
 #: ../sidebar/__init__.py:249

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-20 13:11+0200\n"
+"POT-Creation-Date: 2012-04-20 14:50+0200\n"
 "PO-Revision-Date: 2009-10-08 21:17+0300\n"
 "Last-Translator: Artem Zolochevskiy <artem.zolochevskiy@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -5801,7 +5801,7 @@ msgid "&Fold Current Region"
 msgstr ""
 
 #: ../sidebar/__init__.py:248
-msgid "&Fold Top Region"
+msgid "Fold &Top Region"
 msgstr ""
 
 #: ../sidebar/__init__.py:249

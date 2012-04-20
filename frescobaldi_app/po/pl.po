@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.3\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-20 13:11+0200\n"
+"POT-Creation-Date: 2012-04-20 14:50+0200\n"
 "PO-Revision-Date: 2012-02-17 00:26+0100\n"
 "Last-Translator: Piotr Komorowski <piotr-komorowski@wp.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -5691,7 +5691,7 @@ msgstr "&Podkreślaj aktualną linię"
 
 #: ../sidebar/__init__.py:248
 #, fuzzy
-msgid "&Fold Top Region"
+msgid "Fold &Top Region"
 msgstr "&Podkreślaj aktualną linię"
 
 #: ../sidebar/__init__.py:249
