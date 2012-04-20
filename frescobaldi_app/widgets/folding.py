@@ -25,10 +25,16 @@ Q(Plain)TextEdit.
 
 To get foldable regions in your QPlainTextEdit, you need to subclass Folder,
 and implement its fold_events() method. It should yield START or STOP events
-(which are simply integers) in the order they occur on the line.
+(which are simply integers) in the order they occur in the specified text block.
 
 Then you should subclass FoldingArea, just to provide your Folder subclass
 as a class attribute. Then add the FoldingArea to the left of your text edit.
+The folding area will automatically instantiate the Folder for the document
+of the text edit and use it for the lifetime of the document.
+
+Finally, install a LinePainter as event filter on the viewport() of the text-
+edit. This can be one global instance. It simply draws a line below any text
+block that is followed by an invisible block.
 
 Folding is handled automatically and needs no further data structures or state
 information.
@@ -55,7 +61,7 @@ Level = collections.namedtuple('Level', 'stop start')
 
 
 class LinePainter(QObject):
-    """Paints a line below a block is the next block is invisible.
+    """Paints a line below a block if the next block is invisible.
     
     Install this as an event filter on the viewport() of a textedit,
     it then intercepts the paint event.
@@ -91,12 +97,28 @@ class LinePainter(QObject):
 class Folder(QObject):
     """Manages the folding of a QTextDocument.
     
-    You should inherit from this class to provide folding events,
-    by implementing the fold_events() method.
+    You should inherit from this class to provide folding events.
+    It is enough to implement the fold_events() method.
+    
+    By default, simple caching is used to store the nesting depth every
+    20 lines. This makes the depth() method faster, which would otherwise count
+    the fold_events() for every block from the beginning of the document.
+    
+    The depth() caching expects that the fold_events that a text block
+    generates do not depend on the contents of a text block later in the
+    document.
+    
+    If your fold_events() method generates events for a text block that depend
+    on a later block, you should disable caching by setting the
+    cache_depth_lines instance (or class) attribute to zero.
     
     """
+    # cache depth() for every n lines (0=disable)
+    cache_depth_lines = 20
+    
     def __init__(self, doc):
         QObject.__init__(self, doc)
+        self._depth_cache = []      # cache result of depth()
         self._all_visible = None    # True when all are certainly visible
         doc.contentsChange.connect(self.slot_contents_change)
         self._timer = QTimer(singleShot=True, timeout=self.check_consistency)
@@ -115,13 +137,17 @@ class Folder(QObject):
         """Called when the document changes.
         
         Provides limited support for unhiding regions when the user types
-        text in it.
+        text in it, and deletes the depth() cache for lines from position.
         
         """
+        block = self.document().findBlock(position)
+        if self.cache_depth_lines:
+            chunk = block.blockNumber() // self.cache_depth_lines
+            del self._depth_cache[chunk:]
+        
         if self._all_visible:
             return
         
-        block = self.document().findBlock(position)
         if not block.isVisible():
             self.ensure_visible(block)
         else:
@@ -142,6 +168,12 @@ class Folder(QObject):
                 self.document().markContentsDirty(block.next().position(), n.position())
         self._timer.start(250 + self.document().blockCount())
     
+    def invalidate_depth_cache(self, block):
+        """Makes sure the depth is recomputed from the specified block."""
+        if self.cache_depth_lines:
+            chunk = block.blockNumber() // self.cache_depth_lines
+            del self._depth_cache[chunk:]
+    
     def check_consistency(self):
         """Called some time after the last document change.
         
@@ -152,7 +184,7 @@ class Folder(QObject):
         
         """
         show_blocks = set()
-        all_visible = [True]   # a list so check_region() can change the value
+        self._all_visible = True    # for now at least ...
         
         def blocks_gen():
             """Yield depth (before block), block and fold_level per block."""
@@ -187,7 +219,7 @@ class Folder(QObject):
                     if must_show:
                         show_blocks.update(invisible_blocks)
                     elif invisible_blocks:
-                        all_visible[0] = False
+                        self._all_visible = False
                     return must_show, depth, block, level
                 elif block.isVisible():
                     must_show = True
@@ -209,7 +241,6 @@ class Folder(QObject):
                 block.setVisible(True)
             self.document().markContentsDirty(
                 min(show_blocks).position(), max(show_blocks).position())
-        self._all_visible = all_visible[0]
     
     def document(self):
         """Return our document."""
@@ -252,14 +283,34 @@ class Folder(QObject):
         """Return the number of active regions at the start of this block.
         
         The default implementation simply counts all the fold_events from
-        the beginning of the document.
+        the beginning of the document, using caching if the cache_depth_lines
+        instance attribute is set to a value > 0.
         
         """
-        count = 0
-        for block in cursortools.backwards(block.previous()):
-            count += sum(self.fold_events(block))
-        return count
-
+        depth = 0
+        last = block.document().firstBlock()
+        if self.cache_depth_lines:
+            chunk = block.blockNumber() // self.cache_depth_lines
+            if chunk:
+                target = block.document().findBlockByNumber(chunk * self.cache_depth_lines)
+                if chunk <= len(self._depth_cache):
+                    depth = self._depth_cache[chunk - 1]
+                    last = target
+                else:
+                    # some values need to be computed first
+                    if self._depth_cache:
+                        depth = self._depth_cache[-1]
+                        last = block.document().findBlockByNumber(len(self._depth_cache) * self.cache_depth_lines)
+                    while last < target:
+                        depth += sum(self.fold_events(last))
+                        last = last.next()
+                        if last.blockNumber() % self.cache_depth_lines == 0:
+                            self._depth_cache.append(depth)
+        while last < block:
+            depth += sum(self.fold_events(last))
+            last = last.next()
+        return depth
+        
     def region(self, block, depth=0):
         """Return as Region (start, end) the region of the specified block.
         
