@@ -61,6 +61,7 @@ class MusicView(QWidget):
         self._positions = weakref.WeakKeyDictionary()
         self._currentDocument = None
         self._links = None
+        self._clicking_link = False
         
         self._highlightFormat = QTextCharFormat()
         self._highlightMusicFormat = Highlighter()
@@ -149,7 +150,9 @@ class MusicView(QWidget):
                 editinplace.edit(self, cursor, ev.globalPos())
             else:
                 mainwindow = self.parent().mainwindow()
+                self._clicking_link = True
                 mainwindow.setTextCursor(cursor, findOpenView=True)
+                self._clicking_link = False
                 import widgets.blink
                 widgets.blink.Blinker.blink_cursor(mainwindow.currentView())
         elif (isinstance(link, popplerqt4.Poppler.LinkBrowse)
@@ -264,6 +267,12 @@ class MusicView(QWidget):
             self.clearHighlighting()
         elif s:
             self.highlight(links.destinations(), s)
+            # move if sync is enabled and the cursor did not move as a result of
+            # clicking a link
+            if (not self._clicking_link
+                and self.parent().actionCollection.music_sync_cursor.isChecked()):
+                center = self.destinationsRect(links.destinations()[s]).center()
+                self.view.ensureVisible(center.x(), center.y())
 
     def highlight(self, destinations, slice, msec=None):
         """(Internal) Highlights the from the specified destinations the specified slice."""
@@ -307,15 +316,19 @@ class MusicView(QWidget):
         s = links.indices(view.textCursor())
         if not s:
             return
+        self.view.center(self.destinationsRect(links.destinations()[s]).center())
+        self.highlight(links.destinations(), s, 10000)
+    
+    def destinationsRect(self, destinations):
+        """Return the rectangle containing all destinations."""
         layout = self.view.surface().pageLayout()
         rect = QRect()
-        for dest in links.destinations()[s]:
+        for dest in destinations:
             for pageNum, r in dest:
                 rect = rect.united(layout[pageNum].linkRect(r.normalized()))
         # not larger than viewport
         rect.setSize(rect.size().boundedTo(self.view.viewport().size()))
-        self.view.center(rect.center())
-        self.highlight(links.destinations(), s, 10000)
+        return rect
     
     def showContextMenu(self):
         """Called when the user right-clicks or presses the context menu key."""

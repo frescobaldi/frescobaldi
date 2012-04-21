@@ -38,7 +38,7 @@ import functools
 import os
 import weakref
 
-from PyQt4.QtCore import QTimer, Qt, pyqtSignal
+from PyQt4.QtCore import QSettings, QTimer, Qt, pyqtSignal
 from PyQt4.QtGui import (
     QAction, QComboBox, QLabel, QKeySequence, QSpinBox, QWidgetAction)
 
@@ -98,6 +98,7 @@ class MusicViewPanel(panel.Panel):
         ac.music_fit_height.triggered.connect(self.fitHeight)
         ac.music_fit_both.triggered.connect(self.fitBoth)
         ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
+        ac.music_sync_cursor.triggered.connect(self.toggleSyncCursor)
         ac.music_copy_image.triggered.connect(self.copyImage)
         ac.music_document_select.documentsChanged.connect(self.updateActions)
         ac.music_copy_image.setEnabled(False)
@@ -106,6 +107,8 @@ class MusicViewPanel(panel.Panel):
         self.slotPageCountChanged(0)
         ac.music_next_page.setEnabled(False)
         ac.music_prev_page.setEnabled(False)
+        self.actionCollection.music_sync_cursor.setChecked(
+            QSettings().value("musicview/sync_cursor", False) in (True, "true"))
         
     def translateUI(self):
         self.setWindowTitle(_("window title", "Music View"))
@@ -201,6 +204,10 @@ class MusicViewPanel(panel.Panel):
     def jumpToCursor(self):
         self.widget().showCurrentLinks()
     
+    def toggleSyncCursor(self):
+        QSettings().setValue("musicview/sync_cursor",
+            self.actionCollection.music_sync_cursor.isChecked())
+    
     def copyImage(self):
         from . import image
         image.copy(self)
@@ -231,18 +238,15 @@ class Actions(actioncollection.ActionCollection):
         self.music_zoom_out = QAction(panel)
         self.music_zoom_original = QAction(panel)
         self.music_zoom_combo = ZoomerAction(panel)
-        self.music_fit_width = QAction(panel)
-        self.music_fit_height = QAction(panel)
-        self.music_fit_both = QAction(panel)
+        self.music_fit_width = QAction(panel, checkable=True)
+        self.music_fit_height = QAction(panel, checkable=True)
+        self.music_fit_both = QAction(panel, checkable=True)
         self.music_jump_to_cursor = QAction(panel)
+        self.music_sync_cursor = QAction(panel, checkable=True)
         self.music_copy_image = QAction(panel)
         self.music_pager = PagerAction(panel)
         self.music_next_page = QAction(panel)
         self.music_prev_page = QAction(panel)
-
-        self.music_fit_width.setCheckable(True)
-        self.music_fit_height.setCheckable(True)
-        self.music_fit_both.setCheckable(True)
 
         self.music_print.setIcon(icons.get('document-print'))
         self.music_zoom_in.setIcon(icons.get('zoom-in'))
@@ -274,6 +278,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_fit_height.setText(_("Fit &Height"))
         self.music_fit_both.setText(_("Fit &Page"))
         self.music_jump_to_cursor.setText(_("&Jump to Cursor Position"))
+        self.music_sync_cursor.setText(_("S&ynchronize with Cursor Position"))
         self.music_copy_image.setText(_("Copy to &Image..."))
         self.music_next_page.setText(_("Next Page"))
         self.music_next_page.setIconText(_("Next"))

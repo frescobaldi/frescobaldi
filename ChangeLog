@@ -18,6 +18,7 @@ Changes in 2.0.5 --
   - Alt+Up and Alt+Down jump between blank lines (implemented as snippets),
     with Shift they select text
   - New command in View->Music View and Music View contextmenu: "Original Size"
+  - Optionally scroll Music View while highlighting objects text cursor is at
   - In-place editing by Shift-clicking a note or right-click->Edit in Place
 * Improvements:
   - Copied images from Music View carry correct DPI information
