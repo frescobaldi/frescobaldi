@@ -37,7 +37,6 @@ Other ideas/wishes
 
 - editor:
     * context menu (with help, open filename, etc)
-    * folding, nesting depth indication
     * if matching brace out of view, popup a small display of it (idea:
       Franciso Vila)
     * vi-mode

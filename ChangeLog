@@ -37,6 +37,7 @@ Changes in 2.0.5 --
 * Bugfixes:
   - fix Ctrl+K deleting a line too much in some cases
   - fix RuntimeError on Ctrl+N, Ctrl+F, Ctrl+W
+  - fix TypeError on running convert-ly with English messages on Windows
 * For Linux distribution packagers:
   - The CC-licensed zoom-{in,out} icons are now replaced with GPLled ones
 
