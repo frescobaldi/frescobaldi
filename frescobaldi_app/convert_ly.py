@@ -193,7 +193,7 @@ class Dialog(QDialog):
         env = None
         if QSettings().value("lilypond_settings/no_translation", False) in (True, "true"):
             env = dict(os.environ)
-            env['LANGUAGE'] = 'C'
+            env[b'LANGUAGE'] = b'C'
         
         with qutil.busyCursor():
             try:
