@@ -35,6 +35,7 @@ from PyQt4.QtGui import (
     QTabWidget, QTextBrowser, QVBoxLayout)
 
 import app
+import util
 import qutil
 import widgets
 import cursordiff
@@ -189,11 +190,16 @@ class Dialog(QDialog):
             command = [convert_ly]
         command += ['-f', fromVersion, '-t', toVersion, '-']
         
-        # if the user wants english messages, do it also here
+        # if the user wants english messages, do it also here: LANGUAGE=C
         env = None
         if QSettings().value("lilypond_settings/no_translation", False) in (True, "true"):
-            env = dict(os.environ)
-            env[b'LANGUAGE'] = b'C'
+            if os.name == "nt":
+                # Python 2.7 subprocess on Windows chokes on unicode in env
+                env = util.bytes_environ()
+                env[b'LANGUAGE'] = b'C'
+            else:
+                env = dict(os.environ)
+                env['LANGUAGE'] = 'C'
         
         with qutil.busyCursor():
             try:

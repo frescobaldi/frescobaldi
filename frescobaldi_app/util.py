@@ -151,6 +151,17 @@ def naturalsort(text):
     return tuple(int(s) if s.isdigit() else s for s in re.split(r'(\d+)', text))
 
 
+def bytes_environ(encoding='latin1'):
+    """Return the environment as a dictionary with bytes keys and values.
+    
+    This can be used for subprocess, as it chokes on Windows on unicode strings
+    in Python 2.x.
+    
+    """
+    return dict((s.encode(encoding) if type(s) is not type(b'') else s
+                 for s in v) for v in os.environ.items())
+
+    
 def uniq(iterable):
     """Returns an iterable, removing duplicates. The items should be hashable."""
     s, l = set(), 0
