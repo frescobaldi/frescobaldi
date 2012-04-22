@@ -197,6 +197,7 @@ def menu_view_music(mainwindow):
     m.addAction(ac.music_fit_both)
     m.addSeparator()
     m.addAction(ac.music_jump_to_cursor)
+    m.addAction(ac.music_sync_cursor)
     return m
 
 

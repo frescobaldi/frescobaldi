@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-20 14:50+0200\n"
+"POT-Creation-Date: 2012-04-22 01:27+0200\n"
 "PO-Revision-Date: 2012-02-17 22:29+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -165,19 +165,19 @@ msgstr "Další značka"
 msgid "Previous Mark"
 msgstr "Předchozí značka"
 
-#: ../convert_ly.py:120
+#: ../convert_ly.py:121
 msgid "From version:"
 msgstr "Od verze:"
 
-#: ../convert_ly.py:121
+#: ../convert_ly.py:122
 msgid "To version:"
 msgstr "Po verzi:"
 
-#: ../convert_ly.py:122
+#: ../convert_ly.py:123
 msgid "Save convert-ly messages in document"
 msgstr "Uložit zprávy convert-ly v dokumentu"
 
-#: ../convert_ly.py:124
+#: ../convert_ly.py:125
 msgid ""
 "If checked, the messages of convert-ly are appended as a comment to the end "
 "of the document."
@@ -185,36 +185,36 @@ msgstr ""
 "Je-li zaškrtnuto, jsou zprávy convert-ly připojeny jako poznámka na konci "
 "dokumentu."
 
-#: ../convert_ly.py:126
+#: ../convert_ly.py:127
 msgid "&Messages"
 msgstr "&Zprávy"
 
-#: ../convert_ly.py:127
+#: ../convert_ly.py:128
 msgid "&Changes"
 msgstr "&Změny"
 
-#: ../convert_ly.py:128
+#: ../convert_ly.py:129
 msgid "Run Again"
 msgstr "Spustit znovu"
 
-#: ../convert_ly.py:139 ../docbrowser/browser.py:158
+#: ../convert_ly.py:140 ../docbrowser/browser.py:158
 #: ../musicview/editinplace.py:150 ../musicview/image.py:167
 msgid "<unknown>"
 msgstr "<neznámý>"
 
-#: ../convert_ly.py:140
+#: ../convert_ly.py:141
 msgid "Convert-ly from LilyPond {version}"
 msgstr "Convert-ly z LilyPondu {version}"
 
-#: ../convert_ly.py:164
+#: ../convert_ly.py:165
 msgid "(set in document)"
 msgstr "(nastavit v dokumentu)"
 
-#: ../convert_ly.py:177
+#: ../convert_ly.py:178
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr "Je potřeba nastavit jak verzi 'od'tak verzi 'po'."
 
-#: ../convert_ly.py:208
+#: ../convert_ly.py:214
 msgid ""
 "Could not start {convert_ly}:\n"
 "\n"
@@ -224,47 +224,47 @@ msgstr ""
 "\n"
 "{message}\n"
 
-#: ../convert_ly.py:214
+#: ../convert_ly.py:220
 msgid "The document has not been changed."
 msgstr "Dokument byl změněn."
 
-#: ../convert_ly.py:220
+#: ../convert_ly.py:226
 msgid "Current Document"
 msgstr "Nynější dokument"
 
-#: ../convert_ly.py:220
+#: ../convert_ly.py:226
 msgid "Converted Document"
 msgstr "Převedený dokument"
 
-#: ../convert_ly.py:226
+#: ../convert_ly.py:232
 msgid "Colors:"
 msgstr "Barvy:"
 
-#: ../convert_ly.py:227
+#: ../convert_ly.py:233
 msgid "Added"
 msgstr "Přidáno"
 
-#: ../convert_ly.py:228
+#: ../convert_ly.py:234
 msgid "Changed"
 msgstr "Změněno"
 
-#: ../convert_ly.py:229
+#: ../convert_ly.py:235
 msgid "Deleted"
 msgstr "Smazáno"
 
-#: ../convert_ly.py:230
+#: ../convert_ly.py:236
 msgid "Links:"
 msgstr "Odkazy:"
 
-#: ../convert_ly.py:231
+#: ../convert_ly.py:237
 msgid "First Change"
 msgstr "První změna"
 
-#: ../convert_ly.py:232
+#: ../convert_ly.py:238
 msgid "Next Change"
 msgstr "Další změna"
 
-#: ../convert_ly.py:233
+#: ../convert_ly.py:239
 msgid "Top"
 msgstr "Nejdůležitější"
 
@@ -899,37 +899,37 @@ msgctxt "submenu title"
 msgid "Music &View"
 msgstr "P&ohled na noty"
 
-#: ../menu.py:208
+#: ../menu.py:209
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:227
+#: ../menu.py:228
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Nástroje"
 
-#: ../menu.py:253
+#: ../menu.py:254
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Slova písně"
 
-#: ../menu.py:265
+#: ../menu.py:266
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Výška tónu"
 
-#: ../menu.py:279
+#: ../menu.py:280
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Rytmus"
 
-#: ../menu.py:307
+#: ../menu.py:308
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Okno"
 
-#: ../menu.py:327
+#: ../menu.py:328
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Nápověda"
@@ -2377,80 +2377,85 @@ msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "DOBA"
 
-#: ../musicview/__init__.py:111
+#: ../musicview/__init__.py:114
 msgctxt "window title"
 msgid "Music View"
 msgstr "Pohled na noty"
 
-#: ../musicview/__init__.py:112
+#: ../musicview/__init__.py:115
 msgid "&Music View"
 msgstr "Pohled na &hudbu"
 
-#: ../musicview/__init__.py:267
+#: ../musicview/__init__.py:271
 msgid "Select Music View Document"
 msgstr "Vybrat dokument s pohledem na noty"
 
-#: ../musicview/__init__.py:268
+#: ../musicview/__init__.py:272
 msgid "&Print Music..."
 msgstr "&Vytisknout noty..."
 
-#: ../musicview/__init__.py:269
+#: ../musicview/__init__.py:273
 msgid "Zoom &In"
 msgstr "&Přiblížit"
 
-#: ../musicview/__init__.py:270
+#: ../musicview/__init__.py:274
 msgid "Zoom &Out"
 msgstr "&Oddálit"
 
-#: ../musicview/__init__.py:271
+#: ../musicview/__init__.py:275
 msgid "Original &Size"
 msgstr ""
 
-#: ../musicview/__init__.py:272
+#: ../musicview/__init__.py:276
 msgid "Zoom Music"
 msgstr "Zvětšení hudby"
 
-#: ../musicview/__init__.py:273
+#: ../musicview/__init__.py:277
 msgid "Fit &Width"
 msgstr "Přizpůsobit šíř&ce"
 
-#: ../musicview/__init__.py:274
+#: ../musicview/__init__.py:278
 msgid "Fit &Height"
 msgstr "Přizpůsobit &výšce"
 
-#: ../musicview/__init__.py:275
+#: ../musicview/__init__.py:279
 msgid "Fit &Page"
 msgstr "Přizpůsobit &straně"
 
-#: ../musicview/__init__.py:276
+#: ../musicview/__init__.py:280
 msgid "&Jump to Cursor Position"
 msgstr "&Skočit na polohu ukazovátka"
 
-#: ../musicview/__init__.py:277
+#: ../musicview/__init__.py:281
+#, fuzzy
+msgid "S&ynchronize with Cursor Position"
+msgstr "S&ladit náhled se současným dokumentem"
+
+#: ../musicview/__init__.py:282
 msgid "Copy to &Image..."
 msgstr "Kopírovat do &obrázku..."
 
-#: ../musicview/__init__.py:278
+#: ../musicview/__init__.py:283
 msgid "Next Page"
 msgstr "Další strana"
 
-#: ../musicview/__init__.py:279
+#: ../musicview/__init__.py:284
 msgid "Next"
 msgstr "Další"
 
-#: ../musicview/__init__.py:280
+#: ../musicview/__init__.py:285
 msgid "Previous Page"
 msgstr "Předchozí strana"
 
-#: ../musicview/__init__.py:281
+#: ../musicview/__init__.py:286
 msgid "Previous"
 msgstr "Předchozí"
 
-#: ../musicview/__init__.py:420
+#: ../musicview/__init__.py:425
 msgid "Choose the PDF document to display."
 msgstr "Vybrat dokument PDF k zobrazení."
 
-#: ../musicview/__init__.py:422
+#: ../musicview/__init__.py:427
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -2458,20 +2463,20 @@ msgstr ""
 "Vyberte dokument PDF k zobrazení nebo soubor přetáhněte do jiného programu "
 "nebo umístění.."
 
-#: ../musicview/__init__.py:480
+#: ../musicview/__init__.py:485
 msgid "Fit Width"
 msgstr "Přizpůsobit šířce"
 
-#: ../musicview/__init__.py:481
+#: ../musicview/__init__.py:486
 msgid "Fit Height"
 msgstr "Přizpůsobit výšce"
 
-#: ../musicview/__init__.py:482
+#: ../musicview/__init__.py:487
 msgid "Fit Page"
 msgstr "Přizpůsobit straně"
 
 #. L10N: page numbering: page {num} of {total}
-#: ../musicview/__init__.py:499
+#: ../musicview/__init__.py:504
 msgid "{num} of {total}"
 msgstr "{num} z {total}"
 
@@ -7695,9 +7700,6 @@ msgstr "Vybrat soubor"
 
 #~ msgid "Configure Okular..."
 #~ msgstr "Nastavit Okular..."
-
-#~ msgid "S&ynchronize Preview with Current Document"
-#~ msgstr "S&ladit náhled se současným dokumentem"
 
 #~ msgid "Reload"
 #~ msgstr "Nahrát znovu"

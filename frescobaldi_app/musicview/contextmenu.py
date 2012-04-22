@@ -57,6 +57,8 @@ def show(position, panel, link, cursor):
         m.addAction(panel.actionCollection.music_fit_width)
         m.addAction(panel.actionCollection.music_fit_height)
         m.addAction(panel.actionCollection.music_zoom_original)
+        m.addSeparator()
+        m.addAction(panel.actionCollection.music_sync_cursor)
     
     # help
     m.addSeparator()

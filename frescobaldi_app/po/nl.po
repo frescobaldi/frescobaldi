@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-20 14:50+0200\n"
-"PO-Revision-Date: 2012-04-20 14:51+0200\n"
+"POT-Creation-Date: 2012-04-22 01:27+0200\n"
+"PO-Revision-Date: 2012-04-22 01:29+0200\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -161,19 +161,19 @@ msgstr "Volgende markering"
 msgid "Previous Mark"
 msgstr "Vorige markering"
 
-#: ../convert_ly.py:120
+#: ../convert_ly.py:121
 msgid "From version:"
 msgstr "Van versie:"
 
-#: ../convert_ly.py:121
+#: ../convert_ly.py:122
 msgid "To version:"
 msgstr "Naar versie:"
 
-#: ../convert_ly.py:122
+#: ../convert_ly.py:123
 msgid "Save convert-ly messages in document"
 msgstr "Convert-ly berichten in document bewaren"
 
-#: ../convert_ly.py:124
+#: ../convert_ly.py:125
 msgid ""
 "If checked, the messages of convert-ly are appended as a comment to the end "
 "of the document."
@@ -181,36 +181,36 @@ msgstr ""
 "Indien ingeschakeld, worden berichten van convert-ly aan het eind van het "
 "document als commentaar toegevoegd."
 
-#: ../convert_ly.py:126
+#: ../convert_ly.py:127
 msgid "&Messages"
 msgstr "&Berichten"
 
-#: ../convert_ly.py:127
+#: ../convert_ly.py:128
 msgid "&Changes"
 msgstr "&Wijzigingen"
 
-#: ../convert_ly.py:128
+#: ../convert_ly.py:129
 msgid "Run Again"
 msgstr "Opnieuw uitvoeren"
 
-#: ../convert_ly.py:139 ../docbrowser/browser.py:158
+#: ../convert_ly.py:140 ../docbrowser/browser.py:158
 #: ../musicview/editinplace.py:150 ../musicview/image.py:167
 msgid "<unknown>"
 msgstr "<onbekend>"
 
-#: ../convert_ly.py:140
+#: ../convert_ly.py:141
 msgid "Convert-ly from LilyPond {version}"
 msgstr "Convert-ly van LilyPond {version}"
 
-#: ../convert_ly.py:164
+#: ../convert_ly.py:165
 msgid "(set in document)"
 msgstr "(in document ingesteld)"
 
-#: ../convert_ly.py:177
+#: ../convert_ly.py:178
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr "Zowel de 'van'- als 'naar' versie dient ingesteld te zijn."
 
-#: ../convert_ly.py:208
+#: ../convert_ly.py:214
 msgid ""
 "Could not start {convert_ly}:\n"
 "\n"
@@ -220,47 +220,47 @@ msgstr ""
 "\n"
 "{message}\n"
 
-#: ../convert_ly.py:214
+#: ../convert_ly.py:220
 msgid "The document has not been changed."
 msgstr "Het document is niet gewijzigd."
 
-#: ../convert_ly.py:220
+#: ../convert_ly.py:226
 msgid "Current Document"
 msgstr "Huidig document"
 
-#: ../convert_ly.py:220
+#: ../convert_ly.py:226
 msgid "Converted Document"
 msgstr "Bijgewerkt document"
 
-#: ../convert_ly.py:226
+#: ../convert_ly.py:232
 msgid "Colors:"
 msgstr "Kleuren:"
 
-#: ../convert_ly.py:227
+#: ../convert_ly.py:233
 msgid "Added"
 msgstr "Toegevoegd"
 
-#: ../convert_ly.py:228
+#: ../convert_ly.py:234
 msgid "Changed"
 msgstr "Gewijzigd"
 
-#: ../convert_ly.py:229
+#: ../convert_ly.py:235
 msgid "Deleted"
 msgstr "Verwijderd"
 
-#: ../convert_ly.py:230
+#: ../convert_ly.py:236
 msgid "Links:"
 msgstr "Koppelingen:"
 
-#: ../convert_ly.py:231
+#: ../convert_ly.py:237
 msgid "First Change"
 msgstr "Eerste wijziging"
 
-#: ../convert_ly.py:232
+#: ../convert_ly.py:238
 msgid "Next Change"
 msgstr "Volgende wijziging"
 
-#: ../convert_ly.py:233
+#: ../convert_ly.py:239
 msgid "Top"
 msgstr "Top"
 
@@ -891,37 +891,37 @@ msgctxt "submenu title"
 msgid "Music &View"
 msgstr "&Muziekweergave"
 
-#: ../menu.py:208
+#: ../menu.py:209
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:227
+#: ../menu.py:228
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Gereedschap"
 
-#: ../menu.py:253
+#: ../menu.py:254
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Liedteksten"
 
-#: ../menu.py:265
+#: ../menu.py:266
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Toonhoogte"
 
-#: ../menu.py:279
+#: ../menu.py:280
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritme"
 
-#: ../menu.py:307
+#: ../menu.py:308
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Venster"
 
-#: ../menu.py:327
+#: ../menu.py:328
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Help"
@@ -1655,7 +1655,8 @@ msgid ""
 msgstr ""
 "Als LilyPond gestart was in vooruitblik-modus (d.w.z. met Point &amp; Click "
 "ingeschakeld), bevat het PDF-document aanklikbare koppelingen voor elk "
-"muziekobject, dat wijst naar de definitie van het object in het brondocument."
+"muziekobject, die wijzen naar de definitie van het object in het "
+"brondocument."
 
 #: ../help/contents.py:240
 msgid ""
@@ -2415,80 +2416,84 @@ msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "MAAT"
 
-#: ../musicview/__init__.py:111
+#: ../musicview/__init__.py:114
 msgctxt "window title"
 msgid "Music View"
 msgstr "Muziekweergave"
 
-#: ../musicview/__init__.py:112
+#: ../musicview/__init__.py:115
 msgid "&Music View"
 msgstr "&Muziekweergave"
 
-#: ../musicview/__init__.py:267
+#: ../musicview/__init__.py:271
 msgid "Select Music View Document"
 msgstr "Weer te geven document selecteren"
 
-#: ../musicview/__init__.py:268
+#: ../musicview/__init__.py:272
 msgid "&Print Music..."
 msgstr "&Muziek afdrukken..."
 
-#: ../musicview/__init__.py:269
+#: ../musicview/__init__.py:273
 msgid "Zoom &In"
 msgstr "&Inzoomen"
 
-#: ../musicview/__init__.py:270
+#: ../musicview/__init__.py:274
 msgid "Zoom &Out"
 msgstr "&Uitzoomen"
 
-#: ../musicview/__init__.py:271
+#: ../musicview/__init__.py:275
 msgid "Original &Size"
 msgstr "&Werkelijke grootte"
 
-#: ../musicview/__init__.py:272
+#: ../musicview/__init__.py:276
 msgid "Zoom Music"
 msgstr "Muziek zoomen"
 
-#: ../musicview/__init__.py:273
+#: ../musicview/__init__.py:277
 msgid "Fit &Width"
 msgstr "Passend in &breedte"
 
-#: ../musicview/__init__.py:274
+#: ../musicview/__init__.py:278
 msgid "Fit &Height"
 msgstr "Passend in &hoogte"
 
-#: ../musicview/__init__.py:275
+#: ../musicview/__init__.py:279
 msgid "Fit &Page"
 msgstr "Hele &pagina"
 
-#: ../musicview/__init__.py:276
+#: ../musicview/__init__.py:280
 msgid "&Jump to Cursor Position"
 msgstr "Naar cursor &springen"
 
-#: ../musicview/__init__.py:277
+#: ../musicview/__init__.py:281
+msgid "S&ynchronize with Cursor Position"
+msgstr "Met cursor s&ynchroniseren"
+
+#: ../musicview/__init__.py:282
 msgid "Copy to &Image..."
 msgstr "Naar afbeeld&ing kopiëren..."
 
-#: ../musicview/__init__.py:278
+#: ../musicview/__init__.py:283
 msgid "Next Page"
 msgstr "Volgende pagina"
 
-#: ../musicview/__init__.py:279
+#: ../musicview/__init__.py:284
 msgid "Next"
 msgstr "Volgende"
 
-#: ../musicview/__init__.py:280
+#: ../musicview/__init__.py:285
 msgid "Previous Page"
 msgstr "Vorige pagina"
 
-#: ../musicview/__init__.py:281
+#: ../musicview/__init__.py:286
 msgid "Previous"
 msgstr "Vorige"
 
-#: ../musicview/__init__.py:420
+#: ../musicview/__init__.py:425
 msgid "Choose the PDF document to display."
 msgstr "Kies het weer te geven PDF-document."
 
-#: ../musicview/__init__.py:422
+#: ../musicview/__init__.py:427
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -2496,20 +2501,20 @@ msgstr ""
 "Kies het weer te geven PDF-document of sleep het bestand naar een andere "
 "locatie of toepassing."
 
-#: ../musicview/__init__.py:480
+#: ../musicview/__init__.py:485
 msgid "Fit Width"
 msgstr "Passend in breedte"
 
-#: ../musicview/__init__.py:481
+#: ../musicview/__init__.py:486
 msgid "Fit Height"
 msgstr "Passend in hoogte"
 
-#: ../musicview/__init__.py:482
+#: ../musicview/__init__.py:487
 msgid "Fit Page"
 msgstr "Hele pagina"
 
 #. L10N: page numbering: page {num} of {total}
-#: ../musicview/__init__.py:499
+#: ../musicview/__init__.py:504
 msgid "{num} of {total}"
 msgstr "{num} van {total}"
 
@@ -8058,9 +8063,6 @@ msgstr "Selecteer een bestand"
 
 #~ msgid "Configure Okular..."
 #~ msgstr "Okular instellen..."
-
-#~ msgid "S&ynchronize Preview with Current Document"
-#~ msgstr "Vooruitblik met huidig document s&ynchroniseren"
 
 #~ msgid "Reload"
 #~ msgstr "Opnieuw laden"

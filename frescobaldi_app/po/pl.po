@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.3\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-20 14:50+0200\n"
+"POT-Creation-Date: 2012-04-22 01:27+0200\n"
 "PO-Revision-Date: 2012-02-17 00:26+0100\n"
 "Last-Translator: Piotr Komorowski <piotr-komorowski@wp.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -169,19 +169,19 @@ msgstr "Następne zaznaczenie"
 msgid "Previous Mark"
 msgstr "Poprzednie zaznaczenie"
 
-#: ../convert_ly.py:120
+#: ../convert_ly.py:121
 msgid "From version:"
 msgstr "Wersja źródłowa:"
 
-#: ../convert_ly.py:121
+#: ../convert_ly.py:122
 msgid "To version:"
 msgstr "Wersja docelowa:"
 
-#: ../convert_ly.py:122
+#: ../convert_ly.py:123
 msgid "Save convert-ly messages in document"
 msgstr "Zapisz komunikaty z convert-ly w dokumencie"
 
-#: ../convert_ly.py:124
+#: ../convert_ly.py:125
 msgid ""
 "If checked, the messages of convert-ly are appended as a comment to the end "
 "of the document."
@@ -189,36 +189,36 @@ msgstr ""
 "Po zaznaczeniu komunikaty convert-ly są dołączane w postaci komentarza na "
 "końcu dokumentu."
 
-#: ../convert_ly.py:126
+#: ../convert_ly.py:127
 msgid "&Messages"
 msgstr "&Komunikaty"
 
-#: ../convert_ly.py:127
+#: ../convert_ly.py:128
 msgid "&Changes"
 msgstr "Zmiany"
 
-#: ../convert_ly.py:128
+#: ../convert_ly.py:129
 msgid "Run Again"
 msgstr "Uruchom ponownie"
 
-#: ../convert_ly.py:139 ../docbrowser/browser.py:158
+#: ../convert_ly.py:140 ../docbrowser/browser.py:158
 #: ../musicview/editinplace.py:150 ../musicview/image.py:167
 msgid "<unknown>"
 msgstr "<nieznany>"
 
-#: ../convert_ly.py:140
+#: ../convert_ly.py:141
 msgid "Convert-ly from LilyPond {version}"
 msgstr "Convert-ly z LilyPond {version}"
 
-#: ../convert_ly.py:164
+#: ../convert_ly.py:165
 msgid "(set in document)"
 msgstr "(określony w dokumencie)"
 
-#: ../convert_ly.py:177
+#: ../convert_ly.py:178
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr "Należy określić zarówno wersję źródłową, jak i docelową."
 
-#: ../convert_ly.py:208
+#: ../convert_ly.py:214
 msgid ""
 "Could not start {convert_ly}:\n"
 "\n"
@@ -228,47 +228,47 @@ msgstr ""
 "\n"
 "{message}\n"
 
-#: ../convert_ly.py:214
+#: ../convert_ly.py:220
 msgid "The document has not been changed."
 msgstr "Dokument został zmieniony."
 
-#: ../convert_ly.py:220
+#: ../convert_ly.py:226
 msgid "Current Document"
 msgstr "Bieżący dokument "
 
-#: ../convert_ly.py:220
+#: ../convert_ly.py:226
 msgid "Converted Document"
 msgstr "Dokument przekonwertowany"
 
-#: ../convert_ly.py:226
+#: ../convert_ly.py:232
 msgid "Colors:"
 msgstr "Kolory:"
 
-#: ../convert_ly.py:227
+#: ../convert_ly.py:233
 msgid "Added"
 msgstr "Dodane"
 
-#: ../convert_ly.py:228
+#: ../convert_ly.py:234
 msgid "Changed"
 msgstr "Zmienione"
 
-#: ../convert_ly.py:229
+#: ../convert_ly.py:235
 msgid "Deleted"
 msgstr "Usunięto"
 
-#: ../convert_ly.py:230
+#: ../convert_ly.py:236
 msgid "Links:"
 msgstr "Linki:"
 
-#: ../convert_ly.py:231
+#: ../convert_ly.py:237
 msgid "First Change"
 msgstr "Pierwsza zmiana"
 
-#: ../convert_ly.py:232
+#: ../convert_ly.py:238
 msgid "Next Change"
 msgstr "Następna zmiana"
 
-#: ../convert_ly.py:233
+#: ../convert_ly.py:239
 msgid "Top"
 msgstr "Góra"
 
@@ -870,37 +870,37 @@ msgctxt "submenu title"
 msgid "Music &View"
 msgstr "Okno &partytury"
 
-#: ../menu.py:208
+#: ../menu.py:209
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:227
+#: ../menu.py:228
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Narzędzia"
 
-#: ../menu.py:253
+#: ../menu.py:254
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Tekst"
 
-#: ../menu.py:265
+#: ../menu.py:266
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Dźwięk"
 
-#: ../menu.py:279
+#: ../menu.py:280
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Rytm"
 
-#: ../menu.py:307
+#: ../menu.py:308
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Okno"
 
-#: ../menu.py:327
+#: ../menu.py:328
 msgctxt "menu title"
 msgid "&Help"
 msgstr "Pomo&c"
@@ -2216,80 +2216,85 @@ msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "PULS"
 
-#: ../musicview/__init__.py:111
+#: ../musicview/__init__.py:114
 msgctxt "window title"
 msgid "Music View"
 msgstr "Okno partytury"
 
-#: ../musicview/__init__.py:112
+#: ../musicview/__init__.py:115
 msgid "&Music View"
 msgstr "Okno &parytury"
 
-#: ../musicview/__init__.py:267
+#: ../musicview/__init__.py:271
 msgid "Select Music View Document"
 msgstr "Wybierz dokument w oknie partytury"
 
-#: ../musicview/__init__.py:268
+#: ../musicview/__init__.py:272
 msgid "&Print Music..."
 msgstr "Wydrukuj partyturę...."
 
-#: ../musicview/__init__.py:269
+#: ../musicview/__init__.py:273
 msgid "Zoom &In"
 msgstr "Powiększ"
 
-#: ../musicview/__init__.py:270
+#: ../musicview/__init__.py:274
 msgid "Zoom &Out"
 msgstr "Po&większ"
 
-#: ../musicview/__init__.py:271
+#: ../musicview/__init__.py:275
 msgid "Original &Size"
 msgstr ""
 
-#: ../musicview/__init__.py:272
+#: ../musicview/__init__.py:276
 msgid "Zoom Music"
 msgstr "Powiększ partyturę"
 
-#: ../musicview/__init__.py:273
+#: ../musicview/__init__.py:277
 msgid "Fit &Width"
 msgstr "Dopasuj &szerokość"
 
-#: ../musicview/__init__.py:274
+#: ../musicview/__init__.py:278
 msgid "Fit &Height"
 msgstr "Dopasuj &wysokość"
 
-#: ../musicview/__init__.py:275
+#: ../musicview/__init__.py:279
 msgid "Fit &Page"
 msgstr "Dopasuj stronę"
 
-#: ../musicview/__init__.py:276
+#: ../musicview/__init__.py:280
 msgid "&Jump to Cursor Position"
 msgstr "Skocz do pozycji &kursora"
 
-#: ../musicview/__init__.py:277
+#: ../musicview/__init__.py:281
+#, fuzzy
+msgid "S&ynchronize with Cursor Position"
+msgstr "S&ynchronizuj podgląd z bieżącym dokumentem"
+
+#: ../musicview/__init__.py:282
 msgid "Copy to &Image..."
 msgstr "Skopiuj do &obrazu..."
 
-#: ../musicview/__init__.py:278
+#: ../musicview/__init__.py:283
 msgid "Next Page"
 msgstr "Następna strona"
 
-#: ../musicview/__init__.py:279
+#: ../musicview/__init__.py:284
 msgid "Next"
 msgstr "Następny"
 
-#: ../musicview/__init__.py:280
+#: ../musicview/__init__.py:285
 msgid "Previous Page"
 msgstr "Poprzednia strona"
 
-#: ../musicview/__init__.py:281
+#: ../musicview/__init__.py:286
 msgid "Previous"
 msgstr "Poprzedni"
 
-#: ../musicview/__init__.py:420
+#: ../musicview/__init__.py:425
 msgid "Choose the PDF document to display."
 msgstr "Wybierz dokument PDF do wyświetlenia."
 
-#: ../musicview/__init__.py:422
+#: ../musicview/__init__.py:427
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -2297,20 +2302,20 @@ msgstr ""
 "Wybierz dokument PDF do wyświetlenia lub przeciągnij plik do innej aplikacji "
 "lub położenia."
 
-#: ../musicview/__init__.py:480
+#: ../musicview/__init__.py:485
 msgid "Fit Width"
 msgstr "Dopasuj szerokość"
 
-#: ../musicview/__init__.py:481
+#: ../musicview/__init__.py:486
 msgid "Fit Height"
 msgstr "Dopasuj wysokość"
 
-#: ../musicview/__init__.py:482
+#: ../musicview/__init__.py:487
 msgid "Fit Page"
 msgstr "Dopasuj stronę"
 
 #. L10N: page numbering: page {num} of {total}
-#: ../musicview/__init__.py:499
+#: ../musicview/__init__.py:504
 msgid "{num} of {total}"
 msgstr "{num} z {total}"
 
@@ -7175,9 +7180,6 @@ msgstr "Wybierz plik"
 
 #~ msgid "Configure Okular..."
 #~ msgstr "Ustawienia Okular..."
-
-#~ msgid "S&ynchronize Preview with Current Document"
-#~ msgstr "S&ynchronizuj podgląd z bieżącym dokumentem"
 
 #~ msgid "Reload"
 #~ msgstr "Odśwież"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.2\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-20 14:50+0200\n"
+"POT-Creation-Date: 2012-04-22 01:27+0200\n"
 "PO-Revision-Date: 2012-01-17 19:44-0200\n"
 "Last-Translator: Ãdio Mazera\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-doc@kde.org>\n"
@@ -166,19 +166,19 @@ msgstr "Próxima Marca"
 msgid "Previous Mark"
 msgstr "Marca Anterior"
 
-#: ../convert_ly.py:120
+#: ../convert_ly.py:121
 msgid "From version:"
 msgstr "Da versão:"
 
-#: ../convert_ly.py:121
+#: ../convert_ly.py:122
 msgid "To version:"
 msgstr "Para a versão:"
 
-#: ../convert_ly.py:122
+#: ../convert_ly.py:123
 msgid "Save convert-ly messages in document"
 msgstr "Salvar mensagens convert-ly em documento"
 
-#: ../convert_ly.py:124
+#: ../convert_ly.py:125
 msgid ""
 "If checked, the messages of convert-ly are appended as a comment to the end "
 "of the document."
@@ -186,36 +186,36 @@ msgstr ""
 "Se marcada, as mensagens de convert-ly são anexados como um comentário ao "
 "final do documento."
 
-#: ../convert_ly.py:126
+#: ../convert_ly.py:127
 msgid "&Messages"
 msgstr "&Mensagens"
 
-#: ../convert_ly.py:127
+#: ../convert_ly.py:128
 msgid "&Changes"
 msgstr "Altera&cões"
 
-#: ../convert_ly.py:128
+#: ../convert_ly.py:129
 msgid "Run Again"
 msgstr "Executar Novamente"
 
-#: ../convert_ly.py:139 ../docbrowser/browser.py:158
+#: ../convert_ly.py:140 ../docbrowser/browser.py:158
 #: ../musicview/editinplace.py:150 ../musicview/image.py:167
 msgid "<unknown>"
 msgstr "<unknown>"
 
-#: ../convert_ly.py:140
+#: ../convert_ly.py:141
 msgid "Convert-ly from LilyPond {version}"
 msgstr "Convert-ly do LilyPond {version}"
 
-#: ../convert_ly.py:164
+#: ../convert_ly.py:165
 msgid "(set in document)"
 msgstr "(definido no documento)"
 
-#: ../convert_ly.py:177
+#: ../convert_ly.py:178
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr "Ambas versões 'de' e 'para' precisam ser definidas."
 
-#: ../convert_ly.py:208
+#: ../convert_ly.py:214
 msgid ""
 "Could not start {convert_ly}:\n"
 "\n"
@@ -225,47 +225,47 @@ msgstr ""
 "\n"
 "{message}\n"
 
-#: ../convert_ly.py:214
+#: ../convert_ly.py:220
 msgid "The document has not been changed."
 msgstr "Este documento não foi alterado."
 
-#: ../convert_ly.py:220
+#: ../convert_ly.py:226
 msgid "Current Document"
 msgstr "Documento Atual"
 
-#: ../convert_ly.py:220
+#: ../convert_ly.py:226
 msgid "Converted Document"
 msgstr "Documento Convertido"
 
-#: ../convert_ly.py:226
+#: ../convert_ly.py:232
 msgid "Colors:"
 msgstr "Cores:"
 
-#: ../convert_ly.py:227
+#: ../convert_ly.py:233
 msgid "Added"
 msgstr "Adicionado"
 
-#: ../convert_ly.py:228
+#: ../convert_ly.py:234
 msgid "Changed"
 msgstr "Alterado"
 
-#: ../convert_ly.py:229
+#: ../convert_ly.py:235
 msgid "Deleted"
 msgstr "Excluído"
 
-#: ../convert_ly.py:230
+#: ../convert_ly.py:236
 msgid "Links:"
 msgstr "Links:"
 
-#: ../convert_ly.py:231
+#: ../convert_ly.py:237
 msgid "First Change"
 msgstr "Primeira Alteração"
 
-#: ../convert_ly.py:232
+#: ../convert_ly.py:238
 msgid "Next Change"
 msgstr "Próxima Alteração"
 
-#: ../convert_ly.py:233
+#: ../convert_ly.py:239
 msgid "Top"
 msgstr "Topo"
 
@@ -868,37 +868,37 @@ msgctxt "submenu title"
 msgid "Music &View"
 msgstr "&Visualizar Música"
 
-#: ../menu.py:208
+#: ../menu.py:209
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:227
+#: ../menu.py:228
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "Ferramen&tas"
 
-#: ../menu.py:253
+#: ../menu.py:254
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Letras"
 
-#: ../menu.py:265
+#: ../menu.py:266
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Tom"
 
-#: ../menu.py:279
+#: ../menu.py:280
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritmo"
 
-#: ../menu.py:307
+#: ../menu.py:308
 msgctxt "menu title"
 msgid "&Window"
 msgstr "Ja&nela"
 
-#: ../menu.py:327
+#: ../menu.py:328
 msgctxt "menu title"
 msgid "&Help"
 msgstr "A&juda"
@@ -2098,84 +2098,89 @@ msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "BEAT"
 
-#: ../musicview/__init__.py:111
+#: ../musicview/__init__.py:114
 msgctxt "window title"
 msgid "Music View"
 msgstr "Visualizar Música"
 
-#: ../musicview/__init__.py:112
+#: ../musicview/__init__.py:115
 msgid "&Music View"
 msgstr "&Visualizar Música"
 
-#: ../musicview/__init__.py:267
+#: ../musicview/__init__.py:271
 msgid "Select Music View Document"
 msgstr "Selecionar Documento Visualizar Música"
 
-#: ../musicview/__init__.py:268
+#: ../musicview/__init__.py:272
 msgid "&Print Music..."
 msgstr "&Imprimir Música..."
 
-#: ../musicview/__init__.py:269
+#: ../musicview/__init__.py:273
 msgid "Zoom &In"
 msgstr "M&enos Zoom"
 
-#: ../musicview/__init__.py:270
+#: ../musicview/__init__.py:274
 msgid "Zoom &Out"
 msgstr "Mais Z&oom"
 
-#: ../musicview/__init__.py:271
+#: ../musicview/__init__.py:275
 msgid "Original &Size"
 msgstr ""
 
-#: ../musicview/__init__.py:272
+#: ../musicview/__init__.py:276
 msgid "Zoom Music"
 msgstr "Zoom da Música"
 
-#: ../musicview/__init__.py:273
+#: ../musicview/__init__.py:277
 msgid "Fit &Width"
 msgstr "Ajustar a &largura"
 
-#: ../musicview/__init__.py:274
+#: ../musicview/__init__.py:278
 msgid "Fit &Height"
 msgstr "Ajustar a &Altura"
 
-#: ../musicview/__init__.py:275
+#: ../musicview/__init__.py:279
 msgid "Fit &Page"
 msgstr "Ajustar a &Página"
 
-#: ../musicview/__init__.py:276
+#: ../musicview/__init__.py:280
 msgid "&Jump to Cursor Position"
 msgstr "Saltar para posição do cursor"
 
-#: ../musicview/__init__.py:277
+#: ../musicview/__init__.py:281
+#, fuzzy
+msgid "S&ynchronize with Cursor Position"
+msgstr "Saltar para posição do cursor"
+
+#: ../musicview/__init__.py:282
 msgid "Copy to &Image..."
 msgstr "Copiar como &Imagem..."
 
-#: ../musicview/__init__.py:278
+#: ../musicview/__init__.py:283
 #, fuzzy
 msgid "Next Page"
 msgstr "Próxima Alteração"
 
-#: ../musicview/__init__.py:279
+#: ../musicview/__init__.py:284
 #, fuzzy
 msgid "Next"
 msgstr "Próximo:"
 
-#: ../musicview/__init__.py:280
+#: ../musicview/__init__.py:285
 #, fuzzy
 msgid "Previous Page"
 msgstr "Marca Anterior"
 
-#: ../musicview/__init__.py:281
+#: ../musicview/__init__.py:286
 #, fuzzy
 msgid "Previous"
 msgstr "Marca Anterior"
 
-#: ../musicview/__init__.py:420
+#: ../musicview/__init__.py:425
 msgid "Choose the PDF document to display."
 msgstr "Escolher o documento PDF para exibir."
 
-#: ../musicview/__init__.py:422
+#: ../musicview/__init__.py:427
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -2183,20 +2188,20 @@ msgstr ""
 "Escolha o documento PDF para exibir ou arrastar o arquivo para outra "
 "aplicação ou localização."
 
-#: ../musicview/__init__.py:480
+#: ../musicview/__init__.py:485
 msgid "Fit Width"
 msgstr "Ajustar a largura"
 
-#: ../musicview/__init__.py:481
+#: ../musicview/__init__.py:486
 msgid "Fit Height"
 msgstr "Ajustar a Altura"
 
-#: ../musicview/__init__.py:482
+#: ../musicview/__init__.py:487
 msgid "Fit Page"
 msgstr "Ajustar a Página"
 
 #. L10N: page numbering: page {num} of {total}
-#: ../musicview/__init__.py:499
+#: ../musicview/__init__.py:504
 msgid "{num} of {total}"
 msgstr ""
 

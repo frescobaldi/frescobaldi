@@ -491,12 +491,14 @@ class FoldingArea(QWidget):
         self.setTextEdit(textedit)
     
     def setTextEdit(self, edit):
-        """Set a QPlainTextEdit instance to show linenumbers for, or None."""
+        """Set a QPlainTextEdit instance to show folding indicators for, or None."""
         if self._textedit:
             self._textedit.updateRequest.disconnect(self.slotUpdateRequest)
+            self._textedit.cursorPositionChanged.disconnect(self.slotCursorPositionChanged)
         self._textedit = edit
         if edit:
             edit.updateRequest.connect(self.slotUpdateRequest)
+            edit.cursorPositionChanged.connect(self.slotCursorPositionChanged)
         self.update()
         
     def textEdit(self):
@@ -516,6 +518,13 @@ class FoldingArea(QWidget):
         else:
             self.update(0, rect.y(), self.width(), rect.height())
 
+    def slotCursorPositionChanged(self):
+        """Unfold the block the cursor is in if it is invisible."""
+        block = self.textEdit().textCursor().block()
+        if not block.isVisible():
+            self.folder().ensure_visible(block)
+            self.textEdit().ensureCursorVisible()
+    
     def paintEvent(self, ev):
         edit = self._textedit
         if not edit:
