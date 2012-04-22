@@ -179,7 +179,7 @@ msgid ""
 "If checked, the messages of convert-ly are appended as a comment to the end "
 "of the document."
 msgstr ""
-"Якщо відмічено, повідомлення convert-ly буде додано як коментарв кінці "
+"Якщо відмічено, повідомлення convert-ly буде додано як коментар в кінці "
 "документа."
 
 #: ../convert_ly.py:126
@@ -1014,7 +1014,7 @@ msgstr "Сп&еціальні символи"
 #: ../docbrowser/__init__.py:46 ../docbrowser/__init__.py:62
 #: ../preferences/documentation.py:122
 msgid "Documentation Browser"
-msgstr ""
+msgstr "Переглядач документації"
 
 #: ../docbrowser/__init__.py:47
 msgid "&Documentation Browser"
@@ -1163,11 +1163,11 @@ msgstr ""
 
 #: ../engrave/custom.py:130 ../preferences/lilypond.py:291
 msgid "Run LilyPond with English messages"
-msgstr ""
+msgstr "Стартувати LilyPond з англійськими повідомленнями"
 
 #: ../engrave/custom.py:131 ../preferences/lilypond.py:288
 msgid "Delete intermediate output files"
-msgstr ""
+msgstr "Видаляти проміжні файли"
 
 #: ../engrave/custom.py:132
 msgid "Command line:"
@@ -1345,7 +1345,7 @@ msgstr ""
 #: ../help/contents.py:140 ../preferences/__init__.py:184
 #: ../preferences/prefshelp.py:79
 msgid "LilyPond Preferences"
-msgstr ""
+msgstr "Налаштування LilyPond"
 
 #: ../help/contents.py:142
 msgctxt "menu title"
@@ -1454,9 +1454,10 @@ msgid ""
 "</p>\n"
 msgstr ""
 
+#,fuzzy
 #: ../help/contents.py:231
 msgid "The Music View"
-msgstr ""
+msgstr "Перегляд твору"
 
 #: ../help/contents.py:236
 msgid "The Music View displays the PDF document created by LilyPond."
@@ -2044,11 +2045,11 @@ msgstr ""
 #: ../musicview/__init__.py:111
 msgctxt "window title"
 msgid "Music View"
-msgstr ""
+msgstr "Перегляд твору"
 
 #: ../musicview/__init__.py:112
 msgid "&Music View"
-msgstr ""
+msgstr "&Перегляд твору"
 
 #: ../musicview/__init__.py:267
 msgid "Select Music View Document"
@@ -2560,19 +2561,19 @@ msgstr "Налаштування MIDI"
 #: ../preferences/__init__.py:206 ../preferences/helpers.py:80
 #: ../preferences/prefshelp.py:156
 msgid "Helper Applications"
-msgstr ""
+msgstr "Допоміжні програми"
 
 #: ../preferences/__init__.py:217 ../preferences/prefshelp.py:175
 msgid "Paths"
-msgstr ""
+msgstr "Шляхи"
 
 #: ../preferences/__init__.py:228 ../preferences/prefshelp.py:189
 msgid "LilyPond Documentation"
-msgstr ""
+msgstr "Документація LilyPond"
 
 #: ../preferences/__init__.py:239 ../preferences/prefshelp.py:207
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Гарячі клавіші"
 
 #: ../preferences/__init__.py:261 ../preferences/prefshelp.py:250
 msgid "Tools"
@@ -2580,7 +2581,7 @@ msgstr "Інструменти"
 
 #: ../preferences/documentation.py:66
 msgid "Paths to LilyPond Documentation"
-msgstr ""
+msgstr "Шляхи до документації LilyPond"
 
 #: ../preferences/documentation.py:68
 msgid "Add paths or URLs. See \"What's This\" for more information."
@@ -2600,7 +2601,7 @@ msgstr ""
 
 #: ../preferences/documentation.py:123
 msgid "Preferred Language:"
-msgstr ""
+msgstr "Бажана мова:"
 
 #: ../preferences/documentation.py:124 ../preferences/general.py:133
 #: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
@@ -2616,7 +2617,7 @@ msgstr ""
 #: ../preferences/documentation.py:126 ../preferences/fontscolors.py:122
 #: ../preferences/tools.py:81 ../preferences/tools.py:187
 msgid "Font:"
-msgstr ""
+msgstr "Шрифт:"
 
 #: ../preferences/documentation.py:162
 msgid "Please enter a local path or a URL:"
@@ -2637,34 +2638,34 @@ msgstr ""
 #. L10N: color of Text
 #: ../preferences/fontscolors.py:360 ../preferences/fontscolors.py:435
 msgid "Text"
-msgstr ""
+msgstr "Текст"
 
 #. L10N: color of Background
 #: ../preferences/fontscolors.py:361 ../preferences/fontscolors.py:437
 msgid "Background"
-msgstr ""
+msgstr "Тло"
 
 #: ../preferences/fontscolors.py:362
 msgid "Bold"
-msgstr ""
+msgstr "Напівгрубий"
 
 #: ../preferences/fontscolors.py:363
 msgid "Italic"
-msgstr ""
+msgstr "Курсив"
 
 #: ../preferences/fontscolors.py:364
 msgid "Underline"
-msgstr ""
+msgstr "Підкреслений"
 
 #. L10N: color of Selected Text
 #: ../preferences/fontscolors.py:439
 msgid "Selected Text"
-msgstr ""
+msgstr "Виділений текст"
 
 #. L10N: color of Selection Background
 #: ../preferences/fontscolors.py:441
 msgid "Selection Background"
-msgstr ""
+msgstr "Тло виділення"
 
 #. L10N: color of Current Line
 #: ../preferences/fontscolors.py:443
@@ -2689,18 +2690,18 @@ msgstr "Результат пошуку"
 #. L10N: color of characters that match (e.g. braces, parentheses)
 #: ../preferences/fontscolors.py:451
 msgid "Matching Character"
-msgstr ""
+msgstr "Символ збігу"
 
 #. L10N: color of objects highlighting in preview
 #: ../preferences/fontscolors.py:455
 msgid "Preview Highlight"
-msgstr ""
+msgstr "Підсвічення перегляду"
 
 #. L10N: a basic type of input in the editor
 #: ../preferences/fontscolors.py:462 ../preferences/fontscolors.py:497
 #: ../preferences/fontscolors.py:533
 msgid "Keyword"
-msgstr ""
+msgstr "Ключове слово"
 
 #. L10N: a basic type of input in the editor
 #: ../preferences/fontscolors.py:464
@@ -2799,7 +2800,7 @@ msgstr ""
 
 #: ../preferences/fontscolors.py:500
 msgid "User Command"
-msgstr ""
+msgstr "Команда користувача"
 
 #: ../preferences/fontscolors.py:501 ../snippet/builtin.py:268
 msgid "Markup"
@@ -2815,7 +2816,7 @@ msgstr ""
 
 #: ../preferences/fontscolors.py:504
 msgid "Delimiter"
-msgstr ""
+msgstr "Розділювач"
 
 #: ../preferences/fontscolors.py:505
 msgid "Context"
@@ -2827,11 +2828,11 @@ msgstr ""
 
 #: ../preferences/fontscolors.py:507
 msgid "Property"
-msgstr ""
+msgstr "Властивість"
 
 #: ../preferences/fontscolors.py:509
 msgid "User Variable"
-msgstr ""
+msgstr "Змінна користувача"
 
 #: ../preferences/fontscolors.py:512 ../preferences/fontscolors.py:535
 msgid "Escaped Character"
@@ -2843,15 +2844,15 @@ msgstr ""
 
 #: ../preferences/fontscolors.py:517
 msgid "Tag"
-msgstr ""
+msgstr "Мітка"
 
 #: ../preferences/fontscolors.py:518
 msgid "LilyPond Tag"
-msgstr ""
+msgstr "Мітка LilyPond"
 
 #: ../preferences/fontscolors.py:519 ../preferences/fontscolors.py:536
 msgid "Attribute"
-msgstr ""
+msgstr "Атрибут"
 
 #: ../preferences/fontscolors.py:521
 msgid "Entity Reference"
@@ -2863,11 +2864,11 @@ msgstr ""
 
 #: ../preferences/fontscolors.py:527
 msgid "Number"
-msgstr ""
+msgstr "Число"
 
 #: ../preferences/fontscolors.py:528
 msgid "LilyPond Environment"
-msgstr ""
+msgstr "Оточення LilyPond"
 
 #: ../preferences/fontscolors.py:532
 msgid "Texinfo"
@@ -2875,7 +2876,7 @@ msgstr ""
 
 #: ../preferences/fontscolors.py:534
 msgid "Block"
-msgstr ""
+msgstr "Блок"
 
 #: ../preferences/fontscolors.py:537
 msgid "Verbatim"
@@ -2907,6 +2908,9 @@ msgid ""
 "bundled icons.\n"
 "This setting takes effect on the next start of {appname}."
 msgstr ""
+"Якщо відмічено, буде використано значки з теми стільниці, "
+"а не вбудовані значки.\n"
+"Це налаштування потребує перезапуску {appname}."
 
 #: ../preferences/general.py:139
 msgid "Show Splash Screen on Startup"
@@ -2924,45 +2928,47 @@ msgstr ""
 
 #: ../preferences/general.py:170 ../preferences/prefshelp.py:65
 msgid "Session to load if Frescobaldi is started without arguments"
-msgstr ""
+msgstr "При старті відкрити сесію, якщо не вказано інше"
 
 #: ../preferences/general.py:171
 msgid "Start with no session"
-msgstr ""
+msgstr "Не відкривати жодної сесії"
 
 #: ../preferences/general.py:172
 msgid "Start with last used session"
-msgstr ""
+msgstr "Відкрити останню сесію"
 
 #: ../preferences/general.py:173
 msgid "Start with session:"
-msgstr ""
+msgstr "Відкрити сесію:"
 
 #: ../preferences/general.py:228 ../preferences/prefshelp.py:73
 msgid "When saving documents"
-msgstr ""
+msgstr "Зберігаючи документи"
 
 #: ../preferences/general.py:229
 msgid "Keep backup copy"
-msgstr ""
+msgstr "Зберігати резервну копію"
 
 #: ../preferences/general.py:231
 msgid ""
 "Frescobaldi always backups a file before overwriting it with a new version.\n"
 "If checked those backup copies are retained."
 msgstr ""
+"Frescobaldi завжди створює резервну копію перед заміною вмісту новою версією.\n"
+"Якщо відмічено, такі копії не буде видалено."
 
 #: ../preferences/general.py:234
 msgid "Remember cursor position, bookmarks, etc."
-msgstr ""
+msgstr "Пам’ятати позицію курсора, закладки тощо"
 
 #: ../preferences/general.py:235
 msgid "Default directory:"
-msgstr ""
+msgstr "Зберігати у теці:"
 
 #: ../preferences/general.py:236
 msgid "The default folder for your LilyPond documents (optional)."
-msgstr ""
+msgstr "Тека для ваших документів LilyPond (не обов’язково)."
 
 #: ../preferences/helpers.py:70
 msgid "PDF:"
@@ -2978,15 +2984,15 @@ msgstr ""
 
 #: ../preferences/helpers.py:73
 msgid "Image:"
-msgstr ""
+msgstr "Зображення:"
 
 #: ../preferences/helpers.py:74
 msgid "Browser:"
-msgstr ""
+msgstr "Переглядач WWW:"
 
 #: ../preferences/helpers.py:75
 msgid "E-Mail:"
-msgstr ""
+msgstr "Програма Е-Пошти:"
 
 #: ../preferences/helpers.py:76
 msgid "File Manager:"
@@ -3002,14 +3008,17 @@ msgid ""
 "is replaced with the filename, <code>$u</code> with the URL. Leave a field "
 "empty to use the operating system default application."
 msgstr ""
+"Нижче ви можете вказати команди для відкривання певних типів файлів. "
+"<code>$f</code> буде замінено на назву файлу, <code>$u</code> на URL. "
+"Залиште поля порожніми для використання стандартних програм."
 
 #: ../preferences/helpers.py:90
 msgid "Command that should accept a mailto: URL."
-msgstr ""
+msgstr "Команда, що має обробляти посилання mailto:"
 
 #: ../preferences/helpers.py:92
 msgid "Command to open a Terminal or Command window."
-msgstr ""
+msgstr "Команда, що відкриває вікно командного рядка."
 
 #: ../preferences/lilypond.py:81
 msgid "LilyPond versions to use"
@@ -3017,7 +3026,7 @@ msgstr "Використовувати версію LilyPond"
 
 #: ../preferences/lilypond.py:82 ../preferences/prefshelp.py:99
 msgid "Automatically choose LilyPond version from document"
-msgstr ""
+msgstr "Автоматично визначати версію LilyPond з документа"
 
 #: ../preferences/lilypond.py:84
 msgid ""
@@ -3054,7 +3063,7 @@ msgstr ""
 
 #: ../preferences/lilypond.py:240
 msgid "LilyPond Command:"
-msgstr ""
+msgstr "Команда LilyPond:"
 
 #: ../preferences/lilypond.py:241
 msgid "Name or full path of the LilyPond program."
@@ -3070,11 +3079,11 @@ msgstr ""
 
 #: ../preferences/lilypond.py:244
 msgid "Include in automatic version selection"
-msgstr ""
+msgstr "Враховувати при автоматичному виборі версії"
 
 #: ../preferences/lilypond.py:283
 msgid "Running LilyPond"
-msgstr ""
+msgstr "Під час роботи LilyPond"
 
 #: ../preferences/lilypond.py:284
 msgid "Save document if possible"
@@ -3098,7 +3107,7 @@ msgstr ""
 
 #: ../preferences/lilypond.py:295
 msgid "LilyPond include path:"
-msgstr ""
+msgstr "LilyPond — шляхи пошуку:"
 
 #: ../preferences/midi.py:77
 msgid "MIDI Ports"
@@ -3113,7 +3122,7 @@ msgstr ""
 
 #: ../preferences/midi.py:82
 msgid "Player output:"
-msgstr ""
+msgstr "Вихід програвача:"
 
 #: ../preferences/midi.py:84
 msgid ""
@@ -3131,11 +3140,11 @@ msgstr ""
 
 #: ../preferences/midi.py:96
 msgid "Refresh MIDI ports"
-msgstr ""
+msgstr "Поновити перелік портів"
 
 #: ../preferences/midi.py:135 ../preferences/prefshelp.py:142
 msgid "Close unused MIDI output"
-msgstr ""
+msgstr "Закривати порти MIDI, що не використовуються"
 
 #: ../preferences/midi.py:137
 msgid ""
@@ -3156,7 +3165,7 @@ msgstr ""
 
 #: ../preferences/paths.py:59
 msgid "Folders containing hyphenation dictionaries"
-msgstr ""
+msgstr "Теки, що містять словники переносів"
 
 #: ../preferences/prefshelp.py:36
 msgid ""
@@ -3341,23 +3350,23 @@ msgstr ""
 
 #: ../preferences/shortcuts.py:56 ../snippet/model.py:63
 msgid "Shortcut"
-msgstr ""
+msgstr "Комбінація клавіш"
 
 #: ../preferences/shortcuts.py:101
 msgid "Menu {name}:"
-msgstr ""
+msgstr "Меню {name}"
 
 #: ../preferences/shortcuts.py:125
 msgid "Other commands:"
-msgstr ""
+msgstr "Інші команди:"
 
 #: ../preferences/shortcuts.py:173
 msgid "&Edit Shortcut for \"{name}\""
-msgstr ""
+msgstr "Редагувати комбінацію для \"{name}\""
 
 #: ../preferences/shortcuts.py:178
 msgid "(no shortcut)"
-msgstr ""
+msgstr "(немає комбінації)"
 
 #: ../preferences/shortcuts.py:206
 msgid "Remove the shortcut from that command?"
@@ -3383,37 +3392,37 @@ msgstr ""
 
 #: ../preferences/tools.py:141
 msgid "Music View"
-msgstr ""
+msgstr "Перегляд твору"
 
 #: ../preferences/tools.py:142
 msgid "Magnifier Size:"
-msgstr ""
+msgstr "Розмір лупи:"
 
 #: ../preferences/tools.py:144
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
-msgstr ""
+msgstr "Розмір лупи (Ctrl+click на перегляді твору)."
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
 #: ../preferences/tools.py:146
 msgid " pixels"
-msgstr ""
+msgstr " точок"
 
 #: ../preferences/tools.py:147
 msgid "Magnifier Scale:"
-msgstr ""
+msgstr "Збільшення лупи:"
 
 #: ../preferences/tools.py:149
 msgid "Magnification of the magnifier."
-msgstr ""
+msgstr "Коефіцієнт збільшення лупи."
 
 #: ../preferences/tools.py:150
 msgctxt "percent unit sign"
 msgid "%"
-msgstr ""
+msgstr "%"
 
 #: ../preferences/tools.py:220
 msgid "Group documents by directory"
-msgstr ""
+msgstr "Групувати документи за теками"
 
 #: ../quickinsert/__init__.py:48
 msgid "Quick &Insert"
@@ -4077,7 +4086,7 @@ msgstr ""
 
 #: ../scorewiz/__init__.py:56 ../scorewiz/dialog.py:192
 msgid "Setup New Score..."
-msgstr ""
+msgstr "Налаштувати новий твір..."
 
 #: ../scorewiz/build.py:136
 msgid "Music follows here."
@@ -4089,11 +4098,11 @@ msgstr ""
 
 #: ../scorewiz/dialog.py:77
 msgid "Score Setup Wizard"
-msgstr ""
+msgstr "Майстер налаштування твору"
 
 #: ../scorewiz/dialog.py:80
 msgid "Clear"
-msgstr ""
+msgstr "Очистити"
 
 #: ../scorewiz/dialog.py:82
 msgid "Clears the current page of the Score Wizard."
@@ -4101,27 +4110,27 @@ msgstr ""
 
 #: ../scorewiz/dialog.py:83
 msgid "Preview"
-msgstr ""
+msgstr "Переглянути"
 
 #: ../scorewiz/dialog.py:126
 msgid "Score Preview"
-msgstr ""
+msgstr "Перегляд твору"
 
 #: ../scorewiz/dialog.py:160
 msgid "&Titles and Headers"
-msgstr ""
+msgstr "&Заголовки та колонтитули"
 
 #: ../scorewiz/dialog.py:169
 msgid "&Parts"
-msgstr ""
+msgstr "&Партії"
 
 #: ../scorewiz/dialog.py:178
 msgid "&Score settings"
-msgstr ""
+msgstr "&Твір"
 
 #: ../scorewiz/dialog.py:187
 msgid "The Score Wizard"
-msgstr ""
+msgstr "Майстер налаштування твору"
 
 #: ../scorewiz/dialog.py:193
 msgid ""
@@ -4251,28 +4260,28 @@ msgstr ""
 
 #: ../scorewiz/score.py:100
 msgid "Available parts:"
-msgstr ""
+msgstr "Доступні партії:"
 
 #: ../scorewiz/score.py:101
 msgid "Score:"
-msgstr ""
+msgstr "Твір:"
 
 #: ../scorewiz/score.py:102
 msgid "&Add"
-msgstr ""
+msgstr "&Додати"
 
 #: ../scorewiz/score.py:103 ../snippet/widget.py:191 ../widgets/listedit.py:93
 #: ../widgets/schemeselector.py:64
 msgid "&Remove"
-msgstr ""
+msgstr "&Видалити"
 
 #: ../scorewiz/score.py:104
 msgid "Move up"
-msgstr ""
+msgstr "В&гору"
 
 #: ../scorewiz/score.py:105
 msgid "Move down"
-msgstr ""
+msgstr "&Вниз"
 
 #: ../scorewiz/scoreproperties.py:99
 msgid "Key signature:"
@@ -4280,35 +4289,35 @@ msgstr ""
 
 #: ../scorewiz/scoreproperties.py:135
 msgid "Time signature:"
-msgstr ""
+msgstr "Розмір:"
 
 #: ../scorewiz/scoreproperties.py:177
 msgid "Pickup measure:"
-msgstr ""
+msgstr "Затакт:"
 
 #: ../scorewiz/scoreproperties.py:221
 msgid "Metronome mark:"
-msgstr ""
+msgstr "Метроном:"
 
 #: ../scorewiz/scoreproperties.py:246
 msgid "Tempo indication:"
-msgstr ""
+msgstr "Позначка темпу:"
 
 #: ../scorewiz/scoreproperties.py:385
 msgid "Major"
-msgstr ""
+msgstr "Мажор"
 
 #: ../scorewiz/scoreproperties.py:386
 msgid "Minor"
-msgstr ""
+msgstr "Мінор"
 
 #: ../scorewiz/scoreproperties.py:387
 msgid "Ionian"
-msgstr ""
+msgstr "Іонійський"
 
 #: ../scorewiz/scoreproperties.py:388
 msgid "Dorian"
-msgstr ""
+msgstr "Дорійський"
 
 #: ../scorewiz/scoreproperties.py:389
 msgid "Phrygian"
@@ -4316,11 +4325,11 @@ msgstr ""
 
 #: ../scorewiz/scoreproperties.py:390
 msgid "Lydian"
-msgstr ""
+msgstr "Лідійський"
 
 #: ../scorewiz/scoreproperties.py:391
 msgid "Mixolydian"
-msgstr ""
+msgstr "Міксолідійський"
 
 #: ../scorewiz/scoreproperties.py:392
 msgid "Aeolian"
@@ -4332,7 +4341,7 @@ msgstr ""
 
 #: ../scorewiz/settings.py:79
 msgid "Score properties"
-msgstr ""
+msgstr "Властивості твору"
 
 #: ../scorewiz/settings.py:118
 msgid "General preferences"
@@ -4344,7 +4353,7 @@ msgstr "Використовувати типографські лапки"
 
 #: ../scorewiz/settings.py:121
 msgid "Replace normal quotes in titles with nice typographical quotes."
-msgstr ""
+msgstr "Заміняти звичайні лапки гарними типографськими."
 
 #: ../scorewiz/settings.py:122
 msgid "Remove default tagline"
@@ -4373,7 +4382,7 @@ msgstr ""
 
 #: ../scorewiz/settings.py:132
 msgid "Show metronome mark"
-msgstr ""
+msgstr "Показувати темп метронома"
 
 #: ../scorewiz/settings.py:134
 msgid ""
@@ -4383,31 +4392,31 @@ msgstr ""
 
 #: ../scorewiz/settings.py:137
 msgid "Paper size:"
-msgstr ""
+msgstr "Розмір аркуша:"
 
 #: ../scorewiz/settings.py:139
 msgid "Landscape"
-msgstr ""
+msgstr "Горизонтально"
 
 #: ../scorewiz/settings.py:192 ../scorewiz/settings.py:195
 msgid "Long"
-msgstr ""
+msgstr "Довга"
 
 #: ../scorewiz/settings.py:192 ../scorewiz/settings.py:195
 msgid "Short"
-msgstr ""
+msgstr "Коротка"
 
 #: ../scorewiz/settings.py:219
 msgid "Instrument names"
-msgstr ""
+msgstr "Назви інструментів"
 
 #: ../scorewiz/settings.py:220
 msgid "First system:"
-msgstr ""
+msgstr "Перша аколада:"
 
 #: ../scorewiz/settings.py:221
 msgid "Other systems:"
-msgstr ""
+msgstr "Наступні аколади:"
 
 #: ../scorewiz/settings.py:224
 msgid "Use long or short instrument names before the first system."
@@ -4431,7 +4440,7 @@ msgstr ""
 
 #: ../scorewiz/settings.py:300
 msgid "Version:"
-msgstr ""
+msgstr "Версія:"
 
 #: ../scorewiz/settings.py:302
 msgid "The LilyPond version you will be using for this document."
@@ -4627,7 +4636,7 @@ msgstr ""
 
 #: ../scorewiz/parts/containers.py:207
 msgid "Containers"
-msgstr ""
+msgstr "Контейнери"
 
 #: ../scorewiz/parts/keyboard.py:44
 msgid "Piano"
@@ -5022,7 +5031,7 @@ msgstr ""
 
 #: ../scorewiz/parts/strings.py:117
 msgid "Strings"
-msgstr ""
+msgstr "Струнні"
 
 #: ../scorewiz/parts/vocal.py:65
 msgid "Stanzas:"
@@ -5948,7 +5957,7 @@ msgstr ""
 
 #: ../snippet/widget.py:184 ../widgets/listedit.py:91
 msgid "&Add..."
-msgstr ""
+msgstr "&Додати..."
 
 #: ../snippet/widget.py:186
 msgid "Add a new snippet. ({key})"
@@ -5956,7 +5965,7 @@ msgstr ""
 
 #: ../snippet/widget.py:187 ../widgets/listedit.py:92
 msgid "&Edit..."
-msgstr ""
+msgstr "Редаг&увати..."
 
 #: ../snippet/widget.py:189
 msgid "Edit the current snippet. ({key})"
@@ -5972,7 +5981,7 @@ msgstr ""
 
 #: ../snippet/widget.py:193
 msgid "A&pply"
-msgstr ""
+msgstr "&Застосувати"
 
 #: ../snippet/widget.py:194
 msgid "Apply the current snippet."
