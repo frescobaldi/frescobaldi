@@ -271,15 +271,15 @@ class MusicView(QWidget):
             # clicking a link
             if (not self._clicking_link
                 and self.parent().actionCollection.music_sync_cursor.isChecked()):
-                rect = self.destinationsRect(links.destinations()[s])
-                self.view.ensureVisible(rect.right(), rect.bottom())
-                self.view.ensureVisible(rect.left(), rect.top())
+                center = self.destinationsRect(links.destinations()[s]).center()
+                self.view.ensureVisible(center.x(), center.y())
 
     def highlight(self, destinations, slice, msec=None):
         """(Internal) Highlights the from the specified destinations the specified slice."""
         count = slice.stop - slice.start
         if msec is None:
-            msec = 5000 if count > 1 else 2000 # show selections longer
+            # RC: increased timer to give some time to the kinetic scrolling to complete.
+            msec = 5000 if count > 1 else 3000 # show selections longer
         self._highlightRemoveTimer.start(msec)
         if self._highlightRange == slice:
             return # don't redraw if same

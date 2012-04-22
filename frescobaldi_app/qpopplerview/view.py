@@ -26,6 +26,8 @@ View widget to display PDF documents.
 from PyQt4.QtCore import QPoint, QSize, QTimer, Qt, pyqtSignal
 from PyQt4.QtGui import QPalette, QScrollArea, QStyle
 
+from math import sqrt
+
 from . import surface
 from . import cache
 
@@ -312,6 +314,9 @@ class View(QScrollArea):
         else:
             super(View, self).wheelEvent(ev)
 
+    def mousePressEvent(self, ev):
+        return
+     
     def currentPage(self):
         """Returns the Page currently mostly in the center, or None if there are no pages."""
         pos = self.viewport().rect().center() - self.surface().pos()
@@ -369,5 +374,9 @@ class View(QScrollArea):
         # center this point
         newPos = QPoint(round(x * page.width()), round(y * page.height())) + page.pos()
         self.center(newPos)
-
-
+        
+    def ensureVisible(self, x, y, xm=50, ym=50):     
+        """
+        Reimplement ensureVisible to call the surface kinetic scroller timer.
+        """
+        self.surface().kineticEnsureVisible(x, y, xm, ym)
