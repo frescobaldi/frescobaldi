@@ -271,8 +271,9 @@ class MusicView(QWidget):
             # clicking a link
             if (not self._clicking_link
                 and self.parent().actionCollection.music_sync_cursor.isChecked()):
-                center = self.destinationsRect(links.destinations()[s]).center()
-                self.view.ensureVisible(center.x(), center.y())
+                rect = self.destinationsRect(links.destinations()[s])
+                self.view.ensureVisible(rect.right(), rect.bottom())
+                self.view.ensureVisible(rect.left(), rect.top())
 
     def highlight(self, destinations, slice, msec=None):
         """(Internal) Highlights the from the specified destinations the specified slice."""

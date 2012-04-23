@@ -46,12 +46,23 @@ def show(position, panel, link, cursor):
         m.addAction(panel.actionCollection.music_copy_image)
     
     if cursor:
-        a = m.addAction(_("Edit in Place"))
+        a = m.addAction(icons.get("document-edit"), _("Edit in Place"))
         @a.triggered.connect
         def edit():
             from . import editinplace
             editinplace.edit(panel.widget(), cursor, position)
-    
+    elif link:
+        a = m.addAction(icons.get("window-new"), _("Open Link in &New Window"))
+        @a.triggered.connect
+        def open_in_browser():
+            import helpers
+            helpers.openUrl(QUrl(link.url()))
+        
+        a = m.addAction(icons.get("edit-copy"), _("Copy &Link"))
+        @a.triggered.connect
+        def copy_link():
+            QApplication.clipboard().setText(link.url())
+
     # no actions yet? insert Fit Width/Height
     if not m.actions():
         m.addAction(panel.actionCollection.music_fit_width)
