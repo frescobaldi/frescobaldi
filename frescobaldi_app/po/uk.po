@@ -37,6 +37,7 @@ msgstr ""
 msgid ""
 "The Music View is powered by the {poppler} library by {authors} and others."
 msgstr ""
+"Перегляд твору використовує бібліотеку {poppler} — {authors} та інші."
 
 #. L10N: the Poppler PDF library
 #: ../about.py:54
@@ -45,7 +46,7 @@ msgstr ""
 
 #: ../about.py:57
 msgid "Most of the bundled icons are created by {tango}."
-msgstr ""
+msgstr "Більшість значків створив {tango}."
 
 #: ../about.py:59
 msgid "The Tango Desktop Project"
@@ -89,7 +90,7 @@ msgstr ""
 
 #: ../about.py:157
 msgid "Send an e-mail message to the maintainers."
-msgstr ""
+msgstr "Напишіть е-листа розробникам."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
 #: ../about.py:160 ../help/contents.py:57
@@ -108,7 +109,7 @@ msgstr[1] ""
 
 #: ../actioncollectionmanager.py:128 ../preferences/shortcuts.py:209
 msgid "Shortcut Conflict"
-msgstr ""
+msgstr "Конфлікт гарячих клавіш"
 
 #: ../actioncollectionmanager.py:130
 msgid "Edit again"
@@ -201,11 +202,11 @@ msgstr ""
 
 #: ../convert_ly.py:140
 msgid "Convert-ly from LilyPond {version}"
-msgstr ""
+msgstr "Convert-ly з версії LilyPond {version}"
 
 #: ../convert_ly.py:164
 msgid "(set in document)"
-msgstr ""
+msgstr "(встановлено у документі)"
 
 #: ../convert_ly.py:177
 msgid "Both 'from' and 'to' versions need to be set."
@@ -217,6 +218,9 @@ msgid ""
 "\n"
 "{message}\n"
 msgstr ""
+"Не вдалося запустити {convert_ly}:\n"
+"\n"
+"{message}\n"
 
 #: ../convert_ly.py:214
 msgid "The document has not been changed."
@@ -268,7 +272,7 @@ msgstr "Вирізати та Призначити"
 
 #: ../cut_assign.py:40
 msgid "Please enter the name for the variable to assign the selected text to:"
-msgstr ""
+msgstr "Будь ласка, введіть назву змінної, якій треба присвоїти виділений текст:"
 
 #: ../document.py:143 ../doclist/widget.py:128 ../snippet/edit.py:178
 msgid "Untitled"
@@ -296,7 +300,7 @@ msgstr "Вирівняти знову"
 
 #: ../documentactions.py:129
 msgid "&Format"
-msgstr ""
+msgstr "Форм&атувати"
 
 #: ../documentactions.py:130
 msgid "&Update with convert-ly..."
@@ -323,7 +327,7 @@ msgstr "&Документ"
 #. L10N: 'always engraved': the document is marked as 'Always Engrave' in the LilyPond menu
 #: ../documentmenu.py:109
 msgid "[always engraved]"
-msgstr ""
+msgstr "[завжди гравіювати]"
 
 #: ../exception.py:69
 msgid "An internal error has occurred:"
@@ -335,7 +339,7 @@ msgstr "Внутрішня помилка"
 
 #: ../exception.py:71
 msgid "Email Bug Report..."
-msgstr ""
+msgstr "Надіслати звіт про помилку..."
 
 #: ../exception.py:79
 msgid "Optionally describe below what you were doing:"
@@ -352,6 +356,10 @@ msgid ""
 "set the staff size to the global staff size you use in the document (20 by "
 "default)."
 msgstr ""
+"Будь ласка, виберіть глобальні шрифти для <code>\\roman</code>, <code>"
+"\\sans</code> та <code>\\typewriter</code> відповідно. Ви маєте також "
+"вибрати розмір нотоносця відповідно до використовуваного у документі "
+"(стандартно 20)."
 
 #: ../globalfontdialog.py:76
 msgid "Roman Font:"
@@ -379,7 +387,7 @@ msgstr "Будь ласка, виберіть мову:"
 
 #: ../hyphendialog.py:157 ../hyphendialog.py:164
 msgid "Lyrics"
-msgstr ""
+msgstr "Вокальний текст"
 
 #: ../hyphendialog.py:164 ../pitch/pitch.py:744 ../rhythm/rhythm.py:279
 #: ../scorewiz/dialog.py:192
@@ -432,6 +440,35 @@ msgid ""
 "hyphenation pattern files.\n"
 "</p>\n"
 msgstr ""
+"<p>\n"
+"Frescobaldi може автоматично додавати переноси '{hyphen}' у текст,\n"
+"щоб той текст можна було використовувати як вокальний текст.\n"
+"При цьому можливо використовувати словники від OpenOffice.org, "
+"Scribus тощо.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Для використання цих можливостей вам необхідно спершу виділити "
+"потрібний текст. Після цього натисніть {key_hyphen} чи виберіть "
+"{menu_hyphen}.\n"
+"У діалоговому вікні виберіть мову та натисніть ОК чи <Enter>, щоб "
+"додати переноси.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Зауважте, що словники програм верстки часто не додають переноси "
+"після першої літери (наприклад, '{example}'), оскільки це псує "
+"вигляд тексту. Отже, ви, можливо, захочете додати кілька переносів "
+"у вокальний текст.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Також є команда для видалення переносів. Це може бути зручно, "
+"якщо ви хочете просто надрукувати строфу вокального тексту "
+"на сторінці під нотами.\n"
+"У {menu_settings} ви можете додати перелік тек для пошуку "
+"словників переносів.\n"
+"</p>\n"
 
 #: ../inputdialog.py:101
 msgid "Select Color"
@@ -450,10 +487,12 @@ msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
 msgstr ""
+"Не вдалося запустити {program}.\n"
+"Будь ласка, перевірте шляхи та права доступу."
 
 #: ../job.py:253
 msgid "Could not read from the process."
-msgstr ""
+msgstr "Не вдалося зчитати на виході з процесу."
 
 #: ../job.py:255
 msgid "An unknown error occured."
@@ -486,11 +525,11 @@ msgstr "&Видалити переноси"
 
 #: ../lyrics.py:134
 msgid "&Copy Lyrics with hyphenation removed"
-msgstr ""
+msgstr "Копіювати вокальний текст, видаливши перено&си"
 
 #: ../main.py:55
 msgid "{appname} [options] file ..."
-msgstr ""
+msgstr "{appname} [ключі] файл ..."
 
 #: ../main.py:58
 msgid "ENC"
@@ -520,14 +559,15 @@ msgstr ""
 msgid "Session to start ('{none}' for empty session)"
 msgstr "Відкрити сесію ('{none}' для порожньої сесії)"
 
+#,fuzzy
 #: ../main.py:68
 msgid "Always start a new instance"
-msgstr ""
+msgstr "Завжди запускати новий примірник"
 
 #. L10N: state of document in window titlebar
 #: ../mainwindow.py:226
 msgid "[modified]"
-msgstr ""
+msgstr "[змінено]"
 
 #: ../mainwindow.py:269
 msgctxt "dialog title"
@@ -557,6 +597,9 @@ msgid ""
 "\n"
 "{url}"
 msgstr ""
+"Не можу відкрити віддалений документ:\n"
+"\n"
+"{url}"
 
 #: ../mainwindow.py:371
 msgctxt "dialog title"
@@ -572,12 +615,16 @@ msgstr "Відкрити файл"
 msgid "Error"
 msgstr "Помилка"
 
+#,fuzzy
 #: ../mainwindow.py:391 ../mainwindow.py:397 ../mainwindow.py:422
 msgid ""
 "Can't write to destination:\n"
 "\n"
 "{url}"
 msgstr ""
+"Не можу записати у призначення:\n"
+"\n"
+"{url}"
 
 #: ../mainwindow.py:416
 msgctxt "dialog title"
@@ -594,6 +641,7 @@ msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Зберегти виділення"
 
+#,fuzzy
 #: ../mainwindow.py:473 ../mainwindow.py:600 ../snippet/widget.py:320
 msgid ""
 "Can't write to destination:\n"
@@ -602,6 +650,11 @@ msgid ""
 "\n"
 "{error}"
 msgstr ""
+"Не можу записати у призначення:\n"
+"\n"
+"{url}\n"
+"\n"
+"{error}"
 
 #: ../mainwindow.py:533
 msgctxt "dialog title"
@@ -616,6 +669,11 @@ msgid ""
 "\n"
 "{error}"
 msgstr ""
+"Не можу зчитати джерело:\n"
+"\n"
+"{url}\n"
+"\n"
+"{error}"
 
 #: ../mainwindow.py:557
 msgctxt "dialog title"
@@ -633,6 +691,10 @@ msgid ""
 "\n"
 "\n"
 msgstr ""
+"Будь ласка, опишіть проблему чи запит на покращення.\n"
+"Надайте якомога більше інформації.\n"
+"\n"
+"\n"
 
 #: ../mainwindow.py:818
 msgid "Main Toolbar"
@@ -681,7 +743,7 @@ msgstr "Друкувати джерело..."
 
 #: ../mainwindow.py:958
 msgid "Close Other Documents"
-msgstr "Закрити інші документ"
+msgstr "Закрити інші документи"
 
 #: ../mainwindow.py:959
 msgid "Close All Documents"
@@ -689,7 +751,7 @@ msgstr "Закрити всі документи"
 
 #: ../mainwindow.py:960
 msgid "Closes all documents and leaves the current session."
-msgstr ""
+msgstr "Закрити усі документи та вийти з поточної сесії."
 
 #: ../mainwindow.py:961
 msgid "&Quit"
@@ -846,12 +908,12 @@ msgstr "Інструм&енти"
 #: ../menu.py:253
 msgctxt "submenu title"
 msgid "&Lyrics"
-msgstr ""
+msgstr "&Вокальний текст"
 
 #: ../menu.py:265
 msgctxt "submenu title"
 msgid "&Pitch"
-msgstr "&Тон"
+msgstr "&Тони"
 
 #: ../menu.py:279
 msgctxt "submenu title"
@@ -882,8 +944,9 @@ msgstr "Попередній перегляд"
 
 #: ../popplerdummy.py:42
 msgid "Could not load the {name} module."
-msgstr ""
+msgstr "Не вдалося завантажити модуль {name}."
 
+#,fuzzy
 #: ../popplerprint.py:54
 msgid ""
 "No print command to print a PostScript file could be found.\n"
@@ -893,6 +956,12 @@ msgid ""
 "\n"
 "Do you want to continue?"
 msgstr ""
+"Не знайдено жодної команди для друку файлів PostScript.\n"
+"\n"
+"Отже, документ буде надруковано як растрове зображення з {resolution}DPI. "
+"Варто друкувати зовнішнім переглядачем документів PDF.\n"
+"\n"
+"Продовжити?"
 
 #: ../popplerprint.py:61
 msgid "PDF Document"
@@ -908,11 +977,11 @@ msgstr "Помилка друку"
 
 #: ../popplerprint.py:88 ../popplerprint.py:117
 msgid "Could not send the document to the printer."
-msgstr ""
+msgstr "Не вдалося надіслати документ на друк."
 
 #: ../popplerprint.py:108
 msgid "Printing page {page} ({num} of {total})..."
-msgstr ""
+msgstr "Друк сторінки {page} ({num} з {total})..."
 
 #: ../search.py:101
 msgid "Search:"
@@ -952,7 +1021,7 @@ msgstr "&Замінити"
 
 #: ../search.py:110
 msgid "Replaces the next occurrence of the search term."
-msgstr ""
+msgstr "Замінити наступний збіг з шаблоном пошуку."
 
 #: ../search.py:111
 msgid "&All"
@@ -962,6 +1031,7 @@ msgstr "&Все"
 msgid ""
 "Replaces all occurrences of the search term in the document or selection."
 msgstr ""
+"Замінити всі збіги з шаблоном пошуку у документі чи виділеному фрагменті."
 
 #: ../viewmanager.py:67 ../viewmanager.py:215
 msgid "Line: {line}, Col: {column}"
@@ -1018,7 +1088,7 @@ msgstr "Переглядач документації"
 
 #: ../docbrowser/__init__.py:47
 msgid "&Documentation Browser"
-msgstr ""
+msgstr "Переглядач &документації"
 
 #: ../docbrowser/__init__.py:82 ../help/browser.py:79
 msgid "Back"
@@ -1039,7 +1109,7 @@ msgstr "Друкувати..."
 
 #: ../docbrowser/__init__.py:87
 msgid "&LilyPond Documentation"
-msgstr ""
+msgstr "Документація &LilyPond"
 
 #: ../docbrowser/__init__.py:88
 msgid "&Contextual LilyPond Help"
@@ -1063,15 +1133,15 @@ msgstr "Друк"
 
 #: ../docbrowser/browser.py:239
 msgid "Copy &Link"
-msgstr ""
+msgstr "Копіювати &посилання"
 
 #: ../docbrowser/browser.py:242
 msgid "Open Link in &New Window"
-msgstr ""
+msgstr "Відкрити посилання у новому &вікні"
 
 #: ../docbrowser/browser.py:251
 msgid "Open Document in &New Window"
-msgstr ""
+msgstr "Відкрити &документ у новому вікні"
 
 #: ../docbrowser/sourceviewer.py:59
 msgid "LilyPond Source"
@@ -1111,55 +1181,59 @@ msgstr "Закрити всі неназвані документи"
 
 #: ../engrave/__init__.py:177
 msgid "&Always Engrave [{docname}]"
-msgstr ""
+msgstr "Завжди &гравіювати [{docname}]"
 
 #: ../engrave/__init__.py:179
 msgid "&Always Engrave This Document"
-msgstr ""
+msgstr "Завжди &гравіювати цей документ"
 
 #: ../engrave/__init__.py:208
 msgid "Engrave"
-msgstr ""
+msgstr "Гравіювати"
 
 #: ../engrave/__init__.py:209
 msgid "&Engrave (preview)"
-msgstr ""
+msgstr "Граві&ювати (перегляд)"
 
+#,fuzzy
 #: ../engrave/__init__.py:210
 msgid "Engrave (&publish)"
-msgstr ""
+msgstr "Гравіювати (&начисто)"
 
+#,fuzzy
 #: ../engrave/__init__.py:211
 msgid "Engrave (&custom)..."
-msgstr ""
+msgstr "Гравіювати (не&стандартно)"
 
 #: ../engrave/__init__.py:212
 msgid "Abort Engraving &Job"
-msgstr ""
+msgstr "Пере&рвати процес гравіювання"
 
+#,fuzzy
 #: ../engrave/custom.py:123 ../engrave/custom.py:214
 msgid "Engrave custom"
-msgstr ""
+msgstr "Гравіювати нестандартно"
 
 #: ../engrave/custom.py:124
 msgid "LilyPond Version:"
-msgstr ""
+msgstr "Версія LilyPond:"
 
 #: ../engrave/custom.py:125
 msgid "Output Format:"
-msgstr ""
+msgstr "Вихідний формат:"
 
 #: ../engrave/custom.py:126
 msgid "Resolution:"
-msgstr ""
+msgstr "Роздільна здатність:"
 
+#,fuzzy
 #: ../engrave/custom.py:128
 msgid "Run LilyPond in preview mode (with Point and Click)"
-msgstr ""
+msgstr "Стартувати LilyPond у попередньому режимі (з Point-and-Click)"
 
 #: ../engrave/custom.py:129
 msgid "Run LilyPond with verbose output"
-msgstr ""
+msgstr "Стартувати LilyPond з деталізованими повідомленнями"
 
 #: ../engrave/custom.py:130 ../preferences/lilypond.py:291
 msgid "Run LilyPond with English messages"
