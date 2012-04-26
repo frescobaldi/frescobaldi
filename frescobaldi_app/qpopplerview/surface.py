@@ -138,9 +138,6 @@ class Surface(QWidget):
         
         # Kinetic scrolling
         self._kineticData=KineticData()
-        # Scrollbars? Who need scrollbars...
-        view.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        view.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         
     def pageLayout(self):
         return self._pageLayout
@@ -315,6 +312,13 @@ class Surface(QWidget):
         end_p = self.scrollOffset()
         #print "Scrolling from: ", start_p, " to ", p, " reached ", end_p
         return end_p.x() == p.x() or end_p.y() == p.y()
+    
+    def scrollBy(self, diff):
+        """Scrolls the surface by the distance given in the QPoint diff."""
+        v = self.view().verticalScrollBar()
+        h = self.view().horizontalScrollBar()
+        v.setValue(v.value() + diff.y())
+        h.setValue(h.value() + diff.x())
 
     def kineticEnsureVisible(self, x, y, xm, ym):
         # Replicate the logic in ScrollArea::ensureVisible to compute the
@@ -328,18 +332,18 @@ class Surface(QWidget):
         elif x > oldx + self.view().viewport().width() - xm:
             newx = min(x - self.view().viewport().width() + xm, self.view().verticalScrollBar().maximum())
            
-        newy = 0 
+        newy = oldy 
         if y-ym < oldy :
             newy = max(0, y - ym)
         elif y > oldy + self.view().viewport().height() - ym:
             newy = min(y - self.view().viewport().height() + ym, self.view().verticalScrollBar().maximum())
-        else:
-            newy = oldy
             
         # This is what ScrollArea::ensureVisible does to move the view.
         #self.view().horizontalScrollBar().setValue(newx)
         #self.view().verticalScrollBar().setValue(newy)
+        self.kineticMove(oldx, oldy, newx, newy)
         
+    def kineticMove(self, oldx, oldy, newx, newy ):
         speed = QPoint(0,0)
         # solve speed*(speed+1)/2 = delta to ensure 1+2+3+...+speed is at least equal to delta.
         speed.setX(1+(sqrt(1+8*abs(newx-oldx))+1)/2)
@@ -351,11 +355,6 @@ class Surface(QWidget):
         if newy > oldy :
             speed.setY(-speed.y())
             
-        #print "Moving from (", oldx, ",", oldy, ") to (", newx, ",", newy, ")"
-        #print "Speed: ", speed
-        #print "dx: ", newx-oldx, " cumulated deltax: ", (speed.x()*(speed.x()+1))/2
-        #print "dy: ", newy-oldy, " cumulated deltay: ", (speed.y()*(speed.y()+1))/2
-       
         # Setup the kinetic displacement speed, removing the speed limit imposed on
         # interactive scrolling.
         self._kineticData._speed = speed
@@ -417,21 +416,24 @@ class Surface(QWidget):
         if ev.button() == Qt.LeftButton:
             self._dragPos = ev.globalPos()
             
-            # kinetic scrolling
-            if self._kineticData.ignoreEvent(ev):
-                return
-            
-            if self._kineticData._state == KineticData.Steady or self._kineticData._state == KineticData.Stop:
-                self._dragging = True
-                self._kineticData._state = KineticData.Pressed
-                self._kineticData._pressPos = copy.copy(ev.pos())
-                self._kineticData._offset = self.scrollOffset()
-                self._kineticData._maxSpeed = 64 #limit speed.
+            if self.view().kineticScrollingEnabled():
+                # kinetic scrolling
+                if self._kineticData.ignoreEvent(ev):
+                    return
                 
-            elif self._kineticData._state == KineticData.AutoScroll:
-                self._dragging = False
-                self._kineticData._state = KineticData.Stop
-                self._kineticData._speed = QPoint(0,0)
+                if self._kineticData._state == KineticData.Steady or self._kineticData._state == KineticData.Stop:
+                    self._dragging = True
+                    self._kineticData._state = KineticData.Pressed
+                    self._kineticData._pressPos = copy.copy(ev.pos())
+                    self._kineticData._offset = self.scrollOffset()
+                    self._kineticData._maxSpeed = 64 #limit speed.
+                    
+                elif self._kineticData._state == KineticData.AutoScroll:
+                    self._dragging = False
+                    self._kineticData._state = KineticData.Stop
+                    self._kineticData._speed = QPoint(0,0)
+            else:
+                self._dragging = True
     
     def mouseReleaseEvent(self, ev):
         """Handle mouse release events for various operations:
@@ -442,30 +444,31 @@ class Surface(QWidget):
         if self._dragging:
             self._dragging = False
             
-            # kinetic scrolling
-            if self._kineticData.ignoreEvent(ev):
-                return
-            
-            if self._kineticData._state == KineticData.Pressed:
-                self._kineticData._state = KineticData.Steady
-                event1 = QMouseEvent(QEvent.MouseButtonPress,
-                                     self._kineticData._pressPos, Qt.LeftButton,
-                                     Qt.LeftButton, Qt.NoModifier)
-                event2 = QMouseEvent(ev)
-                self._kineticData._ignored.append(event1)
-                self._kineticData._ignored.append(event2)
-                QApplication.postEvent(self, event1)
-                QApplication.postEvent(self, event2)
+            if self.view().kineticScrollingEnabled():
+                # kinetic scrolling
+                if self._kineticData.ignoreEvent(ev):
+                    return
                 
-            elif self._kineticData._state == KineticData.ManualScroll:
-                self._kineticData._state = KineticData.AutoScroll
-
-            elif self._kineticData._state == KineticData.AutoScroll:
-                self._kineticData._state = KineticData.Stop
-                self._kineticData._speed = QPoint(0, 0)
-                
-            elif self._kineticData._state == KineticData.Stop:
-                self._kineticData._state = KineticData.Steady
+                if self._kineticData._state == KineticData.Pressed:
+                    self._kineticData._state = KineticData.Steady
+                    event1 = QMouseEvent(QEvent.MouseButtonPress,
+                                         self._kineticData._pressPos, Qt.LeftButton,
+                                         Qt.LeftButton, Qt.NoModifier)
+                    event2 = QMouseEvent(ev)
+                    self._kineticData._ignored.append(event1)
+                    self._kineticData._ignored.append(event2)
+                    QApplication.postEvent(self, event1)
+                    QApplication.postEvent(self, event2)
+                    
+                elif self._kineticData._state == KineticData.ManualScroll:
+                    self._kineticData._state = KineticData.AutoScroll
+    
+                elif self._kineticData._state == KineticData.AutoScroll:
+                    self._kineticData._state = KineticData.Stop
+                    self._kineticData._speed = QPoint(0, 0)
+                    
+                elif self._kineticData._state == KineticData.Stop:
+                    self._kineticData._state = KineticData.Steady
 
         elif self._magnifying:
             self._magnifier.hide()
@@ -493,26 +496,32 @@ class Surface(QWidget):
         if self._dragging:
             self.setCursor(Qt.SizeAllCursor)
 
-            # kinetic scrolling
-            if self._kineticData.ignoreEvent(ev):
-                return
-            
-            if self._kineticData._state == KineticData.Pressed:
-                self._kineticData._state = KineticData.ManualScroll
-                self._kineticData._dragPos = QCursor.pos()
-                if not self._kineticData._ticker.isActive():
-                    self._kineticData._ticker.start(20, self)
-                    
-            elif self._kineticData._state == KineticData.ManualScroll:
-                pos = ev.pos()
-                delta = pos - self._kineticData._pressPos
-                self.setScrollOffset(self._kineticData._offset - delta)
+            if self.view().kineticScrollingEnabled():
+                # kinetic scrolling
+                if self._kineticData.ignoreEvent(ev):
+                    return
                 
-            elif self._kineticData._state == KineticData.Stop:
-                self._kineticData._state = KineticData.ManualScroll
-                self._kineticData._dragPos = QCursor.pos()
-                if not self._kineticData._ticker.isActive():
-                    self._kineticData._ticker.start(20, self)
+                if self._kineticData._state == KineticData.Pressed:
+                    self._kineticData._state = KineticData.ManualScroll
+                    self._kineticData._dragPos = QCursor.pos()
+                    if not self._kineticData._ticker.isActive():
+                        self._kineticData._ticker.start(20, self)
+                        
+                elif self._kineticData._state == KineticData.ManualScroll:
+                    pos = ev.pos()
+                    delta = pos - self._kineticData._pressPos
+                    self.setScrollOffset(self._kineticData._offset - delta)
+                    
+                elif self._kineticData._state == KineticData.Stop:
+                    self._kineticData._state = KineticData.ManualScroll
+                    self._kineticData._dragPos = QCursor.pos()
+                    if not self._kineticData._ticker.isActive():
+                        self._kineticData._ticker.start(20, self)
+            
+            else:
+                diff = self._dragPos - ev.globalPos()
+                self._dragPos = ev.globalPos()
+                self.scrollBy(diff)                
 
 
         elif self._magnifying:
