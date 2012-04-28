@@ -44,7 +44,7 @@ This script needs not to be installed to be able to use the language_names packa
 # lang_names = []
 lang_names = [
     "C", "en", "de", "fr", "es", "nl", "pl", "pt_BR",
-    "cs", "ru", "hu", "gl", "it", "tr",
+    "cs", "ru", "hu", "gl", "it", "tr", "uk",
     "ja", "zh",
 ]
 
