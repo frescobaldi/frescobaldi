@@ -2,6 +2,15 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
+Changes in 2.0.6 -- 
+
+* Translations:
+  - New Ukrainian translation by Dmytro O. Redchuk
+  - updated: nl
+* Bugfixes:
+  - fix cut-assign
+
+
 Changes in 2.0.5 -- April 25th, 2012
 
 * Translations:
