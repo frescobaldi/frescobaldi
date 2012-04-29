@@ -297,7 +297,13 @@ class Surface(QWidget):
             if rects:
                 highlighter.paintRects(painter, rects)
     
-    
+    def kineticTicksLeft(self):
+        if( self._kineticData._state == KineticData.AutoScroll
+            or self._kineticData._state == KineticData.ManualScroll ):
+            return max( self._kineticData._speed.x(), self._kineticData._speed.y() )
+        
+        return 0
+
     def scrollOffset(self):
         x = self.view().horizontalScrollBar().value()
         y = self.view().verticalScrollBar().value()
