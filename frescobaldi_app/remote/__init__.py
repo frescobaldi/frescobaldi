@@ -77,7 +77,7 @@ def init():
             return
     app.aboutToQuit.connect(server.close)
     server.newConnection.connect(slot_new_connection)
-    os.environ["FRESCOBALDI_SOCKET"] = name
+    os.environ["FRESCOBALDI_SOCKET"] = ensure_bytes(name)
     _server = server
 
 
@@ -127,10 +127,21 @@ def ensure_unicode(s):
 	
 	"""
 	if type(s) in (bytearray, type(b'')):
-		s = s.decode(sys.getfilesystemencoding(), 'ignore')
+		s = s.decode(sys.getfilesystemencoding() or'utf-8', 'ignore')
 	return s
 
-			
+
+def ensure_bytes(s):
+    """Return string s in bytes, suitable for os.environ.
+    
+    If s is a unicode string, it is encoded using the filesystem encoding.
+    
+    """
+    if type(s) is type(''):
+        s = s.encode(sys.getfilesystemencoding() or 'utf-8', 'ignore')
+    return s
+
+
 def enabled():
     """Return whether remote support is enabled.
     
