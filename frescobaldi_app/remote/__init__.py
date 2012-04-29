@@ -24,6 +24,7 @@ Inter-Process Communication with already running Frescobaldi instances.
 from __future__ import unicode_literals
 
 import os
+import sys
 
 from PyQt4.QtCore import QSettings
 from PyQt4.QtNetwork import QLocalServer, QLocalSocket
@@ -39,7 +40,8 @@ def get():
     """Return a remote Frescobaldi, or None if not available."""
     socket = QLocalSocket()
     name = os.environ.get("FRESCOBALDI_SOCKET")
-    
+    if name:
+		name = ensure_unicode(name)
     for name in (name,) if name else ids():
         socket.connectToServer(name)
         if socket.waitForConnected(5000):
@@ -108,16 +110,27 @@ def generate_id():
     for variable in ('LOGNAME', 'USER', 'LNAME', 'USERNAME'):
         user = os.environ.get(variable)
         if user:
-            name.append(user)
+            name.append(ensure_unicode(user))
             break
     
     display = os.environ.get("DISPLAY")
     if display:
-        name.append(display)
+        name.append(ensure_unicode(display))
     
     return '-'.join(name)
 
 
+def ensure_unicode(s):
+	"""Return string s in unicode.
+	
+	If s is not an unicode string, decode it using the filesystem encoding.
+	
+	"""
+	if type(s) in (bytearray, type(b'')):
+		s = s.decode(sys.getfilesystemencoding(), 'ignore')
+	return s
+
+			
 def enabled():
     """Return whether remote support is enabled.
     
