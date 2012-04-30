@@ -31,6 +31,7 @@ from PyQt4.QtNetwork import QLocalServer, QLocalSocket
 
 import app
 import info
+import percentcoding
 
 
 _server = None
@@ -104,12 +105,19 @@ def ids(count=3):
 
 
 def generate_id():
-    """Generate a name for the IPC socket."""
+    """Generate a name for the IPC socket.
+    
+    The name is unique for the application, the username and the DISPLAY
+    on X11.
+    
+    """
     name = [info.name]
     
     for variable in ('LOGNAME', 'USER', 'LNAME', 'USERNAME'):
         user = os.environ.get(variable)
         if user:
+            # avoid non-ascii characters in socket name
+            user = percentcoding.encode(ensure_bytes(user))
             name.append(ensure_unicode(user))
             break
     
