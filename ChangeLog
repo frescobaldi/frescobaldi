@@ -2,7 +2,7 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
-Changes in 2.0.6 -- 
+Changes in 2.0.6 -- April 30th, 2012
 
 * Translations:
   - New Ukrainian translation by Dmytro O. Redchuk
@@ -11,6 +11,7 @@ Changes in 2.0.6 --
   - fix cut-assign
   - fix startup failure on Windows when 'open in running app' is enabled and
     the user's username has non-ascii characters (issue #53)
+  - fix TypeError on opening LilyPond documentation in some cases on Mac OS X
 
 
 Changes in 2.0.5 -- April 25th, 2012
