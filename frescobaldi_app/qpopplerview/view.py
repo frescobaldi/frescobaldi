@@ -336,6 +336,8 @@ class View(QScrollArea):
             factor = 1.1 ** (ev.delta() / 120)
             if ev.delta():
                 self.zoom(self.scale() * factor, ev.pos())
+        elif self.kineticScrollingEnabled():
+            self.surface().kineticWheel(ev.delta())
         else:
             super(View, self).wheelEvent(ev)
      

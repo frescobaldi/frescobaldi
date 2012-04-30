@@ -312,12 +312,12 @@ class Surface(QWidget):
             
     def setScrollOffset(self, p):
         start_p = self.scrollOffset()
+        
         self.view().horizontalScrollBar().setValue(p.x())
         self.view().verticalScrollBar().setValue(p.y())
-        # return true if at least one coordinate specified was respected.
+        # return true if at least one coordinate specified was respected and requested move was not 0.
         end_p = self.scrollOffset()
-        #print "Scrolling from: ", start_p, " to ", p, " reached ", end_p
-        return end_p.x() == p.x() or end_p.y() == p.y()
+        return (start_p.x() != p.x() and end_p.x() == p.x()) or (start_p.y() != p.y() and end_p.y() == p.y())
     
     def scrollBy(self, diff):
         """Scrolls the surface by the distance given in the QPoint diff."""
@@ -344,9 +344,6 @@ class Surface(QWidget):
         elif y > oldy + self.view().viewport().height() - ym:
             newy = min(y - self.view().viewport().height() + ym, self.view().verticalScrollBar().maximum())
             
-        # This is what ScrollArea::ensureVisible does to move the view.
-        #self.view().horizontalScrollBar().setValue(newx)
-        #self.view().verticalScrollBar().setValue(newy)
         self.kineticMove(oldx, oldy, newx, newy)
         
     def kineticMove(self, oldx, oldy, newx, newy ):
@@ -361,6 +358,26 @@ class Surface(QWidget):
         if newy > oldy :
             speed.setY(-speed.y())
             
+        self.kineticStart(speed)
+
+    def kineticWheel(self, delta ):
+        speed = QPoint(0,0)
+        
+        # Get the remaining scroll amount.
+        currentSpeed = abs( self._kineticData._speed.y() )
+        leftToScroll = (currentSpeed+1)*currentSpeed / 2 ;
+        if self._kineticData._speed.y() < 0:
+            leftToScroll *= -1
+        leftToScroll += delta
+        
+        speed.setY(1+(sqrt(1+8*abs(leftToScroll))+1)/2)
+        speed.setX( self._kineticData._speed.x() )
+        if leftToScroll < 0:
+            speed.setY(-speed.y())
+            
+        self.kineticStart(speed)
+            
+    def kineticStart(self, speed):
         # Setup the kinetic displacement speed, removing the speed limit imposed on
         # interactive scrolling.
         self._kineticData._speed = speed
@@ -568,9 +585,11 @@ class Surface(QWidget):
             count += 1
             self._kineticData._speed = deaccelerate(self._kineticData._speed, 1, self._kineticData._maxSpeed)
             p = self.scrollOffset()
-           
+
             if self._kineticData._speed == QPoint(0, 0) or not self.setScrollOffset(p - self._kineticData._speed):
                 self._kineticData._state = KineticData.Steady
+                # reset speed to 0, as wheel scrolling accumulates speed instead of setting it to a fixed value.
+                self._kineticData._speed = QPoint(0,0)
                 # reset count to 0 to stop iterating.
                 count = 0
     
