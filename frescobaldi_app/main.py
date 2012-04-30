@@ -31,7 +31,7 @@ import os
 import re
 import sys
 
-from PyQt4.QtCore import QSettings, QUrl
+from PyQt4.QtCore import QSettings, QTimer, QUrl
 from PyQt4.QtGui import QApplication, QTextCursor
 
 from . import toplevel  # Find all modules and packages as toplevel
@@ -105,7 +105,7 @@ def main():
             import splashscreen
             splashscreen.show()
 
-    remote.setup()          # Start listening for IPC
+    QTimer.singleShot(0, remote.setup)  # Start listening for IPC
     
     import mainwindow       # contains MainWindow class
     import session          # Initialize QSessionManager support
