@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-22 01:27+0200\n"
+"POT-Creation-Date: 2012-04-30 22:35+0200\n"
 "PO-Revision-Date: 2012-04-19 17:21+0300\n"
 "Last-Translator: Dmytro O. Redchuk <brownian.box@gmail.com>\n"
 "Language-Team: Ukrainian\n"
@@ -36,8 +36,7 @@ msgstr ""
 #: ../about.py:50
 msgid ""
 "The Music View is powered by the {poppler} library by {authors} and others."
-msgstr ""
-"Перегляд твору використовує бібліотеку {poppler} — {authors} та інші."
+msgstr "Перегляд твору використовує бібліотеку {poppler} — {authors} та інші."
 
 #. L10N: the Poppler PDF library
 #: ../about.py:54
@@ -272,7 +271,8 @@ msgstr "Вирізати та Призначити"
 
 #: ../cut_assign.py:40
 msgid "Please enter the name for the variable to assign the selected text to:"
-msgstr "Будь ласка, введіть назву змінної, якій треба присвоїти виділений текст:"
+msgstr ""
+"Будь ласка, введіть назву змінної, якій треба присвоїти виділений текст:"
 
 #: ../document.py:143 ../doclist/widget.py:128 ../snippet/edit.py:178
 msgid "Untitled"
@@ -443,31 +443,28 @@ msgstr ""
 "<p>\n"
 "Frescobaldi може автоматично додавати переноси '{hyphen}' у текст,\n"
 "щоб той текст можна було використовувати як вокальний текст.\n"
-"При цьому можливо використовувати словники від OpenOffice.org, "
-"Scribus тощо.\n"
+"При цьому можливо використовувати словники від OpenOffice.org, Scribus "
+"тощо.\n"
 "</p>\n"
 "\n"
 "<p>\n"
-"Для використання цих можливостей вам необхідно спершу виділити "
-"потрібний текст. Після цього натисніть {key_hyphen} чи виберіть "
-"{menu_hyphen}.\n"
-"У діалоговому вікні виберіть мову та натисніть ОК чи <Enter>, щоб "
-"додати переноси.\n"
+"Для використання цих можливостей вам необхідно спершу виділити потрібний "
+"текст. Після цього натисніть {key_hyphen} чи виберіть {menu_hyphen}.\n"
+"У діалоговому вікні виберіть мову та натисніть ОК чи <Enter>, щоб додати "
+"переноси.\n"
 "</p>\n"
 "\n"
 "<p>\n"
-"Зауважте, що словники програм верстки часто не додають переноси "
-"після першої літери (наприклад, '{example}'), оскільки це псує "
-"вигляд тексту. Отже, ви, можливо, захочете додати кілька переносів "
-"у вокальний текст.\n"
+"Зауважте, що словники програм верстки часто не додають переноси після першої "
+"літери (наприклад, '{example}'), оскільки це псує вигляд тексту. Отже, ви, "
+"можливо, захочете додати кілька переносів у вокальний текст.\n"
 "</p>\n"
 "\n"
 "<p>\n"
-"Також є команда для видалення переносів. Це може бути зручно, "
-"якщо ви хочете просто надрукувати строфу вокального тексту "
-"на сторінці під нотами.\n"
-"У {menu_settings} ви можете додати перелік тек для пошуку "
-"словників переносів.\n"
+"Також є команда для видалення переносів. Це може бути зручно, якщо ви хочете "
+"просто надрукувати строфу вокального тексту на сторінці під нотами.\n"
+"У {menu_settings} ви можете додати перелік тек для пошуку словників "
+"переносів.\n"
 "</p>\n"
 
 #: ../inputdialog.py:101
@@ -559,8 +556,8 @@ msgstr ""
 msgid "Session to start ('{none}' for empty session)"
 msgstr "Відкрити сесію ('{none}' для порожньої сесії)"
 
-#,fuzzy
 #: ../main.py:68
+#, fuzzy
 msgid "Always start a new instance"
 msgstr "Завжди запускати новий примірник"
 
@@ -615,8 +612,8 @@ msgstr "Відкрити файл"
 msgid "Error"
 msgstr "Помилка"
 
-#,fuzzy
 #: ../mainwindow.py:391 ../mainwindow.py:397 ../mainwindow.py:422
+#, fuzzy
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -641,8 +638,8 @@ msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Зберегти виділення"
 
-#,fuzzy
 #: ../mainwindow.py:473 ../mainwindow.py:600 ../snippet/widget.py:320
+#, fuzzy
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -946,8 +943,8 @@ msgstr "Попередній перегляд"
 msgid "Could not load the {name} module."
 msgstr "Не вдалося завантажити модуль {name}."
 
-#,fuzzy
 #: ../popplerprint.py:54
+#, fuzzy
 msgid ""
 "No print command to print a PostScript file could be found.\n"
 "\n"
@@ -1131,11 +1128,11 @@ msgstr ""
 msgid "Print"
 msgstr "Друк"
 
-#: ../docbrowser/browser.py:239
+#: ../docbrowser/browser.py:239 ../musicview/contextmenu.py:61
 msgid "Copy &Link"
 msgstr "Копіювати &посилання"
 
-#: ../docbrowser/browser.py:242
+#: ../docbrowser/browser.py:242 ../musicview/contextmenu.py:55
 msgid "Open Link in &New Window"
 msgstr "Відкрити посилання у новому &вікні"
 
@@ -1195,13 +1192,13 @@ msgstr "Гравіювати"
 msgid "&Engrave (preview)"
 msgstr "Граві&ювати (перегляд)"
 
-#,fuzzy
 #: ../engrave/__init__.py:210
+#, fuzzy
 msgid "Engrave (&publish)"
 msgstr "Гравіювати (&начисто)"
 
-#,fuzzy
 #: ../engrave/__init__.py:211
+#, fuzzy
 msgid "Engrave (&custom)..."
 msgstr "Гравіювати (не&стандартно)"
 
@@ -1209,8 +1206,8 @@ msgstr "Гравіювати (не&стандартно)"
 msgid "Abort Engraving &Job"
 msgstr "Пере&рвати процес гравіювання"
 
-#,fuzzy
 #: ../engrave/custom.py:123 ../engrave/custom.py:214
+#, fuzzy
 msgid "Engrave custom"
 msgstr "Гравіювати нестандартно"
 
@@ -1226,8 +1223,8 @@ msgstr "Вихідний формат:"
 msgid "Resolution:"
 msgstr "Роздільна здатність:"
 
-#,fuzzy
 #: ../engrave/custom.py:128
+#, fuzzy
 msgid "Run LilyPond in preview mode (with Point and Click)"
 msgstr "Стартувати LilyPond у попередньому режимі (з Point-and-Click)"
 
@@ -1328,7 +1325,7 @@ msgid "Contents"
 msgstr ""
 
 #: ../help/browser.py:89 ../help/browser.py:90 ../help/contents.py:70
-#: ../musicview/contextmenu.py:63 ../quickinsert/widget.py:106
+#: ../musicview/contextmenu.py:76 ../quickinsert/widget.py:106
 msgid "Help"
 msgstr ""
 

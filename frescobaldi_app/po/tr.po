@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-22 01:27+0200\n"
+"POT-Creation-Date: 2012-04-30 22:35+0200\n"
 "PO-Revision-Date: 2010-12-12 07:48+0200\n"
 "Last-Translator: Server Acim <serveracim@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -1169,11 +1169,11 @@ msgstr ""
 msgid "Print"
 msgstr "Yazdır"
 
-#: ../docbrowser/browser.py:239
+#: ../docbrowser/browser.py:239 ../musicview/contextmenu.py:61
 msgid "Copy &Link"
 msgstr "Kopyala &Bağlantı"
 
-#: ../docbrowser/browser.py:242
+#: ../docbrowser/browser.py:242 ../musicview/contextmenu.py:55
 msgid "Open Link in &New Window"
 msgstr "Bağlantıyı Aç &Yeni Pencerede"
 
@@ -1382,7 +1382,7 @@ msgid "Contents"
 msgstr "Komut"
 
 #: ../help/browser.py:89 ../help/browser.py:90 ../help/contents.py:70
-#: ../musicview/contextmenu.py:63 ../quickinsert/widget.py:106
+#: ../musicview/contextmenu.py:76 ../quickinsert/widget.py:106
 msgid "Help"
 msgstr ""
 
