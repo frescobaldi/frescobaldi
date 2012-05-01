@@ -198,6 +198,8 @@ def menu_view_music(mainwindow):
     m.addSeparator()
     m.addAction(ac.music_jump_to_cursor)
     m.addAction(ac.music_sync_cursor)
+    m.addSeparator()
+    m.addAction(ac.music_maximize)
     return m
 
 
