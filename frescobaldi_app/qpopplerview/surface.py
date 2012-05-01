@@ -300,7 +300,7 @@ class Surface(QWidget):
     def kineticTicksLeft(self):
         if( self._kineticData._state == KineticData.AutoScroll
             or self._kineticData._state == KineticData.ManualScroll ):
-            return max( self._kineticData._speed.x(), self._kineticData._speed.y() )
+            return max( abs(self._kineticData._speed.x()), abs(self._kineticData._speed.y()) )
         
         return 0
 
