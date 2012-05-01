@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-30 22:35+0200\n"
+"POT-Creation-Date: 2012-05-01 23:15+0200\n"
 "PO-Revision-Date: 2012-02-15 16:30+0100\n"
 "Last-Translator: .billyBoh <billyboh@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -868,22 +868,22 @@ msgstr "Segnala un &bug..."
 msgid "&About {appname}..."
 msgstr "&A proposito di {appname}"
 
-#: ../menu.py:82
+#: ../menu.py:83
 msgctxt "menu title"
 msgid "&File"
 msgstr "&File"
 
-#: ../menu.py:113
+#: ../menu.py:114
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Esporta"
 
-#: ../menu.py:121
+#: ../menu.py:122
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "&Modifica"
 
-#: ../menu.py:148
+#: ../menu.py:149
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Visualizza"
@@ -895,41 +895,42 @@ msgid "&Folding"
 msgstr "encoding"
 
 #: ../menu.py:188
-msgctxt "submenu title"
-msgid "Music &View"
+#, fuzzy
+msgctxt "menu title"
+msgid "&Music"
 msgstr "Anteprima &spartito"
 
-#: ../menu.py:209
+#: ../menu.py:211
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:228
+#: ../menu.py:230
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Strumenti"
 
-#: ../menu.py:254
+#: ../menu.py:256
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Parole"
 
-#: ../menu.py:266
+#: ../menu.py:268
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Note"
 
-#: ../menu.py:280
+#: ../menu.py:282
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritmo"
 
-#: ../menu.py:308
+#: ../menu.py:310
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Finestra"
 
-#: ../menu.py:328
+#: ../menu.py:330
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Aiuto"
@@ -2403,85 +2404,89 @@ msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "TEMPO"
 
-#: ../musicview/__init__.py:114
+#: ../musicview/__init__.py:115
 msgctxt "window title"
 msgid "Music View"
 msgstr "Anteprima spartito"
 
-#: ../musicview/__init__.py:115
+#: ../musicview/__init__.py:116
 msgid "&Music View"
 msgstr "Anteprima &spartito"
 
-#: ../musicview/__init__.py:271
+#: ../musicview/__init__.py:274
 msgid "Select Music View Document"
 msgstr "Scegliere un documento per l'Anteprima spartito"
 
-#: ../musicview/__init__.py:272
+#: ../musicview/__init__.py:275
 msgid "&Print Music..."
 msgstr "&Stampa la musica..."
 
-#: ../musicview/__init__.py:273
+#: ../musicview/__init__.py:276
 msgid "Zoom &In"
 msgstr "&Aumenta zoom"
 
-#: ../musicview/__init__.py:274
+#: ../musicview/__init__.py:277
 msgid "Zoom &Out"
 msgstr "&Diminuisci zoom"
 
-#: ../musicview/__init__.py:275
+#: ../musicview/__init__.py:278
 msgid "Original &Size"
 msgstr ""
 
-#: ../musicview/__init__.py:276
+#: ../musicview/__init__.py:279
 msgid "Zoom Music"
 msgstr "Fai zoom sullo spartito"
 
-#: ../musicview/__init__.py:277
+#: ../musicview/__init__.py:280
 msgid "Fit &Width"
 msgstr "Adatta alla &larghezza"
 
-#: ../musicview/__init__.py:278
+#: ../musicview/__init__.py:281
 msgid "Fit &Height"
 msgstr "Adatta all'&altezza"
 
-#: ../musicview/__init__.py:279
+#: ../musicview/__init__.py:282
 msgid "Fit &Page"
 msgstr "Adatta alla &pagina"
 
-#: ../musicview/__init__.py:280
+#: ../musicview/__init__.py:283
+msgid "&Maximize"
+msgstr ""
+
+#: ../musicview/__init__.py:284
 msgid "&Jump to Cursor Position"
 msgstr "&Salta alla posizione del cursore"
 
-#: ../musicview/__init__.py:281
+#: ../musicview/__init__.py:285
 #, fuzzy
 msgid "S&ynchronize with Cursor Position"
 msgstr "S&incronizza l'anteprima con il documento attuale"
 
-#: ../musicview/__init__.py:282
+#: ../musicview/__init__.py:286
 msgid "Copy to &Image..."
 msgstr "Copia come &immagine..."
 
-#: ../musicview/__init__.py:283
+#: ../musicview/__init__.py:287
 msgid "Next Page"
 msgstr "Pagina successiva"
 
-#: ../musicview/__init__.py:284
+#: ../musicview/__init__.py:288
 msgid "Next"
 msgstr "Avanti"
 
-#: ../musicview/__init__.py:285
+#: ../musicview/__init__.py:289
 msgid "Previous Page"
 msgstr "Pagina precedente"
 
-#: ../musicview/__init__.py:286
+#: ../musicview/__init__.py:290
 msgid "Previous"
 msgstr "Indietro"
 
-#: ../musicview/__init__.py:425
+#: ../musicview/__init__.py:429
 msgid "Choose the PDF document to display."
 msgstr "Scegli il documento PDF da mostrare."
 
-#: ../musicview/__init__.py:427
+#: ../musicview/__init__.py:431
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -2489,20 +2494,20 @@ msgstr ""
 "Scegli il documento PDF da mostrare o trascina il file ad un'altra "
 "applicazione o posizione."
 
-#: ../musicview/__init__.py:485
+#: ../musicview/__init__.py:489
 msgid "Fit Width"
 msgstr "Adatta alla larghezza"
 
-#: ../musicview/__init__.py:486
+#: ../musicview/__init__.py:490
 msgid "Fit Height"
 msgstr "Adatta all'altezza"
 
-#: ../musicview/__init__.py:487
+#: ../musicview/__init__.py:491
 msgid "Fit Page"
 msgstr "Adatta alla pagina"
 
 #. L10N: page numbering: page {num} of {total}
-#: ../musicview/__init__.py:504
+#: ../musicview/__init__.py:508
 msgid "{num} of {total}"
 msgstr "{num} di {total}"
 
@@ -7048,6 +7053,10 @@ msgstr "Scegliere una cartella"
 #: ../widgets/urlrequester.py:111
 msgid "Select a file"
 msgstr "Scegliere un file"
+
+#~ msgctxt "submenu title"
+#~ msgid "Music &View"
+#~ msgstr "Anteprima &spartito"
 
 #, fuzzy
 #~ msgid "Edit in place"
