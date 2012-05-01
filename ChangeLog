@@ -2,6 +2,16 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
+Changes in 2.0.7 -- 
+
+* Translations:
+  - updated: nl
+* New features:
+  - command to show music view maximized, useful on small screens
+* Improvements:
+  - the 'View' -> 'Music View' submenu is now a top-level menu 'Music'
+
+
 Changes in 2.0.6 -- April 30th, 2012
 
 * Translations:
