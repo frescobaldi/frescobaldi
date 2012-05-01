@@ -85,6 +85,11 @@ class Panel(QDockWidget):
         if self.mainwindow().tabifiedDockWidgets(self) or self.isFloating():
             self.raise_()
     
+    def maximize(self):
+        """Show the dockwidget floating and maximized."""
+        self.setFloating(True)
+        self.showMaximized()
+    
     def translateUI(self):
         """Implement to set a title for the widget and its toggleViewAction."""
         raise NotImplementedError(

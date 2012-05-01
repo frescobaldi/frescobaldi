@@ -55,6 +55,7 @@ def createMenus(mainwindow):
         menu_file,
         menu_edit,
         menu_view,
+        menu_music,
         menu_insert,
         menu_lilypond,
         menu_tools,
@@ -154,7 +155,6 @@ def menu_view(mainwindow):
     m.addAction(documentactions.get(mainwindow).actionCollection.view_highlighting)
     m.addAction(sidebar.SideBarManager.instance(mainwindow).actionCollection.view_linenumbers)
     m.addMenu(menu_view_folding(mainwindow))
-    m.addMenu(menu_view_music(mainwindow))
     m.addSeparator()
     ac = bookmarkmanager.BookmarkManager.instance(mainwindow).actionCollection
     m.addAction(ac.view_bookmark)
@@ -184,8 +184,8 @@ def menu_view_folding(mainwindow):
     return m
 
 
-def menu_view_music(mainwindow):
-    m = Menu(_("submenu title", "Music &View"), mainwindow)
+def menu_music(mainwindow):
+    m = Menu(_("menu title", "&Music"), mainwindow)
     ac = panelmanager.manager(mainwindow).musicview.actionCollection
     
     m.addAction(ac.music_zoom_in)
@@ -199,6 +199,8 @@ def menu_view_music(mainwindow):
     m.addAction(ac.music_jump_to_cursor)
     m.addAction(ac.music_sync_cursor)
     m.addAction(ac.music_use_kinetic_scrolling)
+    m.addSeparator()
+    m.addAction(ac.music_maximize)
     return m
 
 
