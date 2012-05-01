@@ -63,7 +63,7 @@ def langs():
                 lang = locale.getdefaultlocale()[0]
             except ValueError:
                 return []
-        elif lang == "none":
+        if not lang or lang == "none":
             return []
     if '_' in lang:
         return [lang, lang.split('_')[0]]

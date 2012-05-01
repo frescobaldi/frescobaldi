@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-22 01:27+0200\n"
+"POT-Creation-Date: 2012-04-30 22:35+0200\n"
 "PO-Revision-Date: 2011-12-25 14:42-0500\n"
 "Last-Translator: Ryan Kavanagh <ryanakca@kubuntu.org>\n"
 "Language-Team: Français <>\n"
@@ -1144,11 +1144,11 @@ msgstr "({hostname})"
 msgid "Print"
 msgstr "Imprimer"
 
-#: ../docbrowser/browser.py:239
+#: ../docbrowser/browser.py:239 ../musicview/contextmenu.py:61
 msgid "Copy &Link"
 msgstr "Copier le &lien"
 
-#: ../docbrowser/browser.py:242
+#: ../docbrowser/browser.py:242 ../musicview/contextmenu.py:55
 msgid "Open Link in &New Window"
 msgstr "Ouvrir le lien dans une &nouvelle fenêtre"
 
@@ -1341,7 +1341,7 @@ msgid "Contents"
 msgstr "Table des matières"
 
 #: ../help/browser.py:89 ../help/browser.py:90 ../help/contents.py:70
-#: ../musicview/contextmenu.py:63 ../quickinsert/widget.py:106
+#: ../musicview/contextmenu.py:76 ../quickinsert/widget.py:106
 msgid "Help"
 msgstr "Aide"
 

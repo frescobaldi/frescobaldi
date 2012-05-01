@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-22 01:27+0200\n"
+"POT-Creation-Date: 2012-04-30 22:35+0200\n"
 "PO-Revision-Date: 2012-04-18 20:30+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -1135,11 +1135,11 @@ msgstr "({hostname})"
 msgid "Print"
 msgstr "Imprimir"
 
-#: ../docbrowser/browser.py:239
+#: ../docbrowser/browser.py:239 ../musicview/contextmenu.py:61
 msgid "Copy &Link"
 msgstr "Copiar en&lace"
 
-#: ../docbrowser/browser.py:242
+#: ../docbrowser/browser.py:242 ../musicview/contextmenu.py:55
 msgid "Open Link in &New Window"
 msgstr "Abrir enlace en una ventana &nueva"
 
@@ -1333,7 +1333,7 @@ msgid "Contents"
 msgstr "Contenido"
 
 #: ../help/browser.py:89 ../help/browser.py:90 ../help/contents.py:70
-#: ../musicview/contextmenu.py:63 ../quickinsert/widget.py:106
+#: ../musicview/contextmenu.py:76 ../quickinsert/widget.py:106
 msgid "Help"
 msgstr "Ayuda"
 
