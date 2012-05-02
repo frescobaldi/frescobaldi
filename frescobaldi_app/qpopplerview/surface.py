@@ -360,7 +360,7 @@ class Surface(QWidget):
             
         self.kineticStart(speed)
 
-    def kineticWheel(self, delta ):
+    def kineticAddDelta(self, delta ):
         speed = QPoint(0,0)
         
         # Get the remaining scroll amount.

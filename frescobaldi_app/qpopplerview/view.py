@@ -337,10 +337,33 @@ class View(QScrollArea):
             if ev.delta():
                 self.zoom(self.scale() * factor, ev.pos())
         elif self.kineticScrollingEnabled():
-            self.surface().kineticWheel(ev.delta())
+            self.surface().kineticAddDelta(ev.delta())
         else:
             super(View, self).wheelEvent(ev)
-     
+            
+    def keyPressEvent(self, ev):
+        if self.kineticScrollingEnabled():
+            if ev.key() == Qt.Key_PageDown:
+                self.surface().kineticAddDelta(-self.verticalScrollBar().pageStep())
+                return;
+            elif ev.key() == Qt.Key_PageUp:
+                self.surface().kineticAddDelta(self.verticalScrollBar().pageStep())
+                return;
+            elif ev.key() == Qt.Key_Down:
+                self.surface().kineticAddDelta(-self.verticalScrollBar().singleStep())
+                return;
+            elif ev.key() == Qt.Key_Up:
+                self.surface().kineticAddDelta(self.verticalScrollBar().singleStep())
+                return;
+            elif ev.key() == Qt.Key_Home:
+                self.surface().kineticAddDelta(self.verticalScrollBar().value())
+                return;
+            elif ev.key() == Qt.Key_End:
+                self.surface().kineticAddDelta(self.verticalScrollBar().value()-self.verticalScrollBar().maximum())
+                return;
+
+        super(View, self).keyPressEvent(ev)
+ 
     def currentPage(self):
         """Returns the Page currently mostly in the center, or None if there are no pages."""
         pos = self.viewport().rect().center() - self.surface().pos()
