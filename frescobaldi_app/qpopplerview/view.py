@@ -185,10 +185,15 @@ class View(QScrollArea):
             v.setValue(v.value() + diff.y())
             h.setValue(h.value() + diff.x())
     
-    def center(self, point):
+    def center(self, point, overrideKinetic=False):
         """Centers the given QPoint of the surface."""
-        size = self.surface().viewportRect().size()
-        self.ensureVisible( point.x(), point.y(), size.width()/2, size.height()/2)
+        if overrideKinetic:
+            diff = point - self.viewport().rect().center() + self.surface().pos()
+            self.surface().scrollBy(diff)
+            #super(View, self).ensureVisible( point.x(), point.y(), size.width()/2, size.height()/2)
+        else:
+            size = self.surface().viewportRect().size()
+            self.ensureVisible( point.x(), point.y(), size.width()/2, size.height()/2)
 
     def fit(self):
         """(Internal). Fits the layout according to the view mode.
@@ -411,8 +416,11 @@ class View(QScrollArea):
             return layout.index(page), x, y
         return None, None, None
 
-    def setPosition(self, position):
-        """Sets the position to a three-tuple as previously returned by position()."""
+    def setPosition(self, position, overrideKinetic=False):
+        """Sets the position to a three-tuple as previously returned by position().
+        
+        Settin overrideKinetic to true allows for fast setup, instead of scrolling all the way to the visible point.
+        """
         layout = self.surface().pageLayout()
         pageNum, x, y = position
         if pageNum is None or pageNum >= len(layout):
@@ -420,7 +428,8 @@ class View(QScrollArea):
         page = layout[pageNum]
         # center this point
         newPos = QPoint(round(x * page.width()), round(y * page.height())) + page.pos()
-        self.center(newPos)
+        self.center(newPos, overrideKinetic)
+
         
     def ensureVisible(self, x, y, xm=50, ym=50):     
         """

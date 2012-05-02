@@ -112,7 +112,7 @@ class MusicView(QWidget):
             self._links = pointandclick.links(document)
             self.view.load(document)
             position = self._positions.get(doc, (0, 0, 0))
-            self.view.setPosition(position)
+            self.view.setPosition(position, True)
 
     def clear(self):
         """Empties the view."""
