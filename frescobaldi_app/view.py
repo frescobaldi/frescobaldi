@@ -71,11 +71,7 @@ class View(QPlainTextEdit):
         app.settingsChanged.connect(self.readSettings)
         self.readSettings() # will also call updateCursor
         app.viewCreated(self)
-        if self.testAttribute(Qt.WA_InputMethodEnabled):
-            print "Input Method enabled"
-        else:
-            print "Input Method disabled"
-    
+
     def event(self, ev):
         # avoid the line separator, makes no sense in plain text
         if ev == QKeySequence.InsertLineSeparator:
