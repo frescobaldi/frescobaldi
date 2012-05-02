@@ -534,9 +534,9 @@ class Surface(QWidget):
                         self._kineticData._ticker.start(20, self)
                         
                 elif self._kineticData._state == KineticData.ManualScroll:
-                    pos = ev.pos()
-                    delta = pos - self._kineticData._pressPos
-                    self.setScrollOffset(self._kineticData._offset - delta)
+                    diff = self._dragPos - ev.globalPos()
+                    self._dragPos = ev.globalPos()
+                    self.scrollBy(diff) 
                     
                 elif self._kineticData._state == KineticData.Stop:
                     self._kineticData._state = KineticData.ManualScroll
