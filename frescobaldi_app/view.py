@@ -71,7 +71,7 @@ class View(QPlainTextEdit):
         app.settingsChanged.connect(self.readSettings)
         self.readSettings() # will also call updateCursor
         app.viewCreated(self)
-        
+
     def event(self, ev):
         # avoid the line separator, makes no sense in plain text
         if ev == QKeySequence.InsertLineSeparator:
