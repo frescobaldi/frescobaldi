@@ -66,6 +66,12 @@ def parse_commandline():
         dest="session")
     parser.add_option('-n', '--new', action="store_true", default=False,
         help=_("Always start a new instance"))
+    parser.add_option('-v', '--vm_type')
+    parser.add_option('-a', '--client')
+    parser.add_option('-p', '--port')
+    parser.add_option('-f', '--file')
+
+
 
     args = QApplication.arguments()
     if os.name == 'nt' and args and 'python' in os.path.basename(args[0]).lower():

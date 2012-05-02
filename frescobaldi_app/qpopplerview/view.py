@@ -26,6 +26,9 @@ View widget to display PDF documents.
 from PyQt4.QtCore import QPoint, QSize, QTimer, Qt, pyqtSignal
 from PyQt4.QtGui import QPalette, QScrollArea, QStyle
 
+from math import sqrt
+import copy
+from .surface import KineticData
 from . import surface
 from . import cache
 
@@ -59,6 +62,9 @@ class View(QScrollArea):
         # delayed resize
         self._centerPos = False
         self._resizeTimer = QTimer(singleShot = True, timeout = self._resizeTimeout)
+        
+        # kinetic scrolling
+        self._kineticScrolling = False
         
     def surface(self):
         """Returns our Surface, the widget drawing the page(s)."""
@@ -98,6 +104,23 @@ class View(QScrollArea):
         
         """
         self._wheelZoomEnabled = enabled
+        
+    def setKineticScrolling(self, enabled):
+        """Sets whether kinetic scrolling is enabled or not."""
+        
+        self._kineticScrolling = enabled
+        if enabled:
+            # Scrollbars? Who need scrollbars...
+            self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+            self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        else:
+            self.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+            self.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+    
+    def kineticScrollingEnabled(self):
+        """Returns whether kinetic scrolling is enabled."""
+        
+        return self._kineticScrolling
     
     def wheelZoomModifier(self):
         """Returns the modifier key to wheel-zoom with (defaults to Qt.CTRL)."""
@@ -155,13 +178,17 @@ class View(QScrollArea):
         """Scrolls the surface() by the distance given in the QPoint diff."""
         v = self.verticalScrollBar()
         h = self.horizontalScrollBar()
-        v.setValue(v.value() + diff.y())
-        h.setValue(h.value() + diff.x())
+            
+        if self._kineticScrolling:
+            self.surface().kineticMove(h.value(), v.value(), h.value()+diff.x(), v.value()+diff.y())
+        else:
+            v.setValue(v.value() + diff.y())
+            h.setValue(h.value() + diff.x())
     
     def center(self, point):
         """Centers the given QPoint of the surface."""
-        diff = point - self.viewport().rect().center() + self.surface().pos()
-        self.scrollSurface(diff)
+        size = self.surface().viewportRect().size()
+        self.ensureVisible( point.x(), point.y(), size.width()/2, size.height()/2)
 
     def fit(self):
         """(Internal). Fits the layout according to the view mode.
@@ -309,9 +336,11 @@ class View(QScrollArea):
             factor = 1.1 ** (ev.delta() / 120)
             if ev.delta():
                 self.zoom(self.scale() * factor, ev.pos())
+        elif self.kineticScrollingEnabled():
+            self.surface().kineticWheel(ev.delta())
         else:
             super(View, self).wheelEvent(ev)
-
+     
     def currentPage(self):
         """Returns the Page currently mostly in the center, or None if there are no pages."""
         pos = self.viewport().rect().center() - self.surface().pos()
@@ -369,5 +398,14 @@ class View(QScrollArea):
         # center this point
         newPos = QPoint(round(x * page.width()), round(y * page.height())) + page.pos()
         self.center(newPos)
-
+        
+    def ensureVisible(self, x, y, xm=50, ym=50):     
+        """
+        Reimplement ensureVisible to call the surface kinetic scroller timer if kinetic scrolling is enabled.
+        """
+        
+        if self._kineticScrolling:
+            self.surface().kineticEnsureVisible(x, y, xm, ym)
+        else:
+            super(View, self).ensureVisible(x, y, xm, ym)
 
