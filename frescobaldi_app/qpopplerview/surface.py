@@ -347,6 +347,9 @@ class Surface(QWidget):
         self.kineticMove(oldx, oldy, newx, newy)
         
     def kineticMove(self, oldx, oldy, newx, newy ):
+        if newx == oldx and newy == oldy:
+            return
+        
         speed = QPoint(0,0)
         # solve speed*(speed+1)/2 = delta to ensure 1+2+3+...+speed is at least equal to delta.
         speed.setX(1+(sqrt(1+8*abs(newx-oldx))+1)/2)
@@ -357,7 +360,7 @@ class Surface(QWidget):
             speed.setX(-speed.x())
         if newy > oldy :
             speed.setY(-speed.y())
-            
+        
         self.kineticStart(speed)
 
     def kineticAddDelta(self, delta ):
