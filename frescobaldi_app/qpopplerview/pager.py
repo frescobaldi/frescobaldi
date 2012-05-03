@@ -55,7 +55,7 @@ class Pager(QObject):
         view.surface().pageLayout().changed.connect(self._layoutChanged)
         
         # Connect to the kineticScrollingEnabled signal to avoid uneeded updates.
-        view.surface().kineticScrollingActive.connect(self.toggleListening)
+        view.surface().kineticScrollingActive.connect(self.blockListening)
         
     def currentPage(self):
         """Returns the current page number (0 if there are no pages)."""
@@ -94,12 +94,13 @@ class Pager(QObject):
         if old != self._currentPage:
             self.currentPageChanged.emit(self._currentPage)
 
-    def toggleListening(self, b):
-        """Toggle listening to event, used to avoid multiple updates when we know lots
+    def blockListening(self, block):
+        """Block/unblock listening to event, used to avoid multiple updates when we know lots
         of events are going to be sent to the pager."""
-        if self._listen != b:
-            self._listen = b
-            if b:
+        listen = not block
+        if self._listen != listen:
+            self._listen = listen
+            if listen:
                 self._updatePageNumber()
 
     def eventFilter(self, obj, ev):

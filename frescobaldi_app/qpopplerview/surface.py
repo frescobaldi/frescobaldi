@@ -407,7 +407,7 @@ class Surface(QWidget):
         self._kineticData._dragPos = self.pos()
         if not self._kineticData._ticker.isActive():
             self._kineticData._ticker.start(20, self)
-            self.kineticScrollingActive.emit(False)
+            self.kineticScrollingActive.emit(True)
 
     def mousePressEvent(self, ev):
         """Handle mouse press for various operations
@@ -547,7 +547,7 @@ class Surface(QWidget):
                     self._kineticData._dragPos = QCursor.pos()
                     if not self._kineticData._ticker.isActive():
                         self._kineticData._ticker.start(20, self)
-                        self.kineticScrollingActive.emit(False)
+                        self.kineticScrollingActive.emit(True)
                         
                 elif self._kineticData._state == KineticData.ManualScroll:
                     diff = self._dragPos - ev.globalPos()
@@ -559,7 +559,7 @@ class Surface(QWidget):
                     self._kineticData._dragPos = QCursor.pos()
                     if not self._kineticData._ticker.isActive():
                         self._kineticData._ticker.start(20, self)
-                        self.kineticScrollingActive.emit(False)
+                        self.kineticScrollingActive.emit(True)
             
             else:
                 diff = self._dragPos - ev.globalPos()
@@ -616,7 +616,7 @@ class Surface(QWidget):
     
         if count == 0:
             self._kineticData._ticker.stop()
-            self.kineticScrollingActive.emit(True)
+            self.kineticScrollingActive.emit(False)
     
         QWidget.timerEvent(self, event);
         
