@@ -111,6 +111,9 @@ class Surface(QWidget):
     linkLeft = pyqtSignal()
     linkHelpRequested = pyqtSignal(QPoint, page.Page, popplerqt4.Poppler.Link)    
     selectionChanged = pyqtSignal(QRect)
+    # signal emitted when kinetic scrolling starts/stops, to make it possible
+    # to shut down some event listeners until we're done.
+    kineticScrollingActive = pyqtSignal(bool)
     
     def __init__(self, view):
         super(Surface, self).__init__(view)
@@ -404,6 +407,7 @@ class Surface(QWidget):
         self._kineticData._dragPos = self.pos()
         if not self._kineticData._ticker.isActive():
             self._kineticData._ticker.start(20, self)
+            self.kineticScrollingActive.emit(False)
 
     def mousePressEvent(self, ev):
         """Handle mouse press for various operations
@@ -543,6 +547,7 @@ class Surface(QWidget):
                     self._kineticData._dragPos = QCursor.pos()
                     if not self._kineticData._ticker.isActive():
                         self._kineticData._ticker.start(20, self)
+                        self.kineticScrollingActive.emit(False)
                         
                 elif self._kineticData._state == KineticData.ManualScroll:
                     diff = self._dragPos - ev.globalPos()
@@ -554,6 +559,7 @@ class Surface(QWidget):
                     self._kineticData._dragPos = QCursor.pos()
                     if not self._kineticData._ticker.isActive():
                         self._kineticData._ticker.start(20, self)
+                        self.kineticScrollingActive.emit(False)
             
             else:
                 diff = self._dragPos - ev.globalPos()
@@ -610,6 +616,7 @@ class Surface(QWidget):
     
         if count == 0:
             self._kineticData._ticker.stop()
+            self.kineticScrollingActive.emit(True)
     
         QWidget.timerEvent(self, event);
         
