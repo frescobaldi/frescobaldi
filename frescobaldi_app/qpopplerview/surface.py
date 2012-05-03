@@ -351,15 +351,26 @@ class Surface(QWidget):
             return
         
         speed = QPoint(0,0)
-        # solve speed*(speed+1)/2 = delta to ensure 1+2+3+...+speed is at least equal to delta.
-        speed.setX(1+(sqrt(1+8*abs(newx-oldx))+1)/2)
-        speed.setY(1+(sqrt(1+8*abs(newy-oldy))+1)/2)
+        # solve speed*(speed+1)/2 = delta to ensure 1+2+3+...+speed is as close as possible under delta..
+        speed.setX((sqrt(1+8*abs(newx-oldx))-1)/2)
+        speed.setY((sqrt(1+8*abs(newy-oldy))-1)/2)
         
+        # compute the amount of displacement still needed because we're dealing with integer values.
+        diff = QPoint(0,0)
+        diff.setX(-abs(newx-oldx) + speed.x()*(speed.x()+1)/2)
+        diff.setY(-abs(newy-oldy) + speed.y()*(speed.y()+1)/2)
+
         # move left or right, up or down
         if newx > oldx :
             speed.setX(-speed.x())
+            diff.setX(-diff.x())
         if newy > oldy :
             speed.setY(-speed.y())
+            diff.setY(-diff.y())
+        
+        # move immediately by the step that cannot be handled by kinetic scrolling.
+        # By construction that step is smaller that the initial speed value.
+        self.scrollBy(diff)
         
         self.kineticStart(speed)
 
@@ -373,7 +384,7 @@ class Surface(QWidget):
             leftToScroll *= -1
         leftToScroll += delta
         
-        speed.setY(1+(sqrt(1+8*abs(leftToScroll))+1)/2)
+        speed.setY((sqrt(1+8*abs(leftToScroll))-1)/2)
         speed.setX( self._kineticData._speed.x() )
         if leftToScroll < 0:
             speed.setY(-speed.y())
@@ -586,7 +597,6 @@ class Surface(QWidget):
             self._kineticData._dragPos = cursorPos    
         elif self._kineticData._state == KineticData.AutoScroll:
             count += 1
-            self._kineticData._speed = deaccelerate(self._kineticData._speed, 1, self._kineticData._maxSpeed)
             p = self.scrollOffset()
 
             if self._kineticData._speed == QPoint(0, 0) or not self.setScrollOffset(p - self._kineticData._speed):
@@ -595,6 +605,8 @@ class Surface(QWidget):
                 self._kineticData._speed = QPoint(0,0)
                 # reset count to 0 to stop iterating.
                 count = 0
+                
+            self._kineticData._speed = deaccelerate(self._kineticData._speed, 1, self._kineticData._maxSpeed)
     
         if count == 0:
             self._kineticData._ticker.stop()
