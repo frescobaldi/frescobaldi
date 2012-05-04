@@ -133,6 +133,13 @@ class MusicView(QWidget):
         color = colors['selectionbackground']
         color.setAlpha(128)
         self._highlightFormat.setBackground(color)
+        kineticScrollingActive = QSettings().value("musicview/kinetic_scrolling", False) in (True, "true")
+        scrollbarsVisible = QSettings().value("musicview/show_scrollbars", False) in (True, "true")
+
+        self.view.setKineticScrolling(kineticScrollingActive)
+        self.view.setScrollbarsVisible(scrollbarsVisible)
+
+        self.parent().actionCollection.music_use_kinetic_scrolling.setChecked(kineticScrollingActive)
 
     def slotLinkClicked(self, ev, page, link):
         """Called when the use clicks a link.

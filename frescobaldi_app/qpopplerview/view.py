@@ -65,6 +65,7 @@ class View(QScrollArea):
         
         # kinetic scrolling
         self._kineticScrolling = False
+        self._scrollbarsVisible = True
         
     def surface(self):
         """Returns our Surface, the widget drawing the page(s)."""
@@ -105,12 +106,23 @@ class View(QScrollArea):
         """
         self._wheelZoomEnabled = enabled
         
+    def setScrollbarsVisible(self, enabled):
+        self._scrollbarsVisible = enabled
+        
+        if enabled:
+            # Scrollbars? Who need scrollbars...
+            self.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+            self.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        elif self._kineticScrolling:
+            # Only hide the scrollbars if we have kinetic Scrolling enabled.
+            self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+            self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+            
     def setKineticScrolling(self, enabled):
         """Sets whether kinetic scrolling is enabled or not."""
         
         self._kineticScrolling = enabled
-        if enabled:
-            # Scrollbars? Who need scrollbars...
+        if enabled and not self._scrollbarsVisible:
             self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
             self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         else:
