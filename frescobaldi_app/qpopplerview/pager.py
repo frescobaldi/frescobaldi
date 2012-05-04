@@ -103,8 +103,6 @@ class Pager(QObject):
             self._blockLevel += 1
         else:
             self._blockLevel -= 1
-
-        print "BlockLevel: ", self._blockLevel
         
         if self._blockLevel == 0:
             self._updatePageNumber()
