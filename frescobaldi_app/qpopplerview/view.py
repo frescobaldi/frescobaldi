@@ -187,15 +187,13 @@ class View(QScrollArea):
             page.repaint()
 
     def scrollSurface(self, diff, overrideKinetic=False):
-        """Scrolls the surface() by the distance given in the QPoint diff."""
-        v = self.verticalScrollBar()
-        h = self.horizontalScrollBar()
-            
+        """Scrolls the surface() by the distance given in the QPoint diff."""          
         if self._kineticScrolling and not overrideKinetic:
+            v = self.verticalScrollBar()
+            h = self.horizontalScrollBar()
             self.surface().kineticMove(h.value(), v.value(), h.value()+diff.x(), v.value()+diff.y())
         else:
-            v.setValue(v.value() + diff.y())
-            h.setValue(h.value() + diff.x())
+            self.surface().scrollBy(diff)
     
     def center(self, point, overrideKinetic=False):
         """Centers the given QPoint of the surface."""
