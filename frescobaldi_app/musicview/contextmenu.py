@@ -70,6 +70,7 @@ def show(position, panel, link, cursor):
         m.addAction(panel.actionCollection.music_zoom_original)
         m.addSeparator()
         m.addAction(panel.actionCollection.music_sync_cursor)
+        m.addAction(panel.actionCollection.music_use_kinetic_scrolling)
     
     # help
     m.addSeparator()
