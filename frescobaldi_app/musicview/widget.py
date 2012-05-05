@@ -139,8 +139,6 @@ class MusicView(QWidget):
         self.view.setKineticScrolling(kineticScrollingActive)
         self.view.setScrollbarsVisible(scrollbarsVisible)
 
-        self.parent().actionCollection.music_use_kinetic_scrolling.setChecked(kineticScrollingActive)
-
     def slotLinkClicked(self, ev, page, link):
         """Called when the use clicks a link.
         

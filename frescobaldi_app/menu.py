@@ -198,7 +198,6 @@ def menu_music(mainwindow):
     m.addSeparator()
     m.addAction(ac.music_jump_to_cursor)
     m.addAction(ac.music_sync_cursor)
-    m.addAction(ac.music_use_kinetic_scrolling)
     m.addSeparator()
     m.addAction(ac.music_maximize)
     return m
