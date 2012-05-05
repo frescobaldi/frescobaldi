@@ -111,6 +111,9 @@ class Surface(QWidget):
     linkLeft = pyqtSignal()
     linkHelpRequested = pyqtSignal(QPoint, page.Page, popplerqt4.Poppler.Link)    
     selectionChanged = pyqtSignal(QRect)
+    # signal emitted when kinetic scrolling starts/stops, to make it possible
+    # to shut down some event listeners until we're done.
+    kineticScrollingActive = pyqtSignal(bool)
     
     def __init__(self, view):
         super(Surface, self).__init__(view)
@@ -347,20 +350,46 @@ class Surface(QWidget):
         self.kineticMove(oldx, oldy, newx, newy)
         
     def kineticMove(self, oldx, oldy, newx, newy ):
+        if newx == oldx and newy == oldy:
+            return
+        
         speed = QPoint(0,0)
-        # solve speed*(speed+1)/2 = delta to ensure 1+2+3+...+speed is at least equal to delta.
-        speed.setX(1+(sqrt(1+8*abs(newx-oldx))+1)/2)
-        speed.setY(1+(sqrt(1+8*abs(newy-oldy))+1)/2)
+        # solve speed*(speed+1)/2 = delta to ensure 1+2+3+...+speed is as close as possible under delta..
+        speed.setX((sqrt(1+8*abs(newx-oldx))-1)/2)
+        speed.setY((sqrt(1+8*abs(newy-oldy))-1)/2)
+        
+        # compute the amount of displacement still needed because we're dealing with integer values.
+        diff = QPoint(0,0)
+        diff.setX(-abs(newx-oldx) + speed.x()*(speed.x()+1)/2)
+        diff.setY(-abs(newy-oldy) + speed.y()*(speed.y()+1)/2)
+
+        # Since this function is called for exact moves (not free scrolling)
+        # limit the kinetic time to 2 seconds, which means 100 ticks, 5050 pixels.
+        if speed.y() > 100:
+            speed.setY(100)
+            diff.setY(-abs(newy-oldy) + 5050)
+            
+        # Although it is less likely to go beyond that limit for horizontal scrolling,
+        # do it for x as well.
+        if speed.x() > 100:
+            speed.setX(100)
+            diff.setX(-abs(newx-oldx) + 5050)
         
         # move left or right, up or down
         if newx > oldx :
             speed.setX(-speed.x())
+            diff.setX(-diff.x())
         if newy > oldy :
             speed.setY(-speed.y())
-            
+            diff.setY(-diff.y())
+        
+        # move immediately by the step that cannot be handled by kinetic scrolling.
+        # By construction that step is smaller that the initial speed value.
+        self.scrollBy(diff)
+        
         self.kineticStart(speed)
 
-    def kineticWheel(self, delta ):
+    def kineticAddDelta(self, delta ):
         speed = QPoint(0,0)
         
         # Get the remaining scroll amount.
@@ -370,7 +399,7 @@ class Surface(QWidget):
             leftToScroll *= -1
         leftToScroll += delta
         
-        speed.setY(1+(sqrt(1+8*abs(leftToScroll))+1)/2)
+        speed.setY((sqrt(1+8*abs(leftToScroll))-1)/2)
         speed.setX( self._kineticData._speed.x() )
         if leftToScroll < 0:
             speed.setY(-speed.y())
@@ -390,6 +419,7 @@ class Surface(QWidget):
         self._kineticData._dragPos = self.pos()
         if not self._kineticData._ticker.isActive():
             self._kineticData._ticker.start(20, self)
+            self.kineticScrollingActive.emit(True)
 
     def mousePressEvent(self, ev):
         """Handle mouse press for various operations
@@ -529,17 +559,19 @@ class Surface(QWidget):
                     self._kineticData._dragPos = QCursor.pos()
                     if not self._kineticData._ticker.isActive():
                         self._kineticData._ticker.start(20, self)
+                        self.kineticScrollingActive.emit(True)
                         
                 elif self._kineticData._state == KineticData.ManualScroll:
-                    pos = ev.pos()
-                    delta = pos - self._kineticData._pressPos
-                    self.setScrollOffset(self._kineticData._offset - delta)
+                    diff = self._dragPos - ev.globalPos()
+                    self._dragPos = ev.globalPos()
+                    self.scrollBy(diff) 
                     
                 elif self._kineticData._state == KineticData.Stop:
                     self._kineticData._state = KineticData.ManualScroll
                     self._kineticData._dragPos = QCursor.pos()
                     if not self._kineticData._ticker.isActive():
                         self._kineticData._ticker.start(20, self)
+                        self.kineticScrollingActive.emit(True)
             
             else:
                 diff = self._dragPos - ev.globalPos()
@@ -583,7 +615,6 @@ class Surface(QWidget):
             self._kineticData._dragPos = cursorPos    
         elif self._kineticData._state == KineticData.AutoScroll:
             count += 1
-            self._kineticData._speed = deaccelerate(self._kineticData._speed, 1, self._kineticData._maxSpeed)
             p = self.scrollOffset()
 
             if self._kineticData._speed == QPoint(0, 0) or not self.setScrollOffset(p - self._kineticData._speed):
@@ -592,9 +623,12 @@ class Surface(QWidget):
                 self._kineticData._speed = QPoint(0,0)
                 # reset count to 0 to stop iterating.
                 count = 0
+                
+            self._kineticData._speed = deaccelerate(self._kineticData._speed, 1, self._kineticData._maxSpeed)
     
         if count == 0:
             self._kineticData._ticker.stop()
+            self.kineticScrollingActive.emit(False)
     
         QWidget.timerEvent(self, event);
         

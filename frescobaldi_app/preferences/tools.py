@@ -135,6 +135,12 @@ class MusicView(preferences.Group):
         layout.addWidget(self.magnifierScaleSlider, 1, 1)
         layout.addWidget(self.magnifierScaleSpinBox, 1, 2)
         
+        self.enableKineticScrolling = QCheckBox(toggled=self.changed)
+        layout.addWidget(self.enableKineticScrolling)
+        self.showScrollbars = QCheckBox(toggled=self.changed)
+        layout.addWidget(self.showScrollbars)
+        # Hiding the scrollbars only make sense if kinetic scrolling is enabled.
+        self.enableKineticScrolling.toggled.connect(self.showScrollbars.setEnabled) 
         app.translateUI(self)
         
     def translateUI(self):
@@ -148,11 +154,20 @@ class MusicView(preferences.Group):
         self.magnifierScaleLabel.setToolTip(_(
             "Magnification of the magnifier."))
         self.magnifierScaleSpinBox.setSuffix(_("percent unit sign", "%"))
+        self.enableKineticScrolling.setText(_("Enable kinetic scrolling"))
+        self.showScrollbars.setText(_("Show Scrollbars"))
             
     def loadSettings(self):
         s = popplerview.MagnifierSettings.load()
         self.magnifierSizeSlider.setValue(s.size)
         self.magnifierScaleSlider.setValue(s.scale)
+        
+        ks = QSettings()
+        kineticScrollingActive = ks.value("musicview/kinetic_scrolling", False) in (True, "true")
+        self.enableKineticScrolling.setChecked( kineticScrollingActive )
+        showScrollbars = ks.value("musicview/show_scrollbars", False) in (True, "true")
+        self.showScrollbars.setChecked( showScrollbars )
+        self.showScrollbars.setEnabled( kineticScrollingActive )
     
     def saveSettings(self):
         s = popplerview.MagnifierSettings()
@@ -160,6 +175,9 @@ class MusicView(preferences.Group):
         s.scale = self.magnifierScaleSlider.value()
         s.save()
 
+        ks = QSettings()
+        ks.setValue("musicview/kinetic_scrolling", self.enableKineticScrolling.isChecked())
+        ks.setValue("musicview/show_scrollbars", self.showScrollbars.isChecked())
 
 class CharMap(preferences.Group):
     def __init__(self, page):
