@@ -186,12 +186,12 @@ class View(QScrollArea):
         for page in pages:
             page.repaint()
 
-    def scrollSurface(self, diff):
+    def scrollSurface(self, diff, overrideKinetic=False):
         """Scrolls the surface() by the distance given in the QPoint diff."""
         v = self.verticalScrollBar()
         h = self.horizontalScrollBar()
             
-        if self._kineticScrolling:
+        if self._kineticScrolling and not overrideKinetic:
             self.surface().kineticMove(h.value(), v.value(), h.value()+diff.x(), v.value()+diff.y())
         else:
             v.setValue(v.value() + diff.y())
@@ -339,7 +339,7 @@ class View(QScrollArea):
             self.setScale(scale)
             newPos = QPoint(round(x * self.surface().width()), round(y * self.surface().height()))
         surfacePos = pos - self.surface().pos()
-        self.scrollSurface(newPos - surfacePos)
+        self.scrollSurface(newPos - surfacePos, True)
             
     def zoomIn(self, pos=None, factor=1.1):
         self.zoom(self.scale() * factor, pos)
