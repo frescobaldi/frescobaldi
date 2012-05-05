@@ -139,8 +139,6 @@ class MusicView(preferences.Group):
         layout.addWidget(self.enableKineticScrolling)
         self.showScrollbars = QCheckBox(toggled=self.changed)
         layout.addWidget(self.showScrollbars)
-        # Hiding the scrollbars only make sense if kinetic scrolling is enabled.
-        self.enableKineticScrolling.toggled.connect(self.showScrollbars.setEnabled) 
         app.translateUI(self)
         
     def translateUI(self):
@@ -167,7 +165,6 @@ class MusicView(preferences.Group):
         self.enableKineticScrolling.setChecked( kineticScrollingActive )
         showScrollbars = ks.value("musicview/show_scrollbars", False) in (True, "true")
         self.showScrollbars.setChecked( showScrollbars )
-        self.showScrollbars.setEnabled( kineticScrollingActive )
     
     def saveSettings(self):
         s = popplerview.MagnifierSettings()

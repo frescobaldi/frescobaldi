@@ -110,11 +110,9 @@ class View(QScrollArea):
         self._scrollbarsVisible = enabled
         
         if enabled:
-            # Scrollbars? Who need scrollbars...
             self.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
             self.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-        elif self._kineticScrolling:
-            # Only hide the scrollbars if we have kinetic Scrolling enabled.
+        else:
             self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
             self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
             
@@ -122,12 +120,6 @@ class View(QScrollArea):
         """Sets whether kinetic scrolling is enabled or not."""
         
         self._kineticScrolling = enabled
-        if enabled and not self._scrollbarsVisible:
-            self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-            self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        else:
-            self.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-            self.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
     
     def kineticScrollingEnabled(self):
         """Returns whether kinetic scrolling is enabled."""
