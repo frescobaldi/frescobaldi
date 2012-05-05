@@ -363,6 +363,18 @@ class Surface(QWidget):
         diff.setX(-abs(newx-oldx) + speed.x()*(speed.x()+1)/2)
         diff.setY(-abs(newy-oldy) + speed.y()*(speed.y()+1)/2)
 
+        # Since this function is called for exact moves (not free scrolling)
+        # limit the kinetic time to 2 seconds, which means 100 ticks, 5050 pixels.
+        if speed.y() > 100:
+            speed.setY(100)
+            diff.setY(-abs(newy-oldy) + 5050)
+            
+        # Although it is less likely to go beyond that limit for horizontal scrolling,
+        # do it for x as well.
+        if speed.x() > 100:
+            speed.setX(100)
+            diff.setX(-abs(newx-oldx) + 5050)
+        
         # move left or right, up or down
         if newx > oldx :
             speed.setX(-speed.x())
