@@ -100,7 +100,6 @@ class MusicViewPanel(panel.Panel):
         ac.music_maximize.triggered.connect(self.maximize)
         ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
         ac.music_sync_cursor.triggered.connect(self.toggleSyncCursor)
-        ac.music_use_kinetic_scrolling.triggered.connect(self.toggleKineticScrolling)
         ac.music_copy_image.triggered.connect(self.copyImage)
         ac.music_document_select.documentsChanged.connect(self.updateActions)
         ac.music_copy_image.setEnabled(False)
@@ -111,9 +110,7 @@ class MusicViewPanel(panel.Panel):
         ac.music_prev_page.setEnabled(False)
         self.actionCollection.music_sync_cursor.setChecked(
             QSettings().value("musicview/sync_cursor", False) in (True, "true"))
-        self.actionCollection.music_use_kinetic_scrolling.setChecked(
-            QSettings().value("musicview/kinetic_scrolling", False) in (True, "true"))
-        
+                
     def translateUI(self):
         self.setWindowTitle(_("window title", "Music View"))
         self.toggleViewAction().setText(_("&Music View"))
@@ -124,7 +121,6 @@ class MusicViewPanel(panel.Panel):
         w.zoomChanged.connect(self.slotMusicZoomChanged)
         w.updateZoomInfo()
         w.view.surface().selectionChanged.connect(self.updateSelection)
-        w.view.setKineticScrolling(self.actionCollection.music_use_kinetic_scrolling.isChecked())
         
         import qpopplerview.pager
         self._pager = p = qpopplerview.pager.Pager(w.view)
@@ -212,13 +208,6 @@ class MusicViewPanel(panel.Panel):
     def toggleSyncCursor(self):
         QSettings().setValue("musicview/sync_cursor",
             self.actionCollection.music_sync_cursor.isChecked())
-
-    def toggleKineticScrolling(self):
-        active = self.actionCollection.music_use_kinetic_scrolling.isChecked()
-        QSettings().setValue("musicview/kinetic_scrolling", active)
-        
-        # notify the view.
-        self.widget().view.setKineticScrolling(active)
      
     def copyImage(self):
         from . import image
@@ -256,7 +245,6 @@ class Actions(actioncollection.ActionCollection):
         self.music_maximize = QAction(panel)
         self.music_jump_to_cursor = QAction(panel)
         self.music_sync_cursor = QAction(panel, checkable=True)
-        self.music_use_kinetic_scrolling = QAction(panel, checkable=True)
         self.music_copy_image = QAction(panel)
         self.music_pager = PagerAction(panel)
         self.music_next_page = QAction(panel)
@@ -295,7 +283,6 @@ class Actions(actioncollection.ActionCollection):
         self.music_maximize.setText(_("&Maximize"))
         self.music_jump_to_cursor.setText(_("&Jump to Cursor Position"))
         self.music_sync_cursor.setText(_("S&ynchronize with Cursor Position"))
-        self.music_use_kinetic_scrolling.setText(_("Use &Kinetic scrolling"))
         self.music_copy_image.setText(_("Copy to &Image..."))
         self.music_next_page.setText(_("Next Page"))
         self.music_next_page.setIconText(_("Next"))

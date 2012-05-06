@@ -110,11 +110,9 @@ class View(QScrollArea):
         self._scrollbarsVisible = enabled
         
         if enabled:
-            # Scrollbars? Who need scrollbars...
             self.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
             self.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-        elif self._kineticScrolling:
-            # Only hide the scrollbars if we have kinetic Scrolling enabled.
+        else:
             self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
             self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
             
@@ -122,12 +120,6 @@ class View(QScrollArea):
         """Sets whether kinetic scrolling is enabled or not."""
         
         self._kineticScrolling = enabled
-        if enabled and not self._scrollbarsVisible:
-            self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-            self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        else:
-            self.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-            self.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
     
     def kineticScrollingEnabled(self):
         """Returns whether kinetic scrolling is enabled."""
@@ -186,16 +178,14 @@ class View(QScrollArea):
         for page in pages:
             page.repaint()
 
-    def scrollSurface(self, diff):
-        """Scrolls the surface() by the distance given in the QPoint diff."""
-        v = self.verticalScrollBar()
-        h = self.horizontalScrollBar()
-            
-        if self._kineticScrolling:
+    def scrollSurface(self, diff, overrideKinetic=False):
+        """Scrolls the surface() by the distance given in the QPoint diff."""          
+        if self._kineticScrolling and not overrideKinetic:
+            v = self.verticalScrollBar()
+            h = self.horizontalScrollBar()
             self.surface().kineticMove(h.value(), v.value(), h.value()+diff.x(), v.value()+diff.y())
         else:
-            v.setValue(v.value() + diff.y())
-            h.setValue(h.value() + diff.x())
+            self.surface().scrollBy(diff)
     
     def center(self, point, overrideKinetic=False):
         """Centers the given QPoint of the surface."""
@@ -339,7 +329,7 @@ class View(QScrollArea):
             self.setScale(scale)
             newPos = QPoint(round(x * self.surface().width()), round(y * self.surface().height()))
         surfacePos = pos - self.surface().pos()
-        self.scrollSurface(newPos - surfacePos)
+        self.scrollSurface(newPos - surfacePos, True)
             
     def zoomIn(self, pos=None, factor=1.1):
         self.zoom(self.scale() * factor, pos)
