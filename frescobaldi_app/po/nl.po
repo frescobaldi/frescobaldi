@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2012-05-06 17:31+0200\n"
-"PO-Revision-Date: 2012-05-06 17:31+0200\n"
+"PO-Revision-Date: 2012-05-07 01:01+0200\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -56,7 +56,7 @@ msgstr "De volgende personen hebben bijgedragen aan {appname}:"
 
 #: ../about.py:64
 msgid "{author}: Kinetic Scrolling for the Music View"
-msgstr "{author}: Kinetic Scrolling in the muziekweergave"
+msgstr "{author}: Kinetische schuifbeweging in de muziekweergave"
 
 #: ../about.py:69
 msgid "{appname} is translated into the following languages:"
