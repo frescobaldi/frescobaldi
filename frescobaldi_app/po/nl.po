@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-05-01 23:15+0200\n"
-"PO-Revision-Date: 2012-05-01 23:15+0200\n"
+"POT-Creation-Date: 2012-05-06 17:23+0200\n"
+"PO-Revision-Date: 2012-05-06 17:25+0200\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -51,51 +51,59 @@ msgid "The Tango Desktop Project"
 msgstr "Het Tango Desktop-project"
 
 #: ../about.py:61
+msgid "The following people contributed to {appname}:"
+msgstr "De volgende personen hebben bijgedragen aan {appname}:"
+
+#: ../about.py:64
+msgid "{author}: Kinetic Scrolling for the Music View"
+msgstr "{author}: Kinetic Scrolling in the muziekweergave"
+
+#: ../about.py:69
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} is vertaald in de volgende talen:"
 
-#: ../about.py:80
+#: ../about.py:88
 msgid "About {appname}"
 msgstr "Over {appname}"
 
-#: ../about.py:87
+#: ../about.py:95
 msgid "About"
 msgstr "Over"
 
-#: ../about.py:88 ../help/contents.py:330
+#: ../about.py:96 ../help/contents.py:330
 msgid "Credits"
 msgstr "Dank aan"
 
-#: ../about.py:89
+#: ../about.py:97
 msgid "Version"
 msgstr "Versie"
 
-#: ../about.py:144
+#: ../about.py:152
 msgid "Operating System"
 msgstr "Besturingssysteem"
 
-#: ../about.py:151
+#: ../about.py:159
 msgid "Version {version}"
 msgstr "Versie {version}"
 
-#: ../about.py:152 ../main.py:57
+#: ../about.py:160 ../main.py:57
 msgid "A LilyPond Music Editor"
 msgstr "Een muziek-editor voor LilyPond"
 
-#: ../about.py:153
+#: ../about.py:161
 msgid "Copyright (c) {year} by {author}"
 msgstr "Copyright (c) {year} door {author}"
 
-#: ../about.py:157
+#: ../about.py:165
 msgid "Send an e-mail message to the maintainers."
 msgstr "Een e-mailbericht sturen naar de auteurs."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: ../about.py:160 ../help/contents.py:57
+#: ../about.py:168 ../help/contents.py:57
 msgid "Translated by Your Name."
 msgstr "Vertaald door Wilbert Berendsen."
 
-#: ../about.py:165
+#: ../about.py:173
 msgid "Licensed under the {gpl}."
 msgstr "Beschikbaar onder de {gpl}."
 
@@ -1069,7 +1077,7 @@ msgstr "Automatisch &aanvullen"
 msgid "Show C&ompletions Popup"
 msgstr "Aanvullingen &weergeven"
 
-#: ../charmap/__init__.py:40 ../preferences/tools.py:186
+#: ../charmap/__init__.py:40 ../preferences/tools.py:201
 msgid "Special Characters"
 msgstr "Speciale tekens"
 
@@ -1143,7 +1151,7 @@ msgstr "Document in &nieuw venster openen"
 msgid "LilyPond Source"
 msgstr "LilyPond-bron"
 
-#: ../doclist/__init__.py:39 ../preferences/tools.py:219
+#: ../doclist/__init__.py:39 ../preferences/tools.py:234
 msgid "Documents"
 msgstr "Documenten"
 
@@ -3107,7 +3115,7 @@ msgid "English (untranslated)"
 msgstr "Engels (onvertaald)"
 
 #: ../preferences/documentation.py:126 ../preferences/fontscolors.py:122
-#: ../preferences/tools.py:81 ../preferences/tools.py:187
+#: ../preferences/tools.py:81 ../preferences/tools.py:202
 msgid "Font:"
 msgstr "Lettertype:"
 
@@ -4001,37 +4009,45 @@ msgstr ""
 "Indien ingeschakeld, zal Frescobaldi lange bestandsnamen in de loguitvoer "
 "niet inkorten."
 
-#: ../preferences/tools.py:141
+#: ../preferences/tools.py:145
 msgid "Music View"
 msgstr "Muziekweergave"
 
-#: ../preferences/tools.py:142
+#: ../preferences/tools.py:146
 msgid "Magnifier Size:"
 msgstr "Grootte van vergrootglas:"
 
-#: ../preferences/tools.py:144
+#: ../preferences/tools.py:148
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr "Grootte van het vergrootglas (Control+klik in muziekweergave)."
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: ../preferences/tools.py:146
+#: ../preferences/tools.py:150
 msgid " pixels"
 msgstr " pixels"
 
-#: ../preferences/tools.py:147
+#: ../preferences/tools.py:151
 msgid "Magnifier Scale:"
 msgstr "Schaal van vergrootglas:"
 
-#: ../preferences/tools.py:149
+#: ../preferences/tools.py:153
 msgid "Magnification of the magnifier."
 msgstr "Vergroting van het vergrootglas."
 
-#: ../preferences/tools.py:150
+#: ../preferences/tools.py:154
 msgctxt "percent unit sign"
 msgid "%"
 msgstr "%"
 
-#: ../preferences/tools.py:220
+#: ../preferences/tools.py:155
+msgid "Enable kinetic scrolling"
+msgstr "Kinetisch schuiven"
+
+#: ../preferences/tools.py:156
+msgid "Show Scrollbars"
+msgstr "Schuifbalken weergeven"
+
+#: ../preferences/tools.py:235
 msgid "Group documents by directory"
 msgstr "Documenten per map groeperen"
 

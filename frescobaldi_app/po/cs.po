@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-04-30 22:35+0200\n"
+"POT-Creation-Date: 2012-05-06 17:23+0200\n"
 "PO-Revision-Date: 2012-05-02 09:13+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -54,51 +54,60 @@ msgid "The Tango Desktop Project"
 msgstr "Projekt pro pracovní plochu Tango"
 
 #: ../about.py:61
+#, fuzzy
+msgid "The following people contributed to {appname}:"
+msgstr "Budou provedena následující nahrazení:"
+
+#: ../about.py:64
+msgid "{author}: Kinetic Scrolling for the Music View"
+msgstr ""
+
+#: ../about.py:69
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} je přeložen do následujících jazyků:"
 
-#: ../about.py:80
+#: ../about.py:88
 msgid "About {appname}"
 msgstr "O {appname}"
 
-#: ../about.py:87
+#: ../about.py:95
 msgid "About"
 msgstr "O programu"
 
-#: ../about.py:88 ../help/contents.py:330
+#: ../about.py:96 ../help/contents.py:330
 msgid "Credits"
 msgstr "Zásluhy"
 
-#: ../about.py:89
+#: ../about.py:97
 msgid "Version"
 msgstr "Verze"
 
-#: ../about.py:144
+#: ../about.py:152
 msgid "Operating System"
 msgstr "Operační systém"
 
-#: ../about.py:151
+#: ../about.py:159
 msgid "Version {version}"
 msgstr "Verze {version}"
 
-#: ../about.py:152 ../main.py:57
+#: ../about.py:160 ../main.py:57
 msgid "A LilyPond Music Editor"
 msgstr "Hudební editor pro LilyPond"
 
-#: ../about.py:153
+#: ../about.py:161
 msgid "Copyright (c) {year} by {author}"
 msgstr "Autorské právo (c) {year} od {author}"
 
-#: ../about.py:157
+#: ../about.py:165
 msgid "Send an e-mail message to the maintainers."
 msgstr "Poslat zprávu jako dopis elektronické pošty údržbářům."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: ../about.py:160 ../help/contents.py:57
+#: ../about.py:168 ../help/contents.py:57
 msgid "Translated by Your Name."
 msgstr "Přeloženo: Pavel Fric."
 
-#: ../about.py:165
+#: ../about.py:173
 msgid "Licensed under the {gpl}."
 msgstr "Licencováno pod {gpl}."
 
@@ -867,22 +876,22 @@ msgstr "Nahlásit &chybu..."
 msgid "&About {appname}..."
 msgstr "&O {appname}..."
 
-#: ../menu.py:82
+#: ../menu.py:83
 msgctxt "menu title"
 msgid "&File"
 msgstr "&Soubor"
 
-#: ../menu.py:113
+#: ../menu.py:114
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Vyvést"
 
-#: ../menu.py:121
+#: ../menu.py:122
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "&Úpravy"
 
-#: ../menu.py:148
+#: ../menu.py:149
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Pohled"
@@ -893,41 +902,42 @@ msgid "&Folding"
 msgstr "&Skládání"
 
 #: ../menu.py:188
-msgctxt "submenu title"
-msgid "Music &View"
-msgstr "P&ohled na noty"
+#, fuzzy
+msgctxt "menu title"
+msgid "&Music"
+msgstr "Pohled na &hudbu"
 
-#: ../menu.py:209
+#: ../menu.py:211
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:228
+#: ../menu.py:230
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Nástroje"
 
-#: ../menu.py:254
+#: ../menu.py:256
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Slova písně"
 
-#: ../menu.py:266
+#: ../menu.py:268
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Výška tónu"
 
-#: ../menu.py:280
+#: ../menu.py:282
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Rytmus"
 
-#: ../menu.py:308
+#: ../menu.py:310
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Okno"
 
-#: ../menu.py:328
+#: ../menu.py:330
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Nápověda"
@@ -1075,7 +1085,7 @@ msgstr "Automatické &dokončení"
 msgid "Show C&ompletions Popup"
 msgstr "Ukázat vyskakovací do&končení"
 
-#: ../charmap/__init__.py:40 ../preferences/tools.py:186
+#: ../charmap/__init__.py:40 ../preferences/tools.py:201
 msgid "Special Characters"
 msgstr "Zvláštní znaky"
 
@@ -1149,7 +1159,7 @@ msgstr "Otevřít dokument v &novém okně"
 msgid "LilyPond Source"
 msgstr "Zdroj LilyPond"
 
-#: ../doclist/__init__.py:39 ../preferences/tools.py:219
+#: ../doclist/__init__.py:39 ../preferences/tools.py:234
 msgid "Documents"
 msgstr "Dokumenty"
 
@@ -1670,9 +1680,8 @@ msgid ""
 "its definition in the text document."
 msgstr ""
 "Když byl LilyPond spuštěn v režimu náhledu (tj. s vypnutou funkcí Ukaž a "
-"klepni), "
-"obsahuje PDF klepnutelný odkaz pro každý předmět not, který odkazuje na jeho "
-"vymezení v textovém dokumentu."
+"klepni), obsahuje PDF klepnutelný odkaz pro každý předmět not, který "
+"odkazuje na jeho vymezení v textovém dokumentu."
 
 #: ../help/contents.py:240
 msgid ""
@@ -1680,12 +1689,12 @@ msgid ""
 "with the text document:"
 msgstr ""
 "Pohled na noty používá tuto informaci pro poskytnutí chytrého, dvoucestného "
-"propojení "
-"s textovým dokumentem:"
+"propojení s textovým dokumentem:"
 
 #: ../help/contents.py:243
 msgid "Move the mouse pointer over music objects to highlight them in the text"
-msgstr "Přesuňte ukazovátko myši nad předměty not pro jejich zvýraznění v textu"
+msgstr ""
+"Přesuňte ukazovátko myši nad předměty not pro jejich zvýraznění v textu"
 
 #: ../help/contents.py:244
 msgid "Click an object to move the text cursor to that object"
@@ -1710,7 +1719,8 @@ msgid "You can also adjust the view:"
 msgstr "Také můžete přizpůsobit pohled:"
 
 #: ../help/contents.py:252
-msgid "Use the Control (or Command) key with the mouse wheel to zoom in and out"
+msgid ""
+"Use the Control (or Command) key with the mouse wheel to zoom in and out"
 msgstr ""
 "Použijte klávesu Control (nebo Command) s kolečkem myši pro přiblížení nebo "
 "oddálení"
@@ -1753,12 +1763,9 @@ msgid ""
 "clipboard, a file or another application."
 msgstr ""
 "Noty můžete kopírovat přímo z pohledu PDF do rastrového obrázku: Podržte "
-"klávesu "
-"Shift a táhněte obdélníkový výběr (nebo použijte pravé tlačítko myši), a pak "
-"stiskněte "
-"{key} nebo vyberte {menu} pro zkopírování vybraných not jako rastrového "
-"obrázku do "
-"schránky, souboru nebo jiného programu."
+"klávesu Shift a táhněte obdélníkový výběr (nebo použijte pravé tlačítko "
+"myši), a pak stiskněte {key} nebo vyberte {menu} pro zkopírování vybraných "
+"not jako rastrového obrázku do schránky, souboru nebo jiného programu."
 
 #: ../help/contents.py:278
 msgid "Other Tools"
@@ -2108,7 +2115,8 @@ msgid "version"
 msgstr "Verze"
 
 #: ../help/contents.py:505
-msgid "Set the LilyPond version to use, can be used for non-LilyPond documents."
+msgid ""
+"Set the LilyPond version to use, can be used for non-LilyPond documents."
 msgstr ""
 "Nastavit verzi LilyPondu, která se bude používat. Lze ji používat pro "
 "dokumenty, které nejsou v LilyPondu."
@@ -2151,16 +2159,16 @@ msgid ""
 msgstr ""
 "Nastavení této proměnné potlačí automatické stanovení názvu výstupního "
 "souboru a povede k tomu, že Frescobaldi bude hledat výstupní dokumenty (PDF, "
-"MIDI, "
-"atd.) se zadaným základním názvem nebo čárkami odděleným seznamem názvů."
+"MIDI, atd.) se zadaným základním názvem nebo čárkami odděleným seznamem "
+"názvů."
 
 #: ../help/contents.py:543
 msgid ""
 "If a name ends with a directory separator, output files are looked for in "
 "the specified directory. "
 msgstr ""
-"Pokud název končí oddělovačem adresáře, hledají se výstupní soubory "
-"v určeném adresáři. "
+"Pokud název končí oddělovačem adresáře, hledají se výstupní soubory v "
+"určeném adresáři. "
 
 #: ../help/contents.py:545
 msgid "All names are relative to the document's filename."
@@ -2179,11 +2187,11 @@ msgid ""
 "automatic output file name determination does not work due to complicated "
 "LilyPond code."
 msgstr ""
-"Tuto proměnnou můžete nastavit, pokud automatické stanovení názvu "
-"výstupního souboru trvalo dlouho (protože Frescobaldi zpracovává dokument "
-"a všechny dokumenty, jež zahrnuje, hledá příkazy LilyPond, které určují název "
-"výstupu, např. <code>\\bookOutputName</code>, atd.); nebo když automatické "
-"stanovení názvu výstupního souboru nepracuje kvůli složitému kódu LilyPond."
+"Tuto proměnnou můžete nastavit, pokud automatické stanovení názvu výstupního "
+"souboru trvalo dlouho (protože Frescobaldi zpracovává dokument a všechny "
+"dokumenty, jež zahrnuje, hledá příkazy LilyPond, které určují název výstupu, "
+"např. <code>\\bookOutputName</code>, atd.); nebo když automatické stanovení "
+"názvu výstupního souboru nepracuje kvůli složitému kódu LilyPond."
 
 #: ../help/contents.py:569
 msgid "Sessions"
@@ -2217,8 +2225,8 @@ msgid ""
 "When you switch sessions, all current documents are closed first and then "
 "the documents of the other session are opened."
 msgstr ""
-"Když přepnete sezení, jsou nejprve zavřeny všechny nynější dokumenty, a potom "
-"jsou otevřeny dokumenty jiného sezení."
+"Když přepnete sezení, jsou nejprve zavřeny všechny nynější dokumenty, a "
+"potom jsou otevřeny dokumenty jiného sezení."
 
 #: ../help/contents.py:580
 msgid ""
@@ -2229,11 +2237,10 @@ msgid ""
 "working."
 msgstr ""
 "Uvnitř dialogu vlastností sezení si můžete vybrat, zda se má seznam "
-"otevřených dokumentů "
-"ukládat do toho sezení vždy, nebo jen při vytvoření (nebo přes "
-"{menu_session_save}). "
-"To může být užitečné, pokud chcete zachovat seznam dokumentů v sezení stejný, "
-"i když při práci dokumenty otevřete nebo zavřete."
+"otevřených dokumentů ukládat do toho sezení vždy, nebo jen při vytvoření "
+"(nebo přes {menu_session_save}). To může být užitečné, pokud chcete zachovat "
+"seznam dokumentů v sezení stejný, i když při práci dokumenty otevřete nebo "
+"zavřete."
 
 #: ../help/contents.py:587
 msgid "You can also specify a default directory for the session."
@@ -2248,7 +2255,8 @@ msgid ""
 "Sometimes things don't go the way you would expect; this section may give "
 "some solutions."
 msgstr ""
-"Někdy věci nejdou tak, jak očekáváte; tento oddíl vám může dát některá řešení."
+"Někdy věci nejdou tak, jak očekáváte; tento oddíl vám může dát některá "
+"řešení."
 
 #: ../help/contents.py:612
 msgid "After engraving a score, the Music View does not show the music"
@@ -2280,9 +2288,8 @@ msgid ""
 msgstr ""
 "Frescobaldi je schopen určit názvy výstupních souborů pohledem na název "
 "souboru dokumentu a různí příkazy LilyPond, které stanovují název výstupního "
-"souboru "
-"nebo -suffix. Frescobaldi dokonce prohledá soubory <code>\\include</code> "
-"na příkazy jako <code>\\bookOutputName</code> a <code>"
+"souboru nebo -suffix. Frescobaldi dokonce prohledá soubory <code>\\include</"
+"code> na příkazy jako <code>\\bookOutputName</code> a <code>"
 "\\bookOutputSuffix</code>."
 
 #: ../help/contents.py:627
@@ -2314,17 +2321,16 @@ msgid ""
 "<code>\\midi</code> block to it."
 msgstr ""
 "Ve výchozím nastavení LilyPond z not vytvoří pouze soubor PDF. Pro vytvoření "
-"souboru MIDI "
-"musíte noty zalomit do bloku <code>\\score</code> a přidat do nich blok "
-"<code>\\midi</code>."
+"souboru MIDI musíte noty zalomit do bloku <code>\\score</code> a přidat do "
+"nich blok <code>\\midi</code>."
 
 #: ../help/contents.py:662
 msgid ""
 "If you omit the <code>\\layout</code> block, no PDF file will be generated, "
 "only a MIDI file."
 msgstr ""
-"Pokud opomenete blok<code>\\layout</code>, nebude vytvořen žádný "
-"soubor PDF, pouze soubor MIDI."
+"Pokud opomenete blok<code>\\layout</code>, nebude vytvořen žádný soubor PDF, "
+"pouze soubor MIDI."
 
 #: ../help/contents.py:669
 msgid "Table of Contents"
@@ -2427,84 +2433,88 @@ msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "DOBA"
 
-#: ../musicview/__init__.py:114
+#: ../musicview/__init__.py:115
 msgctxt "window title"
 msgid "Music View"
 msgstr "Pohled na noty"
 
-#: ../musicview/__init__.py:115
+#: ../musicview/__init__.py:116
 msgid "&Music View"
 msgstr "Pohled na &hudbu"
 
-#: ../musicview/__init__.py:271
+#: ../musicview/__init__.py:274
 msgid "Select Music View Document"
 msgstr "Vybrat dokument s pohledem na noty"
 
-#: ../musicview/__init__.py:272
+#: ../musicview/__init__.py:275
 msgid "&Print Music..."
 msgstr "&Vytisknout noty..."
 
-#: ../musicview/__init__.py:273
+#: ../musicview/__init__.py:276
 msgid "Zoom &In"
 msgstr "&Přiblížit"
 
-#: ../musicview/__init__.py:274
+#: ../musicview/__init__.py:277
 msgid "Zoom &Out"
 msgstr "&Oddálit"
 
-#: ../musicview/__init__.py:275
+#: ../musicview/__init__.py:278
 msgid "Original &Size"
 msgstr "Původní &velikost"
 
-#: ../musicview/__init__.py:276
+#: ../musicview/__init__.py:279
 msgid "Zoom Music"
 msgstr "Zvětšení hudby"
 
-#: ../musicview/__init__.py:277
+#: ../musicview/__init__.py:280
 msgid "Fit &Width"
 msgstr "Přizpůsobit šíř&ce"
 
-#: ../musicview/__init__.py:278
+#: ../musicview/__init__.py:281
 msgid "Fit &Height"
 msgstr "Přizpůsobit &výšce"
 
-#: ../musicview/__init__.py:279
+#: ../musicview/__init__.py:282
 msgid "Fit &Page"
 msgstr "Přizpůsobit &straně"
 
-#: ../musicview/__init__.py:280
+#: ../musicview/__init__.py:283
+msgid "&Maximize"
+msgstr ""
+
+#: ../musicview/__init__.py:284
 msgid "&Jump to Cursor Position"
 msgstr "&Skočit na polohu ukazovátka"
 
-#: ../musicview/__init__.py:281
+#: ../musicview/__init__.py:285
 msgid "S&ynchronize with Cursor Position"
 msgstr "S&eřídit s polohou ukazovátky"
 
-#: ../musicview/__init__.py:282
+#: ../musicview/__init__.py:286
 msgid "Copy to &Image..."
 msgstr "Kopírovat do &obrázku..."
 
-#: ../musicview/__init__.py:283
+#: ../musicview/__init__.py:287
 msgid "Next Page"
 msgstr "Další strana"
 
-#: ../musicview/__init__.py:284
+#: ../musicview/__init__.py:288
 msgid "Next"
 msgstr "Další"
 
-#: ../musicview/__init__.py:285
+#: ../musicview/__init__.py:289
 msgid "Previous Page"
 msgstr "Předchozí strana"
 
-#: ../musicview/__init__.py:286
+#: ../musicview/__init__.py:290
 msgid "Previous"
 msgstr "Předchozí"
 
-#: ../musicview/__init__.py:425
+#: ../musicview/__init__.py:429
 msgid "Choose the PDF document to display."
 msgstr "Vybrat dokument PDF k zobrazení."
 
-#: ../musicview/__init__.py:427
+#: ../musicview/__init__.py:431
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -2512,20 +2522,20 @@ msgstr ""
 "Vyberte dokument PDF k zobrazení nebo soubor přetáhněte do jiného programu "
 "nebo umístění.."
 
-#: ../musicview/__init__.py:485
+#: ../musicview/__init__.py:489
 msgid "Fit Width"
 msgstr "Přizpůsobit šířce"
 
-#: ../musicview/__init__.py:486
+#: ../musicview/__init__.py:490
 msgid "Fit Height"
 msgstr "Přizpůsobit výšce"
 
-#: ../musicview/__init__.py:487
+#: ../musicview/__init__.py:491
 msgid "Fit Page"
 msgstr "Přizpůsobit straně"
 
 #. L10N: page numbering: page {num} of {total}
-#: ../musicview/__init__.py:504
+#: ../musicview/__init__.py:508
 msgid "{num} of {total}"
 msgstr "{num} z {total}"
 
@@ -2545,7 +2555,8 @@ msgstr "V tomto dialogu můžete upravit jeden řádek textového dokumentu."
 #: ../musicview/editinplace.py:251
 msgid "Click OK or press {key} to place the modified text in the document."
 msgstr ""
-"Klepněte na OK nebo stiskněte {key} pro umístění změněného textu do dokumentu."
+"Klepněte na OK nebo stiskněte {key} pro umístění změněného textu do "
+"dokumentu."
 
 #: ../musicview/editinplace.py:253
 msgid ""
@@ -3112,7 +3123,7 @@ msgid "English (untranslated)"
 msgstr "Anglický (nepřeloženo)"
 
 #: ../preferences/documentation.py:126 ../preferences/fontscolors.py:122
-#: ../preferences/tools.py:81 ../preferences/tools.py:187
+#: ../preferences/tools.py:81 ../preferences/tools.py:202
 msgid "Font:"
 msgstr "Písmo:"
 
@@ -3422,8 +3433,8 @@ msgid ""
 "If checked, files will be opened in a running Frescobaldi application if "
 "available, instead of starting a new instance."
 msgstr ""
-"Je-li zaškrtnuto, budou soubory otevřeny v běžícím programu Frescobaldi, "
-"je-li dostupný, namísto spuštění nové instance."
+"Je-li zaškrtnuto, budou soubory otevřeny v běžícím programu Frescobaldi, je-"
+"li dostupný, namísto spuštění nové instance."
 
 #: ../preferences/general.py:170 ../preferences/prefshelp.py:65
 msgid "Session to load if Frescobaldi is started without arguments"
@@ -3514,7 +3525,8 @@ msgstr ""
 
 #: ../preferences/helpers.py:90
 msgid "Command that should accept a mailto: URL."
-msgstr "Příkaz, který má přijmout adresu (URL) pro poslání elektronickou poštou"
+msgstr ""
+"Příkaz, který má přijmout adresu (URL) pro poslání elektronickou poštou"
 
 #: ../preferences/helpers.py:92
 msgid "Command to open a Terminal or Command window."
@@ -3718,9 +3730,8 @@ msgid ""
 "want to use, and whether you want to use the built-in Tango iconset or to "
 "use the system-wide configured icon set."
 msgstr ""
-"Pod <em>{general_preferences}</em> můžete vybrat, do kterého jazyka "
-"je uživatelské rozhraní Frescobaldi přeloženo, jaký styl uživatelského "
-"rozhraní "
+"Pod <em>{general_preferences}</em> můžete vybrat, do kterého jazyka je "
+"uživatelské rozhraní Frescobaldi přeloženo, jaký styl uživatelského rozhraní "
 "chcete používat a zda chcete použít vestavěnou sadu ikon Tango, nebo "
 "používat soubor ikon používaný systémem."
 
@@ -3741,8 +3752,8 @@ msgid ""
 msgstr ""
 "Pod <em>{startup}</em> můžete nastavit, které sezení se má nahrát, pokud je "
 "Frescobaldi spuštěn bez názvu souboru. Můžete zvolit, zda začít s jedním "
-"prázdným dokumentem, s naposledy použitým sezením, nebo se zadaným "
-"sezením. Podívejte se také na {link}."
+"prázdným dokumentem, s naposledy použitým sezením, nebo se zadaným sezením. "
+"Podívejte se také na {link}."
 
 #: ../preferences/prefshelp.py:67
 msgid ""
@@ -3767,9 +3778,9 @@ msgid ""
 "here, and configure Frescobaldi to automatically choose the right one, based "
 "on the version number that is set in the document ({more_info})."
 msgstr ""
-"Pokud máte nainstalováno  více verzí LilyPondu, můžete je stanovit zde "
-"a nastavit Frescobaldi, aby automaticky vybral tu správnou podle "
-"čísla verze, která je nastavena v dokumentu ({more_info})."
+"Pokud máte nainstalováno  více verzí LilyPondu, můžete je stanovit zde a "
+"nastavit Frescobaldi, aby automaticky vybral tu správnou podle čísla verze, "
+"která je nastavena v dokumentu ({more_info})."
 
 #: ../preferences/prefshelp.py:89
 msgid "more info"
@@ -3781,8 +3792,7 @@ msgid ""
 "for more information."
 msgstr ""
 "Také můžete nastavit, jak je LilyPond spuštěn. Podívejte se na nástrojové "
-"rady "
-"u nastavení pro další informace."
+"rady u nastavení pro další informace."
 
 #: ../preferences/prefshelp.py:92
 msgid ""
@@ -3790,8 +3800,7 @@ msgid ""
 "code> command looks for files."
 msgstr ""
 "Konečně můžete stanovit seznam cest, v nichž příkaz LilyPondu <code>"
-"\\include</"
-"code> hledá soubory."
+"\\include</code> hledá soubory."
 
 #: ../preferences/prefshelp.py:128
 msgid "Here you can configure Frescobaldi's MIDI settings."
@@ -3807,10 +3816,9 @@ msgid ""
 "to connect a hardware MIDI synthesizer to your computer, or to start a "
 "software synthesizer program such as TiMidity or Fluidsynth."
 msgstr ""
-"Pokud ve vysouvacím seznamu nejsou viditelné žádné názvy přípojek, "
-"může být nezbytné připojit syntezátor MIDI (hardware) k vašemu počítači, "
-"nebo spustit program syntezátoru (software), jako jsou například "
-"TiMidity nebo Fluidsynth."
+"Pokud ve vysouvacím seznamu nejsou viditelné žádné názvy přípojek, může být "
+"nezbytné připojit syntezátor MIDI (hardware) k vašemu počítači, nebo spustit "
+"program syntezátoru (software), jako jsou například TiMidity nebo Fluidsynth."
 
 #: ../preferences/prefshelp.py:135
 msgid "On Linux, the synthesizer should be available as an ALSA MIDI device."
@@ -3821,16 +3829,16 @@ msgid ""
 "If you have a device with multiple ports, you can specify the first letters "
 "of the name, to have Frescobaldi automatically pick the first available one."
 msgstr ""
-"Máte zařízení s více přípojkami, můžete zadat první písmena z názvu, "
-"aby Frescobaldi automaticky vybral první dostupné."
+"Máte zařízení s více přípojkami, můžete zadat první písmena z názvu, aby "
+"Frescobaldi automaticky vybral první dostupné."
 
 #: ../preferences/prefshelp.py:140
 msgid ""
 "And finally, when using a software synthesizer it is recommended to enable "
 "the option <em>{close_unused}</em>."
 msgstr ""
-"A konečně se při používání softwarového syntezátoru doporučuje "
-"povolit volbu<em>{close_unused}</em>."
+"A konečně se při používání softwarového syntezátoru doporučuje povolit "
+"volbu<em>{close_unused}</em>."
 
 #: ../preferences/prefshelp.py:160
 msgid ""
@@ -3838,11 +3846,10 @@ msgid ""
 "code> is replaced with the filename, <code>$u</code> with the URL. Leave a "
 "field empty to use the operating system default application."
 msgstr ""
-"na této stránce můžete zadat příkazy pro otevírání různých typů souborů. <"
-"code>$f</"
-"code> je nahrazen názvem souboru, <code>$u</code> s adresou (URL). Aby se "
-"použil program nastavený v operačním systému jako výchozí, ponechejte pole "
-"prázdné."
+"na této stránce můžete zadat příkazy pro otevírání různých typů souborů. "
+"<code>$f</code> je nahrazen názvem souboru, <code>$u</code> s adresou (URL). "
+"Aby se použil program nastavený v operačním systému jako výchozí, ponechejte "
+"pole prázdné."
 
 #: ../preferences/prefshelp.py:165
 msgid ""
@@ -3850,18 +3857,17 @@ msgid ""
 "url. For the command prompt, the command should open a console window. A "
 "<code>$f</code> value is replaced with the directory of the current document."
 msgstr ""
-"Pro nastavení adresy elektronické pošty by měl příkaz přijmout adresu <code>"
-"mailto:</code> "
-"Pro výzvu příkazu by se mělo otevřít okno konzole. Hodnota <code>$f</code> "
-"je nahrazena adresářem nynějšího dokumentu."
+"Pro nastavení adresy elektronické pošty by měl příkaz přijmout adresu "
+"<code>mailto:</code> Pro výzvu příkazu by se mělo otevřít okno konzole. "
+"Hodnota <code>$f</code> je nahrazena adresářem nynějšího dokumentu."
 
 #: ../preferences/prefshelp.py:179
 msgid ""
 "Here, directories can be added that contain <code>hyph_*.dic</code> files, "
 "where the <code>*</code> stands for different language codes."
 msgstr ""
-"Zde se dají přidat adresáře obsahující soubory <code>hyph_*.dic</code>, "
-"kde hvězdička <code>*</code> je pro různé jazykové kódy."
+"Zde se dají přidat adresáře obsahující soubory <code>hyph_*.dic</code>, kde "
+"hvězdička <code>*</code> je pro různé jazykové kódy."
 
 #: ../preferences/prefshelp.py:182
 msgid ""
@@ -3876,9 +3882,9 @@ msgid ""
 "{snippets} or {quickinsert} buttons that have keyboard shortcuts are listed "
 "here."
 msgstr ""
-"Zde můžete přidat klávesové zkratky pro všechny dostupné příkazy. "
-"Jsou zde uvedena také tlačítka {snippets} nebo {quickinsert} , která mají "
-"klávesové zkratky."
+"Zde můžete přidat klávesové zkratky pro všechny dostupné příkazy. Jsou zde "
+"uvedena také tlačítka {snippets} nebo {quickinsert} , která mají klávesové "
+"zkratky."
 
 #: ../preferences/prefshelp.py:215 ../snippet/tool.py:54
 #: ../snippet/tool.py:135 ../snippet/widget.py:403
@@ -3899,9 +3905,8 @@ msgid ""
 msgstr ""
 "Kvůli změně klávesové zkratky v seznamu označte činnost a klepněte na "
 "tlačítko pro úpravy, nebo klepněte dvakrát na činnost. V dialogu, který se "
-"objeví, "
-"můžete činnosti zadat až čtyři klávesové zkratky klepnutím na tlačítko a "
-"napsáním klávesové zkratky. "
+"objeví, můžete činnosti zadat až čtyři klávesové zkratky klepnutím na "
+"tlačítko a napsáním klávesové zkratky. "
 
 #: ../preferences/prefshelp.py:221 ../preferences/prefshelp.py:244
 msgid "You can define a new scheme by using the New button."
@@ -3922,9 +3927,8 @@ msgid ""
 "color in the Music View, etcetera."
 msgstr ""
 "První položka vám umožní nastavit barvy pro pozadí textového editoru, "
-"popředí, pozadí výběru, nynější řádek, označení řádku, barvu papíru v Pohledu "
-"na "
-"noty atd."
+"popředí, pozadí výběru, nynější řádek, označení řádku, barvu papíru v "
+"Pohledu na noty atd."
 
 #: ../preferences/prefshelp.py:236
 msgid ""
@@ -3995,37 +3999,46 @@ msgstr ""
 "Je-li zaškrtnuto, Frescobaldi nebude zkracovat názvy souborů ve výstupu se "
 "zápisem."
 
-#: ../preferences/tools.py:141
+#: ../preferences/tools.py:145
 msgid "Music View"
 msgstr "Pohled na noty"
 
-#: ../preferences/tools.py:142
+#: ../preferences/tools.py:146
 msgid "Magnifier Size:"
 msgstr "Velikost lupy:"
 
-#: ../preferences/tools.py:144
+#: ../preferences/tools.py:148
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr "Velikost zvětšovacího skla (Ctrl+klepnutí v pohledu na noty)."
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: ../preferences/tools.py:146
+#: ../preferences/tools.py:150
 msgid " pixels"
 msgstr " pixelů"
 
-#: ../preferences/tools.py:147
+#: ../preferences/tools.py:151
 msgid "Magnifier Scale:"
 msgstr "Měřítko lupy:"
 
-#: ../preferences/tools.py:149
+#: ../preferences/tools.py:153
 msgid "Magnification of the magnifier."
 msgstr "Zvětšení lupy."
 
-#: ../preferences/tools.py:150
+#: ../preferences/tools.py:154
 msgctxt "percent unit sign"
 msgid "%"
 msgstr "%"
 
-#: ../preferences/tools.py:220
+#: ../preferences/tools.py:155
+#, fuzzy
+msgid "Enable kinetic scrolling"
+msgstr "&Povolit skládání"
+
+#: ../preferences/tools.py:156
+msgid "Show Scrollbars"
+msgstr ""
+
+#: ../preferences/tools.py:235
 msgid "Group documents by directory"
 msgstr "Seskupit dokumenty podle adresáře"
 
@@ -6574,9 +6587,9 @@ msgid ""
 "instead of inserting the text from the {text} variable. In this case you may "
 "alter the document through the {cursor}."
 msgstr ""
-"Když vymezíte funkci s tímto názvem, je volána bez argumentů, "
-"namísto vložení textu z proměnné {text}. V takovém případě můžete "
-"pozměnit přes {cursor}."
+"Když vymezíte funkci s tímto názvem, je volána bez argumentů, namísto "
+"vložení textu z proměnné {text}. V takovém případě můžete pozměnit přes "
+"{cursor}."
 
 #: ../snippet/expand.py:76
 msgid "The current date in YYYY-MM-DD format."
@@ -6702,8 +6715,8 @@ msgid ""
 "displayed where you can select which snippets you want to import."
 msgstr ""
 "Pro zavedení kousků vyberte {menu} a vyberte soubor, jejž chcete zavést. "
-"Také můžete soubor XML upustit na správce kousků. Zobrazí se dialog, "
-"v němž můžete vybrat, které kousky chcete zavést."
+"Také můžete soubor XML upustit na správce kousků. Zobrazí se dialog, v němž "
+"můžete vybrat, které kousky chcete zavést."
 
 #: ../snippet/import_export.py:250 ../snippet/widget.py:195
 msgid "&Import..."
@@ -6750,8 +6763,7 @@ msgid ""
 msgstr ""
 "Tento dialog vám umožní obnovit vestavěné kousky, jež byly změněny nebo "
 "smazány. Zaškrtněte kousky, které chcete obnovit a klepněte na tlačítko "
-"Obnovit "
-"zaškrtnuté kousky."
+"Obnovit zaškrtnuté kousky."
 
 #: ../snippet/restore.py:67
 msgid "Restore Checked Snippets"
@@ -7001,10 +7013,8 @@ msgid ""
 "smarter way is to use a snippet variable."
 msgstr ""
 "Pro držení určité skupiny kousků spravovatelné jako knihovny kousků "
-"samozřejmě "
-"můžete názvům kousků dát předponu s nějakým druhem zvláštního názvu. Ale "
-"chytřejší "
-"je použít proměnnou pro kousky."
+"samozřejmě můžete názvům kousků dát předponu s nějakým druhem zvláštního "
+"názvu. Ale chytřejší je použít proměnnou pro kousky."
 
 #: ../snippet/widget.py:464
 msgid ""
@@ -7021,11 +7031,10 @@ msgid ""
 "search bar, where \"name\" is the name you want to use. And then e.g. export "
 "the snippets to an XML file for sharing the snippets with others."
 msgstr ""
-"Potom můžete ve správci kousků lehce vybrat všechny kousky patřící "
-"ke knihovně zadáním <code>:{set} název</code> ve vyhledávacím řádku "
-"kousků, kde \"název\" je názvem, jejž chcete použít. A pak např. kousky "
-"vyvést "
-"do souboru XML pro sdílení kousků s ostatními."
+"Potom můžete ve správci kousků lehce vybrat všechny kousky patřící ke "
+"knihovně zadáním <code>:{set} název</code> ve vyhledávacím řádku kousků, kde "
+"\"název\" je názvem, jejž chcete použít. A pak např. kousky vyvést do "
+"souboru XML pro sdílení kousků s ostatními."
 
 #: ../widgets/keysequencewidget.py:60
 msgid "Start recording a key sequence."
@@ -7105,6 +7114,10 @@ msgstr "Vybrat adresář"
 #: ../widgets/urlrequester.py:111
 msgid "Select a file"
 msgstr "Vybrat soubor"
+
+#~ msgctxt "submenu title"
+#~ msgid "Music &View"
+#~ msgstr "P&ohled na noty"
 
 #, fuzzy
 #~ msgid "Edit in place"

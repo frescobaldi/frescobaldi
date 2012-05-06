@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.2\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-05-01 23:15+0200\n"
+"POT-Creation-Date: 2012-05-06 17:23+0200\n"
 "PO-Revision-Date: 2012-01-17 19:44-0200\n"
 "Last-Translator: Ãdio Mazera\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-doc@kde.org>\n"
@@ -54,53 +54,62 @@ msgid "The Tango Desktop Project"
 msgstr "The Tango Desktop Project"
 
 #: ../about.py:61
+#, fuzzy
+msgid "The following people contributed to {appname}:"
+msgstr "As seguintes substituições serão feitas:"
+
+#: ../about.py:64
+msgid "{author}: Kinetic Scrolling for the Music View"
+msgstr ""
+
+#: ../about.py:69
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} é traduzido para os seguintes idiomas:"
 
-#: ../about.py:80
+#: ../about.py:88
 msgid "About {appname}"
 msgstr "Sobre {appname}"
 
-#: ../about.py:87
+#: ../about.py:95
 msgid "About"
 msgstr "Sobre"
 
-#: ../about.py:88 ../help/contents.py:330
+#: ../about.py:96 ../help/contents.py:330
 msgid "Credits"
 msgstr "Créditos"
 
-#: ../about.py:89
+#: ../about.py:97
 msgid "Version"
 msgstr "Versão"
 
-#: ../about.py:144
+#: ../about.py:152
 msgid "Operating System"
 msgstr "Sistema Operacional"
 
-#: ../about.py:151
+#: ../about.py:159
 msgid "Version {version}"
 msgstr "Versão {version}"
 
-#: ../about.py:152 ../main.py:57
+#: ../about.py:160 ../main.py:57
 msgid "A LilyPond Music Editor"
 msgstr "Um Editor de música LilyPond"
 
-#: ../about.py:153
+#: ../about.py:161
 msgid "Copyright (c) {year} by {author}"
 msgstr "Copyright (c) {year} por {author}"
 
-#: ../about.py:157
+#: ../about.py:165
 msgid "Send an e-mail message to the maintainers."
 msgstr "Enviar uma mensagem de e-mail para os mantenedores."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: ../about.py:160 ../help/contents.py:57
+#: ../about.py:168 ../help/contents.py:57
 msgid "Translated by Your Name."
 msgstr ""
 "Traduzido por Édio Mazera \n"
 "mazera3@gmail.com"
 
-#: ../about.py:165
+#: ../about.py:173
 msgid "Licensed under the {gpl}."
 msgstr "Sob a Licença {gpl}."
 
@@ -1048,7 +1057,7 @@ msgstr "&Completar Automaticamente"
 msgid "Show C&ompletions Popup"
 msgstr "Exibir Popup C&ompletos"
 
-#: ../charmap/__init__.py:40 ../preferences/tools.py:186
+#: ../charmap/__init__.py:40 ../preferences/tools.py:201
 msgid "Special Characters"
 msgstr "Caracteres Especiais"
 
@@ -1122,7 +1131,7 @@ msgstr "Abrir Documento em &Nova Janela"
 msgid "LilyPond Source"
 msgstr "Fonte LilyPond"
 
-#: ../doclist/__init__.py:39 ../preferences/tools.py:219
+#: ../doclist/__init__.py:39 ../preferences/tools.py:234
 msgid "Documents"
 msgstr "Documentos"
 
@@ -2695,7 +2704,7 @@ msgid "English (untranslated)"
 msgstr "English (não-traduzido)"
 
 #: ../preferences/documentation.py:126 ../preferences/fontscolors.py:122
-#: ../preferences/tools.py:81 ../preferences/tools.py:187
+#: ../preferences/tools.py:81 ../preferences/tools.py:202
 msgid "Font:"
 msgstr ""
 
@@ -3480,37 +3489,45 @@ msgstr ""
 msgid "If checked, Frescobaldi will not shorten filenames in the log output."
 msgstr ""
 
-#: ../preferences/tools.py:141
+#: ../preferences/tools.py:145
 msgid "Music View"
 msgstr "Visualizar Música"
 
-#: ../preferences/tools.py:142
+#: ../preferences/tools.py:146
 msgid "Magnifier Size:"
 msgstr ""
 
-#: ../preferences/tools.py:144
+#: ../preferences/tools.py:148
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr "Tamanho da lente de aumento (Ctrl + Clique na Visualização da Música)."
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: ../preferences/tools.py:146
+#: ../preferences/tools.py:150
 msgid " pixels"
 msgstr ""
 
-#: ../preferences/tools.py:147
+#: ../preferences/tools.py:151
 msgid "Magnifier Scale:"
 msgstr ""
 
-#: ../preferences/tools.py:149
+#: ../preferences/tools.py:153
 msgid "Magnification of the magnifier."
 msgstr ""
 
-#: ../preferences/tools.py:150
+#: ../preferences/tools.py:154
 msgctxt "percent unit sign"
 msgid "%"
 msgstr ""
 
-#: ../preferences/tools.py:220
+#: ../preferences/tools.py:155
+msgid "Enable kinetic scrolling"
+msgstr ""
+
+#: ../preferences/tools.py:156
+msgid "Show Scrollbars"
+msgstr ""
+
+#: ../preferences/tools.py:235
 msgid "Group documents by directory"
 msgstr ""
 

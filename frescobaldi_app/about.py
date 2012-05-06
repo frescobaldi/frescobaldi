@@ -57,6 +57,14 @@ def credits():
         "Most of the bundled icons are created by {tango}.").format(
         tango='<a href="http://tango.freedesktop.org/">{0}</a>'.format(_(
             "The Tango Desktop Project")))
+    
+    yield _("The following people contributed to {appname}:").format(
+        appname=info.appname)
+    # list other credits here
+    yield _("{author}: Kinetic Scrolling for the Music View").format(
+        author="Richard Cognot")
+    
+    # translations
     yield _(
         "{appname} is translated into the following languages:").format(
         appname=info.appname)
