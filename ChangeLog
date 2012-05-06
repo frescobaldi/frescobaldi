@@ -8,6 +8,9 @@ Changes in 2.0.7 --
   - updated: nl, cs
 * New features:
   - command to show music view maximized, useful on small screens
+  - kinetic scrolling in the music view, making the movements easier on the
+    eyes, contributed by Richard Cognot
+  - music view scrollbars can be hidden via preferences->tools->music view
 * Improvements:
   - the 'View' -> 'Music View' submenu is now a top-level menu 'Music'
 
