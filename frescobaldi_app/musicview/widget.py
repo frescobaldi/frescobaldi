@@ -133,9 +133,9 @@ class MusicView(QWidget):
         color = colors['selectionbackground']
         color.setAlpha(128)
         self._highlightFormat.setBackground(color)
-        kineticScrollingActive = QSettings().value("musicview/kinetic_scrolling", False) in (True, "true")
-        scrollbarsVisible = QSettings().value("musicview/show_scrollbars", False) in (True, "true")
-
+        
+        kineticScrollingActive = QSettings().value("musicview/kinetic_scrolling", True) not in (False, "false")
+        scrollbarsVisible = QSettings().value("musicview/show_scrollbars", True) not in (False, "false")
         self.view.setKineticScrolling(kineticScrollingActive)
         self.view.setScrollbarsVisible(scrollbarsVisible)
 

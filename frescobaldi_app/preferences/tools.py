@@ -152,7 +152,8 @@ class MusicView(preferences.Group):
         self.magnifierScaleLabel.setToolTip(_(
             "Magnification of the magnifier."))
         self.magnifierScaleSpinBox.setSuffix(_("percent unit sign", "%"))
-        self.enableKineticScrolling.setText(_("Enable kinetic scrolling"))
+        # L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
+        self.enableKineticScrolling.setText(_("Kinetic Scrolling"))
         self.showScrollbars.setText(_("Show Scrollbars"))
             
     def loadSettings(self):
@@ -161,10 +162,10 @@ class MusicView(preferences.Group):
         self.magnifierScaleSlider.setValue(s.scale)
         
         ks = QSettings()
-        kineticScrollingActive = ks.value("musicview/kinetic_scrolling", False) in (True, "true")
-        self.enableKineticScrolling.setChecked( kineticScrollingActive )
-        showScrollbars = ks.value("musicview/show_scrollbars", False) in (True, "true")
-        self.showScrollbars.setChecked( showScrollbars )
+        kineticScrollingActive = ks.value("musicview/kinetic_scrolling", True) not in (False, "false")
+        self.enableKineticScrolling.setChecked(kineticScrollingActive)
+        showScrollbars = ks.value("musicview/show_scrollbars", True) not in (False, "false")
+        self.showScrollbars.setChecked(showScrollbars)
     
     def saveSettings(self):
         s = popplerview.MagnifierSettings()

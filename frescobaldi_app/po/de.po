@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-05-06 17:23+0200\n"
+"POT-Creation-Date: 2012-05-06 17:31+0200\n"
 "PO-Revision-Date: 2011-12-30 18:12+0100\n"
 "Last-Translator: Georg Hennig <georg.hennig@web.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -1077,7 +1077,7 @@ msgstr "A&utomatisch vervollständigen"
 msgid "Show C&ompletions Popup"
 msgstr "Zeige &Popup zum Vervollständigen"
 
-#: ../charmap/__init__.py:40 ../preferences/tools.py:201
+#: ../charmap/__init__.py:40 ../preferences/tools.py:202
 msgid "Special Characters"
 msgstr "Besondere Zeichen"
 
@@ -1151,7 +1151,7 @@ msgstr "Öffne Dokument in N&euem Fenster"
 msgid "LilyPond Source"
 msgstr "LilyPond-Quelltext"
 
-#: ../doclist/__init__.py:39 ../preferences/tools.py:234
+#: ../doclist/__init__.py:39 ../preferences/tools.py:235
 msgid "Documents"
 msgstr "Dokumente"
 
@@ -2806,7 +2806,7 @@ msgid "English (untranslated)"
 msgstr "Englisch (nicht übersetzt)"
 
 #: ../preferences/documentation.py:126 ../preferences/fontscolors.py:122
-#: ../preferences/tools.py:81 ../preferences/tools.py:202
+#: ../preferences/tools.py:81 ../preferences/tools.py:203
 msgid "Font:"
 msgstr "Schriftsatz:"
 
@@ -3636,15 +3636,16 @@ msgctxt "percent unit sign"
 msgid "%"
 msgstr "%"
 
-#: ../preferences/tools.py:155
-msgid "Enable kinetic scrolling"
+#. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
+#: ../preferences/tools.py:156
+msgid "Kinetic Scrolling"
 msgstr ""
 
-#: ../preferences/tools.py:156
+#: ../preferences/tools.py:157
 msgid "Show Scrollbars"
 msgstr ""
 
-#: ../preferences/tools.py:235
+#: ../preferences/tools.py:236
 msgid "Group documents by directory"
 msgstr "Dokumente nach Verzeichnis gruppieren"
 
