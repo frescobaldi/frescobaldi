@@ -141,6 +141,7 @@ class Surface(QWidget):
         
         # Kinetic scrolling
         self._kineticData=KineticData()
+        self.kineticScrollingActive.connect(self.updateKineticCursor)
         
     def pageLayout(self):
         return self._pageLayout
@@ -536,7 +537,8 @@ class Surface(QWidget):
                     self.setSelection(selection)
                 if self._scrolling:
                     self.stopScrolling()
-        self.updateCursor(ev.pos())
+        if self._kineticData._state == KineticData.Steady:
+            self.updateCursor(ev.pos())
         if ev.button() == Qt.RightButton:
             self.rightClick(ev.pos())
         
@@ -638,7 +640,7 @@ class Surface(QWidget):
             self._moveSelection(pos)
         elif self._magnifying:
             self._magnifier.moveCenter(pos)
-        elif not self._dragging:
+        elif not self._dragging and self._kineticData._state == KineticData.Steady:
             self.updateCursor(pos)
         
     def event(self, ev):
@@ -649,6 +651,23 @@ class Surface(QWidget):
                     self.linkHelpEvent(ev.globalPos(), page, link)
             return True
         return super(Surface, self).event(ev)
+
+    def updateKineticCursor(self, active):
+        """Cursor handling when kinetic move starts/stops.
+        
+        - reset the cursor and hide tooltips if visible at start,
+        - update the cursor and show the appropriate tooltips at stop.
+        """
+        if active:
+            self.unsetCursor()
+            if QToolTip.isVisible():
+                QToolTip.hideText()
+        else:
+            self.updateCursor(self.mapFromGlobal(QCursor.pos()))
+            if self._linksEnabled:
+                page, link = self.pageLayout().linkAt(self.mapFromGlobal(QCursor.pos()))
+                if link:
+                    self.linkHelpEvent(QCursor.pos(), page, link)
 
     def updateCursor(self, pos):
         cursor = None
