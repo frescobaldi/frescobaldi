@@ -635,12 +635,15 @@ class Surface(QWidget):
         QWidget.timerEvent(self, event);
         
     def moveEvent(self, ev):
+        if self._kineticData._state != KineticData.Steady:
+            return
+        
         pos = self.mapFromGlobal(QCursor.pos())
         if self._selecting:
             self._moveSelection(pos)
         elif self._magnifying:
             self._magnifier.moveCenter(pos)
-        elif not self._dragging and self._kineticData._state == KineticData.Steady:
+        elif not self._dragging:
             self.updateCursor(pos)
         
     def event(self, ev):
