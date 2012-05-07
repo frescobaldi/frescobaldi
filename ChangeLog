@@ -13,6 +13,9 @@ Changes in 2.0.7 --
   - music view scrollbars can be hidden via preferences->tools->music view
 * Improvements:
   - the 'View' -> 'Music View' submenu is now a top-level menu 'Music'
+* Bugfixes:
+  - fix "NameError: global name 'X_OK' is not defined" when a helper application
+    has an absolute path
 
 
 Changes in 2.0.6 -- April 30th, 2012

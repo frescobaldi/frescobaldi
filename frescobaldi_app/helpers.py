@@ -42,7 +42,7 @@ def command(type):
     if not cmd:
         return
     
-    if os.path.isabs(cmd) and os.access(cmd, X_OK):
+    if os.path.isabs(cmd) and os.access(cmd, os.X_OK):
         return [cmd]
 
     # remove double quotes, keeping quoted parts together
