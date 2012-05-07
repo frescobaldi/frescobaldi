@@ -56,6 +56,10 @@ class View(qpopplerview.View):
         self.readSettings()
     
     def readSettings(self):
+        kineticScrollingActive = QSettings().value("musicview/kinetic_scrolling", True) not in (False, "false")
+        scrollbarsVisible = QSettings().value("musicview/show_scrollbars", True) not in (False, "false")
+        self.setKineticScrolling(kineticScrollingActive)
+        self.setScrollbarsVisible(scrollbarsVisible)
         self.redraw() # because of possibly changed background color
         # magnifier size and scale
         s = MagnifierSettings.load()
