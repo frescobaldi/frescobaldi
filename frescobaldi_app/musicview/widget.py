@@ -350,7 +350,7 @@ class MusicView(QWidget):
             pos_in_surface = self.view.surface().mapFromGlobal(pos)
             page, link = self.view.surface().pageLayout().linkAt(pos_in_surface)
             if link:
-                cursor = self._links.cursor(link)
+                cursor = self._links.cursor(link, True)
         from . import contextmenu
         contextmenu.show(pos, self.parent(), link, cursor)
 
