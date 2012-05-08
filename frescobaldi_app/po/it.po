@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-05-06 17:31+0200\n"
-"PO-Revision-Date: 2012-02-15 16:30+0100\n"
+"POT-Creation-Date: 2012-05-01 23:15+0200\n"
+"PO-Revision-Date: 2012-05-08 15:57+0200\n"
 "Last-Translator: .billyBoh <billyboh@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -57,60 +57,51 @@ msgid "The Tango Desktop Project"
 msgstr "Progetto Desktop Tango"
 
 #: ../about.py:61
-#, fuzzy
-msgid "The following people contributed to {appname}:"
-msgstr "Saranno fatte le seguenti sostituzioni:"
-
-#: ../about.py:64
-msgid "{author}: Kinetic Scrolling for the Music View"
-msgstr ""
-
-#: ../about.py:69
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} è tradotto in queste lingue:"
 
-#: ../about.py:88
+#: ../about.py:80
 msgid "About {appname}"
 msgstr "A proposito di {appname}"
 
-#: ../about.py:95
+#: ../about.py:87
 msgid "About"
 msgstr "A proposito"
 
-#: ../about.py:96 ../help/contents.py:330
+#: ../about.py:88 ../help/contents.py:330
 msgid "Credits"
 msgstr "Riconoscimenti"
 
-#: ../about.py:97
+#: ../about.py:89
 msgid "Version"
 msgstr "Versione"
 
-#: ../about.py:152
+#: ../about.py:144
 msgid "Operating System"
 msgstr "Sistema operativo"
 
-#: ../about.py:159
+#: ../about.py:151
 msgid "Version {version}"
 msgstr "Versione {version}"
 
-#: ../about.py:160 ../main.py:57
+#: ../about.py:152 ../main.py:57
 msgid "A LilyPond Music Editor"
 msgstr "Editor musicale per LilyPond"
 
-#: ../about.py:161
+#: ../about.py:153
 msgid "Copyright (c) {year} by {author}"
 msgstr "Copyright (c) {year} di {author}"
 
-#: ../about.py:165
+#: ../about.py:157
 msgid "Send an e-mail message to the maintainers."
 msgstr "Invia un messaggio agli sviluppatori."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: ../about.py:168 ../help/contents.py:57
+#: ../about.py:160 ../help/contents.py:57
 msgid "Translated by Your Name."
 msgstr "Tradotto da Gianluca D'Orazio."
 
-#: ../about.py:173
+#: ../about.py:165
 msgid "Licensed under the {gpl}."
 msgstr "Rilasciato con licenza {gpl}."
 
@@ -528,7 +519,7 @@ msgstr "Completato con successo in {time}."
 
 #: ../lilypondinfo.py:134
 msgid "Running LilyPond, this can take some time..."
-msgstr ""
+msgstr "LilyPond è in esecuzione, attendere per favore..."
 
 #: ../lyrics.py:132
 msgid "&Hyphenate Lyrics Text..."
@@ -575,9 +566,8 @@ msgid "Session to start ('{none}' for empty session)"
 msgstr "Sessione da avviare ('{none}' per una sessione vuota)"
 
 #: ../main.py:68
-#, fuzzy
 msgid "Always start a new instance"
-msgstr "Avvia una nuova istanza"
+msgstr "Avvia sempre una nuova istanza"
 
 #. L10N: state of document in window titlebar
 #: ../mainwindow.py:226
@@ -898,16 +888,14 @@ msgid "&View"
 msgstr "&Visualizza"
 
 #: ../menu.py:173
-#, fuzzy
 msgctxt "submenu title"
 msgid "&Folding"
-msgstr "encoding"
+msgstr "&Raggruppamento "
 
 #: ../menu.py:188
-#, fuzzy
 msgctxt "menu title"
 msgid "&Music"
-msgstr "Anteprima &spartito"
+msgstr "&Spartito"
 
 #: ../menu.py:211
 msgctxt "menu title"
@@ -1087,7 +1075,7 @@ msgstr "Completamento &automatico"
 msgid "Show C&ompletions Popup"
 msgstr "Mostra la finestra dei c&ompletamenti"
 
-#: ../charmap/__init__.py:40 ../preferences/tools.py:202
+#: ../charmap/__init__.py:40 ../preferences/tools.py:186
 msgid "Special Characters"
 msgstr "Caratteri speciali"
 
@@ -1161,7 +1149,7 @@ msgstr "Apri il documento in una &nuova finestra"
 msgid "LilyPond Source"
 msgstr "Documento LilyPond sorgente"
 
-#: ../doclist/__init__.py:39 ../preferences/tools.py:235
+#: ../doclist/__init__.py:39 ../preferences/tools.py:219
 msgid "Documents"
 msgstr "Documenti"
 
@@ -1170,33 +1158,28 @@ msgid "Docum&ents"
 msgstr "Docum&enti"
 
 #: ../doclist/widget.py:183
-#, fuzzy
 msgid "Save selected documents"
-msgstr "Salva selezione"
+msgstr "Salva i documenti selezionati"
 
 #: ../doclist/widget.py:184
-#, fuzzy
 msgid "Close selected documents"
-msgstr "Chiudi gli altri documenti"
+msgstr "Chiudi i documenti selezionati"
 
 #: ../doclist/widget.py:190
-#, fuzzy
 msgid "Save documents in this folder"
-msgstr "Salva il documento se possibile"
+msgstr "Salva i documenti di questa cartella"
 
 #: ../doclist/widget.py:191
 msgid "Close documents in this folder"
-msgstr ""
+msgstr "Chiudi i documnti di questa cartella"
 
 #: ../doclist/widget.py:194
-#, fuzzy
 msgid "Save all untitled documents"
-msgstr "Spedisci documenti"
+msgstr "Salva tutti i documenti senza nome"
 
 #: ../doclist/widget.py:195
-#, fuzzy
 msgid "Close all untitled documents"
-msgstr "Chiudi tutti i documenti"
+msgstr "Chiudi tutti i documenti senza nome"
 
 #: ../engrave/__init__.py:177
 msgid "&Always Engrave [{docname}]"
@@ -1244,7 +1227,7 @@ msgstr "Risoluzione:"
 
 #: ../engrave/custom.py:128
 msgid "Run LilyPond in preview mode (with Point and Click)"
-msgstr "Esegui LilyPond in modalità anteprima (con Point and Click)"
+msgstr "Esegui LilyPond in modalità anteprima (con punta-e-clicca)"
 
 #: ../engrave/custom.py:129
 msgid "Run LilyPond with verbose output"
@@ -1328,7 +1311,7 @@ msgstr "PNG (tramite EPS)"
 
 #: ../engrave/result_menu.py:46
 msgid "Generated &Files"
-msgstr "&File generati"
+msgstr "&File prodotti"
 
 #: ../engrave/result_menu.py:67
 msgid "No files available"
@@ -1680,13 +1663,12 @@ msgstr ""
 "</p>\n"
 
 #: ../help/contents.py:231
-#, fuzzy
 msgid "The Music View"
-msgstr "Anteprima spartito"
+msgstr "L'anteprima dello spartito"
 
 #: ../help/contents.py:236
 msgid "The Music View displays the PDF document created by LilyPond."
-msgstr ""
+msgstr "L'anteprima dello spartito mostra il PDF creato da LilyPond."
 
 #: ../help/contents.py:237
 msgid ""
@@ -1694,47 +1676,67 @@ msgid ""
 "on), the PDF contains a clickable link for every music object, pointing to "
 "its definition in the text document."
 msgstr ""
+"Quando LilyPond viene eseguito in modalità anteprima (cioè con punta-e-clicca "
+"abilitato), ogni oggetto musicale nel PDF possiede un collegamento su cui "
+"è possibile fare clic per raggiungere il testo corrispondente nel documento."
 
 #: ../help/contents.py:240
 msgid ""
 "The Music View uses this information to provide smart, two-way integration "
 "with the text document:"
 msgstr ""
+"L'anteprima dello spartito usa questi collegamenti per fornire "
+"un'integrazione "
+"intelligente e reciproca con il documento sorgente:"
 
 #: ../help/contents.py:243
 msgid "Move the mouse pointer over music objects to highlight them in the text"
 msgstr ""
+"Muovere il puntatore del mouse sugli oggetti musicali per evidenziarli nel "
+"testo"
 
 #: ../help/contents.py:244
 msgid "Click an object to move the text cursor to that object"
 msgstr ""
+"Fare clic su un oggetto per muovere il cursore del documento sorgente "
+"al testo relativo a quell'oggetto"
 
 #: ../help/contents.py:245
 msgid "Shift-click an object to edit its text in a small window (see {link})"
 msgstr ""
+"Fare clic tenendo il tasto Shift premuto per modificare il testo "
+"corrispondente "
+"in una piccola finestra (vedere {link})"
 
 #: ../help/contents.py:247
 msgid ""
 "Move the text cursor to highlight them in the music view, press {key} to "
 "scroll them into view."
 msgstr ""
+"Spostare il cursore del documento sorgente per evidenziare gli oggetti "
+"corrispondenti nell'anteprima spartito, premere {key} per far scorrere lo "
+"spartito e portarli in vista."
 
 #: ../help/contents.py:250
 msgid "You can also adjust the view:"
-msgstr ""
+msgstr "È anche possibile regolare l'anteprima:"
 
 #: ../help/contents.py:252
 msgid ""
 "Use the Control (or Command) key with the mouse wheel to zoom in and out"
 msgstr ""
+"Usare il tasto Control con la rotellina del mouse per aumentare o diminuire "
+"lo zoom"
 
 #: ../help/contents.py:254
 msgid "Hold Control or Command and left-click to display a magnifier glass"
 msgstr ""
+"Fare clic col tasto sinistro tenendo premuto Control o Command "
+"per usare la lente di ingrandimento"
 
 #: ../help/contents.py:255
 msgid "Configure the background color under {menu}"
-msgstr ""
+msgstr "Configurare il colore di sfondo in {menu}"
 
 #: ../help/contents.py:256 ../help/contents.py:426
 #: ../preferences/prefshelp.py:38
@@ -1763,6 +1765,12 @@ msgid ""
 "{key} or select {menu} to copy the selected music as a raster image to the "
 "clipboard, a file or another application."
 msgstr ""
+"È possibile copiare la musica direttamente dall'anteprima spartito ad "
+"un'immagine "
+"raster: tenendo premuto Shift, trascinare il rettangolo di selezione (oppure "
+"usare "
+"il tasto destro del mouse) e premere {key} o scegliere {menu} per copiare "
+"la musica selezionata negli appunti, in un file o in un altro programma."
 
 #: ../help/contents.py:278
 msgid "Other Tools"
@@ -2099,20 +2107,20 @@ msgid "Compiles another LilyPond document instead of the current."
 msgstr "Compila un documento LilyPond diverso da quello attuale."
 
 #: ../help/contents.py:497
-#, fuzzy
 msgid "name"
-msgstr "filename"
+msgstr "nome"
 
 #: ../help/contents.py:498
 msgid ""
 "Looks for output documents (PDF, MIDI, etc.) starting with the specified "
 "name or comma-separated list of names."
 msgstr ""
+"Cerca tra i documenti prodotti (PDF, MIDI, ecc.) quelli che iniziano "
+"col nome specificato o con uno dei nomi in una lista separata da virgole."
 
 #: ../help/contents.py:500
-#, fuzzy
 msgid "More information."
-msgstr "Texinfo"
+msgstr "Altre informazioni."
 
 #: ../help/contents.py:502
 msgid "encoding"
@@ -2164,9 +2172,8 @@ msgid "You can put document variables in comments."
 msgstr "È possibile inserire le variabili di documento nei commenti."
 
 #: ../help/contents.py:534
-#, fuzzy
 msgid "The \"{output}\" document variable"
-msgstr "Variabili di documento"
+msgstr "La variabile di documento \"{output}\""
 
 #: ../help/contents.py:539
 msgid ""
@@ -2174,20 +2181,26 @@ msgid ""
 "determination and makes Frescobaldi look for output documents (PDF, MIDI, "
 "etc.) with the specified basename, or comma-separated list of names."
 msgstr ""
+"Impostando questa variabile si disattiva l'associazione automatica "
+"dei documenti prodotti (PDF, MIDI, ecc.) e si forza Frescobaldi a cercare "
+"quelli "
+"contenenti il nome o i nomi specificati in una lista separata da virgole."
 
 #: ../help/contents.py:543
 msgid ""
 "If a name ends with a directory separator, output files are looked for in "
 "the specified directory. "
 msgstr ""
+"Se un nome finisce con un separatore di cartelle, i documenti prodotti "
+"saranno cercati nella cartella specificata."
 
 #: ../help/contents.py:545
 msgid "All names are relative to the document's filename."
-msgstr ""
+msgstr "Tutti i nomi sono relativi al nome del documento."
 
 #: ../help/contents.py:546 ../help/contents.py:650
 msgid "For example:"
-msgstr ""
+msgstr "Ad esempio:"
 
 #: ../help/contents.py:557
 msgid ""
@@ -2198,11 +2211,18 @@ msgid ""
 "automatic output file name determination does not work due to complicated "
 "LilyPond code."
 msgstr ""
+"Può essere utile impostare questa variabile se l'impostazione automatica dei "
+"nomi dei file prodotti richiede molto tempo (dato che Frescobaldi legge tutti "
+"i file sorgente, "
+"compresi quelli aggiunti con <code>\\include</code>, cercando i comandi "
+"LilyPond che specificano il nome dei file prodotti, come <code>"
+"\\bookOutputName</code> "
+"e simili) oppure quando l'impostazione automatica del nome non funziona "
+"per via di un codice LilyPond particolarmente complesso."
 
 #: ../help/contents.py:569
-#, fuzzy
 msgid "Sessions"
-msgstr "Sessione"
+msgstr "Sessioni"
 
 #: ../help/contents.py:573
 msgid ""
@@ -2210,27 +2230,31 @@ msgid ""
 "{menu_session_save} or {menu_session_new} and save the current list of open "
 "files to a named session."
 msgstr ""
+"Una sessione è fondamentalmente un elenco di file aperti. In qualsiasi "
+"momento "
+"è possibile usare {menu_session_save} o {menu_session_new} e salvare "
+"l'elenco dei file aperti in quel momento in una sessione."
 
 #: ../help/contents.py:576 ../help/contents.py:577 ../help/contents.py:586
 msgid "Session"
 msgstr "Sessione"
 
 #: ../help/contents.py:576 ../help/contents.py:586
-#, fuzzy
 msgid "Save"
 msgstr "Salva"
 
 #: ../help/contents.py:577
-#, fuzzy
 msgctxt "New Session"
 msgid "New"
-msgstr "&Nuovo"
+msgstr "Nuovo"
 
 #: ../help/contents.py:578
 msgid ""
 "When you switch sessions, all current documents are closed first and then "
 "the documents of the other session are opened."
 msgstr ""
+"Quando si cambia sessione, prima vengono chiusi tutti i documenti in uso "
+"e poi vengono aperti quelli della sessione successiva."
 
 #: ../help/contents.py:580
 msgid ""
@@ -2240,38 +2264,53 @@ msgid ""
 "documents in session the same, even if you open or close documents while "
 "working."
 msgstr ""
+"All'interno della finestra per le proprietà delle sessioni, si può scegliere "
+"se "
+"salvare sempre l'elenco dei documenti aperti per quella sessione o se "
+"salvarla "
+"soltanto al momento della creazione (o tramite {menu_session_save}). "
+"Questo può essere utile se si vuole mantenere inalterato l'elenco dei "
+"documenti "
+"pur aprendone o chiudendone altri durante il lavoro."
 
 #: ../help/contents.py:587
 msgid "You can also specify a default directory for the session."
 msgstr ""
+"È anche possibile specificare una cartella predefinita per ogni sessione."
 
 #: ../help/contents.py:597
 msgid "Troubleshooting"
-msgstr ""
+msgstr "Risoluzione dei problemi"
 
 #: ../help/contents.py:600
 msgid ""
 "Sometimes things don't go the way you would expect; this section may give "
 "some solutions."
 msgstr ""
+"A volte le cose non funzionano nel modo previsto; questa sezione può "
+"essere d'aiuto a trovare una soluzione."
 
 #: ../help/contents.py:612
 msgid "After engraving a score, the Music View does not show the music"
-msgstr ""
+msgstr "Dopo la compilazione, l'anteprima dello spartito non mostra la musica."
 
 #: ../help/contents.py:616
 msgid "Does the <code>\\score</code> block have a layout section?"
-msgstr ""
+msgstr "È presente la sezione layout nel blocco <code>\\score</code>?"
 
 #: ../help/contents.py:617
 msgid ""
 "If a <code>\\score</code> block has a <code>\\midi</code> section but no "
 "<code>\\layout</code> section, no PDF output is generated."
 msgstr ""
+"Se un blocco <code>\\score</code> ha una sezione <code>\\midi</code> "
+"ma non una sezione <code>\\layout</code>, il PDF non viene prodotto."
 
 #: ../help/contents.py:620
 msgid "Do you use an exotic way to specify the output filename?"
 msgstr ""
+"È stato usato un modo molto particolare per specificare il nome dei file "
+"prodotti?"
 
 #: ../help/contents.py:621
 msgid ""
@@ -2281,6 +2320,13 @@ msgid ""
 "files for commands like <code>\\bookOutputName</code> and <code>"
 "\\bookOutputSuffix</code>."
 msgstr ""
+"Frescobaldi è in grado di impostare i nomi dei file prodotti a partire dal "
+"nome "
+"del documento sorgente e dai vari comandi LilyPond che specificano i nomi "
+"o i suffissi dei nomi dei file prodotti. Frescobaldi cerca anche nei file "
+"aggiunti con "
+"<code>\\include</code> comandi come <code>\\bookOutputName</code> e "
+"<code>\\bookOutputSuffix</code>."
 
 #: ../help/contents.py:627
 msgid ""
@@ -2288,16 +2334,21 @@ msgid ""
 "output filenames, Frescobaldi may not be able to correctly determine those "
 "filenames."
 msgstr ""
+"Ma se si usa del codice Scheme più complesso nel documento sorgente per "
+"impostare i nomi dei file prodotti, Frescobaldi potrebbe non essere in grado "
+"di determinare correttamente questi nomi."
 
 #: ../help/contents.py:630
 msgid ""
 "In that case you can override the base name(s) using the {output} document "
 "variable."
 msgstr ""
+"In questo caso, conviene impostare manualmente lo schema dei nomi usando "
+"la variabile {output} nel documento sorgente."
 
 #: ../help/contents.py:643
 msgid "How to generate a MIDI file?"
-msgstr ""
+msgstr "Come si ottiene il file MIDI?"
 
 #: ../help/contents.py:647
 msgid ""
@@ -2305,12 +2356,18 @@ msgid ""
 "file, you must wrap the music in a <code>\\score</code> block and add a "
 "<code>\\midi</code> block to it."
 msgstr ""
+"Di norma, LilyPond crea soltanto un documento PDF. Per ottenere il file MIDI, "
+"bisogna che il testo contenente la musica sia compreso in un blocco <code>"
+"\\score</code> "
+"e che in questo sia presente una sezione <code>\\midi</code>."
 
 #: ../help/contents.py:662
 msgid ""
 "If you omit the <code>\\layout</code> block, no PDF file will be generated, "
 "only a MIDI file."
 msgstr ""
+"Se non si inserisce una sezione <code>\\layout</code>, non verrà prodotto "
+"il PDF ma solo il file MIDI."
 
 #: ../help/contents.py:669
 msgid "Table of Contents"
@@ -2440,7 +2497,7 @@ msgstr "&Diminuisci zoom"
 
 #: ../musicview/__init__.py:278
 msgid "Original &Size"
-msgstr ""
+msgstr "&Dimensione originale"
 
 #: ../musicview/__init__.py:279
 msgid "Zoom Music"
@@ -2460,16 +2517,15 @@ msgstr "Adatta alla &pagina"
 
 #: ../musicview/__init__.py:283
 msgid "&Maximize"
-msgstr ""
+msgstr "Allarga al &massimo"
 
 #: ../musicview/__init__.py:284
 msgid "&Jump to Cursor Position"
 msgstr "&Salta alla posizione del cursore"
 
 #: ../musicview/__init__.py:285
-#, fuzzy
 msgid "S&ynchronize with Cursor Position"
-msgstr "S&incronizza l'anteprima con il documento attuale"
+msgstr "S&incronizza con la posizione del cursore"
 
 #: ../musicview/__init__.py:286
 msgid "Copy to &Image..."
@@ -2522,22 +2578,22 @@ msgstr "{num} di {total}"
 
 #: ../musicview/contextmenu.py:49 ../musicview/editinplace.py:82
 #: ../musicview/editinplace.py:246 ../musicview/editinplace.py:255
-#, fuzzy
 msgid "Edit in Place"
-msgstr "Modifica di nuovo"
+msgstr "Modifica sul posto"
 
 #: ../musicview/editinplace.py:147
 msgid "Editing line {linenum} of \"{document}\" ({variable})"
-msgstr ""
+msgstr "Modifica della riga {linenum} di \"{document}\" ({variable})"
 
 #: ../musicview/editinplace.py:250
-#, fuzzy
 msgid "In this dialog you can edit one line of the text document."
-msgstr "Il nome locale completo del documento attuale."
+msgstr ""
+"In questa finestra si può modificare una singola riga del testo sorgente."
 
 #: ../musicview/editinplace.py:251
 msgid "Click OK or press {key} to place the modified text in the document."
 msgstr ""
+"Fare clic su OK o premere {key} per inviare il testo modificato nel documento."
 
 #: ../musicview/editinplace.py:253
 msgid ""
@@ -2545,6 +2601,9 @@ msgid ""
 "object in the Music View or by right-clicking the object and selecting "
 "{menu}."
 msgstr ""
+"È possibile aprire la finestra di \"Modifica sul posto\" facendo clic "
+"con il tasto Shift premuto su un oggetto musicale nell'anteprima spartito "
+"oppure facendo clic col tasto destro sull'oggetto e scegliendo {menu}."
 
 #: ../musicview/image.py:127
 msgid "DPI:"
@@ -3107,7 +3166,7 @@ msgid "English (untranslated)"
 msgstr "Inglese (non tradotto)"
 
 #: ../preferences/documentation.py:126 ../preferences/fontscolors.py:122
-#: ../preferences/tools.py:81 ../preferences/tools.py:203
+#: ../preferences/tools.py:81 ../preferences/tools.py:187
 msgid "Font:"
 msgstr "Carattere:"
 
@@ -3400,23 +3459,27 @@ msgid ""
 "bundled icons.\n"
 "This setting takes effect on the next start of {appname}."
 msgstr ""
-"Se spuntato, saranno usate le icone del sistema invece di quelle proprie del "
+"Se selezionato, saranno usate le icone del sistema invece di quelle proprie "
+"del "
 "programma.\n"
 "Questa impostazione avrà effetto dopo il riavvio di {appname}."
 
 #: ../preferences/general.py:139
 msgid "Show Splash Screen on Startup"
-msgstr ""
+msgstr "Mostra la schermata di caricamento all'avvio"
 
 #: ../preferences/general.py:140
 msgid "Open Files in Running Instance"
-msgstr ""
+msgstr "Apri i file nell'istanza corrente"
 
 #: ../preferences/general.py:142
 msgid ""
 "If checked, files will be opened in a running Frescobaldi application if "
 "available, instead of starting a new instance."
 msgstr ""
+"Se selezionato, i file saranno aperti nell'istanza di Frescobaldi già in "
+"esecuzione,"
+"se disponbile, invece di avviarne una nuova."
 
 #: ../preferences/general.py:170 ../preferences/prefshelp.py:65
 msgid "Session to load if Frescobaldi is started without arguments"
@@ -3602,14 +3665,15 @@ msgid ""
 "If checked, the document is saved when it is local and modified.\n"
 "Otherwise a temporary file is used to run LilyPond."
 msgstr ""
-"Se segnato, prima di eseguire LilyPond su un documento locale con modifiche "
+"Se selezionato, prima di eseguire LilyPond su un documento locale con "
+"modifiche "
 "quest'ultimo viene salvato;\n"
 "altrimenti, LilyPond viene eseguito usando una copia temporanea del file."
 
 #: ../preferences/lilypond.py:290
 msgid "If checked, LilyPond will delete intermediate PostScript files."
 msgstr ""
-"Se attivato, LilyPond cancellerà i file di output intermedi (ad es. "
+"Se selezionato, LilyPond cancellerà i file di output intermedi (ad es. "
 "PostScript)."
 
 #: ../preferences/lilypond.py:293
@@ -3707,6 +3771,8 @@ msgid ""
 "In the Preferences Dialog (under {menu}) you can configure many aspects of "
 "Frescobaldi and LilyPond."
 msgstr ""
+"Nella finestra delle Preferenze (in {menu}) si possono configurare molte "
+"caratteristiche di Frescobaldi e LilyPond."
 
 #: ../preferences/prefshelp.py:52
 msgid ""
@@ -3715,12 +3781,19 @@ msgid ""
 "want to use, and whether you want to use the built-in Tango iconset or to "
 "use the system-wide configured icon set."
 msgstr ""
+"Alla sezione <em>{general_preferences}</em>, è possibile scegliere "
+"la lingua dell'interfaccia utente di Frescobaldi, lo stile da usare per "
+"l'interfaccia "
+"e se si voglia usare il set di icone Tango allegato al programma o "
+"invece le icone generali del sistema."
 
 #: ../preferences/prefshelp.py:58
 msgid ""
 "Language and style take effect immediately, but the new iconset is visible "
 "after Frescobaldi has been restarted."
 msgstr ""
+"I cambiamenti di lingua e di stile hanno effetto immediato mentre il cambio "
+"delle icone richiede il riavvio di Frescobaldi."
 
 #: ../preferences/prefshelp.py:60
 msgid ""
@@ -3729,6 +3802,11 @@ msgid ""
 "with one empty document, with the last used session, or with a specific "
 "session. See also {link}."
 msgstr ""
+"Alla sezione <em>{startup}</em>, è possibile configurare quale "
+"sessione caricare se Frescobaldi è avviato senza il nome di un file da aprire."
+" "
+"Si può scegliere se iniziare con un documento vuoto, con l'ultima sessione "
+"in uso o con una sessione specifica. Vedere inoltre {link}."
 
 #: ../preferences/prefshelp.py:67
 msgid ""
@@ -3737,11 +3815,20 @@ msgid ""
 "backup copy of the document (with a ~ appended). Also, you can specify a "
 "default folder in which you keep your LilyPond documents."
 msgstr ""
+"Alla sezione <em>{saving}</em>, si può scegliere che cosa fare quando un "
+"documento "
+"viene salvato, come ad esempio ricordare la posizione del cursore e le righe "
+"contrassegnate "
+"oppure lasciare una copia di sicurezza del documento (con una ~ aggiunta alla "
+"fine del nome). "
+"Inoltre si può specificare una cartella predefinita per i documenti LilyPond."
 
 #: ../preferences/prefshelp.py:83
 msgid ""
 "Here you can configure how LilyPond is run when you engrave your document."
 msgstr ""
+"Qui è possibile configurare come LilyPond viene eseguito quando si compila un "
+"documento."
 
 #: ../preferences/prefshelp.py:85
 msgid ""
@@ -3749,31 +3836,39 @@ msgid ""
 "here, and configure Frescobaldi to automatically choose the right one, based "
 "on the version number that is set in the document ({more_info})."
 msgstr ""
+"Se sono installate diverse versione di LilyPond, possono essere specificate "
+"qui e configurare Frescobaldi per scegliere automaticamente la versione "
+"giusta "
+"a seconda del numero di versione contenuto nel documento ({more_info})."
 
 #: ../preferences/prefshelp.py:89
-#, fuzzy
 msgid "more info"
-msgstr "Texinfo"
+msgstr "altre informazioni"
 
 #: ../preferences/prefshelp.py:90
 msgid ""
 "You can also configure how LilyPond is run. See the tooltips of the settings "
 "for more information."
 msgstr ""
+"Si può anche configurare l'esecuzione di LilyPond. Consultare i consigli "
+"sulla configurazione per maggiori ragguagli."
 
 #: ../preferences/prefshelp.py:92
 msgid ""
 "Finally, you can specify a list of paths where the LilyPond <code>\\include</"
 "code> command looks for files."
 msgstr ""
+"Infine è possibile specificare un elenco di percorsi in cui il comando <code>"
+"\\include</"
+"code> di LilyPond cercherà i file."
 
 #: ../preferences/prefshelp.py:128
 msgid "Here you can configure Frescobaldi's MIDI settings."
-msgstr ""
+msgstr "Qui si possono configurare le impostazioni MIDI di Frescobaldi."
 
 #: ../preferences/prefshelp.py:130
 msgid "You can specify the MIDI port name to play to."
-msgstr ""
+msgstr "È possibile indicare la porta MIDI da usare per suonare i file."
 
 #: ../preferences/prefshelp.py:131
 msgid ""
@@ -3781,31 +3876,43 @@ msgid ""
 "to connect a hardware MIDI synthesizer to your computer, or to start a "
 "software synthesizer program such as TiMidity or Fluidsynth."
 msgstr ""
+"Se nel menu a tendina non è presente nessuna porta, potrebbe essere "
+"necessario "
+"collegare un sintetizzatore MIDI al computer o avviare un sintetizzatore "
+"software "
+"come TiMidity o Fluidsynth."
 
 #: ../preferences/prefshelp.py:135
 msgid "On Linux, the synthesizer should be available as an ALSA MIDI device."
 msgstr ""
+"In Linux, il sintetizzatore dovrebbe essere disponibile come un dispositivo "
+"ALSA MIDI."
 
 #: ../preferences/prefshelp.py:137
 msgid ""
 "If you have a device with multiple ports, you can specify the first letters "
 "of the name, to have Frescobaldi automatically pick the first available one."
 msgstr ""
+"Se è presente un dispositivo con più porte, si possono indicare le prime "
+"lettere "
+"del nome perché Frescobaldi scelga automaticamente la prima porta disponbile."
 
 #: ../preferences/prefshelp.py:140
 msgid ""
 "And finally, when using a software synthesizer it is recommended to enable "
 "the option <em>{close_unused}</em>."
 msgstr ""
+"Infine, quando si usa un sintetizzatore software, si raccomanda di abilitare "
+"l'opzione <em>{close_unused}</em>."
 
 #: ../preferences/prefshelp.py:160
-#, fuzzy
 msgid ""
 "In this page you can enter commands to open different file types. <code>$f</"
 "code> is replaced with the filename, <code>$u</code> with the URL. Leave a "
 "field empty to use the operating system default application."
 msgstr ""
-"Di seguito è possibile inserire i comandi per aprire diversi tipi di file. "
+"In questa pagina è possibile inserire i comandi per aprire diversi tipi di "
+"file. "
 "<code>$f<code/> è sostituito dal nome del file, <code>$u<code/> dall'URL. "
 "Lasciare un campo vuoto per usare la relativa applicazione predefinita del "
 "sistema."
@@ -3816,18 +3923,27 @@ msgid ""
 "url. For the command prompt, the command should open a console window. A "
 "<code>$f</code> value is replaced with the directory of the current document."
 msgstr ""
+"Per l'invio di e-mail, il comando inserito deve accettare il formato "
+"url <code>mailto:</code> mentre per il terminale, il comando "
+"deve aprire una console. Il codice <code>$f</code> sarà sostituito "
+"dalla cartella del documento in uso."
 
 #: ../preferences/prefshelp.py:179
 msgid ""
 "Here, directories can be added that contain <code>hyph_*.dic</code> files, "
 "where the <code>*</code> stands for different language codes."
 msgstr ""
+"Qui si possono aggiungere cartelle che contengano file del tipo "
+"<code>hyph_*.dic</code>, in cui <code>*</code> sta "
+"per il codice delle varie lingue."
 
 #: ../preferences/prefshelp.py:182
 msgid ""
 "These hyphenation dictionaries are used by Frescobaldi to break lyrics text "
 "into syllabes."
 msgstr ""
+"Questi dizionari sono usati da Frescobaldi per dividere in sillabe "
+"le parole associate alle melodie."
 
 #: ../preferences/prefshelp.py:212
 msgid ""
@@ -3835,6 +3951,10 @@ msgid ""
 "{snippets} or {quickinsert} buttons that have keyboard shortcuts are listed "
 "here."
 msgstr ""
+"Qui si possono aggiungere scorciatoie di tastiera per tutti i comandi "
+"disponibili. "
+"Anche i pulsanti {snippets} o {quickinsert} che hanno scorciatoie "
+"sono elencati qui."
 
 #: ../preferences/prefshelp.py:215 ../snippet/tool.py:54
 #: ../snippet/tool.py:135 ../snippet/widget.py:403
@@ -3853,16 +3973,25 @@ msgid ""
 "enter up to four shortcuts for the action by clicking the button and typing "
 "the shortcut. "
 msgstr ""
+"Per cambiare una scorciatoia di tastiera, selezionare un azione nell'elenco "
+"e fare clic sul pulsante Edit, oppure fare direttamente doppio clic "
+"sull'azione. "
+"Nella finestra che appare, si possono inserire fino a quattro scorciatoie per "
+"azione "
+"facendo clic sul pulsante e digitando la scorciatoia."
 
 #: ../preferences/prefshelp.py:221 ../preferences/prefshelp.py:244
 msgid "You can define a new scheme by using the New button."
-msgstr ""
+msgstr "Si può definire un nuovo schema usando il pulsante Nuovo."
 
 #: ../preferences/prefshelp.py:231
 msgid ""
 "Here you can set the editor font (a monospace font is recommended) and all "
 "colors."
 msgstr ""
+"Qui si possono impostare il carattere per l'editor (si raccomanda un "
+"carattere "
+"a spaziatura fissa) e tutti i colori."
 
 #: ../preferences/prefshelp.py:233
 msgid ""
@@ -3870,12 +3999,19 @@ msgid ""
 "foreground, selection background, the current line, line markings, the paper "
 "color in the Music View, etcetera."
 msgstr ""
+"La prima voce dell'elenco permette di impostare i colori "
+"per lo sfondo dell'editor, lo sfondo delle parti selezionate, "
+"il colore della riga corrente, dei contrassegni, della carta "
+"nell'anteprima spartito e così via."
 
 #: ../preferences/prefshelp.py:236
 msgid ""
 "The second item lets you set color and other attributes of the general "
 "highlighting styles, e.g. keyword, variable, value, comment, etcetera."
 msgstr ""
+"La seconda voce permette di impostare i colori e varie caratteristiche "
+"del modo generale di evidenziare il testo, ad es. parole-chiave, variabili, "
+"commenti e così via."
 
 #: ../preferences/prefshelp.py:239
 msgid ""
@@ -3884,11 +4020,16 @@ msgid ""
 "inherit a general style. It is possible to set the attributes bold, italic, "
 "underline and the foreground, background and underline color."
 msgstr ""
+"Le altre voci contengono i vari tipi di testo che l'evidenziatore della "
+"sintassi "
+"riconosce per ogni tipo specifico di documento gestito da Frescobaldi. "
+"Alcuni di questi tipi derivano dallo stile generale. Le caratteristiche "
+"che si possono impostare sono il grassetto, il corsivo, il sottolineato "
+"e il colore del testo, dello sfondo e della sottolineatura."
 
 #: ../preferences/prefshelp.py:253
-#, fuzzy
 msgid "Here you can change the settings for various tools."
-msgstr "Qui si possono modificare le scorciatoie per {name}"
+msgstr "Qui si possono modificare le impostazioni di vari strumenti."
 
 #: ../preferences/shortcuts.py:56 ../snippet/model.py:63
 msgid "Shortcut"
@@ -3931,50 +4072,41 @@ msgstr "Mostra i messaggi di LilyPond come sono"
 #: ../preferences/tools.py:85
 msgid "If checked, Frescobaldi will not shorten filenames in the log output."
 msgstr ""
-"Se spuntato, Frescobaldi non abbrevierà i nomi dei file\n"
+"Se selezionato, Frescobaldi non abbrevierà i nomi dei file\n"
 "nei messaggi di esecuzione di LilyPond."
 
-#: ../preferences/tools.py:145
+#: ../preferences/tools.py:141
 msgid "Music View"
 msgstr "Anteprima spartito"
 
-#: ../preferences/tools.py:146
+#: ../preferences/tools.py:142
 msgid "Magnifier Size:"
 msgstr "Lente d'ingrandimento:"
 
-#: ../preferences/tools.py:148
+#: ../preferences/tools.py:144
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr ""
 "Dimensioni della lente d'ingrandimento. (Ctrl+Click nell'Anteprima spartito)."
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: ../preferences/tools.py:150
+#: ../preferences/tools.py:146
 msgid " pixels"
 msgstr " pixel"
 
-#: ../preferences/tools.py:151
+#: ../preferences/tools.py:147
 msgid "Magnifier Scale:"
 msgstr "Fattore d'ingrandimento:"
 
-#: ../preferences/tools.py:153
+#: ../preferences/tools.py:149
 msgid "Magnification of the magnifier."
 msgstr "Quante volte ingrandisce la lente."
 
-#: ../preferences/tools.py:154
+#: ../preferences/tools.py:150
 msgctxt "percent unit sign"
 msgid "%"
 msgstr "%"
 
-#. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
-#: ../preferences/tools.py:156
-msgid "Kinetic Scrolling"
-msgstr ""
-
-#: ../preferences/tools.py:157
-msgid "Show Scrollbars"
-msgstr ""
-
-#: ../preferences/tools.py:236
+#: ../preferences/tools.py:220
 msgid "Group documents by directory"
 msgstr "Raggruppa documenti per cartella"
 
@@ -4477,7 +4609,8 @@ msgstr ""
 "</p>\n"
 "\n"
 "<p>\n"
-"Se <em>Permetti abbreviazioni</em> è abilitato, Frescobaldi userà i comandi\n"
+"Se <em>Permetti abbreviazioni</em> è selezionato, Frescobaldi userà i "
+"comandi\n"
 "abbreviati dei segni, se esistono\n"
 "(ad es., <code>-.</code> al posto di <code>-\\staccato</code>).\n"
 "</p>\n"
@@ -5328,7 +5461,7 @@ msgstr "Unisci le stanghette"
 
 #: ../scorewiz/parts/containers.py:73
 msgid "If checked, barlines are connected between the staves."
-msgstr "Se segnato, le stanghette saranno unite tra i vari righi."
+msgstr "Se selezionato, le stanghette saranno unite tra i vari righi."
 
 #: ../scorewiz/parts/containers.py:94
 msgid "Score"
@@ -5363,14 +5496,14 @@ msgid ""
 "be used.</p>"
 msgstr ""
 "<p>Qui è possibile specificare un nome o un suffisso (senza estensione) per "
-"impostare i nomi dei file generati per questo libro.</p>\n"
+"impostare i nomi dei file prodotti per questo libro.</p>\n"
 "<p>Se si sceglie \"Suffisso\", questo verrà aggiunto alla fine del nome del "
 "documento; se si sceglie \"Nome dei file\", verrà semplicemente usato "
 "quest'ultimo.</p>"
 
 #: ../scorewiz/parts/containers.py:193
 msgid "Output Filename:"
-msgstr "Nome dei file generati:"
+msgstr "Nome dei file prodotti:"
 
 #: ../scorewiz/parts/containers.py:194
 msgid "Filename"
@@ -5906,8 +6039,8 @@ msgid ""
 "Creates a rehearsal MIDI file for every voice, even if no MIDI output is "
 "generated for the main score."
 msgstr ""
-"Crea un MIDI file di controllo per ogni voce, anche se non è generato nessun "
-"MIDI output per lo spartito principale."
+"Crea un MIDI file di controllo per ogni voce, anche se non è prodotto nessun "
+"file MIDI per lo spartito principale."
 
 #: ../scorewiz/parts/vocal.py:361
 msgctxt "abbreviation for Choir"
@@ -6196,66 +6329,56 @@ msgid "&Session"
 msgstr "&Sessione"
 
 #: ../sidebar/__init__.py:245
-#, fuzzy
 msgid "&Line Numbers"
-msgstr "Numero di corda"
+msgstr "Numero di &riga"
 
 #: ../sidebar/__init__.py:246
 msgid "&Enable Folding"
-msgstr ""
+msgstr "C&ontrai il codice"
 
 #: ../sidebar/__init__.py:247
-#, fuzzy
 msgid "&Fold Current Region"
-msgstr "&Contrassegna la riga attuale"
+msgstr "Co&ntrai la regione corrente"
 
 #: ../sidebar/__init__.py:248
-#, fuzzy
 msgid "Fold &Top Region"
-msgstr "&Contrassegna la riga attuale"
+msgstr "Con&trai la regione principale"
 
 #: ../sidebar/__init__.py:249
-#, fuzzy
 msgid "&Unfold Current Region"
-msgstr "&Contrassegna la riga attuale"
+msgstr "&Espandi la regione attuale"
 
 #: ../sidebar/__init__.py:250
-#, fuzzy
 msgid "Fold &All"
-msgstr "&Tutto"
+msgstr "&Contrai tutto"
 
 #: ../sidebar/__init__.py:251
 msgid "U&nfold All"
-msgstr ""
+msgstr "E&spandi tutto"
 
 #: ../snippet/builtin.py:38
 msgid "Blank Line"
 msgstr "Linea vuota"
 
 #: ../snippet/builtin.py:44
-#, fuzzy
 msgid "Delete Line(s)"
-msgstr "Seleziona tutte le righe precedenti"
+msgstr "Cancella una o più righe"
 
 #: ../snippet/builtin.py:62
-#, fuzzy
 msgid "Next Blank Line"
-msgstr "Linea vuota"
+msgstr "Riga vuota successiva"
 
 #: ../snippet/builtin.py:76
-#, fuzzy
 msgid "Previous Blank Line"
-msgstr "Linea vuota precedente"
+msgstr "Riga vuota precedente"
 
 #: ../snippet/builtin.py:90
-#, fuzzy
 msgid "Select until Next Blank Line"
 msgstr "Seleziona fino alla riga vuota successiva"
 
 #: ../snippet/builtin.py:104
-#, fuzzy
 msgid "Select until Previous Blank Line"
-msgstr "Seleziona fino alla alla riga vuota precedent"
+msgstr "Seleziona fino alla alla riga vuota precedente"
 
 #: ../snippet/builtin.py:118
 msgid "Single Typographical Quotes"
@@ -6394,12 +6517,11 @@ msgid "A snippet can't be empty."
 msgstr "Un frammento non può essere vuoto."
 
 #: ../snippet/edit.py:147
-#, fuzzy
 msgid ""
 "The snippet has been modified.\n"
 "Do you want to save your changes or discard them?"
 msgstr ""
-"Il documento \"{name}\" è stato modificato.\n"
+"Il frammento è stato modificato.\n"
 "Salvare le modifiche o scartarle?"
 
 #: ../snippet/edit.py:214
@@ -6556,6 +6678,9 @@ msgid ""
 "instead of inserting the text from the {text} variable. In this case you may "
 "alter the document through the {cursor}."
 msgstr ""
+"Una funzione definita con questo nome viene chiamata senza argomenti "
+"invece di avere il testo inserito automaticamente dalla variabile {text}. "
+"In questo caso, si può modificare il documento usando {cursor}."
 
 #: ../snippet/expand.py:76
 msgid "The current date in YYYY-MM-DD format."
@@ -6648,11 +6773,11 @@ msgstr ""
 
 #: ../snippet/import_export.py:235
 msgid "Importing and exporting snippets"
-msgstr ""
+msgstr "Importare ed esportare frammenti."
 
 #: ../snippet/import_export.py:239
 msgid "Snippets can be imported from and exported to XML files."
-msgstr ""
+msgstr "I frammenti possono essere importati ed esportati come file XML."
 
 #: ../snippet/import_export.py:240
 msgid ""
@@ -6662,6 +6787,11 @@ msgid ""
 "selecting {menu}, and then choose a file name, preferably ending in <code>."
 "xml</code>."
 msgstr ""
+"Per esportare i frammenti, bisogna selezionarli nel gestore frammenti "
+"oppure trovarli usando la barra di ricerca senza selezionarle nessuno, "
+"in modo che tutti i frammenti visibli nel gestore siano esportati; scegliere "
+"quindi {menu} e inserire un nome per il file, meglio se con estensione "
+"<code>.xml</code>."
 
 #: ../snippet/import_export.py:245 ../snippet/import_export.py:250
 #: ../snippet/widget.py:183
@@ -6678,6 +6808,9 @@ msgid ""
 "You may also drop an XML file on the snippet manager. A dialog will be "
 "displayed where you can select which snippets you want to import."
 msgstr ""
+"Per importare frammenti, scegliere {menu} e indicare il file che si vuole "
+"importare. Si può anche trascinare un file XML sul gestore dei frammenti: "
+"si aprirà una finestra da cui scegliere quali frammenti importare."
 
 #: ../snippet/import_export.py:250 ../snippet/widget.py:195
 msgid "&Import..."
@@ -6688,6 +6821,9 @@ msgid ""
 "The XML format of the snippet library files is simple and documented inside "
 "the XML file."
 msgstr ""
+"Il formato XML dei file di archiviazione dei frammenti è semplice ed è "
+"descritto "
+"all'interno del file XML stesso."
 
 #: ../snippet/insert.py:221
 msgid "Snippet error"
@@ -6710,10 +6846,9 @@ msgid "Description"
 msgstr "Descrizione"
 
 #: ../snippet/restore.py:62
-#, fuzzy
 msgctxt "dialog title"
 msgid "Restore Built-in Snippets"
-msgstr "Frammenti Python"
+msgstr "Ripristinare i frammenti predefiniti."
 
 #: ../snippet/restore.py:64
 msgid ""
@@ -6721,21 +6856,22 @@ msgid ""
 "or deleted. Check the snippets you want to recover and click the button "
 "\"Restore Checked Snippets.\""
 msgstr ""
+"Questa finestra permette di ripristinare i frammenti predefiniti che siano "
+"stati "
+"cambiati o cancellati. Selezionare i frammenti da ripristinare e fare clic "
+"sul pulsante \"Ripristina frammenti\"."
 
 #: ../snippet/restore.py:67
-#, fuzzy
 msgid "Restore Checked Snippets"
-msgstr "Rimuove i frammenti selezionati."
+msgstr "Ripristina frammenti"
 
 #: ../snippet/restore.py:68
-#, fuzzy
 msgid "Deleted Snippets"
-msgstr "Aggiorna i frammenti"
+msgstr "Frammenti cancellati"
 
 #: ../snippet/restore.py:69
-#, fuzzy
 msgid "Changed Snippets"
-msgstr "Frammenti non modificati"
+msgstr "Frammenti modificati"
 
 #: ../snippet/template.py:41
 msgid "Save as Template"
@@ -6746,20 +6882,18 @@ msgid "Please enter a template name:"
 msgstr "Inserire un nome per il modello:"
 
 #: ../snippet/template.py:49
-#, fuzzy
 msgid "Overwrite Template?"
-msgstr "Nuovo da Modello"
+msgstr "Sovrascrivere il modello?"
 
 #: ../snippet/template.py:50
-#, fuzzy
 msgid ""
 "A template named \"{name}\" already exists.\n"
 "\n"
 "Do you want to overwrite it?"
 msgstr ""
-"Esiste già una sessione con questo nome: {name}.\n"
+"Esiste già un modello con questo nome: \"{name}\".\n"
 "\n"
-"Sovrascriverla?"
+"Sovrascriverlo?"
 
 #: ../snippet/tool.py:55
 msgid "&Snippets"
@@ -6794,9 +6928,8 @@ msgid "Edit the current snippet. ({key})"
 msgstr "Modifica il frammento attuale. ({key})"
 
 #: ../snippet/widget.py:190
-#, fuzzy
 msgid "Configure Keyboard &Shortcut..."
-msgstr "Configura la scorciatoia ({key})"
+msgstr "Configura la &scorciatoia..."
 
 #: ../snippet/widget.py:192
 msgid "Remove the selected snippets."
@@ -6820,11 +6953,11 @@ msgstr "Esporta frammenti in un file."
 
 #: ../snippet/widget.py:199
 msgid "Restore &Built-in Snippets..."
-msgstr ""
+msgstr "Ripristina i &frammenti predefiniti..."
 
 #: ../snippet/widget.py:201
 msgid "Restore deleted or changed built-in snippets."
-msgstr ""
+msgstr "Ripristina i frammenti predefiniti cancellati o modificati."
 
 #: ../snippet/widget.py:202
 msgid "&Help"
@@ -6969,7 +7102,7 @@ msgstr "Frammenti..."
 
 #: ../snippet/widget.py:456
 msgid "Maintaining a library of snippets"
-msgstr ""
+msgstr "Conservare una biblioteca di frammenti"
 
 #: ../snippet/widget.py:461
 msgid ""
@@ -6977,12 +7110,20 @@ msgid ""
 "of course prefix the snippet titles with some sort of special name. But a "
 "smarter way is to use a snippet variable."
 msgstr ""
+"Per gestire un certo numero di frammenti insieme, come se fossero una "
+"raccolta, "
+"si può ovviamente usare qualche nome particolare come prefisso dei nomi "
+"di questi frammenti. Tuttavia, un modo più efficace è usare una variabile di "
+"frammento."
 
 #: ../snippet/widget.py:464
 msgid ""
 "It is suggested to use the \"{set}\" variable, and set it to the name of the "
 "library you want the snippet to belong to."
 msgstr ""
+"Si consiglia di usare la variabile \"{set}\" e di definirla con il nome della "
+"raccolta "
+"nella quale si vogliono conservare i frammenti."
 
 #: ../snippet/widget.py:467
 msgid ""
@@ -6991,6 +7132,12 @@ msgid ""
 "search bar, where \"name\" is the name you want to use. And then e.g. export "
 "the snippets to an XML file for sharing the snippets with others."
 msgstr ""
+"In questo modo, nel gestore dei frammenti sarà possibile scegliere facilmente "
+"tutti i frammenti appartenenti alla raccolta inserendo  <code>:{set} nome<"
+"/code> "
+"nella barra di ricerca, dove \"nome\" è il nome della raccolta. E poi, ad "
+"esempio, "
+"esportare i frammenti in un file XML per condividerli con altri utenti."
 
 #: ../widgets/keysequencewidget.py:60
 msgid "Start recording a key sequence."
@@ -7014,9 +7161,8 @@ msgid "&New..."
 msgstr "&Nuovo..."
 
 #: ../widgets/schemeselector.py:92
-#, fuzzy
 msgid "Add Scheme"
-msgstr "Scheme"
+msgstr "Aggiungi schema"
 
 #: ../widgets/schemeselector.py:93
 msgid "Please enter a name for the new scheme:"
