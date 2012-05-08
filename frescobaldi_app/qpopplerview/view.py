@@ -294,7 +294,7 @@ class View(QScrollArea):
         newSize = self.surface().size()
         newx = self._centerPos.x() * newSize.width() / oldSize.width()
         newy = self._centerPos.y() * newSize.height() / oldSize.height()
-        self.center(QPoint(newx, newy))
+        self.center(QPoint(newx, newy), True)
         self._centerPos = None
 
     def zoom(self, scale, pos=None):
