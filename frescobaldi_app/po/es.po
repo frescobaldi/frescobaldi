@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2012-05-06 17:31+0200\n"
-"PO-Revision-Date: 2012-04-18 20:30+0200\n"
+"PO-Revision-Date: 2012-05-07 13:52+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -33,8 +33,7 @@ msgid "Qt4"
 msgstr "Qt4"
 
 #: ../about.py:50
-msgid ""
-"The Music View is powered by the {poppler} library by {authors} and others."
+msgid "The Music View is powered by the {poppler} library by {authors} and others."
 msgstr ""
 "La Vista de música se realiza con la biblioteca {poppler} de {authors} y "
 "otros."
@@ -53,13 +52,12 @@ msgid "The Tango Desktop Project"
 msgstr "El proyecto de escritorio Tango Desktop"
 
 #: ../about.py:61
-#, fuzzy
 msgid "The following people contributed to {appname}:"
-msgstr "Se harán las siguientes sustituciones:"
+msgstr "Las siguientes personas han colaborado con {appname}:"
 
 #: ../about.py:64
 msgid "{author}: Kinetic Scrolling for the Music View"
-msgstr ""
+msgstr "{author}: Desplazamiento Cinético en la vista previa de música"
 
 #: ../about.py:69
 msgid "{appname} is translated into the following languages:"
@@ -114,8 +112,7 @@ msgstr "Publicado bajo la licencia {gpl}."
 msgid "This shortcut conflicts with the following command:"
 msgid_plural "This shortcut conflicts with the following commands:"
 msgstr[0] "Esta combinación entra en conflicto con la siguiente instrucción:"
-msgstr[1] ""
-"Esta combinación entra en conflicto con las siguientes instrucciones:"
+msgstr[1] "Esta combinación entra en conflicto con las siguientes instrucciones:"
 
 #: ../actioncollectionmanager.py:128 ../preferences/shortcuts.py:209
 msgid "Shortcut Conflict"
@@ -282,8 +279,7 @@ msgstr "Cortar y asignar"
 
 #: ../cut_assign.py:40
 msgid "Please enter the name for the variable to assign the selected text to:"
-msgstr ""
-"Escriba el nombre de la variable a la que asignar el texto seleccionado:"
+msgstr "Escriba el nombre de la variable a la que asignar el texto seleccionado:"
 
 #: ../document.py:143 ../doclist/widget.py:128 ../snippet/edit.py:178
 msgid "Untitled"
@@ -902,10 +898,9 @@ msgid "&Folding"
 msgstr "&Plegar"
 
 #: ../menu.py:188
-#, fuzzy
 msgctxt "menu title"
 msgid "&Music"
-msgstr "Vista de &música"
+msgstr "&Música"
 
 #: ../menu.py:211
 msgctxt "menu title"
@@ -1041,8 +1036,7 @@ msgid "&All"
 msgstr "&Todo"
 
 #: ../search.py:112
-msgid ""
-"Replaces all occurrences of the search term in the document or selection."
+msgid "Replaces all occurrences of the search term in the document or selection."
 msgstr ""
 "Sustituye todas las apariciones del término buscado dentro del documento o "
 "selección."
@@ -1239,8 +1233,7 @@ msgstr "Resolución:"
 
 #: ../engrave/custom.py:128
 msgid "Run LilyPond in preview mode (with Point and Click)"
-msgstr ""
-"Ejecutar LilyPond en modo de vista previa (con enlaces de apuntar y pulsar)"
+msgstr "Ejecutar LilyPond en modo de vista previa (con enlaces de apuntar y pulsar)"
 
 #: ../engrave/custom.py:129
 msgid "Run LilyPond with verbose output"
@@ -1724,10 +1717,8 @@ msgid "You can also adjust the view:"
 msgstr "También puede ajustar la vista:"
 
 #: ../help/contents.py:252
-msgid ""
-"Use the Control (or Command) key with the mouse wheel to zoom in and out"
-msgstr ""
-"Use la tecla Control (o Command) con la rueda del ratón para acercar o alejar"
+msgid "Use the Control (or Command) key with the mouse wheel to zoom in and out"
+msgstr "Use la tecla Control (o Command) con la rueda del ratón para acercar o alejar"
 
 #: ../help/contents.py:254
 msgid "Hold Control or Command and left-click to display a magnifier glass"
@@ -2133,8 +2124,7 @@ msgid "version"
 msgstr "versión"
 
 #: ../help/contents.py:505
-msgid ""
-"Set the LilyPond version to use, can be used for non-LilyPond documents."
+msgid "Set the LilyPond version to use, can be used for non-LilyPond documents."
 msgstr ""
 "Seleccionar la versión de LilyPond que usar, se puede utilizar para "
 "documentos que no sean de LilyPond."
@@ -2159,8 +2149,7 @@ msgstr ""
 
 #: ../help/contents.py:516
 msgid "The number of spaces each indent level uses, by default 2."
-msgstr ""
-"Número de espacios que usa cada nivel de sangrado, de forma predeterminada 2."
+msgstr "Número de espacios que usa cada nivel de sangrado, de forma predeterminada 2."
 
 #: ../help/contents.py:523
 msgid "You can put document variables in comments."
@@ -2504,16 +2493,15 @@ msgstr "Ajustar a la &página"
 
 #: ../musicview/__init__.py:283
 msgid "&Maximize"
-msgstr ""
+msgstr "&Maximizar"
 
 #: ../musicview/__init__.py:284
 msgid "&Jump to Cursor Position"
 msgstr "Salta&r a la posición del cursor"
 
 #: ../musicview/__init__.py:285
-#, fuzzy
 msgid "S&ynchronize with Cursor Position"
-msgstr "Salta&r a la posición del cursor"
+msgstr "Sincroni&zar con la posición del cursor"
 
 #: ../musicview/__init__.py:286
 msgid "Copy to &Image..."
@@ -2575,8 +2563,7 @@ msgstr "Editando la línea {linenum} de \"{document}\" ({variable})"
 
 #: ../musicview/editinplace.py:250
 msgid "In this dialog you can edit one line of the text document."
-msgstr ""
-"En este cuadro de diálogo puede editar una línea del documento de texto."
+msgstr "En este cuadro de diálogo puede editar una línea del documento de texto."
 
 #: ../musicview/editinplace.py:251
 msgid "Click OK or press {key} to place the modified text in the document."
@@ -3117,8 +3104,7 @@ msgstr "Rutas a la documentación de LilyPond"
 
 #: ../preferences/documentation.py:68
 msgid "Add paths or URLs. See \"What's This\" for more information."
-msgstr ""
-"Añadir rutas o URLs. Consulte \"Qué es esto\" para ver más información."
+msgstr "Añadir rutas o URLs. Consulte \"Qué es esto\" para ver más información."
 
 #: ../preferences/documentation.py:70 ../preferences/prefshelp.py:194
 msgid ""
@@ -3662,8 +3648,7 @@ msgstr ""
 
 #: ../preferences/lilypond.py:290
 msgid "If checked, LilyPond will delete intermediate PostScript files."
-msgstr ""
-"Si está activado, LilyPond borrará los archivos PostScript intermedios."
+msgstr "Si está activado, LilyPond borrará los archivos PostScript intermedios."
 
 #: ../preferences/lilypond.py:293
 msgid ""
@@ -3696,8 +3681,7 @@ msgid "Player output:"
 msgstr "Salida del reproductor:"
 
 #: ../preferences/midi.py:84
-msgid ""
-"The MIDI port to play music to. See \"What's This\" for more information."
+msgid "The MIDI port to play music to. See \"What's This\" for more information."
 msgstr ""
 "Puerto MIDI hacia el que enviar la reproducción de música. Consulte \"Qué es "
 "esto\" para ver más información."
@@ -3812,10 +3796,8 @@ msgstr ""
 "documentos de LilyPond."
 
 #: ../preferences/prefshelp.py:83
-msgid ""
-"Here you can configure how LilyPond is run when you engrave your document."
-msgstr ""
-"Aquí puede configurar cómo se ejecuta LilyPond para procesar el documento."
+msgid "Here you can configure how LilyPond is run when you engrave your document."
+msgstr "Aquí puede configurar cómo se ejecuta LilyPond para procesar el documento."
 
 #: ../preferences/prefshelp.py:85
 msgid ""
@@ -4086,13 +4068,12 @@ msgstr "%"
 
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
 #: ../preferences/tools.py:156
-#, fuzzy
 msgid "Kinetic Scrolling"
-msgstr "P&ermitir plegado"
+msgstr "Desplazamiento cinético"
 
 #: ../preferences/tools.py:157
 msgid "Show Scrollbars"
-msgstr ""
+msgstr "Mostrar barras de desplazamiento"
 
 #: ../preferences/tools.py:236
 msgid "Group documents by directory"
@@ -4732,8 +4713,7 @@ msgstr "Hacer &implícitas"
 
 #: ../rhythm/__init__.py:166
 msgid "Make durations implicit (remove repeated durations)."
-msgstr ""
-"Hacer que las duraciones sean implícitas (quitar las duraciones repetidas)."
+msgstr "Hacer que las duraciones sean implícitas (quitar las duraciones repetidas)."
 
 #: ../rhythm/__init__.py:167
 msgid "Make implicit (per &line)"
@@ -5206,8 +5186,7 @@ msgstr "Utilizar comillas tipográficas"
 
 #: ../scorewiz/settings.py:121
 msgid "Replace normal quotes in titles with nice typographical quotes."
-msgstr ""
-"Sustituir las comillas normales con las vistosas comillas tipográficas."
+msgstr "Sustituir las comillas normales con las vistosas comillas tipográficas."
 
 #: ../scorewiz/settings.py:122
 msgid "Remove default tagline"
@@ -5222,8 +5201,7 @@ msgid "Remove bar numbers"
 msgstr "Quitar números de compás"
 
 #: ../scorewiz/settings.py:127
-msgid ""
-"Suppress the display of measure numbers at the beginning of every system."
+msgid "Suppress the display of measure numbers at the beginning of every system."
 msgstr ""
 "Eliminar la numeración de compases que aparece a la izquierda de los "
 "sistemas."
@@ -5319,8 +5297,7 @@ msgstr "Configurar el número de voces distintas deseado en cada pentagrama."
 
 #: ../scorewiz/parts/_base.py:134
 msgid "This is primarily useful when you write polyphonic music like a fuge."
-msgstr ""
-"Esto es de utilidad sobre todo al escribir música polifónica como una fuga."
+msgstr "Esto es de utilidad sobre todo al escribir música polifónica como una fuga."
 
 #: ../scorewiz/parts/_base.py:136
 msgid "Right hand:"
@@ -5453,8 +5430,7 @@ msgstr "Conectar las divisorias"
 
 #: ../scorewiz/parts/containers.py:73
 msgid "If checked, barlines are connected between the staves."
-msgstr ""
-"Si está activado, las líneas divisorias se conectan entre los pentagramas."
+msgstr "Si está activado, las líneas divisorias se conectan entre los pentagramas."
 
 #: ../scorewiz/parts/containers.py:94
 msgid "Score"
@@ -6057,8 +6033,7 @@ msgid "Every voice same lyrics"
 msgstr "Misma letra todas las voces"
 
 #: ../scorewiz/parts/vocal.py:661
-msgid ""
-"Every voice gets its own lyrics, using the same text as the other voices."
+msgid "Every voice gets its own lyrics, using the same text as the other voices."
 msgstr "Cada letra tiene su voz, usando el mismo texto que las otras voces."
 
 #: ../scorewiz/parts/vocal.py:663
@@ -6333,9 +6308,8 @@ msgid "&Fold Current Region"
 msgstr "Plegar &región actual"
 
 #: ../sidebar/__init__.py:248
-#, fuzzy
 msgid "Fold &Top Region"
-msgstr "Plegar &región actual"
+msgstr "Plegar &región superior"
 
 #: ../sidebar/__init__.py:249
 msgid "&Unfold Current Region"
@@ -6596,8 +6570,7 @@ msgstr "Requiere la selección de un texto."
 
 #: ../snippet/edit.py:255
 msgid "Adjusts the selection to not include starting and trialing whitespace."
-msgstr ""
-"Ajusta la selección de forma que no incluya los espacios inicial y final."
+msgstr "Ajusta la selección de forma que no incluya los espacios inicial y final."
 
 #: ../snippet/edit.py:257
 msgid "Selects all inserted text."
@@ -7216,6 +7189,3 @@ msgstr "Seleccione un directorio"
 msgid "Select a file"
 msgstr "Seleccione un archivo"
 
-#~ msgctxt "submenu title"
-#~ msgid "Music &View"
-#~ msgstr "&Vista de música"
