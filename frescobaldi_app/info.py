@@ -51,6 +51,7 @@ translators = {
         "Yann Collette",
         "David Bouriaud",
         "Ryan Kavanagh",
+        "Richard Cognot",
     ],
     'tr': [
         "Server ACİM",
@@ -81,6 +82,9 @@ translators = {
     ],
     'pt_BR': [
         "Édio Mazera",
+    ],
+    'uk': [
+        "Dmytro O. Redchuk",
     ],
 }
 
