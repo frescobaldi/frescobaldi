@@ -24,7 +24,7 @@ View widget to display PDF documents.
 
 
 from PyQt4.QtCore import QPoint, QSize, QTimer, Qt, pyqtSignal
-from PyQt4.QtGui import QPalette, QScrollArea, QStyle
+from PyQt4.QtGui import QPalette, QScrollArea, QStyle, QHelpEvent
 
 from math import sqrt
 import copy
@@ -54,6 +54,7 @@ class View(KineticScrollArea):
         
         self.setAlignment(Qt.AlignCenter)
         self.setBackgroundRole(QPalette.Dark)
+        self.setMouseTracking(True)
 
         self._viewMode = FixedScale
         self._wheelZoomEnabled = True
@@ -74,6 +75,8 @@ class View(KineticScrollArea):
     def setSurface(self, sf):
         """Sets the given surface as our widget."""
         self.setWidget(sf)
+        # For some reason mouse tracking *must* be enabled on the child as well...
+        sf.setMouseTracking(True)
         self.kineticScrollingActive.connect(sf.updateKineticCursor)
 
     
@@ -306,7 +309,43 @@ class View(KineticScrollArea):
                 self.zoom(self.scale() * factor, ev.pos())
         else:
             super(View, self).wheelEvent(ev)
-            
+    
+    def mousePressEvent(self, ev):
+        """Mouse press event handler. Passes the event to the surface, and back to
+        the base class if the surface did not do anything with it."""
+        if not self.surface().handleMousePressEvent(ev):
+            super(View, self).mousePressEvent(ev)
+
+    def mouseReleaseEvent(self, ev):
+        """Mouse release event handler. Passes the event to the surface, and back to
+        the base class if the surface did not do anything with it."""
+        if not self.surface().handleMouseReleaseEvent(ev):
+            super(View, self).mouseReleaseEvent(ev)
+
+    def mouseMoveEvent(self, ev):
+        """Mouse move event handler. Passes the event to the surface, and back to
+        the base class if the surface did not do anything with it."""
+        if self.kineticIsIdle():
+            if self.surface().handleMouseMoveEvent(ev):
+                return
+        super(View, self).mouseMoveEvent(ev)
+
+    def moveEvent(self, ev):
+        """Move event handler. Passes the event to the surface if we've not started any kinetic move,
+        and back to the base class if the surface did not do anything with it."""
+        if self.kineticIsIdle():
+            if self.surface().handleMoveEvent(ev):
+                return
+        super(View, self).moveEvent(ev)
+
+    def event(self, ev):
+        if isinstance(ev, QHelpEvent):
+            if self.surface().handleHelpEvent(ev):
+                ev.accept()
+                return True
+        
+        return super(View, self).event(ev)
+    
     def currentPage(self):
         """Returns the Page currently mostly in the center, or None if there are no pages."""
         pos = self.viewport().rect().center() - self.surface().pos()

@@ -149,6 +149,9 @@ class KineticScrollArea(QScrollArea):
         
         return self._kineticScrollingEnabled
 
+    def kineticIsIdle(self):
+        return self._kineticData._state == KineticData.Steady
+    
     def scrollOffset(self):
         """Get the current scroll position."""
         
@@ -338,10 +341,18 @@ class KineticScrollArea(QScrollArea):
                 self.kineticAddDelta(self.verticalScrollBar().singleStep())
                 return;
             elif ev.key() == Qt.Key_Home:
-                self.kineticAddDelta(self.verticalScrollBar().value())
+                self.kineticMove(0, self.verticalScrollBar().value(), 0, 0)
                 return;
             elif ev.key() == Qt.Key_End:
-                self.kineticAddDelta(self.verticalScrollBar().value()-self.verticalScrollBar().maximum())
+                self.kineticMove(0, self.verticalScrollBar().value(), 0, self.verticalScrollBar().maximum())
+                return;
+        else:
+            # Home/End are not handled by default.
+            if ev.key() == Qt.Key_Home:
+                self.setScrollOffset(QPoint(0,0))
+                return;
+            elif ev.key() == Qt.Key_End:
+                self.setScrollOffset(QPoint(self.horizontalScrollBar().maximum(), self.verticalScrollBar().maximum()))
                 return;
 
         super(KineticScrollArea, self).keyPressEvent(ev)
@@ -405,12 +416,14 @@ class KineticScrollArea(QScrollArea):
                     self._kineticData._state = KineticData.Steady
 
         if self._kineticData._state == KineticData.Steady:
-            self.cursorNeedUpdate.emit(ev.pos())
+            self.cursorNeedUpdate.emit(ev.globalPos())
         
         super(KineticScrollArea, self).mouseReleaseEvent(ev)
         
     def mouseMoveEvent(self, ev):
-        """Handle mouse move events for kinetic dragging timer firing."""
+        """Handle mouse move events for kinetic dragging timer firing.
+        Notifies cursor needs update if no kinetic move is active.
+        """
         if self._dragging:
             self.setCursor(Qt.SizeAllCursor)
 
@@ -444,6 +457,16 @@ class KineticScrollArea(QScrollArea):
                 self.fastScrollBy(diff)
         
         super(KineticScrollArea, self).mouseMoveEvent(ev)
+        
+        if self.kineticIsIdle():
+            self.cursorNeedUpdate.emit(ev.globalPos())
+
+    def moveEvent(self, ev):
+        """Move event handler. Passes the event to the base class and notify the cursor needs update."""
+        super(KineticScrollArea, self).moveEvent(ev)
+
+        if self.kineticIsIdle():
+            self.cursorNeedUpdate.emit(QCursor.pos())
 
     def timerEvent(self, event):
         """Handle events sent by the kinetic timer to decrease progressively

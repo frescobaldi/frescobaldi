@@ -30,7 +30,7 @@ from math import sqrt
 
 from PyQt4.QtCore import QEvent, QPoint, QRect, QSize, Qt, QTimer, QBasicTimer, pyqtSignal
 from PyQt4.QtGui import (
-    QApplication, QContextMenuEvent, QCursor, QHelpEvent, QMouseEvent, QPainter, QPalette,
+    QApplication, QContextMenuEvent, QCursor, QMouseEvent, QPainter, QPalette,
     QRegion, QRubberBand, QToolTip, QWidget)
 
 try:
@@ -80,7 +80,6 @@ class Surface(QWidget):
         self._pageLayout = None
         self._highlights = weakref.WeakKeyDictionary()
         self.setPageLayout(layout.Layout())
-        self.setMouseTracking(True)
         self.setContextMenuPolicy(Qt.PreventContextMenu)
         self.setLinksEnabled(True)
         self.setSelectionEnabled(True)
@@ -246,33 +245,37 @@ class Surface(QWidget):
             if rects:
                 highlighter.paintRects(painter, rects)
     
-    def mousePressEvent(self, ev):
+    def handleMousePressEvent(self, ev):
         """Handle mouse press for various operations
             - links to source,
             - magnifier, 
             - selection highlight,
-            - kinetic dragging start/stop.
+            
+            If event was used, return true to indicate processing should stop.
         """
+        
+        # As the event comes from the view, we need to map it locally.
+        pos = self.mapFromParent(ev.pos())
         # link?
         if self._linksEnabled:
-            page, link = self.pageLayout().linkAt(ev.pos())
+            page, link = self.pageLayout().linkAt(pos)
             if link:
                 self.linkClickEvent(ev, page, link)
-                return
+                return True
         # magnifier?
         if (self._magnifier and
             int(ev.modifiers()) & _SCAM == self._magnifierModifiers and
             ev.button() == Qt.LeftButton):
-            self._magnifier.moveCenter(ev.pos())
+            self._magnifier.moveCenter(pos)
             self._magnifier.show()
             self._magnifier.raise_()
             self._magnifying = True
             self.setCursor(QCursor(Qt.BlankCursor))
-            return
+            return True
         # selecting?
         if self._selectionEnabled:
             if self.hasSelection():
-                edge = selectionEdge(ev.pos(), self.selection())
+                edge = selectionEdge(pos, self.selection())
                 if edge == _OUTSIDE:
                     self.clearSelection()
                 else:
@@ -280,27 +283,31 @@ class Surface(QWidget):
                         self._selecting = True
                         self._selectionEdge = edge
                         self._selectionRect = self.selection()
-                        self._selectionPos = ev.pos()
+                        self._selectionPos = pos
                         if edge == _INSIDE:
                             self.setCursor(Qt.SizeAllCursor)
-                    return
+                    return True
             if not self._selecting:
                 if ev.button() == Qt.RightButton or int(ev.modifiers()) & _SCAM:
                     self._selecting = True
                     self._selectionEdge = _RIGHT | _BOTTOM
-                    self._selectionRect = QRect(ev.pos(), QSize(0, 0))
-                    self._selectionPos = ev.pos()
-                    return
-        super(Surface, self).mousePressEvent(ev)
-    
-    def mouseReleaseEvent(self, ev):
+                    self._selectionRect = QRect(pos, QSize(0, 0))
+                    self._selectionPos = pos
+                    return True
+        return False
+        
+    def handleMouseReleaseEvent(self, ev):
         """Handle mouse release events for various operations:
             - hide magnifier,
             - selection.
+            
+            If event was used, return true to indicate processing should stop.
         """
+        consumed = False
         if self._magnifying:
             self._magnifier.hide()
             self._magnifying = False
+            consumed = True
         elif self._selecting:
             self._selecting = False
             selection = self._selectionRect.normalized()
@@ -310,81 +317,99 @@ class Surface(QWidget):
                 self.setSelection(selection)
             if self._scrolling:
                 self.stopScrolling()
+            consumed = True
         elif ev.button() == Qt.RightButton:
-            self.rightClick(ev.pos())
-        else:
-            super(Surface, self).mouseReleaseEvent(ev)
+            # As the event comes from the view, we need to map it locally.
+            self.rightClick(self.mapFromParent(ev.pos()))
+            consumed = True
         
-    def mouseMoveEvent(self, ev):
+        return consumed
+            
+    def handleMouseMoveEvent(self, ev):
         """Handle mouse move events for various operations:
             - move magnifier,
             - selection extension.
+            
+            If event was used, return true to indicate processing should stop.
         """
+        consumed = False 
         if self._magnifying:
-            self._magnifier.moveCenter(ev.pos())
+            # As the event comes from the view, we need to map it locally.
+            self._magnifier.moveCenter(self.mapFromParent(ev.pos()))
+            consumed = True
         elif self._selecting:
-            self._moveSelection(ev.pos())
+            # As the event comes from the view, we need to map it locally.
+            pos = self.mapFromParent(ev.pos())
+            self._moveSelection(pos)
             self._rubberBand.show()
             # check if we are dragging close to the edge of the view, scroll if needed
             view = self.viewportRect()
-            dx = ev.x() - view.left() - 12
+            dx = pos.x() - view.left() - 12
             if dx >= 0:
-                dx = ev.x() - view.right() + 12
+                dx = pos.x() - view.right() + 12
                 if dx < 0:
                     dx = 0
-            dy = ev.y() - view.top() - 12
+            dy = pos.y() - view.top() - 12
             if dy >= 0:
-                dy = ev.y() - view.bottom() + 12
+                dy = pos.y() - view.bottom() + 12
                 if dy < 0:
                     dy = 0
             if dx or dy:
                 self.startScrolling(dx, dy)
             elif self._scrolling:
                 self.stopScrolling()
-        else:
-            super(Surface, self).mouseMoveEvent(ev)
-            self.updateCursor(ev.pos())
+            consumed = True
+              
+        return consumed
         
-    def moveEvent(self, ev):
-        if self.view()._kineticData._state != 0: #KineticData.Steady:
-            return
-        
+    def handleMoveEvent(self, ev):
+        """Handle  move events for various operations:
+            - move magnifier,
+            - selection extension.
+            
+            If event was used, return true to indicate processing should stop.
+        """
+        consumed = False
         pos = self.mapFromGlobal(QCursor.pos())
         if self._selecting:
             self._moveSelection(pos)
+            consumed = True
         elif self._magnifying:
             self._magnifier.moveCenter(pos)
-        else:
-            self.updateCursor(pos)
-            super(Surface, self).moveEvent(ev)
+            consumed = True
+
+        return consumed
         
-    def event(self, ev):
-        if isinstance(ev, QHelpEvent):
-            if self._linksEnabled:
-                page, link = self.pageLayout().linkAt(ev.pos())
-                if link:
-                    self.linkHelpEvent(ev.globalPos(), page, link)
-            return True
-        return super(Surface, self).event(ev)
+    def handleHelpEvent(self, ev):
+        """Handle help event: show link if any."""
+        if self._linksEnabled:
+            page, link = self.pageLayout().linkAt(self.mapFromParent(ev.pos()))
+            if link:
+                self.linkHelpEvent(ev.globalPos(), page, link)
+        return True
 
     def updateKineticCursor(self, active):
         """Cursor handling when kinetic move starts/stops.
         
         - reset the cursor and hide tooltips if visible at start,
         - update the cursor and show the appropriate tooltips at stop.
+        
+        Used as a slot linked to the kineticStarted() signal.
         """
         if active:
             self.unsetCursor()
             if QToolTip.isVisible():
                 QToolTip.hideText()
         else:
-            self.updateCursor(self.mapFromGlobal(QCursor.pos()))
+            self.updateCursor(QCursor.pos())
             if self._linksEnabled:
                 page, link = self.pageLayout().linkAt(self.mapFromGlobal(QCursor.pos()))
                 if link:
                     self.linkHelpEvent(QCursor.pos(), page, link)
 
-    def updateCursor(self, pos):
+    def updateCursor(self, evpos):
+        """Set the cursor to the right glyph, depending on action""" 
+        pos = self.mapFromGlobal(evpos)
         cursor = None
         if self._linksEnabled:
             page, link = self.pageLayout().linkAt(pos)
