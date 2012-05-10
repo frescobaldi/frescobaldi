@@ -286,7 +286,7 @@ class MusicView(QWidget):
             # RC: increased timer to give some time to the kinetic scrolling to complete.
             kineticTimeLeft = 0
             if self.view.kineticScrollingEnabled():
-                kineticTimeLeft = 20*self.view.surface().kineticTicksLeft() 
+                kineticTimeLeft = 20*self.view.kineticTicksLeft() 
             msec = 5000 if count > 1 else 2000 # show selections longer
             msec += kineticTimeLeft
         self._highlightRemoveTimer.start(msec)
