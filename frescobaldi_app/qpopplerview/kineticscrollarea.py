@@ -364,7 +364,7 @@ class KineticScrollArea(QScrollArea):
                     self._kineticData._maxSpeed = 64 #limit speed.
                     
                 elif self._kineticData._state == KineticData.AutoScroll:
-                    self._dragging = False
+                    self._dragging = True
                     self._kineticData._state = KineticData.Stop
                     self._kineticData._speed = QPoint(0,0)
             else:
