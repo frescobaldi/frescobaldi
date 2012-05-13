@@ -61,6 +61,7 @@ class SnippetMenu(QMenu):
     
     def populate(self):
         """Populates the menu with snippet actions."""
+        self.clearMenu() # on some systems aboutToHide does not fire...
         from . import model, snippets, actions
         last = self.insertBeforeAction()
         shortcuts = self.tool().snippetActions
