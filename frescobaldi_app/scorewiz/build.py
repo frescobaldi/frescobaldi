@@ -68,11 +68,11 @@ class PartData(object):
     A Part may append to the following instance attributes (which are lists):
     
     includes:           (string) filename to be included
-    codeblocks:         (ly.dom.Node) global blocks of code a part depends on
+    codeblocks:         (ly.dom.LyNode) global blocks of code a part depends on
     assignments:        (ly.dom.Assignment) assignment of an expression to a
                         variable, most times the music stub for a part
-    nodes:              (ly.dom.Node) the nodes a part adds to the parent \score
-    afterblocks:        (ly.dom.Node) other blocks, appended ad the end
+    nodes:              (ly.dom.LyNode) the nodes a part adds to the parent \score
+    afterblocks:        (ly.dom.LyNode) other blocks, appended ad the end
     
     The num instance attribute is set to 0 by default but can be increased by
     the Builder, when there are more parts of the exact same type in the same
@@ -229,7 +229,7 @@ class Builder(object):
         """Recursively populates the Block with data from the group.
         
         The group can contain parts and/or subgroups.
-        ly.dom nodes representing the LilyPond document are added to the node.
+        ly.dom.LyNodes representing the LilyPond document are added to the node.
         
         """
         if group.part:
@@ -447,7 +447,7 @@ class Builder(object):
     def setInstrumentNames(self, staff, longName, shortName):
         """Sets the instrument names to the staff (or group).
         
-        longName and shortName may either be a string or a ly.dom.Node object (markup)
+        longName and shortName may either be a string or a ly.dom.LyNode object (markup)
         The settings in the score wizard are honored.
         
         """
@@ -460,7 +460,7 @@ class Builder(object):
                 other = longName if self.otherInstrumentName == 'long' else shortName
                 # If these are markup objects, copy them otherwise the assignment
                 # to shortInstrumentName takes it away from the instrumentName.
-                if other is first and isinstance(first, ly.dom.Node):
+                if other is first and isinstance(first, ly.dom.LyNode):
                     other = other.copy()
                 w['shortInstrumentName'] = other
 
