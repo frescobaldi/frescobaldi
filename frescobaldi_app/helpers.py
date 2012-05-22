@@ -29,7 +29,7 @@ import subprocess
 import sys
 
 from PyQt4.QtCore import QSettings
-from PyQt4.QtGui import QDesktopServices
+from PyQt4.QtGui import QDesktopServices, QMessageBox
 
 
 def command(type):
@@ -95,7 +95,12 @@ def openUrl(url, type="browser"):
     elif type != "shell":
         cmd.append(url.toLocalFile())
     
-    subprocess.Popen([prog] + cmd, cwd=workdir)
+    try:
+        subprocess.Popen([prog] + cmd, cwd=workdir)
+    except OSError:
+        QMessageBox.critical(None, _("Error"), _(
+            "Could not start {program}.\n"
+            "Please check path and permissions.").format(program=prog))
 
 
 def terminalCommands():
