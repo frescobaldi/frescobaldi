@@ -24,12 +24,12 @@ View widget to display PDF documents.
 
 
 from PyQt4.QtCore import QPoint, QSize, QTimer, Qt, pyqtSignal
-from PyQt4.QtGui import QPalette, QScrollArea, QStyle
+from PyQt4.QtGui import QPalette, QScrollArea, QStyle, QHelpEvent
 
 from math import sqrt
 import copy
-from .surface import KineticData
 from . import surface
+from .kineticscrollarea import KineticScrollArea
 from . import cache
 
 from . import (
@@ -45,7 +45,7 @@ from . import (
 _SCAM = (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META)
 
 
-class View(QScrollArea):
+class View(KineticScrollArea):
     
     viewModeChanged = pyqtSignal(int)
     
@@ -54,6 +54,7 @@ class View(QScrollArea):
         
         self.setAlignment(Qt.AlignCenter)
         self.setBackgroundRole(QPalette.Dark)
+        self.setMouseTracking(True)
 
         self._viewMode = FixedScale
         self._wheelZoomEnabled = True
@@ -62,10 +63,6 @@ class View(QScrollArea):
         # delayed resize
         self._centerPos = False
         self._resizeTimer = QTimer(singleShot = True, timeout = self._resizeTimeout)
-        
-        # kinetic scrolling
-        self._kineticScrolling = False
-        self._scrollbarsVisible = True
         
     def surface(self):
         """Returns our Surface, the widget drawing the page(s)."""
@@ -78,6 +75,10 @@ class View(QScrollArea):
     def setSurface(self, sf):
         """Sets the given surface as our widget."""
         self.setWidget(sf)
+        # For some reason mouse tracking *must* be enabled on the child as well...
+        sf.setMouseTracking(True)
+        self.kineticScrollingActive.connect(sf.updateKineticCursor)
+
     
     def viewMode(self):
         """Returns the current ViewMode."""
@@ -105,26 +106,6 @@ class View(QScrollArea):
         
         """
         self._wheelZoomEnabled = enabled
-        
-    def setScrollbarsVisible(self, enabled):
-        self._scrollbarsVisible = enabled
-        
-        if enabled:
-            self.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-            self.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-        else:
-            self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-            self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-            
-    def setKineticScrolling(self, enabled):
-        """Sets whether kinetic scrolling is enabled or not."""
-        
-        self._kineticScrolling = enabled
-    
-    def kineticScrollingEnabled(self):
-        """Returns whether kinetic scrolling is enabled."""
-        
-        return self._kineticScrolling
     
     def wheelZoomModifier(self):
         """Returns the modifier key to wheel-zoom with (defaults to Qt.CTRL)."""
@@ -177,25 +158,6 @@ class View(QScrollArea):
             cache.clear(document)
         for page in pages:
             page.repaint()
-
-    def scrollSurface(self, diff, overrideKinetic=False):
-        """Scrolls the surface() by the distance given in the QPoint diff."""          
-        if self._kineticScrolling and not overrideKinetic:
-            v = self.verticalScrollBar()
-            h = self.horizontalScrollBar()
-            self.surface().kineticMove(h.value(), v.value(), h.value()+diff.x(), v.value()+diff.y())
-        else:
-            self.surface().scrollBy(diff)
-    
-    def center(self, point, overrideKinetic=False):
-        """Centers the given QPoint of the surface."""
-        if overrideKinetic:
-            diff = point - self.viewport().rect().center() + self.surface().pos()
-            self.surface().scrollBy(diff)
-            #super(View, self).ensureVisible( point.x(), point.y(), size.width()/2, size.height()/2)
-        else:
-            size = self.surface().viewportRect().size()
-            self.ensureVisible( point.x(), point.y(), size.width()/2, size.height()/2)
 
     def fit(self):
         """(Internal). Fits the layout according to the view mode.
@@ -294,7 +256,8 @@ class View(QScrollArea):
         newSize = self.surface().size()
         newx = self._centerPos.x() * newSize.width() / oldSize.width()
         newy = self._centerPos.y() * newSize.height() / oldSize.height()
-        self.center(QPoint(newx, newy), True)
+        # we explicitely want the non-kinetic centering function regardless of kinetic state.
+        self.fastCenter(QPoint(newx, newy))
         self._centerPos = None
 
     def zoom(self, scale, pos=None):
@@ -329,7 +292,8 @@ class View(QScrollArea):
             self.setScale(scale)
             newPos = QPoint(round(x * self.surface().width()), round(y * self.surface().height()))
         surfacePos = pos - self.surface().pos()
-        self.scrollSurface(newPos - surfacePos, True)
+        # use fastScrollBy as we do not want kinetic scrolling here regardless of its state.
+        self.fastScrollBy(newPos - surfacePos)
             
     def zoomIn(self, pos=None, factor=1.1):
         self.zoom(self.scale() * factor, pos)
@@ -343,34 +307,45 @@ class View(QScrollArea):
             factor = 1.1 ** (ev.delta() / 120)
             if ev.delta():
                 self.zoom(self.scale() * factor, ev.pos())
-        elif self.kineticScrollingEnabled():
-            self.surface().kineticAddDelta(ev.delta())
         else:
             super(View, self).wheelEvent(ev)
-            
-    def keyPressEvent(self, ev):
-        if self.kineticScrollingEnabled():
-            if ev.key() == Qt.Key_PageDown:
-                self.surface().kineticAddDelta(-self.verticalScrollBar().pageStep())
-                return;
-            elif ev.key() == Qt.Key_PageUp:
-                self.surface().kineticAddDelta(self.verticalScrollBar().pageStep())
-                return;
-            elif ev.key() == Qt.Key_Down:
-                self.surface().kineticAddDelta(-self.verticalScrollBar().singleStep())
-                return;
-            elif ev.key() == Qt.Key_Up:
-                self.surface().kineticAddDelta(self.verticalScrollBar().singleStep())
-                return;
-            elif ev.key() == Qt.Key_Home:
-                self.surface().kineticAddDelta(self.verticalScrollBar().value())
-                return;
-            elif ev.key() == Qt.Key_End:
-                self.surface().kineticAddDelta(self.verticalScrollBar().value()-self.verticalScrollBar().maximum())
-                return;
+    
+    def mousePressEvent(self, ev):
+        """Mouse press event handler. Passes the event to the surface, and back to
+        the base class if the surface did not do anything with it."""
+        if not self.surface().handleMousePressEvent(ev):
+            super(View, self).mousePressEvent(ev)
 
-        super(View, self).keyPressEvent(ev)
- 
+    def mouseReleaseEvent(self, ev):
+        """Mouse release event handler. Passes the event to the surface, and back to
+        the base class if the surface did not do anything with it."""
+        if not self.surface().handleMouseReleaseEvent(ev):
+            super(View, self).mouseReleaseEvent(ev)
+
+    def mouseMoveEvent(self, ev):
+        """Mouse move event handler. Passes the event to the surface, and back to
+        the base class if the surface did not do anything with it."""
+        if self.kineticIsIdle():
+            if self.surface().handleMouseMoveEvent(ev):
+                return
+        super(View, self).mouseMoveEvent(ev)
+
+    def moveEvent(self, ev):
+        """Move event handler. Passes the event to the surface if we've not started any kinetic move,
+        and back to the base class if the surface did not do anything with it."""
+        if self.kineticIsIdle():
+            if self.surface().handleMoveEvent(ev):
+                return
+        super(View, self).moveEvent(ev)
+
+    def event(self, ev):
+        if isinstance(ev, QHelpEvent):
+            if self.surface().handleHelpEvent(ev):
+                ev.accept()
+                return True
+        
+        return super(View, self).event(ev)
+    
     def currentPage(self):
         """Returns the Page currently mostly in the center, or None if there are no pages."""
         pos = self.viewport().rect().center() - self.surface().pos()
@@ -395,7 +370,7 @@ class View(QScrollArea):
         layout = self.surface().pageLayout()
         if num < len(layout) and num != self.currentPageNumber():
             margin = QPoint(layout.margin(), layout.margin())
-            self.scrollSurface(layout[num].pos() + self.surface().pos() - margin)
+            self.scrollBy(layout[num].pos() + self.surface().pos() - margin)
             
     def position(self):
         """Returns a three-tuple(num, x, y) describing the page currently in the center of the View.
@@ -421,7 +396,7 @@ class View(QScrollArea):
     def setPosition(self, position, overrideKinetic=False):
         """Sets the position to a three-tuple as previously returned by position().
         
-        Settin overrideKinetic to true allows for fast setup, instead of scrolling all the way to the visible point.
+        Setting overrideKinetic to true allows for fast setup, instead of scrolling all the way to the visible point.
         """
         layout = self.surface().pageLayout()
         pageNum, x, y = position
@@ -430,16 +405,7 @@ class View(QScrollArea):
         page = layout[pageNum]
         # center this point
         newPos = QPoint(round(x * page.width()), round(y * page.height())) + page.pos()
-        self.center(newPos, overrideKinetic)
-
-        
-    def ensureVisible(self, x, y, xm=50, ym=50):     
-        """
-        Reimplement ensureVisible to call the surface kinetic scroller timer if kinetic scrolling is enabled.
-        """
-        
-        if self._kineticScrolling:
-            self.surface().kineticEnsureVisible(x, y, xm, ym)
+        if overrideKinetic:
+            self.fastCenter(newPos)
         else:
-            super(View, self).ensureVisible(x, y, xm, ym)
-
+            self.center(newPos)

@@ -55,7 +55,7 @@ class Pager(QObject):
         view.surface().pageLayout().changed.connect(self._layoutChanged)
         
         # Connect to the kineticScrollingEnabled signal to avoid uneeded updates.
-        view.surface().kineticScrollingActive.connect(self.blockListening)
+        view.kineticScrollingActive.connect(self.blockListening)
         
     def currentPage(self):
         """Returns the current page number (0 if there are no pages)."""
