@@ -95,6 +95,8 @@ class Document(QTextDocument):
             try:
                 with open(fileName, "w") as f:
                     f.write(self.encodedText())
+                    f.flush()
+                    os.fsync(f.fileno())
             except (IOError, OSError):
                 return False
             self.setModified(False)
