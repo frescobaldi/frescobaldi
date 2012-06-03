@@ -204,6 +204,7 @@ class Dialog(QDialog):
         with qutil.busyCursor():
             try:
                 proc = subprocess.Popen(command,
+                    universal_newlines = True,
                     env = env,
                     stdin = subprocess.PIPE,
                     stdout = subprocess.PIPE,
