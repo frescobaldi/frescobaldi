@@ -501,7 +501,7 @@ class Surface(QWidget):
         """(Internal) Called by the _scrollTimer."""
         # change the scrollbars, but check how far they really moved.
         pos = self.pos()
-        self.view().scrollBy(self._scrolling)
+        self.view().fastScrollBy(self._scrolling)
         diff = pos - self.pos()
         if not diff:
             self.stopScrolling()
