@@ -318,7 +318,7 @@ class Surface(QWidget):
             if self._scrolling:
                 self.stopScrolling()
             consumed = True
-        elif ev.button() == Qt.RightButton:
+        if ev.button() == Qt.RightButton:
             # As the event comes from the view, we need to map it locally.
             self.rightClick(self.mapFromParent(ev.pos()))
             consumed = True
