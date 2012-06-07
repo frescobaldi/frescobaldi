@@ -28,7 +28,7 @@ import weakref
 from PyQt4.QtCore import QEvent, QPoint, QRect, QSize, Qt, QTimer, pyqtSignal
 from PyQt4.QtGui import (
     QApplication, QContextMenuEvent, QCursor, QPainter, QPalette,
-    QRegion, QRubberBand, QToolTip, QWidget)
+    QRegion, QRubberBand, QToolTip, QWidget, QColor, QBrush, QPen)
 
 try:
     import popplerqt4
@@ -50,7 +50,45 @@ _TOP     = 2
 _RIGHT   = 4
 _BOTTOM  = 8
 _INSIDE  = 15
+
+class CustomRubberBand(QWidget):
+    """Reimplement QRubberband from scratch, to avoid styling issues."""
+    def __init__(self, parent):
+        super(CustomRubberBand, self).__init__(parent)
+
+    def paintEvent(self, ev):
+        color = self.palette().color(QPalette.Highlight)
+        painter = QPainter(self)
+
+        # Filled rectangle.
+        painter.setClipRect(self.rect())
+        color.setAlpha(50)
+        painter.fillRect(self.rect().adjusted(2,2,-2,-2), color)
+
+        # Thin rectangle outside.
+        color.setAlpha(150)
+        painter.setPen(color)
+        painter.drawRect(self.rect().adjusted(0,0,-1,-1))
+
+        # Pseudo-handles at the corners and sides
+        color.setAlpha(100)
+        pen = QPen(color)
+        pen.setWidth(8)
+        painter.setPen(pen)
+        painter.setBackgroundMode(Qt.OpaqueMode)
+        # Clip at 4 corners
+        region = QRegion(QRect(0,0,20,20))
+        region += QRect(self.rect().width()-20, 0, 20, 20)
+        region += QRect(self.rect().width()-20, self.rect().height()-20, 20, 20)
+        region += QRect(0, self.rect().height()-20, 20, 20)
+        # Clip middles
+        region += QRect(0, self.rect().height()/2-10, self.rect().width(), 20)
+        region += QRect(self.rect().width()/2-10, 0, 20, self.rect().height())
         
+        # Draw thicker rectangles, clipped at corners and sides.
+        painter.setClipRegion(region)
+        painter.drawRect(self.rect())
+ 
 class Surface(QWidget):
     
     rightClicked = pyqtSignal(QPoint)
@@ -71,7 +109,7 @@ class Surface(QWidget):
         self.setMagnifier(magnifier.Magnifier())
         self.setMagnifierModifiers(Qt.CTRL)
         self._selection = QRect()
-        self._rubberBand = QRubberBand(QRubberBand.Rectangle, self)
+        self._rubberBand = CustomRubberBand(self)
         self._scrolling = False
         self._scrollTimer = QTimer(interval=100, timeout=self._scrollTimeout)
         self._pageLayout = None
