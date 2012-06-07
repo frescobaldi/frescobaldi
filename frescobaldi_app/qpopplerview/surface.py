@@ -317,6 +317,7 @@ class Surface(QWidget):
                 self.setSelection(selection)
             if self._scrolling:
                 self.stopScrolling()
+            self.unsetCursor() 
             consumed = True
         if ev.button() == Qt.RightButton:
             # As the event comes from the view, we need to map it locally.
