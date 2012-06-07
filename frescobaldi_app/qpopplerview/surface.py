@@ -89,28 +89,6 @@ class CustomRubberBand(QWidget):
         # Draw thicker rectangles, clipped at corners and sides.
         painter.setClipRegion(region)
         painter.drawRect(self.rect())
-        
-    def mouseMoveEvent(self, ev):
-        # Do not change the cursor while modifying the selection,
-        # as the mouse may move faster than our ability to track it,
-        # leading to spurious cursor changes.
-        if ev.buttons() == Qt.NoButton:
-            cursor = None
-            # Undo selectionEdge rectangle adjustment...
-            edge = selectionEdge(ev.pos(), self.rect().adjusted(2,2,-2,-2))
-            if edge in (_TOP, _BOTTOM):
-                cursor = Qt.SizeVerCursor
-            elif edge in (_LEFT, _RIGHT):
-                cursor = Qt.SizeHorCursor
-            elif edge in (_LEFT | _TOP, _RIGHT | _BOTTOM):
-                cursor = Qt.SizeFDiagCursor
-            elif edge in (_TOP | _RIGHT, _BOTTOM | _LEFT):
-                cursor = Qt.SizeBDiagCursor
-            else:
-                cursor = Qt.SizeAllCursor
-            self.setCursor(cursor)
-        
-        super(CustomRubberBand, self).mouseMoveEvent(ev)
  
 class Surface(QWidget):
     
@@ -493,6 +471,8 @@ class Surface(QWidget):
                 cursor = Qt.SizeFDiagCursor
             elif edge in (_TOP | _RIGHT, _BOTTOM | _LEFT):
                 cursor = Qt.SizeBDiagCursor
+            elif edge is _INSIDE:
+                cursor = Qt.SizeAllCursor
         self.setCursor(cursor) if cursor else self.unsetCursor()
     
     def linkHelpEvent(self, globalPos, page, link):
