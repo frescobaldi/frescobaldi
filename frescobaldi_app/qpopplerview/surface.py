@@ -24,13 +24,10 @@ Surface is the widget everything is drawn on.
 
 import itertools
 import weakref
-import copy
-from math import sqrt
 
-
-from PyQt4.QtCore import QEvent, QPoint, QRect, QSize, Qt, QTimer, QBasicTimer, pyqtSignal
+from PyQt4.QtCore import QEvent, QPoint, QRect, QSize, Qt, QTimer, pyqtSignal
 from PyQt4.QtGui import (
-    QApplication, QContextMenuEvent, QCursor, QMouseEvent, QPainter, QPalette,
+    QApplication, QContextMenuEvent, QCursor, QPainter, QPalette,
     QRegion, QRubberBand, QToolTip, QWidget)
 
 try:
