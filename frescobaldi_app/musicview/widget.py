@@ -155,6 +155,8 @@ class MusicView(QWidget):
                 self._clicking_link = False
                 import widgets.blink
                 widgets.blink.Blinker.blink_cursor(mainwindow.currentView())
+                mainwindow.activateWindow()
+                mainwindow.currentView().setFocus()
         elif (isinstance(link, popplerqt4.Poppler.LinkBrowse)
               and not link.url().startswith('textedit:')):
             helpers.openUrl(QUrl(link.url()))
