@@ -292,22 +292,7 @@ class Surface(QWidget):
         
         # As the event comes from the view, we need to map it locally.
         pos = self.mapFromParent(ev.pos())
-        # link?
-        if self._linksEnabled:
-            page, link = self.pageLayout().linkAt(pos)
-            if link:
-                self.linkClickEvent(ev, page, link)
-                return True
-        # magnifier?
-        if (self._magnifier and
-            int(ev.modifiers()) & _SCAM == self._magnifierModifiers and
-            ev.button() == Qt.LeftButton):
-            self._magnifier.moveCenter(pos)
-            self._magnifier.show()
-            self._magnifier.raise_()
-            self._magnifying = True
-            self.setCursor(QCursor(Qt.BlankCursor))
-            return True
+               
         # selecting?
         if self._selectionEnabled:
             if self.hasSelection():
@@ -330,6 +315,24 @@ class Surface(QWidget):
                     self._selectionRect = QRect(pos, QSize(0, 0))
                     self._selectionPos = pos
                     return True
+        
+        # link?
+        if self._linksEnabled:
+            page, link = self.pageLayout().linkAt(pos)
+            if link:
+                self.linkClickEvent(ev, page, link)
+                return True
+        # magnifier?
+        if (self._magnifier and
+            int(ev.modifiers()) & _SCAM == self._magnifierModifiers and
+            ev.button() == Qt.LeftButton):
+            self._magnifier.moveCenter(pos)
+            self._magnifier.show()
+            self._magnifier.raise_()
+            self._magnifying = True
+            self.setCursor(QCursor(Qt.BlankCursor))
+            return True
+
         return False
         
     def handleMouseReleaseEvent(self, ev):
@@ -448,7 +451,23 @@ class Surface(QWidget):
         """Set the cursor to the right glyph, depending on action""" 
         pos = self.mapFromGlobal(evpos)
         cursor = None
-        if self._linksEnabled:
+        edge = _OUTSIDE
+        if self._selectionEnabled and self.hasSelection():
+            edge = selectionEdge(pos, self.selection())
+            
+        if edge is not _OUTSIDE:
+            if edge in (_TOP, _BOTTOM):
+                cursor = Qt.SizeVerCursor
+            elif edge in (_LEFT, _RIGHT):
+                cursor = Qt.SizeHorCursor
+            elif edge in (_LEFT | _TOP, _RIGHT | _BOTTOM):
+                cursor = Qt.SizeFDiagCursor
+            elif edge in (_TOP | _RIGHT, _BOTTOM | _LEFT):
+                cursor = Qt.SizeBDiagCursor
+            elif edge is _INSIDE:
+                cursor = Qt.SizeAllCursor
+
+        elif self._linksEnabled:
             page, link = self.pageLayout().linkAt(pos)
             if link:
                 cursor = Qt.PointingHandCursor
@@ -461,18 +480,7 @@ class Surface(QWidget):
                 self._currentLinkId = lid
                 if link:
                     self.linkHoverEnter(page, link)
-        if self._selectionEnabled and cursor is None and self.hasSelection():
-            edge = selectionEdge(pos, self.selection())
-            if edge in (_TOP, _BOTTOM):
-                cursor = Qt.SizeVerCursor
-            elif edge in (_LEFT, _RIGHT):
-                cursor = Qt.SizeHorCursor
-            elif edge in (_LEFT | _TOP, _RIGHT | _BOTTOM):
-                cursor = Qt.SizeFDiagCursor
-            elif edge in (_TOP | _RIGHT, _BOTTOM | _LEFT):
-                cursor = Qt.SizeBDiagCursor
-            elif edge is _INSIDE:
-                cursor = Qt.SizeAllCursor
+        
         self.setCursor(cursor) if cursor else self.unsetCursor()
     
     def linkHelpEvent(self, globalPos, page, link):
