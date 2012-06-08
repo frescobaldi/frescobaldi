@@ -310,11 +310,13 @@ class Surface(QWidget):
                     return True
             if not self._selecting:
                 if ev.button() == Qt.RightButton or int(ev.modifiers()) & _SCAM:
-                    self._selecting = True
-                    self._selectionEdge = _RIGHT | _BOTTOM
-                    self._selectionRect = QRect(pos, QSize(0, 0))
-                    self._selectionPos = pos
-                    return True
+                    if not (int(ev.modifiers()) & _SCAM == self._magnifierModifiers 
+                            and  ev.button() == Qt.LeftButton):
+                        self._selecting = True
+                        self._selectionEdge = _RIGHT | _BOTTOM
+                        self._selectionRect = QRect(pos, QSize(0, 0))
+                        self._selectionPos = pos
+                        return True
         
         # link?
         if self._linksEnabled:
