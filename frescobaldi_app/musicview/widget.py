@@ -109,7 +109,7 @@ class MusicView(QWidget):
         self._currentDocument = doc
         document = doc.document()
         if document:
-            self._links = pointandclick.links(document, os.path.dirname(doc.filename()))
+            self._links = pointandclick.links(document)
             self.view.load(document)
             position = self._positions.get(doc, (0, 0, 0))
             self.view.setPosition(position, True)

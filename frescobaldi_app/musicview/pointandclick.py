@@ -68,11 +68,11 @@ def readurl(match):
     return readfilename(match), int(match.group(2)), int(match.group(3))
 
 
-def links(document, path=None):
+def links(document):
     try:
         return _cache[document]
     except KeyError:
-        l = _cache[document] = Links(document, path)
+        l = _cache[document] = Links(document)
         return l
 
 
@@ -82,11 +82,9 @@ class Links(object):
     Only textedit:// urls are stored.
     
     """
-    def __init__(self, document, path):
+    def __init__(self, document):
         self._links = {}
         self._docs = {}
-        
-        self._path = path
         
         import popplerqt4
         with qpopplerview.lock(document):
@@ -97,14 +95,6 @@ class Links(object):
                         m = textedit_match(link.url())
                         if m:
                             filename, line, col = readurl(m)
-                            # If filename and path do not match, it is because
-                            # the ly file has been moved alongside its pdf file. Since
-                            # we reconciled the two of them, but the pdf file contains
-                            # links that refer to the (old) absolute path, for consistency
-                            # we have to make the links point to the right document.
-                            if path is not None and os.path.dirname(filename) != path:
-                                filename = path + "/" + os.path.basename(filename)
-                            
                             l = self._links.setdefault(filename, {})
                             l.setdefault((line, col), []).append((num, link.linkArea()))
 
@@ -156,8 +146,6 @@ class Links(object):
         m = textedit_match(link.url())
         if m:
             filename, line, col = readurl(m)
-            if self._path is not None and os.path.dirname(filename) != self._path:
-                filename = self._path + "/" + os.path.basename(filename)
             bound = self._docs.get(filename)
             if bound:
                 return bound.cursor(line, col)
