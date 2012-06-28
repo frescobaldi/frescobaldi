@@ -187,6 +187,8 @@ class Widget(QWidget):
     def slotTimeSliderChanged(self, value):
         self._player.seek(value)
         self._display.setTime(value)
+        if self._player.song():
+            self._display.setBeat(*self._player.song().beat(value)[1:])
     
     def slotTimeSliderMoved(self, value):
         self._display.setTime(value)
