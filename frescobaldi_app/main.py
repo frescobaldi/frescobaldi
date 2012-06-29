@@ -66,10 +66,15 @@ def parse_commandline():
         dest="session")
     parser.add_option('-n', '--new', action="store_true", default=False,
         help=_("Always start a new instance"))
-    parser.add_option('-v', '--vm_type')
-    parser.add_option('-a', '--client')
-    parser.add_option('-p', '--port')
-    parser.add_option('-f', '--file')
+    
+    # Make sure debugger options are recognized as valid. These are passed automatically
+    # from PyDev in Eclipse to the inferior process.
+    if "pydevd" in sys.modules:
+        parser.add_option('-v', '--vm_type')
+        parser.add_option('-a', '--client')
+        parser.add_option('-p', '--port')
+        parser.add_option('-f', '--file')
+        parser.add_option('-o', '--output')
 
 
 

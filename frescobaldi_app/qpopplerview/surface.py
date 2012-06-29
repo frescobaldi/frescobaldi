@@ -309,6 +309,11 @@ class Surface(QWidget):
                             self.setCursor(Qt.SizeAllCursor)
                     return True
             if not self._selecting:
+                if ev.modifiers() & Qt.ShiftModifier and ev.button() == Qt.LeftButton and self._linksEnabled:
+                    page, link = self.pageLayout().linkAt(pos)
+                    if link:
+                        self.linkClickEvent(ev, page, link)
+                        return True
                 if ev.button() == Qt.RightButton or int(ev.modifiers()) & _SCAM:
                     if not (int(ev.modifiers()) & _SCAM == self._magnifierModifiers 
                             and  ev.button() == Qt.LeftButton):
