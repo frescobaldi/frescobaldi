@@ -113,8 +113,10 @@ def loadSession(name):
 
 def saveSession(name, documents, activeDocument=None):
     """Saves the list of documents and which one is active."""
+    # only save the documents that have an url
+    documents = [doc for doc in documents if not doc.url().isEmpty()]
     session = sessionGroup(name)
-    session.setValue("urls", [doc.url() for doc in documents if not doc.url().isEmpty()])
+    session.setValue("urls", [doc.url() for doc in documents])
     if activeDocument in documents:
         session.setValue("active", documents.index(activeDocument))
     else:
