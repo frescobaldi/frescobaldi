@@ -12,6 +12,7 @@ Changes in 2.0.7 --
     eyes, contributed by Richard Cognot
   - music view scrollbars can be hidden via preferences->tools->music view
 * Improvements:
+  - status of "Always Engrave" is saved in session (wish #76)
   - the 'View' -> 'Music View' submenu is now a top-level menu 'Music'
 * Bugfixes:
   - fix "NameError: global name 'X_OK' is not defined" when a helper application

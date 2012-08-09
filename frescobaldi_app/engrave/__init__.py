@@ -23,7 +23,7 @@ Actions to engrave the music in the documents.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QSettings, Qt
+from PyQt4.QtCore import QSettings, Qt, QUrl
 from PyQt4.QtGui import QAction, QApplication, QKeySequence
 
 import app
@@ -56,6 +56,8 @@ class Engraver(plugin.MainWindowPlugin):
         mainwindow.currentDocumentChanged.connect(self.updateActions)
         app.jobStarted.connect(self.updateActions)
         app.jobFinished.connect(self.updateActions)
+        app.sessionChanged.connect(self.slotSessionChanged)
+        app.saveSessionData.connect(self.slotSaveSessionData)
         app.languageChanged.connect(self.updateStickyActionText)
         self.updateStickyActionText()
         
@@ -178,7 +180,29 @@ class Engraver(plugin.MainWindowPlugin):
         else:
             text = _("&Always Engrave This Document")
         self.actionCollection.engrave_sticky.setText(text)
-        
+    
+    def slotSessionChanged(self):
+        """Called when the session is changed."""
+        import sessions
+        g = sessions.currentSessionGroup()
+        if g:
+            url = g.value("sticky_url", QUrl())
+            if not url.isEmpty():
+                d = app.findDocument(url)
+                if d:
+                    self.setStickyDocument(d)
+    
+    def slotSaveSessionData(self):
+        """Called when a session needs to save data."""
+        import sessions
+        d = self.stickyDocument()
+        g = sessions.currentSessionGroup()
+        if g:
+            if d and not d.url().isEmpty():
+                g.setValue("sticky_url", d.url())
+            else:
+                g.remove("sticky_url")
+
 
 class Actions(actioncollection.ActionCollection):
     name = "engrave"
