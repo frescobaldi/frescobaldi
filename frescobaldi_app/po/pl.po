@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.3\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-05-06 17:31+0200\n"
+"POT-Creation-Date: 2012-08-16 18:49+0200\n"
 "PO-Revision-Date: 2012-02-17 00:26+0100\n"
 "Last-Translator: Piotr Komorowski <piotr-komorowski@wp.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -227,7 +227,7 @@ msgstr "(określony w dokumencie)"
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr "Należy określić zarówno wersję źródłową, jak i docelową."
 
-#: ../convert_ly.py:214
+#: ../convert_ly.py:215
 msgid ""
 "Could not start {convert_ly}:\n"
 "\n"
@@ -237,47 +237,47 @@ msgstr ""
 "\n"
 "{message}\n"
 
-#: ../convert_ly.py:220
+#: ../convert_ly.py:221
 msgid "The document has not been changed."
 msgstr "Dokument został zmieniony."
 
-#: ../convert_ly.py:226
+#: ../convert_ly.py:227
 msgid "Current Document"
 msgstr "Bieżący dokument "
 
-#: ../convert_ly.py:226
+#: ../convert_ly.py:227
 msgid "Converted Document"
 msgstr "Dokument przekonwertowany"
 
-#: ../convert_ly.py:232
+#: ../convert_ly.py:233
 msgid "Colors:"
 msgstr "Kolory:"
 
-#: ../convert_ly.py:233
+#: ../convert_ly.py:234
 msgid "Added"
 msgstr "Dodane"
 
-#: ../convert_ly.py:234
+#: ../convert_ly.py:235
 msgid "Changed"
 msgstr "Zmienione"
 
-#: ../convert_ly.py:235
+#: ../convert_ly.py:236
 msgid "Deleted"
 msgstr "Usunięto"
 
-#: ../convert_ly.py:236
+#: ../convert_ly.py:237
 msgid "Links:"
 msgstr "Linki:"
 
-#: ../convert_ly.py:237
+#: ../convert_ly.py:238
 msgid "First Change"
 msgstr "Pierwsza zmiana"
 
-#: ../convert_ly.py:238
+#: ../convert_ly.py:239
 msgid "Next Change"
 msgstr "Następna zmiana"
 
-#: ../convert_ly.py:239
+#: ../convert_ly.py:240
 msgid "Top"
 msgstr "Góra"
 
@@ -290,11 +290,11 @@ msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr ""
 "Proszę wprowadzić nazwę dla zmniennej przyporządkowanej do wybranego tekstu:"
 
-#: ../document.py:143 ../doclist/widget.py:128 ../snippet/edit.py:178
+#: ../document.py:145 ../doclist/widget.py:128 ../snippet/edit.py:178
 msgid "Untitled"
 msgstr "Bez tytułu"
 
-#: ../document.py:145
+#: ../document.py:147
 msgid "Untitled ({num})"
 msgstr "Bez tytułu ({num})"
 
@@ -393,6 +393,22 @@ msgstr "Czcionka maszynowa:"
 msgid "Staff Size:"
 msgstr "Rozmiar pięciolinii:"
 
+#. L10N: a basic type of input in the editor
+#: ../helpers.py:101 ../mainwindow.py:390 ../mainwindow.py:396
+#: ../mainwindow.py:421 ../mainwindow.py:472 ../mainwindow.py:540
+#: ../mainwindow.py:599 ../musicview/image.py:214
+#: ../preferences/fontscolors.py:476 ../preferences/fontscolors.py:514
+#: ../snippet/import_export.py:105 ../snippet/widget.py:319
+msgid "Error"
+msgstr "Błąd"
+
+#: ../helpers.py:102 ../job.py:250
+msgid ""
+"Could not start {program}.\n"
+"Please check path and permissions."
+msgstr ""
+"Nie można uruchomić {program}. Należy sprawdzić scieżkę oraz uprawnienia."
+
 #: ../hyphendialog.py:114
 msgid "Hyphenate Lyrics Text"
 msgstr "Rozdziel tekst myślnikami"
@@ -468,13 +484,6 @@ msgstr "Rozpoczynanie {job}..."
 #: ../job.py:244
 msgid "Aborting {job}..."
 msgstr "Przerywanie {job}..."
-
-#: ../job.py:250
-msgid ""
-"Could not start {program}.\n"
-"Please check path and permissions."
-msgstr ""
-"Nie można uruchomić {program}. Należy sprawdzić scieżkę oraz uprawnienia."
 
 #: ../job.py:253
 msgid "Could not read from the process."
@@ -590,15 +599,6 @@ msgstr ""
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Otwórz plik"
-
-#. L10N: a basic type of input in the editor
-#: ../mainwindow.py:390 ../mainwindow.py:396 ../mainwindow.py:421
-#: ../mainwindow.py:472 ../mainwindow.py:540 ../mainwindow.py:599
-#: ../musicview/image.py:214 ../preferences/fontscolors.py:476
-#: ../preferences/fontscolors.py:514 ../snippet/import_export.py:105
-#: ../snippet/widget.py:319
-msgid "Error"
-msgstr "Błąd"
 
 #: ../mainwindow.py:391 ../mainwindow.py:397 ../mainwindow.py:422
 msgid ""
@@ -1171,31 +1171,31 @@ msgstr "Wyślij dokumenty e-mailem"
 msgid "Close all untitled documents"
 msgstr "Zamknij wszystkie dokumenty"
 
-#: ../engrave/__init__.py:177
+#: ../engrave/__init__.py:179
 msgid "&Always Engrave [{docname}]"
 msgstr "Z&awsze rysuj [{docname}]"
 
-#: ../engrave/__init__.py:179
+#: ../engrave/__init__.py:181
 msgid "&Always Engrave This Document"
 msgstr "Z&awsze rysuj ten dokument"
 
-#: ../engrave/__init__.py:208
+#: ../engrave/__init__.py:232
 msgid "Engrave"
 msgstr "Narysuj"
 
-#: ../engrave/__init__.py:209
+#: ../engrave/__init__.py:233
 msgid "&Engrave (preview)"
 msgstr "Podgląd partytury"
 
-#: ../engrave/__init__.py:210
+#: ../engrave/__init__.py:234
 msgid "Engrave (&publish)"
 msgstr "Narysuj (&publikacja)"
 
-#: ../engrave/__init__.py:211
+#: ../engrave/__init__.py:235
 msgid "Engrave (&custom)..."
 msgstr "Narysuj (&użytkownik)..."
 
-#: ../engrave/__init__.py:212
+#: ../engrave/__init__.py:236
 msgid "Abort Engraving &Job"
 msgstr "Porzuć rysowanie"
 
@@ -2201,27 +2201,27 @@ msgstr "Tempo"
 msgid "No output found!"
 msgstr "Nie znaleziono plików wynikowych!"
 
-#: ../miditool/widget.py:232
+#: ../miditool/widget.py:234
 msgctxt "midi lcd screen"
 msgid "LOADED"
 msgstr "Wczytano"
 
-#: ../miditool/widget.py:233
+#: ../miditool/widget.py:235
 msgctxt "midi lcd screen"
 msgid "TOTAL"
 msgstr ""
 
-#: ../miditool/widget.py:315 ../miditool/widget.py:325
+#: ../miditool/widget.py:317 ../miditool/widget.py:327
 msgctxt "midi lcd screen"
 msgid "TIME"
 msgstr "CZAS"
 
-#: ../miditool/widget.py:316
+#: ../miditool/widget.py:318
 msgctxt "midi lcd screen"
 msgid "TEMPO"
 msgstr "TEMPO"
 
-#: ../miditool/widget.py:326
+#: ../miditool/widget.py:328
 msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "PULS"
@@ -6163,11 +6163,11 @@ msgstr ""
 msgid "Snippet error"
 msgstr "Błąd wstawki"
 
-#: ../snippet/menu.py:117
+#: ../snippet/menu.py:118
 msgid "&Insert"
 msgstr "&Wstaw "
 
-#: ../snippet/menu.py:142
+#: ../snippet/menu.py:143
 msgid "New from &Template"
 msgstr "Nowy z &szablonu"
 

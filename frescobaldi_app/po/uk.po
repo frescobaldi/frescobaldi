@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-05-06 17:31+0200\n"
+"POT-Creation-Date: 2012-08-16 18:49+0200\n"
 "PO-Revision-Date: 2012-04-19 17:21+0300\n"
 "Last-Translator: Dmytro O. Redchuk <brownian.box@gmail.com>\n"
 "Language-Team: Ukrainian\n"
@@ -219,7 +219,7 @@ msgstr "(встановлено у документі)"
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr "Потрібні обидві версії («з» та «на»)."
 
-#: ../convert_ly.py:214
+#: ../convert_ly.py:215
 msgid ""
 "Could not start {convert_ly}:\n"
 "\n"
@@ -229,47 +229,47 @@ msgstr ""
 "\n"
 "{message}\n"
 
-#: ../convert_ly.py:220
+#: ../convert_ly.py:221
 msgid "The document has not been changed."
 msgstr "Документ не було змінено."
 
-#: ../convert_ly.py:226
+#: ../convert_ly.py:227
 msgid "Current Document"
 msgstr "Поточний документ"
 
-#: ../convert_ly.py:226
+#: ../convert_ly.py:227
 msgid "Converted Document"
 msgstr "Конвертований документ"
 
-#: ../convert_ly.py:232
+#: ../convert_ly.py:233
 msgid "Colors:"
 msgstr "Кольори:"
 
-#: ../convert_ly.py:233
+#: ../convert_ly.py:234
 msgid "Added"
 msgstr "Додано"
 
-#: ../convert_ly.py:234
+#: ../convert_ly.py:235
 msgid "Changed"
 msgstr "Змінено"
 
-#: ../convert_ly.py:235
+#: ../convert_ly.py:236
 msgid "Deleted"
 msgstr "Видалено"
 
-#: ../convert_ly.py:236
+#: ../convert_ly.py:237
 msgid "Links:"
 msgstr "Посилання:"
 
-#: ../convert_ly.py:237
+#: ../convert_ly.py:238
 msgid "First Change"
 msgstr "Перша зміна"
 
-#: ../convert_ly.py:238
+#: ../convert_ly.py:239
 msgid "Next Change"
 msgstr "Наступна зміна"
 
-#: ../convert_ly.py:239
+#: ../convert_ly.py:240
 msgid "Top"
 msgstr "Нагору"
 
@@ -282,11 +282,11 @@ msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr ""
 "Будь ласка, введіть назву змінної, якій треба присвоїти виділений текст:"
 
-#: ../document.py:143 ../doclist/widget.py:128 ../snippet/edit.py:178
+#: ../document.py:145 ../doclist/widget.py:128 ../snippet/edit.py:178
 msgid "Untitled"
 msgstr "Без назви"
 
-#: ../document.py:145
+#: ../document.py:147
 msgid "Untitled ({num})"
 msgstr "Без назви ({num})"
 
@@ -384,6 +384,23 @@ msgstr "Шрифт друкарки:"
 #: ../globalfontdialog.py:79
 msgid "Staff Size:"
 msgstr "Розмір нотоносця"
+
+#. L10N: a basic type of input in the editor
+#: ../helpers.py:101 ../mainwindow.py:390 ../mainwindow.py:396
+#: ../mainwindow.py:421 ../mainwindow.py:472 ../mainwindow.py:540
+#: ../mainwindow.py:599 ../musicview/image.py:214
+#: ../preferences/fontscolors.py:476 ../preferences/fontscolors.py:514
+#: ../snippet/import_export.py:105 ../snippet/widget.py:319
+msgid "Error"
+msgstr "Помилка"
+
+#: ../helpers.py:102 ../job.py:250
+msgid ""
+"Could not start {program}.\n"
+"Please check path and permissions."
+msgstr ""
+"Не вдалося запустити {program}.\n"
+"Будь ласка, перевірте шляхи та права доступу."
 
 #: ../hyphendialog.py:114
 msgid "Hyphenate Lyrics Text"
@@ -486,14 +503,6 @@ msgstr "Починаємо {job}"
 #: ../job.py:244
 msgid "Aborting {job}..."
 msgstr "Уриваємо {job}"
-
-#: ../job.py:250
-msgid ""
-"Could not start {program}.\n"
-"Please check path and permissions."
-msgstr ""
-"Не вдалося запустити {program}.\n"
-"Будь ласка, перевірте шляхи та права доступу."
 
 #: ../job.py:253
 msgid "Could not read from the process."
@@ -610,15 +619,6 @@ msgstr ""
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Відкрити файл"
-
-#. L10N: a basic type of input in the editor
-#: ../mainwindow.py:390 ../mainwindow.py:396 ../mainwindow.py:421
-#: ../mainwindow.py:472 ../mainwindow.py:540 ../mainwindow.py:599
-#: ../musicview/image.py:214 ../preferences/fontscolors.py:476
-#: ../preferences/fontscolors.py:514 ../snippet/import_export.py:105
-#: ../snippet/widget.py:319
-msgid "Error"
-msgstr "Помилка"
 
 #: ../mainwindow.py:391 ../mainwindow.py:397 ../mainwindow.py:422
 #, fuzzy
@@ -1185,33 +1185,33 @@ msgstr "Зберегти всі неназвані документи"
 msgid "Close all untitled documents"
 msgstr "Закрити всі неназвані документи"
 
-#: ../engrave/__init__.py:177
+#: ../engrave/__init__.py:179
 msgid "&Always Engrave [{docname}]"
 msgstr "Завжди &гравіювати [{docname}]"
 
-#: ../engrave/__init__.py:179
+#: ../engrave/__init__.py:181
 msgid "&Always Engrave This Document"
 msgstr "Завжди &гравіювати цей документ"
 
-#: ../engrave/__init__.py:208
+#: ../engrave/__init__.py:232
 msgid "Engrave"
 msgstr "Гравіювати"
 
-#: ../engrave/__init__.py:209
+#: ../engrave/__init__.py:233
 msgid "&Engrave (preview)"
 msgstr "Граві&ювати (перегляд)"
 
-#: ../engrave/__init__.py:210
+#: ../engrave/__init__.py:234
 #, fuzzy
 msgid "Engrave (&publish)"
 msgstr "Гравіювати (&начисто)"
 
-#: ../engrave/__init__.py:211
+#: ../engrave/__init__.py:235
 #, fuzzy
 msgid "Engrave (&custom)..."
 msgstr "Гравіювати (не&стандартно)"
 
-#: ../engrave/__init__.py:212
+#: ../engrave/__init__.py:236
 msgid "Abort Engraving &Job"
 msgstr "Пере&рвати процес гравіювання"
 
@@ -2097,27 +2097,27 @@ msgstr "Темп"
 msgid "No output found!"
 msgstr ""
 
-#: ../miditool/widget.py:232
+#: ../miditool/widget.py:234
 msgctxt "midi lcd screen"
 msgid "LOADED"
 msgstr ""
 
-#: ../miditool/widget.py:233
+#: ../miditool/widget.py:235
 msgctxt "midi lcd screen"
 msgid "TOTAL"
 msgstr ""
 
-#: ../miditool/widget.py:315 ../miditool/widget.py:325
+#: ../miditool/widget.py:317 ../miditool/widget.py:327
 msgctxt "midi lcd screen"
 msgid "TIME"
 msgstr ""
 
-#: ../miditool/widget.py:316
+#: ../miditool/widget.py:318
 msgctxt "midi lcd screen"
 msgid "TEMPO"
 msgstr ""
 
-#: ../miditool/widget.py:326
+#: ../miditool/widget.py:328
 msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr ""
@@ -5980,11 +5980,11 @@ msgstr ""
 msgid "Snippet error"
 msgstr ""
 
-#: ../snippet/menu.py:117
+#: ../snippet/menu.py:118
 msgid "&Insert"
 msgstr ""
 
-#: ../snippet/menu.py:142
+#: ../snippet/menu.py:143
 msgid "New from &Template"
 msgstr "Новий із &шаблону"
 

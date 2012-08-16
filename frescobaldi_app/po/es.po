@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-05-06 17:31+0200\n"
+"POT-Creation-Date: 2012-08-16 18:49+0200\n"
 "PO-Revision-Date: 2012-05-07 13:52+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -33,7 +33,8 @@ msgid "Qt4"
 msgstr "Qt4"
 
 #: ../about.py:50
-msgid "The Music View is powered by the {poppler} library by {authors} and others."
+msgid ""
+"The Music View is powered by the {poppler} library by {authors} and others."
 msgstr ""
 "La Vista de música se realiza con la biblioteca {poppler} de {authors} y "
 "otros."
@@ -112,7 +113,8 @@ msgstr "Publicado bajo la licencia {gpl}."
 msgid "This shortcut conflicts with the following command:"
 msgid_plural "This shortcut conflicts with the following commands:"
 msgstr[0] "Esta combinación entra en conflicto con la siguiente instrucción:"
-msgstr[1] "Esta combinación entra en conflicto con las siguientes instrucciones:"
+msgstr[1] ""
+"Esta combinación entra en conflicto con las siguientes instrucciones:"
 
 #: ../actioncollectionmanager.py:128 ../preferences/shortcuts.py:209
 msgid "Shortcut Conflict"
@@ -219,7 +221,7 @@ msgstr "(fijado en el documento)"
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr "Se deben establecer las dos versiones «de» y «a»"
 
-#: ../convert_ly.py:214
+#: ../convert_ly.py:215
 msgid ""
 "Could not start {convert_ly}:\n"
 "\n"
@@ -229,47 +231,47 @@ msgstr ""
 "\n"
 "{message}\n"
 
-#: ../convert_ly.py:220
+#: ../convert_ly.py:221
 msgid "The document has not been changed."
 msgstr "El documento no ha cambiado."
 
-#: ../convert_ly.py:226
+#: ../convert_ly.py:227
 msgid "Current Document"
 msgstr "Documento actual"
 
-#: ../convert_ly.py:226
+#: ../convert_ly.py:227
 msgid "Converted Document"
 msgstr "Documento convertido"
 
-#: ../convert_ly.py:232
+#: ../convert_ly.py:233
 msgid "Colors:"
 msgstr "Colores:"
 
-#: ../convert_ly.py:233
+#: ../convert_ly.py:234
 msgid "Added"
 msgstr "Añadido"
 
-#: ../convert_ly.py:234
+#: ../convert_ly.py:235
 msgid "Changed"
 msgstr "Cambiado"
 
-#: ../convert_ly.py:235
+#: ../convert_ly.py:236
 msgid "Deleted"
 msgstr "Eliminado"
 
-#: ../convert_ly.py:236
+#: ../convert_ly.py:237
 msgid "Links:"
 msgstr "Enlaces:"
 
-#: ../convert_ly.py:237
+#: ../convert_ly.py:238
 msgid "First Change"
 msgstr "Primer cambio"
 
-#: ../convert_ly.py:238
+#: ../convert_ly.py:239
 msgid "Next Change"
 msgstr "Siguiente cambio"
 
-#: ../convert_ly.py:239
+#: ../convert_ly.py:240
 msgid "Top"
 msgstr "Principio"
 
@@ -279,13 +281,14 @@ msgstr "Cortar y asignar"
 
 #: ../cut_assign.py:40
 msgid "Please enter the name for the variable to assign the selected text to:"
-msgstr "Escriba el nombre de la variable a la que asignar el texto seleccionado:"
+msgstr ""
+"Escriba el nombre de la variable a la que asignar el texto seleccionado:"
 
-#: ../document.py:143 ../doclist/widget.py:128 ../snippet/edit.py:178
+#: ../document.py:145 ../doclist/widget.py:128 ../snippet/edit.py:178
 msgid "Untitled"
 msgstr "Sin título"
 
-#: ../document.py:145
+#: ../document.py:147
 msgid "Untitled ({num})"
 msgstr "Sin título ({num})"
 
@@ -383,6 +386,23 @@ msgstr "Tipo Monoespaciado:"
 #: ../globalfontdialog.py:79
 msgid "Staff Size:"
 msgstr "Tamaño del pentagrama:"
+
+#. L10N: a basic type of input in the editor
+#: ../helpers.py:101 ../mainwindow.py:390 ../mainwindow.py:396
+#: ../mainwindow.py:421 ../mainwindow.py:472 ../mainwindow.py:540
+#: ../mainwindow.py:599 ../musicview/image.py:214
+#: ../preferences/fontscolors.py:476 ../preferences/fontscolors.py:514
+#: ../snippet/import_export.py:105 ../snippet/widget.py:319
+msgid "Error"
+msgstr "Error"
+
+#: ../helpers.py:102 ../job.py:250
+msgid ""
+"Could not start {program}.\n"
+"Please check path and permissions."
+msgstr ""
+"No se ha podido iniciar {program}.\n"
+"Compruebe la ruta y los permisos."
 
 #: ../hyphendialog.py:114
 msgid "Hyphenate Lyrics Text"
@@ -492,14 +512,6 @@ msgstr "Iniciando {job}..."
 #: ../job.py:244
 msgid "Aborting {job}..."
 msgstr "Abortando {job}..."
-
-#: ../job.py:250
-msgid ""
-"Could not start {program}.\n"
-"Please check path and permissions."
-msgstr ""
-"No se ha podido iniciar {program}.\n"
-"Compruebe la ruta y los permisos."
 
 #: ../job.py:253
 msgid "Could not read from the process."
@@ -614,15 +626,6 @@ msgstr ""
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Abrir archivo"
-
-#. L10N: a basic type of input in the editor
-#: ../mainwindow.py:390 ../mainwindow.py:396 ../mainwindow.py:421
-#: ../mainwindow.py:472 ../mainwindow.py:540 ../mainwindow.py:599
-#: ../musicview/image.py:214 ../preferences/fontscolors.py:476
-#: ../preferences/fontscolors.py:514 ../snippet/import_export.py:105
-#: ../snippet/widget.py:319
-msgid "Error"
-msgstr "Error"
 
 #: ../mainwindow.py:391 ../mainwindow.py:397 ../mainwindow.py:422
 msgid ""
@@ -1036,7 +1039,8 @@ msgid "&All"
 msgstr "&Todo"
 
 #: ../search.py:112
-msgid "Replaces all occurrences of the search term in the document or selection."
+msgid ""
+"Replaces all occurrences of the search term in the document or selection."
 msgstr ""
 "Sustituye todas las apariciones del término buscado dentro del documento o "
 "selección."
@@ -1187,31 +1191,31 @@ msgstr "Guardar todos los documentos sin título"
 msgid "Close all untitled documents"
 msgstr "Cerrar todos los documentos sin título"
 
-#: ../engrave/__init__.py:177
+#: ../engrave/__init__.py:179
 msgid "&Always Engrave [{docname}]"
 msgstr "Proces&ar siemrpe [{docname}]"
 
-#: ../engrave/__init__.py:179
+#: ../engrave/__init__.py:181
 msgid "&Always Engrave This Document"
 msgstr "Proces&ar siempre este documento"
 
-#: ../engrave/__init__.py:208
+#: ../engrave/__init__.py:232
 msgid "Engrave"
 msgstr "Procesar"
 
-#: ../engrave/__init__.py:209
+#: ../engrave/__init__.py:233
 msgid "&Engrave (preview)"
 msgstr "Proc&esar (vista previa)"
 
-#: ../engrave/__init__.py:210
+#: ../engrave/__init__.py:234
 msgid "Engrave (&publish)"
 msgstr "Procesar (&publicación)"
 
-#: ../engrave/__init__.py:211
+#: ../engrave/__init__.py:235
 msgid "Engrave (&custom)..."
 msgstr "Pro&cesar (personalizado)..."
 
-#: ../engrave/__init__.py:212
+#: ../engrave/__init__.py:236
 msgid "Abort Engraving &Job"
 msgstr "A&bortar el procesado"
 
@@ -1233,7 +1237,8 @@ msgstr "Resolución:"
 
 #: ../engrave/custom.py:128
 msgid "Run LilyPond in preview mode (with Point and Click)"
-msgstr "Ejecutar LilyPond en modo de vista previa (con enlaces de apuntar y pulsar)"
+msgstr ""
+"Ejecutar LilyPond en modo de vista previa (con enlaces de apuntar y pulsar)"
 
 #: ../engrave/custom.py:129
 msgid "Run LilyPond with verbose output"
@@ -1717,8 +1722,10 @@ msgid "You can also adjust the view:"
 msgstr "También puede ajustar la vista:"
 
 #: ../help/contents.py:252
-msgid "Use the Control (or Command) key with the mouse wheel to zoom in and out"
-msgstr "Use la tecla Control (o Command) con la rueda del ratón para acercar o alejar"
+msgid ""
+"Use the Control (or Command) key with the mouse wheel to zoom in and out"
+msgstr ""
+"Use la tecla Control (o Command) con la rueda del ratón para acercar o alejar"
 
 #: ../help/contents.py:254
 msgid "Hold Control or Command and left-click to display a magnifier glass"
@@ -2124,7 +2131,8 @@ msgid "version"
 msgstr "versión"
 
 #: ../help/contents.py:505
-msgid "Set the LilyPond version to use, can be used for non-LilyPond documents."
+msgid ""
+"Set the LilyPond version to use, can be used for non-LilyPond documents."
 msgstr ""
 "Seleccionar la versión de LilyPond que usar, se puede utilizar para "
 "documentos que no sean de LilyPond."
@@ -2149,7 +2157,8 @@ msgstr ""
 
 #: ../help/contents.py:516
 msgid "The number of spaces each indent level uses, by default 2."
-msgstr "Número de espacios que usa cada nivel de sangrado, de forma predeterminada 2."
+msgstr ""
+"Número de espacios que usa cada nivel de sangrado, de forma predeterminada 2."
 
 #: ../help/contents.py:523
 msgid "You can put document variables in comments."
@@ -2421,27 +2430,27 @@ msgstr "Tempo"
 msgid "No output found!"
 msgstr "No se encontró ninguna salida"
 
-#: ../miditool/widget.py:232
+#: ../miditool/widget.py:234
 msgctxt "midi lcd screen"
 msgid "LOADED"
 msgstr "CARGADO"
 
-#: ../miditool/widget.py:233
+#: ../miditool/widget.py:235
 msgctxt "midi lcd screen"
 msgid "TOTAL"
 msgstr "TOTAL"
 
-#: ../miditool/widget.py:315 ../miditool/widget.py:325
+#: ../miditool/widget.py:317 ../miditool/widget.py:327
 msgctxt "midi lcd screen"
 msgid "TIME"
 msgstr "TIEMPO"
 
-#: ../miditool/widget.py:316
+#: ../miditool/widget.py:318
 msgctxt "midi lcd screen"
 msgid "TEMPO"
 msgstr "TEMPO"
 
-#: ../miditool/widget.py:326
+#: ../miditool/widget.py:328
 msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "PULSO"
@@ -2563,7 +2572,8 @@ msgstr "Editando la línea {linenum} de \"{document}\" ({variable})"
 
 #: ../musicview/editinplace.py:250
 msgid "In this dialog you can edit one line of the text document."
-msgstr "En este cuadro de diálogo puede editar una línea del documento de texto."
+msgstr ""
+"En este cuadro de diálogo puede editar una línea del documento de texto."
 
 #: ../musicview/editinplace.py:251
 msgid "Click OK or press {key} to place the modified text in the document."
@@ -3104,7 +3114,8 @@ msgstr "Rutas a la documentación de LilyPond"
 
 #: ../preferences/documentation.py:68
 msgid "Add paths or URLs. See \"What's This\" for more information."
-msgstr "Añadir rutas o URLs. Consulte \"Qué es esto\" para ver más información."
+msgstr ""
+"Añadir rutas o URLs. Consulte \"Qué es esto\" para ver más información."
 
 #: ../preferences/documentation.py:70 ../preferences/prefshelp.py:194
 msgid ""
@@ -3648,7 +3659,8 @@ msgstr ""
 
 #: ../preferences/lilypond.py:290
 msgid "If checked, LilyPond will delete intermediate PostScript files."
-msgstr "Si está activado, LilyPond borrará los archivos PostScript intermedios."
+msgstr ""
+"Si está activado, LilyPond borrará los archivos PostScript intermedios."
 
 #: ../preferences/lilypond.py:293
 msgid ""
@@ -3681,7 +3693,8 @@ msgid "Player output:"
 msgstr "Salida del reproductor:"
 
 #: ../preferences/midi.py:84
-msgid "The MIDI port to play music to. See \"What's This\" for more information."
+msgid ""
+"The MIDI port to play music to. See \"What's This\" for more information."
 msgstr ""
 "Puerto MIDI hacia el que enviar la reproducción de música. Consulte \"Qué es "
 "esto\" para ver más información."
@@ -3796,8 +3809,10 @@ msgstr ""
 "documentos de LilyPond."
 
 #: ../preferences/prefshelp.py:83
-msgid "Here you can configure how LilyPond is run when you engrave your document."
-msgstr "Aquí puede configurar cómo se ejecuta LilyPond para procesar el documento."
+msgid ""
+"Here you can configure how LilyPond is run when you engrave your document."
+msgstr ""
+"Aquí puede configurar cómo se ejecuta LilyPond para procesar el documento."
 
 #: ../preferences/prefshelp.py:85
 msgid ""
@@ -4713,7 +4728,8 @@ msgstr "Hacer &implícitas"
 
 #: ../rhythm/__init__.py:166
 msgid "Make durations implicit (remove repeated durations)."
-msgstr "Hacer que las duraciones sean implícitas (quitar las duraciones repetidas)."
+msgstr ""
+"Hacer que las duraciones sean implícitas (quitar las duraciones repetidas)."
 
 #: ../rhythm/__init__.py:167
 msgid "Make implicit (per &line)"
@@ -5186,7 +5202,8 @@ msgstr "Utilizar comillas tipográficas"
 
 #: ../scorewiz/settings.py:121
 msgid "Replace normal quotes in titles with nice typographical quotes."
-msgstr "Sustituir las comillas normales con las vistosas comillas tipográficas."
+msgstr ""
+"Sustituir las comillas normales con las vistosas comillas tipográficas."
 
 #: ../scorewiz/settings.py:122
 msgid "Remove default tagline"
@@ -5201,7 +5218,8 @@ msgid "Remove bar numbers"
 msgstr "Quitar números de compás"
 
 #: ../scorewiz/settings.py:127
-msgid "Suppress the display of measure numbers at the beginning of every system."
+msgid ""
+"Suppress the display of measure numbers at the beginning of every system."
 msgstr ""
 "Eliminar la numeración de compases que aparece a la izquierda de los "
 "sistemas."
@@ -5297,7 +5315,8 @@ msgstr "Configurar el número de voces distintas deseado en cada pentagrama."
 
 #: ../scorewiz/parts/_base.py:134
 msgid "This is primarily useful when you write polyphonic music like a fuge."
-msgstr "Esto es de utilidad sobre todo al escribir música polifónica como una fuga."
+msgstr ""
+"Esto es de utilidad sobre todo al escribir música polifónica como una fuga."
 
 #: ../scorewiz/parts/_base.py:136
 msgid "Right hand:"
@@ -5430,7 +5449,8 @@ msgstr "Conectar las divisorias"
 
 #: ../scorewiz/parts/containers.py:73
 msgid "If checked, barlines are connected between the staves."
-msgstr "Si está activado, las líneas divisorias se conectan entre los pentagramas."
+msgstr ""
+"Si está activado, las líneas divisorias se conectan entre los pentagramas."
 
 #: ../scorewiz/parts/containers.py:94
 msgid "Score"
@@ -6033,7 +6053,8 @@ msgid "Every voice same lyrics"
 msgstr "Misma letra todas las voces"
 
 #: ../scorewiz/parts/vocal.py:661
-msgid "Every voice gets its own lyrics, using the same text as the other voices."
+msgid ""
+"Every voice gets its own lyrics, using the same text as the other voices."
 msgstr "Cada letra tiene su voz, usando el mismo texto que las otras voces."
 
 #: ../scorewiz/parts/vocal.py:663
@@ -6570,7 +6591,8 @@ msgstr "Requiere la selección de un texto."
 
 #: ../snippet/edit.py:255
 msgid "Adjusts the selection to not include starting and trialing whitespace."
-msgstr "Ajusta la selección de forma que no incluya los espacios inicial y final."
+msgstr ""
+"Ajusta la selección de forma que no incluya los espacios inicial y final."
 
 #: ../snippet/edit.py:257
 msgid "Selects all inserted text."
@@ -6798,11 +6820,11 @@ msgstr ""
 msgid "Snippet error"
 msgstr "Error del fragmento de código"
 
-#: ../snippet/menu.py:117
+#: ../snippet/menu.py:118
 msgid "&Insert"
 msgstr "&Insertar"
 
-#: ../snippet/menu.py:142
+#: ../snippet/menu.py:143
 msgid "New from &Template"
 msgstr "Nuevo a partir de plan&tilla"
 
@@ -7188,4 +7210,3 @@ msgstr "Seleccione un directorio"
 #: ../widgets/urlrequester.py:111
 msgid "Select a file"
 msgstr "Seleccione un archivo"
-

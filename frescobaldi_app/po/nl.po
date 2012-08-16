@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-05-06 17:31+0200\n"
+"POT-Creation-Date: 2012-08-16 18:49+0200\n"
 "PO-Revision-Date: 2012-05-09 22:38+0200\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
@@ -218,7 +218,7 @@ msgstr "(in document ingesteld)"
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr "Zowel de 'van'- als 'naar' versie dient ingesteld te zijn."
 
-#: ../convert_ly.py:214
+#: ../convert_ly.py:215
 msgid ""
 "Could not start {convert_ly}:\n"
 "\n"
@@ -228,47 +228,47 @@ msgstr ""
 "\n"
 "{message}\n"
 
-#: ../convert_ly.py:220
+#: ../convert_ly.py:221
 msgid "The document has not been changed."
 msgstr "Het document is niet gewijzigd."
 
-#: ../convert_ly.py:226
+#: ../convert_ly.py:227
 msgid "Current Document"
 msgstr "Huidig document"
 
-#: ../convert_ly.py:226
+#: ../convert_ly.py:227
 msgid "Converted Document"
 msgstr "Bijgewerkt document"
 
-#: ../convert_ly.py:232
+#: ../convert_ly.py:233
 msgid "Colors:"
 msgstr "Kleuren:"
 
-#: ../convert_ly.py:233
+#: ../convert_ly.py:234
 msgid "Added"
 msgstr "Toegevoegd"
 
-#: ../convert_ly.py:234
+#: ../convert_ly.py:235
 msgid "Changed"
 msgstr "Gewijzigd"
 
-#: ../convert_ly.py:235
+#: ../convert_ly.py:236
 msgid "Deleted"
 msgstr "Verwijderd"
 
-#: ../convert_ly.py:236
+#: ../convert_ly.py:237
 msgid "Links:"
 msgstr "Koppelingen:"
 
-#: ../convert_ly.py:237
+#: ../convert_ly.py:238
 msgid "First Change"
 msgstr "Eerste wijziging"
 
-#: ../convert_ly.py:238
+#: ../convert_ly.py:239
 msgid "Next Change"
 msgstr "Volgende wijziging"
 
-#: ../convert_ly.py:239
+#: ../convert_ly.py:240
 msgid "Top"
 msgstr "Top"
 
@@ -281,11 +281,11 @@ msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr ""
 "Geef de naam van de variabele om de geselecteerde tekst aan toe te wijzen:"
 
-#: ../document.py:143 ../doclist/widget.py:128 ../snippet/edit.py:178
+#: ../document.py:145 ../doclist/widget.py:128 ../snippet/edit.py:178
 msgid "Untitled"
 msgstr "Naamloos"
 
-#: ../document.py:145
+#: ../document.py:147
 msgid "Untitled ({num})"
 msgstr "Naamloos ({num})"
 
@@ -383,6 +383,23 @@ msgstr "Schrijfmachine-lettertype:"
 #: ../globalfontdialog.py:79
 msgid "Staff Size:"
 msgstr "Balkgrootte:"
+
+#. L10N: a basic type of input in the editor
+#: ../helpers.py:101 ../mainwindow.py:390 ../mainwindow.py:396
+#: ../mainwindow.py:421 ../mainwindow.py:472 ../mainwindow.py:540
+#: ../mainwindow.py:599 ../musicview/image.py:214
+#: ../preferences/fontscolors.py:476 ../preferences/fontscolors.py:514
+#: ../snippet/import_export.py:105 ../snippet/widget.py:319
+msgid "Error"
+msgstr "Fout"
+
+#: ../helpers.py:102 ../job.py:250
+msgid ""
+"Could not start {program}.\n"
+"Please check path and permissions."
+msgstr ""
+"Kan {program} niet starten.\n"
+"Controleer het pad en permissies."
 
 #: ../hyphendialog.py:114
 msgid "Hyphenate Lyrics Text"
@@ -489,14 +506,6 @@ msgstr "Starten {job}..."
 #: ../job.py:244
 msgid "Aborting {job}..."
 msgstr "Afbreken {job}..."
-
-#: ../job.py:250
-msgid ""
-"Could not start {program}.\n"
-"Please check path and permissions."
-msgstr ""
-"Kan {program} niet starten.\n"
-"Controleer het pad en permissies."
 
 #: ../job.py:253
 msgid "Could not read from the process."
@@ -611,15 +620,6 @@ msgstr ""
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Bestand openen"
-
-#. L10N: a basic type of input in the editor
-#: ../mainwindow.py:390 ../mainwindow.py:396 ../mainwindow.py:421
-#: ../mainwindow.py:472 ../mainwindow.py:540 ../mainwindow.py:599
-#: ../musicview/image.py:214 ../preferences/fontscolors.py:476
-#: ../preferences/fontscolors.py:514 ../snippet/import_export.py:105
-#: ../snippet/widget.py:319
-msgid "Error"
-msgstr "Fout"
 
 #: ../mainwindow.py:391 ../mainwindow.py:397 ../mainwindow.py:422
 msgid ""
@@ -1183,31 +1183,31 @@ msgstr "Alle naamloze documenten opslaan"
 msgid "Close all untitled documents"
 msgstr "Alle naamloze documenten sluiten"
 
-#: ../engrave/__init__.py:177
+#: ../engrave/__init__.py:179
 msgid "&Always Engrave [{docname}]"
 msgstr "&Altijd graveren [{docname}]"
 
-#: ../engrave/__init__.py:179
+#: ../engrave/__init__.py:181
 msgid "&Always Engrave This Document"
 msgstr "Dit document &altijd graveren"
 
-#: ../engrave/__init__.py:208
+#: ../engrave/__init__.py:232
 msgid "Engrave"
 msgstr "Graveren"
 
-#: ../engrave/__init__.py:209
+#: ../engrave/__init__.py:233
 msgid "&Engrave (preview)"
 msgstr "&Graveren (vooruitblik)"
 
-#: ../engrave/__init__.py:210
+#: ../engrave/__init__.py:234
 msgid "Engrave (&publish)"
 msgstr "Graveren (&publicatie)"
 
-#: ../engrave/__init__.py:211
+#: ../engrave/__init__.py:235
 msgid "Engrave (&custom)..."
 msgstr "Gra&veren (aangepast)..."
 
-#: ../engrave/__init__.py:212
+#: ../engrave/__init__.py:236
 msgid "Abort Engraving &Job"
 msgstr "Graveertaak af&breken"
 
@@ -2399,27 +2399,27 @@ msgstr "Tempo"
 msgid "No output found!"
 msgstr "Geen uitgang gevonden!"
 
-#: ../miditool/widget.py:232
+#: ../miditool/widget.py:234
 msgctxt "midi lcd screen"
 msgid "LOADED"
 msgstr "GELADEN"
 
-#: ../miditool/widget.py:233
+#: ../miditool/widget.py:235
 msgctxt "midi lcd screen"
 msgid "TOTAL"
 msgstr "TOTAAL"
 
-#: ../miditool/widget.py:315 ../miditool/widget.py:325
+#: ../miditool/widget.py:317 ../miditool/widget.py:327
 msgctxt "midi lcd screen"
 msgid "TIME"
 msgstr "TIJD"
 
-#: ../miditool/widget.py:316
+#: ../miditool/widget.py:318
 msgctxt "midi lcd screen"
 msgid "TEMPO"
 msgstr "TEMPO"
 
-#: ../miditool/widget.py:326
+#: ../miditool/widget.py:328
 msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "MAAT"
@@ -6745,11 +6745,11 @@ msgstr ""
 msgid "Snippet error"
 msgstr "Knipsel-fout"
 
-#: ../snippet/menu.py:117
+#: ../snippet/menu.py:118
 msgid "&Insert"
 msgstr "&Invoegen"
 
-#: ../snippet/menu.py:142
+#: ../snippet/menu.py:143
 msgid "New from &Template"
 msgstr "Nieuw van s&jabloon"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-05-06 17:31+0200\n"
+"POT-Creation-Date: 2012-08-16 18:49+0200\n"
 "PO-Revision-Date: 2010-12-12 07:48+0200\n"
 "Last-Translator: Server Acim <serveracim@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -236,7 +236,7 @@ msgstr "Belgeleri yazdır"
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr ""
 
-#: ../convert_ly.py:214
+#: ../convert_ly.py:215
 #, fuzzy
 msgid ""
 "Could not start {convert_ly}:\n"
@@ -244,55 +244,55 @@ msgid ""
 "{message}\n"
 msgstr "convert-ly başlatılamadı: %1"
 
-#: ../convert_ly.py:220
+#: ../convert_ly.py:221
 #, fuzzy
 msgid "The document has not been changed."
 msgstr "Belge yazıcıya gönderildi."
 
-#: ../convert_ly.py:226
+#: ../convert_ly.py:227
 #, fuzzy
 msgid "Current Document"
 msgstr "&Belge"
 
-#: ../convert_ly.py:226
+#: ../convert_ly.py:227
 #, fuzzy
 msgid "Converted Document"
 msgstr "Diğer Belgeleri Kapat"
 
-#: ../convert_ly.py:232
+#: ../convert_ly.py:233
 #, fuzzy
 msgid "Colors:"
 msgstr "Besteci"
 
-#: ../convert_ly.py:233
+#: ../convert_ly.py:234
 msgid "Added"
 msgstr ""
 
-#: ../convert_ly.py:234
+#: ../convert_ly.py:235
 msgid "Changed"
 msgstr ""
 
-#: ../convert_ly.py:235
+#: ../convert_ly.py:236
 #, fuzzy
 msgid "Deleted"
 msgstr "Hepsini seç"
 
-#: ../convert_ly.py:236
+#: ../convert_ly.py:237
 #, fuzzy
 msgid "Links:"
 msgstr "Şarkı Sözleri:"
 
-#: ../convert_ly.py:237
+#: ../convert_ly.py:238
 #, fuzzy
 msgid "First Change"
 msgstr "İlk Sayfa"
 
-#: ../convert_ly.py:238
+#: ../convert_ly.py:239
 #, fuzzy
 msgid "Next Change"
 msgstr "Sonraki boş satır"
 
-#: ../convert_ly.py:239
+#: ../convert_ly.py:240
 #, fuzzy
 msgid "Top"
 msgstr "Tıkla"
@@ -307,11 +307,11 @@ msgstr "Kes ve Ata:"
 msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr "Lütfen, metne atamak üzere değişkene bir ad veriniz:"
 
-#: ../document.py:143 ../doclist/widget.py:128 ../snippet/edit.py:178
+#: ../document.py:145 ../doclist/widget.py:128 ../snippet/edit.py:178
 msgid "Untitled"
 msgstr "Başlıksız"
 
-#: ../document.py:145
+#: ../document.py:147
 #, fuzzy
 msgid "Untitled ({num})"
 msgstr "Başlıksız"
@@ -416,6 +416,22 @@ msgstr ""
 msgid "Staff Size:"
 msgstr "Dizek Boyutu:"
 
+#. L10N: a basic type of input in the editor
+#: ../helpers.py:101 ../mainwindow.py:390 ../mainwindow.py:396
+#: ../mainwindow.py:421 ../mainwindow.py:472 ../mainwindow.py:540
+#: ../mainwindow.py:599 ../musicview/image.py:214
+#: ../preferences/fontscolors.py:476 ../preferences/fontscolors.py:514
+#: ../snippet/import_export.py:105 ../snippet/widget.py:319
+msgid "Error"
+msgstr ""
+
+#: ../helpers.py:102 ../job.py:250
+#, fuzzy
+msgid ""
+"Could not start {program}.\n"
+"Please check path and permissions."
+msgstr "LilyPond başlayamıyor. Lütfen yolu ve izinleri denetleyiniz."
+
 #: ../hyphendialog.py:114
 msgid "Hyphenate Lyrics Text"
 msgstr "Şarkı Sözleri Metnini Tirele"
@@ -495,13 +511,6 @@ msgstr ""
 #: ../job.py:244
 msgid "Aborting {job}..."
 msgstr ""
-
-#: ../job.py:250
-#, fuzzy
-msgid ""
-"Could not start {program}.\n"
-"Please check path and permissions."
-msgstr "LilyPond başlayamıyor. Lütfen yolu ve izinleri denetleyiniz."
 
 #: ../job.py:253
 #, fuzzy
@@ -623,15 +632,6 @@ msgstr ""
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Dosya Aç"
-
-#. L10N: a basic type of input in the editor
-#: ../mainwindow.py:390 ../mainwindow.py:396 ../mainwindow.py:421
-#: ../mainwindow.py:472 ../mainwindow.py:540 ../mainwindow.py:599
-#: ../musicview/image.py:214 ../preferences/fontscolors.py:476
-#: ../preferences/fontscolors.py:514 ../snippet/import_export.py:105
-#: ../snippet/widget.py:319
-msgid "Error"
-msgstr ""
 
 #: ../mainwindow.py:391 ../mainwindow.py:397 ../mainwindow.py:422
 msgid ""
@@ -1232,31 +1232,31 @@ msgstr "E-posta belgeleri"
 msgid "Close all untitled documents"
 msgstr "Diğer Belgeleri Kapat"
 
-#: ../engrave/__init__.py:177
+#: ../engrave/__init__.py:179
 msgid "&Always Engrave [{docname}]"
 msgstr ""
 
-#: ../engrave/__init__.py:179
+#: ../engrave/__init__.py:181
 msgid "&Always Engrave This Document"
 msgstr ""
 
-#: ../engrave/__init__.py:208
+#: ../engrave/__init__.py:232
 msgid "Engrave"
 msgstr ""
 
-#: ../engrave/__init__.py:209
+#: ../engrave/__init__.py:233
 msgid "&Engrave (preview)"
 msgstr ""
 
-#: ../engrave/__init__.py:210
+#: ../engrave/__init__.py:234
 msgid "Engrave (&publish)"
 msgstr ""
 
-#: ../engrave/__init__.py:211
+#: ../engrave/__init__.py:235
 msgid "Engrave (&custom)..."
 msgstr ""
 
-#: ../engrave/__init__.py:212
+#: ../engrave/__init__.py:236
 msgid "Abort Engraving &Job"
 msgstr ""
 
@@ -2187,27 +2187,27 @@ msgstr "Hız:"
 msgid "No output found!"
 msgstr ""
 
-#: ../miditool/widget.py:232
+#: ../miditool/widget.py:234
 msgctxt "midi lcd screen"
 msgid "LOADED"
 msgstr ""
 
-#: ../miditool/widget.py:233
+#: ../miditool/widget.py:235
 msgctxt "midi lcd screen"
 msgid "TOTAL"
 msgstr ""
 
-#: ../miditool/widget.py:315 ../miditool/widget.py:325
+#: ../miditool/widget.py:317 ../miditool/widget.py:327
 msgctxt "midi lcd screen"
 msgid "TIME"
 msgstr ""
 
-#: ../miditool/widget.py:316
+#: ../miditool/widget.py:318
 msgctxt "midi lcd screen"
 msgid "TEMPO"
 msgstr ""
 
-#: ../miditool/widget.py:326
+#: ../miditool/widget.py:328
 msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr ""
@@ -6309,11 +6309,11 @@ msgstr ""
 msgid "Snippet error"
 msgstr ""
 
-#: ../snippet/menu.py:117
+#: ../snippet/menu.py:118
 msgid "&Insert"
 msgstr "&Ekle"
 
-#: ../snippet/menu.py:142
+#: ../snippet/menu.py:143
 msgid "New from &Template"
 msgstr ""
 
