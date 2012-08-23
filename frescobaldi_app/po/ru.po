@@ -6,13 +6,14 @@
 #
 # Serj Poltavski <serge.uliss@gmail.com>, 2009.
 # Artem Zolochevskiy <artem.zolochevskiy@gmail.com>, 2009.
+# Mikhail Iglizky <m0003r@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2012-08-16 18:49+0200\n"
-"PO-Revision-Date: 2009-10-08 21:17+0300\n"
-"Last-Translator: Artem Zolochevskiy <artem.zolochevskiy@gmail.com>\n"
+"PO-Revision-Date: 2012-08-24 00:38+0400\n"
+"Last-Translator: Mikhail Iglizky <m0003r@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +22,7 @@ msgstr ""
 "#-#-#-#-#  ru.po (ru)  #-#-#-#-#\n"
 "Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.4\n"
 
 #: ../about.py:43
 msgid "{appname} is written in {python} and uses the {qt} toolkit."
@@ -31,7 +32,7 @@ msgstr ""
 #: ../about.py:46
 #, fuzzy
 msgid "Python"
-msgstr "Пути"
+msgstr ""
 
 #. L10N: the Qt4 application framework
 #: ../about.py:48
@@ -47,11 +48,11 @@ msgstr ""
 #: ../about.py:54
 #, fuzzy
 msgid "Poppler"
-msgstr "Размер страницы:"
+msgstr ""
 
 #: ../about.py:57
 msgid "Most of the bundled icons are created by {tango}."
-msgstr ""
+msgstr "Большинство значков созданы {tango}"
 
 #: ../about.py:59
 msgid "The Tango Desktop Project"
@@ -59,48 +60,43 @@ msgstr ""
 
 #: ../about.py:61
 msgid "The following people contributed to {appname}:"
-msgstr ""
+msgstr "В создании {appname} принимали участие:"
 
 #: ../about.py:64
 msgid "{author}: Kinetic Scrolling for the Music View"
-msgstr ""
+msgstr "{author}: Kinetic Scrolling для предпросмотра музыки"
 
 #: ../about.py:69
 msgid "{appname} is translated into the following languages:"
-msgstr ""
+msgstr "Для {appname} доступны следующие языки:"
 
 #: ../about.py:88
 msgid "About {appname}"
-msgstr ""
+msgstr "О {appname}"
 
 #: ../about.py:95
-#, fuzzy
 msgid "About"
-msgstr "Автоматически"
+msgstr "О Frescobaldi"
 
 #: ../about.py:96 ../help/contents.py:330
 msgid "Credits"
-msgstr ""
+msgstr "Участники"
 
 #: ../about.py:97
-#, fuzzy
 msgid "Version"
-msgstr "Версия:"
+msgstr "Версия"
 
 #: ../about.py:152
-#, fuzzy
 msgid "Operating System"
-msgstr "Остальные системы:"
+msgstr "Операционная система"
 
 #: ../about.py:159
-#, fuzzy
 msgid "Version {version}"
-msgstr "Вставить версию LilyPond"
+msgstr "Версия {version}"
 
 #: ../about.py:160 ../main.py:57
-#, fuzzy
 msgid "A LilyPond Music Editor"
-msgstr "Музыкальный нотатор LilyPond"
+msgstr "Редактор музыки для LilyPond"
 
 #: ../about.py:161
 msgid "Copyright (c) {year} by {author}"
@@ -108,7 +104,7 @@ msgstr ""
 
 #: ../about.py:165
 msgid "Send an e-mail message to the maintainers."
-msgstr ""
+msgstr "Отправить e-mail авторам"
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
 #: ../about.py:168 ../help/contents.py:57
@@ -117,52 +113,46 @@ msgstr ""
 
 #: ../about.py:173
 msgid "Licensed under the {gpl}."
-msgstr ""
+msgstr "Распространяется по лицензии {gpl}"
 
 #: ../actioncollectionmanager.py:122 ../preferences/shortcuts.py:203
 msgid "This shortcut conflicts with the following command:"
 msgid_plural "This shortcut conflicts with the following commands:"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Эта комбинация клавиш конфликтует со следующей командой"
+msgstr[1] "Эта комбинация клавиш конфликтует со следующими командами"
+msgstr[2] "Эта комбинация клавиш конфликтует со следующими командами"
 
 #: ../actioncollectionmanager.py:128 ../preferences/shortcuts.py:209
-#, fuzzy
 msgid "Shortcut Conflict"
-msgstr "Сокращение"
+msgstr "Конфликт комбинаций клавиш"
 
 #: ../actioncollectionmanager.py:130
 msgid "Edit again"
-msgstr ""
+msgstr "Редактировать ещё раз"
 
 #: ../app.py:128
-#, fuzzy
 msgid "LilyPond Files"
-msgstr "Файлы LilyPon"
+msgstr "Файлы LilyPond"
 
 #: ../app.py:129
-#, fuzzy
 msgid "LaTeX Files"
-msgstr "Все файлы"
+msgstr "Файлы LaTeX"
 
 #: ../app.py:130
-#, fuzzy
 msgid "DocBook Files"
-msgstr "Все файлы"
+msgstr "Файлы DocBook"
 
 #: ../app.py:131
-#, fuzzy
 msgid "HTML Files"
-msgstr "Все файлы"
+msgstr "Файлы HTML"
 
 #: ../app.py:132
-#, fuzzy
 msgid "Texinfo Files"
-msgstr "Открыть файл"
+msgstr "Файлы Texinfo"
 
 #: ../app.py:133
 msgid "Scheme Files"
-msgstr ""
+msgstr "Файлы Scheme"
 
 #: ../app.py:134 ../snippet/widget.py:292 ../snippet/widget.py:309
 msgid "All Files"
@@ -170,201 +160,181 @@ msgstr "Все файлы"
 
 #: ../bookmarkmanager.py:112
 msgid "&Mark Current Line"
-msgstr ""
+msgstr "Отметить текущую строку"
 
 #: ../bookmarkmanager.py:113
 msgid "Clear &Error Marks"
-msgstr ""
+msgstr "Убрать выделение ошибок"
 
 #: ../bookmarkmanager.py:114
 msgid "Clear &All Marks"
-msgstr ""
+msgstr "Убрать все отмеченное"
 
 #: ../bookmarkmanager.py:115
-#, fuzzy
 msgid "Next Mark"
-msgstr "Далее"
+msgstr "Следующая отметка"
 
 #: ../bookmarkmanager.py:116
-#, fuzzy
 msgid "Previous Mark"
-msgstr "Предыдущий"
+msgstr "Предыдущая отметка"
 
 #: ../convert_ly.py:121
-#, fuzzy
 msgid "From version:"
-msgstr "Вставить версию LilyPond"
+msgstr "От версии:"
 
 #: ../convert_ly.py:122
-#, fuzzy
 msgid "To version:"
-msgstr "Версия:"
+msgstr "До версии:"
 
 #: ../convert_ly.py:123
 msgid "Save convert-ly messages in document"
-msgstr ""
+msgstr "Сохранить вывод convert-ly в документе"
 
 #: ../convert_ly.py:125
 msgid ""
 "If checked, the messages of convert-ly are appended as a comment to the end "
 "of the document."
 msgstr ""
+"Если отмечено, сообщения convert-ly будут добавлены в комментарий в конце "
+"документа"
 
 #: ../convert_ly.py:127
 msgid "&Messages"
-msgstr ""
+msgstr "Сообщения"
 
 #: ../convert_ly.py:128
-#, fuzzy
 msgid "&Changes"
-msgstr "Размер страницы:"
+msgstr "Изменения:"
 
 #: ../convert_ly.py:129
 msgid "Run Again"
-msgstr ""
+msgstr "Запустить снова"
 
 #: ../convert_ly.py:140 ../docbrowser/browser.py:158
 #: ../musicview/editinplace.py:150 ../musicview/image.py:167
 msgid "<unknown>"
-msgstr ""
+msgstr "<неизвестно>"
 
 #: ../convert_ly.py:141
-#, fuzzy
 msgid "Convert-ly from LilyPond {version}"
-msgstr "Вставить версию LilyPond"
+msgstr "Convert-ly от версии LilyPond {version}"
 
 #: ../convert_ly.py:165
-#, fuzzy
 msgid "(set in document)"
-msgstr "Послать документы по email"
+msgstr "(установлена в файле)"
 
 #: ../convert_ly.py:178
 msgid "Both 'from' and 'to' versions need to be set."
-msgstr ""
+msgstr "Нужно установить и версию «с» и «до»"
 
 #: ../convert_ly.py:215
-#, fuzzy
 msgid ""
 "Could not start {convert_ly}:\n"
 "\n"
 "{message}\n"
-msgstr " Невозможно запустить convert-ly: %1"
+msgstr ""
+"Невозможно запустить {convert_ly}:\n"
+"\n"
+"{message}\n"
 
 #: ../convert_ly.py:221
-#, fuzzy
 msgid "The document has not been changed."
-msgstr "Документ отправлен на печать"
+msgstr "Файл не изменен"
 
 #: ../convert_ly.py:227
-#, fuzzy
 msgid "Current Document"
-msgstr "&Документ"
+msgstr "Текущий файл"
 
 #: ../convert_ly.py:227
-#, fuzzy
 msgid "Converted Document"
-msgstr "&Исходный документ"
+msgstr "Конвертированный файл"
 
 #: ../convert_ly.py:233
-#, fuzzy
 msgid "Colors:"
-msgstr "Композитор"
+msgstr "Цвета:"
 
 #: ../convert_ly.py:234
 msgid "Added"
-msgstr ""
+msgstr "Добавлено"
 
 #: ../convert_ly.py:235
 msgid "Changed"
-msgstr ""
+msgstr "Изменено"
 
 #: ../convert_ly.py:236
 msgid "Deleted"
-msgstr ""
+msgstr "Удалено"
 
 #: ../convert_ly.py:237
-#, fuzzy
 msgid "Links:"
-msgstr "Тексты"
+msgstr "Ссылки:"
 
 #: ../convert_ly.py:238
-#, fuzzy
 msgid "First Change"
-msgstr "Первая страница"
+msgstr "Первое изменение"
 
 #: ../convert_ly.py:239
-#, fuzzy
 msgid "Next Change"
-msgstr "Следующая пустая строка"
+msgstr "Следующее изменение"
 
 #: ../convert_ly.py:240
-#, fuzzy
 msgid "Top"
-msgstr "Щёлкните"
+msgstr "В начало"
 
 #: ../cut_assign.py:39
-#, fuzzy
 msgid "Cut and Assign"
-msgstr "Вырезать и Присвоить"
+msgstr "Создать переменную"
 
 #: ../cut_assign.py:40
-#, fuzzy
 msgid "Please enter the name for the variable to assign the selected text to:"
-msgstr ""
-"Введите имя для переменной, которая будет присвоена выделенному тексту:"
+msgstr "Введите имя переменной, которая будет содержать выделенный текст:"
 
 #: ../document.py:145 ../doclist/widget.py:128 ../snippet/edit.py:178
-#, fuzzy
 msgid "Untitled"
-msgstr "Заголовок 2"
+msgstr "Без имени"
 
 #: ../document.py:147
 msgid "Untitled ({num})"
-msgstr ""
+msgstr "Без имени ({num})"
 
 #: ../documentactions.py:125
-#, fuzzy
 msgid "Cut and Assign..."
-msgstr "Вырезать и Присвоить"
+msgstr "Создать переменную..."
 
 #: ../documentactions.py:126
 msgid "Syntax &Highlighting"
-msgstr ""
+msgstr "Подсветка синтаксиса"
 
 #: ../documentactions.py:127
 msgid "&Automatic Indent"
-msgstr ""
+msgstr "Автоматические отступы"
 
 #: ../documentactions.py:128
 msgid "Re-&Indent"
-msgstr ""
+msgstr "Переформатировать"
 
 #: ../documentactions.py:129
-#, fuzzy
 msgid "&Format"
-msgstr "Фермата"
+msgstr "Форматировать"
 
 #: ../documentactions.py:130
-#, fuzzy
 msgid "&Update with convert-ly..."
 msgstr "Обновить с помощью convert-ly"
 
 #: ../documentcontextmenu.py:54 ../mainwindow.py:952
 #: ../sessions/manager.py:127
-#, fuzzy
 msgid "&Save"
 msgstr "Сохранить"
 
 #: ../documentcontextmenu.py:55 ../mainwindow.py:953
 msgid "Save &As..."
-msgstr ""
+msgstr "Сохранить как..."
 
 #: ../documentcontextmenu.py:56 ../mainwindow.py:957
 msgid "&Close"
-msgstr ""
+msgstr "Закрыть"
 
 #: ../documentmenu.py:42
-#, fuzzy
 msgctxt "menu title"
 msgid "&Document"
 msgstr "&Документ"
@@ -384,16 +354,15 @@ msgstr "Внутренняя ошибка"
 
 #: ../exception.py:71
 msgid "Email Bug Report..."
-msgstr "Послать отчет об ошибке по Email"
+msgstr "Послать отчет об ошибке по e-mail"
 
 #: ../exception.py:79
-#, fuzzy
 msgid "Optionally describe below what you were doing:"
 msgstr "Дополнительно опишите ваши действия:"
 
 #: ../globalfontdialog.py:69
 msgid "Global Fonts"
-msgstr ""
+msgstr "Глобальные шрифты"
 
 #: ../globalfontdialog.py:71
 msgid ""
@@ -402,23 +371,26 @@ msgid ""
 "set the staff size to the global staff size you use in the document (20 by "
 "default)."
 msgstr ""
+"Выберите три шрифта, которые будут использоваться для <code>\\roman</code>, <"
+"code>"
+"\\sans</code>, и <code>\\typewriter</code> соответственно. Вы также должны "
+"выбрать глобальный размер стана в документе (по умолчанию 20)"
 
 #: ../globalfontdialog.py:76
 msgid "Roman Font:"
-msgstr ""
+msgstr "Шрифт с засечками"
 
 #: ../globalfontdialog.py:77
 msgid "Sans Font:"
-msgstr ""
+msgstr "Шрифт без засечек"
 
 #: ../globalfontdialog.py:78
 msgid "Typewriter Font:"
-msgstr ""
+msgstr "Моноширинный шрифт:"
 
 #: ../globalfontdialog.py:79
-#, fuzzy
 msgid "Staff Size:"
-msgstr "Тип нотоносца:"
+msgstr "Размер стана:"
 
 #. L10N: a basic type of input in the editor
 #: ../helpers.py:101 ../mainwindow.py:390 ../mainwindow.py:396
@@ -427,48 +399,45 @@ msgstr "Тип нотоносца:"
 #: ../preferences/fontscolors.py:476 ../preferences/fontscolors.py:514
 #: ../snippet/import_export.py:105 ../snippet/widget.py:319
 msgid "Error"
-msgstr ""
+msgstr "Ошибка"
 
 #: ../helpers.py:102 ../job.py:250
-#, fuzzy
 msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
 msgstr ""
-"Невозможно запустить LilyPond/ Проверьте путь к программе и разрешения."
+"Невозможно запустить LilyPond\n"
+"Проверьте путь к программе и разрешения."
 
 #: ../hyphendialog.py:114
 msgid "Hyphenate Lyrics Text"
-msgstr "Расставить переносы в тексте"
+msgstr "Разделить текст на слоги"
 
 #: ../hyphendialog.py:115
 msgid "Please select a language:"
 msgstr "Выберите язык:"
 
 #: ../hyphendialog.py:157 ../hyphendialog.py:164
-#, fuzzy
 msgid "Lyrics"
-msgstr "Тексты"
+msgstr "Текст"
 
 #: ../hyphendialog.py:164 ../pitch/pitch.py:744 ../rhythm/rhythm.py:279
 #: ../scorewiz/dialog.py:192
-#, fuzzy
 msgctxt "menu title"
 msgid "Tools"
-msgstr "&Панели инструментов"
+msgstr "Инструменты"
 
 #: ../hyphendialog.py:165 ../help/contents.py:138 ../help/contents.py:145
 #: ../help/contents.py:265
 msgctxt "menu title"
 msgid "Edit"
-msgstr ""
+msgstr "Правка"
 
 #: ../hyphendialog.py:165 ../help/contents.py:139 ../help/contents.py:256
 #: ../preferences/__init__.py:106 ../preferences/midi.py:134
 #: ../preferences/prefshelp.py:32 ../preferences/prefshelp.py:38
-#, fuzzy
 msgid "Preferences"
-msgstr "Общие настройки"
+msgstr "Настройки"
 
 #: ../hyphendialog.py:167
 msgid ""
@@ -503,62 +472,80 @@ msgid ""
 "hyphenation pattern files.\n"
 "</p>\n"
 msgstr ""
+"<p>\n"
+"Frescobaldi может делить слова на слоги в тексте, чтобы\n"
+"его можно было использовать как текст под нотами.\n"
+"Можно использовать словари из OpenOffice.org, Scribus, и т. п.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Сначала нужно выбрать текст для деления, потом"
+"нажать {key_hyphen} или выбрать {menu_hyphen}.\n"
+"Затем в появившемся окне выбрать язык,\n"
+"и нажать Enter или OK для начала расстановки. \n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Словари из текстовых процессоров часто не могут отделить "
+"первую или последнюю букву от слова (например, '{example}'), "
+"поскольку с точки зрения переноса слова это некрасиво."
+"Поэтому может понадобиться поставить несколько дополнительных переносов. \n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Удалить разделение на слоги тоже можно. \n"
+"В пункте меню {menu_settings} Вы можете изменить список словарей\n"
+"</p>\n"
 
 #: ../inputdialog.py:101
-#, fuzzy
 msgid "Select Color"
-msgstr "Каталог по умолчанию:"
+msgstr "Выберите цвет:"
 
 #: ../job.py:239
 msgid "Starting {job}..."
-msgstr ""
+msgstr "Запуск {job}..."
 
 #: ../job.py:244
 msgid "Aborting {job}..."
-msgstr ""
+msgstr "Прерывание {job}..."
 
 #: ../job.py:253
-#, fuzzy
 msgid "Could not read from the process."
 msgstr "Невозможно чтение из процесса LilyPond."
 
 #: ../job.py:255
 msgid "An unknown error occured."
-msgstr "Неизвестная ошибка произошла."
+msgstr "Произошла неизвестная ошибка."
 
 #: ../job.py:260
-#, fuzzy
 msgid "Exited with return code {code}."
-msgstr "Программа LilyPond [%1] завершилась с кодом %2."
+msgstr "Программа завершилась с кодом {code}."
 
 #: ../job.py:262
-#, fuzzy
 msgid "Exited with exit status {status}."
-msgstr "Программа LilyPond [%1] завершилась с кодом %2."
+msgstr "Программа завершилась со статусом {status}."
 
 #: ../job.py:265
 msgid "Completed successfully in {time}."
-msgstr ""
+msgstr "Завершено за {time}"
 
 #: ../lilypondinfo.py:134
 msgid "Running LilyPond, this can take some time..."
-msgstr ""
+msgstr "Запуск LilyPond, пожалуйста, подождите..."
 
 #: ../lyrics.py:132
-#, fuzzy
 msgid "&Hyphenate Lyrics Text..."
-msgstr "Расставить переносы в тексте"
+msgstr "Разделить слова на слоги..."
 
 #: ../lyrics.py:133
-#, fuzzy
 msgid "&Remove hyphenation"
-msgstr "Удалить переносы"
+msgstr "Удалить разделение на слоги"
 
 #: ../lyrics.py:134
-#, fuzzy
 msgid "&Copy Lyrics with hyphenation removed"
-msgstr "Удалить переносы"
+msgstr "Скопировать, удалив разделение на слоги"
 
+# Я НАМЕРЕННО НЕ ПЕРЕВОЖУ USAGE
 #: ../main.py:55
 msgid "{appname} [options] file ..."
 msgstr ""
@@ -569,7 +556,7 @@ msgstr ""
 
 #: ../main.py:59
 msgid "Encoding to use"
-msgstr "Используемая кодировка"
+msgstr ""
 
 #: ../main.py:60 ../main.py:62
 msgid "NUM"
@@ -577,11 +564,11 @@ msgstr ""
 
 #: ../main.py:61
 msgid "Line number to go to, starting at 1"
-msgstr "Номер строки для перехода, начиная с 1"
+msgstr ""
 
 #: ../main.py:63
 msgid "Column to go to, starting at 0"
-msgstr "Столбец для перехода, начиная с 0"
+msgstr ""
 
 #: ../main.py:64
 msgid "NAME"
@@ -592,48 +579,42 @@ msgid "Session to start ('{none}' for empty session)"
 msgstr ""
 
 #: ../main.py:68
-#, fuzzy
 msgid "Always start a new instance"
-msgstr "Начать новую сессию"
+msgstr ""
 
 #. L10N: state of document in window titlebar
 #: ../mainwindow.py:226
-#, fuzzy
 msgid "[modified]"
-msgstr "изменен"
+msgstr "[изменен]"
 
 #: ../mainwindow.py:269
-#, fuzzy
 msgctxt "dialog title"
 msgid "Close Document"
-msgstr "&Исходный документ"
+msgstr "Закрыть файл"
 
 #: ../mainwindow.py:270
 msgid ""
 "The document \"{name}\" has been modified.\n"
 "Do you want to save your changes or discard them?"
-msgstr ""
+msgstr "Файл \"{name}\" был изменён. Сохранить изменения?"
 
 #: ../mainwindow.py:282
-#, fuzzy
 msgid "Tab Bar"
-msgstr "Табулатура"
+msgstr "Вкладки документов"
 
 #: ../mainwindow.py:339 ../popplerprint.py:53 ../sessions/dialog.py:171
 #: ../sessions/dialog.py:179 ../sessions/dialog.py:185
-#, fuzzy
 msgid "Warning"
-msgstr "Настройка гитары"
+msgstr "Предупреждение"
 
 #: ../mainwindow.py:340
 msgid ""
 "Can't load non-local document:\n"
 "\n"
 "{url}"
-msgstr ""
+msgstr "Невозможно загрузить удалённый файл\n{url}"
 
 #: ../mainwindow.py:371
-#, fuzzy
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Открыть файл"
@@ -643,25 +624,22 @@ msgid ""
 "Can't write to destination:\n"
 "\n"
 "{url}"
-msgstr ""
+msgstr "Невозможно записать файл\n{url}"
 
 #: ../mainwindow.py:416
-#, fuzzy
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "Сохранить"
 
 #: ../mainwindow.py:456
-#, fuzzy
 msgctxt "dialog title"
 msgid "Save Copy"
-msgstr "Сохранить"
+msgstr "Сохранить копию"
 
 #: ../mainwindow.py:462
-#, fuzzy
 msgctxt "dialog title"
 msgid "Save Selection"
-msgstr "Настройки партитуры"
+msgstr "Сохранить выделенное"
 
 #: ../mainwindow.py:473 ../mainwindow.py:600 ../snippet/widget.py:320
 msgid ""
@@ -670,12 +648,12 @@ msgid ""
 "{url}\n"
 "\n"
 "{error}"
-msgstr ""
+msgstr "Невозможно записать файл\n{url}\n{error}"
 
 #: ../mainwindow.py:533
 msgctxt "dialog title"
 msgid "Insert From File"
-msgstr ""
+msgstr "Добавить из файла"
 
 #: ../mainwindow.py:541 ../snippet/import_export.py:106
 msgid ""
@@ -684,17 +662,16 @@ msgid ""
 "{url}\n"
 "\n"
 "{error}"
-msgstr ""
+msgstr "Невозможно прочитать файл:\n{url}\n{error}"
 
 #: ../mainwindow.py:557
-#, fuzzy
 msgctxt "dialog title"
 msgid "Print Source"
-msgstr "Печать"
+msgstr "Печать исходного кода"
 
 #: ../mainwindow.py:590
 msgid "Export as HTML"
-msgstr ""
+msgstr "Экспоритровать в HTML"
 
 #: ../mainwindow.py:711
 msgid ""
@@ -703,89 +680,85 @@ msgid ""
 "\n"
 "\n"
 msgstr ""
+"Пожалуйста, опишите проблему или предложение к улучшению\n"
+"Чем больше информации — тем лучше\n\n\n"
 
 #: ../mainwindow.py:818
 msgid "Main Toolbar"
-msgstr ""
+msgstr "Основная панель"
 
 #: ../mainwindow.py:819
 msgid "Music View Toolbar"
-msgstr ""
+msgstr "Панель предпросмотра"
 
 #: ../mainwindow.py:946
 msgctxt "action: new document"
 msgid "&New"
-msgstr ""
+msgstr "Создать"
 
 #: ../mainwindow.py:947
 msgid "&Open..."
-msgstr ""
+msgstr "Открыть..."
 
 #: ../mainwindow.py:948
 msgid "Open &Recent"
-msgstr ""
+msgstr "Предыдущие"
 
 #: ../mainwindow.py:949
 msgid "Insert from &File..."
-msgstr ""
+msgstr "Добавить из файла..."
 
 #: ../mainwindow.py:950
-#, fuzzy
 msgid "Open Current Directory"
-msgstr "Открыть текущую папку"
+msgstr "Открыть текущий каталог"
 
 #: ../mainwindow.py:951
 msgid "Open Command Prompt"
-msgstr ""
+msgstr "Открыть командную строку"
 
 #: ../mainwindow.py:954
 msgid "Save Copy or Selection As..."
-msgstr ""
+msgstr "Сохранить копию или выделенное как..."
 
 #: ../mainwindow.py:955
-#, fuzzy
 msgid "Save All"
-msgstr "Сохранить"
+msgstr "Сохранить все"
 
 #: ../mainwindow.py:956
-#, fuzzy
 msgid "Print Source..."
-msgstr "Печать"
+msgstr "Печать исходного кода..."
 
 #: ../mainwindow.py:958
 msgid "Close Other Documents"
-msgstr ""
+msgstr "Закрыть другие файлы"
 
 #: ../mainwindow.py:959
-#, fuzzy
 msgid "Close All Documents"
-msgstr "&Исходный документ"
+msgstr "Закрыть все файлы"
 
 #: ../mainwindow.py:960
-#, fuzzy
 msgid "Closes all documents and leaves the current session."
-msgstr "Уменьшает длительности в 2 раза в выделенном фрагменте."
+msgstr "Закрыть все файлы и завершить сеанс"
 
 #: ../mainwindow.py:961
 msgid "&Quit"
-msgstr ""
+msgstr "Выход"
 
 #: ../mainwindow.py:963
 msgid "Export Source as Colored &HTML..."
-msgstr ""
+msgstr "Экспортировать в цветной HTML..."
 
 #: ../mainwindow.py:965
-#, fuzzy
 msgid "&Undo"
-msgstr "Скрыть док"
+msgstr "Отменить"
 
 #: ../mainwindow.py:966
 msgid "Re&do"
-msgstr ""
+msgstr "Повторить"
 
 #: ../mainwindow.py:967
 msgid "Cu&t"
-msgstr ""
+msgstr "Вырезать"
 
 #: ../mainwindow.py:968 ../docbrowser/browser.py:248
 msgid "&Copy"
@@ -793,192 +766,172 @@ msgstr "&Копировать"
 
 #: ../mainwindow.py:969
 msgid "Copy as Colored &HTML"
-msgstr ""
+msgstr "Скопировать как цветной HTML"
 
 #: ../mainwindow.py:970
-#, fuzzy
 msgid "&Paste"
-msgstr "Размер страницы:"
+msgstr "Вставить"
 
 #: ../mainwindow.py:971
 msgid "Select &All"
-msgstr ""
+msgstr "Выделить все"
 
 #: ../mainwindow.py:972
 msgid "Select &Block"
-msgstr ""
+msgstr "Выделить блок"
 
 #: ../mainwindow.py:973
 msgid "Select &None"
-msgstr ""
+msgstr "Снять выделение"
 
 #: ../mainwindow.py:974
 msgid "Select Whole Lines Up"
-msgstr ""
+msgstr "Выделить строки выше"
 
 #: ../mainwindow.py:975
 msgid "Select Whole Lines Down"
-msgstr ""
+msgstr "Выделить строки ниже"
 
 #: ../mainwindow.py:976
-#, fuzzy
 msgid "&Find..."
-msgstr "Печать"
+msgstr "Найти..."
 
 #: ../mainwindow.py:977
 msgid "Find Ne&xt"
-msgstr ""
+msgstr "Найти далее"
 
 #: ../mainwindow.py:978
-#, fuzzy
 msgid "Find Pre&vious"
-msgstr "Предыдущий"
+msgstr "Найти предыдущий"
 
 #: ../mainwindow.py:979
-#, fuzzy
 msgid "&Replace..."
-msgstr "Поиск..."
+msgstr "Заменить..."
 
 #: ../mainwindow.py:980
-#, fuzzy
 msgid "Pr&eferences..."
-msgstr "Общие настройки"
+msgstr "Настройки..."
 
 #: ../mainwindow.py:982
-#, fuzzy
 msgid "&Next Document"
-msgstr "&Документ"
+msgstr "&Следующий файл"
 
 #: ../mainwindow.py:983
-#, fuzzy
 msgid "&Previous Document"
-msgstr "&Исходный документ"
+msgstr "&Предыдущий файл"
 
 #: ../mainwindow.py:984
 msgid "Scroll Up"
-msgstr ""
+msgstr "Вверх"
 
 #: ../mainwindow.py:985
-#, fuzzy
 msgid "Scroll Down"
 msgstr "Вниз"
 
 #: ../mainwindow.py:987
 msgid "New &Window"
-msgstr ""
+msgstr "Новое окно"
 
 #: ../mainwindow.py:988
 msgid "&Fullscreen"
-msgstr ""
+msgstr "Полноэкранный режим"
 
 #: ../mainwindow.py:990
 msgid "&User Guide"
-msgstr ""
+msgstr "Руководство пользователя"
 
 #: ../mainwindow.py:991
 msgid "&What's This?"
-msgstr ""
+msgstr "Что это такое?"
 
 #: ../mainwindow.py:992
 msgid "Report a &Bug..."
-msgstr ""
+msgstr "Сообщить об ошибке..."
 
 #: ../mainwindow.py:993
 msgid "&About {appname}..."
-msgstr ""
+msgstr "О {appname}..."
 
 #: ../menu.py:83
-#, fuzzy
 msgctxt "menu title"
 msgid "&File"
-msgstr "Заголовок"
+msgstr "Файл"
 
 #: ../menu.py:114
 msgctxt "submenu title"
 msgid "&Export"
-msgstr ""
+msgstr "Экспорт"
 
 #: ../menu.py:122
 msgctxt "menu title"
 msgid "&Edit"
-msgstr ""
+msgstr "Правка"
 
 #: ../menu.py:149
-#, fuzzy
 msgctxt "menu title"
 msgid "&View"
-msgstr "&Панели инструментов"
+msgstr "Вид"
 
 #: ../menu.py:173
-#, fuzzy
 msgctxt "submenu title"
 msgid "&Folding"
-msgstr "Используемая кодировка"
+msgstr "Сворачивание"
 
 #: ../menu.py:188
 msgctxt "menu title"
 msgid "&Music"
-msgstr ""
+msgstr "Просмотр"
 
 #: ../menu.py:211
-#, fuzzy
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "LilyPond"
 
 #: ../menu.py:230
-#, fuzzy
 msgctxt "menu title"
 msgid "&Tools"
-msgstr "&Панели инструментов"
+msgstr "Инструменты"
 
 #: ../menu.py:256
-#, fuzzy
 msgctxt "submenu title"
 msgid "&Lyrics"
-msgstr "&Тексты"
+msgstr "Текст"
 
 #: ../menu.py:268
-#, fuzzy
 msgctxt "submenu title"
 msgid "&Pitch"
-msgstr "&Тон"
+msgstr "Тон"
 
 #: ../menu.py:282
-#, fuzzy
 msgctxt "submenu title"
 msgid "&Rhythm"
-msgstr "&Ритм"
+msgstr "Ритм"
 
 #: ../menu.py:310
 msgctxt "menu title"
 msgid "&Window"
-msgstr ""
+msgstr "Окно"
 
 #: ../menu.py:330
 msgctxt "menu title"
 msgid "&Help"
-msgstr ""
+msgstr "Справка"
 
 #: ../musicpreview.py:113
-#, fuzzy
 msgid "Document:"
-msgstr "&Документ"
+msgstr "Документ:"
 
 #: ../musicpreview.py:195
-#, fuzzy
 msgid "&Print"
 msgstr "Печать"
 
 #: ../musicpreview.py:196
-#, fuzzy
 msgid "Music Preview"
 msgstr "Предпросмотр PDF"
 
 #: ../popplerdummy.py:42
-#, fuzzy
 msgid "Could not load the {name} module."
-msgstr "Не удалось загрузить %1"
+msgstr "Не удалось загрузить модуль {name}"
 
 #: ../popplerprint.py:54
 msgid ""
@@ -989,190 +942,177 @@ msgid ""
 "\n"
 "Do you want to continue?"
 msgstr ""
+"Невозможно напечатать PostScript\n"
+"\n"
+"Документ будет напечатан растеризованным с разрешением {resolution} DPI.\n"
+"Рекомендуется печатать с помощью отдельного PDF-принтера.\n"
+"\n"
+"Продолжить?"
 
 #: ../popplerprint.py:61
-#, fuzzy
 msgid "PDF Document"
-msgstr "&Документ"
+msgstr "PDF-файл"
 
 #: ../popplerprint.py:69
-#, fuzzy
 msgid "Print {filename}"
-msgstr "Печать %1"
+msgstr "Печать {filename}"
 
 #: ../popplerprint.py:87 ../popplerprint.py:116
-#, fuzzy
 msgid "Printing Error"
-msgstr "Внутренняя ошибка"
+msgstr "Ошибка печати"
 
 #: ../popplerprint.py:88 ../popplerprint.py:117
-#, fuzzy
 msgid "Could not send the document to the printer."
-msgstr "Невозможно чтение из процесса LilyPond."
+msgstr "Невозможно отправить файл на принтер"
 
 #: ../popplerprint.py:108
 msgid "Printing page {page} ({num} of {total})..."
-msgstr ""
+msgstr "Печать страницы {page} ({num} из {total})"
 
 #: ../search.py:101
-#, fuzzy
 msgid "Search:"
-msgstr "Поиск..."
+msgstr "Поиск:"
 
 #: ../search.py:102
-#, fuzzy
 msgid "&Case"
-msgstr "Размер страницы:"
+msgstr "Регистр"
 
 #: ../search.py:103
 msgid "Case Sensitive"
-msgstr ""
+msgstr "Чувствительность к регистру"
 
 #: ../search.py:104
 msgid "&Regex"
-msgstr ""
+msgstr "Рег.выр."
 
 #: ../search.py:105
 msgid "Regular Expression"
-msgstr ""
+msgstr "Регулярное выражение"
 
 #: ../search.py:106
-#, fuzzy
 msgid "The total number of matches"
-msgstr "Количество строф."
+msgstr "Количество совпадений"
 
 #: ../search.py:107
-#, fuzzy
 msgid "Close"
-msgstr "Композитор"
+msgstr "Закрыть"
 
 #: ../search.py:108
 msgid "Replace:"
-msgstr ""
+msgstr "Заменить:"
 
 #: ../search.py:109
 msgid "Re&place"
-msgstr ""
+msgstr "Заменить"
 
 #: ../search.py:110
 msgid "Replaces the next occurrence of the search term."
-msgstr ""
+msgstr "Заменить следующее вхождение"
 
 #: ../search.py:111
 msgid "&All"
-msgstr ""
+msgstr "Все"
 
 #: ../search.py:112
-#, fuzzy
 msgid ""
 "Replaces all occurrences of the search term in the document or selection."
-msgstr "Уменьшает длительности в 2 раза в выделенном фрагменте."
+msgstr "Заменить все вхождения в файле или выделенном"
 
 #: ../viewmanager.py:67 ../viewmanager.py:215
 msgid "Line: {line}, Col: {column}"
-msgstr ""
+msgstr "Строка: {line}, столбец: {column}"
 
 #: ../viewmanager.py:85 ../viewmanager.py:447
 msgid "Split &Horizontally"
-msgstr ""
+msgstr "Разделить по горизонтали"
 
 #: ../viewmanager.py:88 ../viewmanager.py:448
 msgid "Split &Vertically"
-msgstr ""
+msgstr "Разделить по вертикали"
 
 #: ../viewmanager.py:92
-#, fuzzy
 msgid "&Close View"
-msgstr "&Панели инструментов"
+msgstr "Закрыть представление"
 
 #: ../viewmanager.py:449
 msgid "&Close Current View"
-msgstr ""
+msgstr "Закрыть текущее представление"
 
 #: ../viewmanager.py:450
 msgid "Close &Other Views"
-msgstr ""
+msgstr "Закрыть другие представления"
 
 #: ../viewmanager.py:451
 msgid "&Next View"
-msgstr ""
+msgstr "Следующее представление"
 
 #: ../viewmanager.py:452
-#, fuzzy
 msgid "&Previous View"
-msgstr "Предыдущий"
+msgstr "Предыдущее представление"
 
 #: ../autocomplete/__init__.py:79
 msgid "Automatic &Completion"
-msgstr ""
+msgstr "Автодополнение"
 
 #: ../autocomplete/__init__.py:80
 msgid "Show C&ompletions Popup"
-msgstr ""
+msgstr "Показать подсказки автодополнения"
 
 #: ../charmap/__init__.py:40 ../preferences/tools.py:202
 msgid "Special Characters"
-msgstr ""
+msgstr "Спецсимволы"
 
 #: ../charmap/__init__.py:41
 msgid "Special Charac&ters"
-msgstr ""
+msgstr "Спецсимволы"
 
 #: ../docbrowser/__init__.py:46 ../docbrowser/__init__.py:62
 #: ../preferences/documentation.py:122
-#, fuzzy
 msgid "Documentation Browser"
 msgstr "Документация LilyPond"
 
 #: ../docbrowser/__init__.py:47
-#, fuzzy
 msgid "&Documentation Browser"
 msgstr "Документация LilyPond"
 
 #: ../docbrowser/__init__.py:82 ../help/browser.py:79
-#, fuzzy
 msgid "Back"
-msgstr "Медные духовые"
+msgstr "Назад"
 
 #: ../docbrowser/__init__.py:83 ../help/browser.py:80
 msgid "Forward"
-msgstr ""
+msgstr "Вперед"
 
 #. L10N: Home page of the LilyPond manual
 #: ../docbrowser/__init__.py:85
 msgid "Home"
-msgstr ""
+msgstr "Домой"
 
 #: ../docbrowser/__init__.py:86
-#, fuzzy
 msgid "Print..."
-msgstr "Печать"
+msgstr "Печать..."
 
 #: ../docbrowser/__init__.py:87
-#, fuzzy
 msgid "&LilyPond Documentation"
-msgstr "Документация LilyPond:"
+msgstr "Документация LilyPond"
 
 #: ../docbrowser/__init__.py:88
-#, fuzzy
 msgid "&Contextual LilyPond Help"
-msgstr "LilyPond"
+msgstr "Контекстная справка LilyPond"
 
 #: ../docbrowser/browser.py:115 ../snippet/widget.py:179
 msgid "Search..."
 msgstr "Поиск..."
 
 #: ../docbrowser/browser.py:155
-#, fuzzy
 msgid "(local)"
-msgstr "Голос"
+msgstr "(локально)"
 
 #: ../docbrowser/browser.py:157
 msgid "({hostname})"
-msgstr ""
+msgstr "({hostname})"
 
 #: ../docbrowser/browser.py:229 ../help/browser.py:83 ../help/browser.py:114
-#, fuzzy
 msgid "Print"
 msgstr "Печать"
 
@@ -1186,130 +1126,116 @@ msgstr "Открыть ссылку в &новом окне"
 
 #: ../docbrowser/browser.py:251
 msgid "Open Document in &New Window"
-msgstr "Открыть документ в &новом окне"
+msgstr "Открыть файл в &новом окне"
 
 #: ../docbrowser/sourceviewer.py:59
-#, fuzzy
 msgid "LilyPond Source"
-msgstr "LilyPond журнал"
+msgstr "Исходный код LilyPond"
 
 #: ../doclist/__init__.py:39 ../preferences/tools.py:235
-#, fuzzy
 msgid "Documents"
-msgstr "&Документ"
+msgstr "Документы"
 
 #: ../doclist/__init__.py:40
-#, fuzzy
 msgid "Docum&ents"
-msgstr "&Документ"
+msgstr "Документы"
 
 #: ../doclist/widget.py:183
-#, fuzzy
 msgid "Save selected documents"
-msgstr "Настройки партитуры"
+msgstr "Сохранить выбранные файлы"
 
 #: ../doclist/widget.py:184
-#, fuzzy
 msgid "Close selected documents"
-msgstr "&Исходный документ"
+msgstr "Закрыть выбранные файлы"
 
 #: ../doclist/widget.py:190
 msgid "Save documents in this folder"
-msgstr ""
+msgstr "Сохранить файлы в этом каталоге"
 
 #: ../doclist/widget.py:191
 msgid "Close documents in this folder"
-msgstr ""
+msgstr "Закрыть файлы в этом каталоге"
 
 #: ../doclist/widget.py:194
-#, fuzzy
 msgid "Save all untitled documents"
-msgstr "Послать документы по email"
+msgstr "Сохранить все неименованные"
 
 #: ../doclist/widget.py:195
-#, fuzzy
 msgid "Close all untitled documents"
-msgstr "&Исходный документ"
+msgstr "Закрыть все неименованные"
 
 #: ../engrave/__init__.py:179
 msgid "&Always Engrave [{docname}]"
-msgstr ""
+msgstr "Всегда набирать [{docname}]"
 
 #: ../engrave/__init__.py:181
 msgid "&Always Engrave This Document"
-msgstr ""
+msgstr "Всегда набирать этот файл"
 
 #: ../engrave/__init__.py:232
 msgid "Engrave"
-msgstr ""
+msgstr "Набрать"
 
 #: ../engrave/__init__.py:233
 msgid "&Engrave (preview)"
-msgstr ""
+msgstr "Набрать (предпросмотр)"
 
 #: ../engrave/__init__.py:234
 msgid "Engrave (&publish)"
-msgstr ""
+msgstr "Набрать (публикация)"
 
 #: ../engrave/__init__.py:235
 msgid "Engrave (&custom)..."
-msgstr ""
+msgstr "Набрать (особые настройки)..."
 
 #: ../engrave/__init__.py:236
 msgid "Abort Engraving &Job"
-msgstr ""
+msgstr "Остановить набор"
 
 #: ../engrave/custom.py:123 ../engrave/custom.py:214
 msgid "Engrave custom"
-msgstr ""
+msgstr "Особые настройки набора"
 
 #: ../engrave/custom.py:124
-#, fuzzy
 msgid "LilyPond Version:"
-msgstr "Вставить версию LilyPond"
+msgstr "Версия LilyPond:"
 
 #: ../engrave/custom.py:125
 msgid "Output Format:"
-msgstr ""
+msgstr "Выходной формат:"
 
 #: ../engrave/custom.py:126
-#, fuzzy
 msgid "Resolution:"
-msgstr "Версия:"
+msgstr "Разрешение:"
 
 #: ../engrave/custom.py:128
-#, fuzzy
 msgid "Run LilyPond in preview mode (with Point and Click)"
-msgstr "Запустить LilyPond в режиме предварительного просмотра"
+msgstr ""
+"Запустить LilyPond в режиме предварительного просмотра (с Point'n'Click)"
 
 #: ../engrave/custom.py:129
 msgid "Run LilyPond with verbose output"
 msgstr "Запускать LilyPond в режиме вывода подробной информации"
 
 #: ../engrave/custom.py:130 ../preferences/lilypond.py:291
-#, fuzzy
 msgid "Run LilyPond with English messages"
-msgstr "Запускать LilyPond в режиме вывода подробной информации"
+msgstr "Запускать LilyPond с английскими сообщениями"
 
 #: ../engrave/custom.py:131 ../preferences/lilypond.py:288
-#, fuzzy
 msgid "Delete intermediate output files"
-msgstr "Удалить служебные файлы LilyPond."
+msgstr "Удалить промежуточные файлы."
 
 #: ../engrave/custom.py:132
-#, fuzzy
 msgid "Command line:"
-msgstr "Команда печати:"
+msgstr "Командная строка:"
 
 #: ../engrave/custom.py:133
-#, fuzzy
 msgid "Run LilyPond"
-msgstr "LilyPond"
+msgstr "Запустить LilyPond"
 
 #: ../engrave/custom.py:155
-#, fuzzy
 msgid "LilyPond {version}"
-msgstr "Вставить версию LilyPond"
+msgstr "LilyPond {version}"
 
 #: ../engrave/custom.py:218
 msgid ""
@@ -1318,25 +1244,24 @@ msgid ""
 "to engrave your document.\n"
 "It is even possible to edit the command line itself.\n"
 msgstr ""
+"В этом диалоговом окне можно установить особые параметры запуска LilyPond.\n"
+"Можно даже отредактировать командную строку.\n"
 
 #: ../engrave/custom.py:223
 msgid "The following replacements will be made:"
-msgstr ""
+msgstr "Были произведены следующие замены"
 
 #: ../engrave/custom.py:226
-#, fuzzy
 msgid "The LilyPond executable"
-msgstr "Файлы LilyPon"
+msgstr "Исполняемый файл LilyPond"
 
 #: ../engrave/custom.py:227
-#, fuzzy
 msgid "All the include paths"
-msgstr "Файлы LilyPon"
+msgstr "Все дополнительные пути"
 
 #: ../engrave/custom.py:228
-#, fuzzy
 msgid "The filename of the document"
-msgstr "Синхронизировать консоль с текущим документом"
+msgstr "Имя файла"
 
 #: ../engrave/custom.py:241
 msgid "PDF"
@@ -1356,7 +1281,7 @@ msgstr ""
 
 #: ../engrave/custom.py:265
 msgid "PDF (EPS Backend)"
-msgstr ""
+msgstr "PDF (EPS)"
 
 #: ../engrave/custom.py:271
 msgid "Encapsulated PostScript (EPS Backend)"
@@ -1364,49 +1289,44 @@ msgstr ""
 
 #: ../engrave/custom.py:277
 msgid "PNG (EPS Backend)"
-msgstr ""
+msgstr "PNG (EPS)"
 
 #: ../engrave/result_menu.py:46
-#, fuzzy
 msgid "Generated &Files"
 msgstr "&Сгенерированные файлы"
 
 #: ../engrave/result_menu.py:67
-#, fuzzy
 msgid "No files available"
-msgstr "Настройки недоступны."
+msgstr "Файлы недоступны"
 
 #: ../help/browser.py:78
 msgid "Toolbar"
-msgstr ""
+msgstr "Панель"
 
 #: ../help/browser.py:81
-#, fuzzy
 msgid "Start"
-msgstr "Стаккато"
+msgstr "Начало"
 
 #: ../help/browser.py:82
-#, fuzzy
 msgid "Contents"
-msgstr "Команда печати:"
+msgstr "Содержание"
 
 #: ../help/browser.py:89 ../help/browser.py:90 ../help/contents.py:70
 #: ../musicview/contextmenu.py:76 ../quickinsert/widget.py:106
 msgid "Help"
-msgstr ""
+msgstr "Справка"
 
 #: ../help/contents.py:38
 msgid "No Help"
-msgstr ""
+msgstr "Нет справки"
 
 #: ../help/contents.py:41
 msgid "No help has been found on this topic."
-msgstr ""
+msgstr "Никакой справки по этой теме не найдено"
 
 #: ../help/contents.py:47
-#, fuzzy
 msgid "Frescobaldi Manual"
-msgstr "Frescobaldi"
+msgstr "Руководство Frescobaldi"
 
 #: ../help/contents.py:50
 msgid ""
@@ -1417,6 +1337,11 @@ msgid ""
 "{version}.\n"
 "</p>\n"
 msgstr ""
+"<p>\n"
+"Frescobaldi — лёгкий, но мощный редактор для файлов LilyPond.\n"
+"Руководство написано {author} и относится к {appname} v "
+"{version}.\n"
+"</p>\n"
 
 #: ../help/contents.py:60
 msgid ""
@@ -1432,12 +1357,11 @@ msgstr ""
 
 #: ../help/contents.py:70
 msgid "What's This"
-msgstr ""
+msgstr "Что это такое?"
 
 #: ../help/contents.py:92
-#, fuzzy
 msgid "Introduction"
-msgstr "Направление:"
+msgstr "Введение"
 
 #: ../help/contents.py:95
 msgid ""
@@ -1470,7 +1394,7 @@ msgstr ""
 
 #: ../help/contents.py:121
 msgid "Getting Started"
-msgstr ""
+msgstr "Первые шаги"
 
 #: ../help/contents.py:136 ../preferences/fontscolors.py:482
 #: ../preferences/lilypond.py:239 ../scorewiz/settings.py:295
@@ -1479,26 +1403,25 @@ msgstr "LilyPond"
 
 #: ../help/contents.py:136
 msgid "Engrave (publish)"
-msgstr ""
+msgstr "Набрать (публикация)"
 
 #: ../help/contents.py:140 ../preferences/__init__.py:184
 #: ../preferences/prefshelp.py:79
-#, fuzzy
 msgid "LilyPond Preferences"
-msgstr "Файлы LilyPon"
+msgstr "Настройки LilyPond"
 
 #: ../help/contents.py:142
 msgctxt "menu title"
 msgid "View"
-msgstr ""
+msgstr "Вид"
 
 #: ../help/contents.py:143
 msgid "Clear Error Marks"
-msgstr ""
+msgstr "Очистить отметки ошибок"
 
 #: ../help/contents.py:146 ../help/contents.py:265
 msgid "Copy to Image..."
-msgstr ""
+msgstr "Скопировать изображение..."
 
 #: ../help/contents.py:148
 msgid ""
@@ -1595,13 +1518,12 @@ msgid ""
 msgstr ""
 
 #: ../help/contents.py:231
-#, fuzzy
 msgid "The Music View"
-msgstr "Предпросмотр PDF"
+msgstr "Предпросмотр"
 
 #: ../help/contents.py:236
 msgid "The Music View displays the PDF document created by LilyPond."
-msgstr ""
+msgstr "Предпросмотр показывает PDF-файл, сгенирированный LilyPond"
 
 #: ../help/contents.py:237
 msgid ""
@@ -1653,25 +1575,23 @@ msgstr ""
 
 #: ../help/contents.py:256 ../help/contents.py:426
 #: ../preferences/prefshelp.py:38
-#, fuzzy
 msgid "Edit"
-msgstr "Печать"
+msgstr "Правка"
 
 #: ../help/contents.py:256 ../preferences/__init__.py:250
 #: ../preferences/prefshelp.py:227
 msgid "Fonts & Colors"
-msgstr ""
+msgstr "Шрифты и цвета"
 
 #: ../help/contents.py:257 ../preferences/fontscolors.py:123
 #: ../preferences/fontscolors.py:298
 msgid "Base Colors"
-msgstr ""
+msgstr "Основные цвета"
 
 #. L10N: color of paper in music preview
 #: ../help/contents.py:257 ../preferences/fontscolors.py:453
-#, fuzzy
 msgid "Preview Background"
-msgstr "режим просмотра"
+msgstr "Фон области просмотра"
 
 #: ../help/contents.py:259
 msgid ""
@@ -2101,23 +2021,20 @@ msgid ""
 msgstr ""
 
 #: ../help/contents.py:669
-#, fuzzy
 msgid "Table of Contents"
 msgstr "Оглавление"
 
 #: ../help/helpimpl.py:116
-#, fuzzy
 msgid "Up:"
-msgstr "Вверх"
+msgstr "Вверх:"
 
 #: ../help/helpimpl.py:131
-#, fuzzy
 msgid "Next:"
-msgstr "Далее"
+msgstr "Далее:"
 
 #: ../help/helpimpl.py:134
 msgid "See also:"
-msgstr ""
+msgstr "Смотри также:"
 
 #: ../help/helpimpl.py:177
 msgid "(no key defined)"
@@ -2128,178 +2045,162 @@ msgid "LilyPond Log"
 msgstr "LilyPond журнал"
 
 #: ../logtool/__init__.py:51
-#, fuzzy
 msgid "LilyPond &Log"
-msgstr "LilyPond журнал"
+msgstr "Журнал LilyPond"
 
 #: ../logtool/__init__.py:91
 msgid "Next Error Message"
-msgstr ""
+msgstr "Следующее сообщение об ошибке"
 
 #: ../logtool/__init__.py:92
 msgid "Previous Error Message"
-msgstr ""
+msgstr "Предыдущее сообщение об ошибке"
 
 #: ../logtool/logwidget.py:118
 msgid "Click to edit this file"
-msgstr "Щёлкните, для редактирования этого файла"
+msgstr "Щёлкните для редактирования этого файла"
 
 #: ../miditool/__init__.py:51
-#, fuzzy
 msgid "MIDI"
-msgstr "Воспроизвести MIDI"
+msgstr ""
 
 #: ../miditool/__init__.py:52
-#, fuzzy
 msgid "MIDI &Player"
-msgstr "Программа воспроизведения MIDI"
+msgstr "MIDI-плеер"
 
 #: ../miditool/__init__.py:97
-#, fuzzy
 msgctxt "midi player"
 msgid "Pause"
-msgstr "Размер страницы:"
+msgstr "Пауза"
 
 #: ../miditool/__init__.py:98
-#, fuzzy
 msgctxt "midi player"
 msgid "Play"
-msgstr "Воспроизвести %1"
+msgstr "Воспроизвести"
 
 #: ../miditool/__init__.py:99
-#, fuzzy
 msgctxt "midi player"
 msgid "Stop"
-msgstr "Шаг"
+msgstr "Стоп"
 
 #: ../miditool/__init__.py:100
-#, fuzzy
 msgctxt "midi player"
 msgid "Restart"
-msgstr "Стаккато"
+msgstr "Перезапуск"
 
 #: ../miditool/widget.py:103
-#, fuzzy
 msgid "Tempo"
-msgstr "Темп:"
+msgstr "Темп"
 
 #: ../miditool/widget.py:157
 msgid "No output found!"
-msgstr ""
+msgstr "Не найдено вывода!"
 
 #: ../miditool/widget.py:234
 msgctxt "midi lcd screen"
 msgid "LOADED"
-msgstr ""
+msgstr "ЗАГРУЖЕНО"
 
 #: ../miditool/widget.py:235
 msgctxt "midi lcd screen"
 msgid "TOTAL"
-msgstr ""
+msgstr "ВСЕГО"
 
 #: ../miditool/widget.py:317 ../miditool/widget.py:327
 msgctxt "midi lcd screen"
 msgid "TIME"
-msgstr ""
+msgstr "ВРЕМЯ"
 
 #: ../miditool/widget.py:318
 msgctxt "midi lcd screen"
 msgid "TEMPO"
-msgstr ""
+msgstr "ТЕМП"
 
 #: ../miditool/widget.py:328
 msgctxt "midi lcd screen"
 msgid "BEAT"
-msgstr ""
+msgstr "ДОЛЯ"
 
 #: ../musicview/__init__.py:115
 msgctxt "window title"
 msgid "Music View"
-msgstr ""
+msgstr "Предпросмотр"
 
 #: ../musicview/__init__.py:116
 msgid "&Music View"
-msgstr ""
+msgstr "Предпросмотр"
 
 #: ../musicview/__init__.py:274
-#, fuzzy
 msgid "Select Music View Document"
-msgstr "&Исходный документ"
+msgstr "Выберите документ для предпросмотра"
 
 #: ../musicview/__init__.py:275
-#, fuzzy
 msgid "&Print Music..."
-msgstr "Печать"
+msgstr "Напечатать музыку..."
 
 #: ../musicview/__init__.py:276
 msgid "Zoom &In"
-msgstr ""
+msgstr "Увеличить"
 
 #: ../musicview/__init__.py:277
 msgid "Zoom &Out"
-msgstr ""
+msgstr "Уменьшить"
 
 #: ../musicview/__init__.py:278
 msgid "Original &Size"
-msgstr ""
+msgstr "Первоначальный размер"
 
 #: ../musicview/__init__.py:279
 msgid "Zoom Music"
-msgstr ""
+msgstr "Увеличить"
 
 #: ../musicview/__init__.py:280
 msgid "Fit &Width"
-msgstr ""
+msgstr "По ширине"
 
 #: ../musicview/__init__.py:281
 msgid "Fit &Height"
-msgstr ""
+msgstr "По высоте"
 
 #: ../musicview/__init__.py:282
-#, fuzzy
 msgid "Fit &Page"
-msgstr "Первая страница"
+msgstr "По странице"
 
 #: ../musicview/__init__.py:283
 msgid "&Maximize"
-msgstr ""
+msgstr "Развернуть"
 
 #: ../musicview/__init__.py:284
 msgid "&Jump to Cursor Position"
-msgstr ""
+msgstr "Перейти к позиции курсора"
 
 #: ../musicview/__init__.py:285
-#, fuzzy
 msgid "S&ynchronize with Cursor Position"
-msgstr "Синхронизировать просмотр с текущим документом"
+msgstr "Синхронизировать с позицией курсора"
 
 #: ../musicview/__init__.py:286
 msgid "Copy to &Image..."
-msgstr ""
+msgstr "Скопировать изображение..."
 
 #: ../musicview/__init__.py:287
-#, fuzzy
 msgid "Next Page"
-msgstr "Следующая пустая строка"
+msgstr "Следующая страница"
 
 #: ../musicview/__init__.py:288
-#, fuzzy
 msgid "Next"
-msgstr "Далее"
+msgstr "Следующий"
 
 #: ../musicview/__init__.py:289
-#, fuzzy
 msgid "Previous Page"
-msgstr "Предыдущий"
+msgstr "Предыдущая страница"
 
 #: ../musicview/__init__.py:290
-#, fuzzy
 msgid "Previous"
 msgstr "Предыдущий"
 
 #: ../musicview/__init__.py:429
 msgid "Choose the PDF document to display."
-msgstr ""
+msgstr "Выберите PDF-файл для отображения."
 
 #: ../musicview/__init__.py:431
 msgid ""
@@ -2309,38 +2210,37 @@ msgstr ""
 
 #: ../musicview/__init__.py:489
 msgid "Fit Width"
-msgstr ""
+msgstr "По ширине"
 
 #: ../musicview/__init__.py:490
 msgid "Fit Height"
-msgstr ""
+msgstr "По высоте"
 
 #: ../musicview/__init__.py:491
-#, fuzzy
 msgid "Fit Page"
-msgstr "Первая страница"
+msgstr "По странице"
 
 #. L10N: page numbering: page {num} of {total}
 #: ../musicview/__init__.py:508
 msgid "{num} of {total}"
-msgstr ""
+msgstr "{num} из {total}"
 
 #: ../musicview/contextmenu.py:49 ../musicview/editinplace.py:82
 #: ../musicview/editinplace.py:246 ../musicview/editinplace.py:255
 msgid "Edit in Place"
-msgstr ""
+msgstr "Редактировать на месте"
 
 #: ../musicview/editinplace.py:147
 msgid "Editing line {linenum} of \"{document}\" ({variable})"
-msgstr ""
+msgstr "Редактирование строки {linenum} из «{document}» ({variable})"
 
 #: ../musicview/editinplace.py:250
 msgid "In this dialog you can edit one line of the text document."
-msgstr ""
+msgstr "В этом диалоге вы можете отредактировать одну строку файла"
 
 #: ../musicview/editinplace.py:251
 msgid "Click OK or press {key} to place the modified text in the document."
-msgstr ""
+msgstr "Нажмите ОК или {key} для изменения текста в файле."
 
 #: ../musicview/editinplace.py:253
 msgid ""
@@ -2355,34 +2255,31 @@ msgstr ""
 
 #: ../musicview/image.py:128
 msgid "Paper Color"
-msgstr ""
+msgstr "Цвет бумаги"
 
 #: ../musicview/image.py:129
 msgid "Auto-crop"
-msgstr ""
+msgstr "Авто-обрезание"
 
 #: ../musicview/image.py:130
-#, fuzzy
 msgid "Antialias"
-msgstr "Итальянский"
+msgstr "Сглаживание"
 
 #: ../musicview/image.py:131
-#, fuzzy
 msgid "Drag"
-msgstr "Дорийский"
+msgstr "Перетащить"
 
 #: ../musicview/image.py:132
 msgid "Drag the image as a PNG file."
-msgstr ""
+msgstr "Перетащить изображениекак PNG-файл"
 
 #: ../musicview/image.py:133
 msgid "&Copy to Clipboard"
-msgstr ""
+msgstr "Скопировать в буфер"
 
 #: ../musicview/image.py:134
-#, fuzzy
 msgid "&Save As..."
-msgstr "Сохранить"
+msgstr "Сохранить как..."
 
 #: ../musicview/image.py:137
 #, no-python-format
@@ -2399,21 +2296,18 @@ msgid ""
 msgstr ""
 
 #: ../musicview/image.py:168
-#, fuzzy
 msgid "Image from {filename}"
-msgstr "Печать %1"
+msgstr "Изображение из {filename}"
 
 #: ../musicview/image.py:211
 msgid "Save Image As"
-msgstr ""
+msgstr "Сохранить изображение как"
 
 #: ../musicview/image.py:215
-#, fuzzy
 msgid "Could not save the image."
-msgstr "Не удалось загрузить %1"
+msgstr "Не удалось сохранить изображение"
 
 #: ../pitch/__init__.py:99
-#, fuzzy
 msgid "Pitch Name &Language"
 msgstr "Язык нотной записи"
 
@@ -2425,7 +2319,7 @@ msgstr "Изменить язык ввода нот в этом документ
 
 #: ../pitch/__init__.py:103
 msgid "Convert Relative to &Absolute"
-msgstr ""
+msgstr "Преобразовать относительные в абсолютные"
 
 #: ../pitch/__init__.py:105
 msgid ""
@@ -2435,7 +2329,7 @@ msgstr ""
 
 #: ../pitch/__init__.py:107
 msgid "Convert Absolute to &Relative"
-msgstr ""
+msgstr "Преобразовать абсолютные в относительные"
 
 #: ../pitch/__init__.py:109
 #, fuzzy
@@ -2446,7 +2340,7 @@ msgstr "Уменьшает длительности в 2 раза в выдел�
 
 #: ../pitch/__init__.py:111
 msgid "&Transpose..."
-msgstr ""
+msgstr "Транспонировать..."
 
 #: ../pitch/__init__.py:113
 #, fuzzy
@@ -2458,7 +2352,6 @@ msgid "Pitch Name Language"
 msgstr "Язык нотной записи"
 
 #: ../pitch/pitch.py:82
-#, fuzzy
 msgid ""
 "Can't perform the requested translation.\n"
 "\n"
@@ -2468,7 +2361,7 @@ msgstr ""
 "Невозможно выполнить требуемое преобразование.\n"
 "\n"
 "Музыка содержит четвертьтоновые альтерации, которые недоступны в языковой "
-"записи \"%1\"."
+"записи \"{name}\"."
 
 #: ../pitch/pitch.py:98
 msgid ""
@@ -2480,37 +2373,39 @@ msgstr ""
 
 #: ../pitch/pitch.py:102
 msgid "(for LilyPond below 2.14), or"
-msgstr ""
+msgstr "(для LilyPond до 2.14), или"
 
 #: ../pitch/pitch.py:103
 msgid "(for LilyPond 2.14 and higher.)"
-msgstr ""
+msgstr "(для LilyPond 2.14 и страше)"
 
 #: ../pitch/pitch.py:398 ../pitch/pitch.py:580 ../pitch/pitch.py:752
 msgid "Transpose"
-msgstr ""
+msgstr "Транспонировать"
 
 #: ../pitch/pitch.py:399
 msgid ""
 "Please enter two absolute pitches, separated by a space, using the pitch "
 "name language \"{language}\"."
 msgstr ""
+"Пожалуйста, введите две абсолютных высоты, разделённые пробелом, исползуя "
+"язык \"{language}\""
 
 #: ../pitch/pitch.py:581
-#, fuzzy
 msgid ""
 "Can't perform the requested transposition.\n"
 "\n"
 "The transposed music would contain quarter-tone alterations that are not "
 "available in the pitch language \"{language}\"."
 msgstr ""
-"Невозможно выполнить требуемое преобразование. Музыка содержит "
-"четвертьтоновые альтерации, которые недоступны в языковой записи %1."
+"Невозможно выполнить требуемое преобразование\n"
+"\n"
+"Музыка содержит четвертьтоновые альтерации, которые недоступны в языковой "
+"записи \"{language}\"."
 
 #: ../pitch/pitch.py:712
-#, fuzzy
 msgid "Pitch manipulation"
-msgstr "Артикуляция"
+msgstr "Управление тонами"
 
 #: ../pitch/pitch.py:715
 msgid ""
@@ -2547,10 +2442,9 @@ msgid ""
 msgstr ""
 
 #: ../pitch/pitch.py:744
-#, fuzzy
 msgctxt "submenu title"
 msgid "Pitch"
-msgstr "&Тон"
+msgstr "Тон"
 
 #: ../pitch/pitch.py:755
 msgid ""
@@ -2596,12 +2490,12 @@ msgstr ""
 
 #: ../po/messages.py:27
 msgid "Usage"
-msgstr ""
+msgstr "Использование"
 
 #: ../po/messages.py:28
 #, python-format
 msgid "Usage: %s\n"
-msgstr ""
+msgstr "Использование: %s\n"
 
 #: ../po/messages.py:29
 msgid "show this help message and exit"
@@ -2619,35 +2513,34 @@ msgstr ""
 #: ../po/messages.py:36
 msgctxt "CloseButton"
 msgid "Close Tab"
-msgstr ""
+msgstr "Закрыть вкладку"
 
 #: ../po/messages.py:38
 msgctxt "QDialog"
 msgid "What's This?"
-msgstr ""
+msgstr "Что это такое?"
 
 #: ../po/messages.py:40
 msgctxt "QDialogButtonBox"
 msgid "Apply"
-msgstr ""
+msgstr "Применить"
 
 #: ../po/messages.py:41
 msgctxt "QDialogButtonBox"
 msgid "OK"
-msgstr ""
+msgstr "ОК"
 
 #: ../po/messages.py:42
 msgctxt "QDialogButtonBox"
 msgid "Cancel"
-msgstr ""
+msgstr "Отмена"
 
 #: ../po/messages.py:43
 msgctxt "QDialogButtonBox"
 msgid "Discard"
-msgstr ""
+msgstr "Не сохранять"
 
 #: ../po/messages.py:44
-#, fuzzy
 msgctxt "QDialogButtonBox"
 msgid "Save"
 msgstr "Сохранить"
@@ -2655,119 +2548,107 @@ msgstr "Сохранить"
 #: ../po/messages.py:45
 msgctxt "QDialogButtonBox"
 msgid "Help"
-msgstr ""
+msgstr "Помощь"
 
 #: ../po/messages.py:46
-#, fuzzy
 msgctxt "QDialogButtonBox"
 msgid "Close"
-msgstr "Композитор"
+msgstr "Закрыть"
 
 #: ../po/messages.py:47
-#, fuzzy
 msgctxt "QDialogButtonBox"
 msgid "Open"
-msgstr "Открыть %1"
+msgstr "Открыть"
 
 #: ../po/messages.py:48
 msgctxt "QDialogButtonBox"
 msgid "Reset"
-msgstr ""
+msgstr "Сбросить"
 
 #: ../po/messages.py:50
-#, fuzzy
 msgctxt "QFileDialog"
 msgid "File"
-msgstr "Заголовок"
+msgstr "Файл"
 
 #: ../po/messages.py:51
 msgctxt "QFileDialog"
 msgid "Folder"
-msgstr ""
+msgstr "Каталог"
 
 #: ../po/messages.py:52
-#, fuzzy
 msgctxt "QFileDialog"
 msgid "Find Directory"
-msgstr "Каталог по умолчанию:"
+msgstr "Найти каталог"
 
 #: ../po/messages.py:53
-#, fuzzy
 msgctxt "QFileDialog"
 msgid "All Files (*)"
-msgstr "Все файлы"
+msgstr "Все файлы (*)"
 
 #: ../po/messages.py:55
-#, fuzzy
 msgctxt "QScrollBar"
 msgid "Scroll here"
-msgstr "Партия ударных"
+msgstr "Прокрытить сюда"
 
 #: ../po/messages.py:56
-#, fuzzy
 msgctxt "QScrollBar"
 msgid "Top"
-msgstr "Щёлкните"
+msgstr "В начало"
 
 #: ../po/messages.py:57
-#, fuzzy
 msgctxt "QScrollBar"
 msgid "Bottom"
-msgstr "Портато"
+msgstr "В конец"
 
 #: ../po/messages.py:58
 msgctxt "QScrollBar"
 msgid "Page up"
-msgstr ""
+msgstr "Страница вверх"
 
 #: ../po/messages.py:59
 msgctxt "QScrollBar"
 msgid "Page down"
-msgstr ""
+msgstr "Страница вниз"
 
 #: ../po/messages.py:60
 msgctxt "QScrollBar"
 msgid "Scroll up"
-msgstr ""
+msgstr "Вверх"
 
 #: ../po/messages.py:61
 msgctxt "QScrollBar"
 msgid "Scroll down"
-msgstr ""
+msgstr "Вниз"
 
 #: ../po/messages.py:62
-#, fuzzy
 msgctxt "QScrollBar"
 msgid "Left edge"
-msgstr "Left heel"
+msgstr "Левый край"
 
 #: ../po/messages.py:63
-#, fuzzy
 msgctxt "QScrollBar"
 msgid "Right edge"
-msgstr "Right heel"
+msgstr "Правый край"
 
 #: ../po/messages.py:64
-#, fuzzy
 msgctxt "QScrollBar"
 msgid "Page left"
-msgstr "Флажолет"
+msgstr "Страница налево"
 
 #: ../po/messages.py:65
-#, fuzzy
 msgctxt "QScrollBar"
 msgid "Page right"
-msgstr "Вставить ритм"
+msgstr "Страница направо"
 
 #: ../po/messages.py:66
 msgctxt "QScrollBar"
 msgid "Scroll left"
-msgstr ""
+msgstr "Прокрутить налево"
 
 #: ../po/messages.py:67
 msgctxt "QScrollBar"
 msgid "Scroll right"
-msgstr ""
+msgstr "Прокрутить направо"
 
 #: ../preferences/__init__.py:173 ../preferences/general.py:128
 #: ../preferences/prefshelp.py:48 ../preferences/prefshelp.py:57
@@ -2775,38 +2656,33 @@ msgid "General Preferences"
 msgstr "Общие настройки"
 
 #: ../preferences/__init__.py:195 ../preferences/prefshelp.py:124
-#, fuzzy
 msgid "MIDI Settings"
-msgstr "Струнные"
+msgstr "Настройки MIDI"
 
 #: ../preferences/__init__.py:206 ../preferences/helpers.py:80
 #: ../preferences/prefshelp.py:156
 msgid "Helper Applications"
-msgstr ""
+msgstr "Дополнительные приложения"
 
 #: ../preferences/__init__.py:217 ../preferences/prefshelp.py:175
 msgid "Paths"
 msgstr "Пути"
 
 #: ../preferences/__init__.py:228 ../preferences/prefshelp.py:189
-#, fuzzy
 msgid "LilyPond Documentation"
-msgstr "Документация LilyPond:"
+msgstr "Документация LilyPond"
 
 #: ../preferences/__init__.py:239 ../preferences/prefshelp.py:207
-#, fuzzy
 msgid "Keyboard Shortcuts"
-msgstr "Клавишные"
+msgstr "Комбинации клавиш"
 
 #: ../preferences/__init__.py:261 ../preferences/prefshelp.py:250
-#, fuzzy
 msgid "Tools"
-msgstr "&Панели инструментов"
+msgstr "Инструменты"
 
 #: ../preferences/documentation.py:66
-#, fuzzy
 msgid "Paths to LilyPond Documentation"
-msgstr "Документация LilyPond:"
+msgstr "Путь к документации LilyPond"
 
 #: ../preferences/documentation.py:68
 #, fuzzy
@@ -2826,9 +2702,8 @@ msgid ""
 msgstr ""
 
 #: ../preferences/documentation.py:123
-#, fuzzy
 msgid "Preferred Language:"
-msgstr "Язык:"
+msgstr "Предпочитаемый язык:"
 
 #: ../preferences/documentation.py:124 ../preferences/general.py:133
 #: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
@@ -2839,303 +2714,272 @@ msgstr "По умолчанию"
 
 #: ../preferences/documentation.py:125 ../scorewiz/settings.py:202
 msgid "English (untranslated)"
-msgstr ""
+msgstr "Английский (без перевода)"
 
 #: ../preferences/documentation.py:126 ../preferences/fontscolors.py:122
 #: ../preferences/tools.py:81 ../preferences/tools.py:203
 msgid "Font:"
-msgstr ""
+msgstr "Шрифт:"
 
 #: ../preferences/documentation.py:162
-#, fuzzy
 msgid "Please enter a local path or a URL:"
-msgstr ""
-"Используйте только латинские буквы, цифры и символ подчеркивания в названии "
-"расширения."
+msgstr "Введите локальный путь или URL:"
 
 #: ../preferences/fontscolors.py:121
 msgid "Use this scheme for printing"
-msgstr ""
+msgstr "Использовать эту схему для печати"
 
 #: ../preferences/fontscolors.py:124
-#, fuzzy
 msgid "Default Styles"
-msgstr "По умолчанию"
+msgstr "Стили по умолчанию"
 
 #: ../preferences/fontscolors.py:157
 msgid "(Inherits: {name})"
-msgstr ""
+msgstr "(Наследует: {name})"
 
 #. L10N: color of Text
 #: ../preferences/fontscolors.py:360 ../preferences/fontscolors.py:435
-#, fuzzy
 msgid "Text"
-msgstr "Далее"
+msgstr "Текст"
 
 #. L10N: color of Background
 #: ../preferences/fontscolors.py:361 ../preferences/fontscolors.py:437
 msgid "Background"
-msgstr ""
+msgstr "Фон"
 
 #: ../preferences/fontscolors.py:362
 msgid "Bold"
-msgstr ""
+msgstr "Жирный"
 
 #: ../preferences/fontscolors.py:363
-#, fuzzy
 msgid "Italic"
-msgstr "Итальянский"
+msgstr "Курсив"
 
 #: ../preferences/fontscolors.py:364
 msgid "Underline"
-msgstr ""
+msgstr "Подчёркнутый"
 
 #. L10N: color of Selected Text
 #: ../preferences/fontscolors.py:439
 msgid "Selected Text"
-msgstr ""
+msgstr "Выделенный текст"
 
 #. L10N: color of Selection Background
 #: ../preferences/fontscolors.py:441
 msgid "Selection Background"
-msgstr ""
+msgstr "Фон выделения"
 
 #. L10N: color of Current Line
 #: ../preferences/fontscolors.py:443
 msgid "Current Line"
-msgstr ""
+msgstr "Текущая строка"
 
 #. L10N: color of Marked Line (bookmark)
 #: ../preferences/fontscolors.py:445
-#, fuzzy
 msgid "Marked Line"
-msgstr "&Тактовые черты"
+msgstr "Отмеченная строка"
 
 #. L10N: color of line with Error
 #: ../preferences/fontscolors.py:447
-#, fuzzy
 msgid "Error Line"
-msgstr "&Тактовые черты"
+msgstr "Строка с ошибкой"
 
 #. L10N: color of highlighted search result
 #: ../preferences/fontscolors.py:449
 msgid "Search Result"
-msgstr ""
+msgstr "Результат поиска"
 
 #. L10N: color of characters that match (e.g. braces, parentheses)
 #: ../preferences/fontscolors.py:451
 msgid "Matching Character"
-msgstr ""
+msgstr "Совпадающий символ"
 
 #. L10N: color of objects highlighting in preview
 #: ../preferences/fontscolors.py:455
 msgid "Preview Highlight"
-msgstr ""
+msgstr "Подсветка предварительного просмотра"
 
 #. L10N: a basic type of input in the editor
 #: ../preferences/fontscolors.py:462 ../preferences/fontscolors.py:497
 #: ../preferences/fontscolors.py:533
-#, fuzzy
 msgid "Keyword"
-msgstr "Клавиатура"
+msgstr "Ключевое слово"
 
 #. L10N: a basic type of input in the editor
 #: ../preferences/fontscolors.py:464
-#, fuzzy
 msgid "Function"
-msgstr "Направление:"
+msgstr "Функция"
 
 #. L10N: a basic type of input in the editor
 #: ../preferences/fontscolors.py:466 ../preferences/fontscolors.py:508
 msgid "Variable"
-msgstr ""
+msgstr "Переменная"
 
 #. L10N: a basic type of input in the editor
 #: ../preferences/fontscolors.py:468 ../preferences/fontscolors.py:510
 #: ../preferences/fontscolors.py:520
-#, fuzzy
 msgid "Value"
-msgstr "Размер страницы:"
+msgstr "Значение"
 
 #. L10N: a basic type of input in the editor
 #: ../preferences/fontscolors.py:470 ../preferences/fontscolors.py:511
 #: ../preferences/fontscolors.py:523 ../preferences/fontscolors.py:529
-#, fuzzy
 msgid "String"
-msgstr "Струнные"
+msgstr "Строка"
 
 #. L10N: a basic type of input in the editor
 #: ../preferences/fontscolors.py:472
-#, fuzzy
 msgid "Escape"
-msgstr "Альбомная"
+msgstr "Экранированный"
 
 #. L10N: a basic type of input in the editor
 #: ../preferences/fontscolors.py:474 ../preferences/fontscolors.py:513
 #: ../preferences/fontscolors.py:522 ../preferences/fontscolors.py:530
 #: ../preferences/fontscolors.py:538 ../snippet/builtin.py:358
-#, fuzzy
 msgid "Comment"
-msgstr "Команда печати:"
+msgstr "Комментарий"
 
 #: ../preferences/fontscolors.py:483
 #, fuzzy
 msgid "Pitch"
-msgstr "&Тон"
+msgstr "Тон"
 
 #: ../preferences/fontscolors.py:484
-#, fuzzy
 msgid "Octave"
-msgstr "Сохранить"
+msgstr "Октава"
 
 #: ../preferences/fontscolors.py:485
-#, fuzzy
 msgid "Duration"
-msgstr "Добавить точки к длительностям"
+msgstr "Продолжительность"
 
 #: ../preferences/fontscolors.py:486
 msgid "Octave Check"
-msgstr ""
+msgstr "Проверка октавы"
 
 #: ../preferences/fontscolors.py:487
 msgid "Fingering"
-msgstr ""
+msgstr "Аппликатура"
 
 #. L10N: For String instruments like Guitar
 #: ../preferences/fontscolors.py:489
-#, fuzzy
 msgid "String Number"
-msgstr "&Тактовые черты"
+msgstr "Номер строки"
 
 #: ../preferences/fontscolors.py:490 ../quickinsert/spanners.py:143
 msgid "Slur"
-msgstr ""
+msgstr "Лига"
 
 #: ../preferences/fontscolors.py:491
 msgid "Dynamic"
-msgstr ""
+msgstr "Динамика"
 
 #: ../preferences/fontscolors.py:492
 msgid "Articulation"
 msgstr "Артикуляция"
 
 #: ../preferences/fontscolors.py:493
-#, fuzzy
 msgid "Chord"
-msgstr "Хор"
+msgstr "Аккорд"
 
 #: ../preferences/fontscolors.py:494 ../quickinsert/spanners.py:145
 msgid "Beam"
-msgstr ""
+msgstr "Штиль"
 
 #: ../preferences/fontscolors.py:495
 msgid "Check"
-msgstr ""
+msgstr "Проверка"
 
 #: ../preferences/fontscolors.py:496 ../snippet/builtin.py:228
 msgid "Repeat"
-msgstr ""
+msgstr "Повтор"
 
 #: ../preferences/fontscolors.py:498 ../preferences/shortcuts.py:56
-#, fuzzy
 msgid "Command"
-msgstr "Команда печати:"
+msgstr "Команда"
 
 #: ../preferences/fontscolors.py:499
-#, fuzzy
 msgid "Specifier"
-msgstr "Другие"
+msgstr ""
 
 #: ../preferences/fontscolors.py:500
-#, fuzzy
 msgid "User Command"
-msgstr "Команда печати:"
+msgstr "Пользовательская команда"
 
 #: ../preferences/fontscolors.py:501 ../snippet/builtin.py:268
-#, fuzzy
 msgid "Markup"
-msgstr "Арфа"
+msgstr "Разметка"
 
 #: ../preferences/fontscolors.py:502
 msgid "Lyric Mode"
-msgstr ""
+msgstr "Режим текста"
 
 #: ../preferences/fontscolors.py:503
-#, fuzzy
 msgid "Lyric Text"
-msgstr "Расставить переносы в тексте"
+msgstr "Текст"
 
 #: ../preferences/fontscolors.py:504
 msgid "Delimiter"
-msgstr ""
+msgstr "Разделитель"
 
 #: ../preferences/fontscolors.py:505
 msgid "Context"
-msgstr ""
+msgstr "Контекст"
 
 #: ../preferences/fontscolors.py:506
-#, fuzzy
 msgid "Layout Object"
-msgstr "Выбор языка"
+msgstr "Объект разметки"
 
 #: ../preferences/fontscolors.py:507
-#, fuzzy
 msgid "Property"
-msgstr "Поэт"
+msgstr "Свойство"
 
 #: ../preferences/fontscolors.py:509
 msgid "User Variable"
-msgstr ""
+msgstr "Пользовательская переменная"
 
 #: ../preferences/fontscolors.py:512 ../preferences/fontscolors.py:535
 msgid "Escaped Character"
-msgstr ""
+msgstr "Экранированный символ"
 
 #: ../preferences/fontscolors.py:516
 msgid "HTML"
 msgstr ""
 
 #: ../preferences/fontscolors.py:517
-#, fuzzy
 msgid "Tag"
-msgstr "Щёлкните"
+msgstr "Тег"
 
 #: ../preferences/fontscolors.py:518
-#, fuzzy
 msgid "LilyPond Tag"
-msgstr "LilyPond журнал"
+msgstr "Тег LilyPond"
 
 #: ../preferences/fontscolors.py:519 ../preferences/fontscolors.py:536
 msgid "Attribute"
-msgstr ""
+msgstr "Атрибут"
 
 #: ../preferences/fontscolors.py:521
-#, fuzzy
 msgid "Entity Reference"
-msgstr "Общие настройки"
+msgstr "Сущность"
 
 #: ../preferences/fontscolors.py:525 ../preferences/fontscolors.py:526
 msgid "Scheme"
 msgstr ""
 
 #: ../preferences/fontscolors.py:527
-#, fuzzy
 msgid "Number"
-msgstr "Имя"
+msgstr "Число"
 
 #: ../preferences/fontscolors.py:528
-#, fuzzy
 msgid "LilyPond Environment"
-msgstr "Документация LilyPond"
+msgstr "Окружение LilyPond"
 
 #: ../preferences/fontscolors.py:532
-#, fuzzy
 msgid "Texinfo"
-msgstr "Тенор"
+msgstr ""
 
 #: ../preferences/fontscolors.py:534
 msgid "Block"
-msgstr ""
+msgstr "Блок"
 
 #: ../preferences/fontscolors.py:537
 msgid "Verbatim"
@@ -3147,11 +2991,11 @@ msgstr "Язык:"
 
 #: ../preferences/general.py:130
 msgid "No Translation"
-msgstr ""
+msgstr "Без перевода"
 
 #: ../preferences/general.py:131
 msgid "System Default Language (if available)"
-msgstr ""
+msgstr "Системный язык (если доступен)"
 
 #: ../preferences/general.py:132 ../scorewiz/parts/percussion.py:187
 msgid "Style:"
@@ -3159,7 +3003,7 @@ msgstr "Стиль:"
 
 #: ../preferences/general.py:134
 msgid "Use System Icons"
-msgstr ""
+msgstr "Использовать системные значки"
 
 #: ../preferences/general.py:136
 msgid ""
@@ -3170,11 +3014,11 @@ msgstr ""
 
 #: ../preferences/general.py:139
 msgid "Show Splash Screen on Startup"
-msgstr ""
+msgstr "Показывать заставку при запуске"
 
 #: ../preferences/general.py:140
 msgid "Open Files in Running Instance"
-msgstr ""
+msgstr "Открывать файлы в запущеном экземпляре"
 
 #: ../preferences/general.py:142
 msgid ""
@@ -3184,28 +3028,27 @@ msgstr ""
 
 #: ../preferences/general.py:170 ../preferences/prefshelp.py:65
 msgid "Session to load if Frescobaldi is started without arguments"
-msgstr ""
+msgstr "Сессия, если Frescobaldi запущен без аргументов"
 
 #: ../preferences/general.py:171
 msgid "Start with no session"
-msgstr ""
+msgstr "Запускать без сессии"
 
 #: ../preferences/general.py:172
 msgid "Start with last used session"
-msgstr ""
+msgstr "Запускать с последней сессией"
 
 #: ../preferences/general.py:173
 msgid "Start with session:"
-msgstr ""
+msgstr "Начинать с сессии:"
 
 #: ../preferences/general.py:228 ../preferences/prefshelp.py:73
-#, fuzzy
 msgid "When saving documents"
-msgstr "Послать документы по email"
+msgstr "При сохранении документов"
 
 #: ../preferences/general.py:229
 msgid "Keep backup copy"
-msgstr ""
+msgstr "Сохранять резервные копии"
 
 #: ../preferences/general.py:231
 msgid ""
@@ -3223,16 +3066,15 @@ msgstr "Каталог по умолчанию:"
 
 #: ../preferences/general.py:236
 msgid "The default folder for your LilyPond documents (optional)."
-msgstr "Каталог по умолчанию для Ваших LilyPond документов (опционально)."
+msgstr "Каталог по умолчанию для файлов LilyPond (необязательно)."
 
 #: ../preferences/helpers.py:70
 msgid "PDF:"
 msgstr ""
 
 #: ../preferences/helpers.py:71
-#, fuzzy
 msgid "MIDI:"
-msgstr "Воспроизвести MIDI"
+msgstr "MIDI:"
 
 #: ../preferences/helpers.py:72
 msgid "SVG:"
@@ -3240,25 +3082,23 @@ msgstr ""
 
 #: ../preferences/helpers.py:73
 msgid "Image:"
-msgstr ""
+msgstr "Изображения:"
 
 #: ../preferences/helpers.py:74
 msgid "Browser:"
-msgstr ""
+msgstr "Браузер:"
 
 #: ../preferences/helpers.py:75
 msgid "E-Mail:"
 msgstr ""
 
 #: ../preferences/helpers.py:76
-#, fuzzy
 msgid "File Manager:"
-msgstr "Менеджер сокращений"
+msgstr "Файловый менеджер:"
 
 #: ../preferences/helpers.py:77
-#, fuzzy
 msgid "Shell:"
-msgstr "Партитура:"
+msgstr "Командная строка:"
 
 #: ../preferences/helpers.py:82
 msgid ""
@@ -3266,6 +3106,10 @@ msgid ""
 "is replaced with the filename, <code>$u</code> with the URL. Leave a field "
 "empty to use the operating system default application."
 msgstr ""
+"Ниже можно ввести команды для открытия файлов разных типов. Для подстановки "
+"имени\n"
+"файла используйте <code>$f</code>, для его URL — <code>$u</code>. "
+"При пустом поле будет использованна системная программа по умолчанию."
 
 #: ../preferences/helpers.py:90
 msgid "Command that should accept a mailto: URL."
@@ -3276,21 +3120,18 @@ msgid "Command to open a Terminal or Command window."
 msgstr ""
 
 #: ../preferences/lilypond.py:81
-#, fuzzy
 msgid "LilyPond versions to use"
-msgstr "Вставить версию LilyPond"
+msgstr "Версии LilyPond"
 
 #: ../preferences/lilypond.py:82 ../preferences/prefshelp.py:99
-#, fuzzy
 msgid "Automatically choose LilyPond version from document"
-msgstr "Версия LilyPond используемая для новых документов"
+msgstr "Автоматически выбирать версию сообразно команде в файле"
 
 #: ../preferences/lilypond.py:84
-#, fuzzy
 msgid ""
 "If checked, the document's version determines the LilyPond version to use.\n"
 "See \"What's This\" for more information."
-msgstr "Здесь Вы можете выбрать, какие Guile скрипты загружать в Rumor."
+msgstr ""
 
 #: ../preferences/lilypond.py:87 ../preferences/prefshelp.py:104
 msgid ""
@@ -3309,22 +3150,19 @@ msgstr ""
 
 #: ../preferences/lilypond.py:101
 msgid "See also {link}."
-msgstr ""
+msgstr "Смотри также {link}."
 
 #: ../preferences/lilypond.py:149
-#, fuzzy
 msgid "Set as &Default"
-msgstr "Сохранить по умолчанию"
+msgstr "Установить по умолчанию"
 
 #: ../preferences/lilypond.py:190
-#, fuzzy
 msgid "default"
 msgstr "По умолчанию"
 
 #: ../preferences/lilypond.py:240
-#, fuzzy
 msgid "LilyPond Command:"
-msgstr "Документация LilyPond:"
+msgstr "Команда LilyPond:"
 
 #: ../preferences/lilypond.py:241
 msgid "Name or full path of the LilyPond program."
@@ -3335,22 +3173,20 @@ msgid "Convert-ly:"
 msgstr ""
 
 #: ../preferences/lilypond.py:243
-#, fuzzy
 msgid "LilyPond-book:"
-msgstr "LilyPond"
+msgstr "LilyPond-book:"
 
 #: ../preferences/lilypond.py:244
 msgid "Include in automatic version selection"
-msgstr ""
+msgstr "Использовать при автовыборе версии"
 
 #: ../preferences/lilypond.py:283
-#, fuzzy
 msgid "Running LilyPond"
-msgstr "LilyPond"
+msgstr "Запуск LilyPond"
 
 #: ../preferences/lilypond.py:284
 msgid "Save document if possible"
-msgstr ""
+msgstr "Сохранять документ, если возможно"
 
 #: ../preferences/lilypond.py:286
 msgid ""
@@ -3359,9 +3195,8 @@ msgid ""
 msgstr ""
 
 #: ../preferences/lilypond.py:290
-#, fuzzy
 msgid "If checked, LilyPond will delete intermediate PostScript files."
-msgstr "Удалить служебные файлы LilyPond."
+msgstr ""
 
 #: ../preferences/lilypond.py:293
 msgid ""
@@ -3370,14 +3205,12 @@ msgid ""
 msgstr ""
 
 #: ../preferences/lilypond.py:295
-#, fuzzy
 msgid "LilyPond include path:"
-msgstr "Файлы LilyPon"
+msgstr "Дополнительные пути LilyPond"
 
 #: ../preferences/midi.py:77
-#, fuzzy
 msgid "MIDI Ports"
-msgstr "Программа воспроизведения MIDI"
+msgstr "Порты MIDI"
 
 #: ../preferences/midi.py:79
 msgid ""
@@ -3387,15 +3220,13 @@ msgid ""
 msgstr ""
 
 #: ../preferences/midi.py:82
-#, fuzzy
 msgid "Player output:"
-msgstr "Выход MIDI:"
+msgstr "Выход плеера:"
 
 #: ../preferences/midi.py:84
-#, fuzzy
 msgid ""
 "The MIDI port to play music to. See \"What's This\" for more information."
-msgstr "Здесь Вы можете выбрать, какие Guile скрипты загружать в Rumor."
+msgstr ""
 
 #: ../preferences/midi.py:87
 msgid ""
@@ -3408,19 +3239,17 @@ msgstr ""
 
 #: ../preferences/midi.py:96
 msgid "Refresh MIDI ports"
-msgstr ""
+msgstr "Обновить MIDI-порты"
 
 #: ../preferences/midi.py:135 ../preferences/prefshelp.py:142
-#, fuzzy
 msgid "Close unused MIDI output"
-msgstr "Создать MIDI"
+msgstr "Закрывать неиспользуемый MIDI-выход"
 
 #: ../preferences/midi.py:137
-#, fuzzy
 msgid ""
 "Closes unused MIDI ports after one minute. See \"What's This\" for more "
 "information."
-msgstr "Здесь Вы можете выбрать, какие Guile скрипты загружать в Rumor."
+msgstr ""
 
 #: ../preferences/midi.py:140 ../preferences/prefshelp.py:144
 msgid ""
@@ -3435,7 +3264,7 @@ msgstr ""
 
 #: ../preferences/paths.py:59
 msgid "Folders containing hyphenation dictionaries"
-msgstr ""
+msgstr "Каталоги, содержащие словари переносов"
 
 #: ../preferences/prefshelp.py:36
 msgid ""
@@ -3568,9 +3397,8 @@ msgstr ""
 
 #: ../preferences/prefshelp.py:215 ../snippet/tool.py:54
 #: ../snippet/tool.py:135 ../snippet/widget.py:403
-#, fuzzy
 msgid "Snippets"
-msgstr "Удалить паузы"
+msgstr "Сниппеты"
 
 #: ../preferences/prefshelp.py:216 ../quickinsert/__init__.py:47
 #: ../quickinsert/__init__.py:71
@@ -3622,47 +3450,42 @@ msgstr ""
 
 #: ../preferences/shortcuts.py:56 ../snippet/model.py:63
 msgid "Shortcut"
-msgstr "Сокращение"
+msgstr "Комбинация клавиш"
 
 #: ../preferences/shortcuts.py:101
 msgid "Menu {name}:"
 msgstr ""
 
 #: ../preferences/shortcuts.py:125
-#, fuzzy
 msgid "Other commands:"
-msgstr "Команда печати:"
+msgstr "Другие команды:"
 
 #: ../preferences/shortcuts.py:173
-#, fuzzy
 msgid "&Edit Shortcut for \"{name}\""
-msgstr "Сокращение"
+msgstr "Редактировать комбинацию клавиш для \"{name}\""
 
 #: ../preferences/shortcuts.py:178
-#, fuzzy
 msgid "(no shortcut)"
-msgstr "Сокращение"
+msgstr "(нет комбинации)"
 
 #: ../preferences/shortcuts.py:206
-#, fuzzy
 msgid "Remove the shortcut from that command?"
 msgid_plural "Remove the shortcut from those commands?"
-msgstr[0] "Удалить штили у ударных нот."
-msgstr[1] "Удалить штили у ударных нот."
-msgstr[2] "Удалить штили у ударных нот."
+msgstr[0] "Удалить комбинацию клавиш у этой команды?"
+msgstr[1] "Удалить комбинацию клавиш у этих команд?"
+msgstr[2] "Удалить комбинации клавиш у этих команд?"
 
 #: ../preferences/shortcuts.py:304
-#, fuzzy
 msgid "(default)"
-msgstr "По умолчанию"
+msgstr "(по умолчанию)"
 
 #: ../preferences/tools.py:82
 msgid "Show log when a job is started"
-msgstr ""
+msgstr "Показывать журнал, когда задача запущена"
 
 #: ../preferences/tools.py:83
 msgid "Display plain log output"
-msgstr ""
+msgstr "Показывать простой вывод журнала"
 
 #: ../preferences/tools.py:85
 msgid "If checked, Frescobaldi will not shorten filenames in the log output."
@@ -3670,12 +3493,11 @@ msgstr ""
 
 #: ../preferences/tools.py:145
 msgid "Music View"
-msgstr ""
+msgstr "Предпросмотр"
 
 #: ../preferences/tools.py:146
-#, fuzzy
 msgid "Magnifier Size:"
-msgstr "Размер страницы:"
+msgstr "Размер лупы:"
 
 #: ../preferences/tools.py:148
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
@@ -3684,15 +3506,15 @@ msgstr ""
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
 #: ../preferences/tools.py:150
 msgid " pixels"
-msgstr ""
+msgstr " пиксел"
 
 #: ../preferences/tools.py:151
 msgid "Magnifier Scale:"
-msgstr ""
+msgstr "Увеличение лупы:"
 
 #: ../preferences/tools.py:153
 msgid "Magnification of the magnifier."
-msgstr ""
+msgstr "Увеличение лупы"
 
 #: ../preferences/tools.py:154
 msgctxt "percent unit sign"
@@ -3702,19 +3524,17 @@ msgstr ""
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
 #: ../preferences/tools.py:156
 msgid "Kinetic Scrolling"
-msgstr ""
+msgstr "Кинетическая прокрутка"
 
 #: ../preferences/tools.py:157
 msgid "Show Scrollbars"
-msgstr ""
+msgstr "Показывать полосы прокрутки"
 
 #: ../preferences/tools.py:236
-#, fuzzy
 msgid "Group documents by directory"
-msgstr "Открыть текущую папку"
+msgstr "Группировать файлы по каталогам"
 
 #: ../quickinsert/__init__.py:48
-#, fuzzy
 msgid "Quick &Insert"
 msgstr "Быстрая вставка"
 
@@ -3766,7 +3586,7 @@ msgstr "Espressivo"
 
 #: ../quickinsert/articulations.py:129
 msgid "Ornaments"
-msgstr "Орнаментация"
+msgstr "Мелизмы"
 
 #: ../quickinsert/articulations.py:132 ../quickinsert/spanners.py:146
 msgid "Trill"
@@ -3794,27 +3614,27 @@ msgstr "Двойной перечеркнутый мордент"
 
 #: ../quickinsert/articulations.py:138
 msgid "Up prall"
-msgstr ""
+msgstr "Мордент сверху"
 
 #: ../quickinsert/articulations.py:139
 msgid "Down prall"
-msgstr ""
+msgstr "Мордент снизу"
 
 #: ../quickinsert/articulations.py:140
 msgid "Up mordent"
-msgstr ""
+msgstr "Перечеркнутый мордент сверху"
 
 #: ../quickinsert/articulations.py:141
 msgid "Down mordent"
-msgstr ""
+msgstr "Перечеркнутый мордент снизу"
 
 #: ../quickinsert/articulations.py:142
 msgid "Prall up"
-msgstr ""
+msgstr "Мордент наверх"
 
 #: ../quickinsert/articulations.py:143
 msgid "Prall down"
-msgstr ""
+msgstr "Мордент вниз"
 
 #: ../quickinsert/articulations.py:144
 msgid "Line prall"
@@ -3875,15 +3695,15 @@ msgstr "Вниз смычком"
 
 #: ../quickinsert/articulations.py:170
 msgid "Snappizzicato"
-msgstr ""
+msgstr "Барток-пиццикато"
 
 #: ../quickinsert/articulations.py:171
 msgid "Open (e.g. brass)"
-msgstr ""
+msgstr "Открытый"
 
 #: ../quickinsert/articulations.py:172
 msgid "Stopped (e.g. brass)"
-msgstr ""
+msgstr "Закрытый"
 
 #: ../quickinsert/articulations.py:173
 msgid "Flageolet"
@@ -3895,32 +3715,31 @@ msgstr "Ставка"
 
 #: ../quickinsert/articulations.py:175
 msgid "Left heel"
-msgstr "Left heel"
+msgstr "Левая пятка"
 
 #: ../quickinsert/articulations.py:176
 msgid "Right heel"
-msgstr "Right heel"
+msgstr "Правая пятка"
 
 #: ../quickinsert/articulations.py:177
 msgid "Left toe"
-msgstr ""
+msgstr "Левые пальцы"
 
 #: ../quickinsert/articulations.py:178
 msgid "Right toe"
-msgstr "Right toe"
+msgstr "Правые пальцы"
 
 #: ../quickinsert/articulations.py:179
 msgid "Half open (e.g. hi-hat)"
-msgstr ""
+msgstr "Полуоткрытый (напр., хай-хэт)"
 
 #: ../quickinsert/barlines.py:49 ../quickinsert/barlines.py:58
-#, fuzzy
 msgid "Bar Lines"
-msgstr "&Тактовые черты"
+msgstr "Тактовые черты"
 
 #: ../quickinsert/barlines.py:53
 msgid "Bar lines, breathing signs, etcetera."
-msgstr ""
+msgstr "Тактовые черты, знаки дыхания, и т. п."
 
 #: ../quickinsert/barlines.py:61
 msgid "Double bar line"
@@ -3931,14 +3750,12 @@ msgid "Ending bar line"
 msgstr "Заключительная тактовая черта"
 
 #: ../quickinsert/barlines.py:63
-#, fuzzy
 msgid "Dotted bar line"
-msgstr "Без тактовых черт"
+msgstr "Тактовая черта точечками"
 
 #: ../quickinsert/barlines.py:64
-#, fuzzy
 msgid "Dashed bar line"
-msgstr "Пункти́рная та́ктовая черта́"
+msgstr "Пунктирная тактовая черта"
 
 #: ../quickinsert/barlines.py:65
 msgid "Invisible bar line"
@@ -3946,79 +3763,75 @@ msgstr "Невидимая тактовая черта"
 
 #: ../quickinsert/barlines.py:66
 msgid "Repeat start"
-msgstr ""
+msgstr "Начало повтора"
 
 #: ../quickinsert/barlines.py:67
 msgid "Repeat both"
-msgstr ""
+msgstr "Повтор в обе стороны"
 
 #: ../quickinsert/barlines.py:68
 msgid "Repeat end"
-msgstr ""
+msgstr "Конец повтора"
 
 #: ../quickinsert/barlines.py:69
 msgid "Repeat both (old)"
-msgstr ""
+msgstr "Повтор в обе стороны (старый)"
 
 #: ../quickinsert/barlines.py:70
 msgid "Repeat both (classic)"
-msgstr ""
+msgstr "Повтор в обе стороны (классический)"
 
 #: ../quickinsert/barlines.py:71
-#, fuzzy
 msgid "Tick bar line"
-msgstr "Без тактовых черт"
+msgstr "Тактовая черта черточкой"
 
 #: ../quickinsert/barlines.py:72
-#, fuzzy
 msgid "Single bar line"
-msgstr "Одиночная тактовая черта"
+msgstr "Простая тактовая черта"
 
 #: ../quickinsert/barlines.py:73
 msgid "Small-Wide-Small bar line"
-msgstr ""
+msgstr "Тонкая-толстая-тонкая тактовая черта"
 
 #: ../quickinsert/barlines.py:74
 msgid "Wide-Small bar line"
-msgstr ""
+msgstr "Тонкая-толстая тактовая черта"
 
 #: ../quickinsert/barlines.py:75
-#, fuzzy
 msgid "Double wide bar line"
-msgstr "Увеличить длительности в 2 раза"
+msgstr "Две толстых тактовых черты"
 
 #: ../quickinsert/barlines.py:76
-#, fuzzy
 msgid "Segno bar line"
-msgstr "Одиночная тактовая черта"
+msgstr "Тактовая черта в виде Segno"
 
 #: ../quickinsert/barlines.py:95
 msgid "Breathing Signs"
-msgstr ""
+msgstr "Знаки дыхания"
 
 #: ../quickinsert/barlines.py:102
 msgid "Default Breathing Sign"
-msgstr ""
+msgstr "Знак дыхания по умолчанию"
 
 #: ../quickinsert/barlines.py:103
 msgid "Straight Breathing Sign"
-msgstr ""
+msgstr "Прямой знак дыхания"
 
 #: ../quickinsert/barlines.py:104
 msgid "Curved Caesura"
-msgstr ""
+msgstr "Изогнутая цезура"
 
 #: ../quickinsert/barlines.py:105
 msgid "Straight Caesura"
-msgstr ""
+msgstr "Прямая цезура"
 
 #: ../quickinsert/buttongroup.py:175
 msgid "{name} ({key})"
-msgstr ""
+msgstr "{name} ({key})"
 
 #: ../quickinsert/buttongroup.py:182
 msgid "Configure Keyboard Shortcut ({key})"
-msgstr ""
+msgstr "Настроить сочетание клавиш ({key})"
 
 #: ../quickinsert/buttongroup.py:182 ../scorewiz/scoreproperties.py:171
 #: ../scorewiz/settings.py:195 ../snippet/edit.py:129
@@ -4027,24 +3840,24 @@ msgstr "Нет"
 
 #: ../quickinsert/dynamics.py:51
 msgid "Dynamics"
-msgstr ""
+msgstr "Динамика"
 
 #: ../quickinsert/dynamics.py:55
 msgid "Dynamic symbols."
-msgstr ""
+msgstr "Динамические символы"
 
 #: ../quickinsert/dynamics.py:128
 msgid "Dynamic sign {name}"
-msgstr ""
+msgstr "Динамический знак {name}"
 
 #: ../quickinsert/dynamics.py:133 ../quickinsert/spanners.py:51
 #: ../quickinsert/spanners.py:136
 msgid "Spanners"
-msgstr ""
+msgstr "Линии"
 
 #: ../quickinsert/dynamics.py:142
 msgid "Hairpin crescendo"
-msgstr ""
+msgstr "Crescendo вилкой"
 
 #: ../quickinsert/dynamics.py:143
 msgid "Crescendo"
@@ -4052,7 +3865,7 @@ msgstr ""
 
 #: ../quickinsert/dynamics.py:144
 msgid "Hairpin diminuendo"
-msgstr ""
+msgstr "Diminuendo вилкой"
 
 #: ../quickinsert/dynamics.py:145
 msgid "Diminuendo"
@@ -4064,61 +3877,59 @@ msgstr ""
 
 #: ../quickinsert/spanners.py:55
 msgid "Slurs, spanners, etcetera."
-msgstr ""
+msgstr "Лиги, линии и прочее"
 
 #: ../quickinsert/spanners.py:60
 msgid "Arpeggios"
-msgstr ""
+msgstr "Арпеджио"
 
 #: ../quickinsert/spanners.py:69
 msgid "Arpeggio"
-msgstr ""
+msgstr "Арпеджио"
 
 #: ../quickinsert/spanners.py:70
 msgid "Arpeggio with Up Arrow"
-msgstr ""
+msgstr "Арпеджио со стрелкой вверх"
 
 #: ../quickinsert/spanners.py:71
 msgid "Arpeggio with Down Arrow"
-msgstr ""
+msgstr "Арпеджио со стрелкой вниз"
 
 #: ../quickinsert/spanners.py:72
 msgid "Bracket Arpeggio"
-msgstr ""
+msgstr "Арпеджио квадратной скобкой"
 
 #: ../quickinsert/spanners.py:73
 msgid "Parenthesis Arpeggio"
-msgstr ""
+msgstr "Арпеджио с круглой скобкой"
 
 #: ../quickinsert/spanners.py:105
 msgid "Glissandos"
-msgstr ""
+msgstr "Глиссандо"
 
 #: ../quickinsert/spanners.py:114
 msgid "Glissando"
-msgstr ""
+msgstr "Глиссандо"
 
 #: ../quickinsert/spanners.py:115
-#, fuzzy
 msgid "Dashed Glissando"
-msgstr "Пункти́рная та́ктовая черта́"
+msgstr "Пунктирное глиссандо"
 
 #: ../quickinsert/spanners.py:116
-#, fuzzy
 msgid "Dotted Glissando"
-msgstr "Без тактовых черт"
+msgstr "Глиссандо точками"
 
 #: ../quickinsert/spanners.py:117
 msgid "Zigzag Glissando"
-msgstr ""
+msgstr "Глиссандо зигзагом"
 
 #: ../quickinsert/spanners.py:118
 msgid "Trill Glissando"
-msgstr ""
+msgstr "Глиссандо как трель"
 
 #: ../quickinsert/spanners.py:144
 msgid "Phrasing Slur"
-msgstr ""
+msgstr "Фразировочная лига"
 
 #: ../quickinsert/widget.py:102
 msgid ""
@@ -4144,9 +3955,8 @@ msgid "Down"
 msgstr "Вниз"
 
 #: ../quickinsert/widget.py:127
-#, fuzzy
 msgid "The Quick Insert Panel"
-msgstr "Быстрая вставка"
+msgstr "Панель быстрой вставки"
 
 #: ../quickinsert/widget.py:130
 msgid ""
@@ -4232,25 +4042,22 @@ msgid ""
 msgstr ""
 
 #: ../rhythm/__init__.py:146
-#, fuzzy
 msgid "&Double durations"
-msgstr "Увеличить длительности в 2 раза"
+msgstr "Увеличить длительности вдвое"
 
 #: ../rhythm/__init__.py:148
 msgid "Double all the durations in the selection."
 msgstr "Увеличивает длительности в 2 раза в выделенном фрагменте"
 
 #: ../rhythm/__init__.py:149
-#, fuzzy
 msgid "&Halve durations"
-msgstr "Уменьшить длительности в 2 раза"
+msgstr "Уменьшить длительности вдвое"
 
 #: ../rhythm/__init__.py:151
 msgid "Halve all the durations in the selection."
 msgstr "Уменьшает длительности в 2 раза в выделенном фрагменте."
 
 #: ../rhythm/__init__.py:152
-#, fuzzy
 msgid "Do&t durations"
 msgstr "Добавить точки к длительностям"
 
@@ -4259,7 +4066,6 @@ msgid "Add a dot to all the durations in the selection."
 msgstr "Добавляет точки ко всем длительностям в выделенном фрагменте."
 
 #: ../rhythm/__init__.py:155
-#, fuzzy
 msgid "&Undot durations"
 msgstr "Удалить точки у длительностей"
 
@@ -4268,16 +4074,14 @@ msgid "Remove one dot from all the durations in the selection."
 msgstr "Удаляет одну точку у всех длительностей в выделенном фрагменте."
 
 #: ../rhythm/__init__.py:158
-#, fuzzy
 msgid "Remove &scaling"
-msgstr "Удалить нерегулярные группы"
+msgstr "Удалить масштабирование"
 
 #: ../rhythm/__init__.py:160
 msgid "Remove all scaling (*n/m) from the durations in the selection."
 msgstr "Удалить нерегулярные группы (*n/m) в выделенном."
 
 #: ../rhythm/__init__.py:161
-#, fuzzy
 msgid "&Remove durations"
 msgstr "Удалить длительности"
 
@@ -4286,7 +4090,6 @@ msgid "Remove all durations from the selection."
 msgstr "Удаляет все длительности в выделенном фрагменте."
 
 #: ../rhythm/__init__.py:164
-#, fuzzy
 msgid "Make &implicit"
 msgstr "Сделать длительности неявными"
 
@@ -4295,9 +4098,8 @@ msgid "Make durations implicit (remove repeated durations)."
 msgstr "Делает длительности неявными (удаляет повторяющиеся длительности)"
 
 #: ../rhythm/__init__.py:167
-#, fuzzy
 msgid "Make implicit (per &line)"
-msgstr "Сделать длительности неявными"
+msgstr "Сделать длительности неявными (по строкам)"
 
 #: ../rhythm/__init__.py:169
 #, fuzzy
@@ -4307,7 +4109,6 @@ msgid ""
 msgstr "Делает длительности неявными (удаляет повторяющиеся длительности)"
 
 #: ../rhythm/__init__.py:171
-#, fuzzy
 msgid "Make &explicit"
 msgstr "Сделать длительности явными"
 
@@ -4318,7 +4119,6 @@ msgid ""
 msgstr "Сделать длительности явными"
 
 #: ../rhythm/__init__.py:175
-#, fuzzy
 msgid "&Apply rhythm..."
 msgstr "Применить ритм..."
 
@@ -4327,7 +4127,6 @@ msgid "Apply an entered rhythm to the selected music."
 msgstr "Применить введенный ритм к выделенной музыке."
 
 #: ../rhythm/__init__.py:178
-#, fuzzy
 msgid "&Copy rhythm"
 msgstr "Копировать ритм"
 
@@ -4336,7 +4135,6 @@ msgid "Copy the rhythm of the selected music."
 msgstr "Копировать ритм выделенной музыки."
 
 #: ../rhythm/__init__.py:181
-#, fuzzy
 msgid "&Paste rhythm"
 msgstr "Вставить ритм"
 
@@ -4354,7 +4152,7 @@ msgstr "Введите ритм:"
 
 #: ../rhythm/rhythm.py:244
 msgid "Rhythm manipulation"
-msgstr ""
+msgstr "Ритмические манипуляции"
 
 #: ../rhythm/rhythm.py:247
 msgid ""
@@ -4395,65 +4193,57 @@ msgid ""
 msgstr ""
 
 #: ../rhythm/rhythm.py:279
-#, fuzzy
 msgctxt "submenu title"
 msgid "Rhythm"
-msgstr "&Ритм"
+msgstr "Ритм"
 
 #: ../scorewiz/__init__.py:56 ../scorewiz/dialog.py:192
 msgid "Setup New Score..."
-msgstr "Новая партитура"
+msgstr "Новая партитура..."
 
 #: ../scorewiz/build.py:136
 msgid "Music follows here."
-msgstr "Music follows here."
+msgstr "Вписывайте музыку сюда"
 
 #: ../scorewiz/build.py:403
 msgid "Remove default LilyPond tagline"
-msgstr "Удалить строку LilyPond по умолчанию"
+msgstr "Удалить строку версии LilyPond "
 
 #: ../scorewiz/dialog.py:77
 msgid "Score Setup Wizard"
-msgstr "Мастер Настройки Партитуры"
+msgstr "Мастер новой партитуры"
 
 #: ../scorewiz/dialog.py:80
-#, fuzzy
 msgid "Clear"
-msgstr "Челеста"
+msgstr "Очистить"
 
 #: ../scorewiz/dialog.py:82
 msgid "Clears the current page of the Score Wizard."
-msgstr ""
+msgstr "Очистить текущую страницу мастера"
 
 #: ../scorewiz/dialog.py:83
-#, fuzzy
 msgid "Preview"
-msgstr "Предпросмотр PDF"
+msgstr "Предпросмотр"
 
 #: ../scorewiz/dialog.py:126
-#, fuzzy
 msgid "Score Preview"
-msgstr "Предпросмотр PDF"
+msgstr "Предпросмотр партитуры"
 
 #: ../scorewiz/dialog.py:160
-#, fuzzy
 msgid "&Titles and Headers"
 msgstr "Заголовки"
 
 #: ../scorewiz/dialog.py:169
-#, fuzzy
 msgid "&Parts"
 msgstr "Инструменты"
 
 #: ../scorewiz/dialog.py:178
-#, fuzzy
 msgid "&Score settings"
 msgstr "Настройки партитуры"
 
 #: ../scorewiz/dialog.py:187
-#, fuzzy
 msgid "The Score Wizard"
-msgstr "Мастер Настройки Партитуры"
+msgstr "Мастер новой партитуры"
 
 #: ../scorewiz/dialog.py:193
 msgid ""
@@ -4539,11 +4329,11 @@ msgstr "Заголовок"
 
 #: ../scorewiz/header.py:138
 msgid "Subtitle"
-msgstr "Заголовок 2"
+msgstr "Подзаголовок"
 
 #: ../scorewiz/header.py:139
 msgid "Subsubtitle"
-msgstr "Заголовок 3"
+msgstr "Подподзаголовок"
 
 #: ../scorewiz/header.py:140
 msgid "Instrument"
@@ -4555,7 +4345,7 @@ msgstr "Композитор"
 
 #: ../scorewiz/header.py:142
 msgid "Arranger"
-msgstr "Редактор"
+msgstr "Аранжировщик"
 
 #: ../scorewiz/header.py:143
 msgid "Poet"
@@ -4563,7 +4353,7 @@ msgstr "Поэт"
 
 #: ../scorewiz/header.py:144
 msgid "Meter"
-msgstr "Метр"
+msgstr "Размер"
 
 #: ../scorewiz/header.py:145
 msgid "Piece"
@@ -4591,23 +4381,20 @@ msgstr "Партитура:"
 
 #: ../scorewiz/score.py:102
 msgid "&Add"
-msgstr ""
+msgstr "Добавить"
 
 #: ../scorewiz/score.py:103 ../snippet/widget.py:191 ../widgets/listedit.py:93
 #: ../widgets/schemeselector.py:64
-#, fuzzy
 msgid "&Remove"
-msgstr "Удалить нотные штили"
+msgstr "Удалить"
 
 #: ../scorewiz/score.py:104
-#, fuzzy
 msgid "Move up"
-msgstr "Переместить"
+msgstr "Вверх"
 
 #: ../scorewiz/score.py:105
-#, fuzzy
 msgid "Move down"
-msgstr "Переместить"
+msgstr "Вниз"
 
 #: ../scorewiz/scoreproperties.py:99
 msgid "Key signature:"
@@ -4666,7 +4453,6 @@ msgid "Locrian"
 msgstr "Локрийский"
 
 #: ../scorewiz/settings.py:79
-#, fuzzy
 msgid "Score properties"
 msgstr "Настройки партитуры"
 
@@ -4684,7 +4470,7 @@ msgstr "Заменить обычные кавычки в заголовках �
 
 #: ../scorewiz/settings.py:122
 msgid "Remove default tagline"
-msgstr "Удалить строку программы по умолчанию"
+msgstr "Удалить строку версии по умолчанию"
 
 #: ../scorewiz/settings.py:124
 msgid "Suppress the default tagline output by LilyPond."
@@ -4729,11 +4515,11 @@ msgstr "Альбомная"
 
 #: ../scorewiz/settings.py:192 ../scorewiz/settings.py:195
 msgid "Long"
-msgstr "Длинный"
+msgstr "Длинное название"
 
 #: ../scorewiz/settings.py:192 ../scorewiz/settings.py:195
 msgid "Short"
-msgstr "Короткий"
+msgstr "Короткое название"
 
 #: ../scorewiz/settings.py:219
 msgid "Instrument names"
@@ -4755,12 +4541,12 @@ msgstr ""
 #: ../scorewiz/settings.py:226
 msgid "Use short, long or no instrument names before the next systems."
 msgstr ""
-"(Не)Показывать сокращенные или длинные названия инструментов перед "
+"(Не)показывать сокращенные или длинные названия инструментов перед "
 "следующими системами."
 
 #: ../scorewiz/settings.py:228
 msgid "Which language to use for the instrument names."
-msgstr "Язык LilyPond для названий инструментов."
+msgstr "Язык для названий инструментов."
 
 #: ../scorewiz/settings.py:296
 msgid "Pitch name language:"
@@ -4784,7 +4570,7 @@ msgstr "Настройки недоступны."
 
 #: ../scorewiz/parts/_base.py:133
 msgid "Adjust how many separate voices you want on each staff."
-msgstr "Количество голосов на каждом нотоносце."
+msgstr "Количество голосов на каждом нотном стане."
 
 #: ../scorewiz/parts/_base.py:134
 msgid "This is primarily useful when you write polyphonic music like a fuge."
@@ -4816,7 +4602,7 @@ msgstr ""
 
 #: ../scorewiz/parts/_base.py:203
 msgid "Chords follow here."
-msgstr ""
+msgstr "Набирайте аккорды здесь"
 
 #: ../scorewiz/parts/_base.py:215
 msgid "German"
@@ -4837,32 +4623,30 @@ msgstr "Французский"
 
 #: ../scorewiz/parts/brass.py:39
 msgid "Horn in F"
-msgstr "Валторна"
+msgstr "Валторна in F"
 
 #: ../scorewiz/parts/brass.py:43
 msgctxt "abbreviation for Horn in F"
 msgid "Hn.F."
-msgstr "Hn.F."
+msgstr "Cor. in F"
 
 #: ../scorewiz/parts/brass.py:52
 msgid "Trumpet in C"
 msgstr "Труба in C"
 
 #: ../scorewiz/parts/brass.py:56
-#, fuzzy
 msgctxt "abbreviation for Trumpet in C"
 msgid "Tr.C."
-msgstr "Tr.C"
+msgstr "Тr. in C"
 
 #: ../scorewiz/parts/brass.py:64
 msgid "Trumpet in Bb"
 msgstr "Труба in B"
 
 #: ../scorewiz/parts/brass.py:68
-#, fuzzy
 msgctxt "abbreviation for Trumpet in Bb"
 msgid "Tr.Bb."
-msgstr "Tr.Bb"
+msgstr "Tr. in B"
 
 #: ../scorewiz/parts/brass.py:76
 msgid "Trombone"
@@ -4871,7 +4655,7 @@ msgstr "Тромбон"
 #: ../scorewiz/parts/brass.py:80
 msgctxt "abbreviation for Trombone"
 msgid "Trb."
-msgstr "Trb."
+msgstr "Tr-no"
 
 #: ../scorewiz/parts/brass.py:90
 msgid "Tuba"
@@ -4880,7 +4664,7 @@ msgstr "Туба"
 #: ../scorewiz/parts/brass.py:94
 msgctxt "abbreviation for Tuba"
 msgid "Tb."
-msgstr "Tb."
+msgstr "T-ba"
 
 #: ../scorewiz/parts/brass.py:103
 msgid "Bass Tuba"
@@ -4889,73 +4673,66 @@ msgstr "Басовая туба"
 #: ../scorewiz/parts/brass.py:107
 msgctxt "abbreviation for Bass Tuba"
 msgid "B.Tb."
-msgstr "B.Tb."
+msgstr "T-ba b."
 
 #: ../scorewiz/parts/brass.py:116
 msgid "Brass"
 msgstr "Медные духовые"
 
 #: ../scorewiz/parts/containers.py:43
-#, fuzzy
 msgid "Staff Group"
-msgstr "Тип нотоносца:"
+msgstr "Группа станов"
 
 #. L10N: Brace like a piano staff
 #: ../scorewiz/parts/containers.py:54
-#, fuzzy
 msgid "Brace"
-msgstr "Медные духовые"
+msgstr "Фигурная акколада"
 
 #. L10N: Bracket like a choir staff
 #: ../scorewiz/parts/containers.py:56
 msgid "Bracket"
-msgstr ""
+msgstr "Обычная акколада"
 
 #. L10N: Square bracket like a sub-group
 #: ../scorewiz/parts/containers.py:58
-#, fuzzy
 msgid "Square"
-msgstr "Сохранить"
+msgstr "Квадратная акколада"
 
 #: ../scorewiz/parts/containers.py:71
 msgid "Type:"
-msgstr ""
+msgstr "Тип:"
 
 #: ../scorewiz/parts/containers.py:72
-#, fuzzy
 msgid "Connect Barlines"
-msgstr "Без тактовых черт"
+msgstr "Соединять тактовые черты"
 
 #: ../scorewiz/parts/containers.py:73
 msgid "If checked, barlines are connected between the staves."
 msgstr ""
 
 #: ../scorewiz/parts/containers.py:94
-#, fuzzy
 msgid "Score"
-msgstr "Партитура:"
+msgstr "Партитура"
 
 #: ../scorewiz/parts/containers.py:123
-#, fuzzy
 msgid "Piece:"
-msgstr "Название произведения"
+msgstr "Название части:"
 
 #: ../scorewiz/parts/containers.py:124
-#, fuzzy
 msgid "Opus:"
-msgstr "Опус"
+msgstr "Опус:"
 
 #: ../scorewiz/parts/containers.py:125
 msgid "Properties"
-msgstr ""
+msgstr "Свойства"
 
 #: ../scorewiz/parts/containers.py:153
 msgid "Book Part"
-msgstr ""
+msgstr "Часть сборника"
 
 #: ../scorewiz/parts/containers.py:166
 msgid "Book"
-msgstr ""
+msgstr "Сборник"
 
 #: ../scorewiz/parts/containers.py:188
 msgid ""
@@ -4968,20 +4745,19 @@ msgstr ""
 
 #: ../scorewiz/parts/containers.py:193
 msgid "Output Filename:"
-msgstr ""
+msgstr "Имя выходного файла:"
 
 #: ../scorewiz/parts/containers.py:194
 msgid "Filename"
-msgstr ""
+msgstr "Имя файла"
 
 #: ../scorewiz/parts/containers.py:195
 msgid "Suffix"
-msgstr ""
+msgstr "Суффикс"
 
 #: ../scorewiz/parts/containers.py:207
-#, fuzzy
 msgid "Containers"
-msgstr "Без тактовых черт"
+msgstr "Средства группировки"
 
 #: ../scorewiz/parts/keyboard.py:44
 msgid "Piano"
@@ -4990,7 +4766,7 @@ msgstr "Фортепиано"
 #: ../scorewiz/parts/keyboard.py:48
 msgctxt "abbreviation for Piano"
 msgid "Pno."
-msgstr "Pno."
+msgstr "P-no"
 
 #: ../scorewiz/parts/keyboard.py:56
 msgid "Harpsichord"
@@ -4999,7 +4775,7 @@ msgstr "Клавесин"
 #: ../scorewiz/parts/keyboard.py:60
 msgctxt "abbreviation for Harpsichord"
 msgid "Hs."
-msgstr "Hs."
+msgstr "Cemb."
 
 #: ../scorewiz/parts/keyboard.py:68
 msgid "Clavichord"
@@ -5008,7 +4784,7 @@ msgstr "Клавикорд"
 #: ../scorewiz/parts/keyboard.py:72
 msgctxt "abbreviation for Clavichord"
 msgid "Clv."
-msgstr "Clv."
+msgstr "Clav."
 
 #: ../scorewiz/parts/keyboard.py:80
 msgid "Organ"
@@ -5047,7 +4823,7 @@ msgstr "Литавры"
 #: ../scorewiz/parts/percussion.py:49
 msgctxt "abbreviation for Timpani"
 msgid "Tmp."
-msgstr "Tmp."
+msgstr "Timp."
 
 #: ../scorewiz/parts/percussion.py:59
 msgid "Xylophone"
@@ -5056,7 +4832,7 @@ msgstr "Ксилофон"
 #: ../scorewiz/parts/percussion.py:63
 msgctxt "abbreviation for Xylophone"
 msgid "Xyl."
-msgstr "Xyl."
+msgstr "Sil."
 
 #: ../scorewiz/parts/percussion.py:71
 msgid "Marimba"
@@ -5069,16 +4845,15 @@ msgstr "Mar."
 
 #: ../scorewiz/parts/percussion.py:84 ../scorewiz/parts/plucked_strings.py:318
 msgid "Upper staff:"
-msgstr ""
+msgstr "Верхний стан:"
 
 #: ../scorewiz/parts/percussion.py:85 ../scorewiz/parts/plucked_strings.py:319
-#, fuzzy
 msgid "Lower staff:"
-msgstr "Обычный"
+msgstr "Нижний стан:"
 
 #: ../scorewiz/parts/percussion.py:87
 msgid "Set the number of voices to 0 to disable the second staff."
-msgstr ""
+msgstr "Установите число голосов в ноль для удаления второго стана"
 
 #: ../scorewiz/parts/percussion.py:99
 msgid "Vibraphone"
@@ -5096,7 +4871,7 @@ msgstr "Колокола"
 #: ../scorewiz/parts/percussion.py:115
 msgctxt "abbreviation for Tubular bells"
 msgid "Tub."
-msgstr "Tub."
+msgstr "Camp."
 
 #: ../scorewiz/parts/percussion.py:123
 msgid "Glockenspiel"
@@ -5105,28 +4880,24 @@ msgstr "Колокольчик"
 #: ../scorewiz/parts/percussion.py:127
 msgctxt "abbreviation for Glockenspiel"
 msgid "Gls."
-msgstr "Gls."
+msgstr "C-lli"
 
 #: ../scorewiz/parts/percussion.py:135
-#, fuzzy
 msgid "Carillon"
-msgstr "Кларнет"
+msgstr "Карильон"
 
 #: ../scorewiz/parts/percussion.py:139
-#, fuzzy
 msgctxt "abbreviation for Carillon"
 msgid "Car."
-msgstr "Mar."
+msgstr "Car."
 
 #: ../scorewiz/parts/percussion.py:145
-#, fuzzy
 msgid "Manual staff:"
-msgstr "Обычный"
+msgstr "Мануалы:"
 
 #: ../scorewiz/parts/percussion.py:146
-#, fuzzy
 msgid "Pedal staff:"
-msgstr "Обычный"
+msgstr "Педаль:"
 
 #: ../scorewiz/parts/percussion.py:161
 msgid "Drums"
@@ -5144,7 +4915,7 @@ msgstr "Голоса:"
 
 #: ../scorewiz/parts/percussion.py:188
 msgid "Remove stems"
-msgstr "Удалить нотные штили"
+msgstr "Удалить штили"
 
 #: ../scorewiz/parts/percussion.py:189
 msgid "Remove the stems from the drum notes."
@@ -5184,7 +4955,7 @@ msgstr "Ударные"
 
 #: ../scorewiz/parts/plucked_strings.py:76
 msgid "Staff type:"
-msgstr "Тип нотоносца:"
+msgstr "Тип стана:"
 
 #: ../scorewiz/parts/plucked_strings.py:82
 msgid "Tuning:"
@@ -5254,10 +5025,9 @@ msgid "Classical guitar"
 msgstr "Классическая гитара"
 
 #: ../scorewiz/parts/plucked_strings.py:238
-#, fuzzy
 msgctxt "abbreviation for Classical guitar"
 msgid "Gt."
-msgstr "Gt."
+msgstr "Chit."
 
 #: ../scorewiz/parts/plucked_strings.py:243
 msgid "Guitar tuning"
@@ -5274,7 +5044,7 @@ msgstr "Джазовая гитара"
 #: ../scorewiz/parts/plucked_strings.py:271
 msgctxt "abbreviation for Jazz guitar"
 msgid "J.Gt."
-msgstr "J.Gt."
+msgstr "J. Gt."
 
 #: ../scorewiz/parts/plucked_strings.py:279 ../scorewiz/parts/vocal.py:171
 msgid "Bass"
@@ -5287,11 +5057,11 @@ msgstr "Bs."
 
 #: ../scorewiz/parts/plucked_strings.py:289
 msgid "Bass tuning"
-msgstr ""
+msgstr "Настройка баса"
 
 #: ../scorewiz/parts/plucked_strings.py:296
 msgid "Electric bass"
-msgstr "Бас-гитара"
+msgstr "Электро-бас-гитара"
 
 #: ../scorewiz/parts/plucked_strings.py:300
 msgctxt "abbreviation for Electric bass"
@@ -5305,7 +5075,7 @@ msgstr "Арфа"
 #: ../scorewiz/parts/plucked_strings.py:312
 msgctxt "abbreviation for Harp"
 msgid "Hp."
-msgstr "Hp."
+msgstr "Arpa"
 
 #: ../scorewiz/parts/plucked_strings.py:335
 msgid "Plucked strings"
@@ -5321,11 +5091,11 @@ msgstr "Цифрованный бас"
 
 #: ../scorewiz/parts/special.py:52
 msgid "Use extender lines"
-msgstr ""
+msgstr "Использовать линии продолжения"
 
 #: ../scorewiz/parts/special.py:60 ../scorewiz/parts/strings.py:109
 msgid "Figures follow here."
-msgstr ""
+msgstr "Набирайте генерал-бас здесь"
 
 #: ../scorewiz/parts/special.py:70
 #, fuzzy
@@ -5343,7 +5113,7 @@ msgstr "Скрипка"
 #: ../scorewiz/parts/strings.py:45
 msgctxt "abbreviation for Violin"
 msgid "Vl."
-msgstr "Vl."
+msgstr "V-no"
 
 #: ../scorewiz/parts/strings.py:53
 msgid "Viola"
@@ -5352,7 +5122,7 @@ msgstr "Альт"
 #: ../scorewiz/parts/strings.py:57
 msgctxt "abbreviation for Viola"
 msgid "Vla."
-msgstr "Vla."
+msgstr "V-la"
 
 #: ../scorewiz/parts/strings.py:67
 msgid "Cello"
@@ -5361,7 +5131,7 @@ msgstr "Виолончель"
 #: ../scorewiz/parts/strings.py:71
 msgctxt "abbreviation for Cello"
 msgid "Cl."
-msgstr "Cl."
+msgstr "V-c"
 
 #: ../scorewiz/parts/strings.py:81
 msgid "Contrabass"
@@ -5370,17 +5140,16 @@ msgstr "Контрабас"
 #: ../scorewiz/parts/strings.py:85
 msgctxt "abbreviation for Contrabass"
 msgid "Cb."
-msgstr "Cb."
+msgstr "C-b"
 
 #: ../scorewiz/parts/strings.py:95
-#, fuzzy
 msgid "Basso Continuo"
-msgstr "Бассо континуо"
+msgstr "Континуо"
 
 #: ../scorewiz/parts/strings.py:99
 msgctxt "abbreviation for Basso Continuo"
 msgid "B.c."
-msgstr "B.c."
+msgstr "Cont."
 
 #: ../scorewiz/parts/strings.py:117
 msgid "Strings"
@@ -5405,7 +5174,7 @@ msgstr ""
 
 #: ../scorewiz/parts/vocal.py:89
 msgid "Lyrics follow here."
-msgstr ""
+msgstr "Набирайте слова здесь"
 
 #: ../scorewiz/parts/vocal.py:126
 msgid "Soprano"
@@ -5417,14 +5186,13 @@ msgid "S."
 msgstr "S."
 
 #: ../scorewiz/parts/vocal.py:136
-#, fuzzy
 msgid "Mezzo-soprano"
 msgstr "Меццо-сопрано"
 
 #: ../scorewiz/parts/vocal.py:140
 msgctxt "abbreviation for Mezzo-soprano"
 msgid "Ms."
-msgstr "Ms."
+msgstr "M."
 
 #: ../scorewiz/parts/vocal.py:146
 msgid "Alto"
@@ -5451,7 +5219,7 @@ msgstr "B."
 
 #: ../scorewiz/parts/vocal.py:184
 msgid "Lead sheet"
-msgstr "Нотный стан"
+msgstr "Песня с аккордами"
 
 #: ../scorewiz/parts/vocal.py:202
 msgid ""
@@ -5493,14 +5261,12 @@ msgid "Voicing:"
 msgstr "Голоса:"
 
 #: ../scorewiz/parts/vocal.py:323
-#, fuzzy
 msgid "Lyrics:"
-msgstr "Тексты"
+msgstr "Текст:"
 
 #: ../scorewiz/parts/vocal.py:324
-#, fuzzy
 msgid "Piano reduction"
-msgstr "Направление:"
+msgstr "Фортепианное переложение"
 
 #: ../scorewiz/parts/vocal.py:326
 msgid "Adds an automatically generated piano reduction."
@@ -5508,7 +5274,7 @@ msgstr ""
 
 #: ../scorewiz/parts/vocal.py:327
 msgid "Rehearsal MIDI files"
-msgstr ""
+msgstr "MIDI для репетиции"
 
 #: ../scorewiz/parts/vocal.py:329
 msgid ""
@@ -5519,20 +5285,19 @@ msgstr ""
 #: ../scorewiz/parts/vocal.py:361
 msgctxt "abbreviation for Choir"
 msgid "Ch."
-msgstr "Ch."
+msgstr "Хор"
 
 #: ../scorewiz/parts/vocal.py:612
 msgid "Rehearsal MIDI files:"
-msgstr ""
+msgstr "MIDI для репетиции:"
 
 #: ../scorewiz/parts/vocal.py:658
 msgid "All voices same lyrics"
 msgstr "Одинаковый текст во всех голосах"
 
 #: ../scorewiz/parts/vocal.py:659
-#, fuzzy
 msgid "A set of the same lyrics is placed between all staves."
-msgstr "Один и тот же текст располагается между всеми нотоносцами."
+msgstr "Один и тот же текст располагается между всеми станами."
 
 #: ../scorewiz/parts/vocal.py:660
 msgid "Every voice same lyrics"
@@ -5541,11 +5306,11 @@ msgstr "Одинаковый текст во всех голосах"
 #: ../scorewiz/parts/vocal.py:661
 msgid ""
 "Every voice gets its own lyrics, using the same text as the other voices."
-msgstr ""
+msgstr "У каждого голоса своя строка текста, одинакового во всех голосах"
 
 #: ../scorewiz/parts/vocal.py:663
 msgid "Every voice different lyrics"
-msgstr "Разный текст у каждого голоса"
+msgstr "Разный текст у всех голосов"
 
 #: ../scorewiz/parts/vocal.py:664
 msgid "Every voice gets a different set of lyrics."
@@ -5553,10 +5318,9 @@ msgstr "Каждый голос имеет свой текст."
 
 #: ../scorewiz/parts/vocal.py:665
 msgid "Distribute stanzas"
-msgstr ""
+msgstr "Распределить строфы"
 
 #: ../scorewiz/parts/vocal.py:666
-#, fuzzy
 msgid "One set of stanzas is distributed across the staves."
 msgstr "Один и тот же текст располагается между всеми нотоносцами."
 
@@ -5580,7 +5344,7 @@ msgstr "Флейта пикколо"
 #: ../scorewiz/parts/woodwind.py:55
 msgctxt "abbreviation for Piccolo"
 msgid "Pic."
-msgstr "Pic."
+msgstr "Picc."
 
 #: ../scorewiz/parts/woodwind.py:64
 msgid "Bass flute"
@@ -5589,7 +5353,7 @@ msgstr "Басовая флейта"
 #: ../scorewiz/parts/woodwind.py:68
 msgctxt "abbreviation for Bass flute"
 msgid "Bfl."
-msgstr "Bfl."
+msgstr "Fl. b."
 
 #: ../scorewiz/parts/woodwind.py:77
 msgid "Oboe"
@@ -5601,24 +5365,22 @@ msgid "Ob."
 msgstr "Ob."
 
 #: ../scorewiz/parts/woodwind.py:89
-#, fuzzy
 msgid "Oboe d'amore"
 msgstr "Гобой д'амур"
 
 #: ../scorewiz/parts/woodwind.py:93
 msgctxt "abbreviation for Oboe d'amore"
 msgid "Ob.d'am."
-msgstr "Ob.d'am."
+msgstr "Ob. d'am."
 
 #: ../scorewiz/parts/woodwind.py:102
-#, fuzzy
 msgid "English horn"
 msgstr "Английский рожок"
 
 #: ../scorewiz/parts/woodwind.py:106
 msgctxt "abbreviation for English horn"
 msgid "Eng.h."
-msgstr "Eng.h."
+msgstr "Cor. ingl."
 
 #: ../scorewiz/parts/woodwind.py:115
 msgid "Bassoon"
@@ -5627,7 +5389,7 @@ msgstr "Фагот"
 #: ../scorewiz/parts/woodwind.py:119
 msgctxt "abbreviation for Bassoon"
 msgid "Bn."
-msgstr "Bn."
+msgstr "Fag."
 
 #: ../scorewiz/parts/woodwind.py:129
 msgid "Contrabassoon"
@@ -5636,7 +5398,7 @@ msgstr "Контрафагот"
 #: ../scorewiz/parts/woodwind.py:133
 msgctxt "abbreviation for Contrabassoon"
 msgid "C.Bn."
-msgstr "C.Bn."
+msgstr "C-Fag."
 
 #: ../scorewiz/parts/woodwind.py:144
 msgid "Clarinet"
@@ -5654,7 +5416,7 @@ msgstr "Саксофон-сопранино"
 #: ../scorewiz/parts/woodwind.py:161
 msgctxt "abbreviation for Sopranino Sax"
 msgid "SiSx."
-msgstr "SiSx."
+msgstr "S-ino Sax."
 
 #: ../scorewiz/parts/woodwind.py:170
 msgid "Soprano Sax"
@@ -5663,7 +5425,7 @@ msgstr "Саксофон-сопрано"
 #: ../scorewiz/parts/woodwind.py:174
 msgctxt "abbreviation for Soprano Sax"
 msgid "SoSx."
-msgstr "SoSx."
+msgstr "Sopr. Sax."
 
 #: ../scorewiz/parts/woodwind.py:183
 msgid "Alto Sax"
@@ -5672,7 +5434,7 @@ msgstr "Альт-саксофон"
 #: ../scorewiz/parts/woodwind.py:187
 msgctxt "abbreviation for Alto Sax"
 msgid "ASx."
-msgstr "ASx."
+msgstr "A. Sax."
 
 #: ../scorewiz/parts/woodwind.py:196
 msgid "Tenor Sax"
@@ -5681,7 +5443,7 @@ msgstr "Тенор-саксофон"
 #: ../scorewiz/parts/woodwind.py:200
 msgctxt "abbreviation for Tenor Sax"
 msgid "TSx."
-msgstr "TSx."
+msgstr "T. Sax."
 
 #: ../scorewiz/parts/woodwind.py:209
 msgid "Baritone Sax"
@@ -5690,7 +5452,7 @@ msgstr "Баритон-саксофон"
 #: ../scorewiz/parts/woodwind.py:213
 msgctxt "abbreviation for Baritone Sax"
 msgid "BSx."
-msgstr "BSx."
+msgstr "Bar. Sax."
 
 #: ../scorewiz/parts/woodwind.py:222
 msgid "Bass Sax"
@@ -5699,88 +5461,79 @@ msgstr "Бас-саксофон"
 #: ../scorewiz/parts/woodwind.py:226
 msgctxt "abbreviation for Bass Sax"
 msgid "BsSx."
-msgstr "BsSx."
+msgstr "B. Sax."
 
 #: ../scorewiz/parts/woodwind.py:235
 msgid "Soprano recorder"
-msgstr "Сопрановая блокфлейта"
+msgstr "Сопрановая блок-флейта"
 
 #: ../scorewiz/parts/woodwind.py:239
 msgctxt "abbreviation for Soprano recorder"
 msgid "S.rec."
-msgstr "S.rec."
+msgstr "S. Rec."
 
 #: ../scorewiz/parts/woodwind.py:248
 msgid "Alto recorder"
-msgstr "Альтовая блокфлейта"
+msgstr "Альтовая блок-флейта"
 
 #: ../scorewiz/parts/woodwind.py:252
 msgctxt "abbreviation for Alto recorder"
 msgid "A.rec."
-msgstr "A.rec."
+msgstr "A. Rec."
 
 #: ../scorewiz/parts/woodwind.py:260
 msgid "Tenor recorder"
-msgstr "Теноровая блокфлейта"
+msgstr "Теноровая блок-флейта"
 
 #: ../scorewiz/parts/woodwind.py:264
 msgctxt "abbreviation for Tenor recorder"
 msgid "T.rec."
-msgstr "T.rec."
+msgstr "T. Rec."
 
 #: ../scorewiz/parts/woodwind.py:272
 msgid "Bass recorder"
-msgstr "Басовая блокфлейта"
+msgstr "Басовая блок-флейта"
 
 #: ../scorewiz/parts/woodwind.py:276
 msgctxt "abbreviation for Bass recorder"
 msgid "B.rec."
-msgstr "B.rec."
+msgstr "B. Rec."
 
 #: ../scorewiz/parts/woodwind.py:285
 msgid "Woodwinds"
 msgstr "Деревянные духовые"
 
 #: ../sessions/dialog.py:43
-#, fuzzy
 msgid "Manage Sessions"
-msgstr "Используемая сессия"
+msgstr "Управление сессиями"
 
 #: ../sessions/dialog.py:115
-#, fuzzy
 msgid "Name:"
-msgstr "Имя"
+msgstr "Имя:"
 
 #: ../sessions/dialog.py:116
 msgid "Always save the list of documents in this session"
-msgstr ""
+msgstr "Всегда сохранять список документов в этой сессии"
 
 #: ../sessions/dialog.py:117
-#, fuzzy
 msgid "Base directory:"
-msgstr "Каталог по умолчанию:"
+msgstr "Базовый каталог:"
 
 #: ../sessions/dialog.py:139
 msgid "Edit session: {name}"
-msgstr ""
+msgstr "Редактирование сессии: {name}"
 
 #: ../sessions/dialog.py:143
 msgid "Edit new session"
-msgstr ""
+msgstr "Редактирование новой сессии"
 
 #: ../sessions/dialog.py:172
-#, fuzzy
 msgid "Please enter a session name."
-msgstr ""
-"Используйте только латинские буквы, цифры и символ подчеркивания в названии "
-"расширения."
+msgstr "Введите имя сессии."
 
 #: ../sessions/dialog.py:180
-#, fuzzy
 msgid "Please do not use the name '{name}'."
-msgstr ""
-"Используйте только латинские буквы, цифры и символ подчеркивания в названии "
-"расширения."
+msgstr "Не используйте имя '{name}'."
 
 #: ../sessions/dialog.py:186
 msgid ""
@@ -5788,235 +5541,207 @@ msgid ""
 "\n"
 "Do you want to overwrite it?"
 msgstr ""
+"Уже существует другая сессия под именем {name}\n"
+"\n"
+"Перезаписать?"
 
 #: ../sessions/dialog.py:189
 msgid "Overwrite"
-msgstr ""
+msgstr "Перезаписать"
 
 #: ../sessions/manager.py:126
 msgctxt "New Session"
 msgid "&New..."
-msgstr ""
+msgstr "Новая..."
 
 #: ../sessions/manager.py:128
 msgid "&Manage..."
-msgstr ""
+msgstr "Управление..."
 
 #: ../sessions/manager.py:129
-#, fuzzy
 msgid "No Session"
-msgstr "Ударные"
+msgstr "Нет сесиии"
 
 #: ../sessions/menu.py:55
-#, fuzzy
 msgctxt "menu title"
 msgid "&Session"
-msgstr "Используемая сессия"
+msgstr "Сессия"
 
 #: ../sidebar/__init__.py:245
-#, fuzzy
 msgid "&Line Numbers"
-msgstr "&Тактовые черты"
+msgstr "Номера строк"
 
 #: ../sidebar/__init__.py:246
 msgid "&Enable Folding"
-msgstr ""
+msgstr "Включить сворачивание"
 
 #: ../sidebar/__init__.py:247
 msgid "&Fold Current Region"
-msgstr ""
+msgstr "Свернуть текущий уровень"
 
 #: ../sidebar/__init__.py:248
 msgid "Fold &Top Region"
-msgstr ""
+msgstr "Свернуть первый уровень"
 
 #: ../sidebar/__init__.py:249
 msgid "&Unfold Current Region"
-msgstr ""
+msgstr "Развернуть текущий уровень"
 
 #: ../sidebar/__init__.py:250
 msgid "Fold &All"
-msgstr ""
+msgstr "Свернуть всё"
 
 #: ../sidebar/__init__.py:251
 msgid "U&nfold All"
-msgstr ""
+msgstr "Развернуть всё"
 
 #: ../snippet/builtin.py:38
-#, fuzzy
 msgid "Blank Line"
-msgstr "&Тактовые черты"
+msgstr "Пустая строка"
 
 #: ../snippet/builtin.py:44
 msgid "Delete Line(s)"
-msgstr ""
+msgstr "Удалить строку/строки"
 
 #: ../snippet/builtin.py:62
-#, fuzzy
 msgid "Next Blank Line"
-msgstr "&Тактовые черты"
+msgstr "Следующая пустая строка"
 
 #: ../snippet/builtin.py:76
-#, fuzzy
 msgid "Previous Blank Line"
 msgstr "Предыдущая пустая строка"
 
 #: ../snippet/builtin.py:90
-#, fuzzy
 msgid "Select until Next Blank Line"
-msgstr "Перейти к следующей пустой строке."
+msgstr "Выделить до следующей пустой строки."
 
 #: ../snippet/builtin.py:104
-#, fuzzy
 msgid "Select until Previous Blank Line"
-msgstr "Перейти к предыдущей пустой строке."
+msgstr "Выделить до предыдующей пустой строки."
 
 #: ../snippet/builtin.py:118
-#, fuzzy
 msgid "Single Typographical Quotes"
-msgstr "Использовать типографские кавычки"
+msgstr "Одинарные типографские кавычки"
 
 #: ../snippet/builtin.py:123
-#, fuzzy
 msgid "Double Typographical Quotes"
-msgstr "Использовать типографские кавычки"
+msgstr "Двойные типографские кавычки"
 
 #: ../snippet/builtin.py:189
 msgid "Tuplets"
-msgstr ""
+msgstr "Триоль"
 
 #: ../snippet/builtin.py:199
-#, fuzzy
 msgid "Modern 2/2 Time Signature"
-msgstr "Размер:"
+msgstr "Размер 2/2 цифрами"
 
 #: ../snippet/builtin.py:205
-#, fuzzy
 msgid "Modern 4/4 Time Signature"
-msgstr "Размер:"
+msgstr "Размер 4/4 цифрами"
 
 #: ../snippet/builtin.py:211
 msgid "Tactus Time Signature (number with note)"
-msgstr ""
+msgstr "Размер такта (число и нота)"
 
 #: ../snippet/builtin.py:222
-#, fuzzy
 msgid "LilyPond Version"
-msgstr "Вставить версию LilyPond"
+msgstr "Версия LilyPond"
 
 #: ../snippet/builtin.py:233
 msgid "Relative Music"
-msgstr ""
+msgstr "Относительная музыка"
 
 #: ../snippet/builtin.py:250
-#, fuzzy
 msgid "Upper case selection"
-msgstr "Настройки партитуры"
+msgstr "Преобразовать в верхний регистр"
 
 #: ../snippet/builtin.py:256
-#, fuzzy
 msgid "Lower case selection"
-msgstr "Настройки партитуры"
+msgstr "Преобразовать в нижний регистр"
 
 #: ../snippet/builtin.py:262
-#, fuzzy
 msgid "Title case selection"
-msgstr "Построчный режим выбора"
+msgstr "Каждое Слово С Большой Буквы"
 
 #: ../snippet/builtin.py:273
-#, fuzzy
 msgid "Markup lines"
-msgstr "&Тактовые черты"
+msgstr "Преобразовать в разметку, сохранив строки"
 
 #: ../snippet/builtin.py:281
 msgid "Markup column"
-msgstr ""
+msgstr "Разметка в столбик"
 
 #: ../snippet/builtin.py:286
-#, fuzzy
 msgid "Tagline with date and LilyPond version"
-msgstr "Вставить версию LilyPond"
+msgstr "Строка снизу с датой и версией LilyPond"
 
 #: ../snippet/builtin.py:296
 msgid "Header Template"
-msgstr ""
+msgstr "Шаблон заголовка"
 
 #: ../snippet/builtin.py:311
-#, fuzzy
 msgid "No Tagline"
-msgstr "Строка программы"
+msgstr "Без строки с версией"
 
 #: ../snippet/builtin.py:319
-#, fuzzy
 msgid "No Barnumbers"
-msgstr "Удалить номера тактов"
+msgstr "Без номеров тактов"
 
 #: ../snippet/builtin.py:329
-#, fuzzy
 msgid "Midi Tempo"
-msgstr "Темп:"
+msgstr "Темп для MIDI:"
 
 #: ../snippet/builtin.py:339
-#, fuzzy
 msgid "Staff Size"
-msgstr "Тип нотоносца:"
+msgstr "Размер стана"
 
 #: ../snippet/builtin.py:396
-#, fuzzy
 msgid "Uncomment"
-msgstr "Команда печати:"
+msgstr "Раскомментировать"
 
 #: ../snippet/builtin.py:439
-#, fuzzy
 msgid "A5 Paper"
-msgstr "Размер страницы:"
+msgstr "Страница A5"
 
 #: ../snippet/builtin.py:447
-#, fuzzy
 msgid "Document Fonts..."
-msgstr "&Документ"
+msgstr "Шрифты документа..."
 
 #: ../snippet/builtin.py:475
-#, fuzzy
 msgid "Last note or chord"
 msgstr "Повторить последнюю ноту или аккорд"
 
 #: ../snippet/builtin.py:556
-#, fuzzy
 msgid "Color"
-msgstr "Композитор"
+msgstr "Цвет"
 
 #: ../snippet/builtin.py:593
-#, fuzzy
 msgid "Basic Leadsheet"
-msgstr "Нотный стан"
+msgstr "Песня с аккордами"
 
 #: ../snippet/builtin.py:637
-#, fuzzy
 msgid "Choir Hymn"
-msgstr "Хор"
+msgstr "Хор типа гимн"
 
 #: ../snippet/edit.py:120 ../snippet/insert.py:223
 msgid "Edit Snippet"
-msgstr ""
+msgstr "Редактировать сниппет"
 
 #: ../snippet/edit.py:120
 msgid "New Snippet"
-msgstr ""
+msgstr "Новый сниппет"
 
 #: ../snippet/edit.py:122
 msgid "Snippet Text:"
-msgstr ""
+msgstr "Текст сниппета:"
 
 #: ../snippet/edit.py:123
-#, fuzzy
 msgid "Title:"
-msgstr "Заголовок"
+msgstr "Название:"
 
 #: ../snippet/edit.py:124
-#, fuzzy
 msgid "Shortcut:"
-msgstr "Сокращение"
+msgstr "Комбинация клавиш:"
 
 #: ../snippet/edit.py:135
 msgid "Click to change the keyboard shortcut."
@@ -6024,21 +5749,23 @@ msgstr ""
 
 #: ../snippet/edit.py:141
 msgid "Empty Snippet"
-msgstr ""
+msgstr "Пустой сниппет"
 
 #: ../snippet/edit.py:142
 msgid "A snippet can't be empty."
-msgstr ""
+msgstr "Сниппет не может быть пустым"
 
 #: ../snippet/edit.py:147
 msgid ""
 "The snippet has been modified.\n"
 "Do you want to save your changes or discard them?"
 msgstr ""
+"Сниппет был изменён.\n"
+"Сохранить изменения?"
 
 #: ../snippet/edit.py:214
 msgid "Snippet editor"
-msgstr ""
+msgstr "Редактор сниппетов"
 
 #: ../snippet/edit.py:219
 msgid ""
@@ -6061,27 +5788,26 @@ msgid ""
 msgstr ""
 
 #: ../snippet/edit.py:234
-#, fuzzy
 msgctxt "menu title"
 msgid "File"
-msgstr "Заголовок"
+msgstr "Файл"
 
 #: ../snippet/edit.py:235
 msgctxt "menu subtitle"
 msgid "New from Template"
-msgstr ""
+msgstr "Новый из шаблона"
 
 #: ../snippet/edit.py:237
 msgid "The mnemonic to type to select the snippet."
-msgstr ""
+msgstr "Мнемоника для выбора сниппета."
 
 #: ../snippet/edit.py:239
 msgid "Do not auto-indent the snippet after inserting."
-msgstr ""
+msgstr "Не выравнивать сниппет автоматически"
 
 #: ../snippet/edit.py:241
 msgid "The icon to show in menu and snippet list."
-msgstr ""
+msgstr "Значок для меню и списка сниппетов."
 
 #: ../snippet/edit.py:243
 msgid ""
@@ -6201,43 +5927,36 @@ msgstr ""
 
 #: ../snippet/import_export.py:103
 msgid "No snippets found."
-msgstr ""
+msgstr "Сниппеты не найдены."
 
 #: ../snippet/import_export.py:113 ../snippet/widget.py:293
-#, fuzzy
 msgctxt "dialog title"
 msgid "Import Snippets"
-msgstr "Удалить паузы"
+msgstr "Импортировать сниппеты"
 
 #: ../snippet/import_export.py:122
-#, fuzzy
 msgid "New Snippets"
-msgstr "Удалить паузы"
+msgstr "Новые сниппеты"
 
 #: ../snippet/import_export.py:123
-#, fuzzy
 msgid "Updated Snippets"
-msgstr "Удалить паузы"
+msgstr "Обновленные сниппеты"
 
 #: ../snippet/import_export.py:124
-#, fuzzy
 msgid "Unchanged Snippets"
-msgstr "Удалить паузы"
+msgstr "Неизменённые сниппеты"
 
 #: ../snippet/import_export.py:186
-#, fuzzy
 msgid "Import Keyboard Shortcuts"
-msgstr "Клавишные"
+msgstr "Импортировать сочетания клавиш"
 
 #: ../snippet/import_export.py:191
-#, fuzzy
 msgid "Choose which snippets you want to import:"
-msgstr "Выберите файлы, которые Вы хотите послать:"
+msgstr "Выберите сниппеты для импорта:"
 
 #: ../snippet/import_export.py:193
-#, fuzzy
 msgid "There are no new or updated snippets in the file."
-msgstr "Нет файлов для email."
+msgstr "В этом файле нет новых или обновлённых сниппетов."
 
 #: ../snippet/import_export.py:197
 msgid ""
@@ -6250,7 +5969,7 @@ msgstr ""
 
 #: ../snippet/import_export.py:235
 msgid "Importing and exporting snippets"
-msgstr ""
+msgstr "Импорт и экспорт сниппетов"
 
 #: ../snippet/import_export.py:239
 msgid "Snippets can be imported from and exported to XML files."
@@ -6268,12 +5987,11 @@ msgstr ""
 #: ../snippet/import_export.py:245 ../snippet/import_export.py:250
 #: ../snippet/widget.py:183
 msgid "&Menu"
-msgstr ""
+msgstr "Меню"
 
 #: ../snippet/import_export.py:245 ../snippet/widget.py:197
-#, fuzzy
 msgid "E&xport..."
-msgstr "Печать"
+msgstr "Экспорт"
 
 #: ../snippet/import_export.py:246
 msgid ""
@@ -6283,9 +6001,8 @@ msgid ""
 msgstr ""
 
 #: ../snippet/import_export.py:250 ../snippet/widget.py:195
-#, fuzzy
 msgid "&Import..."
-msgstr "Печать"
+msgstr "Импорт"
 
 #: ../snippet/import_export.py:251
 msgid ""
@@ -6295,7 +6012,7 @@ msgstr ""
 
 #: ../snippet/insert.py:221
 msgid "Snippet error"
-msgstr ""
+msgstr "Ошибка сниппета"
 
 #: ../snippet/menu.py:118
 msgid "&Insert"
@@ -6303,7 +6020,7 @@ msgstr "&Вставка"
 
 #: ../snippet/menu.py:143
 msgid "New from &Template"
-msgstr ""
+msgstr "Новый из шаблона"
 
 #: ../snippet/model.py:59
 msgid "Name"
@@ -6314,10 +6031,9 @@ msgid "Description"
 msgstr "Описание"
 
 #: ../snippet/restore.py:62
-#, fuzzy
 msgctxt "dialog title"
 msgid "Restore Built-in Snippets"
-msgstr "Удалить паузы"
+msgstr "Восстановить встроенные сниппеты"
 
 #: ../snippet/restore.py:64
 msgid ""
@@ -6327,34 +6043,28 @@ msgid ""
 msgstr ""
 
 #: ../snippet/restore.py:67
-#, fuzzy
 msgid "Restore Checked Snippets"
-msgstr "Вставить ритм в выделенную музыку."
+msgstr "Восстановить выбранные сниппеты"
 
 #: ../snippet/restore.py:68
-#, fuzzy
 msgid "Deleted Snippets"
-msgstr "Удалить паузы"
+msgstr "Удалённые сниппеты"
 
 #: ../snippet/restore.py:69
-#, fuzzy
 msgid "Changed Snippets"
-msgstr "Удалить паузы"
+msgstr "Изменённые сниппеты"
 
 #: ../snippet/template.py:41
 msgid "Save as Template"
-msgstr ""
+msgstr "Сохранить как шаблон"
 
 #: ../snippet/template.py:42
-#, fuzzy
 msgid "Please enter a template name:"
-msgstr ""
-"Используйте только латинские буквы, цифры и символ подчеркивания в названии "
-"расширения."
+msgstr "Введите имя шаблона:"
 
 #: ../snippet/template.py:49
 msgid "Overwrite Template?"
-msgstr ""
+msgstr "Перезаписать шаблон?"
 
 #: ../snippet/template.py:50
 msgid ""
@@ -6362,94 +6072,90 @@ msgid ""
 "\n"
 "Do you want to overwrite it?"
 msgstr ""
+"Уже существует другой шаблон под именем {name}\n"
+"\n"
+"Перезаписать?"
 
 #: ../snippet/tool.py:55
-#, fuzzy
 msgid "&Snippets"
-msgstr "Удалить паузы"
+msgstr "Сниппеты"
 
 #: ../snippet/tool.py:89
-#, fuzzy
 msgid "Save as Template..."
-msgstr "Сохранить"
+msgstr "Сохранить как шаблон..."
 
 #: ../snippet/tool.py:90
-#, fuzzy
 msgid "Manage Templates..."
-msgstr "Сохранить"
+msgstr "Управление шаблонами..."
 
 #: ../snippet/tool.py:91
 msgid "&Snippets..."
-msgstr ""
+msgstr "Сниппеты..."
 
 #: ../snippet/widget.py:184 ../widgets/listedit.py:91
 msgid "&Add..."
-msgstr ""
+msgstr "Добавить..."
 
 #: ../snippet/widget.py:186
 msgid "Add a new snippet. ({key})"
-msgstr ""
+msgstr "Добавить новый сниппет. ({key})"
 
 #: ../snippet/widget.py:187 ../widgets/listedit.py:92
-#, fuzzy
 msgid "&Edit..."
-msgstr "Печать"
+msgstr "Правка..."
 
 #: ../snippet/widget.py:189
 msgid "Edit the current snippet. ({key})"
-msgstr ""
+msgstr "Редактировать сниппет. ({key})"
 
 #: ../snippet/widget.py:190
-#, fuzzy
 msgid "Configure Keyboard &Shortcut..."
-msgstr "Клавишные"
+msgstr "Настроить сочетание клавиш..."
 
 #: ../snippet/widget.py:192
-#, fuzzy
 msgid "Remove the selected snippets."
-msgstr "Вставить ритм в выделенную музыку."
+msgstr "Удалить выбранные сниппеты."
 
 #: ../snippet/widget.py:193
 msgid "A&pply"
-msgstr ""
+msgstr "Применить"
 
 #: ../snippet/widget.py:194
-#, fuzzy
 msgid "Apply the current snippet."
-msgstr "Поместить курсор на это место."
+msgstr "Применить выбранный сниппет."
 
 #: ../snippet/widget.py:196
 msgid "Import snippets from a file."
-msgstr ""
+msgstr "Импортировать сниппеты из файла."
 
 #: ../snippet/widget.py:198
 msgid "Export snippets to a file."
-msgstr ""
+msgstr "Экспортировать сниппеты в файл."
 
 #: ../snippet/widget.py:199
 msgid "Restore &Built-in Snippets..."
-msgstr ""
+msgstr "Восстановить встроенные сниппеты..."
 
 #: ../snippet/widget.py:201
 msgid "Restore deleted or changed built-in snippets."
-msgstr ""
+msgstr "Восстановить удаленные или измененные встроенные сниппеты."
 
 #: ../snippet/widget.py:202
 msgid "&Help"
-msgstr ""
+msgstr "Справка"
 
 #: ../snippet/widget.py:204
-#, fuzzy
 msgid ""
 "Enter text to search in the snippets list.\n"
 "See \"What's This\" for more information."
-msgstr "Здесь Вы можете выбрать, какие Guile скрипты загружать в Rumor."
+msgstr "Введите текст для поиска в списке сниппетов."
 
 #: ../snippet/widget.py:207
 msgid ""
 "Enter text to search in the snippets list, and press Enter to apply the "
 "currently selected snippet."
 msgstr ""
+"Введите текст для поиска в списке сниппетов и нажмите Enter для применения."
 
 #: ../snippet/widget.py:209
 msgid ""
@@ -6472,17 +6178,16 @@ msgid ""
 msgstr ""
 
 #: ../snippet/widget.py:292 ../snippet/widget.py:309
-#, fuzzy
 msgid "XML Files"
-msgstr "Все файлы"
+msgstr "Файлы XML"
 
 #: ../snippet/widget.py:312
 msgctxt "dialog title"
 msgid "Export {num} Snippet"
 msgid_plural "Export {num} Snippets"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Экспортировать {num} сниппет"
+msgstr[1] "Экспортировать {num} сниппета"
+msgstr[2] "Экспортировать {num} сниппетов"
 
 #: ../snippet/widget.py:407
 msgid ""
@@ -6522,18 +6227,17 @@ msgid ""
 msgstr ""
 
 #: ../snippet/widget.py:439
-#, fuzzy
 msgctxt "menu title"
 msgid "Insert"
-msgstr "&Вставка"
+msgstr "Вставить"
 
 #: ../snippet/widget.py:439
 msgid "Snippets..."
-msgstr ""
+msgstr "Сниппеты..."
 
 #: ../snippet/widget.py:456
 msgid "Maintaining a library of snippets"
-msgstr ""
+msgstr "Управление библиотекой сниппетов"
 
 #: ../snippet/widget.py:461
 msgid ""
@@ -6558,93 +6262,82 @@ msgstr ""
 
 #: ../widgets/keysequencewidget.py:60
 msgid "Start recording a key sequence."
-msgstr ""
+msgstr "Начать запись последовательности клавиш."
 
 #: ../widgets/keysequencewidget.py:61
 msgid "Clear the key sequence."
-msgstr ""
+msgstr "Очистить последовательность"
 
 #: ../widgets/keysequencewidget.py:115
-#, fuzzy
 msgid "Input"
-msgstr "Вход MIDI:"
+msgstr "Ввод"
 
 #: ../widgets/schemeselector.py:47 ../widgets/schemeselector.py:62
-#, fuzzy
 msgid "Scheme:"
-msgstr "Партитура:"
+msgstr "Схема:"
 
 #: ../widgets/schemeselector.py:63
 msgctxt "New Scheme"
 msgid "&New..."
-msgstr ""
+msgstr "Новая..."
 
 #: ../widgets/schemeselector.py:92
-#, fuzzy
 msgid "Add Scheme"
-msgstr "Партитура:"
+msgstr "Добавить схему"
 
 #: ../widgets/schemeselector.py:93
-#, fuzzy
 msgid "Please enter a name for the new scheme:"
-msgstr ""
-"Введите имя для переменной, которая будет присвоена выделенному тексту:"
+msgstr "Введите имя новой схемы:"
 
 #: ../widgets/shortcuteditdialog.py:94
-#, fuzzy
 msgctxt "window title"
 msgid "Edit Shortcut"
-msgstr "Сокращение"
+msgstr "Редактировать комбинацию клавиш"
 
 #: ../widgets/shortcuteditdialog.py:95
-#, fuzzy
 msgid "&No shortcut"
-msgstr "Сокращение"
+msgstr "Нет комбинации"
 
 #: ../widgets/shortcuteditdialog.py:96
-#, fuzzy
 msgid "Use a &custom shortcut:"
-msgstr "Использовать другую версию:"
+msgstr "Использовать особую комбинацию клавиш:"
 
 #: ../widgets/shortcuteditdialog.py:98
 msgid "Alternative #{num}:"
-msgstr ""
+msgstr "Дополнительная #{num}:"
 
 #: ../widgets/shortcuteditdialog.py:98
 msgid "Primary shortcut:"
-msgstr ""
+msgstr "Основная комбинация клавиш"
 
 #: ../widgets/shortcuteditdialog.py:109
 msgid "Here you can edit the shortcuts for {name}"
-msgstr ""
+msgstr "Здесь можно отредактировать комбинации клавиш для {name}"
 
 #: ../widgets/shortcuteditdialog.py:127
-#, fuzzy
 msgctxt "no keyboard shortcut"
 msgid "none"
-msgstr "Нет"
+msgstr "нет"
 
 #: ../widgets/shortcuteditdialog.py:128
 msgid "Use &default shortcut ({name})"
-msgstr ""
+msgstr "Использовать комбинацию клавиш по умолчанию ({name})"
 
 #: ../widgets/tempobutton.py:51
 msgid "The tempo is set as you click this button."
-msgstr ""
+msgstr "Темп будет установлен, когда вы будете щёлкать по кнопке"
 
 #: ../widgets/urlrequester.py:65
-#, fuzzy
 msgid "Open file dialog"
-msgstr "Открыть файл"
+msgstr "Диалог открытия файла"
 
 #: ../widgets/urlrequester.py:109
-#, fuzzy
 msgid "Select a directory"
-msgstr "Каталог по умолчанию:"
+msgstr "Выберите каталог"
 
 #: ../widgets/urlrequester.py:111
 msgid "Select a file"
-msgstr ""
+msgstr "Выберите файл"
 
 #~ msgid "Click this button a few times to set the tempo."
 #~ msgstr "Щёлкните по кнопке несколько раз, чтобы установить темп."
