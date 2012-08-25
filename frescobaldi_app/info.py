@@ -62,6 +62,7 @@ translators = {
     'ru': [
         "Sergey Poltavski",
         "Artem Zolochevskiy",
+        "Mikhail Iglizky",
     ],
     'it': [
         "Gianluca D'Orazio",
