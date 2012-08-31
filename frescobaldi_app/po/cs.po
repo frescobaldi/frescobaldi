@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2012-08-16 18:49+0200\n"
-"PO-Revision-Date: 2012-05-02 09:13+0200\n"
+"PO-Revision-Date: 2012-08-30 23:06+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.4\n"
 
 #: ../about.py:43
 msgid "{appname} is written in {python} and uses the {qt} toolkit."
@@ -54,13 +54,12 @@ msgid "The Tango Desktop Project"
 msgstr "Projekt pro pracovní plochu Tango"
 
 #: ../about.py:61
-#, fuzzy
 msgid "The following people contributed to {appname}:"
-msgstr "Budou provedena následující nahrazení:"
+msgstr "Tito lidé přispěli do {appname}:"
 
 #: ../about.py:64
 msgid "{author}: Kinetic Scrolling for the Music View"
-msgstr ""
+msgstr "{author}: Pohybové projíždění pro Pohled na noty"
 
 #: ../about.py:69
 msgid "{appname} is translated into the following languages:"
@@ -874,7 +873,7 @@ msgstr "Nahlásit &chybu..."
 
 #: ../mainwindow.py:993
 msgid "&About {appname}..."
-msgstr "&O {appname}..."
+msgstr "&O programu {appname}..."
 
 #: ../menu.py:83
 msgctxt "menu title"
@@ -889,7 +888,7 @@ msgstr "&Vyvést"
 #: ../menu.py:122
 msgctxt "menu title"
 msgid "&Edit"
-msgstr "&Úpravy"
+msgstr "Úp&ravy"
 
 #: ../menu.py:149
 msgctxt "menu title"
@@ -899,13 +898,12 @@ msgstr "&Pohled"
 #: ../menu.py:173
 msgctxt "submenu title"
 msgid "&Folding"
-msgstr "&Skládání"
+msgstr "S&kládání"
 
 #: ../menu.py:188
-#, fuzzy
 msgctxt "menu title"
 msgid "&Music"
-msgstr "Pohled na &hudbu"
+msgstr "No&ty"
 
 #: ../menu.py:211
 msgctxt "menu title"
@@ -2480,7 +2478,7 @@ msgstr "Přizpůsobit &straně"
 
 #: ../musicview/__init__.py:283
 msgid "&Maximize"
-msgstr ""
+msgstr "&Zvětšit"
 
 #: ../musicview/__init__.py:284
 msgid "&Jump to Cursor Position"
@@ -4031,13 +4029,12 @@ msgstr "%"
 
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
 #: ../preferences/tools.py:156
-#, fuzzy
 msgid "Kinetic Scrolling"
-msgstr "&Povolit skládání"
+msgstr "Pohybové projíždění"
 
 #: ../preferences/tools.py:157
 msgid "Show Scrollbars"
-msgstr ""
+msgstr "Ukázat posuvníky"
 
 #: ../preferences/tools.py:236
 msgid "Group documents by directory"
