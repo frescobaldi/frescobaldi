@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2012-08-16 18:49+0200\n"
-"PO-Revision-Date: 2012-08-30 23:06+0200\n"
+"PO-Revision-Date: 2012-09-08 20:04+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: ../about.py:43
 msgid "{appname} is written in {python} and uses the {qt} toolkit."
@@ -306,7 +306,7 @@ msgstr "&Automatické odsazení"
 
 #: ../documentactions.py:128
 msgid "Re-&Indent"
-msgstr "&Odsadit znovu"
+msgstr "Odsad&it znovu"
 
 #: ../documentactions.py:129
 msgid "&Format"
@@ -314,7 +314,7 @@ msgstr "&Formát"
 
 #: ../documentactions.py:130
 msgid "&Update with convert-ly..."
-msgstr "&Obnovit za použití convert-ly..."
+msgstr "O&bnovit za použití convert-ly..."
 
 #: ../documentcontextmenu.py:54 ../mainwindow.py:952
 #: ../sessions/manager.py:127
@@ -725,7 +725,7 @@ msgstr "&Otevřít..."
 
 #: ../mainwindow.py:948
 msgid "Open &Recent"
-msgstr "Otevřít &nedávný"
+msgstr "Otevřít ne&dávný"
 
 #: ../mainwindow.py:949
 msgid "Insert from &File..."
@@ -765,7 +765,7 @@ msgstr "Zavře všechny dokumenty a opustí současné sezení."
 
 #: ../mainwindow.py:961
 msgid "&Quit"
-msgstr "&Ukončit"
+msgstr "U&končit"
 
 #: ../mainwindow.py:963
 msgid "Export Source as Colored &HTML..."
@@ -777,7 +777,7 @@ msgstr "&Zpět"
 
 #: ../mainwindow.py:966
 msgid "Re&do"
-msgstr "&Znovu"
+msgstr "Znov&u"
 
 #: ../mainwindow.py:967
 msgid "Cu&t"
@@ -829,11 +829,11 @@ msgstr "Najít &předchozí"
 
 #: ../mainwindow.py:979
 msgid "&Replace..."
-msgstr "&Nahradit..."
+msgstr "Nah&radit..."
 
 #: ../mainwindow.py:980
 msgid "Pr&eferences..."
-msgstr "&Nastavení..."
+msgstr "Na&stavení..."
 
 #: ../mainwindow.py:982
 msgid "&Next Document"
@@ -869,7 +869,7 @@ msgstr "&Co je toto?"
 
 #: ../mainwindow.py:992
 msgid "Report a &Bug..."
-msgstr "Nahlásit &chybu..."
+msgstr "Nahlásit chy&bu..."
 
 #: ../mainwindow.py:993
 msgid "&About {appname}..."
@@ -938,7 +938,7 @@ msgstr "&Okno"
 #: ../menu.py:330
 msgctxt "menu title"
 msgid "&Help"
-msgstr "&Nápověda"
+msgstr "Nápověd&a"
 
 #: ../musicpreview.py:113
 msgid "Document:"
@@ -1077,7 +1077,7 @@ msgstr "&Předchozí pohled"
 
 #: ../autocomplete/__init__.py:79
 msgid "Automatic &Completion"
-msgstr "Automatické &dokončení"
+msgstr "Automati&cké dokončení"
 
 #: ../autocomplete/__init__.py:80
 msgid "Show C&ompletions Popup"
@@ -1089,7 +1089,7 @@ msgstr "Zvláštní znaky"
 
 #: ../charmap/__init__.py:41
 msgid "Special Charac&ters"
-msgstr "Zvláštní &znaky"
+msgstr "Zvláš&tní znaky"
 
 #: ../docbrowser/__init__.py:46 ../docbrowser/__init__.py:62
 #: ../preferences/documentation.py:122
@@ -1163,7 +1163,7 @@ msgstr "Dokumenty"
 
 #: ../doclist/__init__.py:40
 msgid "Docum&ents"
-msgstr "Dokum&enty"
+msgstr "&Dokumenty"
 
 #: ../doclist/widget.py:183
 msgid "Save selected documents"
@@ -1203,15 +1203,15 @@ msgstr "Vyrýt"
 
 #: ../engrave/__init__.py:233
 msgid "&Engrave (preview)"
-msgstr "&Vyrýt (náhled)"
+msgstr "Vyrýt (&náhled)"
 
 #: ../engrave/__init__.py:234
 msgid "Engrave (&publish)"
-msgstr "Vyrýt (&vydat)"
+msgstr "Vyrýt (vy&dat)"
 
 #: ../engrave/__init__.py:235
 msgid "Engrave (&custom)..."
-msgstr "Vyrýt (v&lastní)..."
+msgstr "Vyrýt (vlas&tní)..."
 
 #: ../engrave/__init__.py:236
 msgid "Abort Engraving &Job"
@@ -2376,7 +2376,7 @@ msgstr "MIDI"
 
 #: ../miditool/__init__.py:52
 msgid "MIDI &Player"
-msgstr "&Přehrávač MIDI"
+msgstr "Pře&hrávač MIDI"
 
 #: ../miditool/__init__.py:97
 msgctxt "midi player"
@@ -2438,7 +2438,7 @@ msgstr "Pohled na noty"
 
 #: ../musicview/__init__.py:116
 msgid "&Music View"
-msgstr "Pohled na &hudbu"
+msgstr "Pohled na &noty"
 
 #: ../musicview/__init__.py:274
 msgid "Select Music View Document"
@@ -2446,7 +2446,7 @@ msgstr "Vybrat dokument s pohledem na noty"
 
 #: ../musicview/__init__.py:275
 msgid "&Print Music..."
-msgstr "&Vytisknout noty..."
+msgstr "Vy&tisknout noty..."
 
 #: ../musicview/__init__.py:276
 msgid "Zoom &In"
@@ -2669,7 +2669,7 @@ msgstr ""
 
 #: ../pitch/__init__.py:111
 msgid "&Transpose..."
-msgstr "&Převést..."
+msgstr "Pře&vést..."
 
 #: ../pitch/__init__.py:113
 msgid "Transposes all notes in the document or selection."
@@ -2872,7 +2872,7 @@ msgstr ""
 "</p>\n"
 "\n"
 "<p>\n"
-"Také je možné použít funkce převodu na změnu kousku not\n"
+"Také je možné použít funkce převodu na změnu úryvku not\n"
 "z Cis na Des, nebo pro stanovení čtvrťových tónů, pokud jsou podporovány\n"
 "používaným jazykem názvu výšky tónu.\n"
 "</p>\n"
@@ -3887,7 +3887,7 @@ msgstr ""
 #: ../preferences/prefshelp.py:215 ../snippet/tool.py:54
 #: ../snippet/tool.py:135 ../snippet/widget.py:403
 msgid "Snippets"
-msgstr "Kousky"
+msgstr "Úryvky"
 
 #: ../preferences/prefshelp.py:216 ../quickinsert/__init__.py:47
 #: ../quickinsert/__init__.py:71
@@ -4042,7 +4042,7 @@ msgstr "Seskupit dokumenty podle adresáře"
 
 #: ../quickinsert/__init__.py:48
 msgid "Quick &Insert"
-msgstr "Rychlé &vložení"
+msgstr "Rychlé v&ložení"
 
 #: ../quickinsert/articulations.py:73
 msgid "Allow shorthands"
@@ -6241,7 +6241,7 @@ msgstr "Žádné sezení"
 #: ../sessions/menu.py:55
 msgctxt "menu title"
 msgid "&Session"
-msgstr "&Sezení"
+msgstr "Se&zení"
 
 #: ../sidebar/__init__.py:245
 msgid "&Line Numbers"
@@ -6401,15 +6401,15 @@ msgstr "Sborový chvalozpěv"
 
 #: ../snippet/edit.py:120 ../snippet/insert.py:223
 msgid "Edit Snippet"
-msgstr "Upravit kousek"
+msgstr "Upravit úryvek"
 
 #: ../snippet/edit.py:120
 msgid "New Snippet"
-msgstr "Nový kousek"
+msgstr "Nový úryvek"
 
 #: ../snippet/edit.py:122
 msgid "Snippet Text:"
-msgstr "Text kousku:"
+msgstr "Text úryvku:"
 
 #: ../snippet/edit.py:123
 msgid "Title:"
@@ -6425,23 +6425,23 @@ msgstr "Klepněte pro změnu klávesové zkratky."
 
 #: ../snippet/edit.py:141
 msgid "Empty Snippet"
-msgstr "Prázdný kousek"
+msgstr "Prázdný úryvek"
 
 #: ../snippet/edit.py:142
 msgid "A snippet can't be empty."
-msgstr "Kousek nemůže být prázdný."
+msgstr "Úryvek nemůže být prázdný."
 
 #: ../snippet/edit.py:147
 msgid ""
 "The snippet has been modified.\n"
 "Do you want to save your changes or discard them?"
 msgstr ""
-"Kousek byl změněn.\n"
+"Úryvek byl změněn.\n"
 "Chcete uložit změny nebo je zahodit?"
 
 #: ../snippet/edit.py:214
 msgid "Snippet editor"
-msgstr "Editor kousku"
+msgstr "Editor úryvku"
 
 #: ../snippet/edit.py:219
 msgid ""
@@ -6451,15 +6451,15 @@ msgid ""
 "code> which influence the behaviour of the snippet. The following variables "
 "can be used:</p>"
 msgstr ""
-"<p>Zde můžete upravit text kousku.</p><p>Pokud začnete první řádek(y) s "
+"<p>Zde můžete upravit text úryvku.</p><p>Pokud začnete první řádek(y) s "
 "'<code>-*- </code>' (všimněte si mezery), zbytek toho řádku(ů)vymezí "
 "proměnné jako <code>name: value;</code> nebo jednoduše <code>name;</code>, "
-"což ovlivní chování kousku. Lze použít následující proměnné:</p>"
+"což ovlivní chování úryvku. Lze použít následující proměnné:</p>"
 
 #: ../snippet/edit.py:228
 msgid "Place the snippet in the insert menu, grouped by the (optional) value."
 msgstr ""
-"Zařadit kousek do nabídky pro vložení, seskupeno podle (volitelné) hodnoty."
+"Zařadit úryvek do nabídky pro vložení, seskupeno podle (volitelné) hodnoty."
 
 #: ../snippet/edit.py:230
 msgid ""
@@ -6467,8 +6467,8 @@ msgid ""
 "(optional) value. When triggered via the menu, the snippet is inserted into "
 "a new document."
 msgstr ""
-"Zařadit kousek do nabídky {file_new_from_template}, seskupeno podle "
-"(volitelné) hodnoty. Když je vyvolán přes nabídku, kousek je vložen do "
+"Zařadit úryvek do nabídky {file_new_from_template}, seskupeno podle "
+"(volitelné) hodnoty. Když je vyvolán přes nabídku, úryvek je vložen do "
 "nového dokumentu."
 
 #: ../snippet/edit.py:234
@@ -6483,11 +6483,11 @@ msgstr "Nový z předlohy"
 
 #: ../snippet/edit.py:237
 msgid "The mnemonic to type to select the snippet."
-msgstr "Pomůcka pro zapamatování k napsání pro výběr kousku."
+msgstr "Pomůcka pro zapamatování k napsání pro výběr úryvku."
 
 #: ../snippet/edit.py:239
 msgid "Do not auto-indent the snippet after inserting."
-msgstr "Neodsazovat kousek po vložení automaticky."
+msgstr "Neodsazovat úryvek po vložení automaticky."
 
 #: ../snippet/edit.py:241
 msgid "The icon to show in menu and snippet list."
@@ -6503,7 +6503,7 @@ msgstr ""
 
 #: ../snippet/edit.py:247
 msgid "Execute the snippet as a Python script. See {link}."
-msgstr "Spustit kousek jako pythonovský skript. Podívejte se na {link}."
+msgstr "Spustit úryvek jako pythonovský skript. Podívejte se na {link}."
 
 #: ../snippet/edit.py:250
 msgid "One of more of the following words (separated with spaces or commas):"
@@ -6527,13 +6527,13 @@ msgid ""
 "editor. Here, you can insert variables prefixed with a $. A double $ will be "
 "replaced with a single one. The following variables are recognized:</p>"
 msgstr ""
-"<p>Další řádky kousku vymezují text k vložení v editoru. Zde můžete vložit "
+"<p>Další řádky úryvku vymezují text k vložení v editoru. Zde můžete vložit "
 "proměnné uvozené znakem $. Zdvojený $ bude nahrazen jedním. Jsou uznávány "
 "následující proměnné:</p>"
 
 #: ../snippet/edit.py:279
 msgid "Python Snippets"
-msgstr "Kousky v Pythonu"
+msgstr "Úryvky v Pythonu"
 
 #: ../snippet/edit.py:284
 msgid ""
@@ -6543,7 +6543,7 @@ msgid ""
 "<p>You may set {text} to a string or a list of strings.</p>\n"
 "<p>Other variables that may be referenced:</p>"
 msgstr ""
-"<p>Kousky v Pythonu mohou číst a mají nastavit proměnnou {text}. Proměnná "
+"<p>Úryvky v Pythonu mohou číst a mají nastavit proměnnou {text}. Proměnná "
 "{text} obsahuje nyní vybraný text (což může být prázdný řetězec).</p>\n"
 "<p>Můžete nastavit {text} na řetězec nebo seznam řetězců.</p>\n"
 "<p>Další proměnné, na něž lze odkazovat:</p>"
@@ -6567,7 +6567,7 @@ msgid ""
 msgstr ""
 "Při nastavení {text} na seznam namísto na řetězec, můžete tuto hodnotu "
 "použít pro určení místa, na něž bude ukazovátko textu umístěno po vložení "
-"kousku."
+"úryvku."
 
 #: ../snippet/edit.py:301
 msgid ""
@@ -6682,7 +6682,7 @@ msgstr "Zavedení a vyvedení kousků"
 
 #: ../snippet/import_export.py:239
 msgid "Snippets can be imported from and exported to XML files."
-msgstr "Kousky lze zavést z a vyvést do souborů XML."
+msgstr "Úryvky lze zavést z a vyvést do souborů XML."
 
 #: ../snippet/import_export.py:240
 msgid ""
@@ -6730,7 +6730,7 @@ msgstr ""
 
 #: ../snippet/insert.py:221
 msgid "Snippet error"
-msgstr "Chyba kousku"
+msgstr "Chyba úryvku"
 
 #: ../snippet/menu.py:118
 msgid "&Insert"
@@ -6799,7 +6799,7 @@ msgstr ""
 
 #: ../snippet/tool.py:55
 msgid "&Snippets"
-msgstr "&Kousky"
+msgstr "Úr&yvky"
 
 #: ../snippet/tool.py:89
 msgid "Save as Template..."
@@ -6811,7 +6811,7 @@ msgstr "Spravovat předlohy..."
 
 #: ../snippet/tool.py:91
 msgid "&Snippets..."
-msgstr "&Kousky..."
+msgstr "Úr&yvky..."
 
 #: ../snippet/widget.py:184 ../widgets/listedit.py:91
 msgid "&Add..."
@@ -6819,7 +6819,7 @@ msgstr "&Přidat..."
 
 #: ../snippet/widget.py:186
 msgid "Add a new snippet. ({key})"
-msgstr "Přidat nový kousek. ({key})"
+msgstr "Přidat nový úryvek. ({key})"
 
 #: ../snippet/widget.py:187 ../widgets/listedit.py:92
 msgid "&Edit..."
@@ -6827,7 +6827,7 @@ msgstr "&Upravit..."
 
 #: ../snippet/widget.py:189
 msgid "Edit the current snippet. ({key})"
-msgstr "Upravit nynější kousek. ({key})"
+msgstr "Upravit nynější úryvek. ({key})"
 
 #: ../snippet/widget.py:190
 msgid "Configure Keyboard &Shortcut..."
@@ -6843,7 +6843,7 @@ msgstr "&Použít"
 
 #: ../snippet/widget.py:194
 msgid "Apply the current snippet."
-msgstr "Použít nynější kousek."
+msgstr "Použít nynější úryvek."
 
 #: ../snippet/widget.py:196
 msgid "Import snippets from a file."
@@ -6863,7 +6863,7 @@ msgstr "Obnovit smazané nebo změněné vestavěné kousky."
 
 #: ../snippet/widget.py:202
 msgid "&Help"
-msgstr "&Nápověda"
+msgstr "Nápověd&a"
 
 #: ../snippet/widget.py:204
 msgid ""
@@ -6879,15 +6879,15 @@ msgid ""
 "currently selected snippet."
 msgstr ""
 "Zadejte text k hledání v seznamu kousků a stiskněte klávesu Enter pro "
-"použití nyní vybraného kousku."
+"použití nyní vybraného úryvku."
 
 #: ../snippet/widget.py:209
 msgid ""
 "If the search text fully matches the value of the '{name}' variable of a "
 "snippet, that snippet is selected."
 msgstr ""
-"Pokud hledaný text plně odpovídá hodnotě proměnné kousku '{name}', je vybrán "
-"tento kousek."
+"Pokud hledaný text plně odpovídá hodnotě proměnné úryvku '{name}', je vybrán "
+"tento úryvek."
 
 #: ../snippet/widget.py:211
 msgid ""
@@ -6917,7 +6917,7 @@ msgstr "Soubory XML"
 msgctxt "dialog title"
 msgid "Export {num} Snippet"
 msgid_plural "Export {num} Snippets"
-msgstr[0] "Vyvést {num}kousek"
+msgstr[0] "Vyvést {num} úryvek"
 msgstr[1] "Vyvést {num}kousky"
 msgstr[2] "Vyvést {num}kousků"
 
@@ -6968,23 +6968,23 @@ msgstr ""
 "</p>\n"
 "\n"
 "<p>\n"
-"Kousky lze hledat procházením seznamu nebo napsáním několika znaků\n"
+"Úryvky lze hledat procházením seznamu nebo napsáním několika znaků\n"
 "ve vstupu pro vyhledání.\n"
-"Kousky také mohou mít klávesovou zkratku, kterou jsou přímo použity.\n"
+"Úryvky také mohou mít klávesovou zkratku, kterou jsou přímo použity.\n"
 "Některé kousky mají zvláštní pomůcku pro zapamatování (krátký název), kterou "
 "můžete napsat také\n"
-"do vstupu pro hledání pro výběr kousku. Stisk klávesy Enter pak použije\n"
-"kousek na textový editor a skryje správce kousků.\n"
+"do vstupu pro hledání pro výběr úryvku. Stisk klávesy Enter pak použije\n"
+"úryvek na textový editor a skryje správce kousků.\n"
 "</p>\n"
 "\n"
 "<p>\n"
-"Přidejte nové kousky pomocí {key_add}. Upravte vybraný kousek {key_edit}.\n"
+"Přidejte nové kousky pomocí {key_add}. Upravte vybraný úryvek {key_edit}.\n"
 "Odstraňte vybrané kousky pomocí {key_delete}. Varování: nelze se vrátit "
 "zpět!\n"
 "</p>\n"
 "\n"
 "<p>\n"
-"Kousky lze také dát do nabídky (podívejte se na {link}).\n"
+"Úryvky lze také dát do nabídky (podívejte se na {link}).\n"
 "A na konec jsou tu kousky, které mohou zahrnovat nebo měnit vybraný text.\n"
 "Některé kousky to dělají pomocí zvláštních proměnných, zatímco jiné jsou "
 "malými\n"
@@ -6994,11 +6994,11 @@ msgstr ""
 #: ../snippet/widget.py:439
 msgctxt "menu title"
 msgid "Insert"
-msgstr "Vložka"
+msgstr "Vložení"
 
 #: ../snippet/widget.py:439
 msgid "Snippets..."
-msgstr "Kousky..."
+msgstr "Úryvky..."
 
 #: ../snippet/widget.py:456
 msgid "Maintaining a library of snippets"
@@ -7020,7 +7020,7 @@ msgid ""
 "library you want the snippet to belong to."
 msgstr ""
 "Navrhuje se použití proměnné \"{set}\" a její nastavení na název knihovny, "
-"ke které chcete, aby kousek náležel."
+"ke které chcete, aby úryvek náležel."
 
 #: ../snippet/widget.py:467
 msgid ""
