@@ -6,6 +6,8 @@ Changes in 2.0.8 --
 
 * Translations:
   - updated: ru, cs
+* Bugfixes:
+  - fix behaviour of 'output' variable
 
 
 Changes in 2.0.7 -- August 16th, 2012

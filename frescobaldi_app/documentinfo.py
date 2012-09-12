@@ -273,12 +273,13 @@ class DocumentInfo(plugin.DocumentPlugin):
             output = fileinfo.FileInfo.info(filename).variables().get('output')
         else:
             output = variables.get(self.document(), 'output')
+        
+        filename, mode = self.jobinfo()[:2]
+        
         if output:
             dirname = os.path.dirname(filename)
             return [os.path.join(dirname, name.strip())
                     for name in output.split(',')]
-        
-        filename, mode = self.jobinfo()[:2]
         
         if mode == "lilypond":
             return fileinfo.basenames(filename, self.includefiles(), self.outputargs())
