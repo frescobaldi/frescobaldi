@@ -48,6 +48,14 @@ _cache = weakref.WeakKeyDictionary()
 textedit_match = re.compile(r"^textedit://(.*?):(\d+):(\d+)(?::\d+)$").match
 
 
+# Make sure that also on Windows, directory slashes remain forward
+if os.name == 'nt':
+	def normpath(path):
+		return os.path.normpath(path).replace('\\', '/')
+else:
+	normpath = os.path.normpath
+
+
 def readfilename(match):
     """Returns the filename from the match object resulting from textedit_match."""
     fname = match.group(1)
@@ -62,7 +70,7 @@ def readfilename(match):
         pass
     # normalize path (although this might change a path if it contains
     # symlinks followed by '/../' !
-    fname = os.path.normpath(fname)
+    fname = normpath(fname)
     return fname
 
 
