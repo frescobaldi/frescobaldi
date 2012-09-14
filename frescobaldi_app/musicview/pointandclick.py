@@ -60,6 +60,9 @@ def readfilename(match):
         fname = lat1.decode(sys.getfilesystemencoding())
     except UnicodeError:
         pass
+    # normalize path (although this might change a path if it contains
+    # symlinks followed by '/../' !
+    fname = os.path.normpath(fname)
     return fname
 
 

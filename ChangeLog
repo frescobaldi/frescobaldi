@@ -8,6 +8,9 @@ Changes in 2.0.8 --
   - updated: ru, cs
 * Bugfixes:
   - fix behaviour of 'output' variable
+* Improvements:
+  - always normalize paths in point&click links, so files included via
+    constructs like \include "../songs/song1.ly" are found
 
 
 Changes in 2.0.7 -- August 16th, 2012
