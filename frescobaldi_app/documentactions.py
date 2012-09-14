@@ -43,6 +43,7 @@ class DocumentActions(plugin.MainWindowPlugin):
     def __init__(self, mainwindow):
         ac = self.actionCollection = Actions()
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
+        ac.file_open_file_at_cursor.triggered.connect(self.openFileAtCursor)
         ac.edit_cut_assign.triggered.connect(self.cutAssign)
         ac.view_highlighting.triggered.connect(self.toggleHighlighting)
         ac.tools_indent_auto.triggered.connect(self.toggleAuto_indent)
@@ -76,6 +77,11 @@ class DocumentActions(plugin.MainWindowPlugin):
             if i is not self and i.currentDocument() == doc:
                 i.updateDocActions(doc)
     
+    def openFileAtCursor(self):
+        import open_file_at_cursor
+        open_file_at_cursor.open_file_at_cursor(self.currentView().textCursor(),
+                                                self.mainwindow())
+    
     def cutAssign(self):
         import cut_assign
         cut_assign.cut_assign(self.currentView().textCursor())
@@ -108,6 +114,7 @@ class DocumentActions(plugin.MainWindowPlugin):
 class Actions(actioncollection.ActionCollection):
     name = "documentactions"
     def createActions(self, parent):
+        self.file_open_file_at_cursor = QAction(parent)
         self.edit_cut_assign = QAction(parent)
         self.view_highlighting = QAction(parent)
         self.view_highlighting.setCheckable(True)
@@ -119,9 +126,11 @@ class Actions(actioncollection.ActionCollection):
         
         self.edit_cut_assign.setIcon(icons.get('edit-cut'))
 
+        self.file_open_file_at_cursor.setShortcut(QKeySequence("Alt+Ctrl+O"))
         self.edit_cut_assign.setShortcut(QKeySequence(Qt.SHIFT + Qt.CTRL + Qt.Key_X))
     
     def translateUI(self):
+        self.file_open_file_at_cursor.setText(_("Open File at C&ursor"))
         self.edit_cut_assign.setText(_("Cut and Assign..."))
         self.view_highlighting.setText(_("Syntax &Highlighting"))
         self.tools_indent_auto.setText(_("&Automatic Indent"))
