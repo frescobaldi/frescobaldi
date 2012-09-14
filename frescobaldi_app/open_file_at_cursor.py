@@ -41,24 +41,23 @@ def open_file_at_cursor(cursor, mainwin):
     else:
         fnames = list(ly.parse.includeargs(iter(tokeniter.tokens(cursor.block()))))
     
-    # detemine search path, doc dir and other include path names
-    if cursor.document().url().toLocalFile():
-        path = [os.path.dirname(cursor.document().url().toLocalFile())]
+    # detemine search path: doc dir and other include path names
+    filename = cursor.document().url().toLocalFile()
+    if filename:
+        path = [os.path.dirname(filename)]
     else:
         path = []
     path.extend(documentinfo.info(cursor.document()).includepath())
     
     # load all docs, trying all include paths
-    docs = []
+    d = None
     for f in fnames:
         for p in path:
             name = os.path.normpath(os.path.join(p, f))
             if os.access(name, os.R_OK):
                 d = app.openUrl(QUrl.fromLocalFile(name))
-                if d:
-                    docs.append(d)
-                    break
-    if docs:
-        mainwin.setCurrentDocument(docs[-1])
+                break
+    if d:
+        mainwin.setCurrentDocument(d, True)
 
 
