@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-08-16 18:49+0200\n"
+"POT-Creation-Date: 2012-09-14 16:23+0200\n"
 "PO-Revision-Date: 2012-05-07 13:52+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -292,27 +292,32 @@ msgstr "Sin título"
 msgid "Untitled ({num})"
 msgstr "Sin título ({num})"
 
-#: ../documentactions.py:125
+#: ../documentactions.py:133
+#, fuzzy
+msgid "Open File at C&ursor"
+msgstr "Abrir archivo"
+
+#: ../documentactions.py:134
 msgid "Cut and Assign..."
 msgstr "Cortar y asignar..."
 
-#: ../documentactions.py:126
+#: ../documentactions.py:135
 msgid "Syntax &Highlighting"
 msgstr "Resaltado de sinta&xis"
 
-#: ../documentactions.py:127
+#: ../documentactions.py:136
 msgid "&Automatic Indent"
 msgstr "Sangrado &automático"
 
-#: ../documentactions.py:128
+#: ../documentactions.py:137
 msgid "Re-&Indent"
 msgstr "Apl&icar sangrado"
 
-#: ../documentactions.py:129
+#: ../documentactions.py:138
 msgid "&Format"
 msgstr "&Formato"
 
-#: ../documentactions.py:130
+#: ../documentactions.py:139
 msgid "&Update with convert-ly..."
 msgstr "&Actualizar mediante convert-ly..."
 
@@ -880,62 +885,62 @@ msgctxt "menu title"
 msgid "&File"
 msgstr "&Archivo"
 
-#: ../menu.py:114
+#: ../menu.py:115
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Exportar"
 
-#: ../menu.py:122
+#: ../menu.py:123
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "&Editar"
 
-#: ../menu.py:149
+#: ../menu.py:150
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Vista"
 
-#: ../menu.py:173
+#: ../menu.py:174
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "&Plegar"
 
-#: ../menu.py:188
+#: ../menu.py:189
 msgctxt "menu title"
 msgid "&Music"
 msgstr "&Música"
 
-#: ../menu.py:211
+#: ../menu.py:212
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:230
+#: ../menu.py:231
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "Herramien&tas"
 
-#: ../menu.py:256
+#: ../menu.py:257
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Letra"
 
-#: ../menu.py:268
+#: ../menu.py:269
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Altura"
 
-#: ../menu.py:282
+#: ../menu.py:283
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "Du&raciones"
 
-#: ../menu.py:310
+#: ../menu.py:311
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Ventana"
 
-#: ../menu.py:330
+#: ../menu.py:331
 msgctxt "menu title"
 msgid "&Help"
 msgstr "Ay&uda"

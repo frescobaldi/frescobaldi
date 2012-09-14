@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-08-16 18:49+0200\n"
+"POT-Creation-Date: 2012-09-14 16:23+0200\n"
 "PO-Revision-Date: 2012-08-24 00:38+0400\n"
 "Last-Translator: Mikhail Iglizky <m0003r@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -30,7 +30,6 @@ msgstr ""
 
 #. L10N: the Python programming language
 #: ../about.py:46
-#, fuzzy
 msgid "Python"
 msgstr ""
 
@@ -46,7 +45,6 @@ msgstr ""
 
 #. L10N: the Poppler PDF library
 #: ../about.py:54
-#, fuzzy
 msgid "Poppler"
 msgstr ""
 
@@ -297,27 +295,32 @@ msgstr "Без имени"
 msgid "Untitled ({num})"
 msgstr "Без имени ({num})"
 
-#: ../documentactions.py:125
+#: ../documentactions.py:133
+#, fuzzy
+msgid "Open File at C&ursor"
+msgstr "Открыть файл"
+
+#: ../documentactions.py:134
 msgid "Cut and Assign..."
 msgstr "Создать переменную..."
 
-#: ../documentactions.py:126
+#: ../documentactions.py:135
 msgid "Syntax &Highlighting"
 msgstr "Подсветка синтаксиса"
 
-#: ../documentactions.py:127
+#: ../documentactions.py:136
 msgid "&Automatic Indent"
 msgstr "Автоматические отступы"
 
-#: ../documentactions.py:128
+#: ../documentactions.py:137
 msgid "Re-&Indent"
 msgstr "Переформатировать"
 
-#: ../documentactions.py:129
+#: ../documentactions.py:138
 msgid "&Format"
 msgstr "Форматировать"
 
-#: ../documentactions.py:130
+#: ../documentactions.py:139
 msgid "&Update with convert-ly..."
 msgstr "Обновить с помощью convert-ly"
 
@@ -371,10 +374,9 @@ msgid ""
 "set the staff size to the global staff size you use in the document (20 by "
 "default)."
 msgstr ""
-"Выберите три шрифта, которые будут использоваться для <code>\\roman</code>, <"
-"code>"
-"\\sans</code>, и <code>\\typewriter</code> соответственно. Вы также должны "
-"выбрать глобальный размер стана в документе (по умолчанию 20)"
+"Выберите три шрифта, которые будут использоваться для <code>\\roman</code>, "
+"<code>\\sans</code>, и <code>\\typewriter</code> соответственно. Вы также "
+"должны выбрать глобальный размер стана в документе (по умолчанию 20)"
 
 #: ../globalfontdialog.py:76
 msgid "Roman Font:"
@@ -479,17 +481,17 @@ msgstr ""
 "</p>\n"
 "\n"
 "<p>\n"
-"Сначала нужно выбрать текст для деления, потом"
-"нажать {key_hyphen} или выбрать {menu_hyphen}.\n"
+"Сначала нужно выбрать текст для деления, потомнажать {key_hyphen} или "
+"выбрать {menu_hyphen}.\n"
 "Затем в появившемся окне выбрать язык,\n"
 "и нажать Enter или OK для начала расстановки. \n"
 "</p>\n"
 "\n"
 "<p>\n"
-"Словари из текстовых процессоров часто не могут отделить "
-"первую или последнюю букву от слова (например, '{example}'), "
-"поскольку с точки зрения переноса слова это некрасиво."
-"Поэтому может понадобиться поставить несколько дополнительных переносов. \n"
+"Словари из текстовых процессоров часто не могут отделить первую или "
+"последнюю букву от слова (например, '{example}'), поскольку с точки зрения "
+"переноса слова это некрасиво.Поэтому может понадобиться поставить несколько "
+"дополнительных переносов. \n"
 "</p>\n"
 "\n"
 "<p>\n"
@@ -612,7 +614,9 @@ msgid ""
 "Can't load non-local document:\n"
 "\n"
 "{url}"
-msgstr "Невозможно загрузить удалённый файл\n{url}"
+msgstr ""
+"Невозможно загрузить удалённый файл\n"
+"{url}"
 
 #: ../mainwindow.py:371
 msgctxt "dialog title"
@@ -624,7 +628,9 @@ msgid ""
 "Can't write to destination:\n"
 "\n"
 "{url}"
-msgstr "Невозможно записать файл\n{url}"
+msgstr ""
+"Невозможно записать файл\n"
+"{url}"
 
 #: ../mainwindow.py:416
 msgctxt "dialog title"
@@ -648,7 +654,10 @@ msgid ""
 "{url}\n"
 "\n"
 "{error}"
-msgstr "Невозможно записать файл\n{url}\n{error}"
+msgstr ""
+"Невозможно записать файл\n"
+"{url}\n"
+"{error}"
 
 #: ../mainwindow.py:533
 msgctxt "dialog title"
@@ -662,7 +671,10 @@ msgid ""
 "{url}\n"
 "\n"
 "{error}"
-msgstr "Невозможно прочитать файл:\n{url}\n{error}"
+msgstr ""
+"Невозможно прочитать файл:\n"
+"{url}\n"
+"{error}"
 
 #: ../mainwindow.py:557
 msgctxt "dialog title"
@@ -681,7 +693,9 @@ msgid ""
 "\n"
 msgstr ""
 "Пожалуйста, опишите проблему или предложение к улучшению\n"
-"Чем больше информации — тем лучше\n\n\n"
+"Чем больше информации — тем лучше\n"
+"\n"
+"\n"
 
 #: ../mainwindow.py:818
 msgid "Main Toolbar"
@@ -857,62 +871,62 @@ msgctxt "menu title"
 msgid "&File"
 msgstr "Файл"
 
-#: ../menu.py:114
+#: ../menu.py:115
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "Экспорт"
 
-#: ../menu.py:122
+#: ../menu.py:123
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "Правка"
 
-#: ../menu.py:149
+#: ../menu.py:150
 msgctxt "menu title"
 msgid "&View"
 msgstr "Вид"
 
-#: ../menu.py:173
+#: ../menu.py:174
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "Сворачивание"
 
-#: ../menu.py:188
+#: ../menu.py:189
 msgctxt "menu title"
 msgid "&Music"
 msgstr "Просмотр"
 
-#: ../menu.py:211
+#: ../menu.py:212
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "LilyPond"
 
-#: ../menu.py:230
+#: ../menu.py:231
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "Инструменты"
 
-#: ../menu.py:256
+#: ../menu.py:257
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "Текст"
 
-#: ../menu.py:268
+#: ../menu.py:269
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "Тон"
 
-#: ../menu.py:282
+#: ../menu.py:283
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "Ритм"
 
-#: ../menu.py:310
+#: ../menu.py:311
 msgctxt "menu title"
 msgid "&Window"
 msgstr "Окно"
 
-#: ../menu.py:330
+#: ../menu.py:331
 msgctxt "menu title"
 msgid "&Help"
 msgstr "Справка"
@@ -1339,8 +1353,7 @@ msgid ""
 msgstr ""
 "<p>\n"
 "Frescobaldi — лёгкий, но мощный редактор для файлов LilyPond.\n"
-"Руководство написано {author} и относится к {appname} v "
-"{version}.\n"
+"Руководство написано {author} и относится к {appname} v {version}.\n"
 "</p>\n"
 
 #: ../help/contents.py:60
@@ -3108,8 +3121,8 @@ msgid ""
 msgstr ""
 "Ниже можно ввести команды для открытия файлов разных типов. Для подстановки "
 "имени\n"
-"файла используйте <code>$f</code>, для его URL — <code>$u</code>. "
-"При пустом поле будет использованна системная программа по умолчанию."
+"файла используйте <code>$f</code>, для его URL — <code>$u</code>. При пустом "
+"поле будет использованна системная программа по умолчанию."
 
 #: ../preferences/helpers.py:90
 msgid "Command that should accept a mailto: URL."

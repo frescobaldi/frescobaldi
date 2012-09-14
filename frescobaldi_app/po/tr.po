@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-08-16 18:49+0200\n"
+"POT-Creation-Date: 2012-09-14 16:23+0200\n"
 "PO-Revision-Date: 2010-12-12 07:48+0200\n"
 "Last-Translator: Server Acim <serveracim@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -316,30 +316,35 @@ msgstr "Başlıksız"
 msgid "Untitled ({num})"
 msgstr "Başlıksız"
 
-#: ../documentactions.py:125
+#: ../documentactions.py:133
+#, fuzzy
+msgid "Open File at C&ursor"
+msgstr "Dosya Aç"
+
+#: ../documentactions.py:134
 #, fuzzy
 msgid "Cut and Assign..."
 msgstr "Kes ve Ata:"
 
-#: ../documentactions.py:126
+#: ../documentactions.py:135
 msgid "Syntax &Highlighting"
 msgstr ""
 
-#: ../documentactions.py:127
+#: ../documentactions.py:136
 #, fuzzy
 msgid "&Automatic Indent"
 msgstr "otomatik"
 
-#: ../documentactions.py:128
+#: ../documentactions.py:137
 msgid "Re-&Indent"
 msgstr ""
 
-#: ../documentactions.py:129
+#: ../documentactions.py:138
 #, fuzzy
 msgid "&Format"
 msgstr "Fermata"
 
-#: ../documentactions.py:130
+#: ../documentactions.py:139
 #, fuzzy
 msgid "&Update with convert-ly..."
 msgstr "convert-ly ile Güncelle"
@@ -891,69 +896,69 @@ msgctxt "menu title"
 msgid "&File"
 msgstr "Başlık"
 
-#: ../menu.py:114
+#: ../menu.py:115
 msgctxt "submenu title"
 msgid "&Export"
 msgstr ""
 
-#: ../menu.py:122
+#: ../menu.py:123
 msgctxt "menu title"
 msgid "&Edit"
 msgstr ""
 
-#: ../menu.py:149
+#: ../menu.py:150
 #, fuzzy
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Araç Görünümleri"
 
-#: ../menu.py:173
+#: ../menu.py:174
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "Kullanılacak dil kodlaması"
 
-#: ../menu.py:188
+#: ../menu.py:189
 msgctxt "menu title"
 msgid "&Music"
 msgstr ""
 
-#: ../menu.py:211
+#: ../menu.py:212
 #, fuzzy
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:230
+#: ../menu.py:231
 #, fuzzy
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Araç Görünümleri"
 
-#: ../menu.py:256
+#: ../menu.py:257
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "Şarkı &Sözleri"
 
-#: ../menu.py:268
+#: ../menu.py:269
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "Ses noktası"
 
-#: ../menu.py:282
+#: ../menu.py:283
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritm"
 
-#: ../menu.py:310
+#: ../menu.py:311
 msgctxt "menu title"
 msgid "&Window"
 msgstr ""
 
-#: ../menu.py:330
+#: ../menu.py:331
 msgctxt "menu title"
 msgid "&Help"
 msgstr ""

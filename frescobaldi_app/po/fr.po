@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-08-16 18:49+0200\n"
+"POT-Creation-Date: 2012-09-14 16:23+0200\n"
 "PO-Revision-Date: 2012-05-08 21:42+0100\n"
 "Last-Translator: Richard Cognot <cognot@gocad.org>\n"
 "Language-Team: Français <>\n"
@@ -297,27 +297,32 @@ msgstr "Sans titre"
 msgid "Untitled ({num})"
 msgstr "Sans titre ({num})"
 
-#: ../documentactions.py:125
+#: ../documentactions.py:133
+#, fuzzy
+msgid "Open File at C&ursor"
+msgstr "Ouvrir Fichier"
+
+#: ../documentactions.py:134
 msgid "Cut and Assign..."
 msgstr "Couper et assigner..."
 
-#: ../documentactions.py:126
+#: ../documentactions.py:135
 msgid "Syntax &Highlighting"
 msgstr "Coloration syntaxique"
 
-#: ../documentactions.py:127
+#: ../documentactions.py:136
 msgid "&Automatic Indent"
 msgstr "Indentation &automatique"
 
-#: ../documentactions.py:128
+#: ../documentactions.py:137
 msgid "Re-&Indent"
 msgstr "Ré-&indenter"
 
-#: ../documentactions.py:129
+#: ../documentactions.py:138
 msgid "&Format"
 msgstr "&Format"
 
-#: ../documentactions.py:130
+#: ../documentactions.py:139
 msgid "&Update with convert-ly..."
 msgstr "Mettre à jour avec convert-ly"
 
@@ -888,62 +893,62 @@ msgctxt "menu title"
 msgid "&File"
 msgstr "&Fichier"
 
-#: ../menu.py:114
+#: ../menu.py:115
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Exporter"
 
-#: ../menu.py:122
+#: ../menu.py:123
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "&Édition"
 
-#: ../menu.py:149
+#: ../menu.py:150
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Affichage"
 
-#: ../menu.py:173
+#: ../menu.py:174
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "Replier/Déplier"
 
-#: ../menu.py:188
+#: ../menu.py:189
 msgctxt "menu title"
 msgid "&Music"
 msgstr "Aperçu"
 
-#: ../menu.py:211
+#: ../menu.py:212
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:230
+#: ../menu.py:231
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "Outils"
 
-#: ../menu.py:256
+#: ../menu.py:257
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "Paroles"
 
-#: ../menu.py:268
+#: ../menu.py:269
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "Hauteur"
 
-#: ../menu.py:282
+#: ../menu.py:283
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Rythme"
 
-#: ../menu.py:310
+#: ../menu.py:311
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Fenêtre"
 
-#: ../menu.py:330
+#: ../menu.py:331
 msgctxt "menu title"
 msgid "&Help"
 msgstr "Aide"
@@ -7378,9 +7383,6 @@ msgstr "Sélectionner un fichier"
 
 #~ msgid "Line selection mode"
 #~ msgstr "Mode sélection de ligne"
-
-#~ msgid "Open File"
-#~ msgstr "Ouvrir Fichier"
 
 #~ msgid "Right-click for tab options"
 #~ msgstr "Clic droit : options de l'onglet"
