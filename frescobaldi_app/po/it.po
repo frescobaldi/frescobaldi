@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-09-14 16:23+0200\n"
+"POT-Creation-Date: 2012-09-19 11:44+0200\n"
 "PO-Revision-Date: 2012-05-08 15:57+0200\n"
 "Last-Translator: .billyBoh <billyboh@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -911,37 +911,37 @@ msgctxt "menu title"
 msgid "&Music"
 msgstr "&Spartito"
 
-#: ../menu.py:212
+#: ../menu.py:214
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:231
+#: ../menu.py:233
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Strumenti"
 
-#: ../menu.py:257
+#: ../menu.py:259
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Parole"
 
-#: ../menu.py:269
+#: ../menu.py:271
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Note"
 
-#: ../menu.py:283
+#: ../menu.py:285
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritmo"
 
-#: ../menu.py:311
+#: ../menu.py:313
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Finestra"
 
-#: ../menu.py:331
+#: ../menu.py:333
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Aiuto"
@@ -1089,7 +1089,7 @@ msgstr "Completamento &automatico"
 msgid "Show C&ompletions Popup"
 msgstr "Mostra la finestra dei c&ompletamenti"
 
-#: ../charmap/__init__.py:40 ../preferences/tools.py:202
+#: ../charmap/__init__.py:40 ../preferences/tools.py:215
 msgid "Special Characters"
 msgstr "Caratteri speciali"
 
@@ -1163,7 +1163,7 @@ msgstr "Apri il documento in una &nuova finestra"
 msgid "LilyPond Source"
 msgstr "Documento LilyPond sorgente"
 
-#: ../doclist/__init__.py:39 ../preferences/tools.py:235
+#: ../doclist/__init__.py:39 ../preferences/tools.py:248
 msgid "Documents"
 msgstr "Documenti"
 
@@ -2475,88 +2475,93 @@ msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "TEMPO"
 
-#: ../musicview/__init__.py:115
+#: ../musicview/__init__.py:117
 msgctxt "window title"
 msgid "Music View"
 msgstr "Anteprima spartito"
 
-#: ../musicview/__init__.py:116
+#: ../musicview/__init__.py:118
 msgid "&Music View"
 msgstr "Anteprima &spartito"
 
-#: ../musicview/__init__.py:274
+#: ../musicview/__init__.py:286
 msgid "Select Music View Document"
 msgstr "Scegliere un documento per l'Anteprima spartito"
 
-#: ../musicview/__init__.py:275
+#: ../musicview/__init__.py:287
 msgid "&Print Music..."
 msgstr "&Stampa la musica..."
 
-#: ../musicview/__init__.py:276
+#: ../musicview/__init__.py:288
 msgid "Zoom &In"
 msgstr "&Aumenta zoom"
 
-#: ../musicview/__init__.py:277
+#: ../musicview/__init__.py:289
 msgid "Zoom &Out"
 msgstr "&Diminuisci zoom"
 
-#: ../musicview/__init__.py:278
+#: ../musicview/__init__.py:290
 msgid "Original &Size"
 msgstr "&Dimensione originale"
 
-#: ../musicview/__init__.py:279
+#: ../musicview/__init__.py:291
 msgid "Zoom Music"
 msgstr "Fai zoom sullo spartito"
 
-#: ../musicview/__init__.py:280
+#: ../musicview/__init__.py:292
 msgid "Fit &Width"
 msgstr "Adatta alla &larghezza"
 
-#: ../musicview/__init__.py:281
+#: ../musicview/__init__.py:293
 msgid "Fit &Height"
 msgstr "Adatta all'&altezza"
 
-#: ../musicview/__init__.py:282
+#: ../musicview/__init__.py:294
 msgid "Fit &Page"
 msgstr "Adatta alla &pagina"
 
-#: ../musicview/__init__.py:283
+#: ../musicview/__init__.py:295
 msgid "&Maximize"
 msgstr "Allarga al &massimo"
 
-#: ../musicview/__init__.py:284
+#: ../musicview/__init__.py:296
 msgid "&Jump to Cursor Position"
 msgstr "&Salta alla posizione del cursore"
 
-#: ../musicview/__init__.py:285
+#: ../musicview/__init__.py:297
 msgid "S&ynchronize with Cursor Position"
 msgstr "S&incronizza con la posizione del cursore"
 
-#: ../musicview/__init__.py:286
+#: ../musicview/__init__.py:298
 msgid "Copy to &Image..."
 msgstr "Copia come &immagine..."
 
-#: ../musicview/__init__.py:287
+#: ../musicview/__init__.py:299
 msgid "Next Page"
 msgstr "Pagina successiva"
 
-#: ../musicview/__init__.py:288
+#: ../musicview/__init__.py:300
 msgid "Next"
 msgstr "Avanti"
 
-#: ../musicview/__init__.py:289
+#: ../musicview/__init__.py:301
 msgid "Previous Page"
 msgstr "Pagina precedente"
 
-#: ../musicview/__init__.py:290
+#: ../musicview/__init__.py:302
 msgid "Previous"
 msgstr "Indietro"
 
-#: ../musicview/__init__.py:429
+#: ../musicview/__init__.py:303
+#, fuzzy
+msgid "&Reload"
+msgstr "Ricarica"
+
+#: ../musicview/__init__.py:447
 msgid "Choose the PDF document to display."
 msgstr "Scegli il documento PDF da mostrare."
 
-#: ../musicview/__init__.py:431
+#: ../musicview/__init__.py:449
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -2564,20 +2569,20 @@ msgstr ""
 "Scegli il documento PDF da mostrare o trascina il file ad un'altra "
 "applicazione o posizione."
 
-#: ../musicview/__init__.py:489
+#: ../musicview/__init__.py:507
 msgid "Fit Width"
 msgstr "Adatta alla larghezza"
 
-#: ../musicview/__init__.py:490
+#: ../musicview/__init__.py:508
 msgid "Fit Height"
 msgstr "Adatta all'altezza"
 
-#: ../musicview/__init__.py:491
+#: ../musicview/__init__.py:509
 msgid "Fit Page"
 msgstr "Adatta alla pagina"
 
 #. L10N: page numbering: page {num} of {total}
-#: ../musicview/__init__.py:508
+#: ../musicview/__init__.py:526
 msgid "{num} of {total}"
 msgstr "{num} di {total}"
 
@@ -3172,7 +3177,7 @@ msgid "English (untranslated)"
 msgstr "Inglese (non tradotto)"
 
 #: ../preferences/documentation.py:126 ../preferences/fontscolors.py:122
-#: ../preferences/tools.py:81 ../preferences/tools.py:203
+#: ../preferences/tools.py:81 ../preferences/tools.py:216
 msgid "Font:"
 msgstr "Carattere:"
 
@@ -4063,47 +4068,58 @@ msgstr ""
 "Se selezionato, Frescobaldi non abbrevierà i nomi dei file\n"
 "nei messaggi di esecuzione di LilyPond."
 
-#: ../preferences/tools.py:145
+#: ../preferences/tools.py:148
 msgid "Music View"
 msgstr "Anteprima spartito"
 
-#: ../preferences/tools.py:146
+#: ../preferences/tools.py:149
+#, fuzzy
+msgid "Only load updated PDF documents"
+msgstr "Chiudi tutti i documenti senza nome"
+
+#: ../preferences/tools.py:151
+msgid ""
+"If checked, Frescobaldi will not open PDF documents that are not\n"
+"up-to-date (i.e. the source file has been modified later)."
+msgstr ""
+
+#: ../preferences/tools.py:153
 msgid "Magnifier Size:"
 msgstr "Lente d'ingrandimento:"
 
-#: ../preferences/tools.py:148
+#: ../preferences/tools.py:155
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr ""
 "Dimensioni della lente d'ingrandimento. (Ctrl+Click nell'Anteprima spartito)."
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: ../preferences/tools.py:150
+#: ../preferences/tools.py:157
 msgid " pixels"
 msgstr " pixel"
 
-#: ../preferences/tools.py:151
+#: ../preferences/tools.py:158
 msgid "Magnifier Scale:"
 msgstr "Fattore d'ingrandimento:"
 
-#: ../preferences/tools.py:153
+#: ../preferences/tools.py:160
 msgid "Magnification of the magnifier."
 msgstr "Quante volte ingrandisce la lente."
 
-#: ../preferences/tools.py:154
+#: ../preferences/tools.py:161
 msgctxt "percent unit sign"
 msgid "%"
 msgstr "%"
 
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
-#: ../preferences/tools.py:156
+#: ../preferences/tools.py:163
 msgid "Kinetic Scrolling"
 msgstr ""
 
-#: ../preferences/tools.py:157
+#: ../preferences/tools.py:164
 msgid "Show Scrollbars"
 msgstr ""
 
-#: ../preferences/tools.py:236
+#: ../preferences/tools.py:249
 msgid "Group documents by directory"
 msgstr "Raggruppa documenti per cartella"
 
@@ -7928,9 +7944,6 @@ msgstr "Scegliere un file"
 
 #~ msgid "Configure Okular..."
 #~ msgstr "Configura Okular..."
-
-#~ msgid "Reload"
-#~ msgstr "Ricarica"
 
 #~ msgid "no log"
 #~ msgstr "nessun log presente"

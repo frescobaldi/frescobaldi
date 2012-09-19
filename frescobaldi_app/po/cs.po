@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-09-14 16:23+0200\n"
+"POT-Creation-Date: 2012-09-19 11:44+0200\n"
 "PO-Revision-Date: 2012-09-08 20:04+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -910,37 +910,37 @@ msgctxt "menu title"
 msgid "&Music"
 msgstr "No&ty"
 
-#: ../menu.py:212
+#: ../menu.py:214
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:231
+#: ../menu.py:233
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Nástroje"
 
-#: ../menu.py:257
+#: ../menu.py:259
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Slova písně"
 
-#: ../menu.py:269
+#: ../menu.py:271
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Výška tónu"
 
-#: ../menu.py:283
+#: ../menu.py:285
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Rytmus"
 
-#: ../menu.py:311
+#: ../menu.py:313
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Okno"
 
-#: ../menu.py:331
+#: ../menu.py:333
 msgctxt "menu title"
 msgid "&Help"
 msgstr "Nápověd&a"
@@ -1088,7 +1088,7 @@ msgstr "Automati&cké dokončení"
 msgid "Show C&ompletions Popup"
 msgstr "Ukázat vyskakovací do&končení"
 
-#: ../charmap/__init__.py:40 ../preferences/tools.py:202
+#: ../charmap/__init__.py:40 ../preferences/tools.py:215
 msgid "Special Characters"
 msgstr "Zvláštní znaky"
 
@@ -1162,7 +1162,7 @@ msgstr "Otevřít dokument v &novém okně"
 msgid "LilyPond Source"
 msgstr "Zdroj LilyPond"
 
-#: ../doclist/__init__.py:39 ../preferences/tools.py:235
+#: ../doclist/__init__.py:39 ../preferences/tools.py:248
 msgid "Documents"
 msgstr "Dokumenty"
 
@@ -2436,88 +2436,93 @@ msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "DOBA"
 
-#: ../musicview/__init__.py:115
+#: ../musicview/__init__.py:117
 msgctxt "window title"
 msgid "Music View"
 msgstr "Pohled na noty"
 
-#: ../musicview/__init__.py:116
+#: ../musicview/__init__.py:118
 msgid "&Music View"
 msgstr "Pohled na &noty"
 
-#: ../musicview/__init__.py:274
+#: ../musicview/__init__.py:286
 msgid "Select Music View Document"
 msgstr "Vybrat dokument s pohledem na noty"
 
-#: ../musicview/__init__.py:275
+#: ../musicview/__init__.py:287
 msgid "&Print Music..."
 msgstr "Vy&tisknout noty..."
 
-#: ../musicview/__init__.py:276
+#: ../musicview/__init__.py:288
 msgid "Zoom &In"
 msgstr "&Přiblížit"
 
-#: ../musicview/__init__.py:277
+#: ../musicview/__init__.py:289
 msgid "Zoom &Out"
 msgstr "&Oddálit"
 
-#: ../musicview/__init__.py:278
+#: ../musicview/__init__.py:290
 msgid "Original &Size"
 msgstr "Původní &velikost"
 
-#: ../musicview/__init__.py:279
+#: ../musicview/__init__.py:291
 msgid "Zoom Music"
 msgstr "Zvětšení hudby"
 
-#: ../musicview/__init__.py:280
+#: ../musicview/__init__.py:292
 msgid "Fit &Width"
 msgstr "Přizpůsobit šíř&ce"
 
-#: ../musicview/__init__.py:281
+#: ../musicview/__init__.py:293
 msgid "Fit &Height"
 msgstr "Přizpůsobit &výšce"
 
-#: ../musicview/__init__.py:282
+#: ../musicview/__init__.py:294
 msgid "Fit &Page"
 msgstr "Přizpůsobit &straně"
 
-#: ../musicview/__init__.py:283
+#: ../musicview/__init__.py:295
 msgid "&Maximize"
 msgstr "&Zvětšit"
 
-#: ../musicview/__init__.py:284
+#: ../musicview/__init__.py:296
 msgid "&Jump to Cursor Position"
 msgstr "&Skočit na polohu ukazovátka"
 
-#: ../musicview/__init__.py:285
+#: ../musicview/__init__.py:297
 msgid "S&ynchronize with Cursor Position"
 msgstr "S&eřídit s polohou ukazovátky"
 
-#: ../musicview/__init__.py:286
+#: ../musicview/__init__.py:298
 msgid "Copy to &Image..."
 msgstr "Kopírovat do &obrázku..."
 
-#: ../musicview/__init__.py:287
+#: ../musicview/__init__.py:299
 msgid "Next Page"
 msgstr "Další strana"
 
-#: ../musicview/__init__.py:288
+#: ../musicview/__init__.py:300
 msgid "Next"
 msgstr "Další"
 
-#: ../musicview/__init__.py:289
+#: ../musicview/__init__.py:301
 msgid "Previous Page"
 msgstr "Předchozí strana"
 
-#: ../musicview/__init__.py:290
+#: ../musicview/__init__.py:302
 msgid "Previous"
 msgstr "Předchozí"
 
-#: ../musicview/__init__.py:429
+#: ../musicview/__init__.py:303
+#, fuzzy
+msgid "&Reload"
+msgstr "Nahrát znovu"
+
+#: ../musicview/__init__.py:447
 msgid "Choose the PDF document to display."
 msgstr "Vybrat dokument PDF k zobrazení."
 
-#: ../musicview/__init__.py:431
+#: ../musicview/__init__.py:449
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -2525,20 +2530,20 @@ msgstr ""
 "Vyberte dokument PDF k zobrazení nebo soubor přetáhněte do jiného programu "
 "nebo umístění.."
 
-#: ../musicview/__init__.py:489
+#: ../musicview/__init__.py:507
 msgid "Fit Width"
 msgstr "Přizpůsobit šířce"
 
-#: ../musicview/__init__.py:490
+#: ../musicview/__init__.py:508
 msgid "Fit Height"
 msgstr "Přizpůsobit výšce"
 
-#: ../musicview/__init__.py:491
+#: ../musicview/__init__.py:509
 msgid "Fit Page"
 msgstr "Přizpůsobit straně"
 
 #. L10N: page numbering: page {num} of {total}
-#: ../musicview/__init__.py:508
+#: ../musicview/__init__.py:526
 msgid "{num} of {total}"
 msgstr "{num} z {total}"
 
@@ -3126,7 +3131,7 @@ msgid "English (untranslated)"
 msgstr "Anglický (nepřeloženo)"
 
 #: ../preferences/documentation.py:126 ../preferences/fontscolors.py:122
-#: ../preferences/tools.py:81 ../preferences/tools.py:203
+#: ../preferences/tools.py:81 ../preferences/tools.py:216
 msgid "Font:"
 msgstr "Písmo:"
 
@@ -4002,46 +4007,57 @@ msgstr ""
 "Je-li zaškrtnuto, Frescobaldi nebude zkracovat názvy souborů ve výstupu se "
 "zápisem."
 
-#: ../preferences/tools.py:145
+#: ../preferences/tools.py:148
 msgid "Music View"
 msgstr "Pohled na noty"
 
-#: ../preferences/tools.py:146
+#: ../preferences/tools.py:149
+#, fuzzy
+msgid "Only load updated PDF documents"
+msgstr "Zavřít všechny nepojmenované dokumenty"
+
+#: ../preferences/tools.py:151
+msgid ""
+"If checked, Frescobaldi will not open PDF documents that are not\n"
+"up-to-date (i.e. the source file has been modified later)."
+msgstr ""
+
+#: ../preferences/tools.py:153
 msgid "Magnifier Size:"
 msgstr "Velikost lupy:"
 
-#: ../preferences/tools.py:148
+#: ../preferences/tools.py:155
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr "Velikost zvětšovacího skla (Ctrl+klepnutí v pohledu na noty)."
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: ../preferences/tools.py:150
+#: ../preferences/tools.py:157
 msgid " pixels"
 msgstr " pixelů"
 
-#: ../preferences/tools.py:151
+#: ../preferences/tools.py:158
 msgid "Magnifier Scale:"
 msgstr "Měřítko lupy:"
 
-#: ../preferences/tools.py:153
+#: ../preferences/tools.py:160
 msgid "Magnification of the magnifier."
 msgstr "Zvětšení lupy."
 
-#: ../preferences/tools.py:154
+#: ../preferences/tools.py:161
 msgctxt "percent unit sign"
 msgid "%"
 msgstr "%"
 
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
-#: ../preferences/tools.py:156
+#: ../preferences/tools.py:163
 msgid "Kinetic Scrolling"
 msgstr "Pohybové projíždění"
 
-#: ../preferences/tools.py:157
+#: ../preferences/tools.py:164
 msgid "Show Scrollbars"
 msgstr "Ukázat posuvníky"
 
-#: ../preferences/tools.py:236
+#: ../preferences/tools.py:249
 msgid "Group documents by directory"
 msgstr "Seskupit dokumenty podle adresáře"
 
@@ -7836,9 +7852,6 @@ msgstr "Vybrat soubor"
 
 #~ msgid "Configure Okular..."
 #~ msgstr "Nastavit Okular..."
-
-#~ msgid "Reload"
-#~ msgstr "Nahrát znovu"
 
 #~ msgid "no log"
 #~ msgstr "Žádný záznam o průběhu činnosti"
