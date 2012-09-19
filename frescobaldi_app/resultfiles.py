@@ -111,7 +111,21 @@ class Results(plugin.DocumentPlugin):
                     pass
             return list(util.uniq(files))
         return []
-
+    
+    def is_newer(self, filename):
+        """Return True if the given (generated) file is newer than the jobfile().
+        
+        Also return True if the mtime of one of the files could not be read.
+        
+        """
+        jobfile = self.jobfile()
+        if jobfile:
+            try:
+                return os.path.getmtime(filename) > os.path.getmtime(jobfile)
+            except (OSError, IOError):
+                pass
+        return True
+        
     def currentDirectory(self):
         """Returns the directory the document resides in.
         

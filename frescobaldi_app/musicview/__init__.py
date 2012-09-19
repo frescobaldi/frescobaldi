@@ -40,7 +40,8 @@ import weakref
 
 from PyQt4.QtCore import QSettings, QTimer, Qt, pyqtSignal
 from PyQt4.QtGui import (
-    QAction, QComboBox, QLabel, QKeySequence, QSpinBox, QWidgetAction)
+    QAction, QApplication, QColor, QComboBox, QLabel, QKeySequence, QPalette,
+    QSpinBox, QWidgetAction)
 
 import app
 import actioncollection
@@ -402,8 +403,13 @@ class DocumentChooserAction(ComboBoxAction):
     def setCurrentIndex(self, index):
         if self._documents:
             self._currentIndex = index
+            p = QApplication.palette()
+            if not self._documents[index].updated:
+                color = qutil.mixcolor(QColor(Qt.red), p.color(QPalette.Base), 0.3)
+                p.setColor(QPalette.Base, color)
             for w in self.createdWidgets():
                 w.setCurrentIndex(index)
+                w.setPalette(p)
             self.currentDocumentChanged.emit(self._documents[index])
     
     def currentIndex(self):

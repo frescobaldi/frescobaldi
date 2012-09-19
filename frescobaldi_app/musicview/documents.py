@@ -27,7 +27,7 @@ from __future__ import unicode_literals
 import os
 import weakref
 
-from PyQt4.QtCore import QByteArray
+from PyQt4.QtCore import QByteArray, QSettings
 
 try:
     import popplerqt4
@@ -88,6 +88,8 @@ def filename(poppler_document):
 
 class Document(popplertools.Document):
     """Represents a (lazily) loaded PDF document."""
+    updated = True
+    
     def load(self):
         return load(self.filename())
         
@@ -126,7 +128,9 @@ class DocumentGroup(plugin.DocumentPlugin):
         Returns True if new documents were loaded.
         
         """
-        files = resultfiles.results(self.document()).files(".pdf")
+        results = resultfiles.results(self.document())
+        newer = QSettings().value("musicview/newer_files_only", True) not in (False, "false")
+        files = results.files(".pdf", newer)
         if files:
             # reuse the older Document objects, they will probably be displaying
             # (about) the same documents, and so the viewer will remember their position.
@@ -139,6 +143,7 @@ class DocumentGroup(plugin.DocumentPlugin):
             documents = []
             for filename, doc in zip(files, docs()):
                 doc.setFilename(filename)
+                doc.updated = newer or results.is_newer(filename)
                 documents.append(doc)
             self._documents = documents
             return True
