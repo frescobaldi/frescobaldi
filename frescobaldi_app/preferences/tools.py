@@ -110,7 +110,10 @@ class MusicView(preferences.Group):
         
         layout = QGridLayout()
         self.setLayout(layout)
-
+        
+        self.newerFilesOnly = QCheckBox(toggled=self.changed)
+        layout.addWidget(self.newerFilesOnly, 0, 0, 1, 3)
+        
         self.magnifierSizeLabel = QLabel()
         self.magnifierSizeSlider = QSlider(Qt.Horizontal, valueChanged=self.changed)
         self.magnifierSizeSlider.setSingleStep(50)
@@ -119,9 +122,9 @@ class MusicView(preferences.Group):
         self.magnifierSizeSpinBox.setRange(*popplerview.MagnifierSettings.sizeRange)
         self.magnifierSizeSpinBox.valueChanged.connect(self.magnifierSizeSlider.setValue)
         self.magnifierSizeSlider.valueChanged.connect(self.magnifierSizeSpinBox.setValue)
-        layout.addWidget(self.magnifierSizeLabel, 0, 0)
-        layout.addWidget(self.magnifierSizeSlider, 0, 1)
-        layout.addWidget(self.magnifierSizeSpinBox, 0, 2)
+        layout.addWidget(self.magnifierSizeLabel, 1, 0)
+        layout.addWidget(self.magnifierSizeSlider, 1, 1)
+        layout.addWidget(self.magnifierSizeSpinBox, 1, 2)
         
         self.magnifierScaleLabel = QLabel()
         self.magnifierScaleSlider = QSlider(Qt.Horizontal, valueChanged=self.changed)
@@ -131,9 +134,9 @@ class MusicView(preferences.Group):
         self.magnifierScaleSpinBox.setRange(*popplerview.MagnifierSettings.scaleRange)
         self.magnifierScaleSpinBox.valueChanged.connect(self.magnifierScaleSlider.setValue)
         self.magnifierScaleSlider.valueChanged.connect(self.magnifierScaleSpinBox.setValue)
-        layout.addWidget(self.magnifierScaleLabel, 1, 0)
-        layout.addWidget(self.magnifierScaleSlider, 1, 1)
-        layout.addWidget(self.magnifierScaleSpinBox, 1, 2)
+        layout.addWidget(self.magnifierScaleLabel, 2, 0)
+        layout.addWidget(self.magnifierScaleSlider, 2, 1)
+        layout.addWidget(self.magnifierScaleSpinBox, 2, 2)
         
         self.enableKineticScrolling = QCheckBox(toggled=self.changed)
         layout.addWidget(self.enableKineticScrolling)
@@ -143,6 +146,10 @@ class MusicView(preferences.Group):
         
     def translateUI(self):
         self.setTitle(_("Music View"))
+        self.newerFilesOnly.setText(_("Only load updated PDF documents"))
+        self.newerFilesOnly.setToolTip(_(
+            "If checked, Frescobaldi will not open PDF documents that are not\n"
+            "up-to-date (i.e. the source file has been modified later)."))
         self.magnifierSizeLabel.setText(_("Magnifier Size:"))
         self.magnifierSizeLabel.setToolTip(_(
             "Size of the magnifier glass (Ctrl+Click in the Music View)."))
@@ -161,10 +168,13 @@ class MusicView(preferences.Group):
         self.magnifierSizeSlider.setValue(s.size)
         self.magnifierScaleSlider.setValue(s.scale)
         
-        ks = QSettings()
-        kineticScrollingActive = ks.value("musicview/kinetic_scrolling", True) not in (False, "false")
+        s = QSettings()
+        s.beginGroup("musicview")
+        newerFilesOnly = s.value("newer_files_only", True) not in (False, "false")
+        self.newerFilesOnly.setChecked(newerFilesOnly)
+        kineticScrollingActive = s.value("kinetic_scrolling", True) not in (False, "false")
         self.enableKineticScrolling.setChecked(kineticScrollingActive)
-        showScrollbars = ks.value("musicview/show_scrollbars", True) not in (False, "false")
+        showScrollbars = s.value("show_scrollbars", True) not in (False, "false")
         self.showScrollbars.setChecked(showScrollbars)
     
     def saveSettings(self):
@@ -173,9 +183,12 @@ class MusicView(preferences.Group):
         s.scale = self.magnifierScaleSlider.value()
         s.save()
 
-        ks = QSettings()
-        ks.setValue("musicview/kinetic_scrolling", self.enableKineticScrolling.isChecked())
-        ks.setValue("musicview/show_scrollbars", self.showScrollbars.isChecked())
+        s = QSettings()
+        s.beginGroup("musicview")
+        s.setValue("newer_files_only", self.newerFilesOnly.isChecked())
+        s.setValue("kinetic_scrolling", self.enableKineticScrolling.isChecked())
+        s.setValue("show_scrollbars", self.showScrollbars.isChecked())
+
 
 class CharMap(preferences.Group):
     def __init__(self, page):
