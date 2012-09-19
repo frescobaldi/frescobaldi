@@ -2,6 +2,19 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
+Changed in 2.0.9 -- 
+
+* Translations:
+  - updated: nl
+* New features:
+  - Frescobaldi now can be configured to open the generated PDF files when
+    opening a LilyPond document, even if it is not up-to-date. It then shows a
+    red background in the document chooser. See Preferences->Tools->Music View
+  - Music->Reload: switches the Music View to the current source document and
+    re-checks for updated PDF documents. If there are no updated PDFs it even
+    tries to load non up-to-date PDFs (regardless of the setting above)
+
+
 Changes in 2.0.8 -- September 14th, 2012
 
 * Translations:

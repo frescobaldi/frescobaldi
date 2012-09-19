@@ -109,6 +109,7 @@ class MusicViewPanel(panel.Panel):
         self.slotPageCountChanged(0)
         ac.music_next_page.setEnabled(False)
         ac.music_prev_page.setEnabled(False)
+        ac.music_reload.triggered.connect(self.reloadView)
         self.actionCollection.music_sync_cursor.setChecked(
             QSettings().value("musicview/sync_cursor", False) in (True, "true"))
                 
@@ -206,6 +207,14 @@ class MusicViewPanel(panel.Panel):
     def jumpToCursor(self):
         self.widget().showCurrentLinks()
     
+    @activate
+    def reloadView(self):
+        d = self.mainwindow().currentDocument()
+        group = documents.group(d)
+        if group.update() or group.update(False):
+            ac = self.actionCollection
+            ac.music_document_select.setCurrentDocument(d)
+    
     def toggleSyncCursor(self):
         QSettings().setValue("musicview/sync_cursor",
             self.actionCollection.music_sync_cursor.isChecked())
@@ -250,6 +259,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_pager = PagerAction(panel)
         self.music_next_page = QAction(panel)
         self.music_prev_page = QAction(panel)
+        self.music_reload = QAction(panel)
 
         self.music_print.setIcon(icons.get('document-print'))
         self.music_zoom_in.setIcon(icons.get('zoom-in'))
@@ -270,6 +280,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_zoom_out.setShortcuts(QKeySequence.ZoomOut)
         self.music_jump_to_cursor.setShortcut(QKeySequence(Qt.CTRL | Qt.Key_J))
         self.music_copy_image.setShortcut(QKeySequence(Qt.SHIFT | Qt.CTRL | Qt.Key_C))
+        self.music_reload.setShortcut(QKeySequence(Qt.Key_F5))
         
     def translateUI(self):
         self.music_document_select.setText(_("Select Music View Document"))
@@ -289,6 +300,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_next_page.setIconText(_("Next"))
         self.music_prev_page.setText(_("Previous Page"))
         self.music_prev_page.setIconText(_("Previous"))
+        self.music_reload.setText(_("&Reload"))
 
 
 class ComboBoxAction(QWidgetAction):

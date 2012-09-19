@@ -189,6 +189,8 @@ def menu_music(mainwindow):
     m = Menu(_("menu title", "&Music"), mainwindow)
     ac = panelmanager.manager(mainwindow).musicview.actionCollection
     
+    m.addAction(ac.music_reload)
+    m.addSeparator()
     m.addAction(ac.music_zoom_in)
     m.addAction(ac.music_zoom_out)
     m.addAction(ac.music_zoom_original)

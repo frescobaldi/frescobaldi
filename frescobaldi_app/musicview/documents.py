@@ -122,14 +122,19 @@ class DocumentGroup(plugin.DocumentPlugin):
             self.update()
         return self._documents[:]
     
-    def update(self):
+    def update(self, newer=None):
         """Queries the resultfiles of this text document for PDF files and loads them.
         
         Returns True if new documents were loaded.
+        If newer is True, only PDF files newer than the source document are returned.
+        If newer is False, all PDF files are returned.
+        If newer is None (default), the setting from the configuration is used.
         
         """
+        if newer is None:
+            newer = QSettings().value("musicview/newer_files_only", True) not in (False, "false")
+        
         results = resultfiles.results(self.document())
-        newer = QSettings().value("musicview/newer_files_only", True) not in (False, "false")
         files = results.files(".pdf", newer)
         if files:
             # reuse the older Document objects, they will probably be displaying
