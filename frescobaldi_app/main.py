@@ -64,6 +64,8 @@ def parse_commandline():
     parser.add_option('--start', metavar=_("NAME"),
         help=_("Session to start ('{none}' for empty session)").format(none="none"),
         dest="session")
+    parser.add_option('--list-sessions', action="store_true", default=False,
+        help=_("List the session names and exit"))
     parser.add_option('-n', '--new', action="store_true", default=False,
         help=_("Always start a new instance"))
     
@@ -102,6 +104,13 @@ def url(arg):
 def main():
     """Main function."""
     options, files = parse_commandline()
+    
+    if options.list_sessions:
+        import sessions
+        for name in sessions.sessionNames():
+            sys.stdout.write(name + '\n')
+        sys.exit(0)
+        
     urls = list(map(url, files))
     
     if not app.qApp.isSessionRestored():
