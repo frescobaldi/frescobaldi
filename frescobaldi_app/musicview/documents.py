@@ -141,8 +141,9 @@ class DocumentGroup(plugin.DocumentPlugin):
             # (about) the same documents, and so the viewer will remember their position.
             def docs():
                 # yield existing docs and then new ones
-                for d in self._documents:
-                    yield d
+                if self._documents:
+                    for d in self._documents:
+                        yield d
                 while True:
                     yield Document()
             documents = []
