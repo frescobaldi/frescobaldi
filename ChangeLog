@@ -14,6 +14,7 @@ Changed in 2.0.9 --
     re-checks for updated PDF documents. If there are no updated PDFs it even
     tries to load non up-to-date PDFs (regardless of the setting above)
   - New --list-sessions commandline option to list the named sessions
+  - Quick Insert: \melisma, \melismaEnd spanner button (idea: issue #88)
 * Bug fixes:
   - fix Python error message when a document (marked as Always engraved) is
     engraved which didn't have yet the PDF displayed

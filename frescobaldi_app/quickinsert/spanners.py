@@ -144,6 +144,7 @@ class SpannerGroup(buttongroup.ButtonGroup):
         yield 'spanner_phrasingslur', _("Phrasing Slur")
         yield 'spanner_beam16', _("Beam")
         yield 'spanner_trill', _("Trill")
+        yield 'spanner_melisma', _("Melisma")
 
     def actionTriggered(self, name):
         d = ['_', '', '^'][self.direction()+1]
@@ -155,6 +156,8 @@ class SpannerGroup(buttongroup.ButtonGroup):
             spanner = d + '[', ']'
         elif name == "spanner_trill":
             spanner = '\\startTrillSpan', '\\stopTrillSpan'
+        elif name == "spanner_melisma":
+            spanner = '\\melisma', '\\melismaEnd'
 
         cursor = self.mainwindow().textCursor()
         with cursortools.compress_undo(cursor):
