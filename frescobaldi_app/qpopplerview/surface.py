@@ -353,6 +353,7 @@ class Surface(QWidget):
         if self._magnifying:
             self._magnifier.hide()
             self._magnifying = False
+            self.unsetCursor() 
             consumed = True
         elif self._selecting:
             self._selecting = False
