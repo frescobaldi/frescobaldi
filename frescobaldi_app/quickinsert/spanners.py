@@ -166,6 +166,12 @@ class SpannerGroup(buttongroup.ButtonGroup):
 
 
 def spanner_positions(cursor):
+    """Return a list with 0 to 2 QTextCursor instances.
+    
+    At the first cursor a starting spanner item can be inserted, at the
+    second an ending item.
+    
+    """ 
     if cursor.hasSelection():
         source = tokeniter.Source.selection(cursor, True)
         tokens = None
