@@ -68,7 +68,13 @@ def state(blockOrCursor):
 
 
 def update(block):
-    """Retokenizes the given block, saving the tokens in the UserData."""
+    """Retokenize the given block, saving the tokens in the UserData.
+    
+    You only need to call this if you immediately need the new tokens again,
+    e.g. for more manipulations in the same moment. The tokens will
+    automatically be updated when Qt re-enters the event loop.
+    
+    """
     highlighter.highlighter(block.document()).rehighlightBlock(block)
 
 
