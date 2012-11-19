@@ -68,29 +68,44 @@ class AbstractMatcher(object):
         for token in tokens.forward_line():
             if token.pos <= column <= token.end:
                 if isinstance(token, ly.lex.MatchStart):
-                    source, match, other = tokens.forward(), ly.lex.MatchStart, ly.lex.MatchEnd
+                    match, other = ly.lex.MatchStart, ly.lex.MatchEnd
+                    bottom = self.view().contentOffset().y() + self.view().viewport().height()
+                    def source_gen():
+                        while self.view().blockBoundingGeometry(tokens.block).top() <= bottom:
+                            for t in tokens.forward_line():
+                                yield t
+                            tokens.__init__(tokens.block.next())
+                    source = source_gen()
                     break
                 elif isinstance(token, ly.lex.MatchEnd):
-                    source, match, other = tokens.backward(), ly.lex.MatchEnd, ly.lex.MatchStart
+                    match, other = ly.lex.MatchEnd, ly.lex.MatchStart
+                    first_block = self.view().firstVisibleBlock()
+                    def source_gen():
+                        while tokens.block >= first_block:
+                            for t in tokens.backward_line():
+                                yield t
+                            tokens.__init__(tokens.block.previous(), True)
+                    source = source_gen()
                     break
             elif token.pos > column:
                 break
         if source:
             # we've found a matcher item
-            cursor1 = tokens.cursor()
+            cursors = [tokens.cursor()]
             nest = 0
             for token2 in source:
                 if isinstance(token2, other) and token2.matchname == token.matchname:
                     if nest == 0:
                         # we've found the matching item!
-                        cursor2 = tokens.cursor()
-                        self.highlighter().highlight("match", (cursor1, cursor2), 2, 1000)
-                        return
+                        cursors.append(tokens.cursor())
+                        break
                     else:
                         nest -= 1
                 elif isinstance(token2, match) and token2.matchname == token.matchname:
                     nest += 1
-        self.highlighter().clear("match")
+            self.highlighter().highlight("match", cursors, 2, 1000)
+        else:
+            self.highlighter().clear("match")
 
 
 class Matcher(AbstractMatcher, plugin.MainWindowPlugin):
