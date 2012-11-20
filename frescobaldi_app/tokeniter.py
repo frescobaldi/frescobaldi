@@ -429,6 +429,10 @@ class Runner(object):
         self._tokens = tokens(block)
         self._index = len(self._tokens) if atEnd else -1
     
+    def valid(self):
+        """Return whether the current block is valid."""
+        return self.block.isValid()
+    
     def forward_line(self):
         """Yields tokens in forward direction in the current block."""
         while self._index + 1 < len(self._tokens):
@@ -463,13 +467,27 @@ class Runner(object):
         """Returns True if the iterator is at the end of the current block."""
         return self._index >= len(self._tokens) - 1
         
-    def move_up(self, atEnd=True):
-        """Go to the previous block, positioning the cursor at the end by default."""
-        self.__init__(self.block.previous(), atEnd)
+    def previous_block(self, atEnd=True):
+        """Go to the previous block, positioning the cursor at the end by default.
+        
+        Returns False if there was no previous block, else True.
+        
+        """
+        valid = self.block.isValid()
+        if valid:
+            self.__init__(self.block.previous(), atEnd)
+        return valid
     
-    def move_down(self, atEnd=False):
-        """Go to the next block, positioning the cursor at the start by default."""
-        self.__init__(self.block.next(), atEnd)
+    def next_block(self, atEnd=False):
+        """Go to the next block, positioning the cursor at the start by default.
+        
+        Returns False if there was no next block, else True.
+        
+        """
+        valid = self.block.isValid()
+        if valid:
+            self.__init__(self.block.next(), atEnd)
+        return valid
     
     def token(self):
         """Re-returns the last yielded token."""

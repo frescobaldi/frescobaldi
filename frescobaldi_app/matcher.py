@@ -71,20 +71,20 @@ class AbstractMatcher(object):
                     match, other = ly.lex.MatchStart, ly.lex.MatchEnd
                     bottom = self.view().contentOffset().y() + self.view().viewport().height()
                     def source_gen():
-                        while self.view().blockBoundingGeometry(tokens.block).top() <= bottom:
+                        while tokens.valid() and self.view().blockBoundingGeometry(tokens.block).top() <= bottom:
                             for t in tokens.forward_line():
                                 yield t
-                            tokens.move_down()
+                            tokens.next_block()
                     source = source_gen()
                     break
                 elif isinstance(token, ly.lex.MatchEnd):
                     match, other = ly.lex.MatchEnd, ly.lex.MatchStart
                     first_block = self.view().firstVisibleBlock()
                     def source_gen():
-                        while tokens.block >= first_block:
+                        while tokens.valid() and tokens.block >= first_block:
                             for t in tokens.backward_line():
                                 yield t
-                            tokens.move_up()
+                            tokens.previous_block()
                     source = source_gen()
                     break
             elif token.pos > column:
