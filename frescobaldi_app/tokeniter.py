@@ -463,6 +463,14 @@ class Runner(object):
         """Returns True if the iterator is at the end of the current block."""
         return self._index >= len(self._tokens) - 1
         
+    def move_up(self, atEnd=True):
+        """Go to the previous block, positioning the cursor at the end by default."""
+        self.__init__(self.block.previous(), atEnd)
+    
+    def move_down(self, atEnd=False):
+        """Go to the next block, positioning the cursor at the start by default."""
+        self.__init__(self.block.next(), atEnd)
+    
     def token(self):
         """Re-returns the last yielded token."""
         return self._tokens[self._index]

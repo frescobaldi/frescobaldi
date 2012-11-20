@@ -74,7 +74,7 @@ class AbstractMatcher(object):
                         while self.view().blockBoundingGeometry(tokens.block).top() <= bottom:
                             for t in tokens.forward_line():
                                 yield t
-                            tokens.__init__(tokens.block.next())
+                            tokens.move_down()
                     source = source_gen()
                     break
                 elif isinstance(token, ly.lex.MatchEnd):
@@ -84,7 +84,7 @@ class AbstractMatcher(object):
                         while tokens.block >= first_block:
                             for t in tokens.backward_line():
                                 yield t
-                            tokens.__init__(tokens.block.previous(), True)
+                            tokens.move_up()
                     source = source_gen()
                     break
             elif token.pos > column:

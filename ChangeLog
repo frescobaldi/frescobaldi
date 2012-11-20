@@ -15,6 +15,9 @@ Changed in 2.0.9 --
     tries to load non up-to-date PDFs (regardless of the setting above)
   - New --list-sessions commandline option to list the named sessions
   - Quick Insert: \melisma, \melismaEnd spanner button (idea: issue #88)
+* Improvements:
+  - Highlighting matching characters, such as slur, brace, << >>, etc does not
+    take a long time anymore when edting or moving through the document
 * Bug fixes:
   - fix Python error message when a document (marked as Always engraved) is
     engraved which didn't have yet the PDF displayed
