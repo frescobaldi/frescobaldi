@@ -45,6 +45,17 @@ def names(cursor):
         block = block.next()
 
 
+def markup_commands(cursor):
+    """Harvest markup command definitions until the cursor."""
+    def tokens():
+        end = cursor.block()
+        block = cursor.document().firstBlock()
+        while block < end:
+            yield tokeniter.tokens(block)
+            block = block.next()
+    return ly.parse.markup_commands(itertools.chain.from_iterable(tokens()))
+
+    
 def schemewords(document):
     """Harvests all schemewords from the document."""
     for t in tokeniter.all_tokens(document):
@@ -68,6 +79,23 @@ def include_identifiers(cursor):
     return itertools.chain.from_iterable(fileinfo.FileInfo.info(f).names()
                                          for f in files)
 
+
+def include_markup_commands(cursor):
+    """Harvest markup command definitions from included files."""
+    def tokens():
+        end = cursor.block()
+        block = cursor.document().firstBlock()
+        while block < end:
+            yield tokeniter.tokens(block)
+            block = block.next()
+    
+    includeargs = ly.parse.includeargs(itertools.chain.from_iterable(tokens()))
+    dinfo = documentinfo.info(cursor.document())
+    fname = cursor.document().url().toLocalFile()
+    files = fileinfo.includefiles(fname, dinfo.includepath(), includeargs)
+    return itertools.chain.from_iterable(fileinfo.FileInfo.info(f).markup_commands()
+                                         for f in files)
+    
 
 _words = re.compile(r'\w{5,}|\w{2,}(?:[:-]\w+)+').finditer
 _word_types = (

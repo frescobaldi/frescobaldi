@@ -81,3 +81,12 @@ def version(tokens):
             return ''.join(itertools.takewhile(pred, tokens))
 
 
+def markup_commands(tokens):
+    """Yield markup command definition names."""
+    for t in tokens:
+        if t == 'define-markup-command' and isinstance(t, lex.scheme.Word):
+            for t in itertools.islice(tokens, 5):
+                if isinstance(t, lex.scheme.Word):
+                    yield t
+                    break
+

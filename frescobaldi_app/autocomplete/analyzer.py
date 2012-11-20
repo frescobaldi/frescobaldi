@@ -255,7 +255,7 @@ class Analyzer(object):
             if m:
                 self.column = self.lastpos + m.start()
         cursor = self.document_cursor()
-        return documentdata.doc(cursor.document()).markup()
+        return documentdata.doc(cursor.document()).markup(cursor)
         
     def header(self):
         """\\header {"""

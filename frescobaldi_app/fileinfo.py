@@ -143,6 +143,11 @@ class FileInfo(object):
             else:
                 maybe_name = False
         return result
+    
+    @cachedproperty.cachedproperty(depends=mode)
+    def markup_commands(self):
+        """The list of markup commands the file defines."""
+        return list(ly.parse.markup_commands(self.tokens()))
 
 
 def textmode(text, guess=True):
