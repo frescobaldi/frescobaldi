@@ -33,6 +33,15 @@ import ly.lex.lilypond
 import ly.lex.scheme
 
 
+def tokens(cursor):
+    """Yield the tokens tuple for every block from the beginning of the document until the cursor."""
+    end = cursor.block()
+    block = cursor.document().firstBlock()
+    while block < end:
+        yield tokeniter.tokens(block)
+        block = block.next()
+
+
 def names(cursor):
     """Harvests names from assignments until the cursor."""
     end = cursor.block()
@@ -47,13 +56,7 @@ def names(cursor):
 
 def markup_commands(cursor):
     """Harvest markup command definitions until the cursor."""
-    def tokens():
-        end = cursor.block()
-        block = cursor.document().firstBlock()
-        while block < end:
-            yield tokeniter.tokens(block)
-            block = block.next()
-    return ly.parse.markup_commands(itertools.chain.from_iterable(tokens()))
+    return ly.parse.markup_commands(itertools.chain.from_iterable(tokens(cursor)))
 
     
 def schemewords(document):
@@ -65,14 +68,7 @@ def schemewords(document):
 
 def include_identifiers(cursor):
     """Harvests identifier definitions from included files."""
-    def tokens():
-        end = cursor.block()
-        block = cursor.document().firstBlock()
-        while block < end:
-            yield tokeniter.tokens(block)
-            block = block.next()
-    
-    includeargs = ly.parse.includeargs(itertools.chain.from_iterable(tokens()))
+    includeargs = ly.parse.includeargs(itertools.chain.from_iterable(tokens(cursor)))
     dinfo = documentinfo.info(cursor.document())
     fname = cursor.document().url().toLocalFile()
     files = fileinfo.includefiles(fname, dinfo.includepath(), includeargs)
@@ -82,14 +78,7 @@ def include_identifiers(cursor):
 
 def include_markup_commands(cursor):
     """Harvest markup command definitions from included files."""
-    def tokens():
-        end = cursor.block()
-        block = cursor.document().firstBlock()
-        while block < end:
-            yield tokeniter.tokens(block)
-            block = block.next()
-    
-    includeargs = ly.parse.includeargs(itertools.chain.from_iterable(tokens()))
+    includeargs = ly.parse.includeargs(itertools.chain.from_iterable(tokens(cursor)))
     dinfo = documentinfo.info(cursor.document())
     fname = cursor.document().url().toLocalFile()
     files = fileinfo.includefiles(fname, dinfo.includepath(), includeargs)
