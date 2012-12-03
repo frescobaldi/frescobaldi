@@ -84,9 +84,23 @@ def version(tokens):
 def markup_commands(tokens):
     """Yield markup command definition names."""
     for t in tokens:
+        # find #(define-markup-command construction
         if t == 'define-markup-command' and isinstance(t, lex.scheme.Word):
             for t in itertools.islice(tokens, 5):
                 if isinstance(t, lex.scheme.Word):
                     yield t
                     break
+        # or find blabla = \markup { ... } construction
+        elif isinstance(t, lex.lilypond.Name):
+            source = itertools.islice(tokens, 4)
+            for t1 in source:
+                if t1 == "=":
+                    for t1 in source:
+                        if t1 == '\\markup':
+                            yield t
+                        elif not isinstance(t1, lex.Space):
+                            break
+                elif not isinstance(t1, lex.Space):
+                    break
+
 
