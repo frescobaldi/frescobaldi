@@ -98,6 +98,7 @@ def markup_commands(tokens):
                     for t1 in source:
                         if t1 == '\\markup':
                             yield t
+                            break
                         elif not isinstance(t1, lex.Space):
                             break
                 elif not isinstance(t1, lex.Space):
