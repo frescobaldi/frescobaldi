@@ -30,6 +30,7 @@ import listmodel
 import plugin
 import ly.words
 
+from . import completiondata
 from . import harvest
 from . import util
 
@@ -68,6 +69,31 @@ class DocumentDataSource(plugin.DocumentPlugin):
                 harvest.include_markup_commands(cursor)))]
             + sorted(set(harvest.words(self.document()))))
 
+    @util.keep
+    def scorecommands(self, cursor):
+        """Stuff inside \\score { }. """
+        return listmodel.ListModel(sorted(set(itertools.chain(
+            completiondata.score,
+            harvest.include_identifiers(cursor),
+            harvest.names(cursor)))), display = util.command)
+    
+    @util.keep
+    def bookpartcommands(self, cursor):
+        """Stuff inside \\bookpart { }. """
+        return listmodel.ListModel(sorted(set(itertools.chain(
+            completiondata.bookpart,
+            harvest.include_identifiers(cursor),
+            harvest.names(cursor)))), display = util.command)
+    
+    @util.keep
+    def bookcommands(self, cursor):
+        """Stuff inside \\book { }. """
+        return listmodel.ListModel(sorted(set(itertools.chain(
+            completiondata.book,
+            harvest.include_identifiers(cursor),
+            harvest.names(cursor)))), display = util.command)
+    
+    
     @util.keep
     def musiccommands(self, cursor):
         return listmodel.ListModel(sorted(set(itertools.chain(

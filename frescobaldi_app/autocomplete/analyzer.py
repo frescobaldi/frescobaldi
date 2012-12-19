@@ -126,17 +126,20 @@ class Analyzer(object):
     def book(self):
         """\\book {"""
         self.backuntil(lx.Space)
-        return completiondata.lilypond_book
+        cursor = self.document_cursor()
+        return documentdata.doc(cursor.document()).bookcommands(cursor)
         
     def bookpart(self):
         """\\bookpart {"""
         self.backuntil(lx.Space)
-        return completiondata.lilypond_bookpart
+        cursor = self.document_cursor()
+        return documentdata.doc(cursor.document()).bookpartcommands(cursor)
 
     def score(self):
         """\\score {"""
         self.backuntil(lx.Space)
-        return completiondata.lilypond_score
+        cursor = self.document_cursor()
+        return documentdata.doc(cursor.document()).scorecommands(cursor)
 
     def tweak(self):
         """complete property after \\tweak"""

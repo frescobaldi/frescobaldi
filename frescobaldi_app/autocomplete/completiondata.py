@@ -49,7 +49,6 @@ markup = (
 
 # these can occur (almost) everywhere
 everywhere = (
-    'language',
     'pointAndClickOn',
     'pointAndClickOff',
     'include',
@@ -70,6 +69,7 @@ inputmodes = (
 
 # commands that only occur at the global file level
 toplevel = (
+    'language',
     'version',
     'sourcefileline',
     'sourcefilename',
@@ -135,7 +135,29 @@ toplevel_variables = (
     'showFirstLength',
     'showLastLength',
 )
+
+
+# stuff inside \score {}
+score = sorted(
+    everywhere + inputmodes + start_music + blocks[1:] + (
+    'midi {',
+))
+
+
+# stuff inside \bookpart {}
+bookpart = sorted(
+    everywhere + inputmodes + markup + start_music + modes[2:] + blocks
+)
+
     
+# stuff inside \book {}
+book = sorted(
+    everywhere + inputmodes + markup + start_music
+    + modes[1:] + blocks + (
+    'bookOutputName',
+    'bookOutputSuffix',
+))
+
 
 lilypond_markup = listmodel.ListModel(['\\markup'])
 
@@ -186,21 +208,11 @@ lilypond_toplevel = listmodel.ListModel(sorted(itertools.chain(util.make_cmds(
     + modes + blocks
     ), toplevel_variables)), edit = util.cmd_or_var)
 
-lilypond_book = listmodel.ListModel(sorted(
-    everywhere + inputmodes + markup + start_music
-    + modes[1:] + blocks + (
-    'bookOutputName',
-    'bookOutputSuffix',
-    )), display = util.command)
+lilypond_book = listmodel.ListModel(book, display = util.command)
 
-lilypond_bookpart = listmodel.ListModel(sorted(
-    everywhere + inputmodes + markup + start_music + modes[2:] + blocks
-    ), display = util.command)
+lilypond_bookpart = listmodel.ListModel(bookpart, display = util.command)
     
-lilypond_score = listmodel.ListModel(sorted(
-    everywhere + inputmodes + start_music + blocks[1:] + (
-    'midi {',
-    )), display = util.command)
+lilypond_score = listmodel.ListModel(score, display = util.command)
 
 lilypond_engravers = listmodel.ListModel(ly.data.engravers())
     
