@@ -3821,11 +3821,11 @@ msgstr "Andere"
 
 #: ../quickinsert/articulations.py:168
 msgid "Upbow"
-msgstr "Oberbogen"
+msgstr "Aufstrich"
 
 #: ../quickinsert/articulations.py:169
 msgid "Downbow"
-msgstr "Unterbogen"
+msgstr "Abstrich"
 
 #: ../quickinsert/articulations.py:170
 msgid "Snappizzicato"

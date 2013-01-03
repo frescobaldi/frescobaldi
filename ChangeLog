@@ -5,7 +5,7 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 Changed in 2.0.9 -- 
 
 * Translations:
-  - updated: nl
+  - updated: nl, de
 * New features:
   - Frescobaldi now can be configured to open the generated PDF files when
     opening a LilyPond document, even if they are not up-to-date. It then shows
