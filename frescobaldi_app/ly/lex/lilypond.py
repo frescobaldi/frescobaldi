@@ -1068,6 +1068,9 @@ class ParseUnset(FallthroughParser):
         ContextProperty,
         Name,
     )
+    def update_state(self, state, token):
+        if isinstance(token, ContextProperty) or token[:1].islower():
+            state.leave()
 
 
 class ParseTranslator(FallthroughParser):
