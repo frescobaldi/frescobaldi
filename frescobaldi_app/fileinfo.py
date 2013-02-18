@@ -42,6 +42,7 @@ class FileInfo(object):
     
     @classmethod
     def info(cls, filename):
+        filename = os.path.realpath(filename)
         try:
             info = cls._cache[filename]
         except KeyError:
