@@ -23,6 +23,8 @@ Loading and defaults for the different textformats used for Syntax Highlighting.
 
 from __future__ import unicode_literals
 
+import os
+
 from PyQt4.QtCore import QSettings
 from PyQt4.QtGui import QApplication, QColor, QFont, QPalette, QTextCharFormat, QTextFormat
 
@@ -67,7 +69,8 @@ class TextFormatData(object):
         s.beginGroup("fontscolors/" + scheme)
         
         # load font
-        self.font = QFont(s.value("fontfamily", "monospace"))
+        defaultfont = "Lucida Console" if os.name == "nt" else "monospace"
+        self.font = QFont(s.value("fontfamily", defaultfont))
         self.font.setPointSizeF(float(s.value("fontsize", 10.0)))
         
         # load base colors
