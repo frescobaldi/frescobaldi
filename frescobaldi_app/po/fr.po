@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2012-09-19 11:44+0200\n"
+"POT-Creation-Date: 2013-02-18 08:04+0100\n"
 "PO-Revision-Date: 2012-05-08 21:42+0100\n"
 "Last-Translator: Richard Cognot <cognot@gocad.org>\n"
 "Language-Team: Français <>\n"
@@ -595,6 +595,11 @@ msgid "Session to start ('{none}' for empty session)"
 msgstr "Session à démarrer (« {none} » pour une session vide)"
 
 #: ../main.py:68
+#, fuzzy
+msgid "List the session names and exit"
+msgstr "afficher ce message d'aide et quitter"
+
+#: ../main.py:70
 msgid "Always start a new instance"
 msgstr "Toujours ouvrir une nouvelle instance"
 
@@ -1760,7 +1765,7 @@ msgid "Edit"
 msgstr "Édition"
 
 #: ../help/contents.py:256 ../preferences/__init__.py:250
-#: ../preferences/prefshelp.py:227
+#: ../preferences/prefshelp.py:232
 msgid "Fonts & Colors"
 msgstr "Polices et couleurs"
 
@@ -3115,28 +3120,28 @@ msgstr "Défiler vers la droite"
 msgid "General Preferences"
 msgstr "Préférences générales"
 
-#: ../preferences/__init__.py:195 ../preferences/prefshelp.py:124
+#: ../preferences/__init__.py:195 ../preferences/prefshelp.py:129
 msgid "MIDI Settings"
 msgstr "Réglages MIDI"
 
 #: ../preferences/__init__.py:206 ../preferences/helpers.py:80
-#: ../preferences/prefshelp.py:156
+#: ../preferences/prefshelp.py:161
 msgid "Helper Applications"
 msgstr "Applications auxiliaires"
 
-#: ../preferences/__init__.py:217 ../preferences/prefshelp.py:175
+#: ../preferences/__init__.py:217 ../preferences/prefshelp.py:180
 msgid "Paths"
 msgstr "Emplacements"
 
-#: ../preferences/__init__.py:228 ../preferences/prefshelp.py:189
+#: ../preferences/__init__.py:228 ../preferences/prefshelp.py:194
 msgid "LilyPond Documentation"
 msgstr "Documentation LilyPond"
 
-#: ../preferences/__init__.py:239 ../preferences/prefshelp.py:207
+#: ../preferences/__init__.py:239 ../preferences/prefshelp.py:212
 msgid "Keyboard Shortcuts"
 msgstr "Raccourcis clavier"
 
-#: ../preferences/__init__.py:261 ../preferences/prefshelp.py:250
+#: ../preferences/__init__.py:261 ../preferences/prefshelp.py:255
 msgid "Tools"
 msgstr "Outils"
 
@@ -3150,7 +3155,7 @@ msgstr ""
 "Ajouter les emplacements ou URLs.\n"
 "Voir « Qu'est-ce que c'est ? » pour plus d'information."
 
-#: ../preferences/documentation.py:70 ../preferences/prefshelp.py:194
+#: ../preferences/documentation.py:70 ../preferences/prefshelp.py:199
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
 "A local path should point to the directory where either the "
@@ -3601,7 +3606,7 @@ msgstr ""
 msgid "LilyPond versions to use"
 msgstr "Versions de LilyPond à utiliser"
 
-#: ../preferences/lilypond.py:82 ../preferences/prefshelp.py:99
+#: ../preferences/lilypond.py:82 ../preferences/prefshelp.py:104
 msgid "Automatically choose LilyPond version from document"
 msgstr "Choisir automatiquement la version de LilyPond à partir du document"
 
@@ -3614,7 +3619,7 @@ msgstr ""
 "utiliser.\n"
 "Voir « Qu'est-ce que c'est » pour plus d'informations."
 
-#: ../preferences/lilypond.py:87 ../preferences/prefshelp.py:104
+#: ../preferences/lilypond.py:87 ../preferences/prefshelp.py:109
 msgid ""
 "<p>If this setting is enabled, the document is searched for a LilyPond <code>"
 "\\version</code> command or a <code>version</code> document variable.</p>\n"
@@ -3750,7 +3755,7 @@ msgstr ""
 msgid "Refresh MIDI ports"
 msgstr "Rafraîchir les ports MIDI"
 
-#: ../preferences/midi.py:135 ../preferences/prefshelp.py:142
+#: ../preferences/midi.py:135 ../preferences/prefshelp.py:147
 msgid "Close unused MIDI output"
 msgstr "Fermer les sorties MIDI non utilisées"
 
@@ -3762,7 +3767,7 @@ msgstr ""
 "Ceci ferme les ports MIDI non utilisés pendant une minute.\n"
 "Voir « Qu'est-ce que c'est ? » pour plus d'information."
 
-#: ../preferences/midi.py:140 ../preferences/prefshelp.py:144
+#: ../preferences/midi.py:140 ../preferences/prefshelp.py:149
 msgid ""
 "<p>If checked, Frescobaldi will close MIDI output ports that are not used "
 "for one minute.</p>\n"
@@ -3862,13 +3867,21 @@ msgstr "Plus d'informations"
 
 #: ../preferences/prefshelp.py:90
 msgid ""
+"If the LilyPond executable is not in your system's PATH you can specify the "
+"full path here so Frescobaldi can run it. For the helper applications like "
+"convert-ly and lilypond-book you don't need to specify the full path if they "
+"are in the same directory as the LilyPond executable itself."
+msgstr ""
+
+#: ../preferences/prefshelp.py:95
+msgid ""
 "You can also configure how LilyPond is run. See the tooltips of the settings "
 "for more information."
 msgstr ""
 "Vous pouvez également configurer la façon dont sera lancée Frescobaldi. "
 "Utilisez les info-bulles des réglages pour plus d'informations."
 
-#: ../preferences/prefshelp.py:92
+#: ../preferences/prefshelp.py:97
 msgid ""
 "Finally, you can specify a list of paths where the LilyPond <code>\\include</"
 "code> command looks for files."
@@ -3876,15 +3889,15 @@ msgstr ""
 "Enfin, vous pouvez définir une liste de chemins d'accès où la commande "
 "LilyPond <code>\\include</code> cherchera des fichiers."
 
-#: ../preferences/prefshelp.py:128
+#: ../preferences/prefshelp.py:133
 msgid "Here you can configure Frescobaldi's MIDI settings."
 msgstr "Ici, vous pouvez configurer les réglages MIDI de Frescobaldi."
 
-#: ../preferences/prefshelp.py:130
+#: ../preferences/prefshelp.py:135
 msgid "You can specify the MIDI port name to play to."
 msgstr "Vous pouvez définir le nom du port MIDI vers lequel jouer."
 
-#: ../preferences/prefshelp.py:131
+#: ../preferences/prefshelp.py:136
 msgid ""
 "If there are no port names visible in the drop-down box, it may be necessary "
 "to connect a hardware MIDI synthesizer to your computer, or to start a "
@@ -3894,13 +3907,13 @@ msgstr ""
 "nécessaire de connecter un synthétiseur MIDI matériel à votre ordinateur, ou "
 "de démarrer un synthétiseur logiciel tel que TiMidity ou Fluidsynth."
 
-#: ../preferences/prefshelp.py:135
+#: ../preferences/prefshelp.py:140
 msgid "On Linux, the synthesizer should be available as an ALSA MIDI device."
 msgstr ""
 "Sous Linux, le synthétiseur devrait être disponible en tant que périphérique "
 "ALSA MIDI."
 
-#: ../preferences/prefshelp.py:137
+#: ../preferences/prefshelp.py:142
 msgid ""
 "If you have a device with multiple ports, you can specify the first letters "
 "of the name, to have Frescobaldi automatically pick the first available one."
@@ -3909,7 +3922,7 @@ msgstr ""
 "premières lettres du nom, pour que Frescobaldi choisisse automatiquement le "
 "premier disponible."
 
-#: ../preferences/prefshelp.py:140
+#: ../preferences/prefshelp.py:145
 msgid ""
 "And finally, when using a software synthesizer it is recommended to enable "
 "the option <em>{close_unused}</em>."
@@ -3917,7 +3930,7 @@ msgstr ""
 "Et finalement, lorsque vous utilisez un synthétiseur logiciel, il est "
 "recommandé d'activer l'option <em>{close_unused}</em>."
 
-#: ../preferences/prefshelp.py:160
+#: ../preferences/prefshelp.py:165
 msgid ""
 "In this page you can enter commands to open different file types. <code>$f</"
 "code> is replaced with the filename, <code>$u</code> with the URL. Leave a "
@@ -3928,7 +3941,7 @@ msgstr ""
 "code> par l'URL. Laissez un champ vide pour utiliser l'application défaut du "
 "système d'exploitation."
 
-#: ../preferences/prefshelp.py:165
+#: ../preferences/prefshelp.py:170
 msgid ""
 "For the e-mail setting, the command should accept a <code>mailto:</code> "
 "url. For the command prompt, the command should open a console window. A "
@@ -3939,7 +3952,7 @@ msgstr ""
 "fenêtre de console. Une valeur <code>$f</code> sera remplacée par le dossier "
 "du document en cours."
 
-#: ../preferences/prefshelp.py:179
+#: ../preferences/prefshelp.py:184
 msgid ""
 "Here, directories can be added that contain <code>hyph_*.dic</code> files, "
 "where the <code>*</code> stands for different language codes."
@@ -3948,7 +3961,7 @@ msgstr ""
 "<code>hyph_*.dic</code> où le caractère <code>*</code> sert pour les codes "
 "de différentes langues."
 
-#: ../preferences/prefshelp.py:182
+#: ../preferences/prefshelp.py:187
 msgid ""
 "These hyphenation dictionaries are used by Frescobaldi to break lyrics text "
 "into syllabes."
@@ -3956,7 +3969,7 @@ msgstr ""
 "Les dictionnaires de césure sont utilisés par Frescobaldi pour séparer les "
 "textes des paroles en syllabes."
 
-#: ../preferences/prefshelp.py:212
+#: ../preferences/prefshelp.py:217
 msgid ""
 "Here you can add keyboard shortcuts to all commands available. Also the "
 "{snippets} or {quickinsert} buttons that have keyboard shortcuts are listed "
@@ -3966,17 +3979,17 @@ msgstr ""
 "disponibles. Les {snippets} d'{quickinsert} qui ont un raccourci clavier "
 "sont listés ici."
 
-#: ../preferences/prefshelp.py:215 ../snippet/tool.py:54
+#: ../preferences/prefshelp.py:220 ../snippet/tool.py:54
 #: ../snippet/tool.py:135 ../snippet/widget.py:403
 msgid "Snippets"
 msgstr "Fragments"
 
-#: ../preferences/prefshelp.py:216 ../quickinsert/__init__.py:47
+#: ../preferences/prefshelp.py:221 ../quickinsert/__init__.py:47
 #: ../quickinsert/__init__.py:71
 msgid "Quick Insert"
 msgstr "Insertion rapide"
 
-#: ../preferences/prefshelp.py:217
+#: ../preferences/prefshelp.py:222
 msgid ""
 "To change a keyboard shortcut, highlight an action in the list and click the "
 "Edit button, or double-click an action. In the dialog that appears, you can "
@@ -3988,11 +4001,11 @@ msgstr ""
 "dialogue qui apparaît, vous pouvez entrer jusqu'à quatre raccourci pour "
 "cette action en cliquant le bouton et en entrant le raccourci."
 
-#: ../preferences/prefshelp.py:221 ../preferences/prefshelp.py:244
+#: ../preferences/prefshelp.py:226 ../preferences/prefshelp.py:249
 msgid "You can define a new scheme by using the New button."
 msgstr "Vous pouvez définir un nouveau profil en utilisant le bouton Nouveau."
 
-#: ../preferences/prefshelp.py:231
+#: ../preferences/prefshelp.py:236
 msgid ""
 "Here you can set the editor font (a monospace font is recommended) and all "
 "colors."
@@ -4000,7 +4013,7 @@ msgstr ""
 "Ici, vous pouvez définir la police de l'éditeur (une police à largeur fixe "
 "est recommandée) et toutes les couleurs."
 
-#: ../preferences/prefshelp.py:233
+#: ../preferences/prefshelp.py:238
 msgid ""
 "The first item lets you set the colors for the text editor backgroud, "
 "foreground, selection background, the current line, line markings, the paper "
@@ -4010,7 +4023,7 @@ msgstr ""
 "l'avant-plan, l'arrière-plan de sélection, la ligne courante, les lignes "
 "repérées, la couleur de papier de l'aperçu, etc."
 
-#: ../preferences/prefshelp.py:236
+#: ../preferences/prefshelp.py:241
 msgid ""
 "The second item lets you set color and other attributes of the general "
 "highlighting styles, e.g. keyword, variable, value, comment, etcetera."
@@ -4019,7 +4032,7 @@ msgstr ""
 "des styles généraux de colorisation syntaxique, p. ex. mot-clé, variable, "
 "valeur, commentaire, etc."
 
-#: ../preferences/prefshelp.py:239
+#: ../preferences/prefshelp.py:244
 msgid ""
 "The other items contain the types of text the syntax highlighter recognizes "
 "for every particular document type Frescobaldi supports. Some of these types "
@@ -4032,7 +4045,7 @@ msgstr ""
 "définir des attributs tels que gras, italique, souligné ainsi que la couleur "
 "d'avant-plan, d'arrière-plan et de soulignement."
 
-#: ../preferences/prefshelp.py:253
+#: ../preferences/prefshelp.py:258
 msgid "Here you can change the settings for various tools."
 msgstr "Vous pouvez modifier les réglages pour différents outils."
 
@@ -4529,6 +4542,10 @@ msgstr "Glissando en trille"
 #: ../quickinsert/spanners.py:144
 msgid "Phrasing Slur"
 msgstr "Liaison de phrasé"
+
+#: ../quickinsert/spanners.py:147
+msgid "Melisma"
+msgstr ""
 
 #: ../quickinsert/widget.py:102
 msgid ""

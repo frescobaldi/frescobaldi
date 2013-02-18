@@ -777,6 +777,7 @@ music_items = base_items + (
     LigatureStart, LigatureEnd,
     Direction,
     Articulation,
+    StringNumber,
     IntegerValue,
 ) + command_items
     
@@ -785,7 +786,6 @@ music_items = base_items + (
 music_chord_items = (
     ErrorInChord,
     ChordEnd,
-    StringNumber,
 ) + music_items
 
 
