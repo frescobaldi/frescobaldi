@@ -181,7 +181,7 @@ def includefiles(filename, include_path=[], initial_args=None):
     files = set()
     
     def tryarg(directory, arg):
-        path = os.path.join(directory, arg)
+        path = os.path.realpath(os.path.join(directory, arg))
         if path not in files and os.path.isfile(path):
             files.add(path)
             args = FileInfo.info(path).includeargs()
