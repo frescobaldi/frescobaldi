@@ -64,9 +64,9 @@ class DocumentDataSource(plugin.DocumentPlugin):
         """Completes markup commands and normal text from the document."""
         return listmodel.ListModel(
             ['\\' + w for w in sorted(ly.words.markupcommands)]
-            + [ '\\' + w for w in sorted(itertools.chain(
+            + [ '\\' + w for w in sorted(set(itertools.chain(
                 harvest.markup_commands(cursor),
-                harvest.include_markup_commands(cursor)))]
+                harvest.include_markup_commands(cursor))))]
             + sorted(set(harvest.words(self.document()))))
 
     @util.keep
