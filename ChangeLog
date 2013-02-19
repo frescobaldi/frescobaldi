@@ -17,9 +17,14 @@ Changed in 2.0.9 --
   - Quick Insert: \melisma, \melismaEnd spanner button (idea: issue #88)
 * Improvements:
   - Custom defined markup commands are also auto-completed
+  - Better default font on Windows
+  - Don't check included files multiple times for defined commands etc.
   - Highlighting matching characters, such as slur, brace, << >>, etc does not
     take a long time anymore when editing or moving through a long document
+  - string numbers are highlighted (and understood) correctly outside chords
+    (LilyPond 2.16 syntax change)
 * Bug fixes:
+  - music highlighting of a note after \unset someVariable is now correct
   - fix Python error message when a document (marked as Always engraved) is
     engraved which didn't have yet the PDF displayed
 
