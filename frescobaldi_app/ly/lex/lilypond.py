@@ -412,11 +412,12 @@ class MarkupCommand(Markup):
         if command in ly.words.markupcommands_nargs[0]:
             state.endArgument()
         else:
-            for argcount in 1, 2, 3, 4, 5:
+            for argcount in 2, 3, 4, 5:
                 if command in ly.words.markupcommands_nargs[argcount]:
-                    state.enter(ParseMarkup(argcount))
+                    break
             else:
-                state.endArgument()
+                argcount = 1
+            state.enter(ParseMarkup(argcount))
 
 
 class MarkupScore(Markup):
@@ -436,7 +437,10 @@ class OpenBracketMarkup(OpenBracket):
 
 class CloseBracketMarkup(CloseBracket):
     def update_state(self, state):
-        state.endArgument()    
+        # go back to the opening bracket, this is the ParseMarkup
+        # parser with the 0 argcount
+        while state.parser().argcount > 0:
+            state.leave()
         state.leave()
         state.endArgument()    
 
