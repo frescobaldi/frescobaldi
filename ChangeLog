@@ -18,6 +18,8 @@ Changed in 2.0.9 --
 * Improvements:
   - Custom defined markup commands are also auto-completed
   - Better default font on Windows
+  - Action "Always Engrave this document" also available in document context
+    menu (in documents list and in tabbar)
   - Don't check included files multiple times for defined commands etc.
   - Highlighting matching characters, such as slur, brace, << >>, etc does not
     take a long time anymore when editing or moving through a long document

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.17\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-02-18 08:04+0100\n"
+"POT-Creation-Date: 2013-02-21 18:51+0100\n"
 "PO-Revision-Date: 2011-01-03 17:37+0100\n"
 "Last-Translator: Manuel A. Vazquez <xixirei@yahoo.es>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -305,7 +305,7 @@ msgstr "Cortar e asignar"
 msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr "Introduza o nome da variábel para asignarlle o texto seleccionado:"
 
-#: ../document.py:145 ../doclist/widget.py:128 ../snippet/edit.py:178
+#: ../document.py:145 ../doclist/widget.py:133 ../snippet/edit.py:178
 #, fuzzy
 msgid "Untitled"
 msgstr "Subtítulo"
@@ -347,19 +347,23 @@ msgstr "Caldeirón"
 msgid "&Update with convert-ly..."
 msgstr "Actualizar mediante convert-ly"
 
-#: ../documentcontextmenu.py:54 ../mainwindow.py:952
+#: ../documentcontextmenu.py:67 ../mainwindow.py:952
 #: ../sessions/manager.py:127
 #, fuzzy
 msgid "&Save"
 msgstr "Gardar"
 
-#: ../documentcontextmenu.py:55 ../mainwindow.py:953
+#: ../documentcontextmenu.py:68 ../mainwindow.py:953
 #, fuzzy
 msgid "Save &As..."
 msgstr "Gardar PDF como..."
 
-#: ../documentcontextmenu.py:56 ../mainwindow.py:957
+#: ../documentcontextmenu.py:69 ../mainwindow.py:957
 msgid "&Close"
+msgstr ""
+
+#: ../documentcontextmenu.py:70
+msgid "Always &Engrave This Document"
 msgstr ""
 
 #: ../documentmenu.py:42
@@ -1211,30 +1215,30 @@ msgstr "&Documento"
 msgid "Docum&ents"
 msgstr "&Documento"
 
-#: ../doclist/widget.py:183
+#: ../doclist/widget.py:188
 #, fuzzy
 msgid "Save selected documents"
 msgstr "Modo de selección de liñas"
 
-#: ../doclist/widget.py:184
+#: ../doclist/widget.py:189
 #, fuzzy
 msgid "Close selected documents"
 msgstr "Pechar outros documentos"
 
-#: ../doclist/widget.py:190
+#: ../doclist/widget.py:195
 msgid "Save documents in this folder"
 msgstr ""
 
-#: ../doclist/widget.py:191
+#: ../doclist/widget.py:196
 msgid "Close documents in this folder"
 msgstr ""
 
-#: ../doclist/widget.py:194
+#: ../doclist/widget.py:199
 #, fuzzy
 msgid "Save all untitled documents"
 msgstr "Documentos por correo electrónico"
 
-#: ../doclist/widget.py:195
+#: ../doclist/widget.py:200
 #, fuzzy
 msgid "Close all untitled documents"
 msgstr "Pechar outros documentos"

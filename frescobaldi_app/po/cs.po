@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-02-18 08:04+0100\n"
+"POT-Creation-Date: 2013-02-21 18:51+0100\n"
 "PO-Revision-Date: 2012-09-08 20:04+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -284,7 +284,7 @@ msgstr "Vyjmout a přiřadit"
 msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr "Zadejte, prosím, název proměnné, které má být vybraný text přiřazen:"
 
-#: ../document.py:145 ../doclist/widget.py:128 ../snippet/edit.py:178
+#: ../document.py:145 ../doclist/widget.py:133 ../snippet/edit.py:178
 msgid "Untitled"
 msgstr "Bez názvu"
 
@@ -321,18 +321,23 @@ msgstr "&Formát"
 msgid "&Update with convert-ly..."
 msgstr "O&bnovit za použití convert-ly..."
 
-#: ../documentcontextmenu.py:54 ../mainwindow.py:952
+#: ../documentcontextmenu.py:67 ../mainwindow.py:952
 #: ../sessions/manager.py:127
 msgid "&Save"
 msgstr "&Uložit"
 
-#: ../documentcontextmenu.py:55 ../mainwindow.py:953
+#: ../documentcontextmenu.py:68 ../mainwindow.py:953
 msgid "Save &As..."
 msgstr "Uložit &jako..."
 
-#: ../documentcontextmenu.py:56 ../mainwindow.py:957
+#: ../documentcontextmenu.py:69 ../mainwindow.py:957
 msgid "&Close"
 msgstr "&Zavřít"
+
+#: ../documentcontextmenu.py:70
+#, fuzzy
+msgid "Always &Engrave This Document"
+msgstr "Tento dokument vyrýt &vždy"
 
 #: ../documentmenu.py:42
 msgctxt "menu title"
@@ -1175,27 +1180,27 @@ msgstr "Dokumenty"
 msgid "Docum&ents"
 msgstr "&Dokumenty"
 
-#: ../doclist/widget.py:183
+#: ../doclist/widget.py:188
 msgid "Save selected documents"
 msgstr "Uložit vybrané dokumenty"
 
-#: ../doclist/widget.py:184
+#: ../doclist/widget.py:189
 msgid "Close selected documents"
 msgstr "Zavřít vybrané dokumenty"
 
-#: ../doclist/widget.py:190
+#: ../doclist/widget.py:195
 msgid "Save documents in this folder"
 msgstr "Uložit dokumenty do této složky"
 
-#: ../doclist/widget.py:191
+#: ../doclist/widget.py:196
 msgid "Close documents in this folder"
 msgstr "Zavřít dokumenty do této složky"
 
-#: ../doclist/widget.py:194
+#: ../doclist/widget.py:199
 msgid "Save all untitled documents"
 msgstr "Uložit všechny nepojmenované dokumenty"
 
-#: ../doclist/widget.py:195
+#: ../doclist/widget.py:200
 msgid "Close all untitled documents"
 msgstr "Zavřít všechny nepojmenované dokumenty"
 
