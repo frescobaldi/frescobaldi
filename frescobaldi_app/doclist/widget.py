@@ -34,6 +34,7 @@ import qutil
 
 import icons
 import jobmanager
+import engrave
 
 
 def path(url):
@@ -62,6 +63,8 @@ class Widget(QTreeWidget):
         app.documentUrlChanged.connect(self.setDocumentStatus)
         app.jobStarted.connect(self.setDocumentStatus)
         app.jobFinished.connect(self.setDocumentStatus)
+        engraver = engrave.Engraver.instance(tool.mainwindow())
+        engraver.stickyChanged.connect(self.setDocumentStatus)
         tool.mainwindow().currentDocumentChanged.connect(self.selectDocument)
         self.itemSelectionChanged.connect(self.slotItemSelectionChanged)
         app.settingsChanged.connect(self.populate)
@@ -105,6 +108,8 @@ class Widget(QTreeWidget):
         i.setText(0, doc.documentName())
         if jobmanager.isRunning(doc):
             icon = 'lilypond-run'
+        elif engrave.Engraver.instance(self.parentWidget().mainwindow()).stickyDocument() is doc:
+            icon = 'pushpin'
         elif doc.isModified():
             icon = 'document-save'
         else:
