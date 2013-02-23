@@ -47,6 +47,80 @@ import documentinfo
 metainfo.define('highlighting', True)
 
 
+def mapping(data):
+    """Return a dictionary mapping token classes from ly.lex to QTextFormats.
+    
+    The QTextFormats are queried from the specified TextFormatData instance.
+    
+    """
+    return {
+    
+        # LilyPond
+        ly.lex.lilypond.Keyword: data.textFormat('lilypond', 'keyword'),
+        ly.lex.lilypond.Command: data.textFormat('lilypond', 'command'),
+        ly.lex.lilypond.Dynamic: data.textFormat('lilypond', 'dynamic'),
+        ly.lex.lilypond.Note: data.textFormat('lilypond', 'pitch'),
+        ly.lex.lilypond.Rest: data.textFormat('lilypond', 'pitch'),
+        ly.lex.lilypond.Skip: data.textFormat('lilypond', 'pitch'),
+        ly.lex.lilypond.Octave: data.textFormat('lilypond', 'octave'),
+        ly.lex.lilypond.Duration: data.textFormat('lilypond', 'duration'),
+        ly.lex.lilypond.OctaveCheck: data.textFormat('lilypond', 'check'),
+        ly.lex.lilypond.Fingering: data.textFormat('lilypond', 'fingering'),
+        ly.lex.lilypond.StringNumber: data.textFormat('lilypond', 'stringnumber'),
+        ly.lex.lilypond.Articulation: data.textFormat('lilypond', 'articulation'),
+        ly.lex.lilypond.Slur: data.textFormat('lilypond', 'slur'),
+        ly.lex.lilypond.Chord: data.textFormat('lilypond', 'chord'),
+        ly.lex.lilypond.PipeSymbol: data.textFormat('lilypond', 'check'),
+        ly.lex.lilypond.Markup: data.textFormat('lilypond', 'markup'),
+        ly.lex.lilypond.LyricMode: data.textFormat('lilypond', 'lyricmode'),
+        ly.lex.lilypond.Lyric: data.textFormat('lilypond', 'lyrictext'),
+        ly.lex.lilypond.LyricTie: data.textFormat('lilypond', 'slur'),
+        ly.lex.lilypond.Repeat: data.textFormat('lilypond', 'repeat'),
+        ly.lex.lilypond.Specifier: data.textFormat('lilypond', 'specifier'),
+        ly.lex.lilypond.UserCommand: data.textFormat('lilypond', 'usercommand'),
+        ly.lex.lilypond.Delimiter: data.textFormat('lilypond', 'delimiter'),
+        ly.lex.lilypond.ContextName: data.textFormat('lilypond', 'context'),
+        ly.lex.lilypond.GrobName: data.textFormat('lilypond', 'grob'),
+        ly.lex.lilypond.ContextProperty: data.textFormat('lilypond', 'property'),
+        ly.lex.lilypond.Variable: data.textFormat('lilypond', 'variable'),
+        ly.lex.lilypond.UserVariable: data.textFormat('lilypond', 'uservariable'),
+        ly.lex.lilypond.Value: data.textFormat('lilypond', 'value'),
+        ly.lex.lilypond.String: data.textFormat('lilypond', 'string'),
+        ly.lex.lilypond.StringQuoteEscape: data.textFormat('lilypond', 'stringescape'),
+        ly.lex.lilypond.Comment: data.textFormat('lilypond', 'comment'),
+        ly.lex.lilypond.Error: data.textFormat('lilypond', 'error'),
+        ly.lex.lilypond.Repeat: data.textFormat('lilypond', 'repeat'),
+        
+
+        # Scheme
+        ly.lex.lilypond.SchemeStart: data.textFormat('scheme', 'scheme'),
+        ly.lex.scheme.Scheme: data.textFormat('scheme', 'scheme'),
+        ly.lex.scheme.String: data.textFormat('scheme', 'string'),
+        ly.lex.scheme.Comment: data.textFormat('scheme', 'comment'),
+        ly.lex.scheme.Number: data.textFormat('scheme', 'number'),
+        ly.lex.scheme.LilyPond: data.textFormat('scheme', 'lilypond'),
+        
+        # HTML
+        ly.lex.html.Tag: data.textFormat('html', 'tag'),
+        ly.lex.html.AttrName: data.textFormat('html', 'attribute'),
+        ly.lex.html.Value: data.textFormat('html', 'value'),
+        ly.lex.html.String: data.textFormat('html', 'string'),
+        ly.lex.html.EntityRef: data.textFormat('html', 'entityref'),
+        ly.lex.html.Comment: data.textFormat('html', 'comment'),
+        ly.lex.html.LilyPondTag: data.textFormat('html', 'lilypondtag'),
+        
+        # Texinfo
+        ly.lex.texinfo.Keyword: data.textFormat('texinfo', 'keyword'),
+        ly.lex.texinfo.Block: data.textFormat('texinfo', 'block'),
+        ly.lex.texinfo.Attribute: data.textFormat('texinfo', 'attribute'),
+        ly.lex.texinfo.EscapeChar: data.textFormat('texinfo', 'escapechar'),
+        ly.lex.texinfo.Verbatim: data.textFormat('texinfo', 'verbatim'),
+        ly.lex.texinfo.Comment: data.textFormat('texinfo', 'comment'),
+        
+        
+    } # end of mapping dict
+
+
 def highlighter(document):
     """Return the Highlighter for this document."""
     return Highlighter.instance(document)
@@ -81,69 +155,7 @@ class HighlightFormats(object):
     """Manages a dictionary with all highlightformats coupled to token types."""
     def __init__(self, data):
         """Initialize ourselves with a TextFormatData instance."""
-        self._formats = d = {}
-        
-        # LilyPond
-        d[ly.lex.lilypond.Keyword] = data.textFormat('lilypond', 'keyword')
-        d[ly.lex.lilypond.Command] = data.textFormat('lilypond', 'command')
-        d[ly.lex.lilypond.Dynamic] = data.textFormat('lilypond', 'dynamic')
-        d[ly.lex.lilypond.Note] = data.textFormat('lilypond', 'pitch')
-        d[ly.lex.lilypond.Rest] = data.textFormat('lilypond', 'pitch')
-        d[ly.lex.lilypond.Skip] = data.textFormat('lilypond', 'pitch')
-        d[ly.lex.lilypond.Octave] = data.textFormat('lilypond', 'octave')
-        d[ly.lex.lilypond.Duration] = data.textFormat('lilypond', 'duration')
-        d[ly.lex.lilypond.OctaveCheck] = data.textFormat('lilypond', 'check')
-        d[ly.lex.lilypond.Fingering] = data.textFormat('lilypond', 'fingering')
-        d[ly.lex.lilypond.StringNumber] = data.textFormat('lilypond', 'stringnumber')
-        d[ly.lex.lilypond.Articulation] = data.textFormat('lilypond', 'articulation')
-        d[ly.lex.lilypond.Slur] = data.textFormat('lilypond', 'slur')
-        d[ly.lex.lilypond.Chord] = data.textFormat('lilypond', 'chord')
-        d[ly.lex.lilypond.PipeSymbol] = data.textFormat('lilypond', 'check')
-        d[ly.lex.lilypond.Markup] = data.textFormat('lilypond', 'markup')
-        d[ly.lex.lilypond.LyricMode] = data.textFormat('lilypond', 'lyricmode')
-        d[ly.lex.lilypond.Lyric] = data.textFormat('lilypond', 'lyrictext')
-        d[ly.lex.lilypond.LyricTie] = data.textFormat('lilypond', 'slur')
-        d[ly.lex.lilypond.Repeat] = data.textFormat('lilypond', 'repeat')
-        d[ly.lex.lilypond.Specifier] = data.textFormat('lilypond', 'specifier')
-        d[ly.lex.lilypond.UserCommand] = data.textFormat('lilypond', 'usercommand')
-        d[ly.lex.lilypond.Delimiter] = data.textFormat('lilypond', 'delimiter')
-        d[ly.lex.lilypond.ContextName] = data.textFormat('lilypond', 'context')
-        d[ly.lex.lilypond.GrobName] = data.textFormat('lilypond', 'grob')
-        d[ly.lex.lilypond.ContextProperty] = data.textFormat('lilypond', 'property')
-        d[ly.lex.lilypond.Variable] = data.textFormat('lilypond', 'variable')
-        d[ly.lex.lilypond.UserVariable] = data.textFormat('lilypond', 'uservariable')
-        d[ly.lex.lilypond.Value] = data.textFormat('lilypond', 'value')
-        d[ly.lex.lilypond.String] = data.textFormat('lilypond', 'string')
-        d[ly.lex.lilypond.StringQuoteEscape] = data.textFormat('lilypond', 'stringescape')
-        d[ly.lex.lilypond.Comment] = data.textFormat('lilypond', 'comment')
-        d[ly.lex.lilypond.Error] = data.textFormat('lilypond', 'error')
-        d[ly.lex.lilypond.Repeat] = data.textFormat('lilypond', 'repeat')
-        
-
-        # Scheme
-        d[ly.lex.lilypond.SchemeStart] = data.textFormat('scheme', 'scheme')
-        d[ly.lex.scheme.Scheme] = d[ly.lex.lilypond.SchemeStart]
-        d[ly.lex.scheme.String] = data.textFormat('scheme', 'string')
-        d[ly.lex.scheme.Comment] = data.textFormat('scheme', 'comment')
-        d[ly.lex.scheme.Number] = data.textFormat('scheme', 'number')
-        d[ly.lex.scheme.LilyPond] = data.textFormat('scheme', 'lilypond')
-        
-        # HTML
-        d[ly.lex.html.Tag] = data.textFormat('html', 'tag')
-        d[ly.lex.html.AttrName] = data.textFormat('html', 'attribute')
-        d[ly.lex.html.Value] = data.textFormat('html', 'value')
-        d[ly.lex.html.String] = data.textFormat('html', 'string')
-        d[ly.lex.html.EntityRef] = data.textFormat('html', 'entityref')
-        d[ly.lex.html.Comment] = data.textFormat('html', 'comment')
-        d[ly.lex.html.LilyPondTag] = data.textFormat('html', 'lilypondtag')
-        
-        # Texinfo
-        d[ly.lex.texinfo.Keyword] = data.textFormat('texinfo', 'keyword')
-        d[ly.lex.texinfo.Block] = data.textFormat('texinfo', 'block')
-        d[ly.lex.texinfo.Attribute] = data.textFormat('texinfo', 'attribute')
-        d[ly.lex.texinfo.EscapeChar] = data.textFormat('texinfo', 'escapechar')
-        d[ly.lex.texinfo.Verbatim] = data.textFormat('texinfo', 'verbatim')
-        d[ly.lex.texinfo.Comment] = data.textFormat('texinfo', 'comment')
+        self._formats = mapping(data)
     
     def format(self, token):
         """Return the format defined in the formats dictionary for the token class.
