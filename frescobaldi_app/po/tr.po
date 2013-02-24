@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-02-18 08:04+0100\n"
+"POT-Creation-Date: 2013-02-21 18:51+0100\n"
 "PO-Revision-Date: 2010-12-12 07:48+0200\n"
 "Last-Translator: Server Acim <serveracim@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -307,7 +307,7 @@ msgstr "Kes ve Ata:"
 msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr "Lütfen, metne atamak üzere değişkene bir ad veriniz:"
 
-#: ../document.py:145 ../doclist/widget.py:128 ../snippet/edit.py:178
+#: ../document.py:145 ../doclist/widget.py:133 ../snippet/edit.py:178
 msgid "Untitled"
 msgstr "Başlıksız"
 
@@ -349,19 +349,23 @@ msgstr "Fermata"
 msgid "&Update with convert-ly..."
 msgstr "convert-ly ile Güncelle"
 
-#: ../documentcontextmenu.py:54 ../mainwindow.py:952
+#: ../documentcontextmenu.py:67 ../mainwindow.py:952
 #: ../sessions/manager.py:127
 #, fuzzy
 msgid "&Save"
 msgstr "Kaydet"
 
-#: ../documentcontextmenu.py:55 ../mainwindow.py:953
+#: ../documentcontextmenu.py:68 ../mainwindow.py:953
 #, fuzzy
 msgid "Save &As..."
 msgstr "PDF'yi Farklı Kaydet..."
 
-#: ../documentcontextmenu.py:56 ../mainwindow.py:957
+#: ../documentcontextmenu.py:69 ../mainwindow.py:957
 msgid "&Close"
+msgstr ""
+
+#: ../documentcontextmenu.py:70
+msgid "Always &Engrave This Document"
 msgstr ""
 
 #: ../documentmenu.py:42
@@ -1213,30 +1217,30 @@ msgstr "&Belge"
 msgid "Docum&ents"
 msgstr "&Belge"
 
-#: ../doclist/widget.py:183
+#: ../doclist/widget.py:188
 #, fuzzy
 msgid "Save selected documents"
 msgstr "Partisyon ayarları"
 
-#: ../doclist/widget.py:184
+#: ../doclist/widget.py:189
 #, fuzzy
 msgid "Close selected documents"
 msgstr "Diğer Belgeleri Kapat"
 
-#: ../doclist/widget.py:190
+#: ../doclist/widget.py:195
 msgid "Save documents in this folder"
 msgstr ""
 
-#: ../doclist/widget.py:191
+#: ../doclist/widget.py:196
 msgid "Close documents in this folder"
 msgstr ""
 
-#: ../doclist/widget.py:194
+#: ../doclist/widget.py:199
 #, fuzzy
 msgid "Save all untitled documents"
 msgstr "E-posta belgeleri"
 
-#: ../doclist/widget.py:195
+#: ../doclist/widget.py:200
 #, fuzzy
 msgid "Close all untitled documents"
 msgstr "Diğer Belgeleri Kapat"
