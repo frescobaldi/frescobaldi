@@ -42,7 +42,7 @@ def textformat2css(f):
         d['font-weight'] = format(f.fontWeight() * 8)
     if f.fontItalic():
         d['font-style'] = 'italic'
-    if f.hasProperty(QTextFormat.TextUnderlineStyle):
+    if f.boolProperty(QTextFormat.TextUnderlineStyle):
         d['text-decoration'] = 'underline'
         if f.hasProperty(QTextFormat.TextUnderlineColor):
             d['text-decoration-color'] = f.underlineColor().name()
@@ -55,6 +55,21 @@ def escape(text):
 
 class HtmlHighlighter(object):
     """Convert highlighted text or tokens to HTML."""
+    
+    # Set the inline_style attribute to True to use inline style attributes
+    inline_style = False
+    
+    wrapper_html = (
+    "<html>\n"
+    "<head>\n"
+    "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>\n"
+    "{css}\n"
+    "</head>\n"
+    "<body{bodyattr}>\n"
+    "<pre>{body}</pre>\n"
+    "</body>\n</html>\n"
+    )
+    
     def __init__(self, data=None):
         """Initialize the HtmlHighlighter with a TextFormatData instance.
         
@@ -78,8 +93,8 @@ class HtmlHighlighter(object):
         yield 'body', {
             'color': self._data.baseColors['text'].name(),
             'background': self._data.baseColors['background'].name(),
-            'font-family': '"{0}"'.format(self._data.font.family()),
-            'font-size': format(self._data.font.pointSizeF()),
+            #'font-family': '"{0}"'.format(self._data.font.family()),
+            #'font-size': format(self._data.font.pointSizeF()),
         }
         for c in sorted(self._formats):
             yield '.' + c, self._formats[c]
@@ -122,14 +137,75 @@ class HtmlHighlighter(object):
             else:
                 return escape(token)
             self._classes[cls] = css
-        return '<span class="{0}">{1}</span>'.format(css, escape(token))
+        if self.inline_style:
+            style = self.format_css_items(self._formats[css])
+            return '<span style="{0}">{1}</span>'.format(style, escape(token))
+        else:
+            return '<span class="{0}">{1}</span>'.format(css, escape(token))
             
+    def html_wrapper(self, body):
+        """Returns a full HTML document.
+        
+        The body should be the HTML for all the text.
+        It will be wrapped in a html/body/pre construct, and the stylesheet
+        will be put in the header, if inline_style is set to False (default).
+        
+        """
+        if self.inline_style:
+            css = ''
+            bodyattr = ' text="{0}" bgcolor="{1}"'.format(
+                self._data.baseColors['text'].name(),
+                self._data.baseColors['background'].name())
+        else:
+            css = '<style type="text/css">{0}</style>'.format(
+                escape(self.stylesheet()))
+            bodyattr = ''
+        return self.wrapper_html.format(
+            css=css,
+            bodyattr=bodyattr,
+            body=body)
+        
     def html_document(self, doc):
         """Returns HTML for the specified Document."""
-        return self.html_wrapper(
-            "".join(self.html_for_token(t)
-                    for t in tokeniter.all_tokens(doc)))
+        def html():
+            block = doc.firstBlock()
+            while block.isValid():
+                yield "".join(map(self.html_for_token, tokeniter.tokens(block)))
+                block = block.next()
+        return self.html_wrapper("\n".join(html()))
     
     def html_cursor(self, cursor):
         """Return HTML for the cursor's selection."""
+        d = cursor.document()
+        start = d.findBlock(cursor.selectionStart())
+        startpos = cursor.selectionStart() - start.position()
+        end = d.findBlock(cursor.selectionEnd())
+        endpos = cursor.selectionEnd() - end.position()
         
+        html = []
+        # first block, skip tokens before selection
+        block = start
+        source = iter(tokeniter.tokens(block))
+        for t in source:
+            if t.end > startpos:
+                if t.pos >= startpos:
+                    html.append(self.html_for_token(t))
+                else:
+                    html.append(self.html_for_token(t[startpos-t.pos:], type(t)))
+        while block != end:
+            for t in source:
+                html.append(self.html_for_token(t))
+            html.append('\n')
+            block = block.next()
+            source = iter(tokeniter.tokens(block))
+        # last block, go to end of selection
+        for t in source:
+            if t.end > endpos:
+                if t.pos < endpos:
+                    html.append(self.html_for_token(t[:endpos-t.pos], type(t)))
+                break
+            html.append(self.html_for_token(t))
+            
+        return self.html_wrapper("".join(html))
+
+
