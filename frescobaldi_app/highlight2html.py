@@ -70,12 +70,13 @@ class HtmlHighlighter(object):
     "</body>\n</html>\n"
     )
     
-    def __init__(self, data=None):
+    def __init__(self, data=None, inline_style=False):
         """Initialize the HtmlHighlighter with a TextFormatData instance.
         
         If none is given, the textformats.textFormat('editor') is used.
         
         """
+        self.inline_style = inline_style
         self.setFormatData(data or textformats.formatData('editor'))
     
     def setFormatData(self, data):

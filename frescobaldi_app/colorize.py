@@ -38,8 +38,7 @@ def colorize(text, state=None):
     if state is None:
         state = ly.lex.guessState(text)
     data = textformats.formatData('editor')
-    h = highlight2html.HtmlHighlighter(data)
-    h.inline_style = True
+    h = highlight2html.HtmlHighlighter(data, inline_style=True)
     
     result = [
         '<pre style="color: {0}; background: {1}; font-family: {2}">'.format(

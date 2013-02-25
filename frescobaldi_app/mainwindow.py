@@ -620,8 +620,7 @@ class MainWindow(QMainWindow):
         if not cursor.hasSelection():
             return
         import highlight2html
-        h = highlight2html.HtmlHighlighter()
-        h.inline_style = True
+        h = highlight2html.HtmlHighlighter(inline_style=True)
         html = h.html_cursor(cursor)
         data = QMimeData()
         data.setHtml(html)
