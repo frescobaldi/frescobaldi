@@ -25,6 +25,8 @@ Changed in 2.0.9 --
     take a long time anymore when editing or moving through a long document
   - string numbers are highlighted (and understood) correctly outside chords
     (LilyPond 2.16 syntax change)
+  - Export colored HTML now uses CSS classes, makes it easy to change the high-
+    lighting in the HTML later (idea: issue #89)
 * Bug fixes:
   - music highlighting of a note after \unset someVariable is now correct
   - fix Python error message when a document (marked as Always engraved) is
