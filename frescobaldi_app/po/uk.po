@@ -53,11 +53,11 @@ msgstr "Проект Tango Desktop"
 
 #: ../about.py:61
 msgid "The following people contributed to {appname}:"
-msgstr ""
+msgstr "Перелічені особи зробили внесок у {appname}:"
 
 #: ../about.py:64
 msgid "{author}: Kinetic Scrolling for the Music View"
-msgstr ""
+msgstr "{author}: Кінетична прокрутка Перегляду твору"
 
 #: ../about.py:69
 msgid "{appname} is translated into the following languages:"
@@ -205,7 +205,7 @@ msgstr "Виконати знову"
 #: ../convert_ly.py:140 ../docbrowser/browser.py:158
 #: ../musicview/editinplace.py:150 ../musicview/image.py:167
 msgid "<unknown>"
-msgstr ""
+msgstr "<невідомо>"
 
 #: ../convert_ly.py:141
 msgid "Convert-ly from LilyPond {version}"
@@ -414,7 +414,7 @@ msgstr ""
 
 #: ../hyphendialog.py:114
 msgid "Hyphenate Lyrics Text"
-msgstr ""
+msgstr "Розбити вокальний текст на склади"
 
 #: ../hyphendialog.py:115
 msgid "Please select a language:"
@@ -541,7 +541,7 @@ msgstr "Запускаємо LilyPond, це може тривати певний
 #: ../lyrics.py:132
 #, fuzzy
 msgid "&Hyphenate Lyrics Text..."
-msgstr "Вставити &переноси у текст Lyrics"
+msgstr "&Розбити вокальний текст на склади"
 
 #: ../lyrics.py:133
 msgid "&Remove hyphenation"
@@ -1067,23 +1067,23 @@ msgstr "Розд&ілити вертикально"
 
 #: ../viewmanager.py:92
 msgid "&Close View"
-msgstr ""
+msgstr "&Закрити перегляд"
 
 #: ../viewmanager.py:449
 msgid "&Close Current View"
-msgstr ""
+msgstr "&Закрити поточний перегляд"
 
 #: ../viewmanager.py:450
 msgid "Close &Other Views"
-msgstr ""
+msgstr "&Закрити інші перегляди"
 
 #: ../viewmanager.py:451
 msgid "&Next View"
-msgstr ""
+msgstr "&Наступний перегляд"
 
 #: ../viewmanager.py:452
 msgid "&Previous View"
-msgstr ""
+msgstr "&Попередній перегляд"
 
 #: ../autocomplete/__init__.py:79
 msgid "Automatic &Completion"
@@ -1265,11 +1265,11 @@ msgstr "Видаляти проміжні файли"
 
 #: ../engrave/custom.py:132
 msgid "Command line:"
-msgstr ""
+msgstr "Командний рядок:"
 
 #: ../engrave/custom.py:133
 msgid "Run LilyPond"
-msgstr ""
+msgstr "Запустити LilyPond"
 
 #: ../engrave/custom.py:155
 msgid "LilyPond {version}"
@@ -1281,11 +1281,13 @@ msgid ""
 "used\n"
 "to engrave your document.\n"
 "It is even possible to edit the command line itself.\n"
-msgstr ""
+msgstr "Тут ви можете встановити параметри, що будуть застосовані\n"
+"до запуску LilyPond.\n"
+"Ви навіть можете змінити, власне, командний рядок.\n"
 
 #: ../engrave/custom.py:223
 msgid "The following replacements will be made:"
-msgstr ""
+msgstr "Буде здійснено наступні заміни:"
 
 #: ../engrave/custom.py:226
 msgid "The LilyPond executable"
@@ -1293,11 +1295,11 @@ msgstr ""
 
 #: ../engrave/custom.py:227
 msgid "All the include paths"
-msgstr ""
+msgstr "Усі шляхи пошуку (include paths)"
 
 #: ../engrave/custom.py:228
 msgid "The filename of the document"
-msgstr ""
+msgstr "Назва файла документу"
 
 #: ../engrave/custom.py:241
 msgid "PDF"
@@ -1329,11 +1331,11 @@ msgstr ""
 
 #: ../engrave/result_menu.py:46
 msgid "Generated &Files"
-msgstr ""
+msgstr "Згенеровані &файли"
 
 #: ../engrave/result_menu.py:67
 msgid "No files available"
-msgstr ""
+msgstr "Файлів немає"
 
 #: ../help/browser.py:78
 msgid "Toolbar"
@@ -1444,7 +1446,7 @@ msgstr "Налаштування LilyPond"
 #: ../help/contents.py:142
 msgctxt "menu title"
 msgid "View"
-msgstr ""
+msgstr "Перегляд"
 
 #: ../help/contents.py:143
 msgid "Clear Error Marks"
@@ -1452,7 +1454,7 @@ msgstr "Зняти позначки помилок"
 
 #: ../help/contents.py:146 ../help/contents.py:265
 msgid "Copy to Image..."
-msgstr ""
+msgstr "Копіювати у зображення..."
 
 #: ../help/contents.py:148
 msgid ""
@@ -1555,7 +1557,7 @@ msgstr "Перегляд твору"
 
 #: ../help/contents.py:236
 msgid "The Music View displays the PDF document created by LilyPond."
-msgstr ""
+msgstr "Вікно перегляду твору показує згенерований документ PDF."
 
 #: ../help/contents.py:237
 msgid ""
@@ -1665,7 +1667,7 @@ msgstr ""
 
 #: ../help/contents.py:335
 msgid "Frescobaldi's main author is {author}."
-msgstr ""
+msgstr "Автором Frescobaldi є {author}."
 
 #: ../help/contents.py:343
 msgid "Contributing"
@@ -1700,7 +1702,7 @@ msgstr ""
 
 #: ../help/contents.py:371
 msgid "History of Frescobaldi"
-msgstr ""
+msgstr "Історія Frescobaldi"
 
 #: ../help/contents.py:374
 msgid ""
@@ -1732,7 +1734,7 @@ msgstr ""
 
 #: ../help/contents.py:400
 msgid "The editor"
-msgstr ""
+msgstr "Редактор"
 
 #: ../help/contents.py:403
 msgid ""
@@ -1800,7 +1802,7 @@ msgstr ""
 
 #: ../help/contents.py:476
 msgid "Document variables"
-msgstr ""
+msgstr "Змінні документа"
 
 #: ../help/contents.py:481
 msgid ""
@@ -1970,7 +1972,7 @@ msgstr ""
 
 #: ../help/contents.py:597
 msgid "Troubleshooting"
-msgstr ""
+msgstr "Виявлення проблем"
 
 #: ../help/contents.py:600
 msgid ""
@@ -2037,19 +2039,19 @@ msgstr ""
 
 #: ../help/contents.py:669
 msgid "Table of Contents"
-msgstr ""
+msgstr "Зміст"
 
 #: ../help/helpimpl.py:116
 msgid "Up:"
-msgstr ""
+msgstr "Нагору:"
 
 #: ../help/helpimpl.py:131
 msgid "Next:"
-msgstr ""
+msgstr "Далі:"
 
 #: ../help/helpimpl.py:134
 msgid "See also:"
-msgstr ""
+msgstr "Див. також:"
 
 #: ../help/helpimpl.py:177
 msgid "(no key defined)"
@@ -2109,7 +2111,7 @@ msgstr "Темп"
 
 #: ../miditool/widget.py:157
 msgid "No output found!"
-msgstr ""
+msgstr "Не знайденофайла midi!"
 
 #: ../miditool/widget.py:234
 msgctxt "midi lcd screen"
@@ -2167,7 +2169,7 @@ msgstr "По&чатковий розмір"
 
 #: ../musicview/__init__.py:291
 msgid "Zoom Music"
-msgstr ""
+msgstr "Збільшити"
 
 #: ../musicview/__init__.py:292
 msgid "Fit &Width"
@@ -2183,7 +2185,7 @@ msgstr "Влаштувати сто&рінку"
 
 #: ../musicview/__init__.py:295
 msgid "&Maximize"
-msgstr ""
+msgstr "&Розгорнути"
 
 #: ../musicview/__init__.py:296
 msgid "&Jump to Cursor Position"
@@ -2200,7 +2202,7 @@ msgstr "Копіювати у &зображення..."
 
 #: ../musicview/__init__.py:299
 msgid "Next Page"
-msgstr ""
+msgstr "Наступна сторінка"
 
 #: ../musicview/__init__.py:300
 msgid "Next"
@@ -2208,7 +2210,7 @@ msgstr ""
 
 #: ../musicview/__init__.py:301
 msgid "Previous Page"
-msgstr ""
+msgstr "Попередня сторінка"
 
 #: ../musicview/__init__.py:302
 msgid "Previous"
@@ -2216,7 +2218,7 @@ msgstr ""
 
 #: ../musicview/__init__.py:303
 msgid "&Reload"
-msgstr ""
+msgstr "&Перечитати"
 
 #: ../musicview/__init__.py:447
 msgid "Choose the PDF document to display."
@@ -2243,7 +2245,7 @@ msgstr "Влаштувати сторінку"
 #. L10N: page numbering: page {num} of {total}
 #: ../musicview/__init__.py:526
 msgid "{num} of {total}"
-msgstr ""
+msgstr "{num} з {total}"
 
 #: ../musicview/contextmenu.py:49 ../musicview/editinplace.py:82
 #: ../musicview/editinplace.py:246 ../musicview/editinplace.py:255
@@ -2295,11 +2297,11 @@ msgstr ""
 
 #: ../musicview/image.py:133
 msgid "&Copy to Clipboard"
-msgstr ""
+msgstr "&Копіювати до кишені"
 
 #: ../musicview/image.py:134
 msgid "&Save As..."
-msgstr ""
+msgstr "&Зберегти як..."
 
 #: ../musicview/image.py:137
 #, no-python-format
@@ -2321,11 +2323,11 @@ msgstr ""
 
 #: ../musicview/image.py:211
 msgid "Save Image As"
-msgstr ""
+msgstr "Зберегти зображення як"
 
 #: ../musicview/image.py:215
 msgid "Could not save the image."
-msgstr ""
+msgstr "Не вдалося зберегти зображення."
 
 #: ../pitch/__init__.py:99
 msgid "Pitch Name &Language"
@@ -2339,31 +2341,33 @@ msgstr ""
 
 #: ../pitch/__init__.py:103
 msgid "Convert Relative to &Absolute"
-msgstr ""
+msgstr "Конвертувати відносні тони у &Абсолютні"
 
 #: ../pitch/__init__.py:105
 msgid ""
 "Converts the notes in the document or selection from relative to absolute "
 "pitch."
-msgstr ""
+msgstr "Конвертувати ноти у документі чи виділенні з відносних тонів у "
+"абсолютні."
 
 #: ../pitch/__init__.py:107
 msgid "Convert Absolute to &Relative"
-msgstr ""
+msgstr "Конвертувати абсолютні тони у &Відносні"
 
 #: ../pitch/__init__.py:109
 msgid ""
 "Converts the notes in the document or selection from absolute to relative "
 "pitch."
-msgstr ""
+msgstr "Конвертувати ноти у документі чи виділенні з абсолютних тонів у "
+"відносні."
 
 #: ../pitch/__init__.py:111
 msgid "&Transpose..."
-msgstr ""
+msgstr "&Транспонувати"
 
 #: ../pitch/__init__.py:113
 msgid "Transposes all notes in the document or selection."
-msgstr ""
+msgstr "Транспонувати всі ноти у документі чи виділенні."
 
 #: ../pitch/pitch.py:81 ../pitch/pitch.py:94
 msgid "Pitch Name Language"
@@ -2393,13 +2397,14 @@ msgstr ""
 
 #: ../pitch/pitch.py:398 ../pitch/pitch.py:580 ../pitch/pitch.py:752
 msgid "Transpose"
-msgstr ""
+msgstr "Транспонувати"
 
 #: ../pitch/pitch.py:399
 msgid ""
 "Please enter two absolute pitches, separated by a space, using the pitch "
 "name language \"{language}\"."
-msgstr ""
+msgstr "Будь ласка, введіть два абсолютних тони, розділених комою, "
+"використовуючи мову \"{language}\"."
 
 #: ../pitch/pitch.py:581
 msgid ""
@@ -2496,20 +2501,20 @@ msgstr ""
 
 #: ../po/messages.py:27
 msgid "Usage"
-msgstr ""
+msgstr "Використання"
 
 #: ../po/messages.py:28
 #, python-format
 msgid "Usage: %s\n"
-msgstr ""
+msgstr "Використання: %s\n"
 
 #: ../po/messages.py:29
 msgid "show this help message and exit"
-msgstr ""
+msgstr "показати це повідомлення й вийти"
 
 #: ../po/messages.py:30
 msgid "show program's version number and exit"
-msgstr ""
+msgstr "показати версію програми й вийти"
 
 #. L10N: Command line options
 #: ../po/messages.py:32
@@ -2579,7 +2584,7 @@ msgstr "Файл"
 #: ../po/messages.py:51
 msgctxt "QFileDialog"
 msgid "Folder"
-msgstr ""
+msgstr "Тека"
 
 #: ../po/messages.py:52
 msgctxt "QFileDialog"
@@ -2589,7 +2594,7 @@ msgstr "Знайти теку"
 #: ../po/messages.py:53
 msgctxt "QFileDialog"
 msgid "All Files (*)"
-msgstr ""
+msgstr "Усі файли (*)"
 
 #: ../po/messages.py:55
 msgctxt "QScrollBar"
@@ -2850,7 +2855,7 @@ msgstr ""
 
 #: ../preferences/fontscolors.py:484
 msgid "Octave"
-msgstr ""
+msgstr "Октава"
 
 #: ../preferences/fontscolors.py:485
 msgid "Duration"
@@ -2875,11 +2880,11 @@ msgstr "Ліга"
 
 #: ../preferences/fontscolors.py:491
 msgid "Dynamic"
-msgstr ""
+msgstr "Позначка динаміки"
 
 #: ../preferences/fontscolors.py:492
 msgid "Articulation"
-msgstr ""
+msgstr "Артикуляція"
 
 #: ../preferences/fontscolors.py:493
 msgid "Chord"
@@ -2919,7 +2924,7 @@ msgstr ""
 
 #: ../preferences/fontscolors.py:503
 msgid "Lyric Text"
-msgstr ""
+msgstr "Вокальний текст"
 
 #: ../preferences/fontscolors.py:504
 msgid "Delimiter"
@@ -3021,7 +3026,7 @@ msgstr ""
 
 #: ../preferences/general.py:139
 msgid "Show Splash Screen on Startup"
-msgstr ""
+msgstr "Показувати заставку запуску"
 
 #: ../preferences/general.py:140
 msgid "Open Files in Running Instance"
@@ -3159,7 +3164,7 @@ msgstr ""
 
 #: ../preferences/lilypond.py:101
 msgid "See also {link}."
-msgstr ""
+msgstr "Дивю також {link}."
 
 #: ../preferences/lilypond.py:149
 msgid "Set as &Default"
@@ -3202,16 +3207,20 @@ msgid ""
 "If checked, the document is saved when it is local and modified.\n"
 "Otherwise a temporary file is used to run LilyPond."
 msgstr ""
+"Якщо відмічено, LilyPond зберігатиме змінені докільні документи.\n"
+"Інакше буде використано тимчасовий файл для запуску LilyPond."
 
 #: ../preferences/lilypond.py:290
 msgid "If checked, LilyPond will delete intermediate PostScript files."
-msgstr ""
+msgstr "Якщо відмічено, LilyPond видалятиме проміжні файли PostScript."
 
 #: ../preferences/lilypond.py:293
 msgid ""
 "If checked, LilyPond's output messages will be in English.\n"
 "This can be useful for bug reports."
 msgstr ""
+"Якщо відмічено, LilyPond виводитиме повідомлення англійською мовою.\n"
+"Це може бути потрібно для повідомлень про вади."
 
 #: ../preferences/lilypond.py:295
 msgid "LilyPond include path:"
@@ -3555,7 +3564,7 @@ msgstr "&Дозволити згортки"
 
 #: ../preferences/tools.py:164
 msgid "Show Scrollbars"
-msgstr ""
+msgstr "Показувати панелі прокрутки"
 
 #: ../preferences/tools.py:249
 msgid "Group documents by directory"
@@ -3788,7 +3797,7 @@ msgstr "Невидима тактова риска"
 
 #: ../quickinsert/barlines.py:66
 msgid "Repeat start"
-msgstr ""
+msgstr "Початок повтору"
 
 #: ../quickinsert/barlines.py:67
 msgid "Repeat both"
@@ -3796,7 +3805,7 @@ msgstr ""
 
 #: ../quickinsert/barlines.py:68
 msgid "Repeat end"
-msgstr ""
+msgstr "Кінець повтору"
 
 #: ../quickinsert/barlines.py:69
 msgid "Repeat both (old)"
@@ -3808,11 +3817,11 @@ msgstr ""
 
 #: ../quickinsert/barlines.py:71
 msgid "Tick bar line"
-msgstr ""
+msgstr "Товста тактова риска"
 
 #: ../quickinsert/barlines.py:72
 msgid "Single bar line"
-msgstr ""
+msgstr "Тонка тактова риска"
 
 #: ../quickinsert/barlines.py:73
 msgid "Small-Wide-Small bar line"
@@ -3832,7 +3841,7 @@ msgstr ""
 
 #: ../quickinsert/barlines.py:95
 msgid "Breathing Signs"
-msgstr ""
+msgstr "Цезури"
 
 #: ../quickinsert/barlines.py:102
 msgid "Default Breathing Sign"
@@ -3930,11 +3939,11 @@ msgstr ""
 
 #: ../quickinsert/spanners.py:105
 msgid "Glissandos"
-msgstr ""
+msgstr "Ґліссандо"
 
 #: ../quickinsert/spanners.py:114
 msgid "Glissando"
-msgstr ""
+msgstr "Ґліссандо"
 
 #: ../quickinsert/spanners.py:115
 msgid "Dashed Glissando"
@@ -3958,7 +3967,7 @@ msgstr "Фразова ліга"
 
 #: ../quickinsert/spanners.py:147
 msgid "Melisma"
-msgstr ""
+msgstr "Мелізма"
 
 #: ../quickinsert/widget.py:102
 msgid ""
@@ -4072,51 +4081,51 @@ msgstr ""
 
 #: ../rhythm/__init__.py:146
 msgid "&Double durations"
-msgstr ""
+msgstr "По&двоїти тривалості"
 
 #: ../rhythm/__init__.py:148
-msgid "Double all the durations in the selection."
+msgid "Подвоїти усі тривалості у виділенні."
 msgstr ""
 
 #: ../rhythm/__init__.py:149
 msgid "&Halve durations"
-msgstr ""
+msgstr "&Зменшити тривалості вдвічі"
 
 #: ../rhythm/__init__.py:151
 msgid "Halve all the durations in the selection."
-msgstr ""
+msgstr "Зменшити вдвічі всі тривалості у виділенні."
 
 #: ../rhythm/__init__.py:152
 msgid "Do&t durations"
-msgstr ""
+msgstr "Додати &крапку"
 
 #: ../rhythm/__init__.py:154
-msgid "Add a dot to all the durations in the selection."
+msgid "Додати крапку до всіх тривалостей у виділенні."
 msgstr ""
 
 #: ../rhythm/__init__.py:155
 msgid "&Undot durations"
-msgstr ""
+msgstr "При&брати крапку"
 
 #: ../rhythm/__init__.py:157
 msgid "Remove one dot from all the durations in the selection."
-msgstr ""
+msgstr "Прибрати одну крапку від усіх тривалостей у виділенні."
 
 #: ../rhythm/__init__.py:158
 msgid "Remove &scaling"
-msgstr ""
+msgstr "Прибрати &масштабування"
 
 #: ../rhythm/__init__.py:160
 msgid "Remove all scaling (*n/m) from the durations in the selection."
-msgstr ""
+msgstr "Прибрати усі масштабування (*n/m) з тривалостей у виділенні."
 
 #: ../rhythm/__init__.py:161
 msgid "&Remove durations"
-msgstr ""
+msgstr "&Видалити тривалості"
 
 #: ../rhythm/__init__.py:163
 msgid "Remove all durations from the selection."
-msgstr ""
+msgstr "Видалити усі тривалості у виділенні."
 
 #: ../rhythm/__init__.py:164
 msgid "Make &implicit"
@@ -4426,7 +4435,7 @@ msgstr "&Вниз"
 
 #: ../scorewiz/scoreproperties.py:99
 msgid "Key signature:"
-msgstr ""
+msgstr "Тональність:"
 
 #: ../scorewiz/scoreproperties.py:135
 msgid "Time signature:"
@@ -4462,7 +4471,7 @@ msgstr "Дорійський"
 
 #: ../scorewiz/scoreproperties.py:389
 msgid "Phrygian"
-msgstr ""
+msgstr "Фригійський"
 
 #: ../scorewiz/scoreproperties.py:390
 msgid "Lydian"
@@ -4474,11 +4483,11 @@ msgstr "Міксолідійський"
 
 #: ../scorewiz/scoreproperties.py:392
 msgid "Aeolian"
-msgstr ""
+msgstr "Еолійський"
 
 #: ../scorewiz/scoreproperties.py:393
 msgid "Locrian"
-msgstr ""
+msgstr "Локрійський"
 
 #: ../scorewiz/settings.py:79
 msgid "Score properties"
@@ -4512,6 +4521,7 @@ msgstr "Видалити номери тактів"
 msgid ""
 "Suppress the display of measure numbers at the beginning of every system."
 msgstr ""
+"Не показувати номери тактів на початку кожної аколади."
 
 #: ../scorewiz/settings.py:129
 msgid "Create MIDI output"
@@ -4519,7 +4529,7 @@ msgstr "Створити MIDI"
 
 #: ../scorewiz/settings.py:131
 msgid "Create a MIDI file in addition to the PDF file."
-msgstr ""
+msgstr "Створювати файл MIDI разом із PDF."
 
 #: ../scorewiz/settings.py:132
 msgid "Show metronome mark"
@@ -4530,6 +4540,8 @@ msgid ""
 "If checked, show the metronome mark at the beginning of the score. The MIDI "
 "output also uses the metronome setting."
 msgstr ""
+"Якщо відмічено, показувати мітку метронома на початку твору. "
+"Вивід MIDI такж використовує налаштування метронома."
 
 #: ../scorewiz/settings.py:137
 msgid "Paper size:"
@@ -4561,7 +4573,8 @@ msgstr "Наступні аколади:"
 
 #: ../scorewiz/settings.py:224
 msgid "Use long or short instrument names before the first system."
-msgstr ""
+msgstr "Використовувати короткі чи довгі назви інструментів перед першою "
+"аколадою."
 
 #: ../scorewiz/settings.py:226
 msgid "Use short, long or no instrument names before the next systems."
@@ -4724,11 +4737,11 @@ msgstr ""
 
 #: ../scorewiz/parts/containers.py:72
 msgid "Connect Barlines"
-msgstr ""
+msgstr "Суцільні тактові риски"
 
 #: ../scorewiz/parts/containers.py:73
 msgid "If checked, barlines are connected between the staves."
-msgstr ""
+msgstr "Якщо відмічено, тактові киски будуть з’єднані між нотоносцями."
 
 #: ../scorewiz/parts/containers.py:94
 msgid "Score"
@@ -5724,7 +5737,7 @@ msgstr ""
 
 #: ../snippet/builtin.py:556
 msgid "Color"
-msgstr ""
+msgstr "Колір"
 
 #: ../snippet/builtin.py:593
 msgid "Basic Leadsheet"
