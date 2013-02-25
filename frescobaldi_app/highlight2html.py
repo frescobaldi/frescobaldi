@@ -85,7 +85,7 @@ class HtmlHighlighter(object):
         self._formats = f = {} # maps css class to css declarations
         self._classes = c = {} # maps token class to css class
         for cls, fmt in highlighter.mapping(data).items():
-            name = cls.__module__.split('.')[-1] + '-' + cls.__name__
+            name = cls.__module__.split('.')[-1] + '-' + cls.__name__.lower()
             c[cls] = name
             f[name] = textformat2css(fmt)
 
