@@ -591,10 +591,11 @@ class MainWindow(QMainWindow):
             name, "{0} (*.html)".format("HTML Files"))
         if not filename:
             return #cancelled
-        html = highlighter.htmlCopy(doc).toHtml('utf-8').encode('utf-8')
+        import highlight2html
+        html = highlight2html.HtmlHighlighter().html_document(doc)
         try:
-            with open(filename, "w") as f:
-                f.write(str(html))
+            with open(filename, "wb") as f:
+                f.write(html.encode('utf-8'))
         except (IOError, OSError) as err:
             QMessageBox.warning(self, app.caption(_("Error")),
                 _("Can't write to destination:\n\n{url}\n\n{error}").format(url=filename, error=err))
@@ -618,12 +619,11 @@ class MainWindow(QMainWindow):
         cursor = self.currentView().textCursor()
         if not cursor.hasSelection():
             return
-        doc = highlighter.htmlCopy(self.currentDocument())
-        cur1 = QTextCursor(doc)
-        cur1.setPosition(cursor.anchor())
-        cur1.setPosition(cursor.position(), QTextCursor.KeepAnchor)
+        import highlight2html
+        h = highlight2html.HtmlHighlighter()
+        h.inline_style = True
+        html = h.html_cursor(cursor)
         data = QMimeData()
-        html = cur1.selection().toHtml()
         data.setHtml(html)
         data.setText(html)
         QApplication.clipboard().setMimeData(data)
