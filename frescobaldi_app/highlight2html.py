@@ -175,7 +175,7 @@ class HtmlHighlighter(object):
                 block = block.next()
         return self.html_wrapper("\n".join(html()))
     
-    def html_cursor(self, cursor):
+    def html_selection(self, cursor):
         """Return HTML for the cursor's selection."""
         d = cursor.document()
         start = d.findBlock(cursor.selectionStart())
@@ -189,13 +189,14 @@ class HtmlHighlighter(object):
         source = iter(tokeniter.tokens(block))
         for t in source:
             if t.end > startpos:
-                if t.pos >= startpos:
-                    html.append(self.html_for_token(t))
-                else:
-                    html.append(self.html_for_token(t[startpos-t.pos:], type(t)))
+                startslice = max(0, startpos - t.pos)
+                endslice = None
+                if block == end and t.end > endpos:
+                    endslice = endpos - t.pos
+                html.append(self.html_for_token(t[startslice:endslice], type(t)))
+                break
         while block != end:
-            for t in source:
-                html.append(self.html_for_token(t))
+            html.extend(map(self.html_for_token, source))
             html.append('\n')
             block = block.next()
             source = iter(tokeniter.tokens(block))
@@ -206,7 +207,6 @@ class HtmlHighlighter(object):
                     html.append(self.html_for_token(t[:endpos-t.pos], type(t)))
                 break
             html.append(self.html_for_token(t))
-            
         return self.html_wrapper("".join(html))
 
 

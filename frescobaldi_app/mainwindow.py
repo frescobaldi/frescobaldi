@@ -621,7 +621,7 @@ class MainWindow(QMainWindow):
             return
         import highlight2html
         h = highlight2html.HtmlHighlighter(inline_style=True)
-        html = h.html_cursor(cursor)
+        html = h.html_selection(cursor)
         data = QMimeData()
         data.setHtml(html)
         #data.setText(html)
