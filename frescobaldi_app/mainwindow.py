@@ -624,7 +624,7 @@ class MainWindow(QMainWindow):
         html = h.html_cursor(cursor)
         data = QMimeData()
         data.setHtml(html)
-        data.setText(html)
+        #data.setText(html)
         QApplication.clipboard().setMimeData(data)
         
     def selectNone(self):
