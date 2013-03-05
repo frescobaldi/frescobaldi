@@ -476,6 +476,30 @@ class MainWindow(QMainWindow):
     def closeCurrentDocument(self):
         return self.closeDocument(self.currentDocument())
     
+    def reloadCurrentDocument(self):
+        """Reload the current document again from disk.
+        
+        This action can be undone.
+        
+        """
+        d = self.currentDocument()
+        if d.load(True) is False:
+            QMessageBox.warning(self, app.caption(_("Reload")),
+              _("Could not reload the document:\n\n{url}").format(
+                url = d.url().toString()))
+    
+    def reloadAllDocuments(self):
+        """Reloads all documents."""
+        success = []
+        for d in self.historyManager.documents():
+            success.append(d.load(True))
+        if False in success:
+            if True in success:
+                msg = _("Some documents could not be reloaded.")
+            else:
+                msg = _("No document could be reloaded.")
+            QMessageBox.warning(self, app.caption(_("Reload")), msg)
+    
     def saveAllDocuments(self):
         """ Saves all documents.
         
@@ -730,6 +754,8 @@ class MainWindow(QMainWindow):
         ac.file_save_as.triggered.connect(self.saveCurrentDocumentAs)
         ac.file_save_copy_as.triggered.connect(self.saveCopyAs)
         ac.file_save_all.triggered.connect(self.saveAllDocuments)
+        ac.file_reload.triggered.connect(self.reloadCurrentDocument)
+        ac.file_reload_all.triggered.connect(self.reloadAllDocuments)
         ac.file_print_source.triggered.connect(self.printSource)
         ac.file_close.triggered.connect(self.closeCurrentDocument)
         ac.file_close_other.triggered.connect(self.closeOtherDocuments)
@@ -831,6 +857,8 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_save_as = QAction(parent)
         self.file_save_copy_as = QAction(parent)
         self.file_save_all = QAction(parent)
+        self.file_reload = QAction(parent)
+        self.file_reload_all = QAction(parent)
         self.file_print_source = QAction(parent)
         self.file_close = QAction(parent)
         self.file_close_other = QAction(parent)
@@ -880,6 +908,8 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_save_as.setIcon(icons.get('document-save-as'))
         self.file_save_copy_as.setIcon(icons.get('document-save-as'))
         self.file_save_all.setIcon(icons.get('document-save-all'))
+        self.file_reload.setIcon(icons.get('reload'))
+        self.file_reload.setIcon(icons.get('reload-all'))
         self.file_print_source.setIcon(icons.get('document-print'))
         self.file_close.setIcon(icons.get('document-close'))
         self.file_quit.setIcon(icons.get('application-exit'))
@@ -952,6 +982,8 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_save_as.setText(_("Save &As..."))
         self.file_save_copy_as.setText(_("Save Copy or Selection As..."))
         self.file_save_all.setText(_("Save All"))
+        self.file_reload.setText(_("Re&load"))
+        self.file_reload_all.setText(_("Reload All"))
         self.file_print_source.setText(_("Print Source..."))
         self.file_close.setText(_("&Close"))
         self.file_close_other.setText(_("Close Other Documents"))
