@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 import os
 
 from PyQt4.QtCore import QUrl
-from PyQt4.QtGui import QPlainTextDocumentLayout, QTextDocument
+from PyQt4.QtGui import QPlainTextDocumentLayout, QTextCursor, QTextDocument
 
 import app
 import util
@@ -60,12 +60,14 @@ class Document(QTextDocument):
         self.closed()
         app.documentClosed(self)
 
-    def load(self):
+    def load(self, keepUndo=False):
         """Loads the current url.
         
         Returns True if loading succeeded, False if an error occurred,
         and None when the current url is empty or non-local.
         Currently only local files are supported.
+        
+        If keepUndo is True, the loading can be undone (with Ctrl-Z).
         
         """
         fileName = self.url().toLocalFile()
@@ -75,8 +77,13 @@ class Document(QTextDocument):
                     data = f.read()
             except (IOError, OSError):
                 return False # errors are caught in MainWindow.openUrl()
-            
-            self.setPlainText(util.decode(data))
+            text = util.decode(data)
+            if keepUndo:
+                c = QTextCursor(self)
+                c.select(QTextCursor.Document)
+                c.insertText(text)
+            else:
+                self.setPlainText(text)
             self.setModified(False)
             self.loaded()
             app.documentLoaded(self)
