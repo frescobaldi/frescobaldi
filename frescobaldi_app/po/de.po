@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-02-21 18:51+0100\n"
+"POT-Creation-Date: 2013-03-05 14:34+0100\n"
 "PO-Revision-Date: 2011-12-30 18:12+0100\n"
 "Last-Translator: Georg Hennig <georg.hennig@web.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -285,11 +285,11 @@ msgstr ""
 "Bitte geben Sie den Namen der Variable ein, der der ausgewählte Text "
 "zugewiesen werden soll:"
 
-#: ../document.py:145 ../doclist/widget.py:133 ../snippet/edit.py:178
+#: ../document.py:152 ../doclist/widget.py:133 ../snippet/edit.py:178
 msgid "Untitled"
 msgstr "Ohne Titel"
 
-#: ../document.py:147
+#: ../document.py:154
 msgid "Untitled ({num})"
 msgstr "Ohne Titel ({num})"
 
@@ -322,16 +322,16 @@ msgstr "&Formatierung"
 msgid "&Update with convert-ly..."
 msgstr "Mittels convert-ly akt&ualisieren"
 
-#: ../documentcontextmenu.py:67 ../mainwindow.py:952
+#: ../documentcontextmenu.py:67 ../mainwindow.py:981
 #: ../sessions/manager.py:127
 msgid "&Save"
 msgstr "&Speichern"
 
-#: ../documentcontextmenu.py:68 ../mainwindow.py:953
+#: ../documentcontextmenu.py:68 ../mainwindow.py:982
 msgid "Save &As..."
 msgstr "Speichern &unter"
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:957
+#: ../documentcontextmenu.py:69 ../mainwindow.py:988
 msgid "&Close"
 msgstr "Schließ&en"
 
@@ -400,8 +400,8 @@ msgstr "Notenzeilen-Größe:"
 
 #. L10N: a basic type of input in the editor
 #: ../helpers.py:101 ../mainwindow.py:390 ../mainwindow.py:396
-#: ../mainwindow.py:421 ../mainwindow.py:472 ../mainwindow.py:540
-#: ../mainwindow.py:599 ../musicview/image.py:214
+#: ../mainwindow.py:421 ../mainwindow.py:472 ../mainwindow.py:564
+#: ../mainwindow.py:624 ../musicview/image.py:214
 #: ../preferences/fontscolors.py:476 ../preferences/fontscolors.py:514
 #: ../snippet/import_export.py:105 ../snippet/widget.py:319
 msgid "Error"
@@ -662,7 +662,7 @@ msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Auswahl speichern"
 
-#: ../mainwindow.py:473 ../mainwindow.py:600 ../snippet/widget.py:320
+#: ../mainwindow.py:473 ../mainwindow.py:625 ../snippet/widget.py:320
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -675,12 +675,37 @@ msgstr ""
 "{url}\n"
 "{error}"
 
-#: ../mainwindow.py:533
+#: ../mainwindow.py:487 ../mainwindow.py:501
+#, fuzzy
+msgid "Reload"
+msgstr "Neu laden"
+
+#: ../mainwindow.py:488
+#, fuzzy
+msgid ""
+"Could not reload the document:\n"
+"\n"
+"{url}"
+msgstr ""
+"Konnte nicht-lokales Dokument nicht öffnen:\n"
+"\n"
+"{url}"
+
+#: ../mainwindow.py:498
+#, fuzzy
+msgid "Some documents could not be reloaded."
+msgstr "Das Dokument wurde nicht verändert."
+
+#: ../mainwindow.py:500
+msgid "No document could be reloaded."
+msgstr ""
+
+#: ../mainwindow.py:557
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Aus Datei einfügen"
 
-#: ../mainwindow.py:541 ../snippet/import_export.py:106
+#: ../mainwindow.py:565 ../snippet/import_export.py:106
 msgid ""
 "Can't read from source:\n"
 "\n"
@@ -694,16 +719,16 @@ msgstr ""
 "\n"
 "{error}"
 
-#: ../mainwindow.py:557
+#: ../mainwindow.py:581
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Quelltext drucken"
 
-#: ../mainwindow.py:590
+#: ../mainwindow.py:614
 msgid "Export as HTML"
 msgstr "Als HTML exportieren"
 
-#: ../mainwindow.py:711
+#: ../mainwindow.py:734
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -715,172 +740,182 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../mainwindow.py:818
+#: ../mainwindow.py:843
 msgid "Main Toolbar"
 msgstr "Haupt-Werkzeugleiste"
 
-#: ../mainwindow.py:819
+#: ../mainwindow.py:844
 msgid "Music View Toolbar"
 msgstr "Musik-Ansicht-Werkzeugleiste"
 
-#: ../mainwindow.py:946
+#: ../mainwindow.py:975
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Neu"
 
-#: ../mainwindow.py:947
+#: ../mainwindow.py:976
 msgid "&Open..."
 msgstr "Ö&ffnen"
 
-#: ../mainwindow.py:948
+#: ../mainwindow.py:977
 msgid "Open &Recent"
 msgstr "A&ktuelle Datei öffnen"
 
-#: ../mainwindow.py:949
+#: ../mainwindow.py:978
 msgid "Insert from &File..."
 msgstr "Aus Datei ein&fügen..."
 
-#: ../mainwindow.py:950
+#: ../mainwindow.py:979
 msgid "Open Current Directory"
 msgstr "Öffne aktuellen Ordner"
 
-#: ../mainwindow.py:951
+#: ../mainwindow.py:980
 msgid "Open Command Prompt"
 msgstr ""
 
-#: ../mainwindow.py:954
+#: ../mainwindow.py:983
 msgid "Save Copy or Selection As..."
 msgstr "Speichere Kopie oder Auswahl unter ..."
 
-#: ../mainwindow.py:955
+#: ../mainwindow.py:984
 msgid "Save All"
 msgstr "Alles speichern"
 
-#: ../mainwindow.py:956
+#: ../mainwindow.py:985
+#, fuzzy
+msgid "Re&load"
+msgstr "Neu laden"
+
+#: ../mainwindow.py:986
+#, fuzzy
+msgid "Reload All"
+msgstr "Neu laden"
+
+#: ../mainwindow.py:987
 msgid "Print Source..."
 msgstr "Quelltext drucken..."
 
-#: ../mainwindow.py:958
+#: ../mainwindow.py:989
 msgid "Close Other Documents"
 msgstr "Andere Dokumente schließen"
 
-#: ../mainwindow.py:959
+#: ../mainwindow.py:990
 msgid "Close All Documents"
 msgstr "Alle Dokumente schließen"
 
-#: ../mainwindow.py:960
+#: ../mainwindow.py:991
 msgid "Closes all documents and leaves the current session."
 msgstr "Schließe alle Dokumente und beende die Sitzung."
 
-#: ../mainwindow.py:961
+#: ../mainwindow.py:992
 msgid "&Quit"
 msgstr "Bee&nden"
 
-#: ../mainwindow.py:963
+#: ../mainwindow.py:994
 msgid "Export Source as Colored &HTML..."
 msgstr "Quelle als farbiges HTML exportieren..."
 
-#: ../mainwindow.py:965
+#: ../mainwindow.py:996
 msgid "&Undo"
 msgstr "Rück&gängig"
 
-#: ../mainwindow.py:966
+#: ../mainwindow.py:997
 msgid "Re&do"
 msgstr "Wieder&holen"
 
-#: ../mainwindow.py:967
+#: ../mainwindow.py:998
 msgid "Cu&t"
 msgstr "A&usschneiden"
 
-#: ../mainwindow.py:968 ../docbrowser/browser.py:248
+#: ../mainwindow.py:999 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Kopieren"
 
-#: ../mainwindow.py:969
+#: ../mainwindow.py:1000
 msgid "Copy as Colored &HTML"
 msgstr "Als farbiges HTML kopieren"
 
-#: ../mainwindow.py:970
+#: ../mainwindow.py:1001
 msgid "&Paste"
 msgstr "Ein&fügen"
 
-#: ../mainwindow.py:971
+#: ../mainwindow.py:1002
 msgid "Select &All"
 msgstr "&Alles auswählen"
 
-#: ../mainwindow.py:972
+#: ../mainwindow.py:1003
 msgid "Select &Block"
 msgstr "&Block auswählen"
 
-#: ../mainwindow.py:973
+#: ../mainwindow.py:1004
 msgid "Select &None"
 msgstr "&Nichts auswählen"
 
-#: ../mainwindow.py:974
+#: ../mainwindow.py:1005
 msgid "Select Whole Lines Up"
 msgstr "Alle Zeile oberhalb auswählen"
 
-#: ../mainwindow.py:975
+#: ../mainwindow.py:1006
 msgid "Select Whole Lines Down"
 msgstr "Alle Zeilen unterhalb auswählen"
 
-#: ../mainwindow.py:976
+#: ../mainwindow.py:1007
 msgid "&Find..."
 msgstr "&Suchen..."
 
-#: ../mainwindow.py:977
+#: ../mainwindow.py:1008
 msgid "Find Ne&xt"
 msgstr "Nä&chstes finden"
 
-#: ../mainwindow.py:978
+#: ../mainwindow.py:1009
 msgid "Find Pre&vious"
 msgstr "&Vorheriges finden"
 
-#: ../mainwindow.py:979
+#: ../mainwindow.py:1010
 msgid "&Replace..."
 msgstr "E&rsetzen..."
 
-#: ../mainwindow.py:980
+#: ../mainwindow.py:1011
 msgid "Pr&eferences..."
 msgstr "&Einstellungen"
 
-#: ../mainwindow.py:982
+#: ../mainwindow.py:1013
 msgid "&Next Document"
 msgstr "&Nächstes Dokument"
 
-#: ../mainwindow.py:983
+#: ../mainwindow.py:1014
 msgid "&Previous Document"
 msgstr "&Vorheriges Dokument"
 
-#: ../mainwindow.py:984
+#: ../mainwindow.py:1015
 msgid "Scroll Up"
 msgstr "Hochscrollen"
 
-#: ../mainwindow.py:985
+#: ../mainwindow.py:1016
 msgid "Scroll Down"
 msgstr "Herunterscrollen"
 
-#: ../mainwindow.py:987
+#: ../mainwindow.py:1018
 msgid "New &Window"
 msgstr "Neues &Fenster"
 
-#: ../mainwindow.py:988
+#: ../mainwindow.py:1019
 msgid "&Fullscreen"
 msgstr "Voll&bild"
 
-#: ../mainwindow.py:990
+#: ../mainwindow.py:1021
 msgid "&User Guide"
 msgstr "&Handbuch"
 
-#: ../mainwindow.py:991
+#: ../mainwindow.py:1022
 msgid "&What's This?"
 msgstr "&Was ist das?"
 
-#: ../mainwindow.py:992
+#: ../mainwindow.py:1023
 msgid "Report a &Bug..."
 msgstr "Programmfehler mel&den..."
 
-#: ../mainwindow.py:993
+#: ../mainwindow.py:1024
 msgid "&About {appname}..."
 msgstr "Ü&ber {appname}..."
 
@@ -889,64 +924,64 @@ msgctxt "menu title"
 msgid "&File"
 msgstr "&Datei"
 
-#: ../menu.py:115
+#: ../menu.py:117
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "E&xportieren"
 
-#: ../menu.py:123
+#: ../menu.py:125
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "&Bearbeiten"
 
-#: ../menu.py:150
+#: ../menu.py:152
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Ansicht"
 
-#: ../menu.py:174
+#: ../menu.py:176
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "Zeichensatz"
 
-#: ../menu.py:189
+#: ../menu.py:191
 #, fuzzy
 msgctxt "menu title"
 msgid "&Music"
 msgstr "&Notenansicht"
 
-#: ../menu.py:214
+#: ../menu.py:216
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:233
+#: ../menu.py:235
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Werkzeugansicht"
 
-#: ../menu.py:259
+#: ../menu.py:261
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "Liedte&xt"
 
-#: ../menu.py:271
+#: ../menu.py:273
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "Ton&lage"
 
-#: ../menu.py:285
+#: ../menu.py:287
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Rhythmus"
 
-#: ../menu.py:313
+#: ../menu.py:315
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Fenster"
 
-#: ../menu.py:333
+#: ../menu.py:335
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Hilfe"
