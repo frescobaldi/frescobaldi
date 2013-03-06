@@ -251,12 +251,17 @@ class ListenerBase(object):
                 if self and signal:
                     signal.listeners.remove(self)
             self.obj = weakref.ref(self.obj, remove)
+        
+        # determine the number of arguments allowed
+        end = None
         try:
-            nargs = self.func.func_code.co_argcount
+            co = self.func.func_code
+            if not co.co_flags & 12:
+                # no *args or **kwargs are used, cut off the unwanted arguments
+                end = co.co_argcount - self.removeargs
         except AttributeError:
-            self.argslice = slice(0, None)
-        else:
-            self.argslice = slice(0, nargs - self.removeargs)
+            pass
+        self.argslice = slice(0, end)
 
 
 class MethodListener(ListenerBase):
