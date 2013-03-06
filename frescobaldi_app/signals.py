@@ -25,9 +25,10 @@ import bisect
 import contextlib
 import types
 import weakref
+import sys
 
 
-__all__ = ["Signal"]
+__all__ = ["Signal", "SignalContext"]
 
 
 class Signal(object):
@@ -176,7 +177,6 @@ class Signal(object):
     
     __call__ = emit
 
-
     def makeListener(self, func, owner=None):
         """Returns a suitable listener for the given method or function."""
         if isinstance(func, (types.MethodType, types.BuiltinMethodType)):
@@ -185,6 +185,57 @@ class Signal(object):
             return FunctionListener(func, owner or func.owner())
         else:
             return FunctionListener(func, owner)
+
+
+class SignalContext(Signal):
+    """A Signal variant where the connected methods or functions should return
+    a context manager.
+    
+    You should use the SignalContext itself also as a context manager, e.g.:
+    
+    sig = signals.SignalContext()
+    
+    with sig(args):
+        do_something()
+    
+    This will first call all the connected methods or functions, and then
+    enter all the returned context managers. When the context ends,
+    all context managers will be exited.
+    
+    """
+    def emit(self, *args, **kwargs):
+        print args, kwargs
+        if self._blocked:
+            managers = []
+        else:
+            managers = [l.call(args, kwargs) for l in self.listeners]
+        return self.signalcontextmanager(managers)
+    
+    __call__ = emit
+
+    @contextlib.contextmanager
+    def signalcontextmanager(self, managers):
+        """A context manager handling all contextmanagers from the listeners."""
+        # ideas taken from Python's contextlib.nested()
+        exits = []
+        exc = (None, None, None)
+        try:
+            for m in managers:
+                m.__enter__()
+                exits.append(m.__exit__)
+            yield
+        except:
+            exc = sys.exc_info()
+        finally:
+            while exits:
+                exit = exits.pop()
+                try:
+                    if exit(*exc):
+                        exc = (None, None, None)
+                except:
+                    exc = sys.exc_info()
+            if exc != (None, None, None):
+                raise exc[0], exc[1], exc[2]
 
 
 class ListenerBase(object):
@@ -225,7 +276,7 @@ class MethodListener(ListenerBase):
     def call(self, args, kwargs):
         obj = self.obj()
         if obj is not None:
-            self.func(obj, *args[self.argslice], **kwargs)
+            return self.func(obj, *args[self.argslice], **kwargs)
 
 
 class FunctionListener(ListenerBase):
@@ -238,6 +289,6 @@ class FunctionListener(ListenerBase):
         return self.__class__ is other.__class__ and self.func is other.func
 
     def call(self, args, kwargs):
-        self.func(*args[self.argslice], **kwargs)
+        return self.func(*args[self.argslice], **kwargs)
         
 
