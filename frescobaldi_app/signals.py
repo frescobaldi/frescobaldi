@@ -24,8 +24,8 @@ Functions or methods can be connected to Signal instances, and when the
 Signal instance is called (or its emit() method is called, which is equivalent),
 all connected methods or function are automatically called.
 
-When a Signal is accessed via a class instance, it creates a Signal instance
-specifically for that object.
+When a Signal is created as a class attribute and accessed via an instance of
+that class, it creates a Signal instance specifically for that object.
 
 When methods are connected, no reference is kept to the method's object. When
 the object is garbage collected, the signal is automatically disconnected.
@@ -219,7 +219,6 @@ class SignalContext(Signal):
     
     """
     def emit(self, *args, **kwargs):
-        print args, kwargs
         if self._blocked:
             managers = []
         else:
