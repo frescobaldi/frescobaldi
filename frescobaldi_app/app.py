@@ -40,7 +40,7 @@ QApplication.setOrganizationDomain(info.url)
 windows = []
 documents = []
 
-from signals import Signal
+from signals import Signal, SignalContext
 
 # signals
 aboutToQuit = Signal()          # Use this and not qApp.aboutToQuit
@@ -51,6 +51,7 @@ documentUrlChanged = Signal()   # Document
 documentLoaded = Signal()       # Document
 documentModificationChanged = Signal() # Document
 documentClosed = Signal()       # Document
+documentSaving = SignalContext() # Document
 viewCreated = Signal()          # View
 viewSpaceCreated = Signal()     # ViewSpace (see viewmanager.py)
 languageChanged = Signal()      # (no arguments)

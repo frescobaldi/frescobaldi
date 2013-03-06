@@ -99,18 +99,19 @@ class Document(QTextDocument):
         Currently only local files are supported.
         
         """
-        fileName = self.url().toLocalFile()
-        if fileName:
-            try:
-                with open(fileName, "w") as f:
-                    f.write(self.encodedText())
-                    f.flush()
-                    os.fsync(f.fileno())
-            except (IOError, OSError):
-                return False
-            self.setModified(False)
-            self.saved()
-            return True
+        with app.documentSaving(self):
+            fileName = self.url().toLocalFile()
+            if fileName:
+                try:
+                    with open(fileName, "w") as f:
+                        f.write(self.encodedText())
+                        f.flush()
+                        os.fsync(f.fileno())
+                except (IOError, OSError):
+                    return False
+                self.setModified(False)
+                self.saved()
+                return True
 
     def url(self):
         return self._url
