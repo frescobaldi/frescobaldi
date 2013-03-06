@@ -19,6 +19,12 @@
 
 """
 This module checks if documents are changed on disk.
+
+The documentChangedOnDisk(Document) signal is emitted once when a document is
+changed on the disk.  The 'changed' attribute of the Document's DocumentWatcher
+instance is set to True.  Saving or reloading a Document sets the 'changed'
+flag back to False.
+
 """
 
 from __future__ import unicode_literals
