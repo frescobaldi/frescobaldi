@@ -36,7 +36,7 @@ import signals
 
 class Document(QTextDocument):
     
-    urlChanged = signals.Signal()
+    urlChanged = signals.Signal() # new url, old url
     closed = signals.Signal()
     loaded = signals.Signal()
     saved = signals.Signal()
@@ -45,6 +45,8 @@ class Document(QTextDocument):
         super(Document, self).__init__()
         self.setDocumentLayout(QPlainTextDocumentLayout(self))
         self._encoding = encoding
+        if url is None:
+            url = QUrl()
         self._url = url # avoid urlChanged on init
         self.setUrl(url)
         self.modificationChanged.connect(self.slotModificationChanged)
@@ -115,8 +117,10 @@ class Document(QTextDocument):
         
     def setUrl(self, url):
         """ Change the url for this document. """
-        changed = self._url != url
-        self._url = url or QUrl()
+        if url is None:
+            url = QUrl()
+        old, self._url = self._url, url
+        changed = old != url
         # number for nameless documents
         if self._url.isEmpty():
             nums = [0]
@@ -125,8 +129,8 @@ class Document(QTextDocument):
         else:
             self._num = 0
         if changed:
-            self.urlChanged()
-            app.documentUrlChanged(self)
+            self.urlChanged(url, old)
+            app.documentUrlChanged(self, url, old)
     
     def encoding(self):
         return variables.get(self, "coding") or self._encoding
