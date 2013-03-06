@@ -26,18 +26,44 @@ from __future__ import unicode_literals
 import contextlib
 import os
 
-from PyQt4.QtCore import *
+from PyQt4.QtCore import QFileSystemWatcher, QUrl
 
 import app
+import plugin
+import signals
+
+
+__all__ = ['documentChangedOnDisk', 'DocumentWatcher']
+
+
+documentChangedOnDisk = signals.Signal() # Document
+
 
 # one global QFileSystemWatcher instance
 watcher = QFileSystemWatcher()
 
 
+class DocumentWatcher(plugin.DocumentPlugin):
+    """Maintains if a change was detected for a document."""
+    def __init__(self, d):
+        self.changed = False
+    
+    def isdeleted(self):
+        """Return True if some change has occured, the document has a local
+        filename, but the file is not existing on disk.
+        
+        """
+        if self.changed:
+            filename = self.document().url().toLocalFile()
+            if filename:
+                return not os.path.isfile(filename)
+        return False
+
+
 def addUrl(url):
     """Add a url (QUrl) to the filesystem watcher."""
     filename = url.toLocalFile()
-    if filename:
+    if filename and filename not in watcher.files():
         watcher.addPath(filename)
 
 
@@ -52,8 +78,10 @@ def urlChanged(document, url, old):
     """Called whenever the URL of an existing Document changes."""
     for d in app.documents:
         if d.url() == old:
-            return
-    removeUrl(old)
+            break
+    else:
+        removeUrl(old)
+    DocumentWatcher.instance(document).changed = False
     addUrl(url)
 
             
@@ -67,12 +95,14 @@ def documentClosed(document):
 
 def documentLoaded(document):
     """Called whenever a document loads."""
+    DocumentWatcher.instance(document).changed = False
     addUrl(document.url())
 
 
 @contextlib.contextmanager
-def suppress(document):
+def whileSaving(document):
     """Temporarily suppress the watching of the document during a code block."""
+    DocumentWatcher.instance(document).changed = False
     try:
         removeUrl(document.url())
         yield
@@ -80,12 +110,27 @@ def suppress(document):
         addUrl(document.url())
 
     
+def fileChanged(filename):
+    """Called whenever the global filesystem watcher detects a change."""
+    url = QUrl.fromLocalFile(filename)
+    doc = app.findDocument(url)
+    if doc:
+        w = DocumentWatcher.instance(doc)
+        if not w.changed:
+            w.changed = True
+            documentChangedOnDisk(doc)
+
+
 # connect the signals
 app.documentLoaded.connect(documentLoaded)
 app.documentUrlChanged.connect(urlChanged)
 app.documentClosed.connect(documentClosed)
+app.documentSaving.connect(whileSaving)
+
+watcher.fileChanged.connect(fileChanged)
 
 # when we are imported later, there might be documents already
 for d in app.documents:
     documentLoaded(d)
+
 
