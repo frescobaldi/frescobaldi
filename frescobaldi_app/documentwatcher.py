@@ -105,10 +105,14 @@ def documentLoaded(document):
     addUrl(document.url())
 
 
+def documentSaved(document):
+    """Called whenever a document was successfully saved."""
+    DocumentWatcher.instance(document).changed = False
+
+    
 @contextlib.contextmanager
 def whileSaving(document):
     """Temporarily suppress the watching of the document during a code block."""
-    DocumentWatcher.instance(document).changed = False
     try:
         removeUrl(document.url())
         yield
@@ -131,6 +135,7 @@ def fileChanged(filename):
 app.documentLoaded.connect(documentLoaded)
 app.documentUrlChanged.connect(urlChanged)
 app.documentClosed.connect(documentClosed)
+app.documentSaved.connect(documentSaved)
 app.documentSaving.connect(whileSaving)
 
 watcher.fileChanged.connect(fileChanged)
