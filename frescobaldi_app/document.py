@@ -111,6 +111,7 @@ class Document(QTextDocument):
                     return False
                 self.setModified(False)
                 self.saved()
+                app.documentSaved(self)
                 return True
 
     def url(self):

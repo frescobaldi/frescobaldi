@@ -51,6 +51,7 @@ documentUrlChanged = Signal()   # Document
 documentLoaded = Signal()       # Document
 documentModificationChanged = Signal() # Document
 documentClosed = Signal()       # Document
+documentSaved = Signal()        # Document
 documentSaving = SignalContext() # Document
 viewCreated = Signal()          # View
 viewSpaceCreated = Signal()     # ViewSpace (see viewmanager.py)
