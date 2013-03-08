@@ -23,10 +23,8 @@ Updates a document using convert-ly.
 
 from __future__ import unicode_literals
 
-import difflib
 import textwrap
 import os
-import re
 import subprocess
 
 from PyQt4.QtCore import QSettings, QSize
@@ -38,6 +36,7 @@ import app
 import util
 import qutil
 import widgets
+import htmldiff
 import cursordiff
 import lilypondinfo
 import documentinfo
@@ -151,7 +150,10 @@ class Dialog(QDialog):
         self._convertedtext = text
         self.buttons.button(QDialogButtonBox.Ok).setEnabled(bool(text))
         if text:
-            self.diff.setHtml(makeHtmlDiff(self._text, text))
+            self.diff.setHtml(htmldiff.htmldiff(
+                self._text, text,
+                _("Current Document"), _("Converted Document"),
+                wrapcolumn=100))
         else:
             self.diff.clear()
     
@@ -220,80 +222,4 @@ class Dialog(QDialog):
             if not out or self._convertedtext == self._text:
                 self.messages.append('\n' + _("The document has not been changed."))
 
-
-def makeHtmlDiff(old, new):
-    table = difflib.HtmlDiff(wrapcolumn=100).make_table(
-        old.splitlines(), new.splitlines(),
-        _("Current Document"), _("Converted Document"), True, 3)
-    # overcome a QTextBrowser limitation (no text-align css support)
-    table = table.replace('<td class="diff_header"', '<td align="right" class="diff_header"')
-    # make horizontal lines between sections
-    table = re.sub(r'</tbody>\s*<tbody>', '<tr><td colspan="6"><hr/></td></tr>', table)
-    legend = _legend.format(
-        colors = _("Colors:"),
-        added = _("Added"),
-        changed = _("Changed"),
-        deleted = _("Deleted"),
-        links = _("Links:"),
-        first_change = _("First Change"),
-        next_change = _("Next Change"),
-        top = _("Top"))
-    return _htmltemplate.format(diff = table, css = _css, legend = legend)
-
-
-_htmltemplate = """
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-<head>
-    <title></title>
-    <style type="text/css">{css}</style>
-</head>
-
-<body>
-    {diff}
-    {legend}
-</body>
-</html>"""
-
-_css = """
-    table.diff {
-        border:medium;
-    }
-    .diff_header {
-        background-color:#e0e0e0;
-    }
-    td.diff_header {
-        text-align:right;
-        padding-right: 10px;
-        color: #606060;
-    }
-    .diff_next {
-        background-color:#c0c0c0;
-        padding-left: 4px;
-        padding-right: 4px;
-    }
-    .diff_add {
-        background-color:#aaffaa;
-    }
-    .diff_chg {
-        background-color:#ffff77;
-    }
-    .diff_sub {
-        background-color:#ffaaaa;
-    }
-"""
-
-_legend = """<p>
-<b>{colors}</b>
-<span class="diff_add">&nbsp;{added}&nbsp;</span>,
-<span class="diff_chg">&nbsp;{changed}&nbsp;</span>,
-<span class="diff_sub">&nbsp;{deleted}&nbsp;</span>
-<br />
-<b>{links}</b>
-f: {first_change},
-n: {next_change},
-t: {top}
-</p>
-"""
 
