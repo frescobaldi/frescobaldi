@@ -987,7 +987,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_save_all.setText(_("Save All"))
         self.file_reload.setText(_("Re&load"))
         self.file_reload_all.setText(_("Reload All"))
-        self.file_external_changes.setText(_("Check External Changes..."))
+        self.file_external_changes.setText(_("Check for External Changes..."))
         self.file_external_changes.setToolTip(_(
             "Opens a window to check whether open documents were changed or "
             "deleted by other programs."))

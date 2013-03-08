@@ -45,6 +45,8 @@ import app
 import qutil
 import util
 import icons
+import htmldiff
+import document
 import widgets.dialog
 import documentwatcher
 import help
@@ -70,7 +72,6 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
         self.tree = QTreeWidget(headerHidden=True, rootIsDecorated=False,
                                 columnCount=2, itemsExpandable=False)
         self.tree.setSelectionMode(QTreeWidget.ExtendedSelection)
-        self.tree.itemSelectionChanged.connect(self.updateButtons)
         
         self.buttonReload = QPushButton()
         self.buttonReloadAll = QPushButton()
@@ -94,6 +95,14 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
         app.documentSaved.connect(self.removeDocument)
         app.documentUrlChanged.connect(self.removeDocument)
         app.documentLoaded.connect(self.removeDocument)
+        self.tree.itemSelectionChanged.connect(self.updateButtons)
+        self.buttonReload.clicked.connect(self.slotButtonReload)
+        self.buttonReloadAll.clicked.connect(self.slotButtonReloadAll)
+        self.buttonSave.clicked.connect(self.slotButtonSave)
+        self.buttonSaveAll.clicked.connect(self.slotButtonSaveAll)
+        self.buttonClose.clicked.connect(self.slotButtonClose)
+        self.buttonCloseAll.clicked.connect(self.slotButtonCloseAll)
+        self.buttonShowDiff.clicked.connect(self.slotButtonShowDiff)
     
         app.translateUI(self)
         qutil.saveDialogSize(self, 'changed_documents', QSize(400, 200))
@@ -218,6 +227,88 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
         self.buttonReload.setEnabled(not all_deleted_sel)
         self.buttonReloadAll.setEnabled(not all_deleted_all)
         self.buttonShowDiff.setEnabled(len(docs_sel) == 1 and not all_deleted_sel)
-
-
+    
+    def slotButtonReload(self):
+        """Called when the user clicks Reload."""
+        for d in self.selectedDocuments():
+            d.load(True)
+        
+    def slotButtonReloadAll(self):
+        """Called when the user clicks Reload All."""
+        for d in self.allDocuments():
+            d.load(True)
+    
+    def slotButtonSave(self):
+        """Called when the user clicks Save."""
+        for d in self.selectedDocuments():
+            d.save()
+    
+    def slotButtonSaveAll(self):
+        """Called when the user clicks Save All."""
+        for d in self.allDocuments():
+            d.save()
+    
+    def slotButtonClose(self):
+        """Called when the user clicks Close."""
+        self.closeDocuments(self.selectedDocuments())
+    
+    def slotButtonCloseAll(self):
+        """Called when the user clicks Close All."""
+        self.closeDocuments(self.allDocuments())
+    
+    def closeDocuments(self, documents):
+        """Used by slotButtonClose and -CloseAll."""
+        if documents:
+            if (any(d.isModified() or
+                   documentwatcher.DocumentWatcher.instance(d).isdeleted()
+                   for d in documents)
+                and QMessageBox.warning(self, _("dialog title", "Close Documents"),
+                _("Closing the documents might cause contents to be lost.\n\n"
+                  "The documents may have been deleted from disk and/or "
+                  "you may loose your own changes."),
+                QMessageBox.Discard | QMessageBox.Cancel) != QMessageBox.Discard):
+                return
+            for d in documents:
+                d.close()
+            # keep one document
+            if not app.documents:
+                d = document.Document()
+                for window in app.windows:
+                    window.setCurrentDocument(d)
+    
+    def slotButtonShowDiff(self):
+        """Called when the user clicks Show Difference."""
+        docs = self.selectedDocuments() or self.allDocuments()
+        if not docs:
+            return
+        d = docs[0]
+        if documentwatcher.DocumentWatcher.instance(d).isdeleted():
+            return
+        
+        filename = d.url().toLocalFile()
+        try:
+            with open(filename) as f:
+                disktext = util.decode(f.read())
+        except (IOError, OSError):
+            return
+        
+        currenttext = d.toPlainText()
+        
+        html = htmldiff.htmldiff(
+            currenttext, disktext, 
+            _("Current Document"), _("Document on Disk"), numlines=5)
+        dlg = widgets.dialog.Dialog(self, buttons=('close',))
+        view = QTextBrowser(lineWrapMode=QTextBrowser.NoWrap)
+        view.setHtml(html)
+        dlg.setMainWidget(view)
+        dlg.setWindowTitle(app.caption("Differences"))
+        dlg.setMessage(_(
+            "Document: {url}\n"
+            "Difference between the current document and the file on disk:").format(
+                url=filename))
+        dlg.setWindowModality(Qt.NonModal)
+        dlg.setAttribute(Qt.WA_QuitOnClose, False)
+        dlg.setAttribute(Qt.WA_DeleteOnClose)
+        qutil.saveDialogSize(dlg, "changed_documents/diff", QSize(600, 300))
+        dlg.show()
 
