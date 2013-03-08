@@ -45,7 +45,7 @@ def changedDocuments():
     """
     for w in documentwatcher.DocumentWatcher.instances():
         d = w.document()
-        if w.changed and not d.modified():
+        if w.changed and not d.isModified():
             filename = d.url().toLocalFile()
             if filename:
                 try:
