@@ -32,8 +32,28 @@ from __future__ import unicode_literals
 
 from PyQt4.QtCore import QSettings, QTimer
 
-import app
-import documentwatcher
+
+def enabled():
+    """Return whether watching documents is enabled by the user."""
+    return QSettings().value("externalchanges/enabled", True) not in (False, "false")
+
+
+def setEnabled(enable):
+    """Enable or disable watching documents, saves the setting."""
+    if enabled() != bool(enable):
+        QSettings().setValue("externalchanges/enabled", bool(enable))
+        setup()
+
+
+def setup():
+    """Start or stop the document watching according to the settings."""
+    import documentwatcher
+    if enabled():
+        documentwatcher.documentChangedOnDisk.connect(slotDocumentChanged)
+        documentwatcher.start()
+    else:
+        documentwatcher.documentChangedOnDisk.disconnect(slotDocumentChanged)
+        documentwatcher.stop()
 
 
 def changedDocuments():
@@ -43,6 +63,7 @@ def changedDocuments():
     the document is not considered having been changed on disk.
     
     """
+    import documentwatcher
     for w in documentwatcher.DocumentWatcher.instances():
         d = w.document()
         if w.changed and not d.isModified():
@@ -73,16 +94,21 @@ def displayChangedDocuments():
 def checkChangedDocuments():
     """Display the window if there are changed files."""
     docs = changedDocuments()
-    if docs and QSettings().value("externalchanges", True) not in (False, "false"):
+    if docs:
         display(docs)
 
 
+# timer to wait before really looking at the changed files, a file could
+# probably still be changing.
 _timer = QTimer(singleShot=True, timeout=checkChangedDocuments)
 
 
-@documentwatcher.documentChangedOnDisk.connect
-def documentChanged(document):
+def slotDocumentChanged(document):
     """Called when a document is changed."""
     _timer.start(500)
 
+
+# initial setup
+if enabled():
+    setup()
 

@@ -25,7 +25,7 @@ the options are:
   - save the document back again ("it was removed accidentally")
   - close document ("it can be discarded anyway")
 
-For files that are overwritten and now have different contents:
+For files that have been modified and now have different contents:
   - reload the document from disk (undoable)
   - show a diff
   - save the document back again ("it got overwritten accidentally")
@@ -50,6 +50,8 @@ import document
 import widgets.dialog
 import documentwatcher
 import help
+
+from . import enabled, setEnabled
 
 
 def window():
@@ -80,6 +82,7 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
         self.buttonClose = QPushButton()
         self.buttonCloseAll = QPushButton()
         self.buttonShowDiff = QPushButton()
+        self.checkWatchingEnabled = QCheckBox(checked=enabled())
         
         layout.addWidget(self.tree, 0, 0, 8, 1)
         layout.addWidget(self.buttonReload, 0, 1)
@@ -89,6 +92,7 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
         layout.addWidget(self.buttonClose, 4, 1)
         layout.addWidget(self.buttonCloseAll, 5, 1)
         layout.addWidget(self.buttonShowDiff, 6, 1)
+        layout.addWidget(self.checkWatchingEnabled, 8, 0, 1, 2)
         layout.setRowStretch(7, 10)
         
         app.documentClosed.connect(self.removeDocument)
@@ -103,16 +107,17 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
         self.buttonClose.clicked.connect(self.slotButtonClose)
         self.buttonCloseAll.clicked.connect(self.slotButtonCloseAll)
         self.buttonShowDiff.clicked.connect(self.slotButtonShowDiff)
+        self.checkWatchingEnabled.toggled.connect(setEnabled)
     
         app.translateUI(self)
-        qutil.saveDialogSize(self, 'changed_documents', QSize(400, 200))
+        qutil.saveDialogSize(self, 'externalchanges/dialog/size', QSize(400, 200))
         help.addButton(self.buttonBox(), "help_external_changes")
         self.button('close').setFocus()
     
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Modified Files")))
         self.setMessage(_(
-            "The following files were overwritten or deleted by other "
+            "The following files were modified or deleted by other "
             "applications:"))
         self.buttonReload.setText(_("Reload"))
         self.buttonReload.setToolTip(_(
@@ -144,6 +149,11 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
         self.buttonShowDiff.setToolTip(_(
             "Shows the differences between the current document "
             "and the file on disk."))
+        self.checkWatchingEnabled.setText(_(
+            "Enable watching documents for external changes"))
+        self.checkWatchingEnabled.setToolTip(_(
+            "If checked, Frescobaldi will warn you when opened files are "
+            "modified or deleted by other applications."))
     
     def setDocuments(self, documents):
         """Display the specified documents in the list."""
@@ -173,7 +183,7 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
                     itemtext = _("[deleted]") 
                     icon = "dialog-error"
                 else:
-                    itemtext = _("[overwritten]")
+                    itemtext = _("[modified]")
                     icon = "document-edit"
                 fileitem.setIcon(0, icons.get(icon))
                 fileitem.setText(0, filename)
@@ -309,6 +319,6 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
         dlg.setWindowModality(Qt.NonModal)
         dlg.setAttribute(Qt.WA_QuitOnClose, False)
         dlg.setAttribute(Qt.WA_DeleteOnClose)
-        qutil.saveDialogSize(dlg, "changed_documents/diff", QSize(600, 300))
+        qutil.saveDialogSize(dlg, "externalchanges/diff/dialog/size", QSize(600, 300))
         dlg.show()
 

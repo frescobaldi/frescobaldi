@@ -25,6 +25,8 @@ changed on the disk.  The 'changed' attribute of the Document's DocumentWatcher
 instance is set to True.  Saving or reloading a Document sets the 'changed'
 flag back to False.
 
+Use start() to start the document watcher, and stop() to stop it if desired.
+
 """
 
 from __future__ import unicode_literals
@@ -39,14 +41,14 @@ import plugin
 import signals
 
 
-__all__ = ['documentChangedOnDisk', 'DocumentWatcher']
+__all__ = ['documentChangedOnDisk', 'DocumentWatcher', 'start', 'stop']
 
 
 documentChangedOnDisk = signals.Signal() # Document
 
 
 # one global QFileSystemWatcher instance
-watcher = QFileSystemWatcher()
+watcher = None
 
 
 class DocumentWatcher(plugin.DocumentPlugin):
@@ -80,14 +82,18 @@ def removeUrl(url):
         watcher.removePath(filename)
 
     
-def urlChanged(document, url, old):
+def unchange(document):
+    """Mark document as not changed (anymore)."""
+    DocumentWatcher.instance(document).changed = False
+
+
+def documentUrlChanged(document, url, old):
     """Called whenever the URL of an existing Document changes."""
     for d in app.documents:
         if d.url() == old:
             break
     else:
         removeUrl(old)
-    DocumentWatcher.instance(document).changed = False
     addUrl(url)
 
             
@@ -101,15 +107,9 @@ def documentClosed(document):
 
 def documentLoaded(document):
     """Called whenever a document loads."""
-    DocumentWatcher.instance(document).changed = False
     addUrl(document.url())
 
 
-def documentSaved(document):
-    """Called whenever a document was successfully saved."""
-    DocumentWatcher.instance(document).changed = False
-
-    
 @contextlib.contextmanager
 def whileSaving(document):
     """Temporarily suppress the watching of the document during a code block."""
@@ -131,17 +131,35 @@ def fileChanged(filename):
             documentChangedOnDisk(doc)
 
 
-# connect the signals
-app.documentLoaded.connect(documentLoaded)
-app.documentUrlChanged.connect(urlChanged)
-app.documentClosed.connect(documentClosed)
-app.documentSaved.connect(documentSaved)
-app.documentSaving.connect(whileSaving)
+def start():
+    """Start the document watcher."""
+    global watcher
+    if watcher is None:
+        watcher = QFileSystemWatcher()
+        app.documentLoaded.connect(documentLoaded)
+        app.documentUrlChanged.connect(documentUrlChanged)
+        app.documentClosed.connect(documentClosed)
+        app.documentSaving.connect(whileSaving)
+        watcher.fileChanged.connect(fileChanged)
+        for d in app.documents:
+            documentLoaded(d)
 
-watcher.fileChanged.connect(fileChanged)
 
-# when we are imported later, there might be documents already
-for d in app.documents:
-    documentLoaded(d)
+def stop():
+    """Stop the document watcher."""
+    global watcher
+    if watcher is not None:
+        watcher.fileChanged.disconnect(fileChanged)
+        watcher.removePaths(watcher.files())
+        app.documentLoaded.disconnect(documentLoaded)
+        app.documentUrlChanged.disconnect(documentUrlChanged)
+        app.documentClosed.disconnect(documentClosed)
+        app.documentSaving.disconnect(whileSaving)
+        watcher.deleteLater()
+        watcher = None
 
 
+# always-on connections
+app.documentLoaded.connect(unchange)
+app.documentSaved.connect(unchange)
+app.documentUrlChanged.connect(unchange)
