@@ -5,7 +5,7 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 Changed in 2.0.9 -- 
 
 * Translations:
-  - updated: nl, de
+  - updated: nl, de, uk
 * New features:
   - Frescobaldi now detects when other applications modify or delete open files
     and displays the changes in a dialog, where the user can reload or save the

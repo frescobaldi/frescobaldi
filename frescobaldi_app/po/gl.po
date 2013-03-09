@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.17\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-03-05 14:34+0100\n"
+"POT-Creation-Date: 2013-03-09 23:07+0100\n"
 "PO-Revision-Date: 2011-01-03 17:37+0100\n"
 "Last-Translator: Manuel A. Vazquez <xixirei@yahoo.es>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -127,36 +127,36 @@ msgstr "Atallo"
 msgid "Edit again"
 msgstr ""
 
-#: ../app.py:128
+#: ../app.py:130
 #, fuzzy
 msgid "LilyPond Files"
 msgstr "Ficheiros de LilyPond"
 
-#: ../app.py:129
+#: ../app.py:131
 #, fuzzy
 msgid "LaTeX Files"
 msgstr "Todos os ficheiros"
 
-#: ../app.py:130
+#: ../app.py:132
 #, fuzzy
 msgid "DocBook Files"
 msgstr "Ficheiros PDF"
 
-#: ../app.py:131
+#: ../app.py:133
 #, fuzzy
 msgid "HTML Files"
 msgstr "Todos os ficheiros"
 
-#: ../app.py:132
+#: ../app.py:134
 #, fuzzy
 msgid "Texinfo Files"
 msgstr "Abrir ficheiro"
 
-#: ../app.py:133
+#: ../app.py:135
 msgid "Scheme Files"
 msgstr ""
 
-#: ../app.py:134 ../snippet/widget.py:292 ../snippet/widget.py:309
+#: ../app.py:136 ../snippet/widget.py:292 ../snippet/widget.py:309
 msgid "All Files"
 msgstr "Todos os ficheiros"
 
@@ -182,60 +182,70 @@ msgstr "Seguinte"
 msgid "Previous Mark"
 msgstr "Anterior"
 
-#: ../convert_ly.py:121
+#: ../convert_ly.py:120
 #, fuzzy
 msgid "From version:"
 msgstr "Inserir a versión de LilyPond"
 
-#: ../convert_ly.py:122
+#: ../convert_ly.py:121
 #, fuzzy
 msgid "To version:"
 msgstr "Versión:"
 
-#: ../convert_ly.py:123
+#: ../convert_ly.py:122
 msgid "Save convert-ly messages in document"
 msgstr ""
 
-#: ../convert_ly.py:125
+#: ../convert_ly.py:124
 msgid ""
 "If checked, the messages of convert-ly are appended as a comment to the end "
 "of the document."
 msgstr ""
 
-#: ../convert_ly.py:127
+#: ../convert_ly.py:126
 msgid "&Messages"
 msgstr ""
 
-#: ../convert_ly.py:128
+#: ../convert_ly.py:127
 #, fuzzy
 msgid "&Changes"
 msgstr "Pausa"
 
-#: ../convert_ly.py:129
+#: ../convert_ly.py:128
 msgid "Run Again"
 msgstr ""
 
-#: ../convert_ly.py:140 ../docbrowser/browser.py:158
+#: ../convert_ly.py:139 ../docbrowser/browser.py:158
 #: ../musicview/editinplace.py:150 ../musicview/image.py:167
 #, fuzzy
 msgid "<unknown>"
 msgstr "descoñecido"
 
-#: ../convert_ly.py:141
+#: ../convert_ly.py:140
 #, fuzzy
 msgid "Convert-ly from LilyPond {version}"
 msgstr "Empregar a versión de LilyPond %1"
 
-#: ../convert_ly.py:165
+#: ../convert_ly.py:155 ../externalchanges/widget.py:269
+#, fuzzy
+msgid "Current Document"
+msgstr "&Documento"
+
+#: ../convert_ly.py:155
+#, fuzzy
+msgid "Converted Document"
+msgstr "Pechar outros documentos"
+
+#: ../convert_ly.py:167
 #, fuzzy
 msgid "(set in document)"
 msgstr "Imprimir documentos"
 
-#: ../convert_ly.py:178
+#: ../convert_ly.py:180
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr ""
 
-#: ../convert_ly.py:215
+#: ../convert_ly.py:217
 #, fuzzy
 msgid ""
 "Could not start {convert_ly}:\n"
@@ -243,57 +253,9 @@ msgid ""
 "{message}\n"
 msgstr "Non foi posible iniciar convert-ly: %1"
 
-#: ../convert_ly.py:221
+#: ../convert_ly.py:223
 msgid "The document has not been changed."
 msgstr ""
-
-#: ../convert_ly.py:227
-#, fuzzy
-msgid "Current Document"
-msgstr "&Documento"
-
-#: ../convert_ly.py:227
-#, fuzzy
-msgid "Converted Document"
-msgstr "Pechar outros documentos"
-
-#: ../convert_ly.py:233
-#, fuzzy
-msgid "Colors:"
-msgstr "Compositor"
-
-#: ../convert_ly.py:234
-msgid "Added"
-msgstr ""
-
-#: ../convert_ly.py:235
-msgid "Changed"
-msgstr ""
-
-#: ../convert_ly.py:236
-#, fuzzy
-msgid "Deleted"
-msgstr "Seleccionar todo"
-
-#: ../convert_ly.py:237
-#, fuzzy
-msgid "Links:"
-msgstr "Letra:"
-
-#: ../convert_ly.py:238
-#, fuzzy
-msgid "First Change"
-msgstr "Primeira páxina"
-
-#: ../convert_ly.py:239
-#, fuzzy
-msgid "Next Change"
-msgstr "Liña en branco seguinte"
-
-#: ../convert_ly.py:240
-#, fuzzy
-msgid "Top"
-msgstr "Marcar"
 
 #: ../cut_assign.py:39
 #, fuzzy
@@ -305,12 +267,12 @@ msgstr "Cortar e asignar"
 msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr "Introduza o nome da variábel para asignarlle o texto seleccionado:"
 
-#: ../document.py:152 ../doclist/widget.py:133 ../snippet/edit.py:178
+#: ../document.py:158 ../doclist/widget.py:133 ../snippet/edit.py:178
 #, fuzzy
 msgid "Untitled"
 msgstr "Subtítulo"
 
-#: ../document.py:154
+#: ../document.py:160
 msgid "Untitled ({num})"
 msgstr ""
 
@@ -347,18 +309,18 @@ msgstr "Caldeirón"
 msgid "&Update with convert-ly..."
 msgstr "Actualizar mediante convert-ly"
 
-#: ../documentcontextmenu.py:67 ../mainwindow.py:981
+#: ../documentcontextmenu.py:67 ../mainwindow.py:984
 #: ../sessions/manager.py:127
 #, fuzzy
 msgid "&Save"
 msgstr "Gardar"
 
-#: ../documentcontextmenu.py:68 ../mainwindow.py:982
+#: ../documentcontextmenu.py:68 ../mainwindow.py:985
 #, fuzzy
 msgid "Save &As..."
 msgstr "Gardar PDF como..."
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:988
+#: ../documentcontextmenu.py:69 ../mainwindow.py:995
 msgid "&Close"
 msgstr ""
 
@@ -424,11 +386,12 @@ msgid "Staff Size:"
 msgstr "Tamaño do pentagrama"
 
 #. L10N: a basic type of input in the editor
-#: ../helpers.py:101 ../mainwindow.py:390 ../mainwindow.py:396
-#: ../mainwindow.py:421 ../mainwindow.py:472 ../mainwindow.py:564
-#: ../mainwindow.py:624 ../musicview/image.py:214
-#: ../preferences/fontscolors.py:476 ../preferences/fontscolors.py:514
-#: ../snippet/import_export.py:105 ../snippet/widget.py:319
+#: ../helpers.py:101 ../mainwindow.py:391 ../mainwindow.py:397
+#: ../mainwindow.py:422 ../mainwindow.py:473 ../mainwindow.py:565
+#: ../mainwindow.py:625 ../externalchanges/widget.py:243
+#: ../musicview/image.py:214 ../preferences/fontscolors.py:476
+#: ../preferences/fontscolors.py:514 ../snippet/import_export.py:105
+#: ../snippet/widget.py:319
 msgid "Error"
 msgstr ""
 
@@ -438,6 +401,44 @@ msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
 msgstr "Non se puido iniciar LilyPond. Comprobe a ruta e os permisos."
+
+#: ../htmldiff.py:45
+#, fuzzy
+msgid "Colors:"
+msgstr "Compositor"
+
+#: ../htmldiff.py:46
+msgid "Added"
+msgstr ""
+
+#: ../htmldiff.py:47
+msgid "Changed"
+msgstr ""
+
+#: ../htmldiff.py:48
+#, fuzzy
+msgid "Deleted"
+msgstr "Seleccionar todo"
+
+#: ../htmldiff.py:49
+#, fuzzy
+msgid "Links:"
+msgstr "Letra:"
+
+#: ../htmldiff.py:50
+#, fuzzy
+msgid "First Change"
+msgstr "Primeira páxina"
+
+#: ../htmldiff.py:51
+#, fuzzy
+msgid "Next Change"
+msgstr "Liña en branco seguinte"
+
+#: ../htmldiff.py:52
+#, fuzzy
+msgid "Top"
+msgstr "Marcar"
 
 #: ../hyphendialog.py:114
 msgid "Hyphenate Lyrics Text"
@@ -603,73 +604,73 @@ msgid "Always start a new instance"
 msgstr "Iniciar unha nova instancia"
 
 #. L10N: state of document in window titlebar
-#: ../mainwindow.py:226
+#: ../mainwindow.py:227 ../externalchanges/widget.py:159
 #, fuzzy
 msgid "[modified]"
 msgstr "modificado"
 
-#: ../mainwindow.py:269
+#: ../mainwindow.py:270
 #, fuzzy
 msgctxt "dialog title"
 msgid "Close Document"
 msgstr "Pechar outros documentos"
 
-#: ../mainwindow.py:270
+#: ../mainwindow.py:271
 msgid ""
 "The document \"{name}\" has been modified.\n"
 "Do you want to save your changes or discard them?"
 msgstr ""
 
-#: ../mainwindow.py:282
+#: ../mainwindow.py:283
 #, fuzzy
 msgid "Tab Bar"
 msgstr "Tabulatura"
 
-#: ../mainwindow.py:339 ../popplerprint.py:53 ../sessions/dialog.py:171
+#: ../mainwindow.py:340 ../popplerprint.py:53 ../sessions/dialog.py:171
 #: ../sessions/dialog.py:179 ../sessions/dialog.py:185
 #, fuzzy
 msgid "Warning"
 msgstr "Afinación da guitarra"
 
-#: ../mainwindow.py:340
+#: ../mainwindow.py:341
 msgid ""
 "Can't load non-local document:\n"
 "\n"
 "{url}"
 msgstr ""
 
-#: ../mainwindow.py:371
+#: ../mainwindow.py:372
 #, fuzzy
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Abrir ficheiro"
 
-#: ../mainwindow.py:391 ../mainwindow.py:397 ../mainwindow.py:422
+#: ../mainwindow.py:392 ../mainwindow.py:398 ../mainwindow.py:423
 msgid ""
 "Can't write to destination:\n"
 "\n"
 "{url}"
 msgstr ""
 
-#: ../mainwindow.py:416
+#: ../mainwindow.py:417
 #, fuzzy
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "Gardar PDF"
 
-#: ../mainwindow.py:456
+#: ../mainwindow.py:457
 #, fuzzy
 msgctxt "dialog title"
 msgid "Save Copy"
 msgstr "Gardar"
 
-#: ../mainwindow.py:462
+#: ../mainwindow.py:463
 #, fuzzy
 msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Modo de selección de liñas"
 
-#: ../mainwindow.py:473 ../mainwindow.py:625 ../snippet/widget.py:320
+#: ../mainwindow.py:474 ../mainwindow.py:626 ../snippet/widget.py:320
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -678,12 +679,12 @@ msgid ""
 "{error}"
 msgstr ""
 
-#: ../mainwindow.py:487 ../mainwindow.py:501
+#: ../mainwindow.py:488 ../mainwindow.py:502 ../externalchanges/widget.py:103
 #, fuzzy
 msgid "Reload"
 msgstr "Cargar de novo"
 
-#: ../mainwindow.py:488
+#: ../mainwindow.py:489
 #, fuzzy
 msgid ""
 "Could not reload the document:\n"
@@ -691,20 +692,20 @@ msgid ""
 "{url}"
 msgstr "Non se puido cargar %1"
 
-#: ../mainwindow.py:498
+#: ../mainwindow.py:499
 msgid "Some documents could not be reloaded."
 msgstr ""
 
-#: ../mainwindow.py:500
+#: ../mainwindow.py:501
 msgid "No document could be reloaded."
 msgstr ""
 
-#: ../mainwindow.py:557
+#: ../mainwindow.py:558
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr ""
 
-#: ../mainwindow.py:565 ../snippet/import_export.py:106
+#: ../mainwindow.py:566 ../snippet/import_export.py:106
 msgid ""
 "Can't read from source:\n"
 "\n"
@@ -713,17 +714,17 @@ msgid ""
 "{error}"
 msgstr ""
 
-#: ../mainwindow.py:581
+#: ../mainwindow.py:582
 #, fuzzy
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Imprimir código fonte..."
 
-#: ../mainwindow.py:614
+#: ../mainwindow.py:615
 msgid "Export as HTML"
 msgstr ""
 
-#: ../mainwindow.py:734
+#: ../mainwindow.py:735
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -731,199 +732,209 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../mainwindow.py:843
+#: ../mainwindow.py:845
 msgid "Main Toolbar"
 msgstr ""
 
-#: ../mainwindow.py:844
+#: ../mainwindow.py:846
 msgid "Music View Toolbar"
 msgstr ""
 
-#: ../mainwindow.py:975
+#: ../mainwindow.py:978
 #, fuzzy
 msgctxt "action: new document"
 msgid "&New"
 msgstr "Novo..."
 
-#: ../mainwindow.py:976
+#: ../mainwindow.py:979
 msgid "&Open..."
 msgstr ""
 
-#: ../mainwindow.py:977
+#: ../mainwindow.py:980
 msgid "Open &Recent"
 msgstr ""
 
-#: ../mainwindow.py:978
+#: ../mainwindow.py:981
 msgid "Insert from &File..."
 msgstr ""
 
-#: ../mainwindow.py:979
+#: ../mainwindow.py:982
 #, fuzzy
 msgid "Open Current Directory"
 msgstr "Abrir o cartafol actual"
 
-#: ../mainwindow.py:980
+#: ../mainwindow.py:983
 msgid "Open Command Prompt"
 msgstr ""
 
-#: ../mainwindow.py:983
+#: ../mainwindow.py:986
 msgid "Save Copy or Selection As..."
 msgstr ""
 
-#: ../mainwindow.py:984
+#: ../mainwindow.py:987 ../externalchanges/widget.py:117
 #, fuzzy
 msgid "Save All"
 msgstr "Gardar"
 
-#: ../mainwindow.py:985
+#: ../mainwindow.py:988
 #, fuzzy
 msgid "Re&load"
 msgstr "Cargar de novo"
 
-#: ../mainwindow.py:986
+#: ../mainwindow.py:989 ../externalchanges/widget.py:108
 #, fuzzy
 msgid "Reload All"
 msgstr "Cargar de novo"
 
-#: ../mainwindow.py:987
+#: ../mainwindow.py:990
+msgid "Check for External Changes..."
+msgstr ""
+
+#: ../mainwindow.py:992
+msgid ""
+"Opens a window to check whether open documents were changed or deleted by "
+"other programs."
+msgstr ""
+
+#: ../mainwindow.py:994
 msgid "Print Source..."
 msgstr "Imprimir código fonte..."
 
-#: ../mainwindow.py:989
+#: ../mainwindow.py:996
 msgid "Close Other Documents"
 msgstr "Pechar outros documentos"
 
-#: ../mainwindow.py:990
+#: ../mainwindow.py:997
 #, fuzzy
 msgid "Close All Documents"
 msgstr "Pechar outros documentos"
 
-#: ../mainwindow.py:991
+#: ../mainwindow.py:998
 #, fuzzy
 msgid "Closes all documents and leaves the current session."
 msgstr "Transporta todas as notas do documento ou da selección."
 
-#: ../mainwindow.py:992
+#: ../mainwindow.py:999
 msgid "&Quit"
 msgstr ""
 
-#: ../mainwindow.py:994
+#: ../mainwindow.py:1001
 msgid "Export Source as Colored &HTML..."
 msgstr ""
 
-#: ../mainwindow.py:996
+#: ../mainwindow.py:1003
 #, fuzzy
 msgid "&Undo"
 msgstr "Desacoplar"
 
-#: ../mainwindow.py:997
+#: ../mainwindow.py:1004
 msgid "Re&do"
 msgstr ""
 
-#: ../mainwindow.py:998
+#: ../mainwindow.py:1005
 msgid "Cu&t"
 msgstr ""
 
-#: ../mainwindow.py:999 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1006 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Copiar"
 
-#: ../mainwindow.py:1000
+#: ../mainwindow.py:1007
 msgid "Copy as Colored &HTML"
 msgstr ""
 
-#: ../mainwindow.py:1001
+#: ../mainwindow.py:1008
 #, fuzzy
 msgid "&Paste"
 msgstr "Pausa"
 
-#: ../mainwindow.py:1002
+#: ../mainwindow.py:1009
 #, fuzzy
 msgid "Select &All"
 msgstr "Seleccionar todo"
 
-#: ../mainwindow.py:1003
+#: ../mainwindow.py:1010
 #, fuzzy
 msgid "Select &Block"
 msgstr "Seleccionar todo"
 
-#: ../mainwindow.py:1004
+#: ../mainwindow.py:1011
 #, fuzzy
 msgid "Select &None"
 msgstr "Seleccionar todo"
 
-#: ../mainwindow.py:1005
+#: ../mainwindow.py:1012
 msgid "Select Whole Lines Up"
 msgstr ""
 
-#: ../mainwindow.py:1006
+#: ../mainwindow.py:1013
 msgid "Select Whole Lines Down"
 msgstr ""
 
-#: ../mainwindow.py:1007
+#: ../mainwindow.py:1014
 #, fuzzy
 msgid "&Find..."
 msgstr "Imprimir..."
 
-#: ../mainwindow.py:1008
-msgid "Find Ne&xt"
-msgstr ""
-
-#: ../mainwindow.py:1009
-#, fuzzy
-msgid "Find Pre&vious"
-msgstr "Anterior"
-
-#: ../mainwindow.py:1010
-#, fuzzy
-msgid "&Replace..."
-msgstr "Busca..."
-
-#: ../mainwindow.py:1011
-#, fuzzy
-msgid "Pr&eferences..."
-msgstr "Preferencias xerais"
-
-#: ../mainwindow.py:1013
-#, fuzzy
-msgid "&Next Document"
-msgstr "&Documento"
-
-#: ../mainwindow.py:1014
-#, fuzzy
-msgid "&Previous Document"
-msgstr "&Código fonte do documento"
-
 #: ../mainwindow.py:1015
-msgid "Scroll Up"
+msgid "Find Ne&xt"
 msgstr ""
 
 #: ../mainwindow.py:1016
 #, fuzzy
-msgid "Scroll Down"
-msgstr "Semitrino con final descendente"
+msgid "Find Pre&vious"
+msgstr "Anterior"
+
+#: ../mainwindow.py:1017
+#, fuzzy
+msgid "&Replace..."
+msgstr "Busca..."
 
 #: ../mainwindow.py:1018
-msgid "New &Window"
-msgstr ""
+#, fuzzy
+msgid "Pr&eferences..."
+msgstr "Preferencias xerais"
 
-#: ../mainwindow.py:1019
-msgid "&Fullscreen"
-msgstr ""
+#: ../mainwindow.py:1020
+#, fuzzy
+msgid "&Next Document"
+msgstr "&Documento"
 
 #: ../mainwindow.py:1021
-msgid "&User Guide"
-msgstr ""
+#, fuzzy
+msgid "&Previous Document"
+msgstr "&Código fonte do documento"
 
 #: ../mainwindow.py:1022
-msgid "&What's This?"
+msgid "Scroll Up"
 msgstr ""
 
 #: ../mainwindow.py:1023
+#, fuzzy
+msgid "Scroll Down"
+msgstr "Semitrino con final descendente"
+
+#: ../mainwindow.py:1025
+msgid "New &Window"
+msgstr ""
+
+#: ../mainwindow.py:1026
+msgid "&Fullscreen"
+msgstr ""
+
+#: ../mainwindow.py:1028
+msgid "&User Guide"
+msgstr ""
+
+#: ../mainwindow.py:1029
+msgid "&What's This?"
+msgstr ""
+
+#: ../mainwindow.py:1030
 msgid "Report a &Bug..."
 msgstr ""
 
-#: ../mainwindow.py:1024
+#: ../mainwindow.py:1031
 msgid "&About {appname}..."
 msgstr ""
 
@@ -933,69 +944,69 @@ msgctxt "menu title"
 msgid "&File"
 msgstr "Título"
 
-#: ../menu.py:117
+#: ../menu.py:118
 msgctxt "submenu title"
 msgid "&Export"
 msgstr ""
 
-#: ../menu.py:125
+#: ../menu.py:126
 msgctxt "menu title"
 msgid "&Edit"
 msgstr ""
 
-#: ../menu.py:152
+#: ../menu.py:153
 #, fuzzy
 msgctxt "menu title"
 msgid "&View"
 msgstr "Vistas de ferramen&tas"
 
-#: ../menu.py:176
+#: ../menu.py:177
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "Codificación para usar"
 
-#: ../menu.py:191
+#: ../menu.py:192
 msgctxt "menu title"
 msgid "&Music"
 msgstr ""
 
-#: ../menu.py:216
+#: ../menu.py:217
 #, fuzzy
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:235
+#: ../menu.py:236
 #, fuzzy
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "Vistas de ferramen&tas"
 
-#: ../menu.py:261
+#: ../menu.py:262
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Letra"
 
-#: ../menu.py:273
+#: ../menu.py:274
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Altura"
 
-#: ../menu.py:287
+#: ../menu.py:288
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "Du&racións"
 
-#: ../menu.py:315
+#: ../menu.py:316
 msgctxt "menu title"
 msgid "&Window"
 msgstr ""
 
-#: ../menu.py:335
+#: ../menu.py:336
 msgctxt "menu title"
 msgid "&Help"
 msgstr ""
@@ -1416,6 +1427,136 @@ msgstr "Ficheiros &xerados"
 #, fuzzy
 msgid "No files available"
 msgstr "Non dispoñible"
+
+#: ../externalchanges/widget.py:99 ../externalchanges/widget.py:288
+#, fuzzy
+msgid "Modified Files"
+msgstr "Todos os ficheiros"
+
+#: ../externalchanges/widget.py:101
+msgid "The following files were modified or deleted by other applications:"
+msgstr ""
+
+#: ../externalchanges/widget.py:105
+msgid ""
+"Reloads the selected documents from disk. (You can still reach the previous "
+"state of the document using the Undo command.)"
+msgstr ""
+
+#: ../externalchanges/widget.py:110
+msgid ""
+"Reloads all externally modified documents from disk. (You can still reach "
+"the previous state of the document using the Undo command.)"
+msgstr ""
+
+#: ../externalchanges/widget.py:113 ../help/contents.py:576
+#: ../help/contents.py:586
+#, fuzzy
+msgid "Save"
+msgstr "Gardar"
+
+#: ../externalchanges/widget.py:115
+msgid ""
+"Saves the selected documents to disk, overwriting the modifications by "
+"another program."
+msgstr ""
+
+#: ../externalchanges/widget.py:119
+msgid ""
+"Saves all documents to disk, overwriting the modifications by another "
+"program."
+msgstr ""
+
+#: ../externalchanges/widget.py:121 ../externalchanges/widget.py:304
+#, fuzzy
+msgid "Show Difference..."
+msgstr "Preferencias xerais"
+
+#: ../externalchanges/widget.py:123
+msgid ""
+"Shows the differences between the current document and the file on disk."
+msgstr ""
+
+#: ../externalchanges/widget.py:126 ../externalchanges/widget.py:307
+msgid "Enable watching documents for external changes"
+msgstr ""
+
+#: ../externalchanges/widget.py:128
+msgid ""
+"If checked, Frescobaldi will warn you when opened files are modified or "
+"deleted by other applications."
+msgstr ""
+
+#: ../externalchanges/widget.py:156
+#, fuzzy
+msgid "[deleted]"
+msgstr "Seleccionar todo"
+
+#: ../externalchanges/widget.py:238
+msgid "The document could not be saved."
+msgstr ""
+
+#: ../externalchanges/widget.py:240
+msgid "One document could not be saved."
+msgstr ""
+
+#: ../externalchanges/widget.py:242
+msgid "Some documents could not be saved."
+msgstr ""
+
+#: ../externalchanges/widget.py:244
+msgid "Maybe the directory does not exist anymore."
+msgstr ""
+
+#: ../externalchanges/widget.py:245
+#, fuzzy
+msgid "Please save the document using the \"Save As...\" dialog."
+msgid_plural "Please save the documents using the \"Save As...\" dialog."
+msgstr[0] "Gardar sempre a lista de documentos nesta sesión"
+msgstr[1] "Gardar sempre a lista de documentos nesta sesión"
+
+#: ../externalchanges/widget.py:269
+#, fuzzy
+msgid "Document on Disk"
+msgstr "&Documento"
+
+#: ../externalchanges/widget.py:276
+msgid ""
+"Document: {url}\n"
+"Difference between the current document and the file on disk:"
+msgstr ""
+
+#: ../externalchanges/widget.py:292
+msgid ""
+"Frescobaldi can detect if files are modified or deleted by other "
+"applications."
+msgstr ""
+
+#: ../externalchanges/widget.py:294
+msgid ""
+"When another application modifies or deletes one or more documents that are "
+"opened in Frescobaldi, a list of affected documents is displayed, and you "
+"can choose whether to reload one or more documents from disk, or to save "
+"them, discarding the modifications made by the other application."
+msgstr ""
+
+#: ../externalchanges/widget.py:299
+msgid ""
+"When a document is reloaded, you can still press {undokey} to get back the "
+"document as it was in memory before reloading it from disk."
+msgstr ""
+
+#: ../externalchanges/widget.py:302
+msgid ""
+"Press the <em>{showdiff}</em> button to see the difference between the "
+"current document and its version on disk."
+msgstr ""
+
+#: ../externalchanges/widget.py:305
+msgid ""
+"If you don't want to be warned when a document is changed or deleted by "
+"another application, uncheck the <em>{action}</em> checkbox."
+msgstr ""
 
 #: ../help/browser.py:78
 msgid "Toolbar"
@@ -2043,11 +2184,6 @@ msgstr ""
 #: ../help/contents.py:576 ../help/contents.py:577 ../help/contents.py:586
 msgid "Session"
 msgstr "Sesión"
-
-#: ../help/contents.py:576 ../help/contents.py:586
-#, fuzzy
-msgid "Save"
-msgstr "Gardar"
 
 #: ../help/contents.py:577
 #, fuzzy

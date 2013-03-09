@@ -1,20 +1,20 @@
 # translation of nl.po to Nederlands
-# Wilbert Berendsen <wbsoft@xs4all.nl>, 2008, 2009, 2010, 2011, 2012, 2013.
 #
+# Wilbert Berendsen <wbsoft@xs4all.nl>, 2008, 2009, 2010, 2011, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-03-05 14:34+0100\n"
-"PO-Revision-Date: 2013-03-05 14:36+0100\n"
-"Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
-"Language-Team: Nederlands <>\n"
+"POT-Creation-Date: 2013-03-09 23:07+0100\n"
+"PO-Revision-Date: 2013-03-09 23:28+0100\n"
+"Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
+"Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bits\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: ../about.py:43
 msgid "{appname} is written in {python} and uses the {qt} toolkit."
@@ -121,31 +121,31 @@ msgstr "Sneltoetsconflict"
 msgid "Edit again"
 msgstr "Opnieuw bewerken"
 
-#: ../app.py:128
+#: ../app.py:130
 msgid "LilyPond Files"
 msgstr "LilyPond-bestanden"
 
-#: ../app.py:129
+#: ../app.py:131
 msgid "LaTeX Files"
 msgstr "LaTeX-bestanden"
 
-#: ../app.py:130
+#: ../app.py:132
 msgid "DocBook Files"
 msgstr "DocBook-bestanden"
 
-#: ../app.py:131
+#: ../app.py:133
 msgid "HTML Files"
 msgstr "HTML-bestanden"
 
-#: ../app.py:132
+#: ../app.py:134
 msgid "Texinfo Files"
 msgstr "Texinfo-bestanden"
 
-#: ../app.py:133
+#: ../app.py:135
 msgid "Scheme Files"
 msgstr "Scheme-bestanden"
 
-#: ../app.py:134 ../snippet/widget.py:292 ../snippet/widget.py:309
+#: ../app.py:136 ../snippet/widget.py:292 ../snippet/widget.py:309
 msgid "All Files"
 msgstr "Alle bestanden"
 
@@ -169,19 +169,19 @@ msgstr "Volgende markering"
 msgid "Previous Mark"
 msgstr "Vorige markering"
 
-#: ../convert_ly.py:121
+#: ../convert_ly.py:120
 msgid "From version:"
 msgstr "Van versie:"
 
-#: ../convert_ly.py:122
+#: ../convert_ly.py:121
 msgid "To version:"
 msgstr "Naar versie:"
 
-#: ../convert_ly.py:123
+#: ../convert_ly.py:122
 msgid "Save convert-ly messages in document"
 msgstr "Convert-ly berichten in document bewaren"
 
-#: ../convert_ly.py:125
+#: ../convert_ly.py:124
 msgid ""
 "If checked, the messages of convert-ly are appended as a comment to the end "
 "of the document."
@@ -189,36 +189,44 @@ msgstr ""
 "Indien ingeschakeld, worden berichten van convert-ly aan het eind van het "
 "document als commentaar toegevoegd."
 
-#: ../convert_ly.py:127
+#: ../convert_ly.py:126
 msgid "&Messages"
 msgstr "&Berichten"
 
-#: ../convert_ly.py:128
+#: ../convert_ly.py:127
 msgid "&Changes"
 msgstr "&Wijzigingen"
 
-#: ../convert_ly.py:129
+#: ../convert_ly.py:128
 msgid "Run Again"
 msgstr "Opnieuw uitvoeren"
 
-#: ../convert_ly.py:140 ../docbrowser/browser.py:158
+#: ../convert_ly.py:139 ../docbrowser/browser.py:158
 #: ../musicview/editinplace.py:150 ../musicview/image.py:167
 msgid "<unknown>"
 msgstr "<onbekend>"
 
-#: ../convert_ly.py:141
+#: ../convert_ly.py:140
 msgid "Convert-ly from LilyPond {version}"
 msgstr "Convert-ly van LilyPond {version}"
 
-#: ../convert_ly.py:165
+#: ../convert_ly.py:155 ../externalchanges/widget.py:269
+msgid "Current Document"
+msgstr "Huidig document"
+
+#: ../convert_ly.py:155
+msgid "Converted Document"
+msgstr "Bijgewerkt document"
+
+#: ../convert_ly.py:167
 msgid "(set in document)"
 msgstr "(in document ingesteld)"
 
-#: ../convert_ly.py:178
+#: ../convert_ly.py:180
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr "Zowel de 'van'- als 'naar' versie dient ingesteld te zijn."
 
-#: ../convert_ly.py:215
+#: ../convert_ly.py:217
 msgid ""
 "Could not start {convert_ly}:\n"
 "\n"
@@ -228,49 +236,9 @@ msgstr ""
 "\n"
 "{message}\n"
 
-#: ../convert_ly.py:221
+#: ../convert_ly.py:223
 msgid "The document has not been changed."
 msgstr "Het document is niet gewijzigd."
-
-#: ../convert_ly.py:227
-msgid "Current Document"
-msgstr "Huidig document"
-
-#: ../convert_ly.py:227
-msgid "Converted Document"
-msgstr "Bijgewerkt document"
-
-#: ../convert_ly.py:233
-msgid "Colors:"
-msgstr "Kleuren:"
-
-#: ../convert_ly.py:234
-msgid "Added"
-msgstr "Toegevoegd"
-
-#: ../convert_ly.py:235
-msgid "Changed"
-msgstr "Gewijzigd"
-
-#: ../convert_ly.py:236
-msgid "Deleted"
-msgstr "Verwijderd"
-
-#: ../convert_ly.py:237
-msgid "Links:"
-msgstr "Koppelingen:"
-
-#: ../convert_ly.py:238
-msgid "First Change"
-msgstr "Eerste wijziging"
-
-#: ../convert_ly.py:239
-msgid "Next Change"
-msgstr "Volgende wijziging"
-
-#: ../convert_ly.py:240
-msgid "Top"
-msgstr "Top"
 
 #: ../cut_assign.py:39
 msgid "Cut and Assign"
@@ -281,11 +249,11 @@ msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr ""
 "Geef de naam van de variabele om de geselecteerde tekst aan toe te wijzen:"
 
-#: ../document.py:152 ../doclist/widget.py:133 ../snippet/edit.py:178
+#: ../document.py:158 ../doclist/widget.py:133 ../snippet/edit.py:178
 msgid "Untitled"
 msgstr "Naamloos"
 
-#: ../document.py:154
+#: ../document.py:160
 msgid "Untitled ({num})"
 msgstr "Naamloos ({num})"
 
@@ -317,16 +285,16 @@ msgstr "&Formatteren"
 msgid "&Update with convert-ly..."
 msgstr "&Bijwerken met convert-ly..."
 
-#: ../documentcontextmenu.py:67 ../mainwindow.py:981
+#: ../documentcontextmenu.py:67 ../mainwindow.py:984
 #: ../sessions/manager.py:127
 msgid "&Save"
 msgstr "Op&slaan"
 
-#: ../documentcontextmenu.py:68 ../mainwindow.py:982
+#: ../documentcontextmenu.py:68 ../mainwindow.py:985
 msgid "Save &As..."
 msgstr "Opslaan &als..."
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:988
+#: ../documentcontextmenu.py:69 ../mainwindow.py:995
 msgid "&Close"
 msgstr "&Sluiten"
 
@@ -393,11 +361,12 @@ msgid "Staff Size:"
 msgstr "Balkgrootte:"
 
 #. L10N: a basic type of input in the editor
-#: ../helpers.py:101 ../mainwindow.py:390 ../mainwindow.py:396
-#: ../mainwindow.py:421 ../mainwindow.py:472 ../mainwindow.py:564
-#: ../mainwindow.py:624 ../musicview/image.py:214
-#: ../preferences/fontscolors.py:476 ../preferences/fontscolors.py:514
-#: ../snippet/import_export.py:105 ../snippet/widget.py:319
+#: ../helpers.py:101 ../mainwindow.py:391 ../mainwindow.py:397
+#: ../mainwindow.py:422 ../mainwindow.py:473 ../mainwindow.py:565
+#: ../mainwindow.py:625 ../externalchanges/widget.py:243
+#: ../musicview/image.py:214 ../preferences/fontscolors.py:476
+#: ../preferences/fontscolors.py:514 ../snippet/import_export.py:105
+#: ../snippet/widget.py:319
 msgid "Error"
 msgstr "Fout"
 
@@ -408,6 +377,38 @@ msgid ""
 msgstr ""
 "Kan {program} niet starten.\n"
 "Controleer het pad en permissies."
+
+#: ../htmldiff.py:45
+msgid "Colors:"
+msgstr "Kleuren:"
+
+#: ../htmldiff.py:46
+msgid "Added"
+msgstr "Toegevoegd"
+
+#: ../htmldiff.py:47
+msgid "Changed"
+msgstr "Gewijzigd"
+
+#: ../htmldiff.py:48
+msgid "Deleted"
+msgstr "Verwijderd"
+
+#: ../htmldiff.py:49
+msgid "Links:"
+msgstr "Koppelingen:"
+
+#: ../htmldiff.py:50
+msgid "First Change"
+msgstr "Eerste wijziging"
+
+#: ../htmldiff.py:51
+msgid "Next Change"
+msgstr "Volgende wijziging"
+
+#: ../htmldiff.py:52
+msgid "Top"
+msgstr "Top"
 
 #: ../hyphendialog.py:114
 msgid "Hyphenate Lyrics Text"
@@ -592,16 +593,16 @@ msgid "Always start a new instance"
 msgstr "Altijd een nieuw proces starten"
 
 #. L10N: state of document in window titlebar
-#: ../mainwindow.py:226
+#: ../mainwindow.py:227 ../externalchanges/widget.py:159
 msgid "[modified]"
 msgstr "[gewijzigd]"
 
-#: ../mainwindow.py:269
+#: ../mainwindow.py:270
 msgctxt "dialog title"
 msgid "Close Document"
 msgstr "Document sluiten"
 
-#: ../mainwindow.py:270
+#: ../mainwindow.py:271
 msgid ""
 "The document \"{name}\" has been modified.\n"
 "Do you want to save your changes or discard them?"
@@ -609,16 +610,16 @@ msgstr ""
 "Het document \"{name}\" is gewijzigd.\n"
 "Wilt u uw wijzigingen bewaren of weggooien?"
 
-#: ../mainwindow.py:282
+#: ../mainwindow.py:283
 msgid "Tab Bar"
 msgstr "Tabbalk"
 
-#: ../mainwindow.py:339 ../popplerprint.py:53 ../sessions/dialog.py:171
+#: ../mainwindow.py:340 ../popplerprint.py:53 ../sessions/dialog.py:171
 #: ../sessions/dialog.py:179 ../sessions/dialog.py:185
 msgid "Warning"
 msgstr "Waarschuwing"
 
-#: ../mainwindow.py:340
+#: ../mainwindow.py:341
 msgid ""
 "Can't load non-local document:\n"
 "\n"
@@ -628,12 +629,12 @@ msgstr ""
 "\n"
 "{url}"
 
-#: ../mainwindow.py:371
+#: ../mainwindow.py:372
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Bestand openen"
 
-#: ../mainwindow.py:391 ../mainwindow.py:397 ../mainwindow.py:422
+#: ../mainwindow.py:392 ../mainwindow.py:398 ../mainwindow.py:423
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -643,22 +644,22 @@ msgstr ""
 "\n"
 "{url}"
 
-#: ../mainwindow.py:416
+#: ../mainwindow.py:417
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "Bestand opslaan"
 
-#: ../mainwindow.py:456
+#: ../mainwindow.py:457
 msgctxt "dialog title"
 msgid "Save Copy"
 msgstr "Kopie opslaan"
 
-#: ../mainwindow.py:462
+#: ../mainwindow.py:463
 msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Selectie opslaan"
 
-#: ../mainwindow.py:473 ../mainwindow.py:625 ../snippet/widget.py:320
+#: ../mainwindow.py:474 ../mainwindow.py:626 ../snippet/widget.py:320
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -672,11 +673,11 @@ msgstr ""
 "\n"
 "{error}"
 
-#: ../mainwindow.py:487 ../mainwindow.py:501
+#: ../mainwindow.py:488 ../mainwindow.py:502 ../externalchanges/widget.py:103
 msgid "Reload"
 msgstr "Herladen"
 
-#: ../mainwindow.py:488
+#: ../mainwindow.py:489
 msgid ""
 "Could not reload the document:\n"
 "\n"
@@ -686,20 +687,20 @@ msgstr ""
 "\n"
 "{url}"
 
-#: ../mainwindow.py:498
+#: ../mainwindow.py:499
 msgid "Some documents could not be reloaded."
 msgstr "Sommige documenten konden niet worden herladen."
 
-#: ../mainwindow.py:500
+#: ../mainwindow.py:501
 msgid "No document could be reloaded."
 msgstr "Geen enkel document kon worden herladen."
 
-#: ../mainwindow.py:557
+#: ../mainwindow.py:558
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Invoegen uit bestand"
 
-#: ../mainwindow.py:565 ../snippet/import_export.py:106
+#: ../mainwindow.py:566 ../snippet/import_export.py:106
 msgid ""
 "Can't read from source:\n"
 "\n"
@@ -713,16 +714,16 @@ msgstr ""
 "\n"
 "{error}"
 
-#: ../mainwindow.py:581
+#: ../mainwindow.py:582
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Brontekst afdrukken"
 
-#: ../mainwindow.py:614
+#: ../mainwindow.py:615
 msgid "Export as HTML"
 msgstr "Exporteren als HTML"
 
-#: ../mainwindow.py:734
+#: ../mainwindow.py:735
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -734,180 +735,192 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../mainwindow.py:843
+#: ../mainwindow.py:845
 msgid "Main Toolbar"
 msgstr "Hoofdwerkbalk"
 
-#: ../mainwindow.py:844
+#: ../mainwindow.py:846
 msgid "Music View Toolbar"
 msgstr "Muziekweergave-werkbalk"
 
-#: ../mainwindow.py:975
+#: ../mainwindow.py:978
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nieuw"
 
-#: ../mainwindow.py:976
+#: ../mainwindow.py:979
 msgid "&Open..."
 msgstr "&Openen..."
 
-#: ../mainwindow.py:977
+#: ../mainwindow.py:980
 msgid "Open &Recent"
 msgstr "&Recent geopend"
 
-#: ../mainwindow.py:978
+#: ../mainwindow.py:981
 msgid "Insert from &File..."
 msgstr "&Invoegen uit bestand..."
 
-#: ../mainwindow.py:979
+#: ../mainwindow.py:982
 msgid "Open Current Directory"
 msgstr "Huidige map openen"
 
-#: ../mainwindow.py:980
+#: ../mainwindow.py:983
 msgid "Open Command Prompt"
 msgstr "Commandoregel openen"
 
-#: ../mainwindow.py:983
+#: ../mainwindow.py:986
 msgid "Save Copy or Selection As..."
 msgstr "Kopie of selectie opslaan als..."
 
-#: ../mainwindow.py:984
+#: ../mainwindow.py:987 ../externalchanges/widget.py:117
 msgid "Save All"
 msgstr "Alles opslaan"
 
-#: ../mainwindow.py:985
+#: ../mainwindow.py:988
 msgid "Re&load"
 msgstr "Her&laden"
 
-#: ../mainwindow.py:986
+#: ../mainwindow.py:989 ../externalchanges/widget.py:108
 msgid "Reload All"
 msgstr "Alles herladen"
 
-#: ../mainwindow.py:987
+#: ../mainwindow.py:990
+msgid "Check for External Changes..."
+msgstr "Controleren op externe wijzigingen..."
+
+#: ../mainwindow.py:992
+msgid ""
+"Opens a window to check whether open documents were changed or deleted by "
+"other programs."
+msgstr ""
+"Opent een venster om te controleren of open documenten werden gewijzigd of "
+"verwijderd door andere programma's."
+
+#: ../mainwindow.py:994
 msgid "Print Source..."
 msgstr "Brontekst afdrukken..."
 
-#: ../mainwindow.py:989
+#: ../mainwindow.py:996
 msgid "Close Other Documents"
 msgstr "Andere documenten sluiten"
 
-#: ../mainwindow.py:990
+#: ../mainwindow.py:997
 msgid "Close All Documents"
 msgstr "Alle documenten sluiten"
 
-#: ../mainwindow.py:991
+#: ../mainwindow.py:998
 msgid "Closes all documents and leaves the current session."
 msgstr "Sluit alle documenten en verlaat de huidige sessie."
 
-#: ../mainwindow.py:992
+#: ../mainwindow.py:999
 msgid "&Quit"
 msgstr "Afslui&ten"
 
-#: ../mainwindow.py:994
+#: ../mainwindow.py:1001
 msgid "Export Source as Colored &HTML..."
 msgstr "Bron als gekleurde &HTML exporteren..."
 
-#: ../mainwindow.py:996
+#: ../mainwindow.py:1003
 msgid "&Undo"
 msgstr "&Ongedaan maken"
 
-#: ../mainwindow.py:997
+#: ../mainwindow.py:1004
 msgid "Re&do"
 msgstr "Opnie&uw"
 
-#: ../mainwindow.py:998
+#: ../mainwindow.py:1005
 msgid "Cu&t"
 msgstr "&Knippen"
 
-#: ../mainwindow.py:999 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1006 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Kopiëren"
 
-#: ../mainwindow.py:1000
+#: ../mainwindow.py:1007
 msgid "Copy as Colored &HTML"
 msgstr "Als gekleurde HTML kopiëren"
 
-#: ../mainwindow.py:1001
+#: ../mainwindow.py:1008
 msgid "&Paste"
 msgstr "&Plakken"
 
-#: ../mainwindow.py:1002
+#: ../mainwindow.py:1009
 msgid "Select &All"
 msgstr "&Alles selecteren"
 
-#: ../mainwindow.py:1003
+#: ../mainwindow.py:1010
 msgid "Select &Block"
 msgstr "&Blok selecteren"
 
-#: ../mainwindow.py:1004
+#: ../mainwindow.py:1011
 msgid "Select &None"
 msgstr "&Niets selecteren"
 
-#: ../mainwindow.py:1005
+#: ../mainwindow.py:1012
 msgid "Select Whole Lines Up"
 msgstr "Volledige regels omhoog selecteren"
 
-#: ../mainwindow.py:1006
+#: ../mainwindow.py:1013
 msgid "Select Whole Lines Down"
 msgstr "Volledige regels omlaag selecteren"
 
-#: ../mainwindow.py:1007
+#: ../mainwindow.py:1014
 msgid "&Find..."
 msgstr "&Zoeken..."
 
-#: ../mainwindow.py:1008
+#: ../mainwindow.py:1015
 msgid "Find Ne&xt"
 msgstr "&Volgende zoeken"
 
-#: ../mainwindow.py:1009
+#: ../mainwindow.py:1016
 msgid "Find Pre&vious"
 msgstr "V&orige zoeken"
 
-#: ../mainwindow.py:1010
+#: ../mainwindow.py:1017
 msgid "&Replace..."
 msgstr "Ve&rvangen"
 
-#: ../mainwindow.py:1011
+#: ../mainwindow.py:1018
 msgid "Pr&eferences..."
 msgstr "Voork&euren..."
 
-#: ../mainwindow.py:1013
+#: ../mainwindow.py:1020
 msgid "&Next Document"
 msgstr "&Volgende document"
 
-#: ../mainwindow.py:1014
+#: ../mainwindow.py:1021
 msgid "&Previous Document"
 msgstr "V&orige document"
 
-#: ../mainwindow.py:1015
+#: ../mainwindow.py:1022
 msgid "Scroll Up"
 msgstr "Omhoog schuiven"
 
-#: ../mainwindow.py:1016
+#: ../mainwindow.py:1023
 msgid "Scroll Down"
 msgstr "Omlaag schuiven"
 
-#: ../mainwindow.py:1018
+#: ../mainwindow.py:1025
 msgid "New &Window"
 msgstr "Nieuw &venster"
 
-#: ../mainwindow.py:1019
+#: ../mainwindow.py:1026
 msgid "&Fullscreen"
 msgstr "Volledig &scherm"
 
-#: ../mainwindow.py:1021
+#: ../mainwindow.py:1028
 msgid "&User Guide"
 msgstr "&Handleiding"
 
-#: ../mainwindow.py:1022
+#: ../mainwindow.py:1029
 msgid "&What's This?"
 msgstr "&Wat is dit?"
 
-#: ../mainwindow.py:1023
+#: ../mainwindow.py:1030
 msgid "Report a &Bug..."
 msgstr "&Bug rapporteren..."
 
-#: ../mainwindow.py:1024
+#: ../mainwindow.py:1031
 msgid "&About {appname}..."
 msgstr "&Over {appname}..."
 
@@ -916,62 +929,62 @@ msgctxt "menu title"
 msgid "&File"
 msgstr "&Bestand"
 
-#: ../menu.py:117
+#: ../menu.py:118
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Exporteren"
 
-#: ../menu.py:125
+#: ../menu.py:126
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "Be&werken"
 
-#: ../menu.py:152
+#: ../menu.py:153
 msgctxt "menu title"
 msgid "&View"
 msgstr "B&eeld"
 
-#: ../menu.py:176
+#: ../menu.py:177
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "Invou&wen"
 
-#: ../menu.py:191
+#: ../menu.py:192
 msgctxt "menu title"
 msgid "&Music"
 msgstr "&Muziek"
 
-#: ../menu.py:216
+#: ../menu.py:217
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:235
+#: ../menu.py:236
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Gereedschap"
 
-#: ../menu.py:261
+#: ../menu.py:262
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Liedteksten"
 
-#: ../menu.py:273
+#: ../menu.py:274
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Toonhoogte"
 
-#: ../menu.py:287
+#: ../menu.py:288
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritme"
 
-#: ../menu.py:315
+#: ../menu.py:316
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Venster"
 
-#: ../menu.py:335
+#: ../menu.py:336
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Help"
@@ -1359,6 +1372,158 @@ msgstr "Aange&maakte bestanden"
 #: ../engrave/result_menu.py:67
 msgid "No files available"
 msgstr "Geen bestanden beschikbaar"
+
+#: ../externalchanges/widget.py:99 ../externalchanges/widget.py:288
+msgid "Modified Files"
+msgstr "Gewijzigde bestanden"
+
+#: ../externalchanges/widget.py:101
+msgid "The following files were modified or deleted by other applications:"
+msgstr ""
+"De volgende bestanden werden gewijzigd of verwijderd door andere programma's:"
+
+#: ../externalchanges/widget.py:105
+msgid ""
+"Reloads the selected documents from disk. (You can still reach the previous "
+"state of the document using the Undo command.)"
+msgstr ""
+"Herlaadt de geselecteerde documenten van schijf. (U kunt nog altijd de vorige "
+"versie van het document terugkrijgen met het commando \"Ongedaan maken\".)"
+
+#: ../externalchanges/widget.py:110
+msgid ""
+"Reloads all externally modified documents from disk. (You can still reach "
+"the previous state of the document using the Undo command.)"
+msgstr ""
+"Herlaadt alle door andere programma's gewijzigde documenten van schijf. (U "
+"kunt nog altijd de vorige versie van het document terugkrijgen met het "
+"commando \"Ongedaan maken\".)"
+
+#: ../externalchanges/widget.py:113 ../help/contents.py:576
+#: ../help/contents.py:586
+msgid "Save"
+msgstr "Opslaan"
+
+#: ../externalchanges/widget.py:115
+msgid ""
+"Saves the selected documents to disk, overwriting the modifications by "
+"another program."
+msgstr ""
+"Slaat de geselecteerde documenten op naar schijf, waarbij de door andere "
+"programma's aangebrachte wijzigingen worden overschreven."
+
+#: ../externalchanges/widget.py:119
+msgid ""
+"Saves all documents to disk, overwriting the modifications by another "
+"program."
+msgstr ""
+"Slaat alle documenten op naar schijf, waarbij de door andere programma's "
+"aangebrachte wijzigingen worden overschreven."
+
+#: ../externalchanges/widget.py:121 ../externalchanges/widget.py:304
+msgid "Show Difference..."
+msgstr "Verschil tonen..."
+
+#: ../externalchanges/widget.py:123
+msgid ""
+"Shows the differences between the current document and the file on disk."
+msgstr ""
+"Toont de verschillen tussen het huidige document en het bestand op schijf."
+
+#: ../externalchanges/widget.py:126 ../externalchanges/widget.py:307
+msgid "Enable watching documents for external changes"
+msgstr "Documenten controleren op externe wijzigingen"
+
+#: ../externalchanges/widget.py:128
+msgid ""
+"If checked, Frescobaldi will warn you when opened files are modified or "
+"deleted by other applications."
+msgstr ""
+"Indien ingeschakeld, zal Frescobaldi waarschuwen wanneer geopende bestanden "
+"worden gewijzigd of verwijderd door andere programma's."
+
+#: ../externalchanges/widget.py:156
+msgid "[deleted]"
+msgstr "[verwijderd]"
+
+#: ../externalchanges/widget.py:238
+msgid "The document could not be saved."
+msgstr "Het document kan niet worden opgeslagen."
+
+#: ../externalchanges/widget.py:240
+msgid "One document could not be saved."
+msgstr "Een document kan niet worden opgeslagen."
+
+#: ../externalchanges/widget.py:242
+msgid "Some documents could not be saved."
+msgstr "Sommige documenten kunnen niet worden opgeslagen."
+
+#: ../externalchanges/widget.py:244
+msgid "Maybe the directory does not exist anymore."
+msgstr "Mogelijk bestaat de directory niet meer."
+
+#: ../externalchanges/widget.py:245
+msgid "Please save the document using the \"Save As...\" dialog."
+msgid_plural "Please save the documents using the \"Save As...\" dialog."
+msgstr[0] "Sla het document op met behulp van de \"Opslaan als...\" dialoog."
+msgstr[1] "Sla de documenten op met behulp van de \"Opslaan als...\" dialoog."
+
+#: ../externalchanges/widget.py:269
+msgid "Document on Disk"
+msgstr "Document op schijf"
+
+#: ../externalchanges/widget.py:276
+msgid ""
+"Document: {url}\n"
+"Difference between the current document and the file on disk:"
+msgstr ""
+"Document: {url}\n"
+"Verschil tussen het huidige document en het bestand op schijf:"
+
+#: ../externalchanges/widget.py:292
+msgid ""
+"Frescobaldi can detect if files are modified or deleted by other "
+"applications."
+msgstr ""
+"Frescobaldi kan waarschuwen wanneer bestanden worden gewijzigd of verwijderd "
+"door andere programma's."
+
+#: ../externalchanges/widget.py:294
+msgid ""
+"When another application modifies or deletes one or more documents that are "
+"opened in Frescobaldi, a list of affected documents is displayed, and you "
+"can choose whether to reload one or more documents from disk, or to save "
+"them, discarding the modifications made by the other application."
+msgstr ""
+"Als een ander programma een of meer in Frescobaldi geopende documenten "
+"wijzigt of verwijdert wordt een lijst van betrokken bestanden afgebeeld, en u "
+"hebt de gelegenheid bestanden te herladen van schijf, of juist (opnieuw) op "
+"te slaan, waarbij de aanpassingen door het andere programma worden "
+"overschreven."
+
+#: ../externalchanges/widget.py:299
+msgid ""
+"When a document is reloaded, you can still press {undokey} to get back the "
+"document as it was in memory before reloading it from disk."
+msgstr ""
+"Als een document wordt herladen, kunt u nog steeds de vorige versie "
+"terugkrijgen door op {undokey} te drukken."
+
+#: ../externalchanges/widget.py:302
+msgid ""
+"Press the <em>{showdiff}</em> button to see the difference between the "
+"current document and its version on disk."
+msgstr ""
+"Druk op de knop <em>{showdiff}</em> om de verschillen te zien tussen het "
+"huidige document en de versie ervan op schijf."
+
+#: ../externalchanges/widget.py:305
+msgid ""
+"If you don't want to be warned when a document is changed or deleted by "
+"another application, uncheck the <em>{action}</em> checkbox."
+msgstr ""
+"Als u niet wilt worden gewaarschuwd wanneer een document wordt gewijzigd of "
+"verwijderd door een ander programma, vink dan de optie <em>{action}</em> uit."
 
 #: ../help/browser.py:78
 msgid "Toolbar"
@@ -2242,10 +2407,6 @@ msgstr ""
 #: ../help/contents.py:576 ../help/contents.py:577 ../help/contents.py:586
 msgid "Session"
 msgstr "Sessie"
-
-#: ../help/contents.py:576 ../help/contents.py:586
-msgid "Save"
-msgstr "Opslaan"
 
 #: ../help/contents.py:577
 msgctxt "New Session"
@@ -7252,9 +7413,6 @@ msgstr "Selecteer een bestand"
 
 #~ msgid "Manage Sessions..."
 #~ msgstr "Sessies beheren..."
-
-#~ msgid "modified"
-#~ msgstr "gewijzigd"
 
 #~ msgid "Move To"
 #~ msgstr "Verplaatsen naar"
