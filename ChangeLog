@@ -7,6 +7,10 @@ Changed in 2.0.9 --
 * Translations:
   - updated: nl, de
 * New features:
+  - Frescobaldi now detects when other applications modify or delete open files
+    and displays the changes in a dialog, where the user can reload or save the
+    affected documents. The file-watching is turned on by default, but can be
+    disabled. (wish: issue #103)
   - File->Reload and Reload All: reload the current document or all documents
     from disk. This action can be undone with Ctrl-Z.
   - Frescobaldi now can be configured to open the generated PDF files when
