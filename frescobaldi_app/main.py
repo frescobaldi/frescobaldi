@@ -125,6 +125,10 @@ def main():
             import splashscreen
             splashscreen.show()
 
+    # application icon
+    import icons
+    QApplication.setWindowIcon(icons.get("frescobaldi"))
+    
     QTimer.singleShot(0, remote.setup)  # Start listening for IPC
     
     import mainwindow       # contains MainWindow class

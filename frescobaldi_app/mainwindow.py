@@ -93,7 +93,6 @@ class MainWindow(QMainWindow):
                 self.setObjectName(name)
                 break
         
-        self.setWindowIcon(icons.get('frescobaldi'))
         app.windows.append(self)
         
         mainwidget = QWidget()
