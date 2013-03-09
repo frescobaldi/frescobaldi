@@ -197,6 +197,8 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
                 continue
             break
         self.updateButtons()
+        if self.tree.topLevelItemCount() == 0:
+            self.hide()
     
     def selectedDocuments(self):
         """Return the selected documents."""
