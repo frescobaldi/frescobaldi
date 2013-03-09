@@ -79,21 +79,17 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
         self.buttonReloadAll = QPushButton()
         self.buttonSave = QPushButton()
         self.buttonSaveAll = QPushButton()
-        self.buttonClose = QPushButton()
-        self.buttonCloseAll = QPushButton()
         self.buttonShowDiff = QPushButton()
         self.checkWatchingEnabled = QCheckBox(checked=enabled())
         
-        layout.addWidget(self.tree, 0, 0, 8, 1)
+        layout.addWidget(self.tree, 0, 0, 6, 1)
         layout.addWidget(self.buttonReload, 0, 1)
         layout.addWidget(self.buttonReloadAll, 1, 1)
         layout.addWidget(self.buttonSave, 2, 1)
         layout.addWidget(self.buttonSaveAll, 3, 1)
-        layout.addWidget(self.buttonClose, 4, 1)
-        layout.addWidget(self.buttonCloseAll, 5, 1)
-        layout.addWidget(self.buttonShowDiff, 6, 1)
-        layout.addWidget(self.checkWatchingEnabled, 8, 0, 1, 2)
-        layout.setRowStretch(7, 10)
+        layout.addWidget(self.buttonShowDiff, 4, 1)
+        layout.addWidget(self.checkWatchingEnabled, 6, 0, 1, 2)
+        layout.setRowStretch(5, 10)
         
         app.documentClosed.connect(self.removeDocument)
         app.documentSaved.connect(self.removeDocument)
@@ -104,8 +100,6 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
         self.buttonReloadAll.clicked.connect(self.slotButtonReloadAll)
         self.buttonSave.clicked.connect(self.slotButtonSave)
         self.buttonSaveAll.clicked.connect(self.slotButtonSaveAll)
-        self.buttonClose.clicked.connect(self.slotButtonClose)
-        self.buttonCloseAll.clicked.connect(self.slotButtonCloseAll)
         self.buttonShowDiff.clicked.connect(self.slotButtonShowDiff)
         self.checkWatchingEnabled.toggled.connect(setEnabled)
     
@@ -137,14 +131,6 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
         self.buttonSaveAll.setToolTip(_(
             "Saves all documents to disk, overwriting the modifications by "
             "another program."))
-        self.buttonClose.setText(_("Close"))
-        self.buttonClose.setToolTip(_(
-            "Closes the selected documents, discarding our version of the "
-            "document's contents."))
-        self.buttonCloseAll.setText(_("Close All"))
-        self.buttonCloseAll.setToolTip(_(
-            "Closes all documents, discarding our version of the "
-            "document's contents."))
         self.buttonShowDiff.setText(_("Show Difference..."))
         self.buttonShowDiff.setToolTip(_(
             "Shows the differences between the current document "
@@ -232,8 +218,6 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
                               for d in docs_all)
         self.buttonSave.setEnabled(len(docs_sel) > 0)
         self.buttonSaveAll.setEnabled(len(docs_all) > 0)
-        self.buttonClose.setEnabled(len(docs_sel) > 0)
-        self.buttonCloseAll.setEnabled(len(docs_all) > 0)
         self.buttonReload.setEnabled(not all_deleted_sel)
         self.buttonReloadAll.setEnabled(not all_deleted_all)
         self.buttonShowDiff.setEnabled(len(docs_sel) == 1 and not all_deleted_sel)
@@ -257,34 +241,6 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
         """Called when the user clicks Save All."""
         for d in self.allDocuments():
             d.save()
-    
-    def slotButtonClose(self):
-        """Called when the user clicks Close."""
-        self.closeDocuments(self.selectedDocuments())
-    
-    def slotButtonCloseAll(self):
-        """Called when the user clicks Close All."""
-        self.closeDocuments(self.allDocuments())
-    
-    def closeDocuments(self, documents):
-        """Used by slotButtonClose and -CloseAll."""
-        if documents:
-            if (any(d.isModified() or
-                   documentwatcher.DocumentWatcher.instance(d).isdeleted()
-                   for d in documents)
-                and QMessageBox.warning(self, _("dialog title", "Close Documents"),
-                _("Closing the documents might cause contents to be lost.\n\n"
-                  "The documents may have been deleted from disk and/or "
-                  "you may loose your own changes."),
-                QMessageBox.Discard | QMessageBox.Cancel) != QMessageBox.Discard):
-                return
-            for d in documents:
-                d.close()
-            # keep one document
-            if not app.documents:
-                d = document.Document()
-                for window in app.windows:
-                    window.setCurrentDocument(d)
     
     def slotButtonShowDiff(self):
         """Called when the user clicks Show Difference."""
