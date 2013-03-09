@@ -236,14 +236,28 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
     
     def slotButtonSave(self):
         """Called when the user clicks Save."""
-        for d in self.selectedDocuments():
-            d.save()
+        self.saveDocuments(self.selectedDocuments())
     
     def slotButtonSaveAll(self):
         """Called when the user clicks Save All."""
-        for d in self.allDocuments():
-            d.save()
+        self.saveDocuments(self.allDocuments())
     
+    def saveDocuments(self, documents):
+        """Used by slotButtonSave and slotButtonSaveAll."""
+        results = [d.save() for d in documents]
+        if False in results:
+            if len(documents) == 1:
+                msg = _("The document could not be saved.")
+            elif results.count(False) == 1:
+                msg = _("One document could not be saved.")
+            else:
+                msg = _("Some documents could not be saved.")
+            QMessageBox.warning(self, app.caption(_("Error")), "\n".join((msg,
+            _("Maybe the directory does not exist anymore."),
+            _("Please save the document using the \"Save As...\" dialog.",
+              "Please save the documents using the \"Save As...\" dialog.",
+              results.count(False)))))
+        
     def slotButtonShowDiff(self):
         """Called when the user clicks Show Difference."""
         docs = self.selectedDocuments() or self.allDocuments()
