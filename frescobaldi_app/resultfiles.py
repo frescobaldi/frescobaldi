@@ -109,7 +109,7 @@ class Results(plugin.DocumentPlugin):
                     files = filter(lambda fname: os.path.getmtime(fname) >= mtime, files)
                 except (OSError, IOError):
                     pass
-            return list(util.uniq(files))
+            return list(files)
         return []
     
     def is_newer(self, filename):

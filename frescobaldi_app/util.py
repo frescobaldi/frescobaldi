@@ -105,11 +105,11 @@ def files(basenames, extension = '.*'):
         for name in basenames:
             name = name.replace('[', '[[]').replace('?', '[?]').replace('*', '[*]')
             if name.endswith(('/', '\\')):
-                yield sorted(glob.iglob(name + '*' + extension), key=naturalsort)
+                yield glob.iglob(name + '*' + extension)
             else:
                 yield glob.iglob(name + extension)
-                yield sorted(glob.iglob(name + '-*[0-9]' + extension), key=naturalsort)
-    return itertools.chain.from_iterable(source())
+                yield glob.iglob(name + '-*[0-9]' + extension)
+    return sorted(uniq(itertools.chain.from_iterable(source())), key=filenamesort)
 
 
 def group_files(names, groups):
@@ -149,6 +149,12 @@ def naturalsort(text):
     
     """
     return tuple(int(s) if s.isdigit() else s for s in re.split(r'(\d+)', text))
+
+
+def filenamesort(filename):
+    """Return a key for sorting filenames."""
+    name, ext = os.path.splitext(filename)
+    return naturalsort(name), ext
 
 
 def bytes_environ(encoding='latin1'):
