@@ -251,8 +251,7 @@ class DocumentList(preferences.Group):
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("document_list")
-        self.groupCheck.setChecked(s.value("group_by_folder", False)
-            in (True, "true"))
+        self.groupCheck.setChecked(s.value("group_by_folder", False, type=bool))
 
     def saveSettings(self):
         s = QSettings()

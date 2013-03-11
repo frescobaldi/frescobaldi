@@ -292,8 +292,7 @@ class MainWindow(QMainWindow):
         defaultSize = QApplication.desktop().screen().size() * 2 / 3
         self.resize(settings.value("size", defaultSize))
         self.restoreState(settings.value('state', QByteArray()))
-        self.tabBar.setVisible(settings.value('tabbar', True)
-            not in (False, "false"))
+        self.tabBar.setVisible(settings.value('tabbar', True, type=bool))
         if os.name != "posix" and settings.value('maximized', False, type=bool):
             self.showMaximized()
         
