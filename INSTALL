@@ -45,11 +45,11 @@ module from pygame; or, as a last resort, embedding the PortMidi C-library via
 ctypes. MIDI is optional.
 
 Required:
-    Python:
+    Python (2.6 or 2.7):
         http://www.python.org/
-    Qt4:
+    Qt4 (>= 4.7):
         http://qt.nokia.com/
-    PyQt4:
+    PyQt4 (>= 4.8.3):
         http://www.riverbankcomputing.co.uk/software/pyqt/
     Poppler:
         http://poppler.freedesktop.org/
