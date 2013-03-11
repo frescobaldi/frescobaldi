@@ -132,7 +132,7 @@ class Engraver(plugin.MainWindowPlugin):
         (i.e. the document is modified and has a local filename)
         
         """
-        if QSettings().value("lilypond_settings/save_on_run", False) in (True, "true"):
+        if QSettings().value("lilypond_settings/save_on_run", False, type=bool):
             doc = self.mainwindow().currentDocument()
             if doc.isModified() and doc.url().toLocalFile():
                 doc.save()

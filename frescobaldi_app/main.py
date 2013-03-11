@@ -121,7 +121,7 @@ def main():
                 api.close()
                 sys.exit(0)
     
-        if QSettings().value("splash_screen", True) not in ("false", False):
+        if QSettings().value("splash_screen", True, type=bool):
             import splashscreen
             splashscreen.show()
 

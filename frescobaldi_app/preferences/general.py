@@ -109,8 +109,8 @@ class General(preferences.Group):
         except ValueError:
             index = 0
         self.styleCombo.setCurrentIndex(index)
-        self.systemIcons.setChecked(s.value("system_icons", True) not in (False, "false"))
-        self.splashScreen.setChecked(s.value("splash_screen", True) not in (False, "false"))
+        self.systemIcons.setChecked(s.value("system_icons", True, type=bool))
+        self.splashScreen.setChecked(s.value("splash_screen", True, type=bool))
         self.allowRemote.setChecked(remote.enabled())
     
     def saveSettings(self):
@@ -237,8 +237,8 @@ class SavingDocument(preferences.Group):
         
     def loadSettings(self):
         s = QSettings()
-        self.backup.setChecked(s.value("backup_keep", False) in (True, "true"))
-        self.metainfo.setChecked(s.value("metainfo", True) not in (False, "false"))
+        self.backup.setChecked(s.value("backup_keep", False, type=bool))
+        self.metainfo.setChecked(s.value("metainfo", True, type=bool))
         self.basedir.setPath(s.value("basedir", ""))
         
     def saveSettings(self):

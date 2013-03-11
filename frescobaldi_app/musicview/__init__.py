@@ -111,7 +111,7 @@ class MusicViewPanel(panel.Panel):
         ac.music_prev_page.setEnabled(False)
         ac.music_reload.triggered.connect(self.reloadView)
         self.actionCollection.music_sync_cursor.setChecked(
-            QSettings().value("musicview/sync_cursor", False) in (True, "true"))
+            QSettings().value("musicview/sync_cursor", False, type=bool))
                 
     def translateUI(self):
         self.setWindowTitle(_("window title", "Music View"))

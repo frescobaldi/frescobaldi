@@ -55,7 +55,7 @@ class MusicPreviewJob(job.Job):
             f.write(text.encode('utf-8'))
             
         info = lilypondinfo.preferred()
-        if QSettings().value("lilypond_settings/autoversion", True) in (True, "true"):
+        if QSettings().value("lilypond_settings/autoversion", True, type=bool):
             version = ly.parse.version(ly.lex.state('lilypond').tokens(text))
             if version:
                 info = lilypondinfo.suitable(version)

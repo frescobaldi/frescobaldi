@@ -35,7 +35,7 @@ QDir.setSearchPaths("icons", __path__)
 
 # use our icon theme (that builds on Tango) if there are no system icons
 if (not QIcon.themeName() or QIcon.themeName() == "hicolor"
-    or QSettings().value("system_icons", True) in (False, "false")):
+    or QSettings().value("system_icons", True, type=bool)):
     QIcon.setThemeSearchPaths(QIcon.themeSearchPaths() + __path__)
     QIcon.setThemeName("TangoExt")
 

@@ -104,7 +104,7 @@ class Versions(preferences.Group):
         s = settings()
         default = lilypondinfo.default()
         self._defaultCommand = s.value("default", default.command)
-        self.auto.setChecked(s.value("autoversion", False) in (True, "true"))
+        self.auto.setChecked(s.value("autoversion", False, type=bool))
         infos = sorted(lilypondinfo.infos(), key=lambda i: i.version())
         if not infos:
             infos = [default]
@@ -296,9 +296,9 @@ class Running(preferences.Group):
     
     def loadSettings(self):
         s = settings()
-        self.saveDocument.setChecked(s.value("save_on_run", False) in (True, "true"))
-        self.deleteFiles.setChecked(s.value("delete_intermediate_files", True) not in (False, "false"))
-        self.noTranslation.setChecked(s.value("no_translation", False) in (True, "true"))
+        self.saveDocument.setChecked(s.value("save_on_run", False, type=bool))
+        self.deleteFiles.setChecked(s.value("delete_intermediate_files", True, type=bool))
+        self.noTranslation.setChecked(s.value("no_translation", False, type=bool))
         self.include.setValue(s.value("include_path", []) or [])
         
     def saveSettings(self):

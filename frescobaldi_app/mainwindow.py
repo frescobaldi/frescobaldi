@@ -294,7 +294,7 @@ class MainWindow(QMainWindow):
         self.restoreState(settings.value('state', QByteArray()))
         self.tabBar.setVisible(settings.value('tabbar', True)
             not in (False, "false"))
-        if os.name != "posix" and settings.value('maximized', False) in (True, "true"):
+        if os.name != "posix" and settings.value('maximized', False, type=bool):
             self.showMaximized()
         
     def writeSettings(self):

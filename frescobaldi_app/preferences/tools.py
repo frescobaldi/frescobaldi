@@ -92,8 +92,8 @@ class LogTool(preferences.Group):
         with qutil.signalsBlocked(self.fontChooser, self.fontSize):
             self.fontChooser.setCurrentFont(font)
             self.fontSize.setValue(font.pointSizeF())
-        self.showlog.setChecked(s.value("show_on_start", True) not in (False, "false"))
-        self.rawview.setChecked(s.value("rawview", True) not in (False, "false"))
+        self.showlog.setChecked(s.value("show_on_start", True, type=bool))
+        self.rawview.setChecked(s.value("rawview", True, type=bool))
 
     def saveSettings(self):
         s = QSettings()
@@ -170,11 +170,11 @@ class MusicView(preferences.Group):
         
         s = QSettings()
         s.beginGroup("musicview")
-        newerFilesOnly = s.value("newer_files_only", True) not in (False, "false")
+        newerFilesOnly = s.value("newer_files_only", True, type=bool)
         self.newerFilesOnly.setChecked(newerFilesOnly)
-        kineticScrollingActive = s.value("kinetic_scrolling", True) not in (False, "false")
+        kineticScrollingActive = s.value("kinetic_scrolling", True, type=bool)
         self.enableKineticScrolling.setChecked(kineticScrollingActive)
-        showScrollbars = s.value("show_scrollbars", True) not in (False, "false")
+        showScrollbars = s.value("show_scrollbars", True, type=bool)
         self.showScrollbars.setChecked(showScrollbars)
     
     def saveSettings(self):

@@ -61,7 +61,7 @@ class LogWidget(log.Log):
     
     def readSettings(self):
         self._formats = self.logformats()
-        self._rawView = QSettings().value("log/rawview", True) not in (False, "false")
+        self._rawView = QSettings().value("log/rawview", True, type=bool)
         if self._document():
             self.switchDocument(self._document()) # reload
     

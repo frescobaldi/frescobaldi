@@ -56,8 +56,8 @@ class View(qpopplerview.View):
         self.readSettings()
     
     def readSettings(self):
-        kineticScrollingActive = QSettings().value("musicview/kinetic_scrolling", True) not in (False, "false")
-        scrollbarsVisible = QSettings().value("musicview/show_scrollbars", True) not in (False, "false")
+        kineticScrollingActive = QSettings().value("musicview/kinetic_scrolling", True, type=bool)
+        scrollbarsVisible = QSettings().value("musicview/show_scrollbars", True, type=bool)
         self.setKineticScrolling(kineticScrollingActive)
         self.setScrollbarsVisible(scrollbarsVisible)
         self.redraw() # because of possibly changed background color
