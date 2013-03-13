@@ -89,7 +89,7 @@ class MetaInfo(plugin.DocumentPlugin):
     def loadValue(self, name, settings=None):
         s = settings or self.settingsGroup()
         default, readfunc = _defaults[name]
-        if s and QSettings().value("metainfo", True) not in (False, 'false'):
+        if s and QSettings().value("metainfo", True, type=bool):
             self.__dict__[name] = readfunc(s.value(name, default))
         else:
             self.__dict__[name] = default

@@ -95,7 +95,7 @@ def getColor(
     options = QColorDialog.ColorDialogOptions()
     if alpha:
         options |= QColorDialog.ShowAlphaChannel
-    if QSettings().value("native_dialogs/colordialog", True) in ('false', False):
+    if not QSettings().value("native_dialogs/colordialog", True, type=bool):
         options |= QColorDialog.DontUseNativeDialog
     dlg.setOptions(options)
     dlg.setWindowTitle(title or app.caption(_("Select Color")))

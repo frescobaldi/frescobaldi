@@ -157,7 +157,7 @@ def enabled():
     
     """
     default = os.name != 'nt'
-    return QSettings().value('allow_remote', default) in (True, 'true')
+    return QSettings().value('allow_remote', default, type=bool)
 
 
 def setup():

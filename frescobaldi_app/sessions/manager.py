@@ -96,7 +96,7 @@ class SessionManager(plugin.MainWindowPlugin):
         cur = sessions.currentSession()
         if cur:
             s = sessions.sessionGroup(cur)
-            if s.value("autosave", True) not in (False, 'false'):
+            if s.value("autosave", True, type=bool):
                 self.saveCurrentSession()
     
     def saveCurrentSession(self):

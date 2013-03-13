@@ -148,7 +148,7 @@ class Prefs(preferences.Group):
 
     def loadSettings(self):
         self._closeOutputs.setChecked(
-            QSettings().value("midi/close_outputs", False) in (True, 'true'))
+            QSettings().value("midi/close_outputs", False, type=bool))
     
     def saveSettings(self):
         QSettings().setValue("midi/close_outputs", self._closeOutputs.isChecked())

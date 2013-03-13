@@ -183,11 +183,11 @@ class TextFormatData(object):
     def loadTextFormat(self, fmt, settings):
         """(Internal) Merge values from the QSettings instance into the QTextCharFormat."""
         if settings.contains('bold'):
-            fmt.setFontWeight(QFont.Bold if settings.value('bold') in (True, 'true') else QFont.Normal)
+            fmt.setFontWeight(QFont.Bold if settings.value('bold', type=bool) else QFont.Normal)
         if settings.contains('italic'):
-            fmt.setFontItalic(settings.value('italic') in (True, 'true'))
+            fmt.setFontItalic(settings.value('italic', type=bool))
         if settings.contains('underline'):
-            fmt.setFontUnderline(settings.value('underline') in (True, 'true'))
+            fmt.setFontUnderline(settings.value('underline', type=bool))
         if settings.contains('textColor'):
             fmt.setForeground(QColor(settings.value('textColor')))
         if settings.contains('backgroundColor'):

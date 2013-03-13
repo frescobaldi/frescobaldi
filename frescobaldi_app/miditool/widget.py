@@ -145,7 +145,7 @@ class Widget(QWidget):
             self._stopButton.setDefaultAction(ac.midi_restart)
             self._playButton.setDefaultAction(ac.midi_play)
             # close the output if the preference is set
-            if QSettings().value("midi/close_outputs", False) in (True, 'true'):
+            if QSettings().value("midi/close_outputs", False, type=bool):
                 self._outputCloseTimer.start()
         
     def play(self):

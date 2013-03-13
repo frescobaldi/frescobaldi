@@ -80,7 +80,7 @@ class Dialog(QDialog):
         self.messages = QTextBrowser()
         self.diff = QTextBrowser(lineWrapMode=QTextBrowser.NoWrap)
         self.copyCheck = QCheckBox(checked=
-            QSettings().value('convert_ly/copy_messages', True) not in (False, 'false'))
+            QSettings().value('convert_ly/copy_messages', True, type=bool))
         self.tabw = QTabWidget()
         
         self.tabw.addTab(self.messages, '')

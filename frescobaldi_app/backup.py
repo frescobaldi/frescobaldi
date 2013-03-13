@@ -46,7 +46,7 @@ def backup(filename):
 
 def removeBackup(filename):
     """Removes filename's backup unless the user has configured to keep it."""
-    if filename and QSettings().value("backup_keep", False) in (False, 'false'):
+    if filename and not QSettings().value("backup_keep", False, type=bool):
         try:
             os.remove(backupName(filename))
         except (IOError, OSError):
