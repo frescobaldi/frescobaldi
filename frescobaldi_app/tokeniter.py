@@ -45,11 +45,22 @@ def tokens(block):
     try:
         return block.userData().tokens
     except AttributeError:
-        highlighter.highlighter(block.document()).rehighlight()
-    try:
-        return block.userData().tokens
-    except AttributeError:
-        return ()
+        # we used to call highlighter.highlighter(block.document()).rehighlight()
+        # here, but there is a bug in PyQt-4.9.6 causing QTextBlockUserData to
+        # lose its Python attributes. So we only run the highlighter when the
+        # previous block's userState() is -1.
+        if block.blockNumber() == 0 or block.previous().userState() < -1:
+            # first (nont-empty) block, use the documents initial state
+            state = highlighter.highlighter(block.document()).initialState()
+        else:
+            if block.previous().userState() == -1:
+                highlighter.highlighter(block.document()).rehighlight()
+                try:
+                    return block.userData().tokens
+                except AttributeError:
+                    pass
+            state = highlighter.highlighter(block.document()).state(block)
+        return tuple(state.tokens(block.text()))
 
 
 def state(blockOrCursor):
