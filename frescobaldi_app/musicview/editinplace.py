@@ -101,7 +101,7 @@ class Dialog(widgets.dialog.Dialog):
         c.movePosition(QTextCursor.EndOfBlock, QTextCursor.KeepAnchor)
         self.view.setPlainText(c.selection().toPlainText())
         
-        self.highlighter.setInitialState(tokeniter.state(cursor))
+        self.highlighter.setInitialState(tokeniter.state(cursortools.block(cursor)))
         self.highlighter.setHighlighting(metainfo.info(cursor.document()).highlighting)
         self.highlighter.rehighlight()
         

@@ -63,19 +63,12 @@ def tokens(block):
         return tuple(state.tokens(block.text()))
 
 
-def state(blockOrCursor):
-    """Returns a thawn ly.lex.State() object at the beginning of the given QTextBlock.
-    
-    If the argument is a QTextCursor, uses the current block or the first block of its selection.
-    
-    """
-    if isinstance(blockOrCursor, QTextCursor):
-        block = cursortools.block(blockOrCursor)
-    else:
-        block = blockOrCursor
-    if block.userState() == -1:
-        highlighter.highlighter(block.document()).rehighlight()
-    return highlighter.highlighter(block.document()).state(block)
+def state(block):
+    """Return a thawn ly.lex.State() object at the beginning of the given QTextBlock."""
+    hl = highlighter.highlighter(block.document())
+    if block.previous().userState() == -1 and block.blockNumber() > 0:
+        hl.rehighlight()
+    return hl.state(block)
 
 
 def update(block):
