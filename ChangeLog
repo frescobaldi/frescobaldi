@@ -35,6 +35,11 @@ Changed in 2.0.9 --
     lighting in the HTML later (idea: issue #89)
 * Bug fixes:
   - Fix Save As... on Mac OS X (issue #104)
+  - Fix startup failure on Mac OS X (issue #77)
+  - Fix QPyNullVariant error messages with some PyQt versions
+  - Workaround two PyQt bugs:
+    * fix score wizard AttributeError message when using sip-4.14.3/PyQt-4.9.6
+    * fix large delays in editor when using sip-4.14.3/PyQt-4.9.6 (issue #100)
   - music highlighting of a note after \unset someVariable is now correct
   - fix Python error message when a document (marked as Always engraved) is
     engraved which didn't have yet the PDF displayed
