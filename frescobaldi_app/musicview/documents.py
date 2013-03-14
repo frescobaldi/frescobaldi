@@ -132,7 +132,7 @@ class DocumentGroup(plugin.DocumentPlugin):
         
         """
         if newer is None:
-            newer = QSettings().value("musicview/newer_files_only", True, type=bool)
+            newer = QSettings().value("musicview/newer_files_only", True, bool)
         
         results = resultfiles.results(self.document())
         files = results.files(".pdf", newer)

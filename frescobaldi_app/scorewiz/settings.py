@@ -148,15 +148,15 @@ class GeneralPreferences(QGroupBox):
     def loadSettings(self):
         s = QSettings()
         s.beginGroup('scorewiz/preferences')
-        self.typq.setChecked(s.value('typographical_quotes', True, type=bool))
-        self.tagl.setChecked(s.value('remove_tagline', False, type=bool))
-        self.barnum.setChecked(s.value('remove_barnumbers', False, type=bool))
-        self.midi.setChecked(s.value('midi', True, type=bool))
-        self.metro.setChecked(s.value('metronome_mark', False, type=bool))
+        self.typq.setChecked(s.value('typographical_quotes', True, bool))
+        self.tagl.setChecked(s.value('remove_tagline', False, bool))
+        self.barnum.setChecked(s.value('remove_barnumbers', False, bool))
+        self.midi.setChecked(s.value('midi', True, bool))
+        self.metro.setChecked(s.value('metronome_mark', False, bool))
         psize = s.value('paper_size', '')
         enable = bool(psize and psize in paperSizes)
         self.paper.setCurrentIndex(paperSizes.index(psize) if enable else 0)
-        self.paperLandscape.setChecked(s.value('paper_landscape', False, type=bool))
+        self.paperLandscape.setChecked(s.value('paper_landscape', False, bool))
         self.paperLandscape.setEnabled(enable)
 
     def saveSettings(self):
@@ -243,7 +243,7 @@ class InstrumentNames(QGroupBox):
     def loadSettings(self):
         s = QSettings()
         s.beginGroup('scorewiz/instrumentnames')
-        self.setChecked(s.value('enabled', True, type=bool))
+        self.setChecked(s.value('enabled', True, bool))
         allow = ['long', 'short']
         first = s.value('first', '')
         self.firstSystem.setCurrentIndex(allow.index(first) if first in allow else 0)

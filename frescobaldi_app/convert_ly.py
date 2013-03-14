@@ -80,7 +80,7 @@ class Dialog(QDialog):
         self.messages = QTextBrowser()
         self.diff = QTextBrowser(lineWrapMode=QTextBrowser.NoWrap)
         self.copyCheck = QCheckBox(checked=
-            QSettings().value('convert_ly/copy_messages', True, type=bool))
+            QSettings().value('convert_ly/copy_messages', True, bool))
         self.tabw = QTabWidget()
         
         self.tabw.addTab(self.messages, '')
@@ -194,7 +194,7 @@ class Dialog(QDialog):
         
         # if the user wants english messages, do it also here: LANGUAGE=C
         env = None
-        if QSettings().value("lilypond_settings/no_translation", False, type=bool):
+        if QSettings().value("lilypond_settings/no_translation", False, bool):
             if os.name == "nt":
                 # Python 2.7 subprocess on Windows chokes on unicode in env
                 env = util.bytes_environ()

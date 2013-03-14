@@ -121,7 +121,7 @@ def main():
                 api.close()
                 sys.exit(0)
     
-        if QSettings().value("splash_screen", True, type=bool):
+        if QSettings().value("splash_screen", True, bool):
             import splashscreen
             splashscreen.show()
 

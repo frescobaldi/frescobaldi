@@ -59,7 +59,7 @@ class LogTool(panel.Panel):
         import jobattributes
         if doc == self.mainwindow().currentDocument() or self.mainwindow() == jobattributes.get(job).mainwindow:
             self.widget().switchDocument(doc)
-            if QSettings().value("log/show_on_start", True, type=bool):
+            if QSettings().value("log/show_on_start", True, bool):
                 self.show()
 
     def slotJobFinished(self, document, job, success):

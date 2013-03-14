@@ -71,7 +71,7 @@ class Widget(QTreeWidget):
         self.populate()
     
     def populate(self):
-        self._group = QSettings().value("document_list/group_by_folder", False, type=bool)
+        self._group = QSettings().value("document_list/group_by_folder", False, bool)
         self.clear()
         self._paths = {}
         self._items = {}

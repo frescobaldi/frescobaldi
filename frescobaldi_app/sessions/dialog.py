@@ -118,7 +118,7 @@ class SessionEditor(QDialog):
     
     def load(self, name):
         settings = sessions.sessionGroup(name)
-        self.autosave.setChecked(settings.value("autosave", True, type=bool))
+        self.autosave.setChecked(settings.value("autosave", True, bool))
         self.basedir.setPath(settings.value("basedir", ""))
         # more settings here
         

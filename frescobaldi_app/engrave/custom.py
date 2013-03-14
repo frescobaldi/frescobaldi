@@ -104,9 +104,9 @@ class Dialog(QDialog):
         s = QSettings()
         s.beginGroup("lilypond_settings")
         self.englishCheck.setChecked(
-            s.value("no_translation", False, type=bool))
+            s.value("no_translation", False, bool))
         self.deleteCheck.setChecked(
-            s.value("delete_intermediate_files", True, type=bool))
+            s.value("delete_intermediate_files", True, bool))
         
         self.loadLilyPondVersions()
         self.selectLilyPondInfo(lilypondinfo.preferred())

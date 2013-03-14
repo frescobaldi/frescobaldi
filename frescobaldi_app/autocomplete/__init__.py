@@ -41,7 +41,7 @@ class CompleterManager(plugin.MainWindowPlugin):
         mainwindow.currentViewChanged.connect(self.setView)
         if mainwindow.currentView():
             self.setView(mainwindow.currentView())
-        complete = QSettings().value("autocomplete", True, type=bool)
+        complete = QSettings().value("autocomplete", True, bool)
         ac.autocomplete.setChecked(complete)
     
     def setView(self, view):

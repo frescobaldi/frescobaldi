@@ -92,8 +92,8 @@ class LogTool(preferences.Group):
         with qutil.signalsBlocked(self.fontChooser, self.fontSize):
             self.fontChooser.setCurrentFont(font)
             self.fontSize.setValue(font.pointSizeF())
-        self.showlog.setChecked(s.value("show_on_start", True, type=bool))
-        self.rawview.setChecked(s.value("rawview", True, type=bool))
+        self.showlog.setChecked(s.value("show_on_start", True, bool))
+        self.rawview.setChecked(s.value("rawview", True, bool))
 
     def saveSettings(self):
         s = QSettings()
@@ -170,11 +170,11 @@ class MusicView(preferences.Group):
         
         s = QSettings()
         s.beginGroup("musicview")
-        newerFilesOnly = s.value("newer_files_only", True, type=bool)
+        newerFilesOnly = s.value("newer_files_only", True, bool)
         self.newerFilesOnly.setChecked(newerFilesOnly)
-        kineticScrollingActive = s.value("kinetic_scrolling", True, type=bool)
+        kineticScrollingActive = s.value("kinetic_scrolling", True, bool)
         self.enableKineticScrolling.setChecked(kineticScrollingActive)
-        showScrollbars = s.value("show_scrollbars", True, type=bool)
+        showScrollbars = s.value("show_scrollbars", True, bool)
         self.showScrollbars.setChecked(showScrollbars)
     
     def saveSettings(self):
@@ -251,7 +251,7 @@ class DocumentList(preferences.Group):
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("document_list")
-        self.groupCheck.setChecked(s.value("group_by_folder", False, type=bool))
+        self.groupCheck.setChecked(s.value("group_by_folder", False, bool))
 
     def saveSettings(self):
         s = QSettings()

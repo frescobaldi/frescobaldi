@@ -246,7 +246,7 @@ class LilyPondInfo(object):
         if cmd:
             info = cls(cmd)
             if info.abscommand.wait():
-                info.auto = settings.value("auto", True, type=bool)
+                info.auto = settings.value("auto", True, bool)
                 info.lilypond_book = settings.value("lilypond-book", "lilypond-book")
                 info.convert_ly = settings.value("convert-ly", "convert-ly")
                 if int(os.path.getmtime(info.abscommand())) == int(float(settings.value("mtime", 0))):

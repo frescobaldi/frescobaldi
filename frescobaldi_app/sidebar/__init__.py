@@ -142,9 +142,9 @@ class ViewSpaceSideBarManager(plugin.ViewSpacePlugin):
         """Loads the settings from config."""
         s = QSettings()
         s.beginGroup("sidebar")
-        line_numbers = s.value("line_numbers", self._line_numbers, type=bool)
+        line_numbers = s.value("line_numbers", self._line_numbers, bool)
         self.setLineNumbersVisible(line_numbers)
-        folding = s.value("folding", self._folding, type=bool)
+        folding = s.value("folding", self._folding, bool)
         self.setFoldingVisible(folding)
     
     def saveSettings(self):

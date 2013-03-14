@@ -35,7 +35,7 @@ from PyQt4.QtCore import QSettings, QTimer
 
 def enabled():
     """Return whether watching documents is enabled by the user."""
-    return QSettings().value("externalchanges/enabled", True, type=bool)
+    return QSettings().value("externalchanges/enabled", True, bool)
 
 
 def setEnabled(enable):

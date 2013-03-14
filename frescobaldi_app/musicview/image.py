@@ -149,8 +149,8 @@ class Dialog(QDialog):
         s.beginGroup('copy_image')
         self.dpiCombo.setEditText(s.value("dpi", "100", type("")))
         self.colorButton.setColor(s.value("papercolor", QColor(Qt.white), QColor))
-        self.crop.setChecked(s.value("autocrop", False, type=bool))
-        self.antialias.setChecked(s.value("antialias", True, type=bool))
+        self.crop.setChecked(s.value("autocrop", False, bool))
+        self.antialias.setChecked(s.value("antialias", True, bool))
     
     def writeSettings(self):
         s = QSettings()

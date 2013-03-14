@@ -35,7 +35,7 @@ import lilypondinfo
 def info(document):
     """Returns a LilyPondInfo instance that should be used by default to engrave the document."""
     version = documentinfo.info(document).version()
-    if version and QSettings().value("lilypond_settings/autoversion", False, type=bool):
+    if version and QSettings().value("lilypond_settings/autoversion", False, bool):
         return lilypondinfo.suitable(version)
     return lilypondinfo.preferred()
         
@@ -50,7 +50,7 @@ def defaultJob(document, preview):
     command = [i.command]
     s = QSettings()
     s.beginGroup("lilypond_settings")
-    if s.value("delete_intermediate_files", True, type=bool):
+    if s.value("delete_intermediate_files", True, bool):
         command.append('-ddelete-intermediate-files')
     else:
         command.append('-dno-delete-intermediate-files')
@@ -60,7 +60,7 @@ def defaultJob(document, preview):
     j.directory = os.path.dirname(filename)
     command.append(filename)
     j.command = command
-    if s.value("no_translation", False, type=bool):
+    if s.value("no_translation", False, bool):
         j.environment['LANG'] = 'C'
     j.setTitle("{0} {1} [{2}]".format(
         os.path.basename(i.command), i.versionString(), document.documentName()))
