@@ -41,7 +41,7 @@ def current():
     is desired.
     
     """
-    language = QSettings().value("language", "")
+    language = QSettings().value("language", "", type=type(""))
     if not language:
         try:
             language = locale.getdefaultlocale()[0]
