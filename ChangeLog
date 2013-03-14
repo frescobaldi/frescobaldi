@@ -34,6 +34,7 @@ Changed in 2.0.9 --
   - Export colored HTML now uses CSS classes, makes it easy to change the high-
     lighting in the HTML later (idea: issue #89)
 * Bug fixes:
+  - Fix Save As... on Mac OS X (issue #104)
   - music highlighting of a note after \unset someVariable is now correct
   - fix Python error message when a document (marked as Always engraved) is
     engraved which didn't have yet the PDF displayed
