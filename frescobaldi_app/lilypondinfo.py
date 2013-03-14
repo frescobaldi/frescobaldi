@@ -101,7 +101,7 @@ def preferred():
     s.beginGroup("lilypond_settings")
     # find default version
     defaultCommand = "lilypond-windows.exe" if os.name == "nt" else "lilypond"
-    userDefault = s.value("default", defaultCommand)
+    userDefault = s.value("default", defaultCommand, type(""))
     if userDefault != defaultCommand:
         for info in infos_:
             if info.command == userDefault:
@@ -242,18 +242,18 @@ class LilyPondInfo(object):
         May return None, if the command is not existing.
         
         """
-        cmd = settings.value("command", "")
+        cmd = settings.value("command", "", type(""))
         if cmd:
             info = cls(cmd)
             if info.abscommand.wait():
                 info.auto = settings.value("auto", True, bool)
-                info.lilypond_book = settings.value("lilypond-book", "lilypond-book")
-                info.convert_ly = settings.value("convert-ly", "convert-ly")
-                if int(os.path.getmtime(info.abscommand())) == int(float(settings.value("mtime", 0))):
-                    info.versionString = settings.value("version")
-                    datadir = settings.value("datadir")
+                info.lilypond_book = settings.value("lilypond-book", "lilypond-book", type(""))
+                info.convert_ly = settings.value("convert-ly", "convert-ly", type(""))
+                if int(os.path.getmtime(info.abscommand())) == int(settings.value("mtime", 0, float)):
+                    info.versionString = settings.value("version", "", type(""))
+                    datadir = settings.value("datadir", "", type(""))
                     if datadir and os.path.isdir(datadir):
-                        info.datadir = settings.value("datadir")
+                        info.datadir = datadir
                 return info
 
     def write(self, settings):

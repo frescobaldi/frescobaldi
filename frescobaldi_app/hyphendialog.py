@@ -67,7 +67,10 @@ def directories():
     
     def gen():
         # if the path is not absolute, add it to all prefixes.
-        for path in settings().value("paths", default_paths) or []:
+        paths = settings().value("paths", default_paths, type(""))
+        if isinstance(paths, type("")):
+            paths = [paths]
+        for path in paths:
             if os.path.isabs(path):
                 yield path
             else:
@@ -122,7 +125,7 @@ class HyphenDialog(QDialog):
             self.listWidget.addItem("{0}  ({1})".format(name, lang))
             
         def select():
-            lastused = settings().value("lastused")
+            lastused = settings().value("lastused", "", type(""))
             if lastused:
                 yield lastused
             try:

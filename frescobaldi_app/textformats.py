@@ -36,11 +36,11 @@ import app
 # requested again.
 
 
-def formatData(type):
+def formatData(format_type):
     """Return a TextFormatData instance of type 'editor' or 'printer'."""
-    if _currentData[type] is None:
-        _currentData[type] = TextFormatData(QSettings().value('{0}_scheme'.format(type), 'default'))
-    return _currentData[type]
+    if _currentData[format_type] is None:
+        _currentData[format_type] = TextFormatData(QSettings().value('{0}_scheme'.format(format_type), 'default', type('')))
+    return _currentData[format_type]
 
 def _resetFormatData():
     global _currentData
@@ -70,8 +70,8 @@ class TextFormatData(object):
         
         # load font
         defaultfont = "Lucida Console" if os.name == "nt" else "monospace"
-        self.font = QFont(s.value("fontfamily", defaultfont))
-        self.font.setPointSizeF(float(s.value("fontsize", 10.0)))
+        self.font = QFont(s.value("fontfamily", defaultfont, type("")))
+        self.font.setPointSizeF(s.value("fontsize", 10.0, float))
         
         # load base colors
         s.beginGroup("basecolors")

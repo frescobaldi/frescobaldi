@@ -290,8 +290,8 @@ class MainWindow(QMainWindow):
         settings = QSettings()
         settings.beginGroup('mainwindow')
         defaultSize = QApplication.desktop().screen().size() * 2 / 3
-        self.resize(settings.value("size", defaultSize))
-        self.restoreState(settings.value('state', QByteArray()))
+        self.resize(settings.value("size", defaultSize, QSize))
+        self.restoreState(settings.value('state', QByteArray(), QByteArray))
         self.tabBar.setVisible(settings.value('tabbar', True, bool))
         if os.name != "posix" and settings.value('maximized', False, bool):
             self.showMaximized()
@@ -315,11 +315,11 @@ class MainWindow(QMainWindow):
         preserve stacking order, etc.
         
         """
-        name = settings.value('name', '')
+        name = settings.value('name', '', type(""))
         if name:
             self.setObjectName(name)
-        self.restoreGeometry(settings.value('geometry', QByteArray()))
-        self.restoreState(settings.value('state', QByteArray()))
+        self.restoreGeometry(settings.value('geometry', QByteArray(), QByteArray))
+        self.restoreState(settings.value('state', QByteArray(), QByteArray))
         
     def writeSessionSettings(self, settings):
         """Write our state to the session manager settings.
