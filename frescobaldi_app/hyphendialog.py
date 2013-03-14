@@ -68,8 +68,6 @@ def directories():
     def gen():
         # if the path is not absolute, add it to all prefixes.
         paths = settings().value("paths", default_paths, type(""))
-        if isinstance(paths, type("")):
-            paths = [paths]
         for path in paths:
             if os.path.isabs(path):
                 yield path

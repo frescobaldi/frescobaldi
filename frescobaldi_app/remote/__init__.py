@@ -145,7 +145,7 @@ def ensure_bytes(s):
     If s is a unicode string, it is encoded using the filesystem encoding.
     
     """
-    if type(s) is type(''):
+    if type(s) is type(""):
         s = s.encode(sys.getfilesystemencoding() or 'utf-8', 'ignore')
     return s
 

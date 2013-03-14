@@ -68,7 +68,7 @@ def credits():
     yield _(
         "{appname} is translated into the following languages:").format(
         appname=info.appname)
-    lang = QSettings().value("language", "") or None
+    lang = QSettings().value("language", "", type("")) or None
     langs = [(language_names.languageName(code, lang), names)
              for code, names in info.translators.items()]
     for lang, names in sorted(langs):

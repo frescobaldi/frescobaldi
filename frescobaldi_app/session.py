@@ -89,7 +89,7 @@ def restoreSession():
     """Restore a session saved by the session manager."""
     settings = sessionSettings()
     settings.beginGroup(sessionKey())
-    for index in range(int(settings.value('numwindows', 0))):
+    for index in range(settings.value('numwindows', 0, int)):
         settings.beginGroup("mainwindow{0}".format(index))
         win = mainwindow.MainWindow()
         win.readSessionSettings(settings)

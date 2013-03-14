@@ -45,7 +45,7 @@ def saveDialogSize(dialog, key, default=QSize()):
     widgets are instantiated.
     
     """
-    size = QSettings().value(key, default)
+    size = QSettings().value(key, default, QSize)
     if size:
         dialog.resize(size)
     dialogref = weakref.ref(dialog)

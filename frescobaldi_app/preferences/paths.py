@@ -61,7 +61,7 @@ class HyphenPaths(preferences.Group):
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("hyphenation")
-        self.listedit.setValue(s.value("paths", []) or [])
+        self.listedit.setValue(s.value("paths", [], type("")))
         
     def saveSettings(self):
         s = QSettings()

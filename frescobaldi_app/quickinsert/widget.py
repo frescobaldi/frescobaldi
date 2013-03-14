@@ -85,7 +85,7 @@ class QuickInsert(QWidget):
         help.openWhatsThis(self)
         
         # restore remembered current page
-        name = QSettings().value("quickinsert/current_tool", "")
+        name = QSettings().value("quickinsert/current_tool", "", type(""))
         if name:
             for i in range(self.toolbox.count()):
                 if name == self.toolbox.widget(i).__class__.__name__.lower():

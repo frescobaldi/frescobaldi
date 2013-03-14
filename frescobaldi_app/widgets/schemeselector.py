@@ -107,7 +107,7 @@ class SchemeSelector(QWidget):
         self._schemesToRemove = set()
         
         s = QSettings()
-        cur = s.value(currentKey, "default")
+        cur = s.value(currentKey, "default", type(""))
         
         # load the names for the shortcut schemes
         s.beginGroup(namesGroup)
@@ -115,7 +115,7 @@ class SchemeSelector(QWidget):
         self._schemeNames = [_("Default")]
         for key in s.childKeys():
             self._schemes.append(key)
-            self._schemeNames.append(s.value(key, key))
+            self._schemeNames.append(s.value(key, key, type("")))
         block = self.scheme.blockSignals(True)
         self.scheme.clear()
         self.scheme.addItems(self._schemeNames)

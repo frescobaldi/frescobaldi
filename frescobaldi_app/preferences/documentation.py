@@ -79,8 +79,6 @@ class Paths(preferences.Group):
     
     def loadSettings(self):
         paths = QSettings().value("documentation/paths", [], type(""))
-        if isinstance(paths, type("")):
-            paths = [paths]
         self.paths.setValue(paths)
         
     def saveSettings(self):

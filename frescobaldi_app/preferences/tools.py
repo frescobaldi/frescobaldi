@@ -219,10 +219,10 @@ class CharMap(preferences.Group):
         s = QSettings()
         s.beginGroup("charmaptool")
         font = self.font()
-        family = s.value("fontfamily", "")
+        family = s.value("fontfamily", "", type(""))
         if family:
             font.setFamily(family)
-        font.setPointSizeF(float(s.value("fontsize", font.pointSizeF())))
+        font.setPointSizeF(s.value("fontsize", font.pointSizeF(), float))
         with qutil.signalsBlocked(self.fontChooser, self.fontSize):
             self.fontChooser.setCurrentFont(font)
             self.fontSize.setValue(font.pointSizeF())

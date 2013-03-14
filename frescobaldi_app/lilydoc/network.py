@@ -53,11 +53,11 @@ def langs():
     
     """
     s = QSettings()
-    lang = s.value("documentation/language", "default")
+    lang = s.value("documentation/language", "default", type(""))
     if lang == "C":
         return []
     elif lang == "default":
-        lang = s.value("language", "")
+        lang = s.value("language", "", type(""))
         if not lang:
             try:
                 lang = locale.getdefaultlocale()[0]

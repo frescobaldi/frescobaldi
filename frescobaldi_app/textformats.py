@@ -39,7 +39,7 @@ import app
 def formatData(format_type):
     """Return a TextFormatData instance of type 'editor' or 'printer'."""
     if _currentData[format_type] is None:
-        _currentData[format_type] = TextFormatData(QSettings().value('{0}_scheme'.format(format_type), 'default', type('')))
+        _currentData[format_type] = TextFormatData(QSettings().value('{0}_scheme'.format(format_type), 'default', type("")))
     return _currentData[format_type]
 
 def _resetFormatData():
@@ -77,7 +77,7 @@ class TextFormatData(object):
         s.beginGroup("basecolors")
         for name in baseColors:
             if s.contains(name):
-                self.baseColors[name] = QColor(s.value(name))
+                self.baseColors[name] = QColor(s.value(name, "", type("")))
             else:
                 self.baseColors[name] = baseColorDefaults[name]()
         s.endGroup()
@@ -189,11 +189,11 @@ class TextFormatData(object):
         if settings.contains('underline'):
             fmt.setFontUnderline(settings.value('underline', False, bool))
         if settings.contains('textColor'):
-            fmt.setForeground(QColor(settings.value('textColor', '' , type(''))))
+            fmt.setForeground(QColor(settings.value('textColor', '' , type(""))))
         if settings.contains('backgroundColor'):
-            fmt.setBackground(QColor(settings.value('backgroundColor', '' , type(''))))
+            fmt.setBackground(QColor(settings.value('backgroundColor', '' , type(""))))
         if settings.contains('underlineColor'):
-            fmt.setUnderlineColor(QColor(settings.value('underlineColor', '' , type(''))))
+            fmt.setUnderlineColor(QColor(settings.value('underlineColor', '' , type(""))))
 
 
 
