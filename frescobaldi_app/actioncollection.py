@@ -99,7 +99,7 @@ class ActionCollectionBase(object):
     def settingsGroup(self):
         """Returns settings group to load/save shortcuts from or to."""
         s = QSettings()
-        scheme = s.value("shortcut_scheme", "default")
+        scheme = s.value("shortcut_scheme", "default", type(""))
         s.beginGroup("shortcuts/{0}/{1}".format(scheme, self.name))
         return s
         
@@ -168,7 +168,7 @@ class ActionCollection(ActionCollectionBase):
         keys = settings.allKeys()
         for name in keys:
             try:
-                self._actions[name].setShortcuts([QKeySequence(s) for s in settings.value(name) or []])
+                self._actions[name].setShortcuts(settings.value(name, [], QKeySequence))
             except KeyError:
                 settings.remove(name)
         if restoreDefaults:
@@ -230,7 +230,7 @@ class ShortcutCollection(ActionCollectionBase):
         # then load
         settings = self.settingsGroup()
         for name in settings.allKeys():
-            shortcuts = [QKeySequence(s) for s in settings.value(name) or []]
+            shortcuts = settings.value(name, [], QKeySequence)
             if not shortcuts:
                 if not self.removeAction(name):
                     # if it did not exist, remove key from config

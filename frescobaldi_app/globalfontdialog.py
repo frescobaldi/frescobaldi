@@ -105,11 +105,11 @@ class GlobalFontDialog(widgets.dialog.Dialog):
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("global_font_dialog")
-        roman = s.value("roman", "Century Schoolbook L")
+        roman = s.value("roman", "Century Schoolbook L", type(""))
         self.romanCombo.setCurrentFont(QFont(roman))
-        sans = s.value("sans", "sans-serif")
+        sans = s.value("sans", "sans-serif", type(""))
         self.sansCombo.setCurrentFont(QFont(sans))
-        typewriter = s.value("typewriter", "monospace")
+        typewriter = s.value("typewriter", "monospace", type(""))
         self.typewriterCombo.setCurrentFont(QFont(typewriter))
     
     def saveSettings(self):

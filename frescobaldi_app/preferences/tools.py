@@ -87,8 +87,8 @@ class LogTool(preferences.Group):
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("log")
-        font = QFont(s.value("fontfamily", "monospace"))
-        font.setPointSizeF(float(s.value("fontsize", 9.0)))
+        font = QFont(s.value("fontfamily", "monospace", type("")))
+        font.setPointSizeF(s.value("fontsize", 9.0, float))
         with qutil.signalsBlocked(self.fontChooser, self.fontSize):
             self.fontChooser.setCurrentFont(font)
             self.fontSize.setValue(font.pointSizeF())

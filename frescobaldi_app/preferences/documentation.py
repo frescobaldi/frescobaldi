@@ -78,7 +78,10 @@ class Paths(preferences.Group):
             "them.</p>").format(documentation="Documentation"))
     
     def loadSettings(self):
-        self.paths.setValue(QSettings().value("documentation/paths", []) or [])
+        paths = QSettings().value("documentation/paths", [], type(""))
+        if isinstance(paths, type("")):
+            paths = [paths]
+        self.paths.setValue(paths)
         
     def saveSettings(self):
         s = QSettings()
@@ -128,7 +131,7 @@ class Browser(preferences.Group):
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("documentation")
-        lang = s.value("language", "default")
+        lang = s.value("language", "default", type(""))
         if lang in lilydoc.translations:
             i = lilydoc.translations.index(lang) + 2
         elif lang == "C":
@@ -138,10 +141,10 @@ class Browser(preferences.Group):
         self.languages.setCurrentIndex(i)
         
         font = self.font()
-        family = s.value("fontfamily", "")
+        family = s.value("fontfamily", "", type(""))
         if family:
             font.setFamily(family)
-        size = int(s.value("fontsize", 16))
+        size = s.value("fontsize", 16, int)
         with qutil.signalsBlocked(self.fontChooser, self.fontSize):
             self.fontChooser.setCurrentFont(font)
             self.fontSize.setValue(size)
