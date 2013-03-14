@@ -109,6 +109,6 @@ def prune():
     s = app.settings('metainfo')
     month_ago = time.time() - 31 * 24 * 3600
     for key in s.childGroups():
-        if float(s.value(key + "/time", 0.0)) < month_ago:
+        if s.value(key + "/time", 0.0, float) < month_ago:
             s.remove(key)
 
