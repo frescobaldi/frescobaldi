@@ -169,7 +169,7 @@ def from_cursor(cursor, state=None, first=1):
     """Yields block, tokens starting at the cursor position.
     
     If state is given, it should be the state at the start of the block
-    the selection begins. (Use state(cursor) to get that.)
+    the selection begins. (Use state(cursor.block()) to get that.)
     
     If first is -1: starts with the token that touches the cursor at the right
     If first is 0: starts with the token that overlaps the cursor
@@ -216,7 +216,7 @@ def selection(cursor, state=None, partial=True):
             do_something() ...
     
     If state is given, it should be the state at the start of the block
-    the selection begins. (Use state(cursor) to get that.)
+    the selection begins. (Use state(cursor.block()) to get that.)
     
     If partial is True (the default), also tokens that are partially inside
     the selection are yielded.
@@ -378,35 +378,35 @@ class Source(object):
     def from_cursor(cls, cursor, state=None, first=1):
         """Initializes a source object with a from_cursor generator.
         
-        If state is True, the state(cursor) module function is called and the
+        If state is True, the state(block) module function is called and the
         result is put in the state attribute. Otherwise state is just passed to
         the global from_cursor() function.
         See the documentation for the global from_cursor() function.
         
         """
         if state is True:
-            state = globals()['state'](cursor)
+            state = globals()['state'](cursor.block())
         return cls(from_cursor(cursor, state, first), state)
     
     @classmethod
     def selection(cls, cursor, state=None, partial=True):
         """Initializes a source object with a from_cursor generator.
         
-        If state is True, the state(cursor) module function is called and the
+        If state is True, the state(block) module function is called and the
         result is put in the state attribute. Otherwise state is just passed to
         the global selection() function.
         See the documentation for the global selection() function.
         
         """
         if state is True:
-            state = globals()['state'](cursor)
+            state = globals()['state'](cursor.block())
         return cls(selection(cursor, state, partial), state)
 
     @classmethod
     def document(cls, cursor, state=None):
         """Initializes a source object with a document generator.
         
-        If state is True, the state(cursor) module function is called and the
+        If state is True, the state(block) module function is called and the
         result is put in the state attribute. Otherwise state is just passed to
         the global document() function.
         See the documentation for the global document() function.
