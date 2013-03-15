@@ -49,22 +49,11 @@ def tokens(block):
         # here, but there is a bug in PyQt-4.9.6 causing QTextBlockUserData to
         # lose its Python attributes. So we only run the highlighter when the
         # previous block's userState() is -1.
-        if block.blockNumber() == 0 or block.previous().userState() < -1:
-            # first (nont-empty) block, use the documents initial state
-            state = highlighter.highlighter(block.document()).initialState()
-        else:
-            if block.previous().userState() == -1:
-                highlighter.highlighter(block.document()).rehighlight()
-                try:
-                    return block.userData().tokens
-                except AttributeError:
-                    pass
-            state = highlighter.highlighter(block.document()).state(block)
-        return tuple(state.tokens(block.text()))
+        return tuple(state(block).tokens(block.text()))
 
 
 def state(block):
-    """Return a thawn ly.lex.State() object at the beginning of the given QTextBlock."""
+    """Return the ly.lex.State() object at the beginning of the given QTextBlock."""
     hl = highlighter.highlighter(block.document())
     if block.previous().userState() == -1 and block.blockNumber() > 0:
         hl.rehighlight()
