@@ -20,6 +20,8 @@ Changed in 2.0.9 --
     re-checks for updated PDF documents. If there are no updated PDFs it even
     tries to load non up-to-date PDFs (regardless of the setting above)
   - New --list-sessions commandline option to list the named sessions
+  - New actions View->Matching Pair and Select Matching Pair to jump to or
+    select the range of matching parentheses, braces etc.
   - Quick Insert: \melisma, \melismaEnd spanner button (idea: issue #88)
 * Improvements:
   - Custom defined markup commands are also auto-completed
