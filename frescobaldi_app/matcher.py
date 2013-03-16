@@ -79,6 +79,33 @@ class Matcher(AbstractMatcher, plugin.MainWindowPlugin):
     def highlighter(self):
         return viewhighlighter.highlighter(self.view())
 
+    def moveto_match(self):
+        """Jump to the matching token."""
+        self.goto_match(False)
+        
+    def select_match(self):
+        """Select from the current to the matching token."""
+        self.goto_match(True)
+        
+    def goto_match(self, select=False):
+        """Jump to the matching token, selecting the text if select is True."""
+        cursor = self.view().textCursor()
+        cursors = matches(cursor)
+        if len(cursors) < 2:
+            return
+        if select:
+            if cursors[0].position() > cursors[1].position():
+                start, end = cursors[1].selectionStart(), cursors[0].selectionEnd()
+                cursor.setPosition(end)
+                cursor.setPosition(start, cursor.KeepAnchor)
+            else:
+                start, end = cursors[0].selectionStart(), cursors[1].selectionEnd()
+                cursor.setPosition(start)
+                cursor.setPosition(end, cursor.KeepAnchor)
+        else:
+            cursor.setPosition(cursors[1].selectionStart())
+        self.view().setTextCursor(cursor)
+
 
 def matches(cursor, view=None):
     """Return a list of zero to two cursors specifing matching tokens.
