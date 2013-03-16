@@ -59,6 +59,22 @@ def main():
 """),
 
 
+'remove_matching_pair': T(_("Delete Matching Pair"),
+r"""-*- python; indent: no;
+
+import cursortools
+import matcher
+
+def main():
+    cursors = matcher.matches(cursor)
+    if cursors:
+        with cursortools.compress_undo(cursor):
+            for c in cursors:
+                c.removeSelectedText()
+
+"""),
+
+
 'next_blank_line': T(_("Next Blank Line"),
 r"""-*- python; indent: no;
 
