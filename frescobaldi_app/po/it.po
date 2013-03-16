@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-03-09 23:07+0100\n"
+"POT-Creation-Date: 2013-03-16 16:05+0100\n"
 "PO-Revision-Date: 2012-05-08 15:57+0200\n"
 "Last-Translator: .billyBoh <billyboh@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -256,7 +256,7 @@ msgstr "Taglia e assegna"
 msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr "Inserire il nome della variabile a cui assegnare il testo selezionato:"
 
-#: ../document.py:158 ../doclist/widget.py:133 ../snippet/edit.py:178
+#: ../document.py:158 ../doclist/widget.py:132 ../snippet/edit.py:178
 msgid "Untitled"
 msgstr "Senza nome"
 
@@ -293,16 +293,16 @@ msgstr "&Ordina indentazione"
 msgid "&Update with convert-ly..."
 msgstr "&Aggiorna con convert-ly"
 
-#: ../documentcontextmenu.py:67 ../mainwindow.py:984
+#: ../documentcontextmenu.py:67 ../mainwindow.py:982
 #: ../sessions/manager.py:127
 msgid "&Save"
 msgstr "&Salva"
 
-#: ../documentcontextmenu.py:68 ../mainwindow.py:985
+#: ../documentcontextmenu.py:68 ../mainwindow.py:983
 msgid "Save &As..."
 msgstr "&Salva come..."
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:995
+#: ../documentcontextmenu.py:69 ../mainwindow.py:993
 msgid "&Close"
 msgstr "&Chiudi"
 
@@ -370,9 +370,9 @@ msgid "Staff Size:"
 msgstr "Dimensione del rigo:"
 
 #. L10N: a basic type of input in the editor
-#: ../helpers.py:101 ../mainwindow.py:391 ../mainwindow.py:397
-#: ../mainwindow.py:422 ../mainwindow.py:473 ../mainwindow.py:565
-#: ../mainwindow.py:625 ../externalchanges/widget.py:243
+#: ../helpers.py:101 ../mainwindow.py:389 ../mainwindow.py:395
+#: ../mainwindow.py:420 ../mainwindow.py:471 ../mainwindow.py:563
+#: ../mainwindow.py:623 ../externalchanges/widget.py:243
 #: ../musicview/image.py:214 ../preferences/fontscolors.py:476
 #: ../preferences/fontscolors.py:514 ../snippet/import_export.py:105
 #: ../snippet/widget.py:319
@@ -417,37 +417,37 @@ msgstr "Modifica successiva"
 msgid "Top"
 msgstr "Inizio"
 
-#: ../hyphendialog.py:114
+#: ../hyphendialog.py:115
 msgid "Hyphenate Lyrics Text"
 msgstr "Dividi in sillabe le parole"
 
-#: ../hyphendialog.py:115
+#: ../hyphendialog.py:116
 msgid "Please select a language:"
 msgstr "Scegliere la lingua:"
 
-#: ../hyphendialog.py:157 ../hyphendialog.py:164
+#: ../hyphendialog.py:158 ../hyphendialog.py:165
 msgid "Lyrics"
 msgstr "Parole"
 
-#: ../hyphendialog.py:164 ../pitch/pitch.py:744 ../rhythm/rhythm.py:279
+#: ../hyphendialog.py:165 ../pitch/pitch.py:744 ../rhythm/rhythm.py:279
 #: ../scorewiz/dialog.py:192
 msgctxt "menu title"
 msgid "Tools"
 msgstr "Strumenti"
 
-#: ../hyphendialog.py:165 ../help/contents.py:138 ../help/contents.py:145
+#: ../hyphendialog.py:166 ../help/contents.py:138 ../help/contents.py:145
 #: ../help/contents.py:265
 msgctxt "menu title"
 msgid "Edit"
 msgstr "Modifica"
 
-#: ../hyphendialog.py:165 ../help/contents.py:139 ../help/contents.py:256
+#: ../hyphendialog.py:166 ../help/contents.py:139 ../help/contents.py:256
 #: ../preferences/__init__.py:106 ../preferences/midi.py:134
 #: ../preferences/prefshelp.py:32 ../preferences/prefshelp.py:38
 msgid "Preferences"
 msgstr "Preferenze"
 
-#: ../hyphendialog.py:167
+#: ../hyphendialog.py:168
 msgid ""
 "<p>\n"
 "Frescobaldi can automatically place hyphens '{hyphen}' inside texts to make\n"
@@ -604,16 +604,16 @@ msgid "Always start a new instance"
 msgstr "Avvia sempre una nuova istanza"
 
 #. L10N: state of document in window titlebar
-#: ../mainwindow.py:227 ../externalchanges/widget.py:159
+#: ../mainwindow.py:226 ../externalchanges/widget.py:159
 msgid "[modified]"
 msgstr "[modificato]"
 
-#: ../mainwindow.py:270
+#: ../mainwindow.py:269
 msgctxt "dialog title"
 msgid "Close Document"
 msgstr "Chiudi il documento"
 
-#: ../mainwindow.py:271
+#: ../mainwindow.py:270
 msgid ""
 "The document \"{name}\" has been modified.\n"
 "Do you want to save your changes or discard them?"
@@ -621,16 +621,16 @@ msgstr ""
 "Il documento \"{name}\" è stato modificato.\n"
 "Salvare le modifiche o scartarle?"
 
-#: ../mainwindow.py:283
+#: ../mainwindow.py:282
 msgid "Tab Bar"
 msgstr "Barra delle linguette"
 
-#: ../mainwindow.py:340 ../popplerprint.py:53 ../sessions/dialog.py:171
+#: ../mainwindow.py:338 ../popplerprint.py:53 ../sessions/dialog.py:171
 #: ../sessions/dialog.py:179 ../sessions/dialog.py:185
 msgid "Warning"
 msgstr "Attenzione"
 
-#: ../mainwindow.py:341
+#: ../mainwindow.py:339
 msgid ""
 "Can't load non-local document:\n"
 "\n"
@@ -640,12 +640,12 @@ msgstr ""
 "\n"
 "{url}"
 
-#: ../mainwindow.py:372
+#: ../mainwindow.py:370
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Apri file"
 
-#: ../mainwindow.py:392 ../mainwindow.py:398 ../mainwindow.py:423
+#: ../mainwindow.py:390 ../mainwindow.py:396 ../mainwindow.py:421
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -655,22 +655,22 @@ msgstr ""
 "\n"
 "{url}"
 
-#: ../mainwindow.py:417
+#: ../mainwindow.py:415
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "Salva documento"
 
-#: ../mainwindow.py:457
+#: ../mainwindow.py:455
 msgctxt "dialog title"
 msgid "Save Copy"
 msgstr "Salva copia"
 
-#: ../mainwindow.py:463
+#: ../mainwindow.py:461
 msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Salva selezione"
 
-#: ../mainwindow.py:474 ../mainwindow.py:626 ../snippet/widget.py:320
+#: ../mainwindow.py:472 ../mainwindow.py:624 ../snippet/widget.py:320
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -684,12 +684,12 @@ msgstr ""
 "\n"
 "{error}"
 
-#: ../mainwindow.py:488 ../mainwindow.py:502 ../externalchanges/widget.py:103
+#: ../mainwindow.py:486 ../mainwindow.py:500 ../externalchanges/widget.py:103
 #, fuzzy
 msgid "Reload"
 msgstr "Ricarica"
 
-#: ../mainwindow.py:489
+#: ../mainwindow.py:487
 #, fuzzy
 msgid ""
 "Could not reload the document:\n"
@@ -700,21 +700,21 @@ msgstr ""
 "\n"
 "{url}"
 
-#: ../mainwindow.py:499
+#: ../mainwindow.py:497
 #, fuzzy
 msgid "Some documents could not be reloaded."
 msgstr "Il documento non è stato modificato."
 
-#: ../mainwindow.py:501
+#: ../mainwindow.py:499
 msgid "No document could be reloaded."
 msgstr ""
 
-#: ../mainwindow.py:558
+#: ../mainwindow.py:556
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Inserisci dal file"
 
-#: ../mainwindow.py:566 ../snippet/import_export.py:106
+#: ../mainwindow.py:564 ../snippet/import_export.py:106
 msgid ""
 "Can't read from source:\n"
 "\n"
@@ -727,16 +727,16 @@ msgstr ""
 "\n"
 "{error}"
 
-#: ../mainwindow.py:582
+#: ../mainwindow.py:580
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Stampa documento sorgente..."
 
-#: ../mainwindow.py:615
+#: ../mainwindow.py:613
 msgid "Export as HTML"
 msgstr "Esporta come HTML"
 
-#: ../mainwindow.py:735
+#: ../mainwindow.py:733
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -748,256 +748,265 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../mainwindow.py:845
+#: ../mainwindow.py:843
 msgid "Main Toolbar"
 msgstr "Barra degli strumenti principale"
 
-#: ../mainwindow.py:846
+#: ../mainwindow.py:844
 msgid "Music View Toolbar"
 msgstr "Barra dell'anteprima spartito"
 
-#: ../mainwindow.py:978
+#: ../mainwindow.py:976
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nuovo"
 
-#: ../mainwindow.py:979
+#: ../mainwindow.py:977
 msgid "&Open..."
 msgstr "&Apri..."
 
-#: ../mainwindow.py:980
+#: ../mainwindow.py:978
 msgid "Open &Recent"
 msgstr "Apri &recenti"
 
-#: ../mainwindow.py:981
+#: ../mainwindow.py:979
 msgid "Insert from &File..."
 msgstr "Inserisci dal &file..."
 
-#: ../mainwindow.py:982
+#: ../mainwindow.py:980
 msgid "Open Current Directory"
 msgstr "Apri la cartella attuale"
 
-#: ../mainwindow.py:983
+#: ../mainwindow.py:981
 msgid "Open Command Prompt"
 msgstr "Apri riga di comando"
 
-#: ../mainwindow.py:986
+#: ../mainwindow.py:984
 msgid "Save Copy or Selection As..."
 msgstr "Salva copia o selezione come..."
 
-#: ../mainwindow.py:987 ../externalchanges/widget.py:117
+#: ../mainwindow.py:985 ../externalchanges/widget.py:117
 msgid "Save All"
 msgstr "Salva tutto"
 
-#: ../mainwindow.py:988
+#: ../mainwindow.py:986
 #, fuzzy
 msgid "Re&load"
 msgstr "Ricarica"
 
-#: ../mainwindow.py:989 ../externalchanges/widget.py:108
+#: ../mainwindow.py:987 ../externalchanges/widget.py:108
 #, fuzzy
 msgid "Reload All"
 msgstr "Ricarica"
 
-#: ../mainwindow.py:990
+#: ../mainwindow.py:988
 msgid "Check for External Changes..."
 msgstr ""
 
-#: ../mainwindow.py:992
+#: ../mainwindow.py:990
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
 msgstr ""
 
-#: ../mainwindow.py:994
+#: ../mainwindow.py:992
 msgid "Print Source..."
 msgstr "Stampa documento sorgente..."
 
-#: ../mainwindow.py:996
+#: ../mainwindow.py:994
 msgid "Close Other Documents"
 msgstr "Chiudi gli altri documenti"
 
-#: ../mainwindow.py:997
+#: ../mainwindow.py:995
 msgid "Close All Documents"
 msgstr "Chiudi tutti i documenti"
 
-#: ../mainwindow.py:998
+#: ../mainwindow.py:996
 msgid "Closes all documents and leaves the current session."
 msgstr "Chiude tutti i documenti ed esce dalla sessione corrente."
 
-#: ../mainwindow.py:999
+#: ../mainwindow.py:997
 msgid "&Quit"
 msgstr "&Esci"
 
-#: ../mainwindow.py:1001
+#: ../mainwindow.py:999
 msgid "Export Source as Colored &HTML..."
 msgstr "Esporta il documento sorgente come &HTML colorato..."
 
-#: ../mainwindow.py:1003
+#: ../mainwindow.py:1001
 msgid "&Undo"
 msgstr "&Annulla"
 
-#: ../mainwindow.py:1004
+#: ../mainwindow.py:1002
 msgid "Re&do"
 msgstr "Ri&peti"
 
-#: ../mainwindow.py:1005
+#: ../mainwindow.py:1003
 msgid "Cu&t"
 msgstr "Ta&glia"
 
-#: ../mainwindow.py:1006 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1004 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Copia"
 
-#: ../mainwindow.py:1007
+#: ../mainwindow.py:1005
 msgid "Copy as Colored &HTML"
 msgstr "Copia come &HTML colorato"
 
-#: ../mainwindow.py:1008
+#: ../mainwindow.py:1006
 msgid "&Paste"
 msgstr "&Incolla"
 
-#: ../mainwindow.py:1009
+#: ../mainwindow.py:1007
 msgid "Select &All"
 msgstr "Seleziona &tutto"
 
-#: ../mainwindow.py:1010
+#: ../mainwindow.py:1008
 msgid "Select &Block"
 msgstr "Seleziona &blocco"
 
-#: ../mainwindow.py:1011
+#: ../mainwindow.py:1009
 msgid "Select &None"
 msgstr "Annulla &ogni selezione"
 
-#: ../mainwindow.py:1012
+#: ../mainwindow.py:1010
 msgid "Select Whole Lines Up"
 msgstr "Seleziona tutte le righe precedenti"
 
-#: ../mainwindow.py:1013
+#: ../mainwindow.py:1011
 msgid "Select Whole Lines Down"
 msgstr "Seleziona tutte le righe seguenti"
 
-#: ../mainwindow.py:1014
+#: ../mainwindow.py:1012
 msgid "&Find..."
 msgstr "&Trova..."
 
-#: ../mainwindow.py:1015
+#: ../mainwindow.py:1013
 msgid "Find Ne&xt"
 msgstr "Trova &successivo"
 
-#: ../mainwindow.py:1016
+#: ../mainwindow.py:1014
 msgid "Find Pre&vious"
 msgstr "Trova pre&cedente"
 
-#: ../mainwindow.py:1017
+#: ../mainwindow.py:1015
 msgid "&Replace..."
 msgstr "&Sostituisci..."
 
-#: ../mainwindow.py:1018
+#: ../mainwindow.py:1016
 msgid "Pr&eferences..."
 msgstr "Pr&eferenze..."
 
-#: ../mainwindow.py:1020
+#: ../mainwindow.py:1018
 msgid "&Next Document"
 msgstr "Documento &successivo"
 
-#: ../mainwindow.py:1021
+#: ../mainwindow.py:1019
 msgid "&Previous Document"
 msgstr "Documento &precedente"
 
-#: ../mainwindow.py:1022
+#: ../mainwindow.py:1020
 msgid "Scroll Up"
 msgstr "Scorri in alto"
 
-#: ../mainwindow.py:1023
+#: ../mainwindow.py:1021
 msgid "Scroll Down"
 msgstr "Scorri in basso"
 
-#: ../mainwindow.py:1025
+#: ../mainwindow.py:1023
 msgid "New &Window"
 msgstr "Nuova &finestra"
 
-#: ../mainwindow.py:1026
+#: ../mainwindow.py:1024
 msgid "&Fullscreen"
 msgstr "&Schermo intero"
 
-#: ../mainwindow.py:1028
+#: ../mainwindow.py:1026
 msgid "&User Guide"
 msgstr "&Guida"
 
-#: ../mainwindow.py:1029
+#: ../mainwindow.py:1027
 msgid "&What's This?"
 msgstr "&Che cos'è?"
 
-#: ../mainwindow.py:1030
+#: ../mainwindow.py:1028
 msgid "Report a &Bug..."
 msgstr "Segnala un &bug..."
 
-#: ../mainwindow.py:1031
+#: ../mainwindow.py:1029
 msgid "&About {appname}..."
 msgstr "&A proposito di {appname}"
 
-#: ../menu.py:83
+#: ../matcher.py:123
+#, fuzzy
+msgid "Matching Pai&r"
+msgstr "Carattere corrispondente"
+
+#: ../matcher.py:124
+msgid "&Select Matching Pair"
+msgstr ""
+
+#: ../menu.py:84
 msgctxt "menu title"
 msgid "&File"
 msgstr "&File"
 
-#: ../menu.py:118
+#: ../menu.py:119
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Esporta"
 
-#: ../menu.py:126
+#: ../menu.py:127
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "&Modifica"
 
-#: ../menu.py:153
+#: ../menu.py:154
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Visualizza"
 
-#: ../menu.py:177
+#: ../menu.py:182
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "&Raggruppamento "
 
-#: ../menu.py:192
+#: ../menu.py:197
 msgctxt "menu title"
 msgid "&Music"
 msgstr "&Spartito"
 
-#: ../menu.py:217
+#: ../menu.py:222
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:236
+#: ../menu.py:241
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Strumenti"
 
-#: ../menu.py:262
+#: ../menu.py:267
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Parole"
 
-#: ../menu.py:274
+#: ../menu.py:279
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Note"
 
-#: ../menu.py:288
+#: ../menu.py:293
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritmo"
 
-#: ../menu.py:316
+#: ../menu.py:321
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Finestra"
 
-#: ../menu.py:336
+#: ../menu.py:341
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Aiuto"
@@ -1154,7 +1163,7 @@ msgid "Special Charac&ters"
 msgstr "Cara&tteri speciali"
 
 #: ../docbrowser/__init__.py:46 ../docbrowser/__init__.py:62
-#: ../preferences/documentation.py:122
+#: ../preferences/documentation.py:123
 msgid "Documentation Browser"
 msgstr "Navigatore documentazione"
 
@@ -1162,11 +1171,11 @@ msgstr "Navigatore documentazione"
 msgid "&Documentation Browser"
 msgstr "Navigatore per la &documentazione"
 
-#: ../docbrowser/__init__.py:82 ../help/browser.py:79
+#: ../docbrowser/__init__.py:82 ../help/browser.py:78
 msgid "Back"
 msgstr "Indietro"
 
-#: ../docbrowser/__init__.py:83 ../help/browser.py:80
+#: ../docbrowser/__init__.py:83 ../help/browser.py:79
 msgid "Forward"
 msgstr "Avanti"
 
@@ -1199,7 +1208,7 @@ msgstr "(locale)"
 msgid "({hostname})"
 msgstr "({hostname})"
 
-#: ../docbrowser/browser.py:229 ../help/browser.py:83 ../help/browser.py:114
+#: ../docbrowser/browser.py:229 ../help/browser.py:82 ../help/browser.py:113
 msgid "Print"
 msgstr "Stampa"
 
@@ -1227,27 +1236,27 @@ msgstr "Documenti"
 msgid "Docum&ents"
 msgstr "Docum&enti"
 
-#: ../doclist/widget.py:188
+#: ../doclist/widget.py:187
 msgid "Save selected documents"
 msgstr "Salva i documenti selezionati"
 
-#: ../doclist/widget.py:189
+#: ../doclist/widget.py:188
 msgid "Close selected documents"
 msgstr "Chiudi i documenti selezionati"
 
-#: ../doclist/widget.py:195
+#: ../doclist/widget.py:194
 msgid "Save documents in this folder"
 msgstr "Salva i documenti di questa cartella"
 
-#: ../doclist/widget.py:196
+#: ../doclist/widget.py:195
 msgid "Close documents in this folder"
 msgstr "Chiudi i documnti di questa cartella"
 
-#: ../doclist/widget.py:199
+#: ../doclist/widget.py:198
 msgid "Save all untitled documents"
 msgstr "Salva tutti i documenti senza nome"
 
-#: ../doclist/widget.py:200
+#: ../doclist/widget.py:199
 msgid "Close all untitled documents"
 msgstr "Chiudi tutti i documenti senza nome"
 
@@ -1523,19 +1532,19 @@ msgid ""
 "another application, uncheck the <em>{action}</em> checkbox."
 msgstr ""
 
-#: ../help/browser.py:78
+#: ../help/browser.py:77
 msgid "Toolbar"
 msgstr "Barra degli strumenti"
 
-#: ../help/browser.py:81
+#: ../help/browser.py:80
 msgid "Start"
 msgstr "Inizio"
 
-#: ../help/browser.py:82
+#: ../help/browser.py:81
 msgid "Contents"
 msgstr "Indice"
 
-#: ../help/browser.py:89 ../help/browser.py:90 ../help/contents.py:70
+#: ../help/browser.py:88 ../help/browser.py:89 ../help/contents.py:70
 #: ../musicview/contextmenu.py:76 ../quickinsert/widget.py:106
 msgid "Help"
 msgstr "Aiuto"
@@ -3349,27 +3358,27 @@ msgstr ""
 "documentazione LilyPond in differenti cartelle che Frescobaldi troverà "
 "automaticamente.</p> "
 
-#: ../preferences/documentation.py:123
+#: ../preferences/documentation.py:124
 msgid "Preferred Language:"
 msgstr "Lingua preferita:"
 
-#: ../preferences/documentation.py:124 ../preferences/general.py:133
+#: ../preferences/documentation.py:125 ../preferences/general.py:133
 #: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
 #: ../scorewiz/settings.py:299 ../scorewiz/parts/_base.py:214
 #: ../scorewiz/parts/plucked_strings.py:65 ../widgets/schemeselector.py:115
 msgid "Default"
 msgstr "Predefinita"
 
-#: ../preferences/documentation.py:125 ../scorewiz/settings.py:202
+#: ../preferences/documentation.py:126 ../scorewiz/settings.py:202
 msgid "English (untranslated)"
 msgstr "Inglese (non tradotto)"
 
-#: ../preferences/documentation.py:126 ../preferences/fontscolors.py:122
+#: ../preferences/documentation.py:127 ../preferences/fontscolors.py:122
 #: ../preferences/tools.py:81 ../preferences/tools.py:216
 msgid "Font:"
 msgstr "Carattere:"
 
-#: ../preferences/documentation.py:162
+#: ../preferences/documentation.py:163
 msgid "Please enter a local path or a URL:"
 msgstr "Inserire un percorso locale o un URL:"
 
@@ -3483,7 +3492,7 @@ msgstr "Escape"
 #. L10N: a basic type of input in the editor
 #: ../preferences/fontscolors.py:474 ../preferences/fontscolors.py:513
 #: ../preferences/fontscolors.py:522 ../preferences/fontscolors.py:530
-#: ../preferences/fontscolors.py:538 ../snippet/builtin.py:358
+#: ../preferences/fontscolors.py:538 ../snippet/builtin.py:374
 msgid "Comment"
 msgstr "Commento"
 
@@ -3536,7 +3545,7 @@ msgstr "Raggruppamento"
 msgid "Check"
 msgstr "Controllo"
 
-#: ../preferences/fontscolors.py:496 ../snippet/builtin.py:228
+#: ../preferences/fontscolors.py:496 ../snippet/builtin.py:244
 msgid "Repeat"
 msgstr "Ritornello"
 
@@ -3552,7 +3561,7 @@ msgstr "Specificatore"
 msgid "User Command"
 msgstr "Comando dell'utente"
 
-#: ../preferences/fontscolors.py:501 ../snippet/builtin.py:268
+#: ../preferences/fontscolors.py:501 ../snippet/builtin.py:284
 msgid "Markup"
 msgstr "Blocco di testo (markup)"
 
@@ -6578,122 +6587,127 @@ msgid "Delete Line(s)"
 msgstr "Cancella una o più righe"
 
 #: ../snippet/builtin.py:62
+#, fuzzy
+msgid "Delete Matching Pair"
+msgstr "Respiro normale"
+
+#: ../snippet/builtin.py:78
 msgid "Next Blank Line"
 msgstr "Riga vuota successiva"
 
-#: ../snippet/builtin.py:76
+#: ../snippet/builtin.py:92
 msgid "Previous Blank Line"
 msgstr "Riga vuota precedente"
 
-#: ../snippet/builtin.py:90
+#: ../snippet/builtin.py:106
 msgid "Select until Next Blank Line"
 msgstr "Seleziona fino alla riga vuota successiva"
 
-#: ../snippet/builtin.py:104
+#: ../snippet/builtin.py:120
 msgid "Select until Previous Blank Line"
 msgstr "Seleziona fino alla alla riga vuota precedente"
 
-#: ../snippet/builtin.py:118
+#: ../snippet/builtin.py:134
 msgid "Single Typographical Quotes"
 msgstr "Virgolette tipografiche singole"
 
-#: ../snippet/builtin.py:123
+#: ../snippet/builtin.py:139
 msgid "Double Typographical Quotes"
 msgstr "Virgolette tipografiche doppie"
 
-#: ../snippet/builtin.py:189
+#: ../snippet/builtin.py:205
 msgid "Tuplets"
 msgstr "Terzine"
 
-#: ../snippet/builtin.py:199
+#: ../snippet/builtin.py:215
 msgid "Modern 2/2 Time Signature"
 msgstr "2/2, indicazione di tempo moderna"
 
-#: ../snippet/builtin.py:205
+#: ../snippet/builtin.py:221
 msgid "Modern 4/4 Time Signature"
 msgstr "4/4, indicazione di tempo moderna"
 
-#: ../snippet/builtin.py:211
+#: ../snippet/builtin.py:227
 msgid "Tactus Time Signature (number with note)"
 msgstr "Indicazione figurata di tempo (numero con nota)"
 
-#: ../snippet/builtin.py:222
+#: ../snippet/builtin.py:238
 msgid "LilyPond Version"
 msgstr "Versione di LilyPond"
 
-#: ../snippet/builtin.py:233
+#: ../snippet/builtin.py:249
 msgid "Relative Music"
 msgstr "Musica (mod. Relative)"
 
-#: ../snippet/builtin.py:250
+#: ../snippet/builtin.py:266
 msgid "Upper case selection"
 msgstr "Tutto in maiuscolo"
 
-#: ../snippet/builtin.py:256
+#: ../snippet/builtin.py:272
 msgid "Lower case selection"
 msgstr "Tutto in minuscolo"
 
-#: ../snippet/builtin.py:262
+#: ../snippet/builtin.py:278
 msgid "Title case selection"
 msgstr "Maiuscola la prima lettera di ogni parola"
 
-#: ../snippet/builtin.py:273
+#: ../snippet/builtin.py:289
 msgid "Markup lines"
 msgstr "Allinea il testo"
 
-#: ../snippet/builtin.py:281
+#: ../snippet/builtin.py:297
 msgid "Markup column"
 msgstr "Incolonna il testo"
 
-#: ../snippet/builtin.py:286
+#: ../snippet/builtin.py:302
 msgid "Tagline with date and LilyPond version"
 msgstr "Tagline con la data e la versione di LilyPond"
 
-#: ../snippet/builtin.py:296
+#: ../snippet/builtin.py:312
 msgid "Header Template"
 msgstr "Modello per il titolo"
 
-#: ../snippet/builtin.py:311
+#: ../snippet/builtin.py:327
 msgid "No Tagline"
 msgstr "Nessuna tagline"
 
-#: ../snippet/builtin.py:319
+#: ../snippet/builtin.py:335
 msgid "No Barnumbers"
 msgstr "Togli i numeri di battuta"
 
-#: ../snippet/builtin.py:329
+#: ../snippet/builtin.py:345
 msgid "Midi Tempo"
 msgstr "Velocità del midi"
 
-#: ../snippet/builtin.py:339
+#: ../snippet/builtin.py:355
 msgid "Staff Size"
 msgstr "Dimensione del rigo"
 
-#: ../snippet/builtin.py:396
+#: ../snippet/builtin.py:412
 msgid "Uncomment"
 msgstr "Togli commento"
 
-#: ../snippet/builtin.py:439
+#: ../snippet/builtin.py:455
 msgid "A5 Paper"
 msgstr "Formato A5"
 
-#: ../snippet/builtin.py:447
+#: ../snippet/builtin.py:463
 msgid "Document Fonts..."
 msgstr "Caratteri del documento..."
 
-#: ../snippet/builtin.py:475
+#: ../snippet/builtin.py:491
 msgid "Last note or chord"
 msgstr "Ultima nota o accordo"
 
-#: ../snippet/builtin.py:556
+#: ../snippet/builtin.py:572
 msgid "Color"
 msgstr "Colore"
 
-#: ../snippet/builtin.py:593
+#: ../snippet/builtin.py:609
 msgid "Basic Leadsheet"
 msgstr "Spartito semplificato"
 
-#: ../snippet/builtin.py:637
+#: ../snippet/builtin.py:653
 msgid "Choir Hymn"
 msgstr "Corale"
 
