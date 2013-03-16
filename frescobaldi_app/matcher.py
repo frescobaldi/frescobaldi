@@ -102,14 +102,12 @@ class Matcher(AbstractMatcher, plugin.MainWindowPlugin):
         if len(cursors) < 2:
             return
         if select:
-            if cursors[0].position() > cursors[1].position():
-                start, end = cursors[1].selectionStart(), cursors[0].selectionEnd()
-                cursor.setPosition(end)
-                cursor.setPosition(start, cursor.KeepAnchor)
+            if cursors[0] < cursors[1]:
+                anchor, pos = cursors[0].selectionStart(), cursors[1].selectionEnd()
             else:
-                start, end = cursors[0].selectionStart(), cursors[1].selectionEnd()
-                cursor.setPosition(start)
-                cursor.setPosition(end, cursor.KeepAnchor)
+                anchor, pos = cursors[0].selectionEnd(), cursors[1].selectionStart()
+            cursor.setPosition(anchor)
+            cursor.setPosition(pos, cursor.KeepAnchor)
         else:
             cursor.setPosition(cursors[1].selectionStart())
         self.view().setTextCursor(cursor)
