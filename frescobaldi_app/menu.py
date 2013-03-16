@@ -42,6 +42,7 @@ import snippet.menu
 import scorewiz
 import autocomplete
 import sidebar
+import matcher
 
 
 # postpone translation
@@ -159,6 +160,10 @@ def menu_view(mainwindow):
     m.addAction(documentactions.get(mainwindow).actionCollection.view_highlighting)
     m.addAction(sidebar.SideBarManager.instance(mainwindow).actionCollection.view_linenumbers)
     m.addMenu(menu_view_folding(mainwindow))
+    m.addSeparator()
+    ac = matcher.Matcher.instance(mainwindow).actionCollection
+    m.addAction(ac.view_matching_pair)
+    m.addAction(ac.view_matching_pair_select)
     m.addSeparator()
     ac = bookmarkmanager.BookmarkManager.instance(mainwindow).actionCollection
     m.addAction(ac.view_bookmark)

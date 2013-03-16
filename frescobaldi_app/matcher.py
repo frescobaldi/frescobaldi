@@ -25,11 +25,15 @@ from __future__ import unicode_literals
 
 import weakref
 
+from PyQt4.QtGui import QAction
+
 import app
 import plugin
 import ly.lex
 import tokeniter
 import viewhighlighter
+import actioncollection
+import actioncollectionmanager
 
 
 class AbstractMatcher(object):
@@ -71,6 +75,10 @@ class Matcher(AbstractMatcher, plugin.MainWindowPlugin):
     """One Matcher automatically handling the current View."""
     def __init__(self, mainwindow):
         super(Matcher, self).__init__()
+        ac = self.actionCollection = Actions()
+        actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
+        ac.view_matching_pair.triggered.connect(self.moveto_match)
+        ac.view_matching_pair_select.triggered.connect(self.select_match)
         mainwindow.currentViewChanged.connect(self.setView)
         view = mainwindow.currentView()
         if view:
@@ -105,6 +113,17 @@ class Matcher(AbstractMatcher, plugin.MainWindowPlugin):
         else:
             cursor.setPosition(cursors[1].selectionStart())
         self.view().setTextCursor(cursor)
+
+
+class Actions(actioncollection.ActionCollection):
+    name = "matchingpair"
+    def createActions(self, parent):
+        self.view_matching_pair = QAction(parent)
+        self.view_matching_pair_select = QAction(parent)
+    
+    def translateUI(self):
+        self.view_matching_pair.setText(_("Matching Pai&r"))
+        self.view_matching_pair_select.setText(_("&Select Matching Pair"))
 
 
 def matches(cursor, view=None):
