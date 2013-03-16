@@ -60,49 +60,8 @@ class AbstractMatcher(object):
     
     def showMatches(self):
         """Highlights matching tokens if the view's cursor is at such a token."""
-        cursor = self.view().textCursor()
-        block = cursor.block()
-        column = cursor.position() - block.position()
-        tokens = tokeniter.Runner(block)
-        source = None
-        for token in tokens.forward_line():
-            if token.pos <= column <= token.end:
-                if isinstance(token, ly.lex.MatchStart):
-                    match, other = ly.lex.MatchStart, ly.lex.MatchEnd
-                    bottom = self.view().contentOffset().y() + self.view().viewport().height()
-                    def source_gen():
-                        while tokens.valid() and self.view().blockBoundingGeometry(tokens.block).top() <= bottom:
-                            for t in tokens.forward_line():
-                                yield t
-                            tokens.next_block()
-                    source = source_gen()
-                    break
-                elif isinstance(token, ly.lex.MatchEnd):
-                    match, other = ly.lex.MatchEnd, ly.lex.MatchStart
-                    first_block = self.view().firstVisibleBlock()
-                    def source_gen():
-                        while tokens.valid() and tokens.block >= first_block:
-                            for t in tokens.backward_line():
-                                yield t
-                            tokens.previous_block()
-                    source = source_gen()
-                    break
-            elif token.pos > column:
-                break
-        if source:
-            # we've found a matcher item
-            cursors = [tokens.cursor()]
-            nest = 0
-            for token2 in source:
-                if isinstance(token2, other) and token2.matchname == token.matchname:
-                    if nest == 0:
-                        # we've found the matching item!
-                        cursors.append(tokens.cursor())
-                        break
-                    else:
-                        nest -= 1
-                elif isinstance(token2, match) and token2.matchname == token.matchname:
-                    nest += 1
+        cursors = matches(self.view().textCursor(), self.view())
+        if cursors:
             self.highlighter().highlight("match", cursors, 2, 1000)
         else:
             self.highlighter().clear("match")
@@ -119,6 +78,72 @@ class Matcher(AbstractMatcher, plugin.MainWindowPlugin):
         
     def highlighter(self):
         return viewhighlighter.highlighter(self.view())
+
+
+def matches(cursor, view=None):
+    """Return a list of zero to two cursors specifing matching tokens.
+    
+    If the list is empty, the cursor was not at a MatchStart/MatchEnd token,
+    if the list only contains one cursor the matching token could not be found,
+    if the list contains two cursors, the first is the token the cursor was at,
+    and the second is the matching token.
+    
+    If view is given, only the visible part of the document is searched.
+    
+    """
+    block = cursor.block()
+    column = cursor.position() - block.position()
+    tokens = tokeniter.Runner(block)
+    
+    if view is not None:
+        first_block = view.firstVisibleBlock()
+        bottom = view.contentOffset().y() + view.viewport().height()
+        pred_forward = lambda: view.blockBoundingGeometry(tokens.block).top() <= bottom
+        pred_backward = lambda: tokens.block >= first_block
+    else:
+        pred_forward = lambda: True
+        pred_backward = lambda: True
+    
+    source = None
+    for token in tokens.forward_line():
+        if token.pos <= column <= token.end:
+            if isinstance(token, ly.lex.MatchStart):
+                match, other = ly.lex.MatchStart, ly.lex.MatchEnd
+                def source_gen():
+                    while tokens.valid() and pred_forward():
+                        for t in tokens.forward_line():
+                            yield t
+                        tokens.next_block()
+                source = source_gen()
+                break
+            elif isinstance(token, ly.lex.MatchEnd):
+                match, other = ly.lex.MatchEnd, ly.lex.MatchStart
+                def source_gen():
+                    while tokens.valid() and pred_backward():
+                        for t in tokens.backward_line():
+                            yield t
+                        tokens.previous_block()
+                source = source_gen()
+                break
+        elif token.pos > column:
+            break
+    cursors = []
+    if source:
+        # we've found a matcher item
+        cursors.append(tokens.cursor())
+        nest = 0
+        for token2 in source:
+            if isinstance(token2, other) and token2.matchname == token.matchname:
+                if nest == 0:
+                    # we've found the matching item!
+                    cursors.append(tokens.cursor())
+                    break
+                else:
+                    nest -= 1
+            elif isinstance(token2, match) and token2.matchname == token.matchname:
+                nest += 1
+    return cursors
+
 
 
 app.mainwindowCreated.connect(Matcher.instance)
