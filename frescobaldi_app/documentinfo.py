@@ -178,7 +178,11 @@ class DocumentInfo(plugin.DocumentPlugin):
 
     def includepath(self):
         """Returns the configured include path. Currently the document does not matter."""
-        return QSettings().value("lilypond_settings/include_path", []) or []
+        try:
+            include_path = QSettings().value("lilypond_settings/include_path", [], type(""))
+        except TypeError:
+            include_path = []
+        return include_path
         
     def jobinfo(self, create=False):
         """Returns a three tuple(filename, mode, includepath) based on the given document.
