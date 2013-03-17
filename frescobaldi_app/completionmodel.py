@@ -59,7 +59,11 @@ class Model(QStringListModel):
         self.load()
         
     def load(self):
-        self.setStringList(sorted(QSettings().value(self.key) or []))
+        try:
+            strings = QSettings().value(self.key, [], type(""))
+        except TypeError:
+            strings = []
+        self.setStringList(sorted(strings))
         self._changed = False
     
     def save(self):

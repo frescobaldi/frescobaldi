@@ -78,7 +78,10 @@ class Paths(preferences.Group):
             "them.</p>").format(documentation="Documentation"))
     
     def loadSettings(self):
-        paths = QSettings().value("documentation/paths", [], type(""))
+        try:
+            paths = QSettings().value("documentation/paths", [], type(""))
+        except TypeError:
+            paths = []
         self.paths.setValue(paths)
         
     def saveSettings(self):

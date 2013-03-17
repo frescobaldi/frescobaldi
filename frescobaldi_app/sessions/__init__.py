@@ -97,7 +97,10 @@ def loadSession(name):
     """Loads the given session (without closing other docs first)."""
     session = sessionGroup(name)
     
-    urls = session.value("urls", [], QUrl)
+    try:
+        urls = session.value("urls", [], QUrl)
+    except TypeError:
+        urls = []
     active = session.value("active", -1, int)
     result = None
     if urls:

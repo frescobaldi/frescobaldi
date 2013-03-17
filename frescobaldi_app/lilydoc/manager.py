@@ -117,7 +117,10 @@ def urls():
     are scanned.
     
     """
-    user_paths = QSettings().value("documentation/paths", [], type(""))
+    try:
+        user_paths = QSettings().value("documentation/paths", [], type(""))
+    except TypeError:
+        user_paths = []
     system_prefixes = [p for p in (
         '/usr',
         '/usr/local',

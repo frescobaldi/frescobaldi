@@ -44,10 +44,13 @@ def load():
         return
     _recentfiles = []
     
-    for url in QSettings().value("recent_files", []) or []:
-        if isinstance(url, QUrl):
-            if os.access(url.toLocalFile(), os.R_OK):
-                _recentfiles.append(url)
+    try:
+        urls = QSettings().value("recent_files", [], QUrl)
+    except TypeError:
+        urls = []
+    for url in urls:
+        if os.access(url.toLocalFile(), os.R_OK):
+            _recentfiles.append(url)
     del _recentfiles[MAXLEN:]
     app.aboutToQuit.connect(save)
 
