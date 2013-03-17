@@ -275,7 +275,11 @@ class ShortcutItem(QTreeWidgetItem):
             s = QSettings()
             key = "shortcuts/{0}/{1}/{2}".format(scheme, self.collection.name, self.name)
             if s.contains(key):
-                shortcuts = [QKeySequence(s) for s in s.value(key, []) or []]
+                try:
+                    shortcuts = s.value(key, [], QKeySequence)
+                except TypeError:
+                    # PyQt4 raises TypeError when an empty list was stored
+                    shortcuts = []
                 self._shortcuts[scheme] = (shortcuts, False)
             else:
                 # default

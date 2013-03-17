@@ -167,7 +167,11 @@ class ActionCollection(ActionCollectionBase):
         settings = self.settingsGroup()
         keys = settings.allKeys()
         for name in keys:
-            shortcuts = [QKeySequence(s) for s in settings.value(name, []) or []]
+            try:
+                shortcuts = settings.value(name, [], QKeySequence)
+            except TypeError:
+                # PyQt4 raises TypeError when an empty list was stored
+                shortcuts = []
             try:
                 self._actions[name].setShortcuts(shortcuts)
             except KeyError:
@@ -231,7 +235,11 @@ class ShortcutCollection(ActionCollectionBase):
         # then load
         settings = self.settingsGroup()
         for name in settings.allKeys():
-            shortcuts = [QKeySequence(s) for s in settings.value(name, []) or []]
+            try:
+                shortcuts = settings.value(name, [], QKeySequence)
+            except TypeError:
+                # PyQt4 raises TypeError when an empty list was stored
+                shortcuts = []
             if not shortcuts:
                 if not self.removeAction(name):
                     # if it did not exist, remove key from config
