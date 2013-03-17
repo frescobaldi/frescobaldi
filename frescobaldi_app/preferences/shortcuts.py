@@ -275,7 +275,8 @@ class ShortcutItem(QTreeWidgetItem):
             s = QSettings()
             key = "shortcuts/{0}/{1}/{2}".format(scheme, self.collection.name, self.name)
             if s.contains(key):
-                self._shortcuts[scheme] = (s.value(key, [], QKeySequence), False)
+                shortcuts = [QKeySequence(s) for s in settings.value(key, []) or []]
+                self._shortcuts[scheme] = (shortcuts, False)
             else:
                 # default
                 self._shortcuts[scheme] = (self.defaultShortcuts(), True)

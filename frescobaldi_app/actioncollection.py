@@ -167,8 +167,9 @@ class ActionCollection(ActionCollectionBase):
         settings = self.settingsGroup()
         keys = settings.allKeys()
         for name in keys:
+            shortcuts = [QKeySequence(s) for s in settings.value(name, []) or []]
             try:
-                self._actions[name].setShortcuts(settings.value(name, [], QKeySequence))
+                self._actions[name].setShortcuts(shortcuts)
             except KeyError:
                 settings.remove(name)
         if restoreDefaults:
@@ -230,7 +231,7 @@ class ShortcutCollection(ActionCollectionBase):
         # then load
         settings = self.settingsGroup()
         for name in settings.allKeys():
-            shortcuts = settings.value(name, [], QKeySequence)
+            shortcuts = [QKeySequence(s) for s in settings.value(name, []) or []]
             if not shortcuts:
                 if not self.removeAction(name):
                     # if it did not exist, remove key from config
