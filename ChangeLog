@@ -36,6 +36,7 @@ Changed in 2.0.9 --
   - Export colored HTML now uses CSS classes, makes it easy to change the high-
     lighting in the HTML later (idea: issue #89)
 * Bug fixes:
+  - Fix hyphenation of words with accents (reported by Andreas Edlund)
   - Fix Save As... on Mac OS X (issue #104)
   - Fix startup failure on Mac OS X (issue #77)
   - Fix QPyNullVariant error messages with some PyQt versions
