@@ -37,7 +37,7 @@ import tokeniter
 
 
 # regexp to match a lyric word
-_word_re = re.compile(r"[^\W0-9_]+")
+_word_re = re.compile(r"[^\W0-9_]+", re.UNICODE)
 
 
 def lyrics(mainwindow):
