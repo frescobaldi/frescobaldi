@@ -1,14 +1,14 @@
 # translation of nl.po to Nederlands
-# Wilbert Berendsen <wbsoft@xs4all.nl>, 2008, 2009, 2010, 2011, 2012, 2013.
 #
+# Wilbert Berendsen <wbsoft@xs4all.nl>, 2008, 2009, 2010, 2011, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2013-03-16 16:05+0100\n"
-"PO-Revision-Date: 2013-03-16 16:08+0100\n"
-"Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
-"Language-Team: Nederlands <>\n"
+"PO-Revision-Date: 2013-03-22 18:35+0100\n"
+"Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
+"Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1961,7 +1961,7 @@ msgid ""
 "clipboard, a file or another application."
 msgstr ""
 "U kunt muziek direct uit de PDF-weergave naar een rasterafbeelding kopiëren: "
-"Houd Shift ingedrukt en speel een rechthoekige selectie (of gebruik de "
+"Houd Shift ingedrukt en sleep een rechthoekige selectie (of gebruik de "
 "rechter muisknop) en druk dan op {key} of selecteer {menu} om de "
 "geselecteerde muziek naar het klembord, een bestand of een andere applicatie "
 "te slepen."
