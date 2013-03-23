@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.17\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-03-16 16:05+0100\n"
+"POT-Creation-Date: 2013-03-23 06:44+0100\n"
 "PO-Revision-Date: 2011-01-03 17:37+0100\n"
 "Last-Translator: Manuel A. Vazquez <xixirei@yahoo.es>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -1182,7 +1182,7 @@ msgid "Special Charac&ters"
 msgstr "Caracteres especiais..."
 
 #: ../docbrowser/__init__.py:46 ../docbrowser/__init__.py:62
-#: ../preferences/documentation.py:123
+#: ../preferences/documentation.py:126
 #, fuzzy
 msgid "Documentation Browser"
 msgstr "Documentación de LilyPond"
@@ -3037,28 +3037,28 @@ msgid ""
 "and have Frescobaldi automatically find them.</p>"
 msgstr ""
 
-#: ../preferences/documentation.py:124
+#: ../preferences/documentation.py:127
 #, fuzzy
 msgid "Preferred Language:"
 msgstr "Idioma:"
 
-#: ../preferences/documentation.py:125 ../preferences/general.py:133
+#: ../preferences/documentation.py:128 ../preferences/general.py:133
 #: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
 #: ../scorewiz/settings.py:299 ../scorewiz/parts/_base.py:214
 #: ../scorewiz/parts/plucked_strings.py:65 ../widgets/schemeselector.py:115
 msgid "Default"
 msgstr "Predeterminado"
 
-#: ../preferences/documentation.py:126 ../scorewiz/settings.py:202
+#: ../preferences/documentation.py:129 ../scorewiz/settings.py:202
 msgid "English (untranslated)"
 msgstr ""
 
-#: ../preferences/documentation.py:127 ../preferences/fontscolors.py:122
+#: ../preferences/documentation.py:130 ../preferences/fontscolors.py:122
 #: ../preferences/tools.py:81 ../preferences/tools.py:216
 msgid "Font:"
 msgstr ""
 
-#: ../preferences/documentation.py:163
+#: ../preferences/documentation.py:166
 #, fuzzy
 msgid "Please enter a local path or a URL:"
 msgstr "Introduza o nome da sesión."
@@ -3878,7 +3878,7 @@ msgid_plural "Remove the shortcut from those commands?"
 msgstr[0] "Eliminar as plicas das notas de percusión."
 msgstr[1] "Eliminar as plicas das notas de percusión."
 
-#: ../preferences/shortcuts.py:304
+#: ../preferences/shortcuts.py:309
 #, fuzzy
 msgid "(default)"
 msgstr "predeterminado"

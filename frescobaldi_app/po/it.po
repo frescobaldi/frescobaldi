@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-03-16 16:05+0100\n"
+"POT-Creation-Date: 2013-03-23 06:44+0100\n"
 "PO-Revision-Date: 2012-05-08 15:57+0200\n"
 "Last-Translator: .billyBoh <billyboh@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -1163,7 +1163,7 @@ msgid "Special Charac&ters"
 msgstr "Cara&tteri speciali"
 
 #: ../docbrowser/__init__.py:46 ../docbrowser/__init__.py:62
-#: ../preferences/documentation.py:123
+#: ../preferences/documentation.py:126
 msgid "Documentation Browser"
 msgstr "Navigatore documentazione"
 
@@ -3358,27 +3358,27 @@ msgstr ""
 "documentazione LilyPond in differenti cartelle che Frescobaldi troverà "
 "automaticamente.</p> "
 
-#: ../preferences/documentation.py:124
+#: ../preferences/documentation.py:127
 msgid "Preferred Language:"
 msgstr "Lingua preferita:"
 
-#: ../preferences/documentation.py:125 ../preferences/general.py:133
+#: ../preferences/documentation.py:128 ../preferences/general.py:133
 #: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
 #: ../scorewiz/settings.py:299 ../scorewiz/parts/_base.py:214
 #: ../scorewiz/parts/plucked_strings.py:65 ../widgets/schemeselector.py:115
 msgid "Default"
 msgstr "Predefinita"
 
-#: ../preferences/documentation.py:126 ../scorewiz/settings.py:202
+#: ../preferences/documentation.py:129 ../scorewiz/settings.py:202
 msgid "English (untranslated)"
 msgstr "Inglese (non tradotto)"
 
-#: ../preferences/documentation.py:127 ../preferences/fontscolors.py:122
+#: ../preferences/documentation.py:130 ../preferences/fontscolors.py:122
 #: ../preferences/tools.py:81 ../preferences/tools.py:216
 msgid "Font:"
 msgstr "Carattere:"
 
-#: ../preferences/documentation.py:163
+#: ../preferences/documentation.py:166
 msgid "Please enter a local path or a URL:"
 msgstr "Inserire un percorso locale o un URL:"
 
@@ -4255,7 +4255,7 @@ msgid_plural "Remove the shortcut from those commands?"
 msgstr[0] "Cancellare la scorciatoia da questo comando?"
 msgstr[1] "Cancellare le scorciatoie da questi comandi?"
 
-#: ../preferences/shortcuts.py:304
+#: ../preferences/shortcuts.py:309
 msgid "(default)"
 msgstr "(predefinita)"
 
