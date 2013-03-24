@@ -823,7 +823,7 @@ class ExpectOpenBracket(ParseLilyPond):
             state.replace(self.replace())
         
 
-class ExpectOpenBrackedOrSimultaneous(ParseLilyPond):
+class ExpectOpenBracketOrSimultaneous(ParseLilyPond):
     """Waits for an OpenBracket or << and then replaces the parser with the class set in the replace attribute.
     
     Subclass this to set the destination for the OpenBracket.
