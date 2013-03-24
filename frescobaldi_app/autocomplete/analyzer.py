@@ -344,10 +344,6 @@ class Analyzer(object):
             # (only if we are in the override parser and there's no "=")
             if isinstance(self.state.parser(), scm.ParseScheme):
                 return
-            if lp.EqualSignSetOverride in tokenclasses:
-                # TODO maybe return suitable values for the last property
-                self.backuntil(lp.EqualSignSetOverride, lx.Space)
-                return completiondata.lilypond_markup
             self.backuntil(lp.DotSetOverride, lx.Space)
             if (isinstance(self.state.parsers()[1], (
                     lp.ParseWith,
@@ -372,14 +368,7 @@ class Analyzer(object):
         """\\set and \\unset"""
         tokenclasses = self.tokenclasses()
         self.backuntil(lx.Space, lp.DotSetOverride)
-        if lp.EqualSignSetOverride in tokenclasses:
-            # TODO maybe return suitable values for the context property
-            for t in self.tokens[::-1]:
-                if isinstance(t, (lp.EqualSignSetOverride, lx.Space)):
-                    break
-                self.column = t.pos
-            return completiondata.lilypond_markup
-        elif lp.ContextProperty in tokenclasses and isinstance(self.last, lx.Space):
+        if lp.ContextProperty in tokenclasses and isinstance(self.last, lx.Space):
             return # fall back to music?
         elif lp.DotSetOverride in tokenclasses:
             return completiondata.lilypond_context_properties

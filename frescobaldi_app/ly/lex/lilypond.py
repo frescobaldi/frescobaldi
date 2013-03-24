@@ -706,8 +706,7 @@ class EqualSign(_token.Token):
 class EqualSignSetOverride(EqualSign):
     """An equal sign in a set/override construct."""
     def update_state(self, state):
-        # wait for one more expression, then leave
-        state.parser().argcount = 1
+        state.leave()
 
 
 
@@ -1039,7 +1038,6 @@ class ParseOverride(ParseLilyPond):
         GrobName,
         EqualSignSetOverride,
         Name,
-        Markup, MarkupLines, MarkupList,
     ) + base_items
     
 
@@ -1061,7 +1059,6 @@ class ParseSet(ParseLilyPond):
         ContextProperty,
         EqualSignSetOverride,
         Name,
-        Markup, MarkupLines, MarkupList,
     ) + base_items
     
     
