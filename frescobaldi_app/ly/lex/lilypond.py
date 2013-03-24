@@ -808,7 +808,7 @@ class ParseGlobal(ParseLilyPond):
     )
 
 
-class ExpectOpenBracket(ParseLilyPond):
+class ExpectOpenBracket(FallthroughParser, ParseLilyPond):
     """Waits for an OpenBracket and then replaces the parser with the class set in the replace attribute.
     
     Subclass this to set the destination for the OpenBracket.
