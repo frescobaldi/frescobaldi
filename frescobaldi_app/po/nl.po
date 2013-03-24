@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-03-16 16:05+0100\n"
+"POT-Creation-Date: 2013-03-23 06:44+0100\n"
 "PO-Revision-Date: 2013-03-22 18:35+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -1149,7 +1149,7 @@ msgid "Special Charac&ters"
 msgstr "Speciale &tekens"
 
 #: ../docbrowser/__init__.py:46 ../docbrowser/__init__.py:62
-#: ../preferences/documentation.py:123
+#: ../preferences/documentation.py:126
 msgid "Documentation Browser"
 msgstr "Documentatie-browser"
 
@@ -3315,27 +3315,27 @@ msgstr ""
 "documentatie in verschillende submappen te plaatsen, en dat Frescobaldi ze "
 "automatisch vindt.</p>"
 
-#: ../preferences/documentation.py:124
+#: ../preferences/documentation.py:127
 msgid "Preferred Language:"
 msgstr "Voorkeurstaal:"
 
-#: ../preferences/documentation.py:125 ../preferences/general.py:133
+#: ../preferences/documentation.py:128 ../preferences/general.py:133
 #: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
 #: ../scorewiz/settings.py:299 ../scorewiz/parts/_base.py:214
 #: ../scorewiz/parts/plucked_strings.py:65 ../widgets/schemeselector.py:115
 msgid "Default"
 msgstr "Standaard"
 
-#: ../preferences/documentation.py:126 ../scorewiz/settings.py:202
+#: ../preferences/documentation.py:129 ../scorewiz/settings.py:202
 msgid "English (untranslated)"
 msgstr "Engels (onvertaald)"
 
-#: ../preferences/documentation.py:127 ../preferences/fontscolors.py:122
+#: ../preferences/documentation.py:130 ../preferences/fontscolors.py:122
 #: ../preferences/tools.py:81 ../preferences/tools.py:216
 msgid "Font:"
 msgstr "Lettertype:"
 
-#: ../preferences/documentation.py:163
+#: ../preferences/documentation.py:166
 msgid "Please enter a local path or a URL:"
 msgstr "Voer een lokaal pad in of een URL:"
 
@@ -4219,7 +4219,7 @@ msgid_plural "Remove the shortcut from those commands?"
 msgstr[0] "Sneltoets voor dat commando verwijderen?"
 msgstr[1] "Sneltoets van deze commando's verwijderen?"
 
-#: ../preferences/shortcuts.py:304
+#: ../preferences/shortcuts.py:309
 msgid "(default)"
 msgstr "(standaard)"
 

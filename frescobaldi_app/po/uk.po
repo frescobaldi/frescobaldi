@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-03-16 16:05+0100\n"
+"POT-Creation-Date: 2013-03-23 06:44+0100\n"
 "PO-Revision-Date: 2012-04-19 17:21+0300\n"
 "Last-Translator: Dmytro O. Redchuk <brownian.box@gmail.com>\n"
 "Language-Team: Ukrainian\n"
@@ -1157,7 +1157,7 @@ msgid "Special Charac&ters"
 msgstr "Сп&еціальні символи"
 
 #: ../docbrowser/__init__.py:46 ../docbrowser/__init__.py:62
-#: ../preferences/documentation.py:123
+#: ../preferences/documentation.py:126
 msgid "Documentation Browser"
 msgstr "Переглядач документації"
 
@@ -2896,27 +2896,27 @@ msgid ""
 "and have Frescobaldi automatically find them.</p>"
 msgstr ""
 
-#: ../preferences/documentation.py:124
+#: ../preferences/documentation.py:127
 msgid "Preferred Language:"
 msgstr "Бажана мова:"
 
-#: ../preferences/documentation.py:125 ../preferences/general.py:133
+#: ../preferences/documentation.py:128 ../preferences/general.py:133
 #: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
 #: ../scorewiz/settings.py:299 ../scorewiz/parts/_base.py:214
 #: ../scorewiz/parts/plucked_strings.py:65 ../widgets/schemeselector.py:115
 msgid "Default"
 msgstr ""
 
-#: ../preferences/documentation.py:126 ../scorewiz/settings.py:202
+#: ../preferences/documentation.py:129 ../scorewiz/settings.py:202
 msgid "English (untranslated)"
 msgstr ""
 
-#: ../preferences/documentation.py:127 ../preferences/fontscolors.py:122
+#: ../preferences/documentation.py:130 ../preferences/fontscolors.py:122
 #: ../preferences/tools.py:81 ../preferences/tools.py:216
 msgid "Font:"
 msgstr "Шрифт:"
 
-#: ../preferences/documentation.py:163
+#: ../preferences/documentation.py:166
 msgid "Please enter a local path or a URL:"
 msgstr ""
 
@@ -3684,7 +3684,7 @@ msgid_plural "Remove the shortcut from those commands?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../preferences/shortcuts.py:304
+#: ../preferences/shortcuts.py:309
 msgid "(default)"
 msgstr ""
 

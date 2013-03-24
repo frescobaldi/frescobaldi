@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-03-16 16:05+0100\n"
+"POT-Creation-Date: 2013-03-23 06:44+0100\n"
 "PO-Revision-Date: 2012-09-08 20:04+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -1162,7 +1162,7 @@ msgid "Special Charac&ters"
 msgstr "Zvláš&tní znaky"
 
 #: ../docbrowser/__init__.py:46 ../docbrowser/__init__.py:62
-#: ../preferences/documentation.py:123
+#: ../preferences/documentation.py:126
 msgid "Documentation Browser"
 msgstr "Prohlížeč dokumentace"
 
@@ -3313,27 +3313,27 @@ msgstr ""
 "dokumentace k LilyPondu do různých podadresářů a nechat Frescobaldi, aby je "
 "automaticky našel.</p>"
 
-#: ../preferences/documentation.py:124
+#: ../preferences/documentation.py:127
 msgid "Preferred Language:"
 msgstr "Upřednostňovaný jazyk:"
 
-#: ../preferences/documentation.py:125 ../preferences/general.py:133
+#: ../preferences/documentation.py:128 ../preferences/general.py:133
 #: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
 #: ../scorewiz/settings.py:299 ../scorewiz/parts/_base.py:214
 #: ../scorewiz/parts/plucked_strings.py:65 ../widgets/schemeselector.py:115
 msgid "Default"
 msgstr "Výchozí"
 
-#: ../preferences/documentation.py:126 ../scorewiz/settings.py:202
+#: ../preferences/documentation.py:129 ../scorewiz/settings.py:202
 msgid "English (untranslated)"
 msgstr "Anglický (nepřeloženo)"
 
-#: ../preferences/documentation.py:127 ../preferences/fontscolors.py:122
+#: ../preferences/documentation.py:130 ../preferences/fontscolors.py:122
 #: ../preferences/tools.py:81 ../preferences/tools.py:216
 msgid "Font:"
 msgstr "Písmo:"
 
-#: ../preferences/documentation.py:163
+#: ../preferences/documentation.py:166
 msgid "Please enter a local path or a URL:"
 msgstr "Zadejte, prosím, místní cestu nebo adresu (URL):"
 
@@ -4195,7 +4195,7 @@ msgstr[0] "Odstranit zkratku z tohoto příkazu?"
 msgstr[1] "Odstranit zkratku z těchto příkazů?"
 msgstr[2] "Odstranit zkratku z těchto příkazů?"
 
-#: ../preferences/shortcuts.py:304
+#: ../preferences/shortcuts.py:309
 msgid "(default)"
 msgstr "(výchozí)"
 

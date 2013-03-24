@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-03-16 16:05+0100\n"
+"POT-Creation-Date: 2013-03-23 06:44+0100\n"
 "PO-Revision-Date: 2011-12-30 18:12+0100\n"
 "Last-Translator: Georg Hennig <georg.hennig@web.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -1156,7 +1156,7 @@ msgid "Special Charac&ters"
 msgstr "Besondere &Zeichen"
 
 #: ../docbrowser/__init__.py:46 ../docbrowser/__init__.py:62
-#: ../preferences/documentation.py:123
+#: ../preferences/documentation.py:126
 msgid "Documentation Browser"
 msgstr "Dokumentation-Browser"
 
@@ -2997,27 +2997,27 @@ msgstr ""
 "Versionen der LilyPond-Dokumentation in eigenen Unterordnern liegen und "
 "Frescobaldi kann sie automatisch finden.</p>"
 
-#: ../preferences/documentation.py:124
+#: ../preferences/documentation.py:127
 msgid "Preferred Language:"
 msgstr "Bevorzugte Sprache:"
 
-#: ../preferences/documentation.py:125 ../preferences/general.py:133
+#: ../preferences/documentation.py:128 ../preferences/general.py:133
 #: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
 #: ../scorewiz/settings.py:299 ../scorewiz/parts/_base.py:214
 #: ../scorewiz/parts/plucked_strings.py:65 ../widgets/schemeselector.py:115
 msgid "Default"
 msgstr "Standard"
 
-#: ../preferences/documentation.py:126 ../scorewiz/settings.py:202
+#: ../preferences/documentation.py:129 ../scorewiz/settings.py:202
 msgid "English (untranslated)"
 msgstr "Englisch (nicht übersetzt)"
 
-#: ../preferences/documentation.py:127 ../preferences/fontscolors.py:122
+#: ../preferences/documentation.py:130 ../preferences/fontscolors.py:122
 #: ../preferences/tools.py:81 ../preferences/tools.py:216
 msgid "Font:"
 msgstr "Schriftsatz:"
 
-#: ../preferences/documentation.py:163
+#: ../preferences/documentation.py:166
 msgid "Please enter a local path or a URL:"
 msgstr "Bitte geben Sie einen lokalen Pfad oder eine URL ein:"
 
@@ -3803,7 +3803,7 @@ msgid_plural "Remove the shortcut from those commands?"
 msgstr[0] "Soll der Kurzbefehl zu diesem Befehl entfernt werden?"
 msgstr[1] "Soll die Verknüpfung zu diesen Befehlen entfernt werden?"
 
-#: ../preferences/shortcuts.py:304
+#: ../preferences/shortcuts.py:309
 msgid "(default)"
 msgstr "(Standard)"
 
