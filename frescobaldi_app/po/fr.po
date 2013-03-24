@@ -10,13 +10,13 @@
 # David Bouriaud <david.bouriaud@ac-rouen.fr>, 2009.
 # Ryan Kavanagh <ryanakca@kubuntu.org>, 2009, 2010, 2011.
 # Richard Cognot <cognot@gocad.org>, 2013.
-# Bitouzé Denis <>, 2013.
+# Bitouzé Denis <dbitouze@wanadoo.fr>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2013-03-23 06:44+0100\n"
-"PO-Revision-Date: 2013-03-24 21:31+0100\n"
+"PO-Revision-Date: 2013-03-24 23:10+0100\n"
 "Last-Translator: Raphaël Doursenaud <rdoursenaud@free.fr>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -105,7 +105,7 @@ msgstr "Copyright (c) {year} par {author}"
 
 #: ../about.py:165
 msgid "Send an e-mail message to the maintainers."
-msgstr "Envoyer un message par e-mail aux mainteneurs."
+msgstr "Envoyer un message par courriel aux mainteneurs."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
 #: ../about.py:168 ../help/contents.py:57
@@ -335,7 +335,7 @@ msgstr "Erreur interne"
 
 #: ../exception.py:71
 msgid "Email Bug Report..."
-msgstr "Rapport de bogue par e-mail..."
+msgstr "Rapport de bogue par courriel..."
 
 #: ../exception.py:79
 msgid "Optionally describe below what you were doing:"
@@ -2884,7 +2884,7 @@ msgstr ""
 "</p>\n"
 "<p>\n"
 "Vous pouvez également glisser une petite icône dans le coin inférieur droit, "
-"ce qui enverra le fichier en cours vers le disque, p. ex. pour un e-mail.\n"
+"ce qui enverra le fichier en cours vers le disque, p. ex. pour un courriel.\n"
 "</p>"
 
 #: ../musicview/image.py:168
@@ -3784,7 +3784,7 @@ msgstr "Navigateur : "
 
 #: ../preferences/helpers.py:75
 msgid "E-Mail:"
-msgstr "E-mail : "
+msgstr "Courriel : "
 
 #: ../preferences/helpers.py:76
 msgid "File Manager:"
@@ -4164,7 +4164,7 @@ msgid ""
 "url. For the command prompt, the command should open a console window. A "
 "<code>$f</code> value is replaced with the directory of the current document."
 msgstr ""
-"Pour les réglages d'e-mail, la commande doit acception une adresse "
+"Pour les réglages de courriel, la commande doit accepter une adresse "
 "<code>mailto:</code>. Pour la ligne de commande, la commande doit ouvrir une "
 "fenêtre de console. Une valeur <code>$f</code> sera remplacée par le dossier "
 "du document en cours."
