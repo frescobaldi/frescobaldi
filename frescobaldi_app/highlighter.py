@@ -268,14 +268,14 @@ class Highlighter(QSyntaxHighlighter, plugin.Plugin):
         return self._highlighting
         
     def state(self, block):
-        """Return a thawn ly.lex.State() object at the beginning of the QTextBlock.
+        """Return a thawn ly.lex.State() object at the *end* of the QTextBlock.
         
-        This assumes the highlighter has already run through the whole document.
-        To get the state info please use tokeniter.state() instead of this method.
+        Do not use this method directly. Instead use tokeniter.state() or
+        tokeniter.state_end(), because that assures the highlighter has run
+        at least once.
         
         """
-        userState = block.previous().userState()
-        return self._fridge.thaw(userState) or self.initialState()
+        return self._fridge.thaw(block.userState()) or self.initialState()
 
     def setInitialState(self, state):
         """Force the initial state. Use None to enable auto-detection."""
