@@ -357,6 +357,7 @@ lilypond_music_commands = (
     'stopStaff',
     'stopTextSpan',
     'stopTrillSpan',
+    'stringTuning', # since 2.16
     'strokeFingerOrientations',
     'stropha',
     'sustainOff',
