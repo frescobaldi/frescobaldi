@@ -167,6 +167,16 @@ class DocumentInfo(plugin.DocumentPlugin):
                 pass
         return default
     
+    @resetoncontentschanged
+    def looksComplete(self):
+        """Return True when the document looks couplete and could be valid.
+        
+        This is determined by looking at the depth of the state at the end of
+        the last line: if it is 1 it could be a valid document.
+        
+        """
+        return tokeniter.state_end(self.document().lastBlock()).depth() == 1
+    
     def master(self):
         """Returns the master filename for the document, if it exists."""
         filename = self.document().url().toLocalFile()
