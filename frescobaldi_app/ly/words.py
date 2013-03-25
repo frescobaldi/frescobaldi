@@ -61,6 +61,8 @@ lilypond_keywords = (
 
 lilypond_music_commands = (
     'acciaccatura',
+    'accidentalStyle', # since 2.16
+    'addChordShape', # since 2.16
     'addInstrumentDefinition',
     'addlyrics',
     'addQuote',
@@ -126,6 +128,7 @@ lilypond_music_commands = (
     'cresc',
     'crescHairpin',
     'crescTextCresc',
+    'crossStaff', # since 2.16
     'cueDuring',
     'dashBar',
     'dashDash',
@@ -318,6 +321,7 @@ lilypond_music_commands = (
     'sff',
     'sfp',
     'sfz',
+    'shape', # since 2.16
     'shiftDurations',
     'shiftOff',
     'shiftOn',
@@ -675,10 +679,14 @@ contexts = (
     'GrandStaff',
     'GregorianTranscriptionStaff',
     'GregorianTranscriptionVoice',
+    'KievanStaff', # since 2.16
+    'KievanVoice', # since 2.16
     'Lyrics',
     'MensuralStaff',
     'MensuralVoice',
     'NoteNames',
+    'PetrucciStaff', # since 2.16
+    'PetrucciVoice', # since 2.16
     'PianoStaff',
     'RhythmicStaff',
     'Score',
