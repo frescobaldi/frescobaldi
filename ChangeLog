@@ -2,6 +2,14 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
+Changes in 2.0.10 -- 
+
+* Translations:
+  - updated: fr
+* Improvements:
+  - Highlight more music functions that were added in LilyPond 2.16
+
+
 Changes in 2.0.9 -- March 23rd, 2013
 
 * Translations:
