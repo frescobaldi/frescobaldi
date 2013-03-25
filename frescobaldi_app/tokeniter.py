@@ -57,6 +57,14 @@ def state(block):
     hl = highlighter.highlighter(block.document())
     if block.previous().userState() == -1 and block.blockNumber() > 0:
         hl.rehighlight()
+    return hl.state(block.previous())
+
+
+def state_end(block):
+    """Return the ly.lex.State() object at the end of the given QTextBlock."""
+    hl = highlighter.highlighter(block.document())
+    if block.userState() == -1:
+        hl.rehighlight()
     return hl.state(block)
 
 
