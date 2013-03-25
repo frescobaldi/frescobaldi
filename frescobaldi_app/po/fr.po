@@ -2,25 +2,29 @@
 # Copyright (C) 2011 THE frescobaldi'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the frescobaldi package.
 #
+#
+#
 # Philippe Massart <>, 2011.
-# Raphaël Doursenaud <rdoursenaud@free.fr>, 2011.
-# Valentin Villenave <v.villenave@gmail.com>, 2008, 2010
-# David Bouriaud <david.bouriaud@ac-rouen.fr>, 2009
+# Raphaël Doursenaud <rdoursenaud@free.fr>, 2011, 2013.
+# Valentin Villenave <v.villenave@gmail.com>, 2008, 2010.
+# David Bouriaud <david.bouriaud@ac-rouen.fr>, 2009.
 # Ryan Kavanagh <ryanakca@kubuntu.org>, 2009, 2010, 2011.
+# Richard Cognot <cognot@gocad.org>, 2013.
+# Bitouzé Denis <dbitouze@wanadoo.fr>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2013-03-23 06:44+0100\n"
-"PO-Revision-Date: 2012-05-08 21:42+0100\n"
-"Last-Translator: Richard Cognot <cognot@gocad.org>\n"
-"Language-Team: Français <>\n"
+"PO-Revision-Date: 2013-03-24 23:10+0100\n"
+"Last-Translator: Raphaël Doursenaud <rdoursenaud@free.fr>\n"
+"Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bits\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: ../about.py:43
 msgid "{appname} is written in {python} and uses the {qt} toolkit."
@@ -101,14 +105,14 @@ msgstr "Copyright (c) {year} par {author}"
 
 #: ../about.py:165
 msgid "Send an e-mail message to the maintainers."
-msgstr "Envoyer un message par email aux mainteneurs."
+msgstr "Envoyer un message par courriel aux mainteneurs."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
 #: ../about.py:168 ../help/contents.py:57
 msgid "Translated by Your Name."
 msgstr ""
 "Traduit par Valentin Villenave, David Bouriaud, Ryan Kavanagh, Raphaël "
-"Doursenaud et Philippe Massart."
+"Doursenaud, Philippe Massart et Denis Bitouzé."
 
 #: ../about.py:173
 msgid "Licensed under the {gpl}."
@@ -266,9 +270,8 @@ msgid "Untitled ({num})"
 msgstr "Sans titre ({num})"
 
 #: ../documentactions.py:133
-#, fuzzy
 msgid "Open File at C&ursor"
-msgstr "Ouvrir Fichier"
+msgstr "Ouvrir le fichier au niveau du curseur"
 
 #: ../documentactions.py:134
 msgid "Cut and Assign..."
@@ -308,7 +311,6 @@ msgid "&Close"
 msgstr "Fermer"
 
 #: ../documentcontextmenu.py:70
-#, fuzzy
 msgid "Always &Engrave This Document"
 msgstr "Toujours gr&aver ce document"
 
@@ -333,7 +335,7 @@ msgstr "Erreur interne"
 
 #: ../exception.py:71
 msgid "Email Bug Report..."
-msgstr "Rapport de bogue par email..."
+msgstr "Rapport de bogue par courriel..."
 
 #: ../exception.py:79
 msgid "Optionally describe below what you were doing:"
@@ -497,7 +499,7 @@ msgstr ""
 "traiter. Ensuite\n"
 "appuyez {key_hyphen} ou choisissez {menu_hyphen}.\n"
 "Dans la fenêtre de dialogue qui apparaît, sélectionnez la langue.\n"
-"Appuyez Ok ou appuyez Entrée pour effecter la césure. \n"
+"Appuyez OK ou appuyez Entrée pour effectuer la césure. \n"
 "</p>\n"
 "\n"
 "<p>\n"
@@ -554,7 +556,7 @@ msgstr "Terminé avec succès en {time}."
 
 #: ../lilypondinfo.py:134
 msgid "Running LilyPond, this can take some time..."
-msgstr "Lancement de lilyPond, cela peut prendre du temps..."
+msgstr "Lancement de LilyPond, cela peut prendre du temps..."
 
 #: ../lyrics.py:132
 msgid "&Hyphenate Lyrics Text..."
@@ -601,9 +603,8 @@ msgid "Session to start ('{none}' for empty session)"
 msgstr "Session à démarrer (« {none} » pour une session vide)"
 
 #: ../main.py:68
-#, fuzzy
 msgid "List the session names and exit"
-msgstr "afficher ce message d'aide et quitter"
+msgstr "Lister les noms de session et quitter"
 
 #: ../main.py:70
 msgid "Always start a new instance"
@@ -691,29 +692,26 @@ msgstr ""
 "{error}"
 
 #: ../mainwindow.py:486 ../mainwindow.py:500 ../externalchanges/widget.py:103
-#, fuzzy
 msgid "Reload"
 msgstr "Recharger"
 
 #: ../mainwindow.py:487
-#, fuzzy
 msgid ""
 "Could not reload the document:\n"
 "\n"
 "{url}"
 msgstr ""
-"Impossible de charger le document distant :\n"
+"Impossible de recharger le document distant :\n"
 "\n"
 "{url}"
 
 #: ../mainwindow.py:497
-#, fuzzy
 msgid "Some documents could not be reloaded."
-msgstr "Le document n'a pas été modifié."
+msgstr "Des documents ne peuvent pas être rechargés."
 
 #: ../mainwindow.py:499
 msgid "No document could be reloaded."
-msgstr ""
+msgstr "Aucun document ne peut être rechargé."
 
 #: ../mainwindow.py:556
 msgctxt "dialog title"
@@ -797,24 +795,24 @@ msgid "Save All"
 msgstr "Tout enregistrer"
 
 #: ../mainwindow.py:986
-#, fuzzy
 msgid "Re&load"
-msgstr "Recharger"
+msgstr "Re&charger"
 
 #: ../mainwindow.py:987 ../externalchanges/widget.py:108
-#, fuzzy
 msgid "Reload All"
-msgstr "Recharger"
+msgstr "Recharger tous les fichiers"
 
 #: ../mainwindow.py:988
 msgid "Check for External Changes..."
-msgstr ""
+msgstr "Contrôler les modifications externes..."
 
 #: ../mainwindow.py:990
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
 msgstr ""
+"Ouvre une fenêtre pour contrôler si les documents ouverts ont été modifiés "
+"ou supprimés par d'autres programmes."
 
 #: ../mainwindow.py:992
 msgid "Print Source..."
@@ -945,13 +943,12 @@ msgid "&About {appname}..."
 msgstr "&À propos de {appname}..."
 
 #: ../matcher.py:123
-#, fuzzy
 msgid "Matching Pai&r"
-msgstr "Caractère correspondant"
+msgstr "Caractère appa&rié"
 
 #: ../matcher.py:124
 msgid "&Select Matching Pair"
-msgstr ""
+msgstr "&Sélectionner les caractères appariés"
 
 #: ../menu.py:84
 msgctxt "menu title"
@@ -1043,7 +1040,7 @@ msgid ""
 "\n"
 "Do you want to continue?"
 msgstr ""
-"Aucune commande d'impression pour imprimer un fichier PostScript n'a pû être "
+"Aucune commande d'impression pour imprimer un fichier PostScript n'a pu être "
 "trouvée.\n"
 "\n"
 "Le document sera donc imprimé avec une image point par point à {resolution} "
@@ -1306,7 +1303,7 @@ msgstr "Version de LilyPond :"
 
 #: ../engrave/custom.py:125
 msgid "Output Format:"
-msgstr "Fomat de sortie :"
+msgstr "Format de sortie :"
 
 #: ../engrave/custom.py:126
 msgid "Resolution:"
@@ -1405,25 +1402,32 @@ msgid "No files available"
 msgstr "Aucun fichier disponible"
 
 #: ../externalchanges/widget.py:99 ../externalchanges/widget.py:288
-#, fuzzy
 msgid "Modified Files"
-msgstr "Fichiers XML"
+msgstr "Fichiers modifiés"
 
 #: ../externalchanges/widget.py:101
 msgid "The following files were modified or deleted by other applications:"
 msgstr ""
+"Les fichiers suivants ont été modifiés ou supprimés par d'autres "
+"applications :"
 
 #: ../externalchanges/widget.py:105
 msgid ""
 "Reloads the selected documents from disk. (You can still reach the previous "
 "state of the document using the Undo command.)"
 msgstr ""
+"Recharge depuis le disque sur les documents sélectionnés. (Vous pouvez "
+"toujours revenir à l'état précédent d'un document en utilisant la commande « "
+"Annuler ».)"
 
 #: ../externalchanges/widget.py:110
 msgid ""
 "Reloads all externally modified documents from disk. (You can still reach "
 "the previous state of the document using the Undo command.)"
 msgstr ""
+"Recharge depuis le disque tous les documents modifiés par d'autres "
+"applications. (Vous pouvez toujours revenir à l'état précédent d'un document "
+"en utilisant la commande « Annuler ».)"
 
 #: ../externalchanges/widget.py:113 ../help/contents.py:576
 #: ../help/contents.py:586
@@ -1435,84 +1439,89 @@ msgid ""
 "Saves the selected documents to disk, overwriting the modifications by "
 "another program."
 msgstr ""
+"Enregistre sur le disque dur les documents sélectionnés, et écrase les "
+"modifications dues à d'autres programmes."
 
 #: ../externalchanges/widget.py:119
 msgid ""
 "Saves all documents to disk, overwriting the modifications by another "
 "program."
 msgstr ""
+"Enregistre sur le disque dur tous les documents, et écrase les modifications "
+"dues à d'autres programmes."
 
 #: ../externalchanges/widget.py:121 ../externalchanges/widget.py:304
-#, fuzzy
 msgid "Show Difference..."
-msgstr "Préfér&ences..."
+msgstr "Afficher les différences..."
 
 #: ../externalchanges/widget.py:123
 msgid ""
 "Shows the differences between the current document and the file on disk."
 msgstr ""
+"Affiche les différences entre le document courant et le fichier sur le "
+"disque dur."
 
 #: ../externalchanges/widget.py:126 ../externalchanges/widget.py:307
-#, fuzzy
 msgid "Enable watching documents for external changes"
-msgstr "Le document n'a pas été modifié."
+msgstr "Active l'examen des modifications externes de documents "
 
 #: ../externalchanges/widget.py:128
-#, fuzzy
 msgid ""
 "If checked, Frescobaldi will warn you when opened files are modified or "
 "deleted by other applications."
 msgstr ""
-"Si coché, Frescobaldi ne raccourcira pas les noms de fichier dans la sortie "
-"du journal."
+"Si coché, Frescobaldi vous avertira quand des fichiers ouverts auront été "
+"modifiés ou supprimés par d'autres applications."
 
 #: ../externalchanges/widget.py:156
-#, fuzzy
 msgid "[deleted]"
-msgstr "Supprimé"
+msgstr "[supprimé]"
 
 #: ../externalchanges/widget.py:238
-#, fuzzy
 msgid "The document could not be saved."
-msgstr "Le document n'a pas été modifié."
+msgstr "Le document ne peut pas être enregistré."
 
 #: ../externalchanges/widget.py:240
-#, fuzzy
 msgid "One document could not be saved."
-msgstr "Le document n'a pas été modifié."
+msgstr "Un document ne peut pas être enregistré."
 
 #: ../externalchanges/widget.py:242
-#, fuzzy
 msgid "Some documents could not be saved."
-msgstr "Le document n'a pas été modifié."
+msgstr "Des documents ne peuvent pas être enregistrés."
 
 #: ../externalchanges/widget.py:244
 msgid "Maybe the directory does not exist anymore."
-msgstr ""
+msgstr "Le répertoire n'existe peut-être plus."
 
 #: ../externalchanges/widget.py:245
-#, fuzzy
 msgid "Please save the document using the \"Save As...\" dialog."
 msgid_plural "Please save the documents using the \"Save As...\" dialog."
-msgstr[0] "Toujours enregistrer la liste des documents dans cette session"
-msgstr[1] "Toujours enregistrer la liste des documents dans cette session"
+msgstr[0] ""
+"Veuillez enregistrer le document en utilisant la boîte de dialogue « "
+"Enregistrer sous... »."
+msgstr[1] ""
+"Veuillez enregistrer les documents en utilisant la boîte de dialogue « "
+"Enregistrer sous... »."
 
 #: ../externalchanges/widget.py:269
-#, fuzzy
 msgid "Document on Disk"
-msgstr "Polices du document..."
+msgstr "Document sur le disque dur"
 
 #: ../externalchanges/widget.py:276
 msgid ""
 "Document: {url}\n"
 "Difference between the current document and the file on disk:"
 msgstr ""
+"Document : {url}\n"
+"Différences entre le document courant et le fichier sur le disque dur :"
 
 #: ../externalchanges/widget.py:292
 msgid ""
 "Frescobaldi can detect if files are modified or deleted by other "
 "applications."
 msgstr ""
+"Frescobaldi peut détecter si des fichiers ont été modifiés ou supprimés par "
+"d'autres applications."
 
 #: ../externalchanges/widget.py:294
 msgid ""
@@ -1521,24 +1530,36 @@ msgid ""
 "can choose whether to reload one or more documents from disk, or to save "
 "them, discarding the modifications made by the other application."
 msgstr ""
+"Quand une autre application modifie ou supprime un ou plusieurs documents "
+"ouverts dans Frescobaldi, une liste des documents affectés est affichée, et "
+"vous pouvez choisir soit de recharger un ou plusieurs documents depuis le "
+"disque dur, soit d'enregistrer un ou plusieurs documents et ainsi ne pas "
+"tenir compte des modifications effectuées par l'autre application."
 
 #: ../externalchanges/widget.py:299
 msgid ""
 "When a document is reloaded, you can still press {undokey} to get back the "
 "document as it was in memory before reloading it from disk."
 msgstr ""
+"Quand un document est rechargé, vous pouvez toujours presser la touche "
+"{undokey} pour retourner au document tel qu'il était en mémoire avant d'être "
+"rechargé depuis le disque dur."
 
 #: ../externalchanges/widget.py:302
 msgid ""
 "Press the <em>{showdiff}</em> button to see the difference between the "
 "current document and its version on disk."
 msgstr ""
+"Cliquer sur le bouton <em>{showdiff}</em> pour afficher les différences "
+"entre le document courant et sa version sur le disque dur."
 
 #: ../externalchanges/widget.py:305
 msgid ""
 "If you don't want to be warned when a document is changed or deleted by "
 "another application, uncheck the <em>{action}</em> checkbox."
 msgstr ""
+"Si vous ne souhaitez pas être averti quand un document est modifié ou "
+"supprimé par une autre application, décochez la case <em>{action}</em>."
 
 #: ../help/browser.py:77
 msgid "Toolbar"
@@ -1900,16 +1921,16 @@ msgid ""
 "on), the PDF contains a clickable link for every music object, pointing to "
 "its definition in the text document."
 msgstr ""
-"Lorsque Lilypond est lancé en mode Aperçu (avec le mode \"Point &amp; Click"
-"\" activé), le document PDF contient des liens actifs pour chaque élément "
-"musical, renvoyant vers leur définition dans le document source."
+"Lorsque  LilyPond est lancé en mode Aperçu (avec le mode « Point &amp; "
+"Click » activé), le document PDF contient des liens actifs pour chaque "
+"élément musical, renvoyant vers leur définition dans le document source."
 
 #: ../help/contents.py:240
 msgid ""
 "The Music View uses this information to provide smart, two-way integration "
 "with the text document:"
 msgstr ""
-"La fenêtre d'Aperçu utilise cette information pour fourninr une intégration "
+"La fenêtre d'Aperçu utilise cette information pour fournir une intégration "
 "bidirectionnelle intelligente avec le document source;"
 
 #: ../help/contents.py:243
@@ -1920,7 +1941,7 @@ msgstr ""
 
 #: ../help/contents.py:244
 msgid "Click an object to move the text cursor to that object"
-msgstr "Clicker sur un objet pour déplacer le curseur de texte sur cet objet"
+msgstr "Cliquer sur un objet pour déplacer le curseur de texte sur cet objet"
 
 #: ../help/contents.py:245
 msgid "Shift-click an object to edit its text in a small window (see {link})"
@@ -1949,7 +1970,7 @@ msgstr ""
 #: ../help/contents.py:254
 msgid "Hold Control or Command and left-click to display a magnifier glass"
 msgstr ""
-"Appyez sur Ctrl ou Command + clic de gauche pour faire apparaître une loupe"
+"Appuyez sur Ctrl ou Command + clic de gauche pour faire apparaître une loupe"
 
 #: ../help/contents.py:255
 msgid "Configure the background color under {menu}"
@@ -2144,8 +2165,8 @@ msgstr ""
 "<p>\n"
 "À ce moment, il fut décidé d'abandonner les librairies KDE4 et de n'utiliser "
 "que\n"
-"Python et Qt4 qui sont disponibles sur les platformes informatiques les plus "
-"courantes.\n"
+"Python et Qt4 qui sont disponibles sur les plates-formes informatiques les "
+"plus courantes.\n"
 "Frescobaldi 2.0 est une ré-écriture complète. Sa publication est\n"
 "prévue pour Noël 2011.\n"
 "</p>\n"
@@ -2385,7 +2406,7 @@ msgstr "Vous pouvez placer des variables de document dans les commentaires."
 
 #: ../help/contents.py:534
 msgid "The \"{output}\" document variable"
-msgstr "La variable \"{output}\" du document"
+msgstr "La variable « {output} » du document"
 
 #: ../help/contents.py:539
 msgid ""
@@ -2499,7 +2520,7 @@ msgstr "Après compilation d'une partition, l'Aperçu n'affiche pas le résultat
 msgid "Does the <code>\\score</code> block have a layout section?"
 msgstr ""
 "Est-ce que le bloc <code>\\score</code> contient une section de mise en "
-"forme (layout)?"
+"forme (layout) ?"
 
 #: ../help/contents.py:617
 msgid ""
@@ -2512,7 +2533,7 @@ msgstr ""
 #: ../help/contents.py:620
 msgid "Do you use an exotic way to specify the output filename?"
 msgstr ""
-"Utilisez-vous une manère exotique de spécifier le nom du fichier de sortie?"
+"Utilisez-vous une manière exotique de spécifier le nom du fichier de sortie ?"
 
 #: ../help/contents.py:621
 msgid ""
@@ -2522,7 +2543,7 @@ msgid ""
 "files for commands like <code>\\bookOutputName</code> and <code>"
 "\\bookOutputSuffix</code>."
 msgstr ""
-"Frescobaldi est capable de determiner le nom des fichiers de sortie en "
+"Frescobaldi est capable de déterminer le nom des fichiers de sortie en "
 "analysant le nom de fichier du document et les différentes commandes de "
 "LilyPond qui spécifient le fichier de sortie ou l'option -suffix. "
 "Frescobaldi cherche également les fichiers inclus par la directive <code>"
@@ -2549,7 +2570,7 @@ msgstr ""
 
 #: ../help/contents.py:643
 msgid "How to generate a MIDI file?"
-msgstr "Comment générer un fichier MIDI?"
+msgstr "Comment générer un fichier MIDI ?"
 
 #: ../help/contents.py:647
 msgid ""
@@ -2557,7 +2578,7 @@ msgid ""
 "file, you must wrap the music in a <code>\\score</code> block and add a "
 "<code>\\midi</code> block to it."
 msgstr ""
-"Par défautl, LilyPond ne crée que le fichier PDF représentant la musique. "
+"Par défaut, LilyPond ne crée que le fichier PDF représentant la musique. "
 "Pour créer aussi un fichier MIDI, la musique doit être inclue dans un bloc "
 "de type <code>\\score</code> dans lequel vous devez inclure un bloc de type "
 "<code>\\midi</code>."
@@ -2725,9 +2746,8 @@ msgid "&Jump to Cursor Position"
 msgstr "Aller à la position du curseur"
 
 #: ../musicview/__init__.py:297
-#, fuzzy
 msgid "S&ynchronize with Cursor Position"
-msgstr "S&ynchroniser l'aperçu avec le document courant"
+msgstr "S&ynchroniser l'aperçu avec la position du curseur"
 
 #: ../musicview/__init__.py:298
 msgid "Copy to &Image..."
@@ -2750,7 +2770,6 @@ msgid "Previous"
 msgstr "Précédent"
 
 #: ../musicview/__init__.py:303
-#, fuzzy
 msgid "&Reload"
 msgstr "Recharger"
 
@@ -2790,11 +2809,12 @@ msgstr "Éditer en ligne"
 
 #: ../musicview/editinplace.py:147
 msgid "Editing line {linenum} of \"{document}\" ({variable})"
-msgstr "Edition de la ligne {linenum} de \"{document}\" ({variable})"
+msgstr "Édition de la ligne {linenum} de « {document} » ({variable})"
 
 #: ../musicview/editinplace.py:250
 msgid "In this dialog you can edit one line of the text document."
-msgstr "Dans ce dialgue vous pouvez éditer une ligne unique du document texte."
+msgstr ""
+"Dans ce dialogue vous pouvez éditer une ligne unique du document texte."
 
 #: ../musicview/editinplace.py:251
 msgid "Click OK or press {key} to place the modified text in the document."
@@ -2808,9 +2828,9 @@ msgid ""
 "object in the Music View or by right-clicking the object and selecting "
 "{menu}."
 msgstr ""
-"Vous pouvez ouvrir la boite de dialogue \"Éditer en ligne\" en utilisant "
-"Shift-clic sur un object cliquable dans l'Aperçu ou en utilisant Clic-Droit "
-"sur cet object et en sélectionnant {menu}."
+"Vous pouvez ouvrir la boite de dialogue « Éditer en ligne » en utilisant Maj-"
+"Clic sur un object cliquable dans l'Aperçu ou en utilisant Clic-Droit sur "
+"cet objet et en sélectionnant {menu}."
 
 #: ../musicview/image.py:127
 msgid "DPI:"
@@ -2864,7 +2884,7 @@ msgstr ""
 "</p>\n"
 "<p>\n"
 "Vous pouvez également glisser une petite icône dans le coin inférieur droit, "
-"ce qui enverra le fichier en cours vers le disque, p. ex. pour un email.\n"
+"ce qui enverra le fichier en cours vers le disque, p. ex. pour un courriel.\n"
 "</p>"
 
 #: ../musicview/image.py:168
@@ -3114,7 +3134,7 @@ msgstr ""
 "<p>\n"
 "P. ex. pour transposer d'une tierce mineure vers le haut, il faudrait "
 "saisir :<br />\n"
-"<code>do mib</code>\n"
+"<code>do mob</code>\n"
 "</p>\n"
 "\n"
 "<p>\n"
@@ -3365,7 +3385,7 @@ msgstr ""
 "<p>Si ceux-ci ne sont pas trouvés, la documentation est cherchée dans tous "
 "les sous-dossiers de l'emplacement donné, un niveau plus loin. Il est alors "
 "possible de placer plusieurs versions de la documentation de LilyPond dans "
-"differents sous-dossiers et demander à Frescobaldi de les trouver.</p>"
+"différents sous-dossiers et demander à Frescobaldi de les trouver.</p>"
 
 #: ../preferences/documentation.py:127
 msgid "Preferred Language:"
@@ -3458,7 +3478,7 @@ msgstr "Résultat de recherche"
 #. L10N: color of characters that match (e.g. braces, parentheses)
 #: ../preferences/fontscolors.py:451
 msgid "Matching Character"
-msgstr "Caractère correspondant"
+msgstr "Caractère apparié"
 
 #. L10N: color of objects highlighting in preview
 #: ../preferences/fontscolors.py:455
@@ -3519,7 +3539,7 @@ msgstr "Durée"
 
 #: ../preferences/fontscolors.py:486
 msgid "Octave Check"
-msgstr "Repère d'oOctave"
+msgstr "Repère d’octave"
 
 #: ../preferences/fontscolors.py:487
 msgid "Fingering"
@@ -3694,7 +3714,7 @@ msgid ""
 "available, instead of starting a new instance."
 msgstr ""
 "Si coché, les fichiers seront de préférence ouverts dans une instance "
-"existante de Frescobladi si elle existe, plutôt que de démarrer une nouvelle "
+"existante de Frescobaldi si elle existe, plutôt que de démarrer une nouvelle "
 "instance."
 
 #: ../preferences/general.py:170 ../preferences/prefshelp.py:65
@@ -3833,8 +3853,8 @@ msgstr ""
 "<p>La variable de document ressemble à : </p>\n"
 "<pre>-*- version: 2.14.0;</pre>\n"
 "<p>quelque part (dans une section de commentaires) dans les premières ou "
-"dernières 5 lignes du document. De cette façon, la version LilyPond "
-"àutiliser peut également être spécifiée dans des fichiers non-LilyPond comme "
+"dernières 5 lignes du document. De cette façon, la version LilyPond à "
+"utiliser peut également être spécifiée dans des fichiers non-LilyPond comme "
 "HTML, LaTeX, etc.</p>\n"
 "<p>Si le document spécifie une version, la plus ancienne version LilyPond "
 "utilisable est choisie. Autrement, la version par défaut est choisie.</p>\n"
@@ -3896,7 +3916,7 @@ msgid ""
 "If checked, LilyPond's output messages will be in English.\n"
 "This can be useful for bug reports."
 msgstr ""
-"Si coché, les messages de Lilypond seront en Anglais. \n"
+"Si coché, les messages de LilyPond seront en Anglais. \n"
 "Ceci peut être utile lors de la soumission de rapports de bogues."
 
 #: ../preferences/lilypond.py:295
@@ -3999,7 +4019,7 @@ msgid ""
 msgstr ""
 "Sous <em>{general_preferences}</em>, vous pouvez choisir dans quelle langue "
 "l'interface utilisateur de Frescobaldi est traduite, quel style d'interface "
-"vous désirez utiliser, et si vous préférez utiliser les icones Tango "
+"vous désirez utiliser, et si vous préférez utiliser les icônes Tango "
 "incluses ou les par défaut pour votre système."
 
 #: ../preferences/prefshelp.py:58
@@ -4008,7 +4028,7 @@ msgid ""
 "after Frescobaldi has been restarted."
 msgstr ""
 "Le choix de langage et de style s'effectue immédiatement, mais le changement "
-"d'icones n'est effectif qu'après redémarrage de Frescobaldi."
+"d’icônes n'est effectif qu'après redémarrage de Frescobaldi."
 
 #: ../preferences/prefshelp.py:60
 msgid ""
@@ -4064,6 +4084,11 @@ msgid ""
 "convert-ly and lilypond-book you don't need to specify the full path if they "
 "are in the same directory as the LilyPond executable itself."
 msgstr ""
+"Si l'exécutable LilyPond n'est pas dans le « PATH x de votre système, vous "
+"pouvez spécifier ici son chemin d'accès complet de sorte que Frescobaldi "
+"puisse fonctionner. Il n'est pas nécessaire de spécifier des applications "
+"auxiliaires telles que convert-ly et lilypond-book si elles sont dans le "
+"même répertoire que l'exécutable LilyPond."
 
 #: ../preferences/prefshelp.py:95
 msgid ""
@@ -4139,7 +4164,7 @@ msgid ""
 "url. For the command prompt, the command should open a console window. A "
 "<code>$f</code> value is replaced with the directory of the current document."
 msgstr ""
-"Pour les réglages d'email, la commande doit acception une adresse "
+"Pour les réglages de courriel, la commande doit accepter une adresse "
 "<code>mailto:</code>. Pour la ligne de commande, la commande doit ouvrir une "
 "fenêtre de console. Une valeur <code>$f</code> sera remplacée par le dossier "
 "du document en cours."
@@ -4290,19 +4315,20 @@ msgid "Music View"
 msgstr "Aperçu"
 
 #: ../preferences/tools.py:149
-#, fuzzy
 msgid "Only load updated PDF documents"
-msgstr "Fermer tous les documents sans titre"
+msgstr "Ne charger que les document PDF à jour"
 
 #: ../preferences/tools.py:151
 msgid ""
 "If checked, Frescobaldi will not open PDF documents that are not\n"
 "up-to-date (i.e. the source file has been modified later)."
 msgstr ""
+"Si coché, Frescobaldi n'ouvrira pas de documents PDF qui ne sont pas à jour\n"
+"(c-à-d dont le fichier source a été modifié ultérieurement)."
 
 #: ../preferences/tools.py:153
 msgid "Magnifier Size:"
-msgstr "Taille de la loupe :"
+msgstr "Taille de la loupe :"
 
 #: ../preferences/tools.py:155
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
@@ -4737,7 +4763,7 @@ msgstr "Liaison de phrasé"
 
 #: ../quickinsert/spanners.py:147
 msgid "Melisma"
-msgstr ""
+msgstr "Tenue"
 
 #: ../quickinsert/widget.py:102
 msgid ""
@@ -5093,7 +5119,7 @@ msgstr ""
 "Il est également possible de changer la façon dont le rythme est spécifié : "
 "pour chaque note\n"
 "(explicite), ou seulement quand les durées changent (implicite). Certaines "
-"personnes prefèrent\n"
+"personnes préfèrent\n"
 "l'option implicite par ligne, qui spécifie toujours la durée pour la "
 "première\n"
 "note, le premier accord ou silence d'une ligne.\n"
@@ -5266,7 +5292,7 @@ msgstr ""
 "<p>\n"
 "Cliquez sur le bouton Aperçu pour obtenir un aperçu avec quelques exemples "
 "musicaux.\n"
-"Cliquez Ok pour copier le code LilyPond généré dans l'éditeur de texte.\n"
+"Cliquez OK pour copier le code LilyPond généré dans l'éditeur de texte.\n"
 "</p>\n"
 "\n"
 "<h3>Pièces multiples ou mouvements</h3>\n"
@@ -5589,7 +5615,7 @@ msgid ""
 "Show predefined guitar fret diagrams below the chord names (LilyPond 2.12 "
 "and above)."
 msgstr ""
-"Afficher les diagrammes d'accords sous le nom de l'accord (Lilypond 2.12 et "
+"Afficher les diagrammes d'accords sous le nom de l'accord (LilyPond 2.12 et "
 "plus récent). "
 
 #: ../scorewiz/parts/_base.py:203
@@ -6603,9 +6629,8 @@ msgid "Delete Line(s)"
 msgstr "Sélectionner des lignes entières au-dessus"
 
 #: ../snippet/builtin.py:62
-#, fuzzy
 msgid "Delete Matching Pair"
-msgstr "Respiration par défaut"
+msgstr "Supprimer les caractères appariés"
 
 #: ../snippet/builtin.py:78
 msgid "Next Blank Line"
@@ -6766,7 +6791,7 @@ msgid ""
 "Do you want to save your changes or discard them?"
 msgstr ""
 "Le fragment  a été modifié.\n"
-"Voulez-vous enregistrer les changements ou les ignorer?"
+"Voulez-vous enregistrer les changements ou les ignorer ?"
 
 #: ../snippet/edit.py:214
 msgid "Snippet editor"
@@ -6775,10 +6800,10 @@ msgstr "Éditeur de fragments"
 #: ../snippet/edit.py:219
 msgid ""
 "<p>Here you can edit the text of the snippet.</p><p>If you start the first "
-"line(s) with '<code>-*- </code>' (note the space), the remainder of that line"
-"(s) defines variables like <code>name: value;</code> or simply <code>name;</"
-"code> which influence the behaviour of the snippet. The following variables "
-"can be used:</p>"
+"line(s) with '<code>-*- </code>' (note the space), the remainder of that "
+"line(s) defines variables like <code>name: value;</code> or simply "
+"<code>name;</code> which influence the behaviour of the snippet. The "
+"following variables can be used:</p>"
 msgstr ""
 "<p>Vous pouvez ici éditer le texte du fragment.</p><p>Si vous commencez la "
 "(les) première(s) ligne(s) avec '<code>-*- </code>' (notez les espaces), le "
@@ -6923,8 +6948,8 @@ msgid ""
 "alter the document through the {cursor}."
 msgstr ""
 "Lorsque vous définissez une fonction de ce nom, elle est appelée sans "
-"arguments, au lieu d'insérér le texte depuis la variable {text}. Dans ce cas "
-"vous pouvez changer le ducument via le {cursor}."
+"arguments, au lieu d’insérer le texte depuis la variable {text}. Dans ce cas "
+"vous pouvez changer le document via le {cursor}."
 
 #: ../snippet/expand.py:76
 msgid "The current date in YYYY-MM-DD format."
@@ -7011,8 +7036,8 @@ msgid ""
 msgstr ""
 "<p>Les fragments de {filename} sont affichés ici.</p>\n"
 "<p>S'il y a des fragments nouveaux ou mis à jour, vous pouvez les "
-"sélectionner ou les désélectionner un par un, ou tous ensembleen utilisant "
-"la case à cocher du groupe. Cliquez Ok pour importer tous les fragments "
+"sélectionner ou les désélectionner un par un, ou tous ensemble en utilisant "
+"la case à cocher du groupe. Cliquez OK pour importer tous les fragments "
 "sélectionnés.</p>\n"
 "<p>Les fragments existants ou non modifiés ne peuvent pas être importés.</"
 "p>\n"
@@ -7034,7 +7059,7 @@ msgid ""
 "selecting {menu}, and then choose a file name, preferably ending in <code>."
 "xml</code>."
 msgstr ""
-"Pour exporter des fragments, vous pouvez soit les selectionner dans le "
+"Pour exporter des fragments, vous pouvez soit les sélectionner dans le "
 "gestionnaire de fragments, ou filtrer les fragments grâce à la barre de "
 "recherche sans en sélectionner, de manière à ce que tous les fragments "
 "visibles dans le gestionnaire de fragments soient exportés. Vous pouvez "
@@ -7056,9 +7081,9 @@ msgid ""
 "You may also drop an XML file on the snippet manager. A dialog will be "
 "displayed where you can select which snippets you want to import."
 msgstr ""
-"Pour importer des fragments, selectionnez {menu} et choisissez le fichier à "
+"Pour importer des fragments, sélectionnez {menu} et choisissez le fichier à "
 "importer. Il est aussi possible de faire glisser une fichier XML sur le "
-"gestionnaire de fragments. Une boite de dialogue s'ouvira alors pour vous "
+"gestionnaire de fragments. Une boite de dialogue s’ouvrira alors pour vous "
 "permettre de sélectionner les fragments à importer."
 
 #: ../snippet/import_export.py:250 ../snippet/widget.py:195
@@ -7105,8 +7130,8 @@ msgid ""
 "\"Restore Checked Snippets.\""
 msgstr ""
 "Ce dialogue vous permet de rétablir des fragments par défaut qui ont été "
-"changés ou suprimés. Cochez les fragments que vous voulez rétablir et "
-"cliquez sur le bouton \"Rétablir les Fragments Sélectionnés.\""
+"changés ou supprimés. Cochez les fragments que vous voulez rétablir et "
+"cliquez sur le bouton « Rétablir les Fragments Sélectionnés »."
 
 #: ../snippet/restore.py:67
 msgid "Restore Checked Snippets"
@@ -7130,7 +7155,7 @@ msgstr "Veuillez saisir un nom de modèle."
 
 #: ../snippet/template.py:49
 msgid "Overwrite Template?"
-msgstr "Ecraser le modèle?"
+msgstr "Écraser le modèle ?"
 
 #: ../snippet/template.py:50
 msgid ""
@@ -7188,7 +7213,7 @@ msgstr "A&ppliquer"
 
 #: ../snippet/widget.py:194
 msgid "Apply the current snippet."
-msgstr "Appliquer le fragment courrant."
+msgstr "Appliquer le fragment courant."
 
 #: ../snippet/widget.py:196
 msgid "Import snippets from a file."
@@ -7302,7 +7327,8 @@ msgid ""
 "</p>\n"
 msgstr ""
 "<p>\n"
-"Le gestionnaire de fragmens vous permet de conserver des fragments de texte\n"
+"Le gestionnaire de fragments vous permet de conserver des fragments de "
+"texte\n"
 "fréquemment utilisés et de les coller facilement dans l'éditeur de texte.\n"
 "</p>\n"
 "\n"
@@ -7317,7 +7343,7 @@ msgstr ""
 "quelques caractères\n"
 "dans le champ de recherche.\n"
 "Les fragments peuvent également être appliqués par un raccourci clavier.\n"
-"Certains fragments ont un nom spécifique que vous pouvez saiser dans le "
+"Certains fragments ont un nom spécifique que vous pouvez saisir dans le "
 "champ de recherche.\n"
 "Il suffit ensuite de valider avec Entrée pour\n"
 "appliquer le fragment dans l'éditeur de texte et de masquer le gestionnaire "
@@ -7360,7 +7386,7 @@ msgid ""
 "smarter way is to use a snippet variable."
 msgstr ""
 "Pour qu'un groupe de fragments soit utilisable comme une bibliothèque, vous "
-"pouvez bien sûr préfixer leur titre avec un nom prédéfini. Mais une manère "
+"pouvez bien sûr préfixer leur titre avec un nom prédéfini. Mais une manière "
 "plus efficace est d'utiliser une variable de fragment."
 
 #: ../snippet/widget.py:464
@@ -7368,7 +7394,7 @@ msgid ""
 "It is suggested to use the \"{set}\" variable, and set it to the name of the "
 "library you want the snippet to belong to."
 msgstr ""
-"Il est recommandé d'utiliser la variable \"{set}\", et de la positionner sur "
+"Il est recommandé d'utiliser la variable « {set} », et de la positionner sur "
 "le nom de la bibliothèque à laquelle le fragment doit appartenir."
 
 #: ../snippet/widget.py:467
@@ -7380,7 +7406,7 @@ msgid ""
 msgstr ""
 "Ensuite dans le gestionnaire de fragments, vous pouvez facilement "
 "sélectionner tout les fragments de la bibliothèque en entrant <code>:{set} "
-"nom</code> dans la barre de recherche de fragments, ou \"nom\" est le nom "
+"nom</code> dans la barre de recherche de fragments, ou « nom » est le nom "
 "que vous voulez utiliser. Vous pouvez alors les exporter vers un fichier XML "
 "pour les partager avec d'autres utilisateurs."
 
