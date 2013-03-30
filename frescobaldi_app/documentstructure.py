@@ -33,9 +33,10 @@ import plugin
 
 default_outline_res = [
 r"\\(score|book|bookpart)\b",
+r"^\\(paper|layout|header)\b",
 r"\\(new|context)\s+[A-Z]\w+",
 r"%%+\s*BEGIN",
-r"[a-zA-Z]+\s*=",
+r"^[a-zA-Z]+\s*=",
 r"^<<",
 r"^\{",
 r"^\\relative",

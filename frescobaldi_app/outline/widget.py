@@ -76,7 +76,9 @@ class Widget(QTreeWidget):
                 position = i.start()
                 block = doc.findBlock(position)
                 depth = tokeniter.state(block).depth()
-                if last_block is None or depth == 1:
+                if block == last_block:
+                    parent = last_item
+                elif last_block is None or depth == 1:
                     # a toplevel item anyway
                     parent = self
                 else:
