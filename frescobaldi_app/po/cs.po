@@ -5,13 +5,13 @@
 #  <pavelfric@seznam.cz>, 2009.
 # Pavel Fric <pavelfric@seznam.cz>, 2009.
 # Pavel Fric <pavelfric@seznam.cz>, 2009, 2011, 2012.
-# Pavel Fric <pavelfric@seznam.cz>, 2010.
+# Pavel Fric <pavelfric@seznam.cz>, 2010, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2013-03-23 06:44+0100\n"
-"PO-Revision-Date: 2012-09-08 20:04+0200\n"
+"PO-Revision-Date: 2013-03-24 10:48+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -261,9 +261,8 @@ msgid "Untitled ({num})"
 msgstr "Bez názvu ({num})"
 
 #: ../documentactions.py:133
-#, fuzzy
 msgid "Open File at C&ursor"
-msgstr "Otevřít soubor"
+msgstr "Otevřít soubor na &ukazovátku"
 
 #: ../documentactions.py:134
 msgid "Cut and Assign..."
@@ -303,9 +302,8 @@ msgid "&Close"
 msgstr "&Zavřít"
 
 #: ../documentcontextmenu.py:70
-#, fuzzy
 msgid "Always &Engrave This Document"
-msgstr "Tento dokument vyrýt &vždy"
+msgstr "Tento dokument &vyrýt vždy"
 
 #: ../documentmenu.py:42
 msgctxt "menu title"
@@ -593,9 +591,8 @@ msgid "Session to start ('{none}' for empty session)"
 msgstr "Sezení ke spuštění ('{none}' pro prázdné sezení)"
 
 #: ../main.py:68
-#, fuzzy
 msgid "List the session names and exit"
-msgstr "Ukázat tuto zprávu s nápovědou a ukončit"
+msgstr "Vypsat názvy sezení a ukončit"
 
 #: ../main.py:70
 msgid "Always start a new instance"
@@ -683,29 +680,26 @@ msgstr ""
 "{error}"
 
 #: ../mainwindow.py:486 ../mainwindow.py:500 ../externalchanges/widget.py:103
-#, fuzzy
 msgid "Reload"
 msgstr "Nahrát znovu"
 
 #: ../mainwindow.py:487
-#, fuzzy
 msgid ""
 "Could not reload the document:\n"
 "\n"
 "{url}"
 msgstr ""
-"Nelze nahrát dokument, který není místní:\n"
+"Nepodařilo se znovu nahrát dokument:\n"
 "\n"
 "{url}"
 
 #: ../mainwindow.py:497
-#, fuzzy
 msgid "Some documents could not be reloaded."
-msgstr "Dokument byl změněn."
+msgstr "Některé dokumenty se nepodařilo nahrát znovu."
 
 #: ../mainwindow.py:499
 msgid "No document could be reloaded."
-msgstr ""
+msgstr "Žádný dokument se nepodařilo nahrát znovu."
 
 #: ../mainwindow.py:556
 msgctxt "dialog title"
@@ -789,24 +783,25 @@ msgid "Save All"
 msgstr "Uložit vše"
 
 #: ../mainwindow.py:986
-#, fuzzy
 msgid "Re&load"
-msgstr "Nahrát znovu"
+msgstr "Nahrát &znovu"
 
 #: ../mainwindow.py:987 ../externalchanges/widget.py:108
-#, fuzzy
 msgid "Reload All"
-msgstr "Nahrát znovu"
+msgstr "Nahrát vše znovu"
 
 #: ../mainwindow.py:988
 msgid "Check for External Changes..."
-msgstr ""
+msgstr "Prověřit na vnější změny..."
 
 #: ../mainwindow.py:990
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
 msgstr ""
+"Otevře okno, aby se prověřilo, zda byly otevřené dokumenty změněny nebo "
+"smazány "
+"jinými programy."
 
 #: ../mainwindow.py:992
 msgid "Print Source..."
@@ -937,13 +932,12 @@ msgid "&About {appname}..."
 msgstr "&O programu {appname}..."
 
 #: ../matcher.py:123
-#, fuzzy
 msgid "Matching Pai&r"
-msgstr "Odpovídající znak"
+msgstr "Odpovídající &dvojice"
 
 #: ../matcher.py:124
 msgid "&Select Matching Pair"
-msgstr ""
+msgstr "&Vybrat odpovídající dvojici"
 
 #: ../menu.py:84
 msgctxt "menu title"
@@ -1396,25 +1390,29 @@ msgid "No files available"
 msgstr "Nejsou dostupné žádné soubory"
 
 #: ../externalchanges/widget.py:99 ../externalchanges/widget.py:288
-#, fuzzy
 msgid "Modified Files"
-msgstr "Soubory XML"
+msgstr "Změněné soubory"
 
 #: ../externalchanges/widget.py:101
 msgid "The following files were modified or deleted by other applications:"
-msgstr ""
+msgstr "Následující soubory byly změněny nebo smazány jinými programy:"
 
 #: ../externalchanges/widget.py:105
 msgid ""
 "Reloads the selected documents from disk. (You can still reach the previous "
 "state of the document using the Undo command.)"
 msgstr ""
+"Nahraje vybraný dokument znovu z disku. (Stále ještě můžete "
+"dosáhnout předchozího stavu dokumentu pomocí příkazu Zpět.)"
 
 #: ../externalchanges/widget.py:110
 msgid ""
 "Reloads all externally modified documents from disk. (You can still reach "
 "the previous state of the document using the Undo command.)"
 msgstr ""
+"Nahraje všechny z vnějšku změněné dokumenty znovu z disku. (Stále ještě "
+"můžete "
+"dosáhnout předchozího stavu dokumentu pomocí příkazu Zpět.)"
 
 #: ../externalchanges/widget.py:113 ../help/contents.py:576
 #: ../help/contents.py:586
@@ -1426,85 +1424,82 @@ msgid ""
 "Saves the selected documents to disk, overwriting the modifications by "
 "another program."
 msgstr ""
+"Uloží vybrané dokumenty na disk, přepíše změny provedené jiným programem."
 
 #: ../externalchanges/widget.py:119
 msgid ""
 "Saves all documents to disk, overwriting the modifications by another "
 "program."
 msgstr ""
+"Uloží všechny dokumenty na disk, přepíše změny provedené jiným programem."
 
 #: ../externalchanges/widget.py:121 ../externalchanges/widget.py:304
-#, fuzzy
 msgid "Show Difference..."
-msgstr "Na&stavení..."
+msgstr "Ukázat rozdíl..."
 
 #: ../externalchanges/widget.py:123
 msgid ""
 "Shows the differences between the current document and the file on disk."
-msgstr ""
+msgstr "Ukáže rozdíly mezi nynějším dokumentem a souborem na disku."
 
 #: ../externalchanges/widget.py:126 ../externalchanges/widget.py:307
-#, fuzzy
 msgid "Enable watching documents for external changes"
-msgstr "Dokument byl změněn."
+msgstr "Povolit sledování dokumentů kvůli změnám z vnějšku"
 
 #: ../externalchanges/widget.py:128
-#, fuzzy
 msgid ""
 "If checked, Frescobaldi will warn you when opened files are modified or "
 "deleted by other applications."
 msgstr ""
-"Je-li zaškrtnuto, Frescobaldi nebude zkracovat názvy souborů ve výstupu se "
-"zápisem."
+"Je-li zaškrtnuto, Frescobaldi vás bude varovat, když jsou otevřené soubory "
+"změněny nebo smazány jinými programy"
 
 #: ../externalchanges/widget.py:156
-#, fuzzy
 msgid "[deleted]"
-msgstr "Smazáno"
+msgstr "[Smazáno]"
 
 #: ../externalchanges/widget.py:238
-#, fuzzy
 msgid "The document could not be saved."
-msgstr "Dokument byl změněn."
+msgstr "Dokument se nepodařilo uložit."
 
 #: ../externalchanges/widget.py:240
-#, fuzzy
 msgid "One document could not be saved."
-msgstr "Dokument byl změněn."
+msgstr "Jeden dokument se nepodařilo uložit."
 
 #: ../externalchanges/widget.py:242
-#, fuzzy
 msgid "Some documents could not be saved."
-msgstr "Dokument byl změněn."
+msgstr "Některé dokumenty se nepodařilo uložit."
 
 #: ../externalchanges/widget.py:244
 msgid "Maybe the directory does not exist anymore."
-msgstr ""
+msgstr "Adresář už možná více neexistuje."
 
 #: ../externalchanges/widget.py:245
-#, fuzzy
 msgid "Please save the document using the \"Save As...\" dialog."
 msgid_plural "Please save the documents using the \"Save As...\" dialog."
-msgstr[0] "Vždy uložit seznam dokumentů v tomto sezení"
-msgstr[1] "Vždy uložit seznam dokumentů v tomto sezení"
-msgstr[2] "Vždy uložit seznam dokumentů v tomto sezení"
+msgstr[0] "Uložte, prosím, dokument pomocí dialogu \"Uložit jako...\"."
+msgstr[1] "Uložte, prosím, dokumenty pomocí dialogu \"Uložit jako...\"."
+msgstr[2] "Uložte, prosím, dokumenty pomocí dialogu \"Uložit jako...\"."
 
 #: ../externalchanges/widget.py:269
-#, fuzzy
 msgid "Document on Disk"
-msgstr "Písma v dokumentu..."
+msgstr "Dokument na disku"
 
 #: ../externalchanges/widget.py:276
 msgid ""
 "Document: {url}\n"
 "Difference between the current document and the file on disk:"
 msgstr ""
+"Dokument: {url}\n"
+"Rozdíl mezi nynějším dokumentem a souborem na disku:"
 
 #: ../externalchanges/widget.py:292
 msgid ""
 "Frescobaldi can detect if files are modified or deleted by other "
 "applications."
 msgstr ""
+"Frescobaldi může zjistit, zda jsou soubory změněny nebo smazány jinými "
+"programy."
 
 #: ../externalchanges/widget.py:294
 msgid ""
@@ -1513,24 +1508,37 @@ msgid ""
 "can choose whether to reload one or more documents from disk, or to save "
 "them, discarding the modifications made by the other application."
 msgstr ""
+"Když jiný program změní nebo smaže jeden nebo více dokumentů, "
+"které jsou otevřeny ve Frescobaldi, je zobrazen seznam zasažených "
+"dokumentů, a vy si můžete vybrat, zda znovu nahrát jeden nebo více "
+"dokumentů z disku, nebo je uložit; změny provedené jiným programem "
+"jsou zahozeny."
 
 #: ../externalchanges/widget.py:299
 msgid ""
 "When a document is reloaded, you can still press {undokey} to get back the "
 "document as it was in memory before reloading it from disk."
 msgstr ""
+"Když je dokument nahrán znovu, stále ještě můžete stisknout {undokey}, abyste "
+"se"
+"s dokumentem vrátil zpět do stavu, v jakém byl v paměti před svým opětovným "
+"nahráním z disku."
 
 #: ../externalchanges/widget.py:302
 msgid ""
 "Press the <em>{showdiff}</em> button to see the difference between the "
 "current document and its version on disk."
 msgstr ""
+"Stiskněte tlačítko <em>{showdiff}</em>, abyste viděl rozdíl mezi "
+"nynějším dokumentem a jeho verzí na disku."
 
 #: ../externalchanges/widget.py:305
 msgid ""
 "If you don't want to be warned when a document is changed or deleted by "
 "another application, uncheck the <em>{action}</em> checkbox."
 msgstr ""
+"Pokud si nepřejete být varován, když je dokument změněn nebo smazán "
+"jiným programem, zrušte zaškrtnutí políčka <em>{action}</em>."
 
 #: ../help/browser.py:77
 msgid "Toolbar"
@@ -2689,7 +2697,7 @@ msgstr "&Skočit na polohu ukazovátka"
 
 #: ../musicview/__init__.py:297
 msgid "S&ynchronize with Cursor Position"
-msgstr "S&eřídit s polohou ukazovátky"
+msgstr "S&eřídit s polohou ukazovátka"
 
 #: ../musicview/__init__.py:298
 msgid "Copy to &Image..."
@@ -2712,9 +2720,8 @@ msgid "Previous"
 msgstr "Předchozí"
 
 #: ../musicview/__init__.py:303
-#, fuzzy
 msgid "&Reload"
-msgstr "Nahrát znovu"
+msgstr "&Nahrát znovu"
 
 #: ../musicview/__init__.py:447
 msgid "Choose the PDF document to display."
@@ -3999,6 +4006,13 @@ msgid ""
 "convert-ly and lilypond-book you don't need to specify the full path if they "
 "are in the same directory as the LilyPond executable itself."
 msgstr ""
+"Pokud není spustitelný soubor LilyPond v CESTĚ ve vašem systému (PATH), "
+"můžete "
+"zde stanovit úplnou cestu k němu, takže jej Frescobaldi může spustit. U "
+"pomocných "
+"programů, jako jsou convert-ly a lilypond-book nemusíte stanovovat úplnou "
+"cestu, pokud "
+"jsou ve stejném adresáři, jako je spustitelný soubor LilyPondu."
 
 #: ../preferences/prefshelp.py:95
 msgid ""
@@ -4218,15 +4232,16 @@ msgid "Music View"
 msgstr "Pohled na noty"
 
 #: ../preferences/tools.py:149
-#, fuzzy
 msgid "Only load updated PDF documents"
-msgstr "Zavřít všechny nepojmenované dokumenty"
+msgstr "Nahrát pouze aktualizované dokumenty PDF"
 
 #: ../preferences/tools.py:151
 msgid ""
 "If checked, Frescobaldi will not open PDF documents that are not\n"
 "up-to-date (i.e. the source file has been modified later)."
 msgstr ""
+"Je-li zaškrtnuto, Frescobaldi nebude otevírat dokumenty PDF,\n"
+"jež nejsou nejnovější (to jest, že zdrojový soubor byl později změněn)."
 
 #: ../preferences/tools.py:153
 msgid "Magnifier Size:"
@@ -4664,7 +4679,7 @@ msgstr "Frázovací oblouček"
 
 #: ../quickinsert/spanners.py:147
 msgid "Melisma"
-msgstr ""
+msgstr "Melisma"
 
 #: ../quickinsert/widget.py:102
 msgid ""
@@ -6511,9 +6526,8 @@ msgid "Delete Line(s)"
 msgstr "Smazat řádek(y)"
 
 #: ../snippet/builtin.py:62
-#, fuzzy
 msgid "Delete Matching Pair"
-msgstr "Výchozí značka pro dýchání"
+msgstr "Smazat odpovídající dvojici"
 
 #: ../snippet/builtin.py:78
 msgid "Next Blank Line"
