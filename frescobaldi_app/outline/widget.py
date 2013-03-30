@@ -27,6 +27,8 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import qutil
+import cursortools
 import tokeniter
 import documentstructure
 
@@ -37,6 +39,10 @@ class Widget(QTreeWidget):
             headerHidden=True)
         self._timer = QTimer(singleShot=True, timeout=self.updateView)
         tool.mainwindow().currentDocumentChanged.connect(self.slotCurrentDocumentChanged)
+        self.itemClicked.connect(self.slotItemClicked)
+        self.itemActivated.connect(self.slotItemClicked)
+        self.itemCollapsed.connect(self.slotItemCollapsed)
+        self.itemExpanded.connect(self.slotItemExpanded)
         doc = tool.mainwindow().currentDocument()
         if doc:
             self.slotCurrentDocumentChanged(doc)
@@ -58,47 +64,83 @@ class Widget(QTreeWidget):
         
     def updateView(self):
         """Recreate the items in the view."""
-        self.clear()
-        doc = self.parent().mainwindow().currentDocument()
-        if not doc:
-            return
-        structure = documentstructure.DocumentStructure.instance(doc)
-        last_item = None
-        last_block = None
-        for i in structure.outline():
-            position = i.start()
-            block = doc.findBlock(position)
-            depth = tokeniter.state(block).depth()
-            if last_block is None or depth == 1:
-                # a toplevel item anyway
-                parent = self
-            else:
-                while last_item and depth <= last_item.depth:
-                    last_item = last_item.parent()
-                if not last_item:
+        with qutil.signalsBlocked(self):
+            self.clear()
+            doc = self.parent().mainwindow().currentDocument()
+            if not doc:
+                return
+            structure = documentstructure.DocumentStructure.instance(doc)
+            last_item = None
+            last_block = None
+            for i in structure.outline():
+                position = i.start()
+                block = doc.findBlock(position)
+                depth = tokeniter.state(block).depth()
+                if last_block is None or depth == 1:
+                    # a toplevel item anyway
                     parent = self
                 else:
-                    # the item could belong to a parent item, but see if they
-                    # really are in the same (toplevel) state
-                    b = last_block.next()
-                    while b < block:
-                        depth2 = tokeniter.state(b).depth()
-                        if depth2 == 1:
-                            parent = self
-                            break
-                        while last_item and depth2 <= last_item.depth:
-                            last_item = last_item.parent()
-                        if not last_item:
-                            parent = self
-                            break
-                        b = b.next()
+                    while last_item and depth <= last_item.depth:
+                        last_item = last_item.parent()
+                    if not last_item:
+                        parent = self
                     else:
-                        parent = last_item
-            item = last_item = QTreeWidgetItem(parent)
-            item.setText(0, i.group())
-            item.setExpanded(True)
-            item.depth = depth
-            item.position = position
-            last_block = block
+                        # the item could belong to a parent item, but see if they
+                        # really are in the same (toplevel) state
+                        b = last_block.next()
+                        while b < block:
+                            depth2 = tokeniter.state(b).depth()
+                            if depth2 == 1:
+                                parent = self
+                                break
+                            while last_item and depth2 <= last_item.depth:
+                                last_item = last_item.parent()
+                            if not last_item:
+                                parent = self
+                                break
+                            b = b.next()
+                        else:
+                            parent = last_item
+                item = last_item = QTreeWidgetItem(parent)
+                item.setText(0, i.group())
+                try:
+                    collapsed = block.userData().collapsed
+                except AttributeError:
+                    collapsed = False
+                item.setExpanded(not collapsed)
+                item.depth = depth
+                item.position = position
+                last_block = block
+    
+    def cursorForItem(self, item):
+        """Returns a cursor for the specified item.
+        
+        This method (as all others) assume that the item refers to the current
+        Document.
+        
+        """
+        doc = self.parent().mainwindow().currentDocument()
+        cursor = QTextCursor(doc)
+        cursor.setPosition(item.position)
+        return cursor
+        
+    def slotItemClicked(self, item):
+        """Called when the user clicks an item."""
+        cursor = self.cursorForItem(item)
+        cursor.movePosition(cursor.StartOfBlock)
+        view = self.parent().mainwindow().currentView()
+        view.setTextCursor(cursor)
+        view.centerCursor()
+        view.setFocus()
+
+    def slotItemCollapsed(self, item):
+        """Called when the user collapses an item."""
+        block = self.cursorForItem(item).block()
+        cursortools.data(block).collapsed = True
+    
+    def slotItemExpanded(self, item):
+        """Called when the user expands an item."""
+        block = self.cursorForItem(item).block()
+        cursortools.data(block).collapsed = False
 
 
