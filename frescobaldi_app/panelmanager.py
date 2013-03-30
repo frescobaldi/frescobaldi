@@ -53,6 +53,7 @@ class PanelManager(plugin.MainWindowPlugin):
         self.loadPanel("miditool.MidiTool")
         self.loadPanel("charmap.CharMap")
         self.loadPanel("doclist.DocumentList")
+        self.loadPanel("outline.OutlinePanel")
         
         self.createActions()
         # make some default arrangements

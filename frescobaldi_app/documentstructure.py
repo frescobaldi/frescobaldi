@@ -31,26 +31,24 @@ import app
 import plugin
 
 
-default_outline_re = r"""\\(score|book|bookpart)\b
-\\(new|context)\s+[A-Z]\w+
-\\%%% BEGIN
-[a-zA-Z]+\s*=
-^<<
-^\\relative
-"""
+default_outline_res = [
+r"\\(score|book|bookpart)\b",
+r"\\(new|context)\s+[A-Z]\w+",
+r"%%+\s*BEGIN",
+r"[a-zA-Z]+\s*=",
+r"^<<",
+r"^\{",
+r"^\\relative",
+r"\b(FIXME|HACK|XXX)\b",
+]
 
 def outline_re():
     """Return the expression to look for document outline items."""
-    rx = QSettings().value("documentstructure/outline_re", default_outline_re, type(""))
-    rx = '|'.join(rx.rstrip().splitlines())
-    return re.compile(rx)
+    rx = QSettings().value("documentstructure/outline_re", default_outline_res, type(""))
+    rx = '|'.join(rx)
+    return re.compile(rx, re.MULTILINE)
 
 
-class Item(object):
-    def __init__(self, matchObj):
-        self._m = matchObj
-    
-    
 class DocumentStructure(plugin.DocumentPlugin):
     def __init__(self, document):
         app.settingsChanged.connect(self.invalidate, -999)
@@ -62,10 +60,9 @@ class DocumentStructure(plugin.DocumentPlugin):
         self.document().contentsChanged.disconnect(self.invalidate)
     
     def outline(self):
-        """Return the document outline as a series of Item instances."""
+        """Return the document outline as a series of match objects."""
         if self._outline is None:
-            self._outline = [Item(m)
-                for m in outline_re().finditer(self.document().toPlainText())]
+            self._outline = list(outline_re().finditer(self.document().toPlainText()))
             self.document().contentsChanged.connect(self.invalidate)
         return self._outline
 
