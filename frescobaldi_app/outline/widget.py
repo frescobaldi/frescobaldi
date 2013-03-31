@@ -145,4 +145,18 @@ class Widget(QTreeWidget):
         block = self.cursorForItem(item).block()
         cursortools.data(block).collapsed = False
 
+    def event(self, ev):
+        """Reimplemented to show custom tool tips."""
+        if ev.type() == QEvent.ToolTip:
+            i = self.indexAt(ev.pos() - self.viewport().pos())
+            item = self.itemFromIndex(i)
+            if item:
+                self.showToolTip(item)
+                return True
+        return super(Widget, self).event(ev)
+
+    def showToolTip(self, item):
+        """Called when a tool tip for the specified item needs to be shown."""
+        pass
+
 
