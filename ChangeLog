@@ -6,8 +6,12 @@ Changes in 2.0.10 --
 
 * Translations:
   - updated: fr, cs
+* New features:
+  - Document Outline tool with tooltips showing portions of the document
 * Improvements:
   - Highlight more music functions that were added in LilyPond 2.16
+* Bug fixes:
+  - fix #113: add files opened via file manager to recent files
 
 
 Changes in 2.0.9 -- March 23rd, 2013
