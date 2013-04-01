@@ -115,7 +115,7 @@ class Incoming(object):
             win.raise_()
         elif cmd == b'set_current':
             url = QUrl.fromEncoded(args[0])
-            win.setCurrentDocument(win.openUrl(url, self.encoding))
+            win.setCurrentDocument(app.openUrl(url, self.encoding))
         elif cmd == b'set_cursor':
             line, column = map(int, args)
             cursor = win.textCursor()
