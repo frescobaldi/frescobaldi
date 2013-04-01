@@ -61,8 +61,6 @@ def show(widget, pos, timeout=10000):
         if _handler is None:
             _handler = EventHandler()
         app.qApp.installEventFilter(_handler)
-    widget.setWindowFlags(Qt.ToolTip)
-    widget.ensurePolished()
     
     # where to display the tooltip
     screen = QApplication.desktop().availableGeometry(pos)
@@ -74,13 +72,12 @@ def show(widget, pos, timeout=10000):
         y -= 24 + widget.height();
     if y < screen.y():
         y = screen.y()
-    if x + widget.width() > screen.x() + screen.width():
-        x = screen.x() + screen.width() - widget.width()
     if x < screen.x():
         x = screen.x()
-    if y + widget.height() > screen.y() + screen.height():
-        y = screen.y() + screen.height() - widget.height()
     widget.move(x, y)
+    if widget.windowFlags() & Qt.ToolTip != Qt.ToolTip:
+        widget.setWindowFlags(Qt.ToolTip)
+        widget.ensurePolished()
     
     widget.show()
     _widget = widget
