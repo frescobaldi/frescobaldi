@@ -26,6 +26,7 @@ from __future__ import unicode_literals
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+import metainfo
 import tokeniter
 import highlighter
 import textformats
@@ -57,7 +58,8 @@ def show(cursor, pos=None, num_lines=6):
     font.setPointSizeF(font.pointSizeF() * .8)
     doc.setDefaultFont(font)
     doc.setPlainText(c2.selection().toPlainText())
-    highlighter.highlight(doc, state=state)
+    if metainfo.info(cursor.document()).highlighting:
+        highlighter.highlight(doc, state=state)
     size = doc.size().toSize() + QSize(8, -4)
     pix = QPixmap(size)
     pix.fill(data.baseColors['background'])
