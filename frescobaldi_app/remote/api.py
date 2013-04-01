@@ -107,7 +107,7 @@ class Incoming(object):
         
         if cmd == b'open':
             url = QUrl.fromEncoded(args[0])
-            app.openUrl(url, self.encoding)
+            win.openUrl(url, self.encoding)
         elif cmd == b'encoding':
             self.encoding = str(args[0])
         elif cmd == b'activate_window':
@@ -115,7 +115,7 @@ class Incoming(object):
             win.raise_()
         elif cmd == b'set_current':
             url = QUrl.fromEncoded(args[0])
-            win.setCurrentDocument(app.openUrl(url, self.encoding))
+            win.setCurrentDocument(win.openUrl(url, self.encoding))
         elif cmd == b'set_cursor':
             line, column = map(int, args)
             cursor = win.textCursor()

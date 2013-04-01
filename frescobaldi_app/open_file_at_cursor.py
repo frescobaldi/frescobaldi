@@ -55,7 +55,7 @@ def open_file_at_cursor(cursor, mainwin):
         for p in path:
             name = os.path.normpath(os.path.join(p, f))
             if os.access(name, os.R_OK):
-                d = app.openUrl(QUrl.fromLocalFile(name))
+                d = mainwin.openUrl(QUrl.fromLocalFile(name))
                 break
     if d:
         mainwin.setCurrentDocument(d, True)
