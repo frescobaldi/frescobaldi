@@ -23,8 +23,9 @@ Display a tooltip showing part of a Document.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QSize
+from PyQt4.QtGui import (
+    QFont, QLabel, QPainter, QPixmap, QTextCursor, QTextDocument)
 
 import metainfo
 import tokeniter
@@ -43,7 +44,6 @@ def show(cursor, pos=None, num_lines=6):
     
     """
     block = cursor.document().findBlock(cursor.selectionStart())
-    state = tokeniter.state(block)
     c2 = QTextCursor(block)
     if cursor.hasSelection():
         c2.setPosition(cursor.selectionEnd(), QTextCursor.KeepAnchor)
@@ -59,7 +59,7 @@ def show(cursor, pos=None, num_lines=6):
     doc.setDefaultFont(font)
     doc.setPlainText(c2.selection().toPlainText())
     if metainfo.info(cursor.document()).highlighting:
-        highlighter.highlight(doc, state=state)
+        highlighter.highlight(doc, state=tokeniter.state(block))
     size = doc.size().toSize() + QSize(8, -4)
     pix = QPixmap(size)
     pix.fill(data.baseColors['background'])

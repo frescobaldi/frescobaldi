@@ -23,8 +23,8 @@ The document outline tool widget.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QEvent, QTimer
+from PyQt4.QtGui import QTextCursor, QTreeWidget, QTreeWidgetItem
 
 import app
 import qutil
