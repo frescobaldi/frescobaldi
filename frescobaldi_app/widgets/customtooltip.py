@@ -62,17 +62,50 @@ def show(widget, pos, timeout=10000):
             _handler = EventHandler()
         app.qApp.installEventFilter(_handler)
     widget.setWindowFlags(Qt.ToolTip)
-    widget.move(pos + QPoint(2, 20))
+    widget.ensurePolished()
+    
+    # where to display the tooltip
+    screen = QApplication.desktop().availableGeometry(pos)
+    x = pos.x() + 2
+    y = pos.y() + 20
+    if x + widget.width() > screen.x() + screen.width():
+        x -= 4 + widget.width()
+    if y + widget.height() > screen.y() + screen.height():
+        y -= 24 + widget.height();
+    if y < screen.y():
+        y = screen.y()
+    if x + widget.width() > screen.x() + screen.width():
+        x = screen.x() + screen.width() - widget.width()
+    if x < screen.x():
+        x = screen.x()
+    if y + widget.height() > screen.y() + screen.height():
+        y = screen.y() + screen.height() - widget.height()
+    widget.move(x, y)
+    
     widget.show()
     _widget = widget
     _timer.start(timeout)
 
 
-
+_hideevents = set((
+    QEvent.KeyPress,
+    QEvent.KeyRelease,
+    QEvent.Leave,
+    QEvent.WindowActivate,
+    QEvent.WindowDeactivate,
+    QEvent.MouseButtonPress,
+    QEvent.MouseButtonRelease,
+    QEvent.MouseButtonDblClick,
+    QEvent.FocusIn,
+    QEvent.FocusOut,
+    QEvent.Wheel,
+    QEvent.MouseMove,
+))
 
 class EventHandler(QObject):
     def eventFilter(self, obj, ev):
-        print 'event filter'
+        if ev.type() in _hideevents:
+            hide()
         return False
 
 
