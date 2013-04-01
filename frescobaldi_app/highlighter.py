@@ -295,7 +295,8 @@ def htmlCopy(document, type='editor'):
     doc = QTextDocument()
     doc.setDefaultFont(data.font)
     doc.setPlainText(document.toPlainText())
-    highlight(doc, HighlightFormats(data), ly.lex.state(documentinfo.mode(document)))
+    if metainfo.info(document).highlighting:
+        highlight(doc, HighlightFormats(data), ly.lex.state(documentinfo.mode(document)))
     return doc
 
 
