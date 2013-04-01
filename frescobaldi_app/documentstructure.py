@@ -52,12 +52,12 @@ def outline_re():
 
 class DocumentStructure(plugin.DocumentPlugin):
     def __init__(self, document):
-        app.settingsChanged.connect(self.invalidate, -999)
         self._outline = None
     
     def invalidate(self):
         """Called when the document changes or the settings are changed."""
         self._outline = None
+        app.settingsChanged.disconnect(self.invalidate)
         self.document().contentsChanged.disconnect(self.invalidate)
     
     def outline(self):
@@ -65,6 +65,7 @@ class DocumentStructure(plugin.DocumentPlugin):
         if self._outline is None:
             self._outline = list(outline_re().finditer(self.document().toPlainText()))
             self.document().contentsChanged.connect(self.invalidate)
+            app.settingsChanged.connect(self.invalidate, -999)
         return self._outline
 
 
