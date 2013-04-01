@@ -47,7 +47,7 @@ class Widget(QTreeWidget):
         if doc:
             self.slotCurrentDocumentChanged(doc)
     
-    def slotCurrentDocumentChanged(self, doc, old):
+    def slotCurrentDocumentChanged(self, doc, old=None):
         """Called whenever the mainwindow changes the current document."""
         if old:
             old.contentsChange.disconnect(self.slotContentsChange)
