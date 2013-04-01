@@ -157,6 +157,24 @@ class Widget(QTreeWidget):
 
     def showToolTip(self, item):
         """Called when a tool tip for the specified item needs to be shown."""
-        pass
+        cursor = self.cursorForItem(item)
+        state = tokeniter.state(cursor.block())
+        cursor.movePosition(cursor.StartOfBlock)
+        cursor.movePosition(cursor.NextBlock, cursor.KeepAnchor, 5)
+        cursor.movePosition(cursor.EndOfBlock, cursor.KeepAnchor)
+        text = cursor.selection().toPlainText()
+        doc = QTextDocument()
+        doc.setPlainText(text)
+        import highlighter
+        highlighter.highlight(doc, state=state)
+        size = doc.size().toSize()
+        pix = QPixmap(size)
+        pix.fill()
+        doc.drawContents(QPainter(pix))
+        label = QLabel()
+        label.setPixmap(pix)
+        label.resize(size)
+        import widgets.customtooltip
+        widgets.customtooltip.show(label)
 
 

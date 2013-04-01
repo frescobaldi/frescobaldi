@@ -50,8 +50,10 @@ def hide():
         _widget = None
         app.qApp.removeEventFilter(_handler)
     
-def show(widget, pos, timeout=10000):
+def show(widget, pos=None, timeout=10000):
     """Show the widget at position."""
+    if pos is None:
+        pos = QCursor.pos()
     global _widget
     if _widget:
         if _widget is not widget:
