@@ -271,6 +271,7 @@ class Running(preferences.Group):
         self.noTranslation = QCheckBox(clicked=self.changed)
         self.includeLabel = QLabel()
         self.include = widgets.listedit.FilePathEdit()
+        self.include.listBox.setDragDropMode(QAbstractItemView.InternalMove)
         self.include.changed.connect(self.changed)
         layout.addWidget(self.saveDocument)
         layout.addWidget(self.deleteFiles)
