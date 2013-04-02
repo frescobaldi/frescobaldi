@@ -69,8 +69,10 @@ class Widget(QTreeWidget):
             doc = self.parent().mainwindow().currentDocument()
             if not doc:
                 return
+            view_cursor_position = self.parent().mainwindow().textCursor().position()
             structure = documentstructure.DocumentStructure.instance(doc)
             last_item = None
+            current_item = None
             last_block = None
             for i in structure.outline():
                 position = i.start()
@@ -113,6 +115,11 @@ class Widget(QTreeWidget):
                 item.depth = depth
                 item.position = position
                 last_block = block
+                # scroll to the item at the view's cursor later
+                if position <= view_cursor_position:
+                    current_item = item
+            if current_item:
+                self.scrollToItem(current_item)
     
     def cursorForItem(self, item):
         """Returns a cursor for the specified item.
