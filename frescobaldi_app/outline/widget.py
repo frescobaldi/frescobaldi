@@ -43,6 +43,7 @@ class Widget(QTreeWidget):
         self.itemActivated.connect(self.slotItemClicked)
         self.itemCollapsed.connect(self.slotItemCollapsed)
         self.itemExpanded.connect(self.slotItemExpanded)
+        app.settingsChanged.connect(self.updateView)
         doc = tool.mainwindow().currentDocument()
         if doc:
             self.slotCurrentDocumentChanged(doc)

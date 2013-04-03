@@ -28,8 +28,8 @@ import re
 from PyQt4.QtCore import QSettings, Qt
 from PyQt4.QtGui import (
     QAbstractItemView, QCheckBox, QDoubleSpinBox, QFont, QFontComboBox,
-    QGridLayout, QHBoxLayout, QLabel, QScrollArea, QSlider, QSpinBox,
-    QVBoxLayout, QWidget)
+    QGridLayout, QHBoxLayout, QLabel, QPushButton, QScrollArea, QSlider,
+    QSpinBox, QVBoxLayout, QWidget)
 
 import app
 import qutil
@@ -282,6 +282,9 @@ class Outline(preferences.Group):
         self.label = QLabel()
         self.patternList = OutlinePatterns()
         self.patternList.listBox.setDragDropMode(QAbstractItemView.InternalMove)
+        self.defaultButton = QPushButton(clicked=self.reloadDefaults)
+        self.patternList.layout().addWidget(self.defaultButton, 3, 1)
+        self.patternList.layout().addWidget(self.patternList.listBox, 0, 0, 5, 1)
         self.patternList.changed.connect(self.changed)
         layout.addWidget(self.label)
         layout.addWidget(self.patternList)
@@ -289,20 +292,26 @@ class Outline(preferences.Group):
     
     def translateUI(self):
         self.setTitle(_("Outline"))
+        self.defaultButton.setText(_("Default"))
+        self.defaultButton.setToolTip(_("Restores the built-in outline patterns."))
         self.label.setText(_("Patterns to match in text that are shown in outline:"))
+    
+    def reloadDefaults(self):
+        self.patternList.setValue(documentstructure.default_outline_patterns)
     
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("documentstructure")
-        self.patternList.setValue(s.value("outline_patterns",
-            documentstructure.default_outline_patterns, type("")))
+        try:
+            patterns = s.value("outline_patterns", documentstructure.default_outline_patterns, type(""))
+        except TypeError:
+            patterns = []
+        self.patternList.setValue(patterns)
     
     def saveSettings(self):
-        print 'SAVE SETTINGS'
         s = QSettings()
         s.beginGroup("documentstructure")
-        s.setValue("outline_patterns",
-            self.patternList.value() or documentstructure.default_outline_patterns)
+        s.setValue("outline_patterns", self.patternList.value())
 
 
 class OutlinePatterns(widgets.listedit.ListEdit):

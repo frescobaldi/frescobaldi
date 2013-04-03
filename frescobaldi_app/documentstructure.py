@@ -45,8 +45,11 @@ r"\b(FIXME|HACK|XXX)\b",
 
 def outline_re():
     """Return the expression to look for document outline items."""
-    rx = QSettings().value("documentstructure/outline_patterns",
-                           default_outline_patterns, type(""))
+    try:
+        rx = QSettings().value("documentstructure/outline_patterns",
+                               default_outline_patterns, type(""))
+    except TypeError:
+        rx = []
     rx = '|'.join(rx)
     return re.compile(rx, re.MULTILINE)
 
