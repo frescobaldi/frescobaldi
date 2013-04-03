@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 from PyQt4.QtCore import QSettings, Qt
 from PyQt4.QtGui import (
     QCheckBox, QDoubleSpinBox, QFont, QFontComboBox, QGridLayout, QHBoxLayout,
-    QLabel, QSlider, QSpinBox, QVBoxLayout)
+    QLabel, QScrollArea, QSlider, QSpinBox, QVBoxLayout, QWidget)
 
 import app
 import qutil
@@ -38,8 +38,15 @@ class Tools(preferences.GroupsPage):
     def __init__(self, dialog):
         super(Tools, self).__init__(dialog)
 
-        layout = QVBoxLayout()
+        layout = QVBoxLayout(margin=0, spacing=0)
         self.setLayout(layout)
+        scrollarea = QScrollArea(frameWidth=0, frameShape=QScrollArea.NoFrame)
+        layout.addWidget(scrollarea)
+        widget = QWidget(scrollarea)
+        layout = QVBoxLayout()
+        widget.setLayout(layout)
+        scrollarea.setWidget(widget)
+        scrollarea.setWidgetResizable(True)
         
         layout.addWidget(LogTool(self))
         layout.addWidget(MusicView(self))
