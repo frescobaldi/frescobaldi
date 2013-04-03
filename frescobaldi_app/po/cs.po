@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-03-23 06:44+0100\n"
+"POT-Creation-Date: 2013-04-03 21:38+0200\n"
 "PO-Revision-Date: 2013-03-24 10:48+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -800,8 +800,7 @@ msgid ""
 "other programs."
 msgstr ""
 "Otevře okno, aby se prověřilo, zda byly otevřené dokumenty změněny nebo "
-"smazány "
-"jinými programy."
+"smazány jinými programy."
 
 #: ../mainwindow.py:992
 msgid "Print Source..."
@@ -1147,7 +1146,7 @@ msgstr "Automati&cké dokončení"
 msgid "Show C&ompletions Popup"
 msgstr "Ukázat vyskakovací do&končení"
 
-#: ../charmap/__init__.py:40 ../preferences/tools.py:215
+#: ../charmap/__init__.py:40 ../preferences/tools.py:229
 msgid "Special Characters"
 msgstr "Zvláštní znaky"
 
@@ -1221,7 +1220,7 @@ msgstr "Otevřít dokument v &novém okně"
 msgid "LilyPond Source"
 msgstr "Zdroj LilyPond"
 
-#: ../doclist/__init__.py:39 ../preferences/tools.py:248
+#: ../doclist/__init__.py:39 ../preferences/tools.py:262
 msgid "Documents"
 msgstr "Dokumenty"
 
@@ -1305,11 +1304,11 @@ msgstr "Spustit LilyPond v režimu náhledu (s funkcí ukázat a klepnout)"
 msgid "Run LilyPond with verbose output"
 msgstr "Spustit LilyPond s podrobným výstupem"
 
-#: ../engrave/custom.py:130 ../preferences/lilypond.py:291
+#: ../engrave/custom.py:130 ../preferences/lilypond.py:292
 msgid "Run LilyPond with English messages"
 msgstr "Spustit LilyPond s anglickými zprávami"
 
-#: ../engrave/custom.py:131 ../preferences/lilypond.py:288
+#: ../engrave/custom.py:131 ../preferences/lilypond.py:289
 msgid "Delete intermediate output files"
 msgstr "Smazat mezi výstupní soubory"
 
@@ -1402,8 +1401,8 @@ msgid ""
 "Reloads the selected documents from disk. (You can still reach the previous "
 "state of the document using the Undo command.)"
 msgstr ""
-"Nahraje vybraný dokument znovu z disku. (Stále ještě můžete "
-"dosáhnout předchozího stavu dokumentu pomocí příkazu Zpět.)"
+"Nahraje vybraný dokument znovu z disku. (Stále ještě můžete dosáhnout "
+"předchozího stavu dokumentu pomocí příkazu Zpět.)"
 
 #: ../externalchanges/widget.py:110
 msgid ""
@@ -1411,8 +1410,7 @@ msgid ""
 "the previous state of the document using the Undo command.)"
 msgstr ""
 "Nahraje všechny z vnějšku změněné dokumenty znovu z disku. (Stále ještě "
-"můžete "
-"dosáhnout předchozího stavu dokumentu pomocí příkazu Zpět.)"
+"můžete dosáhnout předchozího stavu dokumentu pomocí příkazu Zpět.)"
 
 #: ../externalchanges/widget.py:113 ../help/contents.py:576
 #: ../help/contents.py:586
@@ -1508,37 +1506,35 @@ msgid ""
 "can choose whether to reload one or more documents from disk, or to save "
 "them, discarding the modifications made by the other application."
 msgstr ""
-"Když jiný program změní nebo smaže jeden nebo více dokumentů, "
-"které jsou otevřeny ve Frescobaldi, je zobrazen seznam zasažených "
-"dokumentů, a vy si můžete vybrat, zda znovu nahrát jeden nebo více "
-"dokumentů z disku, nebo je uložit; změny provedené jiným programem "
-"jsou zahozeny."
+"Když jiný program změní nebo smaže jeden nebo více dokumentů, které jsou "
+"otevřeny ve Frescobaldi, je zobrazen seznam zasažených dokumentů, a vy si "
+"můžete vybrat, zda znovu nahrát jeden nebo více dokumentů z disku, nebo je "
+"uložit; změny provedené jiným programem jsou zahozeny."
 
 #: ../externalchanges/widget.py:299
 msgid ""
 "When a document is reloaded, you can still press {undokey} to get back the "
 "document as it was in memory before reloading it from disk."
 msgstr ""
-"Když je dokument nahrán znovu, stále ještě můžete stisknout {undokey}, abyste "
-"se"
-"s dokumentem vrátil zpět do stavu, v jakém byl v paměti před svým opětovným "
-"nahráním z disku."
+"Když je dokument nahrán znovu, stále ještě můžete stisknout {undokey}, "
+"abyste ses dokumentem vrátil zpět do stavu, v jakém byl v paměti před svým "
+"opětovným nahráním z disku."
 
 #: ../externalchanges/widget.py:302
 msgid ""
 "Press the <em>{showdiff}</em> button to see the difference between the "
 "current document and its version on disk."
 msgstr ""
-"Stiskněte tlačítko <em>{showdiff}</em>, abyste viděl rozdíl mezi "
-"nynějším dokumentem a jeho verzí na disku."
+"Stiskněte tlačítko <em>{showdiff}</em>, abyste viděl rozdíl mezi nynějším "
+"dokumentem a jeho verzí na disku."
 
 #: ../externalchanges/widget.py:305
 msgid ""
 "If you don't want to be warned when a document is changed or deleted by "
 "another application, uncheck the <em>{action}</em> checkbox."
 msgstr ""
-"Pokud si nepřejete být varován, když je dokument změněn nebo smazán "
-"jiným programem, zrušte zaškrtnutí políčka <em>{action}</em>."
+"Pokud si nepřejete být varován, když je dokument změněn nebo smazán jiným "
+"programem, zrušte zaškrtnutí políčka <em>{action}</em>."
 
 #: ../help/browser.py:77
 msgid "Toolbar"
@@ -2561,7 +2557,7 @@ msgstr "Podívejte se také na:"
 msgid "(no key defined)"
 msgstr "(nestanoven žádný klíč)"
 
-#: ../logtool/__init__.py:50 ../preferences/tools.py:80
+#: ../logtool/__init__.py:50 ../preferences/tools.py:94
 msgid "LilyPond Log"
 msgstr "Záznam o průběhu činnosti od LilyPondu"
 
@@ -2847,6 +2843,14 @@ msgstr "Uložit obrázek jako"
 #: ../musicview/image.py:215
 msgid "Could not save the image."
 msgstr "Obrázek se nepodařilo uložit."
+
+#: ../outline/__init__.py:40 ../preferences/tools.py:294
+msgid "Outline"
+msgstr ""
+
+#: ../outline/__init__.py:41
+msgid "&Outline"
+msgstr ""
 
 #: ../pitch/__init__.py:99
 msgid "Pitch Name &Language"
@@ -3325,9 +3329,10 @@ msgid "Preferred Language:"
 msgstr "Upřednostňovaný jazyk:"
 
 #: ../preferences/documentation.py:128 ../preferences/general.py:133
-#: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
-#: ../scorewiz/settings.py:299 ../scorewiz/parts/_base.py:214
-#: ../scorewiz/parts/plucked_strings.py:65 ../widgets/schemeselector.py:115
+#: ../preferences/tools.py:295 ../scorewiz/settings.py:138
+#: ../scorewiz/settings.py:204 ../scorewiz/settings.py:299
+#: ../scorewiz/parts/_base.py:214 ../scorewiz/parts/plucked_strings.py:65
+#: ../widgets/schemeselector.py:115
 msgid "Default"
 msgstr "Výchozí"
 
@@ -3336,7 +3341,7 @@ msgid "English (untranslated)"
 msgstr "Anglický (nepřeloženo)"
 
 #: ../preferences/documentation.py:130 ../preferences/fontscolors.py:122
-#: ../preferences/tools.py:81 ../preferences/tools.py:216
+#: ../preferences/tools.py:95 ../preferences/tools.py:230
 msgid "Font:"
 msgstr "Písmo:"
 
@@ -3819,15 +3824,15 @@ msgstr "LilyPond-book:"
 msgid "Include in automatic version selection"
 msgstr "Zahrnout do automatického výběru verze"
 
-#: ../preferences/lilypond.py:283
+#: ../preferences/lilypond.py:284
 msgid "Running LilyPond"
 msgstr "Spuštění LilyPondu"
 
-#: ../preferences/lilypond.py:284
+#: ../preferences/lilypond.py:285
 msgid "Save document if possible"
 msgstr "Uložit dokument, je-li to možné"
 
-#: ../preferences/lilypond.py:286
+#: ../preferences/lilypond.py:287
 msgid ""
 "If checked, the document is saved when it is local and modified.\n"
 "Otherwise a temporary file is used to run LilyPond."
@@ -3835,11 +3840,11 @@ msgstr ""
 "Je-li zaškrtnuto, dokument je uložen, když je místní nebo upravený.\n"
 "Jinak je pro běh LilyPondu použit dočasný soubor."
 
-#: ../preferences/lilypond.py:290
+#: ../preferences/lilypond.py:291
 msgid "If checked, LilyPond will delete intermediate PostScript files."
 msgstr "Je-li zaškrtnuto, LilyPond smaže prostřední soubory PostScript."
 
-#: ../preferences/lilypond.py:293
+#: ../preferences/lilypond.py:294
 msgid ""
 "If checked, LilyPond's output messages will be in English.\n"
 "This can be useful for bug reports."
@@ -3847,7 +3852,7 @@ msgstr ""
 "Je-li zaškrtnuto, výstupní zprávy LilyPondu budou v anglickém jazyce.\n"
 "To může být užitečné pro hlášení o chybách."
 
-#: ../preferences/lilypond.py:295
+#: ../preferences/lilypond.py:296
 msgid "LilyPond include path:"
 msgstr "Cesta obsahující LilyPond:"
 
@@ -4007,12 +4012,10 @@ msgid ""
 "are in the same directory as the LilyPond executable itself."
 msgstr ""
 "Pokud není spustitelný soubor LilyPond v CESTĚ ve vašem systému (PATH), "
-"můžete "
-"zde stanovit úplnou cestu k němu, takže jej Frescobaldi může spustit. U "
-"pomocných "
-"programů, jako jsou convert-ly a lilypond-book nemusíte stanovovat úplnou "
-"cestu, pokud "
-"jsou ve stejném adresáři, jako je spustitelný soubor LilyPondu."
+"můžete zde stanovit úplnou cestu k němu, takže jej Frescobaldi může spustit. "
+"U pomocných programů, jako jsou convert-ly a lilypond-book nemusíte "
+"stanovovat úplnou cestu, pokud jsou ve stejném adresáři, jako je spustitelný "
+"soubor LilyPondu."
 
 #: ../preferences/prefshelp.py:95
 msgid ""
@@ -4213,29 +4216,29 @@ msgstr[2] "Odstranit zkratku z těchto příkazů?"
 msgid "(default)"
 msgstr "(výchozí)"
 
-#: ../preferences/tools.py:82
+#: ../preferences/tools.py:96
 msgid "Show log when a job is started"
 msgstr "Ukázat zápis při započetí s prací"
 
-#: ../preferences/tools.py:83
+#: ../preferences/tools.py:97
 msgid "Display plain log output"
 msgstr "Zobrazit prostý výstup zápisu"
 
-#: ../preferences/tools.py:85
+#: ../preferences/tools.py:99
 msgid "If checked, Frescobaldi will not shorten filenames in the log output."
 msgstr ""
 "Je-li zaškrtnuto, Frescobaldi nebude zkracovat názvy souborů ve výstupu se "
 "zápisem."
 
-#: ../preferences/tools.py:148
+#: ../preferences/tools.py:162
 msgid "Music View"
 msgstr "Pohled na noty"
 
-#: ../preferences/tools.py:149
+#: ../preferences/tools.py:163
 msgid "Only load updated PDF documents"
 msgstr "Nahrát pouze aktualizované dokumenty PDF"
 
-#: ../preferences/tools.py:151
+#: ../preferences/tools.py:165
 msgid ""
 "If checked, Frescobaldi will not open PDF documents that are not\n"
 "up-to-date (i.e. the source file has been modified later)."
@@ -4243,44 +4246,57 @@ msgstr ""
 "Je-li zaškrtnuto, Frescobaldi nebude otevírat dokumenty PDF,\n"
 "jež nejsou nejnovější (to jest, že zdrojový soubor byl později změněn)."
 
-#: ../preferences/tools.py:153
+#: ../preferences/tools.py:167
 msgid "Magnifier Size:"
 msgstr "Velikost lupy:"
 
-#: ../preferences/tools.py:155
+#: ../preferences/tools.py:169
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr "Velikost zvětšovacího skla (Ctrl+klepnutí v pohledu na noty)."
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: ../preferences/tools.py:157
+#: ../preferences/tools.py:171
 msgid " pixels"
 msgstr " pixelů"
 
-#: ../preferences/tools.py:158
+#: ../preferences/tools.py:172
 msgid "Magnifier Scale:"
 msgstr "Měřítko lupy:"
 
-#: ../preferences/tools.py:160
+#: ../preferences/tools.py:174
 msgid "Magnification of the magnifier."
 msgstr "Zvětšení lupy."
 
-#: ../preferences/tools.py:161
+#: ../preferences/tools.py:175
 msgctxt "percent unit sign"
 msgid "%"
 msgstr "%"
 
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
-#: ../preferences/tools.py:163
+#: ../preferences/tools.py:177
 msgid "Kinetic Scrolling"
 msgstr "Pohybové projíždění"
 
-#: ../preferences/tools.py:164
+#: ../preferences/tools.py:178
 msgid "Show Scrollbars"
 msgstr "Ukázat posuvníky"
 
-#: ../preferences/tools.py:249
+#: ../preferences/tools.py:263
 msgid "Group documents by directory"
 msgstr "Seskupit dokumenty podle adresáře"
+
+#: ../preferences/tools.py:296
+#, fuzzy
+msgid "Restores the built-in outline patterns."
+msgstr "Obnovit vestavěné kousky"
+
+#: ../preferences/tools.py:297
+msgid "Patterns to match in text that are shown in outline:"
+msgstr ""
+
+#: ../preferences/tools.py:323
+msgid "Enter a regular expression to match:"
+msgstr ""
 
 #: ../quickinsert/__init__.py:48
 msgid "Quick &Insert"

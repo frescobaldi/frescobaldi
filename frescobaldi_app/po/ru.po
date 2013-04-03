@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-03-23 06:44+0100\n"
+"POT-Creation-Date: 2013-04-03 21:38+0200\n"
 "PO-Revision-Date: 2012-08-24 00:38+0400\n"
 "Last-Translator: Mikhail Iglizky <m0003r@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -1135,7 +1135,7 @@ msgstr "Автодополнение"
 msgid "Show C&ompletions Popup"
 msgstr "Показать подсказки автодополнения"
 
-#: ../charmap/__init__.py:40 ../preferences/tools.py:215
+#: ../charmap/__init__.py:40 ../preferences/tools.py:229
 msgid "Special Characters"
 msgstr "Спецсимволы"
 
@@ -1209,7 +1209,7 @@ msgstr "Открыть файл в &новом окне"
 msgid "LilyPond Source"
 msgstr "Исходный код LilyPond"
 
-#: ../doclist/__init__.py:39 ../preferences/tools.py:248
+#: ../doclist/__init__.py:39 ../preferences/tools.py:262
 msgid "Documents"
 msgstr "Документы"
 
@@ -1294,11 +1294,11 @@ msgstr ""
 msgid "Run LilyPond with verbose output"
 msgstr "Запускать LilyPond в режиме вывода подробной информации"
 
-#: ../engrave/custom.py:130 ../preferences/lilypond.py:291
+#: ../engrave/custom.py:130 ../preferences/lilypond.py:292
 msgid "Run LilyPond with English messages"
 msgstr "Запускать LilyPond с английскими сообщениями"
 
-#: ../engrave/custom.py:131 ../preferences/lilypond.py:288
+#: ../engrave/custom.py:131 ../preferences/lilypond.py:289
 msgid "Delete intermediate output files"
 msgstr "Удалить промежуточные файлы."
 
@@ -2246,7 +2246,7 @@ msgstr "Смотри также:"
 msgid "(no key defined)"
 msgstr ""
 
-#: ../logtool/__init__.py:50 ../preferences/tools.py:80
+#: ../logtool/__init__.py:50 ../preferences/tools.py:94
 msgid "LilyPond Log"
 msgstr "LilyPond журнал"
 
@@ -2517,6 +2517,14 @@ msgstr "Сохранить изображение как"
 #: ../musicview/image.py:215
 msgid "Could not save the image."
 msgstr "Не удалось сохранить изображение"
+
+#: ../outline/__init__.py:40 ../preferences/tools.py:294
+msgid "Outline"
+msgstr ""
+
+#: ../outline/__init__.py:41
+msgid "&Outline"
+msgstr ""
 
 #: ../pitch/__init__.py:99
 msgid "Pitch Name &Language"
@@ -2917,9 +2925,10 @@ msgid "Preferred Language:"
 msgstr "Предпочитаемый язык:"
 
 #: ../preferences/documentation.py:128 ../preferences/general.py:133
-#: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
-#: ../scorewiz/settings.py:299 ../scorewiz/parts/_base.py:214
-#: ../scorewiz/parts/plucked_strings.py:65 ../widgets/schemeselector.py:115
+#: ../preferences/tools.py:295 ../scorewiz/settings.py:138
+#: ../scorewiz/settings.py:204 ../scorewiz/settings.py:299
+#: ../scorewiz/parts/_base.py:214 ../scorewiz/parts/plucked_strings.py:65
+#: ../widgets/schemeselector.py:115
 msgid "Default"
 msgstr "По умолчанию"
 
@@ -2928,7 +2937,7 @@ msgid "English (untranslated)"
 msgstr "Английский (без перевода)"
 
 #: ../preferences/documentation.py:130 ../preferences/fontscolors.py:122
-#: ../preferences/tools.py:81 ../preferences/tools.py:216
+#: ../preferences/tools.py:95 ../preferences/tools.py:230
 msgid "Font:"
 msgstr "Шрифт:"
 
@@ -3391,31 +3400,31 @@ msgstr "LilyPond-book:"
 msgid "Include in automatic version selection"
 msgstr "Использовать при автовыборе версии"
 
-#: ../preferences/lilypond.py:283
+#: ../preferences/lilypond.py:284
 msgid "Running LilyPond"
 msgstr "Запуск LilyPond"
 
-#: ../preferences/lilypond.py:284
+#: ../preferences/lilypond.py:285
 msgid "Save document if possible"
 msgstr "Сохранять документ, если возможно"
 
-#: ../preferences/lilypond.py:286
+#: ../preferences/lilypond.py:287
 msgid ""
 "If checked, the document is saved when it is local and modified.\n"
 "Otherwise a temporary file is used to run LilyPond."
 msgstr ""
 
-#: ../preferences/lilypond.py:290
+#: ../preferences/lilypond.py:291
 msgid "If checked, LilyPond will delete intermediate PostScript files."
 msgstr ""
 
-#: ../preferences/lilypond.py:293
+#: ../preferences/lilypond.py:294
 msgid ""
 "If checked, LilyPond's output messages will be in English.\n"
 "This can be useful for bug reports."
 msgstr ""
 
-#: ../preferences/lilypond.py:295
+#: ../preferences/lilypond.py:296
 msgid "LilyPond include path:"
 msgstr "Дополнительные пути LilyPond"
 
@@ -3698,71 +3707,84 @@ msgstr[2] "Удалить комбинации клавиш у этих кома
 msgid "(default)"
 msgstr "(по умолчанию)"
 
-#: ../preferences/tools.py:82
+#: ../preferences/tools.py:96
 msgid "Show log when a job is started"
 msgstr "Показывать журнал, когда задача запущена"
 
-#: ../preferences/tools.py:83
+#: ../preferences/tools.py:97
 msgid "Display plain log output"
 msgstr "Показывать простой вывод журнала"
 
-#: ../preferences/tools.py:85
+#: ../preferences/tools.py:99
 msgid "If checked, Frescobaldi will not shorten filenames in the log output."
 msgstr ""
 
-#: ../preferences/tools.py:148
+#: ../preferences/tools.py:162
 msgid "Music View"
 msgstr "Предпросмотр"
 
-#: ../preferences/tools.py:149
+#: ../preferences/tools.py:163
 #, fuzzy
 msgid "Only load updated PDF documents"
 msgstr "Закрыть все неименованные"
 
-#: ../preferences/tools.py:151
+#: ../preferences/tools.py:165
 msgid ""
 "If checked, Frescobaldi will not open PDF documents that are not\n"
 "up-to-date (i.e. the source file has been modified later)."
 msgstr ""
 
-#: ../preferences/tools.py:153
+#: ../preferences/tools.py:167
 msgid "Magnifier Size:"
 msgstr "Размер лупы:"
 
-#: ../preferences/tools.py:155
+#: ../preferences/tools.py:169
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr ""
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: ../preferences/tools.py:157
+#: ../preferences/tools.py:171
 msgid " pixels"
 msgstr " пиксел"
 
-#: ../preferences/tools.py:158
+#: ../preferences/tools.py:172
 msgid "Magnifier Scale:"
 msgstr "Увеличение лупы:"
 
-#: ../preferences/tools.py:160
+#: ../preferences/tools.py:174
 msgid "Magnification of the magnifier."
 msgstr "Увеличение лупы"
 
-#: ../preferences/tools.py:161
+#: ../preferences/tools.py:175
 msgctxt "percent unit sign"
 msgid "%"
 msgstr ""
 
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
-#: ../preferences/tools.py:163
+#: ../preferences/tools.py:177
 msgid "Kinetic Scrolling"
 msgstr "Кинетическая прокрутка"
 
-#: ../preferences/tools.py:164
+#: ../preferences/tools.py:178
 msgid "Show Scrollbars"
 msgstr "Показывать полосы прокрутки"
 
-#: ../preferences/tools.py:249
+#: ../preferences/tools.py:263
 msgid "Group documents by directory"
 msgstr "Группировать файлы по каталогам"
+
+#: ../preferences/tools.py:296
+#, fuzzy
+msgid "Restores the built-in outline patterns."
+msgstr "Восстановить встроенные сниппеты"
+
+#: ../preferences/tools.py:297
+msgid "Patterns to match in text that are shown in outline:"
+msgstr ""
+
+#: ../preferences/tools.py:323
+msgid "Enter a regular expression to match:"
+msgstr ""
 
 #: ../quickinsert/__init__.py:48
 msgid "Quick &Insert"
