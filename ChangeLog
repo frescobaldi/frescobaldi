@@ -7,7 +7,8 @@ Changes in 2.0.10 --
 * Translations:
   - updated: fr, cs
 * New features:
-  - Document Outline tool with tooltips showing portions of the document
+  - Document Outline tool with tooltips showing portions of the document.
+    The patterns that are used for the outline can be modified by the user.
 * Improvements:
   - Highlight more music functions that were added in LilyPond 2.16
 * Bug fixes:
