@@ -31,7 +31,7 @@ import app
 import plugin
 
 
-default_outline_res = [
+default_outline_patterns = [
 r"\\(score|book|bookpart)\b",
 r"^\\(paper|layout|header)\b",
 r"\\(new|context)\s+[A-Z]\w+",
@@ -45,7 +45,8 @@ r"\b(FIXME|HACK|XXX)\b",
 
 def outline_re():
     """Return the expression to look for document outline items."""
-    rx = QSettings().value("documentstructure/outline_re", default_outline_res, type(""))
+    rx = QSettings().value("documentstructure/outline_patterns",
+                           default_outline_patterns, type(""))
     rx = '|'.join(rx)
     return re.compile(rx, re.MULTILINE)
 

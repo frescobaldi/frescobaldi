@@ -23,15 +23,21 @@ Per-tool preferences.
 
 from __future__ import unicode_literals
 
+import re
+
 from PyQt4.QtCore import QSettings, Qt
 from PyQt4.QtGui import (
-    QCheckBox, QDoubleSpinBox, QFont, QFontComboBox, QGridLayout, QHBoxLayout,
-    QLabel, QScrollArea, QSlider, QSpinBox, QVBoxLayout, QWidget)
+    QAbstractItemView, QCheckBox, QDoubleSpinBox, QFont, QFontComboBox,
+    QGridLayout, QHBoxLayout, QLabel, QScrollArea, QSlider, QSpinBox,
+    QVBoxLayout, QWidget)
 
 import app
 import qutil
 import preferences
 import popplerview
+import widgets.dialog
+import widgets.listedit
+import documentstructure
 
 
 class Tools(preferences.GroupsPage):
@@ -52,6 +58,7 @@ class Tools(preferences.GroupsPage):
         layout.addWidget(MusicView(self))
         layout.addWidget(CharMap(self))
         layout.addWidget(DocumentList(self))
+        layout.addWidget(Outline(self))
         layout.addStretch(1)
             
 
@@ -264,5 +271,59 @@ class DocumentList(preferences.Group):
         s = QSettings()
         s.beginGroup("document_list")
         s.setValue("group_by_folder", self.groupCheck.isChecked())
+
+
+class Outline(preferences.Group):
+    def __init__(self, page):
+        super(Outline, self).__init__(page)
+        
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+        self.label = QLabel()
+        self.patternList = OutlinePatterns()
+        self.patternList.listBox.setDragDropMode(QAbstractItemView.InternalMove)
+        self.patternList.changed.connect(self.changed)
+        layout.addWidget(self.label)
+        layout.addWidget(self.patternList)
+        app.translateUI(self)
+    
+    def translateUI(self):
+        self.setTitle(_("Outline"))
+        self.label.setText(_("Patterns to match in text that are shown in outline:"))
+    
+    def loadSettings(self):
+        s = QSettings()
+        s.beginGroup("documentstructure")
+        self.patternList.setValue(s.value("outline_patterns",
+            documentstructure.default_outline_patterns, type("")))
+    
+    def saveSettings(self):
+        print 'SAVE SETTINGS'
+        s = QSettings()
+        s.beginGroup("documentstructure")
+        s.setValue("outline_patterns",
+            self.patternList.value() or documentstructure.default_outline_patterns)
+
+
+class OutlinePatterns(widgets.listedit.ListEdit):
+    def openEditor(self, item):
+        dlg = widgets.dialog.TextDialog(None,
+            _("Enter a regular expression to match:"),
+            app.caption("Outline"))
+        dlg.setValidateFunction(is_regex)
+        dlg.setText(item.text())
+        if dlg.exec_():
+            item.setText(dlg.text())
+            return True
+        return False
+
+            
+def is_regex(text):
+    """Return True if text is a valid regular expression."""
+    try:
+        re.compile(text, re.M)
+    except re.error:
+        return False
+    return True
 
 
