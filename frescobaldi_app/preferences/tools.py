@@ -311,7 +311,10 @@ class Outline(preferences.Group):
     def saveSettings(self):
         s = QSettings()
         s.beginGroup("documentstructure")
-        s.setValue("outline_patterns", self.patternList.value())
+        if self.patternList.value() != documentstructure.default_outline_patterns:
+            s.setValue("outline_patterns", self.patternList.value())
+        else:
+            s.remove("outline_patterns")
 
 
 class OutlinePatterns(widgets.listedit.ListEdit):
