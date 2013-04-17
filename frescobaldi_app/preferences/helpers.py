@@ -95,7 +95,7 @@ class Apps(preferences.Group):
         s = QSettings()
         s.beginGroup("helper_applications")
         for name, title in self.items():
-            self.entries[name].setPath(s.value(name, ""))
+            self.entries[name].setPath(s.value(name, "", type("")))
     
     def saveSettings(self):
         s= QSettings()
