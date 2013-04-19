@@ -1,13 +1,11 @@
 # translation of es.po to Español
-# Header entry was created by KBabel!
-#
-# Francisco Vila <francisco.vila@hispalinux.es>, 2008, 2009, 2010, 2011, 2012.
+# Francisco Vila <francisco.vila@hispalinux.es>, 2008, 2009, 2010, 2011, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2013-04-03 21:38+0200\n"
-"PO-Revision-Date: 2012-05-07 13:52+0200\n"
+"PO-Revision-Date: 2013-04-19 12:12+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -15,7 +13,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "#-#-#-#-#  es.po (es)  #-#-#-#-#\n"
-"X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: ../about.py:43
@@ -261,9 +258,8 @@ msgid "Untitled ({num})"
 msgstr "Sin título ({num})"
 
 #: ../documentactions.py:133
-#, fuzzy
 msgid "Open File at C&ursor"
-msgstr "Abrir archivo"
+msgstr "Abrir archivo en el c&ursor"
 
 #: ../documentactions.py:134
 msgid "Cut and Assign..."
@@ -303,7 +299,6 @@ msgid "&Close"
 msgstr "&Cerrar"
 
 #: ../documentcontextmenu.py:70
-#, fuzzy
 msgid "Always &Engrave This Document"
 msgstr "Proces&ar siempre este documento"
 
@@ -593,9 +588,8 @@ msgid "Session to start ('{none}' for empty session)"
 msgstr "Sesión que iniciar ('{none}' para sesión vacía)"
 
 #: ../main.py:68
-#, fuzzy
 msgid "List the session names and exit"
-msgstr "mostrar este mensaje de ayuda y salir"
+msgstr "Mostrar la lista de nombres de sesión y salir"
 
 #: ../main.py:70
 msgid "Always start a new instance"
@@ -684,27 +678,25 @@ msgstr ""
 
 #: ../mainwindow.py:486 ../mainwindow.py:500 ../externalchanges/widget.py:103
 msgid "Reload"
-msgstr ""
+msgstr "Recargar"
 
 #: ../mainwindow.py:487
-#, fuzzy
 msgid ""
 "Could not reload the document:\n"
 "\n"
 "{url}"
 msgstr ""
-"No se pudo cargar el documento no local:\n"
+"No se pudo recargar el documento:\n"
 "\n"
 "{url}"
 
 #: ../mainwindow.py:497
-#, fuzzy
 msgid "Some documents could not be reloaded."
-msgstr "El documento no ha cambiado."
+msgstr "Algunos documentos no se han podido recargar."
 
 #: ../mainwindow.py:499
 msgid "No document could be reloaded."
-msgstr ""
+msgstr "No se ha podido recargar ningún documento."
 
 #: ../mainwindow.py:556
 msgctxt "dialog title"
@@ -789,21 +781,23 @@ msgstr "Guardar todo"
 
 #: ../mainwindow.py:986
 msgid "Re&load"
-msgstr ""
+msgstr "Re&cargar"
 
 #: ../mainwindow.py:987 ../externalchanges/widget.py:108
 msgid "Reload All"
-msgstr ""
+msgstr "Recargar todo"
 
 #: ../mainwindow.py:988
 msgid "Check for External Changes..."
-msgstr ""
+msgstr "Comprobar cambios externos..."
 
 #: ../mainwindow.py:990
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
 msgstr ""
+"Abre una ventana para comprobar si otros programas han modificado\n"
+"o borrado los documentos abiertos."
 
 #: ../mainwindow.py:992
 msgid "Print Source..."
@@ -934,13 +928,12 @@ msgid "&About {appname}..."
 msgstr "&Acerca de {appname}..."
 
 #: ../matcher.py:123
-#, fuzzy
 msgid "Matching Pai&r"
-msgstr "Carácter encontrado"
+msgstr "Pa&reja correspondiente"
 
 #: ../matcher.py:124
 msgid "&Select Matching Pair"
-msgstr ""
+msgstr "&Seleccionar pareja correspondiente"
 
 #: ../menu.py:84
 msgctxt "menu title"
@@ -1109,8 +1102,8 @@ msgstr "&Todo"
 msgid ""
 "Replaces all occurrences of the search term in the document or selection."
 msgstr ""
-"Sustituye todas las apariciones del término buscado dentro del documento o "
-"selección."
+"Sustituye todas las apariciones del término buscado\n"
+"dentro del documento o selección."
 
 #: ../viewmanager.py:67 ../viewmanager.py:215
 msgid "Line: {line}, Col: {column}"
@@ -1338,9 +1331,8 @@ msgid ""
 "to engrave your document.\n"
 "It is even possible to edit the command line itself.\n"
 msgstr ""
-"En este cuadro de diálogo puede ajustar ciertos parámetros para se "
-"utilizados por la orden LilyPond\n"
-"para tipografiar el documento.\n"
+"En este cuadro de diálogo puede ajustar ciertos parámetros para ser\n"
+"utilizados por la orden LilyPond para tipografiar el documento.\n"
 "Es posible, incluso, editar la propia línea de órdenes.\n"
 
 #: ../engrave/custom.py:223
@@ -1396,25 +1388,30 @@ msgid "No files available"
 msgstr "No hay archivos disponibles"
 
 #: ../externalchanges/widget.py:99 ../externalchanges/widget.py:288
-#, fuzzy
 msgid "Modified Files"
-msgstr "Archivos XML"
+msgstr "Archivos modificados"
 
 #: ../externalchanges/widget.py:101
 msgid "The following files were modified or deleted by other applications:"
-msgstr ""
+msgstr "Otras aplicaciones han modificado o borrado los siguientes archivos:"
 
 #: ../externalchanges/widget.py:105
 msgid ""
 "Reloads the selected documents from disk. (You can still reach the previous "
 "state of the document using the Undo command.)"
 msgstr ""
+"Recarga del disco los documentos seleccionados\n"
+"(aún puede volver al estado anterior del documento utilizando\n"
+"la instrucción Deshacer)."
 
 #: ../externalchanges/widget.py:110
 msgid ""
 "Reloads all externally modified documents from disk. (You can still reach "
 "the previous state of the document using the Undo command.)"
 msgstr ""
+"Recarga desde el disco todos los documentos modificados externamente\n"
+"(aún puede volver al estado anterior del documento utilizando\n"
+"la instrucción Deshacer)."
 
 #: ../externalchanges/widget.py:113 ../help/contents.py:576
 #: ../help/contents.py:586
@@ -1426,84 +1423,81 @@ msgid ""
 "Saves the selected documents to disk, overwriting the modifications by "
 "another program."
 msgstr ""
+"Guarda los documentos seleccionados en el disco, sobreescribiendo\n"
+"las modificaciones que pueda haber hecho otro programa."
 
 #: ../externalchanges/widget.py:119
 msgid ""
 "Saves all documents to disk, overwriting the modifications by another "
 "program."
 msgstr ""
+"Guarda todos los documentos en el disco, sobreescribiendo cualquier\n"
+"modificación de otro programa."
 
 #: ../externalchanges/widget.py:121 ../externalchanges/widget.py:304
-#, fuzzy
 msgid "Show Difference..."
-msgstr "Pr&eferencias..."
+msgstr "Mostrar diferencia..."
 
 #: ../externalchanges/widget.py:123
 msgid ""
 "Shows the differences between the current document and the file on disk."
-msgstr ""
+msgstr "Muestra las diferencias entre el documento actual y el archivo del disco."
 
 #: ../externalchanges/widget.py:126 ../externalchanges/widget.py:307
-#, fuzzy
 msgid "Enable watching documents for external changes"
-msgstr "El documento no ha cambiado."
+msgstr "Activar la comprobación de cambios externos sobre los documentos"
 
 #: ../externalchanges/widget.py:128
-#, fuzzy
 msgid ""
 "If checked, Frescobaldi will warn you when opened files are modified or "
 "deleted by other applications."
 msgstr ""
-"Si está activado, Frescobaldi no acorta los nombres de archivo en la salida "
-"de registro."
+"Si está activado, Frescobaldi le avisará cuando otras aplicaciones\n"
+"hayan modificado o borrado algún documento abierto."
 
 #: ../externalchanges/widget.py:156
-#, fuzzy
 msgid "[deleted]"
-msgstr "Eliminado"
+msgstr "[eliminado]"
 
 #: ../externalchanges/widget.py:238
-#, fuzzy
 msgid "The document could not be saved."
-msgstr "El documento no ha cambiado."
+msgstr "No se ha podido guardar el documento."
 
 #: ../externalchanges/widget.py:240
-#, fuzzy
 msgid "One document could not be saved."
-msgstr "El documento no ha cambiado."
+msgstr "No se ha podido guardar un documento."
 
 #: ../externalchanges/widget.py:242
-#, fuzzy
 msgid "Some documents could not be saved."
-msgstr "El documento no ha cambiado."
+msgstr "No se han podido guardar algunos documentos."
 
 #: ../externalchanges/widget.py:244
 msgid "Maybe the directory does not exist anymore."
-msgstr ""
+msgstr "Quizá el directorio ya no existe."
 
 #: ../externalchanges/widget.py:245
-#, fuzzy
 msgid "Please save the document using the \"Save As...\" dialog."
 msgid_plural "Please save the documents using the \"Save As...\" dialog."
-msgstr[0] "Guardar siempre la lista de documentos en esta sesión"
-msgstr[1] "Guardar siempre la lista de documentos en esta sesión"
+msgstr[0] "Guarde el documento mediante el diálogo \"Guardar como...\"."
+msgstr[1] "Guarde los documentos mediante el diálogo \"Guardar como...\"."
 
 #: ../externalchanges/widget.py:269
-#, fuzzy
 msgid "Document on Disk"
-msgstr "Tipografías del documento..."
+msgstr "Documento en el disco"
 
 #: ../externalchanges/widget.py:276
 msgid ""
 "Document: {url}\n"
 "Difference between the current document and the file on disk:"
 msgstr ""
+"Documento: {url}\n"
+"Diferencia entre el documento actual y el archivo en disco:"
 
 #: ../externalchanges/widget.py:292
 msgid ""
 "Frescobaldi can detect if files are modified or deleted by other "
 "applications."
-msgstr ""
+msgstr "Frescobaldi puede detectar si otras aplicaciones han modificado o borrado los archivos."
 
 #: ../externalchanges/widget.py:294
 msgid ""
@@ -1512,24 +1506,36 @@ msgid ""
 "can choose whether to reload one or more documents from disk, or to save "
 "them, discarding the modifications made by the other application."
 msgstr ""
+"Cuando otra aplicación modifica o borra uno o más documentos que están\n"
+"abiertos en Frescobaldi, se muestra una lista de los documentos\n"
+"afectados, y puede elegir si recargar uno o más de ellos desde el\n"
+"disco, o guardarlos, descartanto los cambios producidos por la otra\n"
+"aplicación."
 
 #: ../externalchanges/widget.py:299
 msgid ""
 "When a document is reloaded, you can still press {undokey} to get back the "
 "document as it was in memory before reloading it from disk."
 msgstr ""
+"Cuando se recarga un documento, aún puede pulsar la tecla {undokey}\n"
+"para volver al documento tal y como estaba en memoria antes de haberlo\n"
+"recargado del disco."
 
 #: ../externalchanges/widget.py:302
 msgid ""
 "Press the <em>{showdiff}</em> button to see the difference between the "
 "current document and its version on disk."
 msgstr ""
+"Pulse el botón <em>{showdiff}</em> para ver la diferencia entre el\n"
+"documento actual y la versión que está en el disco."
 
 #: ../externalchanges/widget.py:305
 msgid ""
 "If you don't want to be warned when a document is changed or deleted by "
 "another application, uncheck the <em>{action}</em> checkbox."
 msgstr ""
+"Si no quiere recibir avisos cuando otra aplicación modifica o borra\n"
+"un documento, quite la marca de selección de <em>{action}</em>."
 
 #: ../help/browser.py:77
 msgid "Toolbar"
@@ -2733,7 +2739,7 @@ msgstr "Anterior"
 
 #: ../musicview/__init__.py:303
 msgid "&Reload"
-msgstr ""
+msgstr "&Recargar"
 
 #: ../musicview/__init__.py:447
 msgid "Choose the PDF document to display."
@@ -2864,11 +2870,11 @@ msgstr "No se ha podido guardar la imagen."
 
 #: ../outline/__init__.py:40 ../preferences/tools.py:294
 msgid "Outline"
-msgstr ""
+msgstr "Panorámica"
 
 #: ../outline/__init__.py:41
 msgid "&Outline"
-msgstr ""
+msgstr "Pan&orámica"
 
 #: ../pitch/__init__.py:99
 msgid "Pitch Name &Language"
@@ -4001,11 +4007,7 @@ msgid ""
 "Frescobaldi is started without a filename. You can choose whether to start "
 "with one empty document, with the last used session, or with a specific "
 "session. See also {link}."
-msgstr ""
-"Badjo <em>{startup}</em> se puede configurar qué sesión cargar cuando se "
-"llama a Frescobaldi sin ningún nombre de archivo.  Puede elegir si iniciar "
-"con un docuemento vacío, con la última sesión utilizada o con una sesión "
-"específica. Véase también {link}."
+msgstr "Bajo <em>{startup}</em> se puede configurar qué sesión cargar cuando se llama a Frescobaldi sin ningún nombre de archivo.  Puede elegir si iniciar con un documento vacío, con la última sesión utilizada o con una sesión específica. Véase también {link}."
 
 #: ../preferences/prefshelp.py:67
 msgid ""
@@ -4047,7 +4049,7 @@ msgid ""
 "full path here so Frescobaldi can run it. For the helper applications like "
 "convert-ly and lilypond-book you don't need to specify the full path if they "
 "are in the same directory as the LilyPond executable itself."
-msgstr ""
+msgstr "Si el ejecutable de LilyPond no está en la ruta PATH de su sistema, puede especificar su ruta completa aquí de manera que Frescobaldi pueda ejecutarlo. Para las aplicaciones complementarias como convert-ly y lilypond-book no necesita especificar la ruta completa si están en el mismo directorio que el propio ejecutable de LilyPond."
 
 #: ../preferences/prefshelp.py:95
 msgid ""
@@ -4268,23 +4270,25 @@ msgstr "Mostrar la salida de registro normal"
 #: ../preferences/tools.py:99
 msgid "If checked, Frescobaldi will not shorten filenames in the log output."
 msgstr ""
-"Si está activado, Frescobaldi no acorta los nombres de archivo en la salida "
-"de registro."
+"Si está activado, Frescobaldi no acorta los nombres de archivo\n"
+"en la salida de registro."
 
 #: ../preferences/tools.py:162
 msgid "Music View"
 msgstr "Vista de la música"
 
 #: ../preferences/tools.py:163
-#, fuzzy
 msgid "Only load updated PDF documents"
-msgstr "Cerrar todos los documentos sin título"
+msgstr "Abrir sólo los documentos PDF actualizados"
 
 #: ../preferences/tools.py:165
 msgid ""
 "If checked, Frescobaldi will not open PDF documents that are not\n"
 "up-to-date (i.e. the source file has been modified later)."
 msgstr ""
+"Si está seleccionado, Frescobaldi no abrirá documentos PDF que no\n"
+"estén actualizados (es decir, el archivo fuente se ha modificado\n"
+"después)."
 
 #: ../preferences/tools.py:167
 msgid "Magnifier Size:"
@@ -4326,17 +4330,16 @@ msgid "Group documents by directory"
 msgstr "Agrupar documentos por carpeta"
 
 #: ../preferences/tools.py:296
-#, fuzzy
 msgid "Restores the built-in outline patterns."
-msgstr "Recuperar los fragmentos de código incorporados"
+msgstr "Recupera los patrones de vista panorámica incorporados."
 
 #: ../preferences/tools.py:297
 msgid "Patterns to match in text that are shown in outline:"
-msgstr ""
+msgstr "Patrones de búsqueda para mostrar en la panorámica:"
 
 #: ../preferences/tools.py:323
 msgid "Enter a regular expression to match:"
-msgstr ""
+msgstr "Escriba una expresión regular de búsqueda:"
 
 #: ../quickinsert/__init__.py:48
 msgid "Quick &Insert"
@@ -4735,7 +4738,7 @@ msgstr "Ligadura de fraseo"
 
 #: ../quickinsert/spanners.py:147
 msgid "Melisma"
-msgstr ""
+msgstr "Melisma"
 
 #: ../quickinsert/widget.py:102
 msgid ""
@@ -6601,9 +6604,8 @@ msgid "Delete Line(s)"
 msgstr "Eliminar línea(s)"
 
 #: ../snippet/builtin.py:62
-#, fuzzy
 msgid "Delete Matching Pair"
-msgstr "Signo de respiración predeterminado"
+msgstr "Borrar pareja correspondiente"
 
 #: ../snippet/builtin.py:78
 msgid "Next Blank Line"
@@ -7302,41 +7304,38 @@ msgid ""
 "</p>\n"
 msgstr ""
 "<p>\n"
-"Con el gestor de fragmentos de código puede almacenar piezas de texto usadas "
-"frecuentemente llamadas\n"
-"\"fragmentos de código o snippets\", y pegarlos fácilmente en el editor de "
-"texto.\n"
+"Con el gestor de fragmentos de código puede almacenar piezas de\n"
+"texto usadas frecuentemente llamadas \"fragmentos de código o\n"
+"snippets\", y pegarlos fácilmente en el editor de texto.\n"
 "</p>\n"
 "\n"
 "<p>\n"
-"El gestor de fragmentos de código se puede activar por medio del menú "
-"{menu_snippets} o\n"
-"pulsando la tecla {key_snippets}.\n"
+"El gestor de fragmentos de código se puede activar por medio del menú\n"
+"{menu_snippets} o pulsando la tecla {key_snippets}.\n"
 "<p>\n"
-"Los fragmentos de código se pueden buscar navegando por la lista o "
+"Los fragmentos de código se pueden buscar navegando por la lista o\n"
 "escribiendo algunos caracteres en el cuadro de búsqueda.\n"
-"Los fragmentos de código pueden tener también una combinación de teclas que "
-"los aplica directamente.\n"
-"Ciertos fragmentos de código tienen una combinación nemotécnica especial "
-"(nombre abreviado) que puede también teclear\n"
-"en el cuadro de búsqueda para seleccionar el fragmento. Al pulsar la tecla "
-"Intro aplicará\n"
-"el fragmento en el editor y ocultará el gestor de fragmentos.\n"
+"Los fragmentos de código pueden tener también una combinación de\n"
+"teclas que los aplica directamente.\n"
+"Ciertos fragmentos de código tienen una combinación nemotécnica\n"
+"especial (nombre abreviado) que puede también teclear en el cuadro de\n"
+"búsqueda para seleccionar el fragmento. Al pulsar la tecla Intro\n"
+"aplicará el fragmento en el editor y ocultará el gestor de fragmentos.\n"
 "</p>\n"
 "\n"
 "<p>\n"
-"Añada fragmentos nuevos usando la tecla {key_add}. Edite el fragmento "
+"Añada fragmentos nuevos usando la tecla {key_add}. Edite el fragmento\n"
 "seleccionado con la tecla {key_edit}.\n"
-"Elimine los fragmentos seleccionados usando la tecla {key_delete}. "
-"Advertencia: ¡no hay función de Deshacer!\n"
+"Elimine los fragmentos seleccionados usando la tecla\n"
+"{key_delete}. Advertencia: ¡no hay función de Deshacer!\n"
 "</p>\n"
 "\n"
 "<p>\n"
 "Los fragmentos se pueden poner también en el menú (véase {link}).\n"
-"Finalmente, hay fragmentos que pueden incluir o alterar el texto "
-"seleccionado.\n"
-"Algunos fragmentos hacen esto utilizando variables especiales, mientras que\n"
-"otros son pequeños guiones escritos en Python.\n"
+"Finalmente, hay fragmentos que pueden incluir o alterar el texto\n"
+"seleccionado.  Algunos fragmentos hacen esto utilizando variables\n"
+"especiales, mientras que otros son pequeños guiones escritos en\n"
+"Python.\n"
 "</p>\n"
 
 #: ../snippet/widget.py:439
