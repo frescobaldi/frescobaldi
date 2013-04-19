@@ -12,6 +12,7 @@ Changes in 2.0.10 --
 * Improvements:
   - Highlight more music functions that were added in LilyPond 2.16
 * Bug fixes:
+  - fix QPyNullVariant error message on Mac OS X when setting helper app prefs
   - fix #113: add files opened via file manager to recent files
 
 
