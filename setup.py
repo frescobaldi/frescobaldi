@@ -58,6 +58,7 @@ classifiers = [
     'Natural Language :: Russian',
     'Natural Language :: Spanish',
     'Natural Language :: Turkish',
+    'Natural Language :: Ukranian',
     'Operating System :: MacOS :: MacOS X',
     'Operating System :: Microsoft :: Windows',
     'Operating System :: POSIX',
@@ -65,6 +66,7 @@ classifiers = [
     'Programming Language :: Python :: 2.7',
     'Topic :: Multimedia :: Sound/Audio',
     'Topic :: Multimedia :: Graphics',
+    'Topic :: Text Editors',
 ]
 
 setup(
