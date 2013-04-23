@@ -1,2 +1,5 @@
 *.pyc
 *~
+de.mo
+build/
+
