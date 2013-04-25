@@ -72,6 +72,7 @@ translators = {
         "Henrik Evers",
         "Georg Hennig",
         "Markus W. Kropp",
+        "Urs Liska",
     ],
     'cs': [
         "Pavel Fric",
