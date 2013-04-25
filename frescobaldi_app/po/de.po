@@ -53,9 +53,8 @@ msgid "The Tango Desktop Project"
 msgstr "Das Tango Desktop-Projekt"
 
 #: ../about.py:61
-#, fuzzy
 msgid "The following people contributed to {appname}:"
-msgstr "Die folgenden Ersetzungen werden durchgeführt:"
+msgstr "Folgende Personen haben zu {appname} beigetragen:"
 
 #: ../about.py:64
 msgid "{author}: Kinetic Scrolling for the Music View"
@@ -262,9 +261,8 @@ msgid "Untitled ({num})"
 msgstr "Ohne Titel ({num})"
 
 #: ../documentactions.py:133
-#, fuzzy
 msgid "Open File at C&ursor"
-msgstr "Datei öffnen"
+msgstr "Datei beim C&ursor öffnen"
 
 #: ../documentactions.py:134
 msgid "Cut and Assign..."
@@ -304,9 +302,8 @@ msgid "&Close"
 msgstr "Schließ&en"
 
 #: ../documentcontextmenu.py:70
-#, fuzzy
 msgid "Always &Engrave This Document"
-msgstr "In diesem &Dokument immer Noten stechen"
+msgstr "Immer dieses &Dokument stechen"
 
 #: ../documentmenu.py:42
 msgctxt "menu title"
@@ -587,14 +584,12 @@ msgid "Session to start ('{none}' for empty session)"
 msgstr "Zu startende Sitzung ('{none}' für leere Sitzung)"
 
 #: ../main.py:68
-#, fuzzy
 msgid "List the session names and exit"
-msgstr "Hilfenachricht zeigen und verlassen"
+msgstr "Sitzungsnamen anzeigen und Programm verlassen"
 
 #: ../main.py:70
-#, fuzzy
 msgid "Always start a new instance"
-msgstr "Starte neue Instanz"
+msgstr "Immer eine neue Instanz öffnen"
 
 #. L10N: state of document in window titlebar
 #: ../mainwindow.py:226 ../externalchanges/widget.py:159
@@ -677,25 +672,22 @@ msgstr ""
 "{error}"
 
 #: ../mainwindow.py:486 ../mainwindow.py:500 ../externalchanges/widget.py:103
-#, fuzzy
 msgid "Reload"
 msgstr "Neu laden"
 
 #: ../mainwindow.py:487
-#, fuzzy
 msgid ""
 "Could not reload the document:\n"
 "\n"
 "{url}"
 msgstr ""
-"Konnte nicht-lokales Dokument nicht öffnen:\n"
+"Konnte nicht neu laden:\n"
 "\n"
 "{url}"
 
 #: ../mainwindow.py:497
-#, fuzzy
 msgid "Some documents could not be reloaded."
-msgstr "Das Dokument wurde nicht verändert."
+msgstr "Einige Dokumente konnten nicht neu geladen werden."
 
 #: ../mainwindow.py:499
 msgid "No document could be reloaded."
@@ -760,7 +752,7 @@ msgstr "Ö&ffnen"
 
 #: ../mainwindow.py:978
 msgid "Open &Recent"
-msgstr "A&ktuelle Datei öffnen"
+msgstr "Zuletzt verwendete Dateien"
 
 #: ../mainwindow.py:979
 msgid "Insert from &File..."
@@ -783,14 +775,12 @@ msgid "Save All"
 msgstr "Alles speichern"
 
 #: ../mainwindow.py:986
-#, fuzzy
 msgid "Re&load"
 msgstr "Neu laden"
 
 #: ../mainwindow.py:987 ../externalchanges/widget.py:108
-#, fuzzy
 msgid "Reload All"
-msgstr "Neu laden"
+msgstr "Alle neu laden"
 
 #: ../mainwindow.py:988
 msgid "Check for External Changes..."
@@ -931,13 +921,12 @@ msgid "&About {appname}..."
 msgstr "Ü&ber {appname}..."
 
 #: ../matcher.py:123
-#, fuzzy
 msgid "Matching Pai&r"
-msgstr "Übereinstimmender Buchstabe"
+msgstr "Gehe zu passender Klammer"
 
 #: ../matcher.py:124
 msgid "&Select Matching Pair"
-msgstr ""
+msgstr "Wähle bis zu passender Klammer aus"
 
 #: ../menu.py:84
 msgctxt "menu title"
@@ -960,13 +949,11 @@ msgid "&View"
 msgstr "&Ansicht"
 
 #: ../menu.py:182
-#, fuzzy
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "Zeichensatz"
 
 #: ../menu.py:197
-#, fuzzy
 msgctxt "menu title"
 msgid "&Music"
 msgstr "&Notenansicht"
@@ -1230,14 +1217,12 @@ msgid "Docum&ents"
 msgstr "Dokum&ente"
 
 #: ../doclist/widget.py:187
-#, fuzzy
 msgid "Save selected documents"
-msgstr "Auswahl speichern"
+msgstr "Ausgewählte Dokumente speichern"
 
 #: ../doclist/widget.py:188
-#, fuzzy
 msgid "Close selected documents"
-msgstr "Andere Dokumente schließen"
+msgstr "Ausgewählte Dokumente schließen"
 
 #: ../doclist/widget.py:194
 #, fuzzy
@@ -1249,14 +1234,12 @@ msgid "Close documents in this folder"
 msgstr ""
 
 #: ../doclist/widget.py:198
-#, fuzzy
 msgid "Save all untitled documents"
-msgstr "Email-Dokumente"
+msgstr "Alle unbenannten Dokumente speichern"
 
 #: ../doclist/widget.py:199
-#, fuzzy
 msgid "Close all untitled documents"
-msgstr "Alle Dokumente schließen"
+msgstr "Alle unbenannten Dokumente schließen"
 
 #: ../engrave/__init__.py:179
 msgid "&Always Engrave [{docname}]"
@@ -1313,7 +1296,7 @@ msgstr "LilyPond mit geschwätziger Ausgabe starten"
 #: ../engrave/custom.py:130 ../preferences/lilypond.py:292
 #, fuzzy
 msgid "Run LilyPond with English messages"
-msgstr "LilyPond mit geschwätziger Ausgabe starten"
+msgstr "LilyPond mit Englischen Meldungen starten"
 
 #: ../engrave/custom.py:131 ../preferences/lilypond.py:289
 msgid "Delete intermediate output files"
@@ -1395,9 +1378,8 @@ msgid "No files available"
 msgstr "Keine Dateien verfügbar"
 
 #: ../externalchanges/widget.py:99 ../externalchanges/widget.py:288
-#, fuzzy
 msgid "Modified Files"
-msgstr "XML-Dateien"
+msgstr "Veränderte Dateien"
 
 #: ../externalchanges/widget.py:101
 msgid "The following files were modified or deleted by other applications:"
@@ -1417,7 +1399,6 @@ msgstr ""
 
 #: ../externalchanges/widget.py:113 ../help/contents.py:576
 #: ../help/contents.py:586
-#, fuzzy
 msgid "Save"
 msgstr "Speichern"
 
@@ -1434,9 +1415,8 @@ msgid ""
 msgstr ""
 
 #: ../externalchanges/widget.py:121 ../externalchanges/widget.py:304
-#, fuzzy
 msgid "Show Difference..."
-msgstr "&Einstellungen"
+msgstr "Unterschiede anzeigen"
 
 #: ../externalchanges/widget.py:123
 msgid ""
@@ -1444,54 +1424,46 @@ msgid ""
 msgstr ""
 
 #: ../externalchanges/widget.py:126 ../externalchanges/widget.py:307
-#, fuzzy
 msgid "Enable watching documents for external changes"
-msgstr "Das Dokument wurde nicht verändert."
+msgstr "Überwachung externer Änderungen aktivieren"
 
 #: ../externalchanges/widget.py:128
-#, fuzzy
 msgid ""
 "If checked, Frescobaldi will warn you when opened files are modified or "
 "deleted by other applications."
 msgstr ""
-"Wenn hier ein Häkchen gesetzt ist, wird Frescobaldi keine gekürzten "
-"Dateinamen als Protokoll ausgeben."
+"Wenn ausgewählt, wird Frescobaldi eine Warnung ausgeben, "
+"wenn Dateien von anderen Anwendungen geändert oder gelöscht werden."
 
 #: ../externalchanges/widget.py:156
-#, fuzzy
 msgid "[deleted]"
-msgstr "Gelöscht"
+msgstr "[gelöscht]"
 
 #: ../externalchanges/widget.py:238
-#, fuzzy
 msgid "The document could not be saved."
-msgstr "Das Dokument wurde nicht verändert."
+msgstr "Das Dokument konnte nicht gespeichert werden."
 
 #: ../externalchanges/widget.py:240
-#, fuzzy
 msgid "One document could not be saved."
-msgstr "Das Dokument wurde nicht verändert."
+msgstr "Ein Dokument konnte nicht gespeichert werden."
 
 #: ../externalchanges/widget.py:242
-#, fuzzy
 msgid "Some documents could not be saved."
-msgstr "Das Dokument wurde nicht verändert."
+msgstr "Einige Dokumente konnten nicht gespeichert werden."
 
 #: ../externalchanges/widget.py:244
 msgid "Maybe the directory does not exist anymore."
 msgstr ""
 
 #: ../externalchanges/widget.py:245
-#, fuzzy
 msgid "Please save the document using the \"Save As...\" dialog."
 msgid_plural "Please save the documents using the \"Save As...\" dialog."
-msgstr[0] "Immer die Liste der Dokumente in dieser Sitzung speichern"
-msgstr[1] "Immer die Liste der Dokumente in dieser Sitzung speichern"
+msgstr[0] "Bitte das Dokument mit \"Speichern unter...\" speichern"
+msgstr[1] "Bitte die Dokumente mit \"Speichern unter...\" speichern"
 
 #: ../externalchanges/widget.py:269
-#, fuzzy
 msgid "Document on Disk"
-msgstr "Schriftarten des Dokuments..."
+msgstr "Datei auf der Festplatte"
 
 #: ../externalchanges/widget.py:276
 msgid ""
@@ -1760,7 +1732,6 @@ msgid ""
 msgstr ""
 
 #: ../help/contents.py:231
-#, fuzzy
 msgid "The Music View"
 msgstr "Notenansicht"
 
@@ -1824,7 +1795,7 @@ msgstr "Bearbeiten"
 #: ../help/contents.py:256 ../preferences/__init__.py:250
 #: ../preferences/prefshelp.py:232
 msgid "Fonts & Colors"
-msgstr "Schriftsätze & Farben"
+msgstr "Schriftarten & Farben"
 
 #: ../help/contents.py:257 ../preferences/fontscolors.py:123
 #: ../preferences/fontscolors.py:298
@@ -2088,9 +2059,8 @@ msgid ""
 msgstr ""
 
 #: ../help/contents.py:500
-#, fuzzy
 msgid "More information."
-msgstr "Texinfo"
+msgstr "Weitere Informationen"
 
 #: ../help/contents.py:502
 msgid "encoding"
@@ -2173,7 +2143,6 @@ msgid ""
 msgstr ""
 
 #: ../help/contents.py:569
-#, fuzzy
 msgid "Sessions"
 msgstr "Sitzung"
 
@@ -2189,7 +2158,6 @@ msgid "Session"
 msgstr "Sitzung"
 
 #: ../help/contents.py:577
-#, fuzzy
 msgctxt "New Session"
 msgid "New"
 msgstr "&Neu"
@@ -2435,28 +2403,24 @@ msgid "&Jump to Cursor Position"
 msgstr "Springe zur &Cursorposition"
 
 #: ../musicview/__init__.py:297
-#, fuzzy
 msgid "S&ynchronize with Cursor Position"
-msgstr "S&ynchronisiere Vorschau mit aktuellem Dokument"
+msgstr "S&ynchronisiere Vorschau mit Cursorposition"
 
 #: ../musicview/__init__.py:298
 msgid "Copy to &Image..."
 msgstr "Kopiere in &Bild..."
 
 #: ../musicview/__init__.py:299
-#, fuzzy
 msgid "Next Page"
-msgstr "Nächste Änderung"
+msgstr "Nächste Seite"
 
 #: ../musicview/__init__.py:300
-#, fuzzy
 msgid "Next"
 msgstr "Nächstes:"
 
 #: ../musicview/__init__.py:301
-#, fuzzy
 msgid "Previous Page"
-msgstr "Vorherige Markierung"
+msgstr "Vorherige Seite"
 
 #: ../musicview/__init__.py:302
 #, fuzzy
@@ -2464,7 +2428,6 @@ msgid "Previous"
 msgstr "Vorherige Markierung"
 
 #: ../musicview/__init__.py:303
-#, fuzzy
 msgid "&Reload"
 msgstr "Neu laden"
 
@@ -2499,18 +2462,16 @@ msgstr ""
 
 #: ../musicview/contextmenu.py:49 ../musicview/editinplace.py:82
 #: ../musicview/editinplace.py:246 ../musicview/editinplace.py:255
-#, fuzzy
 msgid "Edit in Place"
-msgstr "Nochmal bearbeiten"
+msgstr "Direkt bearbeiten"
 
 #: ../musicview/editinplace.py:147
 msgid "Editing line {linenum} of \"{document}\" ({variable})"
 msgstr ""
 
 #: ../musicview/editinplace.py:250
-#, fuzzy
 msgid "In this dialog you can edit one line of the text document."
-msgstr "Der volle, lokale Dateiname des aktuellen Dokuments."
+msgstr "In diesem Dialog können Sie die aktuelle Zeile des Quelltexts bearbeiten."
 
 #: ../musicview/editinplace.py:251
 msgid "Click OK or press {key} to place the modified text in the document."
@@ -2973,7 +2934,7 @@ msgstr "Tastatur-Kurzbefehle festlegen"
 
 #: ../preferences/__init__.py:261 ../preferences/prefshelp.py:255
 msgid "Tools"
-msgstr "Werkzeugansicht"
+msgstr "Werkzeuge"
 
 #: ../preferences/documentation.py:66
 msgid "Paths to LilyPond Documentation"
@@ -3640,9 +3601,8 @@ msgid ""
 msgstr ""
 
 #: ../preferences/prefshelp.py:89
-#, fuzzy
 msgid "more info"
-msgstr "Texinfo"
+msgstr "Weitere Informationen"
 
 #: ../preferences/prefshelp.py:90
 msgid ""
@@ -3782,9 +3742,8 @@ msgid ""
 msgstr ""
 
 #: ../preferences/prefshelp.py:258
-#, fuzzy
 msgid "Here you can change the settings for various tools."
-msgstr "Hier können Sie den Kurzbefehl für {name} bearbeiten"
+msgstr "Hier können Sie die Einstellungen für verschiedene Werkzeuge bearbeiten."
 
 #: ../preferences/shortcuts.py:56 ../snippet/model.py:63
 msgid "Shortcut"
@@ -3835,9 +3794,8 @@ msgid "Music View"
 msgstr "Notenansicht"
 
 #: ../preferences/tools.py:163
-#, fuzzy
 msgid "Only load updated PDF documents"
-msgstr "Alle Dokumente schließen"
+msgstr "Nur veränderte PDF-Dokumente laden"
 
 #: ../preferences/tools.py:165
 msgid ""
@@ -5949,18 +5907,16 @@ msgid "&Session"
 msgstr "&Sitzung"
 
 #: ../sidebar/__init__.py:245
-#, fuzzy
 msgid "&Line Numbers"
-msgstr "Saiten-Anzahl"
+msgstr "Zeilennummern"
 
 #: ../sidebar/__init__.py:246
 msgid "&Enable Folding"
 msgstr ""
 
 #: ../sidebar/__init__.py:247
-#, fuzzy
 msgid "&Fold Current Region"
-msgstr "&Markiere aktuelle Zeile"
+msgstr "Blende aktuellen Bereich aus"
 
 #: ../sidebar/__init__.py:248
 #, fuzzy
@@ -5968,52 +5924,44 @@ msgid "Fold &Top Region"
 msgstr "&Markiere aktuelle Zeile"
 
 #: ../sidebar/__init__.py:249
-#, fuzzy
 msgid "&Unfold Current Region"
-msgstr "&Markiere aktuelle Zeile"
+msgstr "Blende aktuellen Bereich ein"
 
 #: ../sidebar/__init__.py:250
-#, fuzzy
 msgid "Fold &All"
-msgstr "&Alle"
+msgstr "&Alle ausblenden"
 
 #: ../sidebar/__init__.py:251
 msgid "U&nfold All"
-msgstr ""
+msgstr "Alle einblenden"
 
 #: ../snippet/builtin.py:38
 msgid "Blank Line"
 msgstr "Leerzeile"
 
 #: ../snippet/builtin.py:44
-#, fuzzy
 msgid "Delete Line(s)"
-msgstr "Alle Zeile oberhalb auswählen"
+msgstr "Zeile(n) löschen"
 
 #: ../snippet/builtin.py:62
-#, fuzzy
 msgid "Delete Matching Pair"
-msgstr "Standard-Atemzeichen"
+msgstr "Klammerpaar löschen"
 
 #: ../snippet/builtin.py:78
-#, fuzzy
 msgid "Next Blank Line"
-msgstr "Leerzeile"
+msgstr "Nächste Leerzeile"
 
 #: ../snippet/builtin.py:92
-#, fuzzy
 msgid "Previous Blank Line"
 msgstr "Vorherige Leerzeile"
 
 #: ../snippet/builtin.py:106
-#, fuzzy
 msgid "Select until Next Blank Line"
-msgstr "Wähle nächste Leerzeile aus"
+msgstr "Wähle bis zur nächsten Leerzeile aus"
 
 #: ../snippet/builtin.py:120
-#, fuzzy
 msgid "Select until Previous Blank Line"
-msgstr "Wähle vorherige Leerzeile aus"
+msgstr "Wähle bis zur vorherigen Leerzeile aus"
 
 #: ../snippet/builtin.py:134
 msgid "Single Typographical Quotes"
@@ -6092,9 +6040,8 @@ msgid "Staff Size"
 msgstr "Notenzeilen-Größe"
 
 #: ../snippet/builtin.py:412
-#, fuzzy
 msgid "Uncomment"
-msgstr "Kommentar"
+msgstr "Auskommentieren"
 
 #: ../snippet/builtin.py:455
 msgid "A5 Paper"
@@ -6153,12 +6100,11 @@ msgid "A snippet can't be empty."
 msgstr "Ein Schnipsel kann nicht leer sein."
 
 #: ../snippet/edit.py:147
-#, fuzzy
 msgid ""
 "The snippet has been modified.\n"
 "Do you want to save your changes or discard them?"
 msgstr ""
-"Das Dokument \"{name}\" wurde geändert.\n"
+"Der Schnipsel wurde geändert.\n"
 "Wollen Sie die Änderungen speichern oder verwerfen?"
 
 #: ../snippet/edit.py:214
@@ -6450,10 +6396,9 @@ msgid "Description"
 msgstr "Beschreibung"
 
 #: ../snippet/restore.py:62
-#, fuzzy
 msgctxt "dialog title"
 msgid "Restore Built-in Snippets"
-msgstr "Python-Schnipsel"
+msgstr "Eingebaute Python-Schnipsel wiederherstellen"
 
 #: ../snippet/restore.py:64
 msgid ""
@@ -6463,19 +6408,16 @@ msgid ""
 msgstr ""
 
 #: ../snippet/restore.py:67
-#, fuzzy
 msgid "Restore Checked Snippets"
-msgstr "Entferne die ausgewählten Schnipsel."
+msgstr "Ausgewählte Schnipsel wiederherstellen."
 
 #: ../snippet/restore.py:68
-#, fuzzy
 msgid "Deleted Snippets"
-msgstr "Aktualisierte Schnipsel"
+msgstr "Gelöschte Schnipsel"
 
 #: ../snippet/restore.py:69
-#, fuzzy
 msgid "Changed Snippets"
-msgstr "Unveränderte Schnipsel"
+msgstr "Veränderte Schnipsel"
 
 #: ../snippet/template.py:41
 msgid "Save as Template"
@@ -6486,18 +6428,16 @@ msgid "Please enter a template name:"
 msgstr "Bitte geben Sie einen Vorlagen-Namen ein:"
 
 #: ../snippet/template.py:49
-#, fuzzy
 msgid "Overwrite Template?"
-msgstr "Neu von Vorlage"
+msgstr "Vorlage überschreiben?"
 
 #: ../snippet/template.py:50
-#, fuzzy
 msgid ""
 "A template named \"{name}\" already exists.\n"
 "\n"
 "Do you want to overwrite it?"
 msgstr ""
-"Eine andere Sitzung mit dem Namen {name} existiert bereits.\n"
+"Eine Vorlage mit dem Namen {name} existiert bereits.\n"
 "\n"
 "Wollen Sie sie überschreiben?"
 
@@ -6510,9 +6450,8 @@ msgid "Save as Template..."
 msgstr "Als Vorlage speichern..."
 
 #: ../snippet/tool.py:90
-#, fuzzy
 msgid "Manage Templates..."
-msgstr "Als Vorlage speichern..."
+msgstr "Vorlagen verwalten..."
 
 #: ../snippet/tool.py:91
 msgid "&Snippets..."
@@ -6535,9 +6474,8 @@ msgid "Edit the current snippet. ({key})"
 msgstr "Bearbeite den aktuelle Schnipsel. ({key})"
 
 #: ../snippet/widget.py:190
-#, fuzzy
 msgid "Configure Keyboard &Shortcut..."
-msgstr "Tastatur-Kurzbefehl einrichten ({key})"
+msgstr "Tastaturkürzel verwalten... ({key})"
 
 #: ../snippet/widget.py:192
 msgid "Remove the selected snippets."
@@ -6715,9 +6653,8 @@ msgid "&New..."
 msgstr "&Neu..."
 
 #: ../widgets/schemeselector.py:92
-#, fuzzy
 msgid "Add Scheme"
-msgstr "Schema"
+msgstr "Schema hinzufügen"
 
 #: ../widgets/schemeselector.py:93
 msgid "Please enter a name for the new scheme:"
