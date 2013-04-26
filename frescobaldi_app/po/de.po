@@ -262,7 +262,7 @@ msgstr "Ohne Titel ({num})"
 
 #: ../documentactions.py:133
 msgid "Open File at C&ursor"
-msgstr "Datei beim C&ursor öffnen"
+msgstr "Datei beim &Cursor öffnen"
 
 #: ../documentactions.py:134
 msgid "Cut and Assign..."
@@ -299,7 +299,7 @@ msgstr "Speichern &unter"
 
 #: ../documentcontextmenu.py:69 ../mainwindow.py:993
 msgid "&Close"
-msgstr "Schließ&en"
+msgstr "Schlie&ßen"
 
 #: ../documentcontextmenu.py:70
 msgid "Always &Engrave This Document"
@@ -748,11 +748,11 @@ msgstr "&Neu"
 
 #: ../mainwindow.py:977
 msgid "&Open..."
-msgstr "Ö&ffnen"
+msgstr "&Öffnen"
 
 #: ../mainwindow.py:978
 msgid "Open &Recent"
-msgstr "Zuletzt verwendete Dateien"
+msgstr "&Zuletzt verwendete Dateien"
 
 #: ../mainwindow.py:979
 msgid "Insert from &File..."
@@ -760,7 +760,7 @@ msgstr "Aus Datei ein&fügen..."
 
 #: ../mainwindow.py:980
 msgid "Open Current Directory"
-msgstr "Öffne aktuellen Ordner"
+msgstr "Öffne &aktuellen Ordner"
 
 #: ../mainwindow.py:981
 msgid "Open Command Prompt"
@@ -768,23 +768,23 @@ msgstr ""
 
 #: ../mainwindow.py:984
 msgid "Save Copy or Selection As..."
-msgstr "Speichere Kopie oder Auswahl unter ..."
+msgstr "Speichere &Kopie oder Auswahl unter ..."
 
 #: ../mainwindow.py:985 ../externalchanges/widget.py:117
 msgid "Save All"
-msgstr "Alles speichern"
+msgstr "Alles s&peichern"
 
 #: ../mainwindow.py:986
 msgid "Re&load"
-msgstr "Neu laden"
+msgstr "Neu la&den"
 
 #: ../mainwindow.py:987 ../externalchanges/widget.py:108
 msgid "Reload All"
-msgstr "Alle neu laden"
+msgstr "Alle neu &laden"
 
 #: ../mainwindow.py:988
 msgid "Check for External Changes..."
-msgstr ""
+msgstr "Auf externe &Änderungen überprüfen"
 
 #: ../mainwindow.py:990
 msgid ""
@@ -794,15 +794,15 @@ msgstr ""
 
 #: ../mainwindow.py:992
 msgid "Print Source..."
-msgstr "Quelltext drucken..."
+msgstr "&Quelltext drucken..."
 
 #: ../mainwindow.py:994
 msgid "Close Other Documents"
-msgstr "Andere Dokumente schließen"
+msgstr "Andere Doku&mente schließen"
 
 #: ../mainwindow.py:995
 msgid "Close All Documents"
-msgstr "Alle Dokumente schließen"
+msgstr "Alle Dokumente sc&hließen"
 
 #: ../mainwindow.py:996
 msgid "Closes all documents and leaves the current session."
@@ -810,11 +810,11 @@ msgstr "Schließe alle Dokumente und beende die Sitzung."
 
 #: ../mainwindow.py:997
 msgid "&Quit"
-msgstr "Bee&nden"
+msgstr "&Beenden"
 
 #: ../mainwindow.py:999
 msgid "Export Source as Colored &HTML..."
-msgstr "Quelle als farbiges HTML exportieren..."
+msgstr "Quelltext als farbiges &HTML exportieren..."
 
 #: ../mainwindow.py:1001
 msgid "&Undo"
@@ -1071,7 +1071,7 @@ msgstr "Gesamtzahl an Treffern"
 
 #: ../search.py:107
 msgid "Close"
-msgstr "Schließen"
+msgstr "Schlie&ßen"
 
 #: ../search.py:108
 msgid "Replace:"
@@ -2429,7 +2429,7 @@ msgstr "Vorherige Markierung"
 
 #: ../musicview/__init__.py:303
 msgid "&Reload"
-msgstr "Neu laden"
+msgstr "Neu laden (&reload)"
 
 #: ../musicview/__init__.py:447
 msgid "Choose the PDF document to display."
@@ -2814,7 +2814,7 @@ msgstr "Schließen"
 #: ../po/messages.py:47
 msgctxt "QDialogButtonBox"
 msgid "Open"
-msgstr "Öffnen"
+msgstr "&Öffnen"
 
 #: ../po/messages.py:48
 msgctxt "QDialogButtonBox"
@@ -6421,7 +6421,7 @@ msgstr "Veränderte Schnipsel"
 
 #: ../snippet/template.py:41
 msgid "Save as Template"
-msgstr "Als Vorlage speichern"
+msgstr "Als V&orlage speichern"
 
 #: ../snippet/template.py:42
 msgid "Please enter a template name:"
@@ -6447,7 +6447,7 @@ msgstr "&Schnipsel"
 
 #: ../snippet/tool.py:89
 msgid "Save as Template..."
-msgstr "Als Vorlage speichern..."
+msgstr "Als V&orlage speichern..."
 
 #: ../snippet/tool.py:90
 msgid "Manage Templates..."
