@@ -140,7 +140,7 @@ class Page(object):
             return float(width) / self._pageSize.width()
         
     def scaleForHeight(self, height):
-        """Returns the scale we need to display ourselves at the given width."""
+        """Returns the scale we need to display ourselves at the given height."""
         if self.layout():
             return height * 72.0 / self.layout().dpi()[1] / self._pageSize.height()
         else:
