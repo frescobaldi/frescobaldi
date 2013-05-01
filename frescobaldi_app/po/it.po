@@ -3,23 +3,23 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Gianluca D'Orazio <gianluca.dorazio@gmail.com>, 2008, 2009, 2010, 2011.
+# Gianluca D'Orazio <gianluca.dorazio@gmail.com>, 2008, 2009, 2010, 2011, 2013.
 # .billyBoh <billyboh@gmail.com>, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2013-04-03 21:38+0200\n"
-"PO-Revision-Date: 2012-05-08 15:57+0200\n"
-"Last-Translator: .billyBoh <billyboh@gmail.com>\n"
-"Language-Team: Italian <kde-i18n-it@kde.org>\n"
+"PO-Revision-Date: 2013-04-30 21:59+0200\n"
+"Last-Translator: Gianluca D'Orazio <gianluca.dorazio@gmail.com>\n"
+"Language-Team: Italian <>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "#-#-#-#-#  it.po (it)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.4\n"
 
 #: ../about.py:43
 msgid "{appname} is written in {python} and uses the {qt} toolkit."
@@ -57,13 +57,12 @@ msgid "The Tango Desktop Project"
 msgstr "Progetto Desktop Tango"
 
 #: ../about.py:61
-#, fuzzy
 msgid "The following people contributed to {appname}:"
-msgstr "Saranno fatte le seguenti sostituzioni:"
+msgstr "Le seguenti persone hanno contribuito a {appname}:"
 
 #: ../about.py:64
 msgid "{author}: Kinetic Scrolling for the Music View"
-msgstr ""
+msgstr "{author}: Kinetic Scrolling per l'anteprima dello spartito."
 
 #: ../about.py:69
 msgid "{appname} is translated into the following languages:"
@@ -265,9 +264,8 @@ msgid "Untitled ({num})"
 msgstr "Senza nome ({num})"
 
 #: ../documentactions.py:133
-#, fuzzy
 msgid "Open File at C&ursor"
-msgstr "Apri file"
+msgstr "Apri file alla posizione del c&ursore"
 
 #: ../documentactions.py:134
 msgid "Cut and Assign..."
@@ -307,7 +305,6 @@ msgid "&Close"
 msgstr "&Chiudi"
 
 #: ../documentcontextmenu.py:70
-#, fuzzy
 msgid "Always &Engrave This Document"
 msgstr "&Compila sempre questo documento"
 
@@ -595,9 +592,8 @@ msgid "Session to start ('{none}' for empty session)"
 msgstr "Sessione da avviare ('{none}' per una sessione vuota)"
 
 #: ../main.py:68
-#, fuzzy
 msgid "List the session names and exit"
-msgstr "mostra questo messaggio d'aiuto ed esce"
+msgstr "Elenca i nomi delle sessioni ed esci"
 
 #: ../main.py:70
 msgid "Always start a new instance"
@@ -685,29 +681,26 @@ msgstr ""
 "{error}"
 
 #: ../mainwindow.py:486 ../mainwindow.py:500 ../externalchanges/widget.py:103
-#, fuzzy
 msgid "Reload"
 msgstr "Ricarica"
 
 #: ../mainwindow.py:487
-#, fuzzy
 msgid ""
 "Could not reload the document:\n"
 "\n"
 "{url}"
 msgstr ""
-"Impossibile caricare il documento remoto:\n"
+"Impossibile ricaricare il documento:\n"
 "\n"
 "{url}"
 
 #: ../mainwindow.py:497
-#, fuzzy
 msgid "Some documents could not be reloaded."
-msgstr "Il documento non è stato modificato."
+msgstr "Alcuni documenti non possono essere ricaricati."
 
 #: ../mainwindow.py:499
 msgid "No document could be reloaded."
-msgstr ""
+msgstr "Impossibile ricaricare nessun documento."
 
 #: ../mainwindow.py:556
 msgctxt "dialog title"
@@ -790,24 +783,24 @@ msgid "Save All"
 msgstr "Salva tutto"
 
 #: ../mainwindow.py:986
-#, fuzzy
 msgid "Re&load"
-msgstr "Ricarica"
+msgstr "Ri&carica"
 
 #: ../mainwindow.py:987 ../externalchanges/widget.py:108
-#, fuzzy
 msgid "Reload All"
-msgstr "Ricarica"
+msgstr "Ricarica tutto"
 
 #: ../mainwindow.py:988
 msgid "Check for External Changes..."
-msgstr ""
+msgstr "Controlla per modifiche esterne..."
 
 #: ../mainwindow.py:990
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
 msgstr ""
+"Apre una finestra per controllare se i documenti in uso sono stati modificati "
+"o cancellati da altri programmi."
 
 #: ../mainwindow.py:992
 msgid "Print Source..."
@@ -938,13 +931,12 @@ msgid "&About {appname}..."
 msgstr "&A proposito di {appname}"
 
 #: ../matcher.py:123
-#, fuzzy
 msgid "Matching Pai&r"
-msgstr "Carattere corrispondente"
+msgstr "Coppie corrispondenti"
 
 #: ../matcher.py:124
 msgid "&Select Matching Pair"
-msgstr ""
+msgstr "Seleziona co&ppie corrispondenti"
 
 #: ../menu.py:84
 msgctxt "menu title"
@@ -1397,25 +1389,29 @@ msgid "No files available"
 msgstr "Nessun file disponibile"
 
 #: ../externalchanges/widget.py:99 ../externalchanges/widget.py:288
-#, fuzzy
 msgid "Modified Files"
-msgstr "File XML"
+msgstr "Documenti modificati"
 
 #: ../externalchanges/widget.py:101
 msgid "The following files were modified or deleted by other applications:"
 msgstr ""
+"I documenti che seguono sono stati modificati o cancellati da alti programmi:"
 
 #: ../externalchanges/widget.py:105
 msgid ""
 "Reloads the selected documents from disk. (You can still reach the previous "
 "state of the document using the Undo command.)"
 msgstr ""
+"Ricarica i documenti selezionati dal disco. (È possibile tornare allo stato "
+"precedente usando il comando Annulla)."
 
 #: ../externalchanges/widget.py:110
 msgid ""
 "Reloads all externally modified documents from disk. (You can still reach "
 "the previous state of the document using the Undo command.)"
 msgstr ""
+"Ricarica dal disco tutti i documenti modificati esternamente. (È possibile "
+"tornare allo stato precedente usando il comando Annulla)."
 
 #: ../externalchanges/widget.py:113 ../help/contents.py:576
 #: ../help/contents.py:586
@@ -1427,84 +1423,83 @@ msgid ""
 "Saves the selected documents to disk, overwriting the modifications by "
 "another program."
 msgstr ""
+"Salva sul disco i documenti selezionati, sovrascrivendo le modifiche "
+"apportate da un altro programma."
 
 #: ../externalchanges/widget.py:119
 msgid ""
 "Saves all documents to disk, overwriting the modifications by another "
 "program."
 msgstr ""
+"Salva tutti i documenti sul disco, sovrascrivendo le modifiche "
+"apportate da altri programmi."
 
 #: ../externalchanges/widget.py:121 ../externalchanges/widget.py:304
-#, fuzzy
 msgid "Show Difference..."
-msgstr "Pr&eferenze..."
+msgstr "Mostra differenze..."
 
 #: ../externalchanges/widget.py:123
 msgid ""
 "Shows the differences between the current document and the file on disk."
-msgstr ""
+msgstr "Mostra le differenze tra il documento in uso e la versione sul disco."
 
 #: ../externalchanges/widget.py:126 ../externalchanges/widget.py:307
-#, fuzzy
 msgid "Enable watching documents for external changes"
-msgstr "Il documento non è stato modificato."
+msgstr "Abilita il rilevamento di modifiche esterne sui documenti"
 
 #: ../externalchanges/widget.py:128
-#, fuzzy
 msgid ""
 "If checked, Frescobaldi will warn you when opened files are modified or "
 "deleted by other applications."
 msgstr ""
-"Se selezionato, Frescobaldi non abbrevierà i nomi dei file\n"
-"nei messaggi di esecuzione di LilyPond."
+"Se selezionato, Frescobaldi mostrerà un avviso quando i documenti in uso "
+"vengono modificati o cancellati da altri programmi."
 
 #: ../externalchanges/widget.py:156
-#, fuzzy
 msgid "[deleted]"
-msgstr "Eliminati"
+msgstr "[eliminato]"
 
 #: ../externalchanges/widget.py:238
-#, fuzzy
 msgid "The document could not be saved."
-msgstr "Il documento non è stato modificato."
+msgstr "Impossibile salvare il documento."
 
 #: ../externalchanges/widget.py:240
-#, fuzzy
 msgid "One document could not be saved."
-msgstr "Il documento non è stato modificato."
+msgstr "Impossibile salvare un documento."
 
 #: ../externalchanges/widget.py:242
-#, fuzzy
 msgid "Some documents could not be saved."
-msgstr "Il documento non è stato modificato."
+msgstr "Impossibile salvare alcuni documenti."
 
 #: ../externalchanges/widget.py:244
 msgid "Maybe the directory does not exist anymore."
-msgstr ""
+msgstr "Forse la cartella non esiste più."
 
 #: ../externalchanges/widget.py:245
-#, fuzzy
 msgid "Please save the document using the \"Save As...\" dialog."
 msgid_plural "Please save the documents using the \"Save As...\" dialog."
-msgstr[0] "Salva sempre la lista dei documenti in questa sessione"
-msgstr[1] "Salva sempre la lista dei documenti in questa sessione"
+msgstr[0] "Salvare il documento usando \"Salva come...\""
+msgstr[1] "Salvare i documenti usando \"Salva come...\""
 
 #: ../externalchanges/widget.py:269
-#, fuzzy
 msgid "Document on Disk"
-msgstr "Caratteri del documento..."
+msgstr "Documento sul disco"
 
 #: ../externalchanges/widget.py:276
 msgid ""
 "Document: {url}\n"
 "Difference between the current document and the file on disk:"
 msgstr ""
+"Documento: {url}\n"
+"Differenze fra il documento in uso e la versione sul disco:"
 
 #: ../externalchanges/widget.py:292
 msgid ""
 "Frescobaldi can detect if files are modified or deleted by other "
 "applications."
 msgstr ""
+"Frescobaldi può rilevare se i documenti vengono modificati o "
+"eliminati da altri programmi."
 
 #: ../externalchanges/widget.py:294
 msgid ""
@@ -1513,24 +1508,34 @@ msgid ""
 "can choose whether to reload one or more documents from disk, or to save "
 "them, discarding the modifications made by the other application."
 msgstr ""
+"Quando un altro programma modifica o elimina uno o più documenti "
+"in uso in Frescobaldi, viene mostrata una lista dei documenti alterati "
+"ed è possibile scegliere se ricaricare i documenti dal disco oppure "
+"se salvarli trascurando le modifiche apportate dagli altri programmi."
 
 #: ../externalchanges/widget.py:299
 msgid ""
 "When a document is reloaded, you can still press {undokey} to get back the "
 "document as it was in memory before reloading it from disk."
 msgstr ""
+"Quando un documento viene ricaricato, è comunque possibile tornare "
+"alla versione in memoria prima della rilettura dal disco usando {undokey}."
 
 #: ../externalchanges/widget.py:302
 msgid ""
 "Press the <em>{showdiff}</em> button to see the difference between the "
 "current document and its version on disk."
 msgstr ""
+"Premendo <em>{showdiff}</em> è possibile vedere le differenze tra "
+"il documento in uso e la versione sul disco."
 
 #: ../externalchanges/widget.py:305
 msgid ""
 "If you don't want to be warned when a document is changed or deleted by "
 "another application, uncheck the <em>{action}</em> checkbox."
 msgstr ""
+"Se non si vuole essere avvisati quando un documento viene modificato o "
+"eliminato da un altro programma, disabilitare la casella <em>{action}</em>."
 
 #: ../help/browser.py:77
 msgid "Toolbar"
@@ -2750,9 +2755,8 @@ msgid "Previous"
 msgstr "Indietro"
 
 #: ../musicview/__init__.py:303
-#, fuzzy
 msgid "&Reload"
-msgstr "Ricarica"
+msgstr "&Ricarica"
 
 #: ../musicview/__init__.py:447
 msgid "Choose the PDF document to display."
@@ -2883,11 +2887,11 @@ msgstr "Impossibile salvare l'immagine."
 
 #: ../outline/__init__.py:40 ../preferences/tools.py:294
 msgid "Outline"
-msgstr ""
+msgstr "Struttura"
 
 #: ../outline/__init__.py:41
 msgid "&Outline"
-msgstr ""
+msgstr "&Struttura"
 
 #: ../pitch/__init__.py:99
 msgid "Pitch Name &Language"
@@ -4062,6 +4066,10 @@ msgid ""
 "convert-ly and lilypond-book you don't need to specify the full path if they "
 "are in the same directory as the LilyPond executable itself."
 msgstr ""
+"Se l'eseguibile LilyPond non si trova nel PATH del sistema, è possibile "
+"specificarne qui il percorso completo. Per i programmi accessori come "
+"convert-ly e lilypond-book non è necessario specificare il percorso completo "
+"se si trovano nella stessa cartella dell'eseguibile LilyPond."
 
 #: ../preferences/prefshelp.py:95
 msgid ""
@@ -4287,15 +4295,16 @@ msgid "Music View"
 msgstr "Anteprima spartito"
 
 #: ../preferences/tools.py:163
-#, fuzzy
 msgid "Only load updated PDF documents"
-msgstr "Chiudi tutti i documenti senza nome"
+msgstr "Carica solo i PDF aggiornati."
 
 #: ../preferences/tools.py:165
 msgid ""
 "If checked, Frescobaldi will not open PDF documents that are not\n"
 "up-to-date (i.e. the source file has been modified later)."
 msgstr ""
+"Se selezionato, Frescobaldi non aprirà i PDF non aggiornati, cioè "
+"quelli il cui sorgente è stato modificato successivamente."
 
 #: ../preferences/tools.py:167
 msgid "Magnifier Size:"
@@ -4327,28 +4336,27 @@ msgstr "%"
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
 #: ../preferences/tools.py:177
 msgid "Kinetic Scrolling"
-msgstr ""
+msgstr "Kinetic Scrolling"
 
 #: ../preferences/tools.py:178
 msgid "Show Scrollbars"
-msgstr ""
+msgstr "Mostra le barre di scorrimento"
 
 #: ../preferences/tools.py:263
 msgid "Group documents by directory"
 msgstr "Raggruppa documenti per cartella"
 
 #: ../preferences/tools.py:296
-#, fuzzy
 msgid "Restores the built-in outline patterns."
-msgstr "Ripristinare i frammenti predefiniti."
+msgstr "Ripristina gli schemi predefiniti per le strutture."
 
 #: ../preferences/tools.py:297
 msgid "Patterns to match in text that are shown in outline:"
-msgstr ""
+msgstr "Schemi da cercare nel testo e da mostrare nella struttura:"
 
 #: ../preferences/tools.py:323
 msgid "Enter a regular expression to match:"
-msgstr ""
+msgstr "Inserire un'espressione regolare:"
 
 #: ../quickinsert/__init__.py:48
 msgid "Quick &Insert"
@@ -4747,7 +4755,7 @@ msgstr "Legatura di frase"
 
 #: ../quickinsert/spanners.py:147
 msgid "Melisma"
-msgstr ""
+msgstr "Melisma"
 
 #: ../quickinsert/widget.py:102
 msgid ""
@@ -6609,9 +6617,8 @@ msgid "Delete Line(s)"
 msgstr "Cancella una o più righe"
 
 #: ../snippet/builtin.py:62
-#, fuzzy
 msgid "Delete Matching Pair"
-msgstr "Respiro normale"
+msgstr "Cancella le coppie corrispondenti"
 
 #: ../snippet/builtin.py:78
 msgid "Next Blank Line"
