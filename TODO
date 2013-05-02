@@ -1,6 +1,7 @@
 TODO and wishes for Frescobaldi 2.x
 ===================================
 
+
 - LilyPond context help
 
 - wizard to download and unpack LilyPond documentation and/or LilyPond itself
@@ -8,6 +9,7 @@ TODO and wishes for Frescobaldi 2.x
 - Edit->Select Block
 
 - Load .ly file specifying other encoding than UTF-8
+  (this can be done from the command line but not via the user interface)
 
 - interface for running lilypond-book
 
@@ -20,16 +22,20 @@ TODO and wishes for Frescobaldi 2.x
 
 - check or even auto-insert bar checks
 
-- document structure panel
-
 - editing via Music View:
   * relevant context menu on right-clicking object
   * drag an object to e.g. create an \override #'extra-offset command
+
+- Table of Contents support in qpopplerview
+  stub: qpopplerview/toc.py
 
 
 Other ideas/wishes
 ==================
 
+
+- continuous autocompile (run LilyPond whenever deemed suitable)
+  stub: engrave/autocompile.py
 
 - support for Git/Hg/Svn diff/revert/commit
 
@@ -39,8 +45,9 @@ Other ideas/wishes
     * context menu (with help, open filename, etc)
     * if matching brace out of view, popup a small display of it (idea:
       Franciso Vila)
-    * vi-mode
+    * vi-mode (stub: vimode/)
 
 - define and extend api for script snippets
 
+- make Frescobaldi api (using pydoc) browsable via the helpbrowser.
 
