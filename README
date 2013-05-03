@@ -17,6 +17,7 @@ Features:
 - Snippet Manager to store and apply text snippets, templates or scripts
 - Use multiple versions of LilyPond, automatically selects the correct version
 - Built-in LilyPond documentation browser and built-in help
+- Configurable document outline view to navigate large LilyPond scores easily
 - Modern user iterface with configurable colors, fonts and keyboard shortcuts
 - Translated into: Dutch, English, French, German, Italian, Czech, Russian,
   Spanish, Galician, Turkish, Polish, Brazillian and Ukrainian.
