@@ -266,7 +266,7 @@ msgstr "Datei beim &Cursor öffnen"
 
 #: ../documentactions.py:134
 msgid "Cut and Assign..."
-msgstr "Ausschneiden und zuweisen..."
+msgstr "In &Variable umwandeln ..."
 
 #: ../documentactions.py:135
 msgid "Syntax &Highlighting"
@@ -822,11 +822,11 @@ msgstr "Rück&gängig"
 
 #: ../mainwindow.py:1002
 msgid "Re&do"
-msgstr "Wieder&holen"
+msgstr "Wieder&herstellen"
 
 #: ../mainwindow.py:1003
 msgid "Cu&t"
-msgstr "A&usschneiden"
+msgstr "Auss&chneiden"
 
 #: ../mainwindow.py:1004 ../docbrowser/browser.py:248
 msgid "&Copy"
@@ -834,7 +834,7 @@ msgstr "&Kopieren"
 
 #: ../mainwindow.py:1005
 msgid "Copy as Colored &HTML"
-msgstr "Als farbiges HTML kopieren"
+msgstr "Als farbiges HTM&L kopieren"
 
 #: ../mainwindow.py:1006
 msgid "&Paste"
@@ -866,11 +866,11 @@ msgstr "&Suchen ..."
 
 #: ../mainwindow.py:1013
 msgid "Find Ne&xt"
-msgstr "Nä&chstes finden"
+msgstr "N&ächstes finden"
 
 #: ../mainwindow.py:1014
 msgid "Find Pre&vious"
-msgstr "&Vorheriges finden"
+msgstr "V&orheriges finden"
 
 #: ../mainwindow.py:1015
 msgid "&Replace..."
@@ -2314,7 +2314,7 @@ msgstr "Stop"
 #: ../miditool/__init__.py:100
 msgctxt "midi player"
 msgid "Restart"
-msgstr "Wiederholen"
+msgstr ""
 
 #: ../miditool/widget.py:103
 msgid "Tempo"
@@ -2408,7 +2408,7 @@ msgstr "S&ynchronisiere Vorschau mit Cursorposition"
 
 #: ../musicview/__init__.py:298
 msgid "Copy to &Image..."
-msgstr "Kopiere in &Bild ..."
+msgstr "Als &Bild exportieren ..."
 
 #: ../musicview/__init__.py:299
 msgid "Next Page"
