@@ -165,11 +165,11 @@ msgstr "&Alle Markierungen löschen"
 
 #: ../bookmarkmanager.py:115
 msgid "Next Mark"
-msgstr "Nächste Markierung"
+msgstr "N&ächste Markierung"
 
 #: ../bookmarkmanager.py:116
 msgid "Previous Mark"
-msgstr "Vorherige Markierung"
+msgstr "V&orherige Markierung"
 
 #: ../convert_ly.py:120
 msgid "From version:"
@@ -270,7 +270,7 @@ msgstr "In &Variable umwandeln ..."
 
 #: ../documentactions.py:135
 msgid "Syntax &Highlighting"
-msgstr "Syntax &hervorheben"
+msgstr "&Syntax hervorheben"
 
 #: ../documentactions.py:136
 msgid "&Automatic Indent"
@@ -922,11 +922,11 @@ msgstr "Ü&ber {appname} ..."
 
 #: ../matcher.py:123
 msgid "Matching Pai&r"
-msgstr "Gehe zu passender Klammer"
+msgstr "&Gehe zu passender Klammer"
 
 #: ../matcher.py:124
 msgid "&Select Matching Pair"
-msgstr "Wähle bis zu passender Klammer aus"
+msgstr "&Wähle bis zu passender Klammer aus"
 
 #: ../menu.py:84
 msgctxt "menu title"
@@ -951,7 +951,7 @@ msgstr "&Ansicht"
 #: ../menu.py:182
 msgctxt "submenu title"
 msgid "&Folding"
-msgstr "Zeichensatz"
+msgstr "Code &Folding"
 
 #: ../menu.py:197
 msgctxt "menu title"
@@ -2278,11 +2278,11 @@ msgstr "LilyPond-Proto&koll"
 
 #: ../logtool/__init__.py:91
 msgid "Next Error Message"
-msgstr "Nächste Fehlmeldung"
+msgstr "Nä&chste Fehlermeldung"
 
 #: ../logtool/__init__.py:92
 msgid "Previous Error Message"
-msgstr "Vorherige Fehlmeldung"
+msgstr "Vo&rherige Fehlermeldung"
 
 #: ../logtool/logwidget.py:118
 msgid "Click to edit this file"
@@ -5908,32 +5908,31 @@ msgstr "&Sitzung"
 
 #: ../sidebar/__init__.py:245
 msgid "&Line Numbers"
-msgstr "Zeilennummern"
+msgstr "&Zeilennummern anzeigen"
 
 #: ../sidebar/__init__.py:246
 msgid "&Enable Folding"
-msgstr ""
+msgstr "&Folding aktivieren"
 
 #: ../sidebar/__init__.py:247
 msgid "&Fold Current Region"
-msgstr "Blende aktuellen Bereich aus"
+msgstr "Blende &aktuellen Bereich aus"
 
 #: ../sidebar/__init__.py:248
-#, fuzzy
 msgid "Fold &Top Region"
-msgstr "&Markiere aktuelle Zeile"
+msgstr "Blende &äußersten Bereich aus"
 
 #: ../sidebar/__init__.py:249
 msgid "&Unfold Current Region"
-msgstr "Blende aktuellen Bereich ein"
+msgstr "&Blende aktuellen Bereich ein"
 
 #: ../sidebar/__init__.py:250
 msgid "Fold &All"
-msgstr "&Alle ausblenden"
+msgstr "Alle a&usblenden"
 
 #: ../sidebar/__init__.py:251
 msgid "U&nfold All"
-msgstr "Alle einblenden"
+msgstr "Alle &einblenden"
 
 #: ../snippet/builtin.py:38
 msgid "Blank Line"
