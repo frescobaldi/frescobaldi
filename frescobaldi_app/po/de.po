@@ -295,7 +295,7 @@ msgstr "&Speichern"
 
 #: ../documentcontextmenu.py:68 ../mainwindow.py:983
 msgid "Save &As..."
-msgstr "Speichern &unter"
+msgstr "Speichern &unter ..."
 
 #: ../documentcontextmenu.py:69 ../mainwindow.py:993
 msgid "&Close"
@@ -325,7 +325,7 @@ msgstr "Interner Fehler"
 
 #: ../exception.py:71
 msgid "Email Bug Report..."
-msgstr "Fehlerbericht per E-Mail senden..."
+msgstr "Fehlerbericht per E-Mail senden ..."
 
 #: ../exception.py:79
 msgid "Optionally describe below what you were doing:"
@@ -509,11 +509,11 @@ msgstr "Farbe wählen"
 
 #: ../job.py:239
 msgid "Starting {job}..."
-msgstr "Starte {job}..."
+msgstr "Starte {job} ..."
 
 #: ../job.py:244
 msgid "Aborting {job}..."
-msgstr "Breche {job} ab..."
+msgstr "Breche {job} ab ..."
 
 #: ../job.py:253
 msgid "Could not read from the process."
@@ -537,11 +537,11 @@ msgstr "Erfolgreich abgeschlossen in {time}."
 
 #: ../lilypondinfo.py:134
 msgid "Running LilyPond, this can take some time..."
-msgstr ""
+msgstr "Führe LilyPond aus, dies kann einige Zeit in Anspruch nehmen ..."
 
 #: ../lyrics.py:132
 msgid "&Hyphenate Lyrics Text..."
-msgstr "Trennungsstric&he in Text einfügen"
+msgstr "Trennungsstric&he in Text einfügen ..."
 
 #: ../lyrics.py:133
 msgid "&Remove hyphenation"
@@ -553,7 +553,7 @@ msgstr "&Kopiere Text ohne Silbentrennzeichen"
 
 #: ../main.py:55
 msgid "{appname} [options] file ..."
-msgstr "{appname} [Optionen] Datei ..."
+msgstr "{appname} [Optionen] Datei  ..."
 
 #: ../main.py:58
 msgid "ENC"
@@ -748,7 +748,7 @@ msgstr "&Neu"
 
 #: ../mainwindow.py:977
 msgid "&Open..."
-msgstr "&Öffnen"
+msgstr "&Öffnen ..."
 
 #: ../mainwindow.py:978
 msgid "Open &Recent"
@@ -756,7 +756,7 @@ msgstr "&Zuletzt verwendete Dateien"
 
 #: ../mainwindow.py:979
 msgid "Insert from &File..."
-msgstr "Aus Datei ein&fügen..."
+msgstr "Aus Datei ein&fügen ..."
 
 #: ../mainwindow.py:980
 msgid "Open Current Directory"
@@ -794,7 +794,7 @@ msgstr ""
 
 #: ../mainwindow.py:992
 msgid "Print Source..."
-msgstr "&Quelltext drucken..."
+msgstr "&Quelltext drucken ..."
 
 #: ../mainwindow.py:994
 msgid "Close Other Documents"
@@ -814,7 +814,7 @@ msgstr "&Beenden"
 
 #: ../mainwindow.py:999
 msgid "Export Source as Colored &HTML..."
-msgstr "Quelltext als farbiges &HTML exportieren..."
+msgstr "Quelltext als farbiges &HTML exportieren ..."
 
 #: ../mainwindow.py:1001
 msgid "&Undo"
@@ -862,7 +862,7 @@ msgstr "Alle Zeilen unterhalb auswählen"
 
 #: ../mainwindow.py:1012
 msgid "&Find..."
-msgstr "&Suchen..."
+msgstr "&Suchen ..."
 
 #: ../mainwindow.py:1013
 msgid "Find Ne&xt"
@@ -874,7 +874,7 @@ msgstr "&Vorheriges finden"
 
 #: ../mainwindow.py:1015
 msgid "&Replace..."
-msgstr "E&rsetzen..."
+msgstr "E&rsetzen ..."
 
 #: ../mainwindow.py:1016
 msgid "Pr&eferences..."
@@ -914,11 +914,11 @@ msgstr "&Was ist das?"
 
 #: ../mainwindow.py:1028
 msgid "Report a &Bug..."
-msgstr "Programmfehler mel&den..."
+msgstr "Programmfehler mel&den ..."
 
 #: ../mainwindow.py:1029
 msgid "&About {appname}..."
-msgstr "Ü&ber {appname}..."
+msgstr "Ü&ber {appname} ..."
 
 #: ../matcher.py:123
 msgid "Matching Pai&r"
@@ -1043,7 +1043,7 @@ msgstr "Konnte das Dokument nicht zum Drucker senden."
 
 #: ../popplerprint.py:108
 msgid "Printing page {page} ({num} of {total})..."
-msgstr "Drucke Seite {page} ({num} von {total})..."
+msgstr "Drucke Seite {page} ({num} von {total}) ..."
 
 #: ../search.py:101
 msgid "Search:"
@@ -1166,7 +1166,7 @@ msgstr "Nach Hause"
 
 #: ../docbrowser/__init__.py:86
 msgid "Print..."
-msgstr "Drucken..."
+msgstr "Drucken ..."
 
 #: ../docbrowser/__init__.py:87
 msgid "&LilyPond Documentation"
@@ -1178,7 +1178,7 @@ msgstr "LilyPond-&Kontext-Hilfe"
 
 #: ../docbrowser/browser.py:115 ../snippet/widget.py:179
 msgid "Search..."
-msgstr "Suche..."
+msgstr "Suche ..."
 
 #: ../docbrowser/browser.py:155
 msgid "(local)"
@@ -1263,7 +1263,7 @@ msgstr "Noten stechen (&Veröffentlichung)"
 
 #: ../engrave/__init__.py:235
 msgid "Engrave (&custom)..."
-msgstr "Noten stechen (&eigene Einstellungen)..."
+msgstr "Noten stechen (&eigene Einstellungen) ..."
 
 #: ../engrave/__init__.py:236
 msgid "Abort Engraving &Job"
@@ -1457,9 +1457,9 @@ msgstr ""
 
 #: ../externalchanges/widget.py:245
 msgid "Please save the document using the \"Save As...\" dialog."
-msgid_plural "Please save the documents using the \"Save As...\" dialog."
-msgstr[0] "Bitte das Dokument mit \"Speichern unter...\" speichern"
-msgstr[1] "Bitte die Dokumente mit \"Speichern unter...\" speichern"
+msgid_plural "Please save the documents using the \"Save As ...\" dialog."
+msgstr[0] "Bitte das Dokument mit \"Speichern unter ...\" speichern"
+msgstr[1] "Bitte die Dokumente mit \"Speichern unter ...\" speichern"
 
 #: ../externalchanges/widget.py:269
 msgid "Document on Disk"
@@ -1635,7 +1635,7 @@ msgstr "Fehler-Markierungen löschen"
 
 #: ../help/contents.py:146 ../help/contents.py:265
 msgid "Copy to Image..."
-msgstr "In Bild kopieren..."
+msgstr "In Bild kopieren ..."
 
 #: ../help/contents.py:148
 msgid ""
@@ -2364,7 +2364,7 @@ msgstr "Wähle Dokument für Notenansicht"
 
 #: ../musicview/__init__.py:287
 msgid "&Print Music..."
-msgstr "Noten &drucken..."
+msgstr "Noten &drucken ..."
 
 #: ../musicview/__init__.py:288
 msgid "Zoom &In"
@@ -2408,7 +2408,7 @@ msgstr "S&ynchronisiere Vorschau mit Cursorposition"
 
 #: ../musicview/__init__.py:298
 msgid "Copy to &Image..."
-msgstr "Kopiere in &Bild..."
+msgstr "Kopiere in &Bild ..."
 
 #: ../musicview/__init__.py:299
 msgid "Next Page"
@@ -2514,7 +2514,7 @@ msgstr "In die Zwischenanlage &kopieren"
 
 #: ../musicview/image.py:134
 msgid "&Save As..."
-msgstr "&Speichern unter..."
+msgstr "&Speichern unter ..."
 
 #: ../musicview/image.py:137
 #, no-python-format
@@ -2597,7 +2597,7 @@ msgstr ""
 
 #: ../pitch/__init__.py:111
 msgid "&Transpose..."
-msgstr "&Transponieren..."
+msgstr "&Transponieren ..."
 
 #: ../pitch/__init__.py:113
 msgid "Transposes all notes in the document or selection."
@@ -4454,7 +4454,7 @@ msgstr ""
 
 #: ../rhythm/__init__.py:175
 msgid "&Apply rhythm..."
-msgstr "Rhytmus &anwenden..."
+msgstr "Rhytmus &anwenden ..."
 
 #: ../rhythm/__init__.py:177
 msgid "Apply an entered rhythm to the selected music."
@@ -4533,7 +4533,7 @@ msgstr "Rhythmus"
 
 #: ../scorewiz/__init__.py:56 ../scorewiz/dialog.py:192
 msgid "Setup New Score..."
-msgstr "Neue Partitur vorbereiten..."
+msgstr "Neue Partitur vorbereiten ..."
 
 #: ../scorewiz/build.py:136
 msgid "Music follows here."
@@ -5891,11 +5891,11 @@ msgstr "Überschreiben"
 #: ../sessions/manager.py:126
 msgctxt "New Session"
 msgid "&New..."
-msgstr "&Neu..."
+msgstr "&Neu ..."
 
 #: ../sessions/manager.py:128
 msgid "&Manage..."
-msgstr "Sitzungen &verwalten..."
+msgstr "Sitzungen &verwalten ..."
 
 #: ../sessions/manager.py:129
 msgid "No Session"
@@ -6049,7 +6049,7 @@ msgstr "A5-Papier"
 
 #: ../snippet/builtin.py:463
 msgid "Document Fonts..."
-msgstr "Schriftarten des Dokuments..."
+msgstr "Schriftarten des Dokuments ..."
 
 #: ../snippet/builtin.py:491
 msgid "Last note or chord"
@@ -6356,7 +6356,7 @@ msgstr "&Menü"
 
 #: ../snippet/import_export.py:245 ../snippet/widget.py:197
 msgid "E&xport..."
-msgstr "E&xportieren..."
+msgstr "E&xportieren ..."
 
 #: ../snippet/import_export.py:246
 msgid ""
@@ -6367,7 +6367,7 @@ msgstr ""
 
 #: ../snippet/import_export.py:250 ../snippet/widget.py:195
 msgid "&Import..."
-msgstr "&Importieren..."
+msgstr "&Importieren ..."
 
 #: ../snippet/import_export.py:251
 msgid ""
@@ -6447,19 +6447,19 @@ msgstr "&Schnipsel"
 
 #: ../snippet/tool.py:89
 msgid "Save as Template..."
-msgstr "Als V&orlage speichern..."
+msgstr "Als V&orlage speichern ..."
 
 #: ../snippet/tool.py:90
 msgid "Manage Templates..."
-msgstr "Vorlagen verwalten..."
+msgstr "Vorlagen verwalten ..."
 
 #: ../snippet/tool.py:91
 msgid "&Snippets..."
-msgstr "&Schnipsel..."
+msgstr "&Schnipsel ..."
 
 #: ../snippet/widget.py:184 ../widgets/listedit.py:91
 msgid "&Add..."
-msgstr "Hin&zufügen..."
+msgstr "Hin&zufügen ..."
 
 #: ../snippet/widget.py:186
 msgid "Add a new snippet. ({key})"
@@ -6467,7 +6467,7 @@ msgstr "Neuen Schnipsel hinzufügen. ({key})"
 
 #: ../snippet/widget.py:187 ../widgets/listedit.py:92
 msgid "&Edit..."
-msgstr "&Bearbeiten..."
+msgstr "&Bearbeiten ..."
 
 #: ../snippet/widget.py:189
 msgid "Edit the current snippet. ({key})"
@@ -6475,7 +6475,7 @@ msgstr "Bearbeite den aktuelle Schnipsel. ({key})"
 
 #: ../snippet/widget.py:190
 msgid "Configure Keyboard &Shortcut..."
-msgstr "Tastaturkürzel verwalten... ({key})"
+msgstr "Tastaturkürzel verwalten ... ({key})"
 
 #: ../snippet/widget.py:192
 msgid "Remove the selected snippets."
@@ -6604,7 +6604,7 @@ msgstr "Einfügen"
 
 #: ../snippet/widget.py:439
 msgid "Snippets..."
-msgstr "Schnipsel..."
+msgstr "Schnipsel ..."
 
 #: ../snippet/widget.py:456
 msgid "Maintaining a library of snippets"
@@ -6650,7 +6650,7 @@ msgstr "Schema:"
 #: ../widgets/schemeselector.py:63
 msgctxt "New Scheme"
 msgid "&New..."
-msgstr "&Neu..."
+msgstr "&Neu ..."
 
 #: ../widgets/schemeselector.py:92
 msgid "Add Scheme"
@@ -6729,7 +6729,7 @@ msgstr "Datei auswählen"
 
 #, fuzzy
 #~ msgid "Edit..."
-#~ msgstr "Drucken..."
+#~ msgstr "Drucken ..."
 
 #, fuzzy
 #~ msgid "Remove"
@@ -7085,7 +7085,7 @@ msgstr "Datei auswählen"
 #~ msgstr "Paket-URL:"
 
 #~ msgid "Downloading directory listing..."
-#~ msgstr "Lade Ordnerinhalt herunter..."
+#~ msgstr "Lade Ordnerinhalt herunter ..."
 
 #~ msgid "No packages found. You can browse to a package manually."
 #~ msgstr "Keine Pakete gefunden. Sie können manuell ein Paket auswählen."
@@ -7097,7 +7097,7 @@ msgstr "Datei auswählen"
 #~ msgstr "Neueste stabile Version (%1)"
 
 #~ msgid "Downloading %1..."
-#~ msgstr "Lade %1 herunter..."
+#~ msgstr "Lade %1 herunter ..."
 
 #~ msgid "Download cancelled."
 #~ msgstr "Herunterladen abgebrochen."
@@ -7121,7 +7121,7 @@ msgstr "Datei auswählen"
 #~ msgstr "Entfernen und neu installieren"
 
 #~ msgid "Unpacking %1..."
-#~ msgstr "Entpacke %1..."
+#~ msgstr "Entpacke %1 ..."
 
 #~ msgid "Unpacking finished."
 #~ msgstr "Entpacken beendet."
@@ -7226,7 +7226,7 @@ msgstr "Datei auswählen"
 #~ msgstr "Index"
 
 #~ msgid "Loading..."
-#~ msgstr "Lade..."
+#~ msgstr "Lade ..."
 
 #~ msgid "LilyPond Command Index"
 #~ msgstr "LilyPond-Befehlsindex"
@@ -7311,7 +7311,7 @@ msgstr "Datei auswählen"
 #~ msgid "Repeat the last music expression (note or chord)."
 #~ msgstr "Wiederhole den letzten musikalischen Ausdruck (Note oder Akkord)."
 
-#~ msgid "Insert or Manage Expansions..."
+#~ msgid "Insert or Manage Expansions ..."
 #~ msgstr "Erweiterungen einfügen oder verwalten..."
 
 #~ msgid "Expand last word or open the expansions dialog."
@@ -7439,7 +7439,7 @@ msgstr "Datei auswählen"
 #~ msgstr "Zeige PDF-Minipager"
 
 #~ msgid "Configure Okular..."
-#~ msgstr "Konfiguriere Okular..."
+#~ msgstr "Konfiguriere Okular ..."
 
 #~ msgid "no log"
 #~ msgstr "Kein Log"
@@ -7490,7 +7490,7 @@ msgstr "Datei auswählen"
 #~ msgstr "Tonart:"
 
 #~ msgid "Configure..."
-#~ msgstr "Konfiguriere..."
+#~ msgstr "Konfiguriere ..."
 
 #~ msgid "Adjust more settings, like MIDI input and output."
 #~ msgstr "Mehr Einstellungen, wie z.B. MIDI-Eingang und -Ausgabe."
@@ -7605,10 +7605,10 @@ msgstr "Datei auswählen"
 #~ msgstr "Veröffentlichungs-Modus"
 
 #~ msgid "LilyPond %1 [%2] starting (%3)..."
-#~ msgstr "LilyPond %1 [%2] startet (%3)..."
+#~ msgstr "LilyPond %1 [%2] startet (%3) ..."
 
 #~ msgid "LilyPond [%1] starting (%2)..."
-#~ msgstr "LilyPond [%1] startet (%2)..."
+#~ msgstr "LilyPond [%1] startet (%2) ..."
 
 #~ msgid "LilyPond [%1] finished (%2)."
 #~ msgstr "LilyPond [%1] ist fertig (%2)."
@@ -7828,7 +7828,7 @@ msgstr "Datei auswählen"
 #~ msgstr "Reiter können verschoben werden"
 
 #~ msgid "Download..."
-#~ msgstr "Herunterladen..."
+#~ msgstr "Herunterladen ..."
 
 #~ msgid "Download new binary LilyPond releases."
 #~ msgstr "Neue LilyPond-Pakete herunterladen."
@@ -7840,7 +7840,7 @@ msgstr "Datei auswählen"
 #~ msgstr "Eine Sitzung auswählen."
 
 #~ msgid "Choose..."
-#~ msgstr "Auswählen..."
+#~ msgstr "Auswählen ..."
 
 #~ msgid "Your document has already a LilyPond version statement."
 #~ msgstr "Die LilyPond-Version Ihres Dokuments ist bereits festgelegt."
@@ -7934,7 +7934,7 @@ msgstr "Datei auswählen"
 #~ msgstr "Öffne PDF"
 
 #~ msgid "Email..."
-#~ msgstr "Email..."
+#~ msgstr "Email ..."
 
 #~ msgid "Disable the built-in PDF preview"
 #~ msgstr "Schalte eingebettete PDF-Vorschau ab"
@@ -8183,7 +8183,7 @@ msgstr "Datei auswählen"
 #~ msgstr "LilyKDE Servicemenü-Hilfe"
 
 #~ msgid "LilyPond [$filename] starting ($mode)..."
-#~ msgstr "LilyPond [$filename] startet ($mode)..."
+#~ msgstr "LilyPond [$filename] startet ($mode) ..."
 
 #~ msgid "Could not start LilyPond."
 #~ msgstr "Konnte LilyPond nicht starten."
