@@ -2376,7 +2376,7 @@ msgstr "Ver&kleinern"
 
 #: ../musicview/__init__.py:290
 msgid "Original &Size"
-msgstr ""
+msgstr "&Originalgröße"
 
 #: ../musicview/__init__.py:291
 msgid "Zoom Music"
@@ -2384,19 +2384,19 @@ msgstr "Noten vergrößern"
 
 #: ../musicview/__init__.py:292
 msgid "Fit &Width"
-msgstr "Auf &Breite anpassen"
+msgstr "An &Breite anpassen"
 
 #: ../musicview/__init__.py:293
 msgid "Fit &Height"
-msgstr "Auf &Höhe anpassen"
+msgstr "An &Höhe anpassen"
 
 #: ../musicview/__init__.py:294
 msgid "Fit &Page"
-msgstr "Auf &Seite anpassen"
+msgstr "An &Seite anpassen"
 
 #: ../musicview/__init__.py:295
 msgid "&Maximize"
-msgstr ""
+msgstr "&Maximieren"
 
 #: ../musicview/__init__.py:296
 msgid "&Jump to Cursor Position"
@@ -2404,7 +2404,7 @@ msgstr "Springe zur &Cursorposition"
 
 #: ../musicview/__init__.py:297
 msgid "S&ynchronize with Cursor Position"
-msgstr "S&ynchronisiere Vorschau mit Cursorposition"
+msgstr "Mit Cursorposition s&ynchronisieren"
 
 #: ../musicview/__init__.py:298
 msgid "Copy to &Image..."
@@ -2429,7 +2429,7 @@ msgstr "Vorherige Markierung"
 
 #: ../musicview/__init__.py:303
 msgid "&Reload"
-msgstr "Neu laden (&reload)"
+msgstr "&Neu laden"
 
 #: ../musicview/__init__.py:447
 msgid "Choose the PDF document to display."
@@ -2445,15 +2445,15 @@ msgstr ""
 
 #: ../musicview/__init__.py:507
 msgid "Fit Width"
-msgstr "Auf Breite anpassen"
+msgstr "An &Breite anpassen"
 
 #: ../musicview/__init__.py:508
 msgid "Fit Height"
-msgstr "Auf Höhe anpassen"
+msgstr "An &Höhe anpassen"
 
 #: ../musicview/__init__.py:509
 msgid "Fit Page"
-msgstr "Auf Seite anpassen"
+msgstr "An &Seite anpassen"
 
 #. L10N: page numbering: page {num} of {total}
 #: ../musicview/__init__.py:526
