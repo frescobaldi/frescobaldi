@@ -278,15 +278,15 @@ msgstr "&Automatische Einrückung"
 
 #: ../documentactions.py:137
 msgid "Re-&Indent"
-msgstr "Neu e&inrücken"
+msgstr "Quelltext e&inrücken"
 
 #: ../documentactions.py:138
 msgid "&Format"
-msgstr "&Formatierung"
+msgstr "Quelltext &formatieren"
 
 #: ../documentactions.py:139
 msgid "&Update with convert-ly..."
-msgstr "Mittels convert-ly akt&ualisieren"
+msgstr "Mittels &convert-ly aktualisieren"
 
 #: ../documentcontextmenu.py:67 ../mainwindow.py:982
 #: ../sessions/manager.py:127
@@ -541,11 +541,11 @@ msgstr "Führe LilyPond aus, dies kann einige Zeit in Anspruch nehmen ..."
 
 #: ../lyrics.py:132
 msgid "&Hyphenate Lyrics Text..."
-msgstr "Trennungsstric&he in Text einfügen ..."
+msgstr "&Trennungsstriche in Text einfügen ..."
 
 #: ../lyrics.py:133
 msgid "&Remove hyphenation"
-msgstr "T&rennungsstriche entfernen"
+msgstr "Trennungsstriche ent&fernen"
 
 #: ../lyrics.py:134
 msgid "&Copy Lyrics with hyphenation removed"
@@ -764,7 +764,7 @@ msgstr "Öffne &aktuellen Ordner"
 
 #: ../mainwindow.py:981
 msgid "Open Command Prompt"
-msgstr ""
+msgstr "&Befehlszeile/Shell öffnen"
 
 #: ../mainwindow.py:984
 msgid "Save Copy or Selection As..."
@@ -966,7 +966,7 @@ msgstr "&LilyPond"
 #: ../menu.py:241
 msgctxt "menu title"
 msgid "&Tools"
-msgstr "&Werkzeugansicht"
+msgstr "&Tools"
 
 #: ../menu.py:267
 msgctxt "submenu title"
@@ -976,7 +976,7 @@ msgstr "Liedte&xt"
 #: ../menu.py:279
 msgctxt "submenu title"
 msgid "&Pitch"
-msgstr "Ton&lage"
+msgstr "Tonh&öhen"
 
 #: ../menu.py:293
 msgctxt "submenu title"
@@ -1128,7 +1128,7 @@ msgstr "Vo&rherige Ansicht"
 
 #: ../autocomplete/__init__.py:79
 msgid "Automatic &Completion"
-msgstr "A&utomatisch vervollständigen"
+msgstr "Automatisch &vervollständigen"
 
 #: ../autocomplete/__init__.py:80
 msgid "Show C&ompletions Popup"
@@ -1136,11 +1136,11 @@ msgstr "Zeige &Popup zum Vervollständigen"
 
 #: ../charmap/__init__.py:40 ../preferences/tools.py:229
 msgid "Special Characters"
-msgstr "Besondere Zeichen"
+msgstr "SonderZeichen"
 
 #: ../charmap/__init__.py:41
 msgid "Special Charac&ters"
-msgstr "Besondere &Zeichen"
+msgstr "Sonder&zeichen"
 
 #: ../docbrowser/__init__.py:46 ../docbrowser/__init__.py:62
 #: ../preferences/documentation.py:126
@@ -2294,7 +2294,7 @@ msgstr "MIDI"
 
 #: ../miditool/__init__.py:52
 msgid "MIDI &Player"
-msgstr "MIDI-Pla&yer"
+msgstr "&MIDI-Player"
 
 #: ../miditool/__init__.py:97
 msgctxt "midi player"
@@ -2553,11 +2553,11 @@ msgstr "Konnte das Bild nicht speichern."
 
 #: ../outline/__init__.py:40 ../preferences/tools.py:294
 msgid "Outline"
-msgstr ""
+msgstr "Dokumentstruktur"
 
 #: ../outline/__init__.py:41
 msgid "&Outline"
-msgstr ""
+msgstr "Dokument&struktur"
 
 #: ../pitch/__init__.py:99
 msgid "Pitch Name &Language"
@@ -4390,7 +4390,7 @@ msgstr "Halbiere alle Notenlängen in der Auswahl."
 
 #: ../rhythm/__init__.py:152
 msgid "Do&t durations"
-msgstr "Notenlängen punk&tieren"
+msgstr "Notenlängen &punktieren"
 
 #: ../rhythm/__init__.py:154
 msgid "Add a dot to all the durations in the selection."
@@ -4398,7 +4398,7 @@ msgstr "Alle Notenlängen in der Auswahl punktieren."
 
 #: ../rhythm/__init__.py:155
 msgid "&Undot durations"
-msgstr "P&unktierung aller Notenlängen entfernen"
+msgstr "Punktierung aller Notenlängen ent&fernen"
 
 #: ../rhythm/__init__.py:157
 msgid "Remove one dot from all the durations in the selection."
@@ -4414,7 +4414,7 @@ msgstr "Entferne alle Normierungen (*n/m) von den Notenlängen in der Auswahl."
 
 #: ../rhythm/__init__.py:161
 msgid "&Remove durations"
-msgstr "N&otenlängen entfernen"
+msgstr "&Notenlängen entfernen"
 
 #: ../rhythm/__init__.py:163
 msgid "Remove all durations from the selection."
@@ -4454,7 +4454,7 @@ msgstr ""
 
 #: ../rhythm/__init__.py:175
 msgid "&Apply rhythm..."
-msgstr "Rhytmus &anwenden ..."
+msgstr "Rhythmus &anwenden ..."
 
 #: ../rhythm/__init__.py:177
 msgid "Apply an entered rhythm to the selected music."
@@ -4462,7 +4462,7 @@ msgstr "Wende den eingegebenen Rhythmus auf die ausgewählte Musik an."
 
 #: ../rhythm/__init__.py:178
 msgid "&Copy rhythm"
-msgstr "Rhytmus &kopieren"
+msgstr "Rhythmus &kopieren"
 
 #: ../rhythm/__init__.py:180
 msgid "Copy the rhythm of the selected music."
@@ -4470,7 +4470,7 @@ msgstr "Kopiere den Rhythmus der ausgewählten Musik."
 
 #: ../rhythm/__init__.py:181
 msgid "&Paste rhythm"
-msgstr "Rhythmus ein&fügen"
+msgstr "Rhythmus einf&ügen"
 
 #: ../rhythm/__init__.py:182
 msgid "Paste a rhythm to the selected music."
@@ -4533,7 +4533,7 @@ msgstr "Rhythmus"
 
 #: ../scorewiz/__init__.py:56 ../scorewiz/dialog.py:192
 msgid "Setup New Score..."
-msgstr "Neue Partitur vorbereiten ..."
+msgstr "Parti&tur-Assistent ..."
 
 #: ../scorewiz/build.py:136
 msgid "Music follows here."
@@ -8175,7 +8175,7 @@ msgstr "Datei auswählen"
 #~ "Press to apply the entered rhythm to the selected music. This will delete "
 #~ "previously entered durations."
 #~ msgstr ""
-#~ "Drücken, um den eingegebenen Rhytmus der ausgewählten Musik zuzufügen. "
+#~ "Drücken, um den eingegebenen Rhythmus der ausgewählten Musik zuzufügen. "
 #~ "Dieslöscht zuvor eingegebe Werte."
 
 #~ msgid "LilyKDE servicemenu helper"
