@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2013-04-03 21:38+0200\n"
 "PO-Revision-Date: 2011-12-30 18:12+0100\n"
-"Last-Translator: Georg Hennig <georg.hennig@web.de>\n"
+"Last-Translator: Urs Liska <git@ursliska.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -58,7 +58,7 @@ msgstr "Folgende Personen haben zu {appname} beigetragen:"
 
 #: ../about.py:64
 msgid "{author}: Kinetic Scrolling for the Music View"
-msgstr ""
+msgstr "{author}: Automatisches Scrollen der Notenansicht"
 
 #: ../about.py:69
 msgid "{appname} is translated into the following languages:"
@@ -278,15 +278,15 @@ msgstr "&Automatische Einrückung"
 
 #: ../documentactions.py:137
 msgid "Re-&Indent"
-msgstr "Neu e&inrücken"
+msgstr "Quelltext e&inrücken"
 
 #: ../documentactions.py:138
 msgid "&Format"
-msgstr "&Formatierung"
+msgstr "Quelltext &formatieren"
 
 #: ../documentactions.py:139
 msgid "&Update with convert-ly..."
-msgstr "Mittels convert-ly akt&ualisieren"
+msgstr "Mittels &convert-ly aktualisieren"
 
 #: ../documentcontextmenu.py:67 ../mainwindow.py:982
 #: ../sessions/manager.py:127
@@ -303,7 +303,7 @@ msgstr "Schlie&ßen"
 
 #: ../documentcontextmenu.py:70
 msgid "Always &Engrave This Document"
-msgstr "Immer dieses &Dokument stechen"
+msgstr "Immer dieses &Dokument setzen"
 
 #: ../documentmenu.py:42
 msgctxt "menu title"
@@ -313,7 +313,7 @@ msgstr "D&okument"
 #. L10N: 'always engraved': the document is marked as 'Always Engrave' in the LilyPond menu
 #: ../documentmenu.py:109
 msgid "[always engraved]"
-msgstr "[immer Noten stechen]"
+msgstr "[immer gesetzt]"
 
 #: ../exception.py:69
 msgid "An internal error has occurred:"
@@ -541,11 +541,11 @@ msgstr "Führe LilyPond aus, dies kann einige Zeit in Anspruch nehmen ..."
 
 #: ../lyrics.py:132
 msgid "&Hyphenate Lyrics Text..."
-msgstr "Trennungsstric&he in Text einfügen ..."
+msgstr "&Trennungsstriche in Text einfügen ..."
 
 #: ../lyrics.py:133
 msgid "&Remove hyphenation"
-msgstr "T&rennungsstriche entfernen"
+msgstr "Trennungsstriche ent&fernen"
 
 #: ../lyrics.py:134
 msgid "&Copy Lyrics with hyphenation removed"
@@ -691,7 +691,7 @@ msgstr "Einige Dokumente konnten nicht neu geladen werden."
 
 #: ../mainwindow.py:499
 msgid "No document could be reloaded."
-msgstr ""
+msgstr "Kein Dokument konnte neu geladen werden"
 
 #: ../mainwindow.py:556
 msgctxt "dialog title"
@@ -764,7 +764,7 @@ msgstr "Öffne &aktuellen Ordner"
 
 #: ../mainwindow.py:981
 msgid "Open Command Prompt"
-msgstr ""
+msgstr "&Befehlszeile/Shell öffnen"
 
 #: ../mainwindow.py:984
 msgid "Save Copy or Selection As..."
@@ -898,11 +898,11 @@ msgstr "Herunterscrollen"
 
 #: ../mainwindow.py:1023
 msgid "New &Window"
-msgstr "Neues &Fenster"
+msgstr "&Neues Fenster"
 
 #: ../mainwindow.py:1024
 msgid "&Fullscreen"
-msgstr "Voll&bild"
+msgstr "V&ollbild"
 
 #: ../mainwindow.py:1026
 msgid "&User Guide"
@@ -966,7 +966,7 @@ msgstr "&LilyPond"
 #: ../menu.py:241
 msgctxt "menu title"
 msgid "&Tools"
-msgstr "&Werkzeugansicht"
+msgstr "&Tools"
 
 #: ../menu.py:267
 msgctxt "submenu title"
@@ -976,7 +976,7 @@ msgstr "Liedte&xt"
 #: ../menu.py:279
 msgctxt "submenu title"
 msgid "&Pitch"
-msgstr "Ton&lage"
+msgstr "Tonh&öhen"
 
 #: ../menu.py:293
 msgctxt "submenu title"
@@ -1112,15 +1112,15 @@ msgstr "Ansicht &schließen"
 
 #: ../viewmanager.py:449
 msgid "&Close Current View"
-msgstr "&Momentane Ansicht schließen"
+msgstr "&Aktuelle Ansicht schließen"
 
 #: ../viewmanager.py:450
 msgid "Close &Other Views"
-msgstr "&Andere Ansichten schließen"
+msgstr "A&ndere Ansichten schließen"
 
 #: ../viewmanager.py:451
 msgid "&Next View"
-msgstr "&Nächste Ansicht"
+msgstr "N&ächste Ansicht"
 
 #: ../viewmanager.py:452
 msgid "&Previous View"
@@ -1128,7 +1128,7 @@ msgstr "Vo&rherige Ansicht"
 
 #: ../autocomplete/__init__.py:79
 msgid "Automatic &Completion"
-msgstr "A&utomatisch vervollständigen"
+msgstr "Automatisch &vervollständigen"
 
 #: ../autocomplete/__init__.py:80
 msgid "Show C&ompletions Popup"
@@ -1136,11 +1136,11 @@ msgstr "Zeige &Popup zum Vervollständigen"
 
 #: ../charmap/__init__.py:40 ../preferences/tools.py:229
 msgid "Special Characters"
-msgstr "Besondere Zeichen"
+msgstr "SonderZeichen"
 
 #: ../charmap/__init__.py:41
 msgid "Special Charac&ters"
-msgstr "Besondere &Zeichen"
+msgstr "Sonder&zeichen"
 
 #: ../docbrowser/__init__.py:46 ../docbrowser/__init__.py:62
 #: ../preferences/documentation.py:126
@@ -1243,35 +1243,35 @@ msgstr "Alle unbenannten Dokumente schließen"
 
 #: ../engrave/__init__.py:179
 msgid "&Always Engrave [{docname}]"
-msgstr "&Immer Noten stechen [{docname}]"
+msgstr "&Immer [{docname}] setzen"
 
 #: ../engrave/__init__.py:181
 msgid "&Always Engrave This Document"
-msgstr "In diesem &Dokument immer Noten stechen"
+msgstr "Immer dieses &Dokument setzen"
 
 #: ../engrave/__init__.py:232
 msgid "Engrave"
-msgstr "Noten stechen"
+msgstr "Notensatz"
 
 #: ../engrave/__init__.py:233
 msgid "&Engrave (preview)"
-msgstr "Noten stechen (Vor&schau)"
+msgstr "Notensatz (&Vorschau)"
 
 #: ../engrave/__init__.py:234
 msgid "Engrave (&publish)"
-msgstr "Noten stechen (&Veröffentlichung)"
+msgstr "Notensatz (&Publikation)"
 
 #: ../engrave/__init__.py:235
 msgid "Engrave (&custom)..."
-msgstr "Noten stechen (&eigene Einstellungen) ..."
+msgstr "Notensatz (eigene &Einstellungen) ..."
 
 #: ../engrave/__init__.py:236
 msgid "Abort Engraving &Job"
-msgstr "Noten stechen &abbrechen"
+msgstr "Notensatz &abbrechen"
 
 #: ../engrave/custom.py:123 ../engrave/custom.py:214
 msgid "Engrave custom"
-msgstr "Noten stechen (eigene Einstellungen)"
+msgstr "Notensatz (eigene Einstellungen)"
 
 #: ../engrave/custom.py:124
 msgid "LilyPond Version:"
@@ -1322,7 +1322,7 @@ msgid ""
 "It is even possible to edit the command line itself.\n"
 msgstr ""
 "In diesem Dialog können Sie einige Parameter für den LilyPond-Befehl "
-"einstellen, der für das stechen der Noten Ihres Dokuments benutzt wird.\n"
+"einstellen, der für das Setzen der Noten Ihres Dokuments benutzt wird.\n"
 "Es ist sogar möglich, den Befehl selbst zu bearbeiten.\n"
 
 #: ../engrave/custom.py:223
@@ -1371,7 +1371,7 @@ msgstr "PNG (EPS-Backend)"
 
 #: ../engrave/result_menu.py:46
 msgid "Generated &Files"
-msgstr "Erzeu&gte Dateien"
+msgstr "Er&zeugte Dateien"
 
 #: ../engrave/result_menu.py:67
 msgid "No files available"
@@ -1383,19 +1383,23 @@ msgstr "Veränderte Dateien"
 
 #: ../externalchanges/widget.py:101
 msgid "The following files were modified or deleted by other applications:"
-msgstr ""
+msgstr "Folgende Dateien wurden von einer anderen Anwendung verändert oder gelöscht"
 
 #: ../externalchanges/widget.py:105
 msgid ""
 "Reloads the selected documents from disk. (You can still reach the previous "
 "state of the document using the Undo command.)"
 msgstr ""
+"Neuladen der ausgewählten Dokumente. (Der vorherige Zustand des Dokuments "
+" kann durch den Rückgängig-Befehl wiederhergestellt werden)"
 
 #: ../externalchanges/widget.py:110
 msgid ""
 "Reloads all externally modified documents from disk. (You can still reach "
 "the previous state of the document using the Undo command.)"
 msgstr ""
+"Neuladen aller veränderten Dokumente. (Der vorherige Zustand des Dokuments "
+" kann durch den Rückgängig-Befehl wiederhergestellt werden)"
 
 #: ../externalchanges/widget.py:113 ../help/contents.py:576
 #: ../help/contents.py:586
@@ -1407,12 +1411,14 @@ msgid ""
 "Saves the selected documents to disk, overwriting the modifications by "
 "another program."
 msgstr ""
+"Speichert die ausgewählten Dokumente und überschreibt die externen Änderungen"
 
 #: ../externalchanges/widget.py:119
 msgid ""
 "Saves all documents to disk, overwriting the modifications by another "
 "program."
 msgstr ""
+"Speichert alle Dokumente und überschreibt die externen Änderungen"
 
 #: ../externalchanges/widget.py:121 ../externalchanges/widget.py:304
 msgid "Show Difference..."
@@ -1422,6 +1428,8 @@ msgstr "Unterschiede anzeigen"
 msgid ""
 "Shows the differences between the current document and the file on disk."
 msgstr ""
+"Zeige die Unterschiede zwischen dem geöffneten Dokument und der Datei "
+"auf der Festplatte"
 
 #: ../externalchanges/widget.py:126 ../externalchanges/widget.py:307
 msgid "Enable watching documents for external changes"
@@ -1453,7 +1461,7 @@ msgstr "Einige Dokumente konnten nicht gespeichert werden."
 
 #: ../externalchanges/widget.py:244
 msgid "Maybe the directory does not exist anymore."
-msgstr ""
+msgstr "Möglicherweise existiert das Verzeichnis nicht mehr"
 
 #: ../externalchanges/widget.py:245
 msgid "Please save the document using the \"Save As...\" dialog."
@@ -1470,12 +1478,16 @@ msgid ""
 "Document: {url}\n"
 "Difference between the current document and the file on disk:"
 msgstr ""
+"Dokument: {url}\n"
+"Unterschied zwischen dem geöffneten Dokument und der Datei auf der Festplatte:"
 
 #: ../externalchanges/widget.py:292
 msgid ""
 "Frescobaldi can detect if files are modified or deleted by other "
 "applications."
 msgstr ""
+"Frescobaldi kann feststellen, wenn Dateien von anderen Programmen "
+"verändert oder gelöscht werden"
 
 #: ../externalchanges/widget.py:294
 msgid ""
@@ -1484,24 +1496,35 @@ msgid ""
 "can choose whether to reload one or more documents from disk, or to save "
 "them, discarding the modifications made by the other application."
 msgstr ""
+"Wenn eine andere Anwendungen Dokumente verändert oder löscht, die in "
+"Frescobaldi geöffnet sind, wird eine Liste betroffener Dokumente angezeigt, "
+"und Sie können entscheiden, ob eines oder mehrere Dokumente neu geladen werden "
+"sollen, oder Sie können sie überschreiben und die Änderungen der anderen "
+"Anwendung verwerfen."
 
 #: ../externalchanges/widget.py:299
 msgid ""
 "When a document is reloaded, you can still press {undokey} to get back the "
 "document as it was in memory before reloading it from disk."
 msgstr ""
+"Wenn ein Dokument neu geladen wurden, können Sie {undokey} drücken, um das Dokument "
+"so wiederherzustellen, wie es vor dem Neuladen geöffnet war."
 
 #: ../externalchanges/widget.py:302
 msgid ""
 "Press the <em>{showdiff}</em> button to see the difference between the "
 "current document and its version on disk."
 msgstr ""
+"Drücken Sie den <em>{showdiff}</em>-Button, um die Unterschiede zwischen dem "
+"geöffneten Dokument und der gespeicherten Version anzuzeigen."
 
 #: ../externalchanges/widget.py:305
 msgid ""
 "If you don't want to be warned when a document is changed or deleted by "
 "another application, uncheck the <em>{action}</em> checkbox."
 msgstr ""
+"Wenn Sie nicht über externe Änderungen informiert werden wollen, "
+"entfernen Sie das Häkchen an der <em>{action}</em>-Checkbox."
 
 #: ../help/browser.py:77
 msgid "Toolbar"
@@ -1617,7 +1640,7 @@ msgstr "LilyPond"
 
 #: ../help/contents.py:136
 msgid "Engrave (publish)"
-msgstr "Noten stechen (Veröffentlichung)"
+msgstr "Notensatz (Veröffentlichung)"
 
 #: ../help/contents.py:140 ../preferences/__init__.py:184
 #: ../preferences/prefshelp.py:79
@@ -2294,7 +2317,7 @@ msgstr "MIDI"
 
 #: ../miditool/__init__.py:52
 msgid "MIDI &Player"
-msgstr "MIDI-Pla&yer"
+msgstr "&MIDI-Player"
 
 #: ../miditool/__init__.py:97
 msgctxt "midi player"
@@ -2314,7 +2337,7 @@ msgstr "Stop"
 #: ../miditool/__init__.py:100
 msgctxt "midi player"
 msgid "Restart"
-msgstr ""
+msgstr "Neustart"
 
 #: ../miditool/widget.py:103
 msgid "Tempo"
@@ -2458,7 +2481,7 @@ msgstr "An &Seite anpassen"
 #. L10N: page numbering: page {num} of {total}
 #: ../musicview/__init__.py:526
 msgid "{num} of {total}"
-msgstr ""
+msgstr "{num} von {total}"
 
 #: ../musicview/contextmenu.py:49 ../musicview/editinplace.py:82
 #: ../musicview/editinplace.py:246 ../musicview/editinplace.py:255
@@ -2467,7 +2490,7 @@ msgstr "Direkt bearbeiten"
 
 #: ../musicview/editinplace.py:147
 msgid "Editing line {linenum} of \"{document}\" ({variable})"
-msgstr ""
+msgstr "Bearbeite Zeile {linenum} von \"{document}\" ({variable})"
 
 #: ../musicview/editinplace.py:250
 msgid "In this dialog you can edit one line of the text document."
@@ -2475,7 +2498,7 @@ msgstr "In diesem Dialog können Sie die aktuelle Zeile des Quelltexts bearbeite
 
 #: ../musicview/editinplace.py:251
 msgid "Click OK or press {key} to place the modified text in the document."
-msgstr ""
+msgstr "Klicken Sie auf OK oder drücken Sie {key}, um die Änderungen in das Dokument zu übernehmen"
 
 #: ../musicview/editinplace.py:253
 msgid ""
@@ -2483,6 +2506,9 @@ msgid ""
 "object in the Music View or by right-clicking the object and selecting "
 "{menu}."
 msgstr ""
+"Sie können den Dialog \"Direkt bearbeiten\" öffnen, indem sie ein Objekt "
+"in der Notenansicht mit gedrückter Shift-Taste auswählen oder es mit "
+"der rechten Maustast anklicken und {menu} auswählen."
 
 #: ../musicview/image.py:127
 msgid "DPI:"
@@ -2553,11 +2579,11 @@ msgstr "Konnte das Bild nicht speichern."
 
 #: ../outline/__init__.py:40 ../preferences/tools.py:294
 msgid "Outline"
-msgstr ""
+msgstr "Dokumentstruktur"
 
 #: ../outline/__init__.py:41
 msgid "&Outline"
-msgstr ""
+msgstr "Dokument&struktur"
 
 #: ../pitch/__init__.py:99
 msgid "Pitch Name &Language"
@@ -3156,7 +3182,7 @@ msgstr "Überprüfen"
 
 #: ../preferences/fontscolors.py:496 ../snippet/builtin.py:244
 msgid "Repeat"
-msgstr "Wiederholungsende"
+msgstr "Wiederholung"
 
 #: ../preferences/fontscolors.py:498 ../preferences/shortcuts.py:56
 msgid "Command"
@@ -3282,17 +3308,19 @@ msgstr ""
 
 #: ../preferences/general.py:139
 msgid "Show Splash Screen on Startup"
-msgstr ""
+msgstr "Zeige Splash-Screen beim Programmstart"
 
 #: ../preferences/general.py:140
 msgid "Open Files in Running Instance"
-msgstr ""
+msgstr "Öffne Dateien in laufender Programminstanz"
 
 #: ../preferences/general.py:142
 msgid ""
 "If checked, files will be opened in a running Frescobaldi application if "
 "available, instead of starting a new instance."
 msgstr ""
+"Wenn ausgewählt, werden Dateien nach Möglichkeit in einer laufenden "
+"Programminstanz geöffnet."
 
 #: ../preferences/general.py:170 ../preferences/prefshelp.py:65
 msgid "Session to load if Frescobaldi is started without arguments"
@@ -4390,7 +4418,7 @@ msgstr "Halbiere alle Notenlängen in der Auswahl."
 
 #: ../rhythm/__init__.py:152
 msgid "Do&t durations"
-msgstr "Notenlängen punk&tieren"
+msgstr "Notenlängen &punktieren"
 
 #: ../rhythm/__init__.py:154
 msgid "Add a dot to all the durations in the selection."
@@ -4398,7 +4426,7 @@ msgstr "Alle Notenlängen in der Auswahl punktieren."
 
 #: ../rhythm/__init__.py:155
 msgid "&Undot durations"
-msgstr "P&unktierung aller Notenlängen entfernen"
+msgstr "Punktierung aller Notenlängen ent&fernen"
 
 #: ../rhythm/__init__.py:157
 msgid "Remove one dot from all the durations in the selection."
@@ -4414,7 +4442,7 @@ msgstr "Entferne alle Normierungen (*n/m) von den Notenlängen in der Auswahl."
 
 #: ../rhythm/__init__.py:161
 msgid "&Remove durations"
-msgstr "N&otenlängen entfernen"
+msgstr "&Notenlängen entfernen"
 
 #: ../rhythm/__init__.py:163
 msgid "Remove all durations from the selection."
@@ -4454,7 +4482,7 @@ msgstr ""
 
 #: ../rhythm/__init__.py:175
 msgid "&Apply rhythm..."
-msgstr "Rhytmus &anwenden ..."
+msgstr "Rhythmus &anwenden ..."
 
 #: ../rhythm/__init__.py:177
 msgid "Apply an entered rhythm to the selected music."
@@ -4462,7 +4490,7 @@ msgstr "Wende den eingegebenen Rhythmus auf die ausgewählte Musik an."
 
 #: ../rhythm/__init__.py:178
 msgid "&Copy rhythm"
-msgstr "Rhytmus &kopieren"
+msgstr "Rhythmus &kopieren"
 
 #: ../rhythm/__init__.py:180
 msgid "Copy the rhythm of the selected music."
@@ -4470,7 +4498,7 @@ msgstr "Kopiere den Rhythmus der ausgewählten Musik."
 
 #: ../rhythm/__init__.py:181
 msgid "&Paste rhythm"
-msgstr "Rhythmus ein&fügen"
+msgstr "Rhythmus einf&ügen"
 
 #: ../rhythm/__init__.py:182
 msgid "Paste a rhythm to the selected music."
@@ -4533,7 +4561,7 @@ msgstr "Rhythmus"
 
 #: ../scorewiz/__init__.py:56 ../scorewiz/dialog.py:192
 msgid "Setup New Score..."
-msgstr "Neue Partitur vorbereiten ..."
+msgstr "Parti&tur-Assistent ..."
 
 #: ../scorewiz/build.py:136
 msgid "Music follows here."
@@ -6020,7 +6048,7 @@ msgstr "Tagline mit Datum und LilyPond-Version"
 
 #: ../snippet/builtin.py:312
 msgid "Header Template"
-msgstr "Kopfzeilen-Vorlage"
+msgstr "\\header-Vorlage"
 
 #: ../snippet/builtin.py:327
 msgid "No Tagline"
@@ -8175,7 +8203,7 @@ msgstr "Datei auswählen"
 #~ "Press to apply the entered rhythm to the selected music. This will delete "
 #~ "previously entered durations."
 #~ msgstr ""
-#~ "Drücken, um den eingegebenen Rhytmus der ausgewählten Musik zuzufügen. "
+#~ "Drücken, um den eingegebenen Rhythmus der ausgewählten Musik zuzufügen. "
 #~ "Dieslöscht zuvor eingegebe Werte."
 
 #~ msgid "LilyKDE servicemenu helper"
