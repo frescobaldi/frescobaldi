@@ -898,11 +898,11 @@ msgstr "Herunterscrollen"
 
 #: ../mainwindow.py:1023
 msgid "New &Window"
-msgstr "Neues &Fenster"
+msgstr "&Neues Fenster"
 
 #: ../mainwindow.py:1024
 msgid "&Fullscreen"
-msgstr "Voll&bild"
+msgstr "V&ollbild"
 
 #: ../mainwindow.py:1026
 msgid "&User Guide"
@@ -1112,15 +1112,15 @@ msgstr "Ansicht &schließen"
 
 #: ../viewmanager.py:449
 msgid "&Close Current View"
-msgstr "&Momentane Ansicht schließen"
+msgstr "&Aktuelle Ansicht schließen"
 
 #: ../viewmanager.py:450
 msgid "Close &Other Views"
-msgstr "&Andere Ansichten schließen"
+msgstr "A&ndere Ansichten schließen"
 
 #: ../viewmanager.py:451
 msgid "&Next View"
-msgstr "&Nächste Ansicht"
+msgstr "N&ächste Ansicht"
 
 #: ../viewmanager.py:452
 msgid "&Previous View"
