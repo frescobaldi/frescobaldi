@@ -303,7 +303,7 @@ msgstr "Schlie&ßen"
 
 #: ../documentcontextmenu.py:70
 msgid "Always &Engrave This Document"
-msgstr "Immer dieses &Dokument stechen"
+msgstr "Immer dieses &Dokument setzen"
 
 #: ../documentmenu.py:42
 msgctxt "menu title"
@@ -313,7 +313,7 @@ msgstr "D&okument"
 #. L10N: 'always engraved': the document is marked as 'Always Engrave' in the LilyPond menu
 #: ../documentmenu.py:109
 msgid "[always engraved]"
-msgstr "[immer Noten stechen]"
+msgstr "[immer gesetzt]"
 
 #: ../exception.py:69
 msgid "An internal error has occurred:"
@@ -1243,35 +1243,35 @@ msgstr "Alle unbenannten Dokumente schließen"
 
 #: ../engrave/__init__.py:179
 msgid "&Always Engrave [{docname}]"
-msgstr "&Immer Noten stechen [{docname}]"
+msgstr "&Immer [{docname}] setzen"
 
 #: ../engrave/__init__.py:181
 msgid "&Always Engrave This Document"
-msgstr "In diesem &Dokument immer Noten stechen"
+msgstr "Immer dieses &Dokument setzen"
 
 #: ../engrave/__init__.py:232
 msgid "Engrave"
-msgstr "Noten stechen"
+msgstr "Notensatz"
 
 #: ../engrave/__init__.py:233
 msgid "&Engrave (preview)"
-msgstr "Noten stechen (Vor&schau)"
+msgstr "Notensatz (&Vorschau)"
 
 #: ../engrave/__init__.py:234
 msgid "Engrave (&publish)"
-msgstr "Noten stechen (&Veröffentlichung)"
+msgstr "Notensatz (&Publikation)"
 
 #: ../engrave/__init__.py:235
 msgid "Engrave (&custom)..."
-msgstr "Noten stechen (&eigene Einstellungen) ..."
+msgstr "Notensatz (eigene &Einstellungen) ..."
 
 #: ../engrave/__init__.py:236
 msgid "Abort Engraving &Job"
-msgstr "Noten stechen &abbrechen"
+msgstr "Notensatz &abbrechen"
 
 #: ../engrave/custom.py:123 ../engrave/custom.py:214
 msgid "Engrave custom"
-msgstr "Noten stechen (eigene Einstellungen)"
+msgstr "Notensatz (eigene Einstellungen)"
 
 #: ../engrave/custom.py:124
 msgid "LilyPond Version:"
@@ -1322,7 +1322,7 @@ msgid ""
 "It is even possible to edit the command line itself.\n"
 msgstr ""
 "In diesem Dialog können Sie einige Parameter für den LilyPond-Befehl "
-"einstellen, der für das stechen der Noten Ihres Dokuments benutzt wird.\n"
+"einstellen, der für das Setzen der Noten Ihres Dokuments benutzt wird.\n"
 "Es ist sogar möglich, den Befehl selbst zu bearbeiten.\n"
 
 #: ../engrave/custom.py:223
@@ -1371,7 +1371,7 @@ msgstr "PNG (EPS-Backend)"
 
 #: ../engrave/result_menu.py:46
 msgid "Generated &Files"
-msgstr "Erzeu&gte Dateien"
+msgstr "Er&zeugte Dateien"
 
 #: ../engrave/result_menu.py:67
 msgid "No files available"
@@ -1617,7 +1617,7 @@ msgstr "LilyPond"
 
 #: ../help/contents.py:136
 msgid "Engrave (publish)"
-msgstr "Noten stechen (Veröffentlichung)"
+msgstr "Notensatz (Veröffentlichung)"
 
 #: ../help/contents.py:140 ../preferences/__init__.py:184
 #: ../preferences/prefshelp.py:79
@@ -6020,7 +6020,7 @@ msgstr "Tagline mit Datum und LilyPond-Version"
 
 #: ../snippet/builtin.py:312
 msgid "Header Template"
-msgstr "\header-Vorlage"
+msgstr "\\header-Vorlage"
 
 #: ../snippet/builtin.py:327
 msgid "No Tagline"
