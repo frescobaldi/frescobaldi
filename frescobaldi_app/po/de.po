@@ -3156,7 +3156,7 @@ msgstr "Überprüfen"
 
 #: ../preferences/fontscolors.py:496 ../snippet/builtin.py:244
 msgid "Repeat"
-msgstr "Wiederholungsende"
+msgstr "Wiederholung"
 
 #: ../preferences/fontscolors.py:498 ../preferences/shortcuts.py:56
 msgid "Command"
@@ -6020,7 +6020,7 @@ msgstr "Tagline mit Datum und LilyPond-Version"
 
 #: ../snippet/builtin.py:312
 msgid "Header Template"
-msgstr "Kopfzeilen-Vorlage"
+msgstr "\header-Vorlage"
 
 #: ../snippet/builtin.py:327
 msgid "No Tagline"
