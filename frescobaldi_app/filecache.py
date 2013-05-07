@@ -24,6 +24,7 @@ Caches information about files, and checks the mtime upon request.
 from __future__ import unicode_literals
 
 import os
+import weakref
 
 
 class FileCache(object):
@@ -61,6 +62,13 @@ class FileCache(object):
         except KeyError:
             return False
     
+    def filename(self, value):
+        """Returns the filename of the cached value (if available)."""
+        for filename in self.filenames():
+            mtime, obj = self._cache[filename]
+            if obj == value:
+                return filename
+        
     def filenames(self):
         """Yields filenames that are still valid in the cache."""
         for filename in list(self._cache):
@@ -72,5 +80,32 @@ class FileCache(object):
                 
     def clear(self):
         self._cache.clear()
+
+
+class WeakFileCache(FileCache):
+    """Caches information about files like FileCache, but with a weak reference.
+    
+    This means the object is discarded if you don't keep a reference to it
+    elsewhere.
+    
+    """
+    def __getitem__(self, filename):
+        mtime, valueref = self._cache[filename]
+        value = valueref()
+        if value is not None:
+            try:
+                if mtime == os.path.getmtime(filename):
+                    return value
+            except (IOError, OSError):
+                pass
+        del self._cache[filename]
+        raise KeyError
+    
+    def __setitem__(self, filename, value):
+        valueref = weakref.ref(value)
+        try:
+            self._cache[filename] = (os.path.getmtime(filename), valueref)
+        except (IOError, OSError):
+            pass
 
 
