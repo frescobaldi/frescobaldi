@@ -6076,7 +6076,7 @@ msgstr "A5-Papier"
 
 #: ../snippet/builtin.py:463
 msgid "Document Fonts..."
-msgstr "Schriftarten des Dokuments ..."
+msgstr "Dokumentschriftarten ..."
 
 #: ../snippet/builtin.py:491
 msgid "Last note or chord"
