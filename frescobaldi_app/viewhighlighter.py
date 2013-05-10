@@ -75,12 +75,16 @@ class ViewHighlighter(widgets.arbitraryhighlighter.ArbitraryHighlighter, plugin.
         """
         if view is None:
 			view = self.parent()
+        # sometimes in the destruction phase, view is a generic QWidget...
+        try:
+            cursor = view.textCursor()
+        except AttributeError:
+            return
         # highlight current line
+        cursor.clearSelection()
         color = QColor(self._baseColors['current'])
         color.setAlpha(200 if view.hasFocus() else 100)
         self._cursorFormat.setBackground(color)
-        cursor = view.textCursor()
-        cursor.clearSelection()
         self.highlight(self._cursorFormat, [cursor], 0)
         
     def readSettings(self):
