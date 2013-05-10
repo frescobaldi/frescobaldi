@@ -305,6 +305,20 @@ class LigatureEnd(Ligature, _token.MatchEnd):
     matchname = "ligature"
     
     
+class Tremolo(_token.Token):
+    pass
+
+
+class TremoloColon(Tremolo):
+    rx = r":"
+    def update_state(self, state):
+        state.enter(ParseTremolo())
+
+
+class TremoloDuration(Tremolo, _token.Leaver):
+    rx = r"\b(8|16|32|64|128|256|512|1024|2048)(?!\d)"
+
+
 class Keyword(_token.Item):
     @_token.patternproperty
     def rx():
@@ -782,6 +796,7 @@ music_items = base_items + (
     Articulation,
     StringNumber,
     IntegerValue,
+    TremoloColon,
 ) + command_items
     
 
@@ -1239,6 +1254,10 @@ class ParsePitchCommand(FallthroughParser):
             self.argcount -= 1
         elif isinstance(token, _token.Space) and self.argcount <= 0:
             state.leave()
+
+
+class ParseTremolo(FallthroughParser):
+    items = (TremoloDuration,)
 
 
 

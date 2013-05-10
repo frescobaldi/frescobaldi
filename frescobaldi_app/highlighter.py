@@ -90,6 +90,7 @@ def mapping(data):
         ly.lex.lilypond.Comment: data.textFormat('lilypond', 'comment'),
         ly.lex.lilypond.Error: data.textFormat('lilypond', 'error'),
         ly.lex.lilypond.Repeat: data.textFormat('lilypond', 'repeat'),
+        ly.lex.lilypond.Tremolo: data.textFormat('lilypond', 'repeat'),
         
 
         # Scheme
