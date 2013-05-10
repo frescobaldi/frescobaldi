@@ -15,6 +15,7 @@ Changes in 2.0.10 --
   - fix QPyNullVariant error message on Mac OS X when setting helper app prefs
   - fix Scorewizard error in Leadsheet with accompaniment and ambitus turned on
   - fix #113: add files opened via file manager to recent files
+  - fix #143: don't count tremolo repeat as a duration
 
 
 Changes in 2.0.9 -- March 23rd, 2013
