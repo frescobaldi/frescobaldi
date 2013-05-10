@@ -246,13 +246,13 @@ class LeadSheet(VocalPart, _base.ChordNames):
                 count = self.stanzas.value() # number of stanzas
                 if count == 1:
                     l = ly.dom.Lyrics()
-                    s.insert(acc.parent(), l)
+                    s.insert_before(acc.parent(), l)
                     a = self.assignLyrics(data, 'verse')
                     ly.dom.Identifier(a.name, ly.dom.LyricsTo(v1.cid, l))
                 else:
                     for i in range(count):
                         l = ly.dom.Lyrics()
-                        s.insert(acc.parent(), l)
+                        s.insert_before(acc.parent(), l)
                         a = self.assignLyrics(data, 'verse', i + 1)
                         ly.dom.Identifier(a.name, ly.dom.LyricsTo(v1.cid, l))
             else:
