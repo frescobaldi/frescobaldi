@@ -902,7 +902,7 @@ class ExpectBook(ExpectOpenBracket):
 
 
 class ParseBookPart(ParseLilyPond):
-    """Parses the expression after \score {, leaving at } """
+    """Parses the expression after \bookpart {, leaving at } """
     items = (
         CloseBracket,
         Markup, MarkupLines, MarkupList,
@@ -916,7 +916,7 @@ class ExpectBookPart(ExpectOpenBracket):
 
 
 class ParsePaper(ParseLilyPond):
-    """Parses the expression after \score {, leaving at } """
+    """Parses the expression after \paper {, leaving at } """
     items = base_items + (
         CloseBracket,
         Markup, MarkupLines, MarkupList,
@@ -932,7 +932,7 @@ class ExpectPaper(ExpectOpenBracket):
 
 
 class ParseHeader(ParseLilyPond):
-    """Parses the expression after \score {, leaving at } """
+    """Parses the expression after \header {, leaving at } """
     items = (
         CloseBracket,
         Markup, MarkupLines, MarkupList,
@@ -946,7 +946,7 @@ class ExpectHeader(ExpectOpenBracket):
         
 
 class ParseLayout(ParseLilyPond):
-    """Parses the expression after \score {, leaving at } """
+    """Parses the expression after \layout {, leaving at } """
     items = base_items + (
         CloseBracket,
         LayoutContext,
@@ -962,7 +962,7 @@ class ExpectLayout(ExpectOpenBracket):
         
 
 class ParseMidi(ParseLilyPond):
-    """Parses the expression after \score {, leaving at } """
+    """Parses the expression after \midi {, leaving at } """
     items = base_items + (
         CloseBracket,
         LayoutContext,
@@ -978,7 +978,7 @@ class ExpectMidi(ExpectOpenBracket):
 
 
 class ParseWith(ParseLilyPond):
-    """Parses the expression after \score {, leaving at } """
+    """Parses the expression after \with {, leaving at } """
     items = (
         CloseBracket,
         ContextProperty,
@@ -991,7 +991,7 @@ class ExpectWith(ExpectOpenBracket):
         
 
 class ParseContext(ParseLilyPond):
-    """Parses the expression after \score {, leaving at } """
+    """Parses the expression after (\layout {) \context {, leaving at } """
     items = (
         CloseBracket,
         BackSlashedContextName,
