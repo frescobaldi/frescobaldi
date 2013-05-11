@@ -796,7 +796,6 @@ music_items = base_items + (
     Articulation,
     StringNumber,
     IntegerValue,
-    TremoloColon,
 ) + command_items
     
 
@@ -987,7 +986,9 @@ class ExpectContext(ExpectOpenBracket):
 
 class ParseMusic(ParseLilyPond):
     """Parses LilyPond music expressions."""
-    items = music_items
+    items = music_items + (
+        TremoloColon,
+    )
     
 
 class ParseChord(ParseMusic):
@@ -1193,7 +1194,7 @@ class ExpectChordMode(FallthroughParser):
 
 class ParseChordMode(ParseInputMode, ParseMusic):
     """Parser for \\chords and \\chordmode."""
-    pass # TODO: implement
+    items = music_items
 
 
 class ExpectNoteMode(FallthroughParser):
