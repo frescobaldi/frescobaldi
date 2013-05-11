@@ -70,6 +70,7 @@ def mapping(data):
         ly.lex.lilypond.Articulation: data.textFormat('lilypond', 'articulation'),
         ly.lex.lilypond.Slur: data.textFormat('lilypond', 'slur'),
         ly.lex.lilypond.Chord: data.textFormat('lilypond', 'chord'),
+        ly.lex.lilypond.ChordItem: data.textFormat('lilypond', 'chord'),
         ly.lex.lilypond.PipeSymbol: data.textFormat('lilypond', 'check'),
         ly.lex.lilypond.Markup: data.textFormat('lilypond', 'markup'),
         ly.lex.lilypond.LyricMode: data.textFormat('lilypond', 'lyricmode'),

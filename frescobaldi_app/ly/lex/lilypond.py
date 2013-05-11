@@ -319,19 +319,23 @@ class TremoloDuration(Tremolo, _token.Leaver):
     rx = r"\b(8|16|32|64|128|256|512|1024|2048)(?!\d)"
 
 
-class ChordModifier(_token.Token):
+class ChordItem(_token.Token):
+    """Base class for chordmode items."""
+
+
+class ChordModifier(ChordItem):
     rx = r"((?<![a-z])|^)(aug|dim|sus|min|maj|m)(?![a-z])"
 
 
-class ChordSeparator(_token.Token):
+class ChordSeparator(ChordItem):
     rx = r":|\^|/\+?"
 
 
-class ChordStepNumber(_token.Token):
+class ChordStepNumber(ChordItem):
     rx = r"\d+[-+]?"
 
 
-class ChordDot(_token.Token):
+class ChordDot(ChordItem):
     rx = r"\."
 
 
