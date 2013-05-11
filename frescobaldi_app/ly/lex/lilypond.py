@@ -1214,12 +1214,17 @@ class ExpectChordMode(FallthroughParser):
 
 class ParseChordMode(ParseInputMode, ParseMusic):
     """Parser for \\chords and \\chordmode."""
-    items = music_items + (
+    items = (
+        OpenBracket,
+        OpenSimultaneous,
+    ) + music_items + ( # TODO: specify items exactly, e.g. < > is not allowed
         ChordSeparator,
     )
     def update_state(self, state, token):
         if isinstance(token, ChordSeparator):
             state.enter(ParseChordItems())
+        elif isinstance(token, (OpenBracket, OpenSimultaneous)):
+            state.enter(ParseChordMode())
 
 
 class ExpectNoteMode(FallthroughParser):
@@ -1250,7 +1255,10 @@ class ExpectDrumMode(FallthroughParser):
 
 class ParseDrumMode(ParseInputMode, ParseMusic):
     """Parser for \\drums and \\drummode."""
-    pass # TODO: implement
+    # TODO: implement items (see ParseChordMode)
+    def update_state(self, state, token):
+        if isinstance(token, (OpenBracket, OpenSimultaneous)):
+            state.enter(ParseDrumMode())
 
 
 class ExpectFigureMode(FallthroughParser):
@@ -1266,8 +1274,11 @@ class ExpectFigureMode(FallthroughParser):
 
 class ParseFigureMode(ParseInputMode, ParseMusic):
     """Parser for \\figures and \\figuremode."""
-    pass # TODO: implement
-    
+    # TODO: implement items (see ParseChordMode)
+    def update_state(self, state, token):
+        if isinstance(token, (OpenBracket, OpenSimultaneous)):
+            state.enter(ParseFigureMode())
+
 
 class ParsePitchCommand(FallthroughParser):
     argcount = 1
