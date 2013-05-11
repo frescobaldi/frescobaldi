@@ -319,6 +319,22 @@ class TremoloDuration(Tremolo, _token.Leaver):
     rx = r"\b(8|16|32|64|128|256|512|1024|2048)(?!\d)"
 
 
+class ChordModifier(_token.Token):
+    rx = r"((?<![a-z])|^)(aug|dim|sus|min|maj|m)(?![a-z])"
+
+
+class ChordSeparator(_token.Token):
+    rx = r":|\^|/\+?"
+
+
+class ChordStepNumber(_token.Token):
+    rx = r"\d+[-+]?"
+
+
+class ChordDot(_token.Token):
+    rx = r"\."
+
+
 class Keyword(_token.Item):
     @_token.patternproperty
     def rx():
@@ -1194,8 +1210,12 @@ class ExpectChordMode(FallthroughParser):
 
 class ParseChordMode(ParseInputMode, ParseMusic):
     """Parser for \\chords and \\chordmode."""
-    items = music_items
-    # TODO: implement chord separator and chord items
+    items = music_items + (
+        ChordSeparator,
+    )
+    def update_state(self, state, token):
+        if isinstance(token, ChordSeparator):
+            state.enter(ParseChordItems())
 
 
 class ExpectNoteMode(FallthroughParser):
@@ -1261,5 +1281,14 @@ class ParsePitchCommand(FallthroughParser):
 class ParseTremolo(FallthroughParser):
     items = (TremoloDuration,)
 
+
+class ParseChordItems(FallthroughParser):
+    items = (
+        ChordSeparator,
+        ChordModifier,
+        ChordStepNumber,
+        ChordDot,
+        Note,
+    )
 
 
