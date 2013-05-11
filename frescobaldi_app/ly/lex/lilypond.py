@@ -1195,6 +1195,7 @@ class ExpectChordMode(FallthroughParser):
 class ParseChordMode(ParseInputMode, ParseMusic):
     """Parser for \\chords and \\chordmode."""
     items = music_items
+    # TODO: implement chord separator and chord items
 
 
 class ExpectNoteMode(FallthroughParser):
