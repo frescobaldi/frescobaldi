@@ -11,6 +11,7 @@ Changes in 2.0.10 --
     The patterns that are used for the outline can be modified by the user.
 * Improvements:
   - Highlight more music functions that were added in LilyPond 2.16
+  - Better chord mode highlighting
 * Bug fixes:
   - fix QPyNullVariant error message on Mac OS X when setting helper app prefs
   - fix Scorewizard error in Leadsheet with accompaniment and ambitus turned on
