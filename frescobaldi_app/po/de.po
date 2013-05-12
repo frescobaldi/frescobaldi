@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-04-03 21:38+0200\n"
+"POT-Creation-Date: 2013-05-12 21:30+0200\n"
 "PO-Revision-Date: 2011-12-30 18:12+0100\n"
 "Last-Translator: Urs Liska <git@ursliska.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -1383,23 +1383,24 @@ msgstr "Veränderte Dateien"
 
 #: ../externalchanges/widget.py:101
 msgid "The following files were modified or deleted by other applications:"
-msgstr "Folgende Dateien wurden von einer anderen Anwendung verändert oder gelöscht"
+msgstr ""
+"Folgende Dateien wurden von einer anderen Anwendung verändert oder gelöscht"
 
 #: ../externalchanges/widget.py:105
 msgid ""
 "Reloads the selected documents from disk. (You can still reach the previous "
 "state of the document using the Undo command.)"
 msgstr ""
-"Neuladen der ausgewählten Dokumente. (Der vorherige Zustand des Dokuments "
-" kann durch den Rückgängig-Befehl wiederhergestellt werden)"
+"Neuladen der ausgewählten Dokumente. (Der vorherige Zustand des Dokuments  "
+"kann durch den Rückgängig-Befehl wiederhergestellt werden)"
 
 #: ../externalchanges/widget.py:110
 msgid ""
 "Reloads all externally modified documents from disk. (You can still reach "
 "the previous state of the document using the Undo command.)"
 msgstr ""
-"Neuladen aller veränderten Dokumente. (Der vorherige Zustand des Dokuments "
-" kann durch den Rückgängig-Befehl wiederhergestellt werden)"
+"Neuladen aller veränderten Dokumente. (Der vorherige Zustand des Dokuments  "
+"kann durch den Rückgängig-Befehl wiederhergestellt werden)"
 
 #: ../externalchanges/widget.py:113 ../help/contents.py:576
 #: ../help/contents.py:586
@@ -1417,8 +1418,7 @@ msgstr ""
 msgid ""
 "Saves all documents to disk, overwriting the modifications by another "
 "program."
-msgstr ""
-"Speichert alle Dokumente und überschreibt die externen Änderungen"
+msgstr "Speichert alle Dokumente und überschreibt die externen Änderungen"
 
 #: ../externalchanges/widget.py:121 ../externalchanges/widget.py:304
 msgid "Show Difference..."
@@ -1428,8 +1428,8 @@ msgstr "Unterschiede anzeigen"
 msgid ""
 "Shows the differences between the current document and the file on disk."
 msgstr ""
-"Zeige die Unterschiede zwischen dem geöffneten Dokument und der Datei "
-"auf der Festplatte"
+"Zeige die Unterschiede zwischen dem geöffneten Dokument und der Datei auf "
+"der Festplatte"
 
 #: ../externalchanges/widget.py:126 ../externalchanges/widget.py:307
 msgid "Enable watching documents for external changes"
@@ -1440,8 +1440,8 @@ msgid ""
 "If checked, Frescobaldi will warn you when opened files are modified or "
 "deleted by other applications."
 msgstr ""
-"Wenn ausgewählt, wird Frescobaldi eine Warnung ausgeben, "
-"wenn Dateien von anderen Anwendungen geändert oder gelöscht werden."
+"Wenn ausgewählt, wird Frescobaldi eine Warnung ausgeben, wenn Dateien von "
+"anderen Anwendungen geändert oder gelöscht werden."
 
 #: ../externalchanges/widget.py:156
 msgid "[deleted]"
@@ -1464,8 +1464,9 @@ msgid "Maybe the directory does not exist anymore."
 msgstr "Möglicherweise existiert das Verzeichnis nicht mehr"
 
 #: ../externalchanges/widget.py:245
+#, fuzzy
 msgid "Please save the document using the \"Save As...\" dialog."
-msgid_plural "Please save the documents using the \"Save As ...\" dialog."
+msgid_plural "Please save the documents using the \"Save As...\" dialog."
 msgstr[0] "Bitte das Dokument mit \"Speichern unter ...\" speichern"
 msgstr[1] "Bitte die Dokumente mit \"Speichern unter ...\" speichern"
 
@@ -1479,15 +1480,16 @@ msgid ""
 "Difference between the current document and the file on disk:"
 msgstr ""
 "Dokument: {url}\n"
-"Unterschied zwischen dem geöffneten Dokument und der Datei auf der Festplatte:"
+"Unterschied zwischen dem geöffneten Dokument und der Datei auf der "
+"Festplatte:"
 
 #: ../externalchanges/widget.py:292
 msgid ""
 "Frescobaldi can detect if files are modified or deleted by other "
 "applications."
 msgstr ""
-"Frescobaldi kann feststellen, wenn Dateien von anderen Programmen "
-"verändert oder gelöscht werden"
+"Frescobaldi kann feststellen, wenn Dateien von anderen Programmen verändert "
+"oder gelöscht werden"
 
 #: ../externalchanges/widget.py:294
 msgid ""
@@ -1498,17 +1500,17 @@ msgid ""
 msgstr ""
 "Wenn eine andere Anwendungen Dokumente verändert oder löscht, die in "
 "Frescobaldi geöffnet sind, wird eine Liste betroffener Dokumente angezeigt, "
-"und Sie können entscheiden, ob eines oder mehrere Dokumente neu geladen werden "
-"sollen, oder Sie können sie überschreiben und die Änderungen der anderen "
-"Anwendung verwerfen."
+"und Sie können entscheiden, ob eines oder mehrere Dokumente neu geladen "
+"werden sollen, oder Sie können sie überschreiben und die Änderungen der "
+"anderen Anwendung verwerfen."
 
 #: ../externalchanges/widget.py:299
 msgid ""
 "When a document is reloaded, you can still press {undokey} to get back the "
 "document as it was in memory before reloading it from disk."
 msgstr ""
-"Wenn ein Dokument neu geladen wurden, können Sie {undokey} drücken, um das Dokument "
-"so wiederherzustellen, wie es vor dem Neuladen geöffnet war."
+"Wenn ein Dokument neu geladen wurden, können Sie {undokey} drücken, um das "
+"Dokument so wiederherzustellen, wie es vor dem Neuladen geöffnet war."
 
 #: ../externalchanges/widget.py:302
 msgid ""
@@ -1523,8 +1525,8 @@ msgid ""
 "If you don't want to be warned when a document is changed or deleted by "
 "another application, uncheck the <em>{action}</em> checkbox."
 msgstr ""
-"Wenn Sie nicht über externe Änderungen informiert werden wollen, "
-"entfernen Sie das Häkchen an der <em>{action}</em>-Checkbox."
+"Wenn Sie nicht über externe Änderungen informiert werden wollen, entfernen "
+"Sie das Häkchen an der <em>{action}</em>-Checkbox."
 
 #: ../help/browser.py:77
 msgid "Toolbar"
@@ -2494,11 +2496,14 @@ msgstr "Bearbeite Zeile {linenum} von \"{document}\" ({variable})"
 
 #: ../musicview/editinplace.py:250
 msgid "In this dialog you can edit one line of the text document."
-msgstr "In diesem Dialog können Sie die aktuelle Zeile des Quelltexts bearbeiten."
+msgstr ""
+"In diesem Dialog können Sie die aktuelle Zeile des Quelltexts bearbeiten."
 
 #: ../musicview/editinplace.py:251
 msgid "Click OK or press {key} to place the modified text in the document."
-msgstr "Klicken Sie auf OK oder drücken Sie {key}, um die Änderungen in das Dokument zu übernehmen"
+msgstr ""
+"Klicken Sie auf OK oder drücken Sie {key}, um die Änderungen in das Dokument "
+"zu übernehmen"
 
 #: ../musicview/editinplace.py:253
 msgid ""
@@ -2506,9 +2511,9 @@ msgid ""
 "object in the Music View or by right-clicking the object and selecting "
 "{menu}."
 msgstr ""
-"Sie können den Dialog \"Direkt bearbeiten\" öffnen, indem sie ein Objekt "
-"in der Notenansicht mit gedrückter Shift-Taste auswählen oder es mit "
-"der rechten Maustast anklicken und {menu} auswählen."
+"Sie können den Dialog \"Direkt bearbeiten\" öffnen, indem sie ein Objekt in "
+"der Notenansicht mit gedrückter Shift-Taste auswählen oder es mit der "
+"rechten Maustast anklicken und {menu} auswählen."
 
 #: ../musicview/image.py:127
 msgid "DPI:"
@@ -3771,7 +3776,8 @@ msgstr ""
 
 #: ../preferences/prefshelp.py:258
 msgid "Here you can change the settings for various tools."
-msgstr "Hier können Sie die Einstellungen für verschiedene Werkzeuge bearbeiten."
+msgstr ""
+"Hier können Sie die Einstellungen für verschiedene Werkzeuge bearbeiten."
 
 #: ../preferences/shortcuts.py:56 ../snippet/model.py:63
 msgid "Shortcut"
