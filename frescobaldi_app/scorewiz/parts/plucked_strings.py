@@ -311,7 +311,7 @@ class Harp(_base.PianoStaffPart):
     def short(_=__builtin__._):
         return _("abbreviation for Harp", "Hp.")
 
-    midiInstrument = 'harp'
+    midiInstrument = 'orchestral harp'
 
     def translateWidgets(self):
         super(Harp, self).translateWidgets()
