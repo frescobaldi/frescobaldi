@@ -64,6 +64,8 @@ _roman_numerals = (("M", 1000), ("CM", 900), ("D", 500), ("CD", 400),
 ("IV", 4), ("I", 1))
 
 def int2roman(n):
+    if n < 1:
+        raise ValueError, 'Roman numerals must be positive integers, got %s' %n
     roman = []
     for ltr, num in _roman_numerals:
         k, n = divmod(n, num)
