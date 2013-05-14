@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-04-03 21:38+0200\n"
+"POT-Creation-Date: 2013-05-15 00:45+0200\n"
 "PO-Revision-Date: 2013-04-19 12:12+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -303,8 +303,9 @@ msgid "Always &Engrave This Document"
 msgstr "Proces&ar siempre este documento"
 
 #: ../documentmenu.py:42
+#, fuzzy
 msgctxt "menu title"
-msgid "&Document"
+msgid "&Documents"
 msgstr "&Documento"
 
 #. L10N: 'always engraved': the document is marked as 'Always Engrave' in the LilyPond menu
@@ -1441,7 +1442,8 @@ msgstr "Mostrar diferencia..."
 #: ../externalchanges/widget.py:123
 msgid ""
 "Shows the differences between the current document and the file on disk."
-msgstr "Muestra las diferencias entre el documento actual y el archivo del disco."
+msgstr ""
+"Muestra las diferencias entre el documento actual y el archivo del disco."
 
 #: ../externalchanges/widget.py:126 ../externalchanges/widget.py:307
 msgid "Enable watching documents for external changes"
@@ -1497,7 +1499,9 @@ msgstr ""
 msgid ""
 "Frescobaldi can detect if files are modified or deleted by other "
 "applications."
-msgstr "Frescobaldi puede detectar si otras aplicaciones han modificado o borrado los archivos."
+msgstr ""
+"Frescobaldi puede detectar si otras aplicaciones han modificado o borrado "
+"los archivos."
 
 #: ../externalchanges/widget.py:294
 msgid ""
@@ -4007,7 +4011,11 @@ msgid ""
 "Frescobaldi is started without a filename. You can choose whether to start "
 "with one empty document, with the last used session, or with a specific "
 "session. See also {link}."
-msgstr "Bajo <em>{startup}</em> se puede configurar qué sesión cargar cuando se llama a Frescobaldi sin ningún nombre de archivo.  Puede elegir si iniciar con un documento vacío, con la última sesión utilizada o con una sesión específica. Véase también {link}."
+msgstr ""
+"Bajo <em>{startup}</em> se puede configurar qué sesión cargar cuando se "
+"llama a Frescobaldi sin ningún nombre de archivo.  Puede elegir si iniciar "
+"con un documento vacío, con la última sesión utilizada o con una sesión "
+"específica. Véase también {link}."
 
 #: ../preferences/prefshelp.py:67
 msgid ""
@@ -4049,7 +4057,12 @@ msgid ""
 "full path here so Frescobaldi can run it. For the helper applications like "
 "convert-ly and lilypond-book you don't need to specify the full path if they "
 "are in the same directory as the LilyPond executable itself."
-msgstr "Si el ejecutable de LilyPond no está en la ruta PATH de su sistema, puede especificar su ruta completa aquí de manera que Frescobaldi pueda ejecutarlo. Para las aplicaciones complementarias como convert-ly y lilypond-book no necesita especificar la ruta completa si están en el mismo directorio que el propio ejecutable de LilyPond."
+msgstr ""
+"Si el ejecutable de LilyPond no está en la ruta PATH de su sistema, puede "
+"especificar su ruta completa aquí de manera que Frescobaldi pueda "
+"ejecutarlo. Para las aplicaciones complementarias como convert-ly y lilypond-"
+"book no necesita especificar la ruta completa si están en el mismo "
+"directorio que el propio ejecutable de LilyPond."
 
 #: ../preferences/prefshelp.py:95
 msgid ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.10\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-05-12 21:30+0200\n"
+"POT-Creation-Date: 2013-05-15 00:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -298,7 +298,7 @@ msgstr ""
 
 #: ../documentmenu.py:42
 msgctxt "menu title"
-msgid "&Document"
+msgid "&Documents"
 msgstr ""
 
 #. L10N: 'always engraved': the document is marked as 'Always Engrave' in the LilyPond menu

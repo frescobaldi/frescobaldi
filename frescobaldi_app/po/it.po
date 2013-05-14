@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-04-03 21:38+0200\n"
+"POT-Creation-Date: 2013-05-15 00:45+0200\n"
 "PO-Revision-Date: 2013-04-30 21:59+0200\n"
 "Last-Translator: Gianluca D'Orazio <gianluca.dorazio@gmail.com>\n"
 "Language-Team: Italian <>\n"
@@ -309,8 +309,9 @@ msgid "Always &Engrave This Document"
 msgstr "&Compila sempre questo documento"
 
 #: ../documentmenu.py:42
+#, fuzzy
 msgctxt "menu title"
-msgid "&Document"
+msgid "&Documents"
 msgstr "&Documento"
 
 #. L10N: 'always engraved': the document is marked as 'Always Engrave' in the LilyPond menu
@@ -799,8 +800,8 @@ msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
 msgstr ""
-"Apre una finestra per controllare se i documenti in uso sono stati modificati "
-"o cancellati da altri programmi."
+"Apre una finestra per controllare se i documenti in uso sono stati "
+"modificati o cancellati da altri programmi."
 
 #: ../mainwindow.py:992
 msgid "Print Source..."
@@ -1431,8 +1432,8 @@ msgid ""
 "Saves all documents to disk, overwriting the modifications by another "
 "program."
 msgstr ""
-"Salva tutti i documenti sul disco, sovrascrivendo le modifiche "
-"apportate da altri programmi."
+"Salva tutti i documenti sul disco, sovrascrivendo le modifiche apportate da "
+"altri programmi."
 
 #: ../externalchanges/widget.py:121 ../externalchanges/widget.py:304
 msgid "Show Difference..."
@@ -1498,8 +1499,8 @@ msgid ""
 "Frescobaldi can detect if files are modified or deleted by other "
 "applications."
 msgstr ""
-"Frescobaldi può rilevare se i documenti vengono modificati o "
-"eliminati da altri programmi."
+"Frescobaldi può rilevare se i documenti vengono modificati o eliminati da "
+"altri programmi."
 
 #: ../externalchanges/widget.py:294
 msgid ""
@@ -1508,26 +1509,26 @@ msgid ""
 "can choose whether to reload one or more documents from disk, or to save "
 "them, discarding the modifications made by the other application."
 msgstr ""
-"Quando un altro programma modifica o elimina uno o più documenti "
-"in uso in Frescobaldi, viene mostrata una lista dei documenti alterati "
-"ed è possibile scegliere se ricaricare i documenti dal disco oppure "
-"se salvarli trascurando le modifiche apportate dagli altri programmi."
+"Quando un altro programma modifica o elimina uno o più documenti in uso in "
+"Frescobaldi, viene mostrata una lista dei documenti alterati ed è possibile "
+"scegliere se ricaricare i documenti dal disco oppure se salvarli trascurando "
+"le modifiche apportate dagli altri programmi."
 
 #: ../externalchanges/widget.py:299
 msgid ""
 "When a document is reloaded, you can still press {undokey} to get back the "
 "document as it was in memory before reloading it from disk."
 msgstr ""
-"Quando un documento viene ricaricato, è comunque possibile tornare "
-"alla versione in memoria prima della rilettura dal disco usando {undokey}."
+"Quando un documento viene ricaricato, è comunque possibile tornare alla "
+"versione in memoria prima della rilettura dal disco usando {undokey}."
 
 #: ../externalchanges/widget.py:302
 msgid ""
 "Press the <em>{showdiff}</em> button to see the difference between the "
 "current document and its version on disk."
 msgstr ""
-"Premendo <em>{showdiff}</em> è possibile vedere le differenze tra "
-"il documento in uso e la versione sul disco."
+"Premendo <em>{showdiff}</em> è possibile vedere le differenze tra il "
+"documento in uso e la versione sul disco."
 
 #: ../externalchanges/widget.py:305
 msgid ""
@@ -4303,8 +4304,8 @@ msgid ""
 "If checked, Frescobaldi will not open PDF documents that are not\n"
 "up-to-date (i.e. the source file has been modified later)."
 msgstr ""
-"Se selezionato, Frescobaldi non aprirà i PDF non aggiornati, cioè "
-"quelli il cui sorgente è stato modificato successivamente."
+"Se selezionato, Frescobaldi non aprirà i PDF non aggiornati, cioè quelli il "
+"cui sorgente è stato modificato successivamente."
 
 #: ../preferences/tools.py:167
 msgid "Magnifier Size:"
