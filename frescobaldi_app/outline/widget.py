@@ -77,6 +77,7 @@ class Widget(QTreeWidget):
             last_block = None
             for i in structure.outline():
                 position = i.start()
+                text = i.group('title') or i.group()
                 block = doc.findBlock(position)
                 depth = tokeniter.state(block).depth()
                 if block == last_block:
@@ -107,7 +108,7 @@ class Widget(QTreeWidget):
                         else:
                             parent = last_item
                 item = last_item = QTreeWidgetItem(parent)
-                item.setText(0, i.group())
+                item.setText(0, text)
                 try:
                     collapsed = block.userData().collapsed
                 except AttributeError:

@@ -35,7 +35,7 @@ default_outline_patterns = [
 r"\\(score|book|bookpart)\b",
 r"^\\(paper|layout|header)\b",
 r"\\(new|context)\s+[A-Z]\w+",
-r"%%+\s*BEGIN",
+r"%+\s*(?P<title>BEGIN[^\n]*)[ \t]*$",
 r"^[a-zA-Z]+\s*=",
 r"^<<",
 r"^\{",
