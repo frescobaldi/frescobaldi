@@ -39,7 +39,7 @@ class DocumentMenu(QMenu):
         app.translateUI(self)
     
     def translateUI(self):
-        self.setTitle(_('menu title', '&Document'))
+        self.setTitle(_('menu title', '&Documents'))
     
     def populate(self):
         self.clear()
