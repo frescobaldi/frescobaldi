@@ -67,12 +67,13 @@ lilypond_music_commands = (
     'addlyrics',
     'addQuote',
     'afterGrace',
-    'afterGraceFraction',
+    #'afterGraceFraction', # this is a parser variabl
     'aikenHeads',
     'aikenHeadsMinor',
     'allowPageTurn',
     'alternative',
-    'AncientRemoveEmptyStaffContext',
+    #'AncientRemoveEmptyStaffContext',
+    'appendToTag', # since 2.16
     'applyContext',
     'applyMusic',
     'applyOutput',
@@ -116,12 +117,14 @@ lilypond_music_commands = (
     'cavum',
     'change',
     'chordmode',
-    'chordNameSeparator',
-    'chordPrefixSpacer',
-    'chordRootNamer',
+    #'chordNameSeparator',
+    #'chordPrefixSpacer',
+    #'chordRootNamer',
+    'chordRepeats', # since 2.16
     'chords',
     'clef',
     'cm',
+    'compoundMeter', # since 2.16
     'compressFullBarRests',
     'context',
     'cr',
@@ -129,7 +132,10 @@ lilypond_music_commands = (
     'crescHairpin',
     'crescTextCresc',
     'crossStaff', # since 2.16
+    'cueClef',  # since 2.16
+    'cueClefUnset',  # since 2.16
     'cueDuring',
+    'cueDuringWithClef',  # since 2.16
     'dashBar',
     'dashDash',
     'dashDot',
@@ -137,8 +143,10 @@ lilypond_music_commands = (
     'dashLarger',
     'dashPlus',
     'dashUnderscore',
+    'deadNote',  # since 2.16
     'decr',
     'default',
+    'defaultNoteHeads',  # since 2.16
     'defaultTimeSignature',
     'deminutum',
     'denies',
@@ -267,9 +275,12 @@ lilypond_music_commands = (
     'ottava',
     'override',
     'overrideProperty',
+    'overrideTimeSignatureSettings',  # since 2.16
     'p',
     'pageBreak',
     'pageTurn',
+    'palmMute',  # since 2.16
+    'palmMuteOn',  # since 2.16
     'parallelMusic',
     'parenthesisCloseSymbol',
     'parenthesisOpenSymbol',
@@ -297,6 +308,7 @@ lilypond_music_commands = (
     'predefinedFretboardsOff',
     'predefinedFretboardsOn',
     'pt',
+    'pushToTag', # since 2.16
     'quilisma',
     'quoteDuring',
     'relative',
@@ -600,6 +612,7 @@ markupcommands_nargs = (
 # two arguments
 (
     'abs-fontsize',
+    'auto-footnote', # since 2.16
     'combine',
     'customTabClef',
     'fontsize',
