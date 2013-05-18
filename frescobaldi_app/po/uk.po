@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-05-15 00:45+0200\n"
+"POT-Creation-Date: 2013-05-18 17:15+0200\n"
 "PO-Revision-Date: 2012-04-19 17:21+0300\n"
 "Last-Translator: Dmytro O. Redchuk <brownian.box@gmail.com>\n"
 "Language-Team: Ukrainian\n"
@@ -287,16 +287,16 @@ msgstr "Форм&атувати"
 msgid "&Update with convert-ly..."
 msgstr "Поновити з допомогою convert-ly..."
 
-#: ../documentcontextmenu.py:67 ../mainwindow.py:982
+#: ../documentcontextmenu.py:67 ../mainwindow.py:997
 #: ../sessions/manager.py:127
 msgid "&Save"
 msgstr "&Зберегти"
 
-#: ../documentcontextmenu.py:68 ../mainwindow.py:983
+#: ../documentcontextmenu.py:68 ../mainwindow.py:998
 msgid "Save &As..."
 msgstr "Зберегти &як"
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:993
+#: ../documentcontextmenu.py:69 ../mainwindow.py:1008
 msgid "&Close"
 msgstr "За&крити"
 
@@ -365,9 +365,9 @@ msgid "Staff Size:"
 msgstr "Розмір нотоносця"
 
 #. L10N: a basic type of input in the editor
-#: ../helpers.py:101 ../mainwindow.py:389 ../mainwindow.py:395
-#: ../mainwindow.py:420 ../mainwindow.py:471 ../mainwindow.py:563
-#: ../mainwindow.py:623 ../externalchanges/widget.py:243
+#: ../helpers.py:101 ../mainwindow.py:404 ../mainwindow.py:410
+#: ../mainwindow.py:435 ../mainwindow.py:486 ../mainwindow.py:578
+#: ../mainwindow.py:638 ../externalchanges/widget.py:243
 #: ../musicview/image.py:214 ../preferences/fontscolors.py:476
 #: ../preferences/fontscolors.py:514 ../snippet/import_export.py:105
 #: ../snippet/widget.py:319
@@ -595,16 +595,16 @@ msgid "Always start a new instance"
 msgstr "Завжди запускати новий примірник"
 
 #. L10N: state of document in window titlebar
-#: ../mainwindow.py:226 ../externalchanges/widget.py:159
+#: ../mainwindow.py:241 ../externalchanges/widget.py:159
 msgid "[modified]"
 msgstr "[змінено]"
 
-#: ../mainwindow.py:269
+#: ../mainwindow.py:284
 msgctxt "dialog title"
 msgid "Close Document"
 msgstr "Закрити документ"
 
-#: ../mainwindow.py:270
+#: ../mainwindow.py:285
 msgid ""
 "The document \"{name}\" has been modified.\n"
 "Do you want to save your changes or discard them?"
@@ -612,16 +612,16 @@ msgstr ""
 "Документ \"{name}\" було змінено.\n"
 "Зберегти зміни чи відкинути редагування?"
 
-#: ../mainwindow.py:282
+#: ../mainwindow.py:297
 msgid "Tab Bar"
 msgstr "Заголовок вкладки"
 
-#: ../mainwindow.py:338 ../popplerprint.py:53 ../sessions/dialog.py:171
+#: ../mainwindow.py:353 ../popplerprint.py:53 ../sessions/dialog.py:171
 #: ../sessions/dialog.py:179 ../sessions/dialog.py:185
 msgid "Warning"
 msgstr "Попередження"
 
-#: ../mainwindow.py:339
+#: ../mainwindow.py:354
 msgid ""
 "Can't load non-local document:\n"
 "\n"
@@ -631,12 +631,12 @@ msgstr ""
 "\n"
 "{url}"
 
-#: ../mainwindow.py:370
+#: ../mainwindow.py:385
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Відкрити файл"
 
-#: ../mainwindow.py:390 ../mainwindow.py:396 ../mainwindow.py:421
+#: ../mainwindow.py:405 ../mainwindow.py:411 ../mainwindow.py:436
 #, fuzzy
 msgid ""
 "Can't write to destination:\n"
@@ -647,22 +647,22 @@ msgstr ""
 "\n"
 "{url}"
 
-#: ../mainwindow.py:415
+#: ../mainwindow.py:430
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "Зберегти файл"
 
-#: ../mainwindow.py:455
+#: ../mainwindow.py:470
 msgctxt "dialog title"
 msgid "Save Copy"
 msgstr "Зберегти копію"
 
-#: ../mainwindow.py:461
+#: ../mainwindow.py:476
 msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Зберегти виділення"
 
-#: ../mainwindow.py:472 ../mainwindow.py:624 ../snippet/widget.py:320
+#: ../mainwindow.py:487 ../mainwindow.py:639 ../snippet/widget.py:320
 #, fuzzy
 msgid ""
 "Can't write to destination:\n"
@@ -677,12 +677,12 @@ msgstr ""
 "\n"
 "{error}"
 
-#: ../mainwindow.py:486 ../mainwindow.py:500 ../externalchanges/widget.py:103
+#: ../mainwindow.py:501 ../mainwindow.py:515 ../externalchanges/widget.py:103
 #, fuzzy
 msgid "Reload"
 msgstr "&Перечитати"
 
-#: ../mainwindow.py:487
+#: ../mainwindow.py:502
 #, fuzzy
 msgid ""
 "Could not reload the document:\n"
@@ -693,21 +693,21 @@ msgstr ""
 "\n"
 "{url}"
 
-#: ../mainwindow.py:497
+#: ../mainwindow.py:512
 #, fuzzy
 msgid "Some documents could not be reloaded."
 msgstr "Документ не було змінено."
 
-#: ../mainwindow.py:499
+#: ../mainwindow.py:514
 msgid "No document could be reloaded."
 msgstr ""
 
-#: ../mainwindow.py:556
+#: ../mainwindow.py:571
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Вставити з файлу"
 
-#: ../mainwindow.py:564 ../snippet/import_export.py:106
+#: ../mainwindow.py:579 ../snippet/import_export.py:106
 msgid ""
 "Can't read from source:\n"
 "\n"
@@ -721,16 +721,16 @@ msgstr ""
 "\n"
 "{error}"
 
-#: ../mainwindow.py:580
+#: ../mainwindow.py:595
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Друкувати джерело"
 
-#: ../mainwindow.py:613
+#: ../mainwindow.py:628
 msgid "Export as HTML"
 msgstr "Експортувати як HTML"
 
-#: ../mainwindow.py:733
+#: ../mainwindow.py:748
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -742,192 +742,192 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../mainwindow.py:843
+#: ../mainwindow.py:858
 msgid "Main Toolbar"
 msgstr "Головна панель інструментів"
 
-#: ../mainwindow.py:844
+#: ../mainwindow.py:859
 msgid "Music View Toolbar"
 msgstr "Панель інструментів вікна перегляду твору"
 
-#: ../mainwindow.py:976
+#: ../mainwindow.py:991
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Новий"
 
-#: ../mainwindow.py:977
+#: ../mainwindow.py:992
 msgid "&Open..."
 msgstr "&Відкрити"
 
-#: ../mainwindow.py:978
+#: ../mainwindow.py:993
 msgid "Open &Recent"
 msgstr "Відкрити &недавній"
 
-#: ../mainwindow.py:979
+#: ../mainwindow.py:994
 msgid "Insert from &File..."
 msgstr "Вставити з &файлу"
 
-#: ../mainwindow.py:980
+#: ../mainwindow.py:995
 msgid "Open Current Directory"
 msgstr "Відкрити поточну теку"
 
-#: ../mainwindow.py:981
+#: ../mainwindow.py:996
 msgid "Open Command Prompt"
 msgstr "Відкрити командний рядок"
 
-#: ../mainwindow.py:984
+#: ../mainwindow.py:999
 msgid "Save Copy or Selection As..."
 msgstr "Зберегти копію чи виділення як..."
 
-#: ../mainwindow.py:985 ../externalchanges/widget.py:117
+#: ../mainwindow.py:1000 ../externalchanges/widget.py:117
 msgid "Save All"
 msgstr "Зберегти усе"
 
-#: ../mainwindow.py:986
+#: ../mainwindow.py:1001
 #, fuzzy
 msgid "Re&load"
 msgstr "&Перечитати"
 
-#: ../mainwindow.py:987 ../externalchanges/widget.py:108
+#: ../mainwindow.py:1002 ../externalchanges/widget.py:108
 #, fuzzy
 msgid "Reload All"
 msgstr "&Перечитати"
 
-#: ../mainwindow.py:988
+#: ../mainwindow.py:1003
 msgid "Check for External Changes..."
 msgstr ""
 
-#: ../mainwindow.py:990
+#: ../mainwindow.py:1005
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
 msgstr ""
 
-#: ../mainwindow.py:992
+#: ../mainwindow.py:1007
 msgid "Print Source..."
 msgstr "Друкувати джерело..."
 
-#: ../mainwindow.py:994
+#: ../mainwindow.py:1009
 msgid "Close Other Documents"
 msgstr "Закрити інші документи"
 
-#: ../mainwindow.py:995
+#: ../mainwindow.py:1010
 msgid "Close All Documents"
 msgstr "Закрити всі документи"
 
-#: ../mainwindow.py:996
+#: ../mainwindow.py:1011
 msgid "Closes all documents and leaves the current session."
 msgstr "Закрити усі документи та вийти з поточної сесії."
 
-#: ../mainwindow.py:997
+#: ../mainwindow.py:1012
 msgid "&Quit"
 msgstr "Ви&йти"
 
-#: ../mainwindow.py:999
+#: ../mainwindow.py:1014
 msgid "Export Source as Colored &HTML..."
 msgstr "Експортувати джерело як підсвічений &HTML..."
 
-#: ../mainwindow.py:1001
+#: ../mainwindow.py:1016
 msgid "&Undo"
 msgstr "&Скасувати"
 
-#: ../mainwindow.py:1002
+#: ../mainwindow.py:1017
 msgid "Re&do"
 msgstr "&Повторити"
 
-#: ../mainwindow.py:1003
+#: ../mainwindow.py:1018
 msgid "Cu&t"
 msgstr "Ви&різати"
 
-#: ../mainwindow.py:1004 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1019 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "С&копіювати"
 
-#: ../mainwindow.py:1005
+#: ../mainwindow.py:1020
 msgid "Copy as Colored &HTML"
 msgstr "Копіювати як підсвічений &HTML"
 
-#: ../mainwindow.py:1006
+#: ../mainwindow.py:1021
 msgid "&Paste"
 msgstr "&Вставити"
 
-#: ../mainwindow.py:1007
+#: ../mainwindow.py:1022
 msgid "Select &All"
 msgstr "Виділити &усе"
 
-#: ../mainwindow.py:1008
+#: ../mainwindow.py:1023
 msgid "Select &Block"
 msgstr "Виділити &блок"
 
-#: ../mainwindow.py:1009
+#: ../mainwindow.py:1024
 msgid "Select &None"
 msgstr "З&няти виділення"
 
-#: ../mainwindow.py:1010
+#: ../mainwindow.py:1025
 msgid "Select Whole Lines Up"
 msgstr "Виділити всі рядки вище"
 
-#: ../mainwindow.py:1011
+#: ../mainwindow.py:1026
 msgid "Select Whole Lines Down"
 msgstr "Виділити всі рядки нижче"
 
-#: ../mainwindow.py:1012
+#: ../mainwindow.py:1027
 msgid "&Find..."
 msgstr "Зн&айти"
 
-#: ../mainwindow.py:1013
+#: ../mainwindow.py:1028
 msgid "Find Ne&xt"
 msgstr "Знайти нас&тупне"
 
-#: ../mainwindow.py:1014
+#: ../mainwindow.py:1029
 msgid "Find Pre&vious"
 msgstr "Знайт&и попереднє"
 
-#: ../mainwindow.py:1015
+#: ../mainwindow.py:1030
 msgid "&Replace..."
 msgstr "За&мінити..."
 
-#: ../mainwindow.py:1016
+#: ../mainwindow.py:1031
 msgid "Pr&eferences..."
 msgstr "Налаш&тування"
 
-#: ../mainwindow.py:1018
+#: ../mainwindow.py:1033
 msgid "&Next Document"
 msgstr "Нас&тупний документ"
 
-#: ../mainwindow.py:1019
+#: ../mainwindow.py:1034
 msgid "&Previous Document"
 msgstr "П&опередній документ"
 
-#: ../mainwindow.py:1020
+#: ../mainwindow.py:1035
 msgid "Scroll Up"
 msgstr "Прокрутити вгору"
 
-#: ../mainwindow.py:1021
+#: ../mainwindow.py:1036
 msgid "Scroll Down"
 msgstr "Прокрутити вниз"
 
-#: ../mainwindow.py:1023
+#: ../mainwindow.py:1038
 msgid "New &Window"
 msgstr "Нове &вікно"
 
-#: ../mainwindow.py:1024
+#: ../mainwindow.py:1039
 msgid "&Fullscreen"
 msgstr "Повний екр&ан"
 
-#: ../mainwindow.py:1026
+#: ../mainwindow.py:1041
 msgid "&User Guide"
 msgstr "&Посібник користувача"
 
-#: ../mainwindow.py:1027
+#: ../mainwindow.py:1042
 msgid "&What's This?"
 msgstr "&Що це?"
 
-#: ../mainwindow.py:1028
+#: ../mainwindow.py:1043
 msgid "Report a &Bug..."
 msgstr "Повідом&ити про помилку..."
 
-#: ../mainwindow.py:1029
+#: ../mainwindow.py:1044
 msgid "&About {appname}..."
 msgstr "&Про {appname}..."
 
@@ -1149,7 +1149,7 @@ msgstr "&Автоматичне доповнення"
 msgid "Show C&ompletions Popup"
 msgstr "Показувати &вікно доповнень"
 
-#: ../charmap/__init__.py:40 ../preferences/tools.py:229
+#: ../charmap/__init__.py:40 ../preferences/tools.py:230
 msgid "Special Characters"
 msgstr "Спеціальні символи"
 
@@ -1223,7 +1223,7 @@ msgstr "Відкрити &документ у новому вікні"
 msgid "LilyPond Source"
 msgstr "Джерело LilyPond"
 
-#: ../doclist/__init__.py:39 ../preferences/tools.py:262
+#: ../doclist/__init__.py:39 ../preferences/tools.py:263
 msgid "Documents"
 msgstr "Документи"
 
@@ -2242,7 +2242,7 @@ msgstr "Див. також:"
 msgid "(no key defined)"
 msgstr ""
 
-#: ../logtool/__init__.py:50 ../preferences/tools.py:94
+#: ../logtool/__init__.py:50 ../preferences/tools.py:95
 msgid "LilyPond Log"
 msgstr "Журнал LilyPond"
 
@@ -2514,7 +2514,7 @@ msgstr "Зберегти зображення як"
 msgid "Could not save the image."
 msgstr "Не вдалося зберегти зображення."
 
-#: ../outline/__init__.py:40 ../preferences/tools.py:294
+#: ../outline/__init__.py:40 ../preferences/tools.py:295
 msgid "Outline"
 msgstr ""
 
@@ -2910,7 +2910,7 @@ msgid "Preferred Language:"
 msgstr "Бажана мова:"
 
 #: ../preferences/documentation.py:128 ../preferences/general.py:133
-#: ../preferences/tools.py:295 ../scorewiz/settings.py:138
+#: ../preferences/tools.py:296 ../scorewiz/settings.py:138
 #: ../scorewiz/settings.py:204 ../scorewiz/settings.py:299
 #: ../scorewiz/parts/_base.py:214 ../scorewiz/parts/plucked_strings.py:65
 #: ../widgets/schemeselector.py:115
@@ -2922,7 +2922,7 @@ msgid "English (untranslated)"
 msgstr ""
 
 #: ../preferences/documentation.py:130 ../preferences/fontscolors.py:122
-#: ../preferences/tools.py:95 ../preferences/tools.py:230
+#: ../preferences/tools.py:96 ../preferences/tools.py:231
 msgid "Font:"
 msgstr "Шрифт:"
 
@@ -3668,6 +3668,51 @@ msgstr ""
 msgid "Here you can change the settings for various tools."
 msgstr ""
 
+#: ../preferences/prefshelp.py:268
+msgid "Configuring the Outline View"
+msgstr ""
+
+#: ../preferences/prefshelp.py:272
+msgid ""
+"The document outline view is created by looking for certain expressions in "
+"the document text."
+msgstr ""
+
+#: ../preferences/prefshelp.py:274
+msgid ""
+"You can specify what to search for by entering a list of regular expressions."
+msgstr ""
+
+#: ../preferences/prefshelp.py:276
+msgid ""
+"In those expressions, <code>^</code> matches at the beginning of every line, "
+"and <code>$</code> matches at the end of a line."
+msgstr ""
+
+#: ../preferences/prefshelp.py:278
+msgid ""
+"Normally when an expressions matches text, the whole match is displayed as "
+"an item in the outline."
+msgstr ""
+
+#: ../preferences/prefshelp.py:280
+msgid "You can also use named groups, with the {code} named group syntax."
+msgstr ""
+
+#: ../preferences/prefshelp.py:282
+msgid "You can use the name {text} or {title}."
+msgstr ""
+
+#: ../preferences/prefshelp.py:284
+msgid ""
+"In that case, only the named part of a match is displayed. If the {title} "
+"name is used, it is displayed in a bold font."
+msgstr ""
+
+#: ../preferences/prefshelp.py:287
+msgid "For more information about regular expressions, see {link}."
+msgstr ""
+
 #: ../preferences/shortcuts.py:56 ../snippet/model.py:63
 msgid "Shortcut"
 msgstr "Комбінація клавіш"
@@ -3698,82 +3743,82 @@ msgstr[1] ""
 msgid "(default)"
 msgstr ""
 
-#: ../preferences/tools.py:96
+#: ../preferences/tools.py:97
 msgid "Show log when a job is started"
 msgstr ""
 
-#: ../preferences/tools.py:97
+#: ../preferences/tools.py:98
 msgid "Display plain log output"
 msgstr ""
 
-#: ../preferences/tools.py:99
+#: ../preferences/tools.py:100
 msgid "If checked, Frescobaldi will not shorten filenames in the log output."
 msgstr ""
 
-#: ../preferences/tools.py:162
+#: ../preferences/tools.py:163
 msgid "Music View"
 msgstr "Перегляд твору"
 
-#: ../preferences/tools.py:163
+#: ../preferences/tools.py:164
 #, fuzzy
 msgid "Only load updated PDF documents"
 msgstr "Закрити всі неназвані документи"
 
-#: ../preferences/tools.py:165
+#: ../preferences/tools.py:166
 msgid ""
 "If checked, Frescobaldi will not open PDF documents that are not\n"
 "up-to-date (i.e. the source file has been modified later)."
 msgstr ""
 
-#: ../preferences/tools.py:167
+#: ../preferences/tools.py:168
 msgid "Magnifier Size:"
 msgstr "Розмір лупи:"
 
-#: ../preferences/tools.py:169
+#: ../preferences/tools.py:170
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr "Розмір лупи (Ctrl+click на перегляді твору)."
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: ../preferences/tools.py:171
+#: ../preferences/tools.py:172
 msgid " pixels"
 msgstr " точок"
 
-#: ../preferences/tools.py:172
+#: ../preferences/tools.py:173
 msgid "Magnifier Scale:"
 msgstr "Збільшення лупи:"
 
-#: ../preferences/tools.py:174
+#: ../preferences/tools.py:175
 msgid "Magnification of the magnifier."
 msgstr "Коефіцієнт збільшення лупи."
 
-#: ../preferences/tools.py:175
+#: ../preferences/tools.py:176
 msgctxt "percent unit sign"
 msgid "%"
 msgstr "%"
 
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
-#: ../preferences/tools.py:177
+#: ../preferences/tools.py:178
 #, fuzzy
 msgid "Kinetic Scrolling"
 msgstr "&Дозволити згортки"
 
-#: ../preferences/tools.py:178
+#: ../preferences/tools.py:179
 msgid "Show Scrollbars"
 msgstr "Показувати панелі прокрутки"
 
-#: ../preferences/tools.py:263
+#: ../preferences/tools.py:264
 msgid "Group documents by directory"
 msgstr "Групувати документи за теками"
 
-#: ../preferences/tools.py:296
+#: ../preferences/tools.py:297
 msgid "Restores the built-in outline patterns."
 msgstr ""
 
-#: ../preferences/tools.py:297
+#: ../preferences/tools.py:298
 msgid "Patterns to match in text that are shown in outline:"
 msgstr ""
 
-#: ../preferences/tools.py:323
+#: ../preferences/tools.py:325
 msgid "Enter a regular expression to match:"
 msgstr ""
 

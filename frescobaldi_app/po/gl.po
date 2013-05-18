@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.17\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-05-15 00:45+0200\n"
+"POT-Creation-Date: 2013-05-18 17:15+0200\n"
 "PO-Revision-Date: 2011-01-03 17:37+0100\n"
 "Last-Translator: Manuel A. Vazquez <xixirei@yahoo.es>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -309,18 +309,18 @@ msgstr "Caldeirón"
 msgid "&Update with convert-ly..."
 msgstr "Actualizar mediante convert-ly"
 
-#: ../documentcontextmenu.py:67 ../mainwindow.py:982
+#: ../documentcontextmenu.py:67 ../mainwindow.py:997
 #: ../sessions/manager.py:127
 #, fuzzy
 msgid "&Save"
 msgstr "Gardar"
 
-#: ../documentcontextmenu.py:68 ../mainwindow.py:983
+#: ../documentcontextmenu.py:68 ../mainwindow.py:998
 #, fuzzy
 msgid "Save &As..."
 msgstr "Gardar PDF como..."
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:993
+#: ../documentcontextmenu.py:69 ../mainwindow.py:1008
 msgid "&Close"
 msgstr ""
 
@@ -386,9 +386,9 @@ msgid "Staff Size:"
 msgstr "Tamaño do pentagrama"
 
 #. L10N: a basic type of input in the editor
-#: ../helpers.py:101 ../mainwindow.py:389 ../mainwindow.py:395
-#: ../mainwindow.py:420 ../mainwindow.py:471 ../mainwindow.py:563
-#: ../mainwindow.py:623 ../externalchanges/widget.py:243
+#: ../helpers.py:101 ../mainwindow.py:404 ../mainwindow.py:410
+#: ../mainwindow.py:435 ../mainwindow.py:486 ../mainwindow.py:578
+#: ../mainwindow.py:638 ../externalchanges/widget.py:243
 #: ../musicview/image.py:214 ../preferences/fontscolors.py:476
 #: ../preferences/fontscolors.py:514 ../snippet/import_export.py:105
 #: ../snippet/widget.py:319
@@ -604,73 +604,73 @@ msgid "Always start a new instance"
 msgstr "Iniciar unha nova instancia"
 
 #. L10N: state of document in window titlebar
-#: ../mainwindow.py:226 ../externalchanges/widget.py:159
+#: ../mainwindow.py:241 ../externalchanges/widget.py:159
 #, fuzzy
 msgid "[modified]"
 msgstr "modificado"
 
-#: ../mainwindow.py:269
+#: ../mainwindow.py:284
 #, fuzzy
 msgctxt "dialog title"
 msgid "Close Document"
 msgstr "Pechar outros documentos"
 
-#: ../mainwindow.py:270
+#: ../mainwindow.py:285
 msgid ""
 "The document \"{name}\" has been modified.\n"
 "Do you want to save your changes or discard them?"
 msgstr ""
 
-#: ../mainwindow.py:282
+#: ../mainwindow.py:297
 #, fuzzy
 msgid "Tab Bar"
 msgstr "Tabulatura"
 
-#: ../mainwindow.py:338 ../popplerprint.py:53 ../sessions/dialog.py:171
+#: ../mainwindow.py:353 ../popplerprint.py:53 ../sessions/dialog.py:171
 #: ../sessions/dialog.py:179 ../sessions/dialog.py:185
 #, fuzzy
 msgid "Warning"
 msgstr "Afinación da guitarra"
 
-#: ../mainwindow.py:339
+#: ../mainwindow.py:354
 msgid ""
 "Can't load non-local document:\n"
 "\n"
 "{url}"
 msgstr ""
 
-#: ../mainwindow.py:370
+#: ../mainwindow.py:385
 #, fuzzy
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Abrir ficheiro"
 
-#: ../mainwindow.py:390 ../mainwindow.py:396 ../mainwindow.py:421
+#: ../mainwindow.py:405 ../mainwindow.py:411 ../mainwindow.py:436
 msgid ""
 "Can't write to destination:\n"
 "\n"
 "{url}"
 msgstr ""
 
-#: ../mainwindow.py:415
+#: ../mainwindow.py:430
 #, fuzzy
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "Gardar PDF"
 
-#: ../mainwindow.py:455
+#: ../mainwindow.py:470
 #, fuzzy
 msgctxt "dialog title"
 msgid "Save Copy"
 msgstr "Gardar"
 
-#: ../mainwindow.py:461
+#: ../mainwindow.py:476
 #, fuzzy
 msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Modo de selección de liñas"
 
-#: ../mainwindow.py:472 ../mainwindow.py:624 ../snippet/widget.py:320
+#: ../mainwindow.py:487 ../mainwindow.py:639 ../snippet/widget.py:320
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -679,12 +679,12 @@ msgid ""
 "{error}"
 msgstr ""
 
-#: ../mainwindow.py:486 ../mainwindow.py:500 ../externalchanges/widget.py:103
+#: ../mainwindow.py:501 ../mainwindow.py:515 ../externalchanges/widget.py:103
 #, fuzzy
 msgid "Reload"
 msgstr "Cargar de novo"
 
-#: ../mainwindow.py:487
+#: ../mainwindow.py:502
 #, fuzzy
 msgid ""
 "Could not reload the document:\n"
@@ -692,20 +692,20 @@ msgid ""
 "{url}"
 msgstr "Non se puido cargar %1"
 
-#: ../mainwindow.py:497
+#: ../mainwindow.py:512
 msgid "Some documents could not be reloaded."
 msgstr ""
 
-#: ../mainwindow.py:499
+#: ../mainwindow.py:514
 msgid "No document could be reloaded."
 msgstr ""
 
-#: ../mainwindow.py:556
+#: ../mainwindow.py:571
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr ""
 
-#: ../mainwindow.py:564 ../snippet/import_export.py:106
+#: ../mainwindow.py:579 ../snippet/import_export.py:106
 msgid ""
 "Can't read from source:\n"
 "\n"
@@ -714,17 +714,17 @@ msgid ""
 "{error}"
 msgstr ""
 
-#: ../mainwindow.py:580
+#: ../mainwindow.py:595
 #, fuzzy
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Imprimir código fonte..."
 
-#: ../mainwindow.py:613
+#: ../mainwindow.py:628
 msgid "Export as HTML"
 msgstr ""
 
-#: ../mainwindow.py:733
+#: ../mainwindow.py:748
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -732,209 +732,209 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../mainwindow.py:843
+#: ../mainwindow.py:858
 msgid "Main Toolbar"
 msgstr ""
 
-#: ../mainwindow.py:844
+#: ../mainwindow.py:859
 msgid "Music View Toolbar"
 msgstr ""
 
-#: ../mainwindow.py:976
+#: ../mainwindow.py:991
 #, fuzzy
 msgctxt "action: new document"
 msgid "&New"
 msgstr "Novo..."
 
-#: ../mainwindow.py:977
+#: ../mainwindow.py:992
 msgid "&Open..."
 msgstr ""
 
-#: ../mainwindow.py:978
+#: ../mainwindow.py:993
 msgid "Open &Recent"
 msgstr ""
 
-#: ../mainwindow.py:979
+#: ../mainwindow.py:994
 msgid "Insert from &File..."
 msgstr ""
 
-#: ../mainwindow.py:980
+#: ../mainwindow.py:995
 #, fuzzy
 msgid "Open Current Directory"
 msgstr "Abrir o cartafol actual"
 
-#: ../mainwindow.py:981
+#: ../mainwindow.py:996
 msgid "Open Command Prompt"
 msgstr ""
 
-#: ../mainwindow.py:984
+#: ../mainwindow.py:999
 msgid "Save Copy or Selection As..."
 msgstr ""
 
-#: ../mainwindow.py:985 ../externalchanges/widget.py:117
+#: ../mainwindow.py:1000 ../externalchanges/widget.py:117
 #, fuzzy
 msgid "Save All"
 msgstr "Gardar"
 
-#: ../mainwindow.py:986
+#: ../mainwindow.py:1001
 #, fuzzy
 msgid "Re&load"
 msgstr "Cargar de novo"
 
-#: ../mainwindow.py:987 ../externalchanges/widget.py:108
+#: ../mainwindow.py:1002 ../externalchanges/widget.py:108
 #, fuzzy
 msgid "Reload All"
 msgstr "Cargar de novo"
 
-#: ../mainwindow.py:988
+#: ../mainwindow.py:1003
 msgid "Check for External Changes..."
 msgstr ""
 
-#: ../mainwindow.py:990
+#: ../mainwindow.py:1005
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
 msgstr ""
 
-#: ../mainwindow.py:992
+#: ../mainwindow.py:1007
 msgid "Print Source..."
 msgstr "Imprimir código fonte..."
 
-#: ../mainwindow.py:994
+#: ../mainwindow.py:1009
 msgid "Close Other Documents"
 msgstr "Pechar outros documentos"
 
-#: ../mainwindow.py:995
+#: ../mainwindow.py:1010
 #, fuzzy
 msgid "Close All Documents"
 msgstr "Pechar outros documentos"
 
-#: ../mainwindow.py:996
+#: ../mainwindow.py:1011
 #, fuzzy
 msgid "Closes all documents and leaves the current session."
 msgstr "Transporta todas as notas do documento ou da selección."
 
-#: ../mainwindow.py:997
+#: ../mainwindow.py:1012
 msgid "&Quit"
 msgstr ""
 
-#: ../mainwindow.py:999
+#: ../mainwindow.py:1014
 msgid "Export Source as Colored &HTML..."
 msgstr ""
 
-#: ../mainwindow.py:1001
+#: ../mainwindow.py:1016
 #, fuzzy
 msgid "&Undo"
 msgstr "Desacoplar"
 
-#: ../mainwindow.py:1002
+#: ../mainwindow.py:1017
 msgid "Re&do"
 msgstr ""
 
-#: ../mainwindow.py:1003
+#: ../mainwindow.py:1018
 msgid "Cu&t"
 msgstr ""
 
-#: ../mainwindow.py:1004 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1019 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Copiar"
 
-#: ../mainwindow.py:1005
-msgid "Copy as Colored &HTML"
-msgstr ""
-
-#: ../mainwindow.py:1006
-#, fuzzy
-msgid "&Paste"
-msgstr "Pausa"
-
-#: ../mainwindow.py:1007
-#, fuzzy
-msgid "Select &All"
-msgstr "Seleccionar todo"
-
-#: ../mainwindow.py:1008
-#, fuzzy
-msgid "Select &Block"
-msgstr "Seleccionar todo"
-
-#: ../mainwindow.py:1009
-#, fuzzy
-msgid "Select &None"
-msgstr "Seleccionar todo"
-
-#: ../mainwindow.py:1010
-msgid "Select Whole Lines Up"
-msgstr ""
-
-#: ../mainwindow.py:1011
-msgid "Select Whole Lines Down"
-msgstr ""
-
-#: ../mainwindow.py:1012
-#, fuzzy
-msgid "&Find..."
-msgstr "Imprimir..."
-
-#: ../mainwindow.py:1013
-msgid "Find Ne&xt"
-msgstr ""
-
-#: ../mainwindow.py:1014
-#, fuzzy
-msgid "Find Pre&vious"
-msgstr "Anterior"
-
-#: ../mainwindow.py:1015
-#, fuzzy
-msgid "&Replace..."
-msgstr "Busca..."
-
-#: ../mainwindow.py:1016
-#, fuzzy
-msgid "Pr&eferences..."
-msgstr "Preferencias xerais"
-
-#: ../mainwindow.py:1018
-#, fuzzy
-msgid "&Next Document"
-msgstr "&Documento"
-
-#: ../mainwindow.py:1019
-#, fuzzy
-msgid "&Previous Document"
-msgstr "&Código fonte do documento"
-
 #: ../mainwindow.py:1020
-msgid "Scroll Up"
+msgid "Copy as Colored &HTML"
 msgstr ""
 
 #: ../mainwindow.py:1021
 #, fuzzy
-msgid "Scroll Down"
-msgstr "Semitrino con final descendente"
+msgid "&Paste"
+msgstr "Pausa"
+
+#: ../mainwindow.py:1022
+#, fuzzy
+msgid "Select &All"
+msgstr "Seleccionar todo"
 
 #: ../mainwindow.py:1023
-msgid "New &Window"
-msgstr ""
+#, fuzzy
+msgid "Select &Block"
+msgstr "Seleccionar todo"
 
 #: ../mainwindow.py:1024
-msgid "&Fullscreen"
+#, fuzzy
+msgid "Select &None"
+msgstr "Seleccionar todo"
+
+#: ../mainwindow.py:1025
+msgid "Select Whole Lines Up"
 msgstr ""
 
 #: ../mainwindow.py:1026
-msgid "&User Guide"
+msgid "Select Whole Lines Down"
 msgstr ""
 
 #: ../mainwindow.py:1027
-msgid "&What's This?"
-msgstr ""
+#, fuzzy
+msgid "&Find..."
+msgstr "Imprimir..."
 
 #: ../mainwindow.py:1028
-msgid "Report a &Bug..."
+msgid "Find Ne&xt"
 msgstr ""
 
 #: ../mainwindow.py:1029
+#, fuzzy
+msgid "Find Pre&vious"
+msgstr "Anterior"
+
+#: ../mainwindow.py:1030
+#, fuzzy
+msgid "&Replace..."
+msgstr "Busca..."
+
+#: ../mainwindow.py:1031
+#, fuzzy
+msgid "Pr&eferences..."
+msgstr "Preferencias xerais"
+
+#: ../mainwindow.py:1033
+#, fuzzy
+msgid "&Next Document"
+msgstr "&Documento"
+
+#: ../mainwindow.py:1034
+#, fuzzy
+msgid "&Previous Document"
+msgstr "&Código fonte do documento"
+
+#: ../mainwindow.py:1035
+msgid "Scroll Up"
+msgstr ""
+
+#: ../mainwindow.py:1036
+#, fuzzy
+msgid "Scroll Down"
+msgstr "Semitrino con final descendente"
+
+#: ../mainwindow.py:1038
+msgid "New &Window"
+msgstr ""
+
+#: ../mainwindow.py:1039
+msgid "&Fullscreen"
+msgstr ""
+
+#: ../mainwindow.py:1041
+msgid "&User Guide"
+msgstr ""
+
+#: ../mainwindow.py:1042
+msgid "&What's This?"
+msgstr ""
+
+#: ../mainwindow.py:1043
+msgid "Report a &Bug..."
+msgstr ""
+
+#: ../mainwindow.py:1044
 msgid "&About {appname}..."
 msgstr ""
 
@@ -1171,7 +1171,7 @@ msgstr ""
 msgid "Show C&ompletions Popup"
 msgstr ""
 
-#: ../charmap/__init__.py:40 ../preferences/tools.py:229
+#: ../charmap/__init__.py:40 ../preferences/tools.py:230
 #, fuzzy
 msgid "Special Characters"
 msgstr "Caracteres especiais..."
@@ -1256,7 +1256,7 @@ msgstr "Abrir o documento nunha &nova fiestra"
 msgid "LilyPond Source"
 msgstr "Rexistro de LilyPond"
 
-#: ../doclist/__init__.py:39 ../preferences/tools.py:262
+#: ../doclist/__init__.py:39 ../preferences/tools.py:263
 #, fuzzy
 msgid "Documents"
 msgstr "&Documento"
@@ -2310,7 +2310,7 @@ msgstr "Seleccionar todo"
 msgid "(no key defined)"
 msgstr ""
 
-#: ../logtool/__init__.py:50 ../preferences/tools.py:94
+#: ../logtool/__init__.py:50 ../preferences/tools.py:95
 msgid "LilyPond Log"
 msgstr "Rexistro de LilyPond"
 
@@ -2606,7 +2606,7 @@ msgstr ""
 msgid "Could not save the image."
 msgstr "Non se puido cargar %1"
 
-#: ../outline/__init__.py:40 ../preferences/tools.py:294
+#: ../outline/__init__.py:40 ../preferences/tools.py:295
 msgid "Outline"
 msgstr ""
 
@@ -3051,7 +3051,7 @@ msgid "Preferred Language:"
 msgstr "Idioma:"
 
 #: ../preferences/documentation.py:128 ../preferences/general.py:133
-#: ../preferences/tools.py:295 ../scorewiz/settings.py:138
+#: ../preferences/tools.py:296 ../scorewiz/settings.py:138
 #: ../scorewiz/settings.py:204 ../scorewiz/settings.py:299
 #: ../scorewiz/parts/_base.py:214 ../scorewiz/parts/plucked_strings.py:65
 #: ../widgets/schemeselector.py:115
@@ -3063,7 +3063,7 @@ msgid "English (untranslated)"
 msgstr ""
 
 #: ../preferences/documentation.py:130 ../preferences/fontscolors.py:122
-#: ../preferences/tools.py:95 ../preferences/tools.py:230
+#: ../preferences/tools.py:96 ../preferences/tools.py:231
 msgid "Font:"
 msgstr ""
 
@@ -3857,6 +3857,51 @@ msgstr ""
 msgid "Here you can change the settings for various tools."
 msgstr ""
 
+#: ../preferences/prefshelp.py:268
+msgid "Configuring the Outline View"
+msgstr ""
+
+#: ../preferences/prefshelp.py:272
+msgid ""
+"The document outline view is created by looking for certain expressions in "
+"the document text."
+msgstr ""
+
+#: ../preferences/prefshelp.py:274
+msgid ""
+"You can specify what to search for by entering a list of regular expressions."
+msgstr ""
+
+#: ../preferences/prefshelp.py:276
+msgid ""
+"In those expressions, <code>^</code> matches at the beginning of every line, "
+"and <code>$</code> matches at the end of a line."
+msgstr ""
+
+#: ../preferences/prefshelp.py:278
+msgid ""
+"Normally when an expressions matches text, the whole match is displayed as "
+"an item in the outline."
+msgstr ""
+
+#: ../preferences/prefshelp.py:280
+msgid "You can also use named groups, with the {code} named group syntax."
+msgstr ""
+
+#: ../preferences/prefshelp.py:282
+msgid "You can use the name {text} or {title}."
+msgstr ""
+
+#: ../preferences/prefshelp.py:284
+msgid ""
+"In that case, only the named part of a match is displayed. If the {title} "
+"name is used, it is displayed in a bold font."
+msgstr ""
+
+#: ../preferences/prefshelp.py:287
+msgid "For more information about regular expressions, see {link}."
+msgstr ""
+
 #: ../preferences/shortcuts.py:56 ../snippet/model.py:63
 msgid "Shortcut"
 msgstr "Atallo"
@@ -3892,84 +3937,84 @@ msgstr[1] "Eliminar as plicas das notas de percusión."
 msgid "(default)"
 msgstr "predeterminado"
 
-#: ../preferences/tools.py:96
+#: ../preferences/tools.py:97
 msgid "Show log when a job is started"
 msgstr ""
 
-#: ../preferences/tools.py:97
+#: ../preferences/tools.py:98
 msgid "Display plain log output"
 msgstr ""
 
-#: ../preferences/tools.py:99
+#: ../preferences/tools.py:100
 msgid "If checked, Frescobaldi will not shorten filenames in the log output."
 msgstr ""
 
-#: ../preferences/tools.py:162
+#: ../preferences/tools.py:163
 msgid "Music View"
 msgstr ""
 
-#: ../preferences/tools.py:163
+#: ../preferences/tools.py:164
 #, fuzzy
 msgid "Only load updated PDF documents"
 msgstr "Pechar outros documentos"
 
-#: ../preferences/tools.py:165
+#: ../preferences/tools.py:166
 msgid ""
 "If checked, Frescobaldi will not open PDF documents that are not\n"
 "up-to-date (i.e. the source file has been modified later)."
 msgstr ""
 
-#: ../preferences/tools.py:167
+#: ../preferences/tools.py:168
 #, fuzzy
 msgid "Magnifier Size:"
 msgstr "Tamaño do papel:"
 
-#: ../preferences/tools.py:169
+#: ../preferences/tools.py:170
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr ""
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: ../preferences/tools.py:171
+#: ../preferences/tools.py:172
 msgid " pixels"
 msgstr ""
 
-#: ../preferences/tools.py:172
+#: ../preferences/tools.py:173
 msgid "Magnifier Scale:"
 msgstr ""
 
-#: ../preferences/tools.py:174
+#: ../preferences/tools.py:175
 msgid "Magnification of the magnifier."
 msgstr ""
 
-#: ../preferences/tools.py:175
+#: ../preferences/tools.py:176
 msgctxt "percent unit sign"
 msgid "%"
 msgstr ""
 
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
-#: ../preferences/tools.py:177
+#: ../preferences/tools.py:178
 msgid "Kinetic Scrolling"
 msgstr ""
 
-#: ../preferences/tools.py:178
+#: ../preferences/tools.py:179
 msgid "Show Scrollbars"
 msgstr ""
 
-#: ../preferences/tools.py:263
+#: ../preferences/tools.py:264
 #, fuzzy
 msgid "Group documents by directory"
 msgstr "Abrir o cartafol actual"
 
-#: ../preferences/tools.py:296
+#: ../preferences/tools.py:297
 #, fuzzy
 msgid "Restores the built-in outline patterns."
 msgstr "Quitar silencios"
 
-#: ../preferences/tools.py:297
+#: ../preferences/tools.py:298
 msgid "Patterns to match in text that are shown in outline:"
 msgstr ""
 
-#: ../preferences/tools.py:323
+#: ../preferences/tools.py:325
 msgid "Enter a regular expression to match:"
 msgstr ""
 
