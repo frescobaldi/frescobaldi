@@ -288,8 +288,4 @@ class preferences_tools_outline(help.page):
                 link=help.contents.search_replace.link()),
             )
 
-    def seealso():
-        return (
-            help.contents.search_replace,
-        )
 
