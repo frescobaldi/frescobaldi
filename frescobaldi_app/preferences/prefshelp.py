@@ -257,5 +257,32 @@ class preferences_tools(help.page):
     def body():
         return p(_("Here you can change the settings for various tools."))
 
+    def children():
+        return (
+            preferences_tools_outline,
+        )
 
+
+class preferences_tools_outline(help.page):
+    def title():
+        return _("Configuring the Outline View")
+    
+    def body():
+        return p(
+            _("The document outline view is created by looking for certain "
+              "expressions in the document text."),
+            _("You can specify what to search for by entering a list of "
+              "regular expressions.") + " " +
+            _("In those expressions, <code>^</code> matches at the beginning of "
+              "every line, and <code>$</code> matches at the end of a line."),
+            #_("You can use named groups, with the {code} named group syntax.").format(
+            #    code="<code>(?P&lt;name&gt;</code>..."),
+            _("For more information about regular expressions, see {link}.").format(
+                link=help.contents.search_replace.link()),
+            )
+
+    def seealso():
+        return (
+            help.contents.search_replace,
+        )
 
