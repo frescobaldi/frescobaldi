@@ -24,7 +24,7 @@ The document outline tool widget.
 from __future__ import unicode_literals
 
 from PyQt4.QtCore import QEvent, QTimer
-from PyQt4.QtGui import QTextCursor, QTreeWidget, QTreeWidgetItem
+from PyQt4.QtGui import QFont, QTextCursor, QTreeWidget, QTreeWidgetItem
 
 import app
 import qutil
@@ -77,7 +77,6 @@ class Widget(QTreeWidget):
             last_block = None
             for i in structure.outline():
                 position = i.start()
-                text = i.group('title') or i.group()
                 block = doc.findBlock(position)
                 depth = tokeniter.state(block).depth()
                 if block == last_block:
@@ -107,8 +106,28 @@ class Widget(QTreeWidget):
                             b = b.next()
                         else:
                             parent = last_item
+                
                 item = last_item = QTreeWidgetItem(parent)
+                
+                # set item text and display style bold if 'title' was used
+                try:
+                    text = i.group('title')
+                    if text:
+                        font = item.font(0)
+                        font.setWeight(QFont.Bold)
+                        item.setFont(0, font)                        
+                except IndexError:
+                    text = None
+                if not text:
+                    try:
+                        text = i.group('text')
+                    except IndexError:
+                        pass
+                if not text:
+                    text = i.group()
                 item.setText(0, text)
+                
+                # remember whether is was collapsed by the user
                 try:
                     collapsed = block.userData().collapsed
                 except AttributeError:
