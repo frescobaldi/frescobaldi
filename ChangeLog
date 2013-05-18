@@ -2,6 +2,16 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
+Changes in 2.0.11 --
+
+* Translations:
+  - updated: nl
+* Improvements:
+  - when switching documents with multiple editor views open, and one of the
+    views displays the document, that view is made current, instead of changing
+    the document in the current view.
+
+
 Changes in 2.0.10 -- May 12th, 2013
 
 * Translations:

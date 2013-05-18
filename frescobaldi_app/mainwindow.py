@@ -140,7 +140,18 @@ class MainWindow(QMainWindow):
         """Returns the current Document or None."""
         return self._currentDocument
         
-    def setCurrentDocument(self, doc, findOpenView=False):
+    def setCurrentDocument(self, doc, findOpenView=None):
+        """Set the current document.
+        
+        The findOpenView argument makes sense when the user has split the
+        editor view in more than one.  If findOpenView == True and one of the
+        views has the document, that view is focused. If findOpenView == False,
+        the currently focused view is changed to the document. If findOpenView
+        is None, the users setting is read.
+        
+        """
+        if findOpenView is None:
+            findOpenView = QSettings().value("mainwindow/find_open_view", True, bool)
         self.viewManager.setCurrentDocument(doc, findOpenView)
     
     def hasSelection(self):
@@ -155,8 +166,12 @@ class MainWindow(QMainWindow):
         """
         return self.currentView().textCursor()
         
-    def setTextCursor(self, cursor, findOpenView=False):
-        """Switches to the document() of the cursor and then sets that cursor on its View."""
+    def setTextCursor(self, cursor, findOpenView=None):
+        """Switch to the cursor's document() and set that cursor on its View.
+        
+        For the findOpenView argument, see setCurrentDocument().
+        
+        """
         self.setCurrentDocument(cursor.document(), findOpenView)
         self.currentView().setTextCursor(cursor)
     
