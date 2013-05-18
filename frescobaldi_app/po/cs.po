@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-05-15 00:45+0200\n"
-"PO-Revision-Date: 2013-03-24 10:48+0100\n"
+"POT-Creation-Date: 2013-04-03 21:38+0200\n"
+"PO-Revision-Date: 2013-05-15 22:45+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -306,9 +306,8 @@ msgid "Always &Engrave This Document"
 msgstr "Tento dokument &vyrýt vždy"
 
 #: ../documentmenu.py:42
-#, fuzzy
 msgctxt "menu title"
-msgid "&Documents"
+msgid "&Document"
 msgstr "&Dokument"
 
 #. L10N: 'always engraved': the document is marked as 'Always Engrave' in the LilyPond menu
@@ -2847,11 +2846,11 @@ msgstr "Obrázek se nepodařilo uložit."
 
 #: ../outline/__init__.py:40 ../preferences/tools.py:294
 msgid "Outline"
-msgstr ""
+msgstr "Osnova"
 
 #: ../outline/__init__.py:41
 msgid "&Outline"
-msgstr ""
+msgstr "&Osnova"
 
 #: ../pitch/__init__.py:99
 msgid "Pitch Name &Language"
@@ -4287,17 +4286,16 @@ msgid "Group documents by directory"
 msgstr "Seskupit dokumenty podle adresáře"
 
 #: ../preferences/tools.py:296
-#, fuzzy
 msgid "Restores the built-in outline patterns."
-msgstr "Obnovit vestavěné kousky"
+msgstr "Obnoví vestavěné vzory osnovy."
 
 #: ../preferences/tools.py:297
 msgid "Patterns to match in text that are shown in outline:"
-msgstr ""
+msgstr "Vzory k porovnání v textu, které jsou ukázány v osnově:"
 
 #: ../preferences/tools.py:323
 msgid "Enter a regular expression to match:"
-msgstr ""
+msgstr "Zadat regulární výraz k porovnání:"
 
 #: ../quickinsert/__init__.py:48
 msgid "Quick &Insert"
