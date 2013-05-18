@@ -275,8 +275,15 @@ class preferences_tools_outline(help.page):
               "regular expressions.") + " " +
             _("In those expressions, <code>^</code> matches at the beginning of "
               "every line, and <code>$</code> matches at the end of a line."),
-            #_("You can use named groups, with the {code} named group syntax.").format(
-            #    code="<code>(?P&lt;name&gt;</code>..."),
+            _("Normally when an expressions matches text, the whole match is "
+              "displayed as an item in the outline.") + " " +
+            _("You can also use named groups, with the {code} named group syntax.").format(
+                code="<code>(?P&lt;name&gt;</code>...") + " " +
+            _("You can use the name {text} or {title}.").format(
+                    text='"text"', title='"title"') + " " +
+            _("In that case, only the named part of a match is displayed. "
+              "If the {title} name is used, it is displayed in a bold font.").format(
+                    title='"title"'),
             _("For more information about regular expressions, see {link}.").format(
                 link=help.contents.search_replace.link()),
             )
