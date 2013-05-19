@@ -32,10 +32,10 @@ import plugin
 
 
 default_outline_patterns = [
-r"\\(score|book|bookpart)\b",
+r"(?P<title>\\(score|book|bookpart))\b",
 r"^\\(paper|layout|header)\b",
 r"\\(new|context)\s+[A-Z]\w+",
-r"%+\s*(?P<title>BEGIN[^\n]*)[ \t]*$",
+r"(?P<title>BEGIN[^\n]*)[ \t]*$",
 r"^[a-zA-Z]+\s*=",
 r"^<<",
 r"^\{",
@@ -45,13 +45,48 @@ r"\b(FIXME|HACK|XXX)\b",
 
 def outline_re():
     """Return the expression to look for document outline items."""
+    global _outline_re
+    try:
+        return _outline_re
+    except NameError:
+        _outline_re = create_outline_re()
+    return _outline_re
+
+
+def _reset_outline_re():
+    global _outline_re
+    del _outline_re
+
+
+app.settingsChanged.connect(_reset_outline_re, -999)
+
+
+def create_outline_re():
+    """Create and return the expression to look for document outline items."""
     try:
         rx = QSettings().value("documentstructure/outline_patterns",
                                default_outline_patterns, type(""))
     except TypeError:
         rx = []
-    rx = '|'.join(rx)
-    return re.compile(rx, re.MULTILINE)
+    # suffix duplicate named groups with a number
+    groups = {}
+    new_rx = []
+    for e in rx:
+        try:
+            c = re.compile(e)
+        except re.error:
+            continue
+        if c.groupindex:
+            for name in c.groupindex:
+                if name in groups:
+                    groups[name] += 1
+                    new_name = name + format(groups[name])
+                    e = e.replace("(?P<{0}>".format(name), "(?P<{0}>".format(new_name))
+                else:
+                    groups[name] = 0
+        new_rx.append(e)
+    rx = '|'.join(new_rx)
+    return re.compile(rx, re.MULTILINE | re.UNICODE)
 
 
 class DocumentStructure(plugin.DocumentPlugin):

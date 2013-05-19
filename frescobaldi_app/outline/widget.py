@@ -110,20 +110,16 @@ class Widget(QTreeWidget):
                 item = last_item = QTreeWidgetItem(parent)
                 
                 # set item text and display style bold if 'title' was used
-                try:
-                    text = i.group('title')
+                for name, text in i.groupdict().items():
                     if text:
-                        font = item.font(0)
-                        font.setWeight(QFont.Bold)
-                        item.setFont(0, font)                        
-                except IndexError:
-                    text = None
-                if not text:
-                    try:
-                        text = i.group('text')
-                    except IndexError:
-                        pass
-                if not text:
+                        if name.startswith('title'):
+                            font = item.font(0)
+                            font.setWeight(QFont.Bold)
+                            item.setFont(0, font)
+                            break
+                        elif name.startswith('text'):
+                            break
+                else:
                     text = i.group()
                 item.setText(0, text)
                 
