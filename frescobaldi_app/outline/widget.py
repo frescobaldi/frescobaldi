@@ -24,7 +24,7 @@ The document outline tool widget.
 from __future__ import unicode_literals
 
 from PyQt4.QtCore import QEvent, QTimer
-from PyQt4.QtGui import QFont, QTextCursor, QTreeWidget, QTreeWidgetItem
+from PyQt4.QtGui import QBrush, QFont, QTextCursor, QTreeWidget, QTreeWidgetItem
 
 import app
 import qutil
@@ -117,6 +117,13 @@ class Widget(QTreeWidget):
                             font.setWeight(QFont.Bold)
                             item.setFont(0, font)
                             break
+                        elif name.startswith('alert'):
+                            color = item.foreground(0).color()
+                            color = qutil.addcolor(color, 128, 0, 0)
+                            item.setForeground(0, QBrush(color))
+                            font = item.font(0)
+                            font.setStyle(QFont.StyleItalic)
+                            item.setFont(0, font)
                         elif name.startswith('text'):
                             break
                 else:

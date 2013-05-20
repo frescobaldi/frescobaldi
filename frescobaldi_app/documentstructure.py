@@ -39,8 +39,8 @@ r"(?P<title>BEGIN[^\n]*)[ \t]*$",
 r"^[a-zA-Z]+\s*=",
 r"^<<",
 r"^\{",
-r"^\\relative",
-r"\b(FIXME|HACK|XXX)\b",
+r"^\\relative([ \t]+\w+[',]*)?",
+r"\b(?P<alert>(FIXME|HACK|XXX+)\b\W*\w+)",
 ]
 
 def outline_re():
