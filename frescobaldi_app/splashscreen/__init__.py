@@ -46,9 +46,7 @@ def show():
 
     splash.showMessage(message, Qt.AlignRight | Qt.AlignTop, Qt.white)
     splash.show()
-    
-    QApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
-    
+    splash.repaint()
     splash.deleteLater()
 
 
