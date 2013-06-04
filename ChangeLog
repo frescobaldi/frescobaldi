@@ -6,6 +6,8 @@ Changes in 2.0.11 --
 
 * Translations:
   - updated: cs, nl
+* New features:
+  - Frescobaldi now has a manpage, kindly provided by Ryan Kavanagh
 * Improvements:
   - when switching documents with multiple editor views open, and one of the
     views displays the document, that view is made current, instead of changing
