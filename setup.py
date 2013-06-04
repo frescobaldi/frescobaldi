@@ -37,6 +37,7 @@ else:
     data_files = [
         ('share/icons/hicolor/scalable/apps', ['frescobaldi_app/icons/frescobaldi.svg']),
         ('share/applications', ['frescobaldi.desktop']),
+        ('share/man/man1', ['frescobaldi.1']),
     ]
 
 classifiers = [
