@@ -158,7 +158,7 @@ class HtmlHighlighter(object):
                 self._data.baseColors['text'].name(),
                 self._data.baseColors['background'].name())
         else:
-            css = '<style type="text/css">{0}</style>'.format(
+            css = '<style type="text/css">\n{0}</style>'.format(
                 escape(self.stylesheet()))
             bodyattr = ''
         return self.wrapper_html.format(
