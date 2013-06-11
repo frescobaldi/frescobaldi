@@ -120,6 +120,9 @@ def menu_file_export(mainwindow):
     ac = mainwindow.actionCollection
     
     m.addAction(ac.export_colored_html)
+    m.addAction(ac.export_colored_html_body)
+    m.addAction(ac.export_inline_colored_html_body)
+    m.addAction(ac.export_css)
     return m
     
 
@@ -135,6 +138,7 @@ def menu_edit(mainwindow):
     m.addAction(ac.edit_copy)
     m.addAction(panelmanager.manager(mainwindow).snippettool.actionCollection.copy_to_snippet)
     m.addAction(ac.edit_copy_colored_html)
+    m.addAction(panelmanager.manager(mainwindow).musicview.actionCollection.music_copy_image)
     m.addAction(ac.edit_paste)
     m.addSeparator()
     m.addAction(ac.edit_select_all)
