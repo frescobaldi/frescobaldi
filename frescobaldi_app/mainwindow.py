@@ -215,6 +215,7 @@ class MainWindow(QMainWindow):
             ac = self.actionCollection
             ac.edit_copy.setEnabled(selection)
             ac.edit_copy_colored_html.setEnabled(selection)
+            ac.edit_copy_styled_html.setEnabled(selection)
             ac.edit_cut.setEnabled(selection)
             ac.edit_select_none.setEnabled(selection)
     
@@ -615,7 +616,30 @@ class MainWindow(QMainWindow):
                 cur1.removeSelectedText()
             doc.print_(printer)
     
-    def exportColoredHtml(self):
+    def exportCSS(self):
+        doc = self.currentDocument()
+        name, ext = os.path.splitext(os.path.basename(doc.url().path()))
+        if name:
+            if ext.lower() == ".css":
+                name += "_css"
+            name += ".css"
+        dir = os.path.dirname(doc.url().toLocalFile())
+        if dir:
+            name = os.path.join(dir, name)
+        filename = QFileDialog.getSaveFileName(self, app.caption(_("Export Source Code")),
+            name, "{0} (*.css)".format("Cascading StyleSheets"))
+        if not filename:
+            return #cancelled
+        import highlight2html
+        css = highlight2html.HtmlHighlighter().stylesheet(True)
+        try: 
+            with open(filename, "wb") as f:
+                f.write(css.encode('utf-8'))
+        except (IOError, OSError) as err:
+            QMessageBox.warning(self, app.caption(_("Error")),
+                _("Can't write to destination:\n\n{url}\n\n{error}").format(url=filename, error=err))
+        
+    def exportLilySource(self, bodyOnly):
         doc = self.currentDocument()
         name, ext = os.path.splitext(os.path.basename(doc.url().path()))
         if name:
@@ -625,19 +649,26 @@ class MainWindow(QMainWindow):
         dir = os.path.dirname(doc.url().toLocalFile())
         if dir:
             name = os.path.join(dir, name)
-        filename = QFileDialog.getSaveFileName(self, app.caption(_("Export as HTML")),
+        filename = QFileDialog.getSaveFileName(self, app.caption(_("Export Source Code")),
             name, "{0} (*.html)".format("HTML Files"))
         if not filename:
             return #cancelled
         import highlight2html
-        html = highlight2html.HtmlHighlighter().html_document(doc)
-        try:
+        html = highlight2html.HtmlHighlighter().html_document(doc, bodyOnly)
+        
+        try: 
             with open(filename, "wb") as f:
                 f.write(html.encode('utf-8'))
         except (IOError, OSError) as err:
             QMessageBox.warning(self, app.caption(_("Error")),
                 _("Can't write to destination:\n\n{url}\n\n{error}").format(url=filename, error=err))
         
+    def exportColoredHtml(self):
+        self.exportLilySource(bodyOnly = False)
+
+    def exportColoredHtmlBody(self):
+        self.exportLilySource(bodyOnly = True)
+    
     def undo(self):
         self.currentDocument().undo()
         
@@ -659,12 +690,24 @@ class MainWindow(QMainWindow):
             return
         import highlight2html
         h = highlight2html.HtmlHighlighter(inline_style=True)
-        html = h.html_selection(cursor)
+        html = h.html_selection(cursor, False)
         data = QMimeData()
         data.setHtml(html)
-        #data.setText(html)
+        
         QApplication.clipboard().setMimeData(data)
         
+    def copyStyledHtml(self):
+        cursor = self.currentView().textCursor()
+        if not cursor.hasSelection():
+            return
+        import highlight2html
+        h = highlight2html.HtmlHighlighter(inline_style=False)
+        html = h.html_selection(cursor, True)
+        data = QMimeData()
+        data.setText(html)
+        
+        QApplication.clipboard().setMimeData(data)
+
     def selectNone(self):
         cursor = self.currentView().textCursor()
         cursor.clearSelection()
@@ -776,12 +819,15 @@ class MainWindow(QMainWindow):
         ac.file_close_other.triggered.connect(self.closeOtherDocuments)
         ac.file_close_all.triggered.connect(self.closeAllDocuments)
         ac.export_colored_html.triggered.connect(self.exportColoredHtml)
+        ac.export_colored_html_body.triggered.connect(self.exportColoredHtmlBody)
+        ac.export_css.triggered.connect(self.exportCSS)
         ac.edit_undo.triggered.connect(self.undo)
         ac.edit_redo.triggered.connect(self.redo)
         ac.edit_cut.triggered.connect(self.cut)
         ac.edit_copy.triggered.connect(self.copy)
         ac.edit_paste.triggered.connect(self.paste)
         ac.edit_copy_colored_html.triggered.connect(self.copyColoredHtml)
+        ac.edit_copy_styled_html.triggered.connect(self.copyStyledHtml)
         ac.edit_select_all.triggered.connect(self.selectAll)
         ac.edit_select_none.triggered.connect(self.selectNone)
         ac.edit_select_full_lines_up.triggered.connect(self.selectFullLinesUp)
@@ -882,12 +928,15 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_quit = QAction(parent)
         
         self.export_colored_html = QAction(parent)
+        self.export_colored_html_body = QAction(parent)
+        self.export_css = QAction(parent)
         
         self.edit_undo = QAction(parent)
         self.edit_redo = QAction(parent)
         self.edit_cut = QAction(parent)
         self.edit_copy = QAction(parent)
         self.edit_copy_colored_html = QAction(parent)
+        self.edit_copy_styled_html = QAction(parent)
         self.edit_paste = QAction(parent)
         self.edit_select_all = QAction(parent)
         self.edit_select_current_toplevel = QAction(parent)
@@ -1012,12 +1061,15 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_quit.setText(_("&Quit"))
         
         self.export_colored_html.setText(_("Export Source as Colored &HTML..."))
+        self.export_colored_html_body.setText(_("Export Source as Colored HTML (&Body only)..."))
+        self.export_css.setText(_("Export &CSS file..."))
         
         self.edit_undo.setText(_("&Undo"))
         self.edit_redo.setText(_("Re&do"))
         self.edit_cut.setText(_("Cu&t"))
         self.edit_copy.setText(_("&Copy"))
         self.edit_copy_colored_html.setText(_("Copy as Colored &HTML"))
+        self.edit_copy_styled_html.setText(_("Copy as St&yled HTML"))
         self.edit_paste.setText(_("&Paste"))
         self.edit_select_all.setText(_("Select &All"))
         self.edit_select_current_toplevel.setText(_("Select &Block"))

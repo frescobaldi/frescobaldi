@@ -59,16 +59,27 @@ class HtmlHighlighter(object):
     # Set the inline_style attribute to True to use inline style attributes
     inline_style = False
     
-    wrapper_html = (
+    wrapper_css_doc = (
+    "/*\n"
+    " * LilyPond CSS\n"
+    " * Style sheet for displaying LilyPond source code\n"
+    " *\n"
+    " * Exported from Frescobaldi\n" #TODO: Enter version string
+    " */\n\n"
+    )
+    
+    wrapper_html_doc = (
     "<html>\n"
     "<head>\n"
     "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>\n"
     "{css}\n"
     "</head>\n"
     "<body{bodyattr}>\n"
-    "<pre>{body}</pre>\n"
+    "{content}\n"
     "</body>\n</html>\n"
     )
+    
+    wrapper_html_content = "<pre>{content}</pre>\n"
     
     def __init__(self, data=None, inline_style=False):
         """Initialize the HtmlHighlighter with a TextFormatData instance.
@@ -111,9 +122,12 @@ class HtmlHighlighter(object):
             "{0}: {1};".format(k, v)
             for k, v in items.items())
 
-    def stylesheet(self):
+    def stylesheet(self, standalone = False):
         """Returns the stylesheet for all the styles."""
-        return "\n".join(
+        header = ""
+        if standalone:
+            header = self.wrapper_css_doc
+        return header + "\n".join(
             '{0} {{\n  {1}\n}}\n'.format(
             selector, self.format_css_items(items, '\n  '))
             for selector, items in self.css_data())
@@ -144,11 +158,11 @@ class HtmlHighlighter(object):
         else:
             return '<span class="{0}">{1}</span>'.format(css, escape(token))
             
-    def html_wrapper(self, body):
+    def html_doc_wrapper(self, content):
         """Returns a full HTML document.
         
         The body should be the HTML for all the text.
-        It will be wrapped in a html/body/pre construct, and the stylesheet
+        It will be wrapped in a html/body construct, and the stylesheet
         will be put in the header, if inline_style is set to False (default).
         
         """
@@ -161,21 +175,26 @@ class HtmlHighlighter(object):
             css = '<style type="text/css">\n{0}</style>'.format(
                 escape(self.stylesheet()))
             bodyattr = ''
-        return self.wrapper_html.format(
+        return self.wrapper_html_doc.format(
             css=css,
             bodyattr=bodyattr,
-            body=body)
+            content=content)
         
-    def html_document(self, doc):
-        """Returns HTML for the specified Document."""
+    def html_document(self, doc, bodyOnly = False):
+        """Returns HTML for the specified Document.
+           If bodyOnly is False (default) it returns a full document,
+           otherwise it returns only the <pre></pre> content."""
         def html():
             block = doc.firstBlock()
             while block.isValid():
                 yield "".join(map(self.html_for_token, tokeniter.tokens(block)))
                 block = block.next()
-        return self.html_wrapper("\n".join(html()))
+        result = self.wrapper_html_content.format(content="\n".join(html()))
+        if not bodyOnly:
+            result = self.html_doc_wrapper(result)
+        return result
     
-    def html_selection(self, cursor):
+    def html_selection(self, cursor, styled):
         """Return HTML for the cursor's selection."""
         d = cursor.document()
         start = d.findBlock(cursor.selectionStart())
@@ -207,6 +226,4 @@ class HtmlHighlighter(object):
                     html.append(self.html_for_token(t[:endpos-t.pos], type(t)))
                 break
             html.append(self.html_for_token(t))
-        return self.html_wrapper("".join(html))
-
-
+        return self.wrapper_html_content.format(content="".join(html))
