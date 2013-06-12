@@ -2,6 +2,14 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
+* Improvements:
+  - Extended options for exporting/copying formatted source code.
+    Export CSS file that can be used to style LilyPond source in HTML files
+    Export source file to a complete HTML file or the mere body 
+    (to be pasted in web pages)
+    Copy selection as formatted text or HTML source,
+    either with inline styles or referencing CSS 
+
 Changes in 2.0.11 --
 
 * Translations:
