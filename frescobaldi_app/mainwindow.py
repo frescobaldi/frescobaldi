@@ -619,16 +619,14 @@ class MainWindow(QMainWindow):
     
     def exportCSS(self):
         doc = self.currentDocument()
-        name, ext = os.path.splitext(os.path.basename(doc.url().path()))
-        if name:
-            if ext.lower() == ".css":
-                name += "_css"
-            name += ".css"
         dir = os.path.dirname(doc.url().toLocalFile())
         if dir:
-            name = os.path.join(dir, name)
-        filename = QFileDialog.getSaveFileName(self, app.caption(_("Export Source Code")),
-            name, "{0} (*.css)".format("Cascading StyleSheets"))
+            suggestedName = os.path.join(dir, 'lilypond.css')
+        else:
+            from os.path import expanduser
+            suggestedName = os.path.join(expanduser("~"), 'lilypond.css')
+        filename = QFileDialog.getSaveFileName(self, app.caption(_("Export LilyPond CSS")),
+            suggestedName, "{0} (*.css)".format("Cascading StyleSheets"))
         if not filename:
             return #cancelled
         import highlight2html
