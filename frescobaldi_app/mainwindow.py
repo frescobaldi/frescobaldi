@@ -617,6 +617,15 @@ class MainWindow(QMainWindow):
                 cur1.removeSelectedText()
             doc.print_(printer)
     
+    def exportFile(self, filename, content):
+        try: 
+            with open(filename, "wb") as f:
+                f.write(content.encode('utf-8'))
+        except (IOError, OSError) as err:
+            QMessageBox.warning(self, app.caption(_("Error")),
+                _("Can't write to destination:\n\n{url}\n\n{error}").format(url=filename, error=err))
+        
+    
     def exportCSS(self):
         doc = self.currentDocument()
         dir = os.path.dirname(doc.url().toLocalFile())
@@ -630,15 +639,10 @@ class MainWindow(QMainWindow):
         if not filename:
             return #cancelled
         import highlight2html
-        css = highlight2html.HtmlHighlighter().stylesheet(True)
-        try: 
-            with open(filename, "wb") as f:
-                f.write(css.encode('utf-8'))
-        except (IOError, OSError) as err:
-            QMessageBox.warning(self, app.caption(_("Error")),
-                _("Can't write to destination:\n\n{url}\n\n{error}").format(url=filename, error=err))
+        css = highlight2html.HtmlHighlighter().stylesheet(standalone = True)
+        self.exportFile(filename, css)
         
-    def exportLilySource(self, bodyOnly):
+    def exportLilySource(self, bodyOnly, inline = False):
         doc = self.currentDocument()
         name, ext = os.path.splitext(os.path.basename(doc.url().path()))
         if name:
@@ -653,20 +657,18 @@ class MainWindow(QMainWindow):
         if not filename:
             return #cancelled
         import highlight2html
-        html = highlight2html.HtmlHighlighter().html_document(doc, bodyOnly)
-        
-        try: 
-            with open(filename, "wb") as f:
-                f.write(html.encode('utf-8'))
-        except (IOError, OSError) as err:
-            QMessageBox.warning(self, app.caption(_("Error")),
-                _("Can't write to destination:\n\n{url}\n\n{error}").format(url=filename, error=err))
+        h = highlight2html.HtmlHighlighter(inline_style = inline)
+        html = h.html_document(doc, bodyOnly)
+        self.exportFile(filename, html)
         
     def exportColoredHtml(self):
         self.exportLilySource(bodyOnly = False)
 
     def exportColoredHtmlBody(self):
         self.exportLilySource(bodyOnly = True)
+    
+    def exportInlineColoredHtmlBody(self):
+        self.exportLilySource(bodyOnly = True, inline = True)
     
     def undo(self):
         self.currentDocument().undo()
@@ -818,6 +820,7 @@ class MainWindow(QMainWindow):
         ac.file_close_all.triggered.connect(self.closeAllDocuments)
         ac.export_colored_html.triggered.connect(self.exportColoredHtml)
         ac.export_colored_html_body.triggered.connect(self.exportColoredHtmlBody)
+        ac.export_inline_colored_html_body.triggered.connect(self.exportInlineColoredHtmlBody)
         ac.export_css.triggered.connect(self.exportCSS)
         ac.edit_undo.triggered.connect(self.undo)
         ac.edit_redo.triggered.connect(self.redo)
@@ -928,6 +931,7 @@ class ActionCollection(actioncollection.ActionCollection):
         
         self.export_colored_html = QAction(parent)
         self.export_colored_html_body = QAction(parent)
+        self.export_inline_colored_html_body = QAction(parent)
         self.export_css = QAction(parent)
         
         self.edit_undo = QAction(parent)
@@ -1062,6 +1066,7 @@ class ActionCollection(actioncollection.ActionCollection):
         
         self.export_colored_html.setText(_("Export Source as Colored &HTML..."))
         self.export_colored_html_body.setText(_("Export Source as Colored HTML (&Body only)..."))
+        self.export_inline_colored_html_body.setText(_("Export Source as (&inline) Colored HTML (Body only)..."))
         self.export_css.setText(_("Export &CSS file..."))
         
         self.edit_undo.setText(_("&Undo"))

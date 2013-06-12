@@ -121,6 +121,7 @@ def menu_file_export(mainwindow):
     
     m.addAction(ac.export_colored_html)
     m.addAction(ac.export_colored_html_body)
+    m.addAction(ac.export_inline_colored_html_body)
     m.addAction(ac.export_css)
     return m
     
