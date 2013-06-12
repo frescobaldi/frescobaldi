@@ -11,6 +11,7 @@ import os
 import subprocess
 import sys
 
+sys.path.insert(0, "../..")
 from frescobaldi_app import info
 
 command = [
