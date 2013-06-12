@@ -216,6 +216,7 @@ class MainWindow(QMainWindow):
             ac.edit_copy.setEnabled(selection)
             ac.edit_copy_colored_html.setEnabled(selection)
             ac.edit_copy_styled_html.setEnabled(selection)
+            ac.edit_copy_inline_styled_html.setEnabled(selection)
             ac.edit_cut.setEnabled(selection)
             ac.edit_select_none.setEnabled(selection)
     
@@ -702,6 +703,11 @@ class MainWindow(QMainWindow):
         data.setText(self.formattedSelection(inline = False))
         QApplication.clipboard().setMimeData(data)
 
+    def copyInlineStyledHtml(self):
+        data = QMimeData()
+        data.setText(self.formattedSelection(inline = True))
+        QApplication.clipboard().setMimeData(data)
+
     def selectNone(self):
         cursor = self.currentView().textCursor()
         cursor.clearSelection()
@@ -822,6 +828,7 @@ class MainWindow(QMainWindow):
         ac.edit_paste.triggered.connect(self.paste)
         ac.edit_copy_colored_html.triggered.connect(self.copyColoredHtml)
         ac.edit_copy_styled_html.triggered.connect(self.copyStyledHtml)
+        ac.edit_copy_inline_styled_html.triggered.connect(self.copyInlineStyledHtml)
         ac.edit_select_all.triggered.connect(self.selectAll)
         ac.edit_select_none.triggered.connect(self.selectNone)
         ac.edit_select_full_lines_up.triggered.connect(self.selectFullLinesUp)
@@ -931,6 +938,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.edit_copy = QAction(parent)
         self.edit_copy_colored_html = QAction(parent)
         self.edit_copy_styled_html = QAction(parent)
+        self.edit_copy_inline_styled_html = QAction(parent)
         self.edit_paste = QAction(parent)
         self.edit_select_all = QAction(parent)
         self.edit_select_current_toplevel = QAction(parent)
@@ -1062,8 +1070,9 @@ class ActionCollection(actioncollection.ActionCollection):
         self.edit_redo.setText(_("Re&do"))
         self.edit_cut.setText(_("Cu&t"))
         self.edit_copy.setText(_("&Copy"))
-        self.edit_copy_colored_html.setText(_("Copy as Colored &HTML"))
-        self.edit_copy_styled_html.setText(_("Copy as St&yled HTML"))
+        self.edit_copy_colored_html.setText(_("Copy as (&HTML) formatted text"))
+        self.edit_copy_styled_html.setText(_("Copy as St&yled HTML code"))
+        self.edit_copy_inline_styled_html.setText(_("Copy as (&inline) Styled HTML code"))
         self.edit_paste.setText(_("&Paste"))
         self.edit_select_all.setText(_("Select &All"))
         self.edit_select_current_toplevel.setText(_("Select &Block"))

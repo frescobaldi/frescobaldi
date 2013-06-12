@@ -137,6 +137,7 @@ def menu_edit(mainwindow):
     m.addAction(ac.edit_copy)
     m.addAction(ac.edit_copy_colored_html)
     m.addAction(ac.edit_copy_styled_html)
+    m.addAction(ac.edit_copy_inline_styled_html)
     m.addAction(panelmanager.manager(mainwindow).musicview.actionCollection.music_copy_image)
     m.addAction(ac.edit_paste)
     m.addSeparator()
