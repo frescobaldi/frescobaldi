@@ -684,28 +684,22 @@ class MainWindow(QMainWindow):
     def paste(self):
         self.currentView().paste()
         
-    def copyColoredHtml(self):
+    def formattedSelection(self, inline = False):
         cursor = self.currentView().textCursor()
         if not cursor.hasSelection():
             return
         import highlight2html
-        h = highlight2html.HtmlHighlighter(inline_style=True)
-        html = h.html_selection(cursor, False)
+        h = highlight2html.HtmlHighlighter(inline_style = inline)
+        return h.html_selection(cursor)
+    
+    def copyColoredHtml(self):
         data = QMimeData()
-        data.setHtml(html)
-        
+        data.setHtml(self.formattedSelection(inline = True))        
         QApplication.clipboard().setMimeData(data)
         
     def copyStyledHtml(self):
-        cursor = self.currentView().textCursor()
-        if not cursor.hasSelection():
-            return
-        import highlight2html
-        h = highlight2html.HtmlHighlighter(inline_style=False)
-        html = h.html_selection(cursor, True)
         data = QMimeData()
-        data.setText(html)
-        
+        data.setText(self.formattedSelection(inline = False))
         QApplication.clipboard().setMimeData(data)
 
     def selectNone(self):

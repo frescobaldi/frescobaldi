@@ -194,7 +194,7 @@ class HtmlHighlighter(object):
             result = self.html_doc_wrapper(result)
         return result
     
-    def html_selection(self, cursor, styled):
+    def html_selection(self, cursor):
         """Return HTML for the cursor's selection."""
         d = cursor.document()
         start = d.findBlock(cursor.selectionStart())
