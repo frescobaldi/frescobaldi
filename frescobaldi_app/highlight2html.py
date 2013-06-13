@@ -187,41 +187,25 @@ class HtmlHighlighter(object):
            Tokens can be clipped."""
         source = list(tokeniter.tokens(block))
         
-        # Sketch: Remove comments and debug 'print's when function is tested enough
-        # startpos = 0 or endpos = None          =>  return source
-        # 
-        # begin loop
-        # t.pos >= startpos and t.end <= endpos  => append token and continue
-        # t.pos >= endpos                        => return current result
-        # t.end <= startpos                      => continue
-        # t.pos <= startpos (-> t.end > startpos => slice left, append and continue
-        # t.end > endpos (-> t.pos < endpos)     => slice right, a
-        
         if (startpos == 0) and (endpos == None):
-            print "Return complete line"
             return source
             
         token_list = tl = []
         
         for t in source:
             if t.pos >= startpos and (endpos == None or t.end <= endpos):
-                print "Token within boundaries", t, t.pos, startpos
                 tl.append(t)
                 continue
             if endpos != None and t.pos >= endpos:
-                print "Token right of boundary", t
                 return tl
             if t.end <= startpos:
-                print "Token left of boundary", t
                 continue
             endslice = None
             if t.pos <= startpos: #implies that t.end > startpos
-                print "Token clipped left", t
                 startslice = startpos - t.pos
                 if endpos != None and t.end > endpos: 
                     endslice = endpos - t.pos # laenge des Slice ermitteln
             else:
-                print "Token clipped right", t
                 startslice = None
                 endslice = endpos - t.pos
             tl.append(type(t)((t[startslice:endslice]), t.pos))
@@ -230,21 +214,50 @@ class HtmlHighlighter(object):
         return tl
 
     def html_for_block(self, block, start = 0, end = None):
-        """Return HTML for a given block."""
-        print "html_for_block, char", start, "to", end
+        """Return HTML for a given block.
+           Combine consecutive elements
+           (i.e. tokens of the same class, 
+           separated by spaces) to one token."""
         token_list = tl = self.tokens_in_block(block, start, end)
+        html = ""
+
+        def block_comment(tl):
+            t = ""
+            tpos = tl[0].pos
+            while len(tl):
+                if isinstance(tl[0], ly.lex.lilypond.BlockCommentEnd):
+                    self.block_comment = False
+                    t += tl.pop(0)
+                    return (ly.lex.lilypond.Comment(t, tpos), tl)
+                t += tl.pop(0)
+            return (ly.lex.lilypond.Comment(t, tpos), [])
         
-        # then process this list
-        # this has to be changed too, in order to clean up the output
-        # For now I (UL) am only interested in factoring out.
-        result = (map(self.html_for_token, tl))
-        result.append('\n')
-        print "".join(result)
-        return result
+        def next_type(i):
+            return type(tl[i]) if len(tl) > i else None
+            
+        def consecutive_tokens(tl):
+            current_type = type(tl[0])
+            if (self.block_comment or 
+                current_type is ly.lex.lilypond.BlockCommentSpace or 
+                next_type(1) is ly.lex.lilypond.BlockCommentSpace):
+                self.block_comment = True
+                return block_comment(tl)
+            while (next_type(1) is ly.lex._token.Space and 
+                   next_type(2) is current_type):
+                tl[0] += tl[1] + tl[2]
+                del tl[1:3]
+            return (tl[0], tl[1:])
+        
+        while len(tl):
+            t, tl = consecutive_tokens(tl)
+            html += self.html_for_token(t) if t else ""
+        
+        return html + '\n'
     
     def html(self, cursor):
         """Return HTML for the cursor's selection,
            which may contain the complete document."""
+        self.block_comment = False
         d = cursor.document()
         start = d.findBlock(cursor.selectionStart())
         startpos = cursor.selectionStart() - start.position()
@@ -259,14 +272,13 @@ class HtmlHighlighter(object):
             # process consecutive lines
             block = block.next()
             while block != end:
-                html.extend(self.html_for_block(block))
+                html += self.html_for_block(block)
                 block = block.next()
             # process last line
-            html.extend(self.html_for_block(block, end = endpos))
+            html += self.html_for_block(block, end = endpos)
         
         #remove trailing newline character
-        html.pop()
-        return self.wrapper_html_content.format(content="".join(html))
+        return self.wrapper_html_content.format(content="".join(html[:len(html)]))
 
     def html_document(self, cursor, bodyOnly = False):
         """Returns HTML for the specified Document.
