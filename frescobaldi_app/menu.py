@@ -105,7 +105,8 @@ def menu_file(mainwindow):
     m.addSeparator()
     m.addAction(panelmanager.manager(mainwindow).musicview.actionCollection.music_print)
     m.addAction(ac.file_print_source)
-    m.addMenu(menu_file_export(mainwindow))
+    m.addAction(ac.export_source)
+    m.addAction(ac.export_source_immediately)
     m.addSeparator()
     m.addAction(ac.file_close)
     m.addAction(ac.file_close_other)
@@ -114,17 +115,6 @@ def menu_file(mainwindow):
     m.addAction(ac.file_quit)
     return m
 
-
-def menu_file_export(mainwindow):
-    m = Menu(_("submenu title", "&Export"), mainwindow)
-    ac = mainwindow.actionCollection
-    
-    m.addAction(ac.export_colored_html)
-    m.addAction(ac.export_colored_html_body)
-    m.addAction(ac.export_inline_colored_html_body)
-    m.addAction(ac.export_css)
-    return m
-    
 
 def menu_edit(mainwindow):
     m = Menu(_("menu title", "&Edit"), mainwindow)
@@ -137,7 +127,6 @@ def menu_edit(mainwindow):
     m.addAction(ac.edit_cut)
     m.addAction(ac.edit_copy)
     m.addAction(panelmanager.manager(mainwindow).snippettool.actionCollection.copy_to_snippet)
-    m.addAction(ac.edit_copy_colored_html)
     m.addAction(panelmanager.manager(mainwindow).musicview.actionCollection.music_copy_image)
     m.addAction(ac.edit_paste)
     m.addSeparator()

@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 from PyQt4.QtGui import QTextFormat
 
 import ly.lex
-import highlight2html
+import export, export.highlight2html
 import textformats
 
 
@@ -38,16 +38,24 @@ def colorize(text, state=None):
     if state is None:
         state = ly.lex.guessState(text)
     data = textformats.formatData('editor')
-    h = highlight2html.HtmlHighlighter(data, inline_style=True)
-    
-    result = [
-        '<pre style="color: {0}; background: {1}; font-family: {2}">'.format(
-        data.baseColors['text'].name(),
-        data.baseColors['background'].name(),
-        data.font.family())]
-    
-    result.extend(map(h.html_for_token, state.tokens(text)))
-    result.append('</pre>')
-    return ''.join(result)
-
-
+    tmp_style = export.options.style
+    tmp_format = export.options.format
+    export.options.style = "inline"
+    export.options.format = "html"
+    print export.options.style
+    try:
+        h = export.highlight2html.HtmlHighlighter(data)
+        
+        result = [
+            '<pre style="color: {0}; background: {1}; font-family: {2}">'.format(
+            data.baseColors['text'].name(),
+            data.baseColors['background'].name(),
+            data.font.family())]
+        
+        result.extend(map(h.html_for_token, state.tokens(text)))
+        result.append('</pre>')
+        return ''.join(result)
+    finally:
+        export.options.style = tmp_style
+        export.options.format = tmp_format
+        print export.options.style

@@ -30,6 +30,8 @@ import highlighter
 import textformats
 import tokeniter
 
+from . import options
+
 
 def textformat2css(f):
     """Convert a QTextFormat to a dict of CSS style declarations."""
@@ -56,10 +58,7 @@ def escape(text):
 class HtmlHighlighter(object):
     """Convert highlighted text or tokens to HTML."""
     
-    # Set the inline_style attribute to True to use inline style attributes
-    inline_style = False
-    
-    wrapper_css_doc = (
+    css_doc_header = (
     "/*\n"
     " * LilyPond CSS\n"
     " * Style sheet for displaying LilyPond source code\n"
@@ -68,7 +67,7 @@ class HtmlHighlighter(object):
     " */\n\n"
     )
     
-    wrapper_html_doc = (
+    wrap_html_doc = (
     "<html>\n"
     "<head>\n"
     "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>\n"
@@ -79,15 +78,14 @@ class HtmlHighlighter(object):
     "</body>\n</html>\n"
     )
     
-    wrapper_html_content = "<pre>{content}</pre>\n"
+    wrap_html_content = "<pre>{content}</pre>\n"
     
-    def __init__(self, data=None, inline_style=False):
+    def __init__(self, data=None):
         """Initialize the HtmlHighlighter with a TextFormatData instance.
         
         If none is given, the textformats.textFormat('editor') is used.
         
         """
-        self.inline_style = inline_style
         self.setFormatData(data or textformats.formatData('editor'))
     
     def setFormatData(self, data):
@@ -122,12 +120,9 @@ class HtmlHighlighter(object):
             "{0}: {1};".format(k, v)
             for k, v in items.items())
 
-    def stylesheet(self, standalone = False):
+    def stylesheet(self):
         """Returns the stylesheet for all the styles."""
-        header = ""
-        if standalone:
-            header = self.wrapper_css_doc
-        return header + "\n".join(
+        return "\n".join(
             '{0} {{\n  {1}\n}}\n'.format(
             selector, self.format_css_items(items, '\n  '))
             for selector, items in self.css_data())
@@ -140,7 +135,7 @@ class HtmlHighlighter(object):
         will be put in the header, if inline_style is set to False (default).
         
         """
-        if self.inline_style:
+        if options.style == "inline":
             css = ''
             bodyattr = ' text="{0}" bgcolor="{1}"'.format(
                 self._data.baseColors['text'].name(),
@@ -149,7 +144,7 @@ class HtmlHighlighter(object):
             css = '<style type="text/css">\n{0}</style>'.format(
                 escape(self.stylesheet()))
             bodyattr = ''
-        return self.wrapper_html_doc.format(
+        return self.wrap_html_doc.format(
             css=css,
             bodyattr=bodyattr,
             content=content)
@@ -175,7 +170,7 @@ class HtmlHighlighter(object):
             else:
                 return escape(token)
             self._classes[cls] = css
-        if self.inline_style:
+        if options.style == "inline":
             style = self.format_css_items(self._formats[css])
             return '<span style="{0}">{1}</span>'.format(style, escape(token))
         else:
@@ -254,15 +249,21 @@ class HtmlHighlighter(object):
         
         return html + '\n'
     
-    def html(self, cursor):
-        """Return HTML for the cursor's selection,
-           which may contain the complete document."""
-        self.block_comment = False
+    def html_content(self, cursor):
+        """Return content for the selection or the document
+           as HTML or the CSS."""
+        
+        if options.source == "css":
+            return self.stylesheet()
+        if options.source == "document":
+            cursor.select(QTextCursor.Document)
+        
         d = cursor.document()
         start = d.findBlock(cursor.selectionStart())
         startpos = cursor.selectionStart() - start.position()
         end = d.findBlock(cursor.selectionEnd())
         endpos = cursor.selectionEnd() - end.position()
+        self.block_comment = False
         
         block = start
         nd = endpos if block == end else None
@@ -278,18 +279,14 @@ class HtmlHighlighter(object):
             html += self.html_for_block(block, end = endpos)
         
         #remove trailing newline character
-        return self.wrapper_html_content.format(content="".join(html[:len(html)]))
+        return self.wrap_html_content.format(content="".join(html[:len(html)]))
 
-    def html_document(self, cursor, bodyOnly = False):
-        """Returns HTML for the specified Document.
-           If bodyOnly is False (default) it returns a full document,
-           otherwise it returns only the <pre></pre> content."""
-        cursor.select(QTextCursor.Document)
-        if bodyOnly:
-            return self.html(cursor)
+    def html_document(self, content):
+        """Wraps the given HTML or CSS content
+           to a complete file"""
+        if options.source == "css":
+            return self.css_doc_header + content
         else:
-            return self.html_doc_wrapper(self.html(cursor))
+            return self.html_doc_wrapper(content)
         
-    def html_selection(self, cursor):
-        return self.html(cursor)
     
