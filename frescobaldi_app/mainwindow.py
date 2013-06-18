@@ -650,6 +650,10 @@ class MainWindow(QMainWindow):
         import export.dialog
         if not immediately:
             if not export.dialog.ExportDialog(self).exec_():
+                if export.options.get("dest") == "clipboard":
+                    data = QMimeData()
+                    data.setText("")
+                    QApplication.clipboard().setMimeData(data)
                 return
         from export import highlight2html
         content = highlight2html.HtmlHighlighter().html_content(self.currentView().textCursor())

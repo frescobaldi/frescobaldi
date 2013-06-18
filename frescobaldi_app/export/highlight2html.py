@@ -29,6 +29,7 @@ import ly.lex
 import highlighter
 import textformats
 import tokeniter
+import info
 
 from . import options
 
@@ -63,19 +64,21 @@ class HtmlHighlighter(object):
     " * LilyPond CSS\n"
     " * Style sheet for displaying LilyPond source code\n"
     " *\n"
-    " * Exported from Frescobaldi\n" #TODO: Enter version string
+    " * Exported by {appname} {version}\n"
     " */\n\n"
-    )
+    ).format(appname=info.appname, version=info.version)
     
     wrap_html_doc = (
     "<html>\n"
     "<head>\n"
-    "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>\n"
-    "{css}\n"
+    "<meta http-equiv=\"Content-Type\" content=\"text/html\"; charset=\"utf-8\">\n"
+    "<meta generator=\"{appname} {version}\">\n"
+    "{css}"
     "</head>\n"
     "<body{bodyattr}>\n"
     "{content}\n"
-    "</body>\n</html>\n"
+    "</body>\n"
+    "</html>\n"
     )
     
     wrap_html_content = "<pre>{content}</pre>\n"
@@ -140,14 +143,20 @@ class HtmlHighlighter(object):
             bodyattr = ' text="{0}" bgcolor="{1}"'.format(
                 self._data.baseColors['text'].name(),
                 self._data.baseColors['background'].name())
+        elif options.style == "external":
+            css = "<link rel=\"stylesheet\" type=\"text/css\" href=\"{external_css}\">\n".format(
+                external_css=options.external_css)
+            bodyattr = ""
         else:
-            css = '<style type="text/css">\n{0}</style>'.format(
+            css = "<style type=\"text/css\">\n{0}\n</style>\n".format(
                 escape(self.stylesheet()))
-            bodyattr = ''
+            bodyattr = ""
         return self.wrap_html_doc.format(
             css=css,
             bodyattr=bodyattr,
-            content=content)
+            content=content,
+            appname=info.appname, 
+            version=info.version)
         
     def html_for_token(self, token, cls=None):
         """Return a piece of HTML for the specified token.
@@ -267,7 +276,8 @@ class HtmlHighlighter(object):
         
         block = start
         nd = endpos if block == end else None
-        html = self.html_for_block(block, startpos, nd)
+        html = " " * startpos
+        html += self.html_for_block(block, startpos, nd)
         
         if block != end:
             # process consecutive lines

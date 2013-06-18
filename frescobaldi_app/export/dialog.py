@@ -66,6 +66,7 @@ class ExportDialog(QDialog):
             "<ul><li>Source = {source}</li>"
             "<li>Dest = {dest}</li>"
             "<li>Style = {style}</li>"
+            "<li>External CSS = {external_css}</li>"
             "<li>Format = {format}</li>"
             "<li>Document = {document}</li></ul>"
             ).format(
@@ -74,6 +75,7 @@ class ExportDialog(QDialog):
                 source = options.source, 
                 dest = options.dest, 
                 style = options.style, 
+                external_css = options.external_css, 
                 format = options.format, 
                 document = options.document))
         button = QDialogButtonBox(QDialogButtonBox.Ok)

@@ -43,8 +43,10 @@ class ExportOptions:
         
         # How to insert formatting
           # 'css' isn't applicaple to 'formatted text' output
-        self.style = "css"              # alternatives: "css"
+        self.style = "external"              # alternatives: "css"
                                         #               "inline"
+                                        #               "external"
+        self.external_css = "lilypond.css"
         
         # Which output format do we generate
         self.format = "html"            # alternatives: "html"
