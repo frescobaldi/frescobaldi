@@ -217,7 +217,7 @@ class MainWindow(QMainWindow):
             ac = self.actionCollection
             ac.edit_copy.setEnabled(selection)
             ac.export_source_immediately.setEnabled((selection or 
-                                                    (export.options.source == "document")))
+                                                    (export.options.get("source") == "document")))
             ac.edit_cut.setEnabled(selection)
             ac.edit_select_none.setEnabled(selection)
     
@@ -657,15 +657,15 @@ class MainWindow(QMainWindow):
                 return
         from export import highlight2html
         content = highlight2html.HtmlHighlighter().html_content(self.currentView().textCursor())
-        if export.options.document == "full":
+        if export.options.get("document") == "full":
             content = highlight2html.HtmlHighlighter().html_document(content)
-        if export.options.dest == "file":
-            self.exportFile(export.options.filename, content)
-        elif export.options.dest == "clipboard":
+        if export.options.get("dest") == "file":
+            self.exportFile(export.options.get("filename"), content)
+        elif export.options.get("dest") == "clipboard":
             data = QMimeData()
-            if export.options.format == "html":
+            if export.options.get("format") == "html":
                 data.setText(content)
-            elif export.options.format == "formatted":
+            elif export.options.get("format") == "formatted":
                 data.setHtml(content)
             QApplication.clipboard().setMimeData(data)
     

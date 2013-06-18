@@ -31,7 +31,7 @@ from PyQt4.QtGui import (QCheckBox, QComboBox, QDialog, QDialogButtonBox,
     QGridLayout, QLabel, QTextEdit)
 from PyQt4.QtGui import (
     QDialog, QDialogButtonBox, QLabel, QLayout, QTabWidget, QTextBrowser,
-    QVBoxLayout, QWidget)
+    QVBoxLayout, QHBoxLayout, QWidget, QPushButton)
 
 import app
 import help
@@ -40,7 +40,7 @@ import qutil
 
 import widgets
 import info
-from . import options
+import export
 
 
 class ExportDialog(QDialog):
@@ -55,34 +55,58 @@ class ExportDialog(QDialog):
         """Creates the about dialog. exec_() returns True or False."""
         super(ExportDialog, self).__init__(mainwindow)
         
-        self.setWindowTitle(_("Export Source Code"))
+        self.setWindowTitle(_("Export Source As..."))
         layout = QVBoxLayout()
+        grid = QGridLayout()
+        btn = QHBoxLayout()
         self.setLayout(layout)
-        text = QTextBrowser()
-        text.setHtml((
-            "<p>{app_name}: {app_version}</p>\n"
-            "<p>Export formatted source code.</p>\n"
-            "<p>Currently hardcoded options:"
-            "<ul><li>Source = {source}</li>"
-            "<li>Dest = {dest}</li>"
-            "<li>Style = {style}</li>"
-            "<li>External CSS = {external_css}</li>"
-            "<li>Format = {format}</li>"
-            "<li>Document = {document}</li></ul>"
-            ).format(
-                app_name = info.appname,
-                app_version = info.version, 
-                source = options.source, 
-                dest = options.dest, 
-                style = options.style, 
-                external_css = options.external_css, 
-                format = options.format, 
-                document = options.document))
-        button = QDialogButtonBox(QDialogButtonBox.Ok)
-        button.setCenterButtons(True)
-        button.accepted.connect(self.accept)
-        layout.addWidget(text)
-        layout.addWidget(button)
-        layout.setSizeConstraint(QLayout.SetFixedSize)
+        
+        self.autoSave = QCheckBox()
+        self.autoSave.setText(_("Remember settings for source code export."))
+        self.autoSave.setToolTip(_(
+            "If checked, Frescobaldi will keep settings for source code "
+            "export throughout sessions, without explicitely saving them."))
+
+        grid.addWidget(self.autoSave, 0, 0)
+        
+        self.save = QPushButton("Save settings")
+        btn.addWidget(self.save)
+        
+        b = self.buttons = QDialogButtonBox(self)
+        b.setStandardButtons(
+            QDialogButtonBox.Ok
+            | QDialogButtonBox.Cancel)
+        btn.addWidget(b)
+        
+        layout.addLayout(grid)
+        layout.addLayout(btn)
+        
+        b.accepted.connect(self.accept)
+        b.rejected.connect(self.reject)
+        self.save.clicked.connect(self.saveSettings)
+        
+        
+    def load_settings(self):
+        s = QSettings()
+        s.beginGroup("export")
+        self.autoSave.setChecked(s.value("autosave_settings", True, bool))
+        
+    def saveSettings(self):
+        print export.options._options
+        print "1", export.options.changed()
+        export.options.save()
+        self.updateLogic()
+        
+    def updateLogic(self):
+        print "2", export.options.changed()
+        self.save.setEnabled(export.options.changed())
+        
+    def translateUI(self):
+        self.setTitle(_("Export Source As..."))
+        self.autoSave.setText(_("Remember settings for source code export."))
+        self.autoSave.setToolTip(_(
+            "If checked, Frescobaldi will keep settings for source code "
+            "export throughout sessions, without explicitely saving them."))
+
         
 

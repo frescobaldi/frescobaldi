@@ -138,14 +138,14 @@ class HtmlHighlighter(object):
         will be put in the header, if inline_style is set to False (default).
         
         """
-        if options.style == "inline":
+        if options.get("style") == "inline":
             css = ''
             bodyattr = ' text="{0}" bgcolor="{1}"'.format(
                 self._data.baseColors['text'].name(),
                 self._data.baseColors['background'].name())
-        elif options.style == "external":
+        elif options.get("style") == "external":
             css = "<link rel=\"stylesheet\" type=\"text/css\" href=\"{external_css}\">\n".format(
-                external_css=options.external_css)
+                external_css=options.get("external_css"))
             bodyattr = ""
         else:
             css = "<style type=\"text/css\">\n{0}\n</style>\n".format(
@@ -179,7 +179,7 @@ class HtmlHighlighter(object):
             else:
                 return escape(token)
             self._classes[cls] = css
-        if options.style == "inline":
+        if options.get("style") == "inline":
             style = self.format_css_items(self._formats[css])
             return '<span style="{0}">{1}</span>'.format(style, escape(token))
         else:
@@ -262,9 +262,9 @@ class HtmlHighlighter(object):
         """Return content for the selection or the document
            as HTML or the CSS."""
         
-        if options.source == "css":
+        if options.get("source") == "css":
             return self.stylesheet()
-        if options.source == "document":
+        if options.get("source") == "document":
             cursor.select(QTextCursor.Document)
         
         d = cursor.document()
@@ -294,7 +294,7 @@ class HtmlHighlighter(object):
     def html_document(self, content):
         """Wraps the given HTML or CSS content
            to a complete file"""
-        if options.source == "css":
+        if options.get("source") == "css":
             return self.css_doc_header + content
         else:
             return self.html_doc_wrapper(content)
