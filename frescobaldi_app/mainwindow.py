@@ -590,33 +590,29 @@ class MainWindow(QMainWindow):
     
     def openCommandPrompt(self):
         helpers.openUrl(QUrl.fromLocalFile(self.currentDirectory()), "shell")
-    
-    def printSource(self):
-        cursor = self.currentView().textCursor()
-        printer = QPrinter()
-        dlg = QPrintDialog(printer, self)
-        dlg.setWindowTitle(app.caption(_("dialog title", "Print Source")))
-        options = QAbstractPrintDialog.PrintToFile | QAbstractPrintDialog.PrintShowPageSize
-        if cursor.hasSelection():
-            options |= QAbstractPrintDialog.PrintSelection
-        dlg.setOptions(options)
-        if dlg.exec_():
-            doc = highlighter.htmlCopy(self.currentDocument(), 'printer')
-            doc.setMetaInformation(QTextDocument.DocumentTitle, self.currentDocument().url().toString())
-            font = doc.defaultFont()
-            font.setPointSizeF(font.pointSizeF() * 0.8)
-            doc.setDefaultFont(font)
-            if dlg.testOption(QAbstractPrintDialog.PrintSelection):
-                # cut out not selected text
-                start, end = cursor.selectionStart(), cursor.selectionEnd()
-                cur1 = QTextCursor(doc)
-                cur1.setPosition(start, QTextCursor.KeepAnchor)
-                cur2 = QTextCursor(doc)
-                cur2.setPosition(end)
-                cur2.movePosition(QTextCursor.End, QTextCursor.KeepAnchor)
-                cur2.removeSelectedText()
-                cur1.removeSelectedText()
-            doc.print_(printer)
+ 
+# This is deprecated
+# I only keep it as a reference for including the options in the
+# general Export dialog
+#
+#    def printSource(self):
+#        """Print (formatted) source code.
+#           If a filename is given, export to PDF instead."""
+#        cursor = self.currentView().textCursor()
+#        printer = QPrinter()
+#        dlg = QPrintDialog(printer, self)
+#        dlg.setWindowTitle(app.caption(_("dialog title", "Print Source")))
+#        options = QAbstractPrintDialog.PrintToFile | QAbstractPrintDialog.PrintShowPageSize
+#        if cursor.hasSelection():
+#            options |= QAbstractPrintDialog.PrintSelection
+#        dlg.setOptions(options)
+#        if not dlg.exec_():
+#            return
+#        print_selection = dlg.testOption(QAbstractPrintDialog.PrintSelection)
+#        
+#        #doc = highlighter.htmlCopy(self.currentDocument(), 'printer')
+#        from export import highlight2html
+        
     
     def exportFile(self, filename, content):
         try: 
@@ -626,6 +622,18 @@ class MainWindow(QMainWindow):
             QMessageBox.warning(self, app.caption(_("Error")),
                 _("Can't write to destination:\n\n{url}\n\n{error}").format(url=filename, error=err))
 
+    def exportPdfOrPrinter(self, printer, content):
+        """Export source code to PDF file or print it.
+           printer has to be set up before,
+           content has to be html formatted."""
+        doc = QTextDocument()
+        doc.setHtml(content)
+        doc.setMetaInformation(QTextDocument.DocumentTitle, self.currentDocument().url().toString())
+        font = doc.defaultFont()
+        font.setPointSizeF(font.pointSizeF() * 0.8)
+        doc.setDefaultFont(font)
+        doc.print_(printer) 
+        
 # This function isn't necessary anymore.
 # I will keep it as a model for suggesting a file name in the export dialog.
 # (Remove when that is implemented)
@@ -646,9 +654,41 @@ class MainWindow(QMainWindow):
 #        css = highlight2html.HtmlHighlighter().stylesheet(standalone = True)
 #        self.exportFile(filename, css)
         
+    def handleFile(self, content):
+        if export.options.get("format") == "pdf":
+            printer = QPrinter(QPrinter.HighResolution)
+            printer.setOutputFormat(QPrinter.PdfFormat)
+            printer.setOutputFileName(export.options.get("filename"))
+            self.exportPdfOrPrinter(printer, content)
+        elif export.options.get("format") == "odf":
+            writer = QTextDocumentWriter(export.options.get("filename"))
+            writer.setFormat("odf")
+            doc = QTextDocument()
+            doc.setHtml(content)
+            doc.setMetaInformation(QTextDocument.DocumentTitle, self.currentDocument().url().toString())
+            writer.write(doc)
+        else:
+            self.exportFile(export.options.get("filename"), content)
+
+    def handleClipboard(self, content):
+        data = QMimeData()
+        if export.options.get("format") == "html":
+            data.setText(content)
+        elif export.options.get("format") == "formatted":
+            data.setHtml(content)
+        QApplication.clipboard().setMimeData(data)
+    
+    def handlePrinter(self, content):
+        printer = QPrinter()
+        self.exportPdfOrPrinter(printer, content)
+
     def exportSource(self, immediately = False):
-        import export.dialog
+        handlers = {
+            "file": self.handleFile, 
+            "clipboard": self.handleClipboard, 
+            "printer": self.handlePrinter}
         if not immediately:
+            import export.dialog
             if not export.dialog.ExportDialog(self).exec_():
                 if export.options.get("dest") == "clipboard":
                     data = QMimeData()
@@ -657,21 +697,24 @@ class MainWindow(QMainWindow):
                 return
         from export import highlight2html
         content = highlight2html.HtmlHighlighter().html_content(self.currentView().textCursor())
+        import export
         if export.options.get("document") == "full":
             content = highlight2html.HtmlHighlighter().html_document(content)
-        if export.options.get("dest") == "file":
-            self.exportFile(export.options.get("filename"), content)
-        elif export.options.get("dest") == "clipboard":
-            data = QMimeData()
-            if export.options.get("format") == "html":
-                data.setText(content)
-            elif export.options.get("format") == "formatted":
-                data.setHtml(content)
-            QApplication.clipboard().setMimeData(data)
+            
+        handlers[export.options.get("dest")](content)
     
     def exportSourceImmediately(self):
         """Export source without settings dialog.
            Is only available when 'export' is already loaded"""
+        
+        # For now I use this to define the settings I want to test
+        # (because the usual way is 'blocked' by QSettings 
+        #  [as long as there isn't the finished interface available])
+        export.options._options["source"] = "document"
+        export.options._options["style"] = "css"
+        export.options._options["dest"] = "file"
+        export.options._options["format"] = "odf"
+        export.options._options["filename"] = "/home/uliska/source-export.odt"
         self.exportSource(True)
        
 # Surely obsolete, 
@@ -817,7 +860,7 @@ class MainWindow(QMainWindow):
         ac.file_reload.triggered.connect(self.reloadCurrentDocument)
         ac.file_reload_all.triggered.connect(self.reloadAllDocuments)
         ac.file_external_changes.triggered.connect(externalchanges.displayChangedDocuments)
-        ac.file_print_source.triggered.connect(self.printSource)
+        #ac.file_print_source.triggered.connect(self.printSource)
         ac.file_close.triggered.connect(self.closeCurrentDocument)
         ac.file_close_other.triggered.connect(self.closeOtherDocuments)
         ac.file_close_all.triggered.connect(self.closeAllDocuments)
