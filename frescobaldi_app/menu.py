@@ -86,6 +86,7 @@ def menu_file(mainwindow):
     
     m.addAction(ac.file_new)
     m.addMenu(snippet.menu.TemplateMenu(mainwindow))
+    m.addAction(scorewiz.ScoreWizard.instance(mainwindow).actionCollection.newwithwiz)
     m.addSeparator()
     m.addAction(ac.file_open)
     m.addAction(ac.file_open_recent)
