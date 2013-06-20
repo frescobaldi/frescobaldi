@@ -71,6 +71,7 @@ class HtmlHighlighter(object):
     wrap_html_doc = (
     "<html>\n"
     "<head>\n"
+    "{title}"
     "<meta http-equiv=\"Content-Type\" content=\"text/html\"; charset=\"utf-8\">\n"
     "<meta generator=\"{appname} {version}\">\n"
     "{css}"
@@ -131,7 +132,7 @@ class HtmlHighlighter(object):
             selector, self.format_css_items(items, '\n  '))
             for selector, items in self.css_data())
 
-    def html_doc_wrapper(self, content):
+    def html_doc_wrapper(self, content, title):
         """Returns a full HTML document.
         
         The body should be the HTML for all the text.
@@ -139,25 +140,37 @@ class HtmlHighlighter(object):
         will be put in the header, if inline_style is set to False (default).
         
         """
-        if options.get("style") == "inline":
+        if (options.value("print_title") and
+            (options.value("dest") == "printer" or
+             (options.value("dest") == "file" and
+              options.value("filetype") == "pdf"))):
+                  html_title = "<p>{title_tag}</p>\n".format(title_tag=title)
+                  content = html_title + content
+
+        if options.value("style") == "inline":
             css = ''
             bodyattr = ' text="{0}" bgcolor="{1}"'.format(
                 self._data.baseColors['text'].name(),
                 self._data.baseColors['background'].name())
-        elif options.get("style") == "external":
+        elif options.value("style") == "external":
             css = "<link rel=\"stylesheet\" type=\"text/css\" href=\"{external_css}\">\n".format(
-                external_css=options.get("external_css"))
+                external_css=options.value("external_css"))
             bodyattr = ""
         else:
             css = "<style type=\"text/css\">\n{0}\n</style>\n".format(
                 escape(self.stylesheet()))
             bodyattr = ""
+        if options.value("print_title"):
+            titletag="<title>{doc_title}</title>\n".format(doc_title=title)
+        else:
+            titletag = ""
         return self.wrap_html_doc.format(
             css=css,
             bodyattr=bodyattr,
             content=content,
             appname=info.appname, 
-            version=info.version)
+            version=info.version, 
+            title=titletag)
         
     def html_for_token(self, token, cls=None):
         """Return a piece of HTML for the specified token.
@@ -180,18 +193,20 @@ class HtmlHighlighter(object):
             else:
                 return escape(token)
             self._classes[cls] = css
-        if options.get("style") == "inline":
+        if options.value("style") == "inline":
             style = self.format_css_items(self._formats[css])
             return '<span style="{0}">{1}</span>'.format(style, escape(token))
         else:
             return '<span class="{0}">{1}</span>'.format(css, escape(token))
             
     def html_for_linenumber(self, linenum):
-        digits = options.get("linenumdigits")
+        digits = self.linenumdigits
         if not digits:
             return ""
         token = str(linenum)
-        while len(token) < digits:
+        print "token:",  token, "length:", len(token)
+        for i in range(len(token), digits):
+#        while len(token) < options.get("linenumdigits"):
             token = "0" + token
         return "<span class=\"lilypond-linenumber\">{t} | </span>".format(t=token)
     
@@ -275,9 +290,10 @@ class HtmlHighlighter(object):
         """Return content for the selection or the document
            as HTML or the CSS."""
         
-        if options.get("source") == "css":
+        if options.value("source") == "css":
+            print self.stylesheet()
             return self.stylesheet()
-        if options.get("source") == "document":
+        if options.value("source") == "document":
             cursor.select(QTextCursor.Document)
         
         d = cursor.document()
@@ -286,6 +302,11 @@ class HtmlHighlighter(object):
         end = d.findBlock(cursor.selectionEnd())
         endpos = cursor.selectionEnd() - end.position()
         self.block_comment = False
+        
+        if options.value("linenumbers"):
+            self.linenumdigits = len(str(end.blockNumber()))
+        else:
+            self.linenumdigits = 0
         
         block = start
         nd = endpos if block == end else None
@@ -302,13 +323,13 @@ class HtmlHighlighter(object):
         
         #remove trailing newline character
         return self.wrap_html_content.format(content="".join(html[:len(html)]))
-
-    def html_document(self, content):
+        
+    def html_document(self, content, title):
         """Wraps the given HTML or CSS content
            to a complete file"""
-        if options.get("source") == "css":
+        if options.value("source") == "css":
             return self.css_doc_header + content
         else:
-            return self.html_doc_wrapper(content)
+            return self.html_doc_wrapper(content, title)
         
     

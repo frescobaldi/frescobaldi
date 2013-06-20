@@ -217,7 +217,7 @@ class MainWindow(QMainWindow):
             ac = self.actionCollection
             ac.edit_copy.setEnabled(selection)
             ac.export_source_immediately.setEnabled((selection or 
-                                                    (export.options.get("source") == "document")))
+                                                    (export.options.value("source") == "document")))
             ac.edit_cut.setEnabled(selection)
             ac.edit_select_none.setEnabled(selection)
     
@@ -590,30 +590,7 @@ class MainWindow(QMainWindow):
     
     def openCommandPrompt(self):
         helpers.openUrl(QUrl.fromLocalFile(self.currentDirectory()), "shell")
- 
-# This is deprecated
-# I only keep it as a reference for including the options in the
-# general Export dialog
-#
-#    def printSource(self):
-#        """Print (formatted) source code.
-#           If a filename is given, export to PDF instead."""
-#        cursor = self.currentView().textCursor()
-#        printer = QPrinter()
-#        dlg = QPrintDialog(printer, self)
-#        dlg.setWindowTitle(app.caption(_("dialog title", "Print Source")))
-#        options = QAbstractPrintDialog.PrintToFile | QAbstractPrintDialog.PrintShowPageSize
-#        if cursor.hasSelection():
-#            options |= QAbstractPrintDialog.PrintSelection
-#        dlg.setOptions(options)
-#        if not dlg.exec_():
-#            return
-#        print_selection = dlg.testOption(QAbstractPrintDialog.PrintSelection)
-#        
-#        #doc = highlighter.htmlCopy(self.currentDocument(), 'printer')
-#        from export import highlight2html
-        
-    
+     
     def exportFile(self, filename, content):
         try: 
             with open(filename, "wb") as f:
@@ -632,6 +609,19 @@ class MainWindow(QMainWindow):
         font = doc.defaultFont()
         font.setPointSizeF(font.pointSizeF() * 0.8)
         doc.setDefaultFont(font)
+        if export.options.value("orientation") == "portrait":
+            printer.setOrientation(QPrinter.Portrait)
+        else:
+            printer.setOrientation(QPrinter.Landscape)
+        if export.options.value("color") == "color":
+            printer.setColorMode(QPrinter.Color)
+        else:
+            printer.setColorMode(QPrinter.GrayScale)
+        printer.setPageMargins(export.options.value("marginleft"), 
+                               export.options.value("margintop"), 
+                               export.options.value("marginright"), 
+                               export.options.value("marginbottom"), 
+                               QPrinter.Millimeter)
         doc.print_(printer) 
         
 # This function isn't necessary anymore.
@@ -655,26 +645,27 @@ class MainWindow(QMainWindow):
 #        self.exportFile(filename, css)
         
     def handleFile(self, content):
-        if export.options.get("filetype") == "pdf":
+        if export.options.value("filetype") == "pdf":
             printer = QPrinter(QPrinter.HighResolution)
             printer.setOutputFormat(QPrinter.PdfFormat)
-            printer.setOutputFileName(export.options.get("filename"))
+            printer.setOutputFileName(export.options.value("filename"))
             self.exportPdfOrPrinter(printer, content)
-        elif export.options.get("filetype") == "odf":
-            writer = QTextDocumentWriter(export.options.get("filename"))
+        elif export.options.value("filetype") == "odt":
+            writer = QTextDocumentWriter(export.options.value("filename"))
             writer.setFormat("odf")
             doc = QTextDocument()
             doc.setHtml(content)
             doc.setMetaInformation(QTextDocument.DocumentTitle, self.currentDocument().url().toString())
             writer.write(doc)
         else:
-            self.exportFile(export.options.get("filename"), content)
+            self.exportFile(export.opmainwindow.pytions.value("filename"), content)
 
     def handleClipboard(self, content):
         data = QMimeData()
-        if export.options.get("format") == "html":
+        if (export.options.value("format") == "html" or
+            export.options.value("source") == "css"):
             data.setText(content)
-        elif export.options.get("format") == "formatted":
+        elif export.options.value("format") == "formatted":
             data.setHtml(content)
         QApplication.clipboard().setMimeData(data)
     
@@ -690,7 +681,7 @@ class MainWindow(QMainWindow):
         if not immediately:
             import export.dialog
             if not export.dialog.ExportDialog(self).exec_():
-                if export.options.get("dest") == "clipboard":
+                if export.options.value("dest") == "clipboard":
                     data = QMimeData()
                     data.setText("")
                     QApplication.clipboard().setMimeData(data)
@@ -698,49 +689,18 @@ class MainWindow(QMainWindow):
         from export import highlight2html
         content = highlight2html.HtmlHighlighter().html_content(self.currentView().textCursor())
         import export
-        if export.options.get("document") == "full":
-            content = highlight2html.HtmlHighlighter().html_document(content)
+        if export.options.value("document") == "full":
+            title = self.currentDocument().url().path()
+            content = highlight2html.HtmlHighlighter().html_document(content, title)
             
-        handlers[export.options.get("dest")](content)
+        handlers[export.options.value("dest")](content)
     
     def exportSourceImmediately(self):
-        """Export source without settings dialog.
-           Is only available when 'export' is already loaded"""
-        
-        # For now I use this to define the settings I want to test
-        # (because the usual way is 'blocked' by QSettings 
-        #  [as long as there isn't the finished interface available])
-        export.options._options["source"] = "document"
-        export.options._options["linenumbers"] = 3
-        export.options._options["style"] = "css"
-        export.options._options["dest"] = "file"
-        export.options._options["format"] = "html"
-        export.options._options["filetype"] = "pdf"
-        export.options._options["filename"] = "/home/uliska/source-export.pdf"
+        """Export source with previous settings (without dialog).
+           Isn't available if previous source was 'selection'
+           and the current document doesn't have a selection."""
         self.exportSource(True)
        
-# Surely obsolete, 
-# just let it there to be sure (remove when appropriate)
-
-#    def exportLilySource(self, bodyOnly, inline = False):
-#        doc = self.currentDocument()
-#        name, ext = os.path.splitext(os.path.basename(doc.url().path()))
-#        if name:
-#            if ext.lower() == ".html":
-#                name += "_html"
-#            name += ".html"
-#        dir = os.path.dirname(doc.url().toLocalFile())
-#        if dir:
-#            name = os.path.join(dir, name)
-#        filename = QFileDialog.getSaveFileName(self, app.caption(_("Export Source Code")),
-#            name, "{0} (*.html)".format("HTML Files"))
-#        if not filename:
-#            return #cancelled
-#        import highlight2html
-#        h = highlight2html.HtmlHighlighter(inline_style = inline)
-#        html = h.html_document(self.currentView().textCursor(), bodyOnly)
-#        self.exportFile(filename, html)
-        
     def undo(self):
         self.currentDocument().undo()
         

@@ -51,9 +51,16 @@ class ExportOptions:
         
         self.load_settings()
         
+    def assign(self, other):
+        """assign the properties of another ExportOptions instance."""
+        if not isinstance(other, ExportOptions):
+            raise ValueError
+        for key in self._options:
+            self._options[key] = other._options[key]
+    
     def autosave(self):
         """Save export options to Settings if autosave preference is set"""
-        if QSettings().value("export/autosave_settings", True, bool):
+        if self._options["autosave_settings"]:
             self.save()
     
     def changed(self):
@@ -61,13 +68,20 @@ class ExportOptions:
         s = QSettings()
         s.beginGroup("export")
         for key in self._options:
-            if self._options[key] != s.value(key, type=type(self._options[key])):
+            if not s.value(key):
+                # option isn't present in Settings
+                return True
+            # workaround for Boolean return bug in Qt
+            if type(self._options[key]) == bool:
+                svalue = s.value(key, type=bool)
+            elif type(self._options[key]) == int:
+                svalue = int(s.value(key))
+            else:
+                svalue = s.value(key)
+            if self._options[key] != svalue:
                 return True
         return False
     
-    def get(self, name):
-        return self._options[name]
-        
     def load_settings(self):
         s = QSettings()
         s.beginGroup("export")
@@ -83,27 +97,44 @@ class ExportOptions:
         # 'external' is only applicable to 'html' output
         self._options["style"] = s.value("style", "css")
         # Which output format do we generate
-        # possible values: html, formatted (rich text), pdf, odf
+        # possible values: html, formatted (rich text)
         self._options["format"] = s.value("format", "html")
         # Which file type to we create
-        # possible values: html, pdf, odf
+        # possible values: html, pdf, odt
         self._options["filetype"] = s.value("filetype", "html")
         # Are we exporting just the content or a full document
         # not applicable for PDF or ODT
         # possible values: full, body
         self._options["document"] = s.value("document", "full")
+        # Print document title
+        self._options["print_title"] = s.value("print_title", True, bool)
         # Prepend line numbers
-        # Argument is the number of digits, 0 = no linenumbers
-        # linenumbers are padded with zeros
-        self._options["linenumdigits"] = s.value("linenumdigits", 3)
+        self._options["linenumbers"] = s.value("linenumbers", True, bool)
+        # Autosave options
+        # If set to True settings are remembered automatically,
+        # otherwise one has to explicitely save them
+        self._options["autosave_settings"] = s.value("autosave_settings",  True, bool)
+        # Layout options (Printer/PDF export)
+        self._options["orientation"] = s.value("orientation", "portrait")
+        self._options["color"] = s.value("color", "color")
+        self._options["margintop"] = s.value("margintop", 20, int)
+        self._options["marginbottom"] = s.value("marginbottom", 20, int)
+        self._options["marginleft"] = s.value("marginleft", 20, int)
+        self._options["marginright"] = s.value("marginright", 20, int)
+        
                 
     def save(self):
-        print "Enter save"
         if self.changed():
             s = QSettings()
             s.beginGroup("export")
             for key in self._options:
                 s.setValue(key, self._options[key])
+                
+    def set(self, key, value, dlg = None):
+        self._options[key] = value
+                
+    def value(self, name):
+        return self._options[name]
         
 options = ExportOptions()
 
