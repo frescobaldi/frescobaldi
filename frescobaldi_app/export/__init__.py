@@ -75,7 +75,7 @@ class ExportOptions:
         # possible values: selection, document, css
         self._options["source"] = s.value("source", "selection")
         # Where to export to
-        # possible values: clipboard, file
+        # possible values: clipboard, file, printer
         self._options["dest"] = s.value("dest", "clipboard")
         # How to insert formatting
         # possible values: external, css, inline
@@ -83,16 +83,20 @@ class ExportOptions:
         # 'external' is only applicable to 'html' output
         self._options["style"] = s.value("style", "css")
         # Which output format do we generate
-        # possible values: html, formatted (rich text), pdf, odt
+        # possible values: html, formatted (rich text), pdf, odf
         self._options["format"] = s.value("format", "html")
+        # Which file type to we create
+        # possible values: html, pdf, odf
+        self._options["filetype"] = s.value("filetype", "html")
         # Are we exporting just the content or a full document
         # not applicable for PDF or ODT
         # possible values: full, body
         self._options["document"] = s.value("document", "full")
-        
-        for key in self._options:
-            print key, self._options[key]
-        
+        # Prepend line numbers
+        # Argument is the number of digits, 0 = no linenumbers
+        # linenumbers are padded with zeros
+        self._options["linenumdigits"] = s.value("linenumdigits", 3)
+                
     def save(self):
         print "Enter save"
         if self.changed():

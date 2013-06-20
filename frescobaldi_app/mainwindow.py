@@ -655,12 +655,12 @@ class MainWindow(QMainWindow):
 #        self.exportFile(filename, css)
         
     def handleFile(self, content):
-        if export.options.get("format") == "pdf":
+        if export.options.get("filetype") == "pdf":
             printer = QPrinter(QPrinter.HighResolution)
             printer.setOutputFormat(QPrinter.PdfFormat)
             printer.setOutputFileName(export.options.get("filename"))
             self.exportPdfOrPrinter(printer, content)
-        elif export.options.get("format") == "odf":
+        elif export.options.get("filetype") == "odf":
             writer = QTextDocumentWriter(export.options.get("filename"))
             writer.setFormat("odf")
             doc = QTextDocument()
@@ -711,10 +711,12 @@ class MainWindow(QMainWindow):
         # (because the usual way is 'blocked' by QSettings 
         #  [as long as there isn't the finished interface available])
         export.options._options["source"] = "document"
+        export.options._options["linenumbers"] = 3
         export.options._options["style"] = "css"
         export.options._options["dest"] = "file"
-        export.options._options["format"] = "odf"
-        export.options._options["filename"] = "/home/uliska/source-export.odt"
+        export.options._options["format"] = "html"
+        export.options._options["filetype"] = "pdf"
+        export.options._options["filename"] = "/home/uliska/source-export.pdf"
         self.exportSource(True)
        
 # Surely obsolete, 

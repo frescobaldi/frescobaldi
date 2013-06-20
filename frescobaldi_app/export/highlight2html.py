@@ -82,6 +82,7 @@ class HtmlHighlighter(object):
     )
     
     wrap_html_content = "<pre>{content}</pre>\n"
+    #wrap_html_content = "<p>{content}\n</p>"
     
     def __init__(self, data=None):
         """Initialize the HtmlHighlighter with a TextFormatData instance.
@@ -185,6 +186,15 @@ class HtmlHighlighter(object):
         else:
             return '<span class="{0}">{1}</span>'.format(css, escape(token))
             
+    def html_for_linenumber(self, linenum):
+        digits = options.get("linenumdigits")
+        if not digits:
+            return ""
+        token = str(linenum)
+        while len(token) < digits:
+            token = "0" + token
+        return "<span class=\"lilypond-linenumber\">{t} | </span>".format(t=token)
+    
     def tokens_in_block(self, block, startpos = 0, endpos = None):
         """Return a list of the tokens in the given block.
            Respect startpos and endpos (for partially selected lines).
@@ -256,6 +266,9 @@ class HtmlHighlighter(object):
             t, tl = consecutive_tokens(tl)
             html += self.html_for_token(t) if t else ""
         
+        
+        linenum_token = self.html_for_linenumber(block.blockNumber() + 1)
+        html = linenum_token + (" " * start) + html
         return html + '\n'
     
     def html_content(self, cursor):
@@ -276,8 +289,7 @@ class HtmlHighlighter(object):
         
         block = start
         nd = endpos if block == end else None
-        html = " " * startpos
-        html += self.html_for_block(block, startpos, nd)
+        html = self.html_for_block(block, startpos, nd)
         
         if block != end:
             # process consecutive lines
