@@ -104,7 +104,6 @@ def menu_file(mainwindow):
     m.addAction(ac.file_external_changes)
     m.addSeparator()
     m.addAction(panelmanager.manager(mainwindow).musicview.actionCollection.music_print)
-    m.addAction(ac.file_print_source)
     m.addAction(ac.export_source)
     m.addAction(ac.export_source_immediately)
     m.addSeparator()
