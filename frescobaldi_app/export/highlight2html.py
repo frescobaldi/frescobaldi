@@ -102,6 +102,14 @@ class HtmlHighlighter(object):
             name = cls.__module__.split('.')[-1] + '-' + cls.__name__.lower()
             c[cls] = name
             f[name] = textformat2css(fmt)
+        c["lilypond-linenumber"] = "lilypond-linenumber"
+        f["lilypond-linenumber"] = {
+            'background': '#ccc',
+            'border-right': '0.3ex solid #333',
+            'padding-left': '1ex', 
+            'padding-right': '1ex', 
+            'margin-right': '1ex', 
+        }
 
     def css_data(self):
         """Yield css stubs for all the styles."""
@@ -111,6 +119,13 @@ class HtmlHighlighter(object):
             #'font-family': '"{0}"'.format(self._data.font.family()),
             #'font-size': format(self._data.font.pointSizeF()),
         }
+        if self.printLayout():
+            yield 'pre', {
+                'color': self._data.baseColors['text'].name(),
+                'background': self._data.baseColors['background'].name(),
+                'font-family': '"{0}"'.format(self._data.font.family()),
+                'font-size': format(self._data.font.pointSizeF() * 0.7),
+            }
         for c in sorted(self._formats):
             yield '.' + c, self._formats[c]
 
@@ -125,6 +140,11 @@ class HtmlHighlighter(object):
             "{0}: {1};".format(k, v)
             for k, v in items.items())
 
+    def printLayout(self):
+        return (options.value("dest") == "printer" or
+             (options.value("dest") == "file" and
+              options.value("filetype") == "pdf"))
+        
     def stylesheet(self):
         """Returns the stylesheet for all the styles."""
         return "\n".join(
@@ -140,12 +160,9 @@ class HtmlHighlighter(object):
         will be put in the header, if inline_style is set to False (default).
         
         """
-        if (options.value("print_title") and
-            (options.value("dest") == "printer" or
-             (options.value("dest") == "file" and
-              options.value("filetype") == "pdf"))):
-                  html_title = "<p>{title_tag}</p>\n".format(title_tag=title)
-                  content = html_title + content
+        if options.value("print_title") and self.printLayout():
+            html_title = "<p>{title_tag}</p>\n".format(title_tag=title)
+            content = html_title + content
 
         if options.value("style") == "inline":
             css = ''
@@ -208,7 +225,7 @@ class HtmlHighlighter(object):
         for i in range(len(token), digits):
 #        while len(token) < options.get("linenumdigits"):
             token = "0" + token
-        return "<span class=\"lilypond-linenumber\">{t} | </span>".format(t=token)
+        return "<span class=\"lilypond-linenumber\">{t}</span>".format(t=token)
     
     def tokens_in_block(self, block, startpos = 0, endpos = None):
         """Return a list of the tokens in the given block.
@@ -277,13 +294,14 @@ class HtmlHighlighter(object):
                 del tl[1:3]
             return (tl[0], tl[1:])
         
+        if options.value("linenumbers") and self.linenumdigits:
+            linenum = str(block.blockNumber() + 1)
+            for i in range(len(linenum), self.linenumdigits):
+                linenum = "0" + linenum
+            html += self.html_for_token(linenum, "lilypond-linenumber")
         while len(tl):
             t, tl = consecutive_tokens(tl)
             html += self.html_for_token(t) if t else ""
-        
-        
-        linenum_token = self.html_for_linenumber(block.blockNumber() + 1)
-        html = linenum_token + (" " * start) + html
         return html + '\n'
     
     def html_content(self, cursor):

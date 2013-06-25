@@ -57,6 +57,8 @@ class ExportDialog(QDialog):
         if not self.dirname:
             from os.path import expanduser
             self.dirname = expanduser("~")
+            
+        self.printer = mainwindow.printer
 
         # make a local copy of the options
         self.options = export.ExportOptions()
@@ -571,8 +573,7 @@ class ExportDialog(QDialog):
         pass
         
     def printerSelectPressed(self):
-        printer = QPrinter()
-        dlg = QPrintDialog(printer, self)
+        dlg = QPrintDialog(self.printer, self)
         dlg.setWindowTitle(app.caption(_("dialog title", "Print Source")))
         options = (QAbstractPrintDialog.PrintShowPageSize
             | QAbstractPrintDialog.PrintPageRange

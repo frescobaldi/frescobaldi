@@ -130,6 +130,9 @@ class MainWindow(QMainWindow):
             self.setCurrentDocument(other.currentDocument())
         app.mainwindowCreated(self)
         
+        # Will be instantiated with "Export Source"
+        self.printer = None
+        
     def documents(self):
         """Returns the list of documents in the order of the TabBar."""
         return self.tabBar.documents()
@@ -658,7 +661,7 @@ class MainWindow(QMainWindow):
             doc.setMetaInformation(QTextDocument.DocumentTitle, self.currentDocument().url().toString())
             writer.write(doc)
         else:
-            self.exportFile(export.opmainwindow.pytions.value("filename"), content)
+            self.exportFile(export.options.value("filename"), content)
 
     def handleClipboard(self, content):
         data = QMimeData()
@@ -678,6 +681,8 @@ class MainWindow(QMainWindow):
             "file": self.handleFile, 
             "clipboard": self.handleClipboard, 
             "printer": self.handlePrinter}
+        if not self.printer:
+            self.printer = QPrinter() 
         if not immediately:
             import export.dialog
             if not export.dialog.ExportDialog(self).exec_():
