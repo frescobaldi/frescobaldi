@@ -82,8 +82,7 @@ class HtmlHighlighter(object):
     "</html>\n"
     )
     
-    wrap_html_content = "<pre>{content}</pre>\n"
-    #wrap_html_content = "<p>{content}\n</p>"
+    wrap_html_content = "<pre{style}>{content}</pre>\n"
     
     def __init__(self, data=None):
         """Initialize the HtmlHighlighter with a TextFormatData instance.
@@ -125,6 +124,10 @@ class HtmlHighlighter(object):
                 'background': self._data.baseColors['background'].name(),
                 'font-family': '"{0}"'.format(self._data.font.family()),
                 'font-size': format(self._data.font.pointSizeF() * 0.7),
+            }
+        else:
+            yield 'pre.lilypond', {
+                'line-height': "120%", 
             }
         for c in sorted(self._formats):
             yield '.' + c, self._formats[c]
@@ -339,8 +342,12 @@ class HtmlHighlighter(object):
             # process last line
             html += self.html_for_block(block, end = endpos)
         
-        #remove trailing newline character
-        return self.wrap_html_content.format(content="".join(html[:len(html)]))
+        if options.value("style") == "inline":
+            prestyle = " style=\"line-height: 120%\""
+        else:
+            prestyle = " class=\"lilypond\""
+        return self.wrap_html_content.format(content="".join(html[:len(html)]), 
+                                             style=prestyle)
         
     def html_document(self, content, title):
         """Wraps the given HTML or CSS content
