@@ -395,15 +395,15 @@ class ExportDialog(QDialog):
     # ####################
     # UI translation
     # ####################
-    
+
     def translateUI(self):
         self.setWindowTitle(_("Export Source"))
-        self.srcGroup.setTitle(_("What to Export"))
-        self.docGroup.setTitle(_("What to Generate"))
-        self.destGroup.setTitle(_("Where to Export to"))
-        self.styleGroup.setTitle(_("Styling Technique"))
-        self.formatGroup.setTitle(_("Output Format"))
-        self.filetypeGroup.setTitle(_("File Format"))
+        self.srcGroup.setTitle(_("What to E&xport"))
+        self.docGroup.setTitle(_("What to &Generate"))
+        self.destGroup.setTitle(_("&Where to Export to"))
+        self.styleGroup.setTitle(_("&Styling Technique"))
+        self.formatGroup.setTitle(_("&Output Format"))
+        self.filetypeGroup.setTitle(_("File Form&at"))
         self.layoutGroup.setTitle(_("Print/PDF Layout Settings"))
         
         # "source"
@@ -483,49 +483,50 @@ class ExportDialog(QDialog):
         self.filetypeCSS.setText(_(".css"))
         
         # Line numbers
-        self.printTitle.setText(_("Print Title"))
+        self.printTitle.setText(_("Pr&int Title"))
         self.printTitle.setToolTip(_(
             "Print the document\'s filename.\n"
             "When exporting to a complete HTML document\n"
             "this will be the title tag. When exporting\n"
             "to PDF or printing it will be a first line."))
-        self.lineNumbers.setText(_("Line Numbers"))
+        self.lineNumbers.setText(_("Line &Numbers"))
         self.lineNumbers.setToolTip(_(
             "Print line numbers in front of every line."))
-        
+
         # Filename
-        self.filenameLabel.setText(_("File Name:"))
-        self.filenameSelect.setText(_("..."))
+        self.filenameLabel.setText(_("&File Name:"))
+        self.filenameLabel.setBuddy(self.filenameEdit)
+        self.filenameSelect.setText(_("&..."))
         self.filenameSelect.setToolTip(_(
             "Select destination file name."))
         self.dirnameLabel.setToolTip(_(
             "Currently selected file\'s directory"))
         
         # Print layout
-        self.orientGroup.setTitle(_("Paper Orientation:"))
+        self.orientGroup.setTitle(_("&Paper Orientation:"))
         self.orientPortrait.setText(_("Portrait"))
         self.orientLandscape.setText(_("Landscape"))
-        self.colorGroup.setTitle(_("Color Mode:"))
+        self.colorGroup.setTitle(_("&Color Mode:"))
         self.colorGray.setText(_("Grayscale"))
         self.colorColor.setText(_("Color"))
         self.marginGroup.setTitle(_("Margins (mm):"))
-        self.marginTopLabel.setText(_("Top:"))
-        self.marginBottomLabel.setText(_("Bottom:"))
-        self.marginLeftLabel.setText(_("Left:"))
-        self.marginRightLabel.setText(_("Right:"))
+        self.marginTopLabel.setText(_("&Top:"))
+        self.marginBottomLabel.setText(_("&Bottom:"))
+        self.marginLeftLabel.setText(_("&Left:"))
+        self.marginRightLabel.setText(_("&Right:"))
         self.printerGroup.setTitle(_("More Options:"))
         self.paperSizeLabel.setText(_("Paper Size"))
         self.printerSelect.setText(_("Printer Options..."))
         
         # Individual elements
-        self.autoSave.setText(_("Remember settings"))
+        self.autoSave.setText(_("Re&member settings"))
         self.autoSave.setToolTip(_(
             "If checked, Frescobaldi will keep settings\n"
             "for source code export throughout sessions,\n"
             "without explicitely saving them."))
         
         # Button(s)
-        self.save.setText(_("Save Settings"))
+        self.save.setText(_("Sa&ve Settings"))
         self.save.setToolTip(_(
             "Permanently save settings.\n"
             "(Only useful when autoSave is deactivated)"))
