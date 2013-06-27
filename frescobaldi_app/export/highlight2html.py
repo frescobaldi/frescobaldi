@@ -127,7 +127,7 @@ class HtmlHighlighter(object):
             }
         else:
             yield 'pre.lilypond', {
-                'line-height': "120%", 
+                '/* Empty class': ' Can be customized in concrete style sheet */', 
             }
         for c in sorted(self._formats):
             yield '.' + c, self._formats[c]
