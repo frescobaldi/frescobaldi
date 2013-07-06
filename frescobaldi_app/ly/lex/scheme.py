@@ -24,7 +24,7 @@ Parses and tokenizes Scheme input.
 from __future__ import unicode_literals
 
 from . import _token
-from . import Parser
+from . import Parser, FallthroughParser
 
 
 class Scheme(_token.Token):
@@ -91,13 +91,15 @@ class CloseParen(Scheme, _token.MatchEnd, _token.Dedent):
         
 
 class Quote(Scheme):
-    rx = r"[',`]"
+    rx = r"'"
+    def update_state(self, state):
+        state.enter(ParseSchemeSymbol())
     
-
+    
 class Bool(Scheme, _token.Item):
     rx = r"#[tf]\b"
     
-
+    
 class Char(Scheme, _token.Item):
     rx = r"#\\([a-z]+|.)"
 
@@ -105,6 +107,50 @@ class Char(Scheme, _token.Item):
 class Word(Scheme, _token.Item):
     rx = r'[^()"{}\s]+'
 
+
+class Keyword(Scheme):
+    @_token.patternproperty
+    def rx():
+        from .. import data
+        import re
+        lst = re.sub(r'([\?\*\+])', r"\\\1", 
+                     "|".join(sorted(data.scheme_keywords(), key=len, reverse=True)))
+        return r"({0})(?![A-Za-z-])".format(lst)
+    
+class Function(Scheme):
+    @_token.patternproperty
+    def rx():
+        from .. import data
+        import re
+        lst = re.sub(r'([\?\*\+])', r"\\\1", 
+                     "|".join(sorted(data.scheme_functions(), key=len, reverse=True)))
+        return r"({0})(?![A-Za-z-])".format(lst)
+    
+class Variable(Scheme):
+    @_token.patternproperty
+    def rx():
+        from .. import data
+        import re
+        lst = re.sub(r'([\?\*\+])', r"\\\1", 
+                     "|".join(sorted(data.scheme_variables(), key=len, reverse=True)))
+        return r"({0})(?![A-Za-z-])".format(lst)
+    
+    
+class Constant(Scheme):
+    @_token.patternproperty
+    def rx():
+        from .. import data
+        import re
+        lst = re.sub(r'([\?\*\+])', r"\\\1", 
+                     "|".join(sorted(data.scheme_constants(), key=len, reverse=True)))
+        return r"({0})(?![A-Za-z-])".format(lst)
+    
+class Symbol(Scheme):
+    rx = r"[a-zA-Z-]+(?![a-zA-Z])"
+    def update_state(self, state):
+        state.leave()
+        state.endArgument()
+    
 
 class Number(_token.Item, _token.Numeric):
     rx = r"-?\d+|#(b[0-1]+|o[0-7]+|x[0-9a-fA-F]+)"
@@ -149,13 +195,22 @@ class ParseScheme(Parser):
         Char,
         Quote,
         Fraction,
+        Keyword,
+        Function,
+        Variable,
+        Constant,
         Float,
         Number,
         Word,
         StringQuotedStart,
     )
     
-    
+
+class ParseSchemeSymbol(FallthroughParser):
+    mode = 'scheme'
+    items =
+     (Symbol,)
+   
 class ParseString(Parser):
     default = String
     items = (
