@@ -208,8 +208,7 @@ class ParseScheme(Parser):
 
 class ParseSchemeSymbol(FallthroughParser):
     mode = 'scheme'
-    items =
-     (Symbol,)
+    items = (Symbol,)
    
 class ParseString(Parser):
     default = String
