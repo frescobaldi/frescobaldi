@@ -82,12 +82,39 @@ def context_properties():
 
 def engravers():
     """Returns the list of engravers and performers."""
+    from . import _data
     return _data.engravers
 
 def music_glyphs():
     """Returns the list of glyphs in the emmentaler font."""
     from . import _data
     return _data.musicglyphs
+
+def scheme_keywords():
+    """Returns the list of guile keywords."""
+    from . import _data
+    return _data.scheme_keywords
+
+def scheme_functions():
+    """Returns the list of scheme functions."""
+    from . import _data
+    return _data.scheme_functions
+
+def scheme_variables():
+    """Returns the list of scheme variables."""
+    from . import _data
+    return _data.scheme_variables
+
+def scheme_constants():
+    """Returns the list of scheme constants."""
+    from . import _data
+    return _data.scheme_constants
+
+def all_scheme_words():
+    """Returns the list of all scheme words."""
+    from . import _data
+    return _data.scheme_keywords + _data.scheme_functions \
+        + _data.scheme_variables + _data.scheme_constants
 
 def uniq(iterable):
     """Returns an iterable, removing duplicates. The items should be hashable."""

@@ -315,10 +315,27 @@ def allStyleDefaults():
     scheme = {}
     
     scheme['scheme'] = f = QTextCharFormat()
-    f.setForeground(QColor(160, 73, 0))
+    f.setForeground(QColor(80, 40, 0))
     
     scheme['lilypond'] = f = QTextCharFormat(f)
     f.setFontWeight(QFont.Bold)
+    
+    scheme['delimiter'] = f = QTextCharFormat(f)
+    f.setForeground(QColor(160, 0, 150))
+    f.setFontWeight(QFont.Bold)
+    
+    scheme['keyword'] = f = QTextCharFormat()
+    f.setForeground(QColor(0, 130, 150))
+    f.setFontWeight(QFont.Bold)
+    
+    scheme['function'] = f = QTextCharFormat()
+    f.setForeground(QColor(150, 0, 222))
+    
+    scheme['variable'] = QTextCharFormat(f)
+    
+    scheme['constant'] = QTextCharFormat(f)
+    
+    scheme['symbol'] = QTextCharFormat(f)
     
     # LaTeX
     latex = {}
@@ -381,6 +398,12 @@ allStyles = (
         'lilypond',
         'string',
         'comment',
+        'keyword',
+        'function',
+        'variable',
+        'constant',
+        'symbol',
+        'delimiter',
         )),
     ('texinfo', (
         'keyword',
