@@ -528,6 +528,12 @@ def allStyleNames():
             'lilypond':     _("LilyPond Environment"),
             'string':       _("String"),
             'comment':      _("Comment"),
+            'keyword':      _("Keyword"),
+            'function':     _("Function"),
+            'variable':     _("Variable"),
+            'constant':     _("Constant"),
+            'symbol':       _("Symbol"),
+            'delimiter':  _("Delimiter"),
         }),
         'texinfo': (_("Texinfo"), {
             'keyword':      _("Keyword"),

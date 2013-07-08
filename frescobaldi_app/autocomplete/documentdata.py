@@ -29,6 +29,7 @@ import os
 import listmodel
 import plugin
 import ly.words
+import ly.data
 
 from . import completiondata
 from . import harvest
@@ -51,8 +52,7 @@ class DocumentDataSource(plugin.DocumentPlugin):
     def schemewords(self):
         """Scheme names, including those harvested from document."""
         schemewords = set(itertools.chain(
-            ly.words.scheme_functions,
-            ly.words.scheme_values,
+            ly.data.all_scheme_words(),
             (unicode(t)
                 for t in harvest.schemewords(self.document())
                 if len(t) > 2),

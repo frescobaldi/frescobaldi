@@ -22,6 +22,7 @@ Load the LilyPond-generated data, and add some missing things.
 """
 
 from ._lilypond_data import *
+from ._scheme_data import *
 
 # BarLine #'bar-extent
 if "bar-extent" not in interfaces["bar-line-interface"]:
