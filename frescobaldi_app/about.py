@@ -64,6 +64,10 @@ def credits():
     yield _("{author}: Kinetic Scrolling for the Music View").format(
         author="Richard Cognot")
     
+    yield _("{author}: Improved highlighting and auto-completion of Scheme code").format(
+		author="elmamyra")
+	
+	
     # translations
     yield _(
         "{appname} is translated into the following languages:").format(

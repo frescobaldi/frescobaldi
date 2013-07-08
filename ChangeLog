@@ -9,6 +9,8 @@ Changes in 2.0.11 --
 * New features:
   - Frescobaldi now has a manpage, kindly provided by Ryan Kavanagh
 * Improvements:
+  - highlighting and auto-completion of Scheme code has been improved
+    by elmamyra. 
   - when switching documents with multiple editor views open, and one of the
     views displays the document, that view is made current, instead of changing
     the document in the current view.
