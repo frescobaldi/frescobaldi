@@ -65,7 +65,7 @@ def credits():
         author="Richard Cognot")
     
     yield _("{author}: Improved highlighting and auto-completion of Scheme code").format(
-		author="elmamyra")
+		author="Nicolas Malarmey")
 	
 	
     # translations
