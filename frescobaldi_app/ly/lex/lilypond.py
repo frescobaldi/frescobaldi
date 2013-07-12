@@ -638,7 +638,7 @@ class UserCommand(_token.Token):
     
     
 class SchemeStart(_token.Item):
-    rx = "[#$]"
+    rx = "[#$](?![{}])"
     def update_state(self, state):
         import scheme
         state.enter(scheme.ParseScheme(1))

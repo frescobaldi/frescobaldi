@@ -117,7 +117,7 @@ class Keyword(Scheme):
                      "|".join(sorted(data.scheme_keywords(), key=len, reverse=True)))
         return r"({0})(?![A-Za-z-])".format(lst)
     
-class Function(Scheme):
+class Function(Word):
     @_token.patternproperty
     def rx():
         from .. import data
@@ -126,7 +126,7 @@ class Function(Scheme):
                      "|".join(sorted(data.scheme_functions(), key=len, reverse=True)))
         return r"({0})(?![A-Za-z-])".format(lst)
     
-class Variable(Scheme):
+class Variable(Word):
     @_token.patternproperty
     def rx():
         from .. import data
@@ -136,7 +136,7 @@ class Variable(Scheme):
         return r"({0})(?![A-Za-z-])".format(lst)
     
     
-class Constant(Scheme):
+class Constant(Word):
     @_token.patternproperty
     def rx():
         from .. import data
@@ -145,7 +145,7 @@ class Constant(Scheme):
                      "|".join(sorted(data.scheme_constants(), key=len, reverse=True)))
         return r"({0})(?![A-Za-z-])".format(lst)
     
-class Symbol(Scheme):
+class Symbol(Word):
     rx = r"[a-zA-Z-]+(?![a-zA-Z])"
     def update_state(self, state):
         state.leave()
