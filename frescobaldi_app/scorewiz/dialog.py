@@ -31,6 +31,7 @@ import cursortools
 import indent
 import qutil
 import help
+import document
 
 
 class ScoreWizardDialog(QDialog):
@@ -108,10 +109,13 @@ class ScoreWizardDialog(QDialog):
         """Makes the score and puts it in the editor."""
         from . import build
         builder = build.Builder(self)
+        if self.target == "new":
+            self.parent().setCurrentDocument(document.Document())
         cursor = self.parent().currentView().textCursor()
         with cursortools.compress_undo(cursor):
             cursortools.insert_select(cursor, builder.text())
             indent.re_indent(cursor)
+    
     
     def showPreview(self):
         """Shows a preview."""
