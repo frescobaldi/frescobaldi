@@ -39,19 +39,18 @@ class ScoreWizard(plugin.MainWindowPlugin):
         ac.newwithwiz.triggered.connect(self.showNewDialog)
         self._dlg = None
     
-    def showDialog(self, target):
+    def dialog(self):
+        """Return the wizard dialog, creating it if necessary."""
         if self._dlg is None:
             from . import dialog
             self._dlg = dialog.ScoreWizardDialog(self.mainwindow())
-        self._dlg.target = target
-        self._dlg.show()
+        return self._dlg
         
     def showInsertDialog(self):
-        self.showDialog("current")
+        self.dialog().show()
         
     def showNewDialog(self):
-        self.showDialog("new")
-        
+        self.dialog().show(create_new_document = True)
 
 
 class Actions(actioncollection.ActionCollection):
