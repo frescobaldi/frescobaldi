@@ -35,14 +35,23 @@ class ScoreWizard(plugin.MainWindowPlugin):
     def __init__(self, mainwindow):
         self.actionCollection = ac = Actions()
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
-        ac.scorewiz.triggered.connect(self.showDialog)
+        ac.scorewiz.triggered.connect(self.showInsertDialog)
+        ac.newwithwiz.triggered.connect(self.showNewDialog)
         self._dlg = None
     
-    def showDialog(self):
+    def showDialog(self, target):
         if self._dlg is None:
             from . import dialog
             self._dlg = dialog.ScoreWizardDialog(self.mainwindow())
+        self._dlg.target = target
         self._dlg.show()
+        
+    def showInsertDialog(self):
+        self.showDialog("current")
+        
+    def showNewDialog(self):
+        self.showDialog("new")
+        
 
 
 class Actions(actioncollection.ActionCollection):
@@ -51,7 +60,10 @@ class Actions(actioncollection.ActionCollection):
         self.scorewiz = QAction(parent)
         self.scorewiz.setIcon(icons.get("tools-score-wizard"))
         self.scorewiz.setShortcut(QKeySequence("Ctrl+Shift+N"))
+        self.newwithwiz = QAction(parent)
+        self.newwithwiz.setIcon(icons.get("tools-score-wizard"))
         
     def translateUI(self):
-        self.scorewiz.setText(_("Setup New Score..."))
+        self.scorewiz.setText(_("Setup New Score (in current document)..."))
+        self.newwithwiz.setText(_("New Score with &Wizard..."))
 
