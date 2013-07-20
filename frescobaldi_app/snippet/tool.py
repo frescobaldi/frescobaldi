@@ -98,7 +98,7 @@ class Actions(actioncollection.ActionCollection):
 
     def translateUI(self):
         self.file_save_as_template.setText(_("Save as Template..."))
-        self.copy_to_snippet.setText(_("Copy to Snippet..."))
+        self.copy_to_snippet.setText(_("Copy to &Snippet..."))
         self.templates_manage.setText(_("Manage Templates..."))
         self.snippettool_activate.setText(_("&Snippets..."))
 
