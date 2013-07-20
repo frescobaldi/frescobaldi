@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: frescobaldi 2.0.10\n"
+"Project-Id-Version: frescobaldi 2.0.11\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-06-04 11:15+0200\n"
+"POT-Creation-Date: 2013-07-20 21:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -58,52 +58,60 @@ msgstr ""
 msgid "{author}: Kinetic Scrolling for the Music View"
 msgstr ""
 
-#: ../about.py:69
+#: ../about.py:67
+msgid "{author}: Improved highlighting and auto-completion of Scheme code"
+msgstr ""
+
+#: ../about.py:70
+msgid "{author}: Various contributions"
+msgstr ""
+
+#: ../about.py:76
 msgid "{appname} is translated into the following languages:"
 msgstr ""
 
-#: ../about.py:88
+#: ../about.py:95
 msgid "About {appname}"
 msgstr ""
 
-#: ../about.py:95
+#: ../about.py:102
 msgid "About"
 msgstr ""
 
-#: ../about.py:96 ../help/contents.py:330
+#: ../about.py:103 ../help/contents.py:330
 msgid "Credits"
 msgstr ""
 
-#: ../about.py:97
+#: ../about.py:104
 msgid "Version"
 msgstr ""
 
-#: ../about.py:152
+#: ../about.py:159
 msgid "Operating System"
 msgstr ""
 
-#: ../about.py:159
+#: ../about.py:166
 msgid "Version {version}"
 msgstr ""
 
-#: ../about.py:160 ../main.py:57
+#: ../about.py:167 ../main.py:57
 msgid "A LilyPond Music Editor"
 msgstr ""
 
-#: ../about.py:161
+#: ../about.py:168
 msgid "Copyright (c) {year} by {author}"
 msgstr ""
 
-#: ../about.py:165
+#: ../about.py:172
 msgid "Send an e-mail message to the maintainers."
 msgstr ""
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: ../about.py:168 ../help/contents.py:57
+#: ../about.py:175 ../help/contents.py:57
 msgid "Translated by Your Name."
 msgstr ""
 
-#: ../about.py:173
+#: ../about.py:180
 msgid "Licensed under the {gpl}."
 msgstr ""
 
@@ -411,7 +419,7 @@ msgid "Lyrics"
 msgstr ""
 
 #: ../hyphendialog.py:165 ../pitch/pitch.py:744 ../rhythm/rhythm.py:279
-#: ../scorewiz/dialog.py:192
+#: ../scorewiz/dialog.py:206
 msgctxt "menu title"
 msgid "Tools"
 msgstr ""
@@ -868,62 +876,62 @@ msgctxt "menu title"
 msgid "&File"
 msgstr ""
 
-#: ../menu.py:119
+#: ../menu.py:120
 msgctxt "submenu title"
 msgid "&Export"
 msgstr ""
 
-#: ../menu.py:127
+#: ../menu.py:128
 msgctxt "menu title"
 msgid "&Edit"
 msgstr ""
 
-#: ../menu.py:154
+#: ../menu.py:156
 msgctxt "menu title"
 msgid "&View"
 msgstr ""
 
-#: ../menu.py:182
+#: ../menu.py:184
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr ""
 
-#: ../menu.py:197
+#: ../menu.py:199
 msgctxt "menu title"
 msgid "&Music"
 msgstr ""
 
-#: ../menu.py:222
+#: ../menu.py:224
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr ""
 
-#: ../menu.py:241
+#: ../menu.py:243
 msgctxt "menu title"
 msgid "&Tools"
 msgstr ""
 
-#: ../menu.py:267
+#: ../menu.py:269
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr ""
 
-#: ../menu.py:279
+#: ../menu.py:281
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr ""
 
-#: ../menu.py:293
+#: ../menu.py:295
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr ""
 
-#: ../menu.py:321
+#: ../menu.py:323
 msgctxt "menu title"
 msgid "&Window"
 msgstr ""
 
-#: ../menu.py:341
+#: ../menu.py:343
 msgctxt "menu title"
 msgid "&Help"
 msgstr ""
@@ -2899,17 +2907,18 @@ msgstr ""
 
 #. L10N: a basic type of input in the editor
 #: ../preferences/fontscolors.py:462 ../preferences/fontscolors.py:497
-#: ../preferences/fontscolors.py:533
+#: ../preferences/fontscolors.py:531 ../preferences/fontscolors.py:539
 msgid "Keyword"
 msgstr ""
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:464
+#: ../preferences/fontscolors.py:464 ../preferences/fontscolors.py:532
 msgid "Function"
 msgstr ""
 
 #. L10N: a basic type of input in the editor
 #: ../preferences/fontscolors.py:466 ../preferences/fontscolors.py:508
+#: ../preferences/fontscolors.py:533
 msgid "Variable"
 msgstr ""
 
@@ -2933,7 +2942,7 @@ msgstr ""
 #. L10N: a basic type of input in the editor
 #: ../preferences/fontscolors.py:474 ../preferences/fontscolors.py:513
 #: ../preferences/fontscolors.py:522 ../preferences/fontscolors.py:530
-#: ../preferences/fontscolors.py:538 ../snippet/builtin.py:374
+#: ../preferences/fontscolors.py:544 ../snippet/builtin.py:374
 msgid "Comment"
 msgstr ""
 
@@ -3014,7 +3023,7 @@ msgstr ""
 msgid "Lyric Text"
 msgstr ""
 
-#: ../preferences/fontscolors.py:504
+#: ../preferences/fontscolors.py:504 ../preferences/fontscolors.py:536
 msgid "Delimiter"
 msgstr ""
 
@@ -3034,7 +3043,7 @@ msgstr ""
 msgid "User Variable"
 msgstr ""
 
-#: ../preferences/fontscolors.py:512 ../preferences/fontscolors.py:535
+#: ../preferences/fontscolors.py:512 ../preferences/fontscolors.py:541
 msgid "Escaped Character"
 msgstr ""
 
@@ -3050,7 +3059,7 @@ msgstr ""
 msgid "LilyPond Tag"
 msgstr ""
 
-#: ../preferences/fontscolors.py:519 ../preferences/fontscolors.py:536
+#: ../preferences/fontscolors.py:519 ../preferences/fontscolors.py:542
 msgid "Attribute"
 msgstr ""
 
@@ -3070,15 +3079,23 @@ msgstr ""
 msgid "LilyPond Environment"
 msgstr ""
 
-#: ../preferences/fontscolors.py:532
+#: ../preferences/fontscolors.py:534
+msgid "Constant"
+msgstr ""
+
+#: ../preferences/fontscolors.py:535
+msgid "Symbol"
+msgstr ""
+
+#: ../preferences/fontscolors.py:538
 msgid "Texinfo"
 msgstr ""
 
-#: ../preferences/fontscolors.py:534
+#: ../preferences/fontscolors.py:540
 msgid "Block"
 msgstr ""
 
-#: ../preferences/fontscolors.py:537
+#: ../preferences/fontscolors.py:543
 msgid "Verbatim"
 msgstr ""
 
@@ -3495,8 +3512,8 @@ msgid ""
 "here."
 msgstr ""
 
-#: ../preferences/prefshelp.py:220 ../snippet/tool.py:54
-#: ../snippet/tool.py:135 ../snippet/widget.py:403
+#: ../preferences/prefshelp.py:220 ../snippet/tool.py:55
+#: ../snippet/tool.py:147 ../snippet/widget.py:403
 msgid "Snippets"
 msgstr ""
 
@@ -4364,8 +4381,12 @@ msgctxt "submenu title"
 msgid "Rhythm"
 msgstr ""
 
-#: ../scorewiz/__init__.py:56 ../scorewiz/dialog.py:192
-msgid "Setup New Score..."
+#: ../scorewiz/__init__.py:66
+msgid "Setup New Score (in current document)..."
+msgstr ""
+
+#: ../scorewiz/__init__.py:67
+msgid "New Score with &Wizard..."
 msgstr ""
 
 #: ../scorewiz/build.py:136
@@ -4376,43 +4397,47 @@ msgstr ""
 msgid "Remove default LilyPond tagline"
 msgstr ""
 
-#: ../scorewiz/dialog.py:77
+#: ../scorewiz/dialog.py:78
 msgid "Score Setup Wizard"
 msgstr ""
 
-#: ../scorewiz/dialog.py:80
+#: ../scorewiz/dialog.py:81
 msgid "Clear"
 msgstr ""
 
-#: ../scorewiz/dialog.py:82
+#: ../scorewiz/dialog.py:83
 msgid "Clears the current page of the Score Wizard."
 msgstr ""
 
-#: ../scorewiz/dialog.py:83
+#: ../scorewiz/dialog.py:84
 msgid "Preview"
 msgstr ""
 
-#: ../scorewiz/dialog.py:126
+#: ../scorewiz/dialog.py:140
 msgid "Score Preview"
 msgstr ""
 
-#: ../scorewiz/dialog.py:160
+#: ../scorewiz/dialog.py:174
 msgid "&Titles and Headers"
 msgstr ""
 
-#: ../scorewiz/dialog.py:169
+#: ../scorewiz/dialog.py:183
 msgid "&Parts"
 msgstr ""
 
-#: ../scorewiz/dialog.py:178
+#: ../scorewiz/dialog.py:192
 msgid "&Score settings"
 msgstr ""
 
-#: ../scorewiz/dialog.py:187
+#: ../scorewiz/dialog.py:201
 msgid "The Score Wizard"
 msgstr ""
 
-#: ../scorewiz/dialog.py:193
+#: ../scorewiz/dialog.py:206
+msgid "Setup New Score..."
+msgstr ""
+
+#: ../scorewiz/dialog.py:207
 msgid ""
 "<p>\n"
 "The Score Setup Wizard ({key}) in {menu} is designed\n"
@@ -6222,19 +6247,23 @@ msgid ""
 "Do you want to overwrite it?"
 msgstr ""
 
-#: ../snippet/tool.py:55
+#: ../snippet/tool.py:56
 msgid "&Snippets"
 msgstr ""
 
-#: ../snippet/tool.py:89
+#: ../snippet/tool.py:100
 msgid "Save as Template..."
 msgstr ""
 
-#: ../snippet/tool.py:90
+#: ../snippet/tool.py:101
+msgid "Copy to &Snippet..."
+msgstr ""
+
+#: ../snippet/tool.py:102
 msgid "Manage Templates..."
 msgstr ""
 
-#: ../snippet/tool.py:91
+#: ../snippet/tool.py:103
 msgid "&Snippets..."
 msgstr ""
 
