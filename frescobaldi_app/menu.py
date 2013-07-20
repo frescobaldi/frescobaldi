@@ -134,6 +134,7 @@ def menu_edit(mainwindow):
     m.addAction(documentactions.get(mainwindow).actionCollection.edit_cut_assign)
     m.addAction(ac.edit_cut)
     m.addAction(ac.edit_copy)
+    m.addAction(panelmanager.manager(mainwindow).snippettool.actionCollection.copy_to_snippet)
     m.addAction(ac.edit_copy_colored_html)
     m.addAction(panelmanager.manager(mainwindow).musicview.actionCollection.music_copy_image)
     m.addAction(ac.edit_paste)
