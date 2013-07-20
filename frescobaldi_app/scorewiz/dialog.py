@@ -31,7 +31,6 @@ import cursortools
 import indent
 import qutil
 import help
-import document
 
 
 class ScoreWizardDialog(QDialog):
@@ -119,7 +118,7 @@ class ScoreWizardDialog(QDialog):
     def slotAccepted(self):
         """Makes the score and puts it in the editor."""
         if self._createNewDocument:
-            self.parent().setCurrentDocument(document.Document())
+            self.parent().setCurrentDocument(app.openUrl(QUrl()))
         from . import build
         builder = build.Builder(self)
         cursor = self.parent().currentView().textCursor()
