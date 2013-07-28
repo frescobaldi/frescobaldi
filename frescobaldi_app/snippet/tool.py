@@ -50,6 +50,8 @@ class SnippetTool(panel.Panel):
         ac.templates_manage.triggered.connect(self.manageTemplates)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         mainwindow.addDockWidget(Qt.BottomDockWidgetArea, self)
+        mainwindow.selectionStateChanged.connect(self.updateActions)
+        self.updateActions()
         
     def translateUI(self):
         self.setWindowTitle(_("Snippets"))
@@ -67,16 +69,15 @@ class SnippetTool(panel.Panel):
         self.widget().searchEntry.setFocus()
         self.widget().searchEntry.selectAll()
     
+    def updateActions(self):
+        self.actionCollection.copy_to_snippet.setEnabled(self.mainwindow().hasSelection())
+    
     def saveAsTemplate(self):
         from . import template
         template.save(self.mainwindow())
     
     def copyToSnippet(self):
-        cursor = self.mainwindow().textCursor()
-        if cursor.hasSelection():
-            text = cursor.selection().toPlainText()
-        else:
-            text = cursor.document().toPlainText()
+        text = self.mainwindow().textCursor().selection().toPlainText()
         from . import edit
         edit.Edit(self.widget(), None, text)
     
