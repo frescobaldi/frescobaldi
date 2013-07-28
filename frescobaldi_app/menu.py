@@ -92,7 +92,6 @@ def menu_file(mainwindow):
     m.addAction(ac.file_open_recent)
     m.addAction(ac.file_insert_file)
     m.addAction(documentactions.get(mainwindow).actionCollection.file_open_file_at_cursor)
-    m.addAction(ac.file_open_current_directory)
     m.addSeparator()
     m.addAction(ac.file_save)
     m.addAction(ac.file_save_as)
@@ -260,6 +259,7 @@ def menu_tools(mainwindow):
     m.addSeparator()
     ac = documentactions.get(mainwindow).actionCollection
     m.addAction(ac.tools_convert_ly)
+    m.addAction(mainwindow.actionCollection.file_open_current_directory)
     m.addAction(mainwindow.actionCollection.file_open_command_prompt)
     m.addSeparator()
     panelmanager.manager(mainwindow).addActionsToMenu(m)
