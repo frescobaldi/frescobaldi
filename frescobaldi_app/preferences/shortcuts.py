@@ -60,7 +60,7 @@ class Shortcuts(preferences.Page):
         self.tree.setAnimated(True)
         layout.addWidget(self.tree)
         
-        self.edit = QPushButton(icons.get("configure-shortcuts"), '')
+        self.edit = QPushButton(icons.get("preferences-desktop-keyboard-shortcuts"), '')
         layout.addWidget(self.edit)
         
         # signals

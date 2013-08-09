@@ -67,7 +67,7 @@ class Edit(QDialog):
         self.titleLabel = QLabel()
         self.titleEntry = QLineEdit()
         self.shortcutLabel = QLabel()
-        self.shortcutButton = QPushButton(icon=icons.get("configure-shortcuts"),
+        self.shortcutButton = QPushButton(icon=icons.get("preferences-desktop-keyboard-shortcuts"),
             clicked=self.editShortcuts)
         
         layout.addWidget(self.topLabel)
