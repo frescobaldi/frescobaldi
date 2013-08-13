@@ -147,6 +147,12 @@ class Shortcuts(preferences.Page):
             for j in range(top.childCount()):
                 yield top.child(j)
     
+    def item(self, collection, name):
+        for item in self.items():
+            print item.collection.name, item.name
+            if item.collection.name == collection and item.name == name:
+                return item
+             
     def saveSettings(self):
         self.scheme.saveSettings("shortcut_scheme", "shortcut_schemes", "shortcuts")
         for item in self.items():
@@ -178,6 +184,19 @@ class Shortcuts(preferences.Page):
             self.edit.setText(_("(no shortcut)"))
             self.edit.setEnabled(False)
         
+    def import_(self, filename):
+        from . import import_export
+        import_export.importShortcut(filename, self, self.scheme)
+        
+    def export(self, name, filename):
+        from . import import_export
+        try:
+            import_export.exportShortcut(self, self.scheme.currentScheme(), name, filename)
+        except (IOError, OSError) as e:
+            QMessageBox.critical(self, _("Error"), _(
+                "Can't write to destination:\n\n{url}\n\n{error}").format(
+                url=filename, error=e.strerror))
+    
     def editCurrentItem(self):
         item = self.tree.currentItem()
         if not isinstance(item, ShortcutItem):
@@ -256,7 +275,10 @@ class ShortcutItem(QTreeWidgetItem):
     def shortcuts(self, scheme):
         """Returns the list of shortcuts currently set for scheme."""
         return list(self._shortcuts[scheme][0])
-        
+    
+    def isDefault(self, scheme):
+        return self._shortcuts[scheme][1]
+    
     def setShortcuts(self, shortcuts, scheme):
         default = shortcuts == self.defaultShortcuts()
         self._shortcuts[scheme] = (shortcuts, default)
