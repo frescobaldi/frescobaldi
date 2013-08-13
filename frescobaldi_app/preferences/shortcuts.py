@@ -149,7 +149,6 @@ class Shortcuts(preferences.Page):
     
     def item(self, collection, name):
         for item in self.items():
-            print item.collection.name, item.name
             if item.collection.name == collection and item.name == name:
                 return item
              
