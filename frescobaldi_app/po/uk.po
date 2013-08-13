@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-05-18 17:15+0200\n"
+"POT-Creation-Date: 2013-07-20 21:15+0200\n"
 "PO-Revision-Date: 2012-04-19 17:21+0300\n"
 "Last-Translator: Dmytro O. Redchuk <brownian.box@gmail.com>\n"
 "Language-Team: Ukrainian\n"
@@ -59,52 +59,60 @@ msgstr "Перелічені особи зробили внесок у {appname}
 msgid "{author}: Kinetic Scrolling for the Music View"
 msgstr "{author}: Кінетична прокрутка Перегляду твору"
 
-#: ../about.py:69
+#: ../about.py:67
+msgid "{author}: Improved highlighting and auto-completion of Scheme code"
+msgstr ""
+
+#: ../about.py:70
+msgid "{author}: Various contributions"
+msgstr ""
+
+#: ../about.py:76
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} перекладено такими мовами:"
 
-#: ../about.py:88
+#: ../about.py:95
 msgid "About {appname}"
 msgstr "Про {appname}"
 
-#: ../about.py:95
+#: ../about.py:102
 msgid "About"
 msgstr "Про"
 
-#: ../about.py:96 ../help/contents.py:330
+#: ../about.py:103 ../help/contents.py:330
 msgid "Credits"
 msgstr "Подяки"
 
-#: ../about.py:97
+#: ../about.py:104
 msgid "Version"
 msgstr "Версія"
 
-#: ../about.py:152
+#: ../about.py:159
 msgid "Operating System"
 msgstr "Операційна система"
 
-#: ../about.py:159
+#: ../about.py:166
 msgid "Version {version}"
 msgstr "Версія {version}"
 
-#: ../about.py:160 ../main.py:57
+#: ../about.py:167 ../main.py:57
 msgid "A LilyPond Music Editor"
 msgstr "Музичний редактор LilyPond"
 
-#: ../about.py:161
+#: ../about.py:168
 msgid "Copyright (c) {year} by {author}"
 msgstr ""
 
-#: ../about.py:165
+#: ../about.py:172
 msgid "Send an e-mail message to the maintainers."
 msgstr "Напишіть е-листа розробникам."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: ../about.py:168 ../help/contents.py:57
+#: ../about.py:175 ../help/contents.py:57
 msgid "Translated by Your Name."
 msgstr "Переклад Дмитра Редчука"
 
-#: ../about.py:173
+#: ../about.py:180
 msgid "Licensed under the {gpl}."
 msgstr "Розповсюджується на умовах {gpl}."
 
@@ -427,7 +435,7 @@ msgid "Lyrics"
 msgstr "Вокальний текст"
 
 #: ../hyphendialog.py:165 ../pitch/pitch.py:744 ../rhythm/rhythm.py:279
-#: ../scorewiz/dialog.py:192
+#: ../scorewiz/dialog.py:206
 msgctxt "menu title"
 msgid "Tools"
 msgstr "Інструменти"
@@ -945,63 +953,63 @@ msgctxt "menu title"
 msgid "&File"
 msgstr "Ф&айл"
 
-#: ../menu.py:119
+#: ../menu.py:120
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "Експорт"
 
-#: ../menu.py:127
+#: ../menu.py:128
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "Редаг&ування"
 
-#: ../menu.py:154
+#: ../menu.py:156
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Вигляд"
 
-#: ../menu.py:182
+#: ../menu.py:184
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "&Згортки"
 
-#: ../menu.py:197
+#: ../menu.py:199
 #, fuzzy
 msgctxt "menu title"
 msgid "&Music"
 msgstr "&Перегляд твору"
 
-#: ../menu.py:222
+#: ../menu.py:224
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr ""
 
-#: ../menu.py:241
+#: ../menu.py:243
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "Інструм&енти"
 
-#: ../menu.py:267
+#: ../menu.py:269
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Вокальний текст"
 
-#: ../menu.py:279
+#: ../menu.py:281
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Тони"
 
-#: ../menu.py:293
+#: ../menu.py:295
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ритм"
 
-#: ../menu.py:321
+#: ../menu.py:323
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Вікно"
 
-#: ../menu.py:341
+#: ../menu.py:343
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Допомога"
@@ -3006,17 +3014,18 @@ msgstr "Підсвічення перегляду"
 
 #. L10N: a basic type of input in the editor
 #: ../preferences/fontscolors.py:462 ../preferences/fontscolors.py:497
-#: ../preferences/fontscolors.py:533
+#: ../preferences/fontscolors.py:531 ../preferences/fontscolors.py:539
 msgid "Keyword"
 msgstr "Ключове слово"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:464
+#: ../preferences/fontscolors.py:464 ../preferences/fontscolors.py:532
 msgid "Function"
 msgstr "Функція"
 
 #. L10N: a basic type of input in the editor
 #: ../preferences/fontscolors.py:466 ../preferences/fontscolors.py:508
+#: ../preferences/fontscolors.py:533
 msgid "Variable"
 msgstr "Змінна"
 
@@ -3040,7 +3049,7 @@ msgstr ""
 #. L10N: a basic type of input in the editor
 #: ../preferences/fontscolors.py:474 ../preferences/fontscolors.py:513
 #: ../preferences/fontscolors.py:522 ../preferences/fontscolors.py:530
-#: ../preferences/fontscolors.py:538 ../snippet/builtin.py:374
+#: ../preferences/fontscolors.py:544 ../snippet/builtin.py:374
 msgid "Comment"
 msgstr "Коментар"
 
@@ -3121,7 +3130,7 @@ msgstr ""
 msgid "Lyric Text"
 msgstr "Вокальний текст"
 
-#: ../preferences/fontscolors.py:504
+#: ../preferences/fontscolors.py:504 ../preferences/fontscolors.py:536
 msgid "Delimiter"
 msgstr "Розділювач"
 
@@ -3141,7 +3150,7 @@ msgstr "Властивість"
 msgid "User Variable"
 msgstr "Змінна користувача"
 
-#: ../preferences/fontscolors.py:512 ../preferences/fontscolors.py:535
+#: ../preferences/fontscolors.py:512 ../preferences/fontscolors.py:541
 msgid "Escaped Character"
 msgstr ""
 
@@ -3157,7 +3166,7 @@ msgstr "Мітка"
 msgid "LilyPond Tag"
 msgstr "Мітка LilyPond"
 
-#: ../preferences/fontscolors.py:519 ../preferences/fontscolors.py:536
+#: ../preferences/fontscolors.py:519 ../preferences/fontscolors.py:542
 msgid "Attribute"
 msgstr "Атрибут"
 
@@ -3177,15 +3186,23 @@ msgstr "Число"
 msgid "LilyPond Environment"
 msgstr "Оточення LilyPond"
 
-#: ../preferences/fontscolors.py:532
+#: ../preferences/fontscolors.py:534
+msgid "Constant"
+msgstr ""
+
+#: ../preferences/fontscolors.py:535
+msgid "Symbol"
+msgstr ""
+
+#: ../preferences/fontscolors.py:538
 msgid "Texinfo"
 msgstr ""
 
-#: ../preferences/fontscolors.py:534
+#: ../preferences/fontscolors.py:540
 msgid "Block"
 msgstr "Блок"
 
-#: ../preferences/fontscolors.py:537
+#: ../preferences/fontscolors.py:543
 msgid "Verbatim"
 msgstr ""
 
@@ -3615,8 +3632,8 @@ msgid ""
 "here."
 msgstr ""
 
-#: ../preferences/prefshelp.py:220 ../snippet/tool.py:54
-#: ../snippet/tool.py:135 ../snippet/widget.py:403
+#: ../preferences/prefshelp.py:220 ../snippet/tool.py:55
+#: ../snippet/tool.py:147 ../snippet/widget.py:403
 msgid "Snippets"
 msgstr ""
 
@@ -4488,9 +4505,15 @@ msgctxt "submenu title"
 msgid "Rhythm"
 msgstr ""
 
-#: ../scorewiz/__init__.py:56 ../scorewiz/dialog.py:192
-msgid "Setup New Score..."
+#: ../scorewiz/__init__.py:66
+#, fuzzy
+msgid "Setup New Score (in current document)..."
 msgstr "Налаштувати новий твір..."
+
+#: ../scorewiz/__init__.py:67
+#, fuzzy
+msgid "New Score with &Wizard..."
+msgstr "Майстер налаштування твору"
 
 #: ../scorewiz/build.py:136
 msgid "Music follows here."
@@ -4500,43 +4523,47 @@ msgstr ""
 msgid "Remove default LilyPond tagline"
 msgstr ""
 
-#: ../scorewiz/dialog.py:77
+#: ../scorewiz/dialog.py:78
 msgid "Score Setup Wizard"
 msgstr "Майстер налаштування твору"
 
-#: ../scorewiz/dialog.py:80
+#: ../scorewiz/dialog.py:81
 msgid "Clear"
 msgstr "Очистити"
 
-#: ../scorewiz/dialog.py:82
+#: ../scorewiz/dialog.py:83
 msgid "Clears the current page of the Score Wizard."
 msgstr ""
 
-#: ../scorewiz/dialog.py:83
+#: ../scorewiz/dialog.py:84
 msgid "Preview"
 msgstr "Переглянути"
 
-#: ../scorewiz/dialog.py:126
+#: ../scorewiz/dialog.py:140
 msgid "Score Preview"
 msgstr "Перегляд твору"
 
-#: ../scorewiz/dialog.py:160
+#: ../scorewiz/dialog.py:174
 msgid "&Titles and Headers"
 msgstr "&Заголовки та колонтитули"
 
-#: ../scorewiz/dialog.py:169
+#: ../scorewiz/dialog.py:183
 msgid "&Parts"
 msgstr "&Партії"
 
-#: ../scorewiz/dialog.py:178
+#: ../scorewiz/dialog.py:192
 msgid "&Score settings"
 msgstr "&Твір"
 
-#: ../scorewiz/dialog.py:187
+#: ../scorewiz/dialog.py:201
 msgid "The Score Wizard"
 msgstr "Майстер налаштування твору"
 
-#: ../scorewiz/dialog.py:193
+#: ../scorewiz/dialog.py:206
+msgid "Setup New Score..."
+msgstr "Налаштувати новий твір..."
+
+#: ../scorewiz/dialog.py:207
 msgid ""
 "<p>\n"
 "The Score Setup Wizard ({key}) in {menu} is designed\n"
@@ -6350,19 +6377,24 @@ msgid ""
 "Do you want to overwrite it?"
 msgstr ""
 
-#: ../snippet/tool.py:55
+#: ../snippet/tool.py:56
 msgid "&Snippets"
 msgstr ""
 
-#: ../snippet/tool.py:89
+#: ../snippet/tool.py:100
 msgid "Save as Template..."
 msgstr "Зберегти як шаблон..."
 
-#: ../snippet/tool.py:90
+#: ../snippet/tool.py:101
+#, fuzzy
+msgid "Copy to &Snippet..."
+msgstr "Копіювати у &зображення..."
+
+#: ../snippet/tool.py:102
 msgid "Manage Templates..."
 msgstr "Керувати шаблонами..."
 
-#: ../snippet/tool.py:91
+#: ../snippet/tool.py:103
 msgid "&Snippets..."
 msgstr ""
 

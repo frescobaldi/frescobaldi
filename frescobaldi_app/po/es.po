@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-05-18 17:15+0200\n"
+"POT-Creation-Date: 2013-07-20 21:15+0200\n"
 "PO-Revision-Date: 2013-04-19 12:12+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -57,52 +57,60 @@ msgstr "Las siguientes personas han colaborado con {appname}:"
 msgid "{author}: Kinetic Scrolling for the Music View"
 msgstr "{author}: Desplazamiento Cinético en la vista previa de música"
 
-#: ../about.py:69
+#: ../about.py:67
+msgid "{author}: Improved highlighting and auto-completion of Scheme code"
+msgstr ""
+
+#: ../about.py:70
+msgid "{author}: Various contributions"
+msgstr ""
+
+#: ../about.py:76
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} se encuentra traducido a los siguientes idiomas:"
 
-#: ../about.py:88
+#: ../about.py:95
 msgid "About {appname}"
 msgstr "Acerca de {appname}"
 
-#: ../about.py:95
+#: ../about.py:102
 msgid "About"
 msgstr "Acerca de"
 
-#: ../about.py:96 ../help/contents.py:330
+#: ../about.py:103 ../help/contents.py:330
 msgid "Credits"
 msgstr "Créditos"
 
-#: ../about.py:97
+#: ../about.py:104
 msgid "Version"
 msgstr "Versión"
 
-#: ../about.py:152
+#: ../about.py:159
 msgid "Operating System"
 msgstr "Sistema operativo"
 
-#: ../about.py:159
+#: ../about.py:166
 msgid "Version {version}"
 msgstr "Versión {version}"
 
-#: ../about.py:160 ../main.py:57
+#: ../about.py:167 ../main.py:57
 msgid "A LilyPond Music Editor"
 msgstr "Editor de música para LilyPond"
 
-#: ../about.py:161
+#: ../about.py:168
 msgid "Copyright (c) {year} by {author}"
 msgstr "Copyright (c) {year} por {author}"
 
-#: ../about.py:165
+#: ../about.py:172
 msgid "Send an e-mail message to the maintainers."
 msgstr "Enviar un mensaje de correo electrónico a los mantenedores."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: ../about.py:168 ../help/contents.py:57
+#: ../about.py:175 ../help/contents.py:57
 msgid "Translated by Your Name."
 msgstr "Traducido por Francisco Vila."
 
-#: ../about.py:173
+#: ../about.py:180
 msgid "Licensed under the {gpl}."
 msgstr "Publicado bajo la licencia {gpl}."
 
@@ -424,7 +432,7 @@ msgid "Lyrics"
 msgstr "Letra"
 
 #: ../hyphendialog.py:165 ../pitch/pitch.py:744 ../rhythm/rhythm.py:279
-#: ../scorewiz/dialog.py:192
+#: ../scorewiz/dialog.py:206
 msgctxt "menu title"
 msgid "Tools"
 msgstr "Herramientas"
@@ -941,62 +949,62 @@ msgctxt "menu title"
 msgid "&File"
 msgstr "&Archivo"
 
-#: ../menu.py:119
+#: ../menu.py:120
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Exportar"
 
-#: ../menu.py:127
+#: ../menu.py:128
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "&Editar"
 
-#: ../menu.py:154
+#: ../menu.py:156
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Vista"
 
-#: ../menu.py:182
+#: ../menu.py:184
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "&Plegar"
 
-#: ../menu.py:197
+#: ../menu.py:199
 msgctxt "menu title"
 msgid "&Music"
 msgstr "&Música"
 
-#: ../menu.py:222
+#: ../menu.py:224
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:241
+#: ../menu.py:243
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "Herramien&tas"
 
-#: ../menu.py:267
+#: ../menu.py:269
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Letra"
 
-#: ../menu.py:279
+#: ../menu.py:281
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Altura"
 
-#: ../menu.py:293
+#: ../menu.py:295
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "Du&raciones"
 
-#: ../menu.py:321
+#: ../menu.py:323
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Ventana"
 
-#: ../menu.py:341
+#: ../menu.py:343
 msgctxt "menu title"
 msgid "&Help"
 msgstr "Ay&uda"
@@ -3459,17 +3467,18 @@ msgstr "Resaltado de la vista previa"
 
 #. L10N: a basic type of input in the editor
 #: ../preferences/fontscolors.py:462 ../preferences/fontscolors.py:497
-#: ../preferences/fontscolors.py:533
+#: ../preferences/fontscolors.py:531 ../preferences/fontscolors.py:539
 msgid "Keyword"
 msgstr "Palabra clave"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:464
+#: ../preferences/fontscolors.py:464 ../preferences/fontscolors.py:532
 msgid "Function"
 msgstr "Función"
 
 #. L10N: a basic type of input in the editor
 #: ../preferences/fontscolors.py:466 ../preferences/fontscolors.py:508
+#: ../preferences/fontscolors.py:533
 msgid "Variable"
 msgstr "Variable"
 
@@ -3493,7 +3502,7 @@ msgstr "Escape"
 #. L10N: a basic type of input in the editor
 #: ../preferences/fontscolors.py:474 ../preferences/fontscolors.py:513
 #: ../preferences/fontscolors.py:522 ../preferences/fontscolors.py:530
-#: ../preferences/fontscolors.py:538 ../snippet/builtin.py:374
+#: ../preferences/fontscolors.py:544 ../snippet/builtin.py:374
 msgid "Comment"
 msgstr "Comentario"
 
@@ -3574,7 +3583,7 @@ msgstr "Modo de letra"
 msgid "Lyric Text"
 msgstr "Texto de la letra"
 
-#: ../preferences/fontscolors.py:504
+#: ../preferences/fontscolors.py:504 ../preferences/fontscolors.py:536
 msgid "Delimiter"
 msgstr "Delimitador"
 
@@ -3594,7 +3603,7 @@ msgstr "Propiedad"
 msgid "User Variable"
 msgstr "Variable del usuario"
 
-#: ../preferences/fontscolors.py:512 ../preferences/fontscolors.py:535
+#: ../preferences/fontscolors.py:512 ../preferences/fontscolors.py:541
 msgid "Escaped Character"
 msgstr "Carácter con escape"
 
@@ -3610,7 +3619,7 @@ msgstr "Etiqueta"
 msgid "LilyPond Tag"
 msgstr "Etiqueta de LilyPond"
 
-#: ../preferences/fontscolors.py:519 ../preferences/fontscolors.py:536
+#: ../preferences/fontscolors.py:519 ../preferences/fontscolors.py:542
 msgid "Attribute"
 msgstr "Atributo"
 
@@ -3630,15 +3639,23 @@ msgstr "Número"
 msgid "LilyPond Environment"
 msgstr "Entorno de LilyPond"
 
-#: ../preferences/fontscolors.py:532
+#: ../preferences/fontscolors.py:534
+msgid "Constant"
+msgstr ""
+
+#: ../preferences/fontscolors.py:535
+msgid "Symbol"
+msgstr ""
+
+#: ../preferences/fontscolors.py:538
 msgid "Texinfo"
 msgstr "Texinfo"
 
-#: ../preferences/fontscolors.py:534
+#: ../preferences/fontscolors.py:540
 msgid "Block"
 msgstr "Bloque"
 
-#: ../preferences/fontscolors.py:537
+#: ../preferences/fontscolors.py:543
 msgid "Verbatim"
 msgstr "Literal"
 
@@ -4172,8 +4189,8 @@ msgstr ""
 "instrucciones que están disponibles. También están relacionados aquí los "
 "botones {snippets} o {quickinsert} que tienen combinaciiones de teclado."
 
-#: ../preferences/prefshelp.py:220 ../snippet/tool.py:54
-#: ../snippet/tool.py:135 ../snippet/widget.py:403
+#: ../preferences/prefshelp.py:220 ../snippet/tool.py:55
+#: ../snippet/tool.py:147 ../snippet/widget.py:403
 msgid "Snippets"
 msgstr "Fragmentos de código"
 
@@ -5177,9 +5194,15 @@ msgctxt "submenu title"
 msgid "Rhythm"
 msgstr "Duraciones"
 
-#: ../scorewiz/__init__.py:56 ../scorewiz/dialog.py:192
-msgid "Setup New Score..."
-msgstr "Preparar partitura nueva..."
+#: ../scorewiz/__init__.py:66
+#, fuzzy
+msgid "Setup New Score (in current document)..."
+msgstr "Nombre del documento actual."
+
+#: ../scorewiz/__init__.py:67
+#, fuzzy
+msgid "New Score with &Wizard..."
+msgstr "Asistente de partitura"
 
 #: ../scorewiz/build.py:136
 msgid "Music follows here."
@@ -5189,43 +5212,47 @@ msgstr "La música continúa aquí."
 msgid "Remove default LilyPond tagline"
 msgstr "Eliminar el pie de página predeterminado de LilyPond"
 
-#: ../scorewiz/dialog.py:77
+#: ../scorewiz/dialog.py:78
 msgid "Score Setup Wizard"
 msgstr "Asistente de partitura"
 
-#: ../scorewiz/dialog.py:80
+#: ../scorewiz/dialog.py:81
 msgid "Clear"
 msgstr "Borrar"
 
-#: ../scorewiz/dialog.py:82
+#: ../scorewiz/dialog.py:83
 msgid "Clears the current page of the Score Wizard."
 msgstr "Borra la página actual del Asistente de partitura."
 
-#: ../scorewiz/dialog.py:83
+#: ../scorewiz/dialog.py:84
 msgid "Preview"
 msgstr "Vista previa"
 
-#: ../scorewiz/dialog.py:126
+#: ../scorewiz/dialog.py:140
 msgid "Score Preview"
 msgstr "Vista previa de la partitura"
 
-#: ../scorewiz/dialog.py:160
+#: ../scorewiz/dialog.py:174
 msgid "&Titles and Headers"
 msgstr "&Títulos y encabezamientos"
 
-#: ../scorewiz/dialog.py:169
+#: ../scorewiz/dialog.py:183
 msgid "&Parts"
 msgstr "&Partes"
 
-#: ../scorewiz/dialog.py:178
+#: ../scorewiz/dialog.py:192
 msgid "&Score settings"
 msgstr "Con&figuración de la partitura"
 
-#: ../scorewiz/dialog.py:187
+#: ../scorewiz/dialog.py:201
 msgid "The Score Wizard"
 msgstr "Asistente de partitura"
 
-#: ../scorewiz/dialog.py:193
+#: ../scorewiz/dialog.py:206
+msgid "Setup New Score..."
+msgstr "Preparar partitura nueva..."
+
+#: ../scorewiz/dialog.py:207
 msgid ""
 "<p>\n"
 "The Score Setup Wizard ({key}) in {menu} is designed\n"
@@ -7199,19 +7226,24 @@ msgstr ""
 "\n"
 "¿Quiere sobreescribirla?"
 
-#: ../snippet/tool.py:55
+#: ../snippet/tool.py:56
 msgid "&Snippets"
 msgstr "Fragmento&s de código"
 
-#: ../snippet/tool.py:89
+#: ../snippet/tool.py:100
 msgid "Save as Template..."
 msgstr "Guardar como plantilla..."
 
-#: ../snippet/tool.py:90
+#: ../snippet/tool.py:101
+#, fuzzy
+msgid "Copy to &Snippet..."
+msgstr "Copiar a &imagen..."
+
+#: ../snippet/tool.py:102
 msgid "Manage Templates..."
 msgstr "Gestionar plantillas..."
 
-#: ../snippet/tool.py:91
+#: ../snippet/tool.py:103
 msgid "&Snippets..."
 msgstr "Fragmento&s de código..."
 

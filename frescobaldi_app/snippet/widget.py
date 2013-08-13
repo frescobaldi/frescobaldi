@@ -116,7 +116,7 @@ class Widget(QWidget):
         menu.addAction(a)
         
         # set shortcut action
-        a = self.shortcutAction = act(self.slotShortcut, 'configure-shortcuts')
+        a = self.shortcutAction = act(self.slotShortcut, 'preferences-desktop-keyboard-shortcuts')
         menu.addAction(a)
         
         # delete action

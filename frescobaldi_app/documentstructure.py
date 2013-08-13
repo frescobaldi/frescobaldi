@@ -43,19 +43,22 @@ r"^\\relative([ \t]+\w+[',]*)?",
 r"\b(?P<alert>(FIXME|HACK|XXX+)\b\W*\w+)",
 ]
 
+
+# cache the outline regexp
+_outline_re = None
+
+
 def outline_re():
     """Return the expression to look for document outline items."""
     global _outline_re
-    try:
-        return _outline_re
-    except NameError:
+    if _outline_re is None:
         _outline_re = create_outline_re()
     return _outline_re
 
 
 def _reset_outline_re():
     global _outline_re
-    del _outline_re
+    _outline_re = None
 
 
 app.settingsChanged.connect(_reset_outline_re, -999)

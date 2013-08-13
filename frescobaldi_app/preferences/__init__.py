@@ -234,7 +234,7 @@ class Documentation(PrefsItemBase):
 
 class Shortcuts(PrefsItemBase):
     help = prefshelp.preferences_shortcuts
-    iconName = "configure-shortcuts"
+    iconName = "preferences-desktop-keyboard-shortcuts"
     def translateUI(self):
         self.setText(_("Keyboard Shortcuts"))
         

@@ -41,6 +41,7 @@ class ScoreWizardDialog(QDialog):
         super(ScoreWizardDialog, self).__init__(mainwindow)
         self.addAction(mainwindow.actionCollection.help_whatsthis)
         self._pitchLanguage = None
+        self._createNewDocument = False
         
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -104,14 +105,27 @@ class ScoreWizardDialog(QDialog):
             self._pitchLanguage = lang
         return self._pitchLanguage
 
+    def show(self, create_new_document=False):
+        """Display ourselves.
+        
+        If create_new_document is True, clicking OK will write the
+        generated template into a newly created Document.
+        
+        """
+        self._createNewDocument = create_new_document
+        super(ScoreWizardDialog, self).show()
+        
     def slotAccepted(self):
         """Makes the score and puts it in the editor."""
+        if self._createNewDocument:
+            self.parent().setCurrentDocument(app.openUrl(QUrl()))
         from . import build
         builder = build.Builder(self)
         cursor = self.parent().currentView().textCursor()
         with cursortools.compress_undo(cursor):
             cursortools.insert_select(cursor, builder.text())
             indent.re_indent(cursor)
+    
     
     def showPreview(self):
         """Shows a preview."""

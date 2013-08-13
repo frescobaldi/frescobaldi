@@ -8,6 +8,8 @@ Changes in 2.0.11 --
   - updated: cs, nl
 * New features:
   - Frescobaldi now has a manpage, kindly provided by Ryan Kavanagh
+  - Edit->Copy to Snippet, to copy the selection or the full document
+    contents to a new snippet
 * Improvements:
   - highlighting and auto-completion of Scheme code has been improved
     by elmamyra. 

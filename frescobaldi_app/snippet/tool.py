@@ -46,9 +46,12 @@ class SnippetTool(panel.Panel):
         mainwindow.addAction(ac.snippettool_activate)
         ac.snippettool_activate.triggered.connect(self.activate)
         ac.file_save_as_template.triggered.connect(self.saveAsTemplate)
+        ac.copy_to_snippet.triggered.connect(self.copyToSnippet)
         ac.templates_manage.triggered.connect(self.manageTemplates)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         mainwindow.addDockWidget(Qt.BottomDockWidgetArea, self)
+        mainwindow.selectionStateChanged.connect(self.updateActions)
+        self.updateActions()
         
     def translateUI(self):
         self.setWindowTitle(_("Snippets"))
@@ -66,9 +69,17 @@ class SnippetTool(panel.Panel):
         self.widget().searchEntry.setFocus()
         self.widget().searchEntry.selectAll()
     
+    def updateActions(self):
+        self.actionCollection.copy_to_snippet.setEnabled(self.mainwindow().hasSelection())
+    
     def saveAsTemplate(self):
         from . import template
         template.save(self.mainwindow())
+    
+    def copyToSnippet(self):
+        text = self.mainwindow().textCursor().selection().toPlainText()
+        from . import edit
+        edit.Edit(self.widget(), None, text)
     
     def manageTemplates(self):
         super(SnippetTool, self).activate()
@@ -81,12 +92,14 @@ class Actions(actioncollection.ActionCollection):
     name = "snippettool"
     def createActions(self, parent=None):
         self.file_save_as_template = QAction(parent)
+        self.copy_to_snippet = QAction(parent)
         self.templates_manage = QAction(parent)
         self.snippettool_activate = QAction(parent)
         self.snippettool_activate.setShortcut(QKeySequence("Ctrl+T"))
 
     def translateUI(self):
         self.file_save_as_template.setText(_("Save as Template..."))
+        self.copy_to_snippet.setText(_("Copy to &Snippet..."))
         self.templates_manage.setText(_("Manage Templates..."))
         self.snippettool_activate.setText(_("&Snippets..."))
 

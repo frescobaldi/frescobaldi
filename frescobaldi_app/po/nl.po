@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-05-18 17:15+0200\n"
-"PO-Revision-Date: 2013-06-02 10:46+0200\n"
+"POT-Creation-Date: 2013-07-20 21:15+0200\n"
+"PO-Revision-Date: 2013-07-20 21:21+0200\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -58,52 +58,61 @@ msgstr "De volgende personen hebben bijgedragen aan {appname}:"
 msgid "{author}: Kinetic Scrolling for the Music View"
 msgstr "{author}: Kinetische schuifbeweging in de muziekweergave"
 
-#: ../about.py:69
+#: ../about.py:67
+msgid "{author}: Improved highlighting and auto-completion of Scheme code"
+msgstr ""
+"{author}: Verbeterde accentuering en automatisch aanvullen van Scheme-code"
+
+#: ../about.py:70
+msgid "{author}: Various contributions"
+msgstr "{author}: Verschillende bijdragen"
+
+#: ../about.py:76
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} is vertaald in de volgende talen:"
 
-#: ../about.py:88
+#: ../about.py:95
 msgid "About {appname}"
 msgstr "Over {appname}"
 
-#: ../about.py:95
+#: ../about.py:102
 msgid "About"
 msgstr "Over"
 
-#: ../about.py:96 ../help/contents.py:330
+#: ../about.py:103 ../help/contents.py:330
 msgid "Credits"
 msgstr "Dank aan"
 
-#: ../about.py:97
+#: ../about.py:104
 msgid "Version"
 msgstr "Versie"
 
-#: ../about.py:152
+#: ../about.py:159
 msgid "Operating System"
 msgstr "Besturingssysteem"
 
-#: ../about.py:159
+#: ../about.py:166
 msgid "Version {version}"
 msgstr "Versie {version}"
 
-#: ../about.py:160 ../main.py:57
+#: ../about.py:167 ../main.py:57
 msgid "A LilyPond Music Editor"
 msgstr "Een muziek-editor voor LilyPond"
 
-#: ../about.py:161
+#: ../about.py:168
 msgid "Copyright (c) {year} by {author}"
 msgstr "Copyright (c) {year} door {author}"
 
-#: ../about.py:165
+#: ../about.py:172
 msgid "Send an e-mail message to the maintainers."
 msgstr "Een e-mailbericht sturen naar de auteurs."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: ../about.py:168 ../help/contents.py:57
+#: ../about.py:175 ../help/contents.py:57
 msgid "Translated by Your Name."
 msgstr "Vertaald door Wilbert Berendsen."
 
-#: ../about.py:173
+#: ../about.py:180
 msgid "Licensed under the {gpl}."
 msgstr "Beschikbaar onder de {gpl}."
 
@@ -423,7 +432,7 @@ msgid "Lyrics"
 msgstr "Liedteksten"
 
 #: ../hyphendialog.py:165 ../pitch/pitch.py:744 ../rhythm/rhythm.py:279
-#: ../scorewiz/dialog.py:192
+#: ../scorewiz/dialog.py:206
 msgctxt "menu title"
 msgid "Tools"
 msgstr "Gereedschap"
@@ -937,62 +946,62 @@ msgctxt "menu title"
 msgid "&File"
 msgstr "&Bestand"
 
-#: ../menu.py:119
+#: ../menu.py:120
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Exporteren"
 
-#: ../menu.py:127
+#: ../menu.py:128
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "Be&werken"
 
-#: ../menu.py:154
+#: ../menu.py:156
 msgctxt "menu title"
 msgid "&View"
 msgstr "B&eeld"
 
-#: ../menu.py:182
+#: ../menu.py:184
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "Invou&wen"
 
-#: ../menu.py:197
+#: ../menu.py:199
 msgctxt "menu title"
 msgid "&Music"
 msgstr "&Muziek"
 
-#: ../menu.py:222
+#: ../menu.py:224
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:241
+#: ../menu.py:243
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Gereedschap"
 
-#: ../menu.py:267
+#: ../menu.py:269
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Liedteksten"
 
-#: ../menu.py:279
+#: ../menu.py:281
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Toonhoogte"
 
-#: ../menu.py:293
+#: ../menu.py:295
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritme"
 
-#: ../menu.py:321
+#: ../menu.py:323
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Venster"
 
-#: ../menu.py:341
+#: ../menu.py:343
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Help"
@@ -3424,17 +3433,18 @@ msgstr "Vooruitblik markering"
 
 #. L10N: a basic type of input in the editor
 #: ../preferences/fontscolors.py:462 ../preferences/fontscolors.py:497
-#: ../preferences/fontscolors.py:533
+#: ../preferences/fontscolors.py:531 ../preferences/fontscolors.py:539
 msgid "Keyword"
 msgstr "Sleutelwoord"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:464
+#: ../preferences/fontscolors.py:464 ../preferences/fontscolors.py:532
 msgid "Function"
 msgstr "Functie"
 
 #. L10N: a basic type of input in the editor
 #: ../preferences/fontscolors.py:466 ../preferences/fontscolors.py:508
+#: ../preferences/fontscolors.py:533
 msgid "Variable"
 msgstr "Variabele"
 
@@ -3458,7 +3468,7 @@ msgstr "Escape"
 #. L10N: a basic type of input in the editor
 #: ../preferences/fontscolors.py:474 ../preferences/fontscolors.py:513
 #: ../preferences/fontscolors.py:522 ../preferences/fontscolors.py:530
-#: ../preferences/fontscolors.py:538 ../snippet/builtin.py:374
+#: ../preferences/fontscolors.py:544 ../snippet/builtin.py:374
 msgid "Comment"
 msgstr "Commentaar"
 
@@ -3539,7 +3549,7 @@ msgstr "Lyric mode"
 msgid "Lyric Text"
 msgstr "Liedtekst"
 
-#: ../preferences/fontscolors.py:504
+#: ../preferences/fontscolors.py:504 ../preferences/fontscolors.py:536
 msgid "Delimiter"
 msgstr "Scheidingsteken"
 
@@ -3559,7 +3569,7 @@ msgstr "Property"
 msgid "User Variable"
 msgstr "Gebruikersvariabele"
 
-#: ../preferences/fontscolors.py:512 ../preferences/fontscolors.py:535
+#: ../preferences/fontscolors.py:512 ../preferences/fontscolors.py:541
 msgid "Escaped Character"
 msgstr "Escape-karakter"
 
@@ -3575,7 +3585,7 @@ msgstr "Tag"
 msgid "LilyPond Tag"
 msgstr "LilyPond-tag"
 
-#: ../preferences/fontscolors.py:519 ../preferences/fontscolors.py:536
+#: ../preferences/fontscolors.py:519 ../preferences/fontscolors.py:542
 msgid "Attribute"
 msgstr "Attribuut"
 
@@ -3595,15 +3605,23 @@ msgstr "Getal"
 msgid "LilyPond Environment"
 msgstr "LilyPond-omgeving"
 
-#: ../preferences/fontscolors.py:532
+#: ../preferences/fontscolors.py:534
+msgid "Constant"
+msgstr "Constante"
+
+#: ../preferences/fontscolors.py:535
+msgid "Symbol"
+msgstr "Symbool"
+
+#: ../preferences/fontscolors.py:538
 msgid "Texinfo"
 msgstr "Texinfo"
 
-#: ../preferences/fontscolors.py:534
+#: ../preferences/fontscolors.py:540
 msgid "Block"
 msgstr "Blok"
 
-#: ../preferences/fontscolors.py:537
+#: ../preferences/fontscolors.py:543
 msgid "Verbatim"
 msgstr "Verbatim"
 
@@ -4132,8 +4150,8 @@ msgstr ""
 "{snippets} of {quickinsert} knoppen die sneltoetsen hebben worden hier "
 "weergegeven."
 
-#: ../preferences/prefshelp.py:220 ../snippet/tool.py:54
-#: ../snippet/tool.py:135 ../snippet/widget.py:403
+#: ../preferences/prefshelp.py:220 ../snippet/tool.py:55
+#: ../snippet/tool.py:147 ../snippet/widget.py:403
 msgid "Snippets"
 msgstr "Knipsels"
 
@@ -5134,9 +5152,13 @@ msgctxt "submenu title"
 msgid "Rhythm"
 msgstr "Ritme"
 
-#: ../scorewiz/__init__.py:56 ../scorewiz/dialog.py:192
-msgid "Setup New Score..."
-msgstr "Nieuwe partituur maken..."
+#: ../scorewiz/__init__.py:66
+msgid "Setup New Score (in current document)..."
+msgstr "Partituur opzetten (in huidig document)..."
+
+#: ../scorewiz/__init__.py:67
+msgid "New Score with &Wizard..."
+msgstr "Nieuwe &partituur opzetten..."
 
 #: ../scorewiz/build.py:136
 msgid "Music follows here."
@@ -5146,43 +5168,47 @@ msgstr "Muziek volgt hier."
 msgid "Remove default LilyPond tagline"
 msgstr "Standaard LilyPond-tagline verwijderen"
 
-#: ../scorewiz/dialog.py:77
+#: ../scorewiz/dialog.py:78
 msgid "Score Setup Wizard"
 msgstr "Partituur opzetten"
 
-#: ../scorewiz/dialog.py:80
+#: ../scorewiz/dialog.py:81
 msgid "Clear"
 msgstr "Leegmaken"
 
-#: ../scorewiz/dialog.py:82
+#: ../scorewiz/dialog.py:83
 msgid "Clears the current page of the Score Wizard."
 msgstr "Maakt de huidige pagina van de Score Wizard leeg."
 
-#: ../scorewiz/dialog.py:83
+#: ../scorewiz/dialog.py:84
 msgid "Preview"
 msgstr "Vooruitblik"
 
-#: ../scorewiz/dialog.py:126
+#: ../scorewiz/dialog.py:140
 msgid "Score Preview"
 msgstr "Vooruitblik van de partituur"
 
-#: ../scorewiz/dialog.py:160
+#: ../scorewiz/dialog.py:174
 msgid "&Titles and Headers"
 msgstr "&Titels en koppen"
 
-#: ../scorewiz/dialog.py:169
+#: ../scorewiz/dialog.py:183
 msgid "&Parts"
 msgstr "&Partijen"
 
-#: ../scorewiz/dialog.py:178
+#: ../scorewiz/dialog.py:192
 msgid "&Score settings"
 msgstr "Partituur-in&stellingen"
 
-#: ../scorewiz/dialog.py:187
+#: ../scorewiz/dialog.py:201
 msgid "The Score Wizard"
 msgstr "Partituur opzetten"
 
-#: ../scorewiz/dialog.py:193
+#: ../scorewiz/dialog.py:206
+msgid "Setup New Score..."
+msgstr "Nieuwe partituur maken..."
+
+#: ../scorewiz/dialog.py:207
 msgid ""
 "<p>\n"
 "The Score Setup Wizard ({key}) in {menu} is designed\n"
@@ -7135,19 +7161,23 @@ msgstr ""
 "\n"
 "Wilt u deze overschrijven?"
 
-#: ../snippet/tool.py:55
+#: ../snippet/tool.py:56
 msgid "&Snippets"
 msgstr "&Knipsels"
 
-#: ../snippet/tool.py:89
+#: ../snippet/tool.py:100
 msgid "Save as Template..."
 msgstr "Opslaan als sjabloon..."
 
-#: ../snippet/tool.py:90
+#: ../snippet/tool.py:101
+msgid "Copy to &Snippet..."
+msgstr "Naar knip&sel kopiëren..."
+
+#: ../snippet/tool.py:102
 msgid "Manage Templates..."
 msgstr "Sjablonen beheren..."
 
-#: ../snippet/tool.py:91
+#: ../snippet/tool.py:103
 msgid "&Snippets..."
 msgstr "&Knipsels..."
 
