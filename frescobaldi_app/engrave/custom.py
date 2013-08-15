@@ -40,6 +40,7 @@ import lilypondinfo
 import listmodel
 import widgets
 import qutil
+import util
 
 from . import command
 
@@ -152,7 +153,9 @@ class Dialog(QDialog):
         self.versionCombo.clear()
         for i in infos:
             icon = 'lilypond-run' if i.version() else 'dialog-error'
-            text = _("LilyPond {version}").format(version=i.versionString())
+            text = _("LilyPond {version} ({command})").format(
+                version=i.versionString(),
+                command=util.homify(i.command))
             self.versionCombo.addItem(icons.get(icon), text)
         self.versionCombo.setCurrentIndex(index)
     
