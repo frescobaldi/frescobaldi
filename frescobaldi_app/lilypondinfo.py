@@ -142,6 +142,7 @@ class LilyPondInfo(object):
     def __init__(self, command):
         self._command = command
         self.auto = True
+        self.name = "LilyPond"
         self.lilypond_book = 'lilypond-book'
         self.convert_ly = 'convert-ly'
     
@@ -247,6 +248,7 @@ class LilyPondInfo(object):
             info = cls(cmd)
             if info.abscommand.wait():
                 info.auto = settings.value("auto", True, bool)
+                info.name = settings.value("name", "LilyPond", type(""))
                 info.lilypond_book = settings.value("lilypond-book", "lilypond-book", type(""))
                 info.convert_ly = settings.value("convert-ly", "convert-ly", type(""))
                 if int(os.path.getmtime(info.abscommand())) == int(settings.value("mtime", 0, float)):
@@ -264,6 +266,7 @@ class LilyPondInfo(object):
         if self.abscommand():
             settings.setValue("mtime", int(os.path.getmtime(self.abscommand())))
         settings.setValue("auto", self.auto)
+        settings.setValue("name", self.name)
         settings.setValue("lilypond-book", self.lilypond_book)
         settings.setValue("convert-ly", self.convert_ly)
 
