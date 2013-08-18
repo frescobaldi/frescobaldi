@@ -270,6 +270,13 @@ class LilyPondInfo(object):
         settings.setValue("lilypond-book", self.lilypond_book)
         settings.setValue("convert-ly", self.convert_ly)
 
+    def prettyName(self):
+        """Return a pretty-printable name for this LilyPond instance."""
+        return "{name}-{version} ({command})".format(
+            name = self.name,
+            version = self.versionString(),
+            command = self.command)
+    
     def python(self):
         """Returns the path to the LilyPond-provided Python interpreter.
         
