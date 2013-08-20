@@ -16,6 +16,8 @@ Changes in 2.0.11 --
   - when switching documents with multiple editor views open, and one of the
     views displays the document, that view is made current, instead of changing
     the document in the current view.
+  - the tempo-tapping button in the score wizard now uses the average clicking
+    speed instead of computing the bpm at each click (implementing wish #169)
 * Bug fixes:
   - fix splash screen shown as grey rectangle on some systems
 

@@ -43,17 +43,26 @@ class TempoButton(QToolButton):
     def __init__(self, icon=None, parent=None):
         super(TempoButton, self).__init__(parent)
         self.setIcon(icon or icons.get("media-record"))
+        self.tapStart = 0.0
         self.tapTime = 0.0
+        self.tapCount = 0
         self.pressed.connect(self.slotPressed)
         app.translateUI(self)
         
     def translateUI(self):
         self.setToolTip(_("The tempo is set as you click this button."))
+        self.setWhatsThis(_(
+            "Tap this button to set the tempo.\n\n"
+            "The average speed of clicking is used; wait 3 seconds to \"reset\"."))
 
     def slotPressed(self):
         self.tapTime, t = time.time(), self.tapTime
-        bpm = int(60.0 / (self.tapTime - t))
-        if 10 < bpm < 1000:
+        if 0.1 < self.tapTime - t < 3.0:
+            self.tapCount += 1
+            bpm = int(60.0 * self.tapCount / (self.tapTime - self.tapStart))
             self.tempo.emit(bpm)
+        else:
+            self.tapStart = self.tapTime
+            self.tapCount = 0
 
 
