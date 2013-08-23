@@ -120,7 +120,7 @@ class Widget(QWidget):
         """Called when playing starts. Ensures an output port is opened."""
         self._outputCloseTimer.stop()
         if not self._player.output():
-            p = QSettings().value("midi/player/output_port", midihub.default_output())
+            p = QSettings().value("midi/player/output_port", midihub.default_output(), type(""))
             o = midihub.output_by_name(p)
             if o:
                 self._player.set_output(output.Output(o))
