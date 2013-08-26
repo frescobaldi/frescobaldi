@@ -24,7 +24,6 @@ Custom engraving dialog.
 from __future__ import unicode_literals
 
 import collections
-import os
 
 from PyQt4.QtCore import QSettings, QSize
 from PyQt4.QtGui import (QCheckBox, QComboBox, QDialog, QDialogButtonBox,
@@ -38,6 +37,8 @@ import job
 import jobmanager
 import lilypondinfo
 import listmodel
+import os
+import string
 import widgets
 import qutil
 import util
@@ -155,7 +156,7 @@ class Dialog(QDialog):
             icon = 'lilypond-run' if i.version() else 'dialog-error'
             text = _("LilyPond {version} ({command})").format(
                 version=i.versionString(),
-                command=util.homify(i.command))
+                command=string.rstrip(util.homify(i.command), 'out/bin/lilypond'))
             self.versionCombo.addItem(icons.get(icon), text)
         self.versionCombo.setCurrentIndex(index)
     
