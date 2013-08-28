@@ -111,6 +111,14 @@ def main():
     # so the function will do nothing
     app.transferSettings(info.name, info.url, False)
     
+    # these instead are needed on all platforms
+    # anyway, both in the following calls and in the previous one,
+    # the function checks whether the transfer is actually needed
+    app.transferSettings("metainfo")
+    app.transferSettings("snippets")
+    app.transferSettings("sessions")
+    app.transferSettings("sessiondata")
+    
     if options.list_sessions:
         import sessions
         for name in sessions.sessionNames():

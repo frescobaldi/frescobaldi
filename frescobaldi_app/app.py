@@ -159,7 +159,8 @@ def basedir():
 
 def settings(name):
     """Returns a QSettings object referring a file in ~/.config/frescobaldi/"""
-    s = QSettings(info.name, name)
+    s = QSettings()
+    s.beginGroup(name)
     s.setFallbacksEnabled(False)
     return s
 
