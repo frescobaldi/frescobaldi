@@ -35,7 +35,7 @@ qApp = QApplication([os.path.abspath(sys.argv[0])] + sys.argv[1:])
 QApplication.setApplicationName(info.name)
 QApplication.setApplicationVersion(info.version)
 QApplication.setOrganizationName(info.name)
-QApplication.setOrganizationDomain(info.url)
+QApplication.setOrganizationDomain(info.domain)
 
 windows = []
 documents = []
@@ -162,6 +162,20 @@ def settings(name):
     s = QSettings(info.name, name)
     s.setFallbacksEnabled(False)
     return s
+
+def transferSettings(oldName, oldOrganization = info.name, createGroup = True):
+    """Transfers settings from the specified custom-named QSettings file
+    to the unique standard-named QSettings file and deletes the old file."""
+    o = QSettings(oldOrganization, oldName)
+    o.setFallbacksEnabled(False)
+    keys = o.allKeys()
+    if len(keys) > 0:
+        s = QSettings()
+        if createGroup:
+            s.beginGroup(oldName)
+        for k in keys:
+            s.setValue(k, o.value(k))
+        o.clear()
 
 def excepthook(exctype, excvalue, exctb):
     """Called when a Python exception goes unhandled."""

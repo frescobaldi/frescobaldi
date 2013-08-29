@@ -105,6 +105,12 @@ def main():
     """Main function."""
     options, files = parse_commandline()
     
+    # this is actually needed only on Mac OS X
+    # but on other platforms the relevant QSettings file will be empty
+    # (the organization name is used instead of the url)
+    # so the function will do nothing
+    app.transferSettings(info.name, info.url, False)
+    
     if options.list_sessions:
         import sessions
         for name in sessions.sessionNames():
