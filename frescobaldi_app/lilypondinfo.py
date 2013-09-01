@@ -25,6 +25,7 @@ from __future__ import unicode_literals
 
 import glob
 import os
+import sys
 import re
 
 from PyQt4.QtCore import QEventLoop, QSettings, QTimer
@@ -159,6 +160,10 @@ class LilyPondInfo(object):
             path = glob.glob(os.path.join(
                 os.environ.get('ProgramFiles', 'C:\\Program Files'),
                 'LilyPond*', 'usr', 'bin'))
+        elif sys.platform.startswith('darwin'):
+            # also on Mac OS X, LilyPond is not automatically added to the PATH
+            path = glob.glob(os.path.join(
+                '/Applications', 'LilyPond.app', 'Contents', 'Resources', 'bin'))
         else:
             path = None
         return util.findexe(self.command, path) or False
