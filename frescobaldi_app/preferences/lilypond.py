@@ -24,6 +24,7 @@ LilyPond preferences page
 from __future__ import unicode_literals
 
 import os
+import sys
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -252,7 +253,11 @@ class InfoDialog(QDialog):
 
     def newInfo(self):
         """Returns a new LilyPondInfo instance for our settings."""
-        info = lilypondinfo.LilyPondInfo(self.lilypond.path())
+        if sys.platform.startswith('darwin') and self.lilypond.path().endswith('.app'):
+            info = lilypondinfo.LilyPondInfo(
+                self.lilypond.path() + '/Contents/Resources/bin/lilypond')
+        else:
+            info = lilypondinfo.LilyPondInfo(self.lilypond.path())
         info.auto = self.auto.isChecked()
         info.convert_ly = self.convert_ly.text()
         info.lilypond_book = self.lilypond_book.text()
