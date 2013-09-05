@@ -22,13 +22,12 @@ Setup the application language.
 """
 
 import locale
-import re
 
-from PyQt4.QtCore import QSettings, QTimer, QLocale
+from PyQt4.QtCore import QSettings, QTimer
 
 import app
 
-from . import find, install, available
+from . import find, install, defaultLanguageFromQLocale
 from . import qtranslator
 
 
@@ -44,28 +43,8 @@ def current():
     """
     language = QSettings().value("language", "", type(""))
     if not language:
-        # list of system preferred locales in order of preference
-        oslanguagelist = QLocale().uiLanguages()
-        # list of available MO files
-        applanguagelist = available()
-        # append English language: an English locale/language preference
-        # in oslanguagelist would otherwise be ignored
-        applanguagelist.append('en')
-        # remove unsupported languages (regardless of country) from oslanguagelist
-        temposlanguagelist = []
-        for i, oslang in enumerate(oslanguagelist):
-            # in some systems, language/country codes have '-' and not '_'
-            if '-' in oslang:
-                oslang = re.sub('-', '_', oslang)
-            if any(oslang.split('_')[0] in applang for applang in applanguagelist):
-                temposlanguagelist.append(oslang)
-        oslanguagelist = temposlanguagelist
-        # keep the first of the supported locales in the preference order, if any
-        if len(oslanguagelist) > 0:
-            language = oslanguagelist[0]
-    if not language:
         try:
-            language = locale.getdefaultlocale()[0]
+            language = defaultLanguageFromQLocale() or locale.getdefaultlocale()[0]
         except ValueError:
             pass
     if not language:
