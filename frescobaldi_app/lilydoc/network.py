@@ -22,6 +22,7 @@ Network-related utility functions for LilyPond Documentation.
 """
 
 import locale
+import re
 
 from PyQt4.QtCore import QSettings
 from PyQt4.QtNetwork import QNetworkReply, QNetworkRequest
@@ -65,8 +66,9 @@ def langs():
                 return []
         if not lang or lang == "none":
             return []
-    if '_' in lang:
-        return [lang, lang.split('_')[0]]
+    lang = re.sub('_', '-', lang)
+    if '-' in lang:
+        return [lang, lang.split('-')[0]]
     else:
         return [lang]
 
