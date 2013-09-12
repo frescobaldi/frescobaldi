@@ -25,7 +25,7 @@ import __builtin__
 import locale
 import os
 
-from PyQt4 import QLocale
+from PyQt4.QtCore import QLocale
 
 from . import mofile
 
