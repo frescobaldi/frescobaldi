@@ -39,6 +39,7 @@ import widgets
 import hyphdicts
 import hyphenator
 
+from po import defaultLanguageFromQLocale
 
 # paths to check for hyphen dicts
 default_paths = [
@@ -126,14 +127,15 @@ class HyphenDialog(QDialog):
             lastused = settings().value("lastused", "", type(""))
             if lastused:
                 yield lastused
-            try:
-                lang = locale.getdefaultlocale()[0]
-            except ValueError:
-                pass
             else:
-                yield lang
-                yield lang.split('_')[0]
-                
+                try:
+                    lang = defaultLanguageFromQLocale() or locale.getdefaultlocale()[0]
+                except ValueError:
+                    pass
+                if lang:
+                    yield lang
+                    yield lang.split('_')[0]
+        
         langs = [item[1] for item in self._langs]
         for preselect in select():
             try:
