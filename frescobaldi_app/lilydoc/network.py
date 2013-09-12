@@ -22,8 +22,9 @@ Network-related utility functions for LilyPond Documentation.
 """
 
 import locale
+import re
 
-from PyQt4.QtCore import QSettings
+from PyQt4.QtCore import QSettings, QLocale
 from PyQt4.QtNetwork import QNetworkReply, QNetworkRequest
 
 import app
@@ -59,16 +60,28 @@ def langs():
     elif lang == "default":
         lang = s.value("language", "", type(""))
         if not lang:
+            # list of system preferred locales in order of preference
+            lang = QLocale().uiLanguages()
+        if not lang:
             try:
-                lang = locale.getdefaultlocale()[0]
+                lang = [locale.getdefaultlocale()[0]]
             except ValueError:
                 return []
         if not lang or lang == "none":
             return []
-    if '_' in lang:
-        return [lang, lang.split('_')[0]]
-    else:
-        return [lang]
+    if isinstance(lang, basestring):
+        lang = [lang]
+    for i, l in enumerate(lang):
+        # language/country codes in Accept-Language headers must have '-' and not '_'
+        if '_' in l:
+            l = re.sub('_', '-', l)
+        # if there is a language/country code, insert also the generic language code
+        if '-' in l:
+            lang[i] = l
+            lsplit = l.split('-')[0]
+            if lsplit not in lang:
+                lang.insert(i + 1, lsplit)
+    return lang
 
 
 class NetworkAccessManager(networkaccessmanager.NetworkAccessManager):

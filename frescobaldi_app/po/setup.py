@@ -27,7 +27,7 @@ from PyQt4.QtCore import QSettings, QTimer
 
 import app
 
-from . import find, install
+from . import find, install, defaultLanguageFromQLocale
 from . import qtranslator
 
 
@@ -44,7 +44,7 @@ def current():
     language = QSettings().value("language", "", type(""))
     if not language:
         try:
-            language = locale.getdefaultlocale()[0]
+            language = defaultLanguageFromQLocale() or locale.getdefaultlocale()[0]
         except ValueError:
             pass
     if not language:
