@@ -22,10 +22,10 @@ Internationalisation.
 """
 
 import __builtin__
+import locale
 import os
-import re
 
-from PyQt4.QtCore import QTimer, QLocale
+from PyQt4 import QLocale
 
 from . import mofile
 
@@ -34,26 +34,25 @@ podir = __path__[0]
 def available():
     """Returns a list of language shortnames for which a MO file is available."""
     return [name[:-3] for name in os.listdir(podir) if name.endswith(".mo")]
+
+def preferred():
+    """Return a list of preferred system language shortnames.
     
-def defaultLanguageFromQLocale():
-    # list of system preferred locales in order of preference
-    oslanguagelist = QLocale().uiLanguages()
-    # list of available MO files
-    applanguagelist = available()
-    # append English language: an English locale/language preference
-    # in oslanguagelist would otherwise be ignored
-    applanguagelist.append('en')
-    # remove unsupported languages (regardless of country) from oslanguagelist
-    oklanguagelist = []
-    for i, oslang in enumerate(oslanguagelist):
+    The list will always contain an "en" entry.
+    
+    """
+    langs = []
+    for lang in QLocale().uiLanguages():
         # in some systems, language/country codes have '-' and not '_'
-        if '-' in oslang:
-            oslang = re.sub('-', '_', oslang)
-        if any(oslang.split('_')[0] in applang for applang in applanguagelist):
-            oklanguagelist.append(oslang)
-    # keep the first of the supported locales in the preference order, if any
-    if len(oklanguagelist) > 0:
-        return oklanguagelist[0]
+        langs.append(lang.replace('-', '_'))
+    if not langs:
+        try: 
+            langs.append(locale.getdefaultlocale()[0])
+        except ValueError:
+            pass
+    if "en" not in langs:
+        langs.append("en")
+    return langs
     
 def find(language):
     """Returns a .mo file for the given language.

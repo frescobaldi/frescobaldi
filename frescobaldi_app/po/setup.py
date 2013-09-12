@@ -23,16 +23,27 @@ Setup the application language.
 
 import locale
 
-from PyQt4.QtCore import QSettings, QTimer
+from PyQt4.QtCore import QLocale, QSettings, QTimer
 
 import app
 
-from . import find, install, defaultLanguageFromQLocale
+from . import find, install, available, preferred
 from . import qtranslator
 
 
 _currentlanguage = None
 
+def default():
+    """Return the first preferred system default UI language that is available().
+    
+    May return None, if none of the system preferred language is avaiable
+    in Frescobaldi.
+    
+    """
+    av_langs = available()
+    for lang in preferred():
+        if lang in av_langs or oslang.split('_')[0] in av_langs:
+            return lang
 
 def current():
     """Returns the current (user-set or default) UI language setting.
@@ -41,15 +52,7 @@ def current():
     is desired.
     
     """
-    language = QSettings().value("language", "", type(""))
-    if not language:
-        try:
-            language = defaultLanguageFromQLocale() or locale.getdefaultlocale()[0]
-        except ValueError:
-            pass
-    if not language:
-        language = "C"
-    return language
+    return QSettings().value("language", "", type("")) or default() or "C"
     
     
 def setup():

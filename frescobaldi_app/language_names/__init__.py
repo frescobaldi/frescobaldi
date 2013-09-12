@@ -18,8 +18,9 @@ from __future__ import unicode_literals
 
 import itertools
 import locale
+
+import po
 from .data import language_names
-from po import defaultLanguageFromQLocale
 
 
 __all__ = ['languageName']
@@ -34,7 +35,7 @@ def languageName(code, language=None):
     
     """
     if language is None:
-        language = defaultLanguageFromQLocale() or locale.getdefaultlocale()[0] or "C"
+        language = po.preferred()[0]
         
     for lang in (language, language.split('_')[0], "C"):
         try:
