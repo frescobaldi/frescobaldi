@@ -18,14 +18,11 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Internationalisation.
+Internationalization of Frescobaldi.
 """
 
 import __builtin__
-import locale
 import os
-
-from PyQt4.QtCore import QLocale
 
 from . import mofile
 
@@ -35,25 +32,6 @@ def available():
     """Returns a list of language shortnames for which a MO file is available."""
     return [name[:-3] for name in os.listdir(podir) if name.endswith(".mo")]
 
-def preferred():
-    """Return a list of preferred system language shortnames.
-    
-    The list will always contain an "en" entry.
-    
-    """
-    langs = []
-    for lang in QLocale().uiLanguages():
-        # in some systems, language/country codes have '-' and not '_'
-        langs.append(lang.replace('-', '_'))
-    if not langs:
-        try: 
-            langs.append(locale.getdefaultlocale()[0])
-        except ValueError:
-            pass
-    if "en" not in langs:
-        langs.append("en")
-    return langs
-    
 def find(language):
     """Returns a .mo file for the given language.
     

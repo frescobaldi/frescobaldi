@@ -19,6 +19,9 @@
 
 """
 Setup the application language.
+
+Also contains some subroutines dealing with language settings in the system.
+
 """
 
 import locale
@@ -27,11 +30,32 @@ from PyQt4.QtCore import QLocale, QSettings, QTimer
 
 import app
 
-from . import find, install, available, preferred
+from . import find, install, available
 from . import qtranslator
 
 
 _currentlanguage = None
+
+
+def preferred():
+    """Return a list of preferred system language shortnames.
+    
+    The list will always contain an "en" entry.
+    Language- and country codes will always be separated with an underscore '_'.
+    
+    """
+    langs = []
+    for lang in QLocale().uiLanguages():
+        # in some systems, language/country codes have '-' and not '_'
+        langs.append(lang.replace('-', '_'))
+    if not langs:
+        try: 
+            langs.append(locale.getdefaultlocale()[0])
+        except ValueError:
+            pass
+    if "en" not in langs:
+        langs.append("en")
+    return langs
 
 def default():
     """Return the first preferred system default UI language that is available().

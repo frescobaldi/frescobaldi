@@ -19,7 +19,6 @@ from __future__ import unicode_literals
 import itertools
 import locale
 
-import po
 from .data import language_names
 
 
@@ -35,15 +34,29 @@ def languageName(code, language=None):
     
     """
     if language is None:
-        language = po.preferred()[0]
-        
-    for lang in (language, language.split('_')[0], "C"):
+        try:
+            language = locale.getdefaultlocale()[0]
+        except ValueError:
+            pass
+            
+    langs = []
+    if language:
+        langs.append(language)
+        if '_' in language:
+            langs.append(language.split('_')[0])
+    langs.append("C")
+    
+    codes = [code]
+    if '_' in code:
+        codes.append(code.split('_')[0])
+    
+    for lang in langs:
         try:
             d = language_names[lang]
         except KeyError:
             continue
         
-        for c in (code, code.split('_')[0]):
+        for c in codes:
             try:
                 return d[c]
             except KeyError:

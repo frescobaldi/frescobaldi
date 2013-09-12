@@ -49,6 +49,8 @@ def langs():
     """Returns a list of language codes wished for documentation.
     
     If the list is empty, english (untranslated) is assumed.
+    If a language code also has a country suffix, a hyphen will be used
+    as separator (as required per RFC2616, Accept-Language header).
     
     """
     s = QSettings()
@@ -59,7 +61,7 @@ def langs():
         lang = s.value("language", "", type(""))
     if lang and lang != "C":
         langs.append(lang)
-    langs.extend(po.preferred())
+    langs.extend(po.setup.preferred())
     
     # now fixup the list, remove dups and
     # language/country codes in Accept-Language headers must have '-' and not '_'
