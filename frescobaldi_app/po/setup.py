@@ -77,8 +77,7 @@ def current():
     
     """
     return QSettings().value("language", "", type("")) or default() or "C"
-    
-    
+
 def setup():
     """Set application language according to settings."""
     global _currentlanguage
