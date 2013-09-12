@@ -42,7 +42,7 @@ def default():
     """
     av_langs = available()
     for lang in preferred():
-        if lang in av_langs or oslang.split('_')[0] in av_langs:
+        if lang in av_langs or lang.split('_')[0] in av_langs:
             return lang
 
 def current():
