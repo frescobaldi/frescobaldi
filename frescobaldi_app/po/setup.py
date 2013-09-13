@@ -20,7 +20,8 @@
 """
 Setup the application language.
 
-Also contains some subroutines dealing with language settings in the system.
+Also contains a function to get language preferences from the operation
+system.
 
 """
 
@@ -33,12 +34,14 @@ import app
 from . import find, install, available
 from . import qtranslator
 
+__all__ = ['preferred', 'current', 'default']
+
 
 _currentlanguage = None
 
 
 def preferred():
-    """Return a list of preferred system language shortnames.
+    """Return a list of language codes from the operating system preferences.
     
     The list will always contain an "en" entry.
     Language- and country codes will always be separated with an underscore '_'.
@@ -58,9 +61,9 @@ def preferred():
     return langs
 
 def default():
-    """Return the first preferred system default UI language that is available().
+    """Return the first preferred system default UI language that is available in Frescobaldi.
     
-    May return None, if none of the system preferred language is avaiable
+    May return None, if none of the system preferred languages is avaiable
     in Frescobaldi.
     
     """
@@ -70,7 +73,7 @@ def default():
             return lang
 
 def current():
-    """Returns the current (user-set or default) UI language setting.
+    """Returns the currently active UI language code.
     
     A name is always returned, which can be "C", meaning no translation
     is desired.
@@ -78,7 +81,7 @@ def current():
     """
     return QSettings().value("language", "", type("")) or default() or "C"
 
-def setup():
+def _setup():
     """Set application language according to settings."""
     global _currentlanguage
     language = current()
@@ -95,5 +98,5 @@ def setup():
                 pass
     install(None)
 
-app.settingsChanged.connect(setup)
-setup()
+app.settingsChanged.connect(_setup)
+_setup()
