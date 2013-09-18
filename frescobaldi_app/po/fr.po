@@ -4316,7 +4316,7 @@ msgid ""
 "In those expressions, <code>^</code> matches at the beginning of every line, "
 "and <code>$</code> matches at the end of a line."
 msgstr ""
-"Dans ces expressions, "<code>^</code> correspond au début de chaque ligne, "
+"Dans ces expressions, <code>^</code> correspond au début de chaque ligne, "
 "et <code>$</code> à la fin d'une ligne."
 
 #: ../preferences/prefshelp.py:278
