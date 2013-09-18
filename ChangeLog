@@ -2,6 +2,16 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
+* Improvements:
+  - New Source code export dialog with extended options:
+    - export selection of full document
+    - generate standalone document or only body
+    - generate plain text HTML code or rich text
+    - export to clipboard/file/printer
+    - use inline, css or external css formatting
+    - export to html, pdf or OpenDocument file
+    - export CSS file for external use
+
 Changes in 2.0.11 --
 
 * Translations:

@@ -76,6 +76,8 @@ class General(preferences.Group):
         grid.addWidget(self.splashScreen, 3, 0, 1, 3)
         self.allowRemote = QCheckBox(toggled=self.changed)
         grid.addWidget(self.allowRemote, 4, 0, 1, 3)
+        self.autosaveExportSettings = QCheckBox(toggled=self.changed)
+        grid.addWidget(self.autosaveExportSettings, 5, 0, 1, 3)
         
         grid.setColumnStretch(2, 1)
         
@@ -112,6 +114,8 @@ class General(preferences.Group):
         self.systemIcons.setChecked(s.value("system_icons", True, bool))
         self.splashScreen.setChecked(s.value("splash_screen", True, bool))
         self.allowRemote.setChecked(remote.enabled())
+        s.beginGroup("export")
+        self.autosaveExportSettings.setChecked(s.value("autosave_settings", True, bool))
     
     def saveSettings(self):
         s = QSettings()
@@ -119,6 +123,7 @@ class General(preferences.Group):
         s.setValue("system_icons", self.systemIcons.isChecked())
         s.setValue("splash_screen", self.splashScreen.isChecked())
         s.setValue("allow_remote", self.allowRemote.isChecked())
+        s.setValue("export/autosave_settings", self.autosaveExportSettings.isChecked())
         if self.styleCombo.currentIndex() == 0:
             s.remove("guistyle")
         else:
@@ -141,6 +146,10 @@ class General(preferences.Group):
         self.allowRemote.setToolTip(_(
             "If checked, files will be opened in a running Frescobaldi "
             "application if available, instead of starting a new instance."))
+        self.autosaveExportSettings.setText(_("Remember settings for source code export."))
+        self.autosaveExportSettings.setToolTip(_(
+            "If checked, Frescobaldi will keep settings for source code "
+            "export throughout sessions, without explicitely saving them."))
 
 
 class StartSession(preferences.Group):

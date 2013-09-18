@@ -26,6 +26,7 @@ from __future__ import unicode_literals
 import itertools
 import os
 import weakref
+import sys
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -52,6 +53,7 @@ import panelmanager
 import engrave
 import scorewiz
 import externalchanges
+import export
 
 
 class MainWindow(QMainWindow):
@@ -127,6 +129,9 @@ class MainWindow(QMainWindow):
         if other:
             self.setCurrentDocument(other.currentDocument())
         app.mainwindowCreated(self)
+        
+        # Will be instantiated with "Export Source"
+        self.printer = None
         
     def documents(self):
         """Returns the list of documents in the order of the TabBar."""
@@ -214,7 +219,8 @@ class MainWindow(QMainWindow):
             self.selectionStateChanged.emit(selection)
             ac = self.actionCollection
             ac.edit_copy.setEnabled(selection)
-            ac.edit_copy_colored_html.setEnabled(selection)
+            ac.export_source_immediately.setEnabled((selection or 
+                                                    (export.options.value("source") == "document")))
             ac.edit_cut.setEnabled(selection)
             ac.edit_select_none.setEnabled(selection)
     
@@ -587,57 +593,119 @@ class MainWindow(QMainWindow):
     
     def openCommandPrompt(self):
         helpers.openUrl(QUrl.fromLocalFile(self.currentDirectory()), "shell")
-    
-    def printSource(self):
-        cursor = self.currentView().textCursor()
-        printer = QPrinter()
-        dlg = QPrintDialog(printer, self)
-        dlg.setWindowTitle(app.caption(_("dialog title", "Print Source")))
-        options = QAbstractPrintDialog.PrintToFile | QAbstractPrintDialog.PrintShowPageSize
-        if cursor.hasSelection():
-            options |= QAbstractPrintDialog.PrintSelection
-        dlg.setOptions(options)
-        if dlg.exec_():
-            doc = highlighter.htmlCopy(self.currentDocument(), 'printer')
-            doc.setMetaInformation(QTextDocument.DocumentTitle, self.currentDocument().url().toString())
-            font = doc.defaultFont()
-            font.setPointSizeF(font.pointSizeF() * 0.8)
-            doc.setDefaultFont(font)
-            if dlg.testOption(QAbstractPrintDialog.PrintSelection):
-                # cut out not selected text
-                start, end = cursor.selectionStart(), cursor.selectionEnd()
-                cur1 = QTextCursor(doc)
-                cur1.setPosition(start, QTextCursor.KeepAnchor)
-                cur2 = QTextCursor(doc)
-                cur2.setPosition(end)
-                cur2.movePosition(QTextCursor.End, QTextCursor.KeepAnchor)
-                cur2.removeSelectedText()
-                cur1.removeSelectedText()
-            doc.print_(printer)
-    
-    def exportColoredHtml(self):
-        doc = self.currentDocument()
-        name, ext = os.path.splitext(os.path.basename(doc.url().path()))
-        if name:
-            if ext.lower() == ".html":
-                name += "_html"
-            name += ".html"
-        dir = os.path.dirname(doc.url().toLocalFile())
-        if dir:
-            name = os.path.join(dir, name)
-        filename = QFileDialog.getSaveFileName(self, app.caption(_("Export as HTML")),
-            name, "{0} (*.html)".format("HTML Files"))
-        if not filename:
-            return #cancelled
-        import highlight2html
-        html = highlight2html.HtmlHighlighter().html_document(doc)
-        try:
+     
+    def exportFile(self, filename, content):
+        try: 
             with open(filename, "wb") as f:
-                f.write(html.encode('utf-8'))
+                f.write(content.encode('utf-8'))
         except (IOError, OSError) as err:
             QMessageBox.warning(self, app.caption(_("Error")),
                 _("Can't write to destination:\n\n{url}\n\n{error}").format(url=filename, error=err))
+
+    def exportPdfOrPrinter(self, printer, content):
+        """Export source code to PDF file or print it.
+           printer has to be set up before,
+           content has to be html formatted."""
+        doc = QTextDocument()
+        doc.setHtml(content)
+        doc.setMetaInformation(QTextDocument.DocumentTitle, self.currentDocument().url().toString())
+        font = doc.defaultFont()
+        font.setPointSizeF(font.pointSizeF() * 0.8)
+        doc.setDefaultFont(font)
+        if export.options.value("orientation") == "portrait":
+            printer.setOrientation(QPrinter.Portrait)
+        else:
+            printer.setOrientation(QPrinter.Landscape)
+        if export.options.value("color") == "color":
+            printer.setColorMode(QPrinter.Color)
+        else:
+            printer.setColorMode(QPrinter.GrayScale)
+        printer.setPageMargins(export.options.value("marginleft"), 
+                               export.options.value("margintop"), 
+                               export.options.value("marginright"), 
+                               export.options.value("marginbottom"), 
+                               QPrinter.Millimeter)
+        doc.print_(printer) 
         
+# This function isn't necessary anymore.
+# I will keep it as a model for suggesting a file name in the export dialog.
+# (Remove when that is implemented)
+    
+#    def exportCSS(self):
+#        doc = self.currentDocument()
+#        dir = os.path.dirname(doc.url().toLocalFile())
+#        if dir:
+#            suggestedName = os.path.join(dir, 'lilypond.css')
+#        else:
+#            from os.path import expanduser
+#            suggestedName = os.path.join(expanduser("~"), 'lilypond.css')
+#        filename = QFileDialog.getSaveFileName(self, app.caption(_("Export LilyPond CSS")),
+#            suggestedName, "{0} (*.css)".format("Cascading StyleSheets"))
+#        if not filename:
+#            return #cancelled
+#        from export import highlight2html
+#        css = highlight2html.HtmlHighlighter().stylesheet(standalone = True)
+#        self.exportFile(filename, css)
+        
+    def handleFile(self, content):
+        if export.options.value("filetype") == "pdf":
+            printer = QPrinter(QPrinter.HighResolution)
+            printer.setOutputFormat(QPrinter.PdfFormat)
+            printer.setOutputFileName(export.options.value("filename"))
+            self.exportPdfOrPrinter(printer, content)
+        elif export.options.value("filetype") == "odt":
+            writer = QTextDocumentWriter(export.options.value("filename"))
+            writer.setFormat("odf")
+            doc = QTextDocument()
+            doc.setHtml(content)
+            doc.setMetaInformation(QTextDocument.DocumentTitle, self.currentDocument().url().toString())
+            writer.write(doc)
+        else:
+            self.exportFile(export.options.value("filename"), content)
+
+    def handleClipboard(self, content):
+        data = QMimeData()
+        if (export.options.value("format") == "html" or
+            export.options.value("source") == "css"):
+            data.setText(content)
+        elif export.options.value("format") == "formatted":
+            data.setHtml(content)
+        QApplication.clipboard().setMimeData(data)
+    
+    def handlePrinter(self, content):
+        printer = QPrinter()
+        self.exportPdfOrPrinter(printer, content)
+
+    def exportSource(self, immediately = False):
+        handlers = {
+            "file": self.handleFile, 
+            "clipboard": self.handleClipboard, 
+            "printer": self.handlePrinter}
+        if not self.printer:
+            self.printer = QPrinter() 
+        if not immediately:
+            import export.dialog
+            if not export.dialog.ExportDialog(self).exec_():
+                if export.options.value("dest") == "clipboard":
+                    data = QMimeData()
+                    data.setText("")
+                    QApplication.clipboard().setMimeData(data)
+                return
+        from export import highlight2html
+        content = highlight2html.HtmlHighlighter().html_content(self.currentView().textCursor())
+        import export
+        if export.options.value("document") == "full":
+            title = self.currentDocument().url().path()
+            content = highlight2html.HtmlHighlighter().html_document(content, title)
+            
+        handlers[export.options.value("dest")](content)
+    
+    def exportSourceImmediately(self):
+        """Export source with previous settings (without dialog).
+           Isn't available if previous source was 'selection'
+           and the current document doesn't have a selection."""
+        self.exportSource(True)
+       
     def undo(self):
         self.currentDocument().undo()
         
@@ -652,18 +720,6 @@ class MainWindow(QMainWindow):
         
     def paste(self):
         self.currentView().paste()
-        
-    def copyColoredHtml(self):
-        cursor = self.currentView().textCursor()
-        if not cursor.hasSelection():
-            return
-        import highlight2html
-        h = highlight2html.HtmlHighlighter(inline_style=True)
-        html = h.html_selection(cursor)
-        data = QMimeData()
-        data.setHtml(html)
-        #data.setText(html)
-        QApplication.clipboard().setMimeData(data)
         
     def selectNone(self):
         cursor = self.currentView().textCursor()
@@ -771,17 +827,16 @@ class MainWindow(QMainWindow):
         ac.file_reload.triggered.connect(self.reloadCurrentDocument)
         ac.file_reload_all.triggered.connect(self.reloadAllDocuments)
         ac.file_external_changes.triggered.connect(externalchanges.displayChangedDocuments)
-        ac.file_print_source.triggered.connect(self.printSource)
         ac.file_close.triggered.connect(self.closeCurrentDocument)
         ac.file_close_other.triggered.connect(self.closeOtherDocuments)
         ac.file_close_all.triggered.connect(self.closeAllDocuments)
-        ac.export_colored_html.triggered.connect(self.exportColoredHtml)
+        ac.export_source.triggered.connect(self.exportSource)
+        ac.export_source_immediately.triggered.connect(self.exportSourceImmediately)
         ac.edit_undo.triggered.connect(self.undo)
         ac.edit_redo.triggered.connect(self.redo)
         ac.edit_cut.triggered.connect(self.cut)
         ac.edit_copy.triggered.connect(self.copy)
         ac.edit_paste.triggered.connect(self.paste)
-        ac.edit_copy_colored_html.triggered.connect(self.copyColoredHtml)
         ac.edit_select_all.triggered.connect(self.selectAll)
         ac.edit_select_none.triggered.connect(self.selectNone)
         ac.edit_select_full_lines_up.triggered.connect(self.selectFullLinesUp)
@@ -875,19 +930,18 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_reload = QAction(parent)
         self.file_reload_all = QAction(parent)
         self.file_external_changes = QAction(parent)
-        self.file_print_source = QAction(parent)
         self.file_close = QAction(parent)
         self.file_close_other = QAction(parent)
         self.file_close_all = QAction(parent)
         self.file_quit = QAction(parent)
         
-        self.export_colored_html = QAction(parent)
+        self.export_source = QAction(parent)
+        self.export_source_immediately = QAction(parent)
         
         self.edit_undo = QAction(parent)
         self.edit_redo = QAction(parent)
         self.edit_cut = QAction(parent)
         self.edit_copy = QAction(parent)
-        self.edit_copy_colored_html = QAction(parent)
         self.edit_paste = QAction(parent)
         self.edit_select_all = QAction(parent)
         self.edit_select_current_toplevel = QAction(parent)
@@ -926,7 +980,6 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_save_all.setIcon(icons.get('document-save-all'))
         self.file_reload.setIcon(icons.get('reload'))
         self.file_reload_all.setIcon(icons.get('reload-all'))
-        self.file_print_source.setIcon(icons.get('document-print'))
         self.file_close.setIcon(icons.get('document-close'))
         self.file_quit.setIcon(icons.get('application-exit'))
         
@@ -992,32 +1045,31 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_open.setText(_("&Open..."))
         self.file_open_recent.setText(_("Open &Recent"))
         self.file_insert_file.setText(_("Insert from &File..."))
-        self.file_open_current_directory.setText(_("Open Current Directory"))
+        self.file_open_current_directory.setText(_("Open Current &Directory"))
         self.file_open_command_prompt.setText(_("Open Command Prompt"))
         self.file_save.setText(_("&Save"))
         self.file_save_as.setText(_("Save &As..."))
-        self.file_save_copy_as.setText(_("Save Copy or Selection As..."))
-        self.file_save_all.setText(_("Save All"))
+        self.file_save_copy_as.setText(_("Save Cop&y or Selection As..."))
+        self.file_save_all.setText(_("Sa&ve All"))
         self.file_reload.setText(_("Re&load"))
         self.file_reload_all.setText(_("Reload All"))
         self.file_external_changes.setText(_("Check for External Changes..."))
         self.file_external_changes.setToolTip(_(
             "Opens a window to check whether open documents were changed or "
             "deleted by other programs."))
-        self.file_print_source.setText(_("Print Source..."))
         self.file_close.setText(_("&Close"))
         self.file_close_other.setText(_("Close Other Documents"))
         self.file_close_all.setText(_("Close All Documents"))
         self.file_close_all.setToolTip(_("Closes all documents and leaves the current session."))
         self.file_quit.setText(_("&Quit"))
         
-        self.export_colored_html.setText(_("Export Source as Colored &HTML..."))
+        self.export_source.setText(_("E&xport Source As..."))
+        self.export_source_immediately.setText(_("Export Source with Previous Settin&gs"))
         
         self.edit_undo.setText(_("&Undo"))
         self.edit_redo.setText(_("Re&do"))
         self.edit_cut.setText(_("Cu&t"))
         self.edit_copy.setText(_("&Copy"))
-        self.edit_copy_colored_html.setText(_("Copy as Colored &HTML"))
         self.edit_paste.setText(_("&Paste"))
         self.edit_select_all.setText(_("Select &All"))
         self.edit_select_current_toplevel.setText(_("Select &Block"))
