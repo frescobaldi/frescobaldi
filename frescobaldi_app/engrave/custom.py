@@ -154,9 +154,13 @@ class Dialog(QDialog):
         self.versionCombo.clear()
         for i in infos:
             icon = 'lilypond-run' if i.version() else 'dialog-error'
-            text = _("LilyPond {version} ({command})").format(
+            command=util.homify(i.command)
+            outstrip='out/bin/lilypond'
+            if command.endswith(outstrip):
+                command=command[:-len(outstrip)]
+            text = _("LilyPond {version} ({showcommand})").format(
                 version=i.versionString(),
-                command=string.rstrip(util.homify(i.command), 'out/bin/lilypond'))
+                showcommand=command)
             self.versionCombo.addItem(icons.get(icon), text)
         self.versionCombo.setCurrentIndex(index)
     
