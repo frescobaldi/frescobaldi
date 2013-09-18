@@ -69,11 +69,11 @@ msgstr "{author}: Défilement dynamique pour l'Aperçu."
 
 #: ../about.py:67
 msgid "{author}: Improved highlighting and auto-completion of Scheme code"
-msgstr ""
+msgstr "Amélioration de la coloration syntaxique et du complètement automatique du code Scheme"
 
 #: ../about.py:70
 msgid "{author}: Various contributions"
-msgstr ""
+msgstr "Contributions diverses"
 
 #: ../about.py:76
 msgid "{appname} is translated into the following languages:"
@@ -323,7 +323,6 @@ msgid "Always &Engrave This Document"
 msgstr "Toujours gr&aver ce document"
 
 #: ../documentmenu.py:42
-#, fuzzy
 msgctxt "menu title"
 msgid "&Documents"
 msgstr "&Document"
@@ -2910,11 +2909,11 @@ msgstr "Impossible d'enregistrer l'image."
 
 #: ../outline/__init__.py:40 ../preferences/tools.py:295
 msgid "Outline"
-msgstr ""
+msgstr "Structure"
 
 #: ../outline/__init__.py:41
 msgid "&Outline"
-msgstr ""
+msgstr "&Structure"
 
 #: ../pitch/__init__.py:99
 msgid "Pitch Name &Language"
@@ -3679,11 +3678,11 @@ msgstr "Environnement LilyPond"
 
 #: ../preferences/fontscolors.py:534
 msgid "Constant"
-msgstr ""
+msgstr "Constante"
 
 #: ../preferences/fontscolors.py:535
 msgid "Symbol"
-msgstr ""
+msgstr "Symbole"
 
 #: ../preferences/fontscolors.py:538
 msgid "Texinfo"
@@ -4295,48 +4294,60 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 
 #: ../preferences/prefshelp.py:268
 msgid "Configuring the Outline View"
-msgstr ""
+msgstr "Configurer la visualisation de Structure"
 
 #: ../preferences/prefshelp.py:272
 msgid ""
 "The document outline view is created by looking for certain expressions in "
 "the document text."
 msgstr ""
+"La visualisation de structure du document est créée en recherchant "
+"certaines expressions dans le document texte."
 
 #: ../preferences/prefshelp.py:274
 msgid ""
 "You can specify what to search for by entering a list of regular expressions."
 msgstr ""
+"Vous pouvez spécifier quoi chercher en entrant une liste d'expressions "
+"régulières."
 
 #: ../preferences/prefshelp.py:276
 msgid ""
 "In those expressions, <code>^</code> matches at the beginning of every line, "
 "and <code>$</code> matches at the end of a line."
 msgstr ""
+"Dans ces expressions, "<code>^</code> correspond au début de chaque ligne, "
+"et <code>$</code> à la fin d'une ligne."
 
 #: ../preferences/prefshelp.py:278
 msgid ""
 "Normally when an expressions matches text, the whole match is displayed as "
 "an item in the outline."
 msgstr ""
+"Normalement, quand une expression correspond au texte, la correspondance "
+"complète est indiquée comme élément dans la structure."
 
 #: ../preferences/prefshelp.py:280
 msgid "You can also use named groups, with the {code} named group syntax."
 msgstr ""
+"Vous pouvez également utilisé des groupes nommés, avec la syntaxe "
+"{code} du groupe nommé."
 
 #: ../preferences/prefshelp.py:282
 msgid "You can use the name {text} or {title}."
-msgstr ""
+msgstr "Vous pouvez utiliser le nom {text} ou {title}."
 
 #: ../preferences/prefshelp.py:284
 msgid ""
 "In that case, only the named part of a match is displayed. If the {title} "
 "name is used, it is displayed in a bold font."
 msgstr ""
+"Dans ce cas, seule la partie nommée de la correspondance est affichée. "
+"Si le nom de {title} est utilisé, il est affiché en caractères gras."
 
 #: ../preferences/prefshelp.py:287
 msgid "For more information about regular expressions, see {link}."
-msgstr ""
+msgstr "Pour plus d'informations au sujet des expressions régulières, voir {link}."
 
 #: ../preferences/shortcuts.py:56 ../snippet/model.py:63
 msgid "Shortcut"
@@ -4438,17 +4449,16 @@ msgid "Group documents by directory"
 msgstr "Regrouper les documents par dossier"
 
 #: ../preferences/tools.py:297
-#, fuzzy
 msgid "Restores the built-in outline patterns."
-msgstr "Rétablir les Fragments par défaut"
+msgstr "Rétablir les repères de structure par défaut."
 
 #: ../preferences/tools.py:298
 msgid "Patterns to match in text that are shown in outline:"
-msgstr ""
+msgstr "Repères de structure à afficher dans la structure :"
 
 #: ../preferences/tools.py:325
 msgid "Enter a regular expression to match:"
-msgstr ""
+msgstr "Entrer une expression régulière à rechercher :"
 
 #: ../quickinsert/__init__.py:48
 msgid "Quick &Insert"
@@ -5235,14 +5245,12 @@ msgid "Rhythm"
 msgstr "Rythme"
 
 #: ../scorewiz/__init__.py:66
-#, fuzzy
 msgid "Setup New Score (in current document)..."
-msgstr "Le nom du document courant."
+msgstr "Configurer une nouvelle partition (dans le document en cours)..."
 
 #: ../scorewiz/__init__.py:67
-#, fuzzy
 msgid "New Score with &Wizard..."
-msgstr "L'assistant de partition"
+msgstr "Nouvelle partition avec l'assistant..."
 
 #: ../scorewiz/build.py:136
 msgid "Music follows here."
@@ -7271,9 +7279,8 @@ msgid "Save as Template..."
 msgstr "Enregistrer comme modèle..."
 
 #: ../snippet/tool.py:101
-#, fuzzy
 msgid "Copy to &Snippet..."
-msgstr "Copier vers une image..."
+msgstr "Copier vers un fragment..."
 
 #: ../snippet/tool.py:102
 msgid "Manage Templates..."
@@ -7593,7 +7600,6 @@ msgstr "Sélectionner un fichier"
 #~ msgid "Music &View"
 #~ msgstr "Aperçu"
 
-#, fuzzy
 #~ msgid "Edit in place"
 #~ msgstr "Éditer le fragment"
 
