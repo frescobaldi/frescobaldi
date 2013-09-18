@@ -116,7 +116,7 @@ class HyphenDialog(QDialog):
         self.topLabel.setText(_("Please select a language:"))
         
     def load(self):
-        self._langs = [(language_names.languageName(lang), lang, dic)
+        self._langs = [(language_names.languageName(lang, po.setup.current()), lang, dic)
                        for lang, dic in findDicts().iteritems()]
         self._langs.sort()
         for name, lang, dic in self._langs:

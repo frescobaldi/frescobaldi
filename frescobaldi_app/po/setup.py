@@ -43,7 +43,6 @@ _currentlanguage = None
 def preferred():
     """Return a list of language codes from the operating system preferences.
     
-    The list will always contain an "en" entry.
     Language- and country codes will always be separated with an underscore '_'.
     
     """
@@ -56,8 +55,6 @@ def preferred():
             langs.append(locale.getdefaultlocale()[0])
         except ValueError:
             pass
-    if "en" not in langs:
-        langs.append("en")
     return langs
 
 def default():
@@ -68,6 +65,7 @@ def default():
     
     """
     av_langs = available()
+    av_langs.append("en")
     for lang in preferred():
         if lang in av_langs or lang.split('_')[0] in av_langs:
             return lang
