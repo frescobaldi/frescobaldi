@@ -38,6 +38,7 @@ import jobmanager
 import lilypondinfo
 import listmodel
 import os
+import sys
 import string
 import widgets
 import qutil
@@ -158,6 +159,9 @@ class Dialog(QDialog):
             outstrip='out/bin/lilypond'
             if command.endswith(outstrip):
                 command=command[:-len(outstrip)]
+            macstrip='/Contents/Resources/bin/lilypond'
+            if sys.platform.startswith('darwin') and command.endswith('.app' + macstrip):
+                command=command[:-len(macstrip)]
             text = _("LilyPond {version} ({showcommand})").format(
                 version=i.versionString(),
                 showcommand=command)
