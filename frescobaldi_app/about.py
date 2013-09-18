@@ -35,7 +35,7 @@ import icons
 import helpers
 import bugreport
 import language_names
-
+import po.setup
 
 def credits():
     """Iterating over this should return paragraphs for the credits page."""
@@ -75,7 +75,7 @@ def credits():
     yield _(
         "{appname} is translated into the following languages:").format(
         appname=info.appname)
-    lang = QSettings().value("language", "", type("")) or None
+    lang = QSettings().value("language", "", type("")) or po.setup.current() or None
     langs = [(language_names.languageName(code, lang), names)
              for code, names in info.translators.items()]
     for lang, names in sorted(langs):
