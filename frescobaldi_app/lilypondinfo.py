@@ -114,10 +114,17 @@ def preferred():
 
 
 def suitable(version):
-    """Returns a LilyPondInfo with a suitable version if found, else returns preferred()."""
-    for i in sorted(infos(), key=lambda i: i.version()):
-        if i.version() >= version:
-            return i
+    """Return a LilyPondInfo with a suitable version if found.
+    
+    Otherwise the most recent LilyPond version is returned.
+    
+    """
+    infos_ = sorted(infos(), key=lambda i: i.version())
+    if infos_:
+        for i in infos_:
+            if i.version() >= version:
+                return i
+        return i # return the latest anyway
     return preferred()
 
 
