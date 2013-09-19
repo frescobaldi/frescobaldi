@@ -25,6 +25,7 @@ from __future__ import unicode_literals
 
 import itertools
 import os
+import sys
 import weakref
 
 from PyQt4.QtCore import *
@@ -986,6 +987,17 @@ class ActionCollection(actioncollection.ActionCollection):
         self.window_fullscreen.setShortcuts([QKeySequence(Qt.CTRL + Qt.SHIFT + Qt.Key_F), QKeySequence(Qt.Key_F11)])
         
         self.help_manual.setShortcuts(QKeySequence.HelpContents)
+        
+        # roles
+        if sys.platform.startswith('darwin'):
+            if '.app/Contents/MacOS' in os.path.abspath(os.path.dirname(sys.argv[0])):
+                self.file_quit.setMenuRole(QAction.QuitRole)
+                self.edit_preferences.setMenuRole(QAction.PreferencesRole)
+                self.help_about.setMenuRole(QAction.AboutRole)
+            else:
+                self.file_quit.setMenuRole(QAction.NoRole)
+                self.edit_preferences.setMenuRole(QAction.NoRole)
+                self.help_about.setMenuRole(QAction.NoRole)
         
     def translateUI(self):
         self.file_new.setText(_("action: new document", "&New"))
