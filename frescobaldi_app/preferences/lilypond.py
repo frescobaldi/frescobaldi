@@ -181,9 +181,8 @@ class InfoItem(QListWidgetItem):
         self._info = info
     
     def display(self):
-        text = util.homify(self._info.command)
+        text = self._info.prettyName()
         if self._info.version():
-            text += " ({0})".format(self._info.versionString())
             self.setIcon(icons.get("lilypond-run"))
         else:
             self.setIcon(icons.get("dialog-error"))
