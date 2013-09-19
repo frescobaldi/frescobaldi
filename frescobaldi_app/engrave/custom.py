@@ -23,6 +23,8 @@ Custom engraving dialog.
 
 from __future__ import unicode_literals
 
+import os
+import sys
 import collections
 
 from PyQt4.QtCore import QSettings, QSize
@@ -37,9 +39,6 @@ import job
 import jobmanager
 import lilypondinfo
 import listmodel
-import os
-import sys
-import string
 import widgets
 import qutil
 import util
