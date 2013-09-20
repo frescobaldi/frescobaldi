@@ -12,7 +12,7 @@ Changes in 2.0.11 --
     contents to a new snippet
 * Improvements:
   - highlighting and auto-completion of Scheme code has been improved
-    by elmamyra. 
+    by Nicolas Malarmey. 
   - when switching documents with multiple editor views open, and one of the
     views displays the document, that view is made current, instead of changing
     the document in the current view.
