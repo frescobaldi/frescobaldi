@@ -62,7 +62,7 @@ def parse_commandline():
     parser.add_option('-c', '--column', type="int", metavar=_("NUM"),
         help=_("Column to go to, starting at 0"), default=0)
     parser.add_option('--start', metavar=_("NAME"),
-        help=_("Session to start ('{none}' for empty session)").format(none="none"),
+        help=_("Session to start ('{none}' for empty session)").format(none="-"),
         dest="session")
     parser.add_option('--list-sessions', action="store_true", default=False,
         help=_("List the session names and exit"))
@@ -148,7 +148,7 @@ def main():
 
     # load specified session
     doc = None
-    if options.session and options.session != "none":
+    if options.session and options.session != "-":
         doc = sessions.loadSession(options.session)
         
     # Just create one MainWindow
