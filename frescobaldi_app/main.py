@@ -173,5 +173,4 @@ def main():
 
 main()
 
-sys.excepthook = app.excepthook
 sys.displayhook = app.displayhook
