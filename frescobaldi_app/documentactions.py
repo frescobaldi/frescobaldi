@@ -125,15 +125,15 @@ class DocumentActions(plugin.MainWindowPlugin):
     
     def quickRemoveOrnaments(self):
         import quickremove
-        quickremove.articulations(self.mainwindow().textCursor())
+        quickremove.ornaments(self.mainwindow().textCursor())
     
     def quickRemoveSlurs(self):
         import quickremove
-        quickremove.articulations(self.mainwindow().textCursor())
+        quickremove.slurs(self.mainwindow().textCursor())
     
     def quickRemoveDynamics(self):
         import quickremove
-        quickremove.articulations(self.mainwindow().textCursor())
+        quickremove.dynamics(self.mainwindow().textCursor())
 
 
 class Actions(actioncollection.ActionCollection):
