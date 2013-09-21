@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import itertools
 
-from PyQt4.QtGui import QCheckBox
+from PyQt4.QtGui import QCheckBox, QHBoxLayout, QMenu, QToolButton
 
 import app
 import symbols
@@ -33,6 +33,8 @@ import cursortools
 import tokeniter
 import music
 import ly.lex.lilypond
+import icons
+import documentactions
 
 from . import tool
 from . import buttongroup
@@ -58,7 +60,27 @@ class Articulations(tool.Tool):
         super(Articulations, self).__init__(panel)
         self.shorthands = QCheckBox(self)
         self.shorthands.setChecked(True)
-        self.layout().addWidget(self.shorthands)
+        self.removemenu = QToolButton(self,
+            autoRaise=True,
+            popupMode=QToolButton.InstantPopup,
+            icon=icons.get('edit-clear'))
+        
+        mainwindow = panel.parent().mainwindow()
+        mainwindow.selectionStateChanged.connect(self.removemenu.setEnabled)
+        self.removemenu.setEnabled(mainwindow.hasSelection())
+        
+        menu = QMenu(self.removemenu)
+        self.removemenu.setMenu(menu)
+        ac = documentactions.DocumentActions.instance(mainwindow).actionCollection
+        menu.addAction(ac.tools_quick_remove_articulations)
+        menu.addAction(ac.tools_quick_remove_ornaments)
+        
+        layout = QHBoxLayout()
+        layout.addWidget(self.shorthands)
+        layout.addWidget(self.removemenu)
+        layout.addStretch(1)
+        
+        self.layout().addLayout(layout)
         for cls in (
                 ArticulationsGroup,
                 OrnamentsGroup,
@@ -73,7 +95,9 @@ class Articulations(tool.Tool):
         self.shorthands.setText(_("Allow shorthands"))
         self.shorthands.setToolTip(_(
             "Use short notation for some articulations like staccato."))
-
+        self.removemenu.setToolTip(_(
+            "Remove articulations etc."))
+    
     def icon(self):
         """Should return an icon for our tab."""
         return symbols.icon("articulation_prall")
