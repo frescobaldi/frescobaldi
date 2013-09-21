@@ -114,3 +114,35 @@ def dynamics(cursor):
     return find_positions(cursor, lambda t: isinstance(t, ly.lex.lilypond.Dynamic))
 
 
+@remove
+def markup(cursor):
+    """Remove (postfix) markup texts from the cursor's selection."""
+    source = tokeniter.Source.selection(cursor, True, False)
+    for token in source:
+        if isinstance(token, ly.lex.lilypond.Direction):
+            start = source.position(token)
+            for token in source:
+                if token == '\\markup':
+                    # find the end of the markup expression
+                    depth = source.state.depth()
+                    for token in source:
+                        if source.state.depth() < depth:
+                            end = token.end + source.block.position()
+                            yield start, end
+                            break
+                elif token == '"':
+                    # find the end of the string
+                    for token in source:
+                        if isinstance(token, ly.lex.StringEnd):
+                            end = token.end + source.block.position()
+                            yield start, end
+                            break
+                elif token.isalpha():
+                    end = token.end + source.block.position()
+                    yield start, end
+                elif isinstance(token, ly.lex.Space):
+                    continue
+                else:
+                    break
+
+

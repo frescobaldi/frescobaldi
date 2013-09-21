@@ -54,6 +54,7 @@ class DocumentActions(plugin.MainWindowPlugin):
         ac.tools_quick_remove_ornaments.triggered.connect(self.quickRemoveOrnaments)
         ac.tools_quick_remove_slurs.triggered.connect(self.quickRemoveSlurs)
         ac.tools_quick_remove_dynamics.triggered.connect(self.quickRemoveDynamics)
+        ac.tools_quick_remove_markup.triggered.connect(self.quickRemoveMarkup)
         
         mainwindow.currentDocumentChanged.connect(self.updateDocActions)
         mainwindow.selectionStateChanged.connect(self.updateSelectionActions)
@@ -72,6 +73,7 @@ class DocumentActions(plugin.MainWindowPlugin):
         self.actionCollection.tools_quick_remove_ornaments.setEnabled(selection)
         self.actionCollection.tools_quick_remove_slurs.setEnabled(selection)
         self.actionCollection.tools_quick_remove_dynamics.setEnabled(selection)
+        self.actionCollection.tools_quick_remove_markup.setEnabled(selection)
     
     def currentView(self):
         return self.mainwindow().currentView()
@@ -134,6 +136,10 @@ class DocumentActions(plugin.MainWindowPlugin):
     def quickRemoveDynamics(self):
         import quickremove
         quickremove.dynamics(self.mainwindow().textCursor())
+    
+    def quickRemoveMarkup(self):
+        import quickremove
+        quickremove.markup(self.mainwindow().textCursor())
 
 
 class Actions(actioncollection.ActionCollection):
@@ -152,6 +158,7 @@ class Actions(actioncollection.ActionCollection):
         self.tools_quick_remove_ornaments = QAction(parent)
         self.tools_quick_remove_slurs = QAction(parent)
         self.tools_quick_remove_dynamics = QAction(parent)
+        self.tools_quick_remove_markup = QAction(parent)
         
         self.edit_cut_assign.setIcon(icons.get('edit-cut'))
 
@@ -170,4 +177,5 @@ class Actions(actioncollection.ActionCollection):
         self.tools_quick_remove_ornaments.setText(_("Remove &Ornaments"))
         self.tools_quick_remove_slurs.setText(_("Remove &Slurs"))
         self.tools_quick_remove_dynamics.setText(_("Remove &Dynamics"))
+        self.tools_quick_remove_markup.setText(_("Remove Text &Markup (from music)"))
 
