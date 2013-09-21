@@ -40,7 +40,7 @@ def remove(func):
     """Decorator turning a function yielding ranges into removing the ranges."""
     @functools.wraps(func)
     def decorator(cursor):
-        remove = list(func(tokeniter.selection(cursor, None, False)))
+        remove = list(func(cursor))
         if remove:
             c = QTextCursor(cursor)
             with cursortools.compress_undo(c):
@@ -62,77 +62,55 @@ def is_ornament(token):
     return (isinstance(token, ly.lex.lilypond.Articulation)
             and token[1:] in ly.words.ornaments)
 
+
+def find_positions(cursor, predicate, predicate_dir=None):
+    """Yields positions (start, end) for tokens predicate returns True for.
+    
+    The tokens (gotten from the cursor's selection) may be preceded by a
+    ly.lex.lilypond.Direction token.
+    If predicate_dir is specified, it is used for the items following a
+    Direction tokens, otherwise predicate is also used for that case.
+    
+    """
+    if predicate_dir is None:
+        predicate_dir = predicate
+    for block, tokens in tokeniter.selection(cursor, None, False):
+        position = block.position()
+        for t in tokens:
+            if isinstance(t, ly.lex.lilypond.Direction):
+                start = position + t.pos
+                for t in tokens:
+                    if isinstance(t, ly.lex.Space):
+                        continue
+                    elif predicate_dir(t):
+                        yield start, position + t.end
+                    break
+            elif predicate(t):
+                yield position + t.pos, position + t.end
+
+
 @remove
-def articulations(source):
+def articulations(cursor):
     """Remove articulations from the cursor's selection."""
-    for block, tokens in source:
-        position = block.position()
-        for t in tokens:
-            if isinstance(t, ly.lex.lilypond.Direction):
-                start = position + t.pos
-                for t in tokens:
-                    if isinstance(t, ly.lex.Space):
-                        continue
-                    elif isinstance(t, ly.lex.lilypond.ScriptAbbreviation):
-                        yield start, position + t.end
-                    elif is_articulation(t):
-                        yield start, position + t.end
-                    break
-            elif is_articulation(t):
-                yield position + t.pos, position + t.end
+    return find_positions(cursor, is_articulation,
+        lambda t: isinstance(t, ly.lex.lilypond.ScriptAbbreviation) or is_articulation(t))
 
 
 @remove
-def ornaments(source):
+def ornaments(cursor):
     """Remove ornaments from the cursor's selection."""
-    for block, tokens in source:
-        position = block.position()
-        for t in tokens:
-            if isinstance(t, ly.lex.lilypond.Direction):
-                start = position + t.pos
-                for t in tokens:
-                    if isinstance(t, ly.lex.Space):
-                        continue
-                    elif is_ornament(t):
-                        yield start, position + t.end
-                    break
-            elif is_ornament(t):
-                yield position + t.pos, position + t.end
+    return find_positions(cursor, is_ornament)
 
 
 @remove
-def slurs(source):
+def slurs(cursor):
     """Remove slurs from the cursor's selection."""
-    for block, tokens in source:
-        position = block.position()
-        for t in tokens:
-            if isinstance(t, ly.lex.lilypond.Direction):
-                start = position + t.pos
-                for t in tokens:
-                    if isinstance(t, ly.lex.Space):
-                        continue
-                    elif isinstance(t, ly.lex.lilypond.Slur):
-                        yield start, position + t.end
-                    break
-            elif isinstance(t, ly.lex.lilypond.Slur):
-                yield position + t.pos, position + t.end
+    return find_positions(cursor, lambda t: isinstance(t, ly.lex.lilypond.Slur))
 
 
 @remove
-def dynamics(source):
+def dynamics(cursor):
     """Remove dynamics from the cursor's selection."""
-    for block, tokens in source:
-        position = block.position()
-        for t in tokens:
-            if isinstance(t, ly.lex.lilypond.Direction):
-                start = position + t.pos
-                for t in tokens:
-                    if isinstance(t, ly.lex.Space):
-                        continue
-                    elif isinstance(t, ly.lex.lilypond.Dynamic):
-                        yield start, position + t.end
-                    break
-            elif isinstance(t, ly.lex.lilypond.Dynamic):
-                yield position + t.pos, position + t.end
+    return find_positions(cursor, lambda t: isinstance(t, ly.lex.lilypond.Dynamic))
 
 
