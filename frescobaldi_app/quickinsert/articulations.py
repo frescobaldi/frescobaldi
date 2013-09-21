@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import itertools
 
-from PyQt4.QtGui import QCheckBox, QHBoxLayout, QMenu, QToolButton
+from PyQt4.QtGui import QCheckBox, QHBoxLayout, QToolButton
 
 import app
 import symbols
@@ -69,11 +69,9 @@ class Articulations(tool.Tool):
         mainwindow.selectionStateChanged.connect(self.removemenu.setEnabled)
         self.removemenu.setEnabled(mainwindow.hasSelection())
         
-        menu = QMenu(self.removemenu)
-        self.removemenu.setMenu(menu)
         ac = documentactions.DocumentActions.instance(mainwindow).actionCollection
-        menu.addAction(ac.tools_quick_remove_articulations)
-        menu.addAction(ac.tools_quick_remove_ornaments)
+        self.removemenu.addAction(ac.tools_quick_remove_articulations)
+        self.removemenu.addAction(ac.tools_quick_remove_ornaments)
         
         layout = QHBoxLayout()
         layout.addWidget(self.shorthands)
