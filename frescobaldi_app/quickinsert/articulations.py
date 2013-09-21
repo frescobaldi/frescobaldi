@@ -72,6 +72,7 @@ class Articulations(tool.Tool):
         ac = documentactions.DocumentActions.instance(mainwindow).actionCollection
         self.removemenu.addAction(ac.tools_quick_remove_articulations)
         self.removemenu.addAction(ac.tools_quick_remove_ornaments)
+        self.removemenu.addAction(ac.tools_quick_remove_instrument_scripts)
         
         layout = QHBoxLayout()
         layout.addWidget(self.shorthands)

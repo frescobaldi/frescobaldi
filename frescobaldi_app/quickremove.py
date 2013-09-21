@@ -63,6 +63,12 @@ def is_ornament(token):
             and token[1:] in ly.words.ornaments)
 
 
+def is_instrument_script(token):
+    """Return True if token is an instrument script."""
+    return (isinstance(token, ly.lex.lilypond.Articulation)
+            and token[1:] in ly.words.instrument_scripts)
+
+
 def find_positions(cursor, predicate, predicate_dir=None):
     """Yields positions (start, end) for tokens predicate returns True for.
     
@@ -100,6 +106,12 @@ def articulations(cursor):
 def ornaments(cursor):
     """Remove ornaments from the cursor's selection."""
     return find_positions(cursor, is_ornament)
+
+
+@remove
+def instrument_scripts(cursor):
+    """Remove instrument_scripts from the cursor's selection."""
+    return find_positions(cursor, is_instrument_script)
 
 
 @remove

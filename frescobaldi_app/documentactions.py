@@ -52,6 +52,7 @@ class DocumentActions(plugin.MainWindowPlugin):
         ac.tools_convert_ly.triggered.connect(self.convertLy)
         ac.tools_quick_remove_articulations.triggered.connect(self.quickRemoveArticulations)
         ac.tools_quick_remove_ornaments.triggered.connect(self.quickRemoveOrnaments)
+        ac.tools_quick_remove_instrument_scripts.triggered.connect(self.quickRemoveInstrumentScripts)
         ac.tools_quick_remove_slurs.triggered.connect(self.quickRemoveSlurs)
         ac.tools_quick_remove_dynamics.triggered.connect(self.quickRemoveDynamics)
         ac.tools_quick_remove_markup.triggered.connect(self.quickRemoveMarkup)
@@ -71,6 +72,7 @@ class DocumentActions(plugin.MainWindowPlugin):
         self.actionCollection.edit_cut_assign.setEnabled(selection)
         self.actionCollection.tools_quick_remove_articulations.setEnabled(selection)
         self.actionCollection.tools_quick_remove_ornaments.setEnabled(selection)
+        self.actionCollection.tools_quick_remove_instrument_scripts.setEnabled(selection)
         self.actionCollection.tools_quick_remove_slurs.setEnabled(selection)
         self.actionCollection.tools_quick_remove_dynamics.setEnabled(selection)
         self.actionCollection.tools_quick_remove_markup.setEnabled(selection)
@@ -129,6 +131,10 @@ class DocumentActions(plugin.MainWindowPlugin):
         import quickremove
         quickremove.ornaments(self.mainwindow().textCursor())
     
+    def quickRemoveInstrumentScripts(self):
+        import quickremove
+        quickremove.instrument_scripts(self.mainwindow().textCursor())
+    
     def quickRemoveSlurs(self):
         import quickremove
         quickremove.slurs(self.mainwindow().textCursor())
@@ -156,6 +162,7 @@ class Actions(actioncollection.ActionCollection):
         self.tools_convert_ly = QAction(parent)
         self.tools_quick_remove_articulations = QAction(parent)
         self.tools_quick_remove_ornaments = QAction(parent)
+        self.tools_quick_remove_instrument_scripts = QAction(parent)
         self.tools_quick_remove_slurs = QAction(parent)
         self.tools_quick_remove_dynamics = QAction(parent)
         self.tools_quick_remove_markup = QAction(parent)
@@ -175,6 +182,7 @@ class Actions(actioncollection.ActionCollection):
         self.tools_convert_ly.setText(_("&Update with convert-ly...")) 
         self.tools_quick_remove_articulations.setText(_("Remove &Articulations"))
         self.tools_quick_remove_ornaments.setText(_("Remove &Ornaments"))
+        self.tools_quick_remove_instrument_scripts.setText(_("Remove &Instrument Scripts"))
         self.tools_quick_remove_slurs.setText(_("Remove &Slurs"))
         self.tools_quick_remove_dynamics.setText(_("Remove &Dynamics"))
         self.tools_quick_remove_markup.setText(_("Remove Text &Markup (from music)"))
