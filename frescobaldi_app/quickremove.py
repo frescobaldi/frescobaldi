@@ -26,20 +26,113 @@ The functions are called by actions defined in the documentactions.py module.
 
 from __future__ import unicode_literals
 
+import functools
 
-def articulations(cursor):
+from PyQt4.QtGui import QTextCursor
+
+import tokeniter
+import cursortools
+import ly.words
+import ly.lex.lilypond
+
+
+def remove(func):
+    """Decorator turning a function yielding ranges into removing the ranges."""
+    @functools.wraps(func)
+    def decorator(cursor):
+        remove = list(func(tokeniter.selection(cursor, None, False)))
+        if remove:
+            c = QTextCursor(cursor)
+            with cursortools.compress_undo(c):
+                for start, end in sorted(remove, reverse=True):
+                    c.setPosition(start)
+                    c.setPosition(end, QTextCursor.KeepAnchor)
+                    c.removeSelectedText()
+    return decorator
+
+
+def is_articulation(token):
+    """Return True if token is an articulation."""
+    return (isinstance(token, ly.lex.lilypond.Articulation)
+            and token[1:] in ly.words.articulations)
+
+
+def is_ornament(token):
+    """Return True if token is an ornament."""
+    return (isinstance(token, ly.lex.lilypond.Articulation)
+            and token[1:] in ly.words.ornaments)
+
+@remove
+def articulations(source):
     """Remove articulations from the cursor's selection."""
+    for block, tokens in source:
+        position = block.position()
+        for t in tokens:
+            if isinstance(t, ly.lex.lilypond.Direction):
+                start = position + t.pos
+                for t in tokens:
+                    if isinstance(t, ly.lex.Space):
+                        continue
+                    elif isinstance(t, ly.lex.lilypond.ScriptAbbreviation):
+                        yield start, position + t.end
+                    elif is_articulation(t):
+                        yield start, position + t.end
+                    break
+            elif is_articulation(t):
+                yield position + t.pos, position + t.end
 
 
-def ornaments(cursor):
+@remove
+def ornaments(source):
     """Remove ornaments from the cursor's selection."""
+    for block, tokens in source:
+        position = block.position()
+        for t in tokens:
+            if isinstance(t, ly.lex.lilypond.Direction):
+                start = position + t.pos
+                for t in tokens:
+                    if isinstance(t, ly.lex.Space):
+                        continue
+                    elif is_ornament(t):
+                        yield start, position + t.end
+                    break
+            elif is_ornament(t):
+                yield position + t.pos, position + t.end
 
 
-def slurs(cursor):
+@remove
+def slurs(source):
     """Remove slurs from the cursor's selection."""
+    for block, tokens in source:
+        position = block.position()
+        for t in tokens:
+            if isinstance(t, ly.lex.lilypond.Direction):
+                start = position + t.pos
+                for t in tokens:
+                    if isinstance(t, ly.lex.Space):
+                        continue
+                    elif isinstance(t, ly.lex.lilypond.Slur):
+                        yield start, position + t.end
+                    break
+            elif isinstance(t, ly.lex.lilypond.Slur):
+                yield position + t.pos, position + t.end
 
 
-def dynamics(cursor):
+@remove
+def dynamics(source):
     """Remove dynamics from the cursor's selection."""
+    for block, tokens in source:
+        position = block.position()
+        for t in tokens:
+            if isinstance(t, ly.lex.lilypond.Direction):
+                start = position + t.pos
+                for t in tokens:
+                    if isinstance(t, ly.lex.Space):
+                        continue
+                    elif isinstance(t, ly.lex.lilypond.Dynamic):
+                        yield start, position + t.end
+                    break
+            elif isinstance(t, ly.lex.lilypond.Dynamic):
+                yield position + t.pos, position + t.end
 
 
