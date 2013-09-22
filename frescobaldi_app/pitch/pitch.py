@@ -379,9 +379,9 @@ def abs2rel(cursor):
                                 chord.append(p)
 
 
-def transpose(cursor, mainwindow):
-    """Transposes pitches."""
-    language = documentinfo.info(cursor.document()).pitchLanguage() or 'nederlands'
+def getTransposer(document, mainwindow):
+    """Show a dialog and return the desired transposer."""
+    language = documentinfo.info(document).pitchLanguage() or 'nederlands'
     
     def readpitches(text):
         """Reads pitches from text."""
@@ -401,193 +401,14 @@ def transpose(cursor, mainwindow):
         "using the pitch name language \"{language}\"."
         ).format(language=language), icon = icons.get('tools-transpose'),
         help = transpose_help, validate = validate)
-    if text == None:
-        return
     
-    transposer = ly.pitch.Transposer(*readpitches(text))
-    
-    selection = cursor.hasSelection()
-    if selection:
-        start = cursor.selectionStart()
-        cursor.setPosition(cursor.selectionEnd())
-        cursor.setPosition(0, QTextCursor.KeepAnchor)
-        source = tokeniter.Source.selection(cursor, True)
-    else:
-        source = tokeniter.Source.document(cursor, True)
-    
-    pitches = PitchIterator(source)
-    psource = pitches.pitches()
-    
-    class gen(object):
-        def __init__(self):
-            self.inSelection = not selection
-        
-        def __iter__(self):
-            return self
-        
-        def __next__(self):
-            while True:
-                t = next(psource)
-                if isinstance(t, (ly.lex.Space, ly.lex.Comment)):
-                    continue
-                elif not self.inSelection and pitches.position(t) >= start:
-                    self.inSelection = True
-                # Handle stuff that's the same in relative and absolute here
-                if t == "\\relative":
-                    relative()
-                elif isinstance(t, ly.lex.lilypond.MarkupScore):
-                    absolute(context())
-                elif isinstance(t, ly.lex.lilypond.ChordMode):
-                    chordmode()
-                elif isinstance(t, ly.lex.lilypond.PitchCommand):
-                    if t == "\\transposition":
-                        next(psource) # skip pitch
-                    elif t == "\\transpose":
-                        for p in getpitches(context()):
-                            transpose(p)
-                    elif t == "\\key":
-                        for p in getpitches(context()):
-                            transpose(p, 0)
-                    else:
-                        return t
-                else:
-                    return t
-        
-        next = __next__
-    
-    tsource = gen()
-    
-    def context():
-        """Consume tokens till the level drops (we exit a construct)."""
-        depth = source.state.depth()
-        for t in tsource:
-            yield t
-            if source.state.depth() < depth:
-                return
-    
-    def consume():
-        """Consume tokens from context() returning the last token, if any."""
-        t = None
-        for t in context():
-            pass
-        return t
-        
-    def transpose(p, resetOctave = None):
-        """Transpose absolute pitch, using octave if given."""
-        transposer.transpose(p)
-        if resetOctave is not None:
-            p.octave = resetOctave
-        if tsource.inSelection:
-            pitches.write(p, editor)
-
-    def chordmode():
-        """Called inside \\chordmode or \\chords."""
-        for p in getpitches(context()):
-            transpose(p, 0)
-            
-    def absolute(tokens):
-        """Called when outside a possible \\relative environment."""
-        for p in getpitches(tokens):
-            transpose(p)
-    
-    def relative():
-        """Called when \\relative is encountered."""
-        def transposeRelative(p, lastPitch):
-            """Transposes a relative pitch; returns the pitch in absolute form."""
-            # absolute pitch determined from untransposed pitch of lastPitch
-            p.makeAbsolute(lastPitch)
-            if not tsource.inSelection:
-                return p
-            # we may change this pitch. Make it relative against the
-            # transposed lastPitch.
-            try:
-                last = lastPitch.transposed
-            except AttributeError:
-                last = lastPitch
-            # transpose a copy and store that in the transposed
-            # attribute of lastPitch. Next time that is used for
-            # making the next pitch relative correctly.
-            newLastPitch = p.copy()
-            transposer.transpose(p)
-            newLastPitch.transposed = p.copy()
-            if p.octaveCheck is not None:
-                p.octaveCheck = p.octave
-            p.makeRelative(last)
-            if relPitch:
-                # we are allowed to change the pitch after the
-                # \relative command. lastPitch contains this pitch.
-                lastPitch.octave += p.octave
-                p.octave = 0
-                pitches.write(lastPitch, editor)
-                del relPitch[:]
-            pitches.write(p, editor)
-            return newLastPitch
-
-        lastPitch = None
-        relPitch = [] # we use a list so it can be changed from inside functions
-        
-        # find the pitch after the \relative command
-        t = next(tsource)
-        if isinstance(t, Pitch):
-            lastPitch = t
-            if tsource.inSelection:
-                relPitch.append(lastPitch)
-            t = next(tsource)
-        else:
-            lastPitch = Pitch.c1()
-        
-        while True:
-            # eat stuff like \new Staff == "bla" \new Voice \notes etc.
-            if isinstance(source.state.parser(), ly.lex.lilypond.ParseTranslator):
-                t = consume()
-            elif isinstance(t, ly.lex.lilypond.NoteMode):
-                t = next(tsource)
-            else:
-                break
-        
-        # now transpose the relative expression
-        if t in ('{', '<<'):
-            # Handle full music expression { ... } or << ... >>
-            for t in context():
-                if t == '\\octaveCheck':
-                    for p in getpitches(context()):
-                        lastPitch = p.copy()
-                        del relPitch[:]
-                        if tsource.inSelection:
-                            transposer.transpose(p)
-                            lastPitch.transposed = p
-                            pitches.write(p, editor)
-                elif isinstance(t, ly.lex.lilypond.ChordStart):
-                    chord = [lastPitch]
-                    for p in getpitches(context()):
-                        chord.append(transposeRelative(p, chord[-1]))
-                    lastPitch = chord[:2][-1] # same or first
-                elif isinstance(t, Pitch):
-                    lastPitch = transposeRelative(t, lastPitch)
-        elif isinstance(t, ly.lex.lilypond.ChordStart):
-            # Handle just one chord
-            for p in getpitches(context()):
-                lastPitch = transposeRelative(p, lastPitch)
-        elif isinstance(t, Pitch):
-            # Handle just one pitch
-            transposeRelative(token, lastPitch)
-
-    # Do it!
-    try:
-        with qutil.busyCursor():
-            with cursortools.Editor() as editor:
-                absolute(tsource)
-    except ly.pitch.PitchNameNotAvailable:
-        QMessageBox.critical(mainwindow, app.caption(_("Transpose")), _(
-            "Can't perform the requested transposition.\n\n"
-            "The transposed music would contain quarter-tone alterations "
-            "that are not available in the pitch language \"{language}\"."
-            ).format(language = pitches.language))
+    if text:
+        return ly.pitch.Transposer(*readpitches(text))
 
 
-def modalTranspose(cursor, mainwindow):
-    """Transposes pitches."""
-    language = documentinfo.info(cursor.document()).pitchLanguage() or 'nederlands'
+def getModalTransposer(document, mainwindow):
+    """Show a dialog and return the desired modal transposer."""
+    language = documentinfo.info(document).pitchLanguage() or 'nederlands'
     
     def readpitches(text):
         """Reads pitches from text."""
@@ -614,11 +435,13 @@ def modalTranspose(cursor, mainwindow):
         "Please enter the number of steps to alter by, followed by a key signature. (i.e. \"5 F\")"
         ), icon = icons.get('tools-transpose'),
         help = transpose_help, validate = validate)
-    if text == None:
-        return
+    if text:
+        words = text.split()
+        return ly.pitch.ModalTransposer(int(words[0]), ly.pitch.ModalTransposer.getKeyIndex(words[1]))
+
     
-    words = text.split()
-    transposer = ly.pitch.ModalTransposer(int(words[0]), ly.pitch.ModalTransposer.getKeyIndex(words[1]))
+def transpose(cursor, transposer, mainwindow=None):
+    """Transpose pitches using the specified transposer."""
     
     selection = cursor.hasSelection()
     if selection:
