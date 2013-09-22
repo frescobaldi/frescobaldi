@@ -306,7 +306,7 @@ class TextDialog(Dialog):
         return self.mainWidget()
     
     def setText(self, text):
-        """Sets the tekst in the lineEdit()."""
+        """Sets the text in the lineEdit()."""
         self.lineEdit().setText(text)
     
     def text(self):
