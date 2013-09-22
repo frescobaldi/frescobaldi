@@ -25,6 +25,7 @@ from __future__ import unicode_literals
 
 import re
 from fractions import Fraction
+import math
 
 
 pitchInfo = {
@@ -87,7 +88,8 @@ class Pitch(object):
     """
     def __init__(self, note=0, alter=0, octave=0):
         self.note = note        # base note (c, d, e, f, g, a, b)
-        self.alter = alter      # # = 2; b = -2; natural = 0
+                                # as integer (0 to 6)
+        self.alter = alter      # # = .5; b = -.5; natural = 0
         self.octave = octave    # '' = 2; ,, = -2
     
     def __repr__(self):
@@ -151,6 +153,51 @@ class Transposer(object):
         pitch.alter += self.alter - doct * 6 - self.scale[note] + self.scale[pitch.note]
         pitch.octave += self.octave + doct
         pitch.note = note
+
+
+class ModalTransposer(object):
+    """Transpose pitches by number of steps within a given scale.
+    
+    Instantiate with the number of steps (+/-) in the scale to transpose by, and a mode index.
+    The mode index is the index of the major scale in the circle of fifths (C Major = 0).
+    """        
+    def __init__(self, numSteps = 1, scaleIndex = 0):
+        self.numSteps = numSteps
+        self.notes = [0, 1, 2, 3, 4, 5, 6]
+        self.alter = [-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5]
+        # Initialize to Db, then update to desired mode
+        
+        for i in range(0, scaleIndex):
+            keyNameIndex = ((i+1)*4)%len(self.notes)
+            accidentalIndex = (keyNameIndex-1)%len(self.notes)
+            self.alter[accidentalIndex] += .5
+            
+    @staticmethod
+    def getKeyIndex(text):
+        """Get the index of the key in the circle of fifths.
+        
+        'Cb' returns 0, 'C' returns 7, 'B#' returns 14.
+        """
+        circleOfFifths = ['Cb','Gb','Db','Ab','Eb','Bb','F','C','G','D','A','E','B','F#','C#']
+        return circleOfFifths.index(text.capitalize())
+                  
+    def transpose(self, pitch):
+        # Look for an exact match: otherwise,
+        # look for the letter name and save the accidental
+        for i in range(len(self.notes)):
+            if pitch.note == self.notes[i] and \
+               pitch.alter == self.alter:
+                    fromScaleDeg = i
+                    accidental = 0
+                    break;
+        else:
+            fromScaleDeg = self.notes.index(pitch.note)
+            accidental = pitch.alter - self.alter[fromScaleDeg]
+        
+        toOctaveMod, toScaleDeg = divmod(fromScaleDeg + self.numSteps, 7)
+        pitch.note = self.notes[toScaleDeg]
+        pitch.alter = self.alter[toScaleDeg] + accidental
+        pitch.octave += toOctaveMod
 
 
 class PitchWriter(object):
