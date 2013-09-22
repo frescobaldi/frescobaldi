@@ -114,10 +114,17 @@ def preferred():
 
 
 def suitable(version):
-    """Returns a LilyPondInfo with a suitable version if found, else returns preferred()."""
-    for i in sorted(infos(), key=lambda i: i.version()):
-        if i.version() >= version:
-            return i
+    """Return a LilyPondInfo with a suitable version if found.
+    
+    Otherwise the most recent LilyPond version is returned.
+    
+    """
+    infos_ = sorted(infos(), key=lambda i: i.version())
+    if infos_:
+        for i in infos_:
+            if i.version() >= version:
+                return i
+        return i # return the latest anyway
     return preferred()
 
 
@@ -167,7 +174,32 @@ class LilyPondInfo(object):
         else:
             path = None
         return util.findexe(self.command, path) or False
-
+    
+    @CachedProperty.cachedproperty(depends=abscommand)
+    def displaycommand(self):
+        """The path to the command in a format pretty to display.
+        
+        This removes the 'out/bin/lilypond' part of custom build LilyPond
+        versions, and on Mac OS X it removes the
+        '/Contents/Resources/bin/lilypond' part.
+        
+        Finally it replaces the users home directory with '~'.
+        
+        The empty string is returned if LilyPond is not installed on the users'
+        system.
+        """
+        command = self.abscommand()
+        if command:
+            outstrip='out/bin/lilypond'
+            if command.endswith(outstrip):
+                command=command[:-len(outstrip)]
+            macstrip='/Contents/Resources/bin/lilypond'
+            if sys.platform.startswith('darwin') and command.endswith('.app' + macstrip):
+                command=command[:-len(macstrip)]
+            return util.homify(command)
+        else:
+            return ""
+    
     @CachedProperty.cachedproperty(depends=abscommand)
     def versionString(self):
         if not self.abscommand():
@@ -241,6 +273,22 @@ class LilyPondInfo(object):
             self.datadir = False
         _scheduler.add(p)
 
+    @CachedProperty.cachedproperty(depends=versionString)
+    def prettyName(self):
+        """Return a pretty-printable name for this LilyPond instance."""
+        command = self.abscommand() or ""
+        # strip unneeded cruft from the command name
+        outstrip='out/bin/lilypond'
+        if command.endswith(outstrip):
+            command=command[:-len(outstrip)]
+        macstrip='/Contents/Resources/bin/lilypond'
+        if sys.platform.startswith('darwin') and command.endswith('.app' + macstrip):
+            command=command[:-len(macstrip)]
+        return "{name} {version} ({command})".format(
+            name = self.name,
+            version = self.versionString(),
+            command = util.homify(command))
+    
     @classmethod
     def read(cls, settings):
         """Returns a new LilyPondInfo instance, filled from a QSettings instance.
@@ -275,13 +323,6 @@ class LilyPondInfo(object):
         settings.setValue("lilypond-book", self.lilypond_book)
         settings.setValue("convert-ly", self.convert_ly)
 
-    def prettyName(self):
-        """Return a pretty-printable name for this LilyPond instance."""
-        return "{name}-{version} ({command})".format(
-            name = self.name,
-            version = self.versionString(),
-            command = self.command)
-    
     def python(self):
         """Returns the path to the LilyPond-provided Python interpreter.
         

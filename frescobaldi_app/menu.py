@@ -256,6 +256,7 @@ def menu_tools(mainwindow):
     m.addMenu(menu_tools_pitch(mainwindow))
     m.addMenu(menu_tools_rhythm(mainwindow))
     m.addMenu(menu_tools_lyrics(mainwindow))
+    m.addMenu(menu_tools_quick_remove(mainwindow))
     m.addSeparator()
     ac = documentactions.get(mainwindow).actionCollection
     m.addAction(ac.tools_convert_ly)
@@ -289,6 +290,7 @@ def menu_tools_pitch(mainwindow):
     m.addAction(ac.pitch_abs2rel)
     m.addSeparator()
     m.addAction(ac.pitch_transpose)
+    m.addAction(ac.pitch_modal_transpose)
     return m
 
 
@@ -313,6 +315,20 @@ def menu_tools_rhythm(mainwindow):
     m.addAction(ac.rhythm_apply)
     m.addAction(ac.rhythm_copy)
     m.addAction(ac.rhythm_paste)
+    return m
+
+
+def menu_tools_quick_remove(mainwindow):
+    m = Menu(_('submenu title', "&Quick Remove"), mainwindow)
+    m.setIcon(icons.get('edit-clear'))
+    ac = documentactions.DocumentActions.instance(mainwindow).actionCollection
+    
+    m.addAction(ac.tools_quick_remove_articulations)
+    m.addAction(ac.tools_quick_remove_ornaments)
+    m.addAction(ac.tools_quick_remove_instrument_scripts)
+    m.addAction(ac.tools_quick_remove_slurs)
+    m.addAction(ac.tools_quick_remove_dynamics)
+    m.addAction(ac.tools_quick_remove_markup)
     return m
 
 

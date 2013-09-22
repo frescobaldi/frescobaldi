@@ -1,6 +1,7 @@
 include README* COPYING THANKS INSTALL TODO ChangeLog
 include frescobaldi.desktop
 include frescobaldi.1
+include frescobaldi.png
 include *.py
 include frescobaldi-wininst.bmp
 recursive-include frescobaldi_app README*
