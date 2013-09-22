@@ -23,12 +23,16 @@ The Quick Insert panel dynamics Tool.
 
 from __future__ import unicode_literals
 
+from PyQt4.QtGui import QHBoxLayout, QToolButton
+
 import app
+import icons
 import symbols
 import cursortools
 import tokeniter
 import music
 import ly.lex.lilypond
+import documentactions
 
 from . import tool
 from . import buttongroup
@@ -38,6 +42,23 @@ class Dynamics(tool.Tool):
     """Dynamics tool in the quick insert panel toolbox."""
     def __init__(self, panel):
         super(Dynamics, self).__init__(panel)
+        self.removemenu = QToolButton(self,
+            autoRaise=True,
+            popupMode=QToolButton.InstantPopup,
+            icon=icons.get('edit-clear'))
+        
+        mainwindow = panel.parent().mainwindow()
+        mainwindow.selectionStateChanged.connect(self.removemenu.setEnabled)
+        self.removemenu.setEnabled(mainwindow.hasSelection())
+        
+        ac = documentactions.DocumentActions.instance(mainwindow).actionCollection
+        self.removemenu.addAction(ac.tools_quick_remove_dynamics)
+        
+        layout = QHBoxLayout()
+        layout.addWidget(self.removemenu)
+        layout.addStretch(1)
+        
+        self.layout().addLayout(layout)
         self.layout().addWidget(DynamicGroup(self))
         self.layout().addWidget(SpannerGroup(self))
         self.layout().addStretch(1)
