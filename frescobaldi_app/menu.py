@@ -289,6 +289,7 @@ def menu_tools_pitch(mainwindow):
     m.addAction(ac.pitch_abs2rel)
     m.addSeparator()
     m.addAction(ac.pitch_transpose)
+    m.addAction(ac.pitch_modal_transpose)
     return m
 
 
