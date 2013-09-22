@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" width="7.73mm" height="7.73mm" viewBox="0 0 4.4000 4.4000">
+<!-- Page: 1/1 -->
+<path transform="translate(0.2334, 2.5000)" stroke-width="0.0800" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M0.491893442389775 2.39853818380998C1.15101099581663 2.92713953538995 2.1568987433112 2.83717851736413 2.71175595128765 2.200006C2.14620927407142 2.71765556874182 1.14032152657685 2.80761658676763 0.491893442389775 2.39853818380998z"/>
+<path transform="translate(3.5640, 0.0400) scale(0.0040, -0.0040)" d="M0 0c0 -198 209 -335 209 -533c0 -71 -16 -141 -42 -207c-5 -8 -12 -12 -19 -12c-13 0 -26 11 -23 27c26 61 42 126 42 192c0 104 -95 208 -167 283h-16v250h16z" fill="currentColor"/>
+<rect transform="translate(3.4990, 2.5000)" x="-0.0650" y="-2.5000" width="0.1300" height="3.3122" ry="0.0400" fill="currentColor"/>
+<path transform="translate(2.2478, 3.5000) scale(0.0040, -0.0040)" d="M220 138c56 0 109 -29 109 -91c0 -72 -56 -121 -103 -149c-36 -21 -76 -36 -117 -36c-56 0 -109 29 -109 91c0 72 56 121 103 149c36 21 76 36 117 36z" fill="currentColor"/>
+<path transform="translate(1.1618, 1.2400) scale(0.0028, -0.0028)" d="M209 -219c18 0 32 -14 32 -32c0 -9 -5 -17 -12 -23l-360 -290c-5 -4 -12 -7 -19 -7h-1c-17 0 -31 15 -31 32c0 9 5 17 12 23l360 290c5 4 12 7 19 7z" fill="currentColor"/>
+<path transform="translate(1.1618, 1.2400) scale(0.0028, -0.0028)" d="M0 0c0 -197 209 -333 209 -530c0 -71 -15 -140 -41 -206c-5 -10 -14 -13 -23 -13c-14 0 -28 10 -28 26v5c27 59 43 123 43 188c0 102 -91 205 -160 280h-21v250h21z" fill="currentColor"/>
+<rect transform="translate(1.0968, 2.5000)" x="-0.0650" y="-1.3000" width="0.1300" height="2.6843" ry="0.0400" fill="currentColor"/>
+<path transform="translate(0.2334, 4.0000) scale(0.0028, -0.0028)" d="M211 141c61 0 117 -33 117 -100c0 -71 -52 -121 -99 -149c-34 -20 -73 -33 -112 -33c-61 0 -117 33 -117 100c0 71 52 121 99 149c34 20 73 33 112 33z" fill="currentColor"/>
+</svg>

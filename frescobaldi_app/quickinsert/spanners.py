@@ -40,7 +40,7 @@ class Spanners(tool.Tool):
         self.layout().addWidget(ArpeggioGroup(self))
         self.layout().addWidget(GlissandoGroup(self))
         self.layout().addWidget(SpannerGroup(self))
-        self.layout().addWidget(TestGroup(self))
+        self.layout().addWidget(GraceGroup(self))
         self.layout().addStretch(1)
 
     def icon(self):
@@ -164,32 +164,54 @@ class SpannerGroup(buttongroup.ButtonGroup):
             for s, c in zip(spanner, spanner_positions(cursor)):
                 c.insertText(s)
 
-class TestGroup(buttongroup.ButtonGroup):
+class GraceGroup(buttongroup.ButtonGroup):
     def translateUI(self):
-        self.setTitle(_("Test"))
+        self.setTitle(_("Grace Notes"))
         
     def actionData(self):
         for name, title in self.actionTexts():
             yield name, symbols.icon(name), None
             
     def actionTexts(self):
-        yield 'test_grace', _("Grace Notes")
+        yield 'grace_grace', _("Grace Notes")
+        yield 'grace_beam', _("Grace Notes w. beaming")
+        yield 'grace_accia', _("Acciaccatura")
+        yield 'grace_appog', _("Appoggiatura")
+        yield 'grace_slash', _("Slashed no slur")
+        yield 'grace_after', _("After grace")
   		
     def actionTriggered(self, name):
         d = ['_', '', '^'][self.direction()+1]
-        if name == "test_grace":
+        if name == "grace_grace":
+            inner = ''
+            outer = '\\grace { ', ' }'
+        if name == "grace_beam":
             inner = d + '[', ']'
             outer = '\\grace { ', ' }'
+        if name == "grace_accia":
+            inner = ''
+            outer = '\\acciaccatura { ', ' }'
+        if name == "grace_appog":
+            inner = ''
+            outer = '\\appoggiatura { ', ' }'
+        if name == "grace_slash":
+            inner = d + '[', ']'
+            outer = '\\slashedGrace { ', ' }'
+        if name == "grace_after":
+            inner = d + '{ '
+            outer = '\\afterGrace ', ' }'        		
 
         cursor = self.mainwindow().textCursor()
-        with cursortools.compress_undo(cursor):     
-            for i, ci in zip(inner, spanner_positions(cursor)):
-                ci.insertText(i)
-            ins = self.mainwindow().textCursor()      
-            ins.setPosition(cursor.selectionStart())
-            ins.insertText(outer[0])
-            ins.setPosition(cursor.selectionEnd())
-            ins.insertText(outer[1])
+        with cursortools.compress_undo(cursor):
+            if inner:     
+            	for i, ci in zip(inner, spanner_positions(cursor)):
+                	ci.insertText(i)
+            if outer:
+            	ins = self.mainwindow().textCursor()      
+            	ins.setPosition(cursor.selectionStart())
+            	ins.insertText(outer[0])
+            	ins.setPosition(cursor.selectionEnd())
+            	ins.insertText(outer[1])
         
         
                 
@@ -208,8 +230,8 @@ def spanner_positions(cursor):
         source = tokeniter.Source.from_cursor(cursor, True, -1)
         tokens = source.tokens # only current line
 	  
-    positions = [source.cursor(i[-1], start=len(i[-1]))
-        for i in music.music_items(source, tokens=tokens)]
+    positions = [source.cursor(p[-1], start=len(p[-1]))
+        for p in music.music_items(source, tokens=tokens)]
     
     if cursor.hasSelection():
         del positions[1:-1]
