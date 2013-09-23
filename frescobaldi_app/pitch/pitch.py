@@ -380,7 +380,11 @@ def abs2rel(cursor):
 
 
 def getTransposer(document, mainwindow):
-    """Show a dialog and return the desired transposer."""
+    """Show a dialog and return the desired transposer.
+    
+    Returns None if the dialog was cancelled.
+    
+    """
     language = documentinfo.info(document).pitchLanguage() or 'nederlands'
     
     def readpitches(text):
@@ -407,7 +411,11 @@ def getTransposer(document, mainwindow):
 
 
 def getModalTransposer(document, mainwindow):
-    """Show a dialog and return the desired modal transposer."""
+    """Show a dialog and return the desired modal transposer.
+    
+    Returns None if the dialog was cancelled.
+    
+    """
     language = documentinfo.info(document).pitchLanguage() or 'nederlands'
     
     def readpitches(text):
