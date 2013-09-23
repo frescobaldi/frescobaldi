@@ -207,21 +207,21 @@ class GraceGroup(buttongroup.ButtonGroup):
         if name == "grace_grace":
             inner = ''
             outer = '\\grace { ', ' }'
-        if name == "grace_beam":
+        elif name == "grace_beam":
             inner = d + '[', ']'
             outer = '\\grace { ', ' }'
-        if name == "grace_accia":
+        elif name == "grace_accia":
             inner = ''
             outer = '\\acciaccatura { ', ' }'
             single = '\\acciaccatura '
-        if name == "grace_appog":
+        elif name == "grace_appog":
             inner = ''
             outer = '\\appoggiatura { ', ' }'
             single = '\\appoggiatura '
-        if name == "grace_slash":
+        elif name == "grace_slash":
             inner = d + '[', ']'
             outer = '\\slashedGrace { ', ' }'
-        if name == "grace_after":
+        elif name == "grace_after":
             inner = d + '{ '
             outer = '\\afterGrace ', ' }'        		
 
