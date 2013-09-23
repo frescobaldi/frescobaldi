@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-07-20 21:15+0200\n"
+"POT-Creation-Date: 2013-09-23 17:55+0200\n"
 "PO-Revision-Date: 2012-04-19 17:21+0300\n"
 "Last-Translator: Dmytro O. Redchuk <brownian.box@gmail.com>\n"
 "Language-Team: Ukrainian\n"
@@ -67,52 +67,60 @@ msgstr ""
 msgid "{author}: Various contributions"
 msgstr ""
 
+#: ../about.py:73
+msgid "{author}: Modal Transpose"
+msgstr ""
+
 #: ../about.py:76
+msgid "{author}: Quick Insert buttons for grace notes"
+msgstr ""
+
+#: ../about.py:81
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} перекладено такими мовами:"
 
-#: ../about.py:95
+#: ../about.py:100
 msgid "About {appname}"
 msgstr "Про {appname}"
 
-#: ../about.py:102
+#: ../about.py:107
 msgid "About"
 msgstr "Про"
 
-#: ../about.py:103 ../help/contents.py:330
+#: ../about.py:108 ../help/contents.py:330
 msgid "Credits"
 msgstr "Подяки"
 
-#: ../about.py:104
+#: ../about.py:109
 msgid "Version"
 msgstr "Версія"
 
-#: ../about.py:159
+#: ../about.py:164
 msgid "Operating System"
 msgstr "Операційна система"
 
-#: ../about.py:166
+#: ../about.py:171
 msgid "Version {version}"
 msgstr "Версія {version}"
 
-#: ../about.py:167 ../main.py:57
+#: ../about.py:172 ../main.py:57
 msgid "A LilyPond Music Editor"
 msgstr "Музичний редактор LilyPond"
 
-#: ../about.py:168
+#: ../about.py:173
 msgid "Copyright (c) {year} by {author}"
 msgstr ""
 
-#: ../about.py:172
+#: ../about.py:177
 msgid "Send an e-mail message to the maintainers."
 msgstr "Напишіть е-листа розробникам."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: ../about.py:175 ../help/contents.py:57
+#: ../about.py:180 ../help/contents.py:57
 msgid "Translated by Your Name."
 msgstr "Переклад Дмитра Редчука"
 
-#: ../about.py:180
+#: ../about.py:185
 msgid "Licensed under the {gpl}."
 msgstr "Розповсюджується на умовах {gpl}."
 
@@ -266,45 +274,73 @@ msgstr "Без назви"
 msgid "Untitled ({num})"
 msgstr "Без назви ({num})"
 
-#: ../documentactions.py:133
+#: ../documentactions.py:176
 #, fuzzy
 msgid "Open File at C&ursor"
 msgstr "Відкрити файл"
 
-#: ../documentactions.py:134
+#: ../documentactions.py:177
 msgid "Cut and Assign..."
 msgstr "Вирізати та Призначити..."
 
-#: ../documentactions.py:135
+#: ../documentactions.py:178
 msgid "Syntax &Highlighting"
 msgstr "Під&свічування синтаксису"
 
-#: ../documentactions.py:136
+#: ../documentactions.py:179
 msgid "&Automatic Indent"
 msgstr "&Автоматичне вирівнювання"
 
-#: ../documentactions.py:137
+#: ../documentactions.py:180
 msgid "Re-&Indent"
 msgstr "Вирівняти знову"
 
-#: ../documentactions.py:138
+#: ../documentactions.py:181
 msgid "&Format"
 msgstr "Форм&атувати"
 
-#: ../documentactions.py:139
+#: ../documentactions.py:182
 msgid "&Update with convert-ly..."
 msgstr "Поновити з допомогою convert-ly..."
 
-#: ../documentcontextmenu.py:67 ../mainwindow.py:997
+#: ../documentactions.py:183
+#, fuzzy
+msgid "Remove &Articulations"
+msgstr "&Видалити тривалості"
+
+#: ../documentactions.py:184
+#, fuzzy
+msgid "Remove &Ornaments"
+msgstr "Видалити номери тактів"
+
+#: ../documentactions.py:185
+msgid "Remove &Instrument Scripts"
+msgstr ""
+
+#: ../documentactions.py:186
+#, fuzzy
+msgid "Remove &Slurs"
+msgstr "&Видалити тривалості"
+
+#: ../documentactions.py:187
+#, fuzzy
+msgid "Remove &Dynamics"
+msgstr "Прибрати &масштабування"
+
+#: ../documentactions.py:188
+msgid "Remove Text &Markup (from music)"
+msgstr ""
+
+#: ../documentcontextmenu.py:67 ../mainwindow.py:1009
 #: ../sessions/manager.py:127
 msgid "&Save"
 msgstr "&Зберегти"
 
-#: ../documentcontextmenu.py:68 ../mainwindow.py:998
+#: ../documentcontextmenu.py:68 ../mainwindow.py:1010
 msgid "Save &As..."
 msgstr "Зберегти &як"
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:1008
+#: ../documentcontextmenu.py:69 ../mainwindow.py:1020
 msgid "&Close"
 msgstr "За&крити"
 
@@ -373,9 +409,9 @@ msgid "Staff Size:"
 msgstr "Розмір нотоносця"
 
 #. L10N: a basic type of input in the editor
-#: ../helpers.py:101 ../mainwindow.py:404 ../mainwindow.py:410
-#: ../mainwindow.py:435 ../mainwindow.py:486 ../mainwindow.py:578
-#: ../mainwindow.py:638 ../externalchanges/widget.py:243
+#: ../helpers.py:101 ../mainwindow.py:405 ../mainwindow.py:411
+#: ../mainwindow.py:436 ../mainwindow.py:487 ../mainwindow.py:579
+#: ../mainwindow.py:639 ../externalchanges/widget.py:243
 #: ../musicview/image.py:214 ../preferences/fontscolors.py:476
 #: ../preferences/fontscolors.py:514 ../snippet/import_export.py:105
 #: ../snippet/widget.py:319
@@ -430,29 +466,29 @@ msgstr "Розбити вокальний текст на склади"
 msgid "Please select a language:"
 msgstr "Будь ласка, виберіть мову:"
 
-#: ../hyphendialog.py:158 ../hyphendialog.py:165
+#: ../hyphendialog.py:154 ../hyphendialog.py:161
 msgid "Lyrics"
 msgstr "Вокальний текст"
 
-#: ../hyphendialog.py:165 ../pitch/pitch.py:744 ../rhythm/rhythm.py:279
+#: ../hyphendialog.py:161 ../pitch/pitch.py:790 ../rhythm/rhythm.py:279
 #: ../scorewiz/dialog.py:206
 msgctxt "menu title"
 msgid "Tools"
 msgstr "Інструменти"
 
-#: ../hyphendialog.py:166 ../help/contents.py:138 ../help/contents.py:145
+#: ../hyphendialog.py:162 ../help/contents.py:138 ../help/contents.py:145
 #: ../help/contents.py:265
 msgctxt "menu title"
 msgid "Edit"
 msgstr "Редагування"
 
-#: ../hyphendialog.py:166 ../help/contents.py:139 ../help/contents.py:256
+#: ../hyphendialog.py:162 ../help/contents.py:139 ../help/contents.py:256
 #: ../preferences/__init__.py:106 ../preferences/midi.py:134
 #: ../preferences/prefshelp.py:32 ../preferences/prefshelp.py:38
 msgid "Preferences"
 msgstr "Налаштування"
 
-#: ../hyphendialog.py:168
+#: ../hyphendialog.py:164
 msgid ""
 "<p>\n"
 "Frescobaldi can automatically place hyphens '{hyphen}' inside texts to make\n"
@@ -544,7 +580,7 @@ msgstr "Завершено з помилкою {status}"
 msgid "Completed successfully in {time}."
 msgstr "Завершено успішно за {time}"
 
-#: ../lilypondinfo.py:134
+#: ../lilypondinfo.py:142
 msgid "Running LilyPond, this can take some time..."
 msgstr "Запускаємо LilyPond, це може тривати певний час..."
 
@@ -603,16 +639,16 @@ msgid "Always start a new instance"
 msgstr "Завжди запускати новий примірник"
 
 #. L10N: state of document in window titlebar
-#: ../mainwindow.py:241 ../externalchanges/widget.py:159
+#: ../mainwindow.py:242 ../externalchanges/widget.py:159
 msgid "[modified]"
 msgstr "[змінено]"
 
-#: ../mainwindow.py:284
+#: ../mainwindow.py:285
 msgctxt "dialog title"
 msgid "Close Document"
 msgstr "Закрити документ"
 
-#: ../mainwindow.py:285
+#: ../mainwindow.py:286
 msgid ""
 "The document \"{name}\" has been modified.\n"
 "Do you want to save your changes or discard them?"
@@ -620,16 +656,16 @@ msgstr ""
 "Документ \"{name}\" було змінено.\n"
 "Зберегти зміни чи відкинути редагування?"
 
-#: ../mainwindow.py:297
+#: ../mainwindow.py:298
 msgid "Tab Bar"
 msgstr "Заголовок вкладки"
 
-#: ../mainwindow.py:353 ../popplerprint.py:53 ../sessions/dialog.py:171
+#: ../mainwindow.py:354 ../popplerprint.py:53 ../sessions/dialog.py:171
 #: ../sessions/dialog.py:179 ../sessions/dialog.py:185
 msgid "Warning"
 msgstr "Попередження"
 
-#: ../mainwindow.py:354
+#: ../mainwindow.py:355
 msgid ""
 "Can't load non-local document:\n"
 "\n"
@@ -639,12 +675,12 @@ msgstr ""
 "\n"
 "{url}"
 
-#: ../mainwindow.py:385
+#: ../mainwindow.py:386
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Відкрити файл"
 
-#: ../mainwindow.py:405 ../mainwindow.py:411 ../mainwindow.py:436
+#: ../mainwindow.py:406 ../mainwindow.py:412 ../mainwindow.py:437
 #, fuzzy
 msgid ""
 "Can't write to destination:\n"
@@ -655,22 +691,22 @@ msgstr ""
 "\n"
 "{url}"
 
-#: ../mainwindow.py:430
+#: ../mainwindow.py:431
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "Зберегти файл"
 
-#: ../mainwindow.py:470
+#: ../mainwindow.py:471
 msgctxt "dialog title"
 msgid "Save Copy"
 msgstr "Зберегти копію"
 
-#: ../mainwindow.py:476
+#: ../mainwindow.py:477
 msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Зберегти виділення"
 
-#: ../mainwindow.py:487 ../mainwindow.py:639 ../snippet/widget.py:320
+#: ../mainwindow.py:488 ../mainwindow.py:640 ../snippet/widget.py:320
 #, fuzzy
 msgid ""
 "Can't write to destination:\n"
@@ -685,12 +721,12 @@ msgstr ""
 "\n"
 "{error}"
 
-#: ../mainwindow.py:501 ../mainwindow.py:515 ../externalchanges/widget.py:103
+#: ../mainwindow.py:502 ../mainwindow.py:516 ../externalchanges/widget.py:103
 #, fuzzy
 msgid "Reload"
 msgstr "&Перечитати"
 
-#: ../mainwindow.py:502
+#: ../mainwindow.py:503
 #, fuzzy
 msgid ""
 "Could not reload the document:\n"
@@ -701,21 +737,21 @@ msgstr ""
 "\n"
 "{url}"
 
-#: ../mainwindow.py:512
+#: ../mainwindow.py:513
 #, fuzzy
 msgid "Some documents could not be reloaded."
 msgstr "Документ не було змінено."
 
-#: ../mainwindow.py:514
+#: ../mainwindow.py:515
 msgid "No document could be reloaded."
 msgstr ""
 
-#: ../mainwindow.py:571
+#: ../mainwindow.py:572
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Вставити з файлу"
 
-#: ../mainwindow.py:579 ../snippet/import_export.py:106
+#: ../mainwindow.py:580 ../snippet/import_export.py:106
 msgid ""
 "Can't read from source:\n"
 "\n"
@@ -729,16 +765,16 @@ msgstr ""
 "\n"
 "{error}"
 
-#: ../mainwindow.py:595
+#: ../mainwindow.py:596
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Друкувати джерело"
 
-#: ../mainwindow.py:628
+#: ../mainwindow.py:629
 msgid "Export as HTML"
 msgstr "Експортувати як HTML"
 
-#: ../mainwindow.py:748
+#: ../mainwindow.py:749
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -750,192 +786,192 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../mainwindow.py:858
+#: ../mainwindow.py:859
 msgid "Main Toolbar"
 msgstr "Головна панель інструментів"
 
-#: ../mainwindow.py:859
+#: ../mainwindow.py:860
 msgid "Music View Toolbar"
 msgstr "Панель інструментів вікна перегляду твору"
 
-#: ../mainwindow.py:991
+#: ../mainwindow.py:1003
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Новий"
 
-#: ../mainwindow.py:992
+#: ../mainwindow.py:1004
 msgid "&Open..."
 msgstr "&Відкрити"
 
-#: ../mainwindow.py:993
+#: ../mainwindow.py:1005
 msgid "Open &Recent"
 msgstr "Відкрити &недавній"
 
-#: ../mainwindow.py:994
+#: ../mainwindow.py:1006
 msgid "Insert from &File..."
 msgstr "Вставити з &файлу"
 
-#: ../mainwindow.py:995
+#: ../mainwindow.py:1007
 msgid "Open Current Directory"
 msgstr "Відкрити поточну теку"
 
-#: ../mainwindow.py:996
+#: ../mainwindow.py:1008
 msgid "Open Command Prompt"
 msgstr "Відкрити командний рядок"
 
-#: ../mainwindow.py:999
+#: ../mainwindow.py:1011
 msgid "Save Copy or Selection As..."
 msgstr "Зберегти копію чи виділення як..."
 
-#: ../mainwindow.py:1000 ../externalchanges/widget.py:117
+#: ../mainwindow.py:1012 ../externalchanges/widget.py:117
 msgid "Save All"
 msgstr "Зберегти усе"
 
-#: ../mainwindow.py:1001
+#: ../mainwindow.py:1013
 #, fuzzy
 msgid "Re&load"
 msgstr "&Перечитати"
 
-#: ../mainwindow.py:1002 ../externalchanges/widget.py:108
+#: ../mainwindow.py:1014 ../externalchanges/widget.py:108
 #, fuzzy
 msgid "Reload All"
 msgstr "&Перечитати"
 
-#: ../mainwindow.py:1003
+#: ../mainwindow.py:1015
 msgid "Check for External Changes..."
 msgstr ""
 
-#: ../mainwindow.py:1005
+#: ../mainwindow.py:1017
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
 msgstr ""
 
-#: ../mainwindow.py:1007
+#: ../mainwindow.py:1019
 msgid "Print Source..."
 msgstr "Друкувати джерело..."
 
-#: ../mainwindow.py:1009
+#: ../mainwindow.py:1021
 msgid "Close Other Documents"
 msgstr "Закрити інші документи"
 
-#: ../mainwindow.py:1010
+#: ../mainwindow.py:1022
 msgid "Close All Documents"
 msgstr "Закрити всі документи"
 
-#: ../mainwindow.py:1011
+#: ../mainwindow.py:1023
 msgid "Closes all documents and leaves the current session."
 msgstr "Закрити усі документи та вийти з поточної сесії."
 
-#: ../mainwindow.py:1012
+#: ../mainwindow.py:1024
 msgid "&Quit"
 msgstr "Ви&йти"
 
-#: ../mainwindow.py:1014
+#: ../mainwindow.py:1026
 msgid "Export Source as Colored &HTML..."
 msgstr "Експортувати джерело як підсвічений &HTML..."
 
-#: ../mainwindow.py:1016
+#: ../mainwindow.py:1028
 msgid "&Undo"
 msgstr "&Скасувати"
 
-#: ../mainwindow.py:1017
+#: ../mainwindow.py:1029
 msgid "Re&do"
 msgstr "&Повторити"
 
-#: ../mainwindow.py:1018
+#: ../mainwindow.py:1030
 msgid "Cu&t"
 msgstr "Ви&різати"
 
-#: ../mainwindow.py:1019 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1031 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "С&копіювати"
 
-#: ../mainwindow.py:1020
+#: ../mainwindow.py:1032
 msgid "Copy as Colored &HTML"
 msgstr "Копіювати як підсвічений &HTML"
 
-#: ../mainwindow.py:1021
+#: ../mainwindow.py:1033
 msgid "&Paste"
 msgstr "&Вставити"
 
-#: ../mainwindow.py:1022
+#: ../mainwindow.py:1034
 msgid "Select &All"
 msgstr "Виділити &усе"
 
-#: ../mainwindow.py:1023
+#: ../mainwindow.py:1035
 msgid "Select &Block"
 msgstr "Виділити &блок"
 
-#: ../mainwindow.py:1024
+#: ../mainwindow.py:1036
 msgid "Select &None"
 msgstr "З&няти виділення"
 
-#: ../mainwindow.py:1025
+#: ../mainwindow.py:1037
 msgid "Select Whole Lines Up"
 msgstr "Виділити всі рядки вище"
 
-#: ../mainwindow.py:1026
+#: ../mainwindow.py:1038
 msgid "Select Whole Lines Down"
 msgstr "Виділити всі рядки нижче"
 
-#: ../mainwindow.py:1027
+#: ../mainwindow.py:1039
 msgid "&Find..."
 msgstr "Зн&айти"
 
-#: ../mainwindow.py:1028
+#: ../mainwindow.py:1040
 msgid "Find Ne&xt"
 msgstr "Знайти нас&тупне"
 
-#: ../mainwindow.py:1029
+#: ../mainwindow.py:1041
 msgid "Find Pre&vious"
 msgstr "Знайт&и попереднє"
 
-#: ../mainwindow.py:1030
+#: ../mainwindow.py:1042
 msgid "&Replace..."
 msgstr "За&мінити..."
 
-#: ../mainwindow.py:1031
+#: ../mainwindow.py:1043
 msgid "Pr&eferences..."
 msgstr "Налаш&тування"
 
-#: ../mainwindow.py:1033
+#: ../mainwindow.py:1045
 msgid "&Next Document"
 msgstr "Нас&тупний документ"
 
-#: ../mainwindow.py:1034
+#: ../mainwindow.py:1046
 msgid "&Previous Document"
 msgstr "П&опередній документ"
 
-#: ../mainwindow.py:1035
+#: ../mainwindow.py:1047
 msgid "Scroll Up"
 msgstr "Прокрутити вгору"
 
-#: ../mainwindow.py:1036
+#: ../mainwindow.py:1048
 msgid "Scroll Down"
 msgstr "Прокрутити вниз"
 
-#: ../mainwindow.py:1038
+#: ../mainwindow.py:1050
 msgid "New &Window"
 msgstr "Нове &вікно"
 
-#: ../mainwindow.py:1039
+#: ../mainwindow.py:1051
 msgid "&Fullscreen"
 msgstr "Повний екр&ан"
 
-#: ../mainwindow.py:1041
+#: ../mainwindow.py:1053
 msgid "&User Guide"
 msgstr "&Посібник користувача"
 
-#: ../mainwindow.py:1042
+#: ../mainwindow.py:1054
 msgid "&What's This?"
 msgstr "&Що це?"
 
-#: ../mainwindow.py:1043
+#: ../mainwindow.py:1055
 msgid "Report a &Bug..."
 msgstr "Повідом&ити про помилку..."
 
-#: ../mainwindow.py:1044
+#: ../mainwindow.py:1056
 msgid "&About {appname}..."
 msgstr "&Про {appname}..."
 
@@ -953,27 +989,27 @@ msgctxt "menu title"
 msgid "&File"
 msgstr "Ф&айл"
 
-#: ../menu.py:120
+#: ../menu.py:119
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "Експорт"
 
-#: ../menu.py:128
+#: ../menu.py:127
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "Редаг&ування"
 
-#: ../menu.py:156
+#: ../menu.py:154
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Вигляд"
 
-#: ../menu.py:184
+#: ../menu.py:182
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "&Згортки"
 
-#: ../menu.py:199
+#: ../menu.py:197
 #, fuzzy
 msgctxt "menu title"
 msgid "&Music"
@@ -989,27 +1025,33 @@ msgctxt "menu title"
 msgid "&Tools"
 msgstr "Інструм&енти"
 
-#: ../menu.py:269
+#: ../menu.py:271
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Вокальний текст"
 
-#: ../menu.py:281
+#: ../menu.py:283
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Тони"
 
-#: ../menu.py:295
+#: ../menu.py:298
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ритм"
 
-#: ../menu.py:323
+#: ../menu.py:322
+#, fuzzy
+msgctxt "submenu title"
+msgid "&Quick Remove"
+msgstr "&Видалити"
+
+#: ../menu.py:340
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Вікно"
 
-#: ../menu.py:343
+#: ../menu.py:360
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Допомога"
@@ -1293,51 +1335,47 @@ msgstr "Гравіювати (не&стандартно)"
 msgid "Abort Engraving &Job"
 msgstr "Пере&рвати процес гравіювання"
 
-#: ../engrave/custom.py:123 ../engrave/custom.py:214
+#: ../engrave/custom.py:124 ../engrave/custom.py:214
 #, fuzzy
 msgid "Engrave custom"
 msgstr "Гравіювати нестандартно"
 
-#: ../engrave/custom.py:124
+#: ../engrave/custom.py:125
 msgid "LilyPond Version:"
 msgstr "Версія LilyPond:"
 
-#: ../engrave/custom.py:125
+#: ../engrave/custom.py:126
 msgid "Output Format:"
 msgstr "Вихідний формат:"
 
-#: ../engrave/custom.py:126
+#: ../engrave/custom.py:127
 msgid "Resolution:"
 msgstr "Роздільна здатність:"
 
-#: ../engrave/custom.py:128
+#: ../engrave/custom.py:129
 #, fuzzy
 msgid "Run LilyPond in preview mode (with Point and Click)"
 msgstr "Стартувати LilyPond у попередньому режимі (з Point-and-Click)"
 
-#: ../engrave/custom.py:129
+#: ../engrave/custom.py:130
 msgid "Run LilyPond with verbose output"
 msgstr "Стартувати LilyPond з деталізованими повідомленнями"
 
-#: ../engrave/custom.py:130 ../preferences/lilypond.py:292
+#: ../engrave/custom.py:131 ../preferences/lilypond.py:296
 msgid "Run LilyPond with English messages"
 msgstr "Стартувати LilyPond з англійськими повідомленнями"
 
-#: ../engrave/custom.py:131 ../preferences/lilypond.py:289
+#: ../engrave/custom.py:132 ../preferences/lilypond.py:293
 msgid "Delete intermediate output files"
 msgstr "Видаляти проміжні файли"
 
-#: ../engrave/custom.py:132
+#: ../engrave/custom.py:133
 msgid "Command line:"
 msgstr "Командний рядок:"
 
-#: ../engrave/custom.py:133
+#: ../engrave/custom.py:134
 msgid "Run LilyPond"
 msgstr "Запустити LilyPond"
-
-#: ../engrave/custom.py:155
-msgid "LilyPond {version}"
-msgstr ""
 
 #: ../engrave/custom.py:218
 msgid ""
@@ -2530,51 +2568,61 @@ msgstr ""
 msgid "&Outline"
 msgstr ""
 
-#: ../pitch/__init__.py:99
+#: ../pitch/__init__.py:111
 msgid "Pitch Name &Language"
 msgstr ""
 
-#: ../pitch/__init__.py:101
+#: ../pitch/__init__.py:113
 msgid ""
 "Change the LilyPond language used for pitch names in this document or in the "
 "selection."
 msgstr ""
 
-#: ../pitch/__init__.py:103
+#: ../pitch/__init__.py:115
 msgid "Convert Relative to &Absolute"
 msgstr "Конвертувати відносні тони у &Абсолютні"
 
-#: ../pitch/__init__.py:105
+#: ../pitch/__init__.py:117
 msgid ""
 "Converts the notes in the document or selection from relative to absolute "
 "pitch."
 msgstr ""
 "Конвертувати ноти у документі чи виділенні з відносних тонів у абсолютні."
 
-#: ../pitch/__init__.py:107
+#: ../pitch/__init__.py:119
 msgid "Convert Absolute to &Relative"
 msgstr "Конвертувати абсолютні тони у &Відносні"
 
-#: ../pitch/__init__.py:109
+#: ../pitch/__init__.py:121
 msgid ""
 "Converts the notes in the document or selection from absolute to relative "
 "pitch."
 msgstr ""
 "Конвертувати ноти у документі чи виділенні з абсолютних тонів у відносні."
 
-#: ../pitch/__init__.py:111
+#: ../pitch/__init__.py:123
 msgid "&Transpose..."
 msgstr "&Транспонувати"
 
-#: ../pitch/__init__.py:113
+#: ../pitch/__init__.py:125
 msgid "Transposes all notes in the document or selection."
 msgstr "Транспонувати всі ноти у документі чи виділенні."
 
-#: ../pitch/pitch.py:81 ../pitch/pitch.py:94
+#: ../pitch/__init__.py:126
+#, fuzzy
+msgid "&Modal Transpose..."
+msgstr "&Транспонувати"
+
+#: ../pitch/__init__.py:128
+#, fuzzy
+msgid "Transposes all notes in the document or selection within a given mode."
+msgstr "Транспонувати всі ноти у документі чи виділенні."
+
+#: ../pitch/pitch.py:82 ../pitch/pitch.py:95
 msgid "Pitch Name Language"
 msgstr ""
 
-#: ../pitch/pitch.py:82
+#: ../pitch/pitch.py:83
 msgid ""
 "Can't perform the requested translation.\n"
 "\n"
@@ -2582,25 +2630,26 @@ msgid ""
 "the pitch language \"{name}\"."
 msgstr ""
 
-#: ../pitch/pitch.py:98
+#: ../pitch/pitch.py:99
 msgid ""
 "The pitch language of the selected text has been updated, but you need to "
 "manually add the following command to your document:"
 msgstr ""
 
-#: ../pitch/pitch.py:102
+#: ../pitch/pitch.py:103
 msgid "(for LilyPond below 2.14), or"
 msgstr ""
 
-#: ../pitch/pitch.py:103
+#: ../pitch/pitch.py:104
 msgid "(for LilyPond 2.14 and higher.)"
 msgstr ""
 
-#: ../pitch/pitch.py:398 ../pitch/pitch.py:580 ../pitch/pitch.py:752
+#: ../pitch/pitch.py:403 ../pitch/pitch.py:442 ../pitch/pitch.py:626
+#: ../pitch/pitch.py:798
 msgid "Transpose"
 msgstr "Транспонувати"
 
-#: ../pitch/pitch.py:399
+#: ../pitch/pitch.py:404
 msgid ""
 "Please enter two absolute pitches, separated by a space, using the pitch "
 "name language \"{language}\"."
@@ -2608,7 +2657,13 @@ msgstr ""
 "Будь ласка, введіть два абсолютних тони, розділених комою, використовуючи "
 "мову \"{language}\"."
 
-#: ../pitch/pitch.py:581
+#: ../pitch/pitch.py:443
+msgid ""
+"Please enter the number of steps to alter by, followed by a key signature. "
+"(i.e. \"5 F\")"
+msgstr ""
+
+#: ../pitch/pitch.py:627
 msgid ""
 "Can't perform the requested transposition.\n"
 "\n"
@@ -2616,11 +2671,11 @@ msgid ""
 "available in the pitch language \"{language}\"."
 msgstr ""
 
-#: ../pitch/pitch.py:712
+#: ../pitch/pitch.py:758
 msgid "Pitch manipulation"
 msgstr ""
 
-#: ../pitch/pitch.py:715
+#: ../pitch/pitch.py:761
 msgid ""
 "<p>\n"
 "Frescobaldi offers the following pitch-manipulating functions,\n"
@@ -2654,12 +2709,12 @@ msgid ""
 "</dl>\n"
 msgstr ""
 
-#: ../pitch/pitch.py:744
+#: ../pitch/pitch.py:790
 msgctxt "submenu title"
 msgid "Pitch"
 msgstr ""
 
-#: ../pitch/pitch.py:755
+#: ../pitch/pitch.py:801
 msgid ""
 "<p>\n"
 "When transposing music, two absolute pitches need to be given to specify\n"
@@ -3078,7 +3133,7 @@ msgstr ""
 msgid "String Number"
 msgstr "Номер струни"
 
-#: ../preferences/fontscolors.py:490 ../quickinsert/spanners.py:143
+#: ../preferences/fontscolors.py:490 ../quickinsert/spanners.py:164
 msgid "Slur"
 msgstr "Ліга"
 
@@ -3094,7 +3149,7 @@ msgstr "Артикуляція"
 msgid "Chord"
 msgstr "Акорд"
 
-#: ../preferences/fontscolors.py:494 ../quickinsert/spanners.py:145
+#: ../preferences/fontscolors.py:494 ../quickinsert/spanners.py:166
 msgid "Beam"
 msgstr "Перекладина"
 
@@ -3345,21 +3400,21 @@ msgstr "Команда, що має обробляти посилання mailto
 msgid "Command to open a Terminal or Command window."
 msgstr "Команда, що відкриває вікно командного рядка."
 
-#: ../preferences/lilypond.py:81
+#: ../preferences/lilypond.py:82
 msgid "LilyPond versions to use"
 msgstr "Використовувати версію LilyPond"
 
-#: ../preferences/lilypond.py:82 ../preferences/prefshelp.py:104
+#: ../preferences/lilypond.py:83 ../preferences/prefshelp.py:104
 msgid "Automatically choose LilyPond version from document"
 msgstr "Автоматично визначати версію LilyPond з документа"
 
-#: ../preferences/lilypond.py:84
+#: ../preferences/lilypond.py:85
 msgid ""
 "If checked, the document's version determines the LilyPond version to use.\n"
 "See \"What's This\" for more information."
 msgstr ""
 
-#: ../preferences/lilypond.py:87 ../preferences/prefshelp.py:109
+#: ../preferences/lilypond.py:88 ../preferences/prefshelp.py:109
 msgid ""
 "<p>If this setting is enabled, the document is searched for a LilyPond <code>"
 "\\version</code> command or a <code>version</code> document variable.</p>\n"
@@ -3374,11 +3429,11 @@ msgid ""
 "is chosen. Otherwise, the default version is chosen.</p>\n"
 msgstr ""
 
-#: ../preferences/lilypond.py:101
+#: ../preferences/lilypond.py:102
 msgid "See also {link}."
 msgstr "Дивю також {link}."
 
-#: ../preferences/lilypond.py:149
+#: ../preferences/lilypond.py:150
 msgid "Set as &Default"
 msgstr ""
 
@@ -3406,15 +3461,15 @@ msgstr ""
 msgid "Include in automatic version selection"
 msgstr "Враховувати при автоматичному виборі версії"
 
-#: ../preferences/lilypond.py:284
+#: ../preferences/lilypond.py:288
 msgid "Running LilyPond"
 msgstr "Під час роботи LilyPond"
 
-#: ../preferences/lilypond.py:285
+#: ../preferences/lilypond.py:289
 msgid "Save document if possible"
 msgstr "Зберігати документ, якщо можливо"
 
-#: ../preferences/lilypond.py:287
+#: ../preferences/lilypond.py:291
 msgid ""
 "If checked, the document is saved when it is local and modified.\n"
 "Otherwise a temporary file is used to run LilyPond."
@@ -3422,11 +3477,11 @@ msgstr ""
 "Якщо відмічено, LilyPond зберігатиме змінені докільні документи.\n"
 "Інакше буде використано тимчасовий файл для запуску LilyPond."
 
-#: ../preferences/lilypond.py:291
+#: ../preferences/lilypond.py:295
 msgid "If checked, LilyPond will delete intermediate PostScript files."
 msgstr "Якщо відмічено, LilyPond видалятиме проміжні файли PostScript."
 
-#: ../preferences/lilypond.py:294
+#: ../preferences/lilypond.py:298
 msgid ""
 "If checked, LilyPond's output messages will be in English.\n"
 "This can be useful for bug reports."
@@ -3434,7 +3489,7 @@ msgstr ""
 "Якщо відмічено, LilyPond виводитиме повідомлення англійською мовою.\n"
 "Це може бути потрібно для повідомлень про вади."
 
-#: ../preferences/lilypond.py:296
+#: ../preferences/lilypond.py:300
 msgid "LilyPond include path:"
 msgstr "LilyPond — шляхи пошуку:"
 
@@ -3632,8 +3687,8 @@ msgid ""
 "here."
 msgstr ""
 
-#: ../preferences/prefshelp.py:220 ../snippet/tool.py:55
-#: ../snippet/tool.py:147 ../snippet/widget.py:403
+#: ../preferences/prefshelp.py:220 ../snippet/tool.py:57
+#: ../snippet/tool.py:148 ../snippet/widget.py:403
 msgid "Snippets"
 msgstr ""
 
@@ -3843,196 +3898,201 @@ msgstr ""
 msgid "Quick &Insert"
 msgstr "&Швидка вставка"
 
-#: ../quickinsert/articulations.py:73
+#: ../quickinsert/articulations.py:94
 msgid "Allow shorthands"
 msgstr ""
 
-#: ../quickinsert/articulations.py:75
+#: ../quickinsert/articulations.py:96
 msgid "Use short notation for some articulations like staccato."
 msgstr ""
 
-#: ../quickinsert/articulations.py:83 ../quickinsert/articulations.py:115
+#: ../quickinsert/articulations.py:98
+#, fuzzy
+msgid "Remove articulations etc."
+msgstr "&Видалити тривалості"
+
+#: ../quickinsert/articulations.py:106 ../quickinsert/articulations.py:138
 msgid "Articulations"
 msgstr ""
 
-#: ../quickinsert/articulations.py:87
+#: ../quickinsert/articulations.py:110
 msgid "Different kinds of articulations and other signs."
 msgstr ""
 
-#: ../quickinsert/articulations.py:118
+#: ../quickinsert/articulations.py:141
 msgid "Accent"
 msgstr ""
 
-#: ../quickinsert/articulations.py:119
+#: ../quickinsert/articulations.py:142
 msgid "Marcato"
 msgstr ""
 
-#: ../quickinsert/articulations.py:120
+#: ../quickinsert/articulations.py:143
 msgid "Staccatissimo"
 msgstr ""
 
-#: ../quickinsert/articulations.py:121
+#: ../quickinsert/articulations.py:144
 msgid "Staccato"
 msgstr ""
 
-#: ../quickinsert/articulations.py:122
+#: ../quickinsert/articulations.py:145
 msgid "Portato"
 msgstr ""
 
-#: ../quickinsert/articulations.py:123
+#: ../quickinsert/articulations.py:146
 msgid "Tenuto"
 msgstr ""
 
-#: ../quickinsert/articulations.py:124
+#: ../quickinsert/articulations.py:147
 msgid "Espressivo"
 msgstr ""
 
-#: ../quickinsert/articulations.py:129
+#: ../quickinsert/articulations.py:152
 msgid "Ornaments"
 msgstr ""
 
-#: ../quickinsert/articulations.py:132 ../quickinsert/spanners.py:146
+#: ../quickinsert/articulations.py:155 ../quickinsert/spanners.py:167
 msgid "Trill"
 msgstr ""
 
-#: ../quickinsert/articulations.py:133
+#: ../quickinsert/articulations.py:156
 msgid "Prall"
 msgstr ""
 
-#: ../quickinsert/articulations.py:134
+#: ../quickinsert/articulations.py:157
 msgid "Mordent"
 msgstr ""
 
-#: ../quickinsert/articulations.py:135
+#: ../quickinsert/articulations.py:158
 msgid "Turn"
 msgstr ""
 
-#: ../quickinsert/articulations.py:136
+#: ../quickinsert/articulations.py:159
 msgid "Prall prall"
 msgstr ""
 
-#: ../quickinsert/articulations.py:137
+#: ../quickinsert/articulations.py:160
 msgid "Prall mordent"
 msgstr ""
 
-#: ../quickinsert/articulations.py:138
+#: ../quickinsert/articulations.py:161
 msgid "Up prall"
 msgstr ""
 
-#: ../quickinsert/articulations.py:139
+#: ../quickinsert/articulations.py:162
 msgid "Down prall"
 msgstr ""
 
-#: ../quickinsert/articulations.py:140
+#: ../quickinsert/articulations.py:163
 msgid "Up mordent"
 msgstr ""
 
-#: ../quickinsert/articulations.py:141
+#: ../quickinsert/articulations.py:164
 msgid "Down mordent"
 msgstr ""
 
-#: ../quickinsert/articulations.py:142
+#: ../quickinsert/articulations.py:165
 msgid "Prall up"
 msgstr ""
 
-#: ../quickinsert/articulations.py:143
+#: ../quickinsert/articulations.py:166
 msgid "Prall down"
 msgstr ""
 
-#: ../quickinsert/articulations.py:144
+#: ../quickinsert/articulations.py:167
 msgid "Line prall"
 msgstr ""
 
-#: ../quickinsert/articulations.py:145
+#: ../quickinsert/articulations.py:168
 msgid "Reverse turn"
 msgstr ""
 
 #. L10N: dynamic signs
-#: ../quickinsert/articulations.py:150 ../quickinsert/dynamics.py:115
+#: ../quickinsert/articulations.py:173 ../quickinsert/dynamics.py:136
 msgid "Signs"
 msgstr ""
 
-#: ../quickinsert/articulations.py:153
+#: ../quickinsert/articulations.py:176
 msgid "Fermata"
 msgstr ""
 
-#: ../quickinsert/articulations.py:154
+#: ../quickinsert/articulations.py:177
 msgid "Short fermata"
 msgstr ""
 
-#: ../quickinsert/articulations.py:155
+#: ../quickinsert/articulations.py:178
 msgid "Long fermata"
 msgstr ""
 
-#: ../quickinsert/articulations.py:156
+#: ../quickinsert/articulations.py:179
 msgid "Very long fermata"
 msgstr ""
 
-#: ../quickinsert/articulations.py:157
+#: ../quickinsert/articulations.py:180
 msgid "Segno"
 msgstr ""
 
-#: ../quickinsert/articulations.py:158
+#: ../quickinsert/articulations.py:181
 msgid "Coda"
 msgstr ""
 
-#: ../quickinsert/articulations.py:159
+#: ../quickinsert/articulations.py:182
 msgid "Varcoda"
 msgstr ""
 
-#: ../quickinsert/articulations.py:160
+#: ../quickinsert/articulations.py:183
 msgid "Signumcongruentiae"
 msgstr ""
 
-#: ../quickinsert/articulations.py:165
+#: ../quickinsert/articulations.py:188
 msgid "Other"
 msgstr ""
 
-#: ../quickinsert/articulations.py:168
+#: ../quickinsert/articulations.py:191
 msgid "Upbow"
 msgstr ""
 
-#: ../quickinsert/articulations.py:169
+#: ../quickinsert/articulations.py:192
 msgid "Downbow"
 msgstr ""
 
-#: ../quickinsert/articulations.py:170
+#: ../quickinsert/articulations.py:193
 msgid "Snappizzicato"
 msgstr ""
 
-#: ../quickinsert/articulations.py:171
+#: ../quickinsert/articulations.py:194
 msgid "Open (e.g. brass)"
 msgstr ""
 
-#: ../quickinsert/articulations.py:172
+#: ../quickinsert/articulations.py:195
 msgid "Stopped (e.g. brass)"
 msgstr ""
 
-#: ../quickinsert/articulations.py:173
+#: ../quickinsert/articulations.py:196
 msgid "Flageolet"
 msgstr ""
 
-#: ../quickinsert/articulations.py:174
+#: ../quickinsert/articulations.py:197
 msgid "Thumb"
 msgstr ""
 
-#: ../quickinsert/articulations.py:175
+#: ../quickinsert/articulations.py:198
 msgid "Left heel"
 msgstr ""
 
-#: ../quickinsert/articulations.py:176
+#: ../quickinsert/articulations.py:199
 msgid "Right heel"
 msgstr ""
 
-#: ../quickinsert/articulations.py:177
+#: ../quickinsert/articulations.py:200
 msgid "Left toe"
 msgstr ""
 
-#: ../quickinsert/articulations.py:178
+#: ../quickinsert/articulations.py:201
 msgid "Right toe"
 msgstr ""
 
-#: ../quickinsert/articulations.py:179
+#: ../quickinsert/articulations.py:202
 msgid "Half open (e.g. hi-hat)"
 msgstr ""
 
@@ -4141,102 +4201,126 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: ../quickinsert/dynamics.py:51
+#: ../quickinsert/dynamics.py:72
 msgid "Dynamics"
 msgstr ""
 
-#: ../quickinsert/dynamics.py:55
+#: ../quickinsert/dynamics.py:76
 msgid "Dynamic symbols."
 msgstr ""
 
-#: ../quickinsert/dynamics.py:128
+#: ../quickinsert/dynamics.py:149
 msgid "Dynamic sign {name}"
 msgstr ""
 
-#: ../quickinsert/dynamics.py:133 ../quickinsert/spanners.py:51
-#: ../quickinsert/spanners.py:136
+#: ../quickinsert/dynamics.py:154 ../quickinsert/spanners.py:73
+#: ../quickinsert/spanners.py:157
 msgid "Spanners"
 msgstr ""
 
-#: ../quickinsert/dynamics.py:142
+#: ../quickinsert/dynamics.py:163
 msgid "Hairpin crescendo"
 msgstr ""
 
-#: ../quickinsert/dynamics.py:143
+#: ../quickinsert/dynamics.py:164
 msgid "Crescendo"
 msgstr ""
 
-#: ../quickinsert/dynamics.py:144
+#: ../quickinsert/dynamics.py:165
 msgid "Hairpin diminuendo"
 msgstr ""
 
-#: ../quickinsert/dynamics.py:145
+#: ../quickinsert/dynamics.py:166
 msgid "Diminuendo"
 msgstr ""
 
-#: ../quickinsert/dynamics.py:146
+#: ../quickinsert/dynamics.py:167
 msgid "Decrescendo"
 msgstr ""
 
-#: ../quickinsert/spanners.py:55
+#: ../quickinsert/spanners.py:77
 msgid "Slurs, spanners, etcetera."
 msgstr ""
 
-#: ../quickinsert/spanners.py:60
+#: ../quickinsert/spanners.py:82
 msgid "Arpeggios"
 msgstr "Арпеджіо"
 
-#: ../quickinsert/spanners.py:69
+#: ../quickinsert/spanners.py:91
 msgid "Arpeggio"
 msgstr "Арпеджіо"
 
-#: ../quickinsert/spanners.py:70
+#: ../quickinsert/spanners.py:92
 msgid "Arpeggio with Up Arrow"
 msgstr ""
 
-#: ../quickinsert/spanners.py:71
+#: ../quickinsert/spanners.py:93
 msgid "Arpeggio with Down Arrow"
 msgstr ""
 
-#: ../quickinsert/spanners.py:72
+#: ../quickinsert/spanners.py:94
 msgid "Bracket Arpeggio"
 msgstr ""
 
-#: ../quickinsert/spanners.py:73
+#: ../quickinsert/spanners.py:95
 msgid "Parenthesis Arpeggio"
 msgstr ""
 
-#: ../quickinsert/spanners.py:105
+#: ../quickinsert/spanners.py:127
 msgid "Glissandos"
 msgstr "Ґліссандо"
 
-#: ../quickinsert/spanners.py:114
+#: ../quickinsert/spanners.py:136
 msgid "Glissando"
 msgstr "Ґліссандо"
 
-#: ../quickinsert/spanners.py:115
+#: ../quickinsert/spanners.py:137
 msgid "Dashed Glissando"
 msgstr ""
 
-#: ../quickinsert/spanners.py:116
+#: ../quickinsert/spanners.py:138
 msgid "Dotted Glissando"
 msgstr ""
 
-#: ../quickinsert/spanners.py:117
+#: ../quickinsert/spanners.py:139
 msgid "Zigzag Glissando"
 msgstr ""
 
-#: ../quickinsert/spanners.py:118
+#: ../quickinsert/spanners.py:140
 msgid "Trill Glissando"
 msgstr ""
 
-#: ../quickinsert/spanners.py:144
+#: ../quickinsert/spanners.py:165
 msgid "Phrasing Slur"
 msgstr "Фразова ліга"
 
-#: ../quickinsert/spanners.py:147
+#: ../quickinsert/spanners.py:168
 msgid "Melisma"
 msgstr "Мелізма"
+
+#: ../quickinsert/spanners.py:190 ../quickinsert/spanners.py:197
+msgid "Grace Notes"
+msgstr ""
+
+#: ../quickinsert/spanners.py:198
+msgid "Grace Notes w. beaming"
+msgstr ""
+
+#: ../quickinsert/spanners.py:199
+msgid "Acciaccatura"
+msgstr ""
+
+#: ../quickinsert/spanners.py:200
+msgid "Appoggiatura"
+msgstr ""
+
+#: ../quickinsert/spanners.py:201
+msgid "Slashed no slur"
+msgstr ""
+
+#: ../quickinsert/spanners.py:202
+msgid "After grace"
+msgstr ""
 
 #: ../quickinsert/widget.py:102
 msgid ""
@@ -4505,12 +4589,12 @@ msgctxt "submenu title"
 msgid "Rhythm"
 msgstr ""
 
-#: ../scorewiz/__init__.py:66
+#: ../scorewiz/__init__.py:67
 #, fuzzy
 msgid "Setup New Score (in current document)..."
 msgstr "Налаштувати новий твір..."
 
-#: ../scorewiz/__init__.py:67
+#: ../scorewiz/__init__.py:68
 #, fuzzy
 msgid "New Score with &Wizard..."
 msgstr "Майстер налаштування твору"
@@ -6377,24 +6461,24 @@ msgid ""
 "Do you want to overwrite it?"
 msgstr ""
 
-#: ../snippet/tool.py:56
+#: ../snippet/tool.py:58
 msgid "&Snippets"
 msgstr ""
 
-#: ../snippet/tool.py:100
+#: ../snippet/tool.py:101
 msgid "Save as Template..."
 msgstr "Зберегти як шаблон..."
 
-#: ../snippet/tool.py:101
+#: ../snippet/tool.py:102
 #, fuzzy
 msgid "Copy to &Snippet..."
 msgstr "Копіювати у &зображення..."
 
-#: ../snippet/tool.py:102
+#: ../snippet/tool.py:103
 msgid "Manage Templates..."
 msgstr "Керувати шаблонами..."
 
-#: ../snippet/tool.py:103
+#: ../snippet/tool.py:104
 msgid "&Snippets..."
 msgstr ""
 
@@ -6627,8 +6711,15 @@ msgstr ""
 msgid "Use &default shortcut ({name})"
 msgstr ""
 
-#: ../widgets/tempobutton.py:51
+#: ../widgets/tempobutton.py:53
 msgid "The tempo is set as you click this button."
+msgstr ""
+
+#: ../widgets/tempobutton.py:55
+msgid ""
+"Tap this button to set the tempo.\n"
+"\n"
+"The average speed of clicking is used; wait 3 seconds to \"reset\"."
 msgstr ""
 
 #: ../widgets/urlrequester.py:65
