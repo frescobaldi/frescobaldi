@@ -67,12 +67,16 @@ class Pitch(plugin.MainWindowPlugin):
     def transpose(self):
         from . import pitch
         cursor = self.mainwindow().textCursor()
-        pitch.transpose(cursor, self.mainwindow())
+        transposer = pitch.getTransposer(cursor.document(), self.mainwindow())
+        if transposer:
+            pitch.transpose(cursor, transposer, self.mainwindow())
     
     def modalTranspose(self):
         from . import pitch
         cursor = self.mainwindow().textCursor()
-        pitch.modalTranspose(cursor, self.mainwindow())
+        transposer = pitch.getModalTransposer(cursor.document(), self.mainwindow())
+        if transposer:
+            pitch.transpose(cursor, transposer, self.mainwindow())
     
     def setLanguageMenu(self):
         """Called when the menu is shown; selects the correct language."""

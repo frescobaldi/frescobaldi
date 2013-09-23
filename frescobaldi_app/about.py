@@ -70,6 +70,8 @@ def credits():
     yield _("{author}: Various contributions").format(
 		author="Urs Liska")
 	
+    yield _("{author}: Modal Transpose").format(
+        author="Christopher Bryan")
 	
     # translations
     yield _(
