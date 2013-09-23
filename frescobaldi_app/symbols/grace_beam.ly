@@ -2,5 +2,5 @@
 \include "spanner_defaults.ily"
 
 {
-  \grace { f'8 [ g' ] }
+  \grace { f'8 [ g' ] } a'4
 }

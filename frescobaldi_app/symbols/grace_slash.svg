@@ -11,11 +11,11 @@
    width="7.73mm"
    height="7.73mm"
    viewBox="0 0 4.4000 4.4000"
-   id="svg3057"
+   id="svg3293"
    inkscape:version="0.48.4 r9939"
    sodipodi:docname="grace_slash.svg">
   <metadata
-     id="metadata3073">
+     id="metadata3313">
     <rdf:RDF>
       <cc:Work
          rdf:about="">
@@ -26,7 +26,7 @@
     </rdf:RDF>
   </metadata>
   <defs
-     id="defs3071" />
+     id="defs3311" />
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -38,57 +38,71 @@
      inkscape:pageshadow="2"
      inkscape:window-width="1535"
      inkscape:window-height="876"
-     id="namedview3069"
+     id="namedview3309"
      showgrid="false"
-     inkscape:zoom="26.615782"
+     inkscape:zoom="8.6163573"
      inkscape:cx="13.694882"
      inkscape:cy="13.694882"
      inkscape:window-x="65"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg3057" />
+     inkscape:current-layer="svg3293" />
   <!-- Page: 1/1 -->
   <polygon
-     transform="translate(1.1984, 1.3420)"
+     transform="translate(1.1218, 1.0580)"
      stroke-linejoin="round"
      stroke-linecap="round"
      stroke-width="0.0800"
      fill="currentColor"
      stroke="currentColor"
-     points="1.5184 -0.4360 1.5184 -0.1320 0.0400 0.1520 0.0400 -0.1520"
-     id="polygon3059" />
+     points="2.8931 -0.8680 2.8931 -0.5640 0.0400 0.1520 0.0400 -0.1520"
+     id="polygon3295" />
   <rect
-     transform="translate(2.6917, 2.2000)"
+     transform="translate(3.9899, 2.2000)"
      x="-0.0650"
-     y="-1.1302"
+     y="-1.8421"
      width="0.1300"
-     height="2.0144"
+     height="2.2264"
      ry="0.0400"
      fill="currentColor"
-     id="rect3061" />
+     id="rect3297" />
   <path
-     transform="translate(1.8284, 3.2000) scale(0.0028, -0.0028)"
+     transform="translate(3.1265, 2.7000) scale(0.0028, -0.0028)"
      d="M211 141c61 0 117 -33 117 -100c0 -71 -52 -121 -99 -149c-34 -20 -73 -33 -112 -33c-61 0 -117 33 -117 100c0 71 52 121 99 149c34 20 73 33 112 33z"
      fill="currentColor"
-     id="path3063" />
+     id="path3299" />
   <rect
-     transform="translate(1.2634, 2.2000)"
+     transform="translate(2.5883, 2.2000)"
      x="-0.0650"
-     y="-0.8698"
+     y="-1.5000"
      width="0.1300"
-     height="2.2541"
+     height="2.3843"
      ry="0.0400"
      fill="currentColor"
-     id="rect3065" />
+     id="rect3301" />
   <path
-     transform="translate(0.4000, 3.7000) scale(0.0028, -0.0028)"
+     transform="translate(1.7249, 3.2000) scale(0.0028, -0.0028)"
      d="M211 141c61 0 117 -33 117 -100c0 -71 -52 -121 -99 -149c-34 -20 -73 -33 -112 -33c-61 0 -117 33 -117 100c0 71 52 121 99 149c34 20 73 33 112 33z"
      fill="currentColor"
-     id="path3067" />
+     id="path3303" />
+  <rect
+     transform="translate(1.1868, 2.2000)"
+     x="-0.0650"
+     y="-1.1579"
+     width="0.1300"
+     height="2.5421"
+     ry="0.0400"
+     fill="currentColor"
+     id="rect3305" />
+  <path
+     transform="translate(0.3234, 3.7000) scale(0.0028, -0.0028)"
+     d="M211 141c61 0 117 -33 117 -100c0 -71 -52 -121 -99 -149c-34 -20 -73 -33 -112 -33c-61 0 -117 33 -117 100c0 71 52 121 99 149c34 20 73 33 112 33z"
+     fill="currentColor"
+     id="path3307" />
   <path
      style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     d="M 5.6733258,11.797512 12.473802,4.546175"
-     id="path3085"
+     d="M 4.990508,11.141599 12.186124,2.3211665"
+     id="path3315"
      inkscape:connector-curvature="0"
      transform="scale(0.16064395,0.16064395)" />
 </svg>

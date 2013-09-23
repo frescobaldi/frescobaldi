@@ -203,6 +203,7 @@ class GraceGroup(buttongroup.ButtonGroup):
   		
     def actionTriggered(self, name):
         d = ['_', '', '^'][self.direction()+1]
+        single = ''
         if name == "grace_grace":
             inner = ''
             outer = '\\grace { ', ' }'
@@ -212,9 +213,11 @@ class GraceGroup(buttongroup.ButtonGroup):
         if name == "grace_accia":
             inner = ''
             outer = '\\acciaccatura { ', ' }'
+            single = '\\acciaccatura '
         if name == "grace_appog":
             inner = ''
             outer = '\\appoggiatura { ', ' }'
+            single = '\\appoggiatura '
         if name == "grace_slash":
             inner = d + '[', ']'
             outer = '\\slashedGrace { ', ' }'
@@ -227,12 +230,14 @@ class GraceGroup(buttongroup.ButtonGroup):
             if inner:     
             	for i, ci in zip(inner, spanner_positions(cursor)):
                 	ci.insertText(i)
-            if outer:
+            if cursor.hasSelection():
             	ins = self.mainwindow().textCursor()      
             	ins.setPosition(cursor.selectionStart())
             	ins.insertText(outer[0])
             	ins.setPosition(cursor.selectionEnd())
             	ins.insertText(outer[1])
+            else:
+            	cursor.insertText(single)
         
         
                 

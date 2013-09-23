@@ -2,5 +2,5 @@
 \include "spanner_defaults.ily"
 
 {
-  \acciaccatura f'8 g' }
+  \acciaccatura f'8 f'
 }

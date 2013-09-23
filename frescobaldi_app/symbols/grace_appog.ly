@@ -2,5 +2,5 @@
 \include "spanner_defaults.ily"
 
 {
-  \appoggiatura f'8 g' }
+  \appoggiatura f'8 f' 
 }

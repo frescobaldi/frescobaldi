@@ -2,6 +2,5 @@
 \include "spanner_defaults.ily"
 
 {
-  \override NoteHead #'extra-spacing-width = #'(0 . 1.3)
-  \afterGrace g'2 f'16
+  \afterGrace f'2 { g'16 [ a' ] }
 }
