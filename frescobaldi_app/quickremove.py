@@ -154,7 +154,6 @@ def markup(cursor):
                     yield start, end
                 elif isinstance(token, ly.lex.Space):
                     continue
-                else:
-                    break
+                break
 
 
