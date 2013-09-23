@@ -73,6 +73,9 @@ def credits():
     yield _("{author}: Modal Transpose").format(
         author="Christopher Bryan")
 	
+    yield _("{author}: Quick Insert buttons for grace notes").format(
+        author="Peter Bjuhr")
+	
     # translations
     yield _(
         "{appname} is translated into the following languages:").format(

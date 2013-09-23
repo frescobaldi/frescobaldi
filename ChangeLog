@@ -9,6 +9,8 @@ Changes in 2.0.11 --
 * New features:
   - Frescobaldi now has a manpage, kindly provided by Ryan Kavanagh
   - New Modal Transpose action, contributed by Christopher Bryan
+  - New Quick Insert buttons for different kinds of grace notes, contributed
+    by Peter Bjuhr
   - New actions to remove articulations etc. from music (wish #180)
   - Edit->Copy to Snippet, to copy the selection or the full document
     contents to a new snippet
