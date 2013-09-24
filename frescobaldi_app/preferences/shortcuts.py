@@ -81,27 +81,31 @@ class Shortcuts(preferences.Page):
         # keep a list of actions not in the menu structure
         left = allactions.keys()
         
-        def childactions(menu):
-            for a in menu.actions():
+        def add_actions(menuitem, actions):
+            """Add actions to a QTreeWidgetItem."""
+            for a in actions:
                 if a.menu():
-                    for a in childactions(a.menu()):
-                        yield a
+                    item = build_menu_item(a)
+                    if item.childCount():
+                        menuitem.addChild(item)
                 elif a in left:
-                    yield a
                     left.remove(a)
-                
+                    menuitem.addChild(ShortcutItem(a, *allactions[a]))
+            menuitem.setFlags(Qt.ItemIsEnabled) # disable selection
+            
+        def build_menu_item(action):
+            """Return a QTreeWidgetItem with children for all the actions in the submenu."""
+            menuitem = QTreeWidgetItem()
+            text = qutil.removeAccelelator(action.text())
+            menuitem.setText(0, _("Menu {name}").format(name=text))
+            add_actions(menuitem, action.menu().actions())
+            return menuitem
+        
         # present the actions nicely ordered as in the menus
         for a in win.menuBar().actions():
-            menuitem = QTreeWidgetItem()
-            menu = a.menu()
-            text = qutil.removeAccelelator(a.text())
-            for a in childactions(menu):
-                menuitem.addChild(ShortcutItem(a, *allactions[a]))
+            menuitem = build_menu_item(a)
             if menuitem.childCount():
-                menuitem.setText(0, _("Menu {name}:").format(name=text))
                 self.tree.addTopLevelItem(menuitem)
-                menuitem.setExpanded(True)
-                menuitem.setFlags(Qt.ItemIsEnabled) # disable selection
         
         # sort leftover actions
         left.sort(key=lambda i: i.text())
@@ -118,7 +122,6 @@ class Shortcuts(preferences.Page):
             for a in titlegroups[title]:
                 item.addChild(ShortcutItem(a, *allactions[a]))
             self.tree.addTopLevelItem(item)
-            item.setExpanded(True)
             item.setFlags(Qt.ItemIsEnabled) # disable selection
             
         # show other actions that were not in the menus
@@ -128,8 +131,9 @@ class Shortcuts(preferences.Page):
                 item.addChild(ShortcutItem(a, *allactions[a]))
         if item.childCount():
             self.tree.addTopLevelItem(item)
-            item.setExpanded(True)
             item.setFlags(Qt.ItemIsEnabled) # disable selection
+        
+        self.tree.expandAll()
         
         item = self.tree.topLevelItem(0).child(0)
         if _lastaction:
@@ -142,10 +146,17 @@ class Shortcuts(preferences.Page):
         self.tree.resizeColumnToContents(0)
         
     def items(self):
-        for i in range(self.tree.topLevelItemCount()):
-            top = self.tree.topLevelItem(i)
-            for j in range(top.childCount()):
-                yield top.child(j)
+        """Yield all the items in the actions tree."""
+        def children(item):
+            for i in range(item.childCount()):
+                c = item.child(i)
+                if c.childCount():
+                    for c1 in children(c):
+                        yield c1
+                else:
+                    yield c
+        for c in children(self.tree.invisibleRootItem()):
+            yield c
     
     def saveSettings(self):
         self.scheme.saveSettings("shortcut_scheme", "shortcut_schemes", "shortcuts")
