@@ -616,6 +616,32 @@ class MainWindow(QMainWindow):
                 cur1.removeSelectedText()
             doc.print_(printer)
     
+    def importMusXML(self):
+        """ Opens a musicXML file. Converts it to ly by using musicxml2ly """
+        filetypes = app.filetypes('*.xml')
+        caption = app.caption(_("dialog title", "File import"))
+        directory = os.path.dirname(self.currentDocument().url().toLocalFile()) or app.basedir()
+        importfile = QFileDialog.getOpenFileName(self, caption, directory, filetypes)
+        fileInfo = QFileInfo(importfile)
+        xmlfile = fileInfo.fileName()
+        xmlpath = fileInfo.path()
+        try:
+            dlg = self._importDialog
+        except AttributeError:
+            import importXML
+            dlg = self._importDialog = importXML.Dialog(self)
+            dlg.addAction(self.actionCollection.help_whatsthis)
+            dlg.setWindowModality(Qt.WindowModal)
+        dlg.setDocument(xmlfile, xmlpath)
+        if dlg.exec_():
+            stdouterr = dlg.run_command()
+            print stdouterr #put this in log window instead
+            
+            lyfile = fileInfo.baseName() + ".ly"
+            doc = self.openUrl(QUrl.fromLocalFile(lyfile))
+            if doc:
+                self.setCurrentDocument(doc)    
+    
     def exportColoredHtml(self):
         doc = self.currentDocument()
         name, ext = os.path.splitext(os.path.basename(doc.url().path()))
@@ -776,6 +802,7 @@ class MainWindow(QMainWindow):
         ac.file_close.triggered.connect(self.closeCurrentDocument)
         ac.file_close_other.triggered.connect(self.closeOtherDocuments)
         ac.file_close_all.triggered.connect(self.closeAllDocuments)
+        ac.import_musicXML.triggered.connect(self.importMusXML)
         ac.export_colored_html.triggered.connect(self.exportColoredHtml)
         ac.edit_undo.triggered.connect(self.undo)
         ac.edit_redo.triggered.connect(self.redo)
@@ -882,6 +909,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_close_all = QAction(parent)
         self.file_quit = QAction(parent)
         
+        self.import_musicXML = QAction(parent)        
         self.export_colored_html = QAction(parent)
         
         self.edit_undo = QAction(parent)
@@ -1023,6 +1051,8 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_close_all.setToolTip(_("Closes all documents and leaves the current session."))
         self.file_quit.setText(_("&Quit"))
         
+        self.import_musicXML.setText(_("Import MusicXML"))
+        self.import_musicXML.setToolTip(_("using musicxml2ly"))        
         self.export_colored_html.setText(_("Export Source as Colored &HTML..."))
         
         self.edit_undo.setText(_("&Undo"))
