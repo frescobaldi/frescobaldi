@@ -122,7 +122,7 @@ class Dialog(QDialog):
         cmd = []
         for t in self.commandLine.toPlainText().split():
             if t == '$musicxml2ly':
-                cmd.append('musicxml2ly')
+                cmd.extend(lilypondinfo.preferred().toolcommand('musicxml2ly'))
             elif t == '$filename':
                 cmd.append(self._document)
             else:
