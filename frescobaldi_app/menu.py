@@ -43,6 +43,7 @@ import scorewiz
 import autocomplete
 import sidebar
 import matcher
+import file_import
 
 
 # postpone translation
@@ -118,7 +119,7 @@ def menu_file(mainwindow):
 
 def menu_file_import(mainwindow):
     m = Menu(_("submenu title", "&Import"), mainwindow)
-    ac = mainwindow.actionCollection
+    ac = file_import.FileImport.instance(mainwindow).actionCollection
     
     m.addAction(ac.import_musicxml)
     return m
