@@ -32,6 +32,7 @@ import app
 import actioncollection
 import actioncollectionmanager
 import plugin
+import util
 import qutil
 
 
@@ -73,8 +74,7 @@ class FileImport(plugin.MainWindowPlugin):
         
         """
         while os.path.exists(filename) or app.findDocument(QUrl.fromLocalFile(filename)):
-            # TODO: find next unique filename
-            pass
+            filename = util.next_file(filename)
         doc = app.openUrl(QUrl())
         doc.setPlainText(contents)
         doc.setUrl(QUrl.fromLocalFile(filename))
