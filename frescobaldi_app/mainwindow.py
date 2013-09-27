@@ -628,8 +628,8 @@ class MainWindow(QMainWindow):
         try:
             dlg = self._importDialog
         except AttributeError:
-            import importXML
-            dlg = self._importDialog = importXML.Dialog(self)
+            import file_import.musicxml
+            dlg = self._importDialog = file_import.musicxml.Dialog(self)
             dlg.addAction(self.actionCollection.help_whatsthis)
             dlg.setWindowModality(Qt.WindowModal)
         dlg.setDocument(xmlfile, xmlpath)
