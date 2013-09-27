@@ -26,6 +26,7 @@ In the dialog the options of musicxml2ly can be set
 from __future__ import unicode_literals
 
 import os
+import subprocess
 import collections
 
 from PyQt4.QtCore import QSettings, QSize
@@ -98,9 +99,9 @@ class Dialog(QDialog):
         self.buttons.button(QDialogButtonBox.Ok).setText(_("Run musicxml2ly"))
 
     
-    def setDocument(self, doc, path):
-        self._document = doc
-        self._path = path
+    def setDocument(self, path):
+        """Set the full path to the MusicXML document."""
+        self._document = path
     
     def makeCommandLine(self):
         """Reads the widgets and builds a command line."""
@@ -131,10 +132,15 @@ class Dialog(QDialog):
         
     def run_command(self):
         cmd = self.getCmd()
-        os.chdir(self._path)
-        stdouterr = os.popen4(cmd)[1].read() #subprocess.Popen?
+        directory = os.path.dirname(self._document)
+        proc = subprocess.Popen(cmd, cwd=directory,
+            universal_newlines = True,
+            stdin = subprocess.PIPE,
+            stdout = subprocess.PIPE,
+            stderr = subprocess.STDOUT)
+        stdouterr = proc.communicate()[0]
         return stdouterr
-    	
+
 
 
 class help_importXML(help.page):

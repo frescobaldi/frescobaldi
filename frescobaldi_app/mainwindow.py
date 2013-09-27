@@ -624,9 +624,7 @@ class MainWindow(QMainWindow):
         importfile = QFileDialog.getOpenFileName(self, caption, directory, filetypes)
         if not importfile:
             return # the dialog was cancelled by user
-        fileInfo = QFileInfo(importfile)
-        xmlfile = fileInfo.fileName()
-        xmlpath = fileInfo.path()
+
         try:
             dlg = self._importDialog
         except AttributeError:
@@ -634,12 +632,13 @@ class MainWindow(QMainWindow):
             dlg = self._importDialog = file_import.musicxml.Dialog(self)
             dlg.addAction(self.actionCollection.help_whatsthis)
             dlg.setWindowModality(Qt.WindowModal)
-        dlg.setDocument(xmlfile, xmlpath)
+        
+        dlg.setDocument(importfile)
         if dlg.exec_():
             stdouterr = dlg.run_command()
             print stdouterr #put this in log window instead
             
-            lyfile = fileInfo.baseName() + ".ly"
+            lyfile = os.path.splitext(importfile)[0] + ".ly"
             doc = self.openUrl(QUrl.fromLocalFile(lyfile))
             if doc:
                 self.setCurrentDocument(doc)    
