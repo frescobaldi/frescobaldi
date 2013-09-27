@@ -120,7 +120,7 @@ def menu_file_import(mainwindow):
     m = Menu(_("submenu title", "&Import"), mainwindow)
     ac = mainwindow.actionCollection
     
-    m.addAction(ac.import_musicXML)
+    m.addAction(ac.import_musicxml)
     return m
 
 def menu_file_export(mainwindow):
