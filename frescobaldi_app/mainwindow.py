@@ -635,15 +635,15 @@ class MainWindow(QMainWindow):
         
         dlg.setDocument(importfile)
         if dlg.exec_():
-            stdout, stderr = dlg.run_command()
-            print stderr #put this in log window instead
-            
-            lyfile = os.path.splitext(importfile)[0] + ".ly"
-            doc = app.openUrl(QUrl())
-            doc.setPlainText(stdout.decode('utf-8'))
-            doc.setUrl(QUrl.fromLocalFile(lyfile))
-            doc.setModified(True)
-            self.setCurrentDocument(doc)    
+            with qutil.busyCursor():
+                stdout, stderr = dlg.run_command()
+                print stderr #put this in log window instead
+                lyfile = os.path.splitext(importfile)[0] + ".ly"
+                doc = app.openUrl(QUrl())
+                doc.setPlainText(stdout.decode('utf-8'))
+                doc.setUrl(QUrl.fromLocalFile(lyfile))
+                doc.setModified(True)
+                self.setCurrentDocument(doc)
     
     def exportColoredHtml(self):
         doc = self.currentDocument()
