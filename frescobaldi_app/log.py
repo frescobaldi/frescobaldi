@@ -38,9 +38,23 @@ class Log(QTextBrowser):
         super(Log, self).__init__(parent)
         self.setOpenLinks(False)
         self.cursor = QTextCursor(self.document())
+        self._types = job.ALL
         self._lasttype = None
         self._formats = self.logformats()
         
+    def setMessageTypes(self, types):
+        """Set the types of Job output to display.
+        
+        types is a constant bitmask from job, like job.STDOUT etc.
+        By default job.ALL is used.
+        
+        """
+        self._types = types
+    
+    def messageTypes(self):
+        """Return the set message types (job.ALL by default)."""
+        return self._types
+    
     def connectJob(self, job):
         """Gives us the output from the Job (past and upcoming)."""
         for msg, type in job.history():
@@ -61,12 +75,13 @@ class Log(QTextBrowser):
         is inserted if otherwise the message would continue on the same line.
         
         """
-        with self.keepScrolledDown():
-            changed = type != self._lasttype
-            self._lasttype = type
-            if changed and self.cursor.block().text() and not message.startswith('\n'):
-                self.cursor.insertText('\n')
-            self.writeMessage(message, type)
+        if type & self._types:
+            with self.keepScrolledDown():
+                changed = type != self._lasttype
+                self._lasttype = type
+                if changed and self.cursor.block().text() and not message.startswith('\n'):
+                    self.cursor.insertText('\n')
+                self.writeMessage(message, type)
     
     def writeMessage(self, message, type):
         """Inserts the given message in the text with the textformat belonging to type."""
