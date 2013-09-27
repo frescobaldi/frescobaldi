@@ -60,21 +60,33 @@ def credits():
     
     yield _("The following people contributed to {appname}:").format(
         appname=info.appname)
-    # list other credits here
-    yield _("{author}: Kinetic Scrolling for the Music View").format(
-        author="Richard Cognot")
     
-    yield _("{author}: Improved highlighting and auto-completion of Scheme code").format(
-		author="Nicolas Malarmey")
+    # list other credits here
+    def author(name, *contributions):
+        return "{author}: {contributions}".format(
+            author = name,
+            contributions = ", ".join(contributions))
+            
+    yield author("Richard Cognot", 
+        _("Kinetic Scrolling for the Music View"),
+        )
+    
+    yield author("Nicolas Malarmey",
+        _("Improved highlighting and auto-completion of Scheme code"),
+		)
 	
-    yield _("{author}: Various contributions").format(
-		author="Urs Liska")
+    yield author("Urs Liska",
+        _("Various contributions"),
+		)
 	
-    yield _("{author}: Modal Transpose").format(
-        author="Christopher Bryan")
+    yield author("Christopher Bryan",
+        _("Modal Transpose"),
+        )
 	
-    yield _("{author}: Quick Insert buttons for grace notes").format(
-        author="Peter Bjuhr")
+    yield author("Peter Bjuhr",
+        _("Quick Insert buttons for grace notes"),
+        _("MusicXML import"),
+        )
 	
     # translations
     yield _(
