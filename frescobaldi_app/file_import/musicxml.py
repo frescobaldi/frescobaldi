@@ -128,6 +128,7 @@ class Dialog(QDialog):
                 cmd.append(self._document)
             else:
                 cmd.append(t)
+        cmd.extend(['--output', '-'])
         return cmd
         
     def run_command(self):
@@ -137,8 +138,8 @@ class Dialog(QDialog):
             universal_newlines = True,
             stdin = subprocess.PIPE,
             stdout = subprocess.PIPE,
-            stderr = subprocess.STDOUT)
-        stdouterr = proc.communicate()[0]
+            stderr = subprocess.PIPE)
+        stdouterr = proc.communicate()
         return stdouterr
 
 
