@@ -644,6 +644,7 @@ class MainWindow(QMainWindow):
                 doc.setUrl(QUrl.fromLocalFile(lyfile))
                 doc.setModified(True)
                 self.setCurrentDocument(doc)
+                engrave.engraver(self).engrave(True, doc, False)
     
     def exportColoredHtml(self):
         doc = self.currentDocument()
