@@ -157,6 +157,24 @@ def filenamesort(filename):
     return naturalsort(name), ext
 
 
+def next_file(filename):
+    """Return a similar filename with e.g. "-1" added before the extension.
+    
+    If there is already a "-n" before the extension, where n is a number,
+    the number is increased by one.
+    
+    """
+    name, ext = os.path.splitext(filename)
+    try:
+        a, b = name.rsplit('-', 1)
+        num = int(b)
+    except ValueError:
+        name += '-1'
+    else:
+        name = a + '-' + format(num+1)
+    return name + ext
+
+
 def bytes_environ(encoding='latin1'):
     """Return the environment as a dictionary with bytes keys and values.
     
