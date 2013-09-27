@@ -622,6 +622,8 @@ class MainWindow(QMainWindow):
         caption = app.caption(_("dialog title", "File import"))
         directory = os.path.dirname(self.currentDocument().url().toLocalFile()) or app.basedir()
         importfile = QFileDialog.getOpenFileName(self, caption, directory, filetypes)
+        if not importfile:
+            return # the dialog was cancelled by user
         fileInfo = QFileInfo(importfile)
         xmlfile = fileInfo.fileName()
         xmlpath = fileInfo.path()
