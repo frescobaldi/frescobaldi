@@ -104,10 +104,11 @@ def menu_file(mainwindow):
     m.addAction(ac.file_reload_all)
     m.addAction(ac.file_external_changes)
     m.addSeparator()
-    m.addAction(panelmanager.manager(mainwindow).musicview.actionCollection.music_print)
-    m.addAction(ac.file_print_source)
     m.addMenu(menu_file_import(mainwindow))
     m.addMenu(menu_file_export(mainwindow))
+    m.addSeparator()
+    m.addAction(panelmanager.manager(mainwindow).musicview.actionCollection.music_print)
+    m.addAction(ac.file_print_source)
     m.addSeparator()
     m.addAction(ac.file_close)
     m.addAction(ac.file_close_other)
@@ -123,6 +124,7 @@ def menu_file_import(mainwindow):
     
     m.addAction(ac.import_musicxml)
     return m
+
 
 def menu_file_export(mainwindow):
     m = Menu(_("submenu title", "&Export"), mainwindow)
