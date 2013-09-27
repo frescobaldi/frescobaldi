@@ -272,7 +272,27 @@ class LilyPondInfo(object):
                         return
             self.datadir = False
         _scheduler.add(p)
-
+    
+    def toolcommand(self, command):
+        """Return a list containing the commandline to run a tool, e.g. convert-ly.
+        
+        On Unix and Mac OS X, the list has one element: the full path to the tool.
+        On Windows, the list has two elements: the LilyPond-provided Python
+        interpeter and the tool path.
+        
+        """
+        toolpath = os.path.join(self.bindir(), command)
+        
+        # on Windows the tool command is not directly executable, but
+        # must be started using the LilyPond-provided Python interpreter
+        if os.name == "nt":
+            if not os.access(toolpath, os.R_OK) and not toolpath.endswith('.py'):
+                toolpath += '.py'
+            command = [self.python(), toolpath]
+        else:
+            command = [toolpath]
+        return command
+    
     @CachedProperty.cachedproperty(depends=versionString)
     def prettyName(self):
         """Return a pretty-printable name for this LilyPond instance."""
