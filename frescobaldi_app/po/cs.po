@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-09-23 17:55+0200\n"
+"POT-Creation-Date: 2013-09-28 08:18+0200\n"
 "PO-Revision-Date: 2013-05-15 22:45+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -57,83 +57,90 @@ msgstr "Projekt pro pracovní plochu Tango"
 msgid "The following people contributed to {appname}:"
 msgstr "Tito lidé přispěli do {appname}:"
 
-#: ../about.py:64
-msgid "{author}: Kinetic Scrolling for the Music View"
+#: ../about.py:71
+#, fuzzy
+msgid "Kinetic Scrolling for the Music View"
 msgstr "{author}: Pohybové projíždění pro Pohled na noty"
 
-#: ../about.py:67
-msgid "{author}: Improved highlighting and auto-completion of Scheme code"
+#: ../about.py:75
+msgid "Improved highlighting and auto-completion of Scheme code"
 msgstr ""
 
-#: ../about.py:70
-msgid "{author}: Various contributions"
+#: ../about.py:79
+#, fuzzy
+msgid "Various contributions"
+msgstr "Příspěvky"
+
+#: ../about.py:83
+#, fuzzy
+msgid "Modal Transpose"
+msgstr "Pře&vést..."
+
+#: ../about.py:87
+msgid "Quick Insert buttons for grace notes"
 msgstr ""
 
-#: ../about.py:73
-msgid "{author}: Modal Transpose"
+#: ../about.py:88
+msgid "MusicXML import"
 msgstr ""
 
-#: ../about.py:76
-msgid "{author}: Quick Insert buttons for grace notes"
-msgstr ""
-
-#: ../about.py:81
+#: ../about.py:93
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} je přeložen do následujících jazyků:"
 
-#: ../about.py:100
+#: ../about.py:112
 msgid "About {appname}"
 msgstr "O {appname}"
 
-#: ../about.py:107
+#: ../about.py:119
 msgid "About"
 msgstr "O programu"
 
-#: ../about.py:108 ../help/contents.py:330
+#: ../about.py:120 ../help/contents.py:330
 msgid "Credits"
 msgstr "Zásluhy"
 
-#: ../about.py:109
+#: ../about.py:121
 msgid "Version"
 msgstr "Verze"
 
-#: ../about.py:164
+#: ../about.py:176
 msgid "Operating System"
 msgstr "Operační systém"
 
-#: ../about.py:171
+#: ../about.py:183
 msgid "Version {version}"
 msgstr "Verze {version}"
 
-#: ../about.py:172 ../main.py:57
+#: ../about.py:184 ../main.py:57
 msgid "A LilyPond Music Editor"
 msgstr "Hudební editor pro LilyPond"
 
-#: ../about.py:173
+#: ../about.py:185
 msgid "Copyright (c) {year} by {author}"
 msgstr "Autorské právo (c) {year} od {author}"
 
-#: ../about.py:177
+#: ../about.py:189
 msgid "Send an e-mail message to the maintainers."
 msgstr "Poslat zprávu jako dopis elektronické pošty údržbářům."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: ../about.py:180 ../help/contents.py:57
+#: ../about.py:192 ../help/contents.py:57
 msgid "Translated by Your Name."
 msgstr "Přeloženo: Pavel Fric."
 
-#: ../about.py:185
+#: ../about.py:197
 msgid "Licensed under the {gpl}."
 msgstr "Licencováno pod {gpl}."
 
-#: ../actioncollectionmanager.py:122 ../preferences/shortcuts.py:203
+#: ../actioncollectionmanager.py:122 ../preferences/shortcuts.py:214
 msgid "This shortcut conflicts with the following command:"
 msgid_plural "This shortcut conflicts with the following commands:"
 msgstr[0] "Tato zkratka se střetává s následujícím příkazem:"
 msgstr[1] "Tato zkratka se střetává s následujícími příkazy:"
 msgstr[2] "Tato zkratka se střetává s následujícími příkazy:"
 
-#: ../actioncollectionmanager.py:128 ../preferences/shortcuts.py:209
+#: ../actioncollectionmanager.py:128 ../preferences/shortcuts.py:220
 msgid "Shortcut Conflict"
 msgstr "Střet zkratky"
 
@@ -246,7 +253,7 @@ msgstr "(nastavit v dokumentu)"
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr "Je potřeba nastavit jak verzi 'od'tak verzi 'po'."
 
-#: ../convert_ly.py:217
+#: ../convert_ly.py:208
 msgid ""
 "Could not start {convert_ly}:\n"
 "\n"
@@ -256,7 +263,7 @@ msgstr ""
 "\n"
 "{message}\n"
 
-#: ../convert_ly.py:223
+#: ../convert_ly.py:214
 msgid "The document has not been changed."
 msgstr "Dokument byl změněn."
 
@@ -419,7 +426,7 @@ msgstr "Velikost osnovy:"
 msgid "Error"
 msgstr "Chyba"
 
-#: ../helpers.py:102 ../job.py:250
+#: ../helpers.py:102 ../job.py:258
 msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
@@ -559,31 +566,31 @@ msgstr ""
 msgid "Select Color"
 msgstr "Vybrat barvu"
 
-#: ../job.py:239
+#: ../job.py:247
 msgid "Starting {job}..."
 msgstr "Spouští se {job}..."
 
-#: ../job.py:244
+#: ../job.py:252
 msgid "Aborting {job}..."
 msgstr "Ruší se {job}..."
 
-#: ../job.py:253
+#: ../job.py:261
 msgid "Could not read from the process."
 msgstr "Z procesu nešlo číst."
 
-#: ../job.py:255
+#: ../job.py:263
 msgid "An unknown error occured."
 msgstr "Vyskytla se neznámá chyba."
 
-#: ../job.py:260
+#: ../job.py:268
 msgid "Exited with return code {code}."
 msgstr "Skončilo s návratovým kódem {code}."
 
-#: ../job.py:262
+#: ../job.py:270
 msgid "Exited with exit status {status}."
 msgstr "Skončilo se stavem ukončení {status}."
 
-#: ../job.py:265
+#: ../job.py:273
 msgid "Completed successfully in {time}."
 msgstr "Dokončeno úspěšně v {time}."
 
@@ -983,73 +990,79 @@ msgstr "Odpovídající &dvojice"
 msgid "&Select Matching Pair"
 msgstr "&Vybrat odpovídající dvojici"
 
-#: ../menu.py:84
+#: ../menu.py:85
 msgctxt "menu title"
 msgid "&File"
 msgstr "&Soubor"
 
-#: ../menu.py:119
+#: ../menu.py:122
+#, fuzzy
+msgctxt "submenu title"
+msgid "&Import"
+msgstr "&Zavést..."
+
+#: ../menu.py:130
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Vyvést"
 
-#: ../menu.py:127
+#: ../menu.py:138
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "Úp&ravy"
 
-#: ../menu.py:154
+#: ../menu.py:165
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Pohled"
 
-#: ../menu.py:182
+#: ../menu.py:193
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "S&kládání"
 
-#: ../menu.py:197
+#: ../menu.py:208
 msgctxt "menu title"
 msgid "&Music"
 msgstr "No&ty"
 
-#: ../menu.py:224
+#: ../menu.py:235
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:243
+#: ../menu.py:254
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Nástroje"
 
-#: ../menu.py:271
+#: ../menu.py:282
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Slova písně"
 
-#: ../menu.py:283
+#: ../menu.py:294
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Výška tónu"
 
-#: ../menu.py:298
+#: ../menu.py:309
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Rytmus"
 
-#: ../menu.py:322
+#: ../menu.py:333
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr "&Odstranit"
 
-#: ../menu.py:340
+#: ../menu.py:351
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Okno"
 
-#: ../menu.py:360
+#: ../menu.py:371
 msgctxt "menu title"
 msgid "&Help"
 msgstr "Nápověd&a"
@@ -1303,31 +1316,31 @@ msgstr "Uložit všechny nepojmenované dokumenty"
 msgid "Close all untitled documents"
 msgstr "Zavřít všechny nepojmenované dokumenty"
 
-#: ../engrave/__init__.py:179
+#: ../engrave/__init__.py:184
 msgid "&Always Engrave [{docname}]"
 msgstr "&Vždy vyrýt [{docname}]"
 
-#: ../engrave/__init__.py:181
+#: ../engrave/__init__.py:186
 msgid "&Always Engrave This Document"
 msgstr "Tento dokument vyrýt &vždy"
 
-#: ../engrave/__init__.py:232
+#: ../engrave/__init__.py:237
 msgid "Engrave"
 msgstr "Vyrýt"
 
-#: ../engrave/__init__.py:233
+#: ../engrave/__init__.py:238
 msgid "&Engrave (preview)"
 msgstr "Vyrýt (&náhled)"
 
-#: ../engrave/__init__.py:234
+#: ../engrave/__init__.py:239
 msgid "Engrave (&publish)"
 msgstr "Vyrýt (vy&dat)"
 
-#: ../engrave/__init__.py:235
+#: ../engrave/__init__.py:240
 msgid "Engrave (&custom)..."
 msgstr "Vyrýt (vlas&tní)..."
 
-#: ../engrave/__init__.py:236
+#: ../engrave/__init__.py:241
 msgid "Abort Engraving &Job"
 msgstr "Zrušit ryteckou &práci"
 
@@ -1363,7 +1376,7 @@ msgstr "Spustit LilyPond s anglickými zprávami"
 msgid "Delete intermediate output files"
 msgstr "Smazat mezi výstupní soubory"
 
-#: ../engrave/custom.py:133
+#: ../engrave/custom.py:133 ../file_import/musicxml.py:98
 msgid "Command line:"
 msgstr "Příkazový řádek:"
 
@@ -1383,7 +1396,7 @@ msgstr ""
 "pro rytí vašeho dokumentu.\n"
 "Je dokonce možné upravit samotný příkazový řádek.\n"
 
-#: ../engrave/custom.py:223
+#: ../engrave/custom.py:223 ../file_import/musicxml.py:156
 msgid "The following replacements will be made:"
 msgstr "Budou provedena následující nahrazení:"
 
@@ -1395,7 +1408,7 @@ msgstr "Spustitelný soubor pro LilyPond"
 msgid "All the include paths"
 msgstr "Všechny zařazené cesty"
 
-#: ../engrave/custom.py:228
+#: ../engrave/custom.py:228 ../file_import/musicxml.py:160
 msgid "The filename of the document"
 msgstr "Souborový název dokumentu"
 
@@ -1582,6 +1595,57 @@ msgid ""
 msgstr ""
 "Pokud si nepřejete být varován, když je dokument změněn nebo smazán jiným "
 "programem, zrušte zaškrtnutí políčka <em>{action}</em>."
+
+#: ../file_import/__init__.py:48
+msgctxt "dialog title"
+msgid "Import a MusicXML file"
+msgstr ""
+
+#: ../file_import/__init__.py:93
+#, fuzzy
+msgid "Import MusicXML..."
+msgstr "Vy&tisknout noty..."
+
+#: ../file_import/__init__.py:94
+msgid "Import a MusicXML file using musicxml2ly."
+msgstr ""
+
+#: ../file_import/musicxml.py:93 ../file_import/musicxml.py:149
+#, fuzzy
+msgid "Import Music XML"
+msgstr "Vyvést jako HTML"
+
+#: ../file_import/musicxml.py:94
+#, fuzzy
+msgid "No articulation directions"
+msgstr "O&dstranit doby trvání"
+
+#: ../file_import/musicxml.py:95
+msgid "No rest positions"
+msgstr ""
+
+#: ../file_import/musicxml.py:96
+msgid "No page layout"
+msgstr ""
+
+#: ../file_import/musicxml.py:97
+msgid "Auto beaming"
+msgstr ""
+
+#: ../file_import/musicxml.py:99
+msgid "Run musicxml2ly"
+msgstr ""
+
+#: ../file_import/musicxml.py:153
+#, fuzzy
+msgid ""
+"In this dialog you can set some parameters for the musicxml2ly import.\n"
+msgstr "V tomto dialogu můžete upravit jeden řádek textového dokumentu."
+
+#: ../file_import/musicxml.py:159
+#, fuzzy
+msgid "The musicxml2ly executable"
+msgstr "Spustitelný soubor pro LilyPond"
 
 #: ../help/browser.py:77
 msgid "Toolbar"
@@ -4307,30 +4371,31 @@ msgstr ""
 msgid "Shortcut"
 msgstr "Zkratka"
 
-#: ../preferences/shortcuts.py:101
-msgid "Menu {name}:"
+#: ../preferences/shortcuts.py:100
+#, fuzzy
+msgid "Menu {name}"
 msgstr "Nabídka {name}:"
 
-#: ../preferences/shortcuts.py:125
+#: ../preferences/shortcuts.py:128
 msgid "Other commands:"
 msgstr "Jiné příkazy:"
 
-#: ../preferences/shortcuts.py:173
+#: ../preferences/shortcuts.py:184
 msgid "&Edit Shortcut for \"{name}\""
 msgstr "&Upravit zkratku pro \"{name}\""
 
-#: ../preferences/shortcuts.py:178
+#: ../preferences/shortcuts.py:189
 msgid "(no shortcut)"
 msgstr "(žádná zkratka)"
 
-#: ../preferences/shortcuts.py:206
+#: ../preferences/shortcuts.py:217
 msgid "Remove the shortcut from that command?"
 msgid_plural "Remove the shortcut from those commands?"
 msgstr[0] "Odstranit zkratku z tohoto příkazu?"
 msgstr[1] "Odstranit zkratku z těchto příkazů?"
 msgstr[2] "Odstranit zkratku z těchto příkazů?"
 
-#: ../preferences/shortcuts.py:309
+#: ../preferences/shortcuts.py:320
 msgid "(default)"
 msgstr "(výchozí)"
 

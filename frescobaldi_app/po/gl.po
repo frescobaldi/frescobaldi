@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.17\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-09-23 17:55+0200\n"
+"POT-Creation-Date: 2013-09-28 08:18+0200\n"
 "PO-Revision-Date: 2011-01-03 17:37+0100\n"
 "Last-Translator: Manuel A. Vazquez <xixirei@yahoo.es>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -55,86 +55,91 @@ msgstr ""
 msgid "The following people contributed to {appname}:"
 msgstr ""
 
-#: ../about.py:64
-msgid "{author}: Kinetic Scrolling for the Music View"
+#: ../about.py:71
+msgid "Kinetic Scrolling for the Music View"
 msgstr ""
 
-#: ../about.py:67
-msgid "{author}: Improved highlighting and auto-completion of Scheme code"
+#: ../about.py:75
+msgid "Improved highlighting and auto-completion of Scheme code"
 msgstr ""
 
-#: ../about.py:70
-msgid "{author}: Various contributions"
+#: ../about.py:79
+msgid "Various contributions"
 msgstr ""
 
-#: ../about.py:73
-msgid "{author}: Modal Transpose"
+#: ../about.py:83
+#, fuzzy
+msgid "Modal Transpose"
+msgstr "Transportar..."
+
+#: ../about.py:87
+msgid "Quick Insert buttons for grace notes"
 msgstr ""
 
-#: ../about.py:76
-msgid "{author}: Quick Insert buttons for grace notes"
+#: ../about.py:88
+msgid "MusicXML import"
 msgstr ""
 
-#: ../about.py:81
+#: ../about.py:93
 msgid "{appname} is translated into the following languages:"
 msgstr ""
 
-#: ../about.py:100
+#: ../about.py:112
 msgid "About {appname}"
 msgstr ""
 
-#: ../about.py:107
+#: ../about.py:119
 #, fuzzy
 msgid "About"
 msgstr "Automático"
 
-#: ../about.py:108 ../help/contents.py:330
+#: ../about.py:120 ../help/contents.py:330
 msgid "Credits"
 msgstr ""
 
-#: ../about.py:109
+#: ../about.py:121
 msgid "Version"
 msgstr "Versión"
 
-#: ../about.py:164
+#: ../about.py:176
 #, fuzzy
 msgid "Operating System"
 msgstr "Outros sistemas:"
 
-#: ../about.py:171
+#: ../about.py:183
 #, fuzzy
 msgid "Version {version}"
 msgstr "Inserir a versión de LilyPond"
 
-#: ../about.py:172 ../main.py:57
+#: ../about.py:184 ../main.py:57
 #, fuzzy
 msgid "A LilyPond Music Editor"
 msgstr "Editor de música para LilyPond"
 
-#: ../about.py:173
+#: ../about.py:185
 msgid "Copyright (c) {year} by {author}"
 msgstr ""
 
-#: ../about.py:177
+#: ../about.py:189
 msgid "Send an e-mail message to the maintainers."
 msgstr ""
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: ../about.py:180 ../help/contents.py:57
+#: ../about.py:192 ../help/contents.py:57
 msgid "Translated by Your Name."
 msgstr ""
 
-#: ../about.py:185
+#: ../about.py:197
 msgid "Licensed under the {gpl}."
 msgstr ""
 
-#: ../actioncollectionmanager.py:122 ../preferences/shortcuts.py:203
+#: ../actioncollectionmanager.py:122 ../preferences/shortcuts.py:214
 msgid "This shortcut conflicts with the following command:"
 msgid_plural "This shortcut conflicts with the following commands:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../actioncollectionmanager.py:128 ../preferences/shortcuts.py:209
+#: ../actioncollectionmanager.py:128 ../preferences/shortcuts.py:220
 #, fuzzy
 msgid "Shortcut Conflict"
 msgstr "Atallo"
@@ -261,7 +266,7 @@ msgstr "Imprimir documentos"
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr ""
 
-#: ../convert_ly.py:217
+#: ../convert_ly.py:208
 #, fuzzy
 msgid ""
 "Could not start {convert_ly}:\n"
@@ -269,7 +274,7 @@ msgid ""
 "{message}\n"
 msgstr "Non foi posible iniciar convert-ly: %1"
 
-#: ../convert_ly.py:223
+#: ../convert_ly.py:214
 msgid "The document has not been changed."
 msgstr ""
 
@@ -439,7 +444,7 @@ msgstr "Tamaño do pentagrama"
 msgid "Error"
 msgstr ""
 
-#: ../helpers.py:102 ../job.py:250
+#: ../helpers.py:102 ../job.py:258
 #, fuzzy
 msgid ""
 "Could not start {program}.\n"
@@ -556,34 +561,34 @@ msgstr ""
 msgid "Select Color"
 msgstr "Seleccionar todo"
 
-#: ../job.py:239
+#: ../job.py:247
 msgid "Starting {job}..."
 msgstr ""
 
-#: ../job.py:244
+#: ../job.py:252
 msgid "Aborting {job}..."
 msgstr ""
 
-#: ../job.py:253
+#: ../job.py:261
 #, fuzzy
 msgid "Could not read from the process."
 msgstr "Non se puido ler a partires do proceso LilyPond."
 
-#: ../job.py:255
+#: ../job.py:263
 msgid "An unknown error occured."
 msgstr "Houbo un erro descoñecido."
 
-#: ../job.py:260
+#: ../job.py:268
 #, fuzzy
 msgid "Exited with return code {code}."
 msgstr "LilyPond [%1] devolveu ao saír o código %2."
 
-#: ../job.py:262
+#: ../job.py:270
 #, fuzzy
 msgid "Exited with exit status {status}."
 msgstr "LilyPond [%1] devolveu ao saír o código %2."
 
-#: ../job.py:265
+#: ../job.py:273
 msgid "Completed successfully in {time}."
 msgstr ""
 
@@ -991,81 +996,87 @@ msgstr "Caracteres especiais"
 msgid "&Select Matching Pair"
 msgstr ""
 
-#: ../menu.py:84
+#: ../menu.py:85
 #, fuzzy
 msgctxt "menu title"
 msgid "&File"
 msgstr "Título"
 
-#: ../menu.py:119
+#: ../menu.py:122
+#, fuzzy
+msgctxt "submenu title"
+msgid "&Import"
+msgstr "Imprimir..."
+
+#: ../menu.py:130
 msgctxt "submenu title"
 msgid "&Export"
 msgstr ""
 
-#: ../menu.py:127
+#: ../menu.py:138
 msgctxt "menu title"
 msgid "&Edit"
 msgstr ""
 
-#: ../menu.py:154
+#: ../menu.py:165
 #, fuzzy
 msgctxt "menu title"
 msgid "&View"
 msgstr "Vistas de ferramen&tas"
 
-#: ../menu.py:182
+#: ../menu.py:193
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "Codificación para usar"
 
-#: ../menu.py:197
+#: ../menu.py:208
 msgctxt "menu title"
 msgid "&Music"
 msgstr ""
 
-#: ../menu.py:224
+#: ../menu.py:235
 #, fuzzy
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:243
+#: ../menu.py:254
 #, fuzzy
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "Vistas de ferramen&tas"
 
-#: ../menu.py:271
+#: ../menu.py:282
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Letra"
 
-#: ../menu.py:283
+#: ../menu.py:294
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Altura"
 
-#: ../menu.py:298
+#: ../menu.py:309
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "Du&racións"
 
-#: ../menu.py:322
+#: ../menu.py:333
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr "Eliminar as plicas"
 
-#: ../menu.py:340
+#: ../menu.py:351
 msgctxt "menu title"
 msgid "&Window"
 msgstr ""
 
-#: ../menu.py:360
+#: ../menu.py:371
 msgctxt "menu title"
 msgid "&Help"
 msgstr ""
@@ -1344,31 +1355,31 @@ msgstr "Documentos por correo electrónico"
 msgid "Close all untitled documents"
 msgstr "Pechar outros documentos"
 
-#: ../engrave/__init__.py:179
+#: ../engrave/__init__.py:184
 msgid "&Always Engrave [{docname}]"
 msgstr ""
 
-#: ../engrave/__init__.py:181
+#: ../engrave/__init__.py:186
 msgid "&Always Engrave This Document"
 msgstr ""
 
-#: ../engrave/__init__.py:232
+#: ../engrave/__init__.py:237
 msgid "Engrave"
 msgstr ""
 
-#: ../engrave/__init__.py:233
+#: ../engrave/__init__.py:238
 msgid "&Engrave (preview)"
 msgstr ""
 
-#: ../engrave/__init__.py:234
+#: ../engrave/__init__.py:239
 msgid "Engrave (&publish)"
 msgstr ""
 
-#: ../engrave/__init__.py:235
+#: ../engrave/__init__.py:240
 msgid "Engrave (&custom)..."
 msgstr ""
 
-#: ../engrave/__init__.py:236
+#: ../engrave/__init__.py:241
 msgid "Abort Engraving &Job"
 msgstr ""
 
@@ -1408,7 +1419,7 @@ msgstr "Executar LilyPond con saída detallada"
 msgid "Delete intermediate output files"
 msgstr "Permitir a LilyPond eliminar os ficheiros de saída intermedios"
 
-#: ../engrave/custom.py:133
+#: ../engrave/custom.py:133 ../file_import/musicxml.py:98
 #, fuzzy
 msgid "Command line:"
 msgstr "Orde"
@@ -1425,7 +1436,7 @@ msgid ""
 "It is even possible to edit the command line itself.\n"
 msgstr ""
 
-#: ../engrave/custom.py:223
+#: ../engrave/custom.py:223 ../file_import/musicxml.py:156
 msgid "The following replacements will be made:"
 msgstr ""
 
@@ -1439,7 +1450,7 @@ msgstr "Preferencias de LilyPond"
 msgid "All the include paths"
 msgstr "Ruta de inclusión para LilyPond:"
 
-#: ../engrave/custom.py:228
+#: ../engrave/custom.py:228 ../file_import/musicxml.py:160
 #, fuzzy
 msgid "The filename of the document"
 msgstr "&Sincronizar o terminal co documento actual"
@@ -1611,6 +1622,55 @@ msgid ""
 "If you don't want to be warned when a document is changed or deleted by "
 "another application, uncheck the <em>{action}</em> checkbox."
 msgstr ""
+
+#: ../file_import/__init__.py:48
+msgctxt "dialog title"
+msgid "Import a MusicXML file"
+msgstr ""
+
+#: ../file_import/__init__.py:93
+#, fuzzy
+msgid "Import MusicXML..."
+msgstr "Imprimir música..."
+
+#: ../file_import/__init__.py:94
+msgid "Import a MusicXML file using musicxml2ly."
+msgstr ""
+
+#: ../file_import/musicxml.py:93 ../file_import/musicxml.py:149
+msgid "Import Music XML"
+msgstr ""
+
+#: ../file_import/musicxml.py:94
+#, fuzzy
+msgid "No articulation directions"
+msgstr "Eliminar duracións"
+
+#: ../file_import/musicxml.py:95
+msgid "No rest positions"
+msgstr ""
+
+#: ../file_import/musicxml.py:96
+msgid "No page layout"
+msgstr ""
+
+#: ../file_import/musicxml.py:97
+msgid "Auto beaming"
+msgstr ""
+
+#: ../file_import/musicxml.py:99
+msgid "Run musicxml2ly"
+msgstr ""
+
+#: ../file_import/musicxml.py:153
+msgid ""
+"In this dialog you can set some parameters for the musicxml2ly import.\n"
+msgstr ""
+
+#: ../file_import/musicxml.py:159
+#, fuzzy
+msgid "The musicxml2ly executable"
+msgstr "Preferencias de LilyPond"
 
 #: ../help/browser.py:77
 msgid "Toolbar"
@@ -3977,33 +4037,33 @@ msgstr ""
 msgid "Shortcut"
 msgstr "Atallo"
 
-#: ../preferences/shortcuts.py:101
-msgid "Menu {name}:"
+#: ../preferences/shortcuts.py:100
+msgid "Menu {name}"
 msgstr ""
 
-#: ../preferences/shortcuts.py:125
+#: ../preferences/shortcuts.py:128
 #, fuzzy
 msgid "Other commands:"
 msgstr "Orde de impresión:"
 
-#: ../preferences/shortcuts.py:173
+#: ../preferences/shortcuts.py:184
 #, fuzzy
 msgid "&Edit Shortcut for \"{name}\""
 msgstr "Atallo"
 
-#: ../preferences/shortcuts.py:178
+#: ../preferences/shortcuts.py:189
 #, fuzzy
 msgid "(no shortcut)"
 msgstr "Atallo"
 
-#: ../preferences/shortcuts.py:206
+#: ../preferences/shortcuts.py:217
 #, fuzzy
 msgid "Remove the shortcut from that command?"
 msgid_plural "Remove the shortcut from those commands?"
 msgstr[0] "Eliminar as plicas das notas de percusión."
 msgstr[1] "Eliminar as plicas das notas de percusión."
 
-#: ../preferences/shortcuts.py:309
+#: ../preferences/shortcuts.py:320
 #, fuzzy
 msgid "(default)"
 msgstr "predeterminado"

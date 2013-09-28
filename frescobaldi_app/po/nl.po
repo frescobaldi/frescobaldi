@@ -1,14 +1,14 @@
 # translation of nl.po to Nederlands
-# Wilbert Berendsen <wbsoft@xs4all.nl>, 2008, 2009, 2010, 2011, 2012, 2013.
 #
+# Wilbert Berendsen <wbsoft@xs4all.nl>, 2008, 2009, 2010, 2011, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-09-23 17:55+0200\n"
-"PO-Revision-Date: 2013-09-23 18:03+0200\n"
-"Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
-"Language-Team: Nederlands <>\n"
+"POT-Creation-Date: 2013-09-28 08:18+0200\n"
+"PO-Revision-Date: 2013-09-28 08:22+0200\n"
+"Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
+"Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -54,83 +54,86 @@ msgstr "Het Tango Desktop-project"
 msgid "The following people contributed to {appname}:"
 msgstr "De volgende personen hebben bijgedragen aan {appname}:"
 
-#: ../about.py:64
-msgid "{author}: Kinetic Scrolling for the Music View"
-msgstr "{author}: Kinetische schuifbeweging in de muziekweergave"
+#: ../about.py:71
+msgid "Kinetic Scrolling for the Music View"
+msgstr "Kinetische schuifbeweging in de muziekweergave"
 
-#: ../about.py:67
-msgid "{author}: Improved highlighting and auto-completion of Scheme code"
-msgstr ""
-"{author}: Verbeterde accentuering en automatisch aanvullen van Scheme-code"
+#: ../about.py:75
+msgid "Improved highlighting and auto-completion of Scheme code"
+msgstr "Verbeterde accentuering en automatisch aanvullen van Scheme-code"
 
-#: ../about.py:70
-msgid "{author}: Various contributions"
-msgstr "{author}: Verschillende bijdragen"
+#: ../about.py:79
+msgid "Various contributions"
+msgstr "Verschillende bijdragen"
 
-#: ../about.py:73
-msgid "{author}: Modal Transpose"
-msgstr "{author}: Modaal transponeren"
+#: ../about.py:83
+msgid "Modal Transpose"
+msgstr "Modaal transponeren"
 
-#: ../about.py:76
-msgid "{author}: Quick Insert buttons for grace notes"
-msgstr "{author}: Quick Insert knoppen voor voorslagen"
+#: ../about.py:87
+msgid "Quick Insert buttons for grace notes"
+msgstr "Quick Insert knoppen voor voorslagen"
 
-#: ../about.py:81
+#: ../about.py:88
+msgid "MusicXML import"
+msgstr "MusicXML import"
+
+#: ../about.py:93
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} is vertaald in de volgende talen:"
 
-#: ../about.py:100
+#: ../about.py:112
 msgid "About {appname}"
 msgstr "Over {appname}"
 
-#: ../about.py:107
+#: ../about.py:119
 msgid "About"
 msgstr "Over"
 
-#: ../about.py:108 ../help/contents.py:330
+#: ../about.py:120 ../help/contents.py:330
 msgid "Credits"
 msgstr "Dank aan"
 
-#: ../about.py:109
+#: ../about.py:121
 msgid "Version"
 msgstr "Versie"
 
-#: ../about.py:164
+#: ../about.py:176
 msgid "Operating System"
 msgstr "Besturingssysteem"
 
-#: ../about.py:171
+#: ../about.py:183
 msgid "Version {version}"
 msgstr "Versie {version}"
 
-#: ../about.py:172 ../main.py:57
+#: ../about.py:184 ../main.py:57
 msgid "A LilyPond Music Editor"
 msgstr "Een muziek-editor voor LilyPond"
 
-#: ../about.py:173
+#: ../about.py:185
 msgid "Copyright (c) {year} by {author}"
 msgstr "Copyright (c) {year} door {author}"
 
-#: ../about.py:177
+#: ../about.py:189
 msgid "Send an e-mail message to the maintainers."
 msgstr "Een e-mailbericht sturen naar de auteurs."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: ../about.py:180 ../help/contents.py:57
+#: ../about.py:192 ../help/contents.py:57
 msgid "Translated by Your Name."
 msgstr "Vertaald door Wilbert Berendsen."
 
-#: ../about.py:185
+#: ../about.py:197
 msgid "Licensed under the {gpl}."
 msgstr "Beschikbaar onder de {gpl}."
 
-#: ../actioncollectionmanager.py:122 ../preferences/shortcuts.py:203
+#: ../actioncollectionmanager.py:122 ../preferences/shortcuts.py:214
 msgid "This shortcut conflicts with the following command:"
 msgid_plural "This shortcut conflicts with the following commands:"
 msgstr[0] "Deze sneltoets conflicteert met het onderstaande commando:"
 msgstr[1] "Deze sneltoets conflicteert met onderstaande commando's:"
 
-#: ../actioncollectionmanager.py:128 ../preferences/shortcuts.py:209
+#: ../actioncollectionmanager.py:128 ../preferences/shortcuts.py:220
 msgid "Shortcut Conflict"
 msgstr "Sneltoetsconflict"
 
@@ -243,7 +246,7 @@ msgstr "(in document ingesteld)"
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr "Zowel de 'van'- als 'naar' versie dient ingesteld te zijn."
 
-#: ../convert_ly.py:217
+#: ../convert_ly.py:208
 msgid ""
 "Could not start {convert_ly}:\n"
 "\n"
@@ -253,7 +256,7 @@ msgstr ""
 "\n"
 "{message}\n"
 
-#: ../convert_ly.py:223
+#: ../convert_ly.py:214
 msgid "The document has not been changed."
 msgstr "Het document is niet gewijzigd."
 
@@ -411,7 +414,7 @@ msgstr "Balkgrootte:"
 msgid "Error"
 msgstr "Fout"
 
-#: ../helpers.py:102 ../job.py:250
+#: ../helpers.py:102 ../job.py:258
 msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
@@ -549,31 +552,31 @@ msgstr ""
 msgid "Select Color"
 msgstr "Kleur selecteren"
 
-#: ../job.py:239
+#: ../job.py:247
 msgid "Starting {job}..."
 msgstr "Starten {job}..."
 
-#: ../job.py:244
+#: ../job.py:252
 msgid "Aborting {job}..."
 msgstr "Afbreken {job}..."
 
-#: ../job.py:253
+#: ../job.py:261
 msgid "Could not read from the process."
 msgstr "Kan de uitvoer van het proces niet lezen."
 
-#: ../job.py:255
+#: ../job.py:263
 msgid "An unknown error occured."
 msgstr "Er is een onbekende fout opgetreden."
 
-#: ../job.py:260
+#: ../job.py:268
 msgid "Exited with return code {code}."
 msgstr "Afgesloten met returncode {code}."
 
-#: ../job.py:262
+#: ../job.py:270
 msgid "Exited with exit status {status}."
 msgstr "Afgesloten met status {status}."
 
-#: ../job.py:265
+#: ../job.py:273
 msgid "Completed successfully in {time}."
 msgstr "Succesvol beëindigd in {time}."
 
@@ -973,72 +976,77 @@ msgstr "&Bijbehorend item"
 msgid "&Select Matching Pair"
 msgstr "Bijbehorende &items selecteren"
 
-#: ../menu.py:84
+#: ../menu.py:85
 msgctxt "menu title"
 msgid "&File"
 msgstr "&Bestand"
 
-#: ../menu.py:119
+#: ../menu.py:122
+msgctxt "submenu title"
+msgid "&Import"
+msgstr "&Importeren"
+
+#: ../menu.py:130
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Exporteren"
 
-#: ../menu.py:127
+#: ../menu.py:138
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "Be&werken"
 
-#: ../menu.py:154
+#: ../menu.py:165
 msgctxt "menu title"
 msgid "&View"
 msgstr "B&eeld"
 
-#: ../menu.py:182
+#: ../menu.py:193
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "Invou&wen"
 
-#: ../menu.py:197
+#: ../menu.py:208
 msgctxt "menu title"
 msgid "&Music"
 msgstr "&Muziek"
 
-#: ../menu.py:224
+#: ../menu.py:235
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:243
+#: ../menu.py:254
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Gereedschap"
 
-#: ../menu.py:271
+#: ../menu.py:282
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Liedteksten"
 
-#: ../menu.py:283
+#: ../menu.py:294
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Toonhoogte"
 
-#: ../menu.py:298
+#: ../menu.py:309
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritme"
 
-#: ../menu.py:322
+#: ../menu.py:333
 msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr "&Snel verwijderen"
 
-#: ../menu.py:340
+#: ../menu.py:351
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Venster"
 
-#: ../menu.py:360
+#: ../menu.py:371
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Help"
@@ -1292,31 +1300,31 @@ msgstr "Alle naamloze documenten opslaan"
 msgid "Close all untitled documents"
 msgstr "Alle naamloze documenten sluiten"
 
-#: ../engrave/__init__.py:179
+#: ../engrave/__init__.py:184
 msgid "&Always Engrave [{docname}]"
 msgstr "&Altijd graveren [{docname}]"
 
-#: ../engrave/__init__.py:181
+#: ../engrave/__init__.py:186
 msgid "&Always Engrave This Document"
 msgstr "Dit document &altijd graveren"
 
-#: ../engrave/__init__.py:232
+#: ../engrave/__init__.py:237
 msgid "Engrave"
 msgstr "Graveren"
 
-#: ../engrave/__init__.py:233
+#: ../engrave/__init__.py:238
 msgid "&Engrave (preview)"
 msgstr "&Graveren (vooruitblik)"
 
-#: ../engrave/__init__.py:234
+#: ../engrave/__init__.py:239
 msgid "Engrave (&publish)"
 msgstr "Graveren (&publicatie)"
 
-#: ../engrave/__init__.py:235
+#: ../engrave/__init__.py:240
 msgid "Engrave (&custom)..."
 msgstr "Gra&veren (aangepast)..."
 
-#: ../engrave/__init__.py:236
+#: ../engrave/__init__.py:241
 msgid "Abort Engraving &Job"
 msgstr "Graveertaak af&breken"
 
@@ -1352,7 +1360,7 @@ msgstr "LilyPond starten met Engelstalige uitvoerberichten"
 msgid "Delete intermediate output files"
 msgstr "Tussentijdse uitvoerbestanden verwijderen"
 
-#: ../engrave/custom.py:133
+#: ../engrave/custom.py:133 ../file_import/musicxml.py:98
 msgid "Command line:"
 msgstr "Commandoregel:"
 
@@ -1371,7 +1379,7 @@ msgstr ""
 "LilyPond-commando om uw document te graveren.\n"
 "Het is zelfs mogelijk de commandoregel zelf aan te passen.\n"
 
-#: ../engrave/custom.py:223
+#: ../engrave/custom.py:223 ../file_import/musicxml.py:156
 msgid "The following replacements will be made:"
 msgstr "De volgende variabelen worden vervangen:"
 
@@ -1383,7 +1391,7 @@ msgstr "Het LilyPond-programma"
 msgid "All the include paths"
 msgstr "Alle include-paden"
 
-#: ../engrave/custom.py:228
+#: ../engrave/custom.py:228 ../file_import/musicxml.py:160
 msgid "The filename of the document"
 msgstr "De naam van het document"
 
@@ -1575,6 +1583,54 @@ msgid ""
 msgstr ""
 "Als u niet wilt worden gewaarschuwd wanneer een document wordt gewijzigd of "
 "verwijderd door een ander programma, vink dan de optie <em>{action}</em> uit."
+
+#: ../file_import/__init__.py:48
+msgctxt "dialog title"
+msgid "Import a MusicXML file"
+msgstr "Een MusicXML-bestand importeren"
+
+#: ../file_import/__init__.py:93
+msgid "Import MusicXML..."
+msgstr "MusicXML importeren..."
+
+#: ../file_import/__init__.py:94
+msgid "Import a MusicXML file using musicxml2ly."
+msgstr "Een MusicXML-bestand importeren met behulp van musicxml2ly."
+
+#: ../file_import/musicxml.py:93 ../file_import/musicxml.py:149
+msgid "Import Music XML"
+msgstr "MusicXML importeren"
+
+#: ../file_import/musicxml.py:94
+msgid "No articulation directions"
+msgstr "Geen expliciete richting voor articulaties"
+
+#: ../file_import/musicxml.py:95
+msgid "No rest positions"
+msgstr "Geen expliciete positie voor rusten"
+
+#: ../file_import/musicxml.py:96
+msgid "No page layout"
+msgstr "Geen pagina-layout"
+
+#: ../file_import/musicxml.py:97
+msgid "Auto beaming"
+msgstr "Automatische waardestrepen"
+
+#: ../file_import/musicxml.py:99
+msgid "Run musicxml2ly"
+msgstr "Musicxml2ly starten"
+
+#: ../file_import/musicxml.py:153
+msgid ""
+"In this dialog you can set some parameters for the musicxml2ly import.\n"
+msgstr ""
+"In deze dialoog kunt u enige parameters voor de musicxml2ly-import "
+"instellen.\n"
+
+#: ../file_import/musicxml.py:159
+msgid "The musicxml2ly executable"
+msgstr "Het musicxml2ly-programma"
 
 #: ../help/browser.py:77
 msgid "Toolbar"
@@ -4331,29 +4387,29 @@ msgstr "Zie voor meer informatie over reguliere expressies: {link}."
 msgid "Shortcut"
 msgstr "Sneltoets"
 
-#: ../preferences/shortcuts.py:101
-msgid "Menu {name}:"
-msgstr "Menu {name}:"
+#: ../preferences/shortcuts.py:100
+msgid "Menu {name}"
+msgstr "Menu {name}"
 
-#: ../preferences/shortcuts.py:125
+#: ../preferences/shortcuts.py:128
 msgid "Other commands:"
 msgstr "Andere commando's:"
 
-#: ../preferences/shortcuts.py:173
+#: ../preferences/shortcuts.py:184
 msgid "&Edit Shortcut for \"{name}\""
 msgstr "Sn&eltoets instellen voor \"{name}\""
 
-#: ../preferences/shortcuts.py:178
+#: ../preferences/shortcuts.py:189
 msgid "(no shortcut)"
 msgstr "(geen sneltoets)"
 
-#: ../preferences/shortcuts.py:206
+#: ../preferences/shortcuts.py:217
 msgid "Remove the shortcut from that command?"
 msgid_plural "Remove the shortcut from those commands?"
 msgstr[0] "Sneltoets voor dat commando verwijderen?"
 msgstr[1] "Sneltoets van deze commando's verwijderen?"
 
-#: ../preferences/shortcuts.py:309
+#: ../preferences/shortcuts.py:320
 msgid "(default)"
 msgstr "(standaard)"
 
@@ -7569,6 +7625,9 @@ msgstr "Selecteer een map"
 msgid "Select a file"
 msgstr "Selecteer een bestand"
 
+#~ msgid "{author}: Modal Transpose"
+#~ msgstr "{author}: Modaal transponeren"
+
 #~ msgid "LilyPond {version}"
 #~ msgstr "LilyPond {version}"
 
@@ -7692,9 +7751,6 @@ msgstr "Selecteer een bestand"
 
 #~ msgid "LilyPond files"
 #~ msgstr "LilyPond-bestanden"
-
-#~ msgid "Print Music..."
-#~ msgstr "Muziek afdrukken..."
 
 #~ msgid "Remove hyphenation"
 #~ msgstr "Liedtekst-afbreking verwijderen"
@@ -9601,9 +9657,6 @@ msgstr "Selecteer een bestand"
 
 #~ msgid "Stem Down"
 #~ msgstr "Stokken omlaag"
-
-#~ msgid "Score section"
-#~ msgstr "Score sectie"
 
 #~ msgid "Layout Section"
 #~ msgstr "Layout sectie"

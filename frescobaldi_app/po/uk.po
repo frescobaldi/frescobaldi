@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-09-23 17:55+0200\n"
+"POT-Creation-Date: 2013-09-28 08:18+0200\n"
 "PO-Revision-Date: 2012-04-19 17:21+0300\n"
 "Last-Translator: Dmytro O. Redchuk <brownian.box@gmail.com>\n"
 "Language-Team: Ukrainian\n"
@@ -55,82 +55,88 @@ msgstr "Проект Tango Desktop"
 msgid "The following people contributed to {appname}:"
 msgstr "Перелічені особи зробили внесок у {appname}:"
 
-#: ../about.py:64
-msgid "{author}: Kinetic Scrolling for the Music View"
+#: ../about.py:71
+#, fuzzy
+msgid "Kinetic Scrolling for the Music View"
 msgstr "{author}: Кінетична прокрутка Перегляду твору"
 
-#: ../about.py:67
-msgid "{author}: Improved highlighting and auto-completion of Scheme code"
+#: ../about.py:75
+msgid "Improved highlighting and auto-completion of Scheme code"
 msgstr ""
 
-#: ../about.py:70
-msgid "{author}: Various contributions"
+#: ../about.py:79
+msgid "Various contributions"
 msgstr ""
 
-#: ../about.py:73
-msgid "{author}: Modal Transpose"
+#: ../about.py:83
+#, fuzzy
+msgid "Modal Transpose"
+msgstr "&Транспонувати"
+
+#: ../about.py:87
+msgid "Quick Insert buttons for grace notes"
 msgstr ""
 
-#: ../about.py:76
-msgid "{author}: Quick Insert buttons for grace notes"
+#: ../about.py:88
+msgid "MusicXML import"
 msgstr ""
 
-#: ../about.py:81
+#: ../about.py:93
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} перекладено такими мовами:"
 
-#: ../about.py:100
+#: ../about.py:112
 msgid "About {appname}"
 msgstr "Про {appname}"
 
-#: ../about.py:107
+#: ../about.py:119
 msgid "About"
 msgstr "Про"
 
-#: ../about.py:108 ../help/contents.py:330
+#: ../about.py:120 ../help/contents.py:330
 msgid "Credits"
 msgstr "Подяки"
 
-#: ../about.py:109
+#: ../about.py:121
 msgid "Version"
 msgstr "Версія"
 
-#: ../about.py:164
+#: ../about.py:176
 msgid "Operating System"
 msgstr "Операційна система"
 
-#: ../about.py:171
+#: ../about.py:183
 msgid "Version {version}"
 msgstr "Версія {version}"
 
-#: ../about.py:172 ../main.py:57
+#: ../about.py:184 ../main.py:57
 msgid "A LilyPond Music Editor"
 msgstr "Музичний редактор LilyPond"
 
-#: ../about.py:173
+#: ../about.py:185
 msgid "Copyright (c) {year} by {author}"
 msgstr ""
 
-#: ../about.py:177
+#: ../about.py:189
 msgid "Send an e-mail message to the maintainers."
 msgstr "Напишіть е-листа розробникам."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: ../about.py:180 ../help/contents.py:57
+#: ../about.py:192 ../help/contents.py:57
 msgid "Translated by Your Name."
 msgstr "Переклад Дмитра Редчука"
 
-#: ../about.py:185
+#: ../about.py:197
 msgid "Licensed under the {gpl}."
 msgstr "Розповсюджується на умовах {gpl}."
 
-#: ../actioncollectionmanager.py:122 ../preferences/shortcuts.py:203
+#: ../actioncollectionmanager.py:122 ../preferences/shortcuts.py:214
 msgid "This shortcut conflicts with the following command:"
 msgid_plural "This shortcut conflicts with the following commands:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../actioncollectionmanager.py:128 ../preferences/shortcuts.py:209
+#: ../actioncollectionmanager.py:128 ../preferences/shortcuts.py:220
 msgid "Shortcut Conflict"
 msgstr "Конфлікт гарячих клавіш"
 
@@ -243,7 +249,7 @@ msgstr "(встановлено у документі)"
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr "Потрібні обидві версії («з» та «на»)."
 
-#: ../convert_ly.py:217
+#: ../convert_ly.py:208
 msgid ""
 "Could not start {convert_ly}:\n"
 "\n"
@@ -253,7 +259,7 @@ msgstr ""
 "\n"
 "{message}\n"
 
-#: ../convert_ly.py:223
+#: ../convert_ly.py:214
 msgid "The document has not been changed."
 msgstr "Документ не було змінено."
 
@@ -418,7 +424,7 @@ msgstr "Розмір нотоносця"
 msgid "Error"
 msgstr "Помилка"
 
-#: ../helpers.py:102 ../job.py:250
+#: ../helpers.py:102 ../job.py:258
 msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
@@ -552,31 +558,31 @@ msgstr ""
 msgid "Select Color"
 msgstr "Виберіть колір"
 
-#: ../job.py:239
+#: ../job.py:247
 msgid "Starting {job}..."
 msgstr "Починаємо {job}"
 
-#: ../job.py:244
+#: ../job.py:252
 msgid "Aborting {job}..."
 msgstr "Уриваємо {job}"
 
-#: ../job.py:253
+#: ../job.py:261
 msgid "Could not read from the process."
 msgstr "Не вдалося зчитати на виході з процесу."
 
-#: ../job.py:255
+#: ../job.py:263
 msgid "An unknown error occured."
 msgstr "Сталася невідома помилка."
 
-#: ../job.py:260
+#: ../job.py:268
 msgid "Exited with return code {code}."
 msgstr "Завершено з кодом {code}"
 
-#: ../job.py:262
+#: ../job.py:270
 msgid "Exited with exit status {status}."
 msgstr "Завершено з помилкою {status}"
 
-#: ../job.py:265
+#: ../job.py:273
 msgid "Completed successfully in {time}."
 msgstr "Завершено успішно за {time}"
 
@@ -984,74 +990,80 @@ msgstr "Символ збігу"
 msgid "&Select Matching Pair"
 msgstr ""
 
-#: ../menu.py:84
+#: ../menu.py:85
 msgctxt "menu title"
 msgid "&File"
 msgstr "Ф&айл"
 
-#: ../menu.py:119
+#: ../menu.py:122
+#, fuzzy
+msgctxt "submenu title"
+msgid "&Import"
+msgstr "Експорт"
+
+#: ../menu.py:130
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "Експорт"
 
-#: ../menu.py:127
+#: ../menu.py:138
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "Редаг&ування"
 
-#: ../menu.py:154
+#: ../menu.py:165
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Вигляд"
 
-#: ../menu.py:182
+#: ../menu.py:193
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "&Згортки"
 
-#: ../menu.py:197
+#: ../menu.py:208
 #, fuzzy
 msgctxt "menu title"
 msgid "&Music"
 msgstr "&Перегляд твору"
 
-#: ../menu.py:224
+#: ../menu.py:235
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr ""
 
-#: ../menu.py:243
+#: ../menu.py:254
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "Інструм&енти"
 
-#: ../menu.py:271
+#: ../menu.py:282
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Вокальний текст"
 
-#: ../menu.py:283
+#: ../menu.py:294
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Тони"
 
-#: ../menu.py:298
+#: ../menu.py:309
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ритм"
 
-#: ../menu.py:322
+#: ../menu.py:333
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr "&Видалити"
 
-#: ../menu.py:340
+#: ../menu.py:351
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Вікно"
 
-#: ../menu.py:360
+#: ../menu.py:371
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Допомога"
@@ -1305,33 +1317,33 @@ msgstr "Зберегти всі неназвані документи"
 msgid "Close all untitled documents"
 msgstr "Закрити всі неназвані документи"
 
-#: ../engrave/__init__.py:179
+#: ../engrave/__init__.py:184
 msgid "&Always Engrave [{docname}]"
 msgstr "Завжди &гравіювати [{docname}]"
 
-#: ../engrave/__init__.py:181
+#: ../engrave/__init__.py:186
 msgid "&Always Engrave This Document"
 msgstr "Завжди &гравіювати цей документ"
 
-#: ../engrave/__init__.py:232
+#: ../engrave/__init__.py:237
 msgid "Engrave"
 msgstr "Гравіювати"
 
-#: ../engrave/__init__.py:233
+#: ../engrave/__init__.py:238
 msgid "&Engrave (preview)"
 msgstr "Граві&ювати (перегляд)"
 
-#: ../engrave/__init__.py:234
+#: ../engrave/__init__.py:239
 #, fuzzy
 msgid "Engrave (&publish)"
 msgstr "Гравіювати (&начисто)"
 
-#: ../engrave/__init__.py:235
+#: ../engrave/__init__.py:240
 #, fuzzy
 msgid "Engrave (&custom)..."
 msgstr "Гравіювати (не&стандартно)"
 
-#: ../engrave/__init__.py:236
+#: ../engrave/__init__.py:241
 msgid "Abort Engraving &Job"
 msgstr "Пере&рвати процес гравіювання"
 
@@ -1369,7 +1381,7 @@ msgstr "Стартувати LilyPond з англійськими повідом
 msgid "Delete intermediate output files"
 msgstr "Видаляти проміжні файли"
 
-#: ../engrave/custom.py:133
+#: ../engrave/custom.py:133 ../file_import/musicxml.py:98
 msgid "Command line:"
 msgstr "Командний рядок:"
 
@@ -1388,7 +1400,7 @@ msgstr ""
 "до запуску LilyPond.\n"
 "Ви навіть можете змінити, власне, командний рядок.\n"
 
-#: ../engrave/custom.py:223
+#: ../engrave/custom.py:223 ../file_import/musicxml.py:156
 msgid "The following replacements will be made:"
 msgstr "Буде здійснено наступні заміни:"
 
@@ -1400,7 +1412,7 @@ msgstr ""
 msgid "All the include paths"
 msgstr "Усі шляхи пошуку (include paths)"
 
-#: ../engrave/custom.py:228
+#: ../engrave/custom.py:228 ../file_import/musicxml.py:160
 msgid "The filename of the document"
 msgstr "Назва файла документу"
 
@@ -1570,6 +1582,55 @@ msgstr ""
 msgid ""
 "If you don't want to be warned when a document is changed or deleted by "
 "another application, uncheck the <em>{action}</em> checkbox."
+msgstr ""
+
+#: ../file_import/__init__.py:48
+msgctxt "dialog title"
+msgid "Import a MusicXML file"
+msgstr ""
+
+#: ../file_import/__init__.py:93
+#, fuzzy
+msgid "Import MusicXML..."
+msgstr "&Друкувати твір"
+
+#: ../file_import/__init__.py:94
+msgid "Import a MusicXML file using musicxml2ly."
+msgstr ""
+
+#: ../file_import/musicxml.py:93 ../file_import/musicxml.py:149
+#, fuzzy
+msgid "Import Music XML"
+msgstr "Експортувати як HTML"
+
+#: ../file_import/musicxml.py:94
+#, fuzzy
+msgid "No articulation directions"
+msgstr "&Видалити тривалості"
+
+#: ../file_import/musicxml.py:95
+msgid "No rest positions"
+msgstr ""
+
+#: ../file_import/musicxml.py:96
+msgid "No page layout"
+msgstr ""
+
+#: ../file_import/musicxml.py:97
+msgid "Auto beaming"
+msgstr ""
+
+#: ../file_import/musicxml.py:99
+msgid "Run musicxml2ly"
+msgstr ""
+
+#: ../file_import/musicxml.py:153
+msgid ""
+"In this dialog you can set some parameters for the musicxml2ly import.\n"
+msgstr ""
+
+#: ../file_import/musicxml.py:159
+msgid "The musicxml2ly executable"
 msgstr ""
 
 #: ../help/browser.py:77
@@ -3789,29 +3850,30 @@ msgstr ""
 msgid "Shortcut"
 msgstr "Комбінація клавіш"
 
-#: ../preferences/shortcuts.py:101
-msgid "Menu {name}:"
+#: ../preferences/shortcuts.py:100
+#, fuzzy
+msgid "Menu {name}"
 msgstr "Меню {name}"
 
-#: ../preferences/shortcuts.py:125
+#: ../preferences/shortcuts.py:128
 msgid "Other commands:"
 msgstr "Інші команди:"
 
-#: ../preferences/shortcuts.py:173
+#: ../preferences/shortcuts.py:184
 msgid "&Edit Shortcut for \"{name}\""
 msgstr "Редагувати комбінацію для \"{name}\""
 
-#: ../preferences/shortcuts.py:178
+#: ../preferences/shortcuts.py:189
 msgid "(no shortcut)"
 msgstr "(немає комбінації)"
 
-#: ../preferences/shortcuts.py:206
+#: ../preferences/shortcuts.py:217
 msgid "Remove the shortcut from that command?"
 msgid_plural "Remove the shortcut from those commands?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../preferences/shortcuts.py:309
+#: ../preferences/shortcuts.py:320
 msgid "(default)"
 msgstr ""
 

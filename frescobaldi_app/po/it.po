@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-09-23 17:55+0200\n"
+"POT-Creation-Date: 2013-09-28 08:18+0200\n"
 "PO-Revision-Date: 2013-04-30 21:59+0200\n"
 "Last-Translator: Gianluca D'Orazio <gianluca.dorazio@gmail.com>\n"
 "Language-Team: Italian <>\n"
@@ -60,82 +60,89 @@ msgstr "Progetto Desktop Tango"
 msgid "The following people contributed to {appname}:"
 msgstr "Le seguenti persone hanno contribuito a {appname}:"
 
-#: ../about.py:64
-msgid "{author}: Kinetic Scrolling for the Music View"
+#: ../about.py:71
+#, fuzzy
+msgid "Kinetic Scrolling for the Music View"
 msgstr "{author}: Kinetic Scrolling per l'anteprima dello spartito."
 
-#: ../about.py:67
-msgid "{author}: Improved highlighting and auto-completion of Scheme code"
+#: ../about.py:75
+msgid "Improved highlighting and auto-completion of Scheme code"
 msgstr ""
 
-#: ../about.py:70
-msgid "{author}: Various contributions"
+#: ../about.py:79
+#, fuzzy
+msgid "Various contributions"
+msgstr "Come contribuire"
+
+#: ../about.py:83
+#, fuzzy
+msgid "Modal Transpose"
+msgstr "&Trasponi..."
+
+#: ../about.py:87
+msgid "Quick Insert buttons for grace notes"
 msgstr ""
 
-#: ../about.py:73
-msgid "{author}: Modal Transpose"
+#: ../about.py:88
+msgid "MusicXML import"
 msgstr ""
 
-#: ../about.py:76
-msgid "{author}: Quick Insert buttons for grace notes"
-msgstr ""
-
-#: ../about.py:81
+#: ../about.py:93
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} è tradotto in queste lingue:"
 
-#: ../about.py:100
+#: ../about.py:112
 msgid "About {appname}"
 msgstr "A proposito di {appname}"
 
-#: ../about.py:107
+#: ../about.py:119
 msgid "About"
 msgstr "A proposito"
 
-#: ../about.py:108 ../help/contents.py:330
+#: ../about.py:120 ../help/contents.py:330
 msgid "Credits"
 msgstr "Riconoscimenti"
 
-#: ../about.py:109
+#: ../about.py:121
 msgid "Version"
 msgstr "Versione"
 
-#: ../about.py:164
+#: ../about.py:176
 msgid "Operating System"
 msgstr "Sistema operativo"
 
-#: ../about.py:171
+#: ../about.py:183
 msgid "Version {version}"
 msgstr "Versione {version}"
 
-#: ../about.py:172 ../main.py:57
+#: ../about.py:184 ../main.py:57
 msgid "A LilyPond Music Editor"
 msgstr "Editor musicale per LilyPond"
 
-#: ../about.py:173
+#: ../about.py:185
 msgid "Copyright (c) {year} by {author}"
 msgstr "Copyright (c) {year} di {author}"
 
-#: ../about.py:177
+#: ../about.py:189
 msgid "Send an e-mail message to the maintainers."
 msgstr "Invia un messaggio agli sviluppatori."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: ../about.py:180 ../help/contents.py:57
+#: ../about.py:192 ../help/contents.py:57
 msgid "Translated by Your Name."
 msgstr "Tradotto da Gianluca D'Orazio."
 
-#: ../about.py:185
+#: ../about.py:197
 msgid "Licensed under the {gpl}."
 msgstr "Rilasciato con licenza {gpl}."
 
-#: ../actioncollectionmanager.py:122 ../preferences/shortcuts.py:203
+#: ../actioncollectionmanager.py:122 ../preferences/shortcuts.py:214
 msgid "This shortcut conflicts with the following command:"
 msgid_plural "This shortcut conflicts with the following commands:"
 msgstr[0] "Questa scorciatoia è in conflitto con il seguente comando:"
 msgstr[1] "Questa scorciatoia è in conflitto con i seguenti comandi:"
 
-#: ../actioncollectionmanager.py:128 ../preferences/shortcuts.py:209
+#: ../actioncollectionmanager.py:128 ../preferences/shortcuts.py:220
 msgid "Shortcut Conflict"
 msgstr "Conflitto fra scorciatoie"
 
@@ -249,7 +256,7 @@ msgid "Both 'from' and 'to' versions need to be set."
 msgstr ""
 "Devono essere impostate sia la versione di partenza che quella di arrivo."
 
-#: ../convert_ly.py:217
+#: ../convert_ly.py:208
 msgid ""
 "Could not start {convert_ly}:\n"
 "\n"
@@ -259,7 +266,7 @@ msgstr ""
 "\n"
 "{message}\n"
 
-#: ../convert_ly.py:223
+#: ../convert_ly.py:214
 msgid "The document has not been changed."
 msgstr "Il documento non è stato modificato."
 
@@ -421,7 +428,7 @@ msgstr "Dimensione del rigo:"
 msgid "Error"
 msgstr "Errore"
 
-#: ../helpers.py:102 ../job.py:250
+#: ../helpers.py:102 ../job.py:258
 msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
@@ -560,31 +567,31 @@ msgstr ""
 msgid "Select Color"
 msgstr "Scelta del colore"
 
-#: ../job.py:239
+#: ../job.py:247
 msgid "Starting {job}..."
 msgstr "{job} in avvio..."
 
-#: ../job.py:244
+#: ../job.py:252
 msgid "Aborting {job}..."
 msgstr "{job} in arresto..."
 
-#: ../job.py:253
+#: ../job.py:261
 msgid "Could not read from the process."
 msgstr "Impossibile avere informazioni dall'esecuzione di LilyPond."
 
-#: ../job.py:255
+#: ../job.py:263
 msgid "An unknown error occured."
 msgstr "Si è verificato un errore sconosciuto."
 
-#: ../job.py:260
+#: ../job.py:268
 msgid "Exited with return code {code}."
 msgstr "Uscito con codice {code}."
 
-#: ../job.py:262
+#: ../job.py:270
 msgid "Exited with exit status {status}."
 msgstr "Uscito con lo stato {status}."
 
-#: ../job.py:265
+#: ../job.py:273
 msgid "Completed successfully in {time}."
 msgstr "Completato con successo in {time}."
 
@@ -983,73 +990,79 @@ msgstr "Coppie corrispondenti"
 msgid "&Select Matching Pair"
 msgstr "Seleziona co&ppie corrispondenti"
 
-#: ../menu.py:84
+#: ../menu.py:85
 msgctxt "menu title"
 msgid "&File"
 msgstr "&File"
 
-#: ../menu.py:119
+#: ../menu.py:122
+#, fuzzy
+msgctxt "submenu title"
+msgid "&Import"
+msgstr "&Importa..."
+
+#: ../menu.py:130
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Esporta"
 
-#: ../menu.py:127
+#: ../menu.py:138
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "&Modifica"
 
-#: ../menu.py:154
+#: ../menu.py:165
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Visualizza"
 
-#: ../menu.py:182
+#: ../menu.py:193
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "&Raggruppamento "
 
-#: ../menu.py:197
+#: ../menu.py:208
 msgctxt "menu title"
 msgid "&Music"
 msgstr "&Spartito"
 
-#: ../menu.py:224
+#: ../menu.py:235
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:243
+#: ../menu.py:254
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Strumenti"
 
-#: ../menu.py:271
+#: ../menu.py:282
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Parole"
 
-#: ../menu.py:283
+#: ../menu.py:294
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Note"
 
-#: ../menu.py:298
+#: ../menu.py:309
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritmo"
 
-#: ../menu.py:322
+#: ../menu.py:333
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr "&Togli"
 
-#: ../menu.py:340
+#: ../menu.py:351
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Finestra"
 
-#: ../menu.py:360
+#: ../menu.py:371
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Aiuto"
@@ -1303,31 +1316,31 @@ msgstr "Salva tutti i documenti senza nome"
 msgid "Close all untitled documents"
 msgstr "Chiudi tutti i documenti senza nome"
 
-#: ../engrave/__init__.py:179
+#: ../engrave/__init__.py:184
 msgid "&Always Engrave [{docname}]"
 msgstr "Compila &sempre [{docname}]"
 
-#: ../engrave/__init__.py:181
+#: ../engrave/__init__.py:186
 msgid "&Always Engrave This Document"
 msgstr "&Compila sempre questo documento"
 
-#: ../engrave/__init__.py:232
+#: ../engrave/__init__.py:237
 msgid "Engrave"
 msgstr "Compila"
 
-#: ../engrave/__init__.py:233
+#: ../engrave/__init__.py:238
 msgid "&Engrave (preview)"
 msgstr "Compila (&anteprima)"
 
-#: ../engrave/__init__.py:234
+#: ../engrave/__init__.py:239
 msgid "Engrave (&publish)"
 msgstr "Compila (&pubblicazione)"
 
-#: ../engrave/__init__.py:235
+#: ../engrave/__init__.py:240
 msgid "Engrave (&custom)..."
 msgstr "Compila (&personalizzata)..."
 
-#: ../engrave/__init__.py:236
+#: ../engrave/__init__.py:241
 msgid "Abort Engraving &Job"
 msgstr "&Interrompi compilazione"
 
@@ -1363,7 +1376,7 @@ msgstr "Esegui LilyPond con messaggi di esecuzione in inglese"
 msgid "Delete intermediate output files"
 msgstr "Lascia che LilyPond cancelli i file di output intermedi"
 
-#: ../engrave/custom.py:133
+#: ../engrave/custom.py:133 ../file_import/musicxml.py:98
 msgid "Command line:"
 msgstr "Comando:"
 
@@ -1383,7 +1396,7 @@ msgstr ""
 "È anche possibile modificare direttamente il comando che lancia "
 "l'eseguibile.\n"
 
-#: ../engrave/custom.py:223
+#: ../engrave/custom.py:223 ../file_import/musicxml.py:156
 msgid "The following replacements will be made:"
 msgstr "Saranno fatte le seguenti sostituzioni:"
 
@@ -1395,7 +1408,7 @@ msgstr "L'eseguibile di LilyPond"
 msgid "All the include paths"
 msgstr "Tutt i percorsi dei file aggiuntivi per LilyPond"
 
-#: ../engrave/custom.py:228
+#: ../engrave/custom.py:228 ../file_import/musicxml.py:160
 msgid "The filename of the document"
 msgstr "Il nome del documento."
 
@@ -1583,6 +1596,58 @@ msgid ""
 msgstr ""
 "Se non si vuole essere avvisati quando un documento viene modificato o "
 "eliminato da un altro programma, disabilitare la casella <em>{action}</em>."
+
+#: ../file_import/__init__.py:48
+msgctxt "dialog title"
+msgid "Import a MusicXML file"
+msgstr ""
+
+#: ../file_import/__init__.py:93
+#, fuzzy
+msgid "Import MusicXML..."
+msgstr "&Stampa la musica..."
+
+#: ../file_import/__init__.py:94
+msgid "Import a MusicXML file using musicxml2ly."
+msgstr ""
+
+#: ../file_import/musicxml.py:93 ../file_import/musicxml.py:149
+#, fuzzy
+msgid "Import Music XML"
+msgstr "Esporta come HTML"
+
+#: ../file_import/musicxml.py:94
+#, fuzzy
+msgid "No articulation directions"
+msgstr "To&gli le durate"
+
+#: ../file_import/musicxml.py:95
+msgid "No rest positions"
+msgstr ""
+
+#: ../file_import/musicxml.py:96
+msgid "No page layout"
+msgstr ""
+
+#: ../file_import/musicxml.py:97
+msgid "Auto beaming"
+msgstr ""
+
+#: ../file_import/musicxml.py:99
+msgid "Run musicxml2ly"
+msgstr ""
+
+#: ../file_import/musicxml.py:153
+#, fuzzy
+msgid ""
+"In this dialog you can set some parameters for the musicxml2ly import.\n"
+msgstr ""
+"In questa finestra si può modificare una singola riga del testo sorgente."
+
+#: ../file_import/musicxml.py:159
+#, fuzzy
+msgid "The musicxml2ly executable"
+msgstr "L'eseguibile di LilyPond"
 
 #: ../help/browser.py:77
 msgid "Toolbar"
@@ -4368,29 +4433,30 @@ msgstr ""
 msgid "Shortcut"
 msgstr "Scorciatoia"
 
-#: ../preferences/shortcuts.py:101
-msgid "Menu {name}:"
+#: ../preferences/shortcuts.py:100
+#, fuzzy
+msgid "Menu {name}"
 msgstr "Menu {name}:"
 
-#: ../preferences/shortcuts.py:125
+#: ../preferences/shortcuts.py:128
 msgid "Other commands:"
 msgstr "Altri comandi:"
 
-#: ../preferences/shortcuts.py:173
+#: ../preferences/shortcuts.py:184
 msgid "&Edit Shortcut for \"{name}\""
 msgstr "&Modifica la scorciatoia per \"{name}\""
 
-#: ../preferences/shortcuts.py:178
+#: ../preferences/shortcuts.py:189
 msgid "(no shortcut)"
 msgstr "(nessuna scorciatoia)"
 
-#: ../preferences/shortcuts.py:206
+#: ../preferences/shortcuts.py:217
 msgid "Remove the shortcut from that command?"
 msgid_plural "Remove the shortcut from those commands?"
 msgstr[0] "Cancellare la scorciatoia da questo comando?"
 msgstr[1] "Cancellare le scorciatoie da questi comandi?"
 
-#: ../preferences/shortcuts.py:309
+#: ../preferences/shortcuts.py:320
 msgid "(default)"
 msgstr "(predefinita)"
 
