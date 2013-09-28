@@ -2,15 +2,16 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
-Changes in 2.0.11 --
+Changes in 2.0.11 -- October 16th, 2013
 
 * Translations:
   - updated: cs, nl, fr
 * New features:
   - Frescobaldi now has a manpage, kindly provided by Ryan Kavanagh
-  - New Modal Transpose action, contributed by Christopher Bryan
+  - Import MusicXML (using musicxml2ly), contributed by Peter Bjuhr
   - New Quick Insert buttons for different kinds of grace notes, contributed
     by Peter Bjuhr
+  - New Modal Transpose action, contributed by Christopher Bryan
   - New actions to remove articulations etc. from music (wish #180)
   - Edit->Copy to Snippet, to copy the selection or the full document
     contents to a new snippet
@@ -22,6 +23,9 @@ Changes in 2.0.11 --
     the document in the current view.
   - the tempo-tapping button in the score wizard now uses the average clicking
     speed instead of computing the bpm at each click (implementing wish #169)
+  - under the File menu there is also a New with Wizard... action calling the
+    score wizard, creating a new document when clicking Ok, contributed by Urs
+    Liska
 * Bug fixes:
   - various fixes and improvements on Mac OS X by Davide Liessi
   - fix splash screen shown as grey rectangle on some systems
