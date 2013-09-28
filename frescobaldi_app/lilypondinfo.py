@@ -119,8 +119,9 @@ def suitable(version):
     Otherwise the most recent LilyPond version is returned.
     
     """
-    infos_ = sorted(infos(), key=lambda i: i.version())
+    infos_ = [i for i in infos() if i.auto]
     if infos_:
+        infos_.sort(key=lambda i: i.version())
         for i in infos_:
             if i.version() >= version:
                 return i
