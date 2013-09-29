@@ -4,7 +4,7 @@
 #
 #
 #
-# Philippe Massart <>, 2011.
+# Philippe Massart <>, 2011, 2013.
 # Raphaël Doursenaud <rdoursenaud@free.fr>, 2011, 2013.
 # Valentin Villenave <v.villenave@gmail.com>, 2008, 2010.
 # David Bouriaud <david.bouriaud@ac-rouen.fr>, 2009.
@@ -15,20 +15,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-09-28 08:18+0200\n"
-"PO-Revision-Date: 2013-03-24 23:10+0100\n"
+"POT-Creation-Date: 2013-09-29 12:22+0200\n"
+"PO-Revision-Date: 2013-09-29 12:52+0100\n"
 "Last-Translator: Raphaël Doursenaud <rdoursenaud@free.fr>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.5.4\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"X-Generator: Poedit 1.5.7\n"
 "X-Language: fr\n"
 "X-Source-Language: C\n"
 
 #: ../about.py:43
+#, python-brace-format
 msgid "{appname} is written in {python} and uses the {qt} toolkit."
 msgstr "{appname} est écrit en {python} et utilise le toolkit {qt}."
 
@@ -43,6 +44,7 @@ msgid "Qt4"
 msgstr "Qt4"
 
 #: ../about.py:50
+#, python-brace-format
 msgid ""
 "The Music View is powered by the {poppler} library by {authors} and others."
 msgstr ""
@@ -54,6 +56,7 @@ msgid "Poppler"
 msgstr "Poppler"
 
 #: ../about.py:57
+#, python-brace-format
 msgid "Most of the bundled icons are created by {tango}."
 msgstr "La plupart des icônes embarquées sont créées par {tango}."
 
@@ -62,40 +65,42 @@ msgid "The Tango Desktop Project"
 msgstr "Le Projet de Bureau Tango"
 
 #: ../about.py:61
+#, python-brace-format
 msgid "The following people contributed to {appname}:"
 msgstr "Les personnes suivantes ont contribué au développement de {appname}:"
 
 #: ../about.py:71
 msgid "Kinetic Scrolling for the Music View"
-msgstr "{author}: Défilement dynamique pour l'Aperçu."
+msgstr "Défilement dynamique pour l'Aperçu."
 
 #: ../about.py:75
 msgid "Improved highlighting and auto-completion of Scheme code"
 msgstr ""
-"Amélioration de la coloration syntaxique et du complètement automatique du "
-"code Scheme"
+"Coloration syntaxique et complètement automatique du code Scheme améliorés"
 
 #: ../about.py:79
 msgid "Various contributions"
-msgstr "Contributions diverses"
+msgstr "Diverses contributions"
 
 #: ../about.py:83
 msgid "Modal Transpose"
-msgstr "Transposition modale"
+msgstr "Transposition Modale"
 
 #: ../about.py:87
 msgid "Quick Insert buttons for grace notes"
-msgstr "Boutons d'insertion rapide pour les appogiatures"
+msgstr "Boutons d'insertion rapide pour les appoggiatures"
 
 #: ../about.py:88
 msgid "MusicXML import"
 msgstr "Import MusicXML"
 
 #: ../about.py:93
+#, python-brace-format
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} est traduit dans les langues suivantes :"
 
 #: ../about.py:112
+#, python-brace-format
 msgid "About {appname}"
 msgstr "À propos de {appname}"
 
@@ -116,6 +121,7 @@ msgid "Operating System"
 msgstr "Système d'exploitation"
 
 #: ../about.py:183
+#, python-brace-format
 msgid "Version {version}"
 msgstr "Version {version}"
 
@@ -124,6 +130,7 @@ msgid "A LilyPond Music Editor"
 msgstr "Un éditeur de partitions LilyPond"
 
 #: ../about.py:185
+#, python-brace-format
 msgid "Copyright (c) {year} by {author}"
 msgstr "Copyright (c) {year} par {author}"
 
@@ -139,6 +146,7 @@ msgstr ""
 "Doursenaud, Philippe Massart et Denis Bitouzé."
 
 #: ../about.py:197
+#, python-brace-format
 msgid "Licensed under the {gpl}."
 msgstr "Sous licence {gpl}."
 
@@ -242,6 +250,7 @@ msgid "<unknown>"
 msgstr "<inconnu>"
 
 #: ../convert_ly.py:140
+#, python-brace-format
 msgid "Convert-ly from LilyPond {version}"
 msgstr "Lancer convert-ly depuis la version {version} de LilyPond"
 
@@ -262,12 +271,13 @@ msgid "Both 'from' and 'to' versions need to be set."
 msgstr "Versions source et cible doivent être définies"
 
 #: ../convert_ly.py:208
+#, python-brace-format
 msgid ""
 "Could not start {convert_ly}:\n"
 "\n"
 "{message}\n"
 msgstr ""
-"Impossible de lancer convert-ly :\n"
+"Impossible de lancer {convert_ly}:\n"
 "\n"
 "{message}\n"
 
@@ -290,6 +300,7 @@ msgid "Untitled"
 msgstr "Sans titre"
 
 #: ../document.py:160
+#, python-brace-format
 msgid "Untitled ({num})"
 msgstr "Sans titre ({num})"
 
@@ -323,29 +334,30 @@ msgstr "Mettre à jour avec convert-ly"
 
 #: ../documentactions.py:183
 msgid "Remove &Articulations"
-msgstr "Supprimer les &articulations"
+msgstr "Supprimer les &Articulations"
 
 #: ../documentactions.py:184
 msgid "Remove &Ornaments"
-msgstr "Supprimer les &ornements"
+msgstr "Supprimer les &Ornements"
 
 #: ../documentactions.py:185
 msgid "Remove &Instrument Scripts"
-msgstr "Supprimer les scripts d'&instruments"
+msgstr "Supprimer les Scripts d'&Instrument"
 
 #: ../documentactions.py:186
 msgid "Remove &Slurs"
-msgstr "Enleve&r les liaisons"
+msgstr "&Supprimer les Liaisons"
 
 #: ../documentactions.py:187
 msgid "Remove &Dynamics"
-msgstr "Supprimes les nuances"
+msgstr "Supprimer les &Nuances"
 
 #: ../documentactions.py:188
 msgid "Remove Text &Markup (from music)"
-msgstr "Supprimer les textes et markup (de la musique)"
+msgstr "Supprimer le &Markup de Texte (de la musique)"
 
-#: ../documentcontextmenu.py:67 ../mainwindow.py:1009 ../sessions/manager.py:127
+#: ../documentcontextmenu.py:67 ../mainwindow.py:1009
+#: ../sessions/manager.py:127
 msgid "&Save"
 msgstr "Enregistrer"
 
@@ -394,10 +406,10 @@ msgstr "Polices globales"
 
 #: ../globalfontdialog.py:71
 msgid ""
-"Please select the three global fonts to use for <code>\\roman</code>, "
-"<code>\\sans</code>, and <code>\\typewriter</code> respectively. You should "
-"also set the staff size to the global staff size you use in the document (20 "
-"by default)."
+"Please select the three global fonts to use for <code>\\roman</code>, <code>"
+"\\sans</code>, and <code>\\typewriter</code> respectively. You should also "
+"set the staff size to the global staff size you use in the document (20 by "
+"default)."
 msgstr ""
 "Veuillez sélectionner les trois polices globales à utiliser respectivement "
 "pour <code>\\roman</code>, <code>\\sans</code> et <code>\\typewriter</code>. "
@@ -431,6 +443,7 @@ msgid "Error"
 msgstr "Erreur"
 
 #: ../helpers.py:102 ../job.py:258
+#, python-brace-format
 msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
@@ -501,6 +514,7 @@ msgid "Preferences"
 msgstr "Préférences"
 
 #: ../hyphendialog.py:164
+#, python-brace-format
 msgid ""
 "<p>\n"
 "Frescobaldi can automatically place hyphens '{hyphen}' inside texts to make\n"
@@ -574,10 +588,12 @@ msgid "Select Color"
 msgstr "Sélectionner une couleur"
 
 #: ../job.py:247
+#, python-brace-format
 msgid "Starting {job}..."
 msgstr "Démarrage {job}..."
 
 #: ../job.py:252
+#, python-brace-format
 msgid "Aborting {job}..."
 msgstr "Abandon {job}..."
 
@@ -590,18 +606,21 @@ msgid "An unknown error occured."
 msgstr "Une erreur inconnue s'est produite."
 
 #: ../job.py:268
+#, python-brace-format
 msgid "Exited with return code {code}."
 msgstr "Arrêté avec le code de retour {code}."
 
 #: ../job.py:270
+#, python-brace-format
 msgid "Exited with exit status {status}."
 msgstr "Arrêté avec l'état de sortie {status}."
 
 #: ../job.py:273
+#, python-brace-format
 msgid "Completed successfully in {time}."
 msgstr "Terminé avec succès en {time}."
 
-#: ../lilypondinfo.py:142
+#: ../lilypondinfo.py:143
 msgid "Running LilyPond, this can take some time..."
 msgstr "Lancement de LilyPond, cela peut prendre du temps..."
 
@@ -618,6 +637,7 @@ msgid "&Copy Lyrics with hyphenation removed"
 msgstr "&Copier les paroles en enlevant la césure"
 
 #: ../main.py:55
+#, python-brace-format
 msgid "{appname} [options] file ..."
 msgstr "{appname} [options] fichier..."
 
@@ -646,6 +666,7 @@ msgid "NAME"
 msgstr "NOM"
 
 #: ../main.py:65
+#, python-brace-format
 msgid "Session to start ('{none}' for empty session)"
 msgstr "Session à démarrer (« {none} » pour une session vide)"
 
@@ -669,6 +690,7 @@ msgstr "Fermer le document"
 
 # Sauvegarder, sauver ou enregistrer…
 #: ../mainwindow.py:286
+#, python-brace-format
 msgid ""
 "The document \"{name}\" has been modified.\n"
 "Do you want to save your changes or discard them?"
@@ -686,6 +708,7 @@ msgid "Warning"
 msgstr "Avertissement"
 
 #: ../mainwindow.py:355
+#, python-brace-format
 msgid ""
 "Can't load non-local document:\n"
 "\n"
@@ -701,6 +724,7 @@ msgid "Open File"
 msgstr "Ouvrir fichier"
 
 #: ../mainwindow.py:406 ../mainwindow.py:412 ../mainwindow.py:437
+#, python-brace-format
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -726,6 +750,7 @@ msgid "Save Selection"
 msgstr "Enregistrer la sélection"
 
 #: ../mainwindow.py:488 ../mainwindow.py:640 ../snippet/widget.py:320
+#, python-brace-format
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -743,6 +768,7 @@ msgid "Reload"
 msgstr "Recharger"
 
 #: ../mainwindow.py:503
+#, python-brace-format
 msgid ""
 "Could not reload the document:\n"
 "\n"
@@ -766,6 +792,7 @@ msgid "Insert From File"
 msgstr "Insérer depuis le fichier"
 
 #: ../mainwindow.py:580 ../snippet/import_export.py:106
+#, python-brace-format
 msgid ""
 "Can't read from source:\n"
 "\n"
@@ -986,6 +1013,7 @@ msgid "Report a &Bug..."
 msgstr "Rapporter un &bogue..."
 
 #: ../mainwindow.py:1056
+#, python-brace-format
 msgid "&About {appname}..."
 msgstr "&À propos de {appname}..."
 
@@ -1060,7 +1088,7 @@ msgstr "&Rythme"
 #: ../menu.py:333
 msgctxt "submenu title"
 msgid "&Quick Remove"
-msgstr "&Suppression rapide"
+msgstr "Suppression &Rapide"
 
 #: ../menu.py:351
 msgctxt "menu title"
@@ -1085,10 +1113,12 @@ msgid "Music Preview"
 msgstr "Aperçu"
 
 #: ../popplerdummy.py:42
+#, python-brace-format
 msgid "Could not load the {name} module."
 msgstr "Impossible de charger le module {name}."
 
 #: ../popplerprint.py:54
+#, python-brace-format
 msgid ""
 "No print command to print a PostScript file could be found.\n"
 "\n"
@@ -1110,6 +1140,7 @@ msgid "PDF Document"
 msgstr "Document PDF"
 
 #: ../popplerprint.py:69
+#, python-brace-format
 msgid "Print {filename}"
 msgstr "Imprimer {filename}"
 
@@ -1122,6 +1153,7 @@ msgid "Could not send the document to the printer."
 msgstr "Impossible d'envoyer le document à l'imprimante."
 
 #: ../popplerprint.py:108
+#, python-brace-format
 msgid "Printing page {page} ({num} of {total})..."
 msgstr "Impression de la page {page} ({num} de {total})..."
 
@@ -1177,6 +1209,7 @@ msgstr ""
 "la sélection."
 
 #: ../viewmanager.py:67 ../viewmanager.py:215
+#, python-brace-format
 msgid "Line: {line}, Col: {column}"
 msgstr "Ligne : {line}, Colonne : {column}"
 
@@ -1267,6 +1300,7 @@ msgid "(local)"
 msgstr "(local)"
 
 #: ../docbrowser/browser.py:157
+#, python-brace-format
 msgid "({hostname})"
 msgstr "({hostname})"
 
@@ -1323,6 +1357,7 @@ msgid "Close all untitled documents"
 msgstr "Fermer tous les documents sans titre"
 
 #: ../engrave/__init__.py:184
+#, python-brace-format
 msgid "&Always Engrave [{docname}]"
 msgstr "Toujours gr&aver [{docname}]"
 
@@ -1561,6 +1596,7 @@ msgid "Document on Disk"
 msgstr "Document sur le disque dur"
 
 #: ../externalchanges/widget.py:276
+#, python-brace-format
 msgid ""
 "Document: {url}\n"
 "Difference between the current document and the file on disk:"
@@ -1590,6 +1626,7 @@ msgstr ""
 "tenir compte des modifications effectuées par l'autre application."
 
 #: ../externalchanges/widget.py:299
+#, python-brace-format
 msgid ""
 "When a document is reloaded, you can still press {undokey} to get back the "
 "document as it was in memory before reloading it from disk."
@@ -1599,6 +1636,7 @@ msgstr ""
 "rechargé depuis le disque dur."
 
 #: ../externalchanges/widget.py:302
+#, python-brace-format
 msgid ""
 "Press the <em>{showdiff}</em> button to see the difference between the "
 "current document and its version on disk."
@@ -1607,6 +1645,7 @@ msgstr ""
 "entre le document courant et sa version sur le disque dur."
 
 #: ../externalchanges/widget.py:305
+#, python-brace-format
 msgid ""
 "If you don't want to be warned when a document is changed or deleted by "
 "another application, uncheck the <em>{action}</em> checkbox."
@@ -1621,11 +1660,11 @@ msgstr "Importer un fichier MusicXML"
 
 #: ../file_import/__init__.py:93
 msgid "Import MusicXML..."
-msgstr "Importer MusicXML"
+msgstr "Importer MusicXML…"
 
 #: ../file_import/__init__.py:94
 msgid "Import a MusicXML file using musicxml2ly."
-msgstr "Importer un fichier MusicXML en utilisant musicxml2ly"
+msgstr "Importer un fichier MusicXML à l'aide de musicxml2ly."
 
 #: ../file_import/musicxml.py:93 ../file_import/musicxml.py:149
 msgid "Import Music XML"
@@ -1633,7 +1672,7 @@ msgstr "Importer MusicXML"
 
 #: ../file_import/musicxml.py:94
 msgid "No articulation directions"
-msgstr "Pas de directions d'articulations"
+msgstr "Pas de directions d'articulation"
 
 #: ../file_import/musicxml.py:95
 msgid "No rest positions"
@@ -1649,14 +1688,14 @@ msgstr "Ligatures automatiques"
 
 #: ../file_import/musicxml.py:99
 msgid "Run musicxml2ly"
-msgstr "Démarrer musicxml2ly"
+msgstr "Lancer musicxml2py"
 
 #: ../file_import/musicxml.py:153
 msgid ""
 "In this dialog you can set some parameters for the musicxml2ly import.\n"
 msgstr ""
-"Dans ce dialogue vous pouvez régler plusieurs paramètres pour l'importation "
-"musicxml2ly"
+"Vous pouvez régler certains paramètres pour l'import musicxml2ly dans cette "
+"fenêtre.\n"
 
 #: ../file_import/musicxml.py:159
 msgid "The musicxml2ly executable"
@@ -1692,6 +1731,7 @@ msgid "Frescobaldi Manual"
 msgstr "Manuel de Frescobaldi"
 
 #: ../help/contents.py:50
+#, python-brace-format
 msgid ""
 "<p>\n"
 "Frescobaldi is a light-weight, but powerful editor for LilyPond music "
@@ -1707,6 +1747,7 @@ msgstr ""
 "</p>\n"
 
 #: ../help/contents.py:60
+#, python-brace-format
 msgid ""
 "<h3>How to get help inside Frescobaldi</h3>\n"
 "\n"
@@ -1737,6 +1778,7 @@ msgid "Introduction"
 msgstr "Introduction"
 
 #: ../help/contents.py:95
+#, python-brace-format
 msgid ""
 "<p>\n"
 "<a href=\"http://lilypond.org/\">LilyPond</a>\n"
@@ -1757,8 +1799,8 @@ msgid ""
 "</p>\n"
 "\n"
 "<p>\n"
-"Once you have grasped the basics, the next step would be to use the LilyPond "
-"\n"
+"Once you have grasped the basics, the next step would be to use the "
+"LilyPond \n"
 "Learning Manual from \n"
 "<a href=\"http://lilypond.org/doc/\">LilyPond's excellent online "
 "documentation</a>.\n"
@@ -1824,6 +1866,7 @@ msgid "Copy to Image..."
 msgstr "Copier vers une image..."
 
 #: ../help/contents.py:148
+#, python-brace-format
 msgid ""
 "<p>\n"
 "The default screen of Frescobaldi shows a text document on the left and an\n"
@@ -1909,8 +1952,8 @@ msgid ""
 "the \n"
 "offending line in your text view. Pressing {key_error} again will move to "
 "the \n"
-"next error message, and so on. LilyPond will remove any previous error line "
-"\n"
+"next error message, and so on. LilyPond will remove any previous error "
+"line \n"
 "highlights the next time it is run but you can also remove any error line "
 "markings \n"
 "manually with the option {menu_clear_error_marks}.\n"
@@ -2045,11 +2088,13 @@ msgid "Click an object to move the text cursor to that object"
 msgstr "Cliquer sur un objet pour déplacer le curseur de texte sur cet objet"
 
 #: ../help/contents.py:245
+#, python-brace-format
 msgid "Shift-click an object to edit its text in a small window (see {link})"
 msgstr ""
 "Utilisez Maj-clic sur un objet pour l'éditer dans une fenêtre (voir {link})"
 
 #: ../help/contents.py:247
+#, python-brace-format
 msgid ""
 "Move the text cursor to highlight them in the music view, press {key} to "
 "scroll them into view."
@@ -2074,6 +2119,7 @@ msgstr ""
 "Appuyez sur Ctrl ou Command + clic de gauche pour faire apparaître une loupe"
 
 #: ../help/contents.py:255
+#, python-brace-format
 msgid "Configure the background color under {menu}"
 msgstr "Configurer la couleur de fond sous {menu}"
 
@@ -2098,6 +2144,7 @@ msgid "Preview Background"
 msgstr "Arrière-plan de l'aperçu"
 
 #: ../help/contents.py:259
+#, python-brace-format
 msgid ""
 "You can copy music right from the PDF view to a raster image: Hold Shift and "
 "drag a rectangular selection (or use the right mouse button) and then press "
@@ -2134,8 +2181,8 @@ msgid ""
 "Frescobaldi's homepage is at\n"
 "<a href=\"http://www.frescobaldi.org/\">www.frescobaldi.org</a>\n"
 "and there is a mailinglist at\n"
-"<a "
-"href=\"mailto:frescobaldi@googlegroups.com\">frescobaldi@googlegroups.com</a>\n"
+"<a href=\"mailto:frescobaldi@googlegroups.com\">frescobaldi@googlegroups."
+"com</a>\n"
 "(<a href=\"http://groups.google.com/group/frescobaldi\">more info</a>).\n"
 "</p>\n"
 msgstr ""
@@ -2149,12 +2196,13 @@ msgstr ""
 "La page d'accueil de Frescobaldi est\n"
 "<a href=\"http://www.frescobaldi.org/\">www.frescobaldi.org</a>\n"
 "et une liste de diffusion est disponible sur\n"
-"<a "
-"href=\"mailto:frescobaldi@googlegroups.com\">frescobaldi@googlegroups.com</a>\n"
+"<a href=\"mailto:frescobaldi@googlegroups.com\">frescobaldi@googlegroups."
+"com</a>\n"
 "(<a href=\"http://groups.google.com/group/frescobaldi\">plus d'infos</a>).\n"
 "</p>\n"
 
 #: ../help/contents.py:335
+#, python-brace-format
 msgid "Frescobaldi's main author is {author}."
 msgstr "L'auteur principal de Frescobaldi est {author}."
 
@@ -2163,10 +2211,11 @@ msgid "Contributing"
 msgstr "Contribuer"
 
 #: ../help/contents.py:346
+#, python-brace-format
 msgid ""
 "<p>\n"
-"Frescobaldi is a <a "
-"href=\"http://www.gnu.org/philosophy/free-sw.html\">Free\n"
+"Frescobaldi is a <a href=\"http://www.gnu.org/philosophy/free-sw.html"
+"\">Free\n"
 "Software</a> project to create a user friendly LilyPond music score editor.\n"
 "The goal is to make Frescobaldi available on all major platforms.\n"
 "</p>\n"
@@ -2189,12 +2238,12 @@ msgid ""
 "</p>\n"
 msgstr ""
 "<p>\n"
-"Frescobaldi est un <a "
-"href=\"http://www.gnu.org/philosophy/free-sw.html\">Logiciel\n"
+"Frescobaldi est un <a href=\"http://www.gnu.org/philosophy/free-sw.html"
+"\">Logiciel\n"
 "Libre</a> visant à développer un éditeur de partitions LilyPond facile "
 "d'accès.\n"
-"Le but est de rendre Frescobaldi accessible sur les principales "
-"plate-formes.\n"
+"Le but est de rendre Frescobaldi accessible sur les principales plate-"
+"formes.\n"
 "</p>\n"
 "\n"
 "<p>\n"
@@ -2296,6 +2345,7 @@ msgid "Search and replace"
 msgstr "Recherche et remplacer"
 
 #: ../help/contents.py:428
+#, python-brace-format
 msgid ""
 "<p>\n"
 "In the menu {edit_menu} the commands Find ({key_search})\n"
@@ -2328,8 +2378,8 @@ msgid ""
 "<dd>matches one of the contained characters</dd>\n"
 "<dt><code>( )</code></dt>\n"
 "<dd>group characters. This also saves the matched text in the group.\n"
-"When replacing, you can use characters like <code>\\1</code>, "
-"<code>\\2</code>\n"
+"When replacing, you can use characters like <code>\\1</code>, <code>\\2</"
+"code>\n"
 "etcetera, to write the text of the corresponding group in the replacement "
 "text.\n"
 "</dd>\n"
@@ -2340,8 +2390,8 @@ msgid ""
 "\n"
 "<p>\n"
 "A full discussion on regular expressions can be found in the\n"
-"<a "
-"href=\"http://docs.python.org/library/re.html#regular-expression-syntax\">Python\n"
+"<a href=\"http://docs.python.org/library/re.html#regular-expression-syntax"
+"\">Python\n"
 "documentation</a>.\n"
 "</p>\n"
 msgstr ""
@@ -2369,8 +2419,8 @@ msgstr ""
 "\n"
 "<dl compact=\"compact\">\n"
 "<dt><code>*</code></dt>\n"
-"<dd>correspond au précédent caractère ou groupe, aucune ou plusieurs "
-"fois</dd>\n"
+"<dd>correspond au précédent caractère ou groupe, aucune ou plusieurs fois</"
+"dd>\n"
 "<dt><code>+</code></dt>\n"
 "<dd>correspond au précédent caractère ou groupe, une ou plusieurs fois</dd>\n"
 "<dt><code>?</code></dt>\n"
@@ -2382,8 +2432,8 @@ msgstr ""
 "dans le groupe.\n"
 "En remplaçant, vous pouvez utiliser des caractères comme <code>\\1</code>, "
 "<code>\\2</code>\n"
-"etc., pour écrire le texte du groupe de texte de remplacement "
-"correspondant.</dd>\n"
+"etc., pour écrire le texte du groupe de texte de remplacement correspondant."
+"</dd>\n"
 "<dt><code>\\\\ \\n \\t \\s \\d \\w</code></dt>\n"
 "<dd>correspondent respectivement à un antislash, une nouvelle ligne, une "
 "tabulation,\n"
@@ -2393,9 +2443,8 @@ msgstr ""
 "<p>\n"
 "Des informations plus complètes concernant les expressions régulières se "
 "trouvent dans\n"
-"<a "
-"href=\"http://docs.python.org/library/re.html#regular-expression-syntax\">la "
-"documentation\n"
+"<a href=\"http://docs.python.org/library/re.html#regular-expression-syntax"
+"\">la documentation\n"
 "Python</a>.\n"
 "</p>\n"
 
@@ -2489,10 +2538,12 @@ msgid "The width of a tab character, by default 8."
 msgstr "La largeur d'une tabulation, par défaut 8 espaces."
 
 #: ../help/contents.py:510
+#, python-brace-format
 msgid "Whether to use tabs in indent, by default {no}."
 msgstr "Utilisation de tabulations pour l'indentation. Par défaut : {no}."
 
 #: ../help/contents.py:513
+#, python-brace-format
 msgid "Whether to use tabs elsewhere in the document, by default {yes}."
 msgstr ""
 "Utilisation de tabulations n'importe où dans le document. Par défaut : {yes}."
@@ -2507,6 +2558,7 @@ msgid "You can put document variables in comments."
 msgstr "Vous pouvez placer des variables de document dans les commentaires."
 
 #: ../help/contents.py:534
+#, python-brace-format
 msgid "The \"{output}\" document variable"
 msgstr "La variable « {output} » du document"
 
@@ -2549,15 +2601,16 @@ msgstr ""
 "Vous pouvez positionner cette variable au cas où la détermination "
 "automatique du nom de fichier de sortie serait trop gourmande en temps de "
 "calcul (Frescobaldi analyse le document et tous les documents qu'il inclut, "
-"à la recherche de commande spécifiant le fichier de sortie comme "
-"<code>\\bookOutputName</code>, etc); ou quand la détermination automatique "
-"échoue à cause de code LilyPond trop complexes."
+"à la recherche de commande spécifiant le fichier de sortie comme <code>"
+"\\bookOutputName</code>, etc); ou quand la détermination automatique échoue "
+"à cause de code LilyPond trop complexes."
 
 #: ../help/contents.py:569
 msgid "Sessions"
 msgstr "Sessions"
 
 #: ../help/contents.py:573
+#, python-brace-format
 msgid ""
 "A session is basically a list of open files. At any time you can choose "
 "{menu_session_save} or {menu_session_new} and save the current list of open "
@@ -2585,6 +2638,7 @@ msgstr ""
 "fermés puis les documents de l'autre session sont ouverts."
 
 #: ../help/contents.py:580
+#, python-brace-format
 msgid ""
 "Inside the session properties dialog, you can choose whether to always save "
 "the list of open documents to that session, or to only save on creation (or "
@@ -2642,15 +2696,15 @@ msgid ""
 "Frescobaldi is able to determine the output file names by looking at the "
 "document's filename and the various LilyPond commands that specify the "
 "output filename or -suffix. Frescobaldi even searches <code>\\include</code> "
-"files for commands like <code>\\bookOutputName</code> and "
-"<code>\\bookOutputSuffix</code>."
+"files for commands like <code>\\bookOutputName</code> and <code>"
+"\\bookOutputSuffix</code>."
 msgstr ""
 "Frescobaldi est capable de déterminer le nom des fichiers de sortie en "
 "analysant le nom de fichier du document et les différentes commandes de "
 "LilyPond qui spécifient le fichier de sortie ou l'option -suffix. "
-"Frescobaldi cherche également les fichiers inclus par la directive "
-"<code>\\include</code> pour les commandes comme "
-"<code>\\bookOutputName</code> et <code>\\bookOutputSuffix</code>."
+"Frescobaldi cherche également les fichiers inclus par la directive <code>"
+"\\include</code> pour les commandes comme <code>\\bookOutputName</code> et "
+"<code>\\bookOutputSuffix</code>."
 
 #: ../help/contents.py:627
 msgid ""
@@ -2663,6 +2717,7 @@ msgstr ""
 "déterminer correctement ces noms."
 
 #: ../help/contents.py:630
+#, python-brace-format
 msgid ""
 "In that case you can override the base name(s) using the {output} document "
 "variable."
@@ -2901,6 +2956,7 @@ msgstr "Ajuster à la page"
 
 #. L10N: page numbering: page {num} of {total}
 #: ../musicview/__init__.py:526
+#, python-brace-format
 msgid "{num} of {total}"
 msgstr "{num} sur {total}"
 
@@ -2910,6 +2966,7 @@ msgid "Edit in Place"
 msgstr "Éditer en ligne"
 
 #: ../musicview/editinplace.py:147
+#, python-brace-format
 msgid "Editing line {linenum} of \"{document}\" ({variable})"
 msgstr "Édition de la ligne {linenum} de « {document} » ({variable})"
 
@@ -2919,20 +2976,22 @@ msgstr ""
 "Dans ce dialogue vous pouvez éditer une ligne unique du document texte."
 
 #: ../musicview/editinplace.py:251
+#, python-brace-format
 msgid "Click OK or press {key} to place the modified text in the document."
 msgstr ""
 "Cliquez sur OK ou appuyez sur la touche {key} pour insérer le texte modifié "
 "dans le document."
 
 #: ../musicview/editinplace.py:253
+#, python-brace-format
 msgid ""
 "You can open the \"Edit in Place\" dialog by Shift-clicking a clickable "
 "object in the Music View or by right-clicking the object and selecting "
 "{menu}."
 msgstr ""
-"Vous pouvez ouvrir la boite de dialogue « Éditer en ligne » en utilisant "
-"Maj-Clic sur un object cliquable dans l'Aperçu ou en utilisant Clic-Droit "
-"sur cet objet et en sélectionnant {menu}."
+"Vous pouvez ouvrir la boite de dialogue « Éditer en ligne » en utilisant Maj-"
+"Clic sur un object cliquable dans l'Aperçu ou en utilisant Clic-Droit sur "
+"cet objet et en sélectionnant {menu}."
 
 #: ../musicview/image.py:127
 msgid "DPI:"
@@ -2967,7 +3026,7 @@ msgid "&Save As..."
 msgstr "Enregistrer &sous..."
 
 #: ../musicview/image.py:137
-#, no-python-format
+#, no-python-format, python-brace-format
 msgid ""
 "<p>\n"
 "Clicking toggles the display between 100% size and window size. Drag to copy "
@@ -2990,6 +3049,7 @@ msgstr ""
 "</p>"
 
 #: ../musicview/image.py:168
+#, python-brace-format
 msgid "Image from {filename}"
 msgstr "Image depuis {filename}"
 
@@ -3055,7 +3115,7 @@ msgstr "Transpose toutes les notes du document ou de la sélection."
 
 #: ../pitch/__init__.py:126
 msgid "&Modal Transpose..."
-msgstr "Transposition modale..."
+msgstr "Transposition &Modale…"
 
 #: ../pitch/__init__.py:128
 msgid "Transposes all notes in the document or selection within a given mode."
@@ -3067,6 +3127,7 @@ msgid "Pitch Name Language"
 msgstr "Langue du nom des notes"
 
 #: ../pitch/pitch.py:83
+#, python-brace-format
 msgid ""
 "Can't perform the requested translation.\n"
 "\n"
@@ -3101,6 +3162,7 @@ msgid "Transpose"
 msgstr "Transposer"
 
 #: ../pitch/pitch.py:404
+#, python-brace-format
 msgid ""
 "Please enter two absolute pitches, separated by a space, using the pitch "
 "name language \"{language}\"."
@@ -3113,9 +3175,11 @@ msgid ""
 "Please enter the number of steps to alter by, followed by a key signature. "
 "(i.e. \"5 F\")"
 msgstr ""
-"Entrez un nombre de hauteurs à altérer, suivi par une armure p. ex. \"5 F\") "
+"Veuillez saisir le nombre de hauteurs à altérer suivi par une armure. (par ex. "
+"« 5 F »)"
 
 #: ../pitch/pitch.py:627
+#, python-brace-format
 msgid ""
 "Can't perform the requested transposition.\n"
 "\n"
@@ -3132,6 +3196,7 @@ msgid "Pitch manipulation"
 msgstr "Manipulation des hauteurs"
 
 #: ../pitch/pitch.py:761
+#, python-brace-format
 msgid ""
 "<p>\n"
 "Frescobaldi offers the following pitch-manipulating functions,\n"
@@ -3265,8 +3330,8 @@ msgstr ""
 "</p>\n"
 "\n"
 "<p>\n"
-"Pour transposer d'une seconde majeure vers le bas, vous pouvez saisir :<br "
-"/>\n"
+"Pour transposer d'une seconde majeure vers le bas, vous pouvez saisir :<br /"
+">\n"
 "<code>do sib,</code>\n"
 "</p>\n"
 "\n"
@@ -3495,11 +3560,12 @@ msgstr ""
 "Voir « Qu'est-ce que c'est ? » pour plus d'information."
 
 #: ../preferences/documentation.py:70 ../preferences/prefshelp.py:199
+#, python-brace-format
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
 "A local path should point to the directory where either the "
-"\"{documentation}\" directory lives, or the whole "
-"\"share/doc/lilypond/html/offline-root\" path.</p>\n"
+"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
+"offline-root\" path.</p>\n"
 "<p>If those can't be found, documentation is looked for in all "
 "subdirectories of the given path, one level deep. This makes it possible to "
 "put multiple versions of LilyPond documentation in different subdirectories "
@@ -3548,6 +3614,7 @@ msgid "Default Styles"
 msgstr "Styles par défaut"
 
 #: ../preferences/fontscolors.py:157
+#, python-brace-format
 msgid "(Inherits: {name})"
 msgstr "(Hérite de : {name})"
 
@@ -3828,6 +3895,7 @@ msgid "Use System Icons"
 msgstr "Utiliser les icônes système"
 
 #: ../preferences/general.py:136
+#, python-brace-format
 msgid ""
 "If checked, icons of the desktop icon theme will be used instead of the "
 "bundled icons.\n"
@@ -3938,9 +4006,9 @@ msgid ""
 "empty to use the operating system default application."
 msgstr ""
 "Vous pouvez saisir ci-dessous les commandes pour ouvrir divers types de "
-"fichiers. <code>$f</code> est remplacé par le nom du fichier, "
-"<code>$u</code> par l'URL. Laissez un champ vide pour utiliser l'application "
-"défaut du système d'exploitation."
+"fichiers. <code>$f</code> est remplacé par le nom du fichier, <code>$u</"
+"code> par l'URL. Laissez un champ vide pour utiliser l'application défaut du "
+"système d'exploitation."
 
 #: ../preferences/helpers.py:90
 msgid "Command that should accept a mailto: URL."
@@ -3970,22 +4038,21 @@ msgstr ""
 
 #: ../preferences/lilypond.py:88 ../preferences/prefshelp.py:109
 msgid ""
-"<p>If this setting is enabled, the document is searched for a LilyPond "
-"<code>\\version</code> command or a <code>version</code> document "
-"variable.</p>\n"
+"<p>If this setting is enabled, the document is searched for a LilyPond <code>"
+"\\version</code> command or a <code>version</code> document variable.</p>\n"
 "<p>The LilyPond version command looks like:</p>\n"
 "<pre>\\version \"2.14.0\"</pre>\n"
 "<p>The document variable looks like:</p>\n"
 "<pre>-*- version: 2.14.0;</pre>\n"
 "<p>somewhere (in a comments section) in the first or last 5 lines of the "
-"document. This way the LilyPond version to use can also be specified in "
-"non-LilyPond documents like HTML, LaTeX, etc.</p>\n"
+"document. This way the LilyPond version to use can also be specified in non-"
+"LilyPond documents like HTML, LaTeX, etc.</p>\n"
 "<p>If the document specifies a version, the oldest suitable LilyPond version "
 "is chosen. Otherwise, the default version is chosen.</p>\n"
 msgstr ""
 "<p>Si ce réglage est activé, le document est cherché pour une commande "
-"LilyPond <code>\\version</code> ou une variable de document "
-"<code>version</code>.</p>\n"
+"LilyPond <code>\\version</code> ou une variable de document <code>version</"
+"code>.</p>\n"
 "<p>La commande LilyPond version ressemble à ceci : </p>\n"
 "<pre>\\version \"2.14.0\"</pre>\n"
 "<p>La variable de document ressemble à : </p>\n"
@@ -3998,6 +4065,7 @@ msgstr ""
 "utilisable est choisie. Autrement, la version par défaut est choisie.</p>\n"
 
 #: ../preferences/lilypond.py:102
+#, python-brace-format
 msgid "See also {link}."
 msgstr "Voir aussi {link}"
 
@@ -4141,6 +4209,7 @@ msgid "Folders containing hyphenation dictionaries"
 msgstr "Dossiers contenant les dictionnaires de césures de paroles"
 
 #: ../preferences/prefshelp.py:36
+#, python-brace-format
 msgid ""
 "In the Preferences Dialog (under {menu}) you can configure many aspects of "
 "Frescobaldi and LilyPond."
@@ -4149,6 +4218,7 @@ msgstr ""
 "nombreux aspects de Frescobaldi et LilyPond."
 
 #: ../preferences/prefshelp.py:52
+#, python-brace-format
 msgid ""
 "Under <em>{general_preferences}</em>, you can choose in which language "
 "Frescobaldi's user interface is translated, which user interface style you "
@@ -4169,6 +4239,7 @@ msgstr ""
 "d’icônes n'est effectif qu'après redémarrage de Frescobaldi."
 
 #: ../preferences/prefshelp.py:60
+#, python-brace-format
 msgid ""
 "Under <em>{startup}</em> you can configure which session to load if "
 "Frescobaldi is started without a filename. You can choose whether to start "
@@ -4181,6 +4252,7 @@ msgstr ""
 "session définie. Voir aussi {link}."
 
 #: ../preferences/prefshelp.py:67
+#, python-brace-format
 msgid ""
 "Under <em>{saving}</em>, you can choose what to do when a document is saved, "
 "such as remembering the cursor position and marked lines, or leaving a "
@@ -4201,6 +4273,7 @@ msgstr ""
 "compilez votre document."
 
 #: ../preferences/prefshelp.py:85
+#, python-brace-format
 msgid ""
 "If you have multiple versions of LilyPond installed you can specify them "
 "here, and configure Frescobaldi to automatically choose the right one, based "
@@ -4238,8 +4311,8 @@ msgstr ""
 
 #: ../preferences/prefshelp.py:97
 msgid ""
-"Finally, you can specify a list of paths where the LilyPond "
-"<code>\\include</code> command looks for files."
+"Finally, you can specify a list of paths where the LilyPond <code>\\include</"
+"code> command looks for files."
 msgstr ""
 "Enfin, vous pouvez définir une liste de chemins d'accès où la commande "
 "LilyPond <code>\\include</code> cherchera des fichiers."
@@ -4278,6 +4351,7 @@ msgstr ""
 "premier disponible."
 
 #: ../preferences/prefshelp.py:145
+#, python-brace-format
 msgid ""
 "And finally, when using a software synthesizer it is recommended to enable "
 "the option <em>{close_unused}</em>."
@@ -4287,14 +4361,14 @@ msgstr ""
 
 #: ../preferences/prefshelp.py:165
 msgid ""
-"In this page you can enter commands to open different file types. "
-"<code>$f</code> is replaced with the filename, <code>$u</code> with the URL. "
-"Leave a field empty to use the operating system default application."
+"In this page you can enter commands to open different file types. <code>$f</"
+"code> is replaced with the filename, <code>$u</code> with the URL. Leave a "
+"field empty to use the operating system default application."
 msgstr ""
 "Vous pouvez saisir ci-dessous les commandes pour ouvrir divers types de "
-"fichiers. <code>$f</code> est remplacé par le nom du fichier, "
-"<code>$u</code> par l'URL. Laissez un champ vide pour utiliser l'application "
-"défaut du système d'exploitation."
+"fichiers. <code>$f</code> est remplacé par le nom du fichier, <code>$u</"
+"code> par l'URL. Laissez un champ vide pour utiliser l'application défaut du "
+"système d'exploitation."
 
 #: ../preferences/prefshelp.py:170
 msgid ""
@@ -4325,6 +4399,7 @@ msgstr ""
 "textes des paroles en syllabes."
 
 #: ../preferences/prefshelp.py:217
+#, python-brace-format
 msgid ""
 "Here you can add keyboard shortcuts to all commands available. Also the "
 "{snippets} or {quickinsert} buttons that have keyboard shortcuts are listed "
@@ -4334,8 +4409,8 @@ msgstr ""
 "disponibles. Les {snippets} d'{quickinsert} qui ont un raccourci clavier "
 "sont listés ici."
 
-#: ../preferences/prefshelp.py:220 ../snippet/tool.py:57 ../snippet/tool.py:148
-#: ../snippet/widget.py:403
+#: ../preferences/prefshelp.py:220 ../snippet/tool.py:57
+#: ../snippet/tool.py:148 ../snippet/widget.py:403
 msgid "Snippets"
 msgstr "Fragments"
 
@@ -4440,16 +4515,19 @@ msgstr ""
 "complète est indiquée comme élément dans la structure."
 
 #: ../preferences/prefshelp.py:280
+#, python-brace-format
 msgid "You can also use named groups, with the {code} named group syntax."
 msgstr ""
 "Vous pouvez également utilisé des groupes nommés, avec la syntaxe {code} du "
 "groupe nommé."
 
 #: ../preferences/prefshelp.py:282
+#, python-brace-format
 msgid "You can use the name {text} or {title}."
 msgstr "Vous pouvez utiliser le nom {text} ou {title}."
 
 #: ../preferences/prefshelp.py:284
+#, python-brace-format
 msgid ""
 "In that case, only the named part of a match is displayed. If the {title} "
 "name is used, it is displayed in a bold font."
@@ -4458,6 +4536,7 @@ msgstr ""
 "nom de {title} est utilisé, il est affiché en caractères gras."
 
 #: ../preferences/prefshelp.py:287
+#, python-brace-format
 msgid "For more information about regular expressions, see {link}."
 msgstr ""
 "Pour plus d'informations au sujet des expressions régulières, voir {link}."
@@ -4467,14 +4546,16 @@ msgid "Shortcut"
 msgstr "Raccourci"
 
 #: ../preferences/shortcuts.py:100
+#, python-brace-format
 msgid "Menu {name}"
-msgstr "Menu {name} :"
+msgstr "Menu {name}"
 
 #: ../preferences/shortcuts.py:128
 msgid "Other commands:"
 msgstr "Autres commandes :"
 
 #: ../preferences/shortcuts.py:184
+#, python-brace-format
 msgid "&Edit Shortcut for \"{name}\""
 msgstr "Éditer le raccourci pour « {name} »"
 
@@ -4588,7 +4669,7 @@ msgstr ""
 
 #: ../quickinsert/articulations.py:98
 msgid "Remove articulations etc."
-msgstr "Enlever les articulations etc."
+msgstr "Supprimer les articulations etc."
 
 #: ../quickinsert/articulations.py:106 ../quickinsert/articulations.py:138
 msgid "Articulations"
@@ -4868,10 +4949,12 @@ msgid "Straight Caesura"
 msgstr "Césure droite"
 
 #: ../quickinsert/buttongroup.py:175
+#, python-brace-format
 msgid "{name} ({key})"
 msgstr "{name} ({key})"
 
 #: ../quickinsert/buttongroup.py:182
+#, python-brace-format
 msgid "Configure Keyboard Shortcut ({key})"
 msgstr "Configurer le raccourci clavier ({key})"
 
@@ -4889,6 +4972,7 @@ msgid "Dynamic symbols."
 msgstr "Symboles pour les nuances."
 
 #: ../quickinsert/dynamics.py:149
+#, python-brace-format
 msgid "Dynamic sign {name}"
 msgstr "Nuance {name}"
 
@@ -4979,11 +5063,11 @@ msgstr "Tenue"
 
 #: ../quickinsert/spanners.py:190 ../quickinsert/spanners.py:197
 msgid "Grace Notes"
-msgstr "Appogiatures"
+msgstr "Appoggiatures"
 
 #: ../quickinsert/spanners.py:198
 msgid "Grace Notes w. beaming"
-msgstr "Appogiatures avec ligature"
+msgstr "Appoggiatures avec ligature"
 
 #: ../quickinsert/spanners.py:199
 msgid "Acciaccatura"
@@ -5002,6 +5086,7 @@ msgid "After grace"
 msgstr "Appogiature \"après\""
 
 #: ../quickinsert/widget.py:102
+#, python-brace-format
 msgid ""
 "<p>With the Quick Insert Panel you can add various music elements to the "
 "current note or selected music.</p>\n"
@@ -5032,6 +5117,7 @@ msgid "The Quick Insert Panel"
 msgstr "Le panneau d'insertion rapide"
 
 #: ../quickinsert/widget.py:130
+#, python-brace-format
 msgid ""
 "<p>\n"
 "With the tools in the Quick Insert Panel you can add various music elements\n"
@@ -5063,8 +5149,8 @@ msgstr ""
 "ou liaisons\n"
 "apparaissent en position neutre (p. ex. déterminée par la direction de la "
 "hampe de note),\n"
-"au-dessus ou en-dessous de la portée en insérant un caractère "
-"<code>-</code>, <code>^</code> ou\n"
+"au-dessus ou en-dessous de la portée en insérant un caractère <code>-</"
+"code>, <code>^</code> ou\n"
 "<code>_</code>.\n"
 "</p>\n"
 "\n"
@@ -5305,6 +5391,7 @@ msgid "Rhythm manipulation"
 msgstr "Manipulation rythmique"
 
 #: ../rhythm/rhythm.py:247
+#, python-brace-format
 msgid ""
 "<p>\n"
 "The rhythm functions of Frescobaldi alter the durations written after "
@@ -5442,6 +5529,7 @@ msgid "Setup New Score..."
 msgstr "Nouvelle partition..."
 
 #: ../scorewiz/dialog.py:207
+#, python-brace-format
 msgid ""
 "<p>\n"
 "The Score Setup Wizard ({key}) in {menu} is designed\n"
@@ -6175,13 +6263,14 @@ msgctxt "abbreviation for Drums"
 msgid "Dr."
 msgstr "Bat."
 
-#: ../scorewiz/parts/percussion.py:186 ../scorewiz/parts/plucked_strings.py:258
+#: ../scorewiz/parts/percussion.py:186
+#: ../scorewiz/parts/plucked_strings.py:258
 msgid "Voices:"
 msgstr "Voix :"
 
 #: ../scorewiz/parts/percussion.py:188
 msgid "Remove stems"
-msgstr "Ôter les hampes"
+msgstr "Supprimer les hampes"
 
 #: ../scorewiz/parts/percussion.py:189
 msgid "Remove the stems from the drum notes."
@@ -6788,6 +6877,7 @@ msgid "Base directory:"
 msgstr "Dossier de base :"
 
 #: ../sessions/dialog.py:139
+#, python-brace-format
 msgid "Edit session: {name}"
 msgstr "Éditer la session : {name}"
 
@@ -6800,10 +6890,12 @@ msgid "Please enter a session name."
 msgstr "Veuillez saisir un nom de session."
 
 #: ../sessions/dialog.py:180
+#, python-brace-format
 msgid "Please do not use the name '{name}'."
 msgstr "Veuillez ne pas utiliser le nom « {name} »."
 
 #: ../sessions/dialog.py:186
+#, python-brace-format
 msgid ""
 "Another session with the name {name} already exists.\n"
 "\n"
@@ -7060,6 +7152,7 @@ msgstr ""
 "Placer le fragment dans le menu Insérer groupé par la valeur (optionnelle)."
 
 #: ../snippet/edit.py:230
+#, python-brace-format
 msgid ""
 "Place the snippet in the menu {file_new_from_template}, grouped by the "
 "(optional) value. When triggered via the menu, the snippet is inserted into "
@@ -7092,6 +7185,7 @@ msgid "The icon to show in menu and snippet list."
 msgstr "Le symbole à afficher dans le menu et la liste de fragments."
 
 #: ../snippet/edit.py:243
+#, python-brace-format
 msgid ""
 "The symbol to show in menu and snippet list. Symbols are icons that use the "
 "default text color and can be found in {directory}."
@@ -7101,6 +7195,7 @@ msgstr ""
 "dans le dossier {directory}."
 
 #: ../snippet/edit.py:247
+#, python-brace-format
 msgid "Execute the snippet as a Python script. See {link}."
 msgstr "Exécuter le fragment comme un script Python. Voir {link}."
 
@@ -7138,10 +7233,11 @@ msgid "Python Snippets"
 msgstr "Fragments Python"
 
 #: ../snippet/edit.py:284
+#, python-brace-format
 msgid ""
 "<p>Python snippets can read and should set the variable {text}. The variable "
-"{text} contains the currently selected text (which may be an empty "
-"string).</p>\n"
+"{text} contains the currently selected text (which may be an empty string).</"
+"p>\n"
 "<p>You may set {text} to a string or a list of strings.</p>\n"
 "<p>Other variables that may be referenced:</p>"
 msgstr ""
@@ -7166,6 +7262,7 @@ msgstr ""
 "document au moyen du curseur."
 
 #: ../snippet/edit.py:297
+#, python-brace-format
 msgid ""
 "When setting {text} to a list instead of a string, you can use this value to "
 "specify the place the text cursor will be placed after inserting the snippet."
@@ -7175,6 +7272,7 @@ msgstr ""
 "occupera après l'insertion du fragment."
 
 #: ../snippet/edit.py:301
+#, python-brace-format
 msgid ""
 "When setting {text} to a list instead of a string, this value can be used "
 "together with {cursor} to select text when inserting the string parts of the "
@@ -7185,6 +7283,7 @@ msgstr ""
 "de l'insertion des morceaux de chaînes de la liste."
 
 #: ../snippet/edit.py:306
+#, python-brace-format
 msgid ""
 "When you define a function with this name, it is called without arguments, "
 "instead of inserting the text from the {text} variable. In this case you may "
@@ -7227,8 +7326,8 @@ msgid ""
 "Selects text from here to the position given using the <code>$CURSOR</code> "
 "variable"
 msgstr ""
-"Sélectionne le texte d'ici jusqu'à la position donnée par la variable "
-"<code>$CURSOR</code>"
+"Sélectionne le texte d'ici jusqu'à la position donnée par la variable <code>"
+"$CURSOR</code>"
 
 #: ../snippet/expand.py:108
 msgid "The selected text if available. If not, the text cursor is moved here."
@@ -7270,6 +7369,7 @@ msgid "There are no new or updated snippets in the file."
 msgstr "Il n'y a aucun fragment nouveau ou mis à jour dans ce fichier."
 
 #: ../snippet/import_export.py:197
+#, python-brace-format
 msgid ""
 "<p>Here the snippets from {filename} are displayed.</p>\n"
 "<p>If there are new or updated snippets, you can select or deselect them one "
@@ -7282,8 +7382,8 @@ msgstr ""
 "sélectionner ou les désélectionner un par un, ou tous ensemble en utilisant "
 "la case à cocher du groupe. Cliquez OK pour importer tous les fragments "
 "sélectionnés.</p>\n"
-"<p>Les fragments existants ou non modifiés ne peuvent pas être "
-"importés.</p>\n"
+"<p>Les fragments existants ou non modifiés ne peuvent pas être importés.</"
+"p>\n"
 
 #: ../snippet/import_export.py:235
 msgid "Importing and exporting snippets"
@@ -7295,12 +7395,13 @@ msgstr ""
 "Les fragments peuvent être importé depuis / exportés vers des fichiers XML."
 
 #: ../snippet/import_export.py:240
+#, python-brace-format
 msgid ""
 "To export snippets, either select them in the snippet manager, or filter the "
 "snippets using the search bar and select none, so that all the snippets "
 "visible in the snippet manager are exported. Export the snippets by "
-"selecting {menu}, and then choose a file name, preferably ending in "
-"<code>.xml</code>."
+"selecting {menu}, and then choose a file name, preferably ending in <code>."
+"xml</code>."
 msgstr ""
 "Pour exporter des fragments, vous pouvez soit les sélectionner dans le "
 "gestionnaire de fragments, ou filtrer les fragments grâce à la barre de "
@@ -7319,6 +7420,7 @@ msgid "E&xport..."
 msgstr "E&xporter"
 
 #: ../snippet/import_export.py:246
+#, python-brace-format
 msgid ""
 "To import snippets, select {menu} and choose the file you want to import. "
 "You may also drop an XML file on the snippet manager. A dialog will be "
@@ -7401,6 +7503,7 @@ msgid "Overwrite Template?"
 msgstr "Écraser le modèle ?"
 
 #: ../snippet/template.py:50
+#, python-brace-format
 msgid ""
 "A template named \"{name}\" already exists.\n"
 "\n"
@@ -7435,6 +7538,7 @@ msgid "&Add..."
 msgstr "&Ajouter..."
 
 #: ../snippet/widget.py:186
+#, python-brace-format
 msgid "Add a new snippet. ({key})"
 msgstr "Ajouter un nouveau fragment. ({key})"
 
@@ -7443,6 +7547,7 @@ msgid "&Edit..."
 msgstr "&Éditer..."
 
 #: ../snippet/widget.py:189
+#, python-brace-format
 msgid "Edit the current snippet. ({key})"
 msgstr "Éditer le fragment courant. ({key})"
 
@@ -7499,6 +7604,7 @@ msgstr ""
 "Entrée pour appliquer le fragment sélectionné."
 
 #: ../snippet/widget.py:209
+#, python-brace-format
 msgid ""
 "If the search text fully matches the value of the '{name}' variable of a "
 "snippet, that snippet is selected."
@@ -7519,6 +7625,7 @@ msgstr ""
 "triés si la valeur de la variable donnée contient le texte après l'espace."
 
 #: ../snippet/widget.py:216
+#, python-brace-format
 msgid ""
 "E.g. entering {menu} will show all snippets that are displayed in the insert "
 "menu."
@@ -7531,6 +7638,7 @@ msgid "XML Files"
 msgstr "Fichiers XML"
 
 #: ../snippet/widget.py:312
+#, python-brace-format
 msgctxt "dialog title"
 msgid "Export {num} Snippet"
 msgid_plural "Export {num} Snippets"
@@ -7538,6 +7646,7 @@ msgstr[0] "Exporter {num} fragment"
 msgstr[1] "Exporter {num} fragments"
 
 #: ../snippet/widget.py:407
+#, python-brace-format
 msgid ""
 "<p>\n"
 "With the snippets manager you can store often used pieces of text called\n"
@@ -7637,6 +7746,7 @@ msgstr ""
 "plus efficace est d'utiliser une variable de fragment."
 
 #: ../snippet/widget.py:464
+#, python-brace-format
 msgid ""
 "It is suggested to use the \"{set}\" variable, and set it to the name of the "
 "library you want the snippet to belong to."
@@ -7645,6 +7755,7 @@ msgstr ""
 "le nom de la bibliothèque à laquelle le fragment doit appartenir."
 
 #: ../snippet/widget.py:467
+#, python-brace-format
 msgid ""
 "Then in the snippet manager, you can easily select all the snippets "
 "belonging to the library by entering <code>:{set} name</code> in the snippet "
@@ -7700,6 +7811,7 @@ msgid "Use a &custom shortcut:"
 msgstr "Utiliser un ra&ccourci personnalisé :"
 
 #: ../widgets/shortcuteditdialog.py:98
+#, python-brace-format
 msgid "Alternative #{num}:"
 msgstr "Alternative n°{num} :"
 
@@ -7708,6 +7820,7 @@ msgid "Primary shortcut:"
 msgstr "Raccourci principal :"
 
 #: ../widgets/shortcuteditdialog.py:109
+#, python-brace-format
 msgid "Here you can edit the shortcuts for {name}"
 msgstr "Vous pouvez éditer les raccourcis pour {name}"
 
@@ -7717,6 +7830,7 @@ msgid "none"
 msgstr "aucun"
 
 #: ../widgets/shortcuteditdialog.py:128
+#, python-brace-format
 msgid "Use &default shortcut ({name})"
 msgstr "Utiliser le raccourci par &défaut ({name})"
 
@@ -7730,10 +7844,10 @@ msgid ""
 "\n"
 "The average speed of clicking is used; wait 3 seconds to \"reset\"."
 msgstr ""
-"Cliquer ce bouton pour définir le tempo.\n"
+"Taper sur ce bouton pour régler le tempo.\n"
 "\n"
-"La vitesse moyenne de clic est utilisée; attendez 3 secondes pour \"remettre "
-"à zéro\"."
+"La vitesse d'appui moyenne est utilisée ; attendre 3 secondes pour "
+"« réinitialiser »."
 
 #: ../widgets/urlrequester.py:65
 msgid "Open file dialog"
@@ -8136,8 +8250,8 @@ msgstr "Sélectionner un fichier"
 #~ "B: bass clef\n"
 #~ "\n"
 #~ "So when you want to create music paper for a four-part mixed choir score, "
-#~ "first set the number of staves per system to 4. Then enter \"SATB\" "
-#~ "(without the quotes) here."
+#~ "first set the number of staves per system to 4. Then enter \"SATB"
+#~ "\" (without the quotes) here."
 #~ msgstr ""
 #~ "Pour configurer les clés, saisissez le nombre de portées par système. "
 #~ "Ensuite saisissez autant de lettres (S, A, T ou B) qu'il y a de portées.\n"
@@ -8310,8 +8424,8 @@ msgstr "Sélectionner un fichier"
 #~ msgstr ""
 #~ "Voici la liste des abréviations définies.\n"
 #~ "\n"
-#~ "Cliquez sur une ligne pour voir ou changer le texte associé. "
-#~ "Double-cliquez sur une abréviation ou sa description pour la modifier, ou "
+#~ "Cliquez sur une ligne pour voir ou changer le texte associé. Double-"
+#~ "cliquez sur une abréviation ou sa description pour la modifier, ou "
 #~ "appuyez sur F2 pour éditer l'abréviation sélectionnée.\n"
 #~ "\n"
 #~ "Utilisez les boutons ci-dessous pour ajouter ou enlever des "
@@ -8577,17 +8691,17 @@ msgstr "Sélectionner un fichier"
 #~ "You want to run LilyPond in preview mode (with point and click enabled), "
 #~ "but your document contains a command to turn point and click off."
 #~ msgstr ""
-#~ "Vous souhaitez lancer LilyPond en mode aperçu (avec l'option "
-#~ "point-and-click), mais votre document contient une commande qui désactive "
-#~ "le point-and-click."
+#~ "Vous souhaitez lancer LilyPond en mode aperçu (avec l'option point-and-"
+#~ "click), mais votre document contient une commande qui désactive le point-"
+#~ "and-click."
 
 #~ msgid ""
 #~ "You want to run LilyPond in publish mode (with point and click disabled), "
 #~ "but your document contains a command to turn point and click on."
 #~ msgstr ""
-#~ "Vous souhaitez lancer LilyPond en mode publication (sans l'option "
-#~ "point-and-click), mais votre document contient une commande qui active le "
-#~ "point-and-click."
+#~ "Vous souhaitez lancer LilyPond en mode publication (sans l'option point-"
+#~ "and-click), mais votre document contient une commande qui active le point-"
+#~ "and-click."
 
 #~ msgid "Abort the running LilyPond process"
 #~ msgstr "Mettre fin au processus Lilypond en cours d'exécution"
@@ -9009,10 +9123,10 @@ msgstr "Sélectionner un fichier"
 #~ "KOffice, etc, one per line. If you leave out the starting slash, the "
 #~ "prefixes from the KDEDIRS environment variable are prepended."
 #~ msgstr ""
-#~ "Emplacements à parcourir pour les dictionnaires de césure "
-#~ "d'OpenOffice.org, Scribus, KOffice, … (un seul par ligne). Tout "
-#~ "emplacement ne commençant pas par une barre oblique sera parcouru à "
-#~ "partir de la variable d'environnement KDEDIRS."
+#~ "Emplacements à parcourir pour les dictionnaires de césure d'OpenOffice."
+#~ "org, Scribus, KOffice, … (un seul par ligne). Tout emplacement ne "
+#~ "commençant pas par une barre oblique sera parcouru à partir de la "
+#~ "variable d'environnement KDEDIRS."
 
 #~ msgid "Commands used by the Rumor MIDI input module"
 #~ msgstr "Commandes utilisées par le module de saisie MIDI Rumor"
