@@ -106,45 +106,43 @@ class Char(Scheme, _token.Item):
 
 class Word(Scheme, _token.Item):
     rx = r'[^()"{}\s]+'
+    # before instantiation, this token types tries to delegate to Constant,
+    # Keyword, Function or Variable by looking at the word lists.
+    def __new__(cls, string, pos):
+        for c in Constant, Keyword, Function, Variable:
+            if string in c.word_list():
+                return _token.Token.__new__(c, string, pos)
+        return _token.Token.__new__(cls, string, pos)
 
 
 class Keyword(Scheme):
-    @_token.patternproperty
-    def rx():
+    @staticmethod
+    def word_list():
         from .. import data
-        import re
-        lst = re.sub(r'([\?\*\+])', r"\\\1", 
-                     "|".join(sorted(data.scheme_keywords(), key=len, reverse=True)))
-        return r"({0})(?![A-Za-z-])".format(lst)
+        return data.scheme_keywords()
     
+
 class Function(Word):
-    @_token.patternproperty
-    def rx():
+    @staticmethod
+    def word_list():
         from .. import data
-        import re
-        lst = re.sub(r'([\?\*\+])', r"\\\1", 
-                     "|".join(sorted(data.scheme_functions(), key=len, reverse=True)))
-        return r"({0})(?![A-Za-z-])".format(lst)
+        return data.scheme_functions()
     
+
 class Variable(Word):
-    @_token.patternproperty
-    def rx():
+    @staticmethod
+    def word_list():
         from .. import data
-        import re
-        lst = re.sub(r'([\?\*\+])', r"\\\1", 
-                     "|".join(sorted(data.scheme_variables(), key=len, reverse=True)))
-        return r"({0})(?![A-Za-z-])".format(lst)
+        return data.scheme_variables()
     
     
 class Constant(Word):
-    @_token.patternproperty
-    def rx():
+    @staticmethod
+    def word_list():
         from .. import data
-        import re
-        lst = re.sub(r'([\?\*\+])', r"\\\1", 
-                     "|".join(sorted(data.scheme_constants(), key=len, reverse=True)))
-        return r"({0})(?![A-Za-z-])".format(lst)
+        return data.scheme_constants()
     
+
 class Symbol(Word):
     rx = r"[a-zA-Z-]+(?![a-zA-Z])"
     def update_state(self, state):
@@ -153,7 +151,7 @@ class Symbol(Word):
     
 
 class Number(_token.Item, _token.Numeric):
-    rx = r"-?\d+|#(b[0-1]+|o[0-7]+|x[0-9a-fA-F]+)"
+    rx = r"-?\d+|#(b[0-1]+|o[0-7]+|x[0-9a-fA-F]+)|[-+]inf.0|[-+]?nan.0"
     
 
 class Fraction(Number):
@@ -195,10 +193,10 @@ class ParseScheme(Parser):
         Char,
         Quote,
         Fraction,
-        Keyword,
-        Function,
-        Variable,
-        Constant,
+#        Keyword,
+#        Function,
+#        Variable,
+#        Constant,
         Float,
         Number,
         Word,
