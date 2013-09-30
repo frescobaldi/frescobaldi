@@ -225,6 +225,22 @@ class Token(str):
     
     rx = None
     
+    @classmethod
+    def test_match(cls, match):
+        """Should return True if the match should indeed instantiate this class.
+        
+        This class method is only called if multiple Token classes in the
+        Parser's items list have the same rx attribute. This method is then
+        called for every matching Token subclass until one returns True.
+        That token is then instantiated. (The method is not called for the last
+        class in the list that have the same rx attribute, and also not if there
+        is only one class with that rx attribute.)
+        
+        The default implementation always returns True.
+        
+        """
+        return True
+    
     def __new__(cls, string, pos):
         token = str.__new__(cls, string)
         token.pos = pos
@@ -263,16 +279,25 @@ class PatternProperty(object):
             owner.pattern = self.pattern
             owner.index = self.index
         except AttributeError:
-            clss = list(uniq(owner.items))
+            # if Token classes have the same regexp string, group them
+            patterns = []
+            counter = {}
+            for cls in uniq(owner.items):
+                rx = cls.rx
+                try:
+                    counter[rx].append(cls)
+                except KeyError:
+                    counter[rx] = [cls]
+                    patterns.append(rx)
             # make the pattern
             owner.pattern = self.pattern = pattern = re.compile("|".join(
-                "(?P<g_{0}>{1})".format(i, cls.rx)
-                for i, cls in enumerate(clss)), owner.re_flags)
+                "(?P<g_{0}>{1})".format(i, rx)
+                for i, rx in enumerate(patterns)), owner.re_flags)
             # make a fast mapping list from matchObj.lastindex to the token class
             indices = sorted(v for k, v in pattern.groupindex.items() if k.startswith('g_'))
             owner.index = self.index = index = [None] * (indices[-1] + 1)
-            for i, cls in zip(indices, clss):
-                index[i] = cls
+            for i, rx in zip(indices, patterns):
+                index[i] = counter[rx]
         return owner.pattern
 
 
@@ -315,8 +340,11 @@ class Parser(object):
         The match object is returned by the parse() method.
         
         """
-        tokenClass = self.index[match.lastindex]
-        return tokenClass(match.group(), match.start())
+        clss = self.index[match.lastindex]
+        for c in clss[:-1]:
+            if c.test_match(match):
+                return c(match.group(), match.start())
+        return clss[-1](match.group(), match.start())
     
     def _follow(self, token, state):
         """(Internal) Called by State.follow()."""
