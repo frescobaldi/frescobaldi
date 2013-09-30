@@ -108,43 +108,34 @@ class Word(Scheme, _token.Item):
     rx = r'[^()"{}\s]+'
 
 
-class Keyword(Scheme):
-    @_token.patternproperty
-    def rx():
+class Keyword(Word):
+    @classmethod
+    def test_match(cls, match):
         from .. import data
-        import re
-        lst = re.sub(r'([\?\*\+])', r"\\\1", 
-                     "|".join(sorted(data.scheme_keywords(), key=len, reverse=True)))
-        return r"({0})(?![A-Za-z-])".format(lst)
-    
+        return match.group() in data.scheme_keywords()
+
+
 class Function(Word):
-    @_token.patternproperty
-    def rx():
+    @classmethod
+    def test_match(cls, match):
         from .. import data
-        import re
-        lst = re.sub(r'([\?\*\+])', r"\\\1", 
-                     "|".join(sorted(data.scheme_functions(), key=len, reverse=True)))
-        return r"({0})(?![A-Za-z-])".format(lst)
-    
+        return match.group() in data.scheme_functions()
+
+
 class Variable(Word):
-    @_token.patternproperty
-    def rx():
+    @classmethod
+    def test_match(cls, match):
         from .. import data
-        import re
-        lst = re.sub(r'([\?\*\+])', r"\\\1", 
-                     "|".join(sorted(data.scheme_variables(), key=len, reverse=True)))
-        return r"({0})(?![A-Za-z-])".format(lst)
-    
-    
+        return match.group() in data.scheme_variables()
+
+
 class Constant(Word):
-    @_token.patternproperty
-    def rx():
+    @classmethod
+    def test_match(cls, match):
         from .. import data
-        import re
-        lst = re.sub(r'([\?\*\+])', r"\\\1", 
-                     "|".join(sorted(data.scheme_constants(), key=len, reverse=True)))
-        return r"({0})(?![A-Za-z-])".format(lst)
-    
+        return match.group() in data.scheme_constants()
+
+
 class Symbol(Word):
     rx = r"[a-zA-Z-]+(?![a-zA-Z])"
     def update_state(self, state):
@@ -195,12 +186,12 @@ class ParseScheme(Parser):
         Char,
         Quote,
         Fraction,
+        Float,
+        Number,
+        Constant,
         Keyword,
         Function,
         Variable,
-        Constant,
-        Float,
-        Number,
         Word,
         StringQuotedStart,
     )
