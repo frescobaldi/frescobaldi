@@ -46,10 +46,14 @@ def preferred():
     Language- and country codes will always be separated with an underscore '_'.
     
     """
-    langs = []
-    for lang in QLocale().uiLanguages():
+    try:
+        langs = QLocale().uiLanguages()
+    except AttributeError:
+        # QLocale.uiLanguages is not in Qt 4.7 (only Qt4.8+)
+        langs = []
+    else:
         # in some systems, language/country codes have '-' and not '_'
-        langs.append(lang.replace('-', '_'))
+        langs = [l.replace('-', '_') for l in langs]
     if not langs:
         try: 
             langs.append(locale.getdefaultlocale()[0])
