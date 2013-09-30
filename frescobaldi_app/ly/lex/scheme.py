@@ -144,7 +144,7 @@ class Symbol(Word):
     
 
 class Number(_token.Item, _token.Numeric):
-    rx = r"-?\d+|#(b[0-1]+|o[0-7]+|x[0-9a-fA-F]+)"
+    rx = r"-?\d+|#(b[0-1]+|o[0-7]+|x[0-9a-fA-F]+)|[-+]inf.0|[-+]?nan.0"
     
 
 class Fraction(Number):
