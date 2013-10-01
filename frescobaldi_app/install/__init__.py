@@ -36,6 +36,6 @@ if version != SETTINGS_VERSION:
     update.update(version)
     
     #uncomment next lines when the upgrade from 0 to 1 works
-    #QSettings().setValue("settings_version", SETTINGS_VERSION)
-    #QSettings().sync() # just to be sure
+    QSettings().setValue("settings_version", SETTINGS_VERSION)
+    QSettings().sync() # just to be sure
 
