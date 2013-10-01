@@ -144,15 +144,19 @@ class Symbol(Word):
     
 
 class Number(_token.Item, _token.Numeric):
-    rx = r"-?\d+|#(b[0-1]+|o[0-7]+|x[0-9a-fA-F]+)|[-+]inf.0|[-+]?nan.0"
-    
+    rx = (r"("
+          r"-?\d+|"
+          r"#(b[0-1]+|o[0-7]+|x[0-9a-fA-F]+)|"
+          r"[-+]inf.0|[-+]?nan.0"
+          r")(?=$|[)\s])")
+
 
 class Fraction(Number):
-    rx = r"-?\d+/\d+"
+    rx = r"-?\d+/\d+(?=$|[)\s])"
 
 
 class Float(Number):
-    rx = r"-?((\d+(\.\d*)|\.\d+)(E\d+)?)"
+    rx = r"-?((\d+(\.\d*)|\.\d+)(E\d+)?)(?=$|[)\s])"
 
 
 class LilyPond(_token.Token):
