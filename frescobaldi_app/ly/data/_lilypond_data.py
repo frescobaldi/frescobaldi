@@ -951,6 +951,12 @@ grobs = {
         "text-interface",
         "text-script-interface",
     ],
+    "Flag": [
+        "flag-interface", 
+        "font-interface", 
+        "grob-interface", 
+        "item-interface", 
+    ], 
     "FootnoteItem": [
         "balloon-interface",
         "font-interface",
