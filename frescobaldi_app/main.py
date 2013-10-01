@@ -37,6 +37,7 @@ from PyQt4.QtGui import QApplication, QTextCursor
 from . import toplevel  # Find all modules and packages as toplevel
 import info             # Information about our application
 import app              # Construct QApplication
+import install          # Update QSettings structure etc. if needed
 import guistyle         # Setup GUI style
 import po.setup         # Setup language
 import remote           # IPC with other Frescobaldi instances
