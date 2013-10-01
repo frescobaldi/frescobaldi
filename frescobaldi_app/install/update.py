@@ -39,4 +39,18 @@ def update(version):
 
 def moveSettingsToNewRoot():
     """Move all settings to one application file."""
+    movelist = [[info.name, info.url, False], "metainfo", "snippets", "sessions", "sessiondata"]
+    for moveitem in movelist:
+        if isinstance(moveitem, basestring):
+            moveitem = [moveitem, info.name, True]
+        o = QSettings(moveitem[1], moveitem[0])
+        o.setFallbacksEnabled(False)
+        keys = o.allKeys()
+        if len(keys) > 0:
+            s = QSettings()
+            if moveitem[2]:
+                s.beginGroup(moveitem[0])
+            for k in keys:
+                s.setValue(k, o.value(k))
+            o.clear()
     
