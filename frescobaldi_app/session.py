@@ -40,7 +40,9 @@ import info
 
 def sessionSettings():
     """Returns the QSettings object for sessiondata."""
-    return QSettings(info.name, 'sessiondata')
+    settings = QSettings()
+    settings.beginGroup("sessiondata")
+    return settings
 
 
 if __name__ == '__main__':
