@@ -37,6 +37,7 @@ from PyQt4.QtCore import QObject, QSettings, Qt, SIGNAL
 from PyQt4.QtGui import QApplication, QSessionManager
 
 import info
+import app
 
 def sessionSettings():
     """Returns the QSettings object for sessiondata."""
@@ -53,7 +54,6 @@ if __name__ == '__main__':
 
 ### Continued here if normally imported
 
-import app
 import mainwindow
 
 def sessionKey():
