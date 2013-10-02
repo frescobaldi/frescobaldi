@@ -39,10 +39,9 @@
 %}
 
 % Allow definition of variables on the command line
+%TODO: Suppress warning
 #(use-modules (guile-user))
 
-% process debugging options depending on them
-% being defined (on the CL) or not.
 debugLayoutOptions =
 #(define-void-function (parser location)()
    ;; include preview options depending on the
