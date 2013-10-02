@@ -68,6 +68,10 @@ debugLayoutOptions =
        (ly:set-option 'debug-skylines #t))
        ;; the option should be named debug-skylines,
        ;; this name clash has to be resolved!
+   (if (ly:get-option 'debug-custom-file)
+       ;; Add a custom file for debugging layout
+       (ly:parser-include-string parser 
+         (format "\\include \"~A\"\n" (ly:get-option 'debug-custom-file))))
 )
 
 \debugLayoutOptions

@@ -47,7 +47,8 @@ previewoptions = {
     'voices': '-ddebug-voices', 
     'directions': '-ddebug-directions',
     'grob-anchors': '-ddebug-grob-anchors',
-    'grob-names': '-ddebug-grob-names' }
+    'grob-names': '-ddebug-grob-names',
+    'custom-file': '-ddebug-custom-file' }
 
 def compose_config():
     cf = configs = []
@@ -95,6 +96,9 @@ def defaultJob(document, preview):
         check_option(s, command, 'directions')
         check_option(s, command, 'grob-anchors')
         check_option(s, command, 'grob-names')
+        file_to_include = s.value('custom-filename')
+        if preview_mode.load_bool_option(s, 'custom-file') and file_to_include != '':
+            command.append('-ddebug-custom-file=' + file_to_include)
         
         # File that conditionally includes different formatters
         command.append('-dinclude-settings=debug-layout-options.ly')
