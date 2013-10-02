@@ -32,6 +32,7 @@ from PyQt4.QtGui import *
 import app
 import preview_mode
 
+
 class Widget(QWidget):
     def __init__(self, tool):
         super(Widget, self).__init__(tool)
@@ -107,7 +108,7 @@ class Widget(QWidget):
         self.CBpapercolumns.toggled.connect(self.toggleOption)
         self.LEcustomfile.textChanged.connect(self.edit_custom_file)
         
-        self.translateUI()
+        app.translateUI(self)
     
     def translateUI(self):
         self.CBskylines.setText(_("Display Skylines"))
