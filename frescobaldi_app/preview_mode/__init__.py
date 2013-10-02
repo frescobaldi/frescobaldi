@@ -23,33 +23,13 @@ The preview mode options.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import Qt, QSettings
+import sys
+
+from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QKeySequence
-import sys, panel
 
-def load_bool_option(s, key):
-    """
-    Load a boolean option from QSettings s.
-    Ensure that the result is a Boolean
-    (PyQt bug)
-    """
-    val = s.value(key, True)
-    if isinstance(val, bool):
-        return val
-    else:
-        return True if val.upper() == "TRUE" else False
+import panel
 
-def load_options():
-    """Load preview options at least once at program startup"""
-    s = QSettings()
-    s.beginGroup("lilypond_settings")
-    load_bool_option(s, 'skylines')
-    load_bool_option(s, 'control-points')
-    load_bool_option(s, 'voices')
-    load_bool_option(s, 'directions')
-    load_bool_option(s, 'grob-anchors')
-    load_bool_option(s, 'grob-names')
-    load_bool_option(s, 'paper-columns')
 
 class PreviewOptions(panel.Panel):
     def __init__(self, mainwindow):
@@ -66,3 +46,5 @@ class PreviewOptions(panel.Panel):
         from . import widget
         w = widget.Widget(self)
         return w
+
+

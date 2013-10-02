@@ -62,10 +62,9 @@ def compose_config():
 
 def check_option(s, command, key):
     """
-    Append a command line switch 
-    if the option is set
+    Append a command line switch if the option is set
     """    
-    if preview_mode.load_bool_option(s, key):
+    if s.value(key, False, bool):
         command.append(previewoptions[key])
 
 def defaultJob(document, preview):
@@ -98,9 +97,10 @@ def defaultJob(document, preview):
         check_option(s, command, 'grob-anchors')
         check_option(s, command, 'grob-names')
         check_option(s, command, 'paper-columns')
-        file_to_include = s.value('custom-filename')
-        if preview_mode.load_bool_option(s, 'custom-file') and file_to_include != '':
-            command.append('-ddebug-custom-file=' + file_to_include)
+        if s.value('custom-file', False, bool):
+            file_to_include = s.value('custom-filename', '', type(''))
+            if file_to_include:
+                command.append('-ddebug-custom-file=' + file_to_include)
         
         # File that conditionally includes different formatters
         command.append('-dinclude-settings=debug-layout-options.ly') 

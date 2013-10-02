@@ -144,7 +144,7 @@ class Widget(QWidget):
         
         
     def checkOption(self, s, key):
-        self.options[key].setChecked(preview_mode.load_bool_option(s, key))
+        self.options[key].setChecked(s.value(key, False, bool))
         
     def edit_custom_file(self):
         s = QSettings()
@@ -159,5 +159,6 @@ class Widget(QWidget):
     def toggleOption(self, state):
         for key in self.options:
             if self.options[key] == self.sender():
-                print key
                 self.writeSetting(key, state)
+
+
