@@ -121,6 +121,20 @@ Case:   ClassName, module_name, methodname() (or methodName() for classes that
 Write code so that adding or extending functionality later only adds lines, not
 changes or removes existing lines.
 
+Module imports: one per line. First the Python standard library imports, then
+PyQt4, then the generic Frescobaldi imports and then imports from the current
+package. The different groups separated by a blank line:
+
+    import os                       # stdlib imports
+    import sys
+
+    from PyQt4.QtCore import ...    # PyQt4 imports
+
+    import app                      # generic Frescobaldi imports
+    import icons
+
+    from . import widget            # imports from current package
+
 When preparing a patch or pull request, please add new functionality first.
 Old functionality that is superseded by the newer functions can be removed later
 when the new functionality has been tested thoroughly.
