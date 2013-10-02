@@ -33,7 +33,7 @@ def load_bool_option(s, key):
     Ensure that the result is a Boolean
     (PyQt bug)
     """
-    val = s.value(key, True)
+    val = s.value(key, False)
     if isinstance(val, bool):
         return val
     else:
