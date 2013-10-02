@@ -50,6 +50,7 @@ def load_options():
     load_bool_option(s, 'grob-anchors')
     load_bool_option(s, 'grob-names')
     load_bool_option(s, 'paper-columns')
+    load_bool_option(s, 'annotate-spacing')
 
 class PreviewOptions(panel.Panel):
     def __init__(self, mainwindow):
