@@ -56,6 +56,9 @@ class Widget(QWidget):
         # grob-anchors checkbox
         self.CBgrobanchors = QCheckBox()
         self.options['grob-anchors'] = self.CBgrobanchors
+        # grob-names checkbox
+        self.CBgrobnames = QCheckBox()
+        self.options['grob-names'] = self.CBgrobnames
 
         # Load settings and set checkbox state
         s = QSettings()
@@ -65,6 +68,7 @@ class Widget(QWidget):
         self.checkOption(s, 'voices')
         self.checkOption(s, 'directions')
         self.checkOption(s, 'grob-anchors')
+        self.checkOption(s, 'grob-names')
 
         # Compose layout
         layout.addWidget(self.CBskylines)
@@ -72,6 +76,7 @@ class Widget(QWidget):
         layout.addWidget(self.CBcolorvoices)
         layout.addWidget(self.CBcolordirections)
         layout.addWidget(self.CBgrobanchors)
+        layout.addWidget(self.CBgrobnames)
         layout.addStretch(1)
         
         # Connect slots
@@ -80,6 +85,7 @@ class Widget(QWidget):
         self.CBcolorvoices.toggled.connect(self.toggleOption)
         self.CBcolordirections.toggled.connect(self.toggleOption)
         self.CBgrobanchors.toggled.connect(self.toggleOption)
+        self.CBgrobnames.toggled.connect(self.toggleOption)
         
         self.translateUI()
     
@@ -102,7 +108,10 @@ class Widget(QWidget):
             "downwards using \\xxxUp or \\xxxDown commands"))
         self.CBgrobanchors.setText(_("Display Grob Anchors"))
         self.CBgrobanchors.setToolTip(_(
-            "Display a red dot at the anchor point of each grob"))
+            "Display a dot at the anchor point of each grob"))
+        self.CBgrobnames.setText(_("Display Grob Names"))
+        self.CBgrobnames.setToolTip(_(
+            "Display the name of each grob"))
         
     def checkOption(self, s, key):
         self.options[key].setChecked(preview_mode.load_bool_option(s, key))

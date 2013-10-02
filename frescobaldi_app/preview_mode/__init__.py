@@ -48,6 +48,7 @@ def load_options():
     load_bool_option(s, 'voices')
     load_bool_option(s, 'directions')
     load_bool_option(s, 'grob-anchors')
+    load_bool_option(s, 'grob-names')
 
 class PreviewOptions(panel.Panel):
     def __init__(self, mainwindow):

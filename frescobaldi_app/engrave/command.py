@@ -46,7 +46,8 @@ previewoptions = {
     'control-points': '-ddebug-control-points', 
     'voices': '-ddebug-voices', 
     'directions': '-ddebug-directions',
-    'grob-anchors': '-ddebug-grob-anchors' }
+    'grob-anchors': '-ddebug-grob-anchors',
+    'grob-names': '-ddebug-grob-names' }
 
 def check_option(s, command, key):
     """
@@ -81,6 +82,7 @@ def defaultJob(document, preview):
         check_option(s, command, 'skylines')
         check_option(s, command, 'directions')
         check_option(s, command, 'grob-anchors')
+        check_option(s, command, 'grob-names')
         
         # File that conditionally includes different formatters
         command.append('-dinclude-settings=debug-layout-options.ly')
