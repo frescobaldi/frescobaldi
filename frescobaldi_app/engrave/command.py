@@ -23,7 +23,7 @@ Creates the commandline or Job to engrave a music document.
 
 from __future__ import unicode_literals
 
-import os
+import os, sys
 
 from PyQt4.QtCore import QSettings
 
@@ -54,7 +54,21 @@ def defaultJob(document, preview):
         command.append('-ddelete-intermediate-files')
     else:
         command.append('-dno-delete-intermediate-files')
-    command.append('-dpoint-and-click' if preview else '-dno-point-and-click')
+    if preview:
+        command.append('-dpoint-and-click')
+        # Add subdir with preview-mode files to search path
+        includepath.append(os.path.join(sys.path[0], 'preview_mode'))
+        # For now add hardcoded debugging options here
+        # (all that we have implemented).
+        # Later there has to be a dockable panel with checkboxes
+        # for the individual modes.
+        command.append('-ddebug-control-points')
+        command.append('-ddebug-voices')
+        command.append('-ddebug-display-skylines')
+        # File that conditionally includes different formatters
+        command.append('-dinclude-settings=debug-layout-options.ly')
+    else:
+        command.append('-dno-point-and-click')
     command.append('--pdf')
     command.extend('-I' + path for path in includepath)
     j.directory = os.path.dirname(filename)
