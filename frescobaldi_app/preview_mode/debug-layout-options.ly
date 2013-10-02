@@ -38,6 +38,8 @@
   command line options or #(ly:set-option ...) commands.
 %}
 
+% Allow definition of variables on the command line
+#(use-modules (guile-user))
 
 % process debugging options depending on them
 % being defined (on the CL) or not.

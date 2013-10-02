@@ -49,6 +49,15 @@ previewoptions = {
     'grob-anchors': '-ddebug-grob-anchors',
     'grob-names': '-ddebug-grob-names' }
 
+def compose_config():
+    cf = configs = []
+    # This is currently hard-coded as a proof-of-concept.
+    # Later this will be retrieved from Settings
+# Hide started work
+#    cf.extend(['-e', '(define-public debug-grob-anchor-dotcolor green)'])
+    
+    return configs
+
 def check_option(s, command, key):
     """
     Append a command line switch 
@@ -75,6 +84,9 @@ def defaultJob(document, preview):
         command.append('-dpoint-and-click')
         # Add subdir with preview-mode files to search path
         includepath.append(os.path.join(sys.path[0], 'preview_mode'))
+        
+        # add configuration variables from Preferences
+        command.extend(compose_config())
         
         # add options that are checked in the dockable panel
         check_option(s, command, 'control-points')
