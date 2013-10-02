@@ -38,17 +38,9 @@
   command line options or #(ly:set-option ...) commands.
 %}
 
-% Direction colors
-#(define directionUpColor '(0 0.5 0))
-#(define directionDownColor '(0 0.1 0.5))
 
-% \voiceXXX colors
-#(define voiceOneColor   '(0    0.6 0))
-#(define voiceTwoColor   '(0    0.1 0.7))
-#(define voiceThreeColor '(0.7  0.2   0))
-#(define voiceFourColor  '(0.5    0.5   0.1))
-
-
+% process debugging options depending on them
+% being defined (on the CL) or not.
 debugLayoutOptions =
 #(define-void-function (parser location)()
    ;; include preview options depending on the
@@ -59,6 +51,9 @@ debugLayoutOptions =
    (if (ly:get-option 'debug-voices)
        ;; color \voiceXXX music
        (ly:parser-include-string parser "\\include \"color-voices.ily\""))
+   (if (ly:get-option 'debug-directions)
+       ;; color grobs switched with \xxxUp or \xxxDown
+       (ly:parser-include-string parser "\\include \"color-directions.ily\""))
    (if (ly:get-option 'debug-display-skylines)
        ;; display skylines
        ;; -> this is very intrusive, so handle with care!

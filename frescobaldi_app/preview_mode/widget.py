@@ -43,16 +43,16 @@ class Widget(QWidget):
         self.options = {}
         # Skylines checkbox
         self.CBskylines = QCheckBox()
-        #self.CBskylines.setText("Display Skylines")
         self.options['skylines'] = self.CBskylines
         # Control-points checkbox
         self.CBcontrolpoints = QCheckBox()
-        #self.CBcontrolpoints.setText("Display Control Points")
         self.options['control-points'] = self.CBcontrolpoints
         # Color-voices checkbox
         self.CBcolorvoices = QCheckBox()
-        #self.CBcolorvoices.setText("Color \\voiceXXX")
         self.options['voices'] = self.CBcolorvoices
+        # Color-directions checkbox
+        self.CBcolordirections = QCheckBox()
+        self.options['directions'] = self.CBcolordirections
 
         # Load settings and set checkbox state
         s = QSettings()
@@ -60,17 +60,20 @@ class Widget(QWidget):
         self.checkOption(s, 'skylines')
         self.checkOption(s, 'control-points')
         self.checkOption(s, 'voices')
+        self.checkOption(s, 'directions')
 
         # Compose layout
         layout.addWidget(self.CBskylines)
         layout.addWidget(self.CBcontrolpoints)
         layout.addWidget(self.CBcolorvoices)
+        layout.addWidget(self.CBcolordirections)
         layout.addStretch(1)
         
         # Connect slots
         self.CBskylines.toggled.connect(self.toggleOption)
         self.CBcontrolpoints.toggled.connect(self.toggleOption)
         self.CBcolorvoices.toggled.connect(self.toggleOption)
+        self.CBcolordirections.toggled.connect(self.toggleOption)
         
         self.translateUI()
     
@@ -87,6 +90,10 @@ class Widget(QWidget):
         self.CBcolorvoices.setToolTip(_(
             "Highlight notes that are explicitly "
             "set to \\voiceXXX"))
+        self.CBcolordirections.setText(_("Color \\xxxUp/Down"))
+        self.CBcolordirections.setToolTip(_(
+            "Highlight elements that are explicitly switched up- or "
+            "downwards using \\xxxUp or \\xxxDown commands"))
         
     def checkOption(self, s, key):
         self.options[key].setChecked(preview_mode.load_bool_option(s, key))

@@ -44,7 +44,8 @@ def info(document):
 previewoptions = {
     'skylines': '-ddebug-display-skylines', 
     'control-points': '-ddebug-control-points', 
-    'voices': '-ddebug-voices' }
+    'voices': '-ddebug-voices', 
+    'directions': '-ddebug-directions' }
 
 def check_option(s, command, key):
     """
@@ -77,6 +78,7 @@ def defaultJob(document, preview):
         check_option(s, command, 'control-points')
         check_option(s, command, 'voices')
         check_option(s, command, 'skylines')
+        check_option(s, command, 'directions')
         
         # File that conditionally includes different formatters
         command.append('-dinclude-settings=debug-layout-options.ly')
