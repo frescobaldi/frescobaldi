@@ -600,18 +600,18 @@ class engraving(page):
     def body():
         return p(
           _("There are three modes Frescobaldi can compile scores in: "
-            "<code>Preview</code>, <code>Publication</code> and <code>Custom</code>."),
-          _("<code>Preview</code> mode is useful while working on a score because it "
+            "<em>Preview</em>, <em>Publication</em> and <em>Custom</em>."),
+          _("<em>Preview</em> mode is useful while working on a score because it "
             "provides two-way point-and-click navigation as well as a number of "
             "modes for debugging layout issues.<br />"
-            "<code>Publication</code> mode is used for producing the final PDF "
+            "<em>Publication</em> mode is used for producing the final PDF "
             "intended to be shared.<br />"
-            "<code>Custom</code> mode allows you to specify the used LilyPond "
+            "<em>Custom</em> mode allows you to specify the used LilyPond "
             "command in detail."),
           _("If you have set up different LilyPond versions and told Frescobaldi "
-            "in the LilyPond page of the Preferences dialog it will try to determine the "
-            "LilyPond version from the document and use the version that "
-            "matches best."),
+            "in the <em>LilyPond</em> page of the <em>Preferences</em> dialog "
+            "it will try to determine the LilyPond version from the document "
+            "and use the version that matches best."),
         )
     
     def children():
@@ -629,18 +629,18 @@ class eng_preview(page):
     def body():
         return p(
           _("When working on a score you will usually engrave your "
-            "score in <code>Preview Mode</code>. This will enable "
+            "score in <em>Preview Mode</em>. This will enable "
             "Frescobaldi's two-way point-and-click features and will "
             "give you access to a number of \"Debug Modes\"."),
           _("The Debug Modes are accessible through the \"Preview Options\" "
-            "dockable panel which is accessible through the <code>Tools</code> "
+            "dockable panel which is accessible through the <em>Tools</em> "
             "menu. The checkboxes on this panel are initially unchecked "
             "but remember their state throughout Frescobaldi sessions.<br />"
             "If you use these features regularly it is recommendable "
             "to have the panel constantly open because you will probably "
             "switch Debug Modes quite often."),
           _("The following Debug Modes are currently implemented:"),
-        ) + ul(''.join("<li><b>{0}</b><br />{1}</li>\n".format(name, text)
+        ) + ul(''.join("<li><p><b>{0}</b><br />{1}</p></li>\n".format(name, text)
                 for name, text in (
              (_("Display Control Points"),
               _("Slurs, Ties and other similar objects are drawn in LilyPond "
@@ -716,14 +716,16 @@ class eng_publication(page):
         return _("Engrave (Publication)")
     
     def body():
-        return _("When engraving a score in Publication mode the point-and-click "
-                 "information isn't generated. This will prevent a reader of the "
-                 "resulting PDF document from navigating to the corresponging "
-                 "line in the input file, but it will also significantly decrease "
-                 "the file size.<br />"
-                 "You should also note that the point-and-click links contain "
-                 "hard-coded path information of your systen, which may be "
-                 "considered a security issue.")
+        return p(
+          _("When engraving a score in Publication mode the point-and-click "
+            "information isn't generated. This will prevent a reader of the "
+            "resulting PDF document from navigating to the corresponging "
+            "line in the input file, but it will also significantly decrease "
+            "the file size."),
+          _("You should also note that the point-and-click links contain "
+            "hard-coded path information of your systen, which may be "
+            "considered a security issue."),
+        )
 
 
 class eng_custom(page):
@@ -731,9 +733,11 @@ class eng_custom(page):
         return _("Engrave (Custom)")
     
     def body():
-        return p(_("The <code>Engrave (Custom)</code> dialog gives you detailed access "
-        "to all aspects of the LilyPond command.<br>"
-        "More documentation to come ..."))
+        return p(
+          _("The <em>Engrave (Custom)</em> dialog gives you detailed access "
+            "to all aspects of the LilyPond command."),
+          _("More documentation to come ..."),
+        )
 
 
 class troubleshooting(page):
