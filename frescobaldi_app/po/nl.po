@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2013-10-02 19:13+0200\n"
-"PO-Revision-Date: 2013-10-01 07:17+0200\n"
+"PO-Revision-Date: 2013-10-02 19:17+0200\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -2550,15 +2550,16 @@ msgid "You can also specify a default directory for the session."
 msgstr "U kunt ook een standaardmap voor de sessie opgeven."
 
 #: ../help/contents.py:598
-#, fuzzy
 msgid "Engraving Scores"
-msgstr "Graveertaak af&breken"
+msgstr "Partituren graveren"
 
 #: ../help/contents.py:602
 msgid ""
 "There are three modes Frescobaldi can compile scores in: <em>Preview</em>, "
 "<em>Publication</em> and <em>Custom</em>."
 msgstr ""
+"Frescobaldi kan muziek op drie manieren graveren: <em>Vooruitblik</em>, <em>"
+"Publicatie</em> en <em>Aangepast</em>."
 
 #: ../help/contents.py:604
 msgid ""
@@ -2578,9 +2579,8 @@ msgid ""
 msgstr ""
 
 #: ../help/contents.py:627
-#, fuzzy
 msgid "Engrave (Preview)"
-msgstr "&Graveren (vooruitblik)"
+msgstr "Graveren (vooruitblik)"
 
 #: ../help/contents.py:631
 msgid ""
@@ -2730,7 +2730,6 @@ msgid ""
 msgstr ""
 
 #: ../help/contents.py:716
-#, fuzzy
 msgid "Engrave (Publication)"
 msgstr "Graveren (publicatie)"
 
@@ -2749,7 +2748,6 @@ msgid ""
 msgstr ""
 
 #: ../help/contents.py:733
-#, fuzzy
 msgid "Engrave (Custom)"
 msgstr "Aangepast graveren"
 
