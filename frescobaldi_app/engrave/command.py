@@ -49,7 +49,9 @@ previewoptions = {
     'grob-anchors': '-ddebug-grob-anchors',
     'grob-names': '-ddebug-grob-names',
     'custom-file': '-ddebug-custom-file', 
-    'paper-columns': '-ddebug-paper-columns'}
+    'paper-columns': '-ddebug-paper-columns', 
+    'annotate-spacing': '-ddebug-annotate-spacing',
+}
 
 def compose_config():
     cf = configs = []
@@ -97,6 +99,7 @@ def defaultJob(document, preview):
         check_option(s, command, 'grob-anchors')
         check_option(s, command, 'grob-names')
         check_option(s, command, 'paper-columns')
+        check_option(s, command, 'annotate-spacing')
         if s.value('custom-file', False, bool):
             file_to_include = s.value('custom-filename', '', type(''))
             if file_to_include:

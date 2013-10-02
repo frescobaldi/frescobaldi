@@ -71,6 +71,9 @@ debugLayoutOptions =
        (ly:set-option 'debug-skylines #t))
        ;; the option should be named debug-skylines,
        ;; this name clash has to be resolved!
+   (if (ly:get-option 'debug-annotate-spacing)
+       ;; Add a dot for the anchor of each grob
+       (ly:parser-include-string parser "\\include \"annotate-spacing.ily\""))
    (if (ly:get-option 'debug-custom-file)
        ;; Add a custom file for debugging layout
        (ly:parser-include-string parser 

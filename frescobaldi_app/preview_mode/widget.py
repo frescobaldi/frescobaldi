@@ -63,6 +63,9 @@ class Widget(QWidget):
         # paper-columns checkbox
         self.CBpapercolumns = QCheckBox()
         self.options['paper-columns'] = self.CBpapercolumns
+        # annotate-spacing checkbox
+        self.CBannotatespacing = QCheckBox()
+        self.options['annotate-spacing'] = self.CBannotatespacing
         # custom-file checkbox and input field
         self.GBcustomfile = QGroupBox()
         self.GBcustomfile.setCheckable(True)
@@ -81,6 +84,7 @@ class Widget(QWidget):
         self.checkOption(s, 'grob-names')
         self.checkOption(s, 'custom-file')
         self.checkOption(s, 'paper-columns')
+        self.checkOption(s, 'annotate-spacing')
         self.LEcustomfile.setText(s.value('custom-filename', ''))
 
         # Compose layout
@@ -94,6 +98,7 @@ class Widget(QWidget):
         layout.addWidget(self.CBgrobnames)
         layout.addWidget(self.CBskylines)
         layout.addWidget(self.CBpapercolumns)
+        layout.addWidget(self.CBannotatespacing)
         layout.addWidget(self.GBcustomfile)
         layout.addStretch(1)
         
@@ -106,6 +111,7 @@ class Widget(QWidget):
         self.CBgrobnames.toggled.connect(self.toggleOption)
         self.GBcustomfile.toggled.connect(self.toggleOption)
         self.CBpapercolumns.toggled.connect(self.toggleOption)
+        self.CBannotatespacing.toggled.connect(self.toggleOption)
         self.LEcustomfile.textChanged.connect(self.edit_custom_file)
         
         app.translateUI(self)
@@ -135,6 +141,10 @@ class Widget(QWidget):
         self.CBpapercolumns.setText(_("Debug Paper Columns"))
         self.CBpapercolumns.setToolTip(_(
             "Display info on the paper columns"))
+        self.CBannotatespacing.setText(_("Annotate Spacing"))
+        self.CBannotatespacing.setToolTip(_(
+            "Use LilyPond's \"annotate spacing\" option to\n"
+            "display measurement information"))
         self.GBcustomfile.setTitle(_("Include Custom File:"))
         self.GBcustomfile.setToolTip(_(
             "Include a custom file with definitions\n"
