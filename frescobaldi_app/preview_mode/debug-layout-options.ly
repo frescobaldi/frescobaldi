@@ -54,6 +54,9 @@ debugLayoutOptions =
    (if (ly:get-option 'debug-directions)
        ;; color grobs switched with \xxxUp or \xxxDown
        (ly:parser-include-string parser "\\include \"color-directions.ily\""))
+   (if (ly:get-option 'debug-grob-anchors)
+       ;; Add a dot for the anchor of each grob
+       (ly:parser-include-string parser "\\include \"display-grob-anchors.ily\""))
    (if (ly:get-option 'debug-display-skylines)
        ;; display skylines
        ;; -> this is very intrusive, so handle with care!

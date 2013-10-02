@@ -53,6 +53,9 @@ class Widget(QWidget):
         # Color-directions checkbox
         self.CBcolordirections = QCheckBox()
         self.options['directions'] = self.CBcolordirections
+        # grob-anchors checkbox
+        self.CBgrobanchors = QCheckBox()
+        self.options['grob-anchors'] = self.CBgrobanchors
 
         # Load settings and set checkbox state
         s = QSettings()
@@ -61,12 +64,14 @@ class Widget(QWidget):
         self.checkOption(s, 'control-points')
         self.checkOption(s, 'voices')
         self.checkOption(s, 'directions')
+        self.checkOption(s, 'grob-anchors')
 
         # Compose layout
         layout.addWidget(self.CBskylines)
         layout.addWidget(self.CBcontrolpoints)
         layout.addWidget(self.CBcolorvoices)
         layout.addWidget(self.CBcolordirections)
+        layout.addWidget(self.CBgrobanchors)
         layout.addStretch(1)
         
         # Connect slots
@@ -74,6 +79,7 @@ class Widget(QWidget):
         self.CBcontrolpoints.toggled.connect(self.toggleOption)
         self.CBcolorvoices.toggled.connect(self.toggleOption)
         self.CBcolordirections.toggled.connect(self.toggleOption)
+        self.CBgrobanchors.toggled.connect(self.toggleOption)
         
         self.translateUI()
     
@@ -94,6 +100,9 @@ class Widget(QWidget):
         self.CBcolordirections.setToolTip(_(
             "Highlight elements that are explicitly switched up- or "
             "downwards using \\xxxUp or \\xxxDown commands"))
+        self.CBgrobanchors.setText(_("Display Grob Anchors"))
+        self.CBgrobanchors.setToolTip(_(
+            "Display a red dot at the anchor point of each grob"))
         
     def checkOption(self, s, key):
         self.options[key].setChecked(preview_mode.load_bool_option(s, key))
