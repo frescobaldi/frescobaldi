@@ -592,26 +592,27 @@ class sessions(page):
         import preferences.prefshelp
         return (preferences.prefshelp.preferences_general,)
 
+
 class engraving(page):
     def title():
         return _("Engraving Scores")
     
     def body():
-        text = []
-        text.append(p(_("There are three modes Frescobaldi can compile scores in: "
-                        "<code>Preview</code>, <code>Publication</code> and <code>Custom</code>.")))
-        text.append(p(_("<code>Preview</code> mode is useful while working on a score because it "
-                        "provides two-way point-and-click navigation as well as a number of "
-                        "modes for debugging layout issues.<br />"
-                        "<code>Publication</code> mode is used for producing the final PDF "
-                        "intended to be shared.<br />"
-                        "<code>Custom</code> mode allows you to specify the used LilyPond "
-                        "command in detail.")))
-        text.append(p(_("If you have set up different LilyPond versions and told Frescobaldi "
-                        "in the LilyPond page of the Preferences dialog it will try to determine the "
-                        "LilyPond version from the document and use the version that "
-                        "matches best.")))
-        return ''.join(text)
+        return p(
+          _("There are three modes Frescobaldi can compile scores in: "
+            "<code>Preview</code>, <code>Publication</code> and <code>Custom</code>."),
+          _("<code>Preview</code> mode is useful while working on a score because it "
+            "provides two-way point-and-click navigation as well as a number of "
+            "modes for debugging layout issues.<br />"
+            "<code>Publication</code> mode is used for producing the final PDF "
+            "intended to be shared.<br />"
+            "<code>Custom</code> mode allows you to specify the used LilyPond "
+            "command in detail."),
+          _("If you have set up different LilyPond versions and told Frescobaldi "
+            "in the LilyPond page of the Preferences dialog it will try to determine the "
+            "LilyPond version from the document and use the version that "
+            "matches best."),
+        )
     
     def children():
         return (
@@ -620,91 +621,93 @@ class engraving(page):
             eng_custom
         )
 
+
 class eng_preview(page):
     def title():
         return _("Engrave (Preview)")
         
     def body():
-        text = []
-        text.append(p(_("When working on a score you will usually engrave your "
-                        "score in <code>Preview Mode</code>. This will enable "
-                        "Frescobaldi's two-way point-and-click features and will "
-                        "give you access to a number of \"Debug Modes\".")))
-        text.append(p(_("The Debug Modes are accessible through the \"Preview Options\" "
-                        "dockable panel which is accessible through the <code>Tools</code> "
-                        "menu. The checkboxes on this panel are initially unchecked "
-                        "but remember their state throughout Frescobaldi sessions.<br />"
-                        "If you use these features regularly it is recommendable "
-                        "to have the panel constantly open because you will probably "
-                        "switch Debug Modes quite often.")))
-        text.append(p(_("The following Debug Modes are currently implemented:")))
-        text.append(ul(li(_("<code>Display Control Points</code><br />"
-                            "Slurs, Ties and other similar objects are drawn in LilyPond "
-                            "as third-order Bezier curves, which means that their shape "
-                            "is controlled by four \"control-points\" (first and last ones "
-                            "tell where the curve ends are placed, and the middle ones affect "
-                            "the curvature). Changing the shape of these objects involves "
-                            "moving these control-points around, and it's helpful to see "
-                            "where they actually are.<br />"
-                            "This Debug Mode will display the inner control-points "
-                            "as red crosses and connects them to the outer (starting) "
-                            "points with thin lines.")), 
-                      (li(_("<code>Color \\voiceXXX</code><br />"
-                            "This mode highlights voices that have been explicitly set with "
-                            "one of the <code>\\voiceXXX</code> commands. This is useful "
-                            "when dealing with polyphony issues."))), 
-                      (li(_("<code>Color explicit directions</code><br />"
-                            "This mode colors items whose directions have been explicitly set "
-                            "with either the predefined commands <code>\\xxxUp</code> etc. "
-                            "or the directional operators <code>^</code> and <code>_</code>.<br />"
-                            "Please note how this mode and the previous are related:</br>"
-                            "When the condition for one of the the modes is reverted using "
-                            "commands like <code>\\oneVoice</code> or <code>\\xxxNeutral</code> "
-                            "colors are reverted to black and may also revert the highlighting "
-                            "of the other Debug Mode.<br />"
-                            "In <code>c \\voiceTwo d \\stemUp e \\stemNeutral d \\oneVoice</code> "
-                            "the \'d\' may already be reverted.<br />"
-                            "If the score is engraved with LilyPond version 2.17.6 or later "
-                            "the situation is somewhat improved through the use of the "
-                            "<code>\\temporary</code> directive.<br />"
-                            "In short: If you use both Modes at the same time please expect inconsistencies."))), 
-                      (li(_("<code>Display Grob Anchors</code><br />"
-                            "In LilyPond, all graphical objects have an anchor (a reference point). "
-                            "What is a reference point?  It's a special point that defines the "
-                            "object's position.  Think about geometry: if you have to define where a "
-                            "figure is placed on a plane, you'll usually say something like "
-                            "\"the lower left corner of this square has coordinates (0, 2)\" or \"the "
-                            "center of this circle is at (-1, 3)\". \"Lower left corner\" and \"center\" "
-                            "would be the reference points for square and circle.<br />"
-                            "This Mode displays a red dot for each grob's anchor point."))), 
-                      (li(_("<code>Display Grob Names</code><br />"
-                            "This mode prints a grob's name next to it.<br />"
-                            "The main purpose of this Debug Mode is to retrieve information about "
-                            "Grob names, which may come in handy if you don\'t know where to "
-                            "look up available properties.<br />"
-                            "Please note that this mode is quite intrusive and will especially "
-                            "become useful once it can be activated for single grobs."))), 
-                      (li(_("<code>Display Skylines</code><br />"
-                            "LilyPond uses \"Skylines\" to calculate the vertical dimensions "
-                            "of its graphical objects in order to prevent collisions. "
-                            "This mode draws lines representing the skylines and is useful when "
-                            "dealing with issues of vertical spacing."))), 
-                      (li(_("<code>Debug Paper Columns</code><br />"
-                            "LilyPond organises the horizontal spacing in \"paper columns\". "
-                            "This mode prints a lot of spacing information about these entities."))), 
-                      (li(_("<code>Annotate Spacing</code><br />"
-                            "LilyPond has a built-in function that prints lots of information "
-                            "about distances on the paper, which is very useful when debugging "
-                            "the page layout."))), 
-                      (li(_("<code>Include Custom File</code><br />"
-                            "This mode offers the opportunity to add one\'s own Debug Modes "
-                            "by including a custom file. This file will be included at program "
-                            "startup and may contain any LilyPond code you would like to have "
-                            "executed whenever you are engraving in Preview Mode.</br>"
-                            "The given string will be literally included in an <code>\\include</code> "
-                            "directive, so you are responsible yourself that LilyPond can find it.")))
-                            ))
-        return ''.join(text)
+        return p(
+          _("When working on a score you will usually engrave your "
+            "score in <code>Preview Mode</code>. This will enable "
+            "Frescobaldi's two-way point-and-click features and will "
+            "give you access to a number of \"Debug Modes\"."),
+          _("The Debug Modes are accessible through the \"Preview Options\" "
+            "dockable panel which is accessible through the <code>Tools</code> "
+            "menu. The checkboxes on this panel are initially unchecked "
+            "but remember their state throughout Frescobaldi sessions.<br />"
+            "If you use these features regularly it is recommendable "
+            "to have the panel constantly open because you will probably "
+            "switch Debug Modes quite often."),
+          _("The following Debug Modes are currently implemented:"),
+        ) + ul(li(
+          _("<code>Display Control Points</code><br />"
+            "Slurs, Ties and other similar objects are drawn in LilyPond "
+            "as third-order Bezier curves, which means that their shape "
+            "is controlled by four \"control-points\" (first and last ones "
+            "tell where the curve ends are placed, and the middle ones affect "
+            "the curvature). Changing the shape of these objects involves "
+            "moving these control-points around, and it's helpful to see "
+            "where they actually are.<br />"
+            "This Debug Mode will display the inner control-points "
+            "as red crosses and connects them to the outer (starting) "
+            "points with thin lines."),
+          _("<code>Color \\voiceXXX</code><br />"
+            "This mode highlights voices that have been explicitly set with "
+            "one of the <code>\\voiceXXX</code> commands. This is useful "
+            "when dealing with polyphony issues."),
+          _("<code>Color explicit directions</code><br />"
+            "This mode colors items whose directions have been explicitly set "
+            "with either the predefined commands <code>\\xxxUp</code> etc. "
+            "or the directional operators <code>^</code> and <code>_</code>.<br />"
+            "Please note how this mode and the previous are related:</br>"
+            "When the condition for one of the the modes is reverted using "
+            "commands like <code>\\oneVoice</code> or <code>\\xxxNeutral</code> "
+            "colors are reverted to black and may also revert the highlighting "
+            "of the other Debug Mode.<br />"
+            "In <code>c \\voiceTwo d \\stemUp e \\stemNeutral d \\oneVoice</code> "
+            "the \'d\' may already be reverted.<br />"
+            "If the score is engraved with LilyPond version 2.17.6 or later "
+            "the situation is somewhat improved through the use of the "
+            "<code>\\temporary</code> directive.<br />"
+            "In short: If you use both Modes at the same time please expect inconsistencies."),
+          _("<code>Display Grob Anchors</code><br />"
+            "In LilyPond, all graphical objects have an anchor (a reference point). "
+            "What is a reference point?  It's a special point that defines the "
+            "object's position.  Think about geometry: if you have to define where a "
+            "figure is placed on a plane, you'll usually say something like "
+            "\"the lower left corner of this square has coordinates (0, 2)\" or \"the "
+            "center of this circle is at (-1, 3)\". \"Lower left corner\" and \"center\" "
+            "would be the reference points for square and circle.<br />"
+            "This Mode displays a red dot for each grob's anchor point."),
+          _("<code>Display Grob Names</code><br />"
+            "This mode prints a grob's name next to it.<br />"
+            "The main purpose of this Debug Mode is to retrieve information about "
+            "Grob names, which may come in handy if you don\'t know where to "
+            "look up available properties.<br />"
+            "Please note that this mode is quite intrusive and will especially "
+            "become useful once it can be activated for single grobs."),
+          _("<code>Display Skylines</code><br />"
+            "LilyPond uses \"Skylines\" to calculate the vertical dimensions "
+            "of its graphical objects in order to prevent collisions. "
+            "This mode draws lines representing the skylines and is useful when "
+            "dealing with issues of vertical spacing."),
+          _("<code>Debug Paper Columns</code><br />"
+            "LilyPond organises the horizontal spacing in \"paper columns\". "
+            "This mode prints a lot of spacing information about these entities."),
+          _("<code>Annotate Spacing</code><br />"
+            "LilyPond has a built-in function that prints lots of information "
+            "about distances on the paper, which is very useful when debugging "
+            "the page layout."),
+          _("<code>Include Custom File</code><br />"
+            "This mode offers the opportunity to add one\'s own Debug Modes "
+            "by including a custom file. This file will be included at program "
+            "startup and may contain any LilyPond code you would like to have "
+            "executed whenever you are engraving in Preview Mode.</br>"
+            "The given string will be literally included in an <code>\\include</code> "
+            "directive, so you are responsible yourself that LilyPond can find it."),
+        ))
+
 
 class eng_publication(page):
     def title():
@@ -720,6 +723,7 @@ class eng_publication(page):
                  "hard-coded path information of your systen, which may be "
                  "considered a security issue.")
 
+
 class eng_custom(page):
     def title():
         return _("Engrave (Custom)")
@@ -728,6 +732,7 @@ class eng_custom(page):
         return p(_("The <code>Engrave (Custom)</code> dialog gives you detailed access "
         "to all aspects of the LilyPond command.<br>"
         "More documentation to come ..."))
+
 
 class troubleshooting(page):
     def title():
