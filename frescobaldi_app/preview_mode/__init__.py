@@ -49,6 +49,7 @@ def load_options():
     load_bool_option(s, 'directions')
     load_bool_option(s, 'grob-anchors')
     load_bool_option(s, 'grob-names')
+    load_bool_option(s, 'paper-columns')
 
 class PreviewOptions(panel.Panel):
     def __init__(self, mainwindow):

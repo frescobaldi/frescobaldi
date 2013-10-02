@@ -59,6 +59,9 @@ class Widget(QWidget):
         # grob-names checkbox
         self.CBgrobnames = QCheckBox()
         self.options['grob-names'] = self.CBgrobnames
+        # paper-columns checkbox
+        self.CBpapercolumns = QCheckBox()
+        self.options['paper-columns'] = self.CBpapercolumns
         # custom-file checkbox and input field
         self.GBcustomfile = QGroupBox()
         self.GBcustomfile.setCheckable(True)
@@ -76,6 +79,7 @@ class Widget(QWidget):
         self.checkOption(s, 'grob-anchors')
         self.checkOption(s, 'grob-names')
         self.checkOption(s, 'custom-file')
+        self.checkOption(s, 'paper-columns')
         self.LEcustomfile.setText(s.value('custom-filename', ''))
 
         # Compose layout
@@ -88,6 +92,7 @@ class Widget(QWidget):
         layout.addWidget(self.CBcolordirections)
         layout.addWidget(self.CBgrobanchors)
         layout.addWidget(self.CBgrobnames)
+        layout.addWidget(self.CBpapercolumns)
         layout.addWidget(self.GBcustomfile)
         layout.addStretch(1)
         
@@ -99,6 +104,7 @@ class Widget(QWidget):
         self.CBgrobanchors.toggled.connect(self.toggleOption)
         self.CBgrobnames.toggled.connect(self.toggleOption)
         self.GBcustomfile.toggled.connect(self.toggleOption)
+        self.CBpapercolumns.toggled.connect(self.toggleOption)
         self.LEcustomfile.textChanged.connect(self.edit_custom_file)
         
         self.translateUI()
@@ -125,6 +131,9 @@ class Widget(QWidget):
         self.CBgrobnames.setText(_("Display Grob Names"))
         self.CBgrobnames.setToolTip(_(
             "Display the name of each grob"))
+        self.CBpapercolumns.setText(_("Debug Paper Columns"))
+        self.CBpapercolumns.setToolTip(_(
+            "Display info on the paper columns"))
         self.GBcustomfile.setTitle(_("Include Custom File:"))
         self.GBcustomfile.setToolTip(_(
             "Include a custom file with definitions\n"
