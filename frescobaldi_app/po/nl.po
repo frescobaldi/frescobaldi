@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-10-02 19:13+0200\n"
-"PO-Revision-Date: 2013-10-02 19:17+0200\n"
+"POT-Creation-Date: 2013-10-02 20:53+0200\n"
+"PO-Revision-Date: 2013-10-02 20:54+0200\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -2558,8 +2558,8 @@ msgid ""
 "There are three modes Frescobaldi can compile scores in: <em>Preview</em>, "
 "<em>Publication</em> and <em>Custom</em>."
 msgstr ""
-"Frescobaldi kan muziek op drie manieren graveren: <em>Vooruitblik</em>, <em>"
-"Publicatie</em> en <em>Aangepast</em>."
+"Frescobaldi kan muziek op drie manieren graveren: <em>Vooruitblik</em>, "
+"<em>Publicatie</em> en <em>Aangepast</em>."
 
 #: ../help/contents.py:604
 msgid ""
@@ -2569,6 +2569,12 @@ msgid ""
 "producing the final PDF intended to be shared.<br /><em>Custom</em> mode "
 "allows you to specify the used LilyPond command in detail."
 msgstr ""
+"De <em>Vooruitblik</em> modus is handig tijdens het werken aan een partituur "
+"omdat deze twee-weg point &amp; click navigatie biedt en een aantal debug-"
+"modes voor het debuggen van de layout.<br /> De <em>Publicatie</em> modus is "
+"bedoeld voor het genereren van de uiteindelijke PDF bedoeld voor publicatie."
+"<br /> De <em>Aangepast</em> modues laat u het LilyPond-commando tot in "
+"detail bepalen."
 
 #: ../help/contents.py:611
 msgid ""
@@ -2577,6 +2583,10 @@ msgid ""
 "determine the LilyPond version from the document and use the version that "
 "matches best."
 msgstr ""
+"Als u verschillende LilyPond versies heeft ingesteld en Frescobaldi in de "
+"<em>LilyPond</em>-pagina van de dialoog <em>Voorkeuren</em> toestaat de "
+"LilyPond-versie uit het document te kiezen, kiest Frescobaldi de geschiktste "
+"versie van LilyPond voor het maken van de partituur."
 
 #: ../help/contents.py:627
 msgid "Engrave (Preview)"
@@ -2588,6 +2598,9 @@ msgid ""
 "Mode</em>. This will enable Frescobaldi's two-way point-and-click features "
 "and will give you access to a number of \"Debug Modes\"."
 msgstr ""
+"Tijdens het werken aan een partituur zult u voornamelijk de <em>Vooruitblik</"
+"em>-modues gebruiken. Hiermee is de twee-weg navigatie beschikbaar (Point "
+"&amp; Click) alsmede een aantal debug-modes."
 
 #: ../help/contents.py:635
 msgid ""
@@ -2598,15 +2611,19 @@ msgid ""
 "recommendable to have the panel constantly open because you will probably "
 "switch Debug Modes quite often."
 msgstr ""
+"De debug-modes zijn beschikbaar in het gereedschap \"Vooruitblik opties\" in "
+"het menu <em>Gereedschap</em>. Alle functies zijn standaard uitgeschakeld "
+"maar worden onthouden door Frescobaldi.<br /> Als u veel van de debug-modes "
+"gebruik maakt kunt u het gereedschap open houden om snel opties te kunnen "
+"omschakelen."
 
 #: ../help/contents.py:642
-#, fuzzy
 msgid "The following Debug Modes are currently implemented:"
-msgstr "De volgende variabelen worden herkend:"
+msgstr "De volgende debug-modes zijn momenteel geïmplementeerd:"
 
 #: ../help/contents.py:645 ../preview_mode/widget.py:124
 msgid "Display Control Points"
-msgstr ""
+msgstr "Controlepunten tonen"
 
 #: ../help/contents.py:646
 msgid ""
@@ -2619,10 +2636,17 @@ msgid ""
 "points as red crosses and connects them to the outer (starting) points with "
 "thin lines."
 msgstr ""
+"Objecten zoals boogjes worden door LilyPond als derde-orde Bezier-curven "
+"getekend, wat betekent dat hun vorm door vier controlepunten wordt bepaald. "
+"De eerste en laatste punten bepalen de plaats, de middelste twee beïnvloeden "
+"de vorm. De vorm van dit soort objecten wordt veranderd door deze punten te "
+"verplaatsen, en zodoende is het handig om te zien waar ze zijn in de PDF."
+"<br /> Deze debug-modus toont de binnenste controlepunten als rode kruisjes "
+"en verbindt ze met de buitenste punten met dunne lijnen."
 
 #: ../help/contents.py:656 ../preview_mode/widget.py:128
 msgid "Color \\voiceXXX"
-msgstr ""
+msgstr "\\voiceXX kleuren"
 
 #: ../help/contents.py:657
 msgid ""
@@ -2630,18 +2654,20 @@ msgid ""
 "<code>\\voiceXXX</code> commands. This is useful when dealing with polyphony "
 "issues."
 msgstr ""
+"Deze modus kleurt de noten die speciaal met een van de <code>\\voiceXXX</"
+"code> commando's gemarkeerd zijn. Dit is handig bij het oplossen van "
+"problemen met polyphonie."
 
 #: ../help/contents.py:660 ../preview_mode/widget.py:132
-#, fuzzy
 msgid "Color explicit directions"
-msgstr "Expliciete toonduur"
+msgstr "Expliciete richting kleuren"
 
 #: ../help/contents.py:661
 msgid ""
 "This mode colors items whose directions have been explicitly set with either "
 "the predefined commands <code>\\xxxUp</code> etc. or the directional "
 "operators <code>^</code> and <code>_</code>.<br />Please note how this mode "
-"and the previous are related:</br>When the condition for one of the the "
+"and the previous are related:<br />When the condition for one of the the "
 "modes is reverted using commands like <code>\\oneVoice</code> or <code>"
 "\\xxxNeutral</code> colors are reverted to black and may also revert the "
 "highlighting of the other Debug Mode.<br />In <code>c \\voiceTwo d \\stemUp "
@@ -2651,10 +2677,22 @@ msgid ""
 "<br />In short: If you use both Modes at the same time please expect "
 "inconsistencies."
 msgstr ""
+"Deze modus kleurt items waarvan de richting expliciet is opgegeven met "
+"commando's zoals <code>\\xxxUp</code> of de richtings-operators <code>^</"
+"code> en <code>_</code>.<br /> Deze en de vorige modus zijn enigszins "
+"gerelateerd: als de richting voor een van de modes ongedaan gemaakt wordt "
+"met behulp van commando's zoals <code>\\oneVoice</code> of <code>"
+"\\xxxNeutral</code> wordt de kleur ook weer op zwart gezet, dat zou ook de "
+"kleur van de andere modus ongedaan kunnen maken.<br /> In <code>c \\voiceTwo "
+"d \\stemUp e \\stemNeutral d \\oneVoice</code> is de 'd' alweer zwart.<br /> "
+"Als u de partituur graveert met LilyPond versie 2.17.6 of nieuwer is de "
+"situatie verbeterd doordat het <code>\\temporary</code>-directief gebruikt "
+"kan worden.<br /> Kortom: als u deze beide modes tegelijk gebruikt kunnen er "
+"soms inconsistenties optreden."
 
 #: ../help/contents.py:676 ../preview_mode/widget.py:135
 msgid "Display Grob Anchors"
-msgstr ""
+msgstr "Grob-ankerpunten weergeven"
 
 #: ../help/contents.py:677
 msgid ""
@@ -2667,10 +2705,13 @@ msgid ""
 "points for square and circle.<br />This Mode displays a red dot for each "
 "grob's anchor point."
 msgstr ""
+"In LilyPond hebben alle grafische objecten (grobs) een ankerpunt "
+"(referentiepunt). Dit punt bepaalt de positie van het object.<br /> Deze "
+"modus toont een rode stip op het ankerpunt van elke grob."
 
 #: ../help/contents.py:685 ../preview_mode/widget.py:138
 msgid "Display Grob Names"
-msgstr ""
+msgstr "Grob-namen weergeven"
 
 #: ../help/contents.py:686
 msgid ""
@@ -2680,10 +2721,16 @@ msgid ""
 "note that this mode is quite intrusive and will especially become useful "
 "once it can be activated for single grobs."
 msgstr ""
+"Deze mode drukt de naam van elke grob af.<br /> Het doel is om informatie te "
+"krijgen over de namen van grobs, wat handig kan zijn om te kijken wat voor "
+"eigenschappen voor die grob ingesteld kunnen worden.<br /> Deze modus "
+"resulteert in onoverzichtelijke partituren en werkt daarom het best met "
+"kleine testdocumenten. Hopelijk kan deze modus in de toekomst voor elke grob "
+"apart worden ingeschakeld."
 
 #: ../help/contents.py:692 ../preview_mode/widget.py:120
 msgid "Display Skylines"
-msgstr ""
+msgstr "Skylines weergeven"
 
 #: ../help/contents.py:693
 msgid ""
@@ -2692,32 +2739,38 @@ msgid ""
 "representing the skylines and is useful when dealing with issues of vertical "
 "spacing."
 msgstr ""
+"LilyPond gebruikt \"skylines\" om de verticale afmetingen van objecten te "
+"berekenen om botsingen te voorkomen. Deze modus tekent de skylines in de "
+"partituur en verschaft zo inzicht in de verticale spatiëring."
 
 #: ../help/contents.py:697 ../preview_mode/widget.py:141
-#, fuzzy
 msgid "Debug Paper Columns"
-msgstr "Papierkleur"
+msgstr "Paper-colums debuggen"
 
 #: ../help/contents.py:698
 msgid ""
 "LilyPond organises the horizontal spacing in \"paper columns\". This mode "
 "prints a lot of spacing information about these entities."
 msgstr ""
+"Horizontale spatiëring wordt door LilyPond geregeld met behulp van paper-"
+"columns. Deze modus toont een grote hoeveelheid informatie over deze "
+"entiteiten."
 
 #: ../help/contents.py:700 ../preview_mode/widget.py:144
 msgid "Annotate Spacing"
-msgstr ""
+msgstr "Spatiëring annoteren"
 
 #: ../help/contents.py:701
 msgid ""
 "LilyPond has a built-in function that prints lots of information about "
 "distances on the paper, which is very useful when debugging the page layout."
 msgstr ""
+"LilyPond heeft een ingebouwde functie die alle afstanden in getallen "
+"vermeldt, wat handig is om de pagina-layout te debuggen."
 
 #: ../help/contents.py:704
-#, fuzzy
 msgid "Include Custom File"
-msgstr "Invoegen uit bestand"
+msgstr "Eigen bestand invoegen"
 
 #: ../help/contents.py:705
 msgid ""
@@ -2728,6 +2781,11 @@ msgid ""
 "\\include</code> directive, so you are responsible yourself that LilyPond "
 "can find it."
 msgstr ""
+"Deze modus biedt de gelegenheid een eigen bestand in te voegen met eigen "
+"debug-modus. Dit bestand wordt dan bij het starten van LilyPond in "
+"vooruitblik-modus geladen.<br /> De ingevoerde bestandsnaam wordt letterlijk "
+"in een <code>\\include</code>-commando geplaatst, dus u moet zelf zorgen dat "
+"LilyPond het kan vinden."
 
 #: ../help/contents.py:716
 msgid "Engrave (Publication)"
@@ -2737,15 +2795,22 @@ msgstr "Graveren (publicatie)"
 msgid ""
 "When engraving a score in Publication mode the point-and-click information "
 "isn't generated. This will prevent a reader of the resulting PDF document "
-"from navigating to the corresponging line in the input file, but it will "
+"from navigating to the corresponding line in the input file, but it will "
 "also significantly decrease the file size."
 msgstr ""
+"Als u een partituur graveert in publicatie-modus wordt de point &amp; click-"
+"informatie niet gegenereerd. Hierdoor kan met niet van aanklikbare objecten "
+"naar het brondocument navigeren, maar de resulterende PDF zal wel veel "
+"kleiner zijn."
 
 #: ../help/contents.py:725
 msgid ""
 "You should also note that the point-and-click links contain hard-coded path "
 "information of your systen, which may be considered a security issue."
 msgstr ""
+"Het is ook zo dat de point &amp; click koppelingen het pad van het "
+"bronbestand op uw systeem prijsgeven, wat een veiligheidsrisico zou kunnen "
+"zijn."
 
 #: ../help/contents.py:733
 msgid "Engrave (Custom)"
@@ -2756,11 +2821,12 @@ msgid ""
 "The <em>Engrave (Custom)</em> dialog gives you detailed access to all "
 "aspects of the LilyPond command."
 msgstr ""
+"De dialoog <em>Aangepast graveren</em> geeft gedetailleerde toegang tot alle "
+"aspecten van de LilyPond-commandoregel."
 
 #: ../help/contents.py:739
-#, fuzzy
 msgid "More documentation to come ..."
-msgstr "Documenten in deze map sluiten"
+msgstr "Meer documentatie volgt..."
 
 #: ../help/contents.py:745
 msgid "Troubleshooting"
@@ -3604,9 +3670,8 @@ msgstr "Algemene voorkeuren"
 
 #: ../preferences/__init__.py:197 ../preferences/prefshelp.py:129
 #: ../preferences/prefshelp.py:135
-#, fuzzy
 msgid "Preview Preferences"
-msgstr "Algemene voorkeuren"
+msgstr "Vooruitblik voorkeuren"
 
 #: ../preferences/__init__.py:209 ../preferences/prefshelp.py:140
 msgid "MIDI Settings"
@@ -4399,6 +4464,8 @@ msgid ""
 "Under <em>{preview_preferences}</em>, you can configure the appearance of "
 "several aspects of the Preview Mode."
 msgstr ""
+"Onder <em>{preview_preferences}</em> kunt u verschillende aspecten van de "
+"vooruitblik-modus instellen."
 
 #: ../preferences/prefshelp.py:144
 msgid "Here you can configure Frescobaldi's MIDI settings."
@@ -4614,9 +4681,8 @@ msgid "For more information about regular expressions, see {link}."
 msgstr "Zie voor meer informatie over reguliere expressies: {link}."
 
 #: ../preferences/preview.py:82
-#, fuzzy
 msgid "Preview options to use"
-msgstr "De te gebruiken LilyPond-versies"
+msgstr "Te gebruiken vooruitblik-opties"
 
 #: ../preferences/shortcuts.py:56 ../snippet/model.py:63
 msgid "Shortcut"
@@ -4730,63 +4796,61 @@ msgid "Enter a regular expression to match:"
 msgstr "Voer een reguliere expressie in:"
 
 #: ../preview_mode/__init__.py:42
-#, fuzzy
 msgid "Preview Options"
-msgstr "Opties"
+msgstr "Vooruitblik opties"
 
 #: ../preview_mode/__init__.py:43
-#, fuzzy
 msgid "Pre&view Options"
-msgstr "Opties"
+msgstr "&Vooruitblik opties"
 
 #: ../preview_mode/widget.py:122
 msgid "Display the skylines that LilyPond uses to detect collisions."
-msgstr ""
+msgstr "De skylines tonen die LilyPond gebruikt om botsingen te detecteren."
 
 #: ../preview_mode/widget.py:126
 msgid "Display the control points that determine curve shapes"
-msgstr ""
+msgstr "De controlepunten tonen die de vorm van curven bepalen"
 
 #: ../preview_mode/widget.py:130
 msgid "Highlight notes that are explicitly set to \\voiceXXX"
-msgstr ""
+msgstr "Noten accentueren die expliciet op \\voiceXXX zijn ingesteld"
 
 #: ../preview_mode/widget.py:134
 msgid "Highlight elements that are explicitly switched up- or downwards"
-msgstr ""
+msgstr "Elementen accentueren die expliciet naar boven of beneden zijn gericht"
 
 #: ../preview_mode/widget.py:137
 msgid "Display a dot at the anchor point of each grob"
-msgstr ""
+msgstr "Een stip weergeven op het ankerpunt van elke grob"
 
 #: ../preview_mode/widget.py:140
 msgid "Display the name of each grob"
-msgstr ""
+msgstr "De naam van elke grob tonen"
 
 #: ../preview_mode/widget.py:143
 msgid "Display info on the paper columns"
-msgstr ""
+msgstr "Informatie over de paper columns"
 
 #: ../preview_mode/widget.py:146
 msgid ""
 "Use LilyPond's \"annotate spacing\" option to\n"
 "display measurement information"
 msgstr ""
+"LilyPond \"annotate spacing\"-optie gebruiken om afstanden weer te geven"
 
 #: ../preview_mode/widget.py:148
-#, fuzzy
 msgid "Include Custom File:"
-msgstr "Invoegen uit bestand"
+msgstr "Eigen bestand invoegen:"
 
 #: ../preview_mode/widget.py:150
 msgid ""
 "Include a custom file with definitions\n"
 "for additional Debug Modes"
-msgstr ""
+msgstr "Een eigen bestand met definities invoegen voor additionele debug-modes"
 
 #: ../preview_mode/widget.py:153
 msgid "Filename to be included"
-msgstr ""
+msgstr "In te voegen bestand"
 
 #: ../quickinsert/__init__.py:48
 msgid "Quick &Insert"
