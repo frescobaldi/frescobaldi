@@ -2,6 +2,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Georg Hennig <georg.hennig@web.de>, 2009, 2010, 2011.
+# Updates Urs Liska <git@ursliska.de>, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.0\n"
@@ -56,31 +57,28 @@ msgid "The following people contributed to {appname}:"
 msgstr "Folgende Personen haben zu {appname} beigetragen:"
 
 #: ../about.py:71
-#, fuzzy
 msgid "Kinetic Scrolling for the Music View"
-msgstr "{author}: Automatisches Scrollen der Notenansicht"
+msgstr "Automatisches Scrollen der Notenansicht"
 
 #: ../about.py:75
 msgid "Improved highlighting and auto-completion of Scheme code"
-msgstr ""
+msgstr "Verbesserte Formatierung und Autovervollständigung von Scheme Code"
 
 #: ../about.py:79
-#, fuzzy
 msgid "Various contributions"
-msgstr "Mitwirkende"
+msgstr "Verschiedene Beiträge"
 
 #: ../about.py:83
-#, fuzzy
 msgid "Modal Transpose"
-msgstr "&Transponieren ..."
+msgstr "Modale &Transposition ..."
 
 #: ../about.py:87
 msgid "Quick Insert buttons for grace notes"
-msgstr ""
+msgstr "Schnelleinfüge-Befehle für Vorschlagsnoten"
 
 #: ../about.py:88
 msgid "MusicXML import"
-msgstr ""
+msgstr "MusicXML-Import"
 
 #: ../about.py:93
 msgid "{appname} is translated into the following languages:"
@@ -112,7 +110,7 @@ msgstr "Version {version}"
 
 #: ../about.py:184 ../main.py:57
 msgid "A LilyPond Music Editor"
-msgstr "Ein LilyPond Musik-Editor"
+msgstr "Ein LilyPond Noten-Editor"
 
 #: ../about.py:185
 msgid "Copyright (c) {year} by {author}"
@@ -125,7 +123,7 @@ msgstr "Sende eine E-Mail an die Entwickler."
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
 #: ../about.py:192 ../help/contents.py:57
 msgid "Translated by Your Name."
-msgstr "Übersetzt von Markus W. Kropp und Georg Hennig."
+msgstr "Übersetzt von Markus W. Kropp, Georg Hennig und Urs Liska."
 
 #: ../about.py:197
 msgid "Licensed under the {gpl}."
@@ -134,12 +132,12 @@ msgstr "Lizensiert unter der {gpl}."
 #: ../actioncollectionmanager.py:122 ../preferences/shortcuts.py:214
 msgid "This shortcut conflicts with the following command:"
 msgid_plural "This shortcut conflicts with the following commands:"
-msgstr[0] "Dieser Kurzbefehl steht im Konflikt mit folgendem Befehl:"
-msgstr[1] "Dieser shortcut steht im Konflikt mit den folgenden Befehlen:"
+msgstr[0] "Dieses Tastenkürzel steht im Konflikt mit folgendem Befehl:"
+msgstr[1] "Dieses Tastenkürzel steht im Konflikt mit folgenden Befehlen:"
 
 #: ../actioncollectionmanager.py:128 ../preferences/shortcuts.py:220
 msgid "Shortcut Conflict"
-msgstr "Kurzbefehl-Konflikt"
+msgstr "Tastenkürzel-Konflikt"
 
 #: ../actioncollectionmanager.py:130
 msgid "Edit again"
@@ -311,33 +309,28 @@ msgid "&Update with convert-ly..."
 msgstr "Mittels &convert-ly aktualisieren"
 
 #: ../documentactions.py:183
-#, fuzzy
 msgid "Remove &Articulations"
-msgstr "Artikulationszeichen"
+msgstr "Artikulationszeichen entfernen"
 
 #: ../documentactions.py:184
-#, fuzzy
 msgid "Remove &Ornaments"
-msgstr "Ornamente"
+msgstr "Entferne &Ornamente"
 
 #: ../documentactions.py:185
 msgid "Remove &Instrument Scripts"
 msgstr ""
 
 #: ../documentactions.py:186
-#, fuzzy
 msgid "Remove &Slurs"
-msgstr "&Notenlängen entfernen"
+msgstr "Bögen entfernen"
 
 #: ../documentactions.py:187
-#, fuzzy
 msgid "Remove &Dynamics"
-msgstr "Dynamik"
+msgstr "&Dynamik entfernen"
 
 #: ../documentactions.py:188
-#, fuzzy
 msgid "Remove Text &Markup (from music)"
-msgstr "Ausgewählten Teil der Partitur löschen."
+msgstr "Text und Markup (aus Musik) entfernen"
 
 #: ../documentcontextmenu.py:67 ../mainwindow.py:1009
 #: ../sessions/manager.py:127
@@ -357,10 +350,9 @@ msgid "Always &Engrave This Document"
 msgstr "Immer dieses &Dokument setzen"
 
 #: ../documentmenu.py:42
-#, fuzzy
 msgctxt "menu title"
 msgid "&Documents"
-msgstr "D&okument"
+msgstr "D&okumente"
 
 #. L10N: 'always engraved': the document is marked as 'Always Engrave' in the LilyPond menu
 #: ../documentmenu.py:109
@@ -843,6 +835,8 @@ msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
 msgstr ""
+"Öffnet ein Fenster um zu überprüfen, ob Dokumente "
+"von anderen Programmen verändert oder gelöscht wurden."
 
 #: ../mainwindow.py:1019
 msgid "Print Source..."
@@ -986,7 +980,6 @@ msgid "&File"
 msgstr "&Datei"
 
 #: ../menu.py:122
-#, fuzzy
 msgctxt "submenu title"
 msgid "&Import"
 msgstr "&Importieren ..."
@@ -1042,10 +1035,9 @@ msgid "&Rhythm"
 msgstr "&Rhythmus"
 
 #: ../menu.py:333
-#, fuzzy
 msgctxt "submenu title"
 msgid "&Quick Remove"
-msgstr "&Entfernen"
+msgstr "Schnell &Entfernen"
 
 #: ../menu.py:351
 msgctxt "menu title"
@@ -1289,13 +1281,12 @@ msgid "Close selected documents"
 msgstr "Ausgewählte Dokumente schließen"
 
 #: ../doclist/widget.py:194
-#, fuzzy
 msgid "Save documents in this folder"
-msgstr "Dokument speichern, wenn möglich"
+msgstr "Dokument in diesem Ordner speichern"
 
 #: ../doclist/widget.py:195
 msgid "Close documents in this folder"
-msgstr ""
+msgstr "Schließe Dokumente in diesem Ordner"
 
 #: ../doclist/widget.py:198
 msgid "Save all untitled documents"
@@ -1358,7 +1349,6 @@ msgid "Run LilyPond with verbose output"
 msgstr "LilyPond mit geschwätziger Ausgabe starten"
 
 #: ../engrave/custom.py:131 ../preferences/lilypond.py:296
-#, fuzzy
 msgid "Run LilyPond with English messages"
 msgstr "LilyPond mit Englischen Meldungen starten"
 
@@ -1524,7 +1514,6 @@ msgid "Maybe the directory does not exist anymore."
 msgstr "Möglicherweise existiert das Verzeichnis nicht mehr"
 
 #: ../externalchanges/widget.py:245
-#, fuzzy
 msgid "Please save the document using the \"Save As...\" dialog."
 msgid_plural "Please save the documents using the \"Save As...\" dialog."
 msgstr[0] "Bitte das Dokument mit \"Speichern unter ...\" speichern"
@@ -1591,54 +1580,49 @@ msgstr ""
 #: ../file_import/__init__.py:48
 msgctxt "dialog title"
 msgid "Import a MusicXML file"
-msgstr ""
+msgstr "MusicXML-Datei importieren"
 
 #: ../file_import/__init__.py:93
-#, fuzzy
 msgid "Import MusicXML..."
-msgstr "Noten &drucken ..."
+msgstr "MusicXMP importieren..."
 
 #: ../file_import/__init__.py:94
 msgid "Import a MusicXML file using musicxml2ly."
-msgstr ""
+msgstr "Importiere eine MusicXML-Datei mit musicxml2ly"
 
 #: ../file_import/musicxml.py:93 ../file_import/musicxml.py:149
-#, fuzzy
 msgid "Import Music XML"
-msgstr "Als HTML exportieren"
+msgstr "MusicXML importieren"
 
 #: ../file_import/musicxml.py:94
-#, fuzzy
 msgid "No articulation directions"
-msgstr "&Notenlängen entfernen"
+msgstr "Artikulationsausrichtungen entfernen"
 
 #: ../file_import/musicxml.py:95
 msgid "No rest positions"
-msgstr ""
+msgstr "Pausen nicht positionieren"
 
 #: ../file_import/musicxml.py:96
 msgid "No page layout"
-msgstr ""
+msgstr "Kein Seitenlayout"
 
 #: ../file_import/musicxml.py:97
 msgid "Auto beaming"
-msgstr ""
+msgstr "Autmatische Balken"
 
 #: ../file_import/musicxml.py:99
 msgid "Run musicxml2ly"
-msgstr ""
+msgstr "Führe musicxml2ly aus"
 
 #: ../file_import/musicxml.py:153
-#, fuzzy
 msgid ""
 "In this dialog you can set some parameters for the musicxml2ly import.\n"
 msgstr ""
-"In diesem Dialog können Sie die aktuelle Zeile des Quelltexts bearbeiten."
+"In diesem Dialog können Sie Parameter für den musicxml2ly-Import bearbeiten.\n"
 
 #: ../file_import/musicxml.py:159
-#, fuzzy
 msgid "The musicxml2ly executable"
-msgstr "Das LilyPond-Programm"
+msgstr "Die ausführbare musicxml2ly-Datei"
 
 #: ../help/browser.py:77
 msgid "Toolbar"
@@ -1742,6 +1726,29 @@ msgid ""
 "documentation</a>.\n"
 "</p>"
 msgstr ""
+"<p>\n"
+"<a href=\"http://lilypond.org/\">LilyPond</a>\n"
+"ist ein quelloffenes Notations-Programm, das Partituren höchster Qualität"
+"aus relativ einfachen Text-Eingabedateien erzeugt.\n"
+"Eingabedateien können praktisch mit jedem Text-Editor bearbeitet werden, "
+"und LilyPond übersetzt diese standardmäßig (aber nicht ausschließlich) "
+"in PDF-Dokumente.\n"
+"Input files can be cn"
+"</p>\n"
+"\n"
+"<p>\n"
+"Frescobaldi ist eine Anwendung, welche die Bearbeitung von LilyPond-Partituren "
+"schneller und leichter macht. Zwar müssen Sie zunächst LilyPonds Eingabesprache "
+"erlernen, aber die {getting_started}-Seite dieses Handbuchs wird Ihnen einen "
+"leichteren Einstieg ermöglichen.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"Sobald Sie die ersten Grundlagen verstanden haben, sollten Sie die "
+"\"Learning Manual\"-Einführung aus "
+"<a href=\"http://lilypond.org/doc/\">LilyPonds hervorragender Online-Referenz "
+"</a>durcharbeiten.\n"
+"</p>"
 
 #: ../help/contents.py:121
 msgid "Getting Started"
@@ -1874,7 +1881,7 @@ msgstr "Notenansicht"
 
 #: ../help/contents.py:236
 msgid "The Music View displays the PDF document created by LilyPond."
-msgstr ""
+msgstr "Die Notenansicht stellt das von LilyPond erzeugte PDF-Dokument dar."
 
 #: ../help/contents.py:237
 msgid ""
@@ -1888,41 +1895,47 @@ msgid ""
 "The Music View uses this information to provide smart, two-way integration "
 "with the text document:"
 msgstr ""
+"Die Notenansicht verwendet diese Informationen, um eine intelligente "
+"Zwei-Wege-Integration mit dem Textdokument herzustellen."
 
 #: ../help/contents.py:243
 msgid "Move the mouse pointer over music objects to highlight them in the text"
-msgstr ""
+msgstr "Bewegen Sie den Mauszeiger über Notationsobjekte, um sie im Quelltext hervorzuheben."
 
 #: ../help/contents.py:244
 msgid "Click an object to move the text cursor to that object"
-msgstr ""
+msgstr "Klicken Sie auf ein Objekt um den Text-Cursor an die entsprechende Stelle zu bewegen"
 
 #: ../help/contents.py:245
 msgid "Shift-click an object to edit its text in a small window (see {link})"
-msgstr ""
+msgstr "Shift-click auf ein Objekt öffnet ein kleines Text-Editor-Fenster (siehe {link})"
 
 #: ../help/contents.py:247
 msgid ""
 "Move the text cursor to highlight them in the music view, press {key} to "
 "scroll them into view."
 msgstr ""
+"Bewegen Sie den Text-Cursor, um die entsprechenden Objekte in der Notenansicht "
+"hervorzuheben. Drücken Sie {key}, um die Ansicht zum Objekt zu bewegen."
 
 #: ../help/contents.py:250
 msgid "You can also adjust the view:"
-msgstr ""
+msgstr "Sie können die Ansicht auch anpassen:"
 
 #: ../help/contents.py:252
 msgid ""
 "Use the Control (or Command) key with the mouse wheel to zoom in and out"
 msgstr ""
+"Benützen Sie das Mausrad mit der Ctrl- (oder Command-)Taste, um "
+"die Ansicht zu vergrößern oder zu verkleinern."
 
 #: ../help/contents.py:254
 msgid "Hold Control or Command and left-click to display a magnifier glass"
-msgstr ""
+msgstr "Strg- (oder Command-) mit Klick auf den Hintergrund stellt eine Bildschirmlupe zur Verfügung"
 
 #: ../help/contents.py:255
 msgid "Configure the background color under {menu}"
-msgstr ""
+msgstr "Stellen Sie die Hintergrundfarbe unter {menu} ein"
 
 #: ../help/contents.py:256 ../help/contents.py:426
 #: ../preferences/prefshelp.py:38
@@ -2182,10 +2195,9 @@ msgstr "Dateiname"
 #: ../help/contents.py:496
 msgid "Compiles another LilyPond document instead of the current."
 msgstr ""
-"Verarbeitet anstelle des aktuellen Dokuments ein anderes LilyPond-Dokument."
+"Verarbeitet ein anderes LilyPond-Dokument anstelle des aktuellen Dokuments."
 
 #: ../help/contents.py:497
-#, fuzzy
 msgid "name"
 msgstr "Dateiname"
 
@@ -2194,6 +2206,8 @@ msgid ""
 "Looks for output documents (PDF, MIDI, etc.) starting with the specified "
 "name or comma-separated list of names."
 msgstr ""
+"Sucht nach Ausgabe-Dokumenten (PDF, MIDI etc.), die mit dem angegebenen "
+"Namen oder einer kommaseparierten Liste von Namen beginnen."
 
 #: ../help/contents.py:500
 msgid "More information."
@@ -2244,9 +2258,8 @@ msgid "You can put document variables in comments."
 msgstr "Sie können Dokumenten-Variable als Kommentar einfügen."
 
 #: ../help/contents.py:534
-#, fuzzy
 msgid "The \"{output}\" document variable"
-msgstr "Dokumenten-Variablen"
+msgstr "Die \"{output}\" Dokument-Variable"
 
 #: ../help/contents.py:539
 msgid ""
@@ -2267,7 +2280,7 @@ msgstr ""
 
 #: ../help/contents.py:546 ../help/contents.py:650
 msgid "For example:"
-msgstr ""
+msgstr "Zum Beispiel:"
 
 #: ../help/contents.py:557
 msgid ""
@@ -2560,9 +2573,8 @@ msgid "Previous Page"
 msgstr "Vorherige Seite"
 
 #: ../musicview/__init__.py:302
-#, fuzzy
 msgid "Previous"
-msgstr "Vorherige Markierung"
+msgstr "Vorige"
 
 #: ../musicview/__init__.py:303
 msgid "&Reload"
@@ -2747,14 +2759,12 @@ msgid "Transposes all notes in the document or selection."
 msgstr "Transponiere alle Noten im gesamten Dokument oder der Auswahl."
 
 #: ../pitch/__init__.py:126
-#, fuzzy
 msgid "&Modal Transpose..."
-msgstr "&Transponieren ..."
+msgstr "Modal &transponieren ..."
 
 #: ../pitch/__init__.py:128
-#, fuzzy
 msgid "Transposes all notes in the document or selection within a given mode."
-msgstr "Transponiere alle Noten im gesamten Dokument oder der Auswahl."
+msgstr "Transponiere Noten im Dokument oder in der Auswahl innerhalb des angegebenen Modus."
 
 #: ../pitch/pitch.py:82 ../pitch/pitch.py:95
 msgid "Pitch Name Language"
@@ -2806,6 +2816,8 @@ msgid ""
 "Please enter the number of steps to alter by, followed by a key signature. "
 "(i.e. \"5 F\")"
 msgstr ""
+"Bitte geben Sie die Anzahl der Transpositionsstufen an, gefolgt fon einer "
+"Tonart (z.B. \"5 F\")."
 
 #: ../pitch/pitch.py:627
 msgid ""
@@ -3401,11 +3413,11 @@ msgstr "LilyPond-Umgebung"
 
 #: ../preferences/fontscolors.py:534
 msgid "Constant"
-msgstr ""
+msgstr "Konstante"
 
 #: ../preferences/fontscolors.py:535
 msgid "Symbol"
-msgstr ""
+msgstr "Symbol"
 
 #: ../preferences/fontscolors.py:538
 msgid "Texinfo"
@@ -3653,6 +3665,8 @@ msgid ""
 "If checked, LilyPond's output messages will be in English.\n"
 "This can be useful for bug reports."
 msgstr ""
+"Erzeuge LilyPonds Kommandozeilen-Ausgabe auf Englisch.\n"
+"Dies kann etwa für Fehlerberichte nützlich sein."
 
 #: ../preferences/lilypond.py:300
 msgid "LilyPond include path:"
@@ -3827,13 +3841,12 @@ msgid ""
 msgstr ""
 
 #: ../preferences/prefshelp.py:165
-#, fuzzy
 msgid ""
 "In this page you can enter commands to open different file types. <code>$f</"
 "code> is replaced with the filename, <code>$u</code> with the URL. Leave a "
 "field empty to use the operating system default application."
 msgstr ""
-"Unten können Sie Kommandos eingeben, umd verschiedene Dateitypen zu öffnen. "
+"Auf dieser Seite können Sie Befehle eingeben, um verschiedene Dateitypen zu öffnen. "
 "<code>$f</code> wird durch den Dateinamen ersetzt, <code>$u</code> durch die "
 "URL. Bei leerem Feld wird die Standardanwendung des Betriebssystems benutzt."
 
@@ -3967,7 +3980,6 @@ msgid "Shortcut"
 msgstr "Kurzbefehl"
 
 #: ../preferences/shortcuts.py:100
-#, fuzzy
 msgid "Menu {name}"
 msgstr "Menu {name}:"
 
@@ -4050,28 +4062,27 @@ msgstr "%"
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
 #: ../preferences/tools.py:178
 msgid "Kinetic Scrolling"
-msgstr ""
+msgstr "Automatisches Scrollen"
 
 #: ../preferences/tools.py:179
 msgid "Show Scrollbars"
-msgstr ""
+msgstr "Zeige Scrollbalken"
 
 #: ../preferences/tools.py:264
 msgid "Group documents by directory"
 msgstr "Dokumente nach Verzeichnis gruppieren"
 
 #: ../preferences/tools.py:297
-#, fuzzy
 msgid "Restores the built-in outline patterns."
-msgstr "Python-Schnipsel"
+msgstr "Setze Dokumenstruktur-Anzeige zurück."
 
 #: ../preferences/tools.py:298
 msgid "Patterns to match in text that are shown in outline:"
-msgstr ""
+msgstr "Text-Patterns, die in der Dokumentstruktur angezeigt werden sollen:"
 
 #: ../preferences/tools.py:325
 msgid "Enter a regular expression to match:"
-msgstr ""
+msgstr "Geben Sie einen regulären Ausdruck ein:"
 
 #: ../quickinsert/__init__.py:48
 msgid "Quick &Insert"
@@ -4086,9 +4097,8 @@ msgid "Use short notation for some articulations like staccato."
 msgstr "Benutze kurze Notation für einige Artikulationszeichen wie Staccato."
 
 #: ../quickinsert/articulations.py:98
-#, fuzzy
 msgid "Remove articulations etc."
-msgstr "&Notenlängen entfernen"
+msgstr "&Artikulationsn entfernen"
 
 #: ../quickinsert/articulations.py:106 ../quickinsert/articulations.py:138
 msgid "Articulations"
@@ -4475,31 +4485,31 @@ msgstr "Phrasierungsbogen"
 
 #: ../quickinsert/spanners.py:168
 msgid "Melisma"
-msgstr ""
+msgstr "Melisma"
 
 #: ../quickinsert/spanners.py:190 ../quickinsert/spanners.py:197
 msgid "Grace Notes"
-msgstr ""
+msgstr "Vorschlagsnoten"
 
 #: ../quickinsert/spanners.py:198
 msgid "Grace Notes w. beaming"
-msgstr ""
+msgstr "Vorschlagsnoten mit Bebalkung"
 
 #: ../quickinsert/spanners.py:199
 msgid "Acciaccatura"
-msgstr ""
+msgstr "Acciaccatura"
 
 #: ../quickinsert/spanners.py:200
 msgid "Appoggiatura"
-msgstr ""
+msgstr "Appoggiatur"
 
 #: ../quickinsert/spanners.py:201
 msgid "Slashed no slur"
-msgstr ""
+msgstr "Gestrichen, ohne Bogen"
 
 #: ../quickinsert/spanners.py:202
 msgid "After grace"
-msgstr ""
+msgstr "Nachschlag"
 
 #: ../quickinsert/widget.py:102
 msgid ""
@@ -4779,14 +4789,12 @@ msgid "Rhythm"
 msgstr "Rhythmus"
 
 #: ../scorewiz/__init__.py:67
-#, fuzzy
 msgid "Setup New Score (in current document)..."
-msgstr "Der Name des aktuellen Dokuments."
+msgstr "Partitur-Assistent (im aktuellen Dokument)..."
 
 #: ../scorewiz/__init__.py:68
-#, fuzzy
 msgid "New Score with &Wizard..."
-msgstr "Assistent zum Erstellen einer Partitur"
+msgstr "Partitur-Assistent"
 
 #: ../scorewiz/build.py:136
 msgid "Music follows here."
@@ -6590,11 +6598,11 @@ msgstr ""
 
 #: ../snippet/import_export.py:235
 msgid "Importing and exporting snippets"
-msgstr ""
+msgstr "Schnipsel im- und exportieren"
 
 #: ../snippet/import_export.py:239
 msgid "Snippets can be imported from and exported to XML files."
-msgstr ""
+msgstr "Schnipsel können aus XML-Dateien gelesen und in diese exportiert werden."
 
 #: ../snippet/import_export.py:240
 msgid ""
@@ -6630,6 +6638,8 @@ msgid ""
 "The XML format of the snippet library files is simple and documented inside "
 "the XML file."
 msgstr ""
+"Das XML-Format der Schnipselbibliotheks-Dateien ist einfach "
+"und in den Dateien dokumentiert:"
 
 #: ../snippet/insert.py:221
 msgid "Snippet error"
@@ -6706,9 +6716,8 @@ msgid "Save as Template..."
 msgstr "Als V&orlage speichern ..."
 
 #: ../snippet/tool.py:102
-#, fuzzy
 msgid "Copy to &Snippet..."
-msgstr "Als &Bild exportieren ..."
+msgstr "Als &Schnipsel exportieren ..."
 
 #: ../snippet/tool.py:103
 msgid "Manage Templates..."
@@ -6760,11 +6769,11 @@ msgstr "Exportiere Schnipsel in eine Datei."
 
 #: ../snippet/widget.py:199
 msgid "Restore &Built-in Snippets..."
-msgstr ""
+msgstr "Vordefinierte Schnipsel wiederherstellen..."
 
 #: ../snippet/widget.py:201
 msgid "Restore deleted or changed built-in snippets."
-msgstr ""
+msgstr "Gelöschte oder veränderte Schnipsel wiederherstellen."
 
 #: ../snippet/widget.py:202
 msgid "&Help"
@@ -6957,7 +6966,7 @@ msgstr "Benutze &Standardkurzbefehl ({name})"
 
 #: ../widgets/tempobutton.py:53
 msgid "The tempo is set as you click this button."
-msgstr ""
+msgstr "Das Tempo wird durch Klicken auf den Button ermittelt."
 
 #: ../widgets/tempobutton.py:55
 msgid ""
