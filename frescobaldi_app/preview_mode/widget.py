@@ -102,10 +102,9 @@ class Widget(QWidget):
         self.CBcolorvoices.setToolTip(_(
             "Highlight notes that are explicitly "
             "set to \\voiceXXX"))
-        self.CBcolordirections.setText(_("Color \\xxxUp/Down"))
+        self.CBcolordirections.setText(_("Color explicit directions"))
         self.CBcolordirections.setToolTip(_(
-            "Highlight elements that are explicitly switched up- or "
-            "downwards using \\xxxUp or \\xxxDown commands"))
+            "Highlight elements that are explicitly switched up- or downwards"))
         self.CBgrobanchors.setText(_("Display Grob Anchors"))
         self.CBgrobanchors.setToolTip(_(
             "Display a dot at the anchor point of each grob"))
