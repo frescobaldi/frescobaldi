@@ -124,6 +124,17 @@ class preferences_lilypond_autoversion(help.page):
         return (help.contents.document_variables,)
 
 
+class preferences_preview(help.page):
+    def title():
+        return _("Preview Preferences")
+    
+    def body():
+        return p(
+          _("Under <em>{preview_preferences}</em>, you can configure "
+            "the appearance of several aspects of the Preview Mode.").format(
+            preview_preferences=_("Preview Preferences")))
+
+
 class preferences_midi(help.page):
     def title():
         return _("MIDI Settings")
