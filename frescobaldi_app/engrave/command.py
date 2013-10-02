@@ -23,13 +23,14 @@ Creates the commandline or Job to engrave a music document.
 
 from __future__ import unicode_literals
 
-import os
+import os, sys
 
 from PyQt4.QtCore import QSettings
 
 import job
 import documentinfo
 import lilypondinfo
+import preview_mode
 
 
 def info(document):
@@ -38,7 +39,34 @@ def info(document):
     if version and QSettings().value("lilypond_settings/autoversion", False, bool):
         return lilypondinfo.suitable(version)
     return lilypondinfo.preferred()
-        
+
+# dictionary mapping internal option names to command line switches
+previewoptions = {
+    'skylines': '-ddebug-display-skylines', 
+    'control-points': '-ddebug-control-points', 
+    'voices': '-ddebug-voices', 
+    'directions': '-ddebug-directions',
+    'grob-anchors': '-ddebug-grob-anchors',
+    'grob-names': '-ddebug-grob-names',
+    'custom-file': '-ddebug-custom-file', 
+    'paper-columns': '-ddebug-paper-columns'}
+
+def compose_config():
+    cf = configs = []
+    # This is currently hard-coded as a proof-of-concept.
+    # Later this will be retrieved from Settings
+# Hide started work
+#    cf.extend(['-e', '(define-public debug-grob-anchor-dotcolor green)'])
+    
+    return configs
+
+def check_option(s, command, key):
+    """
+    Append a command line switch 
+    if the option is set
+    """    
+    if preview_mode.load_bool_option(s, key):
+        command.append(previewoptions[key])
 
 def defaultJob(document, preview):
     """Returns a default job for the document."""
@@ -54,7 +82,30 @@ def defaultJob(document, preview):
         command.append('-ddelete-intermediate-files')
     else:
         command.append('-dno-delete-intermediate-files')
-    command.append('-dpoint-and-click' if preview else '-dno-point-and-click')
+    if preview:
+        command.append('-dpoint-and-click')
+        # Add subdir with preview-mode files to search path
+        includepath.append(os.path.join(sys.path[0], 'preview_mode'))
+        
+        # add configuration variables from Preferences
+        command.extend(compose_config())
+        
+        # add options that are checked in the dockable panel
+        check_option(s, command, 'control-points')
+        check_option(s, command, 'voices')
+        check_option(s, command, 'skylines')
+        check_option(s, command, 'directions')
+        check_option(s, command, 'grob-anchors')
+        check_option(s, command, 'grob-names')
+        check_option(s, command, 'paper-columns')
+        file_to_include = s.value('custom-filename')
+        if preview_mode.load_bool_option(s, 'custom-file') and file_to_include != '':
+            command.append('-ddebug-custom-file=' + file_to_include)
+        
+        # File that conditionally includes different formatters
+        command.append('-dinclude-settings=debug-layout-options.ly') 
+    else:
+        command.append('-dno-point-and-click')
     command.append('--pdf')
     command.extend('-I' + path for path in includepath)
     j.directory = os.path.dirname(filename)
@@ -65,5 +116,3 @@ def defaultJob(document, preview):
     j.setTitle("{0} {1} [{2}]".format(
         os.path.basename(i.command), i.versionString(), document.documentName()))
     return j
-
-
