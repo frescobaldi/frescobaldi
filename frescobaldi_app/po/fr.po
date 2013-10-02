@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-10-02 20:53+0200\n"
+"POT-Creation-Date: 2013-10-02 21:00+0200\n"
 "PO-Revision-Date: 2013-09-29 12:52+0100\n"
 "Last-Translator: Raphaël Doursenaud <rdoursenaud@free.fr>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -75,69 +75,74 @@ msgstr ""
 "Coloration syntaxique et complètement automatique du code Scheme améliorés"
 
 #: ../about.py:79
+#, fuzzy
+msgid "Preview modes"
+msgstr "mode aperçu"
+
+#: ../about.py:80
 msgid "Various contributions"
 msgstr "Diverses contributions"
 
-#: ../about.py:83
+#: ../about.py:84
 msgid "Modal Transpose"
 msgstr "Transposition Modale"
 
-#: ../about.py:87
+#: ../about.py:88
 msgid "Quick Insert buttons for grace notes"
 msgstr "Boutons d'insertion rapide pour les appoggiatures"
 
-#: ../about.py:88
+#: ../about.py:89
 msgid "MusicXML import"
 msgstr "Import MusicXML"
 
-#: ../about.py:93
+#: ../about.py:94
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} est traduit dans les langues suivantes :"
 
-#: ../about.py:112
+#: ../about.py:113
 msgid "About {appname}"
 msgstr "À propos de {appname}"
 
-#: ../about.py:119
+#: ../about.py:120
 msgid "About"
 msgstr "À propos"
 
-#: ../about.py:120 ../help/contents.py:331
+#: ../about.py:121 ../help/contents.py:331
 msgid "Credits"
 msgstr "Crédits"
 
-#: ../about.py:121
+#: ../about.py:122
 msgid "Version"
 msgstr "Version"
 
-#: ../about.py:176
+#: ../about.py:177
 msgid "Operating System"
 msgstr "Système d'exploitation"
 
-#: ../about.py:183
+#: ../about.py:184
 msgid "Version {version}"
 msgstr "Version {version}"
 
-#: ../about.py:184 ../main.py:58
+#: ../about.py:185 ../main.py:58
 msgid "A LilyPond Music Editor"
 msgstr "Un éditeur de partitions LilyPond"
 
-#: ../about.py:185
+#: ../about.py:186
 msgid "Copyright (c) {year} by {author}"
 msgstr "Copyright (c) {year} par {author}"
 
-#: ../about.py:189
+#: ../about.py:190
 msgid "Send an e-mail message to the maintainers."
 msgstr "Envoyer un message par courriel aux mainteneurs."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: ../about.py:192 ../help/contents.py:57
+#: ../about.py:193 ../help/contents.py:57
 msgid "Translated by Your Name."
 msgstr ""
 "Traduit par Valentin Villenave, David Bouriaud, Ryan Kavanagh, Raphaël "
 "Doursenaud, Philippe Massart et Denis Bitouzé."
 
-#: ../about.py:197
+#: ../about.py:198
 msgid "Licensed under the {gpl}."
 msgstr "Sous licence {gpl}."
 
@@ -9061,9 +9066,6 @@ msgstr "Sélectionner un fichier"
 #~ "Vous pouvez ajouter vos propres scripts dans %1. Si la première ligne de "
 #~ "votre script commence par un point-virgule (;), cette ligne sera affichée "
 #~ "comme description."
-
-#~ msgid "preview mode"
-#~ msgstr "mode aperçu"
 
 #~ msgid "publish mode"
 #~ msgstr "mode publication"

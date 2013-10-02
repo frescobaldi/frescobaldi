@@ -5,8 +5,10 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 Changes in 2.0.11 -- October 16th, 2013
 
 * Translations:
-  - updated: cs, nl, fr
+  - updated: cs, nl, fr, es
 * New features:
+  - New preview mode tool, enabling different modes to debug layout issues,
+    contributed by Urs Liska and some other LilyPond developers
   - Frescobaldi now has a manpage, kindly provided by Ryan Kavanagh
   - Import MusicXML (using musicxml2ly), contributed by Peter Bjuhr
   - New Quick Insert buttons for different kinds of grace notes, contributed

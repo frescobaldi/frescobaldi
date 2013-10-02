@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-10-02 20:53+0200\n"
+"POT-Creation-Date: 2013-10-02 21:00+0200\n"
 "PO-Revision-Date: 2012-04-19 17:21+0300\n"
 "Last-Translator: Dmytro O. Redchuk <brownian.box@gmail.com>\n"
 "Language-Team: Ukrainian\n"
@@ -65,68 +65,73 @@ msgid "Improved highlighting and auto-completion of Scheme code"
 msgstr ""
 
 #: ../about.py:79
+#, fuzzy
+msgid "Preview modes"
+msgstr "Переглянути"
+
+#: ../about.py:80
 msgid "Various contributions"
 msgstr ""
 
-#: ../about.py:83
+#: ../about.py:84
 #, fuzzy
 msgid "Modal Transpose"
 msgstr "&Транспонувати"
 
-#: ../about.py:87
+#: ../about.py:88
 msgid "Quick Insert buttons for grace notes"
 msgstr ""
 
-#: ../about.py:88
+#: ../about.py:89
 msgid "MusicXML import"
 msgstr ""
 
-#: ../about.py:93
+#: ../about.py:94
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} перекладено такими мовами:"
 
-#: ../about.py:112
+#: ../about.py:113
 msgid "About {appname}"
 msgstr "Про {appname}"
 
-#: ../about.py:119
+#: ../about.py:120
 msgid "About"
 msgstr "Про"
 
-#: ../about.py:120 ../help/contents.py:331
+#: ../about.py:121 ../help/contents.py:331
 msgid "Credits"
 msgstr "Подяки"
 
-#: ../about.py:121
+#: ../about.py:122
 msgid "Version"
 msgstr "Версія"
 
-#: ../about.py:176
+#: ../about.py:177
 msgid "Operating System"
 msgstr "Операційна система"
 
-#: ../about.py:183
+#: ../about.py:184
 msgid "Version {version}"
 msgstr "Версія {version}"
 
-#: ../about.py:184 ../main.py:58
+#: ../about.py:185 ../main.py:58
 msgid "A LilyPond Music Editor"
 msgstr "Музичний редактор LilyPond"
 
-#: ../about.py:185
+#: ../about.py:186
 msgid "Copyright (c) {year} by {author}"
 msgstr ""
 
-#: ../about.py:189
+#: ../about.py:190
 msgid "Send an e-mail message to the maintainers."
 msgstr "Напишіть е-листа розробникам."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: ../about.py:192 ../help/contents.py:57
+#: ../about.py:193 ../help/contents.py:57
 msgid "Translated by Your Name."
 msgstr "Переклад Дмитра Редчука"
 
-#: ../about.py:197
+#: ../about.py:198
 msgid "Licensed under the {gpl}."
 msgstr "Розповсюджується на умовах {gpl}."
 

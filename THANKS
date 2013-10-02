@@ -15,7 +15,7 @@ Main author and core developer:
 Other developers:
 * Richard Cognot: implemented Kinetic Scrolling for the music view
 * Nicolas Malarmey: improved highlighting and auto-completion of Scheme code
-* Urs Liska: various contributions
+* Urs Liska: Preview modes, various other contributions
 * Christopher Bryan: modal transpose
 * Peter Bjuhr: quick-insert buttons for grace notes, musicxml import
 

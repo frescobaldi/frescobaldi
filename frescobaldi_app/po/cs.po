@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-10-02 20:53+0200\n"
+"POT-Creation-Date: 2013-10-02 21:00+0200\n"
 "PO-Revision-Date: 2013-05-15 22:45+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -68,68 +68,73 @@ msgstr ""
 
 #: ../about.py:79
 #, fuzzy
+msgid "Preview modes"
+msgstr "Volby"
+
+#: ../about.py:80
+#, fuzzy
 msgid "Various contributions"
 msgstr "Příspěvky"
 
-#: ../about.py:83
+#: ../about.py:84
 #, fuzzy
 msgid "Modal Transpose"
 msgstr "Pře&vést..."
 
-#: ../about.py:87
+#: ../about.py:88
 msgid "Quick Insert buttons for grace notes"
 msgstr ""
 
-#: ../about.py:88
+#: ../about.py:89
 msgid "MusicXML import"
 msgstr ""
 
-#: ../about.py:93
+#: ../about.py:94
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} je přeložen do následujících jazyků:"
 
-#: ../about.py:112
+#: ../about.py:113
 msgid "About {appname}"
 msgstr "O {appname}"
 
-#: ../about.py:119
+#: ../about.py:120
 msgid "About"
 msgstr "O programu"
 
-#: ../about.py:120 ../help/contents.py:331
+#: ../about.py:121 ../help/contents.py:331
 msgid "Credits"
 msgstr "Zásluhy"
 
-#: ../about.py:121
+#: ../about.py:122
 msgid "Version"
 msgstr "Verze"
 
-#: ../about.py:176
+#: ../about.py:177
 msgid "Operating System"
 msgstr "Operační systém"
 
-#: ../about.py:183
+#: ../about.py:184
 msgid "Version {version}"
 msgstr "Verze {version}"
 
-#: ../about.py:184 ../main.py:58
+#: ../about.py:185 ../main.py:58
 msgid "A LilyPond Music Editor"
 msgstr "Hudební editor pro LilyPond"
 
-#: ../about.py:185
+#: ../about.py:186
 msgid "Copyright (c) {year} by {author}"
 msgstr "Autorské právo (c) {year} od {author}"
 
-#: ../about.py:189
+#: ../about.py:190
 msgid "Send an e-mail message to the maintainers."
 msgstr "Poslat zprávu jako dopis elektronické pošty údržbářům."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: ../about.py:192 ../help/contents.py:57
+#: ../about.py:193 ../help/contents.py:57
 msgid "Translated by Your Name."
 msgstr "Přeloženo: Pavel Fric."
 
-#: ../about.py:197
+#: ../about.py:198
 msgid "Licensed under the {gpl}."
 msgstr "Licencováno pod {gpl}."
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-10-02 20:53+0200\n"
+"POT-Creation-Date: 2013-10-02 21:00+0200\n"
 "PO-Revision-Date: 2013-04-30 21:59+0200\n"
 "Last-Translator: Gianluca D'Orazio <gianluca.dorazio@gmail.com>\n"
 "Language-Team: Italian <>\n"
@@ -70,68 +70,73 @@ msgstr ""
 
 #: ../about.py:79
 #, fuzzy
+msgid "Preview modes"
+msgstr "Opzioni"
+
+#: ../about.py:80
+#, fuzzy
 msgid "Various contributions"
 msgstr "Come contribuire"
 
-#: ../about.py:83
+#: ../about.py:84
 #, fuzzy
 msgid "Modal Transpose"
 msgstr "&Trasponi..."
 
-#: ../about.py:87
+#: ../about.py:88
 msgid "Quick Insert buttons for grace notes"
 msgstr ""
 
-#: ../about.py:88
+#: ../about.py:89
 msgid "MusicXML import"
 msgstr ""
 
-#: ../about.py:93
+#: ../about.py:94
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} è tradotto in queste lingue:"
 
-#: ../about.py:112
+#: ../about.py:113
 msgid "About {appname}"
 msgstr "A proposito di {appname}"
 
-#: ../about.py:119
+#: ../about.py:120
 msgid "About"
 msgstr "A proposito"
 
-#: ../about.py:120 ../help/contents.py:331
+#: ../about.py:121 ../help/contents.py:331
 msgid "Credits"
 msgstr "Riconoscimenti"
 
-#: ../about.py:121
+#: ../about.py:122
 msgid "Version"
 msgstr "Versione"
 
-#: ../about.py:176
+#: ../about.py:177
 msgid "Operating System"
 msgstr "Sistema operativo"
 
-#: ../about.py:183
+#: ../about.py:184
 msgid "Version {version}"
 msgstr "Versione {version}"
 
-#: ../about.py:184 ../main.py:58
+#: ../about.py:185 ../main.py:58
 msgid "A LilyPond Music Editor"
 msgstr "Editor musicale per LilyPond"
 
-#: ../about.py:185
+#: ../about.py:186
 msgid "Copyright (c) {year} by {author}"
 msgstr "Copyright (c) {year} di {author}"
 
-#: ../about.py:189
+#: ../about.py:190
 msgid "Send an e-mail message to the maintainers."
 msgstr "Invia un messaggio agli sviluppatori."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: ../about.py:192 ../help/contents.py:57
+#: ../about.py:193 ../help/contents.py:57
 msgid "Translated by Your Name."
 msgstr "Tradotto da Gianluca D'Orazio."
 
-#: ../about.py:197
+#: ../about.py:198
 msgid "Licensed under the {gpl}."
 msgstr "Rilasciato con licenza {gpl}."
 

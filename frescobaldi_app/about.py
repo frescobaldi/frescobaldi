@@ -76,6 +76,7 @@ def credits():
 		)
 	
     yield author("Urs Liska",
+        _("Preview modes")
         _("Various contributions"),
 		)
 	
