@@ -54,6 +54,7 @@ class PanelManager(plugin.MainWindowPlugin):
         self.loadPanel("charmap.CharMap")
         self.loadPanel("doclist.DocumentList")
         self.loadPanel("outline.OutlinePanel")
+        self.loadPanel("preview_mode.PreviewOptions")
         
         self.createActions()
         # make some default arrangements

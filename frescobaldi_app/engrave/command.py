@@ -30,6 +30,7 @@ from PyQt4.QtCore import QSettings
 import job
 import documentinfo
 import lilypondinfo
+import preview_mode
 
 
 def info(document):
@@ -38,7 +39,20 @@ def info(document):
     if version and QSettings().value("lilypond_settings/autoversion", False, bool):
         return lilypondinfo.suitable(version)
     return lilypondinfo.preferred()
-        
+
+# dictionary mapping internal option names to command line switches
+previewoptions = {
+    'skylines': '-ddebug-display-skylines', 
+    'control-points': '-ddebug-control-points', 
+    'voices': '-ddebug-voices' }
+
+def check_option(s, command, key):
+    """
+    Append a command line switch 
+    if the option is set
+    """    
+    if preview_mode.load_bool_option(s, key):
+        command.append(previewoptions[key])
 
 def defaultJob(document, preview):
     """Returns a default job for the document."""
@@ -58,13 +72,12 @@ def defaultJob(document, preview):
         command.append('-dpoint-and-click')
         # Add subdir with preview-mode files to search path
         includepath.append(os.path.join(sys.path[0], 'preview_mode'))
-        # For now add hardcoded debugging options here
-        # (all that we have implemented).
-        # Later there has to be a dockable panel with checkboxes
-        # for the individual modes.
-        command.append('-ddebug-control-points')
-        command.append('-ddebug-voices')
-        command.append('-ddebug-display-skylines')
+        
+        # add options that are checked in the dockable panel
+        check_option(s, command, 'control-points')
+        check_option(s, command, 'voices')
+        check_option(s, command, 'skylines')
+        
         # File that conditionally includes different formatters
         command.append('-dinclude-settings=debug-layout-options.ly')
     else:
@@ -79,5 +92,3 @@ def defaultJob(document, preview):
     j.setTitle("{0} {1} [{2}]".format(
         os.path.basename(i.command), i.versionString(), document.documentName()))
     return j
-
-
