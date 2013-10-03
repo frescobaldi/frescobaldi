@@ -53,15 +53,6 @@ previewoptions = {
     'annotate-spacing': '-ddebug-annotate-spacing',
 }
 
-def compose_config():
-    cf = configs = []
-    # This is currently hard-coded as a proof-of-concept.
-    # Later this will be retrieved from Settings
-# Hide started work
-#    cf.extend(['-e', '(define-public debug-grob-anchor-dotcolor green)'])
-    
-    return configs
-
 def check_option(s, command, key):
     """
     Append a command line switch if the option is set
@@ -85,7 +76,7 @@ def defaultJob(document, preview):
         command.append('-dno-delete-intermediate-files')
     if preview:
         command.append('-dpoint-and-click')
-        
+
         # preview mode args
         args = []
 
@@ -108,9 +99,6 @@ def defaultJob(document, preview):
             command.extend(args)
             # Add subdir with preview-mode files to search path
             command.append('-I' + preview_mode.__path__[0])
-        
-            # add configuration variables from Preferences
-            command.extend(compose_config())
         
             # File that conditionally includes different formatters
             command.append('-dinclude-settings=debug-layout-options.ly') 

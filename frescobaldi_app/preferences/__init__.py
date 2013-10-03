@@ -43,8 +43,6 @@ def pageorder():
     """Yields the page item classes in order."""
     yield General
     yield LilyPond
-# Hide stub
-#    yield Preview
     yield Midi
     yield Helpers
     yield Paths
@@ -188,18 +186,6 @@ class LilyPond(PrefsItemBase):
     def widget(self, dlg):
         import lilypond
         return lilypond.LilyPondPrefs(dlg)
-
-class Preview(PrefsItemBase):
-    help = prefshelp.preferences_preview
-#TODO: Create an icon
-    iconName = "lilypond-run"
-    def translateUI(self):
-        self.setText(_("Preview Preferences"))
-        
-#TODO: The following is simply a copy of the LilyPond Preferences page
-    def widget(self, dlg):
-        import preview
-        return preview.PreviewPrefs(dlg)
 
 
 class Midi(PrefsItemBase):
