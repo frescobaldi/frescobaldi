@@ -708,7 +708,12 @@ class eng_preview(page):
                 "executed whenever you are engraving in Preview Mode.</br>"
                 "The given string will be literally included in an <code>\\include</code> "
                 "directive, so you are responsible yourself that LilyPond can find it.")),
-            )))
+            ))) + p(
+               _("Compiling in Preview Mode will introduce a <code>-ddebug-layout</code> "
+                 "command line variable to be present. You can make use of this fact "
+                 "when writing your own input shorthands or tweaking commands.<br />"
+                 "Using something like <code>#(if (ly:get-option \'debug-layout))</code> "
+                 "you can write functions that behave differently when run in Preview Mode."))
 
 
 class eng_publication(page):
