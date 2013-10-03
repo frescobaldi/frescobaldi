@@ -85,28 +85,35 @@ def defaultJob(document, preview):
         command.append('-dno-delete-intermediate-files')
     if preview:
         command.append('-dpoint-and-click')
-        # Add subdir with preview-mode files to search path
-        includepath.append(os.path.join(sys.path[0], 'preview_mode'))
         
-        # add configuration variables from Preferences
-        command.extend(compose_config())
-        
+        # preview mode args
+        args = []
+
         # add options that are checked in the dockable panel
-        check_option(s, command, 'control-points')
-        check_option(s, command, 'voices')
-        check_option(s, command, 'skylines')
-        check_option(s, command, 'directions')
-        check_option(s, command, 'grob-anchors')
-        check_option(s, command, 'grob-names')
-        check_option(s, command, 'paper-columns')
-        check_option(s, command, 'annotate-spacing')
+        check_option(s, args, 'control-points')
+        check_option(s, args, 'voices')
+        check_option(s, args, 'skylines')
+        check_option(s, args, 'directions')
+        check_option(s, args, 'grob-anchors')
+        check_option(s, args, 'grob-names')
+        check_option(s, args, 'paper-columns')
+        check_option(s, args, 'annotate-spacing')
         if s.value('custom-file', False, bool):
             file_to_include = s.value('custom-filename', '', type(''))
             if file_to_include:
-                command.append('-ddebug-custom-file=' + file_to_include)
+                args.append('-ddebug-custom-file=' + file_to_include)
         
-        # File that conditionally includes different formatters
-        command.append('-dinclude-settings=debug-layout-options.ly') 
+        # only add the extra commands when at least one debug mode is used
+        if args:
+            command.extend(args)
+            # Add subdir with preview-mode files to search path
+            command.append('-I' + preview_mode.__path__[0])
+        
+            # add configuration variables from Preferences
+            command.extend(compose_config())
+        
+            # File that conditionally includes different formatters
+            command.append('-dinclude-settings=debug-layout-options.ly') 
     else:
         command.append('-dno-point-and-click')
     command.append('--pdf')
