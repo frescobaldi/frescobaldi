@@ -60,6 +60,40 @@ def check_option(s, command, key):
     if s.value(key, False, bool):
         command.append(previewoptions[key])
 
+def preview_options():
+    """
+    Conditionally append command line options for Debug Modes
+    """
+    s = QSettings()
+    s.beginGroup("lilypond_settings")
+    cmd_options = ['-dpoint-and-click']
+    args = []
+    
+    # add options that are checked in the dockable panel
+    check_option(s, args, 'control-points')
+    check_option(s, args, 'voices')
+    check_option(s, args, 'skylines')
+    check_option(s, args, 'directions')
+    check_option(s, args, 'grob-anchors')
+    check_option(s, args, 'grob-names')
+    check_option(s, args, 'paper-columns')
+    check_option(s, args, 'annotate-spacing')
+    if s.value('custom-file', False, bool):
+        file_to_include = s.value('custom-filename', '', type(''))
+        if file_to_include:
+            args.append('-ddebug-custom-file=' + file_to_include)
+    
+    # only add the extra commands when at least one debug mode is used
+    if args:
+        cmd_options.extend(args)
+        # Add subdir with preview-mode files to search path
+        cmd_options.append('-I' + preview_mode.__path__[0])
+    
+        # File that conditionally includes different formatters
+        cmd_options.append('-dinclude-settings=debug-layout-options.ly') 
+   
+    return cmd_options
+    
 def defaultJob(document, preview):
     """Returns a default job for the document."""
     filename, mode, includepath = documentinfo.info(document).jobinfo(True)
@@ -75,33 +109,8 @@ def defaultJob(document, preview):
     else:
         command.append('-dno-delete-intermediate-files')
     if preview:
-        command.append('-dpoint-and-click')
-
-        # preview mode args
-        args = []
-
-        # add options that are checked in the dockable panel
-        check_option(s, args, 'control-points')
-        check_option(s, args, 'voices')
-        check_option(s, args, 'skylines')
-        check_option(s, args, 'directions')
-        check_option(s, args, 'grob-anchors')
-        check_option(s, args, 'grob-names')
-        check_option(s, args, 'paper-columns')
-        check_option(s, args, 'annotate-spacing')
-        if s.value('custom-file', False, bool):
-            file_to_include = s.value('custom-filename', '', type(''))
-            if file_to_include:
-                args.append('-ddebug-custom-file=' + file_to_include)
-        
-        # only add the extra commands when at least one debug mode is used
-        if args:
-            command.extend(args)
-            # Add subdir with preview-mode files to search path
-            command.append('-I' + preview_mode.__path__[0])
-        
-            # File that conditionally includes different formatters
-            command.append('-dinclude-settings=debug-layout-options.ly') 
+        # Conditionally add Debug Mode options
+        command.extend(preview_options())
     else:
         command.append('-dno-point-and-click')
     command.append('--pdf')
