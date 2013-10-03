@@ -57,6 +57,12 @@ import externalchanges
 
 class MainWindow(QMainWindow):
     
+    # emitted when the MainWindow will close
+    aboutToClose = pyqtSignal()
+    
+    # only emitted when this is the last MainWindow to close
+    aboutToCloseLast = pyqtSignal()
+    
     # both signals emit (current, previous)
     currentDocumentChanged = pyqtSignal(document.Document, document.Document)
     currentViewChanged = pyqtSignal(view.View, view.View)
@@ -255,9 +261,11 @@ class MainWindow(QMainWindow):
         
     def closeEvent(self, ev):
         lastWindow = len(app.windows) == 1
-        if lastWindow:
-            self.writeSettings()
         if not lastWindow or self.queryClose():
+            self.aboutToClose.emit()
+            if lastWindow:
+                self.writeSettings()
+                self.aboutToCloseLast.emit()
             app.windows.remove(self)
             app.mainwindowClosed(self)
             ev.accept()
