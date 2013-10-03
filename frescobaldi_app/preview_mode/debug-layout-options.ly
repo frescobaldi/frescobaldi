@@ -38,10 +38,6 @@
   command line options or #(ly:set-option ...) commands.
 %}
 
-% Allow definition of variables on the command line
-%TODO: Suppress warning
-#(use-modules (guile-user))
-
 debugLayoutOptions =
 #(define-void-function (parser location)()
    ;; include preview options depending on the
