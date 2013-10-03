@@ -23,7 +23,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.5.7\n"
 "X-Language: fr\n"
 "X-Source-Language: C\n"
@@ -75,9 +75,8 @@ msgstr ""
 "Coloration syntaxique et complètement automatique du code Scheme améliorés"
 
 #: ../about.py:79
-#, fuzzy
 msgid "Preview modes"
-msgstr "mode aperçu"
+msgstr "Modes d'aperçu"
 
 #: ../about.py:80
 msgid "Various contributions"
@@ -349,8 +348,7 @@ msgstr "Supprimer les &Nuances"
 msgid "Remove Text &Markup (from music)"
 msgstr "Supprimer le &Markup de Texte (de la musique)"
 
-#: ../documentcontextmenu.py:67 ../mainwindow.py:1009
-#: ../sessions/manager.py:127
+#: ../documentcontextmenu.py:67 ../mainwindow.py:1009 ../sessions/manager.py:127
 msgid "&Save"
 msgstr "Enregistrer"
 
@@ -399,10 +397,10 @@ msgstr "Polices globales"
 
 #: ../globalfontdialog.py:71
 msgid ""
-"Please select the three global fonts to use for <code>\\roman</code>, <code>"
-"\\sans</code>, and <code>\\typewriter</code> respectively. You should also "
-"set the staff size to the global staff size you use in the document (20 by "
-"default)."
+"Please select the three global fonts to use for <code>\\roman</code>, "
+"<code>\\sans</code>, and <code>\\typewriter</code> respectively. You should "
+"also set the staff size to the global staff size you use in the document (20 "
+"by default)."
 msgstr ""
 "Veuillez sélectionner les trois polices globales à utiliser respectivement "
 "pour <code>\\roman</code>, <code>\\sans</code> et <code>\\typewriter</code>. "
@@ -1764,8 +1762,8 @@ msgid ""
 "</p>\n"
 "\n"
 "<p>\n"
-"Once you have grasped the basics, the next step would be to use the "
-"LilyPond \n"
+"Once you have grasped the basics, the next step would be to use the LilyPond "
+"\n"
 "Learning Manual from \n"
 "<a href=\"http://lilypond.org/doc/\">LilyPond's excellent online "
 "documentation</a>.\n"
@@ -1917,8 +1915,8 @@ msgid ""
 "the \n"
 "offending line in your text view. Pressing {key_error} again will move to "
 "the \n"
-"next error message, and so on. LilyPond will remove any previous error "
-"line \n"
+"next error message, and so on. LilyPond will remove any previous error line "
+"\n"
 "highlights the next time it is run but you can also remove any error line "
 "markings \n"
 "manually with the option {menu_clear_error_marks}.\n"
@@ -2142,8 +2140,8 @@ msgid ""
 "Frescobaldi's homepage is at\n"
 "<a href=\"http://www.frescobaldi.org/\">www.frescobaldi.org</a>\n"
 "and there is a mailinglist at\n"
-"<a href=\"mailto:frescobaldi@googlegroups.com\">frescobaldi@googlegroups."
-"com</a>\n"
+"<a "
+"href=\"mailto:frescobaldi@googlegroups.com\">frescobaldi@googlegroups.com</a>\n"
 "(<a href=\"http://groups.google.com/group/frescobaldi\">more info</a>).\n"
 "</p>\n"
 msgstr ""
@@ -2157,8 +2155,8 @@ msgstr ""
 "La page d'accueil de Frescobaldi est\n"
 "<a href=\"http://www.frescobaldi.org/\">www.frescobaldi.org</a>\n"
 "et une liste de diffusion est disponible sur\n"
-"<a href=\"mailto:frescobaldi@googlegroups.com\">frescobaldi@googlegroups."
-"com</a>\n"
+"<a "
+"href=\"mailto:frescobaldi@googlegroups.com\">frescobaldi@googlegroups.com</a>\n"
 "(<a href=\"http://groups.google.com/group/frescobaldi\">plus d'infos</a>).\n"
 "</p>\n"
 
@@ -2173,8 +2171,8 @@ msgstr "Contribuer"
 #: ../help/contents.py:347
 msgid ""
 "<p>\n"
-"Frescobaldi is a <a href=\"http://www.gnu.org/philosophy/free-sw.html"
-"\">Free\n"
+"Frescobaldi is a <a "
+"href=\"http://www.gnu.org/philosophy/free-sw.html\">Free\n"
 "Software</a> project to create a user friendly LilyPond music score editor.\n"
 "The goal is to make Frescobaldi available on all major platforms.\n"
 "</p>\n"
@@ -2197,12 +2195,12 @@ msgid ""
 "</p>\n"
 msgstr ""
 "<p>\n"
-"Frescobaldi est un <a href=\"http://www.gnu.org/philosophy/free-sw.html"
-"\">Logiciel\n"
+"Frescobaldi est un <a "
+"href=\"http://www.gnu.org/philosophy/free-sw.html\">Logiciel\n"
 "Libre</a> visant à développer un éditeur de partitions LilyPond facile "
 "d'accès.\n"
-"Le but est de rendre Frescobaldi accessible sur les principales plate-"
-"formes.\n"
+"Le but est de rendre Frescobaldi accessible sur les principales "
+"plate-formes.\n"
 "</p>\n"
 "\n"
 "<p>\n"
@@ -2336,8 +2334,8 @@ msgid ""
 "<dd>matches one of the contained characters</dd>\n"
 "<dt><code>( )</code></dt>\n"
 "<dd>group characters. This also saves the matched text in the group.\n"
-"When replacing, you can use characters like <code>\\1</code>, <code>\\2</"
-"code>\n"
+"When replacing, you can use characters like <code>\\1</code>, "
+"<code>\\2</code>\n"
 "etcetera, to write the text of the corresponding group in the replacement "
 "text.\n"
 "</dd>\n"
@@ -2348,8 +2346,8 @@ msgid ""
 "\n"
 "<p>\n"
 "A full discussion on regular expressions can be found in the\n"
-"<a href=\"http://docs.python.org/library/re.html#regular-expression-syntax"
-"\">Python\n"
+"<a "
+"href=\"http://docs.python.org/library/re.html#regular-expression-syntax\">Python\n"
 "documentation</a>.\n"
 "</p>\n"
 msgstr ""
@@ -2377,8 +2375,8 @@ msgstr ""
 "\n"
 "<dl compact=\"compact\">\n"
 "<dt><code>*</code></dt>\n"
-"<dd>correspond au précédent caractère ou groupe, aucune ou plusieurs fois</"
-"dd>\n"
+"<dd>correspond au précédent caractère ou groupe, aucune ou plusieurs "
+"fois</dd>\n"
 "<dt><code>+</code></dt>\n"
 "<dd>correspond au précédent caractère ou groupe, une ou plusieurs fois</dd>\n"
 "<dt><code>?</code></dt>\n"
@@ -2390,8 +2388,8 @@ msgstr ""
 "dans le groupe.\n"
 "En remplaçant, vous pouvez utiliser des caractères comme <code>\\1</code>, "
 "<code>\\2</code>\n"
-"etc., pour écrire le texte du groupe de texte de remplacement correspondant."
-"</dd>\n"
+"etc., pour écrire le texte du groupe de texte de remplacement "
+"correspondant.</dd>\n"
 "<dt><code>\\\\ \\n \\t \\s \\d \\w</code></dt>\n"
 "<dd>correspondent respectivement à un antislash, une nouvelle ligne, une "
 "tabulation,\n"
@@ -2401,8 +2399,9 @@ msgstr ""
 "<p>\n"
 "Des informations plus complètes concernant les expressions régulières se "
 "trouvent dans\n"
-"<a href=\"http://docs.python.org/library/re.html#regular-expression-syntax"
-"\">la documentation\n"
+"<a "
+"href=\"http://docs.python.org/library/re.html#regular-expression-syntax\">la "
+"documentation\n"
 "Python</a>.\n"
 "</p>\n"
 
@@ -2556,9 +2555,9 @@ msgstr ""
 "Vous pouvez positionner cette variable au cas où la détermination "
 "automatique du nom de fichier de sortie serait trop gourmande en temps de "
 "calcul (Frescobaldi analyse le document et tous les documents qu'il inclut, "
-"à la recherche de commande spécifiant le fichier de sortie comme <code>"
-"\\bookOutputName</code>, etc); ou quand la détermination automatique échoue "
-"à cause de code LilyPond trop complexes."
+"à la recherche de commande spécifiant le fichier de sortie comme "
+"<code>\\bookOutputName</code>, etc); ou quand la détermination automatique "
+"échoue à cause de code LilyPond trop complexes."
 
 #: ../help/contents.py:570
 msgid "Sessions"
@@ -2610,15 +2609,16 @@ msgid "You can also specify a default directory for the session."
 msgstr "Vous pouvez également définir un dossier par défaut pour la session."
 
 #: ../help/contents.py:598
-#, fuzzy
 msgid "Engraving Scores"
-msgstr "Interrompre le travail de gravure"
+msgstr "Graver les partitions"
 
 #: ../help/contents.py:602
 msgid ""
 "There are three modes Frescobaldi can compile scores in: <em>Preview</em>, "
 "<em>Publication</em> and <em>Custom</em>."
 msgstr ""
+"Frescobaldi peut compiler les partitions selon trois modes: <em>Aperçu</em>, "
+"<em>Publication</em> et <em>Personnalisé</em>."
 
 #: ../help/contents.py:604
 msgid ""
@@ -2628,6 +2628,12 @@ msgid ""
 "producing the final PDF intended to be shared.<br /><em>Custom</em> mode "
 "allows you to specify the used LilyPond command in detail."
 msgstr ""
+"Le mode <em>Aperçu</em> est utile lors du travail sur une partition parce "
+"qu'il propose l'option point-and-click ainsi qu'un certain nombre de Modes "
+"de Débogage de mise en page. <br />Le mode <em>Publication</em>sert à la "
+"production d'un PDF final destiné à être partagé. <br />Le mode "
+"<em>Personnalisé</em> permet de spécifer en détail la commande LilyPond "
+"utilisée."
 
 #: ../help/contents.py:611
 msgid ""
@@ -2636,11 +2642,14 @@ msgid ""
 "determine the LilyPond version from the document and use the version that "
 "matches best."
 msgstr ""
+"Si vous avez installé plusieurs versions différentes de LilyPond et l'avez "
+"indiqué dans la page <em>LilyPond</em> des<em>Préférences</em> de "
+"Frescobaldi, le logiciel tentera de déterminer la version de LilyPond pour "
+"le document et utilisera la version qui correspond le mieux."
 
 #: ../help/contents.py:627
-#, fuzzy
 msgid "Engrave (Preview)"
-msgstr "Grav&er (aperçu)"
+msgstr "Graver (aperçu)"
 
 #: ../help/contents.py:631
 msgid ""
@@ -2648,6 +2657,9 @@ msgid ""
 "Mode</em>. This will enable Frescobaldi's two-way point-and-click features "
 "and will give you access to a number of \"Debug Modes\"."
 msgstr ""
+"En travaillant sur une partition, vous utiliserez en général le mode "
+"<em>Aperçu</em>. Ceci active l'option point-and-click et donne accès à "
+"certains Modes de débogage."
 
 #: ../help/contents.py:635
 msgid ""
@@ -2658,31 +2670,45 @@ msgid ""
 "recommendable to have the panel constantly open because you will probably "
 "switch Debug Modes quite often."
 msgstr ""
+"Les Modes de Débogage sont accessibles via le panneau \"Options d'aperçu\", "
+"accessible depuis le menu <em>Outils</em>. Les cases à cocher de ce panneau "
+"sont décochées au départ, mais retiennent leur état d'une session à "
+"l'autre.<br /> Si vous utilisez ces fonctionnalités régulièrement, il est "
+"recommandé de garder ce panneau ouvert parce que vous utiliserez ces options "
+"fréquemment."
 
 #: ../help/contents.py:642
-#, fuzzy
 msgid "The following Debug Modes are currently implemented:"
-msgstr "Les variables suivantes sont reconnues :"
+msgstr "Les Modes de Débogage suivants sont actuellement implémentés :"
 
 #: ../help/contents.py:645 ../preview_mode/widget.py:124
 msgid "Display Control Points"
-msgstr ""
+msgstr "Afficher les points de contrôle"
 
 #: ../help/contents.py:646
 msgid ""
 "Slurs, Ties and other similar objects are drawn in LilyPond as third-order "
-"Bezier curves, which means that their shape is controlled by four \"control-"
-"points\" (first and last ones tell where the curve ends are placed, and the "
-"middle ones affect the curvature). Changing the shape of these objects "
-"involves moving these control-points around, and it's helpful to see where "
-"they actually are.<br />This Debug Mode will display the inner control-"
-"points as red crosses and connects them to the outer (starting) points with "
-"thin lines."
+"Bezier curves, which means that their shape is controlled by four "
+"\"control-points\" (first and last ones tell where the curve ends are "
+"placed, and the middle ones affect the curvature). Changing the shape of "
+"these objects involves moving these control-points around, and it's helpful "
+"to see where they actually are.<br />This Debug Mode will display the inner "
+"control-points as red crosses and connects them to the outer (starting) "
+"points with thin lines."
 msgstr ""
+"Les liaisons de phrasés, liaisons rythmiques et objets similaires sont "
+"dessinés par LilyPond comme courbes de Bézier de troisième ordre, ce qui "
+"signifie que leur forme est contrôlée par quatre \"points de contrôle\" (les "
+"premier et dernier où la courbe commence et termine, les deux autres "
+"affectant la courbure). Changer la forme de ces objets implique le "
+"déplacement de ces points de contrôle, et il est utile de voir où ils se "
+"trouvent.<br /> Ce Mode de Débogage affichera les points de contrôle "
+"intérieurs en tant que croix rouges et les connecte aux points extérieurs "
+"(départ et fin) par une fine ligne."
 
 #: ../help/contents.py:656 ../preview_mode/widget.py:128
 msgid "Color \\voiceXXX"
-msgstr ""
+msgstr "Colorer \\voiceXXX"
 
 #: ../help/contents.py:657
 msgid ""
@@ -2690,11 +2716,13 @@ msgid ""
 "<code>\\voiceXXX</code> commands. This is useful when dealing with polyphony "
 "issues."
 msgstr ""
+"Ce mode colore les voix qui ont été explicitement crée avec une des "
+"commandes <code>\\voiceXXX</code>. C'est utile lorsqu'il faut gérer des "
+"problèmes de polyphonie."
 
 #: ../help/contents.py:660 ../preview_mode/widget.py:132
-#, fuzzy
 msgid "Color explicit directions"
-msgstr "Durées explicites"
+msgstr "Colorer les directions explicites"
 
 #: ../help/contents.py:661
 msgid ""
@@ -2702,19 +2730,31 @@ msgid ""
 "the predefined commands <code>\\xxxUp</code> etc. or the directional "
 "operators <code>^</code> and <code>_</code>.<br />Please note how this mode "
 "and the previous are related:<br />When the condition for one of the the "
-"modes is reverted using commands like <code>\\oneVoice</code> or <code>"
-"\\xxxNeutral</code> colors are reverted to black and may also revert the "
-"highlighting of the other Debug Mode.<br />In <code>c \\voiceTwo d \\stemUp "
-"e \\stemNeutral d \\oneVoice</code> the 'd' may already be reverted.<br />If "
-"the score is engraved with LilyPond version 2.17.6 or later the situation is "
-"somewhat improved through the use of the <code>\\temporary</code> directive."
-"<br />In short: If you use both Modes at the same time please expect "
-"inconsistencies."
+"modes is reverted using commands like <code>\\oneVoice</code> or "
+"<code>\\xxxNeutral</code> colors are reverted to black and may also revert "
+"the highlighting of the other Debug Mode.<br />In <code>c \\voiceTwo d "
+"\\stemUp e \\stemNeutral d \\oneVoice</code> the 'd' may already be "
+"reverted.<br />If the score is engraved with LilyPond version 2.17.6 or "
+"later the situation is somewhat improved through the use of the "
+"<code>\\temporary</code> directive.<br />In short: If you use both Modes at "
+"the same time please expect inconsistencies."
 msgstr ""
+"Ce mode colore les objets dont la direction a été explicitement définie avec "
+"les commandes <code>\\xxxUp</code> etc. ou les opérateurs directionnels "
+"<code>^</code> et <code>_</code>.<br />Voici comment ce mode et le précédent "
+"sont liés :lorsque la condition pour l'un des modes est inversée avec une "
+"commande comme <code>\\oneVoice</code> ou <code>\\xxxNeutral</code>, les "
+"couleurs sont rétablies en noir et risquent également de rétablir la couleur "
+"des autres Modes de Débogage.<br />Dans <code>c \\voiceTwo d \\stemUp e "
+"\\stemNeutral d \\oneVoice</code>, le 'd' peut déjà est rétabli <br />Si la "
+"partition est gravée avec LilyPond version 2.17.6 ou ultérieure, la "
+"situation est améliorée par l'utilisation de la directive "
+"<code>\\temporary</code>.<br />En résumé : si vous utilisez les deux modes "
+"en même temps, attendez-vous à des incohérences."
 
 #: ../help/contents.py:676 ../preview_mode/widget.py:135
 msgid "Display Grob Anchors"
-msgstr ""
+msgstr "Afficher les ancrages Grob"
 
 #: ../help/contents.py:677
 msgid ""
@@ -2727,10 +2767,19 @@ msgid ""
 "points for square and circle.<br />This Mode displays a red dot for each "
 "grob's anchor point."
 msgstr ""
+"Dans LilyPond, tous les objets graphiques ont un point d'ancrage (point de "
+"référence). Qu'est-ce qu'un point de référence ? C'est un point qui définit "
+"la position de l'objet. Pensez à la géométrie: si vous définissez l'endroit "
+"où une figure se trouve sur un plan, vous direz généralement quelque chose "
+"comme \"le coin inférieur gauche de ce carré a des coordonnées (0, 2)\" ou "
+"\"le centre de ce cercle se trouve en (-1, 3)\". \"Le coin inférieur "
+"gauche\" et \"centre\" sont des points de référence pour le carré et le "
+"cercle.<br />Ce mode affiche un point rouge pour chaque point d'ancrage d'un "
+"\"grob\"."
 
 #: ../help/contents.py:685 ../preview_mode/widget.py:138
 msgid "Display Grob Names"
-msgstr ""
+msgstr "Afficher les noms de Grob"
 
 #: ../help/contents.py:686
 msgid ""
@@ -2740,10 +2789,15 @@ msgid ""
 "note that this mode is quite intrusive and will especially become useful "
 "once it can be activated for single grobs."
 msgstr ""
+"Ce mode affiche le nom d'un \"grob\" à ses côtés.<br />Le principal objectif "
+"de ce Mode de Débogage est d'obtenir une l'information ç propos des noms de "
+"\"grob\", ce qui peut s'avérer utile si on ne sait pas où chercher les "
+"propriétés disponibles.<br />Notez que ce mode est assez intrusif et sera "
+"surtout utile quand il peut être activer pour un type de \"grob\"."
 
 #: ../help/contents.py:692 ../preview_mode/widget.py:120
 msgid "Display Skylines"
-msgstr ""
+msgstr "Afficher les \"skylines\""
 
 #: ../help/contents.py:693
 msgid ""
@@ -2752,45 +2806,57 @@ msgid ""
 "representing the skylines and is useful when dealing with issues of vertical "
 "spacing."
 msgstr ""
+"LilyPond utilise des \"Skylines\" pour calculer les dimensions verticales de "
+"ses objets graphiques pour empêcher les collisions. Ce mode dessine des "
+"lignes représentant les \"skylines\" et est utile pour gérer les problèmes "
+"d'espacement vertical."
 
 #: ../help/contents.py:697 ../preview_mode/widget.py:141
-#, fuzzy
 msgid "Debug Paper Columns"
-msgstr "Couleur de papier"
+msgstr "Débogage des \"colonnes papier\""
 
 #: ../help/contents.py:698
 msgid ""
 "LilyPond organises the horizontal spacing in \"paper columns\". This mode "
 "prints a lot of spacing information about these entities."
 msgstr ""
+"LilyPond organise l'espacement horizontal en \"colonnes papier\". Ce mode "
+"affiche de nombreuses informations à propos de ces objets."
 
 #: ../help/contents.py:700 ../preview_mode/widget.py:144
 msgid "Annotate Spacing"
-msgstr ""
+msgstr "Annoter l'espacement"
 
 #: ../help/contents.py:701
 msgid ""
 "LilyPond has a built-in function that prints lots of information about "
 "distances on the paper, which is very useful when debugging the page layout."
 msgstr ""
+"LilyPond comporte une fonction qui affiche de nombreuses informations à "
+"propos des distances sur le papier, ce qui s'avère très utile lors du "
+"débogage de la mise en page."
 
 #: ../help/contents.py:704
-#, fuzzy
 msgid "Include Custom File"
-msgstr "Insérer depuis le fichier"
+msgstr "Insérer un fichier personnalisé"
 
 #: ../help/contents.py:705
 msgid ""
 "This mode offers the opportunity to add one's own Debug Modes by including a "
 "custom file. This file will be included at program startup and may contain "
 "any LilyPond code you would like to have executed whenever you are engraving "
-"in Preview Mode.</br>The given string will be literally included in an <code>"
-"\\include</code> directive, so you are responsible yourself that LilyPond "
-"can find it."
+"in Preview Mode.</br>The given string will be literally included in an "
+"<code>\\include</code> directive, so you are responsible yourself that "
+"LilyPond can find it."
 msgstr ""
+"Ce mode offre l'opportunité d'ajouter votre propre mode de débogage en "
+"incluant un fichier personnalisé. Ce fichier sera inclus au départ du "
+"logiciel et devra contenir le code LilyPond que vous voulez voir exécuté "
+"lorsque vous utiliser le mode Aperçu.<br />La chaîne de caractères sera "
+"incluse telle quelle dans une directive <code>\\include</code>; vous êtes "
+"donc responsable si LilyPond ne trouve rien."
 
 #: ../help/contents.py:716
-#, fuzzy
 msgid "Engrave (Publication)"
 msgstr "Graver (publication)"
 
@@ -2801,15 +2867,21 @@ msgid ""
 "from navigating to the corresponding line in the input file, but it will "
 "also significantly decrease the file size."
 msgstr ""
+"En gravant avec le mode Publication, l'information de point-and-click n'est "
+"pas générée. Ceci empêchera le lecteur du document PDF de naviguer vers la "
+"ligne correspondante dans le fichier source, mais cela diminuera aussi "
+"drastiquement la taille du fichier."
 
 #: ../help/contents.py:725
 msgid ""
 "You should also note that the point-and-click links contain hard-coded path "
 "information of your systen, which may be considered a security issue."
 msgstr ""
+"Vous noterez également que les liens point-and-click contiennent des "
+"informations de chemin d'accès liés à votre système personnel, ce qui peut "
+"être considéré comme un problème de sécurité."
 
 #: ../help/contents.py:733
-#, fuzzy
 msgid "Engrave (Custom)"
 msgstr "Graver (personnalisé)"
 
@@ -2818,11 +2890,12 @@ msgid ""
 "The <em>Engrave (Custom)</em> dialog gives you detailed access to all "
 "aspects of the LilyPond command."
 msgstr ""
+"Le dialogue <em>Graver (personnalisé)</em> vous donne un accès détaillé à "
+"tous les aspects de la commande LilyPond."
 
 #: ../help/contents.py:739
-#, fuzzy
 msgid "More documentation to come ..."
-msgstr "Fermer les documents dans ce dossier"
+msgstr "Plus de documentation à venir..."
 
 #: ../help/contents.py:745
 msgid "Troubleshooting"
@@ -2864,15 +2937,15 @@ msgid ""
 "Frescobaldi is able to determine the output file names by looking at the "
 "document's filename and the various LilyPond commands that specify the "
 "output filename or -suffix. Frescobaldi even searches <code>\\include</code> "
-"files for commands like <code>\\bookOutputName</code> and <code>"
-"\\bookOutputSuffix</code>."
+"files for commands like <code>\\bookOutputName</code> and "
+"<code>\\bookOutputSuffix</code>."
 msgstr ""
 "Frescobaldi est capable de déterminer le nom des fichiers de sortie en "
 "analysant le nom de fichier du document et les différentes commandes de "
 "LilyPond qui spécifient le fichier de sortie ou l'option -suffix. "
-"Frescobaldi cherche également les fichiers inclus par la directive <code>"
-"\\include</code> pour les commandes comme <code>\\bookOutputName</code> et "
-"<code>\\bookOutputSuffix</code>."
+"Frescobaldi cherche également les fichiers inclus par la directive "
+"<code>\\include</code> pour les commandes comme "
+"<code>\\bookOutputName</code> et <code>\\bookOutputSuffix</code>."
 
 #: ../help/contents.py:775
 msgid ""
@@ -3152,9 +3225,9 @@ msgid ""
 "object in the Music View or by right-clicking the object and selecting "
 "{menu}."
 msgstr ""
-"Vous pouvez ouvrir la boite de dialogue « Éditer en ligne » en utilisant Maj-"
-"Clic sur un object cliquable dans l'Aperçu ou en utilisant Clic-Droit sur "
-"cet objet et en sélectionnant {menu}."
+"Vous pouvez ouvrir la boite de dialogue « Éditer en ligne » en utilisant "
+"Maj-Clic sur un object cliquable dans l'Aperçu ou en utilisant Clic-Droit "
+"sur cet objet et en sélectionnant {menu}."
 
 #: ../musicview/image.py:127
 msgid "DPI:"
@@ -3488,8 +3561,8 @@ msgstr ""
 "</p>\n"
 "\n"
 "<p>\n"
-"Pour transposer d'une seconde majeure vers le bas, vous pouvez saisir :<br /"
-">\n"
+"Pour transposer d'une seconde majeure vers le bas, vous pouvez saisir :<br "
+"/>\n"
 "<code>do sib,</code>\n"
 "</p>\n"
 "\n"
@@ -3684,9 +3757,8 @@ msgstr "Préférences générales"
 
 #: ../preferences/__init__.py:197 ../preferences/prefshelp.py:129
 #: ../preferences/prefshelp.py:135
-#, fuzzy
 msgid "Preview Preferences"
-msgstr "Préférences générales"
+msgstr "Préférences d'aperçu"
 
 #: ../preferences/__init__.py:209 ../preferences/prefshelp.py:140
 msgid "MIDI Settings"
@@ -3727,8 +3799,8 @@ msgstr ""
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
 "A local path should point to the directory where either the "
-"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
-"offline-root\" path.</p>\n"
+"\"{documentation}\" directory lives, or the whole "
+"\"share/doc/lilypond/html/offline-root\" path.</p>\n"
 "<p>If those can't be found, documentation is looked for in all "
 "subdirectories of the given path, one level deep. This makes it possible to "
 "put multiple versions of LilyPond documentation in different subdirectories "
@@ -4167,9 +4239,9 @@ msgid ""
 "empty to use the operating system default application."
 msgstr ""
 "Vous pouvez saisir ci-dessous les commandes pour ouvrir divers types de "
-"fichiers. <code>$f</code> est remplacé par le nom du fichier, <code>$u</"
-"code> par l'URL. Laissez un champ vide pour utiliser l'application défaut du "
-"système d'exploitation."
+"fichiers. <code>$f</code> est remplacé par le nom du fichier, "
+"<code>$u</code> par l'URL. Laissez un champ vide pour utiliser l'application "
+"défaut du système d'exploitation."
 
 #: ../preferences/helpers.py:90
 msgid "Command that should accept a mailto: URL."
@@ -4201,21 +4273,22 @@ msgstr ""
 #: ../preferences/lilypond.py:88 ../preferences/prefshelp.py:109
 #: ../preferences/preview.py:88
 msgid ""
-"<p>If this setting is enabled, the document is searched for a LilyPond <code>"
-"\\version</code> command or a <code>version</code> document variable.</p>\n"
+"<p>If this setting is enabled, the document is searched for a LilyPond "
+"<code>\\version</code> command or a <code>version</code> document "
+"variable.</p>\n"
 "<p>The LilyPond version command looks like:</p>\n"
 "<pre>\\version \"2.14.0\"</pre>\n"
 "<p>The document variable looks like:</p>\n"
 "<pre>-*- version: 2.14.0;</pre>\n"
 "<p>somewhere (in a comments section) in the first or last 5 lines of the "
-"document. This way the LilyPond version to use can also be specified in non-"
-"LilyPond documents like HTML, LaTeX, etc.</p>\n"
+"document. This way the LilyPond version to use can also be specified in "
+"non-LilyPond documents like HTML, LaTeX, etc.</p>\n"
 "<p>If the document specifies a version, the oldest suitable LilyPond version "
 "is chosen. Otherwise, the default version is chosen.</p>\n"
 msgstr ""
 "<p>Si ce réglage est activé, le document est cherché pour une commande "
-"LilyPond <code>\\version</code> ou une variable de document <code>version</"
-"code>.</p>\n"
+"LilyPond <code>\\version</code> ou une variable de document "
+"<code>version</code>.</p>\n"
 "<p>La commande LilyPond version ressemble à ceci : </p>\n"
 "<pre>\\version \"2.14.0\"</pre>\n"
 "<p>La variable de document ressemble à : </p>\n"
@@ -4468,8 +4541,8 @@ msgstr ""
 
 #: ../preferences/prefshelp.py:97
 msgid ""
-"Finally, you can specify a list of paths where the LilyPond <code>\\include</"
-"code> command looks for files."
+"Finally, you can specify a list of paths where the LilyPond "
+"<code>\\include</code> command looks for files."
 msgstr ""
 "Enfin, vous pouvez définir une liste de chemins d'accès où la commande "
 "LilyPond <code>\\include</code> cherchera des fichiers."
@@ -4479,6 +4552,8 @@ msgid ""
 "Under <em>{preview_preferences}</em>, you can configure the appearance of "
 "several aspects of the Preview Mode."
 msgstr ""
+"Dans <em>{preview_preferences}</em>, vous pouvez configurer l'apparence de "
+"nombreux aspects du mode Aperçu."
 
 #: ../preferences/prefshelp.py:144
 msgid "Here you can configure Frescobaldi's MIDI settings."
@@ -4523,14 +4598,14 @@ msgstr ""
 
 #: ../preferences/prefshelp.py:176
 msgid ""
-"In this page you can enter commands to open different file types. <code>$f</"
-"code> is replaced with the filename, <code>$u</code> with the URL. Leave a "
-"field empty to use the operating system default application."
+"In this page you can enter commands to open different file types. "
+"<code>$f</code> is replaced with the filename, <code>$u</code> with the URL. "
+"Leave a field empty to use the operating system default application."
 msgstr ""
 "Vous pouvez saisir ci-dessous les commandes pour ouvrir divers types de "
-"fichiers. <code>$f</code> est remplacé par le nom du fichier, <code>$u</"
-"code> par l'URL. Laissez un champ vide pour utiliser l'application défaut du "
-"système d'exploitation."
+"fichiers. <code>$f</code> est remplacé par le nom du fichier, "
+"<code>$u</code> par l'URL. Laissez un champ vide pour utiliser l'application "
+"défaut du système d'exploitation."
 
 #: ../preferences/prefshelp.py:181
 msgid ""
@@ -4570,8 +4645,8 @@ msgstr ""
 "disponibles. Les {snippets} d'{quickinsert} qui ont un raccourci clavier "
 "sont listés ici."
 
-#: ../preferences/prefshelp.py:231 ../snippet/tool.py:57
-#: ../snippet/tool.py:148 ../snippet/widget.py:403
+#: ../preferences/prefshelp.py:231 ../snippet/tool.py:57 ../snippet/tool.py:148
+#: ../snippet/widget.py:403
 msgid "Snippets"
 msgstr "Fragments"
 
@@ -4699,9 +4774,8 @@ msgstr ""
 "Pour plus d'informations au sujet des expressions régulières, voir {link}."
 
 #: ../preferences/preview.py:82
-#, fuzzy
 msgid "Preview options to use"
-msgstr "Versions de LilyPond à utiliser"
+msgstr "Options d'aperçu à utiliser"
 
 #: ../preferences/shortcuts.py:56 ../snippet/model.py:63
 msgid "Shortcut"
@@ -4815,63 +4889,65 @@ msgid "Enter a regular expression to match:"
 msgstr "Entrer une expression régulière à rechercher :"
 
 #: ../preview_mode/__init__.py:42
-#, fuzzy
 msgid "Preview Options"
-msgstr "Options"
+msgstr "Options d'aperçu"
 
 #: ../preview_mode/__init__.py:43
-#, fuzzy
 msgid "Pre&view Options"
-msgstr "Options"
+msgstr "Options d'ap&erçu"
 
 #: ../preview_mode/widget.py:122
 msgid "Display the skylines that LilyPond uses to detect collisions."
 msgstr ""
+"Afficher les \"skylines\" que LilyPond utilise pour détecter les collisions."
 
 #: ../preview_mode/widget.py:126
 msgid "Display the control points that determine curve shapes"
-msgstr ""
+msgstr "Afficher les points de contrôle qui déterminent la forme des courbes."
 
 #: ../preview_mode/widget.py:130
 msgid "Highlight notes that are explicitly set to \\voiceXXX"
-msgstr ""
+msgstr "Colore les notes qui sont explicitement attribuées à \\voiceXXX"
 
 #: ../preview_mode/widget.py:134
 msgid "Highlight elements that are explicitly switched up- or downwards"
-msgstr ""
+msgstr "Colore les éléments explicitement dirigés vers le haut ou bas"
 
 #: ../preview_mode/widget.py:137
 msgid "Display a dot at the anchor point of each grob"
-msgstr ""
+msgstr "Affiche un point au point d'ancrage de chaque grob"
 
 #: ../preview_mode/widget.py:140
 msgid "Display the name of each grob"
-msgstr ""
+msgstr "Affiche le nom de chaque grob"
 
 #: ../preview_mode/widget.py:143
 msgid "Display info on the paper columns"
-msgstr ""
+msgstr "Affiche les information de \"colonne papier\""
 
 #: ../preview_mode/widget.py:146
 msgid ""
 "Use LilyPond's \"annotate spacing\" option to\n"
 "display measurement information"
 msgstr ""
+"Utilise l'option de LilyPond 'annoter l'espacement\" pour afficher les "
+"informations de mesures"
 
 #: ../preview_mode/widget.py:148
-#, fuzzy
 msgid "Include Custom File:"
-msgstr "Insérer depuis le fichier"
+msgstr "Insérer le fichier personnalisé :"
 
 #: ../preview_mode/widget.py:150
 msgid ""
 "Include a custom file with definitions\n"
 "for additional Debug Modes"
 msgstr ""
+"Inclure un fichier personnalisé contenant les définitions pour des Modes de "
+"Débogage supplémentaires"
 
 #: ../preview_mode/widget.py:153
 msgid "Filename to be included"
-msgstr ""
+msgstr "Nom de fichier à inclure"
 
 #: ../quickinsert/__init__.py:48
 msgid "Quick &Insert"
@@ -5299,7 +5375,7 @@ msgstr "Barrée sans liaison"
 
 #: ../quickinsert/spanners.py:202
 msgid "After grace"
-msgstr "Appogiature \"après\""
+msgstr "Appoggiature \"après\""
 
 #: ../quickinsert/widget.py:102
 msgid ""
@@ -5363,8 +5439,8 @@ msgstr ""
 "ou liaisons\n"
 "apparaissent en position neutre (p. ex. déterminée par la direction de la "
 "hampe de note),\n"
-"au-dessus ou en-dessous de la portée en insérant un caractère <code>-</"
-"code>, <code>^</code> ou\n"
+"au-dessus ou en-dessous de la portée en insérant un caractère "
+"<code>-</code>, <code>^</code> ou\n"
 "<code>_</code>.\n"
 "</p>\n"
 "\n"
@@ -6475,8 +6551,7 @@ msgctxt "abbreviation for Drums"
 msgid "Dr."
 msgstr "Bat."
 
-#: ../scorewiz/parts/percussion.py:186
-#: ../scorewiz/parts/plucked_strings.py:258
+#: ../scorewiz/parts/percussion.py:186 ../scorewiz/parts/plucked_strings.py:258
 msgid "Voices:"
 msgstr "Voix :"
 
@@ -7344,10 +7419,10 @@ msgstr "Éditeur de fragments"
 #: ../snippet/edit.py:219
 msgid ""
 "<p>Here you can edit the text of the snippet.</p><p>If you start the first "
-"line(s) with '<code>-*- </code>' (note the space), the remainder of that line"
-"(s) defines variables like <code>name: value;</code> or simply <code>name;</"
-"code> which influence the behaviour of the snippet. The following variables "
-"can be used:</p>"
+"line(s) with '<code>-*- </code>' (note the space), the remainder of that "
+"line(s) defines variables like <code>name: value;</code> or simply "
+"<code>name;</code> which influence the behaviour of the snippet. The "
+"following variables can be used:</p>"
 msgstr ""
 "<p>Vous pouvez ici éditer le texte du fragment.</p><p>Si vous commencez la "
 "(les) première(s) ligne(s) avec '<code>-*- </code>' (notez les espaces), le "
@@ -7441,8 +7516,8 @@ msgstr "Fragments Python"
 #: ../snippet/edit.py:284
 msgid ""
 "<p>Python snippets can read and should set the variable {text}. The variable "
-"{text} contains the currently selected text (which may be an empty string).</"
-"p>\n"
+"{text} contains the currently selected text (which may be an empty "
+"string).</p>\n"
 "<p>You may set {text} to a string or a list of strings.</p>\n"
 "<p>Other variables that may be referenced:</p>"
 msgstr ""
@@ -7528,8 +7603,8 @@ msgid ""
 "Selects text from here to the position given using the <code>$CURSOR</code> "
 "variable"
 msgstr ""
-"Sélectionne le texte d'ici jusqu'à la position donnée par la variable <code>"
-"$CURSOR</code>"
+"Sélectionne le texte d'ici jusqu'à la position donnée par la variable "
+"<code>$CURSOR</code>"
 
 #: ../snippet/expand.py:108
 msgid "The selected text if available. If not, the text cursor is moved here."
@@ -7583,8 +7658,8 @@ msgstr ""
 "sélectionner ou les désélectionner un par un, ou tous ensemble en utilisant "
 "la case à cocher du groupe. Cliquez OK pour importer tous les fragments "
 "sélectionnés.</p>\n"
-"<p>Les fragments existants ou non modifiés ne peuvent pas être importés.</"
-"p>\n"
+"<p>Les fragments existants ou non modifiés ne peuvent pas être "
+"importés.</p>\n"
 
 #: ../snippet/import_export.py:235
 msgid "Importing and exporting snippets"
@@ -7600,8 +7675,8 @@ msgid ""
 "To export snippets, either select them in the snippet manager, or filter the "
 "snippets using the search bar and select none, so that all the snippets "
 "visible in the snippet manager are exported. Export the snippets by "
-"selecting {menu}, and then choose a file name, preferably ending in <code>."
-"xml</code>."
+"selecting {menu}, and then choose a file name, preferably ending in "
+"<code>.xml</code>."
 msgstr ""
 "Pour exporter des fragments, vous pouvez soit les sélectionner dans le "
 "gestionnaire de fragments, ou filtrer les fragments grâce à la barre de "
@@ -8166,6 +8241,7 @@ msgstr "Sélectionner un fichier"
 #~ msgid "Manage Sessions..."
 #~ msgstr "Gérer les sessions..."
 
+#, qt-format
 #~ msgid ""
 #~ "Could not find the XMLGUI container \"%1\".\n"
 #~ "\n"
@@ -8186,6 +8262,7 @@ msgstr "Sélectionner un fichier"
 #~ msgid "Please select some text first."
 #~ msgstr "Sélectionnez d'abord du texte."
 
+#, qt-format
 #~ msgid "Line: %1 Col: %2"
 #~ msgstr "Ligne : %1 Col. : %2"
 
@@ -8207,6 +8284,7 @@ msgstr "Sélectionner un fichier"
 #~ msgid "Undock"
 #~ msgstr "Détacher"
 
+#, qt-format
 #~ msgid "Please install %1"
 #~ msgstr "Veuillez installer %1"
 
@@ -8216,15 +8294,18 @@ msgstr "Sélectionner un fichier"
 #~ msgid "Properties of this session"
 #~ msgstr "Propriétés de cette session"
 
+#, qt-format
 #~ msgid "Edit session: %1"
 #~ msgstr "Modifier la session %1"
 
+#, qt-format
 #~ msgid "Please do not use the name '%1'."
 #~ msgstr "N'utilisez pas le nom « %1 »."
 
 #~ msgid "Please do not use the ampersand (&) character in a session name."
 #~ msgstr "N'utilisez pas l'esperluette (&) dans un nom de session."
 
+#, qt-format
 #~ msgid ""
 #~ "Another session with the name %1 exists already.\n"
 #~ "\n"
@@ -8234,6 +8315,7 @@ msgstr "Sélectionner un fichier"
 #~ "\n"
 #~ "Voulez-vous l'écraser ?"
 
+#, qt-format
 #~ msgid "Open %1 in external viewer"
 #~ msgstr "Ouvrir %1 dans l'afficheur externe"
 
@@ -8316,6 +8398,7 @@ msgstr "Sélectionner un fichier"
 #~ "Voici les fichiers à jour (c'est-à-dire plus récents que le code source "
 #~ "LilyPond). Vérifiez les documents que vous voulez envoyer à l'imprimante."
 
+#, qt-format
 #~ msgid "Print %1"
 #~ msgstr "Imprimer %1"
 
@@ -8330,9 +8413,11 @@ msgstr "Sélectionner un fichier"
 #~ "Impossible de trouver une commande d'impression (telle que « lpr » ou "
 #~ "« lp ») sur votre système."
 
+#, qt-format
 #~ msgid "The command '%1' could not be found on your system."
 #~ msgstr "Impossible de trouver la commande « %1 » sur votre système."
 
+#, qt-format
 #~ msgid ""
 #~ "The command below has been run, but exited with a return code %1.\n"
 #~ "\n"
@@ -8427,8 +8512,8 @@ msgstr "Sélectionner un fichier"
 #~ "B: bass clef\n"
 #~ "\n"
 #~ "So when you want to create music paper for a four-part mixed choir score, "
-#~ "first set the number of staves per system to 4. Then enter \"SATB"
-#~ "\" (without the quotes) here."
+#~ "first set the number of staves per system to 4. Then enter \"SATB\" "
+#~ "(without the quotes) here."
 #~ msgstr ""
 #~ "Pour configurer les clés, saisissez le nombre de portées par système. "
 #~ "Ensuite saisissez autant de lettres (S, A, T ou B) qu'il y a de portées.\n"
@@ -8453,6 +8538,7 @@ msgstr "Sélectionner un fichier"
 #~ msgid "Square Bracket"
 #~ msgstr "Crochet carré"
 
+#, qt-format
 #~ msgid "Open %1"
 #~ msgstr "Ouvrir %1"
 
@@ -8526,21 +8612,26 @@ msgstr "Sélectionner un fichier"
 #~ msgid "No packages found. You can browse to a package manually."
 #~ msgstr "Aucun paquetage trouvé. Veuillez choisir un paquetage manuellement."
 
+#, qt-format
 #~ msgid "Latest Development Version (%1)"
 #~ msgstr "Dernière version de développement (%1)"
 
+#, qt-format
 #~ msgid "Latest Stable Version (%1)"
 #~ msgstr "Dernière version stable (%1)"
 
+#, qt-format
 #~ msgid "Downloading %1..."
 #~ msgstr "Téléchargement de %1..."
 
 #~ msgid "Download cancelled."
 #~ msgstr "Téléchargement annulé."
 
+#, qt-format
 #~ msgid "Download failed: %1"
 #~ msgstr "Le téléchargement a échoué : %1"
 
+#, qt-format
 #~ msgid ""
 #~ "LilyPond %1 seems already to be installed in %2.\n"
 #~ "\n"
@@ -8556,6 +8647,7 @@ msgstr "Sélectionner un fichier"
 #~ msgid "Remove and re-install"
 #~ msgstr "Enlever et réinstaller"
 
+#, qt-format
 #~ msgid "Unpacking %1..."
 #~ msgstr "Décompression de %1..."
 
@@ -8565,6 +8657,7 @@ msgstr "Sélectionner un fichier"
 #~ msgid "Unpacking failed."
 #~ msgstr "La décompression a échoué."
 
+#, qt-format
 #~ msgid ""
 #~ "An error occurred:\n"
 #~ "\n"
@@ -8593,8 +8686,8 @@ msgstr "Sélectionner un fichier"
 #~ msgstr ""
 #~ "Voici la liste des abréviations définies.\n"
 #~ "\n"
-#~ "Cliquez sur une ligne pour voir ou changer le texte associé. Double-"
-#~ "cliquez sur une abréviation ou sa description pour la modifier, ou "
+#~ "Cliquez sur une ligne pour voir ou changer le texte associé. "
+#~ "Double-cliquez sur une abréviation ou sa description pour la modifier, ou "
 #~ "appuyez sur F2 pour éditer l'abréviation sélectionnée.\n"
 #~ "\n"
 #~ "Utilisez les boutons ci-dessous pour ajouter ou enlever des "
@@ -8682,9 +8775,11 @@ msgstr "Sélectionner un fichier"
 #~ msgid "Internals Reference"
 #~ msgstr "Référence internes"
 
+#, qt-format
 #~ msgid "The %1 context"
 #~ msgstr "Le contexte %1"
 
+#, qt-format
 #~ msgid "The %1 layout object"
 #~ msgstr "Le %1 objet de disposition"
 
@@ -8858,17 +8953,17 @@ msgstr "Sélectionner un fichier"
 #~ "You want to run LilyPond in preview mode (with point and click enabled), "
 #~ "but your document contains a command to turn point and click off."
 #~ msgstr ""
-#~ "Vous souhaitez lancer LilyPond en mode aperçu (avec l'option point-and-"
-#~ "click), mais votre document contient une commande qui désactive le point-"
-#~ "and-click."
+#~ "Vous souhaitez lancer LilyPond en mode aperçu (avec l'option "
+#~ "point-and-click), mais votre document contient une commande qui désactive "
+#~ "le point-and-click."
 
 #~ msgid ""
 #~ "You want to run LilyPond in publish mode (with point and click disabled), "
 #~ "but your document contains a command to turn point and click on."
 #~ msgstr ""
-#~ "Vous souhaitez lancer LilyPond en mode publication (sans l'option point-"
-#~ "and-click), mais votre document contient une commande qui active le point-"
-#~ "and-click."
+#~ "Vous souhaitez lancer LilyPond en mode publication (sans l'option "
+#~ "point-and-click), mais votre document contient une commande qui active le "
+#~ "point-and-click."
 
 #~ msgid "Abort the running LilyPond process"
 #~ msgstr "Mettre fin au processus Lilypond en cours d'exécution"
@@ -8876,9 +8971,11 @@ msgstr "Sélectionner un fichier"
 #~ msgid "Run LilyPond in preview mode (Shift-click for custom dialog)"
 #~ msgstr "Lancer LilyPond en mode aperçu (Maj-clic pour personnaliser)"
 
+#, qt-format
 #~ msgid "LilyPond has successfully compiled %1."
 #~ msgstr "LilyPond a correctement compilé %1."
 
+#, qt-format
 #~ msgid "LilyPond exited with an error compiling %1."
 #~ msgstr "La compilation de %1 s'est arrêtée avec une erreur."
 
@@ -8959,9 +9056,11 @@ msgstr "Sélectionner un fichier"
 #~ msgid "Set these settings as default."
 #~ msgstr "Enregistrer ces réglages en tant que défaut."
 
+#, qt-format
 #~ msgid "Found rumor version %1."
 #~ msgstr "Trouvé Rumor version %1."
 
+#, qt-format
 #~ msgid "Could not find Rumor: %1"
 #~ msgstr "Impossible de trouver Rumor : %1"
 
@@ -8989,6 +9088,7 @@ msgstr "Sélectionner un fichier"
 #~ msgid "Rumor Settings"
 #~ msgstr "Réglages de Rumor"
 
+#, qt-format
 #~ msgid "OSS device %1"
 #~ msgstr "Périphérique OSS %1"
 
@@ -9057,6 +9157,7 @@ msgstr "Sélectionner un fichier"
 #~ "Sélectionnez ici des scripts Guile que vous voulez charger dans Rumor. "
 #~ "Voir « Qu'est-ce que c'est » pour plus d'informations."
 
+#, qt-format
 #~ msgid ""
 #~ "Here you can select which Guile scripts you want Rumor to load. You can "
 #~ "add your own scripts by putting them in %1. If the first line of your "
@@ -9070,18 +9171,23 @@ msgstr "Sélectionner un fichier"
 #~ msgid "publish mode"
 #~ msgstr "mode publication"
 
+#, qt-format
 #~ msgid "LilyPond %1 [%2] starting (%3)..."
 #~ msgstr "LilyPond %1 [%2] : lancement (%3)..."
 
+#, qt-format
 #~ msgid "LilyPond [%1] starting (%2)..."
 #~ msgstr "LilyPond [%1] : lancement (%2)..."
 
+#, qt-format
 #~ msgid "LilyPond [%1] exited with return code %2."
 #~ msgstr "LilyPond [%1] : interruption avec le code %2."
 
+#, qt-format
 #~ msgid "LilyPond [%1] exited with exit status %2."
 #~ msgstr "LilyPond [%1] : interruption avec le code %2."
 
+#, qt-format
 #~ msgid "LilyPond [%1] finished (%2)."
 #~ msgstr "LilyPond [%1] : traitement achevé (%2)."
 
@@ -9096,9 +9202,11 @@ msgstr "Sélectionner un fichier"
 #~ msgid "Select which LilyPond version you want to run:"
 #~ msgstr "Choisissez la version de LilyPond que vous voulez utiliser :"
 
+#, qt-format
 #~ msgid "LilyPond %1"
 #~ msgstr "LilyPond %1"
 
+#, qt-format
 #~ msgid "Use LilyPond version %1"
 #~ msgstr "Utiliser la version %1 de LilyPond"
 
@@ -9108,12 +9216,14 @@ msgstr "Sélectionner un fichier"
 #~ msgid "Automatic LilyPond Version (determined from document)."
 #~ msgstr "Version automatique de LilyPond (d'après le document)."
 
+#, qt-format
 #~ msgid "Path: %1"
 #~ msgstr "Emplacement : %1"
 
 #~ msgid "LilyPond (version unknown)"
 #~ msgstr "LilyPond (version inconnue)"
 
+#, qt-format
 #~ msgid ""
 #~ "Use LilyPond (version unknown)\n"
 #~ "Path: %1"
@@ -9124,6 +9234,7 @@ msgstr "Sélectionner un fichier"
 #~ msgid "Save LilyPond Log as"
 #~ msgstr "Enregistrer les messages de LilyPond sous..."
 
+#, qt-format
 #~ msgid ""
 #~ "Could not save LilyPond log:\n"
 #~ "\n"
@@ -9268,10 +9379,10 @@ msgstr "Sélectionner un fichier"
 #~ "KOffice, etc, one per line. If you leave out the starting slash, the "
 #~ "prefixes from the KDEDIRS environment variable are prepended."
 #~ msgstr ""
-#~ "Emplacements à parcourir pour les dictionnaires de césure d'OpenOffice."
-#~ "org, Scribus, KOffice, … (un seul par ligne). Tout emplacement ne "
-#~ "commençant pas par une barre oblique sera parcouru à partir de la "
-#~ "variable d'environnement KDEDIRS."
+#~ "Emplacements à parcourir pour les dictionnaires de césure "
+#~ "d'OpenOffice.org, Scribus, KOffice, … (un seul par ligne). Tout "
+#~ "emplacement ne commençant pas par une barre oblique sera parcouru à "
+#~ "partir de la variable d'environnement KDEDIRS."
 
 #~ msgid "Commands used by the Rumor MIDI input module"
 #~ msgstr "Commandes utilisées par le module de saisie MIDI Rumor"
@@ -9358,6 +9469,7 @@ msgstr "Sélectionner un fichier"
 #~ "messages de convert-ly, en commentaire. Certains endroits peuvent "
 #~ "nécessiter des modifications manuelles."
 
+#, qt-format
 #~ msgid ""
 #~ "The document has been processed with convert-ly, but remained unchanged. "
 #~ "This is the message given by convert-ly: %1"
@@ -9431,6 +9543,7 @@ msgstr "Sélectionner un fichier"
 #~ msgid "LilyPond documentation:"
 #~ msgstr "Documentation LilyPond :"
 
+#, qt-format
 #~ msgid ""
 #~ "Printing failed: %1\n"
 #~ "\n"
