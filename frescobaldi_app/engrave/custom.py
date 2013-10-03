@@ -168,7 +168,7 @@ class Dialog(QDialog):
         if self.verboseCheck.isChecked():
             cmd.append('--verbose')
         if self.previewCheck.isChecked():
-            cmd.append('-dpoint-and-click')
+            cmd.extend(command.preview_options())
         else:
             cmd.append('-dno-point-and-click')
         if self.deleteCheck.isChecked():
