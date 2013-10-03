@@ -72,21 +72,6 @@ class Widget(QWidget):
         self.options['custom-file'] = self.GBcustomfile
         self.LEcustomfile = QLineEdit()
         
-        
-        # Load settings and set checkbox state
-        s = QSettings()
-        s.beginGroup('lilypond_settings')
-        self.checkOption(s, 'skylines')
-        self.checkOption(s, 'control-points')
-        self.checkOption(s, 'voices')
-        self.checkOption(s, 'directions')
-        self.checkOption(s, 'grob-anchors')
-        self.checkOption(s, 'grob-names')
-        self.checkOption(s, 'custom-file')
-        self.checkOption(s, 'paper-columns')
-        self.checkOption(s, 'annotate-spacing')
-        self.LEcustomfile.setText(s.value('custom-filename', ''))
-
         # Compose layout
         self.customfile_layout = QVBoxLayout()
         self.customfile_layout.addWidget(self.LEcustomfile)
@@ -112,9 +97,10 @@ class Widget(QWidget):
         self.GBcustomfile.toggled.connect(self.toggleOption)
         self.CBpapercolumns.toggled.connect(self.toggleOption)
         self.CBannotatespacing.toggled.connect(self.toggleOption)
-        self.LEcustomfile.textChanged.connect(self.edit_custom_file)
+        self.LEcustomfile.textEdited.connect(self.customFileEdited)
         
         app.translateUI(self)
+        self.loadSettings()
     
     def translateUI(self):
         self.CBskylines.setText(_("Display Skylines"))
@@ -152,23 +138,36 @@ class Widget(QWidget):
         self.LEcustomfile.setToolTip(_(
             "Filename to be included"))
         
+    def loadSettings(self):
+        """Called on construction. Load settings and set checkboxes state."""
+        s = QSettings()
+        s.beginGroup('lilypond_settings')
+        def checkOption(key):
+            self.options[key].setChecked(s.value(key, False, bool))
+        checkOption('skylines')
+        checkOption('control-points')
+        checkOption('voices')
+        checkOption('directions')
+        checkOption('grob-anchors')
+        checkOption('grob-names')
+        checkOption('custom-file')
+        checkOption('paper-columns')
+        checkOption('annotate-spacing')
+        self.LEcustomfile.setText(s.value('custom-filename', '', type("")))
         
-    def checkOption(self, s, key):
-        self.options[key].setChecked(s.value(key, False, bool))
-        
-    def edit_custom_file(self):
+    def customFileEdited(self):
+        """Called when the user types in the custom file entry."""
         s = QSettings()
         s.beginGroup("lilypond_settings")
-        s.setValue("custom-filename", self.LEcustomfile.displayText())
-
-    def writeSetting(self, option, state):
-        s = QSettings()
-        s.beginGroup("lilypond_settings")
-        s.setValue(option, state)
+        s.setValue("custom-filename", self.LEcustomfile.text())
 
     def toggleOption(self, state):
+        """Called when a checkbox is toggled by the user."""
         for key in self.options:
             if self.options[key] == self.sender():
-                self.writeSetting(key, state)
+                s = QSettings()
+                s.beginGroup("lilypond_settings")
+                s.setValue(key, state)
+                break
 
 
