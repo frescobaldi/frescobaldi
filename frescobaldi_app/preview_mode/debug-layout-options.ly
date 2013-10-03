@@ -40,6 +40,12 @@
 
 debugLayoutOptions =
 #(define-void-function (parser location)()
+   ;; include the optional custom file first.
+   ;; This way it can for example define configuration variables.
+   (if (ly:get-option 'debug-custom-file)
+       ;; Add a custom file for debugging layout
+       (ly:parser-include-string parser 
+         (format "\\include \"~A\"\n" (ly:get-option 'debug-custom-file))))
    ;; include preview options depending on the
    ;; presence or absence of command line switches
    (if (ly:get-option 'debug-control-points)
@@ -69,12 +75,7 @@ debugLayoutOptions =
        ;; this name clash has to be resolved!
    (if (ly:get-option 'debug-annotate-spacing)
        ;; Add a dot for the anchor of each grob
-       (ly:parser-include-string parser "\\include \"annotate-spacing.ily\""))
-   (if (ly:get-option 'debug-custom-file)
-       ;; Add a custom file for debugging layout
-       (ly:parser-include-string parser 
-         (format "\\include \"~A\"\n" (ly:get-option 'debug-custom-file))))
-)
+       (ly:parser-include-string parser "\\include \"annotate-spacing.ily\"")))
 
 \debugLayoutOptions
 
