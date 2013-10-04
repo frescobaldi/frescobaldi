@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 import os
 
 from PyQt4.QtCore import Qt, QUrl
-from PyQt4.QtGui import QAction, QFileDialog, QKeySequence
+from PyQt4.QtGui import QAction, QFileDialog, QKeySequence, QMessageBox
 
 import app
 import actioncollection
@@ -63,9 +63,13 @@ class FileImport(plugin.MainWindowPlugin):
         if dlg.exec_():
             with qutil.busyCursor():
                 stdout, stderr = dlg.run_command()
-                print stderr #put this in log window instead
-                lyfile = os.path.splitext(importfile)[0] + ".ly"
-                self.createDocument(lyfile, stdout.decode('utf-8'))
+                if stdout: #success
+                	lyfile = os.path.splitext(importfile)[0] + ".ly"
+                	self.createDocument(lyfile, stdout.decode('utf-8'))
+                else: #failure to convert
+                	msgbox = QMessageBox()
+                        msgbox.setText(_("The file couldn't be converted. Error message:\n")+stderr)
+                        msgbox.exec_()
     
     def createDocument(self, filename, contents):
         """Create a new document using the specified filename and contents.
