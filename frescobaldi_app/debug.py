@@ -7,6 +7,9 @@
 # signals to debug-print functions, and imports the most important modules such
 # as app.
 
+from __future__ import unicode_literals
+
+import sys
 
 try:
     from . import main
@@ -15,19 +18,45 @@ except (ImportError, ValueError):
     pass # this was a reload()
 
 
-import app
-import document
-
-
-def setup():
-    def doc_repr(self):
-        index = app.documents.index(self)
-        return '<Document #{0} "{1}">'.format(index, self.url().toString())
-    document.Document.__repr__ = doc_repr
-
-    # more to add...
+__all__ = '''
+app
+document
+'''.split()
     
 
-setup()
-del setup
+import app
+import document
+    
 
+
+def doc_repr(self):
+    index = app.documents.index(self)
+    return '<Document #{0} "{1}">'.format(index, self.url().toString())
+document.Document.__repr__ = doc_repr
+    
+@app.documentCreated.connect
+def f(doc): 
+    print "created:", doc
+
+@app.documentLoaded.connect
+def f(doc):
+    print "loaded:", doc
+
+@app.documentClosed.connect
+def f(doc):
+    print "closed:", doc
+
+@app.jobStarted.connect
+def f(doc, job):
+    print 'job started:', doc
+    print job.command
+
+@app.jobFinished.connect
+def f(doc, job, success):
+    print 'job finished', doc
+    print 'success:', success
+
+
+# more to add...
+    
+    

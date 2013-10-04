@@ -30,6 +30,13 @@ import frescobaldi_app.main
 This ensures the application starts up and uses the correct SIP api (2) for
 QString and QVariant.
 
+Alternatively, you can enter:
+
+from frescobaldi_app.debug import *
+
+This will also start up Frescobaldi and then install some handlers that print
+debugging information on certain events. And it imports the most used modules.
+
 Currently Python 2.6 and 2.7 are supported, but the code should be designed such
 that Frescobaldi works as well with Python 3.
 
