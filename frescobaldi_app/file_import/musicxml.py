@@ -149,20 +149,23 @@ class help_importXML(help.page):
         return _("Import Music XML")
     
     def body():
-        p = '<p>{0}</p>\n'.format
-        text = [p(_("""\
-Import a Music XML file using the command line tool musicxml2ly from the LilyPond package. 
-In this dialog you can set some parameters for the musicxml2ly import. (Some of the parameters available in musicxml2ly are purposely not included 
-for the sake of simplicity; because they compass things, e.g. changing language, which can easily be adjusted after import. 
-Others could be included in later versions.)
-Currently there are four parameters that can be set by the checkboxes:
-"""))]
+        from help.html import p
+        text = []
+        text.append(p(
+          _("Import a Music XML file using the command line tool musicxml2ly "
+            "from the LilyPond package."),
+          _("In this dialog you can set some parameters for the musicxml2ly import. "
+            "Currently there are four parameters that can be set by the checkboxes:")))
         text.append('<dl>\n')
         for para, descr in (
-            ('-nd --no-articulation-directions', _('do not convert directions (^, _ or -) for articulations, dynamics, etc.')),
-            ('--nrp --no-rest-positions', _('do not convert exact vertical positions of rests')),
-            ('--npl --no-page-layout', _('do not convert the exact page layout and breaks')),
-            ('--no-beaming', _('do not convert beaming information, use LilyPonds automatic beaming instead.')),
+            ('--nd --no-articulation-directions',
+                _('do not convert directions (^, _ or -) for articulations, dynamics, etc.')),
+            ('--nrp --no-rest-positions',
+                _('do not convert exact vertical positions of rests')),
+            ('--npl --no-page-layout',
+                _('do not convert the exact page layout and breaks')),
+            ('--no-beaming',
+                _('do not convert beaming information, use LilyPonds automatic beaming instead.')),
             ):
             text.append('<dt><code>{0}</code></dt>'.format(para))
             text.append('<dd>{0}</dd>\n'.format(descr))
