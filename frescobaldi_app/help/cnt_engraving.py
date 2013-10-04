@@ -208,7 +208,7 @@ class eng_preview_conf(page):
                 for name, text in (
                 #L10N: Please translate the mode names the same way as in the panel UI
              (_("Display Control Points"),
-             _("Variables can be redefined in input files.<br />") +
+             _("Variables can be redefined in input files.") + "<br />"
              var_descriptions([
                 ("debug-control-points-color", 
                     "red", 
@@ -223,7 +223,7 @@ class eng_preview_conf(page):
                     "0.7", 
                     _("size of the control points crosses"))])), 
              (_("Color \\voiceXXX"),
-             _("These Variables currently can\'t be redefined in input files.<br />") +
+             _("These Variables currently can't be redefined in input files.") + "<br />" +
              var_descriptions([
                 ("debug-voice-one-color", 
                     "darkred", 
@@ -238,7 +238,7 @@ class eng_preview_conf(page):
                     "darkmagenta", 
                     "")])), 
              (_("Color explicit directions"),
-             _("These Variables can be redefined in input files.<br />") +
+             _("These Variables can be redefined in input files.") + "<br />" +
              var_descriptions([
                 ("debug-direction-up-color", 
                     "blue", 
@@ -255,7 +255,7 @@ class eng_preview_conf(page):
                     "<code>#(define debug-direction-grob-list "
                     "\'(DynamicText Script))</code>"))])), 
              (_("Display Grob Anchors"),
-             _("These Variables can be redefined in input files.<br />") +
+             _("These Variables can be redefined in input files.") + "<br />" +
              var_descriptions([
                 ("debug-grob-anchors-dotcolor", 
                     "red", 
@@ -268,7 +268,7 @@ class eng_preview_conf(page):
                     "<code>#(define debug-grob-anchors-grob-list "
                     "\'(Script NoteHead))</code>"))])), 
              (_("Display Grob Names"),
-             _("These Variables can be redefined in input files.<br />") +
+             _("These Variables can be redefined in input files.") + "<br />" +
              var_descriptions([
                 ("debug-grob-names-color", 
                     "darkcyan", 
@@ -283,6 +283,7 @@ class eng_preview_conf(page):
             )) + p(
             _("The remaining modes are built-in to LilyPond and "
               "don\'t have any configuration options.'"))
+
 
 class eng_publication(page):
     def title():
