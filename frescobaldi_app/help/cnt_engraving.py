@@ -282,7 +282,7 @@ class eng_preview_conf(page):
                     "\'(Script NoteHead))</code>"))]))) 
             )) + p(
             _("The remaining modes are built-in to LilyPond and "
-              "don\'t have any configuration options.'"))
+              "don't have any configuration options."))
 
 
 class eng_publication(page):
