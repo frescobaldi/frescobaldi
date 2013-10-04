@@ -208,7 +208,7 @@ class eng_preview_conf(page):
                 for name, text in (
                 #L10N: Please translate the mode names the same way as in the panel UI
              (_("Display Control Points"),
-             _("Variables can be redefined in input files.") + "<br />"
+             _("Variables can be redefined in input files.") + "<br />" +
              var_descriptions([
                 ("debug-control-points-color", 
                     "red", 
