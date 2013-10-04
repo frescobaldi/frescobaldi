@@ -43,17 +43,18 @@
 
 
 % Define appearance
-#(cond ((not (defined? 'debug-grob-anchor-dotcolor))
-        (define debug-grob-anchor-dotcolor red)))
+#(cond ((not (defined? 'debug-grob-anchors-dotcolor))
+        (define debug-grob-anchors-dotcolor red)))
 % Which grobs to print the dot to?
 % Possible values:
 % - 'all-grobs
 % - Name of a grob (as symbol)
 % - List of grob names
-#(cond ((not (defined? 'debug-grob-anchor-groblist))
-        ;(define debug-grob-anchor-groblist '(NoteHead Stem))))
-        ;(define debug-grob-anchor-groblist 'NoteHead )))
-        (define debug-grob-anchor-groblist 'all-grobs)))
+#(cond ((not (defined? 'debug-grob-anchors-grob-list))
+        ;(define debug-grob-anchors-grob-list '(NoteHead Stem))))
+        ;(define debug-grob-anchors-grob-list 'NoteHead )))
+        (define debug-grob-anchors-grob-list 
+          (map car all-grob-descriptions))))
 
 #(define (add-dot)
    (lambda (grob)
@@ -84,7 +85,7 @@
              (interval-length (ly:stencil-extent ref-text-stil Y)))
             (dot (stencil-with-color 
                   (ly:font-get-glyph font "dots.dot")
-                  debug-grob-anchor-dotcolor))
+                  debug-grob-anchors-dotcolor))
             (dot-length
              (interval-length (ly:stencil-extent dot X)))
             (dot-stil
@@ -113,8 +114,7 @@
    ;;   anything else (returns the unchanged original stencil)
    ;;  TODO: How to apply it once?
    (let ((grobs-to-consider
-          (cond ((eq? l 'all-grobs)
-                 all-grob-descriptions)
+          (cond 
             ((symbol? l)
              (list (assoc l all-grob-descriptions)))
             ((list? l)
@@ -178,6 +178,6 @@ printAnchors =
 \layout {
   \context {
     \Voice
-    \printAnchors #debug-grob-anchor-groblist
+    \printAnchors #debug-grob-anchors-grob-list
   }
 }
