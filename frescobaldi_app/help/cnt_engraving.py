@@ -212,16 +212,16 @@ class eng_preview_conf(page):
              var_descriptions([
                 ("debug-control-points-color", 
                     "red", 
-                    _("")), 
+                    _("color of the debug control points")), 
                 ("debug-control-points-line-thickness", 
                     "0.05", 
-                    _("")), 
+                    _("thickness of the control points lines")), 
                 ("debug-control-points-cross-thickness", 
                    "0.1", 
-                   _("")), 
+                   _("thickness of the control points crosses")), 
                 ("debug-control-points-cross-size", 
                     "0.7", 
-                    _(""))])), 
+                    _("size of the control points crosses"))])), 
              (_("Color \\voiceXXX"),
              _("These Variables currently can\'t be redefined in input files.<br />") +
              var_descriptions([
