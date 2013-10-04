@@ -42,18 +42,18 @@
 }
 
 % Define appearance
-#(cond ((not (defined? 'debug-grob-name-color))
-        (define debug-grob-name-color darkcyan)))
+#(cond ((not (defined? 'debug-grob-names-color))
+        (define debug-grob-names-color darkcyan)))
 % Which grobs to print the dot to?
 % Possible values:
 % - 'all-grobs
 % - Name of a grob (as symbol)
 % - List of grob names
-#(cond ((not (defined? 'debug-grob-name-groblist))
-        ;(define debug-grob-name-groblist '(NoteHead Stem))))
-        ;(define debug-grob-name-groblist 'NoteHead )))
-        (define debug-grob-name-groblist 'all-grobs)))
-
+#(cond ((not (defined? 'debug-grob-names-grob-list))
+        ;(define debug-grob-names-grob-list '(NoteHead Stem))))
+        ;(define debug-grob-names-grob-list 'NoteHead )))
+        (define debug-grob-names-grob-list 
+          (map car all-grob-descriptions))))
 
 #(define (add-text)
    (lambda (grob)
@@ -76,7 +76,7 @@
                              "no name"))
             (ref-text-stil (grob-interpret-markup grob
                              (markup
-                              #:with-color debug-grob-name-color
+                              #:with-color debug-grob-names-color
                               #:normal-text
                               #:abs-fontsize 6
                               (string-append "   " grob-string))))
@@ -116,9 +116,8 @@
    ;;   anything else (returns the unchanged original stencil)
    ;;  TODO: How to apply it once?
    (let ((grobs-to-consider
-          (cond ((eq? l 'all-grobs)
-                 all-grob-descriptions)
-            ((symbol? l)
+            (cond
+             ((symbol? l)
              (list (assoc l all-grob-descriptions)))
             ((list? l)
              (map
@@ -156,6 +155,6 @@ printGrobNames =
 \layout {
   \context {
     \Voice
-    \printGrobNames #debug-grob-name-groblist
+    \printGrobNames #debug-grob-names-grob-list
   }
 }
