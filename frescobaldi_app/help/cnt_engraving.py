@@ -88,7 +88,7 @@ class eng_preview(page):
           _("The appearance of the Debug Modes is defined by Scheme variables and can "
             "partially be configured following the directions in {preview_config}.").format(
                 preview_config = eng_preview_conf.link()), 
-          _("The following Debug Modes are currently implemented:"),
+          _("The following Debug Modes are currently implemented:")
         ) + ul(''.join("<li><p><b>{0}</b><br />{1}</p></li>\n".format(name, text)
                 for name, text in (
                 #L10N: Please translate the mode names the same way as in the panel UI
@@ -171,15 +171,118 @@ class eng_preview_conf(page):
         return _("Preview Mode Configuration")
     
     def body():
+                
+            
+        def var_desc(desc_item):
+            """Format config variable description item"""
+            sep = ': ' if desc_item[2] != '' else ' '
+            items = desc_item + tuple(sep)
+            return (
+                "<b><code>{0} </code></b><em>({1}){3}</em>{2}<br />".format(*items))
+            
+        def var_descriptions(descs):
+            """
+               Format a list of description items so no markup has
+               to be in the translatable string.
+               'descs' is a list of tuples, each tuple consisting of
+               - variable name
+               - default value (as string)
+               - description, wrapped in a _() translatable string
+            """
+            lines = []
+            for item in descs:
+                lines.append(var_desc(item))
+            return ''.join(lines).rstrip('<br />')
+        
         return p(
-                 _("The appearance of the individual Debug Modes is defined through "
-                   "the use of configuration variables. Depending on the mode you "
-                   "may modify the appearance by redefining these variables in your "
-                   "input files. But if you are interested in a more general solution "
-                   "you can make use of the <code>custom-file</code> Debug Mode. "
-                   "As this custom file is read in before the different debug modes "
-                   "you can use it to define any of the variables.")
-                 )
+         _("The appearance of the individual Debug Modes is defined through "
+           "the use of configuration variables. Depending on the implementation "
+           "of the mode you may modify its appearance by redefining these variables in your "
+           "input files. But if you are interested in a more general solution "
+           "you can make use of the <code>custom-file</code> Debug Mode. "
+           "As this custom file is read in before the different debug modes "
+           "you can use it to define any of the variables <em>before</em> "
+           "the Debug Modes are parsed."), 
+         _("The modes use the following configuration variables:")
+         ) + ul(''.join("<li><p><b>{0}</b><br />{1}</p></li>\n".format(name, text)
+                for name, text in (
+                #L10N: Please translate the mode names the same way as in the panel UI
+             (_("Display Control Points"),
+             _("Variables can be redefined in input files.<br />") +
+             var_descriptions([
+                ("debug-control-points-color", 
+                    "red", 
+                    _("")), 
+                ("debug-control-points-line-thickness", 
+                    "0.05", 
+                    _("")), 
+                ("debug-control-points-cross-thickness", 
+                   "0.1", 
+                   _("")), 
+                ("debug-control-points-cross-size", 
+                    "0.7", 
+                    _(""))])), 
+             (_("Color \\voiceXXX"),
+             _("These Variables currently can\'t be redefined in input files.<br />") +
+             var_descriptions([
+                ("debug-voice-one-color", 
+                    "darkred", 
+                    ""), 
+                ("debug-voice-two-color", 
+                    "darkblue", 
+                    ""), 
+                ("debug-voice-three-color", 
+                    "darkgreen", 
+                    ""), 
+                ("debug-voice-four-color", 
+                    "darkmagenta", 
+                    "")])), 
+             (_("Color explicit directions"),
+             _("These Variables can be redefined in input files.<br />") +
+             var_descriptions([
+                ("debug-direction-up-color", 
+                    "blue", 
+                    ""), 
+                ("debug-direction-down-color", 
+                    "blue", 
+                    ""), 
+                ("debug-direction-grob-list", 
+                    "all-grob-descriptions", 
+                    _("Defines for which grobs the explicit direction through "
+                    "operators is monitored. "
+                    "By default all grobs are watched, but alternatively one "
+                    "can provide a list of grobs such as e.g. "
+                    "<code>#(define debug-direction-grob-list "
+                    "\'(DynamicText Script))</code>"))])), 
+             (_("Display Grob Anchors"),
+             _("These Variables can be redefined in input files.<br />") +
+             var_descriptions([
+                ("debug-grob-anchors-dotcolor", 
+                    "red", 
+                    ""), 
+                ("debug-grob-anchors-grob-list", 
+                    "all-grob-descriptions", 
+                    _("Defines for which grobs the anchor points will be "
+                    "displayed. By default all grobs are watched, but "
+                    "alternatively one can provide a list of grobs such as e.g. "
+                    "<code>#(define debug-grob-anchors-grob-list "
+                    "\'(Script NoteHead))</code>"))])), 
+             (_("Display Grob Names"),
+             _("These Variables can be redefined in input files.<br />") +
+             var_descriptions([
+                ("debug-grob-names-color", 
+                    "darkcyan", 
+                    ""), 
+                ("debug-grob-names-grob-list", 
+                    "all-grob-descriptions", 
+                    _("Defines for which grobs the names will be "
+                    "displayed. By default all grobs are watched, but "
+                    "alternatively one can provide a list of grobs such as e.g. "
+                    "<code>#(define debug-grob-names-grob-list "
+                    "\'(Script NoteHead))</code>"))]))) 
+            )) + p(
+            _("The remaining modes are built-in to LilyPond and "
+              "don\'t have any configuration options.'"))
 
 class eng_publication(page):
     def title():
@@ -196,6 +299,7 @@ class eng_publication(page):
             "hard-coded path information of your systen, which may be "
             "considered a security issue."),
         )
+
 
 
 class eng_custom(page):
