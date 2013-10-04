@@ -63,13 +63,12 @@ class FileImport(plugin.MainWindowPlugin):
         if dlg.exec_():
             with qutil.busyCursor():
                 stdout, stderr = dlg.run_command()
-                if stdout: #success
-                	lyfile = os.path.splitext(importfile)[0] + ".ly"
-                	self.createDocument(lyfile, stdout.decode('utf-8'))
-                else: #failure to convert
-                	msgbox = QMessageBox()
-                        msgbox.setText(_("The file couldn't be converted. Error message:\n")+stderr)
-                        msgbox.exec_()
+            if stdout: #success
+                lyfile = os.path.splitext(importfile)[0] + ".ly"
+                self.createDocument(lyfile, stdout.decode('utf-8'))
+            else: #failure to convert
+                QMessageBox.critical(None, _("Error"),
+                    _("The file couldn't be converted. Error message:\n") + stderr)
     
     def createDocument(self, filename, contents):
         """Create a new document using the specified filename and contents.
