@@ -30,6 +30,7 @@ from PyQt4.QtGui import (
 
 import app
 import util
+import qutil
 import icons
 import preferences
 import widgets.urlrequester
@@ -127,8 +128,8 @@ class Printing(preferences.Group):
         self.printCommand.changed.connect(page.changed)
         self.printDialogCheck = QCheckBox(toggled=page.changed)
         self.resolutionLabel = QLabel()
-        self.resolution = QComboBox(editable=True)
-        self.resolution.addItems("100 200 300 600 1200".split())
+        self.resolution = QComboBox(editable=True, editTextChanged=page.changed)
+        self.resolution.addItems("300 600 1200".split())
         self.resolution.lineEdit().setInputMask("9000")
 
         layout.addWidget(self.messageLabel, 0, 0, 1, 2)
@@ -169,7 +170,8 @@ class Printing(preferences.Group):
         s.beginGroup("helper_applications")
         self.printCommand.setPath(s.value("printcommand", "", type("")))
         self.printDialogCheck.setChecked(s.value("printcommand/dialog", False, bool))
-        self.resolution.setEditText(format(s.value("printcommand/dpi", 300, int)))
+        with qutil.signalsBlocked(self.resolution):
+            self.resolution.setEditText(format(s.value("printcommand/dpi", 300, int)))
     
     def saveSettings(self):
         s= QSettings()
