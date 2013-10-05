@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-10-04 22:34+0200\n"
+"POT-Creation-Date: 2013-10-05 19:27+0200\n"
 "PO-Revision-Date: 2013-10-02 11:36+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -409,7 +409,7 @@ msgid "Staff Size:"
 msgstr "Tamaño del pentagrama:"
 
 #. L10N: a basic type of input in the editor
-#: ../helpers.py:101 ../mainwindow.py:413 ../mainwindow.py:419
+#: ../helpers.py:107 ../mainwindow.py:413 ../mainwindow.py:419
 #: ../mainwindow.py:444 ../mainwindow.py:495 ../mainwindow.py:587
 #: ../mainwindow.py:647 ../externalchanges/widget.py:243
 #: ../file_import/__init__.py:70 ../musicview/image.py:214
@@ -418,7 +418,7 @@ msgstr "Tamaño del pentagrama:"
 msgid "Error"
 msgstr "Error"
 
-#: ../helpers.py:102 ../job.py:258
+#: ../helpers.py:108 ../job.py:258
 msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
@@ -665,8 +665,8 @@ msgstr ""
 msgid "Tab Bar"
 msgstr "Compás de tablatura"
 
-#: ../mainwindow.py:362 ../popplerprint.py:53 ../sessions/dialog.py:171
-#: ../sessions/dialog.py:179 ../sessions/dialog.py:185
+#: ../mainwindow.py:362 ../sessions/dialog.py:171 ../sessions/dialog.py:179
+#: ../sessions/dialog.py:185
 msgid "Warning"
 msgstr "Advertencia"
 
@@ -1074,41 +1074,23 @@ msgstr "Vista previa de la música"
 msgid "Could not load the {name} module."
 msgstr "No se ha podido cargar el módulo {name}."
 
-#: ../popplerprint.py:54
-msgid ""
-"No print command to print a PostScript file could be found.\n"
-"\n"
-"Therefore the document will be printed using raster images at {resolution} "
-"DPI. It is recommended to print using a dedicated PDF viewer.\n"
-"\n"
-"Do you want to continue?"
-msgstr ""
-"No se ha encontrado ninguna instrucción para imprimir un archivo "
-"PostScript.\n"
-"\n"
-"Por este motivo, se imprimirá el documento usando imágenes de matriz de "
-"puntos a {resolution} ppp. Se recomienda imprimir utilizando un programa "
-"visor de documentos PDF dedicado.\n"
-"\n"
-"¿Quiere continuar?"
-
-#: ../popplerprint.py:61
+#: ../popplerprint.py:74
 msgid "PDF Document"
 msgstr "Documento PDF"
 
-#: ../popplerprint.py:69
+#: ../popplerprint.py:83
 msgid "Print {filename}"
 msgstr "Imprimir {filename}"
 
-#: ../popplerprint.py:87 ../popplerprint.py:116
+#: ../popplerprint.py:117 ../popplerprint.py:147
 msgid "Printing Error"
 msgstr "Error de impresión"
 
-#: ../popplerprint.py:88 ../popplerprint.py:117
+#: ../popplerprint.py:118 ../popplerprint.py:148
 msgid "Could not send the document to the printer."
 msgstr "No se pudo enviar el documento a la impresora."
 
-#: ../popplerprint.py:108
+#: ../popplerprint.py:139
 msgid "Printing page {page} ({num} of {total})..."
 msgstr "Imprimiendo página {page} ({num} de {total})..."
 
@@ -1349,7 +1331,7 @@ msgstr "Versión de LilyPond:"
 msgid "Output Format:"
 msgstr "Formato de salida:"
 
-#: ../engrave/custom.py:127
+#: ../engrave/custom.py:127 ../preferences/helpers.py:163
 msgid "Resolution:"
 msgstr "Resolución:"
 
@@ -1748,7 +1730,7 @@ msgid ""
 msgstr ""
 
 #: ../help/cnt_engraving.py:82 ../preferences/__init__.py:261
-#: ../preferences/prefshelp.py:266
+#: ../preferences/prefshelp.py:282
 msgid "Tools"
 msgstr "Herramientas"
 
@@ -2419,7 +2401,7 @@ msgid "Edit"
 msgstr "Editar"
 
 #: ../help/contents.py:258 ../preferences/__init__.py:250
-#: ../preferences/prefshelp.py:243
+#: ../preferences/prefshelp.py:259
 msgid "Fonts & Colors"
 msgstr "Tipografías y colores"
 
@@ -3789,20 +3771,20 @@ msgstr "Preferencias generales"
 msgid "MIDI Settings"
 msgstr "Ajustes de MIDI"
 
-#: ../preferences/__init__.py:206 ../preferences/helpers.py:80
+#: ../preferences/__init__.py:206 ../preferences/helpers.py:89
 #: ../preferences/prefshelp.py:172
 msgid "Helper Applications"
 msgstr "Aplicaciones complementarias"
 
-#: ../preferences/__init__.py:217 ../preferences/prefshelp.py:191
+#: ../preferences/__init__.py:217 ../preferences/prefshelp.py:207
 msgid "Paths"
 msgstr "Rutas"
 
-#: ../preferences/__init__.py:228 ../preferences/prefshelp.py:205
+#: ../preferences/__init__.py:228 ../preferences/prefshelp.py:221
 msgid "LilyPond Documentation"
 msgstr "Documentación de LilyPond"
 
-#: ../preferences/__init__.py:239 ../preferences/prefshelp.py:223
+#: ../preferences/__init__.py:239 ../preferences/prefshelp.py:239
 msgid "Keyboard Shortcuts"
 msgstr "Combinaciones de teclas"
 
@@ -3815,7 +3797,7 @@ msgid "Add paths or URLs. See \"What's This\" for more information."
 msgstr ""
 "Añadir rutas o URLs. Consulte \"Qué es esto\" para ver más información."
 
-#: ../preferences/documentation.py:70 ../preferences/prefshelp.py:210
+#: ../preferences/documentation.py:70 ../preferences/prefshelp.py:226
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
 "A local path should point to the directory where either the "
@@ -4219,39 +4201,39 @@ msgstr "Directorio predeterminado:"
 msgid "The default folder for your LilyPond documents (optional)."
 msgstr "La carpeta predeterminada para los documentos de LilyPond (opcional)."
 
-#: ../preferences/helpers.py:70
+#: ../preferences/helpers.py:79
 msgid "PDF:"
 msgstr "PDF:"
 
-#: ../preferences/helpers.py:71
+#: ../preferences/helpers.py:80
 msgid "MIDI:"
 msgstr "MIDI:"
 
-#: ../preferences/helpers.py:72
+#: ../preferences/helpers.py:81
 msgid "SVG:"
 msgstr "SVG:"
 
-#: ../preferences/helpers.py:73
+#: ../preferences/helpers.py:82
 msgid "Image:"
 msgstr "Imagen:"
 
-#: ../preferences/helpers.py:74
+#: ../preferences/helpers.py:83
 msgid "Browser:"
 msgstr "Navegador:"
 
-#: ../preferences/helpers.py:75
+#: ../preferences/helpers.py:84
 msgid "E-Mail:"
 msgstr "E-mail:"
 
-#: ../preferences/helpers.py:76
+#: ../preferences/helpers.py:85
 msgid "File Manager:"
 msgstr "Administrador de archivos:"
 
-#: ../preferences/helpers.py:77
+#: ../preferences/helpers.py:86
 msgid "Shell:"
 msgstr "Consola:"
 
-#: ../preferences/helpers.py:82
+#: ../preferences/helpers.py:91
 msgid ""
 "Below you can enter commands to open different file types. <code>$f</code> "
 "is replaced with the filename, <code>$u</code> with the URL. Leave a field "
@@ -4262,13 +4244,57 @@ msgstr ""
 "la URL. Si deja un campo vacío se utilizará la aplicación predeterminada del "
 "sistema operativo."
 
-#: ../preferences/helpers.py:90
+#: ../preferences/helpers.py:99
 msgid "Command that should accept a mailto: URL."
 msgstr "Instrucción que debe aceptar una URL \"mailto:\""
 
-#: ../preferences/helpers.py:92
+#: ../preferences/helpers.py:101
 msgid "Command to open a Terminal or Command window."
 msgstr "Instrucción para abrir un terminal o ventana de órdenes."
+
+#: ../preferences/helpers.py:144 ../preferences/prefshelp.py:186
+#, fuzzy
+msgid "Printing Music"
+msgstr "Im&primir la música..."
+
+#: ../preferences/helpers.py:146
+msgid ""
+"Here you can enter a command to print a PDF or PostScript file. See the Help "
+"page for more information about printing music."
+msgstr ""
+
+#: ../preferences/helpers.py:148
+#, fuzzy
+msgid "Printing command:"
+msgstr "Error de impresión"
+
+#: ../preferences/helpers.py:150 ../preferences/prefshelp.py:188
+msgid ""
+"The printing command is used to print a PostScript or PDF file. On Linux you "
+"don't need this, but on Windows and Mac OS X you can provide a command to "
+"avoid that PDF documents are being printed using raster images, which is "
+"less optimal.\n"
+"<code>$pdf</code> gets replaced with the PDF filename, or alternatively, "
+"<code>$ps</code> is replaced with the PostScript filename. <code>$printer</"
+"code> is replaced with the printer's name to use."
+msgstr ""
+
+#: ../preferences/helpers.py:157
+#, fuzzy
+msgid "Use Frescobaldi's print dialog"
+msgstr "Manual de Frescobaldi"
+
+#: ../preferences/helpers.py:159
+msgid ""
+"If enabled, Frescobaldi will show the print dialog and create a PDF or "
+"PostScript document containing only the selected pages to print. Otherwise, "
+"the command is called directly and is expected to show a print dialog itself."
+msgstr ""
+
+#: ../preferences/helpers.py:165
+#, fuzzy
+msgid "Set the resolution if Frescobaldi prints using raster images."
+msgstr "Sesión que cargar si Frescobaldi se inicia sin argumentos"
 
 #: ../preferences/lilypond.py:82
 msgid "LilyPond versions to use"
@@ -4646,6 +4672,21 @@ msgstr ""
 
 #: ../preferences/prefshelp.py:195
 msgid ""
+"Uncheck the \"Use Frescobaldi's print dialog\" option when the printing "
+"command opens a print dialog itself, in which you can select e.g. the page "
+"range to print and the printer to use. If you don't use Frescobaldi's print "
+"dialog, you don't need to put the <code>$printer</code> variable in your "
+"command line."
+msgstr ""
+
+#: ../preferences/prefshelp.py:200
+msgid ""
+"If Frescobaldi must fall back to printing using raster images, you can "
+"specify the number of dots per inch here."
+msgstr ""
+
+#: ../preferences/prefshelp.py:211
+msgid ""
 "Here, directories can be added that contain <code>hyph_*.dic</code> files, "
 "where the <code>*</code> stands for different language codes."
 msgstr ""
@@ -4653,7 +4694,7 @@ msgstr ""
 "code>, donde el símbolo <code>*</code> corresponde a los distintos códigos "
 "de idioma."
 
-#: ../preferences/prefshelp.py:198
+#: ../preferences/prefshelp.py:214
 msgid ""
 "These hyphenation dictionaries are used by Frescobaldi to break lyrics text "
 "into syllabes."
@@ -4661,7 +4702,7 @@ msgstr ""
 "Estos diccionarios de enguionado se usan por parte de Frescobaldi para "
 "separar en sílabas el texto de la letra de las canciones."
 
-#: ../preferences/prefshelp.py:228
+#: ../preferences/prefshelp.py:244
 msgid ""
 "Here you can add keyboard shortcuts to all commands available. Also the "
 "{snippets} or {quickinsert} buttons that have keyboard shortcuts are listed "
@@ -4671,17 +4712,17 @@ msgstr ""
 "instrucciones que están disponibles. También están relacionados aquí los "
 "botones {snippets} o {quickinsert} que tienen combinaciiones de teclado."
 
-#: ../preferences/prefshelp.py:231 ../snippet/tool.py:57
+#: ../preferences/prefshelp.py:247 ../snippet/tool.py:57
 #: ../snippet/tool.py:148 ../snippet/widget.py:403
 msgid "Snippets"
 msgstr "Fragmentos de código"
 
-#: ../preferences/prefshelp.py:232 ../quickinsert/__init__.py:47
+#: ../preferences/prefshelp.py:248 ../quickinsert/__init__.py:47
 #: ../quickinsert/__init__.py:71
 msgid "Quick Insert"
 msgstr "Inserción rápida"
 
-#: ../preferences/prefshelp.py:233
+#: ../preferences/prefshelp.py:249
 msgid ""
 "To change a keyboard shortcut, highlight an action in the list and click the "
 "Edit button, or double-click an action. In the dialog that appears, you can "
@@ -4693,11 +4734,11 @@ msgstr ""
 "diálogo que aparece, puede introducir hasta cuatro combinaciones de teclas "
 "para dicha acción pulsando el botón y apretando la combinación de teclas."
 
-#: ../preferences/prefshelp.py:237 ../preferences/prefshelp.py:260
+#: ../preferences/prefshelp.py:253 ../preferences/prefshelp.py:276
 msgid "You can define a new scheme by using the New button."
 msgstr "Puede definir un esquema nuevo usando el botón Nuevo."
 
-#: ../preferences/prefshelp.py:247
+#: ../preferences/prefshelp.py:263
 msgid ""
 "Here you can set the editor font (a monospace font is recommended) and all "
 "colors."
@@ -4705,7 +4746,7 @@ msgstr ""
 "Aquí puede establecer el tipo de letra del editor (se recomienda una "
 "tipografía de ancho fijo) y todos los colores."
 
-#: ../preferences/prefshelp.py:249
+#: ../preferences/prefshelp.py:265
 msgid ""
 "The first item lets you set the colors for the text editor backgroud, "
 "foreground, selection background, the current line, line markings, the paper "
@@ -4715,7 +4756,7 @@ msgstr ""
 "propio texto, del fondo del texto seleccionado, la línea en curso, marcas de "
 "línea, el color del papel de la vista de música, etcétera."
 
-#: ../preferences/prefshelp.py:252
+#: ../preferences/prefshelp.py:268
 msgid ""
 "The second item lets you set color and other attributes of the general "
 "highlighting styles, e.g. keyword, variable, value, comment, etcetera."
@@ -4724,7 +4765,7 @@ msgstr ""
 "estilos generales de coloreado de sintaxis: palabras claves, variables, "
 "valores, comentarios, etc.."
 
-#: ../preferences/prefshelp.py:255
+#: ../preferences/prefshelp.py:271
 msgid ""
 "The other items contain the types of text the syntax highlighter recognizes "
 "for every particular document type Frescobaldi supports. Some of these types "
@@ -4737,15 +4778,15 @@ msgstr ""
 "los atributos negrita, cursiva, subrayado y los colores de primer plano, "
 "fondo y de la línea de subrayado."
 
-#: ../preferences/prefshelp.py:269
+#: ../preferences/prefshelp.py:285
 msgid "Here you can change the settings for various tools."
 msgstr "Aquí puede editar los ajustes de varias herramientas."
 
-#: ../preferences/prefshelp.py:279
+#: ../preferences/prefshelp.py:295
 msgid "Configuring the Outline View"
 msgstr "Configurar la vista general"
 
-#: ../preferences/prefshelp.py:283
+#: ../preferences/prefshelp.py:299
 msgid ""
 "The document outline view is created by looking for certain expressions in "
 "the document text."
@@ -4753,14 +4794,14 @@ msgstr ""
 "La vista general del documento se crea buscando ciertas expresiones dentro "
 "del texto del documento."
 
-#: ../preferences/prefshelp.py:285
+#: ../preferences/prefshelp.py:301
 msgid ""
 "You can specify what to search for by entering a list of regular expressions."
 msgstr ""
 "Se puede especificar qué buscar introduciendo una lista de expresiones "
 "regulares."
 
-#: ../preferences/prefshelp.py:287
+#: ../preferences/prefshelp.py:303
 msgid ""
 "In those expressions, <code>^</code> matches at the beginning of every line, "
 "and <code>$</code> matches at the end of a line."
@@ -4768,7 +4809,7 @@ msgstr ""
 "En dichas expresiones, <code>^</code> corresponde al inicio de cada línea, y "
 "<code>$</code> corresponde al final de una línea."
 
-#: ../preferences/prefshelp.py:289
+#: ../preferences/prefshelp.py:305
 msgid ""
 "Normally when an expressions matches text, the whole match is displayed as "
 "an item in the outline."
@@ -4776,17 +4817,17 @@ msgstr ""
 "Normalmente, cuando una expresión corresponde con un texto, se muestra todo "
 "el texto de correspondencia como un elemento en la vista general."
 
-#: ../preferences/prefshelp.py:291
+#: ../preferences/prefshelp.py:307
 msgid "You can also use named groups, with the {code} named group syntax."
 msgstr ""
 "También se pueden usar grupos con nombre, con la sintaxis {code} para los "
 "grupos con nombre."
 
-#: ../preferences/prefshelp.py:293
+#: ../preferences/prefshelp.py:309
 msgid "You can use the name {text} or {title}."
 msgstr "Se puede usar el nombre {text} o {title}."
 
-#: ../preferences/prefshelp.py:295
+#: ../preferences/prefshelp.py:311
 msgid ""
 "In that case, only the named part of a match is displayed. If the {title} "
 "name is used, it is displayed in a bold font."
@@ -4794,7 +4835,7 @@ msgstr ""
 "En tal caso, solamente se muestra la parte del nombre en una "
 "correspondencia. Si se usa el nombre {title}, se muestra en un tipo negrita."
 
-#: ../preferences/prefshelp.py:298
+#: ../preferences/prefshelp.py:314
 msgid "For more information about regular expressions, see {link}."
 msgstr "Para ver más información sobre expresiones regulares, consulte {link}."
 
@@ -8141,6 +8182,24 @@ msgstr "Seleccione un directorio"
 #: ../widgets/urlrequester.py:111
 msgid "Select a file"
 msgstr "Seleccione un archivo"
+
+#~ msgid ""
+#~ "No print command to print a PostScript file could be found.\n"
+#~ "\n"
+#~ "Therefore the document will be printed using raster images at "
+#~ "{resolution} DPI. It is recommended to print using a dedicated PDF "
+#~ "viewer.\n"
+#~ "\n"
+#~ "Do you want to continue?"
+#~ msgstr ""
+#~ "No se ha encontrado ninguna instrucción para imprimir un archivo "
+#~ "PostScript.\n"
+#~ "\n"
+#~ "Por este motivo, se imprimirá el documento usando imágenes de matriz de "
+#~ "puntos a {resolution} ppp. Se recomienda imprimir utilizando un programa "
+#~ "visor de documentos PDF dedicado.\n"
+#~ "\n"
+#~ "¿Quiere continuar?"
 
 #~ msgid "LilyPond {version}"
 #~ msgstr "LilyPond {version}"
