@@ -31,7 +31,7 @@ import sys
 from PyQt4.QtCore import QSettings
 from PyQt4.QtGui import QDesktopServices, QMessageBox
 
-def shell_split(s):
+def shell_split(cmd):
     """Split a string like the UNIX shell, returning a list.
     
     Double quoted parts are kept together with the quotes removed.
