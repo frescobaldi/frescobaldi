@@ -17,12 +17,8 @@ try:
 except (ImportError, ValueError):
     pass # this was a reload()
 
-
-__all__ = '''
-app
-document
-'''.split()
-    
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 
 import app
 import document
@@ -60,3 +56,5 @@ def f(doc, job, success):
 # more to add...
     
     
+# delete unneeded stuff
+del f, doc_repr
