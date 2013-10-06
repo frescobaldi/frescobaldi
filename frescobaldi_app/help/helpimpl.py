@@ -97,14 +97,26 @@ class page(object):
 page = helpmeta(page.__name__, page.__bases__, dict(page.__dict__))
 
 
+_header = '''\
+<html>
+<head>
+<style type="text/css">
+body {{
+  margin: 10px;
+}}
+</style>
+<title>{0}</title>
+</head>
+<body>'''
+
+
 def html(name):
     """Returns the HTML for the named help item."""
     from . import contents
     import info
     page = all_pages.get(name, contents.nohelp)
     html = []
-    html.append('<html><head><title>{0}</title></head><body>'.format(
-        striptags(page.title())))
+    html.append(_header.format(striptags(page.title())))
     if page.popup:
         # make this a popup (see QTextBrowser docs)
         html.insert(0, '<qt type=detail>')
