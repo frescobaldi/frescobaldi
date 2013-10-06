@@ -115,7 +115,8 @@ def menu_file(mainwindow):
     m.addAction(ac.file_close_all)
     m.addSeparator()
     m.addAction(ac.file_quit)
-    m.addAction(ac.file_restart)
+    if app.qApp.isGitControlled:
+        m.addAction(ac.file_restart)
     return m
 
 
