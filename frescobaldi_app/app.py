@@ -32,7 +32,12 @@ from PyQt4.QtGui import QApplication
 import info
 
 qApp = QApplication([os.path.abspath(sys.argv[0])] + sys.argv[1:])
+if os.path.isfile(os.path.join(os.path.abspath(sys.path[0]), '..', '.gitignore')):
+    qApp.isGitControlled = True
+else:
+    qApp.isGitControlled = False
 qApp.restart = False
+
 QApplication.setApplicationName(info.name)
 QApplication.setApplicationVersion(info.version)
 QApplication.setOrganizationName(info.name)
