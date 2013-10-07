@@ -36,6 +36,7 @@ import help
 import homekey
 import icons
 import textformats
+import wordboundary
 import widgets.indenter
 import widgets.matcher
 
@@ -98,6 +99,7 @@ class Edit(QDialog):
         Matcher(self.text)
         widgets.indenter.Indenter(self.text)
         self.text.installEventFilter(homekey.handler)
+        wordboundary.handler.install_textedit(self.text)
         completer.Completer(self.text)
         
         if name:
