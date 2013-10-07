@@ -567,20 +567,17 @@ class MainWindow(QMainWindow):
             sessions.setCurrentSession(None)
             self.setCurrentDocument(document.Document())
     
-    def endProgram(self):
+    def quit(self):
         """Closes all MainWindows."""
         for window in app.windows[:]: # copy
             if window is not self:
                 window.close()
         self.close()
     
-    def quit(self):
-        app.qApp.restart = False
-        self.endProgram()
-        
     def restart(self):
-        app.qApp.restart = True
-        self.endProgram()
+        """Closes all MainWindows and restart Frescobaldi."""
+        self.quit()
+        app.restart()
     
     def insertFromFile(self):
         ext = os.path.splitext(self.currentDocument().url().path())[1]

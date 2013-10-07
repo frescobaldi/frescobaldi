@@ -5,14 +5,4 @@ import app
 import subprocess
 
 sys.excepthook = app.excepthook
-exit_code = app.run()
-
-if exit_code == -15123123: #Same value used in application
-    # start a new process
-    args = [__file__]
-    if len(sys.argv) > 1:
-        args.extend(sys.argv[1:])
-    subprocess.Popen(args)
-    sys.exit(0)
-
-sys.exit(exit_code)
+sys.exit(app.run())

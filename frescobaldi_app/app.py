@@ -32,12 +32,6 @@ from PyQt4.QtGui import QApplication
 import info
 
 qApp = QApplication([os.path.abspath(sys.argv[0])] + sys.argv[1:])
-if os.path.isfile(os.path.join(os.path.abspath(sys.path[0]), '..', '.gitignore')):
-    qApp.isGitControlled = True
-else:
-    qApp.isGitControlled = False
-qApp.restart = False
-
 QApplication.setApplicationName(info.name)
 QApplication.setApplicationVersion(info.version)
 QApplication.setOrganizationName(info.name)
@@ -108,10 +102,13 @@ def run():
     """Enter the Qt event loop."""
     result = qApp.exec_()
     aboutToQuit()
-    if result == 0 and qApp.restart:
-        return -15123123 # Code for restart
-    else:
-        return result
+    return result
+
+def restart():
+    """Restarts Frescobaldi."""
+    args = [os.path.abspath(sys.argv[0])] + sys.argv[1:]
+    import subprocess
+    subprocess.Popen(args)
     
 def translateUI(obj, priority=0):
     """Translates texts in the object.
@@ -187,4 +184,13 @@ def displayhook(obj):
     """Prevent normal displayhook from overwriting __builtin__._"""
     if obj is not None:
         print repr(obj)
+
+def is_git_controlled():
+    """Return True if Frescobaldi is running from Git.
+    
+    This is done by checking for the presence of the .git/ directory
+    
+    """
+    return os.path.isdir(os.path.join(sys.path[0], '..', '.git'))
+
 
