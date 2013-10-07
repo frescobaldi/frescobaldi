@@ -32,6 +32,12 @@ from PyQt4.QtGui import QApplication
 import info
 
 qApp = QApplication([os.path.abspath(sys.argv[0])] + sys.argv[1:])
+if os.path.isfile(os.path.join(os.path.abspath(sys.path[0]), '..', '.gitignore')):
+    qApp.isGitControlled = True
+else:
+    qApp.isGitControlled = False
+qApp.restart = False
+
 QApplication.setApplicationName(info.name)
 QApplication.setApplicationVersion(info.version)
 QApplication.setOrganizationName(info.name)
@@ -102,7 +108,10 @@ def run():
     """Enter the Qt event loop."""
     result = qApp.exec_()
     aboutToQuit()
-    return result
+    if result == 0 and qApp.restart:
+        return -15123123 # Code for restart
+    else:
+        return result
     
 def translateUI(obj, priority=0):
     """Translates texts in the object.
