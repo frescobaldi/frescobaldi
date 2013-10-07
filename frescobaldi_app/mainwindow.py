@@ -567,12 +567,20 @@ class MainWindow(QMainWindow):
             sessions.setCurrentSession(None)
             self.setCurrentDocument(document.Document())
     
-    def quit(self):
+    def endProgram(self):
         """Closes all MainWindows."""
         for window in app.windows[:]: # copy
             if window is not self:
                 window.close()
         self.close()
+    
+    def quit(self):
+        app.qApp.restart = False
+        self.endProgram()
+        
+    def restart(self):
+        app.qApp.restart = True
+        self.endProgram()
     
     def insertFromFile(self):
         ext = os.path.splitext(self.currentDocument().url().path())[1]
@@ -768,6 +776,7 @@ class MainWindow(QMainWindow):
         
         # connections
         ac.file_quit.triggered.connect(self.quit, Qt.QueuedConnection)
+        ac.file_restart.triggered.connect(self.restart, Qt.QueuedConnection)
         ac.file_new.triggered.connect(self.newDocument)
         ac.file_open.triggered.connect(self.openDocument)
         ac.file_insert_file.triggered.connect(self.insertFromFile)
@@ -889,6 +898,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_close_other = QAction(parent)
         self.file_close_all = QAction(parent)
         self.file_quit = QAction(parent)
+        self.file_restart = QAction(parent)
         
         self.export_colored_html = QAction(parent)
         
@@ -1030,6 +1040,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_close_all.setText(_("Close All Documents"))
         self.file_close_all.setToolTip(_("Closes all documents and leaves the current session."))
         self.file_quit.setText(_("&Quit"))
+        self.file_restart.setText(_("Restart Frescobaldi"))
         
         self.export_colored_html.setText(_("Export Source as Colored &HTML..."))
         
