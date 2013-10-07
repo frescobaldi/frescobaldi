@@ -34,7 +34,7 @@ import widgets.wordboundary
 
 
 class BoundaryHandler(widgets.wordboundary.BoundaryHandler):
-    word_regexp = re.compile(r'([-^_]?\\)?\w+(-\w+)*|^|$', re.UNICODE)
+    word_regexp = re.compile(r'([-^_]?\\)?\w+(-\w+)*|\\\\|^|$', re.UNICODE)
 
 handler = BoundaryHandler()
 
