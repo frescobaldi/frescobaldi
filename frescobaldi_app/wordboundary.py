@@ -18,191 +18,27 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Provides better word-boundary behaviour for QTextCursor and QTextEdit etc.
-
-You can inherit from BoundaryHandler to change the behaviour. You can just
-change the word_regexp expression, or override the boundaries() method.
-
-Install a BoundaryHandler as eventfilter on a QTextEdit or QPlainTextEdit.
-If you also want the double-click word selection to work, install the handler
-also as eventfilter on the textedit's viewport(). The install_textedit() and
-remove_textedit() methods can do this.
-
-The handler intercepts the word-related cursor movement and selection
-keypress events.
-
-It is enough to have one global handler object, it can be installed on as
-many textedit widgets as you like.
-
+Provides better word-boundary behaviour for View and other QPlainTextEdit
+instances.
 """
 
 from __future__ import unicode_literals
 
-import itertools
-import operator
 import re
 
 from PyQt4.QtCore import QEvent, QObject, Qt
 from PyQt4.QtGui import QKeySequence, QTextCursor
 
-
-_move_operations = (
-    QTextCursor.StartOfWord,
-    QTextCursor.PreviousWord,
-    QTextCursor.WordLeft,
-    QTextCursor.EndOfWord,
-    QTextCursor.NextWord,
-    QTextCursor.WordRight,
-)
+import app
+import widgets.wordboundary
 
 
-class BoundaryHandler(QObject):
-    
-    word_regexp = re.compile(r'\\?\w+|^|$')
-    
-    def boundaries(self, block):
-        """Return a list of tuples specifying the position of words in the block.
-        
-        Each tuple denotes the start and end position of a "word" in the
-        specified block.
-        
-        You can return other boundaries by changing the word_regexp or by
-        inheriting from this class and overwriting this method.
-        
-        """
-        return [m.span() for m in self.word_regexp.finditer(block.text())]
-    
-    def left_boundaries(self, block):
-        left = operator.itemgetter(0)
-        return [left(b) for b in self.boundaries(block)]
-        
-    def right_boundaries(self, block):
-        right = operator.itemgetter(1)
-        return [right(b) for b in self.boundaries(block)]
-        
-    def move(self, cursor, operation, mode=QTextCursor.MoveAnchor, n=1):
-        """Reimplements Word-related cursor operations:
-        
-        StartOfWord
-        PreviousWord
-        WordLeft
-        EndOfWord
-        NextWord
-        WordRight
-        
-        Other move operations are delegated to the QTextCursor ifself.
-        """
-        block = cursor.block()
-        pos = cursor.position() - block.position()
-        if operation == QTextCursor.StartOfWord:
-            if pos:
-                for start in reversed(self.left_boundaries(block)):
-                    if start == pos:
-                        return False
-                    elif start < pos:
-                        cursor.setPosition(block.position() + start, mode)
-                        return True
-            return False
-        elif operation == QTextCursor.EndOfWord:
-            for end in self.right_boundaries(block):
-                if end == pos:
-                    return False
-                elif end > pos:
-                    cursor.setPosition(block.position() + end, mode)
-                    return True
-            return False
-        elif operation in (QTextCursor.PreviousWord, QTextCursor.WordLeft):
-            boundaries = list(itertools.takewhile(lambda b: b<pos, self.left_boundaries(block)))
-            while True:
-                if len(boundaries) >= n:
-                    cursor.setPosition(block.position() + boundaries[-n], mode)
-                    return True
-                n -= len(boundaries)
-                block = block.previous()
-                if not block.isValid():
-                    cursor.setPosition(0, mode)
-                    return False
-                boundaries = self.left_boundaries(block)
-        elif operation in (QTextCursor.NextWord, QTextCursor.WordRight):
-            boundaries = list(itertools.dropwhile(lambda b: b<=pos, self.left_boundaries(block)))
-            while True:
-                if len(boundaries) >= n:
-                    cursor.setPosition(block.position() + boundaries[n-1], mode)
-                    return True
-                n -= len(boundaries)
-                block = block.next()
-                if not block.isValid():
-                    cursor.movePosition(QTextCursor.End, mode)
-                    return False
-                boundaries = self.left_boundaries(block)
-        else:
-            return cursor.movePosition(operation, mode, n)
-        
-    def select(self, cursor, selection):
-        """Reimplements the WordUnderCursor selection type.
-        
-        Other selection types are delegated to the QTextCursor ifself.
-        
-        """
-        if selection != QTextCursor.WordUnderCursor:
-            cursor.select(selection)
-        self.move(cursor, QTextCursor.StartOfWord)
-        cursor.movePosition(QTextCursor.NextCharacter, QTextCursor.KeepAnchor)
-        self.move(cursor, QTextCursor.EndOfWord, QTextCursor.KeepAnchor)
+class BoundaryHandler(widgets.wordboundary.BoundaryHandler):
+    word_regexp = re.compile(r'([-^_]?\\)?\w+|^|$', re.UNICODE)
 
-    def install_textedit(self, edit):
-        """Install ourselves as event filter on the textedit and its viewport."""
-        edit.installEventFiter(self)
-        edit.viewport().installEventFiter(self)
-    
-    def remove_textedit(self, edit):
-        """Remove ourselves as event filter from the textedit and its viewport."""
-        edit.removeEventFiter(self)
-        edit.viewport().removeEventFiter(self)
-    
-    def eventFilter(self, obj, ev):
-        """Intercept key events from a Q(Plain)TextEdit and handle them."""
-        if ev.type() == QEvent.KeyPress:
-            return self.keyPressEvent(obj, ev)
-        elif ev.type() == QEvent.MouseButtonDblClick:
-            edit = obj.parent()
-            if edit:
-                return self.mouseDoubleClickEvent(edit, ev)
-        return False
-    
-    def keyPressEvent(self, obj, ev):
-        """Handles the Word-related key events for the Q(Plain)TextEdit."""
-        c = obj.textCursor()
-        if ev == QKeySequence.DeleteEndOfWord:
-            self.move(c, QTextCursor.EndOfWord, QTextCursor.KeepAnchor)
-            c.removeSelectedText()
-        elif ev == QKeySequence.DeleteStartOfWord:
-            self.move(c, QTextCursor.StartOfWord, QTextCursor.KeepAnchor)
-            c.removeSelectedText()
-        elif ev == QKeySequence.MoveToNextWord:
-            self.move(c, QTextCursor.NextWord)
-            obj.setTextCursor(c)
-        elif ev == QKeySequence.MoveToPreviousWord:
-            self.move(c, QTextCursor.PreviousWord)
-            obj.setTextCursor(c)
-        elif ev == QKeySequence.SelectNextWord:
-            self.move(c, QTextCursor.NextWord, QTextCursor.KeepAnchor)
-            obj.setTextCursor(c)
-        elif ev == QKeySequence.SelectPreviousWord:
-            self.move(c, QTextCursor.PreviousWord, QTextCursor.KeepAnchor)
-            obj.setTextCursor(c)
-        else:
-            return False
-        return True
+handler = BoundaryHandler()
 
-    def mouseDoubleClickEvent(self, obj, ev):
-        """Handles the double-click even to select a word."""
-        if ev.button() == Qt.LeftButton:
-            c = obj.cursorForPosition(ev.pos())
-            self.select(c, QTextCursor.WordUnderCursor)
-            obj.setTextCursor(c)
-            return True
-        return False
-
-
+@app.viewCreated.connect
+def install_handler(view):
+    handler.install_textedit(view)
 

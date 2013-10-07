@@ -141,6 +141,7 @@ def main():
     import viewhighlighter  # highlight arbitrary ranges in text
     import progress         # creates progress bar in view space
     import autocomplete     # auto-complete input
+    import wordboundary     # better wordboundary behaviour for the editor
     
     if app.qApp.isSessionRestored():
         # Restore session, we are started by the session manager

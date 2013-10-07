@@ -28,6 +28,9 @@ Changes in 2.0.11 -- October 16th, 2013
   - under the File menu there is also a New with Wizard... action calling the
     score wizard, creating a new document when clicking Ok, contributed by Urs
     Liska
+  - Word-related cursor movements have been improved. The backslash is now
+    considered a word boundary, even if there are no spaces between several
+    backslashed commands. Fixes wish #106.
 * Bug fixes:
   - various fixes and improvements on Mac OS X by Davide Liessi
   - fix splash screen shown as grey rectangle on some systems
