@@ -1037,7 +1037,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_close_all.setText(_("Close All Documents"))
         self.file_close_all.setToolTip(_("Closes all documents and leaves the current session."))
         self.file_quit.setText(_("&Quit"))
-        self.file_restart.setText(_("Restart Frescobaldi"))
+        self.file_restart.setText(_("Restart {appname}").format(appname=info.appname))
         
         self.export_colored_html.setText(_("Export Source as Colored &HTML..."))
         

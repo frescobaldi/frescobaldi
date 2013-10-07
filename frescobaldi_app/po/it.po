@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-10-05 19:27+0200\n"
+"POT-Creation-Date: 2013-10-07 11:43+0200\n"
 "PO-Revision-Date: 2013-04-30 21:59+0200\n"
 "Last-Translator: Gianluca D'Orazio <gianluca.dorazio@gmail.com>\n"
 "Language-Team: Italian <>\n"
@@ -154,31 +154,31 @@ msgstr "Conflitto fra scorciatoie"
 msgid "Edit again"
 msgstr "Modifica di nuovo"
 
-#: ../app.py:130
+#: ../app.py:136
 msgid "LilyPond Files"
 msgstr "File LilyPond"
 
-#: ../app.py:131
+#: ../app.py:137
 msgid "LaTeX Files"
 msgstr "File LaTeX"
 
-#: ../app.py:132
+#: ../app.py:138
 msgid "DocBook Files"
 msgstr "File DocBook"
 
-#: ../app.py:133
+#: ../app.py:139
 msgid "HTML Files"
 msgstr "File HTML"
 
-#: ../app.py:134
+#: ../app.py:140
 msgid "Texinfo Files"
 msgstr "File Texinfo"
 
-#: ../app.py:135
+#: ../app.py:141
 msgid "Scheme Files"
 msgstr "File Scheme"
 
-#: ../app.py:136 ../snippet/widget.py:292 ../snippet/widget.py:309
+#: ../app.py:142 ../snippet/widget.py:292 ../snippet/widget.py:309
 msgid "All Files"
 msgstr "Tutti i file"
 
@@ -346,16 +346,16 @@ msgstr "Dinamiche"
 msgid "Remove Text &Markup (from music)"
 msgstr ""
 
-#: ../documentcontextmenu.py:67 ../mainwindow.py:1017
+#: ../documentcontextmenu.py:67 ../mainwindow.py:1024
 #: ../sessions/manager.py:127
 msgid "&Save"
 msgstr "&Salva"
 
-#: ../documentcontextmenu.py:68 ../mainwindow.py:1018
+#: ../documentcontextmenu.py:68 ../mainwindow.py:1025
 msgid "Save &As..."
 msgstr "&Salva come..."
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:1028
+#: ../documentcontextmenu.py:69 ../mainwindow.py:1035
 msgid "&Close"
 msgstr "&Chiudi"
 
@@ -424,8 +424,8 @@ msgstr "Dimensione del rigo:"
 
 #. L10N: a basic type of input in the editor
 #: ../helpers.py:107 ../mainwindow.py:413 ../mainwindow.py:419
-#: ../mainwindow.py:444 ../mainwindow.py:495 ../mainwindow.py:587
-#: ../mainwindow.py:647 ../externalchanges/widget.py:243
+#: ../mainwindow.py:444 ../mainwindow.py:495 ../mainwindow.py:592
+#: ../mainwindow.py:652 ../externalchanges/widget.py:243
 #: ../file_import/__init__.py:70 ../musicview/image.py:214
 #: ../preferences/fontscolors.py:476 ../preferences/fontscolors.py:514
 #: ../snippet/import_export.py:105 ../snippet/widget.py:319
@@ -722,7 +722,7 @@ msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Salva selezione"
 
-#: ../mainwindow.py:496 ../mainwindow.py:648 ../snippet/widget.py:320
+#: ../mainwindow.py:496 ../mainwindow.py:653 ../snippet/widget.py:320
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -758,12 +758,12 @@ msgstr "Alcuni documenti non possono essere ricaricati."
 msgid "No document could be reloaded."
 msgstr "Impossibile ricaricare nessun documento."
 
-#: ../mainwindow.py:580
+#: ../mainwindow.py:585
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Inserisci dal file"
 
-#: ../mainwindow.py:588 ../snippet/import_export.py:106
+#: ../mainwindow.py:593 ../snippet/import_export.py:106
 msgid ""
 "Can't read from source:\n"
 "\n"
@@ -776,16 +776,16 @@ msgstr ""
 "\n"
 "{error}"
 
-#: ../mainwindow.py:604
+#: ../mainwindow.py:609
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Stampa documento sorgente..."
 
-#: ../mainwindow.py:637
+#: ../mainwindow.py:642
 msgid "Export as HTML"
 msgstr "Esporta come HTML"
 
-#: ../mainwindow.py:757
+#: ../mainwindow.py:762
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -797,60 +797,60 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../mainwindow.py:867
+#: ../mainwindow.py:873
 msgid "Main Toolbar"
 msgstr "Barra degli strumenti principale"
 
-#: ../mainwindow.py:868
+#: ../mainwindow.py:874
 msgid "Music View Toolbar"
 msgstr "Barra dell'anteprima spartito"
 
-#: ../mainwindow.py:1011
+#: ../mainwindow.py:1018
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nuovo"
 
-#: ../mainwindow.py:1012
+#: ../mainwindow.py:1019
 msgid "&Open..."
 msgstr "&Apri..."
 
-#: ../mainwindow.py:1013
+#: ../mainwindow.py:1020
 msgid "Open &Recent"
 msgstr "Apri &recenti"
 
-#: ../mainwindow.py:1014
+#: ../mainwindow.py:1021
 msgid "Insert from &File..."
 msgstr "Inserisci dal &file..."
 
-#: ../mainwindow.py:1015
+#: ../mainwindow.py:1022
 msgid "Open Current Directory"
 msgstr "Apri la cartella attuale"
 
-#: ../mainwindow.py:1016
+#: ../mainwindow.py:1023
 msgid "Open Command Prompt"
 msgstr "Apri riga di comando"
 
-#: ../mainwindow.py:1019
+#: ../mainwindow.py:1026
 msgid "Save Copy or Selection As..."
 msgstr "Salva copia o selezione come..."
 
-#: ../mainwindow.py:1020 ../externalchanges/widget.py:117
+#: ../mainwindow.py:1027 ../externalchanges/widget.py:117
 msgid "Save All"
 msgstr "Salva tutto"
 
-#: ../mainwindow.py:1021
+#: ../mainwindow.py:1028
 msgid "Re&load"
 msgstr "Ri&carica"
 
-#: ../mainwindow.py:1022 ../externalchanges/widget.py:108
+#: ../mainwindow.py:1029 ../externalchanges/widget.py:108
 msgid "Reload All"
 msgstr "Ricarica tutto"
 
-#: ../mainwindow.py:1023
+#: ../mainwindow.py:1030
 msgid "Check for External Changes..."
 msgstr "Controlla per modifiche esterne..."
 
-#: ../mainwindow.py:1025
+#: ../mainwindow.py:1032
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
@@ -858,131 +858,136 @@ msgstr ""
 "Apre una finestra per controllare se i documenti in uso sono stati "
 "modificati o cancellati da altri programmi."
 
-#: ../mainwindow.py:1027
+#: ../mainwindow.py:1034
 msgid "Print Source..."
 msgstr "Stampa documento sorgente..."
 
-#: ../mainwindow.py:1029
+#: ../mainwindow.py:1036
 msgid "Close Other Documents"
 msgstr "Chiudi gli altri documenti"
 
-#: ../mainwindow.py:1030
+#: ../mainwindow.py:1037
 msgid "Close All Documents"
 msgstr "Chiudi tutti i documenti"
 
-#: ../mainwindow.py:1031
+#: ../mainwindow.py:1038
 msgid "Closes all documents and leaves the current session."
 msgstr "Chiude tutti i documenti ed esce dalla sessione corrente."
 
-#: ../mainwindow.py:1032
+#: ../mainwindow.py:1039
 msgid "&Quit"
 msgstr "&Esci"
 
-#: ../mainwindow.py:1034
+#: ../mainwindow.py:1040
+#, fuzzy
+msgid "Restart {appname}"
+msgstr "A proposito di {appname}"
+
+#: ../mainwindow.py:1042
 msgid "Export Source as Colored &HTML..."
 msgstr "Esporta il documento sorgente come &HTML colorato..."
 
-#: ../mainwindow.py:1036
+#: ../mainwindow.py:1044
 msgid "&Undo"
 msgstr "&Annulla"
 
-#: ../mainwindow.py:1037
+#: ../mainwindow.py:1045
 msgid "Re&do"
 msgstr "Ri&peti"
 
-#: ../mainwindow.py:1038
+#: ../mainwindow.py:1046
 msgid "Cu&t"
 msgstr "Ta&glia"
 
-#: ../mainwindow.py:1039 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1047 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Copia"
 
-#: ../mainwindow.py:1040
+#: ../mainwindow.py:1048
 msgid "Copy as Colored &HTML"
 msgstr "Copia come &HTML colorato"
 
-#: ../mainwindow.py:1041
+#: ../mainwindow.py:1049
 msgid "&Paste"
 msgstr "&Incolla"
 
-#: ../mainwindow.py:1042
+#: ../mainwindow.py:1050
 msgid "Select &All"
 msgstr "Seleziona &tutto"
 
-#: ../mainwindow.py:1043
+#: ../mainwindow.py:1051
 msgid "Select &Block"
 msgstr "Seleziona &blocco"
 
-#: ../mainwindow.py:1044
+#: ../mainwindow.py:1052
 msgid "Select &None"
 msgstr "Annulla &ogni selezione"
 
-#: ../mainwindow.py:1045
+#: ../mainwindow.py:1053
 msgid "Select Whole Lines Up"
 msgstr "Seleziona tutte le righe precedenti"
 
-#: ../mainwindow.py:1046
+#: ../mainwindow.py:1054
 msgid "Select Whole Lines Down"
 msgstr "Seleziona tutte le righe seguenti"
 
-#: ../mainwindow.py:1047
+#: ../mainwindow.py:1055
 msgid "&Find..."
 msgstr "&Trova..."
 
-#: ../mainwindow.py:1048
+#: ../mainwindow.py:1056
 msgid "Find Ne&xt"
 msgstr "Trova &successivo"
 
-#: ../mainwindow.py:1049
+#: ../mainwindow.py:1057
 msgid "Find Pre&vious"
 msgstr "Trova pre&cedente"
 
-#: ../mainwindow.py:1050
+#: ../mainwindow.py:1058
 msgid "&Replace..."
 msgstr "&Sostituisci..."
 
-#: ../mainwindow.py:1051
+#: ../mainwindow.py:1059
 msgid "Pr&eferences..."
 msgstr "Pr&eferenze..."
 
-#: ../mainwindow.py:1053
+#: ../mainwindow.py:1061
 msgid "&Next Document"
 msgstr "Documento &successivo"
 
-#: ../mainwindow.py:1054
+#: ../mainwindow.py:1062
 msgid "&Previous Document"
 msgstr "Documento &precedente"
 
-#: ../mainwindow.py:1055
+#: ../mainwindow.py:1063
 msgid "Scroll Up"
 msgstr "Scorri in alto"
 
-#: ../mainwindow.py:1056
+#: ../mainwindow.py:1064
 msgid "Scroll Down"
 msgstr "Scorri in basso"
 
-#: ../mainwindow.py:1058
+#: ../mainwindow.py:1066
 msgid "New &Window"
 msgstr "Nuova &finestra"
 
-#: ../mainwindow.py:1059
+#: ../mainwindow.py:1067
 msgid "&Fullscreen"
 msgstr "&Schermo intero"
 
-#: ../mainwindow.py:1061
+#: ../mainwindow.py:1069
 msgid "&User Guide"
 msgstr "&Guida"
 
-#: ../mainwindow.py:1062
+#: ../mainwindow.py:1070
 msgid "&What's This?"
 msgstr "&Che cos'è?"
 
-#: ../mainwindow.py:1063
+#: ../mainwindow.py:1071
 msgid "Report a &Bug..."
 msgstr "Segnala un &bug..."
 
-#: ../mainwindow.py:1064
+#: ../mainwindow.py:1072
 msgid "&About {appname}..."
 msgstr "&A proposito di {appname}"
 
@@ -999,74 +1004,74 @@ msgctxt "menu title"
 msgid "&File"
 msgstr "&File"
 
-#: ../menu.py:122
+#: ../menu.py:124
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Import"
 msgstr "&Importa..."
 
-#: ../menu.py:130
+#: ../menu.py:132
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Esporta"
 
-#: ../menu.py:138
+#: ../menu.py:140
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "&Modifica"
 
-#: ../menu.py:165
+#: ../menu.py:167
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Visualizza"
 
-#: ../menu.py:193
+#: ../menu.py:195
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "&Raggruppamento "
 
-#: ../menu.py:208
+#: ../menu.py:210
 msgctxt "menu title"
 msgid "&Music"
 msgstr "&Spartito"
 
-#: ../menu.py:235
+#: ../menu.py:237
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:254
+#: ../menu.py:256
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Strumenti"
 
-#: ../menu.py:282
+#: ../menu.py:284
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Parole"
 
-#: ../menu.py:294
+#: ../menu.py:296
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Note"
 
-#: ../menu.py:309
+#: ../menu.py:311
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritmo"
 
-#: ../menu.py:333
+#: ../menu.py:335
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr "&Togli"
 
-#: ../menu.py:351
+#: ../menu.py:353
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Finestra"
 
-#: ../menu.py:371
+#: ../menu.py:373
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Aiuto"
@@ -1344,7 +1349,7 @@ msgstr "Versione di LilyPond:"
 msgid "Output Format:"
 msgstr "Formato di uscita:"
 
-#: ../engrave/custom.py:127 ../preferences/helpers.py:163
+#: ../engrave/custom.py:127 ../preferences/helpers.py:164
 msgid "Resolution:"
 msgstr "Risoluzione:"
 
@@ -1923,22 +1928,6 @@ msgstr ""
 
 #: ../help/cnt_engraving.py:211
 msgid "Variables can be redefined in input files."
-msgstr ""
-
-#: ../help/cnt_engraving.py:215
-msgid "color of the debug control points"
-msgstr ""
-
-#: ../help/cnt_engraving.py:218
-msgid "thickness of the control points lines"
-msgstr ""
-
-#: ../help/cnt_engraving.py:221
-msgid "thickness of the control points crosses"
-msgstr ""
-
-#: ../help/cnt_engraving.py:224
-msgid "size of the control points crosses"
 msgstr ""
 
 #: ../help/cnt_engraving.py:226
@@ -3040,19 +3029,19 @@ msgstr ""
 msgid "Table of Contents"
 msgstr "Indice"
 
-#: ../help/helpimpl.py:116
+#: ../help/helpimpl.py:136
 msgid "Up:"
 msgstr "Liv. sup.:"
 
-#: ../help/helpimpl.py:131
+#: ../help/helpimpl.py:148
 msgid "Next:"
 msgstr "Avanti:"
 
-#: ../help/helpimpl.py:134
+#: ../help/helpimpl.py:152
 msgid "See also:"
 msgstr "Vedi anche:"
 
-#: ../help/helpimpl.py:177
+#: ../help/helpimpl.py:192
 msgid "(no key defined)"
 msgstr "(nessun tasto definito)"
 
@@ -3795,7 +3784,7 @@ msgstr "Opzioni generali"
 msgid "MIDI Settings"
 msgstr "Impostazioni MIDI"
 
-#: ../preferences/__init__.py:206 ../preferences/helpers.py:89
+#: ../preferences/__init__.py:206 ../preferences/helpers.py:90
 #: ../preferences/prefshelp.py:172
 msgid "Helper Applications"
 msgstr "Applicazioni esterne"
@@ -4227,39 +4216,39 @@ msgstr "Cartella predefinita:"
 msgid "The default folder for your LilyPond documents (optional)."
 msgstr "La cartella predefinita dei documenti LilyPond (facoltativo)."
 
-#: ../preferences/helpers.py:79
+#: ../preferences/helpers.py:80
 msgid "PDF:"
 msgstr "PDF:"
 
-#: ../preferences/helpers.py:80
+#: ../preferences/helpers.py:81
 msgid "MIDI:"
 msgstr "MIDI:"
 
-#: ../preferences/helpers.py:81
+#: ../preferences/helpers.py:82
 msgid "SVG:"
 msgstr "SVG:"
 
-#: ../preferences/helpers.py:82
+#: ../preferences/helpers.py:83
 msgid "Image:"
 msgstr "Immagine:"
 
-#: ../preferences/helpers.py:83
+#: ../preferences/helpers.py:84
 msgid "Browser:"
 msgstr "Navigatore:"
 
-#: ../preferences/helpers.py:84
+#: ../preferences/helpers.py:85
 msgid "E-Mail:"
 msgstr "Posta elettronica:"
 
-#: ../preferences/helpers.py:85
+#: ../preferences/helpers.py:86
 msgid "File Manager:"
 msgstr "Gestore dei file:"
 
-#: ../preferences/helpers.py:86
+#: ../preferences/helpers.py:87
 msgid "Shell:"
 msgstr "Shell:"
 
-#: ../preferences/helpers.py:91
+#: ../preferences/helpers.py:92
 msgid ""
 "Below you can enter commands to open different file types. <code>$f</code> "
 "is replaced with the filename, <code>$u</code> with the URL. Leave a field "
@@ -4270,31 +4259,31 @@ msgstr ""
 "Lasciare un campo vuoto per usare la relativa applicazione predefinita del "
 "sistema."
 
-#: ../preferences/helpers.py:99
+#: ../preferences/helpers.py:100
 msgid "Command that should accept a mailto: URL."
 msgstr "Comando per gestire una mailto: URL."
 
-#: ../preferences/helpers.py:101
+#: ../preferences/helpers.py:102
 msgid "Command to open a Terminal or Command window."
 msgstr "Comando per aprire un terminale o una finestra con linea di comando."
 
-#: ../preferences/helpers.py:144 ../preferences/prefshelp.py:186
+#: ../preferences/helpers.py:145 ../preferences/prefshelp.py:186
 #, fuzzy
 msgid "Printing Music"
 msgstr "&Stampa la musica..."
 
-#: ../preferences/helpers.py:146
+#: ../preferences/helpers.py:147
 msgid ""
 "Here you can enter a command to print a PDF or PostScript file. See the Help "
 "page for more information about printing music."
 msgstr ""
 
-#: ../preferences/helpers.py:148
+#: ../preferences/helpers.py:149
 #, fuzzy
 msgid "Printing command:"
 msgstr "Errore di stampa"
 
-#: ../preferences/helpers.py:150 ../preferences/prefshelp.py:188
+#: ../preferences/helpers.py:151 ../preferences/prefshelp.py:188
 msgid ""
 "The printing command is used to print a PostScript or PDF file. On Linux you "
 "don't need this, but on Windows and Mac OS X you can provide a command to "
@@ -4305,19 +4294,19 @@ msgid ""
 "code> is replaced with the printer's name to use."
 msgstr ""
 
-#: ../preferences/helpers.py:157
+#: ../preferences/helpers.py:158
 #, fuzzy
 msgid "Use Frescobaldi's print dialog"
 msgstr "Manuale di Frescobaldi"
 
-#: ../preferences/helpers.py:159
+#: ../preferences/helpers.py:160
 msgid ""
 "If enabled, Frescobaldi will show the print dialog and create a PDF or "
 "PostScript document containing only the selected pages to print. Otherwise, "
 "the command is called directly and is expected to show a print dialog itself."
 msgstr ""
 
-#: ../preferences/helpers.py:165
+#: ../preferences/helpers.py:166
 #, fuzzy
 msgid "Set the resolution if Frescobaldi prints using raster images."
 msgstr "Sessione da caricare se Frescobaldi è avviato senza argomenti"

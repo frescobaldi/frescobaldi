@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-10-05 19:27+0200\n"
+"POT-Creation-Date: 2013-10-07 11:43+0200\n"
 "PO-Revision-Date: 2013-05-15 22:45+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -153,31 +153,31 @@ msgstr "Střet zkratky"
 msgid "Edit again"
 msgstr "Upravit znovu"
 
-#: ../app.py:130
+#: ../app.py:136
 msgid "LilyPond Files"
 msgstr "Soubory LilyPond"
 
-#: ../app.py:131
+#: ../app.py:137
 msgid "LaTeX Files"
 msgstr "Soubory LaTeX"
 
-#: ../app.py:132
+#: ../app.py:138
 msgid "DocBook Files"
 msgstr "Soubory DocBook"
 
-#: ../app.py:133
+#: ../app.py:139
 msgid "HTML Files"
 msgstr "Soubory HTML "
 
-#: ../app.py:134
+#: ../app.py:140
 msgid "Texinfo Files"
 msgstr "Soubory Texinfo"
 
-#: ../app.py:135
+#: ../app.py:141
 msgid "Scheme Files"
 msgstr "Soubory Scheme"
 
-#: ../app.py:136 ../snippet/widget.py:292 ../snippet/widget.py:309
+#: ../app.py:142 ../snippet/widget.py:292 ../snippet/widget.py:309
 msgid "All Files"
 msgstr "Všechny soubory"
 
@@ -344,16 +344,16 @@ msgstr "Dynamika"
 msgid "Remove Text &Markup (from music)"
 msgstr ""
 
-#: ../documentcontextmenu.py:67 ../mainwindow.py:1017
+#: ../documentcontextmenu.py:67 ../mainwindow.py:1024
 #: ../sessions/manager.py:127
 msgid "&Save"
 msgstr "&Uložit"
 
-#: ../documentcontextmenu.py:68 ../mainwindow.py:1018
+#: ../documentcontextmenu.py:68 ../mainwindow.py:1025
 msgid "Save &As..."
 msgstr "Uložit &jako..."
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:1028
+#: ../documentcontextmenu.py:69 ../mainwindow.py:1035
 msgid "&Close"
 msgstr "&Zavřít"
 
@@ -423,8 +423,8 @@ msgstr "Velikost osnovy:"
 
 #. L10N: a basic type of input in the editor
 #: ../helpers.py:107 ../mainwindow.py:413 ../mainwindow.py:419
-#: ../mainwindow.py:444 ../mainwindow.py:495 ../mainwindow.py:587
-#: ../mainwindow.py:647 ../externalchanges/widget.py:243
+#: ../mainwindow.py:444 ../mainwindow.py:495 ../mainwindow.py:592
+#: ../mainwindow.py:652 ../externalchanges/widget.py:243
 #: ../file_import/__init__.py:70 ../musicview/image.py:214
 #: ../preferences/fontscolors.py:476 ../preferences/fontscolors.py:514
 #: ../snippet/import_export.py:105 ../snippet/widget.py:319
@@ -722,7 +722,7 @@ msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Uložit výběr"
 
-#: ../mainwindow.py:496 ../mainwindow.py:648 ../snippet/widget.py:320
+#: ../mainwindow.py:496 ../mainwindow.py:653 ../snippet/widget.py:320
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -758,12 +758,12 @@ msgstr "Některé dokumenty se nepodařilo nahrát znovu."
 msgid "No document could be reloaded."
 msgstr "Žádný dokument se nepodařilo nahrát znovu."
 
-#: ../mainwindow.py:580
+#: ../mainwindow.py:585
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Vložit ze souboru"
 
-#: ../mainwindow.py:588 ../snippet/import_export.py:106
+#: ../mainwindow.py:593 ../snippet/import_export.py:106
 msgid ""
 "Can't read from source:\n"
 "\n"
@@ -777,16 +777,16 @@ msgstr ""
 "\n"
 "{error}"
 
-#: ../mainwindow.py:604
+#: ../mainwindow.py:609
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Vytisknout zdroj"
 
-#: ../mainwindow.py:637
+#: ../mainwindow.py:642
 msgid "Export as HTML"
 msgstr "Vyvést jako HTML"
 
-#: ../mainwindow.py:757
+#: ../mainwindow.py:762
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -798,60 +798,60 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../mainwindow.py:867
+#: ../mainwindow.py:873
 msgid "Main Toolbar"
 msgstr "Hlavní nástrojový pruh"
 
-#: ../mainwindow.py:868
+#: ../mainwindow.py:874
 msgid "Music View Toolbar"
 msgstr "Nástrojový pruh pro pohled na noty"
 
-#: ../mainwindow.py:1011
+#: ../mainwindow.py:1018
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nový"
 
-#: ../mainwindow.py:1012
+#: ../mainwindow.py:1019
 msgid "&Open..."
 msgstr "&Otevřít..."
 
-#: ../mainwindow.py:1013
+#: ../mainwindow.py:1020
 msgid "Open &Recent"
 msgstr "Otevřít ne&dávný"
 
-#: ../mainwindow.py:1014
+#: ../mainwindow.py:1021
 msgid "Insert from &File..."
 msgstr "Vložit ze &souboru..."
 
-#: ../mainwindow.py:1015
+#: ../mainwindow.py:1022
 msgid "Open Current Directory"
 msgstr "Otevřít nynější adresář"
 
-#: ../mainwindow.py:1016
+#: ../mainwindow.py:1023
 msgid "Open Command Prompt"
 msgstr "Otevřít výzvu k příkazu"
 
-#: ../mainwindow.py:1019
+#: ../mainwindow.py:1026
 msgid "Save Copy or Selection As..."
 msgstr "Uložit kopii nebo výběr jako..."
 
-#: ../mainwindow.py:1020 ../externalchanges/widget.py:117
+#: ../mainwindow.py:1027 ../externalchanges/widget.py:117
 msgid "Save All"
 msgstr "Uložit vše"
 
-#: ../mainwindow.py:1021
+#: ../mainwindow.py:1028
 msgid "Re&load"
 msgstr "Nahrát &znovu"
 
-#: ../mainwindow.py:1022 ../externalchanges/widget.py:108
+#: ../mainwindow.py:1029 ../externalchanges/widget.py:108
 msgid "Reload All"
 msgstr "Nahrát vše znovu"
 
-#: ../mainwindow.py:1023
+#: ../mainwindow.py:1030
 msgid "Check for External Changes..."
 msgstr "Prověřit na vnější změny..."
 
-#: ../mainwindow.py:1025
+#: ../mainwindow.py:1032
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
@@ -859,131 +859,136 @@ msgstr ""
 "Otevře okno, aby se prověřilo, zda byly otevřené dokumenty změněny nebo "
 "smazány jinými programy."
 
-#: ../mainwindow.py:1027
+#: ../mainwindow.py:1034
 msgid "Print Source..."
 msgstr "Vytisknout zdroj..."
 
-#: ../mainwindow.py:1029
+#: ../mainwindow.py:1036
 msgid "Close Other Documents"
 msgstr "Zavřít jiné dokumenty"
 
-#: ../mainwindow.py:1030
+#: ../mainwindow.py:1037
 msgid "Close All Documents"
 msgstr "Zavřít všechny dokumenty"
 
-#: ../mainwindow.py:1031
+#: ../mainwindow.py:1038
 msgid "Closes all documents and leaves the current session."
 msgstr "Zavře všechny dokumenty a opustí současné sezení."
 
-#: ../mainwindow.py:1032
+#: ../mainwindow.py:1039
 msgid "&Quit"
 msgstr "U&končit"
 
-#: ../mainwindow.py:1034
+#: ../mainwindow.py:1040
+#, fuzzy
+msgid "Restart {appname}"
+msgstr "O {appname}"
+
+#: ../mainwindow.py:1042
 msgid "Export Source as Colored &HTML..."
 msgstr "Vyvést zdroj jako barevné &HTML..."
 
-#: ../mainwindow.py:1036
+#: ../mainwindow.py:1044
 msgid "&Undo"
 msgstr "&Zpět"
 
-#: ../mainwindow.py:1037
+#: ../mainwindow.py:1045
 msgid "Re&do"
 msgstr "Znov&u"
 
-#: ../mainwindow.py:1038
+#: ../mainwindow.py:1046
 msgid "Cu&t"
 msgstr "Vyjmou&t"
 
-#: ../mainwindow.py:1039 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1047 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Kopírovat"
 
-#: ../mainwindow.py:1040
+#: ../mainwindow.py:1048
 msgid "Copy as Colored &HTML"
 msgstr "Kopírovat jako barevné &HTML"
 
-#: ../mainwindow.py:1041
+#: ../mainwindow.py:1049
 msgid "&Paste"
 msgstr "&Vložit"
 
-#: ../mainwindow.py:1042
+#: ../mainwindow.py:1050
 msgid "Select &All"
 msgstr "Vybr&at vše"
 
-#: ../mainwindow.py:1043
+#: ../mainwindow.py:1051
 msgid "Select &Block"
 msgstr "Vybrat &blok"
 
-#: ../mainwindow.py:1044
+#: ../mainwindow.py:1052
 msgid "Select &None"
 msgstr "Nevybrat nic"
 
-#: ../mainwindow.py:1045
+#: ../mainwindow.py:1053
 msgid "Select Whole Lines Up"
 msgstr "Vybrat celé řádky nahoru"
 
-#: ../mainwindow.py:1046
+#: ../mainwindow.py:1054
 msgid "Select Whole Lines Down"
 msgstr "Vybrat celé řádky dolů"
 
-#: ../mainwindow.py:1047
+#: ../mainwindow.py:1055
 msgid "&Find..."
 msgstr "&Najít..."
 
-#: ../mainwindow.py:1048
+#: ../mainwindow.py:1056
 msgid "Find Ne&xt"
 msgstr "Najít &další"
 
-#: ../mainwindow.py:1049
+#: ../mainwindow.py:1057
 msgid "Find Pre&vious"
 msgstr "Najít &předchozí"
 
-#: ../mainwindow.py:1050
+#: ../mainwindow.py:1058
 msgid "&Replace..."
 msgstr "Nah&radit..."
 
-#: ../mainwindow.py:1051
+#: ../mainwindow.py:1059
 msgid "Pr&eferences..."
 msgstr "Na&stavení..."
 
-#: ../mainwindow.py:1053
+#: ../mainwindow.py:1061
 msgid "&Next Document"
 msgstr "&Další dokument"
 
-#: ../mainwindow.py:1054
+#: ../mainwindow.py:1062
 msgid "&Previous Document"
 msgstr "&Předchozí dokument"
 
-#: ../mainwindow.py:1055
+#: ../mainwindow.py:1063
 msgid "Scroll Up"
 msgstr "Projíždět nahoru"
 
-#: ../mainwindow.py:1056
+#: ../mainwindow.py:1064
 msgid "Scroll Down"
 msgstr "Projíždět dolů"
 
-#: ../mainwindow.py:1058
+#: ../mainwindow.py:1066
 msgid "New &Window"
 msgstr "Nové &okno"
 
-#: ../mainwindow.py:1059
+#: ../mainwindow.py:1067
 msgid "&Fullscreen"
 msgstr "&Celá obrazovka"
 
-#: ../mainwindow.py:1061
+#: ../mainwindow.py:1069
 msgid "&User Guide"
 msgstr "Průvodce pro &uživatele"
 
-#: ../mainwindow.py:1062
+#: ../mainwindow.py:1070
 msgid "&What's This?"
 msgstr "&Co je toto?"
 
-#: ../mainwindow.py:1063
+#: ../mainwindow.py:1071
 msgid "Report a &Bug..."
 msgstr "Nahlásit chy&bu..."
 
-#: ../mainwindow.py:1064
+#: ../mainwindow.py:1072
 msgid "&About {appname}..."
 msgstr "&O programu {appname}..."
 
@@ -1000,74 +1005,74 @@ msgctxt "menu title"
 msgid "&File"
 msgstr "&Soubor"
 
-#: ../menu.py:122
+#: ../menu.py:124
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Import"
 msgstr "&Zavést..."
 
-#: ../menu.py:130
+#: ../menu.py:132
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Vyvést"
 
-#: ../menu.py:138
+#: ../menu.py:140
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "Úp&ravy"
 
-#: ../menu.py:165
+#: ../menu.py:167
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Pohled"
 
-#: ../menu.py:193
+#: ../menu.py:195
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "S&kládání"
 
-#: ../menu.py:208
+#: ../menu.py:210
 msgctxt "menu title"
 msgid "&Music"
 msgstr "No&ty"
 
-#: ../menu.py:235
+#: ../menu.py:237
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:254
+#: ../menu.py:256
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Nástroje"
 
-#: ../menu.py:282
+#: ../menu.py:284
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Slova písně"
 
-#: ../menu.py:294
+#: ../menu.py:296
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Výška tónu"
 
-#: ../menu.py:309
+#: ../menu.py:311
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Rytmus"
 
-#: ../menu.py:333
+#: ../menu.py:335
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr "&Odstranit"
 
-#: ../menu.py:351
+#: ../menu.py:353
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Okno"
 
-#: ../menu.py:371
+#: ../menu.py:373
 msgctxt "menu title"
 msgid "&Help"
 msgstr "Nápověd&a"
@@ -1343,7 +1348,7 @@ msgstr "Verze LilyPondu:"
 msgid "Output Format:"
 msgstr "Výstupní formát:"
 
-#: ../engrave/custom.py:127 ../preferences/helpers.py:163
+#: ../engrave/custom.py:127 ../preferences/helpers.py:164
 msgid "Resolution:"
 msgstr "Rozlišení:"
 
@@ -1920,22 +1925,6 @@ msgstr ""
 
 #: ../help/cnt_engraving.py:211
 msgid "Variables can be redefined in input files."
-msgstr ""
-
-#: ../help/cnt_engraving.py:215
-msgid "color of the debug control points"
-msgstr ""
-
-#: ../help/cnt_engraving.py:218
-msgid "thickness of the control points lines"
-msgstr ""
-
-#: ../help/cnt_engraving.py:221
-msgid "thickness of the control points crosses"
-msgstr ""
-
-#: ../help/cnt_engraving.py:224
-msgid "size of the control points crosses"
 msgstr ""
 
 #: ../help/cnt_engraving.py:226
@@ -2999,19 +2988,19 @@ msgstr ""
 msgid "Table of Contents"
 msgstr "Obsah"
 
-#: ../help/helpimpl.py:116
+#: ../help/helpimpl.py:136
 msgid "Up:"
 msgstr "Nahoru:"
 
-#: ../help/helpimpl.py:131
+#: ../help/helpimpl.py:148
 msgid "Next:"
 msgstr "Další:"
 
-#: ../help/helpimpl.py:134
+#: ../help/helpimpl.py:152
 msgid "See also:"
 msgstr "Podívejte se také na:"
 
-#: ../help/helpimpl.py:177
+#: ../help/helpimpl.py:192
 msgid "(no key defined)"
 msgstr "(nestanoven žádný klíč)"
 
@@ -3748,7 +3737,7 @@ msgstr "Obecné volby"
 msgid "MIDI Settings"
 msgstr "Nastavení MIDI"
 
-#: ../preferences/__init__.py:206 ../preferences/helpers.py:89
+#: ../preferences/__init__.py:206 ../preferences/helpers.py:90
 #: ../preferences/prefshelp.py:172
 msgid "Helper Applications"
 msgstr "Pomocné programy"
@@ -4178,39 +4167,39 @@ msgstr "Výchozí adresář:"
 msgid "The default folder for your LilyPond documents (optional)."
 msgstr "Výchozí složka pro vaše dokumenty LilyPond (volitelná)."
 
-#: ../preferences/helpers.py:79
+#: ../preferences/helpers.py:80
 msgid "PDF:"
 msgstr "PDF:"
 
-#: ../preferences/helpers.py:80
+#: ../preferences/helpers.py:81
 msgid "MIDI:"
 msgstr "MIDI:"
 
-#: ../preferences/helpers.py:81
+#: ../preferences/helpers.py:82
 msgid "SVG:"
 msgstr "SVG:"
 
-#: ../preferences/helpers.py:82
+#: ../preferences/helpers.py:83
 msgid "Image:"
 msgstr "Obrázek:"
 
-#: ../preferences/helpers.py:83
+#: ../preferences/helpers.py:84
 msgid "Browser:"
 msgstr "Prohlížeč:"
 
-#: ../preferences/helpers.py:84
+#: ../preferences/helpers.py:85
 msgid "E-Mail:"
 msgstr "Elektronická pošta:"
 
-#: ../preferences/helpers.py:85
+#: ../preferences/helpers.py:86
 msgid "File Manager:"
 msgstr "Správce souborů:"
 
-#: ../preferences/helpers.py:86
+#: ../preferences/helpers.py:87
 msgid "Shell:"
 msgstr "Shell:"
 
-#: ../preferences/helpers.py:91
+#: ../preferences/helpers.py:92
 msgid ""
 "Below you can enter commands to open different file types. <code>$f</code> "
 "is replaced with the filename, <code>$u</code> with the URL. Leave a field "
@@ -4221,32 +4210,32 @@ msgstr ""
 "použil program nastavený v operačním systému jako výchozí, ponechejte pole "
 "prázdné."
 
-#: ../preferences/helpers.py:99
+#: ../preferences/helpers.py:100
 msgid "Command that should accept a mailto: URL."
 msgstr ""
 "Příkaz, který má přijmout adresu (URL) pro poslání elektronickou poštou"
 
-#: ../preferences/helpers.py:101
+#: ../preferences/helpers.py:102
 msgid "Command to open a Terminal or Command window."
 msgstr "Příkaz pro otevření okna s terminálem nebo příkazovým řádkem."
 
-#: ../preferences/helpers.py:144 ../preferences/prefshelp.py:186
+#: ../preferences/helpers.py:145 ../preferences/prefshelp.py:186
 #, fuzzy
 msgid "Printing Music"
 msgstr "Vy&tisknout noty..."
 
-#: ../preferences/helpers.py:146
+#: ../preferences/helpers.py:147
 msgid ""
 "Here you can enter a command to print a PDF or PostScript file. See the Help "
 "page for more information about printing music."
 msgstr ""
 
-#: ../preferences/helpers.py:148
+#: ../preferences/helpers.py:149
 #, fuzzy
 msgid "Printing command:"
 msgstr "Chyba tisku"
 
-#: ../preferences/helpers.py:150 ../preferences/prefshelp.py:188
+#: ../preferences/helpers.py:151 ../preferences/prefshelp.py:188
 msgid ""
 "The printing command is used to print a PostScript or PDF file. On Linux you "
 "don't need this, but on Windows and Mac OS X you can provide a command to "
@@ -4257,19 +4246,19 @@ msgid ""
 "code> is replaced with the printer's name to use."
 msgstr ""
 
-#: ../preferences/helpers.py:157
+#: ../preferences/helpers.py:158
 #, fuzzy
 msgid "Use Frescobaldi's print dialog"
 msgstr "Příručka k Frescobaldi"
 
-#: ../preferences/helpers.py:159
+#: ../preferences/helpers.py:160
 msgid ""
 "If enabled, Frescobaldi will show the print dialog and create a PDF or "
 "PostScript document containing only the selected pages to print. Otherwise, "
 "the command is called directly and is expected to show a print dialog itself."
 msgstr ""
 
-#: ../preferences/helpers.py:165
+#: ../preferences/helpers.py:166
 #, fuzzy
 msgid "Set the resolution if Frescobaldi prints using raster images."
 msgstr "Sezení, které se má nahrát, je-li Frescobaldi spuštěn bez argumentů"

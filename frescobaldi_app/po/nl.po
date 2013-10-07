@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-10-05 19:27+0200\n"
-"PO-Revision-Date: 2013-10-05 19:35+0200\n"
+"POT-Creation-Date: 2013-10-07 11:43+0200\n"
+"PO-Revision-Date: 2013-10-07 11:44+0200\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -145,31 +145,31 @@ msgstr "Sneltoetsconflict"
 msgid "Edit again"
 msgstr "Opnieuw bewerken"
 
-#: ../app.py:130
+#: ../app.py:136
 msgid "LilyPond Files"
 msgstr "LilyPond-bestanden"
 
-#: ../app.py:131
+#: ../app.py:137
 msgid "LaTeX Files"
 msgstr "LaTeX-bestanden"
 
-#: ../app.py:132
+#: ../app.py:138
 msgid "DocBook Files"
 msgstr "DocBook-bestanden"
 
-#: ../app.py:133
+#: ../app.py:139
 msgid "HTML Files"
 msgstr "HTML-bestanden"
 
-#: ../app.py:134
+#: ../app.py:140
 msgid "Texinfo Files"
 msgstr "Texinfo-bestanden"
 
-#: ../app.py:135
+#: ../app.py:141
 msgid "Scheme Files"
 msgstr "Scheme-bestanden"
 
-#: ../app.py:136 ../snippet/widget.py:292 ../snippet/widget.py:309
+#: ../app.py:142 ../snippet/widget.py:292 ../snippet/widget.py:309
 msgid "All Files"
 msgstr "Alle bestanden"
 
@@ -333,16 +333,16 @@ msgstr "&Dynamiek verwijderen"
 msgid "Remove Text &Markup (from music)"
 msgstr "&Markup verwijderen (uit muziek)"
 
-#: ../documentcontextmenu.py:67 ../mainwindow.py:1017
+#: ../documentcontextmenu.py:67 ../mainwindow.py:1024
 #: ../sessions/manager.py:127
 msgid "&Save"
 msgstr "Op&slaan"
 
-#: ../documentcontextmenu.py:68 ../mainwindow.py:1018
+#: ../documentcontextmenu.py:68 ../mainwindow.py:1025
 msgid "Save &As..."
 msgstr "Opslaan &als..."
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:1028
+#: ../documentcontextmenu.py:69 ../mainwindow.py:1035
 msgid "&Close"
 msgstr "&Sluiten"
 
@@ -410,8 +410,8 @@ msgstr "Balkgrootte:"
 
 #. L10N: a basic type of input in the editor
 #: ../helpers.py:107 ../mainwindow.py:413 ../mainwindow.py:419
-#: ../mainwindow.py:444 ../mainwindow.py:495 ../mainwindow.py:587
-#: ../mainwindow.py:647 ../externalchanges/widget.py:243
+#: ../mainwindow.py:444 ../mainwindow.py:495 ../mainwindow.py:592
+#: ../mainwindow.py:652 ../externalchanges/widget.py:243
 #: ../file_import/__init__.py:70 ../musicview/image.py:214
 #: ../preferences/fontscolors.py:476 ../preferences/fontscolors.py:514
 #: ../snippet/import_export.py:105 ../snippet/widget.py:319
@@ -707,7 +707,7 @@ msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Selectie opslaan"
 
-#: ../mainwindow.py:496 ../mainwindow.py:648 ../snippet/widget.py:320
+#: ../mainwindow.py:496 ../mainwindow.py:653 ../snippet/widget.py:320
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -743,12 +743,12 @@ msgstr "Sommige documenten konden niet worden herladen."
 msgid "No document could be reloaded."
 msgstr "Geen enkel document kon worden herladen."
 
-#: ../mainwindow.py:580
+#: ../mainwindow.py:585
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Invoegen uit bestand"
 
-#: ../mainwindow.py:588 ../snippet/import_export.py:106
+#: ../mainwindow.py:593 ../snippet/import_export.py:106
 msgid ""
 "Can't read from source:\n"
 "\n"
@@ -762,16 +762,16 @@ msgstr ""
 "\n"
 "{error}"
 
-#: ../mainwindow.py:604
+#: ../mainwindow.py:609
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Brontekst afdrukken"
 
-#: ../mainwindow.py:637
+#: ../mainwindow.py:642
 msgid "Export as HTML"
 msgstr "Exporteren als HTML"
 
-#: ../mainwindow.py:757
+#: ../mainwindow.py:762
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -783,60 +783,60 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../mainwindow.py:867
+#: ../mainwindow.py:873
 msgid "Main Toolbar"
 msgstr "Hoofdwerkbalk"
 
-#: ../mainwindow.py:868
+#: ../mainwindow.py:874
 msgid "Music View Toolbar"
 msgstr "Muziekweergave-werkbalk"
 
-#: ../mainwindow.py:1011
+#: ../mainwindow.py:1018
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nieuw"
 
-#: ../mainwindow.py:1012
+#: ../mainwindow.py:1019
 msgid "&Open..."
 msgstr "&Openen..."
 
-#: ../mainwindow.py:1013
+#: ../mainwindow.py:1020
 msgid "Open &Recent"
 msgstr "&Recent geopend"
 
-#: ../mainwindow.py:1014
+#: ../mainwindow.py:1021
 msgid "Insert from &File..."
 msgstr "&Invoegen uit bestand..."
 
-#: ../mainwindow.py:1015
+#: ../mainwindow.py:1022
 msgid "Open Current Directory"
 msgstr "Huidige map openen"
 
-#: ../mainwindow.py:1016
+#: ../mainwindow.py:1023
 msgid "Open Command Prompt"
 msgstr "Commandoregel openen"
 
-#: ../mainwindow.py:1019
+#: ../mainwindow.py:1026
 msgid "Save Copy or Selection As..."
 msgstr "Kopie of selectie opslaan als..."
 
-#: ../mainwindow.py:1020 ../externalchanges/widget.py:117
+#: ../mainwindow.py:1027 ../externalchanges/widget.py:117
 msgid "Save All"
 msgstr "Alles opslaan"
 
-#: ../mainwindow.py:1021
+#: ../mainwindow.py:1028
 msgid "Re&load"
 msgstr "Her&laden"
 
-#: ../mainwindow.py:1022 ../externalchanges/widget.py:108
+#: ../mainwindow.py:1029 ../externalchanges/widget.py:108
 msgid "Reload All"
 msgstr "Alles herladen"
 
-#: ../mainwindow.py:1023
+#: ../mainwindow.py:1030
 msgid "Check for External Changes..."
 msgstr "Controleren op externe wijzigingen..."
 
-#: ../mainwindow.py:1025
+#: ../mainwindow.py:1032
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
@@ -844,131 +844,135 @@ msgstr ""
 "Opent een venster om te controleren of open documenten werden gewijzigd of "
 "verwijderd door andere programma's."
 
-#: ../mainwindow.py:1027
+#: ../mainwindow.py:1034
 msgid "Print Source..."
 msgstr "Brontekst afdrukken..."
 
-#: ../mainwindow.py:1029
+#: ../mainwindow.py:1036
 msgid "Close Other Documents"
 msgstr "Andere documenten sluiten"
 
-#: ../mainwindow.py:1030
+#: ../mainwindow.py:1037
 msgid "Close All Documents"
 msgstr "Alle documenten sluiten"
 
-#: ../mainwindow.py:1031
+#: ../mainwindow.py:1038
 msgid "Closes all documents and leaves the current session."
 msgstr "Sluit alle documenten en verlaat de huidige sessie."
 
-#: ../mainwindow.py:1032
+#: ../mainwindow.py:1039
 msgid "&Quit"
 msgstr "Afslui&ten"
 
-#: ../mainwindow.py:1034
+#: ../mainwindow.py:1040
+msgid "Restart {appname}"
+msgstr "{appname} herstarten"
+
+#: ../mainwindow.py:1042
 msgid "Export Source as Colored &HTML..."
 msgstr "Bron als gekleurde &HTML exporteren..."
 
-#: ../mainwindow.py:1036
+#: ../mainwindow.py:1044
 msgid "&Undo"
 msgstr "&Ongedaan maken"
 
-#: ../mainwindow.py:1037
+#: ../mainwindow.py:1045
 msgid "Re&do"
 msgstr "Opnie&uw"
 
-#: ../mainwindow.py:1038
+#: ../mainwindow.py:1046
 msgid "Cu&t"
 msgstr "&Knippen"
 
-#: ../mainwindow.py:1039 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1047 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Kopiëren"
 
-#: ../mainwindow.py:1040
+#: ../mainwindow.py:1048
 msgid "Copy as Colored &HTML"
 msgstr "Als gekleurde HTML kopiëren"
 
-#: ../mainwindow.py:1041
+#: ../mainwindow.py:1049
 msgid "&Paste"
 msgstr "&Plakken"
 
-#: ../mainwindow.py:1042
+#: ../mainwindow.py:1050
 msgid "Select &All"
 msgstr "&Alles selecteren"
 
-#: ../mainwindow.py:1043
+#: ../mainwindow.py:1051
 msgid "Select &Block"
 msgstr "&Blok selecteren"
 
-#: ../mainwindow.py:1044
+#: ../mainwindow.py:1052
 msgid "Select &None"
 msgstr "&Niets selecteren"
 
-#: ../mainwindow.py:1045
+#: ../mainwindow.py:1053
 msgid "Select Whole Lines Up"
 msgstr "Volledige regels omhoog selecteren"
 
-#: ../mainwindow.py:1046
+#: ../mainwindow.py:1054
 msgid "Select Whole Lines Down"
 msgstr "Volledige regels omlaag selecteren"
 
-#: ../mainwindow.py:1047
+#: ../mainwindow.py:1055
 msgid "&Find..."
 msgstr "&Zoeken..."
 
-#: ../mainwindow.py:1048
+#: ../mainwindow.py:1056
 msgid "Find Ne&xt"
 msgstr "&Volgende zoeken"
 
-#: ../mainwindow.py:1049
+#: ../mainwindow.py:1057
 msgid "Find Pre&vious"
 msgstr "V&orige zoeken"
 
-#: ../mainwindow.py:1050
+#: ../mainwindow.py:1058
 msgid "&Replace..."
 msgstr "Ve&rvangen"
 
-#: ../mainwindow.py:1051
+#: ../mainwindow.py:1059
 msgid "Pr&eferences..."
 msgstr "Voork&euren..."
 
-#: ../mainwindow.py:1053
+#: ../mainwindow.py:1061
 msgid "&Next Document"
 msgstr "&Volgende document"
 
-#: ../mainwindow.py:1054
+#: ../mainwindow.py:1062
 msgid "&Previous Document"
 msgstr "V&orige document"
 
-#: ../mainwindow.py:1055
+#: ../mainwindow.py:1063
 msgid "Scroll Up"
 msgstr "Omhoog schuiven"
 
-#: ../mainwindow.py:1056
+#: ../mainwindow.py:1064
 msgid "Scroll Down"
 msgstr "Omlaag schuiven"
 
-#: ../mainwindow.py:1058
+#: ../mainwindow.py:1066
 msgid "New &Window"
 msgstr "Nieuw &venster"
 
-#: ../mainwindow.py:1059
+#: ../mainwindow.py:1067
 msgid "&Fullscreen"
 msgstr "Volledig &scherm"
 
-#: ../mainwindow.py:1061
+#: ../mainwindow.py:1069
 msgid "&User Guide"
 msgstr "&Handleiding"
 
-#: ../mainwindow.py:1062
+#: ../mainwindow.py:1070
 msgid "&What's This?"
 msgstr "&Wat is dit?"
 
-#: ../mainwindow.py:1063
+#: ../mainwindow.py:1071
 msgid "Report a &Bug..."
 msgstr "&Bug rapporteren..."
 
-#: ../mainwindow.py:1064
+#: ../mainwindow.py:1072
 msgid "&About {appname}..."
 msgstr "&Over {appname}..."
 
@@ -985,72 +989,72 @@ msgctxt "menu title"
 msgid "&File"
 msgstr "&Bestand"
 
-#: ../menu.py:122
+#: ../menu.py:124
 msgctxt "submenu title"
 msgid "&Import"
 msgstr "&Importeren"
 
-#: ../menu.py:130
+#: ../menu.py:132
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Exporteren"
 
-#: ../menu.py:138
+#: ../menu.py:140
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "Be&werken"
 
-#: ../menu.py:165
+#: ../menu.py:167
 msgctxt "menu title"
 msgid "&View"
 msgstr "B&eeld"
 
-#: ../menu.py:193
+#: ../menu.py:195
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "Invou&wen"
 
-#: ../menu.py:208
+#: ../menu.py:210
 msgctxt "menu title"
 msgid "&Music"
 msgstr "&Muziek"
 
-#: ../menu.py:235
+#: ../menu.py:237
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:254
+#: ../menu.py:256
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Gereedschap"
 
-#: ../menu.py:282
+#: ../menu.py:284
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Liedteksten"
 
-#: ../menu.py:294
+#: ../menu.py:296
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Toonhoogte"
 
-#: ../menu.py:309
+#: ../menu.py:311
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritme"
 
-#: ../menu.py:333
+#: ../menu.py:335
 msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr "&Snel verwijderen"
 
-#: ../menu.py:351
+#: ../menu.py:353
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Venster"
 
-#: ../menu.py:371
+#: ../menu.py:373
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Help"
@@ -1327,7 +1331,7 @@ msgstr "LilyPond-versie:"
 msgid "Output Format:"
 msgstr "Uitvoerformaat:"
 
-#: ../engrave/custom.py:127 ../preferences/helpers.py:163
+#: ../engrave/custom.py:127 ../preferences/helpers.py:164
 msgid "Resolution:"
 msgstr "Resolutie:"
 
@@ -1985,22 +1989,6 @@ msgstr "De modes gebruiken de volgende configuratie-variabelen:"
 #: ../help/cnt_engraving.py:211
 msgid "Variables can be redefined in input files."
 msgstr "Variabelen kunnen in invoerbestanden worden geherdefiniëerd."
-
-#: ../help/cnt_engraving.py:215
-msgid "color of the debug control points"
-msgstr "kleur van de debug controlepunten"
-
-#: ../help/cnt_engraving.py:218
-msgid "thickness of the control points lines"
-msgstr "dikte van de lijnen van de controlepunten"
-
-#: ../help/cnt_engraving.py:221
-msgid "thickness of the control points crosses"
-msgstr "dikte van de kruisjes van de controlepunten"
-
-#: ../help/cnt_engraving.py:224
-msgid "size of the control points crosses"
-msgstr "grootte van de kruisjes van de controlepunten"
 
 #: ../help/cnt_engraving.py:226
 msgid "These Variables currently can't be redefined in input files."
@@ -3085,19 +3073,19 @@ msgstr ""
 msgid "Table of Contents"
 msgstr "Inhoudsopgave"
 
-#: ../help/helpimpl.py:116
+#: ../help/helpimpl.py:136
 msgid "Up:"
 msgstr "Omhoog:"
 
-#: ../help/helpimpl.py:131
+#: ../help/helpimpl.py:148
 msgid "Next:"
 msgstr "Hierna:"
 
-#: ../help/helpimpl.py:134
+#: ../help/helpimpl.py:152
 msgid "See also:"
 msgstr "Zie ook:"
 
-#: ../help/helpimpl.py:177
+#: ../help/helpimpl.py:192
 msgid "(no key defined)"
 msgstr "(geen toets ingesteld)"
 
@@ -3838,7 +3826,7 @@ msgstr "Algemene voorkeuren"
 msgid "MIDI Settings"
 msgstr "MIDI-instellingen"
 
-#: ../preferences/__init__.py:206 ../preferences/helpers.py:89
+#: ../preferences/__init__.py:206 ../preferences/helpers.py:90
 #: ../preferences/prefshelp.py:172
 msgid "Helper Applications"
 msgstr "Hulpprogramma's"
@@ -4267,39 +4255,39 @@ msgstr "Standaardmap:"
 msgid "The default folder for your LilyPond documents (optional)."
 msgstr "De standaardmap voor uw LilyPond documenten (optioneel)."
 
-#: ../preferences/helpers.py:79
+#: ../preferences/helpers.py:80
 msgid "PDF:"
 msgstr "PDF:"
 
-#: ../preferences/helpers.py:80
+#: ../preferences/helpers.py:81
 msgid "MIDI:"
 msgstr "MIDI:"
 
-#: ../preferences/helpers.py:81
+#: ../preferences/helpers.py:82
 msgid "SVG:"
 msgstr "SVG:"
 
-#: ../preferences/helpers.py:82
+#: ../preferences/helpers.py:83
 msgid "Image:"
 msgstr "Afbeelding:"
 
-#: ../preferences/helpers.py:83
+#: ../preferences/helpers.py:84
 msgid "Browser:"
 msgstr "Browser:"
 
-#: ../preferences/helpers.py:84
+#: ../preferences/helpers.py:85
 msgid "E-Mail:"
 msgstr "E-mail:"
 
-#: ../preferences/helpers.py:85
+#: ../preferences/helpers.py:86
 msgid "File Manager:"
 msgstr "Bestandsbeheer:"
 
-#: ../preferences/helpers.py:86
+#: ../preferences/helpers.py:87
 msgid "Shell:"
 msgstr "Shell:"
 
-#: ../preferences/helpers.py:91
+#: ../preferences/helpers.py:92
 msgid ""
 "Below you can enter commands to open different file types. <code>$f</code> "
 "is replaced with the filename, <code>$u</code> with the URL. Leave a field "
@@ -4310,19 +4298,19 @@ msgstr ""
 "code> door de URL. Laat een veld leeg om de standaardinstelling van het "
 "besturingssysteem te gebruiken."
 
-#: ../preferences/helpers.py:99
+#: ../preferences/helpers.py:100
 msgid "Command that should accept a mailto: URL."
 msgstr "Commando dat een mailto: URL accepteert."
 
-#: ../preferences/helpers.py:101
+#: ../preferences/helpers.py:102
 msgid "Command to open a Terminal or Command window."
 msgstr "Commando dat een terminal of commandovenster opent."
 
-#: ../preferences/helpers.py:144 ../preferences/prefshelp.py:186
+#: ../preferences/helpers.py:145 ../preferences/prefshelp.py:186
 msgid "Printing Music"
 msgstr "Muziek afdrukken"
 
-#: ../preferences/helpers.py:146
+#: ../preferences/helpers.py:147
 msgid ""
 "Here you can enter a command to print a PDF or PostScript file. See the Help "
 "page for more information about printing music."
@@ -4331,11 +4319,11 @@ msgstr ""
 "drukken. Zie de helppagina voor meer informatie over het afdrukken van "
 "muziek."
 
-#: ../preferences/helpers.py:148
+#: ../preferences/helpers.py:149
 msgid "Printing command:"
 msgstr "Printcommando:"
 
-#: ../preferences/helpers.py:150 ../preferences/prefshelp.py:188
+#: ../preferences/helpers.py:151 ../preferences/prefshelp.py:188
 msgid ""
 "The printing command is used to print a PostScript or PDF file. On Linux you "
 "don't need this, but on Windows and Mac OS X you can provide a command to "
@@ -4353,11 +4341,11 @@ msgstr ""
 "code> wordt vervangen door de PostScript bestandsnaam. <code>$printer</code> "
 "wordt vervangen door de naam van de te gebruiken printer."
 
-#: ../preferences/helpers.py:157
+#: ../preferences/helpers.py:158
 msgid "Use Frescobaldi's print dialog"
 msgstr "Frescobaldi's printdialoog gebruiken"
 
-#: ../preferences/helpers.py:159
+#: ../preferences/helpers.py:160
 msgid ""
 "If enabled, Frescobaldi will show the print dialog and create a PDF or "
 "PostScript document containing only the selected pages to print. Otherwise, "
@@ -4368,7 +4356,7 @@ msgstr ""
 "uitgeschakeld zal het commando direct worden aangeroepen, in de verwachting "
 "dat dat commando een printdialoog afbeeldt."
 
-#: ../preferences/helpers.py:165
+#: ../preferences/helpers.py:166
 msgid "Set the resolution if Frescobaldi prints using raster images."
 msgstr ""
 "De resolutie instellen als Frescobaldi bij het afdrukken gebruik maakt van "
@@ -8217,6 +8205,18 @@ msgstr "Selecteer een map"
 #: ../widgets/urlrequester.py:111
 msgid "Select a file"
 msgstr "Selecteer een bestand"
+
+#~ msgid "color of the debug control points"
+#~ msgstr "kleur van de debug controlepunten"
+
+#~ msgid "thickness of the control points lines"
+#~ msgstr "dikte van de lijnen van de controlepunten"
+
+#~ msgid "thickness of the control points crosses"
+#~ msgstr "dikte van de kruisjes van de controlepunten"
+
+#~ msgid "size of the control points crosses"
+#~ msgstr "grootte van de kruisjes van de controlepunten"
 
 #~ msgid ""
 #~ "No print command to print a PostScript file could be found.\n"

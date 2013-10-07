@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-10-05 19:27+0200\n"
+"POT-Creation-Date: 2013-10-07 11:43+0200\n"
 "PO-Revision-Date: 2010-12-12 07:48+0200\n"
 "Last-Translator: Server Acim <serveracim@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -154,36 +154,36 @@ msgstr "Kısayol"
 msgid "Edit again"
 msgstr ""
 
-#: ../app.py:130
+#: ../app.py:136
 #, fuzzy
 msgid "LilyPond Files"
 msgstr "LilyPond dosyaları"
 
-#: ../app.py:131
+#: ../app.py:137
 #, fuzzy
 msgid "LaTeX Files"
 msgstr "Tüm dosyalar"
 
-#: ../app.py:132
+#: ../app.py:138
 #, fuzzy
 msgid "DocBook Files"
 msgstr "PDf Dosyaları"
 
-#: ../app.py:133
+#: ../app.py:139
 #, fuzzy
 msgid "HTML Files"
 msgstr "Tüm dosyalar"
 
-#: ../app.py:134
+#: ../app.py:140
 #, fuzzy
 msgid "Texinfo Files"
 msgstr "Dosya Aç"
 
-#: ../app.py:135
+#: ../app.py:141
 msgid "Scheme Files"
 msgstr ""
 
-#: ../app.py:136 ../snippet/widget.py:292 ../snippet/widget.py:309
+#: ../app.py:142 ../snippet/widget.py:292 ../snippet/widget.py:309
 msgid "All Files"
 msgstr "Tüm dosyalar"
 
@@ -365,18 +365,18 @@ msgstr "Gürlükler"
 msgid "Remove Text &Markup (from music)"
 msgstr ""
 
-#: ../documentcontextmenu.py:67 ../mainwindow.py:1017
+#: ../documentcontextmenu.py:67 ../mainwindow.py:1024
 #: ../sessions/manager.py:127
 #, fuzzy
 msgid "&Save"
 msgstr "Kaydet"
 
-#: ../documentcontextmenu.py:68 ../mainwindow.py:1018
+#: ../documentcontextmenu.py:68 ../mainwindow.py:1025
 #, fuzzy
 msgid "Save &As..."
 msgstr "PDF'yi Farklı Kaydet..."
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:1028
+#: ../documentcontextmenu.py:69 ../mainwindow.py:1035
 msgid "&Close"
 msgstr ""
 
@@ -443,8 +443,8 @@ msgstr "Dizek Boyutu:"
 
 #. L10N: a basic type of input in the editor
 #: ../helpers.py:107 ../mainwindow.py:413 ../mainwindow.py:419
-#: ../mainwindow.py:444 ../mainwindow.py:495 ../mainwindow.py:587
-#: ../mainwindow.py:647 ../externalchanges/widget.py:243
+#: ../mainwindow.py:444 ../mainwindow.py:495 ../mainwindow.py:592
+#: ../mainwindow.py:652 ../externalchanges/widget.py:243
 #: ../file_import/__init__.py:70 ../musicview/image.py:214
 #: ../preferences/fontscolors.py:476 ../preferences/fontscolors.py:514
 #: ../snippet/import_export.py:105 ../snippet/widget.py:319
@@ -726,7 +726,7 @@ msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Partisyon ayarları"
 
-#: ../mainwindow.py:496 ../mainwindow.py:648 ../snippet/widget.py:320
+#: ../mainwindow.py:496 ../mainwindow.py:653 ../snippet/widget.py:320
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -757,12 +757,12 @@ msgstr "Belge yazıcıya gönderildi."
 msgid "No document could be reloaded."
 msgstr ""
 
-#: ../mainwindow.py:580
+#: ../mainwindow.py:585
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr ""
 
-#: ../mainwindow.py:588 ../snippet/import_export.py:106
+#: ../mainwindow.py:593 ../snippet/import_export.py:106
 msgid ""
 "Can't read from source:\n"
 "\n"
@@ -771,17 +771,17 @@ msgid ""
 "{error}"
 msgstr ""
 
-#: ../mainwindow.py:604
+#: ../mainwindow.py:609
 #, fuzzy
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Kaynağı Yazdır..."
 
-#: ../mainwindow.py:637
+#: ../mainwindow.py:642
 msgid "Export as HTML"
 msgstr ""
 
-#: ../mainwindow.py:757
+#: ../mainwindow.py:762
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -789,209 +789,213 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../mainwindow.py:867
+#: ../mainwindow.py:873
 msgid "Main Toolbar"
 msgstr ""
 
-#: ../mainwindow.py:868
+#: ../mainwindow.py:874
 msgid "Music View Toolbar"
 msgstr ""
 
-#: ../mainwindow.py:1011
+#: ../mainwindow.py:1018
 #, fuzzy
 msgctxt "action: new document"
 msgid "&New"
 msgstr "Yeni..."
 
-#: ../mainwindow.py:1012
+#: ../mainwindow.py:1019
 msgid "&Open..."
 msgstr ""
 
-#: ../mainwindow.py:1013
+#: ../mainwindow.py:1020
 msgid "Open &Recent"
 msgstr ""
 
-#: ../mainwindow.py:1014
+#: ../mainwindow.py:1021
 msgid "Insert from &File..."
 msgstr ""
 
-#: ../mainwindow.py:1015
+#: ../mainwindow.py:1022
 #, fuzzy
 msgid "Open Current Directory"
 msgstr "Yürürlükteki Dosyayı Aç"
 
-#: ../mainwindow.py:1016
+#: ../mainwindow.py:1023
 msgid "Open Command Prompt"
 msgstr ""
 
-#: ../mainwindow.py:1019
+#: ../mainwindow.py:1026
 msgid "Save Copy or Selection As..."
 msgstr ""
 
-#: ../mainwindow.py:1020 ../externalchanges/widget.py:117
+#: ../mainwindow.py:1027 ../externalchanges/widget.py:117
 #, fuzzy
 msgid "Save All"
 msgstr "Kaydet"
 
-#: ../mainwindow.py:1021
+#: ../mainwindow.py:1028
 #, fuzzy
 msgid "Re&load"
 msgstr "Yeniden Yükle"
 
-#: ../mainwindow.py:1022 ../externalchanges/widget.py:108
+#: ../mainwindow.py:1029 ../externalchanges/widget.py:108
 #, fuzzy
 msgid "Reload All"
 msgstr "Yeniden Yükle"
 
-#: ../mainwindow.py:1023
+#: ../mainwindow.py:1030
 msgid "Check for External Changes..."
 msgstr ""
 
-#: ../mainwindow.py:1025
+#: ../mainwindow.py:1032
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
 msgstr ""
 
-#: ../mainwindow.py:1027
+#: ../mainwindow.py:1034
 msgid "Print Source..."
 msgstr "Kaynağı Yazdır..."
 
-#: ../mainwindow.py:1029
+#: ../mainwindow.py:1036
 msgid "Close Other Documents"
 msgstr "Diğer Belgeleri Kapat"
 
-#: ../mainwindow.py:1030
+#: ../mainwindow.py:1037
 #, fuzzy
 msgid "Close All Documents"
 msgstr "Diğer Belgeleri Kapat"
 
-#: ../mainwindow.py:1031
+#: ../mainwindow.py:1038
 #, fuzzy
 msgid "Closes all documents and leaves the current session."
 msgstr "Belgede veya seçimdeki tüm notaların aktarımını yapar."
 
-#: ../mainwindow.py:1032
+#: ../mainwindow.py:1039
 msgid "&Quit"
 msgstr ""
 
-#: ../mainwindow.py:1034
+#: ../mainwindow.py:1040
+msgid "Restart {appname}"
+msgstr ""
+
+#: ../mainwindow.py:1042
 msgid "Export Source as Colored &HTML..."
 msgstr ""
 
-#: ../mainwindow.py:1036
+#: ../mainwindow.py:1044
 #, fuzzy
 msgid "&Undo"
 msgstr "Uzat"
 
-#: ../mainwindow.py:1037
+#: ../mainwindow.py:1045
 msgid "Re&do"
 msgstr ""
 
-#: ../mainwindow.py:1038
+#: ../mainwindow.py:1046
 msgid "Cu&t"
 msgstr ""
 
-#: ../mainwindow.py:1039 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1047 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Kopyala"
 
-#: ../mainwindow.py:1040
-msgid "Copy as Colored &HTML"
-msgstr ""
-
-#: ../mainwindow.py:1041
-#, fuzzy
-msgid "&Paste"
-msgstr "Durakla"
-
-#: ../mainwindow.py:1042
-#, fuzzy
-msgid "Select &All"
-msgstr "Hepsini seç"
-
-#: ../mainwindow.py:1043
-#, fuzzy
-msgid "Select &Block"
-msgstr "Hepsini seç"
-
-#: ../mainwindow.py:1044
-#, fuzzy
-msgid "Select &None"
-msgstr "Hepsini seç"
-
-#: ../mainwindow.py:1045
-msgid "Select Whole Lines Up"
-msgstr ""
-
-#: ../mainwindow.py:1046
-msgid "Select Whole Lines Down"
-msgstr ""
-
-#: ../mainwindow.py:1047
-#, fuzzy
-msgid "&Find..."
-msgstr "Yazdır..."
-
 #: ../mainwindow.py:1048
-msgid "Find Ne&xt"
+msgid "Copy as Colored &HTML"
 msgstr ""
 
 #: ../mainwindow.py:1049
 #, fuzzy
+msgid "&Paste"
+msgstr "Durakla"
+
+#: ../mainwindow.py:1050
+#, fuzzy
+msgid "Select &All"
+msgstr "Hepsini seç"
+
+#: ../mainwindow.py:1051
+#, fuzzy
+msgid "Select &Block"
+msgstr "Hepsini seç"
+
+#: ../mainwindow.py:1052
+#, fuzzy
+msgid "Select &None"
+msgstr "Hepsini seç"
+
+#: ../mainwindow.py:1053
+msgid "Select Whole Lines Up"
+msgstr ""
+
+#: ../mainwindow.py:1054
+msgid "Select Whole Lines Down"
+msgstr ""
+
+#: ../mainwindow.py:1055
+#, fuzzy
+msgid "&Find..."
+msgstr "Yazdır..."
+
+#: ../mainwindow.py:1056
+msgid "Find Ne&xt"
+msgstr ""
+
+#: ../mainwindow.py:1057
+#, fuzzy
 msgid "Find Pre&vious"
 msgstr "Önceki"
 
-#: ../mainwindow.py:1050
+#: ../mainwindow.py:1058
 #, fuzzy
 msgid "&Replace..."
 msgstr "Ara..."
 
-#: ../mainwindow.py:1051
+#: ../mainwindow.py:1059
 #, fuzzy
 msgid "Pr&eferences..."
 msgstr "Genel Tercihler"
 
-#: ../mainwindow.py:1053
+#: ../mainwindow.py:1061
 #, fuzzy
 msgid "&Next Document"
 msgstr "&Belge"
 
-#: ../mainwindow.py:1054
+#: ../mainwindow.py:1062
 #, fuzzy
 msgid "&Previous Document"
 msgstr "&Kaynak Belgesi"
 
-#: ../mainwindow.py:1055
+#: ../mainwindow.py:1063
 msgid "Scroll Up"
 msgstr ""
 
-#: ../mainwindow.py:1056
+#: ../mainwindow.py:1064
 #, fuzzy
 msgid "Scroll Down"
 msgstr "Prall down"
 
-#: ../mainwindow.py:1058
+#: ../mainwindow.py:1066
 msgid "New &Window"
 msgstr ""
 
-#: ../mainwindow.py:1059
+#: ../mainwindow.py:1067
 msgid "&Fullscreen"
 msgstr ""
 
-#: ../mainwindow.py:1061
+#: ../mainwindow.py:1069
 msgid "&User Guide"
 msgstr ""
 
-#: ../mainwindow.py:1062
+#: ../mainwindow.py:1070
 msgid "&What's This?"
 msgstr ""
 
-#: ../mainwindow.py:1063
+#: ../mainwindow.py:1071
 msgid "Report a &Bug..."
 msgstr ""
 
-#: ../mainwindow.py:1064
+#: ../mainwindow.py:1072
 msgid "&About {appname}..."
 msgstr ""
 
@@ -1010,81 +1014,81 @@ msgctxt "menu title"
 msgid "&File"
 msgstr "Başlık"
 
-#: ../menu.py:122
+#: ../menu.py:124
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Import"
 msgstr "Yazdır..."
 
-#: ../menu.py:130
+#: ../menu.py:132
 msgctxt "submenu title"
 msgid "&Export"
 msgstr ""
 
-#: ../menu.py:138
+#: ../menu.py:140
 msgctxt "menu title"
 msgid "&Edit"
 msgstr ""
 
-#: ../menu.py:165
+#: ../menu.py:167
 #, fuzzy
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Araç Görünümleri"
 
-#: ../menu.py:193
+#: ../menu.py:195
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "Kullanılacak dil kodlaması"
 
-#: ../menu.py:208
+#: ../menu.py:210
 msgctxt "menu title"
 msgid "&Music"
 msgstr ""
 
-#: ../menu.py:235
+#: ../menu.py:237
 #, fuzzy
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:254
+#: ../menu.py:256
 #, fuzzy
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Araç Görünümleri"
 
-#: ../menu.py:282
+#: ../menu.py:284
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "Şarkı &Sözleri"
 
-#: ../menu.py:294
+#: ../menu.py:296
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "Ses noktası"
 
-#: ../menu.py:309
+#: ../menu.py:311
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritm"
 
-#: ../menu.py:333
+#: ../menu.py:335
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr "Kuyrukları kaldır"
 
-#: ../menu.py:351
+#: ../menu.py:353
 msgctxt "menu title"
 msgid "&Window"
 msgstr ""
 
-#: ../menu.py:371
+#: ../menu.py:373
 msgctxt "menu title"
 msgid "&Help"
 msgstr ""
@@ -1394,7 +1398,7 @@ msgstr "Varsayılan LilyPond Sürüm Numarası."
 msgid "Output Format:"
 msgstr ""
 
-#: ../engrave/custom.py:127 ../preferences/helpers.py:163
+#: ../engrave/custom.py:127 ../preferences/helpers.py:164
 #, fuzzy
 msgid "Resolution:"
 msgstr "Sürüm:"
@@ -1957,22 +1961,6 @@ msgstr ""
 
 #: ../help/cnt_engraving.py:211
 msgid "Variables can be redefined in input files."
-msgstr ""
-
-#: ../help/cnt_engraving.py:215
-msgid "color of the debug control points"
-msgstr ""
-
-#: ../help/cnt_engraving.py:218
-msgid "thickness of the control points lines"
-msgstr ""
-
-#: ../help/cnt_engraving.py:221
-msgid "thickness of the control points crosses"
-msgstr ""
-
-#: ../help/cnt_engraving.py:224
-msgid "size of the control points crosses"
 msgstr ""
 
 #: ../help/cnt_engraving.py:226
@@ -2750,22 +2738,22 @@ msgstr ""
 msgid "Table of Contents"
 msgstr "İçindekiler"
 
-#: ../help/helpimpl.py:116
+#: ../help/helpimpl.py:136
 #, fuzzy
 msgid "Up:"
 msgstr "Yukarı"
 
-#: ../help/helpimpl.py:131
+#: ../help/helpimpl.py:148
 #, fuzzy
 msgid "Next:"
 msgstr "Sonraki"
 
-#: ../help/helpimpl.py:134
+#: ../help/helpimpl.py:152
 #, fuzzy
 msgid "See also:"
 msgstr "Hepsini seç"
 
-#: ../help/helpimpl.py:177
+#: ../help/helpimpl.py:192
 msgid "(no key defined)"
 msgstr ""
 
@@ -3470,7 +3458,7 @@ msgstr "Genel Tercihler"
 msgid "MIDI Settings"
 msgstr "Ayarlar"
 
-#: ../preferences/__init__.py:206 ../preferences/helpers.py:89
+#: ../preferences/__init__.py:206 ../preferences/helpers.py:90
 #: ../preferences/prefshelp.py:172
 #, fuzzy
 msgid "Helper Applications"
@@ -3927,73 +3915,73 @@ msgstr "Öntanımlı dizin:"
 msgid "The default folder for your LilyPond documents (optional)."
 msgstr "LilyPond belgelerinizin öntanımlı dizini (opsiyonel)."
 
-#: ../preferences/helpers.py:79
+#: ../preferences/helpers.py:80
 msgid "PDF:"
 msgstr ""
 
-#: ../preferences/helpers.py:80
+#: ../preferences/helpers.py:81
 #, fuzzy
 msgid "MIDI:"
 msgstr "MIDI çal"
 
-#: ../preferences/helpers.py:81
+#: ../preferences/helpers.py:82
 msgid "SVG:"
 msgstr ""
 
-#: ../preferences/helpers.py:82
+#: ../preferences/helpers.py:83
 msgid "Image:"
 msgstr ""
 
-#: ../preferences/helpers.py:83
+#: ../preferences/helpers.py:84
 msgid "Browser:"
 msgstr ""
 
-#: ../preferences/helpers.py:84
+#: ../preferences/helpers.py:85
 msgid "E-Mail:"
 msgstr ""
 
-#: ../preferences/helpers.py:85
+#: ../preferences/helpers.py:86
 #, fuzzy
 msgid "File Manager:"
 msgstr "Genişleme Düzenleyicisi"
 
-#: ../preferences/helpers.py:86
+#: ../preferences/helpers.py:87
 #, fuzzy
 msgid "Shell:"
 msgstr "Partisyon:"
 
-#: ../preferences/helpers.py:91
+#: ../preferences/helpers.py:92
 msgid ""
 "Below you can enter commands to open different file types. <code>$f</code> "
 "is replaced with the filename, <code>$u</code> with the URL. Leave a field "
 "empty to use the operating system default application."
 msgstr ""
 
-#: ../preferences/helpers.py:99
+#: ../preferences/helpers.py:100
 msgid "Command that should accept a mailto: URL."
 msgstr ""
 
-#: ../preferences/helpers.py:101
+#: ../preferences/helpers.py:102
 msgid "Command to open a Terminal or Command window."
 msgstr ""
 
-#: ../preferences/helpers.py:144 ../preferences/prefshelp.py:186
+#: ../preferences/helpers.py:145 ../preferences/prefshelp.py:186
 #, fuzzy
 msgid "Printing Music"
 msgstr "Müziği Yazdır..."
 
-#: ../preferences/helpers.py:146
+#: ../preferences/helpers.py:147
 msgid ""
 "Here you can enter a command to print a PDF or PostScript file. See the Help "
 "page for more information about printing music."
 msgstr ""
 
-#: ../preferences/helpers.py:148
+#: ../preferences/helpers.py:149
 #, fuzzy
 msgid "Printing command:"
 msgstr "İç Hata"
 
-#: ../preferences/helpers.py:150 ../preferences/prefshelp.py:188
+#: ../preferences/helpers.py:151 ../preferences/prefshelp.py:188
 msgid ""
 "The printing command is used to print a PostScript or PDF file. On Linux you "
 "don't need this, but on Windows and Mac OS X you can provide a command to "
@@ -4004,19 +3992,19 @@ msgid ""
 "code> is replaced with the printer's name to use."
 msgstr ""
 
-#: ../preferences/helpers.py:157
+#: ../preferences/helpers.py:158
 #, fuzzy
 msgid "Use Frescobaldi's print dialog"
 msgstr "Frescobaldi"
 
-#: ../preferences/helpers.py:159
+#: ../preferences/helpers.py:160
 msgid ""
 "If enabled, Frescobaldi will show the print dialog and create a PDF or "
 "PostScript document containing only the selected pages to print. Otherwise, "
 "the command is called directly and is expected to show a print dialog itself."
 msgstr ""
 
-#: ../preferences/helpers.py:165
+#: ../preferences/helpers.py:166
 #, fuzzy
 msgid "Set the resolution if Frescobaldi prints using raster images."
 msgstr "Frescobadli'nin parametreler olmadan başlatılacağı oturumun yüklemesi"
