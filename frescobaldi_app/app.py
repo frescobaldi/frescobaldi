@@ -193,4 +193,5 @@ def is_git_controlled():
     """
     return os.path.isdir(os.path.join(sys.path[0], '..', '.git'))
 
-
+if is_git_controlled():
+    import git
