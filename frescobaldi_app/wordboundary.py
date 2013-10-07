@@ -19,6 +19,21 @@
 
 """
 Provides better word-boundary behaviour for QTextCursor and QTextEdit etc.
+
+You can inherit from BoundaryHandler to change the behaviour. You can just
+change the word_regexp expression, or override the boundaries() method.
+
+Install a BoundaryHandler as eventfilter on a QTextEdit or QPlainTextEdit.
+If you also want the double-click word selection to work, install the handler
+also as eventfilter on the textedit's viewport(). The install_textedit() and
+remove_textedit() methods can do this.
+
+The handler intercepts the word-related cursor movement and selection
+keypress events.
+
+It is enough to have one global handler object, it can be installed on as
+many textedit widgets as you like.
+
 """
 
 from __future__ import unicode_literals
@@ -27,7 +42,7 @@ import itertools
 import operator
 import re
 
-from PyQt4.QtCore import QEvent, QObject
+from PyQt4.QtCore import QEvent, QObject, Qt
 from PyQt4.QtGui import QKeySequence, QTextCursor
 
 
@@ -43,7 +58,7 @@ _move_operations = (
 
 class BoundaryHandler(QObject):
     
-    word_regexp = re.compile(r'\\?\w+')
+    word_regexp = re.compile(r'\\?\w+|^|$')
     
     def boundaries(self, block):
         """Return a list of tuples specifying the position of words in the block.
@@ -130,15 +145,29 @@ class BoundaryHandler(QObject):
         
         """
         if selection != QTextCursor.WordUnderCursor:
-            return cursor.select(selection)
+            cursor.select(selection)
         self.move(cursor, QTextCursor.StartOfWord)
         cursor.movePosition(QTextCursor.NextCharacter, QTextCursor.KeepAnchor)
         self.move(cursor, QTextCursor.EndOfWord, QTextCursor.KeepAnchor)
 
+    def install_textedit(self, edit):
+        """Install ourselves as event filter on the textedit and its viewport."""
+        edit.installEventFiter(self)
+        edit.viewport().installEventFiter(self)
+    
+    def remove_textedit(self, edit):
+        """Remove ourselves as event filter from the textedit and its viewport."""
+        edit.removeEventFiter(self)
+        edit.viewport().removeEventFiter(self)
+    
     def eventFilter(self, obj, ev):
         """Intercept key events from a Q(Plain)TextEdit and handle them."""
         if ev.type() == QEvent.KeyPress:
             return self.keyPressEvent(obj, ev)
+        elif ev.type() == QEvent.MouseButtonDblClick:
+            edit = obj.parent()
+            if edit:
+                return self.mouseDoubleClickEvent(edit, ev)
         return False
     
     def keyPressEvent(self, obj, ev):
@@ -165,5 +194,15 @@ class BoundaryHandler(QObject):
         else:
             return False
         return True
+
+    def mouseDoubleClickEvent(self, obj, ev):
+        """Handles the double-click even to select a word."""
+        if ev.button() == Qt.LeftButton:
+            c = obj.cursorForPosition(ev.pos())
+            self.select(c, QTextCursor.WordUnderCursor)
+            obj.setTextCursor(c)
+            return True
+        return False
+
 
 
