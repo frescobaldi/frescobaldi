@@ -27,7 +27,8 @@ import itertools
 import operator
 import re
 
-from PyQt4.QtGui import QTextCursor
+from PyQt4.QtCore import QEvent, QObject
+from PyQt4.QtGui import QKeySequence, QTextCursor
 
 
 _move_operations = (
@@ -40,7 +41,7 @@ _move_operations = (
 )
 
 
-class BoundaryHandler(object):
+class BoundaryHandler(QObject):
     
     word_regexp = re.compile(r'\\?\w+')
     
@@ -133,5 +134,36 @@ class BoundaryHandler(object):
         self.move(cursor, QTextCursor.StartOfWord)
         cursor.movePosition(QTextCursor.NextCharacter, QTextCursor.KeepAnchor)
         self.move(cursor, QTextCursor.EndOfWord, QTextCursor.KeepAnchor)
+
+    def eventFilter(self, obj, ev):
+        """Intercept key events from a Q(Plain)TextEdit and handle them."""
+        if ev.type() == QEvent.KeyPress:
+            return self.keyPressEvent(obj, ev)
+        return False
+    
+    def keyPressEvent(self, obj, ev):
+        """Handles the Word-related key events for the Q(Plain)TextEdit."""
+        c = obj.textCursor()
+        if ev == QKeySequence.DeleteEndOfWord:
+            self.move(c, QTextCursor.EndOfWord, QTextCursor.KeepAnchor)
+            c.removeSelectedText()
+        elif ev == QKeySequence.DeleteStartOfWord:
+            self.move(c, QTextCursor.StartOfWord, QTextCursor.KeepAnchor)
+            c.removeSelectedText()
+        elif ev == QKeySequence.MoveToNextWord:
+            self.move(c, QTextCursor.NextWord)
+            obj.setTextCursor(c)
+        elif ev == QKeySequence.MoveToPreviousWord:
+            self.move(c, QTextCursor.PreviousWord)
+            obj.setTextCursor(c)
+        elif ev == QKeySequence.SelectNextWord:
+            self.move(c, QTextCursor.NextWord, QTextCursor.KeepAnchor)
+            obj.setTextCursor(c)
+        elif ev == QKeySequence.SelectPreviousWord:
+            self.move(c, QTextCursor.PreviousWord, QTextCursor.KeepAnchor)
+            obj.setTextCursor(c)
+        else:
+            return False
+        return True
 
 
