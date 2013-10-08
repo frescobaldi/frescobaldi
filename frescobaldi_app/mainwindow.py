@@ -53,7 +53,8 @@ import panelmanager
 import engrave
 import scorewiz
 import externalchanges
-
+if app.is_git_controlled():
+    import git
 
 class MainWindow(QMainWindow):
     
@@ -133,6 +134,7 @@ class MainWindow(QMainWindow):
         
         if other:
             self.setCurrentDocument(other.currentDocument())
+        self.updateWindowTitle()
         app.mainwindowCreated(self)
         
     def documents(self):
@@ -246,7 +248,16 @@ class MainWindow(QMainWindow):
             if doc.isModified():
                 # L10N: state of document in window titlebar
                 name.append(_("[modified]"))
-        self.setWindowTitle(app.caption(" ".join(name)))
+        git_branch = ''
+        if app.is_git_controlled():
+            git_branch = app.repo.current_branch()
+            remote_name, remote_branch = app.repo.tracked_remote(git_branch)
+            if git_branch != remote_branch:
+                remote_name += '/' + remote_branch
+            git_branch = ' ({branch} [{remote}])'.format(
+                            branch=git_branch, 
+                            remote=remote_name)
+        self.setWindowTitle(app.caption(" ".join(name)) + git_branch)
     
     def dropEvent(self, ev):
         if not ev.source() and ev.mimeData().hasUrls():
