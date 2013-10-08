@@ -136,6 +136,10 @@ class Git(object):
         args = [] if local else ['-a']
         return [line.strip() for line in self._run_git_command('branch', args)]
         
+    def checkout(self, branch):
+        print 'enter checkout()'
+        self._run_git_command('checkout', branch)
+        
     def current_branch(self):
         """
         Returns the name of the current branch.
