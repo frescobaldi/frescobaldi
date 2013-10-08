@@ -182,6 +182,12 @@ class FontsColors(preferences.Page):
         else:
             self._printScheme = None
         self.changed.emit()
+    
+    def addSchemeData(self, scheme, tfd):
+        self.data[scheme] = tfd
+        
+    def currentSchemeData(self):
+        return self.data[self.scheme.currentScheme()]
         
     def updateDisplay(self):
         data = self.data[self.scheme.currentScheme()]
@@ -253,6 +259,19 @@ class FontsColors(preferences.Page):
         self.updateDisplay()
         self.changed.emit()
         
+    def import_(self, filename):
+        from . import import_export
+        import_export.importTheme(filename, self, self.scheme)
+        
+    def export(self, name, filename):
+        from . import import_export
+        try:
+            import_export.exportTheme(self, name, filename)
+        except (IOError, OSError) as e:
+            QMessageBox.critical(self, _("Error"), _(
+                "Can't write to destination:\n\n{url}\n\n{error}").format(
+                url=filename, error=e.strerror))
+    
     def loadSettings(self):
         self.data = {} # holds all data with scheme as key
         self._printScheme = QSettings().value("printer_scheme", "default", type(""))

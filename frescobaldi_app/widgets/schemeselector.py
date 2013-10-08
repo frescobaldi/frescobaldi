@@ -23,13 +23,14 @@ A widget that provides a scheme selector, with New and Remove buttons.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QSettings, pyqtSignal
+from PyQt4.QtCore import QSettings, pyqtSignal, Qt
 from PyQt4.QtGui import (
-    QComboBox, QHBoxLayout, QInputDialog, QLabel, QPushButton, QWidget)
+    QComboBox, QHBoxLayout, QInputDialog, QLabel, QPushButton, QWidget, 
+    QAction, QMenu, QFileDialog)
 
 import app
 import icons
-import preferences
+import os
 
 
 class SchemeSelector(QWidget):
@@ -39,69 +40,148 @@ class SchemeSelector(QWidget):
     
     def __init__(self, parent=None):
         super(SchemeSelector, self).__init__(parent)
-        
         layout = QHBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
         
-        self.label = QLabel(_("Scheme:"))
+        self.label = QLabel()
         self.scheme = QComboBox()
-        self.label.setBuddy(self.scheme)
-        self.add = QPushButton(icons.get('list-add'), '')
-        self.remove = QPushButton(icons.get('list-remove'), '')
+        self.menuButton = QPushButton(flat=True)
+        menu = QMenu(self.menuButton)
+        self.menuButton.setMenu(menu)
         layout.addWidget(self.label)
         layout.addWidget(self.scheme)
-        layout.addWidget(self.add)
-        layout.addWidget(self.remove)
+        layout.addWidget(self.menuButton)
+        layout.addStretch(1)
+        # action generator
+        def act(slot, icon=None):
+            a = QAction(self, triggered=slot)
+            self.addAction(a)
+            icon and a.setIcon(icons.get(icon))
+            return a
+        
+        # add action
+        a = self.addAction_ = act(self.slotAdd, 'list-add')
+        menu.addAction(a)
+        
+        # remove action
+        a = self.removeAction = act(self.slotRemove, 'list-remove')
+        menu.addAction(a)
+        
+       
+        # rename action
+        a = self.renameAction = act(self.slotRename, 'document-edit')
+        menu.addAction(a)
+        
+        menu.addSeparator()
+        
+        # import action
+        a = self.importAction = act(self.slotImport, 'document-open')
+        menu.addAction(a)
+        
+        # export action
+        a = self.exportAction = act(self.slotExport, 'document-save-as')
+        menu.addAction(a)
+        
+        
         self.scheme.currentIndexChanged.connect(self.slotSchemeChanged)
-        self.add.clicked.connect(self.addClicked)
-        self.remove.clicked.connect(self.removeClicked)
         app.translateUI(self)
         
     def translateUI(self):
         self.label.setText(_("Scheme:"))
-        self.add.setText(_("New Scheme", "&New..."))
-        self.remove.setText(_("&Remove"))
+        self.menuButton.setText(_("&Menu"))
+        self.addAction_.setText(_("&Add..."))
+        self.removeAction.setText(_("&Remove"))
+        self.renameAction.setText(_("Re&name..."))
+        self.importAction.setText(_("&Import..."))
+        self.exportAction.setText(_("&Export..."))
         
     def slotSchemeChanged(self, index):
         """Called when the Scheme combobox is changed by the user."""
-        self.remove.setEnabled(bool(index))
+        self.disableDefault(self.scheme.itemData(index) == 'default')
         self.currentChanged.emit()
         self.changed.emit()
     
+    def disableDefault(self, val):
+        self.removeAction.setDisabled(val)
+        self.renameAction.setDisabled(val)
+    
     def schemes(self):
         """Returns the list with internal names of currently available schemes."""
-        return self._schemes
+        return [self.scheme.itemData(i) for i in range(self.scheme.count())]
         
     def currentScheme(self):
         """Returns the internal name of the currently selected scheme"""
-        return self._schemes[self.scheme.currentIndex()]
+        return self.scheme.itemData(self.scheme.currentIndex())
         
-    def removeClicked(self):
-        index = self.scheme.currentIndex()
-        if index == 0:
-            return # default can not be removed
-        
-        self._schemesToRemove.add(self._schemes[index])
-        del self._schemes[index]
-        del self._schemeNames[index]
-        self.scheme.removeItem(index)
+    def insertSchemeItem(self, name, scheme):
+        for i in range(1, self.scheme.count()):
+            n = self.scheme.itemText(i)
+            if n.lower() > name.lower():
+                self.scheme.insertItem(i, name, scheme)
+                break
+        else:
+            self.scheme.addItem(name, scheme)
     
-    def addClicked(self):
+    def addScheme(self, name):
+        num, key = 1, 'user1'
+        while key in self.schemes() or key in self._schemesToRemove:
+            num += 1
+            key = 'user{0}'.format(num)
+        self.insertSchemeItem(name, key)
+        self.scheme.setCurrentIndex(self.scheme.findData(key))
+        return key
+    
+    def slotAdd(self):
         name, ok = QInputDialog.getText(self,
             app.caption(_("Add Scheme")),
             _("Please enter a name for the new scheme:"))
-        if not ok:
-            return
-        num, key = 1, 'user1'
-        while key in self._schemes or key in self._schemesToRemove:
-            num += 1
-            key = 'user{0}'.format(num)
-        self._schemes.append(key)
-        self._schemeNames.append(name)
-        self.scheme.addItem(name)
-        self.scheme.setCurrentIndex(self.scheme.count() - 1)
+        if ok:
+            self.addScheme(name)
         
+    
+    def slotRemove(self):
+        index = self.scheme.currentIndex()
+        scheme = self.scheme.itemData(index)
+        if scheme == 'default':
+            return # default can not be removed
+        
+        self._schemesToRemove.add(scheme)
+        self.scheme.removeItem(index)
+    
+    def slotRename(self):
+        index = self.scheme.currentIndex()
+        name = self.scheme.itemText(index)
+        scheme = self.scheme.itemData(index)
+        newName, ok = QInputDialog.getText(self, _("Rename"), _("New name:"), text=name)
+        if ok:
+            self.scheme.blockSignals(True)
+            self.scheme.removeItem(index)
+            self.insertSchemeItem(newName, scheme)
+            self.scheme.setCurrentIndex(self.scheme.findData(scheme))
+            self.scheme.blockSignals(False)
+            self.changed.emit()
+           
+    def slotImport(self):
+        filetypes = "{0} (*.xml);;{1} (*)".format(_("XML Files"), _("All Files"))
+        caption = app.caption(_("dialog title", "Import color theme"))
+        filename = QFileDialog.getOpenFileName(self, caption, os.environ['HOME'], filetypes)
+        if filename:
+            self.parent().import_(filename)
+    
+    def slotExport(self):
+        name = self.scheme.currentText()
+        filetypes = "{0} (*.xml);;{1} (*)".format(_("XML Files"), _("All Files"))
+        caption = app.caption(_("dialog title",
+            "Export {name}").format(name=name))
+        path = os.path.join(os.environ['HOME'], name+'.xml')
+        filename = QFileDialog.getSaveFileName(self, caption, path, filetypes)
+        if filename:
+            if os.path.splitext(filename)[1] != '.xml':
+                filename += '.xml'
+            self.parent().export(name, filename)
+            
+    
     def loadSettings(self, currentKey, namesGroup):
         # dont mark schemes for removal anymore
         self._schemesToRemove = set()
@@ -111,18 +191,16 @@ class SchemeSelector(QWidget):
         
         # load the names for the shortcut schemes
         s.beginGroup(namesGroup)
-        self._schemes = ["default"]
-        self._schemeNames = [_("Default")]
-        for key in s.childKeys():
-            self._schemes.append(key)
-            self._schemeNames.append(s.value(key, key, type("")))
-        block = self.scheme.blockSignals(True)
         self.scheme.clear()
-        self.scheme.addItems(self._schemeNames)
+        self.scheme.addItem(_("Default"), "default")
+        lst = [(s.value(key, key, type("")), key) for key in s.childKeys()]
+        for name, key in sorted(lst, key=lambda f: f[0].lower()):
+            self.scheme.addItem(name, key)
+        block = self.scheme.blockSignals(True)
         
         # find out index
-        index = self._schemes.index(cur) if cur in self._schemes else 0
-        self.remove.setEnabled(bool(index))
+        index = self.scheme.findData(cur)
+        self.disableDefault(cur == 'default')
         self.scheme.setCurrentIndex(index)
         self.scheme.blockSignals(block)
         self.currentChanged.emit()
@@ -131,9 +209,10 @@ class SchemeSelector(QWidget):
         # first save new scheme names
         s = QSettings()
         s.beginGroup(namesGroup)
-        for scheme, name in zip(self._schemes, self._schemeNames)[1:]:
-            s.setValue(scheme, name)
-        # then remove removed schemes
+        for i in range(self.scheme.count()):
+            if self.scheme.itemData(i) != 'default':
+                s.setValue(self.scheme.itemData(i), self.scheme.itemText(i))
+        
         for scheme in self._schemesToRemove:
             s.remove(scheme)
         s.endGroup()
