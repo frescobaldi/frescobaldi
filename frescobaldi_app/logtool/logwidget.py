@@ -162,6 +162,7 @@ class LogWidget(log.Log):
         cursor.setPosition(pos)
         self.setTextCursor(cursor)
         # jump to the error location
+        print url
         cursor = errors.errors(self._document()).cursor(url, True)
         if cursor:
             self.parentWidget().mainwindow().setTextCursor(cursor, findOpenView=True)

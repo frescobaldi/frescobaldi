@@ -34,6 +34,8 @@ Changes in 2.0.11 -- October 16th, 2013
 * Bug fixes:
   - various fixes and improvements on Mac OS X by Davide Liessi
   - fix splash screen shown as grey rectangle on some systems
+  - in the LilyPond log, clicking on error mesages in files with '..' in their
+    path (happens when using e.g. \include "../blabla.ly") now works.
 
 
 Changes in 2.0.10 -- May 12th, 2013
