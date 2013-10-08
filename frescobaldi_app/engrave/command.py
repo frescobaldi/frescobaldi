@@ -23,13 +23,14 @@ Creates the commandline or Job to engrave a music document.
 
 from __future__ import unicode_literals
 
-import os
+import os, sys
 
 from PyQt4.QtCore import QSettings
 
 import job
 import documentinfo
 import lilypondinfo
+import preview_mode
 
 
 def info(document):
@@ -38,8 +39,61 @@ def info(document):
     if version and QSettings().value("lilypond_settings/autoversion", False, bool):
         return lilypondinfo.suitable(version)
     return lilypondinfo.preferred()
-        
 
+# dictionary mapping internal option names to command line switches
+previewoptions = {
+    'skylines': '-ddebug-display-skylines', 
+    'control-points': '-ddebug-control-points', 
+    'voices': '-ddebug-voices', 
+    'directions': '-ddebug-directions',
+    'grob-anchors': '-ddebug-grob-anchors',
+    'grob-names': '-ddebug-grob-names',
+    'custom-file': '-ddebug-custom-file', 
+    'paper-columns': '-ddebug-paper-columns', 
+    'annotate-spacing': '-ddebug-annotate-spacing',
+}
+
+def check_option(s, command, key):
+    """
+    Append a command line switch if the option is set
+    """    
+    if s.value(key, False, bool):
+        command.append(previewoptions[key])
+
+def preview_options():
+    """
+    Conditionally append command line options for Debug Modes
+    """
+    s = QSettings()
+    s.beginGroup("lilypond_settings")
+    cmd_options = ['-dpoint-and-click']
+    args = []
+    
+    # add options that are checked in the dockable panel
+    check_option(s, args, 'control-points')
+    check_option(s, args, 'voices')
+    check_option(s, args, 'skylines')
+    check_option(s, args, 'directions')
+    check_option(s, args, 'grob-anchors')
+    check_option(s, args, 'grob-names')
+    check_option(s, args, 'paper-columns')
+    check_option(s, args, 'annotate-spacing')
+    if s.value('custom-file', False, bool):
+        file_to_include = s.value('custom-filename', '', type(''))
+        if file_to_include:
+            args.append('-ddebug-custom-file=' + file_to_include)
+    
+    # only add the extra commands when at least one debug mode is used
+    if args:
+        cmd_options.extend(args)
+        # Add subdir with preview-mode files to search path
+        cmd_options.append('-I' + preview_mode.__path__[0])
+    
+        # File that conditionally includes different formatters
+        cmd_options.append('-dinclude-settings=debug-layout-options.ly') 
+   
+    return cmd_options
+    
 def defaultJob(document, preview):
     """Returns a default job for the document."""
     filename, mode, includepath = documentinfo.info(document).jobinfo(True)
@@ -47,14 +101,18 @@ def defaultJob(document, preview):
     i = info(document)
     j = job.Job()
     
-    command = [i.command]
+    command = [i.abscommand()]
     s = QSettings()
     s.beginGroup("lilypond_settings")
     if s.value("delete_intermediate_files", True, bool):
         command.append('-ddelete-intermediate-files')
     else:
         command.append('-dno-delete-intermediate-files')
-    command.append('-dpoint-and-click' if preview else '-dno-point-and-click')
+    if preview:
+        # Conditionally add Debug Mode options
+        command.extend(preview_options())
+    else:
+        command.append('-dno-point-and-click')
     command.append('--pdf')
     command.extend('-I' + path for path in includepath)
     j.directory = os.path.dirname(filename)
@@ -65,5 +123,3 @@ def defaultJob(document, preview):
     j.setTitle("{0} {1} [{2}]".format(
         os.path.basename(i.command), i.versionString(), document.documentName()))
     return j
-
-

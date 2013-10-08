@@ -25,6 +25,7 @@ from __future__ import unicode_literals
 
 import glob
 import os
+import sys
 import re
 
 from PyQt4.QtCore import QEventLoop, QSettings, QTimer
@@ -113,10 +114,18 @@ def preferred():
 
 
 def suitable(version):
-    """Returns a LilyPondInfo with a suitable version if found, else returns preferred()."""
-    for i in sorted(infos(), key=lambda i: i.version()):
-        if i.version() >= version:
-            return i
+    """Return a LilyPondInfo with a suitable version if found.
+    
+    Otherwise the most recent LilyPond version is returned.
+    
+    """
+    infos_ = [i for i in infos() if i.auto]
+    if infos_:
+        infos_.sort(key=lambda i: i.version())
+        for i in infos_:
+            if i.version() >= version:
+                return i
+        return i # return the latest anyway
     return preferred()
 
 
@@ -142,6 +151,7 @@ class LilyPondInfo(object):
     def __init__(self, command):
         self._command = command
         self.auto = True
+        self.name = "LilyPond"
         self.lilypond_book = 'lilypond-book'
         self.convert_ly = 'convert-ly'
     
@@ -158,10 +168,39 @@ class LilyPondInfo(object):
             path = glob.glob(os.path.join(
                 os.environ.get('ProgramFiles', 'C:\\Program Files'),
                 'LilyPond*', 'usr', 'bin'))
+        elif sys.platform.startswith('darwin'):
+            # also on Mac OS X, LilyPond is not automatically added to the PATH
+            path = glob.glob(os.path.join(
+                '/Applications', 'LilyPond.app', 'Contents', 'Resources', 'bin'))
         else:
             path = None
         return util.findexe(self.command, path) or False
-
+    
+    @CachedProperty.cachedproperty(depends=abscommand)
+    def displaycommand(self):
+        """The path to the command in a format pretty to display.
+        
+        This removes the 'out/bin/lilypond' part of custom build LilyPond
+        versions, and on Mac OS X it removes the
+        '/Contents/Resources/bin/lilypond' part.
+        
+        Finally it replaces the users home directory with '~'.
+        
+        The empty string is returned if LilyPond is not installed on the users'
+        system.
+        """
+        command = self.abscommand()
+        if command:
+            outstrip='out/bin/lilypond'
+            if command.endswith(outstrip):
+                command=command[:-len(outstrip)]
+            macstrip='/Contents/Resources/bin/lilypond'
+            if sys.platform.startswith('darwin') and command.endswith('.app' + macstrip):
+                command=command[:-len(macstrip)]
+            return util.homify(command)
+        else:
+            return ""
+    
     @CachedProperty.cachedproperty(depends=abscommand)
     def versionString(self):
         if not self.abscommand():
@@ -234,7 +273,43 @@ class LilyPondInfo(object):
                         return
             self.datadir = False
         _scheduler.add(p)
-
+    
+    def toolcommand(self, command):
+        """Return a list containing the commandline to run a tool, e.g. convert-ly.
+        
+        On Unix and Mac OS X, the list has one element: the full path to the tool.
+        On Windows, the list has two elements: the LilyPond-provided Python
+        interpeter and the tool path.
+        
+        """
+        toolpath = os.path.join(self.bindir(), command)
+        
+        # on Windows the tool command is not directly executable, but
+        # must be started using the LilyPond-provided Python interpreter
+        if os.name == "nt":
+            if not os.access(toolpath, os.R_OK) and not toolpath.endswith('.py'):
+                toolpath += '.py'
+            command = [self.python(), toolpath]
+        else:
+            command = [toolpath]
+        return command
+    
+    @CachedProperty.cachedproperty(depends=versionString)
+    def prettyName(self):
+        """Return a pretty-printable name for this LilyPond instance."""
+        command = self.abscommand() or ""
+        # strip unneeded cruft from the command name
+        outstrip='out/bin/lilypond'
+        if command.endswith(outstrip):
+            command=command[:-len(outstrip)]
+        macstrip='/Contents/Resources/bin/lilypond'
+        if sys.platform.startswith('darwin') and command.endswith('.app' + macstrip):
+            command=command[:-len(macstrip)]
+        return "{name} {version} ({command})".format(
+            name = self.name,
+            version = self.versionString(),
+            command = util.homify(command))
+    
     @classmethod
     def read(cls, settings):
         """Returns a new LilyPondInfo instance, filled from a QSettings instance.
@@ -247,6 +322,7 @@ class LilyPondInfo(object):
             info = cls(cmd)
             if info.abscommand.wait():
                 info.auto = settings.value("auto", True, bool)
+                info.name = settings.value("name", "LilyPond", type(""))
                 info.lilypond_book = settings.value("lilypond-book", "lilypond-book", type(""))
                 info.convert_ly = settings.value("convert-ly", "convert-ly", type(""))
                 if int(os.path.getmtime(info.abscommand())) == int(settings.value("mtime", 0, float)):
@@ -264,6 +340,7 @@ class LilyPondInfo(object):
         if self.abscommand():
             settings.setValue("mtime", int(os.path.getmtime(self.abscommand())))
         settings.setValue("auto", self.auto)
+        settings.setValue("name", self.name)
         settings.setValue("lilypond-book", self.lilypond_book)
         settings.setValue("convert-ly", self.convert_ly)
 

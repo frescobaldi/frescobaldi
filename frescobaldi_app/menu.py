@@ -43,6 +43,7 @@ import scorewiz
 import autocomplete
 import sidebar
 import matcher
+import file_import
 
 
 # postpone translation
@@ -103,15 +104,27 @@ def menu_file(mainwindow):
     m.addAction(ac.file_reload_all)
     m.addAction(ac.file_external_changes)
     m.addSeparator()
+    m.addMenu(menu_file_import(mainwindow))
+    m.addMenu(menu_file_export(mainwindow))
+    m.addSeparator()
     m.addAction(panelmanager.manager(mainwindow).musicview.actionCollection.music_print)
     m.addAction(ac.file_print_source)
-    m.addMenu(menu_file_export(mainwindow))
     m.addSeparator()
     m.addAction(ac.file_close)
     m.addAction(ac.file_close_other)
     m.addAction(ac.file_close_all)
     m.addSeparator()
     m.addAction(ac.file_quit)
+    if app.is_git_controlled():
+        m.addAction(ac.file_restart)
+    return m
+
+
+def menu_file_import(mainwindow):
+    m = Menu(_("submenu title", "&Import"), mainwindow)
+    ac = file_import.FileImport.instance(mainwindow).actionCollection
+    
+    m.addAction(ac.import_musicxml)
     return m
 
 
@@ -256,6 +269,7 @@ def menu_tools(mainwindow):
     m.addMenu(menu_tools_pitch(mainwindow))
     m.addMenu(menu_tools_rhythm(mainwindow))
     m.addMenu(menu_tools_lyrics(mainwindow))
+    m.addMenu(menu_tools_quick_remove(mainwindow))
     m.addSeparator()
     ac = documentactions.get(mainwindow).actionCollection
     m.addAction(ac.tools_convert_ly)
@@ -289,6 +303,7 @@ def menu_tools_pitch(mainwindow):
     m.addAction(ac.pitch_abs2rel)
     m.addSeparator()
     m.addAction(ac.pitch_transpose)
+    m.addAction(ac.pitch_modal_transpose)
     return m
 
 
@@ -313,6 +328,20 @@ def menu_tools_rhythm(mainwindow):
     m.addAction(ac.rhythm_apply)
     m.addAction(ac.rhythm_copy)
     m.addAction(ac.rhythm_paste)
+    return m
+
+
+def menu_tools_quick_remove(mainwindow):
+    m = Menu(_('submenu title', "&Quick Remove"), mainwindow)
+    m.setIcon(icons.get('edit-clear'))
+    ac = documentactions.DocumentActions.instance(mainwindow).actionCollection
+    
+    m.addAction(ac.tools_quick_remove_articulations)
+    m.addAction(ac.tools_quick_remove_ornaments)
+    m.addAction(ac.tools_quick_remove_instrument_scripts)
+    m.addAction(ac.tools_quick_remove_slurs)
+    m.addAction(ac.tools_quick_remove_dynamics)
+    m.addAction(ac.tools_quick_remove_markup)
     return m
 
 

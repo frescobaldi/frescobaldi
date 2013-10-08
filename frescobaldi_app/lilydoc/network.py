@@ -21,12 +21,11 @@
 Network-related utility functions for LilyPond Documentation.
 """
 
-import locale
-
 from PyQt4.QtCore import QSettings
 from PyQt4.QtNetwork import QNetworkReply, QNetworkRequest
 
 import app
+import po
 import networkaccessmanager
 
 
@@ -50,25 +49,34 @@ def langs():
     """Returns a list of language codes wished for documentation.
     
     If the list is empty, english (untranslated) is assumed.
+    If a language code also has a country suffix, a hyphen will be used
+    as separator (as required per RFC2616, Accept-Language header).
     
     """
     s = QSettings()
+    langs = []
     lang = s.value("documentation/language", "default", type(""))
-    if lang == "C":
-        return []
-    elif lang == "default":
+
+    if lang == "default":
         lang = s.value("language", "", type(""))
-        if not lang:
-            try:
-                lang = locale.getdefaultlocale()[0]
-            except ValueError:
-                return []
-        if not lang or lang == "none":
-            return []
-    if '_' in lang:
-        return [lang, lang.split('_')[0]]
-    else:
-        return [lang]
+    if lang and lang != "C":
+        langs.append(lang)
+    langs.extend(po.setup.preferred())
+    
+    # now fixup the list, remove dups and
+    # language/country codes in Accept-Language headers must have '-' and not '_'
+    result = []
+    def add(item):
+        if item not in result:
+            result.append(item)
+    for l in langs:
+        # if there is a language/country code, insert also the generic language code
+        if '_' in l:
+            add(l.replace('_', '-'))
+            add(l.split('_')[0])
+        else:
+            add(l)
+    return result
 
 
 class NetworkAccessManager(networkaccessmanager.NetworkAccessManager):

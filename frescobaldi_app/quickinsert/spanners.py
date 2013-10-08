@@ -23,10 +23,14 @@ The Quick Insert panel spanners Tool.
 
 from __future__ import unicode_literals
 
+from PyQt4.QtGui import QHBoxLayout, QToolButton
+
 import app
+import icons
 import cursortools
 import tokeniter
 import music
+import documentactions
 import symbols
 
 from . import tool
@@ -37,9 +41,27 @@ class Spanners(tool.Tool):
     """Dynamics tool in the quick insert panel toolbox."""
     def __init__(self, panel):
         super(Spanners, self).__init__(panel)
+        self.removemenu = QToolButton(self,
+            autoRaise=True,
+            popupMode=QToolButton.InstantPopup,
+            icon=icons.get('edit-clear'))
+        
+        mainwindow = panel.parent().mainwindow()
+        mainwindow.selectionStateChanged.connect(self.removemenu.setEnabled)
+        self.removemenu.setEnabled(mainwindow.hasSelection())
+        
+        ac = documentactions.DocumentActions.instance(mainwindow).actionCollection
+        self.removemenu.addAction(ac.tools_quick_remove_slurs)
+        
+        layout = QHBoxLayout()
+        layout.addWidget(self.removemenu)
+        layout.addStretch(1)
+        
+        self.layout().addLayout(layout)
         self.layout().addWidget(ArpeggioGroup(self))
         self.layout().addWidget(GlissandoGroup(self))
         self.layout().addWidget(SpannerGroup(self))
+        self.layout().addWidget(GraceGroup(self))
         self.layout().addStretch(1)
 
     def icon(self):
@@ -129,8 +151,7 @@ class GlissandoGroup(buttongroup.ButtonGroup):
                 text = '\\glissando'
             c.insertText(text)
             return
-
-
+     
 class SpannerGroup(buttongroup.ButtonGroup):
     def translateUI(self):
         self.setTitle(_("Spanners"))
@@ -164,21 +185,77 @@ class SpannerGroup(buttongroup.ButtonGroup):
             for s, c in zip(spanner, spanner_positions(cursor)):
                 c.insertText(s)
 
+class GraceGroup(buttongroup.ButtonGroup):
+    def translateUI(self):
+        self.setTitle(_("Grace Notes"))
+        
+    def actionData(self):
+        for name, title in self.actionTexts():
+            yield name, symbols.icon(name), None
+            
+    def actionTexts(self):
+        yield 'grace_grace', _("Grace Notes")
+        yield 'grace_beam', _("Grace Notes w. beaming")
+        yield 'grace_accia', _("Acciaccatura")
+        yield 'grace_appog', _("Appoggiatura")
+        yield 'grace_slash', _("Slashed no slur")
+        yield 'grace_after', _("After grace")
+  		
+    def actionTriggered(self, name):
+        d = ['_', '', '^'][self.direction()+1]
+        single = ''
+        if name == "grace_grace":
+            inner = ''
+            outer = '\\grace { ', ' }'
+        elif name == "grace_beam":
+            inner = d + '[', ']'
+            outer = '\\grace { ', ' }'
+        elif name == "grace_accia":
+            inner = ''
+            outer = '\\acciaccatura { ', ' }'
+            single = '\\acciaccatura '
+        elif name == "grace_appog":
+            inner = ''
+            outer = '\\appoggiatura { ', ' }'
+            single = '\\appoggiatura '
+        elif name == "grace_slash":
+            inner = d + '[', ']'
+            outer = '\\slashedGrace { ', ' }'
+        elif name == "grace_after":
+            inner = d + '{ '
+            outer = '\\afterGrace ', ' }'        		
 
+        cursor = self.mainwindow().textCursor()
+        with cursortools.compress_undo(cursor):
+            if inner:     
+            	for i, ci in zip(inner, spanner_positions(cursor)):
+                	ci.insertText(i)
+            if cursor.hasSelection():
+            	ins = self.mainwindow().textCursor()      
+            	ins.setPosition(cursor.selectionStart())
+            	ins.insertText(outer[0])
+            	ins.setPosition(cursor.selectionEnd())
+            	ins.insertText(outer[1])
+            else:
+            	cursor.insertText(single)
+        
+        
+                
 def spanner_positions(cursor):
     """Return a list with 0 to 2 QTextCursor instances.
     
     At the first cursor a starting spanner item can be inserted, at the
     second an ending item.
     
-    """ 
+    """   
+    
     if cursor.hasSelection():
         source = tokeniter.Source.selection(cursor, True)
         tokens = None
     else:
         source = tokeniter.Source.from_cursor(cursor, True, -1)
         tokens = source.tokens # only current line
-    
+	  
     positions = [source.cursor(p[-1], start=len(p[-1]))
         for p in music.music_items(source, tokens=tokens)]
     
@@ -187,7 +264,8 @@ def spanner_positions(cursor):
     else:
         del positions[2:]
     return positions
-
+     	
+ 	
 
 
 _arpeggioTypes = {

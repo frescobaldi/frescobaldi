@@ -31,6 +31,7 @@ from colorize import colorize
 
 import info
 
+from .cnt_engraving import engraving
 
 class nohelp(page):
     """Shown when no help is found."""
@@ -80,6 +81,7 @@ revealed by pressing {key_whatsthis} or by selecting {menu_whatsthis}.
             music_view,
             tools,
             editor,
+            engraving,
             preferences.prefshelp.preferences_dialog,
             troubleshooting,
             about,

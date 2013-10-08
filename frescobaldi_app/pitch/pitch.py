@@ -27,6 +27,7 @@ import itertools
 import re
 
 from PyQt4.QtGui import QMessageBox, QTextCursor
+from fractions import Fraction
 
 import app
 import help
@@ -378,9 +379,13 @@ def abs2rel(cursor):
                                 chord.append(p)
 
 
-def transpose(cursor, mainwindow):
-    """Transposes pitches."""
-    language = documentinfo.info(cursor.document()).pitchLanguage() or 'nederlands'
+def getTransposer(document, mainwindow):
+    """Show a dialog and return the desired transposer.
+    
+    Returns None if the dialog was cancelled.
+    
+    """
+    language = documentinfo.info(document).pitchLanguage() or 'nederlands'
     
     def readpitches(text):
         """Reads pitches from text."""
@@ -400,10 +405,51 @@ def transpose(cursor, mainwindow):
         "using the pitch name language \"{language}\"."
         ).format(language=language), icon = icons.get('tools-transpose'),
         help = transpose_help, validate = validate)
-    if text == None:
-        return
     
-    transposer = ly.pitch.Transposer(*readpitches(text))
+    if text:
+        return ly.pitch.Transposer(*readpitches(text))
+
+
+def getModalTransposer(document, mainwindow):
+    """Show a dialog and return the desired modal transposer.
+    
+    Returns None if the dialog was cancelled.
+    
+    """
+    language = documentinfo.info(document).pitchLanguage() or 'nederlands'
+    
+    def readpitches(text):
+        """Reads pitches from text."""
+        result = []
+        for pitch, octave in re.findall(r"([a-z]+)([,']*)", text):
+            r = ly.pitch.pitchReader(language)(pitch)
+            if r:
+                result.append(ly.pitch.Pitch(*r, octave=ly.pitch.octaveToNum(octave)))
+        return result
+    
+    def validate(text):
+        """Returns whether the text is an integer followed by the name of a key."""
+        words = text.split()
+        if len(words) != 2:
+            return False
+        try:
+            steps = int(words[0])
+            keyIndex = ly.pitch.ModalTransposer.getKeyIndex(words[1])
+            return True
+        except ValueError:
+            return False
+    
+    text = inputdialog.getText(mainwindow, _("Transpose"), _(
+        "Please enter the number of steps to alter by, followed by a key signature. (i.e. \"5 F\")"
+        ), icon = icons.get('tools-transpose'),
+        help = transpose_help, validate = validate)
+    if text:
+        words = text.split()
+        return ly.pitch.ModalTransposer(int(words[0]), ly.pitch.ModalTransposer.getKeyIndex(words[1]))
+
+    
+def transpose(cursor, transposer, mainwindow=None):
+    """Transpose pitches using the specified transposer."""
     
     selection = cursor.hasSelection()
     if selection:

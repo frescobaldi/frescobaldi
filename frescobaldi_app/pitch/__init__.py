@@ -52,6 +52,7 @@ class Pitch(plugin.MainWindowPlugin):
         ac.pitch_rel2abs.triggered.connect(self.rel2abs)
         ac.pitch_abs2rel.triggered.connect(self.abs2rel)
         ac.pitch_transpose.triggered.connect(self.transpose)
+        ac.pitch_modal_transpose.triggered.connect(self.modalTranspose)
     
     def rel2abs(self):
         from . import pitch
@@ -66,7 +67,16 @@ class Pitch(plugin.MainWindowPlugin):
     def transpose(self):
         from . import pitch
         cursor = self.mainwindow().textCursor()
-        pitch.transpose(cursor, self.mainwindow())
+        transposer = pitch.getTransposer(cursor.document(), self.mainwindow())
+        if transposer:
+            pitch.transpose(cursor, transposer, self.mainwindow())
+    
+    def modalTranspose(self):
+        from . import pitch
+        cursor = self.mainwindow().textCursor()
+        transposer = pitch.getModalTransposer(cursor.document(), self.mainwindow())
+        if transposer:
+            pitch.transpose(cursor, transposer, self.mainwindow())
     
     def setLanguageMenu(self):
         """Called when the menu is shown; selects the correct language."""
@@ -91,9 +101,11 @@ class Actions(actioncollection.ActionCollection):
         self.pitch_rel2abs = QAction(parent)
         self.pitch_abs2rel = QAction(parent)
         self.pitch_transpose = QAction(parent)
+        self.pitch_modal_transpose = QAction(parent)
 
         self.pitch_language.setIcon(icons.get('tools-pitch-language'))
         self.pitch_transpose.setIcon(icons.get('tools-transpose'))
+        self.pitch_modal_transpose.setIcon(icons.get('tools-transpose'))
         
     def translateUI(self):
         self.pitch_language.setText(_("Pitch Name &Language"))
@@ -111,4 +123,7 @@ class Actions(actioncollection.ActionCollection):
         self.pitch_transpose.setText(_("&Transpose..."))
         self.pitch_transpose.setToolTip(_(
             "Transposes all notes in the document or selection."))
+        self.pitch_modal_transpose.setText(_("&Modal Transpose..."))
+        self.pitch_modal_transpose.setToolTip(_(
+            "Transposes all notes in the document or selection within a given mode."))
         

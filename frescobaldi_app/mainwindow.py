@@ -25,6 +25,7 @@ from __future__ import unicode_literals
 
 import itertools
 import os
+import sys
 import weakref
 
 from PyQt4.QtCore import *
@@ -55,6 +56,12 @@ import externalchanges
 
 
 class MainWindow(QMainWindow):
+    
+    # emitted when the MainWindow will close
+    aboutToClose = pyqtSignal()
+    
+    # only emitted when this is the last MainWindow to close
+    aboutToCloseLast = pyqtSignal()
     
     # both signals emit (current, previous)
     currentDocumentChanged = pyqtSignal(document.Document, document.Document)
@@ -254,9 +261,11 @@ class MainWindow(QMainWindow):
         
     def closeEvent(self, ev):
         lastWindow = len(app.windows) == 1
-        if lastWindow:
-            self.writeSettings()
         if not lastWindow or self.queryClose():
+            self.aboutToClose.emit()
+            if lastWindow:
+                self.writeSettings()
+                self.aboutToCloseLast.emit()
             app.windows.remove(self)
             app.mainwindowClosed(self)
             ev.accept()
@@ -565,6 +574,11 @@ class MainWindow(QMainWindow):
                 window.close()
         self.close()
     
+    def restart(self):
+        """Closes all MainWindows and restart Frescobaldi."""
+        self.quit()
+        app.restart()
+    
     def insertFromFile(self):
         ext = os.path.splitext(self.currentDocument().url().path())[1]
         filetypes = app.filetypes(ext)
@@ -759,6 +773,7 @@ class MainWindow(QMainWindow):
         
         # connections
         ac.file_quit.triggered.connect(self.quit, Qt.QueuedConnection)
+        ac.file_restart.triggered.connect(self.restart, Qt.QueuedConnection)
         ac.file_new.triggered.connect(self.newDocument)
         ac.file_open.triggered.connect(self.openDocument)
         ac.file_insert_file.triggered.connect(self.insertFromFile)
@@ -880,6 +895,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_close_other = QAction(parent)
         self.file_close_all = QAction(parent)
         self.file_quit = QAction(parent)
+        self.file_restart = QAction(parent)
         
         self.export_colored_html = QAction(parent)
         
@@ -987,6 +1003,17 @@ class ActionCollection(actioncollection.ActionCollection):
         
         self.help_manual.setShortcuts(QKeySequence.HelpContents)
         
+        # roles
+        if sys.platform.startswith('darwin'):
+            if '.app/Contents/MacOS' in os.path.abspath(os.path.dirname(sys.argv[0])):
+                self.file_quit.setMenuRole(QAction.QuitRole)
+                self.edit_preferences.setMenuRole(QAction.PreferencesRole)
+                self.help_about.setMenuRole(QAction.AboutRole)
+            else:
+                self.file_quit.setMenuRole(QAction.NoRole)
+                self.edit_preferences.setMenuRole(QAction.NoRole)
+                self.help_about.setMenuRole(QAction.NoRole)
+        
     def translateUI(self):
         self.file_new.setText(_("action: new document", "&New"))
         self.file_open.setText(_("&Open..."))
@@ -1010,6 +1037,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_close_all.setText(_("Close All Documents"))
         self.file_close_all.setToolTip(_("Closes all documents and leaves the current session."))
         self.file_quit.setText(_("&Quit"))
+        self.file_restart.setText(_("Restart {appname}").format(appname=info.appname))
         
         self.export_colored_html.setText(_("Export Source as Colored &HTML..."))
         

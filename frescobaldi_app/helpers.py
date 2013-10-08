@@ -31,6 +31,17 @@ import sys
 from PyQt4.QtCore import QSettings
 from PyQt4.QtGui import QDesktopServices, QMessageBox
 
+def shell_split(cmd):
+    """Split a string like the UNIX shell, returning a list.
+    
+    Double quoted parts are kept together with the quotes removed.
+    
+    """
+    # remove double quotes, keeping quoted parts together
+    # (because shlex does not yet work with unicode...)
+    return [item.replace('"', '') for item in 
+        re.findall(r'[^\s"]*"[^"]*"[^\s"]*|[^\s"]+', cmd)]
+
 
 def command(type):
     """Returns the command for the specified type as a list.
@@ -45,12 +56,7 @@ def command(type):
     if os.path.isabs(cmd) and os.access(cmd, os.X_OK):
         return [cmd]
 
-    # remove double quotes, keeping quoted parts together
-    # (because shlex does not yet work with unicode...)
-    command = [item.replace('"', '') for item in 
-        re.findall(r'[^\s"]*"[^"]*"[^\s"]*|[^\s"]+', cmd)]
-    
-    return command
+    return shell_split(cmd)
 
 
 def openUrl(url, type="browser"):

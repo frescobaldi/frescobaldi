@@ -24,20 +24,31 @@ parses text, searching for tokens represented by a regular expression.
 
 Only depends on the standard Python re module.
 
-Different contexts can be parsed by creating Parser subclasses.
-A Parser searches for tokens using a list of Token classes. (Token is a subclass
-of str in Python 3 and of unicode in Python 2). Every Token class has a class
-attribute containing the regular expression to search for.
+You need to create at least one subclass of Parser, and a subclass of Token for
+every type of text to search for. Then you list the token class names in the
+'items' tuple of the Parser subclass definition.
 
-The parser yields Token instances. A token may cause a different Parser to be
-enterend, of the current Parser to be left, etc. This is done by implementing
-the update_state() method of the Token subclass.
+Different contexts can be parsed by creating multiple Parser subclasses.
+A Parser searches for tokens using the list of Token classes. (Token is simply a
+subclass of str in Python 3 and of unicode in Python 2). Every Token subclass
+has the regular expression part to search for in its 'rx' class attribute.
+
+You start parsing text by instantiating a State (you don't need to subclass
+that) with the Parser subclass you want to parse the text with. Then you iterate
+over the generated tokens using the tokens(text) method of the State instance.
+You can use the tokens just as strings (e.g. if token == 'text'...) but you can
+also test for the type of the token (e.g. if isinstance(token, Number)...).
+The tokens also carry a 'pos' and an 'end' attribute, specifying their position
+in the parsed text string.
+
+A token may cause a different Parser to be enterend, of the current Parser to be
+left, etc. This is done by implementing the update_state() method of the Token
+subclass. This method is called automatically when the Token is instantiated.
 
 The State maintains the parsing state (the list of active Parser instances).
-
-A State can be frozen to be thawn later to resume parsing text starting
-in a particular context. A Fridge can be used to store and recover a state under
-a simple integer number.
+A State can be frozen to be thawn later to resume parsing text starting in a
+particular context. A Fridge can be used to store and recover a state under a
+simple integer number.
 
 How to use slexer:
 
@@ -124,9 +135,11 @@ class State(object):
     You instantiate a State object with an initial parser class.
     Then you use tokens(text) to start parsing for tokens.
     
-    The state is simply a list of Parser instances; the last one is the active
-    one. The enter() and leave() methods respectively enter a new parser or
-    leave the current parser (although the initial parser can never be left).
+    The state is basically a list of Parser instances; the last one is the
+    active one. The enter() and leave() methods respectively enter a new parser
+    or leave the current parser.
+    
+    You can't leave() the initial parser instance.
     
     """
     def __init__(self, initialParserClass):
@@ -134,21 +147,21 @@ class State(object):
         self.state = [initialParserClass()]
     
     def parser(self):
-        """Returns the current Parser instance."""
+        """Return the currently active Parser instance."""
         return self.state[-1]
     
     def parsers(self):
-        """Returns all active parsers in reverse order, most current first."""
+        """Return all active parsers, the most current one first."""
         return self.state[::-1]
     
     def tokens(self, text, pos=0):
-        """Parses a text string using our state info.
+        """Parse a text string using our state info.
         
         Yields Token instances. All tokens are a subclass of str (or unicode in
         Python 2.x) and have a pos and an end attribute, describing their
         position in the original string. If the current parser defines a
-        'default' class attribute, it is the Token subclass to use for otherwise
-        unparsed pieces of text.
+        'default' class attribute, it is the Token subclass to use for pieces of
+        text that would otherwise be skipped.
         
         """
         while True:
@@ -171,26 +184,68 @@ class State(object):
             yield token
     
     def enter(self, parser):
-        """Enter a new parser."""
+        """Enter a new parser.
+        
+        Note: 'parser' is an instantiated Parser subclass.
+        Most times this method will be called from with the update_state()
+        method of a Token subclass (or from a Parser subclass, which is also
+        possible: the default implementation of Token.update_state() calls
+        Parser.update_state(), which does nothing by default).
+        
+        E.g. in the Token subclass:
+        
+            def update_state(self, state):
+                state.enter(SomeDifferentParser())
+        
+        """
         self.state.append(parser)
         
     def leave(self):
-        """Leave the current parser and pop back to the previous."""
+        """Leave the current parser and pop back to the previous.
+        
+        The first parser (specified on instantiation) will never be left.
+        
+        """
         if len(self.state) > 1:
             self.state.pop()
     
     def replace(self, parser):
-        """Replaces the current parser with a new one."""
+        """Replace the current parser with a new one.
+        
+        Somewhat equivalent to:
+            state.leave()
+            state.enter(SomeDifferentParser)
+        
+        But using this method you can also replace the first parser.
+        
+        """
         self.state[-1] = parser
     
     def depth(self):
-        """Returns the number of parsers currenly active (1 or more)."""
+        """Return the number of parsers currenly active (1 or more).
+        
+        You can use this e.g. to keep parsing until some context ends:
+        
+        tokens = state.tokens(text) # iterator
+        depth = state.depth()
+        for token in tokens:
+            if state.depth() < depth:
+                break
+            # do something
+        
+        """
         return len(self.state)
     
     def follow(self, token):
         """Act as if the token has been instantiated with the current state.
         
-        Changes state according to the token.
+        You need this when you already have the parsed tokens, (e.g. cached or
+        saved somehow) but want to know which parser created them.
+        
+        This method changes state according to the token. Basically it calls the
+        update_state() method of the token instance, but it does some more work
+        behind the scenes to ensure that the FallthroughParser type (see below)
+        also is handled correctly.
         
         """
         while self.parser()._follow(token, self):
@@ -198,12 +253,12 @@ class State(object):
         token.update_state(self)
 
     def freeze(self):
-        """Returns the current state as a tuple (hashable object)."""
+        """Return the current state as a tuple (hashable object)."""
         return tuple((p.__class__, p.freeze()) for p in self.state)
     
     @classmethod
     def thaw(cls, frozen):
-        """Reproduces a State object from the frozen state argument."""
+        """Reproduce a State object from the frozen state argument."""
         state = cls.__new__(cls)
         state.state = [cls.thaw(attrs) for cls, attrs in frozen]
         return state
@@ -224,6 +279,22 @@ class Token(str):
     __slots__ = ['pos', 'end']
     
     rx = None
+    
+    @classmethod
+    def test_match(cls, match):
+        """Should return True if the match should indeed instantiate this class.
+        
+        This class method is only called if multiple Token classes in the
+        Parser's items list have the same rx attribute. This method is then
+        called for every matching Token subclass until one returns True.
+        That token is then instantiated. (The method is not called for the last
+        class in the list that have the same rx attribute, and also not if there
+        is only one class with that rx attribute.)
+        
+        The default implementation always returns True.
+        
+        """
+        return True
     
     def __new__(cls, string, pos):
         token = str.__new__(cls, string)
@@ -263,16 +334,25 @@ class PatternProperty(object):
             owner.pattern = self.pattern
             owner.index = self.index
         except AttributeError:
-            clss = list(uniq(owner.items))
+            # if Token classes have the same regexp string, group them
+            patterns = []
+            counter = {}
+            for cls in uniq(owner.items):
+                rx = cls.rx
+                try:
+                    counter[rx].append(cls)
+                except KeyError:
+                    counter[rx] = [cls]
+                    patterns.append(rx)
             # make the pattern
             owner.pattern = self.pattern = pattern = re.compile("|".join(
-                "(?P<g_{0}>{1})".format(i, cls.rx)
-                for i, cls in enumerate(clss)), owner.re_flags)
+                "(?P<g_{0}>{1})".format(i, rx)
+                for i, rx in enumerate(patterns)), owner.re_flags)
             # make a fast mapping list from matchObj.lastindex to the token class
             indices = sorted(v for k, v in pattern.groupindex.items() if k.startswith('g_'))
             owner.index = self.index = index = [None] * (indices[-1] + 1)
-            for i, cls in zip(indices, clss):
-                index[i] = cls
+            for i, rx in zip(indices, patterns):
+                index[i] = counter[rx]
         return owner.pattern
 
 
@@ -293,7 +373,9 @@ class Parser(object):
     """Abstract base class for Parsers.
     
     When creating Parser subclasses, you should set the 'items' attribute to a
-    tuple of Token subclasses.
+    tuple of Token subclasses. On class construction, a large regular expression
+    pattern is built by combining the expressions from the 'rx' attributes of
+    the Token subclasses.
     
     Additionally, you may implement the update_state() method which is called
     by the default implementation of update_state() in Token.
@@ -306,24 +388,27 @@ class Parser(object):
     items = ()
     
     def parse(self, text, pos):
-        """Parses text from position pos and returns a Match Object or None."""
+        """Parse text from position pos and returns a Match Object or None."""
         return self.pattern.search(text, pos)
     
     def token(self, match):
-        """Returns a Token instance of the correct class.
+        """Return a Token instance of the correct class.
         
         The match object is returned by the parse() method.
         
         """
-        tokenClass = self.index[match.lastindex]
-        return tokenClass(match.group(), match.start())
+        clss = self.index[match.lastindex]
+        for c in clss[:-1]:
+            if c.test_match(match):
+                return c(match.group(), match.start())
+        return clss[-1](match.group(), match.start())
     
     def _follow(self, token, state):
-        """(Internal) Called by State.follow()."""
+        """(Internal) Called by State.follow(). Does nothing."""
         pass
     
     def freeze(self):
-        """Should return our instance values as a hashable tuple."""
+        """Return our instance values as a hashable tuple."""
         return ()
     
     @classmethod
@@ -365,11 +450,15 @@ class FallthroughParser(Parser):
     
     """
     def parse(self, text, pos):
-        """Matches text at position pos and returns a Match Object or None."""
+        """Match text at position pos and returns a Match Object or None."""
         return self.pattern.match(text, pos)
     
     def _follow(self, token, state):
-        """(Internal) Called by State.follow()."""
+        """(Internal) Called by State.follow().
+        
+        Falls through if the token can't have been generated by this parser.
+        
+        """
         if type(token) not in self.items:
             self.fallthrough(state)
             return True

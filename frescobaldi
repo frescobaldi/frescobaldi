@@ -2,4 +2,6 @@
 import sys
 import frescobaldi_app.main
 import app
+
+sys.excepthook = app.excepthook
 sys.exit(app.run())

@@ -35,7 +35,7 @@ qApp = QApplication([os.path.abspath(sys.argv[0])] + sys.argv[1:])
 QApplication.setApplicationName(info.name)
 QApplication.setApplicationVersion(info.version)
 QApplication.setOrganizationName(info.name)
-QApplication.setOrganizationDomain(info.url)
+QApplication.setOrganizationDomain(info.domain)
 
 windows = []
 documents = []
@@ -103,6 +103,12 @@ def run():
     result = qApp.exec_()
     aboutToQuit()
     return result
+
+def restart():
+    """Restarts Frescobaldi."""
+    args = [os.path.abspath(sys.argv[0])] + sys.argv[1:]
+    import subprocess
+    subprocess.Popen(args)
     
 def translateUI(obj, priority=0):
     """Translates texts in the object.
@@ -159,7 +165,8 @@ def basedir():
 
 def settings(name):
     """Returns a QSettings object referring a file in ~/.config/frescobaldi/"""
-    s = QSettings(info.name, name)
+    s = QSettings()
+    s.beginGroup(name)
     s.setFallbacksEnabled(False)
     return s
 
@@ -177,4 +184,13 @@ def displayhook(obj):
     """Prevent normal displayhook from overwriting __builtin__._"""
     if obj is not None:
         print repr(obj)
+
+def is_git_controlled():
+    """Return True if Frescobaldi is running from Git.
+    
+    This is done by checking for the presence of the .git/ directory
+    
+    """
+    return os.path.isdir(os.path.join(sys.path[0], '..', '.git'))
+
 

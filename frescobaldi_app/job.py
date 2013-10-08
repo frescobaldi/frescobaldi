@@ -204,6 +204,14 @@ class Job(object):
             if type & types:
                 yield msg, type
         
+    def stdout(self):
+        """Return the standard output of the process as unicode text."""
+        return "".join(self.history(STDOUT))
+    
+    def stderr(self):
+        """Return the standard error of the process as unicode text."""
+        return "".join(self.history(STDERR))
+    
     def _finished(self, exitCode, exitStatus):
         """Called when the process has finished."""
         self.finishMessage(exitCode, exitStatus)

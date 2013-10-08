@@ -37,6 +37,7 @@ from PyQt4.QtGui import QApplication, QTextCursor
 from . import toplevel  # Find all modules and packages as toplevel
 import info             # Information about our application
 import app              # Construct QApplication
+import install          # Update QSettings structure etc. if needed
 import guistyle         # Setup GUI style
 import po.setup         # Setup language
 import remote           # IPC with other Frescobaldi instances
@@ -62,7 +63,7 @@ def parse_commandline():
     parser.add_option('-c', '--column', type="int", metavar=_("NUM"),
         help=_("Column to go to, starting at 0"), default=0)
     parser.add_option('--start', metavar=_("NAME"),
-        help=_("Session to start ('{none}' for empty session)").format(none="none"),
+        help=_("Session to start ('{none}' for empty session)").format(none="-"),
         dest="session")
     parser.add_option('--list-sessions', action="store_true", default=False,
         help=_("List the session names and exit"))
@@ -140,6 +141,7 @@ def main():
     import viewhighlighter  # highlight arbitrary ranges in text
     import progress         # creates progress bar in view space
     import autocomplete     # auto-complete input
+    import wordboundary     # better wordboundary behaviour for the editor
     
     if app.qApp.isSessionRestored():
         # Restore session, we are started by the session manager
@@ -148,7 +150,7 @@ def main():
 
     # load specified session
     doc = None
-    if options.session and options.session != "none":
+    if options.session and options.session != "-":
         doc = sessions.loadSession(options.session)
         
     # Just create one MainWindow
@@ -173,5 +175,4 @@ def main():
 
 main()
 
-sys.excepthook = app.excepthook
 sys.displayhook = app.displayhook

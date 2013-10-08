@@ -35,7 +35,7 @@ import icons
 import helpers
 import bugreport
 import language_names
-
+import po.setup
 
 def credits():
     """Iterating over this should return paragraphs for the credits page."""
@@ -60,22 +60,40 @@ def credits():
     
     yield _("The following people contributed to {appname}:").format(
         appname=info.appname)
-    # list other credits here
-    yield _("{author}: Kinetic Scrolling for the Music View").format(
-        author="Richard Cognot")
     
-    yield _("{author}: Improved highlighting and auto-completion of Scheme code").format(
-		author="Nicolas Malarmey")
+    # list other credits here
+    def author(name, *contributions):
+        return "{author}: {contributions}".format(
+            author = name,
+            contributions = ", ".join(contributions))
+            
+    yield author("Richard Cognot", 
+        _("Kinetic Scrolling for the Music View"),
+        )
+    
+    yield author("Nicolas Malarmey",
+        _("Improved highlighting and auto-completion of Scheme code"),
+		)
 	
-    yield _("{author}: Various contributions").format(
-		author="Urs Liska")
+    yield author("Urs Liska",
+        _("Preview modes"),
+        _("Various contributions"),
+		)
 	
+    yield author("Christopher Bryan",
+        _("Modal Transpose"),
+        )
+	
+    yield author("Peter Bjuhr",
+        _("Quick Insert buttons for grace notes"),
+        _("MusicXML import"),
+        )
 	
     # translations
     yield _(
         "{appname} is translated into the following languages:").format(
         appname=info.appname)
-    lang = QSettings().value("language", "", type("")) or None
+    lang = QSettings().value("language", "", type("")) or po.setup.current() or None
     langs = [(language_names.languageName(code, lang), names)
              for code, names in info.translators.items()]
     for lang, names in sorted(langs):

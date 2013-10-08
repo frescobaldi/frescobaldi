@@ -110,7 +110,7 @@ class MidiPorts(preferences.Group):
         port = midihub.default_output()
         s = QSettings()
         s.beginGroup("midi")
-        self._playerPort.setEditText(s.value("player/output_port", port))
+        self._playerPort.setEditText(s.value("player/output_port", port, type("")))
         
     def saveSettings(self):
         s = QSettings()

@@ -264,6 +264,19 @@ class DocumentInfo(plugin.DocumentPlugin):
         files = fileinfo.includefiles(filename, self.includepath(), includeargs)
         return files
 
+    def child_urls(self):
+        """Return a tuple of urls included by the Document.
+        
+        This only returns urls that are referenced directly, not searching
+        via an include path. If the Document has no url set, an empty tuple
+        is returned. 
+        
+        """
+        url = self.document().url()
+        if url.isEmpty():
+            return ()
+        return tuple(url.resolved(QUrl(arg)) for arg in self.includeargs())
+        
     @resetoncontentschanged
     def outputargs(self):
         """Returns a list of output arguments in our document.

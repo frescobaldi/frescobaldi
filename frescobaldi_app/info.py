@@ -33,7 +33,8 @@ long_description = \
     "Features include an integrated PDF preview and a powerful Score Wizard."
 maintainer = "Wilbert Berendsen"
 maintainer_email = "info@frescobaldi.org"
-url = "http://www.frescobaldi.org/"
+domain = "frescobaldi.org"
+url = "http://www.{0}/".format(domain)
 license = "GPL"
 
 # these are used in the application

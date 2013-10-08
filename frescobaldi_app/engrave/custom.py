@@ -23,8 +23,8 @@ Custom engraving dialog.
 
 from __future__ import unicode_literals
 
-import collections
 import os
+import collections
 
 from PyQt4.QtCore import QSettings, QSize
 from PyQt4.QtGui import (QCheckBox, QComboBox, QDialog, QDialogButtonBox,
@@ -40,6 +40,7 @@ import lilypondinfo
 import listmodel
 import widgets
 import qutil
+import util
 
 from . import command
 
@@ -152,8 +153,7 @@ class Dialog(QDialog):
         self.versionCombo.clear()
         for i in infos:
             icon = 'lilypond-run' if i.version() else 'dialog-error'
-            text = _("LilyPond {version}").format(version=i.versionString())
-            self.versionCombo.addItem(icons.get(icon), text)
+            self.versionCombo.addItem(icons.get(icon), i.prettyName())
         self.versionCombo.setCurrentIndex(index)
     
     def selectLilyPondInfo(self, info):
@@ -168,7 +168,7 @@ class Dialog(QDialog):
         if self.verboseCheck.isChecked():
             cmd.append('--verbose')
         if self.previewCheck.isChecked():
-            cmd.append('-dpoint-and-click')
+            cmd.extend(command.preview_options())
         else:
             cmd.append('-dno-point-and-click')
         if self.deleteCheck.isChecked():
@@ -192,7 +192,7 @@ class Dialog(QDialog):
         cmd = []
         for t in self.commandLine.toPlainText().split():
             if t == '$lilypond':
-                cmd.append(i.command)
+                cmd.append(i.abscommand())
             elif t == '$filename':
                 cmd.append(filename)
             elif t == '$include':

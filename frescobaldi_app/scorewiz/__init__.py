@@ -61,6 +61,7 @@ class Actions(actioncollection.ActionCollection):
         self.scorewiz.setShortcut(QKeySequence("Ctrl+Shift+N"))
         self.newwithwiz = QAction(parent)
         self.newwithwiz.setIcon(icons.get("tools-score-wizard"))
+        self.scorewiz.setMenuRole(QAction.NoRole)
         
     def translateUI(self):
         self.scorewiz.setText(_("Setup New Score (in current document)..."))

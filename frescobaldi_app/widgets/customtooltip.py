@@ -26,8 +26,6 @@ from __future__ import unicode_literals
 from PyQt4.QtCore import QEvent, QObject, QTimer, Qt
 from PyQt4.QtGui import QApplication, QCursor
 
-import app
-
 
 __all__ = ['hide', 'show']
 
@@ -48,7 +46,7 @@ def hide():
     if _widget:
         _widget.hide()
         _widget = None
-        app.qApp.removeEventFilter(_handler)
+        QApplication.instance().removeEventFilter(_handler)
     
 def show(widget, pos=None, timeout=10000):
     """Show the widget at position."""
@@ -62,7 +60,7 @@ def show(widget, pos=None, timeout=10000):
         global _handler
         if _handler is None:
             _handler = EventHandler()
-        app.qApp.installEventFilter(_handler)
+        QApplication.instance().installEventFilter(_handler)
     
     # where to display the tooltip
     screen = QApplication.desktop().availableGeometry(pos)

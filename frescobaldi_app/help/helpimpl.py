@@ -97,47 +97,62 @@ class page(object):
 page = helpmeta(page.__name__, page.__bases__, dict(page.__dict__))
 
 
+_template = '''\
+{qt_detail}<html>
+<head>
+<style type="text/css">
+body {{
+  margin: 10px;
+}}
+</style>
+<title>{title}</title>
+</head>
+<body>
+{nav_up}
+<h2>{title}</h2>
+{body}
+{nav_children}
+{nav_next}
+{nav_seealso}
+<br/><hr width=80%/>
+<address><center>{appname} {version}</center></address>
+</body>
+</html>
+'''
+
+
 def html(name):
     """Returns the HTML for the named help item."""
     from . import contents
-    import info
+    from info import appname, version
     page = all_pages.get(name, contents.nohelp)
-    html = []
-    html.append('<html><head><title>{0}</title></head><body>'.format(
-        striptags(page.title())))
-    if page.popup:
-        # make this a popup (see QTextBrowser docs)
-        html.insert(0, '<qt type=detail>')
-        up = () # dont list ancestor pages in popup
-    else:
-        # show the title(s) of the pages that have us as child
-        up = [p for p in all_pages.values() if page in p.children()]
-        if up:
-            html.append('<p>'+ _("Up:"))
-            html.extend(' ' + p.link() for p in up)
-            html.append('</p>')
-    # body
-    html.append('<h2>{0}</h2>'.format(page.title()))
-    html.append(markexternal(page.body()))
-    # link to child docs
+    parents = [p for p in all_pages.values() if page in p.children()]
+    
+    qt_detail = '<qt type=detail>' if page.popup else ''
+    title = striptags(page.title())
+    nav_up = ''
+    if parents and not page.popup:
+        nav_up = '<p>{0} {1}</p>'.format(
+            _("Up:"),
+            ' '.join(p.link() for p in parents))
+    body = markexternal(page.body())
+    nav_children, nav_next, nav_seealso = '', '', ''
     if page.children():
-        html.extend('<div>{0}</div>'.format(p.link()) for p in page.children())
-    elif up:
-        # give a Next: link if there is a sibling page left
-        for p in up:
+        nav_children = '\n'.join('<div>{0}</div>'.format(p.link()) for p in page.children())
+    else:
+        html = []
+        for p in parents:
             i = p.children().index(page)
             if i < len(p.children()) - 1:
                 html.append('<div>{0} {1}</div>'.format(
                     _("Next:"), p.children()[i+1].link()))
-    # link to "see also" docs
+        nav_next = '\n'.join(html)
     if page.seealso():
+        html = []
         html.append("<p>{0}</p>".format(_("See also:")))
         html.extend('<div>{0}</div>'.format(p.link()) for p in page.seealso())
-    # nice footer
-    html.append('<br/><hr width=80%/>')
-    html.append('<address><center>{0} {1}</center></address>'.format(info.appname, info.version))
-    html.append('</body></html>')
-    return ''.join(html)
+        nav_seealso = '\n'.join(html)
+    return _template.format(**locals())
 
 
 def markexternal(text):

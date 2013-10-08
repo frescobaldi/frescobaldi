@@ -50,6 +50,13 @@ class DocumentActions(plugin.MainWindowPlugin):
         ac.tools_indent_indent.triggered.connect(self.re_indent)
         ac.tools_reformat.triggered.connect(self.reFormat)
         ac.tools_convert_ly.triggered.connect(self.convertLy)
+        ac.tools_quick_remove_articulations.triggered.connect(self.quickRemoveArticulations)
+        ac.tools_quick_remove_ornaments.triggered.connect(self.quickRemoveOrnaments)
+        ac.tools_quick_remove_instrument_scripts.triggered.connect(self.quickRemoveInstrumentScripts)
+        ac.tools_quick_remove_slurs.triggered.connect(self.quickRemoveSlurs)
+        ac.tools_quick_remove_dynamics.triggered.connect(self.quickRemoveDynamics)
+        ac.tools_quick_remove_markup.triggered.connect(self.quickRemoveMarkup)
+        
         mainwindow.currentDocumentChanged.connect(self.updateDocActions)
         mainwindow.selectionStateChanged.connect(self.updateSelectionActions)
         
@@ -63,7 +70,13 @@ class DocumentActions(plugin.MainWindowPlugin):
     
     def updateSelectionActions(self, selection):
         self.actionCollection.edit_cut_assign.setEnabled(selection)
-        
+        self.actionCollection.tools_quick_remove_articulations.setEnabled(selection)
+        self.actionCollection.tools_quick_remove_ornaments.setEnabled(selection)
+        self.actionCollection.tools_quick_remove_instrument_scripts.setEnabled(selection)
+        self.actionCollection.tools_quick_remove_slurs.setEnabled(selection)
+        self.actionCollection.tools_quick_remove_dynamics.setEnabled(selection)
+        self.actionCollection.tools_quick_remove_markup.setEnabled(selection)
+    
     def currentView(self):
         return self.mainwindow().currentView()
     
@@ -109,6 +122,30 @@ class DocumentActions(plugin.MainWindowPlugin):
     def convertLy(self):
         import convert_ly
         convert_ly.convert(self.mainwindow())
+    
+    def quickRemoveArticulations(self):
+        import quickremove
+        quickremove.articulations(self.mainwindow().textCursor())
+    
+    def quickRemoveOrnaments(self):
+        import quickremove
+        quickremove.ornaments(self.mainwindow().textCursor())
+    
+    def quickRemoveInstrumentScripts(self):
+        import quickremove
+        quickremove.instrument_scripts(self.mainwindow().textCursor())
+    
+    def quickRemoveSlurs(self):
+        import quickremove
+        quickremove.slurs(self.mainwindow().textCursor())
+    
+    def quickRemoveDynamics(self):
+        import quickremove
+        quickremove.dynamics(self.mainwindow().textCursor())
+    
+    def quickRemoveMarkup(self):
+        import quickremove
+        quickremove.markup(self.mainwindow().textCursor())
 
 
 class Actions(actioncollection.ActionCollection):
@@ -123,6 +160,12 @@ class Actions(actioncollection.ActionCollection):
         self.tools_indent_indent = QAction(parent)
         self.tools_reformat = QAction(parent)
         self.tools_convert_ly = QAction(parent)
+        self.tools_quick_remove_articulations = QAction(parent)
+        self.tools_quick_remove_ornaments = QAction(parent)
+        self.tools_quick_remove_instrument_scripts = QAction(parent)
+        self.tools_quick_remove_slurs = QAction(parent)
+        self.tools_quick_remove_dynamics = QAction(parent)
+        self.tools_quick_remove_markup = QAction(parent)
         
         self.edit_cut_assign.setIcon(icons.get('edit-cut'))
 
@@ -137,4 +180,10 @@ class Actions(actioncollection.ActionCollection):
         self.tools_indent_indent.setText(_("Re-&Indent"))
         self.tools_reformat.setText(_("&Format"))
         self.tools_convert_ly.setText(_("&Update with convert-ly...")) 
+        self.tools_quick_remove_articulations.setText(_("Remove &Articulations"))
+        self.tools_quick_remove_ornaments.setText(_("Remove &Ornaments"))
+        self.tools_quick_remove_instrument_scripts.setText(_("Remove &Instrument Scripts"))
+        self.tools_quick_remove_slurs.setText(_("Remove &Slurs"))
+        self.tools_quick_remove_dynamics.setText(_("Remove &Dynamics"))
+        self.tools_quick_remove_markup.setText(_("Remove Text &Markup (from music)"))
 

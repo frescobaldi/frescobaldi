@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-07-20 21:15+0200\n"
+"POT-Creation-Date: 2013-10-07 11:43+0200\n"
 "PO-Revision-Date: 2010-12-12 07:48+0200\n"
 "Last-Translator: Server Acim <serveracim@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -57,77 +57,95 @@ msgstr ""
 msgid "The following people contributed to {appname}:"
 msgstr ""
 
-#: ../about.py:64
-msgid "{author}: Kinetic Scrolling for the Music View"
+#: ../about.py:71
+msgid "Kinetic Scrolling for the Music View"
 msgstr ""
 
-#: ../about.py:67
-msgid "{author}: Improved highlighting and auto-completion of Scheme code"
+#: ../about.py:75
+msgid "Improved highlighting and auto-completion of Scheme code"
 msgstr ""
 
-#: ../about.py:70
-msgid "{author}: Various contributions"
+#: ../about.py:79
+#, fuzzy
+msgid "Preview modes"
+msgstr "PDF Önizleme"
+
+#: ../about.py:80
+msgid "Various contributions"
 msgstr ""
 
-#: ../about.py:76
+#: ../about.py:84
+#, fuzzy
+msgid "Modal Transpose"
+msgstr "Aktar..."
+
+#: ../about.py:88
+msgid "Quick Insert buttons for grace notes"
+msgstr ""
+
+#: ../about.py:89
+msgid "MusicXML import"
+msgstr ""
+
+#: ../about.py:94
 msgid "{appname} is translated into the following languages:"
 msgstr ""
 
-#: ../about.py:95
+#: ../about.py:113
 msgid "About {appname}"
 msgstr ""
 
-#: ../about.py:102
+#: ../about.py:120
 #, fuzzy
 msgid "About"
 msgstr "Otomatik"
 
-#: ../about.py:103 ../help/contents.py:330
+#: ../about.py:121 ../help/contents.py:332
 msgid "Credits"
 msgstr ""
 
-#: ../about.py:104
+#: ../about.py:122
 msgid "Version"
 msgstr "Sürüm"
 
-#: ../about.py:159
+#: ../about.py:177
 #, fuzzy
 msgid "Operating System"
 msgstr "Diğer satırlar:"
 
-#: ../about.py:166
+#: ../about.py:184
 #, fuzzy
 msgid "Version {version}"
 msgstr "LilyPond Sürümünü ekle"
 
-#: ../about.py:167 ../main.py:57
+#: ../about.py:185 ../main.py:58
 #, fuzzy
 msgid "A LilyPond Music Editor"
 msgstr "LilyPond Müzik Düzenleyicisi"
 
-#: ../about.py:168
+#: ../about.py:186
 msgid "Copyright (c) {year} by {author}"
 msgstr ""
 
-#: ../about.py:172
+#: ../about.py:190
 msgid "Send an e-mail message to the maintainers."
 msgstr ""
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: ../about.py:175 ../help/contents.py:57
+#: ../about.py:193 ../help/contents.py:58
 msgid "Translated by Your Name."
 msgstr ""
 
-#: ../about.py:180
+#: ../about.py:198
 msgid "Licensed under the {gpl}."
 msgstr ""
 
-#: ../actioncollectionmanager.py:122 ../preferences/shortcuts.py:203
+#: ../actioncollectionmanager.py:122 ../preferences/shortcuts.py:214
 msgid "This shortcut conflicts with the following command:"
 msgid_plural "This shortcut conflicts with the following commands:"
 msgstr[0] ""
 
-#: ../actioncollectionmanager.py:128 ../preferences/shortcuts.py:209
+#: ../actioncollectionmanager.py:128 ../preferences/shortcuts.py:220
 #, fuzzy
 msgid "Shortcut Conflict"
 msgstr "Kısayol"
@@ -136,36 +154,36 @@ msgstr "Kısayol"
 msgid "Edit again"
 msgstr ""
 
-#: ../app.py:130
+#: ../app.py:136
 #, fuzzy
 msgid "LilyPond Files"
 msgstr "LilyPond dosyaları"
 
-#: ../app.py:131
+#: ../app.py:137
 #, fuzzy
 msgid "LaTeX Files"
 msgstr "Tüm dosyalar"
 
-#: ../app.py:132
+#: ../app.py:138
 #, fuzzy
 msgid "DocBook Files"
 msgstr "PDf Dosyaları"
 
-#: ../app.py:133
+#: ../app.py:139
 #, fuzzy
 msgid "HTML Files"
 msgstr "Tüm dosyalar"
 
-#: ../app.py:134
+#: ../app.py:140
 #, fuzzy
 msgid "Texinfo Files"
 msgstr "Dosya Aç"
 
-#: ../app.py:135
+#: ../app.py:141
 msgid "Scheme Files"
 msgstr ""
 
-#: ../app.py:136 ../snippet/widget.py:292 ../snippet/widget.py:309
+#: ../app.py:142 ../snippet/widget.py:292 ../snippet/widget.py:309
 msgid "All Files"
 msgstr "Tüm dosyalar"
 
@@ -254,7 +272,7 @@ msgstr "Belgeleri yazdır"
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr ""
 
-#: ../convert_ly.py:217
+#: ../convert_ly.py:208
 #, fuzzy
 msgid ""
 "Could not start {convert_ly}:\n"
@@ -262,7 +280,7 @@ msgid ""
 "{message}\n"
 msgstr "convert-ly başlatılamadı: %1"
 
-#: ../convert_ly.py:223
+#: ../convert_ly.py:214
 #, fuzzy
 msgid "The document has not been changed."
 msgstr "Belge yazıcıya gönderildi."
@@ -286,51 +304,79 @@ msgstr "Başlıksız"
 msgid "Untitled ({num})"
 msgstr "Başlıksız"
 
-#: ../documentactions.py:133
+#: ../documentactions.py:176
 #, fuzzy
 msgid "Open File at C&ursor"
 msgstr "Dosya Aç"
 
-#: ../documentactions.py:134
+#: ../documentactions.py:177
 #, fuzzy
 msgid "Cut and Assign..."
 msgstr "Kes ve Ata:"
 
-#: ../documentactions.py:135
+#: ../documentactions.py:178
 msgid "Syntax &Highlighting"
 msgstr ""
 
-#: ../documentactions.py:136
+#: ../documentactions.py:179
 #, fuzzy
 msgid "&Automatic Indent"
 msgstr "otomatik"
 
-#: ../documentactions.py:137
+#: ../documentactions.py:180
 msgid "Re-&Indent"
 msgstr ""
 
-#: ../documentactions.py:138
+#: ../documentactions.py:181
 #, fuzzy
 msgid "&Format"
 msgstr "Fermata"
 
-#: ../documentactions.py:139
+#: ../documentactions.py:182
 #, fuzzy
 msgid "&Update with convert-ly..."
 msgstr "convert-ly ile Güncelle"
 
-#: ../documentcontextmenu.py:67 ../mainwindow.py:997
+#: ../documentactions.py:183
+#, fuzzy
+msgid "Remove &Articulations"
+msgstr "Artükülasyonlar"
+
+#: ../documentactions.py:184
+#, fuzzy
+msgid "Remove &Ornaments"
+msgstr "Süslemeler"
+
+#: ../documentactions.py:185
+msgid "Remove &Instrument Scripts"
+msgstr ""
+
+#: ../documentactions.py:186
+#, fuzzy
+msgid "Remove &Slurs"
+msgstr "Süreleri kaldır"
+
+#: ../documentactions.py:187
+#, fuzzy
+msgid "Remove &Dynamics"
+msgstr "Gürlükler"
+
+#: ../documentactions.py:188
+msgid "Remove Text &Markup (from music)"
+msgstr ""
+
+#: ../documentcontextmenu.py:67 ../mainwindow.py:1024
 #: ../sessions/manager.py:127
 #, fuzzy
 msgid "&Save"
 msgstr "Kaydet"
 
-#: ../documentcontextmenu.py:68 ../mainwindow.py:998
+#: ../documentcontextmenu.py:68 ../mainwindow.py:1025
 #, fuzzy
 msgid "Save &As..."
 msgstr "PDF'yi Farklı Kaydet..."
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:1008
+#: ../documentcontextmenu.py:69 ../mainwindow.py:1035
 msgid "&Close"
 msgstr ""
 
@@ -396,16 +442,16 @@ msgid "Staff Size:"
 msgstr "Dizek Boyutu:"
 
 #. L10N: a basic type of input in the editor
-#: ../helpers.py:101 ../mainwindow.py:404 ../mainwindow.py:410
-#: ../mainwindow.py:435 ../mainwindow.py:486 ../mainwindow.py:578
-#: ../mainwindow.py:638 ../externalchanges/widget.py:243
-#: ../musicview/image.py:214 ../preferences/fontscolors.py:476
-#: ../preferences/fontscolors.py:514 ../snippet/import_export.py:105
-#: ../snippet/widget.py:319
+#: ../helpers.py:107 ../mainwindow.py:413 ../mainwindow.py:419
+#: ../mainwindow.py:444 ../mainwindow.py:495 ../mainwindow.py:592
+#: ../mainwindow.py:652 ../externalchanges/widget.py:243
+#: ../file_import/__init__.py:70 ../musicview/image.py:214
+#: ../preferences/fontscolors.py:476 ../preferences/fontscolors.py:514
+#: ../snippet/import_export.py:105 ../snippet/widget.py:319
 msgid "Error"
 msgstr ""
 
-#: ../helpers.py:102 ../job.py:250
+#: ../helpers.py:108 ../job.py:258
 #, fuzzy
 msgid ""
 "Could not start {program}.\n"
@@ -458,32 +504,32 @@ msgstr "Şarkı Sözleri Metnini Tirele"
 msgid "Please select a language:"
 msgstr "Lütfen bir dil seçiniz:"
 
-#: ../hyphendialog.py:158 ../hyphendialog.py:165
+#: ../hyphendialog.py:154 ../hyphendialog.py:161
 #, fuzzy
 msgid "Lyrics"
 msgstr "Şarkı Sözleri:"
 
-#: ../hyphendialog.py:165 ../pitch/pitch.py:744 ../rhythm/rhythm.py:279
+#: ../hyphendialog.py:161 ../pitch/pitch.py:790 ../rhythm/rhythm.py:279
 #: ../scorewiz/dialog.py:206
 #, fuzzy
 msgctxt "menu title"
 msgid "Tools"
 msgstr "&Araç Görünümleri"
 
-#: ../hyphendialog.py:166 ../help/contents.py:138 ../help/contents.py:145
-#: ../help/contents.py:265
+#: ../hyphendialog.py:162 ../help/contents.py:140 ../help/contents.py:147
+#: ../help/contents.py:267
 msgctxt "menu title"
 msgid "Edit"
 msgstr ""
 
-#: ../hyphendialog.py:166 ../help/contents.py:139 ../help/contents.py:256
+#: ../hyphendialog.py:162 ../help/contents.py:141 ../help/contents.py:258
 #: ../preferences/__init__.py:106 ../preferences/midi.py:134
 #: ../preferences/prefshelp.py:32 ../preferences/prefshelp.py:38
 #, fuzzy
 msgid "Preferences"
 msgstr "Genel Tercihler"
 
-#: ../hyphendialog.py:168
+#: ../hyphendialog.py:164
 msgid ""
 "<p>\n"
 "Frescobaldi can automatically place hyphens '{hyphen}' inside texts to make\n"
@@ -522,38 +568,38 @@ msgstr ""
 msgid "Select Color"
 msgstr "Hepsini seç"
 
-#: ../job.py:239
+#: ../job.py:247
 msgid "Starting {job}..."
 msgstr ""
 
-#: ../job.py:244
+#: ../job.py:252
 msgid "Aborting {job}..."
 msgstr ""
 
-#: ../job.py:253
+#: ../job.py:261
 #, fuzzy
 msgid "Could not read from the process."
 msgstr "Lilypond işlemi okunamadı"
 
-#: ../job.py:255
+#: ../job.py:263
 msgid "An unknown error occured."
 msgstr "Bilinmeyen bir hata meydana geldi."
 
-#: ../job.py:260
+#: ../job.py:268
 #, fuzzy
 msgid "Exited with return code {code}."
 msgstr "LilyPond [%1] dönüş koduyla çıktı %2."
 
-#: ../job.py:262
+#: ../job.py:270
 #, fuzzy
 msgid "Exited with exit status {status}."
 msgstr "LilyPond [%1] dönüş koduyla çıktı %2."
 
-#: ../job.py:265
+#: ../job.py:273
 msgid "Completed successfully in {time}."
 msgstr ""
 
-#: ../lilypondinfo.py:134
+#: ../lilypondinfo.py:143
 msgid "Running LilyPond, this can take some time..."
 msgstr ""
 
@@ -572,115 +618,115 @@ msgstr "Tirelemeyi kaldır"
 msgid "&Copy Lyrics with hyphenation removed"
 msgstr "Şarkı Sözlerini tirelemeler kaldırılmış şekilde kopyalayın"
 
-#: ../main.py:55
+#: ../main.py:56
 msgid "{appname} [options] file ..."
 msgstr ""
 
-#: ../main.py:58
+#: ../main.py:59
 msgid "ENC"
 msgstr ""
 
-#: ../main.py:59
+#: ../main.py:60
 msgid "Encoding to use"
 msgstr "Kullanılacak dil kodlaması"
 
-#: ../main.py:60 ../main.py:62
+#: ../main.py:61 ../main.py:63
 msgid "NUM"
 msgstr ""
 
-#: ../main.py:61
+#: ../main.py:62
 msgid "Line number to go to, starting at 1"
 msgstr "Gidilecek satır numarası, sıra numarası 1'den başlamaktadır."
 
-#: ../main.py:63
+#: ../main.py:64
 msgid "Column to go to, starting at 0"
 msgstr "Gidilecek sütun numarası, sıra numarası 0'dan başlamaktadır."
 
-#: ../main.py:64
+#: ../main.py:65
 msgid "NAME"
 msgstr ""
 
-#: ../main.py:65
+#: ../main.py:66
 msgid "Session to start ('{none}' for empty session)"
 msgstr ""
 
-#: ../main.py:68
+#: ../main.py:69
 msgid "List the session names and exit"
 msgstr ""
 
-#: ../main.py:70
+#: ../main.py:71
 #, fuzzy
 msgid "Always start a new instance"
 msgstr "Yeni bir çalışmaya başla"
 
 #. L10N: state of document in window titlebar
-#: ../mainwindow.py:241 ../externalchanges/widget.py:159
+#: ../mainwindow.py:248 ../externalchanges/widget.py:159
 #, fuzzy
 msgid "[modified]"
 msgstr "değiştirilmiş"
 
-#: ../mainwindow.py:284
+#: ../mainwindow.py:293
 #, fuzzy
 msgctxt "dialog title"
 msgid "Close Document"
 msgstr "Diğer Belgeleri Kapat"
 
-#: ../mainwindow.py:285
+#: ../mainwindow.py:294
 msgid ""
 "The document \"{name}\" has been modified.\n"
 "Do you want to save your changes or discard them?"
 msgstr ""
 
-#: ../mainwindow.py:297
+#: ../mainwindow.py:306
 #, fuzzy
 msgid "Tab Bar"
 msgstr "Tablature"
 
-#: ../mainwindow.py:353 ../popplerprint.py:53 ../sessions/dialog.py:171
-#: ../sessions/dialog.py:179 ../sessions/dialog.py:185
+#: ../mainwindow.py:362 ../sessions/dialog.py:171 ../sessions/dialog.py:179
+#: ../sessions/dialog.py:185
 #, fuzzy
 msgid "Warning"
 msgstr "Gitar akordu"
 
-#: ../mainwindow.py:354
+#: ../mainwindow.py:363
 msgid ""
 "Can't load non-local document:\n"
 "\n"
 "{url}"
 msgstr ""
 
-#: ../mainwindow.py:385
+#: ../mainwindow.py:394
 #, fuzzy
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Dosya Aç"
 
-#: ../mainwindow.py:405 ../mainwindow.py:411 ../mainwindow.py:436
+#: ../mainwindow.py:414 ../mainwindow.py:420 ../mainwindow.py:445
 msgid ""
 "Can't write to destination:\n"
 "\n"
 "{url}"
 msgstr ""
 
-#: ../mainwindow.py:430
+#: ../mainwindow.py:439
 #, fuzzy
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "PDF'yi Kaydet"
 
-#: ../mainwindow.py:470
+#: ../mainwindow.py:479
 #, fuzzy
 msgctxt "dialog title"
 msgid "Save Copy"
 msgstr "Kaydet"
 
-#: ../mainwindow.py:476
+#: ../mainwindow.py:485
 #, fuzzy
 msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Partisyon ayarları"
 
-#: ../mainwindow.py:487 ../mainwindow.py:639 ../snippet/widget.py:320
+#: ../mainwindow.py:496 ../mainwindow.py:653 ../snippet/widget.py:320
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -689,12 +735,12 @@ msgid ""
 "{error}"
 msgstr ""
 
-#: ../mainwindow.py:501 ../mainwindow.py:515 ../externalchanges/widget.py:103
+#: ../mainwindow.py:510 ../mainwindow.py:524 ../externalchanges/widget.py:103
 #, fuzzy
 msgid "Reload"
 msgstr "Yeniden Yükle"
 
-#: ../mainwindow.py:502
+#: ../mainwindow.py:511
 #, fuzzy
 msgid ""
 "Could not reload the document:\n"
@@ -702,21 +748,21 @@ msgid ""
 "{url}"
 msgstr "Yüklenemedi %s"
 
-#: ../mainwindow.py:512
+#: ../mainwindow.py:521
 #, fuzzy
 msgid "Some documents could not be reloaded."
 msgstr "Belge yazıcıya gönderildi."
 
-#: ../mainwindow.py:514
+#: ../mainwindow.py:523
 msgid "No document could be reloaded."
 msgstr ""
 
-#: ../mainwindow.py:571
+#: ../mainwindow.py:585
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr ""
 
-#: ../mainwindow.py:579 ../snippet/import_export.py:106
+#: ../mainwindow.py:593 ../snippet/import_export.py:106
 msgid ""
 "Can't read from source:\n"
 "\n"
@@ -725,17 +771,17 @@ msgid ""
 "{error}"
 msgstr ""
 
-#: ../mainwindow.py:595
+#: ../mainwindow.py:609
 #, fuzzy
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Kaynağı Yazdır..."
 
-#: ../mainwindow.py:628
+#: ../mainwindow.py:642
 msgid "Export as HTML"
 msgstr ""
 
-#: ../mainwindow.py:748
+#: ../mainwindow.py:762
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -743,209 +789,213 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../mainwindow.py:858
+#: ../mainwindow.py:873
 msgid "Main Toolbar"
 msgstr ""
 
-#: ../mainwindow.py:859
+#: ../mainwindow.py:874
 msgid "Music View Toolbar"
 msgstr ""
 
-#: ../mainwindow.py:991
+#: ../mainwindow.py:1018
 #, fuzzy
 msgctxt "action: new document"
 msgid "&New"
 msgstr "Yeni..."
 
-#: ../mainwindow.py:992
+#: ../mainwindow.py:1019
 msgid "&Open..."
 msgstr ""
 
-#: ../mainwindow.py:993
+#: ../mainwindow.py:1020
 msgid "Open &Recent"
 msgstr ""
 
-#: ../mainwindow.py:994
+#: ../mainwindow.py:1021
 msgid "Insert from &File..."
 msgstr ""
 
-#: ../mainwindow.py:995
+#: ../mainwindow.py:1022
 #, fuzzy
 msgid "Open Current Directory"
 msgstr "Yürürlükteki Dosyayı Aç"
 
-#: ../mainwindow.py:996
+#: ../mainwindow.py:1023
 msgid "Open Command Prompt"
 msgstr ""
 
-#: ../mainwindow.py:999
+#: ../mainwindow.py:1026
 msgid "Save Copy or Selection As..."
 msgstr ""
 
-#: ../mainwindow.py:1000 ../externalchanges/widget.py:117
+#: ../mainwindow.py:1027 ../externalchanges/widget.py:117
 #, fuzzy
 msgid "Save All"
 msgstr "Kaydet"
 
-#: ../mainwindow.py:1001
+#: ../mainwindow.py:1028
 #, fuzzy
 msgid "Re&load"
 msgstr "Yeniden Yükle"
 
-#: ../mainwindow.py:1002 ../externalchanges/widget.py:108
+#: ../mainwindow.py:1029 ../externalchanges/widget.py:108
 #, fuzzy
 msgid "Reload All"
 msgstr "Yeniden Yükle"
 
-#: ../mainwindow.py:1003
+#: ../mainwindow.py:1030
 msgid "Check for External Changes..."
 msgstr ""
 
-#: ../mainwindow.py:1005
+#: ../mainwindow.py:1032
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
 msgstr ""
 
-#: ../mainwindow.py:1007
+#: ../mainwindow.py:1034
 msgid "Print Source..."
 msgstr "Kaynağı Yazdır..."
 
-#: ../mainwindow.py:1009
+#: ../mainwindow.py:1036
 msgid "Close Other Documents"
 msgstr "Diğer Belgeleri Kapat"
 
-#: ../mainwindow.py:1010
+#: ../mainwindow.py:1037
 #, fuzzy
 msgid "Close All Documents"
 msgstr "Diğer Belgeleri Kapat"
 
-#: ../mainwindow.py:1011
+#: ../mainwindow.py:1038
 #, fuzzy
 msgid "Closes all documents and leaves the current session."
 msgstr "Belgede veya seçimdeki tüm notaların aktarımını yapar."
 
-#: ../mainwindow.py:1012
+#: ../mainwindow.py:1039
 msgid "&Quit"
 msgstr ""
 
-#: ../mainwindow.py:1014
+#: ../mainwindow.py:1040
+msgid "Restart {appname}"
+msgstr ""
+
+#: ../mainwindow.py:1042
 msgid "Export Source as Colored &HTML..."
 msgstr ""
 
-#: ../mainwindow.py:1016
+#: ../mainwindow.py:1044
 #, fuzzy
 msgid "&Undo"
 msgstr "Uzat"
 
-#: ../mainwindow.py:1017
+#: ../mainwindow.py:1045
 msgid "Re&do"
 msgstr ""
 
-#: ../mainwindow.py:1018
+#: ../mainwindow.py:1046
 msgid "Cu&t"
 msgstr ""
 
-#: ../mainwindow.py:1019 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1047 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Kopyala"
 
-#: ../mainwindow.py:1020
+#: ../mainwindow.py:1048
 msgid "Copy as Colored &HTML"
 msgstr ""
 
-#: ../mainwindow.py:1021
+#: ../mainwindow.py:1049
 #, fuzzy
 msgid "&Paste"
 msgstr "Durakla"
 
-#: ../mainwindow.py:1022
+#: ../mainwindow.py:1050
 #, fuzzy
 msgid "Select &All"
 msgstr "Hepsini seç"
 
-#: ../mainwindow.py:1023
+#: ../mainwindow.py:1051
 #, fuzzy
 msgid "Select &Block"
 msgstr "Hepsini seç"
 
-#: ../mainwindow.py:1024
+#: ../mainwindow.py:1052
 #, fuzzy
 msgid "Select &None"
 msgstr "Hepsini seç"
 
-#: ../mainwindow.py:1025
+#: ../mainwindow.py:1053
 msgid "Select Whole Lines Up"
 msgstr ""
 
-#: ../mainwindow.py:1026
+#: ../mainwindow.py:1054
 msgid "Select Whole Lines Down"
 msgstr ""
 
-#: ../mainwindow.py:1027
+#: ../mainwindow.py:1055
 #, fuzzy
 msgid "&Find..."
 msgstr "Yazdır..."
 
-#: ../mainwindow.py:1028
+#: ../mainwindow.py:1056
 msgid "Find Ne&xt"
 msgstr ""
 
-#: ../mainwindow.py:1029
+#: ../mainwindow.py:1057
 #, fuzzy
 msgid "Find Pre&vious"
 msgstr "Önceki"
 
-#: ../mainwindow.py:1030
+#: ../mainwindow.py:1058
 #, fuzzy
 msgid "&Replace..."
 msgstr "Ara..."
 
-#: ../mainwindow.py:1031
+#: ../mainwindow.py:1059
 #, fuzzy
 msgid "Pr&eferences..."
 msgstr "Genel Tercihler"
 
-#: ../mainwindow.py:1033
+#: ../mainwindow.py:1061
 #, fuzzy
 msgid "&Next Document"
 msgstr "&Belge"
 
-#: ../mainwindow.py:1034
+#: ../mainwindow.py:1062
 #, fuzzy
 msgid "&Previous Document"
 msgstr "&Kaynak Belgesi"
 
-#: ../mainwindow.py:1035
+#: ../mainwindow.py:1063
 msgid "Scroll Up"
 msgstr ""
 
-#: ../mainwindow.py:1036
+#: ../mainwindow.py:1064
 #, fuzzy
 msgid "Scroll Down"
 msgstr "Prall down"
 
-#: ../mainwindow.py:1038
+#: ../mainwindow.py:1066
 msgid "New &Window"
 msgstr ""
 
-#: ../mainwindow.py:1039
+#: ../mainwindow.py:1067
 msgid "&Fullscreen"
 msgstr ""
 
-#: ../mainwindow.py:1041
+#: ../mainwindow.py:1069
 msgid "&User Guide"
 msgstr ""
 
-#: ../mainwindow.py:1042
+#: ../mainwindow.py:1070
 msgid "&What's This?"
 msgstr ""
 
-#: ../mainwindow.py:1043
+#: ../mainwindow.py:1071
 msgid "Report a &Bug..."
 msgstr ""
 
-#: ../mainwindow.py:1044
+#: ../mainwindow.py:1072
 msgid "&About {appname}..."
 msgstr ""
 
@@ -958,75 +1008,87 @@ msgstr "Özel Karakterler"
 msgid "&Select Matching Pair"
 msgstr ""
 
-#: ../menu.py:84
+#: ../menu.py:85
 #, fuzzy
 msgctxt "menu title"
 msgid "&File"
 msgstr "Başlık"
 
-#: ../menu.py:120
+#: ../menu.py:124
+#, fuzzy
+msgctxt "submenu title"
+msgid "&Import"
+msgstr "Yazdır..."
+
+#: ../menu.py:132
 msgctxt "submenu title"
 msgid "&Export"
 msgstr ""
 
-#: ../menu.py:128
+#: ../menu.py:140
 msgctxt "menu title"
 msgid "&Edit"
 msgstr ""
 
-#: ../menu.py:156
+#: ../menu.py:167
 #, fuzzy
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Araç Görünümleri"
 
-#: ../menu.py:184
+#: ../menu.py:195
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "Kullanılacak dil kodlaması"
 
-#: ../menu.py:199
+#: ../menu.py:210
 msgctxt "menu title"
 msgid "&Music"
 msgstr ""
 
-#: ../menu.py:224
+#: ../menu.py:237
 #, fuzzy
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:243
+#: ../menu.py:256
 #, fuzzy
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Araç Görünümleri"
 
-#: ../menu.py:269
+#: ../menu.py:284
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "Şarkı &Sözleri"
 
-#: ../menu.py:281
+#: ../menu.py:296
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "Ses noktası"
 
-#: ../menu.py:295
+#: ../menu.py:311
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritm"
 
-#: ../menu.py:323
+#: ../menu.py:335
+#, fuzzy
+msgctxt "submenu title"
+msgid "&Quick Remove"
+msgstr "Kuyrukları kaldır"
+
+#: ../menu.py:353
 msgctxt "menu title"
 msgid "&Window"
 msgstr ""
 
-#: ../menu.py:343
+#: ../menu.py:373
 msgctxt "menu title"
 msgid "&Help"
 msgstr ""
@@ -1051,37 +1113,27 @@ msgstr "PDF Önizleme"
 msgid "Could not load the {name} module."
 msgstr "Yüklenemedi %s"
 
-#: ../popplerprint.py:54
-msgid ""
-"No print command to print a PostScript file could be found.\n"
-"\n"
-"Therefore the document will be printed using raster images at {resolution} "
-"DPI. It is recommended to print using a dedicated PDF viewer.\n"
-"\n"
-"Do you want to continue?"
-msgstr ""
-
-#: ../popplerprint.py:61
+#: ../popplerprint.py:74
 #, fuzzy
 msgid "PDF Document"
 msgstr "&Belge"
 
-#: ../popplerprint.py:69
+#: ../popplerprint.py:83
 #, fuzzy
 msgid "Print {filename}"
 msgstr "%1 dosyalarını yazdır"
 
-#: ../popplerprint.py:87 ../popplerprint.py:116
+#: ../popplerprint.py:117 ../popplerprint.py:147
 #, fuzzy
 msgid "Printing Error"
 msgstr "İç Hata"
 
-#: ../popplerprint.py:88 ../popplerprint.py:117
+#: ../popplerprint.py:118 ../popplerprint.py:148
 #, fuzzy
 msgid "Could not send the document to the printer."
 msgstr "Lilypond işlemi okunamadı"
 
-#: ../popplerprint.py:108
+#: ../popplerprint.py:139
 msgid "Printing page {page} ({num} of {total})..."
 msgstr ""
 
@@ -1305,83 +1357,80 @@ msgstr "E-posta belgeleri"
 msgid "Close all untitled documents"
 msgstr "Diğer Belgeleri Kapat"
 
-#: ../engrave/__init__.py:179
+#: ../engrave/__init__.py:184
 msgid "&Always Engrave [{docname}]"
 msgstr ""
 
-#: ../engrave/__init__.py:181
+#: ../engrave/__init__.py:186
 msgid "&Always Engrave This Document"
 msgstr ""
 
-#: ../engrave/__init__.py:232
+#: ../engrave/__init__.py:237
 msgid "Engrave"
 msgstr ""
 
-#: ../engrave/__init__.py:233
+#: ../engrave/__init__.py:238
 msgid "&Engrave (preview)"
 msgstr ""
 
-#: ../engrave/__init__.py:234
+#: ../engrave/__init__.py:239
 msgid "Engrave (&publish)"
 msgstr ""
 
-#: ../engrave/__init__.py:235
+#: ../engrave/__init__.py:240
 msgid "Engrave (&custom)..."
 msgstr ""
 
-#: ../engrave/__init__.py:236
+#: ../engrave/__init__.py:241
 msgid "Abort Engraving &Job"
 msgstr ""
 
-#: ../engrave/custom.py:123 ../engrave/custom.py:214
+#: ../engrave/custom.py:124 ../engrave/custom.py:214
 msgid "Engrave custom"
 msgstr ""
 
-#: ../engrave/custom.py:124
+#: ../engrave/custom.py:125
 #, fuzzy
 msgid "LilyPond Version:"
 msgstr "Varsayılan LilyPond Sürüm Numarası."
 
-#: ../engrave/custom.py:125
+#: ../engrave/custom.py:126
 msgid "Output Format:"
 msgstr ""
 
-#: ../engrave/custom.py:126
+#: ../engrave/custom.py:127 ../preferences/helpers.py:164
 #, fuzzy
 msgid "Resolution:"
 msgstr "Sürüm:"
 
-#: ../engrave/custom.py:128
+#: ../engrave/custom.py:129
 msgid "Run LilyPond in preview mode (with Point and Click)"
 msgstr "LilyPond'u önizleme kipinde çalıştır (İşaretle ve Tıkla ile)"
 
-#: ../engrave/custom.py:129
+#: ../engrave/custom.py:130
 msgid "Run LilyPond with verbose output"
 msgstr "LilyPond'u önizleme kipinde çalıştır"
 
-#: ../engrave/custom.py:130 ../preferences/lilypond.py:292
+#: ../engrave/custom.py:131 ../preferences/lilypond.py:296
+#: ../preferences/preview.py:296
 #, fuzzy
 msgid "Run LilyPond with English messages"
 msgstr "LilyPond'u önizleme kipinde çalıştır"
 
-#: ../engrave/custom.py:131 ../preferences/lilypond.py:289
+#: ../engrave/custom.py:132 ../preferences/lilypond.py:293
+#: ../preferences/preview.py:293
 #, fuzzy
 msgid "Delete intermediate output files"
 msgstr "LilyPond'un ara çıktı dosyalarını silmesine izin ver"
 
-#: ../engrave/custom.py:132
+#: ../engrave/custom.py:133 ../file_import/musicxml.py:98
 #, fuzzy
 msgid "Command line:"
 msgstr "Komut"
 
-#: ../engrave/custom.py:133
+#: ../engrave/custom.py:134
 msgid "Run LilyPond"
 msgstr "LilyPond'u Çalıştır"
-
-#: ../engrave/custom.py:155
-#, fuzzy
-msgid "LilyPond {version}"
-msgstr "Varsayılan LilyPond Sürüm Numarası."
 
 #: ../engrave/custom.py:218
 msgid ""
@@ -1405,7 +1454,7 @@ msgstr "LilyPond Tercihleri"
 msgid "All the include paths"
 msgstr "LilyPond içeren yol:"
 
-#: ../engrave/custom.py:228
+#: ../engrave/custom.py:228 ../file_import/musicxml.py:177
 #, fuzzy
 msgid "The filename of the document"
 msgstr "Yürürlükteki& Belge ile Konsolu Senkronize Ediniz."
@@ -1469,8 +1518,8 @@ msgid ""
 "the previous state of the document using the Undo command.)"
 msgstr ""
 
-#: ../externalchanges/widget.py:113 ../help/contents.py:576
-#: ../help/contents.py:586
+#: ../externalchanges/widget.py:113 ../help/contents.py:578
+#: ../help/contents.py:588
 #, fuzzy
 msgid "Save"
 msgstr "Kaydet"
@@ -1581,6 +1630,87 @@ msgid ""
 "another application, uncheck the <em>{action}</em> checkbox."
 msgstr ""
 
+#: ../file_import/__init__.py:48
+msgctxt "dialog title"
+msgid "Import a MusicXML file"
+msgstr ""
+
+#: ../file_import/__init__.py:71
+msgid "The file couldn't be converted. Error message:\n"
+msgstr ""
+
+#: ../file_import/__init__.py:96
+#, fuzzy
+msgid "Import MusicXML..."
+msgstr "Müziği Yazdır..."
+
+#: ../file_import/__init__.py:97
+msgid "Import a MusicXML file using musicxml2ly."
+msgstr ""
+
+#: ../file_import/musicxml.py:93 ../file_import/musicxml.py:149
+msgid "Import Music XML"
+msgstr ""
+
+#: ../file_import/musicxml.py:94
+#, fuzzy
+msgid "No articulation directions"
+msgstr "Süreleri kaldır"
+
+#: ../file_import/musicxml.py:95
+msgid "No rest positions"
+msgstr ""
+
+#: ../file_import/musicxml.py:96
+msgid "No page layout"
+msgstr ""
+
+#: ../file_import/musicxml.py:97
+msgid "Auto beaming"
+msgstr ""
+
+#: ../file_import/musicxml.py:99
+msgid "Run musicxml2ly"
+msgstr ""
+
+#: ../file_import/musicxml.py:155
+msgid ""
+"Import a Music XML file using the command line tool musicxml2ly from the "
+"LilyPond package."
+msgstr ""
+
+#: ../file_import/musicxml.py:157
+msgid ""
+"In this dialog you can set some parameters for the musicxml2ly import. "
+"Currently there are four parameters that can be set by the checkboxes:"
+msgstr ""
+
+#: ../file_import/musicxml.py:162
+msgid "do not convert directions (^, _ or -) for articulations, dynamics, etc."
+msgstr ""
+
+#: ../file_import/musicxml.py:164
+msgid "do not convert exact vertical positions of rests"
+msgstr ""
+
+#: ../file_import/musicxml.py:166
+msgid "do not convert the exact page layout and breaks"
+msgstr ""
+
+#: ../file_import/musicxml.py:168
+msgid ""
+"do not convert beaming information, use LilyPonds automatic beaming instead."
+msgstr ""
+
+#: ../file_import/musicxml.py:173
+msgid "The following replacements will be made in the command line:"
+msgstr ""
+
+#: ../file_import/musicxml.py:176
+#, fuzzy
+msgid "The musicxml2ly executable"
+msgstr "LilyPond Tercihleri"
+
 #: ../help/browser.py:77
 msgid "Toolbar"
 msgstr ""
@@ -1595,25 +1725,327 @@ msgstr "Başlayan numara:"
 msgid "Contents"
 msgstr "Komut"
 
-#: ../help/browser.py:88 ../help/browser.py:89 ../help/contents.py:70
+#: ../help/browser.py:88 ../help/browser.py:89 ../help/contents.py:71
 #: ../musicview/contextmenu.py:76 ../quickinsert/widget.py:106
 msgid "Help"
 msgstr ""
 
-#: ../help/contents.py:38
+#: ../help/cnt_engraving.py:37
+msgid "Engraving Scores"
+msgstr ""
+
+#: ../help/cnt_engraving.py:41
+msgid ""
+"There are three modes Frescobaldi can compile scores in: <em>Preview</em>, "
+"<em>Publication</em> and <em>Custom</em>."
+msgstr ""
+
+#: ../help/cnt_engraving.py:43
+msgid ""
+"<em>Preview</em> mode is useful while working on a score because it provides "
+"two-way point-and-click navigation as well as a number of modes for "
+"debugging layout issues.<br /><em>Publication</em> mode is used for "
+"producing the final PDF intended to be shared.<br /><em>Custom</em> mode "
+"allows you to specify the used LilyPond command in detail."
+msgstr ""
+
+#: ../help/cnt_engraving.py:50
+msgid ""
+"If you have set up different LilyPond versions and told Frescobaldi in the "
+"<em>LilyPond</em> page of the <em>Preferences</em> dialog it will try to "
+"determine the LilyPond version from the document and use the version that "
+"matches best."
+msgstr ""
+
+#: ../help/cnt_engraving.py:66
+#, fuzzy
+msgid "Engrave (Preview)"
+msgstr "PDF Önizleme"
+
+#: ../help/cnt_engraving.py:70
+msgid ""
+"When working on a score you will usually engrave your score in <em>Preview "
+"Mode</em> ({preview_shortcut}). This will enable Frescobaldi's two-way point-"
+"and-click features and will give you access to a number of \"Debug Modes\". "
+"These will display or highlight various layout aspects and will help you "
+"fine-tuning your scores."
+msgstr ""
+
+#: ../help/cnt_engraving.py:76
+msgid ""
+"The Debug Modes are accessible through the \"Preview Options\" dockable "
+"panel which is accessible through {menu_panel}.The Debug Modes are initially "
+"disabled but remember their state throughout Frescobaldi sessions.<br />If "
+"you use these features regularly it is recommendable to have the panel "
+"constantly open because you will probably switch Debug Modes quite often."
+msgstr ""
+
+#: ../help/cnt_engraving.py:82 ../preferences/__init__.py:261
+#: ../preferences/prefshelp.py:282
+#, fuzzy
+msgid "Tools"
+msgstr "&Araç Görünümleri"
+
+#: ../help/cnt_engraving.py:82 ../preview_mode/__init__.py:42
+#, fuzzy
+msgid "Preview Options"
+msgstr "PDF Önizleme"
+
+#: ../help/cnt_engraving.py:83
+msgid ""
+"Compiling in Preview Mode will introduce a <code>-ddebug-layout</code> "
+"command line variable to be present. You can check for this with something "
+"like <code>#(if (ly:get-option 'debug-layout))</code> in your input or "
+"library files. This way you can write code that is only run when the score "
+"is compiled in Preview Mode."
+msgstr ""
+
+#: ../help/cnt_engraving.py:88
+msgid ""
+"The appearance of the Debug Modes is defined by Scheme variables and can "
+"partially be configured following the directions in {preview_config}."
+msgstr ""
+
+#: ../help/cnt_engraving.py:91
+msgid "The following Debug Modes are currently implemented:"
+msgstr ""
+
+#. L10N: Please translate the mode names the same way as in the panel UI
+#: ../help/cnt_engraving.py:95 ../help/cnt_engraving.py:210
+#: ../preview_mode/widget.py:110
+msgid "Display Control Points"
+msgstr ""
+
+#: ../help/cnt_engraving.py:96
+msgid ""
+"Slurs, Ties and other similar objects are drawn in LilyPond as third-order "
+"Bezier curves, which means that their shape is controlled by four \"control-"
+"points\" (first and last ones tell where the curve ends are placed, and the "
+"middle ones affect the curvature). Changing the shape of these objects "
+"involves moving these control-points around, and it's helpful to see where "
+"they actually are.<br />This Debug Mode will display the inner control-"
+"points as red crosses and connects them to the outer (starting) points with "
+"thin lines."
+msgstr ""
+
+#: ../help/cnt_engraving.py:106 ../help/cnt_engraving.py:225
+#: ../preview_mode/widget.py:114
+msgid "Color \\voiceXXX"
+msgstr ""
+
+#: ../help/cnt_engraving.py:107
+msgid ""
+"This mode highlights voices that have been explicitly set with one of the "
+"<code>\\voiceXXX</code> commands. This is useful when dealing with polyphony "
+"issues."
+msgstr ""
+
+#: ../help/cnt_engraving.py:110 ../help/cnt_engraving.py:240
+#: ../preview_mode/widget.py:118
+#, fuzzy
+msgid "Color explicit directions"
+msgstr "Süreleri netleştir"
+
+#: ../help/cnt_engraving.py:111
+msgid ""
+"This mode colors items whose directions have been explicitly set with either "
+"the predefined commands <code>\\xxxUp</code> etc. or the directional "
+"operators <code>^</code> and <code>_</code>.<br />Please note how this mode "
+"and the previous are related:<br />When the condition for one of the the "
+"modes is reverted using commands like <code>\\oneVoice</code> or <code>"
+"\\xxxNeutral</code> colors are reverted to black and may also revert the "
+"highlighting of the other Debug Mode.<br />In <code>c \\voiceTwo d \\stemUp "
+"e \\stemNeutral d \\oneVoice</code> the 'd' may already be reverted.<br />If "
+"the score is engraved with LilyPond version 2.17.6 or later the situation is "
+"somewhat improved through the use of the <code>\\temporary</code> directive."
+"<br />In short: If you use both Modes at the same time please expect "
+"inconsistencies."
+msgstr ""
+
+#: ../help/cnt_engraving.py:126 ../help/cnt_engraving.py:257
+#: ../preview_mode/widget.py:121
+msgid "Display Grob Anchors"
+msgstr ""
+
+#: ../help/cnt_engraving.py:127
+msgid ""
+"In LilyPond, all graphical objects have an anchor (a reference point). What "
+"is a reference point?  It's a special point that defines the object's "
+"position.  Think about geometry: if you have to define where a figure is "
+"placed on a plane, you'll usually say something like \"the lower left corner "
+"of this square has coordinates (0, 2)\" or \"the center of this circle is at "
+"(-1, 3)\". \"Lower left corner\" and \"center\" would be the reference "
+"points for square and circle.<br />This Mode displays a red dot for each "
+"grob's anchor point."
+msgstr ""
+
+#: ../help/cnt_engraving.py:135 ../help/cnt_engraving.py:270
+#: ../preview_mode/widget.py:124
+msgid "Display Grob Names"
+msgstr ""
+
+#: ../help/cnt_engraving.py:136
+msgid ""
+"This mode prints a grob's name next to it.<br />The main purpose of this "
+"Debug Mode is to retrieve information about Grob names, which may come in "
+"handy if you don't know where to look up available properties.<br />Please "
+"note that this mode is quite intrusive and will especially become useful "
+"once it can be activated for single grobs."
+msgstr ""
+
+#: ../help/cnt_engraving.py:142 ../preview_mode/widget.py:106
+msgid "Display Skylines"
+msgstr ""
+
+#: ../help/cnt_engraving.py:143
+msgid ""
+"LilyPond uses \"Skylines\" to calculate the vertical dimensions of its "
+"graphical objects in order to prevent collisions. This mode draws lines "
+"representing the skylines and is useful when dealing with issues of vertical "
+"spacing."
+msgstr ""
+
+#: ../help/cnt_engraving.py:147 ../preview_mode/widget.py:127
+msgid "Debug Paper Columns"
+msgstr ""
+
+#: ../help/cnt_engraving.py:148
+msgid ""
+"LilyPond organises the horizontal spacing in \"paper columns\". This mode "
+"prints a lot of spacing information about these entities."
+msgstr ""
+
+#: ../help/cnt_engraving.py:150 ../preview_mode/widget.py:130
+msgid "Annotate Spacing"
+msgstr ""
+
+#: ../help/cnt_engraving.py:151
+msgid ""
+"LilyPond has a built-in function that prints lots of information about "
+"distances on the paper, which is very useful when debugging the page layout."
+msgstr ""
+
+#: ../help/cnt_engraving.py:154
+msgid "Include Custom File"
+msgstr ""
+
+#: ../help/cnt_engraving.py:155
+msgid ""
+"This mode offers the opportunity to add one's own Debug Modes by including a "
+"custom file. This file will be included at program startup and may contain "
+"any LilyPond code you would like to have executed whenever you are engraving "
+"in Preview Mode. This file will be parsed before any of the other Debug "
+"Modes so you may use it to configure them.<br />The given string will be "
+"literally included in an <code>\\include</code> directive, so you are "
+"responsible yourself that LilyPond can find it."
+msgstr ""
+
+#: ../help/cnt_engraving.py:171
+msgid "Preview Mode Configuration"
+msgstr ""
+
+#: ../help/cnt_engraving.py:198
+msgid ""
+"The appearance of the individual Debug Modes is defined through the use of "
+"configuration variables. Depending on the implementation of the mode you may "
+"modify its appearance by redefining these variables in your input files. But "
+"if you are interested in a more general solution you can make use of the "
+"<code>custom-file</code> Debug Mode. As this custom file is read in before "
+"the different debug modes you can use it to define any of the variables "
+"<em>before</em> the Debug Modes are parsed."
+msgstr ""
+
+#: ../help/cnt_engraving.py:206
+msgid "The modes use the following configuration variables:"
+msgstr ""
+
+#: ../help/cnt_engraving.py:211
+msgid "Variables can be redefined in input files."
+msgstr ""
+
+#: ../help/cnt_engraving.py:226
+msgid "These Variables currently can't be redefined in input files."
+msgstr ""
+
+#: ../help/cnt_engraving.py:241 ../help/cnt_engraving.py:258
+#: ../help/cnt_engraving.py:271
+msgid "These Variables can be redefined in input files."
+msgstr ""
+
+#: ../help/cnt_engraving.py:251
+msgid ""
+"Defines for which grobs the explicit direction through operators is "
+"monitored. By default all grobs are watched, but alternatively one can "
+"provide a list of grobs such as e.g. <code>#(define debug-direction-grob-"
+"list '(DynamicText Script))</code>"
+msgstr ""
+
+#: ../help/cnt_engraving.py:265
+msgid ""
+"Defines for which grobs the anchor points will be displayed. By default all "
+"grobs are watched, but alternatively one can provide a list of grobs such as "
+"e.g. <code>#(define debug-grob-anchors-grob-list '(Script NoteHead))</code>"
+msgstr ""
+
+#: ../help/cnt_engraving.py:278
+msgid ""
+"Defines for which grobs the names will be displayed. By default all grobs "
+"are watched, but alternatively one can provide a list of grobs such as e.g. "
+"<code>#(define debug-grob-names-grob-list '(Script NoteHead))</code>"
+msgstr ""
+
+#: ../help/cnt_engraving.py:284
+msgid ""
+"The remaining modes are built-in to LilyPond and don't have any "
+"configuration options."
+msgstr ""
+
+#: ../help/cnt_engraving.py:290
+msgid "Engrave (Publication)"
+msgstr ""
+
+#: ../help/cnt_engraving.py:294
+msgid ""
+"When engraving a score in Publication mode the point-and-click information "
+"isn't generated. This will prevent a reader of the resulting PDF document "
+"from navigating to the corresponding line in the input file, but it will "
+"also significantly decrease the file size."
+msgstr ""
+
+#: ../help/cnt_engraving.py:299
+msgid ""
+"You should also note that the point-and-click links contain hard-coded path "
+"information of your systen, which may be considered a security issue."
+msgstr ""
+
+#: ../help/cnt_engraving.py:308
+msgid "Engrave (Custom)"
+msgstr ""
+
+#: ../help/cnt_engraving.py:312
+msgid ""
+"The <em>Engrave (Custom)</em> dialog gives you detailed access to all "
+"aspects of the LilyPond command."
+msgstr ""
+
+#: ../help/cnt_engraving.py:314
+msgid "More documentation to come ..."
+msgstr ""
+
+#: ../help/contents.py:39
 msgid "No Help"
 msgstr ""
 
-#: ../help/contents.py:41
+#: ../help/contents.py:42
 msgid "No help has been found on this topic."
 msgstr ""
 
-#: ../help/contents.py:47
+#: ../help/contents.py:48
 #, fuzzy
 msgid "Frescobaldi Manual"
 msgstr "Frescobaldi"
 
-#: ../help/contents.py:50
+#: ../help/contents.py:51
 msgid ""
 "<p>\n"
 "Frescobaldi is a light-weight, but powerful editor for LilyPond music "
@@ -1623,7 +2055,7 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:60
+#: ../help/contents.py:61
 msgid ""
 "<h3>How to get help inside Frescobaldi</h3>\n"
 "\n"
@@ -1635,16 +2067,16 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:70
+#: ../help/contents.py:71
 msgid "What's This"
 msgstr ""
 
-#: ../help/contents.py:92
+#: ../help/contents.py:94
 #, fuzzy
 msgid "Introduction"
 msgstr "Piyano indirgemesi"
 
-#: ../help/contents.py:95
+#: ../help/contents.py:97
 msgid ""
 "<p>\n"
 "<a href=\"http://lilypond.org/\">LilyPond</a>\n"
@@ -1673,39 +2105,40 @@ msgid ""
 "</p>"
 msgstr ""
 
-#: ../help/contents.py:121
+#: ../help/contents.py:123
 msgid "Getting Started"
 msgstr ""
 
-#: ../help/contents.py:136 ../preferences/fontscolors.py:482
-#: ../preferences/lilypond.py:239 ../scorewiz/settings.py:295
+#: ../help/contents.py:138 ../preferences/fontscolors.py:482
+#: ../preferences/lilypond.py:239 ../preferences/preview.py:239
+#: ../scorewiz/settings.py:295
 msgid "LilyPond"
 msgstr "LilyPond"
 
-#: ../help/contents.py:136
+#: ../help/contents.py:138
 msgid "Engrave (publish)"
 msgstr ""
 
-#: ../help/contents.py:140 ../preferences/__init__.py:184
+#: ../help/contents.py:142 ../preferences/__init__.py:184
 #: ../preferences/prefshelp.py:79
 msgid "LilyPond Preferences"
 msgstr "LilyPond Tercihleri"
 
-#: ../help/contents.py:142
+#: ../help/contents.py:144
 #, fuzzy
 msgctxt "menu title"
 msgid "View"
 msgstr "Çal/Görüntüle"
 
-#: ../help/contents.py:143
+#: ../help/contents.py:145
 msgid "Clear Error Marks"
 msgstr ""
 
-#: ../help/contents.py:146 ../help/contents.py:265
+#: ../help/contents.py:148 ../help/contents.py:267
 msgid "Copy to Image..."
 msgstr ""
 
-#: ../help/contents.py:148
+#: ../help/contents.py:150
 msgid ""
 "<p>\n"
 "The default screen of Frescobaldi shows a text document on the left and an\n"
@@ -1799,86 +2232,86 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:231
+#: ../help/contents.py:233
 #, fuzzy
 msgid "The Music View"
 msgstr "PDF Önizleme"
 
-#: ../help/contents.py:236
+#: ../help/contents.py:238
 msgid "The Music View displays the PDF document created by LilyPond."
 msgstr ""
 
-#: ../help/contents.py:237
+#: ../help/contents.py:239
 msgid ""
 "When LilyPond was run in preview mode (i.e. with Point &amp; Click turned "
 "on), the PDF contains a clickable link for every music object, pointing to "
 "its definition in the text document."
 msgstr ""
 
-#: ../help/contents.py:240
+#: ../help/contents.py:242
 msgid ""
 "The Music View uses this information to provide smart, two-way integration "
 "with the text document:"
 msgstr ""
 
-#: ../help/contents.py:243
+#: ../help/contents.py:245
 msgid "Move the mouse pointer over music objects to highlight them in the text"
 msgstr ""
 
-#: ../help/contents.py:244
+#: ../help/contents.py:246
 msgid "Click an object to move the text cursor to that object"
 msgstr ""
 
-#: ../help/contents.py:245
+#: ../help/contents.py:247
 msgid "Shift-click an object to edit its text in a small window (see {link})"
 msgstr ""
 
-#: ../help/contents.py:247
+#: ../help/contents.py:249
 msgid ""
 "Move the text cursor to highlight them in the music view, press {key} to "
 "scroll them into view."
 msgstr ""
 
-#: ../help/contents.py:250
+#: ../help/contents.py:252
 msgid "You can also adjust the view:"
 msgstr ""
 
-#: ../help/contents.py:252
+#: ../help/contents.py:254
 msgid ""
 "Use the Control (or Command) key with the mouse wheel to zoom in and out"
 msgstr ""
 
-#: ../help/contents.py:254
+#: ../help/contents.py:256
 msgid "Hold Control or Command and left-click to display a magnifier glass"
 msgstr ""
 
-#: ../help/contents.py:255
+#: ../help/contents.py:257
 msgid "Configure the background color under {menu}"
 msgstr ""
 
-#: ../help/contents.py:256 ../help/contents.py:426
+#: ../help/contents.py:258 ../help/contents.py:428
 #: ../preferences/prefshelp.py:38
 #, fuzzy
 msgid "Edit"
 msgstr "Yazdır..."
 
-#: ../help/contents.py:256 ../preferences/__init__.py:250
-#: ../preferences/prefshelp.py:232
+#: ../help/contents.py:258 ../preferences/__init__.py:250
+#: ../preferences/prefshelp.py:259
 msgid "Fonts & Colors"
 msgstr ""
 
-#: ../help/contents.py:257 ../preferences/fontscolors.py:123
+#: ../help/contents.py:259 ../preferences/fontscolors.py:123
 #: ../preferences/fontscolors.py:298
 msgid "Base Colors"
 msgstr ""
 
 #. L10N: color of paper in music preview
-#: ../help/contents.py:257 ../preferences/fontscolors.py:453
+#: ../help/contents.py:259 ../preferences/fontscolors.py:453
 #, fuzzy
 msgid "Preview Background"
 msgstr "önizleme kipi"
 
-#: ../help/contents.py:259
+#: ../help/contents.py:261
 msgid ""
 "You can copy music right from the PDF view to a raster image: Hold Shift and "
 "drag a rectangular selection (or use the right mouse button) and then press "
@@ -1886,21 +2319,21 @@ msgid ""
 "clipboard, a file or another application."
 msgstr ""
 
-#: ../help/contents.py:278
+#: ../help/contents.py:280
 #, fuzzy
 msgid "Other Tools"
 msgstr "&Ekstra Araçlar"
 
-#: ../help/contents.py:281
+#: ../help/contents.py:283
 msgid "<p>Some other important tools are listed here.</p>\n"
 msgstr ""
 
-#: ../help/contents.py:302
+#: ../help/contents.py:304
 #, fuzzy
 msgid "About Frescobaldi"
 msgstr "Frescobaldi"
 
-#: ../help/contents.py:305
+#: ../help/contents.py:307
 msgid ""
 "<p>\n"
 "Frescobaldi is named after\n"
@@ -1918,15 +2351,15 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:335
+#: ../help/contents.py:337
 msgid "Frescobaldi's main author is {author}."
 msgstr ""
 
-#: ../help/contents.py:343
+#: ../help/contents.py:345
 msgid "Contributing"
 msgstr ""
 
-#: ../help/contents.py:346
+#: ../help/contents.py:348
 msgid ""
 "<p>\n"
 "Frescobaldi is a <a href=\"http://www.gnu.org/philosophy/free-sw.html"
@@ -1953,12 +2386,12 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:371
+#: ../help/contents.py:373
 #, fuzzy
 msgid "History of Frescobaldi"
 msgstr "Frescobaldi"
 
-#: ../help/contents.py:374
+#: ../help/contents.py:376
 msgid ""
 "<p>\n"
 "Frescobaldi has its roots in LilyKDE, which was a plugin for KDE3's editor "
@@ -1986,11 +2419,11 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:400
+#: ../help/contents.py:402
 msgid "The editor"
 msgstr ""
 
-#: ../help/contents.py:403
+#: ../help/contents.py:405
 msgid ""
 "<p>\n"
 "In this part the features of the editor are discussed,\n"
@@ -1999,11 +2432,11 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:420
+#: ../help/contents.py:422
 msgid "Search and replace"
 msgstr ""
 
-#: ../help/contents.py:428
+#: ../help/contents.py:430
 msgid ""
 "<p>\n"
 "In the menu {edit_menu} the commands Find ({key_search})\n"
@@ -2054,12 +2487,12 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:476
+#: ../help/contents.py:478
 #, fuzzy
 msgid "Document variables"
 msgstr "Belge Sekmeleri"
 
-#: ../help/contents.py:481
+#: ../help/contents.py:483
 msgid ""
 "Document variables are variables that influence the behaviour of "
 "Frescobaldi.\n"
@@ -2069,120 +2502,120 @@ msgid ""
 "the lines for variable definitions like <code>name: value;</code>.\n"
 msgstr ""
 
-#: ../help/contents.py:487
+#: ../help/contents.py:489
 msgid "The following variables are recognized:"
 msgstr ""
 
-#: ../help/contents.py:491
+#: ../help/contents.py:493
 #, fuzzy
 msgid "mode"
 msgstr "Kuyrukları kaldır"
 
 #. L10N: do not translate the mode names lilypond, html, etc.
-#: ../help/contents.py:493
+#: ../help/contents.py:495
 msgid ""
 "Force mode to be one of lilypond, html, texinfo, latex, docbook or scheme. "
 "Default: automatic mode recognition."
 msgstr ""
 
-#: ../help/contents.py:495
+#: ../help/contents.py:497
 #, fuzzy
 msgid "filename"
 msgstr "%1 dosyalarını yazdır"
 
-#: ../help/contents.py:496
+#: ../help/contents.py:498
 #, fuzzy
 msgid "Compiles another LilyPond document instead of the current."
 msgstr "Lilypond işlemi okunamadı"
 
-#: ../help/contents.py:497
+#: ../help/contents.py:499
 #, fuzzy
 msgid "name"
 msgstr "%1 dosyalarını yazdır"
 
-#: ../help/contents.py:498
+#: ../help/contents.py:500
 msgid ""
 "Looks for output documents (PDF, MIDI, etc.) starting with the specified "
 "name or comma-separated list of names."
 msgstr ""
 
-#: ../help/contents.py:500
+#: ../help/contents.py:502
 #, fuzzy
 msgid "More information."
 msgstr "Tenor"
 
-#: ../help/contents.py:502
+#: ../help/contents.py:504
 #, fuzzy
 msgid "encoding"
 msgstr "Kullanılacak dil kodlaması"
 
-#: ../help/contents.py:503
+#: ../help/contents.py:505
 msgid "Use another encoding than the default UTF-8."
 msgstr ""
 
-#: ../help/contents.py:504
+#: ../help/contents.py:506
 #, fuzzy
 msgid "version"
 msgstr "Sürüm"
 
-#: ../help/contents.py:505
+#: ../help/contents.py:507
 #, fuzzy
 msgid ""
 "Set the LilyPond version to use, can be used for non-LilyPond documents."
 msgstr "Bu belge için kullanacağınız Lilypond sürüm numarası:"
 
-#: ../help/contents.py:507 ../help/contents.py:515
+#: ../help/contents.py:509 ../help/contents.py:517
 #, fuzzy
 msgid "number"
 msgstr "İsim"
 
-#: ../help/contents.py:508
+#: ../help/contents.py:510
 msgid "The width of a tab character, by default 8."
 msgstr ""
 
-#: ../help/contents.py:510
+#: ../help/contents.py:512
 msgid "Whether to use tabs in indent, by default {no}."
 msgstr ""
 
-#: ../help/contents.py:513
+#: ../help/contents.py:515
 msgid "Whether to use tabs elsewhere in the document, by default {yes}."
 msgstr ""
 
-#: ../help/contents.py:516
+#: ../help/contents.py:518
 msgid "The number of spaces each indent level uses, by default 2."
 msgstr ""
 
-#: ../help/contents.py:523
+#: ../help/contents.py:525
 msgid "You can put document variables in comments."
 msgstr ""
 
-#: ../help/contents.py:534
+#: ../help/contents.py:536
 #, fuzzy
 msgid "The \"{output}\" document variable"
 msgstr "Belge Sekmeleri"
 
-#: ../help/contents.py:539
+#: ../help/contents.py:541
 msgid ""
 "Setting this variable suppresses the automatic output file name "
 "determination and makes Frescobaldi look for output documents (PDF, MIDI, "
 "etc.) with the specified basename, or comma-separated list of names."
 msgstr ""
 
-#: ../help/contents.py:543
+#: ../help/contents.py:545
 msgid ""
 "If a name ends with a directory separator, output files are looked for in "
 "the specified directory. "
 msgstr ""
 
-#: ../help/contents.py:545
+#: ../help/contents.py:547
 msgid "All names are relative to the document's filename."
 msgstr ""
 
-#: ../help/contents.py:546 ../help/contents.py:650
+#: ../help/contents.py:548 ../help/contents.py:652
 msgid "For example:"
 msgstr ""
 
-#: ../help/contents.py:557
+#: ../help/contents.py:559
 msgid ""
 "You can set this variable if the automatic output file name determination "
 "would be time-consuming (as Frescobaldi parses the document and all the "
@@ -2192,35 +2625,35 @@ msgid ""
 "LilyPond code."
 msgstr ""
 
-#: ../help/contents.py:569
+#: ../help/contents.py:571
 #, fuzzy
 msgid "Sessions"
 msgstr "Oturum"
 
-#: ../help/contents.py:573
+#: ../help/contents.py:575
 msgid ""
 "A session is basically a list of open files. At any time you can choose "
 "{menu_session_save} or {menu_session_new} and save the current list of open "
 "files to a named session."
 msgstr ""
 
-#: ../help/contents.py:576 ../help/contents.py:577 ../help/contents.py:586
+#: ../help/contents.py:578 ../help/contents.py:579 ../help/contents.py:588
 msgid "Session"
 msgstr "Oturum"
 
-#: ../help/contents.py:577
+#: ../help/contents.py:579
 #, fuzzy
 msgctxt "New Session"
 msgid "New"
 msgstr "Yeni..."
 
-#: ../help/contents.py:578
+#: ../help/contents.py:580
 msgid ""
 "When you switch sessions, all current documents are closed first and then "
 "the documents of the other session are opened."
 msgstr ""
 
-#: ../help/contents.py:580
+#: ../help/contents.py:582
 msgid ""
 "Inside the session properties dialog, you can choose whether to always save "
 "the list of open documents to that session, or to only save on creation (or "
@@ -2229,39 +2662,39 @@ msgid ""
 "working."
 msgstr ""
 
-#: ../help/contents.py:587
+#: ../help/contents.py:589
 msgid "You can also specify a default directory for the session."
 msgstr ""
 
-#: ../help/contents.py:597
+#: ../help/contents.py:599
 msgid "Troubleshooting"
 msgstr ""
 
-#: ../help/contents.py:600
+#: ../help/contents.py:602
 msgid ""
 "Sometimes things don't go the way you would expect; this section may give "
 "some solutions."
 msgstr ""
 
-#: ../help/contents.py:612
+#: ../help/contents.py:614
 msgid "After engraving a score, the Music View does not show the music"
 msgstr ""
 
-#: ../help/contents.py:616
+#: ../help/contents.py:618
 msgid "Does the <code>\\score</code> block have a layout section?"
 msgstr ""
 
-#: ../help/contents.py:617
+#: ../help/contents.py:619
 msgid ""
 "If a <code>\\score</code> block has a <code>\\midi</code> section but no "
 "<code>\\layout</code> section, no PDF output is generated."
 msgstr ""
 
-#: ../help/contents.py:620
+#: ../help/contents.py:622
 msgid "Do you use an exotic way to specify the output filename?"
 msgstr ""
 
-#: ../help/contents.py:621
+#: ../help/contents.py:623
 msgid ""
 "Frescobaldi is able to determine the output file names by looking at the "
 "document's filename and the various LilyPond commands that specify the "
@@ -2270,57 +2703,57 @@ msgid ""
 "\\bookOutputSuffix</code>."
 msgstr ""
 
-#: ../help/contents.py:627
+#: ../help/contents.py:629
 msgid ""
 "But if you use more complicated Scheme code in your document to specify the "
 "output filenames, Frescobaldi may not be able to correctly determine those "
 "filenames."
 msgstr ""
 
-#: ../help/contents.py:630
+#: ../help/contents.py:632
 msgid ""
 "In that case you can override the base name(s) using the {output} document "
 "variable."
 msgstr ""
 
-#: ../help/contents.py:643
+#: ../help/contents.py:645
 msgid "How to generate a MIDI file?"
 msgstr ""
 
-#: ../help/contents.py:647
+#: ../help/contents.py:649
 msgid ""
 "By default, LilyPond creates only a PDF file of the music. To create a MIDI "
 "file, you must wrap the music in a <code>\\score</code> block and add a "
 "<code>\\midi</code> block to it."
 msgstr ""
 
-#: ../help/contents.py:662
+#: ../help/contents.py:664
 msgid ""
 "If you omit the <code>\\layout</code> block, no PDF file will be generated, "
 "only a MIDI file."
 msgstr ""
 
-#: ../help/contents.py:669
+#: ../help/contents.py:671
 #, fuzzy
 msgid "Table of Contents"
 msgstr "İçindekiler"
 
-#: ../help/helpimpl.py:116
+#: ../help/helpimpl.py:136
 #, fuzzy
 msgid "Up:"
 msgstr "Yukarı"
 
-#: ../help/helpimpl.py:131
+#: ../help/helpimpl.py:148
 #, fuzzy
 msgid "Next:"
 msgstr "Sonraki"
 
-#: ../help/helpimpl.py:134
+#: ../help/helpimpl.py:152
 #, fuzzy
 msgid "See also:"
 msgstr "Hepsini seç"
 
-#: ../help/helpimpl.py:177
+#: ../help/helpimpl.py:192
 msgid "(no key defined)"
 msgstr ""
 
@@ -2628,12 +3061,12 @@ msgstr ""
 msgid "&Outline"
 msgstr ""
 
-#: ../pitch/__init__.py:99
+#: ../pitch/__init__.py:111
 #, fuzzy
 msgid "Pitch Name &Language"
 msgstr "Ses Adı Dili"
 
-#: ../pitch/__init__.py:101
+#: ../pitch/__init__.py:113
 msgid ""
 "Change the LilyPond language used for pitch names in this document or in the "
 "selection."
@@ -2641,11 +3074,11 @@ msgstr ""
 "Bu belgedeki veya seçimde ses adları için kullanılan LilyPond dilini "
 "değiştir."
 
-#: ../pitch/__init__.py:103
+#: ../pitch/__init__.py:115
 msgid "Convert Relative to &Absolute"
 msgstr "Relativ'i &Absolüt'e dönüştür"
 
-#: ../pitch/__init__.py:105
+#: ../pitch/__init__.py:117
 msgid ""
 "Converts the notes in the document or selection from relative to absolute "
 "pitch."
@@ -2653,30 +3086,40 @@ msgstr ""
 "Belgedeki veya seçimdeki notaları relativden absölüt ses noktasına "
 "dönüştürür."
 
-#: ../pitch/__init__.py:107
+#: ../pitch/__init__.py:119
 msgid "Convert Absolute to &Relative"
 msgstr "Abolüt'ü Relativ'e Dönüştür"
 
-#: ../pitch/__init__.py:109
+#: ../pitch/__init__.py:121
 msgid ""
 "Converts the notes in the document or selection from absolute to relative "
 "pitch."
 msgstr "Belgedeki veya seçilen notaları absolüt'ten relativ'e dönüştürür."
 
-#: ../pitch/__init__.py:111
+#: ../pitch/__init__.py:123
 #, fuzzy
 msgid "&Transpose..."
 msgstr "Aktar..."
 
-#: ../pitch/__init__.py:113
+#: ../pitch/__init__.py:125
 msgid "Transposes all notes in the document or selection."
 msgstr "Belgede veya seçimdeki tüm notaların aktarımını yapar."
 
-#: ../pitch/pitch.py:81 ../pitch/pitch.py:94
+#: ../pitch/__init__.py:126
+#, fuzzy
+msgid "&Modal Transpose..."
+msgstr "Aktar..."
+
+#: ../pitch/__init__.py:128
+#, fuzzy
+msgid "Transposes all notes in the document or selection within a given mode."
+msgstr "Belgede veya seçimdeki tüm notaların aktarımını yapar."
+
+#: ../pitch/pitch.py:82 ../pitch/pitch.py:95
 msgid "Pitch Name Language"
 msgstr "Ses Adı Dili"
 
-#: ../pitch/pitch.py:82
+#: ../pitch/pitch.py:83
 #, fuzzy
 msgid ""
 "Can't perform the requested translation.\n"
@@ -2689,7 +3132,7 @@ msgstr ""
 "Müzik, çeyrek ses değişimleri içermektedir, fakat bunlar \"%1\" ses dili "
 "için mümkün değildir."
 
-#: ../pitch/pitch.py:98
+#: ../pitch/pitch.py:99
 msgid ""
 "The pitch language of the selected text has been updated, but you need to "
 "manually add the following command to your document:"
@@ -2697,19 +3140,20 @@ msgstr ""
 "Seçilmiş olan metindeki ses noktası dili güncellendi, fakat belgeniz "
 "aşağıdaki komutu elle eklemelisiniz:"
 
-#: ../pitch/pitch.py:102
+#: ../pitch/pitch.py:103
 msgid "(for LilyPond below 2.14), or"
 msgstr "(LilyPond 2.14'den daha düşük sürüm için), veya"
 
-#: ../pitch/pitch.py:103
+#: ../pitch/pitch.py:104
 msgid "(for LilyPond 2.14 and higher.)"
 msgstr "(LilyPond 2.14 ve daha üst sürüm için.)"
 
-#: ../pitch/pitch.py:398 ../pitch/pitch.py:580 ../pitch/pitch.py:752
+#: ../pitch/pitch.py:403 ../pitch/pitch.py:442 ../pitch/pitch.py:626
+#: ../pitch/pitch.py:798
 msgid "Transpose"
 msgstr "Aktarım"
 
-#: ../pitch/pitch.py:399
+#: ../pitch/pitch.py:404
 #, fuzzy
 msgid ""
 "Please enter two absolute pitches, separated by a space, using the pitch "
@@ -2719,7 +3163,13 @@ msgstr ""
 "\n"
 "Lütfen ses adlarının doğru dilde yazıldığına emin olun, seçilen dil \"%1\"."
 
-#: ../pitch/pitch.py:581
+#: ../pitch/pitch.py:443
+msgid ""
+"Please enter the number of steps to alter by, followed by a key signature. "
+"(i.e. \"5 F\")"
+msgstr ""
+
+#: ../pitch/pitch.py:627
 #, fuzzy
 msgid ""
 "Can't perform the requested transposition.\n"
@@ -2732,12 +3182,12 @@ msgstr ""
 "Aktarılmış müzik, çeyrek ses değişimleri içermektedir, fakat bunlar %1 ses "
 "dili için mümkün değildir."
 
-#: ../pitch/pitch.py:712
+#: ../pitch/pitch.py:758
 #, fuzzy
 msgid "Pitch manipulation"
 msgstr "Artükülasyon"
 
-#: ../pitch/pitch.py:715
+#: ../pitch/pitch.py:761
 msgid ""
 "<p>\n"
 "Frescobaldi offers the following pitch-manipulating functions,\n"
@@ -2771,13 +3221,13 @@ msgid ""
 "</dl>\n"
 msgstr ""
 
-#: ../pitch/pitch.py:744
+#: ../pitch/pitch.py:790
 #, fuzzy
 msgctxt "submenu title"
 msgid "Pitch"
 msgstr "Ses noktası"
 
-#: ../pitch/pitch.py:755
+#: ../pitch/pitch.py:801
 msgid ""
 "<p>\n"
 "When transposing music, two absolute pitches need to be given to specify\n"
@@ -3003,35 +3453,30 @@ msgstr ""
 msgid "General Preferences"
 msgstr "Genel Tercihler"
 
-#: ../preferences/__init__.py:195 ../preferences/prefshelp.py:129
+#: ../preferences/__init__.py:195 ../preferences/prefshelp.py:140
 #, fuzzy
 msgid "MIDI Settings"
 msgstr "Ayarlar"
 
-#: ../preferences/__init__.py:206 ../preferences/helpers.py:80
-#: ../preferences/prefshelp.py:161
+#: ../preferences/__init__.py:206 ../preferences/helpers.py:90
+#: ../preferences/prefshelp.py:172
 #, fuzzy
 msgid "Helper Applications"
 msgstr "Yardımcı Uygulamalar"
 
-#: ../preferences/__init__.py:217 ../preferences/prefshelp.py:180
+#: ../preferences/__init__.py:217 ../preferences/prefshelp.py:207
 msgid "Paths"
 msgstr "Yollar"
 
-#: ../preferences/__init__.py:228 ../preferences/prefshelp.py:194
+#: ../preferences/__init__.py:228 ../preferences/prefshelp.py:221
 #, fuzzy
 msgid "LilyPond Documentation"
 msgstr "LilyPond belgelendirmesi:"
 
-#: ../preferences/__init__.py:239 ../preferences/prefshelp.py:212
+#: ../preferences/__init__.py:239 ../preferences/prefshelp.py:239
 #, fuzzy
 msgid "Keyboard Shortcuts"
 msgstr "Klavye Kısayollarını Yapılandır"
-
-#: ../preferences/__init__.py:261 ../preferences/prefshelp.py:255
-#, fuzzy
-msgid "Tools"
-msgstr "&Araç Görünümleri"
 
 #: ../preferences/documentation.py:66
 #, fuzzy
@@ -3045,7 +3490,7 @@ msgstr ""
 "Dizek başlıklarını harf olarak giriniz (S, A, T veya B gibi).\n"
 "Daha fazla bilgi için \"Bu nedir\" kısmına bakın."
 
-#: ../preferences/documentation.py:70 ../preferences/prefshelp.py:199
+#: ../preferences/documentation.py:70 ../preferences/prefshelp.py:226
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
 "A local path should point to the directory where either the "
@@ -3242,7 +3687,7 @@ msgstr ""
 msgid "String Number"
 msgstr "Sayfa Numaralarını Göster"
 
-#: ../preferences/fontscolors.py:490 ../quickinsert/spanners.py:143
+#: ../preferences/fontscolors.py:490 ../quickinsert/spanners.py:164
 msgid "Slur"
 msgstr "Deyim Bağı"
 
@@ -3260,7 +3705,7 @@ msgstr "Artükülasyon"
 msgid "Chord"
 msgstr "Koro"
 
-#: ../preferences/fontscolors.py:494 ../quickinsert/spanners.py:145
+#: ../preferences/fontscolors.py:494 ../quickinsert/spanners.py:166
 msgid "Beam"
 msgstr "Kuyruk Birleştiricisi"
 
@@ -3470,68 +3915,113 @@ msgstr "Öntanımlı dizin:"
 msgid "The default folder for your LilyPond documents (optional)."
 msgstr "LilyPond belgelerinizin öntanımlı dizini (opsiyonel)."
 
-#: ../preferences/helpers.py:70
+#: ../preferences/helpers.py:80
 msgid "PDF:"
 msgstr ""
 
-#: ../preferences/helpers.py:71
+#: ../preferences/helpers.py:81
 #, fuzzy
 msgid "MIDI:"
 msgstr "MIDI çal"
 
-#: ../preferences/helpers.py:72
+#: ../preferences/helpers.py:82
 msgid "SVG:"
 msgstr ""
 
-#: ../preferences/helpers.py:73
+#: ../preferences/helpers.py:83
 msgid "Image:"
 msgstr ""
 
-#: ../preferences/helpers.py:74
+#: ../preferences/helpers.py:84
 msgid "Browser:"
 msgstr ""
 
-#: ../preferences/helpers.py:75
+#: ../preferences/helpers.py:85
 msgid "E-Mail:"
 msgstr ""
 
-#: ../preferences/helpers.py:76
+#: ../preferences/helpers.py:86
 #, fuzzy
 msgid "File Manager:"
 msgstr "Genişleme Düzenleyicisi"
 
-#: ../preferences/helpers.py:77
+#: ../preferences/helpers.py:87
 #, fuzzy
 msgid "Shell:"
 msgstr "Partisyon:"
 
-#: ../preferences/helpers.py:82
+#: ../preferences/helpers.py:92
 msgid ""
 "Below you can enter commands to open different file types. <code>$f</code> "
 "is replaced with the filename, <code>$u</code> with the URL. Leave a field "
 "empty to use the operating system default application."
 msgstr ""
 
-#: ../preferences/helpers.py:90
+#: ../preferences/helpers.py:100
 msgid "Command that should accept a mailto: URL."
 msgstr ""
 
-#: ../preferences/helpers.py:92
+#: ../preferences/helpers.py:102
 msgid "Command to open a Terminal or Command window."
 msgstr ""
 
-#: ../preferences/lilypond.py:81
+#: ../preferences/helpers.py:145 ../preferences/prefshelp.py:186
+#, fuzzy
+msgid "Printing Music"
+msgstr "Müziği Yazdır..."
+
+#: ../preferences/helpers.py:147
+msgid ""
+"Here you can enter a command to print a PDF or PostScript file. See the Help "
+"page for more information about printing music."
+msgstr ""
+
+#: ../preferences/helpers.py:149
+#, fuzzy
+msgid "Printing command:"
+msgstr "İç Hata"
+
+#: ../preferences/helpers.py:151 ../preferences/prefshelp.py:188
+msgid ""
+"The printing command is used to print a PostScript or PDF file. On Linux you "
+"don't need this, but on Windows and Mac OS X you can provide a command to "
+"avoid that PDF documents are being printed using raster images, which is "
+"less optimal.\n"
+"<code>$pdf</code> gets replaced with the PDF filename, or alternatively, "
+"<code>$ps</code> is replaced with the PostScript filename. <code>$printer</"
+"code> is replaced with the printer's name to use."
+msgstr ""
+
+#: ../preferences/helpers.py:158
+#, fuzzy
+msgid "Use Frescobaldi's print dialog"
+msgstr "Frescobaldi"
+
+#: ../preferences/helpers.py:160
+msgid ""
+"If enabled, Frescobaldi will show the print dialog and create a PDF or "
+"PostScript document containing only the selected pages to print. Otherwise, "
+"the command is called directly and is expected to show a print dialog itself."
+msgstr ""
+
+#: ../preferences/helpers.py:166
+#, fuzzy
+msgid "Set the resolution if Frescobaldi prints using raster images."
+msgstr "Frescobadli'nin parametreler olmadan başlatılacağı oturumun yüklemesi"
+
+#: ../preferences/lilypond.py:82
 #, fuzzy
 msgid "LilyPond versions to use"
 msgstr "Kullanılacak LilyPond sürümleri:"
 
-#: ../preferences/lilypond.py:82 ../preferences/prefshelp.py:104
+#: ../preferences/lilypond.py:83 ../preferences/prefshelp.py:104
+#: ../preferences/preview.py:83
 #, fuzzy
 msgid "Automatically choose LilyPond version from document"
 msgstr ""
 "Otomatik sürüm seçimini etkinleştirin (Belgeden LilyPond sürümünü seçin)"
 
-#: ../preferences/lilypond.py:84
+#: ../preferences/lilypond.py:85 ../preferences/preview.py:85
 #, fuzzy
 msgid ""
 "If checked, the document's version determines the LilyPond version to use.\n"
@@ -3541,7 +4031,8 @@ msgstr ""
 "sürümünü ayarlayabilirsiniz.\n"
 "Daha fazla bilgi için Bu Nedir (Shift+F1) kısayolunu kullanın."
 
-#: ../preferences/lilypond.py:87 ../preferences/prefshelp.py:109
+#: ../preferences/lilypond.py:88 ../preferences/prefshelp.py:109
+#: ../preferences/preview.py:88
 msgid ""
 "<p>If this setting is enabled, the document is searched for a LilyPond <code>"
 "\\version</code> command or a <code>version</code> document variable.</p>\n"
@@ -3556,67 +4047,67 @@ msgid ""
 "is chosen. Otherwise, the default version is chosen.</p>\n"
 msgstr ""
 
-#: ../preferences/lilypond.py:101
+#: ../preferences/lilypond.py:102 ../preferences/preview.py:102
 #, fuzzy
 msgid "See also {link}."
 msgstr "Hepsini seç"
 
-#: ../preferences/lilypond.py:149
+#: ../preferences/lilypond.py:150 ../preferences/preview.py:150
 #, fuzzy
 msgid "Set as &Default"
 msgstr "Öntanımlı olarak ayarlayın"
 
-#: ../preferences/lilypond.py:190
+#: ../preferences/lilypond.py:190 ../preferences/preview.py:190
 msgid "default"
 msgstr "öntanımlı"
 
-#: ../preferences/lilypond.py:240
+#: ../preferences/lilypond.py:240 ../preferences/preview.py:240
 msgid "LilyPond Command:"
 msgstr "LilyPond Komutu:"
 
-#: ../preferences/lilypond.py:241
+#: ../preferences/lilypond.py:241 ../preferences/preview.py:241
 msgid "Name or full path of the LilyPond program."
 msgstr "Lilypond programının tam yolunun adı."
 
-#: ../preferences/lilypond.py:242
+#: ../preferences/lilypond.py:242 ../preferences/preview.py:242
 msgid "Convert-ly:"
 msgstr "Convert-ly:"
 
-#: ../preferences/lilypond.py:243
+#: ../preferences/lilypond.py:243 ../preferences/preview.py:243
 #, fuzzy
 msgid "LilyPond-book:"
 msgstr "LilyPond-book:"
 
-#: ../preferences/lilypond.py:244
+#: ../preferences/lilypond.py:244 ../preferences/preview.py:244
 msgid "Include in automatic version selection"
 msgstr "Otomatik sürüm seçimini içersin"
 
-#: ../preferences/lilypond.py:284
+#: ../preferences/lilypond.py:288 ../preferences/preview.py:288
 msgid "Running LilyPond"
 msgstr "LilyPond Çalışıyor"
 
-#: ../preferences/lilypond.py:285
+#: ../preferences/lilypond.py:289 ../preferences/preview.py:289
 msgid "Save document if possible"
 msgstr ""
 
-#: ../preferences/lilypond.py:287
+#: ../preferences/lilypond.py:291 ../preferences/preview.py:291
 msgid ""
 "If checked, the document is saved when it is local and modified.\n"
 "Otherwise a temporary file is used to run LilyPond."
 msgstr ""
 
-#: ../preferences/lilypond.py:291
+#: ../preferences/lilypond.py:295 ../preferences/preview.py:295
 #, fuzzy
 msgid "If checked, LilyPond will delete intermediate PostScript files."
 msgstr "LilyPond'un ara çıktı dosyalarını silmesine izin ver"
 
-#: ../preferences/lilypond.py:294
+#: ../preferences/lilypond.py:298 ../preferences/preview.py:298
 msgid ""
 "If checked, LilyPond's output messages will be in English.\n"
 "This can be useful for bug reports."
 msgstr ""
 
-#: ../preferences/lilypond.py:296
+#: ../preferences/lilypond.py:300 ../preferences/preview.py:300
 msgid "LilyPond include path:"
 msgstr "LilyPond içeren yol:"
 
@@ -3658,7 +4149,7 @@ msgstr ""
 msgid "Refresh MIDI ports"
 msgstr ""
 
-#: ../preferences/midi.py:135 ../preferences/prefshelp.py:147
+#: ../preferences/midi.py:135 ../preferences/prefshelp.py:158
 #, fuzzy
 msgid "Close unused MIDI output"
 msgstr "MIDI çıktısı oluştur"
@@ -3672,7 +4163,7 @@ msgstr ""
 "Dizek başlıklarını harf olarak giriniz (S, A, T veya B gibi).\n"
 "Daha fazla bilgi için \"Bu nedir\" kısmına bakın."
 
-#: ../preferences/midi.py:140 ../preferences/prefshelp.py:149
+#: ../preferences/midi.py:140 ../preferences/prefshelp.py:160
 msgid ""
 "<p>If checked, Frescobaldi will close MIDI output ports that are not used "
 "for one minute.</p>\n"
@@ -3760,82 +4251,108 @@ msgid ""
 "code> command looks for files."
 msgstr ""
 
+#: ../preferences/prefshelp.py:129 ../preferences/prefshelp.py:135
+#, fuzzy
+msgid "Preview Preferences"
+msgstr "Genel Tercihler"
+
 #: ../preferences/prefshelp.py:133
+msgid ""
+"Under <em>{preview_preferences}</em>, you can configure the appearance of "
+"several aspects of the Preview Mode."
+msgstr ""
+
+#: ../preferences/prefshelp.py:144
 msgid "Here you can configure Frescobaldi's MIDI settings."
 msgstr ""
 
-#: ../preferences/prefshelp.py:135
+#: ../preferences/prefshelp.py:146
 msgid "You can specify the MIDI port name to play to."
 msgstr ""
 
-#: ../preferences/prefshelp.py:136
+#: ../preferences/prefshelp.py:147
 msgid ""
 "If there are no port names visible in the drop-down box, it may be necessary "
 "to connect a hardware MIDI synthesizer to your computer, or to start a "
 "software synthesizer program such as TiMidity or Fluidsynth."
 msgstr ""
 
-#: ../preferences/prefshelp.py:140
+#: ../preferences/prefshelp.py:151
 msgid "On Linux, the synthesizer should be available as an ALSA MIDI device."
 msgstr ""
 
-#: ../preferences/prefshelp.py:142
+#: ../preferences/prefshelp.py:153
 msgid ""
 "If you have a device with multiple ports, you can specify the first letters "
 "of the name, to have Frescobaldi automatically pick the first available one."
 msgstr ""
 
-#: ../preferences/prefshelp.py:145
+#: ../preferences/prefshelp.py:156
 msgid ""
 "And finally, when using a software synthesizer it is recommended to enable "
 "the option <em>{close_unused}</em>."
 msgstr ""
 
-#: ../preferences/prefshelp.py:165
+#: ../preferences/prefshelp.py:176
 msgid ""
 "In this page you can enter commands to open different file types. <code>$f</"
 "code> is replaced with the filename, <code>$u</code> with the URL. Leave a "
 "field empty to use the operating system default application."
 msgstr ""
 
-#: ../preferences/prefshelp.py:170
+#: ../preferences/prefshelp.py:181
 msgid ""
 "For the e-mail setting, the command should accept a <code>mailto:</code> "
 "url. For the command prompt, the command should open a console window. A "
 "<code>$f</code> value is replaced with the directory of the current document."
 msgstr ""
 
-#: ../preferences/prefshelp.py:184
+#: ../preferences/prefshelp.py:195
+msgid ""
+"Uncheck the \"Use Frescobaldi's print dialog\" option when the printing "
+"command opens a print dialog itself, in which you can select e.g. the page "
+"range to print and the printer to use. If you don't use Frescobaldi's print "
+"dialog, you don't need to put the <code>$printer</code> variable in your "
+"command line."
+msgstr ""
+
+#: ../preferences/prefshelp.py:200
+msgid ""
+"If Frescobaldi must fall back to printing using raster images, you can "
+"specify the number of dots per inch here."
+msgstr ""
+
+#: ../preferences/prefshelp.py:211
 msgid ""
 "Here, directories can be added that contain <code>hyph_*.dic</code> files, "
 "where the <code>*</code> stands for different language codes."
 msgstr ""
 
-#: ../preferences/prefshelp.py:187
+#: ../preferences/prefshelp.py:214
 msgid ""
 "These hyphenation dictionaries are used by Frescobaldi to break lyrics text "
 "into syllabes."
 msgstr ""
 
-#: ../preferences/prefshelp.py:217
+#: ../preferences/prefshelp.py:244
 msgid ""
 "Here you can add keyboard shortcuts to all commands available. Also the "
 "{snippets} or {quickinsert} buttons that have keyboard shortcuts are listed "
 "here."
 msgstr ""
 
-#: ../preferences/prefshelp.py:220 ../snippet/tool.py:55
-#: ../snippet/tool.py:147 ../snippet/widget.py:403
+#: ../preferences/prefshelp.py:247 ../snippet/tool.py:57
+#: ../snippet/tool.py:148 ../snippet/widget.py:403
 #, fuzzy
 msgid "Snippets"
 msgstr "Susları çıkar"
 
-#: ../preferences/prefshelp.py:221 ../quickinsert/__init__.py:47
+#: ../preferences/prefshelp.py:248 ../quickinsert/__init__.py:47
 #: ../quickinsert/__init__.py:71
 msgid "Quick Insert"
 msgstr "Hızılı Ekle"
 
-#: ../preferences/prefshelp.py:222
+#: ../preferences/prefshelp.py:249
 msgid ""
 "To change a keyboard shortcut, highlight an action in the list and click the "
 "Edit button, or double-click an action. In the dialog that appears, you can "
@@ -3843,30 +4360,30 @@ msgid ""
 "the shortcut. "
 msgstr ""
 
-#: ../preferences/prefshelp.py:226 ../preferences/prefshelp.py:249
+#: ../preferences/prefshelp.py:253 ../preferences/prefshelp.py:276
 msgid "You can define a new scheme by using the New button."
 msgstr ""
 
-#: ../preferences/prefshelp.py:236
+#: ../preferences/prefshelp.py:263
 msgid ""
 "Here you can set the editor font (a monospace font is recommended) and all "
 "colors."
 msgstr ""
 
-#: ../preferences/prefshelp.py:238
+#: ../preferences/prefshelp.py:265
 msgid ""
 "The first item lets you set the colors for the text editor backgroud, "
 "foreground, selection background, the current line, line markings, the paper "
 "color in the Music View, etcetera."
 msgstr ""
 
-#: ../preferences/prefshelp.py:241
+#: ../preferences/prefshelp.py:268
 msgid ""
 "The second item lets you set color and other attributes of the general "
 "highlighting styles, e.g. keyword, variable, value, comment, etcetera."
 msgstr ""
 
-#: ../preferences/prefshelp.py:244
+#: ../preferences/prefshelp.py:271
 msgid ""
 "The other items contain the types of text the syntax highlighter recognizes "
 "for every particular document type Frescobaldi supports. Some of these types "
@@ -3874,85 +4391,90 @@ msgid ""
 "underline and the foreground, background and underline color."
 msgstr ""
 
-#: ../preferences/prefshelp.py:258
+#: ../preferences/prefshelp.py:285
 msgid "Here you can change the settings for various tools."
 msgstr ""
 
-#: ../preferences/prefshelp.py:268
+#: ../preferences/prefshelp.py:295
 msgid "Configuring the Outline View"
 msgstr ""
 
-#: ../preferences/prefshelp.py:272
+#: ../preferences/prefshelp.py:299
 msgid ""
 "The document outline view is created by looking for certain expressions in "
 "the document text."
 msgstr ""
 
-#: ../preferences/prefshelp.py:274
+#: ../preferences/prefshelp.py:301
 msgid ""
 "You can specify what to search for by entering a list of regular expressions."
 msgstr ""
 
-#: ../preferences/prefshelp.py:276
+#: ../preferences/prefshelp.py:303
 msgid ""
 "In those expressions, <code>^</code> matches at the beginning of every line, "
 "and <code>$</code> matches at the end of a line."
 msgstr ""
 
-#: ../preferences/prefshelp.py:278
+#: ../preferences/prefshelp.py:305
 msgid ""
 "Normally when an expressions matches text, the whole match is displayed as "
 "an item in the outline."
 msgstr ""
 
-#: ../preferences/prefshelp.py:280
+#: ../preferences/prefshelp.py:307
 msgid "You can also use named groups, with the {code} named group syntax."
 msgstr ""
 
-#: ../preferences/prefshelp.py:282
+#: ../preferences/prefshelp.py:309
 msgid "You can use the name {text} or {title}."
 msgstr ""
 
-#: ../preferences/prefshelp.py:284
+#: ../preferences/prefshelp.py:311
 msgid ""
 "In that case, only the named part of a match is displayed. If the {title} "
 "name is used, it is displayed in a bold font."
 msgstr ""
 
-#: ../preferences/prefshelp.py:287
+#: ../preferences/prefshelp.py:314
 msgid "For more information about regular expressions, see {link}."
 msgstr ""
+
+#: ../preferences/preview.py:82
+#, fuzzy
+msgid "Preview options to use"
+msgstr "Kullanılacak LilyPond sürümleri:"
 
 #: ../preferences/shortcuts.py:56 ../snippet/model.py:63
 msgid "Shortcut"
 msgstr "Kısayol"
 
-#: ../preferences/shortcuts.py:101
-msgid "Menu {name}:"
+#: ../preferences/shortcuts.py:100
+msgid "Menu {name}"
 msgstr ""
 
-#: ../preferences/shortcuts.py:125
+#: ../preferences/shortcuts.py:128
 #, fuzzy
 msgid "Other commands:"
 msgstr "Yazdırma komutu:"
 
-#: ../preferences/shortcuts.py:173
+#: ../preferences/shortcuts.py:184
 #, fuzzy
 msgid "&Edit Shortcut for \"{name}\""
 msgstr "Kısayol"
 
-#: ../preferences/shortcuts.py:178
+#: ../preferences/shortcuts.py:189
 #, fuzzy
 msgid "(no shortcut)"
 msgstr "Kısayol"
 
-#: ../preferences/shortcuts.py:206
+#: ../preferences/shortcuts.py:217
 #, fuzzy
 msgid "Remove the shortcut from that command?"
 msgid_plural "Remove the shortcut from those commands?"
 msgstr[0] "Davul notasından kuyrukları kaldır."
 
-#: ../preferences/shortcuts.py:309
+#: ../preferences/shortcuts.py:320
 #, fuzzy
 msgid "(default)"
 msgstr "öntanımlı"
@@ -4038,201 +4560,259 @@ msgstr ""
 msgid "Enter a regular expression to match:"
 msgstr ""
 
+#: ../preview_mode/__init__.py:43
+#, fuzzy
+msgid "Pre&view Options"
+msgstr "PDF Önizleme"
+
+#: ../preview_mode/widget.py:108
+msgid "Display the skylines that LilyPond uses to detect collisions."
+msgstr ""
+
+#: ../preview_mode/widget.py:112
+msgid "Display the control points that determine curve shapes"
+msgstr ""
+
+#: ../preview_mode/widget.py:116
+msgid "Highlight notes that are explicitly set to \\voiceXXX"
+msgstr ""
+
+#: ../preview_mode/widget.py:120
+msgid "Highlight elements that are explicitly switched up- or downwards"
+msgstr ""
+
+#: ../preview_mode/widget.py:123
+msgid "Display a dot at the anchor point of each grob"
+msgstr ""
+
+#: ../preview_mode/widget.py:126
+msgid "Display the name of each grob"
+msgstr ""
+
+#: ../preview_mode/widget.py:129
+msgid "Display info on the paper columns"
+msgstr ""
+
+#: ../preview_mode/widget.py:132
+msgid ""
+"Use LilyPond's \"annotate spacing\" option to\n"
+"display measurement information"
+msgstr ""
+
+#: ../preview_mode/widget.py:134
+msgid "Include Custom File:"
+msgstr ""
+
+#: ../preview_mode/widget.py:136
+msgid ""
+"Include a custom file with definitions\n"
+"for additional Debug Modes"
+msgstr ""
+
+#: ../preview_mode/widget.py:139
+msgid "Filename to be included"
+msgstr ""
+
 #: ../quickinsert/__init__.py:48
 #, fuzzy
 msgid "Quick &Insert"
 msgstr "Hızılı Ekle"
 
-#: ../quickinsert/articulations.py:73
+#: ../quickinsert/articulations.py:94
 msgid "Allow shorthands"
 msgstr "Kısaltmalara izin ver"
 
-#: ../quickinsert/articulations.py:75
+#: ../quickinsert/articulations.py:96
 msgid "Use short notation for some articulations like staccato."
 msgstr "Staccato gibi artikülasyonlar için kısa notasyonu kullan."
 
-#: ../quickinsert/articulations.py:83 ../quickinsert/articulations.py:115
+#: ../quickinsert/articulations.py:98
+#, fuzzy
+msgid "Remove articulations etc."
+msgstr "Süreleri kaldır"
+
+#: ../quickinsert/articulations.py:106 ../quickinsert/articulations.py:138
 msgid "Articulations"
 msgstr "Artükülasyonlar"
 
-#: ../quickinsert/articulations.py:87
+#: ../quickinsert/articulations.py:110
 msgid "Different kinds of articulations and other signs."
 msgstr "Farklı türde artikülasyonlar ve diğer işaretler."
 
-#: ../quickinsert/articulations.py:118
+#: ../quickinsert/articulations.py:141
 msgid "Accent"
 msgstr "Vurgu"
 
-#: ../quickinsert/articulations.py:119
+#: ../quickinsert/articulations.py:142
 msgid "Marcato"
 msgstr "Marcato"
 
-#: ../quickinsert/articulations.py:120
+#: ../quickinsert/articulations.py:143
 msgid "Staccatissimo"
 msgstr "Staccatissimo"
 
-#: ../quickinsert/articulations.py:121
+#: ../quickinsert/articulations.py:144
 msgid "Staccato"
 msgstr "Staccato"
 
-#: ../quickinsert/articulations.py:122
+#: ../quickinsert/articulations.py:145
 msgid "Portato"
 msgstr "Portato"
 
-#: ../quickinsert/articulations.py:123
+#: ../quickinsert/articulations.py:146
 msgid "Tenuto"
 msgstr "Tenuto"
 
-#: ../quickinsert/articulations.py:124
+#: ../quickinsert/articulations.py:147
 msgid "Espressivo"
 msgstr "Espressivo"
 
-#: ../quickinsert/articulations.py:129
+#: ../quickinsert/articulations.py:152
 msgid "Ornaments"
 msgstr "Süslemeler"
 
-#: ../quickinsert/articulations.py:132 ../quickinsert/spanners.py:146
+#: ../quickinsert/articulations.py:155 ../quickinsert/spanners.py:167
 msgid "Trill"
 msgstr "Trill"
 
-#: ../quickinsert/articulations.py:133
+#: ../quickinsert/articulations.py:156
 msgid "Prall"
 msgstr "Prall"
 
-#: ../quickinsert/articulations.py:134
+#: ../quickinsert/articulations.py:157
 msgid "Mordent"
 msgstr "Mordent"
 
-#: ../quickinsert/articulations.py:135
+#: ../quickinsert/articulations.py:158
 msgid "Turn"
 msgstr "Turn"
 
-#: ../quickinsert/articulations.py:136
+#: ../quickinsert/articulations.py:159
 msgid "Prall prall"
 msgstr "Prall prall"
 
-#: ../quickinsert/articulations.py:137
+#: ../quickinsert/articulations.py:160
 msgid "Prall mordent"
 msgstr "Prall mordent"
 
-#: ../quickinsert/articulations.py:138
+#: ../quickinsert/articulations.py:161
 msgid "Up prall"
 msgstr "Up prall"
 
-#: ../quickinsert/articulations.py:139
+#: ../quickinsert/articulations.py:162
 msgid "Down prall"
 msgstr "Down prall"
 
-#: ../quickinsert/articulations.py:140
+#: ../quickinsert/articulations.py:163
 msgid "Up mordent"
 msgstr "Up mordent"
 
-#: ../quickinsert/articulations.py:141
+#: ../quickinsert/articulations.py:164
 msgid "Down mordent"
 msgstr "Down mordent"
 
-#: ../quickinsert/articulations.py:142
+#: ../quickinsert/articulations.py:165
 msgid "Prall up"
 msgstr "Prall up"
 
-#: ../quickinsert/articulations.py:143
+#: ../quickinsert/articulations.py:166
 msgid "Prall down"
 msgstr "Prall down"
 
-#: ../quickinsert/articulations.py:144
+#: ../quickinsert/articulations.py:167
 msgid "Line prall"
 msgstr "Line prall"
 
-#: ../quickinsert/articulations.py:145
+#: ../quickinsert/articulations.py:168
 msgid "Reverse turn"
 msgstr "Reverse turn"
 
 #. L10N: dynamic signs
-#: ../quickinsert/articulations.py:150 ../quickinsert/dynamics.py:115
+#: ../quickinsert/articulations.py:173 ../quickinsert/dynamics.py:136
 msgid "Signs"
 msgstr "İşaretler"
 
-#: ../quickinsert/articulations.py:153
+#: ../quickinsert/articulations.py:176
 msgid "Fermata"
 msgstr "Fermata"
 
-#: ../quickinsert/articulations.py:154
+#: ../quickinsert/articulations.py:177
 msgid "Short fermata"
 msgstr "Short fermata"
 
-#: ../quickinsert/articulations.py:155
+#: ../quickinsert/articulations.py:178
 msgid "Long fermata"
 msgstr "Long fermata"
 
-#: ../quickinsert/articulations.py:156
+#: ../quickinsert/articulations.py:179
 msgid "Very long fermata"
 msgstr "Very long fermata"
 
-#: ../quickinsert/articulations.py:157
+#: ../quickinsert/articulations.py:180
 msgid "Segno"
 msgstr "Segno"
 
-#: ../quickinsert/articulations.py:158
+#: ../quickinsert/articulations.py:181
 msgid "Coda"
 msgstr "Coda"
 
-#: ../quickinsert/articulations.py:159
+#: ../quickinsert/articulations.py:182
 msgid "Varcoda"
 msgstr "Varcoda"
 
-#: ../quickinsert/articulations.py:160
+#: ../quickinsert/articulations.py:183
 msgid "Signumcongruentiae"
 msgstr "Signumcongruentiae"
 
-#: ../quickinsert/articulations.py:165
+#: ../quickinsert/articulations.py:188
 msgid "Other"
 msgstr "Diğer"
 
-#: ../quickinsert/articulations.py:168
+#: ../quickinsert/articulations.py:191
 msgid "Upbow"
 msgstr "Upbow"
 
-#: ../quickinsert/articulations.py:169
+#: ../quickinsert/articulations.py:192
 msgid "Downbow"
 msgstr "Downbow"
 
-#: ../quickinsert/articulations.py:170
+#: ../quickinsert/articulations.py:193
 msgid "Snappizzicato"
 msgstr "Snappizzicato"
 
-#: ../quickinsert/articulations.py:171
+#: ../quickinsert/articulations.py:194
 msgid "Open (e.g. brass)"
 msgstr "Open (e.g. brass)"
 
-#: ../quickinsert/articulations.py:172
+#: ../quickinsert/articulations.py:195
 msgid "Stopped (e.g. brass)"
 msgstr "Stopped (e.g. brass)"
 
-#: ../quickinsert/articulations.py:173
+#: ../quickinsert/articulations.py:196
 msgid "Flageolet"
 msgstr "Flageolet"
 
-#: ../quickinsert/articulations.py:174
+#: ../quickinsert/articulations.py:197
 msgid "Thumb"
 msgstr "Thumb"
 
-#: ../quickinsert/articulations.py:175
+#: ../quickinsert/articulations.py:198
 msgid "Left heel"
 msgstr "Left heel"
 
-#: ../quickinsert/articulations.py:176
+#: ../quickinsert/articulations.py:199
 msgid "Right heel"
 msgstr "Right heel"
 
-#: ../quickinsert/articulations.py:177
+#: ../quickinsert/articulations.py:200
 msgid "Left toe"
 msgstr "Left toe"
 
-#: ../quickinsert/articulations.py:178
+#: ../quickinsert/articulations.py:201
 msgid "Right toe"
 msgstr "Right toe"
 
-#: ../quickinsert/articulations.py:179
+#: ../quickinsert/articulations.py:202
 msgid "Half open (e.g. hi-hat)"
 msgstr "Yarım açık (örneğin h-hat)"
 
@@ -4342,102 +4922,126 @@ msgstr "Klavye Kısayollarını Yapılandır (%1)"
 msgid "None"
 msgstr "Yok"
 
-#: ../quickinsert/dynamics.py:51
+#: ../quickinsert/dynamics.py:72
 msgid "Dynamics"
 msgstr "Gürlükler"
 
-#: ../quickinsert/dynamics.py:55
+#: ../quickinsert/dynamics.py:76
 msgid "Dynamic symbols."
 msgstr "Gürlük sembolleri."
 
-#: ../quickinsert/dynamics.py:128
+#: ../quickinsert/dynamics.py:149
 #, fuzzy
 msgid "Dynamic sign {name}"
 msgstr "Gürlük işareti %1"
 
-#: ../quickinsert/dynamics.py:133 ../quickinsert/spanners.py:51
-#: ../quickinsert/spanners.py:136
+#: ../quickinsert/dynamics.py:154 ../quickinsert/spanners.py:73
+#: ../quickinsert/spanners.py:157
 msgid "Spanners"
 msgstr "Çeşitli Semboller"
 
-#: ../quickinsert/dynamics.py:142
+#: ../quickinsert/dynamics.py:163
 msgid "Hairpin crescendo"
 msgstr "Crescendo kıvrımı"
 
-#: ../quickinsert/dynamics.py:143
+#: ../quickinsert/dynamics.py:164
 msgid "Crescendo"
 msgstr "Crescendo"
 
-#: ../quickinsert/dynamics.py:144
+#: ../quickinsert/dynamics.py:165
 msgid "Hairpin diminuendo"
 msgstr "Diminuendo kıvrımı"
 
-#: ../quickinsert/dynamics.py:145
+#: ../quickinsert/dynamics.py:166
 msgid "Diminuendo"
 msgstr "Diminuendo"
 
-#: ../quickinsert/dynamics.py:146
+#: ../quickinsert/dynamics.py:167
 msgid "Decrescendo"
 msgstr "Decrescendo"
 
-#: ../quickinsert/spanners.py:55
+#: ../quickinsert/spanners.py:77
 msgid "Slurs, spanners, etcetera."
 msgstr "Bağlar, çeşitli semboller, vesaire."
 
-#: ../quickinsert/spanners.py:60
+#: ../quickinsert/spanners.py:82
 msgid "Arpeggios"
 msgstr "Arpejler"
 
-#: ../quickinsert/spanners.py:69
+#: ../quickinsert/spanners.py:91
 msgid "Arpeggio"
 msgstr "Arpej"
 
-#: ../quickinsert/spanners.py:70
+#: ../quickinsert/spanners.py:92
 msgid "Arpeggio with Up Arrow"
 msgstr "Üst Ok işaretli Arpej"
 
-#: ../quickinsert/spanners.py:71
+#: ../quickinsert/spanners.py:93
 msgid "Arpeggio with Down Arrow"
 msgstr "Alt Ok işaretli Arpej"
 
-#: ../quickinsert/spanners.py:72
+#: ../quickinsert/spanners.py:94
 msgid "Bracket Arpeggio"
 msgstr "Düz Arpej"
 
-#: ../quickinsert/spanners.py:73
+#: ../quickinsert/spanners.py:95
 msgid "Parenthesis Arpeggio"
 msgstr "Arpej Parantezi"
 
-#: ../quickinsert/spanners.py:105
+#: ../quickinsert/spanners.py:127
 msgid "Glissandos"
 msgstr "Kaydırmalar"
 
-#: ../quickinsert/spanners.py:114
+#: ../quickinsert/spanners.py:136
 msgid "Glissando"
 msgstr "Kaydırma"
 
-#: ../quickinsert/spanners.py:115
+#: ../quickinsert/spanners.py:137
 msgid "Dashed Glissando"
 msgstr "Kesik Çizgili Kaydırma"
 
-#: ../quickinsert/spanners.py:116
+#: ../quickinsert/spanners.py:138
 msgid "Dotted Glissando"
 msgstr "Noktalı İşaretle Kaydırma"
 
-#: ../quickinsert/spanners.py:117
+#: ../quickinsert/spanners.py:139
 msgid "Zigzag Glissando"
 msgstr "Zigzaglı Kaydırma"
 
-#: ../quickinsert/spanners.py:118
+#: ../quickinsert/spanners.py:140
 msgid "Trill Glissando"
 msgstr "Trill ile Kaydırma"
 
-#: ../quickinsert/spanners.py:144
+#: ../quickinsert/spanners.py:165
 msgid "Phrasing Slur"
 msgstr "Cümle Bağı"
 
-#: ../quickinsert/spanners.py:147
+#: ../quickinsert/spanners.py:168
 msgid "Melisma"
+msgstr ""
+
+#: ../quickinsert/spanners.py:190 ../quickinsert/spanners.py:197
+msgid "Grace Notes"
+msgstr ""
+
+#: ../quickinsert/spanners.py:198
+msgid "Grace Notes w. beaming"
+msgstr ""
+
+#: ../quickinsert/spanners.py:199
+msgid "Acciaccatura"
+msgstr ""
+
+#: ../quickinsert/spanners.py:200
+msgid "Appoggiatura"
+msgstr ""
+
+#: ../quickinsert/spanners.py:201
+msgid "Slashed no slur"
+msgstr ""
+
+#: ../quickinsert/spanners.py:202
+msgid "After grace"
 msgstr ""
 
 #: ../quickinsert/widget.py:102
@@ -4723,12 +5327,12 @@ msgctxt "submenu title"
 msgid "Rhythm"
 msgstr "&Ritm"
 
-#: ../scorewiz/__init__.py:66
+#: ../scorewiz/__init__.py:67
 #, fuzzy
 msgid "Setup New Score (in current document)..."
 msgstr "Yürürlükteki& Belge ile Konsolu Senkronize Ediniz."
 
-#: ../scorewiz/__init__.py:67
+#: ../scorewiz/__init__.py:68
 #, fuzzy
 msgid "New Score with &Wizard..."
 msgstr "Partisyon Yapılandırma Sihirbazı"
@@ -6699,26 +7303,26 @@ msgstr ""
 "\n"
 "Üzerine yazmak ister misiniz?"
 
-#: ../snippet/tool.py:56
+#: ../snippet/tool.py:58
 #, fuzzy
 msgid "&Snippets"
 msgstr "Susları çıkar"
 
-#: ../snippet/tool.py:100
+#: ../snippet/tool.py:101
 #, fuzzy
 msgid "Save as Template..."
 msgstr "PDF'yi Farklı Kaydet..."
 
-#: ../snippet/tool.py:101
+#: ../snippet/tool.py:102
 msgid "Copy to &Snippet..."
 msgstr ""
 
-#: ../snippet/tool.py:102
+#: ../snippet/tool.py:103
 #, fuzzy
 msgid "Manage Templates..."
 msgstr "PDF'yi Farklı Kaydet..."
 
-#: ../snippet/tool.py:103
+#: ../snippet/tool.py:104
 msgid "&Snippets..."
 msgstr ""
 
@@ -6968,8 +7572,15 @@ msgstr "Yok"
 msgid "Use &default shortcut ({name})"
 msgstr ""
 
-#: ../widgets/tempobutton.py:51
+#: ../widgets/tempobutton.py:53
 msgid "The tempo is set as you click this button."
+msgstr ""
+
+#: ../widgets/tempobutton.py:55
+msgid ""
+"Tap this button to set the tempo.\n"
+"\n"
+"The average speed of clicking is used; wait 3 seconds to \"reset\"."
 msgstr ""
 
 #: ../widgets/urlrequester.py:65
@@ -6986,6 +7597,10 @@ msgstr "Öntanımlı dizin:"
 #, fuzzy
 msgid "Select a file"
 msgstr "Hepsini seç"
+
+#, fuzzy
+#~ msgid "LilyPond {version}"
+#~ msgstr "Varsayılan LilyPond Sürüm Numarası."
 
 #, fuzzy
 #~ msgid "Edit in place"
@@ -7796,9 +8411,6 @@ msgstr "Hepsini seç"
 
 #~ msgid "The LilyPond language you want Rumor to output the pitches in."
 #~ msgstr "Rumor'un içindeki sesleri dışa aktaracağı Lilypond dili."
-
-#~ msgid "Explicit durations"
-#~ msgstr "Süreleri netleştir"
 
 #~ msgid ""
 #~ "Add a duration after every note, even if it is the same as the preceding "

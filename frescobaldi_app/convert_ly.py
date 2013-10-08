@@ -180,16 +180,7 @@ class Dialog(QDialog):
                 "Both 'from' and 'to' versions need to be set."))
             return
         info = self._info
-        convert_ly = os.path.join(info.bindir(), info.convert_ly)
-        
-        # on Windows the convert-ly command is not directly executable, but
-        # must be started using the LilyPond-provided Python interpreter
-        if os.name == "nt":
-            if not os.access(convert_ly, os.R_OK) and not convert_ly.endswith('.py'):
-                convert_ly += '.py'
-            command = [info.python(), convert_ly]
-        else:
-            command = [convert_ly]
+        command = info.toolcommand(info.convert_ly)
         command += ['-f', fromVersion, '-t', toVersion, '-']
         
         # if the user wants english messages, do it also here: LANGUAGE=C

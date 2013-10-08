@@ -108,17 +108,22 @@ class Engraver(plugin.MainWindowPlugin):
             self.saveDocumentIfDesired()
             self.runJob(dlg.getJob(doc), doc)
     
-    def engrave(self, preview, document=None):
+    def engrave(self, preview, document=None, may_save=True):
         """Starts a default engraving job.
         
         The bool preview specifies preview mode.
         If document is not specified, it is either the sticky or current
         document.
         
+        If may_save is False, the document will not be saved before running
+        LilyPond, even if the preference setting "save document before LilyPond
+        is run" is enabled.
+        
         """
         from . import command
         doc = document or self.stickyDocument() or self.mainwindow().currentDocument()
-        self.saveDocumentIfDesired()
+        if may_save:
+            self.saveDocumentIfDesired()
         self.runJob(command.defaultJob(doc, preview), doc)
     
     def engraveAbort(self):

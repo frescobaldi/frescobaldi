@@ -19,40 +19,71 @@
 
 """
 Setup the application language.
+
+Also contains a function to get language preferences from the operation
+system.
+
 """
 
 import locale
 
-from PyQt4.QtCore import QSettings, QTimer
+from PyQt4.QtCore import QLocale, QSettings, QTimer
 
 import app
 
-from . import find, install
+from . import find, install, available
 from . import qtranslator
+
+__all__ = ['preferred', 'current', 'default']
 
 
 _currentlanguage = None
 
 
+def preferred():
+    """Return a list of language codes from the operating system preferences.
+    
+    Language- and country codes will always be separated with an underscore '_'.
+    
+    """
+    try:
+        langs = QLocale().uiLanguages()
+    except AttributeError:
+        # QLocale.uiLanguages is not in Qt 4.7 (only Qt4.8+)
+        langs = []
+    else:
+        # in some systems, language/country codes have '-' and not '_'
+        langs = [l.replace('-', '_') for l in langs]
+    if not langs:
+        try: 
+            langs.append(locale.getdefaultlocale()[0])
+        except ValueError:
+            pass
+    return langs
+
+def default():
+    """Return the first preferred system default UI language that is available in Frescobaldi.
+    
+    May return None, if none of the system preferred languages is avaiable
+    in Frescobaldi.
+    
+    """
+    av_langs = available()
+    av_langs.append("en")
+    for lang in preferred():
+        if lang in av_langs or lang.split('_')[0] in av_langs:
+            return lang
+
 def current():
-    """Returns the current (user-set or default) UI language setting.
+    """Returns the currently active UI language code.
     
     A name is always returned, which can be "C", meaning no translation
     is desired.
     
     """
-    language = QSettings().value("language", "", type(""))
-    if not language:
-        try:
-            language = locale.getdefaultlocale()[0]
-        except ValueError:
-            pass
-    if not language:
-        language = "C"
-    return language
-    
-    
-def setup():
+    return QSettings().value("language", "", type("")) or default() or "C"
+
+def _setup():
     """Set application language according to settings."""
     global _currentlanguage
     language = current()
@@ -69,5 +100,5 @@ def setup():
                 pass
     install(None)
 
-app.settingsChanged.connect(setup)
-setup()
+app.settingsChanged.connect(_setup)
+_setup()

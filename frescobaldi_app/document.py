@@ -58,9 +58,9 @@ class Document(QTextDocument):
         app.documentModificationChanged(self)
 
     def close(self):
-        app.documents.remove(self)
         self.closed()
         app.documentClosed(self)
+        app.documents.remove(self)
 
     def load(self, keepUndo=False):
         """Loads the current url.

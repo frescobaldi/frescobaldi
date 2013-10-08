@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Internationalisation.
+Internationalization of Frescobaldi.
 """
 
 import __builtin__
@@ -31,7 +31,7 @@ podir = __path__[0]
 def available():
     """Returns a list of language shortnames for which a MO file is available."""
     return [name[:-3] for name in os.listdir(podir) if name.endswith(".mo")]
- 
+
 def find(language):
     """Returns a .mo file for the given language.
     

@@ -108,43 +108,34 @@ class Word(Scheme, _token.Item):
     rx = r'[^()"{}\s]+'
 
 
-class Keyword(Scheme):
-    @_token.patternproperty
-    def rx():
+class Keyword(Word):
+    @classmethod
+    def test_match(cls, match):
         from .. import data
-        import re
-        lst = re.sub(r'([\?\*\+])', r"\\\1", 
-                     "|".join(sorted(data.scheme_keywords(), key=len, reverse=True)))
-        return r"({0})(?![A-Za-z-])".format(lst)
-    
+        return match.group() in data.scheme_keywords()
+
+
 class Function(Word):
-    @_token.patternproperty
-    def rx():
+    @classmethod
+    def test_match(cls, match):
         from .. import data
-        import re
-        lst = re.sub(r'([\?\*\+])', r"\\\1", 
-                     "|".join(sorted(data.scheme_functions(), key=len, reverse=True)))
-        return r"({0})(?![A-Za-z-])".format(lst)
-    
+        return match.group() in data.scheme_functions()
+
+
 class Variable(Word):
-    @_token.patternproperty
-    def rx():
+    @classmethod
+    def test_match(cls, match):
         from .. import data
-        import re
-        lst = re.sub(r'([\?\*\+])', r"\\\1", 
-                     "|".join(sorted(data.scheme_variables(), key=len, reverse=True)))
-        return r"({0})(?![A-Za-z-])".format(lst)
-    
-    
+        return match.group() in data.scheme_variables()
+
+
 class Constant(Word):
-    @_token.patternproperty
-    def rx():
+    @classmethod
+    def test_match(cls, match):
         from .. import data
-        import re
-        lst = re.sub(r'([\?\*\+])', r"\\\1", 
-                     "|".join(sorted(data.scheme_constants(), key=len, reverse=True)))
-        return r"({0})(?![A-Za-z-])".format(lst)
-    
+        return match.group() in data.scheme_constants()
+
+
 class Symbol(Word):
     rx = r"[a-zA-Z-]+(?![a-zA-Z])"
     def update_state(self, state):
@@ -153,15 +144,19 @@ class Symbol(Word):
     
 
 class Number(_token.Item, _token.Numeric):
-    rx = r"-?\d+|#(b[0-1]+|o[0-7]+|x[0-9a-fA-F]+)"
-    
+    rx = (r"("
+          r"-?\d+|"
+          r"#(b[0-1]+|o[0-7]+|x[0-9a-fA-F]+)|"
+          r"[-+]inf.0|[-+]?nan.0"
+          r")(?=$|[)\s])")
+
 
 class Fraction(Number):
-    rx = r"-?\d+/\d+"
+    rx = r"-?\d+/\d+(?=$|[)\s])"
 
 
 class Float(Number):
-    rx = r"-?((\d+(\.\d*)|\.\d+)(E\d+)?)"
+    rx = r"-?((\d+(\.\d*)|\.\d+)(E\d+)?)(?=$|[)\s])"
 
 
 class LilyPond(_token.Token):
@@ -195,12 +190,12 @@ class ParseScheme(Parser):
         Char,
         Quote,
         Fraction,
+        Float,
+        Number,
+        Constant,
         Keyword,
         Function,
         Variable,
-        Constant,
-        Float,
-        Number,
         Word,
         StringQuotedStart,
     )

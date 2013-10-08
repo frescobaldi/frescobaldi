@@ -36,6 +36,7 @@ import help
 import homekey
 import icons
 import textformats
+import wordboundary
 import widgets.indenter
 import widgets.matcher
 
@@ -94,10 +95,13 @@ class Edit(QDialog):
             b.setStandardButtons(buttons)
         help.addButton(b, snippet_edit_help)
         
-        highlight.Highlighter(self.text.document())
+        # PyQt4.10 en sip4.14.5 delete the Highlighter, even though it is
+        # constructed with a parent, that's why we save it in an unused attribute.
+        self._highlighter = highlight.Highlighter(self.text.document())
         Matcher(self.text)
         widgets.indenter.Indenter(self.text)
         self.text.installEventFilter(homekey.handler)
+        wordboundary.handler.install_textedit(self.text)
         completer.Completer(self.text)
         
         if name:
