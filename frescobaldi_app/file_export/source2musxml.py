@@ -103,19 +103,19 @@ class parse_source():
 		pass
 		
 	def Fraction(self, token):
-		print token
+		pass
 		
 	def Keyword(self, token):
-		print token
+		pass
 		
 	def StringQuotedStart(self, token):
-		print token
+		pass
 		
 	def StringQuotedEnd(self, token):
-		print token
+		pass
 		
 	def String(self, token):
-		print token
+		pass
 		
 	def Command(self, token):
 		self.command = token

@@ -75,8 +75,9 @@ class mediator():
 class bar_note():
 	""" object to keep track of note parameters """
 	def __init__(self, note_name, durval, div):
-		self.step = note_name.upper()
-		self.alter = 0
+		plist = notename2step(note_name)
+		self.step = plist[0]
+		self.alter = plist[1]
 		self.octave = 3
 		self.duration = durval2dura(durval, div)
 		self.type = durval2type(durval)
@@ -127,6 +128,19 @@ def clefname2clef(clefname):
 		return ['F',4]
 	elif clefname == "alt":
 		return ['C',3]
+		
+def notename2step(note_name):
+	alter = 0
+	if len(note_name)>1:
+		is_sharp = note_name.split('i')
+		is_flat = note_name.split('e')
+		note_name = note_name[0]
+		if is_sharp[1]:
+			alter = 1
+		elif is_flat[1]:
+			alter = -1
+	return [note_name.upper(), alter]
+		
 		
 def durval2dura(durval,div):
 	return int(durval)*4*div

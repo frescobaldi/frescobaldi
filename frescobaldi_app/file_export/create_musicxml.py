@@ -67,6 +67,8 @@ class create_musicXML():
 		self.add_pitch(pitch[0], pitch[1], pitch[2])
 		self.add_div_duration(dura)
 		self.add_duration_type(durtype)
+		if pitch[1]:
+			self.add_accidental(pitch[1])
 		
 	def new_bar_attr(self, clef, mustime, key, div):
 		self.create_bar_attr()
@@ -106,6 +108,14 @@ class create_musicXML():
 			altnode.text = str(alter)
 		octnode = etree.SubElement(pitch, "octave")
 		octnode.text = str(octave)
+		
+	def add_accidental(self, alter):
+		""" create accidental """
+		acc = etree.SubElement(self.current_note, "accidental")
+		if alter>0:		
+			acc.text = "sharp"
+		else:
+			acc.text = "flat"
 		
 	def add_div_duration(self, divdur):
 		""" create new duration """
