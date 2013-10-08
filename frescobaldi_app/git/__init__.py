@@ -107,7 +107,7 @@ class Git(object):
         - args is a string or a list of strings
         """
         cmd = ['git', cmd]
-        if type(args) == str:
+        if isinstance(args, str) or isinstance(args, unicode):
             cmd.append(args)
         else:
             cmd.extend(args)
