@@ -122,8 +122,14 @@ def translateUI(obj, priority=0):
     obj.translateUI()
 
 def caption(title):
-    """Returns a nice dialog or window title with appname appended."""
-    return "{0} \u2013 {1}".format(title, info.appname)
+    """
+    Returns a nice dialog or window title with appname appended.
+    If run from Git repository current branch is appended to the title.
+    """
+    full_title = "{0} \u2013 {1}".format(title, info.appname)
+    if is_git_controlled():
+        full_title += ' (on branch ' + git.app.current_branch(True) + ')'
+    return full_title
 
 def filetypes(extension=None):
     """Returns a list of supported filetypes.
@@ -193,4 +199,5 @@ def is_git_controlled():
     """
     return os.path.isdir(os.path.join(sys.path[0], '..', '.git'))
 
-
+if is_git_controlled():
+    import git
