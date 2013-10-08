@@ -199,6 +199,3 @@ def is_git_controlled():
     except NameError:
         _is_git_controlled = os.path.isdir(os.path.join(sys.path[0], '..', '.git'))
     return _is_git_controlled
-
-
-
