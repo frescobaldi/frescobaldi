@@ -322,15 +322,15 @@ class eng_custom(page):
             "interface and then fine-tune the command line to be used for LilyPond "
             "directly."),
           _("You can select from the LilyPond versions defined in the {pref} "
-            "dialog, ").format(pref=preferences.prefshelp.preferences_lilypond.link()) +
-          _("from the output formats available to LilyPond and (for PNG output) "
-            "from a number of image resolutions."), 
+            "dialog, from the output formats available to LilyPond and "
+            "(for PNG output) from a number of image resolutions.").format(
+             pref=preferences.prefshelp.preferences_lilypond.link()), 
           _("Running LilyPond in Preview Mode will respect the settings from the "
             "Preview Options Panel ({link}).").format(link=eng_preview.link()) +
           _("Verbose Output and English Messages may be relevant if you want to "
             "send information to a mailing list, and Deleting Intermediate Output "
             "Files may be used to <em>disable</em> the default behaviour."), 
           _("Some of these settings are reflected in the Command Line text edit field, "
-            "others not.")
+            "others not."),
         )
 
