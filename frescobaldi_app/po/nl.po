@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-10-09 20:36+0200\n"
+"POT-Creation-Date: 2013-10-10 15:09+0200\n"
 "PO-Revision-Date: 2013-10-10 07:23+0200\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
@@ -110,7 +110,7 @@ msgstr "Besturingssysteem"
 msgid "Version {version}"
 msgstr "Versie {version}"
 
-#: ../about.py:185 ../main.py:59
+#: ../about.py:185 ../main.py:58
 msgid "A LilyPond Music Editor"
 msgstr "Een muziek-editor voor LilyPond"
 
@@ -145,31 +145,31 @@ msgstr "Sneltoetsconflict"
 msgid "Edit again"
 msgstr "Opnieuw bewerken"
 
-#: ../app.py:136
+#: ../app.py:139
 msgid "LilyPond Files"
 msgstr "LilyPond-bestanden"
 
-#: ../app.py:137
+#: ../app.py:140
 msgid "LaTeX Files"
 msgstr "LaTeX-bestanden"
 
-#: ../app.py:138
+#: ../app.py:141
 msgid "DocBook Files"
 msgstr "DocBook-bestanden"
 
-#: ../app.py:139
+#: ../app.py:142
 msgid "HTML Files"
 msgstr "HTML-bestanden"
 
-#: ../app.py:140
+#: ../app.py:143
 msgid "Texinfo Files"
 msgstr "Texinfo-bestanden"
 
-#: ../app.py:141
+#: ../app.py:144
 msgid "Scheme Files"
 msgstr "Scheme-bestanden"
 
-#: ../app.py:142 ../snippet/widget.py:292 ../snippet/widget.py:309
+#: ../app.py:145 ../snippet/widget.py:292 ../snippet/widget.py:309
 #: ../widgets/schemeselector.py:166 ../widgets/schemeselector.py:174
 msgid "All Files"
 msgstr "Alle bestanden"
@@ -603,43 +603,43 @@ msgstr "Liedtekst-afbreking ver&wijderen"
 msgid "&Copy Lyrics with hyphenation removed"
 msgstr "Liedteksten &kopiëren met afbreking verwijderd"
 
-#: ../main.py:57
+#: ../main.py:56
 msgid "{appname} [options] file ..."
 msgstr "{appname} [opties] bestand ..."
 
-#: ../main.py:60
+#: ../main.py:59
 msgid "ENC"
 msgstr "ENC"
 
-#: ../main.py:61
+#: ../main.py:60
 msgid "Encoding to use"
 msgstr "Te gebruiken tekenset"
 
-#: ../main.py:62 ../main.py:64
+#: ../main.py:61 ../main.py:63
 msgid "NUM"
 msgstr "NUM"
 
-#: ../main.py:63
+#: ../main.py:62
 msgid "Line number to go to, starting at 1"
 msgstr "Ga naar regel (start met 1)"
 
-#: ../main.py:65
+#: ../main.py:64
 msgid "Column to go to, starting at 0"
 msgstr "Ga naar kolom (start met 0)"
 
-#: ../main.py:66
+#: ../main.py:65
 msgid "NAME"
 msgstr "NAAM"
 
-#: ../main.py:67
+#: ../main.py:66
 msgid "Session to start ('{none}' for empty session)"
 msgstr "Te starten sessie ('{none}' voor lege sessie)"
 
-#: ../main.py:70
+#: ../main.py:69
 msgid "List the session names and exit"
 msgstr "Toon de lijst van bestaande sessies en sluit af"
 
-#: ../main.py:72
+#: ../main.py:71
 msgid "Always start a new instance"
 msgstr "Altijd een nieuw proces starten"
 
@@ -989,77 +989,77 @@ msgstr "&Bijbehorend item"
 msgid "&Select Matching Pair"
 msgstr "Bijbehorende &items selecteren"
 
-#: ../menu.py:86
+#: ../menu.py:87
 msgctxt "menu title"
 msgid "&File"
 msgstr "&Bestand"
 
-#: ../menu.py:125
+#: ../menu.py:126
 msgctxt "submenu title"
 msgid "&Import"
 msgstr "&Importeren"
 
-#: ../menu.py:133
+#: ../menu.py:134
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Exporteren"
 
-#: ../menu.py:141
+#: ../menu.py:142
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "Be&werken"
 
-#: ../menu.py:168
+#: ../menu.py:169
 msgctxt "menu title"
 msgid "&View"
 msgstr "B&eeld"
 
-#: ../menu.py:196
+#: ../menu.py:197
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "Invou&wen"
 
-#: ../menu.py:211
+#: ../menu.py:212
 msgctxt "menu title"
 msgid "&Music"
 msgstr "&Muziek"
 
-#: ../menu.py:238
+#: ../menu.py:239
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:257
+#: ../menu.py:258
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Gereedschap"
 
-#: ../menu.py:285
+#: ../menu.py:286
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Liedteksten"
 
-#: ../menu.py:297
+#: ../menu.py:298
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Toonhoogte"
 
-#: ../menu.py:312
+#: ../menu.py:313
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritme"
 
-#: ../menu.py:336
+#: ../menu.py:337
 msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr "&Snel verwijderen"
 
-#: ../menu.py:354
+#: ../menu.py:355
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Venster"
 
-#: ../menu.py:381
+#: ../menu.py:375
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Help"
@@ -1756,7 +1756,17 @@ msgstr ""
 "het menu {menu_panel}. Alle functies zijn standaard uitgeschakeld maar "
 "worden onthouden door Frescobaldi."
 
-#: ../help/cnt_engraving.py:80
+#: ../help/cnt_engraving.py:80 ../help/cnt_engraving.py:83
+#: ../preferences/__init__.py:261 ../preferences/prefshelp.py:282
+msgid "Tools"
+msgstr "Gereedschap"
+
+#: ../help/cnt_engraving.py:80 ../help/cnt_engraving.py:83
+#: ../preview_mode/__init__.py:42
+msgid "Preview Options"
+msgstr "Vooruitblik opties"
+
+#: ../help/cnt_engraving.py:81
 msgid ""
 "If you use these features regularly it is recommendable to have the panel "
 "constantly open because you will probably switch Debug Modes quite often."
@@ -1764,16 +1774,7 @@ msgstr ""
 "Als u veel van de debug-modes gebruik maakt kunt u het gereedschap open "
 "houden om snel opties te kunnen omschakelen."
 
-#: ../help/cnt_engraving.py:82 ../preferences/__init__.py:261
-#: ../preferences/prefshelp.py:282
-msgid "Tools"
-msgstr "Gereedschap"
-
-#: ../help/cnt_engraving.py:82 ../preview_mode/__init__.py:42
-msgid "Preview Options"
-msgstr "Vooruitblik opties"
-
-#: ../help/cnt_engraving.py:83
+#: ../help/cnt_engraving.py:84
 msgid ""
 "Compiling in Preview Mode will introduce a <code>-ddebug-layout</code> "
 "command line variable to be present. You can check for this with something "
@@ -1787,7 +1788,7 @@ msgstr ""
 "(if (ly:get-option 'debug-layout))</code>. Zo kunt u code schrijven die "
 "enkel in vooruitblik-modus wordt uitgevoerd."
 
-#: ../help/cnt_engraving.py:88
+#: ../help/cnt_engraving.py:89
 msgid ""
 "The appearance of the Debug Modes is defined by Scheme variables and can "
 "partially be configured following the directions in {preview_config}."
@@ -1796,17 +1797,17 @@ msgstr ""
 "en kan gedeeltelijk worden geconfigureerd volgens de aanwijzigen in "
 "{preview_config}."
 
-#: ../help/cnt_engraving.py:91
+#: ../help/cnt_engraving.py:92
 msgid "The following Debug Modes are currently implemented:"
 msgstr "De volgende debug-modes zijn momenteel geïmplementeerd:"
 
 #. L10N: Please translate the mode names the same way as in the panel UI
-#: ../help/cnt_engraving.py:95 ../help/cnt_engraving.py:216
+#: ../help/cnt_engraving.py:96 ../help/cnt_engraving.py:217
 #: ../preview_mode/widget.py:110
 msgid "Display Control Points"
 msgstr "Controlepunten tonen"
 
-#: ../help/cnt_engraving.py:96
+#: ../help/cnt_engraving.py:97
 msgid ""
 "Slurs, Ties and other similar objects are drawn in LilyPond as third-order "
 "Bezier curves, which means that their shape is controlled by four \"control-"
@@ -1821,7 +1822,7 @@ msgstr ""
 "de vorm. De vorm van dit soort objecten wordt veranderd door deze punten te "
 "verplaatsen, en zodoende is het handig om te zien waar ze zijn in de PDF."
 
-#: ../help/cnt_engraving.py:103
+#: ../help/cnt_engraving.py:104
 msgid ""
 "This Debug Mode will display the inner control-points as red crosses and "
 "connects them to the outer (starting) points with thin lines."
@@ -1829,12 +1830,12 @@ msgstr ""
 "Deze debug-modus toont de binnenste controlepunten als rode kruisjes en "
 "verbindt ze met de buitenste punten met dunne lijnen."
 
-#: ../help/cnt_engraving.py:106 ../help/cnt_engraving.py:231
+#: ../help/cnt_engraving.py:107 ../help/cnt_engraving.py:232
 #: ../preview_mode/widget.py:114
 msgid "Color \\voiceXXX"
 msgstr "\\voiceXX kleuren"
 
-#: ../help/cnt_engraving.py:107
+#: ../help/cnt_engraving.py:108
 msgid ""
 "This mode highlights voices that have been explicitly set with one of the "
 "<code>\\voiceXXX</code> commands. This is useful when dealing with polyphony "
@@ -1844,12 +1845,12 @@ msgstr ""
 "code> commando's gemarkeerd zijn. Dit is handig bij het oplossen van "
 "problemen met polyphonie."
 
-#: ../help/cnt_engraving.py:110 ../help/cnt_engraving.py:246
+#: ../help/cnt_engraving.py:111 ../help/cnt_engraving.py:247
 #: ../preview_mode/widget.py:118
 msgid "Color explicit directions"
 msgstr "Expliciete richting kleuren"
 
-#: ../help/cnt_engraving.py:111
+#: ../help/cnt_engraving.py:112
 msgid ""
 "This mode colors items whose directions have been explicitly set with either "
 "the predefined commands <code>\\xxxUp</code> etc. or the directional "
@@ -1859,11 +1860,11 @@ msgstr ""
 "commando's zoals <code>\\\\xxxUp</code> of de richtings-operators <code>^</"
 "code> en <code>_</code>."
 
-#: ../help/cnt_engraving.py:114
+#: ../help/cnt_engraving.py:115
 msgid "Please note how this mode and the previous are related:"
 msgstr "Deze en de vorige modus zijn enigszins gerelateerd:"
 
-#: ../help/cnt_engraving.py:115
+#: ../help/cnt_engraving.py:116
 msgid ""
 "When the condition for one of the the modes is reverted using commands like "
 "<code>\\oneVoice</code> or <code>\\xxxNeutral</code> colors are reverted to "
@@ -1874,7 +1875,7 @@ msgstr ""
 "wordt de kleur ook weer op zwart gezet, dat zou ook de kleur van de andere "
 "modus ongedaan kunnen maken."
 
-#: ../help/cnt_engraving.py:119
+#: ../help/cnt_engraving.py:120
 msgid ""
 "In <code>c \\voiceTwo d \\stemUp e \\stemNeutral d \\oneVoice</code> the 'd' "
 "may already be reverted."
@@ -1882,7 +1883,7 @@ msgstr ""
 "In <code>c \\\\voiceTwo d \\\\stemUp e \\\\stemNeutral d \\\\oneVoice</code> "
 "is de 'd' alweer zwart."
 
-#: ../help/cnt_engraving.py:121
+#: ../help/cnt_engraving.py:122
 msgid ""
 "If the score is engraved with LilyPond version 2.17.6 or later the situation "
 "is somewhat improved through the use of the <code>\\temporary</code> "
@@ -1892,7 +1893,7 @@ msgstr ""
 "situatie enigszins verbeterd dankzij het gebruik van het <code>\\temporary</"
 "code> directief."
 
-#: ../help/cnt_engraving.py:124
+#: ../help/cnt_engraving.py:125
 msgid ""
 "In short: If you use both Modes at the same time please expect "
 "inconsistencies."
@@ -1900,12 +1901,12 @@ msgstr ""
 "Kortom: als u beide modes tegelijkertijd gebruikt, kunnen inconsistenties "
 "optreden."
 
-#: ../help/cnt_engraving.py:126 ../help/cnt_engraving.py:263
+#: ../help/cnt_engraving.py:127 ../help/cnt_engraving.py:264
 #: ../preview_mode/widget.py:121
 msgid "Display Grob Anchors"
 msgstr "Grob-ankerpunten weergeven"
 
-#: ../help/cnt_engraving.py:127
+#: ../help/cnt_engraving.py:128
 msgid ""
 "In LilyPond, all graphical objects have an anchor (a reference point). What "
 "is a reference point?  It's a special point that defines the object's "
@@ -1918,20 +1919,20 @@ msgstr ""
 "In LilyPond hebben alle grafische objecten (grobs) een ankerpunt "
 "(referentiepunt). Dit punt bepaalt de positie van het object."
 
-#: ../help/cnt_engraving.py:134
+#: ../help/cnt_engraving.py:135
 msgid "This Mode displays a red dot for each grob's anchor point."
 msgstr "Deze modus toont een rode stip op het ankerpunt van elke grob."
 
-#: ../help/cnt_engraving.py:135 ../help/cnt_engraving.py:276
+#: ../help/cnt_engraving.py:136 ../help/cnt_engraving.py:277
 #: ../preview_mode/widget.py:124
 msgid "Display Grob Names"
 msgstr "Grob-namen weergeven"
 
-#: ../help/cnt_engraving.py:136
+#: ../help/cnt_engraving.py:137
 msgid "This mode prints a grob's name next to it."
 msgstr "Deze mode drukt de naam van elke grob af."
 
-#: ../help/cnt_engraving.py:137
+#: ../help/cnt_engraving.py:138
 msgid ""
 "The main purpose of this Debug Mode is to retrieve information about Grob "
 "names, which may come in handy if you don't know where to look up available "
@@ -1943,7 +1944,7 @@ msgstr ""
 "en werkt daarom het best met kleine testdocumenten. Hopelijk kan deze modus "
 "in de toekomst voor elke grob apart worden ingeschakeld."
 
-#: ../help/cnt_engraving.py:140
+#: ../help/cnt_engraving.py:141
 msgid ""
 "Please note that displaying grob anchors and displaying grob names is "
 "mutually exclusive because both functions override the grob's stencil. When "
@@ -1953,7 +1954,7 @@ msgstr ""
 "kan, beide overschrijven de stencil van de grob. Als beide modes actief zijn "
 "worden alleen de grob-ankerpunten weergegeven."
 
-#: ../help/cnt_engraving.py:144
+#: ../help/cnt_engraving.py:145
 msgid ""
 "Please also note that this mode is quite intrusive and may affect the "
 "layout. It is mainly useful for learning about grob names and will "
@@ -1963,11 +1964,11 @@ msgstr ""
 "grob namen te leren en wordt bruikbaarder als het voor individuele grobs zou "
 "kunnen worden geactiveerd."
 
-#: ../help/cnt_engraving.py:148 ../preview_mode/widget.py:106
+#: ../help/cnt_engraving.py:149 ../preview_mode/widget.py:106
 msgid "Display Skylines"
 msgstr "Skylines weergeven"
 
-#: ../help/cnt_engraving.py:149
+#: ../help/cnt_engraving.py:150
 msgid ""
 "LilyPond uses \"Skylines\" to calculate the vertical dimensions of its "
 "graphical objects in order to prevent collisions. This mode draws lines "
@@ -1978,11 +1979,11 @@ msgstr ""
 "berekenen om botsingen te voorkomen. Deze modus tekent de skylines in de "
 "partituur en verschaft zo inzicht in de verticale spatiëring."
 
-#: ../help/cnt_engraving.py:153 ../preview_mode/widget.py:127
+#: ../help/cnt_engraving.py:154 ../preview_mode/widget.py:127
 msgid "Debug Paper Columns"
 msgstr "Paper-colums debuggen"
 
-#: ../help/cnt_engraving.py:154
+#: ../help/cnt_engraving.py:155
 msgid ""
 "LilyPond organises the horizontal spacing in \"paper columns\". This mode "
 "prints a lot of spacing information about these entities."
@@ -1991,11 +1992,11 @@ msgstr ""
 "columns. Deze modus toont een grote hoeveelheid informatie over deze "
 "entiteiten."
 
-#: ../help/cnt_engraving.py:156 ../preview_mode/widget.py:130
+#: ../help/cnt_engraving.py:157 ../preview_mode/widget.py:130
 msgid "Annotate Spacing"
 msgstr "Spatiëring annoteren"
 
-#: ../help/cnt_engraving.py:157
+#: ../help/cnt_engraving.py:158
 msgid ""
 "LilyPond has a built-in function that prints lots of information about "
 "distances on the paper, which is very useful when debugging the page layout."
@@ -2003,11 +2004,11 @@ msgstr ""
 "LilyPond heeft een ingebouwde functie die alle afstanden in getallen "
 "vermeldt, wat handig is om de pagina-layout te debuggen."
 
-#: ../help/cnt_engraving.py:160
+#: ../help/cnt_engraving.py:161
 msgid "Include Custom File"
 msgstr "Eigen bestand invoegen"
 
-#: ../help/cnt_engraving.py:161
+#: ../help/cnt_engraving.py:162
 msgid ""
 "This mode offers the opportunity to add one's own Debug Modes by including a "
 "custom file. This file will be included at program startup and may contain "
@@ -2020,7 +2021,7 @@ msgstr ""
 "vooruitblik-modus geladen, vóór alle andere bestanden, zodat u dit bestand "
 "ook kunt gebruiken om de debug-modes te configureren."
 
-#: ../help/cnt_engraving.py:167
+#: ../help/cnt_engraving.py:168
 msgid ""
 "The given string will be literally included in an <code>\\include</code> "
 "directive, so you are responsible yourself that LilyPond can find it."
@@ -2028,11 +2029,11 @@ msgstr ""
 "De ingevoerde bestandsnaam wordt letterlijk in een <code>\\include</code>-"
 "commando geplaatst, dus u moet zelf zorgen dat LilyPond het kan vinden."
 
-#: ../help/cnt_engraving.py:177
+#: ../help/cnt_engraving.py:178
 msgid "Preview Mode Configuration"
 msgstr "Vooruitblik-modus configuratie"
 
-#: ../help/cnt_engraving.py:204
+#: ../help/cnt_engraving.py:205
 msgid ""
 "The appearance of the individual Debug Modes is defined through the use of "
 "configuration variables. Depending on the implementation of the mode you may "
@@ -2050,26 +2051,26 @@ msgstr ""
 "gebruikt worden om deze variabeles te definiëren voordat de debug-modes door "
 "LilyPond worden uitgevoerd."
 
-#: ../help/cnt_engraving.py:212
+#: ../help/cnt_engraving.py:213
 msgid "The modes use the following configuration variables:"
 msgstr "De modes gebruiken de volgende configuratie-variabelen:"
 
-#: ../help/cnt_engraving.py:217
+#: ../help/cnt_engraving.py:218
 msgid "Variables can be redefined in input files."
 msgstr "Variabelen kunnen in invoerbestanden worden geherdefiniëerd."
 
-#: ../help/cnt_engraving.py:232
+#: ../help/cnt_engraving.py:233
 msgid "These Variables currently can't be redefined in input files."
 msgstr ""
 "Deze variabelen kunnen momenteel niet worden geherdefiniëerd in "
 "invoerbestanden."
 
-#: ../help/cnt_engraving.py:247 ../help/cnt_engraving.py:264
-#: ../help/cnt_engraving.py:277
+#: ../help/cnt_engraving.py:248 ../help/cnt_engraving.py:265
+#: ../help/cnt_engraving.py:278
 msgid "These Variables can be redefined in input files."
 msgstr "Variabelen kunnen in invoerbestanden worden geherdefiniëerd."
 
-#: ../help/cnt_engraving.py:257
+#: ../help/cnt_engraving.py:258
 msgid ""
 "Defines for which grobs the explicit direction through operators is "
 "monitored. By default all grobs are watched, but alternatively one can "
@@ -2081,7 +2082,7 @@ msgstr ""
 "lijst van grobs aangeven zoals bijvoorbeeld <code>#(define debug-direction-"
 "grob-list '(DynamicText Script))</code>"
 
-#: ../help/cnt_engraving.py:271
+#: ../help/cnt_engraving.py:272
 msgid ""
 "Defines for which grobs the anchor points will be displayed. By default all "
 "grobs are watched, but alternatively one can provide a list of grobs such as "
@@ -2092,7 +2093,7 @@ msgstr ""
 "bijvoorbeeld <code>#(define debug-grob-anchors-grob-list '(Script NoteHead))"
 "</code>"
 
-#: ../help/cnt_engraving.py:284
+#: ../help/cnt_engraving.py:285
 msgid ""
 "Defines for which grobs the names will be displayed. By default all grobs "
 "are watched, but alternatively one can provide a list of grobs such as e.g. "
@@ -2103,7 +2104,7 @@ msgstr ""
 "bijvoorbeeld <code>#(define debug-grob-names-grob-list '(Script NoteHead))</"
 "code>"
 
-#: ../help/cnt_engraving.py:290
+#: ../help/cnt_engraving.py:291
 msgid ""
 "The remaining modes are built-in to LilyPond and don't have any "
 "configuration options."
@@ -2111,11 +2112,11 @@ msgstr ""
 "De overige modi zijn in LilyPond ingebouwd en hebben geen configuratie-"
 "opties."
 
-#: ../help/cnt_engraving.py:296
+#: ../help/cnt_engraving.py:297
 msgid "Engrave (Publication)"
 msgstr "Graveren (publicatie)"
 
-#: ../help/cnt_engraving.py:300
+#: ../help/cnt_engraving.py:301
 msgid ""
 "When engraving a score in Publication mode the point-and-click information "
 "isn't generated. This will prevent a reader of the resulting PDF document "
@@ -2127,7 +2128,7 @@ msgstr ""
 "naar het brondocument navigeren, maar de resulterende PDF zal wel veel "
 "kleiner zijn."
 
-#: ../help/cnt_engraving.py:305
+#: ../help/cnt_engraving.py:306
 msgid ""
 "You should also note that the point-and-click links contain hard-coded path "
 "information of your systen, which may be considered a security issue."
@@ -2136,11 +2137,11 @@ msgstr ""
 "bronbestand op uw systeem prijsgeven, wat een veiligheidsrisico zou kunnen "
 "zijn."
 
-#: ../help/cnt_engraving.py:314
+#: ../help/cnt_engraving.py:315
 msgid "Engrave (Custom)"
 msgstr "Aangepast graveren"
 
-#: ../help/cnt_engraving.py:318
+#: ../help/cnt_engraving.py:319
 msgid ""
 "The <em>Engrave (Custom)</em> dialog ({custom_shortcut}) gives you detailed "
 "access to all aspects of the LilyPond command."
@@ -2148,7 +2149,7 @@ msgstr ""
 "De dialoog <em>Aangepast graveren</em> ({custom_shortcut}) geeft "
 "gedetailleerde toegang tot alle aspecten van de LilyPond-commandoregel."
 
-#: ../help/cnt_engraving.py:321
+#: ../help/cnt_engraving.py:322
 msgid ""
 "You can configure a number of options through the graphical user interface "
 "and then fine-tune the command line to be used for LilyPond directly."
@@ -2157,7 +2158,7 @@ msgstr ""
 "commandoregel nog handmatig aanpassen om direct voor LilyPond te kunnen "
 "worden gebruikt."
 
-#: ../help/cnt_engraving.py:324
+#: ../help/cnt_engraving.py:325
 msgid ""
 "You can select from the LilyPond versions defined in the {pref} dialog, from "
 "the output formats available to LilyPond and (for PNG output) from a number "
@@ -2167,7 +2168,7 @@ msgstr ""
 "{pref}, uit de beschikbare uitvoerformaten, en voor PNG-uitvoer kunt u de "
 "gewenste resolutie instellen."
 
-#: ../help/cnt_engraving.py:328
+#: ../help/cnt_engraving.py:329
 msgid ""
 "Running LilyPond in Preview Mode will respect the settings from the Preview "
 "Options Panel ({link})."
@@ -2175,7 +2176,7 @@ msgstr ""
 "Als u LilyPond in Vooruitblik-modus start worden de instellingen van het "
 "paneel Vooruitblik-opties ({link}) gebruikt."
 
-#: ../help/cnt_engraving.py:330
+#: ../help/cnt_engraving.py:331
 msgid ""
 "Verbose Output and English Messages may be relevant if you want to send "
 "information to a mailing list, and Deleting Intermediate Output Files may be "
@@ -2186,7 +2187,7 @@ msgstr ""
 "uitvoerbestanden verwijderen</em> is handig als u de tussentijdse PostScript-"
 "bestanden die LilyPond aanmaakt verder niet nodig heeft."
 
-#: ../help/cnt_engraving.py:333
+#: ../help/cnt_engraving.py:334
 msgid ""
 "Some of these settings are reflected in the Command Line text edit field, "
 "others not."
@@ -8251,7 +8252,7 @@ msgstr ""
 
 #: ../vcs/menu.py:117
 msgid ""
-"Successfully checked out branch {0}.\n"
+"Successfully checked out branch {name}.\n"
 "Changes will take effect after restart.\n"
 "Do you want to restart now?"
 msgstr ""
