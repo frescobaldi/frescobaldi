@@ -37,8 +37,8 @@ class AppRepo(GitRepo):
     Offers methods exclusively useful for this specific repo.
     """
     def __init__(self):
-        #TODO: normpath?
-        super(AppRepo, self).__init__(os.path.join(sys.path[0], '..'))
+        super(AppRepo, self).__init__((os.path.normpath(
+                                        os.path.join(sys.path[0], '..'))))
         self._activeBranch = self.current_branch()
     
     def active_branch(self):
