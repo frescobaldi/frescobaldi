@@ -137,8 +137,8 @@ class Git(object):
         return [line.strip() for line in self._run_git_command('branch', args)]
         
     def checkout(self, branch):
-        print 'enter checkout()'
-        self._run_git_command('checkout', branch)
+        # may raise a GitError exception
+        self._run_git_command('checkout', ['-q', branch])
         
     def current_branch(self):
         """
