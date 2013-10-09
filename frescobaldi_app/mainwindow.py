@@ -54,7 +54,7 @@ import engrave
 import scorewiz
 import externalchanges
 import vcs
-from vcs import app_is_git_controlled
+
 
 class MainWindow(QMainWindow):
     
@@ -248,14 +248,13 @@ class MainWindow(QMainWindow):
             if doc.isModified():
                 # L10N: state of document in window titlebar
                 name.append(_("[modified]"))
-        git_branch = ''
-        if app_is_git_controlled():
-            import vcs.apprepo
-            git_branch = vcs.app_repo.active_branch()
-            git_branch = ' ({branch} [{remote}])'.format(
-                            branch=git_branch, 
-                            remote=vcs.app_repo.tracked_remote_label(git_branch))
-        self.setWindowTitle(app.caption(" ".join(name)) + git_branch)
+        
+        window_title = app.caption(" ".join(name))
+        
+        if vcs.app_is_git_controlled():
+            window_title += " " + vcs.app_active_branch_window_title()
+        
+        self.setWindowTitle(window_title)
     
     def dropEvent(self, ev):
         if not ev.source() and ev.mimeData().hasUrls():

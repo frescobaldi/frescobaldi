@@ -47,3 +47,17 @@ if app_is_git_controlled():
     
     # debugging tests, to be removed
     from . import test
+
+def app_active_branch_window_title():
+    """Return the active branch, suitable as window title.
+    
+    If the app is not git-controlled, the empty string is returned.
+    
+    """
+    if app_is_git_controlled():
+        git_branch = app_repo.active_branch()
+        return '({branch} [{remote}])'.format(
+                branch=git_branch, 
+                remote=app_repo.tracked_remote_label(git_branch))
+    return ''
+
