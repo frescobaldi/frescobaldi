@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-10-07 11:43+0200\n"
+"POT-Creation-Date: 2013-10-09 08:40+0200\n"
 "PO-Revision-Date: 2010-12-12 07:48+0200\n"
 "Last-Translator: Server Acim <serveracim@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -140,12 +140,12 @@ msgstr ""
 msgid "Licensed under the {gpl}."
 msgstr ""
 
-#: ../actioncollectionmanager.py:122 ../preferences/shortcuts.py:214
+#: ../actioncollectionmanager.py:122 ../preferences/shortcuts.py:232
 msgid "This shortcut conflicts with the following command:"
 msgid_plural "This shortcut conflicts with the following commands:"
 msgstr[0] ""
 
-#: ../actioncollectionmanager.py:128 ../preferences/shortcuts.py:220
+#: ../actioncollectionmanager.py:128 ../preferences/shortcuts.py:238
 #, fuzzy
 msgid "Shortcut Conflict"
 msgstr "Kısayol"
@@ -184,6 +184,7 @@ msgid "Scheme Files"
 msgstr ""
 
 #: ../app.py:142 ../snippet/widget.py:292 ../snippet/widget.py:309
+#: ../widgets/schemeselector.py:166 ../widgets/schemeselector.py:174
 msgid "All Files"
 msgstr "Tüm dosyalar"
 
@@ -295,7 +296,7 @@ msgstr "Kes ve Ata:"
 msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr "Lütfen, metne atamak üzere değişkene bir ad veriniz:"
 
-#: ../document.py:158 ../doclist/widget.py:132 ../snippet/edit.py:178
+#: ../document.py:158 ../doclist/widget.py:132 ../snippet/edit.py:182
 msgid "Untitled"
 msgstr "Başlıksız"
 
@@ -446,7 +447,9 @@ msgstr "Dizek Boyutu:"
 #: ../mainwindow.py:444 ../mainwindow.py:495 ../mainwindow.py:592
 #: ../mainwindow.py:652 ../externalchanges/widget.py:243
 #: ../file_import/__init__.py:70 ../musicview/image.py:214
-#: ../preferences/fontscolors.py:476 ../preferences/fontscolors.py:514
+#: ../preferences/fontscolors.py:271 ../preferences/fontscolors.py:495
+#: ../preferences/fontscolors.py:533 ../preferences/import_export.py:91
+#: ../preferences/import_export.py:174 ../preferences/shortcuts.py:206
 #: ../snippet/import_export.py:105 ../snippet/widget.py:319
 msgid "Error"
 msgstr ""
@@ -726,7 +729,8 @@ msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Partisyon ayarları"
 
-#: ../mainwindow.py:496 ../mainwindow.py:653 ../snippet/widget.py:320
+#: ../mainwindow.py:496 ../mainwindow.py:653 ../preferences/fontscolors.py:272
+#: ../preferences/shortcuts.py:207 ../snippet/widget.py:320
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -762,7 +766,8 @@ msgctxt "dialog title"
 msgid "Insert From File"
 msgstr ""
 
-#: ../mainwindow.py:593 ../snippet/import_export.py:106
+#: ../mainwindow.py:593 ../preferences/import_export.py:92
+#: ../preferences/import_export.py:175 ../snippet/import_export.py:106
 msgid ""
 "Can't read from source:\n"
 "\n"
@@ -2109,7 +2114,7 @@ msgstr ""
 msgid "Getting Started"
 msgstr ""
 
-#: ../help/contents.py:138 ../preferences/fontscolors.py:482
+#: ../help/contents.py:138 ../preferences/fontscolors.py:501
 #: ../preferences/lilypond.py:239 ../preferences/preview.py:239
 #: ../scorewiz/settings.py:295
 msgid "LilyPond"
@@ -2301,12 +2306,12 @@ msgid "Fonts & Colors"
 msgstr ""
 
 #: ../help/contents.py:259 ../preferences/fontscolors.py:123
-#: ../preferences/fontscolors.py:298
+#: ../preferences/fontscolors.py:317
 msgid "Base Colors"
 msgstr ""
 
 #. L10N: color of paper in music preview
-#: ../help/contents.py:259 ../preferences/fontscolors.py:453
+#: ../help/contents.py:259 ../preferences/fontscolors.py:472
 #, fuzzy
 msgid "Preview Background"
 msgstr "önizleme kipi"
@@ -3511,7 +3516,7 @@ msgstr "Dil:"
 #: ../preferences/tools.py:296 ../scorewiz/settings.py:138
 #: ../scorewiz/settings.py:204 ../scorewiz/settings.py:299
 #: ../scorewiz/parts/_base.py:214 ../scorewiz/parts/plucked_strings.py:65
-#: ../widgets/schemeselector.py:115
+#: ../widgets/schemeselector.py:195
 msgid "Default"
 msgstr "Öntanımlı"
 
@@ -3543,292 +3548,292 @@ msgid "(Inherits: {name})"
 msgstr ""
 
 #. L10N: color of Text
-#: ../preferences/fontscolors.py:360 ../preferences/fontscolors.py:435
+#: ../preferences/fontscolors.py:379 ../preferences/fontscolors.py:454
 #, fuzzy
 msgid "Text"
 msgstr "Sonraki"
 
 #. L10N: color of Background
-#: ../preferences/fontscolors.py:361 ../preferences/fontscolors.py:437
+#: ../preferences/fontscolors.py:380 ../preferences/fontscolors.py:456
 msgid "Background"
 msgstr ""
 
-#: ../preferences/fontscolors.py:362
+#: ../preferences/fontscolors.py:381
 msgid "Bold"
 msgstr ""
 
-#: ../preferences/fontscolors.py:363
+#: ../preferences/fontscolors.py:382
 #, fuzzy
 msgid "Italic"
 msgstr "İtalyan"
 
-#: ../preferences/fontscolors.py:364
+#: ../preferences/fontscolors.py:383
 #, fuzzy
 msgid "Underline"
 msgstr "Uzatma çizgilerini kullan"
 
 #. L10N: color of Selected Text
-#: ../preferences/fontscolors.py:439
+#: ../preferences/fontscolors.py:458
 #, fuzzy
 msgid "Selected Text"
 msgstr "Hepsini seç"
 
 #. L10N: color of Selection Background
-#: ../preferences/fontscolors.py:441
+#: ../preferences/fontscolors.py:460
 msgid "Selection Background"
 msgstr ""
 
 #. L10N: color of Current Line
-#: ../preferences/fontscolors.py:443
+#: ../preferences/fontscolors.py:462
 msgid "Current Line"
 msgstr ""
 
 #. L10N: color of Marked Line (bookmark)
-#: ../preferences/fontscolors.py:445
+#: ../preferences/fontscolors.py:464
 #, fuzzy
 msgid "Marked Line"
 msgstr "Ölçü Çizgileri"
 
 #. L10N: color of line with Error
-#: ../preferences/fontscolors.py:447
+#: ../preferences/fontscolors.py:466
 #, fuzzy
 msgid "Error Line"
 msgstr "Ölçü Çizgileri"
 
 #. L10N: color of highlighted search result
-#: ../preferences/fontscolors.py:449
+#: ../preferences/fontscolors.py:468
 msgid "Search Result"
 msgstr ""
 
 #. L10N: color of characters that match (e.g. braces, parentheses)
-#: ../preferences/fontscolors.py:451
+#: ../preferences/fontscolors.py:470
 #, fuzzy
 msgid "Matching Character"
 msgstr "Özel Karakterler"
 
 #. L10N: color of objects highlighting in preview
-#: ../preferences/fontscolors.py:455
+#: ../preferences/fontscolors.py:474
 msgid "Preview Highlight"
 msgstr ""
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:462 ../preferences/fontscolors.py:497
-#: ../preferences/fontscolors.py:531 ../preferences/fontscolors.py:539
+#: ../preferences/fontscolors.py:481 ../preferences/fontscolors.py:516
+#: ../preferences/fontscolors.py:550 ../preferences/fontscolors.py:558
 #, fuzzy
 msgid "Keyword"
 msgstr "Klavye"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:464 ../preferences/fontscolors.py:532
+#: ../preferences/fontscolors.py:483 ../preferences/fontscolors.py:551
 #, fuzzy
 msgid "Function"
 msgstr "Eylem:"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:466 ../preferences/fontscolors.py:508
-#: ../preferences/fontscolors.py:533
+#: ../preferences/fontscolors.py:485 ../preferences/fontscolors.py:527
+#: ../preferences/fontscolors.py:552
 msgid "Variable"
 msgstr ""
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:468 ../preferences/fontscolors.py:510
-#: ../preferences/fontscolors.py:520
+#: ../preferences/fontscolors.py:487 ../preferences/fontscolors.py:529
+#: ../preferences/fontscolors.py:539
 #, fuzzy
 msgid "Value"
 msgstr "Ses Yüksekliği"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:470 ../preferences/fontscolors.py:511
-#: ../preferences/fontscolors.py:523 ../preferences/fontscolors.py:529
+#: ../preferences/fontscolors.py:489 ../preferences/fontscolors.py:530
+#: ../preferences/fontscolors.py:542 ../preferences/fontscolors.py:548
 #, fuzzy
 msgid "String"
 msgstr "Yaylılar"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:472
+#: ../preferences/fontscolors.py:491
 #, fuzzy
 msgid "Escape"
 msgstr "Yatay"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:474 ../preferences/fontscolors.py:513
-#: ../preferences/fontscolors.py:522 ../preferences/fontscolors.py:530
-#: ../preferences/fontscolors.py:544 ../snippet/builtin.py:374
+#: ../preferences/fontscolors.py:493 ../preferences/fontscolors.py:532
+#: ../preferences/fontscolors.py:541 ../preferences/fontscolors.py:549
+#: ../preferences/fontscolors.py:563 ../snippet/builtin.py:374
 #, fuzzy
 msgid "Comment"
 msgstr "Komut"
 
-#: ../preferences/fontscolors.py:483
+#: ../preferences/fontscolors.py:502
 #, fuzzy
 msgid "Pitch"
 msgstr "Ses noktası"
 
-#: ../preferences/fontscolors.py:484
+#: ../preferences/fontscolors.py:503
 #, fuzzy
 msgid "Octave"
 msgstr "Kaydet"
 
-#: ../preferences/fontscolors.py:485
+#: ../preferences/fontscolors.py:504
 #, fuzzy
 msgid "Duration"
 msgstr "Noktalı süreler"
 
-#: ../preferences/fontscolors.py:486
+#: ../preferences/fontscolors.py:505
 msgid "Octave Check"
 msgstr ""
 
-#: ../preferences/fontscolors.py:487
+#: ../preferences/fontscolors.py:506
 msgid "Fingering"
 msgstr ""
 
 #. L10N: For String instruments like Guitar
-#: ../preferences/fontscolors.py:489
+#: ../preferences/fontscolors.py:508
 #, fuzzy
 msgid "String Number"
 msgstr "Sayfa Numaralarını Göster"
 
-#: ../preferences/fontscolors.py:490 ../quickinsert/spanners.py:164
+#: ../preferences/fontscolors.py:509 ../quickinsert/spanners.py:164
 msgid "Slur"
 msgstr "Deyim Bağı"
 
-#: ../preferences/fontscolors.py:491
+#: ../preferences/fontscolors.py:510
 #, fuzzy
 msgid "Dynamic"
 msgstr "Gürlükler"
 
-#: ../preferences/fontscolors.py:492
+#: ../preferences/fontscolors.py:511
 msgid "Articulation"
 msgstr "Artükülasyon"
 
-#: ../preferences/fontscolors.py:493
+#: ../preferences/fontscolors.py:512
 #, fuzzy
 msgid "Chord"
 msgstr "Koro"
 
-#: ../preferences/fontscolors.py:494 ../quickinsert/spanners.py:166
+#: ../preferences/fontscolors.py:513 ../quickinsert/spanners.py:166
 msgid "Beam"
 msgstr "Kuyruk Birleştiricisi"
 
-#: ../preferences/fontscolors.py:495
+#: ../preferences/fontscolors.py:514
 msgid "Check"
 msgstr ""
 
-#: ../preferences/fontscolors.py:496 ../snippet/builtin.py:244
+#: ../preferences/fontscolors.py:515 ../snippet/builtin.py:244
 #, fuzzy
 msgid "Repeat"
 msgstr "Tekrar sonu"
 
-#: ../preferences/fontscolors.py:498 ../preferences/shortcuts.py:56
+#: ../preferences/fontscolors.py:517 ../preferences/shortcuts.py:56
 msgid "Command"
 msgstr "Komut"
 
-#: ../preferences/fontscolors.py:499
+#: ../preferences/fontscolors.py:518
 #, fuzzy
 msgid "Specifier"
 msgstr "Özel"
 
-#: ../preferences/fontscolors.py:500
+#: ../preferences/fontscolors.py:519
 #, fuzzy
 msgid "User Command"
 msgstr "Komut"
 
-#: ../preferences/fontscolors.py:501 ../snippet/builtin.py:284
+#: ../preferences/fontscolors.py:520 ../snippet/builtin.py:284
 #, fuzzy
 msgid "Markup"
 msgstr "Harp"
 
-#: ../preferences/fontscolors.py:502
+#: ../preferences/fontscolors.py:521
 msgid "Lyric Mode"
 msgstr ""
 
-#: ../preferences/fontscolors.py:503
+#: ../preferences/fontscolors.py:522
 #, fuzzy
 msgid "Lyric Text"
 msgstr "Şarkı Sözleri Metnini Tirele"
 
-#: ../preferences/fontscolors.py:504 ../preferences/fontscolors.py:536
+#: ../preferences/fontscolors.py:523 ../preferences/fontscolors.py:555
 msgid "Delimiter"
 msgstr ""
 
-#: ../preferences/fontscolors.py:505
+#: ../preferences/fontscolors.py:524
 msgid "Context"
 msgstr ""
 
-#: ../preferences/fontscolors.py:506
+#: ../preferences/fontscolors.py:525
 #, fuzzy
 msgid "Layout Object"
 msgstr "Dil Seçimi"
 
-#: ../preferences/fontscolors.py:507
+#: ../preferences/fontscolors.py:526
 #, fuzzy
 msgid "Property"
 msgstr "Şair"
 
-#: ../preferences/fontscolors.py:509
+#: ../preferences/fontscolors.py:528
 msgid "User Variable"
 msgstr ""
 
-#: ../preferences/fontscolors.py:512 ../preferences/fontscolors.py:541
+#: ../preferences/fontscolors.py:531 ../preferences/fontscolors.py:560
 #, fuzzy
 msgid "Escaped Character"
 msgstr "Özel Karakterler"
 
-#: ../preferences/fontscolors.py:516
+#: ../preferences/fontscolors.py:535
 msgid "HTML"
 msgstr ""
 
-#: ../preferences/fontscolors.py:517
+#: ../preferences/fontscolors.py:536
 #, fuzzy
 msgid "Tag"
 msgstr "Tıkla"
 
-#: ../preferences/fontscolors.py:518
+#: ../preferences/fontscolors.py:537
 #, fuzzy
 msgid "LilyPond Tag"
 msgstr "LilyPond Günlüğü"
 
-#: ../preferences/fontscolors.py:519 ../preferences/fontscolors.py:542
+#: ../preferences/fontscolors.py:538 ../preferences/fontscolors.py:561
 msgid "Attribute"
 msgstr ""
 
-#: ../preferences/fontscolors.py:521
+#: ../preferences/fontscolors.py:540
 #, fuzzy
 msgid "Entity Reference"
 msgstr "Notasyon Referansı"
 
-#: ../preferences/fontscolors.py:525 ../preferences/fontscolors.py:526
+#: ../preferences/fontscolors.py:544 ../preferences/fontscolors.py:545
 msgid "Scheme"
 msgstr ""
 
-#: ../preferences/fontscolors.py:527
+#: ../preferences/fontscolors.py:546
 #, fuzzy
 msgid "Number"
 msgstr "İsim"
 
-#: ../preferences/fontscolors.py:528
+#: ../preferences/fontscolors.py:547
 #, fuzzy
 msgid "LilyPond Environment"
 msgstr "LilyPond Belgelendirmesi"
 
-#: ../preferences/fontscolors.py:534
+#: ../preferences/fontscolors.py:553
 msgid "Constant"
 msgstr ""
 
-#: ../preferences/fontscolors.py:535
+#: ../preferences/fontscolors.py:554
 msgid "Symbol"
 msgstr ""
 
-#: ../preferences/fontscolors.py:538
+#: ../preferences/fontscolors.py:557
 #, fuzzy
 msgid "Texinfo"
 msgstr "Tenor"
 
-#: ../preferences/fontscolors.py:540
+#: ../preferences/fontscolors.py:559
 #, fuzzy
 msgid "Block"
 msgstr "Kısalt"
 
-#: ../preferences/fontscolors.py:543
+#: ../preferences/fontscolors.py:562
 msgid "Verbatim"
 msgstr ""
 
@@ -4008,6 +4013,15 @@ msgstr ""
 #, fuzzy
 msgid "Set the resolution if Frescobaldi prints using raster images."
 msgstr "Frescobadli'nin parametreler olmadan başlatılacağı oturumun yüklemesi"
+
+#: ../preferences/import_export.py:89
+msgid "No theme found."
+msgstr ""
+
+#: ../preferences/import_export.py:172
+#, fuzzy
+msgid "No shortcuts found."
+msgstr "Kısayol"
 
 #: ../preferences/lilypond.py:82
 #, fuzzy
@@ -4458,23 +4472,23 @@ msgstr ""
 msgid "Other commands:"
 msgstr "Yazdırma komutu:"
 
-#: ../preferences/shortcuts.py:184
+#: ../preferences/shortcuts.py:189
 #, fuzzy
 msgid "&Edit Shortcut for \"{name}\""
 msgstr "Kısayol"
 
-#: ../preferences/shortcuts.py:189
+#: ../preferences/shortcuts.py:194
 #, fuzzy
 msgid "(no shortcut)"
 msgstr "Kısayol"
 
-#: ../preferences/shortcuts.py:217
+#: ../preferences/shortcuts.py:235
 #, fuzzy
 msgid "Remove the shortcut from that command?"
 msgid_plural "Remove the shortcut from those commands?"
 msgstr[0] "Davul notasından kuyrukları kaldır."
 
-#: ../preferences/shortcuts.py:320
+#: ../preferences/shortcuts.py:341
 #, fuzzy
 msgid "(default)"
 msgstr "öntanımlı"
@@ -4918,7 +4932,7 @@ msgid "Configure Keyboard Shortcut ({key})"
 msgstr "Klavye Kısayollarını Yapılandır (%1)"
 
 #: ../quickinsert/buttongroup.py:182 ../scorewiz/scoreproperties.py:171
-#: ../scorewiz/settings.py:195 ../snippet/edit.py:129
+#: ../scorewiz/settings.py:195 ../snippet/edit.py:133
 msgid "None"
 msgstr "Yok"
 
@@ -5531,7 +5545,7 @@ msgid "&Add"
 msgstr ""
 
 #: ../scorewiz/score.py:103 ../snippet/widget.py:191 ../widgets/listedit.py:93
-#: ../widgets/schemeselector.py:64
+#: ../widgets/schemeselector.py:94
 #, fuzzy
 msgid "&Remove"
 msgstr "Kuyrukları kaldır"
@@ -6931,52 +6945,52 @@ msgstr "Detaylı Şarkı Notası"
 msgid "Choir Hymn"
 msgstr "Koro"
 
-#: ../snippet/edit.py:120 ../snippet/insert.py:223
+#: ../snippet/edit.py:124 ../snippet/insert.py:223
 msgid "Edit Snippet"
 msgstr ""
 
-#: ../snippet/edit.py:120
+#: ../snippet/edit.py:124
 msgid "New Snippet"
 msgstr ""
 
-#: ../snippet/edit.py:122
+#: ../snippet/edit.py:126
 msgid "Snippet Text:"
 msgstr ""
 
-#: ../snippet/edit.py:123
+#: ../snippet/edit.py:127
 #, fuzzy
 msgid "Title:"
 msgstr "Başlık"
 
-#: ../snippet/edit.py:124
+#: ../snippet/edit.py:128
 #, fuzzy
 msgid "Shortcut:"
 msgstr "Kısayol"
 
-#: ../snippet/edit.py:135
+#: ../snippet/edit.py:139
 #, fuzzy
 msgid "Click to change the keyboard shortcut."
 msgstr "Klavye Kısayollarını Yapılandır"
 
-#: ../snippet/edit.py:141
+#: ../snippet/edit.py:145
 msgid "Empty Snippet"
 msgstr ""
 
-#: ../snippet/edit.py:142
+#: ../snippet/edit.py:146
 msgid "A snippet can't be empty."
 msgstr ""
 
-#: ../snippet/edit.py:147
+#: ../snippet/edit.py:151
 msgid ""
 "The snippet has been modified.\n"
 "Do you want to save your changes or discard them?"
 msgstr ""
 
-#: ../snippet/edit.py:214
+#: ../snippet/edit.py:218
 msgid "Snippet editor"
 msgstr ""
 
-#: ../snippet/edit.py:219
+#: ../snippet/edit.py:223
 msgid ""
 "<p>Here you can edit the text of the snippet.</p><p>If you start the first "
 "line(s) with '<code>-*- </code>' (note the space), the remainder of that line"
@@ -6985,78 +6999,78 @@ msgid ""
 "can be used:</p>"
 msgstr ""
 
-#: ../snippet/edit.py:228
+#: ../snippet/edit.py:232
 msgid "Place the snippet in the insert menu, grouped by the (optional) value."
 msgstr ""
 
-#: ../snippet/edit.py:230
+#: ../snippet/edit.py:234
 msgid ""
 "Place the snippet in the menu {file_new_from_template}, grouped by the "
 "(optional) value. When triggered via the menu, the snippet is inserted into "
 "a new document."
 msgstr ""
 
-#: ../snippet/edit.py:234
+#: ../snippet/edit.py:238
 #, fuzzy
 msgctxt "menu title"
 msgid "File"
 msgstr "Başlık"
 
-#: ../snippet/edit.py:235
+#: ../snippet/edit.py:239
 msgctxt "menu subtitle"
 msgid "New from Template"
 msgstr ""
 
-#: ../snippet/edit.py:237
+#: ../snippet/edit.py:241
 msgid "The mnemonic to type to select the snippet."
 msgstr ""
 
-#: ../snippet/edit.py:239
+#: ../snippet/edit.py:243
 msgid "Do not auto-indent the snippet after inserting."
 msgstr ""
 
-#: ../snippet/edit.py:241
+#: ../snippet/edit.py:245
 msgid "The icon to show in menu and snippet list."
 msgstr ""
 
-#: ../snippet/edit.py:243
+#: ../snippet/edit.py:247
 msgid ""
 "The symbol to show in menu and snippet list. Symbols are icons that use the "
 "default text color and can be found in {directory}."
 msgstr ""
 
-#: ../snippet/edit.py:247
+#: ../snippet/edit.py:251
 msgid "Execute the snippet as a Python script. See {link}."
 msgstr ""
 
-#: ../snippet/edit.py:250
+#: ../snippet/edit.py:254
 msgid "One of more of the following words (separated with spaces or commas):"
 msgstr ""
 
-#: ../snippet/edit.py:253
+#: ../snippet/edit.py:257
 msgid "Requires text to be selected."
 msgstr ""
 
-#: ../snippet/edit.py:255
+#: ../snippet/edit.py:259
 msgid "Adjusts the selection to not include starting and trialing whitespace."
 msgstr ""
 
-#: ../snippet/edit.py:257
+#: ../snippet/edit.py:261
 msgid "Selects all inserted text."
 msgstr ""
 
-#: ../snippet/edit.py:263
+#: ../snippet/edit.py:267
 msgid ""
 "<p>The other lines of the snippet define the text to be inserted in the "
 "editor. Here, you can insert variables prefixed with a $. A double $ will be "
 "replaced with a single one. The following variables are recognized:</p>"
 msgstr ""
 
-#: ../snippet/edit.py:279
+#: ../snippet/edit.py:283
 msgid "Python Snippets"
 msgstr ""
 
-#: ../snippet/edit.py:284
+#: ../snippet/edit.py:288
 msgid ""
 "<p>Python snippets can read and should set the variable {text}. The variable "
 "{text} contains the currently selected text (which may be an empty string).</"
@@ -7065,30 +7079,30 @@ msgid ""
 "<p>Other variables that may be referenced:</p>"
 msgstr ""
 
-#: ../snippet/edit.py:292
+#: ../snippet/edit.py:296
 msgid "A list of strings describing the type of text the cursor is at."
 msgstr ""
 
-#: ../snippet/edit.py:294
+#: ../snippet/edit.py:298
 msgid ""
 "The current QTextCursor, giving access to the document. Don't change the "
 "document through the cursor, however."
 msgstr ""
 
-#: ../snippet/edit.py:297
+#: ../snippet/edit.py:301
 msgid ""
 "When setting {text} to a list instead of a string, you can use this value to "
 "specify the place the text cursor will be placed after inserting the snippet."
 msgstr ""
 
-#: ../snippet/edit.py:301
+#: ../snippet/edit.py:305
 msgid ""
 "When setting {text} to a list instead of a string, this value can be used "
 "together with {cursor} to select text when inserting the string parts of the "
 "list."
 msgstr ""
 
-#: ../snippet/edit.py:306
+#: ../snippet/edit.py:310
 msgid ""
 "When you define a function with this name, it is called without arguments, "
 "instead of inserting the text from the {text} variable. In this case you may "
@@ -7202,7 +7216,7 @@ msgid ""
 msgstr ""
 
 #: ../snippet/import_export.py:245 ../snippet/import_export.py:250
-#: ../snippet/widget.py:183
+#: ../snippet/widget.py:183 ../widgets/schemeselector.py:92
 msgid "&Menu"
 msgstr ""
 
@@ -7219,6 +7233,7 @@ msgid ""
 msgstr ""
 
 #: ../snippet/import_export.py:250 ../snippet/widget.py:195
+#: ../widgets/schemeselector.py:96
 #, fuzzy
 msgid "&Import..."
 msgstr "Yazdır..."
@@ -7327,6 +7342,7 @@ msgid "&Snippets..."
 msgstr ""
 
 #: ../snippet/widget.py:184 ../widgets/listedit.py:91
+#: ../widgets/schemeselector.py:93
 msgid "&Add..."
 msgstr ""
 
@@ -7418,6 +7434,7 @@ msgid ""
 msgstr ""
 
 #: ../snippet/widget.py:292 ../snippet/widget.py:309
+#: ../widgets/schemeselector.py:166 ../widgets/schemeselector.py:174
 #, fuzzy
 msgid "XML Files"
 msgstr "Tüm dosyalar"
@@ -7513,26 +7530,51 @@ msgstr ""
 msgid "Input"
 msgstr "MIDI girişi:"
 
-#: ../widgets/schemeselector.py:47 ../widgets/schemeselector.py:62
+#: ../widgets/schemeselector.py:91
 #, fuzzy
 msgid "Scheme:"
 msgstr "Partisyon:"
 
-#: ../widgets/schemeselector.py:63
+#: ../widgets/schemeselector.py:95
 #, fuzzy
-msgctxt "New Scheme"
-msgid "&New..."
-msgstr "Yeni..."
+msgid "Re&name..."
+msgstr "Oturumları Düzenle..."
 
-#: ../widgets/schemeselector.py:92
+#: ../widgets/schemeselector.py:97
+#, fuzzy
+msgid "&Export..."
+msgstr "Yazdır..."
+
+#: ../widgets/schemeselector.py:137
 #, fuzzy
 msgid "Add Scheme"
 msgstr "Partisyon:"
 
-#: ../widgets/schemeselector.py:93
+#: ../widgets/schemeselector.py:138
 #, fuzzy
 msgid "Please enter a name for the new scheme:"
 msgstr "Lütfen, metne atamak üzere değişkene bir ad veriniz:"
+
+#: ../widgets/schemeselector.py:156
+#, fuzzy
+msgid "Rename"
+msgstr "%1 dosyalarını yazdır"
+
+#: ../widgets/schemeselector.py:156
+#, fuzzy
+msgid "New name:"
+msgstr "İsim:"
+
+#: ../widgets/schemeselector.py:167
+msgctxt "dialog title"
+msgid "Import color theme"
+msgstr ""
+
+#: ../widgets/schemeselector.py:176
+#, fuzzy
+msgctxt "dialog title"
+msgid "Export {name}"
+msgstr "Server Acim"
 
 #: ../widgets/shortcuteditdialog.py:94
 #, fuzzy
@@ -7599,6 +7641,11 @@ msgid "Select a file"
 msgstr "Hepsini seç"
 
 #, fuzzy
+#~ msgctxt "New Scheme"
+#~ msgid "&New..."
+#~ msgstr "Yeni..."
+
+#, fuzzy
 #~ msgid "LilyPond {version}"
 #~ msgstr "Varsayılan LilyPond Sürüm Numarası."
 
@@ -7619,10 +7666,6 @@ msgstr "Hepsini seç"
 
 #~ msgid "Copyright (c) 2008-2010, Wilbert Berendsen"
 #~ msgstr "Copyright (c) 2008-2010, Wilbert Berendsen"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your name"
-#~ msgstr "Server Acim"
 
 #~ msgctxt "EMAIL OF TRANSLATORS"
 #~ msgid "i18n@frescobaldi.org"

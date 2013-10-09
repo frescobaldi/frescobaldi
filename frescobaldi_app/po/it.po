@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-10-07 11:43+0200\n"
+"POT-Creation-Date: 2013-10-09 08:40+0200\n"
 "PO-Revision-Date: 2013-04-30 21:59+0200\n"
 "Last-Translator: Gianluca D'Orazio <gianluca.dorazio@gmail.com>\n"
 "Language-Team: Italian <>\n"
@@ -140,13 +140,13 @@ msgstr "Tradotto da Gianluca D'Orazio."
 msgid "Licensed under the {gpl}."
 msgstr "Rilasciato con licenza {gpl}."
 
-#: ../actioncollectionmanager.py:122 ../preferences/shortcuts.py:214
+#: ../actioncollectionmanager.py:122 ../preferences/shortcuts.py:232
 msgid "This shortcut conflicts with the following command:"
 msgid_plural "This shortcut conflicts with the following commands:"
 msgstr[0] "Questa scorciatoia è in conflitto con il seguente comando:"
 msgstr[1] "Questa scorciatoia è in conflitto con i seguenti comandi:"
 
-#: ../actioncollectionmanager.py:128 ../preferences/shortcuts.py:220
+#: ../actioncollectionmanager.py:128 ../preferences/shortcuts.py:238
 msgid "Shortcut Conflict"
 msgstr "Conflitto fra scorciatoie"
 
@@ -179,6 +179,7 @@ msgid "Scheme Files"
 msgstr "File Scheme"
 
 #: ../app.py:142 ../snippet/widget.py:292 ../snippet/widget.py:309
+#: ../widgets/schemeselector.py:166 ../widgets/schemeselector.py:174
 msgid "All Files"
 msgstr "Tutti i file"
 
@@ -282,7 +283,7 @@ msgstr "Taglia e assegna"
 msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr "Inserire il nome della variabile a cui assegnare il testo selezionato:"
 
-#: ../document.py:158 ../doclist/widget.py:132 ../snippet/edit.py:178
+#: ../document.py:158 ../doclist/widget.py:132 ../snippet/edit.py:182
 msgid "Untitled"
 msgstr "Senza nome"
 
@@ -427,7 +428,9 @@ msgstr "Dimensione del rigo:"
 #: ../mainwindow.py:444 ../mainwindow.py:495 ../mainwindow.py:592
 #: ../mainwindow.py:652 ../externalchanges/widget.py:243
 #: ../file_import/__init__.py:70 ../musicview/image.py:214
-#: ../preferences/fontscolors.py:476 ../preferences/fontscolors.py:514
+#: ../preferences/fontscolors.py:271 ../preferences/fontscolors.py:495
+#: ../preferences/fontscolors.py:533 ../preferences/import_export.py:91
+#: ../preferences/import_export.py:174 ../preferences/shortcuts.py:206
 #: ../snippet/import_export.py:105 ../snippet/widget.py:319
 msgid "Error"
 msgstr "Errore"
@@ -722,7 +725,8 @@ msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Salva selezione"
 
-#: ../mainwindow.py:496 ../mainwindow.py:653 ../snippet/widget.py:320
+#: ../mainwindow.py:496 ../mainwindow.py:653 ../preferences/fontscolors.py:272
+#: ../preferences/shortcuts.py:207 ../snippet/widget.py:320
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -763,7 +767,8 @@ msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Inserisci dal file"
 
-#: ../mainwindow.py:593 ../snippet/import_export.py:106
+#: ../mainwindow.py:593 ../preferences/import_export.py:92
+#: ../preferences/import_export.py:175 ../snippet/import_export.py:106
 msgid ""
 "Can't read from source:\n"
 "\n"
@@ -2118,7 +2123,7 @@ msgstr ""
 msgid "Getting Started"
 msgstr "Primi passi"
 
-#: ../help/contents.py:138 ../preferences/fontscolors.py:482
+#: ../help/contents.py:138 ../preferences/fontscolors.py:501
 #: ../preferences/lilypond.py:239 ../preferences/preview.py:239
 #: ../scorewiz/settings.py:295
 msgid "LilyPond"
@@ -2417,12 +2422,12 @@ msgid "Fonts & Colors"
 msgstr "Caratteri e colori"
 
 #: ../help/contents.py:259 ../preferences/fontscolors.py:123
-#: ../preferences/fontscolors.py:298
+#: ../preferences/fontscolors.py:317
 msgid "Base Colors"
 msgstr "Colori di base"
 
 #. L10N: color of paper in music preview
-#: ../help/contents.py:259 ../preferences/fontscolors.py:453
+#: ../help/contents.py:259 ../preferences/fontscolors.py:472
 msgid "Preview Background"
 msgstr "Sfondo anteprima"
 
@@ -3840,7 +3845,7 @@ msgstr "Lingua preferita:"
 #: ../preferences/tools.py:296 ../scorewiz/settings.py:138
 #: ../scorewiz/settings.py:204 ../scorewiz/settings.py:299
 #: ../scorewiz/parts/_base.py:214 ../scorewiz/parts/plucked_strings.py:65
-#: ../widgets/schemeselector.py:115
+#: ../widgets/schemeselector.py:195
 msgid "Default"
 msgstr "Predefinita"
 
@@ -3870,258 +3875,258 @@ msgid "(Inherits: {name})"
 msgstr "(Acquisito da: {name})"
 
 #. L10N: color of Text
-#: ../preferences/fontscolors.py:360 ../preferences/fontscolors.py:435
+#: ../preferences/fontscolors.py:379 ../preferences/fontscolors.py:454
 msgid "Text"
 msgstr "Testo"
 
 #. L10N: color of Background
-#: ../preferences/fontscolors.py:361 ../preferences/fontscolors.py:437
+#: ../preferences/fontscolors.py:380 ../preferences/fontscolors.py:456
 msgid "Background"
 msgstr "Sfondo"
 
-#: ../preferences/fontscolors.py:362
+#: ../preferences/fontscolors.py:381
 msgid "Bold"
 msgstr "Grassetto"
 
-#: ../preferences/fontscolors.py:363
+#: ../preferences/fontscolors.py:382
 msgid "Italic"
 msgstr "Corsivo"
 
-#: ../preferences/fontscolors.py:364
+#: ../preferences/fontscolors.py:383
 msgid "Underline"
 msgstr "Sottolineato"
 
 #. L10N: color of Selected Text
-#: ../preferences/fontscolors.py:439
+#: ../preferences/fontscolors.py:458
 msgid "Selected Text"
 msgstr "Selezione (testo)"
 
 #. L10N: color of Selection Background
-#: ../preferences/fontscolors.py:441
+#: ../preferences/fontscolors.py:460
 msgid "Selection Background"
 msgstr "Selezione (sfondo)"
 
 #. L10N: color of Current Line
-#: ../preferences/fontscolors.py:443
+#: ../preferences/fontscolors.py:462
 msgid "Current Line"
 msgstr "Riga attuale"
 
 #. L10N: color of Marked Line (bookmark)
-#: ../preferences/fontscolors.py:445
+#: ../preferences/fontscolors.py:464
 msgid "Marked Line"
 msgstr "Riga contrassegnata"
 
 #. L10N: color of line with Error
-#: ../preferences/fontscolors.py:447
+#: ../preferences/fontscolors.py:466
 msgid "Error Line"
 msgstr "Riga con errore"
 
 #. L10N: color of highlighted search result
-#: ../preferences/fontscolors.py:449
+#: ../preferences/fontscolors.py:468
 msgid "Search Result"
 msgstr "Risultato ricerca"
 
 #. L10N: color of characters that match (e.g. braces, parentheses)
-#: ../preferences/fontscolors.py:451
+#: ../preferences/fontscolors.py:470
 msgid "Matching Character"
 msgstr "Carattere corrispondente"
 
 #. L10N: color of objects highlighting in preview
-#: ../preferences/fontscolors.py:455
+#: ../preferences/fontscolors.py:474
 msgid "Preview Highlight"
 msgstr "Selezione anteprima"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:462 ../preferences/fontscolors.py:497
-#: ../preferences/fontscolors.py:531 ../preferences/fontscolors.py:539
+#: ../preferences/fontscolors.py:481 ../preferences/fontscolors.py:516
+#: ../preferences/fontscolors.py:550 ../preferences/fontscolors.py:558
 msgid "Keyword"
 msgstr "Parola chiave"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:464 ../preferences/fontscolors.py:532
+#: ../preferences/fontscolors.py:483 ../preferences/fontscolors.py:551
 msgid "Function"
 msgstr "Funzione"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:466 ../preferences/fontscolors.py:508
-#: ../preferences/fontscolors.py:533
+#: ../preferences/fontscolors.py:485 ../preferences/fontscolors.py:527
+#: ../preferences/fontscolors.py:552
 msgid "Variable"
 msgstr "Variabile"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:468 ../preferences/fontscolors.py:510
-#: ../preferences/fontscolors.py:520
+#: ../preferences/fontscolors.py:487 ../preferences/fontscolors.py:529
+#: ../preferences/fontscolors.py:539
 msgid "Value"
 msgstr "Valore"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:470 ../preferences/fontscolors.py:511
-#: ../preferences/fontscolors.py:523 ../preferences/fontscolors.py:529
+#: ../preferences/fontscolors.py:489 ../preferences/fontscolors.py:530
+#: ../preferences/fontscolors.py:542 ../preferences/fontscolors.py:548
 msgid "String"
 msgstr "Stringa"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:472
+#: ../preferences/fontscolors.py:491
 msgid "Escape"
 msgstr "Escape"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:474 ../preferences/fontscolors.py:513
-#: ../preferences/fontscolors.py:522 ../preferences/fontscolors.py:530
-#: ../preferences/fontscolors.py:544 ../snippet/builtin.py:374
+#: ../preferences/fontscolors.py:493 ../preferences/fontscolors.py:532
+#: ../preferences/fontscolors.py:541 ../preferences/fontscolors.py:549
+#: ../preferences/fontscolors.py:563 ../snippet/builtin.py:374
 msgid "Comment"
 msgstr "Commento"
 
-#: ../preferences/fontscolors.py:483
+#: ../preferences/fontscolors.py:502
 msgid "Pitch"
 msgstr "Nota"
 
-#: ../preferences/fontscolors.py:484
+#: ../preferences/fontscolors.py:503
 msgid "Octave"
 msgstr "Ottava"
 
-#: ../preferences/fontscolors.py:485
+#: ../preferences/fontscolors.py:504
 msgid "Duration"
 msgstr "Durata"
 
-#: ../preferences/fontscolors.py:486
+#: ../preferences/fontscolors.py:505
 msgid "Octave Check"
 msgstr "Controllo d'ottava"
 
-#: ../preferences/fontscolors.py:487
+#: ../preferences/fontscolors.py:506
 msgid "Fingering"
 msgstr "Ditteggiatura"
 
 #. L10N: For String instruments like Guitar
-#: ../preferences/fontscolors.py:489
+#: ../preferences/fontscolors.py:508
 msgid "String Number"
 msgstr "Numero di corda"
 
-#: ../preferences/fontscolors.py:490 ../quickinsert/spanners.py:164
+#: ../preferences/fontscolors.py:509 ../quickinsert/spanners.py:164
 msgid "Slur"
 msgstr "Legatura"
 
-#: ../preferences/fontscolors.py:491
+#: ../preferences/fontscolors.py:510
 msgid "Dynamic"
 msgstr "Dinamica"
 
-#: ../preferences/fontscolors.py:492
+#: ../preferences/fontscolors.py:511
 msgid "Articulation"
 msgstr "Fraseggio"
 
-#: ../preferences/fontscolors.py:493
+#: ../preferences/fontscolors.py:512
 msgid "Chord"
 msgstr "Accordo"
 
-#: ../preferences/fontscolors.py:494 ../quickinsert/spanners.py:166
+#: ../preferences/fontscolors.py:513 ../quickinsert/spanners.py:166
 msgid "Beam"
 msgstr "Raggruppamento"
 
-#: ../preferences/fontscolors.py:495
+#: ../preferences/fontscolors.py:514
 msgid "Check"
 msgstr "Controllo"
 
-#: ../preferences/fontscolors.py:496 ../snippet/builtin.py:244
+#: ../preferences/fontscolors.py:515 ../snippet/builtin.py:244
 msgid "Repeat"
 msgstr "Ritornello"
 
-#: ../preferences/fontscolors.py:498 ../preferences/shortcuts.py:56
+#: ../preferences/fontscolors.py:517 ../preferences/shortcuts.py:56
 msgid "Command"
 msgstr "Comando"
 
-#: ../preferences/fontscolors.py:499
+#: ../preferences/fontscolors.py:518
 msgid "Specifier"
 msgstr "Specificatore"
 
-#: ../preferences/fontscolors.py:500
+#: ../preferences/fontscolors.py:519
 msgid "User Command"
 msgstr "Comando dell'utente"
 
-#: ../preferences/fontscolors.py:501 ../snippet/builtin.py:284
+#: ../preferences/fontscolors.py:520 ../snippet/builtin.py:284
 msgid "Markup"
 msgstr "Blocco di testo (markup)"
 
-#: ../preferences/fontscolors.py:502
+#: ../preferences/fontscolors.py:521
 msgid "Lyric Mode"
 msgstr "Modalità parole"
 
-#: ../preferences/fontscolors.py:503
+#: ../preferences/fontscolors.py:522
 msgid "Lyric Text"
 msgstr "Parole"
 
-#: ../preferences/fontscolors.py:504 ../preferences/fontscolors.py:536
+#: ../preferences/fontscolors.py:523 ../preferences/fontscolors.py:555
 msgid "Delimiter"
 msgstr "Delimitatore"
 
-#: ../preferences/fontscolors.py:505
+#: ../preferences/fontscolors.py:524
 msgid "Context"
 msgstr "Contesto"
 
-#: ../preferences/fontscolors.py:506
+#: ../preferences/fontscolors.py:525
 msgid "Layout Object"
 msgstr "Oggetto di layout"
 
-#: ../preferences/fontscolors.py:507
+#: ../preferences/fontscolors.py:526
 msgid "Property"
 msgstr "Proprietà"
 
-#: ../preferences/fontscolors.py:509
+#: ../preferences/fontscolors.py:528
 msgid "User Variable"
 msgstr "Variabile dell'utente"
 
-#: ../preferences/fontscolors.py:512 ../preferences/fontscolors.py:541
+#: ../preferences/fontscolors.py:531 ../preferences/fontscolors.py:560
 msgid "Escaped Character"
 msgstr "Carattere d'escape"
 
-#: ../preferences/fontscolors.py:516
+#: ../preferences/fontscolors.py:535
 msgid "HTML"
 msgstr "HTML"
 
-#: ../preferences/fontscolors.py:517
+#: ../preferences/fontscolors.py:536
 msgid "Tag"
 msgstr "Tag"
 
-#: ../preferences/fontscolors.py:518
+#: ../preferences/fontscolors.py:537
 msgid "LilyPond Tag"
 msgstr "Etichetta LilyPond"
 
-#: ../preferences/fontscolors.py:519 ../preferences/fontscolors.py:542
+#: ../preferences/fontscolors.py:538 ../preferences/fontscolors.py:561
 msgid "Attribute"
 msgstr "Attributo"
 
-#: ../preferences/fontscolors.py:521
+#: ../preferences/fontscolors.py:540
 msgid "Entity Reference"
 msgstr "Entità di carattere"
 
-#: ../preferences/fontscolors.py:525 ../preferences/fontscolors.py:526
+#: ../preferences/fontscolors.py:544 ../preferences/fontscolors.py:545
 msgid "Scheme"
 msgstr "Scheme"
 
-#: ../preferences/fontscolors.py:527
+#: ../preferences/fontscolors.py:546
 msgid "Number"
 msgstr "Numero"
 
-#: ../preferences/fontscolors.py:528
+#: ../preferences/fontscolors.py:547
 msgid "LilyPond Environment"
 msgstr "Ambiente LilyPond"
 
-#: ../preferences/fontscolors.py:534
+#: ../preferences/fontscolors.py:553
 msgid "Constant"
 msgstr ""
 
-#: ../preferences/fontscolors.py:535
+#: ../preferences/fontscolors.py:554
 msgid "Symbol"
 msgstr ""
 
-#: ../preferences/fontscolors.py:538
+#: ../preferences/fontscolors.py:557
 msgid "Texinfo"
 msgstr "Texinfo"
 
-#: ../preferences/fontscolors.py:540
+#: ../preferences/fontscolors.py:559
 msgid "Block"
 msgstr "Blocco"
 
-#: ../preferences/fontscolors.py:543
+#: ../preferences/fontscolors.py:562
 msgid "Verbatim"
 msgstr "Verbatim"
 
@@ -4310,6 +4315,16 @@ msgstr ""
 #, fuzzy
 msgid "Set the resolution if Frescobaldi prints using raster images."
 msgstr "Sessione da caricare se Frescobaldi è avviato senza argomenti"
+
+#: ../preferences/import_export.py:89
+#, fuzzy
+msgid "No theme found."
+msgstr "Nessun frammento trovato."
+
+#: ../preferences/import_export.py:172
+#, fuzzy
+msgid "No shortcuts found."
+msgstr "Nessun output trovato!"
 
 #: ../preferences/lilypond.py:82
 msgid "LilyPond versions to use"
@@ -4852,21 +4867,21 @@ msgstr "Menu {name}:"
 msgid "Other commands:"
 msgstr "Altri comandi:"
 
-#: ../preferences/shortcuts.py:184
+#: ../preferences/shortcuts.py:189
 msgid "&Edit Shortcut for \"{name}\""
 msgstr "&Modifica la scorciatoia per \"{name}\""
 
-#: ../preferences/shortcuts.py:189
+#: ../preferences/shortcuts.py:194
 msgid "(no shortcut)"
 msgstr "(nessuna scorciatoia)"
 
-#: ../preferences/shortcuts.py:217
+#: ../preferences/shortcuts.py:235
 msgid "Remove the shortcut from that command?"
 msgid_plural "Remove the shortcut from those commands?"
 msgstr[0] "Cancellare la scorciatoia da questo comando?"
 msgstr[1] "Cancellare le scorciatoie da questi comandi?"
 
-#: ../preferences/shortcuts.py:320
+#: ../preferences/shortcuts.py:341
 msgid "(default)"
 msgstr "(predefinita)"
 
@@ -5309,7 +5324,7 @@ msgid "Configure Keyboard Shortcut ({key})"
 msgstr "Configura la scorciatoia ({key})"
 
 #: ../quickinsert/buttongroup.py:182 ../scorewiz/scoreproperties.py:171
-#: ../scorewiz/settings.py:195 ../snippet/edit.py:129
+#: ../scorewiz/settings.py:195 ../snippet/edit.py:133
 msgid "None"
 msgstr "Niente"
 
@@ -6072,7 +6087,7 @@ msgid "&Add"
 msgstr "&Aggiungi"
 
 #: ../scorewiz/score.py:103 ../snippet/widget.py:191 ../widgets/listedit.py:93
-#: ../widgets/schemeselector.py:64
+#: ../widgets/schemeselector.py:94
 msgid "&Remove"
 msgstr "&Togli"
 
@@ -7427,39 +7442,39 @@ msgstr "Spartito semplificato"
 msgid "Choir Hymn"
 msgstr "Corale"
 
-#: ../snippet/edit.py:120 ../snippet/insert.py:223
+#: ../snippet/edit.py:124 ../snippet/insert.py:223
 msgid "Edit Snippet"
 msgstr "Modifica frammento"
 
-#: ../snippet/edit.py:120
+#: ../snippet/edit.py:124
 msgid "New Snippet"
 msgstr "Nuovo frammento"
 
-#: ../snippet/edit.py:122
+#: ../snippet/edit.py:126
 msgid "Snippet Text:"
 msgstr "Testo del frammento:"
 
-#: ../snippet/edit.py:123
+#: ../snippet/edit.py:127
 msgid "Title:"
 msgstr "Titolo:"
 
-#: ../snippet/edit.py:124
+#: ../snippet/edit.py:128
 msgid "Shortcut:"
 msgstr "Scorciatoia:"
 
-#: ../snippet/edit.py:135
+#: ../snippet/edit.py:139
 msgid "Click to change the keyboard shortcut."
 msgstr "Fare click per configurare la scorciatoia."
 
-#: ../snippet/edit.py:141
+#: ../snippet/edit.py:145
 msgid "Empty Snippet"
 msgstr "Frammento vuoto"
 
-#: ../snippet/edit.py:142
+#: ../snippet/edit.py:146
 msgid "A snippet can't be empty."
 msgstr "Un frammento non può essere vuoto."
 
-#: ../snippet/edit.py:147
+#: ../snippet/edit.py:151
 msgid ""
 "The snippet has been modified.\n"
 "Do you want to save your changes or discard them?"
@@ -7467,11 +7482,11 @@ msgstr ""
 "Il frammento è stato modificato.\n"
 "Salvare le modifiche o scartarle?"
 
-#: ../snippet/edit.py:214
+#: ../snippet/edit.py:218
 msgid "Snippet editor"
 msgstr "Editor dei frammenti"
 
-#: ../snippet/edit.py:219
+#: ../snippet/edit.py:223
 msgid ""
 "<p>Here you can edit the text of the snippet.</p><p>If you start the first "
 "line(s) with '<code>-*- </code>' (note the space), the remainder of that line"
@@ -7486,13 +7501,13 @@ msgstr ""
 "influenzeranno il comportamento del frammento. Si possono usare le seguenti "
 "variabili:</p>"
 
-#: ../snippet/edit.py:228
+#: ../snippet/edit.py:232
 msgid "Place the snippet in the insert menu, grouped by the (optional) value."
 msgstr ""
 "Aggiunge il frammento al menu di inserimento, raggruppato secondo il valore "
 "(opzionale)."
 
-#: ../snippet/edit.py:230
+#: ../snippet/edit.py:234
 msgid ""
 "Place the snippet in the menu {file_new_from_template}, grouped by the "
 "(optional) value. When triggered via the menu, the snippet is inserted into "
@@ -7502,29 +7517,29 @@ msgstr ""
 "il valore (opzionale). Quando attivato tramite il menu, il frammento sarà "
 "inserito nel documento."
 
-#: ../snippet/edit.py:234
+#: ../snippet/edit.py:238
 msgctxt "menu title"
 msgid "File"
 msgstr "File"
 
-#: ../snippet/edit.py:235
+#: ../snippet/edit.py:239
 msgctxt "menu subtitle"
 msgid "New from Template"
 msgstr "Nuovo da Modello"
 
-#: ../snippet/edit.py:237
+#: ../snippet/edit.py:241
 msgid "The mnemonic to type to select the snippet."
 msgstr "La scorciatoia da digitare per scegliere il frammento."
 
-#: ../snippet/edit.py:239
+#: ../snippet/edit.py:243
 msgid "Do not auto-indent the snippet after inserting."
 msgstr "Non indentare automaticamente il frammento dopo averlo inserito."
 
-#: ../snippet/edit.py:241
+#: ../snippet/edit.py:245
 msgid "The icon to show in menu and snippet list."
 msgstr "Icona da mostrare nel menu e nell'elenco dei frammenti."
 
-#: ../snippet/edit.py:243
+#: ../snippet/edit.py:247
 msgid ""
 "The symbol to show in menu and snippet list. Symbols are icons that use the "
 "default text color and can be found in {directory}."
@@ -7533,27 +7548,27 @@ msgstr ""
 "icone che usano il colore predefinito del testo e si possono trovare in "
 "{directory}."
 
-#: ../snippet/edit.py:247
+#: ../snippet/edit.py:251
 msgid "Execute the snippet as a Python script. See {link}."
 msgstr "Esegui il frammento come un script Python. Consultare {link}."
 
-#: ../snippet/edit.py:250
+#: ../snippet/edit.py:254
 msgid "One of more of the following words (separated with spaces or commas):"
 msgstr "Una o più delle seguenti parole (separate da spazi o virgole):"
 
-#: ../snippet/edit.py:253
+#: ../snippet/edit.py:257
 msgid "Requires text to be selected."
 msgstr "È necessario che ci sia del testo selezionato."
 
-#: ../snippet/edit.py:255
+#: ../snippet/edit.py:259
 msgid "Adjusts the selection to not include starting and trialing whitespace."
 msgstr "Regola la selezione escludendo spazi bianchi all'inizio e alla fine."
 
-#: ../snippet/edit.py:257
+#: ../snippet/edit.py:261
 msgid "Selects all inserted text."
 msgstr "Seleziona tutto il testo inserito."
 
-#: ../snippet/edit.py:263
+#: ../snippet/edit.py:267
 msgid ""
 "<p>The other lines of the snippet define the text to be inserted in the "
 "editor. Here, you can insert variables prefixed with a $. A double $ will be "
@@ -7564,11 +7579,11 @@ msgstr ""
 "$ sarà sostituito con uno singolo. Sono riconosciute le seguenti variabili:</"
 "p>"
 
-#: ../snippet/edit.py:279
+#: ../snippet/edit.py:283
 msgid "Python Snippets"
 msgstr "Frammenti Python"
 
-#: ../snippet/edit.py:284
+#: ../snippet/edit.py:288
 msgid ""
 "<p>Python snippets can read and should set the variable {text}. The variable "
 "{text} contains the currently selected text (which may be an empty string).</"
@@ -7582,13 +7597,13 @@ msgstr ""
 "<p>Si può impostare {text} come stringa o lista di stringhe.</p>\n"
 "<p>Altre variabili che si possono usare:</p>"
 
-#: ../snippet/edit.py:292
+#: ../snippet/edit.py:296
 msgid "A list of strings describing the type of text the cursor is at."
 msgstr ""
 "Una lista di stringhe che descrivono il tipo di testo su cui si trova il "
 "cursore."
 
-#: ../snippet/edit.py:294
+#: ../snippet/edit.py:298
 msgid ""
 "The current QTextCursor, giving access to the document. Don't change the "
 "document through the cursor, however."
@@ -7596,7 +7611,7 @@ msgstr ""
 "Il QTextCursor corrente, con cui si ha accesso al documento. Tuttavia, non "
 "permette di modificare il testo."
 
-#: ../snippet/edit.py:297
+#: ../snippet/edit.py:301
 msgid ""
 "When setting {text} to a list instead of a string, you can use this value to "
 "specify the place the text cursor will be placed after inserting the snippet."
@@ -7605,7 +7620,7 @@ msgstr ""
 "questo valore per specificare il luogo in cui sarà posto il cursore dopo "
 "l'inserimento del frammento."
 
-#: ../snippet/edit.py:301
+#: ../snippet/edit.py:305
 msgid ""
 "When setting {text} to a list instead of a string, this value can be used "
 "together with {cursor} to select text when inserting the string parts of the "
@@ -7615,7 +7630,7 @@ msgstr ""
 "può essere usato con {cursor} per selezionare il testo quando vengono "
 "inserite stringhe che fanno parte della lista."
 
-#: ../snippet/edit.py:306
+#: ../snippet/edit.py:310
 msgid ""
 "When you define a function with this name, it is called without arguments, "
 "instead of inserting the text from the {text} variable. In this case you may "
@@ -7737,7 +7752,7 @@ msgstr ""
 "code>."
 
 #: ../snippet/import_export.py:245 ../snippet/import_export.py:250
-#: ../snippet/widget.py:183
+#: ../snippet/widget.py:183 ../widgets/schemeselector.py:92
 msgid "&Menu"
 msgstr "&Menu"
 
@@ -7756,6 +7771,7 @@ msgstr ""
 "aprirà una finestra da cui scegliere quali frammenti importare."
 
 #: ../snippet/import_export.py:250 ../snippet/widget.py:195
+#: ../widgets/schemeselector.py:96
 msgid "&Import..."
 msgstr "&Importa..."
 
@@ -7858,6 +7874,7 @@ msgid "&Snippets..."
 msgstr "&Frammenti..."
 
 #: ../snippet/widget.py:184 ../widgets/listedit.py:91
+#: ../widgets/schemeselector.py:93
 msgid "&Add..."
 msgstr "&Aggiungi..."
 
@@ -7954,6 +7971,7 @@ msgstr ""
 "nel menu di inserimento."
 
 #: ../snippet/widget.py:292 ../snippet/widget.py:309
+#: ../widgets/schemeselector.py:166 ../widgets/schemeselector.py:174
 msgid "XML Files"
 msgstr "File XML"
 
@@ -8094,22 +8112,48 @@ msgstr "Pulisci la sequenza di tasti."
 msgid "Input"
 msgstr "Input"
 
-#: ../widgets/schemeselector.py:47 ../widgets/schemeselector.py:62
+#: ../widgets/schemeselector.py:91
 msgid "Scheme:"
 msgstr "Schema:"
 
-#: ../widgets/schemeselector.py:63
-msgctxt "New Scheme"
-msgid "&New..."
-msgstr "&Nuovo..."
+#: ../widgets/schemeselector.py:95
+#, fuzzy
+msgid "Re&name..."
+msgstr "&Gestisci sessioni..."
 
-#: ../widgets/schemeselector.py:92
+#: ../widgets/schemeselector.py:97
+#, fuzzy
+msgid "&Export..."
+msgstr "E&sporta..."
+
+#: ../widgets/schemeselector.py:137
 msgid "Add Scheme"
 msgstr "Aggiungi schema"
 
-#: ../widgets/schemeselector.py:93
+#: ../widgets/schemeselector.py:138
 msgid "Please enter a name for the new scheme:"
 msgstr "Inserire un nome per il nuovo schema:"
+
+#: ../widgets/schemeselector.py:156
+#, fuzzy
+msgid "Rename"
+msgstr "nome"
+
+#: ../widgets/schemeselector.py:156
+#, fuzzy
+msgid "New name:"
+msgstr "Nome:"
+
+#: ../widgets/schemeselector.py:167
+msgctxt "dialog title"
+msgid "Import color theme"
+msgstr ""
+
+#: ../widgets/schemeselector.py:176
+#, fuzzy
+msgctxt "dialog title"
+msgid "Export {name}"
+msgstr "Esporta {num} frammento"
 
 #: ../widgets/shortcuteditdialog.py:94
 msgctxt "window title"
@@ -8167,6 +8211,10 @@ msgstr "Scegliere una cartella"
 #: ../widgets/urlrequester.py:111
 msgid "Select a file"
 msgstr "Scegliere un file"
+
+#~ msgctxt "New Scheme"
+#~ msgid "&New..."
+#~ msgstr "&Nuovo..."
 
 #~ msgid ""
 #~ "No print command to print a PostScript file could be found.\n"
