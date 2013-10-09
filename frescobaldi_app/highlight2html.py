@@ -118,6 +118,26 @@ class HtmlHighlighter(object):
             selector, self.format_css_items(items, '\n  '))
             for selector, items in self.css_data())
 
+    def css_class_for_token_type(self, token_type):
+        """Return the CSS class to use for the token type.
+        
+        Returns None if the token type has no defined highlighting (e.g. space).
+        
+        """
+        try:
+            css = self._classes[token_type]
+        except KeyError:
+            for c in token_type.__mro__[highlighter._token_mro_slice]:
+                try:
+                    css = self._classes[c]
+                    break
+                except KeyError:
+                    pass
+            else:
+                return
+            self._classes[token_type] = css
+        return css
+            
     def html_for_token(self, token, cls=None):
         """Return a piece of HTML for the specified token.
         
@@ -126,18 +146,9 @@ class HtmlHighlighter(object):
         """
         if cls is None:
             cls = type(token)
-        try:
-            css = self._classes[cls]
-        except KeyError:
-            for c in cls.__mro__[highlighter._token_mro_slice]:
-                try:
-                    css = self._classes[c]
-                    break
-                except KeyError:
-                    pass
-            else:
-                return escape(token)
-            self._classes[cls] = css
+        css = self.css_class_for_token_type(cls)
+        if not css:
+            return escape(token)
         if self.inline_style:
             style = self.format_css_items(self._formats[css])
             return '<span style="{0}">{1}</span>'.format(style, escape(token))
