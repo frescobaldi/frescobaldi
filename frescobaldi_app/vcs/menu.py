@@ -29,8 +29,7 @@ from PyQt4.QtGui import QAction, QActionGroup, QMenu, QMessageBox
 import app
 import mainwindow
 import plugin
-from vcs import apprepo
-
+import vcs
 
 class GitMenu(QMenu):
     def __init__(self, mainwindow):
