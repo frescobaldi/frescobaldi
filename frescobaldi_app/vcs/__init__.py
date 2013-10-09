@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Git interface (application and documents)
+VCS interface (application and documents)
 """
 
 from __future__ import unicode_literals
@@ -26,14 +26,84 @@ from __future__ import unicode_literals
 import sys
 import os
 import subprocess
+from abc import ABCMeta, abstractmethod
 
 import app
 import info
 
+class AbstractVCSRepo(object):
+    """
+    Interface for classes managing VCS repositories.
+    Currently we only support Git, but this level of
+    abstraction is intended to offer an interface to
+    add other VCS comparably easily.
+    """
+    __metaclass__ = ABCMeta
+
+    @abstractmethod
+    def branches(self, local=True):
+        pass
+
+    @abstractmethod
+    def checkout(self, branch):
+        pass
+        
+    @abstractmethod
+    def current_branch(self):
+        """
+        Returns the name of the current branch.
+        """
+        pass
+
+    @abstractmethod
+    def has_branch(self, branch):
+        """
+        Returns True if the given branch exists.
+        Checks by actually running git branch.
+        """
+        pass
+    
+    @abstractmethod
+    def has_remote(self, remote):
+        """Returns True if the given remote name is registered."""
+        pass
+
+    @abstractmethod
+    def has_remote_branch(self, branch):
+        """
+        Return True if the given branch
+        is tracking a remote branch.
+        """
+        pass
+    
+    @abstractmethod
+    def remotes(self):
+        """Return a string list with registered remote names"""
+        pass
+
+    @abstractmethod
+    def tracked_remote(self, branch):
+        """
+        Return a tuple with the remote and branch tracked by
+        the given branch.
+        In most cases both values will be identical, but a branch
+        can also track a differently named remote branch.
+        Return ('local', 'local') if it doesn't track any branch.
+        """
+        pass
+    
+    @abstractmethod
+    def tracked_remote_label(self, branch):
+        """
+        Return a string to be used for remote branch info.
+        Either 'local', the remote name or remote/branch.
+        """
+        pass
+
 class GitError(Exception):
     pass
     
-class Git(object):
+class GitRepo(AbstractVCSRepo):
     """
     Manage a git repository, be it
     the running Frescobaldi application
@@ -137,6 +207,11 @@ class Git(object):
         return [line.strip() for line in self._run_git_command('branch', args)]
         
     def checkout(self, branch):
+        """
+        Tries to checkout a branch.
+        Add '-q' option because git checkout will
+        return its confirmation message on stderr.
+        May raise a GitError exception"""
         # may raise a GitError exception
         self._run_git_command('checkout', ['-q', branch])
         
@@ -194,6 +269,14 @@ class Git(object):
             return ('local', 'local')
     
     def tracked_remote_label(self, branch):
+        """
+        Returns a label for the tracked branch to be used in the GUI.
+        Consists of one of
+        - 'local'
+        - the remote name
+        - remote name concatenated with the remote branch
+          (if it should differ from the local branch name).
+        """
         remote, remote_branch = self.tracked_remote(branch)
         if remote == 'local':
             return 'local'
@@ -202,9 +285,13 @@ class Git(object):
         else:
             return remote + '/' + remote_branch
 
-class GitApp(Git):
+class FrescobaldiGit(GitRepo):
+    """
+    Subclass to be used for the Frescobaldi Git repository.
+    Offers methods exclusively useful for this specific repo.
+    """
     def __init__(self):
-        super(GitApp, self).__init__(os.path.join(sys.path[0], '..'))
+        super(FrescobaldiGit, self).__init__(os.path.join(sys.path[0], '..'))
         self._activeBranch = self.current_branch()
     
     def active_branch(self):

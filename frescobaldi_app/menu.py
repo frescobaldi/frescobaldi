@@ -44,7 +44,7 @@ import autocomplete
 import sidebar
 import matcher
 import file_import
-import git.menu
+import vcs.menu
 
 # postpone translation
 _ = lambda *args: lambda: __builtin__._(*args)
@@ -371,7 +371,7 @@ def menu_session(mainwindow):
 
 
 def menu_git(mainwindow):
-    m = git.menu.GitMenu(mainwindow)
+    m = vcs.menu.GitMenu(mainwindow)
     if not app.is_git_controlled():
         #TODO: Make this invisible instead of disabled
         m.setEnabled(False)

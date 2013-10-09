@@ -54,7 +54,7 @@ import engrave
 import scorewiz
 import externalchanges
 if app.is_git_controlled():
-    import git
+    import vcs
 
 class MainWindow(QMainWindow):
     

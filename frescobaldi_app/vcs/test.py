@@ -1,7 +1,7 @@
-# Test file to test and demonstrate the API for the git module.
+# Test file to test and demonstrate the API for the vcs module.
 
 import app
-import git
+import vcs
 
 print 'Debugging the git module'
 print 'List of remotes:'

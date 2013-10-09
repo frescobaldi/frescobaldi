@@ -201,8 +201,8 @@ def is_git_controlled():
     return _is_git_controlled
 
 if is_git_controlled():
-    import git
-    repo = git.GitApp()
+    import vcs
+    repo = vcs.FrescobaldiGit()
     
     # debugging tests, to be removed
-    import git.test
+    import vcs.test
