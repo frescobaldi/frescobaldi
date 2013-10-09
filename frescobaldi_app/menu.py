@@ -44,7 +44,7 @@ import autocomplete
 import sidebar
 import matcher
 import file_import
-
+import git.menu
 
 # postpone translation
 _ = lambda *args: lambda: __builtin__._(*args)
@@ -64,6 +64,7 @@ def createMenus(mainwindow):
         menu_document,
         menu_window,
         menu_session,
+        menu_git, 
         menu_help,
     ):
         m.addMenu(f(mainwindow))
@@ -367,6 +368,14 @@ def menu_window(mainwindow):
 
 def menu_session(mainwindow):
     return sessions.menu.SessionMenu(mainwindow)
+
+
+def menu_git(mainwindow):
+    m = git.menu.GitMenu(mainwindow)
+    if not app.is_git_controlled():
+        #TODO: Make this invisible instead of disabled
+        m.setEnabled(False)
+    return m
 
 
 def menu_help(mainwindow):
