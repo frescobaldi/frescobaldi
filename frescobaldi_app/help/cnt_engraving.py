@@ -137,8 +137,14 @@ class eng_preview(page):
                 "The main purpose of this Debug Mode is to retrieve information about "
                 "Grob names, which may come in handy if you don\'t know where to "
                 "look up available properties.<br />"
-                "Please note that this mode is quite intrusive and will especially "
-                "become useful once it can be activated for single grobs.")),
+                "Please note that displaying grob anchors and displaying grob "
+                "names is mutually exclusive because both functions override the "
+                "grob's stencil. "
+                "When both modes are active, only the grob anchors are displayed.<br />"
+                "Please also note that this mode is quite intrusive and may affect the "
+                "layout. It is mainly useful for learning about grob names and will especially "
+                "become usable once it can be activated for single grobs."
+                )),
              (_("Display Skylines"),
               _("LilyPond uses \"Skylines\" to calculate the vertical dimensions "
                 "of its graphical objects in order to prevent collisions. "
