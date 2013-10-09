@@ -142,9 +142,36 @@ package. The different groups separated by a blank line:
 
     from . import widget            # imports from current package
 
+
+Adding Functionality
+====================
+
+Separate out core functionality from its GUI. Put core functionality in a basic
+module. For the GUI preferably make a new package/__init__.py, importing that
+e.g. from menu.py while constructing the GUI. An example is the documentwatcher
+base module, it automatically watches open documents on disk, simply by
+listening to signals sent from app. It sends a documentChanged() signal when
+something happens, nothing else. The externalchanges package that gets imported
+from mainwindow.py, starts up the documentwatcher if the user has it enabled.
+
+So the documentwatcher watcher is a module just capable of performing a task,
+without needing to have logic for accessing the preferences, constructing a
+particular GUI, etc. It could, like app and many other modules, be used almost
+unchanged in any other application.
+
+New features that add menu actions can be imported in meny.py, while building
+the menu. Features that should run in a global background thread can have their
+toplevel file (<feature>/__init__.py) imported from main.py or mainwindow.py,
+loading as few as possible on first import.
+
+
+Preparing patches or Pull Requests
+==================================
+
 When preparing a patch or pull request, please add new functionality first.
 Old functionality that is superseded by the newer functions can be removed later
-when the new functionality has been tested thoroughly.
+when the new functionality has been tested thoroughly. Change existing files
+as less as possible. Preferably add new files and packages.
 
 User Interface strings that are meant to be translated should be wrapped in
 _("Message Text") constructs. See also README-translations for vital information
