@@ -44,8 +44,8 @@ class engraving(page):
             "provides two-way point-and-click navigation as well as a number of "
             "modes for debugging layout issues.<br />"
             "<em>Publication</em> mode is used for producing the final PDF "
-            "intended to be shared.<br />"
-            "<em>Custom</em> mode allows you to specify the used LilyPond "
+            "intended to be shared.") + "<br />" +
+          _("<em>Custom</em> mode allows you to specify the used LilyPond "
             "command in detail."),
           _("If you have set up different LilyPond versions and told Frescobaldi "
             "in the <em>LilyPond</em> page of the <em>Preferences</em> dialog "
@@ -76,8 +76,8 @@ class eng_preview(page):
           _("The Debug Modes are accessible through the \"Preview Options\" "
             "dockable panel which is accessible through {menu_panel}."
             "The Debug Modes are initially disabled "
-            "but remember their state throughout Frescobaldi sessions.<br />"
-            "If you use these features regularly it is recommendable "
+            "but remember their state throughout Frescobaldi sessions.") + "<br />" +
+          _("If you use these features regularly it is recommendable "
             "to have the panel constantly open because you will probably "
             "switch Debug Modes quite often.").format(menu_panel = menu(_("Tools"), _("Preview Options"))),
           _("Compiling in Preview Mode will introduce a <code>-ddebug-layout</code> "
@@ -99,8 +99,8 @@ class eng_preview(page):
                 "tell where the curve ends are placed, and the middle ones affect "
                 "the curvature). Changing the shape of these objects involves "
                 "moving these control-points around, and it's helpful to see "
-                "where they actually are.<br />"
-                "This Debug Mode will display the inner control-points "
+                "where they actually are.") + "<br />" + 
+              _("This Debug Mode will display the inner control-points "
                 "as red crosses and connects them to the outer (starting) "
                 "points with thin lines.")),
              (_("Color \\voiceXXX"),
@@ -110,18 +110,18 @@ class eng_preview(page):
              (_("Color explicit directions"),
               _("This mode colors items whose directions have been explicitly set "
                 "with either the predefined commands <code>\\xxxUp</code> etc. "
-                "or the directional operators <code>^</code> and <code>_</code>.<br />"
-                "Please note how this mode and the previous are related:<br />"
-                "When the condition for one of the the modes is reverted using "
+                "or the directional operators <code>^</code> and <code>_</code>.") + "<br />" +
+              _("Please note how this mode and the previous are related:") + "<br />" +
+              _("When the condition for one of the the modes is reverted using "
                 "commands like <code>\\oneVoice</code> or <code>\\xxxNeutral</code> "
                 "colors are reverted to black and may also revert the highlighting "
-                "of the other Debug Mode.<br />"
-                "In <code>c \\voiceTwo d \\stemUp e \\stemNeutral d \\oneVoice</code> "
-                "the \'d\' may already be reverted.<br />"
-                "If the score is engraved with LilyPond version 2.17.6 or later "
+                "of the other Debug Mode.") + "<br />" +
+              _("In <code>c \\voiceTwo d \\stemUp e \\stemNeutral d \\oneVoice</code> "
+                "the \'d\' may already be reverted.") + "<br />" +
+              _("If the score is engraved with LilyPond version 2.17.6 or later "
                 "the situation is somewhat improved through the use of the "
-                "<code>\\temporary</code> directive.<br />"
-                "In short: If you use both Modes at the same time please expect "
+                "<code>\\temporary</code> directive.") + "<br />" +
+              _("In short: If you use both Modes at the same time please expect "
                 "inconsistencies.")),
              (_("Display Grob Anchors"),
               _("In LilyPond, all graphical objects have an anchor (a reference point). "
@@ -130,18 +130,18 @@ class eng_preview(page):
                 "figure is placed on a plane, you'll usually say something like "
                 "\"the lower left corner of this square has coordinates (0, 2)\" or \"the "
                 "center of this circle is at (-1, 3)\". \"Lower left corner\" and \"center\" "
-                "would be the reference points for square and circle.<br />"
-                "This Mode displays a red dot for each grob's anchor point.")),
+                "would be the reference points for square and circle.") + "<br />" +
+              _("This Mode displays a red dot for each grob's anchor point.")),
              (_("Display Grob Names"),
-              _("This mode prints a grob's name next to it.<br />"
-                "The main purpose of this Debug Mode is to retrieve information about "
+              _("This mode prints a grob's name next to it.") + "<br />" +
+              _("The main purpose of this Debug Mode is to retrieve information about "
                 "Grob names, which may come in handy if you don\'t know where to "
-                "look up available properties.<br />"
-                "Please note that displaying grob anchors and displaying grob "
+                "look up available properties.") + "<br />" +
+              _("Please note that displaying grob anchors and displaying grob "
                 "names is mutually exclusive because both functions override the "
                 "grob's stencil. "
-                "When both modes are active, only the grob anchors are displayed.<br />"
-                "Please also note that this mode is quite intrusive and may affect the "
+                "When both modes are active, only the grob anchors are displayed.") + "<br />" +
+              _("Please also note that this mode is quite intrusive and may affect the "
                 "layout. It is mainly useful for learning about grob names and will especially "
                 "become usable once it can be activated for single grobs."
                 )),
@@ -163,8 +163,8 @@ class eng_preview(page):
                 "startup and may contain any LilyPond code you would like to have "
                 "executed whenever you are engraving in Preview Mode. "
                 "This file will be parsed before any of the other Debug Modes "
-                "so you may use it to configure them.<br />"
-                "The given string will be literally included in an <code>\\include</code> "
+                "so you may use it to configure them.") + "<br />" +
+              _("The given string will be literally included in an <code>\\include</code> "
                 "directive, so you are responsible yourself that LilyPond can find it.")),
             )))
 
