@@ -30,7 +30,7 @@ from .html import p, ol, ul, li
 from colorize import colorize
 
 import info
-
+import preferences
 
 class engraving(page):
     def title():
@@ -315,9 +315,22 @@ class eng_custom(page):
     
     def body():
         return p(
-          _("The <em>Engrave (Custom)</em> dialog gives you detailed access "
-            "to all aspects of the LilyPond command."),
-          _("More documentation to come ..."),
+          _("The <em>Engrave (Custom)</em> dialog ({custom_shortcut}) gives you detailed access "
+            "to all aspects of the LilyPond command.").format(
+                custom_shortcut = shortcut(action("engrave", "engrave_preview"))),
+          _("You can configure a number of options through the graphical user "
+            "interface and then fine-tune the command line to be used for LilyPond "
+            "directly."),
+          _("You can select from the LilyPond versions defined in the {pref} "
+            "dialog, ").format(pref=preferences.prefshelp.preferences_lilypond.link()) +
+          _("from the output formats available to LilyPond and (for PNG output) "
+            "from a number of image resolutions."), 
+          _("Running LilyPond in Preview Mode will respect the settings from the "
+            "Preview Options Panel ({0}), ").format(eng_preview.link()) +
+          _("Verbose Output and English Messages may be relevant if you want to "
+            "send information to a mailing list, and Deleting Intermediate Output "
+            "Files may be used to <em>disable</em> the default behaviour."), 
+          _("Some of these settings are reflected in the Command Line text edit field, "
+            "others not.")
         )
-
 
