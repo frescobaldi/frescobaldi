@@ -39,7 +39,7 @@ class GitRepo(AbstractVCSRepo):
     or a document's project.
     """
     def __init__(self, root):
-        if not os.path.isdir(root):
+        if not os.path.isdir(os.path.join(root, '.git')):
             raise Exception(_("The given directory '{rootdir} "
                               "doesn't seem to be a Git repository.".format(rootdir=root)))
         self.rootDir = root
