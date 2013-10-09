@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-10-09 20:29+0200\n"
+"POT-Creation-Date: 2013-10-09 20:36+0200\n"
 "PO-Revision-Date: 2011-12-30 18:12+0100\n"
 "Last-Translator: Urs Liska <git@ursliska.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -2046,13 +2046,9 @@ msgstr ""
 
 #: ../help/cnt_engraving.py:324
 msgid ""
-"You can select from the LilyPond versions defined in the {pref} dialog, "
-msgstr ""
-
-#: ../help/cnt_engraving.py:326
-msgid ""
-"from the output formats available to LilyPond and (for PNG output) from a "
-"number of image resolutions."
+"You can select from the LilyPond versions defined in the {pref} dialog, from "
+"the output formats available to LilyPond and (for PNG output) from a number "
+"of image resolutions."
 msgstr ""
 
 #: ../help/cnt_engraving.py:328
