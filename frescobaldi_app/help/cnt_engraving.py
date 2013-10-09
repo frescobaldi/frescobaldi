@@ -326,7 +326,7 @@ class eng_custom(page):
           _("from the output formats available to LilyPond and (for PNG output) "
             "from a number of image resolutions."), 
           _("Running LilyPond in Preview Mode will respect the settings from the "
-            "Preview Options Panel ({0}), ").format(eng_preview.link()) +
+            "Preview Options Panel ({link}).").format(link=eng_preview.link()) +
           _("Verbose Output and English Messages may be relevant if you want to "
             "send information to a mailing list, and Deleting Intermediate Output "
             "Files may be used to <em>disable</em> the default behaviour."), 
