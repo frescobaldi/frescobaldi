@@ -196,6 +196,16 @@ class Git(object):
 class GitApp(Git):
     def __init__(self):
         super(GitApp, self).__init__(os.path.join(sys.path[0], '..'))
+        self._activeBranch = self.current_branch()
+    
+    def active_branch(self):
+        """
+        Returns the name of the branch that was current_branch
+        when the application has started.
+        current_branch() may of course change during the
+        runtime of the application
+        """
+        return self._activeBranch
     
     def upstream_remote(self):
         """

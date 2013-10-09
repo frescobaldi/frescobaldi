@@ -250,8 +250,7 @@ class MainWindow(QMainWindow):
                 name.append(_("[modified]"))
         git_branch = ''
         if app.is_git_controlled():
-            git_branch = app.repo.current_branch()
-            remote_name, remote_branch = app.repo.tracked_remote(git_branch)
+            git_branch = app.repo.active_branch()
             if git_branch != remote_branch:
                 remote_name += '/' + remote_branch
             git_branch = ' ({branch} [{remote}])'.format(
