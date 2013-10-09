@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-10-09 20:06+0200\n"
+"POT-Creation-Date: 2013-10-09 20:29+0200\n"
 "PO-Revision-Date: 2013-05-15 22:45+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -2076,7 +2076,7 @@ msgstr ""
 #: ../help/cnt_engraving.py:328
 msgid ""
 "Running LilyPond in Preview Mode will respect the settings from the Preview "
-"Options Panel ({0}), "
+"Options Panel ({link})."
 msgstr ""
 
 #: ../help/cnt_engraving.py:330

@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-10-09 20:06+0200\n"
-"PO-Revision-Date: 2013-10-09 20:12+0200\n"
+"POT-Creation-Date: 2013-10-09 20:29+0200\n"
+"PO-Revision-Date: 2013-10-09 20:30+0200\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -1993,7 +1993,6 @@ msgid "Include Custom File"
 msgstr "Eigen bestand invoegen"
 
 #: ../help/cnt_engraving.py:161
-#, fuzzy
 msgid ""
 "This mode offers the opportunity to add one's own Debug Modes by including a "
 "custom file. This file will be included at program startup and may contain "
@@ -2004,15 +2003,15 @@ msgstr ""
 "Deze modus biedt de gelegenheid een eigen bestand in te voegen met eigen "
 "debug-modus. Dit bestand wordt dan bij het starten van LilyPond in "
 "vooruitblik-modus geladen, vóór alle andere bestanden, zodat u dit bestand "
-"ook kunt gebruiken om de debug-modes te configureren.<br /> De ingevoerde "
-"bestandsnaam wordt letterlijk in een <code>\\include</code>-commando "
-"geplaatst, dus u moet zelf zorgen dat LilyPond het kan vinden."
+"ook kunt gebruiken om de debug-modes te configureren."
 
 #: ../help/cnt_engraving.py:167
 msgid ""
 "The given string will be literally included in an <code>\\include</code> "
 "directive, so you are responsible yourself that LilyPond can find it."
 msgstr ""
+"De ingevoerde bestandsnaam wordt letterlijk in een <code>\\include</code>-"
+"commando geplaatst, dus u moet zelf zorgen dat LilyPond het kan vinden."
 
 #: ../help/cnt_engraving.py:177
 msgid "Preview Mode Configuration"
@@ -2155,7 +2154,7 @@ msgstr ""
 #: ../help/cnt_engraving.py:328
 msgid ""
 "Running LilyPond in Preview Mode will respect the settings from the Preview "
-"Options Panel ({0}), "
+"Options Panel ({link})."
 msgstr ""
 
 #: ../help/cnt_engraving.py:330
