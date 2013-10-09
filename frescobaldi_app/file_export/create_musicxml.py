@@ -34,7 +34,9 @@ class create_musicXML():
 
 	def __init__(self):
 		""" creates the basic structure of the XML without any music 
-		TODO: set doctype		
+		TODO: 
+		set doctype	
+		add Frescobaldi as originator	
 		"""
 		self.root = etree.Element("score-partwise", version="3.0")
 		self.partlist = etree.SubElement(self.root, "part-list")
@@ -62,20 +64,21 @@ class create_musicXML():
 	# High-level node creation
 	##
 	
-	def new_note(self, pitch, dura, durtype):
+	def new_note(self, pitch, org_len, durtype, divs):
 		self.create_note()
 		self.add_pitch(pitch[0], pitch[1], pitch[2])
-		self.add_div_duration(dura)
+		duration = divs*4/int(org_len)
+		self.add_div_duration(duration)
 		self.add_duration_type(durtype)
 		if pitch[1]:
 			self.add_accidental(pitch[1])
 		
-	def new_bar_attr(self, clef, mustime, key, div):
+	def new_bar_attr(self, clef, mustime, key, mode, divs):
 		self.create_bar_attr()
-		if div:
-			self.add_divisions(div)
+		if divs:
+			self.add_divisions(divs)
 		if key>=0:
-			self.add_key(key)
+			self.add_key(key, mode)
 		if mustime:
 			self.add_time(mustime[0], mustime[1])
 		if clef:
@@ -135,10 +138,12 @@ class create_musicXML():
 		division = etree.SubElement(self.bar_attr, "divisions")
 		division.text = str(div)
 		
-	def add_key(self, key):
+	def add_key(self, key, mode):
 		keynode = etree.SubElement(self.bar_attr, "key")
 		fifths = etree.SubElement(keynode, "fifths")
 		fifths.text = str(key)
+		modenode = etree.SubElement(keynode, "mode")
+		modenode.text = str(mode)
 		
 	def add_time(self, beats, beat_type):
 		timenode = etree.SubElement(self.bar_attr, "time")

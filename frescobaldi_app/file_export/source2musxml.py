@@ -42,7 +42,7 @@ class parse_source():
 	def __init__(self, doc):
 		self.musxml = create_musicxml.create_musicXML()
 		self.mediator = ly2xml_mediator.mediator()
-		self.command = ''
+		self.prev_command = ''
 		self.duration = 4
 		self.partname = ''
 		self.can_create_part = True
@@ -59,9 +59,9 @@ class parse_source():
 	def output(self):
 		return self.musxml.create_xmldoc()
 		
-	""" 
-	The different source types from ly.lex.lilypond are here sent to translation.
-	"""				
+	## 
+	# The different source types from ly.lex.lilypond are here sent to translation.
+	##				
     	
 	def Name(self, token):
 		""" name of variable """
@@ -71,14 +71,14 @@ class parse_source():
 		""" SequentialStart = { """
 		if self.can_create_part:
 			self.mediator.new_part(self.partname)
-		elif self.command:
-			self.mediator.new_from_command(self.command)
+		elif self.prev_command:
+			self.mediator.new_from_command(self.prev_command)
 		self.can_create_part = False
 		
 	def SequentialEnd(self, token):
 		""" SequentialEnd = } """
-		if self.command:
-			self.command = ''
+		if self.prev_command:
+			self.prev_command = ''
 		else:
 			self.can_create_part = True
 			
@@ -86,9 +86,22 @@ class parse_source():
 		""" PipeSymbol = | """
 		self.mediator.new_bar()
 		
+	def Clef(self, token):
+		""" Clef \clef"""
+		self.prev_command = "clef"
+		
+	def PitchCommand(self, token):
+		if token == '\relative': #the mode must be absolute
+			pass #not implemented
+		elif token == '\key':
+			self.prev_command = "key"
+		
 	def Note(self, token):
 		""" notename, e.g. c, cis, a bes ... """
-		self.mediator.new_note(token, self.duration)
+		if self.prev_command == "key":
+			self.key = token
+		else:
+			self.mediator.new_note(token, self.duration)
 		
 	def Octave(self, token):
 		""" absolute mode required; a number of , or ' or nothing """
@@ -102,11 +115,14 @@ class parse_source():
 	def EqualSign(self, token):
 		pass
 		
-	def Fraction(self, token):
+	def LineComment(self, token):
 		pass
 		
+	def Fraction(self, token):
+		print token
+		
 	def Keyword(self, token):
-		pass
+		self.prev_command = token
 		
 	def StringQuotedStart(self, token):
 		pass
@@ -118,10 +134,16 @@ class parse_source():
 		pass
 		
 	def Command(self, token):
-		self.command = token
+		self.prev_command = token
+		print "Command:"+token
 		
 	def UserCommand(self, token):
-		self.command = token
+		if self.prev_command == 'key':
+			self.mediator.new_key(self.key, token)
+			self.prev_command = ''
+		else:
+			self.prev_command = token
+			print "UserCommand:"+token
 		
 	def iterate_mediator(self):
 		""" the mediator lists are looped through and outputed to the xml-file """
@@ -132,8 +154,8 @@ class parse_source():
 				for obj in bar:
 					if isinstance(obj, ly2xml_mediator.bar_attr):
 						if obj.has_attr():
-							self.musxml.new_bar_attr(obj.clef, obj.time, obj.key, obj.divisions)
+							self.musxml.new_bar_attr(obj.clef, obj.time, obj.key, obj.mode, self.mediator.divisions)
 					elif isinstance(obj, ly2xml_mediator.bar_note):
-						self.musxml.new_note([obj.step, obj.alter, obj.octave], obj.duration, obj.type)
+						self.musxml.new_note([obj.step, obj.alter, obj.octave], obj.duration, obj.type, self.mediator.divisions)
 
 

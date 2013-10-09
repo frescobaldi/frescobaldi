@@ -31,7 +31,7 @@ class mediator():
 		""" create global lists """
 		self.score = []
 		self.partnames = []
-		""" default values """
+		""" default and initial values """
 		self.mustime = [4,4]
 		self.clef = ['G',2]
 		self.divisions = 1	
@@ -41,14 +41,18 @@ class mediator():
 		self.score.append(self.part)
 		self.partnames.append(name)
 		self.new_bar()
-		self.current_attr.set_divs(self.divisions)
 		self.current_attr.set_time(self.mustime)
 		self.current_attr.set_clef(self.clef)	
 		
 	def new_bar(self):
 		self.current_attr = bar_attr()
 		self.bar = [self.current_attr]
-		self.part.append(self.bar)		
+		self.part.append(self.bar)
+		
+	def new_key(self, key_name, mode_command):
+		mode = mode_command[1:]
+		print mode
+		self.current_attr.set_key(get_fifths(key_name, mode), mode)		
 		
 	def new_time(self, fraction):
 		self.mustime = fraction.split('/')
@@ -59,12 +63,13 @@ class mediator():
 		self.current_attr.set_clef(self.clef)
 		
 	def new_note(self, note_name, duration):
-		self.current_note = bar_note(note_name, duration, self.divisions)
+		self.current_note = bar_note(note_name, duration)
 		self.bar.append(self.current_note)
 		self.current_attr = bar_attr()
 		
 	def new_duration(self, duration):
-		self.current_note.set_duration(duration, self.divisions)
+		self.current_note.set_duration(duration)
+		self.check_divs(duration)
 		
 	def new_octave(self, octave):
 		self.current_note.set_octave(octave)
@@ -72,18 +77,31 @@ class mediator():
 	def new_from_command(self, command):
 		print command
 		
+	def check_divs(self, org_len):
+		""" The new duration is checked against current divisions """
+		divs = self.divisions
+		print "Divs:"+str(divs)
+		predur, mod = divmod(divs*4,int(org_len))
+		if predur == 0:
+			self.divisions = int(org_len)/4
+			self.check_divs(org_len) #recursive call
+		elif mod != 0:
+			print "mod:"+str(mod)
+			
+		
+		
 class bar_note():
 	""" object to keep track of note parameters """
-	def __init__(self, note_name, durval, div):
+	def __init__(self, note_name, durval):
 		plist = notename2step(note_name)
 		self.step = plist[0]
 		self.alter = plist[1]
 		self.octave = 3
-		self.duration = durval2dura(durval, div)
+		self.duration = durval
 		self.type = durval2type(durval)
 		
-	def set_duration(self, durval, div):
-		self.duration = durval2dura(durval, div)
+	def set_duration(self, durval):
+		self.duration = durval
 		self.type = durval2type(durval)
 		
 	def set_octave(self, octmark):
@@ -92,16 +110,13 @@ class bar_note():
 class bar_attr():
 	""" object that keep track of bar attributes, e.g. time sign, clef, key etc """
 	def __init__(self):
-		self.divisions = 0
 		self.key = -1
 		self.time = 0
 		self.clef = 0
 		
-	def set_divs(self, divs):
-		self.divisions = divs
-		
-	def set_key(self, muskey):
+	def set_key(self, muskey, mode):
 		self.key = muskey
+		self.mode = mode
 		
 	def set_time(self, mustime):
 		self.time = mustime
@@ -110,9 +125,7 @@ class bar_attr():
 		self.clef = clef
 		
 	def has_attr(self):
-		check = False
-		if self.divisions != 0:
-			check = True	
+		check = False	
 		if self.key != -1:
 			check = True
 		elif self.time != 0:
@@ -121,6 +134,18 @@ class bar_attr():
 			check = True
 		return check
 		
+def get_fifths(key, mode):
+	sharpkeys = ['c', 'g', 'd', 'a', 'e', 'b', 'fis', 'cis', 'gis', 'dis', 'ais']
+	flatkeys = ['c', 'f', 'bes', 'es', 'as', 'des', 'ges']
+	if key in sharpkeys:
+		fifths = sharpkeys.index(key)
+	elif key in flatkeys:
+		fifths = -flatkeys.index(key)
+	if mode=='minor':
+		return fifths-3
+	elif mode=='major':
+		return fifths		
+
 def clefname2clef(clefname):
 	if clefname == "treble":
 		return ['G',2]
@@ -140,10 +165,6 @@ def notename2step(note_name):
 		elif is_flat[1]:
 			alter = -1
 	return [note_name.upper(), alter]
-		
-		
-def durval2dura(durval,div):
-	return int(durval)*4*div
 
 def durval2type(durval):
 	if durval == "1":
