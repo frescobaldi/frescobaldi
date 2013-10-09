@@ -188,9 +188,17 @@ def displayhook(obj):
 def is_git_controlled():
     """Return True if Frescobaldi is running from Git.
     
-    This is done by checking for the presence of the .git/ directory
-    
+    This is done by checking for the presence of the .git/ directory.
+    The function is very cheap, the directory test is only performed on the
+    first call.
+        
     """
-    return os.path.isdir(os.path.join(sys.path[0], '..', '.git'))
+    global _is_git_controlled
+    try:
+        return _is_git_controlled
+    except NameError:
+        _is_git_controlled = os.path.isdir(os.path.join(sys.path[0], '..', '.git'))
+    return _is_git_controlled
+
 
 
