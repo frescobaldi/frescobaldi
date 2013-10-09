@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.3\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-10-09 08:40+0200\n"
+"POT-Creation-Date: 2013-10-09 20:06+0200\n"
 "PO-Revision-Date: 2012-02-17 00:26+0100\n"
 "Last-Translator: Piotr Komorowski <piotr-komorowski@wp.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -120,7 +120,7 @@ msgstr "System operacyjny"
 msgid "Version {version}"
 msgstr "Wersja {version}"
 
-#: ../about.py:185 ../main.py:58
+#: ../about.py:185 ../main.py:59
 msgid "A LilyPond Music Editor"
 msgstr "Edytor nutowy LilyPond"
 
@@ -350,16 +350,16 @@ msgstr "Dynamika"
 msgid "Remove Text &Markup (from music)"
 msgstr ""
 
-#: ../documentcontextmenu.py:67 ../mainwindow.py:1024
+#: ../documentcontextmenu.py:67 ../mainwindow.py:1032
 #: ../sessions/manager.py:127
 msgid "&Save"
 msgstr "Zapi&sz"
 
-#: ../documentcontextmenu.py:68 ../mainwindow.py:1025
+#: ../documentcontextmenu.py:68 ../mainwindow.py:1033
 msgid "Save &As..."
 msgstr "Z&apisz jako..."
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:1035
+#: ../documentcontextmenu.py:69 ../mainwindow.py:1043
 msgid "&Close"
 msgstr "&Zamknij"
 
@@ -428,9 +428,9 @@ msgid "Staff Size:"
 msgstr "Rozmiar pięciolinii:"
 
 #. L10N: a basic type of input in the editor
-#: ../helpers.py:107 ../mainwindow.py:413 ../mainwindow.py:419
-#: ../mainwindow.py:444 ../mainwindow.py:495 ../mainwindow.py:592
-#: ../mainwindow.py:652 ../externalchanges/widget.py:243
+#: ../helpers.py:107 ../mainwindow.py:421 ../mainwindow.py:427
+#: ../mainwindow.py:452 ../mainwindow.py:503 ../mainwindow.py:600
+#: ../mainwindow.py:660 ../externalchanges/widget.py:243
 #: ../file_import/__init__.py:70 ../musicview/image.py:214
 #: ../preferences/fontscolors.py:271 ../preferences/fontscolors.py:495
 #: ../preferences/fontscolors.py:533 ../preferences/import_export.py:91
@@ -590,59 +590,59 @@ msgstr "Usuń rozdzielenie tekstu myślnikami"
 msgid "&Copy Lyrics with hyphenation removed"
 msgstr "Skopiuj słowa bez podziału wyrazów"
 
-#: ../main.py:56
+#: ../main.py:57
 msgid "{appname} [options] file ..."
 msgstr "{appname} [opcje] plik..."
 
-#: ../main.py:59
+#: ../main.py:60
 msgid "ENC"
 msgstr "ENC"
 
-#: ../main.py:60
+#: ../main.py:61
 msgid "Encoding to use"
 msgstr "Używane kodowanie"
 
-#: ../main.py:61 ../main.py:63
+#: ../main.py:62 ../main.py:64
 msgid "NUM"
 msgstr ""
 
-#: ../main.py:62
+#: ../main.py:63
 msgid "Line number to go to, starting at 1"
 msgstr "Do której linii dojść, zaczynając w 1"
 
-#: ../main.py:64
+#: ../main.py:65
 msgid "Column to go to, starting at 0"
 msgstr "Do której kolumny dojść, zaczynając w 0"
 
-#: ../main.py:65
+#: ../main.py:66
 msgid "NAME"
 msgstr "NAZWA"
 
-#: ../main.py:66
+#: ../main.py:67
 msgid "Session to start ('{none}' for empty session)"
 msgstr "Sesja startowa ('{none}' w przypadku pustej)"
 
-#: ../main.py:69
+#: ../main.py:70
 #, fuzzy
 msgid "List the session names and exit"
 msgstr "pokazuje komunikat pomocy i kończy"
 
-#: ../main.py:71
+#: ../main.py:72
 #, fuzzy
 msgid "Always start a new instance"
 msgstr "Rozpocznij nowy przykład"
 
 #. L10N: state of document in window titlebar
-#: ../mainwindow.py:248 ../externalchanges/widget.py:159
+#: ../mainwindow.py:250 ../externalchanges/widget.py:159
 msgid "[modified]"
 msgstr "[zmieniony]"
 
-#: ../mainwindow.py:293
+#: ../mainwindow.py:301
 msgctxt "dialog title"
 msgid "Close Document"
 msgstr "Zamknij dokument"
 
-#: ../mainwindow.py:294
+#: ../mainwindow.py:302
 msgid ""
 "The document \"{name}\" has been modified.\n"
 "Do you want to save your changes or discard them?"
@@ -650,16 +650,16 @@ msgstr ""
 "Dokument \"{name}\" został zmodyfikowany.\n"
 "Czy chcesz zachować zmiany, czy porzucić je?"
 
-#: ../mainwindow.py:306
+#: ../mainwindow.py:314
 msgid "Tab Bar"
 msgstr "Pasek zakładek"
 
-#: ../mainwindow.py:362 ../sessions/dialog.py:171 ../sessions/dialog.py:179
+#: ../mainwindow.py:370 ../sessions/dialog.py:171 ../sessions/dialog.py:179
 #: ../sessions/dialog.py:185
 msgid "Warning"
 msgstr "Ostrzeżenie"
 
-#: ../mainwindow.py:363
+#: ../mainwindow.py:371
 msgid ""
 "Can't load non-local document:\n"
 "\n"
@@ -669,12 +669,12 @@ msgstr ""
 "\n"
 "{url} "
 
-#: ../mainwindow.py:394
+#: ../mainwindow.py:402
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Otwórz plik"
 
-#: ../mainwindow.py:414 ../mainwindow.py:420 ../mainwindow.py:445
+#: ../mainwindow.py:422 ../mainwindow.py:428 ../mainwindow.py:453
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -684,22 +684,22 @@ msgstr ""
 "\n"
 "{url}"
 
-#: ../mainwindow.py:439
+#: ../mainwindow.py:447
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "Zapisz plik"
 
-#: ../mainwindow.py:479
+#: ../mainwindow.py:487
 msgctxt "dialog title"
 msgid "Save Copy"
 msgstr "Zapisz kopię"
 
-#: ../mainwindow.py:485
+#: ../mainwindow.py:493
 msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Zapisz zaznaczenie"
 
-#: ../mainwindow.py:496 ../mainwindow.py:653 ../preferences/fontscolors.py:272
+#: ../mainwindow.py:504 ../mainwindow.py:661 ../preferences/fontscolors.py:272
 #: ../preferences/shortcuts.py:207 ../snippet/widget.py:320
 msgid ""
 "Can't write to destination:\n"
@@ -714,12 +714,12 @@ msgstr ""
 "\n"
 "{error}"
 
-#: ../mainwindow.py:510 ../mainwindow.py:524 ../externalchanges/widget.py:103
+#: ../mainwindow.py:518 ../mainwindow.py:532 ../externalchanges/widget.py:103
 #, fuzzy
 msgid "Reload"
 msgstr "Odśwież"
 
-#: ../mainwindow.py:511
+#: ../mainwindow.py:519
 #, fuzzy
 msgid ""
 "Could not reload the document:\n"
@@ -730,21 +730,21 @@ msgstr ""
 "\n"
 "{url} "
 
-#: ../mainwindow.py:521
+#: ../mainwindow.py:529
 #, fuzzy
 msgid "Some documents could not be reloaded."
 msgstr "Dokument został zmieniony."
 
-#: ../mainwindow.py:523
+#: ../mainwindow.py:531
 msgid "No document could be reloaded."
 msgstr ""
 
-#: ../mainwindow.py:585
+#: ../mainwindow.py:593
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Wklej z pliku"
 
-#: ../mainwindow.py:593 ../preferences/import_export.py:92
+#: ../mainwindow.py:601 ../preferences/import_export.py:92
 #: ../preferences/import_export.py:175 ../snippet/import_export.py:106
 msgid ""
 "Can't read from source:\n"
@@ -759,16 +759,16 @@ msgstr ""
 "\n"
 "{error}"
 
-#: ../mainwindow.py:609
+#: ../mainwindow.py:617
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Drukuj źródło"
 
-#: ../mainwindow.py:642
+#: ../mainwindow.py:650
 msgid "Export as HTML"
 msgstr "Eksportuj jako HTML"
 
-#: ../mainwindow.py:762
+#: ../mainwindow.py:770
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -780,197 +780,197 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../mainwindow.py:873
+#: ../mainwindow.py:881
 msgid "Main Toolbar"
 msgstr "Główny pasek narzędzi"
 
-#: ../mainwindow.py:874
+#: ../mainwindow.py:882
 msgid "Music View Toolbar"
 msgstr "Pasek narzędziowy okna partytury"
 
-#: ../mainwindow.py:1018
+#: ../mainwindow.py:1026
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nowy"
 
-#: ../mainwindow.py:1019
+#: ../mainwindow.py:1027
 msgid "&Open..."
 msgstr "&Otwórz..."
 
-#: ../mainwindow.py:1020
+#: ../mainwindow.py:1028
 msgid "Open &Recent"
 msgstr "Otwórz o&statni"
 
-#: ../mainwindow.py:1021
+#: ../mainwindow.py:1029
 msgid "Insert from &File..."
 msgstr "Wstaw z &pliku..."
 
-#: ../mainwindow.py:1022
+#: ../mainwindow.py:1030
 msgid "Open Current Directory"
 msgstr "Otwórz bieżący folder"
 
-#: ../mainwindow.py:1023
+#: ../mainwindow.py:1031
 msgid "Open Command Prompt"
 msgstr "Otwórz wiersz poleceń"
 
-#: ../mainwindow.py:1026
+#: ../mainwindow.py:1034
 msgid "Save Copy or Selection As..."
 msgstr "Zapisz kopię lub zaznaczenie jako..."
 
-#: ../mainwindow.py:1027 ../externalchanges/widget.py:117
+#: ../mainwindow.py:1035 ../externalchanges/widget.py:117
 msgid "Save All"
 msgstr "Zapisz wszystko"
 
-#: ../mainwindow.py:1028
+#: ../mainwindow.py:1036
 #, fuzzy
 msgid "Re&load"
 msgstr "Odśwież"
 
-#: ../mainwindow.py:1029 ../externalchanges/widget.py:108
+#: ../mainwindow.py:1037 ../externalchanges/widget.py:108
 #, fuzzy
 msgid "Reload All"
 msgstr "Odśwież"
 
-#: ../mainwindow.py:1030
+#: ../mainwindow.py:1038
 msgid "Check for External Changes..."
 msgstr ""
 
-#: ../mainwindow.py:1032
+#: ../mainwindow.py:1040
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
 msgstr ""
 
-#: ../mainwindow.py:1034
+#: ../mainwindow.py:1042
 msgid "Print Source..."
 msgstr "Drukuj źródło..."
 
-#: ../mainwindow.py:1036
+#: ../mainwindow.py:1044
 msgid "Close Other Documents"
 msgstr "Zamknij inne dokumenty"
 
-#: ../mainwindow.py:1037
+#: ../mainwindow.py:1045
 msgid "Close All Documents"
 msgstr "Zamknij wszystkie dokumenty"
 
-#: ../mainwindow.py:1038
+#: ../mainwindow.py:1046
 msgid "Closes all documents and leaves the current session."
 msgstr "Zamyka wszystkie dokumenty i pozostawia bieżącą sesję."
 
-#: ../mainwindow.py:1039
+#: ../mainwindow.py:1047
 msgid "&Quit"
 msgstr "&Za&kończ"
 
-#: ../mainwindow.py:1040
+#: ../mainwindow.py:1048
 #, fuzzy
 msgid "Restart {appname}"
 msgstr "O programie {appname}"
 
-#: ../mainwindow.py:1042
+#: ../mainwindow.py:1050
 msgid "Export Source as Colored &HTML..."
 msgstr "Eksportuj plik źródłowy jako kolorowy &HTML..."
 
-#: ../mainwindow.py:1044
+#: ../mainwindow.py:1052
 msgid "&Undo"
 msgstr "&Cofnij"
 
-#: ../mainwindow.py:1045
+#: ../mainwindow.py:1053
 msgid "Re&do"
 msgstr "Ponów"
 
-#: ../mainwindow.py:1046
+#: ../mainwindow.py:1054
 msgid "Cu&t"
 msgstr "Wytnij"
 
-#: ../mainwindow.py:1047 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1055 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "S&kopiuj"
 
-#: ../mainwindow.py:1048
+#: ../mainwindow.py:1056
 msgid "Copy as Colored &HTML"
 msgstr "Skopiuj jako kolorowy &HTML"
 
-#: ../mainwindow.py:1049
+#: ../mainwindow.py:1057
 msgid "&Paste"
 msgstr "&Wklej"
 
-#: ../mainwindow.py:1050
+#: ../mainwindow.py:1058
 msgid "Select &All"
 msgstr "Zaznacz wszystko"
 
-#: ../mainwindow.py:1051
+#: ../mainwindow.py:1059
 msgid "Select &Block"
 msgstr "Zaznacz odcinek"
 
-#: ../mainwindow.py:1052
+#: ../mainwindow.py:1060
 msgid "Select &None"
 msgstr "Wyczyść zaznaczenie"
 
-#: ../mainwindow.py:1053
+#: ../mainwindow.py:1061
 msgid "Select Whole Lines Up"
 msgstr "Zaznacz linie powyżej"
 
-#: ../mainwindow.py:1054
+#: ../mainwindow.py:1062
 msgid "Select Whole Lines Down"
 msgstr "Zaznacz linie poniżej"
 
-#: ../mainwindow.py:1055
+#: ../mainwindow.py:1063
 msgid "&Find..."
 msgstr "&Znajdź..."
 
-#: ../mainwindow.py:1056
+#: ../mainwindow.py:1064
 msgid "Find Ne&xt"
 msgstr "Znajdź następny"
 
-#: ../mainwindow.py:1057
+#: ../mainwindow.py:1065
 msgid "Find Pre&vious"
 msgstr "Znajdź poprzedni"
 
-#: ../mainwindow.py:1058
+#: ../mainwindow.py:1066
 msgid "&Replace..."
 msgstr "Zastąp..."
 
-#: ../mainwindow.py:1059
+#: ../mainwindow.py:1067
 msgid "Pr&eferences..."
 msgstr "Pr&eferencje..."
 
-#: ../mainwindow.py:1061
+#: ../mainwindow.py:1069
 msgid "&Next Document"
 msgstr "&Następny dokument "
 
-#: ../mainwindow.py:1062
+#: ../mainwindow.py:1070
 msgid "&Previous Document"
 msgstr "&Poprzedni dokument"
 
-#: ../mainwindow.py:1063
+#: ../mainwindow.py:1071
 msgid "Scroll Up"
 msgstr "Przewiń do góry"
 
-#: ../mainwindow.py:1064
+#: ../mainwindow.py:1072
 msgid "Scroll Down"
 msgstr "Przewiń na dół"
 
-#: ../mainwindow.py:1066
+#: ../mainwindow.py:1074
 msgid "New &Window"
 msgstr "Nowe &okno"
 
-#: ../mainwindow.py:1067
+#: ../mainwindow.py:1075
 msgid "&Fullscreen"
 msgstr "Pełen &ekran"
 
-#: ../mainwindow.py:1069
+#: ../mainwindow.py:1077
 msgid "&User Guide"
 msgstr "Podręcznik &użytkownika"
 
-#: ../mainwindow.py:1070
+#: ../mainwindow.py:1078
 msgid "&What's This?"
 msgstr "&Co to jest?"
 
-#: ../mainwindow.py:1071
+#: ../mainwindow.py:1079
 msgid "Report a &Bug..."
 msgstr "Raportowanie &błędów..."
 
-#: ../mainwindow.py:1072
+#: ../mainwindow.py:1080
 msgid "&About {appname}..."
 msgstr "O p&rogramie {appname}..."
 
@@ -983,81 +983,81 @@ msgstr "Znak dopasowany"
 msgid "&Select Matching Pair"
 msgstr ""
 
-#: ../menu.py:85
+#: ../menu.py:86
 msgctxt "menu title"
 msgid "&File"
 msgstr "&Plik"
 
-#: ../menu.py:124
+#: ../menu.py:125
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Import"
 msgstr "&Importuj..."
 
-#: ../menu.py:132
+#: ../menu.py:133
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Eksportuj"
 
-#: ../menu.py:140
+#: ../menu.py:141
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "&Edycja"
 
-#: ../menu.py:167
+#: ../menu.py:168
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Widok "
 
-#: ../menu.py:195
+#: ../menu.py:196
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "kodowanie"
 
-#: ../menu.py:210
+#: ../menu.py:211
 #, fuzzy
 msgctxt "menu title"
 msgid "&Music"
 msgstr "Okno &parytury"
 
-#: ../menu.py:237
+#: ../menu.py:238
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:256
+#: ../menu.py:257
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Narzędzia"
 
-#: ../menu.py:284
+#: ../menu.py:285
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Tekst"
 
-#: ../menu.py:296
+#: ../menu.py:297
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Dźwięk"
 
-#: ../menu.py:311
+#: ../menu.py:312
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Rytm"
 
-#: ../menu.py:335
+#: ../menu.py:336
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr "&Usuń"
 
-#: ../menu.py:353
+#: ../menu.py:354
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Okno"
 
-#: ../menu.py:373
+#: ../menu.py:381
 msgctxt "menu title"
 msgid "&Help"
 msgstr "Pomo&c"
@@ -1687,8 +1687,13 @@ msgid ""
 "<em>Preview</em> mode is useful while working on a score because it provides "
 "two-way point-and-click navigation as well as a number of modes for "
 "debugging layout issues.<br /><em>Publication</em> mode is used for "
-"producing the final PDF intended to be shared.<br /><em>Custom</em> mode "
-"allows you to specify the used LilyPond command in detail."
+"producing the final PDF intended to be shared."
+msgstr ""
+
+#: ../help/cnt_engraving.py:48
+msgid ""
+"<em>Custom</em> mode allows you to specify the used LilyPond command in "
+"detail."
 msgstr ""
 
 #: ../help/cnt_engraving.py:50
@@ -1717,8 +1722,12 @@ msgstr ""
 msgid ""
 "The Debug Modes are accessible through the \"Preview Options\" dockable "
 "panel which is accessible through {menu_panel}.The Debug Modes are initially "
-"disabled but remember their state throughout Frescobaldi sessions.<br />If "
-"you use these features regularly it is recommendable to have the panel "
+"disabled but remember their state throughout Frescobaldi sessions."
+msgstr ""
+
+#: ../help/cnt_engraving.py:80
+msgid ""
+"If you use these features regularly it is recommendable to have the panel "
 "constantly open because you will probably switch Debug Modes quite often."
 msgstr ""
 
@@ -1753,7 +1762,7 @@ msgid "The following Debug Modes are currently implemented:"
 msgstr "Rozpoznano następnujące zmienne:"
 
 #. L10N: Please translate the mode names the same way as in the panel UI
-#: ../help/cnt_engraving.py:95 ../help/cnt_engraving.py:210
+#: ../help/cnt_engraving.py:95 ../help/cnt_engraving.py:216
 #: ../preview_mode/widget.py:110
 msgid "Display Control Points"
 msgstr ""
@@ -1765,12 +1774,16 @@ msgid ""
 "points\" (first and last ones tell where the curve ends are placed, and the "
 "middle ones affect the curvature). Changing the shape of these objects "
 "involves moving these control-points around, and it's helpful to see where "
-"they actually are.<br />This Debug Mode will display the inner control-"
-"points as red crosses and connects them to the outer (starting) points with "
-"thin lines."
+"they actually are."
 msgstr ""
 
-#: ../help/cnt_engraving.py:106 ../help/cnt_engraving.py:225
+#: ../help/cnt_engraving.py:103
+msgid ""
+"This Debug Mode will display the inner control-points as red crosses and "
+"connects them to the outer (starting) points with thin lines."
+msgstr ""
+
+#: ../help/cnt_engraving.py:106 ../help/cnt_engraving.py:231
 #: ../preview_mode/widget.py:114
 msgid "Color \\voiceXXX"
 msgstr ""
@@ -1782,7 +1795,7 @@ msgid ""
 "issues."
 msgstr ""
 
-#: ../help/cnt_engraving.py:110 ../help/cnt_engraving.py:240
+#: ../help/cnt_engraving.py:110 ../help/cnt_engraving.py:246
 #: ../preview_mode/widget.py:118
 #, fuzzy
 msgid "Color explicit directions"
@@ -1792,19 +1805,40 @@ msgstr "Uwidocznione wartości rytmiczne"
 msgid ""
 "This mode colors items whose directions have been explicitly set with either "
 "the predefined commands <code>\\xxxUp</code> etc. or the directional "
-"operators <code>^</code> and <code>_</code>.<br />Please note how this mode "
-"and the previous are related:<br />When the condition for one of the the "
-"modes is reverted using commands like <code>\\oneVoice</code> or <code>"
-"\\xxxNeutral</code> colors are reverted to black and may also revert the "
-"highlighting of the other Debug Mode.<br />In <code>c \\voiceTwo d \\stemUp "
-"e \\stemNeutral d \\oneVoice</code> the 'd' may already be reverted.<br />If "
-"the score is engraved with LilyPond version 2.17.6 or later the situation is "
-"somewhat improved through the use of the <code>\\temporary</code> directive."
-"<br />In short: If you use both Modes at the same time please expect "
+"operators <code>^</code> and <code>_</code>."
+msgstr ""
+
+#: ../help/cnt_engraving.py:114
+msgid "Please note how this mode and the previous are related:"
+msgstr ""
+
+#: ../help/cnt_engraving.py:115
+msgid ""
+"When the condition for one of the the modes is reverted using commands like "
+"<code>\\oneVoice</code> or <code>\\xxxNeutral</code> colors are reverted to "
+"black and may also revert the highlighting of the other Debug Mode."
+msgstr ""
+
+#: ../help/cnt_engraving.py:119
+msgid ""
+"In <code>c \\voiceTwo d \\stemUp e \\stemNeutral d \\oneVoice</code> the 'd' "
+"may already be reverted."
+msgstr ""
+
+#: ../help/cnt_engraving.py:121
+msgid ""
+"If the score is engraved with LilyPond version 2.17.6 or later the situation "
+"is somewhat improved through the use of the <code>\\temporary</code> "
+"directive."
+msgstr ""
+
+#: ../help/cnt_engraving.py:124
+msgid ""
+"In short: If you use both Modes at the same time please expect "
 "inconsistencies."
 msgstr ""
 
-#: ../help/cnt_engraving.py:126 ../help/cnt_engraving.py:257
+#: ../help/cnt_engraving.py:126 ../help/cnt_engraving.py:263
 #: ../preview_mode/widget.py:121
 msgid "Display Grob Anchors"
 msgstr ""
@@ -1817,29 +1851,48 @@ msgid ""
 "placed on a plane, you'll usually say something like \"the lower left corner "
 "of this square has coordinates (0, 2)\" or \"the center of this circle is at "
 "(-1, 3)\". \"Lower left corner\" and \"center\" would be the reference "
-"points for square and circle.<br />This Mode displays a red dot for each "
-"grob's anchor point."
+"points for square and circle."
 msgstr ""
 
-#: ../help/cnt_engraving.py:135 ../help/cnt_engraving.py:270
+#: ../help/cnt_engraving.py:134
+msgid "This Mode displays a red dot for each grob's anchor point."
+msgstr ""
+
+#: ../help/cnt_engraving.py:135 ../help/cnt_engraving.py:276
 #: ../preview_mode/widget.py:124
 msgid "Display Grob Names"
 msgstr ""
 
 #: ../help/cnt_engraving.py:136
-msgid ""
-"This mode prints a grob's name next to it.<br />The main purpose of this "
-"Debug Mode is to retrieve information about Grob names, which may come in "
-"handy if you don't know where to look up available properties.<br />Please "
-"note that this mode is quite intrusive and will especially become useful "
-"once it can be activated for single grobs."
+msgid "This mode prints a grob's name next to it."
 msgstr ""
 
-#: ../help/cnt_engraving.py:142 ../preview_mode/widget.py:106
+#: ../help/cnt_engraving.py:137
+msgid ""
+"The main purpose of this Debug Mode is to retrieve information about Grob "
+"names, which may come in handy if you don't know where to look up available "
+"properties."
+msgstr ""
+
+#: ../help/cnt_engraving.py:140
+msgid ""
+"Please note that displaying grob anchors and displaying grob names is "
+"mutually exclusive because both functions override the grob's stencil. When "
+"both modes are active, only the grob anchors are displayed."
+msgstr ""
+
+#: ../help/cnt_engraving.py:144
+msgid ""
+"Please also note that this mode is quite intrusive and may affect the "
+"layout. It is mainly useful for learning about grob names and will "
+"especially become usable once it can be activated for single grobs."
+msgstr ""
+
+#: ../help/cnt_engraving.py:148 ../preview_mode/widget.py:106
 msgid "Display Skylines"
 msgstr ""
 
-#: ../help/cnt_engraving.py:143
+#: ../help/cnt_engraving.py:149
 msgid ""
 "LilyPond uses \"Skylines\" to calculate the vertical dimensions of its "
 "graphical objects in order to prevent collisions. This mode draws lines "
@@ -1847,48 +1900,52 @@ msgid ""
 "spacing."
 msgstr ""
 
-#: ../help/cnt_engraving.py:147 ../preview_mode/widget.py:127
+#: ../help/cnt_engraving.py:153 ../preview_mode/widget.py:127
 #, fuzzy
 msgid "Debug Paper Columns"
 msgstr "Kolor papieru"
 
-#: ../help/cnt_engraving.py:148
+#: ../help/cnt_engraving.py:154
 msgid ""
 "LilyPond organises the horizontal spacing in \"paper columns\". This mode "
 "prints a lot of spacing information about these entities."
 msgstr ""
 
-#: ../help/cnt_engraving.py:150 ../preview_mode/widget.py:130
+#: ../help/cnt_engraving.py:156 ../preview_mode/widget.py:130
 msgid "Annotate Spacing"
 msgstr ""
 
-#: ../help/cnt_engraving.py:151
+#: ../help/cnt_engraving.py:157
 msgid ""
 "LilyPond has a built-in function that prints lots of information about "
 "distances on the paper, which is very useful when debugging the page layout."
 msgstr ""
 
-#: ../help/cnt_engraving.py:154
+#: ../help/cnt_engraving.py:160
 #, fuzzy
 msgid "Include Custom File"
 msgstr "Wklej z pliku"
 
-#: ../help/cnt_engraving.py:155
+#: ../help/cnt_engraving.py:161
 msgid ""
 "This mode offers the opportunity to add one's own Debug Modes by including a "
 "custom file. This file will be included at program startup and may contain "
 "any LilyPond code you would like to have executed whenever you are engraving "
 "in Preview Mode. This file will be parsed before any of the other Debug "
-"Modes so you may use it to configure them.<br />The given string will be "
-"literally included in an <code>\\include</code> directive, so you are "
-"responsible yourself that LilyPond can find it."
+"Modes so you may use it to configure them."
 msgstr ""
 
-#: ../help/cnt_engraving.py:171
+#: ../help/cnt_engraving.py:167
+msgid ""
+"The given string will be literally included in an <code>\\include</code> "
+"directive, so you are responsible yourself that LilyPond can find it."
+msgstr ""
+
+#: ../help/cnt_engraving.py:177
 msgid "Preview Mode Configuration"
 msgstr ""
 
-#: ../help/cnt_engraving.py:198
+#: ../help/cnt_engraving.py:204
 msgid ""
 "The appearance of the individual Debug Modes is defined through the use of "
 "configuration variables. Depending on the implementation of the mode you may "
@@ -1899,24 +1956,24 @@ msgid ""
 "<em>before</em> the Debug Modes are parsed."
 msgstr ""
 
-#: ../help/cnt_engraving.py:206
+#: ../help/cnt_engraving.py:212
 msgid "The modes use the following configuration variables:"
 msgstr ""
 
-#: ../help/cnt_engraving.py:211
+#: ../help/cnt_engraving.py:217
 msgid "Variables can be redefined in input files."
 msgstr ""
 
-#: ../help/cnt_engraving.py:226
+#: ../help/cnt_engraving.py:232
 msgid "These Variables currently can't be redefined in input files."
 msgstr ""
 
-#: ../help/cnt_engraving.py:241 ../help/cnt_engraving.py:258
-#: ../help/cnt_engraving.py:271
+#: ../help/cnt_engraving.py:247 ../help/cnt_engraving.py:264
+#: ../help/cnt_engraving.py:277
 msgid "These Variables can be redefined in input files."
 msgstr ""
 
-#: ../help/cnt_engraving.py:251
+#: ../help/cnt_engraving.py:257
 msgid ""
 "Defines for which grobs the explicit direction through operators is "
 "monitored. By default all grobs are watched, but alternatively one can "
@@ -1924,32 +1981,32 @@ msgid ""
 "list '(DynamicText Script))</code>"
 msgstr ""
 
-#: ../help/cnt_engraving.py:265
+#: ../help/cnt_engraving.py:271
 msgid ""
 "Defines for which grobs the anchor points will be displayed. By default all "
 "grobs are watched, but alternatively one can provide a list of grobs such as "
 "e.g. <code>#(define debug-grob-anchors-grob-list '(Script NoteHead))</code>"
 msgstr ""
 
-#: ../help/cnt_engraving.py:278
+#: ../help/cnt_engraving.py:284
 msgid ""
 "Defines for which grobs the names will be displayed. By default all grobs "
 "are watched, but alternatively one can provide a list of grobs such as e.g. "
 "<code>#(define debug-grob-names-grob-list '(Script NoteHead))</code>"
 msgstr ""
 
-#: ../help/cnt_engraving.py:284
+#: ../help/cnt_engraving.py:290
 msgid ""
 "The remaining modes are built-in to LilyPond and don't have any "
 "configuration options."
 msgstr ""
 
-#: ../help/cnt_engraving.py:290
+#: ../help/cnt_engraving.py:296
 #, fuzzy
 msgid "Engrave (Publication)"
 msgstr "Narysuj (publikacja)"
 
-#: ../help/cnt_engraving.py:294
+#: ../help/cnt_engraving.py:300
 msgid ""
 "When engraving a score in Publication mode the point-and-click information "
 "isn't generated. This will prevent a reader of the resulting PDF document "
@@ -1957,25 +2014,57 @@ msgid ""
 "also significantly decrease the file size."
 msgstr ""
 
-#: ../help/cnt_engraving.py:299
+#: ../help/cnt_engraving.py:305
 msgid ""
 "You should also note that the point-and-click links contain hard-coded path "
 "information of your systen, which may be considered a security issue."
 msgstr ""
 
-#: ../help/cnt_engraving.py:308
+#: ../help/cnt_engraving.py:314
 #, fuzzy
 msgid "Engrave (Custom)"
 msgstr "Rysowanie zdefiniowane przez użytkownika"
 
-#: ../help/cnt_engraving.py:312
+#: ../help/cnt_engraving.py:318
 msgid ""
-"The <em>Engrave (Custom)</em> dialog gives you detailed access to all "
-"aspects of the LilyPond command."
+"The <em>Engrave (Custom)</em> dialog ({custom_shortcut}) gives you detailed "
+"access to all aspects of the LilyPond command."
 msgstr ""
 
-#: ../help/cnt_engraving.py:314
-msgid "More documentation to come ..."
+#: ../help/cnt_engraving.py:321
+msgid ""
+"You can configure a number of options through the graphical user interface "
+"and then fine-tune the command line to be used for LilyPond directly."
+msgstr ""
+
+#: ../help/cnt_engraving.py:324
+msgid ""
+"You can select from the LilyPond versions defined in the {pref} dialog, "
+msgstr ""
+
+#: ../help/cnt_engraving.py:326
+msgid ""
+"from the output formats available to LilyPond and (for PNG output) from a "
+"number of image resolutions."
+msgstr ""
+
+#: ../help/cnt_engraving.py:328
+msgid ""
+"Running LilyPond in Preview Mode will respect the settings from the Preview "
+"Options Panel ({0}), "
+msgstr ""
+
+#: ../help/cnt_engraving.py:330
+msgid ""
+"Verbose Output and English Messages may be relevant if you want to send "
+"information to a mailing list, and Deleting Intermediate Output Files may be "
+"used to <em>disable</em> the default behaviour."
+msgstr ""
+
+#: ../help/cnt_engraving.py:333
+msgid ""
+"Some of these settings are reflected in the Command Line text edit field, "
+"others not."
 msgstr ""
 
 #: ../help/contents.py:39
@@ -7377,6 +7466,30 @@ msgid ""
 "belonging to the library by entering <code>:{set} name</code> in the snippet "
 "search bar, where \"name\" is the name you want to use. And then e.g. export "
 "the snippets to an XML file for sharing the snippets with others."
+msgstr ""
+
+#: ../vcs/gitrepo.py:43
+msgid "The given directory '{rootdir} doesn't seem to be a Git repository."
+msgstr ""
+
+#: ../vcs/menu.py:41
+msgctxt "menu title"
+msgid "&Git"
+msgstr ""
+
+#: ../vcs/menu.py:116
+msgid "Checkout Successful"
+msgstr ""
+
+#: ../vcs/menu.py:117
+msgid ""
+"Successfully checked out branch {0}.\n"
+"Changes will take effect after restart.\n"
+"Do you want to restart now?"
+msgstr ""
+
+#: ../vcs/menu.py:124
+msgid "Git Checkout Error"
 msgstr ""
 
 #: ../widgets/keysequencewidget.py:60
