@@ -192,6 +192,15 @@ class Git(object):
             return (remote_name, remote_branch)
         else:
             return ('local', 'local')
+    
+    def tracked_remote_label(self, branch):
+        remote, remote_branch = self.tracked_remote(branch)
+        if remote == 'local':
+            return 'local'
+        if branch == remote_branch:
+            return remote
+        else:
+            return remote + '/' + remote_branch
 
 class GitApp(Git):
     def __init__(self):

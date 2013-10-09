@@ -251,11 +251,9 @@ class MainWindow(QMainWindow):
         git_branch = ''
         if app.is_git_controlled():
             git_branch = app.repo.active_branch()
-            if git_branch != remote_branch:
-                remote_name += '/' + remote_branch
             git_branch = ' ({branch} [{remote}])'.format(
                             branch=git_branch, 
-                            remote=remote_name)
+                            remote=app.repo.tracked_remote_label(git_branch))
         self.setWindowTitle(app.caption(" ".join(name)) + git_branch)
     
     def dropEvent(self, ev):
