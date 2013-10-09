@@ -35,7 +35,6 @@ maintainer = "Wilbert Berendsen"
 maintainer_email = "info@frescobaldi.org"
 domain = "frescobaldi.org"
 url = "http://www.{0}/".format(domain)
-upstream_repository = "wbsoft/frescobaldi.git"
 license = "GPL"
 
 # these are used in the application

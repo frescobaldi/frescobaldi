@@ -29,7 +29,7 @@ from PyQt4.QtGui import QAction, QActionGroup, QMenu, QMessageBox
 import app
 import mainwindow
 import plugin
-import vcs
+from vcs import apprepo
 
 
 class GitMenu(QMenu):
@@ -64,7 +64,7 @@ class GitBranchGroup(QActionGroup, plugin.MainWindowPlugin):
         self._acts = {}
         self._accels = {}
         self.setExclusive(True)
-        for branch in app.repo.branches():
+        for branch in vcs.app_repo.branches():
             self.addBranch(branch.lstrip('* '))
         self.triggered.connect(self.slotTriggered)
     
@@ -79,7 +79,7 @@ class GitBranchGroup(QActionGroup, plugin.MainWindowPlugin):
         will have the same accelerator.
         """
         result = []
-        for branch in app.repo.branches():
+        for branch in vcs.app_repo.branches():
             branch = branch.lstrip('* ')
             if not branch in self._acts:
                 self.addBranch(branch)
@@ -89,7 +89,7 @@ class GitBranchGroup(QActionGroup, plugin.MainWindowPlugin):
     def addBranch(self, branch):
         a = QAction(self)
         a.setCheckable(True)
-        if branch == app.repo.current_branch():
+        if branch == vcs.app_repo.current_branch():
             a.setChecked(True)
             a.setEnabled(False)
         self._acts[branch] = a
@@ -106,14 +106,14 @@ class GitBranchGroup(QActionGroup, plugin.MainWindowPlugin):
                 break
         else:
             self._accels[branch] = ''
-        name = name + " ({0})".format(app.repo.tracked_remote_label(branch))
+        name = name + " ({0})".format(vcs.app_repo.tracked_remote_label(branch))
         self._acts[branch].setText(name)
     
     def slotTriggered(self, action):
         msgBox = QMessageBox()
         new_branch = self._acts.keys()[self._acts.values().index(action)]
         try:
-            app.repo.checkout(new_branch)
+            vcs.app_repo.checkout(new_branch)
             msgBox.setText(_("Checkout Successful"))
             msgBox.setInformativeText(_("Successfully checked out branch {0}.\n"
                 "Changes will take effect after restart.\n"
@@ -126,4 +126,4 @@ class GitBranchGroup(QActionGroup, plugin.MainWindowPlugin):
             msgBox.setInformativeText(str(giterror))
             msgBox.exec_()
             action.setChecked(False)
-            self._acts[app.repo.current_branch()].setChecked(True)
+            self._acts[vcs.app_repo.current_branch()].setChecked(True)
