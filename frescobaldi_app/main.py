@@ -41,7 +41,6 @@ import install          # Update QSettings structure etc. if needed
 import guistyle         # Setup GUI style
 import po.setup         # Setup language
 import remote           # IPC with other Frescobaldi instances
-import vcs              # Interface to VersionControlSystems
 
 
 def parse_commandline():
