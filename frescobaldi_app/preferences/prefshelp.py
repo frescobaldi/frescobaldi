@@ -61,6 +61,8 @@ class preferences_general(help.page):
             "to load if Frescobaldi is started without a filename. "
             "You can choose whether to start with one empty document, with the "
             "last used session, or with a specific session. "
+            "Please note that this only works when you have explicitly created "
+            "a session and set it to automatically add files on save to it."
             "See also {link}.").format(
             startup=_("Session to load if Frescobaldi is started without arguments"),
             link=help.contents.sessions.link()),
