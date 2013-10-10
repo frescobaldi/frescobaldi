@@ -107,6 +107,9 @@ def run():
 def restart():
     """Restarts Frescobaldi."""
     args = [os.path.abspath(sys.argv[0])] + sys.argv[1:]
+    python_executable = sys.executable
+    if python_executable:
+        args = [python_executable] + args
     import subprocess
     subprocess.Popen(args)
     
