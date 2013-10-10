@@ -44,7 +44,8 @@ import autocomplete
 import sidebar
 import matcher
 import file_import
-import vcs, vcs.menu
+import vcs
+
 
 # postpone translation
 _ = lambda *args: lambda: __builtin__._(*args)
@@ -53,21 +54,21 @@ _ = lambda *args: lambda: __builtin__._(*args)
 def createMenus(mainwindow):
     """Adds all the menus to the mainwindow's menubar."""
     m = mainwindow.menuBar()
-    for f in (
-        menu_file,
-        menu_edit,
-        menu_view,
-        menu_music,
-        menu_insert,
-        menu_lilypond,
-        menu_tools,
-        menu_document,
-        menu_window,
-        menu_session,
-        menu_git, 
-        menu_help,
-    ):
-        m.addMenu(f(mainwindow))
+    
+    m.addMenu(menu_file(mainwindow))
+    m.addMenu(menu_edit(mainwindow))
+    m.addMenu(menu_view(mainwindow))
+    m.addMenu(menu_music(mainwindow))
+    m.addMenu(menu_insert(mainwindow))
+    m.addMenu(menu_lilypond(mainwindow))
+    m.addMenu(menu_tools(mainwindow))
+    m.addMenu(menu_document(mainwindow))
+    m.addMenu(menu_window(mainwindow))
+    m.addMenu(menu_session(mainwindow))
+    if vcs.app_is_git_controlled():
+        from vcs.menu import GitMenu
+        m.addMenu(GitMenu(mainwindow))
+    m.addMenu(menu_help(mainwindow))
 
 
 class Menu(QMenu):
@@ -368,13 +369,6 @@ def menu_window(mainwindow):
 
 def menu_session(mainwindow):
     return sessions.menu.SessionMenu(mainwindow)
-
-
-def menu_git(mainwindow):
-    m = vcs.menu.GitMenu(mainwindow)
-    if not vcs.app_is_git_controlled():
-        m.menuAction().setVisible(False)
-    return m
 
 
 def menu_help(mainwindow):
