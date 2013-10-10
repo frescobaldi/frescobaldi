@@ -29,7 +29,7 @@ import os
 from gitrepo import GitRepo
 
 # Reference to distinguish the official repository from forks.
-upstream_repository = "wbsoft/frescobaldi.git"
+upstream_repository = "wbsoft/frescobaldi"
 
 class AppRepo(GitRepo):
     """
