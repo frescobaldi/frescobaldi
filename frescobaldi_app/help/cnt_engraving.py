@@ -76,7 +76,8 @@ class eng_preview(page):
           _("The Debug Modes are accessible through the \"Preview Options\" "
             "dockable panel which is accessible through {menu_panel}."
             "The Debug Modes are initially disabled "
-            "but remember their state throughout Frescobaldi sessions.") + "<br />" +
+            "but remember their state throughout Frescobaldi sessions.").format(
+                menu_panel = menu(_("Tools"), _("Preview Options"))) + "<br />" +
           _("If you use these features regularly it is recommendable "
             "to have the panel constantly open because you will probably "
             "switch Debug Modes quite often.").format(menu_panel = menu(_("Tools"), _("Preview Options"))),
