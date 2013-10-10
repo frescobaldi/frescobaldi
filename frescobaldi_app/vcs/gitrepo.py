@@ -133,6 +133,7 @@ class GitRepo(AbstractVCSRepo):
         If local == False also return 'remote' branches.
         """
         args = [] if local else ['-a']
+        args.append('--color=never')
         return [line.strip() for line in self._run_git_command('branch', args)]
         
     def checkout(self, branch):
