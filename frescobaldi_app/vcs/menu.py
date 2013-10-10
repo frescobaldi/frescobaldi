@@ -114,9 +114,9 @@ class GitBranchGroup(QActionGroup, plugin.MainWindowPlugin):
         try:
             vcs.app_repo.checkout(new_branch)
             msgBox.setText(_("Checkout Successful"))
-            msgBox.setInformativeText(_("Successfully checked out branch {0}.\n"
+            msgBox.setInformativeText(_("Successfully checked out branch {name}.\n"
                 "Changes will take effect after restart.\n"
-                "Do you want to restart now?").format(new_branch))
+                "Do you want to restart now?").format(name=new_branch))
             msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             if msgBox.exec_() == QMessageBox.Ok:
                 self.parent().restart()
