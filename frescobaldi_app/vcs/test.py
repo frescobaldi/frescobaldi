@@ -26,6 +26,9 @@ print 'has remote origin:', app_repo.has_remote('origin')
 print 'has remote upstream:', app_repo.has_remote('upstream')
 
 upstream = app_repo.upstream_remote()
-print
-print 'remote tracking the official repo:', upstream
-print 'URL:', app_repo.config['remote'][upstream]['url']
+if upstream == '':
+    print 'No remote tracking upstream'
+else:
+    print
+    print 'remote tracking the official repo:', upstream
+    print 'URL:', app_repo.config['remote'][upstream]['url']
