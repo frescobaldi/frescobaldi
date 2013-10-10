@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2013-10-09 20:36+0200\n"
-"PO-Revision-Date: 2013-10-09 20:30+0200\n"
+"PO-Revision-Date: 2013-10-10 07:23+0200\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -1855,10 +1855,13 @@ msgid ""
 "the predefined commands <code>\\xxxUp</code> etc. or the directional "
 "operators <code>^</code> and <code>_</code>."
 msgstr ""
+"Deze modus kleurt items waarvan de richting expliciet is opgegeven met "
+"commando's zoals <code>\\\\xxxUp</code> of de richtings-operators <code>^</"
+"code> en <code>_</code>."
 
 #: ../help/cnt_engraving.py:114
 msgid "Please note how this mode and the previous are related:"
-msgstr ""
+msgstr "Deze en de vorige modus zijn enigszins gerelateerd:"
 
 #: ../help/cnt_engraving.py:115
 msgid ""
@@ -1866,12 +1869,18 @@ msgid ""
 "<code>\\oneVoice</code> or <code>\\xxxNeutral</code> colors are reverted to "
 "black and may also revert the highlighting of the other Debug Mode."
 msgstr ""
+"als de richting voor een van de modes ongedaan gemaakt wordt met behulp van "
+"commando's zoals <code>\\\\oneVoice</code> of <code>\\\\xxxNeutral</code> "
+"wordt de kleur ook weer op zwart gezet, dat zou ook de kleur van de andere "
+"modus ongedaan kunnen maken."
 
 #: ../help/cnt_engraving.py:119
 msgid ""
 "In <code>c \\voiceTwo d \\stemUp e \\stemNeutral d \\oneVoice</code> the 'd' "
 "may already be reverted."
 msgstr ""
+"In <code>c \\\\voiceTwo d \\\\stemUp e \\\\stemNeutral d \\\\oneVoice</code> "
+"is de 'd' alweer zwart."
 
 #: ../help/cnt_engraving.py:121
 msgid ""
@@ -1940,6 +1949,9 @@ msgid ""
 "mutually exclusive because both functions override the grob's stencil. When "
 "both modes are active, only the grob anchors are displayed."
 msgstr ""
+"Let wel dat het afbeelden van grob ankerpunten en grobnamen niet tegelijk "
+"kan, beide overschrijven de stencil van de grob. Als beide modes actief zijn "
+"worden alleen de grob-ankerpunten weergegeven."
 
 #: ../help/cnt_engraving.py:144
 msgid ""
@@ -1947,6 +1959,9 @@ msgid ""
 "layout. It is mainly useful for learning about grob names and will "
 "especially become usable once it can be activated for single grobs."
 msgstr ""
+"Deze modus is beinvloedt de layout ook start. De modus is vooral bedoeld om "
+"grob namen te leren en wordt bruikbaarder als het voor individuele grobs zou "
+"kunnen worden geactiveerd."
 
 #: ../help/cnt_engraving.py:148 ../preview_mode/widget.py:106
 msgid "Display Skylines"
@@ -2126,19 +2141,21 @@ msgid "Engrave (Custom)"
 msgstr "Aangepast graveren"
 
 #: ../help/cnt_engraving.py:318
-#, fuzzy
 msgid ""
 "The <em>Engrave (Custom)</em> dialog ({custom_shortcut}) gives you detailed "
 "access to all aspects of the LilyPond command."
 msgstr ""
-"De dialoog <em>Aangepast graveren</em> geeft gedetailleerde toegang tot alle "
-"aspecten van de LilyPond-commandoregel."
+"De dialoog <em>Aangepast graveren</em> ({custom_shortcut}) geeft "
+"gedetailleerde toegang tot alle aspecten van de LilyPond-commandoregel."
 
 #: ../help/cnt_engraving.py:321
 msgid ""
 "You can configure a number of options through the graphical user interface "
 "and then fine-tune the command line to be used for LilyPond directly."
 msgstr ""
+"U kunt een aantal opties via de gebruikerinterface instellen en dan de "
+"commandoregel nog handmatig aanpassen om direct voor LilyPond te kunnen "
+"worden gebruikt."
 
 #: ../help/cnt_engraving.py:324
 msgid ""
@@ -2146,12 +2163,17 @@ msgid ""
 "the output formats available to LilyPond and (for PNG output) from a number "
 "of image resolutions."
 msgstr ""
+"U kunt kiezen uit de LilyPond-versies die zijn ingesteld in de dialoog "
+"{pref}, uit de beschikbare uitvoerformaten, en voor PNG-uitvoer kunt u de "
+"gewenste resolutie instellen."
 
 #: ../help/cnt_engraving.py:328
 msgid ""
 "Running LilyPond in Preview Mode will respect the settings from the Preview "
 "Options Panel ({link})."
 msgstr ""
+"Als u LilyPond in Vooruitblik-modus start worden de instellingen van het "
+"paneel Vooruitblik-opties ({link}) gebruikt."
 
 #: ../help/cnt_engraving.py:330
 msgid ""
@@ -2159,12 +2181,17 @@ msgid ""
 "information to a mailing list, and Deleting Intermediate Output Files may be "
 "used to <em>disable</em> the default behaviour."
 msgstr ""
+"<em>Uitgebreide uitvoer</em> en <em>Engelstalige berichten</em> zijn handig "
+"als u informatie naar een mailinglist wilt verzenden, en <em>Tussentijds "
+"uitvoerbestanden verwijderen</em> is handig als u de tussentijdse PostScript-"
+"bestanden die LilyPond aanmaakt verder niet nodig heeft."
 
 #: ../help/cnt_engraving.py:333
 msgid ""
 "Some of these settings are reflected in the Command Line text edit field, "
 "others not."
 msgstr ""
+"Sommige instellingen beïnvloeden de weergegeven commandoregel, andere niet."
 
 #: ../help/contents.py:39
 msgid "No Help"
@@ -8216,7 +8243,7 @@ msgstr ""
 #: ../vcs/menu.py:41
 msgctxt "menu title"
 msgid "&Git"
-msgstr ""
+msgstr "&Git"
 
 #: ../vcs/menu.py:116
 msgid "Checkout Successful"
