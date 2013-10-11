@@ -144,10 +144,11 @@ class BoundaryHandler(QObject):
         Other selection types are delegated to the QTextCursor ifself.
         
         """
-        if selection != QTextCursor.WordUnderCursor:
+        if selection == QTextCursor.WordUnderCursor:
+            self.move(cursor, QTextCursor.StartOfWord)
+            self.move(cursor, QTextCursor.EndOfWord, QTextCursor.KeepAnchor)
+        else:
             cursor.select(selection)
-        self.move(cursor, QTextCursor.StartOfWord)
-        self.move(cursor, QTextCursor.EndOfWord, QTextCursor.KeepAnchor)
 
     def install_textedit(self, edit):
         """Install ourselves as event filter on the textedit and its viewport."""
