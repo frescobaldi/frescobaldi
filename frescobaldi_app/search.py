@@ -27,7 +27,7 @@ import bisect
 import re
 import weakref
 
-from PyQt4.QtCore import Qt
+from PyQt4.QtCore import QEvent, Qt
 from PyQt4.QtGui import (
     QAction, QApplication, QCheckBox, QGridLayout, QKeySequence, QLabel,
     QLineEdit, QPalette, QPushButton, QStyle, QTextCursor, QToolButton, QWidget)
@@ -243,17 +243,25 @@ class Search(QWidget, plugin.MainWindowPlugin):
             view.ensureCursorVisible()
 
     def event(self, ev):
-        if ev == QKeySequence.HelpContents:
-            help.help("search_replace")
-            ev.accept()
-            return True
+        if ev.type() == QEvent.KeyPress:
+            modifiers = int(ev.modifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
+            if ev == QKeySequence.HelpContents:
+                help.help("search_replace")
+                ev.accept()
+                return True
+            elif ev.key() == Qt.Key_Tab and modifiers == 0:
+                # prevent Tab from reaching the View widget
+                self.window().focusNextChild()
+                ev.accept()
+                return True
+            elif ev.key() == Qt.Key_Backtab and modifiers & ~Qt.SHIFT == 0:
+                # prevent Tab from reaching the View widget
+                self.window().focusPreviousChild()
+                ev.accept()
+                return True
         return False
         
     def keyPressEvent(self, ev):
-        if ev.key() == Qt.Key_Tab:
-            # prevent Tab from reaching the View widget
-            self.window().focusNextChild()
-            return
         # if in search mode, Up and Down jump between search results
         if not self._replace and self._positions and self.searchEntry.text() and not ev.modifiers():
             if ev.key() == Qt.Key_Up:
