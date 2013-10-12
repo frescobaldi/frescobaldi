@@ -301,6 +301,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
                     view.setTextCursor(self._positions[index+1])
                 else:
                     view.setTextCursor(self._positions[0])
+                del self._positions[index]
                 view.ensureCursorVisible()
     
     def slotReplaceAll(self):
