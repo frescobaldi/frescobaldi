@@ -33,6 +33,7 @@ from PyQt4.QtGui import (
     QLineEdit, QPalette, QPushButton, QStyle, QTextCursor, QToolButton, QWidget)
 
 import app
+import help
 import qutil
 import plugin
 import cursortools
@@ -239,6 +240,13 @@ class Search(QWidget, plugin.MainWindowPlugin):
             view.setTextCursor(self._positions[index])
             view.ensureCursorVisible()
 
+    def event(self, ev):
+        if ev == QKeySequence.HelpContents:
+            help.help("search_replace")
+            ev.accept()
+            return True
+        return False
+        
     def keyPressEvent(self, ev):
         if ev.key() == Qt.Key_Tab:
             # prevent Tab from reaching the View widget
