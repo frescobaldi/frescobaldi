@@ -38,6 +38,7 @@ import qutil
 import plugin
 import cursortools
 import textformats
+import wordboundary
 import viewhighlighter
 import widgets.borderlayout
 
@@ -170,11 +171,12 @@ class Search(QWidget, plugin.MainWindowPlugin):
         if not visible and self.currentView():
             # pick current word
             cursor = self.currentView().textCursor()
-            cursor.movePosition(QTextCursor.StartOfWord)
-            cursor.movePosition(QTextCursor.EndOfWord, QTextCursor.KeepAnchor)
+            wordboundary.handler.select(cursor, QTextCursor.WordUnderCursor)
             word = cursor.selection().toPlainText()
             if not re.search(r'\w', word):
                 word = ""
+            elif self.regexCheck.isChecked():
+                word = re.escape(word)
             self.searchEntry.setText(word)
             self.searchEntry.selectAll()
         else:
