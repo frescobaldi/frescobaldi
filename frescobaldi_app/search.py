@@ -198,6 +198,12 @@ class Search(QWidget, plugin.MainWindowPlugin):
     def slotSearchChanged(self):
         self.updatePositions()
         viewhighlighter.highlighter(self.currentView()).highlight("search", self._positions, 1)
+        if not self._replace and self._positions:
+            positions = [c.position() for c in self._positions]
+            index = bisect.bisect_left(positions, self.currentView().textCursor().selectionStart())
+            if index == len(positions):
+                index -= 1
+            self.currentView().setTextCursor(self._positions[index])
 
     def updatePositions(self):
         search = self.searchEntry.text()
