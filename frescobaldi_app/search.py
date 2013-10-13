@@ -249,13 +249,13 @@ class Search(QWidget, plugin.MainWindowPlugin):
             view.ensureCursorVisible()
 
     def event(self, ev):
-        if ev.type() == QEvent.KeyPress:
+        if ev == QKeySequence.HelpContents:
+            help.help("search_replace")
+            ev.accept()
+            return True
+        elif ev.type() == QEvent.KeyPress:
             modifiers = int(ev.modifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
-            if ev == QKeySequence.HelpContents:
-                help.help("search_replace")
-                ev.accept()
-                return True
-            elif ev.key() == Qt.Key_Tab and modifiers == 0:
+            if ev.key() == Qt.Key_Tab and modifiers == 0:
                 # prevent Tab from reaching the View widget
                 self.window().focusNextChild()
                 ev.accept()
