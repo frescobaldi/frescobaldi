@@ -259,7 +259,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
                 self.window().focusPreviousChild()
                 ev.accept()
                 return True
-        return False
+        return super(Search, self).event(ev)
         
     def keyPressEvent(self, ev):
         # if in search mode, Up and Down jump between search results
