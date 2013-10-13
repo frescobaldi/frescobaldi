@@ -227,7 +227,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
                     c.setPosition(m.end())
                     c.setPosition(m.start(), QTextCursor.KeepAnchor)
                     self._positions.append(c)
-        self.countLabel.setText(unicode(len(self._positions)))
+        self.countLabel.setText(format(len(self._positions)))
         
     def findNext(self):
         view = self.currentView()
@@ -325,11 +325,10 @@ class Search(QWidget, plugin.MainWindowPlugin):
             cursors = self._positions
             if view.textCursor().hasSelection():
                 cursors = [cursor for cursor in cursors if cursortools.contains(view.textCursor(), cursor)]
-            view.textCursor().beginEditBlock()
-            for cursor in cursors:
-                if self.doReplace(cursor):
-                    replaced = True
-            view.textCursor().endEditBlock()
+            with cursortools.compress_undo(view.textCursor()):
+                for cursor in cursors:
+                    if self.doReplace(cursor):
+                        replaced = True
             if replaced:
                 viewhighlighter.highlighter(view).highlight("search", self._positions, 1)
 
