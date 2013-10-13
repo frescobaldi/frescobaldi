@@ -41,9 +41,10 @@ from __future__ import unicode_literals
 import itertools
 import operator
 import re
+import time
 
 from PyQt4.QtCore import QEvent, QObject, Qt
-from PyQt4.QtGui import QKeySequence, QTextCursor
+from PyQt4.QtGui import QApplication, QKeySequence, QTextCursor
 
 
 _move_operations = (
@@ -58,6 +59,7 @@ _move_operations = (
 
 class BoundaryHandler(QObject):
     
+    _double_click_time = 0.0
     word_regexp = re.compile(r'\\?\w+|^|$', re.UNICODE)
     
     def boundaries(self, block):
@@ -167,7 +169,12 @@ class BoundaryHandler(QObject):
         elif ev.type() == QEvent.MouseButtonDblClick:
             edit = obj.parent()
             if edit:
+                self._double_click_time = time.time()
                 return self.mouseDoubleClickEvent(edit, ev)
+        elif ev.type() == QEvent.MouseButtonPress:
+            edit = obj.parent()
+            if edit and time.time() - self._double_click_time < QApplication.doubleClickInterval() / 1000.0:
+                return self.mouseTripleClickEvent(edit, ev)
         return False
     
     def keyPressEvent(self, obj, ev):
@@ -204,5 +211,13 @@ class BoundaryHandler(QObject):
             return True
         return False
 
+    def mouseTripleClickEvent(self, obj, ev):
+        """Handles the triple-click even to select a line."""
+        if ev.button() == Qt.LeftButton:
+            c = obj.cursorForPosition(ev.pos())
+            c.select(QTextCursor.LineUnderCursor)
+            obj.setTextCursor(c)
+            return True
+        return False
 
 
