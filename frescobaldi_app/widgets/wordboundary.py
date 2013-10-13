@@ -215,7 +215,11 @@ class BoundaryHandler(QObject):
         """Handles the triple-click even to select a line."""
         if ev.button() == Qt.LeftButton:
             c = obj.cursorForPosition(ev.pos())
-            c.select(QTextCursor.LineUnderCursor)
+            c.movePosition(QTextCursor.StartOfBlock)
+            if c.block().next().isValid():
+                c.movePosition(QTextCursor.NextBlock, QTextCursor.KeepAnchor)
+            else:
+                c.movePosition(QTextCursor.EndOfBlock, QTextCursor.KeepAnchor)
             obj.setTextCursor(c)
             return True
         return False
