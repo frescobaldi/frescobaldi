@@ -164,20 +164,19 @@ class Search(QWidget, plugin.MainWindowPlugin):
         self.replaceAllButton.hide()
         self._replace = False # we are not in replace mode
         visible = self.isVisible()
-        if not visible:
-            with qutil.signalsBlocked(self.searchEntry):
-                self.searchEntry.clear()
         self.showWidget()
+        cursor = self.currentView().textCursor()
         if not visible and self.currentView():
-            # pick current word
-            cursor = self.currentView().textCursor()
-            wordboundary.handler.select(cursor, QTextCursor.WordUnderCursor)
-            word = cursor.selection().toPlainText()
-            if not re.search(r'\w', word):
-                word = ""
-            elif self.regexCheck.isChecked():
-                word = re.escape(word)
-            self.searchEntry.setText(word)
+            if cursor.hasSelection() or not self.searchEntry.text():
+                if not cursor.hasSelection():
+                    # pick current word
+                    wordboundary.handler.select(cursor, QTextCursor.WordUnderCursor)
+                word = cursor.selection().toPlainText()
+                if not re.search(r'\w', word):
+                    word = ""
+                elif self.regexCheck.isChecked():
+                    word = re.escape(word)
+                self.searchEntry.setText(word)
             self.searchEntry.selectAll()
         else:
             self.slotSearchChanged()
@@ -200,9 +199,17 @@ class Search(QWidget, plugin.MainWindowPlugin):
         viewhighlighter.highlighter(self.currentView()).highlight("search", self._positions, 1)
         if not self._replace and self._positions:
             positions = [c.position() for c in self._positions]
-            index = bisect.bisect_left(positions, self.currentView().textCursor().selectionStart())
+            cursor = self.currentView().textCursor()
+            index = bisect.bisect_left(positions, cursor.selectionStart())
             if index == len(positions):
                 index -= 1
+            elif index > 0:
+                # it might be possible that the text cursor currently already
+                # is in a search result. This happens when the search is pop up
+                # with an empty text and the current word is then set as search
+                # text.
+                if cursortools.contains(self._positions[index-1], cursor):
+                    index -= 1
             self.currentView().setTextCursor(self._positions[index])
 
     def updatePositions(self):
