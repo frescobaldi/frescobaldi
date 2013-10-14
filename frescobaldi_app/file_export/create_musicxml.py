@@ -36,9 +36,15 @@ class create_musicXML():
 		""" creates the basic structure of the XML without any music 
 		TODO: 
 		set doctype	
-		add Frescobaldi as originator	
 		"""
 		self.root = etree.Element("score-partwise", version="3.0")
+		identification = etree.SubElement(self.root, "identification")
+		encoding = etree.SubElement(identification, "encoding")
+		software = etree.SubElement(encoding, "software")
+		software.text = "Frescobaldi"
+		encoding_date = etree.SubElement(encoding, "encoding-date")
+		import datetime
+		encoding_date = str(datetime.date.today())
 		self.partlist = etree.SubElement(self.root, "part-list")
 		self.part_count = 1		
 	
@@ -65,6 +71,7 @@ class create_musicXML():
 	##
 	
 	def new_note(self, pitch, org_len, durtype, divs):
+		""" create all nodes needed for a note. """
 		self.create_note()
 		self.add_pitch(pitch[0], pitch[1], pitch[2])
 		duration = divs*4/int(org_len)
@@ -72,8 +79,20 @@ class create_musicXML():
 		self.add_duration_type(durtype)
 		if pitch[1]:
 			self.add_accidental(pitch[1])
+			
+	def tuplet_note(self, fraction, org_len, ttype, divs):
+		""" convert current note to tuplet """
+		a = divs*4*int(fraction[1])
+		b = int(org_len)*int(fraction[0])
+		duration = a/b
+		self.change_div_duration(duration)
+		self.add_time_modify(fraction)
+		if ttype:
+			self.add_notations()
+			self.add_tuplet_type(ttype)
 		
 	def new_bar_attr(self, clef, mustime, key, mode, divs):
+		""" create all bar attributes set. """
 		self.create_bar_attr()
 		if divs:
 			self.add_divisions(divs)
@@ -85,6 +104,11 @@ class create_musicXML():
 			self.add_clef(clef[0], clef[1])
 			
 	def create_new_node(self, parentnode, nodename, txt):
+		""" The Music XML language is extensive. 
+		This function can be used to create 
+		a non basic node not covered elsewhere in this script. 
+		TODO: add attributes		
+		"""
 		new_node = etree.SubElement(parentnode, nodename)
 		new_node.text = str(txt)
 		
@@ -122,13 +146,32 @@ class create_musicXML():
 		
 	def add_div_duration(self, divdur):
 		""" create new duration """
-		duration = etree.SubElement(self.current_note, "duration")
-		duration.text = str(divdur)
+		self.duration = etree.SubElement(self.current_note, "duration")
+		self.duration.text = str(divdur)
+		
+	def change_div_duration(self, newdura):
+		""" set new duration when tuplet """
+		self.duration.text = str(newdura)
 		
 	def add_duration_type(self, durtype):
 		""" create new type """
 		typenode = etree.SubElement(self.current_note, "type")
 		typenode.text = str(durtype)
+		
+	def add_notations(self):
+		self.current_notation = etree.SubElement(self.current_note, "notations")
+		
+	def add_time_modify(self, fraction):
+		""" create time modification """
+		timemod_node = etree.SubElement(self.current_note, "time-modification")
+		actual_notes = etree.SubElement(timemod_node, "actual-notes")
+		actual_notes.text = fraction[0]
+		norm_notes = etree.SubElement(timemod_node, "normal-notes")
+		norm_notes.text = fraction[1]
+		
+	def add_tuplet_type(self, ttype):
+		""" create tuplet with type attribute """
+		tuplet = etree.SubElement(self.current_notation, "tuplet", type=ttype)		
 		
 	def create_bar_attr(self):
 		""" create node attributes """

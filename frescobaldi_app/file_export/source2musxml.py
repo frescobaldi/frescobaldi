@@ -43,9 +43,9 @@ class parse_source():
 		self.musxml = create_musicxml.create_musicXML()
 		self.mediator = ly2xml_mediator.mediator()
 		self.prev_command = ''
-		self.duration = 4
 		self.partname = ''
 		self.can_create_part = True
+		self.tuplet = False
 		block = doc.firstBlock()
 		while block.isValid():
 			for t in tokeniter.tokens(block):
@@ -71,12 +71,17 @@ class parse_source():
 		""" SequentialStart = { """
 		if self.can_create_part:
 			self.mediator.new_part(self.partname)
-		elif self.prev_command:
-			self.mediator.new_from_command(self.prev_command)
+		elif self.prev_command[1:] == 'times':
+			print "found tuplet!"
+			self.tuplet = True
+			self.ttype = "start"
 		self.can_create_part = False
 		
 	def SequentialEnd(self, token):
 		""" SequentialEnd = } """
+		if self.tuplet:
+			self.mediator.change_to_tuplet(self.fraction, "stop")
+			self.tuplet = False
 		if self.prev_command:
 			self.prev_command = ''
 		else:
@@ -101,7 +106,10 @@ class parse_source():
 		if self.prev_command == "key":
 			self.key = token
 		else:
-			self.mediator.new_note(token, self.duration)
+			self.mediator.new_note(token)
+			if self.tuplet:
+				self.mediator.change_to_tuplet(self.fraction, self.ttype)
+				self.ttype = ""
 		
 	def Octave(self, token):
 		""" absolute mode required; a number of , or ' or nothing """
@@ -119,7 +127,7 @@ class parse_source():
 		pass
 		
 	def Fraction(self, token):
-		print token
+		self.fraction = token
 		
 	def Keyword(self, token):
 		self.prev_command = token
@@ -157,5 +165,7 @@ class parse_source():
 							self.musxml.new_bar_attr(obj.clef, obj.time, obj.key, obj.mode, self.mediator.divisions)
 					elif isinstance(obj, ly2xml_mediator.bar_note):
 						self.musxml.new_note([obj.step, obj.alter, obj.octave], obj.duration, obj.type, self.mediator.divisions)
+						if obj.tuplet:
+							self.musxml.tuplet_note(obj.tuplet, obj.duration, obj.ttype, self.mediator.divisions)
 
 

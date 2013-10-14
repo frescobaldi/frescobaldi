@@ -34,7 +34,8 @@ class mediator():
 		""" default and initial values """
 		self.mustime = [4,4]
 		self.clef = ['G',2]
-		self.divisions = 1	
+		self.divisions = 1
+		self.duration = 4	
 		
 	def new_part(self, name):
 		self.part = []
@@ -51,7 +52,6 @@ class mediator():
 		
 	def new_key(self, key_name, mode_command):
 		mode = mode_command[1:]
-		print mode
 		self.current_attr.set_key(get_fifths(key_name, mode), mode)		
 		
 	def new_time(self, fraction):
@@ -62,14 +62,20 @@ class mediator():
 		self.clef = clefname2clef(clefname)
 		self.current_attr.set_clef(self.clef)
 		
-	def new_note(self, note_name, duration):
-		self.current_note = bar_note(note_name, duration)
+	def new_note(self, note_name):
+		self.current_note = bar_note(note_name, self.duration)
 		self.bar.append(self.current_note)
 		self.current_attr = bar_attr()
 		
 	def new_duration(self, duration):
 		self.current_note.set_duration(duration)
-		self.check_divs(duration)
+		self.duration = duration
+		self.check_divs(duration, self.current_note.tuplet)
+		
+	def change_to_tuplet(self, fraction, ttype):
+		tfraction = fraction.split('/')
+		tfraction.reverse() #delete this row with new tuplet notation
+		self.current_note.set_tuplet(tfraction, ttype)
 		
 	def new_octave(self, octave):
 		self.current_note.set_octave(octave)
@@ -77,16 +83,30 @@ class mediator():
 	def new_from_command(self, command):
 		print command
 		
-	def check_divs(self, org_len):
+	def check_divs(self, org_len, tfraction):
 		""" The new duration is checked against current divisions """
 		divs = self.divisions
-		print "Divs:"+str(divs)
-		predur, mod = divmod(divs*4,int(org_len))
-		if predur == 0:
-			self.divisions = int(org_len)/4
-			self.check_divs(org_len) #recursive call
-		elif mod != 0:
-			print "mod:"+str(mod)
+		if(not tfraction):
+			a = 4
+			b = int(org_len)
+		else:
+			den = int(tfraction[0])
+			num = int(tfraction[1])
+			a = 4*num
+			b = int(org_len)*den
+		c = a*divs
+		predur, mod = divmod(c,b)
+		if mod > 0:
+			mult = get_mult(a,b)
+			self.divisions = divs*mult
+			#print "---"
+			#print "div:"+str(divs)
+			#print "len:"+str(org_len)
+			#print tfraction			
+			#print "tupl:"+str(a)+'/'+str(b)
+			#print "predur:"+str(predur)
+			#print "mod:"+str(mod)
+			#print "mult:"+str(mult)
 			
 		
 		
@@ -99,6 +119,7 @@ class bar_note():
 		self.octave = 3
 		self.duration = durval
 		self.type = durval2type(durval)
+		self.tuplet = 0
 		
 	def set_duration(self, durval):
 		self.duration = durval
@@ -106,6 +127,10 @@ class bar_note():
 		
 	def set_octave(self, octmark):
 		self.octave = octmark2oct(octmark)
+		
+	def set_tuplet(self, fraction, ttype):
+		self.tuplet = fraction
+		self.ttype = ttype
 		
 class bar_attr():
 	""" object that keep track of bar attributes, e.g. time sign, clef, key etc """
@@ -177,6 +202,8 @@ def durval2type(durval):
 		return "eighth"
 	elif durval == "16":
 		return "16th"
+	elif durval == "32":
+		return "32nd"
 		
 def octmark2oct(octmark):
 	if octmark == ",,,":
@@ -191,6 +218,16 @@ def octmark2oct(octmark):
 		return 5
 	elif octmark == "'''":
 		return 6
+		
+def get_mult(num, den):
+	from fractions import Fraction
+	simple = Fraction(num, den)
+	#print '********'
+	#print str(num)+'/'+str(den)
+	#print simple
+	return simple.denominator
+		
+		
 
 	
 		
