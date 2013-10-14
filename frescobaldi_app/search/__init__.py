@@ -164,7 +164,10 @@ class Search(QWidget, plugin.MainWindowPlugin):
         self.replaceAllButton.hide()
         self._replace = False # we are not in replace mode
         visible = self.isVisible()
-        self.showWidget()
+        if not visible:
+            self.showWidget()
+        else:
+            self.adjustSize()
         cursor = self.currentView().textCursor()
         if not visible and self.currentView():
             if cursor.hasSelection() or not self.searchEntry.text():
@@ -181,8 +184,6 @@ class Search(QWidget, plugin.MainWindowPlugin):
                 self.slotSearchChanged()
             else:
                 self.highlightingOn()
-        else:
-            self.highlightingOn()
         self.searchEntry.setFocus()
         
     def replace(self):
@@ -193,8 +194,11 @@ class Search(QWidget, plugin.MainWindowPlugin):
         self.replaceAllButton.show()
         focus = self.replaceEntry if self.isVisible() and self.searchEntry.text() else self.searchEntry
         self._replace = True # we are in replace mode
-        self.showWidget()
-        self.slotSearchChanged()
+        if self.isVisible():
+            self.adjustSize()
+        else:
+            self.showWidget()
+            self.slotSearchChanged()
         focus.setFocus()
         
     def slotSearchChanged(self):
