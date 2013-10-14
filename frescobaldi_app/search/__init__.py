@@ -181,6 +181,8 @@ class Search(QWidget, plugin.MainWindowPlugin):
                 self.slotSearchChanged()
             else:
                 self.highlightingOn()
+        else:
+            self.highlightingOn()
         self.searchEntry.setFocus()
         
     def replace(self):
