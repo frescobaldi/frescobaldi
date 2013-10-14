@@ -139,7 +139,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
     def hideWidget(self):
         view = self.currentView()
         if view:
-            viewhighlighter.highlighter(view).clear("search")
+            self.highlightingOff()
             self.hide()
             layout = widgets.borderlayout.BorderLayout.get(view)
             layout.removeWidget(self)
@@ -176,10 +176,11 @@ class Search(QWidget, plugin.MainWindowPlugin):
                     word = ""
                 elif self.regexCheck.isChecked():
                     word = re.escape(word)
-                self.searchEntry.setText(word)
-            self.searchEntry.selectAll()
-        else:
-            self.slotSearchChanged()
+                with qutil.signalsBlocked(self.searchEntry):
+                    self.searchEntry.setText(word)
+                self.slotSearchChanged()
+            else:
+                self.highlightingOn()
         self.searchEntry.setFocus()
         
     def replace(self):
@@ -196,7 +197,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
         
     def slotSearchChanged(self):
         self.updatePositions()
-        viewhighlighter.highlighter(self.currentView()).highlight("search", self._positions, 1)
+        self.highlightingOn()
         if not self._replace and self._positions:
             positions = [c.position() for c in self._positions]
             cursor = self.currentView().textCursor()
@@ -212,6 +213,18 @@ class Search(QWidget, plugin.MainWindowPlugin):
                     index -= 1
             self.currentView().setTextCursor(self._positions[index])
 
+    def highlightingOn(self, view=None):
+        if view is None:
+            view = self.currentView()
+        if view:
+            viewhighlighter.highlighter(view).highlight("search", self._positions, 1)
+    
+    def highlightingOff(self, view=None):
+        if view is None:
+            view = self.currentView()
+        if view:
+            viewhighlighter.highlighter(view).clear("search")
+            
     def updatePositions(self):
         search = self.searchEntry.text()
         view = self.currentView()
@@ -317,7 +330,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
             if index >= len(positions):
                 index = 0
             if self.doReplace(self._positions[index]):
-                viewhighlighter.highlighter(view).highlight("search", self._positions, 1)
+                self.highlightingOn(view)
                 if index < len(positions) - 1:
                     view.setTextCursor(self._positions[index+1])
                 else:
@@ -337,6 +350,6 @@ class Search(QWidget, plugin.MainWindowPlugin):
                     if self.doReplace(cursor):
                         replaced = True
             if replaced:
-                viewhighlighter.highlighter(view).highlight("search", self._positions, 1)
+                self.highlightingOn()
 
 
