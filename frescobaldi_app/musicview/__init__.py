@@ -176,6 +176,27 @@ class MusicViewPanel(panel.Panel):
     def printMusic(self):
         doc = self.actionCollection.music_document_select.currentDocument()
         if doc and doc.document():
+            ### temporarily disable printing on Mac OS X
+            import sys
+            if sys.platform.startswith('darwin'):
+                from PyQt4.QtCore import QUrl
+                from PyQt4.QtGui import QMessageBox
+                result =  QMessageBox.warning(self.mainwindow(),
+                    _("Print Music"), _(
+                    "Unfortunately, this version of Frescobaldi is unable to print "
+                    "PDF documents on Mac OS X due to various technical reasons.\n\n"
+                    "Do you want to open the file in the default viewer for printing instead? "
+                    "(remember to close it again to avoid access problems)\n\n"
+                    "Choose Yes if you want that, No if you want to try the built-in "
+                    "printing functionality anyway, or Cancel to cancel printing."),
+                    QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel)
+                if result == QMessageBox.Yes:
+                    import helpers
+                    helpers.openUrl(QUrl.fromLocalFile(doc.filename()), "pdf")
+                    return
+                elif result == QMessageBox.Cancel:
+                    return
+            ### end temporarily disable printing on Mac OS X
             import popplerprint
             popplerprint.printDocument(doc, self)
     
