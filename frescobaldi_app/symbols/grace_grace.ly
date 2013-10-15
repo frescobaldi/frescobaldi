@@ -2,5 +2,5 @@
 \include "spanner_defaults.ily"
 
 {
-  \grace { f'16 g' }
+  \grace f'16 g'4
 }
