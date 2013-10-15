@@ -207,6 +207,7 @@ class GraceGroup(buttongroup.ButtonGroup):
         if name == "grace_grace":
             inner = ''
             outer = '\\grace { ', ' }'
+            single = '\\grace '
         elif name == "grace_beam":
             inner = d + '[', ']'
             outer = '\\grace { ', ' }'
@@ -237,7 +238,19 @@ class GraceGroup(buttongroup.ButtonGroup):
             	ins.setPosition(cursor.selectionEnd())
             	ins.insertText(outer[1])
             else:
-            	cursor.insertText(single)
+            	if single:
+            		cursor.insertText(single)
+            	else:
+            		source = tokeniter.Source.from_cursor(cursor, True, -1)
+            		music_list = list(music.music_items(source, tokens=source.tokens))
+            		try:
+            			m = music_list[2][0]
+            			after = source.cursor(m, 1)
+            		except IndexError:            			
+            			after = self.mainwindow().textCursor()
+            			after.movePosition(cursor.EndOfLine)   		
+            		after.insertText(outer[1])
+            		cursor.insertText(outer[0])
         
         
                 
