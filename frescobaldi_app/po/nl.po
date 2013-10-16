@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-10-10 17:41+0200\n"
-"PO-Revision-Date: 2013-10-10 17:45+0200\n"
+"POT-Creation-Date: 2013-10-16 07:55+0200\n"
+"PO-Revision-Date: 2013-10-16 07:59+0200\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -1099,56 +1099,6 @@ msgstr "Kan het document niet naar de printer verzenden."
 #: ../popplerprint.py:139
 msgid "Printing page {page} ({num} of {total})..."
 msgstr "Afdrukken pagina {page} ({num} van {total})..."
-
-#: ../search.py:101
-msgid "Search:"
-msgstr "Zoeken:"
-
-#: ../search.py:102
-msgid "&Case"
-msgstr "&Hoofdl."
-
-#: ../search.py:103
-msgid "Case Sensitive"
-msgstr "Maak onderscheid tussen hoofd- en kleine letters"
-
-#: ../search.py:104
-msgid "&Regex"
-msgstr "&Regex"
-
-#: ../search.py:105
-msgid "Regular Expression"
-msgstr "Reguliere expressie"
-
-#: ../search.py:106
-msgid "The total number of matches"
-msgstr "Het totale aantal overeenkomsten"
-
-#: ../search.py:107
-msgid "Close"
-msgstr "Sluiten"
-
-#: ../search.py:108
-msgid "Replace:"
-msgstr "Vervangen:"
-
-#: ../search.py:109
-msgid "Re&place"
-msgstr "&Vervangen"
-
-#: ../search.py:110
-msgid "Replaces the next occurrence of the search term."
-msgstr "Vervangt de volgende overeenkomst van de zoekterm."
-
-#: ../search.py:111
-msgid "&All"
-msgstr "&Alles"
-
-#: ../search.py:112
-msgid ""
-"Replaces all occurrences of the search term in the document or selection."
-msgstr ""
-"Vervangt alle overeenkomsten met de zoekterm in het document of de selectie."
 
 #: ../viewmanager.py:67 ../viewmanager.py:215
 msgid "Line: {line}, Col: {column}"
@@ -3289,83 +3239,108 @@ msgstr "Muziekweergave"
 msgid "&Music View"
 msgstr "&Muziekweergave"
 
-#: ../musicview/__init__.py:286
+#: ../musicview/__init__.py:185
+msgid "Print Music"
+msgstr "Muziek afdrukken"
+
+#: ../musicview/__init__.py:186
+msgid ""
+"Unfortunately, this version of Frescobaldi is unable to print PDF documents "
+"on Mac OS X due to various technical reasons.\n"
+"\n"
+"Do you want to open the file in the default viewer for printing instead? "
+"(remember to close it again to avoid access problems)\n"
+"\n"
+"Choose Yes if you want that, No if you want to try the built-in printing "
+"functionality anyway, or Cancel to cancel printing."
+msgstr ""
+"Deze versie van Frescobaldi is om technische redenen helaas niet in staat om "
+"PDF-documenten af te drukken op Mac OS X.\n"
+"\n"
+"Wilt u het bestand openen in het standaardweergaveprogramma om het daarmee "
+"af te kunnen drukken? (vergeet niet het programma weer te sluiten "
+"naderhand)\n"
+"\n"
+"Kies Ja als u dat wilt, Nee als u de ingebouwde printfunctionaliteit toch "
+"wilt gebruiken, of Annuleren om het afdrukken te annuleren."
+
+#: ../musicview/__init__.py:307
 msgid "Select Music View Document"
 msgstr "Weer te geven document selecteren"
 
-#: ../musicview/__init__.py:287
+#: ../musicview/__init__.py:308
 msgid "&Print Music..."
 msgstr "&Muziek afdrukken..."
 
-#: ../musicview/__init__.py:288
+#: ../musicview/__init__.py:309
 msgid "Zoom &In"
 msgstr "&Inzoomen"
 
-#: ../musicview/__init__.py:289
+#: ../musicview/__init__.py:310
 msgid "Zoom &Out"
 msgstr "&Uitzoomen"
 
-#: ../musicview/__init__.py:290
+#: ../musicview/__init__.py:311
 msgid "Original &Size"
 msgstr "&Werkelijke grootte"
 
-#: ../musicview/__init__.py:291
+#: ../musicview/__init__.py:312
 msgid "Zoom Music"
 msgstr "Muziek zoomen"
 
-#: ../musicview/__init__.py:292
+#: ../musicview/__init__.py:313
 msgid "Fit &Width"
 msgstr "Passend in &breedte"
 
-#: ../musicview/__init__.py:293
+#: ../musicview/__init__.py:314
 msgid "Fit &Height"
 msgstr "Passend in &hoogte"
 
-#: ../musicview/__init__.py:294
+#: ../musicview/__init__.py:315
 msgid "Fit &Page"
 msgstr "Hele &pagina"
 
-#: ../musicview/__init__.py:295
+#: ../musicview/__init__.py:316
 msgid "&Maximize"
 msgstr "&Maximaliseren"
 
-#: ../musicview/__init__.py:296
+#: ../musicview/__init__.py:317
 msgid "&Jump to Cursor Position"
 msgstr "Naar cursor &springen"
 
-#: ../musicview/__init__.py:297
+#: ../musicview/__init__.py:318
 msgid "S&ynchronize with Cursor Position"
 msgstr "Met cursor s&ynchroniseren"
 
-#: ../musicview/__init__.py:298
+#: ../musicview/__init__.py:319
 msgid "Copy to &Image..."
 msgstr "Naar afbeeld&ing kopiëren..."
 
-#: ../musicview/__init__.py:299
+#: ../musicview/__init__.py:320
 msgid "Next Page"
 msgstr "Volgende pagina"
 
-#: ../musicview/__init__.py:300
+#: ../musicview/__init__.py:321
 msgid "Next"
 msgstr "Volgende"
 
-#: ../musicview/__init__.py:301
+#: ../musicview/__init__.py:322
 msgid "Previous Page"
 msgstr "Vorige pagina"
 
-#: ../musicview/__init__.py:302
+#: ../musicview/__init__.py:323
 msgid "Previous"
 msgstr "Vorige"
 
-#: ../musicview/__init__.py:303
+#: ../musicview/__init__.py:324
 msgid "&Reload"
 msgstr "He&rladen"
 
-#: ../musicview/__init__.py:447
+#: ../musicview/__init__.py:468
 msgid "Choose the PDF document to display."
 msgstr "Kies het weer te geven PDF-document."
 
-#: ../musicview/__init__.py:449
+#: ../musicview/__init__.py:470
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -3373,20 +3348,20 @@ msgstr ""
 "Kies het weer te geven PDF-document of sleep het bestand naar een andere "
 "locatie of toepassing."
 
-#: ../musicview/__init__.py:507
+#: ../musicview/__init__.py:528
 msgid "Fit Width"
 msgstr "Passend in breedte"
 
-#: ../musicview/__init__.py:508
+#: ../musicview/__init__.py:529
 msgid "Fit Height"
 msgstr "Passend in hoogte"
 
-#: ../musicview/__init__.py:509
+#: ../musicview/__init__.py:530
 msgid "Fit Page"
 msgstr "Hele pagina"
 
 #. L10N: page numbering: page {num} of {total}
-#: ../musicview/__init__.py:526
+#: ../musicview/__init__.py:547
 msgid "{num} of {total}"
 msgstr "{num} van {total}"
 
@@ -7361,6 +7336,56 @@ msgstr "Bblf."
 #: ../scorewiz/parts/woodwind.py:285
 msgid "Woodwinds"
 msgstr "Houtblazers"
+
+#: ../search/__init__.py:103
+msgid "Search:"
+msgstr "Zoeken:"
+
+#: ../search/__init__.py:104
+msgid "&Case"
+msgstr "&Hoofdl."
+
+#: ../search/__init__.py:105
+msgid "Case Sensitive"
+msgstr "Maak onderscheid tussen hoofd- en kleine letters"
+
+#: ../search/__init__.py:106
+msgid "&Regex"
+msgstr "&Regex"
+
+#: ../search/__init__.py:107
+msgid "Regular Expression"
+msgstr "Reguliere expressie"
+
+#: ../search/__init__.py:108
+msgid "The total number of matches"
+msgstr "Het totale aantal overeenkomsten"
+
+#: ../search/__init__.py:109
+msgid "Close"
+msgstr "Sluiten"
+
+#: ../search/__init__.py:110
+msgid "Replace:"
+msgstr "Vervangen:"
+
+#: ../search/__init__.py:111
+msgid "Re&place"
+msgstr "&Vervangen"
+
+#: ../search/__init__.py:112
+msgid "Replaces the next occurrence of the search term."
+msgstr "Vervangt de volgende overeenkomst van de zoekterm."
+
+#: ../search/__init__.py:113
+msgid "&All"
+msgstr "&Alles"
+
+#: ../search/__init__.py:114
+msgid ""
+"Replaces all occurrences of the search term in the document or selection."
+msgstr ""
+"Vervangt alle overeenkomsten met de zoekterm in het document of de selectie."
 
 #: ../sessions/dialog.py:43
 msgid "Manage Sessions"

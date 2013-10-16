@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-10-10 17:41+0200\n"
+"POT-Creation-Date: 2013-10-16 07:55+0200\n"
 "PO-Revision-Date: 2011-12-30 18:12+0100\n"
 "Last-Translator: Urs Liska <git@ursliska.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -1097,55 +1097,6 @@ msgstr "Konnte das Dokument nicht zum Drucker senden."
 #: ../popplerprint.py:139
 msgid "Printing page {page} ({num} of {total})..."
 msgstr "Drucke Seite {page} ({num} von {total}) ..."
-
-#: ../search.py:101
-msgid "Search:"
-msgstr "Suche:"
-
-#: ../search.py:102
-msgid "&Case"
-msgstr "&Groß-/Kleinschreibung"
-
-#: ../search.py:103
-msgid "Case Sensitive"
-msgstr "Groß-/Kleinschreibung beachten"
-
-#: ../search.py:104
-msgid "&Regex"
-msgstr "&Regulärer Ausdruck"
-
-#: ../search.py:105
-msgid "Regular Expression"
-msgstr "Regulärer Ausdruck"
-
-#: ../search.py:106
-msgid "The total number of matches"
-msgstr "Gesamtzahl an Treffern"
-
-#: ../search.py:107
-msgid "Close"
-msgstr "Schlie&ßen"
-
-#: ../search.py:108
-msgid "Replace:"
-msgstr "Ersetzen:"
-
-#: ../search.py:109
-msgid "Re&place"
-msgstr "Erset&zen"
-
-#: ../search.py:110
-msgid "Replaces the next occurrence of the search term."
-msgstr "Ersetze das nächste Auftreten des Suchbegriffs."
-
-#: ../search.py:111
-msgid "&All"
-msgstr "&Alle"
-
-#: ../search.py:112
-msgid ""
-"Replaces all occurrences of the search term in the document or selection."
-msgstr "Ersetzt jedes Auftreten des Suchbegriffs im ausgewählten Text."
 
 #: ../viewmanager.py:67 ../viewmanager.py:215
 msgid "Line: {line}, Col: {column}"
@@ -3073,83 +3024,100 @@ msgstr "Notenansicht"
 msgid "&Music View"
 msgstr "&Notenansicht"
 
-#: ../musicview/__init__.py:286
+#: ../musicview/__init__.py:185
+#, fuzzy
+msgid "Print Music"
+msgstr "Noten &drucken ..."
+
+#: ../musicview/__init__.py:186
+msgid ""
+"Unfortunately, this version of Frescobaldi is unable to print PDF documents "
+"on Mac OS X due to various technical reasons.\n"
+"\n"
+"Do you want to open the file in the default viewer for printing instead? "
+"(remember to close it again to avoid access problems)\n"
+"\n"
+"Choose Yes if you want that, No if you want to try the built-in printing "
+"functionality anyway, or Cancel to cancel printing."
+msgstr ""
+
+#: ../musicview/__init__.py:307
 msgid "Select Music View Document"
 msgstr "Wähle Dokument für Notenansicht"
 
-#: ../musicview/__init__.py:287
+#: ../musicview/__init__.py:308
 msgid "&Print Music..."
 msgstr "Noten &drucken ..."
 
-#: ../musicview/__init__.py:288
+#: ../musicview/__init__.py:309
 msgid "Zoom &In"
 msgstr "Ver&größern"
 
-#: ../musicview/__init__.py:289
+#: ../musicview/__init__.py:310
 msgid "Zoom &Out"
 msgstr "Ver&kleinern"
 
-#: ../musicview/__init__.py:290
+#: ../musicview/__init__.py:311
 msgid "Original &Size"
 msgstr "&Originalgröße"
 
-#: ../musicview/__init__.py:291
+#: ../musicview/__init__.py:312
 msgid "Zoom Music"
 msgstr "Noten vergrößern"
 
-#: ../musicview/__init__.py:292
+#: ../musicview/__init__.py:313
 msgid "Fit &Width"
 msgstr "An &Breite anpassen"
 
-#: ../musicview/__init__.py:293
+#: ../musicview/__init__.py:314
 msgid "Fit &Height"
 msgstr "An &Höhe anpassen"
 
-#: ../musicview/__init__.py:294
+#: ../musicview/__init__.py:315
 msgid "Fit &Page"
 msgstr "An &Seite anpassen"
 
-#: ../musicview/__init__.py:295
+#: ../musicview/__init__.py:316
 msgid "&Maximize"
 msgstr "&Maximieren"
 
-#: ../musicview/__init__.py:296
+#: ../musicview/__init__.py:317
 msgid "&Jump to Cursor Position"
 msgstr "Springe zur &Cursorposition"
 
-#: ../musicview/__init__.py:297
+#: ../musicview/__init__.py:318
 msgid "S&ynchronize with Cursor Position"
 msgstr "Mit Cursorposition s&ynchronisieren"
 
-#: ../musicview/__init__.py:298
+#: ../musicview/__init__.py:319
 msgid "Copy to &Image..."
 msgstr "Als &Bild exportieren ..."
 
-#: ../musicview/__init__.py:299
+#: ../musicview/__init__.py:320
 msgid "Next Page"
 msgstr "Nächste Seite"
 
-#: ../musicview/__init__.py:300
+#: ../musicview/__init__.py:321
 msgid "Next"
 msgstr "Nächstes:"
 
-#: ../musicview/__init__.py:301
+#: ../musicview/__init__.py:322
 msgid "Previous Page"
 msgstr "Vorherige Seite"
 
-#: ../musicview/__init__.py:302
+#: ../musicview/__init__.py:323
 msgid "Previous"
 msgstr "Vorige"
 
-#: ../musicview/__init__.py:303
+#: ../musicview/__init__.py:324
 msgid "&Reload"
 msgstr "&Neu laden"
 
-#: ../musicview/__init__.py:447
+#: ../musicview/__init__.py:468
 msgid "Choose the PDF document to display."
 msgstr "Wählen Sie das anzuzeigende PDF-Dokument aus."
 
-#: ../musicview/__init__.py:449
+#: ../musicview/__init__.py:470
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -3157,20 +3125,20 @@ msgstr ""
 "Wählen Sie zur Ansicht das PDF-Dokument aus oder ziehen Sie es in eine "
 "andere Anwenung oder an einen anderen Ort."
 
-#: ../musicview/__init__.py:507
+#: ../musicview/__init__.py:528
 msgid "Fit Width"
 msgstr "An &Breite anpassen"
 
-#: ../musicview/__init__.py:508
+#: ../musicview/__init__.py:529
 msgid "Fit Height"
 msgstr "An &Höhe anpassen"
 
-#: ../musicview/__init__.py:509
+#: ../musicview/__init__.py:530
 msgid "Fit Page"
 msgstr "An &Seite anpassen"
 
 #. L10N: page numbering: page {num} of {total}
-#: ../musicview/__init__.py:526
+#: ../musicview/__init__.py:547
 msgid "{num} of {total}"
 msgstr "{num} von {total}"
 
@@ -6808,6 +6776,55 @@ msgstr "B.Bl."
 #: ../scorewiz/parts/woodwind.py:285
 msgid "Woodwinds"
 msgstr "Holzbläser"
+
+#: ../search/__init__.py:103
+msgid "Search:"
+msgstr "Suche:"
+
+#: ../search/__init__.py:104
+msgid "&Case"
+msgstr "&Groß-/Kleinschreibung"
+
+#: ../search/__init__.py:105
+msgid "Case Sensitive"
+msgstr "Groß-/Kleinschreibung beachten"
+
+#: ../search/__init__.py:106
+msgid "&Regex"
+msgstr "&Regulärer Ausdruck"
+
+#: ../search/__init__.py:107
+msgid "Regular Expression"
+msgstr "Regulärer Ausdruck"
+
+#: ../search/__init__.py:108
+msgid "The total number of matches"
+msgstr "Gesamtzahl an Treffern"
+
+#: ../search/__init__.py:109
+msgid "Close"
+msgstr "Schlie&ßen"
+
+#: ../search/__init__.py:110
+msgid "Replace:"
+msgstr "Ersetzen:"
+
+#: ../search/__init__.py:111
+msgid "Re&place"
+msgstr "Erset&zen"
+
+#: ../search/__init__.py:112
+msgid "Replaces the next occurrence of the search term."
+msgstr "Ersetze das nächste Auftreten des Suchbegriffs."
+
+#: ../search/__init__.py:113
+msgid "&All"
+msgstr "&Alle"
+
+#: ../search/__init__.py:114
+msgid ""
+"Replaces all occurrences of the search term in the document or selection."
+msgstr "Ersetzt jedes Auftreten des Suchbegriffs im ausgewählten Text."
 
 #: ../sessions/dialog.py:43
 msgid "Manage Sessions"
