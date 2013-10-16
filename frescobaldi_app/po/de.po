@@ -1538,7 +1538,7 @@ msgstr ""
 
 #: ../file_import/__init__.py:96
 msgid "Import MusicXML..."
-msgstr "MusicXMP importieren..."
+msgstr "MusicXML importieren..."
 
 #: ../file_import/__init__.py:97
 msgid "Import a MusicXML file using musicxml2ly."
@@ -3127,7 +3127,7 @@ msgstr ""
 
 #: ../musicview/__init__.py:528
 msgid "Fit Width"
-msgstr "An &Breite anpassen"
+msgstr "An Breite anpassen"
 
 #: ../musicview/__init__.py:529
 msgid "Fit Height"
