@@ -75,6 +75,15 @@ else:
         return p1 == p2
         
 
+# Make sure that also on Windows, directory slashes remain forward
+if os.name == 'nt':
+    def normpath(path):
+        """A version of os.path.normpath that keeps slashes forward."""
+        return os.path.normpath(path).replace('\\', '/')
+else:
+    normpath = os.path.normpath
+
+
 def homify(path):
     """Replaces the homedirectory (if present) in the path with a tilde (~)."""
     homedir = QDir.homePath()
