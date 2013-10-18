@@ -26,8 +26,6 @@ from __future__ import unicode_literals
 
 import tokeniter
 import ly.lex
-import matcher
-
 
 
 def find(i):
@@ -42,13 +40,13 @@ def find(i):
             yield token, False, nest
 
 
-def select_block(view):
-    """Tries to select a meaningful block.
+def select_block(cursor):
+    """Try to select a meaningful block.
     
     Always extends the selection.
+    Returns True if the cursor's selection has changed.
     
     """
-    cursor = view.textCursor()
     doc = cursor.document()
     start, end = cursor.selectionStart(), cursor.selectionEnd()
     
@@ -84,6 +82,5 @@ def select_block(view):
                                 break
                     cursor.setPosition(c2.selectionEnd())
                     cursor.setPosition(c1.selectionStart(), cursor.KeepAnchor)
-                    view.setTextCursor(cursor)
-                    return
+                    return True
 

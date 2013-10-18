@@ -697,7 +697,9 @@ class MainWindow(QMainWindow):
         
     def selectBlock(self):
         import select_block
-        select_block.select_block(self.currentView())
+        cursor = self.currentView().textCursor()
+        if select_block.select_block(cursor):
+            self.currentView().setTextCursor(cursor)
         
     def find(self):
         import search
