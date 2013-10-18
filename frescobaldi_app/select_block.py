@@ -82,8 +82,8 @@ def select_block(view):
                             if isindent and nest == threshold:
                                 c1 = tokens.cursor()
                                 break
-                    cursor.setPosition(c1.selectionStart())
-                    cursor.setPosition(c2.selectionEnd(), cursor.KeepAnchor)
+                    cursor.setPosition(c2.selectionEnd())
+                    cursor.setPosition(c1.selectionStart(), cursor.KeepAnchor)
                     view.setTextCursor(cursor)
                     return
 
