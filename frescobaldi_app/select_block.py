@@ -29,6 +29,19 @@ import ly.lex
 import matcher
 
 
+
+def find(i):
+    """Yield (token, is_indent, nest) for every occurring indent/dedent token in i."""
+    nest = 0
+    for token in i:
+        if isinstance(token, ly.lex.Indent):
+            nest += 1
+            yield token, True, nest
+        elif isinstance(token, ly.lex.Dedent):
+            nest -= 1
+            yield token, False, nest
+
+
 def select_block(view):
     """Tries to select a meaningful block.
     
@@ -51,42 +64,26 @@ def select_block(view):
             # we are at the cursor position
             if not isinstance(token, ly.lex.Indent):
                 # search backwards to the first indenting token
-                nest = 1
-                for token in tokens.backward():
-                    if isinstance(token, ly.lex.Indent):
-                        nest -= 1
-                        if nest == 0:
-                            break
-                    elif isinstance(token, ly.lex.Dedent):
-                        nest += 1
+                for token, isindent, nest in find(tokens.backward()):
+                    if isindent and nest == 1:
+                        break
                 else:
                     return
             c1 = tokens.cursor()
             startpoint = tokens.copy()
             # now look forward
-            nest = 1
-            for token in tokens.forward():
-                if isinstance(token, ly.lex.Dedent):
-                    nest -= 1
-                    if nest <= 0:
-                        if tokens.block.position() + token.end >= end:
-                            # we found the endpoint
-                            c2 = tokens.cursor()
-                            if nest < 0:
-                                for token in startpoint.backward():
-                                    if isinstance(token, ly.lex.Indent):
-                                        nest += 1
-                                        if nest == 0:
-                                            c1 = tokens.cursor()
-                                            break
-                                    elif isinstance(token, ly.lex.Dedent):
-                                        nest -= 1
-                            break
-                elif isinstance(token, ly.lex.Indent):
-                    nest += 1
-            if c1 and c2:
-                cursor.setPosition(c1.selectionStart())
-                cursor.setPosition(c2.selectionEnd(), cursor.KeepAnchor)
-                view.setTextCursor(cursor)
-            return
+            for token, isindent, nest in find(tokens.forward()):
+                if not isindent and nest < 0 and  tokens.block.position() + token.end >= end:
+                    # we found the endpoint
+                    c2 = tokens.cursor()
+                    if nest < -1:
+                        threshold = 1 - nest
+                        for token, isindent, nest in find(startpoint.backward()):
+                            if isindent and nest == threshold:
+                                c1 = tokens.cursor()
+                                break
+                    cursor.setPosition(c1.selectionStart())
+                    cursor.setPosition(c2.selectionEnd(), cursor.KeepAnchor)
+                    view.setTextCursor(cursor)
+                    return
 
