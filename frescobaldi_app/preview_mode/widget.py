@@ -37,9 +37,8 @@ class Widget(QWidget):
     def __init__(self, tool):
         super(Widget, self).__init__(tool)
         
-        layout = QVBoxLayout()
+        layout = QVBoxLayout(spacing=1)
         self.setLayout(layout)
-        layout.setContentsMargins(0, 0, 0, 0)
         
         self.options = {}
         # Skylines checkbox
@@ -67,15 +66,12 @@ class Widget(QWidget):
         self.CBannotatespacing = QCheckBox()
         self.options['annotate-spacing'] = self.CBannotatespacing
         # custom-file checkbox and input field
-        self.GBcustomfile = QGroupBox()
-        self.GBcustomfile.setCheckable(True)
-        self.options['custom-file'] = self.GBcustomfile
-        self.LEcustomfile = QLineEdit()
+        self.CBcustomfile = QCheckBox()
+        self.options['custom-file'] = self.CBcustomfile
+        self.LEcustomfile = QLineEdit(enabled=False)
+        self.CBcustomfile.toggled.connect(self.LEcustomfile.setEnabled)
         
         # Compose layout
-        self.customfile_layout = QVBoxLayout()
-        self.customfile_layout.addWidget(self.LEcustomfile)
-        self.GBcustomfile.setLayout(self.customfile_layout)
         layout.addWidget(self.CBcontrolpoints)
         layout.addWidget(self.CBcolorvoices)
         layout.addWidget(self.CBcolordirections)
@@ -84,7 +80,8 @@ class Widget(QWidget):
         layout.addWidget(self.CBskylines)
         layout.addWidget(self.CBpapercolumns)
         layout.addWidget(self.CBannotatespacing)
-        layout.addWidget(self.GBcustomfile)
+        layout.addWidget(self.CBcustomfile)
+        layout.addWidget(self.LEcustomfile)
         layout.addStretch(1)
         
         # Connect slots
@@ -94,7 +91,7 @@ class Widget(QWidget):
         self.CBcolordirections.toggled.connect(self.toggleOption)
         self.CBgrobanchors.toggled.connect(self.toggleOption)
         self.CBgrobnames.toggled.connect(self.toggleOption)
-        self.GBcustomfile.toggled.connect(self.toggleOption)
+        self.CBcustomfile.toggled.connect(self.toggleOption)
         self.CBpapercolumns.toggled.connect(self.toggleOption)
         self.CBannotatespacing.toggled.connect(self.toggleOption)
         self.LEcustomfile.textEdited.connect(self.customFileEdited)
@@ -131,8 +128,8 @@ class Widget(QWidget):
         self.CBannotatespacing.setToolTip(_(
             "Use LilyPond's \"annotate spacing\" option to\n"
             "display measurement information"))
-        self.GBcustomfile.setTitle(_("Include Custom File:"))
-        self.GBcustomfile.setToolTip(_(
+        self.CBcustomfile.setText(_("Include Custom File:"))
+        self.CBcustomfile.setToolTip(_(
             "Include a custom file with definitions\n"
             "for additional Debug Modes"))
         self.LEcustomfile.setToolTip(_(
