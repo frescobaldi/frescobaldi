@@ -31,63 +31,25 @@ from PyQt4.QtGui import (
 
 import app
 import info
+import credits
 import icons
 import helpers
 import bugreport
 import language_names
 import po.setup
 
-def credits():
-    """Iterating over this should return paragraphs for the credits page."""
-    yield _(
-        "{appname} is written in {python} and uses the {qt} toolkit.").format(
-        appname=info.appname,
-        # L10N: the Python programming language
-        python='<a href="http://www.python.org/">{0}</a>'.format(_("Python")),
-        # L10N: the Qt4 application framework
-        qt='<a href="http://qt.nokia.com/">{0}</a>'.format(_("Qt4")))
-    yield _(
-        "The Music View is powered by the {poppler} library by "
-        "{authors} and others.").format(
-        poppler='<a href="http://poppler.freedesktop.org/">{0}</a>'.format(
-            # L10N: the Poppler PDF library
-            _("Poppler")),
-        authors='Kristian Høgsberg, Albert Astals Cid')
-    yield _(
-        "Most of the bundled icons are created by {tango}.").format(
-        tango='<a href="http://tango.freedesktop.org/">{0}</a>'.format(_(
-            "The Tango Desktop Project")))
-    
+def credits_paragraphs():
+    """Yield paragraphs for the credits page."""
+    for t in credits.credits():
+        yield t
+
     yield _("The following people contributed to {appname}:").format(
         appname=info.appname)
     
-    # list other credits here
-    def author(name, *contributions):
-        return "{author}: {contributions}".format(
+    for name, contributions in credits.authors():
+        yield "{author}: {contributions}".format(
             author = name,
             contributions = ", ".join(contributions))
-            
-    yield author("Richard Cognot", 
-        _("Kinetic Scrolling for the Music View"),
-        )
-    
-    yield author("Nicolas Malarmey",
-        _("Improved highlighting and auto-completion of Scheme code"),
-		)
-	
-    yield author("Urs Liska",
-        _("Preview modes"),
-        _("Various contributions"),
-		)
-	
-    yield author("Christopher Bryan",
-        _("Modal Transpose"),
-        )
-	
-    yield author("Peter Bjuhr",
-        _("Quick Insert buttons for grace notes"),
-        _("MusicXML import"),
-        )
 	
     # translations
     yield _(
@@ -95,7 +57,7 @@ def credits():
         appname=info.appname)
     lang = QSettings().value("language", "", type("")) or po.setup.current() or None
     langs = [(language_names.languageName(code, lang), names)
-             for code, names in info.translators.items()]
+             for code, names in credits.translators.items()]
     for lang, names in sorted(langs):
         yield lang + ": " + (', '.join(names))
 
@@ -157,7 +119,7 @@ class Credits(QTextBrowser):
         super(Credits, self).__init__(parent)
         self.setOpenLinks(False)
         self.anchorClicked.connect(helpers.openUrl)
-        self.setHtml('\n'.join(map('<p>{0}</p>'.format, credits())))
+        self.setHtml('\n'.join(map('<p>{0}</p>'.format, credits_paragraphs())))
 
 
 class Version(QTextBrowser):

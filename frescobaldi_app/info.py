@@ -37,58 +37,5 @@ domain = "frescobaldi.org"
 url = "http://www.{0}/".format(domain)
 license = "GPL"
 
-# these are used in the application
+# this one is used everywhere in the application
 appname = "Frescobaldi"
-
-# mapping from language code to list of translator names
-translators = {
-    'nl': [
-        "Wilbert Berendsen",
-    ],
-    'fr': [
-        "Raphaël Doursenaud",
-        "Denis Bitouzé",
-        "Philippe Massart",
-        "Valentin Villenave",
-        "Yann Collette",
-        "David Bouriaud",
-        "Ryan Kavanagh",
-        "Richard Cognot",
-    ],
-    'tr': [
-        "Server ACİM",
-    ],
-    'es': [
-        "Francisco Vila",
-    ],
-    'ru': [
-        "Sergey Poltavski",
-        "Artem Zolochevskiy",
-        "Mikhail Iglizky",
-    ],
-    'it': [
-        "Gianluca D'Orazio",
-    ],
-    'de': [
-        "Henrik Evers",
-        "Georg Hennig",
-        "Markus W. Kropp",
-        "Urs Liska",
-    ],
-    'cs': [
-        "Pavel Fric",
-    ],
-    'pl': [
-        "Piotr Komorowski",
-    ],
-    'gl': [
-        "Manuel A. Vázquez",
-    ],
-    'pt_BR': [
-        "Édio Mazera",
-    ],
-    'uk': [
-        "Dmytro O. Redchuk",
-    ],
-}
-

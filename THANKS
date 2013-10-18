@@ -1,13 +1,20 @@
 Without the help of other people, Frescobaldi would not have been possible.
 
-Besides the credits listed here, there is also information in about.py and
-info.py from the frescobaldi_app/ directory.
+Thanks go to all the users, contributors and bug reporters of Frescobaldi!
 
 Thanks go to the Python and Qt4 developers for providing excellent tools to
 develop Frescobaldi with.
 
 And thanks to the LilyPond developers for creating an amazing music engraver!
 
+Besides the credits listed here, there is also information in the
+frescobaldi_app/credits.py file:
+
+* If a translator is added, add the name also to the dictionary 'translators'.
+* If a developer is added, add the name and a description of the contribution
+  to the author() function.
+* If a third-party library is used or incorporated, add a line to the credits()
+  function.
 
 Main author and core developer:
 * Wilbert Berendsen (www.wilbertberendsen.nl)
