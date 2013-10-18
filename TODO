@@ -6,8 +6,6 @@ TODO and wishes for Frescobaldi 2.x
 
 - wizard to download and unpack LilyPond documentation and/or LilyPond itself
 
-- Edit->Select Block
-
 - Load .ly file specifying other encoding than UTF-8
   (this can be done from the command line but not via the user interface)
 

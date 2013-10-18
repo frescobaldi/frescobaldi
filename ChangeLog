@@ -2,6 +2,16 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
+Changes in 2.0.12 -- 
+
+* Translations:
+  - updated: cs, nl, fr, es
+* New features:
+  - Edit->Select Block has finally been implemented
+* Improvements:
+  - The layout of the Preview Mode panel has been slightly improved
+
+
 Changes in 2.0.11 -- October 16th, 2013
 
 * Translations:

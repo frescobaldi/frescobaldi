@@ -695,6 +695,10 @@ class MainWindow(QMainWindow):
     def selectAll(self):
         self.currentView().selectAll()
         
+    def selectBlock(self):
+        import select_block
+        select_block.select_block(self.currentView())
+        
     def find(self):
         import search
         search.Search.instance(self).find()
@@ -807,6 +811,7 @@ class MainWindow(QMainWindow):
         ac.edit_copy_colored_html.triggered.connect(self.copyColoredHtml)
         ac.edit_select_all.triggered.connect(self.selectAll)
         ac.edit_select_none.triggered.connect(self.selectNone)
+        ac.edit_select_current_toplevel.triggered.connect(self.selectBlock)
         ac.edit_select_full_lines_up.triggered.connect(self.selectFullLinesUp)
         ac.edit_select_full_lines_down.triggered.connect(self.selectFullLinesDown)
         ac.edit_find.triggered.connect(self.find)
