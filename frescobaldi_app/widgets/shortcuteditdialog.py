@@ -23,10 +23,10 @@ A dialog to edit the keyboard shortcuts for an action.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import Qt
+from PyQt4.QtCore import Qt, QTimer
 from PyQt4.QtGui import (
     QDialog, QDialogButtonBox, QGridLayout, QHBoxLayout, QKeySequence, QLabel,
-    QRadioButton, QVBoxLayout)
+    QRadioButton, QVBoxLayout, QLayout)
 
 
 import app
@@ -37,8 +37,15 @@ from keysequencewidget import KeySequenceWidget
 class ShortcutEditDialog(QDialog):
     """A modal dialog to view and/or edit keyboard shortcuts."""
     
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, conflictCallback=None, *cbArgs):
+        """conflictCallback is a optional method called when a shortcut is changed.
+        
+        cbArgs is optional arguments of the conflictCallback method.
+        it should return the name of the potential conflict or a null value """
+        
         super(ShortcutEditDialog, self).__init__(parent)
+        self.conflictCallback = conflictCallback
+        self.cbArgs = cbArgs
         self.setMinimumWidth(400)
         # create gui
         
@@ -50,36 +57,44 @@ class ShortcutEditDialog(QDialog):
         top.setSpacing(4)
         p = self.toppixmap = QLabel()
         l = self.toplabel = QLabel()
-        l.setWordWrap(True)
         top.addWidget(p)
         top.addWidget(l, 1)
         layout.addLayout(top)
-        
         grid = QGridLayout()
         grid.setSpacing(4)
         grid.setColumnStretch(1, 2)
         layout.addLayout(grid)
         
-        self.buttonDefault = QRadioButton(self)
+        self.buttonDefault = QRadioButton(self, toggled=self.slotButtonDefaultToggled)
         self.buttonNone = QRadioButton(self)
+        self.lconflictDefault = QLabel('test')
+        self.lconflictDefault.setStyleSheet("color : red;")
+        self.lconflictDefault.setVisible(False)
         self.buttonCustom = QRadioButton(self)
         grid.addWidget(self.buttonDefault, 0, 0, 1, 2)
-        grid.addWidget(self.buttonNone, 1, 0, 1, 2)
-        grid.addWidget(self.buttonCustom, 2, 0, 1, 2)
+        grid.addWidget(self.lconflictDefault, 1, 0, 1, 2)
+        grid.addWidget(self.buttonNone, 2, 0, 1, 2)
+        grid.addWidget(self.buttonCustom, 3, 0, 1, 2)
         
         self.keybuttons = []
         self.keylabels = []
+        self.conflictlabels = []
         for num in range(4):
             l = QLabel(self)
             l.setStyleSheet("margin-left: 2em;")
             l.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
-            b = KeySequenceWidget(self)
+            b = KeySequenceWidget(self, num)
             b.keySequenceChanged.connect(self.slotKeySequenceChanged)
             l.setBuddy(b)
             self.keylabels.append(l)
             self.keybuttons.append(b)
-            grid.addWidget(l, num+3, 0)
-            grid.addWidget(b, num+3, 1)
+            grid.addWidget(l, num+4+num, 0)
+            grid.addWidget(b, num+4+num, 1)
+            lconflict = QLabel()
+            lconflict.setStyleSheet("color : red;")
+            self.conflictlabels.append(lconflict)
+            lconflict.setVisible(False)
+            grid.addWidget(lconflict, num+5+num, 0, 1, 2, Qt.AlignHCenter)
         
         layout.addWidget(Separator(self))
         
@@ -97,10 +112,39 @@ class ShortcutEditDialog(QDialog):
         for num in range(4):
             self.keylabels[num].setText(_("Alternative #{num}:").format(num=num) if num else _("Primary shortcut:"))
     
-    def slotKeySequenceChanged(self):
+    def slotKeySequenceChanged(self, num):
         """Called when one of the keysequence buttons has changed."""
+        self.checkConflict(num)
         self.buttonCustom.setChecked(True)
-        
+    
+    def slotButtonDefaultToggled(self, val):
+        if self.conflictCallback is not None:
+            if not val:
+                self.lconflictDefault.setVisible(False)
+            else:
+                if self._default:
+                    conflictList = []
+                    for s in self._default:
+                        conflictName = self.conflictCallback(s, *self.cbArgs)
+                        if conflictName:
+                            conflictList.append(conflictName)
+                    if conflictList:
+                        text = _("Conflict with: <b>{0}</b>").format(', '.join(conflictList))
+                        self.lconflictDefault.setText(text)
+                        self.lconflictDefault.setVisible(True)
+            QTimer.singleShot(0, self.adjustSize)
+                    
+    def checkConflict(self, num):
+        if self.conflictCallback is not None:
+            conflictName = self.conflictCallback(self.keybuttons[num].shortcut(), *self.cbArgs)
+            if conflictName:
+                text = _("Conflict with: <b>{0}</b>").format(conflictName)
+                self.conflictlabels[num].setText(text)
+                self.conflictlabels[num].setVisible(True)
+            else:
+                self.conflictlabels[num].setVisible(False)
+            QTimer.singleShot(0, self.adjustSize)
+     
     def editAction(self, action, default=None):
         # load the action
         self._action = action
@@ -110,23 +154,23 @@ class ShortcutEditDialog(QDialog):
                 name='<br/><b>{0}</b>:'.format(action.text()))))
         self.toppixmap.setPixmap(action.icon().pixmap(32))
         shortcuts = action.shortcuts()
-        self.buttonDefault.setVisible(default is not None)
+        self.buttonDefault.setVisible(bool(default))
         if default is not None and shortcuts == default:
             self.buttonDefault.setChecked(True)
-        elif shortcuts:
-            self.buttonCustom.setChecked(True)
         else:
-            self.buttonNone.setChecked(True)
-        for num, key in enumerate(shortcuts[:4]):
-            self.keybuttons[num].setShortcut(key)
-        for num in range(len(shortcuts), 4):
-            self.keybuttons[num].clear()
+            if shortcuts:
+                self.buttonCustom.setChecked(True)
+                for num, key in enumerate(shortcuts[:4]):
+                    self.keybuttons[num].setShortcut(key)
+                    self.checkConflict(num)
+            else:
+                self.buttonNone.setChecked(True)
+            
         if default:
             ds = "; ".join(key.toString(QKeySequence.NativeText) for key in default)
         else:
             ds = _("no keyboard shortcut", "none")
         self.buttonDefault.setText(_("Use &default shortcut ({name})").format(name=ds))
-        
         return self.exec_()
         
     def done(self, result):
