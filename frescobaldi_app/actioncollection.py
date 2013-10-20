@@ -95,7 +95,11 @@ class ActionCollectionBase(object):
             return self._actions[name].shortcuts()
         except KeyError:
             pass
-        
+    
+    def setShortcuts(self, name, shortcuts):
+        """Implement to set the shortcuts list for our action."""
+        pass
+    
     def settingsGroup(self):
         """Returns settings group to load/save shortcuts from or to."""
         s = QSettings()
@@ -157,6 +161,27 @@ class ActionCollection(ActionCollectionBase):
             if action.shortcuts():
                 self.setDefaultShortcuts(name, action.shortcuts())
 
+    def setShortcuts(self, name, shortcuts):
+        """Sets the shortcuts list for our action. Use an empty list to remove the shortcuts."""
+        action = self.actions().get(name)
+        if not action:
+            return
+        
+        default = self.defaultShortcuts(name)
+        setting = self.settingsGroup()
+        action.setShortcuts(shortcuts)
+        setting.setValue(name, shortcuts)
+        if default:
+            if shortcuts == default:
+                setting.remove(name)
+            else:
+                setting.setValue(name, shortcuts)
+        else:
+            if shortcuts:
+                setting.setValue(name, shortcuts)
+            else:
+                setting.remove(name)
+    
     def load(self, restoreDefaults=True):
         """Reads keyboard shortcuts from the settings.
         
