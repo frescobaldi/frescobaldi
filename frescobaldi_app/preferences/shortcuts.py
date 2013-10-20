@@ -207,14 +207,27 @@ class Shortcuts(preferences.Page):
                 "Can't write to destination:\n\n{url}\n\n{error}").format(
                 url=filename, error=e.strerror))
     
+    def findShortcutConflict(self, shortcut):
+        """Find the possible shortcut conflict and return the conflict name."""
+        if shortcut:
+            item = self.tree.currentItem()
+            if not isinstance(item, ShortcutItem):
+                return None
+            scheme = self.scheme.currentScheme()
+            for i in self.items():
+                a = i.action(scheme)
+                if i != item and a.shortcuts():
+                    for s1 in a.shortcuts():
+                        if s1.matches(shortcut) or shortcut.matches(s1):
+                            return qutil.removeAccelelator(a.text())
+        return None           
+    
     def editCurrentItem(self):
         item = self.tree.currentItem()
         if not isinstance(item, ShortcutItem):
             return
-        try:
-            dlg = self._editdialog
-        except AttributeError:
-            dlg = self._editdialog = ShortcutEditDialog(self)
+
+        dlg = ShortcutEditDialog(self, self.findShortcutConflict)
         scheme = self.scheme.currentScheme()
         action = item.action(scheme)
         default = item.defaultShortcuts()
@@ -228,33 +241,14 @@ class Shortcuts(preferences.Page):
                         if s1.matches(s2) or s2.matches(s1):
                             conflicting.append(i)
             if conflicting:
-                # show a question dialog
-                msg = [_("This shortcut conflicts with the following command:",
-                        "This shortcut conflicts with the following commands:", len(conflicting))]
-                msg.append('<br/>'.join(i.text(0) for i in conflicting))
-                msg.append(_("Remove the shortcut from that command?",
-                             "Remove the shortcut from those commands?", len(conflicting)))
-                msg = '<p>{0}</p>'.format('</p><p>'.join(msg))
-                res = QMessageBox.warning(self, _("Shortcut Conflict"), msg,
-                        QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel)
-                if res == QMessageBox.Yes:
-                    # remove from conflicting
-                    for i in conflicting:
-                        l = i.shortcuts(scheme)
-                        for s1 in list(l): # copy
-                            for s2 in shortcuts:
-                                if s1.matches(s2) or s2.matches(s1):
-                                    l.remove(s1)
-                        i.setShortcuts(l, scheme)
-                elif res == QMessageBox.No:
-                    # remove from ourselves
-                    for i in conflicting:
-                        for s1 in list(shortcuts): # copy
-                            for s2 in i.shortcuts(scheme):
-                                if s1.matches(s2) or s2.matches(s1):
-                                    shortcuts.remove(s1)
-                else:
-                    return # cancelled
+                for i in conflicting:
+                    l = i.shortcuts(scheme)
+                    for s1 in list(l): # copy
+                        for s2 in shortcuts:
+                            if s1.matches(s2) or s2.matches(s1):
+                                l.remove(s1)
+                    i.setShortcuts(l, scheme)
+                
             # store the shortcut
             item.setShortcuts(shortcuts, scheme)
             self.changed.emit()
