@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 from PyQt4.QtCore import Qt, QTimer
 from PyQt4.QtGui import (
     QDialog, QDialogButtonBox, QGridLayout, QHBoxLayout, QKeySequence, QLabel,
-    QRadioButton, QVBoxLayout, QLayout)
+    QRadioButton, QVBoxLayout)
 
 
 import app
