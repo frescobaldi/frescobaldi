@@ -191,12 +191,12 @@ class SchemeSelector(QWidget):
         
         # load the names for the shortcut schemes
         s.beginGroup(namesGroup)
+        block = self.scheme.blockSignals(True)
         self.scheme.clear()
         self.scheme.addItem(_("Default"), "default")
         lst = [(s.value(key, key, type("")), key) for key in s.childKeys()]
         for name, key in sorted(lst, key=lambda f: f[0].lower()):
             self.scheme.addItem(name, key)
-        block = self.scheme.blockSignals(True)
         
         # find out index
         index = self.scheme.findData(cur)
