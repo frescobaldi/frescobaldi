@@ -230,7 +230,7 @@ class Shortcuts(preferences.Page):
         dlg = ShortcutEditDialog(self, self.findShortcutConflict)
         scheme = self.scheme.currentScheme()
         action = item.action(scheme)
-        default = item.defaultShortcuts()
+        default = item.defaultShortcuts() or None
         if dlg.editAction(action, default):
             shortcuts = action.shortcuts()
             # check for conflicts
