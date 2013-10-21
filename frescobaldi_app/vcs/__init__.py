@@ -40,8 +40,10 @@ def app_is_git_controlled():
     except NameError:
         if os.path.isdir(os.path.join(sys.path[0], '..', '.git')):
             try:
-                import subprocess
-                subprocess.call(['git', '--version'])
+                import apprepo
+                global app_repo
+                app_repo = apprepo.AppRepo()
+                app_repo._run_git_command('--version')
                 _app_is_git_controlled = True
                 return _app_is_git_controlled
             except:
@@ -54,18 +56,17 @@ def app_is_git_controlled():
                                     "what consequences to take."))
                 _app_is_git_controlled = False
                 return _app_is_git_controlled
-        
-        
-            
-        
-    return _app_is_git_controlled
+        else:
+            _app_is_git_controlled = False
+            return _app_is_git_controlled
+
+# conditionally create app_repo object
+app_is_git_controlled()
 
 if app_is_git_controlled():
-    from . import apprepo
-    app_repo = apprepo.AppRepo()
-    
-    # debugging tests, to be removed
-    from . import test
+    # debugging tests, to be removed finally
+    #from . import test
+    pass
 
 def app_active_branch_window_title():
     """Return the active branch, suitable as window title.

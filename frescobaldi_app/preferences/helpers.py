@@ -85,6 +85,7 @@ class Apps(preferences.Group):
         yield "email", _("E-Mail:")
         yield "directory", _("File Manager:")
         yield "shell", _("Shell:")
+        yield "git", _("Git:")
         
     def translateUI(self):
         self.setTitle(_("Helper Applications"))
@@ -100,6 +101,8 @@ class Apps(preferences.Group):
             "Command that should accept a mailto: URL."))
         self.entries["shell"].setToolTip(_(
             "Command to open a Terminal or Command window."))
+        self.entries["git"].setToolTip(_(
+            "Command (base) to run Git versioning actions."))
     
     def loadSettings(self):
         s = QSettings()
