@@ -105,7 +105,12 @@ class GitRepo(AbstractVCSRepo):
         - cmd is the git command (without 'git')
         - args is a string or a list of strings
         """
-        cmd = ['git', cmd]
+        from PyQt4.QtCore import QSettings
+        s = QSettings()
+        s.beginGroup("helper_applications")
+        git_cmd = s.value("git", "git", type(""))
+        git_cmd = git_cmd if git_cmd else "git"
+        cmd = [git_cmd, cmd]
         if isinstance(args, str) or isinstance(args, unicode):
             cmd.append(args)
         else:
