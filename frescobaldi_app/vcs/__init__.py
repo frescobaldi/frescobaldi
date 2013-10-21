@@ -56,6 +56,9 @@ def app_is_git_controlled():
                                     "what consequences to take."))
                 _app_is_git_controlled = False
                 return _app_is_git_controlled
+        else:
+            _app_is_git_controlled = False
+            return _app_is_git_controlled
 
 # conditionally create app_repo object
 app_is_git_controlled()
