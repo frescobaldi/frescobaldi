@@ -38,7 +38,26 @@ def app_is_git_controlled():
     try:
         return _app_is_git_controlled
     except NameError:
-        _app_is_git_controlled = os.path.isdir(os.path.join(sys.path[0], '..', '.git'))
+        if os.path.isdir(os.path.join(sys.path[0], '..', '.git')):
+            try:
+                import subprocess
+                subprocess.call(['git', '--version'])
+                _app_is_git_controlled = True
+                return _app_is_git_controlled
+            except:
+                from PyQt4.QtGui import QMessageBox
+                QMessageBox.warning(None, 
+                                    _("No Git installation found"), 
+                                    _("Frescobaldi is run from within a Git repository "
+                                    "but Git isn't installed. I will continue without "
+                                    "Git support, but you might want to check out yourself "
+                                    "what consequences to take."))
+                _app_is_git_controlled = False
+                return _app_is_git_controlled
+        
+        
+            
+        
     return _app_is_git_controlled
 
 if app_is_git_controlled():
