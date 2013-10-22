@@ -29,6 +29,13 @@ import os
 from PyQt4.QtGui import QPrinter
 
 
+lpr_commands = (
+    "lpr-cups",
+    "lpr.cups",
+    "lpr",
+    "lp",
+)
+
 def lprCommand():
     """Returns a suitable 'lpr'-like command to send a file to the printer queue.
     
@@ -36,9 +43,8 @@ def lprCommand():
     Prefers the CUPS command 'lpr' or 'lp' if it can be found.
     
     """
-    commands = ("lpr-cups", "lpr.cups", "lpr", "lp")
     paths = os.environ.get("PATH", os.defpath).split(os.pathsep)
-    for cmd, path in itertools.product(commands, paths):
+    for cmd, path in itertools.product(lpr_commands, paths):
         if os.access(os.path.join(path, cmd), os.X_OK):
             return cmd
 

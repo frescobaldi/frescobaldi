@@ -51,8 +51,11 @@ class parse_source():
 			for t in tokeniter.tokens(block):
 				func_name = t.__class__.__name__ #get instance name
 				if func_name != 'Space':
-					func_call = getattr(self, func_name)
-					func_call(t)
+					try:
+						func_call = getattr(self, func_name)
+						func_call(t)
+					except AttributeError:
+						print "Warning: "+func_name+" not implemented!"
 			block = block.next()
 		self.iterate_mediator()
 		
@@ -62,7 +65,7 @@ class parse_source():
 	## 
 	# The different source types from ly.lex.lilypond are here sent to translation.
 	##				
-    	
+			    	
 	def Name(self, token):
 		""" name of variable """
 		self.partname = token    	
@@ -96,11 +99,11 @@ class parse_source():
 		self.prev_command = "clef"
 		
 	def PitchCommand(self, token):
-		if token == '\relative': #the mode must be absolute
-			pass #not implemented
+		if token == '\relative': # the mode must be absolute
+			pass # not implemented
 		elif token == '\key':
 			self.prev_command = "key"
-		
+					
 	def Note(self, token):
 		""" notename, e.g. c, cis, a bes ... """
 		if self.prev_command == "key":
@@ -118,7 +121,22 @@ class parse_source():
 	def Length(self, token):
 		""" note length/duration, e.g. 4, 8, 16 ... """
 		self.duration = token
-		self.mediator.new_duration(token) 
+		self.mediator.new_duration(token)
+		
+	def Rest(self, token):
+		""" rest, r or R. Note: NOT by command, i.e. \rest """	
+		if token == 'R':
+			self.scale = token
+		self.mediator.new_rest(token)
+		
+	def Skip(self, token):
+		""" invisible rest (s) or command \skip """
+		self.mediator.new_rest('s')
+		
+	def Scaling(self, token):
+		""" scaling, e.g. *3 """
+		if self.scale == 'R':
+			self.mediator.scale_rest(token[1:])
 		
 	def EqualSign(self, token):
 		pass
@@ -142,8 +160,11 @@ class parse_source():
 		pass
 		
 	def Command(self, token):
-		self.prev_command = token
-		print "Command:"+token
+		if token == '\\rest':
+			self.mediator.note2rest()
+		else:
+			self.prev_command = token
+			print "Command:"+token+"|"
 		
 	def UserCommand(self, token):
 		if self.prev_command == 'key':
@@ -152,7 +173,44 @@ class parse_source():
 		else:
 			self.prev_command = token
 			print "UserCommand:"+token
+			
+	def Header(self, token):
+		pass
 		
+	def Paper(self, token):
+		pass
+		
+	def PaperVariable(self, token):
+		print token
+		
+	def OpenBracket(self, token):
+		pass
+		
+	def CloseBracket(self, token):
+		pass
+		
+	def Unparsed(self, token):
+		pass
+		
+	def SchemeStart(self, token):
+		pass
+		
+	def OpenParen(self, token):
+		pass
+		
+	def CloseParen(self, token):
+		pass
+		
+	def Function(self, token):
+		pass
+		
+	def Float(self, token):
+		pass
+		
+	##
+	# The xml-file is built from the mediator objects
+	##
+			
 	def iterate_mediator(self):
 		""" the mediator lists are looped through and outputed to the xml-file """
 		for part in self.mediator.score:
@@ -167,5 +225,10 @@ class parse_source():
 						self.musxml.new_note([obj.step, obj.alter, obj.octave], obj.duration, obj.type, self.mediator.divisions)
 						if obj.tuplet:
 							self.musxml.tuplet_note(obj.tuplet, obj.duration, obj.ttype, self.mediator.divisions)
+					elif isinstance(obj, ly2xml_mediator.bar_rest):
+						if obj.skip:
+							self.musxml.new_skip(obj.duration, self.mediator.divisions)
+						else:
+							self.musxml.new_rest(obj.duration, obj.type, self.mediator.divisions, obj.pos)
 
 

@@ -67,6 +67,29 @@ class mediator():
 		self.bar.append(self.current_note)
 		self.current_attr = bar_attr()
 		
+	def new_rest(self, rtype, pos=0):
+		if rtype == 'r':
+			self.current_note = bar_rest(self.duration, pos)
+		elif rtype == 'R':
+			self.current_note = bar_rest(self.duration, pos, show_type=False)
+		elif rtype == 's':
+			self.current_note = bar_rest(self.duration, pos, skip=True)
+		self.bar.append(self.current_note)
+		self.current_attr = bar_attr()
+		
+	def note2rest(self):
+		temp_note = self.current_note
+		self.current_note = bar_rest(temp_note.duration, [temp_note.step, str(temp_note.octave)])
+		self.bar.pop()
+		self.bar.append(self.current_note)
+		
+	def scale_rest(self, multp, new_bar=True):
+		""" create multiple whole bar rests """
+		for i in range(1, int(multp)):
+			self.part.append(self.bar)
+		if new_bar:
+			self.new_bar()
+		
 	def new_duration(self, duration):
 		self.current_note.set_duration(duration)
 		self.duration = duration
@@ -74,9 +97,9 @@ class mediator():
 		
 	def change_to_tuplet(self, fraction, ttype):
 		tfraction = fraction.split('/')
-		tfraction.reverse() #delete this row with new tuplet notation
+		tfraction.reverse() # delete this row with new tuplet notation		
 		self.current_note.set_tuplet(tfraction, ttype)
-		
+				
 	def new_octave(self, octave):
 		self.current_note.set_octave(octave)
 		
@@ -99,17 +122,16 @@ class mediator():
 		if mod > 0:
 			mult = get_mult(a,b)
 			self.divisions = divs*mult
-			#print "---"
-			#print "div:"+str(divs)
-			#print "len:"+str(org_len)
-			#print tfraction			
-			#print "tupl:"+str(a)+'/'+str(b)
-			#print "predur:"+str(predur)
-			#print "mod:"+str(mod)
-			#print "mult:"+str(mult)
+			# print "---"
+			# print "div:"+str(divs)
+			# print "len:"+str(org_len)
+			# print tfraction			
+			# print "tupl:"+str(a)+'/'+str(b)
+			# print "predur:"+str(predur)
+			# print "mod:"+str(mod)
+			# print "mult:"+str(mult)
 			
-		
-		
+							
 class bar_note():
 	""" object to keep track of note parameters """
 	def __init__(self, note_name, durval):
@@ -131,6 +153,27 @@ class bar_note():
 	def set_tuplet(self, fraction, ttype):
 		self.tuplet = fraction
 		self.ttype = ttype
+				
+class bar_rest():
+	""" object to keep track of different rests and skips """
+	def __init__(self, durval, pos, show_type=True, skip=False):
+		self.duration = durval
+		self.show_type = show_type
+		if self.show_type:
+			self.type = durval2type(durval)
+		else:
+			self.type = None
+		self.skip = skip
+		self.tuplet = 0
+		self.pos = pos
+		
+	def set_duration(self, durval):
+		self.duration = durval
+		if self.show_type:
+			self.type = durval2type(durval)
+		else:
+			self.type = None
+
 		
 class bar_attr():
 	""" object that keep track of bar attributes, e.g. time sign, clef, key etc """
@@ -138,6 +181,7 @@ class bar_attr():
 		self.key = -1
 		self.time = 0
 		self.clef = 0
+		self.mode = ''
 		
 	def set_key(self, muskey, mode):
 		self.key = muskey
@@ -222,9 +266,6 @@ def octmark2oct(octmark):
 def get_mult(num, den):
 	from fractions import Fraction
 	simple = Fraction(num, den)
-	#print '********'
-	#print str(num)+'/'+str(den)
-	#print simple
 	return simple.denominator
 		
 		

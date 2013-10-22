@@ -2,6 +2,16 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
+Changes in 2.0.12 -- 
+
+* Translations:
+  - updated: cs, nl, fr, es
+* New features:
+  - Edit->Select Block has finally been implemented
+* Improvements:
+  - The layout of the Preview Mode panel has been slightly improved
+
+
 Changes in 2.0.11 -- October 16th, 2013
 
 * Translations:
@@ -13,6 +23,8 @@ Changes in 2.0.11 -- October 16th, 2013
   - Import MusicXML (using musicxml2ly), contributed by Peter Bjuhr
   - New Quick Insert buttons for different kinds of grace notes, contributed
     by Peter Bjuhr
+  - Import and export of keyboard shortcuts and font & color schemes,
+    contributed by Nicolas Malarmey.
   - New Modal Transpose action, contributed by Christopher Bryan
   - New actions to remove articulations etc. from music (wish #180)
   - Edit->Copy to Snippet, to copy the selection or the full document
@@ -28,9 +40,14 @@ Changes in 2.0.11 -- October 16th, 2013
   - under the File menu there is also a New with Wizard... action calling the
     score wizard, creating a new document when clicking Ok, contributed by Urs
     Liska
+  - Word-related cursor movements have been improved. The backslash is now
+    considered a word boundary, even if there are no spaces between several
+    backslashed commands. Fixes wish #106.
 * Bug fixes:
   - various fixes and improvements on Mac OS X by Davide Liessi
   - fix splash screen shown as grey rectangle on some systems
+  - in the LilyPond log, clicking on error mesages in files with '..' in their
+    path (happens when using e.g. \include "../blabla.ly") now works.
 
 
 Changes in 2.0.10 -- May 12th, 2013

@@ -50,7 +50,7 @@
 #(define (calculate-version ver-list)
    ;; take a LilyPond version number as a list
    ;; and calculate a decimal representation
-   (+ (first ver-list) (second ver-list) (third ver-list)))
+   (+ (* 10000 (first ver-list)) (* 100 (second ver-list)) (third ver-list)))
 
 #(define (lilypond-greater-than? ref-version)
    (> (calculate-version (ly:version))
@@ -78,5 +78,4 @@ versionComment =
   c'1^\markup "2.17.5"
   \versionComment #'(2 17 5)
 }
-
 %}

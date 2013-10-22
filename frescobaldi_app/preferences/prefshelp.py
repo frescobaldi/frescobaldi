@@ -61,6 +61,8 @@ class preferences_general(help.page):
             "to load if Frescobaldi is started without a filename. "
             "You can choose whether to start with one empty document, with the "
             "last used session, or with a specific session. "
+            "Please note that this only works when you have explicitly created "
+            "a session and set it to automatically add files on save to it. "
             "See also {link}.").format(
             startup=_("Session to load if Frescobaldi is started without arguments"),
             link=help.contents.sessions.link()),
@@ -183,6 +185,22 @@ class preferences_helpers(help.page):
             "For the command prompt, the command should open a console window. "
             "A <code>$f</code> value is replaced with the directory of the "
             "current document."),
+          '<b>{0}</b>'.format(_("Printing Music")),
+          # next paragraph should be the same as the tooltip in helpers.py
+          _("The printing command is used to print a PostScript or PDF file. "
+            "On Linux you don't need this, but on Windows and Mac OS X you can "
+            "provide a command to avoid that PDF documents are being printed "
+            "using raster images, which is less optimal.\n"
+            "<code>$pdf</code> gets replaced with the PDF filename, or alternatively, "
+            "<code>$ps</code> is replaced with the PostScript filename. "
+            "<code>$printer</code> is replaced with the printer's name to use."),
+          _("Uncheck the \"Use Frescobaldi's print dialog\" option when the "
+            "printing command opens a print dialog itself, in which you can "
+            "select e.g. the page range to print and the printer to use. "
+            "If you don't use Frescobaldi's print dialog, you don't need to put "
+            "the <code>$printer</code> variable in your command line."),
+          _("If Frescobaldi must fall back to printing using raster images, "
+            "you can specify the number of dots per inch here."),
         )
 
 

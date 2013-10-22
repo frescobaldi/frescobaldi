@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2013 - 2013 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -19,23 +18,25 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Information about the Frescobaldi application.
+Provides better word-boundary behaviour for View and other QPlainTextEdit
+instances.
 """
 
 from __future__ import unicode_literals
 
-# these variables are also used by the distutils setup
-name = "frescobaldi"
-version = "2.0.12-dev"
-description = "LilyPond Music Editor"
-long_description = \
-    "Frescobaldi is an advanced text editor to edit LilyPond sheet music files. " \
-    "Features include an integrated PDF preview and a powerful Score Wizard."
-maintainer = "Wilbert Berendsen"
-maintainer_email = "info@frescobaldi.org"
-domain = "frescobaldi.org"
-url = "http://www.{0}/".format(domain)
-license = "GPL"
+import re
 
-# this one is used everywhere in the application
-appname = "Frescobaldi"
+from PyQt4.QtCore import QEvent, QObject, Qt
+from PyQt4.QtGui import QKeySequence, QTextCursor
+
+import app
+import widgets.wordboundary
+
+
+class BoundaryHandler(widgets.wordboundary.BoundaryHandler):
+    word_regexp = re.compile(r'([-^_]?\\)?\w+(-\w+)*|\\\\|^|$', re.UNICODE)
+
+handler = BoundaryHandler()
+
+app.viewCreated.connect(handler.install_textedit)
+

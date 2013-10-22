@@ -51,7 +51,7 @@ class create_musicXML():
 	##
 	# Building the basic Elements
 	##
-		
+			
 	def create_part(self, name):
 		""" create a new part """
 		part = etree.SubElement(self.partlist, "score-part", id="P"+str(self.part_count))
@@ -69,7 +69,7 @@ class create_musicXML():
 	##
 	# High-level node creation
 	##
-	
+		
 	def new_note(self, pitch, org_len, durtype, divs):
 		""" create all nodes needed for a note. """
 		self.create_note()
@@ -90,6 +90,19 @@ class create_musicXML():
 		if ttype:
 			self.add_notations()
 			self.add_tuplet_type(ttype)
+			
+	def new_rest(self, org_len, durtype, divs, pos):
+		""" create all nodes needed for a rest. """
+		self.create_note()
+		self.add_rest(pos)
+		duration = divs*4/int(org_len)
+		self.add_div_duration(duration)
+		if durtype:
+			self.add_duration_type(durtype)
+			
+	def new_skip(self, org_len, divs):
+		duration = divs*4/int(org_len)
+		self.add_skip(duration)
 		
 	def new_bar_attr(self, clef, mustime, key, mode, divs):
 		""" create all bar attributes set. """
@@ -120,7 +133,7 @@ class create_musicXML():
 	##
 	# Low-level node creation
 	##
-		
+			
 	def create_note(self):
 		""" create new note """
 		self.current_note = etree.SubElement(self.current_bar, "note")
@@ -143,6 +156,23 @@ class create_musicXML():
 			acc.text = "sharp"
 		else:
 			acc.text = "flat"
+						
+	def add_rest(self, pos):
+		""" create rest """
+		restnode = etree.SubElement(self.current_note, "rest")
+		if pos:
+			step = etree.SubElement(restnode, "display-step")
+			octave = etree.SubElement(restnode, "display-octave")
+			step.text = pos[0]
+			octave.text = pos[1]
+						
+	def add_skip(self, duration, forward=True):
+		if forward:
+			skip = etree.SubElement(self.current_bar, "forward")
+		else:
+			skip = etree.SubElement(self.current_bar, "backward")
+		dura_node = etree.SubElement(skip, "duration")
+		dura_node.text = str(duration)
 		
 	def add_div_duration(self, divdur):
 		""" create new duration """
@@ -205,7 +235,7 @@ class create_musicXML():
 	##
 	# Create XML document
 	##
-		
+			
 	def create_xmldoc(self):
 		""" output etree as a XML document """
 		return etree.tostring(self.root, pretty_print=True, xml_declaration=True, encoding='UTF-8')

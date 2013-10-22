@@ -27,16 +27,18 @@ import bisect
 import re
 import weakref
 
-from PyQt4.QtCore import Qt
+from PyQt4.QtCore import QEvent, Qt
 from PyQt4.QtGui import (
     QAction, QApplication, QCheckBox, QGridLayout, QKeySequence, QLabel,
     QLineEdit, QPalette, QPushButton, QStyle, QTextCursor, QToolButton, QWidget)
 
 import app
+import help
 import qutil
 import plugin
 import cursortools
 import textformats
+import wordboundary
 import viewhighlighter
 import widgets.borderlayout
 
@@ -137,7 +139,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
     def hideWidget(self):
         view = self.currentView()
         if view:
-            viewhighlighter.highlighter(view).clear("search")
+            self.highlightingOff()
             self.hide()
             layout = widgets.borderlayout.BorderLayout.get(view)
             layout.removeWidget(self)
@@ -163,21 +165,25 @@ class Search(QWidget, plugin.MainWindowPlugin):
         self._replace = False # we are not in replace mode
         visible = self.isVisible()
         if not visible:
-            with qutil.signalsBlocked(self.searchEntry):
-                self.searchEntry.clear()
-        self.showWidget()
-        if not visible and self.currentView():
-            # pick current word
-            cursor = self.currentView().textCursor()
-            cursor.movePosition(QTextCursor.StartOfWord)
-            cursor.movePosition(QTextCursor.EndOfWord, QTextCursor.KeepAnchor)
-            word = cursor.selection().toPlainText()
-            if not re.search(r'\w', word):
-                word = ""
-            self.searchEntry.setText(word)
-            self.searchEntry.selectAll()
+            self.showWidget()
         else:
-            self.slotSearchChanged()
+            self.adjustSize()
+        cursor = self.currentView().textCursor()
+        if not visible and self.currentView():
+            if cursor.hasSelection() or not self.searchEntry.text():
+                if not cursor.hasSelection():
+                    # pick current word
+                    wordboundary.handler.select(cursor, QTextCursor.WordUnderCursor)
+                word = cursor.selection().toPlainText()
+                if not re.search(r'\w', word):
+                    word = ""
+                elif self.regexCheck.isChecked():
+                    word = re.escape(word)
+                with qutil.signalsBlocked(self.searchEntry):
+                    self.searchEntry.setText(word)
+                self.slotSearchChanged()
+            else:
+                self.highlightingOn()
         self.searchEntry.setFocus()
         
     def replace(self):
@@ -188,14 +194,43 @@ class Search(QWidget, plugin.MainWindowPlugin):
         self.replaceAllButton.show()
         focus = self.replaceEntry if self.isVisible() and self.searchEntry.text() else self.searchEntry
         self._replace = True # we are in replace mode
-        self.showWidget()
-        self.slotSearchChanged()
+        if self.isVisible():
+            self.adjustSize()
+        else:
+            self.showWidget()
+            self.slotSearchChanged()
         focus.setFocus()
         
     def slotSearchChanged(self):
         self.updatePositions()
-        viewhighlighter.highlighter(self.currentView()).highlight("search", self._positions, 1)
+        self.highlightingOn()
+        if not self._replace and self._positions:
+            positions = [c.position() for c in self._positions]
+            cursor = self.currentView().textCursor()
+            index = bisect.bisect_left(positions, cursor.selectionStart())
+            if index == len(positions):
+                index -= 1
+            elif index > 0:
+                # it might be possible that the text cursor currently already
+                # is in a search result. This happens when the search is pop up
+                # with an empty text and the current word is then set as search
+                # text.
+                if cursortools.contains(self._positions[index-1], cursor):
+                    index -= 1
+            self.currentView().setTextCursor(self._positions[index])
 
+    def highlightingOn(self, view=None):
+        if view is None:
+            view = self.currentView()
+        if view:
+            viewhighlighter.highlighter(view).highlight("search", self._positions, 1)
+    
+    def highlightingOff(self, view=None):
+        if view is None:
+            view = self.currentView()
+        if view:
+            viewhighlighter.highlighter(view).clear("search")
+            
     def updatePositions(self):
         search = self.searchEntry.text()
         view = self.currentView()
@@ -218,7 +253,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
                     c.setPosition(m.end())
                     c.setPosition(m.start(), QTextCursor.KeepAnchor)
                     self._positions.append(c)
-        self.countLabel.setText(unicode(len(self._positions)))
+        self.countLabel.setText(format(len(self._positions)))
         
     def findNext(self):
         view = self.currentView()
@@ -239,11 +274,26 @@ class Search(QWidget, plugin.MainWindowPlugin):
             view.setTextCursor(self._positions[index])
             view.ensureCursorVisible()
 
+    def event(self, ev):
+        if ev == QKeySequence.HelpContents:
+            help.help("search_replace")
+            ev.accept()
+            return True
+        elif ev.type() == QEvent.KeyPress:
+            modifiers = int(ev.modifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
+            if ev.key() == Qt.Key_Tab and modifiers == 0:
+                # prevent Tab from reaching the View widget
+                self.window().focusNextChild()
+                ev.accept()
+                return True
+            elif ev.key() == Qt.Key_Backtab and modifiers & ~Qt.SHIFT == 0:
+                # prevent Tab from reaching the View widget
+                self.window().focusPreviousChild()
+                ev.accept()
+                return True
+        return super(Search, self).event(ev)
+        
     def keyPressEvent(self, ev):
-        if ev.key() == Qt.Key_Tab:
-            # prevent Tab from reaching the View widget
-            self.window().focusNextChild()
-            return
         # if in search mode, Up and Down jump between search results
         if not self._replace and self._positions and self.searchEntry.text() and not ev.modifiers():
             if ev.key() == Qt.Key_Up:
@@ -286,11 +336,12 @@ class Search(QWidget, plugin.MainWindowPlugin):
             if index >= len(positions):
                 index = 0
             if self.doReplace(self._positions[index]):
-                viewhighlighter.highlighter(view).highlight("search", self._positions, 1)
+                self.highlightingOn(view)
                 if index < len(positions) - 1:
                     view.setTextCursor(self._positions[index+1])
                 else:
                     view.setTextCursor(self._positions[0])
+                del self._positions[index]
                 view.ensureCursorVisible()
     
     def slotReplaceAll(self):
@@ -300,12 +351,11 @@ class Search(QWidget, plugin.MainWindowPlugin):
             cursors = self._positions
             if view.textCursor().hasSelection():
                 cursors = [cursor for cursor in cursors if cursortools.contains(view.textCursor(), cursor)]
-            view.textCursor().beginEditBlock()
-            for cursor in cursors:
-                if self.doReplace(cursor):
-                    replaced = True
-            view.textCursor().endEditBlock()
+            with cursortools.compress_undo(view.textCursor()):
+                for cursor in cursors:
+                    if self.doReplace(cursor):
+                        replaced = True
             if replaced:
-                viewhighlighter.highlighter(view).highlight("search", self._positions, 1)
+                self.highlightingOn()
 
 

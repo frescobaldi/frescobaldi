@@ -45,6 +45,7 @@ import sidebar
 import matcher
 import file_import
 import file_export
+import vcs
 
 
 # postpone translation
@@ -54,20 +55,21 @@ _ = lambda *args: lambda: __builtin__._(*args)
 def createMenus(mainwindow):
     """Adds all the menus to the mainwindow's menubar."""
     m = mainwindow.menuBar()
-    for f in (
-        menu_file,
-        menu_edit,
-        menu_view,
-        menu_music,
-        menu_insert,
-        menu_lilypond,
-        menu_tools,
-        menu_document,
-        menu_window,
-        menu_session,
-        menu_help,
-    ):
-        m.addMenu(f(mainwindow))
+    
+    m.addMenu(menu_file(mainwindow))
+    m.addMenu(menu_edit(mainwindow))
+    m.addMenu(menu_view(mainwindow))
+    m.addMenu(menu_music(mainwindow))
+    m.addMenu(menu_insert(mainwindow))
+    m.addMenu(menu_lilypond(mainwindow))
+    m.addMenu(menu_tools(mainwindow))
+    m.addMenu(menu_document(mainwindow))
+    m.addMenu(menu_window(mainwindow))
+    m.addMenu(menu_session(mainwindow))
+    if vcs.app_is_git_controlled():
+        from vcs.menu import GitMenu
+        m.addMenu(GitMenu(mainwindow))
+    m.addMenu(menu_help(mainwindow))
 
 
 class Menu(QMenu):
@@ -116,6 +118,8 @@ def menu_file(mainwindow):
     m.addAction(ac.file_close_all)
     m.addSeparator()
     m.addAction(ac.file_quit)
+    if vcs.app_is_git_controlled():
+        m.addAction(ac.file_restart)
     return m
 
 

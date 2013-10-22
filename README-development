@@ -142,9 +142,36 @@ package. The different groups separated by a blank line:
 
     from . import widget            # imports from current package
 
+
+Adding Functionality
+====================
+
+Separate out core functionality from its GUI. Put core functionality in a basic
+module. For the GUI preferably make a new package/__init__.py, importing that
+e.g. from menu.py while constructing the GUI. An example is the documentwatcher
+base module, it automatically watches open documents on disk, simply by
+listening to signals sent from app. It sends a documentChanged() signal when
+something happens, nothing else. The externalchanges package that gets imported
+from mainwindow.py, starts up the documentwatcher if the user has it enabled.
+
+So the documentwatcher watcher is a module just capable of performing a task,
+without needing to have logic for accessing the preferences, constructing a
+particular GUI, etc. It could, like app and many other modules, be used almost
+unchanged in any other application.
+
+New features that add menu actions can be imported in meny.py, while building
+the menu. Features that should run in a global background thread can have their
+toplevel file (<feature>/__init__.py) imported from main.py or mainwindow.py,
+loading as few as possible on first import.
+
+
+Preparing patches or Pull Requests
+==================================
+
 When preparing a patch or pull request, please add new functionality first.
 Old functionality that is superseded by the newer functions can be removed later
-when the new functionality has been tested thoroughly.
+when the new functionality has been tested thoroughly. Change existing files
+as less as possible. Preferably add new files and packages.
 
 User Interface strings that are meant to be translated should be wrapped in
 _("Message Text") constructs. See also README-translations for vital information
@@ -158,4 +185,51 @@ constructor. Frescobaldi will call your translateUI() method once and also take
 care of calling it again when the user changes the UI language in the
 preferences. You can also do this directly by connecting the method that sets
 the texts to the app.languageChanged signal.
+
+
+Testing and developing under Windows
+====================================
+
+Linux is the recommended developing platform, but it might be necessary to test
+specific functionality or behaviour under Windows. It can be difficult to get
+all the dependencies right, especially the right combi of poppler, pyqt4 and
+sip.
+
+There is an easy way to get setup under Windows and be able to do quite a lot
+of testing and development, you don't even need to install Python at all.
+
+1. install a recent version of Frescobaldi into C:/Program Files/Frescobaldi,
+   using the Frescobaldi.Setup.exe installer
+
+2. install Git Bash for Windows from http://msysgit.github.com/
+
+3. open up the Git Bash command prompt (now you're in a powerful UNIX shell!)
+
+4. make a directory to do Frescobaldi development in:
+
+   mkdir dev
+   cd dev
+
+5. download the frescobaldi source code from GitHub:
+
+   git clone https://github.com/wbsoft/frescobaldi.git
+
+6. go to the frescobaldi directory and copy all the files from the installed
+   version, except for the frescobaldi_app directory:
+   
+   cd frescobaldi
+   
+   cp /c/Program\ Files/Frescobaldi/*.pyd .
+   cp /c/Program\ Files/Frescobaldi/frescobaldi.exe .
+   cp /c/Program\ Files/Frescobaldi/*.dll .
+   cp /c/Program\ Files/Frescobaldi/library.zip .
+   cp -r /c/Program\ Files/Frescobaldi/iconengines .
+   cp -r /c/Program\ Files/Frescobaldi/imageformats .
+
+7. Now you can modify files in frescobaldi_app and run and test Frescobaldi:
+
+   ./frescobaldi.exe
+
+8. Make commits of your changes and either push them to a fork of yours of
+   frescobaldi on GitHub or send them via e-mail.
 

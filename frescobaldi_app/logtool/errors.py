@@ -23,6 +23,7 @@ Manages cursor positions of file-references in error messages.
 
 from __future__ import unicode_literals
 
+import os
 import re
 import sys
 
@@ -89,6 +90,7 @@ class Errors(plugin.DocumentPlugin):
             for m in message_re.finditer(message.encode('latin1')):
                 url = m.group(1).decode(enc)
                 filename = m.group(2).decode(enc)
+                filename = util.normpath(filename)
                 line, column = int(m.group(3)), int(m.group(4) or 0)
                 self._refs[url] = Reference(filename, line, column)
         

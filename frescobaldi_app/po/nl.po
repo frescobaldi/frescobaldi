@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-10-04 22:34+0200\n"
-"PO-Revision-Date: 2013-10-04 22:35+0200\n"
+"POT-Creation-Date: 2013-10-16 07:55+0200\n"
+"PO-Revision-Date: 2013-10-16 07:59+0200\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -131,13 +131,13 @@ msgstr "Vertaald door Wilbert Berendsen."
 msgid "Licensed under the {gpl}."
 msgstr "Beschikbaar onder de {gpl}."
 
-#: ../actioncollectionmanager.py:122 ../preferences/shortcuts.py:214
+#: ../actioncollectionmanager.py:122 ../preferences/shortcuts.py:232
 msgid "This shortcut conflicts with the following command:"
 msgid_plural "This shortcut conflicts with the following commands:"
 msgstr[0] "Deze sneltoets conflicteert met het onderstaande commando:"
 msgstr[1] "Deze sneltoets conflicteert met onderstaande commando's:"
 
-#: ../actioncollectionmanager.py:128 ../preferences/shortcuts.py:220
+#: ../actioncollectionmanager.py:128 ../preferences/shortcuts.py:238
 msgid "Shortcut Conflict"
 msgstr "Sneltoetsconflict"
 
@@ -145,31 +145,32 @@ msgstr "Sneltoetsconflict"
 msgid "Edit again"
 msgstr "Opnieuw bewerken"
 
-#: ../app.py:130
+#: ../app.py:139
 msgid "LilyPond Files"
 msgstr "LilyPond-bestanden"
 
-#: ../app.py:131
+#: ../app.py:140
 msgid "LaTeX Files"
 msgstr "LaTeX-bestanden"
 
-#: ../app.py:132
+#: ../app.py:141
 msgid "DocBook Files"
 msgstr "DocBook-bestanden"
 
-#: ../app.py:133
+#: ../app.py:142
 msgid "HTML Files"
 msgstr "HTML-bestanden"
 
-#: ../app.py:134
+#: ../app.py:143
 msgid "Texinfo Files"
 msgstr "Texinfo-bestanden"
 
-#: ../app.py:135
+#: ../app.py:144
 msgid "Scheme Files"
 msgstr "Scheme-bestanden"
 
-#: ../app.py:136 ../snippet/widget.py:292 ../snippet/widget.py:309
+#: ../app.py:145 ../snippet/widget.py:292 ../snippet/widget.py:309
+#: ../widgets/schemeselector.py:166 ../widgets/schemeselector.py:174
 msgid "All Files"
 msgstr "Alle bestanden"
 
@@ -273,7 +274,7 @@ msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr ""
 "Geef de naam van de variabele om de geselecteerde tekst aan toe te wijzen:"
 
-#: ../document.py:158 ../doclist/widget.py:132 ../snippet/edit.py:178
+#: ../document.py:158 ../doclist/widget.py:132 ../snippet/edit.py:182
 msgid "Untitled"
 msgstr "Naamloos"
 
@@ -333,16 +334,16 @@ msgstr "&Dynamiek verwijderen"
 msgid "Remove Text &Markup (from music)"
 msgstr "&Markup verwijderen (uit muziek)"
 
-#: ../documentcontextmenu.py:67 ../mainwindow.py:1017
+#: ../documentcontextmenu.py:67 ../mainwindow.py:1032
 #: ../sessions/manager.py:127
 msgid "&Save"
 msgstr "Op&slaan"
 
-#: ../documentcontextmenu.py:68 ../mainwindow.py:1018
+#: ../documentcontextmenu.py:68 ../mainwindow.py:1033
 msgid "Save &As..."
 msgstr "Opslaan &als..."
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:1028
+#: ../documentcontextmenu.py:69 ../mainwindow.py:1043
 msgid "&Close"
 msgstr "&Sluiten"
 
@@ -409,16 +410,18 @@ msgid "Staff Size:"
 msgstr "Balkgrootte:"
 
 #. L10N: a basic type of input in the editor
-#: ../helpers.py:101 ../mainwindow.py:413 ../mainwindow.py:419
-#: ../mainwindow.py:444 ../mainwindow.py:495 ../mainwindow.py:587
-#: ../mainwindow.py:647 ../externalchanges/widget.py:243
+#: ../helpers.py:107 ../mainwindow.py:421 ../mainwindow.py:427
+#: ../mainwindow.py:452 ../mainwindow.py:503 ../mainwindow.py:600
+#: ../mainwindow.py:660 ../externalchanges/widget.py:243
 #: ../file_import/__init__.py:70 ../musicview/image.py:214
-#: ../preferences/fontscolors.py:476 ../preferences/fontscolors.py:514
+#: ../preferences/fontscolors.py:271 ../preferences/fontscolors.py:495
+#: ../preferences/fontscolors.py:533 ../preferences/import_export.py:91
+#: ../preferences/import_export.py:174 ../preferences/shortcuts.py:206
 #: ../snippet/import_export.py:105 ../snippet/widget.py:319
 msgid "Error"
 msgstr "Fout"
 
-#: ../helpers.py:102 ../job.py:258
+#: ../helpers.py:108 ../job.py:258
 msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
@@ -641,16 +644,16 @@ msgid "Always start a new instance"
 msgstr "Altijd een nieuw proces starten"
 
 #. L10N: state of document in window titlebar
-#: ../mainwindow.py:248 ../externalchanges/widget.py:159
+#: ../mainwindow.py:250 ../externalchanges/widget.py:159
 msgid "[modified]"
 msgstr "[gewijzigd]"
 
-#: ../mainwindow.py:293
+#: ../mainwindow.py:301
 msgctxt "dialog title"
 msgid "Close Document"
 msgstr "Document sluiten"
 
-#: ../mainwindow.py:294
+#: ../mainwindow.py:302
 msgid ""
 "The document \"{name}\" has been modified.\n"
 "Do you want to save your changes or discard them?"
@@ -658,16 +661,16 @@ msgstr ""
 "Het document \"{name}\" is gewijzigd.\n"
 "Wilt u uw wijzigingen bewaren of weggooien?"
 
-#: ../mainwindow.py:306
+#: ../mainwindow.py:314
 msgid "Tab Bar"
 msgstr "Tabbalk"
 
-#: ../mainwindow.py:362 ../popplerprint.py:53 ../sessions/dialog.py:171
-#: ../sessions/dialog.py:179 ../sessions/dialog.py:185
+#: ../mainwindow.py:370 ../sessions/dialog.py:171 ../sessions/dialog.py:179
+#: ../sessions/dialog.py:185
 msgid "Warning"
 msgstr "Waarschuwing"
 
-#: ../mainwindow.py:363
+#: ../mainwindow.py:371
 msgid ""
 "Can't load non-local document:\n"
 "\n"
@@ -677,12 +680,12 @@ msgstr ""
 "\n"
 "{url}"
 
-#: ../mainwindow.py:394
+#: ../mainwindow.py:402
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Bestand openen"
 
-#: ../mainwindow.py:414 ../mainwindow.py:420 ../mainwindow.py:445
+#: ../mainwindow.py:422 ../mainwindow.py:428 ../mainwindow.py:453
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -692,22 +695,23 @@ msgstr ""
 "\n"
 "{url}"
 
-#: ../mainwindow.py:439
+#: ../mainwindow.py:447
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "Bestand opslaan"
 
-#: ../mainwindow.py:479
+#: ../mainwindow.py:487
 msgctxt "dialog title"
 msgid "Save Copy"
 msgstr "Kopie opslaan"
 
-#: ../mainwindow.py:485
+#: ../mainwindow.py:493
 msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Selectie opslaan"
 
-#: ../mainwindow.py:496 ../mainwindow.py:648 ../snippet/widget.py:320
+#: ../mainwindow.py:504 ../mainwindow.py:661 ../preferences/fontscolors.py:272
+#: ../preferences/shortcuts.py:207 ../snippet/widget.py:320
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -721,11 +725,11 @@ msgstr ""
 "\n"
 "{error}"
 
-#: ../mainwindow.py:510 ../mainwindow.py:524 ../externalchanges/widget.py:103
+#: ../mainwindow.py:518 ../mainwindow.py:532 ../externalchanges/widget.py:103
 msgid "Reload"
 msgstr "Herladen"
 
-#: ../mainwindow.py:511
+#: ../mainwindow.py:519
 msgid ""
 "Could not reload the document:\n"
 "\n"
@@ -735,20 +739,21 @@ msgstr ""
 "\n"
 "{url}"
 
-#: ../mainwindow.py:521
+#: ../mainwindow.py:529
 msgid "Some documents could not be reloaded."
 msgstr "Sommige documenten konden niet worden herladen."
 
-#: ../mainwindow.py:523
+#: ../mainwindow.py:531
 msgid "No document could be reloaded."
 msgstr "Geen enkel document kon worden herladen."
 
-#: ../mainwindow.py:580
+#: ../mainwindow.py:593
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Invoegen uit bestand"
 
-#: ../mainwindow.py:588 ../snippet/import_export.py:106
+#: ../mainwindow.py:601 ../preferences/import_export.py:92
+#: ../preferences/import_export.py:175 ../snippet/import_export.py:106
 msgid ""
 "Can't read from source:\n"
 "\n"
@@ -762,16 +767,16 @@ msgstr ""
 "\n"
 "{error}"
 
-#: ../mainwindow.py:604
+#: ../mainwindow.py:617
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Brontekst afdrukken"
 
-#: ../mainwindow.py:637
+#: ../mainwindow.py:650
 msgid "Export as HTML"
 msgstr "Exporteren als HTML"
 
-#: ../mainwindow.py:757
+#: ../mainwindow.py:770
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -783,60 +788,60 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../mainwindow.py:867
+#: ../mainwindow.py:881
 msgid "Main Toolbar"
 msgstr "Hoofdwerkbalk"
 
-#: ../mainwindow.py:868
+#: ../mainwindow.py:882
 msgid "Music View Toolbar"
 msgstr "Muziekweergave-werkbalk"
 
-#: ../mainwindow.py:1011
+#: ../mainwindow.py:1026
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nieuw"
 
-#: ../mainwindow.py:1012
+#: ../mainwindow.py:1027
 msgid "&Open..."
 msgstr "&Openen..."
 
-#: ../mainwindow.py:1013
+#: ../mainwindow.py:1028
 msgid "Open &Recent"
 msgstr "&Recent geopend"
 
-#: ../mainwindow.py:1014
+#: ../mainwindow.py:1029
 msgid "Insert from &File..."
 msgstr "&Invoegen uit bestand..."
 
-#: ../mainwindow.py:1015
+#: ../mainwindow.py:1030
 msgid "Open Current Directory"
 msgstr "Huidige map openen"
 
-#: ../mainwindow.py:1016
+#: ../mainwindow.py:1031
 msgid "Open Command Prompt"
 msgstr "Commandoregel openen"
 
-#: ../mainwindow.py:1019
+#: ../mainwindow.py:1034
 msgid "Save Copy or Selection As..."
 msgstr "Kopie of selectie opslaan als..."
 
-#: ../mainwindow.py:1020 ../externalchanges/widget.py:117
+#: ../mainwindow.py:1035 ../externalchanges/widget.py:117
 msgid "Save All"
 msgstr "Alles opslaan"
 
-#: ../mainwindow.py:1021
+#: ../mainwindow.py:1036
 msgid "Re&load"
 msgstr "Her&laden"
 
-#: ../mainwindow.py:1022 ../externalchanges/widget.py:108
+#: ../mainwindow.py:1037 ../externalchanges/widget.py:108
 msgid "Reload All"
 msgstr "Alles herladen"
 
-#: ../mainwindow.py:1023
+#: ../mainwindow.py:1038
 msgid "Check for External Changes..."
 msgstr "Controleren op externe wijzigingen..."
 
-#: ../mainwindow.py:1025
+#: ../mainwindow.py:1040
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
@@ -844,131 +849,135 @@ msgstr ""
 "Opent een venster om te controleren of open documenten werden gewijzigd of "
 "verwijderd door andere programma's."
 
-#: ../mainwindow.py:1027
+#: ../mainwindow.py:1042
 msgid "Print Source..."
 msgstr "Brontekst afdrukken..."
 
-#: ../mainwindow.py:1029
+#: ../mainwindow.py:1044
 msgid "Close Other Documents"
 msgstr "Andere documenten sluiten"
 
-#: ../mainwindow.py:1030
+#: ../mainwindow.py:1045
 msgid "Close All Documents"
 msgstr "Alle documenten sluiten"
 
-#: ../mainwindow.py:1031
+#: ../mainwindow.py:1046
 msgid "Closes all documents and leaves the current session."
 msgstr "Sluit alle documenten en verlaat de huidige sessie."
 
-#: ../mainwindow.py:1032
+#: ../mainwindow.py:1047
 msgid "&Quit"
 msgstr "Afslui&ten"
 
-#: ../mainwindow.py:1034
+#: ../mainwindow.py:1048
+msgid "Restart {appname}"
+msgstr "{appname} herstarten"
+
+#: ../mainwindow.py:1050
 msgid "Export Source as Colored &HTML..."
 msgstr "Bron als gekleurde &HTML exporteren..."
 
-#: ../mainwindow.py:1036
+#: ../mainwindow.py:1052
 msgid "&Undo"
 msgstr "&Ongedaan maken"
 
-#: ../mainwindow.py:1037
+#: ../mainwindow.py:1053
 msgid "Re&do"
 msgstr "Opnie&uw"
 
-#: ../mainwindow.py:1038
+#: ../mainwindow.py:1054
 msgid "Cu&t"
 msgstr "&Knippen"
 
-#: ../mainwindow.py:1039 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1055 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Kopiëren"
 
-#: ../mainwindow.py:1040
+#: ../mainwindow.py:1056
 msgid "Copy as Colored &HTML"
 msgstr "Als gekleurde HTML kopiëren"
 
-#: ../mainwindow.py:1041
+#: ../mainwindow.py:1057
 msgid "&Paste"
 msgstr "&Plakken"
 
-#: ../mainwindow.py:1042
+#: ../mainwindow.py:1058
 msgid "Select &All"
 msgstr "&Alles selecteren"
 
-#: ../mainwindow.py:1043
+#: ../mainwindow.py:1059
 msgid "Select &Block"
 msgstr "&Blok selecteren"
 
-#: ../mainwindow.py:1044
+#: ../mainwindow.py:1060
 msgid "Select &None"
 msgstr "&Niets selecteren"
 
-#: ../mainwindow.py:1045
+#: ../mainwindow.py:1061
 msgid "Select Whole Lines Up"
 msgstr "Volledige regels omhoog selecteren"
 
-#: ../mainwindow.py:1046
+#: ../mainwindow.py:1062
 msgid "Select Whole Lines Down"
 msgstr "Volledige regels omlaag selecteren"
 
-#: ../mainwindow.py:1047
+#: ../mainwindow.py:1063
 msgid "&Find..."
 msgstr "&Zoeken..."
 
-#: ../mainwindow.py:1048
+#: ../mainwindow.py:1064
 msgid "Find Ne&xt"
 msgstr "&Volgende zoeken"
 
-#: ../mainwindow.py:1049
+#: ../mainwindow.py:1065
 msgid "Find Pre&vious"
 msgstr "V&orige zoeken"
 
-#: ../mainwindow.py:1050
+#: ../mainwindow.py:1066
 msgid "&Replace..."
 msgstr "Ve&rvangen"
 
-#: ../mainwindow.py:1051
+#: ../mainwindow.py:1067
 msgid "Pr&eferences..."
 msgstr "Voork&euren..."
 
-#: ../mainwindow.py:1053
+#: ../mainwindow.py:1069
 msgid "&Next Document"
 msgstr "&Volgende document"
 
-#: ../mainwindow.py:1054
+#: ../mainwindow.py:1070
 msgid "&Previous Document"
 msgstr "V&orige document"
 
-#: ../mainwindow.py:1055
+#: ../mainwindow.py:1071
 msgid "Scroll Up"
 msgstr "Omhoog schuiven"
 
-#: ../mainwindow.py:1056
+#: ../mainwindow.py:1072
 msgid "Scroll Down"
 msgstr "Omlaag schuiven"
 
-#: ../mainwindow.py:1058
+#: ../mainwindow.py:1074
 msgid "New &Window"
 msgstr "Nieuw &venster"
 
-#: ../mainwindow.py:1059
+#: ../mainwindow.py:1075
 msgid "&Fullscreen"
 msgstr "Volledig &scherm"
 
-#: ../mainwindow.py:1061
+#: ../mainwindow.py:1077
 msgid "&User Guide"
 msgstr "&Handleiding"
 
-#: ../mainwindow.py:1062
+#: ../mainwindow.py:1078
 msgid "&What's This?"
 msgstr "&Wat is dit?"
 
-#: ../mainwindow.py:1063
+#: ../mainwindow.py:1079
 msgid "Report a &Bug..."
 msgstr "&Bug rapporteren..."
 
-#: ../mainwindow.py:1064
+#: ../mainwindow.py:1080
 msgid "&About {appname}..."
 msgstr "&Over {appname}..."
 
@@ -980,77 +989,77 @@ msgstr "&Bijbehorend item"
 msgid "&Select Matching Pair"
 msgstr "Bijbehorende &items selecteren"
 
-#: ../menu.py:85
+#: ../menu.py:87
 msgctxt "menu title"
 msgid "&File"
 msgstr "&Bestand"
 
-#: ../menu.py:122
+#: ../menu.py:126
 msgctxt "submenu title"
 msgid "&Import"
 msgstr "&Importeren"
 
-#: ../menu.py:130
+#: ../menu.py:134
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Exporteren"
 
-#: ../menu.py:138
+#: ../menu.py:142
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "Be&werken"
 
-#: ../menu.py:165
+#: ../menu.py:169
 msgctxt "menu title"
 msgid "&View"
 msgstr "B&eeld"
 
-#: ../menu.py:193
+#: ../menu.py:197
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "Invou&wen"
 
-#: ../menu.py:208
+#: ../menu.py:212
 msgctxt "menu title"
 msgid "&Music"
 msgstr "&Muziek"
 
-#: ../menu.py:235
+#: ../menu.py:239
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:254
+#: ../menu.py:258
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Gereedschap"
 
-#: ../menu.py:282
+#: ../menu.py:286
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Liedteksten"
 
-#: ../menu.py:294
+#: ../menu.py:298
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Toonhoogte"
 
-#: ../menu.py:309
+#: ../menu.py:313
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritme"
 
-#: ../menu.py:333
+#: ../menu.py:337
 msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr "&Snel verwijderen"
 
-#: ../menu.py:351
+#: ../menu.py:355
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Venster"
 
-#: ../menu.py:371
+#: ../menu.py:375
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Help"
@@ -1071,92 +1080,25 @@ msgstr "Muziek vooruitblik"
 msgid "Could not load the {name} module."
 msgstr "Kan de module {name} niet laden."
 
-#: ../popplerprint.py:54
-msgid ""
-"No print command to print a PostScript file could be found.\n"
-"\n"
-"Therefore the document will be printed using raster images at {resolution} "
-"DPI. It is recommended to print using a dedicated PDF viewer.\n"
-"\n"
-"Do you want to continue?"
-msgstr ""
-"Kan geen printcommando vinden om een PostScript-bestand af te drukken.\n"
-"\n"
-"Daarom zal het document worden afgedrukt als een rasterafbeelding met "
-"{resolution} DPI. Het is aanbevolen een apart PDF-weergaveprogramma te "
-"gebruiken.\n"
-"\n"
-"Wilt u toch verdergaan?"
-
-#: ../popplerprint.py:61
+#: ../popplerprint.py:74
 msgid "PDF Document"
 msgstr "PDF-document"
 
-#: ../popplerprint.py:69
+#: ../popplerprint.py:83
 msgid "Print {filename}"
 msgstr "{filename} afdrukken"
 
-#: ../popplerprint.py:87 ../popplerprint.py:116
+#: ../popplerprint.py:117 ../popplerprint.py:147
 msgid "Printing Error"
 msgstr "Printfout"
 
-#: ../popplerprint.py:88 ../popplerprint.py:117
+#: ../popplerprint.py:118 ../popplerprint.py:148
 msgid "Could not send the document to the printer."
 msgstr "Kan het document niet naar de printer verzenden."
 
-#: ../popplerprint.py:108
+#: ../popplerprint.py:139
 msgid "Printing page {page} ({num} of {total})..."
 msgstr "Afdrukken pagina {page} ({num} van {total})..."
-
-#: ../search.py:101
-msgid "Search:"
-msgstr "Zoeken:"
-
-#: ../search.py:102
-msgid "&Case"
-msgstr "&Hoofdl."
-
-#: ../search.py:103
-msgid "Case Sensitive"
-msgstr "Maak onderscheid tussen hoofd- en kleine letters"
-
-#: ../search.py:104
-msgid "&Regex"
-msgstr "&Regex"
-
-#: ../search.py:105
-msgid "Regular Expression"
-msgstr "Reguliere expressie"
-
-#: ../search.py:106
-msgid "The total number of matches"
-msgstr "Het totale aantal overeenkomsten"
-
-#: ../search.py:107
-msgid "Close"
-msgstr "Sluiten"
-
-#: ../search.py:108
-msgid "Replace:"
-msgstr "Vervangen:"
-
-#: ../search.py:109
-msgid "Re&place"
-msgstr "&Vervangen"
-
-#: ../search.py:110
-msgid "Replaces the next occurrence of the search term."
-msgstr "Vervangt de volgende overeenkomst van de zoekterm."
-
-#: ../search.py:111
-msgid "&All"
-msgstr "&Alles"
-
-#: ../search.py:112
-msgid ""
-"Replaces all occurrences of the search term in the document or selection."
-msgstr ""
-"Vervangt alle overeenkomsten met de zoekterm in het document of de selectie."
 
 #: ../viewmanager.py:67 ../viewmanager.py:215
 msgid "Line: {line}, Col: {column}"
@@ -1344,7 +1286,7 @@ msgstr "LilyPond-versie:"
 msgid "Output Format:"
 msgstr "Uitvoerformaat:"
 
-#: ../engrave/custom.py:127
+#: ../engrave/custom.py:127 ../preferences/helpers.py:164
 msgid "Resolution:"
 msgstr "Resolutie:"
 
@@ -1709,15 +1651,20 @@ msgid ""
 "<em>Preview</em> mode is useful while working on a score because it provides "
 "two-way point-and-click navigation as well as a number of modes for "
 "debugging layout issues.<br /><em>Publication</em> mode is used for "
-"producing the final PDF intended to be shared.<br /><em>Custom</em> mode "
-"allows you to specify the used LilyPond command in detail."
+"producing the final PDF intended to be shared."
 msgstr ""
 "De <em>Vooruitblik</em> modus is handig tijdens het werken aan een partituur "
 "omdat deze twee-weg point &amp; click navigatie biedt en een aantal debug-"
 "modes voor het debuggen van de layout.<br /> De <em>Publicatie</em> modus is "
 "bedoeld voor het genereren van de uiteindelijke PDF bedoeld voor publicatie."
-"<br /> De <em>Aangepast</em> modues laat u het LilyPond-commando tot in "
-"detail bepalen."
+
+#: ../help/cnt_engraving.py:48
+msgid ""
+"<em>Custom</em> mode allows you to specify the used LilyPond command in "
+"detail."
+msgstr ""
+"De dialoog <em>Aangepast graveren</em> geeft gedetailleerde toegang tot alle "
+"aspecten van de LilyPond-commandoregel."
 
 #: ../help/cnt_engraving.py:50
 msgid ""
@@ -1753,26 +1700,31 @@ msgstr ""
 msgid ""
 "The Debug Modes are accessible through the \"Preview Options\" dockable "
 "panel which is accessible through {menu_panel}.The Debug Modes are initially "
-"disabled but remember their state throughout Frescobaldi sessions.<br />If "
-"you use these features regularly it is recommendable to have the panel "
-"constantly open because you will probably switch Debug Modes quite often."
+"disabled but remember their state throughout Frescobaldi sessions."
 msgstr ""
 "De debug-modes zijn beschikbaar in het gereedschap \"Vooruitblik opties\" in "
 "het menu {menu_panel}. Alle functies zijn standaard uitgeschakeld maar "
-"worden onthouden door Frescobaldi.<br /> Als u veel van de debug-modes "
-"gebruik maakt kunt u het gereedschap open houden om snel opties te kunnen "
-"omschakelen."
+"worden onthouden door Frescobaldi."
 
-#: ../help/cnt_engraving.py:82 ../preferences/__init__.py:261
-#: ../preferences/prefshelp.py:266
+#: ../help/cnt_engraving.py:80 ../help/cnt_engraving.py:83
+#: ../preferences/__init__.py:261 ../preferences/prefshelp.py:284
 msgid "Tools"
 msgstr "Gereedschap"
 
-#: ../help/cnt_engraving.py:82 ../preview_mode/__init__.py:42
+#: ../help/cnt_engraving.py:80 ../help/cnt_engraving.py:83
+#: ../preview_mode/__init__.py:42
 msgid "Preview Options"
 msgstr "Vooruitblik opties"
 
-#: ../help/cnt_engraving.py:83
+#: ../help/cnt_engraving.py:81
+msgid ""
+"If you use these features regularly it is recommendable to have the panel "
+"constantly open because you will probably switch Debug Modes quite often."
+msgstr ""
+"Als u veel van de debug-modes gebruik maakt kunt u het gereedschap open "
+"houden om snel opties te kunnen omschakelen."
+
+#: ../help/cnt_engraving.py:84
 msgid ""
 "Compiling in Preview Mode will introduce a <code>-ddebug-layout</code> "
 "command line variable to be present. You can check for this with something "
@@ -1786,7 +1738,7 @@ msgstr ""
 "(if (ly:get-option 'debug-layout))</code>. Zo kunt u code schrijven die "
 "enkel in vooruitblik-modus wordt uitgevoerd."
 
-#: ../help/cnt_engraving.py:88
+#: ../help/cnt_engraving.py:89
 msgid ""
 "The appearance of the Debug Modes is defined by Scheme variables and can "
 "partially be configured following the directions in {preview_config}."
@@ -1795,41 +1747,45 @@ msgstr ""
 "en kan gedeeltelijk worden geconfigureerd volgens de aanwijzigen in "
 "{preview_config}."
 
-#: ../help/cnt_engraving.py:91
+#: ../help/cnt_engraving.py:92
 msgid "The following Debug Modes are currently implemented:"
 msgstr "De volgende debug-modes zijn momenteel geïmplementeerd:"
 
 #. L10N: Please translate the mode names the same way as in the panel UI
-#: ../help/cnt_engraving.py:95 ../help/cnt_engraving.py:210
+#: ../help/cnt_engraving.py:96 ../help/cnt_engraving.py:217
 #: ../preview_mode/widget.py:110
 msgid "Display Control Points"
 msgstr "Controlepunten tonen"
 
-#: ../help/cnt_engraving.py:96
+#: ../help/cnt_engraving.py:97
 msgid ""
 "Slurs, Ties and other similar objects are drawn in LilyPond as third-order "
 "Bezier curves, which means that their shape is controlled by four \"control-"
 "points\" (first and last ones tell where the curve ends are placed, and the "
 "middle ones affect the curvature). Changing the shape of these objects "
 "involves moving these control-points around, and it's helpful to see where "
-"they actually are.<br />This Debug Mode will display the inner control-"
-"points as red crosses and connects them to the outer (starting) points with "
-"thin lines."
+"they actually are."
 msgstr ""
 "Objecten zoals boogjes worden door LilyPond als derde-orde Bezier-curven "
 "getekend, wat betekent dat hun vorm door vier controlepunten wordt bepaald. "
 "De eerste en laatste punten bepalen de plaats, de middelste twee beïnvloeden "
 "de vorm. De vorm van dit soort objecten wordt veranderd door deze punten te "
 "verplaatsen, en zodoende is het handig om te zien waar ze zijn in de PDF."
-"<br /> Deze debug-modus toont de binnenste controlepunten als rode kruisjes "
-"en verbindt ze met de buitenste punten met dunne lijnen."
 
-#: ../help/cnt_engraving.py:106 ../help/cnt_engraving.py:225
+#: ../help/cnt_engraving.py:104
+msgid ""
+"This Debug Mode will display the inner control-points as red crosses and "
+"connects them to the outer (starting) points with thin lines."
+msgstr ""
+"Deze debug-modus toont de binnenste controlepunten als rode kruisjes en "
+"verbindt ze met de buitenste punten met dunne lijnen."
+
+#: ../help/cnt_engraving.py:107 ../help/cnt_engraving.py:232
 #: ../preview_mode/widget.py:114
 msgid "Color \\voiceXXX"
 msgstr "\\voiceXX kleuren"
 
-#: ../help/cnt_engraving.py:107
+#: ../help/cnt_engraving.py:108
 msgid ""
 "This mode highlights voices that have been explicitly set with one of the "
 "<code>\\voiceXXX</code> commands. This is useful when dealing with polyphony "
@@ -1839,45 +1795,68 @@ msgstr ""
 "code> commando's gemarkeerd zijn. Dit is handig bij het oplossen van "
 "problemen met polyphonie."
 
-#: ../help/cnt_engraving.py:110 ../help/cnt_engraving.py:240
+#: ../help/cnt_engraving.py:111 ../help/cnt_engraving.py:247
 #: ../preview_mode/widget.py:118
 msgid "Color explicit directions"
 msgstr "Expliciete richting kleuren"
 
-#: ../help/cnt_engraving.py:111
+#: ../help/cnt_engraving.py:112
 msgid ""
 "This mode colors items whose directions have been explicitly set with either "
 "the predefined commands <code>\\xxxUp</code> etc. or the directional "
-"operators <code>^</code> and <code>_</code>.<br />Please note how this mode "
-"and the previous are related:<br />When the condition for one of the the "
-"modes is reverted using commands like <code>\\oneVoice</code> or <code>"
-"\\xxxNeutral</code> colors are reverted to black and may also revert the "
-"highlighting of the other Debug Mode.<br />In <code>c \\voiceTwo d \\stemUp "
-"e \\stemNeutral d \\oneVoice</code> the 'd' may already be reverted.<br />If "
-"the score is engraved with LilyPond version 2.17.6 or later the situation is "
-"somewhat improved through the use of the <code>\\temporary</code> directive."
-"<br />In short: If you use both Modes at the same time please expect "
-"inconsistencies."
+"operators <code>^</code> and <code>_</code>."
 msgstr ""
 "Deze modus kleurt items waarvan de richting expliciet is opgegeven met "
-"commando's zoals <code>\\xxxUp</code> of de richtings-operators <code>^</"
-"code> en <code>_</code>.<br /> Deze en de vorige modus zijn enigszins "
-"gerelateerd: als de richting voor een van de modes ongedaan gemaakt wordt "
-"met behulp van commando's zoals <code>\\oneVoice</code> of <code>"
-"\\xxxNeutral</code> wordt de kleur ook weer op zwart gezet, dat zou ook de "
-"kleur van de andere modus ongedaan kunnen maken.<br /> In <code>c \\voiceTwo "
-"d \\stemUp e \\stemNeutral d \\oneVoice</code> is de 'd' alweer zwart.<br /> "
-"Als u de partituur graveert met LilyPond versie 2.17.6 of nieuwer is de "
-"situatie verbeterd doordat het <code>\\temporary</code>-directief gebruikt "
-"kan worden.<br /> Kortom: als u deze beide modes tegelijk gebruikt kunnen er "
-"soms inconsistenties optreden."
+"commando's zoals <code>\\\\xxxUp</code> of de richtings-operators <code>^</"
+"code> en <code>_</code>."
 
-#: ../help/cnt_engraving.py:126 ../help/cnt_engraving.py:257
+#: ../help/cnt_engraving.py:115
+msgid "Please note how this mode and the previous are related:"
+msgstr "Deze en de vorige modus zijn enigszins gerelateerd:"
+
+#: ../help/cnt_engraving.py:116
+msgid ""
+"When the condition for one of the the modes is reverted using commands like "
+"<code>\\oneVoice</code> or <code>\\xxxNeutral</code> colors are reverted to "
+"black and may also revert the highlighting of the other Debug Mode."
+msgstr ""
+"als de richting voor een van de modes ongedaan gemaakt wordt met behulp van "
+"commando's zoals <code>\\\\oneVoice</code> of <code>\\\\xxxNeutral</code> "
+"wordt de kleur ook weer op zwart gezet, dat zou ook de kleur van de andere "
+"modus ongedaan kunnen maken."
+
+#: ../help/cnt_engraving.py:120
+msgid ""
+"In <code>c \\voiceTwo d \\stemUp e \\stemNeutral d \\oneVoice</code> the 'd' "
+"may already be reverted."
+msgstr ""
+"In <code>c \\\\voiceTwo d \\\\stemUp e \\\\stemNeutral d \\\\oneVoice</code> "
+"is de 'd' alweer zwart."
+
+#: ../help/cnt_engraving.py:122
+msgid ""
+"If the score is engraved with LilyPond version 2.17.6 or later the situation "
+"is somewhat improved through the use of the <code>\\temporary</code> "
+"directive."
+msgstr ""
+"Als de partituur is gegraveerd met LilyPond versie 2.17.6 of later is de "
+"situatie enigszins verbeterd dankzij het gebruik van het <code>\\temporary</"
+"code> directief."
+
+#: ../help/cnt_engraving.py:125
+msgid ""
+"In short: If you use both Modes at the same time please expect "
+"inconsistencies."
+msgstr ""
+"Kortom: als u beide modes tegelijkertijd gebruikt, kunnen inconsistenties "
+"optreden."
+
+#: ../help/cnt_engraving.py:127 ../help/cnt_engraving.py:264
 #: ../preview_mode/widget.py:121
 msgid "Display Grob Anchors"
 msgstr "Grob-ankerpunten weergeven"
 
-#: ../help/cnt_engraving.py:127
+#: ../help/cnt_engraving.py:128
 msgid ""
 "In LilyPond, all graphical objects have an anchor (a reference point). What "
 "is a reference point?  It's a special point that defines the object's "
@@ -1885,38 +1864,61 @@ msgid ""
 "placed on a plane, you'll usually say something like \"the lower left corner "
 "of this square has coordinates (0, 2)\" or \"the center of this circle is at "
 "(-1, 3)\". \"Lower left corner\" and \"center\" would be the reference "
-"points for square and circle.<br />This Mode displays a red dot for each "
-"grob's anchor point."
+"points for square and circle."
 msgstr ""
 "In LilyPond hebben alle grafische objecten (grobs) een ankerpunt "
-"(referentiepunt). Dit punt bepaalt de positie van het object.<br /> Deze "
-"modus toont een rode stip op het ankerpunt van elke grob."
+"(referentiepunt). Dit punt bepaalt de positie van het object."
 
-#: ../help/cnt_engraving.py:135 ../help/cnt_engraving.py:270
+#: ../help/cnt_engraving.py:135
+msgid "This Mode displays a red dot for each grob's anchor point."
+msgstr "Deze modus toont een rode stip op het ankerpunt van elke grob."
+
+#: ../help/cnt_engraving.py:136 ../help/cnt_engraving.py:277
 #: ../preview_mode/widget.py:124
 msgid "Display Grob Names"
 msgstr "Grob-namen weergeven"
 
-#: ../help/cnt_engraving.py:136
-msgid ""
-"This mode prints a grob's name next to it.<br />The main purpose of this "
-"Debug Mode is to retrieve information about Grob names, which may come in "
-"handy if you don't know where to look up available properties.<br />Please "
-"note that this mode is quite intrusive and will especially become useful "
-"once it can be activated for single grobs."
-msgstr ""
-"Deze mode drukt de naam van elke grob af.<br /> Het doel is om informatie te "
-"krijgen over de namen van grobs, wat handig kan zijn om te kijken wat voor "
-"eigenschappen voor die grob ingesteld kunnen worden.<br /> Deze modus "
-"resulteert in onoverzichtelijke partituren en werkt daarom het best met "
-"kleine testdocumenten. Hopelijk kan deze modus in de toekomst voor elke grob "
-"apart worden ingeschakeld."
+#: ../help/cnt_engraving.py:137
+msgid "This mode prints a grob's name next to it."
+msgstr "Deze mode drukt de naam van elke grob af."
 
-#: ../help/cnt_engraving.py:142 ../preview_mode/widget.py:106
+#: ../help/cnt_engraving.py:138
+msgid ""
+"The main purpose of this Debug Mode is to retrieve information about Grob "
+"names, which may come in handy if you don't know where to look up available "
+"properties."
+msgstr ""
+"<br /> Het doel is om informatie te krijgen over de namen van grobs, wat "
+"handig kan zijn om te kijken wat voor eigenschappen voor die grob ingesteld "
+"kunnen worden.<br /> Deze modus resulteert in onoverzichtelijke partituren "
+"en werkt daarom het best met kleine testdocumenten. Hopelijk kan deze modus "
+"in de toekomst voor elke grob apart worden ingeschakeld."
+
+#: ../help/cnt_engraving.py:141
+msgid ""
+"Please note that displaying grob anchors and displaying grob names is "
+"mutually exclusive because both functions override the grob's stencil. When "
+"both modes are active, only the grob anchors are displayed."
+msgstr ""
+"Let wel dat het afbeelden van grob ankerpunten en grobnamen niet tegelijk "
+"kan, beide overschrijven de stencil van de grob. Als beide modes actief zijn "
+"worden alleen de grob-ankerpunten weergegeven."
+
+#: ../help/cnt_engraving.py:145
+msgid ""
+"Please also note that this mode is quite intrusive and may affect the "
+"layout. It is mainly useful for learning about grob names and will "
+"especially become usable once it can be activated for single grobs."
+msgstr ""
+"Deze modus is beinvloedt de layout ook start. De modus is vooral bedoeld om "
+"grob namen te leren en wordt bruikbaarder als het voor individuele grobs zou "
+"kunnen worden geactiveerd."
+
+#: ../help/cnt_engraving.py:149 ../preview_mode/widget.py:106
 msgid "Display Skylines"
 msgstr "Skylines weergeven"
 
-#: ../help/cnt_engraving.py:143
+#: ../help/cnt_engraving.py:150
 msgid ""
 "LilyPond uses \"Skylines\" to calculate the vertical dimensions of its "
 "graphical objects in order to prevent collisions. This mode draws lines "
@@ -1927,11 +1929,11 @@ msgstr ""
 "berekenen om botsingen te voorkomen. Deze modus tekent de skylines in de "
 "partituur en verschaft zo inzicht in de verticale spatiëring."
 
-#: ../help/cnt_engraving.py:147 ../preview_mode/widget.py:127
+#: ../help/cnt_engraving.py:154 ../preview_mode/widget.py:127
 msgid "Debug Paper Columns"
 msgstr "Paper-colums debuggen"
 
-#: ../help/cnt_engraving.py:148
+#: ../help/cnt_engraving.py:155
 msgid ""
 "LilyPond organises the horizontal spacing in \"paper columns\". This mode "
 "prints a lot of spacing information about these entities."
@@ -1940,11 +1942,11 @@ msgstr ""
 "columns. Deze modus toont een grote hoeveelheid informatie over deze "
 "entiteiten."
 
-#: ../help/cnt_engraving.py:150 ../preview_mode/widget.py:130
+#: ../help/cnt_engraving.py:157 ../preview_mode/widget.py:130
 msgid "Annotate Spacing"
 msgstr "Spatiëring annoteren"
 
-#: ../help/cnt_engraving.py:151
+#: ../help/cnt_engraving.py:158
 msgid ""
 "LilyPond has a built-in function that prints lots of information about "
 "distances on the paper, which is very useful when debugging the page layout."
@@ -1952,32 +1954,36 @@ msgstr ""
 "LilyPond heeft een ingebouwde functie die alle afstanden in getallen "
 "vermeldt, wat handig is om de pagina-layout te debuggen."
 
-#: ../help/cnt_engraving.py:154
+#: ../help/cnt_engraving.py:161
 msgid "Include Custom File"
 msgstr "Eigen bestand invoegen"
 
-#: ../help/cnt_engraving.py:155
+#: ../help/cnt_engraving.py:162
 msgid ""
 "This mode offers the opportunity to add one's own Debug Modes by including a "
 "custom file. This file will be included at program startup and may contain "
 "any LilyPond code you would like to have executed whenever you are engraving "
 "in Preview Mode. This file will be parsed before any of the other Debug "
-"Modes so you may use it to configure them.<br />The given string will be "
-"literally included in an <code>\\include</code> directive, so you are "
-"responsible yourself that LilyPond can find it."
+"Modes so you may use it to configure them."
 msgstr ""
 "Deze modus biedt de gelegenheid een eigen bestand in te voegen met eigen "
 "debug-modus. Dit bestand wordt dan bij het starten van LilyPond in "
 "vooruitblik-modus geladen, vóór alle andere bestanden, zodat u dit bestand "
-"ook kunt gebruiken om de debug-modes te configureren.<br /> De ingevoerde "
-"bestandsnaam wordt letterlijk in een <code>\\include</code>-commando "
-"geplaatst, dus u moet zelf zorgen dat LilyPond het kan vinden."
+"ook kunt gebruiken om de debug-modes te configureren."
 
-#: ../help/cnt_engraving.py:171
+#: ../help/cnt_engraving.py:168
+msgid ""
+"The given string will be literally included in an <code>\\include</code> "
+"directive, so you are responsible yourself that LilyPond can find it."
+msgstr ""
+"De ingevoerde bestandsnaam wordt letterlijk in een <code>\\include</code>-"
+"commando geplaatst, dus u moet zelf zorgen dat LilyPond het kan vinden."
+
+#: ../help/cnt_engraving.py:178
 msgid "Preview Mode Configuration"
 msgstr "Vooruitblik-modus configuratie"
 
-#: ../help/cnt_engraving.py:198
+#: ../help/cnt_engraving.py:205
 msgid ""
 "The appearance of the individual Debug Modes is defined through the use of "
 "configuration variables. Depending on the implementation of the mode you may "
@@ -1995,42 +2001,26 @@ msgstr ""
 "gebruikt worden om deze variabeles te definiëren voordat de debug-modes door "
 "LilyPond worden uitgevoerd."
 
-#: ../help/cnt_engraving.py:206
+#: ../help/cnt_engraving.py:213
 msgid "The modes use the following configuration variables:"
 msgstr "De modes gebruiken de volgende configuratie-variabelen:"
 
-#: ../help/cnt_engraving.py:211
+#: ../help/cnt_engraving.py:218
 msgid "Variables can be redefined in input files."
 msgstr "Variabelen kunnen in invoerbestanden worden geherdefiniëerd."
 
-#: ../help/cnt_engraving.py:215
-msgid "color of the debug control points"
-msgstr "kleur van de debug controlepunten"
-
-#: ../help/cnt_engraving.py:218
-msgid "thickness of the control points lines"
-msgstr "dikte van de lijnen van de controlepunten"
-
-#: ../help/cnt_engraving.py:221
-msgid "thickness of the control points crosses"
-msgstr "dikte van de kruisjes van de controlepunten"
-
-#: ../help/cnt_engraving.py:224
-msgid "size of the control points crosses"
-msgstr "grootte van de kruisjes van de controlepunten"
-
-#: ../help/cnt_engraving.py:226
+#: ../help/cnt_engraving.py:233
 msgid "These Variables currently can't be redefined in input files."
 msgstr ""
 "Deze variabelen kunnen momenteel niet worden geherdefiniëerd in "
 "invoerbestanden."
 
-#: ../help/cnt_engraving.py:241 ../help/cnt_engraving.py:258
-#: ../help/cnt_engraving.py:271
+#: ../help/cnt_engraving.py:248 ../help/cnt_engraving.py:265
+#: ../help/cnt_engraving.py:278
 msgid "These Variables can be redefined in input files."
 msgstr "Variabelen kunnen in invoerbestanden worden geherdefiniëerd."
 
-#: ../help/cnt_engraving.py:251
+#: ../help/cnt_engraving.py:258
 msgid ""
 "Defines for which grobs the explicit direction through operators is "
 "monitored. By default all grobs are watched, but alternatively one can "
@@ -2042,7 +2032,7 @@ msgstr ""
 "lijst van grobs aangeven zoals bijvoorbeeld <code>#(define debug-direction-"
 "grob-list '(DynamicText Script))</code>"
 
-#: ../help/cnt_engraving.py:265
+#: ../help/cnt_engraving.py:272
 msgid ""
 "Defines for which grobs the anchor points will be displayed. By default all "
 "grobs are watched, but alternatively one can provide a list of grobs such as "
@@ -2053,7 +2043,7 @@ msgstr ""
 "bijvoorbeeld <code>#(define debug-grob-anchors-grob-list '(Script NoteHead))"
 "</code>"
 
-#: ../help/cnt_engraving.py:278
+#: ../help/cnt_engraving.py:285
 msgid ""
 "Defines for which grobs the names will be displayed. By default all grobs "
 "are watched, but alternatively one can provide a list of grobs such as e.g. "
@@ -2064,7 +2054,7 @@ msgstr ""
 "bijvoorbeeld <code>#(define debug-grob-names-grob-list '(Script NoteHead))</"
 "code>"
 
-#: ../help/cnt_engraving.py:284
+#: ../help/cnt_engraving.py:291
 msgid ""
 "The remaining modes are built-in to LilyPond and don't have any "
 "configuration options."
@@ -2072,11 +2062,11 @@ msgstr ""
 "De overige modi zijn in LilyPond ingebouwd en hebben geen configuratie-"
 "opties."
 
-#: ../help/cnt_engraving.py:290
+#: ../help/cnt_engraving.py:297
 msgid "Engrave (Publication)"
 msgstr "Graveren (publicatie)"
 
-#: ../help/cnt_engraving.py:294
+#: ../help/cnt_engraving.py:301
 msgid ""
 "When engraving a score in Publication mode the point-and-click information "
 "isn't generated. This will prevent a reader of the resulting PDF document "
@@ -2088,7 +2078,7 @@ msgstr ""
 "naar het brondocument navigeren, maar de resulterende PDF zal wel veel "
 "kleiner zijn."
 
-#: ../help/cnt_engraving.py:299
+#: ../help/cnt_engraving.py:306
 msgid ""
 "You should also note that the point-and-click links contain hard-coded path "
 "information of your systen, which may be considered a security issue."
@@ -2097,21 +2087,62 @@ msgstr ""
 "bronbestand op uw systeem prijsgeven, wat een veiligheidsrisico zou kunnen "
 "zijn."
 
-#: ../help/cnt_engraving.py:308
+#: ../help/cnt_engraving.py:315
 msgid "Engrave (Custom)"
 msgstr "Aangepast graveren"
 
-#: ../help/cnt_engraving.py:312
+#: ../help/cnt_engraving.py:319
 msgid ""
-"The <em>Engrave (Custom)</em> dialog gives you detailed access to all "
-"aspects of the LilyPond command."
+"The <em>Engrave (Custom)</em> dialog ({custom_shortcut}) gives you detailed "
+"access to all aspects of the LilyPond command."
 msgstr ""
-"De dialoog <em>Aangepast graveren</em> geeft gedetailleerde toegang tot alle "
-"aspecten van de LilyPond-commandoregel."
+"De dialoog <em>Aangepast graveren</em> ({custom_shortcut}) geeft "
+"gedetailleerde toegang tot alle aspecten van de LilyPond-commandoregel."
 
-#: ../help/cnt_engraving.py:314
-msgid "More documentation to come ..."
-msgstr "Meer documentatie volgt..."
+#: ../help/cnt_engraving.py:322
+msgid ""
+"You can configure a number of options through the graphical user interface "
+"and then fine-tune the command line to be used for LilyPond directly."
+msgstr ""
+"U kunt een aantal opties via de gebruikerinterface instellen en dan de "
+"commandoregel nog handmatig aanpassen om direct voor LilyPond te kunnen "
+"worden gebruikt."
+
+#: ../help/cnt_engraving.py:325
+msgid ""
+"You can select from the LilyPond versions defined in the {pref} dialog, from "
+"the output formats available to LilyPond and (for PNG output) from a number "
+"of image resolutions."
+msgstr ""
+"U kunt kiezen uit de LilyPond-versies die zijn ingesteld in de dialoog "
+"{pref}, uit de beschikbare uitvoerformaten, en voor PNG-uitvoer kunt u de "
+"gewenste resolutie instellen."
+
+#: ../help/cnt_engraving.py:329
+msgid ""
+"Running LilyPond in Preview Mode will respect the settings from the Preview "
+"Options Panel ({link})."
+msgstr ""
+"Als u LilyPond in Vooruitblik-modus start worden de instellingen van het "
+"paneel Vooruitblik-opties ({link}) gebruikt."
+
+#: ../help/cnt_engraving.py:331
+msgid ""
+"Verbose Output and English Messages may be relevant if you want to send "
+"information to a mailing list, and Deleting Intermediate Output Files may be "
+"used to <em>disable</em> the default behaviour."
+msgstr ""
+"<em>Uitgebreide uitvoer</em> en <em>Engelstalige berichten</em> zijn handig "
+"als u informatie naar een mailinglist wilt verzenden, en <em>Tussentijds "
+"uitvoerbestanden verwijderen</em> is handig als u de tussentijdse PostScript-"
+"bestanden die LilyPond aanmaakt verder niet nodig heeft."
+
+#: ../help/cnt_engraving.py:334
+msgid ""
+"Some of these settings are reflected in the Command Line text edit field, "
+"others not."
+msgstr ""
+"Sommige instellingen beïnvloeden de weergegeven commandoregel, andere niet."
 
 #: ../help/contents.py:39
 msgid "No Help"
@@ -2224,7 +2255,7 @@ msgstr ""
 msgid "Getting Started"
 msgstr "Aan de slag"
 
-#: ../help/contents.py:138 ../preferences/fontscolors.py:482
+#: ../help/contents.py:138 ../preferences/fontscolors.py:501
 #: ../preferences/lilypond.py:239 ../preferences/preview.py:239
 #: ../scorewiz/settings.py:295
 msgid "LilyPond"
@@ -2235,7 +2266,7 @@ msgid "Engrave (publish)"
 msgstr "Graveren (publicatie)"
 
 #: ../help/contents.py:142 ../preferences/__init__.py:184
-#: ../preferences/prefshelp.py:79
+#: ../preferences/prefshelp.py:81
 msgid "LilyPond Preferences"
 msgstr "LilyPond-voorkeuren"
 
@@ -2502,17 +2533,17 @@ msgid "Edit"
 msgstr "Bewerken"
 
 #: ../help/contents.py:258 ../preferences/__init__.py:250
-#: ../preferences/prefshelp.py:243
+#: ../preferences/prefshelp.py:261
 msgid "Fonts & Colors"
 msgstr "Tekst & kleur"
 
 #: ../help/contents.py:259 ../preferences/fontscolors.py:123
-#: ../preferences/fontscolors.py:298
+#: ../preferences/fontscolors.py:317
 msgid "Base Colors"
 msgstr "Basiskleuren"
 
 #. L10N: color of paper in music preview
-#: ../help/contents.py:259 ../preferences/fontscolors.py:453
+#: ../help/contents.py:259 ../preferences/fontscolors.py:472
 msgid "Preview Background"
 msgstr "Vooruitblik achtergrond"
 
@@ -3102,19 +3133,19 @@ msgstr ""
 msgid "Table of Contents"
 msgstr "Inhoudsopgave"
 
-#: ../help/helpimpl.py:116
+#: ../help/helpimpl.py:136
 msgid "Up:"
 msgstr "Omhoog:"
 
-#: ../help/helpimpl.py:131
+#: ../help/helpimpl.py:148
 msgid "Next:"
 msgstr "Hierna:"
 
-#: ../help/helpimpl.py:134
+#: ../help/helpimpl.py:152
 msgid "See also:"
 msgstr "Zie ook:"
 
-#: ../help/helpimpl.py:177
+#: ../help/helpimpl.py:192
 msgid "(no key defined)"
 msgstr "(geen toets ingesteld)"
 
@@ -3208,83 +3239,108 @@ msgstr "Muziekweergave"
 msgid "&Music View"
 msgstr "&Muziekweergave"
 
-#: ../musicview/__init__.py:286
+#: ../musicview/__init__.py:185
+msgid "Print Music"
+msgstr "Muziek afdrukken"
+
+#: ../musicview/__init__.py:186
+msgid ""
+"Unfortunately, this version of Frescobaldi is unable to print PDF documents "
+"on Mac OS X due to various technical reasons.\n"
+"\n"
+"Do you want to open the file in the default viewer for printing instead? "
+"(remember to close it again to avoid access problems)\n"
+"\n"
+"Choose Yes if you want that, No if you want to try the built-in printing "
+"functionality anyway, or Cancel to cancel printing."
+msgstr ""
+"Deze versie van Frescobaldi is om technische redenen helaas niet in staat om "
+"PDF-documenten af te drukken op Mac OS X.\n"
+"\n"
+"Wilt u het bestand openen in het standaardweergaveprogramma om het daarmee "
+"af te kunnen drukken? (vergeet niet het programma weer te sluiten "
+"naderhand)\n"
+"\n"
+"Kies Ja als u dat wilt, Nee als u de ingebouwde printfunctionaliteit toch "
+"wilt gebruiken, of Annuleren om het afdrukken te annuleren."
+
+#: ../musicview/__init__.py:307
 msgid "Select Music View Document"
 msgstr "Weer te geven document selecteren"
 
-#: ../musicview/__init__.py:287
+#: ../musicview/__init__.py:308
 msgid "&Print Music..."
 msgstr "&Muziek afdrukken..."
 
-#: ../musicview/__init__.py:288
+#: ../musicview/__init__.py:309
 msgid "Zoom &In"
 msgstr "&Inzoomen"
 
-#: ../musicview/__init__.py:289
+#: ../musicview/__init__.py:310
 msgid "Zoom &Out"
 msgstr "&Uitzoomen"
 
-#: ../musicview/__init__.py:290
+#: ../musicview/__init__.py:311
 msgid "Original &Size"
 msgstr "&Werkelijke grootte"
 
-#: ../musicview/__init__.py:291
+#: ../musicview/__init__.py:312
 msgid "Zoom Music"
 msgstr "Muziek zoomen"
 
-#: ../musicview/__init__.py:292
+#: ../musicview/__init__.py:313
 msgid "Fit &Width"
 msgstr "Passend in &breedte"
 
-#: ../musicview/__init__.py:293
+#: ../musicview/__init__.py:314
 msgid "Fit &Height"
 msgstr "Passend in &hoogte"
 
-#: ../musicview/__init__.py:294
+#: ../musicview/__init__.py:315
 msgid "Fit &Page"
 msgstr "Hele &pagina"
 
-#: ../musicview/__init__.py:295
+#: ../musicview/__init__.py:316
 msgid "&Maximize"
 msgstr "&Maximaliseren"
 
-#: ../musicview/__init__.py:296
+#: ../musicview/__init__.py:317
 msgid "&Jump to Cursor Position"
 msgstr "Naar cursor &springen"
 
-#: ../musicview/__init__.py:297
+#: ../musicview/__init__.py:318
 msgid "S&ynchronize with Cursor Position"
 msgstr "Met cursor s&ynchroniseren"
 
-#: ../musicview/__init__.py:298
+#: ../musicview/__init__.py:319
 msgid "Copy to &Image..."
 msgstr "Naar afbeeld&ing kopiëren..."
 
-#: ../musicview/__init__.py:299
+#: ../musicview/__init__.py:320
 msgid "Next Page"
 msgstr "Volgende pagina"
 
-#: ../musicview/__init__.py:300
+#: ../musicview/__init__.py:321
 msgid "Next"
 msgstr "Volgende"
 
-#: ../musicview/__init__.py:301
+#: ../musicview/__init__.py:322
 msgid "Previous Page"
 msgstr "Vorige pagina"
 
-#: ../musicview/__init__.py:302
+#: ../musicview/__init__.py:323
 msgid "Previous"
 msgstr "Vorige"
 
-#: ../musicview/__init__.py:303
+#: ../musicview/__init__.py:324
 msgid "&Reload"
 msgstr "He&rladen"
 
-#: ../musicview/__init__.py:447
+#: ../musicview/__init__.py:468
 msgid "Choose the PDF document to display."
 msgstr "Kies het weer te geven PDF-document."
 
-#: ../musicview/__init__.py:449
+#: ../musicview/__init__.py:470
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -3292,20 +3348,20 @@ msgstr ""
 "Kies het weer te geven PDF-document of sleep het bestand naar een andere "
 "locatie of toepassing."
 
-#: ../musicview/__init__.py:507
+#: ../musicview/__init__.py:528
 msgid "Fit Width"
 msgstr "Passend in breedte"
 
-#: ../musicview/__init__.py:508
+#: ../musicview/__init__.py:529
 msgid "Fit Height"
 msgstr "Passend in hoogte"
 
-#: ../musicview/__init__.py:509
+#: ../musicview/__init__.py:530
 msgid "Fit Page"
 msgstr "Hele pagina"
 
 #. L10N: page numbering: page {num} of {total}
-#: ../musicview/__init__.py:526
+#: ../musicview/__init__.py:547
 msgid "{num} of {total}"
 msgstr "{num} van {total}"
 
@@ -3851,24 +3907,24 @@ msgstr "Naar rechts schuiven"
 msgid "General Preferences"
 msgstr "Algemene voorkeuren"
 
-#: ../preferences/__init__.py:195 ../preferences/prefshelp.py:140
+#: ../preferences/__init__.py:195 ../preferences/prefshelp.py:142
 msgid "MIDI Settings"
 msgstr "MIDI-instellingen"
 
-#: ../preferences/__init__.py:206 ../preferences/helpers.py:80
-#: ../preferences/prefshelp.py:172
+#: ../preferences/__init__.py:206 ../preferences/helpers.py:90
+#: ../preferences/prefshelp.py:174
 msgid "Helper Applications"
 msgstr "Hulpprogramma's"
 
-#: ../preferences/__init__.py:217 ../preferences/prefshelp.py:191
+#: ../preferences/__init__.py:217 ../preferences/prefshelp.py:209
 msgid "Paths"
 msgstr "Paden"
 
-#: ../preferences/__init__.py:228 ../preferences/prefshelp.py:205
+#: ../preferences/__init__.py:228 ../preferences/prefshelp.py:223
 msgid "LilyPond Documentation"
 msgstr "LilyPond-documentatie"
 
-#: ../preferences/__init__.py:239 ../preferences/prefshelp.py:223
+#: ../preferences/__init__.py:239 ../preferences/prefshelp.py:241
 msgid "Keyboard Shortcuts"
 msgstr "Sneltoetsen"
 
@@ -3880,7 +3936,7 @@ msgstr "Paden naar LilyPond-documentatie"
 msgid "Add paths or URLs. See \"What's This\" for more information."
 msgstr "Voeg paden of URLs toe. Zie \"Wat is dit\" voor meer informatie."
 
-#: ../preferences/documentation.py:70 ../preferences/prefshelp.py:210
+#: ../preferences/documentation.py:70 ../preferences/prefshelp.py:228
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
 "A local path should point to the directory where either the "
@@ -3908,7 +3964,7 @@ msgstr "Voorkeurstaal:"
 #: ../preferences/tools.py:296 ../scorewiz/settings.py:138
 #: ../scorewiz/settings.py:204 ../scorewiz/settings.py:299
 #: ../scorewiz/parts/_base.py:214 ../scorewiz/parts/plucked_strings.py:65
-#: ../widgets/schemeselector.py:115
+#: ../widgets/schemeselector.py:195
 msgid "Default"
 msgstr "Standaard"
 
@@ -3938,258 +3994,258 @@ msgid "(Inherits: {name})"
 msgstr "(gebaseerd op: {name})"
 
 #. L10N: color of Text
-#: ../preferences/fontscolors.py:360 ../preferences/fontscolors.py:435
+#: ../preferences/fontscolors.py:379 ../preferences/fontscolors.py:454
 msgid "Text"
 msgstr "Tekst"
 
 #. L10N: color of Background
-#: ../preferences/fontscolors.py:361 ../preferences/fontscolors.py:437
+#: ../preferences/fontscolors.py:380 ../preferences/fontscolors.py:456
 msgid "Background"
 msgstr "Achtergrond"
 
-#: ../preferences/fontscolors.py:362
+#: ../preferences/fontscolors.py:381
 msgid "Bold"
 msgstr "Vet"
 
-#: ../preferences/fontscolors.py:363
+#: ../preferences/fontscolors.py:382
 msgid "Italic"
 msgstr "Cursief"
 
-#: ../preferences/fontscolors.py:364
+#: ../preferences/fontscolors.py:383
 msgid "Underline"
 msgstr "Onderstrepen"
 
 #. L10N: color of Selected Text
-#: ../preferences/fontscolors.py:439
+#: ../preferences/fontscolors.py:458
 msgid "Selected Text"
 msgstr "Geselecteerde tekst"
 
 #. L10N: color of Selection Background
-#: ../preferences/fontscolors.py:441
+#: ../preferences/fontscolors.py:460
 msgid "Selection Background"
 msgstr "Achtergrond van selectie"
 
 #. L10N: color of Current Line
-#: ../preferences/fontscolors.py:443
+#: ../preferences/fontscolors.py:462
 msgid "Current Line"
 msgstr "Huidige regel"
 
 #. L10N: color of Marked Line (bookmark)
-#: ../preferences/fontscolors.py:445
+#: ../preferences/fontscolors.py:464
 msgid "Marked Line"
 msgstr "Gemarkeerde regel"
 
 #. L10N: color of line with Error
-#: ../preferences/fontscolors.py:447
+#: ../preferences/fontscolors.py:466
 msgid "Error Line"
 msgstr "Foutmarkering"
 
 #. L10N: color of highlighted search result
-#: ../preferences/fontscolors.py:449
+#: ../preferences/fontscolors.py:468
 msgid "Search Result"
 msgstr "Zoekresultaat"
 
 #. L10N: color of characters that match (e.g. braces, parentheses)
-#: ../preferences/fontscolors.py:451
+#: ../preferences/fontscolors.py:470
 msgid "Matching Character"
 msgstr "Bijbehorend teken"
 
 #. L10N: color of objects highlighting in preview
-#: ../preferences/fontscolors.py:455
+#: ../preferences/fontscolors.py:474
 msgid "Preview Highlight"
 msgstr "Vooruitblik markering"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:462 ../preferences/fontscolors.py:497
-#: ../preferences/fontscolors.py:531 ../preferences/fontscolors.py:539
+#: ../preferences/fontscolors.py:481 ../preferences/fontscolors.py:516
+#: ../preferences/fontscolors.py:550 ../preferences/fontscolors.py:558
 msgid "Keyword"
 msgstr "Sleutelwoord"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:464 ../preferences/fontscolors.py:532
+#: ../preferences/fontscolors.py:483 ../preferences/fontscolors.py:551
 msgid "Function"
 msgstr "Functie"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:466 ../preferences/fontscolors.py:508
-#: ../preferences/fontscolors.py:533
+#: ../preferences/fontscolors.py:485 ../preferences/fontscolors.py:527
+#: ../preferences/fontscolors.py:552
 msgid "Variable"
 msgstr "Variabele"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:468 ../preferences/fontscolors.py:510
-#: ../preferences/fontscolors.py:520
+#: ../preferences/fontscolors.py:487 ../preferences/fontscolors.py:529
+#: ../preferences/fontscolors.py:539
 msgid "Value"
 msgstr "Waarde"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:470 ../preferences/fontscolors.py:511
-#: ../preferences/fontscolors.py:523 ../preferences/fontscolors.py:529
+#: ../preferences/fontscolors.py:489 ../preferences/fontscolors.py:530
+#: ../preferences/fontscolors.py:542 ../preferences/fontscolors.py:548
 msgid "String"
 msgstr "Tekenreeks"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:472
+#: ../preferences/fontscolors.py:491
 msgid "Escape"
 msgstr "Escape"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:474 ../preferences/fontscolors.py:513
-#: ../preferences/fontscolors.py:522 ../preferences/fontscolors.py:530
-#: ../preferences/fontscolors.py:544 ../snippet/builtin.py:374
+#: ../preferences/fontscolors.py:493 ../preferences/fontscolors.py:532
+#: ../preferences/fontscolors.py:541 ../preferences/fontscolors.py:549
+#: ../preferences/fontscolors.py:563 ../snippet/builtin.py:374
 msgid "Comment"
 msgstr "Commentaar"
 
-#: ../preferences/fontscolors.py:483
+#: ../preferences/fontscolors.py:502
 msgid "Pitch"
 msgstr "Toon"
 
-#: ../preferences/fontscolors.py:484
+#: ../preferences/fontscolors.py:503
 msgid "Octave"
 msgstr "Octaaf"
 
-#: ../preferences/fontscolors.py:485
+#: ../preferences/fontscolors.py:504
 msgid "Duration"
 msgstr "Duur"
 
-#: ../preferences/fontscolors.py:486
+#: ../preferences/fontscolors.py:505
 msgid "Octave Check"
 msgstr "Octaaf-check"
 
-#: ../preferences/fontscolors.py:487
+#: ../preferences/fontscolors.py:506
 msgid "Fingering"
 msgstr "Vingerzetting"
 
 #. L10N: For String instruments like Guitar
-#: ../preferences/fontscolors.py:489
+#: ../preferences/fontscolors.py:508
 msgid "String Number"
 msgstr "Snaar"
 
-#: ../preferences/fontscolors.py:490 ../quickinsert/spanners.py:164
+#: ../preferences/fontscolors.py:509 ../quickinsert/spanners.py:164
 msgid "Slur"
 msgstr "Boogje"
 
-#: ../preferences/fontscolors.py:491
+#: ../preferences/fontscolors.py:510
 msgid "Dynamic"
 msgstr "Dynamiek"
 
-#: ../preferences/fontscolors.py:492
+#: ../preferences/fontscolors.py:511
 msgid "Articulation"
 msgstr "Articulatie"
 
-#: ../preferences/fontscolors.py:493
+#: ../preferences/fontscolors.py:512
 msgid "Chord"
 msgstr "Akkoord"
 
-#: ../preferences/fontscolors.py:494 ../quickinsert/spanners.py:166
+#: ../preferences/fontscolors.py:513 ../quickinsert/spanners.py:166
 msgid "Beam"
 msgstr "Waardestreep"
 
-#: ../preferences/fontscolors.py:495
+#: ../preferences/fontscolors.py:514
 msgid "Check"
 msgstr "Test"
 
-#: ../preferences/fontscolors.py:496 ../snippet/builtin.py:244
+#: ../preferences/fontscolors.py:515 ../snippet/builtin.py:244
 msgid "Repeat"
 msgstr "Herhaling (\\repeat)"
 
-#: ../preferences/fontscolors.py:498 ../preferences/shortcuts.py:56
+#: ../preferences/fontscolors.py:517 ../preferences/shortcuts.py:56
 msgid "Command"
 msgstr "Commando"
 
-#: ../preferences/fontscolors.py:499
+#: ../preferences/fontscolors.py:518
 msgid "Specifier"
 msgstr "Specifier"
 
-#: ../preferences/fontscolors.py:500
+#: ../preferences/fontscolors.py:519
 msgid "User Command"
 msgstr "Gebruikerscommando"
 
-#: ../preferences/fontscolors.py:501 ../snippet/builtin.py:284
+#: ../preferences/fontscolors.py:520 ../snippet/builtin.py:284
 msgid "Markup"
 msgstr "Markup"
 
-#: ../preferences/fontscolors.py:502
+#: ../preferences/fontscolors.py:521
 msgid "Lyric Mode"
 msgstr "Lyric mode"
 
-#: ../preferences/fontscolors.py:503
+#: ../preferences/fontscolors.py:522
 msgid "Lyric Text"
 msgstr "Liedtekst"
 
-#: ../preferences/fontscolors.py:504 ../preferences/fontscolors.py:536
+#: ../preferences/fontscolors.py:523 ../preferences/fontscolors.py:555
 msgid "Delimiter"
 msgstr "Scheidingsteken"
 
-#: ../preferences/fontscolors.py:505
+#: ../preferences/fontscolors.py:524
 msgid "Context"
 msgstr "Context"
 
-#: ../preferences/fontscolors.py:506
+#: ../preferences/fontscolors.py:525
 msgid "Layout Object"
 msgstr "Layout-object"
 
-#: ../preferences/fontscolors.py:507
+#: ../preferences/fontscolors.py:526
 msgid "Property"
 msgstr "Property"
 
-#: ../preferences/fontscolors.py:509
+#: ../preferences/fontscolors.py:528
 msgid "User Variable"
 msgstr "Gebruikersvariabele"
 
-#: ../preferences/fontscolors.py:512 ../preferences/fontscolors.py:541
+#: ../preferences/fontscolors.py:531 ../preferences/fontscolors.py:560
 msgid "Escaped Character"
 msgstr "Escape-karakter"
 
-#: ../preferences/fontscolors.py:516
+#: ../preferences/fontscolors.py:535
 msgid "HTML"
 msgstr "HTML"
 
-#: ../preferences/fontscolors.py:517
+#: ../preferences/fontscolors.py:536
 msgid "Tag"
 msgstr "Tag"
 
-#: ../preferences/fontscolors.py:518
+#: ../preferences/fontscolors.py:537
 msgid "LilyPond Tag"
 msgstr "LilyPond-tag"
 
-#: ../preferences/fontscolors.py:519 ../preferences/fontscolors.py:542
+#: ../preferences/fontscolors.py:538 ../preferences/fontscolors.py:561
 msgid "Attribute"
 msgstr "Attribuut"
 
-#: ../preferences/fontscolors.py:521
+#: ../preferences/fontscolors.py:540
 msgid "Entity Reference"
 msgstr "Entiteit"
 
-#: ../preferences/fontscolors.py:525 ../preferences/fontscolors.py:526
+#: ../preferences/fontscolors.py:544 ../preferences/fontscolors.py:545
 msgid "Scheme"
 msgstr "Scheme"
 
-#: ../preferences/fontscolors.py:527
+#: ../preferences/fontscolors.py:546
 msgid "Number"
 msgstr "Getal"
 
-#: ../preferences/fontscolors.py:528
+#: ../preferences/fontscolors.py:547
 msgid "LilyPond Environment"
 msgstr "LilyPond-omgeving"
 
-#: ../preferences/fontscolors.py:534
+#: ../preferences/fontscolors.py:553
 msgid "Constant"
 msgstr "Constante"
 
-#: ../preferences/fontscolors.py:535
+#: ../preferences/fontscolors.py:554
 msgid "Symbol"
 msgstr "Symbool"
 
-#: ../preferences/fontscolors.py:538
+#: ../preferences/fontscolors.py:557
 msgid "Texinfo"
 msgstr "Texinfo"
 
-#: ../preferences/fontscolors.py:540
+#: ../preferences/fontscolors.py:559
 msgid "Block"
 msgstr "Blok"
 
-#: ../preferences/fontscolors.py:543
+#: ../preferences/fontscolors.py:562
 msgid "Verbatim"
 msgstr "Verbatim"
 
@@ -4239,7 +4295,7 @@ msgstr ""
 "Indien ingeschakeld, worden bestanden geopend in een reeds actief "
 "Frescobaldi-programma, in plaats van een nieuw proces op te starten."
 
-#: ../preferences/general.py:170 ../preferences/prefshelp.py:65
+#: ../preferences/general.py:170 ../preferences/prefshelp.py:67
 msgid "Session to load if Frescobaldi is started without arguments"
 msgstr "Als Frescobaldi zonder argumenten wordt gestart,"
 
@@ -4255,7 +4311,7 @@ msgstr "Laatstgebruikte sessie starten"
 msgid "Start with session:"
 msgstr "Met deze sessie starten:"
 
-#: ../preferences/general.py:228 ../preferences/prefshelp.py:73
+#: ../preferences/general.py:228 ../preferences/prefshelp.py:75
 msgid "When saving documents"
 msgstr "Bij het opslaan van documenten"
 
@@ -4284,39 +4340,39 @@ msgstr "Standaardmap:"
 msgid "The default folder for your LilyPond documents (optional)."
 msgstr "De standaardmap voor uw LilyPond documenten (optioneel)."
 
-#: ../preferences/helpers.py:70
+#: ../preferences/helpers.py:80
 msgid "PDF:"
 msgstr "PDF:"
 
-#: ../preferences/helpers.py:71
+#: ../preferences/helpers.py:81
 msgid "MIDI:"
 msgstr "MIDI:"
 
-#: ../preferences/helpers.py:72
+#: ../preferences/helpers.py:82
 msgid "SVG:"
 msgstr "SVG:"
 
-#: ../preferences/helpers.py:73
+#: ../preferences/helpers.py:83
 msgid "Image:"
 msgstr "Afbeelding:"
 
-#: ../preferences/helpers.py:74
+#: ../preferences/helpers.py:84
 msgid "Browser:"
 msgstr "Browser:"
 
-#: ../preferences/helpers.py:75
+#: ../preferences/helpers.py:85
 msgid "E-Mail:"
 msgstr "E-mail:"
 
-#: ../preferences/helpers.py:76
+#: ../preferences/helpers.py:86
 msgid "File Manager:"
 msgstr "Bestandsbeheer:"
 
-#: ../preferences/helpers.py:77
+#: ../preferences/helpers.py:87
 msgid "Shell:"
 msgstr "Shell:"
 
-#: ../preferences/helpers.py:82
+#: ../preferences/helpers.py:92
 msgid ""
 "Below you can enter commands to open different file types. <code>$f</code> "
 "is replaced with the filename, <code>$u</code> with the URL. Leave a field "
@@ -4327,19 +4383,83 @@ msgstr ""
 "code> door de URL. Laat een veld leeg om de standaardinstelling van het "
 "besturingssysteem te gebruiken."
 
-#: ../preferences/helpers.py:90
+#: ../preferences/helpers.py:100
 msgid "Command that should accept a mailto: URL."
 msgstr "Commando dat een mailto: URL accepteert."
 
-#: ../preferences/helpers.py:92
+#: ../preferences/helpers.py:102
 msgid "Command to open a Terminal or Command window."
 msgstr "Commando dat een terminal of commandovenster opent."
+
+#: ../preferences/helpers.py:145 ../preferences/prefshelp.py:188
+msgid "Printing Music"
+msgstr "Muziek afdrukken"
+
+#: ../preferences/helpers.py:147
+msgid ""
+"Here you can enter a command to print a PDF or PostScript file. See the Help "
+"page for more information about printing music."
+msgstr ""
+"Hier kunt u een commando opgeven om een PDF- of PostScript document af te "
+"drukken. Zie de helppagina voor meer informatie over het afdrukken van "
+"muziek."
+
+#: ../preferences/helpers.py:149
+msgid "Printing command:"
+msgstr "Printcommando:"
+
+#: ../preferences/helpers.py:151 ../preferences/prefshelp.py:190
+msgid ""
+"The printing command is used to print a PostScript or PDF file. On Linux you "
+"don't need this, but on Windows and Mac OS X you can provide a command to "
+"avoid that PDF documents are being printed using raster images, which is "
+"less optimal.\n"
+"<code>$pdf</code> gets replaced with the PDF filename, or alternatively, "
+"<code>$ps</code> is replaced with the PostScript filename. <code>$printer</"
+"code> is replaced with the printer's name to use."
+msgstr ""
+"Het printcommando wordt gebruikt om een PostScript- of PDF-document af te "
+"drukken. Onder Linux heeft u dit niet nodig, maar op Windows en Mac OS X "
+"kunt u hier een commando opgeven zodat PDF-documenten niet als "
+"rasterafbeeldingen worden afgedrukt.\n"
+"<code>$pdf</code> wordt vervangen door de PDF bestandsnaam, en <code>$ps</"
+"code> wordt vervangen door de PostScript bestandsnaam. <code>$printer</code> "
+"wordt vervangen door de naam van de te gebruiken printer."
+
+#: ../preferences/helpers.py:158
+msgid "Use Frescobaldi's print dialog"
+msgstr "Frescobaldi's printdialoog gebruiken"
+
+#: ../preferences/helpers.py:160
+msgid ""
+"If enabled, Frescobaldi will show the print dialog and create a PDF or "
+"PostScript document containing only the selected pages to print. Otherwise, "
+"the command is called directly and is expected to show a print dialog itself."
+msgstr ""
+"Indien ingeschakeld, zal Frescobaldi de printdialoog tonen en een PDF- of "
+"Postscript-bestand aanmaken met alleen de af te drukken pagina's. Indien "
+"uitgeschakeld zal het commando direct worden aangeroepen, in de verwachting "
+"dat dat commando een printdialoog afbeeldt."
+
+#: ../preferences/helpers.py:166
+msgid "Set the resolution if Frescobaldi prints using raster images."
+msgstr ""
+"De resolutie instellen als Frescobaldi bij het afdrukken gebruik maakt van "
+"raster-afbeeldingen."
+
+#: ../preferences/import_export.py:89
+msgid "No theme found."
+msgstr "Geen thema gevonden."
+
+#: ../preferences/import_export.py:172
+msgid "No shortcuts found."
+msgstr "Geen sneltoetsen gevonden."
 
 #: ../preferences/lilypond.py:82
 msgid "LilyPond versions to use"
 msgstr "De te gebruiken LilyPond-versies"
 
-#: ../preferences/lilypond.py:83 ../preferences/prefshelp.py:104
+#: ../preferences/lilypond.py:83 ../preferences/prefshelp.py:106
 #: ../preferences/preview.py:83
 msgid "Automatically choose LilyPond version from document"
 msgstr "Kies LilyPond-versie op basis van document"
@@ -4353,7 +4473,7 @@ msgstr ""
 "versie wordt gekozen.\n"
 "Zie \"Wat is dit\" voor meer informatie."
 
-#: ../preferences/lilypond.py:88 ../preferences/prefshelp.py:109
+#: ../preferences/lilypond.py:88 ../preferences/prefshelp.py:111
 #: ../preferences/preview.py:88
 msgid ""
 "<p>If this setting is enabled, the document is searched for a LilyPond <code>"
@@ -4495,7 +4615,7 @@ msgstr ""
 msgid "Refresh MIDI ports"
 msgstr "MIDI-poorten verversen"
 
-#: ../preferences/midi.py:135 ../preferences/prefshelp.py:158
+#: ../preferences/midi.py:135 ../preferences/prefshelp.py:160
 msgid "Close unused MIDI output"
 msgstr "Ongebruikte MIDI-uitvoer sluiten"
 
@@ -4507,7 +4627,7 @@ msgstr ""
 "Sluit ongebruikte MIDI-poorten na een minuut. Zie \"Wat is dit\" voor meer "
 "informatie."
 
-#: ../preferences/midi.py:140 ../preferences/prefshelp.py:160
+#: ../preferences/midi.py:140 ../preferences/prefshelp.py:162
 msgid ""
 "<p>If checked, Frescobaldi will close MIDI output ports that are not used "
 "for one minute.</p>\n"
@@ -4564,14 +4684,16 @@ msgid ""
 "Under <em>{startup}</em> you can configure which session to load if "
 "Frescobaldi is started without a filename. You can choose whether to start "
 "with one empty document, with the last used session, or with a specific "
-"session. See also {link}."
+"session. Please note that this only works when you have explicitly created a "
+"session and set it to automatically add files on save to it. See also {link}."
 msgstr ""
 "Onder <em>{startup}</em> kunt u instellen welke sessie wordt geladen als "
 "Frescobaldi wordt gestart zonder bestandsnaam. U kunt kiezen om altijd met "
 "één leeg document op te starten, met de laatstgebruikte sessie of met een "
-"specifieke sessie. Zie ook {link}."
+"specifieke sessie. Een sessie kunt u aanmaken via het menu Sessies. Zie ook "
+"{link}."
 
-#: ../preferences/prefshelp.py:67
+#: ../preferences/prefshelp.py:69
 msgid ""
 "Under <em>{saving}</em>, you can choose what to do when a document is saved, "
 "such as remembering the cursor position and marked lines, or leaving a "
@@ -4584,13 +4706,13 @@ msgstr ""
 "toegevoegd). Ook kunt u een standaardmap opgeven waar u uw documenten in "
 "bewaart."
 
-#: ../preferences/prefshelp.py:83
+#: ../preferences/prefshelp.py:85
 msgid ""
 "Here you can configure how LilyPond is run when you engrave your document."
 msgstr ""
 "Hier kunt u instellen hoe LilyPond gestart wordt als u uw document graveert."
 
-#: ../preferences/prefshelp.py:85
+#: ../preferences/prefshelp.py:87
 msgid ""
 "If you have multiple versions of LilyPond installed you can specify them "
 "here, and configure Frescobaldi to automatically choose the right one, based "
@@ -4601,11 +4723,11 @@ msgstr ""
 "wordt gekozen, gebaseerd op het versienummer dat het document opgeeft "
 "({more_info})."
 
-#: ../preferences/prefshelp.py:89
+#: ../preferences/prefshelp.py:91
 msgid "more info"
 msgstr "meer info"
 
-#: ../preferences/prefshelp.py:90
+#: ../preferences/prefshelp.py:92
 msgid ""
 "If the LilyPond executable is not in your system's PATH you can specify the "
 "full path here so Frescobaldi can run it. For the helper applications like "
@@ -4617,7 +4739,7 @@ msgstr ""
 "Voor de hulpprogramma's zoals convert-ly en lilypond-book is het volledige "
 "pad niet nodig als ze in dezelfde map staan als het LilyPond programma zelf."
 
-#: ../preferences/prefshelp.py:95
+#: ../preferences/prefshelp.py:97
 msgid ""
 "You can also configure how LilyPond is run. See the tooltips of the settings "
 "for more information."
@@ -4625,7 +4747,7 @@ msgstr ""
 "U kunt ook instellen hoe LilyPond wordt gestart. Zie de knopinfo bij de "
 "instellingen voor meer informatie."
 
-#: ../preferences/prefshelp.py:97
+#: ../preferences/prefshelp.py:99
 msgid ""
 "Finally, you can specify a list of paths where the LilyPond <code>\\include</"
 "code> command looks for files."
@@ -4633,11 +4755,11 @@ msgstr ""
 "Tenslotte kunt u een lijst van directories opgeven waar het LilyPond <code>"
 "\\include</code>-commando bestanden moet zoeken."
 
-#: ../preferences/prefshelp.py:129 ../preferences/prefshelp.py:135
+#: ../preferences/prefshelp.py:131 ../preferences/prefshelp.py:137
 msgid "Preview Preferences"
 msgstr "Vooruitblik voorkeuren"
 
-#: ../preferences/prefshelp.py:133
+#: ../preferences/prefshelp.py:135
 msgid ""
 "Under <em>{preview_preferences}</em>, you can configure the appearance of "
 "several aspects of the Preview Mode."
@@ -4645,15 +4767,15 @@ msgstr ""
 "Onder <em>{preview_preferences}</em> kunt u verschillende aspecten van de "
 "vooruitblik-modus instellen."
 
-#: ../preferences/prefshelp.py:144
+#: ../preferences/prefshelp.py:146
 msgid "Here you can configure Frescobaldi's MIDI settings."
 msgstr "Hier kunt u Frescobaldi's MIDI instellingen aanpassen."
 
-#: ../preferences/prefshelp.py:146
+#: ../preferences/prefshelp.py:148
 msgid "You can specify the MIDI port name to play to."
 msgstr "U kunt instellen naar welke MIDI-poort moet worden afgespeeld."
 
-#: ../preferences/prefshelp.py:147
+#: ../preferences/prefshelp.py:149
 msgid ""
 "If there are no port names visible in the drop-down box, it may be necessary "
 "to connect a hardware MIDI synthesizer to your computer, or to start a "
@@ -4663,12 +4785,12 @@ msgstr ""
 "om een hardware MIDI synthesizer aan te sluiten, of een software-synthesizer "
 "te starten zoals TiMidity of Fluidsynth."
 
-#: ../preferences/prefshelp.py:151
+#: ../preferences/prefshelp.py:153
 msgid "On Linux, the synthesizer should be available as an ALSA MIDI device."
 msgstr ""
 "Onder Linux moet de synthesizer beschikbaar zijn als een ALSA MIDI-device."
 
-#: ../preferences/prefshelp.py:153
+#: ../preferences/prefshelp.py:155
 msgid ""
 "If you have a device with multiple ports, you can specify the first letters "
 "of the name, to have Frescobaldi automatically pick the first available one."
@@ -4676,7 +4798,7 @@ msgstr ""
 "Als u een synthesizer heeft met meerdere poorten kunt u hier de eerste "
 "letters opgeven, zodat Frescobaldi automatisch de eerst beschikbare gebruikt."
 
-#: ../preferences/prefshelp.py:156
+#: ../preferences/prefshelp.py:158
 msgid ""
 "And finally, when using a software synthesizer it is recommended to enable "
 "the option <em>{close_unused}</em>."
@@ -4684,7 +4806,7 @@ msgstr ""
 "Tenslotte, wanneer u een software-synthesizer gebruikt, is het aanbevolen de "
 "optie <em>{close_unused}</em> te gebruiken."
 
-#: ../preferences/prefshelp.py:176
+#: ../preferences/prefshelp.py:178
 msgid ""
 "In this page you can enter commands to open different file types. <code>$f</"
 "code> is replaced with the filename, <code>$u</code> with the URL. Leave a "
@@ -4695,7 +4817,7 @@ msgstr ""
 "code> door de URL. Laat een veld leeg om de standaardinstelling van het "
 "besturingssysteem te gebruiken."
 
-#: ../preferences/prefshelp.py:181
+#: ../preferences/prefshelp.py:183
 msgid ""
 "For the e-mail setting, the command should accept a <code>mailto:</code> "
 "url. For the command prompt, the command should open a console window. A "
@@ -4705,7 +4827,29 @@ msgstr ""
 "commando-prompt commando moet een console-venster openen. De <code>$f</code>-"
 "waarde wordt vervangen door de directory van het huidige document."
 
-#: ../preferences/prefshelp.py:195
+#: ../preferences/prefshelp.py:197
+msgid ""
+"Uncheck the \"Use Frescobaldi's print dialog\" option when the printing "
+"command opens a print dialog itself, in which you can select e.g. the page "
+"range to print and the printer to use. If you don't use Frescobaldi's print "
+"dialog, you don't need to put the <code>$printer</code> variable in your "
+"command line."
+msgstr ""
+"Vink de optie \"Frescobaldi's printdialoog gebruiken\" uit als het "
+"printcommando zelf een printdialoog opent, waar u de lijst van af te drukken "
+"pagina's en de printer kunt selecteren. Als u Frescobaldi's printdialoog "
+"niet gebruikt, heeft u de <code>$printer</code>-variabele niet nodig in uw "
+"commandoregel."
+
+#: ../preferences/prefshelp.py:202
+msgid ""
+"If Frescobaldi must fall back to printing using raster images, you can "
+"specify the number of dots per inch here."
+msgstr ""
+"Als Frescobaldi moet terugvallen op rasterafbeeldingen bij het afdrukken, "
+"kunt u hier de resolutie (het aantal dots per inch) aangeven."
+
+#: ../preferences/prefshelp.py:213
 msgid ""
 "Here, directories can be added that contain <code>hyph_*.dic</code> files, "
 "where the <code>*</code> stands for different language codes."
@@ -4714,7 +4858,7 @@ msgstr ""
 "bestanden bevatten, waarbij de <code>*</code> staat voor verschillende "
 "taalcodes."
 
-#: ../preferences/prefshelp.py:198
+#: ../preferences/prefshelp.py:216
 msgid ""
 "These hyphenation dictionaries are used by Frescobaldi to break lyrics text "
 "into syllabes."
@@ -4722,7 +4866,7 @@ msgstr ""
 "Deze afbreekwoordenboeken worden door Frescobaldi gebruikt om liedteksten op "
 "te splitsen in syllaben."
 
-#: ../preferences/prefshelp.py:228
+#: ../preferences/prefshelp.py:246
 msgid ""
 "Here you can add keyboard shortcuts to all commands available. Also the "
 "{snippets} or {quickinsert} buttons that have keyboard shortcuts are listed "
@@ -4732,17 +4876,17 @@ msgstr ""
 "{snippets} of {quickinsert} knoppen die sneltoetsen hebben worden hier "
 "weergegeven."
 
-#: ../preferences/prefshelp.py:231 ../snippet/tool.py:57
+#: ../preferences/prefshelp.py:249 ../snippet/tool.py:57
 #: ../snippet/tool.py:148 ../snippet/widget.py:403
 msgid "Snippets"
 msgstr "Knipsels"
 
-#: ../preferences/prefshelp.py:232 ../quickinsert/__init__.py:47
+#: ../preferences/prefshelp.py:250 ../quickinsert/__init__.py:47
 #: ../quickinsert/__init__.py:71
 msgid "Quick Insert"
 msgstr "Quick Insert"
 
-#: ../preferences/prefshelp.py:233
+#: ../preferences/prefshelp.py:251
 msgid ""
 "To change a keyboard shortcut, highlight an action in the list and click the "
 "Edit button, or double-click an action. In the dialog that appears, you can "
@@ -4754,11 +4898,11 @@ msgstr ""
 "maximaal vier verschillende sneltoetsen voor de actie instellen, door de "
 "knop in te drukken en de gewenste sneltoetscombinatie aan te slaan."
 
-#: ../preferences/prefshelp.py:237 ../preferences/prefshelp.py:260
+#: ../preferences/prefshelp.py:255 ../preferences/prefshelp.py:278
 msgid "You can define a new scheme by using the New button."
 msgstr "U kunt een nieuw schema definiëren door op de knop Nieuw te klikken."
 
-#: ../preferences/prefshelp.py:247
+#: ../preferences/prefshelp.py:265
 msgid ""
 "Here you can set the editor font (a monospace font is recommended) and all "
 "colors."
@@ -4766,7 +4910,7 @@ msgstr ""
 "Hier kunt u het editor-lettertype instellen (een vaste-breedte-lettertype is "
 "aanbevolen) en alle kleuren."
 
-#: ../preferences/prefshelp.py:249
+#: ../preferences/prefshelp.py:267
 msgid ""
 "The first item lets you set the colors for the text editor backgroud, "
 "foreground, selection background, the current line, line markings, the paper "
@@ -4776,7 +4920,7 @@ msgstr ""
 "de huidige regel, markeringen, de papierkleur in de muziekweergave, "
 "enzovoort."
 
-#: ../preferences/prefshelp.py:252
+#: ../preferences/prefshelp.py:270
 msgid ""
 "The second item lets you set color and other attributes of the general "
 "highlighting styles, e.g. keyword, variable, value, comment, etcetera."
@@ -4785,7 +4929,7 @@ msgstr ""
 "standaard accentueringsstijlen voor bijvoorbeeld een sleutelwoord, variable, "
 "waarde, commentaar, etc."
 
-#: ../preferences/prefshelp.py:255
+#: ../preferences/prefshelp.py:273
 msgid ""
 "The other items contain the types of text the syntax highlighter recognizes "
 "for every particular document type Frescobaldi supports. Some of these types "
@@ -4798,15 +4942,15 @@ msgstr ""
 "is mogelijk om de attributen vet, cursief en onderstreept in te stellen, en "
 "ook de kleuren voor voorground, achtergrond en onderstreping."
 
-#: ../preferences/prefshelp.py:269
+#: ../preferences/prefshelp.py:287
 msgid "Here you can change the settings for various tools."
 msgstr "Hier kunt u de instellingen van de diverse gereedschappen wijzigen."
 
-#: ../preferences/prefshelp.py:279
+#: ../preferences/prefshelp.py:297
 msgid "Configuring the Outline View"
 msgstr "De documentstructuur-weergave instellen"
 
-#: ../preferences/prefshelp.py:283
+#: ../preferences/prefshelp.py:301
 msgid ""
 "The document outline view is created by looking for certain expressions in "
 "the document text."
@@ -4814,14 +4958,14 @@ msgstr ""
 "De documentstructuur wordt samengesteld door de zoeken naar bepaalde "
 "expressies in de tekst."
 
-#: ../preferences/prefshelp.py:285
+#: ../preferences/prefshelp.py:303
 msgid ""
 "You can specify what to search for by entering a list of regular expressions."
 msgstr ""
 "U kunt aangeven waarnaar gezocht moet worden door een lijst van reguliere "
 "expressies in te voeren."
 
-#: ../preferences/prefshelp.py:287
+#: ../preferences/prefshelp.py:305
 msgid ""
 "In those expressions, <code>^</code> matches at the beginning of every line, "
 "and <code>$</code> matches at the end of a line."
@@ -4829,7 +4973,7 @@ msgstr ""
 "In deze expressies matcht <code>^</code> aan het begin van elke regel, en "
 "<code>$</code> aan het eind van een regel."
 
-#: ../preferences/prefshelp.py:289
+#: ../preferences/prefshelp.py:307
 msgid ""
 "Normally when an expressions matches text, the whole match is displayed as "
 "an item in the outline."
@@ -4837,15 +4981,15 @@ msgstr ""
 "Normaal wordt bij een match in de tekst de volledige match als een item in "
 "de structuur weergegeven."
 
-#: ../preferences/prefshelp.py:291
+#: ../preferences/prefshelp.py:309
 msgid "You can also use named groups, with the {code} named group syntax."
 msgstr "U kunt ook \"named groups\" gebruiken, met de {code} syntax."
 
-#: ../preferences/prefshelp.py:293
+#: ../preferences/prefshelp.py:311
 msgid "You can use the name {text} or {title}."
 msgstr "U kunt de naam {text} of {title} gebruiken."
 
-#: ../preferences/prefshelp.py:295
+#: ../preferences/prefshelp.py:313
 msgid ""
 "In that case, only the named part of a match is displayed. If the {title} "
 "name is used, it is displayed in a bold font."
@@ -4854,7 +4998,7 @@ msgstr ""
 "Als u de {title} naam gebruikt, wordt een vet lettertype gebruikt voor de "
 "weergave van het item."
 
-#: ../preferences/prefshelp.py:298
+#: ../preferences/prefshelp.py:316
 msgid "For more information about regular expressions, see {link}."
 msgstr "Zie voor meer informatie over reguliere expressies: {link}."
 
@@ -4874,21 +5018,21 @@ msgstr "Menu {name}"
 msgid "Other commands:"
 msgstr "Andere commando's:"
 
-#: ../preferences/shortcuts.py:184
+#: ../preferences/shortcuts.py:189
 msgid "&Edit Shortcut for \"{name}\""
 msgstr "Sn&eltoets instellen voor \"{name}\""
 
-#: ../preferences/shortcuts.py:189
+#: ../preferences/shortcuts.py:194
 msgid "(no shortcut)"
 msgstr "(geen sneltoets)"
 
-#: ../preferences/shortcuts.py:217
+#: ../preferences/shortcuts.py:235
 msgid "Remove the shortcut from that command?"
 msgid_plural "Remove the shortcut from those commands?"
 msgstr[0] "Sneltoets voor dat commando verwijderen?"
 msgstr[1] "Sneltoets van deze commando's verwijderen?"
 
-#: ../preferences/shortcuts.py:320
+#: ../preferences/shortcuts.py:341
 msgid "(default)"
 msgstr "(standaard)"
 
@@ -5328,7 +5472,7 @@ msgid "Configure Keyboard Shortcut ({key})"
 msgstr "Sneltoets instellen ({key})"
 
 #: ../quickinsert/buttongroup.py:182 ../scorewiz/scoreproperties.py:171
-#: ../scorewiz/settings.py:195 ../snippet/edit.py:129
+#: ../scorewiz/settings.py:195 ../snippet/edit.py:133
 msgid "None"
 msgstr "Geen"
 
@@ -6067,7 +6211,7 @@ msgid "&Add"
 msgstr "&Toevoegen"
 
 #: ../scorewiz/score.py:103 ../snippet/widget.py:191 ../widgets/listedit.py:93
-#: ../widgets/schemeselector.py:64
+#: ../widgets/schemeselector.py:94
 msgid "&Remove"
 msgstr "&Verwijderen"
 
@@ -7193,6 +7337,56 @@ msgstr "Bblf."
 msgid "Woodwinds"
 msgstr "Houtblazers"
 
+#: ../search/__init__.py:103
+msgid "Search:"
+msgstr "Zoeken:"
+
+#: ../search/__init__.py:104
+msgid "&Case"
+msgstr "&Hoofdl."
+
+#: ../search/__init__.py:105
+msgid "Case Sensitive"
+msgstr "Maak onderscheid tussen hoofd- en kleine letters"
+
+#: ../search/__init__.py:106
+msgid "&Regex"
+msgstr "&Regex"
+
+#: ../search/__init__.py:107
+msgid "Regular Expression"
+msgstr "Reguliere expressie"
+
+#: ../search/__init__.py:108
+msgid "The total number of matches"
+msgstr "Het totale aantal overeenkomsten"
+
+#: ../search/__init__.py:109
+msgid "Close"
+msgstr "Sluiten"
+
+#: ../search/__init__.py:110
+msgid "Replace:"
+msgstr "Vervangen:"
+
+#: ../search/__init__.py:111
+msgid "Re&place"
+msgstr "&Vervangen"
+
+#: ../search/__init__.py:112
+msgid "Replaces the next occurrence of the search term."
+msgstr "Vervangt de volgende overeenkomst van de zoekterm."
+
+#: ../search/__init__.py:113
+msgid "&All"
+msgstr "&Alles"
+
+#: ../search/__init__.py:114
+msgid ""
+"Replaces all occurrences of the search term in the document or selection."
+msgstr ""
+"Vervangt alle overeenkomsten met de zoekterm in het document of de selectie."
+
 #: ../sessions/dialog.py:43
 msgid "Manage Sessions"
 msgstr "Sessies beheren"
@@ -7417,39 +7611,39 @@ msgstr "Eenvoudig Lead-sheet"
 msgid "Choir Hymn"
 msgstr "Koorhymne"
 
-#: ../snippet/edit.py:120 ../snippet/insert.py:223
+#: ../snippet/edit.py:124 ../snippet/insert.py:223
 msgid "Edit Snippet"
 msgstr "Knipsel bewerken"
 
-#: ../snippet/edit.py:120
+#: ../snippet/edit.py:124
 msgid "New Snippet"
 msgstr "Nieuw knipsel"
 
-#: ../snippet/edit.py:122
+#: ../snippet/edit.py:126
 msgid "Snippet Text:"
 msgstr "Knipseltekst:"
 
-#: ../snippet/edit.py:123
+#: ../snippet/edit.py:127
 msgid "Title:"
 msgstr "Titel:"
 
-#: ../snippet/edit.py:124
+#: ../snippet/edit.py:128
 msgid "Shortcut:"
 msgstr "Sneltoets:"
 
-#: ../snippet/edit.py:135
+#: ../snippet/edit.py:139
 msgid "Click to change the keyboard shortcut."
 msgstr "Klik om de sneltoets in te stellen."
 
-#: ../snippet/edit.py:141
+#: ../snippet/edit.py:145
 msgid "Empty Snippet"
 msgstr "Leeg knipsel"
 
-#: ../snippet/edit.py:142
+#: ../snippet/edit.py:146
 msgid "A snippet can't be empty."
 msgstr "Een knipsel kan niet leeg zijn."
 
-#: ../snippet/edit.py:147
+#: ../snippet/edit.py:151
 msgid ""
 "The snippet has been modified.\n"
 "Do you want to save your changes or discard them?"
@@ -7457,11 +7651,11 @@ msgstr ""
 "Het knipsel is gewijzigd.\n"
 "Wilt u uw wijzigingen bewaren of weggooien?"
 
-#: ../snippet/edit.py:214
+#: ../snippet/edit.py:218
 msgid "Snippet editor"
 msgstr "Knipsel-editor"
 
-#: ../snippet/edit.py:219
+#: ../snippet/edit.py:223
 msgid ""
 "<p>Here you can edit the text of the snippet.</p><p>If you start the first "
 "line(s) with '<code>-*- </code>' (note the space), the remainder of that line"
@@ -7475,13 +7669,13 @@ msgstr ""
 "<code>naam;</code>. Deze variabelen veranderen het gedrag van het knipsel. "
 "De volgende variabelen kunnen worden gebruikt:</p>"
 
-#: ../snippet/edit.py:228
+#: ../snippet/edit.py:232
 msgid "Place the snippet in the insert menu, grouped by the (optional) value."
 msgstr ""
 "Plaats het knipsel in het menu Invoegen, gegroepeerd op de (optionele) "
 "waarde."
 
-#: ../snippet/edit.py:230
+#: ../snippet/edit.py:234
 msgid ""
 "Place the snippet in the menu {file_new_from_template}, grouped by the "
 "(optional) value. When triggered via the menu, the snippet is inserted into "
@@ -7491,30 +7685,30 @@ msgstr ""
 "(optionele) waarde. Wanneer het knipsel wordt toegepast via dat menu, wordt "
 "het in een nieuw, leeg document ingevoegd."
 
-#: ../snippet/edit.py:234
+#: ../snippet/edit.py:238
 msgctxt "menu title"
 msgid "File"
 msgstr "Bestand"
 
-#: ../snippet/edit.py:235
+#: ../snippet/edit.py:239
 msgctxt "menu subtitle"
 msgid "New from Template"
 msgstr "Nieuw van sjabloon"
 
-#: ../snippet/edit.py:237
+#: ../snippet/edit.py:241
 msgid "The mnemonic to type to select the snippet."
 msgstr "De mnemonic om het knipsel te selecteren."
 
-#: ../snippet/edit.py:239
+#: ../snippet/edit.py:243
 msgid "Do not auto-indent the snippet after inserting."
 msgstr ""
 "De tekst niet automatisch inspringen na het knipsel te hebben toegepast."
 
-#: ../snippet/edit.py:241
+#: ../snippet/edit.py:245
 msgid "The icon to show in menu and snippet list."
 msgstr "Het pictogram dat in de knipsellijst en het menu wordt afgebeeld."
 
-#: ../snippet/edit.py:243
+#: ../snippet/edit.py:247
 msgid ""
 "The symbol to show in menu and snippet list. Symbols are icons that use the "
 "default text color and can be found in {directory}."
@@ -7523,28 +7717,28 @@ msgstr ""
 "zijn pictogrammen die de standaard tekstkleur gebruiken en te vinden zijn in "
 "{directory}."
 
-#: ../snippet/edit.py:247
+#: ../snippet/edit.py:251
 msgid "Execute the snippet as a Python script. See {link}."
 msgstr "Het knipsel uitvoeren als een Python script. Zie {link}."
 
-#: ../snippet/edit.py:250
+#: ../snippet/edit.py:254
 msgid "One of more of the following words (separated with spaces or commas):"
 msgstr ""
 "Een of meer van de volgende woorden (gescheiden door komma's of spaties):"
 
-#: ../snippet/edit.py:253
+#: ../snippet/edit.py:257
 msgid "Requires text to be selected."
 msgstr "Er moet tekst geselecteerd zijn."
 
-#: ../snippet/edit.py:255
+#: ../snippet/edit.py:259
 msgid "Adjusts the selection to not include starting and trialing whitespace."
 msgstr "Verandert de selectie zodat witruimte erbuiten valt."
 
-#: ../snippet/edit.py:257
+#: ../snippet/edit.py:261
 msgid "Selects all inserted text."
 msgstr "Selecteert alle ingevoegde tekst."
 
-#: ../snippet/edit.py:263
+#: ../snippet/edit.py:267
 msgid ""
 "<p>The other lines of the snippet define the text to be inserted in the "
 "editor. Here, you can insert variables prefixed with a $. A double $ will be "
@@ -7555,11 +7749,11 @@ msgstr ""
 "Een dubbele $ wordt vervangen door een enkele. De volgende variabelen worden "
 "herkend:</p>"
 
-#: ../snippet/edit.py:279
+#: ../snippet/edit.py:283
 msgid "Python Snippets"
 msgstr "Python knipsels"
 
-#: ../snippet/edit.py:284
+#: ../snippet/edit.py:288
 msgid ""
 "<p>Python snippets can read and should set the variable {text}. The variable "
 "{text} contains the currently selected text (which may be an empty string).</"
@@ -7574,11 +7768,11 @@ msgstr ""
 "p>\n"
 "<p>Andere variabelen die kunnen worden gebruikt:</p>"
 
-#: ../snippet/edit.py:292
+#: ../snippet/edit.py:296
 msgid "A list of strings describing the type of text the cursor is at."
 msgstr "Een lijst van namen die het type text omschrijven waar de cursor is."
 
-#: ../snippet/edit.py:294
+#: ../snippet/edit.py:298
 msgid ""
 "The current QTextCursor, giving access to the document. Don't change the "
 "document through the cursor, however."
@@ -7586,7 +7780,7 @@ msgstr ""
 "De huidige QTextCursor, waarmee u toegang hebt tot het document. Verander "
 "het document echter niet via de cursor."
 
-#: ../snippet/edit.py:297
+#: ../snippet/edit.py:301
 msgid ""
 "When setting {text} to a list instead of a string, you can use this value to "
 "specify the place the text cursor will be placed after inserting the snippet."
@@ -7595,7 +7789,7 @@ msgstr ""
 "waarde gebruiken om de plaats aan te geven waar de tekstcursor zal worden "
 "neergezet na het invoegen van het knipsel."
 
-#: ../snippet/edit.py:301
+#: ../snippet/edit.py:305
 msgid ""
 "When setting {text} to a list instead of a string, this value can be used "
 "together with {cursor} to select text when inserting the string parts of the "
@@ -7605,7 +7799,7 @@ msgstr ""
 "waarde gebruiken, samen met {cursor}, om het te selecteren bereik van tekst "
 "aan te geven na het invoegen."
 
-#: ../snippet/edit.py:306
+#: ../snippet/edit.py:310
 msgid ""
 "When you define a function with this name, it is called without arguments, "
 "instead of inserting the text from the {text} variable. In this case you may "
@@ -7728,7 +7922,7 @@ msgstr ""
 "code>."
 
 #: ../snippet/import_export.py:245 ../snippet/import_export.py:250
-#: ../snippet/widget.py:183
+#: ../snippet/widget.py:183 ../widgets/schemeselector.py:92
 msgid "&Menu"
 msgstr "&Menu"
 
@@ -7748,6 +7942,7 @@ msgstr ""
 "bestand wilt importeren."
 
 #: ../snippet/import_export.py:250 ../snippet/widget.py:195
+#: ../widgets/schemeselector.py:96
 msgid "&Import..."
 msgstr "&Importeren..."
 
@@ -7849,6 +8044,7 @@ msgid "&Snippets..."
 msgstr "&Knipsels..."
 
 #: ../snippet/widget.py:184 ../widgets/listedit.py:91
+#: ../widgets/schemeselector.py:93
 msgid "&Add..."
 msgstr "&Toevoegen..."
 
@@ -7945,6 +8141,7 @@ msgstr ""
 "Invoegen worden weergegeven."
 
 #: ../snippet/widget.py:292 ../snippet/widget.py:309
+#: ../widgets/schemeselector.py:166 ../widgets/schemeselector.py:174
 msgid "XML Files"
 msgstr "XML-bestanden"
 
@@ -8067,6 +8264,33 @@ msgstr ""
 "staat voor de naam die u wilt gebruiken. En dan kunt u bijvoorbeeld de "
 "knipsels exporteren naar een XML-bestand om deze met anderen te delen."
 
+#: ../vcs/gitrepo.py:43
+msgid "The given directory '{rootdir} doesn't seem to be a Git repository."
+msgstr "De opgegeven directory '{rootdir}' is geen Git depot."
+
+#: ../vcs/menu.py:41
+msgctxt "menu title"
+msgid "&Git"
+msgstr "&Git"
+
+#: ../vcs/menu.py:116
+msgid "Checkout Successful"
+msgstr "Checkout geslaagd"
+
+#: ../vcs/menu.py:117
+msgid ""
+"Successfully checked out branch {name}.\n"
+"Changes will take effect after restart.\n"
+"Do you want to restart now?"
+msgstr ""
+"Het uitchecken van branch {name} is geslaagd.\n"
+"Om de veranderingen te kunnen zien is het nodig om te herstarten.\n"
+"Wilt u Frescobaldi opnieuw starten?"
+
+#: ../vcs/menu.py:124
+msgid "Git Checkout Error"
+msgstr "Fout tijdens Git checkout"
+
 #: ../widgets/keysequencewidget.py:60
 msgid "Start recording a key sequence."
 msgstr "Begin een toetscombinatie op te nemen."
@@ -8079,22 +8303,43 @@ msgstr "De toetscombinatie leegmaken."
 msgid "Input"
 msgstr "Invoer"
 
-#: ../widgets/schemeselector.py:47 ../widgets/schemeselector.py:62
+#: ../widgets/schemeselector.py:91
 msgid "Scheme:"
 msgstr "Schema:"
 
-#: ../widgets/schemeselector.py:63
-msgctxt "New Scheme"
-msgid "&New..."
-msgstr "&Nieuw..."
+#: ../widgets/schemeselector.py:95
+msgid "Re&name..."
+msgstr "Her&noemen..."
 
-#: ../widgets/schemeselector.py:92
+#: ../widgets/schemeselector.py:97
+msgid "&Export..."
+msgstr "&Exporteren..."
+
+#: ../widgets/schemeselector.py:137
 msgid "Add Scheme"
 msgstr "Schema toevoegen"
 
-#: ../widgets/schemeselector.py:93
+#: ../widgets/schemeselector.py:138
 msgid "Please enter a name for the new scheme:"
 msgstr "Geef een naam voor het nieuwe schema:"
+
+#: ../widgets/schemeselector.py:156
+msgid "Rename"
+msgstr "Hernoemen"
+
+#: ../widgets/schemeselector.py:156
+msgid "New name:"
+msgstr "Nieuwe naam:"
+
+#: ../widgets/schemeselector.py:167
+msgctxt "dialog title"
+msgid "Import color theme"
+msgstr "Kleurenschema importeren"
+
+#: ../widgets/schemeselector.py:176
+msgctxt "dialog title"
+msgid "Export {name}"
+msgstr "Exporteren van {name}"
 
 #: ../widgets/shortcuteditdialog.py:94
 msgctxt "window title"
@@ -8156,6 +8401,69 @@ msgstr "Selecteer een map"
 #: ../widgets/urlrequester.py:111
 msgid "Select a file"
 msgstr "Selecteer een bestand"
+
+#~ msgid ""
+#~ "This mode colors items whose directions have been explicitly set with "
+#~ "either the predefined commands <code>\\xxxUp</code> etc. or the "
+#~ "directional operators <code>^</code> and <code>_</code>.<br />Please note "
+#~ "how this mode and the previous are related:<br />When the condition for "
+#~ "one of the the modes is reverted using commands like <code>\\oneVoice</"
+#~ "code> or <code>\\xxxNeutral</code> colors are reverted to black and may "
+#~ "also revert the highlighting of the other Debug Mode.<br />In <code>c "
+#~ "\\voiceTwo d \\stemUp e \\stemNeutral d \\oneVoice</code> the 'd' may "
+#~ "already be reverted.<br />If the score is engraved with LilyPond version "
+#~ "2.17.6 or later the situation is somewhat improved through the use of the "
+#~ "<code>\\temporary</code> directive.<br />In short: If you use both Modes "
+#~ "at the same time please expect inconsistencies."
+#~ msgstr ""
+#~ "Deze modus kleurt items waarvan de richting expliciet is opgegeven met "
+#~ "commando's zoals <code>\\xxxUp</code> of de richtings-operators <code>^</"
+#~ "code> en <code>_</code>.<br /> Deze en de vorige modus zijn enigszins "
+#~ "gerelateerd: als de richting voor een van de modes ongedaan gemaakt wordt "
+#~ "met behulp van commando's zoals <code>\\oneVoice</code> of <code>"
+#~ "\\xxxNeutral</code> wordt de kleur ook weer op zwart gezet, dat zou ook "
+#~ "de kleur van de andere modus ongedaan kunnen maken.<br /> In <code>c "
+#~ "\\voiceTwo d \\stemUp e \\stemNeutral d \\oneVoice</code> is de 'd' "
+#~ "alweer zwart.<br /> Als u de partituur graveert met LilyPond versie "
+#~ "2.17.6 of nieuwer is de situatie verbeterd doordat het <code>\\temporary</"
+#~ "code>-directief gebruikt kan worden.<br /> Kortom: als u deze beide modes "
+#~ "tegelijk gebruikt kunnen er soms inconsistenties optreden."
+
+#~ msgid "More documentation to come ..."
+#~ msgstr "Meer documentatie volgt..."
+
+#~ msgctxt "New Scheme"
+#~ msgid "&New..."
+#~ msgstr "&Nieuw..."
+
+#~ msgid "color of the debug control points"
+#~ msgstr "kleur van de debug controlepunten"
+
+#~ msgid "thickness of the control points lines"
+#~ msgstr "dikte van de lijnen van de controlepunten"
+
+#~ msgid "thickness of the control points crosses"
+#~ msgstr "dikte van de kruisjes van de controlepunten"
+
+#~ msgid "size of the control points crosses"
+#~ msgstr "grootte van de kruisjes van de controlepunten"
+
+#~ msgid ""
+#~ "No print command to print a PostScript file could be found.\n"
+#~ "\n"
+#~ "Therefore the document will be printed using raster images at "
+#~ "{resolution} DPI. It is recommended to print using a dedicated PDF "
+#~ "viewer.\n"
+#~ "\n"
+#~ "Do you want to continue?"
+#~ msgstr ""
+#~ "Kan geen printcommando vinden om een PostScript-bestand af te drukken.\n"
+#~ "\n"
+#~ "Daarom zal het document worden afgedrukt als een rasterafbeelding met "
+#~ "{resolution} DPI. Het is aanbevolen een apart PDF-weergaveprogramma te "
+#~ "gebruiken.\n"
+#~ "\n"
+#~ "Wilt u toch verdergaan?"
 
 #~ msgid ""
 #~ "Import a Music XML file using the command line tool musicxml2ly from the "
@@ -10188,9 +10496,6 @@ msgstr "Selecteer een bestand"
 
 #~ msgid "Your language"
 #~ msgstr "Uw eigen taal"
-
-#~ msgid "Printcommand:"
-#~ msgstr "Printcommando:"
 
 #, fuzzy
 #~ msgid "Could not understand the entered pitches."

@@ -53,6 +53,7 @@ import panelmanager
 import engrave
 import scorewiz
 import externalchanges
+import vcs
 
 
 class MainWindow(QMainWindow):
@@ -133,6 +134,7 @@ class MainWindow(QMainWindow):
         
         if other:
             self.setCurrentDocument(other.currentDocument())
+        self.updateWindowTitle()
         app.mainwindowCreated(self)
         
     def documents(self):
@@ -246,7 +248,13 @@ class MainWindow(QMainWindow):
             if doc.isModified():
                 # L10N: state of document in window titlebar
                 name.append(_("[modified]"))
-        self.setWindowTitle(app.caption(" ".join(name)))
+        
+        window_title = app.caption(" ".join(name))
+        
+        if vcs.app_is_git_controlled():
+            window_title += " " + vcs.app_active_branch_window_title()
+        
+        self.setWindowTitle(window_title)
     
     def dropEvent(self, ev):
         if not ev.source() and ev.mimeData().hasUrls():
@@ -574,6 +582,11 @@ class MainWindow(QMainWindow):
                 window.close()
         self.close()
     
+    def restart(self):
+        """Closes all MainWindows and restart Frescobaldi."""
+        self.quit()
+        app.restart()
+    
     def insertFromFile(self):
         ext = os.path.splitext(self.currentDocument().url().path())[1]
         filetypes = app.filetypes(ext)
@@ -682,6 +695,12 @@ class MainWindow(QMainWindow):
     def selectAll(self):
         self.currentView().selectAll()
         
+    def selectBlock(self):
+        import select_block
+        cursor = self.currentView().textCursor()
+        if select_block.select_block(cursor):
+            self.currentView().setTextCursor(cursor)
+        
     def find(self):
         import search
         search.Search.instance(self).find()
@@ -768,6 +787,7 @@ class MainWindow(QMainWindow):
         
         # connections
         ac.file_quit.triggered.connect(self.quit, Qt.QueuedConnection)
+        ac.file_restart.triggered.connect(self.restart, Qt.QueuedConnection)
         ac.file_new.triggered.connect(self.newDocument)
         ac.file_open.triggered.connect(self.openDocument)
         ac.file_insert_file.triggered.connect(self.insertFromFile)
@@ -793,6 +813,7 @@ class MainWindow(QMainWindow):
         ac.edit_copy_colored_html.triggered.connect(self.copyColoredHtml)
         ac.edit_select_all.triggered.connect(self.selectAll)
         ac.edit_select_none.triggered.connect(self.selectNone)
+        ac.edit_select_current_toplevel.triggered.connect(self.selectBlock)
         ac.edit_select_full_lines_up.triggered.connect(self.selectFullLinesUp)
         ac.edit_select_full_lines_down.triggered.connect(self.selectFullLinesDown)
         ac.edit_find.triggered.connect(self.find)
@@ -889,6 +910,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_close_other = QAction(parent)
         self.file_close_all = QAction(parent)
         self.file_quit = QAction(parent)
+        self.file_restart = QAction(parent)
         
         self.export_colored_html = QAction(parent)
         
@@ -1030,6 +1052,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_close_all.setText(_("Close All Documents"))
         self.file_close_all.setToolTip(_("Closes all documents and leaves the current session."))
         self.file_quit.setText(_("&Quit"))
+        self.file_restart.setText(_("Restart {appname}").format(appname=info.appname))
         
         self.export_colored_html.setText(_("Export Source as Colored &HTML..."))
         
