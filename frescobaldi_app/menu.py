@@ -133,10 +133,11 @@ def menu_file_import(mainwindow):
 
 def menu_file_export(mainwindow):
     m = Menu(_("submenu title", "&Export"), mainwindow)
-    ac = file_export.FileExport.instance(mainwindow).actionCollection
+    ac = mainwindow.actionCollection
+    acfe = file_export.FileExport.instance(mainwindow).actionCollection
     
-    # m.addAction(ac.export_colored_html)
-    m.addAction(ac.export_musicxml)
+    m.addAction(acfe.export_musicxml)
+    m.addAction(ac.export_colored_html)
     return m
     
 
