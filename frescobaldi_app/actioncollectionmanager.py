@@ -29,8 +29,6 @@ from __future__ import unicode_literals
 
 import weakref
 
-from PyQt4.QtGui import QMessageBox
-
 import actioncollection
 import plugin
 import qutil
@@ -74,66 +72,35 @@ class ActionCollectionManager(plugin.MainWindowPlugin):
                 return collection.realAction(action_name)
             return getattr(collection, action_name, None)
     
-    def editAction(self, parent, action, default=None, skip=None):
-        """Edits the keyboard shortcut for a single action.
+    def iterShortcuts(self, skip=None):
+        """Iter all shortcuts of all collections."""
+        for collection in self.actionCollections():
+            for name, a in collection.actions().items():
+                if (collection, name) != skip:
+                    for shortcut in collection.shortcuts(name):
+                        yield shortcut, collection, name, a
+    
+    def findShortcutConflict(self, shortcut, skip):
+        """Find the possible shortcut conflict and return the conflict name.
         
-        Returns True if editing was Ok, False if cancelled.
-        parent is the widget to show the dialog above.
-        default gives None or a list with QKeySequence objects that are the default shortcut.
+        skip must be a tuple (collection, name).
+        it's the action to skip (the action that is about to be changed).
         
-        Use skip to give the action to skip (e.g. the action that is about to be changed).
-        skip can also be a tuple (collection, name) to define the action to skip.
-        
-        Just uses the dialog in widgets.shortcuteditdialog but implements conflict checking
-        (without altering other shortcuts. The implementation of conflict checking in 
-        preferences/shortcuts.py also can change other shortcuts in the prefs dialog.)
-       
         """
-        skip_ = lambda: a is skip
-        if skip is None:
-            skip = action
-        elif isinstance(skip, tuple):
-            skip_ = lambda: (collection, name) == skip
-            
-        from widgets import shortcuteditdialog
-        dlg = shortcuteditdialog.ShortcutEditDialog(parent)
-        
-        with qutil.deleteLater(dlg):
-            while dlg.editAction(action, default):
-                # conflict checking
-                shortcuts = action.shortcuts()
-                if shortcuts:
-                    conflicts = {}
-                    for collection in self.actionCollections():
-                        for name, a in collection.actions().items():
-                            # we use collection.shortcuts(name) instead of a.shortcuts()
-                            # because the (real) actions returned by ShortcutCollection.action()
-                            # don't have the shortcuts set.
-                            if not skip_() and collection.shortcuts(name):
-                                for s1 in collection.shortcuts(name):
-                                    for s2 in action.shortcuts():
-                                        if s2.matches(s1) or s1.matches(s2):
-                                            # s2 conflicts with a
-                                            conflicts.setdefault(a, []).append(s2)
-                                            # do shortcuts remain?
-                                            if s2 in shortcuts:
-                                                shortcuts.remove(s2)
-                    if conflicts:
-                        msg = [_("This shortcut conflicts with the following command:",
-                                "This shortcut conflicts with the following commands:", len(conflicts))]
-                        msg.append("<br/>".join("{name} ({key})".format(
-                            name = qutil.removeAccelelator(a.text()),
-                            key=' \u2014 '.join(s.toString() for s in conflicts[a])) for a in conflicts))
-                        msg = '<p>{0}</p>'.format('</p><p>'.join(msg))
-                        box = QMessageBox(QMessageBox.Warning, _("Shortcut Conflict"), msg,
-                                QMessageBox.Ok | QMessageBox.Cancel, parent)
-                        box.button(QMessageBox.Ok).setText(_("Edit again"))
-                        if box.exec_() == QMessageBox.Ok:
-                            action.setShortcuts(shortcuts)
-                            continue
-                        else:
-                            break
-                return True
-        return False
-
-
+        if shortcut:
+            for data in self.iterShortcuts(skip):
+                s1 = data[0]
+                if s1.matches(shortcut) or shortcut.matches(s1):
+                    return qutil.removeAccelelator(data[-1].text())
+        return None
+    
+    def removeShortcuts(self, shortcuts):
+        """Find and remove shorcuts of the given list."""
+        for data in self.iterShortcuts():
+            s1, collection, name = data[:3]
+            for s2 in shortcuts:
+                if s2.matches(s1) or s1.matches(s2):
+                    collShortcuts = collection.shortcuts(name)
+                    collShortcuts.remove(s1)
+                    collection.setShortcuts(name, collShortcuts)
+    
