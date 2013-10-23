@@ -260,16 +260,21 @@ class Widget(QWidget):
         
     def slotShortcut(self):
         """Called when the user selects the Configure Shortcut action."""
+        from widgets import shortcuteditdialog
         name = self.currentSnippet()
         if name:
             collection = self.parent().snippetActions
             action = actions.action(name, None, collection)
+            default = collection.defaults().get(name)
             mgr = actioncollectionmanager.manager(self.parent().mainwindow())
-            if mgr.editAction(self, action, collection.defaults().get(name),
-                              (collection, name)):
+            cb = mgr.findShortcutConflict
+            dlg = shortcuteditdialog.ShortcutEditDialog(self, cb, (collection, name))
+            
+            if dlg.editAction(action, default):
+                mgr.removeShortcuts(action.shortcuts())
                 collection.setShortcuts(name, action.shortcuts())
                 self.treeView.update()
-        
+            
     def slotDelete(self):
         """Called when the user wants to delete the selected rows."""
         rows = sorted(set(i.row() for i in self.treeView.selectedIndexes()), reverse=True)
