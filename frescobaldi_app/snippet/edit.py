@@ -54,12 +54,12 @@ class Edit(QDialog):
     Use None as the name to create a new snippet. In that case, text
     is set as a default in the text edit.
     
-    
     """
     def __init__(self, widget, name, text=""):
         super(Edit, self).__init__(widget)
-        self._name = name
         
+        self._name = name
+
         layout = QVBoxLayout()
         self.setLayout(layout)
         
@@ -68,8 +68,7 @@ class Edit(QDialog):
         self.titleLabel = QLabel()
         self.titleEntry = QLineEdit()
         self.shortcutLabel = QLabel()
-        self.shortcutButton = QPushButton(icon=icons.get("preferences-desktop-keyboard-shortcuts"),
-            clicked=self.editShortcuts)
+        self.shortcutButton = ShortcutButton(clicked=self.editShortcuts)
         
         layout.addWidget(self.topLabel)
         layout.addWidget(self.text)
@@ -126,18 +125,8 @@ class Edit(QDialog):
         self.topLabel.setText(_("Snippet Text:"))
         self.titleLabel.setText(_("Title:"))
         self.shortcutLabel.setText(_("Shortcut:"))
-        self.updateShortcutText()
+        self.shortcutButton.updateText()
     
-    def updateShortcutText(self):
-        if not self._shortcuts:
-            self.shortcutButton.setText(_("None"))
-        else:
-            key = self._shortcuts[0].toString(QKeySequence.NativeText)
-            if len(self._shortcuts) > 1:
-                key += "..."
-            self.shortcutButton.setText(key.replace('&', '&&'))
-        self.shortcutButton.setToolTip(_("Click to change the keyboard shortcut."))
-
     def done(self, result):
         if result:
             if not self.text.toPlainText():
@@ -156,32 +145,37 @@ class Edit(QDialog):
             elif res != QMessageBox.Discard:
                 self.saveSnippet()
         super(Edit, self).done(result)
-        self.deleteLater()
 
     def readSettings(self):
         data = textformats.formatData('editor')
         self.text.setFont(data.font)
         self.text.setPalette(data.palette())
 
+    def shortcuts(self):
+        return self.shortcutButton.shortcuts()
+    
     def setShortcuts(self, shortcuts):
-        self._shortcuts = shortcuts
-        self.updateShortcutText()
+        self.shortcutButton.setShortcuts(shortcuts)
         
     def editShortcuts(self):
-        mainwindow = self.parent().parent().mainwindow()
+        from widgets import shortcuteditdialog
         ac = self.parent().parent().snippetActions
         action = QAction(None)
         if self._name:
-            action.setShortcuts(ac.shortcuts(self._name) or [])
-            skip = (ac, self._name)
+            action.setShortcuts(self.shortcuts())
+            action.setIcon(snippets.icon(self._name) or QIcon())
             default = ac.defaults().get(self._name)
             text = snippets.title(self._name)
         else:
-            skip = None
             default = None
             text = self.titleEntry.text() or _("Untitled")
         action.setText(text.replace('&', '&&'))
-        if actioncollectionmanager.manager(mainwindow).editAction(self, action, default, skip):
+        
+        cb = self.actionManager().findShortcutConflict
+        skip = (self.parent().parent().snippetActions, self._name)
+        dlg = shortcuteditdialog.ShortcutEditDialog(self, cb, skip)
+        
+        if dlg.editAction(action, default):
             self.setShortcuts(action.shortcuts())
     
     def saveSnippet(self):
@@ -190,16 +184,47 @@ class Edit(QDialog):
         # set snippet current in the editor that called us
         self.parent().treeView.selectionModel().setCurrentIndex(
             index, QItemSelectionModel.SelectCurrent | QItemSelectionModel.Rows)
+        #remove the shortcuts conflicts
+        self.actionManager().removeShortcuts(self.shortcuts())
+        self.parent().treeView.update()
         # get the name that was used
         name = model.model().name(index)
-        self.parent().parent().snippetActions.setShortcuts(name, self._shortcuts)
+        self.parent().parent().snippetActions.setShortcuts(name, self.shortcuts())
         self.text.document().setModified(False)
+
+    def actionManager(self):
+        mainwindow = self.parent().parent().mainwindow()
+        return actioncollectionmanager.manager(mainwindow)
 
     def slotDefaults(self):
         t = builtin.builtin_snippets[self._name]
         self.text.setPlainText(t.text)
         self.titleEntry.setText(t.title() if t.title else '')
         self.setShortcuts(self.parent().parent().snippetActions.defaults().get(self._name))
+
+
+class ShortcutButton(QPushButton):
+    def __init__(self, **args):
+        super(ShortcutButton, self).__init__(**args)
+        self.setIcon(icons.get("preferences-desktop-keyboard-shortcuts"))
+        self._shortcuts = []
+        
+    def shortcuts(self):
+        return self._shortcuts
+    
+    def setShortcuts(self, shortcuts):
+        self._shortcuts = shortcuts or []
+        self.updateText()
+        
+    def updateText(self):
+        if not self._shortcuts:
+            self.setText(_("None"))
+        else:
+            key = self._shortcuts[0].toString(QKeySequence.NativeText)
+            if len(self._shortcuts) > 1:
+                key += "..."
+            self.setText(key.replace('&', '&&'))
+        self.setToolTip(_("Click to change the keyboard shortcut."))
 
 
 class Matcher(widgets.matcher.Matcher):

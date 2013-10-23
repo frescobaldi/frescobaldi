@@ -38,11 +38,11 @@ from . import ClearButton
 
 class KeySequenceWidget(QWidget):
 
-    keySequenceChanged = pyqtSignal()
+    keySequenceChanged = pyqtSignal(int)
     
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, num=0):
         super(KeySequenceWidget, self).__init__(parent)
-        
+        self._num = num
         layout = QHBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(2)
@@ -74,13 +74,16 @@ class KeySequenceWidget(QWidget):
             self.button.cancelRecording()
         if not self.button.keySequence().isEmpty():
             self.button.setKeySequence(QKeySequence())
-            self.keySequenceChanged.emit()
+            self.keySequenceChanged.emit(self._num)
 
     def setModifierlessAllowed(self, allow):
         self.button._modifierlessAllowed = allow
         
     def isModifierlessAllowed(self):
         return self.button._modifierlessAllowed
+    
+    def num(self):
+        return self._num
 
 
 class KeySequenceButton(QPushButton):
@@ -155,9 +158,9 @@ class KeySequenceButton(QPushButton):
             if key == Qt.Key_Backtab and modifiers & Qt.SHIFT:
                 key = Qt.Key_Tab | modifiers
             # remove the Shift modifier if it doen't make sense
-            elif (Qt.Key_Exclam <= key <= Qt.Key_At
-                  or Qt.Key_Z < key <= 0x0ff):
-                key = key | (modifiers & ~Qt.SHIFT)
+#            elif (Qt.Key_Exclam <= key <= Qt.Key_At
+#                  or Qt.Key_Z < key <= 0x0ff):
+#                key = key | (modifiers & ~Qt.SHIFT)
             else:
                 key = key | modifiers
             
@@ -206,7 +209,7 @@ class KeySequenceButton(QPushButton):
         self._seq = self._recseq
         self.cancelRecording()
         self.clearFocus()
-        self.parentWidget().keySequenceChanged.emit()
+        self.parentWidget().keySequenceChanged.emit(self.parentWidget().num())
         
     def cancelRecording(self):
         if not self._isrecording:

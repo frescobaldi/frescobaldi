@@ -53,7 +53,10 @@ def app_is_git_controlled():
                                     _("Frescobaldi is run from within a Git repository "
                                     "but Git isn't installed. I will continue without "
                                     "Git support, but you might want to check out yourself "
-                                    "what consequences to take."))
+                                    "what consequences to take. "
+                                    "If you <em>do</em> have Git installed you "
+                                    "may set the path to its executable in the "
+                                    "Preferences dialog."))
                 _app_is_git_controlled = False
                 return _app_is_git_controlled
         else:
