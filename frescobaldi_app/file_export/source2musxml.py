@@ -123,6 +123,14 @@ class parse_source():
 		self.duration = token
 		self.mediator.new_duration(token)
 		
+	def Dot(self, token):
+		""" dot, . """
+		self.mediator.new_dot()
+		
+	def Tie(self, token):
+		""" tie ~ """
+		self.mediator.tie_to_next()
+		
 	def Rest(self, token):
 		""" rest, r or R. Note: NOT by command, i.e. \rest """	
 		if token == 'R':
@@ -138,26 +146,17 @@ class parse_source():
 		if self.scale == 'R':
 			self.mediator.scale_rest(token[1:])
 		
-	def EqualSign(self, token):
-		pass
-		
-	def LineComment(self, token):
-		pass
-		
 	def Fraction(self, token):
-		self.fraction = token
+		""" fraction, e.g. 3/4
+		can be used for time sign or tuplets """
+		if self.prev_command == '\\time':
+			self.mediator.new_time(token)
+			self.prev_command = ''
+		else:
+			self.fraction = token
 		
 	def Keyword(self, token):
-		self.prev_command = token
-		
-	def StringQuotedStart(self, token):
-		pass
-		
-	def StringQuotedEnd(self, token):
-		pass
-		
-	def String(self, token):
-		pass
+		self.prev_command = token		
 		
 	def Command(self, token):
 		if token == '\\rest':
@@ -173,39 +172,6 @@ class parse_source():
 		else:
 			self.prev_command = token
 			print "UserCommand:"+token
-			
-	def Header(self, token):
-		pass
-		
-	def Paper(self, token):
-		pass
-		
-	def PaperVariable(self, token):
-		print token
-		
-	def OpenBracket(self, token):
-		pass
-		
-	def CloseBracket(self, token):
-		pass
-		
-	def Unparsed(self, token):
-		pass
-		
-	def SchemeStart(self, token):
-		pass
-		
-	def OpenParen(self, token):
-		pass
-		
-	def CloseParen(self, token):
-		pass
-		
-	def Function(self, token):
-		pass
-		
-	def Float(self, token):
-		pass
 		
 	##
 	# The xml-file is built from the mediator objects
@@ -222,7 +188,9 @@ class parse_source():
 						if obj.has_attr():
 							self.musxml.new_bar_attr(obj.clef, obj.time, obj.key, obj.mode, self.mediator.divisions)
 					elif isinstance(obj, ly2xml_mediator.bar_note):
-						self.musxml.new_note([obj.step, obj.alter, obj.octave], obj.duration, obj.type, self.mediator.divisions)
+						self.musxml.new_note([obj.step, obj.alter, obj.octave], obj.duration, obj.type, self.mediator.divisions, obj.dot)
+						if obj.tie:
+							self.musxml.tie_note(obj.tie)
 						if obj.tuplet:
 							self.musxml.tuplet_note(obj.tuplet, obj.duration, obj.ttype, self.mediator.divisions)
 					elif isinstance(obj, ly2xml_mediator.bar_rest):

@@ -70,13 +70,18 @@ class create_musicXML():
 	# High-level node creation
 	##
 		
-	def new_note(self, pitch, org_len, durtype, divs):
+	def new_note(self, pitch, org_len, durtype, divs, dot):
 		""" create all nodes needed for a note. """
 		self.create_note()
 		self.add_pitch(pitch[0], pitch[1], pitch[2])
 		duration = divs*4/int(org_len)
+		if dot:
+			duration
 		self.add_div_duration(duration)
 		self.add_duration_type(durtype)
+		if dot:
+			for i in range(dot):
+				self.add_dot()
 		if pitch[1]:
 			self.add_accidental(pitch[1])
 			
@@ -90,6 +95,11 @@ class create_musicXML():
 		if ttype:
 			self.add_notations()
 			self.add_tuplet_type(ttype)
+			
+	def tie_note(self, tie_type):
+		self.add_tie(tie_type)
+		self.add_notations()
+		self.add_tied(tie_type)
 			
 	def new_rest(self, org_len, durtype, divs, pos):
 		""" create all nodes needed for a rest. """
@@ -137,6 +147,7 @@ class create_musicXML():
 	def create_note(self):
 		""" create new note """
 		self.current_note = etree.SubElement(self.current_bar, "note")
+		self.current_notation = None
 		
 	def add_pitch(self, step, alter, octave):
 		""" create new pitch """
@@ -188,8 +199,21 @@ class create_musicXML():
 		typenode = etree.SubElement(self.current_note, "type")
 		typenode.text = str(durtype)
 		
+	def add_dot(self):
+		""" create a dot """
+		etree.SubElement(self.current_note, "dot")
+		
+	def add_tie(self, tie_type):
+		""" create node tie (used for sound of tie) """
+		etree.SubElement(self.current_note, "tie", type=tie_type)	
+		
 	def add_notations(self):
-		self.current_notation = etree.SubElement(self.current_note, "notations")
+		if not self.current_notation:
+			self.current_notation = etree.SubElement(self.current_note, "notations")
+		
+	def add_tied(self, tie_type):
+		""" create node tied (used for notation of tie) """
+		etree.SubElement(self.current_notation, "tied", type=tie_type)		
 		
 	def add_time_modify(self, fraction):
 		""" create time modification """
@@ -201,7 +225,7 @@ class create_musicXML():
 		
 	def add_tuplet_type(self, ttype):
 		""" create tuplet with type attribute """
-		tuplet = etree.SubElement(self.current_notation, "tuplet", type=ttype)		
+		etree.SubElement(self.current_notation, "tuplet", type=ttype)		
 		
 	def create_bar_attr(self):
 		""" create node attributes """

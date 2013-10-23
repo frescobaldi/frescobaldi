@@ -35,7 +35,8 @@ class mediator():
 		self.mustime = [4,4]
 		self.clef = ['G',2]
 		self.divisions = 1
-		self.duration = 4	
+		self.duration = 4
+		self.tied = False	
 		
 	def new_part(self, name):
 		self.part = []
@@ -64,6 +65,9 @@ class mediator():
 		
 	def new_note(self, note_name):
 		self.current_note = bar_note(note_name, self.duration)
+		if self.tied:
+			self.current_note.set_tie('stop')
+			self.tied = False
 		self.bar.append(self.current_note)
 		self.current_attr = bar_attr()
 		
@@ -99,6 +103,16 @@ class mediator():
 		tfraction = fraction.split('/')
 		tfraction.reverse() # delete this row with new tuplet notation		
 		self.current_note.set_tuplet(tfraction, ttype)
+		
+	def new_dot(self):
+		self.current_note.add_dot()
+		
+	def tie_to_next(self):
+		if self.current_note.tie == 'stop': # only if previous was tied
+			self.current_note.set_tie('continue')
+		else:
+			self.current_note.set_tie('start')
+		self.tied = True		
 				
 	def new_octave(self, octave):
 		self.current_note.set_octave(octave)
@@ -142,6 +156,8 @@ class bar_note():
 		self.duration = durval
 		self.type = durval2type(durval)
 		self.tuplet = 0
+		self.dot = 0
+		self.tie = 0
 		
 	def set_duration(self, durval):
 		self.duration = durval
@@ -153,6 +169,12 @@ class bar_note():
 	def set_tuplet(self, fraction, ttype):
 		self.tuplet = fraction
 		self.ttype = ttype
+		
+	def set_tie(self, tie_type):
+		self.tie = tie_type
+		
+	def add_dot(self):
+		self.dot = self.dot + 1
 				
 class bar_rest():
 	""" object to keep track of different rests and skips """
