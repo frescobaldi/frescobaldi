@@ -32,8 +32,6 @@ class mediator():
 		self.score = []
 		self.sections = []
 		""" default and initial values """
-		self.mustime = [4,4]
-		self.clef = ['G',2]
 		self.divisions = 1
 		self.duration = 4
 		self.tied = False	
@@ -55,11 +53,20 @@ class mediator():
 			if n.name == varname:
 				self.insert_into.barlist.extend(n.barlist)
 				
-	def check_parts(self):
+	def check_score(self):
 		if not self.score:
 			self.new_part()
 			for n in self.sections:
-				self.part.barlist.extend(n.barlist)										
+				self.part.barlist.extend(n.barlist)	
+				
+	def set_first_bar(self, part):
+		initime = [4,4]
+		iniclef = ['G',2]
+		if not part.barlist[0][0].time:
+			part.barlist[0][0].set_time(initime)
+		if not part.barlist[0][0].clef:
+			part.barlist[0][0].set_clef(iniclef)
+		part.barlist[0][0].divs = self.divisions									
 		
 	def new_bar(self):
 		self.current_attr = bar_attr()
@@ -233,6 +240,7 @@ class bar_attr():
 		self.time = 0
 		self.clef = 0
 		self.mode = ''
+		self.divs = 0
 		
 	def set_key(self, muskey, mode):
 		self.key = muskey
@@ -251,6 +259,8 @@ class bar_attr():
 		elif self.time != 0:
 			check = True
 		elif self.clef != 0:
+			check = True
+		elif self.divs != 0:
 			check = True
 		return check
 		

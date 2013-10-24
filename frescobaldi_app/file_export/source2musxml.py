@@ -59,7 +59,7 @@ class parse_source():
 						# print "Warning: "+func_name+" not implemented!"
 						pass
 			block = block.next()
-		self.mediator.check_parts()
+		self.mediator.check_score()
 		self.iterate_mediator()
 		
 	def output(self):
@@ -75,7 +75,6 @@ class parse_source():
 	
 	def SequentialStart(self, token):
 		""" SequentialStart = { """
-		print "Seq:"+self.prev_command
 		if self.prev_command[1:] == 'times':
 			self.tuplet = True
 			self.ttype = "start"
@@ -181,7 +180,6 @@ class parse_source():
 			self.mediator.note2rest()
 		else:
 			self.prev_command = token
-			print "Command:"+token+"|"
 		
 	def UserCommand(self, token):
 		if self.prev_command == 'key':
@@ -199,12 +197,13 @@ class parse_source():
 		""" the mediator lists are looped through and outputed to the xml-file """
 		for part in self.mediator.score:
 			self.musxml.create_part(part.name)
+			self.mediator.set_first_bar(part)
 			for bar in part.barlist:
 				self.musxml.create_measure()
 				for obj in bar:
 					if isinstance(obj, ly2xml_mediator.bar_attr):
 						if obj.has_attr():
-							self.musxml.new_bar_attr(obj.clef, obj.time, obj.key, obj.mode, self.mediator.divisions)
+							self.musxml.new_bar_attr(obj.clef, obj.time, obj.key, obj.mode, obj.divs)
 					elif isinstance(obj, ly2xml_mediator.bar_note):
 						self.musxml.new_note([obj.step, obj.alter, obj.octave], obj.duration, obj.type, self.mediator.divisions, obj.dot)
 						if obj.tie:
