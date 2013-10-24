@@ -106,6 +106,7 @@ class mediator():
 		self.current_attr = bar_attr()
 		
 	def note2rest(self):
+		""" note used as rest position transformed to rest"""
 		temp_note = self.current_note
 		self.current_note = bar_rest(temp_note.duration, [temp_note.step, str(temp_note.octave)])
 		self.bar.pop()
@@ -130,6 +131,11 @@ class mediator():
 		
 	def new_dot(self):
 		self.current_note.add_dot()
+		num_dots = self.current_note.dot
+		import math
+		num = int(math.pow(2,num_dots))
+		den = int(math.pow(2,num_dots+1)-1)
+		self.check_divs(self.duration, [num,den] )
 		
 	def tie_to_next(self):
 		if self.current_note.tie == 'stop': # only if previous was tied
@@ -160,14 +166,6 @@ class mediator():
 		if mod > 0:
 			mult = get_mult(a,b)
 			self.divisions = divs*mult
-			# print "---"
-			# print "div:"+str(divs)
-			# print "len:"+str(org_len)
-			# print tfraction			
-			# print "tupl:"+str(a)+'/'+str(b)
-			# print "predur:"+str(predur)
-			# print "mod:"+str(mod)
-			# print "mult:"+str(mult)
 
 
 class score_part():

@@ -74,9 +74,15 @@ class create_musicXML():
 		""" create all nodes needed for a note. """
 		self.create_note()
 		self.add_pitch(pitch[0], pitch[1], pitch[2])
-		duration = divs*4/int(org_len)
 		if dot:
-			duration
+			import math
+			den = int(math.pow(2,dot))
+			num = int(math.pow(2,dot+1)-1)
+			a = divs*4*num
+			b = int(org_len)*den
+			duration = a/b
+		else:
+			duration = divs*4/int(org_len)
 		self.add_div_duration(duration)
 		self.add_duration_type(durtype)
 		if dot:
