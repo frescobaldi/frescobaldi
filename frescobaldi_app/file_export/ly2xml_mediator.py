@@ -30,7 +30,7 @@ class mediator():
 	def __init__(self):
 		""" create global lists """
 		self.score = []
-		self.partnames = []
+		self.sections = []
 		""" default and initial values """
 		self.mustime = [4,4]
 		self.clef = ['G',2]
@@ -38,18 +38,33 @@ class mediator():
 		self.duration = 4
 		self.tied = False	
 		
-	def new_part(self, name):
-		self.part = []
+	def new_section(self, name):
+		section = score_section(name)
+		self.insert_into = section
+		self.sections.append(section)
+		self.bar = None
+		
+	def new_part(self):
+		self.part = score_part()
 		self.score.append(self.part)
-		self.partnames.append(name)
-		self.new_bar()
-		self.current_attr.set_time(self.mustime)
-		self.current_attr.set_clef(self.clef)	
+		self.insert_into = self.part
+		self.bar = None		
+		
+	def fetch_variable(self, varname):
+		for n in self.sections:
+			if n.name == varname:
+				self.insert_into.barlist.extend(n.barlist)
+				
+	def check_parts(self):
+		if not self.score:
+			self.new_part()
+			for n in self.sections:
+				self.part.barlist.extend(n.barlist)										
 		
 	def new_bar(self):
 		self.current_attr = bar_attr()
 		self.bar = [self.current_attr]
-		self.part.append(self.bar)
+		self.insert_into.barlist.append(self.bar)
 		
 	def new_key(self, key_name, mode_command):
 		mode = mode_command[1:]
@@ -68,6 +83,8 @@ class mediator():
 		if self.tied:
 			self.current_note.set_tie('stop')
 			self.tied = False
+		if self.bar is None:
+			self.new_bar()
 		self.bar.append(self.current_note)
 		self.current_attr = bar_attr()
 		
@@ -144,7 +161,19 @@ class mediator():
 			# print "predur:"+str(predur)
 			# print "mod:"+str(mod)
 			# print "mult:"+str(mult)
+
+
+class score_part():
+	""" object to keep track of part """
+	def __init__(self):
+		self.name = "test"
+		self.barlist = []			
 			
+class score_section():
+	""" object to keep track of music section """
+	def __init__(self, name):
+		self.name = name
+		self.barlist = []			
 							
 class bar_note():
 	""" object to keep track of note parameters """
@@ -251,9 +280,9 @@ def notename2step(note_name):
 		is_sharp = note_name.split('i')
 		is_flat = note_name.split('e')
 		note_name = note_name[0]
-		if is_sharp[1]:
-			alter = 1
-		elif is_flat[1]:
+		if len(is_sharp)>1:
+			alter = 1		
+		elif len(is_flat)>1:
 			alter = -1
 	return [note_name.upper(), alter]
 

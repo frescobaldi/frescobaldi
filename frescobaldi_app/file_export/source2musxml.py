@@ -43,8 +43,9 @@ class parse_source():
 		self.musxml = create_musicxml.create_musicXML()
 		self.mediator = ly2xml_mediator.mediator()
 		self.prev_command = ''
-		self.partname = ''
-		self.can_create_part = True
+		self.varname = ''
+		self.can_create_sect = True
+		self.can_create_part = False
 		self.tuplet = False
 		block = doc.firstBlock()
 		while block.isValid():
@@ -55,8 +56,10 @@ class parse_source():
 						func_call = getattr(self, func_name)
 						func_call(t)
 					except AttributeError:
-						print "Warning: "+func_name+" not implemented!"
+						# print "Warning: "+func_name+" not implemented!"
+						pass
 			block = block.next()
+		self.mediator.check_parts()
 		self.iterate_mediator()
 		
 	def output(self):
@@ -68,17 +71,20 @@ class parse_source():
 			    	
 	def Name(self, token):
 		""" name of variable """
-		self.partname = token    	
+		self.varname = token    	
 	
 	def SequentialStart(self, token):
 		""" SequentialStart = { """
-		if self.can_create_part:
-			self.mediator.new_part(self.partname)
-		elif self.prev_command[1:] == 'times':
-			print "found tuplet!"
+		print "Seq:"+self.prev_command
+		if self.prev_command[1:] == 'times':
 			self.tuplet = True
 			self.ttype = "start"
-		self.can_create_part = False
+		elif self.prev_command[1:] == 'grace':
+			pass
+		else:
+			if self.can_create_sect:
+				self.mediator.new_section(self.varname)
+				self.can_create_sect = False
 		
 	def SequentialEnd(self, token):
 		""" SequentialEnd = } """
@@ -88,7 +94,19 @@ class parse_source():
 		if self.prev_command:
 			self.prev_command = ''
 		else:
-			self.can_create_part = True
+			self.can_create_sect = True
+			
+	def New(self, token):
+		""" New """
+		self.can_create_part = True
+		
+	def ContextName(self, token):
+		""" staff """
+		if token == "Staff":
+			if self.can_create_part:
+				self.mediator.new_part()
+				self.can_create_sect = False
+				self.can_create_part = False
 			
 	def PipeSymbol(self, token):
 		""" PipeSymbol = | """
@@ -170,7 +188,7 @@ class parse_source():
 			self.mediator.new_key(self.key, token)
 			self.prev_command = ''
 		else:
-			self.prev_command = token
+			self.mediator.fetch_variable(token[1:])
 			print "UserCommand:"+token
 		
 	##
@@ -180,8 +198,8 @@ class parse_source():
 	def iterate_mediator(self):
 		""" the mediator lists are looped through and outputed to the xml-file """
 		for part in self.mediator.score:
-			self.musxml.create_part('test')
-			for bar in part:
+			self.musxml.create_part(part.name)
+			for bar in part.barlist:
 				self.musxml.create_measure()
 				for obj in bar:
 					if isinstance(obj, ly2xml_mediator.bar_attr):
