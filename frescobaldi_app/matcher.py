@@ -66,7 +66,11 @@ class AbstractMatcher(object):
         """Highlights matching tokens if the view's cursor is at such a token."""
         cursors = matches(self.view().textCursor(), self.view())
         if cursors:
-            self.highlighter().highlight("match", cursors, 2)
+            from PyQt4.QtCore import QSettings
+            s = QSettings()
+            s.beginGroup("editor_settings")
+            duration = s.value('highlight_match_duration', 0, type(0))
+            self.highlighter().highlight("match", cursors, 2, duration)
         else:
             self.highlighter().clear("match")
 
