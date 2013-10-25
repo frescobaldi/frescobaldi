@@ -33,7 +33,7 @@ class mediator():
 		self.sections = []
 		""" default and initial values """
 		self.divisions = 1
-		self.duration = 4
+		self.duration = "4"
 		self.tied = False	
 		
 	def new_section(self, name):
@@ -75,14 +75,20 @@ class mediator():
 		
 	def new_key(self, key_name, mode_command):
 		mode = mode_command[1:]
+		if self.bar is None:
+			self.new_bar()
 		self.current_attr.set_key(get_fifths(key_name, mode), mode)		
 		
 	def new_time(self, fraction):
 		self.mustime = fraction.split('/')
+		if self.bar is None:
+			self.new_bar()
 		self.current_attr.set_time(self.mustime)
 		
 	def new_clef(self, clefname):
 		self.clef = clefname2clef(clefname)
+		if self.bar is None:
+			self.new_bar()
 		self.current_attr.set_clef(self.clef)
 		
 	def new_note(self, note_name):
@@ -261,6 +267,10 @@ class bar_attr():
 		elif self.divs != 0:
 			check = True
 		return check
+		
+##
+# translation functions
+##
 		
 def get_fifths(key, mode):
 	sharpkeys = ['c', 'g', 'd', 'a', 'e', 'b', 'fis', 'cis', 'gis', 'dis', 'ais']
