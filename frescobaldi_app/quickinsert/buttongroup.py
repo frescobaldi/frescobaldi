@@ -186,12 +186,17 @@ class Button(QToolButton):
 
     def editShortcut(self):
         """Edit our shortcut."""
+        from widgets import shortcuteditdialog
         mainwindow = self.parent().mainwindow()
         action = QAction(self.defaultAction().icon(), self.defaultAction().text(), None)
         action.setShortcuts(self.actionCollection().shortcuts(self.objectName()) or [])
-        if actioncollectionmanager.manager(mainwindow).editAction(self, action,
-                self.actionCollection().defaults().get(self.objectName()),
-                self.defaultAction()):
+        default = self.actionCollection().defaults().get(self.objectName())
+        mgr = actioncollectionmanager.manager(mainwindow)
+        skip = (self.actionCollection(), self.objectName())
+        cb = mgr.findShortcutConflict
+        
+        dlg = shortcuteditdialog.ShortcutEditDialog(self, cb, skip)
+        if dlg.editAction(action, default):
+            mgr.removeShortcuts(action.shortcuts())
             self.actionCollection().setShortcuts(self.objectName(), action.shortcuts())
-
-
+        

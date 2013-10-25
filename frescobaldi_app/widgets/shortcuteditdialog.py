@@ -129,7 +129,8 @@ class ShortcutEditDialog(QDialog):
                         if conflictName:
                             conflictList.append(conflictName)
                     if conflictList:
-                        text = _("Conflict with: <b>{0}</b>").format(', '.join(conflictList))
+                        text = _("Conflict with: {name}").format(
+                            name="<b>{0}</b>".format(', '.join(conflictList)))
                         self.lconflictDefault.setText(text)
                         self.lconflictDefault.setVisible(True)
             QTimer.singleShot(0, self.adjustSize)
@@ -138,7 +139,8 @@ class ShortcutEditDialog(QDialog):
         if self.conflictCallback is not None:
             conflictName = self.conflictCallback(self.keybuttons[num].shortcut(), *self.cbArgs)
             if conflictName:
-                text = _("Conflict with: <b>{0}</b>").format(conflictName)
+                text = _("Conflict with: {name}").format(
+                    name="<b>{0}</b>".format(conflictName))
                 self.conflictlabels[num].setText(text)
                 self.conflictlabels[num].setVisible(True)
             else:
