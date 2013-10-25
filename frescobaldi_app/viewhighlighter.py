@@ -74,7 +74,7 @@ class ViewHighlighter(widgets.arbitraryhighlighter.ArbitraryHighlighter, plugin.
         
         """
         if view is None:
-			view = self.parent()
+            view = self.parent()
         # sometimes in the destruction phase, view is a generic QWidget...
         try:
             cursor = view.textCursor()
