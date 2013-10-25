@@ -44,7 +44,7 @@ class FileImport(plugin.MainWindowPlugin):
     
     def importMusicXML(self):
         """ Opens a MusicXML file. Converts it to ly by using musicxml2ly """
-        filetypes = app.filetypes('*.xml')
+        filetypes = '{0} (*.xml);;{1} (*)'.format(_("XML Files"), _("All Files"))
         caption = app.caption(_("dialog title", "Import a MusicXML file"))
         directory = os.path.dirname(self.mainwindow().currentDocument().url().toLocalFile()) or app.basedir()
         importfile = QFileDialog.getOpenFileName(self.mainwindow(), caption, directory, filetypes)
