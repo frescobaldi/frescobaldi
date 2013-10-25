@@ -31,10 +31,7 @@ from PyQt4.QtGui import QAction, QFileDialog, QKeySequence, QMessageBox
 import app
 import actioncollection
 import actioncollectionmanager
-import document
 import plugin
-import util
-import qutil
 
 
 class FileExport(plugin.MainWindowPlugin):
@@ -48,51 +45,21 @@ class FileExport(plugin.MainWindowPlugin):
         doc = self.mainwindow().currentDocument()
         orgname = doc.url().toLocalFile()
         filename = os.path.splitext(orgname)[0] + '.xml'
-        import source2musxml
-        musxmlparser = source2musxml.parse_source(doc)
-        xmldoc = app.openUrl(QUrl())
-        xmldoc.setPlainText(musxmlparser.output())
-        filetypes = app.filetypes('*.xml')
-        self.saveDocumentAs(xmldoc, filename, filetypes) 
-        
-    def saveDocumentAs(self, doc, filename, filetypes):
-        """ Saves the document, always asking for a name.
-        
-        Returns True if saving succeeded.
-        
-        """
-        caption = app.caption(_("dialog title", "Save File"))
+        caption = app.caption(_("dialog title", "Export MusicXML File"))
+        filetypes = '{0} (*.xml);;{1} (*)'.format(_("XML Files"), _("All Files"))
         filename = QFileDialog.getSaveFileName(self.mainwindow(), caption, filename, filetypes)
         if not filename:
             return False # cancelled
-        if not util.iswritable(filename):
+        import source2musxml
+        musxmlparser = source2musxml.parse_source(doc)
+        xml_text = musxmlparser.output()
+        try:
+            with open(filename, "w") as f:
+                f.write(xml_text)
+        except (IOError, OSError) as err:
             QMessageBox.warning(self, app.caption(_("Error")),
-                _("Can't write to destination:\n\n{url}").format(url=filename))
-            return False
-        url = QUrl.fromLocalFile(filename)
-        doc.setUrl(url)
-        return self.saveDocument(doc)
-        
-    def saveDocument(self, doc):
-        """ Saves the document, asking for a name if necessary.
-        
-        Returns True if saving succeeded.
-        
-        """
-        if doc.url().isEmpty():
-            return self.saveDocumentAs(doc)
-        filename = dest = doc.url().toLocalFile()
-        if not filename:
-            dest = doc.url().toString()
-        if not util.iswritable(filename):
-            QMessageBox.warning(self, app.caption(_("Error")),
-                _("Can't write to destination:\n\n{url}").format(url=dest))
-            return False
-        success = doc.save()
-        if not success:
-            QMessageBox.warning(self, app.caption(_("Error")),
-                _("Can't write to destination:\n\n{url}").format(url=filename))
-        return success    
+                _("Can't write to destination:\n\n{url}\n\n{error}").format(
+                    url=filename, error=err.strerror))
 
 
 class Actions(actioncollection.ActionCollection):
@@ -101,6 +68,6 @@ class Actions(actioncollection.ActionCollection):
         self.export_musicxml = QAction(parent)        
     
     def translateUI(self):
-        self.export_musicxml.setText(_("Export MusicXML..."))
+        self.export_musicxml.setText(_("Export Music&XML..."))
         self.export_musicxml.setToolTip(_("Export current document as MusicXML."))
 
