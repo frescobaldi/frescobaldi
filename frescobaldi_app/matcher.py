@@ -66,7 +66,7 @@ class AbstractMatcher(object):
         """Highlights matching tokens if the view's cursor is at such a token."""
         cursors = matches(self.view().textCursor(), self.view())
         if cursors:
-            self.highlighter().highlight("match", cursors, 2, 1000)
+            self.highlighter().highlight("match", cursors, 2)
         else:
             self.highlighter().clear("match")
 
