@@ -246,7 +246,7 @@ class Shortcuts(PrefsItemBase):
 
 class Editor(PrefsItemBase):
     help = prefshelp.preferences_helpers
-    iconName = "applications-other"
+    iconName = "document-properties"
     def translateUI(self):
         self.setText(_("Editor Options"))
         
