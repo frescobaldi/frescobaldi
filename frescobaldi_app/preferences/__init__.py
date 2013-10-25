@@ -48,6 +48,7 @@ def pageorder():
     yield Paths
     yield Documentation
     yield Shortcuts
+    yield Editor
     yield FontsColors
     yield Tools
 
@@ -242,6 +243,17 @@ class Shortcuts(PrefsItemBase):
         from . import shortcuts
         return shortcuts.Shortcuts(dlg)
         
+
+class Editor(PrefsItemBase):
+    help = prefshelp.preferences_helpers
+    iconName = "applications-other"
+    def translateUI(self):
+        self.setText(_("Editor Options"))
+        
+    def widget(self, dlg):
+        import editor
+        return editor.Editor(dlg)
+
 
 class FontsColors(PrefsItemBase):
     help = prefshelp.preferences_fontscolors
