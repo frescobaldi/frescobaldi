@@ -47,8 +47,7 @@ class FileExport(plugin.MainWindowPlugin):
         """ Convert the current document to MusicXML """
         doc = self.mainwindow().currentDocument()
         orgname = doc.url().toLocalFile()
-        namelist = orgname.split('.')
-        filename = namelist[0]+'.xml'
+        filename = os.path.splitext(orgname)[0] + '.xml'
         import source2musxml
         musxmlparser = source2musxml.parse_source(doc)
         xmldoc = app.openUrl(QUrl())
