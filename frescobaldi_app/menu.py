@@ -44,6 +44,7 @@ import autocomplete
 import sidebar
 import matcher
 import file_import
+import file_export
 import vcs
 
 
@@ -133,7 +134,9 @@ def menu_file_import(mainwindow):
 def menu_file_export(mainwindow):
     m = Menu(_("submenu title", "&Export"), mainwindow)
     ac = mainwindow.actionCollection
+    acfe = file_export.FileExport.instance(mainwindow).actionCollection
     
+    m.addAction(acfe.export_musicxml)
     m.addAction(ac.export_colored_html)
     return m
     
