@@ -68,8 +68,8 @@ class AbstractMatcher(object):
         if cursors:
             from PyQt4.QtCore import QSettings
             s = QSettings()
-            s.beginGroup("editor_settings")
-            duration = s.value('highlight_match_duration', 0, type(0))
+            s.beginGroup("editor_highlighting")
+            duration = s.value("match", 0, type(0)) * 1000
             self.highlighter().highlight("match", cursors, 2, duration)
         else:
             self.highlighter().clear("match")

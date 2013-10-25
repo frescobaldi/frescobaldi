@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 from PyQt4.QtCore import QSettings
 from PyQt4.QtGui import (
-    QCheckBox, QComboBox, QFileDialog, QGridLayout, QLabel, QScrollArea,
+    QCheckBox, QComboBox, QFileDialog, QGridLayout, QLabel, QScrollArea, QSpinBox, 
     QVBoxLayout, QWidget)
 
 import app
@@ -51,6 +51,7 @@ class Editor(preferences.GroupsPage):
         scrollarea.setWidgetResizable(True)
         
         layout.addWidget(Highlighting(self))
+        layout.addStretch()
 
 
 class Highlighting(preferences.Group):
@@ -64,55 +65,41 @@ class Highlighting(preferences.Group):
         layout.addWidget(self.messageLabel, 0, 0, 1, 2)
         self.labels = {}
         self.entries = {}
-        for row, (name, title) in enumerate(self.items(), 1):
+        for row, (name, title, default) in enumerate(self.items(), 1):
             self.labels[name] = l = QLabel()
-            self.entries[name] = e = widgets.urlrequester.UrlRequester()
-            e.setFileMode(QFileDialog.ExistingFile)
-            e.changed.connect(page.changed)
+            self.entries[name] = e = QSpinBox()
+            e.valueChanged.connect(page.changed)
             layout.addWidget(l, row, 0)
             layout.addWidget(e, row, 1)
             
         app.translateUI(self)
     
     def items(self):
-        """Yields (name, title) tuples for every setting in this group."""
-        yield "pdf", _("PDF:")
-        yield "midi", _("MIDI:")
-        yield "svg", _("SVG:")
-        yield "image", _("Image:")
-        yield "browser", _("Browser:")
-        yield "email", _("E-Mail:")
-        yield "directory", _("File Manager:")
-        yield "shell", _("Shell:")
-        yield "git", _("Git:")
+        """
+        Yields (name, title, default) tuples for every setting in this group.
+        Default is understood in seconds.
+        """
+        yield "match", _("Matching Item:"), 1
         
     def translateUI(self):
         self.setTitle(_("Highlighting Options"))
         self.messageLabel.setText(_(
-            "Below you can enter options about the highlighting of "
+            "Below you can define how long "
             "\"matching\" items like matching brackets or the items "
-            "linked through Point-and-Click."))
-        for name, title in self.items():
+            "linked through Point-and-Click are highlighted.") + "<br />" +
+            _("Values are given in seconds, 0 disables the timer and "
+              "lets the highlighting continue until the cursor changes."))
+        for name, title, default in self.items():
             self.labels[name].setText(title)
-        self.entries["email"].setToolTip(_(
-            "Command that should accept a mailto: URL."))
-        self.entries["shell"].setToolTip(_(
-            "Command to open a Terminal or Command window."))
-        self.entries["git"].setToolTip(_(
-            "Command (base) to run Git versioning actions."))
     
     def loadSettings(self):
         s = QSettings()
-        s.beginGroup("helper_applications")
-        for name, title in self.items():
-            self.entries[name].setPath(s.value(name, "", type("")))
+        s.beginGroup("editor_highlighting")
+        for name, title, default in self.items():
+            self.entries[name].setValue(s.value(name, default, type(0)))
     
     def saveSettings(self):
         s= QSettings()
-        s.beginGroup("helper_applications")
-        for name, title in self.items():
-            s.setValue(name, self.entries[name].path())
-
-
-
-
+        s.beginGroup("editor_highlighting")
+        for name, title, default in self.items():
+            s.setValue(name, self.entries[name].value())
