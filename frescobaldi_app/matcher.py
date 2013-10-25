@@ -42,7 +42,15 @@ class AbstractMatcher(object):
         self._view = lambda: None
         if view:
             self.setView(view)
-    
+        app.settingsChanged.connect(self.updateSettings)
+        self.updateSettings()
+
+    def updateSettings(self):
+        from PyQt4.QtCore import QSettings
+        s = QSettings()
+        s.beginGroup("editor_highlighting")
+        self._match_duration = s.value("match", 0, type(0)) * 1000
+
     def setView(self, view):
         """Set the current View (to monitor for cursor position changes)."""
         old = self._view()
@@ -66,11 +74,7 @@ class AbstractMatcher(object):
         """Highlights matching tokens if the view's cursor is at such a token."""
         cursors = matches(self.view().textCursor(), self.view())
         if cursors:
-            from PyQt4.QtCore import QSettings
-            s = QSettings()
-            s.beginGroup("editor_highlighting")
-            duration = s.value("match", 0, type(0)) * 1000
-            self.highlighter().highlight("match", cursors, 2, duration)
+            self.highlighter().highlight("match", cursors, 2, self._match_duration)
         else:
             self.highlighter().clear("match")
 
@@ -84,6 +88,7 @@ class Matcher(AbstractMatcher, plugin.MainWindowPlugin):
         ac.view_matching_pair.triggered.connect(self.moveto_match)
         ac.view_matching_pair_select.triggered.connect(self.select_match)
         mainwindow.currentViewChanged.connect(self.setView)
+
         view = mainwindow.currentView()
         if view:
             self.setView(view)
