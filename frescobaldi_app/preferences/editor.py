@@ -68,6 +68,7 @@ class Highlighting(preferences.Group):
         for row, (name, title, default) in enumerate(self.items(), 1):
             self.labels[name] = l = QLabel()
             self.entries[name] = e = QSpinBox()
+            e.setRange(0, 60)
             e.valueChanged.connect(page.changed)
             layout.addWidget(l, row, 0)
             layout.addWidget(e, row, 1)
@@ -86,17 +87,17 @@ class Highlighting(preferences.Group):
         self.messageLabel.setText(_(
             "Below you can define how long "
             "\"matching\" items like matching brackets or the items "
-            "linked through Point-and-Click are highlighted.") + "<br />" +
-            _("Values are given in seconds, 0 disables the timer and "
-              "lets the highlighting continue until the cursor changes."))
+            "linked through Point-and-Click are highlighted."))
         for name, title, default in self.items():
+            self.entries[name].setSpecialValueText(_("Infinite"))
+            self.entries[name].setSuffix(_("abbreviation for \"seconds\"", " sec"))
             self.labels[name].setText(title)
     
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("editor_highlighting")
         for name, title, default in self.items():
-            self.entries[name].setValue(s.value(name, default, type(0)))
+            self.entries[name].setValue(s.value(name, default, int))
     
     def saveSettings(self):
         s= QSettings()

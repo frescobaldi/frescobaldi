@@ -49,7 +49,7 @@ class AbstractMatcher(object):
         from PyQt4.QtCore import QSettings
         s = QSettings()
         s.beginGroup("editor_highlighting")
-        self._match_duration = s.value("match", 1, type(0)) * 1000
+        self._match_duration = s.value("match", 1, int) * 1000
 
     def setView(self, view):
         """Set the current View (to monitor for cursor position changes)."""
