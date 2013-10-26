@@ -19,14 +19,14 @@
 
 """
 Export to Music XML
-Uses lxml.etree to create the XML document
+Uses xml.etree to create the XML document
 """
 
 from __future__ import unicode_literals
 
 import sys
     
-from lxml import etree
+import xml.etree.ElementTree as etree
 
 
 class create_musicXML():
@@ -38,6 +38,7 @@ class create_musicXML():
 		set doctype	
 		"""
 		self.root = etree.Element("score-partwise", version="3.0")
+		self.tree = etree.ElementTree(self.root)
 		identification = etree.SubElement(self.root, "identification")
 		encoding = etree.SubElement(identification, "encoding")
 		software = etree.SubElement(encoding, "software")
@@ -268,7 +269,7 @@ class create_musicXML():
 			
 	def create_xmldoc(self):
 		""" output etree as a XML document """
-		return etree.tostring(self.root, pretty_print=True, xml_declaration=True, encoding='UTF-8')
+		return etree.tostring(self.root, encoding='UTF-8', method="xml")
 
 
 
