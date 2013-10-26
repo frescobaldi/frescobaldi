@@ -42,10 +42,6 @@ import guistyle         # Setup GUI style
 import po.setup         # Setup language
 import remote           # IPC with other Frescobaldi instances
 
-# Handle FileOpen requests (e.g. double-clicking a file in the Finder)
-if sys.platform.startswith('darwin'):
-    import file_open_eventhandler
-
 
 def parse_commandline():
     """Parses the command line; returns options and filenames.
@@ -175,6 +171,10 @@ def main():
         cursor.setPosition(pos)
         win.currentView().setTextCursor(cursor)
         win.currentView().centerCursor()
+
+    # Handle FileOpen requests (e.g. double-clicking a file in the Finder)
+    if sys.platform.startswith('darwin'):
+        import file_open_eventhandler
 
 
 main()
