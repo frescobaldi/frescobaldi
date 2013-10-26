@@ -248,7 +248,7 @@ class Editor(PrefsItemBase):
     help = prefshelp.preferences_helpers
     iconName = "document-properties"
     def translateUI(self):
-        self.setText(_("Editor Options"))
+        self.setText(_("Editor Preferences"))
         
     def widget(self, dlg):
         import editor
