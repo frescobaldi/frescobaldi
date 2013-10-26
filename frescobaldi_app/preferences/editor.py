@@ -88,9 +88,12 @@ class Highlighting(preferences.Group):
             "Below you can define how long "
             "\"matching\" items like matching brackets or the items "
             "linked through Point-and-Click are highlighted."))
+        # L10N: abbreviation for "n seconds" in spinbox, n >= 1, no plural forms
+        prefix, suffix = _("{num} sec").split("{num}")
         for name, title, default in self.items():
             self.entries[name].setSpecialValueText(_("Infinite"))
-            self.entries[name].setSuffix(_("abbreviation for \"seconds\"", " sec"))
+            self.entries[name].setPrefix(prefix)
+            self.entries[name].setSuffix(suffix)
             self.labels[name].setText(title)
     
     def loadSettings(self):
