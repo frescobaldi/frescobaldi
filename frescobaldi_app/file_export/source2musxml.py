@@ -63,7 +63,10 @@ class parse_source():
 		self.iterate_mediator()
 		
 	def output(self):
-		return self.musxml.create_xmldoc()
+		""" perform line breaks and indents on the string """
+		from xml.dom import minidom		
+		xmlstring = self.musxml.create_xmldoc()
+		return minidom.parseString(xmlstring).toprettyxml(indent="  ")
 		
 	## 
 	# The different source types from ly.lex.lilypond are here sent to translation.
