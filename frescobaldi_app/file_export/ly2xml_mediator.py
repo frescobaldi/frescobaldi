@@ -299,9 +299,11 @@ def notename2step(note_name):
 		is_flat = note_name.split('e')
 		note_name = note_name[0]
 		if len(is_sharp)>1:
-			alter = 1		
+			alter = len(is_sharp)-1		
 		elif len(is_flat)>1:
-			alter = -1
+			alter = -(len(is_flat)-1)
+		else:
+			alter = -1 #assuming 'as'
 	return [note_name.upper(), alter]
 
 def durval2type(durval):

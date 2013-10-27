@@ -170,10 +170,14 @@ class create_musicXML():
     def add_accidental(self, alter):
         """ create accidental """
         acc = etree.SubElement(self.current_note, "accidental")
-        if alter>0:     
+        if alter == 1:     
             acc.text = "sharp"
-        else:
+        elif alter == 2:
+            acc.text = "double-sharp"
+        elif alter == -1:
             acc.text = "flat"
+        elif alter == -2:
+            acc.text = "flat-flat"
                         
     def add_rest(self, pos):
         """ create rest """
