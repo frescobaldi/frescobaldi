@@ -24,13 +24,7 @@ Parsing source to convert to XML
 
 from __future__ import unicode_literals
 
-from PyQt4.QtGui import QTextFormat, QTextCursor
-
 import ly.lex
-import highlighter
-import textformats
-import tokeniter
-import info
 
 from . import create_musicxml
 from . import ly2xml_mediator
@@ -39,7 +33,7 @@ from . import ly2xml_mediator
 class parse_source():
     """ creates the XML-file from the source code according to the Music XML standard """
     
-    def __init__(self, doc):
+    def __init__(self, tokens):
         self.musxml = create_musicxml.create_musicXML()
         self.mediator = ly2xml_mediator.mediator()
         self.prev_command = ''
@@ -47,18 +41,15 @@ class parse_source():
         self.can_create_sect = True
         self.can_create_part = False
         self.tuplet = False
-        block = doc.firstBlock()
-        while block.isValid():
-            for t in tokeniter.tokens(block):
-                func_name = t.__class__.__name__ #get instance name
-                if func_name != 'Space':
-                    try:
-                        func_call = getattr(self, func_name)
-                        func_call(t)
-                    except AttributeError:
-                        # print "Warning: "+func_name+" not implemented!"
-                        pass
-            block = block.next()
+        for t in tokens:
+            func_name = t.__class__.__name__ #get instance name
+            if func_name != 'Space':
+                try:
+                    func_call = getattr(self, func_name)
+                    func_call(t)
+                except AttributeError:
+                    # print "Warning: "+func_name+" not implemented!"
+                    pass
         self.mediator.check_score()
         self.iterate_mediator()
         self.musxml.indent_xml(indent="  ")

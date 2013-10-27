@@ -32,6 +32,7 @@ import app
 import actioncollection
 import actioncollectionmanager
 import plugin
+import tokeniter
 
 
 class FileExport(plugin.MainWindowPlugin):
@@ -51,7 +52,7 @@ class FileExport(plugin.MainWindowPlugin):
         if not filename:
             return False # cancelled
         import source2musxml
-        musxmlparser = source2musxml.parse_source(doc)
+        musxmlparser = source2musxml.parse_source(tokeniter.all_tokens(doc))
         try:
             musxmlparser.musxml.write_xmldoc(filename)
         except (IOError, OSError) as err:
