@@ -143,27 +143,43 @@ def main():
     import autocomplete     # auto-complete input
     import wordboundary     # better wordboundary behaviour for the editor
     
+    # on Mac OS X, handle FileOpen requests (e.g. double-clicking a file in the
+    # Finder), these events also can occur right on application start.
+    # We do this just before creating the window, so that when multiple files
+    # are opened on startup (I don't know whether that really could happen),
+    # they are not made the current document, as that slows down loading
+    # multiple documents drastically.
+    if sys.platform.startswith('darwin'):
+        import file_open_eventhandler
+    
     if app.qApp.isSessionRestored():
         # Restore session, we are started by the session manager
         session.restoreSession()
         return
 
-    # load specified session
+    # load specified session?
     doc = None
     if options.session and options.session != "-":
         doc = sessions.loadSession(options.session)
-        
+    
     # Just create one MainWindow
     win = mainwindow.MainWindow()
     win.show()
     
-    if urls:
-        for u in urls:
-            doc = win.openUrl(u, options.encoding)
-    elif not options.session:
-        # no docs, load default session
-        doc = sessions.loadDefaultSession()
+    # load documents given as arguments
+    for u in urls:
+        doc = win.openUrl(u, options.encoding)
+    
+    # were documents loaded?
+    if not doc:
+        if app.documents:
+            doc = app.documents[-1]
+        elif not options.session:
+            # no docs, load default session
+            doc = sessions.loadDefaultSession()
+    
     win.setCurrentDocument(doc or document.Document())
+    
     if urls and options.line is not None:
         # set the last loaded document active and apply navigation if requested
         pos = doc.findBlockByNumber(options.line - 1).position() + options.column
@@ -171,10 +187,6 @@ def main():
         cursor.setPosition(pos)
         win.currentView().setTextCursor(cursor)
         win.currentView().centerCursor()
-
-    # Handle FileOpen requests (e.g. double-clicking a file in the Finder)
-    if sys.platform.startswith('darwin'):
-        import file_open_eventhandler
 
 
 main()
