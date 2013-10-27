@@ -66,7 +66,7 @@ def preview_options():
     """
     s = QSettings()
     s.beginGroup("lilypond_settings")
-    cmd_options = ['-dpoint-and-click']
+    cmd_options = []
     args = []
     
     # add options that are checked in the dockable panel
@@ -91,6 +91,9 @@ def preview_options():
     
         # File that conditionally includes different formatters
         cmd_options.append('-dinclude-settings=debug-layout-options.ly') 
+    
+    p_a_c = '-dno-point-and-click' if s.value('disable-point-and-click', False, bool) else '-dpoint-and-click'
+    cmd_options.append(p_a_c)
    
     return cmd_options
     

@@ -65,6 +65,9 @@ class Widget(QWidget):
         # annotate-spacing checkbox
         self.CBannotatespacing = QCheckBox()
         self.options['annotate-spacing'] = self.CBannotatespacing
+        # disable-point-and-click checkbox
+        self.CBdisablepointandclick = QCheckBox()
+        self.options['disable-point-and-click'] = self.CBdisablepointandclick
         # custom-file checkbox and input field
         self.CBcustomfile = QCheckBox()
         self.options['custom-file'] = self.CBcustomfile
@@ -81,6 +84,7 @@ class Widget(QWidget):
         layout.addWidget(self.CBpapercolumns)
         layout.addWidget(self.CBannotatespacing)
         layout.addWidget(self.CBcustomfile)
+        layout.addWidget(self.CBdisablepointandclick)
         layout.addWidget(self.LEcustomfile)
         layout.addStretch(1)
         
@@ -94,6 +98,7 @@ class Widget(QWidget):
         self.CBcustomfile.toggled.connect(self.toggleOption)
         self.CBpapercolumns.toggled.connect(self.toggleOption)
         self.CBannotatespacing.toggled.connect(self.toggleOption)
+        self.CBdisablepointandclick.toggled.connect(self.toggleOption)
         self.LEcustomfile.textEdited.connect(self.customFileEdited)
         
         app.translateUI(self)
@@ -128,6 +133,7 @@ class Widget(QWidget):
         self.CBannotatespacing.setToolTip(_(
             "Use LilyPond's \"annotate spacing\" option to\n"
             "display measurement information"))
+        self.CBdisablepointandclick.setText(_("Disable Point-and-Click"))
         self.CBcustomfile.setText(_("Include Custom File:"))
         self.CBcustomfile.setToolTip(_(
             "Include a custom file with definitions\n"
@@ -150,6 +156,8 @@ class Widget(QWidget):
         checkOption('custom-file')
         checkOption('paper-columns')
         checkOption('annotate-spacing')
+        checkOption('disable-point-and-click')
+        
         self.LEcustomfile.setText(s.value('custom-filename', '', type("")))
         
     def customFileEdited(self):
