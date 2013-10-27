@@ -55,7 +55,7 @@ class FileExport(plugin.MainWindowPlugin):
         try:
             musxmlparser.musxml.write_xmldoc(filename)
         except (IOError, OSError) as err:
-            QMessageBox.warning(self, app.caption(_("Error")),
+            QMessageBox.warning(self.mainwindow(), app.caption(_("Error")),
                 _("Can't write to destination:\n\n{url}\n\n{error}").format(
                     url=filename, error=err.strerror))
 
