@@ -331,6 +331,8 @@ def octmark2oct(octmark):
 		return 5
 	elif octmark == "'''":
 		return 6
+	elif octmark == "''''":
+		return 7
 		
 def get_mult(num, den):
 	from fractions import Fraction
