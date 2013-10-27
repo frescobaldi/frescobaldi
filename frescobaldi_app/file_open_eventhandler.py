@@ -33,13 +33,21 @@ import app
 
 
 def openUrl(url):
-    """Open Url and make it current in the current active window."""
-    win = QApplication.activeWindow()
-    if win not in app.windows:
-        win = app.windows[0]
-    doc = win.openUrl(url)
-    if doc:
-        win.setCurrentDocument(doc)
+    """Open Url.
+    
+    If there is an active MainWindow, the document is made the current
+    document in that window.
+    
+    """
+    if app.windows:
+        win = QApplication.activeWindow()
+        if win not in app.windows:
+            win = app.windows[0]
+        doc = win.openUrl(url)
+        if doc:
+            win.setCurrentDocument(doc)
+    else:
+        app.openUrl(url)
 
 
 class FileOpenEventHandler(QObject):
