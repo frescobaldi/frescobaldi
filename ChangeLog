@@ -12,6 +12,9 @@ Changes in 2.0.12 --
   - when editing keyboard shortcuts, conflicts are directly shown as they are
     entered; better support French keyboards (contributed by Nicolas Malarmey)
   - The layout of the Preview Mode panel has been slightly improved
+* Bug fixes:
+  - Music View: horizontal scrolling using trackpad now works with kinetic mode
+    enabled. Fixes #248.
 
 
 Changes in 2.0.11 -- October 16th, 2013
