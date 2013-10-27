@@ -25,9 +25,9 @@ Uses xml.etree to create the XML document
 from __future__ import unicode_literals
 
 import sys
-    
 import xml.etree.ElementTree as etree
 
+import info
 
 class create_musicXML():
     """ creates the XML-file from the source code according to the Music XML standard """
@@ -42,10 +42,10 @@ class create_musicXML():
         identification = etree.SubElement(self.root, "identification")
         encoding = etree.SubElement(identification, "encoding")
         software = etree.SubElement(encoding, "software")
-        software.text = "Frescobaldi"
+        software.text = "{0} {1}".format(info.appname, info.version)
         encoding_date = etree.SubElement(encoding, "encoding-date")
         import datetime
-        encoding_date = str(datetime.date.today())
+        encoding_date.text = str(datetime.date.today())
         self.partlist = etree.SubElement(self.root, "part-list")
         self.part_count = 1     
     
