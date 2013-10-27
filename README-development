@@ -187,6 +187,18 @@ preferences. You can also do this directly by connecting the method that sets
 the texts to the app.languageChanged signal.
 
 
+Guidelines for writing GUI texts
+================================
+
+* Write short, directly and non-technical
+* For help pages: each paragraph is one translatable string
+* Avoid HTML in texts (but <code>\include</code> is ok)
+* In help pages you can construct html using some helper functions
+* Avoid hard line breaks (<br>) in any texts: use short paragraphs instead
+* Use named format fields: not "page {0} of {1}" but "page {num} of {total}"
+* Don't change existing strings just for cosmetics, it breaks translations
+
+
 Testing and developing under Windows
 ====================================
 

@@ -506,6 +506,7 @@ class Runner(object):
         return cursor(self.block, self._tokens[self._index], start, end)
 
     def copy(self):
+        """Return a new Runner at the current position."""
         obj = object.__new__(self.__class__)
         obj.block = self.block
         obj._tokens = self._tokens
