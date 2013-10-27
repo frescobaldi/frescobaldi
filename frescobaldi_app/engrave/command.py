@@ -87,7 +87,7 @@ def preview_options():
     if args:
         cmd_options.extend(args)
         # Add subdir with preview-mode files to search path
-        cmd_options.append('-I' + preview_mode.__path__[0])
+        cmd_options.append('-I ' + preview_mode.__path__[0])
     
         # File that conditionally includes different formatters
         cmd_options.append('-dinclude-settings=debug-layout-options.ly') 
@@ -114,7 +114,7 @@ def defaultJob(document, preview):
     else:
         command.append('-dno-point-and-click')
     command.append('--pdf')
-    command.extend('-I' + path for path in includepath)
+    command.extend('-I ' + path for path in includepath)
     j.directory = os.path.dirname(filename)
     command.append(filename)
     j.command = command
