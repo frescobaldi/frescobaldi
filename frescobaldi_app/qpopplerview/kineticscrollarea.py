@@ -247,21 +247,28 @@ class KineticScrollArea(QScrollArea):
         
         self.kineticStart(speed)
 
-    def kineticAddDelta(self, delta ):
+    def kineticAddDelta(self, delta, orientation=Qt.Vertical):
         """Add a kinetic delta to an already started kinetic move."""
-        speed = QPoint(0,0)
+        if orientation == Qt.Vertical:
+            s = self._kineticData._speed.y()
+        else:
+            s = self._kineticData._speed.x()
         
         # Get the remaining scroll amount.
-        currentSpeed = abs( self._kineticData._speed.y() )
+        currentSpeed = abs( s )
         leftToScroll = (currentSpeed+1)*currentSpeed / 2 ;
-        if self._kineticData._speed.y() < 0:
+        if s < 0:
             leftToScroll *= -1
         leftToScroll += delta
         
-        speed.setY((sqrt(1+8*abs(leftToScroll))-1)/2)
-        speed.setX( self._kineticData._speed.x() )
+        s = (sqrt(1+8*abs(leftToScroll))-1)/2
         if leftToScroll < 0:
-            speed.setY(-speed.y())
+            s = -s
+        
+        if orientation == Qt.Vertical:
+            speed = QPoint(self._kineticData._speed.x(), s)
+        else:
+            speed = QPoint(s, self._kineticData._speed.y())
             
         self.kineticStart(speed)
             
@@ -321,7 +328,7 @@ class KineticScrollArea(QScrollArea):
     def wheelEvent(self, ev):
         """Kinetic wheel movements, if enabled."""
         if self._kineticScrollingEnabled:
-            self.kineticAddDelta(ev.delta())
+            self.kineticAddDelta(ev.delta(), ev.orientation())
         else:
             super(KineticScrollArea, self).wheelEvent(ev)
 
