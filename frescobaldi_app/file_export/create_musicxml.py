@@ -272,9 +272,12 @@ class create_musicXML():
         import etreeutil
         etreeutil.indent(self.root, indent)
         
-    def create_xmldoc(self):
-        """ output etree as a XML document in UTF-8 encoding """
-        return etree.tostring(self.root, encoding='UTF-8', method="xml")
+    def create_xmldoc(self, encoding='UTF-8'):
+        """ output etree as a XML document """
+        return etree.tostring(self.root, encoding=encoding, method="xml")
 
+    def write_xmldoc(self, file, encoding='UTF-8'):
+        """ write XML to a file (file obj or filename) """
+        self.tree.write(file, encoding=encoding, xml_declaration=True, method="xml")
 
 
