@@ -35,7 +35,7 @@
 }
 
 % Function to determine the used LilyPond version.
-\include "lilypond-version-switch.ily"
+\include "lilypond-version-predicates.ily"
 
 colorVoiceTemporary = 
 #(define-music-function (parser location color)
@@ -67,7 +67,7 @@ colorVoiceOld =
 colorVoice = 
 #(define-music-function (parser location color)
    (color?)
-   (if (lilypond-greater-than? '(2 17 5))
+   (if (lilypond-greater-than-or-equal? '(2 17 6))
        ;; \temporary was introduced in 2.17.6
         #{ \colorVoiceTemporary #color #}
         #{ \colorVoiceOld #color #}
