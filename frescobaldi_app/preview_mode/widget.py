@@ -97,7 +97,7 @@ class Widget(QWidget):
 
     def toggleOption(self, state):
         """Called when a checkbox is toggled by the user."""
-        for mode in preview_mode.debugmodes:
+        for mode in preview_mode.modelist():
             if self.checkboxes[mode] == self.sender():
                 s = QSettings()
                 s.beginGroup("lilypond_settings")
