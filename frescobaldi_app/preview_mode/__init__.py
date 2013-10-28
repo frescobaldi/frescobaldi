@@ -31,42 +31,42 @@ from PyQt4.QtGui import QKeySequence
 import panel
 
 # dictionary mapping internal option names to command line switches
-debugmodes = {
+_debugmodes = {
     'annotate-spacing': 
         ('-ddebug-annotate-spacing',
-        _("Annotate Spacing"), 
-        _("Use LilyPond's \"annotate spacing\" option to\n"
+        lambda: _("Annotate Spacing"), 
+        lambda: _("Use LilyPond's \"annotate spacing\" option to\n"
           "display measurement information")), 
     'control-points': 
         ('-ddebug-control-points', 
-        _("Display Control Points"), 
-        _("Display the control points that "
+        lambda: _("Display Control Points"), 
+        lambda: _("Display the control points that "
           "determine curve shapes")), 
     'directions': 
         ('-ddebug-directions',
-        _("Color explicit directions"), 
-        _("Highlight elements that are explicitly switched up- or downwards")), 
+        lambda: _("Color explicit directions"), 
+        lambda: _("Highlight elements that are explicitly switched up- or downwards")), 
     'grob-anchors': 
         ('-ddebug-grob-anchors',
-        _("Display Grob Anchors"), 
-        _("Display a dot at the anchor point of each grob")), 
+        lambda: _("Display Grob Anchors"), 
+        lambda: _("Display a dot at the anchor point of each grob")), 
     'grob-names': 
         ('-ddebug-grob-names',
-        _("Display Grob Names"), 
-        _("Display the name of each grob")), 
+        lambda: _("Display Grob Names"), 
+        lambda: _("Display the name of each grob")), 
     'paper-columns': 
         ('-ddebug-paper-columns', 
-        _("Debug Paper Columns"), 
-        _("Display info on the paper columns")), 
+        lambda: _("Debug Paper Columns"), 
+        lambda: _("Display info on the paper columns")), 
     'skylines': 
         ('-ddebug-display-skylines', 
-        _("Display Skylines"), 
-        _("Display the skylines that LilyPond "
+        lambda: _("Display Skylines"), 
+        lambda: _("Display the skylines that LilyPond "
           "uses to detect collisions.")), 
     'voices': 
         ('-ddebug-voices', 
-        _("Color \\voiceXXX"), 
-        _("Highlight notes that are explicitly "
+        lambda: _("Color \\voiceXXX"), 
+        lambda: _("Highlight notes that are explicitly "
         "set to \\voiceXXX")), 
 }
 
@@ -87,19 +87,19 @@ def option(mode):
     """
     Return the command line option for a key
     """
-    return debugmodes[mode][0]
+    return _debugmodes[mode][0]
     
 def label(mode):
     """
     Return the label of a mode as a translatable string
     """
-    return _(debugmodes[mode][1])
+    return _debugmodes[mode][1]()
 
 def tooltip(mode):
     """
     Return the tooltip of a mode as a translatable string
     """
-    return _(debugmodes[mode][2])
+    return _debugmodes[mode][2]()
 
 
 class PreviewOptions(panel.Panel):
