@@ -33,6 +33,7 @@ import actioncollection
 import actioncollectionmanager
 import plugin
 import tokeniter
+import info
 
 
 class FileExport(plugin.MainWindowPlugin):
@@ -51,10 +52,15 @@ class FileExport(plugin.MainWindowPlugin):
         filename = QFileDialog.getSaveFileName(self.mainwindow(), caption, filename, filetypes)
         if not filename:
             return False # cancelled
-        import source2musxml
-        musxmlparser = source2musxml.parse_source(tokeniter.all_tokens(doc))
+        import ly.musicxml
+        writer = ly.musicxml.writer()
+        writer.parse_tokens(tokeniter.all_tokens(doc))
+        xml = writer.musicxml()
+        # put the Frescobaldi version in the xml file
+        software = xml.root.find('.//encoding/software')
+        software.text = "{0} {1}".format(info.appname, info.version)
         try:
-            musxmlparser.musxml.write_xmldoc(filename)
+            xml.write(filename)
         except (IOError, OSError) as err:
             QMessageBox.warning(self.mainwindow(), app.caption(_("Error")),
                 _("Can't write to destination:\n\n{url}\n\n{error}").format(

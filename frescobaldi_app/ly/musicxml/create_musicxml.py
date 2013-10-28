@@ -25,9 +25,11 @@ Uses xml.etree to create the XML document
 from __future__ import unicode_literals
 
 import sys
-import xml.etree.ElementTree as etree
+try:
+    import xml.etree.cElementTree as etree
+except ImportError:
+    import xml.etree.ElementTree as etree
 
-import info
 
 class create_musicXML():
     """ creates the XML-file from the source code according to the Music XML standard """
@@ -42,7 +44,7 @@ class create_musicXML():
         identification = etree.SubElement(self.root, "identification")
         encoding = etree.SubElement(identification, "encoding")
         software = etree.SubElement(encoding, "software")
-        software.text = "{0} {1}".format(info.appname, info.version)
+        software.text = "python-ly"
         encoding_date = etree.SubElement(encoding, "encoding-date")
         import datetime
         encoding_date.text = str(datetime.date.today())
@@ -264,19 +266,32 @@ class create_musicXML():
         linenode.text = str(line)   
         
     ##
-    # Create XML document
+    # Create the XML document
     ##
     
-    def indent_xml(self, indent="  "):
+    def musicxml(self, prettyprint=True):
+        xml = MusicXML(self.tree)
+        if prettyprint:
+            xml.indent("  ")
+        return xml
+
+
+class MusicXML(object):
+    """Represent a generated MusicXML tree."""
+    def __init__(self, tree):
+        self.tree = tree
+        self.root = tree.getroot()
+    
+    def indent(self, indent="  "):
         """ add indent and linebreaks to the created XML tree """
         import etreeutil
         etreeutil.indent(self.root, indent)
         
-    def create_xmldoc(self, encoding='UTF-8'):
+    def tostring(self, encoding='UTF-8'):
         """ output etree as a XML document """
         return etree.tostring(self.root, encoding=encoding, method="xml")
 
-    def write_xmldoc(self, file, encoding='UTF-8'):
+    def write(self, file, encoding='UTF-8'):
         """ write XML to a file (file obj or filename) """
         self.tree.write(file, encoding=encoding, xml_declaration=True, method="xml")
 
