@@ -153,27 +153,19 @@ tieNeutral = {
   \revert Tie #'color
 }
 
+\include "color-voice.ily"
 
 stemUp = {
   \stemUp
-  \override Stem #'color = #debug-direction-up-color
-  \override NoteHead #'color = #debug-direction-up-color
-  \override Flag #'color = #debug-direction-up-color
-  \override Beam #'color = #debug-direction-up-color
+  \colorVoice #debug-direction-up-color
 }
 
 stemDown = {
   \stemDown
-  \override Stem #'color = #debug-direction-down-color
-  \override NoteHead #'color = #debug-direction-down-color
-  \override Flag #'color = #debug-direction-down-color
-  \override Beam #'color = #debug-direction-down-color
+  \colorVoice #debug-direction-down-color
 }
 
 stemNeutral = {
   \stemNeutral
-  \revert Stem #'color
-  \revert NoteHead #'color
-  \revert Flag #'color
-  \revert Beam #'color
+  \unColorVoice
 }
