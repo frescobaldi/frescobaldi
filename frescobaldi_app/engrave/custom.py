@@ -36,6 +36,7 @@ import help
 import icons
 import job
 import jobmanager
+import panelmanager
 import lilypondinfo
 import listmodel
 import widgets
@@ -46,8 +47,8 @@ from . import command
 
 
 class Dialog(QDialog):
-    def __init__(self, parent=None):
-        super(Dialog, self).__init__(parent)
+    def __init__(self, mainwindow):
+        super(Dialog, self).__init__(mainwindow)
         self._document = None
         
         layout = QGridLayout()
@@ -124,6 +125,7 @@ class Dialog(QDialog):
         self.deleteCheck.toggled.connect(self.makeCommandLine)
         self.resolutionCombo.editTextChanged.connect(self.makeCommandLine)
         self.makeCommandLine()
+        panelmanager.manager(mainwindow).preview_mode.widget().optionsChanged.connect(self.makeCommandLine)
     
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Engrave custom")))
@@ -180,7 +182,7 @@ class Dialog(QDialog):
             cmd.append('-dno-point-and-click')
         if self.previewCheck.isChecked():
             # add preview options _except_ the point-and-click related
-            ext = command.preview_options()
+            ext = panelmanager.manager(self.parent()).preview_mode.widget().preview_options()
             try:
                 ext.remove('-dpoint-and-click')
             except:

@@ -33,6 +33,9 @@ import preview_mode
 
 
 class Widget(QWidget):
+    
+    optionsChanged = pyqtSignal()
+    
     def __init__(self, tool):
         super(Widget, self).__init__(tool)
         
@@ -42,13 +45,12 @@ class Widget(QWidget):
         # automatically processed modes
         self.checkboxes = {}
         for mode in preview_mode.modelist():
-            self.checkboxes[mode] = cb = QCheckBox()
-            cb.toggled.connect(self.toggleOption)
+            self.checkboxes[mode] = cb = QCheckBox(clicked=self.optionsChanged)
             layout.addWidget(cb)
         
         # manual mode UI elements that need special treatment
-        self.CBdisablepointandclick = QCheckBox()
-        self.CBcustomfile = QCheckBox()
+        self.CBdisablepointandclick = QCheckBox(clicked=self.optionsChanged)
+        self.CBcustomfile = QCheckBox(clicked=self.optionsChanged)
         self.LEcustomfile = QLineEdit(enabled=False)
         
         # add manual widgets
@@ -58,12 +60,12 @@ class Widget(QWidget):
         layout.addStretch(1)
         
         # connect manual widgets
-        self.CBdisablepointandclick.toggled.connect(self.togglePointAndClick)
-        self.CBcustomfile.toggled.connect(self.toggleCustomFile)
-        self.LEcustomfile.textEdited.connect(self.customFileEdited)
+        self.CBcustomfile.toggled.connect(self.LEcustomfile.setEnabled)
+        self.LEcustomfile.textEdited.connect(self.optionsChanged)
         
         app.translateUI(self)
         self.loadSettings()
+        tool.mainwindow().aboutToClose.connect(self.saveSettings)
     
     def translateUI(self):
         for mode in preview_mode.modelist():
@@ -76,43 +78,58 @@ class Widget(QWidget):
         self.CBcustomfile.setText(_("Include Custom File:"))
         self.CBcustomfile.setToolTip(_("Include a custom file with definitions\n"
                       "for additional Debug Modes"))
-        self.LEcustomfile.setToolTip(_(
-       
-            "Filename to be included"))
+        self.LEcustomfile.setToolTip(_("Filename to be included"))
+    
     def loadSettings(self):
         """Called on construction. Load settings and set checkboxes state."""
         s = QSettings()
         s.beginGroup('lilypond_settings')
         for mode in preview_mode.modelist():
-            
             self.checkboxes[mode].setChecked(s.value(mode, False, bool))
-        
+        self.CBdisablepointandclick.setChecked(s.value('disable-point-and-click', False, bool))
+        self.CBcustomfile.setChecked(s.value('custom-file', False, bool))
         self.LEcustomfile.setText(s.value('custom-filename', '', type("")))
         
-    def customFileEdited(self):
-        """Called when the user types in the custom file entry."""
+    def saveSettings(self):
+        """Called on close. Save settings and checkboxes state."""
         s = QSettings()
-        s.beginGroup("lilypond_settings")
-        s.setValue("custom-filename", self.LEcustomfile.text())
-
-    def toggleOption(self, state):
-        """Called when a checkbox is toggled by the user."""
+        s.beginGroup('lilypond_settings')
         for mode in preview_mode.modelist():
-            if self.checkboxes[mode] == self.sender():
-                s = QSettings()
-                s.beginGroup("lilypond_settings")
-                s.setValue(mode, state)
-                break
+            s.setValue(mode, self.checkboxes[mode].isChecked())
+        s.setValue('disable-point-and-click', self.CBdisablepointandclick.isChecked())
+        s.setValue('custom-file', self.CBcustomfile.isChecked())
+        s.setValue('custom-filename', self.LEcustomfile.text())
 
-    def toggleCustomFile(self, state):
-        """Called when the custom file checkbox is toggled"""
-        s = QSettings()
-        s.beginGroup("lilypond_settings")
-        s.setValue('custom-file', state)
-        self.LEcustomfile.setEnabled(state)
+    def preview_options(self):
+        """Return a list of Debug Mode command line options for LilyPond."""
+        args = []
+        
+        # 'automatic' widgets
+        for mode in preview_mode.modelist():
+            if self.checkboxes[mode].isChecked():
+                args.append(preview_mode.option(mode))
+        
+        # manual widgets
+        if self.CBcustomfile.isChecked():
+            file_to_include = self.LEcustomfile.text()
+            args.append('-ddebug-custom-file=' + file_to_include)
+        
+        # if at least one debug mode is used, add the directory with the
+        # preview-mode files to the search path
+        if args:
+            args.insert(0, '-I' + preview_mode.__path__[0])
+            # File that conditionally includes different formatters
+            args.insert(1, '-dinclude-settings=debug-layout-options.ly') 
+        
+        if self.CBdisablepointandclick.isChecked():
+            args.insert(0, '-dno-point-and-click')
+        else:
+            args.insert(0, '-dpoint-and-click')
+        
+        if self.CBcustomfile.isChecked():
+            file_to_include = self.LEcustomfile.text()
+            if file_to_include:
+                args.append('-ddebug-custom-file=' + file_to_include)
+        return args
 
-    def togglePointAndClick(self, state):
-        s = QSettings()
-        s.beginGroup("lilypond_settings")
-        s.setValue('disable-point-and-click', state)
 

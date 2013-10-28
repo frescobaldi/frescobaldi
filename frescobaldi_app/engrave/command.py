@@ -40,48 +40,17 @@ def info(document):
         return lilypondinfo.suitable(version)
     return lilypondinfo.preferred()
 
-def check_option(s, command, mode):
-    """
-    Append a command line switch if the option is set
-    """    
-    if s.value(mode, False, bool):
-        command.append(preview_mode.option(mode))
 
-def preview_options():
+def defaultJob(document, args=None):
+    """Return a default job for the document.
+    
+    The 'args' argument, if given, must be a list of commandline arguments
+    that are given to LilyPond, and may enable specific preview modes.
+    
+    If args is not given, the Job will cause LilyPond to run in Publish mode,
+    with point and click turned off.
+    
     """
-    Conditionally append command line options for Debug Modes
-    """
-    s = QSettings()
-    s.beginGroup("lilypond_settings")
-
-    p_a_c = '-dno-point-and-click' if s.value(
-            'disable-point-and-click', False, bool) else '-dpoint-and-click'
-    cmd_options = [p_a_c]
-    
-    # add options that are checked in the dockable panel
-    args = []
-    # 'automatic' widgets
-    for mode in preview_mode.modelist():
-        check_option(s, args, mode)
-    # manual widgets
-    if s.value('custom-file', False, bool):
-        file_to_include = s.value('custom-filename', '', type(''))
-        if file_to_include:
-            args.append('-ddebug-custom-file=' + file_to_include)
-    
-    # only add the extra commands when at least one debug mode is used
-    if args:
-        cmd_options.extend(args)
-        # Add subdir with preview-mode files to search path
-        cmd_options.append('-I' + preview_mode.__path__[0])
-    
-        # File that conditionally includes different formatters
-        cmd_options.append('-dinclude-settings=debug-layout-options.ly') 
-    
-    return cmd_options
-    
-def defaultJob(document, preview):
-    """Returns a default job for the document."""
     filename, mode, includepath = documentinfo.info(document).jobinfo(True)
     includepath.extend(documentinfo.info(document).includepath())
     i = info(document)
@@ -94,11 +63,12 @@ def defaultJob(document, preview):
         command.append('-ddelete-intermediate-files')
     else:
         command.append('-dno-delete-intermediate-files')
-    if preview:
-        # Conditionally add Debug Mode options
-        command.extend(preview_options())
+    
+    if args:
+        command.extend(args)
     else:
         command.append('-dno-point-and-click')
+    
     command.append('--pdf')
     command.extend('-I' + path for path in includepath)
     j.directory = os.path.dirname(filename)

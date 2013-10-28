@@ -34,6 +34,7 @@ import jobattributes
 import plugin
 import icons
 import signals
+import panelmanager
 
 def engraver(mainwindow):
     return Engraver.instance(mainwindow)
@@ -124,7 +125,11 @@ class Engraver(plugin.MainWindowPlugin):
         doc = document or self.stickyDocument() or self.mainwindow().currentDocument()
         if may_save:
             self.saveDocumentIfDesired()
-        self.runJob(command.defaultJob(doc, preview), doc)
+        if preview:
+            args = panelmanager.manager(self.mainwindow()).preview_mode.widget().preview_options()
+        else:
+            args = None
+        self.runJob(command.defaultJob(doc, args), doc)
     
     def engraveAbort(self):
         job = self.runningJob()
