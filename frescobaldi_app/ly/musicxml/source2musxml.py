@@ -37,6 +37,7 @@ class parse_source():
         self.musxml = create_musicxml.create_musicXML()
         self.mediator = ly2xml_mediator.mediator()
         self.prev_command = ''
+        self.pitch_mode = 'abs'
         self.varname = ''
         self.can_create_sect = True
         self.can_create_part = False
