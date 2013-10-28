@@ -114,16 +114,11 @@ class eng_preview(page):
                 "or the directional operators <code>^</code> and <code>_</code>.") + "<br />" +
               _("Please note how this mode and the previous are related:") + "<br />" +
               _("When the condition for one of the the modes is reverted using "
-                "commands like <code>\\oneVoice</code> or <code>\\xxxNeutral</code> "
-                "colors are reverted to black and may also revert the highlighting "
-                "of the other Debug Mode.") + "<br />" +
-              _("In <code>c \\voiceTwo d \\stemUp e \\stemNeutral d \\oneVoice</code> "
-                "the \'d\' may already be reverted.") + "<br />" +
+                "<code>\\oneVoice</code> or <code>\\stemNeutral</code> "
+                "colors are reverted to black and will also revert the highlighting "
+                "of the other Debug Mode with LilyPond versions up to 2.17.5.") + "<br />" +
               _("If the score is engraved with LilyPond version 2.17.6 or later "
-                "the situation is somewhat improved through the use of the "
-                "<code>\\temporary</code> directive.") + "<br />" +
-              _("In short: If you use both Modes at the same time please expect "
-                "inconsistencies.")),
+                "this problem isn't present anymore.")),
              (_("Display Grob Anchors"),
               _("In LilyPond, all graphical objects have an anchor (a reference point). "
                 "What is a reference point?  It's a special point that defines the "

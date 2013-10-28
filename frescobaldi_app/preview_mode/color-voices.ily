@@ -53,44 +53,8 @@
 % here goes the snippet: %
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
-colorVoiceTemporary = 
-#(define-music-function (parser location color)
-   (color?)
-   ;; With newer LilyPond versions this improves the behaviour
-   ;; of color-voices and color-directions.
-   ;; When one of them is set and the other is set in addition,
-   ;; now when the second is reverted the coloring of the first
-   ;; will still be active.
-   #{
-     \temporary\override NoteHead #'color = #color
-     \temporary\override Stem #'color = #color
-     \temporary\override Beam #'color = #color
-     \temporary\override Flag #'color = #color
-     \temporary\override Accidental #'color = #color
-   #})
+\include "color-voice.ily"
 
-colorVoiceOld = 
-#(define-music-function (parser location color)
-   (color?)
-   #{
-     \override NoteHead #'color = #color
-     \override Stem #'color = #color
-     \override Beam #'color = #color
-     \override Flag #'color = #color
-     \override Accidental #'color = #color
-   #})
-
-\include "lilypond-version-switch.ily"
-
-colorVoice = 
-#(define-music-function (parser location color)
-   (color?)
-   (if (lilypond-greater-than? '(2 17 5))
-       ;; \temporary was introduced in 2.17.6
-        #{ \colorVoiceTemporary #color #}
-        #{ \colorVoiceOld #color #}
-   ))
-   
 voiceOne = {
   \voiceOne
   \colorVoice #debug-voice-one-color
@@ -113,9 +77,5 @@ voiceFour = {
 
 oneVoice = {
   \oneVoice
-  \revert NoteHead #'color
-  \revert Stem #'color
-  \revert Beam #'color
-  \revert Flag #'color
-  \revert Accidental #'color
+  \unColorVoice
 }

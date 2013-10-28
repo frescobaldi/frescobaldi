@@ -24,7 +24,6 @@ The preview options widget.
 from __future__ import unicode_literals
 
 import sys
-# import itertools
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -40,123 +39,53 @@ class Widget(QWidget):
         layout = QVBoxLayout(spacing=1)
         self.setLayout(layout)
         
-        self.options = {}
-        # Skylines checkbox
-        self.CBskylines = QCheckBox()
-        self.options['skylines'] = self.CBskylines
-        # Control-points checkbox
-        self.CBcontrolpoints = QCheckBox()
-        self.options['control-points'] = self.CBcontrolpoints
-        # Color-voices checkbox
-        self.CBcolorvoices = QCheckBox()
-        self.options['voices'] = self.CBcolorvoices
-        # Color-directions checkbox
-        self.CBcolordirections = QCheckBox()
-        self.options['directions'] = self.CBcolordirections
-        # grob-anchors checkbox
-        self.CBgrobanchors = QCheckBox()
-        self.options['grob-anchors'] = self.CBgrobanchors
-        # grob-names checkbox
-        self.CBgrobnames = QCheckBox()
-        self.options['grob-names'] = self.CBgrobnames
-        # paper-columns checkbox
-        self.CBpapercolumns = QCheckBox()
-        self.options['paper-columns'] = self.CBpapercolumns
-        # annotate-spacing checkbox
-        self.CBannotatespacing = QCheckBox()
-        self.options['annotate-spacing'] = self.CBannotatespacing
-        # disable-point-and-click checkbox
-        self.CBdisablepointandclick = QCheckBox()
-        self.options['disable-point-and-click'] = self.CBdisablepointandclick
-        # custom-file checkbox and input field
-        self.CBcustomfile = QCheckBox()
-        self.options['custom-file'] = self.CBcustomfile
-        self.LEcustomfile = QLineEdit(enabled=False)
-        self.CBcustomfile.toggled.connect(self.LEcustomfile.setEnabled)
+        # automatically processed modes
+        self.checkboxes = {}
+        for mode in preview_mode.modelist():
+            self.checkboxes[mode] = cb = QCheckBox()
+            cb.toggled.connect(self.toggleOption)
+            layout.addWidget(cb)
         
-        # Compose layout
-        layout.addWidget(self.CBcontrolpoints)
-        layout.addWidget(self.CBcolorvoices)
-        layout.addWidget(self.CBcolordirections)
-        layout.addWidget(self.CBgrobanchors)
-        layout.addWidget(self.CBgrobnames)
-        layout.addWidget(self.CBskylines)
-        layout.addWidget(self.CBpapercolumns)
-        layout.addWidget(self.CBannotatespacing)
+        # manual mode UI elements that need special treatment
+        self.CBdisablepointandclick = QCheckBox()
+        self.CBcustomfile = QCheckBox()
+        self.LEcustomfile = QLineEdit(enabled=False)
+        
+        # add manual widgets
         layout.addWidget(self.CBdisablepointandclick)
         layout.addWidget(self.CBcustomfile)
         layout.addWidget(self.LEcustomfile)
         layout.addStretch(1)
         
-        # Connect slots
-        self.CBskylines.toggled.connect(self.toggleOption)
-        self.CBcontrolpoints.toggled.connect(self.toggleOption)
-        self.CBcolorvoices.toggled.connect(self.toggleOption)
-        self.CBcolordirections.toggled.connect(self.toggleOption)
-        self.CBgrobanchors.toggled.connect(self.toggleOption)
-        self.CBgrobnames.toggled.connect(self.toggleOption)
-        self.CBcustomfile.toggled.connect(self.toggleOption)
-        self.CBpapercolumns.toggled.connect(self.toggleOption)
-        self.CBannotatespacing.toggled.connect(self.toggleOption)
-        self.CBdisablepointandclick.toggled.connect(self.toggleOption)
+        # connect manual widgets
+        self.CBdisablepointandclick.toggled.connect(self.togglePointAndClick)
+        self.CBcustomfile.toggled.connect(self.toggleCustomFile)
         self.LEcustomfile.textEdited.connect(self.customFileEdited)
         
         app.translateUI(self)
         self.loadSettings()
     
     def translateUI(self):
-        self.CBskylines.setText(_("Display Skylines"))
-        self.CBskylines.setToolTip(_(
-            "Display the skylines that LilyPond "
-            "uses to detect collisions."))
-        self.CBcontrolpoints.setText(_("Display Control Points"))
-        self.CBcontrolpoints.setToolTip(_(
-            "Display the control points that "
-            "determine curve shapes"))
-        self.CBcolorvoices.setText(_("Color \\voiceXXX"))
-        self.CBcolorvoices.setToolTip(_(
-            "Highlight notes that are explicitly "
-            "set to \\voiceXXX"))
-        self.CBcolordirections.setText(_("Color explicit directions"))
-        self.CBcolordirections.setToolTip(_(
-            "Highlight elements that are explicitly switched up- or downwards"))
-        self.CBgrobanchors.setText(_("Display Grob Anchors"))
-        self.CBgrobanchors.setToolTip(_(
-            "Display a dot at the anchor point of each grob"))
-        self.CBgrobnames.setText(_("Display Grob Names"))
-        self.CBgrobnames.setToolTip(_(
-            "Display the name of each grob"))
-        self.CBpapercolumns.setText(_("Debug Paper Columns"))
-        self.CBpapercolumns.setToolTip(_(
-            "Display info on the paper columns"))
-        self.CBannotatespacing.setText(_("Annotate Spacing"))
-        self.CBannotatespacing.setToolTip(_(
-            "Use LilyPond's \"annotate spacing\" option to\n"
-            "display measurement information"))
+        for mode in preview_mode.modelist():
+            label = preview_mode.label(mode)
+            tooltip = preview_mode.tooltip(mode)
+            self.checkboxes[mode].setText(label)
+            self.checkboxes[mode].setToolTip(tooltip)
+        
         self.CBdisablepointandclick.setText(_("Disable Point-and-Click"))
         self.CBcustomfile.setText(_("Include Custom File:"))
-        self.CBcustomfile.setToolTip(_(
-            "Include a custom file with definitions\n"
-            "for additional Debug Modes"))
+        self.CBcustomfile.setToolTip(_("Include a custom file with definitions\n"
+                      "for additional Debug Modes"))
         self.LEcustomfile.setToolTip(_(
+       
             "Filename to be included"))
-        
     def loadSettings(self):
         """Called on construction. Load settings and set checkboxes state."""
         s = QSettings()
         s.beginGroup('lilypond_settings')
-        def checkOption(key):
-            self.options[key].setChecked(s.value(key, False, bool))
-        checkOption('skylines')
-        checkOption('control-points')
-        checkOption('voices')
-        checkOption('directions')
-        checkOption('grob-anchors')
-        checkOption('grob-names')
-        checkOption('custom-file')
-        checkOption('paper-columns')
-        checkOption('annotate-spacing')
-        checkOption('disable-point-and-click')
+        for mode in preview_mode.modelist():
+            
+            self.checkboxes[mode].setChecked(s.value(mode, False, bool))
         
         self.LEcustomfile.setText(s.value('custom-filename', '', type("")))
         
@@ -168,11 +97,22 @@ class Widget(QWidget):
 
     def toggleOption(self, state):
         """Called when a checkbox is toggled by the user."""
-        for key in self.options:
-            if self.options[key] == self.sender():
+        for mode in preview_mode.debugmodes:
+            if self.checkboxes[mode] == self.sender():
                 s = QSettings()
                 s.beginGroup("lilypond_settings")
-                s.setValue(key, state)
+                s.setValue(mode, state)
                 break
 
+    def toggleCustomFile(self, state):
+        """Called when the custom file checkbox is toggled"""
+        s = QSettings()
+        s.beginGroup("lilypond_settings")
+        s.setValue('custom-file', state)
+        self.LEcustomfile.setEnabled(state)
+
+    def togglePointAndClick(self, state):
+        s = QSettings()
+        s.beginGroup("lilypond_settings")
+        s.setValue('disable-point-and-click', state)
 
