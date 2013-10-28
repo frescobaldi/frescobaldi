@@ -25,34 +25,36 @@ Uses xml.etree to create the XML document
 from __future__ import unicode_literals
 
 import sys
-import xml.etree.ElementTree as etree
+try:
+    import xml.etree.cElementTree as etree
+except ImportError:
+    import xml.etree.ElementTree as etree
 
-import info
 
 class create_musicXML():
     """ creates the XML-file from the source code according to the Music XML standard """
 
     def __init__(self):
-        """ creates the basic structure of the XML without any music 
-        TODO: 
-        set doctype 
+        """ creates the basic structure of the XML without any music
+        TODO:
+        set doctype
         """
         self.root = etree.Element("score-partwise", version="3.0")
         self.tree = etree.ElementTree(self.root)
         identification = etree.SubElement(self.root, "identification")
         encoding = etree.SubElement(identification, "encoding")
         software = etree.SubElement(encoding, "software")
-        software.text = "{0} {1}".format(info.appname, info.version)
+        software.text = "python-ly"
         encoding_date = etree.SubElement(encoding, "encoding-date")
         import datetime
         encoding_date.text = str(datetime.date.today())
         self.partlist = etree.SubElement(self.root, "part-list")
-        self.part_count = 1     
-    
+        self.part_count = 1
+
     ##
     # Building the basic Elements
     ##
-            
+
     def create_part(self, name):
         """ create a new part """
         part = etree.SubElement(self.partlist, "score-part", id="P"+str(self.part_count))
@@ -61,16 +63,16 @@ class create_musicXML():
         self.current_part = etree.SubElement(self.root, "part", id="P"+str(self.part_count))
         self.part_count +=1
         self.bar_nr = 1
-        
+
     def create_measure(self):
         """ create new measure """
         self.current_bar = etree.SubElement(self.current_part, "measure", number=str(self.bar_nr))
-        self.bar_nr +=1 
-        
+        self.bar_nr +=1
+
     ##
     # High-level node creation
     ##
-        
+
     def new_note(self, pitch, org_len, durtype, divs, dot):
         """ create all nodes needed for a note. """
         self.create_note()
@@ -91,7 +93,7 @@ class create_musicXML():
                 self.add_dot()
         if pitch[1]:
             self.add_accidental(pitch[1])
-            
+
     def tuplet_note(self, fraction, org_len, ttype, divs):
         """ convert current note to tuplet """
         a = divs*4*int(fraction[1])
@@ -102,12 +104,12 @@ class create_musicXML():
         if ttype:
             self.add_notations()
             self.add_tuplet_type(ttype)
-            
+
     def tie_note(self, tie_type):
         self.add_tie(tie_type)
         self.add_notations()
         self.add_tied(tie_type)
-            
+
     def new_rest(self, org_len, durtype, divs, pos):
         """ create all nodes needed for a rest. """
         self.create_note()
@@ -116,11 +118,11 @@ class create_musicXML():
         self.add_div_duration(duration)
         if durtype:
             self.add_duration_type(durtype)
-            
+
     def new_skip(self, org_len, divs):
         duration = divs*4/int(org_len)
         self.add_skip(duration)
-        
+
     def new_bar_attr(self, clef, mustime, key, mode, divs):
         """ create all bar attributes set. """
         self.create_bar_attr()
@@ -132,30 +134,30 @@ class create_musicXML():
             self.add_time(mustime[0], mustime[1])
         if clef:
             self.add_clef(clef[0], clef[1])
-            
+
     def create_new_node(self, parentnode, nodename, txt):
-        """ The Music XML language is extensive. 
-        This function can be used to create 
-        a non basic node not covered elsewhere in this script. 
-        TODO: add attributes        
+        """ The Music XML language is extensive.
+        This function can be used to create
+        a non basic node not covered elsewhere in this script.
+        TODO: add attributes
         """
         new_node = etree.SubElement(parentnode, nodename)
         new_node.text = str(txt)
-        
+
     ##
     # Help functions
     ##
-    
-    
+
+
     ##
     # Low-level node creation
     ##
-            
+
     def create_note(self):
         """ create new note """
         self.current_note = etree.SubElement(self.current_bar, "note")
         self.current_notation = None
-        
+
     def add_pitch(self, step, alter, octave):
         """ create new pitch """
         pitch = etree.SubElement(self.current_note, "pitch")
@@ -166,11 +168,11 @@ class create_musicXML():
             altnode.text = str(alter)
         octnode = etree.SubElement(pitch, "octave")
         octnode.text = str(octave)
-        
+
     def add_accidental(self, alter):
         """ create accidental """
         acc = etree.SubElement(self.current_note, "accidental")
-        if alter == 1:     
+        if alter == 1:
             acc.text = "sharp"
         elif alter == 2:
             acc.text = "double-sharp"
@@ -178,7 +180,7 @@ class create_musicXML():
             acc.text = "flat"
         elif alter == -2:
             acc.text = "flat-flat"
-                        
+
     def add_rest(self, pos):
         """ create rest """
         restnode = etree.SubElement(self.current_note, "rest")
@@ -187,7 +189,7 @@ class create_musicXML():
             octave = etree.SubElement(restnode, "display-octave")
             step.text = pos[0]
             octave.text = pos[1]
-                        
+
     def add_skip(self, duration, forward=True):
         if forward:
             skip = etree.SubElement(self.current_bar, "forward")
@@ -195,37 +197,37 @@ class create_musicXML():
             skip = etree.SubElement(self.current_bar, "backward")
         dura_node = etree.SubElement(skip, "duration")
         dura_node.text = str(duration)
-        
+
     def add_div_duration(self, divdur):
         """ create new duration """
         self.duration = etree.SubElement(self.current_note, "duration")
         self.duration.text = str(divdur)
-        
+
     def change_div_duration(self, newdura):
         """ set new duration when tuplet """
         self.duration.text = str(newdura)
-        
+
     def add_duration_type(self, durtype):
         """ create new type """
         typenode = etree.SubElement(self.current_note, "type")
         typenode.text = str(durtype)
-        
+
     def add_dot(self):
         """ create a dot """
         etree.SubElement(self.current_note, "dot")
-        
+
     def add_tie(self, tie_type):
         """ create node tie (used for sound of tie) """
-        etree.SubElement(self.current_note, "tie", type=tie_type)   
-        
+        etree.SubElement(self.current_note, "tie", type=tie_type)
+
     def add_notations(self):
         if not self.current_notation:
             self.current_notation = etree.SubElement(self.current_note, "notations")
-        
+
     def add_tied(self, tie_type):
         """ create node tied (used for notation of tie) """
-        etree.SubElement(self.current_notation, "tied", type=tie_type)      
-        
+        etree.SubElement(self.current_notation, "tied", type=tie_type)
+
     def add_time_modify(self, fraction):
         """ create time modification """
         timemod_node = etree.SubElement(self.current_note, "time-modification")
@@ -233,54 +235,67 @@ class create_musicXML():
         actual_notes.text = fraction[0]
         norm_notes = etree.SubElement(timemod_node, "normal-notes")
         norm_notes.text = fraction[1]
-        
+
     def add_tuplet_type(self, ttype):
         """ create tuplet with type attribute """
-        etree.SubElement(self.current_notation, "tuplet", type=ttype)       
-        
+        etree.SubElement(self.current_notation, "tuplet", type=ttype)
+
     def create_bar_attr(self):
         """ create node attributes """
         self.bar_attr = etree.SubElement(self.current_bar, "attributes")
-        
+
     def add_divisions(self, div):
         division = etree.SubElement(self.bar_attr, "divisions")
         division.text = str(div)
-        
+
     def add_key(self, key, mode):
         keynode = etree.SubElement(self.bar_attr, "key")
         fifths = etree.SubElement(keynode, "fifths")
         fifths.text = str(key)
         modenode = etree.SubElement(keynode, "mode")
         modenode.text = str(mode)
-        
+
     def add_time(self, beats, beat_type):
         timenode = etree.SubElement(self.bar_attr, "time")
         beatnode = etree.SubElement(timenode, "beats")
         beatnode.text = str(beats)
         typenode = etree.SubElement(timenode, "beat-type")
         typenode.text = str(beat_type)
-        
+
     def add_clef(self, sign, line):
         clefnode = etree.SubElement(self.bar_attr, "clef")
         signnode = etree.SubElement(clefnode, "sign")
         signnode.text = str(sign)
         linenode = etree.SubElement(clefnode, "line")
-        linenode.text = str(line)   
-        
+        linenode.text = str(line)
+
     ##
-    # Create XML document
+    # Create the XML document
     ##
-    
-    def indent_xml(self, indent="  "):
+
+    def musicxml(self, prettyprint=True):
+        xml = MusicXML(self.tree)
+        if prettyprint:
+            xml.indent("  ")
+        return xml
+
+
+class MusicXML(object):
+    """Represent a generated MusicXML tree."""
+    def __init__(self, tree):
+        self.tree = tree
+        self.root = tree.getroot()
+
+    def indent(self, indent="  "):
         """ add indent and linebreaks to the created XML tree """
         import etreeutil
         etreeutil.indent(self.root, indent)
-        
-    def create_xmldoc(self, encoding='UTF-8'):
+
+    def tostring(self, encoding='UTF-8'):
         """ output etree as a XML document """
         return etree.tostring(self.root, encoding=encoding, method="xml")
 
-    def write_xmldoc(self, file, encoding='UTF-8'):
+    def write(self, file, encoding='UTF-8'):
         """ write XML to a file (file obj or filename) """
         self.tree.write(file, encoding=encoding, xml_declaration=True, method="xml")
 

@@ -24,13 +24,7 @@ Parsing source to convert to XML
 
 from __future__ import unicode_literals
 
-from PyQt4.QtGui import QTextFormat, QTextCursor
-
-import ly.lex.lilypond
-import highlighter
-import textformats
-import tokeniter
-import info
+import ly.lex
 
 from . import create_musicxml
 from . import ly2xml_mediator
@@ -39,34 +33,35 @@ from . import ly2xml_mediator
 class parse_source():
     """ creates the XML-file from the source code according to the Music XML standard """
 
-    def __init__(self, doc):
+    def __init__(self):
         self.musxml = create_musicxml.create_musicXML()
         self.mediator = ly2xml_mediator.mediator()
         self.prev_command = ''
-        self.pitch_mode = 'abs'
         self.varname = ''
         self.can_create_sect = True
         self.can_create_part = False
         self.tuplet = False
-        block = doc.firstBlock()
-        while block.isValid():
-            for t in tokeniter.tokens(block):
-                func_name = t.__class__.__name__ #get instance name
-                if func_name != 'Space':
-                    try:
-                        func_call = getattr(self, func_name)
-                        func_call(t)
-                    except AttributeError:
-                        # print "Warning: "+func_name+" not implemented!"
-                        pass
-            block = block.next()
+
+    def parse_text(self, text, mode=None):
+        state = ly.lex.state(mode) if mode else ly.lex.guessState(text)
+        self.parse_tokens(state.tokens(text))
+
+    def parse_tokens(self, tokens):
+        for t in tokens:
+            func_name = t.__class__.__name__ #get instance name
+            if func_name != 'Space':
+                try:
+                    func_call = getattr(self, func_name)
+                    func_call(t)
+                except AttributeError:
+                    # print "Warning: "+func_name+" not implemented!"
+                    pass
+
+    def musicxml(self, prettyprint=True):
         self.mediator.check_score()
         self.iterate_mediator()
-        self.musxml.indent_xml(indent="  ")
-
-    def output(self):
-        """ return formatted and indented XML string """
-        return self.musxml.create_xmldoc()
+        xml = self.musxml.musicxml(prettyprint)
+        return xml
 
     ##
     # The different source types from ly.lex.lilypond are here sent to translation.
