@@ -62,6 +62,9 @@ class Dialog(QDialog):
         self.resolutionLabel = QLabel()
         self.resolutionCombo = QComboBox(editable=True)
         
+        
+        self.pointandclickCheck = QCheckBox()
+        self.pointandclickCheck.setChecked(True)
         self.previewCheck = QCheckBox()
         self.verboseCheck = QCheckBox()
         self.englishCheck = QCheckBox()
@@ -84,14 +87,15 @@ class Dialog(QDialog):
         layout.addWidget(self.outputCombo, 1, 1)
         layout.addWidget(self.resolutionLabel, 2, 0)
         layout.addWidget(self.resolutionCombo, 2, 1)
-        layout.addWidget(self.previewCheck, 3, 0, 1, 2)
-        layout.addWidget(self.verboseCheck, 4, 0, 1, 2)
-        layout.addWidget(self.englishCheck, 5, 0, 1, 2)
-        layout.addWidget(self.deleteCheck, 6, 0, 1, 2)
-        layout.addWidget(self.commandLineLabel, 7, 0, 1, 2)
-        layout.addWidget(self.commandLine, 8, 0, 1, 2)
-        layout.addWidget(widgets.Separator(), 9, 0, 1, 2)
-        layout.addWidget(self.buttons, 10, 0, 1, 2)
+        layout.addWidget(self.pointandclickCheck, 3, 0, 1, 2)
+        layout.addWidget(self.previewCheck, 4, 0, 1, 2)
+        layout.addWidget(self.verboseCheck, 5, 0, 1, 2)
+        layout.addWidget(self.englishCheck, 6, 0, 1, 2)
+        layout.addWidget(self.deleteCheck, 7, 0, 1, 2)
+        layout.addWidget(self.commandLineLabel, 8, 0, 1, 2)
+        layout.addWidget(self.commandLine, 9, 0, 1, 2)
+        layout.addWidget(widgets.Separator(), 10, 0, 1, 2)
+        layout.addWidget(self.buttons, 11, 0, 1, 2)
         
         app.translateUI(self)
         qutil.saveDialogSize(self, "engrave/custom/dialog/size", QSize(480, 260))
@@ -114,6 +118,7 @@ class Dialog(QDialog):
         app.settingsChanged.connect(self.loadLilyPondVersions)
         app.jobFinished.connect(self.slotJobFinished)
         self.outputCombo.currentIndexChanged.connect(self.makeCommandLine)
+        self.pointandclickCheck.toggled.connect(self.makeCommandLine)
         self.previewCheck.toggled.connect(self.makeCommandLine)
         self.verboseCheck.toggled.connect(self.makeCommandLine)
         self.deleteCheck.toggled.connect(self.makeCommandLine)
@@ -125,8 +130,9 @@ class Dialog(QDialog):
         self.versionLabel.setText(_("LilyPond Version:"))
         self.outputLabel.setText(_("Output Format:"))
         self.resolutionLabel.setText(_("Resolution:"))
+        self.pointandclickCheck.setText(_("Create Point and Click links"))
         self.previewCheck.setText(_(
-            "Run LilyPond in preview mode (with Point and Click)"))
+            "Run LilyPond with Preview Modes"))
         self.verboseCheck.setText(_("Run LilyPond with verbose output"))
         self.englishCheck.setText(_("Run LilyPond with English messages"))
         self.deleteCheck.setText(_("Delete intermediate output files"))
@@ -167,10 +173,24 @@ class Dialog(QDialog):
         cmd = ["$lilypond"]
         if self.verboseCheck.isChecked():
             cmd.append('--verbose')
-        if self.previewCheck.isChecked():
-            cmd.extend(command.preview_options())
+        # add point-and-click-option
+        if self.pointandclickCheck.isChecked():
+            cmd.append('-dpoint-and-click')
         else:
             cmd.append('-dno-point-and-click')
+        if self.previewCheck.isChecked():
+            # add preview options _except_ the point-and-click related
+            ext = command.preview_options()
+            try:
+                ext.remove('-dpoint-and-click')
+            except:
+                pass
+            try:
+                ext.remove('-dno-point-and-click')
+            except:
+                pass
+            cmd.extend(ext)
+        
         if self.deleteCheck.isChecked():
             cmd.append('-ddelete-intermediate-files')
         else:
