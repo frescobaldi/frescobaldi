@@ -83,8 +83,8 @@ class Widget(QWidget):
         layout.addWidget(self.CBskylines)
         layout.addWidget(self.CBpapercolumns)
         layout.addWidget(self.CBannotatespacing)
-        layout.addWidget(self.CBcustomfile)
         layout.addWidget(self.CBdisablepointandclick)
+        layout.addWidget(self.CBcustomfile)
         layout.addWidget(self.LEcustomfile)
         layout.addStretch(1)
         
