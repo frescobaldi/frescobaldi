@@ -40,25 +40,12 @@ def info(document):
         return lilypondinfo.suitable(version)
     return lilypondinfo.preferred()
 
-# dictionary mapping internal option names to command line switches
-previewoptions = {
-    'skylines': '-ddebug-display-skylines', 
-    'control-points': '-ddebug-control-points', 
-    'voices': '-ddebug-voices', 
-    'directions': '-ddebug-directions',
-    'grob-anchors': '-ddebug-grob-anchors',
-    'grob-names': '-ddebug-grob-names',
-    'custom-file': '-ddebug-custom-file', 
-    'paper-columns': '-ddebug-paper-columns', 
-    'annotate-spacing': '-ddebug-annotate-spacing',
-}
-
-def check_option(s, command, key):
+def check_option(s, command, mode):
     """
     Append a command line switch if the option is set
     """    
-    if s.value(key, False, bool):
-        command.append(previewoptions[key])
+    if s.value(mode, False, bool):
+        command.append(preview_mode.option(mode))
 
 def preview_options():
     """
@@ -66,18 +53,17 @@ def preview_options():
     """
     s = QSettings()
     s.beginGroup("lilypond_settings")
-    cmd_options = []
-    args = []
+
+    p_a_c = '-dno-point-and-click' if s.value(
+            'disable-point-and-click', False, bool) else '-dpoint-and-click'
+    cmd_options = [p_a_c]
     
     # add options that are checked in the dockable panel
-    check_option(s, args, 'control-points')
-    check_option(s, args, 'voices')
-    check_option(s, args, 'skylines')
-    check_option(s, args, 'directions')
-    check_option(s, args, 'grob-anchors')
-    check_option(s, args, 'grob-names')
-    check_option(s, args, 'paper-columns')
-    check_option(s, args, 'annotate-spacing')
+    args = []
+    # 'automatic' widgets
+    for mode in preview_mode.modelist():
+        check_option(s, args, mode)
+    # manual widgets
     if s.value('custom-file', False, bool):
         file_to_include = s.value('custom-filename', '', type(''))
         if file_to_include:
@@ -92,9 +78,6 @@ def preview_options():
         # File that conditionally includes different formatters
         cmd_options.append('-dinclude-settings=debug-layout-options.ly') 
     
-    p_a_c = '-dno-point-and-click' if s.value('disable-point-and-click', False, bool) else '-dpoint-and-click'
-    cmd_options.append(p_a_c)
-   
     return cmd_options
     
 def defaultJob(document, preview):
