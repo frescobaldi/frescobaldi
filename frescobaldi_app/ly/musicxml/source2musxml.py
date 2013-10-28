@@ -28,24 +28,25 @@ import ly.lex
 
 from . import create_musicxml
 from . import ly2xml_mediator
-    
+
 
 class parse_source():
     """ creates the XML-file from the source code according to the Music XML standard """
-    
+
     def __init__(self):
         self.musxml = create_musicxml.create_musicXML()
         self.mediator = ly2xml_mediator.mediator()
         self.prev_command = ''
+        self.pitch_mode = 'abs'
         self.varname = ''
         self.can_create_sect = True
         self.can_create_part = False
         self.tuplet = False
-    
+
     def parse_text(self, text, mode=None):
         state = ly.lex.state(mode) if mode else ly.lex.guessState(text)
         self.parse_tokens(state.tokens(text))
-        
+
     def parse_tokens(self, tokens):
         for t in tokens:
             func_name = t.__class__.__name__ #get instance name
@@ -56,21 +57,21 @@ class parse_source():
                 except AttributeError:
                     # print "Warning: "+func_name+" not implemented!"
                     pass
-    
+
     def musicxml(self, prettyprint=True):
         self.mediator.check_score()
         self.iterate_mediator()
         xml = self.musxml.musicxml(prettyprint)
         return xml
-    
-    ## 
+
+    ##
     # The different source types from ly.lex.lilypond are here sent to translation.
-    ##              
-                    
+    ##
+
     def Name(self, token):
         """ name of variable """
-        self.varname = token        
-    
+        self.varname = token
+
     def SequentialStart(self, token):
         """ SequentialStart = { """
         if self.prev_command[1:] == 'times':
@@ -82,7 +83,7 @@ class parse_source():
             if self.can_create_sect:
                 self.mediator.new_section(self.varname)
                 self.can_create_sect = False
-        
+
     def SequentialEnd(self, token):
         """ SequentialEnd = } """
         if self.tuplet:
@@ -92,11 +93,11 @@ class parse_source():
             self.prev_command = ''
         else:
             self.can_create_sect = True
-            
+
     def New(self, token):
         """ New """
         self.can_create_part = True
-        
+
     def ContextName(self, token):
         """ staff """
         if token == "Staff":
@@ -104,63 +105,73 @@ class parse_source():
                 self.mediator.new_part()
                 self.can_create_sect = False
                 self.can_create_part = False
-            
+
     def PipeSymbol(self, token):
         """ PipeSymbol = | """
         self.mediator.new_bar()
-        
+
     def Clef(self, token):
         """ Clef \clef"""
         self.prev_command = "clef"
-        
+
     def PitchCommand(self, token):
-        if token == '\relative': # the mode must be absolute
-            pass # not implemented
+        if token == '\\relative':
+            self.pitch_mode = 'rel'
+            self.prev_command = token[1:]
         elif token == '\key':
             self.prev_command = "key"
-                    
+
     def Note(self, token):
         """ notename, e.g. c, cis, a bes ... """
         if self.prev_command == "key":
             self.key = token
+        elif self.prev_command == "relative":
+            self.mediator.set_relative(token)
         else:
-            self.mediator.new_note(token)
+            self.mediator.new_note(token, self.pitch_mode)
             if self.tuplet:
                 self.mediator.change_to_tuplet(self.fraction, self.ttype)
                 self.ttype = ""
-        
+
     def Octave(self, token):
-        """ absolute mode required; a number of , or ' or nothing """
-        self.mediator.new_octave(token)
-        
+        """ a number of , or ' """
+        if self.prev_command == "relative":
+            self.mediator.new_octave(token)
+            self.prev_command = ''
+        else:
+            if self.pitch_mode == 'rel':
+                self.mediator.new_octave(token, True)
+            else:
+                self.mediator.new_octave(token)
+
     def Length(self, token):
         """ note length/duration, e.g. 4, 8, 16 ... """
         self.duration = token
         self.mediator.new_duration(token)
-        
+
     def Dot(self, token):
         """ dot, . """
         self.mediator.new_dot()
-        
+
     def Tie(self, token):
         """ tie ~ """
         self.mediator.tie_to_next()
-        
+
     def Rest(self, token):
-        """ rest, r or R. Note: NOT by command, i.e. \rest """  
+        """ rest, r or R. Note: NOT by command, i.e. \rest """
         if token == 'R':
             self.scale = token
         self.mediator.new_rest(token)
-        
+
     def Skip(self, token):
         """ invisible rest (s) or command \skip """
         self.mediator.new_rest('s')
-        
+
     def Scaling(self, token):
         """ scaling, e.g. *3 """
         if self.scale == 'R':
             self.mediator.scale_rest(token[1:])
-        
+
     def Fraction(self, token):
         """ fraction, e.g. 3/4
         can be used for time sign or tuplets """
@@ -169,16 +180,16 @@ class parse_source():
             self.prev_command = ''
         else:
             self.fraction = token
-        
+
     def Keyword(self, token):
-        self.prev_command = token       
-        
+        self.prev_command = token
+
     def Command(self, token):
         if token == '\\rest':
             self.mediator.note2rest()
         else:
             self.prev_command = token
-        
+
     def UserCommand(self, token):
         if self.prev_command == 'key':
             self.mediator.new_key(self.key, token)
@@ -186,11 +197,11 @@ class parse_source():
         else:
             self.mediator.fetch_variable(token[1:])
             print "UserCommand:"+token
-        
+
     ##
     # The xml-file is built from the mediator objects
     ##
-            
+
     def iterate_mediator(self):
         """ the mediator lists are looped through and outputed to the xml-file """
         for part in self.mediator.score:
@@ -203,7 +214,7 @@ class parse_source():
                         if obj.has_attr():
                             self.musxml.new_bar_attr(obj.clef, obj.time, obj.key, obj.mode, obj.divs)
                     elif isinstance(obj, ly2xml_mediator.bar_note):
-                        self.musxml.new_note([obj.step, obj.alter, obj.octave], obj.duration, obj.type, self.mediator.divisions, obj.dot)
+                        self.musxml.new_note([obj.base_note, obj.pitch.alter, obj.pitch.octave], obj.duration, obj.type, self.mediator.divisions, obj.dot)
                         if obj.tie:
                             self.musxml.tie_note(obj.tie)
                         if obj.tuplet:
