@@ -29,8 +29,10 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import icons
 import preview_mode
 import engrave
+import help
 
 
 class Widget(QWidget):
@@ -54,8 +56,16 @@ class Widget(QWidget):
         self.engraveButton.setDefaultAction(
             engrave.engraver(tool.mainwindow()).actionCollection.engrave_debug)
         
+        # help button
+        self.helpButton = QToolButton(clicked=self.helpButtonClicked)
+        self.helpButton.setIcon(icons.get('help-contents'))
+        
         # add manual widgets
-        layout.addWidget(self.engraveButton)
+        hbox = QHBoxLayout()
+        hbox.setContentsMargins(0, 0, 0, 0)
+        hbox.addWidget(self.engraveButton)
+        hbox.addWidget(self.helpButton)
+        layout.addLayout(hbox)
         layout.addWidget(self.CBverbose)
         layout.addWidget(self.CBpointandclick)
         
@@ -84,7 +94,8 @@ class Widget(QWidget):
             tooltip = preview_mode.tooltip(mode)
             self.checkboxes[mode].setText(label)
             self.checkboxes[mode].setToolTip(tooltip)
-        
+        self.helpButton.setText(_("Help"))
+        self.helpButton.setToolTip(_("Help"))
         self.CBverbose.setText(_("Verbose output"))
         self.CBverbose.setToolTip(_("Run LilyPond with verbose output"))
         self.CBpointandclick.setText(_("Point-and-Click"))
@@ -116,6 +127,10 @@ class Widget(QWidget):
         s.setValue('custom-file', self.CBcustomfile.isChecked())
         s.setValue('custom-filename', self.LEcustomfile.text())
 
+    def helpButtonClicked(self):
+        import help.cnt_engraving
+        help.help(help.cnt_engraving.eng_preview)
+        
     def preview_options(self):
         """Return a list of Debug Mode command line options for LilyPond."""
         args = []
