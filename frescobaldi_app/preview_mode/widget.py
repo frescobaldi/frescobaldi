@@ -42,19 +42,23 @@ class Widget(QWidget):
         layout = QVBoxLayout(spacing=1)
         self.setLayout(layout)
         
+        # manual mode UI elements that need special treatment
+        self.CBverbose = QCheckBox(clicked=self.optionsChanged)
+        self.CBpointandclick = QCheckBox(clicked=self.optionsChanged)
+        self.CBcustomfile = QCheckBox(clicked=self.optionsChanged)
+        self.LEcustomfile = QLineEdit(enabled=False)
+        
+        # add manual widget
+        layout.addWidget(self.CBverbose)
+        layout.addWidget(self.CBpointandclick)
+        
         # automatically processed modes
         self.checkboxes = {}
         for mode in preview_mode.modelist():
             self.checkboxes[mode] = cb = QCheckBox(clicked=self.optionsChanged)
             layout.addWidget(cb)
         
-        # manual mode UI elements that need special treatment
-        self.CBdisablepointandclick = QCheckBox(clicked=self.optionsChanged)
-        self.CBcustomfile = QCheckBox(clicked=self.optionsChanged)
-        self.LEcustomfile = QLineEdit(enabled=False)
-        
         # add manual widgets
-        layout.addWidget(self.CBdisablepointandclick)
         layout.addWidget(self.CBcustomfile)
         layout.addWidget(self.LEcustomfile)
         layout.addStretch(1)
@@ -74,7 +78,10 @@ class Widget(QWidget):
             self.checkboxes[mode].setText(label)
             self.checkboxes[mode].setToolTip(tooltip)
         
-        self.CBdisablepointandclick.setText(_("Disable Point-and-Click"))
+        self.CBverbose.setText(_("Verbose output"))
+        self.CBverbose.setToolTip(_("Run LilyPond with verbose output"))
+        self.CBpointandclick.setText(_("Point-and-Click"))
+        self.CBpointandclick.setToolTip(_("Run LilyPond in preview mode (with Point and Click)"))
         self.CBcustomfile.setText(_("Include Custom File:"))
         self.CBcustomfile.setToolTip(_("Include a custom file with definitions\n"
                       "for additional Debug Modes"))
@@ -86,7 +93,8 @@ class Widget(QWidget):
         s.beginGroup('lilypond_settings')
         for mode in preview_mode.modelist():
             self.checkboxes[mode].setChecked(s.value(mode, False, bool))
-        self.CBdisablepointandclick.setChecked(s.value('disable-point-and-click', False, bool))
+        self.CBverbose.setChecked(s.value('verbose', False, bool))
+        self.CBpointandclick.setChecked(s.value('point-and-click', True, bool))
         self.CBcustomfile.setChecked(s.value('custom-file', False, bool))
         self.LEcustomfile.setText(s.value('custom-filename', '', type("")))
         
@@ -96,7 +104,8 @@ class Widget(QWidget):
         s.beginGroup('lilypond_settings')
         for mode in preview_mode.modelist():
             s.setValue(mode, self.checkboxes[mode].isChecked())
-        s.setValue('disable-point-and-click', self.CBdisablepointandclick.isChecked())
+        s.setValue('verbose', self.CBverbose.isChecked())
+        s.setValue('point-and-click', self.CBpointandclick.isChecked())
         s.setValue('custom-file', self.CBcustomfile.isChecked())
         s.setValue('custom-filename', self.LEcustomfile.text())
 
@@ -121,10 +130,13 @@ class Widget(QWidget):
             # File that conditionally includes different formatters
             args.insert(1, '-dinclude-settings=debug-layout-options.ly') 
         
-        if self.CBdisablepointandclick.isChecked():
-            args.insert(0, '-dno-point-and-click')
-        else:
+        if self.CBpointandclick.isChecked():
             args.insert(0, '-dpoint-and-click')
+        else:
+            args.insert(0, '-dno-point-and-click')
+        
+        if self.CBverbose.isChecked():
+            args.insert(0, '--verbose')
         
         if self.CBcustomfile.isChecked():
             file_to_include = self.LEcustomfile.text()

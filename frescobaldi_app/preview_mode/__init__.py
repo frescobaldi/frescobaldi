@@ -106,12 +106,12 @@ class PreviewOptions(panel.Panel):
     def __init__(self, mainwindow):
         super(PreviewOptions, self).__init__(mainwindow)
         self.hide()
-        self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+V"))
+        self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+B"))
         mainwindow.addDockWidget(Qt.LeftDockWidgetArea, self)
 
     def translateUI(self):
-        self.setWindowTitle(_("Preview Options"))
-        self.toggleViewAction().setText(_("Pre&view Options"))
+        self.setWindowTitle(_("Debugging Options"))
+        self.toggleViewAction().setText(_("De&bugging Options"))
         
     def createWidget(self):
         from . import widget
