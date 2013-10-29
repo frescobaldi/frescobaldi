@@ -63,11 +63,9 @@ class Dialog(QDialog):
         self.resolutionLabel = QLabel()
         self.resolutionCombo = QComboBox(editable=True)
         
+        self.modeLabel = QLabel()
+        self.modeCombo = QComboBox()
         
-        self.pointandclickCheck = QCheckBox()
-        self.pointandclickCheck.setChecked(True)
-        self.previewCheck = QCheckBox()
-        self.verboseCheck = QCheckBox()
         self.englishCheck = QCheckBox()
         self.deleteCheck = QCheckBox()
         
@@ -82,21 +80,21 @@ class Dialog(QDialog):
         self.resolutionCombo.addItems(['100', '200', '300', '600', '1200'])
         self.resolutionCombo.setCurrentIndex(2)
         
+        self.modeCombo.addItems(['preview', 'publish', 'debug'])
         layout.addWidget(self.versionLabel, 0, 0)
         layout.addWidget(self.versionCombo, 0, 1)
         layout.addWidget(self.outputLabel, 1, 0)
         layout.addWidget(self.outputCombo, 1, 1)
         layout.addWidget(self.resolutionLabel, 2, 0)
         layout.addWidget(self.resolutionCombo, 2, 1)
-        layout.addWidget(self.pointandclickCheck, 3, 0, 1, 2)
-        layout.addWidget(self.previewCheck, 4, 0, 1, 2)
-        layout.addWidget(self.verboseCheck, 5, 0, 1, 2)
-        layout.addWidget(self.englishCheck, 6, 0, 1, 2)
-        layout.addWidget(self.deleteCheck, 7, 0, 1, 2)
-        layout.addWidget(self.commandLineLabel, 8, 0, 1, 2)
-        layout.addWidget(self.commandLine, 9, 0, 1, 2)
-        layout.addWidget(widgets.Separator(), 10, 0, 1, 2)
-        layout.addWidget(self.buttons, 11, 0, 1, 2)
+        layout.addWidget(self.modeLabel, 3, 0)
+        layout.addWidget(self.modeCombo, 3, 1)
+        layout.addWidget(self.englishCheck, 4, 0, 1, 2)
+        layout.addWidget(self.deleteCheck, 5, 0, 1, 2)
+        layout.addWidget(self.commandLineLabel, 6, 0, 1, 2)
+        layout.addWidget(self.commandLine, 7, 0, 1, 2)
+        layout.addWidget(widgets.Separator(), 8, 0, 1, 2)
+        layout.addWidget(self.buttons, 9, 0, 1, 2)
         
         app.translateUI(self)
         qutil.saveDialogSize(self, "engrave/custom/dialog/size", QSize(480, 260))
@@ -119,9 +117,7 @@ class Dialog(QDialog):
         app.settingsChanged.connect(self.loadLilyPondVersions)
         app.jobFinished.connect(self.slotJobFinished)
         self.outputCombo.currentIndexChanged.connect(self.makeCommandLine)
-        self.pointandclickCheck.toggled.connect(self.makeCommandLine)
-        self.previewCheck.toggled.connect(self.makeCommandLine)
-        self.verboseCheck.toggled.connect(self.makeCommandLine)
+        self.modeCombo.currentIndexChanged.connect(self.makeCommandLine)
         self.deleteCheck.toggled.connect(self.makeCommandLine)
         self.resolutionCombo.editTextChanged.connect(self.makeCommandLine)
         self.makeCommandLine()
@@ -132,10 +128,10 @@ class Dialog(QDialog):
         self.versionLabel.setText(_("LilyPond Version:"))
         self.outputLabel.setText(_("Output Format:"))
         self.resolutionLabel.setText(_("Resolution:"))
-        self.pointandclickCheck.setText(_("Create Point and Click links"))
-        self.previewCheck.setText(_(
-            "Run LilyPond with Preview Modes"))
-        self.verboseCheck.setText(_("Run LilyPond with verbose output"))
+        self.modeLabel.setText(_("Engraving mode:"))
+        self.modeCombo.setItemText(0, _("Preview"))
+        self.modeCombo.setItemText(1, _("Publish"))
+        self.modeCombo.setItemText(2, _("Debug"))
         self.englishCheck.setText(_("Run LilyPond with English messages"))
         self.deleteCheck.setText(_("Delete intermediate output files"))
         self.commandLineLabel.setText(_("Command line:"))
@@ -173,25 +169,14 @@ class Dialog(QDialog):
         f = formats[self.outputCombo.currentIndex()]
         self.resolutionCombo.setEnabled('resolution' in f.widgets)
         cmd = ["$lilypond"]
-        if self.verboseCheck.isChecked():
-            cmd.append('--verbose')
-        # add point-and-click-option
-        if self.pointandclickCheck.isChecked():
+        
+        if self.modeCombo.currentIndex() == 0:   # preview mode
             cmd.append('-dpoint-and-click')
-        else:
+        elif self.modeCombo.currentIndex() == 1: # publish mode
             cmd.append('-dno-point-and-click')
-        if self.previewCheck.isChecked():
-            # add preview options _except_ the point-and-click related
-            ext = panelmanager.manager(self.parent()).preview_mode.widget().preview_options()
-            try:
-                ext.remove('-dpoint-and-click')
-            except:
-                pass
-            try:
-                ext.remove('-dno-point-and-click')
-            except:
-                pass
-            cmd.extend(ext)
+        else:                                    # debug mode
+            args = panelmanager.manager(self.parent()).preview_mode.widget().preview_options()
+            cmd.extend(args)
         
         if self.deleteCheck.isChecked():
             cmd.append('-ddelete-intermediate-files')
