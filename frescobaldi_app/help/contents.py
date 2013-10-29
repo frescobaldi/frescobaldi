@@ -31,8 +31,6 @@ from colorize import colorize
 
 import info
 
-from .cnt_engraving import engraving
-
 class nohelp(page):
     """Shown when no help is found."""
     def title():
@@ -74,6 +72,8 @@ revealed by pressing {key_whatsthis} or by selecting {menu_whatsthis}.
     def children():
         import scorewiz.dialog
         import preferences.prefshelp
+        import cnt_engraving
+
         return (
             introduction,
             starting,
@@ -81,7 +81,7 @@ revealed by pressing {key_whatsthis} or by selecting {menu_whatsthis}.
             music_view,
             tools,
             editor,
-            engraving,
+            cnt_engraving.engraving,
             preferences.prefshelp.preferences_dialog,
             troubleshooting,
             about,
