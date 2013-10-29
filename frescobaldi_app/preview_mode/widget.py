@@ -30,6 +30,7 @@ from PyQt4.QtGui import *
 
 import app
 import preview_mode
+import engrave
 
 
 class Widget(QWidget):
@@ -48,7 +49,13 @@ class Widget(QWidget):
         self.CBcustomfile = QCheckBox(clicked=self.optionsChanged)
         self.LEcustomfile = QLineEdit(enabled=False)
         
-        # add manual widget
+        # run Lily button
+        self.engraveButton = QToolButton(toolButtonStyle=Qt.ToolButtonTextBesideIcon)
+        self.engraveButton.setDefaultAction(
+            engrave.engraver(tool.mainwindow()).actionCollection.engrave_debug)
+        
+        # add manual widgets
+        layout.addWidget(self.engraveButton)
         layout.addWidget(self.CBverbose)
         layout.addWidget(self.CBpointandclick)
         
