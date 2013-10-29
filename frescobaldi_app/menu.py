@@ -246,6 +246,7 @@ def menu_lilypond(mainwindow):
     m.addSeparator()
     m.addAction(ac.engrave_preview)
     m.addAction(ac.engrave_publish)
+    m.addAction(ac.engrave_debug)
     m.addAction(ac.engrave_custom)
     m.addAction(ac.engrave_abort)
     m.addSeparator()

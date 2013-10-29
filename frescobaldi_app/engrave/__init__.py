@@ -52,6 +52,7 @@ class Engraver(plugin.MainWindowPlugin):
         ac.engrave_runner.triggered.connect(self.engraveRunner)
         ac.engrave_preview.triggered.connect(self.engravePreview)
         ac.engrave_publish.triggered.connect(self.engravePublish)
+        ac.engrave_debug.triggered.connect(self.engraveDebug)
         ac.engrave_custom.triggered.connect(self.engraveCustom)
         ac.engrave_abort.triggered.connect(self.engraveAbort)
         mainwindow.currentDocumentChanged.connect(self.updateActions)
@@ -74,6 +75,7 @@ class Engraver(plugin.MainWindowPlugin):
         ac = self.actionCollection
         ac.engrave_preview.setEnabled(not running)
         ac.engrave_publish.setEnabled(not running)
+        ac.engrave_debug.setEnabled(not running)
         ac.engrave_abort.setEnabled(running)
         ac.engrave_runner.setIcon(icons.get('process-stop' if running else 'lilypond-run'))
     
@@ -88,11 +90,16 @@ class Engraver(plugin.MainWindowPlugin):
     
     def engravePreview(self):
         """Starts an engrave job in preview mode (with point and click turned on)."""
-        self.engrave(True)
+        self.engrave(['-dpoint-and-click'])
     
     def engravePublish(self):
         """Starts an engrave job in publish mode (with point and click turned off)."""
-        self.engrave(False)
+        self.engrave(['-dno-point-and-click'])
+        
+    def engraveDebug(self):
+        """Starts an engrave job in debug mode (using the settings in the debug tool)."""
+        args = panelmanager.manager(self.mainwindow()).preview_mode.widget().preview_options()
+        self.engrave(args)
         
     def engraveCustom(self):
         """Opens a dialog to configure the job before starting it."""
@@ -109,10 +116,12 @@ class Engraver(plugin.MainWindowPlugin):
             self.saveDocumentIfDesired()
             self.runJob(dlg.getJob(doc), doc)
     
-    def engrave(self, preview, document=None, may_save=True):
-        """Starts a default engraving job.
+    def engrave(self, args=None, document=None, may_save=True):
+        """Starts an engraving job.
         
-        The bool preview specifies preview mode.
+        The args if given, is a list of command line arguments that's given to
+        LilyPond.
+        
         If document is not specified, it is either the sticky or current
         document.
         
@@ -125,10 +134,6 @@ class Engraver(plugin.MainWindowPlugin):
         doc = document or self.stickyDocument() or self.mainwindow().currentDocument()
         if may_save:
             self.saveDocumentIfDesired()
-        if preview:
-            args = panelmanager.manager(self.mainwindow()).preview_mode.widget().preview_options()
-        else:
-            args = None
         self.runJob(command.defaultJob(doc, args), doc)
     
     def engraveAbort(self):
@@ -223,6 +228,7 @@ class Actions(actioncollection.ActionCollection):
         self.engrave_runner = QAction(parent)
         self.engrave_preview = QAction(parent)
         self.engrave_publish = QAction(parent)
+        self.engrave_debug = QAction(parent)
         self.engrave_custom = QAction(parent)
         self.engrave_abort = QAction(parent)
         
@@ -234,6 +240,7 @@ class Actions(actioncollection.ActionCollection):
         self.engrave_sticky.setIcon(icons.get('pushpin'))
         self.engrave_preview.setIcon(icons.get('lilypond-run'))
         self.engrave_publish.setIcon(icons.get('lilypond-run'))
+        self.engrave_debug.setIcon(icons.get('lilypond-run'))
         self.engrave_custom.setIcon(icons.get('lilypond-run'))
         self.engrave_abort.setIcon(icons.get('process-stop'))
         
@@ -242,6 +249,7 @@ class Actions(actioncollection.ActionCollection):
         self.engrave_runner.setText(_("Engrave"))
         self.engrave_preview.setText(_("&Engrave (preview)"))
         self.engrave_publish.setText(_("Engrave (&publish)"))
+        self.engrave_debug.setText(_("Engrave (&debug)"))
         self.engrave_custom.setText(_("Engrave (&custom)..."))
         self.engrave_abort.setText(_("Abort Engraving &Job"))
         
