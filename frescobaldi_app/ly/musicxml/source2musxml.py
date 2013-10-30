@@ -198,6 +198,12 @@ class parse_source():
             self.mediator.fetch_variable(token[1:])
             print "UserCommand:"+token
 
+    def String(self, token):
+        if self.prev_command == '\\clef':
+            pass
+        elif self.prev_command == '\\bar':
+            self.mediator.create_barline(token)
+
     ##
     # The xml-file is built from the mediator objects
     ##
@@ -213,6 +219,8 @@ class parse_source():
                     if isinstance(obj, ly2xml_mediator.bar_attr):
                         if obj.has_attr():
                             self.musxml.new_bar_attr(obj.clef, obj.time, obj.key, obj.mode, obj.divs)
+                        if obj.barline:
+                            self.musxml.add_barline(obj.barline)
                     elif isinstance(obj, ly2xml_mediator.bar_note):
                         self.musxml.new_note([obj.base_note, obj.pitch.alter, obj.pitch.octave], obj.duration, obj.type, self.mediator.divisions, obj.dot)
                         if obj.tie:
