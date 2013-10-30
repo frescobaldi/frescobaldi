@@ -199,10 +199,11 @@ class parse_source():
             print "UserCommand:"+token
 
     def String(self, token):
-        if self.prev_command == '\\clef':
-            pass
+        if self.prev_command == 'clef':
+            self.mediator.new_clef(token)
         elif self.prev_command == '\\bar':
             self.mediator.create_barline(token)
+
 
     ##
     # The xml-file is built from the mediator objects

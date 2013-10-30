@@ -315,8 +315,10 @@ def clefname2clef(clefname):
         return ['G',2]
     elif clefname == "bass":
         return ['F',4]
-    elif clefname == "alt":
+    elif clefname == "alto":
         return ['C',3]
+    elif clefname == "tenor":
+        return ['C',4]
 
 def notename2step(note_name):
     alter = 0
