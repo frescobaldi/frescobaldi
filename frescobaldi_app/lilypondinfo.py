@@ -336,7 +336,7 @@ class LilyPondInfo(object):
         """Writes ourselves to a QSettings instance. We should be valid."""
         settings.setValue("command", self.command)
         settings.setValue("version", self.versionString())
-        settings.setValue("datadir", self.datadir())
+        settings.setValue("datadir", self.datadir() or "")
         if self.abscommand():
             settings.setValue("mtime", int(os.path.getmtime(self.abscommand())))
         settings.setValue("auto", self.auto)
