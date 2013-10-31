@@ -178,6 +178,9 @@ class parse_source():
         if self.prev_command == '\\time':
             self.mediator.new_time(token)
             self.prev_command = ''
+        elif self.prev_command == '\\numericTimeSignature':
+            self.mediator.new_time(token, numeric=True)
+            self.prev_command = ''
         else:
             self.fraction = token
 
@@ -187,7 +190,7 @@ class parse_source():
     def Command(self, token):
         if token == '\\rest':
             self.mediator.note2rest()
-        else:
+        elif self.prev_command != '\\numericTimeSignature':
             self.prev_command = token
 
     def UserCommand(self, token):

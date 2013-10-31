@@ -87,11 +87,10 @@ class mediator():
             self.new_bar()
         self.current_attr.set_key(get_fifths(key_name, mode), mode)
 
-    def new_time(self, fraction):
-        self.mustime = fraction.split('/')
+    def new_time(self, fraction, numeric=False):
         if self.bar is None:
             self.new_bar()
-        self.current_attr.set_time(self.mustime)
+        self.current_attr.set_time(fraction, numeric)
 
     def new_clef(self, clefname):
         self.clef = clefname2clef(clefname)
@@ -273,7 +272,10 @@ class bar_attr():
         self.key = muskey
         self.mode = mode
 
-    def set_time(self, mustime):
+    def set_time(self, fraction, numeric):
+        mustime = fraction.split('/')
+        if not numeric and (fraction == '2/2' or fraction == '4/4'):
+            mustime.append('common')
         self.time = mustime
 
     def set_clef(self, clef):
