@@ -95,7 +95,7 @@ class SimpleMarkdown(object):
                 para.append(line)
         if para:
             self.parse_lines(para)
-        self.end_list_if_needed()
+        self.handle_lists(0)
     
     def parse_lines(self, para):
         """Parse a list of one or more lines without blank lines in between.
@@ -103,22 +103,33 @@ class SimpleMarkdown(object):
         Dispatches the lines to handle headings, lists or plain text paragraphs.
         
         """
+        indent = len(chop_left(para[0]))
         prefix = para[0].split(1)[0]
         if prefix.startswith('='):
+            self.handle_lists(indent)
             self.parse_heading(para, prefix)
-        elif prefix == '*':
+        elif self.is_ul_item(prefix):
+            self.handle_lists(indent, 'ul')
             self.parse_ul(para)
-        elif prefix.endswith('.') and prefix[:-1].isdigit():
+        elif is_ol_item(prefix):
+            self.handle_lists(indent, 'ol')
             self.parse_ol(para)
         elif len(para) > 1 and para[1].lstrip().startswith(': '):
+            self.handle_lists(indent, 'dl')
             self.parse_dl(para)
         else:
+            self.handle_lists(indent)
             self.parse_paragraph(para)
+    
+    def is_ul_item(self, prefix):
+        return prefix == '*'
+
+    def is_ol_item(self, prefix):
+        return prefix.endswith('.') and prefix[:-1].isdigit()
     
     def parse_paragraph(self, para):
         """Parse a plain paragraph of text."""
-        if not para[0][0].isspace():
-            self.end_list_if_needed()
+        self.handle_indent(len(chop_left(para[0])))
         self.paragraph_start()
         self.parse_plain_text(para)
         self.paragraph_end()
@@ -139,7 +150,9 @@ class SimpleMarkdown(object):
         items.
         
         """
-            
+        # split in list items
+        items = self.split_list_items(para, self.is_ol_item)
+        
     def parse_ul(self, para):
         """Parse unordered lists.
         
@@ -148,11 +161,67 @@ class SimpleMarkdown(object):
         items.
         
         """
+        indent = len(chop_left(para[0]))
+        self.handle_lists(indent, 'ol')
+    
+    def split_list_items(self, para, pred):
+        """Returns lists of lines that each represent a list item.
         
+        The pred function should return true for a line that has an item prefix.
+        
+        """
+        items = []
+        item = []
+        for line in para:
+            if pred(line.split(1)[0]):
+                if item:
+                    items.append(item)
+                item = [line]
+            else:
+                item.append(line)
+        if item:
+            items.append(item)
+        return items
         
     def parse_dl(self, para):
         """Parse a definition list item."""
+        self.handle_indent(len(chop_left(para[0])))
             
+    def handle_lists(self, indent, list_type=None):
+        if list_type and (not self._lists or self._lists[-1][1] < indent):
+            self._lists.append(list_type, indent)
+            self.list_start(list_type)
+        else:
+            while self._lists:
+                if self._lists[-1][1] > indent:
+                    self.list_end(self._lists[-1][0])
+                    self._lists.pop()
+                    continue
+                elif self._lists[-1][1] == indent and self._lists[-1][0] != list_type:
+                    self.list_end(self._lists[-1][0])
+                    self._lists.pop()
+                    if list_type:
+                        self._lists.append(list_type, indent)
+                        self.list_start(list_type)
+                break
+        
+    def list_start(self, list_type):
+        if list_type == "ol":
+            self.orderedlist_start()
+        elif list_type == "ul":
+            self.unorderedlist_start()
+        elif list_type == "dl":
+            self.definitionlist_start()
+            
+    def list_end(self, list_type):
+        if list_type == "ol":
+            self.orderedlist_end()
+        elif list_type == "ul":
+            self.unorderedlist_end()
+        elif list_type == "dl":
+            self.definitionlist_end()
+            
+        
         
         
 
