@@ -1,159 +1,171 @@
 #!python
-#a very simple markdown-like parser
+
+"""
+This is a very basic markdown-like parser.
+
+It currently does not support blockquotes.
+
+It supports different ways to iterate over the parsed text fragments and events.
+
+It supports the following blocklevel items:
+
+=== heading 1
+
+== heading 2
+
+= heading 3
+
+plain text paragraph
+
+* unordered list
+
+1. ordered list
+
+definition
+: list explanation blabla
+
+
+```language
+code
+```
+
+inline level:
+
+*emphasis*
+
+`code`
+
+[link]
+[link text]
+[image:filename]
+
+"""
 
 
 from __future__ import unicode_literals
 
-import re
+import itertools
 
-class Line(object):
-    """Represent a line of text."""
-    tab_width = 8
-    _line_re = re.compile(
-        r"^(?P<blockquote>(\s*>)*)"         # blockquote
-        r"(?P<indent>\s*)"                  # initial space (indent)
-        r"(?P<prefix>(?P<heading>=+)"                 # heading
-        r"|(?P<verbatim>```(?P<specifier>.*?))\s*$" # verbatim
-        r"|(?P<ul>[-*])(?=\s)"              # unordered list item
-        r"|(?P<ol>\d+)\.?"                  # ordered list item
-        r"|\[(?P<numbered_link>\d+)]"       # numbered link
-            r"\s*(?P<url>\S+)\s*(?P<title>.*?)\s*$"  # with url and title          
-        r")?\s*(?P<text>.*)$"               # rest of the line
-        , re.UNICODE)
 
-    def __init__(self, text):
-        self.orig_text = text
-        self.line = l = text.expandtabs(self.tab_width)
-        self.d = self._line_re.match(l).groupdict()
-    
-    def isblank(self):
-        return not self.prefix and not self.text
-    
-    def __getattr__(self, name):
-        return self.d[name]
 
-        
-def iter2(i):
-    """Yield item, next_item from iterable.
-    
-    Together with the last item, None is yielded.
-    
-    """
-    i = iter(i)
-    for i2 in i:
-        for i3 in i:
-            yield i2, i3
-            i2 = i3
-        yield i2, None
+def chop_left(string, chars=None):
+    """Return the string that string.lstrip(chars) would chop off."""
+    return string[:-len(string.lstrip(chars))]
 
 
 class SimpleMarkdown(object):
+    def __init__(self):
+        self._lists = []
     
-    Line = Line
-    
-    def parse(self, lines):
-        """Yield events, parsing the lines."""
-        in_paragraph = False
-        in_verbatim = False
-        blockquote_level = 0
-        current_indent = [0]
+    def parse(self, text):
+        """Parse the text and call methods on certain events."""
+        # split in code and non-code blocks
+        blocks = iter(text.split('\n```'))
+        for text, code in itertools.izip_longest(blocks, blocks):
+            self.parse_noncode(text)
+            if code:
+                self.parse_code(code)
         
-        for l, n in iter2(self.Line(l) for l in lines):
-            
-            if in_verbatim:
-                if l.verbatim:
-                    in_verbatim = False
-                    self.verbatim_end()
-                else:
-                    self.verbatim_line(line)
-                continue
-            
-            if l.isblank():
-                if in_paragraph:
-                    in_paragraph = False
-                    self.paragraph_end()
-                continue
-                
-            # handle numbered inline links
-            if l.numbered_link:
-                self.numbered_link(int(l.numbered_link), l.url, l.title)
-                continue
-            
-            # are we in a blockquote?
-            # if the blockquote-count changes, start a new paragraph
-            blockquote_count = l.blockquote.count('>')
-            if blockquote_count == 0 and in_paragraph and blockquote_level > 0:
-                pass # keep the blockquote as long as we are in the paragraph
-            elif blockquote_count > blockquote_level:
-                if in_paragraph:
-                    self.paragraph_end()
-                for blockquote_level in range(blockquote_level+1, blockquote_count+1):
-                    self.blockquote_start()
-                if in_paragraph:
-                    self.paragraph_start()
-            elif blockquote_count < blockquote_level:
-                if in_paragraph:
-                    self.paragraph_end()
-                for blockquote_level in range(blockquote_level-1, blockquote_count-1, -1):
-                    self.blockquote_end()
-                if in_paragraph:
-                    self.paragraph_start()
-            
-            
-            # verbatim
-            if l.verbatim:
-                in_verbatim = True
-                if in_paragraph:
-                    in_paragraph = False
-                    self.paragraph_end()
-                self.verbatim_start(l.specifier)
-                continue
-            
-            if not in_paragraph:
-                in_paragraph = True
-                self.paragraph_start()
-
-            # handle lists
-            
-            # finally, handle character level text
-            self.text(l.text)
+    def parse_code(self, code):
+        """Parse code inside ``` code ``` blocks.
         
-        # ending
-        if in_verbatim:
-            self.verbatim_end()
-        if in_paragraph:
-            self.paragraph_end()
-        while blockquote_level > 0:
-            self.blockquote_end()
-            blockquote_level -= 1
-
-
-    def verbatim_start(self, specifier):
-        print 'verbatim_start', specifier
+        Calls self.code() with the code and the language specifier (if given
+        on the first line).
         
-    def verbatim_end(self):
-        print 'verbatim_end'
+        """
+        try:
+            specifier, code = code.split('\n', 1)
+            self.code(code, specifier.strip() or None)
+        except ValueError:
+            self.code(code)
     
-    def verbatim_line(self, text):
-        print 'verbatim_line', text
-    
-    def paragraph_start(self):
-        print 'paragraph_start'
-
-    def paragraph_end(self):
-        print 'paragraph_end'
+    def parse_noncode(self, text):
+        """Parse text outside ``` code ``` blocks.
         
-    def blockquote_start(self):
-        print 'blockquote_start'
+        Just calls parse_lines() with lists of connected non-blank lines.
+        
+        """
+        para = []
+        for line in text.splitlines():
+            if not line or line.isspace():
+                if para:
+                    self.parse_lines(para)
+                    del para[:]
+            else:
+                para.append(line)
+        if para:
+            self.parse_lines(para)
+        self.end_list_if_needed()
     
-    def blockquote_end(self):
-        print 'blockquote_end'
+    def parse_lines(self, para):
+        """Parse a list of one or more lines without blank lines in between.
+        
+        Dispatches the lines to handle headings, lists or plain text paragraphs.
+        
+        """
+        prefix = para[0].split(1)[0]
+        if prefix.startswith('='):
+            self.parse_heading(para, prefix)
+        elif prefix == '*':
+            self.parse_ul(para)
+        elif prefix.endswith('.') and prefix[:-1].isdigit():
+            self.parse_ol(para)
+        elif len(para) > 1 and para[1].lstrip().startswith(': '):
+            self.parse_dl(para)
+        else:
+            self.parse_paragraph(para)
     
-    def numbered_link(self, num, url, text):
-        print 'numbered_link', num, url, text
+    def parse_paragraph(self, para):
+        """Parse a plain paragraph of text."""
+        if not para[0][0].isspace():
+            self.end_list_if_needed()
+        self.paragraph_start()
+        self.parse_plain_text(para)
+        self.paragraph_end()
     
-    def text(self, text):
-        print 'text', text
+    def parse_heading(self, para, prefix):
+        """Parse a header text."""
+        prefix = chop_left(para[0], '=')
+        para[0] = para[0][len(prefix):]
+        self.heading_start(len(prefix))
+        self.heading(para)
+        self.heading_end()
+    
+    def parse_ol(self, para):
+        """Parse ordered lists.
+        
+        Every line of the supplied group of lines is checked for a number,
+        if they are separate items, no paragraph tags are put around the list
+        items.
+        
+        """
+            
+    def parse_ul(self, para):
+        """Parse unordered lists.
+        
+        Every line of the supplied group of lines is checked for an asterisk,
+        if they are separate items, no paragraph tags are put around the list
+        items.
+        
+        """
+        
+        
+    def parse_dl(self, para):
+        """Parse a definition list item."""
+            
+        
+        
+
+    
+    ##
+    # handlers
+    ##
+    
+    def code(self, code, specifier=None):
+        print 'code', specifier, code
 
 
-    
+
+            
+        
+        
