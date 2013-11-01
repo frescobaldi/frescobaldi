@@ -76,17 +76,21 @@ class mediator():
         self.bar = [self.current_attr]
         self.insert_into.barlist.append(self.bar)
 
+    def create_barline(self, bl):
+        barline = bar_attr()
+        barline.set_barline(bl)
+        self.bar.append(barline)
+
     def new_key(self, key_name, mode_command):
         mode = mode_command[1:]
         if self.bar is None:
             self.new_bar()
         self.current_attr.set_key(get_fifths(key_name, mode), mode)
 
-    def new_time(self, fraction):
-        self.mustime = fraction.split('/')
+    def new_time(self, fraction, numeric=False):
         if self.bar is None:
             self.new_bar()
-        self.current_attr.set_time(self.mustime)
+        self.current_attr.set_time(fraction, numeric)
 
     def new_clef(self, clefname):
         self.clef = clefname2clef(clefname)
@@ -262,16 +266,23 @@ class bar_attr():
         self.clef = 0
         self.mode = ''
         self.divs = 0
+        self.barline = ''
 
     def set_key(self, muskey, mode):
         self.key = muskey
         self.mode = mode
 
-    def set_time(self, mustime):
+    def set_time(self, fraction, numeric):
+        mustime = fraction.split('/')
+        if not numeric and (fraction == '2/2' or fraction == '4/4'):
+            mustime.append('common')
         self.time = mustime
 
     def set_clef(self, clef):
         self.clef = clef
+
+    def set_barline(self, bl):
+        self.barline = convert_barl(bl)
 
     def has_attr(self):
         check = False
@@ -306,8 +317,10 @@ def clefname2clef(clefname):
         return ['G',2]
     elif clefname == "bass":
         return ['F',4]
-    elif clefname == "alt":
+    elif clefname == "alto":
         return ['C',3]
+    elif clefname == "tenor":
+        return ['C',4]
 
 def notename2step(note_name):
     alter = 0
@@ -359,6 +372,26 @@ def get_mult(num, den):
     from fractions import Fraction
     simple = Fraction(num, den)
     return simple.denominator
+
+def convert_barl(bl):
+    if bl == '|':
+        return 'regular'
+    elif bl == ':':
+        return 'dotted'
+    elif bl == 'dashed':
+        return bl
+    elif bl == '.':
+        return 'heavy'
+    elif bl == '||':
+        return 'light-light'
+    elif bl == '.|':
+        return 'heavy-light'
+    elif bl == '.|.':
+        return 'heavy-heavy'
+    elif bl == '|.':
+        return 'light-heavy'
+    elif bl == "'":
+        return 'tick'
 
 
 

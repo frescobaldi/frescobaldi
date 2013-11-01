@@ -131,7 +131,7 @@ class create_musicXML():
         if key>=0:
             self.add_key(key, mode)
         if mustime:
-            self.add_time(mustime[0], mustime[1])
+            self.add_time(mustime)
         if clef:
             self.add_clef(clef[0], clef[1])
 
@@ -255,12 +255,15 @@ class create_musicXML():
         modenode = etree.SubElement(keynode, "mode")
         modenode.text = str(mode)
 
-    def add_time(self, beats, beat_type):
-        timenode = etree.SubElement(self.bar_attr, "time")
+    def add_time(self, timesign):
+        if len(timesign)==3:
+            timenode = etree.SubElement(self.bar_attr, "time", symbol=timesign[2])
+        else:
+            timenode = etree.SubElement(self.bar_attr, "time")
         beatnode = etree.SubElement(timenode, "beats")
-        beatnode.text = str(beats)
+        beatnode.text = str(timesign[0])
         typenode = etree.SubElement(timenode, "beat-type")
-        typenode.text = str(beat_type)
+        typenode.text = str(timesign[1])
 
     def add_clef(self, sign, line):
         clefnode = etree.SubElement(self.bar_attr, "clef")
@@ -268,6 +271,12 @@ class create_musicXML():
         signnode.text = str(sign)
         linenode = etree.SubElement(clefnode, "line")
         linenode.text = str(line)
+
+    def add_barline(self, bl_type):
+        barnode = etree.SubElement(self.current_bar, "barline", location="right")
+        barstyle = etree.SubElement(barnode, "bar-style")
+        barstyle.text = bl_type
+
 
     ##
     # Create the XML document
