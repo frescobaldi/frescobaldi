@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-The preview options widget.
+The Layout Control options widget.
 """
 
 from __future__ import unicode_literals
@@ -52,7 +52,7 @@ class Widget(QWidget):
         self.LEcustomfile = QLineEdit(enabled=False)
         
         # run Lily button
-        self.engraveButton = QToolButton(toolButtonStyle=Qt.ToolButtonTextBesideIcon)
+        self.engraveButton = QToolButton()
         self.engraveButton.setDefaultAction(
             engrave.engraver(tool.mainwindow()).actionCollection.engrave_debug)
         
@@ -65,6 +65,7 @@ class Widget(QWidget):
         hbox.setContentsMargins(0, 0, 0, 0)
         hbox.addWidget(self.engraveButton)
         hbox.addWidget(self.helpButton)
+        hbox.addStretch(1)
         layout.addLayout(hbox)
         layout.addWidget(self.CBverbose)
         layout.addWidget(self.CBpointandclick)
@@ -102,7 +103,7 @@ class Widget(QWidget):
         self.CBpointandclick.setToolTip(_("Run LilyPond in preview mode (with Point and Click)"))
         self.CBcustomfile.setText(_("Include Custom File:"))
         self.CBcustomfile.setToolTip(_("Include a custom file with definitions\n"
-                      "for additional Debug Modes"))
+                      "for additional Layout Control Modes"))
         self.LEcustomfile.setToolTip(_("Filename to be included"))
     
     def loadSettings(self):

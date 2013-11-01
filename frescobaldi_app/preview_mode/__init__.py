@@ -56,7 +56,7 @@ _debugmodes = {
         lambda: _("Display the name of each grob")), 
     'paper-columns': 
         ('-ddebug-paper-columns', 
-        lambda: _("Debug Paper Columns"), 
+        lambda: _("Display Paper Columns"), 
         lambda: _("Display info on the paper columns")), 
     'skylines': 
         ('-ddebug-display-skylines', 
@@ -106,12 +106,12 @@ class PreviewOptions(panel.Panel):
     def __init__(self, mainwindow):
         super(PreviewOptions, self).__init__(mainwindow)
         self.hide()
-        self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+B"))
+        self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+C"))
         mainwindow.addDockWidget(Qt.LeftDockWidgetArea, self)
 
     def translateUI(self):
-        self.setWindowTitle(_("Debugging Options"))
-        self.toggleViewAction().setText(_("De&bugging Options"))
+        self.setWindowTitle(_("Layout Control Options"))
+        self.toggleViewAction().setText(_("Layout &Control Options"))
         
     def createWidget(self):
         from . import widget
