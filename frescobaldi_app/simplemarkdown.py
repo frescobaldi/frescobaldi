@@ -87,7 +87,7 @@ def iter_split(text, separator):
         text = t[2]
 
 def iter_split2(text, separator, separator2):
-    """Yield pairs of text outside and inside the separator.
+    """Yield pairs of text outside and inside the separators.
     
     This can be used to parse e.g. "text with [bracketed words] in it".
     
@@ -166,10 +166,10 @@ class SimpleMarkdown(object):
         if prefix.startswith('='):
             self.handle_lists(indent)
             self.parse_heading(lines, prefix)
-        elif self.is_ul_item(prefix):
+        elif self.is_ul_item(lines[0]):
             self.handle_lists(indent, 'ul')
             self.parse_ul(lines)
-        elif self.is_ol_item(prefix):
+        elif self.is_ol_item(lines[0]):
             self.handle_lists(indent, 'ol')
             self.parse_ol(lines)
         elif self.is_dl_item(lines):
@@ -179,13 +179,21 @@ class SimpleMarkdown(object):
             self.handle_lists(indent)
             self.parse_paragraph(lines)
     
-    def is_ul_item(self, prefix):
-        """Return True if the prefix is a unordered list prefix ("*")."""
-        return prefix == '*'
+    def is_ul_item(self, line):
+        """Return True if the line is a unordered list prefix ("*")."""
+        try:
+            prefix, line = line.split(None, 1)
+            return prefix == '*'
+        except ValueError:
+            return False
 
-    def is_ol_item(self, prefix):
-        """Return True if the prefix is a ordered list prefix (number period)."""
-        return prefix.endswith('.') and prefix[:-1].isdigit()
+    def is_ol_item(self, line):
+        """Return True if the line is a ordered list prefix (number period)."""
+        try:
+            prefix, line = line.split(None, 1)
+            return prefix.endswith('.') and prefix[:-1].isdigit()
+        except ValueError:
+            return False
     
     def is_dl_item(self, lines):
         """Return True lines are a description list item."""
@@ -251,7 +259,7 @@ class SimpleMarkdown(object):
         items = []
         item = []
         for line in lines:
-            if pred(line.split(None, 1)[0]):
+            if pred(line):
                 if item:
                     items.append(item)
                 item = [line.split(None, 1)[1]]
