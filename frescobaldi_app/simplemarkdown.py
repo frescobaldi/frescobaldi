@@ -162,10 +162,9 @@ class SimpleMarkdown(object):
         
         """
         indent = len(chop_left(lines[0]))
-        prefix = lines[0].split(None, 1)[0]
-        if prefix.startswith('='):
+        if lines[0].lstrip().startswith('='):
             self.handle_lists(indent)
-            self.parse_heading(lines, prefix)
+            self.parse_heading(lines)
         elif self.is_ul_item(lines[0]):
             self.handle_lists(indent, 'ul')
             self.parse_ul(lines)
@@ -205,10 +204,11 @@ class SimpleMarkdown(object):
         self.parse_plain_text(lines)
         self.paragraph_end()
     
-    def parse_heading(self, lines, prefix):
+    def parse_heading(self, lines):
         """Parse a header text."""
+        prefix = chop_left(lines[0], '= ')
         heading_type = 4 - min(prefix.count('='), 3)
-        lines[0] = lines[0][len(prefix):]
+        lines[0] = lines[0].strip('= ')
         self.heading_start(heading_type)
         self.parse_plain_text(lines)
         self.heading_end(heading_type)
