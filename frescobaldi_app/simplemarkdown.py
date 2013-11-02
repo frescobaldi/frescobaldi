@@ -96,7 +96,8 @@ def iter_split2(text, separator, separator2):
                 yield t[0], t2[0]
                 text = t2[1]
                 continue
-        yield text, ''
+        if text:
+            yield text, ''
         return
 
 
