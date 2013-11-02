@@ -60,31 +60,26 @@ def chop_left(string, chars=None):
     return string[:-len(string.lstrip(chars))]
 
 def iter_split(text, separator):
-    """Yield pairs of text before and after the separator.
-    
-    Text after the separator can be None.
-    
-    """
+    """Yield pairs of text before and after the separator."""
     blocks = iter(text.split(separator))
-    return itertools.izip_longest(blocks, blocks)
+    return itertools.izip_longest(blocks, blocks, fillvalue='')
 
 def iter_split2(text, separator, separator2):
     """Yield pairs of text outside and inside the separator.
     
-    Text after the separator can be None.
     This can be used to parse e.g. "text with [bracketed words] in it".
     
     """
-    for prefix, rest in iter_split(text, separator):
-        if rest:
-            split_rest = rest.split(separator2, 1)
-            if len(split_rest) == 1:
-                yield prefix + separator + rest, None
-            else:
-                yield prefix, split_rest[0]
-                yield split_rest[1], None
-        else:
-            yield prefix, rest
+    while True:
+        t = text.split(separator, 1)
+        if len(t) > 1:
+            t2 = t[1].split(separator2, 1)
+            if len(t2) > 1:
+                yield t[0], t2[0]
+                text = t2[1]
+                continue
+        yield text, ''
+        return
 
 
 class SimpleMarkdown(object):
