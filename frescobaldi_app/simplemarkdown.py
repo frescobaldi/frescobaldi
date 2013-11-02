@@ -69,8 +69,6 @@ inline level:
 
 from __future__ import unicode_literals
 
-import itertools
-
 
 
 def chop_left(string, chars=None):
@@ -79,8 +77,14 @@ def chop_left(string, chars=None):
 
 def iter_split(text, separator):
     """Yield pairs of text before and after the separator."""
-    blocks = iter(text.split(separator))
-    return itertools.izip_longest(blocks, blocks, fillvalue='')
+    while True:
+        t = text.split(separator, 2)
+        if len(t) < 3:
+            if text:
+                yield text, ''
+            break
+        yield t[:2]
+        text = t[2]
 
 def iter_split2(text, separator, separator2):
     """Yield pairs of text outside and inside the separator.
