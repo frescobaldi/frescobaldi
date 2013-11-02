@@ -90,7 +90,7 @@ class SimpleMarkdown(object):
             if not line or line.isspace():
                 if para:
                     self.parse_lines(para)
-                    del para[:]
+                    para = []
             else:
                 para.append(line)
         if para:
@@ -104,14 +104,14 @@ class SimpleMarkdown(object):
         
         """
         indent = len(chop_left(para[0]))
-        prefix = para[0].split(1)[0]
+        prefix = para[0].split(None, 1)[0]
         if prefix.startswith('='):
             self.handle_lists(indent)
             self.parse_heading(para, prefix)
         elif self.is_ul_item(prefix):
             self.handle_lists(indent, 'ul')
             self.parse_ul(para)
-        elif is_ol_item(prefix):
+        elif self.is_ol_item(prefix):
             self.handle_lists(indent, 'ol')
             self.parse_ol(para)
         elif len(para) > 1 and para[1].lstrip().startswith(': '):
@@ -122,25 +122,27 @@ class SimpleMarkdown(object):
             self.parse_paragraph(para)
     
     def is_ul_item(self, prefix):
+        """Return True if the prefix is a unordered list prefix ("*")."""
         return prefix == '*'
 
     def is_ol_item(self, prefix):
+        """Return True if the prefix is a ordered list prefix (number period)."""
         return prefix.endswith('.') and prefix[:-1].isdigit()
     
     def parse_paragraph(self, para):
         """Parse a plain paragraph of text."""
-        self.handle_indent(len(chop_left(para[0])))
         self.paragraph_start()
         self.parse_plain_text(para)
         self.paragraph_end()
     
     def parse_heading(self, para, prefix):
         """Parse a header text."""
-        prefix = chop_left(para[0], '=')
+        prefix = chop_left(para[0], '= ')
+        heading_type = 4 - min(prefix.count('='), 3)
         para[0] = para[0][len(prefix):]
-        self.heading_start(len(prefix))
-        self.heading(para)
-        self.heading_end()
+        self.heading_start(heading_type)
+        self.parse_plain_text(para)
+        self.heading_end(heading_type)
     
     def parse_ol(self, para):
         """Parse ordered lists.
@@ -152,7 +154,16 @@ class SimpleMarkdown(object):
         """
         # split in list items
         items = self.split_list_items(para, self.is_ol_item)
-        
+        paragraph_item = len(items) == 1
+        for item in items:
+            item[0] = item[0].split(1)[1]
+            self.orderedlist_item_start()
+            if paragraph_item:
+                self.paragraph_plain_text(item)
+            else:
+                self.parse_plain_text(item)
+            self.orderedlist_item_end()
+            
     def parse_ul(self, para):
         """Parse unordered lists.
         
@@ -161,8 +172,16 @@ class SimpleMarkdown(object):
         items.
         
         """
-        indent = len(chop_left(para[0]))
-        self.handle_lists(indent, 'ol')
+        items = self.split_list_items(para, self.is_ol_item)
+        paragraph_item = len(items) == 1
+        for item in items:
+            item[0] = item[0].split(1)[1]
+            self.unorderedlist_item_start()
+            if paragraph_item:
+                self.paragraph_plain_text(item)
+            else:
+                self.parse_plain_text(item)
+            self.unorderedlist_item_end()
     
     def split_list_items(self, para, pred):
         """Returns lists of lines that each represent a list item.
@@ -185,9 +204,32 @@ class SimpleMarkdown(object):
         
     def parse_dl(self, para):
         """Parse a definition list item."""
-        self.handle_indent(len(chop_left(para[0])))
-            
+        definition = para[0]
+        para[1] = para[1].split(':', 1)[1]
+        self.definitionlist_item_start()
+        self.definitionlist_item_term_start()
+        self.parse_plain_text(definition)
+        self.definitionlist_item_term_end()
+        self.definitionlist_item_definition_start()
+        self.parse_plain_text(para[1:])
+        self.definitionlist_item_definition_end()
+        self.definitionlist_item_end()
+    
+    def parse_plain_text(self, lines):
+        """A continuous text block with possibly inline markup."""
+        # TODO handle inline markup
+        self.plain_text(lines)
+        
+    ##
+    # utility methods
+    ##
+        
     def handle_lists(self, indent, list_type=None):
+        """Close ongoing lists or start new lists if needed.
+        
+        If given, list_type should be 'ol', 'ul', or 'dl'.
+        
+        """
         if list_type and (not self._lists or self._lists[-1][1] < indent):
             self._lists.append(list_type, indent)
             self.list_start(list_type)
@@ -206,6 +248,7 @@ class SimpleMarkdown(object):
                 break
         
     def list_start(self, list_type):
+        """Start a list, type should be 'ol', 'ul', or 'dl'."""
         if list_type == "ol":
             self.orderedlist_start()
         elif list_type == "ul":
@@ -214,6 +257,7 @@ class SimpleMarkdown(object):
             self.definitionlist_start()
             
     def list_end(self, list_type):
+        """End a list, type should be 'ol', 'ul', or 'dl'."""
         if list_type == "ol":
             self.orderedlist_end()
         elif list_type == "ul":
@@ -221,8 +265,12 @@ class SimpleMarkdown(object):
         elif list_type == "dl":
             self.definitionlist_end()
             
-        
-        
+    def paragraph_plain_text(self, para):
+        """Create a paragraph, adding the plain text."""
+        self.paragraph_start()
+        self.parse_plain_text(para)
+        self.paragraph_end()
+    
         
 
     
@@ -232,9 +280,67 @@ class SimpleMarkdown(object):
     
     def code(self, code, specifier=None):
         print 'code', specifier, code
-
-
-
-            
+    
+    def plain_text(self, lines):
+        """Write plain text"""
+        print 'plain_text', lines
+    
+    def heading_start(self, heading_type):
+        print 'heading_start', heading_type
+    
+    def heading_end(self, heading_type):
+        print 'heading_end', heading_type
         
+    def paragraph_start(self):
+        print 'paragraph_start'
+    
+    def paragraph_end(self):
+        print 'paragraph_end'
+    
+    def orderedlist_start(self):
+        print 'orderedlist_start'
+    
+    def orderedlist_item_start(self):
+        print 'orderedlist_item_start'
+    
+    def orderedlist_item_end(self):
+        print 'orderedlist_item_end'
+    
+    def orderedlist_end(self):
+        print 'orderedlist_end'
+    
+    def unorderedlist_start(self):
+        print 'unorderedlist_start'
+    
+    def unorderedlist_item_start(self):
+        print 'unorderedlist_item_start'
+    
+    def unorderedlist_item_end(self):
+        print 'unorderedlist_item_end'
+    
+    def unorderedlist_end(self):
+        print 'unorderedlist_end'
+    
+    def definitionlist_start(self):
+        print 'definitionlist_start'
         
+    def definitionlist_item_term_start(self):
+        print 'definitionlist_item_term_start'
+        
+    def definitionlist_item_term_end(self):
+        print 'definitionlist_item_term_end'
+        
+    def definitionlist_item_definition_start(self):
+        print 'definitionlist_item_definition_start'
+        
+    def definitionlist_item_definition_end(self):
+        print 'definitionlist_item_definition_end'
+        
+    def definitionlist_item_end(self):
+        print 'definitionlist_item_end'
+        
+    def definitionlist_end(self):
+        print 'definitionlist_end'
+
+
+
