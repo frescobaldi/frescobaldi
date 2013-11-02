@@ -156,7 +156,7 @@ class SimpleMarkdown(object):
         items = self.split_list_items(para, self.is_ol_item)
         paragraph_item = len(items) == 1
         for item in items:
-            item[0] = item[0].split(1)[1]
+            item[0] = item[0].split(None, 1)[1]
             self.orderedlist_item_start()
             if paragraph_item:
                 self.paragraph_plain_text(item)
@@ -175,7 +175,7 @@ class SimpleMarkdown(object):
         items = self.split_list_items(para, self.is_ol_item)
         paragraph_item = len(items) == 1
         for item in items:
-            item[0] = item[0].split(1)[1]
+            item[0] = item[0].split(None, 1)[1]
             self.unorderedlist_item_start()
             if paragraph_item:
                 self.paragraph_plain_text(item)
@@ -192,7 +192,7 @@ class SimpleMarkdown(object):
         items = []
         item = []
         for line in para:
-            if pred(line.split(1)[0]):
+            if pred(line.split(None, 1)[0]):
                 if item:
                     items.append(item)
                 item = [line]
