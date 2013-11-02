@@ -59,6 +59,32 @@ def chop_left(string, chars=None):
     """Return the string that string.lstrip(chars) would chop off."""
     return string[:-len(string.lstrip(chars))]
 
+def iter_split(text, separator, separator2=None):
+    """Yield pairs of text before and after the separator.
+    
+    Text after the separator can be None.
+    If separator2 is given it is possible to parse constructs like
+    "text with [bracketed words] in it".
+    
+    """
+    blocks = iter(text.split(separator))
+    i = itertools.izip_longest(blocks, blocks)
+    if separator2 is None or separator2 == separator:
+        return i
+    else:
+        def iterator():
+            for prefix, rest in i:
+                if rest:
+                    split_rest = rest.split(separator2, 1)
+                    if len(split_rest) == 1:
+                        yield prefix + separator + rest, None
+                    else:
+                        yield prefix, split_rest[0]
+                        yield split_rest[1], None
+                else:
+                    yield prefix, rest
+        return iterator()
+
 
 class SimpleMarkdown(object):
     """SimpleMarkdown -- a very basic Markdown-like parser.
@@ -74,8 +100,7 @@ class SimpleMarkdown(object):
     def parse(self, text):
         """Parse the text and call methods on certain events."""
         # split in code and non-code blocks
-        blocks = iter(text.split('\n```'))
-        for text, code in itertools.izip_longest(blocks, blocks):
+        for text, code in iter_split(text, '\n```'):
             self.parse_noncode(text)
             if code:
                 self.parse_code(code)
@@ -292,8 +317,7 @@ class SimpleMarkdown(object):
         
     def parse_inline_block(self, text):
         self.inline_start()
-        blocks = iter(text.split('`'))
-        for text, code in itertools.izip_longest(blocks, blocks):
+        for text, code in iter_split(text, '`'):
             self.parse_inline_noncode(text)
             if code:
                 self.parse_inline_code(code)
@@ -303,8 +327,7 @@ class SimpleMarkdown(object):
         self.inline_code(text)
 
     def parse_inline_noncode(self, text):
-        blocks = iter(text.split('*'))
-        for normal, emph in itertools.izip_longest(blocks, blocks):
+        for normal, emph in iter_split(text, '*'):
             if normal:
                 self.parse_inline_text(normal)
             if emph:
@@ -314,24 +337,18 @@ class SimpleMarkdown(object):
     
     def parse_inline_text(self, text):
         # TODO escape [ and ] ?
-        blocks = iter(text.split('['))
-        for nolink, rest in itertools.izip(blocks, blocks):
-            self.inline_text(nolink)
-            rest = rest.split(']', 1)
-            if len(rest) == 1:
-                self.inline_text('[' + rest)
-            else:
-                link, rest = rest
+        for nolink, link in iter_split(text, '[', ']'):
+            if nolink:
+                self.inline_text(nolink)
+            if link:
                 link = link.split(None, 1)
                 if len(link) == 1:
-                    url = link
-                    text = link
+                    url = text = link[0]
                 else:
                     url, text = link
                 self.link_start(url)
                 self.inline_text(text)
                 self.link_end(url)
-                self.inline_text(rest)
     
     ##
     # handlers
