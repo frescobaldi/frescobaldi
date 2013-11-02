@@ -213,7 +213,6 @@ class SimpleMarkdown(object):
         items = self.split_list_items(lines, self.is_ol_item)
         paragraph_item = len(items) == 1
         for item in items:
-            item[0] = item[0].split(None, 1)[1]
             self.orderedlist_item_start()
             if paragraph_item:
                 self.parse_paragraph(item)
