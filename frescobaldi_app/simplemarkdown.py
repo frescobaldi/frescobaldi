@@ -59,31 +59,32 @@ def chop_left(string, chars=None):
     """Return the string that string.lstrip(chars) would chop off."""
     return string[:-len(string.lstrip(chars))]
 
-def iter_split(text, separator, separator2=None):
+def iter_split(text, separator):
     """Yield pairs of text before and after the separator.
     
     Text after the separator can be None.
-    If separator2 is given it is possible to parse constructs like
-    "text with [bracketed words] in it".
     
     """
     blocks = iter(text.split(separator))
-    i = itertools.izip_longest(blocks, blocks)
-    if separator2 is None or separator2 == separator:
-        return i
-    else:
-        def iterator():
-            for prefix, rest in i:
-                if rest:
-                    split_rest = rest.split(separator2, 1)
-                    if len(split_rest) == 1:
-                        yield prefix + separator + rest, None
-                    else:
-                        yield prefix, split_rest[0]
-                        yield split_rest[1], None
-                else:
-                    yield prefix, rest
-        return iterator()
+    return itertools.izip_longest(blocks, blocks)
+
+def iter_split2(text, separator, separator2):
+    """Yield pairs of text outside and inside the separator.
+    
+    Text after the separator can be None.
+    This can be used to parse e.g. "text with [bracketed words] in it".
+    
+    """
+    for prefix, rest in iter_split(text, separator):
+        if rest:
+            split_rest = rest.split(separator2, 1)
+            if len(split_rest) == 1:
+                yield prefix + separator + rest, None
+            else:
+                yield prefix, split_rest[0]
+                yield split_rest[1], None
+        else:
+            yield prefix, rest
 
 
 class SimpleMarkdown(object):
@@ -337,7 +338,7 @@ class SimpleMarkdown(object):
     
     def parse_inline_text(self, text):
         # TODO escape [ and ] ?
-        for nolink, link in iter_split(text, '[', ']'):
+        for nolink, link in iter_split2(text, '[', ']'):
             if nolink:
                 self.inline_text(nolink)
             if link:
