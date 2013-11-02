@@ -1,9 +1,7 @@
 #!python
 
 """
-This is a very basic markdown-like parser.
-
-It currently does not support blockquotes.
+SimpleMarkdown -- a very basic markdown-like parser.
 
 It supports different ways to iterate over the parsed text fragments and events.
 
@@ -21,13 +19,22 @@ plain text paragraph
 
 1. ordered list
 
-definition
-: list explanation blabla
+  * nested lists are possible
+  
+    a paragraph without bullet item
+
+* compact item list
+* item 2 (here no paragraphs will be put in the list items)
+
+term of definition list
+: definition text
 
 
 ```language
-code
+verbatim code
 ```
+
+Block quotes are not supported
 
 inline level:
 
@@ -54,6 +61,13 @@ def chop_left(string, chars=None):
 
 
 class SimpleMarkdown(object):
+    """SimpleMarkdown -- a very basic Markdown-like parser.
+    
+    This class encapsulates both the parser and the output generator,
+    making it easy to hook in both in the parsing process and the output
+    generating process.
+    
+    """
     def __init__(self):
         self._lists = []
     
@@ -82,7 +96,7 @@ class SimpleMarkdown(object):
     def parse_noncode(self, text):
         """Parse text outside ``` code ``` blocks.
         
-        Just calls parse_lines() with lists of connected non-blank lines.
+        Just calls parse_lines() with each group of connected non-blank lines.
         
         """
         para = []
@@ -97,29 +111,29 @@ class SimpleMarkdown(object):
             self.parse_lines(para)
         self.handle_lists(0)
     
-    def parse_lines(self, para):
+    def parse_lines(self, lines):
         """Parse a list of one or more lines without blank lines in between.
         
         Dispatches the lines to handle headings, lists or plain text paragraphs.
         
         """
-        indent = len(chop_left(para[0]))
-        prefix = para[0].split(None, 1)[0]
+        indent = len(chop_left(lines[0]))
+        prefix = lines[0].split(None, 1)[0]
         if prefix.startswith('='):
             self.handle_lists(indent)
-            self.parse_heading(para, prefix)
+            self.parse_heading(lines, prefix)
         elif self.is_ul_item(prefix):
             self.handle_lists(indent, 'ul')
-            self.parse_ul(para)
+            self.parse_ul(lines)
         elif self.is_ol_item(prefix):
             self.handle_lists(indent, 'ol')
-            self.parse_ol(para)
-        elif len(para) > 1 and para[1].lstrip().startswith(': '):
+            self.parse_ol(lines)
+        elif self.is_dl_item(lines):
             self.handle_lists(indent, 'dl')
-            self.parse_dl(para)
+            self.parse_dl(lines)
         else:
             self.handle_lists(indent)
-            self.parse_paragraph(para)
+            self.parse_paragraph(lines)
     
     def is_ul_item(self, prefix):
         """Return True if the prefix is a unordered list prefix ("*")."""
@@ -129,22 +143,25 @@ class SimpleMarkdown(object):
         """Return True if the prefix is a ordered list prefix (number period)."""
         return prefix.endswith('.') and prefix[:-1].isdigit()
     
-    def parse_paragraph(self, para):
+    def is_dl_item(self, lines):
+        """Return True lines are a description list item."""
+        return len(lines) > 1 and lines[1].lstrip().startswith(': ')
+    
+    def parse_paragraph(self, lines):
         """Parse a plain paragraph of text."""
         self.paragraph_start()
-        self.parse_plain_text(para)
+        self.parse_plain_text(lines)
         self.paragraph_end()
     
-    def parse_heading(self, para, prefix):
+    def parse_heading(self, lines, prefix):
         """Parse a header text."""
-        prefix = chop_left(para[0], '= ')
         heading_type = 4 - min(prefix.count('='), 3)
-        para[0] = para[0][len(prefix):]
+        lines[0] = lines[0][len(prefix):]
         self.heading_start(heading_type)
-        self.parse_plain_text(para)
+        self.parse_plain_text(lines)
         self.heading_end(heading_type)
     
-    def parse_ol(self, para):
+    def parse_ol(self, lines):
         """Parse ordered lists.
         
         Every line of the supplied group of lines is checked for a number,
@@ -153,7 +170,7 @@ class SimpleMarkdown(object):
         
         """
         # split in list items
-        items = self.split_list_items(para, self.is_ol_item)
+        items = self.split_list_items(lines, self.is_ol_item)
         paragraph_item = len(items) == 1
         for item in items:
             item[0] = item[0].split(None, 1)[1]
@@ -164,7 +181,7 @@ class SimpleMarkdown(object):
                 self.parse_plain_text(item)
             self.orderedlist_item_end()
             
-    def parse_ul(self, para):
+    def parse_ul(self, lines):
         """Parse unordered lists.
         
         Every line of the supplied group of lines is checked for an asterisk,
@@ -172,7 +189,7 @@ class SimpleMarkdown(object):
         items.
         
         """
-        items = self.split_list_items(para, self.is_ul_item)
+        items = self.split_list_items(lines, self.is_ul_item)
         paragraph_item = len(items) == 1
         for item in items:
             self.unorderedlist_item_start()
@@ -182,7 +199,7 @@ class SimpleMarkdown(object):
                 self.parse_plain_text(item)
             self.unorderedlist_item_end()
     
-    def split_list_items(self, para, pred):
+    def split_list_items(self, lines, pred):
         """Returns lists of lines that each represent a list item.
         
         The pred function should return true for a line that has an item prefix.
@@ -190,7 +207,7 @@ class SimpleMarkdown(object):
         """
         items = []
         item = []
-        for line in para:
+        for line in lines:
             if pred(line.split(None, 1)[0]):
                 if item:
                     items.append(item)
@@ -201,24 +218,19 @@ class SimpleMarkdown(object):
             items.append(item)
         return items
         
-    def parse_dl(self, para):
+    def parse_dl(self, lines):
         """Parse a definition list item."""
-        definition = para[0]
-        para[1] = para[1].split(':', 1)[1]
+        definition = lines[0]
+        lines[1] = lines[1].split(':', 1)[1]
         self.definitionlist_item_start()
         self.definitionlist_item_term_start()
         self.parse_plain_text([definition])
         self.definitionlist_item_term_end()
         self.definitionlist_item_definition_start()
-        self.parse_plain_text(para[1:])
+        self.parse_plain_text(lines[1:])
         self.definitionlist_item_definition_end()
         self.definitionlist_item_end()
     
-    def parse_plain_text(self, lines):
-        """A continuous text block with possibly inline markup."""
-        # TODO handle inline markup
-        self.plain_text(lines)
-        
     ##
     # utility methods
     ##
@@ -264,14 +276,62 @@ class SimpleMarkdown(object):
         elif list_type == "dl":
             self.definitionlist_end()
             
-    def paragraph_plain_text(self, para):
+    def paragraph_plain_text(self, lines):
         """Create a paragraph, adding the plain text."""
         self.paragraph_start()
-        self.parse_plain_text(para)
+        self.parse_plain_text(lines)
         self.paragraph_end()
     
+    ##
+    # inline level parsing
+    ##
+    
+    def parse_plain_text(self, lines):
+        """A continuous text block with possibly inline markup."""
+        self.parse_inline_block('\n'.join(lines))
         
+    def parse_inline_block(self, text):
+        self.inline_start()
+        blocks = iter(text.split('`'))
+        for text, code in itertools.izip_longest(blocks, blocks):
+            self.parse_inline_noncode(text)
+            if code:
+                self.parse_inline_code(code)
+        self.inline_end()
+    
+    def parse_inline_code(self, text):
+        self.inline_code(text)
 
+    def parse_inline_noncode(self, text):
+        blocks = iter(text.split('*'))
+        for normal, emph in itertools.izip_longest(blocks, blocks):
+            if normal:
+                self.parse_inline_text(normal)
+            if emph:
+                self.inline_emphasis_start()
+                self.parse_inline_text(emph)
+                self.inline_emphasis_end()
+    
+    def parse_inline_text(self, text):
+        # TODO escape [ and ] ?
+        blocks = iter(text.split('['))
+        for nolink, rest in itertools.izip(blocks, blocks):
+            self.inline_text(nolink)
+            rest = rest.split(']', 1)
+            if len(rest) == 1:
+                self.inline_text('[' + rest)
+            else:
+                link, rest = rest
+                link = link.split(None, 1)
+                if len(link) == 1:
+                    url = link
+                    text = link
+                else:
+                    url, text = link
+                self.link_start(url)
+                self.inline_text(text)
+                self.link_end(url)
+                self.inline_text(rest)
     
     ##
     # handlers
@@ -344,5 +404,32 @@ class SimpleMarkdown(object):
     def definitionlist_end(self):
         print 'definitionlist_end'
 
+    ##
+    # inline handlers
+    ##
 
+    def inline_start(self):
+        """Called when a block of inline text is parsed."""
+        
+    def inline_end(self):
+        """Called at the end of parsing a block of inline text.""" 
+    
+    def inline_code(self, text):
+        print 'inline_code', text
+    
+    def inline_emphasis_start(self):
+        print 'inline_emphasis_start'
+    
+    def inline_emphasis_end(self):
+        print 'inline_emphasis_end'
+    
+    def link_start(self, url):
+        print 'link_start', url
+    
+    def link_end(self, url):
+        print 'link_end', url
+    
+    def inline_text(self, text):
+        print 'inline_text', text
 
+    
