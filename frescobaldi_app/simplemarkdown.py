@@ -172,10 +172,9 @@ class SimpleMarkdown(object):
         items.
         
         """
-        items = self.split_list_items(para, self.is_ol_item)
+        items = self.split_list_items(para, self.is_ul_item)
         paragraph_item = len(items) == 1
         for item in items:
-            item[0] = item[0].split(None, 1)[1]
             self.unorderedlist_item_start()
             if paragraph_item:
                 self.paragraph_plain_text(item)
@@ -195,7 +194,7 @@ class SimpleMarkdown(object):
             if pred(line.split(None, 1)[0]):
                 if item:
                     items.append(item)
-                item = [line]
+                item = [line.split(None, 1)[1]]
             else:
                 item.append(line)
         if item:
@@ -208,7 +207,7 @@ class SimpleMarkdown(object):
         para[1] = para[1].split(':', 1)[1]
         self.definitionlist_item_start()
         self.definitionlist_item_term_start()
-        self.parse_plain_text(definition)
+        self.parse_plain_text([definition])
         self.definitionlist_item_term_end()
         self.definitionlist_item_definition_start()
         self.parse_plain_text(para[1:])
@@ -231,7 +230,7 @@ class SimpleMarkdown(object):
         
         """
         if list_type and (not self._lists or self._lists[-1][1] < indent):
-            self._lists.append(list_type, indent)
+            self._lists.append((list_type, indent))
             self.list_start(list_type)
         else:
             while self._lists:
@@ -243,7 +242,7 @@ class SimpleMarkdown(object):
                     self.list_end(self._lists[-1][0])
                     self._lists.pop()
                     if list_type:
-                        self._lists.append(list_type, indent)
+                        self._lists.append((list_type, indent))
                         self.list_start(list_type)
                 break
         
@@ -335,6 +334,9 @@ class SimpleMarkdown(object):
         
     def definitionlist_item_definition_end(self):
         print 'definitionlist_item_definition_end'
+        
+    def definitionlist_item_start(self):
+        print 'definitionlist_item_start'
         
     def definitionlist_item_end(self):
         print 'definitionlist_item_end'
