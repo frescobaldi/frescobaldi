@@ -326,13 +326,19 @@ class SimpleMarkdown(object):
     ##
     
     def parse_plain_text(self, lines):
-        """A continuous text block with possibly inline markup."""
+        """Parse plain text lines with possibly inline markup.
+        
+        This implementation simply calls parse_inline_block('\n'.join(lines)).
+        
+        """
         self.parse_inline_block('\n'.join(lines))
         
     def parse_inline_block(self, text):
+        """Parse a continuous text block with possibly inline markup."""
         self.inline_start()
         for text, code in iter_split(text, '`'):
-            self.parse_inline_noncode(text)
+            if text:
+                self.parse_inline_noncode(text)
             if code:
                 self.parse_inline_code(code)
         self.inline_end()
@@ -365,15 +371,11 @@ class SimpleMarkdown(object):
                 self.link_end(url)
     
     ##
-    # handlers
+    # block level handlers
     ##
     
     def code(self, code, specifier=None):
         print 'code', specifier, code
-    
-    def plain_text(self, lines):
-        """Write plain text"""
-        print 'plain_text', lines
     
     def heading_start(self, heading_type):
         print 'heading_start', heading_type
