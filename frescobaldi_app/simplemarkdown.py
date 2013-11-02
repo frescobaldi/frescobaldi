@@ -216,7 +216,7 @@ class SimpleMarkdown(object):
             item[0] = item[0].split(None, 1)[1]
             self.orderedlist_item_start()
             if paragraph_item:
-                self.paragraph_plain_text(item)
+                self.parse_paragraph(item)
             else:
                 self.parse_plain_text(item)
             self.orderedlist_item_end()
@@ -234,7 +234,7 @@ class SimpleMarkdown(object):
         for item in items:
             self.unorderedlist_item_start()
             if paragraph_item:
-                self.paragraph_plain_text(item)
+                self.parse_paragraph(item)
             else:
                 self.parse_plain_text(item)
             self.unorderedlist_item_end()
@@ -316,12 +316,6 @@ class SimpleMarkdown(object):
         elif list_type == "dl":
             self.definitionlist_end()
             
-    def paragraph_plain_text(self, lines):
-        """Create a paragraph, adding the plain text."""
-        self.paragraph_start()
-        self.parse_plain_text(lines)
-        self.paragraph_end()
-    
     ##
     # inline level parsing
     ##
