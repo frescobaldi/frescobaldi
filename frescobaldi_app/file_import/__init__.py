@@ -84,7 +84,7 @@ class FileImport(plugin.MainWindowPlugin):
         doc.setModified(True)
         self.mainwindow().setCurrentDocument(doc)
         import engrave
-        engrave.engraver(self.mainwindow()).engrave(True, doc, False)
+        engrave.engraver(self.mainwindow()).engrave('preview', doc, False)
 
 
 class Actions(actioncollection.ActionCollection):
