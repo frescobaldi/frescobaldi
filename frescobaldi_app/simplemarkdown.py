@@ -379,6 +379,258 @@ class SimpleMarkdown(object):
     ##
     # block level handlers
     ##
+
+    def code(self, code, specifier=None):
+        pass
+    
+    def heading_start(self, heading_type):
+        pass
+    
+    def heading_end(self, heading_type):
+        pass
+        
+    def paragraph_start(self):
+        pass
+    
+    def paragraph_end(self):
+        pass
+    
+    def orderedlist_start(self):
+        pass
+    
+    def orderedlist_item_start(self):
+        pass
+    
+    def orderedlist_item_end(self):
+        pass
+    
+    def orderedlist_end(self):
+        pass
+    
+    def unorderedlist_start(self):
+        pass
+    
+    def unorderedlist_item_start(self):
+        pass
+    
+    def unorderedlist_item_end(self):
+        pass
+    
+    def unorderedlist_end(self):
+        pass
+    
+    def definitionlist_start(self):
+        pass
+        
+    def definitionlist_item_term_start(self):
+        pass
+        
+    def definitionlist_item_term_end(self):
+        pass
+        
+    def definitionlist_item_definition_start(self):
+        pass
+        
+    def definitionlist_item_definition_end(self):
+        pass
+        
+    def definitionlist_item_start(self):
+        pass
+        
+    def definitionlist_item_end(self):
+        pass
+        
+    def definitionlist_end(self):
+        pass
+
+    ##
+    # inline handlers
+    ##
+
+    def inline_start(self):
+        """Called when a block of inline text is parsed."""
+        pass
+        
+    def inline_end(self):
+        """Called at the end of parsing a block of inline text.""" 
+        pass
+    
+    def inline_code(self, text):
+        pass
+    
+    def inline_emphasis_start(self):
+        pass
+    
+    def inline_emphasis_end(self):
+        pass
+    
+    def link_start(self, url):
+        pass
+    
+    def link_end(self, url):
+        pass
+    
+    def inline_text(self, text):
+        pass
+
+
+class Markdown2Html(SimpleMarkdown):
+    """Converts simple markdown to HTML."""
+    def __init__(self):
+        SimpleMarkdown.__init__(self)
+        self._html = []
+    
+    def html(self):
+        return ''.join(self._html)
+    
+    def html_escape(self, text):
+        """Escapes &, < and >."""
+        return text.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+    
+    def tag(self, name, attrs=None):
+        """Add a tag. Use a name like '/p' to write a close tag.
+        
+        attrs may be a dictionary of attributes.
+        
+        """
+        if attrs:
+            a = ''.join(' {0}="{1}"'.format(
+                name, self.html_escape(value).replace('"', '&quot;'))
+                for name, value in attrs.items())
+        else:
+            a = ''
+        self._html.append('<{0}{1}>'.format(name, a))
+    
+    def nl(self):
+        """Add a newline."""
+        self._html.append('\n')
+    
+    def text(self, text):
+        self._html.append(self.html_escape(text))
+    
+    ##
+    # block level handlers
+    ##
+
+    def code(self, code, specifier=None):
+        self.tag('code')
+        self.tag('pre')
+        self.text(code)
+        self.tag('/pre')
+        self.tag('/code')
+        self.nl()
+    
+    def heading_start(self, heading_type):
+        self.tag('h{0}'.format(heading_type))
+    
+    def heading_end(self, heading_type):
+        self.tag('/h{0}'.format(heading_type))
+        self.nl()
+        
+    def paragraph_start(self):
+        self.tag('p')
+    
+    def paragraph_end(self):
+        self.tag('/p')
+        self.nl()
+    
+    def orderedlist_start(self):
+        self.tag('ol')
+        self.nl()
+    
+    def orderedlist_item_start(self):
+        self.tag('li')
+    
+    def orderedlist_item_end(self):
+        self.tag('/li')
+        self.nl()
+    
+    def orderedlist_end(self):
+        self.tag('/ol')
+        self.nl()
+    
+    def unorderedlist_start(self):
+        self.tag('ul')
+        self.nl()
+    
+    def unorderedlist_item_start(self):
+        self.tag('li')
+    
+    def unorderedlist_item_end(self):
+        self.tag('/li')
+        self.nl()
+
+    def unorderedlist_end(self):
+        self.tag('/ul')
+        self.nl()
+    
+    def definitionlist_start(self):
+        self.tag('dl')
+        self.nl()
+        
+    def definitionlist_item_term_start(self):
+        self.tag('dt')
+        
+    def definitionlist_item_term_end(self):
+        self.tag('/dt')
+        self.nl()
+        
+    def definitionlist_item_definition_start(self):
+        self.tag('dd')
+        
+    def definitionlist_item_definition_end(self):
+        self.tag('/dd')
+        self.nl()
+        
+    def definitionlist_item_start(self):
+        pass
+        
+    def definitionlist_item_end(self):
+        pass
+        
+    def definitionlist_end(self):
+        self.tag('/dl')
+        self.nl()
+
+    ##
+    # inline handlers
+    ##
+
+    def inline_start(self):
+        """Called when a block of inline text is parsed."""
+        pass
+        
+    def inline_end(self):
+        """Called at the end of parsing a block of inline text.""" 
+        pass
+    
+    def inline_code(self, text):
+        self.tag('code')
+        self.text(text)
+        self.tag('/code')
+    
+    def inline_emphasis_start(self):
+        self.tag('em')
+    
+    def inline_emphasis_end(self):
+        self.tag('/em')
+    
+    def link_start(self, url):
+        self.tag('a', {'href': url})
+    
+    def link_end(self, url):
+        self.tag('/a')
+    
+    def inline_text(self, text):
+        self.text(self.html_escape(text))
+
+
+
+class _Debug(SimpleMarkdown):
+    """A debugging version that prints the events."""
+    ##
+    # block level handlers
+    ##
     
     def code(self, code, specifier=None):
         print 'code', specifier, code
