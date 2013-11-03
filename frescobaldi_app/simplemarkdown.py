@@ -178,9 +178,22 @@ class SimpleMarkdownParser(object):
         elif self.is_dl_item(lines):
             self.handle_lists(indent, 'dl')
             self.parse_dl(lines)
-        else:
+        elif not special_paragraph(lines):
             self.handle_lists(indent)
             self.parse_paragraph(lines)
+    
+    def special_paragraph(self, lines):
+        """Called when a paragraph is not a heading or a list item.
+        
+        If this method returns True, it is assumed to have handled the contents.
+        This can be used to extend the paragraph-level parser to understand more
+        types of paragraphs.
+        
+        The default implementation does nothing and returns None, which causes
+        the lines to be assumed to be a normal paragraph.
+        
+        """
+        pass
     
     def is_ul_item(self, line):
         """Return True if the line is a unordered list prefix ("*")."""
@@ -486,7 +499,7 @@ class Output(object):
 
 
 class HtmlOutput(Output):
-    """Converts simple markdown to HTML."""
+    """Converts output to HTML."""
     def __init__(self):
         self._html = []
     
