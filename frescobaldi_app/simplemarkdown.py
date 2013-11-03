@@ -1,5 +1,5 @@
 #!python
-# SimpleMarkdown -- a very basic markdown-like parser.
+# SimpleMarkdown -- a basic markdown-like parser.
 #
 # Copyright (c) 2013 - 2013 by Wilbert Berendsen
 #
@@ -19,7 +19,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-SimpleMarkdown -- a very basic markdown-like parser.
+SimpleMarkdown -- a basic markdown-like parser.
 
 It supports different ways to iterate over the parsed text fragments and events.
 
@@ -105,19 +105,23 @@ def iter_split2(text, separator, separator2):
         return
 
 
-class SimpleMarkdown(object):
-    """SimpleMarkdown -- a very basic Markdown-like parser.
+class SimpleMarkdownParser(object):
+    """A basic Markdown-like parser.
     
-    This class encapsulates both the parser and the output generator,
-    making it easy to hook in both in the parsing process and the output
-    generating process.
+    Usage:
+    
+    p = simplemarkdown.SimpleMarkdownParser()
+    o = simplemarkdown.HtmlOutput() # or a different Output subclass instance
+    text = "some markdown-formatted text"
+    p.parse(text, o)
     
     """
     def __init__(self):
         self._lists = []
     
-    def parse(self, text):
-        """Parse the text and call methods on certain events."""
+    def parse(self, text, output=None):
+        """Parse the text and call methods on the Output object."""
+        self.output = output or Output()
         # split in code and non-code blocks
         for text, code in iter_split(text, '\n```'):
             self.parse_noncode(text)
@@ -133,9 +137,9 @@ class SimpleMarkdown(object):
         """
         try:
             specifier, code = code.split('\n', 1)
-            self.code(code, specifier.strip() or None)
+            self.output.code(code, specifier.strip() or None)
         except ValueError:
-            self.code(code)
+            self.output.code(code)
     
     def parse_noncode(self, text):
         """Parse text outside ``` code ``` blocks.
@@ -200,18 +204,18 @@ class SimpleMarkdown(object):
     
     def parse_paragraph(self, lines):
         """Parse a plain paragraph of text."""
-        self.paragraph_start()
+        self.output.paragraph_start()
         self.parse_plain_text(lines)
-        self.paragraph_end()
+        self.output.paragraph_end()
     
     def parse_heading(self, lines):
         """Parse a header text."""
         prefix = chop_left(lines[0], '= ')
         heading_type = 4 - min(prefix.count('='), 3)
         lines[0] = lines[0].strip('= ')
-        self.heading_start(heading_type)
+        self.output.heading_start(heading_type)
         self.parse_plain_text(lines)
-        self.heading_end(heading_type)
+        self.output.heading_end(heading_type)
     
     def parse_ol(self, lines):
         """Parse ordered lists.
@@ -225,12 +229,12 @@ class SimpleMarkdown(object):
         items = self.split_list_items(lines, self.is_ol_item)
         paragraph_item = len(items) == 1
         for item in items:
-            self.orderedlist_item_start()
+            self.output.orderedlist_item_start()
             if paragraph_item:
                 self.parse_paragraph(item)
             else:
                 self.parse_plain_text(item)
-            self.orderedlist_item_end()
+            self.output.orderedlist_item_end()
             
     def parse_ul(self, lines):
         """Parse unordered lists.
@@ -243,12 +247,12 @@ class SimpleMarkdown(object):
         items = self.split_list_items(lines, self.is_ul_item)
         paragraph_item = len(items) == 1
         for item in items:
-            self.unorderedlist_item_start()
+            self.output.unorderedlist_item_start()
             if paragraph_item:
                 self.parse_paragraph(item)
             else:
                 self.parse_plain_text(item)
-            self.unorderedlist_item_end()
+            self.output.unorderedlist_item_end()
     
     def split_list_items(self, lines, pred):
         """Returns lists of lines that each represent a list item.
@@ -273,14 +277,14 @@ class SimpleMarkdown(object):
         """Parse a definition list item."""
         definition = lines[0]
         lines[1] = lines[1].split(':', 1)[1]
-        self.definitionlist_item_start()
-        self.definitionlist_item_term_start()
+        self.output.definitionlist_item_start()
+        self.output.definitionlist_item_term_start()
         self.parse_plain_text([definition])
-        self.definitionlist_item_term_end()
-        self.definitionlist_item_definition_start()
+        self.output.definitionlist_item_term_end()
+        self.output.definitionlist_item_definition_start()
         self.parse_plain_text(lines[1:])
-        self.definitionlist_item_definition_end()
-        self.definitionlist_item_end()
+        self.output.definitionlist_item_definition_end()
+        self.output.definitionlist_item_end()
     
     ##
     # utility methods
@@ -312,20 +316,20 @@ class SimpleMarkdown(object):
     def list_start(self, list_type):
         """Start a list, type should be 'ol', 'ul', or 'dl'."""
         if list_type == "ol":
-            self.orderedlist_start()
+            self.output.orderedlist_start()
         elif list_type == "ul":
-            self.unorderedlist_start()
+            self.output.unorderedlist_start()
         elif list_type == "dl":
-            self.definitionlist_start()
+            self.output.definitionlist_start()
             
     def list_end(self, list_type):
         """End a list, type should be 'ol', 'ul', or 'dl'."""
         if list_type == "ol":
-            self.orderedlist_end()
+            self.output.orderedlist_end()
         elif list_type == "ul":
-            self.unorderedlist_end()
+            self.output.unorderedlist_end()
         elif list_type == "dl":
-            self.definitionlist_end()
+            self.output.definitionlist_end()
             
     ##
     # inline level parsing
@@ -341,41 +345,48 @@ class SimpleMarkdown(object):
         
     def parse_inline_block(self, text):
         """Parse a continuous text block with possibly inline markup."""
-        self.inline_start()
+        self.output.inline_start()
         for text, code in iter_split(text, '`'):
             if text:
                 self.parse_inline_noncode(text)
             if code:
                 self.parse_inline_code(code)
-        self.inline_end()
+        self.output.inline_end()
     
     def parse_inline_code(self, text):
-        self.inline_code(text)
+        self.output.inline_code(text)
 
     def parse_inline_noncode(self, text):
         for normal, emph in iter_split(text, '*'):
             if normal:
                 self.parse_inline_text(normal)
             if emph:
-                self.inline_emphasis_start()
+                self.output.inline_emphasis_start()
                 self.parse_inline_text(emph)
-                self.inline_emphasis_end()
+                self.output.inline_emphasis_end()
     
     def parse_inline_text(self, text):
         # TODO escape [ and ] ?
         for nolink, link in iter_split2(text, '[', ']'):
             if nolink:
-                self.inline_text(nolink)
+                self.output.inline_text(nolink)
             if link:
                 link = link.split(None, 1)
                 if len(link) == 1:
                     url = text = link[0]
                 else:
                     url, text = link
-                self.link_start(url)
-                self.inline_text(text)
-                self.link_end(url)
+                self.output.link_start(url)
+                self.output.inline_text(text)
+                self.output.link_end(url)
     
+
+class Output(object):
+    """Base class for output handler objects.
+    
+    You should inherit from this class and implement the methods.
+    
+    """
     ##
     # block level handlers
     ##
@@ -474,10 +485,9 @@ class SimpleMarkdown(object):
         pass
 
 
-class Markdown2Html(SimpleMarkdown):
+class HtmlOutput(Output):
     """Converts simple markdown to HTML."""
     def __init__(self):
-        SimpleMarkdown.__init__(self)
         self._html = []
     
     def html(self):
@@ -626,101 +636,3 @@ class Markdown2Html(SimpleMarkdown):
 
 
 
-class _Debug(SimpleMarkdown):
-    """A debugging version that prints the events."""
-    ##
-    # block level handlers
-    ##
-    
-    def code(self, code, specifier=None):
-        print 'code', specifier, code
-    
-    def heading_start(self, heading_type):
-        print 'heading_start', heading_type
-    
-    def heading_end(self, heading_type):
-        print 'heading_end', heading_type
-        
-    def paragraph_start(self):
-        print 'paragraph_start'
-    
-    def paragraph_end(self):
-        print 'paragraph_end'
-    
-    def orderedlist_start(self):
-        print 'orderedlist_start'
-    
-    def orderedlist_item_start(self):
-        print 'orderedlist_item_start'
-    
-    def orderedlist_item_end(self):
-        print 'orderedlist_item_end'
-    
-    def orderedlist_end(self):
-        print 'orderedlist_end'
-    
-    def unorderedlist_start(self):
-        print 'unorderedlist_start'
-    
-    def unorderedlist_item_start(self):
-        print 'unorderedlist_item_start'
-    
-    def unorderedlist_item_end(self):
-        print 'unorderedlist_item_end'
-    
-    def unorderedlist_end(self):
-        print 'unorderedlist_end'
-    
-    def definitionlist_start(self):
-        print 'definitionlist_start'
-        
-    def definitionlist_item_term_start(self):
-        print 'definitionlist_item_term_start'
-        
-    def definitionlist_item_term_end(self):
-        print 'definitionlist_item_term_end'
-        
-    def definitionlist_item_definition_start(self):
-        print 'definitionlist_item_definition_start'
-        
-    def definitionlist_item_definition_end(self):
-        print 'definitionlist_item_definition_end'
-        
-    def definitionlist_item_start(self):
-        print 'definitionlist_item_start'
-        
-    def definitionlist_item_end(self):
-        print 'definitionlist_item_end'
-        
-    def definitionlist_end(self):
-        print 'definitionlist_end'
-
-    ##
-    # inline handlers
-    ##
-
-    def inline_start(self):
-        """Called when a block of inline text is parsed."""
-        
-    def inline_end(self):
-        """Called at the end of parsing a block of inline text.""" 
-    
-    def inline_code(self, text):
-        print 'inline_code', text
-    
-    def inline_emphasis_start(self):
-        print 'inline_emphasis_start'
-    
-    def inline_emphasis_end(self):
-        print 'inline_emphasis_end'
-    
-    def link_start(self, url):
-        print 'link_start', url
-    
-    def link_end(self, url):
-        print 'link_end', url
-    
-    def inline_text(self, text):
-        print 'inline_text', text
-
-    
