@@ -151,6 +151,7 @@ def main():
     # multiple documents drastically.
     if sys.platform.startswith('darwin'):
         import file_open_eventhandler
+        import icon_drag_eventhandler   # handle window icon drag events
     
     if app.qApp.isSessionRestored():
         # Restore session, we are started by the session manager
