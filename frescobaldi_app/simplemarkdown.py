@@ -351,10 +351,11 @@ class SimpleMarkdownParser(object):
     def parse_plain_text(self, lines):
         """Parse plain text lines with possibly inline markup.
         
-        This implementation simply calls parse_inline_block('\n'.join(lines)).
+        This implementation strip()s the lines, joins them with a newline
+        and calls parse_inline_block() with the text string.
         
         """
-        self.parse_inline_block('\n'.join(lines))
+        self.parse_inline_block('\n'.join(line.strip() for line in lines))
         
     def parse_inline_block(self, text):
         """Parse a continuous text block with possibly inline markup."""
