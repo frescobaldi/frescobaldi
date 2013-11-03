@@ -9,9 +9,16 @@ Changes in 2.0.12 --
 * New features:
   - Edit->Select Block has finally been implemented
 * Improvements:
-  - when editing keyboard shortcuts, conflicts are directly shown as they are
+  - Besides the good old Preview and Publish modes a new mode has been added:
+    Layout Control. This mode uses the settings on the preview mode panel, which
+    has been renamed Layout Control Options. The layout of the panel has been
+    improved. The Preview mode is reverted back to enabling only point and click
+    links. In the Engrave (custom) dialog the run mode can be chosen and the
+    commandline edited directly.
+  - When editing keyboard shortcuts, conflicts are directly shown as they are
     entered; better support French keyboards (contributed by Nicolas Malarmey)
-  - The layout of the Preview Mode panel has been slightly improved
+  - On Mac OS X, you can drag the window icon to other applications
+  - Better Mac OS X icons (contributed by Davide Liessi)
 * Bug fixes:
   - Music View: horizontal scrolling using trackpad now works with kinetic mode
     enabled. Fixes #248.
