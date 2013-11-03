@@ -158,7 +158,7 @@ class TemplateMenu(SnippetMenu):
         from . import snippets
         if 'template-run' in snippets.get(name).variables:
             import engrave
-            engrave.engraver(self.mainwindow()).engrave(True, d)
+            engrave.engraver(self.mainwindow()).engravePreview()
     
     def clearMenu(self):
         """Deletes the actions on menu hide, except "Manage templates..."."""
