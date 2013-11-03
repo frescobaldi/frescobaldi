@@ -104,6 +104,13 @@ def iter_split2(text, separator, separator2):
             yield text, ''
         return
 
+def markdown2html(text):
+    """Convenience function converting markdown text to HTML."""
+    o = HtmlOutput()
+    p = SimpleMarkdownParser()
+    p.parse(text, o)
+    return o.html()
+
 
 class SimpleMarkdownParser(object):
     """A basic Markdown-like parser.
