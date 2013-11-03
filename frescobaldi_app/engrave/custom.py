@@ -206,6 +206,8 @@ class Dialog(QDialog):
                 cmd.extend('-I' + path for path in includepath)
             else:
                 cmd.append(t)
+        if not cmd[0]:
+            return False
         j = job.Job()
         j.directory = os.path.dirname(filename)
         j.command = cmd

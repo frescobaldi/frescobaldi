@@ -154,6 +154,17 @@ class Engraver(plugin.MainWindowPlugin):
     
     def runJob(self, job, document):
         """Runs the engraving job on behalf of document."""
+        if not job:
+            from PyQt4.QtGui import QMessageBox
+            QMessageBox.warning(None,
+                                _("No LilyPond installation found"),
+                                _("Frescobaldi uses LilyPond to engrave music, "
+                                "but LilyPond is not installed in the default locations "
+                                "and it cannot be found in your PATH.<br>"
+                                "You should install LilyPond or, "
+                                "if you have already installed it, "
+                                "you should add it in the Preferences dialog."))
+            return False
         jobattributes.get(job).mainwindow = self.mainwindow()
         jobmanager.manager(document).startJob(job)
     
