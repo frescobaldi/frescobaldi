@@ -367,30 +367,15 @@ class SimpleMarkdownParser(object):
     def parse_inline_block(self, text):
         """Parse a continuous text block with possibly inline markup."""
         self.output.inline_start()
-        for text, code in iter_split(text, '`'):
-            if text:
-                self.parse_inline_noncode(text)
-            if code:
-                self.parse_inline_code(code)
+        self.parse_inline_links(text)
         self.output.inline_end()
     
-    def parse_inline_code(self, text):
-        self.output.inline_code(text)
-
-    def parse_inline_noncode(self, text):
-        for normal, emph in iter_split(text, '*'):
-            if normal:
-                self.parse_inline_text(normal)
-            if emph:
-                self.output.inline_emphasis_start()
-                self.parse_inline_text(emph)
-                self.output.inline_emphasis_end()
-    
-    def parse_inline_text(self, text):
+    def parse_inline_links(self, text):
+        """Parse text for links."""
         # TODO escape [ and ] ?
         for nolink, link in iter_split2(text, '[', ']'):
             if nolink:
-                self.output.inline_text(nolink)
+                self.parse_inline_emphasis(nolink)
             if link:
                 link = link.split(None, 1)
                 if len(link) == 1:
@@ -398,9 +383,27 @@ class SimpleMarkdownParser(object):
                 else:
                     url, text = link
                 self.output.link_start(url)
-                self.output.inline_text(text)
+                self.parse_inline_emphasis(text)
                 self.output.link_end(url)
-    
+        
+    def parse_inline_emphasis(self, text):
+        """Parse a piece of text for emphasis formatting."""
+        for normal, emph in iter_split(text, '*'):
+            if normal:
+                self.parse_inline_code(normal)
+            if emph:
+                self.output.inline_emphasis_start()
+                self.parse_inline_code(emph)
+                self.output.inline_emphasis_end()
+        
+    def parse_inline_code(self, text):
+        """Parse a piece of text for code formatting."""
+        for text, code in iter_split(text, '`'):
+            if text:
+                self.output.inline_text(text)
+            if code:
+                self.output.inline_code(code)
+
 
 class Output(object):
     """Base class for output handler objects.
