@@ -90,16 +90,15 @@ class Engraver(plugin.MainWindowPlugin):
     
     def engravePreview(self):
         """Starts an engrave job in preview mode (with point and click turned on)."""
-        self.engrave(['-dpoint-and-click'])
+        self.engrave('preview')
     
     def engravePublish(self):
         """Starts an engrave job in publish mode (with point and click turned off)."""
-        self.engrave(['-dno-point-and-click'])
+        self.engrave('publish')
         
     def engraveDebug(self):
         """Starts an engrave job in debug mode (using the settings in the debug tool)."""
-        args = panelmanager.manager(self.mainwindow()).preview_mode.widget().preview_options()
-        self.engrave(args)
+        self.engrave('debug')
         
     def engraveCustom(self):
         """Opens a dialog to configure the job before starting it."""
@@ -116,11 +115,12 @@ class Engraver(plugin.MainWindowPlugin):
             self.saveDocumentIfDesired()
             self.runJob(dlg.getJob(doc), doc)
     
-    def engrave(self, args=None, document=None, may_save=True):
+    def engrave(self, mode='preview', document=None, may_save=True):
         """Starts an engraving job.
         
-        The args if given, is a list of command line arguments that's given to
-        LilyPond.
+        The mode can be 'preview', 'publish', or 'debug'. The last one uses
+        the settings in the Layout Control Options (preview_mode) panel. The
+        default mode is 'preview'.
         
         If document is not specified, it is either the sticky or current
         document.
@@ -130,10 +130,17 @@ class Engraver(plugin.MainWindowPlugin):
         is run" is enabled.
         
         """
-        from . import command
+        if mode == 'preview':
+            args = ['-dpoint-and-click']
+        elif mode == 'publish':
+            args = ['-dno-point-and-click']
+        elif mode == 'debug':
+            args = panelmanager.manager(
+                    self.mainwindow()).preview_mode.widget().preview_options()
         doc = document or self.stickyDocument() or self.mainwindow().currentDocument()
         if may_save:
             self.saveDocumentIfDesired()
+        from . import command
         self.runJob(command.defaultJob(doc, args), doc)
     
     def engraveAbort(self):
