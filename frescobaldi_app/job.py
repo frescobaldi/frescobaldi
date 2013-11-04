@@ -70,6 +70,12 @@ class Job(object):
     The done() signal is always emitted when the process has ended.
     The history() method returns all status messages and output so far.
     
+    When the process has finished, the error and success attributes are set.
+    The success attribute is set to True When the process exited normally and
+    successful. When the process did not exit normally and successfully, the
+    error attribute is set to the QProcess.ProcessError value that occurred
+    last. Before start(), error and success both are None.
+    
     The status messages and output all are in one of five categories:
     STDERR, STDOUT (output from the process) or NEUTRAL, FAILURE or SUCCESS
     (status messages). When displaying these messages in a log, it is advised
@@ -86,6 +92,8 @@ class Job(object):
         self.command = []
         self.directory = ""
         self.environment = {}
+        self.success = None
+        self.error = None
         self._title = ""
         self._aborted = False
         self._process = None
@@ -117,6 +125,8 @@ class Job(object):
     
     def start(self):
         """Starts the process."""
+        self.success = None
+        self.error = None
         self._aborted = False
         self._history = []
         self._elapsed = 0.0
@@ -155,7 +165,15 @@ class Job(object):
     def isRunning(self):
         """Returns True if this job is running."""
         return bool(self._process)
+    
+    def failedToStart(self):
+        """Return True if the process failed to start.
         
+        (Call this method after the process has finished.)
+        
+        """
+        return self.error == QProcess.FailedToStart
+    
     def setProcess(self, process):
         """Sets a QProcess instance and connects the signals."""
         self._process = process
@@ -227,6 +245,9 @@ class Job(object):
     def _bye(self, success):
         """Ends and emits the done() signal."""
         self._elapsed = time.time() - self._starttime
+        if not success:
+            self.error = self._process.error()
+        self.success = success
         self._process.deleteLater()
         self._process = None
         self.done(success)
