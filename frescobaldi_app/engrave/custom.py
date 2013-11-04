@@ -199,7 +199,7 @@ class Dialog(QDialog):
         cmd = []
         for t in self.commandLine.toPlainText().split():
             if t == '$lilypond':
-                cmd.append(i.abscommand())
+                cmd.append(i.abscommand() or i.command)
             elif t == '$filename':
                 cmd.append(filename)
             elif t == '$include':
