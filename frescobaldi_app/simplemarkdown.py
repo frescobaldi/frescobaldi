@@ -666,6 +666,6 @@ class HtmlOutput(Output):
         self.tag('/a')
     
     def inline_text(self, text):
-        self.text(self.html_escape(text))
+        self.text(text)
 
 
