@@ -170,9 +170,10 @@ class LilyPondInfo(object):
                 'LilyPond*', 'usr', 'bin'))
         elif sys.platform.startswith('darwin'):
             # also on Mac OS X, LilyPond is not automatically added to the PATH
-            path = glob.glob(os.path.join(
-                '/Applications', 'LilyPond.app', 'Contents', 'Resources', 'bin')) + \
-                glob.glob(os.path.join('/opt', 'local', 'bin'))
+            path = [
+                os.path.join('/Applications', 'LilyPond.app', 'Contents', 'Resources', 'bin')),
+                os.path.join('/opt', 'local', 'bin'),
+            ]
         else:
             path = None
         return util.findexe(self.command, path) or False
