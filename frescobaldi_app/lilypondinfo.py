@@ -171,7 +171,7 @@ class LilyPondInfo(object):
         elif sys.platform.startswith('darwin'):
             # also on Mac OS X, LilyPond is not automatically added to the PATH
             path = [
-                os.path.join('/Applications', 'LilyPond.app', 'Contents', 'Resources', 'bin')),
+                os.path.join('/Applications', 'LilyPond.app', 'Contents', 'Resources', 'bin'),
                 os.path.join('/opt', 'local', 'bin'),
             ]
         else:
