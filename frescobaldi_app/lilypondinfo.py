@@ -201,7 +201,7 @@ class LilyPondInfo(object):
                 command=command[:-len(macstrip)]
             return util.homify(command)
         else:
-            return ""
+            return self.command
     
     @CachedProperty.cachedproperty(depends=abscommand)
     def versionString(self):
