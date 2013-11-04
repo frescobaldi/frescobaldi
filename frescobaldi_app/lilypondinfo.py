@@ -299,18 +299,10 @@ class LilyPondInfo(object):
     @CachedProperty.cachedproperty(depends=versionString)
     def prettyName(self):
         """Return a pretty-printable name for this LilyPond instance."""
-        command = self.abscommand() or ""
-        # strip unneeded cruft from the command name
-        outstrip='out/bin/lilypond'
-        if command.endswith(outstrip):
-            command=command[:-len(outstrip)]
-        macstrip='/Contents/Resources/bin/lilypond'
-        if sys.platform.startswith('darwin') and command.endswith('.app' + macstrip):
-            command=command[:-len(macstrip)]
         return "{name} {version} ({command})".format(
             name = self.name,
             version = self.versionString(),
-            command = util.homify(command))
+            command = self.displaycommand())
     
     @classmethod
     def read(cls, settings):
