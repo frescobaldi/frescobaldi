@@ -121,14 +121,24 @@ class SimpleMarkdownParser(object):
     o = simplemarkdown.HtmlOutput() # or a different Output subclass instance
     text = "some markdown-formatted text"
     p.parse(text, o)
+    o.html()
+    
+    You can also set an Output instance directly and use other parsing methods:
+    
+    p = simplemarkdown.SimpleMarkdownParser()
+    p.output = simplemarkdown.HtmlOutput()
+    p.parse_inline_block('text with *emphasized* words')
+    p.output.html()
     
     """
     def __init__(self):
         self._lists = []
+        self.output = Output()
     
     def parse(self, text, output=None):
         """Parse the text and call methods on the Output object."""
-        self.output = output or Output()
+        if output is not None:
+            self.output = output
         # split in code and non-code blocks
         for text, code in iter_split(text, '\n```'):
             self.parse_noncode(text)
@@ -657,6 +667,5 @@ class HtmlOutput(Output):
     
     def inline_text(self, text):
         self.text(self.html_escape(text))
-
 
 
