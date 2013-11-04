@@ -24,7 +24,7 @@ Actions to engrave the music in the documents.
 from __future__ import unicode_literals
 
 from PyQt4.QtCore import QSettings, Qt, QUrl
-from PyQt4.QtGui import QAction, QApplication, QKeySequence
+from PyQt4.QtGui import QAction, QApplication, QKeySequence, QMessageBox
 
 import app
 import actioncollection
@@ -56,6 +56,7 @@ class Engraver(plugin.MainWindowPlugin):
         mainwindow.currentDocumentChanged.connect(self.updateActions)
         app.jobStarted.connect(self.updateActions)
         app.jobFinished.connect(self.updateActions)
+        app.jobFinished.connect(self.checkLilyPondInstalled)
         app.sessionChanged.connect(self.slotSessionChanged)
         app.saveSessionData.connect(self.slotSaveSessionData)
         app.languageChanged.connect(self.updateStickyActionText)
@@ -207,6 +208,23 @@ class Engraver(plugin.MainWindowPlugin):
                 g.setValue("sticky_url", d.url())
             else:
                 g.remove("sticky_url")
+    
+    def checkLilyPondInstalled(self, document, job, success):
+        """Called when LilyPond is run for the first time.
+        
+        Displays a helpful dialog if the process failed to start.
+        
+        """
+        app.jobFinished.disconnect(self.checkLilyPondInstalled)
+        if not success and job.failedToStart():
+            QMessageBox.warning(self.mainwindow(),
+                _("No LilyPond installation found"), _(
+                "Frescobaldi uses LilyPond to engrave music, "
+                "but LilyPond is not installed in the default locations "
+                "and it cannot be found in your PATH.\n\n"
+                "Please install LilyPond or, if you have already installed it, "
+                "add it in the Preferences dialog."))
+
 
 
 class Actions(actioncollection.ActionCollection):
