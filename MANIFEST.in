@@ -9,4 +9,5 @@ recursive-include frescobaldi_app *.png *.svg *.ico index.theme
 recursive-include frescobaldi_app *.ly *.ily Makefile
 recursive-include frescobaldi_app *.pot *.po *.mo
 recursive-include frescobaldi_app *.dic
+recursive-include macosx *.svg *.icns
 global-exclude *~
