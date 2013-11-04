@@ -101,9 +101,7 @@ def defaultJob(document, preview):
     i = info(document)
     j = job.Job()
     
-    command = [i.abscommand()]
-    if not command[0]:
-        return False
+    command = [i.abscommand() or i.command]
     s = QSettings()
     s.beginGroup("lilypond_settings")
     if s.value("delete_intermediate_files", True, bool):
