@@ -60,7 +60,8 @@ class MusicPreviewJob(job.Job):
             if version:
                 info = lilypondinfo.suitable(version)
         
-        self.command = [info.abscommand(), '-dno-point-and-click', '--pdf', self.document]
+        lilypond = info.abscommand() or info.command
+        self.command = [lilypond, '-dno-point-and-click', '--pdf', self.document]
         if title:
             self.setTitle(title)
     
