@@ -50,6 +50,7 @@ class DocumentActions(plugin.MainWindowPlugin):
         ac.tools_indent_indent.triggered.connect(self.re_indent)
         ac.tools_reformat.triggered.connect(self.reFormat)
         ac.tools_convert_ly.triggered.connect(self.convertLy)
+        ac.tools_strip_trailing.triggered.connect(self.strip_trailing)
         ac.tools_quick_remove_articulations.triggered.connect(self.quickRemoveArticulations)
         ac.tools_quick_remove_ornaments.triggered.connect(self.quickRemoveOrnaments)
         ac.tools_quick_remove_instrument_scripts.triggered.connect(self.quickRemoveInstrumentScripts)
@@ -57,6 +58,7 @@ class DocumentActions(plugin.MainWindowPlugin):
         ac.tools_quick_remove_dynamics.triggered.connect(self.quickRemoveDynamics)
         ac.tools_quick_remove_markup.triggered.connect(self.quickRemoveMarkup)
         
+        self._mainwindow = mainwindow
         mainwindow.currentDocumentChanged.connect(self.updateDocActions)
         mainwindow.selectionStateChanged.connect(self.updateSelectionActions)
         
@@ -112,6 +114,9 @@ class DocumentActions(plugin.MainWindowPlugin):
         import reformat
         reformat.reformat(self.currentView().textCursor())
     
+    def strip_trailing(self):
+        self._mainwindow.currentDocument().stripTrailingWhitespace()
+    
     def toggleHighlighting(self):
         doc = self.currentDocument()
         minfo = metainfo.info(doc)
@@ -159,6 +164,7 @@ class Actions(actioncollection.ActionCollection):
         self.tools_indent_auto.setCheckable(True)
         self.tools_indent_indent = QAction(parent)
         self.tools_reformat = QAction(parent)
+        self.tools_strip_trailing = QAction(parent)
         self.tools_convert_ly = QAction(parent)
         self.tools_quick_remove_articulations = QAction(parent)
         self.tools_quick_remove_ornaments = QAction(parent)
@@ -179,6 +185,7 @@ class Actions(actioncollection.ActionCollection):
         self.tools_indent_auto.setText(_("&Automatic Indent"))
         self.tools_indent_indent.setText(_("Re-&Indent"))
         self.tools_reformat.setText(_("&Format"))
+        self.tools_strip_trailing.setText(_("Remove Trailing &Whitespace"))
         self.tools_convert_ly.setText(_("&Update with convert-ly...")) 
         self.tools_quick_remove_articulations.setText(_("Remove &Articulations"))
         self.tools_quick_remove_ornaments.setText(_("Remove &Ornaments"))

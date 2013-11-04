@@ -134,6 +134,21 @@ class Document(QTextDocument):
             self.urlChanged(url, old)
             app.documentUrlChanged(self, url, old)
     
+    def stripTrailingWhitespace(self):
+        """
+        Remove trailing whitespace from document.
+        Useful for working with Version Control.
+        """
+        #TODO: Find and restore the current position.
+        newd = ''
+        block = self.firstBlock()
+        while block.isValid():
+            newd += block.text().rstrip() + '\n'
+            block = block.next()
+        newd = newd[:-1]
+        if self.toPlainText() != newd:
+            self.setPlainText(newd) 
+
     def encoding(self):
         return variables.get(self, "coding") or self._encoding
         
