@@ -679,13 +679,17 @@ class Node(list):
     def __init__(self, name, *args):
         list.__init__(self)
 
+    def __repr__(self):
+        return '<Node "{0}" {1} [{2}]>'.format(self.name, self.args, len(self))
+
 
 class Tree(Output):
     """An Output that represents the tree structure of the parsed text."""
     def __init__(self):
-        self._root = []
+        self._root = Node('root')
         self._cursor = [self._root]
     
+    # build the tree
     def append(self, name, *args):
         """Append a Node with name and args to the current node."""
         self._cursor[-1].append(Node(name, *args))
@@ -700,6 +704,7 @@ class Tree(Output):
         if len(self._cursor) > 1:
             self._cursor.pop()
     
+    # query the tree
     def root(self):
         """Return the root (which is a plain Python list)."""
         return self._root
@@ -716,6 +721,55 @@ class Tree(Output):
     def output(self, output):
         """Call the Output object's methods like the parser would have done it."""
         Tree2Output(self, output)
+    
+    def find(self, path, node=None):
+        """Iter over the elements described by path.
+        
+        Currently this just yields all elements with the specified name.
+        
+        If node is not given, the entire tree is searched.
+        
+        """
+        if node is None:
+            node = self._root
+        for n in node:
+            if n.name == path:
+                yield n
+            for n1 in self.find(path, n):
+                yield n1
+    
+    def iter_tree(self, node=None):
+        """Iter over all elements of the tree.
+        
+        Every 'yield' is a list from the node's child up to the element itself.
+        If node is not given, the root node is used.
+        
+        """
+        def iter_tree(node, cursor=[]):
+            for n in node:
+                l = cursor + [n]
+                yield l
+                for l in iter_tree(n, l):
+                    yield l
+        return iter_tree(node or self._root)
+    
+    def iter_tree_find(self, path, node=None):
+        """Iter over the elements described by path.
+        
+        Currently this just yields all elements with the specified name.
+        Every 'yield' is a list from the node's child up to the element itself.
+        
+        If node is not given, the entire tree is searched.
+        
+        """
+        def iter_tree_find(node, cursor=[]):
+            for n in node:
+                l = cursor + [n]
+                if n.name == path:
+                    yield l
+                for l in iter_tree_find(n, l):
+                    yield l
+        return iter_tree_find(node or self._root)
     
     ##
     # block level handlers
