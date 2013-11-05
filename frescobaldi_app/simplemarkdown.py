@@ -69,6 +69,7 @@ inline level:
 
 from __future__ import unicode_literals
 
+import contextlib
 
 
 def chop_left(string, chars=None):
@@ -135,6 +136,10 @@ class Parser(object):
         self._lists = []
         self.output = Output()
     
+    ##
+    # block level parsing
+    ##
+    
     def parse(self, text, output=None):
         """Parse the text and call methods on the Output object."""
         if output is not None:
@@ -154,10 +159,9 @@ class Parser(object):
         """
         try:
             specifier, code = code.split('\n', 1)
-            self.output.push('code', code, specifier.strip() or None)
+            self.output.append('code', code, specifier.strip() or None)
         except ValueError:
-            self.output.push('code', code)
-        self.output.pop()
+            self.output.append('code', code)
     
     def parse_noncode(self, text):
         """Parse text outside ``` code ``` blocks.
@@ -188,13 +192,13 @@ class Parser(object):
             self.handle_lists(indent)
             self.parse_heading(lines)
         elif self.is_ul_item(lines[0]):
-            self.handle_lists(indent, 'ul')
+            self.handle_lists(indent, 'unorderedlist')
             self.parse_ul(lines)
         elif self.is_ol_item(lines[0]):
-            self.handle_lists(indent, 'ol')
+            self.handle_lists(indent, 'orderedlist')
             self.parse_ol(lines)
         elif self.is_dl_item(lines):
-            self.handle_lists(indent, 'dl')
+            self.handle_lists(indent, 'definitionlist')
             self.parse_dl(lines)
         elif not self.special_paragraph(lines):
             self.handle_lists(indent)
@@ -235,18 +239,16 @@ class Parser(object):
     
     def parse_paragraph(self, lines):
         """Parse a plain paragraph of text."""
-        self.output.push('paragraph')
-        self.parse_plain_text(lines)
-        self.output.pop()
+        with self.output('paragraph'):
+            self.parse_plain_text(lines)
     
     def parse_heading(self, lines):
         """Parse a header text."""
         prefix = chop_left(lines[0], '= ')
         heading_type = 4 - min(prefix.count('='), 3)
         lines[0] = lines[0].strip('= ')
-        self.output.push('heading', heading_type)
-        self.parse_plain_text(lines)
-        self.output.pop()
+        with self.output('heading', heading_type):
+            self.parse_plain_text(lines)
     
     def parse_ol(self, lines):
         """Parse ordered lists.
@@ -260,12 +262,11 @@ class Parser(object):
         items = self.split_list_items(lines, self.is_ol_item)
         paragraph_item = len(items) == 1
         for item in items:
-            self.output.push('orderedlist_item')
-            if paragraph_item:
-                self.parse_paragraph(item)
-            else:
-                self.parse_plain_text(item)
-            self.output.pop()
+            with self.output('orderedlist_item'):
+                if paragraph_item:
+                    self.parse_paragraph(item)
+                else:
+                    self.parse_plain_text(item)
             
     def parse_ul(self, lines):
         """Parse unordered lists.
@@ -278,12 +279,11 @@ class Parser(object):
         items = self.split_list_items(lines, self.is_ul_item)
         paragraph_item = len(items) == 1
         for item in items:
-            self.output.push('unorderedlist_item')
-            if paragraph_item:
-                self.parse_paragraph(item)
-            else:
-                self.parse_plain_text(item)
-            self.output.pop()
+            with self.output('unorderedlist_item'):
+                if paragraph_item:
+                    self.parse_paragraph(item)
+                else:
+                    self.parse_plain_text(item)
     
     def split_list_items(self, lines, pred):
         """Returns lists of lines that each represent a list item.
@@ -308,59 +308,35 @@ class Parser(object):
         """Parse a definition list item."""
         definition = lines[0]
         lines[1] = lines[1].split(':', 1)[1]
-        self.output.push('definitionlist_item')
-        self.output.push('definitionlist_item_term')
-        self.parse_plain_text([definition])
-        self.output.pop()
-        self.output.push('definitionlist_item_definition')
-        self.parse_plain_text(lines[1:])
-        self.output.pop()
-        self.output.pop()
+        with self.output('definitionlist_item'):
+            with self.output('definitionlist_item_term'):
+                self.parse_plain_text([definition])
+            with self.output('definitionlist_item_definition'):
+                self.parse_plain_text(lines[1:])
     
-    ##
-    # utility methods
-    ##
-        
     def handle_lists(self, indent, list_type=None):
         """Close ongoing lists or start new lists if needed.
         
-        If given, list_type should be 'ol', 'ul', or 'dl'.
+        If given, list_type should be 'orderedlist', 'unorderedlist', or
+        'definitionlist'.
         
         """
         if list_type and (not self._lists or self._lists[-1][1] < indent):
             self._lists.append((list_type, indent))
-            self.list_start(list_type)
+            self.output.push(list_type)
         else:
             while self._lists:
                 if self._lists[-1][1] > indent:
-                    self.list_end(self._lists[-1][0])
+                    self.output.pop()
                     self._lists.pop()
                     continue
                 elif self._lists[-1][1] == indent and self._lists[-1][0] != list_type:
-                    self.list_end(self._lists[-1][0])
+                    self.output.pop()
                     self._lists.pop()
                     if list_type:
                         self._lists.append((list_type, indent))
-                        self.list_start(list_type)
+                        self.output.push(list_type)
                 break
-        
-    def list_start(self, list_type):
-        """Start a list, type should be 'ol', 'ul', or 'dl'."""
-        if list_type == "ol":
-            self.output.push('orderedlist')
-        elif list_type == "ul":
-            self.output.push('unorderedlist')
-        elif list_type == "dl":
-            self.output.push('definitionlist')
-            
-    def list_end(self, list_type):
-        """End a list, type should be 'ol', 'ul', or 'dl'."""
-        if list_type == "ol":
-            self.output.pop()
-        elif list_type == "ul":
-            self.output.pop()
-        elif list_type == "dl":
-            self.output.pop()
             
     ##
     # inline level parsing
@@ -377,9 +353,8 @@ class Parser(object):
         
     def parse_inline_block(self, text):
         """Parse a continuous text block with possibly inline markup."""
-        self.output.push('inline')
-        self.parse_inline_links(text)
-        self.output.pop()
+        with self.output('inline'):
+            self.parse_inline_links(text)
     
     def parse_inline_links(self, text):
         """Parse text for links."""
@@ -393,9 +368,8 @@ class Parser(object):
                     url = text = link[0]
                 else:
                     url, text = link
-                self.output.push('link', url)
-                self.parse_inline_emphasis(text)
-                self.output.pop()
+                with self.output('link', url):
+                    self.parse_inline_emphasis(text)
         
     def parse_inline_emphasis(self, text):
         """Parse a piece of text for emphasis formatting."""
@@ -403,19 +377,16 @@ class Parser(object):
             if normal:
                 self.parse_inline_code(normal)
             if emph:
-                self.output.push('inline_emphasis')
-                self.parse_inline_code(emph)
-                self.output.pop()
+                with self.output('inline_emphasis'):
+                    self.parse_inline_code(emph)
         
     def parse_inline_code(self, text):
         """Parse a piece of text for code formatting."""
         for text, code in iter_split(text, '`'):
             if text:
-                self.output.push('inline_text', text)
-                self.output.pop()
+                self.output.append('inline_text', text)
             if code:
-                self.output.push('inline_code', code)
-                self.output.pop()
+                self.output.append('inline_code', code)
 
 
 class Output(object):
@@ -424,8 +395,22 @@ class Output(object):
     You should inherit from this class and implement the push() and pop() methods.
     
     """
+    @contextlib.contextmanager
+    def __call__(self, name, *args):
+        """Context manager to push a new node and perform code, pop on exit."""
+        self.push(name, *args)
+        try:
+            yield
+        finally:
+            self.pop()
+    
+    def append(self, name, *args):
+        """Append a new node to the current node."""
+        self.push(name, *args)
+        self.pop()
+    
     def push(self, name, *args):
-        """Create a node and make it current."""
+        """Append a new node to the current node and make it current."""
         pass
     
     def pop(self):
@@ -492,14 +477,13 @@ class Tree(Output):
         If node is not specified, the entire tree is copied.
         
         """
-        if node is None:
+        if node in (None, self._root):
             for n in self._root:
                 self.copy(output, n)
         else:
-            output.push(node.name, *node.args)
-            for n in node:
-                self.copy(output, n)
-            output.pop()
+            with output(node.name, *node.args):
+                for n in node:
+                    self.copy(output, n)
     
     def find(self, path, node=None):
         """Iter over the elements described by path.
