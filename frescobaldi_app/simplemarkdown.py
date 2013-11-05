@@ -195,7 +195,7 @@ class SimpleMarkdownParser(object):
         elif self.is_dl_item(lines):
             self.handle_lists(indent, 'dl')
             self.parse_dl(lines)
-        elif not special_paragraph(lines):
+        elif not self.special_paragraph(lines):
             self.handle_lists(indent)
             self.parse_paragraph(lines)
     
@@ -668,4 +668,237 @@ class HtmlOutput(Output):
     def inline_text(self, text):
         self.text(text)
 
+
+class Node(list):
+    def __new__(cls, name, *args):
+        n = list.__new__(cls)
+        n.name = name
+        n.args = args
+        return n
+
+    def __init__(self, name, *args):
+        list.__init__(self)
+
+
+class Tree(Output):
+    """An Output that represents the tree structure of the parsed text."""
+    def __init__(self):
+        self._root = []
+        self._cursor = [self._root]
+    
+    def append(self, name, *args):
+        """Append a Node with name and args to the current node."""
+        self._cursor[-1].append(Node(name, *args))
+        
+    def start(self, name, *args):
+        """Append a Node to the current node, and make that the current Node."""
+        self.append(name, *args)
+        self._cursor.append(self._cursor[-1][-1])
+    
+    def end(self):
+        """End the current Node and go back to the parent node."""
+        if len(self._cursor) > 1:
+            self._cursor.pop()
+    
+    def root(self):
+        """Return the root (which is a plain Python list)."""
+        return self._root
+    
+    def dump(self, indent_start=0, indent_string='  '):
+        """Show the tree in a pretty-printed string."""
+        def dump(n, indent):
+            yield '{0}{1} {2}'.format(indent_string * indent, n.name, repr(n.args))
+            for n1 in n:
+                for s in dump(n1, indent + 1):
+                    yield s
+        return '\n'.join(s for n in self.root() for s in dump(n, indent_start))
+
+    def output(self, output):
+        """Call the Output object's methods like the parser would have done it."""
+        Tree2Output(self, output)
+    
+    ##
+    # block level handlers
+    ##
+
+    def code(self, code, specifier=None):
+        self.append('code', code, specifier)
+    
+    def heading_start(self, heading_type):
+        self.start('heading', heading_type)
+    
+    def heading_end(self, heading_type):
+        self.end()
+        
+    def paragraph_start(self):
+        self.start('paragraph')
+    
+    def paragraph_end(self):
+        self.end()
+    
+    def orderedlist_start(self):
+        self.start('orderedlist')
+    
+    def orderedlist_item_start(self):
+        self.start('orderedlist_item')
+    
+    def orderedlist_item_end(self):
+        self.end()
+    
+    def orderedlist_end(self):
+        self.end()
+    
+    def unorderedlist_start(self):
+        self.start('unorderedlist')
+    
+    def unorderedlist_item_start(self):
+        self.start('unorderedlist_item')
+    
+    def unorderedlist_item_end(self):
+        self.end()
+    
+    def unorderedlist_end(self):
+        self.end()
+    
+    def definitionlist_start(self):
+        self.start('definitionlist')
+        
+    def definitionlist_item_term_start(self):
+        self.start('definitionlist_item_term')
+        
+    def definitionlist_item_term_end(self):
+        self.end()
+        
+    def definitionlist_item_definition_start(self):
+        self.start('definitionlist_item_definition')
+        
+    def definitionlist_item_definition_end(self):
+        self.end()
+        
+    def definitionlist_item_start(self):
+        self.start('definitionlist_item')
+        
+    def definitionlist_item_end(self):
+        self.end()
+        
+    def definitionlist_end(self):
+        self.end()
+
+    ##
+    # inline handlers
+    ##
+
+    def inline_start(self):
+        """Called when a block of inline text is parsed."""
+        self.start('inline')
+        
+    def inline_end(self):
+        """Called at the end of parsing a block of inline text.""" 
+        self.end()
+    
+    def inline_code(self, text):
+        self.append('inline_code', text)
+    
+    def inline_emphasis_start(self):
+        self.start('inline_emphasis')
+    
+    def inline_emphasis_end(self):
+        self.end()
+    
+    def link_start(self, url):
+        self.start('link', url)
+    
+    def link_end(self, url):
+        self.end()
+    
+    def inline_text(self, text):
+        self.append('inline_text', text)
+
+
+class Tree2Output(object):
+    """Writes the contents of the parse tree back to an Output instance."""
+    def __init__(self, tree, output):
+        self.output = output
+        self.handle_children(tree.root())
+    
+    def handle_children(self, node):
+        for n in node:
+            method = getattr(self, n.name)
+            method(n, *n.args)
+    
+    def code(self, n, code, specifier):
+        self.output.code(code, specifier)
+    
+    def heading(self, n, heading_type):
+        self.output.heading_start(heading_type)
+        self.handle_children(n)
+        self.output.heading_end(heading_type)
+    
+    def paragraph(self, n):
+        self.output.paragraph_start()
+        self.handle_children(n)
+        self.output.paragraph_end()
+    
+    def orderedlist(self, n):
+        self.output.orderedlist_start()
+        self.handle_children(n)
+        self.output.orderedlist_end()
+
+    def orderedlist_item(self, n):
+        self.output.orderedlist_item_start()
+        self.handle_children(n)
+        self.output.orderedlist_item_end()
+
+    def unorderedlist(self, n):
+        self.output.unorderedlist_start()
+        self.handle_children(n)
+        self.output.unorderedlist_end()
+
+    def unorderedlist_item(self, n):
+        self.output.unorderedlist_item_start()
+        self.handle_children(n)
+        self.output.unorderedlist_item_end()
+
+    def definitionlist(self, n):
+        self.output.definitionlist_start()
+        self.handle_children(n)
+        self.output.definitionlist_end()
+        
+    def definitionlist_item(self, n):
+        self.output.definitionlist_item_start()
+        self.handle_children(n)
+        self.output.definitionlist_item_end()
+        
+    def definitionlist_item_term(self, n):
+        self.output.definitionlist_item_term_start()
+        self.handle_children(n)
+        self.output.definitionlist_item_term_end()
+        
+    def definitionlist_item_definition(self, n):
+        self.output.definitionlist_item_definition_start()
+        self.handle_children(n)
+        self.output.definitionlist_item_definition_start()
+        
+    # inline stuff
+    
+    def inline(self, n):
+        self.output.inline_start()
+        self.handle_children(n)
+        self.output.inline_end()
+        
+    def inline_code(self, n, text):
+        self.output.inline_code(text)
+    
+    def inline_emphasis(self, n):
+        self.output.inline_emphasis_start()
+        self.handle_children(n)
+        self.output.inline_emphasis_end()
+
+    def link(self, n, url):
+        self.output.link_start(url)
+        self.handle_children(n)
+        self.output.link_end(url)
+
+    def inline_text(self, n, text):
+        self.output.inline_text(text)
 
