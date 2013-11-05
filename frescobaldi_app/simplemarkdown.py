@@ -154,9 +154,10 @@ class SimpleMarkdownParser(object):
         """
         try:
             specifier, code = code.split('\n', 1)
-            self.output.code(code, specifier.strip() or None)
+            self.output.push('code', code, specifier.strip() or None)
         except ValueError:
-            self.output.code(code)
+            self.output.push('code', code)
+        self.output.pop()
     
     def parse_noncode(self, text):
         """Parse text outside ``` code ``` blocks.
@@ -234,18 +235,18 @@ class SimpleMarkdownParser(object):
     
     def parse_paragraph(self, lines):
         """Parse a plain paragraph of text."""
-        self.output.paragraph_start()
+        self.output.push('paragraph')
         self.parse_plain_text(lines)
-        self.output.paragraph_end()
+        self.output.pop()
     
     def parse_heading(self, lines):
         """Parse a header text."""
         prefix = chop_left(lines[0], '= ')
         heading_type = 4 - min(prefix.count('='), 3)
         lines[0] = lines[0].strip('= ')
-        self.output.heading_start(heading_type)
+        self.output.push('heading', heading_type)
         self.parse_plain_text(lines)
-        self.output.heading_end(heading_type)
+        self.output.pop()
     
     def parse_ol(self, lines):
         """Parse ordered lists.
@@ -259,12 +260,12 @@ class SimpleMarkdownParser(object):
         items = self.split_list_items(lines, self.is_ol_item)
         paragraph_item = len(items) == 1
         for item in items:
-            self.output.orderedlist_item_start()
+            self.output.push('orderedlist_item')
             if paragraph_item:
                 self.parse_paragraph(item)
             else:
                 self.parse_plain_text(item)
-            self.output.orderedlist_item_end()
+            self.output.pop()
             
     def parse_ul(self, lines):
         """Parse unordered lists.
@@ -277,12 +278,12 @@ class SimpleMarkdownParser(object):
         items = self.split_list_items(lines, self.is_ul_item)
         paragraph_item = len(items) == 1
         for item in items:
-            self.output.unorderedlist_item_start()
+            self.output.push('unorderedlist_item')
             if paragraph_item:
                 self.parse_paragraph(item)
             else:
                 self.parse_plain_text(item)
-            self.output.unorderedlist_item_end()
+            self.output.pop()
     
     def split_list_items(self, lines, pred):
         """Returns lists of lines that each represent a list item.
@@ -307,14 +308,14 @@ class SimpleMarkdownParser(object):
         """Parse a definition list item."""
         definition = lines[0]
         lines[1] = lines[1].split(':', 1)[1]
-        self.output.definitionlist_item_start()
-        self.output.definitionlist_item_term_start()
+        self.output.push('definitionlist_item')
+        self.output.push('definitionlist_item_term')
         self.parse_plain_text([definition])
-        self.output.definitionlist_item_term_end()
-        self.output.definitionlist_item_definition_start()
+        self.output.pop()
+        self.output.push('definitionlist_item_definition')
         self.parse_plain_text(lines[1:])
-        self.output.definitionlist_item_definition_end()
-        self.output.definitionlist_item_end()
+        self.output.pop()
+        self.output.pop()
     
     ##
     # utility methods
@@ -346,20 +347,20 @@ class SimpleMarkdownParser(object):
     def list_start(self, list_type):
         """Start a list, type should be 'ol', 'ul', or 'dl'."""
         if list_type == "ol":
-            self.output.orderedlist_start()
+            self.output.push('orderedlist')
         elif list_type == "ul":
-            self.output.unorderedlist_start()
+            self.output.push('unorderedlist')
         elif list_type == "dl":
-            self.output.definitionlist_start()
+            self.output.push('definitionlist')
             
     def list_end(self, list_type):
         """End a list, type should be 'ol', 'ul', or 'dl'."""
         if list_type == "ol":
-            self.output.orderedlist_end()
+            self.output.pop()
         elif list_type == "ul":
-            self.output.unorderedlist_end()
+            self.output.pop()
         elif list_type == "dl":
-            self.output.definitionlist_end()
+            self.output.pop()
             
     ##
     # inline level parsing
@@ -376,9 +377,9 @@ class SimpleMarkdownParser(object):
         
     def parse_inline_block(self, text):
         """Parse a continuous text block with possibly inline markup."""
-        self.output.inline_start()
+        self.output.push('inline')
         self.parse_inline_links(text)
-        self.output.inline_end()
+        self.output.pop()
     
     def parse_inline_links(self, text):
         """Parse text for links."""
@@ -392,9 +393,9 @@ class SimpleMarkdownParser(object):
                     url = text = link[0]
                 else:
                     url, text = link
-                self.output.link_start(url)
+                self.output.push('link', url)
                 self.parse_inline_emphasis(text)
-                self.output.link_end(url)
+                self.output.pop()
         
     def parse_inline_emphasis(self, text):
         """Parse a piece of text for emphasis formatting."""
@@ -402,128 +403,160 @@ class SimpleMarkdownParser(object):
             if normal:
                 self.parse_inline_code(normal)
             if emph:
-                self.output.inline_emphasis_start()
+                self.output.push('inline_emphasis')
                 self.parse_inline_code(emph)
-                self.output.inline_emphasis_end()
+                self.output.pop()
         
     def parse_inline_code(self, text):
         """Parse a piece of text for code formatting."""
         for text, code in iter_split(text, '`'):
             if text:
-                self.output.inline_text(text)
+                self.output.push('inline_text', text)
+                self.output.pop()
             if code:
-                self.output.inline_code(code)
+                self.output.push('inline_code', code)
+                self.output.pop()
 
 
 class Output(object):
     """Base class for output handler objects.
     
-    You should inherit from this class and implement the methods.
+    You should inherit from this class and implement the push() and pop() methods.
     
     """
-    ##
-    # block level handlers
-    ##
-
-    def code(self, code, specifier=None):
+    def push(self, name, *args):
+        """Create a node and make it current."""
         pass
     
-    def heading_start(self, heading_type):
-        pass
-    
-    def heading_end(self, heading_type):
-        pass
-        
-    def paragraph_start(self):
-        pass
-    
-    def paragraph_end(self):
-        pass
-    
-    def orderedlist_start(self):
-        pass
-    
-    def orderedlist_item_start(self):
-        pass
-    
-    def orderedlist_item_end(self):
-        pass
-    
-    def orderedlist_end(self):
-        pass
-    
-    def unorderedlist_start(self):
-        pass
-    
-    def unorderedlist_item_start(self):
-        pass
-    
-    def unorderedlist_item_end(self):
-        pass
-    
-    def unorderedlist_end(self):
-        pass
-    
-    def definitionlist_start(self):
-        pass
-        
-    def definitionlist_item_term_start(self):
-        pass
-        
-    def definitionlist_item_term_end(self):
-        pass
-        
-    def definitionlist_item_definition_start(self):
-        pass
-        
-    def definitionlist_item_definition_end(self):
-        pass
-        
-    def definitionlist_item_start(self):
-        pass
-        
-    def definitionlist_item_end(self):
-        pass
-        
-    def definitionlist_end(self):
+    def pop(self):
+        """Make the current node's parent the current node."""
         pass
 
-    ##
-    # inline handlers
-    ##
 
-    def inline_start(self):
-        """Called when a block of inline text is parsed."""
-        pass
+class Tree(Output):
+    """An Output that represents the tree structure of the parsed text."""
+    
+    class Node(list):
+        def __new__(cls, name, *args):
+            n = list.__new__(cls)
+            n.name = name
+            n.args = args
+            return n
+
+        def __init__(self, name, *args):
+            list.__init__(self)
+
+        def __repr__(self):
+            return '<Node "{0}" {1} [{2}]>'.format(self.name, self.args, len(self))
+
+        def __str__(self):
+            return "{0} {1}".format(self.name, self.args)
+    
+    
+    def __init__(self):
+        self._root = self.Node('root')
+        self._cursor = [self._root]
+    
+    # build the tree
+    def push(self, name, *args):
+        """Append a Node to the current node, and make that the current Node."""
+        node = self.Node(name, *args)
+        self._cursor[-1].append(node)
+        self._cursor.append(node)
+    
+    def pop(self):
+        """End the current Node and go back to the parent node."""
+        if len(self._cursor) > 1:
+            self._cursor.pop()
+    
+    # query the tree
+    def root(self):
+        """Return the root (which is a plain Python list)."""
+        return self._root
+    
+    def dump(self, indent_start=0, indent_string='  '):
+        """Show the tree in a pretty-printed string."""
+        def dump(n, indent):
+            yield '{0}{1}'.format(indent_string * indent, n)
+            for n1 in n:
+                for s in dump(n1, indent + 1):
+                    yield s
+        return '\n'.join(s for n in self.root() for s in dump(n, indent_start))
+
+    def output(self, output):
+        """Call the Output object's methods like the parser would have done it."""
+        def copy(node):
+            for n in node:
+                output.push(n.name, *n.args)
+                for n1 in n:
+                    copy(n1)
+                output.pop()
+        copy(self._root)
+    
+    def find(self, path, node=None):
+        """Iter over the elements described by path.
         
-    def inline_end(self):
-        """Called at the end of parsing a block of inline text.""" 
-        pass
+        Currently this just yields all elements with the specified name.
+        
+        If node is not given, the entire tree is searched.
+        
+        """
+        if node is None:
+            node = self._root
+        for n in node:
+            if n.name == path:
+                yield n
+            for n1 in self.find(path, n):
+                yield n1
     
-    def inline_code(self, text):
-        pass
+    def iter_tree(self, node=None):
+        """Iter over all elements of the tree.
+        
+        Every 'yield' is a list from the node's child up to the element itself.
+        If node is not given, the root node is used.
+        
+        """
+        def iter_tree(node, cursor=[]):
+            for n in node:
+                l = cursor + [n]
+                yield l
+                for l in iter_tree(n, l):
+                    yield l
+        return iter_tree(node or self._root)
     
-    def inline_emphasis_start(self):
-        pass
-    
-    def inline_emphasis_end(self):
-        pass
-    
-    def link_start(self, url):
-        pass
-    
-    def link_end(self, url):
-        pass
-    
-    def inline_text(self, text):
-        pass
+    def iter_tree_find(self, path, node=None):
+        """Iter over the elements described by path.
+        
+        Currently this just yields all elements with the specified name.
+        Every 'yield' is a list from the node's child up to the element itself.
+        
+        If node is not given, the entire tree is searched.
+        
+        """
+        def iter_tree_find(node, cursor=[]):
+            for n in node:
+                l = cursor + [n]
+                if n.name == path:
+                    yield l
+                for l in iter_tree_find(n, l):
+                    yield l
+        return iter_tree_find(node or self._root)
 
 
 class HtmlOutput(Output):
     """Converts output to HTML."""
     def __init__(self):
         self._html = []
+        self._tags = []
     
+    def push(self, name, *args):
+        self._tags.append((name, args))
+        getattr(self, name + '_start')(*args)
+        
+    def pop(self):
+        name, args = self._tags.pop()
+        getattr(self, name + '_end')(*args)
+        
     def html(self):
         return ''.join(self._html)
     
@@ -556,10 +589,12 @@ class HtmlOutput(Output):
     # block level handlers
     ##
 
-    def code(self, code, specifier=None):
+    def code_start(self, code, specifier=None):
         self.tag('code')
         self.tag('pre')
         self.text(code)
+    
+    def code_end(self, code, specifier=None):
         self.tag('/pre')
         self.tag('/code')
         self.nl()
@@ -648,9 +683,11 @@ class HtmlOutput(Output):
         """Called at the end of parsing a block of inline text.""" 
         pass
     
-    def inline_code(self, text):
+    def inline_code_start(self, text):
         self.tag('code')
         self.text(text)
+    
+    def inline_code_end(self, text):
         self.tag('/code')
     
     def inline_emphasis_start(self):
@@ -665,294 +702,10 @@ class HtmlOutput(Output):
     def link_end(self, url):
         self.tag('/a')
     
-    def inline_text(self, text):
+    def inline_text_start(self, text):
         self.text(text)
 
+    def inline_text_end(self, text):
+        pass
 
-class Node(list):
-    def __new__(cls, name, *args):
-        n = list.__new__(cls)
-        n.name = name
-        n.args = args
-        return n
-
-    def __init__(self, name, *args):
-        list.__init__(self)
-
-    def __repr__(self):
-        return '<Node "{0}" {1} [{2}]>'.format(self.name, self.args, len(self))
-
-
-class Tree(Output):
-    """An Output that represents the tree structure of the parsed text."""
-    def __init__(self):
-        self._root = Node('root')
-        self._cursor = [self._root]
-    
-    # build the tree
-    def append(self, name, *args):
-        """Append a Node with name and args to the current node."""
-        self._cursor[-1].append(Node(name, *args))
-        
-    def start(self, name, *args):
-        """Append a Node to the current node, and make that the current Node."""
-        self.append(name, *args)
-        self._cursor.append(self._cursor[-1][-1])
-    
-    def end(self):
-        """End the current Node and go back to the parent node."""
-        if len(self._cursor) > 1:
-            self._cursor.pop()
-    
-    # query the tree
-    def root(self):
-        """Return the root (which is a plain Python list)."""
-        return self._root
-    
-    def dump(self, indent_start=0, indent_string='  '):
-        """Show the tree in a pretty-printed string."""
-        def dump(n, indent):
-            yield '{0}{1} {2}'.format(indent_string * indent, n.name, repr(n.args))
-            for n1 in n:
-                for s in dump(n1, indent + 1):
-                    yield s
-        return '\n'.join(s for n in self.root() for s in dump(n, indent_start))
-
-    def output(self, output):
-        """Call the Output object's methods like the parser would have done it."""
-        Tree2Output(self, output)
-    
-    def find(self, path, node=None):
-        """Iter over the elements described by path.
-        
-        Currently this just yields all elements with the specified name.
-        
-        If node is not given, the entire tree is searched.
-        
-        """
-        if node is None:
-            node = self._root
-        for n in node:
-            if n.name == path:
-                yield n
-            for n1 in self.find(path, n):
-                yield n1
-    
-    def iter_tree(self, node=None):
-        """Iter over all elements of the tree.
-        
-        Every 'yield' is a list from the node's child up to the element itself.
-        If node is not given, the root node is used.
-        
-        """
-        def iter_tree(node, cursor=[]):
-            for n in node:
-                l = cursor + [n]
-                yield l
-                for l in iter_tree(n, l):
-                    yield l
-        return iter_tree(node or self._root)
-    
-    def iter_tree_find(self, path, node=None):
-        """Iter over the elements described by path.
-        
-        Currently this just yields all elements with the specified name.
-        Every 'yield' is a list from the node's child up to the element itself.
-        
-        If node is not given, the entire tree is searched.
-        
-        """
-        def iter_tree_find(node, cursor=[]):
-            for n in node:
-                l = cursor + [n]
-                if n.name == path:
-                    yield l
-                for l in iter_tree_find(n, l):
-                    yield l
-        return iter_tree_find(node or self._root)
-    
-    ##
-    # block level handlers
-    ##
-
-    def code(self, code, specifier=None):
-        self.append('code', code, specifier)
-    
-    def heading_start(self, heading_type):
-        self.start('heading', heading_type)
-    
-    def heading_end(self, heading_type):
-        self.end()
-        
-    def paragraph_start(self):
-        self.start('paragraph')
-    
-    def paragraph_end(self):
-        self.end()
-    
-    def orderedlist_start(self):
-        self.start('orderedlist')
-    
-    def orderedlist_item_start(self):
-        self.start('orderedlist_item')
-    
-    def orderedlist_item_end(self):
-        self.end()
-    
-    def orderedlist_end(self):
-        self.end()
-    
-    def unorderedlist_start(self):
-        self.start('unorderedlist')
-    
-    def unorderedlist_item_start(self):
-        self.start('unorderedlist_item')
-    
-    def unorderedlist_item_end(self):
-        self.end()
-    
-    def unorderedlist_end(self):
-        self.end()
-    
-    def definitionlist_start(self):
-        self.start('definitionlist')
-        
-    def definitionlist_item_term_start(self):
-        self.start('definitionlist_item_term')
-        
-    def definitionlist_item_term_end(self):
-        self.end()
-        
-    def definitionlist_item_definition_start(self):
-        self.start('definitionlist_item_definition')
-        
-    def definitionlist_item_definition_end(self):
-        self.end()
-        
-    def definitionlist_item_start(self):
-        self.start('definitionlist_item')
-        
-    def definitionlist_item_end(self):
-        self.end()
-        
-    def definitionlist_end(self):
-        self.end()
-
-    ##
-    # inline handlers
-    ##
-
-    def inline_start(self):
-        """Called when a block of inline text is parsed."""
-        self.start('inline')
-        
-    def inline_end(self):
-        """Called at the end of parsing a block of inline text.""" 
-        self.end()
-    
-    def inline_code(self, text):
-        self.append('inline_code', text)
-    
-    def inline_emphasis_start(self):
-        self.start('inline_emphasis')
-    
-    def inline_emphasis_end(self):
-        self.end()
-    
-    def link_start(self, url):
-        self.start('link', url)
-    
-    def link_end(self, url):
-        self.end()
-    
-    def inline_text(self, text):
-        self.append('inline_text', text)
-
-
-class Tree2Output(object):
-    """Writes the contents of the parse tree back to an Output instance."""
-    def __init__(self, tree, output):
-        self.output = output
-        self.handle_children(tree.root())
-    
-    def handle_children(self, node):
-        for n in node:
-            method = getattr(self, n.name)
-            method(n, *n.args)
-    
-    def code(self, n, code, specifier):
-        self.output.code(code, specifier)
-    
-    def heading(self, n, heading_type):
-        self.output.heading_start(heading_type)
-        self.handle_children(n)
-        self.output.heading_end(heading_type)
-    
-    def paragraph(self, n):
-        self.output.paragraph_start()
-        self.handle_children(n)
-        self.output.paragraph_end()
-    
-    def orderedlist(self, n):
-        self.output.orderedlist_start()
-        self.handle_children(n)
-        self.output.orderedlist_end()
-
-    def orderedlist_item(self, n):
-        self.output.orderedlist_item_start()
-        self.handle_children(n)
-        self.output.orderedlist_item_end()
-
-    def unorderedlist(self, n):
-        self.output.unorderedlist_start()
-        self.handle_children(n)
-        self.output.unorderedlist_end()
-
-    def unorderedlist_item(self, n):
-        self.output.unorderedlist_item_start()
-        self.handle_children(n)
-        self.output.unorderedlist_item_end()
-
-    def definitionlist(self, n):
-        self.output.definitionlist_start()
-        self.handle_children(n)
-        self.output.definitionlist_end()
-        
-    def definitionlist_item(self, n):
-        self.output.definitionlist_item_start()
-        self.handle_children(n)
-        self.output.definitionlist_item_end()
-        
-    def definitionlist_item_term(self, n):
-        self.output.definitionlist_item_term_start()
-        self.handle_children(n)
-        self.output.definitionlist_item_term_end()
-        
-    def definitionlist_item_definition(self, n):
-        self.output.definitionlist_item_definition_start()
-        self.handle_children(n)
-        self.output.definitionlist_item_definition_start()
-        
-    # inline stuff
-    
-    def inline(self, n):
-        self.output.inline_start()
-        self.handle_children(n)
-        self.output.inline_end()
-        
-    def inline_code(self, n, text):
-        self.output.inline_code(text)
-    
-    def inline_emphasis(self, n):
-        self.output.inline_emphasis_start()
-        self.handle_children(n)
-        self.output.inline_emphasis_end()
-
-    def link(self, n, url):
-        self.output.link_start(url)
-        self.handle_children(n)
-        self.output.link_end(url)
-
-    def inline_text(self, n, text):
-        self.output.inline_text(text)
 
