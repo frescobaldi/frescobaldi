@@ -104,7 +104,7 @@ def iter_split2(text, separator, separator2):
             yield text, ''
         return
 
-def markdown2html(text):
+def html(text):
     """Convenience function converting markdown text to HTML."""
     o = HtmlOutput()
     p = SimpleMarkdownParser()
@@ -112,12 +112,12 @@ def markdown2html(text):
     return o.html()
 
 
-class SimpleMarkdownParser(object):
+class Parser(object):
     """A basic Markdown-like parser.
     
     Usage:
     
-    p = simplemarkdown.SimpleMarkdownParser()
+    p = simplemarkdown.Parser()
     o = simplemarkdown.HtmlOutput() # or a different Output subclass instance
     text = "some markdown-formatted text"
     p.parse(text, o)
@@ -125,7 +125,7 @@ class SimpleMarkdownParser(object):
     
     You can also set an Output instance directly and use other parsing methods:
     
-    p = simplemarkdown.SimpleMarkdownParser()
+    p = simplemarkdown.Parser()
     p.output = simplemarkdown.HtmlOutput()
     p.parse_inline_block('text with *emphasized* words')
     p.output.html()
@@ -445,7 +445,10 @@ class Tree(Output):
 
         def __init__(self, name, *args):
             list.__init__(self)
-
+        
+        def __nonzero__(self):
+            return True
+        
         def __repr__(self):
             return '<Node "{0}" {1} [{2}]>'.format(self.name, self.args, len(self))
 
@@ -483,15 +486,20 @@ class Tree(Output):
                     yield s
         return '\n'.join(s for n in self.root() for s in dump(n, indent_start))
 
-    def output(self, output):
-        """Call the Output object's methods like the parser would have done it."""
-        def copy(node):
+    def copy(self, output, node=None):
+        """Copy the tree to the other output instance.
+        
+        If node is not specified, the entire tree is copied.
+        
+        """
+        if node is None:
+            for n in self._root:
+                self.copy(output, n)
+        else:
+            output.push(node.name, *node.args)
             for n in node:
-                output.push(n.name, *n.args)
-                for n1 in n:
-                    copy(n1)
-                output.pop()
-        copy(self._root)
+                self.copy(output, n)
+            output.pop()
     
     def find(self, path, node=None):
         """Iter over the elements described by path.
@@ -541,6 +549,16 @@ class Tree(Output):
                 for l in iter_tree_find(n, l):
                     yield l
         return iter_tree_find(node or self._root)
+    
+    def html(self, node=None):
+        """Convenience method to return HTML text from the specified node.
+        
+        If node is not given, the entire document is returned as HTML text.
+        
+        """
+        o = HtmlOutput()
+        self.copy(o, node)
+        return o.html()
 
 
 class HtmlOutput(Output):
