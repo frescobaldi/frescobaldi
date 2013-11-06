@@ -393,7 +393,8 @@ class Parser(object):
             if text:
                 self.output.append('inline_text', text)
             if code:
-                self.output.append('inline_code', code)
+                with self.output('inline_code'):
+                    self.output.append('inline_text', code)
 
 
 class Output(object):
