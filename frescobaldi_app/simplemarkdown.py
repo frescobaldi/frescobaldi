@@ -108,9 +108,16 @@ def iter_split2(text, separator, separator2):
 def html(text):
     """Convenience function converting markdown text to HTML."""
     o = HtmlOutput()
-    p = SimpleMarkdownParser()
+    p = Parser()
     p.parse(text, o)
     return o.html()
+
+def tree(text):
+    """Convenience function returning the Tree object with the parsed markdown."""
+    t = Tree()
+    p = Parser()
+    p.parse(text, t)
+    return t
 
 
 class Parser(object):
@@ -462,14 +469,15 @@ class Tree(Output):
         """Return the root (which is a plain Python list)."""
         return self._root
     
-    def dump(self, indent_start=0, indent_string='  '):
-        """Show the tree in a pretty-printed string."""
+    def dump(self, node=None, indent_start=0, indent_string='  '):
+        """Show the node or the entire tree in a pretty-printed string."""
         def dump(n, indent):
             yield '{0}{1}'.format(indent_string * indent, n)
             for n1 in n:
                 for s in dump(n1, indent + 1):
                     yield s
-        return '\n'.join(s for n in self.root() for s in dump(n, indent_start))
+        nodes = [node] if node is not None else self._root
+        return '\n'.join(s for n in nodes for s in dump(n, indent_start))
 
     def copy(self, output, node=None):
         """Copy the tree to the other output instance.
@@ -538,6 +546,7 @@ class Tree(Output):
         """Convenience method to return HTML text from the specified node.
         
         If node is not given, the entire document is returned as HTML text.
+        This method uses the HtmlOutput class to create the HTML text.
         
         """
         o = HtmlOutput()
