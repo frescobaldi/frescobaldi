@@ -209,7 +209,8 @@ class Parser(object):
             self.parse_dl(lines)
         elif not self.special_paragraph(lines):
             self.handle_lists(indent)
-            self.parse_paragraph(lines)
+            with self.output('paragraph'):
+                self.parse_inline_text(lines)
     
     def special_paragraph(self, lines):
         """Called when a paragraph is not a heading or a list item.
@@ -244,18 +245,13 @@ class Parser(object):
         """Return True lines are a description list item."""
         return len(lines) > 1 and lines[1].lstrip().startswith(': ')
     
-    def parse_paragraph(self, lines):
-        """Parse a plain paragraph of text."""
-        with self.output('paragraph'):
-            self.parse_plain_text(lines)
-    
     def parse_heading(self, lines):
         """Parse a header text."""
         prefix = chop_left(lines[0], '= ')
         heading_type = 4 - min(prefix.count('='), 3)
         lines[0] = lines[0].strip('= ')
         with self.output('heading', heading_type):
-            self.parse_plain_text(lines)
+            self.parse_inline_text(lines)
     
     def parse_ol(self, lines):
         """Parse ordered lists.
@@ -271,9 +267,10 @@ class Parser(object):
         for item in items:
             with self.output('orderedlist_item'):
                 if paragraph_item:
-                    self.parse_paragraph(item)
+                    with self.output('paragraph'):
+                        self.parse_inline_text(item)
                 else:
-                    self.parse_plain_text(item)
+                    self.parse_inline_text(item)
             
     def parse_ul(self, lines):
         """Parse unordered lists.
@@ -288,9 +285,10 @@ class Parser(object):
         for item in items:
             with self.output('unorderedlist_item'):
                 if paragraph_item:
-                    self.parse_paragraph(item)
+                    with self.output('paragraph'):
+                        self.parse_inline_text(item)
                 else:
-                    self.parse_plain_text(item)
+                    self.parse_inline_text(item)
     
     def split_list_items(self, lines, pred):
         """Returns lists of lines that each represent a list item.
@@ -317,9 +315,9 @@ class Parser(object):
         lines[1] = lines[1].split(':', 1)[1]
         with self.output('definitionlist_item'):
             with self.output('definitionlist_item_term'):
-                self.parse_plain_text([definition])
+                self.parse_inline_text([definition])
             with self.output('definitionlist_item_definition'):
-                self.parse_plain_text(lines[1:])
+                self.parse_inline_text(lines[1:])
     
     def handle_lists(self, indent, list_type=None):
         """Close ongoing lists or start new lists if needed.
@@ -349,7 +347,7 @@ class Parser(object):
     # inline level parsing
     ##
     
-    def parse_plain_text(self, lines):
+    def parse_inline_text(self, lines):
         """Parse plain text lines with possibly inline markup.
         
         This implementation strip()s the lines, joins them with a newline
