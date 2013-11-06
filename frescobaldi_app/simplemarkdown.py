@@ -135,7 +135,7 @@ class Parser(object):
     
     p = simplemarkdown.Parser()
     p.output = simplemarkdown.HtmlOutput()
-    p.parse_inline_block('text with *emphasized* words')
+    p.parse_inline_text('text with *emphasized* words')
     p.output.html()
     
     """
@@ -210,7 +210,7 @@ class Parser(object):
         elif not self.special_paragraph(lines):
             self.handle_lists(indent)
             with self.output('paragraph'):
-                self.parse_inline_text(lines)
+                self.parse_inline_lines(lines)
     
     def special_paragraph(self, lines):
         """Called when a paragraph is not a heading or a list item.
@@ -251,7 +251,7 @@ class Parser(object):
         heading_type = 4 - min(prefix.count('='), 3)
         lines[0] = lines[0].strip('= ')
         with self.output('heading', heading_type):
-            self.parse_inline_text(lines)
+            self.parse_inline_lines(lines)
     
     def parse_ol(self, lines):
         """Parse ordered lists.
@@ -268,9 +268,9 @@ class Parser(object):
             with self.output('orderedlist_item'):
                 if paragraph_item:
                     with self.output('paragraph'):
-                        self.parse_inline_text(item)
+                        self.parse_inline_lines(item)
                 else:
-                    self.parse_inline_text(item)
+                    self.parse_inline_lines(item)
             
     def parse_ul(self, lines):
         """Parse unordered lists.
@@ -286,9 +286,9 @@ class Parser(object):
             with self.output('unorderedlist_item'):
                 if paragraph_item:
                     with self.output('paragraph'):
-                        self.parse_inline_text(item)
+                        self.parse_inline_lines(item)
                 else:
-                    self.parse_inline_text(item)
+                    self.parse_inline_lines(item)
     
     def split_list_items(self, lines, pred):
         """Returns lists of lines that each represent a list item.
@@ -315,9 +315,9 @@ class Parser(object):
         lines[1] = lines[1].split(':', 1)[1]
         with self.output('definitionlist_item'):
             with self.output('definitionlist_item_term'):
-                self.parse_inline_text([definition])
+                self.parse_inline_lines([definition])
             with self.output('definitionlist_item_definition'):
-                self.parse_inline_text(lines[1:])
+                self.parse_inline_lines(lines[1:])
     
     def handle_lists(self, indent, list_type=None):
         """Close ongoing lists or start new lists if needed.
@@ -347,16 +347,16 @@ class Parser(object):
     # inline level parsing
     ##
     
-    def parse_inline_text(self, lines):
+    def parse_inline_lines(self, lines):
         """Parse plain text lines with possibly inline markup.
         
         This implementation strip()s the lines, joins them with a newline
-        and calls parse_inline_block() with the text string.
+        and calls parse_inline_text() with the text string.
         
         """
-        self.parse_inline_block('\n'.join(line.strip() for line in lines))
+        self.parse_inline_text('\n'.join(line.strip() for line in lines))
         
-    def parse_inline_block(self, text):
+    def parse_inline_text(self, text):
         """Parse a continuous text block with possibly inline markup."""
         with self.output('inline'):
             self.parse_inline_links(text)
