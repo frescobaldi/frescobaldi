@@ -695,11 +695,10 @@ class HtmlOutput(Output):
         """Called at the end of parsing a block of inline text.""" 
         pass
     
-    def inline_code_start(self, text):
+    def inline_code_start(self):
         self.tag('code')
-        self.text(text)
     
-    def inline_code_end(self, text):
+    def inline_code_end(self):
         self.tag('/code')
     
     def inline_emphasis_start(self):
