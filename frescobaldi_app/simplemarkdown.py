@@ -148,47 +148,49 @@ class Parser(object):
     ##
     
     def parse(self, text, output=None):
-        """Parse the text and call methods on the Output object."""
+        """Parse the text.
+        
+        Calls the push and pop methods on the output object, if specified.
+        
+        """
+        self.parse_lines(text.splitlines(), output)
+    
+    def parse_lines(self, lines, output=None):
+        """Parse text line by line.
+        
+        The lines may be a generator.
+        Calls the push and pop methods on the output object, if specified.
+        
+        """
         if output is not None:
             self.output = output
-        # split in code and non-code blocks
-        for text, code in iter_split(text, '\n```'):
-            self.parse_noncode(text)
-            if code:
-                self.parse_code(code)
-        
-    def parse_code(self, code):
-        """Parse code inside ``` code ``` blocks.
-        
-        Calls self.code() with the code and the language specifier (if given
-        on the first line).
-        
-        """
-        try:
-            specifier, code = code.split('\n', 1)
-            self.output.append('code', code, specifier.strip() or None)
-        except ValueError:
-            self.output.append('code', code)
-    
-    def parse_noncode(self, text):
-        """Parse text outside ``` code ``` blocks.
-        
-        Just calls parse_lines() with each group of connected non-blank lines.
-        
-        """
+        lines = iter(lines)
         para = []
-        for line in text.splitlines():
-            if not line or line.isspace():
+        for line in lines:
+            if line.lstrip().startswith('```'):
+                # code
                 if para:
-                    self.parse_lines(para)
+                    self.parse_paragraph(para)
+                    para = []
+                indent = len(chop_left(line))
+                specifier = line.lstrip('` ').rstrip() or None
+                code = []
+                for line in lines:
+                    if line.lstrip().startswith('```'):
+                        break
+                    code.append(line)
+                self.handle_lists(indent)
+                self.output.append('code', '\n'.join(code), specifier)
+            elif not line or line.isspace():
+                if para:
+                    self.parse_paragraph(para)
                     para = []
             else:
                 para.append(line)
         if para:
-            self.parse_lines(para)
-        self.handle_lists(0)
+            self.parse_paragraph(para)
     
-    def parse_lines(self, lines):
+    def parse_paragraph(self, lines):
         """Parse a list of one or more lines without blank lines in between.
         
         Dispatches the lines to handle headings, lists or plain text paragraphs.
