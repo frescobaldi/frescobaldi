@@ -11,6 +11,7 @@ revealed by pressing {key_whatsthis} or by selecting {menu_whatsthis}.
 
 
 #SUBDOCS
+intro
 getstarted
 managing
 editing
