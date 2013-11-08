@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Import non-lilypond file types. 
+Import non-lilypond file types.
 """
 
 from __future__ import unicode_literals
@@ -41,7 +41,7 @@ class FileImport(plugin.MainWindowPlugin):
         ac = self.actionCollection = Actions()
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         ac.import_musicxml.triggered.connect(self.importMusicXML)
-    
+
     def importMusicXML(self):
         """ Opens a MusicXML file. Converts it to ly by using musicxml2ly """
         filetypes = '{0} (*.xml);;{1} (*)'.format(_("XML Files"), _("All Files"))
@@ -58,7 +58,7 @@ class FileImport(plugin.MainWindowPlugin):
             dlg = self._importDialog = musicxml.Dialog(self.mainwindow())
             dlg.addAction(self.mainwindow().actionCollection.help_whatsthis)
             dlg.setWindowModality(Qt.WindowModal)
-        
+
         dlg.setDocument(importfile)
         if dlg.exec_():
             with qutil.busyCursor():
@@ -69,12 +69,12 @@ class FileImport(plugin.MainWindowPlugin):
             else: #failure to convert
                 QMessageBox.critical(None, _("Error"),
                     _("The file couldn't be converted. Error message:\n") + stderr)
-    
+
     def createDocument(self, filename, contents):
         """Create a new document using the specified filename and contents.
-        
+
         Make it the current document in our mainwindow and run the engraver.
-        
+
         """
         while os.path.exists(filename) or app.findDocument(QUrl.fromLocalFile(filename)):
             filename = util.next_file(filename)
@@ -83,15 +83,17 @@ class FileImport(plugin.MainWindowPlugin):
         doc.setUrl(QUrl.fromLocalFile(filename))
         doc.setModified(True)
         self.mainwindow().setCurrentDocument(doc)
-        import engrave
-        engrave.engraver(self.mainwindow()).engrave('preview', doc, False)
+        do_engrave = False #implement as parameter set by user??
+        if do_engrave:
+            import engrave
+            engrave.engraver(self.mainwindow()).engrave('preview', doc, False)
 
 
 class Actions(actioncollection.ActionCollection):
     name = "file_import"
     def createActions(self, parent):
-        self.import_musicxml = QAction(parent)        
-    
+        self.import_musicxml = QAction(parent)
+
     def translateUI(self):
         self.import_musicxml.setText(_("Import MusicXML..."))
         self.import_musicxml.setToolTip(_("Import a MusicXML file using musicxml2ly."))
