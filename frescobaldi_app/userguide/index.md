@@ -1,4 +1,4 @@
-=== Frescobaldi Manual ==
+=== Frescobaldi Manual ===
 
 Frescobaldi is a light-weight, but powerful editor for LilyPond music files.
 This manual is written by {author} and documents {appname} version {version}.
@@ -22,3 +22,5 @@ about
 toc
 
 #SEEALSO
+
+
