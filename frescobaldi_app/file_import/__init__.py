@@ -83,10 +83,6 @@ class FileImport(plugin.MainWindowPlugin):
         doc.setUrl(QUrl.fromLocalFile(filename))
         doc.setModified(True)
         self.mainwindow().setCurrentDocument(doc)
-        do_engrave = False #implement as parameter set by user??
-        if do_engrave:
-            import engrave
-            engrave.engraver(self.mainwindow()).engrave('preview', doc, False)
 
 
 class Actions(actioncollection.ActionCollection):
