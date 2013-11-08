@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2013-10-16 07:55+0200\n"
-"PO-Revision-Date: 2013-05-15 22:45+0200\n"
+"PO-Revision-Date: 2013-11-08 16:31+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -58,36 +58,32 @@ msgid "The following people contributed to {appname}:"
 msgstr "Tito lidé přispěli do {appname}:"
 
 #: ../about.py:71
-#, fuzzy
 msgid "Kinetic Scrolling for the Music View"
-msgstr "{author}: Pohybové projíždění pro Pohled na noty"
+msgstr "Pohybové projíždění pro Pohled na noty"
 
 #: ../about.py:75
 msgid "Improved highlighting and auto-completion of Scheme code"
-msgstr ""
+msgstr "vylepšené zvýrazňování a automatické doplňování kódu Scheme"
 
 #: ../about.py:79
-#, fuzzy
 msgid "Preview modes"
-msgstr "Volby"
+msgstr "Náhledové režimy"
 
 #: ../about.py:80
-#, fuzzy
 msgid "Various contributions"
-msgstr "Příspěvky"
+msgstr "Různé příspěvky"
 
 #: ../about.py:84
-#, fuzzy
 msgid "Modal Transpose"
-msgstr "Pře&vést..."
+msgstr "Modální převedení..."
 
 #: ../about.py:88
 msgid "Quick Insert buttons for grace notes"
-msgstr ""
+msgstr "Tlačítka pro rychlé vložení pro ozdoby"
 
 #: ../about.py:89
 msgid "MusicXML import"
-msgstr ""
+msgstr "Zavedení MusicXML"
 
 #: ../about.py:94
 msgid "{appname} is translated into the following languages:"
@@ -291,7 +287,7 @@ msgstr "Bez názvu ({num})"
 
 #: ../documentactions.py:176
 msgid "Open File at C&ursor"
-msgstr "Otevřít soubor na &ukazovátku"
+msgstr "Otevřít soubor na &ukazateli"
 
 #: ../documentactions.py:177
 msgid "Cut and Assign..."
@@ -318,32 +314,28 @@ msgid "&Update with convert-ly..."
 msgstr "O&bnovit za použití convert-ly..."
 
 #: ../documentactions.py:183
-#, fuzzy
 msgid "Remove &Articulations"
-msgstr "Artikulace"
+msgstr "Odstranit &artikulace"
 
 #: ../documentactions.py:184
-#, fuzzy
 msgid "Remove &Ornaments"
-msgstr "Ozdoby"
+msgstr "Odstranit &ozdoby"
 
 #: ../documentactions.py:185
 msgid "Remove &Instrument Scripts"
-msgstr ""
+msgstr "Odstranit &nástrojové skripty"
 
 #: ../documentactions.py:186
-#, fuzzy
 msgid "Remove &Slurs"
-msgstr "O&dstranit doby trvání"
+msgstr "Odstranit &legatové obloučky"
 
 #: ../documentactions.py:187
-#, fuzzy
 msgid "Remove &Dynamics"
-msgstr "Dynamika"
+msgstr "Odstranit &dynamiku"
 
 #: ../documentactions.py:188
 msgid "Remove Text &Markup (from music)"
-msgstr ""
+msgstr "Odstranit textové &značení (z not)"
 
 #: ../documentcontextmenu.py:67 ../mainwindow.py:1032
 #: ../sessions/manager.py:127
@@ -363,10 +355,9 @@ msgid "Always &Engrave This Document"
 msgstr "Tento dokument &vyrýt vždy"
 
 #: ../documentmenu.py:42
-#, fuzzy
 msgctxt "menu title"
 msgid "&Documents"
-msgstr "&Dokument"
+msgstr "&Dokumenty"
 
 #. L10N: 'always engraved': the document is marked as 'Always Engrave' in the LilyPond menu
 #: ../documentmenu.py:109
@@ -885,9 +876,8 @@ msgid "&Quit"
 msgstr "U&končit"
 
 #: ../mainwindow.py:1048
-#, fuzzy
 msgid "Restart {appname}"
-msgstr "O {appname}"
+msgstr "Spustit znovu {appname}"
 
 #: ../mainwindow.py:1050
 msgid "Export Source as Colored &HTML..."
@@ -1011,10 +1001,9 @@ msgid "&File"
 msgstr "&Soubor"
 
 #: ../menu.py:126
-#, fuzzy
 msgctxt "submenu title"
 msgid "&Import"
-msgstr "&Zavést..."
+msgstr "&Zavést"
 
 #: ../menu.py:134
 msgctxt "submenu title"
@@ -1067,10 +1056,9 @@ msgid "&Rhythm"
 msgstr "&Rytmus"
 
 #: ../menu.py:337
-#, fuzzy
 msgctxt "submenu title"
 msgid "&Quick Remove"
-msgstr "&Odstranit"
+msgstr "&Rychlé odstranění"
 
 #: ../menu.py:355
 msgctxt "menu title"
@@ -1549,86 +1537,87 @@ msgstr ""
 #: ../file_import/__init__.py:48
 msgctxt "dialog title"
 msgid "Import a MusicXML file"
-msgstr ""
+msgstr "Zavést soubor MusicXML"
 
 #: ../file_import/__init__.py:71
 msgid "The file couldn't be converted. Error message:\n"
-msgstr ""
+msgstr "Soubor se nepodařilo převést. Chybové hlášení:\n"
 
 #: ../file_import/__init__.py:96
-#, fuzzy
 msgid "Import MusicXML..."
-msgstr "Vy&tisknout noty..."
+msgstr "Zavést MusicXML..."
 
 #: ../file_import/__init__.py:97
 msgid "Import a MusicXML file using musicxml2ly."
-msgstr ""
+msgstr "Zavést soubor MusicXML pomocí musicxml2ly."
 
 #: ../file_import/musicxml.py:93 ../file_import/musicxml.py:149
-#, fuzzy
 msgid "Import Music XML"
-msgstr "Vyvést jako HTML"
+msgstr "Zavést MusicXML"
 
 #: ../file_import/musicxml.py:94
-#, fuzzy
 msgid "No articulation directions"
-msgstr "O&dstranit doby trvání"
+msgstr "Žádné směry artikulací"
 
 #: ../file_import/musicxml.py:95
 msgid "No rest positions"
-msgstr ""
+msgstr "Žádné polohy pomlk"
 
 #: ../file_import/musicxml.py:96
 msgid "No page layout"
-msgstr ""
+msgstr "Žádné rozvržení strany"
 
 #: ../file_import/musicxml.py:97
 msgid "Auto beaming"
-msgstr ""
+msgstr "Automatické trámce"
 
 #: ../file_import/musicxml.py:99
 msgid "Run musicxml2ly"
-msgstr ""
+msgstr "Spustit musicxml2ly"
 
 #: ../file_import/musicxml.py:155
 msgid ""
 "Import a Music XML file using the command line tool musicxml2ly from the "
 "LilyPond package."
 msgstr ""
+"Zavést soubor MusicXML pomocí nástroje pro příkazový řádek "
+"musicxml2ly z balíku LilyPondu."
 
 #: ../file_import/musicxml.py:157
-#, fuzzy
 msgid ""
 "In this dialog you can set some parameters for the musicxml2ly import. "
 "Currently there are four parameters that can be set by the checkboxes:"
-msgstr "V tomto dialogu můžete upravit jeden řádek textového dokumentu."
+msgstr ""
+"V tomto dialogu můžete nastavit některé parametry pro "
+"zavádění musicxml2ly. V současnosti jsou to čtyři parametry, "
+"jež lze nastavit pomocí zaškrtávacích okének:"
 
 #: ../file_import/musicxml.py:162
 msgid "do not convert directions (^, _ or -) for articulations, dynamics, etc."
-msgstr ""
+msgstr "Nepřevádět směry (^, _ nebo -) pro artikulace, dynamiku, atd."
 
 #: ../file_import/musicxml.py:164
 msgid "do not convert exact vertical positions of rests"
-msgstr ""
+msgstr "Nepřevádět přesná svislá postavení pomlk"
 
 #: ../file_import/musicxml.py:166
 msgid "do not convert the exact page layout and breaks"
-msgstr ""
+msgstr "Nepřevádět přesné rozvržení strany a zalomení"
 
 #: ../file_import/musicxml.py:168
 msgid ""
 "do not convert beaming information, use LilyPonds automatic beaming instead."
 msgstr ""
+"Nepřevádět údaje o trámcích, místo toho použít lilypondovké automatické "
+"trámce."
 
 #: ../file_import/musicxml.py:173
-#, fuzzy
 msgid "The following replacements will be made in the command line:"
-msgstr "Budou provedena následující nahrazení:"
+msgstr "V příkazovém řádku budou provedena následující nahrazení:"
 
 #: ../file_import/musicxml.py:176
-#, fuzzy
 msgid "The musicxml2ly executable"
-msgstr "Spustitelný soubor pro LilyPond"
+msgstr "Spustitelný soubor pro musicxml2ly"
 
 #: ../help/browser.py:77
 msgid "Toolbar"
@@ -1648,15 +1637,16 @@ msgid "Help"
 msgstr "Nápověda"
 
 #: ../help/cnt_engraving.py:37
-#, fuzzy
 msgid "Engraving Scores"
-msgstr "Zrušit ryteckou &práci"
+msgstr "Rytí notových zápisů"
 
 #: ../help/cnt_engraving.py:41
 msgid ""
 "There are three modes Frescobaldi can compile scores in: <em>Preview</em>, "
 "<em>Publication</em> and <em>Custom</em>."
 msgstr ""
+"Frescobaldi může sestavovat notové zápisy ve třech režimech: <em>Náhled</em>, "
+"<em>Vydání</em> a <em>Vlastní</em>."
 
 #: ../help/cnt_engraving.py:43
 msgid ""
@@ -1665,12 +1655,19 @@ msgid ""
 "debugging layout issues.<br /><em>Publication</em> mode is used for "
 "producing the final PDF intended to be shared."
 msgstr ""
+"<em>Náhledový</em> režim je užitečný při práci na notovém zápisu, "
+"protože poskytuje dvoucestný pohyb v dokumentu typu ukázat "
+"a klepnout a také množství režimů pro ladění věcí spojených s rozvržením.<br "
+"/><em>Vydavatelský</em> režim se používá k vydání "
+"konečného souboru ve formátu PDF, kde je záměrem jeho sdílení."
 
 #: ../help/cnt_engraving.py:48
 msgid ""
 "<em>Custom</em> mode allows you to specify the used LilyPond command in "
 "detail."
 msgstr ""
+"<em>Vlastní</em> režim umožňuje podrobné stanovení používaného příkazu "
+"LilyPondu."
 
 #: ../help/cnt_engraving.py:50
 msgid ""
@@ -1679,11 +1676,14 @@ msgid ""
 "determine the LilyPond version from the document and use the version that "
 "matches best."
 msgstr ""
+"Pokud máte nastaveny různé verze LilyPondu a řekl jste to Frescobaldi na "
+"stránce "
+"pro <em>LilyPond</em> dialogu <em>Nastavení</em>, pokusí se o určení "
+"verze LilyPondu z dokumentu a použití nejlépe odpovídající verze."
 
 #: ../help/cnt_engraving.py:66
-#, fuzzy
 msgid "Engrave (Preview)"
-msgstr "Vyrýt (&náhled)"
+msgstr "Vyrýt (náhled)"
 
 #: ../help/cnt_engraving.py:70
 msgid ""
@@ -1693,6 +1693,11 @@ msgid ""
 "These will display or highlight various layout aspects and will help you "
 "fine-tuning your scores."
 msgstr ""
+"Při práci na notovém zápisu budete obvykle rýt své notové zápisy v "
+"<em>režimu náhledu</em> ({preview_shortcut}). To umožní dvoucestné "
+"funkce Frescobaldi typu ukázat a klepnout a dá vám přístup k množství "
+"režimů pro ladění. Tyto zobrazí nebo zvýrazní různé stránky rozvržení a "
+"pomohou vám s jemným doladěním vašich notových zápisů."
 
 #: ../help/cnt_engraving.py:76
 msgid ""
@@ -1700,6 +1705,10 @@ msgid ""
 "panel which is accessible through {menu_panel}.The Debug Modes are initially "
 "disabled but remember their state throughout Frescobaldi sessions."
 msgstr ""
+"Režimy pro ladění jsou přístupné přes ukotvitelný panel s volbami pro ladění, "
+"který je přístupný přes {menu_panel}. Režimy pro ladění jsou na začátku "
+"vypnuty, "
+"ale pamatují si svůj stav skrze sezení Frescobaldi."
 
 #: ../help/cnt_engraving.py:80 ../help/cnt_engraving.py:83
 #: ../preferences/__init__.py:261 ../preferences/prefshelp.py:284
@@ -1708,15 +1717,16 @@ msgstr "Nástroje"
 
 #: ../help/cnt_engraving.py:80 ../help/cnt_engraving.py:83
 #: ../preview_mode/__init__.py:42
-#, fuzzy
 msgid "Preview Options"
-msgstr "Volby"
+msgstr "Volby pro náhled"
 
 #: ../help/cnt_engraving.py:81
 msgid ""
 "If you use these features regularly it is recommendable to have the panel "
 "constantly open because you will probably switch Debug Modes quite often."
 msgstr ""
+"Pokud tyto funkce používáte pravidelně, dá se doporučit ponechat panel "
+"stále otevřený, protože do režimů pro ladění budete přepínat docela často."
 
 #: ../help/cnt_engraving.py:84
 msgid ""
@@ -1726,23 +1736,30 @@ msgid ""
 "library files. This way you can write code that is only run when the score "
 "is compiled in Preview Mode."
 msgstr ""
+"Sestavování v náhledovém režimu uvede proměnnou pro příkazový "
+"řádek <code>-ddebug-layout</code>. Můžete se na to podívat pomocí něčeho "
+"jako <code>#(if (ly:get-option 'debug-layout))</code> ve svých vstupních "
+"anebo "
+"knihovního souborech. Tímto způsobem můžete psát kód, který se spustí jedině, "
+"když je notový zápis sestaven v náhledovém režimu."
 
 #: ../help/cnt_engraving.py:89
 msgid ""
 "The appearance of the Debug Modes is defined by Scheme variables and can "
 "partially be configured following the directions in {preview_config}."
 msgstr ""
+"Vzhled náhledových režimů je vymezen proměnnými Scheme a je možné "
+"jej částečně nastavit následováním pokynů v  {preview_config}."
 
 #: ../help/cnt_engraving.py:92
-#, fuzzy
 msgid "The following Debug Modes are currently implemented:"
-msgstr "Jsou uznávány následující proměnné:"
+msgstr "Nyní jsou provedeny následující ladicí režimy:"
 
 #. L10N: Please translate the mode names the same way as in the panel UI
 #: ../help/cnt_engraving.py:96 ../help/cnt_engraving.py:217
 #: ../preview_mode/widget.py:110
 msgid "Display Control Points"
-msgstr ""
+msgstr "Zobrazit kontrolní body"
 
 #: ../help/cnt_engraving.py:97
 msgid ""
@@ -1753,17 +1770,28 @@ msgid ""
 "involves moving these control-points around, and it's helpful to see where "
 "they actually are."
 msgstr ""
+"Legatové obloučky, ligatury a další podobné předměty jsou kresleny v "
+"LilyPondu "
+"jako Beziérovy křivky třetího řádu, což znamená, že jejich tvar je řízen "
+"čtyřmi \"kontrolními"
+"body\" (první a poslední říkají, kde jsou umístěny konce křivky, a prostřední "
+"ovlivňují "
+"zakřivení). Změna tvarů těchto předmětů zahrnuje pohyb těmito kontrolními "
+"body dokola, "
+"a je užitečné vidět, kde skutečně jsou."
 
 #: ../help/cnt_engraving.py:104
 msgid ""
 "This Debug Mode will display the inner control-points as red crosses and "
 "connects them to the outer (starting) points with thin lines."
 msgstr ""
+"Tento režim pro ladění zobrazí vnitřní kontrolní body jako červené "
+"kříže a spojí je tenkými čarami s vnějšími (začátečními) body."
 
 #: ../help/cnt_engraving.py:107 ../help/cnt_engraving.py:232
 #: ../preview_mode/widget.py:114
 msgid "Color \\voiceXXX"
-msgstr ""
+msgstr "Barva \\voiceXXX"
 
 #: ../help/cnt_engraving.py:108
 msgid ""
@@ -1771,12 +1799,13 @@ msgid ""
 "<code>\\voiceXXX</code> commands. This is useful when dealing with polyphony "
 "issues."
 msgstr ""
+"Tento režim zvýrazní hlasy, jež byly výslovně nastaveny jedním z příkazů "
+"<code>\\voiceXXX</code> . Toto je užitečné při práci s vícehlasými věcmi."
 
 #: ../help/cnt_engraving.py:111 ../help/cnt_engraving.py:247
 #: ../preview_mode/widget.py:118
-#, fuzzy
 msgid "Color explicit directions"
-msgstr "Otevřená doba trvání"
+msgstr "Barvit výslovné směry"
 
 #: ../help/cnt_engraving.py:112
 msgid ""
@@ -1784,10 +1813,13 @@ msgid ""
 "the predefined commands <code>\\xxxUp</code> etc. or the directional "
 "operators <code>^</code> and <code>_</code>."
 msgstr ""
+"Tento režim obarvuje položky, jejichž směry byly výslovně nastaveny buď "
+"přednastavenými příkazy <code>\\xxxUp</code> atd., anebo směrovými "
+"operátory <code>^</code> a <code>_</code>."
 
 #: ../help/cnt_engraving.py:115
 msgid "Please note how this mode and the previous are related:"
-msgstr ""
+msgstr "Všimněte si, prosím, jak tento a předchozí režim souvisejí:"
 
 #: ../help/cnt_engraving.py:116
 msgid ""
@@ -1795,12 +1827,17 @@ msgid ""
 "<code>\\oneVoice</code> or <code>\\xxxNeutral</code> colors are reverted to "
 "black and may also revert the highlighting of the other Debug Mode."
 msgstr ""
+"Když je podmínka pro jeden z režimů obrácena pomocí příkazů, jako jsou "
+"<code>\\oneVoice</code> nebo <code>\\xxxNeutral</code>, barvy se "
+"vrátí k černé a také mohou vrátit zvýraznění jiného režimu pro ladění."
 
 #: ../help/cnt_engraving.py:120
 msgid ""
 "In <code>c \\voiceTwo d \\stemUp e \\stemNeutral d \\oneVoice</code> the 'd' "
 "may already be reverted."
 msgstr ""
+"V <code>c \\voiceTwo d \\stemUp e \\stemNeutral d \\oneVoice</code> může "
+"být 'd' již vráceno."
 
 #: ../help/cnt_engraving.py:122
 msgid ""
@@ -1808,17 +1845,22 @@ msgid ""
 "is somewhat improved through the use of the <code>\\temporary</code> "
 "directive."
 msgstr ""
+"Pokud je notový zápis vyryt LilyPondem ve verzi 2.17.6 nebo novější, je "
+"situace "
+"trochu lepší použitím příkazu <code>\\temporary</code> "
 
 #: ../help/cnt_engraving.py:125
 msgid ""
 "In short: If you use both Modes at the same time please expect "
 "inconsistencies."
 msgstr ""
+"Krátce: Pokud používáte oba režimy ve stejnou dobu, očekávejte "
+"nesrovnalosti."
 
 #: ../help/cnt_engraving.py:127 ../help/cnt_engraving.py:264
 #: ../preview_mode/widget.py:121
 msgid "Display Grob Anchors"
-msgstr ""
+msgstr "Zobrazit kotvy obrazových předmětů (grob)"
 
 #: ../help/cnt_engraving.py:128
 msgid ""
@@ -1830,19 +1872,28 @@ msgid ""
 "(-1, 3)\". \"Lower left corner\" and \"center\" would be the reference "
 "points for square and circle."
 msgstr ""
+"V LilyPondu mají všechny obrazové předměty kotvu (srovnávací bod). Co je "
+"to srovnávací bod?  Je to zvláštní bod, jenž vymezuje polohu předmětu. "
+"Pomyslete na geometrii: Pokud máte stanovit, kde je v rovině umístěno "
+"číslo, obyčejně řeknete něco v tom smyslu, že \"dolní levý roh "
+"tohoto čtverce má souřadnice (0, 2)\" nebo \"střed tohoto kruhu je na "
+"(-1, 3)\". \"Dolní levý roh\" a \"střed\" jsou srovnávací body "
+"pro čtverec a kruh."
 
 #: ../help/cnt_engraving.py:135
 msgid "This Mode displays a red dot for each grob's anchor point."
 msgstr ""
+"Tento režim zobrazuje červenou tečku pro každý kotevní bod obrazového "
+"předmětu (grob)."
 
 #: ../help/cnt_engraving.py:136 ../help/cnt_engraving.py:277
 #: ../preview_mode/widget.py:124
 msgid "Display Grob Names"
-msgstr ""
+msgstr "Zobrazit názvy obrazových předmětů (grob)"
 
 #: ../help/cnt_engraving.py:137
 msgid "This mode prints a grob's name next to it."
-msgstr ""
+msgstr "Tento režim vytiskne název obrazového předmětu (grob) vedle něj"
 
 #: ../help/cnt_engraving.py:138
 msgid ""
@@ -1850,6 +1901,9 @@ msgid ""
 "names, which may come in handy if you don't know where to look up available "
 "properties."
 msgstr ""
+"Hlavním účelem tohoto režimu pro ladění je získání informací o "
+"názvech obrazových předmětů (grob), což se může hodit, pokud nevíte, "
+"kde hledat dostupné vlastnosti."
 
 #: ../help/cnt_engraving.py:141
 msgid ""
@@ -1857,6 +1911,13 @@ msgid ""
 "mutually exclusive because both functions override the grob's stencil. When "
 "both modes are active, only the grob anchors are displayed."
 msgstr ""
+"Všimněte si, prosím, že zobrazení kotev obrazových předmětů (grob) a "
+"zobrazení názvů "
+"obrazových předmětů (grob) se navzájem vylučuje, protože obě funkce potlačují "
+"šablonu "
+"obrazového předmětu (grob). Když jsou v činnosti oba režimy, jsou zobrazeny "
+"jen kotvy "
+"obrazových předmětů (grob)."
 
 #: ../help/cnt_engraving.py:145
 msgid ""
@@ -1864,10 +1925,15 @@ msgid ""
 "layout. It is mainly useful for learning about grob names and will "
 "especially become usable once it can be activated for single grobs."
 msgstr ""
+"Všimněte si také, prosím, že tento režim je docela rušivý a může "
+"ovlivnit rozvržení. Je užitečný hlavně při učení se názvům obrazových "
+"předmětů (grob) "
+"a zvláště užitečným se stane, až jej bude možné zapnout pro jednotlivé "
+"obrazové předměty (grob)."
 
 #: ../help/cnt_engraving.py:149 ../preview_mode/widget.py:106
 msgid "Display Skylines"
-msgstr ""
+msgstr "Zobrazit nosná lana"
 
 #: ../help/cnt_engraving.py:150
 msgid ""
@@ -1876,32 +1942,38 @@ msgid ""
 "representing the skylines and is useful when dealing with issues of vertical "
 "spacing."
 msgstr ""
+"LilyPond používá nosné linky k výpočtu svislých rozměrů svých "
+"obrazových předmětů, aby zabránil střetům. Tento režim kreslí čáry "
+"představující nosná lana a je užitečný při zacházení s věcmi okolo "
+"svislých odstupů."
 
 #: ../help/cnt_engraving.py:154 ../preview_mode/widget.py:127
-#, fuzzy
 msgid "Debug Paper Columns"
-msgstr "Barva papíru"
+msgstr "Pořádat papírové sloupce"
 
 #: ../help/cnt_engraving.py:155
 msgid ""
 "LilyPond organises the horizontal spacing in \"paper columns\". This mode "
 "prints a lot of spacing information about these entities."
 msgstr ""
+"LilyPond uspořádá vodorovné rozestupy v \"papírových sloupcích\". Tento režim "
+"vytiskne spoustu údajů o vzdálenostech mezi předměty."
 
 #: ../help/cnt_engraving.py:157 ../preview_mode/widget.py:130
 msgid "Annotate Spacing"
-msgstr ""
+msgstr "Vysvětlit rozmístění"
 
 #: ../help/cnt_engraving.py:158
 msgid ""
 "LilyPond has a built-in function that prints lots of information about "
 "distances on the paper, which is very useful when debugging the page layout."
 msgstr ""
+"LilyPond má vestavěnou funkci, jež vytiskne spoustu údajů o vzdálenostech "
+"na papíře, což je velice užitečné při ladění rozvržení strany."
 
 #: ../help/cnt_engraving.py:161
-#, fuzzy
 msgid "Include Custom File"
-msgstr "Vložit ze souboru"
+msgstr "Zahrnout vlastní soubor"
 
 #: ../help/cnt_engraving.py:162
 msgid ""
@@ -1911,16 +1983,23 @@ msgid ""
 "in Preview Mode. This file will be parsed before any of the other Debug "
 "Modes so you may use it to configure them."
 msgstr ""
+"Tento režim nabízí příležitost přidat vlastní ladicí režimy zahrnutím "
+"vlastního souboru. Tento soubor bude zahrnut při spuštění programu "
+"a může obsahovat jakýkoli kód LilyPondu, u nějž chcete, aby byl proveden "
+"vždy, když ryjete v náhledovém režimu. Tento soubor bude zpracován před "
+"kterýmkoli jiným ladicím režimem, takže jej můžete využít k jejich nastavení."
 
 #: ../help/cnt_engraving.py:168
 msgid ""
 "The given string will be literally included in an <code>\\include</code> "
 "directive, so you are responsible yourself that LilyPond can find it."
 msgstr ""
+"Zadaný řetězec bude doslovně zahrnut v příkazu <code>\\include</code>, "
+"takže jste osobně zodpovědný za to, že jej LilyPond dokáže najít."
 
 #: ../help/cnt_engraving.py:178
 msgid "Preview Mode Configuration"
-msgstr ""
+msgstr "Nastavení náhledového režimu"
 
 #: ../help/cnt_engraving.py:205
 msgid ""
@@ -1932,23 +2011,31 @@ msgid ""
 "the different debug modes you can use it to define any of the variables "
 "<em>before</em> the Debug Modes are parsed."
 msgstr ""
+"Vzhled jednotlivých režimů pro ladění je vymezen pomocí "
+"použití proměnných pro nastavení. V závislosti na provedení "
+"režimu můžete měnit jeho vzhled novým stanovením těchto "
+"proměnných ve svých vstupních souborech. Ale pokud se zajímáte "
+"o obecnější řešení, můžete využít režim pro ladění <code>custom-file</code>. "
+"Jelikož je tento uživatelský soubor čten před jinými režimy pro ladění, "
+"můžete jej použít k vymezení kterékoli z proměnných "
+"<em>před</em> zpracováním režimů pro ladění."
 
 #: ../help/cnt_engraving.py:213
 msgid "The modes use the following configuration variables:"
-msgstr ""
+msgstr "Režimy používají následující proměnné nastavení:"
 
 #: ../help/cnt_engraving.py:218
 msgid "Variables can be redefined in input files."
-msgstr ""
+msgstr "Proměnné lze nově stanovit ve stupních souborech."
 
 #: ../help/cnt_engraving.py:233
 msgid "These Variables currently can't be redefined in input files."
-msgstr ""
+msgstr "Tyto proměnné v současnosti ve stupních souborech nově stanovit nelze."
 
 #: ../help/cnt_engraving.py:248 ../help/cnt_engraving.py:265
 #: ../help/cnt_engraving.py:278
 msgid "These Variables can be redefined in input files."
-msgstr ""
+msgstr "Tyto proměnné lze nově stanovit ve stupních souborech."
 
 #: ../help/cnt_engraving.py:258
 msgid ""
@@ -1957,6 +2044,11 @@ msgid ""
 "provide a list of grobs such as e.g. <code>#(define debug-direction-grob-"
 "list '(DynamicText Script))</code>"
 msgstr ""
+"Stanovuje, pro které obrazové předměty (grob) je přímý směr sledován "
+"prostřednictvím operátorů. Ve výchozím nastavení jsou sledovány všechny "
+"obrazové předměty (grob), ale popřípadě je možné poskytnout seznam "
+"obrazových předmětů (grob), jako např. <code>#(define debug-direction-grob-"
+"list '(DynamicText Script))</code>"
 
 #: ../help/cnt_engraving.py:272
 msgid ""
@@ -1964,6 +2056,11 @@ msgid ""
 "grobs are watched, but alternatively one can provide a list of grobs such as "
 "e.g. <code>#(define debug-grob-anchors-grob-list '(Script NoteHead))</code>"
 msgstr ""
+"Stanovuje, pro které obrazové předměty (grob) budou zobrazeny "
+"kotvy. Ve výchozím nastavení jsou sledovány všechny obrazové "
+"předměty (grob), ale popřípadě je možné poskytnout seznam "
+"obrazových předmětů (grob), jako např. <code>#(define "
+"debug-grob-anchors-grob-list '(Script NoteHead))</code>"
 
 #: ../help/cnt_engraving.py:285
 msgid ""
@@ -1971,17 +2068,23 @@ msgid ""
 "are watched, but alternatively one can provide a list of grobs such as e.g. "
 "<code>#(define debug-grob-names-grob-list '(Script NoteHead))</code>"
 msgstr ""
+"Stanovuje, pro které obrazové předměty (grob) budou zobrazeny "
+"názvy. Ve výchozím nastavení jsou sledovány všechny obrazové "
+"předměty (grob), ale popřípadě je možné poskytnout seznam "
+"obrazových předmětů (grob), jako např. <code>#(define "
+"debug-grob-names-grob-list '(Script NoteHead))</code>"
 
 #: ../help/cnt_engraving.py:291
 msgid ""
 "The remaining modes are built-in to LilyPond and don't have any "
 "configuration options."
 msgstr ""
+"Zbývající režimy jsou vestavěny do LilyPondu a nemají žádné volby pro "
+"nastavení."
 
 #: ../help/cnt_engraving.py:297
-#, fuzzy
 msgid "Engrave (Publication)"
-msgstr "Vyrýt (vydat)"
+msgstr "Vyrýt (vydání)"
 
 #: ../help/cnt_engraving.py:301
 msgid ""
@@ -1990,29 +2093,40 @@ msgid ""
 "from navigating to the corresponding line in the input file, but it will "
 "also significantly decrease the file size."
 msgstr ""
+"Při rytí notového zápisu v režimu vydání není při ukázání "
+"a klepnutí informace tvořena. To zabrání čtečce výsledného "
+"dokumentu PDF v přesunu na odpovídající řádek ve vstupním "
+"souboru, ale také podstatně zmenší velikost souboru."
 
 #: ../help/cnt_engraving.py:306
 msgid ""
 "You should also note that the point-and-click links contain hard-coded path "
 "information of your systen, which may be considered a security issue."
 msgstr ""
+"Také si všimněte, že odkazy ukázat a klepnout obsahují "
+"natvrdo kódované informace o cestě ve vašem systému, "
+"což lze považovat za bezpečnostní riziko."
 
 #: ../help/cnt_engraving.py:315
-#, fuzzy
 msgid "Engrave (Custom)"
-msgstr "Vyrýt vlastní"
+msgstr "Vyrýt (vlastní)"
 
 #: ../help/cnt_engraving.py:319
 msgid ""
 "The <em>Engrave (Custom)</em> dialog ({custom_shortcut}) gives you detailed "
 "access to all aspects of the LilyPond command."
 msgstr ""
+"Dialog <em>Vyrýt (vlastní)</em> ({custom_shortcut}) vám dává "
+"podrobný přístup ke všem stránkám příkazu LilyPond ."
 
 #: ../help/cnt_engraving.py:322
 msgid ""
 "You can configure a number of options through the graphical user interface "
 "and then fine-tune the command line to be used for LilyPond directly."
 msgstr ""
+"Spoustu voleb můžete nastavit přes uživatelské rozhraní "
+"a potom jemně doladit příkazový řádek, aby se pro LilyPond "
+"používal přímo."
 
 #: ../help/cnt_engraving.py:325
 msgid ""
@@ -2020,12 +2134,17 @@ msgid ""
 "the output formats available to LilyPond and (for PNG output) from a number "
 "of image resolutions."
 msgstr ""
+"Můžete vybírat z verzí  LilyPondu stanovených v dialogu {pref}, z "
+"výstupních formátů dostupných LilyPondu a (pro výstup do PNG) "
+"ze spousty obrazových rozlišení."
 
 #: ../help/cnt_engraving.py:329
 msgid ""
 "Running LilyPond in Preview Mode will respect the settings from the Preview "
 "Options Panel ({link})."
 msgstr ""
+"Spuštění LilyPondu v náhledovém režimu bude brát ohled "
+"na nastavení v panelu s volbami pro náhled ({link})."
 
 #: ../help/cnt_engraving.py:331
 msgid ""
@@ -2033,12 +2152,18 @@ msgid ""
 "information to a mailing list, and Deleting Intermediate Output Files may be "
 "used to <em>disable</em> the default behaviour."
 msgstr ""
+"Podrobný výstup a zprávy v angličtině mohou mít význam, "
+"pokud chcete posílat informace do poštovního seznamu a smazání "
+"okamžitých výstupních souborů může být použito k<em>zákazu</em> "
+"výchozího chování."
 
 #: ../help/cnt_engraving.py:334
 msgid ""
 "Some of these settings are reflected in the Command Line text edit field, "
 "others not."
 msgstr ""
+"Některá z těchto nastavení se odráží v poli pro textové úpravy "
+"v příkazovém řádku, jiné ne."
 
 #: ../help/contents.py:39
 msgid "No Help"
@@ -2287,7 +2412,7 @@ msgstr ""
 "{example}\n"
 "\n"
 "<p>\n"
-"Potom klepněte na tlačítko na nástrojovém pruhu Lily nebo stiskněte "
+"Potom klepněte na tlačítko v nástrojovém pruhu LilyPondu nebo stiskněte "
 "{key_engrave}.\n"
 "Pokud je vše v pořádku, LilyPond se nyní spustí a váš soubor zpracuje.\n"
 "Ve spodní části obrazovky můžete sledovat postup LilyPondu.\n"
@@ -2304,25 +2429,29 @@ msgstr ""
 "\n"
 "<ul>\n"
 "<li>\n"
-"Setrvání ukazovátka myši nad notami a jinými předměty je zvýrazní v textu;\n"
-"klepněte na předměty pro přesunutí ukazovátka textu na ně\n"
+"Setrvání ukazovátka myši nad notami a jinými předměty not je zvýrazní v textu "
+"v okně nalevo;\n"
+"klepněte na předměty pro přesunutí ukazatele textu nalevo od předmětu i v "
+"okně vlevo.\n"
 "</li>\n"
 "\n"
 "<li>\n"
 "Ctrl-kolečko pro změnu zvětšení. Přibližování a oddalování se soustředí na "
-"ukazovátku myši\n"
+"ukazovátku myši.\n"
 "</li>\n"
 "\n"
 "<li>\n"
-"Ctrl-klepnutí na nějaké prázdné místo pro ukázání zvětšovacího skla totiž "
-"lupy\n"
+"Ctrl-klepnutí levým tlačítkem myši na vybrané místo a držení pro ukázání "
+"zvětšovacího skla totiž "
+"lupy a tím zvětšení malého úseku not bez přiblížení celého pohledu na noty.\n"
 "</li>\n"
 "\n"
 "<li>\n"
-"Přesunutí ukazovátka textu nebo výběr textu zvýrazní noty v náhledu;\n"
+"Výběr textu v hlavním textovém okně zvýrazní odpovídající noty v pohledu na "
+"noty;\n"
 "stiskněte {key_jump} pro přímé zaměření a zvýraznění noty nebo jiného "
 "předmětu\n"
-"v náhledu.\n"
+"v pohledu na noty.\n"
 "</li>\n"
 "\n"
 "<li>\n"
@@ -2343,8 +2472,8 @@ msgstr ""
 "<p>\n"
 "Pokud se LilyPond vůbec nespouští, prověřte, zda máte LilyPond nainstalován\n"
 "správně a že je příkaz pro lilypond v proměnné prostředí vaší systémové "
-"PATH\n"
-". Je-li to potřeba, poskytněte přesnou cestu ke spustitelnému souboru pro "
+"PATH.\n"
+"Je-li to potřeba, poskytněte přesnou cestu ke spustitelnému souboru pro "
 "LilyPond v\n"
 "{menu_preferences_lilypond}.\n"
 "</p>\n"
@@ -2354,10 +2483,10 @@ msgstr ""
 "zápisu,\n"
 "a Frescobaldi ve vašem dokumentu označí řádky, v nichž byly chyby\n"
 "nalezeny. Klepnutí na chybu v zápise nebo stisknutí {key_error} okamžitě\n"
-"přemístí ukazovátko textu na místo působící potíže. Stisknutím {key_error} "
+"přemístí ukazatel textu na místo působící potíže. Stisknutím {key_error} "
 "znovu\n"
 "dojde k přesunu na další chybovou hlášku a tak dále. Když je LilyPond\n"
-"spuštěn znovu, jsou značky pro chyby v řádcích odstraněny.\n"
+"spuštěn znovu, jsou všechny značky pro chyby v řádcích odstraněny.\n"
 "Označení chyb v řádcích můžete odstranit ručně volbou\n"
 "{menu_clear_error_marks}.\n"
 "</p>\n"
@@ -2395,7 +2524,7 @@ msgstr ""
 
 #: ../help/contents.py:246
 msgid "Click an object to move the text cursor to that object"
-msgstr "Klepněte na předmět pro přesunutí ukazovátka textu na tento předmět"
+msgstr "Klepněte na předmět pro přesunutí ukazatel textu na tento předmět"
 
 #: ../help/contents.py:247
 msgid "Shift-click an object to edit its text in a small window (see {link})"
@@ -2408,7 +2537,7 @@ msgid ""
 "Move the text cursor to highlight them in the music view, press {key} to "
 "scroll them into view."
 msgstr ""
-"Přesuňte ukazovátko myši pro jejich zvýraznění v pohledu na noty, stiskněte "
+"Přesuňte ukazatel textu pro jejich zvýraznění v pohledu na noty, stiskněte "
 "{key} pro jejich posunutí do pohledu."
 
 #: ../help/contents.py:252
@@ -3136,9 +3265,8 @@ msgid "&Music View"
 msgstr "Pohled na &noty"
 
 #: ../musicview/__init__.py:185
-#, fuzzy
 msgid "Print Music"
-msgstr "Vy&tisknout noty..."
+msgstr "Vytisknout noty"
 
 #: ../musicview/__init__.py:186
 msgid ""
@@ -3151,6 +3279,14 @@ msgid ""
 "Choose Yes if you want that, No if you want to try the built-in printing "
 "functionality anyway, or Cancel to cancel printing."
 msgstr ""
+"Bohužel není tato verze Frescobaldi schopna tisku dokumentů "
+"PDF na operačním systému Mac OS X kvůli různým technickým důvodům.\n"
+"\n"
+"Chcete místo toho otevřít soubor ve výchozím prohlížeči pro tisk? "
+"(Pamatujte, že jej máte zavřít znovu, abyste se vyhnuli potížím).\n"
+"\n"
+"Zvolte Ano, v případě že toto je vaším cílem, Ne, pokud přesto hodláte "
+"vyzkoušet vestavěnou tiskovou funkcionalitu, nebo Zrušit pro zrušení tisku."
 
 #: ../musicview/__init__.py:307
 msgid "Select Music View Document"
@@ -3194,11 +3330,11 @@ msgstr "&Zvětšit"
 
 #: ../musicview/__init__.py:317
 msgid "&Jump to Cursor Position"
-msgstr "&Skočit na polohu ukazovátka"
+msgstr "&Skočit na polohu ukazatele"
 
 #: ../musicview/__init__.py:318
 msgid "S&ynchronize with Cursor Position"
-msgstr "S&eřídit s polohou ukazovátka"
+msgstr "S&eřídit s polohou ukazatele"
 
 #: ../musicview/__init__.py:319
 msgid "Copy to &Image..."
@@ -3400,14 +3536,12 @@ msgid "Transposes all notes in the document or selection."
 msgstr "Převede všechny noty v dokumentu nebo ve výběru."
 
 #: ../pitch/__init__.py:126
-#, fuzzy
 msgid "&Modal Transpose..."
-msgstr "Pře&vést..."
+msgstr "&Modální převedení......"
 
 #: ../pitch/__init__.py:128
-#, fuzzy
 msgid "Transposes all notes in the document or selection within a given mode."
-msgstr "Převede všechny noty v dokumentu nebo ve výběru."
+msgstr "Převede všechny noty v dokumentu nebo ve výběru v rámci daného režimu."
 
 #: ../pitch/pitch.py:82 ../pitch/pitch.py:95
 msgid "Pitch Name Language"
@@ -3459,6 +3593,9 @@ msgid ""
 "Please enter the number of steps to alter by, followed by a key signature. "
 "(i.e. \"5 F\")"
 msgstr ""
+"Zadejte, prosím, počet kroků převedení (transpozice), následovaný "
+"předznamenáním "
+"(např. \"5 F\")"
 
 #: ../pitch/pitch.py:627
 msgid ""
@@ -4117,11 +4254,11 @@ msgstr "Prostředí LilyPondu"
 
 #: ../preferences/fontscolors.py:553
 msgid "Constant"
-msgstr ""
+msgstr "Stálý"
 
 #: ../preferences/fontscolors.py:554
 msgid "Symbol"
-msgstr ""
+msgstr "Symbol"
 
 #: ../preferences/fontscolors.py:557
 msgid "Texinfo"
@@ -4215,7 +4352,7 @@ msgstr ""
 
 #: ../preferences/general.py:234
 msgid "Remember cursor position, bookmarks, etc."
-msgstr "Zapamatovat si pozici ukazovátka, záložky atd."
+msgstr "Zapamatovat si pozici ukazatele, záložky atd."
 
 #: ../preferences/general.py:235
 msgid "Default directory:"
@@ -4278,20 +4415,21 @@ msgid "Command to open a Terminal or Command window."
 msgstr "Příkaz pro otevření okna s terminálem nebo příkazovým řádkem."
 
 #: ../preferences/helpers.py:145 ../preferences/prefshelp.py:188
-#, fuzzy
 msgid "Printing Music"
-msgstr "Vy&tisknout noty..."
+msgstr "Tisk not"
 
 #: ../preferences/helpers.py:147
 msgid ""
 "Here you can enter a command to print a PDF or PostScript file. See the Help "
 "page for more information about printing music."
 msgstr ""
+"Zde můžete zadat příkaz pro tisk souboru PDF nebo PostScript. "
+"Podívejte se na stránku s nápovědou, kde najdete další informace "
+"o tisku not."
 
 #: ../preferences/helpers.py:149
-#, fuzzy
 msgid "Printing command:"
-msgstr "Chyba tisku"
+msgstr "Příkaz pro tisk"
 
 #: ../preferences/helpers.py:151 ../preferences/prefshelp.py:190
 msgid ""
@@ -4303,11 +4441,19 @@ msgid ""
 "<code>$ps</code> is replaced with the PostScript filename. <code>$printer</"
 "code> is replaced with the printer's name to use."
 msgstr ""
+"Příkaz pro tisk se používá k vytištění souboru PostScript nebo PDF. Na Linuxu "
+"toto nepotřebujete, ale na Windows a Mac OS X můžete poskytnout příkaz, "
+"abyste "
+"se vyhnuli tomu, že budou dokumenty PDF tištěny za použití rastrových "
+"obrázků, což není nejlepší.\n"
+"<code>$pdf</code> je nahrazeno názvem souboru PDF, nebo případně, "
+"<code>$ps</code> je nahrazeno názvem souboru ve formátu PostScript. <code>"
+"$printer</"
+"code> je nahrazeno názvem tiskárny, která se použije."
 
 #: ../preferences/helpers.py:158
-#, fuzzy
 msgid "Use Frescobaldi's print dialog"
-msgstr "Příručka k Frescobaldi"
+msgstr "Použít tiskový dialog Frescobaldi"
 
 #: ../preferences/helpers.py:160
 msgid ""
@@ -4315,21 +4461,22 @@ msgid ""
 "PostScript document containing only the selected pages to print. Otherwise, "
 "the command is called directly and is expected to show a print dialog itself."
 msgstr ""
+"Je-li povoleno, Frescobaldi ukáže tiskový dialog a vytvoří dokument "
+"ve formátu PDF nebo PostScript obsahující pouze vybrané strany k tisku. "
+"Jinak je příkaz volán přímo a očekává se, že sám ukáže tiskový dialog."
 
 #: ../preferences/helpers.py:166
-#, fuzzy
 msgid "Set the resolution if Frescobaldi prints using raster images."
-msgstr "Sezení, které se má nahrát, je-li Frescobaldi spuštěn bez argumentů"
+msgstr ""
+"Nastavit rozlišení, pokud Frescobaldi tiskne za použití rastrových obrázků."
 
 #: ../preferences/import_export.py:89
-#, fuzzy
 msgid "No theme found."
-msgstr "Nenalezeny žádné kousky."
+msgstr "Nenalezen žádný motiv."
 
 #: ../preferences/import_export.py:172
-#, fuzzy
 msgid "No shortcuts found."
-msgstr "Nenalezen žádný výstup!"
+msgstr "Nenalezeny žádné klávesové zkratky."
 
 #: ../preferences/lilypond.py:82
 msgid "LilyPond versions to use"
@@ -4545,7 +4692,6 @@ msgstr ""
 "je Frescobaldi spuštěn znovu."
 
 #: ../preferences/prefshelp.py:60
-#, fuzzy
 msgid ""
 "Under <em>{startup}</em> you can configure which session to load if "
 "Frescobaldi is started without a filename. You can choose whether to start "
@@ -4556,7 +4702,9 @@ msgstr ""
 "Pod <em>{startup}</em> můžete nastavit, které sezení se má nahrát, pokud je "
 "Frescobaldi spuštěn bez názvu souboru. Můžete zvolit, zda začít s jedním "
 "prázdným dokumentem, s naposledy použitým sezením, nebo se zadaným sezením. "
-"Podívejte se také na {link}."
+"Všimněte si, prosím, že toto pracuje, jen když jste přímo vytvořil sezení "
+"a nastavil je tak, aby se do něj aoubory při uložení automaticky "
+"přidaly. Podívejte se také na {link}."
 
 #: ../preferences/prefshelp.py:69
 msgid ""
@@ -4566,7 +4714,7 @@ msgid ""
 "default folder in which you keep your LilyPond documents."
 msgstr ""
 "Pod <em>{saving}</em> můžete vybrat, co dělat, když je dokument uložen, "
-"například: zapamatovat si polohu ukazovátka a označené řádky, nebo zanechat "
+"například: zapamatovat si polohu ukazatele a označené řádky, nebo zanechat "
 "záložní kopii dokumentu (s propojenou vlnovkou ~). Také můžete stanovit "
 "výchozí složku, ve které uchováváte své dokumenty LilyPond."
 
@@ -4619,15 +4767,16 @@ msgstr ""
 "\\include</code> hledá soubory."
 
 #: ../preferences/prefshelp.py:131 ../preferences/prefshelp.py:137
-#, fuzzy
 msgid "Preview Preferences"
-msgstr "Obecné volby"
+msgstr "Nastavení náhledu"
 
 #: ../preferences/prefshelp.py:135
 msgid ""
 "Under <em>{preview_preferences}</em>, you can configure the appearance of "
 "several aspects of the Preview Mode."
 msgstr ""
+"Pod <em>{preview_preferences}</em> můžete nastavit vzhled "
+"některých stránek náhledového režimu."
 
 #: ../preferences/prefshelp.py:146
 msgid "Here you can configure Frescobaldi's MIDI settings."
@@ -4696,12 +4845,19 @@ msgid ""
 "dialog, you don't need to put the <code>$printer</code> variable in your "
 "command line."
 msgstr ""
+"Zrušte zaškrtnutí volby Použít tiskový dialog Frescobaldi, když tiskový "
+"příkaz otevře vlastní tiskový dialog, ve kterém můžete vybrat např. rozsah "
+"stran, které se mají vytisknout, a tiskárnu, která se má použít. Pokud "
+"nepoužíváte tiskový dialog Frescobaldi, nepotřebujete do svého "
+"příkazového řádku dát proměnnou <code>$printer</code>."
 
 #: ../preferences/prefshelp.py:202
 msgid ""
 "If Frescobaldi must fall back to printing using raster images, you can "
 "specify the number of dots per inch here."
 msgstr ""
+"Pokud Frescobaldi musí sáhnout k tisku pomocí rastrových obrázků, "
+"můžete zde zadat počet teček na palec."
 
 #: ../preferences/prefshelp.py:213
 msgid ""
@@ -4798,62 +4954,70 @@ msgstr "Zde můžete změnit nastavení různých nástrojů."
 
 #: ../preferences/prefshelp.py:297
 msgid "Configuring the Outline View"
-msgstr ""
+msgstr "Nastavení pohledu na osnovu"
 
 #: ../preferences/prefshelp.py:301
 msgid ""
 "The document outline view is created by looking for certain expressions in "
 "the document text."
 msgstr ""
+"Pohledu na osnovu dokumentu je vytvořen hledáním určitých výrazů "
+"v textu dokumentu."
 
 #: ../preferences/prefshelp.py:303
 msgid ""
 "You can specify what to search for by entering a list of regular expressions."
-msgstr ""
+msgstr "Můžete stanovit, co se bude hledat zadáním seznamu regulárních výrazů."
 
 #: ../preferences/prefshelp.py:305
 msgid ""
 "In those expressions, <code>^</code> matches at the beginning of every line, "
 "and <code>$</code> matches at the end of a line."
 msgstr ""
+"V těchto výrazech odpovídá <code>^</code> na začátku každého řádku, "
+"a <code>$</code> odpovídá na konci řádku."
 
 #: ../preferences/prefshelp.py:307
 msgid ""
 "Normally when an expressions matches text, the whole match is displayed as "
 "an item in the outline."
 msgstr ""
+"Normálně, když výraz odpovídá textu, je celý nález zobrazen jako "
+"položka v osnově."
 
 #: ../preferences/prefshelp.py:309
 msgid "You can also use named groups, with the {code} named group syntax."
 msgstr ""
+"Také můžete použít pojmenované skupiny, se skladbou "
+"pojmenované skupiny {code}."
 
 #: ../preferences/prefshelp.py:311
 msgid "You can use the name {text} or {title}."
-msgstr ""
+msgstr "Můžete použít název {text} nebo {title}."
 
 #: ../preferences/prefshelp.py:313
 msgid ""
 "In that case, only the named part of a match is displayed. If the {title} "
 "name is used, it is displayed in a bold font."
 msgstr ""
+"V tom případě je zobrazena jen pojmenovaná část nálezu. "
+"Je-li použit název {title}, je zobrazen tučně."
 
 #: ../preferences/prefshelp.py:316
 msgid "For more information about regular expressions, see {link}."
-msgstr ""
+msgstr "Další informace o regulárních výrazech hledejte v {link}."
 
 #: ../preferences/preview.py:82
-#, fuzzy
 msgid "Preview options to use"
-msgstr "Verze LilyPondu k použití"
+msgstr "Volby pro náhled k použití"
 
 #: ../preferences/shortcuts.py:56 ../snippet/model.py:63
 msgid "Shortcut"
 msgstr "Zkratka"
 
 #: ../preferences/shortcuts.py:100
-#, fuzzy
 msgid "Menu {name}"
-msgstr "Nabídka {name}:"
+msgstr "Nabídka {name}"
 
 #: ../preferences/shortcuts.py:128
 msgid "Other commands:"
@@ -4960,58 +5124,60 @@ msgid "Enter a regular expression to match:"
 msgstr "Zadat regulární výraz k porovnání:"
 
 #: ../preview_mode/__init__.py:43
-#, fuzzy
 msgid "Pre&view Options"
-msgstr "Volby"
+msgstr "Volby pro &náhled"
 
 #: ../preview_mode/widget.py:108
 msgid "Display the skylines that LilyPond uses to detect collisions."
-msgstr ""
+msgstr "Zobrazit nosná lana, jež LilyPond používá k zjištění střetů."
 
 #: ../preview_mode/widget.py:112
 msgid "Display the control points that determine curve shapes"
-msgstr ""
+msgstr "Zobrazit kontrolní body, jež určují tvary křivek"
 
 #: ../preview_mode/widget.py:116
 msgid "Highlight notes that are explicitly set to \\voiceXXX"
-msgstr ""
+msgstr "Zvýraznit poznámky, jež jsou výslovně nastaveny na \\voiceXXX"
 
 #: ../preview_mode/widget.py:120
 msgid "Highlight elements that are explicitly switched up- or downwards"
-msgstr ""
+msgstr "Zvýraznit prvky, jež jsou výslovně přepnuty nahoru nebo dolů"
 
 #: ../preview_mode/widget.py:123
 msgid "Display a dot at the anchor point of each grob"
-msgstr ""
+msgstr "Zobrazit tečku u kotevního bodu každého obrazového předmětu (grob)"
 
 #: ../preview_mode/widget.py:126
 msgid "Display the name of each grob"
-msgstr ""
+msgstr "Zobrazit název každého obrazového předmětu (grob)"
 
 #: ../preview_mode/widget.py:129
 msgid "Display info on the paper columns"
-msgstr ""
+msgstr "Zobrazit informace na papírových sloupcích"
 
 #: ../preview_mode/widget.py:132
 msgid ""
 "Use LilyPond's \"annotate spacing\" option to\n"
 "display measurement information"
 msgstr ""
+"Použít volbu LilyPondu Vysvětlit rozmístění\n"
+"k zobrazení informací z měření"
 
 #: ../preview_mode/widget.py:134
-#, fuzzy
 msgid "Include Custom File:"
-msgstr "Vložit ze souboru"
+msgstr "Zahrnout vlastní soubor:"
 
 #: ../preview_mode/widget.py:136
 msgid ""
 "Include a custom file with definitions\n"
 "for additional Debug Modes"
 msgstr ""
+"Zahrnout vlastní soubor s vymezeními\n"
+"pro dodatečné režimy pro ladění"
 
 #: ../preview_mode/widget.py:139
 msgid "Filename to be included"
-msgstr ""
+msgstr "Soubor k zahrnutí"
 
 #: ../quickinsert/__init__.py:48
 msgid "Quick &Insert"
@@ -5026,9 +5192,8 @@ msgid "Use short notation for some articulations like staccato."
 msgstr "Použít krátký zápis pro některé artikulace jako je staccato."
 
 #: ../quickinsert/articulations.py:98
-#, fuzzy
 msgid "Remove articulations etc."
-msgstr "O&dstranit doby trvání"
+msgstr "Odstranit artikulace atd."
 
 #: ../quickinsert/articulations.py:106 ../quickinsert/articulations.py:138
 msgid "Articulations"
@@ -5419,27 +5584,27 @@ msgstr "Melisma"
 
 #: ../quickinsert/spanners.py:190 ../quickinsert/spanners.py:197
 msgid "Grace Notes"
-msgstr ""
+msgstr "Noty ozdob"
 
 #: ../quickinsert/spanners.py:198
 msgid "Grace Notes w. beaming"
-msgstr ""
+msgstr "Noty ozdob s trámci"
 
 #: ../quickinsert/spanners.py:199
 msgid "Acciaccatura"
-msgstr ""
+msgstr "Acciaccatura"
 
 #: ../quickinsert/spanners.py:200
 msgid "Appoggiatura"
-msgstr ""
+msgstr "Appogiatura"
 
 #: ../quickinsert/spanners.py:201
 msgid "Slashed no slur"
-msgstr ""
+msgstr "Škrtnuto, bez legatového obloučku"
 
 #: ../quickinsert/spanners.py:202
 msgid "After grace"
-msgstr ""
+msgstr "Po ozdobě"
 
 #: ../quickinsert/widget.py:102
 msgid ""
@@ -5539,7 +5704,7 @@ msgstr ""
 "Tyto hudební symboly lze přidat k notě nebo pomlce nebo k vybranému rozsahu\n"
 "not.\n"
 "Pokud je přidáte do výběru, pomlky budou přeskočeny.\n"
-"Pokud není vybrán žádný text, ukazovátko se automaticky přesune k další\n"
+"Pokud není vybrán žádný text, ukazatel se automaticky přesune k další\n"
 "výšce tónu, pomlce, vynechání nebo akordu.\n"
 "</p>\n"
 "\n"
@@ -5813,14 +5978,12 @@ msgid "Rhythm"
 msgstr "Rytmus"
 
 #: ../scorewiz/__init__.py:67
-#, fuzzy
 msgid "Setup New Score (in current document)..."
-msgstr "Název nynějšího dokumentu."
+msgstr "Nastavit nový notový zápis (v nynějším dokumentu)..."
 
 #: ../scorewiz/__init__.py:68
-#, fuzzy
 msgid "New Score with &Wizard..."
-msgstr "Průvodce pro notový zápis"
+msgstr "Nový notový zápis s &průvodcem..."
 
 #: ../scorewiz/build.py:136
 msgid "Music follows here."
@@ -7619,7 +7782,7 @@ msgstr ""
 
 #: ../snippet/edit.py:296
 msgid "A list of strings describing the type of text the cursor is at."
-msgstr "Seznam řetězců popisující typ textu, na něm stojí ukazovátko."
+msgstr "Seznam řetězců popisující typ textu, na něm stojí ukazatel."
 
 #: ../snippet/edit.py:298
 msgid ""
@@ -7627,7 +7790,7 @@ msgid ""
 "document through the cursor, however."
 msgstr ""
 "Nynější QTextCursor dávající přístup k dokumentu. Nicméně neměňte dokument "
-"přes ukazovátko."
+"přes ukazatel."
 
 #: ../snippet/edit.py:301
 msgid ""
@@ -7635,7 +7798,7 @@ msgid ""
 "specify the place the text cursor will be placed after inserting the snippet."
 msgstr ""
 "Při nastavení {text} na seznam namísto na řetězec, můžete tuto hodnotu "
-"použít pro určení místa, na něž bude ukazovátko textu umístěno po vložení "
+"použít pro určení místa, na něž bude ukazatel textu umístěn po vložení "
 "úryvku."
 
 #: ../snippet/edit.py:305
@@ -7684,7 +7847,7 @@ msgstr "Název nynějšího dokumentu."
 
 #: ../snippet/expand.py:100
 msgid "Moves the text cursor here after insert."
-msgstr "Přesune ukazovátko textu po vložení sem."
+msgstr "Přesune ukazatel textu po vložení sem."
 
 #: ../snippet/expand.py:104
 msgid ""
@@ -7695,7 +7858,7 @@ msgstr "Vybere text odtud po místo dané pomocí proměnné <code>$CURSOR</code
 #: ../snippet/expand.py:108
 msgid "The selected text if available. If not, the text cursor is moved here."
 msgstr ""
-"Vybraný text, je-li dostupný. Pokud není, ukazovátko textu je přesunuto sem."
+"Vybraný text, je-li dostupný. Pokud není, ukazatel textu je přesunut sem."
 
 #: ../snippet/import_export.py:103
 msgid "No snippets found."
@@ -7876,9 +8039,8 @@ msgid "Save as Template..."
 msgstr "Uložit jako předlohu..."
 
 #: ../snippet/tool.py:102
-#, fuzzy
 msgid "Copy to &Snippet..."
-msgstr "Kopírovat do &obrázku..."
+msgstr "Kopírovat do ú&ryvku..."
 
 #: ../snippet/tool.py:103
 msgid "Manage Templates..."
@@ -8113,16 +8275,16 @@ msgstr ""
 
 #: ../vcs/gitrepo.py:43
 msgid "The given directory '{rootdir} doesn't seem to be a Git repository."
-msgstr ""
+msgstr "Zdá se, že zadaný adresář '{rootdir} není skladištěm Git."
 
 #: ../vcs/menu.py:41
 msgctxt "menu title"
 msgid "&Git"
-msgstr ""
+msgstr "&Git"
 
 #: ../vcs/menu.py:116
 msgid "Checkout Successful"
-msgstr ""
+msgstr "Stažení úspěšné"
 
 #: ../vcs/menu.py:117
 msgid ""
@@ -8130,10 +8292,13 @@ msgid ""
 "Changes will take effect after restart.\n"
 "Do you want to restart now?"
 msgstr ""
+"Úspěšně stažena větev {name}.\n"
+"Změny se projeví po opětovném spuštění.\n"
+"Chcete nyní program spustit znovu?"
 
 #: ../vcs/menu.py:124
 msgid "Git Checkout Error"
-msgstr ""
+msgstr "Chyba při stahování z Gitu"
 
 #: ../widgets/keysequencewidget.py:60
 msgid "Start recording a key sequence."
@@ -8152,14 +8317,12 @@ msgid "Scheme:"
 msgstr "Schéma:"
 
 #: ../widgets/schemeselector.py:95
-#, fuzzy
 msgid "Re&name..."
-msgstr "&Spravovat..."
+msgstr "&Přejmenovat..."
 
 #: ../widgets/schemeselector.py:97
-#, fuzzy
 msgid "&Export..."
-msgstr "&Vyvést..."
+msgstr ".&Vyvést..."
 
 #: ../widgets/schemeselector.py:137
 msgid "Add Scheme"
@@ -8170,25 +8333,22 @@ msgid "Please enter a name for the new scheme:"
 msgstr "Zadejte, prosím, název pro nové schéma:"
 
 #: ../widgets/schemeselector.py:156
-#, fuzzy
 msgid "Rename"
-msgstr "název"
+msgstr "Přejmenovat"
 
 #: ../widgets/schemeselector.py:156
-#, fuzzy
 msgid "New name:"
-msgstr "Název:"
+msgstr "Nový název:"
 
 #: ../widgets/schemeselector.py:167
 msgctxt "dialog title"
 msgid "Import color theme"
-msgstr ""
+msgstr "Zavést barevné schéma"
 
 #: ../widgets/schemeselector.py:176
-#, fuzzy
 msgctxt "dialog title"
 msgid "Export {name}"
-msgstr "Vyvést {num} úryvek"
+msgstr "Vyvést {name}"
 
 #: ../widgets/shortcuteditdialog.py:94
 msgctxt "window title"
@@ -8234,6 +8394,10 @@ msgid ""
 "\n"
 "The average speed of clicking is used; wait 3 seconds to \"reset\"."
 msgstr ""
+"Stiskněte toto tlačítko pro nastavení tempa.\n"
+"\n"
+"Používá se průměrná rychlost klepnutí; počkejte 3 sekundy, až dojde k "
+"opětovnému nastavení."
 
 #: ../widgets/urlrequester.py:65
 msgid "Open file dialog"
