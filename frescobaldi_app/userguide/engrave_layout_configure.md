@@ -18,27 +18,27 @@ The modes use the following configuration variables:
 Display Control Points
 :   These variables can be redefined in input files:
     
-    * `debug-control-points-color` (`red`)
-    * `debug-control-points-line-thickness` (`0.05`)
-    * `debug-control-points-cross-thickness` (`0.1`)
-    * `debug-control-points-cross-size` (`0.7`)
+    * !`debug-control-points-color` (`red`)
+    * !`debug-control-points-line-thickness` (`0.05`)
+    * !`debug-control-points-cross-thickness` (`0.1`)
+    * !`debug-control-points-cross-size` (`0.7`)
 
 
 Color \voiceXXX
 :   These variables currently can't be redefined in input files.
 
-    * `debug-voice-one-color` (`darkred`)
-    * `debug-voice-two-color` (`darkblue`)
-    * `debug-voice-three-color` (`darkgreen`)
-    * `debug-voice-four-color` (`darkmagenta`)
+    * !`debug-voice-one-color` (`darkred`)
+    * !`debug-voice-two-color` (`darkblue`)
+    * !`debug-voice-three-color` (`darkgreen`)
+    * !`debug-voice-four-color` (`darkmagenta`)
 
 
 Color explicit directions
 :   These variables can be redefined in input files:
     
-    * `debug-direction-up-color` (`blue`)
-    * `debug-direction-down-color` (`blue`)
-    * `debug-direction-grob-list` (`all-grob-descriptions`)
+    * !`debug-direction-up-color` (`blue`)
+    * !`debug-direction-down-color` (`blue`)
+    * !`debug-direction-grob-list` (`all-grob-descriptions`)
     
         Defines for which grobs the explicit direction through operators is
         monitored.
@@ -53,8 +53,8 @@ Color explicit directions
 Display Grob Anchors
 :   These variables can be redefined in input files:
 
-    * `debug-grob-anchors-dotcolor` (`red`)
-    * `debug-grob-anchors-grob-list` (`all-grob-descriptions`)
+    * !`debug-grob-anchors-dotcolor` (`red`)
+    * !`debug-grob-anchors-grob-list` (`all-grob-descriptions`)
     
         Defines for which grobs the anchor points will be displayed.
         By default all grobs are watched, but alternatively one can provide a
@@ -68,8 +68,8 @@ Display Grob Anchors
 Display Grob Names
 :   These variables can be redefined in input files:
 
-    * `debug-grob-names-color` (`darkcyan`)
-    * `debug-grob-names-grob-list` (`all-grob-descriptions`)
+    * !`debug-grob-names-color` (`darkcyan`)
+    * !`debug-grob-names-grob-list` (`all-grob-descriptions`)
     
         Defines for which grobs the names will be displayed.
         By default all grobs are watched, but alternatively one can provide a
