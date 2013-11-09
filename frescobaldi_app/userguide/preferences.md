@@ -1,5 +1,8 @@
 === Preferences ===
 
+In the Preferences Dialog (under {menu_edit_preferences}) you can configure 
+many aspects of Frescobaldi and LilyPond.
+
 #SUBDOCS
 prefs_general
 prefs_lilypond
