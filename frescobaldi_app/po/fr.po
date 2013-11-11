@@ -327,27 +327,27 @@ msgstr "Mettre à jour avec convert-ly"
 
 #: ../documentactions.py:183
 msgid "Remove &Articulations"
-msgstr "Supprimer les &Articulations"
+msgstr "Supprimer les &articulations"
 
 #: ../documentactions.py:184
 msgid "Remove &Ornaments"
-msgstr "Supprimer les &Ornements"
+msgstr "Supprimer les &ornements"
 
 #: ../documentactions.py:185
 msgid "Remove &Instrument Scripts"
-msgstr "Supprimer les Scripts d'&Instrument"
+msgstr "Supprimer les scripts d'&instrument"
 
 #: ../documentactions.py:186
 msgid "Remove &Slurs"
-msgstr "&Supprimer les Liaisons"
+msgstr "&Supprimer les liaisons"
 
 #: ../documentactions.py:187
 msgid "Remove &Dynamics"
-msgstr "Supprimer les &Nuances"
+msgstr "Supprimer les &nuances"
 
 #: ../documentactions.py:188
 msgid "Remove Text &Markup (from music)"
-msgstr "Supprimer le &Markup de Texte (de la musique)"
+msgstr "Supprimer le &markup de texte (de la musique)"
 
 #: ../documentcontextmenu.py:67 ../mainwindow.py:1032 ../sessions/manager.py:127
 msgid "&Save"
@@ -1072,7 +1072,7 @@ msgstr "&Rythme"
 #: ../menu.py:337
 msgctxt "submenu title"
 msgid "&Quick Remove"
-msgstr "Suppression &Rapide"
+msgstr "Suppression &rapide"
 
 #: ../menu.py:355
 msgctxt "menu title"
@@ -1567,7 +1567,7 @@ msgstr "Importer un fichier MusicXML"
 
 #: ../file_import/__init__.py:71
 msgid "The file couldn't be converted. Error message:\n"
-msgstr "Le fichier n'a pa pu être converti. Message d'erreur:"
+msgstr "Le fichier n'a pa pu être converti. Message d'erreur:\n"
 
 #: ../file_import/__init__.py:96
 msgid "Import MusicXML..."
@@ -1614,7 +1614,7 @@ msgid ""
 msgstr ""
 "Vous pouvez régler certains paramètres pour l'import musicxml2ly dans cette "
 "fenêtre. Actuellement, quatre paramètres peuvent être réglés via des cases à "
-"cocher:\n"
+"cocher:"
 
 #: ../file_import/musicxml.py:162
 msgid "do not convert directions (^, _ or -) for articulations, dynamics, etc."
@@ -1850,12 +1850,18 @@ msgid ""
 "<code>\\oneVoice</code> or <code>\\xxxNeutral</code> colors are reverted to "
 "black and may also revert the highlighting of the other Debug Mode."
 msgstr ""
+"Lorsque la condition pour un de ces modes est remise à zéro en utilisant des "
+"commandes telles que <code>\\oneVoice</code> ou <code>\\xxxNeutral</code>, "
+"les couleurs sont remises au noir et peuvent aussi supprimer le colorisation "
+"d'autres modes de débogage."
 
 #: ../help/cnt_engraving.py:120
 msgid ""
 "In <code>c \\voiceTwo d \\stemUp e \\stemNeutral d \\oneVoice</code> the 'd' "
 "may already be reverted."
 msgstr ""
+"Dans <code>c \\voiceTwo d \\stemUp e \\stemNeutral d \\oneVoice</code>, le "
+"'d' peut déjà être remis à zéro."
 
 #: ../help/cnt_engraving.py:122
 msgid ""
@@ -1863,12 +1869,17 @@ msgid ""
 "is somewhat improved through the use of the <code>\\temporary</code> "
 "directive."
 msgstr ""
+"Si la partition est gravée avec LilyPond version 2.17.6 ou ultérieur, la "
+"situation a été améliorée via l'utilisation de la directive "
+"<code>\\temporary</code>."
 
 #: ../help/cnt_engraving.py:125
 msgid ""
 "In short: If you use both Modes at the same time please expect "
 "inconsistencies."
 msgstr ""
+"En résumé : si vous utilisez ces deux modes en même temps, il faut "
+"s'attendre à des inconsistances."
 
 #: ../help/cnt_engraving.py:127 ../help/cnt_engraving.py:264
 #: ../preview_mode/widget.py:121
@@ -1876,7 +1887,6 @@ msgid "Display Grob Anchors"
 msgstr "Afficher les ancrages Grob"
 
 #: ../help/cnt_engraving.py:128
-#, fuzzy
 msgid ""
 "In LilyPond, all graphical objects have an anchor (a reference point). What "
 "is a reference point?  It's a special point that defines the object's "
@@ -1893,12 +1903,12 @@ msgstr ""
 "comme \"le coin inférieur gauche de ce carré a des coordonnées (0, 2)\" ou "
 "\"le centre de ce cercle se trouve en (-1, 3)\". \"Le coin inférieur "
 "gauche\" et \"centre\" sont des points de référence pour le carré et le "
-"cercle.<br />Ce mode affiche un point rouge pour chaque point d'ancrage d'un "
-"\"grob\"."
+"cercle."
 
 #: ../help/cnt_engraving.py:135
 msgid "This Mode displays a red dot for each grob's anchor point."
 msgstr ""
+"Ce mode affiche un point rouge pour chaque point d'ancrage d'un \"grob\"."
 
 #: ../help/cnt_engraving.py:136 ../help/cnt_engraving.py:277
 #: ../preview_mode/widget.py:124
@@ -1907,20 +1917,17 @@ msgstr "Afficher les noms de Grob"
 
 #: ../help/cnt_engraving.py:137
 msgid "This mode prints a grob's name next to it."
-msgstr ""
+msgstr "Ce mode affiche le nom d'un grob."
 
 #: ../help/cnt_engraving.py:138
-#, fuzzy
 msgid ""
 "The main purpose of this Debug Mode is to retrieve information about Grob "
 "names, which may come in handy if you don't know where to look up available "
 "properties."
 msgstr ""
-"Ce mode affiche le nom d'un \"grob\" à ses côtés.<br />Le principal objectif "
-"de ce Mode de Débogage est d'obtenir une l'information ç propos des noms de "
-"\"grob\", ce qui peut s'avérer utile si on ne sait pas où chercher les "
-"propriétés disponibles.<br />Notez que ce mode est assez intrusif et sera "
-"surtout utile quand il peut être activer pour un type de \"grob\"."
+"Le principal objectif de ce Mode de Débogage est d'obtenir une l'information "
+"ç propos des noms de \"grob\", ce qui peut s'avérer utile si on ne sait pas "
+"où chercher les propriétés disponibles."
 
 #: ../help/cnt_engraving.py:141
 msgid ""
@@ -1928,6 +1935,10 @@ msgid ""
 "mutually exclusive because both functions override the grob's stencil. When "
 "both modes are active, only the grob anchors are displayed."
 msgstr ""
+"Notez que l'affichage des ancrages grob et celui des noms de grob s'excluent "
+"mutuellement, parce que les deux fonctions changement l'affichage du grob. "
+"Lorsque les deux modes sont actifs, seul les ancrages de grob seront "
+"affichés."
 
 #: ../help/cnt_engraving.py:145
 msgid ""
@@ -1935,6 +1946,9 @@ msgid ""
 "layout. It is mainly useful for learning about grob names and will "
 "especially become usable once it can be activated for single grobs."
 msgstr ""
+"Notez que ce mode est assez intrusif et peut affecter la mise en page. Il "
+"sera surtout utile pour apprendre les noms de grob, et particulièrement "
+"quand il peut être activer pour un seul type de \"grob\"."
 
 #: ../help/cnt_engraving.py:149 ../preview_mode/widget.py:106
 msgid "Display Skylines"
@@ -1982,7 +1996,6 @@ msgid "Include Custom File"
 msgstr "Insérer un fichier personnalisé"
 
 #: ../help/cnt_engraving.py:162
-#, fuzzy
 msgid ""
 "This mode offers the opportunity to add one's own Debug Modes by including a "
 "custom file. This file will be included at program startup and may contain "
@@ -1993,15 +2006,17 @@ msgstr ""
 "Ce mode offre l'opportunité d'ajouter votre propre mode de débogage en "
 "incluant un fichier personnalisé. Ce fichier sera inclus au départ du "
 "logiciel et devra contenir le code LilyPond que vous voulez voir exécuté "
-"lorsque vous utiliser le mode Aperçu.<br />La chaîne de caractères sera "
-"incluse telle quelle dans une directive <code>\\include</code>; vous êtes "
-"donc responsable si LilyPond ne trouve rien."
+"lorsque vous utiliser le mode Aperçu. Ce fichier sera analysé avant tous les "
+"autres modes; vous pouvez donc l'utiliser pour configurer ceux-ci."
 
 #: ../help/cnt_engraving.py:168
 msgid ""
 "The given string will be literally included in an <code>\\include</code> "
 "directive, so you are responsible yourself that LilyPond can find it."
 msgstr ""
+"La chaîne de caractères sera incluse telle quelle dans une directive "
+"<code>\\include</code>; vous êtes donc responsable si LilyPond ne trouve "
+"rien."
 
 #: ../help/cnt_engraving.py:178
 msgid "Preview Mode Configuration"
@@ -2017,23 +2032,32 @@ msgid ""
 "the different debug modes you can use it to define any of the variables "
 "<em>before</em> the Debug Modes are parsed."
 msgstr ""
+"L'apparence de chaque mode de débogage est définie par l'utilisation de "
+"variables de configuration. Selon l'implémentation du mode, vous pouvez "
+"modifier son apparence en redéfinissant ces variables dans votre code. Mais "
+"si vous préférez une solution plus générale,vous pouvez utiliser un "
+"<code>custom-file</code> pour les mode de débogages. Comme ce fichier sera "
+"lu avant les modes, vous pouvez l'utiliser pour définir n'importe quelle "
+"variable <em>before</em> que les modes de débogages ne soient analysés."
 
 #: ../help/cnt_engraving.py:213
 msgid "The modes use the following configuration variables:"
-msgstr ""
+msgstr "Les modes utilisent les variables de configuration suivantes : "
 
 #: ../help/cnt_engraving.py:218
 msgid "Variables can be redefined in input files."
-msgstr ""
+msgstr "Les variables peuvent être redéfinies dans les fichiers d'entrée."
 
 #: ../help/cnt_engraving.py:233
 msgid "These Variables currently can't be redefined in input files."
 msgstr ""
+"Ces variables ne peuvent actuellement pas être redéfinies dans les fichiers "
+"d'entrée."
 
 #: ../help/cnt_engraving.py:248 ../help/cnt_engraving.py:265
 #: ../help/cnt_engraving.py:278
 msgid "These Variables can be redefined in input files."
-msgstr ""
+msgstr "Ces variables peuvent être redéfinies dans les fichiers d'entrée."
 
 #: ../help/cnt_engraving.py:258
 msgid ""
@@ -2042,6 +2066,10 @@ msgid ""
 "provide a list of grobs such as e.g. <code>#(define "
 "debug-direction-grob-list '(DynamicText Script))</code>"
 msgstr ""
+"Définit pour quels grobs la direction explicite via opérateurs est analysée. "
+"Par défaut, tous les grobs sont analysés, mais vous pouvez définir une liste "
+"de grobs, comme par exemple: <code>#(define debug-direction-grob-list "
+"'(DynamicText Script))</code>"
 
 #: ../help/cnt_engraving.py:272
 msgid ""
@@ -2049,6 +2077,10 @@ msgid ""
 "grobs are watched, but alternatively one can provide a list of grobs such as "
 "e.g. <code>#(define debug-grob-anchors-grob-list '(Script NoteHead))</code>"
 msgstr ""
+"Définit pour quels grobs les points d'ancrage seront affichés. Par défaut, "
+"tous les grobs sont analysés, mais vous pouvez définir une liste de grobs, "
+"comme par exemple : <code>#(define debug-grob-anchors-grob-list '(Script "
+"NoteHead))</code>"
 
 #: ../help/cnt_engraving.py:285
 msgid ""
@@ -2056,12 +2088,18 @@ msgid ""
 "are watched, but alternatively one can provide a list of grobs such as e.g. "
 "<code>#(define debug-grob-names-grob-list '(Script NoteHead))</code>"
 msgstr ""
+"Définit pour quels grobs le nom sera affiché. Par défaut, tous les grobs "
+"sont analysés, mais vous pouvez définir une liste de grobs, comme par "
+"exemple : <code>#(define debug-grob-names-grob-list '(Script "
+"NoteHead))</code>"
 
 #: ../help/cnt_engraving.py:291
 msgid ""
 "The remaining modes are built-in to LilyPond and don't have any "
 "configuration options."
 msgstr ""
+"Les modes restants sont inclus dans LilyPond et n'ont aucune option de "
+"configuration."
 
 #: ../help/cnt_engraving.py:297
 msgid "Engrave (Publication)"
@@ -2093,19 +2131,20 @@ msgid "Engrave (Custom)"
 msgstr "Graver (personnalisé)"
 
 #: ../help/cnt_engraving.py:319
-#, fuzzy
 msgid ""
 "The <em>Engrave (Custom)</em> dialog ({custom_shortcut}) gives you detailed "
 "access to all aspects of the LilyPond command."
 msgstr ""
-"Le dialogue <em>Graver (personnalisé)</em> vous donne un accès détaillé à "
-"tous les aspects de la commande LilyPond."
+"Le dialogue <em>Graver (personnalisé)</em> ({custom_shortcut}) vous donne un "
+"accès détaillé à tous les aspects de la commande LilyPond."
 
 #: ../help/cnt_engraving.py:322
 msgid ""
 "You can configure a number of options through the graphical user interface "
 "and then fine-tune the command line to be used for LilyPond directly."
 msgstr ""
+"Vous pouvez configurer une certain nombre d'options par l'interface "
+"graphique et régler précisément la commande utilisée par LilyPond."
 
 #: ../help/cnt_engraving.py:325
 msgid ""
@@ -2113,12 +2152,17 @@ msgid ""
 "the output formats available to LilyPond and (for PNG output) from a number "
 "of image resolutions."
 msgstr ""
+"Vous pouvez sélectionner la version de LilyPond (parmi celles définies dans "
+"le dialogue de {pref}, les formats de sorties disponibles et (pour une "
+"sortie en PNG) parmi plusieurs résolutions d'image."
 
 #: ../help/cnt_engraving.py:329
 msgid ""
 "Running LilyPond in Preview Mode will respect the settings from the Preview "
 "Options Panel ({link})."
 msgstr ""
+"Démarrer LilyPond en mode Aperçu respectera les réglages définis dans le "
+"panneau d'option d'aperçu ({link})."
 
 #: ../help/cnt_engraving.py:331
 msgid ""
@@ -2126,12 +2170,18 @@ msgid ""
 "information to a mailing list, and Deleting Intermediate Output Files may be "
 "used to <em>disable</em> the default behaviour."
 msgstr ""
+"La sortie en « mode verbeux » et les messages en anglais sont intéressants "
+"si vous voulez envoyer des information à la liste de diffusion. Effacer les "
+"fichiers de sortie intermédiaires peut être utilisé pour <em>désactiver</em> "
+"le comportement par défaut."
 
 #: ../help/cnt_engraving.py:334
 msgid ""
 "Some of these settings are reflected in the Command Line text edit field, "
 "others not."
 msgstr ""
+"Certains de ces réglages sont impactés dans le champ d'édition de la ligne "
+"de commande, d'autres non."
 
 #: ../help/contents.py:39
 msgid "No Help"
@@ -4455,6 +4505,13 @@ msgid ""
 "<code>$ps</code> is replaced with the PostScript filename. "
 "<code>$printer</code> is replaced with the printer's name to use."
 msgstr ""
+"La command d'impression est utilisée pour imprimer un fichier Postscript ou "
+"PDF. Sous Linux, ce n'est pas nécessaire, mais sous Windows et Mac OS X, "
+"vous pouvez définir une commande pour éviter que les documents ne soient "
+"imprimées comme images rastérisées, ce qui n'est pas optimal. "
+"<code>$pdf</code> est alors remplacé par le nom de fichier du PDF, ou "
+"<code>$ps</code> par celui du fichier Postscript. <code>$printer</code> est "
+"remplacé par le nom de l'imprimante à utiliser."
 
 #: ../preferences/helpers.py:158
 msgid "Use Frescobaldi's print dialog"
@@ -4466,16 +4523,18 @@ msgid ""
 "PostScript document containing only the selected pages to print. Otherwise, "
 "the command is called directly and is expected to show a print dialog itself."
 msgstr ""
+"Si activé, Frescobaldi affichera un dialogue d'impression et créera un "
+"document PDF ou Postscript contenant uniquement les pages à imprimer. Sinon, "
+"la commande est appelée directement et affichier le dialogue d'impression "
+"lui-même."
 
 #: ../preferences/helpers.py:166
-#, fuzzy
 msgid "Set the resolution if Frescobaldi prints using raster images."
-msgstr "Session à charger si Frescobaldi est lancé sans arguments"
+msgstr "Définir la résolution si Frescobaldi imprime en utilisant des images."
 
 #: ../preferences/import_export.py:89
-#, fuzzy
 msgid "No theme found."
-msgstr "Aucun fragment trouvé"
+msgstr "Aucun thème trouvé"
 
 #: ../preferences/import_export.py:172
 msgid "No shortcuts found."
@@ -4701,7 +4760,6 @@ msgstr ""
 "d’icônes n'est effectif qu'après redémarrage de Frescobaldi."
 
 #: ../preferences/prefshelp.py:60
-#, fuzzy
 msgid ""
 "Under <em>{startup}</em> you can configure which session to load if "
 "Frescobaldi is started without a filename. You can choose whether to start "
@@ -4712,7 +4770,9 @@ msgstr ""
 "Sous <em>{startup}</em> vous pouvez définir quelle session est chargée si "
 "Frescobaldi est lancé sans nom de fichier. Vous pouvez choisir de démarrer "
 "avec un document vide, avec la dernière session utilisée, ou avec une "
-"session définie. Voir aussi {link}."
+"session définie. Veuillez noter que ceci ne fonctionne que quand vous avez "
+"explicitement créé un session et l'avez configurée pour y enregistrer "
+"automatiquement les fichiers. Voir aussi {link}."
 
 #: ../preferences/prefshelp.py:69
 msgid ""
@@ -4861,12 +4921,20 @@ msgid ""
 "dialog, you don't need to put the <code>$printer</code> variable in your "
 "command line."
 msgstr ""
+"Décochez l'option \"Utiliser le dialogue d'impression de Frescobaldi\" "
+"lorsque la commande d'impression ouvre un dialogue elle-même, dans lequel "
+"vous pouvez sélectionner entre autres les pages à imprimer et l'imprimante à "
+"utiliser. Si vous n'utilisez pas le dialogue d'impression de Frescobaldi, il "
+"n'est pas nécessaire d'inclure la variable <code>$printer</code> dans votre "
+"ligne de commande."
 
 #: ../preferences/prefshelp.py:202
 msgid ""
 "If Frescobaldi must fall back to printing using raster images, you can "
 "specify the number of dots per inch here."
 msgstr ""
+"Si Frescobaldi doit imprimer en utilisant des images, vous pouvez en "
+"spécifier la résolution (en dpi) ici."
 
 #: ../preferences/prefshelp.py:213
 msgid ""
@@ -8352,6 +8420,9 @@ msgid ""
 "Changes will take effect after restart.\n"
 "Do you want to restart now?"
 msgstr ""
+"Vérification de la branche {name} réussie.\n"
+"Les changements seront effectifs après un redémarrage.\n"
+"Voulez-vous redémarrer maintenant ?"
 
 #: ../vcs/menu.py:124
 msgid "Git Checkout Error"
@@ -8400,7 +8471,7 @@ msgstr "Nouveau nom :"
 #: ../widgets/schemeselector.py:167
 msgctxt "dialog title"
 msgid "Import color theme"
-msgstr ""
+msgstr "Importer un thème de couleur"
 
 #: ../widgets/schemeselector.py:176
 msgctxt "dialog title"
