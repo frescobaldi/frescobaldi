@@ -64,7 +64,7 @@
 #(cond ((not (defined? 'debug-control-points-color))
         (define debug-control-points-color red)))
 
-\include "lilypond-version-switch.ily"
+\include "lilypond-version-predicates.ily"
 
 #(define (make-cross-stencil coords cross-thickness arm-offset)
    ;; coords are the coordinates of the center of the cross
