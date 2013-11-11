@@ -46,6 +46,7 @@ class DocumentContextMenu(QMenu):
         self.doc_save_as = self.addAction(icons.get('document-save-as'), '')
         self.addSeparator()
         self.doc_close = self.addAction(icons.get('document-close'), '')
+        self.doc_close_others = self.addAction(icons.get('document-close'), '')
         self.addSeparator()
         self.doc_toggle_sticky = self.addAction(icons.get('pushpin'), '')
         self.doc_toggle_sticky.setCheckable(True)
@@ -53,6 +54,7 @@ class DocumentContextMenu(QMenu):
         self.doc_save.triggered.connect(self.docSave)
         self.doc_save_as.triggered.connect(self.docSaveAs)
         self.doc_close.triggered.connect(self.docClose)
+        self.doc_close_others.triggered.connect(self.docCloseOther)
         self.doc_toggle_sticky.triggered.connect(self.docToggleSticky)
     
     def updateActions(self):
@@ -67,6 +69,7 @@ class DocumentContextMenu(QMenu):
         self.doc_save.setText(_("&Save"))
         self.doc_save_as.setText(_("Save &As..."))
         self.doc_close.setText(_("&Close"))
+        self.doc_close_others.setText(_("Close Other Documents"))
         self.doc_toggle_sticky.setText(_("Always &Engrave This Document"))
     
     def mainwindow(self):
@@ -90,6 +93,9 @@ class DocumentContextMenu(QMenu):
         doc = self._doc()
         if doc:
             self.mainwindow().closeDocument(doc)
+
+    def docCloseOther(self):
+        return self.mainwindow().closeOtherDocuments()
 
     def docToggleSticky(self):
         doc = self._doc()
