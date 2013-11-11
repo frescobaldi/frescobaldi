@@ -19,17 +19,24 @@
 
 """
 Creates translatable strings for the Frescobaldi User Manual.
+
+This script is run standalone.
+
 """
 
 from __future__ import unicode_literals
 
+import sys
+sys.path.insert(0, '..')
+
 import simplemarkdown as md
 
-from .read import document
+from userguide.read import document
 
 
 class Parser(md.Parser):
     def parse_inline_text(self, text):
+        text = text.replace('\n', ' ')
         if not text.startswith('!'):
             self.write_translate_command(text)
         else:
@@ -37,14 +44,14 @@ class Parser(md.Parser):
                 self.write_translate_command(translatable)
 
     def write_translate_command(self, s):
-        print '_("' + s.replace('"', '\\"') + ')'
+        print '_("' + s.replace('"', '\\"') + '")'
 
 
 def main():
     p = Parser()
     for name in sys.argv[1:]:
-        p.parse(document(name))
+        p.parse(document(name)[0])
 
-if __name__ == '__name__':
+if __name__ == '__main__':
     main()
 
