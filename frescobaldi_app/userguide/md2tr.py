@@ -29,13 +29,37 @@ from __future__ import unicode_literals
 import sys
 sys.path.insert(0, '..')
 
+import textwrap
+
 import simplemarkdown
 import userguide.read 
 
 
 class Parser(userguide.read.Parser):
+    def __init__(self):
+        super(Parser, self).__init__()
+        w = self.wrapper = textwrap.TextWrapper()
+        w.break_long_words = False
+        w.break_on_hyphens = False
+        w.initial_indent = '_("'
+        w.subsequent_indent = '  " '
+
     def translate(self, s):
-        print '_("' + s.replace('"', '\\"') + '")'
+        # is there markdown formatting in the string?
+        formatting = False
+        for c in '[]', '**', '``':
+            for t, t2 in simplemarkdown.iter_split2(s, *c):
+                formatting = bool(t2)
+                break
+            if formatting:
+                print '#L10N NOTE: markdown formatting'
+                break
+        s = s.replace('\\', '\\\\').replace('"', '\\"')
+        l = [i + '"' for i in self.wrapper.wrap(s)]
+        l[-1] += ')'
+        for i in l:
+            print i
+
 
 
 def main():
