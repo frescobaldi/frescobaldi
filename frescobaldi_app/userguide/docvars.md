@@ -11,30 +11,30 @@ The following variables are recognized:
 : Force mode to be one of lilypond, html, texinfo, latex,
   docbook or scheme. Default: automatic mode recognition.
   
-`master: filename;`
+!`master: _(filename)_;`
 : Compiles another LilyPond document instead of the current.
 
-`output: name;`
+!`output: _(name)_;`
 : Looks for output documents (PDF, MIDI, etc.) starting with
   the specified name or comma-separated list of names.
   [var_output More information.]
 
-`coding: encoding;`
+!`coding: _(encoding)_;`
 : Use another encoding than the default UTF-8.
 
-`version: version;`
+!`version: _(version)_;`
 : Set the LilyPond version to use, can be used for non-LilyPond documents.
 
-`tab-width: number;`
+!`tab-width: _(number)_;`
 : The width of a tab character, by default 8.
 
-`indent-tabs: yes/no;`
+!`indent-tabs: yes/no;`
 : Whether to use tabs in indent, by default `no`.
 
-`document-tabs: yes/no;`
+!`document-tabs: yes/no;`
 : Whether to use tabs elsewhere in the document, by default `yes`.
 
-`indent-width: number;`
+!`indent-width: _(number)_;`
 : The number of spaces each indent level uses, by default 2.
 
 

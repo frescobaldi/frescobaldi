@@ -25,8 +25,12 @@ from __future__ import unicode_literals
 
 import os
 import re
+import string
 
 import simplemarkdown
+
+
+_string_formatter_parse = string.Formatter().parse
 
 
 def split_document(s):
@@ -59,7 +63,7 @@ class Parser(simplemarkdown.Parser):
     def parse_inline_text(self, text):
         text = text.replace('\n', ' ')
         if not text.startswith('!'):
-            result = self.translate(text)
+            result = self.probably_translate(text)
             if result:
                 simplemarkdown.Parser.parse_inline_text(self, result)
         else:
@@ -68,10 +72,24 @@ class Parser(simplemarkdown.Parser):
                 if t:
                     result.append(t)
                 if tx:
-                    result.append(self.translate(tx))
+                    result.append(self.probably_translate(tx))
             if None not in result:
                 simplemarkdown.Parser.parse_inline_text(self, ''.join(result))
     
+    def probably_translate(self, s):
+        """Translates the string if it is a sensible translatable message.
+        
+        The string is not translated if it does not contain any letters
+        or if it is is a Python format string without any text outside the
+        variable names.
+        
+        """
+        import string
+        for literal, field, fmt, conv in _string_formatter_parse(s):
+            if any(c.isalpha() for c in literal):
+                return self.translate(s)
+        return s
+
     def translate(self, text):
         """Translates the text."""
         return _(text)

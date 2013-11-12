@@ -12,25 +12,25 @@ search text.
 
 In regular expression search mode, some characters have a special meaning:
 
-`*`
+!`*`
 : matches the preceding character or group zero or more times
 
-`+`
+!`+`
 : matches the preceding character or group one or more times
 
-`?`
+!`?`
 : matches the preceding character or group zero or one time
 
-`[ ]`
+!`[ ]`
 : matches one of the contained characters
 
-`( )`
+!`( )`
 : group characters. This also saves the matched text in the group.
 
   When replacing, you can use characters like `\1`, `\2` etcetera,
   to write the text of the corresponding group in the replacement text.
 
-`\\ \n \t \s \d \w`
+!`\\ \n \t \s \d \w`
 : match, respectively, a backslash, a newline, a tab, any whitespace
   character, a digit, a generic word-like character.
 

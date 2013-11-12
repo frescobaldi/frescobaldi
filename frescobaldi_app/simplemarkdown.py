@@ -370,11 +370,14 @@ class Parser(object):
             if nolink:
                 self.parse_inline_emphasis(nolink)
             if link:
-                link = link.split(None, 1)
-                if len(link) == 1:
-                    url = text = link[0]
+                l = link.split(None, 1)
+                if len(l) == 0:
+                    self.output.append('inline_text', '[' + link + ']')
+                    continue
+                elif len(l) == 1:
+                    url = text = l[0]
                 else:
-                    url, text = link
+                    url, text = l
                 with self.output('link', url):
                     self.parse_inline_emphasis(text)
         

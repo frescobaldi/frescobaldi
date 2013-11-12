@@ -1,6 +1,6 @@
 === After engraving a score, the Music View does not show the music ===
 
-1.  Does the <code>\\score</code> block have a layout section?
+1.  Does the `\score` block have a layout section?
 
     If a `\score` block has a `\midi` section but no `\layout` section,
     no PDF output is generated.
