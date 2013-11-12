@@ -51,6 +51,7 @@ class PanelManager(plugin.MainWindowPlugin):
         self.loadPanel("docbrowser.HelpBrowser")
         self.loadPanel("snippet.tool.SnippetTool")
         self.loadPanel("miditool.MidiTool")
+        self.loadPanel("midiinput.tool.MidiInputTool")
         self.loadPanel("charmap.CharMap")
         self.loadPanel("doclist.DocumentList")
         self.loadPanel("outline.OutlinePanel")
