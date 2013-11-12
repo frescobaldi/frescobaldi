@@ -95,7 +95,22 @@ class DocumentContextMenu(QMenu):
             self.mainwindow().closeDocument(doc)
 
     def docCloseOther(self):
-        return self.mainwindow().closeOtherDocuments()
+        """ Closes all documents that are not our current document. """
+        cur = self._doc()
+        if not cur:
+            return # not clear which to keep open...
+        win = self.mainwindow()
+        # don't close the windows' current document first as it then makes
+        # every other document current before closing it
+        docs = win.historyManager.documents()[1:]
+        docs.append(win.currentDocument())
+        docs = [d for d in docs if d is not cur]
+        for doc in docs:
+            if not win.queryCloseDocument(doc):
+                win.setCurrentDocument(cur, findOpenView=True)
+                return
+        for doc in docs:
+            doc.close()
 
     def docToggleSticky(self):
         doc = self._doc()
