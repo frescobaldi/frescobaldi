@@ -29,28 +29,19 @@ from __future__ import unicode_literals
 import sys
 sys.path.insert(0, '..')
 
-import simplemarkdown as md
+import simplemarkdown
+import userguide.read 
 
-from userguide.read import document
 
-
-class Parser(md.Parser):
-    def parse_inline_text(self, text):
-        text = text.replace('\n', ' ')
-        if not text.startswith('!'):
-            self.write_translate_command(text)
-        else:
-            for text, translatable in md.iter_split2(text[1:], '_(', ')_'):
-                self.write_translate_command(translatable)
-
-    def write_translate_command(self, s):
+class Parser(userguide.read.Parser):
+    def translate(self, s):
         print '_("' + s.replace('"', '\\"') + '")'
 
 
 def main():
     p = Parser()
     for name in sys.argv[1:]:
-        p.parse(document(name)[0])
+        p.parse(userguide.read.document(name)[0])
 
 if __name__ == '__main__':
     main()

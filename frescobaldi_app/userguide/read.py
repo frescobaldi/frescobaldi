@@ -26,6 +26,8 @@ from __future__ import unicode_literals
 import os
 import re
 
+import simplemarkdown
+
 
 def split_document(s):
     """Split the help page text and its #SUBDOCS and other headers.
@@ -51,5 +53,27 @@ def document(filename):
         filename = os.path.join(__path__[0], filename)
     with open(filename, 'rb') as f:
         return split_document(f.read().decode('utf-8'))
+
+
+class Parser(simplemarkdown.Parser):
+    def parse_inline_text(self, text):
+        text = text.replace('\n', ' ')
+        if not text.startswith('!'):
+            result = self.translate(text)
+            if result:
+                simplemarkdown.Parser.parse_inline_text(self, result)
+        else:
+            result = []
+            for t, tx in simplemarkdown.iter_split2(text[1:], '_(', ')_'):
+                if t:
+                    result.append(t)
+                if tx:
+                    result.append(self.translate(tx))
+            if None not in result:
+                simplemarkdown.Parser.parse_inline_text(self, ''.join(result))
+    
+    def translate(self, text):
+        """Translates the text."""
+        return _(text)
 
 
