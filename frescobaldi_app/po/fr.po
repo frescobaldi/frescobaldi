@@ -5416,7 +5416,6 @@ msgid "Point-and-Click"
 msgstr "Point-and-click"
 
 #: ../preview_mode/widget.py:103
-#, fuzzy
 msgid "Run LilyPond in preview mode (with Point and Click)"
 msgstr "Lancer LilyPond en mode aperçu (avec l'option Point-and-Click)"
 
