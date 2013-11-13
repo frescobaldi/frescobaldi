@@ -43,6 +43,15 @@ class Parser(userguide.read.Parser):
         w.break_on_hyphens = False
         w.initial_indent = '_("'
         w.subsequent_indent = '  " '
+    
+    def make_translation_strings(self, filename):
+        self._output_lines = []
+        self.parse(userguide.read.document(filename)[0])
+        with open(filename + '.py', 'w') as f:
+            f.write('#!python\n')
+            f.write('# coding: utf-8\n')
+            for l in self._output_lines:
+                f.write((l + '\n').encode('utf-8'))
 
     def translate(self, s):
         # is there markdown formatting in the string?
@@ -52,20 +61,19 @@ class Parser(userguide.read.Parser):
                 formatting = bool(t2)
                 break
             if formatting:
-                print '#L10N NOTE: markdown formatting'
+                self._output_lines.append('#L10N NOTE: markdown formatting')
                 break
         s = s.replace('\\', '\\\\').replace('"', '\\"')
         l = [i + '"' for i in self.wrapper.wrap(s)]
         l[-1] += ')'
-        for i in l:
-            print i
+        self._output_lines.extend(l)
 
 
 
 def main():
     p = Parser()
     for name in sys.argv[1:]:
-        p.parse(userguide.read.document(name)[0])
+        p.make_translation_strings(name)
 
 if __name__ == '__main__':
     main()
