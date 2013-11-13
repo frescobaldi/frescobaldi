@@ -59,6 +59,9 @@ class MidiPorts(preferences.Group):
         self._playerLabel = QLabel()
         self._playerPort = QComboBox(editable=True,
             editTextChanged=self.changed, insertPolicy=QComboBox.NoInsert)
+        self._inputLabel = QLabel()
+        self._inputPort = QComboBox(editable=True,
+            editTextChanged=self.changed, insertPolicy=QComboBox.NoInsert)
         
         self._reloadMidi = QPushButton(icon=icons.get('view-refresh'))
         self._reloadMidi.clicked.connect(self.refreshMidiPorts)
@@ -68,7 +71,9 @@ class MidiPorts(preferences.Group):
         grid.addWidget(self._portsMessage, 0, 0, 1, 3)
         grid.addWidget(self._playerLabel, 1, 0)
         grid.addWidget(self._playerPort, 1, 1, 1, 2)
-        grid.addWidget(self._reloadMidi, 2, 2)
+        grid.addWidget(self._inputLabel, 2, 0)
+        grid.addWidget(self._inputPort, 2, 1, 1, 2)
+        grid.addWidget(self._reloadMidi, 3, 2)
         
         app.translateUI(self)
         self.loadMidiPorts()
@@ -85,7 +90,21 @@ class MidiPorts(preferences.Group):
             "See \"What's This\" for more information."))
         self._playerPort.setWhatsThis(_(
             "<p>"
-            "This dropdown menu lists the available MIDI ports on your system. "
+            "This dropdown menu lists the available MIDI output ports on your system. "
+            "You can select one, or just type part of a name. "
+            "In that case, the first available port name that starts with the "
+            "specified characters is used."
+            "</p>\n<p>"
+            "Click the button to refresh the list, e.g. when you connect a "
+            "MIDI device or start a software synthesizer."
+            "</p>"))
+        self._inputLabel.setText(_("Input port:"))
+        self._inputPort.setToolTip(_(
+            "The MIDI port to get input from to write notes  "
+            "See \"What's This\" for more information."))
+        self._inputPort.setWhatsThis(_(
+            "<p>"
+            "This dropdown menu lists the available MIDI input ports on your system. "
             "You can select one, or just type part of a name. "
             "In that case, the first available port name that starts with the "
             "specified characters is used."
@@ -96,9 +115,11 @@ class MidiPorts(preferences.Group):
         self._reloadMidi.setText(_("Refresh MIDI ports"))
 
     def loadMidiPorts(self):
-        output = midihub.output_ports()
-        self._playerPort.setModel(listmodel.ListModel(output))
-        self._portsMessage.setVisible(not output)
+        output_ports = midihub.output_ports()
+        self._playerPort.setModel(listmodel.ListModel(output_ports))
+        input_ports = midihub.input_ports()
+        self._inputPort.setModel(listmodel.ListModel(input_ports))
+        self._portsMessage.setVisible((not output_ports) and (not input_ports))
 
     def refreshMidiPorts(self):
         midihub.refresh_ports()
@@ -107,15 +128,18 @@ class MidiPorts(preferences.Group):
             self.loadSettings()
 
     def loadSettings(self):
-        port = midihub.default_output()
+        output_port = midihub.default_output()
+        input_port = midihub.default_input()
         s = QSettings()
         s.beginGroup("midi")
-        self._playerPort.setEditText(s.value("player/output_port", port, type("")))
+        self._playerPort.setEditText(s.value("player/output_port", output_port, type("")))
+        self._inputPort.setEditText(s.value("midi/input_port", input_port, type("")))
         
     def saveSettings(self):
         s = QSettings()
         s.beginGroup("midi")
         s.setValue("player/output_port", self._playerPort.currentText())
+        s.setValue("midi/input_port", self._inputPort.currentText())
 
 
 class Prefs(preferences.Group):
@@ -123,12 +147,23 @@ class Prefs(preferences.Group):
         super(Prefs, self).__init__(page)
         
         self._closeOutputs = QCheckBox(clicked=self.changed)
+        self._pollingLabel = QLabel()
+        self._pollingTime = QSpinBox()
+        self._pollingTime.setRange(0, 1000)
+        self._pollingTime.setSuffix(" ms")
+        self._pollingTime.valueChanged.connect(self.changed)
         
         layout = QVBoxLayout()
         self.setLayout(layout)
         
         layout.addWidget(self._closeOutputs)
         app.translateUI(self)
+        
+        hbox = QHBoxLayout()
+        layout.addLayout(hbox)
+        
+        hbox.addWidget(self._pollingLabel)
+        hbox.addWidget(self._pollingTime)
     
     def translateUI(self):
         self.setTitle(_("Preferences"))
@@ -145,13 +180,23 @@ class Prefs(preferences.Group):
             "the instruments are reset to the default piano (instrument 0). "
             "In that case, playing the file from the beginning sets up the "
             "instruments again.</p>\n"))
+        self._pollingLabel.setText(_("Polling time for input:"))
+        self._pollingTime.setToolTip(_(
+            "Polling time for MIDI input. "
+            "See \"What's This\" for more information."))
+        self._pollingTime.setWhatsThis(_(
+            "Sets the time between the polling of the MIDI input port in milliseconds. "
+            "Small values lead to faster recognition of incoming MIDI events, but stress "
+            "the CPU. 10 ms should be a goot value."))
 
     def loadSettings(self):
+        s = QSettings()
         self._closeOutputs.setChecked(
-            QSettings().value("midi/close_outputs", False, bool))
+            s.value("midi/close_outputs", False, bool))
+        self._pollingTime.setValue(
+            s.value("midi/polling_time", 10, int))
     
     def saveSettings(self):
-        QSettings().setValue("midi/close_outputs", self._closeOutputs.isChecked())
-
-
-
+        s = QSettings()
+        s.setValue("midi/close_outputs", self._closeOutputs.isChecked())
+        s.setValue("midi/polling_time", self._pollingTime.value())
