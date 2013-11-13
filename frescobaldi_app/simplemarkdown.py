@@ -138,32 +138,41 @@ class Parser(object):
     p.parse_inline_text('text with *emphasized* words')
     p.output.html()
     
+    While parsing, the linenumber is available in the lineno attribute.
+    The default implementation sets the line number on every call to
+    parse_inline_lines.
+    
     """
     def __init__(self):
         self._lists = []
         self.output = Output()
+        self.lineno = 1
     
     ##
     # block level parsing
     ##
     
-    def parse(self, text, output=None):
+    def parse(self, text, output=None, lineno=None):
         """Parse the text.
         
         Calls the push and pop methods on the output object, if specified.
+        The lineno, if given, sets the lineno attribute for the current line.
         
         """
-        self.parse_lines(text.splitlines(), output)
+        self.parse_lines(text.splitlines(), output, lineno)
     
-    def parse_lines(self, lines, output=None):
+    def parse_lines(self, lines, output=None, lineno=None):
         """Parse text line by line.
         
         The lines may be a generator.
         Calls the push and pop methods on the output object, if specified.
+        The lineno, if given, sets the lineno attribute for the current line.
         
         """
         if output is not None:
             self.output = output
+        if lineno is not None:
+            self.lineno = lineno
         lines = iter(lines)
         para = []
         for line in lines:
@@ -181,10 +190,12 @@ class Parser(object):
                     code.append(line)
                 self.handle_lists(indent)
                 self.output.append('code', '\n'.join(code), specifier)
+                self.lineno += len(code) + 2
             elif not line or line.isspace():
                 if para:
                     self.parse_paragraph(para)
                     para = []
+                self.lineno += 1
             else:
                 para.append(line)
         if para:
@@ -356,7 +367,9 @@ class Parser(object):
         and calls parse_inline_text() with the text string.
         
         """
+        lineno = self.lineno
         self.parse_inline_text('\n'.join(line.strip() for line in lines))
+        self.lineno = lineno + len(lines)
         
     def parse_inline_text(self, text):
         """Parse a continuous text block with possibly inline markup."""
