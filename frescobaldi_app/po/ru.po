@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-11-12 06:52+0100\n"
+"POT-Creation-Date: 2013-11-14 15:51+0100\n"
 "PO-Revision-Date: 2012-08-24 00:38+0400\n"
 "Last-Translator: Mikhail Iglizky <m0003r@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -23,18 +23,15 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 1.4\n"
 
-#: ../about.py:46
-#, python-brace-format
+#: ../about.py:46 ../userguide/credits.md:12
 msgid "The following people contributed to {appname}:"
 msgstr "В создании {appname} принимали участие:"
 
-#: ../about.py:56
-#, python-brace-format
+#: ../about.py:56 ../userguide/credits.md:33
 msgid "{appname} is translated into the following languages:"
 msgstr "Для {appname} доступны следующие языки:"
 
 #: ../about.py:75
-#, python-brace-format
 msgid "About {appname}"
 msgstr "О {appname}"
 
@@ -42,7 +39,7 @@ msgstr "О {appname}"
 msgid "About"
 msgstr "О Frescobaldi"
 
-#: ../about.py:83 ../help/contents.py:332
+#: ../about.py:83 ../help/contents.py:332 ../userguide/credits.md:1
 msgid "Credits"
 msgstr "Участники"
 
@@ -55,7 +52,6 @@ msgid "Operating System"
 msgstr "Операционная система"
 
 #: ../about.py:146
-#, python-brace-format
 msgid "Version {version}"
 msgstr "Версия {version}"
 
@@ -64,7 +60,6 @@ msgid "A LilyPond Music Editor"
 msgstr "Редактор музыки для LilyPond"
 
 #: ../about.py:148
-#, python-brace-format
 msgid "Copyright (c) {year} by {author}"
 msgstr ""
 
@@ -78,7 +73,6 @@ msgid "Translated by Your Name."
 msgstr ""
 
 #: ../about.py:160
-#, python-brace-format
 msgid "Licensed under the {gpl}."
 msgstr "Распространяется по лицензии {gpl}"
 
@@ -170,7 +164,6 @@ msgid "<unknown>"
 msgstr "<неизвестно>"
 
 #: ../convert_ly.py:140
-#, python-brace-format
 msgid "Convert-ly from LilyPond {version}"
 msgstr "Convert-ly от версии LilyPond {version}"
 
@@ -191,7 +184,6 @@ msgid "Both 'from' and 'to' versions need to be set."
 msgstr "Нужно установить и версию «с» и «до»"
 
 #: ../convert_ly.py:208
-#, python-brace-format
 msgid ""
 "Could not start {convert_ly}:\n"
 "\n"
@@ -205,16 +197,16 @@ msgstr ""
 msgid "The document has not been changed."
 msgstr "Файл не изменен"
 
-#: ../credits.py:91
+#: ../credits.py:91 ../userguide/credits.md:15
 msgid "Main author and core developer"
 msgstr ""
 
-#: ../credits.py:95
+#: ../credits.py:95 ../userguide/credits.md:18
 #, fuzzy
 msgid "Kinetic Scrolling for the Music View"
 msgstr "{author}: Kinetic Scrolling для предпросмотра музыки"
 
-#: ../credits.py:99
+#: ../credits.py:99 ../userguide/credits.md:21
 msgid "Improved highlighting and auto-completion of Scheme code"
 msgstr ""
 
@@ -227,7 +219,7 @@ msgstr "Предпросмотр"
 msgid "Various contributions"
 msgstr ""
 
-#: ../credits.py:108
+#: ../credits.py:108 ../userguide/credits.md:27
 #, fuzzy
 msgid "Modal Transpose"
 msgstr "Транспонировать..."
@@ -241,7 +233,6 @@ msgid "MusicXML import"
 msgstr ""
 
 #: ../credits.py:120
-#, python-brace-format
 msgid "{appname} is written in {python} and uses the {qt} toolkit."
 msgstr ""
 
@@ -256,7 +247,6 @@ msgid "Qt4"
 msgstr ""
 
 #: ../credits.py:127
-#, python-brace-format
 msgid ""
 "The Music View is powered by the {poppler} library by {authors} and others."
 msgstr ""
@@ -267,7 +257,6 @@ msgid "Poppler"
 msgstr ""
 
 #: ../credits.py:134
-#, python-brace-format
 msgid "Most of the bundled icons are created by {tango}."
 msgstr "Большинство значков созданы {tango}"
 
@@ -288,7 +277,6 @@ msgid "Untitled"
 msgstr "Без имени"
 
 #: ../document.py:160
-#, python-brace-format
 msgid "Untitled ({num})"
 msgstr "Без имени ({num})"
 
@@ -349,20 +337,24 @@ msgstr "Динамика"
 msgid "Remove Text &Markup (from music)"
 msgstr ""
 
-#: ../documentcontextmenu.py:67 ../mainwindow.py:1039
+#: ../documentcontextmenu.py:69 ../mainwindow.py:1039
 #: ../sessions/manager.py:127
 msgid "&Save"
 msgstr "Сохранить"
 
-#: ../documentcontextmenu.py:68 ../mainwindow.py:1040
+#: ../documentcontextmenu.py:70 ../mainwindow.py:1040
 msgid "Save &As..."
 msgstr "Сохранить как..."
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:1050
+#: ../documentcontextmenu.py:71 ../mainwindow.py:1050
 msgid "&Close"
 msgstr "Закрыть"
 
-#: ../documentcontextmenu.py:70
+#: ../documentcontextmenu.py:72 ../mainwindow.py:1051
+msgid "Close Other Documents"
+msgstr "Закрыть другие файлы"
+
+#: ../documentcontextmenu.py:73
 #, fuzzy
 msgid "Always &Engrave This Document"
 msgstr "Всегда набирать этот файл"
@@ -439,7 +431,7 @@ msgid "Error"
 msgstr "Ошибка"
 
 #: ../helpers.py:108 ../job.py:279
-#, fuzzy, python-brace-format
+#, fuzzy
 msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
@@ -504,13 +496,14 @@ msgid "Edit"
 msgstr "Правка"
 
 #: ../hyphendialog.py:162 ../help/contents.py:141 ../help/contents.py:258
-#: ../preferences/__init__.py:107 ../preferences/midi.py:134
+#: ../preferences/__init__.py:107 ../preferences/midi.py:169
 #: ../preferences/prefshelp.py:32 ../preferences/prefshelp.py:38
+#: ../userguide/preferences.md:1
 msgid "Preferences"
 msgstr "Настройки"
 
 #: ../hyphendialog.py:164
-#, fuzzy, python-brace-format
+#, fuzzy
 msgid ""
 "<p>\n"
 "Frescobaldi can automatically place hyphens '{hyphen}' inside texts to make\n"
@@ -573,12 +566,10 @@ msgid "Select Color"
 msgstr "Выберите цвет:"
 
 #: ../job.py:268
-#, python-brace-format
 msgid "Starting {job}..."
 msgstr "Запуск {job}..."
 
 #: ../job.py:273
-#, python-brace-format
 msgid "Aborting {job}..."
 msgstr "Прерывание {job}..."
 
@@ -591,17 +582,14 @@ msgid "An unknown error occured."
 msgstr "Произошла неизвестная ошибка."
 
 #: ../job.py:289
-#, python-brace-format
 msgid "Exited with return code {code}."
 msgstr "Программа завершилась с кодом {code}."
 
 #: ../job.py:291
-#, python-brace-format
 msgid "Exited with exit status {status}."
 msgstr "Программа завершилась со статусом {status}."
 
 #: ../job.py:294
-#, python-brace-format
 msgid "Completed successfully in {time}."
 msgstr "Завершено за {time}"
 
@@ -623,7 +611,6 @@ msgstr "Скопировать, удалив разделение на слог�
 
 # Я НАМЕРЕННО НЕ ПЕРЕВОЖУ USAGE
 #: ../main.py:56
-#, python-brace-format
 msgid "{appname} [options] file ..."
 msgstr ""
 
@@ -652,7 +639,6 @@ msgid "NAME"
 msgstr ""
 
 #: ../main.py:66
-#, python-brace-format
 msgid "Session to start ('{none}' for empty session)"
 msgstr ""
 
@@ -675,7 +661,6 @@ msgid "Close Document"
 msgstr "Закрыть файл"
 
 #: ../mainwindow.py:302
-#, python-brace-format
 msgid ""
 "The document \"{name}\" has been modified.\n"
 "Do you want to save your changes or discard them?"
@@ -691,7 +676,6 @@ msgid "Warning"
 msgstr "Предупреждение"
 
 #: ../mainwindow.py:371
-#, python-brace-format
 msgid ""
 "Can't load non-local document:\n"
 "\n"
@@ -706,7 +690,6 @@ msgid "Open File"
 msgstr "Открыть файл"
 
 #: ../mainwindow.py:422 ../mainwindow.py:428 ../mainwindow.py:453
-#, python-brace-format
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -733,7 +716,6 @@ msgstr "Сохранить выделенное"
 #: ../mainwindow.py:504 ../mainwindow.py:661 ../file_export/__init__.py:66
 #: ../preferences/fontscolors.py:272 ../preferences/shortcuts.py:207
 #: ../snippet/widget.py:325
-#, python-brace-format
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -751,7 +733,7 @@ msgid "Reload"
 msgstr "Запись"
 
 #: ../mainwindow.py:519
-#, fuzzy, python-brace-format
+#, fuzzy
 msgid ""
 "Could not reload the document:\n"
 "\n"
@@ -776,7 +758,6 @@ msgstr "Добавить из файла"
 
 #: ../mainwindow.py:601 ../preferences/import_export.py:92
 #: ../preferences/import_export.py:175 ../snippet/import_export.py:106
-#, python-brace-format
 msgid ""
 "Can't read from source:\n"
 "\n"
@@ -874,10 +855,6 @@ msgstr ""
 msgid "Print Source..."
 msgstr "Печать исходного кода..."
 
-#: ../mainwindow.py:1051
-msgid "Close Other Documents"
-msgstr "Закрыть другие файлы"
-
 #: ../mainwindow.py:1052
 msgid "Close All Documents"
 msgstr "Закрыть все файлы"
@@ -891,7 +868,7 @@ msgid "&Quit"
 msgstr "Выход"
 
 #: ../mainwindow.py:1055
-#, fuzzy, python-brace-format
+#, fuzzy
 msgid "Restart {appname}"
 msgstr "О {appname}"
 
@@ -1000,7 +977,6 @@ msgid "Report a &Bug..."
 msgstr "Сообщить об ошибке..."
 
 #: ../mainwindow.py:1087
-#, python-brace-format
 msgid "&About {appname}..."
 msgstr "О {appname}..."
 
@@ -1103,7 +1079,6 @@ msgid "Music Preview"
 msgstr "Предпросмотр PDF"
 
 #: ../popplerdummy.py:42
-#, python-brace-format
 msgid "Could not load the {name} module."
 msgstr "Не удалось загрузить модуль {name}"
 
@@ -1112,7 +1087,6 @@ msgid "PDF Document"
 msgstr "PDF-файл"
 
 #: ../popplerprint.py:83
-#, python-brace-format
 msgid "Print {filename}"
 msgstr "Печать {filename}"
 
@@ -1125,12 +1099,10 @@ msgid "Could not send the document to the printer."
 msgstr "Невозможно отправить файл на принтер"
 
 #: ../popplerprint.py:139
-#, python-brace-format
 msgid "Printing page {page} ({num} of {total})..."
 msgstr "Печать страницы {page} ({num} из {total})"
 
 #: ../viewmanager.py:67 ../viewmanager.py:215
-#, python-brace-format
 msgid "Line: {line}, Col: {column}"
 msgstr "Строка: {line}, столбец: {column}"
 
@@ -1221,7 +1193,6 @@ msgid "(local)"
 msgstr "(локально)"
 
 #: ../docbrowser/browser.py:157
-#, python-brace-format
 msgid "({hostname})"
 msgstr "({hostname})"
 
@@ -1278,7 +1249,6 @@ msgid "Close all untitled documents"
 msgstr "Закрыть все неименованные"
 
 #: ../engrave/__init__.py:202
-#, python-brace-format
 msgid "&Always Engrave [{docname}]"
 msgstr "Всегда набирать [{docname}]"
 
@@ -1537,7 +1507,6 @@ msgid "Document on Disk"
 msgstr "Шрифты документа..."
 
 #: ../externalchanges/widget.py:276
-#, python-brace-format
 msgid ""
 "Document: {url}\n"
 "Difference between the current document and the file on disk:"
@@ -1558,21 +1527,18 @@ msgid ""
 msgstr ""
 
 #: ../externalchanges/widget.py:299
-#, python-brace-format
 msgid ""
 "When a document is reloaded, you can still press {undokey} to get back the "
 "document as it was in memory before reloading it from disk."
 msgstr ""
 
 #: ../externalchanges/widget.py:302
-#, python-brace-format
 msgid ""
 "Press the <em>{showdiff}</em> button to see the difference between the "
 "current document and its version on disk."
 msgstr ""
 
 #: ../externalchanges/widget.py:305
-#, python-brace-format
 msgid ""
 "If you don't want to be warned when a document is changed or deleted by "
 "another application, uncheck the <em>{action}</em> checkbox."
@@ -1701,7 +1667,7 @@ msgstr "Содержание"
 msgid "Help"
 msgstr "Справка"
 
-#: ../help/cnt_engraving.py:37
+#: ../help/cnt_engraving.py:37 ../userguide/engraving.md:1
 #, fuzzy
 msgid "Engraving Scores"
 msgstr "Остановить набор"
@@ -1740,7 +1706,6 @@ msgid "Engrave (Preview)"
 msgstr "Набрать (предпросмотр)"
 
 #: ../help/cnt_engraving.py:70
-#, python-brace-format
 msgid ""
 "When working on a score you will usually engrave your score in <em>Preview "
 "Mode</em> ({preview_shortcut}). This will enable Frescobaldi's two-way point-"
@@ -1750,7 +1715,6 @@ msgid ""
 msgstr ""
 
 #: ../help/cnt_engraving.py:76
-#, python-brace-format
 msgid ""
 "The Debug Modes are accessible through the \"Preview Options\" dockable "
 "panel which is accessible through {menu_panel}.The Debug Modes are initially "
@@ -1759,6 +1723,7 @@ msgstr ""
 
 #: ../help/cnt_engraving.py:80 ../help/cnt_engraving.py:83
 #: ../preferences/__init__.py:273 ../preferences/prefshelp.py:284
+#: ../userguide/prefs_tools.md:1
 msgid "Tools"
 msgstr "Инструменты"
 
@@ -1783,7 +1748,6 @@ msgid ""
 msgstr ""
 
 #: ../help/cnt_engraving.py:89
-#, python-brace-format
 msgid ""
 "The appearance of the Debug Modes is defined by Scheme variables and can "
 "partially be configured following the directions in {preview_config}."
@@ -1793,9 +1757,12 @@ msgstr ""
 msgid "The following Debug Modes are currently implemented:"
 msgstr ""
 
+#. #-#-#-#-#  temp1.pot (frescobaldi 2.0.12-dev)  #-#-#-#-#
 #. L10N: Please translate the mode names the same way as in the panel UI
 #: ../help/cnt_engraving.py:96 ../help/cnt_engraving.py:212
-#: ../preview_mode/__init__.py:42
+#: ../preview_mode/__init__.py:42 ../userguide/engrave_layout.md.py:17
+#: ../userguide/engrave_layout_configure.md:18
+#: ../userguide/engrave_layout.md:19
 msgid "Display Control Points"
 msgstr ""
 
@@ -1816,7 +1783,7 @@ msgid ""
 msgstr ""
 
 #: ../help/cnt_engraving.py:107 ../help/cnt_engraving.py:227
-#: ../preview_mode/__init__.py:68
+#: ../preview_mode/__init__.py:68 ../userguide/engrave_layout_configure.md:27
 msgid "Color \\voiceXXX"
 msgstr ""
 
@@ -1828,7 +1795,9 @@ msgid ""
 msgstr ""
 
 #: ../help/cnt_engraving.py:111 ../help/cnt_engraving.py:242
-#: ../preview_mode/__init__.py:47
+#: ../preview_mode/__init__.py:47 ../userguide/engrave_layout.md.py:34
+#: ../userguide/engrave_layout_configure.md:36
+#: ../userguide/engrave_layout.md:35
 #, fuzzy
 msgid "Color explicit directions"
 msgstr "Явные длительности"
@@ -1840,7 +1809,8 @@ msgid ""
 "operators <code>^</code> and <code>_</code>."
 msgstr ""
 
-#: ../help/cnt_engraving.py:115
+#: ../help/cnt_engraving.py:115 ../userguide/engrave_layout.md.py:39
+#: ../userguide/engrave_layout.md:40
 msgid "Please note how this mode and the previous are related:"
 msgstr ""
 
@@ -1852,14 +1822,17 @@ msgid ""
 "versions up to 2.17.5."
 msgstr ""
 
-#: ../help/cnt_engraving.py:120
+#: ../help/cnt_engraving.py:120 ../userguide/engrave_layout.md.py:45
+#: ../userguide/engrave_layout.md:47
 msgid ""
 "If the score is engraved with LilyPond version 2.17.6 or later this problem "
 "isn't present anymore."
 msgstr ""
 
 #: ../help/cnt_engraving.py:122 ../help/cnt_engraving.py:259
-#: ../preview_mode/__init__.py:51
+#: ../preview_mode/__init__.py:51 ../userguide/engrave_layout.md.py:47
+#: ../userguide/engrave_layout_configure.md:53
+#: ../userguide/engrave_layout.md:50
 msgid "Display Grob Anchors"
 msgstr ""
 
@@ -1874,16 +1847,20 @@ msgid ""
 "points for square and circle."
 msgstr ""
 
-#: ../help/cnt_engraving.py:130
+#: ../help/cnt_engraving.py:130 ../userguide/engrave_layout.md.py:57
+#: ../userguide/engrave_layout.md:63
 msgid "This Mode displays a red dot for each grob's anchor point."
 msgstr ""
 
 #: ../help/cnt_engraving.py:131 ../help/cnt_engraving.py:272
-#: ../preview_mode/__init__.py:55
+#: ../preview_mode/__init__.py:55 ../userguide/engrave_layout.md.py:58
+#: ../userguide/engrave_layout_configure.md:68
+#: ../userguide/engrave_layout.md:65
 msgid "Display Grob Names"
 msgstr ""
 
-#: ../help/cnt_engraving.py:132
+#: ../help/cnt_engraving.py:132 ../userguide/engrave_layout.md.py:59
+#: ../userguide/engrave_layout.md:66
 msgid "This mode prints a grob's name next to it."
 msgstr ""
 
@@ -1909,10 +1886,12 @@ msgid ""
 msgstr ""
 
 #: ../help/cnt_engraving.py:144 ../preview_mode/__init__.py:63
+#: ../userguide/engrave_layout.md.py:71 ../userguide/engrave_layout.md:80
 msgid "Display Skylines"
 msgstr ""
 
-#: ../help/cnt_engraving.py:145
+#: ../help/cnt_engraving.py:145 ../userguide/engrave_layout.md.py:72
+#: ../userguide/engrave_layout.md:81
 msgid ""
 "LilyPond uses \"Skylines\" to calculate the vertical dimensions of its "
 "graphical objects in order to prevent collisions. This mode draws lines "
@@ -1920,28 +1899,33 @@ msgid ""
 "spacing."
 msgstr ""
 
-#: ../help/cnt_engraving.py:149
+#: ../help/cnt_engraving.py:149 ../userguide/engrave_layout.md.py:76
+#: ../userguide/engrave_layout.md:86
 #, fuzzy
 msgid "Debug Paper Columns"
 msgstr "Цвет бумаги"
 
-#: ../help/cnt_engraving.py:150
+#: ../help/cnt_engraving.py:150 ../userguide/engrave_layout.md.py:77
+#: ../userguide/engrave_layout.md:87
 msgid ""
 "LilyPond organises the horizontal spacing in \"paper columns\". This mode "
 "prints a lot of spacing information about these entities."
 msgstr ""
 
 #: ../help/cnt_engraving.py:152 ../preview_mode/__init__.py:37
+#: ../userguide/engrave_layout.md.py:80 ../userguide/engrave_layout.md:90
 msgid "Annotate Spacing"
 msgstr ""
 
-#: ../help/cnt_engraving.py:153
+#: ../help/cnt_engraving.py:153 ../userguide/engrave_layout.md.py:81
+#: ../userguide/engrave_layout.md:91
 msgid ""
 "LilyPond has a built-in function that prints lots of information about "
 "distances on the paper, which is very useful when debugging the page layout."
 msgstr ""
 
-#: ../help/cnt_engraving.py:156
+#: ../help/cnt_engraving.py:156 ../userguide/engrave_layout.md.py:84
+#: ../userguide/engrave_layout.md:94
 #, fuzzy
 msgid "Include Custom File"
 msgstr "Добавить из файла"
@@ -1976,7 +1960,7 @@ msgid ""
 "<em>before</em> the Debug Modes are parsed."
 msgstr ""
 
-#: ../help/cnt_engraving.py:208
+#: ../help/cnt_engraving.py:208 ../userguide/engrave_layout_configure.md:15
 msgid "The modes use the following configuration variables:"
 msgstr ""
 
@@ -2015,7 +1999,7 @@ msgid ""
 "<code>#(define debug-grob-names-grob-list '(Script NoteHead))</code>"
 msgstr ""
 
-#: ../help/cnt_engraving.py:286
+#: ../help/cnt_engraving.py:286 ../userguide/engrave_layout_configure.md:82
 msgid ""
 "The remaining modes are built-in to LilyPond and don't have any "
 "configuration options."
@@ -2026,7 +2010,7 @@ msgstr ""
 msgid "Engrave (Publication)"
 msgstr "Набрать (публикация)"
 
-#: ../help/cnt_engraving.py:296
+#: ../help/cnt_engraving.py:296 ../userguide/engrave_publish.md:3
 msgid ""
 "When engraving a score in Publication mode the point-and-click information "
 "isn't generated. This will prevent a reader of the resulting PDF document "
@@ -2034,7 +2018,7 @@ msgid ""
 "also significantly decrease the file size."
 msgstr ""
 
-#: ../help/cnt_engraving.py:301
+#: ../help/cnt_engraving.py:301 ../userguide/engrave_publish.md:8
 msgid ""
 "You should also note that the point-and-click links contain hard-coded path "
 "information of your systen, which may be considered a security issue."
@@ -2046,20 +2030,18 @@ msgid "Engrave (Custom)"
 msgstr "Особые настройки набора"
 
 #: ../help/cnt_engraving.py:314
-#, python-brace-format
 msgid ""
 "The <em>Engrave (Custom)</em> dialog ({custom_shortcut}) gives you detailed "
 "access to all aspects of the LilyPond command."
 msgstr ""
 
-#: ../help/cnt_engraving.py:317
+#: ../help/cnt_engraving.py:317 ../userguide/engrave_custom.md:6
 msgid ""
 "You can configure a number of options through the graphical user interface "
 "and then fine-tune the command line to be used for LilyPond directly."
 msgstr ""
 
 #: ../help/cnt_engraving.py:320
-#, python-brace-format
 msgid ""
 "You can select from the LilyPond versions defined in the {pref} dialog, from "
 "the output formats available to LilyPond and (for PNG output) from a number "
@@ -2067,7 +2049,6 @@ msgid ""
 msgstr ""
 
 #: ../help/cnt_engraving.py:324
-#, python-brace-format
 msgid ""
 "Running LilyPond in Preview Mode will respect the settings from the Preview "
 "Options Panel ({link})."
@@ -2094,12 +2075,11 @@ msgstr "Нет справки"
 msgid "No help has been found on this topic."
 msgstr "Никакой справки по этой теме не найдено"
 
-#: ../help/contents.py:46
+#: ../help/contents.py:46 ../userguide/index.md:1
 msgid "Frescobaldi Manual"
 msgstr "Руководство Frescobaldi"
 
 #: ../help/contents.py:49
-#, python-brace-format
 msgid ""
 "<p>\n"
 "Frescobaldi is a light-weight, but powerful editor for LilyPond music "
@@ -2114,7 +2094,6 @@ msgstr ""
 "</p>\n"
 
 #: ../help/contents.py:59
-#, python-brace-format
 msgid ""
 "<h3>How to get help inside Frescobaldi</h3>\n"
 "\n"
@@ -2130,12 +2109,11 @@ msgstr ""
 msgid "What's This"
 msgstr "Что это такое?"
 
-#: ../help/contents.py:94
+#: ../help/contents.py:94 ../userguide/intro.md:1
 msgid "Introduction"
 msgstr "Введение"
 
 #: ../help/contents.py:97
-#, python-brace-format
 msgid ""
 "<p>\n"
 "<a href=\"http://lilypond.org/\">LilyPond</a>\n"
@@ -2164,7 +2142,8 @@ msgid ""
 "</p>"
 msgstr ""
 
-#: ../help/contents.py:123
+#: ../help/contents.py:123 ../userguide/getstarted.md.py:3
+#: ../userguide/getstarted.md:1
 msgid "Getting Started"
 msgstr "Первые шаги"
 
@@ -2179,7 +2158,7 @@ msgid "Engrave (publish)"
 msgstr "Набрать (публикация)"
 
 #: ../help/contents.py:142 ../preferences/__init__.py:185
-#: ../preferences/prefshelp.py:81
+#: ../preferences/prefshelp.py:81 ../userguide/prefs_lilypond.md:1
 msgid "LilyPond Preferences"
 msgstr "Настройки LilyPond"
 
@@ -2197,7 +2176,6 @@ msgid "Copy to Image..."
 msgstr "Скопировать изображение..."
 
 #: ../help/contents.py:150
-#, python-brace-format
 msgid ""
 "<p>\n"
 "The default screen of Frescobaldi shows a text document on the left and an\n"
@@ -2291,11 +2269,11 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:233
+#: ../help/contents.py:233 ../userguide/musicview.md:1
 msgid "The Music View"
 msgstr "Предпросмотр"
 
-#: ../help/contents.py:238
+#: ../help/contents.py:238 ../userguide/musicview.md:3
 msgid "The Music View displays the PDF document created by LilyPond."
 msgstr "Предпросмотр показывает PDF-файл, сгенирированный LilyPond"
 
@@ -2306,47 +2284,44 @@ msgid ""
 "its definition in the text document."
 msgstr ""
 
-#: ../help/contents.py:242
+#: ../help/contents.py:242 ../userguide/musicview.md:9
 msgid ""
 "The Music View uses this information to provide smart, two-way integration "
 "with the text document:"
 msgstr ""
 
-#: ../help/contents.py:245
+#: ../help/contents.py:245 ../userguide/musicview.md:12
 msgid "Move the mouse pointer over music objects to highlight them in the text"
 msgstr ""
 
-#: ../help/contents.py:246
+#: ../help/contents.py:246 ../userguide/musicview.md:13
 msgid "Click an object to move the text cursor to that object"
 msgstr ""
 
 #: ../help/contents.py:247
-#, python-brace-format
 msgid "Shift-click an object to edit its text in a small window (see {link})"
 msgstr ""
 
 #: ../help/contents.py:249
-#, python-brace-format
 msgid ""
 "Move the text cursor to highlight them in the music view, press {key} to "
 "scroll them into view."
 msgstr ""
 
-#: ../help/contents.py:252
+#: ../help/contents.py:252 ../userguide/musicview.md:19
 msgid "You can also adjust the view:"
 msgstr ""
 
-#: ../help/contents.py:254
+#: ../help/contents.py:254 ../userguide/musicview.md:21
 msgid ""
 "Use the Control (or Command) key with the mouse wheel to zoom in and out"
 msgstr ""
 
-#: ../help/contents.py:256
+#: ../help/contents.py:256 ../userguide/musicview.md:22
 msgid "Hold Control or Command and left-click to display a magnifier glass"
 msgstr ""
 
 #: ../help/contents.py:257
-#, python-brace-format
 msgid "Configure the background color under {menu}"
 msgstr ""
 
@@ -2356,7 +2331,7 @@ msgid "Edit"
 msgstr "Правка"
 
 #: ../help/contents.py:258 ../preferences/__init__.py:262
-#: ../preferences/prefshelp.py:261
+#: ../preferences/prefshelp.py:261 ../userguide/prefs_fonts_colors.md:1
 msgid "Fonts & Colors"
 msgstr "Шрифты и цвета"
 
@@ -2371,7 +2346,6 @@ msgid "Preview Background"
 msgstr "Фон области просмотра"
 
 #: ../help/contents.py:261
-#, python-brace-format
 msgid ""
 "You can copy music right from the PDF view to a raster image: Hold Shift and "
 "drag a rectangular selection (or use the right mouse button) and then press "
@@ -2388,7 +2362,7 @@ msgstr "Другие"
 msgid "<p>Some other important tools are listed here.</p>\n"
 msgstr ""
 
-#: ../help/contents.py:304
+#: ../help/contents.py:304 ../userguide/about.md.py:3 ../userguide/about.md:1
 #, fuzzy
 msgid "About Frescobaldi"
 msgstr "Frescobaldi"
@@ -2412,16 +2386,14 @@ msgid ""
 msgstr ""
 
 #: ../help/contents.py:337
-#, python-brace-format
 msgid "Frescobaldi's main author is {author}."
 msgstr ""
 
-#: ../help/contents.py:345
+#: ../help/contents.py:345 ../userguide/contributing.md:1
 msgid "Contributing"
 msgstr ""
 
 #: ../help/contents.py:348
-#, python-brace-format
 msgid ""
 "<p>\n"
 "Frescobaldi is a <a href=\"http://www.gnu.org/philosophy/free-sw.html"
@@ -2448,7 +2420,7 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:373
+#: ../help/contents.py:373 ../userguide/history.md:1
 #, fuzzy
 msgid "History of Frescobaldi"
 msgstr "Frescobaldi"
@@ -2494,12 +2466,11 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: ../help/contents.py:422
+#: ../help/contents.py:422 ../userguide/search_replace.md:1
 msgid "Search and replace"
 msgstr ""
 
 #: ../help/contents.py:430
-#, python-brace-format
 msgid ""
 "<p>\n"
 "In the menu {edit_menu} the commands Find ({key_search})\n"
@@ -2565,33 +2536,34 @@ msgid ""
 "the lines for variable definitions like <code>name: value;</code>.\n"
 msgstr ""
 
-#: ../help/contents.py:489
+#: ../help/contents.py:489 ../userguide/docvars.md:8
 msgid "The following variables are recognized:"
 msgstr ""
 
-#: ../help/contents.py:493
+#: ../help/contents.py:493 ../userguide/docvars.md:10
 #, fuzzy
 msgid "mode"
 msgstr "Удалить нотные штили"
 
+#. #-#-#-#-#  temp1.pot (frescobaldi 2.0.12-dev)  #-#-#-#-#
 #. L10N: do not translate the mode names lilypond, html, etc.
-#: ../help/contents.py:495
+#: ../help/contents.py:495 ../userguide/docvars.md:11
 msgid ""
 "Force mode to be one of lilypond, html, texinfo, latex, docbook or scheme. "
 "Default: automatic mode recognition."
 msgstr ""
 
-#: ../help/contents.py:497
+#: ../help/contents.py:497 ../userguide/docvars.md:14
 #, fuzzy
 msgid "filename"
 msgstr "Печать %1"
 
-#: ../help/contents.py:498
+#: ../help/contents.py:498 ../userguide/docvars.md:15
 #, fuzzy
 msgid "Compiles another LilyPond document instead of the current."
 msgstr "Невозможно чтение из процесса LilyPond."
 
-#: ../help/contents.py:499
+#: ../help/contents.py:499 ../userguide/docvars.md:17
 #, fuzzy
 msgid "name"
 msgstr "Печать %1"
@@ -2607,46 +2579,45 @@ msgstr ""
 msgid "More information."
 msgstr "Тенор"
 
-#: ../help/contents.py:504
+#: ../help/contents.py:504 ../userguide/docvars.md:22
 #, fuzzy
 msgid "encoding"
 msgstr "Используемая кодировка"
 
-#: ../help/contents.py:505
+#: ../help/contents.py:505 ../userguide/docvars.md:23
 msgid "Use another encoding than the default UTF-8."
 msgstr ""
 
-#: ../help/contents.py:506
+#: ../help/contents.py:506 ../userguide/docvars.md:25
 #, fuzzy
 msgid "version"
 msgstr "Версия:"
 
-#: ../help/contents.py:507
+#: ../help/contents.py:507 ../userguide/docvars.md:26
 #, fuzzy
 msgid ""
 "Set the LilyPond version to use, can be used for non-LilyPond documents."
 msgstr "Версия LilyPond используемая для текущего документа."
 
-#: ../help/contents.py:509 ../help/contents.py:517
+#: ../help/contents.py:509 ../help/contents.py:517 ../userguide/docvars.md:28
+#: ../userguide/docvars.md:37
 #, fuzzy
 msgid "number"
 msgstr "Имя"
 
-#: ../help/contents.py:510
+#: ../help/contents.py:510 ../userguide/docvars.md:29
 msgid "The width of a tab character, by default 8."
 msgstr ""
 
 #: ../help/contents.py:512
-#, python-brace-format
 msgid "Whether to use tabs in indent, by default {no}."
 msgstr ""
 
 #: ../help/contents.py:515
-#, python-brace-format
 msgid "Whether to use tabs elsewhere in the document, by default {yes}."
 msgstr ""
 
-#: ../help/contents.py:518
+#: ../help/contents.py:518 ../userguide/docvars.md:38
 msgid "The number of spaces each indent level uses, by default 2."
 msgstr ""
 
@@ -2655,11 +2626,11 @@ msgid "You can put document variables in comments."
 msgstr ""
 
 #: ../help/contents.py:536
-#, fuzzy, python-brace-format
+#, fuzzy
 msgid "The \"{output}\" document variable"
 msgstr "Показать закладки документов"
 
-#: ../help/contents.py:541
+#: ../help/contents.py:541 ../userguide/var_output.md:3
 msgid ""
 "Setting this variable suppresses the automatic output file name "
 "determination and makes Frescobaldi look for output documents (PDF, MIDI, "
@@ -2672,11 +2643,12 @@ msgid ""
 "the specified directory. "
 msgstr ""
 
-#: ../help/contents.py:547
+#: ../help/contents.py:547 ../userguide/var_output.md:10
 msgid "All names are relative to the document's filename."
 msgstr ""
 
 #: ../help/contents.py:548 ../help/contents.py:652
+#: ../userguide/create_midi.md:7 ../userguide/var_output.md:12
 msgid "For example:"
 msgstr ""
 
@@ -2690,13 +2662,12 @@ msgid ""
 "LilyPond code."
 msgstr ""
 
-#: ../help/contents.py:571
+#: ../help/contents.py:571 ../userguide/sessions.md:1
 #, fuzzy
 msgid "Sessions"
 msgstr "Используемая сессия"
 
-#: ../help/contents.py:575
-#, python-brace-format
+#: ../help/contents.py:575 ../userguide/sessions.md:3
 msgid ""
 "A session is basically a list of open files. At any time you can choose "
 "{menu_session_save} or {menu_session_new} and save the current list of open "
@@ -2713,14 +2684,13 @@ msgctxt "New Session"
 msgid "New"
 msgstr ""
 
-#: ../help/contents.py:580
+#: ../help/contents.py:580 ../userguide/sessions.md:7
 msgid ""
 "When you switch sessions, all current documents are closed first and then "
 "the documents of the other session are opened."
 msgstr ""
 
-#: ../help/contents.py:582
-#, python-brace-format
+#: ../help/contents.py:582 ../userguide/sessions.md:10
 msgid ""
 "Inside the session properties dialog, you can choose whether to always save "
 "the list of open documents to that session, or to only save on creation (or "
@@ -2729,21 +2699,21 @@ msgid ""
 "working."
 msgstr ""
 
-#: ../help/contents.py:589
+#: ../help/contents.py:589 ../userguide/sessions.md:16
 msgid "You can also specify a default directory for the session."
 msgstr ""
 
-#: ../help/contents.py:599
+#: ../help/contents.py:599 ../userguide/troubleshooting.md:1
 msgid "Troubleshooting"
 msgstr ""
 
-#: ../help/contents.py:602
+#: ../help/contents.py:602 ../userguide/troubleshooting.md:3
 msgid ""
 "Sometimes things don't go the way you would expect; this section may give "
 "some solutions."
 msgstr ""
 
-#: ../help/contents.py:614
+#: ../help/contents.py:614 ../userguide/nomusic.md:1
 msgid "After engraving a score, the Music View does not show the music"
 msgstr ""
 
@@ -2757,7 +2727,7 @@ msgid ""
 "<code>\\layout</code> section, no PDF output is generated."
 msgstr ""
 
-#: ../help/contents.py:622
+#: ../help/contents.py:622 ../userguide/nomusic.md:8
 msgid "Do you use an exotic way to specify the output filename?"
 msgstr ""
 
@@ -2778,13 +2748,12 @@ msgid ""
 msgstr ""
 
 #: ../help/contents.py:632
-#, python-brace-format
 msgid ""
 "In that case you can override the base name(s) using the {output} document "
 "variable."
 msgstr ""
 
-#: ../help/contents.py:645
+#: ../help/contents.py:645 ../userguide/create_midi.md:1
 msgid "How to generate a MIDI file?"
 msgstr ""
 
@@ -2801,7 +2770,7 @@ msgid ""
 "only a MIDI file."
 msgstr ""
 
-#: ../help/contents.py:671
+#: ../help/contents.py:671 ../userguide/toc.md:1
 msgid "Table of Contents"
 msgstr "Оглавление"
 
@@ -2840,6 +2809,46 @@ msgstr "Предыдущее сообщение об ошибке"
 #: ../logtool/logwidget.py:118
 msgid "Click to edit this file"
 msgstr "Щёлкните для редактирования этого файла"
+
+#: ../midiinput/tool.py:29
+#, fuzzy
+msgid "MIDI Input"
+msgstr "Ввод MIDI Rumor"
+
+#: ../midiinput/tool.py:30
+#, fuzzy
+msgid "MIDI I&nput"
+msgstr "Ввод MIDI Rumor"
+
+#: ../midiinput/tool.py:52 ../midiinput/tool.py:53
+msgctxt "midi input"
+msgid "Start MIDI capturing"
+msgstr ""
+
+#: ../midiinput/tool.py:54 ../midiinput/tool.py:55
+msgctxt "midi input"
+msgid "Stop MIDI capturing"
+msgstr ""
+
+#: ../midiinput/widget.py:91
+msgid "MIDI channel"
+msgstr ""
+
+#: ../midiinput/widget.py:92
+msgid "Accidentals"
+msgstr ""
+
+#: ../midiinput/widget.py:93
+msgid "Damper pedal"
+msgstr ""
+
+#: ../midiinput/widget.py:94
+msgid "Sostenuto pedal"
+msgstr ""
+
+#: ../midiinput/widget.py:95
+msgid "Soft pedal"
+msgstr ""
 
 #: ../miditool/__init__.py:51
 msgid "MIDI"
@@ -3025,31 +3034,28 @@ msgstr "По странице"
 
 #. L10N: page numbering: page {num} of {total}
 #: ../musicview/__init__.py:547
-#, python-brace-format
 msgid "{num} of {total}"
 msgstr "{num} из {total}"
 
 #: ../musicview/contextmenu.py:49 ../musicview/editinplace.py:82
 #: ../musicview/editinplace.py:246 ../musicview/editinplace.py:255
+#: ../userguide/musicview_editinplace.md:1
 msgid "Edit in Place"
 msgstr "Редактировать на месте"
 
 #: ../musicview/editinplace.py:147
-#, python-brace-format
 msgid "Editing line {linenum} of \"{document}\" ({variable})"
 msgstr "Редактирование строки {linenum} из «{document}» ({variable})"
 
-#: ../musicview/editinplace.py:250
+#: ../musicview/editinplace.py:250 ../userguide/musicview_editinplace.md:3
 msgid "In this dialog you can edit one line of the text document."
 msgstr "В этом диалоге вы можете отредактировать одну строку файла"
 
 #: ../musicview/editinplace.py:251
-#, python-brace-format
 msgid "Click OK or press {key} to place the modified text in the document."
 msgstr "Нажмите ОК или {key} для изменения текста в файле."
 
 #: ../musicview/editinplace.py:253
-#, python-brace-format
 msgid ""
 "You can open the \"Edit in Place\" dialog by Shift-clicking a clickable "
 "object in the Music View or by right-clicking the object and selecting "
@@ -3089,7 +3095,7 @@ msgid "&Save As..."
 msgstr "Сохранить как..."
 
 #: ../musicview/image.py:137
-#, no-python-format, python-brace-format
+#, no-python-format
 msgid ""
 "<p>\n"
 "Clicking toggles the display between 100% size and window size. Drag to copy "
@@ -3103,7 +3109,6 @@ msgid ""
 msgstr ""
 
 #: ../musicview/image.py:168
-#, python-brace-format
 msgid "Image from {filename}"
 msgstr "Изображение из {filename}"
 
@@ -3178,7 +3183,6 @@ msgid "Pitch Name Language"
 msgstr "Язык нотной записи"
 
 #: ../pitch/pitch.py:83
-#, python-brace-format
 msgid ""
 "Can't perform the requested translation.\n"
 "\n"
@@ -3212,7 +3216,6 @@ msgid "Transpose"
 msgstr "Транспонировать"
 
 #: ../pitch/pitch.py:404
-#, python-brace-format
 msgid ""
 "Please enter two absolute pitches, separated by a space, using the pitch "
 "name language \"{language}\"."
@@ -3227,7 +3230,6 @@ msgid ""
 msgstr ""
 
 #: ../pitch/pitch.py:627
-#, python-brace-format
 msgid ""
 "Can't perform the requested transposition.\n"
 "\n"
@@ -3244,7 +3246,6 @@ msgid "Pitch manipulation"
 msgstr "Управление тонами"
 
 #: ../pitch/pitch.py:761
-#, python-brace-format
 msgid ""
 "<p>\n"
 "Frescobaldi offers the following pitch-manipulating functions,\n"
@@ -3489,27 +3490,32 @@ msgstr "Прокрутить направо"
 
 #: ../preferences/__init__.py:174 ../preferences/general.py:128
 #: ../preferences/prefshelp.py:48 ../preferences/prefshelp.py:57
+#: ../userguide/prefs_general.md:1
 msgid "General Preferences"
 msgstr "Общие настройки"
 
 #: ../preferences/__init__.py:196 ../preferences/prefshelp.py:142
+#: ../userguide/prefs_midi.md:1
 msgid "MIDI Settings"
 msgstr "Настройки MIDI"
 
 #: ../preferences/__init__.py:207 ../preferences/helpers.py:91
-#: ../preferences/prefshelp.py:174
+#: ../preferences/prefshelp.py:174 ../userguide/prefs_helpers.md:1
 msgid "Helper Applications"
 msgstr "Дополнительные приложения"
 
 #: ../preferences/__init__.py:218 ../preferences/prefshelp.py:209
+#: ../userguide/prefs_paths.md:1
 msgid "Paths"
 msgstr "Пути"
 
 #: ../preferences/__init__.py:229 ../preferences/prefshelp.py:223
+#: ../userguide/prefs_lilydoc.md:1
 msgid "LilyPond Documentation"
 msgstr "Документация LilyPond"
 
 #: ../preferences/__init__.py:240 ../preferences/prefshelp.py:241
+#: ../userguide/prefs_shortcuts.md:1
 msgid "Keyboard Shortcuts"
 msgstr "Комбинации клавиш"
 
@@ -3528,7 +3534,6 @@ msgid "Add paths or URLs. See \"What's This\" for more information."
 msgstr "Здесь Вы можете выбрать, какие Guile скрипты загружать в Rumor."
 
 #: ../preferences/documentation.py:70 ../preferences/prefshelp.py:228
-#, python-brace-format
 msgid ""
 "<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
 "A local path should point to the directory where either the "
@@ -3583,7 +3588,6 @@ msgstr ""
 
 #. L10N: abbreviation for "n seconds" in spinbox, n >= 1, no plural forms
 #: ../preferences/editor.py:92
-#, python-brace-format
 msgid "{num} sec"
 msgstr ""
 
@@ -3600,7 +3604,6 @@ msgid "Default Styles"
 msgstr "Стили по умолчанию"
 
 #: ../preferences/fontscolors.py:157
-#, python-brace-format
 msgid "(Inherits: {name})"
 msgstr "(Наследует: {name})"
 
@@ -3882,7 +3885,6 @@ msgid "Use System Icons"
 msgstr "Использовать системные значки"
 
 #: ../preferences/general.py:136
-#, python-brace-format
 msgid ""
 "If checked, icons of the desktop icon theme will be used instead of the "
 "bundled icons.\n"
@@ -4005,6 +4007,7 @@ msgid "Command (base) to run Git versioning actions."
 msgstr ""
 
 #: ../preferences/helpers.py:148 ../preferences/prefshelp.py:188
+#: ../userguide/prefs_helpers.md:14
 #, fuzzy
 msgid "Printing Music"
 msgstr "Напечатать музыку..."
@@ -4063,7 +4066,7 @@ msgid "LilyPond versions to use"
 msgstr "Версии LilyPond"
 
 #: ../preferences/lilypond.py:83 ../preferences/prefshelp.py:106
-#: ../preferences/preview.py:83
+#: ../preferences/preview.py:83 ../userguide/prefs_lilypond_autoversion.md:1
 msgid "Automatically choose LilyPond version from document"
 msgstr "Автоматически выбирать версию сообразно команде в файле"
 
@@ -4090,7 +4093,6 @@ msgid ""
 msgstr ""
 
 #: ../preferences/lilypond.py:102 ../preferences/preview.py:102
-#, python-brace-format
 msgid "See also {link}."
 msgstr "Смотри также {link}."
 
@@ -4150,50 +4152,71 @@ msgstr ""
 msgid "LilyPond include path:"
 msgstr "Дополнительные пути LilyPond"
 
-#: ../preferences/midi.py:77
+#: ../preferences/midi.py:82
 msgid "MIDI Ports"
 msgstr "Порты MIDI"
 
-#: ../preferences/midi.py:79
+#: ../preferences/midi.py:84
 msgid ""
 "Note: There are no MIDI output ports available on your system. To use MIDI, "
 "please check if PortMIDI is installed on your system and that a MIDI "
 "synthesizer is available or connected."
 msgstr ""
 
-#: ../preferences/midi.py:82
+#: ../preferences/midi.py:87
 msgid "Player output:"
 msgstr "Выход плеера:"
 
-#: ../preferences/midi.py:84
+#: ../preferences/midi.py:89
 msgid ""
 "The MIDI port to play music to. See \"What's This\" for more information."
 msgstr ""
 
-#: ../preferences/midi.py:87
+#: ../preferences/midi.py:92
 msgid ""
-"<p>This dropdown menu lists the available MIDI ports on your system. You can "
-"select one, or just type part of a name. In that case, the first available "
-"port name that starts with the specified characters is used.</p>\n"
+"<p>This dropdown menu lists the available MIDI output ports on your system. "
+"You can select one, or just type part of a name. In that case, the first "
+"available port name that starts with the specified characters is used.</p>\n"
 "<p>Click the button to refresh the list, e.g. when you connect a MIDI device "
 "or start a software synthesizer.</p>"
 msgstr ""
 
-#: ../preferences/midi.py:96
+#: ../preferences/midi.py:101
+#, fuzzy
+msgid "Input port:"
+msgstr "Выходной формат:"
+
+#: ../preferences/midi.py:103
+#, fuzzy
+msgid ""
+"The MIDI port to get input from to write notes  See \"What's This\" for more "
+"information."
+msgstr "Введите текст для поиска в списке сниппетов."
+
+#: ../preferences/midi.py:106
+msgid ""
+"<p>This dropdown menu lists the available MIDI input ports on your system. "
+"You can select one, or just type part of a name. In that case, the first "
+"available port name that starts with the specified characters is used.</p>\n"
+"<p>Click the button to refresh the list, e.g. when you connect a MIDI device "
+"or start a software synthesizer.</p>"
+msgstr ""
+
+#: ../preferences/midi.py:115
 msgid "Refresh MIDI ports"
 msgstr "Обновить MIDI-порты"
 
-#: ../preferences/midi.py:135 ../preferences/prefshelp.py:160
+#: ../preferences/midi.py:170 ../preferences/prefshelp.py:160
 msgid "Close unused MIDI output"
 msgstr "Закрывать неиспользуемый MIDI-выход"
 
-#: ../preferences/midi.py:137
+#: ../preferences/midi.py:172
 msgid ""
 "Closes unused MIDI ports after one minute. See \"What's This\" for more "
 "information."
 msgstr ""
 
-#: ../preferences/midi.py:140 ../preferences/prefshelp.py:162
+#: ../preferences/midi.py:175 ../preferences/prefshelp.py:162
 msgid ""
 "<p>If checked, Frescobaldi will close MIDI output ports that are not used "
 "for one minute.</p>\n"
@@ -4204,19 +4227,33 @@ msgid ""
 "playing the file from the beginning sets up the instruments again.</p>\n"
 msgstr ""
 
+#: ../preferences/midi.py:183
+msgid "Polling time for input:"
+msgstr ""
+
+#: ../preferences/midi.py:185
+#, fuzzy
+msgid "Polling time for MIDI input. See \"What's This\" for more information."
+msgstr "Здесь Вы можете выбрать, какие Guile скрипты загружать в Rumor."
+
+#: ../preferences/midi.py:188
+msgid ""
+"Sets the time between the polling of the MIDI input port in milliseconds. "
+"Small values lead to faster recognition of incoming MIDI events, but stress "
+"the CPU. 10 ms should be a goot value."
+msgstr ""
+
 #: ../preferences/paths.py:59
 msgid "Folders containing hyphenation dictionaries"
 msgstr "Каталоги, содержащие словари переносов"
 
 #: ../preferences/prefshelp.py:36
-#, python-brace-format
 msgid ""
 "In the Preferences Dialog (under {menu}) you can configure many aspects of "
 "Frescobaldi and LilyPond."
 msgstr ""
 
 #: ../preferences/prefshelp.py:52
-#, python-brace-format
 msgid ""
 "Under <em>{general_preferences}</em>, you can choose in which language "
 "Frescobaldi's user interface is translated, which user interface style you "
@@ -4224,14 +4261,13 @@ msgid ""
 "use the system-wide configured icon set."
 msgstr ""
 
-#: ../preferences/prefshelp.py:58
+#: ../preferences/prefshelp.py:58 ../userguide/prefs_general.md:8
 msgid ""
 "Language and style take effect immediately, but the new iconset is visible "
 "after Frescobaldi has been restarted."
 msgstr ""
 
 #: ../preferences/prefshelp.py:60
-#, python-brace-format
 msgid ""
 "Under <em>{startup}</em> you can configure which session to load if "
 "Frescobaldi is started without a filename. You can choose whether to start "
@@ -4241,7 +4277,6 @@ msgid ""
 msgstr ""
 
 #: ../preferences/prefshelp.py:69
-#, python-brace-format
 msgid ""
 "Under <em>{saving}</em>, you can choose what to do when a document is saved, "
 "such as remembering the cursor position and marked lines, or leaving a "
@@ -4249,13 +4284,12 @@ msgid ""
 "default folder in which you keep your LilyPond documents."
 msgstr ""
 
-#: ../preferences/prefshelp.py:85
+#: ../preferences/prefshelp.py:85 ../userguide/prefs_lilypond.md:3
 msgid ""
 "Here you can configure how LilyPond is run when you engrave your document."
 msgstr ""
 
 #: ../preferences/prefshelp.py:87
-#, python-brace-format
 msgid ""
 "If you have multiple versions of LilyPond installed you can specify them "
 "here, and configure Frescobaldi to automatically choose the right one, based "
@@ -4275,7 +4309,7 @@ msgid ""
 "are in the same directory as the LilyPond executable itself."
 msgstr ""
 
-#: ../preferences/prefshelp.py:97
+#: ../preferences/prefshelp.py:97 ../userguide/prefs_lilypond.md:15
 msgid ""
 "You can also configure how LilyPond is run. See the tooltips of the settings "
 "for more information."
@@ -4293,13 +4327,12 @@ msgid "Preview Preferences"
 msgstr "Общие настройки"
 
 #: ../preferences/prefshelp.py:135
-#, python-brace-format
 msgid ""
 "Under <em>{preview_preferences}</em>, you can configure the appearance of "
 "several aspects of the Preview Mode."
 msgstr ""
 
-#: ../preferences/prefshelp.py:146
+#: ../preferences/prefshelp.py:146 ../userguide/prefs_midi.md:3
 msgid "Here you can configure Frescobaldi's MIDI settings."
 msgstr ""
 
@@ -4314,18 +4347,17 @@ msgid ""
 "software synthesizer program such as TiMidity or Fluidsynth."
 msgstr ""
 
-#: ../preferences/prefshelp.py:153
+#: ../preferences/prefshelp.py:153 ../userguide/prefs_midi.md:10
 msgid "On Linux, the synthesizer should be available as an ALSA MIDI device."
 msgstr ""
 
-#: ../preferences/prefshelp.py:155
+#: ../preferences/prefshelp.py:155 ../userguide/prefs_midi.md:12
 msgid ""
 "If you have a device with multiple ports, you can specify the first letters "
 "of the name, to have Frescobaldi automatically pick the first available one."
 msgstr ""
 
 #: ../preferences/prefshelp.py:158
-#, python-brace-format
 msgid ""
 "And finally, when using a software synthesizer it is recommended to enable "
 "the option <em>{close_unused}</em>."
@@ -4354,7 +4386,7 @@ msgid ""
 "command line."
 msgstr ""
 
-#: ../preferences/prefshelp.py:202
+#: ../preferences/prefshelp.py:202 ../userguide/prefs_helpers.md:31
 msgid ""
 "If Frescobaldi must fall back to printing using raster images, you can "
 "specify the number of dots per inch here."
@@ -4366,14 +4398,13 @@ msgid ""
 "where the <code>*</code> stands for different language codes."
 msgstr ""
 
-#: ../preferences/prefshelp.py:216
+#: ../preferences/prefshelp.py:216 ../userguide/prefs_paths.md:6
 msgid ""
 "These hyphenation dictionaries are used by Frescobaldi to break lyrics text "
 "into syllabes."
 msgstr ""
 
 #: ../preferences/prefshelp.py:246
-#, python-brace-format
 msgid ""
 "Here you can add keyboard shortcuts to all commands available. Also the "
 "{snippets} or {quickinsert} buttons that have keyboard shortcuts are listed "
@@ -4381,7 +4412,7 @@ msgid ""
 msgstr ""
 
 #: ../preferences/prefshelp.py:249 ../snippet/tool.py:57
-#: ../snippet/tool.py:148 ../snippet/widget.py:408
+#: ../snippet/tool.py:148 ../snippet/widget.py:408 ../userguide/snippets.md:1
 msgid "Snippets"
 msgstr "Сниппеты"
 
@@ -4399,29 +4430,30 @@ msgid ""
 msgstr ""
 
 #: ../preferences/prefshelp.py:255 ../preferences/prefshelp.py:278
+#: ../userguide/prefs_fonts_colors.md:18 ../userguide/prefs_shortcuts.md:12
 msgid "You can define a new scheme by using the New button."
 msgstr ""
 
-#: ../preferences/prefshelp.py:265
+#: ../preferences/prefshelp.py:265 ../userguide/prefs_fonts_colors.md:3
 msgid ""
 "Here you can set the editor font (a monospace font is recommended) and all "
 "colors."
 msgstr ""
 
-#: ../preferences/prefshelp.py:267
+#: ../preferences/prefshelp.py:267 ../userguide/prefs_fonts_colors.md:6
 msgid ""
 "The first item lets you set the colors for the text editor backgroud, "
 "foreground, selection background, the current line, line markings, the paper "
 "color in the Music View, etcetera."
 msgstr ""
 
-#: ../preferences/prefshelp.py:270
+#: ../preferences/prefshelp.py:270 ../userguide/prefs_fonts_colors.md:10
 msgid ""
 "The second item lets you set color and other attributes of the general "
 "highlighting styles, e.g. keyword, variable, value, comment, etcetera."
 msgstr ""
 
-#: ../preferences/prefshelp.py:273
+#: ../preferences/prefshelp.py:273 ../userguide/prefs_fonts_colors.md:13
 msgid ""
 "The other items contain the types of text the syntax highlighter recognizes "
 "for every particular document type Frescobaldi supports. Some of these types "
@@ -4429,21 +4461,21 @@ msgid ""
 "underline and the foreground, background and underline color."
 msgstr ""
 
-#: ../preferences/prefshelp.py:287
+#: ../preferences/prefshelp.py:287 ../userguide/prefs_tools.md:3
 msgid "Here you can change the settings for various tools."
 msgstr ""
 
-#: ../preferences/prefshelp.py:297
+#: ../preferences/prefshelp.py:297 ../userguide/outline_configure.md:1
 msgid "Configuring the Outline View"
 msgstr ""
 
-#: ../preferences/prefshelp.py:301
+#: ../preferences/prefshelp.py:301 ../userguide/outline_configure.md:3
 msgid ""
 "The document outline view is created by looking for certain expressions in "
 "the document text."
 msgstr ""
 
-#: ../preferences/prefshelp.py:303
+#: ../preferences/prefshelp.py:303 ../userguide/outline_configure.md:6
 msgid ""
 "You can specify what to search for by entering a list of regular expressions."
 msgstr ""
@@ -4454,31 +4486,27 @@ msgid ""
 "and <code>$</code> matches at the end of a line."
 msgstr ""
 
-#: ../preferences/prefshelp.py:307
+#: ../preferences/prefshelp.py:307 ../userguide/outline_configure.md:11
 msgid ""
 "Normally when an expressions matches text, the whole match is displayed as "
 "an item in the outline."
 msgstr ""
 
-#: ../preferences/prefshelp.py:309
-#, python-brace-format
+#: ../preferences/prefshelp.py:309 ../userguide/outline_configure.md:14
 msgid "You can also use named groups, with the {code} named group syntax."
 msgstr ""
 
 #: ../preferences/prefshelp.py:311
-#, python-brace-format
 msgid "You can use the name {text} or {title}."
 msgstr ""
 
 #: ../preferences/prefshelp.py:313
-#, python-brace-format
 msgid ""
 "In that case, only the named part of a match is displayed. If the {title} "
 "name is used, it is displayed in a bold font."
 msgstr ""
 
 #: ../preferences/prefshelp.py:316
-#, python-brace-format
 msgid "For more information about regular expressions, see {link}."
 msgstr ""
 
@@ -4492,7 +4520,7 @@ msgid "Shortcut"
 msgstr "Комбинация клавиш"
 
 #: ../preferences/shortcuts.py:100
-#, fuzzy, python-brace-format
+#, fuzzy
 msgid "Menu {name}"
 msgstr "О {appname}"
 
@@ -4501,7 +4529,6 @@ msgid "Other commands:"
 msgstr "Другие команды:"
 
 #: ../preferences/shortcuts.py:189
-#, python-brace-format
 msgid "&Edit Shortcut for \"{name}\""
 msgstr "Редактировать комбинацию клавиш для \"{name}\""
 
@@ -4649,7 +4676,8 @@ msgstr "Выход плеера:"
 msgid "Run LilyPond with verbose output"
 msgstr "Запускать LilyPond в режиме вывода подробной информации"
 
-#: ../preview_mode/widget.py:102
+#: ../preview_mode/widget.py:102 ../userguide/engrave_layout.md.py:14
+#: ../userguide/engrave_layout.md:15
 msgid "Point-and-Click"
 msgstr ""
 
@@ -4970,12 +4998,10 @@ msgid "Straight Caesura"
 msgstr "Прямая цезура"
 
 #: ../quickinsert/buttongroup.py:175
-#, python-brace-format
 msgid "{name} ({key})"
 msgstr "{name} ({key})"
 
 #: ../quickinsert/buttongroup.py:182
-#, python-brace-format
 msgid "Configure Keyboard Shortcut ({key})"
 msgstr "Настроить сочетание клавиш ({key})"
 
@@ -4993,7 +5019,6 @@ msgid "Dynamic symbols."
 msgstr "Динамические символы"
 
 #: ../quickinsert/dynamics.py:149
-#, python-brace-format
 msgid "Dynamic sign {name}"
 msgstr "Динамический знак {name}"
 
@@ -5107,7 +5132,6 @@ msgid "After grace"
 msgstr ""
 
 #: ../quickinsert/widget.py:102
-#, python-brace-format
 msgid ""
 "<p>With the Quick Insert Panel you can add various music elements to the "
 "current note or selected music.</p>\n"
@@ -5135,7 +5159,6 @@ msgid "The Quick Insert Panel"
 msgstr "Панель быстрой вставки"
 
 #: ../quickinsert/widget.py:130
-#, python-brace-format
 msgid ""
 "<p>\n"
 "With the tools in the Quick Insert Panel you can add various music elements\n"
@@ -5332,7 +5355,6 @@ msgid "Rhythm manipulation"
 msgstr "Ритмические манипуляции"
 
 #: ../rhythm/rhythm.py:247
-#, python-brace-format
 msgid ""
 "<p>\n"
 "The rhythm functions of Frescobaldi alter the durations written after "
@@ -5430,7 +5452,6 @@ msgid "Setup New Score..."
 msgstr "Новая партитура..."
 
 #: ../scorewiz/dialog.py:207
-#, python-brace-format
 msgid ""
 "<p>\n"
 "The Score Setup Wizard ({key}) in {menu} is designed\n"
@@ -6754,7 +6775,6 @@ msgid "Base directory:"
 msgstr "Базовый каталог:"
 
 #: ../sessions/dialog.py:139
-#, python-brace-format
 msgid "Edit session: {name}"
 msgstr "Редактирование сессии: {name}"
 
@@ -6767,12 +6787,10 @@ msgid "Please enter a session name."
 msgstr "Введите имя сессии."
 
 #: ../sessions/dialog.py:180
-#, python-brace-format
 msgid "Please do not use the name '{name}'."
 msgstr "Не используйте имя '{name}'."
 
 #: ../sessions/dialog.py:186
-#, python-brace-format
 msgid ""
 "Another session with the name {name} already exists.\n"
 "\n"
@@ -7012,10 +7030,10 @@ msgstr "Редактор сниппетов"
 #: ../snippet/edit.py:248
 msgid ""
 "<p>Here you can edit the text of the snippet.</p><p>If you start the first "
-"line(s) with '<code>-*- </code>' (note the space), the remainder of that "
-"line(s) defines variables like <code>name: value;</code> or simply "
-"<code>name;</code> which influence the behaviour of the snippet. The "
-"following variables can be used:</p>"
+"line(s) with '<code>-*- </code>' (note the space), the remainder of that line"
+"(s) defines variables like <code>name: value;</code> or simply <code>name;</"
+"code> which influence the behaviour of the snippet. The following variables "
+"can be used:</p>"
 msgstr ""
 
 #: ../snippet/edit.py:257
@@ -7023,7 +7041,6 @@ msgid "Place the snippet in the insert menu, grouped by the (optional) value."
 msgstr ""
 
 #: ../snippet/edit.py:259
-#, python-brace-format
 msgid ""
 "Place the snippet in the menu {file_new_from_template}, grouped by the "
 "(optional) value. When triggered via the menu, the snippet is inserted into "
@@ -7053,14 +7070,12 @@ msgid "The icon to show in menu and snippet list."
 msgstr "Значок для меню и списка сниппетов."
 
 #: ../snippet/edit.py:272
-#, python-brace-format
 msgid ""
 "The symbol to show in menu and snippet list. Symbols are icons that use the "
 "default text color and can be found in {directory}."
 msgstr ""
 
 #: ../snippet/edit.py:276
-#, python-brace-format
 msgid "Execute the snippet as a Python script. See {link}."
 msgstr ""
 
@@ -7092,7 +7107,6 @@ msgid "Python Snippets"
 msgstr ""
 
 #: ../snippet/edit.py:313
-#, python-brace-format
 msgid ""
 "<p>Python snippets can read and should set the variable {text}. The variable "
 "{text} contains the currently selected text (which may be an empty string).</"
@@ -7112,14 +7126,12 @@ msgid ""
 msgstr ""
 
 #: ../snippet/edit.py:326
-#, python-brace-format
 msgid ""
 "When setting {text} to a list instead of a string, you can use this value to "
 "specify the place the text cursor will be placed after inserting the snippet."
 msgstr ""
 
 #: ../snippet/edit.py:330
-#, python-brace-format
 msgid ""
 "When setting {text} to a list instead of a string, this value can be used "
 "together with {cursor} to select text when inserting the string parts of the "
@@ -7127,7 +7139,6 @@ msgid ""
 msgstr ""
 
 #: ../snippet/edit.py:335
-#, python-brace-format
 msgid ""
 "When you define a function with this name, it is called without arguments, "
 "instead of inserting the text from the {text} variable. In this case you may "
@@ -7208,7 +7219,6 @@ msgid "There are no new or updated snippets in the file."
 msgstr "В этом файле нет новых или обновлённых сниппетов."
 
 #: ../snippet/import_export.py:197
-#, python-brace-format
 msgid ""
 "<p>Here the snippets from {filename} are displayed.</p>\n"
 "<p>If there are new or updated snippets, you can select or deselect them one "
@@ -7226,7 +7236,6 @@ msgid "Snippets can be imported from and exported to XML files."
 msgstr ""
 
 #: ../snippet/import_export.py:240
-#, python-brace-format
 msgid ""
 "To export snippets, either select them in the snippet manager, or filter the "
 "snippets using the search bar and select none, so that all the snippets "
@@ -7245,7 +7254,6 @@ msgid "E&xport..."
 msgstr "Экспорт"
 
 #: ../snippet/import_export.py:246
-#, python-brace-format
 msgid ""
 "To import snippets, select {menu} and choose the file you want to import. "
 "You may also drop an XML file on the snippet manager. A dialog will be "
@@ -7320,7 +7328,6 @@ msgid "Overwrite Template?"
 msgstr "Перезаписать шаблон?"
 
 #: ../snippet/template.py:50
-#, python-brace-format
 msgid ""
 "A template named \"{name}\" already exists.\n"
 "\n"
@@ -7357,7 +7364,6 @@ msgid "&Add..."
 msgstr "Добавить..."
 
 #: ../snippet/widget.py:186
-#, python-brace-format
 msgid "Add a new snippet. ({key})"
 msgstr "Добавить новый сниппет. ({key})"
 
@@ -7366,7 +7372,6 @@ msgid "&Edit..."
 msgstr "Правка..."
 
 #: ../snippet/widget.py:189
-#, python-brace-format
 msgid "Edit the current snippet. ({key})"
 msgstr "Редактировать сниппет. ({key})"
 
@@ -7420,7 +7425,6 @@ msgstr ""
 "Введите текст для поиска в списке сниппетов и нажмите Enter для применения."
 
 #: ../snippet/widget.py:209
-#, python-brace-format
 msgid ""
 "If the search text fully matches the value of the '{name}' variable of a "
 "snippet, that snippet is selected."
@@ -7435,14 +7439,12 @@ msgid ""
 msgstr ""
 
 #: ../snippet/widget.py:216
-#, python-brace-format
 msgid ""
 "E.g. entering {menu} will show all snippets that are displayed in the insert "
 "menu."
 msgstr ""
 
 #: ../snippet/widget.py:317
-#, python-brace-format
 msgctxt "dialog title"
 msgid "Export {num} Snippet"
 msgid_plural "Export {num} Snippets"
@@ -7451,7 +7453,6 @@ msgstr[1] "Экспортировать {num} сниппета"
 msgstr[2] "Экспортировать {num} сниппетов"
 
 #: ../snippet/widget.py:412
-#, python-brace-format
 msgid ""
 "<p>\n"
 "With the snippets manager you can store often used pieces of text called\n"
@@ -7509,19 +7510,303 @@ msgid ""
 msgstr ""
 
 #: ../snippet/widget.py:469
-#, python-brace-format
 msgid ""
 "It is suggested to use the \"{set}\" variable, and set it to the name of the "
 "library you want the snippet to belong to."
 msgstr ""
 
 #: ../snippet/widget.py:472
-#, python-brace-format
 msgid ""
 "Then in the snippet manager, you can easily select all the snippets "
 "belonging to the library by entering <code>:{set} name</code> in the snippet "
 "search bar, where \"name\" is the name you want to use. And then e.g. export "
 "the snippets to an XML file for sharing the snippets with others."
+msgstr ""
+
+#. #-#-#-#-#  temp1.pot (frescobaldi 2.0.12-dev)  #-#-#-#-#
+#. L10N NOTE: markdown formatting
+#. #-#-#-#-#  temp3.pot  #-#-#-#-#
+#. NOTE: markdown formatting
+#: ../userguide/about.md.py:5 ../userguide/about.md:3
+msgid ""
+"Frescobaldi is named after [http://en.wikipedia.org/wiki/"
+"Girolamo_Frescobaldi Girolamo Frescobaldi (1583 &#8211; 1643)], an Italian "
+"organist and composer."
+msgstr ""
+
+#. #-#-#-#-#  temp1.pot (frescobaldi 2.0.12-dev)  #-#-#-#-#
+#. L10N NOTE: markdown formatting
+#. #-#-#-#-#  temp3.pot  #-#-#-#-#
+#. NOTE: markdown formatting
+#: ../userguide/about.md.py:10 ../userguide/about.md:8
+msgid ""
+"Frescobaldi's homepage is at [http://www.frescobaldi.org/] and there is a "
+"mailinglist at [frescobaldi@googlegroups.com] ([http://groups.google.com/"
+"group/frescobaldi more info])."
+msgstr ""
+
+#: ../userguide/engrave_layout.md.py:3 ../userguide/engrave_layout.md:1
+#, fuzzy
+msgid "Engrave (layout control mode)"
+msgstr "Набрать (публикация)"
+
+#: ../userguide/engrave_layout.md.py:4 ../userguide/engrave_layout.md:3
+msgid ""
+"The Layout Control options display or highlight various layout aspects and "
+"will help you fine-tuning your scores."
+msgstr ""
+
+#. #-#-#-#-#  temp1.pot (frescobaldi 2.0.12-dev)  #-#-#-#-#
+#. L10N NOTE: markdown formatting
+#. #-#-#-#-#  temp3.pot  #-#-#-#-#
+#. NOTE: markdown formatting
+#: ../userguide/engrave_layout.md.py:7 ../userguide/engrave_layout.md:6
+msgid ""
+"The options are accessible through the *Layout Control options* dockable "
+"panel ({menu_layout_control})."
+msgstr ""
+
+#: ../userguide/engrave_layout.md.py:9 ../userguide/engrave_layout.md:9
+msgid "The following Layout Control options are currently implemented:"
+msgstr ""
+
+#: ../userguide/engrave_layout.md.py:10 ../userguide/engrave_layout.md:11
+#, fuzzy
+msgid "Verbose Output"
+msgstr "Выход плеера:"
+
+#. #-#-#-#-#  temp1.pot (frescobaldi 2.0.12-dev)  #-#-#-#-#
+#. L10N NOTE: markdown formatting
+#. #-#-#-#-#  temp3.pot  #-#-#-#-#
+#. NOTE: markdown formatting
+#: ../userguide/engrave_layout.md.py:12 ../userguide/engrave_layout.md:12
+msgid ""
+"Adds the `--verbose` option to the LilyPond commandline, causing LilyPond to "
+"print lots of information in the log window."
+msgstr ""
+
+#: ../userguide/engrave_layout.md.py:15 ../userguide/engrave_layout.md:16
+msgid ""
+"Enables the point and click navigation links in the Music View. Enabled by "
+"default."
+msgstr ""
+
+#: ../userguide/engrave_layout.md.py:18 ../userguide/engrave_layout.md:20
+msgid ""
+"Slurs, Ties and other similar objects are drawn in LilyPond as third-order "
+"Bezier curves, which means that their shape is controlled by four \"control-"
+"points\" (first and last ones tell where the curve ends are placed, and the "
+"middle ones affect the curvature)."
+msgstr ""
+
+#: ../userguide/engrave_layout.md.py:23 ../userguide/engrave_layout.md:25
+msgid ""
+"Changing the shape of these objects involves moving these control-points "
+"around, and it's helpful to see where they actually are."
+msgstr ""
+
+#: ../userguide/engrave_layout.md.py:26 ../userguide/engrave_layout.md:28
+msgid ""
+"This option will display the inner control-points as red crosses and "
+"connects them to the outer (starting) points with thin lines."
+msgstr ""
+
+#. #-#-#-#-#  temp1.pot (frescobaldi 2.0.12-dev)  #-#-#-#-#
+#. L10N NOTE: markdown formatting
+#. #-#-#-#-#  temp3.pot  #-#-#-#-#
+#. NOTE: markdown formatting
+#: ../userguide/engrave_layout.md.py:29 ../userguide/engrave_layout.md:31
+msgid "Color `\\voiceXXX`"
+msgstr ""
+
+#. #-#-#-#-#  temp1.pot (frescobaldi 2.0.12-dev)  #-#-#-#-#
+#. L10N NOTE: markdown formatting
+#. #-#-#-#-#  temp3.pot  #-#-#-#-#
+#. NOTE: markdown formatting
+#: ../userguide/engrave_layout.md.py:31 ../userguide/engrave_layout.md:32
+msgid ""
+"This mode highlights voices that have been explicitly set with one of the `"
+"\\voiceXXX` commands. This is useful when dealing with polyphony issues."
+msgstr ""
+
+#. #-#-#-#-#  temp1.pot (frescobaldi 2.0.12-dev)  #-#-#-#-#
+#. L10N NOTE: markdown formatting
+#. #-#-#-#-#  temp3.pot  #-#-#-#-#
+#. NOTE: markdown formatting
+#: ../userguide/engrave_layout.md.py:36 ../userguide/engrave_layout.md:36
+msgid ""
+"This mode colors items whose directions have been explicitly set with either "
+"the predefined commands `\\xxxUp` etc. or the directional operators `^` and "
+"`_`."
+msgstr ""
+
+#. #-#-#-#-#  temp1.pot (frescobaldi 2.0.12-dev)  #-#-#-#-#
+#. L10N NOTE: markdown formatting
+#. #-#-#-#-#  temp3.pot  #-#-#-#-#
+#. NOTE: markdown formatting
+#: ../userguide/engrave_layout.md.py:41 ../userguide/engrave_layout.md:42
+msgid ""
+"When the condition for one of the the modes is reverted using `\\oneVoice` "
+"or `\\stemNeutral`, colors are reverted to black and will also revert the "
+"highlighting of the other Layout Control mode with LilyPond versions up to "
+"2.17.5.\""
+msgstr ""
+
+#: ../userguide/engrave_layout.md.py:48 ../userguide/engrave_layout.md:51
+msgid ""
+"In LilyPond, all graphical objects have an anchor (a reference point). What "
+"is a reference point?  It's a special point that defines the object's "
+"position."
+msgstr ""
+
+#: ../userguide/engrave_layout.md.py:51 ../userguide/engrave_layout.md:55
+msgid ""
+"Think about geometry: if you have to define where a figure is placed on a "
+"plane, you'll usually say something like \"the lower left corner of this "
+"square has coordinates (0, 2)\" or \"the center of this circle is at (-1, "
+"3)\"."
+msgstr ""
+
+#: ../userguide/engrave_layout.md.py:55 ../userguide/engrave_layout.md:60
+msgid ""
+"\"Lower left corner\" and \"center\" would be the reference points for "
+"square and circle."
+msgstr ""
+
+#: ../userguide/engrave_layout.md.py:60 ../userguide/engrave_layout.md:68
+msgid ""
+"The main purpose of this layout control option is to retrieve information "
+"about Grob names, which may come in handy if you don't know where to look up "
+"available properties."
+msgstr ""
+
+#: ../userguide/engrave_layout.md.py:63 ../userguide/engrave_layout.md:72
+msgid ""
+"Please note that displaying grob anchors and displaying grob names is "
+"mutually exclusive because both functions override the grob's stencil."
+msgstr ""
+
+#: ../userguide/engrave_layout.md.py:66 ../userguide/engrave_layout.md:75
+msgid ""
+"When both modes are active, only the grob anchors are displayed. Please also "
+"note that this mode is quite intrusive and may affect the layout. It is "
+"mainly useful for learning about grob names and will especially become "
+"usable once it can be activated for single grobs."
+msgstr ""
+
+#: ../userguide/engrave_layout.md.py:85 ../userguide/engrave_layout.md:95
+msgid ""
+"This mode offers the opportunity to add one's own Debug Modes by including a "
+"custom file. This file will be included at program startup and may contain "
+"any LilyPond code you would like to have executed whenever you are engraving "
+"in Layout Control mode."
+msgstr ""
+
+#: ../userguide/engrave_layout.md.py:89 ../userguide/engrave_layout.md:100
+msgid ""
+"This file will be parsed before any of the other Layout Control Modes so you "
+"may use it to configure them."
+msgstr ""
+
+#. #-#-#-#-#  temp1.pot (frescobaldi 2.0.12-dev)  #-#-#-#-#
+#. L10N NOTE: markdown formatting
+#. #-#-#-#-#  temp3.pot  #-#-#-#-#
+#. NOTE: markdown formatting
+#: ../userguide/engrave_layout.md.py:92 ../userguide/engrave_layout.md:103
+msgid ""
+"The given string will be literally included in an `\\include` directive, so "
+"you are responsible yourself that LilyPond can find it."
+msgstr ""
+
+#: ../userguide/getstarted.md.py:4 ../userguide/getstarted.md:3
+msgid ""
+"The default screen of Frescobaldi shows a text document on the left and an "
+"empty Music View window on the right."
+msgstr ""
+
+#: ../userguide/getstarted.md.py:6 ../userguide/getstarted.md:6
+msgid "Now, in the text view, enter some LilyPond code, like this:"
+msgstr ""
+
+#: ../userguide/getstarted.md.py:7 ../userguide/getstarted.md:18
+msgid ""
+"Then click the Lily toolbar button or press {key_engrave}. LilyPond will "
+"start to processes your file and the PDF will be displayed in the Music View "
+"on the right. If LilyPond encounters any errors or warnings they will be "
+"displayed in the LilyPond Log at the bottom of the screen."
+msgstr ""
+
+#. #-#-#-#-#  temp1.pot (frescobaldi 2.0.12-dev)  #-#-#-#-#
+#. L10N NOTE: markdown formatting
+#. #-#-#-#-#  temp3.pot  #-#-#-#-#
+#. NOTE: markdown formatting
+#: ../userguide/getstarted.md.py:13 ../userguide/getstarted.md:23
+msgid "[img:getting_started1.png]"
+msgstr ""
+
+#: ../userguide/getstarted.md.py:14 ../userguide/getstarted.md:25
+msgid "The Music View has many possibilities:"
+msgstr ""
+
+#: ../userguide/getstarted.md.py:15 ../userguide/getstarted.md:27
+msgid ""
+"Hovering over notes and other music objects will highlight them in the text "
+"on the left window; clicking on them will place a cursor to the left of the "
+"object also in the left window."
+msgstr ""
+
+#: ../userguide/getstarted.md.py:18 ../userguide/getstarted.md:31
+msgid ""
+"Use the Ctrl key and your mouse wheel to zoom in and out. Zooming will "
+"center around the mouse pointer."
+msgstr ""
+
+#: ../userguide/getstarted.md.py:20 ../userguide/getstarted.md:34
+msgid ""
+"Ctrl-left-click-and-hold the mouse to magnify a small section of the Music "
+"View without zooming in the whole view."
+msgstr ""
+
+#: ../userguide/getstarted.md.py:22 ../userguide/getstarted.md:37
+msgid ""
+"Selecting text in the main text window will highlight corresponding notes in "
+"the Music View; press {key_jump} to explicitly center and highlight a note "
+"or other objects in the Music View."
+msgstr ""
+
+#: ../userguide/getstarted.md.py:25 ../userguide/getstarted.md:41
+msgid ""
+"Shift-drag a selection and then press {key_copy_image} or {menu_copy_image} "
+"to copy the selected music as a raster image to the clipboard, a file or "
+"another application."
+msgstr ""
+
+#: ../userguide/getstarted.md.py:28 ../userguide/getstarted.md:45
+msgid ""
+"When your music score is complete, run LilyPond once more but with clickable "
+"notes turned off: menu {menu_engrave}. This significantly reduces the size "
+"of the PDF."
+msgstr ""
+
+#: ../userguide/getstarted.md.py:31 ../userguide/getstarted.md:49
+msgid ""
+"If LilyPond does not start at all, check if you have installed LilyPond "
+"correctly and that the lilypond command is in your system's PATH environment "
+"variable. If needed, provide the exact path to your LilyPond executable "
+"under {menu_preferences_lilypond}."
+msgstr ""
+
+#: ../userguide/getstarted.md.py:36 ../userguide/getstarted.md:54
+msgid ""
+"If LilyPond encounters any warnings or errors in your document they will "
+"show up in the LilyPond Log window at the bottom of the screen. Frescobaldi "
+"will then highlight these lines in the text view where the errors are. "
+"Clicking the error in the Log Window or pressing {key_error} immediately "
+"brings the text cursor to the offending line in your text view. Pressing "
+"{key_error} again will move to the next error message, and so on. LilyPond "
+"will remove any previous error line highlights the next time it is run but "
+"you can also remove any error line markings manually with the option "
+"{menu_clear_error_marks}."
 msgstr ""
 
 #: ../vcs/__init__.py:52
@@ -7537,7 +7822,6 @@ msgid ""
 msgstr ""
 
 #: ../vcs/gitrepo.py:43
-#, python-brace-format
 msgid "The given directory '{rootdir} doesn't seem to be a Git repository."
 msgstr ""
 
@@ -7551,7 +7835,6 @@ msgid "Checkout Successful"
 msgstr ""
 
 #: ../vcs/menu.py:117
-#, python-brace-format
 msgid ""
 "Successfully checked out branch {name}.\n"
 "Changes will take effect after restart.\n"
@@ -7612,7 +7895,7 @@ msgid "Import color theme"
 msgstr ""
 
 #: ../widgets/schemeselector.py:176
-#, fuzzy, python-brace-format
+#, fuzzy
 msgctxt "dialog title"
 msgid "Export {name}"
 msgstr "Экспортировать {num} сниппет"
@@ -7631,7 +7914,6 @@ msgid "Use a &custom shortcut:"
 msgstr "Использовать особую комбинацию клавиш:"
 
 #: ../widgets/shortcuteditdialog.py:113
-#, python-brace-format
 msgid "Alternative #{num}:"
 msgstr "Дополнительная #{num}:"
 
@@ -7640,12 +7922,11 @@ msgid "Primary shortcut:"
 msgstr "Основная комбинация клавиш"
 
 #: ../widgets/shortcuteditdialog.py:132 ../widgets/shortcuteditdialog.py:142
-#, fuzzy, python-brace-format
+#, fuzzy
 msgid "Conflict with: {name}"
 msgstr "Динамический знак {name}"
 
 #: ../widgets/shortcuteditdialog.py:155
-#, python-brace-format
 msgid "Here you can edit the shortcuts for {name}"
 msgstr "Здесь можно отредактировать комбинации клавиш для {name}"
 
@@ -7655,7 +7936,6 @@ msgid "none"
 msgstr "нет"
 
 #: ../widgets/shortcuteditdialog.py:175
-#, python-brace-format
 msgid "Use &default shortcut ({name})"
 msgstr "Использовать комбинацию клавиш по умолчанию ({name})"
 
@@ -7681,6 +7961,757 @@ msgstr "Выберите каталог"
 #: ../widgets/urlrequester.py:111
 msgid "Select a file"
 msgstr "Выберите файл"
+
+#: ../userguide/preferences.md:3
+msgid ""
+"In the Preferences Dialog (under {menu_edit_preferences}) you can configure "
+"many aspects of Frescobaldi and LilyPond."
+msgstr ""
+
+#: ../userguide/musicview.md:5
+msgid ""
+"When LilyPond was run in preview mode (i.e. with Point & Click turned on), "
+"the PDF contains a clickable link for every music object, pointing to its "
+"definition in the text document."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/musicview.md:14
+msgid ""
+"Shift-click an object to edit its text in a small window (see "
+"[musicview_editinplace])"
+msgstr ""
+
+#: ../userguide/musicview.md:16
+msgid ""
+"Move the text cursor to highlight them in the music view, press "
+"{key_music_jump_to_cursor} to scroll them into view."
+msgstr ""
+
+#: ../userguide/musicview.md:23
+msgid "Configure the background color under {settings_preview_background}"
+msgstr ""
+
+#: ../userguide/musicview.md:25
+msgid ""
+"You can copy music right from the PDF view to a raster image: Hold Shift and "
+"drag a rectangular selection (or use the right mouse button) and then press "
+"{key_music_copy_image} or select {menu_music_copy_image} to copy the "
+"selected music as a raster image to the clipboard, a file or another "
+"application."
+msgstr ""
+
+#: ../userguide/musicview_editinplace.md:5
+#, fuzzy
+msgid ""
+"Click OK or press {key_editinplace} to place the modified text in the "
+"document."
+msgstr "Нажмите ОК или {key} для изменения текста в файле."
+
+#. NOTE: markdown formatting
+#: ../userguide/musicview_editinplace.md:7
+msgid ""
+"You can open the *Edit in Place* dialog by Shift-clicking a clickable object "
+"in the Music View or by right-clicking the object and selecting "
+"{menu_editinplace}."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/create_midi.md:3
+msgid ""
+"By default, LilyPond creates only a PDF file of the music. To create a MIDI "
+"file, you must wrap the music in a `\\score` block and add a `\\midi` block "
+"to it."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/create_midi.md:23
+msgid ""
+"If you omit the `\\layout` block, no PDF file will be generated, only a MIDI "
+"file."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/nomusic.md:3
+msgid "Does the `\\score` block have a layout section?"
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/nomusic.md:5
+msgid ""
+"If a `\\score` block has a `\\midi` section but no `\\layout` section, no "
+"PDF output is generated."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/nomusic.md:10
+msgid ""
+"Frescobaldi is able to determine the output file names by looking at the "
+"document's filename and the various LilyPond commands that specify the "
+"output filename or -suffix. Frescobaldi even searches `\\include` files for "
+"commands like `\\bookOutputName` and `\\bookOutputSuffix`."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/nomusic.md:16
+msgid ""
+"But if you use more complicated Scheme code in your document to specify the "
+"output filenames, Frescobaldi may not be able to correctly determine those "
+"filenames. In that case you can override the base name(s) using the "
+"[var_output] document variable."
+msgstr ""
+
+#: ../userguide/engrave_layout_configure.md:1
+#, fuzzy
+msgid "Configuring the Layout Control options"
+msgstr "Настройки редактора"
+
+#: ../userguide/engrave_layout_configure.md:3
+msgid ""
+"The appearance of the individual Layout Control modes is defined through the "
+"use of configuration variables."
+msgstr ""
+
+#: ../userguide/engrave_layout_configure.md:6
+msgid ""
+"Depending on the implementation the mode you may modify its appearance by "
+"redefining these variables in your input files."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/engrave_layout_configure.md:9
+msgid ""
+"But if you are interested in a more general solution you can make use of the "
+"\"Custom file\" mode. As this custom file is read in before the different "
+"layout control modes you can use it to define any of the variables *before* "
+"the layout control modes are parsed."
+msgstr ""
+
+#: ../userguide/engrave_layout_configure.md:19
+#: ../userguide/engrave_layout_configure.md:37
+#: ../userguide/engrave_layout_configure.md:54
+#: ../userguide/engrave_layout_configure.md:69
+msgid "These variables can be redefined in input files:"
+msgstr ""
+
+#: ../userguide/engrave_layout_configure.md:28
+msgid "These variables currently can't be redefined in input files."
+msgstr ""
+
+#: ../userguide/engrave_layout_configure.md:43
+msgid ""
+"Defines for which grobs the explicit direction through operators is "
+"monitored. By default all grobs are watched, but alternatively one can "
+"provide a list of grobs such as e.g."
+msgstr ""
+
+#: ../userguide/engrave_layout_configure.md:59
+msgid ""
+"Defines for which grobs the anchor points will be displayed. By default all "
+"grobs are watched, but alternatively one can provide a list of grobs such as "
+"e.g."
+msgstr ""
+
+#: ../userguide/engrave_layout_configure.md:74
+msgid ""
+"Defines for which grobs the names will be displayed. By default all grobs "
+"are watched, but alternatively one can provide a list of grobs such as e.g."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/contributing.md:3
+msgid ""
+"Frescobaldi is a [http://www.gnu.org/philosophy/free-sw.html Free Software] "
+"project to create a user friendly LilyPond music score editor. The goal is "
+"to make Frescobaldi available on all major platforms."
+msgstr ""
+
+#: ../userguide/contributing.md:7
+msgid ""
+"Frescobaldi is developed in a public GitHub repository at {url}. There you "
+"can browse or checkout the source code and report bugs and wishes."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/contributing.md:10
+msgid ""
+"You can contribute by simply using Frescobaldi and reporting bugs and "
+"suggestions. Translations are also very welcome. How to create new "
+"translations is described in the file `README-translations` in the source "
+"distribution of Frescobaldi. If you want to add functionality you can find "
+"information about the source code structure in the file `README-development`."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/prefs_shortcuts.md:3
+msgid ""
+"Here you can add keyboard shortcuts to all commands available. Also the "
+"[snippets Snippets] or [quickinsert Quick-Insert] buttons that have keyboard "
+"shortcuts are listed here."
+msgstr ""
+
+#: ../userguide/prefs_shortcuts.md:7
+msgid ""
+"To change a keyboard shortcut, highlight an action in the list and click the "
+"Edit button, or double-click an action. In the dialog that appears, you can "
+"enter up to four shortcuts for the action by clicking the button and typing "
+"the shortcut."
+msgstr ""
+
+#: ../userguide/snippet_editor.md:1
+#, fuzzy
+msgid "Snippet Editor"
+msgstr "Редактор сниппетов"
+
+#. NOTE: markdown formatting
+#: ../userguide/var_output.md:1
+#, fuzzy
+msgid "The `output` document variable"
+msgstr "Показать закладки документов"
+
+#: ../userguide/var_output.md:7
+msgid ""
+"If a name ends with a directory separator, output files are looked for in "
+"the specified directory."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/var_output.md:27
+msgid ""
+"You can set this variable if the automatic output file name determination "
+"would be time-consuming (as Frescobaldi parses the document and all the "
+"documents it includes, searching for the LilyPond commands that specify the "
+"output name, such as `\\bookOutputName`, etc); or when the automatic output "
+"file name determination does not work due to complicated LilyPond code."
+msgstr ""
+
+#: ../userguide/managing.md:1
+#, fuzzy
+msgid "Managing Files"
+msgstr "Файлы XML"
+
+#. NOTE: markdown formatting
+#: ../userguide/prefs_lilydoc.md:3
+msgid ""
+"Here you can add local paths or URLs pointing to LilyPond documentation. A "
+"local path should point to the directory where either the `Documentation` "
+"directory lives, or the whole `share/doc/lilypond/html/offline-root` path."
+msgstr ""
+
+#: ../userguide/prefs_lilydoc.md:7
+msgid ""
+"If those can't be found, documentation is looked for in all subdirectories "
+"of the given path, one level deep. This makes it possible to put multiple "
+"versions of LilyPond documentation in different subdirectories and have "
+"Frescobaldi automatically find them."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/outline_configure.md:8
+msgid ""
+"In those expressions, `^` matches at the beginning of every line, and `$` "
+"matches at the end of a line."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/outline_configure.md:16
+msgid ""
+"You can use the name `text` or `title`. In that case, only the named part of "
+"a match is displayed. If the `title` name is used, it is displayed in a bold "
+"font."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/outline_configure.md:20
+msgid "For more information about regular expressions, see [search_replace]."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/prefs_paths.md:3
+msgid ""
+"Here, directories can be added that contain `hyph_*.dic` files, where the "
+"`*` stands for different language codes."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/intro.md:3
+msgid ""
+"[http://lilypond.org LilyPond] is an open-source music engraving program, "
+"producing very high-quality sheet music printouts from fairly simple text "
+"input files. Input files can be created using virtually any text editor, "
+"which LilyPond can then compile and output beautiful engraving, by default "
+"but not restricted to, PDF."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/intro.md:10
+msgid ""
+"Frescobaldi is an application to make editing LilyPond music scores faster "
+"and easier. You will still need to learn LilyPond's input language but if "
+"you read the [getstarted] section of this User Guide, you'll pickup some "
+"LilyPond basics to get you started."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/intro.md:15
+msgid ""
+"Once you have grasped the basics, the next step would be to use the LilyPond "
+"Learning Manual from [http://lilypond.org/doc/ LilyPond's excellent online "
+"documentation]."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/prefs_general.md:3
+msgid ""
+"Under *General Preferences*, you can choose in which language Frescobaldi's "
+"user interface is translated, which user interface style you want to use, "
+"and whether you want to use the built-in Tango iconset or to use the system-"
+"wide configured icon set."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/prefs_general.md:11
+msgid ""
+"Under *Session to load if Frescobaldi is started without arguments* you can "
+"configure which session to load if Frescobaldi is started without a "
+"filename. You can choose whether to start with one empty document, with the "
+"last used session, or with a specific session. Please note that this only "
+"works when you have explicitly created a session and set it to automatically "
+"add files on save to it. See also [sessions]."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/prefs_general.md:18
+msgid ""
+"Under *When saving documents*, you can choose what to do when a document is "
+"saved, such as remembering the cursor position and marked lines, or leaving "
+"a backup copy of the document (with a `~` appended)."
+msgstr ""
+
+#: ../userguide/prefs_general.md:22
+#, fuzzy
+msgid ""
+"Also, you can specify a default folder in which you keep your LilyPond "
+"documents."
+msgstr "Каталог по умолчанию для файлов LilyPond (необязательно)."
+
+#: ../userguide/engrave_publish.md:1
+#, fuzzy
+msgid "Engraving: Publish mode"
+msgstr "Остановить набор"
+
+#: ../userguide/outline.md:1
+#, fuzzy
+msgid "Document Outline"
+msgstr "Документация LilyPond"
+
+#. NOTE: markdown formatting
+#: ../userguide/credits.md:3
+msgid ""
+"{appname} is written in [http://www.python.org/ Python] and uses the [http://"
+"qt-project.org/ Qt] toolkit."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/credits.md:6
+msgid ""
+"The Music View is powered by the [http://poppler.freedesktop.org/ Poppler] "
+"library by {authors} and others."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/credits.md:9
+#, fuzzy
+msgid ""
+"Most of the bundled icons are created by [http://tango.freedesktop.org/ The "
+"Tango Desktop Project]."
+msgstr "Большинство значков созданы {tango}"
+
+#: ../userguide/credits.md:24
+msgid "Layout control modes and various other contributions"
+msgstr ""
+
+#: ../userguide/credits.md:30
+msgid "Quick Insert buttons for grace notes, and MusicXML im- and export"
+msgstr ""
+
+#: ../userguide/prefs_midi.md:5
+msgid ""
+"You can specify the MIDI port name to play to. If there are no port names "
+"visible in the drop-down box, it may be necessary to connect a hardware MIDI "
+"synthesizer to your computer, or to start a software synthesizer program "
+"such as TiMidity or Fluidsynth."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/prefs_midi.md:15
+msgid ""
+"And finally, when using a software synthesizer it is recommended to enable "
+"the option *Close unused MIDI output*."
+msgstr ""
+
+#: ../userguide/prefs_midi.md:18
+msgid ""
+"If checked, Frescobaldi will close MIDI output ports that are not used for "
+"one minute. This could free up system resources that a software MIDI "
+"synthesizer might be using, thus saving battery power. A side effect is that "
+"if you pause a MIDI file for a long time the instruments are reset to the "
+"default piano (instrument 0). In that case, playing the file from the "
+"beginning sets up the instruments again."
+msgstr ""
+
+#: ../userguide/search_replace.md:3
+msgid ""
+"In the menu {menu_edit} the commands Find ({key_search}) and Replace "
+"({key_replace}) can be found, which open a small window at the bottom of the "
+"view. It is possible to search for plain text or regular expressions."
+msgstr ""
+
+#: ../userguide/search_replace.md:8
+msgid ""
+"Regular expressions are advanced search texts that contain characters that "
+"can match multiple characters in the document. When replacing text, it is "
+"also possible to refer to parenthesized parts of the search text."
+msgstr ""
+
+#: ../userguide/search_replace.md:13
+#, fuzzy
+msgid ""
+"In regular expression search mode, some characters have a special meaning:"
+msgstr ""
+"Это текст связанный с выбранным сокращением. Некоторые символы имеют особое "
+"значение:"
+
+#: ../userguide/search_replace.md:16
+msgid "matches the preceding character or group zero or more times"
+msgstr ""
+
+#: ../userguide/search_replace.md:19
+msgid "matches the preceding character or group one or more times"
+msgstr ""
+
+#: ../userguide/search_replace.md:22
+msgid "matches the preceding character or group zero or one time"
+msgstr ""
+
+#: ../userguide/search_replace.md:25
+msgid "matches one of the contained characters"
+msgstr ""
+
+#: ../userguide/search_replace.md:28
+msgid "group characters. This also saves the matched text in the group."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/search_replace.md:30
+msgid ""
+"When replacing, you can use characters like `\\1`, `\\2` etcetera, to write "
+"the text of the corresponding group in the replacement text."
+msgstr ""
+
+#: ../userguide/search_replace.md:34
+msgid ""
+"match, respectively, a backslash, a newline, a tab, any whitespace "
+"character, a digit, a generic word-like character."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/search_replace.md:37
+msgid ""
+"A full discussion on regular expressions can be found in the [http://docs."
+"python.org/library/re.html#regular-expression-syntax Python documentation]."
+msgstr ""
+
+#: ../userguide/index.md:3
+#, fuzzy
+msgid ""
+"Frescobaldi is a light-weight, but powerful editor for LilyPond music files. "
+"This manual is written by {author} and documents {appname} version {version}."
+msgstr ""
+"<p>\n"
+"Frescobaldi — лёгкий, но мощный редактор для файлов LilyPond.\n"
+"Руководство написано {author} и относится к {appname} v {version}.\n"
+"</p>\n"
+
+#: ../userguide/index.md:8
+msgid ""
+"In many dialogs there are Help buttons or you can press the {key_help} key. "
+"Many user interface items also have \"What's This\" information which can be "
+"revealed by pressing {key_whatsthis} or by selecting {menu_whatsthis}."
+msgstr ""
+
+#: ../userguide/engrave_preview.md:1
+#, fuzzy
+msgid "Engraving: Preview mode"
+msgstr "Остановить набор"
+
+#. NOTE: markdown formatting
+#: ../userguide/engrave_preview.md:3
+msgid ""
+"This mode runs LilyPond with the `-dpoint-and-click` commandline option. "
+"This enables the clickable notes and other objects in the PDF."
+msgstr ""
+
+#: ../userguide/engrave_preview.md:6
+msgid ""
+"Using these links, the Music View is able to provide smart two-way "
+"navigation between the Music View and the LilyPond source."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/engrave_preview.md:9
+msgid ""
+"The links also increase the size of the rendered PDF significantly, so when "
+"you want to share the rendered PDF with others, it is better to use the "
+"[engrave_publish publish mode]."
+msgstr ""
+
+#: ../userguide/docvars.md:1
+#, fuzzy
+msgid "Document Variables"
+msgstr "Показать закладки документов"
+
+#. NOTE: markdown formatting
+#: ../userguide/docvars.md:3
+msgid ""
+"Document variables are variables that influence the behaviour of "
+"Frescobaldi. They can be written in the first five or last five lines of a "
+"document. If a line contains '`-*-`', Frescobaldi searches the rest of the "
+"lines for variable definitions like `name: value;`."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/docvars.md:18
+msgid ""
+"Looks for output documents (PDF, MIDI, etc.) starting with the specified "
+"name or comma-separated list of names. [var_output More information.]"
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/docvars.md:32
+msgid "Whether to use tabs in indent, by default `no`."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/docvars.md:35
+msgid "Whether to use tabs elsewhere in the document, by default `yes`."
+msgstr ""
+
+#: ../userguide/history.md:3
+msgid ""
+"Frescobaldi has its roots in LilyKDE, which was a plugin for KDE3's editor "
+"Kate. LilyKDE was written in Python and released in 2007 on Christmas."
+msgstr ""
+
+#: ../userguide/history.md:6
+msgid ""
+"When KDE developed version 4, it was not immediately possible to make Kate "
+"plugins in Python. So LilyKDE became a standalone application, wrapping the "
+"Kate texteditor part, and was renamed to Frescobaldi. It still used the "
+"Okular KDE part to display PDF documents. Frescobaldi 0.7 was the first "
+"public release, on Christmas 2008. On Christmas 2009 version 1.0.0 was "
+"released and on Christmas 2010 version 1.2.0."
+msgstr ""
+
+#: ../userguide/history.md:13
+msgid ""
+"At that time it was decided to move away from the KDE4 libraries and just "
+"use Python and Qt4 which are easily available on all major computing "
+"platforms. Frescobaldi 2.0 is a complete rewrite from scratch. Its release "
+"date is targeted at Christmas 2011."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/prefs_helpers.md:3
+#, fuzzy
+msgid ""
+"In this page you can enter commands to open different file types. `$f` is "
+"replaced with the filename, `$u` with the URL. Leave a field empty to use "
+"the operating system default application."
+msgstr ""
+"Ниже можно ввести команды для открытия файлов разных типов. Для подстановки "
+"имени\n"
+"файла используйте <code>$f</code>, для его URL — <code>$u</code>. При пустом "
+"поле будет использованна системная программа по умолчанию."
+
+#. NOTE: markdown formatting
+#: ../userguide/prefs_helpers.md:8
+msgid "For the e-mail setting, the command should accept a `mailto:` url."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/prefs_helpers.md:11
+msgid ""
+"For the command prompt, the command should open a console window. A `$f` "
+"value is replaced with the directory of the current document."
+msgstr ""
+
+#: ../userguide/prefs_helpers.md:16
+msgid ""
+"The printing command is used to print a PostScript or PDF file. On Linux you "
+"don't need this, but on Windows and Mac OS X you can provide a command to "
+"avoid that PDF documents are being printed using raster images, which is "
+"less optimal."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/prefs_helpers.md:21
+msgid ""
+"`$pdf` gets replaced with the PDF filename, or alternatively, `$ps` is "
+"replaced with the PostScript filename. `$printer` is replaced with the "
+"printer's name to use."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/prefs_helpers.md:25
+msgid ""
+"Uncheck the *Use Frescobaldi's print dialog* option when the printing "
+"command opens a print dialog itself, in which you can select e.g. the page "
+"range to print and the printer to use. If you don't use Frescobaldi's print "
+"dialog, you don't need to put the `$printer` variable in your command line."
+msgstr ""
+
+#: ../userguide/engrave_custom.md:1
+#, fuzzy
+msgid "Engraving: (custom mode)"
+msgstr "Остановить набор"
+
+#. NOTE: markdown formatting
+#: ../userguide/engrave_custom.md:3
+msgid ""
+"The *Engrave (Custom)* dialog ({key_engrave_custom}) gives you detailed "
+"access to all aspects of the LilyPond command."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/engrave_custom.md:9
+msgid ""
+"You can select from the LilyPond versions defined in the [prefs_lilypond "
+"Preferences] dialog, from the output formats available to LilyPond and (for "
+"PNG output) from a number of image resolutions."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/engrave_custom.md:13
+msgid ""
+"The options *Verbose Output* and *English Messages* may be relevant if you "
+"want to send information to a mailing list, and *Delete Intermediate Output "
+"Files* makes sure that LilyPond deletes e.g. PostScript files after they "
+"have been converted to PDF."
+msgstr ""
+
+#: ../userguide/engrave_custom.md:18
+msgid ""
+"Most of these settings are reflected in the Command Line text edit field."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/prefs_lilypond.md:5
+msgid ""
+"If you have multiple versions of LilyPond installed you can specify them "
+"here, and configure Frescobaldi to automatically choose the right one, based "
+"on the version number that is set in the document. See "
+"[prefs_lilypond_autoversion]."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/prefs_lilypond.md:10
+msgid ""
+"If the LilyPond executable is not in your system's PATH you can specify the "
+"full path here so Frescobaldi can run it. For the helper applications like "
+"`convert-ly` and `lilypond-book` you don't need to specify the full path if "
+"they are in the same directory as the LilyPond executable itself."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/prefs_lilypond.md:18
+msgid ""
+"Finally, you can specify a list of paths where the LilyPond `\\include` "
+"command looks for files."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/prefs_lilypond_autoversion.md:3
+msgid ""
+"If this setting is enabled, the document is searched for a LilyPond `"
+"\\version` command or a `version` document variable."
+msgstr ""
+
+#: ../userguide/prefs_lilypond_autoversion.md:6
+#, fuzzy
+msgid "The LilyPond version command looks like:"
+msgstr "Вставить версию LilyPond"
+
+#: ../userguide/prefs_lilypond_autoversion.md:12
+#, fuzzy
+msgid "The document variable looks like:"
+msgstr "Показать закладки документов"
+
+#: ../userguide/prefs_lilypond_autoversion.md:18
+msgid ""
+"somewhere (in a comments section) in the first or last 5 lines of the "
+"document. This way the LilyPond version to use can also be specified in non-"
+"LilyPond documents like HTML, LaTeX, etc."
+msgstr ""
+
+#: ../userguide/prefs_lilypond_autoversion.md:22
+msgid ""
+"If the document specifies a version, the oldest suitable LilyPond version is "
+"chosen. Otherwise, the default version is chosen."
+msgstr ""
+
+#: ../userguide/editing.md:1
+#, fuzzy
+msgid "Editing Files"
+msgstr "Редактировать на месте"
+
+#: ../userguide/editing.md:3
+msgid ""
+"In this part the features of the editor are discussed, e.g. how to control "
+"auto-indenting, how to use search and replace, etcetera."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/engraving.md:3
+msgid ""
+"To engrave a score, Frescobaldi runs LilyPond with the correct commandline "
+"options. There are four modes Frescobaldi can compile scores in: *Preview*, "
+"*Publish*, *Layout Control* and *Custom*."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/engraving.md:7
+msgid ""
+"The *Preview mode* renders the PDF with point and click information enabled, "
+"so that there is two-way navigation between the music view and the LilyPond "
+"source."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/engraving.md:10
+msgid ""
+"The *Publish mode* is used to produce the final PDF intented to be shared."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/engraving.md:12
+msgid ""
+"The *Layout Control mode* can be used to enable specific features that can "
+"help in controlling and fine-tuning the layout of a score."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/engraving.md:15
+msgid ""
+"The *Custom mode* opens a dialog allowing you to specify the LilyPond "
+"command in detail. This dialog also has options to let LilyPond engrave a "
+"score to PostScript, SVG or PNG images, or to a PDF using the EPS backend."
+msgstr ""
+
+#: ../userguide/pitch.md:1
+#, fuzzy
+msgid "Pitch Manipulation"
+msgstr "Управление тонами"
 
 #~ msgid "This shortcut conflicts with the following command:"
 #~ msgid_plural "This shortcut conflicts with the following commands:"
@@ -7974,13 +9005,6 @@ msgstr "Выберите файл"
 #~ "выбрать функцию \"Раскрыть сокращение\" (клавиатурная комбинация по "
 #~ "умолчанию: Ctrl+.) или же вызвать диалог сокращения, выбрать нужное, а "
 #~ "затем нажать Enter или Ok."
-
-#~ msgid ""
-#~ "This is the text associated with the selected shortcut. Some characters "
-#~ "have special meaning:"
-#~ msgstr ""
-#~ "Это текст связанный с выбранным сокращением. Некоторые символы имеют "
-#~ "особое значение:"
 
 #~ msgid "Translate the following pitch."
 #~ msgstr "Преобразовать следующие ноты."
@@ -8323,10 +9347,6 @@ msgstr "Выберите файл"
 #~ msgid "LilyPond-related settings"
 #~ msgstr "Файлы LilyPon"
 
-#, fuzzy
-#~ msgid "LilyPond version to use:"
-#~ msgstr "Вставить версию LilyPond"
-
 #~ msgid "Configure"
 #~ msgstr "Настройка"
 
@@ -8335,9 +9355,6 @@ msgstr "Выберите файл"
 
 #~ msgid "Paths to programs or data used by Frescobaldi"
 #~ msgstr "Пути к программам или данным, используемым Frescobaldi"
-
-#~ msgid "Rumor MIDI input"
-#~ msgstr "Ввод MIDI Rumor"
 
 #~ msgid "Rumor MIDI input plugin settings"
 #~ msgstr "Настройки ввода MIDI Rumor"
