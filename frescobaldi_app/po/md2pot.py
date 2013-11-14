@@ -45,15 +45,6 @@ class Parser(userguide.read.Parser):
         w.subsequent_indent = ''
         self._output_lines = []
         self.f = output_file
-        self.f.write(r'''# POT generated from .md files by md2pot.py
-msgid ""
-msgstr ""
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: utf-8\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-
-''')
     
     def make_translation_strings(self, filename):
         self._curfilename = filename
@@ -82,12 +73,12 @@ msgstr ""
         self.f.write('msgstr ""\n\n')
 
 
-def main():
-    f = sys.stdout
-    p = Parser(f)
-    for name in sys.argv[1:]:
-        p.make_translation_strings(name)
+def md2pot(filename, md_files):
+    with open(filename, 'w') as f:
+        p = Parser(f)
+        for name in md_files:
+            p.make_translation_strings(name)
 
 if __name__ == '__main__':
-    main()
+    md2pot('/dev/stdout', sys.argv[1:])
 
