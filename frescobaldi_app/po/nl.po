@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-11-14 15:51+0100\n"
-"PO-Revision-Date: 2013-11-14 16:01+0100\n"
+"POT-Creation-Date: 2013-11-14 16:03+0100\n"
+"PO-Revision-Date: 2013-11-14 16:04+0100\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -1318,8 +1318,8 @@ msgid "Publish"
 msgstr "Publiceren"
 
 #: ../engrave/custom.py:134
-msgid "Debug"
-msgstr "Debuggen"
+msgid "Layout Control"
+msgstr "Layoutcontrole"
 
 #: ../engrave/custom.py:135 ../preferences/lilypond.py:296
 #: ../preferences/preview.py:296
@@ -1797,8 +1797,7 @@ msgstr "De volgende debug-modes zijn momenteel geïmplementeerd:"
 #. #-#-#-#-#  temp1.pot (frescobaldi 2.0.12-dev)  #-#-#-#-#
 #. L10N: Please translate the mode names the same way as in the panel UI
 #: ../help/cnt_engraving.py:96 ../help/cnt_engraving.py:212
-#: ../preview_mode/__init__.py:42 ../userguide/engrave_layout.md.py:17
-#: ../userguide/engrave_layout_configure.md:18
+#: ../preview_mode/__init__.py:42 ../userguide/engrave_layout_configure.md:18
 #: ../userguide/engrave_layout.md:19
 msgid "Display Control Points"
 msgstr "Controlepunten tonen"
@@ -1842,8 +1841,7 @@ msgstr ""
 "problemen met polyphonie."
 
 #: ../help/cnt_engraving.py:111 ../help/cnt_engraving.py:242
-#: ../preview_mode/__init__.py:47 ../userguide/engrave_layout.md.py:34
-#: ../userguide/engrave_layout_configure.md:36
+#: ../preview_mode/__init__.py:47 ../userguide/engrave_layout_configure.md:36
 #: ../userguide/engrave_layout.md:35
 msgid "Color explicit directions"
 msgstr "Expliciete richting kleuren"
@@ -1858,8 +1856,7 @@ msgstr ""
 "commando's zoals <code>\\\\xxxUp</code> of de richtings-operators <code>^</"
 "code> en <code>_</code>."
 
-#: ../help/cnt_engraving.py:115 ../userguide/engrave_layout.md.py:39
-#: ../userguide/engrave_layout.md:40
+#: ../help/cnt_engraving.py:115 ../userguide/engrave_layout.md:40
 msgid "Please note how this mode and the previous are related:"
 msgstr "Deze en de vorige modus zijn enigszins gerelateerd:"
 
@@ -1876,8 +1873,7 @@ msgstr ""
 "wordt de kleur ook weer op zwart gezet, dat zou ook de kleur van de andere "
 "modus ongedaan kunnen maken."
 
-#: ../help/cnt_engraving.py:120 ../userguide/engrave_layout.md.py:45
-#: ../userguide/engrave_layout.md:47
+#: ../help/cnt_engraving.py:120 ../userguide/engrave_layout.md:47
 #, fuzzy
 msgid ""
 "If the score is engraved with LilyPond version 2.17.6 or later this problem "
@@ -1888,8 +1884,7 @@ msgstr ""
 "code> directief."
 
 #: ../help/cnt_engraving.py:122 ../help/cnt_engraving.py:259
-#: ../preview_mode/__init__.py:51 ../userguide/engrave_layout.md.py:47
-#: ../userguide/engrave_layout_configure.md:53
+#: ../preview_mode/__init__.py:51 ../userguide/engrave_layout_configure.md:53
 #: ../userguide/engrave_layout.md:50
 msgid "Display Grob Anchors"
 msgstr "Grob-ankerpunten weergeven"
@@ -1907,20 +1902,17 @@ msgstr ""
 "In LilyPond hebben alle grafische objecten (grobs) een ankerpunt "
 "(referentiepunt). Dit punt bepaalt de positie van het object."
 
-#: ../help/cnt_engraving.py:130 ../userguide/engrave_layout.md.py:57
-#: ../userguide/engrave_layout.md:63
+#: ../help/cnt_engraving.py:130 ../userguide/engrave_layout.md:63
 msgid "This Mode displays a red dot for each grob's anchor point."
 msgstr "Deze modus toont een rode stip op het ankerpunt van elke grob."
 
 #: ../help/cnt_engraving.py:131 ../help/cnt_engraving.py:272
-#: ../preview_mode/__init__.py:55 ../userguide/engrave_layout.md.py:58
-#: ../userguide/engrave_layout_configure.md:68
+#: ../preview_mode/__init__.py:55 ../userguide/engrave_layout_configure.md:68
 #: ../userguide/engrave_layout.md:65
 msgid "Display Grob Names"
 msgstr "Grob-namen weergeven"
 
-#: ../help/cnt_engraving.py:132 ../userguide/engrave_layout.md.py:59
-#: ../userguide/engrave_layout.md:66
+#: ../help/cnt_engraving.py:132 ../userguide/engrave_layout.md:66
 msgid "This mode prints a grob's name next to it."
 msgstr "Deze mode drukt de naam van elke grob af."
 
@@ -1957,12 +1949,11 @@ msgstr ""
 "kunnen worden geactiveerd."
 
 #: ../help/cnt_engraving.py:144 ../preview_mode/__init__.py:63
-#: ../userguide/engrave_layout.md.py:71 ../userguide/engrave_layout.md:80
+#: ../userguide/engrave_layout.md:80
 msgid "Display Skylines"
 msgstr "Skylines weergeven"
 
-#: ../help/cnt_engraving.py:145 ../userguide/engrave_layout.md.py:72
-#: ../userguide/engrave_layout.md:81
+#: ../help/cnt_engraving.py:145 ../userguide/engrave_layout.md:81
 msgid ""
 "LilyPond uses \"Skylines\" to calculate the vertical dimensions of its "
 "graphical objects in order to prevent collisions. This mode draws lines "
@@ -1973,13 +1964,11 @@ msgstr ""
 "berekenen om botsingen te voorkomen. Deze modus tekent de skylines in de "
 "partituur en verschaft zo inzicht in de verticale spatiëring."
 
-#: ../help/cnt_engraving.py:149 ../userguide/engrave_layout.md.py:76
-#: ../userguide/engrave_layout.md:86
+#: ../help/cnt_engraving.py:149 ../userguide/engrave_layout.md:86
 msgid "Debug Paper Columns"
 msgstr "Paper-colums debuggen"
 
-#: ../help/cnt_engraving.py:150 ../userguide/engrave_layout.md.py:77
-#: ../userguide/engrave_layout.md:87
+#: ../help/cnt_engraving.py:150 ../userguide/engrave_layout.md:87
 msgid ""
 "LilyPond organises the horizontal spacing in \"paper columns\". This mode "
 "prints a lot of spacing information about these entities."
@@ -1989,12 +1978,11 @@ msgstr ""
 "entiteiten."
 
 #: ../help/cnt_engraving.py:152 ../preview_mode/__init__.py:37
-#: ../userguide/engrave_layout.md.py:80 ../userguide/engrave_layout.md:90
+#: ../userguide/engrave_layout.md:90
 msgid "Annotate Spacing"
 msgstr "Spatiëring annoteren"
 
-#: ../help/cnt_engraving.py:153 ../userguide/engrave_layout.md.py:81
-#: ../userguide/engrave_layout.md:91
+#: ../help/cnt_engraving.py:153 ../userguide/engrave_layout.md:91
 msgid ""
 "LilyPond has a built-in function that prints lots of information about "
 "distances on the paper, which is very useful when debugging the page layout."
@@ -2002,8 +1990,7 @@ msgstr ""
 "LilyPond heeft een ingebouwde functie die alle afstanden in getallen "
 "vermeldt, wat handig is om de pagina-layout te debuggen."
 
-#: ../help/cnt_engraving.py:156 ../userguide/engrave_layout.md.py:84
-#: ../userguide/engrave_layout.md:94
+#: ../help/cnt_engraving.py:156 ../userguide/engrave_layout.md:94
 msgid "Include Custom File"
 msgstr "Eigen bestand invoegen"
 
@@ -2300,8 +2287,7 @@ msgstr ""
 "documentatie</a>.\n"
 "</p>"
 
-#: ../help/contents.py:123 ../userguide/getstarted.md.py:3
-#: ../userguide/getstarted.md:1
+#: ../help/contents.py:123 ../userguide/getstarted.md:1
 msgid "Getting Started"
 msgstr "Aan de slag"
 
@@ -2618,7 +2604,7 @@ msgstr "Ander gereedschap"
 msgid "<p>Some other important tools are listed here.</p>\n"
 msgstr "<p>Enkele andere belangrijke hulpmiddelen volgen hieronder.</p>\n"
 
-#: ../help/contents.py:304 ../userguide/about.md.py:3 ../userguide/about.md:1
+#: ../help/contents.py:304 ../userguide/about.md:1
 msgid "About Frescobaldi"
 msgstr "Over Frescobaldi"
 
@@ -5356,8 +5342,7 @@ msgstr "Speler uitgang:"
 msgid "Run LilyPond with verbose output"
 msgstr "LilyPond starten met uitgebreide uitvoerberichten"
 
-#: ../preview_mode/widget.py:102 ../userguide/engrave_layout.md.py:14
-#: ../userguide/engrave_layout.md:15
+#: ../preview_mode/widget.py:102 ../userguide/engrave_layout.md:15
 #, fuzzy
 msgid "Point-and-Click"
 msgstr "Point en Click"
@@ -8466,347 +8451,6 @@ msgstr ""
 "staat voor de naam die u wilt gebruiken. En dan kunt u bijvoorbeeld de "
 "knipsels exporteren naar een XML-bestand om deze met anderen te delen."
 
-#. #-#-#-#-#  temp1.pot (frescobaldi 2.0.12-dev)  #-#-#-#-#
-#. L10N NOTE: markdown formatting
-#. #-#-#-#-#  temp3.pot  #-#-#-#-#
-#. NOTE: markdown formatting
-#: ../userguide/about.md.py:5 ../userguide/about.md:3
-msgid ""
-"Frescobaldi is named after [http://en.wikipedia.org/wiki/"
-"Girolamo_Frescobaldi Girolamo Frescobaldi (1583 &#8211; 1643)], an Italian "
-"organist and composer."
-msgstr ""
-
-#. #-#-#-#-#  temp1.pot (frescobaldi 2.0.12-dev)  #-#-#-#-#
-#. L10N NOTE: markdown formatting
-#. #-#-#-#-#  temp3.pot  #-#-#-#-#
-#. NOTE: markdown formatting
-#: ../userguide/about.md.py:10 ../userguide/about.md:8
-msgid ""
-"Frescobaldi's homepage is at [http://www.frescobaldi.org/] and there is a "
-"mailinglist at [frescobaldi@googlegroups.com] ([http://groups.google.com/"
-"group/frescobaldi more info])."
-msgstr ""
-
-#: ../userguide/engrave_layout.md.py:3 ../userguide/engrave_layout.md:1
-#, fuzzy
-msgid "Engrave (layout control mode)"
-msgstr "Graveren (publicatie)"
-
-#: ../userguide/engrave_layout.md.py:4 ../userguide/engrave_layout.md:3
-msgid ""
-"The Layout Control options display or highlight various layout aspects and "
-"will help you fine-tuning your scores."
-msgstr ""
-
-#. #-#-#-#-#  temp1.pot (frescobaldi 2.0.12-dev)  #-#-#-#-#
-#. L10N NOTE: markdown formatting
-#. #-#-#-#-#  temp3.pot  #-#-#-#-#
-#. NOTE: markdown formatting
-#: ../userguide/engrave_layout.md.py:7 ../userguide/engrave_layout.md:6
-msgid ""
-"The options are accessible through the *Layout Control options* dockable "
-"panel ({menu_layout_control})."
-msgstr ""
-
-#: ../userguide/engrave_layout.md.py:9 ../userguide/engrave_layout.md:9
-#, fuzzy
-msgid "The following Layout Control options are currently implemented:"
-msgstr "De volgende debug-modes zijn momenteel geïmplementeerd:"
-
-#: ../userguide/engrave_layout.md.py:10 ../userguide/engrave_layout.md:11
-#, fuzzy
-msgid "Verbose Output"
-msgstr "Speler uitgang:"
-
-#. #-#-#-#-#  temp1.pot (frescobaldi 2.0.12-dev)  #-#-#-#-#
-#. L10N NOTE: markdown formatting
-#. #-#-#-#-#  temp3.pot  #-#-#-#-#
-#. NOTE: markdown formatting
-#: ../userguide/engrave_layout.md.py:12 ../userguide/engrave_layout.md:12
-msgid ""
-"Adds the `--verbose` option to the LilyPond commandline, causing LilyPond to "
-"print lots of information in the log window."
-msgstr ""
-
-#: ../userguide/engrave_layout.md.py:15 ../userguide/engrave_layout.md:16
-msgid ""
-"Enables the point and click navigation links in the Music View. Enabled by "
-"default."
-msgstr ""
-
-#: ../userguide/engrave_layout.md.py:18 ../userguide/engrave_layout.md:20
-#, fuzzy
-msgid ""
-"Slurs, Ties and other similar objects are drawn in LilyPond as third-order "
-"Bezier curves, which means that their shape is controlled by four \"control-"
-"points\" (first and last ones tell where the curve ends are placed, and the "
-"middle ones affect the curvature)."
-msgstr ""
-"Objecten zoals boogjes worden door LilyPond als derde-orde Bezier-curven "
-"getekend, wat betekent dat hun vorm door vier controlepunten wordt bepaald. "
-"De eerste en laatste punten bepalen de plaats, de middelste twee beïnvloeden "
-"de vorm. De vorm van dit soort objecten wordt veranderd door deze punten te "
-"verplaatsen, en zodoende is het handig om te zien waar ze zijn in de PDF."
-
-#: ../userguide/engrave_layout.md.py:23 ../userguide/engrave_layout.md:25
-msgid ""
-"Changing the shape of these objects involves moving these control-points "
-"around, and it's helpful to see where they actually are."
-msgstr ""
-
-#: ../userguide/engrave_layout.md.py:26 ../userguide/engrave_layout.md:28
-#, fuzzy
-msgid ""
-"This option will display the inner control-points as red crosses and "
-"connects them to the outer (starting) points with thin lines."
-msgstr ""
-"Deze debug-modus toont de binnenste controlepunten als rode kruisjes en "
-"verbindt ze met de buitenste punten met dunne lijnen."
-
-#. #-#-#-#-#  temp1.pot (frescobaldi 2.0.12-dev)  #-#-#-#-#
-#. L10N NOTE: markdown formatting
-#. #-#-#-#-#  temp3.pot  #-#-#-#-#
-#. NOTE: markdown formatting
-#: ../userguide/engrave_layout.md.py:29 ../userguide/engrave_layout.md:31
-#, fuzzy
-msgid "Color `\\voiceXXX`"
-msgstr "\\voiceXX kleuren"
-
-#. #-#-#-#-#  temp1.pot (frescobaldi 2.0.12-dev)  #-#-#-#-#
-#. L10N NOTE: markdown formatting
-#. #-#-#-#-#  temp3.pot  #-#-#-#-#
-#. NOTE: markdown formatting
-#: ../userguide/engrave_layout.md.py:31 ../userguide/engrave_layout.md:32
-#, fuzzy
-msgid ""
-"This mode highlights voices that have been explicitly set with one of the `"
-"\\voiceXXX` commands. This is useful when dealing with polyphony issues."
-msgstr ""
-"Deze modus kleurt de noten die speciaal met een van de <code>\\voiceXXX</"
-"code> commando's gemarkeerd zijn. Dit is handig bij het oplossen van "
-"problemen met polyphonie."
-
-#. #-#-#-#-#  temp1.pot (frescobaldi 2.0.12-dev)  #-#-#-#-#
-#. L10N NOTE: markdown formatting
-#. #-#-#-#-#  temp3.pot  #-#-#-#-#
-#. NOTE: markdown formatting
-#: ../userguide/engrave_layout.md.py:36 ../userguide/engrave_layout.md:36
-#, fuzzy
-msgid ""
-"This mode colors items whose directions have been explicitly set with either "
-"the predefined commands `\\xxxUp` etc. or the directional operators `^` and "
-"`_`."
-msgstr ""
-"Deze modus kleurt items waarvan de richting expliciet is opgegeven met "
-"commando's zoals <code>\\\\xxxUp</code> of de richtings-operators <code>^</"
-"code> en <code>_</code>."
-
-#. #-#-#-#-#  temp1.pot (frescobaldi 2.0.12-dev)  #-#-#-#-#
-#. L10N NOTE: markdown formatting
-#. #-#-#-#-#  temp3.pot  #-#-#-#-#
-#. NOTE: markdown formatting
-#: ../userguide/engrave_layout.md.py:41 ../userguide/engrave_layout.md:42
-#, fuzzy
-msgid ""
-"When the condition for one of the the modes is reverted using `\\oneVoice` "
-"or `\\stemNeutral`, colors are reverted to black and will also revert the "
-"highlighting of the other Layout Control mode with LilyPond versions up to "
-"2.17.5.\""
-msgstr ""
-"als de richting voor een van de modes ongedaan gemaakt wordt met behulp van "
-"commando's zoals <code>\\\\oneVoice</code> of <code>\\\\xxxNeutral</code> "
-"wordt de kleur ook weer op zwart gezet, dat zou ook de kleur van de andere "
-"modus ongedaan kunnen maken."
-
-#: ../userguide/engrave_layout.md.py:48 ../userguide/engrave_layout.md:51
-msgid ""
-"In LilyPond, all graphical objects have an anchor (a reference point). What "
-"is a reference point?  It's a special point that defines the object's "
-"position."
-msgstr ""
-
-#: ../userguide/engrave_layout.md.py:51 ../userguide/engrave_layout.md:55
-#, fuzzy
-msgid ""
-"Think about geometry: if you have to define where a figure is placed on a "
-"plane, you'll usually say something like \"the lower left corner of this "
-"square has coordinates (0, 2)\" or \"the center of this circle is at (-1, "
-"3)\"."
-msgstr ""
-"In LilyPond hebben alle grafische objecten (grobs) een ankerpunt "
-"(referentiepunt). Dit punt bepaalt de positie van het object."
-
-#: ../userguide/engrave_layout.md.py:55 ../userguide/engrave_layout.md:60
-msgid ""
-"\"Lower left corner\" and \"center\" would be the reference points for "
-"square and circle."
-msgstr ""
-
-#: ../userguide/engrave_layout.md.py:60 ../userguide/engrave_layout.md:68
-#, fuzzy
-msgid ""
-"The main purpose of this layout control option is to retrieve information "
-"about Grob names, which may come in handy if you don't know where to look up "
-"available properties."
-msgstr ""
-"<br /> Het doel is om informatie te krijgen over de namen van grobs, wat "
-"handig kan zijn om te kijken wat voor eigenschappen voor die grob ingesteld "
-"kunnen worden.<br /> Deze modus resulteert in onoverzichtelijke partituren "
-"en werkt daarom het best met kleine testdocumenten. Hopelijk kan deze modus "
-"in de toekomst voor elke grob apart worden ingeschakeld."
-
-#: ../userguide/engrave_layout.md.py:63 ../userguide/engrave_layout.md:72
-#, fuzzy
-msgid ""
-"Please note that displaying grob anchors and displaying grob names is "
-"mutually exclusive because both functions override the grob's stencil."
-msgstr ""
-"Let wel dat het afbeelden van grob ankerpunten en grobnamen niet tegelijk "
-"kan, beide overschrijven de stencil van de grob. Als beide modes actief zijn "
-"worden alleen de grob-ankerpunten weergegeven."
-
-#: ../userguide/engrave_layout.md.py:66 ../userguide/engrave_layout.md:75
-#, fuzzy
-msgid ""
-"When both modes are active, only the grob anchors are displayed. Please also "
-"note that this mode is quite intrusive and may affect the layout. It is "
-"mainly useful for learning about grob names and will especially become "
-"usable once it can be activated for single grobs."
-msgstr ""
-"Deze modus is beinvloedt de layout ook start. De modus is vooral bedoeld om "
-"grob namen te leren en wordt bruikbaarder als het voor individuele grobs zou "
-"kunnen worden geactiveerd."
-
-#: ../userguide/engrave_layout.md.py:85 ../userguide/engrave_layout.md:95
-#, fuzzy
-msgid ""
-"This mode offers the opportunity to add one's own Debug Modes by including a "
-"custom file. This file will be included at program startup and may contain "
-"any LilyPond code you would like to have executed whenever you are engraving "
-"in Layout Control mode."
-msgstr ""
-"Deze modus biedt de gelegenheid een eigen bestand in te voegen met eigen "
-"debug-modus. Dit bestand wordt dan bij het starten van LilyPond in "
-"vooruitblik-modus geladen, vóór alle andere bestanden, zodat u dit bestand "
-"ook kunt gebruiken om de debug-modes te configureren."
-
-#: ../userguide/engrave_layout.md.py:89 ../userguide/engrave_layout.md:100
-msgid ""
-"This file will be parsed before any of the other Layout Control Modes so you "
-"may use it to configure them."
-msgstr ""
-
-#. #-#-#-#-#  temp1.pot (frescobaldi 2.0.12-dev)  #-#-#-#-#
-#. L10N NOTE: markdown formatting
-#. #-#-#-#-#  temp3.pot  #-#-#-#-#
-#. NOTE: markdown formatting
-#: ../userguide/engrave_layout.md.py:92 ../userguide/engrave_layout.md:103
-#, fuzzy
-msgid ""
-"The given string will be literally included in an `\\include` directive, so "
-"you are responsible yourself that LilyPond can find it."
-msgstr ""
-"De ingevoerde bestandsnaam wordt letterlijk in een <code>\\include</code>-"
-"commando geplaatst, dus u moet zelf zorgen dat LilyPond het kan vinden."
-
-#: ../userguide/getstarted.md.py:4 ../userguide/getstarted.md:3
-msgid ""
-"The default screen of Frescobaldi shows a text document on the left and an "
-"empty Music View window on the right."
-msgstr ""
-
-#: ../userguide/getstarted.md.py:6 ../userguide/getstarted.md:6
-msgid "Now, in the text view, enter some LilyPond code, like this:"
-msgstr ""
-
-#: ../userguide/getstarted.md.py:7 ../userguide/getstarted.md:18
-msgid ""
-"Then click the Lily toolbar button or press {key_engrave}. LilyPond will "
-"start to processes your file and the PDF will be displayed in the Music View "
-"on the right. If LilyPond encounters any errors or warnings they will be "
-"displayed in the LilyPond Log at the bottom of the screen."
-msgstr ""
-
-#. #-#-#-#-#  temp1.pot (frescobaldi 2.0.12-dev)  #-#-#-#-#
-#. L10N NOTE: markdown formatting
-#. #-#-#-#-#  temp3.pot  #-#-#-#-#
-#. NOTE: markdown formatting
-#: ../userguide/getstarted.md.py:13 ../userguide/getstarted.md:23
-msgid "[img:getting_started1.png]"
-msgstr ""
-
-#: ../userguide/getstarted.md.py:14 ../userguide/getstarted.md:25
-msgid "The Music View has many possibilities:"
-msgstr ""
-
-#: ../userguide/getstarted.md.py:15 ../userguide/getstarted.md:27
-msgid ""
-"Hovering over notes and other music objects will highlight them in the text "
-"on the left window; clicking on them will place a cursor to the left of the "
-"object also in the left window."
-msgstr ""
-
-#: ../userguide/getstarted.md.py:18 ../userguide/getstarted.md:31
-msgid ""
-"Use the Ctrl key and your mouse wheel to zoom in and out. Zooming will "
-"center around the mouse pointer."
-msgstr ""
-
-#: ../userguide/getstarted.md.py:20 ../userguide/getstarted.md:34
-msgid ""
-"Ctrl-left-click-and-hold the mouse to magnify a small section of the Music "
-"View without zooming in the whole view."
-msgstr ""
-
-#: ../userguide/getstarted.md.py:22 ../userguide/getstarted.md:37
-msgid ""
-"Selecting text in the main text window will highlight corresponding notes in "
-"the Music View; press {key_jump} to explicitly center and highlight a note "
-"or other objects in the Music View."
-msgstr ""
-
-#: ../userguide/getstarted.md.py:25 ../userguide/getstarted.md:41
-#, fuzzy
-msgid ""
-"Shift-drag a selection and then press {key_copy_image} or {menu_copy_image} "
-"to copy the selected music as a raster image to the clipboard, a file or "
-"another application."
-msgstr ""
-"U kunt muziek direct uit de PDF-weergave naar een rasterafbeelding kopiëren: "
-"Houd Shift ingedrukt en sleep een rechthoekige selectie (of gebruik de "
-"rechter muisknop) en druk dan op {key} of selecteer {menu} om de "
-"geselecteerde muziek naar het klembord, een bestand of een andere applicatie "
-"te slepen."
-
-#: ../userguide/getstarted.md.py:28 ../userguide/getstarted.md:45
-msgid ""
-"When your music score is complete, run LilyPond once more but with clickable "
-"notes turned off: menu {menu_engrave}. This significantly reduces the size "
-"of the PDF."
-msgstr ""
-
-#: ../userguide/getstarted.md.py:31 ../userguide/getstarted.md:49
-msgid ""
-"If LilyPond does not start at all, check if you have installed LilyPond "
-"correctly and that the lilypond command is in your system's PATH environment "
-"variable. If needed, provide the exact path to your LilyPond executable "
-"under {menu_preferences_lilypond}."
-msgstr ""
-
-#: ../userguide/getstarted.md.py:36 ../userguide/getstarted.md:54
-msgid ""
-"If LilyPond encounters any warnings or errors in your document they will "
-"show up in the LilyPond Log window at the bottom of the screen. Frescobaldi "
-"will then highlight these lines in the text view where the errors are. "
-"Clicking the error in the Log Window or pressing {key_error} immediately "
-"brings the text cursor to the offending line in your text view. Pressing "
-"{key_error} again will move to the next error message, and so on. LilyPond "
-"will remove any previous error line highlights the next time it is run but "
-"you can also remove any error line markings manually with the option "
-"{menu_clear_error_marks}."
-msgstr ""
-
 #: ../vcs/__init__.py:52
 msgid "No Git installation found"
 msgstr ""
@@ -9378,6 +9022,22 @@ msgstr ""
 "taalcodes."
 
 #. NOTE: markdown formatting
+#: ../userguide/about.md:3
+msgid ""
+"Frescobaldi is named after [http://en.wikipedia.org/wiki/"
+"Girolamo_Frescobaldi Girolamo Frescobaldi (1583 &#8211; 1643)], an Italian "
+"organist and composer."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/about.md:8
+msgid ""
+"Frescobaldi's homepage is at [http://www.frescobaldi.org/] and there is a "
+"mailinglist at [frescobaldi@googlegroups.com] ([http://groups.google.com/"
+"group/frescobaldi more info])."
+msgstr ""
+
+#. NOTE: markdown formatting
 #: ../userguide/intro.md:3
 msgid ""
 "[http://lilypond.org LilyPond] is an open-source music engraving program, "
@@ -9542,6 +9202,100 @@ msgstr ""
 "verder afspeelt, de instrumenten teruggezet zijn naar de standaard piano "
 "(instrument 0). In dat geval kunt u het bestand vanaf het begin afspelen om "
 "de instrumenten weer correct te horen.</p>\n"
+
+#: ../userguide/getstarted.md:3
+msgid ""
+"The default screen of Frescobaldi shows a text document on the left and an "
+"empty Music View window on the right."
+msgstr ""
+
+#: ../userguide/getstarted.md:6
+msgid "Now, in the text view, enter some LilyPond code, like this:"
+msgstr ""
+
+#: ../userguide/getstarted.md:18
+msgid ""
+"Then click the Lily toolbar button or press {key_engrave}. LilyPond will "
+"start to processes your file and the PDF will be displayed in the Music View "
+"on the right. If LilyPond encounters any errors or warnings they will be "
+"displayed in the LilyPond Log at the bottom of the screen."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/getstarted.md:23
+msgid "[img:getting_started1.png]"
+msgstr ""
+
+#: ../userguide/getstarted.md:25
+msgid "The Music View has many possibilities:"
+msgstr ""
+
+#: ../userguide/getstarted.md:27
+msgid ""
+"Hovering over notes and other music objects will highlight them in the text "
+"on the left window; clicking on them will place a cursor to the left of the "
+"object also in the left window."
+msgstr ""
+
+#: ../userguide/getstarted.md:31
+msgid ""
+"Use the Ctrl key and your mouse wheel to zoom in and out. Zooming will "
+"center around the mouse pointer."
+msgstr ""
+
+#: ../userguide/getstarted.md:34
+msgid ""
+"Ctrl-left-click-and-hold the mouse to magnify a small section of the Music "
+"View without zooming in the whole view."
+msgstr ""
+
+#: ../userguide/getstarted.md:37
+msgid ""
+"Selecting text in the main text window will highlight corresponding notes in "
+"the Music View; press {key_jump} to explicitly center and highlight a note "
+"or other objects in the Music View."
+msgstr ""
+
+#: ../userguide/getstarted.md:41
+#, fuzzy
+msgid ""
+"Shift-drag a selection and then press {key_copy_image} or {menu_copy_image} "
+"to copy the selected music as a raster image to the clipboard, a file or "
+"another application."
+msgstr ""
+"U kunt muziek direct uit de PDF-weergave naar een rasterafbeelding kopiëren: "
+"Houd Shift ingedrukt en sleep een rechthoekige selectie (of gebruik de "
+"rechter muisknop) en druk dan op {key} of selecteer {menu} om de "
+"geselecteerde muziek naar het klembord, een bestand of een andere applicatie "
+"te slepen."
+
+#: ../userguide/getstarted.md:45
+msgid ""
+"When your music score is complete, run LilyPond once more but with clickable "
+"notes turned off: menu {menu_engrave}. This significantly reduces the size "
+"of the PDF."
+msgstr ""
+
+#: ../userguide/getstarted.md:49
+msgid ""
+"If LilyPond does not start at all, check if you have installed LilyPond "
+"correctly and that the lilypond command is in your system's PATH environment "
+"variable. If needed, provide the exact path to your LilyPond executable "
+"under {menu_preferences_lilypond}."
+msgstr ""
+
+#: ../userguide/getstarted.md:54
+msgid ""
+"If LilyPond encounters any warnings or errors in your document they will "
+"show up in the LilyPond Log window at the bottom of the screen. Frescobaldi "
+"will then highlight these lines in the text view where the errors are. "
+"Clicking the error in the Log Window or pressing {key_error} immediately "
+"brings the text cursor to the offending line in your text view. Pressing "
+"{key_error} again will move to the next error message, and so on. LilyPond "
+"will remove any previous error line highlights the next time it is run but "
+"you can also remove any error line markings manually with the option "
+"{menu_clear_error_marks}."
+msgstr ""
 
 #: ../userguide/search_replace.md:3
 msgid ""
@@ -9871,6 +9625,207 @@ msgid ""
 msgstr ""
 "Sommige instellingen beïnvloeden de weergegeven commandoregel, andere niet."
 
+#: ../userguide/engrave_layout.md:1
+#, fuzzy
+msgid "Engrave (layout control mode)"
+msgstr "Graveren (publicatie)"
+
+#: ../userguide/engrave_layout.md:3
+msgid ""
+"The Layout Control options display or highlight various layout aspects and "
+"will help you fine-tuning your scores."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/engrave_layout.md:6
+msgid ""
+"The options are accessible through the *Layout Control options* dockable "
+"panel ({menu_layout_control})."
+msgstr ""
+
+#: ../userguide/engrave_layout.md:9
+#, fuzzy
+msgid "The following Layout Control options are currently implemented:"
+msgstr "De volgende debug-modes zijn momenteel geïmplementeerd:"
+
+#: ../userguide/engrave_layout.md:11
+#, fuzzy
+msgid "Verbose Output"
+msgstr "Speler uitgang:"
+
+#. NOTE: markdown formatting
+#: ../userguide/engrave_layout.md:12
+msgid ""
+"Adds the `--verbose` option to the LilyPond commandline, causing LilyPond to "
+"print lots of information in the log window."
+msgstr ""
+
+#: ../userguide/engrave_layout.md:16
+msgid ""
+"Enables the point and click navigation links in the Music View. Enabled by "
+"default."
+msgstr ""
+
+#: ../userguide/engrave_layout.md:20
+#, fuzzy
+msgid ""
+"Slurs, Ties and other similar objects are drawn in LilyPond as third-order "
+"Bezier curves, which means that their shape is controlled by four \"control-"
+"points\" (first and last ones tell where the curve ends are placed, and the "
+"middle ones affect the curvature)."
+msgstr ""
+"Objecten zoals boogjes worden door LilyPond als derde-orde Bezier-curven "
+"getekend, wat betekent dat hun vorm door vier controlepunten wordt bepaald. "
+"De eerste en laatste punten bepalen de plaats, de middelste twee beïnvloeden "
+"de vorm. De vorm van dit soort objecten wordt veranderd door deze punten te "
+"verplaatsen, en zodoende is het handig om te zien waar ze zijn in de PDF."
+
+#: ../userguide/engrave_layout.md:25
+msgid ""
+"Changing the shape of these objects involves moving these control-points "
+"around, and it's helpful to see where they actually are."
+msgstr ""
+
+#: ../userguide/engrave_layout.md:28
+#, fuzzy
+msgid ""
+"This option will display the inner control-points as red crosses and "
+"connects them to the outer (starting) points with thin lines."
+msgstr ""
+"Deze debug-modus toont de binnenste controlepunten als rode kruisjes en "
+"verbindt ze met de buitenste punten met dunne lijnen."
+
+#. NOTE: markdown formatting
+#: ../userguide/engrave_layout.md:31
+#, fuzzy
+msgid "Color `\\voiceXXX`"
+msgstr "\\voiceXX kleuren"
+
+#. NOTE: markdown formatting
+#: ../userguide/engrave_layout.md:32
+#, fuzzy
+msgid ""
+"This mode highlights voices that have been explicitly set with one of the `"
+"\\voiceXXX` commands. This is useful when dealing with polyphony issues."
+msgstr ""
+"Deze modus kleurt de noten die speciaal met een van de <code>\\voiceXXX</"
+"code> commando's gemarkeerd zijn. Dit is handig bij het oplossen van "
+"problemen met polyphonie."
+
+#. NOTE: markdown formatting
+#: ../userguide/engrave_layout.md:36
+#, fuzzy
+msgid ""
+"This mode colors items whose directions have been explicitly set with either "
+"the predefined commands `\\xxxUp` etc. or the directional operators `^` and "
+"`_`."
+msgstr ""
+"Deze modus kleurt items waarvan de richting expliciet is opgegeven met "
+"commando's zoals <code>\\\\xxxUp</code> of de richtings-operators <code>^</"
+"code> en <code>_</code>."
+
+#. NOTE: markdown formatting
+#: ../userguide/engrave_layout.md:42
+#, fuzzy
+msgid ""
+"When the condition for one of the the modes is reverted using `\\oneVoice` "
+"or `\\stemNeutral`, colors are reverted to black and will also revert the "
+"highlighting of the other Layout Control mode with LilyPond versions up to "
+"2.17.5.\""
+msgstr ""
+"als de richting voor een van de modes ongedaan gemaakt wordt met behulp van "
+"commando's zoals <code>\\\\oneVoice</code> of <code>\\\\xxxNeutral</code> "
+"wordt de kleur ook weer op zwart gezet, dat zou ook de kleur van de andere "
+"modus ongedaan kunnen maken."
+
+#: ../userguide/engrave_layout.md:51
+msgid ""
+"In LilyPond, all graphical objects have an anchor (a reference point). What "
+"is a reference point?  It's a special point that defines the object's "
+"position."
+msgstr ""
+
+#: ../userguide/engrave_layout.md:55
+#, fuzzy
+msgid ""
+"Think about geometry: if you have to define where a figure is placed on a "
+"plane, you'll usually say something like \"the lower left corner of this "
+"square has coordinates (0, 2)\" or \"the center of this circle is at (-1, "
+"3)\"."
+msgstr ""
+"In LilyPond hebben alle grafische objecten (grobs) een ankerpunt "
+"(referentiepunt). Dit punt bepaalt de positie van het object."
+
+#: ../userguide/engrave_layout.md:60
+msgid ""
+"\"Lower left corner\" and \"center\" would be the reference points for "
+"square and circle."
+msgstr ""
+
+#: ../userguide/engrave_layout.md:68
+#, fuzzy
+msgid ""
+"The main purpose of this layout control option is to retrieve information "
+"about Grob names, which may come in handy if you don't know where to look up "
+"available properties."
+msgstr ""
+"<br /> Het doel is om informatie te krijgen over de namen van grobs, wat "
+"handig kan zijn om te kijken wat voor eigenschappen voor die grob ingesteld "
+"kunnen worden.<br /> Deze modus resulteert in onoverzichtelijke partituren "
+"en werkt daarom het best met kleine testdocumenten. Hopelijk kan deze modus "
+"in de toekomst voor elke grob apart worden ingeschakeld."
+
+#: ../userguide/engrave_layout.md:72
+#, fuzzy
+msgid ""
+"Please note that displaying grob anchors and displaying grob names is "
+"mutually exclusive because both functions override the grob's stencil."
+msgstr ""
+"Let wel dat het afbeelden van grob ankerpunten en grobnamen niet tegelijk "
+"kan, beide overschrijven de stencil van de grob. Als beide modes actief zijn "
+"worden alleen de grob-ankerpunten weergegeven."
+
+#: ../userguide/engrave_layout.md:75
+#, fuzzy
+msgid ""
+"When both modes are active, only the grob anchors are displayed. Please also "
+"note that this mode is quite intrusive and may affect the layout. It is "
+"mainly useful for learning about grob names and will especially become "
+"usable once it can be activated for single grobs."
+msgstr ""
+"Deze modus is beinvloedt de layout ook start. De modus is vooral bedoeld om "
+"grob namen te leren en wordt bruikbaarder als het voor individuele grobs zou "
+"kunnen worden geactiveerd."
+
+#: ../userguide/engrave_layout.md:95
+#, fuzzy
+msgid ""
+"This mode offers the opportunity to add one's own Debug Modes by including a "
+"custom file. This file will be included at program startup and may contain "
+"any LilyPond code you would like to have executed whenever you are engraving "
+"in Layout Control mode."
+msgstr ""
+"Deze modus biedt de gelegenheid een eigen bestand in te voegen met eigen "
+"debug-modus. Dit bestand wordt dan bij het starten van LilyPond in "
+"vooruitblik-modus geladen, vóór alle andere bestanden, zodat u dit bestand "
+"ook kunt gebruiken om de debug-modes te configureren."
+
+#: ../userguide/engrave_layout.md:100
+msgid ""
+"This file will be parsed before any of the other Layout Control Modes so you "
+"may use it to configure them."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/engrave_layout.md:103
+#, fuzzy
+msgid ""
+"The given string will be literally included in an `\\include` directive, so "
+"you are responsible yourself that LilyPond can find it."
+msgstr ""
+"De ingevoerde bestandsnaam wordt letterlijk in een <code>\\include</code>-"
+"commando geplaatst, dus u moet zelf zorgen dat LilyPond het kan vinden."
+
 #. NOTE: markdown formatting
 #: ../userguide/prefs_lilypond.md:5
 #, fuzzy
@@ -9997,6 +9952,9 @@ msgstr ""
 #, fuzzy
 msgid "Pitch Manipulation"
 msgstr "Toonhoogte bewerken"
+
+#~ msgid "Debug"
+#~ msgstr "Debuggen"
 
 #~ msgid "This shortcut conflicts with the following command:"
 #~ msgid_plural "This shortcut conflicts with the following commands:"

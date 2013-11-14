@@ -131,7 +131,7 @@ class Dialog(QDialog):
         self.modeLabel.setText(_("Engraving mode:"))
         self.modeCombo.setItemText(0, _("Preview"))
         self.modeCombo.setItemText(1, _("Publish"))
-        self.modeCombo.setItemText(2, _("Debug"))
+        self.modeCombo.setItemText(2, _("Layout Control"))
         self.englishCheck.setText(_("Run LilyPond with English messages"))
         self.deleteCheck.setText(_("Delete intermediate output files"))
         self.commandLineLabel.setText(_("Command line:"))
