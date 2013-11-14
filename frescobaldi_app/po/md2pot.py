@@ -20,15 +20,13 @@
 """
 Creates translatable strings for the Frescobaldi User Manual.
 
-This script is run standalone.
+Writes a POT file.
 
 """
 
 from __future__ import unicode_literals
 
 import sys
-sys.path.insert(0, '..')
-
 import textwrap
 
 import simplemarkdown
