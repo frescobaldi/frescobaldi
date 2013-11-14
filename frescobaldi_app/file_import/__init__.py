@@ -83,6 +83,8 @@ class FileImport(plugin.MainWindowPlugin):
         doc.setUrl(QUrl.fromLocalFile(filename))
         doc.setModified(True)
         self.mainwindow().setCurrentDocument(doc)
+        import reformat
+        reformat.reformat(self.mainwindow().currentView().textCursor())
 
 
 class Actions(actioncollection.ActionCollection):
