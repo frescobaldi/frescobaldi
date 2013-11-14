@@ -36,24 +36,31 @@ import userguide.read
 
 
 class Parser(userguide.read.Parser):
-    def __init__(self):
+    def __init__(self, output_file=None):
         super(Parser, self).__init__()
         w = self.wrapper = textwrap.TextWrapper()
         w.break_long_words = False
         w.break_on_hyphens = False
-        w.initial_indent = '_("'
-        w.subsequent_indent = '  " '
+        w.initial_indent = ''
+        w.subsequent_indent = ''
+        self._output_lines = []
+        self.f = output_file
+        self.f.write(r'''# POT generated from .md files by md2pot.py
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: utf-8\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+''')
     
     def make_translation_strings(self, filename):
-        self._output_lines = []
-        self.parse(userguide.read.document(filename)[0])
-        with open(filename + '.py', 'w') as f:
-            f.write('#!python\n')
-            f.write('# coding: utf-8\n')
-            for l in self._output_lines:
-                f.write((l + '\n').encode('utf-8'))
+        self._curfilename = filename
+        self.parse(userguide.read.document(filename)[0], lineno=1)
 
     def translate(self, s):
+        self.f.write('#: {0}:{1}\n'.format(self._curfilename, self.lineno))
         # is there markdown formatting in the string?
         formatting = False
         for c in '[]', '**', '``':
@@ -61,17 +68,23 @@ class Parser(userguide.read.Parser):
                 formatting = bool(t2)
                 break
             if formatting:
-                self._output_lines.append('#L10N NOTE: markdown formatting')
+                self.f.write('#. NOTE: markdown formatting\n')
                 break
         s = s.replace('\\', '\\\\').replace('"', '\\"')
-        l = [i + '"' for i in self.wrapper.wrap(s)]
-        l[-1] += ')'
-        self._output_lines.extend(l)
-
+        lines = self.wrapper.wrap(s)
+        if len(lines) > 1:
+            self.f.write('msgid ""\n')
+            for l in lines[:-1]:
+                self.f.write(('"' + l + ' "\n').encode('utf8'))
+            self.f.write(('"' + lines[-1] + '"\n').encode('utf8'))
+        else:
+            self.f.write(('msgid "' + lines[0] + '"\n').encode('utf8'))
+        self.f.write('msgstr ""\n\n')
 
 
 def main():
-    p = Parser()
+    f = sys.stdout
+    p = Parser(f)
     for name in sys.argv[1:]:
         p.make_translation_strings(name)
 
