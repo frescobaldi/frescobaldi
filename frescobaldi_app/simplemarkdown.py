@@ -112,6 +112,17 @@ def html(text):
     p.parse(text, o)
     return o.html()
 
+def html_inline(text):
+    """Convenience function converting markdown text to HTML.
+    
+    Only inline text is parsed, i.e. links, emphasized, code.
+    
+    """
+    p = Parser()
+    o = p.output = HtmlOutput()
+    p.parse_inline_text(text)
+    return o.html()
+
 def tree(text):
     """Convenience function returning the Tree object with the parsed markdown."""
     t = Tree()
