@@ -61,7 +61,7 @@ class Page(object):
     def title(self):
         """Return the title"""
         for heading in self._tree.find('heading'):
-            return ''.join(e.args[0] for e in self._tree.find('inline_text', heading))
+            return self._tree.text(heading)
     
     def body(self):
         """Return the HTML body."""
