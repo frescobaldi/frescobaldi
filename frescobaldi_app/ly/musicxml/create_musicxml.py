@@ -73,20 +73,23 @@ class create_musicXML():
     # High-level node creation
     ##
 
-    def new_note(self, pitch, org_len, durtype, divs, dot):
+    def new_note(self, grace, pitch, org_len, durtype, divs, dot):
         """ create all nodes needed for a note. """
         self.create_note()
+        if grace[0]:
+            self.add_grace(grace[1])
         self.add_pitch(pitch[0], pitch[1], pitch[2])
-        if dot:
-            import math
-            den = int(math.pow(2,dot))
-            num = int(math.pow(2,dot+1)-1)
-            a = divs*4*num
-            b = int(org_len)*den
-            duration = a/b
-        else:
-            duration = divs*4/int(org_len)
-        self.add_div_duration(duration)
+        if not grace[0]:
+            if dot:
+                import math
+                den = int(math.pow(2,dot))
+                num = int(math.pow(2,dot+1)-1)
+                a = divs*4*num
+                b = int(org_len)*den
+                duration = a/b
+            else:
+                duration = divs*4/int(org_len)
+            self.add_div_duration(duration)
         self.add_duration_type(durtype)
         if dot:
             for i in range(dot):
@@ -219,6 +222,13 @@ class create_musicXML():
     def add_tie(self, tie_type):
         """ create node tie (used for sound of tie) """
         etree.SubElement(self.current_note, "tie", type=tie_type)
+
+    def add_grace(self, slash):
+        """ create grace node """
+        if slash:
+            etree.SubElement(self.current_note, "grace", slash="yes")
+        else:
+            etree.SubElement(self.current_note, "grace")
 
     def add_notations(self):
         if not self.current_notation:

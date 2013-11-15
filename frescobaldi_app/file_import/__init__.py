@@ -65,7 +65,9 @@ class FileImport(plugin.MainWindowPlugin):
                 stdout, stderr = dlg.run_command()
             if stdout: #success
                 lyfile = os.path.splitext(importfile)[0] + ".ly"
-                self.createDocument(lyfile, stdout.decode('utf-8'))
+                doc = self.createDocument(lyfile, stdout.decode('utf-8'))
+                self.postImport()
+                self.mainwindow().saveDocument(doc)
             else: #failure to convert
                 QMessageBox.critical(None, _("Error"),
                     _("The file couldn't be converted. Error message:\n") + stderr)
@@ -83,6 +85,12 @@ class FileImport(plugin.MainWindowPlugin):
         doc.setUrl(QUrl.fromLocalFile(filename))
         doc.setModified(True)
         self.mainwindow().setCurrentDocument(doc)
+        return doc       
+        
+    def postImport(self):
+        """Adaptations of the source resulting from running musicxml2ly"""
+        import reformat
+        reformat.reformat(self.mainwindow().currentView().textCursor())
 
 
 class Actions(actioncollection.ActionCollection):
