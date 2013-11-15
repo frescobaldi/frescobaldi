@@ -123,6 +123,10 @@ def html_inline(text):
     p.parse_inline_text(text)
     return o.html()
 
+def html_escape(text):
+    """Escapes &, < and >."""
+    return text.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+
 def tree(text):
     """Convenience function returning the Tree object with the parsed markdown."""
     t = Tree()
@@ -396,7 +400,7 @@ class Parser(object):
             if link:
                 l = link.split(None, 1)
                 if len(l) == 0:
-                    self.output.append('inline_text', '[' + link + ']')
+                    self.output_inline_text('[' + link + ']')
                     continue
                 elif len(l) == 1:
                     url = text = l[0]
@@ -418,10 +422,14 @@ class Parser(object):
         """Parse a piece of text for code formatting."""
         for text, code in iter_split(text, '`'):
             if text:
-                self.output.append('inline_text', text)
+                self.output_inline_text(text)
             if code:
                 with self.output('inline_code'):
-                    self.output.append('inline_text', code)
+                    self.output_inline_text(code)
+    
+    def output_inline_text(self, text):
+        """Append an 'inline_text' to the output."""
+        self.output.append('inline_text', text)
 
 
 class Output(object):
@@ -610,7 +618,7 @@ class HtmlOutput(Output):
     
     def html_escape(self, text):
         """Escapes &, < and >."""
-        return text.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+        return html_escape(text)
     
     def tag(self, name, attrs=None):
         """Add a tag. Use a name like '/p' to write a close tag.

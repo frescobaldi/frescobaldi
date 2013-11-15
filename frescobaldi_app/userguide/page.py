@@ -25,6 +25,8 @@ from __future__ import unicode_literals
 
 import re
 
+from PyQt4.QtCore import QKeySequence
+
 import simplemarkdown
 
 from . import read
@@ -34,6 +36,8 @@ from . import resolve
 class Page(object):
     def __init__(self, name=None):
         self._attrs = {}
+        self._title = "No Title"
+        self._body = ""
         if name:
             self.load(name)
     
@@ -43,13 +47,21 @@ class Page(object):
         
     def parse_text(self, text, attrs=None):
         self._attrs = attrs or {}
-        t = self._tree = simplemarkdown.Tree()
+        t = simplemarkdown.Tree()
         # parse and translate the document
         read.Parser().parse(text, t)
+        
+        # title
+        for heading in t.find('heading'):
+            self._title = t.text(heading)
+            break
+        html = t.html()
         # resolve variables...
-        resolve = Resolver(attrs.get('VARS')).format
-        for e in t.find('inline_text'):
-            e.args = (resolve(e.args[0]),)
+        print attrs.get('VARS')
+        html = Resolver(attrs.get('VARS')).format(html)
+        # remove empty paragraphs (could result from optional text)
+        html = html.replace('<p></p>', '')
+        self._body = html
     
     def is_popup(self):
         """Return True if the helppage should be displayed as a popup."""
@@ -60,12 +72,11 @@ class Page(object):
     
     def title(self):
         """Return the title"""
-        for heading in self._tree.find('heading'):
-            return self._tree.text(heading)
+        return self._title
     
     def body(self):
         """Return the HTML body."""
-        return self._tree.html()
+        return self._body
         
     def children(self):
         """Return the list of names of child documents."""
@@ -79,7 +90,7 @@ class Page(object):
 class Resolver(object):
     """Resolves variables in help documents."""
     
-    _rx = re.compile(r"\{([a-z]+(_[a-z])*)\}", re.UNICODE)
+    _rx = re.compile(r"\{([a-z]+(_[a-z]+)*)\}", re.UNICODE)
     def __init__(self, variables=None):
         """Initialize with a list of variables from the #VARS section.
         
@@ -110,12 +121,49 @@ class Resolver(object):
             except AttributeError:
                 return
         try:
-            method = getattr(self, 'handle_' + typ)
+            method = getattr(self, 'handle_' + typ.lower())
         except AttributeError:
-            return text
+            method = self.handle_text
         return method(text)
 
     def handle_md(self, text):
         """Convert inline markdown to HTML."""
         return simplemarkdown.html_inline(text)
+
+    def handle_html(self, text):
+        """Return text as is, it may contain HTML."""
+        return text
+    
+    def handle_text(self, text):
+        """Return text escaped, it will not be represented as HTML."""
+        return simplemarkdown.html_escape(text)
+
+    def handle_url(self, text):
+        """Return a clickable url."""
+        url = text
+        if text.startswith('http://'):
+            text = text[7:]
+        if text.endswith('/'):
+            text = text[:-1]
+        url = simplemarkdown.html_escape(url).replace('"', '&quot;')
+        text = simplemarkdown.html_escape(text)
+        return '<a href="{0}">{1}</a>'.format(url, text)
+
+    def handle_help(self, text):
+        """Return a link to the specified help page, with the title."""
+        try:
+            title = Page(text).title()
+        except (OSError, IOError):
+            title = text
+        url = text
+        return '<a href="{0}">{1}</a>'.format(url, title)
+
+    def handle_shortcut(self, text):
+        """Return the keystroke currently defined for the action."""
+        collection_name, action_name = text.split(None, 1)
+        import actioncollectionmanager
+        mgr = actioncollectionmanager.ActionCollectionManager.instances()[0]
+        seq = mgr.action(collection_name, action_name).shortcut()
+        key = seq.toString(QKeySequence.NativeText) or _("(no key defined)")
+        return '<span class="shortcut">{0}</span>'.format(simplemarkdown.html_escape(key))
 
