@@ -559,6 +559,15 @@ class Tree(Output):
                     yield l
         return iter_tree_find(node or self._root)
     
+    def text(self, node):
+        """Convenience method to return plain text from the specified node.
+        
+        This method concatenates all text, so it is only useful on inline parts
+        of a document.
+        
+        """
+        return ''.join(e.args[0] for e in self.find('inline_text', node))
+        
     def html(self, node=None):
         """Convenience method to return HTML text from the specified node.
         

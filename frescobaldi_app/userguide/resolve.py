@@ -23,3 +23,11 @@ These functions return values for python format variables in help pages.
 
 from __future__ import unicode_literals
 
+import info
+
+def appname():
+    return info.appname
+
+def version():
+    return info.version
+
