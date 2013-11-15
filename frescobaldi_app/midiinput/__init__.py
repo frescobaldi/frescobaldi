@@ -25,6 +25,7 @@ import midihub
 import midifile.event
 import midifile.parser
 import ly.pitch
+import documentinfo
 
 
 class MidiIn:
@@ -57,6 +58,8 @@ class MidiIn:
     def capture(self):
         if not self._portmidiinput:
             self.open()
+        doc = self.widget().mainwindow().currentDocument()
+        self._language = documentinfo.info(doc).pitchLanguage() or 'nederlands'
         self._listener.start()
     
     def capturestop(self):
@@ -89,9 +92,9 @@ class MidiIn:
                 posinblock = cursor.position() - cursor.block().position()
                 charbeforecursor = cursor.block().text()[posinblock-1:posinblock]
                 if charbeforecursor.isspace() or cursor.atBlockStart():
-                    insertion = pitch.output()
+                    insertion = pitch.output(self._language)
                 else:
-                    insertion = ' ' +  pitch.output()
+                    insertion = ' ' +  pitch.output(self._language)
                 cursor.insertText(insertion)
     
 class Listener(QThread):
