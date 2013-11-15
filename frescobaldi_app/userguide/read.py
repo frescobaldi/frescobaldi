@@ -65,7 +65,7 @@ class Parser(simplemarkdown.Parser):
         if not text.startswith('!'):
             result = self.probably_translate(text)
             if result:
-                simplemarkdown.Parser.parse_inline_text(self, result)
+                super(Parser, self).parse_inline_text(result)
         else:
             result = []
             for t, tx in simplemarkdown.iter_split2(text[1:], '_(', ')_'):
@@ -74,7 +74,7 @@ class Parser(simplemarkdown.Parser):
                 if tx:
                     result.append(self.probably_translate(tx))
             if None not in result:
-                simplemarkdown.Parser.parse_inline_text(self, ''.join(result))
+                super(Parser, self).parse_inline_text(''.join(result))
     
     def probably_translate(self, s):
         """Translates the string if it is a sensible translatable message.
