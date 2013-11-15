@@ -23,9 +23,13 @@ Page, a page from the Frescobaldi User Manual.
 
 from __future__ import unicode_literals
 
+import string
+
 import simplemarkdown
 
 from . import read
+from . import resolve
+
 
 class Page(object):
     def __init__(self, name=None):
@@ -40,18 +44,66 @@ class Page(object):
         doc, attrs = read.document(name)
         self.parse_text(doc, attrs)
         
-    def parse_text(text, attrs=None):
+    def parse_text(self, text, attrs=None):
         self._attrs = attrs or {}
-        t = simplemarkdown.Tree()
+        t = self._tree = simplemarkdown.Tree()
+        # parse and translate the document
         read.Parser().parse(text, t)
         # resolve variables...
+        variables = self._attrs.get('VARS')
+        d = self._variables = {}
+        if variables:
+            for v in variables:
+                name, type, text = v.split(None, 2)
+                d[name] = (type, text)
+        
+        fmt = string.Formatter().vformat
+        func = self.resolve
+        class Resolve(dict):
+            def __getitem__(self, name):
+                return func(name)
+        resolver = Resolve()
+        for e in t.find('inline_text'):
+            s = e.args[0]
+            n = fmt(s, (), resolver)
+            e.args = (n,)
+    
+    def resolve(self, name):
+        """Return the value for the variable.
+        
+        First the #VARS section is consulted, then the general methods in 
+        the resolve module.
+        
+        """
+        try:
+            type, text = self._variables[name]
+        except KeyError:
+            try:
+                return getattr(resolve, name)()
+            except AttributeError:
+                return "[undefined]"
+        if type == "url":
+            return text #TODO: make clickable
+        else:
+            return text
+        
+
+    def is_popup(self):
+        """Return True if the helppage should be displayed as a popup."""
+        try:
+            return 'popup' in self._attrs['PROPERTIES']
+        except KeyError:
+            return False
     
     def title(self):
         """Return the title"""
+        for heading in self._tree.find('heading'):
+            return ''.join(e.args[0] for e in self._tree.find('inline_text', heading))
     
     def body(self):
         """Return the HTML body."""
-    
+        return self._tree.html()
+        
     def children(self):
         """Return the list of names of child documents."""
         return self._attrs.get("SUBDOCS") or []
