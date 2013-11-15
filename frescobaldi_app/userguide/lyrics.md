@@ -19,7 +19,7 @@ stanza of lyrics that you just want to display as a markup below the music.
 Under {menu_settings} you can enter a list of directories to search for
 hyphenation pattern files.
 
-@VARS
+#VARS
 hyphen md ` -- `
 example md `a -- men`
 key_hyphen shortcut lyrics lyrics_hyphenate

@@ -23,7 +23,7 @@ Page, a page from the Frescobaldi User Manual.
 
 from __future__ import unicode_literals
 
-import string
+import re
 
 import simplemarkdown
 
@@ -33,10 +33,7 @@ from . import resolve
 
 class Page(object):
     def __init__(self, name=None):
-        self._children = []
-        self._title = None
-        self._attrs = None
-        
+        self._attrs = {}
         if name:
             self.load(name)
     
@@ -50,44 +47,10 @@ class Page(object):
         # parse and translate the document
         read.Parser().parse(text, t)
         # resolve variables...
-        variables = self._attrs.get('VARS')
-        d = self._variables = {}
-        if variables:
-            for v in variables:
-                name, type, text = v.split(None, 2)
-                d[name] = (type, text)
-        
-        fmt = string.Formatter().vformat
-        func = self.resolve
-        class Resolve(dict):
-            def __getitem__(self, name):
-                return func(name)
-        resolver = Resolve()
+        resolve = Resolver(attrs.get('VARS')).format
         for e in t.find('inline_text'):
-            s = e.args[0]
-            n = fmt(s, (), resolver)
-            e.args = (n,)
+            e.args = (resolve(e.args[0]),)
     
-    def resolve(self, name):
-        """Return the value for the variable.
-        
-        First the #VARS section is consulted, then the general methods in 
-        the resolve module.
-        
-        """
-        try:
-            type, text = self._variables[name]
-        except KeyError:
-            try:
-                return getattr(resolve, name)()
-            except AttributeError:
-                return "[undefined]"
-        if type == "url":
-            return text #TODO: make clickable
-        else:
-            return text
-        
-
     def is_popup(self):
         """Return True if the helppage should be displayed as a popup."""
         try:
@@ -111,5 +74,45 @@ class Page(object):
     def seealso(self):
         """Return the list of names of "see also" documents."""
         return self._attrs.get("SEEALSO") or []
+
+
+class Resolver(object):
+    """Resolves variables in help documents."""
+    
+    _rx = re.compile(r"\{([a-z]+(_[a-z])*)\}", re.UNICODE)
+    def __init__(self, variables=None):
+        """Initialize with a list of variables from the #VARS section.
+        
+        Every item is simply a line, where the first word is the name,
+        the second the type and the rest is the contents.
+        
+        """
+        self._variables = d = {}
+        if variables:
+            for v in variables:
+                name, type, text = v.split(None, 2)
+                d[name] = (type, text)
+    
+    def format(self, text):
+        """Replaces all {variable} items in the text."""
+        return self._rx.sub(self.replace, text)
+        
+    def replace(self, matchObj):
+        result = self.resolve(matchObj.group(1))
+        return result if result else matchObj.group()
+    
+    def resolve(self, name):
+        try:
+            typ, text = self._variables[name]
+        except KeyError:
+            try:
+                return getattr(resolve, name)()
+            except AttributeError:
+                return
+        try:
+            method = getattr(self, 'handle_' + typ)
+        except AttributeError:
+            return text
+        return method(text)
 
 
