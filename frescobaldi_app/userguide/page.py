@@ -115,4 +115,7 @@ class Resolver(object):
             return text
         return method(text)
 
+    def handle_md(self, text):
+        """Convert inline markdown to HTML."""
+        return simplemarkdown.html_inline(text)
 
