@@ -50,14 +50,12 @@ class Page(object):
         t = simplemarkdown.Tree()
         # parse and translate the document
         read.Parser().parse(text, t)
-        
         # title
         for heading in t.find('heading'):
             self._title = t.text(heading)
             break
         html = t.html()
         # resolve variables...
-        print attrs.get('VARS')
         html = Resolver(attrs.get('VARS')).format(html)
         # remove empty paragraphs (could result from optional text)
         html = html.replace('<p></p>', '')
