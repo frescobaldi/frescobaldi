@@ -78,7 +78,7 @@ class parse_source():
             self.tuplet = True
             self.ttype = "start"
         elif self.prev_command[1:] == 'grace':
-            pass
+            self.grace_seq = True
         else:
             if self.can_create_sect:
                 self.mediator.new_section(self.varname)
@@ -89,6 +89,8 @@ class parse_source():
         if self.tuplet:
             self.mediator.change_to_tuplet(self.fraction, "stop")
             self.tuplet = False
+        if self.grace_seq:
+            self.grace_seq = False
         if self.prev_command:
             self.prev_command = ''
         else:
@@ -132,6 +134,10 @@ class parse_source():
             if self.tuplet:
                 self.mediator.change_to_tuplet(self.fraction, self.ttype)
                 self.ttype = ""
+            if self.prev_command[1:] == 'grace':
+                self.mediator.new_grace(0)
+                if not self.grace_seq:
+                    self.prev_command = ''
 
     def Octave(self, token):
         """ a number of , or ' """
@@ -192,6 +198,8 @@ class parse_source():
             self.mediator.note2rest()
         elif self.prev_command != '\\numericTimeSignature':
             self.prev_command = token
+        else:
+            print "Command:"+token
 
     def UserCommand(self, token):
         if self.prev_command == 'key':
@@ -226,7 +234,8 @@ class parse_source():
                         if obj.barline:
                             self.musxml.add_barline(obj.barline)
                     elif isinstance(obj, ly2xml_mediator.bar_note):
-                        self.musxml.new_note([obj.base_note, obj.pitch.alter, obj.pitch.octave], obj.duration, obj.type, self.mediator.divisions, obj.dot)
+                        self.musxml.new_note(obj.grace, [obj.base_note, obj.pitch.alter, obj.pitch.octave], obj.duration,
+                        obj.type, self.mediator.divisions, obj.dot)
                         if obj.tie:
                             self.musxml.tie_note(obj.tie)
                         if obj.tuplet:

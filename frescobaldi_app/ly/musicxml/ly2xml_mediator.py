@@ -168,6 +168,9 @@ class mediator():
             self.current_note.set_tie('start')
         self.tied = True
 
+    def new_grace(self, slash):
+        self.current_note.set_grace(slash)
+
     def new_octave(self, octave, relative=False):
         self.current_note.set_octave(octave, relative, self.prev_pitch)
 
@@ -215,6 +218,7 @@ class bar_note():
         self.tuplet = 0
         self.dot = 0
         self.tie = 0
+        self.grace = [0,0]
 
     def set_duration(self, durval):
         self.duration = durval
@@ -236,6 +240,9 @@ class bar_note():
 
     def add_dot(self):
         self.dot = self.dot + 1
+
+    def set_grace(self, slash):
+        self.grace = [1,slash]
 
 class bar_rest():
     """ object to keep track of different rests and skips """
