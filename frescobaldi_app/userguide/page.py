@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import re
 
-from PyQt4.QtCore import QKeySequence
+from PyQt4.QtGui import QKeySequence
 
 import simplemarkdown
 
@@ -36,30 +36,21 @@ from . import resolve
 class Page(object):
     def __init__(self, name=None):
         self._attrs = {}
-        self._title = "No Title"
-        self._body = ""
+        self._title = None
+        self._body = None
         if name:
             self.load(name)
     
     def load(self, name):
+        """Parse and translate the named document."""
         doc, attrs = read.document(name)
         self.parse_text(doc, attrs)
         
     def parse_text(self, text, attrs=None):
+        """Parse and translate the document."""
         self._attrs = attrs or {}
-        t = simplemarkdown.Tree()
-        # parse and translate the document
+        t = self._tree = simplemarkdown.Tree()
         read.Parser().parse(text, t)
-        # title
-        for heading in t.find('heading'):
-            self._title = t.text(heading)
-            break
-        html = t.html()
-        # resolve variables...
-        html = Resolver(attrs.get('VARS')).format(html)
-        # remove empty paragraphs (could result from optional text)
-        html = html.replace('<p></p>', '')
-        self._body = html
     
     def is_popup(self):
         """Return True if the helppage should be displayed as a popup."""
@@ -70,10 +61,23 @@ class Page(object):
     
     def title(self):
         """Return the title"""
+        if self._title is None:
+            self._title = "No Title"
+            for heading in self._tree.find('heading'):
+                self._title = self._tree.text(heading)
+                break
         return self._title
     
     def body(self):
         """Return the HTML body."""
+        if self._body is None:
+            output = HtmlOutput()
+            output.resolver = Resolver(self._attrs.get('VARS'))
+            self._tree.copy(output)
+            html = output.html()
+            # remove empty paragraphs (could result from optional text)
+            html = html.replace('<p></p>', '')
+            self._body = html
         return self._body
         
     def children(self):
@@ -85,10 +89,39 @@ class Page(object):
         return self._attrs.get("SEEALSO") or []
 
 
+class HtmlOutput(simplemarkdown.HtmlOutput):
+    """Colorizes LilyPond source and replaces {variables}.
+    
+    Put a Resolver instance in the resolver attribute before populating
+    the output.
+    
+    """
+    def code_start(self, code, specifier=None):
+        if specifier == "lilypond":
+            import colorize
+            self._html.append(colorize.colorize(code))
+        else:
+            self.tag('code')
+            self.tag('pre')
+            self.text(code)
+    
+    def code_end(self, code, specifier=None):
+        if specifier != "lilypond":
+            self.tag('/pre')
+            self.tag('/code')
+        self.nl()
+    
+    def inline_text_start(self, text):
+        text = self.html_escape(text)
+        text = self.resolver.format(text)   # replace {variables} ...
+        self._html.append(text)
+
+
 class Resolver(object):
     """Resolves variables in help documents."""
     
     _rx = re.compile(r"\{([a-z]+(_[a-z]+)*)\}", re.UNICODE)
+    
     def __init__(self, variables=None):
         """Initialize with a list of variables from the #VARS section.
         
@@ -107,10 +140,24 @@ class Resolver(object):
         return self._rx.sub(self.replace, text)
         
     def replace(self, matchObj):
+        """Return the replace string for the match.
+        
+        For a match like {blabla}, self.resolve('blabla') is called, and if
+        the result is not None, '{blabla}' is replaced with the result.
+        
+        """
         result = self.resolve(matchObj.group(1))
-        return result if result else matchObj.group()
+        return matchObj.group() if result is None else result
     
     def resolve(self, name):
+        """Try to find the value for the named variable.
+        
+        First, the #VARS section is searched. If that yields no result,
+        the named function in the resolve module is called. If that yields
+        no result either, None is returned.
+        
+        """
+        
         try:
             typ, text = self._variables[name]
         except KeyError:

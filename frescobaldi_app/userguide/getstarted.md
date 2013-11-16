@@ -67,3 +67,9 @@ scorewiz
 quickinsert
 musicview
 outline
+
+#VARS
+key_engrave    shortcut engrave engrave_preview
+key_jump       shortcut musicview music_jump_to_cursor
+key_copy_image shortcut musicview music_copy_image
+key_error      shortcut logtool log_next_error
