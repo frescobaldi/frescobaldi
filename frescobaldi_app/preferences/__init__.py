@@ -243,7 +243,7 @@ class Shortcuts(PrefsItemBase):
         
 
 class Editor(PrefsItemBase):
-    help = "prefs_editor_options"
+    help = "prefs_editor"
     iconName = "document-properties"
     def translateUI(self):
         self.setText(_("Editor Preferences"))
@@ -254,7 +254,7 @@ class Editor(PrefsItemBase):
 
 
 class FontsColors(PrefsItemBase):
-    help = "prefs_fonts_colors"
+    help = "prefs_fontscolors"
     iconName = "applications-graphics"
     def translateUI(self):
         self.setText(_("Fonts & Colors"))
