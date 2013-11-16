@@ -38,6 +38,25 @@ from . import __path__
 from . import page
 
 
+# cache from userguide page name to its title
+title_cache = {}
+
+def page_title(name):
+    """Return the title of the named page.
+    
+    The result is cached until the user changes the UI translation setting.
+    
+    """
+    try:
+        t = title_cache[name]
+    except KeyError:
+        t = title_cache[name] = page.Page(name).title()
+    return t
+
+# clear the title cache when the user changes the UI translation
+app.languageChanged.connect(lambda: title_cache.clear(), -999)
+
+
 class Window(QMainWindow):
     """The help browser window."""
     def __init__(self):
@@ -150,14 +169,11 @@ class Browser(QTextBrowser):
 
 
 class Formatter(object):
+    """Format a full userguide page HTML."""
     def html(self, name):
         """Return a full userguide page HTML."""
         page_ = page.Page(name)
         from info import appname, version
-        
-        def format_link(name):
-            title = simplemarkdown.html_escape(page.Page(name).title())
-            return '<a href="{0}">{1}</a>'.format(name, title)
         
         # TODO get the parents
         parents = []
@@ -173,7 +189,7 @@ class Formatter(object):
         nav_children, nav_next, nav_seealso = '', '', ''
         if page_.children():
             nav_children = '\n'.join(
-                '<div>{0}</div>'.format(format_link(c))
+                '<div>{0}</div>'.format(self.format_link(c))
                 for c in page_.children())
         else:
             html = []
@@ -186,11 +202,16 @@ class Formatter(object):
         if page_.seealso():
             html = []
             html.append("<p>{0}</p>".format(_("See also:")))
-            html.extend('<div>{0}</div>'.format(format_link(p))
+            html.extend('<div>{0}</div>'.format(self.format_link(p))
                         for p in page_.seealso())
             nav_seealso = '\n'.join(html)
         return self._html_template().format(**locals())
 
+    def format_link(self, name):
+        """Make a clickable link to the page."""
+        title = simplemarkdown.html_escape(page_title(name))
+        return '<a href="{0}">{1}</a>'.format(name, title)
+    
     def markexternal(self, text):
         """Marks http(s)/ftp(s) links as external with an arrow."""
         pat = re.compile(r'''<a\s+.*?href\s*=\s*(['"])(ht|f)tps?.*?\1[^>]*>''', re.I)
