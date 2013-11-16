@@ -33,7 +33,7 @@ import app
 import widgets.listedit
 import widgets.urlrequester
 import sessions
-import help
+import userguide
 
 
 class SessionManagerDialog(QDialog):
@@ -52,7 +52,7 @@ class SessionManagerDialog(QDialog):
         layout.addWidget(b)
         b.setStandardButtons(QDialogButtonBox.Close)
         b.rejected.connect(self.accept)
-        help.addButton(b, "sessions")
+        userguide.addButton(b, "sessions")
         self.sessions.load()
 
 
@@ -108,7 +108,7 @@ class SessionEditor(QDialog):
         b.setStandardButtons(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         b.accepted.connect(self.accept)
         b.rejected.connect(self.reject)
-        help.addButton(b, "sessions")
+        userguide.addButton(b, "sessions")
         app.translateUI(self)
         
     def translateUI(self):

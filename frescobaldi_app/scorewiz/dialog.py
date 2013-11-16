@@ -31,6 +31,7 @@ import cursortools
 import indent
 import qutil
 import help
+import userguide
 
 
 class ScoreWizardDialog(QDialog):
@@ -53,7 +54,7 @@ class ScoreWizardDialog(QDialog):
             | QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         b.accepted.connect(self.accept)
         b.rejected.connect(self.reject)
-        help.addButton(b, scorewiz_help)
+        userguide.addButton(b, "scorewiz")
         b.button(QDialogButtonBox.Reset).clicked.connect(self.reset)
         self.previewButton = b.addButton('', QDialogButtonBox.ActionRole)
         self.previewButton.clicked.connect(self.showPreview)
