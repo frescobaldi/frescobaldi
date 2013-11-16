@@ -32,7 +32,7 @@ from PyQt4.QtGui import *
 import actioncollectionmanager
 import app
 import qutil
-import help
+import userguide
 import homekey
 import icons
 import textformats
@@ -92,7 +92,7 @@ class Edit(QDialog):
             b.button(QDialogButtonBox.RestoreDefaults).clicked.connect(self.slotDefaults)
         else:
             b.setStandardButtons(buttons)
-        help.addButton(b, snippet_edit_help)
+        userguide.addButton(b, "snippet_editor")
         
         # PyQt4.10 en sip4.14.5 delete the Highlighter, even though it is
         # constructed with a parent, that's why we save it in an unused attribute.

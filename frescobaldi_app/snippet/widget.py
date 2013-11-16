@@ -27,7 +27,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
-import help
+import userguide
 import icons
 import widgets.lineedit
 import textformats
@@ -336,7 +336,7 @@ class Widget(QWidget):
         
     def slotHelp(self):
         """Called when the user clicks the small help button."""
-        help.help(snippet_help)
+        userguide.show("snippets")
         
     def currentSnippet(self):
         """Returns the name of the current snippet if it is visible."""
