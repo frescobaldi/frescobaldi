@@ -30,7 +30,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
-import help.contents
+import userguide
 import util
 import icons
 import preferences
@@ -70,7 +70,7 @@ class Versions(preferences.Group):
         self.auto = QCheckBox(clicked=self.changed)
         layout.addWidget(self.auto)
         app.translateUI(self)
-        help.openWhatsThis(self)
+        userguide.openWhatsThis(self)
     
     def defaultButtonClicked(self):
         self._defaultCommand = self.instances.listBox.currentItem()._info.command
@@ -99,7 +99,7 @@ class Versions(preferences.Group):
             "<p>If the document specifies a version, the oldest suitable LilyPond version "
             "is chosen. Otherwise, the default version is chosen.</p>\n"
             ) +
-            _("See also {link}.").format(link=help.contents.document_variables.link()))
+            _("See also {link}.").format(link=userguide.link("prefs_lilypond")))
 
     def loadSettings(self):
         s = settings()
@@ -232,7 +232,7 @@ class InfoDialog(QDialog):
         b.setStandardButtons(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         b.accepted.connect(self.accept)
         b.rejected.connect(self.reject)
-        help.addButton(b, "preferences_lilypond")
+        userguide.addButton(b, "prefs_lilypond")
         app.translateUI(self)
         
     def translateUI(self):

@@ -49,3 +49,16 @@ def addButton(box, name):
     box.addButton(QDialogButtonBox.Help).setShortcut(QKeySequence.HelpContents)
     box.helpRequested.connect(lambda: show(name))
 
+def openWhatsThis(widget, enabled=True):
+    """Open WhatsThis links in help browser if enabled is True (default)."""
+    from . import whatsthis
+    if enabled:
+        widget.installEventFilter(whatsthis.handler)
+    else:
+        widget.removeEventFilter(whatsthis.handler)
+
+def link(page):
+    """Return a HTML link to the page."""
+    from . import browser
+    return browser.format_link(page)
+
