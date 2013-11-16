@@ -23,3 +23,19 @@ The Frescobaldi User Manual.
 
 from __future__ import unicode_literals
 
+
+def show(name=None):
+    """Display the help browser and the specified help page.
+    
+    If no name is given, just display the browser.
+    
+    """
+    global _browser
+    try:
+        _browser.displayPage(name)
+    except NameError:
+        from . import browser
+        _browser = browser.Window()
+        _browser.displayPage(name or 'index')
+
+
