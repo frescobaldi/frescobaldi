@@ -132,7 +132,10 @@ class Resolver(object):
         self._variables = d = {}
         if variables:
             for v in variables:
-                name, type, text = v.split(None, 2)
+                try:
+                    name, type, text = v.split(None, 2)
+                except ValueError:
+                    continue
                 d[name] = (type, text)
     
     def format(self, text):
@@ -211,4 +214,8 @@ class Resolver(object):
         seq = mgr.action(collection_name, action_name).shortcut()
         key = seq.toString(QKeySequence.NativeText) or _("(no key defined)")
         return '<span class="shortcut">{0}</span>'.format(simplemarkdown.html_escape(key))
+
+    def handle_image(self, filename):
+        url = simplemarkdown.html_escape(filename).replace('"', '&quot;')
+        return '<img src="{0}" alt="{0}"/>'.format(url)
 

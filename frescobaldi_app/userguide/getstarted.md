@@ -20,7 +20,7 @@ start to processes your file and the PDF will be displayed in the Music View
 on the right. If LilyPond encounters any errors or warnings they will be 
 displayed in the LilyPond Log at the bottom of the screen.
 
-[img:getting_started1.png]
+{image_getting_started}
 
 The Music View has many possibilities:
 
@@ -73,3 +73,5 @@ key_engrave    shortcut engrave engrave_preview
 key_jump       shortcut musicview music_jump_to_cursor
 key_copy_image shortcut musicview music_copy_image
 key_error      shortcut logtool log_next_error
+
+image_getting_started image getting_started1.png
