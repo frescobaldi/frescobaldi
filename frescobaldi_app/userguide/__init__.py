@@ -38,4 +38,14 @@ def show(name=None):
         _browser = browser.Window()
         _browser.displayPage(name or 'index')
 
+def addButton(box, name):
+    """Adds a Help button to the specified QDialogButtonBox.
+    
+    When clicked or F1 (the system standard help key) is pressed,
+    the specified help page is opened.
+    
+    """
+    from PyQt4.QtGui import QDialogButtonBox, QKeySequence
+    box.addButton(QDialogButtonBox.Help).setShortcut(QKeySequence.HelpContents)
+    box.helpRequested.connect(lambda: show(name))
 

@@ -761,8 +761,8 @@ class MainWindow(QMainWindow):
     
     def showManual(self):
         """Shows the user guide, called when user presses F1."""
-        import help
-        help.help("contents")
+        import userguide
+        userguide.show()
     
     def showAbout(self):
         """Shows about dialog."""
