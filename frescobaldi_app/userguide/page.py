@@ -90,60 +90,6 @@ class Page(object):
         """Return the list of names of "see also" documents."""
         return self._attrs.get("SEEALSO") or []
     
-    def html(self):
-        """Return the full userguide page HTML."""
-        from info import appname, version
-        
-        def format_link(name):
-            title = simplemarkdown.html_escape(Page(name).title())
-            return '<a href="{0}">{1}</a>'.format(name, title)
-        
-        parents = []
-        if self._name:
-            pass # TODO get the parents
-        
-        qt_detail = '<qt type=detail>' if self.is_popup() else ''
-        title = self.title()
-        nav_up = ''
-        if parents and not self.is_popup():
-            nav_up = '<p>{0} {1}</p>'.format(
-                _("Up:"),
-                ' '.join(map(format_link, parents)))
-        body = self.markexternal(self.body())
-        nav_children, nav_next, nav_seealso = '', '', ''
-        if self.children():
-            nav_children = '\n'.join(
-                '<div>{0}</div>'.format(format_link(p))
-                for p in self.children())
-        elif self._name:
-            html = []
-            for p in parents:
-                i = p.children().index(page)
-                if i < len(p.children()) - 1:
-                    html.append('<div>{0} {1}</div>'.format(
-                        _("Next:"), p.children()[i+1].link()))
-            nav_next = '\n'.join(html)
-        if self.seealso():
-            html = []
-            html.append("<p>{0}</p>".format(_("See also:")))
-            html.extend('<div>{0}</div>'.format(format_link(p))
-                        for p in self.seealso())
-            nav_seealso = '\n'.join(html)
-        return self._html_template().format(**locals())
-
-    def markexternal(self, text):
-        """Marks http(s)/ftp(s) links as external with an arrow."""
-        pat = re.compile(r'''<a\s+.*?href\s*=\s*(['"])(ht|f)tps?.*?\1[^>]*>''', re.I)
-        return pat.sub(r'\g<0>&#11008;', text)
-    
-    def _html_template(self):
-        """Return the userguide html template to render the html().
-        
-        The default implementation returns the _userguide_html_template.
-        
-        """
-        return _userguide_html_template
-
 
 class HtmlOutput(simplemarkdown.HtmlOutput):
     """Colorizes LilyPond source and replaces {variables}.
@@ -275,26 +221,4 @@ class Resolver(object):
         url = simplemarkdown.html_escape(filename).replace('"', '&quot;')
         return '<img src="{0}" alt="{0}"/>'.format(url)
 
-
-_userguide_html_template = '''\
-{qt_detail}<html>
-<head>
-<style type="text/css">
-body {{
-  margin: 10px;
-}}
-</style>
-<title>{title}</title>
-</head>
-<body>
-{nav_up}
-{body}
-{nav_children}
-{nav_next}
-{nav_seealso}
-<br/><hr width=80%/>
-<address><center>{appname} {version}</center></address>
-</body>
-</html>
-'''
 
