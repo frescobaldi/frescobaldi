@@ -31,11 +31,9 @@ from PyQt4.QtGui import (
 
 import app
 import qutil
-import help
+import userguide
 import icons
 import widgets
-
-from . import prefshelp
 
 _prefsindex = 0 # global setting for selected prefs page but not saved on exit
 
@@ -120,7 +118,7 @@ class PreferencesDialog(QDialog):
             yield self.stack.widget(n)
     
     def showHelp(self):
-        help.help(self.pagelist.currentItem().help)
+        userguide.show(self.pagelist.currentItem().help)
         
     def loadSettings(self):
         """Loads the settings on reset."""
@@ -149,7 +147,7 @@ class PreferencesDialog(QDialog):
 
 
 class PrefsItemBase(QListWidgetItem):
-    help = prefshelp.preferences_dialog
+    help = "preferences"
     def __init__(self):
         super(PrefsItemBase, self).__init__()
         self._widget = None
@@ -168,7 +166,7 @@ class PrefsItemBase(QListWidgetItem):
 
 
 class General(PrefsItemBase):
-    help = prefshelp.preferences_general
+    help = "prefs_general"
     iconName = "preferences-system"
     def translateUI(self):
         self.setText(_("General Preferences"))
@@ -179,7 +177,7 @@ class General(PrefsItemBase):
         
 
 class LilyPond(PrefsItemBase):
-    help = prefshelp.preferences_lilypond
+    help = "prefs_lilypond"
     iconName = "lilypond-run"
     def translateUI(self):
         self.setText(_("LilyPond Preferences"))
@@ -190,7 +188,7 @@ class LilyPond(PrefsItemBase):
 
 
 class Midi(PrefsItemBase):
-    help = prefshelp.preferences_midi
+    help = "prefs_midi"
     iconName = "audio-volume-medium"
     def translateUI(self):
         self.setText(_("MIDI Settings"))
@@ -201,7 +199,7 @@ class Midi(PrefsItemBase):
 
 
 class Helpers(PrefsItemBase):
-    help = prefshelp.preferences_helpers
+    help = "prefs_helpers"
     iconName = "applications-other"
     def translateUI(self):
         self.setText(_("Helper Applications"))
@@ -212,7 +210,7 @@ class Helpers(PrefsItemBase):
 
 
 class Paths(PrefsItemBase):
-    help = prefshelp.preferences_paths
+    help = "prefs_paths"
     iconName = "folder-open"
     def translateUI(self):
         self.setText(_("Paths"))
@@ -223,7 +221,7 @@ class Paths(PrefsItemBase):
 
 
 class Documentation(PrefsItemBase):
-    help = prefshelp.preferences_documentation
+    help = "prefs_lilydoc"    
     iconName = "help-contents"
     def translateUI(self):
         self.setText(_("LilyPond Documentation"))
@@ -234,7 +232,7 @@ class Documentation(PrefsItemBase):
 
 
 class Shortcuts(PrefsItemBase):
-    help = prefshelp.preferences_shortcuts
+    help = "prefs_shortcuts"
     iconName = "preferences-desktop-keyboard-shortcuts"
     def translateUI(self):
         self.setText(_("Keyboard Shortcuts"))
@@ -245,7 +243,7 @@ class Shortcuts(PrefsItemBase):
         
 
 class Editor(PrefsItemBase):
-    help = prefshelp.preferences_helpers
+    help = "prefs_editor_options"
     iconName = "document-properties"
     def translateUI(self):
         self.setText(_("Editor Preferences"))
@@ -256,7 +254,7 @@ class Editor(PrefsItemBase):
 
 
 class FontsColors(PrefsItemBase):
-    help = prefshelp.preferences_fontscolors
+    help = "prefs_fonts_colors"
     iconName = "applications-graphics"
     def translateUI(self):
         self.setText(_("Fonts & Colors"))
@@ -267,7 +265,7 @@ class FontsColors(PrefsItemBase):
 
 
 class Tools(PrefsItemBase):
-    help = prefshelp.preferences_tools
+    help = "prefs_tools"
     iconName = "preferences-other"
     def translateUI(self):
         self.setText(_("Tools"))
