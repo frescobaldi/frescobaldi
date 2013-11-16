@@ -38,3 +38,24 @@ def manual_translated_by():
         return translator
     return ''
 
+def table_of_contents():
+    """Return the body of the table of contents page."""
+    from .browser import cache, format_link
+    from simplemarkdown import html_escape
+    html = ['<ul>']
+    seen = set()
+    def addpage(page):
+        if page not in seen:
+            seen.add(page)
+            html.append("<li>" + format_link(page) + "</li>\n")
+            children = cache.children(page)
+            if children:
+                html.append('<ul>')
+                for p in children:
+                    addpage(p)
+                html.append('</ul>\n')
+    for page in cache.children('index'):
+        addpage(page)
+    html.append('</ul>\n')
+    return ''.join(html)
+

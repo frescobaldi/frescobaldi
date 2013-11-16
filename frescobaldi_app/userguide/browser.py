@@ -191,13 +191,11 @@ class Formatter(object):
 
     def format_link(self, name):
         """Make a clickable link to the page."""
-        title = simplemarkdown.html_escape(cache.title(name))
-        return '<a href="{0}">{1}</a>'.format(name, title)
+        return format_link(name)
     
     def markexternal(self, text):
         """Marks http(s)/ftp(s) links as external with an arrow."""
-        pat = re.compile(r'''<a\s+.*?href\s*=\s*(['"])(ht|f)tps?.*?\1[^>]*>''', re.I)
-        return pat.sub(r'\g<0>&#11008;', text)
+        return markexternal(text)
     
     def _html_template(self):
         """Return the userguide html template to render the html().
@@ -206,6 +204,17 @@ class Formatter(object):
         
         """
         return _userguide_html_template
+
+
+def format_link(name):
+    """Make a clickable link to the page."""
+    title = simplemarkdown.html_escape(cache.title(name))
+    return '<a href="{0}">{1}</a>'.format(name, title)
+
+def markexternal(text):
+    """Marks http(s)/ftp(s) links as external with an arrow."""
+    pat = re.compile(r'''<a\s+.*?href\s*=\s*(['"])(ht|f)tps?.*?\1[^>]*>''', re.I)
+    return pat.sub(r'\g<0>&#11008;', text)
 
 
 _userguide_html_template = '''\
