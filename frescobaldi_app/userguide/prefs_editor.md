@@ -1,2 +1,2 @@
-=== Editor Options ===
+=== Editor Preferences ===
 
