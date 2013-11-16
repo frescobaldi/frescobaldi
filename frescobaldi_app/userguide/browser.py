@@ -38,25 +38,6 @@ from . import __path__
 from . import page
 
 
-# cache from userguide page name to its title
-title_cache = {}
-
-def page_title(name):
-    """Return the title of the named page.
-    
-    The result is cached until the user changes the UI translation setting.
-    
-    """
-    try:
-        t = title_cache[name]
-    except KeyError:
-        t = title_cache[name] = page.Page(name).title()
-    return t
-
-# clear the title cache when the user changes the UI translation
-app.languageChanged.connect(lambda: title_cache.clear(), -999)
-
-
 class Window(QMainWindow):
     """The help browser window."""
     def __init__(self):
@@ -175,8 +156,8 @@ class Formatter(object):
         page_ = page.Page(name)
         from info import appname, version
         
-        # TODO get the parents
-        parents = []
+        parents = cache.parents(name)
+        children = cache.children(name)
         
         qt_detail = '<qt type=detail>' if page_.is_popup() else ''
         title = page_.title()
@@ -184,20 +165,21 @@ class Formatter(object):
         if parents and not page_.is_popup():
             nav_up = '<p>{0} {1}</p>'.format(
                 _("Up:"),
-                ' '.join(map(format_link, parents)))
+                ' '.join(map(self.format_link, parents)))
         body = self.markexternal(page_.body())
         nav_children, nav_next, nav_seealso = '', '', ''
-        if page_.children():
+        if children:
             nav_children = '\n'.join(
                 '<div>{0}</div>'.format(self.format_link(c))
-                for c in page_.children())
+                for c in children)
         else:
             html = []
             for p in parents:
-                i = p.children().index(page)
-                if i < len(p.children()) - 1:
+                c = cache.children(p)
+                i = c.index(name)
+                if i < len(c) - 1:
                     html.append('<div>{0} {1}</div>'.format(
-                        _("Next:"), p.children()[i+1].link()))
+                        _("Next:"), self.format_link(c[i+1])))
             nav_next = '\n'.join(html)
         if page_.seealso():
             html = []
@@ -209,7 +191,7 @@ class Formatter(object):
 
     def format_link(self, name):
         """Make a clickable link to the page."""
-        title = simplemarkdown.html_escape(page_title(name))
+        title = simplemarkdown.html_escape(cache.title(name))
         return '<a href="{0}">{1}</a>'.format(name, title)
     
     def markexternal(self, text):
@@ -248,3 +230,53 @@ body {{
 </html>
 '''
 
+
+class Cache(object):
+    """Cache certain information about pages.
+    
+    Just one instance of this is created and put in the cache global.
+    
+    """
+    def __init__(self):
+        self._title = {}
+        self._children = {}
+        app.languageChanged.connect(lambda: self._title.clear(), -999)
+    
+    def title(self, name):
+        """Return the title of the named page."""
+        try:
+            t = self._title[name]
+        except KeyError:
+            t = self._title[name] = page.Page(name).title()
+        return t
+    
+    def children(self, name):
+        """Return the list of children of the named page."""
+        try:
+            c = self._children[name]
+        except KeyError:
+            c = self._children[name] = page.Page(name).children()
+        return c
+        
+    def parents(self, name):
+        """Return the list of parents (zero or more) of the named page."""
+        try:
+            self._parents
+        except AttributeError:
+            self._parents = {}
+            self._compute_parents()
+        try:
+            return self._parents[name]
+        except KeyError:
+            return []
+    
+    def _compute_parents(self):
+        def _compute(n1):
+            for n in self.children(n1):
+                self._parents.setdefault(n, []).append(n1)
+                _compute(n)
+        _compute('index')
+
+
+# one global Cache instance
+cache = Cache()

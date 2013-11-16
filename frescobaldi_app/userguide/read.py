@@ -41,7 +41,7 @@ def split_document(s):
     with a list of lines for every block.
     
     """
-    l = re.split(r'^#([A-Z]+)\s*$', s, flags = re.MULTILINE)
+    l = re.split(r'^#([A-Z]\w+)\s*$', s, flags = re.MULTILINE)
     i = iter(l[1:])
     return l[0], dict((name, split_lines(value)) for name, value in zip(i, i))
 
