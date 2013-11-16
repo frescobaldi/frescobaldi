@@ -90,29 +90,6 @@ class Page(object):
         """Return the list of names of "see also" documents."""
         return self._attrs.get("SEEALSO") or []
     
-    _template = '''\
-{qt_detail}<html>
-<head>
-<style type="text/css">
-body {{
-  margin: 10px;
-}}
-</style>
-<title>{title}</title>
-</head>
-<body>
-{nav_up}
-{body}
-{nav_children}
-{nav_next}
-{nav_seealso}
-<br/><hr width=80%/>
-<address><center>{appname} {version}</center></address>
-</body>
-</html>
-'''
-
-
     def html(self):
         """Return the full userguide page HTML."""
         from info import appname, version
@@ -152,12 +129,20 @@ body {{
             html.extend('<div>{0}</div>'.format(format_link(p))
                         for p in self.seealso())
             nav_seealso = '\n'.join(html)
-        return self._template.format(**locals())
+        return self._html_template().format(**locals())
 
     def markexternal(self, text):
         """Marks http(s)/ftp(s) links as external with an arrow."""
         pat = re.compile(r'''<a\s+.*?href\s*=\s*(['"])(ht|f)tps?.*?\1[^>]*>''', re.I)
         return pat.sub(r'\g<0>&#11008;', text)
+    
+    def _html_template(self):
+        """Return the userguide html template to render the html().
+        
+        The default implementation returns the _userguide_html_template.
+        
+        """
+        return _userguide_html_template
 
 
 class HtmlOutput(simplemarkdown.HtmlOutput):
@@ -290,4 +275,26 @@ class Resolver(object):
         url = simplemarkdown.html_escape(filename).replace('"', '&quot;')
         return '<img src="{0}" alt="{0}"/>'.format(url)
 
+
+_userguide_html_template = '''\
+{qt_detail}<html>
+<head>
+<style type="text/css">
+body {{
+  margin: 10px;
+}}
+</style>
+<title>{title}</title>
+</head>
+<body>
+{nav_up}
+{body}
+{nav_children}
+{nav_next}
+{nav_seealso}
+<br/><hr width=80%/>
+<address><center>{appname} {version}</center></address>
+</body>
+</html>
+'''
 
