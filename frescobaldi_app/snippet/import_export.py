@@ -37,6 +37,7 @@ import app
 import info
 import qutil
 import help
+import userguide
 import widgets.dialog
 
 from . import model
@@ -113,7 +114,7 @@ def load(filename, widget):
     dlg.setWindowTitle(app.caption(_("dialog title", "Import Snippets")))
     tree = QTreeWidget(headerHidden=True, rootIsDecorated=False)
     dlg.setMainWidget(tree)
-    help.addButton(dlg.buttonBox(), snippet_import_export_help)
+    userguide.addButton(dlg.buttonBox(), "snippet_import_export")
     
     allnames = frozenset(snippets.names())
     builtins = frozenset(builtin.builtin_snippets)

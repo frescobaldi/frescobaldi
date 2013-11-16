@@ -18,7 +18,12 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-These functions return values for python format variables in help pages.
+These functions return values for python format variables in user guide pages.
+
+Some generic functions are called by several pages, but there are also some
+specialistic, auto-generated parts of text that are used in a specific user
+guide page.
+
 """
 
 from __future__ import unicode_literals
@@ -58,4 +63,14 @@ def table_of_contents():
         addpage(page)
     html.append('</ul>\n')
     return ''.join(html)
+
+def snippet_editor_expander():
+    """Return the auto-generated list of docstrings of the snippet variables."""
+    from snippet import expand
+    text = []
+    text.append("<dl>")
+    text.extend(map("<dt><code>${0[0]}</code></dt><dd>{0[1]}</dd>".format,
+                    expand.documentation(expand.Expander)))
+    text.append("</dl>")
+    return ''.join(text)
 

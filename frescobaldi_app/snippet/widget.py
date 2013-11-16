@@ -27,6 +27,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import help
 import userguide
 import icons
 import widgets.lineedit

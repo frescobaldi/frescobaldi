@@ -28,7 +28,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
-import help
+import userguide
 import qutil
 import widgets.dialog
 
@@ -42,7 +42,7 @@ class RestoreDialog(widgets.dialog.Dialog):
     def __init__(self, parent=None):
         super(RestoreDialog, self).__init__(parent)
         self.messageLabel().setWordWrap(True)
-        help.addButton(self.buttonBox(), widget.snippet_help)
+        userguide.addButton(self.buttonBox(), "snippets")
         self.tree = QTreeWidget(headerHidden=True, rootIsDecorated=False)
         self.setMainWidget(self.tree)
         

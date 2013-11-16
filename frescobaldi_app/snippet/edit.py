@@ -32,6 +32,7 @@ from PyQt4.QtGui import *
 import actioncollectionmanager
 import app
 import qutil
+import help
 import userguide
 import homekey
 import icons
