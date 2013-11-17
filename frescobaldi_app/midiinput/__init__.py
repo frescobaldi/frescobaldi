@@ -11,7 +11,6 @@ current limitations:
 - special events not implemented yet
 
 TODO:
-  chord mode
   dynamic input
 """
 
@@ -24,14 +23,16 @@ from PyQt4.QtGui import *
 import midihub
 import midifile.event
 import midifile.parser
-import ly.pitch
 import documentinfo
+
+from . import elements
 
 
 class MidiIn:
     def __init__(self, widget):
         self._widget = weakref.ref(widget)
         self._portmidiinput = None
+        self._chord = None
     
     def widget(self):
         return self._widget()
@@ -60,12 +61,14 @@ class MidiIn:
             self.open()
         doc = self.widget().mainwindow().currentDocument()
         self._language = documentinfo.info(doc).pitchLanguage() or 'nederlands'
+        self._activenotes = 0
         self._listener.start()
     
     def capturestop(self):
         self._listener.stop()
         if not self._listener.isFinished():
             self._listener.wait()
+        self._activenotes = 0
         self.close()
     
     def analyzeevent(self, event):
@@ -76,26 +79,31 @@ class MidiIn:
         targetchannel = self.widget().channel()
         if channel == targetchannel or targetchannel == 0:    # '0' captures all
             if notetype == 9 and value > 0:    # note on with velocity > 0
-                if self.widget().accidentals() == 0:
-                    # sharps
-                    notemapping = notemapping_sharps
+                note = elements.Note(notenumber, self.widget().accidentals()==0)
+                if self.widget().chordmode():
+                    if not self._chord:    # no Chord instance?
+                        self._chord = elements.Chord()
+                    self._chord.add(note)
+                    self._activenotes += 1
                 else:
-                    # flats
-                    notemapping = notemapping_flats
-                # get correct note 0...11 = c...b
-                # and octave corresponding to octave modifiers ',' & '''
-                octave, note = divmod(notenumber, 12)
-                octave -= 4
-                pitch = ly.pitch.Pitch(notemapping[note][0], notemapping[note][1], octave)
-                cursor = self.widget().mainwindow().textCursor()
-                # check if there is a space before cursor or beginning of line
-                posinblock = cursor.position() - cursor.block().position()
-                charbeforecursor = cursor.block().text()[posinblock-1:posinblock]
-                if charbeforecursor.isspace() or cursor.atBlockStart():
-                    insertion = pitch.output(self._language)
-                else:
-                    insertion = ' ' +  pitch.output(self._language)
-                cursor.insertText(insertion)
+                    self.printwithspace(note.output(self._language))
+            elif (notetype == 8 or (notetype == 9 and value == 0)) and self.widget().chordmode():
+                self._activenotes -= 1
+                if self._activenotes <= 0:    # activenotes could get negative under strange conditions
+                    if self._chord:
+                        self.printwithspace(self._chord.output(self._language))
+                    self._activenotes = 0    # reset in case it was negative
+                    self._chord = None
+    
+    def printwithspace(self, text):
+        cursor = self.widget().mainwindow().textCursor()
+        # check if there is a space before cursor or beginning of line
+        posinblock = cursor.position() - cursor.block().position()
+        charbeforecursor = cursor.block().text()[posinblock-1:posinblock]
+        if charbeforecursor.isspace() or cursor.atBlockStart():
+            cursor.insertText(text)
+        else:
+            cursor.insertText(' ' +  text)
     
 class Listener(QThread):
     def __init__(self, portmidiinput, pollingtime):
@@ -125,30 +133,3 @@ class Listener(QThread):
     
     def stop(self):
         self._capturing = False
-
-
-notemapping_sharps = [(0, 0),    # c
-                      (0, 0.5),  # cis
-                      (1, 0),    # d
-                      (1, 0.5),  # dis
-                      (2, 0),    # e 
-                      (3, 0),    # f
-                      (3, 0.5),  # fis
-                      (4, 0),    # g
-                      (4, 0.5),  # gis
-                      (5, 0),    # a
-                      (5, 0.5),  # ais
-                      (6, 0)]    # b
-
-notemapping_flats = [(0, 0),     # c
-                     (1, -0.5),  # des
-                     (1, 0),     # d
-                     (2, -0.5),  # es
-                     (2, 0),     # e 
-                     (3, 0),     # f
-                     (4, -0.5),  # ges
-                     (4, 0),     # g
-                     (5, -0.5),  # aes
-                     (5, 0),     # a
-                     (6, -0.5),  # bes
-                     (6, 0)]     # b
