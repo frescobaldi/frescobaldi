@@ -17,9 +17,10 @@ You can use the name `text` or `title`. In that case, only the named part of
 a match is displayed. If the `title` name is used, it is displayed in a bold 
 font.
 
-For more information about regular expressions, see [search_replace].
+For more information about regular expressions, see {link}.
 
 
 #VARS
-code text `(?P<name>`...
+code md `(?P<name>`...
+link help search_replace
 
