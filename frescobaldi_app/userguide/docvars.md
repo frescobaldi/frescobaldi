@@ -17,7 +17,7 @@ The following variables are recognized:
 !`output: _(name)_;`
 : Looks for output documents (PDF, MIDI, etc.) starting with
   the specified name or comma-separated list of names.
-  [var_output More information.]
+  [var_output More information].
 
 !`coding: _(encoding)_;`
 : Use another encoding than the default UTF-8.

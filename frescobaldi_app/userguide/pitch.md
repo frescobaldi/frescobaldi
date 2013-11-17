@@ -25,4 +25,4 @@ transpose
 modal_transpose
 
 #VARS
-menu menu tools pitch
+menu menu tools -> submenu title|&Pitch

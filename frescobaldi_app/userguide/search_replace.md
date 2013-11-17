@@ -38,3 +38,7 @@ A full discussion on regular expressions can be found in the
 [http://docs.python.org/library/re.html#regular-expression-syntax
 Python documentation].
 
+#VARS
+key_search shortcut main edit_find
+key_replace shortcut main edit_replace
+menu_edit menu edit

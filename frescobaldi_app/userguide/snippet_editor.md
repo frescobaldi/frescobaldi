@@ -51,3 +51,4 @@ snippet_python
 #VARS
 directory md `frescobaldi_app/symbols`
 link help snippet_python
+file_new_from_template menu file -> New from &Template

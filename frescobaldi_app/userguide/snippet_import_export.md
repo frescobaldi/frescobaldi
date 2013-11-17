@@ -17,5 +17,5 @@ the XML file.
 
 
 #VARS
-menu_export menu Menu Export
-menu_import menu Menu Import
+menu_export menu &Menu -> &Export...
+menu_import menu &Menu -> &Import...
