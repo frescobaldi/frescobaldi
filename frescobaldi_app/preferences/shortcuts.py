@@ -96,7 +96,7 @@ class Shortcuts(preferences.Page):
         def build_menu_item(action):
             """Return a QTreeWidgetItem with children for all the actions in the submenu."""
             menuitem = QTreeWidgetItem()
-            text = qutil.removeAccelelator(action.text())
+            text = qutil.removeAccelerator(action.text())
             menuitem.setText(0, _("Menu {name}").format(name=text))
             add_actions(menuitem, action.menu().actions())
             return menuitem
@@ -219,7 +219,7 @@ class Shortcuts(preferences.Page):
                 if i != item and a.shortcuts():
                     for s1 in a.shortcuts():
                         if s1.matches(shortcut) or shortcut.matches(s1):
-                            return qutil.removeAccelelator(a.text())
+                            return qutil.removeAccelerator(a.text())
         return None           
     
     def editCurrentItem(self):
@@ -260,7 +260,7 @@ class ShortcutItem(QTreeWidgetItem):
         self.collection = collection
         self.name = name
         self.setIcon(0, action.icon())
-        self.setText(0, qutil.removeAccelelator(action.text()))
+        self.setText(0, qutil.removeAccelerator(action.text()))
         self._shortcuts = {}
         
     def clearSettings(self):

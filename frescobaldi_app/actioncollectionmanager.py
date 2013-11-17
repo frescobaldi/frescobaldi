@@ -91,7 +91,7 @@ class ActionCollectionManager(plugin.MainWindowPlugin):
             for data in self.iterShortcuts(skip):
                 s1 = data[0]
                 if s1.matches(shortcut) or shortcut.matches(s1):
-                    return qutil.removeAccelelator(data[-1].text())
+                    return qutil.removeAccelerator(data[-1].text())
         return None
     
     def removeShortcuts(self, shortcuts):
