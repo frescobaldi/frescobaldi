@@ -76,7 +76,7 @@ key_error      shortcut logtool log_next_error
 
 image_getting_started image getting_started1.png
 
-menu_clear_error_marks    menu menu title|&View -> Clear &Error Marks
-menu_copy_image           menu menu title|&Edit -> Copy to &Image...
-menu_engrave              menu menu title|&LilyPond -> Engrave (&publish)
-menu_preferences_lilypond menu menu title|&Edit -> Pr&eferences... -> LilyPond Preferences
+menu_clear_error_marks    menu view -> Clear &Error Marks
+menu_copy_image           menu edit -> Copy to &Image...
+menu_engrave              menu lilypond -> Engrave (&publish)
+menu_preferences_lilypond menu edit -> Pr&eferences... -> LilyPond Preferences

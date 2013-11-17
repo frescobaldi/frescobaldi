@@ -25,5 +25,5 @@ toc
 author text Wilbert Berendsen
 key_help shortcut main help_manual
 key_whatsthis shortcut main help_whatsthis
-menu_whatsthis menu menu title|&Help -> &What's This?
+menu_whatsthis menu help -> &What's This?
 

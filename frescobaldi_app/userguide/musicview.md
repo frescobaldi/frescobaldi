@@ -12,7 +12,7 @@ with the text document:
 * Move the mouse pointer over music objects to highlight them in the text
 * Click an object to move the text cursor to that object
 * Shift-click an object to edit its text in a small window (see 
-  [musicview_editinplace])
+  {musicview_editinplace})
 * Move the text cursor to highlight them in the music view, press
   {key_music_jump_to_cursor} to scroll them into view.
 
@@ -30,3 +30,10 @@ application.
 
 #SEEALSO
 musicview_editinplace
+
+#VARS
+musicview_editinplace help musicview_editinplace
+key_music_copy_image shortcut musicview music_copy_image
+key_music_jump_to_cursor shortcut musicview music_jump_to_cursor
+menu_music_copy_image menu edit -> Copy to &Image...
+settings_preview_background menu edit -> Pr&eferences... -> !Fonts & Colors -> Base Colors -> Background

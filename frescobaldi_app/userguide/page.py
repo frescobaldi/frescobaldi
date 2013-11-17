@@ -224,12 +224,45 @@ class Resolver(object):
         When an item contains a "|", the part before the "|" is the message
         context.
         
+        When an item starts with "!", the accelerators are not removed (i.e.
+        it is not an action or menu name).
+        
         """
         pieces = [name.strip() for name in text.split('->')]
         import qutil
-        translated = [qutil.removeAccelerator(
-                        _(*name.split('|', 1)) if '|' in name else _(name)).strip('.')
-                      for name in pieces]
+        def title(name):
+            """Return a translated title for the name."""
+            try:
+                name = {
+                    # untranslated standard menu names
+                    'file': 'menu title|&File',
+                    'edit': 'menu title|&Edit',
+                    'view': 'menu title|&View',
+                    'insert': 'menu title|&Insert',
+                    'music': 'menu title|&Music',
+                    'lilypond': 'menu title|&LilyPond',
+                    'tools': 'menu title|&Tools',
+                    'window': 'menu title|&Window',
+                    'sessions': 'menu title|&Sessions',
+                    'help': 'menu title|&Help',
+                }[name]
+            except KeyError:
+                pass
+            if name.startswith('!'):
+                removeAccel = False
+                name = name[1:]
+            else:
+                removeAccel = True
+            try:
+                ctxt, msg = name.split('|', 1)
+                translation = _(ctxt, msg)
+            except ValueError:
+                translation = _(name)
+            if removeAccel:
+                translation = qutil.removeAccelerator(translation).strip('.')
+            return translation
+            
+        translated = [title(name) for name in pieces]
         return '<em>{0}</em>'.format('&#8594;'.join(translated))
         
     def handle_image(self, filename):

@@ -53,4 +53,4 @@ Here you can insert bar lines or various breathing signs.
 
 
 #VARS
-command unicode \u2318
+command html &#x2318;
