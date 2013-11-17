@@ -75,3 +75,8 @@ key_copy_image shortcut musicview music_copy_image
 key_error      shortcut logtool log_next_error
 
 image_getting_started image getting_started1.png
+
+menu_clear_error_marks    menu menu title|&View -> Clear &Error Marks
+menu_copy_image           menu menu title|&Edit -> Copy to &Image...
+menu_engrave              menu menu title|&LilyPond -> Engrave (&publish)
+menu_preferences_lilypond menu menu title|&Edit -> Pr&eferences... -> LilyPond Preferences

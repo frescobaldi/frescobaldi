@@ -216,7 +216,22 @@ class Resolver(object):
         seq = mgr.action(collection_name, action_name).shortcut()
         key = seq.toString(QKeySequence.NativeText) or _("(no key defined)")
         return '<span class="shortcut">{0}</span>'.format(simplemarkdown.html_escape(key))
-
+    
+    def handle_menu(self, text):
+        """Split the text on '->' in menu or action titles and translate them.
+        
+        The pieces are then formatted as a nice menu path.
+        When an item contains a "|", the part before the "|" is the message
+        context.
+        
+        """
+        pieces = [name.strip() for name in text.split('->')]
+        import qutil
+        translated = [qutil.removeAccelerator(
+                        _(*name.split('|', 1)) if '|' in name else _(name))
+                      for name in pieces]
+        return '<em>{0}</em>'.format('&#8594;'.join(translated))
+        
     def handle_image(self, filename):
         url = simplemarkdown.html_escape(filename).replace('"', '&quot;')
         return '<img src="{0}" alt="{0}"/>'.format(url)
