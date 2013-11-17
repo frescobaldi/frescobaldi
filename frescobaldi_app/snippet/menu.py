@@ -115,7 +115,7 @@ class InsertMenu(SnippetMenu):
         self.addAction(self.tool().actionCollection.snippettool_activate)
         
     def translateUI(self):
-        self.setTitle(_("&Insert"))
+        self.setTitle(_("menu title", "&Insert"))
     
     def insertBeforeAction(self):
         return self.actions()[-1]

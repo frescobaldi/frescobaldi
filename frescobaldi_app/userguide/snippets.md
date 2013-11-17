@@ -30,9 +30,7 @@ snippet_import_export
 #VARS
 link help snippet_editor
 key_snippets shortcut snippettool snippettool_activate
-
-#TODO
-menu_snippets = help.menu(_("menu title", "Insert"), _("Snippets...")),
-key_add = help.shortcut(QKeySequence(Qt.Key_Insert)),
-key_edit = help.shortcut(QKeySequence(Qt.Key_F2)),
-key_delete = help.shortcut(QKeySequence(Qt.CTRL + Qt.Key_Delete)))
+menu_snippets menu insert -> &Snippets...
+key_add text INS
+key_edit text F2
+key_delete text Ctrl+DEL

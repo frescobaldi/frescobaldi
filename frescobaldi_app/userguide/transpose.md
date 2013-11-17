@@ -22,7 +22,8 @@ c bes,
 or:
 
 ```lilypond
-d c```
+d c
+```
 
 It is also possible to use the transpose function to change a piece of music
 from C-sharp to D-flat, or to specify quarter tones if supported in the
