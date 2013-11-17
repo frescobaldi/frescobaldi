@@ -156,7 +156,7 @@ class Formatter(object):
         page_ = page.Page(name)
         from info import appname, version
         
-        parents = cache.parents(name)
+        parents = cache.parents(name) if name != 'index' else []
         children = cache.children(name)
         
         qt_detail = '<qt type=detail>' if page_.is_popup() else ''
