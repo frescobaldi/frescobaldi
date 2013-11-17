@@ -228,7 +228,7 @@ class Resolver(object):
         pieces = [name.strip() for name in text.split('->')]
         import qutil
         translated = [qutil.removeAccelerator(
-                        _(*name.split('|', 1)) if '|' in name else _(name))
+                        _(*name.split('|', 1)) if '|' in name else _(name)).strip('.')
                       for name in pieces]
         return '<em>{0}</em>'.format('&#8594;'.join(translated))
         
