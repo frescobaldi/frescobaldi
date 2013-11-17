@@ -2,7 +2,7 @@
 
 Frescobaldi is named after
 [http://en.wikipedia.org/wiki/Girolamo_Frescobaldi
-Girolamo Frescobaldi (1583 &#8211; 1643)],
+Girolamo Frescobaldi (1583-1643)],
 an Italian organist and composer.
 
 Frescobaldi's homepage is at [http://www.frescobaldi.org/]
