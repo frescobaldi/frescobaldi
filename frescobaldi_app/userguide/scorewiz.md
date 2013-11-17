@@ -39,4 +39,4 @@ The scores will then use the parts in the top level of the score.
 
 #VARS
 key shortcut scorewiz scorewiz
-menu menu "Tools" "Setup New Score..."
+menu menu menu title|&File -> New Score with &Wizard...
