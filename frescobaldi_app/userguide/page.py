@@ -243,7 +243,7 @@ class Resolver(object):
                     'lilypond': 'menu title|&LilyPond',
                     'tools': 'menu title|&Tools',
                     'window': 'menu title|&Window',
-                    'sessions': 'menu title|&Sessions',
+                    'session': 'menu title|&Session',
                     'help': 'menu title|&Help',
                 }[name]
             except KeyError:

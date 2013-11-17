@@ -17,3 +17,7 @@ You can also specify a default directory for the session.
 
 #SEEALSO
 prefs_general
+
+#VARS
+menu_session_new menu session -> New Session|&New...
+menu_session_save menu session -> &Save

@@ -16,3 +16,6 @@ makes sure that LilyPond deletes e.g. PostScript files after they have been
 converted to PDF.
 
 Most of these settings are reflected in the Command Line text edit field.
+
+#VARS
+key_engrave_custom shortcut engrave engrave_custom

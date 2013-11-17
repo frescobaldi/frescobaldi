@@ -108,3 +108,6 @@ Include Custom File
 
 #SUBDOCS
 engrave_layout_configure
+
+#VARS
+menu_layout_control menu tools -> Layout Control &Options
