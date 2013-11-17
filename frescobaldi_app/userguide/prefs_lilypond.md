@@ -4,8 +4,7 @@ Here you can configure how LilyPond is run when you engrave your document.
 
 If you have multiple versions of LilyPond installed you can specify them 
 here, and configure Frescobaldi to automatically choose the right one, based 
-on the version number that is set in the document. See 
-[prefs_lilypond_autoversion].
+on the version number that is set in the document. See {link}.
 
 If the LilyPond executable is not in your system's PATH you can specify the 
 full path here so Frescobaldi can run it. For the helper applications like 
@@ -17,3 +16,6 @@ the settings for more information.
 
 Finally, you can specify a list of paths where the LilyPond `\include`
 command looks for files.
+
+#VARS
+link help prefs_lilypond_autoversion
