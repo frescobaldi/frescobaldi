@@ -1,4 +1,4 @@
-=== Engraving: Preview mode ===
+=== Preview mode ===
 
 This mode runs LilyPond with the `-dpoint-and-click` commandline option.
 This enables the clickable notes and other objects in the PDF.

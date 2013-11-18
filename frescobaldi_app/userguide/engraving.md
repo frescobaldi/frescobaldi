@@ -19,8 +19,8 @@ PostScript, SVG or PNG images, or to a PDF using the EPS backend.
 #SUBDOCS
 engrave_preview
 engrave_publish
-engrave_custom
 engrave_layout
+engrave_custom
 
 #SUBDOCS_TODO
 engrave_automatic

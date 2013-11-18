@@ -1,4 +1,4 @@
-=== Engraving: Publish mode ===
+=== Publish mode ===
     
 When engraving a score in Publication mode the point-and-click information 
 isn't generated. This will prevent a reader of the resulting PDF document 
