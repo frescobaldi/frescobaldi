@@ -76,6 +76,23 @@ def chop_left(string, chars=None):
     """Return the string that string.lstrip(chars) would chop off."""
     return string[:-len(string.lstrip(chars))]
 
+def find_first(string, chars, start=0, end=None):
+    """Return a tuple (char, pos) for the first occurrence of any of the chars.
+    
+    If char is None, then pos is undefined and it means there is no occurrence.
+    
+    """
+    pos = end
+    char = None
+    for c in chars:
+        i = string.find(c, start, pos)
+        if i == start:
+            return c, start
+        elif i > start:
+            char = c
+            pos = i
+    return char, pos
+            
 def iter_split(text, separator):
     """Yield pairs of text before and after the separator."""
     while True:
