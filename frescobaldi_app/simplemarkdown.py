@@ -80,6 +80,8 @@ def find_first(string, chars, start=0, end=None):
     """Return a tuple (char, pos) for the first occurrence of any of the chars.
     
     If char is None, then pos is undefined and it means there is no occurrence.
+    The start and end arguments can be used as in "".find, to restrict the
+    search to a certain part of the string.
     
     """
     pos = end
@@ -88,11 +90,11 @@ def find_first(string, chars, start=0, end=None):
         i = string.find(c, start, pos)
         if i == start:
             return c, start
-        elif i > start:
+        elif i != -1:
             char = c
             pos = i
     return char, pos
-            
+
 def iter_split(text, separator):
     """Yield pairs of text before and after the separator."""
     while True:
