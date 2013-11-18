@@ -389,43 +389,61 @@ class Parser(object):
     def parse_inline_text(self, text):
         """Parse a continuous text block with possibly inline markup."""
         with self.output('inline'):
-            self.parse_inline_links(text)
-    
-    def parse_inline_links(self, text):
-        """Parse text for links."""
-        # TODO escape [ and ] ?
-        for nolink, link in iter_split2(text, '[', ']'):
-            if nolink:
-                self.parse_inline_emphasis(nolink)
-            if link:
-                l = link.split(None, 1)
-                if len(l) == 0:
-                    self.output_inline_text('[' + link + ']')
-                    continue
-                elif len(l) == 1:
-                    url = text = l[0]
-                else:
-                    url, text = l
-                with self.output('link', url):
-                    self.parse_inline_emphasis(text)
-        
-    def parse_inline_emphasis(self, text):
-        """Parse a piece of text for emphasis formatting."""
-        for normal, emph in iter_split(text, '*'):
-            if normal:
-                self.parse_inline_code(normal)
-            if emph:
-                with self.output('inline_emphasis'):
-                    self.parse_inline_code(emph)
-        
-    def parse_inline_code(self, text):
-        """Parse a piece of text for code formatting."""
-        for text, code in iter_split(text, '`'):
-            if text:
-                self.output_inline_text(text)
-            if code:
-                with self.output('inline_code'):
-                    self.output_inline_text(code)
+            nest = []
+            for text, code in iter_split(text, '`'):
+                while text:
+                    in_link = 'link' in nest
+                    in_emph = nest and nest[-1] == 'emph'
+                    emph = text.find('*')
+                    link = text.find(']' if in_link else '[')
+                    if emph == -1 and link == -1:
+                        self.output_inline_text(text)
+                        break
+                    elif emph > -1 and (link == -1 or emph < link):
+                        if emph > 0:
+                            self.output_inline_text(text[:emph])
+                        if in_emph:
+                            self.output.pop()
+                            nest.pop()
+                        else:
+                            self.output.push('inline_emphasis')
+                            nest.append('emph')
+                        text = text[emph+1:]
+                    elif link > -1:
+                        if link > 0:
+                            self.output_inline_text(text[:link])
+                        if in_link:
+                            while True:
+                                self.output.pop()
+                                if nest.pop() == 'link':
+                                    break
+                            text = text[link+1:]
+                        else:
+                            chars = []
+                            for c in ' \n\t]':
+                                end = text.find(c, link + 1)
+                                if end != -1:
+                                    chars.append((end, c))
+                            if chars:
+                                end, c = min(chars)
+                                if c == ']':
+                                    with self.output('link', text[link+1:end]):
+                                        self.output_inline_text(text[link+1:end])
+                                    text = text[end+1:]
+                                else:
+                                    self.output.push('link', text[link+1:end])
+                                    nest.append('link')
+                                    text = text[end+1:].lstrip()
+                            else:
+                                self.output.push('link', text[link+1:])
+                                nest.append('link')
+                                break
+                if code:
+                    with self.output('inline_code'):
+                        self.output_inline_text(code)
+            while nest:
+                nest.pop()
+                self.output.pop()
     
     def output_inline_text(self, text):
         """Append an 'inline_text' to the output."""
