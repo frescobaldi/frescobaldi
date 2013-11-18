@@ -36,7 +36,7 @@ import htmldiff
 import document
 import widgets.dialog
 import documentwatcher
-import help.html
+import userguide
 
 from . import enabled, setEnabled
 
@@ -92,7 +92,7 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
     
         app.translateUI(self)
         qutil.saveDialogSize(self, 'externalchanges/dialog/size', QSize(400, 200))
-        help.addButton(self.buttonBox(), "help_external_changes")
+        userguide.addButton(self.buttonBox(), "externalchanges")
         self.button('close').setFocus()
     
     def translateUI(self):
@@ -281,29 +281,5 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
         dlg.setAttribute(Qt.WA_DeleteOnClose)
         qutil.saveDialogSize(dlg, "externalchanges/diff/dialog/size", QSize(600, 300))
         dlg.show()
-
-
-class help_external_changes(help.page):
-    def title():
-        return _("Modified Files")
-    
-    def body():
-        return help.html.p(
-        _("Frescobaldi can detect if files are modified or deleted by other "
-          "applications."),
-        _("When another application modifies or deletes one or more documents "
-          "that are opened in Frescobaldi, a list of affected documents is "
-          "displayed, and you can choose whether to reload one or more "
-          "documents from disk, or to save them, discarding the modifications "
-          "made by the other application."),
-        _("When a document is reloaded, you can still press {undokey} to get "
-          "back the document as it was in memory before reloading it from disk."
-           ).format(undokey=help.shortcut(help.action("main", "edit_undo"))),
-        _("Press the <em>{showdiff}</em> button to see the difference between the "
-          "current document and its version on disk.").format(
-            showdiff=_("Show Difference...")),
-        _("If you don't want to be warned when a document is changed or deleted "
-          "by another application, uncheck the <em>{action}</em> checkbox."
-          ).format(action=_("Enable watching documents for external changes")))
 
 
