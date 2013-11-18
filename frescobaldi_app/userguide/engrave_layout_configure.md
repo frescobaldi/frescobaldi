@@ -46,8 +46,8 @@ Color explicit directions
         list of grobs such as e.g.
         
         ```lilypond
-        #(define debug-direction-grob-list '(DynamicText Script))
-        ```
+#(define debug-direction-grob-list '(DynamicText Script))
+```
         
 
 Display Grob Anchors
@@ -61,8 +61,8 @@ Display Grob Anchors
         list of grobs such as e.g.
         
         ```lilypond
-        #(define debug-grob-anchors-grob-list '(Script NoteHead))
-        ```
+#(define debug-grob-anchors-grob-list '(Script NoteHead))
+```
         
 
 Display Grob Names
@@ -76,8 +76,8 @@ Display Grob Names
         list of grobs such as e.g. 
         
         ```lilypond
-        #(define debug-grob-names-grob-list '(Script NoteHead))
-        ```
+#(define debug-grob-names-grob-list '(Script NoteHead))
+```
 
 The remaining modes are built-in to LilyPond and don't have any configuration
 options.
