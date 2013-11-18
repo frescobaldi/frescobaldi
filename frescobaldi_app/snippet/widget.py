@@ -27,7 +27,6 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
-import help
 import userguide
 import icons
 import widgets.lineedit
@@ -402,80 +401,5 @@ class SearchLineEdit(widgets.lineedit.LineEdit):
             QApplication.sendEvent(self.parent().treeView, ev)
             return True
         return super(SearchLineEdit, self).event(ev)
-
-
-class snippet_help(help.page):
-    def title():
-        return _("Snippets")
-    
-    def body():
-        key_snippets = help.shortcut(help.action("snippettool", "snippettool_activate"))
-        return _("""\
-<p>
-With the snippets manager you can store often used pieces of text called
-"snippets", and easily paste them into the text editor.
-</p>
-
-<p>
-The snippets manager can be activated via the menu {menu_snippets} or
-by pressing {key_snippets}.
-</p>
-
-<p>
-Snippets can be searched by browsing the list or by typing some characters
-in the search entry.
-Snippets can also have keyboard shortcuts applied to them.
-Some snippets have a special mnemonic (short name) which you can also type
-in the search entry to select the snippet. Pressing the Return key will then
-apply the snippet to the text editor and hide the snippets manager.
-</p>
-
-<p>
-Add new snippets using {key_add}. Edit the selected snippet with {key_edit}.
-Remove selected snippets using {key_delete}. Warning: this cannot be undone!
-</p>
-
-<p>
-Snippets can also be put in the menu (see {link}).
-And finally, there are snippets which can include or alter selected text.
-Some snippets do this by using special variables, while others are small
-scripts written in Python.
-</p>
-""").format(link = edit.snippet_edit_help.link(),
-            menu_snippets = help.menu(_("menu title", "Insert"), _("Snippets...")),
-            key_snippets = key_snippets,
-            key_add = help.shortcut(QKeySequence(Qt.Key_Insert)),
-            key_edit = help.shortcut(QKeySequence(Qt.Key_F2)),
-            key_delete = help.shortcut(QKeySequence(Qt.CTRL + Qt.Key_Delete)))
-
-    def children():
-        from . import import_export
-        return (
-            edit.snippet_edit_help,
-            snippet_maintaining_library,
-            import_export.snippet_import_export_help,
-        )
-
-
-class snippet_maintaining_library(help.page):
-    def title():
-        return _("Maintaining a library of snippets")
-    
-    def body():
-        from help.html import p
-        return p(
-        _("To keep a certain group of snippets manageable as a snippet "
-          "library, you can of course prefix the snippet titles with some sort "
-          "of special name. But a smarter way is to use a snippet variable."),
-        _("It is suggested to use the \"{set}\" variable, and set it to the "
-          "name of the library you want the snippet to belong to.").format(
-          set='<code>set</code>'),
-        _("Then in the snippet manager, you can easily select all the snippets "
-          "belonging to the library by entering <code>:{set} name</code> in "
-          "the snippet search bar, where \"name\" is the name you want to use. "
-          "And then e.g. export the snippets to an XML "
-          "file for sharing the snippets with others.").format(set="set"),
-        )
-
 
 

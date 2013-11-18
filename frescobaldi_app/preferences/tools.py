@@ -32,7 +32,7 @@ from PyQt4.QtGui import (
     QSpinBox, QVBoxLayout, QWidget)
 
 import app
-import help
+import userguide
 import qutil
 import preferences
 import popplerview
@@ -320,11 +320,10 @@ class Outline(preferences.Group):
 
 class OutlinePatterns(widgets.listedit.ListEdit):
     def openEditor(self, item):
-        import preferences.prefshelp
         dlg = widgets.dialog.TextDialog(None,
             _("Enter a regular expression to match:"),
             app.caption("Outline"))
-        help.addButton(dlg.buttonBox(), preferences.prefshelp.preferences_tools_outline)
+        userguide.addButton(dlg.buttonBox(), "outline_configure")
         dlg.setValidateFunction(is_regex)
         dlg.setText(item.text())
         if dlg.exec_():
