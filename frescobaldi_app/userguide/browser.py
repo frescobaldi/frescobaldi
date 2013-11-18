@@ -163,15 +163,22 @@ class Formatter(object):
         title = page_.title()
         nav_up = ''
         if parents and not page_.is_popup():
+            pp = parents
+            links = []
+            while pp:
+                p = pp[0]
+                links.append(p)
+                pp = cache.parents(p)
             nav_up = '<p>{0} {1}</p>'.format(
                 _("Up:"),
-                ' '.join(map(self.format_link, parents)))
+                ' &#8594; '.join(map(self.format_link, reversed(links))))
         body = self.markexternal(page_.body())
         nav_children, nav_next, nav_seealso = '', '', ''
         if children:
-            nav_children = '\n'.join(
-                '<div>{0}</div>'.format(self.format_link(c))
-                for c in children)
+            nav_children = '<p>{0}</p>\n<ul>{1}</ul>'.format(
+                _("In this chapter:"),
+                '\n'.join('<li>{0}</li>'.format(self.format_link(c))
+                for c in children))
         else:
             html = []
             for p in parents:
@@ -182,11 +189,9 @@ class Formatter(object):
                         _("Next:"), self.format_link(c[i+1])))
             nav_next = '\n'.join(html)
         if page_.seealso():
-            html = []
-            html.append("<p>{0}</p>".format(_("See also:")))
-            html.extend('<div>{0}</div>'.format(self.format_link(p))
-                        for p in page_.seealso())
-            nav_seealso = '\n'.join(html)
+            nav_seealso = "<p>{0} {1}</p>".format(
+                _("See also:"),
+                ', '.join(map(self.format_link, page_.seealso())))
         return self._html_template().format(**locals())
 
     def format_link(self, name):

@@ -263,7 +263,7 @@ class Resolver(object):
             return translation
             
         translated = [title(name) for name in pieces]
-        return '<em>{0}</em>'.format('&#8594;'.join(translated))
+        return '<em>{0}</em>'.format(' &#8594; '.join(translated))
         
     def handle_image(self, filename):
         url = simplemarkdown.html_escape(filename).replace('"', '&quot;')
