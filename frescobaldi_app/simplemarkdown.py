@@ -411,50 +411,41 @@ class Parser(object):
                 while text:
                     in_link = 'link' in nest
                     in_emph = nest and nest[-1] == 'emph'
-                    emph = text.find('*')
-                    link = text.find(']' if in_link else '[')
-                    if emph == -1 and link == -1:
+                    char, pos = find_first(text, '*]' if in_link else '*[')
+                    if not char:
                         self.output_inline_text(text)
                         break
-                    elif emph > -1 and (link == -1 or emph < link):
-                        if emph > 0:
-                            self.output_inline_text(text[:emph])
+                    if pos:
+                        self.output_inline_text(text[:pos])
+                    if char == '*':
                         if in_emph:
                             self.output.pop()
                             nest.pop()
                         else:
                             self.output.push('inline_emphasis')
                             nest.append('emph')
-                        text = text[emph+1:]
-                    elif link > -1:
-                        if link > 0:
-                            self.output_inline_text(text[:link])
+                        text = text[pos+1:]
+                    else:
                         if in_link:
                             while True:
                                 self.output.pop()
                                 if nest.pop() == 'link':
                                     break
-                            text = text[link+1:]
+                            text = text[pos+1:]
                         else:
-                            chars = []
-                            for c in ' \n\t]':
-                                end = text.find(c, link + 1)
-                                if end != -1:
-                                    chars.append((end, c))
-                            if chars:
-                                end, c = min(chars)
-                                if c == ']':
-                                    with self.output('link', text[link+1:end]):
-                                        self.output_inline_text(text[link+1:end])
-                                    text = text[end+1:]
-                                else:
-                                    self.output.push('link', text[link+1:end])
-                                    nest.append('link')
-                                    text = text[end+1:].lstrip()
-                            else:
-                                self.output.push('link', text[link+1:])
+                            char, end = find_first(text, ' \n\t]', pos + 1)
+                            if not char:
+                                self.output.push('link', text[pos+1:])
                                 nest.append('link')
                                 break
+                            elif char == ']':
+                                with self.output('link', text[pos+1:end]):
+                                    self.output_inline_text(text[pos+1:end])
+                                text = text[end+1:]
+                            else:
+                                self.output.push('link', text[pos+1:end])
+                                nest.append('link')
+                                text = text[end+1:].lstrip()
                 if code:
                     with self.output('inline_code'):
                         self.output_inline_text(code)
