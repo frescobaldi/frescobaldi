@@ -31,35 +31,10 @@ from PyQt4.QtGui import (
 
 import app
 import info
-import credits
 import icons
 import helpers
 import bugreport
-import language_names
-import po.setup
-
-def credits_paragraphs():
-    """Yield paragraphs for the credits page."""
-    for t in credits.credits():
-        yield t
-
-    yield _("The following people contributed to {appname}:").format(
-        appname=info.appname)
-    
-    for name, contributions in credits.authors():
-        yield "{author}: {contributions}".format(
-            author = name,
-            contributions = ", ".join(contributions))
-	
-    # translations
-    yield _(
-        "{appname} is translated into the following languages:").format(
-        appname=info.appname)
-    lang = QSettings().value("language", "", type("")) or po.setup.current() or None
-    langs = [(language_names.languageName(code, lang), names)
-             for code, names in credits.translators.items()]
-    for lang, names in sorted(langs):
-        yield lang + ": " + (', '.join(names))
+import userguide.page
 
 
 class AboutDialog(QDialog):
@@ -119,7 +94,7 @@ class Credits(QTextBrowser):
         super(Credits, self).__init__(parent)
         self.setOpenLinks(False)
         self.anchorClicked.connect(helpers.openUrl)
-        self.setHtml('\n'.join(map('<p>{0}</p>'.format, credits_paragraphs())))
+        self.setHtml(userguide.page.Page('credits').body())
 
 
 class Version(QTextBrowser):
