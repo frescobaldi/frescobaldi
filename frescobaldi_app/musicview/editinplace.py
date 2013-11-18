@@ -27,11 +27,12 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import actioncollectionmanager
 import autocomplete.analyzer
 import autocomplete.completer
 import cursordiff
 import cursortools
-import help.html
+import userguide
 import highlighter
 import homekey
 import indent
@@ -65,7 +66,7 @@ class Dialog(widgets.dialog.Dialog):
         self.matcher = Matcher(self.view)
         self.completer = Completer(self.view)
         self.setMainWidget(self.view)
-        help.addButton(self.buttonBox(), help_musicview_editinplace)
+        userguide.addButton(self.buttonBox(), "musicview_editinplace")
         # action for completion popup
         self._showPopupAction = QAction(None, triggered=self.slotCompletionPopup)
         self.addAction(self._showPopupAction)
@@ -84,7 +85,7 @@ class Dialog(widgets.dialog.Dialog):
     
     def readSettings(self):
         self._showPopupAction.setShortcut(
-            help.action("autocomplete", "popup_completions").shortcut())
+            actioncollectionmanager.action("autocomplete", "popup_completions").shortcut())
         
     def edit(self, cursor):
         """Edit the block at the specified QTextCursor."""
@@ -240,19 +241,5 @@ class Analyzer(autocomplete.analyzer.Analyzer):
         """Reimplemented to return the cursor of the real document."""
         return self._document_cursor
 
-
-class help_musicview_editinplace(help.page):
-    def title():
-        return _("Edit in Place")
-    
-    def body():
-        return help.html.p(
-        _("In this dialog you can edit one line of the text document."),
-        _("Click OK or press {key} to place the modified text in the document.").format(
-        key=QKeySequence("Ctrl+Return").toString(QKeySequence.NativeText)),
-        _("You can open the \"Edit in Place\" dialog by Shift-clicking a "
-          "clickable object in the Music View or by right-clicking the object "
-          "and selecting {menu}.").format(menu=help.menu(_("Edit in Place"))),
-        )
 
 

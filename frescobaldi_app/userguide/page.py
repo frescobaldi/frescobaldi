@@ -213,8 +213,8 @@ class Resolver(object):
         """Return the keystroke currently defined for the action."""
         collection_name, action_name = text.split(None, 1)
         import actioncollectionmanager
-        mgr = actioncollectionmanager.ActionCollectionManager.instances()[0]
-        seq = mgr.action(collection_name, action_name).shortcut()
+        action = actioncollectionmanager.action(collection_name, action_name)
+        seq = action.shortcut()
         key = seq.toString(QKeySequence.NativeText) or _("(no key defined)")
         return '<span class="shortcut">{0}</span>'.format(simplemarkdown.html_escape(key))
     

@@ -38,6 +38,15 @@ def manager(mainwindow):
     """Returns the ActionCollectionManager belonging to mainwindow."""
     return ActionCollectionManager.instance(mainwindow)
 
+def action(collection_name, action_name):
+    """Return a QAction from the application.
+    
+    May return None, if the named collection or action does not exist.
+    
+    """
+    mgr = ActionCollectionManager.instances()[0]
+    return mgr.action(collection_name, action_name)
+
 
 class ActionCollectionManager(plugin.MainWindowPlugin):
     """Manages ActionCollections for a MainWindow."""
