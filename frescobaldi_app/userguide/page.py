@@ -25,6 +25,7 @@ from __future__ import unicode_literals
 
 import re
 
+from PyQt4.QtCore import QSettings
 from PyQt4.QtGui import QKeySequence
 
 import simplemarkdown
@@ -269,4 +270,10 @@ class Resolver(object):
         url = simplemarkdown.html_escape(filename).replace('"', '&quot;')
         return '<img src="{0}" alt="{0}"/>'.format(url)
 
+    def handle_languagename(self, code):
+        """Return a language name in the current language."""
+        import po.setup
+        lang = QSettings().value("language", "", type("")) or po.setup.current() or None
+        import language_names
+        return language_names.languageName(code, lang)
 

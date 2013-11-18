@@ -11,31 +11,34 @@ Most of the bundled icons are created by
 
 The following people contributed to {appname}:
 
-!Wilbert Berendsen
+!Wilbert Berendsen:
 : Main author and core developer
 
-!Richard Cognot
+!Richard Cognot:
 : Kinetic Scrolling for the Music View
 
-!Nicolas Malarmey
+!Nicolas Malarmey:
 : Improved highlighting and auto-completion of Scheme code
 
-!Urs Liska
+!Urs Liska:
 : Layout control modes and various other contributions
 
-!Christopher Bryan
+!Christopher Bryan:
 : Modal Transpose
 
-!Peter Bjuhr
+!Peter Bjuhr:
 : Quick Insert buttons for grace notes, and MusicXML im- and export
+
+!Mario Moles
+: Finding lots of bugs
 
 
 {appname} is translated into the following languages:
 
-{lang.nl}
+{lang_nl}:
 : !Wilbert Berendsen
 
-{lang.fr}
+{lang_fr}:
 :  !Raphaël Doursenaud,
     Denis Bitouzé,
     Philippe Massart,
@@ -45,42 +48,54 @@ The following people contributed to {appname}:
     Ryan Kavanagh,
     Richard Cognot
 
-{lang.tr}
+{lang_tr}:
 :  !Server ACİM
 
-{lang.es}
+{lang_es}:
 :  !Francisco Vila
 
-{lang.ru}
+{lang_ru}:
 :  !Sergey Poltavski,
     Artem Zolochevskiy,
     Mikhail Iglizky
 
-{lang.it}
+{lang_it}:
 :  !Gianluca D'Orazio
 
-{lang.de}
+{lang_de}:
 :  !Henrik Evers,
     Georg Hennig,
     Markus W. Kropp,
     Urs Liska
 
-{lang.cs}
+{lang_cs}:
 :  !Pavel Fric
 
-{lang.pl}
+{lang_pl}:
 :  !Piotr Komorowski
 
-{lang.gl}
+{lang_gl}:
 :  !Manuel A. Vázquez
 
-{lang.pt_BR}
+{lang_pt_br}:
 :  !Édio Mazera
 
-{lang.uk}
+{lang_uk}:
 :  !Dmytro O. Redchuk
 
 
 #VARS
 authors text Kristian Høgsberg, Albert Astals Cid
+lang_cs     languagename cs
+lang_de     languagename de
+lang_es     languagename es
+lang_fr     languagename fr
+lang_gl     languagename gl
+lang_it     languagename it
+lang_nl     languagename nl
+lang_pl     languagename pl
+lang_pt_br  languagename pt_BR
+lang_ru     languagename ru
+lang_tr     languagename tr
+lang_uk     languagename uk
 

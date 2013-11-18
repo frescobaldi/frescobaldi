@@ -37,6 +37,9 @@ def appname():
 def version():
     return info.version
 
+def author():
+    return info.maintainer
+
 def manual_translated_by():
     # L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
     translator = _("Translated by Your Name.")
