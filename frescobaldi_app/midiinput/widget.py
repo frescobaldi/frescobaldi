@@ -27,7 +27,9 @@ class Widget(QWidget):
         
         self._labelaccidentals = QLabel()
         self._accidentals = QComboBox()
-        self._accidentals.addItems(['sharps', 'flats'])
+        
+        self._labelchordmode = QLabel()
+        self._chordmode = QCheckBox()
         
         self._labeldamper = QLabel()
         self._damper = QComboBox()
@@ -53,12 +55,14 @@ class Widget(QWidget):
         grid.addWidget(self._midichannel, 0, 1)
         grid.addWidget(self._labelaccidentals, 1, 0)
         grid.addWidget(self._accidentals, 1, 1)
-        grid.addWidget(self._labeldamper, 2, 0)
-        grid.addWidget(self._damper, 2, 1)
-        grid.addWidget(self._labelsostenuto, 3, 0)
-        grid.addWidget(self._sostenuto, 3, 1)
-        grid.addWidget(self._labelsoft, 4, 0)
-        grid.addWidget(self._soft, 4, 1)
+        grid.addWidget(self._labelchordmode, 2, 0)
+        grid.addWidget(self._chordmode, 2, 1)
+        grid.addWidget(self._labeldamper, 3, 0)
+        grid.addWidget(self._damper, 3, 1)
+        grid.addWidget(self._labelsostenuto, 4, 0)
+        grid.addWidget(self._sostenuto, 4, 1)
+        grid.addWidget(self._labelsoft, 5, 0)
+        grid.addWidget(self._soft, 5, 1)
         
         layout.addWidget(self._capture)
         
@@ -72,6 +76,9 @@ class Widget(QWidget):
     
     def accidentals(self):
         return self._accidentals.currentIndex()
+    
+    def chordmode(self):
+        return self._chordmode.isChecked()
     
     def startcapturing(self):
         self._midiin.capture()
@@ -90,6 +97,16 @@ class Widget(QWidget):
     def translateUI(self):
         self._labelmidichannel.setText(_("MIDI channel"))
         self._labelaccidentals.setText(_("Accidentals"))
+        self._accidentals.addItems([_("sharps"), _("flats")])
+        self._labelchordmode.setText(_("Chord mode"))
+        self._chordmode.setToolTip(_(
+            "Enter simultaneously played notes as chords. "
+            "See \"What's This\" for more information."))
+        self._chordmode.setWhatsThis(_(
+            "Notes which are played simultaneously are written "
+            "as chords. As a consequence they are not written "
+            "before the last key is lifted. Of course single "
+            "can also be entered."))
         self._labeldamper.setText(_("Damper pedal"))
         self._labelsostenuto.setText(_("Sostenuto pedal"))
         self._labelsoft.setText(_("Soft pedal"))
