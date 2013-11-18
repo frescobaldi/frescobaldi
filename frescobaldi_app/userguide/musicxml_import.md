@@ -1,7 +1,7 @@
 === Import Music XML ===
-    
-Import a Music XML file using the command line tool musicxml2ly
-from the LilyPond package.
+
+Using {menu}, you can import a Music XML file using the command line tool 
+musicxml2ly from the LilyPond package.
 
 In this dialog you can set some parameters for the musicxml2ly import.
 Currently there are four parameters that can be set by the checkboxes:
@@ -28,3 +28,5 @@ The following replacements will be made in the command line:
 : The filename of the document
 
 
+#VARS
+menu menu file -> &Import -> Import MusicXML...
