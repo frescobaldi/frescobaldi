@@ -34,6 +34,9 @@ class MidiIn(object):
         self._portmidiinput = None
         self._chord = None
     
+    def __del__(self):
+        self.capturestop()
+    
     def widget(self):
         return self._widget()
     
