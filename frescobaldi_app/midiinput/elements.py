@@ -5,7 +5,7 @@ Elements that can bei inserted by MIDI events
 import ly.pitch
 
 
-class Note:
+class Note(object):
     def __init__(self, midinote, sharps=True):
         if sharps:
             # sharps
@@ -28,7 +28,7 @@ class Note:
         return self._midinote
 
 
-class Chord:
+class Chord(object):
     def __init__(self):
         self._notes = list()
         
