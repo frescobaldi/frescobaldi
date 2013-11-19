@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2013-11-19 12:03+0100\n"
-"PO-Revision-Date: 2013-11-14 16:04+0100\n"
+"PO-Revision-Date: 2013-11-19 17:15+0100\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -1401,54 +1401,50 @@ msgid "Click to edit this file"
 msgstr "Klik om dit bestand te bewerken"
 
 #: ../midiinput/tool.py:29
-#, fuzzy
 msgid "MIDI Input"
-msgstr "MIDI invoer:"
+msgstr "MIDI invoer"
 
 #: ../midiinput/tool.py:30
-#, fuzzy
 msgid "MIDI I&nput"
-msgstr "MIDI invoer:"
+msgstr "MIDI i&nvoer"
 
 #: ../midiinput/tool.py:52 ../midiinput/tool.py:53
 msgctxt "midi input"
 msgid "Start MIDI capturing"
-msgstr ""
+msgstr "MIDI opname starten"
 
 #: ../midiinput/tool.py:54 ../midiinput/tool.py:55
 msgctxt "midi input"
 msgid "Stop MIDI capturing"
-msgstr ""
+msgstr "MIDI opname stoppen"
 
 #: ../midiinput/widget.py:98
 msgid "MIDI channel"
-msgstr ""
+msgstr "MIDI-kanaal"
 
 #: ../midiinput/widget.py:99
 msgid "Accidentals"
-msgstr ""
+msgstr "Voortekens"
 
 #: ../midiinput/widget.py:100
 msgid "sharps"
-msgstr ""
+msgstr "kruisen"
 
 #: ../midiinput/widget.py:100
 msgid "flats"
-msgstr ""
+msgstr "mollen"
 
 #: ../midiinput/widget.py:101
-#, fuzzy
 msgid "Chord mode"
-msgstr "Akkoordnamen"
+msgstr "Akkoord-modus"
 
 #: ../midiinput/widget.py:103
-#, fuzzy
 msgid ""
 "Enter simultaneously played notes as chords. See \"What's This\" for more "
 "information."
 msgstr ""
-"Voer tekst in om in de lijst van knipsels te zoeken.\n"
-"Zie \"Wat is dit\" voor meer informatie."
+"Voer gelijktijdig gespeelde noten als akkoorden in. Zie \"Wat is dit\" voor "
+"meer informatie."
 
 #: ../midiinput/widget.py:106
 msgid ""
@@ -1456,18 +1452,21 @@ msgid ""
 "consequence they are not written before the last key is lifted. Of course "
 "single can also be entered."
 msgstr ""
+"Gelijktijdig gespeelde noten worden als akkoorden uitgeschreven. Daardoor "
+"worden ze pas ingevoerd als de laatste toets wordt losgelaten. Uiteraard kan "
+"ook eenstemmig worden gespeeld."
 
 #: ../midiinput/widget.py:110
 msgid "Damper pedal"
-msgstr ""
+msgstr "Demper-pedaal"
 
 #: ../midiinput/widget.py:111
 msgid "Sostenuto pedal"
-msgstr ""
+msgstr "Doorklink-pedaal"
 
 #: ../midiinput/widget.py:112
 msgid "Soft pedal"
-msgstr ""
+msgstr "Zacht pedaal"
 
 #: ../miditool/__init__.py:51
 msgid "MIDI"
@@ -2071,9 +2070,8 @@ msgid "Keyboard Shortcuts"
 msgstr "Sneltoetsen"
 
 #: ../preferences/__init__.py:249 ../userguide/prefs_editor.md:1
-#, fuzzy
 msgid "Editor Preferences"
-msgstr "Voorkeuren"
+msgstr "Editor-voorkeuren"
 
 #: ../preferences/__init__.py:260 ../userguide/prefs_fontscolors.md:1
 msgid "Fonts & Colors"
@@ -2137,29 +2135,29 @@ msgid "Please enter a local path or a URL:"
 msgstr "Voer een lokaal pad in of een URL:"
 
 #: ../preferences/editor.py:83
-#, fuzzy
 msgid "Matching Item:"
-msgstr "Type machine:"
+msgstr "Overeenkomend item:"
 
 #: ../preferences/editor.py:86
-#, fuzzy
 msgid "Highlighting Options"
-msgstr "&Syntaxis accentuering"
+msgstr "Accentuerings-opties"
 
 #: ../preferences/editor.py:88
 msgid ""
 "Below you can define how long \"matching\" items like matching brackets or "
 "the items linked through Point-and-Click are highlighted."
 msgstr ""
+"Hieronder kunt u aangeven hoe lang overeenkomende items zoals accolades of "
+"boogjes, of items gekoppeld aan Point-and-Click worden geaccentueerd."
 
 #. L10N: abbreviation for "n seconds" in spinbox, n >= 1, no plural forms
 #: ../preferences/editor.py:92
 msgid "{num} sec"
-msgstr ""
+msgstr "{num} sec"
 
 #: ../preferences/editor.py:94
 msgid "Infinite"
-msgstr ""
+msgstr "Altijd"
 
 #: ../preferences/fontscolors.py:121
 msgid "Use this scheme for printing"
@@ -2568,7 +2566,7 @@ msgstr "Shell:"
 
 #: ../preferences/helpers.py:88
 msgid "Git:"
-msgstr ""
+msgstr "Git:"
 
 #: ../preferences/helpers.py:93
 msgid ""
@@ -2591,7 +2589,7 @@ msgstr "Commando dat een terminal of commandovenster opent."
 
 #: ../preferences/helpers.py:105
 msgid "Command (base) to run Git versioning actions."
-msgstr ""
+msgstr "Basis-commando om Git-acties uit te voeren."
 
 #: ../preferences/helpers.py:148 ../userguide/prefs_helpers.md:14
 msgid "Printing Music"
@@ -2797,7 +2795,6 @@ msgstr ""
 "informatie."
 
 #: ../preferences/midi.py:92
-#, fuzzy
 msgid ""
 "<p>This dropdown menu lists the available MIDI output ports on your system. "
 "You can select one, or just type part of a name. In that case, the first "
@@ -2805,29 +2802,26 @@ msgid ""
 "<p>Click the button to refresh the list, e.g. when you connect a MIDI device "
 "or start a software synthesizer.</p>"
 msgstr ""
-"<p>Dit uitklapmenu toont de beschikbare MIDI-poorten. U kunt er eentje "
-"selecteren, of een deel van de naam in typen. In dat geval wordt de eerste "
-"beschikbare poort waarvan de naam met de opgegeven tekens begint, gekozen.</"
-"p>\n"
+"<p>Dit uitklapmenu toont de beschikbare MIDI-uitvoerpoorten. U kunt er "
+"eentje selecteren, of een deel van de naam in typen. In dat geval wordt de "
+"eerste beschikbare poort waarvan de naam met de opgegeven tekens begint, "
+"gekozen.</p>\n"
 "<p>Klik op de knop om de lijst te vernieuwen, bijvoorbeeld wanneer u een "
 "MIDI-apparaat hebt aangekoppeld of een software-synthesizer hebt gestart.</p>"
 
 #: ../preferences/midi.py:101
-#, fuzzy
 msgid "Input port:"
-msgstr "Uitvoerformaat:"
+msgstr "Invoerpoort:"
 
 #: ../preferences/midi.py:103
-#, fuzzy
 msgid ""
 "The MIDI port to get input from to write notes  See \"What's This\" for more "
 "information."
 msgstr ""
-"De MIDI-poort om music naar af te spelen. Zie \"Wat is dit\" voor meer "
+"De MIDI-poort om noten van in te voeren. Zie \"Wat is dit\" voor meer "
 "informatie."
 
 #: ../preferences/midi.py:106
-#, fuzzy
 msgid ""
 "<p>This dropdown menu lists the available MIDI input ports on your system. "
 "You can select one, or just type part of a name. In that case, the first "
@@ -2835,7 +2829,7 @@ msgid ""
 "<p>Click the button to refresh the list, e.g. when you connect a MIDI device "
 "or start a software synthesizer.</p>"
 msgstr ""
-"<p>Dit uitklapmenu toont de beschikbare MIDI-poorten. U kunt er eentje "
+"<p>Dit uitklapmenu toont de beschikbare MIDI-invoerpoorten. U kunt er eentje "
 "selecteren, of een deel van de naam in typen. In dat geval wordt de eerste "
 "beschikbare poort waarvan de naam met de opgegeven tekens begint, gekozen.</"
 "p>\n"
@@ -2880,12 +2874,13 @@ msgstr ""
 
 #: ../preferences/midi.py:183
 msgid "Polling time for input:"
-msgstr ""
+msgstr "Tijdsinterval voor MIDI-invoer:"
 
 #: ../preferences/midi.py:185
-#, fuzzy
 msgid "Polling time for MIDI input. See \"What's This\" for more information."
-msgstr "Voeg paden of URLs toe. Zie \"Wat is dit\" voor meer informatie."
+msgstr ""
+"Hoevaak er gecontroleerd moet worden of er MIDI-invoer is. Zie \"Wat is dit"
+"\" voor meer informatie."
 
 #: ../preferences/midi.py:188
 msgid ""
@@ -2893,6 +2888,9 @@ msgid ""
 "Small values lead to faster recognition of incoming MIDI events, but stress "
 "the CPU. 10 ms should be a goot value."
 msgstr ""
+"Stelt de tijd in tussen het controleren op MIDI-gebeurtenissen in "
+"milliseconden. Kleine waarden geven een snellere herkenning van de invoer, "
+"maar belasten de CPU meer. 10 ms is een goede waarde."
 
 #: ../preferences/paths.py:59
 msgid "Folders containing hyphenation dictionaries"
@@ -3051,9 +3049,8 @@ msgid "Display the name of each grob"
 msgstr "De naam van elke grob tonen"
 
 #: ../preview_mode/__init__.py:59
-#, fuzzy
 msgid "Display Paper Columns"
-msgstr "Paper-colums debuggen"
+msgstr "Paper-colums weergeven"
 
 #: ../preview_mode/__init__.py:60
 msgid "Display info on the paper columns"
@@ -3076,28 +3073,24 @@ msgid "Highlight notes that are explicitly set to \\voiceXXX"
 msgstr "Noten accentueren die expliciet op \\voiceXXX zijn ingesteld"
 
 #: ../preview_mode/__init__.py:113
-#, fuzzy
 msgid "Layout Control Options"
-msgstr "Controlepunten tonen"
+msgstr "Layout-controle opties"
 
 #: ../preview_mode/__init__.py:114
-#, fuzzy
 msgid "Layout &Control Options"
-msgstr "Controlepunten tonen"
+msgstr "Layout-&controle opties"
 
 #: ../preview_mode/widget.py:100
-#, fuzzy
 msgid "Verbose output"
-msgstr "Speler uitgang:"
+msgstr "Uitgebreide uitvoer"
 
 #: ../preview_mode/widget.py:101
 msgid "Run LilyPond with verbose output"
 msgstr "LilyPond starten met uitgebreide uitvoerberichten"
 
 #: ../preview_mode/widget.py:102 ../userguide/engrave_layout.md:15
-#, fuzzy
 msgid "Point-and-Click"
-msgstr "Point en Click"
+msgstr "Point-en-Click"
 
 #: ../preview_mode/widget.py:103
 msgid "Run LilyPond in preview mode (with Point and Click)"
@@ -3108,11 +3101,12 @@ msgid "Include Custom File:"
 msgstr "Eigen bestand invoegen:"
 
 #: ../preview_mode/widget.py:105
-#, fuzzy
 msgid ""
 "Include a custom file with definitions\n"
 "for additional Layout Control Modes"
-msgstr "Een eigen bestand met definities invoegen voor additionele debug-modes"
+msgstr ""
+"Een eigen bestand met definities invoegen\n"
+"voor additionele layout-controle opties"
 
 #: ../preview_mode/widget.py:107
 msgid "Filename to be included"
@@ -5344,7 +5338,6 @@ msgid "Snippet error"
 msgstr "Knipsel-fout"
 
 #: ../snippet/menu.py:118
-#, fuzzy
 msgctxt "menu title"
 msgid "&Insert"
 msgstr "&Invoegen"
@@ -5572,7 +5565,7 @@ msgstr "Omhoog:"
 
 #: ../userguide/util.py:61
 msgid "In this chapter:"
-msgstr ""
+msgstr "In dit hoofdstuk:"
 
 #: ../userguide/util.py:71
 msgid "Next:"
@@ -5584,7 +5577,7 @@ msgstr "Zie ook:"
 
 #: ../vcs/__init__.py:52
 msgid "No Git installation found"
-msgstr ""
+msgstr "Geen Git-installatie gevonden"
 
 #: ../vcs/__init__.py:53
 msgid ""
