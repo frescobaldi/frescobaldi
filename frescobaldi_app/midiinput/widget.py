@@ -23,10 +23,17 @@ class Widget(QWidget):
         
         self._labelmidichannel = QLabel()
         self._midichannel = QComboBox()
-        self._midichannel.addItems(['all']+[str(i) for i in range(1,17)])
         
         self._labelaccidentals = QLabel()
-        self._accidentals = QComboBox()
+        self._accidentalssharps = QRadioButton()
+        self._accidentalsflats = QRadioButton()
+        self._groupaccidentals = QGroupBox()
+        self._groupaccidentals.setFlat(True)
+        hbox = QHBoxLayout()
+        self._groupaccidentals.setLayout(hbox)
+        hbox.addWidget(self._accidentalssharps)
+        hbox.addWidget(self._accidentalsflats)
+        self._accidentalssharps.setChecked(True)
         
         self._labelchordmode = QLabel()
         self._chordmode = QCheckBox()
@@ -54,7 +61,7 @@ class Widget(QWidget):
         grid.addWidget(self._labelmidichannel, 0, 0)
         grid.addWidget(self._midichannel, 0, 1)
         grid.addWidget(self._labelaccidentals, 1, 0)
-        grid.addWidget(self._accidentals, 1, 1)
+        grid.addWidget(self._groupaccidentals, 1, 1)
         grid.addWidget(self._labelchordmode, 2, 0)
         grid.addWidget(self._chordmode, 2, 1)
         grid.addWidget(self._labeldamper, 3, 0)
@@ -75,7 +82,10 @@ class Widget(QWidget):
         return self._midichannel.currentIndex()
     
     def accidentals(self):
-        return self._accidentals.currentIndex()
+        if self._accidentalsflats.isChecked():
+            return 'flats'
+        else:
+            return 'sharps'
     
     def chordmode(self):
         return self._chordmode.isChecked()
@@ -96,8 +106,10 @@ class Widget(QWidget):
 
     def translateUI(self):
         self._labelmidichannel.setText(_("MIDI channel"))
+        self._midichannel.addItems([_("all")]+[str(i) for i in range(1,17)])
         self._labelaccidentals.setText(_("Accidentals"))
-        self._accidentals.addItems([_("sharps"), _("flats")])
+        self._accidentalssharps.setText(_("sharps"))
+        self._accidentalsflats.setText(_("flats"))
         self._labelchordmode.setText(_("Chord mode"))
         self._chordmode.setToolTip(_(
             "Enter simultaneously played notes as chords. "

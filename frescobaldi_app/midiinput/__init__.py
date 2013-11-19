@@ -79,7 +79,7 @@ class MidiIn(object):
         targetchannel = self.widget().channel()
         if channel == targetchannel or targetchannel == 0:    # '0' captures all
             if notetype == 9 and value > 0:    # note on with velocity > 0
-                note = elements.Note(notenumber, self.widget().accidentals()==0)
+                note = elements.Note(notenumber, self.widget().accidentals()=='sharps')
                 if self.widget().chordmode():
                     if not self._chord:    # no Chord instance?
                         self._chord = elements.Chord()
