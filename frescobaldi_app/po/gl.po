@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.17\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-11-19 12:03+0100\n"
+"POT-Creation-Date: 2013-11-19 23:15+0100\n"
 "PO-Revision-Date: 2011-01-03 17:37+0100\n"
 "Last-Translator: Manuel A. Vazquez <xixirei@yahoo.es>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -6209,7 +6209,7 @@ msgstr ""
 #: ../userguide/snippet_python.md:3
 msgid ""
 "Python snippets can read and should set the variable `text`. The variable "
-"`text` contains the currently selected text (which may be an empty string"
+"`text` contains the currently selected text (which may be an empty string)."
 msgstr ""
 
 #. NOTE: markdown formatting

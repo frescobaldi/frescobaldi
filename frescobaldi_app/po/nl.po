@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-11-19 12:03+0100\n"
-"PO-Revision-Date: 2013-11-19 17:15+0100\n"
+"POT-Creation-Date: 2013-11-19 23:15+0100\n"
+"PO-Revision-Date: 2013-11-19 23:16+0100\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -5686,9 +5686,8 @@ msgid "Primary shortcut:"
 msgstr "Primaire sneltoets:"
 
 #: ../widgets/shortcuteditdialog.py:132 ../widgets/shortcuteditdialog.py:142
-#, fuzzy
 msgid "Conflict with: {name}"
-msgstr "Dynamisch teken {name}"
+msgstr "Conflicteert met: {name}"
 
 #: ../widgets/shortcuteditdialog.py:155
 msgid "Here you can edit the shortcuts for {name}"
@@ -5740,6 +5739,9 @@ msgid ""
 "those texts usable as lyrics. It can use hyphenation dictionaries of "
 "OpenOffice.org, Scribus, etc."
 msgstr ""
+"Frescobaldi kan automatisch afbreektekens '{hyphen}' in teksten plaatsen om "
+"deze als liedteksten bruikbaar te maken. Hierbij worden afbreekbestanden "
+"gebruikt van OpenOffice, Scribus, etc."
 
 #: ../userguide/lyrics.md:7
 msgid ""
@@ -5748,6 +5750,10 @@ msgid ""
 "select the language. Click OK or press Enter to have the hyphenation take "
 "place."
 msgstr ""
+"Om deze functie te gebruiken selecteert u eerst de tekst die u in syllabes "
+"wilt verdelen. Druk daarna op {key_hyphen} of kies {menu_hyphen}. In die "
+"dialoog die daarop verschijnt kiest u de taal. Klik OK of druk op Enter om "
+"het afbreken te laten plaatsvinden."
 
 #: ../userguide/lyrics.md:12
 msgid ""
@@ -5756,6 +5762,10 @@ msgid ""
 "because that does not look nice in word processor texts. So it can happen "
 "that you have to add some hyphens after the first letter of such lyrics."
 msgstr ""
+"Een kleine beperking is dat afbreekbestanden van tekstverwerkers vaak niet "
+"willen afbreken direct na de eerste letter (bijvoorbeeld: '{example}'), "
+"omdat dat er in gewone teksten niet fraai uitziet. Het kan dus zijn dat u "
+"bij sommige woorden nog handmatig de afbreektekens moet toevoegen."
 
 #: ../userguide/lyrics.md:17
 msgid ""
@@ -5764,20 +5774,22 @@ msgid ""
 "music. Under {menu_settings} you can enter a list of directories to search "
 "for hyphenation pattern files."
 msgstr ""
+"Er is ook een commando om afbreektekens te verwijderen. Dit kan handig zijn "
+"als u een couplet liedteksten heeft dat u als gewone markup onder de muziek "
+"wilt weergeven. Onder {menu_settings} kunt u een lijst van directories "
+"opgeven waar Frescobaldi zal zoeken naar afbreekbestanden."
 
 #: ../userguide/quickinsert.md:1
 msgid "The Quick Insert Panel"
 msgstr "Het Quick Insert-paneel"
 
 #: ../userguide/quickinsert.md:3
-#, fuzzy
 msgid ""
 "With the tools in the Quick Insert Panel you can add various music elements "
 "to the current note or selected music."
 msgstr ""
-"<p>Met het Quick Insert-paneel kunt u allerlei muzieksymbolen aan de huidige "
-"noot of geselecteerde muziek toevoegen.</p>\n"
-"<p>Zie {link} voor meer informatie.</p>"
+"Met het Quick Insert-paneel kunt u allerlei muzieksymbolen aan de huidige "
+"noot of geselecteerde muziek toevoegen."
 
 #. NOTE: markdown formatting
 #: ../userguide/quickinsert.md:6
@@ -5786,6 +5798,10 @@ msgid ""
 "in a neutral position (e.g. determined by stem direction), or above or below "
 "the staff by prepending a `-`, `^` or `_` character."
 msgstr ""
+"De *Richting* selectieknop bepaalt of articulaties, dynamische tekens of "
+"boogjes in een neutrale positie worden geplaatst (bijv. bepaald door "
+"stokrichting) of boven of onder de balk door een `-`, `^` of `_` teken "
+"ervoor te plaatsen."
 
 #: ../userguide/quickinsert.md:10
 msgid ""
@@ -5794,30 +5810,22 @@ msgid ""
 "have configurable keyboard shortcuts; you can change them by right-clicking "
 "a button."
 msgstr ""
+"Klik op een tab om een categorie te selecteren. U kunt bladeren door alle "
+"tabs met Control (of {command}) en het muiswiel. Alle knoppen in het Quick "
+"Insert-paneel hebben instelbare sneltoetsen; u kunt deze aanpassen door "
+"rechts te klikken op een knop."
 
 #: ../userguide/quickinsert.md:18
-#, fuzzy
 msgid ""
 "These musical symbols can be added to a note or rest or a selected range of "
 "music. If you add them to a selection, rests will be skipped. If there is no "
 "text selected, the cursor will automatically move to the next pitch, rest, "
 "skip or chord."
 msgstr ""
-"<h3>Articulaties</h3>\n"
-"\n"
-"<p>\n"
 "Deze muzieksymbolen kunnen aan een noot, rust of een geselecteerd bereik "
-"worden toegevoegd.\n"
-"Als u ze aan een selectie toevoegt worden rusten overgeslagen.\n"
-"Als er geen tekst geselecteerd is springt de cursor vanzelf naar de volgende "
-"noot, rust of het volgende akkoord.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"Als <em>Korte notatie</em> is ingeschakeld zal Frescobaldi korte tekens "
-"gebruiken indien beschikbaar (bijvoorbeeld <code>-.</code> in plaats van "
-"<code>-\\staccato</code>).\n"
-"</p>\n"
+"worden toegevoegd. Als u ze aan een selectie toevoegt worden rusten "
+"overgeslagen. Als er geen tekst geselecteerd is springt de cursor vanzelf "
+"naar de volgende noot, rust of het volgende akkoord."
 
 #. NOTE: markdown formatting
 #: ../userguide/quickinsert.md:24
@@ -5825,72 +5833,54 @@ msgid ""
 "If *Allow shorthands* is checked, Frescobaldi will use short signs for "
 "articulations if they exist (e.g. `-.` instead of `-\\staccato`)."
 msgstr ""
+"Als *Korte notatie* is ingeschakeld zal Frescobaldi korte tekens gebruiken "
+"indien beschikbaar (bijvoorbeeld `-.` in plaats van `-\\staccato`)."
 
 #: ../userguide/quickinsert.md:31
-#, fuzzy
 msgid ""
 "Dynamics can also be added to a note or rest. If you select a range of "
 "music, you can add spanners which will automatically terminate at the last "
 "note, rest or chord in the selection. If you then click a sign, it will "
 "replace the terminator."
 msgstr ""
-"<h3>Dynamische tekens</h3>\n"
-"\n"
-"<p>\n"
-"Dynamische tekens kunnen ook aan noten of rusten worden toegevoegd.\n"
-"Als u een muziekbereik selecteert kunt in spanners toevoegen die automatisch "
-"afsluiten op de laatste noot, rust of het laatste akkoord.\n"
-"Als u daarna een teken aanklikt, vervangt dat de afsluiter.\n"
-"</p>\n"
+"Dynamische tekens kunnen ook aan noten of rusten worden toegevoegd. Als u "
+"een muziekbereik selecteert kunt in spanners toevoegen die automatisch "
+"afsluiten op de laatste noot, rust of het laatste akkoord. Als u daarna een "
+"teken aanklikt, vervangt dat de afsluiter."
 
 #: ../userguide/quickinsert.md:39
 msgid ""
 "This tool lets you add arpeggio, glissandos and other spanners like slurs, "
 "phrasing slurs, manual beams or trills."
 msgstr ""
+"Hiermee kunt u arpeggio's, glissando's en andere spanners zoals bogen, "
+"fraseringsbogen, handmatige waardestrepen of trillers toevoegen."
 
 #: ../userguide/quickinsert.md:42
-#, fuzzy
 msgid ""
 "Arpeggios and glissandos apply to the current note; they need no music to be "
 "selected. The slurs, beams or trill apply to the current note and the next "
 "one if no music is selected, or to the first and the last note or chord in "
 "the selection."
 msgstr ""
-"<h3>Spanners</h3>\n"
-"\n"
-"<p>\n"
-"Hiermee kunt u arpeggio's, glissando's en andere spanners zoals bogen, "
-"fraseringsbogen, handmatige waardestrepen of trillers toevoegen.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"Arpeggio's en glissando's gelden alleen voor de huidige noot;\n"
-"er hoeft geen muziek te zijn geselecteerd.\n"
-"De bogen, waardestreep of de triller gelden voor de huidige noot en de "
-"volgende als er geen muziek geselecteerd is,\n"
-"of voor de eerste en de laatste noot of akkoord in de selectie.\n"
-"</p>\n"
+"Arpeggio's en glissando's gelden alleen voor de huidige noot; er hoeft geen "
+"muziek te zijn geselecteerd. De bogen, waardestreep of de triller gelden "
+"voor de huidige noot en de volgende als er geen muziek geselecteerd is, of "
+"voor de eerste en de laatste noot of akkoord in de selectie."
 
 #: ../userguide/quickinsert.md:51
-#, fuzzy
 msgid "Here you can insert bar lines or various breathing signs."
 msgstr ""
-"<h3>Maatstrepen</h3>\n"
-"\n"
-"<p>\n"
 "Hiermee kunt u verschillende soorten maatstrepen en ademhalingstekens "
-"invoegen.\n"
-"</p>\n"
+"invoegen."
 
 #: ../userguide/preferences.md:3
-#, fuzzy
 msgid ""
 "In the Preferences Dialog (under {menu_edit_preferences}) you can configure "
 "many aspects of Frescobaldi and LilyPond."
 msgstr ""
-"In de dialoog Voorkeuren (onder {menu}) kunt u veel aspecten van Frescobaldi "
-"en LilyPond instellen."
+"In de dialoog Voorkeuren (onder {menu_edit_preferences}) kunt u veel "
+"aspecten van Frescobaldi en LilyPond instellen."
 
 #: ../userguide/transpose.md:3
 msgid ""
@@ -5898,6 +5888,10 @@ msgid ""
 "distance to transpose over. The pitches may include octave marks. The "
 "pitches must be entered in the pitch name language used in the document."
 msgstr ""
+"Voor het transponeren van muziek dient u twee absolute toonhoogten op te "
+"geven om het interval te bepalen waarover de muziek moet worden "
+"getransponeerd. De toonhoogtes mogen ook octaaftekens bevatten, en moeten "
+"worden ingevoerd in dezelfde taal als het document gebruikt."
 
 #. NOTE: markdown formatting
 #: ../userguide/transpose.md:7
@@ -5905,19 +5899,22 @@ msgid ""
 "The music will then be transposed from the first pitch to the second, just "
 "as the `\\transpose` LilyPond command would do."
 msgstr ""
+"De muziek wordt dan getransponeerd van de eerste toonhoogte naar de tweede, "
+"precies als het `\\transpose` LilyPond commando het zou doen."
 
 #: ../userguide/transpose.md:10
 msgid "E.g. when transposing a minor third upwards, you would enter:"
 msgstr ""
+"Wanneer u bijvoorbeeld een kleine terts naar boven wilt transponeren voert u "
+"in:"
 
 #: ../userguide/transpose.md:16
 msgid "To transpose down a major second, you can enter:"
-msgstr ""
+msgstr "Om een grote secunde naar beneden te transponeren kunt u invoeren:"
 
 #: ../userguide/transpose.md:22
-#, fuzzy
 msgid "or:"
-msgstr "naar:"
+msgstr "of:"
 
 #: ../userguide/transpose.md:28
 msgid ""
@@ -5925,12 +5922,18 @@ msgid ""
 "from C-sharp to D-flat, or to specify quarter tones if supported in the "
 "pitch name language that is used."
 msgstr ""
+"Het is ook mogelijk de transponeerfunctie te gebruiken om een stuk muziek "
+"bijvoorbeeld van cis naar des om te zetten of om kwarttonen te gebruiken als "
+"deze in de gebruikte taal voor nootnamen voorhanden zijn."
 
 #: ../userguide/transpose.md:32
 msgid ""
 "The transpose function can transpose both relative and absolute music, "
 "correctly handling key signatures, chordmode and octave checks."
 msgstr ""
+"De transponeerfunctie kan zowel relatieve als absolute muziek transponeren "
+"en handelt toonsoortaanduidingen, chordmode en octave-checks daarbij ook "
+"correct af."
 
 #: ../userguide/musicview.md:1
 msgid "The Music View"
@@ -5941,13 +5944,12 @@ msgid "The Music View displays the PDF document created by LilyPond."
 msgstr "De muziekweergave toont het PDF-document aangemaakt door LilyPond."
 
 #: ../userguide/musicview.md:5
-#, fuzzy
 msgid ""
 "When LilyPond was run in preview mode (i.e. with Point & Click turned on), "
 "the PDF contains a clickable link for every music object, pointing to its "
 "definition in the text document."
 msgstr ""
-"Als LilyPond gestart was in vooruitblik-modus (d.w.z. met Point &amp; Click "
+"Als LilyPond gestart was in vooruitblik-modus (d.w.z. met Point & Click "
 "ingeschakeld), bevat het PDF-document aanklikbare koppelingen voor elk "
 "muziekobject, die wijzen naar de definitie van het object in het "
 "brondocument."
@@ -5970,22 +5972,21 @@ msgid "Click an object to move the text cursor to that object"
 msgstr "Klik op een object om de tekstcursor erheen te verplaatsen"
 
 #: ../userguide/musicview.md:14
-#, fuzzy
 msgid ""
 "Shift-click an object to edit its text in a small window (see "
 "{musicview_editinplace})"
 msgstr ""
 "Shift-klik een object om de definitie in een klein venster te bewerken (zie "
-"{link})"
+"{musicview_editinplace})"
 
 #: ../userguide/musicview.md:16
-#, fuzzy
 msgid ""
 "Move the text cursor to highlight them in the music view, press "
 "{key_music_jump_to_cursor} to scroll them into view."
 msgstr ""
 "Verplaats de tekstcursor om de objecten in de muziekweergave te markeren, of "
-"druk op {key} om de weergave te schuiven zodat het object in beeld komt."
+"druk op {key_music_jump_to_cursor} om de weergave te schuiven zodat het "
+"object in beeld komt."
 
 #: ../userguide/musicview.md:19
 msgid "You can also adjust the view:"
@@ -6004,12 +6005,10 @@ msgstr ""
 "linkerknop te klikken"
 
 #: ../userguide/musicview.md:23
-#, fuzzy
 msgid "Configure the background color under {settings_preview_background}"
-msgstr "Stel de achtergrondkleur in onder {menu}"
+msgstr "Stel de achtergrondkleur in onder {settings_preview_background}"
 
 #: ../userguide/musicview.md:25
-#, fuzzy
 msgid ""
 "You can copy music right from the PDF view to a raster image: Hold Shift and "
 "drag a rectangular selection (or use the right mouse button) and then press "
@@ -6019,38 +6018,36 @@ msgid ""
 msgstr ""
 "U kunt muziek direct uit de PDF-weergave naar een rasterafbeelding kopiëren: "
 "Houd Shift ingedrukt en sleep een rechthoekige selectie (of gebruik de "
-"rechter muisknop) en druk dan op {key} of selecteer {menu} om de "
-"geselecteerde muziek naar het klembord, een bestand of een andere applicatie "
-"te slepen."
+"rechter muisknop) en druk dan op {key_music_copy_image} of selecteer "
+"{menu_music_copy_image} om de geselecteerde muziek naar het klembord, een "
+"bestand of een andere applicatie te slepen."
 
 #: ../userguide/musicview_editinplace.md:3
 msgid "In this dialog you can edit one line of the text document."
 msgstr "In deze dialoog kunt u een regel uit het tekstdocument bewerken."
 
 #: ../userguide/musicview_editinplace.md:5
-#, fuzzy
 msgid ""
 "Click OK or press {key_editinplace} to place the modified text in the "
 "document."
 msgstr ""
-"Klik OK of druk op {key} om de aangepaste tekst in het document te plaatsen."
+"Klik OK of druk op {key_editinplace} om de aangepaste tekst in het document "
+"te plaatsen."
 
 #. NOTE: markdown formatting
 #: ../userguide/musicview_editinplace.md:7
-#, fuzzy
 msgid ""
 "You can open the *Edit in Place* dialog by Shift-clicking a clickable object "
 "in the Music View or by right-clicking the object and selecting "
 "{menu_editinplace}."
 msgstr ""
-"U kunt het \"Op de plaats bewerken\" venster openen door met Shift op een "
+"U kunt het *Op de plaats bewerken* venster openen door met Shift op een "
 "object te klikken in de muziekweergave of door rechts te klikken op het "
-"object en {menu} te selecteren."
+"object en {menu_editinplace} te selecteren."
 
 #: ../userguide/creating.md:1
-#, fuzzy
 msgid "Creating new files"
-msgstr "Ademhalingstekens"
+msgstr "Nieuwe bestanden maken"
 
 #: ../userguide/create_midi.md:1
 msgid "How to generate a MIDI file?"
@@ -6058,15 +6055,14 @@ msgstr "Een MIDI-bestand aanmaken, hoe?"
 
 #. NOTE: markdown formatting
 #: ../userguide/create_midi.md:3
-#, fuzzy
 msgid ""
 "By default, LilyPond creates only a PDF file of the music. To create a MIDI "
 "file, you must wrap the music in a `\\score` block and add a `\\midi` block "
 "to it."
 msgstr ""
 "Normaal maakt LilyPond alleen een PDF-bestand aan van de muziek. Om een MIDI-"
-"bestand aan te maken dient u de muziek in een <code>\\score</code> blok te "
-"zetten en daar een <code>\\midi</code> blok aan toe te voegen."
+"bestand aan te maken dient u de muziek in een `\\score` blok te zetten en "
+"daar een `\\midi` blok aan toe te voegen."
 
 #: ../userguide/create_midi.md:7 ../userguide/var_output.md:12
 msgid "For example:"
@@ -6074,13 +6070,12 @@ msgstr "Bijvoorbeeld:"
 
 #. NOTE: markdown formatting
 #: ../userguide/create_midi.md:23
-#, fuzzy
 msgid ""
 "If you omit the `\\layout` block, no PDF file will be generated, only a MIDI "
 "file."
 msgstr ""
-"Als u het <code>\\layout</code>-blok weglaat zal geen PDF-bestand worden "
-"aangemaakt, enkel een MIDI-bestand."
+"Als u het `\\layout`-blok weglaat zal geen PDF-bestand worden aangemaakt, "
+"enkel een MIDI-bestand."
 
 #: ../userguide/snippet_python.md:1
 msgid "Python Snippets"
@@ -6088,17 +6083,13 @@ msgstr "Python knipsels"
 
 #. NOTE: markdown formatting
 #: ../userguide/snippet_python.md:3
-#, fuzzy
 msgid ""
 "Python snippets can read and should set the variable `text`. The variable "
-"`text` contains the currently selected text (which may be an empty string"
+"`text` contains the currently selected text (which may be an empty string)."
 msgstr ""
-"<p>Python knipsels kunnen de variabele {text} uitlezen en veranderen. Deze "
+"Python knipsels kunnen de variabele `text` uitlezen en veranderen. Deze "
 "variabele bevat de op dit moment geselecteerde tekst (kan een lege "
-"tekenreeks zijn).</p>\n"
-"<p>U kunt {text} instellen op een tekenreeks of een lijst van tekenreeksen.</"
-"p>\n"
-"<p>Andere variabelen die kunnen worden gebruikt:</p>"
+"tekenreeks zijn)."
 
 #. NOTE: markdown formatting
 #: ../userguide/snippet_python.md:7
