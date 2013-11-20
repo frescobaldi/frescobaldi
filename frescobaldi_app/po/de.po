@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-11-19 12:03+0100\n"
+"POT-Creation-Date: 2013-11-20 14:43+0100\n"
 "PO-Revision-Date: 2011-12-30 18:12+0100\n"
 "Last-Translator: Urs Liska <git@ursliska.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -5967,7 +5967,7 @@ msgstr "Python-Schnipsel"
 #: ../userguide/snippet_python.md:3
 msgid ""
 "Python snippets can read and should set the variable `text`. The variable "
-"`text` contains the currently selected text (which may be an empty string"
+"`text` contains the currently selected text (which may be an empty string)."
 msgstr ""
 
 #. NOTE: markdown formatting
@@ -6703,60 +6703,54 @@ msgstr ""
 "Das XML-Format der Schnipselbibliotheks-Dateien ist einfach und in den "
 "Dateien dokumentiert:"
 
-#. NOTE: markdown formatting
 #: ../userguide/credits.md:3
-#, fuzzy
-msgid ""
-"{appname} is written in [http://www.python.org/ Python] and uses the [http://"
-"qt-project.org/ Qt] toolkit."
+msgid "{appname} is written in {python} and uses the {qt} toolkit."
 msgstr "{appname} wurde in {python} geschrieben und benutzt das {qt} Toolkit."
 
-#. NOTE: markdown formatting
-#: ../userguide/credits.md:6
-#, fuzzy
+#: ../userguide/credits.md:5
 msgid ""
-"The Music View is powered by the [http://poppler.freedesktop.org/ Poppler] "
-"library by {authors} and others."
+"The Music View is powered by the {poppler} library by {authors} and others."
 msgstr ""
 "Die {poppler} Bibliothek von {authors} und anderen ermöglicht die "
 "Notenansicht."
 
-#. NOTE: markdown formatting
-#: ../userguide/credits.md:9
-#, fuzzy
-msgid ""
-"Most of the bundled icons are created by [http://tango.freedesktop.org/ The "
-"Tango Desktop Project]."
+#: ../userguide/credits.md:7
+msgid "Most of the bundled icons are created by {tango}."
 msgstr "Die meisten Icons wurden mit {tango} erstellt."
 
-#: ../userguide/credits.md:12
+#: ../userguide/credits.md:9
 msgid "The following people contributed to {appname}:"
 msgstr "Folgende Personen haben zu {appname} beigetragen:"
 
-#: ../userguide/credits.md:15
+#: ../userguide/credits.md:12
 msgid "Main author and core developer"
 msgstr ""
 
-#: ../userguide/credits.md:18
+#: ../userguide/credits.md:15
 msgid "Kinetic Scrolling for the Music View"
 msgstr "Automatisches Scrollen der Notenansicht"
 
-#: ../userguide/credits.md:21
+#: ../userguide/credits.md:18
 msgid "Improved highlighting and auto-completion of Scheme code"
 msgstr "Verbesserte Formatierung und Autovervollständigung von Scheme Code"
 
-#: ../userguide/credits.md:24
+#: ../userguide/credits.md:21
 msgid "Layout control modes and various other contributions"
 msgstr ""
 
-#: ../userguide/credits.md:27
+#: ../userguide/credits.md:24
 msgid "Modal Transpose"
 msgstr "Modale &Transposition ..."
 
-#: ../userguide/credits.md:30
+#: ../userguide/credits.md:27
 #, fuzzy
 msgid "Quick Insert buttons for grace notes, and MusicXML im- and export"
 msgstr "Schnelleinfüge-Befehle für Vorschlagsnoten"
+
+#: ../userguide/credits.md:30
+#, fuzzy
+msgid "MIDI capturing"
+msgstr "MIDI-Einstellungen"
 
 #: ../userguide/credits.md:33
 #, fuzzy
@@ -7205,16 +7199,12 @@ msgstr "Nummer"
 msgid "The width of a tab character, by default 8."
 msgstr "Die Breite von Tabulatoren, Standard ist 8."
 
-#. NOTE: markdown formatting
 #: ../userguide/docvars.md:32
-#, fuzzy
-msgid "Whether to use tabs in indent, by default `no`."
+msgid "Whether to use tabs in indent, by default {no}."
 msgstr "Benutze Tabulatoren bei Einrückungen, Standard ist {no}."
 
-#. NOTE: markdown formatting
 #: ../userguide/docvars.md:35
-#, fuzzy
-msgid "Whether to use tabs elsewhere in the document, by default `yes`."
+msgid "Whether to use tabs elsewhere in the document, by default {yes}."
 msgstr "Benutze Tabulatoren an anderer Stelle im Dokument, Standard ist {yes}."
 
 #: ../userguide/docvars.md:38
@@ -7971,6 +7961,36 @@ msgid "Here you can change the settings for various tools."
 msgstr ""
 "Hier können Sie die Einstellungen für verschiedene Werkzeuge bearbeiten."
 
+#, fuzzy
+#~ msgid "Whether to use tabs in indent, by default `no`."
+#~ msgstr "Benutze Tabulatoren bei Einrückungen, Standard ist {no}."
+
+#, fuzzy
+#~ msgid "Whether to use tabs elsewhere in the document, by default `yes`."
+#~ msgstr ""
+#~ "Benutze Tabulatoren an anderer Stelle im Dokument, Standard ist {yes}."
+
+#, fuzzy
+#~ msgid ""
+#~ "The Music View is powered by the [http://poppler.freedesktop.org/ "
+#~ "Poppler] library by {authors} and others."
+#~ msgstr ""
+#~ "Die {poppler} Bibliothek von {authors} und anderen ermöglicht die "
+#~ "Notenansicht."
+
+#, fuzzy
+#~ msgid ""
+#~ "Most of the bundled icons are created by [http://tango.freedesktop.org/ "
+#~ "The Tango Desktop Project]."
+#~ msgstr "Die meisten Icons wurden mit {tango} erstellt."
+
+#, fuzzy
+#~ msgid ""
+#~ "{appname} is written in [http://www.python.org/ Python] and uses the "
+#~ "[http://qt-project.org/ Qt] toolkit."
+#~ msgstr ""
+#~ "{appname} wurde in {python} geschrieben und benutzt das {qt} Toolkit."
+
 #~ msgid "Various contributions"
 #~ msgstr "Verschiedene Beiträge"
 
@@ -7980,28 +8000,14 @@ msgstr ""
 #~ msgid "MusicXML import"
 #~ msgstr "MusicXML-Import"
 
-#~ msgid "{appname} is written in {python} and uses the {qt} toolkit."
-#~ msgstr ""
-#~ "{appname} wurde in {python} geschrieben und benutzt das {qt} Toolkit."
-
 #~ msgid "Python"
 #~ msgstr "Python"
 
 #~ msgid "Qt4"
 #~ msgstr "Qt4"
 
-#~ msgid ""
-#~ "The Music View is powered by the {poppler} library by {authors} and "
-#~ "others."
-#~ msgstr ""
-#~ "Die {poppler} Bibliothek von {authors} und anderen ermöglicht die "
-#~ "Notenansicht."
-
 #~ msgid "Poppler"
 #~ msgstr "Poppler"
-
-#~ msgid "Most of the bundled icons are created by {tango}."
-#~ msgstr "Die meisten Icons wurden mit {tango} erstellt."
 
 #~ msgid "The Tango Desktop Project"
 #~ msgstr "Das Tango Desktop-Projekt"
@@ -8633,13 +8639,6 @@ msgstr ""
 
 #~ msgid "More information."
 #~ msgstr "Weitere Informationen"
-
-#~ msgid "Whether to use tabs in indent, by default {no}."
-#~ msgstr "Benutze Tabulatoren bei Einrückungen, Standard ist {no}."
-
-#~ msgid "Whether to use tabs elsewhere in the document, by default {yes}."
-#~ msgstr ""
-#~ "Benutze Tabulatoren an anderer Stelle im Dokument, Standard ist {yes}."
 
 #~ msgid "You can put document variables in comments."
 #~ msgstr "Sie können Dokumenten-Variable als Kommentar einfügen."

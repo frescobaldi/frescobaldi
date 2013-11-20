@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-11-19 12:03+0100\n"
+"POT-Creation-Date: 2013-11-20 14:43+0100\n"
 "PO-Revision-Date: 2012-04-19 17:21+0300\n"
 "Last-Translator: Dmytro O. Redchuk <brownian.box@gmail.com>\n"
 "Language-Team: Ukrainian\n"
@@ -5858,7 +5858,7 @@ msgstr ""
 #: ../userguide/snippet_python.md:3
 msgid ""
 "Python snippets can read and should set the variable `text`. The variable "
-"`text` contains the currently selected text (which may be an empty string"
+"`text` contains the currently selected text (which may be an empty string)."
 msgstr ""
 
 #. NOTE: markdown formatting
@@ -6511,59 +6511,53 @@ msgid ""
 "the XML file."
 msgstr ""
 
-#. NOTE: markdown formatting
 #: ../userguide/credits.md:3
-#, fuzzy
-msgid ""
-"{appname} is written in [http://www.python.org/ Python] and uses the [http://"
-"qt-project.org/ Qt] toolkit."
+msgid "{appname} is written in {python} and uses the {qt} toolkit."
 msgstr "{appname} написано на {python} з використанням бібліотек {qt}."
 
-#. NOTE: markdown formatting
-#: ../userguide/credits.md:6
-#, fuzzy
+#: ../userguide/credits.md:5
 msgid ""
-"The Music View is powered by the [http://poppler.freedesktop.org/ Poppler] "
-"library by {authors} and others."
+"The Music View is powered by the {poppler} library by {authors} and others."
 msgstr "Перегляд твору використовує бібліотеку {poppler} — {authors} та інші."
 
-#. NOTE: markdown formatting
-#: ../userguide/credits.md:9
-#, fuzzy
-msgid ""
-"Most of the bundled icons are created by [http://tango.freedesktop.org/ The "
-"Tango Desktop Project]."
+#: ../userguide/credits.md:7
+msgid "Most of the bundled icons are created by {tango}."
 msgstr "Більшість значків створив {tango}."
 
-#: ../userguide/credits.md:12
+#: ../userguide/credits.md:9
 msgid "The following people contributed to {appname}:"
 msgstr "Перелічені особи зробили внесок у {appname}:"
 
-#: ../userguide/credits.md:15
+#: ../userguide/credits.md:12
 msgid "Main author and core developer"
 msgstr ""
 
-#: ../userguide/credits.md:18
+#: ../userguide/credits.md:15
 #, fuzzy
 msgid "Kinetic Scrolling for the Music View"
 msgstr "{author}: Кінетична прокрутка Перегляду твору"
 
-#: ../userguide/credits.md:21
+#: ../userguide/credits.md:18
 msgid "Improved highlighting and auto-completion of Scheme code"
 msgstr ""
 
-#: ../userguide/credits.md:24
+#: ../userguide/credits.md:21
 msgid "Layout control modes and various other contributions"
 msgstr ""
 
-#: ../userguide/credits.md:27
+#: ../userguide/credits.md:24
 #, fuzzy
 msgid "Modal Transpose"
 msgstr "&Транспонувати"
 
-#: ../userguide/credits.md:30
+#: ../userguide/credits.md:27
 msgid "Quick Insert buttons for grace notes, and MusicXML im- and export"
 msgstr ""
+
+#: ../userguide/credits.md:30
+#, fuzzy
+msgid "MIDI capturing"
+msgstr "Налаштування MIDI"
 
 #: ../userguide/credits.md:33
 #, fuzzy
@@ -6962,14 +6956,12 @@ msgstr ""
 msgid "The width of a tab character, by default 8."
 msgstr ""
 
-#. NOTE: markdown formatting
 #: ../userguide/docvars.md:32
-msgid "Whether to use tabs in indent, by default `no`."
+msgid "Whether to use tabs in indent, by default {no}."
 msgstr ""
 
-#. NOTE: markdown formatting
 #: ../userguide/docvars.md:35
-msgid "Whether to use tabs elsewhere in the document, by default `yes`."
+msgid "Whether to use tabs elsewhere in the document, by default {yes}."
 msgstr ""
 
 #: ../userguide/docvars.md:38
@@ -7629,17 +7621,24 @@ msgstr ""
 msgid "Here you can change the settings for various tools."
 msgstr ""
 
-#~ msgid "{appname} is written in {python} and uses the {qt} toolkit."
-#~ msgstr "{appname} написано на {python} з використанням бібліотек {qt}."
-
+#, fuzzy
 #~ msgid ""
-#~ "The Music View is powered by the {poppler} library by {authors} and "
-#~ "others."
+#~ "The Music View is powered by the [http://poppler.freedesktop.org/ "
+#~ "Poppler] library by {authors} and others."
 #~ msgstr ""
 #~ "Перегляд твору використовує бібліотеку {poppler} — {authors} та інші."
 
-#~ msgid "Most of the bundled icons are created by {tango}."
+#, fuzzy
+#~ msgid ""
+#~ "Most of the bundled icons are created by [http://tango.freedesktop.org/ "
+#~ "The Tango Desktop Project]."
 #~ msgstr "Більшість значків створив {tango}."
+
+#, fuzzy
+#~ msgid ""
+#~ "{appname} is written in [http://www.python.org/ Python] and uses the "
+#~ "[http://qt-project.org/ Qt] toolkit."
+#~ msgstr "{appname} написано на {python} з використанням бібліотек {qt}."
 
 #~ msgid "The Tango Desktop Project"
 #~ msgstr "Проект Tango Desktop"

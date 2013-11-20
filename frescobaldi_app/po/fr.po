@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-11-19 12:03+0100\n"
+"POT-Creation-Date: 2013-11-20 14:43+0100\n"
 "PO-Revision-Date: 2013-09-29 12:52+0100\n"
 "Last-Translator: Raphaël Doursenaud <rdoursenaud@free.fr>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -6140,7 +6140,7 @@ msgstr "Fragments Python"
 #, fuzzy
 msgid ""
 "Python snippets can read and should set the variable `text`. The variable "
-"`text` contains the currently selected text (which may be an empty string"
+"`text` contains the currently selected text (which may be an empty string)."
 msgstr ""
 "<p>Les fragments Python peuvent lire et définir la variable {text}. La "
 "variable {text} contient le texte actuellement sélectionné (qui peut être "
@@ -7028,60 +7028,54 @@ msgstr ""
 "Le format XML de la bibliothèque de fragments est simple et documenté dans "
 "le fichier XML."
 
-#. NOTE: markdown formatting
 #: ../userguide/credits.md:3
-#, fuzzy
-msgid ""
-"{appname} is written in [http://www.python.org/ Python] and uses the [http://"
-"qt-project.org/ Qt] toolkit."
+msgid "{appname} is written in {python} and uses the {qt} toolkit."
 msgstr "{appname} est écrit en {python} et utilise le toolkit {qt}."
 
-#. NOTE: markdown formatting
-#: ../userguide/credits.md:6
-#, fuzzy
+#: ../userguide/credits.md:5
 msgid ""
-"The Music View is powered by the [http://poppler.freedesktop.org/ Poppler] "
-"library by {authors} and others."
+"The Music View is powered by the {poppler} library by {authors} and others."
 msgstr ""
 "L'aperçu est géré par la bibliothèque {poppler} de {authors} et d'autres."
 
-#. NOTE: markdown formatting
-#: ../userguide/credits.md:9
-#, fuzzy
-msgid ""
-"Most of the bundled icons are created by [http://tango.freedesktop.org/ The "
-"Tango Desktop Project]."
+#: ../userguide/credits.md:7
+msgid "Most of the bundled icons are created by {tango}."
 msgstr "La plupart des icônes embarquées sont créées par {tango}."
 
-#: ../userguide/credits.md:12
+#: ../userguide/credits.md:9
 msgid "The following people contributed to {appname}:"
 msgstr "Les personnes suivantes ont contribué au développement de {appname} :"
 
-#: ../userguide/credits.md:15
+#: ../userguide/credits.md:12
 msgid "Main author and core developer"
 msgstr "Auteur principal et développeur"
 
-#: ../userguide/credits.md:18
+#: ../userguide/credits.md:15
 msgid "Kinetic Scrolling for the Music View"
 msgstr "Défilement dynamique pour l'Aperçu."
 
-#: ../userguide/credits.md:21
+#: ../userguide/credits.md:18
 msgid "Improved highlighting and auto-completion of Scheme code"
 msgstr ""
 "Coloration syntaxique et complètement automatique du code Scheme améliorés"
 
-#: ../userguide/credits.md:24
+#: ../userguide/credits.md:21
 msgid "Layout control modes and various other contributions"
 msgstr ""
 
-#: ../userguide/credits.md:27
+#: ../userguide/credits.md:24
 msgid "Modal Transpose"
 msgstr "Transposition Modale"
 
-#: ../userguide/credits.md:30
+#: ../userguide/credits.md:27
 #, fuzzy
 msgid "Quick Insert buttons for grace notes, and MusicXML im- and export"
 msgstr "Boutons d'insertion rapide pour les appoggiatures"
+
+#: ../userguide/credits.md:30
+#, fuzzy
+msgid "MIDI capturing"
+msgstr "Réglages MIDI"
 
 #: ../userguide/credits.md:33
 #, fuzzy
@@ -7571,16 +7565,12 @@ msgstr "Nombre"
 msgid "The width of a tab character, by default 8."
 msgstr "La largeur d'une tabulation, par défaut 8 espaces."
 
-#. NOTE: markdown formatting
 #: ../userguide/docvars.md:32
-#, fuzzy
-msgid "Whether to use tabs in indent, by default `no`."
+msgid "Whether to use tabs in indent, by default {no}."
 msgstr "Utilisation de tabulations pour l'indentation. Par défaut : {no}."
 
-#. NOTE: markdown formatting
 #: ../userguide/docvars.md:35
-#, fuzzy
-msgid "Whether to use tabs elsewhere in the document, by default `yes`."
+msgid "Whether to use tabs elsewhere in the document, by default {yes}."
 msgstr ""
 "Utilisation de tabulations n'importe où dans le document. Par défaut : {yes}."
 
@@ -8417,6 +8407,35 @@ msgstr ""
 msgid "Here you can change the settings for various tools."
 msgstr "Vous pouvez modifier les réglages pour différents outils."
 
+#, fuzzy
+#~ msgid "Whether to use tabs in indent, by default `no`."
+#~ msgstr "Utilisation de tabulations pour l'indentation. Par défaut : {no}."
+
+#, fuzzy
+#~ msgid "Whether to use tabs elsewhere in the document, by default `yes`."
+#~ msgstr ""
+#~ "Utilisation de tabulations n'importe où dans le document. Par défaut : "
+#~ "{yes}."
+
+#, fuzzy
+#~ msgid ""
+#~ "The Music View is powered by the [http://poppler.freedesktop.org/ "
+#~ "Poppler] library by {authors} and others."
+#~ msgstr ""
+#~ "L'aperçu est géré par la bibliothèque {poppler} de {authors} et d'autres."
+
+#, fuzzy
+#~ msgid ""
+#~ "Most of the bundled icons are created by [http://tango.freedesktop.org/ "
+#~ "The Tango Desktop Project]."
+#~ msgstr "La plupart des icônes embarquées sont créées par {tango}."
+
+#, fuzzy
+#~ msgid ""
+#~ "{appname} is written in [http://www.python.org/ Python] and uses the "
+#~ "[http://qt-project.org/ Qt] toolkit."
+#~ msgstr "{appname} est écrit en {python} et utilise le toolkit {qt}."
+
 #~ msgid "Various contributions"
 #~ msgstr "Diverses contributions"
 
@@ -8426,26 +8445,14 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ msgid "MusicXML import"
 #~ msgstr "Import MusicXML"
 
-#~ msgid "{appname} is written in {python} and uses the {qt} toolkit."
-#~ msgstr "{appname} est écrit en {python} et utilise le toolkit {qt}."
-
 #~ msgid "Python"
 #~ msgstr "Python"
 
 #~ msgid "Qt4"
 #~ msgstr "Qt4"
 
-#~ msgid ""
-#~ "The Music View is powered by the {poppler} library by {authors} and "
-#~ "others."
-#~ msgstr ""
-#~ "L'aperçu est géré par la bibliothèque {poppler} de {authors} et d'autres."
-
 #~ msgid "Poppler"
 #~ msgstr "Poppler"
-
-#~ msgid "Most of the bundled icons are created by {tango}."
-#~ msgstr "La plupart des icônes embarquées sont créées par {tango}."
 
 #~ msgid "The Tango Desktop Project"
 #~ msgstr "Le Projet de Bureau Tango"
@@ -9520,14 +9527,6 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 
 #~ msgid "More information."
 #~ msgstr "Plus d'informations."
-
-#~ msgid "Whether to use tabs in indent, by default {no}."
-#~ msgstr "Utilisation de tabulations pour l'indentation. Par défaut : {no}."
-
-#~ msgid "Whether to use tabs elsewhere in the document, by default {yes}."
-#~ msgstr ""
-#~ "Utilisation de tabulations n'importe où dans le document. Par défaut : "
-#~ "{yes}."
 
 #~ msgid "You can put document variables in comments."
 #~ msgstr "Vous pouvez placer des variables de document dans les commentaires."

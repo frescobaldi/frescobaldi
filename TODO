@@ -1,6 +1,31 @@
+
+
+
+        Contents of this TODO file:
+
+        - Frescobaldi paradigm
+        - TODO and wishes for Frescobaldi 2.x
+        - ROADMAP for Frescobaldi 3.0
+        - Other ideas/wishes
+
+
+Frescobaldi paradigm
+====================
+
+With all the feature ideas, Frescobaldi should remain a simple and
+straightforward application to use.  Which means:
+
+- Not too much configurability. Just good defaults
+- Shortcuts for the basic tasks
+- Quick startup by loading modules only when the user requests a certain action
+- Predictable behaviour
+- Coding: separation of concerns, messages, modularity, encapsulation
+
+See also README-development.
+
+
 TODO and wishes for Frescobaldi 2.x
 ===================================
-
 
 - LilyPond context help
 
@@ -14,6 +39,7 @@ TODO and wishes for Frescobaldi 2.x
 - Midi input and import. Probably using a basic sequencer, allowing changes,
   corrections and quantizing touchups before putting the LilyPond representation
   in the editor.
+  * mamoch is working on Midi input like the 1.x rumor did.
 
 - tool to separate out things from music and attach them to invisible rests (s)
   in a separate expression
@@ -28,9 +54,26 @@ TODO and wishes for Frescobaldi 2.x
   stub: qpopplerview/toc.py
 
 
+ROADMAP for Frescobaldi 3.0
+===========================
+
+At a certain point, master will become Frescobaldi 3 and Frescobaldi 2 will
+get it's own branch "v2"
+
+1. Use Python 3 (Frescobaldi 2.0 should also run with Python 3)
+
+2. Require and make use of PyQt5 and Qt5 (recompile/update poppler-qt4)
+
+3. SVG music view and editor
+   
+   Make a new music view that displays the SVG output of LilyPond and allows
+   for very fine-grained editing, both via altering the LilyPond source but
+   also editing and saving the SVG file manually to provide a final PDF
+   rendering. Probably using QGraphicsWebView.
+
+
 Other ideas/wishes
 ==================
-
 
 - continuous autocompile (run LilyPond whenever deemed suitable)
   stub: engrave/autocompile.py

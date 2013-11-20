@@ -1,43 +1,83 @@
-This is the built-in Frescobaldi manual
+The built-in Frescobaldi manual
+===============================
 
 This manual consists of simple markdown-like formatted text files, one per
 help topic.
 
-The text pages support some basic markdown features, see the documentation in
-the simplemarkdown module.
+When writing a help page about "Something", make a file "someting.md" in this
+"userguide" directory.
 
-Every block of inline text is first formatted into HTML, then translated.
-There are some special features.
+Write a title and the body content. E.g.:
 
-If an inline block of text (i.e. a paragraph or a list item) starts with !, it
-is not translated. In that case, parts between _( and )_ are harvested and
-translated on their own.
+    === This is the title ===
 
-E.g.
+    This is the body, that explains the feature Something.
+
+If the userguide page has subpages, list them under #SUBDOCS:
+
+    #SUBDOCS
+    something_bla
+    something_other
+    
+You can add pages to the "See also" section:
+
+    #SEEALSO
+    other_page
+
+The text pages support basic markdown-like features. Paragraphs should be
+separated with blank lines. A paragraph can also be a list:
+
+    * item list
+    * another item
+      1. nested numbered list
+          
+         a paragraph in the same nested level
+
+    A description item
+    : explanation of the description.
+
+Headings use 1 to 3 = signs:
+
+    == Sub-title ==
+
+Code examples should start and end with ``` on the start of a line:
+
+    ```lilypond
+    % A LilyPond-formatted music block
+    \relative c' {
+      c d e f g
+    }
+    ```
+
+Inline markdown: *emphasized*, [http://url link text], `code`.
+
+Inline markup (a heading,paragraph or list item) is translated before being
+rendered to HTML.
+
+If you don't want to translate a paragraph (e.g. because is it a list of names,
+or a technical description that should not be translated), you should start
+the paragraph with an exclamation sign "!".
+
+If you *do* want to translated *some parts* of an untranslated paragraph, you
+should wrap that part(s) in "_(" and ")_". E.g.:
 
     !`-dno-point-and-click`: _(No point and click)_
-
-is internally converted to 
-
-    "<code>-dno-point-and-click</code>: {0}".format(_("No point and click"))
 
 It is also possible to embed variables in the text. Those always adhere to the
 python format string syntax.
 
 In the markdown help page you could write:
 
-    See {link}
+    See {link}.
     
 The {link} construct is put unchanged in the translatable string, the
-translaters know that those are not meant to be translated.
+translators know that those are not meant to be translated.
 
 The value is looked up as follows:
 
-1. Look in the #VARS section below the document content
+1. Look in the #VARS section below the document content (see below)
 
-2. Call the method with that name in a special module, the returned value is
-   inserted in the string before display
-   
+2. Call the corresponding function in userguide/resolve.py
 
 
 The #VARS section
@@ -53,12 +93,38 @@ e.g. when using:
     See {link}.
 
     #VARS
-    link URL http://www.frescobaldi.org/
+    link url http://www.frescobaldi.org/
     
 "See {link}." will be transformed like:
     
     _("See {link}.").format(
         link='<a href="http://www.frescobaldi.org/">www.frescobaldi.org</a>')
 
+These are the available types:
 
+type:   text:
+
+md          inline markdown-like text (is not translated)
+
+html        html text
+
+text        plain text, HTML tags will be escaped
+
+url         url, will be made clickable
+
+help        name, will make a link to the help page with that name
+
+shortcut    collection action   (will show the currently set keyboard shortcut)
+
+menu        name -> name -> etc
+
+            Will return a nicely formatted menu path, like File->Import->Etc.
+            There are predefined names like file, edit, view etc, but you can
+            also use the exact names, they *will* be translated.
+
+image       filename, will make the image visible
+
+languagename    code, will return the full name of the language in the current
+            language. E.g. languagename nl will return 'Dutch' when the current
+            UI language is English.
 

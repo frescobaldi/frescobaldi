@@ -2,7 +2,7 @@
 
 Python snippets can read and should set the variable `text`.
 The variable `text` contains the currently selected text (which may be an
-empty string
+empty string).
         
 You may set `text` to a string or a list of strings.
 
