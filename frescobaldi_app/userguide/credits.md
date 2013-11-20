@@ -26,6 +26,9 @@ The following people contributed to {appname}:
 !Peter Bjuhr:
 : Quick Insert buttons for grace notes, and MusicXML im- and export
 
+!Manuel Mchalwat
+: MIDI capturing
+
 !Mario Moles
 : Finding lots of bugs
 

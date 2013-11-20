@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.17\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-11-20 11:09+0100\n"
+"POT-Creation-Date: 2013-11-20 14:43+0100\n"
 "PO-Revision-Date: 2011-01-03 17:37+0100\n"
 "Last-Translator: Manuel A. Vazquez <xixirei@yahoo.es>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -6913,10 +6913,15 @@ msgstr ""
 
 #: ../userguide/credits.md:30
 #, fuzzy
+msgid "MIDI capturing"
+msgstr "Configuración"
+
+#: ../userguide/credits.md:33
+#, fuzzy
 msgid "Finding lots of bugs"
 msgstr "Codificación para usar"
 
-#: ../userguide/credits.md:33
+#: ../userguide/credits.md:36
 msgid "{appname} is translated into the following languages:"
 msgstr ""
 

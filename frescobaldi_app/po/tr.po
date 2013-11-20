@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-11-20 11:09+0100\n"
+"POT-Creation-Date: 2013-11-20 14:43+0100\n"
 "PO-Revision-Date: 2010-12-12 07:48+0200\n"
 "Last-Translator: Server Acim <serveracim@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -6912,10 +6912,15 @@ msgstr ""
 
 #: ../userguide/credits.md:30
 #, fuzzy
+msgid "MIDI capturing"
+msgstr "Ayarlar"
+
+#: ../userguide/credits.md:33
+#, fuzzy
 msgid "Finding lots of bugs"
 msgstr "Kullanılacak dil kodlaması"
 
-#: ../userguide/credits.md:33
+#: ../userguide/credits.md:36
 msgid "{appname} is translated into the following languages:"
 msgstr ""
 

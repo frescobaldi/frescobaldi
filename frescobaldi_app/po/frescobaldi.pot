@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.12-dev\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-11-20 11:09+0100\n"
+"POT-Creation-Date: 2013-11-20 14:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6408,10 +6408,14 @@ msgid "Quick Insert buttons for grace notes, and MusicXML im- and export"
 msgstr ""
 
 #: ../userguide/credits.md:30
-msgid "Finding lots of bugs"
+msgid "MIDI capturing"
 msgstr ""
 
 #: ../userguide/credits.md:33
+msgid "Finding lots of bugs"
+msgstr ""
+
+#: ../userguide/credits.md:36
 msgid "{appname} is translated into the following languages:"
 msgstr ""
 

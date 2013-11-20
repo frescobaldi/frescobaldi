@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-11-20 11:09+0100\n"
+"POT-Creation-Date: 2013-11-20 14:43+0100\n"
 "PO-Revision-Date: 2013-04-30 21:59+0200\n"
 "Last-Translator: Gianluca D'Orazio <gianluca.dorazio@gmail.com>\n"
 "Language-Team: Italian <>\n"
@@ -6996,10 +6996,15 @@ msgstr ""
 
 #: ../userguide/credits.md:30
 #, fuzzy
+msgid "MIDI capturing"
+msgstr "Impostazioni MIDI"
+
+#: ../userguide/credits.md:33
+#, fuzzy
 msgid "Finding lots of bugs"
 msgstr "Codifica da usare"
 
-#: ../userguide/credits.md:33
+#: ../userguide/credits.md:36
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} è tradotto in queste lingue:"
 
