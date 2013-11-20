@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-11-19 23:15+0100\n"
-"PO-Revision-Date: 2013-11-19 23:57+0100\n"
+"POT-Creation-Date: 2013-11-20 09:03+0100\n"
+"PO-Revision-Date: 2013-11-20 09:06+0100\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -6775,12 +6775,16 @@ msgid ""
 "With the snippets manager you can store often used pieces of text called "
 "\"snippets\", and easily paste them into the text editor."
 msgstr ""
+"Met de knipselmanager kunt u vaak gebruikte stukjes tekst, \"knipsels\" "
+"genaamd, opslaan en eenvoudig in de teksteditor plakken."
 
 #: ../userguide/snippets.md:6
 msgid ""
 "The snippets manager can be activated via the menu {menu_snippets} or by "
 "pressing {key_snippets}."
 msgstr ""
+"De knipselmanager wordt geactiveerd via het menu {menu_snippets} of door op "
+"{key_snippets} te drukken."
 
 #: ../userguide/snippets.md:9
 msgid ""
@@ -6790,12 +6794,21 @@ msgid ""
 "type in the search entry to select the snippet. Pressing the Return key will "
 "then apply the snippet to the text editor and hide the snippets manager."
 msgstr ""
+"U kunt zoeken naar knipsels door door de lijst te bladeren of enige tekens "
+"in het zoekvak te typen. Knipsels kunnen ook een sneltoets hebben die ze "
+"direct toepast. Sommige knipsels hebben een speciale mnemonic (korte naam) "
+"die u kunt typen in het zoekvak om het knipsel te selecteren. Als u daarna "
+"op Enter drukt wordt het knipsel direct toegepast en de knipselmanager weer "
+"verborgen."
 
 #: ../userguide/snippets.md:16
 msgid ""
 "Add new snippets using {key_add}. Edit the selected snippet with {key_edit}. "
 "Remove selected snippets using {key_delete}. Warning: this cannot be undone!"
 msgstr ""
+"Voeg nieuwe knipsels toe met {key_add}. Bewerk het huidige knipsel met "
+"{key_edit}. Verwijder geselecteerde knipsels met {key_delete}. Waarschuwing: "
+"deze actie kan niet ongedaan worden gemaakt!"
 
 #: ../userguide/snippets.md:19
 msgid ""
@@ -6803,20 +6816,23 @@ msgid ""
 "snippets which can include or alter selected text. Some snippets do this by "
 "using special variables, while others are small scripts written in Python."
 msgstr ""
+"Knipsels kunnen ook worden weergegeven in het menu (zie {link}). Tenslotte "
+"zijn er ook knipsels die geselecteerde tekst kunnen meenemen of veranderen. "
+"Sommige knipsels doen dit door speciale variabelen te gebruiken, terwijl "
+"andere in feite kleine scripts zijn, geschreven in Python."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_general.md:3
-#, fuzzy
 msgid ""
 "Under *General Preferences*, you can choose in which language Frescobaldi's "
 "user interface is translated, which user interface style you want to use, "
 "and whether you want to use the built-in Tango iconset or to use the system-"
 "wide configured icon set."
 msgstr ""
-"Onder <em>{general_preferences}</em>, kunt u instellen in welke taal "
-"Frescobaldi's gebruikersinterface is vertaald, welke grafische stijl u wilt "
-"gebruiken, en of u de ingebouwde Tango icoonset wilt gebruiken of de "
-"icoonset van het besturingssysteem."
+"Onder *General_Preferences* kunt u instellen in welke taal Frescobaldi's "
+"gebruikersinterface is vertaald, welke grafische stijl u wilt gebruiken, en "
+"of u de ingebouwde Tango pictogrammen wilt gebruiken of die van het "
+"besturingssysteem."
 
 #: ../userguide/prefs_general.md:8
 msgid ""
@@ -6828,7 +6844,6 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_general.md:11
-#, fuzzy
 msgid ""
 "Under *Session to load if Frescobaldi is started without arguments* you can "
 "configure which session to load if Frescobaldi is started without a "
@@ -6837,37 +6852,33 @@ msgid ""
 "works when you have explicitly created a session and set it to automatically "
 "add files on save to it. See also {sessions}."
 msgstr ""
-"Onder <em>{startup}</em> kunt u instellen welke sessie wordt geladen als "
+"Onder *Te laden sessie*, kunt u instellen welke sessie wordt geladen als "
 "Frescobaldi wordt gestart zonder bestandsnaam. U kunt kiezen om altijd met "
 "één leeg document op te starten, met de laatstgebruikte sessie of met een "
 "specifieke sessie. Een sessie kunt u aanmaken via het menu Sessies. Zie ook "
-"{link}."
+"{sessions}."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_general.md:18
-#, fuzzy
 msgid ""
 "Under *When saving documents*, you can choose what to do when a document is "
 "saved, such as remembering the cursor position and marked lines, or leaving "
 "a backup copy of the document (with a `~` appended)."
 msgstr ""
-"Onder <em>{saving}</em>, kunt u kiezen wat er gedaan moet worden als een "
+"Onder *Bij het opslaan*, kunt u kiezen wat er gedaan moet worden als een "
 "document wordt opgeslagen, zoals bijvoorbeeld de cursorpositie en "
-"gemarkeerde regels onthouden of een veiligheidskopie achterladen (met een ~ "
-"toegevoegd). Ook kunt u een standaardmap opgeven waar u uw documenten in "
-"bewaart."
+"gemarkeerde regels onthouden of een veiligheidskopie achterladen (met een "
+"`~` toegevoegd)."
 
 #: ../userguide/prefs_general.md:22
-#, fuzzy
 msgid ""
 "Also, you can specify a default folder in which you keep your LilyPond "
 "documents."
-msgstr "De standaardmap voor uw LilyPond documenten (optioneel)."
+msgstr "Ook kunt u een standaardmap opgeven waar u uw documenten in bewaart."
 
 #: ../userguide/engrave_publish.md:1
-#, fuzzy
 msgid "Publish mode"
-msgstr "Publiceren"
+msgstr "Publicatie-modus"
 
 #: ../userguide/engrave_publish.md:3
 msgid ""
@@ -6891,9 +6902,8 @@ msgstr ""
 "zijn."
 
 #: ../userguide/outline.md:1
-#, fuzzy
 msgid "Document Outline"
-msgstr "Documentatie-browser"
+msgstr "Documentstructuur"
 
 #: ../userguide/snippet_import_export.md:1
 msgid "Importing and exporting snippets"
@@ -6906,7 +6916,6 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../userguide/snippet_import_export.md:5
-#, fuzzy
 msgid ""
 "To export snippets, either select them in the snippet manager, or filter the "
 "snippets using the search bar and select none, so that all the snippets "
@@ -6916,21 +6925,20 @@ msgid ""
 msgstr ""
 "Om knipsels te exporteren, selecteer ze in the knipselmanager of filter de "
 "knipsels via de zoekbalk en selecteer er geen een, zodat alle zichtbare "
-"knipsels worden geëxporteerd. Exporteer de knipzels door {menu} te kiezen, "
-"en dan een bestandsnaam in te voeren, bij voorkeur eindigend in <code>.xml</"
-"code>."
+"knipsels worden geëxporteerd. Exporteer de knipzels door {menu_export} te "
+"kiezen, en dan een bestandsnaam in te voeren, bij voorkeur eindigend in `."
+"xml`."
 
 #: ../userguide/snippet_import_export.md:11
-#, fuzzy
 msgid ""
 "To import snippets, select {menu_import} and choose the file you want to "
 "import. You may also drop an XML file on the snippet manager. A dialog will "
 "be displayed where you can select which snippets you want to import."
 msgstr ""
-"Om knipsels te importeren, selecteer {menu} en kies het bestand dat u wilt "
-"importeren. U kunt ook bestanden naar de knipselmanager slepen. Een dialoog "
-"wordt dan weergegeven waar u de knipsels kunt selecteren die u uit het "
-"bestand wilt importeren."
+"Om knipsels te importeren, selecteer {menu_import} en kies het bestand dat u "
+"wilt importeren. U kunt ook bestanden naar de knipselmanager slepen. Een "
+"dialoog wordt dan weergegeven waar u de knipsels kunt selecteren die u uit "
+"het bestand wilt importeren."
 
 #: ../userguide/snippet_import_export.md:15
 msgid ""
@@ -6940,67 +6948,54 @@ msgstr ""
 "Het XML-formaat van de knipselbibliotheken is eenvoudig en gedocumenteerd in "
 "het XML-bestand."
 
-#. NOTE: markdown formatting
 #: ../userguide/credits.md:3
-#, fuzzy
-msgid ""
-"{appname} is written in [http://www.python.org/ Python] and uses the [http://"
-"qt-project.org/ Qt] toolkit."
+msgid "{appname} is written in {python} and uses the {qt} toolkit."
 msgstr "{appname} is geschreven in {python} en gebruikt de {qt} toolkit."
 
-#. NOTE: markdown formatting
-#: ../userguide/credits.md:6
-#, fuzzy
+#: ../userguide/credits.md:5
 msgid ""
-"The Music View is powered by the [http://poppler.freedesktop.org/ Poppler] "
-"library by {authors} and others."
+"The Music View is powered by the {poppler} library by {authors} and others."
 msgstr ""
 "De muziekweergave is gebaseerd op de {poppler}-bibliotheek van {authors} en "
 "anderen."
 
-#. NOTE: markdown formatting
-#: ../userguide/credits.md:9
-#, fuzzy
-msgid ""
-"Most of the bundled icons are created by [http://tango.freedesktop.org/ The "
-"Tango Desktop Project]."
+#: ../userguide/credits.md:7
+msgid "Most of the bundled icons are created by {tango}."
 msgstr "De meeste bijgeleverde pictogrammen zijn gemaakt door {tango}."
 
-#: ../userguide/credits.md:12
+#: ../userguide/credits.md:9
 msgid "The following people contributed to {appname}:"
 msgstr "De volgende personen hebben bijgedragen aan {appname}:"
 
-#: ../userguide/credits.md:15
+#: ../userguide/credits.md:12
 msgid "Main author and core developer"
 msgstr "Auteur en hoofdontwikkelaar"
 
-#: ../userguide/credits.md:18
+#: ../userguide/credits.md:15
 msgid "Kinetic Scrolling for the Music View"
 msgstr "Kinetische schuifbeweging in de muziekweergave"
 
-#: ../userguide/credits.md:21
+#: ../userguide/credits.md:18
 msgid "Improved highlighting and auto-completion of Scheme code"
 msgstr "Verbeterde accentuering en automatisch aanvullen van Scheme-code"
 
-#: ../userguide/credits.md:24
+#: ../userguide/credits.md:21
 msgid "Layout control modes and various other contributions"
-msgstr ""
+msgstr "Layout-controle modi en verscheidene andere bijdragen"
 
-#: ../userguide/credits.md:27
+#: ../userguide/credits.md:24
 msgid "Modal Transpose"
 msgstr "Modaal transponeren"
 
-#: ../userguide/credits.md:30
-#, fuzzy
+#: ../userguide/credits.md:27
 msgid "Quick Insert buttons for grace notes, and MusicXML im- and export"
-msgstr "Quick Insert knoppen voor voorslagen"
+msgstr "Quick Insert knoppen voor voorslagen, MusicXML im- en export"
+
+#: ../userguide/credits.md:30
+msgid "Finding lots of bugs"
+msgstr "Het vinden van vele bugs"
 
 #: ../userguide/credits.md:33
-#, fuzzy
-msgid "Finding lots of bugs"
-msgstr "Te gebruiken tekenset"
-
-#: ../userguide/credits.md:36
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} is vertaald in de volgende talen:"
 
@@ -7009,16 +7004,16 @@ msgid "Here you can configure Frescobaldi's MIDI settings."
 msgstr "Hier kunt u Frescobaldi's MIDI instellingen aanpassen."
 
 #: ../userguide/prefs_midi.md:5
-#, fuzzy
 msgid ""
 "You can specify the MIDI port name to play to. If there are no port names "
 "visible in the drop-down box, it may be necessary to connect a hardware MIDI "
 "synthesizer to your computer, or to start a software synthesizer program "
 "such as TiMidity or Fluidsynth."
 msgstr ""
-"Als er geen poortnamen zichtbaar zijn in de uitklapknop kan het nodig zijn "
-"om een hardware MIDI synthesizer aan te sluiten, of een software-synthesizer "
-"te starten zoals TiMidity of Fluidsynth."
+"U kunt de MIDI poort opgeven om naar af te spelen. Als er geen poortnamen "
+"zichtbaar zijn in de uitklapknop kan het nodig zijn om een hardware MIDI "
+"synthesizer aan te sluiten, of een software-synthesizer te starten zoals "
+"TiMidity of Fluidsynth."
 
 #: ../userguide/prefs_midi.md:10
 msgid "On Linux, the synthesizer should be available as an ALSA MIDI device."
@@ -7035,16 +7030,14 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_midi.md:15
-#, fuzzy
 msgid ""
 "And finally, when using a software synthesizer it is recommended to enable "
 "the option *Close unused MIDI output*."
 msgstr ""
 "Tenslotte, wanneer u een software-synthesizer gebruikt, is het aanbevolen de "
-"optie <em>{close_unused}</em> te gebruiken."
+"optie *Ongebruikte MIDI-output sluiten* te gebruiken."
 
 #: ../userguide/prefs_midi.md:18
-#, fuzzy
 msgid ""
 "If checked, Frescobaldi will close MIDI output ports that are not used for "
 "one minute. This could free up system resources that a software MIDI "
@@ -7053,15 +7046,13 @@ msgid ""
 "default piano (instrument 0). In that case, playing the file from the "
 "beginning sets up the instruments again."
 msgstr ""
-"<p>Indien ingeschakeld, zal Frescobaldi ongebruikte MIDI-uitgangen na een "
-"minuut sluiten.</p>\n"
-"<p>Dit kan helpen om systeembronnen vrij te maken die anders gebruikt zouden "
-"worden door een software MIDI-synthesizer, en zodoende batterij-vermogen te "
-"sparen.</p>\n"
-"<p>Een neveneffect is dat als u een MIDI-bestand langdurig pauzeert en dan "
-"verder afspeelt, de instrumenten teruggezet zijn naar de standaard piano "
-"(instrument 0). In dat geval kunt u het bestand vanaf het begin afspelen om "
-"de instrumenten weer correct te horen.</p>\n"
+"Indien ingeschakeld, zal Frescobaldi ongebruikte MIDI-uitgangen na een "
+"minuut sluiten. Dit kan helpen om systeembronnen vrij te maken die anders "
+"gebruikt zouden worden door een software MIDI-synthesizer, en zodoende "
+"batterij-vermogen te sparen. Een neveneffect is dat als u een MIDI-bestand "
+"langdurig pauzeert en dan verder afspeelt, de instrumenten teruggezet zijn "
+"naar de standaard piano (instrument 0). In dat geval kunt u het bestand "
+"vanaf het begin afspelen om de instrumenten weer correct te horen."
 
 #: ../userguide/getstarted.md:1
 msgid "Getting Started"
@@ -8309,6 +8300,26 @@ msgstr ""
 msgid "Here you can change the settings for various tools."
 msgstr "Hier kunt u de instellingen van de diverse gereedschappen wijzigen."
 
+#, fuzzy
+#~ msgid ""
+#~ "The Music View is powered by the [http://poppler.freedesktop.org/ "
+#~ "Poppler] library by {authors} and others."
+#~ msgstr ""
+#~ "De muziekweergave is gebaseerd op de {poppler}-bibliotheek van {authors} "
+#~ "en anderen."
+
+#, fuzzy
+#~ msgid ""
+#~ "Most of the bundled icons are created by [http://tango.freedesktop.org/ "
+#~ "The Tango Desktop Project]."
+#~ msgstr "De meeste bijgeleverde pictogrammen zijn gemaakt door {tango}."
+
+#, fuzzy
+#~ msgid ""
+#~ "{appname} is written in [http://www.python.org/ Python] and uses the "
+#~ "[http://qt-project.org/ Qt] toolkit."
+#~ msgstr "{appname} is geschreven in {python} en gebruikt de {qt} toolkit."
+
 #~ msgid "Various contributions"
 #~ msgstr "Verschillende bijdragen"
 
@@ -8318,27 +8329,14 @@ msgstr "Hier kunt u de instellingen van de diverse gereedschappen wijzigen."
 #~ msgid "MusicXML import"
 #~ msgstr "MusicXML import"
 
-#~ msgid "{appname} is written in {python} and uses the {qt} toolkit."
-#~ msgstr "{appname} is geschreven in {python} en gebruikt de {qt} toolkit."
-
 #~ msgid "Python"
 #~ msgstr "Python"
 
 #~ msgid "Qt4"
 #~ msgstr "Qt4"
 
-#~ msgid ""
-#~ "The Music View is powered by the {poppler} library by {authors} and "
-#~ "others."
-#~ msgstr ""
-#~ "De muziekweergave is gebaseerd op de {poppler}-bibliotheek van {authors} "
-#~ "en anderen."
-
 #~ msgid "Poppler"
 #~ msgstr "Poppler"
-
-#~ msgid "Most of the bundled icons are created by {tango}."
-#~ msgstr "De meeste bijgeleverde pictogrammen zijn gemaakt door {tango}."
 
 #~ msgid "The Tango Desktop Project"
 #~ msgstr "Het Tango Desktop-project"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.17\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-11-19 23:15+0100\n"
+"POT-Creation-Date: 2013-11-20 09:03+0100\n"
 "PO-Revision-Date: 2011-01-03 17:37+0100\n"
 "Last-Translator: Manuel A. Vazquez <xixirei@yahoo.es>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -6869,62 +6869,54 @@ msgid ""
 "the XML file."
 msgstr ""
 
-#. NOTE: markdown formatting
 #: ../userguide/credits.md:3
-msgid ""
-"{appname} is written in [http://www.python.org/ Python] and uses the [http://"
-"qt-project.org/ Qt] toolkit."
+msgid "{appname} is written in {python} and uses the {qt} toolkit."
 msgstr ""
 
-#. NOTE: markdown formatting
-#: ../userguide/credits.md:6
+#: ../userguide/credits.md:5
 msgid ""
-"The Music View is powered by the [http://poppler.freedesktop.org/ Poppler] "
-"library by {authors} and others."
+"The Music View is powered by the {poppler} library by {authors} and others."
 msgstr ""
 
-#. NOTE: markdown formatting
+#: ../userguide/credits.md:7
+msgid "Most of the bundled icons are created by {tango}."
+msgstr ""
+
 #: ../userguide/credits.md:9
-msgid ""
-"Most of the bundled icons are created by [http://tango.freedesktop.org/ The "
-"Tango Desktop Project]."
-msgstr ""
-
-#: ../userguide/credits.md:12
 msgid "The following people contributed to {appname}:"
 msgstr ""
 
-#: ../userguide/credits.md:15
+#: ../userguide/credits.md:12
 msgid "Main author and core developer"
 msgstr ""
 
-#: ../userguide/credits.md:18
+#: ../userguide/credits.md:15
 msgid "Kinetic Scrolling for the Music View"
 msgstr ""
 
-#: ../userguide/credits.md:21
+#: ../userguide/credits.md:18
 msgid "Improved highlighting and auto-completion of Scheme code"
 msgstr ""
 
-#: ../userguide/credits.md:24
+#: ../userguide/credits.md:21
 msgid "Layout control modes and various other contributions"
 msgstr ""
 
-#: ../userguide/credits.md:27
+#: ../userguide/credits.md:24
 #, fuzzy
 msgid "Modal Transpose"
 msgstr "Transportar..."
 
-#: ../userguide/credits.md:30
+#: ../userguide/credits.md:27
 msgid "Quick Insert buttons for grace notes, and MusicXML im- and export"
 msgstr ""
 
-#: ../userguide/credits.md:33
+#: ../userguide/credits.md:30
 #, fuzzy
 msgid "Finding lots of bugs"
 msgstr "Codificación para usar"
 
-#: ../userguide/credits.md:36
+#: ../userguide/credits.md:33
 msgid "{appname} is translated into the following languages:"
 msgstr ""
 

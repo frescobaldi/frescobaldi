@@ -1,13 +1,10 @@
 === Credits ===
 
-{appname} is written in [http://www.python.org/ Python]
-and uses the [http://qt-project.org/ Qt] toolkit.
+{appname} is written in {python} and uses the {qt} toolkit.
 
-The Music View is powered by the [http://poppler.freedesktop.org/ Poppler]
-library by {authors} and others.
+The Music View is powered by the {poppler} library by {authors} and others.
 
-Most of the bundled icons are created by
-[http://tango.freedesktop.org/ The Tango Desktop Project].
+Most of the bundled icons are created by {tango}.
 
 The following people contributed to {appname}:
 
@@ -85,7 +82,11 @@ The following people contributed to {appname}:
 
 
 #VARS
+python md [http://www.python.org/ Python]
+qt md [http://qt-project.org/ Qt]
+poppler md [http://poppler.freedesktop.org/ Poppler]
 authors text Kristian Høgsberg, Albert Astals Cid
+tango md [http://tango.freedesktop.org/ The Tango Desktop Project]
 lang_cs     languagename cs
 lang_de     languagename de
 lang_es     languagename es

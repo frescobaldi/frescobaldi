@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.3\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-11-19 23:15+0100\n"
+"POT-Creation-Date: 2013-11-20 09:03+0100\n"
 "PO-Revision-Date: 2012-02-17 00:26+0100\n"
 "Last-Translator: Piotr Komorowski <piotr-komorowski@wp.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -6617,69 +6617,58 @@ msgid ""
 "the XML file."
 msgstr ""
 
-#. NOTE: markdown formatting
 #: ../userguide/credits.md:3
-#, fuzzy
-msgid ""
-"{appname} is written in [http://www.python.org/ Python] and uses the [http://"
-"qt-project.org/ Qt] toolkit."
+msgid "{appname} is written in {python} and uses the {qt} toolkit."
 msgstr ""
 "{appname} jest napisany w {python}ie i korzysta z zestawu narzędzi {qt}. "
 
-#. NOTE: markdown formatting
-#: ../userguide/credits.md:6
-#, fuzzy
+#: ../userguide/credits.md:5
 msgid ""
-"The Music View is powered by the [http://poppler.freedesktop.org/ Poppler] "
-"library by {authors} and others."
+"The Music View is powered by the {poppler} library by {authors} and others."
 msgstr ""
 "Okno partytury jest obsługiwane przez bibliotekę {poppler} autorstwa "
 "{authors} i innych."
 
-#. NOTE: markdown formatting
-#: ../userguide/credits.md:9
-#, fuzzy
-msgid ""
-"Most of the bundled icons are created by [http://tango.freedesktop.org/ The "
-"Tango Desktop Project]."
+#: ../userguide/credits.md:7
+msgid "Most of the bundled icons are created by {tango}."
 msgstr "Większość ikon w pakiecie stworzonych jest przez {tango}."
 
-#: ../userguide/credits.md:12
+#: ../userguide/credits.md:9
 #, fuzzy
 msgid "The following people contributed to {appname}:"
 msgstr "Zostaną dokonane następujące zamiany:"
 
-#: ../userguide/credits.md:15
+#: ../userguide/credits.md:12
 msgid "Main author and core developer"
 msgstr ""
 
-#: ../userguide/credits.md:18
+#: ../userguide/credits.md:15
 msgid "Kinetic Scrolling for the Music View"
 msgstr ""
 
-#: ../userguide/credits.md:21
+#: ../userguide/credits.md:18
 msgid "Improved highlighting and auto-completion of Scheme code"
 msgstr ""
 
-#: ../userguide/credits.md:24
+#: ../userguide/credits.md:21
 msgid "Layout control modes and various other contributions"
 msgstr ""
 
-#: ../userguide/credits.md:27
+#: ../userguide/credits.md:24
 #, fuzzy
 msgid "Modal Transpose"
 msgstr "&Transponuj"
 
-#: ../userguide/credits.md:30
+#: ../userguide/credits.md:27
 msgid "Quick Insert buttons for grace notes, and MusicXML im- and export"
 msgstr ""
 
-#: ../userguide/credits.md:33
+#: ../userguide/credits.md:30
 #, fuzzy
 msgid "Finding lots of bugs"
 msgstr "Używane kodowanie"
 
-#: ../userguide/credits.md:36
+#: ../userguide/credits.md:33
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} przetłumaczony jest na następujące języki:"
 
@@ -7765,7 +7754,24 @@ msgstr ""
 msgid "Here you can change the settings for various tools."
 msgstr "Tutaj można modyfikować skróty klawiszowe dla {name}"
 
-#~ msgid "{appname} is written in {python} and uses the {qt} toolkit."
+#, fuzzy
+#~ msgid ""
+#~ "The Music View is powered by the [http://poppler.freedesktop.org/ "
+#~ "Poppler] library by {authors} and others."
+#~ msgstr ""
+#~ "Okno partytury jest obsługiwane przez bibliotekę {poppler} autorstwa "
+#~ "{authors} i innych."
+
+#, fuzzy
+#~ msgid ""
+#~ "Most of the bundled icons are created by [http://tango.freedesktop.org/ "
+#~ "The Tango Desktop Project]."
+#~ msgstr "Większość ikon w pakiecie stworzonych jest przez {tango}."
+
+#, fuzzy
+#~ msgid ""
+#~ "{appname} is written in [http://www.python.org/ Python] and uses the "
+#~ "[http://qt-project.org/ Qt] toolkit."
 #~ msgstr ""
 #~ "{appname} jest napisany w {python}ie i korzysta z zestawu narzędzi {qt}. "
 
@@ -7775,18 +7781,8 @@ msgstr "Tutaj można modyfikować skróty klawiszowe dla {name}"
 #~ msgid "Qt4"
 #~ msgstr "Qt4"
 
-#~ msgid ""
-#~ "The Music View is powered by the {poppler} library by {authors} and "
-#~ "others."
-#~ msgstr ""
-#~ "Okno partytury jest obsługiwane przez bibliotekę {poppler} autorstwa "
-#~ "{authors} i innych."
-
 #~ msgid "Poppler"
 #~ msgstr "Poppler"
-
-#~ msgid "Most of the bundled icons are created by {tango}."
-#~ msgstr "Większość ikon w pakiecie stworzonych jest przez {tango}."
 
 #~ msgid "The Tango Desktop Project"
 #~ msgstr "The Tango Desktop Project"
