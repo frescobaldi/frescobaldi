@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-11-20 09:03+0100\n"
+"POT-Creation-Date: 2013-11-20 11:09+0100\n"
 "PO-Revision-Date: 2011-12-30 18:12+0100\n"
 "Last-Translator: Urs Liska <git@ursliska.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -7194,16 +7194,12 @@ msgstr "Nummer"
 msgid "The width of a tab character, by default 8."
 msgstr "Die Breite von Tabulatoren, Standard ist 8."
 
-#. NOTE: markdown formatting
 #: ../userguide/docvars.md:32
-#, fuzzy
-msgid "Whether to use tabs in indent, by default `no`."
+msgid "Whether to use tabs in indent, by default {no}."
 msgstr "Benutze Tabulatoren bei Einrückungen, Standard ist {no}."
 
-#. NOTE: markdown formatting
 #: ../userguide/docvars.md:35
-#, fuzzy
-msgid "Whether to use tabs elsewhere in the document, by default `yes`."
+msgid "Whether to use tabs elsewhere in the document, by default {yes}."
 msgstr "Benutze Tabulatoren an anderer Stelle im Dokument, Standard ist {yes}."
 
 #: ../userguide/docvars.md:38
@@ -7961,6 +7957,15 @@ msgstr ""
 "Hier können Sie die Einstellungen für verschiedene Werkzeuge bearbeiten."
 
 #, fuzzy
+#~ msgid "Whether to use tabs in indent, by default `no`."
+#~ msgstr "Benutze Tabulatoren bei Einrückungen, Standard ist {no}."
+
+#, fuzzy
+#~ msgid "Whether to use tabs elsewhere in the document, by default `yes`."
+#~ msgstr ""
+#~ "Benutze Tabulatoren an anderer Stelle im Dokument, Standard ist {yes}."
+
+#, fuzzy
 #~ msgid ""
 #~ "The Music View is powered by the [http://poppler.freedesktop.org/ "
 #~ "Poppler] library by {authors} and others."
@@ -8629,13 +8634,6 @@ msgstr ""
 
 #~ msgid "More information."
 #~ msgstr "Weitere Informationen"
-
-#~ msgid "Whether to use tabs in indent, by default {no}."
-#~ msgstr "Benutze Tabulatoren bei Einrückungen, Standard ist {no}."
-
-#~ msgid "Whether to use tabs elsewhere in the document, by default {yes}."
-#~ msgstr ""
-#~ "Benutze Tabulatoren an anderer Stelle im Dokument, Standard ist {yes}."
 
 #~ msgid "You can put document variables in comments."
 #~ msgstr "Sie können Dokumenten-Variable als Kommentar einfügen."

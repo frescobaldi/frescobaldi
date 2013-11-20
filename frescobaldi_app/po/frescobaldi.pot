@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.12-dev\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-11-20 09:03+0100\n"
+"POT-Creation-Date: 2013-11-20 11:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6799,14 +6799,12 @@ msgstr ""
 msgid "The width of a tab character, by default 8."
 msgstr ""
 
-#. NOTE: markdown formatting
 #: ../userguide/docvars.md:32
-msgid "Whether to use tabs in indent, by default `no`."
+msgid "Whether to use tabs in indent, by default {no}."
 msgstr ""
 
-#. NOTE: markdown formatting
 #: ../userguide/docvars.md:35
-msgid "Whether to use tabs elsewhere in the document, by default `yes`."
+msgid "Whether to use tabs elsewhere in the document, by default {yes}."
 msgstr ""
 
 #: ../userguide/docvars.md:38

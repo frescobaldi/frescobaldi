@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-11-20 09:03+0100\n"
+"POT-Creation-Date: 2013-11-20 11:09+0100\n"
 "PO-Revision-Date: 2013-11-08 16:31+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -7466,16 +7466,12 @@ msgstr "Číslo"
 msgid "The width of a tab character, by default 8."
 msgstr "Šířka znaku pro zarážku; ve výchozím nastavení je to 8."
 
-#. NOTE: markdown formatting
 #: ../userguide/docvars.md:32
-#, fuzzy
-msgid "Whether to use tabs in indent, by default `no`."
+msgid "Whether to use tabs in indent, by default {no}."
 msgstr "Zda používat pro odsazování zarážek; ve výchozím nastavení {no}."
 
-#. NOTE: markdown formatting
 #: ../userguide/docvars.md:35
-#, fuzzy
-msgid "Whether to use tabs elsewhere in the document, by default `yes`."
+msgid "Whether to use tabs elsewhere in the document, by default {yes}."
 msgstr ""
 "Zda používat zarážky někde jinde v dokumentu; ve výchozím nastavení {yes}."
 
@@ -8297,6 +8293,15 @@ msgstr ""
 #: ../userguide/prefs_tools.md:3
 msgid "Here you can change the settings for various tools."
 msgstr "Zde můžete změnit nastavení různých nástrojů."
+
+#, fuzzy
+#~ msgid "Whether to use tabs in indent, by default `no`."
+#~ msgstr "Zda používat pro odsazování zarážek; ve výchozím nastavení {no}."
+
+#, fuzzy
+#~ msgid "Whether to use tabs elsewhere in the document, by default `yes`."
+#~ msgstr ""
+#~ "Zda používat zarážky někde jinde v dokumentu; ve výchozím nastavení {yes}."
 
 #, fuzzy
 #~ msgid ""
@@ -9379,13 +9384,6 @@ msgstr "Zde můžete změnit nastavení různých nástrojů."
 
 #~ msgid "More information."
 #~ msgstr "Další údaje."
-
-#~ msgid "Whether to use tabs in indent, by default {no}."
-#~ msgstr "Zda používat pro odsazování zarážek; ve výchozím nastavení {no}."
-
-#~ msgid "Whether to use tabs elsewhere in the document, by default {yes}."
-#~ msgstr ""
-#~ "Zda používat zarážky někde jinde v dokumentu; ve výchozím nastavení {yes}."
 
 #~ msgid "You can put document variables in comments."
 #~ msgstr "Proměnné pro dokument můžete dát do poznámek."

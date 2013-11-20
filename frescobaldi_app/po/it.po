@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-11-20 09:03+0100\n"
+"POT-Creation-Date: 2013-11-20 11:09+0100\n"
 "PO-Revision-Date: 2013-04-30 21:59+0200\n"
 "Last-Translator: Gianluca D'Orazio <gianluca.dorazio@gmail.com>\n"
 "Language-Team: Italian <>\n"
@@ -7482,18 +7482,14 @@ msgid "The width of a tab character, by default 8."
 msgstr ""
 "La larghezza di un carattere di tabulazione, il valore predefinito è 8."
 
-#. NOTE: markdown formatting
 #: ../userguide/docvars.md:32
-#, fuzzy
-msgid "Whether to use tabs in indent, by default `no`."
+msgid "Whether to use tabs in indent, by default {no}."
 msgstr ""
 "Se usare o meno le tabulazioni per indentare, l'impostazione predefinita è "
 "{no}."
 
-#. NOTE: markdown formatting
 #: ../userguide/docvars.md:35
-#, fuzzy
-msgid "Whether to use tabs elsewhere in the document, by default `yes`."
+msgid "Whether to use tabs elsewhere in the document, by default {yes}."
 msgstr ""
 "Se usare o meno le tabulazioni nel resto del documento, valore predefinito: "
 "{yes}."
@@ -8224,6 +8220,18 @@ msgstr ""
 #: ../userguide/prefs_tools.md:3
 msgid "Here you can change the settings for various tools."
 msgstr "Qui si possono modificare le impostazioni di vari strumenti."
+
+#, fuzzy
+#~ msgid "Whether to use tabs in indent, by default `no`."
+#~ msgstr ""
+#~ "Se usare o meno le tabulazioni per indentare, l'impostazione predefinita "
+#~ "è {no}."
+
+#, fuzzy
+#~ msgid "Whether to use tabs elsewhere in the document, by default `yes`."
+#~ msgstr ""
+#~ "Se usare o meno le tabulazioni nel resto del documento, valore "
+#~ "predefinito: {yes}."
 
 #, fuzzy
 #~ msgid ""
@@ -9019,16 +9027,6 @@ msgstr "Qui si possono modificare le impostazioni di vari strumenti."
 
 #~ msgid "More information."
 #~ msgstr "Altre informazioni."
-
-#~ msgid "Whether to use tabs in indent, by default {no}."
-#~ msgstr ""
-#~ "Se usare o meno le tabulazioni per indentare, l'impostazione predefinita "
-#~ "è {no}."
-
-#~ msgid "Whether to use tabs elsewhere in the document, by default {yes}."
-#~ msgstr ""
-#~ "Se usare o meno le tabulazioni nel resto del documento, valore "
-#~ "predefinito: {yes}."
 
 #~ msgid "You can put document variables in comments."
 #~ msgstr "È possibile inserire le variabili di documento nei commenti."
