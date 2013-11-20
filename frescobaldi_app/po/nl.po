@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2013-11-20 11:09+0100\n"
-"PO-Revision-Date: 2013-11-20 11:26+0100\n"
+"PO-Revision-Date: 2013-11-20 12:04+0100\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -7872,6 +7872,8 @@ msgid ""
 "The Layout Control options display or highlight various layout aspects and "
 "will help you fine-tuning your scores."
 msgstr ""
+"De layout-controle opties accentueren verschillende layout-aspecten waardoor "
+"u uw partituren gemakkelijke kunt fine-tunen."
 
 #. NOTE: markdown formatting
 #: ../userguide/engrave_layout.md:6
@@ -7879,16 +7881,16 @@ msgid ""
 "The options are accessible through the *Layout Control options* dockable "
 "panel ({menu_layout_control})."
 msgstr ""
+"The opties zijn beschikbaar in het *Layout-controle opties* paneel "
+"({menu_layout_control})."
 
 #: ../userguide/engrave_layout.md:9
-#, fuzzy
 msgid "The following Layout Control options are currently implemented:"
-msgstr "De volgende debug-modes zijn momenteel geïmplementeerd:"
+msgstr "De volgende layout-controle-modi zijn momenteel geïmplementeerd:"
 
 #: ../userguide/engrave_layout.md:11
-#, fuzzy
 msgid "Verbose Output"
-msgstr "Speler uitgang:"
+msgstr "Uitgebreide uitvoer"
 
 #. NOTE: markdown formatting
 #: ../userguide/engrave_layout.md:12
@@ -7896,15 +7898,18 @@ msgid ""
 "Adds the `--verbose` option to the LilyPond commandline, causing LilyPond to "
 "print lots of information in the log window."
 msgstr ""
+"Voegt de `--verbose` optie aan de LilyPond-commandoregel toe, zodat LilyPond "
+"uitgebreide informatie in het logvenster schrijft."
 
 #: ../userguide/engrave_layout.md:16
 msgid ""
 "Enables the point and click navigation links in the Music View. Enabled by "
 "default."
 msgstr ""
+"Schakelt de point-and-click navigatie-koppelingen in de muziekweergave in. "
+"Standaard ingeschakeld."
 
 #: ../userguide/engrave_layout.md:20
-#, fuzzy
 msgid ""
 "Slurs, Ties and other similar objects are drawn in LilyPond as third-order "
 "Bezier curves, which means that their shape is controlled by four \"control-"
@@ -7914,52 +7919,48 @@ msgstr ""
 "Objecten zoals boogjes worden door LilyPond als derde-orde Bezier-curven "
 "getekend, wat betekent dat hun vorm door vier controlepunten wordt bepaald. "
 "De eerste en laatste punten bepalen de plaats, de middelste twee beïnvloeden "
-"de vorm. De vorm van dit soort objecten wordt veranderd door deze punten te "
-"verplaatsen, en zodoende is het handig om te zien waar ze zijn in de PDF."
+"de vorm."
 
 #: ../userguide/engrave_layout.md:25
 msgid ""
 "Changing the shape of these objects involves moving these control-points "
 "around, and it's helpful to see where they actually are."
 msgstr ""
+"De vorm van dit soort objecten wordt veranderd door deze punten te "
+"verplaatsen, en zodoende is het handig om te zien waar ze zijn in de PDF."
 
 #: ../userguide/engrave_layout.md:28
-#, fuzzy
 msgid ""
 "This option will display the inner control-points as red crosses and "
 "connects them to the outer (starting) points with thin lines."
 msgstr ""
-"Deze debug-modus toont de binnenste controlepunten als rode kruisjes en "
-"verbindt ze met de buitenste punten met dunne lijnen."
+"Deze optie toont de binnenste controlepunten als rode kruisjes en verbindt "
+"ze met de buitenste punten met dunne lijnen."
 
 #. NOTE: markdown formatting
 #: ../userguide/engrave_layout.md:31
-#, fuzzy
 msgid "Color `\\voiceXXX`"
-msgstr "\\voiceXX kleuren"
+msgstr "`\\voiceXXX` kleuren"
 
 #. NOTE: markdown formatting
 #: ../userguide/engrave_layout.md:32
-#, fuzzy
 msgid ""
 "This mode highlights voices that have been explicitly set with one of the `"
 "\\voiceXXX` commands. This is useful when dealing with polyphony issues."
 msgstr ""
-"Deze modus kleurt de noten die speciaal met een van de <code>\\voiceXXX</"
-"code> commando's gemarkeerd zijn. Dit is handig bij het oplossen van "
-"problemen met polyphonie."
+"Deze modus kleurt de noten die speciaal met een van de `\\voiceXXX` "
+"commando's gemarkeerd zijn. Dit is handig bij het oplossen van problemen met "
+"polyfonie."
 
 #. NOTE: markdown formatting
 #: ../userguide/engrave_layout.md:36
-#, fuzzy
 msgid ""
 "This mode colors items whose directions have been explicitly set with either "
 "the predefined commands `\\xxxUp` etc. or the directional operators `^` and "
 "`_`."
 msgstr ""
 "Deze modus kleurt items waarvan de richting expliciet is opgegeven met "
-"commando's zoals <code>\\\\xxxUp</code> of de richtings-operators <code>^</"
-"code> en <code>_</code>."
+"commando's zoals `\\\\xxxUp` of de richtings-operators `^` en `_`."
 
 #: ../userguide/engrave_layout.md:40
 msgid "Please note how this mode and the previous are related:"
@@ -7967,27 +7968,24 @@ msgstr "Deze en de vorige modus zijn enigszins gerelateerd:"
 
 #. NOTE: markdown formatting
 #: ../userguide/engrave_layout.md:42
-#, fuzzy
 msgid ""
 "When the condition for one of the the modes is reverted using `\\oneVoice` "
 "or `\\stemNeutral`, colors are reverted to black and will also revert the "
 "highlighting of the other Layout Control mode with LilyPond versions up to "
 "2.17.5.\""
 msgstr ""
-"als de richting voor een van de modes ongedaan gemaakt wordt met behulp van "
-"commando's zoals <code>\\\\oneVoice</code> of <code>\\\\xxxNeutral</code> "
-"wordt de kleur ook weer op zwart gezet, dat zou ook de kleur van de andere "
-"modus ongedaan kunnen maken."
+"Als de richting voor een van de modes ongedaan gemaakt wordt met behulp van "
+"commando's zoals `\\oneVoice` of `\\xxxNeutral` wordt de kleur ook weer op "
+"zwart gezet. Bij LilyPond-versies ouder dan 2.17.6 zou dat ook de kleur van "
+"de andere modus ongedaan kunnen maken."
 
 #: ../userguide/engrave_layout.md:47
-#, fuzzy
 msgid ""
 "If the score is engraved with LilyPond version 2.17.6 or later this problem "
 "isn't present anymore."
 msgstr ""
 "Als de partituur is gegraveerd met LilyPond versie 2.17.6 of later is de "
-"situatie enigszins verbeterd dankzij het gebruik van het <code>\\temporary</"
-"code> directief."
+"situatie verbeterd."
 
 #: ../userguide/engrave_layout.md:51
 msgid ""
@@ -7995,23 +7993,28 @@ msgid ""
 "is a reference point?  It's a special point that defines the object's "
 "position."
 msgstr ""
+"In LilyPond hebben alle grafische objecten (grobs) een ankerpunt "
+"(referentiepunt). Dit punt bepaalt de positie van het object."
 
 #: ../userguide/engrave_layout.md:55
-#, fuzzy
 msgid ""
 "Think about geometry: if you have to define where a figure is placed on a "
 "plane, you'll usually say something like \"the lower left corner of this "
 "square has coordinates (0, 2)\" or \"the center of this circle is at (-1, "
 "3)\"."
 msgstr ""
-"In LilyPond hebben alle grafische objecten (grobs) een ankerpunt "
-"(referentiepunt). Dit punt bepaalt de positie van het object."
+"Denk aan geometrie: als u bepaalt waar een figuur op een vlak is geplaatst "
+"geeft u gewoonlijk de coördinaten bijvoorbeeld als \"de linker-onderhoek van "
+"dit vierkant heeft coördinaten (0, 2)\" of \"het middelpunt van deze cirkel "
+"bevindt zich op (-1, 3)\"."
 
 #: ../userguide/engrave_layout.md:60
 msgid ""
 "\"Lower left corner\" and \"center\" would be the reference points for "
 "square and circle."
 msgstr ""
+"\"Linker-onderhoek\" en \"middelpunt\" zijn dan de referentiepunten voor het "
+"vierkant en de cirkel."
 
 #: ../userguide/engrave_layout.md:63
 msgid "This Mode displays a red dot for each grob's anchor point."
@@ -8022,39 +8025,34 @@ msgid "This mode prints a grob's name next to it."
 msgstr "Deze mode drukt de naam van elke grob af."
 
 #: ../userguide/engrave_layout.md:68
-#, fuzzy
 msgid ""
 "The main purpose of this layout control option is to retrieve information "
 "about Grob names, which may come in handy if you don't know where to look up "
 "available properties."
 msgstr ""
-"<br /> Het doel is om informatie te krijgen over de namen van grobs, wat "
-"handig kan zijn om te kijken wat voor eigenschappen voor die grob ingesteld "
-"kunnen worden.<br /> Deze modus resulteert in onoverzichtelijke partituren "
-"en werkt daarom het best met kleine testdocumenten. Hopelijk kan deze modus "
-"in de toekomst voor elke grob apart worden ingeschakeld."
+"Het doel is om informatie te krijgen over de namen van grobs, wat handig kan "
+"zijn om te kijken wat voor eigenschappen voor die grob ingesteld kunnen "
+"worden."
 
 #: ../userguide/engrave_layout.md:72
-#, fuzzy
 msgid ""
 "Please note that displaying grob anchors and displaying grob names is "
 "mutually exclusive because both functions override the grob's stencil."
 msgstr ""
 "Let wel dat het afbeelden van grob ankerpunten en grobnamen niet tegelijk "
-"kan, beide overschrijven de stencil van de grob. Als beide modes actief zijn "
-"worden alleen de grob-ankerpunten weergegeven."
+"kan, beide overschrijven de stencil van de grob."
 
 #: ../userguide/engrave_layout.md:75
-#, fuzzy
 msgid ""
 "When both modes are active, only the grob anchors are displayed. Please also "
 "note that this mode is quite intrusive and may affect the layout. It is "
 "mainly useful for learning about grob names and will especially become "
 "usable once it can be activated for single grobs."
 msgstr ""
-"Deze modus is beinvloedt de layout ook start. De modus is vooral bedoeld om "
-"grob namen te leren en wordt bruikbaarder als het voor individuele grobs zou "
-"kunnen worden geactiveerd."
+"Als beide modi actief zijn worden alleen de grob-ankerpunten weergegeven. "
+"Deze modus beinvloedt de layout sterk, en is vooral bedoeld om grob namen te "
+"leren en wordt bruikbaarder als het voor individuele grobs zou kunnen worden "
+"geactiveerd."
 
 #: ../userguide/engrave_layout.md:81
 msgid ""
@@ -8093,7 +8091,6 @@ msgid "Include Custom File"
 msgstr "Eigen bestand invoegen"
 
 #: ../userguide/engrave_layout.md:95
-#, fuzzy
 msgid ""
 "This mode offers the opportunity to add one's own Debug Modes by including a "
 "custom file. This file will be included at program startup and may contain "
@@ -8110,16 +8107,17 @@ msgid ""
 "This file will be parsed before any of the other Layout Control Modes so you "
 "may use it to configure them."
 msgstr ""
+"Dit bestand wordt geladen voor de layout-controle modi en zo kunnen deze "
+"modi hiermee ingesteld worden."
 
 #. NOTE: markdown formatting
 #: ../userguide/engrave_layout.md:103
-#, fuzzy
 msgid ""
 "The given string will be literally included in an `\\include` directive, so "
 "you are responsible yourself that LilyPond can find it."
 msgstr ""
-"De ingevoerde bestandsnaam wordt letterlijk in een <code>\\include</code>-"
-"commando geplaatst, dus u moet zelf zorgen dat LilyPond het kan vinden."
+"De ingevoerde bestandsnaam wordt letterlijk in een `\\include`-commando "
+"geplaatst, dus u moet zelf zorgen dat LilyPond het kan vinden."
 
 #: ../userguide/prefs_lilypond.md:3
 msgid ""
@@ -8128,7 +8126,6 @@ msgstr ""
 "Hier kunt u instellen hoe LilyPond gestart wordt als u uw document graveert."
 
 #: ../userguide/prefs_lilypond.md:5
-#, fuzzy
 msgid ""
 "If you have multiple versions of LilyPond installed you can specify them "
 "here, and configure Frescobaldi to automatically choose the right one, based "
@@ -8136,12 +8133,11 @@ msgid ""
 msgstr ""
 "Als u verschillende versies van LilyPond geïnstalleerd hebt, kunt u deze "
 "hier opgeven, en Frescobaldi zo instellen dat automatisch de juiste versie "
-"wordt gekozen, gebaseerd op het versienummer dat het document opgeeft "
-"({more_info})."
+"wordt gekozen, gebaseerd op het versienummer dat het document opgeeft Zie "
+"{link}."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_lilypond.md:9
-#, fuzzy
 msgid ""
 "If the LilyPond executable is not in your system's PATH you can specify the "
 "full path here so Frescobaldi can run it. For the helper applications like "
@@ -8150,8 +8146,9 @@ msgid ""
 msgstr ""
 "Als het LilyPond-programma zich niet in het PATH van uw besturingssysteem "
 "bevindt kunt u het volledige pad opgeven zodat Frescobaldi het kan starten. "
-"Voor de hulpprogramma's zoals convert-ly en lilypond-book is het volledige "
-"pad niet nodig als ze in dezelfde map staan als het LilyPond programma zelf."
+"Voor de hulpprogramma's zoals `convert-ly` en `lilypond-book` is het "
+"volledige pad niet nodig als ze in dezelfde map staan als het LilyPond "
+"programma zelf."
 
 #: ../userguide/prefs_lilypond.md:14
 msgid ""
@@ -8163,13 +8160,12 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_lilypond.md:17
-#, fuzzy
 msgid ""
 "Finally, you can specify a list of paths where the LilyPond `\\include` "
 "command looks for files."
 msgstr ""
-"Tenslotte kunt u een lijst van directories opgeven waar het LilyPond <code>"
-"\\include</code>-commando bestanden moet zoeken."
+"Tenslotte kunt u een lijst van directories opgeven waar het LilyPond `"
+"\\include`-commando bestanden moet zoeken."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_lilypond_autoversion.md:3
@@ -8177,16 +8173,16 @@ msgid ""
 "If this setting is enabled, the document is searched for a LilyPond `"
 "\\version` command or a `version` document variable."
 msgstr ""
+"Als deze instelling is ingeschakeld, wordt het document doorzocht naar een "
+"LilyPond  `\\version` commando of een `version` document-variable."
 
 #: ../userguide/prefs_lilypond_autoversion.md:6
-#, fuzzy
 msgid "The LilyPond version command looks like:"
-msgstr "Te gebruiken LilyPond-versie:"
+msgstr "Het LilyPond versie-commando ziet er zo uit:"
 
 #: ../userguide/prefs_lilypond_autoversion.md:12
-#, fuzzy
 msgid "The document variable looks like:"
-msgstr "Document-variabelen"
+msgstr "De document-variabele ziet er zo uit:"
 
 #: ../userguide/prefs_lilypond_autoversion.md:18
 msgid ""
@@ -8194,29 +8190,30 @@ msgid ""
 "document. This way the LilyPond version to use can also be specified in non-"
 "LilyPond documents like HTML, LaTeX, etc."
 msgstr ""
+"ergens (in een commentaarsectie) in de eerste of laatste 5 regels van het "
+"document. Op deze manier kan de LilyPond-versie ook worden aangegeven in "
+"niet-LilyPond documenten zoals HTML, LaTeX, etc."
 
 #: ../userguide/prefs_lilypond_autoversion.md:22
 msgid ""
 "If the document specifies a version, the oldest suitable LilyPond version is "
 "chosen. Otherwise, the default version is chosen."
 msgstr ""
+"Als het document een versie aangeeft, wordt de oudst passende versie van "
+"LilyPond gekozen. Anders wordt de als standaard aangegeven versie gekozen."
 
 #: ../userguide/editing.md:1
-#, fuzzy
 msgid "Editing Files"
-msgstr "Op de plaats bewerken"
+msgstr "Bestanden bewerken"
 
 #: ../userguide/editing.md:3
-#, fuzzy
 msgid ""
 "In this part the features of the editor are discussed, e.g. how to control "
 "auto-indenting, how to use search and replace, etcetera."
 msgstr ""
-"<p>\n"
-"Hier passeren de functies van de editor de revue,\n"
-"hoe bijvoorbeeld het automatisch inspringen in te stellen, zoeken en "
-"vervangen te gebruiken, etcetera.\n"
-"</p>\n"
+"Hier passeren de functies van de editor de revue, hoe bijvoorbeeld het "
+"automatisch inspringen in te stellen, zoeken en vervangen te gebruiken, "
+"etcetera."
 
 #: ../userguide/engraving.md:1
 msgid "Engraving Scores"
@@ -8229,6 +8226,10 @@ msgid ""
 "options. There are four modes Frescobaldi can compile scores in: *Preview*, "
 "*Publish*, *Layout Control* and *Custom*."
 msgstr ""
+"Om een partituur te graveren start Frescobaldi LilyPond met de juiste "
+"commandoregelopties. Er zijn vier \"modi\" waarin Frescobaldi partituren kan "
+"laten graveren met LilyPond: *Vooruitblik*, *Publicatie*, *Layoutcontrole*, "
+"en *Aangepast*."
 
 #. NOTE: markdown formatting
 #: ../userguide/engraving.md:7
@@ -8237,12 +8238,16 @@ msgid ""
 "so that there is two-way navigation between the music view and the LilyPond "
 "source."
 msgstr ""
+"De *Vooruitblik-modus* genereert de PDF met point-en-klik informatie "
+"ingeschakeld, zodat er tweeweg navigatie tussen de muziekweergave en de "
+"LilyPond-brontekst is."
 
 #. NOTE: markdown formatting
 #: ../userguide/engraving.md:10
 msgid ""
 "The *Publish mode* is used to produce the final PDF intented to be shared."
 msgstr ""
+"De *Publicatie-modus* is bedoeld om de uiteindelijke PDF te produceren."
 
 #. NOTE: markdown formatting
 #: ../userguide/engraving.md:12
@@ -8250,6 +8255,9 @@ msgid ""
 "The *Layout Control mode* can be used to enable specific features that can "
 "help in controlling and fine-tuning the layout of a score."
 msgstr ""
+"De *Layoutcontrole-modus* kan worden gebruikt om specifieke zaken te "
+"accentueren die kunnen helpen bij het controleren en fine-tunen van de "
+"layout."
 
 #. NOTE: markdown formatting
 #: ../userguide/engraving.md:15
@@ -8258,19 +8266,19 @@ msgid ""
 "command in detail. This dialog also has options to let LilyPond engrave a "
 "score to PostScript, SVG or PNG images, or to a PDF using the EPS backend."
 msgstr ""
+"De *Aangepaste modus* opent een dialoogvenster waar het LilyPond-commando "
+"tot in detail kan worden aangegeven. Hier zijn ook opties voor graveren naar "
+"PostScript, SVG of PNG-afbeeldingen, of om het EPS-backend te gebruiken."
 
 #: ../userguide/modal_transpose.md:1
-#, fuzzy
 msgid "Modal transpose"
 msgstr "Modaal transponeren"
 
 #: ../userguide/import.md:1
-#, fuzzy
 msgid "Importing files"
-msgstr "Knipsels importeren"
+msgstr "Bestanden importeren"
 
 #: ../userguide/pitch.md:1
-#, fuzzy
 msgid "Pitch Manipulation"
 msgstr "Toonhoogte bewerken"
 
@@ -8279,21 +8287,21 @@ msgid ""
 "Frescobaldi offers the following pitch-manipulating functions, all in the "
 "menu {menu}:"
 msgstr ""
+"Frescobaldi biedt de volgende functies om toonhoogtes aan te passen, alle in "
+"het menu {menu}:"
 
 #: ../userguide/pitch.md:7
-#, fuzzy
 msgid "Pitch language"
-msgstr "Taal voor nootnamen:"
+msgstr "Taal voor nootnamen"
 
 #: ../userguide/pitch.md:8
-#, fuzzy
 msgid "This translates pitch names in the whole document or a selection."
-msgstr "Transponeert alle noten in de selectie of het document."
+msgstr ""
+"Verandert de taal voor nootnamen voor het hele document of een selectie."
 
 #: ../userguide/pitch.md:10
-#, fuzzy
 msgid "Convert relative music to absolute"
-msgstr "Relatief naar &absoluut omzetten"
+msgstr "Relatieve muziek naar absoluut omzetten"
 
 #. NOTE: markdown formatting
 #: ../userguide/pitch.md:11
@@ -8301,11 +8309,12 @@ msgid ""
 "This converts all `\\relative` music parts to absolute pitch names. It "
 "removes, but honours, octave checks."
 msgstr ""
+"Zet alle `\\relative` muziek om naar absolute toonhoogtes. Houdt rekening "
+"met octave-checks maar verwijdert deze uiteraard ook."
 
 #: ../userguide/pitch.md:14
-#, fuzzy
 msgid "Convert absolute music to relative"
-msgstr "Absoluut naar &relatief omzetten"
+msgstr "Absolute muziek naar relatief omzetten"
 
 #. NOTE: markdown formatting
 #: ../userguide/pitch.md:15
@@ -8315,6 +8324,10 @@ msgid ""
 "expressions relative, it may be necessary to select music from the first "
 "expression, leaving out higher-level opening braces."
 msgstr ""
+"Verandert alle bovenste muziekexpressies naar `\\relative` zodra er een noot "
+"in gevonden wordt. Als u aparte sub-expressies relatief wilt maken kan het "
+"nodig zijn om muziek te selecteren vanaf de eerste sub-expressie zodat "
+"bovenliggende accollades-openen niet worden gezien."
 
 #: ../userguide/prefs_tools.md:3
 msgid "Here you can change the settings for various tools."
