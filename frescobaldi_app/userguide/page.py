@@ -46,7 +46,11 @@ class Page(object):
     def load(self, name):
         """Parse and translate the named document."""
         self._name = name
-        doc, attrs = read.document(name)
+        try:
+            doc, attrs = read.document(name)
+        except (OSError, IOError):
+            doc, attrs = read.document('404')
+        attrs.setdefault('VARS', []).append('userguide_page md `{0}`'.format(name))
         self.parse_text(doc, attrs)
         
     def parse_text(self, text, attrs=None):
@@ -202,10 +206,7 @@ class Resolver(object):
 
     def handle_help(self, text):
         """Return a link to the specified help page, with the title."""
-        try:
-            title = Page(text).title()
-        except (OSError, IOError):
-            title = text
+        title = Page(text).title()
         url = text
         return '<a href="{0}">{1}</a>'.format(url, title)
 
