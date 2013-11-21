@@ -32,10 +32,12 @@ class MidiIn(object):
     def __init__(self, widget):
         self._widget = weakref.ref(widget)
         self._portmidiinput = None
+        self._listener = None
         self._chord = None
     
     def __del__(self):
-        self.capturestop()
+        if isinstance(self._listener, Listener):
+            self.capturestop()
     
     def widget(self):
         return self._widget()
@@ -57,7 +59,7 @@ class MidiIn(object):
         # so discard any reference to a pypm.Input instance
         self._portmidiinput._input = None
         self._portmidiinput = None
-        del self._listener
+        self._listener = None
     
     def capture(self):
         if not self._portmidiinput:
