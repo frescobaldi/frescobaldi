@@ -40,6 +40,8 @@ The following variables are recognized:
 
 #SUBDOCS
 var_output
+
+#VARS
 no md `no`
 yes md `yes`
 

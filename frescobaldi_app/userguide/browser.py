@@ -138,10 +138,7 @@ class Browser(QTextBrowser):
         
     def loadResource(self, type, url):
         if type == QTextDocument.HtmlResource:
-            try:    
-                return util.Formatter().html(url.path())
-            except (IOError, OSError):
-                return util.Formatter().html('404')
+            return util.Formatter().html(url.path())
         elif type == QTextDocument.ImageResource:
             url = QUrl.fromLocalFile(os.path.join(__path__[0], url.path()))
         return super(Browser, self).loadResource(type, url)
