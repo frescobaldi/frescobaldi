@@ -85,6 +85,12 @@ def rhythm_remove_scaling(cursor):
     with cursortools.compress_undo(cursor):
         for c in cursors(cursor, ly.lex.lilypond.Scaling):
             c.removeSelectedText()
+            
+def rhythm_remove_fraction_scaling(cursor):
+    with cursortools.compress_undo(cursor):
+        for c in cursors(cursor, ly.lex.lilypond.Scaling):
+            if '/' in c.selectedText(): 
+				c.removeSelectedText()            
 
 def rhythm_remove(cursor):
     with cursortools.compress_undo(cursor):

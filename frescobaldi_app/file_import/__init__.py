@@ -109,7 +109,7 @@ class FileImport(plugin.MainWindowPlugin):
         if settings[2]:
             cursor.select(QTextCursor.Document)
             from rhythm import rhythm
-            rhythm.rhythm_remove_scaling(cursor)       
+            rhythm.rhythm_remove_fraction_scaling(cursor)       
         if settings[3]:
             import engrave
             engrave.engraver(self.mainwindow()).engrave('preview', doc, False)

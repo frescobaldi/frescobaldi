@@ -164,7 +164,7 @@ class Dialog(QDialog):
         
         self.formatCheck.setText(_("Reformat source"))
         self.trimDurCheck.setText(_("Trim durations (Make implicit per line)"))
-        self.removeScalesCheck.setText(_("Remove duration scaling"))
+        self.removeScalesCheck.setText(_("Remove fraction duration scaling"))
         self.runEngraverCheck.setText(_("Engrave directly"))
         
         self.buttons.button(QDialogButtonBox.Ok).setText(_("Run musicxml2ly"))
