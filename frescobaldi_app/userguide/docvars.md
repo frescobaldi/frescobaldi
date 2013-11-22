@@ -29,10 +29,10 @@ The following variables are recognized:
 : The width of a tab character, by default 8.
 
 !`indent-tabs: yes/no;`
-: Whether to use tabs in indent, by default `no`.
+: Whether to use tabs in indent, by default {no}.
 
 !`document-tabs: yes/no;`
-: Whether to use tabs elsewhere in the document, by default `yes`.
+: Whether to use tabs elsewhere in the document, by default {yes}.
 
 !`indent-width: _(number)_;`
 : The number of spaces each indent level uses, by default 2.
@@ -40,6 +40,10 @@ The following variables are recognized:
 
 #SUBDOCS
 var_output
+
+#VARS
+no md `no`
+yes md `yes`
 
 #L10N
 do not translate the mode names lilypond, html, etc.

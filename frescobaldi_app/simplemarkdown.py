@@ -628,14 +628,22 @@ class Tree(Output):
 
 
 class HtmlOutput(Output):
-    """Converts output to HTML."""
+    """Converts output to HTML.
+    
+    A heading type 1 gets converted to H1 by default, but you can set the
+    heading_offset attribute to a value > 0 to make heading 1 output H2,
+    heading 2 -> H3 etc.
+    
+    """
+    heading_offset = 0
+    
     def __init__(self):
         self._html = []
         self._tags = []
     
     def push(self, name, *args):
-        self._tags.append((name, args))
         getattr(self, name + '_start')(*args)
+        self._tags.append((name, args))
         
     def pop(self):
         name, args = self._tags.pop()
@@ -684,17 +692,23 @@ class HtmlOutput(Output):
         self.nl()
     
     def heading_start(self, heading_type):
-        self.tag('h{0}'.format(heading_type))
+        h = min(self.heading_offset + heading_type, 6)
+        self.tag('h{0}'.format(h))
     
     def heading_end(self, heading_type):
-        self.tag('/h{0}'.format(heading_type))
+        h = min(self.heading_offset + heading_type, 6)
+        self.tag('/h{0}'.format(h))
         self.nl()
         
     def paragraph_start(self):
+        if self._tags and self._tags[-1][0] == "definitionlist":
+            self.tag('dd')
         self.tag('p')
     
     def paragraph_end(self):
         self.tag('/p')
+        if self._tags and self._tags[-1][0] == "definitionlist":
+            self.tag('/dd')
         self.nl()
     
     def orderedlist_start(self):

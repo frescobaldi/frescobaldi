@@ -76,8 +76,8 @@ def show(position, panel, link, cursor):
     a = m.addAction(icons.get("help-contents"), _("Help"))
     @a.triggered.connect
     def help():
-        import help
-        help.help("music_view")
+        import userguide
+        userguide.show("musicview")
     
     # show it!
     if m.actions():

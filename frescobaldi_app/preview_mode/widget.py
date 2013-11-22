@@ -32,7 +32,7 @@ import app
 import icons
 import preview_mode
 import engrave
-import help
+import userguide
 
 
 class Widget(QWidget):
@@ -129,8 +129,7 @@ class Widget(QWidget):
         s.setValue('custom-filename', self.LEcustomfile.text())
 
     def helpButtonClicked(self):
-        import help.cnt_engraving
-        help.help(help.cnt_engraving.eng_preview)
+        userguide.show("engrave_layout")
         
     def preview_options(self):
         """Return a list of Debug Mode command line options for LilyPond."""

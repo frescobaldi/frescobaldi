@@ -32,7 +32,6 @@ from PyQt4.QtGui import *
 import actioncollectionmanager
 import app
 import qutil
-import help
 import userguide
 import homekey
 import icons
@@ -237,111 +236,5 @@ class Matcher(widgets.matcher.Matcher):
     def readSettings(self):
         self.format = QTextCharFormat()
         self.format.setBackground(textformats.formatData('editor').baseColors['match'])
-
-
-class snippet_edit_help(help.page):
-    def title():
-        return _("Snippet editor")
-    
-    def body():
-        text = []
-        text.append(_(
-        "<p>Here you can edit the text of the snippet.</p>"
-        "<p>If you start the first line(s) with '<code>-*- </code>' (note the space), "
-        "the remainder of that line(s) defines variables like <code>name: value;</code> or "
-        "simply <code>name;</code> which influence the behaviour of the snippet. "
-        "The following variables can be used:</p>"))
-        
-        text.append("<dl>")
-        text.extend(map("<dt><code>{0[0]}</code></dt><dd>{0[1]}</dd>".format, (
-            ('menu',
-                _("Place the snippet in the insert menu, grouped by the (optional) value.")),
-            ('template',
-                _("Place the snippet in the menu {file_new_from_template}, "
-                  "grouped by the (optional) value. "
-                  "When triggered via the menu, the snippet is inserted into a "
-                  "new document.").format(file_new_from_template = help.menu(
-                    _("menu title", "File"), 
-                    _("menu subtitle", "New from Template")))),
-            ('name',
-                _("The mnemonic to type to select the snippet.")),
-            ('indent: no;',
-                _("Do not auto-indent the snippet after inserting.")),
-            ('icon',
-                _("The icon to show in menu and snippet list.")),
-            ('symbol',
-                _("The symbol to show in menu and snippet list. Symbols are "
-                  "icons that use the default text color and can be found in "
-                  "{directory}.").format(directory="'frescobaldi_app/symbols'")),
-            ('python',
-                _("Execute the snippet as a Python script. See {link}.").format(
-                    link=python_snippets_help.link())),
-            ('selection',
-                _("One of more of the following words (separated with spaces or commas):") + " " +
-                "\n".join(map("<code>{0[0]}</code>: {0[1]}".format, (
-                ('yes',
-                    _("Requires text to be selected.")),
-                ('strip',
-                    _("Adjusts the selection to not include starting and trialing whitespace.")),
-                ('keep',
-                    _("Selects all inserted text.")),
-            )))),
-        )))
-        text.append("</dl>")
-
-        text.append(_(
-        "<p>The other lines of the snippet define the text to be inserted in the editor. "
-        "Here, you can insert variables prefixed with a $. A double $ will be replaced with "
-        "a single one. The following variables are recognized:</p>"))
-        
-        text.append("<dl>")
-        text.extend(map("<dt><code>${0[0]}</code></dt><dd>{0[1]}</dd>".format,
-            expand.documentation(expand.Expander)))
-        text.append("</dl>")
-        return ''.join(text)
-
-    def children():
-        return (python_snippets_help,)
-
-
-class python_snippets_help(help.page):
-    def title():
-        return _("Python Snippets")
-    
-    def body():
-        text = []
-        text.append(_(
-        "<p>Python snippets can read and should set the variable {text}. "
-        "The variable {text} contains the currently selected text (which may be an "
-        "empty string).</p>\n"
-        "<p>You may set {text} to a string or a list of strings.</p>\n"
-        "<p>Other variables that may be referenced:</p>").format(text="<code>text</code>"))
-        text.append("<dl>")
-        text.extend(map("<dt><code>{0[0]}</code></dt><dd>{0[1]}</dd>".format, (
-            ('state',
-                _("A list of strings describing the type of text the cursor is at.")),
-            ('cursor',
-                _("The current QTextCursor, giving access to the document. "
-                  "Don't change the document through the cursor, however.")),
-            ('CURSOR',
-                _("When setting {text} to a list instead of a string, you can "
-                  "use this value to specify the place the text cursor will be "
-                  "placed after inserting the snippet.").format(text="<code>text</code>")),
-            ('ANCHOR',
-                _("When setting {text} to a list instead of a string, "
-                  "this value can be used together with {cursor} to select text "
-                  "when inserting the string parts of the list.").format(
-                    text="<code>text</code>", cursor="<code>CURSOR</code>")),
-            ('main',
-                _("When you define a function with this name, it is called "
-                "without arguments, instead of inserting the text from the "
-                "{text} variable. "
-                "In this case you may alter the document through the {cursor}."
-                ).format(text="<code>text</code>", cursor="<code>cursor</code>")),
-        )))
-        text.append("</dl>")
-        return ''.join(text)
-
-
 
 

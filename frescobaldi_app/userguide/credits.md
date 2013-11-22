@@ -1,41 +1,44 @@
 === Credits ===
 
-{appname} is written in [http://www.python.org/ Python]
-and uses the [http://qt-project.org/ Qt] toolkit.
+{appname} is written in {python} and uses the {qt} toolkit.
 
-The Music View is powered by the [http://poppler.freedesktop.org/ Poppler]
-library by {authors} and others.
+The Music View is powered by the {poppler} library by {authors} and others.
 
-Most of the bundled icons are created by
-[http://tango.freedesktop.org/ The Tango Desktop Project].
+Most of the bundled icons are created by {tango}.
 
 The following people contributed to {appname}:
 
-!Wilbert Berendsen
+!Wilbert Berendsen:
 : Main author and core developer
 
-!Richard Cognot
+!Richard Cognot:
 : Kinetic Scrolling for the Music View
 
-!Nicolas Malarmey
+!Nicolas Malarmey:
 : Improved highlighting and auto-completion of Scheme code
 
-!Urs Liska
+!Urs Liska:
 : Layout control modes and various other contributions
 
-!Christopher Bryan
+!Christopher Bryan:
 : Modal Transpose
 
-!Peter Bjuhr
+!Peter Bjuhr:
 : Quick Insert buttons for grace notes, and MusicXML im- and export
+
+!Manuel Mchalwat
+: MIDI capturing
+
+!Mario Moles
+: Finding lots of bugs
 
 
 {appname} is translated into the following languages:
 
-{lang.nl}
+{lang_nl}:
 : !Wilbert Berendsen
 
-{lang.fr}
+{lang_fr}:
 :  !Raphaël Doursenaud,
     Denis Bitouzé,
     Philippe Massart,
@@ -45,42 +48,58 @@ The following people contributed to {appname}:
     Ryan Kavanagh,
     Richard Cognot
 
-{lang.tr}
+{lang_tr}:
 :  !Server ACİM
 
-{lang.es}
+{lang_es}:
 :  !Francisco Vila
 
-{lang.ru}
+{lang_ru}:
 :  !Sergey Poltavski,
     Artem Zolochevskiy,
     Mikhail Iglizky
 
-{lang.it}
+{lang_it}:
 :  !Gianluca D'Orazio
 
-{lang.de}
+{lang_de}:
 :  !Henrik Evers,
     Georg Hennig,
     Markus W. Kropp,
     Urs Liska
 
-{lang.cs}
+{lang_cs}:
 :  !Pavel Fric
 
-{lang.pl}
+{lang_pl}:
 :  !Piotr Komorowski
 
-{lang.gl}
+{lang_gl}:
 :  !Manuel A. Vázquez
 
-{lang.pt_BR}
+{lang_pt_br}:
 :  !Édio Mazera
 
-{lang.uk}
+{lang_uk}:
 :  !Dmytro O. Redchuk
 
 
 #VARS
+python md [http://www.python.org/ Python]
+qt md [http://qt-project.org/ Qt]
+poppler md [http://poppler.freedesktop.org/ Poppler]
 authors text Kristian Høgsberg, Albert Astals Cid
+tango md [http://tango.freedesktop.org/ The Tango Desktop Project]
+lang_cs     languagename cs
+lang_de     languagename de
+lang_es     languagename es
+lang_fr     languagename fr
+lang_gl     languagename gl
+lang_it     languagename it
+lang_nl     languagename nl
+lang_pl     languagename pl
+lang_pt_br  languagename pt_BR
+lang_ru     languagename ru
+lang_tr     languagename tr
+lang_uk     languagename uk
 

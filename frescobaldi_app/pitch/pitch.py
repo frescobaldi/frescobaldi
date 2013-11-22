@@ -30,7 +30,7 @@ from PyQt4.QtGui import QMessageBox, QTextCursor
 from fractions import Fraction
 
 import app
-import help
+import userguide
 import icons
 import ly.pitch
 import ly.lex.lilypond
@@ -404,7 +404,7 @@ def getTransposer(document, mainwindow):
         "Please enter two absolute pitches, separated by a space, "
         "using the pitch name language \"{language}\"."
         ).format(language=language), icon = icons.get('tools-transpose'),
-        help = transpose_help, validate = validate)
+        help = "transpose", validate = validate)
     
     if text:
         return ly.pitch.Transposer(*readpitches(text))
@@ -442,7 +442,7 @@ def getModalTransposer(document, mainwindow):
     text = inputdialog.getText(mainwindow, _("Transpose"), _(
         "Please enter the number of steps to alter by, followed by a key signature. (i.e. \"5 F\")"
         ), icon = icons.get('tools-transpose'),
-        help = transpose_help, validate = validate)
+        help = "modal_transpose", validate = validate)
     if text:
         words = text.split()
         return ly.pitch.ModalTransposer(int(words[0]), ly.pitch.ModalTransposer.getKeyIndex(words[1]))
@@ -751,90 +751,5 @@ def getpitches(iterable):
     for p in iterable:
         if isinstance(p, Pitch):
             yield p
-
-
-class pitch_help(help.page):
-    def title():
-        return _("Pitch manipulation")
-    
-    def body():
-        return _("""\
-<p>
-Frescobaldi offers the following pitch-manipulating functions,
-all in the menu {menu}:
-</p>
-
-<dl>
-
-<dt>Pitch language</dt>
-<dd>
-This translates pitch names in the whole document or a selection.
-</dd>
-
-<dt>Convert relative music to absolute</dt>
-<dd>
-This converts all <code>\\relative</code> music parts to absolute pitch names.
-It removes, but honours, octave checks.
-</dd>
-
-<dt>Convert absolute music to relative</dt>
-<dd>
-Checks all toplevel music expressions, changing them into
-<code>\\relative</code> mode as soon as the expression contains a pitch.
-If you want to make separate sub-expressions relative, it may be necessary to
-select music from the first expression, leaving out higher-level opening
-braces.
-</dd>
-
-</dl>
-""").format(menu=help.menu(_("menu title", "Tools"), _("submenu title", "Pitch")))
-
-    def children():
-        return (transpose_help,)
-
-
-class transpose_help(help.page):
-    def title():
-        return _("Transpose")
-    
-    def body():
-        return _("""\
-<p>
-When transposing music, two absolute pitches need to be given to specify
-the distance to transpose over. The pitches may include octave marks.
-The pitches must be entered in the pitch name language used in the document.
-</p>
-
-<p>
-The music will then be transposed from the first pitch to the second,
-just as the <code>\\transpose</code> LilyPond command would do.
-</p>
-
-<p>
-E.g. when transposing a minor third upwards, you would enter:<br />
-<code>c es</code>
-</p>
-
-<p>
-To transpose down a major second, you can enter:<br />
-<code>c bes,</code>
-</p>
-
-<p>
-or:<br />
-<code>d c</code>
-</p>
-
-<p>
-It is also possible to use the transpose function to change a piece of music
-from C-sharp to D-flat, or to specify quarter tones if supported in the
-pitch name language that is used.
-</p>
-
-<p>
-The transpose function can transpose both relative and absolute music,
-correctly handling key signatures, chordmode and octave checks.
-</p>
-""")
 
 

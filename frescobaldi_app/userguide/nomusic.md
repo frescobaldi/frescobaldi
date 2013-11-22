@@ -16,8 +16,8 @@
     But if you use more complicated Scheme code in your document to specify the
     output filenames, Frescobaldi may not be able to correctly determine those
     filenames.
-    In that case you can override the base name(s) using the [var_output]
-    document variable.
+    In that case you can override the base name(s) using the [var_output
+    `output`] document variable.
 
 
 #SEEALSO

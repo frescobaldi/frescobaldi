@@ -33,9 +33,9 @@ from PyQt4.QtGui import (
     QLineEdit, QPalette, QPushButton, QStyle, QTextCursor, QToolButton, QWidget)
 
 import app
-import help
 import qutil
 import plugin
+import userguide
 import cursortools
 import textformats
 import wordboundary
@@ -276,7 +276,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
 
     def event(self, ev):
         if ev == QKeySequence.HelpContents:
-            help.help("search_replace")
+            userguide.show("search_replace")
             ev.accept()
             return True
         elif ev.type() == QEvent.KeyPress:

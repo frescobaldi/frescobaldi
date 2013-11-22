@@ -25,6 +25,7 @@ from __future__ import unicode_literals
 
 import re
 
+from PyQt4.QtCore import QSettings
 from PyQt4.QtGui import QKeySequence
 
 import simplemarkdown
@@ -45,7 +46,11 @@ class Page(object):
     def load(self, name):
         """Parse and translate the named document."""
         self._name = name
-        doc, attrs = read.document(name)
+        try:
+            doc, attrs = read.document(name)
+        except (OSError, IOError):
+            doc, attrs = read.document('404')
+        attrs.setdefault('VARS', []).append('userguide_page md `{0}`'.format(name))
         self.parse_text(doc, attrs)
         
     def parse_text(self, text, attrs=None):
@@ -98,6 +103,8 @@ class HtmlOutput(simplemarkdown.HtmlOutput):
     the output.
     
     """
+    heading_offset = 1
+    
     def code_start(self, code, specifier=None):
         if specifier == "lilypond":
             import colorize
@@ -201,10 +208,7 @@ class Resolver(object):
 
     def handle_help(self, text):
         """Return a link to the specified help page, with the title."""
-        try:
-            title = Page(text).title()
-        except (OSError, IOError):
-            title = text
+        title = Page(text).title()
         url = text
         return '<a href="{0}">{1}</a>'.format(url, title)
 
@@ -212,8 +216,8 @@ class Resolver(object):
         """Return the keystroke currently defined for the action."""
         collection_name, action_name = text.split(None, 1)
         import actioncollectionmanager
-        mgr = actioncollectionmanager.ActionCollectionManager.instances()[0]
-        seq = mgr.action(collection_name, action_name).shortcut()
+        action = actioncollectionmanager.action(collection_name, action_name)
+        seq = action.shortcut()
         key = seq.toString(QKeySequence.NativeText) or _("(no key defined)")
         return '<span class="shortcut">{0}</span>'.format(simplemarkdown.html_escape(key))
     
@@ -269,4 +273,10 @@ class Resolver(object):
         url = simplemarkdown.html_escape(filename).replace('"', '&quot;')
         return '<img src="{0}" alt="{0}"/>'.format(url)
 
+    def handle_languagename(self, code):
+        """Return a language name in the current language."""
+        import po.setup
+        lang = QSettings().value("language", "", type("")) or po.setup.current() or None
+        import language_names
+        return language_names.languageName(code, lang)
 

@@ -32,7 +32,7 @@ from PyQt4.QtGui import (QCheckBox, QComboBox, QDialog, QDialogButtonBox,
 
 import app
 import documentinfo
-import help
+import userguide
 import icons
 import job
 import jobmanager
@@ -75,7 +75,7 @@ class Dialog(QDialog):
         self.buttons = QDialogButtonBox(
             QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         self.buttons.button(QDialogButtonBox.Ok).setIcon(icons.get("lilypond-run"))
-        help.addButton(self.buttons, help_engrave_custom)
+        userguide.addButton(self.buttons, "engrave_custom")
         
         self.resolutionCombo.addItems(['100', '200', '300', '600', '1200'])
         self.resolutionCombo.setCurrentIndex(2)
@@ -214,30 +214,6 @@ class Dialog(QDialog):
         j.setTitle("{0} {1} [{2}]".format(
             os.path.basename(i.command), i.versionString(), document.documentName()))
         return j
-
-
-class help_engrave_custom(help.page):
-    def title():
-        return _("Engrave custom")
-    
-    def body():
-        p = '<p>{0}</p>\n'.format
-        text = [p(_("""\
-In this dialog you can set some parameters for the LilyPond command to be used
-to engrave your document.
-It is even possible to edit the command line itself.
-"""))]
-        text.append(p(_("The following replacements will be made:")))
-        text.append('<dl>\n')
-        for name, msg in (
-            ('$lilypond', _("The LilyPond executable")),
-            ('$include', _("All the include paths")),
-            ('$filename', _("The filename of the document")),
-            ):
-            text.append('<dt><code>{0}</code></dt>'.format(name))
-            text.append('<dd>{0}</dd>\n'.format(msg))
-        text.append('</dl>')
-        return ''.join(text)
 
 
 Format = collections.namedtuple("Format", "type title options widgets")

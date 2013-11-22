@@ -30,11 +30,15 @@ from __future__ import unicode_literals
 
 import info
 
+
 def appname():
     return info.appname
 
 def version():
     return info.version
+
+def author():
+    return info.maintainer
 
 def manual_translated_by():
     # L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
@@ -45,7 +49,7 @@ def manual_translated_by():
 
 def table_of_contents():
     """Return the body of the table of contents page."""
-    from .browser import cache, format_link
+    from .util import cache, format_link
     from simplemarkdown import html_escape
     html = ['<ul>']
     seen = set()

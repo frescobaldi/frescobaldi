@@ -1,4 +1,4 @@
-=== Engrave (layout control mode) ===
+=== Layout control mode ===
 
 The Layout Control options display or highlight various layout aspects and will
 help you fine-tuning your scores.

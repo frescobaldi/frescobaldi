@@ -35,7 +35,7 @@ from PyQt4.QtGui import (QCheckBox, QComboBox, QDialog, QDialogButtonBox,
 
 import app
 import documentinfo
-import help
+import userguide
 import icons
 import job
 import jobmanager
@@ -97,7 +97,7 @@ class Dialog(QDialog):
         
         self.buttons = QDialogButtonBox(
             QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        help.addButton(self.buttons, help_importXML)
+        userguide.addButton(self.buttons, "musicxml_import")
         
 
         itabLayout.addWidget(self.noartCheck, 0, 0, 1, 2)
@@ -246,45 +246,4 @@ class Dialog(QDialog):
         for p in self.postChecks:
             s.setValue(p.text(), p.isChecked())
         s.setValue('langCombo', self.langCombo.currentIndex())
-
-
-
-class help_importXML(help.page):
-    def title():
-        return _("Import Music XML")
-    
-    def body():
-        from help.html import p
-        text = []
-        text.append(p(
-          _("Import a Music XML file using the command line tool musicxml2ly "
-            "from the LilyPond package."),
-          _("In this dialog you can set some parameters for the musicxml2ly import. "
-            "Currently there are four parameters that can be set by the checkboxes:")))
-        text.append('<dl>\n')
-        for para, descr in (
-            ('--nd --no-articulation-directions',
-                _('do not convert directions (^, _ or -) for articulations, dynamics, etc.')),
-            ('--nrp --no-rest-positions',
-                _('do not convert exact vertical positions of rests')),
-            ('--npl --no-page-layout',
-                _('do not convert the exact page layout and breaks')),
-            ('--no-beaming',
-                _('do not convert beaming information, use LilyPonds automatic beaming instead.')),
-            ):
-            text.append('<dt><code>{0}</code></dt>'.format(para))
-            text.append('<dd>{0}</dd>\n'.format(descr))
-        text.append('</dl>')      
-        text.append(p(_("The following replacements will be made in the command line:")))
-        text.append('<dl>\n')
-        for name, msg in (
-            ('$musicxml2ly', _("The musicxml2ly executable")),
-            ('$filename', _("The filename of the document")),
-            ):
-            text.append('<dt><code>{0}</code></dt>'.format(name))
-            text.append('<dd>{0}</dd>\n'.format(msg))
-        text.append('</dl>')
-        return ''.join(text)
-
-
 

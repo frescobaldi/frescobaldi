@@ -29,7 +29,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
-import help
+import userguide.util
 import icons
 import symbols
 import widgets.toolboxwheeler
@@ -54,7 +54,7 @@ class QuickInsert(QWidget):
         self.helpButton = QToolButton(
             icon = icons.get("help-contents"),
             autoRaise = True,
-            clicked = lambda: help.help(quickinsert_help))
+            clicked = lambda: userguide.show("quickinsert"))
         self.directionLabel = QLabel()
         self.direction = QComboBox()
         self.direction.addItems(['', '', ''])
@@ -82,7 +82,7 @@ class QuickInsert(QWidget):
             self.toolbox.addItem(widget, widget.icon(), '')
         
         app.translateUI(self)
-        help.openWhatsThis(self)
+        userguide.openWhatsThis(self)
         
         # restore remembered current page
         name = QSettings().value("quickinsert/current_tool", "", type(""))
@@ -102,7 +102,7 @@ class QuickInsert(QWidget):
             "<p>With the Quick Insert Panel you can add various music "
             "elements to the current note or selected music.</p>\n"
             "<p>See {link} for more information.</p>").format(link=
-                quickinsert_help.link()))
+                userguide.util.format_link("quickinsert")))
         self.helpButton.setToolTip(_("Help"))
         self.directionLabel.setText(_("Direction:"))
         for item, text in enumerate((_("Up"), _("Neutral"), _("Down"))):
@@ -120,78 +120,5 @@ class QuickInsert(QWidget):
 
     def dockwidget(self):
         return self._dockwidget()
-
-
-class quickinsert_help(help.page):
-    def title():
-        return _("The Quick Insert Panel")
-    
-    def body():
-        return (_("""\
-<p>
-With the tools in the Quick Insert Panel you can add various music elements
-to the current note or selected music.
-</p>
-
-<p>
-The <em>Direction</em> chooser specifies if articulations, dynamics or slurs
-appear in a neutral position (e.g. determined by stem direction), or above
-or below the staff by prepending a <code>-</code>, <code>^</code> or
-<code>_</code> character.
-</p>
-
-<p>
-Click on a tab to select a tool. You can cycle through the tools with Ctrl
-(or {command}) and the mouse wheel.
-All buttons in the Quick Insert Panel have configurable keyboard shortcuts;
-you can change them by right-clicking a button.
-</p>
-""").format(command="\u2318") + _("""\
-<h3>Articulations</h3>
-
-<p>
-These musical symbols can be added to a note or rest or a selected range
-of music.
-If you add them to a selection, rests will be skipped.
-If there is no text selected, the cursor will automatically move to the next
-pitch, rest, skip or chord.
-</p>
-
-<p>
-If <em>Allow shorthands</em> is checked, Frescobaldi will use short signs
-for articulations if they exist
-(e.g. <code>-.</code> instead of <code>-\staccato</code>).
-</p>
-""") + _("""\
-<h3>Dynamics</h3>
-
-<p>
-Dynamics can also be added to a note or rest.
-If you select a range of music, you can add spanners which will automatically
-terminate at the last note, rest or chord in the selection.
-If you then click a sign, it will replace the terminator.
-</p>
-""") + _("""\
-<h3>Spanners</h3>
-
-<p>
-This tool lets you add arpeggio, glissandos and other spanners like slurs,
-phrasing slurs, manual beams or trills.
-</p>
-
-<p>
-Arpeggios and glissandos apply to the current note;
-they need no music to be selected.
-The slurs, beams or trill apply to the current note and the next one
-if no music is selected,
-or to the first and the last note or chord in the selection.
-</p>
-""") + _("""\
-<h3>Bar Lines</h3>
-
-<p>
-Here you can insert bar lines or various breathing signs.
-</p>
-"""))
 
 

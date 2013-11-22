@@ -1,4 +1,4 @@
-=== Engraving: (custom mode) ===
+=== Custom mode ===
     
 The *Engrave (Custom)* dialog ({key_engrave_custom}) gives you detailed access
 to all aspects of the LilyPond command.
@@ -17,5 +17,19 @@ converted to PDF.
 
 Most of these settings are reflected in the Command Line text edit field.
 
+The following replacements will be made:
+
+!`$lilypond`
+: The LilyPond executable
+
+!`$include`
+: All the include paths
+
+!`$filename`
+: The filename of the document
+
+
+
 #VARS
 key_engrave_custom shortcut engrave engrave_custom
+

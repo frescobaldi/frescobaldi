@@ -28,7 +28,7 @@ from PyQt4.QtGui import QCompleter, QColor, QColorDialog, QWidget
 
 import app
 import widgets.dialog
-import help as help_
+import userguide
 
 
 def getText(
@@ -66,7 +66,7 @@ def getText(
     dlg.setMinimumWidth(320)
     dlg.messageLabel().setWordWrap(wordWrap)
     if help is not None:
-        help_.addButton(dlg.buttonBox(), help)
+        userguide.addButton(dlg.buttonBox(), help)
         dlg.setWindowModality(Qt.WindowModal)
     else:
         dlg.setWindowModality(Qt.ApplicationModal)
