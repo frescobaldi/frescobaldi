@@ -88,7 +88,7 @@ class Dialog(QDialog):
         self.runEngraverCheck = QCheckBox()
 						   
         self.postChecks = [self.formatCheck,
-				self.trimDurCheck,
+			    self.trimDurCheck,
 			    self.removeScalesCheck,
 			    self.runEngraverCheck]								  
         
@@ -147,7 +147,7 @@ class Dialog(QDialog):
         self.commandLine.setMaximumSize(QSize(300, 100))
         
         langlist = ['default',
-			'nederlands',
+		    'nederlands',
 		    'catalan',
 		    'deutsch',
 		    'english',
