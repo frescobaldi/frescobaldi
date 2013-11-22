@@ -31,7 +31,7 @@ import collections
 
 from PyQt4.QtCore import QSettings, QSize
 from PyQt4.QtGui import (QCheckBox, QComboBox, QDialog, QDialogButtonBox,
-    QGridLayout, QLabel, QTextEdit)
+    QGridLayout, QLabel, QTabWidget, QTextEdit, QWidget)
 
 import app
 import documentinfo
@@ -47,19 +47,50 @@ import util
 
 
 class Dialog(QDialog):
+	
     def __init__(self, parent=None):
         super(Dialog, self).__init__(parent)
         self._document = None
         self._path = None
         
-        layout = QGridLayout()
-        self.setLayout(layout)
+        mainLayout = QGridLayout()
+        self.setLayout(mainLayout)
         
+        tabs = QTabWidget()
+        
+        import_tab = QWidget()
+        post_tab = QWidget()
+        
+        itabLayout = QGridLayout(import_tab)
+        ptabLayout = QGridLayout(post_tab)
+        
+        tabs.addTab(import_tab, "musicxml2ly")
+        tabs.addTab(post_tab, "after import")
         
         self.noartCheck = QCheckBox()
         self.norestCheck = QCheckBox()
         self.nolayoutCheck = QCheckBox()
         self.nobeamCheck = QCheckBox()
+        self.useAbsCheck = QCheckBox()
+        
+        self.langCombo = QComboBox()
+        self.langLabel = QLabel()
+        
+        self.impChecks = [self.noartCheck,
+						  self.norestCheck,
+						  self.nolayoutCheck,
+						  self.nobeamCheck,
+						  self.useAbsCheck]
+		
+        self.formatCheck = QCheckBox()
+        self.trimDurCheck = QCheckBox()
+        self.removeScalesCheck = QCheckBox()
+        self.runEngraverCheck = QCheckBox()
+						   
+        self.postChecks = [self.formatCheck,
+						   self.trimDurCheck,
+						   self.removeScalesCheck,
+						   self.runEngraverCheck]								  
         
         self.commandLineLabel = QLabel()
         self.commandLine = QTextEdit(acceptRichText=False)
@@ -69,14 +100,25 @@ class Dialog(QDialog):
         userguide.addButton(self.buttons, "musicxml_import")
         
 
-        layout.addWidget(self.noartCheck, 0, 0, 1, 2)
-        layout.addWidget(self.norestCheck, 1, 0, 1, 2)
-        layout.addWidget(self.nolayoutCheck, 2, 0, 1, 2)
-        layout.addWidget(self.nobeamCheck, 3, 0, 1, 2)
-        layout.addWidget(self.commandLineLabel, 4, 0, 1, 2)
-        layout.addWidget(self.commandLine, 5, 0, 1, 2)
-        layout.addWidget(widgets.Separator(), 6, 0, 1, 2)
-        layout.addWidget(self.buttons, 7, 0, 1, 2)
+        itabLayout.addWidget(self.noartCheck, 0, 0, 1, 2)
+        itabLayout.addWidget(self.norestCheck, 1, 0, 1, 2)
+        itabLayout.addWidget(self.nolayoutCheck, 2, 0, 1, 2)
+        itabLayout.addWidget(self.nobeamCheck, 3, 0, 1, 2)
+        itabLayout.addWidget(self.useAbsCheck, 4, 0, 1, 2)
+        itabLayout.addWidget(self.langLabel, 5, 0, 1, 2)
+        itabLayout.addWidget(self.langCombo, 6, 0, 1, 2)
+        itabLayout.addWidget(widgets.Separator(), 7, 0, 1, 2)
+        itabLayout.addWidget(self.commandLineLabel, 8, 0, 1, 2)
+        itabLayout.addWidget(self.commandLine, 9, 0, 1, 2)
+        
+        ptabLayout.addWidget(self.formatCheck, 0, 0, 1, 2)
+        ptabLayout.addWidget(self.trimDurCheck, 1, 0, 1, 2)       
+        ptabLayout.addWidget(self.removeScalesCheck, 2, 0, 1, 2)
+        ptabLayout.addWidget(self.runEngraverCheck, 3, 0, 1, 2)
+        ptabLayout.setRowStretch(4, 10)
+        
+        mainLayout.addWidget(tabs, 0, 0, 9, 2)
+        mainLayout.addWidget(self.buttons, 10, 0, 1, 2)
         
         app.translateUI(self)
         qutil.saveDialogSize(self, "importXML/dialog/size", QSize(480, 260))
@@ -87,15 +129,44 @@ class Dialog(QDialog):
         self.norestCheck.toggled.connect(self.makeCommandLine)
         self.nolayoutCheck.toggled.connect(self.makeCommandLine)
         self.nobeamCheck.toggled.connect(self.makeCommandLine)
+        self.useAbsCheck.toggled.connect(self.makeCommandLine)
+        self.langCombo.currentIndexChanged.connect(self.makeCommandLine)
         self.makeCommandLine()
+        
+        self.loadSettings()
     
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Import Music XML")))
-        self.noartCheck.setText(_("No articulation directions"))
-        self.norestCheck.setText(_("No rest positions"))
-        self.nolayoutCheck.setText(_("No page layout"))
-        self.nobeamCheck.setText(_("Auto beaming"))
+        self.noartCheck.setText(_("Import articulation directions"))
+        self.norestCheck.setText(_("Import rest positions"))
+        self.nolayoutCheck.setText(_("Import page layout"))
+        self.nobeamCheck.setText(_("Import beaming"))
+        self.useAbsCheck.setText(_("Pitches in absolute mode"))
         self.commandLineLabel.setText(_("Command line:"))
+        self.commandLine.setMinimumSize(QSize(100, 50))
+        self.commandLine.setMaximumSize(QSize(300, 100))
+        
+        langlist = ['default',
+					'nederlands',
+					'catalan',
+					'deutsch',
+					'english',
+					'espanol',
+					'italiano',
+					'norsk',
+					'portugues',
+					'suomi',
+					'svenska',
+					'vlaams']
+        self.langCombo.addItems(langlist)
+        self.langLabel.setText(_("Language for pitch names"))
+        self.langCombo.setMaximumSize(QSize(300, 50))        
+        
+        self.formatCheck.setText(_("Reformat source"))
+        self.trimDurCheck.setText(_("Trim durations (Make implicit per line)"))
+        self.removeScalesCheck.setText(_("Remove fraction duration scaling"))
+        self.runEngraverCheck.setText(_("Engrave directly"))
+        
         self.buttons.button(QDialogButtonBox.Ok).setText(_("Run musicxml2ly"))
 
     
@@ -106,14 +177,18 @@ class Dialog(QDialog):
     def makeCommandLine(self):
         """Reads the widgets and builds a command line."""
         cmd = ["$musicxml2ly"]
-        if self.noartCheck.isChecked():
+        if self.useAbsCheck.isChecked():
+            cmd.append('-a')
+        if not self.noartCheck.isChecked():
             cmd.append('--nd')
-        if self.norestCheck.isChecked():
+        if not self.norestCheck.isChecked():
             cmd.append('--nrp')
-        if self.nolayoutCheck.isChecked():
+        if not self.nolayoutCheck.isChecked():
             cmd.append('--npl')
-        if self.nobeamCheck.isChecked():
+        if not self.nobeamCheck.isChecked():
             cmd.append('--no-beaming')
+        if self.langCombo.currentText() != 'default':
+			cmd.append('--language='+self.langCombo.currentText())      
 
         cmd.append("$filename")
         self.commandLine.setText(' '.join(cmd))
@@ -132,6 +207,7 @@ class Dialog(QDialog):
         return cmd
         
     def run_command(self):
+        """ Run command line """
         cmd = self.getCmd()
         directory = os.path.dirname(self._document)
         proc = subprocess.Popen(cmd, cwd=directory,
@@ -141,4 +217,33 @@ class Dialog(QDialog):
             stderr = subprocess.PIPE)
         stdouterr = proc.communicate()
         return stdouterr
+		
+    def getPostSettings(self):
+        """ returns settings in the post import tab """
+        post = []
+        for p in self.postChecks:
+            post.append(p.isChecked())
+        return post
+        
+    def loadSettings(self):
+        """ get users previous settings """
+        imp_default = [False, False, False, False]
+        post_default = [True, False, False, True]
+        s = QSettings()
+        s.beginGroup('xml_import')
+        for i, d in zip(self.impChecks, imp_default):
+            i.setChecked(s.value(i.text(), d, bool))
+        for p, f in zip(self.postChecks, post_default):
+            p.setChecked(s.value(p.text(), f, bool))
+        self.langCombo.setCurrentIndex(s.value('langCombo', 0, int))
+        
+    def saveSettings(self):
+        """ save users last settings """
+        s = QSettings()
+        s.beginGroup('xml_import')
+        for i in self.impChecks:
+            s.setValue(i.text(), i.isChecked())
+        for p in self.postChecks:
+            s.setValue(p.text(), p.isChecked())
+        s.setValue('langCombo', self.langCombo.currentIndex())
 
