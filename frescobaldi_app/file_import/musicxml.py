@@ -77,10 +77,10 @@ class Dialog(QDialog):
         self.langLabel = QLabel()
         
         self.impChecks = [self.noartCheck,
-			   self.norestCheck,
-			   self.nolayoutCheck,
-			   self.nobeamCheck,
-			   self.useAbsCheck]
+						  self.norestCheck,
+						  self.nolayoutCheck,
+						  self.nobeamCheck,
+						  self.useAbsCheck]
 		
         self.formatCheck = QCheckBox()
         self.trimDurCheck = QCheckBox()
@@ -88,9 +88,9 @@ class Dialog(QDialog):
         self.runEngraverCheck = QCheckBox()
 						   
         self.postChecks = [self.formatCheck,
-			    self.trimDurCheck,
-			    self.removeScalesCheck,
-			    self.runEngraverCheck]								  
+						   self.trimDurCheck,
+						   self.removeScalesCheck,
+						   self.runEngraverCheck]								  
         
         self.commandLineLabel = QLabel()
         self.commandLine = QTextEdit(acceptRichText=False)
@@ -147,17 +147,17 @@ class Dialog(QDialog):
         self.commandLine.setMaximumSize(QSize(300, 100))
         
         langlist = ['default',
-		    'nederlands',
-		    'catalan',
-		    'deutsch',
-		    'english',
-		    'espanol',
-		    'italiano',
-		    'norsk',
-		    'portugues',
-		    'suomi',
-		    'svenska',
-		    'vlaams']
+					'nederlands',
+					'catalan',
+					'deutsch',
+					'english',
+					'espanol',
+					'italiano',
+					'norsk',
+					'portugues',
+					'suomi',
+					'svenska',
+					'vlaams']
         self.langCombo.addItems(langlist)
         self.langLabel.setText(_("Language for pitch names"))
         self.langCombo.setMaximumSize(QSize(300, 50))        

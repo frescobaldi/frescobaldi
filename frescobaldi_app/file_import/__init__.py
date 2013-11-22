@@ -91,8 +91,8 @@ class FileImport(plugin.MainWindowPlugin):
     def postImport(self, settings, doc):
         """Adaptations of the source after running musicxml2ly
 		
-	Present settings: 
-	Reformat source
+		Present settings: 
+		Reformat source
         Remove superfluous durations
         Remove duration scaling
         Engrave directly
