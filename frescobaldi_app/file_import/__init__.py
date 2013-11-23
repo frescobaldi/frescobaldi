@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 import os
 
 from PyQt4.QtCore import Qt, QUrl
-from PyQt4.QtGui import QAction, QFileDialog, QKeySequence, QMessageBox
+from PyQt4.QtGui import QAction, QFileDialog, QKeySequence, QMessageBox, QTextCursor
 
 import app
 import actioncollection
@@ -64,9 +64,10 @@ class FileImport(plugin.MainWindowPlugin):
             with qutil.busyCursor():
                 stdout, stderr = dlg.run_command()
             if stdout: #success
+                dlg.saveSettings()
                 lyfile = os.path.splitext(importfile)[0] + ".ly"
                 doc = self.createDocument(lyfile, stdout.decode('utf-8'))
-                self.postImport()
+                self.postImport(dlg.getPostSettings(), doc)
                 self.mainwindow().saveDocument(doc)
             else: #failure to convert
                 QMessageBox.critical(None, _("Error"),
@@ -75,7 +76,7 @@ class FileImport(plugin.MainWindowPlugin):
     def createDocument(self, filename, contents):
         """Create a new document using the specified filename and contents.
 
-        Make it the current document in our mainwindow and run the engraver.
+        Make it the current document in our mainwindow.
 
         """
         while os.path.exists(filename) or app.findDocument(QUrl.fromLocalFile(filename)):
@@ -87,10 +88,32 @@ class FileImport(plugin.MainWindowPlugin):
         self.mainwindow().setCurrentDocument(doc)
         return doc       
         
-    def postImport(self):
-        """Adaptations of the source resulting from running musicxml2ly"""
-        import reformat
-        reformat.reformat(self.mainwindow().currentView().textCursor())
+    def postImport(self, settings, doc):
+        """Adaptations of the source after running musicxml2ly
+		
+		Present settings: 
+		Reformat source
+        Remove superfluous durations
+        Remove duration scaling
+        Engrave directly
+		
+        """
+        cursor = QTextCursor(doc)		
+        if settings[0]:
+            import reformat
+            reformat.reformat(cursor)
+        if settings[1]:
+            cursor.select(QTextCursor.Document)
+            from rhythm import rhythm
+            rhythm.rhythm_implicit_per_line(cursor)
+        if settings[2]:
+            cursor.select(QTextCursor.Document)
+            from rhythm import rhythm
+            rhythm.rhythm_remove_fraction_scaling(cursor)       
+        if settings[3]:
+            import engrave
+            engrave.engraver(self.mainwindow()).engrave('preview', doc, False)
+        
 
 
 class Actions(actioncollection.ActionCollection):

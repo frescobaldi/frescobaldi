@@ -103,6 +103,8 @@ class HtmlOutput(simplemarkdown.HtmlOutput):
     the output.
     
     """
+    heading_offset = 1
+    
     def code_start(self, code, specifier=None):
         if specifier == "lilypond":
             import colorize
