@@ -49,7 +49,7 @@ class Actions(actioncollection.ActionCollection):
         self.capture_stop.setIcon(icons.get('process-stop'))
         
     def translateUI(self):
-        self.capture_start.setText(_("midi input", "Start MIDI capturing"))
+        self.capture_start.setText(_("midi input", "Start capturing"))
         self.capture_start.setToolTip(_("midi input", "Start MIDI capturing"))
-        self.capture_stop.setText(_("midi input", "Stop MIDI capturing"))
+        self.capture_stop.setText(_("midi input", "Stop capturing"))
         self.capture_stop.setToolTip(_("midi input", "Stop MIDI capturing"))
