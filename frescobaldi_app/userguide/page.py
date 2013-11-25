@@ -273,7 +273,6 @@ class Resolver(object):
     def handle_languagename(self, code):
         """Return a language name in the current language."""
         import po.setup
-        lang = QSettings().value("language", "", type("")) or po.setup.current() or None
         import language_names
-        return language_names.languageName(code, lang)
+        return language_names.languageName(code, po.setup.current())
 
