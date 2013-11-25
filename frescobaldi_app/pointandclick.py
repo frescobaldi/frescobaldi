@@ -43,11 +43,25 @@ class Links(object):
         self._docs = {}
        
     def add_link(self, filename, line, column, destination):
-        """Add a link."""
+        """Add a link.
+        
+        filename, line and column, describe the position in the source file.
+        
+        destination can be any object that describes where the link points to.
+        
+        """
         self._links[filename][(line, column)].append(destination)
     
     def finish(self):
-        """Call this when you are done with adding links."""
+        """Call this when you are done with adding links.
+        
+        This method tries to bind() already loaded documents and starts
+        monitoring document open/close events.
+        
+        You can also use the links as a context manager and then add links.
+        On exit, finish() is automatically called.
+        
+        """
         for filename in self._links:
             for d in app.documents:
                 s = scratchdir.scratchdir(d)
@@ -136,21 +150,23 @@ class BoundLinks(object):
         return self._cursor_dict.get((line, column))
     
     def cursors(self):
-        """Returns the list of cursors, sorted on cursor position."""
+        """Return the list of cursors, sorted on cursor position."""
         return self._cursors
         
     def destinations(self):
-        """Returns the list of destinations.
+        """Return the list of destination lists.
         
-        Each destination corresponds with the cursor at the same index in the cursors() list.
-        Each destination is a list of (pageNum, QRectF) pairs, because many point-and-click
-        objects can point to the same place in the text document.
+        Each destination corresponds with the cursor at the same index in
+        the cursors() list. Each destination is a list of destination items
+        that were originally added using Links.add_link, because many
+        point-and-click objects can point to the same place in the text
+        document.
         
         """
         return self._destinations
     
     def indices(self, cursor):
-        """Returns a Python slice object or None or False.
+        """Return a Python slice object or None or False.
         
         If a slice, it specifies the range of destinations (in the destinations() list)
         that the given QTextCursor points to. The cursor must of course belong to our document.

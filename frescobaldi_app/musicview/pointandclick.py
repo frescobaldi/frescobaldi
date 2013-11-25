@@ -32,38 +32,12 @@ import weakref
 import qpopplerview
 
 import util
+import textedit
 import pointandclick
-import percentcoding
 
 
 # cache point and click handlers for poppler documents
 _cache = weakref.WeakKeyDictionary()
-
-# parse textedit urls
-textedit_match = re.compile(r"^textedit://(.*?):(\d+):(\d+)(?::\d+)$").match
-
-
-def readfilename(match):
-    """Returns the filename from the match object resulting from textedit_match."""
-    fname = match.group(1)
-    lat1 = fname.encode('latin1')
-    try:
-        lat1 = percentcoding.decode(lat1)
-    except ValueError:
-        pass
-    try:
-        fname = lat1.decode(sys.getfilesystemencoding())
-    except UnicodeError:
-        pass
-    # normalize path (although this might change a path if it contains
-    # symlinks followed by '/../' !
-    fname = util.normpath(fname)
-    return fname
-
-
-def readurl(match):
-    """Returns filename, line, col for the match object resulting from textedit_match."""
-    return readfilename(match), int(match.group(2)), int(match.group(3))
 
 
 def links(document):
@@ -71,7 +45,16 @@ def links(document):
         return _cache[document]
     except KeyError:
         l = _cache[document] = Links()
-        l.import_document(document)
+        with l:
+            import popplerqt4
+            with qpopplerview.lock(document):
+                for num in range(document.numPages()):
+                    page = document.page(num)
+                    for link in page.links():
+                        if isinstance(link, popplerqt4.Poppler.LinkBrowse):
+                            t = textedit.link(link.url())
+                            if t:
+                                l.add_link(t.filename, t.line, t.column, (num, link.linkArea()))
         return l
 
 
@@ -81,19 +64,6 @@ class Links(pointandclick.Links):
     Only textedit:// urls are stored.
     
     """
-    def import_document(self, document):
-        import popplerqt4
-        with qpopplerview.lock(document):
-            for num in range(document.numPages()):
-                page = document.page(num)
-                for link in page.links():
-                    if isinstance(link, popplerqt4.Poppler.LinkBrowse):
-                        m = textedit_match(link.url())
-                        if m:
-                            filename, line, col = readurl(m)
-                            self.add_link(filename, line, col, (num, link.linkArea()))
-        self.finish()
-    
     def cursor(self, link, load=False):
         """Returns the destination of a link as a QTextCursor of the destination document.
         
@@ -104,8 +74,7 @@ class Links(pointandclick.Links):
         import popplerqt4
         if not isinstance(link, popplerqt4.Poppler.LinkBrowse) or not link.url():
             return
-        m = textedit_match(link.url())
-        if m:
-            filename, line, col = readurl(m)
-            return super(Links, self).cursor(filename, line, col, load)
+        t = textedit.link(link.url())
+        if t:
+            return super(Links, self).cursor(t.filename, t.line, t.column, load)
 

@@ -41,6 +41,7 @@ import popplerview
 import app
 import icons
 import helpers
+import textedit
 import textformats
 import tokeniter
 import viewhighlighter
@@ -240,10 +241,9 @@ class MusicView(QWidget):
                 from . import tooltip
                 text = tooltip.text(cursor)
             elif link.url():
-                m = pointandclick.textedit_match(link.url())
-                if m:
-                    filename, line, column = pointandclick.readurl(m)
-                    text = "{0} ({1}:{2})".format(os.path.basename(filename), line, column)
+                l = textedit.link(link.url())
+                if l:
+                    text = "{0} ({1}:{2})".format(os.path.basename(l.filename), l.line, l.column)
                 else:
                     text = link.url()
             QToolTip.showText(pos, text, self.view.surface(), page.linkRect(link.linkArea()))
