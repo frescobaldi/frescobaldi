@@ -58,3 +58,8 @@ def f(doc, job, success):
     
 # delete unneeded stuff
 del f, doc_repr
+
+def modules():
+    """Print the list of loaded modules."""
+    print '\n'.join(v.__name__ for k, v in sorted(sys.modules.items()) if v is not None)
+
