@@ -59,6 +59,6 @@ def openWhatsThis(widget, enabled=True):
 
 def link(page):
     """Return a HTML link to the page."""
-    from . import browser
-    return browser.format_link(page)
+    from . import util
+    return util.format_link(page)
 
