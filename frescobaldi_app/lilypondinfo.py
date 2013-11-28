@@ -154,6 +154,7 @@ class LilyPondInfo(object):
         self.name = "LilyPond"
         self.lilypond_book = 'lilypond-book'
         self.convert_ly = 'convert-ly'
+        self.version_name = ''
     
     @property
     def command(self):
@@ -299,8 +300,9 @@ class LilyPondInfo(object):
     @CachedProperty.cachedproperty(depends=versionString)
     def prettyName(self):
         """Return a pretty-printable name for this LilyPond instance."""
-        return "{name} {version} ({command})".format(
-            name = self.name,
+        return "{label}{name} {version} ({command})".format(
+            label = self.version_name + ':' if self.version_name else '', 
+            name = self.name if not self.version_name else self.name.lstrip("LilyPond"),
             version = self.versionString(),
             command = self.displaycommand())
     
@@ -319,6 +321,7 @@ class LilyPondInfo(object):
                 info.name = settings.value("name", "LilyPond", type(""))
                 info.lilypond_book = settings.value("lilypond-book", "lilypond-book", type(""))
                 info.convert_ly = settings.value("convert-ly", "convert-ly", type(""))
+                info.version_name = settings.value("version_name", "", type(""))
                 if int(os.path.getmtime(info.abscommand())) == int(settings.value("mtime", 0, float)):
                     info.versionString = settings.value("version", "", type(""))
                     datadir = settings.value("datadir", "", type(""))
@@ -337,6 +340,7 @@ class LilyPondInfo(object):
         settings.setValue("name", self.name)
         settings.setValue("lilypond-book", self.lilypond_book)
         settings.setValue("convert-ly", self.convert_ly)
+        settings.setValue("version_name", self.version_name)
 
     def python(self):
         """Returns the path to the LilyPond-provided Python interpreter.
