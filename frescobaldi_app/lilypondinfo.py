@@ -302,7 +302,7 @@ class LilyPondInfo(object):
         """Return a pretty-printable name for this LilyPond instance."""
         return "{label}{name} {version} ({command})".format(
             label = self.version_name + ':' if self.version_name else '', 
-            name = self.name if not self.version_name else self.name.lstrip("LilyPond"),
+            name = self.name if not self.version_name else "",
             version = self.versionString(),
             command = self.displaycommand())
     
