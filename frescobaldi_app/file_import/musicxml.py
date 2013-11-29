@@ -138,7 +138,7 @@ class Dialog(QDialog):
         mainLayout.addWidget(self.buttons, 10, 0, 1, 2)
         
         app.translateUI(self)
-        qutil.saveDialogSize(self, "importXML/dialog/size", QSize(480, 260))
+        qutil.saveDialogSize(self, "xml_import/dialog/size", QSize(480, 260))
         self.buttons.accepted.connect(self.accept)
         self.buttons.rejected.connect(self.reject)
         
