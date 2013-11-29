@@ -227,7 +227,7 @@ class Dialog(QDialog):
         
     def loadSettings(self):
         """ get users previous settings """
-        imp_default = [False, False, False, False]
+        imp_default = [False, False, False, False, False]
         post_default = [True, False, False, True]
         s = QSettings()
         s.beginGroup('xml_import')
