@@ -30,7 +30,7 @@ from PyQt4.QtCore import QSettings
 import job
 import documentinfo
 import lilypondinfo
-import preview_mode
+import layoutcontrol
 
 
 def info(document):
