@@ -232,6 +232,12 @@ class InfoDialog(QDialog):
         self.auto = QCheckBox()
         grid.addWidget(self.auto, 5, 1)
         
+        self.version_name = QLineEdit()
+        self.version_nameLabel = l = QLabel()
+        l.setBuddy(self.version_name)
+        grid.addWidget(l, 5, 0)
+        grid.addWidget(self.version_name, 5, 1)
+        
         layout.addWidget(widgets.Separator())
         b = self.buttons = QDialogButtonBox(self)
         layout.addWidget(b)
@@ -251,6 +257,7 @@ class InfoDialog(QDialog):
         self.convert_lyLabel.setText(_("Convert-ly:"))
         self.lilypond_bookLabel.setText(_("LilyPond-book:"))
         self.auto.setText(_("Include in automatic version selection"))
+        self.version_nameLabel.setText(_("Label for version:"))
         
     def loadInfo(self, info):
         """Takes over settings for the dialog from the LilyPondInfo object."""
@@ -259,6 +266,7 @@ class InfoDialog(QDialog):
         self.convert_ly.setText(info.convert_ly)
         self.lilypond_book.setText(info.lilypond_book)
         self.auto.setChecked(info.auto)
+        self.version_name.setText(info.version_name)
 
     def newInfo(self):
         """Returns a new LilyPondInfo instance for our settings."""
@@ -272,6 +280,7 @@ class InfoDialog(QDialog):
         info.auto = self.auto.isChecked()
         info.convert_ly = self.convert_ly.text()
         info.lilypond_book = self.lilypond_book.text()
+        info.version_name = self.version_name.text()
         return info
 
 
