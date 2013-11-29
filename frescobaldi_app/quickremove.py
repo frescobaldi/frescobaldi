@@ -39,8 +39,8 @@ import ly.lex.lilypond
 def remove(func):
     """Decorator turning a function yielding ranges into removing the ranges."""
     @functools.wraps(func)
-    def decorator(cursor):
-        remove = list(func(cursor))
+    def decorator(cursor, *args):
+        remove = list(func(cursor, *args))
         if remove:
             c = QTextCursor(cursor)
             with cursortools.compress_undo(c):
@@ -155,5 +155,25 @@ def markup(cursor):
                 elif isinstance(token, ly.lex.Space):
                     continue
                 break
+
+
+@remove
+def smart_delete(cursor, backspace=False):
+    """This function intelligently deletes an item the cursor is at.
+    
+    Basically it behaves like normal Delete (cursor.deleteChar()) or BackSpace
+    (cursor.deletePreviousChar()), but it performs the following:
+    
+    - if the item is a matching object (, ), [, ], \[, \] etc, the other item is
+      deleted as well
+    - if the item is an articulation it is deleted completely with direction
+      specifier if present
+    - if the cursor is on a note, the whole notename is deleted including
+      postfix stuff
+    - if the cursor is on the '<' of a chord, the whole chord is deleted
+    
+    TODO: implement
+    """
+    pass
 
 

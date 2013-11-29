@@ -45,6 +45,21 @@ import widgets
 import qutil
 import util
 
+# language names musicxml2ly allows
+_langlist = [
+    'nederlands',
+    'catalan',
+    'deutsch',
+    'english',
+    'espanol',
+    'italiano',
+    'norsk',
+    'portugues',
+    'suomi',
+    'svenska',
+    'vlaams',
+]
+
 
 class Dialog(QDialog):
 	
@@ -99,6 +114,8 @@ class Dialog(QDialog):
             QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         userguide.addButton(self.buttons, "musicxml_import")
         
+        self.langCombo.addItem('')
+        self.langCombo.addItems(_langlist)
 
         itabLayout.addWidget(self.noartCheck, 0, 0, 1, 2)
         itabLayout.addWidget(self.norestCheck, 1, 0, 1, 2)
@@ -121,7 +138,7 @@ class Dialog(QDialog):
         mainLayout.addWidget(self.buttons, 10, 0, 1, 2)
         
         app.translateUI(self)
-        qutil.saveDialogSize(self, "importXML/dialog/size", QSize(480, 260))
+        qutil.saveDialogSize(self, "xml_import/dialog/size", QSize(480, 260))
         self.buttons.accepted.connect(self.accept)
         self.buttons.rejected.connect(self.reject)
         
@@ -143,25 +160,9 @@ class Dialog(QDialog):
         self.nobeamCheck.setText(_("Import beaming"))
         self.useAbsCheck.setText(_("Pitches in absolute mode"))
         self.commandLineLabel.setText(_("Command line:"))
-        self.commandLine.setMinimumSize(QSize(100, 50))
-        self.commandLine.setMaximumSize(QSize(300, 100))
         
-        langlist = ['default',
-					'nederlands',
-					'catalan',
-					'deutsch',
-					'english',
-					'espanol',
-					'italiano',
-					'norsk',
-					'portugues',
-					'suomi',
-					'svenska',
-					'vlaams']
-        self.langCombo.addItems(langlist)
         self.langLabel.setText(_("Language for pitch names"))
-        self.langCombo.setMaximumSize(QSize(300, 50))        
-        
+        self.langCombo.setItemText(0, _("Default"))
         self.formatCheck.setText(_("Reformat source"))
         self.trimDurCheck.setText(_("Trim durations (Make implicit per line)"))
         self.removeScalesCheck.setText(_("Remove fraction duration scaling"))
@@ -187,8 +188,9 @@ class Dialog(QDialog):
             cmd.append('--npl')
         if not self.nobeamCheck.isChecked():
             cmd.append('--no-beaming')
-        if self.langCombo.currentText() != 'default':
-			cmd.append('--language='+self.langCombo.currentText())      
+        index = self.langCombo.currentIndex()
+        if index > 0:
+			cmd.append('--language=' + _langlist[index-1])
 
         cmd.append("$filename")
         self.commandLine.setText(' '.join(cmd))
@@ -227,7 +229,7 @@ class Dialog(QDialog):
         
     def loadSettings(self):
         """ get users previous settings """
-        imp_default = [False, False, False, False]
+        imp_default = [False, False, False, False, False]
         post_default = [True, False, False, True]
         s = QSettings()
         s.beginGroup('xml_import')
@@ -235,7 +237,12 @@ class Dialog(QDialog):
             i.setChecked(s.value(i.text(), d, bool))
         for p, f in zip(self.postChecks, post_default):
             p.setChecked(s.value(p.text(), f, bool))
-        self.langCombo.setCurrentIndex(s.value('langCombo', 0, int))
+        lang = s.value("language", "default", type(""))
+        try:
+            index = _langlist.index(lang)
+        except ValueError:
+            index = -1
+        self.langCombo.setCurrentIndex(index + 1)
         
     def saveSettings(self):
         """ save users last settings """
@@ -245,5 +252,6 @@ class Dialog(QDialog):
             s.setValue(i.text(), i.isChecked())
         for p in self.postChecks:
             s.setValue(p.text(), p.isChecked())
-        s.setValue('langCombo', self.langCombo.currentIndex())
+        index = self.langCombo.currentIndex()
+        s.setValue('language', 'default' if index == 0 else _langlist[index-1])
 
