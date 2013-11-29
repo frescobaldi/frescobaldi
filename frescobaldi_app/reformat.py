@@ -118,17 +118,11 @@ def remove_trailing_whitespace(cursor):
     If there is no selection, the whole document is used.
     
     """
-    ranges = []
-    for block in get_blocks(cursor):
-        length = len(block.text())
-        strippedlength = len(block.text().rstrip())
-        if strippedlength < length:
-            ranges.append((block.position() + strippedlength, block.position() + length))
-    if ranges:
-        c = QTextCursor(cursor)
-        with cursortools.compress_undo(c):
-            for start, end in reversed(ranges):
-                c.setPosition(start)
-                c.setPosition(end, QTextCursor.KeepAnchor)
-                c.removeSelectedText()
+    with cursortools.DocumentString(cursor.document()) as d:
+        for block in get_blocks(cursor):
+            length = len(block.text())
+            strippedlength = len(block.text().rstrip())
+            if strippedlength < length:
+                del d[block.position() + strippedlength : block.position() + length]
+
 
