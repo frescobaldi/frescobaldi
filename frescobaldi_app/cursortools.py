@@ -276,14 +276,6 @@ class Editor(object):
     def apply(self):
         """Applies and clears the stored edits."""
         if self.edits:
-            # don't use all the cursors directly, but copy and sort the ranges
-            # otherwise inserts would move the cursor for adjacent edits.
-            # We could also just start with the first, but that would require
-            # all cursors to update their position during the process, which
-            # notably slows down large edits (as there are already many cursors
-            # used by the point and click feature).
-            # We could also use QTextCursor.keepPositionOnInsert but that is
-            # only available in the newest PyQt4 versions.
             with DocumentString(self.edits[0][0].document()) as d:
                 for cursor, text in self.edits:
                     d[cursor] = text
@@ -335,7 +327,8 @@ class DocumentString(object):
         else:
             start = k
             end = k + 1
-        self._edits.append((start, end, text))
+        if text or start < end:
+            self._edits.append((start, end, text))
     
     def __delitem__(self, k):
         self[k] = ""
