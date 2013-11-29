@@ -162,6 +162,7 @@ class InfoList(widgets.listedit.ListEdit):
     def openEditor(self, item):
         dlg = self.infoDialog()
         dlg.loadInfo(item._info)
+        dlg.lilypond.lineEdit.setFocus()
         was_default = item._info.command == self.parentWidget()._defaultCommand
         if dlg.exec_():
             item._info = dlg.newInfo()
@@ -203,27 +204,33 @@ class InfoDialog(QDialog):
         grid.setSpacing(4)
         layout.addLayout(grid)
         
+        self.lilyname = QLineEdit()
+        self.lilynameLabel = l = QLabel()
+        l.setBuddy(self.lilyname)
+        grid.addWidget(l, 0, 0)
+        grid.addWidget(self.lilyname, 0, 1)
+        
         self.lilypond = widgets.urlrequester.UrlRequester()
         self.lilypond.setFileMode(QFileDialog.ExistingFile)
         self.lilypondLabel = l = QLabel()
         l.setBuddy(self.lilypond)
-        grid.addWidget(l, 0, 0, 1, 2)
-        grid.addWidget(self.lilypond, 1, 0, 1, 2)
+        grid.addWidget(l, 1, 0, 1, 2)
+        grid.addWidget(self.lilypond, 2, 0, 1, 2)
         
         self.convert_ly = QLineEdit()
         self.convert_lyLabel = l = QLabel()
         l.setBuddy(self.convert_ly)
-        grid.addWidget(l, 2, 0)
-        grid.addWidget(self.convert_ly, 2, 1)
+        grid.addWidget(l, 3, 0)
+        grid.addWidget(self.convert_ly, 3, 1)
         
         self.lilypond_book = QLineEdit()
         self.lilypond_bookLabel = l = QLabel()
         l.setBuddy(self.lilypond_book)
-        grid.addWidget(l, 3, 0)
-        grid.addWidget(self.lilypond_book, 3, 1)
+        grid.addWidget(l, 4, 0)
+        grid.addWidget(self.lilypond_book, 4, 1)
         
         self.auto = QCheckBox()
-        grid.addWidget(self.auto, 4, 1)
+        grid.addWidget(self.auto, 5, 1)
         
         layout.addWidget(widgets.Separator())
         b = self.buttons = QDialogButtonBox(self)
@@ -237,6 +244,8 @@ class InfoDialog(QDialog):
         
     def translateUI(self):
         self.setWindowTitle(app.caption(_("LilyPond")))
+        self.lilynameLabel.setText(_("Label:"))
+        self.lilynameLabel.setToolTip(_("How this version of LilyPond will be displayed."))
         self.lilypondLabel.setText(_("LilyPond Command:"))
         self.lilypond.lineEdit.setToolTip(_("Name or full path of the LilyPond program."))
         self.convert_lyLabel.setText(_("Convert-ly:"))
@@ -245,6 +254,7 @@ class InfoDialog(QDialog):
         
     def loadInfo(self, info):
         """Takes over settings for the dialog from the LilyPondInfo object."""
+        self.lilyname.setText(info.name)
         self.lilypond.setPath(info.command)
         self.convert_ly.setText(info.convert_ly)
         self.lilypond_book.setText(info.lilypond_book)
@@ -257,6 +267,8 @@ class InfoDialog(QDialog):
                 self.lilypond.path() + '/Contents/Resources/bin/lilypond')
         else:
             info = lilypondinfo.LilyPondInfo(self.lilypond.path())
+        if self.lilyname.text() and not self.lilyname.text().isspace():
+            info.name = self.lilyname.text()
         info.auto = self.auto.isChecked()
         info.convert_ly = self.convert_ly.text()
         info.lilypond_book = self.lilypond_book.text()

@@ -11,6 +11,9 @@ full path here so Frescobaldi can run it. For the helper applications like
 `convert-ly` and `lilypond-book` you don't need to specify the full path if 
 they are in the same directory as the LilyPond executable itself.
 
+You may enter a custom label to easily recognize a specific LilyPond instance.
+I you do not enter a label, "LilyPond" is used.
+
 You can also configure how LilyPond is run. See the tooltips of
 the settings for more information.
 
