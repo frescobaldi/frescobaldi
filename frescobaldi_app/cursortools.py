@@ -24,6 +24,7 @@ Functions manipulating QTextCursors and their selections.
 from __future__ import unicode_literals
 
 import contextlib
+import operator
 
 from PyQt4.QtGui import QTextBlock, QTextBlockUserData, QTextCursor
 
@@ -280,20 +281,65 @@ class Editor(object):
             # used by the point and click feature).
             # We could also use QTextCursor.keepPositionOnInsert but that is
             # only available in the newest PyQt4 versions.
-            edits = [(cursor.selectionStart(), cursor.selectionEnd(), text)
-                      for cursor, text in self.edits]
-            edits.sort(key=lambda e: e[0]) # dont reorder edits at same startpos
-            edits.reverse()
-            cursor = self.edits[0][0]
-            del self.edits[:]
-            with compress_undo(cursor):
-                for start, end, text in edits:
-                    cursor.setPosition(end)
-                    cursor.setPosition(start, QTextCursor.KeepAnchor)
-                    cursor.insertText(text)
-        
+            with DocumentString(self.edits[0][0].document()) as d:
+                for cursor, text in self.edits:
+                    d[cursor.selectionStart():cursor.selectionEnd()] = text
+                del self.edits[:] # delete the cursors before doing the edits
+    
     def __exit__(self, exc_type, exc_val, exc_tb):
         if exc_type is None:
             self.apply()
+
+
+class DocumentString(object):
+    """Represents a QTextDocument as a mutable string.
+    
+    You can assign using the item/slice syntax (slice step is not supported).
+    Call the apply() method when done, or use it as a context manager.
+    
+    Usage:
+    
+    with DocumentString(document) as d:
+        d[10:30] = text
+        del d[40:56]
+    
+    The changes take place on exit of the context. You can put changes in any
+    order, but avoid changes on the same starting position.
+    
+    """
+    def __init__(self, document):
+        self._document = document
+        self._edits = []
+    
+    def __enter__(self):
+        return self
+    
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if exc_type is None:
+            self.apply()
+    
+    def __setitem__(self, k, text):
+        if isinstance(k, slice):
+            start = k.start or 0
+            end = -1 if k.stop is None else k.stop
+        else:
+            start = k
+            end = k + 1
+        self._edits.append((start, end, text))
+    
+    def __delitem__(self, k):
+        self[k] = ""
+    
+    def apply(self):
+        """Applies and clears the stored edits."""
+        if self._edits:
+            c = QTextCursor(self._document)
+            with compress_undo(c):
+                for start, end, text in sorted(self._edits,
+                            key=operator.itemgetter(0),
+                            reverse=True):
+                    c.setPosition(end) if end != -1 else c.movePosition(QTextCursor.End)
+                    c.setPosition(start, QTextCursor.KeepAnchor)
+                    c.insertText(text)
 
 
