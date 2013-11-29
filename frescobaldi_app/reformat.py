@@ -61,16 +61,18 @@ def get_blocks(cursor):
 def reformat(cursor):
     """Reformats the selection or the whole document, adjusting the whitespace."""
     def newlinebefore(t):
-        editor.insertText(tokeniter.cursor(block, t, end=0), '\n')
+        pos = block.position() + t.pos
+        d[pos:pos] = '\n'
     
     def newlineafter(t):
-        editor.insertText(tokeniter.cursor(block, t, start=len(t)), '\n')
+        pos = block.position() + t.end
+        d[pos:pos] = '\n'
     
     indent_vars = indent.indent_variables(cursor.document())
     
     with cursortools.compress_undo(cursor):
         indent.re_indent(cursor)
-        with cursortools.Editor() as editor:
+        with cursortools.Document(cursor.document()) as d:
             for block in get_blocks(cursor):
                 
                 denters = []
@@ -97,7 +99,7 @@ def reformat(cursor):
         
         # move commented lines with more than 2 comment characters
         # to column 0
-        with cursortools.Editor() as editor:
+        with cursortools.Document(cursor.document()) as d:
             for block in get_blocks(cursor):
                 tokens = tokeniter.tokens(block)
                 if (len(tokens) == 2
@@ -107,7 +109,7 @@ def reformat(cursor):
                         ly.lex.scheme.LineComment))
                     and len(tokens[1]) > 2
                     and len(set(tokens[1][:3])) == 1):
-                    editor.removeSelectedText(tokeniter.cursor(block, tokens[0]))
+                    del d[block.position():block.position() + tokens[1].pos]
         
         remove_trailing_whitespace(cursor)
 
@@ -118,7 +120,7 @@ def remove_trailing_whitespace(cursor):
     If there is no selection, the whole document is used.
     
     """
-    with cursortools.DocumentString(cursor.document()) as d:
+    with cursortools.Document(cursor.document()) as d:
         for block in get_blocks(cursor):
             length = len(block.text())
             strippedlength = len(block.text().rstrip())

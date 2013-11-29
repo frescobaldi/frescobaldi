@@ -276,7 +276,7 @@ class Editor(object):
     def apply(self):
         """Applies and clears the stored edits."""
         if self.edits:
-            with DocumentString(self.edits[0][0].document()) as d:
+            with Document(self.edits[0][0].document()) as d:
                 for cursor, text in self.edits:
                     d[cursor] = text
                 del self.edits[:] # delete the cursors before doing the edits
@@ -286,7 +286,7 @@ class Editor(object):
             self.apply()
 
 
-class DocumentString(object):
+class Document(object):
     """Represents a QTextDocument as a mutable string.
     
     You can assign using the item/slice syntax (slice step is not supported).
@@ -294,13 +294,13 @@ class DocumentString(object):
     
     Usage:
     
-    with DocumentString(document) as d:
+    with Document(document) as d:
         d[10:30] = text
         del d[40:56]
     
     The item can also be a QTextCursor, the selection then determines the slice,
     which is not updated when the document is changed by other means while
-    the DocumentString instance is active.
+    the Document instance is active.
     
     The changes take place on exit of the context. You can put changes in any
     order, but avoid changes on the same starting position.
