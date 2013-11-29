@@ -41,6 +41,8 @@ What it does:
 
 from __future__ import unicode_literals
 
+from PyQt4.QtGui import QTextCursor
+
 import cursortools
 import tokeniter
 import indent
@@ -93,6 +95,8 @@ def reformat(cursor):
         
         indent.re_indent(cursor)
         
+        # move commented lines with more than 2 comment characters
+        # to column 0
         with cursortools.Editor() as editor:
             for block in get_blocks(cursor):
                 tokens = tokeniter.tokens(block)
@@ -103,15 +107,28 @@ def reformat(cursor):
                         ly.lex.scheme.LineComment))
                     and len(tokens[1]) > 2
                     and len(set(tokens[1][:3])) == 1):
-                    # move commented lines with more than 2 comment characters
-                    # to column 0
                     editor.removeSelectedText(tokeniter.cursor(block, tokens[0]))
-                else:
-                    # remove trialing whitespace
-                    for t in tokens[::-1]:
-                        if isinstance(t, ly.lex.Space):
-                            editor.removeSelectedText(tokeniter.cursor(block, t))
-                        else:
-                            break
+        
+        remove_trailing_whitespace(cursor)
 
+
+def remove_trailing_whitespace(cursor):
+    """Removes whitespace from all lines in the cursor's selection.
+    
+    If there is no selection, the whole document is used.
+    
+    """
+    ranges = []
+    for block in get_blocks(cursor):
+        length = len(block.text())
+        strippedlength = len(block.text().rstrip())
+        if strippedlength < length:
+            ranges.append((block.position() + strippedlength, block.position() + length))
+    if ranges:
+        c = QTextCursor(cursor)
+        with cursortools.compress_undo(c):
+            for start, end in reversed(ranges):
+                c.setPosition(start)
+                c.setPosition(end, QTextCursor.KeepAnchor)
+                c.removeSelectedText()
 
