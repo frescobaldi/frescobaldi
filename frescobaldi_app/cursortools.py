@@ -252,7 +252,10 @@ class Editor(object):
         # ... etc
     # when the code block ends, the edits will be done.
     
-    All cursors should belong to the same text document.
+    All cursors are stored and should belong to the same text document.
+    They update themselves if the document is changed by other means while
+    the Editor instance is active.
+    
     The edits will not be applied if the context is exited with an exception.
     
     """
@@ -283,7 +286,7 @@ class Editor(object):
             # only available in the newest PyQt4 versions.
             with DocumentString(self.edits[0][0].document()) as d:
                 for cursor, text in self.edits:
-                    d[cursor.selectionStart():cursor.selectionEnd()] = text
+                    d[cursor] = text
                 del self.edits[:] # delete the cursors before doing the edits
     
     def __exit__(self, exc_type, exc_val, exc_tb):
@@ -302,6 +305,10 @@ class DocumentString(object):
     with DocumentString(document) as d:
         d[10:30] = text
         del d[40:56]
+    
+    The item can also be a QTextCursor, the selection then determines the slice,
+    which is not updated when the document is changed by other means while
+    the DocumentString instance is active.
     
     The changes take place on exit of the context. You can put changes in any
     order, but avoid changes on the same starting position.
@@ -322,6 +329,9 @@ class DocumentString(object):
         if isinstance(k, slice):
             start = k.start or 0
             end = -1 if k.stop is None else k.stop
+        elif isinstance(k, QTextCursor):
+            start = k.selectionStart()
+            end = k.selectionEnd()
         else:
             start = k
             end = k + 1
@@ -341,5 +351,5 @@ class DocumentString(object):
                     c.setPosition(end) if end != -1 else c.movePosition(QTextCursor.End)
                     c.setPosition(start, QTextCursor.KeepAnchor)
                     c.insertText(text)
-
+            del self._edits[:]
 
