@@ -422,6 +422,8 @@ class MainWindow(QMainWindow):
                 _("Can't write to destination:\n\n{url}").format(url=dest))
             return False
         b = backup.backup(filename)
+        if QSettings().value("strip_trailing", False, bool):
+            doc.stripTrailingWhitespace()
         success = doc.save()
         if not success:
             QMessageBox.warning(self, app.caption(_("Error")),

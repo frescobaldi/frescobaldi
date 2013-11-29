@@ -211,8 +211,10 @@ class SavingDocument(preferences.Group):
         
         self.backup = QCheckBox(toggled=self.changed)
         self.metainfo = QCheckBox(toggled=self.changed)
+        self.striptrailing = QCheckBox(toggled=self.changed)
         layout.addWidget(self.backup)
         layout.addWidget(self.metainfo)
+        layout.addWidget(self.striptrailing)
         
         hbox = QHBoxLayout()
         layout.addLayout(hbox)
@@ -232,6 +234,9 @@ class SavingDocument(preferences.Group):
             "with a new version.\n"
             "If checked those backup copies are retained."))
         self.metainfo.setText(_("Remember cursor position, bookmarks, etc."))
+        self.striptrailing.setText(_("Strip trailing whitespace."))
+        self.striptrailing.setToolTip(_("Strip whitespace at the end of each line.\n"
+                                        "Useful when you use version control for your input files."))
         self.basedirLabel.setText(_("Default directory:"))
         self.basedirLabel.setToolTip(_("The default folder for your LilyPond documents (optional)."))
         
@@ -239,12 +244,14 @@ class SavingDocument(preferences.Group):
         s = QSettings()
         self.backup.setChecked(s.value("backup_keep", False, bool))
         self.metainfo.setChecked(s.value("metainfo", True, bool))
+        self.striptrailing.setChecked(s.value("strip_trailing", False, bool))
         self.basedir.setPath(s.value("basedir", "", type("")))
         
     def saveSettings(self):
         s = QSettings()
         s.setValue("backup_keep", self.backup.isChecked())
         s.setValue("metainfo", self.metainfo.isChecked())
+        s.setValue("strip_trailing", self.striptrailing.isChecked())
         s.setValue("basedir", self.basedir.path())
 
 
