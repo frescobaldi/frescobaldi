@@ -121,7 +121,7 @@ class Dialog(QDialog):
         self.deleteCheck.toggled.connect(self.makeCommandLine)
         self.resolutionCombo.editTextChanged.connect(self.makeCommandLine)
         self.makeCommandLine()
-        panelmanager.manager(mainwindow).preview_mode.widget().optionsChanged.connect(self.makeCommandLine)
+        panelmanager.manager(mainwindow).layoutcontrol.widget().optionsChanged.connect(self.makeCommandLine)
     
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Engrave custom")))
@@ -175,7 +175,7 @@ class Dialog(QDialog):
         elif self.modeCombo.currentIndex() == 1: # publish mode
             cmd.append('-dno-point-and-click')
         else:                                    # debug mode
-            args = panelmanager.manager(self.parent()).preview_mode.widget().preview_options()
+            args = panelmanager.manager(self.parent()).layoutcontrol.widget().preview_options()
             cmd.extend(args)
         
         if self.deleteCheck.isChecked():
