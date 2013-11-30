@@ -30,7 +30,7 @@ from PyQt4.QtGui import *
 
 import app
 import icons
-import preview_mode
+import layoutcontrol
 import engrave
 import userguide
 
@@ -72,7 +72,7 @@ class Widget(QWidget):
         
         # automatically processed modes
         self.checkboxes = {}
-        for mode in preview_mode.modelist():
+        for mode in layoutcontrol.modelist():
             self.checkboxes[mode] = cb = QCheckBox(clicked=self.optionsChanged)
             layout.addWidget(cb)
         
@@ -90,9 +90,9 @@ class Widget(QWidget):
         tool.mainwindow().aboutToClose.connect(self.saveSettings)
     
     def translateUI(self):
-        for mode in preview_mode.modelist():
-            label = preview_mode.label(mode)
-            tooltip = preview_mode.tooltip(mode)
+        for mode in layoutcontrol.modelist():
+            label = layoutcontrol.label(mode)
+            tooltip = layoutcontrol.tooltip(mode)
             self.checkboxes[mode].setText(label)
             self.checkboxes[mode].setToolTip(tooltip)
         self.helpButton.setText(_("Help"))
@@ -110,7 +110,7 @@ class Widget(QWidget):
         """Called on construction. Load settings and set checkboxes state."""
         s = QSettings()
         s.beginGroup('lilypond_settings')
-        for mode in preview_mode.modelist():
+        for mode in layoutcontrol.modelist():
             self.checkboxes[mode].setChecked(s.value(mode, False, bool))
         self.CBverbose.setChecked(s.value('verbose', False, bool))
         self.CBpointandclick.setChecked(s.value('point-and-click', True, bool))
@@ -121,7 +121,7 @@ class Widget(QWidget):
         """Called on close. Save settings and checkboxes state."""
         s = QSettings()
         s.beginGroup('lilypond_settings')
-        for mode in preview_mode.modelist():
+        for mode in layoutcontrol.modelist():
             s.setValue(mode, self.checkboxes[mode].isChecked())
         s.setValue('verbose', self.CBverbose.isChecked())
         s.setValue('point-and-click', self.CBpointandclick.isChecked())
@@ -136,9 +136,9 @@ class Widget(QWidget):
         args = []
         
         # 'automatic' widgets
-        for mode in preview_mode.modelist():
+        for mode in layoutcontrol.modelist():
             if self.checkboxes[mode].isChecked():
-                args.append(preview_mode.option(mode))
+                args.append(layoutcontrol.option(mode))
         
         # manual widgets
         if self.CBcustomfile.isChecked():
@@ -148,7 +148,7 @@ class Widget(QWidget):
         # if at least one debug mode is used, add the directory with the
         # preview-mode files to the search path
         if args:
-            args.insert(0, '-I' + preview_mode.__path__[0])
+            args.insert(0, '-I' + layoutcontrol.__path__[0])
             # File that conditionally includes different formatters
             args.insert(1, '-dinclude-settings=debug-layout-options.ly') 
         

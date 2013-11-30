@@ -102,9 +102,9 @@ def tooltip(mode):
     return _debugmodes[mode][2]()
 
 
-class PreviewOptions(panel.Panel):
+class LayoutControlOptions(panel.Panel):
     def __init__(self, mainwindow):
-        super(PreviewOptions, self).__init__(mainwindow)
+        super(LayoutControlOptions, self).__init__(mainwindow)
         self.hide()
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+C"))
         mainwindow.addDockWidget(Qt.LeftDockWidgetArea, self)
