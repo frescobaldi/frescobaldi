@@ -52,7 +52,7 @@ class Engraver(plugin.MainWindowPlugin):
         ac.engrave_runner.triggered.connect(self.engraveRunner)
         ac.engrave_preview.triggered.connect(self.engravePreview)
         ac.engrave_publish.triggered.connect(self.engravePublish)
-        ac.engrave_debug.triggered.connect(self.engraveDebug)
+        ac.engrave_debug.triggered.connect(self.engraveLayoutControl)
         ac.engrave_custom.triggered.connect(self.engraveCustom)
         ac.engrave_abort.triggered.connect(self.engraveAbort)
         mainwindow.currentDocumentChanged.connect(self.updateActions)
@@ -97,9 +97,9 @@ class Engraver(plugin.MainWindowPlugin):
         """Starts an engrave job in publish mode (with point and click turned off)."""
         self.engrave('publish')
         
-    def engraveDebug(self):
+    def engraveLayoutControl(self):
         """Starts an engrave job in debug mode (using the settings in the debug tool)."""
-        self.engrave('debug')
+        self.engrave('layout-control')
         
     def engraveCustom(self):
         """Opens a dialog to configure the job before starting it."""
@@ -120,7 +120,7 @@ class Engraver(plugin.MainWindowPlugin):
         """Starts an engraving job.
         
         The mode can be 'preview', 'publish', or 'debug'. The last one uses
-        the settings in the Layout Control Options (preview_mode) panel. The
+        the settings in the Layout Control Options panel. The
         default mode is 'preview'.
         
         If document is not specified, it is either the sticky or current
@@ -135,9 +135,9 @@ class Engraver(plugin.MainWindowPlugin):
             args = ['-dpoint-and-click']
         elif mode == 'publish':
             args = ['-dno-point-and-click']
-        elif mode == 'debug':
+        elif mode == 'layout-control':
             args = panelmanager.manager(
-                    self.mainwindow()).preview_mode.widget().preview_options()
+                    self.mainwindow()).layoutcontrol.widget().preview_options()
         doc = document or self.stickyDocument() or self.mainwindow().currentDocument()
         if may_save:
             self.saveDocumentIfDesired()
