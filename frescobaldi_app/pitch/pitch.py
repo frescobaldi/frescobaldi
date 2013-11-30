@@ -65,7 +65,7 @@ def changeLanguage(cursor, language):
     with cursortools.compress_undo(cursor):
         try:
             with qutil.busyCursor():
-                with cursortools.Editor() as e:
+                with cursortools.Writer(cursor.document()) as w:
                     for t in tokens:
                         if isinstance(t, ly.lex.lilypond.Note):
                             # translate the pitch name
@@ -73,10 +73,10 @@ def changeLanguage(cursor, language):
                             if p:
                                 n = writer(*p)
                                 if n != t:
-                                    e.insertText(source.cursor(t), n)
+                                    w.insertText(source.cursor(t), n)
                         elif isinstance(t, LanguageName) and t != language:
                             # change the language name in a command
-                            e.insertText(source.cursor(t), language)
+                            w.insertText(source.cursor(t), language)
                             changed = True
         except ly.pitch.PitchNameNotAvailable:
             QMessageBox.critical(None, app.caption(_("Pitch Name Language")), _(
@@ -178,7 +178,7 @@ def rel2abs(cursor):
             p.octaveCheck = None
         else:
             p.makeAbsolute(lastPitch)
-        pitches.write(p, editor)
+        pitches.write(p, writer)
     
     def context():
         """Consume tokens till the level drops (we exit a construct)."""
@@ -208,7 +208,7 @@ def rel2abs(cursor):
         
         # remove the \relative <pitch> tokens
         c.setPosition(source.position(t), c.KeepAnchor)
-        editor.removeSelectedText(c)
+        writer.removeSelectedText(c)
         
         while True:
             # eat stuff like \new Staff == "bla" \new Voice \notes etc.
@@ -231,7 +231,7 @@ def rel2abs(cursor):
                             # remove the \octaveCheck
                             lastPitch = p
                             c.setPosition((p.octaveCursor or p.noteCursor).selectionEnd(), c.KeepAnchor)
-                            editor.removeSelectedText(c)
+                            writer.removeSelectedText(c)
                             break
                     else:
                         consume()
@@ -256,7 +256,7 @@ def rel2abs(cursor):
     
     # Do it!
     with qutil.busyCursor():
-        with cursortools.Editor() as editor:
+        with cursortools.Writer(cursor.document()) as writer:
             for t in tsource:
                 pass
 
@@ -342,7 +342,7 @@ def abs2rel(cursor):
     
     # Do it!
     with qutil.busyCursor():
-        with cursortools.Editor() as editor:
+        with cursortools.Writer(cursor.document()) as writer:
             for t in tsource:
                 if t in ('{', '<<'):
                     # Ok, parse current expression.
@@ -367,12 +367,12 @@ def abs2rel(cursor):
                                 lastPitch.octave = t.octave
                                 if t.note > 3:
                                     lastPitch.octave += 1
-                                editor.insertText(c,
+                                writer.insertText(c,
                                     "\\relative {0} ".format(
                                         lastPitch.output(pitches.language)))
                             p = t.copy()
                             t.makeRelative(lastPitch)
-                            pitches.write(t, editor)
+                            pitches.write(t, writer)
                             lastPitch = p
                             # remember the first pitch of a chord
                             if chord == []:
@@ -523,7 +523,7 @@ def transpose(cursor, transposer, mainwindow=None):
         if resetOctave is not None:
             p.octave = resetOctave
         if tsource.inSelection:
-            pitches.write(p, editor)
+            pitches.write(p, writer)
 
     def chordmode():
         """Called inside \\chordmode or \\chords."""
@@ -563,9 +563,9 @@ def transpose(cursor, transposer, mainwindow=None):
                 # \relative command. lastPitch contains this pitch.
                 lastPitch.octave += p.octave
                 p.octave = 0
-                pitches.write(lastPitch, editor)
+                pitches.write(lastPitch, writer)
                 del relPitch[:]
-            pitches.write(p, editor)
+            pitches.write(p, writer)
             return newLastPitch
 
         lastPitch = None
@@ -601,7 +601,7 @@ def transpose(cursor, transposer, mainwindow=None):
                         if tsource.inSelection:
                             transposer.transpose(p)
                             lastPitch.transposed = p
-                            pitches.write(p, editor)
+                            pitches.write(p, writer)
                 elif isinstance(t, ly.lex.lilypond.ChordStart):
                     chord = [lastPitch]
                     for p in getpitches(context()):
@@ -620,7 +620,7 @@ def transpose(cursor, transposer, mainwindow=None):
     # Do it!
     try:
         with qutil.busyCursor():
-            with cursortools.Editor() as editor:
+            with cursortools.Writer(cursor.document()) as writer:
                 absolute(tsource)
     except ly.pitch.PitchNameNotAvailable:
         QMessageBox.critical(mainwindow, app.caption(_("Transpose")), _(
@@ -715,20 +715,20 @@ class PitchIterator(object):
         """Reads the token and returns (note, alter) or None."""
         return ly.pitch.pitchReader(self.language)(token)
     
-    def write(self, pitch, editor, language=None):
-        """Outputs a changed Pitch to the cursortools.Editor."""
-        writer = ly.pitch.pitchWriter(language or self.language)
-        note = writer(pitch.note, pitch.alter)
+    def write(self, pitch, writer, language=None):
+        """Outputs a changed Pitch to the cursortools.Writer."""
+        pwriter = ly.pitch.pitchWriter(language or self.language)
+        note = pwriter(pitch.note, pitch.alter)
         if note != pitch.origNoteToken:
-            editor.insertText(pitch.noteCursor, note)
+            writer.insertText(pitch.noteCursor, note)
         if pitch.octave != pitch.origOctave:
-            editor.insertText(pitch.octaveCursor, ly.pitch.octaveToString(pitch.octave))
+            writer.insertText(pitch.octaveCursor, ly.pitch.octaveToString(pitch.octave))
         if pitch.origOctaveCheck is not None:
             if pitch.octaveCheck is None:
-                editor.removeSelectedText(pitch.octaveCheckCursor)
+                writer.removeSelectedText(pitch.octaveCheckCursor)
             else:
                 octaveCheck = '=' + ly.pitch.octaveToString(pitch.octaveCheck)
-                editor.insertText(pitch.octaveCheckCursor, octaveCheck)
+                writer.insertText(pitch.octaveCheckCursor, octaveCheck)
 
 
 class LanguageName(ly.lex.Token):

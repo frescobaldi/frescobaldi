@@ -241,66 +241,21 @@ def data(block):
     return data
 
 
-class Editor(object):
-    """A context manager that stores edits until it is exited.
-    
-    Usage:
-    
-    with Editor() as e:
-        e.insertText(cursor, "text")
-        e.removeSelectedText(cursor)
-        # ... etc
-    # when the code block ends, the edits will be done.
-    
-    All cursors are stored and should belong to the same text document.
-    They update themselves if the document is changed by other means while
-    the Editor instance is active.
-    
-    The edits will not be applied if the context is exited with an exception.
-    
-    """
-    def __init__(self):
-        self.edits = []
-    
-    def __enter__(self):
-        return self
-    
-    def insertText(self, cursor, text):
-        """Stores an insertText operation."""
-        self.edits.append((cursor, text))
-    
-    def removeSelectedText(self, cursor):
-        """Stores a removeSelectedText operation."""
-        self.edits.append((cursor, ""))
-    
-    def apply(self):
-        """Applies and clears the stored edits."""
-        if self.edits:
-            with Document(self.edits[0][0].document()) as d:
-                for cursor, text in self.edits:
-                    d[cursor] = text
-                del self.edits[:] # delete the cursors before doing the edits
-    
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        if exc_type is None:
-            self.apply()
-
-
-class Document(object):
-    """Represents a QTextDocument as a mutable string.
+class Writer(object):
+    """Access a QTextDocument as a mutable string.
     
     You can assign using the item/slice syntax (slice step is not supported).
     Call the apply() method when done, or use it as a context manager.
     
     Usage:
     
-    with Document(document) as d:
+    with Writer(document) as d:
         d[10:30] = text
         del d[40:56]
     
     The item can also be a QTextCursor, the selection then determines the slice,
     which is not updated when the document is changed by other means while
-    the Document instance is active.
+    the Writer instance is active.
     
     The changes take place on exit of the context. You can put changes in any
     order, but avoid changes on the same starting position.
@@ -333,6 +288,14 @@ class Document(object):
     def __delitem__(self, k):
         self[k] = ""
     
+    def insertText(self, cursor, text):
+        """Convenience method, calling self[cursor] = text."""
+        self[cursor] = text
+    
+    def removeSelectedText(self, cursor):
+        """Convenience method, calling del self[cursor]."""
+        del self[cursor]
+        
     def apply(self):
         """Applies and clears the stored edits."""
         if self._edits:
