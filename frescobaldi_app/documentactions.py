@@ -49,6 +49,7 @@ class DocumentActions(plugin.MainWindowPlugin):
         ac.tools_indent_auto.triggered.connect(self.toggleAuto_indent)
         ac.tools_indent_indent.triggered.connect(self.re_indent)
         ac.tools_reformat.triggered.connect(self.reFormat)
+        ac.tools_remove_trailing_whitespace.triggered.connect(self.removeTrailingWhitespace)
         ac.tools_convert_ly.triggered.connect(self.convertLy)
         ac.tools_quick_remove_articulations.triggered.connect(self.quickRemoveArticulations)
         ac.tools_quick_remove_ornaments.triggered.connect(self.quickRemoveOrnaments)
@@ -112,6 +113,10 @@ class DocumentActions(plugin.MainWindowPlugin):
         import reformat
         reformat.reformat(self.currentView().textCursor())
     
+    def removeTrailingWhitespace(self):
+        import reformat
+        reformat.remove_trailing_whitespace(self.currentView().textCursor())
+    
     def toggleHighlighting(self):
         doc = self.currentDocument()
         minfo = metainfo.info(doc)
@@ -159,6 +164,7 @@ class Actions(actioncollection.ActionCollection):
         self.tools_indent_auto.setCheckable(True)
         self.tools_indent_indent = QAction(parent)
         self.tools_reformat = QAction(parent)
+        self.tools_remove_trailing_whitespace = QAction(parent)
         self.tools_convert_ly = QAction(parent)
         self.tools_quick_remove_articulations = QAction(parent)
         self.tools_quick_remove_ornaments = QAction(parent)
@@ -179,6 +185,7 @@ class Actions(actioncollection.ActionCollection):
         self.tools_indent_auto.setText(_("&Automatic Indent"))
         self.tools_indent_indent.setText(_("Re-&Indent"))
         self.tools_reformat.setText(_("&Format"))
+        self.tools_remove_trailing_whitespace.setText(_("Remove Trailing &Whitespace"))
         self.tools_convert_ly.setText(_("&Update with convert-ly...")) 
         self.tools_quick_remove_articulations.setText(_("Remove &Articulations"))
         self.tools_quick_remove_ornaments.setText(_("Remove &Ornaments"))

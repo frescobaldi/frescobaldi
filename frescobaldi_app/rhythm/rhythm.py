@@ -48,7 +48,7 @@ _history = set() # earlier rhythms typed in apply dialog
 
 
 def rhythm_double(cursor):
-    with cursortools.Editor() as e:
+    with cursortools.Writer(cursor.document()) as w:
         for b, d in duration_items(cursor, ly.lex.lilypond.Length):
             for t in d:
                 try:
@@ -56,10 +56,10 @@ def rhythm_double(cursor):
                 except ValueError:
                     continue
                 if i > 0:
-                    e.insertText(tokeniter.cursor(b, t), durations[i - 1])
+                    w.insertText(tokeniter.cursor(b, t), durations[i - 1])
 
 def rhythm_halve(cursor):
-    with cursortools.Editor() as e:
+    with cursortools.Writer(cursor.document()) as w:
         for b, d in duration_items(cursor, ly.lex.lilypond.Length):
             for t in d:
                 try:
@@ -67,19 +67,19 @@ def rhythm_halve(cursor):
                 except ValueError:
                     continue
                 if i < len(durations) - 1:
-                    e.insertText(tokeniter.cursor(b, t), durations[i + 1])
-    
+                    w.insertText(tokeniter.cursor(b, t), durations[i + 1])
+
 def rhythm_dot(cursor):
-    with cursortools.Editor() as e:
+    with cursortools.Writer(cursor.document()) as w:
         for b, d in duration_items(cursor, ly.lex.lilypond.Length):
             for t in d:
-                e.insertText(tokeniter.cursor(b, t, start=len(t)), ".")
+                w.insertText(tokeniter.cursor(b, t, start=len(t)), ".")
 
 def rhythm_undot(cursor):
-    with cursortools.Editor() as e:
+    with cursortools.Writer(cursor.document()) as w:
         for b, d in duration_items(cursor, ly.lex.lilypond.Dot):
             if d:
-                e.removeSelectedText(tokeniter.cursor(b, d[0]))
+                w.removeSelectedText(tokeniter.cursor(b, d[0]))
 
 def rhythm_remove_scaling(cursor):
     with cursortools.compress_undo(cursor):
@@ -104,11 +104,11 @@ def rhythm_implicit(cursor):
     else:
         return
     prev = d or preceding(cursor)
-    with cursortools.Editor() as e:
+    with cursortools.Writer(cursor.document()) as w:
         for c, d in items:
             if d:
                 if d == prev:
-                    e.removeSelectedText(c)
+                    w.removeSelectedText(c)
                 prev = d
 
 def rhythm_implicit_per_line(cursor):
@@ -119,17 +119,17 @@ def rhythm_implicit_per_line(cursor):
         return
     prevblock = c.block()
     prev = d or preceding(cursor)
-    with cursortools.Editor() as e:
+    with cursortools.Writer(cursor.document()) as w:
         for c, d in items:
             if c.block() != prevblock:
                 if not d:
-                    e.insertText(c, ''.join(prev))
+                    w.insertText(c, ''.join(prev))
                 else:
                     prev = d
                 prevblock = c.block()
             elif d:
                 if d == prev:
-                    e.removeSelectedText(c)
+                    w.removeSelectedText(c)
                 prev = d
 
 def rhythm_explicit(cursor):
@@ -139,12 +139,12 @@ def rhythm_explicit(cursor):
     else:
         return
     prev = d or preceding(cursor)
-    with cursortools.Editor() as e:
+    with cursortools.Writer(cursor.document()) as w:
         for c, d in items:
             if d:
                 prev = d
             else:
-                e.insertText(c, ''.join(prev))
+                w.insertText(c, ''.join(prev))
 
 def rhythm_apply(cursor, mainwindow):
     durs = inputdialog.getText(mainwindow,
@@ -155,9 +155,9 @@ def rhythm_apply(cursor, mainwindow):
     if durs and durs.split():
         _history.add(durs.strip())
         duration_source = remove_dups(itertools.cycle(durs.split()))
-        with cursortools.Editor() as e:
+        with cursortools.Writer(cursor.document()) as w:
             for c, d in duration_cursor_items(cursor):
-                e.insertText(c, next(duration_source))
+                w.insertText(c, next(duration_source))
 
 def rhythm_copy(cursor):
     del _clipboard[:]
@@ -170,9 +170,9 @@ def rhythm_copy(cursor):
 
 def rhythm_paste(cursor):
     duration_source = itertools.cycle(_clipboard)
-    with cursortools.Editor() as e:
+    with cursortools.Writer(cursor.document()) as w:
         for c, d in duration_cursor_items(cursor):
-            e.insertText(c, next(duration_source))
+            w.insertText(c, next(duration_source))
 
 def remove_dups(iterable):
     old = None

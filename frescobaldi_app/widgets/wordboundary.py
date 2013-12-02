@@ -181,10 +181,10 @@ class BoundaryHandler(QObject):
         """Handles the Word-related key events for the Q(Plain)TextEdit."""
         c = obj.textCursor()
         if ev == QKeySequence.DeleteEndOfWord:
-            self.move(c, QTextCursor.EndOfWord, QTextCursor.KeepAnchor)
+            self.move(c, QTextCursor.NextWord, QTextCursor.KeepAnchor)
             c.removeSelectedText()
         elif ev == QKeySequence.DeleteStartOfWord:
-            self.move(c, QTextCursor.StartOfWord, QTextCursor.KeepAnchor)
+            self.move(c, QTextCursor.PreviousWord, QTextCursor.KeepAnchor)
             c.removeSelectedText()
         elif ev == QKeySequence.MoveToNextWord:
             self.move(c, QTextCursor.NextWord)
