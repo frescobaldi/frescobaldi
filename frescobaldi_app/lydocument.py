@@ -41,7 +41,7 @@ import tokeniter
 import highlighter
 
 
-class LyDocument(ly.document.Document):
+class LyDocument(ly.document.DocumentBase):
     def __init__(self, document):
         self._d = document
         super(LyDocument, self).__init__()
