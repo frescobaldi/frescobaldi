@@ -31,6 +31,7 @@ text content.
 from __future__ import unicode_literals
 from __future__ import absolute_import
 
+import sys
 import operator
 import collections
 
@@ -48,16 +49,19 @@ class DocumentBase(object):
     position
     text
     tokens
-    next_block
-    previous_block
     isvalid
     initial_state
     state_end
     apply_changes
     
-    You may inherit (e.g. for speed improvements):
+    You may inherit (e.g. to get speed improvements):
     
     plaintext
+    next_block
+    previous_block
+    blocks_forward
+    blocks_backward
+    state
     
     """
     
@@ -71,9 +75,11 @@ class DocumentBase(object):
     
     def __len__(self):
         """Return the number of blocks"""
+        raise NotImplementedError()
     
     def __getitem__(self, index):
         """Return the block at the specified index."""
+        raise NotImplementedError()
         
     def plaintext(self):
         """The document contents as a plain text string."""
@@ -81,6 +87,7 @@ class DocumentBase(object):
 
     def setplaintext(self, text):
         """Sets the document contents to the text string."""
+        raise NotImplementedError()
 
     def size(self):
         """Return the number of characters in the document."""
@@ -96,9 +103,11 @@ class DocumentBase(object):
         (Blocks do have to support the '==' operator.)
         
         """
+        raise NotImplementedError()
     
     def index(self, block):
         """Return the linenumber of the block (starting with 0)."""
+        raise NotImplementedError()
          
     def blocks_forward(self, block):
         """Iter forward starting with the specified block."""
@@ -114,18 +123,27 @@ class DocumentBase(object):
 
     def position(self, block):
         """Return the position of the specified block."""
+        raise NotImplementedError()
 
     def text(self, block):
         """Return the text of the specified block."""
+        raise NotImplementedError()
     
     def next_block(self, block):
         """Return the next block, which may be invalid."""
+        index = self.index(block)
+        if index < len(self) - 1:
+            return self[index + 1]
     
     def previous_block(self, block):
         """Return the previous block, which may be invalid."""
-        
+        index = self.index(block)
+        if index > 0:
+            return self[index - 1]
+    
     def isvalid(self, block):
         """Return True if the block is a valid block."""
+        raise NotImplementedError()
     
     def isblank(self, block):
         """Return True if the block is empty or blank."""
@@ -151,14 +169,29 @@ class DocumentBase(object):
         elif self._writing > 1:
             self._writing -= 1
     
+    def check_changes(self):
+        """Debugging method that checks for overlapping edits."""
+        end = self.size()
+        changes = sorted(self._changes.items(), reverse=True)
+        for start, items in changes:
+            for pos, text in items:
+                if pos > end:
+                    if len(text) > 12:
+                        text = text[:10] + '...'
+                    raise ValueError("overlapping edit: {0}-{1}: {2}".format(start, pos, text))
+            end = start
+
     def apply_changes(self):
         """Apply the changes and update the tokens."""
+        raise NotImplementedError()
         
     def tokens(self, block):
         """Return the tuple of tokens of the specified block."""
+        raise NotImplementedError()
 
     def initial_state(self):
         """Return the state at the beginning of the document."""
+        raise NotImplementedError()
         
     def state(self, block):
         """Return the state at the start of the specified block."""
@@ -169,6 +202,7 @@ class DocumentBase(object):
             
     def state_end(self, block):
         """Return the state at the end of the specified block."""
+        raise NotImplementedError()
     
     def slice(self, block, token, start=0, end=None):
         """Return a slice describing the position of the token in the text.
@@ -206,14 +240,22 @@ class DocumentBase(object):
         self[s] = text
     
     def __setitem__(self, key, text):
-        """Change the text pointed to in key (integer or slice)."""
+        """Change the text pointed to in key (integer or slice).
+        
+        If start > stop in the slice (and stop is not None), start and stop
+        are swapped. (This is different than usual Python behaviour, where
+        stop is set to start if it was lower.)
+        
+        """
         if isinstance(key, slice):
             start = key.start or 0
             end = key.stop
+            if end is not None and start > end:
+                start, end = end, start
         else:
             start = key
             end = start + 1
-        self._changes[start].append((end, text))
+        self._changes[start].append((end, text.replace('\r', '')))
 
     def __delitem__(self, key):
         """Remove the range of text."""
@@ -227,8 +269,8 @@ class Document(DocumentBase):
     
     """
     def __init__(self):
-        super(Document, self).__init__()
-        self.setplaintext('')
+        super(Document, self).__init__(text='')
+        self.setplaintext(text)
     
     def __len__(self):
         """Return the number of blocks"""
@@ -273,16 +315,6 @@ class Document(DocumentBase):
         """Return the text of the specified block."""
         return block.text
     
-    def next_block(self, block):
-        """Return the next block, which may be invalid."""
-        if block.index < len(self.blocks) - 1:
-            return self._blocks[block.index + 1]
-    
-    def previous_block(self, block):
-        """Return the previous block, which may be invalid."""
-        if block.index > 0:
-            return self._blocks[block.index - 1]
-    
     def isvalid(self, block):
         """Return True if the block is a valid block."""
         return bool(block)
@@ -293,10 +325,8 @@ class Document(DocumentBase):
     
     def apply_changes(self):
         changes = sorted(self._changes.items(), reverse=True)
-        s = self.block(changes[0][0])
         for start, items in changes:
-            while s.position > start:
-                s = self._blocks[s.index - 1]
+            s = self.block(start)
             for end, text in items:
                 # first remove the old contents
                 if end is None:
@@ -304,7 +334,7 @@ class Document(DocumentBase):
                     s.text = s.text[:start - s.position]
                     del self._blocks[s.index+1:]
                 else:
-                    # remove till end position
+                    # remove til end position
                     e = self.block(end)
                     s.text = s.text[:start - s.position] + e.text[end - e.position:]
                     del self._blocks[s.index+1:e.index+1]
@@ -328,11 +358,13 @@ class Document(DocumentBase):
 
 class Block(object):
     """A line of text."""
+    
+    position = sys.maxint  # prevent picking those blocks before updating pos
+    state    = None
+    tokens   = None
+    
     def __init__(self, text="", index=-1):
         self.text = text
         self.index = index
-        self.position = 0
-        self.tokens = None
-        self.state = None
 
 
