@@ -18,11 +18,11 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Document
+DocumentBase and Document
 
 Represents a lilypond source document (the text contents).
 
-This implementation keeps the document in a (unicode) text string,
+The Document implementation keeps the document in a (unicode) text string,
 but you can inherit from this class to support other representations of the
 text content.
 
@@ -42,6 +42,8 @@ class DocumentBase(object):
     
     plaintext
     setplaintext
+    __len__
+    __getitem__
     block
     index
     position
@@ -59,7 +61,16 @@ class DocumentBase(object):
         """Constructor"""
         self._writing = 0
         self._changes = collections.defaultdict(list)
-
+    
+    def __nonzero__(self):
+        return True
+    
+    def __len__(self):
+        """Return the number of blocks"""
+    
+    def __getitem__(self, index):
+        """Return the block at the specified index."""
+        
     def plaintext(self):
         """The document contents as a plain text string."""
 
@@ -67,7 +78,7 @@ class DocumentBase(object):
         """Sets the document contents to the text string."""
 
     def block(self, position):
-        """Return the text block of the specified character position.
+        """Return the text block at the specified character position.
         
         The text block itself has no methods, but it can be used as an
         argument to other methods of this class.
@@ -200,13 +211,22 @@ class Document(DocumentBase):
     """
     def __init__(self):
         super(Document, self).__init__()
-        self._blocks = []
+        self.setplaintext('')
     
+    def __len__(self):
+        """Return the number of blocks"""
+        return len(self._blocks)
+    
+    def __getitem__(self, index):
+        """Return the block at the specified index."""
+        return self._blocks[index]
+        
     def plaintext(self):
         return '\n'.join(b.text for b in self._blocks)
     
     def setplaintext(self, text):
-        self._blocks = [Block(t, n) for n, t in enumerate(text.splitlines())]
+        lines = text.replace('\r', '').split('\n')
+        self._blocks = [Block(t, n) for n, t in enumerate(lines)]
         pos = 0
         for b in self._blocks:
             b.position = pos
@@ -215,26 +235,21 @@ class Document(DocumentBase):
         # TODO update all tokens
         
     def block(self, position):
-        """Return the text block of the specified character position.
-        
-        The text block itself has no methods, but it can be used as an
-        argument to other methods of this class.
-        
-        """
-        lo = 0
-        hi = len(self._blocks)
-        while lo < hi:
-            mid = (lo + hi) // 2
-            if position > self._blocks[mid].position:
-                lo = mid + 1
-            else:
-                hi = mid
-        if lo < len(self._blocks):
-            return self._blocks[lo]
+        """Return the text block at the specified character position."""
+        if 0 <= position <= self._blocks[-1].position + len(self._blocks[-1].text):
+            lo = 0
+            hi = len(self._blocks)
+            while lo < hi:
+                mid = (lo + hi) // 2
+                if position < self._blocks[mid].position:
+                    hi = mid
+                else:
+                    lo = mid + 1
+            return self._blocks[lo-1]
      
     def index(self, block):
         """Return the linenumber of the block (starting with 0)."""
-         return block.index
+        return block.index
 
     def position(self, block):
         """Return the position of the specified block."""
