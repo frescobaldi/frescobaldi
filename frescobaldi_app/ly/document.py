@@ -40,7 +40,6 @@ class DocumentBase(object):
     
     You should inherit the following methods:
     
-    plaintext
     setplaintext
     __len__
     __getitem__
@@ -56,7 +55,12 @@ class DocumentBase(object):
     state_end
     apply_changes
     
+    You may inherit (e.g. for speed improvements):
+    
+    plaintext
+    
     """
+    
     def __init__(self):
         """Constructor"""
         self._writing = 0
@@ -73,15 +77,23 @@ class DocumentBase(object):
         
     def plaintext(self):
         """The document contents as a plain text string."""
+        return '\n'.join(map(self.text, self))
 
     def setplaintext(self, text):
         """Sets the document contents to the text string."""
+
+    def size(self):
+        """Return the number of characters in the document."""
+        last_block = self[len(self) - 1]
+        return self.position(last_block) + len(self.text(last_block))
 
     def block(self, position):
         """Return the text block at the specified character position.
         
         The text block itself has no methods, but it can be used as an
         argument to other methods of this class.
+        
+        (Blocks do have to support the '==' operator.)
         
         """
     
@@ -176,6 +188,11 @@ class DocumentBase(object):
     # text modifying methods
     ##
     
+    def append(self, text):
+        """Append text to the end of the document."""
+        end = self.size()
+        self[end:end] = text
+    
     def insert(self, pos, text):
         """Insert text at position."""
         self[pos:pos] = text
@@ -221,9 +238,6 @@ class Document(DocumentBase):
         """Return the block at the specified index."""
         return self._blocks[index]
         
-    def plaintext(self):
-        return '\n'.join(b.text for b in self._blocks)
-    
     def setplaintext(self, text):
         lines = text.replace('\r', '').split('\n')
         self._blocks = [Block(t, n) for n, t in enumerate(lines)]
@@ -279,7 +293,38 @@ class Document(DocumentBase):
     
     def apply_changes(self):
         changes = sorted(self._changes.items(), reverse=True)
-                    
+        s = self.block(changes[0][0])
+        for start, items in changes:
+            while s.position > start:
+                s = self._blocks[s.index - 1]
+            for end, text in items:
+                # first remove the old contents
+                if end is None:
+                    # all text to the end should be removed
+                    s.text = s.text[:start - s.position]
+                    del self._blocks[s.index+1:]
+                else:
+                    # remove till end position
+                    e = self.block(end)
+                    s.text = s.text[:start - s.position] + e.text[end - e.position:]
+                    del self._blocks[s.index+1:e.index+1]
+                # now insert the new stuff
+                if text:
+                    lines = text.split('\n')
+                    lines[-1] += s.text[start - s.position:]
+                    s.text = s.text[:start - s.position] + lines[0]
+                    self._blocks[s.index+1:s.index+1] = map(Block, lines[1:])
+                
+        # update the position of all the new blocks
+        pos = s.position
+        for i, b in enumerate(self._blocks[s.index:], s.index):
+            b.index = i
+            b.position = pos
+            pos += len(b.text) + 1
+        
+        # TODO update the tokens from block s
+
+
 
 class Block(object):
     """A line of text."""
@@ -289,5 +334,5 @@ class Block(object):
         self.position = 0
         self.tokens = None
         self.state = None
-        
-    
+
+
