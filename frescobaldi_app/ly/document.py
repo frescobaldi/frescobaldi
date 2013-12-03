@@ -19,12 +19,38 @@
 
 """
 DocumentBase and Document
+=========================
 
 Represents a lilypond source document (the text contents).
 
 The Document implementation keeps the document in a (unicode) text string,
-but you can inherit from this class to support other representations of the
-text content.
+but you can inherit from the DocumentBase class to support other representations
+of the text content.
+
+Modifying is done inside a context (the with statement), e.g.:
+
+d = Document('some string')
+with d:
+    d[5:5] = 'different '
+d.plaintext()  --> 'some different string'
+
+Changes are applied when the context is exited, also the modified part of the
+document is re-tokenized. Changes may not overlap.
+
+The tokens(block) method returns a tuple of tokens for the specified block. 
+Depending on the implementation, a block describes a line in the LilyPond 
+source document. It is not expected to have any methods, except that the 
+'==' operator is supported between two blocks, and returns True if both 
+refer to the same line of text in the source document.
+
+
+Runner
+======
+
+A Runner is returned by the runner() method of DocumentBase, and allows
+iterating back and forth over the tokens of a document.
+
+
 
 """
 
@@ -188,7 +214,13 @@ class DocumentBase(object):
     def tokens(self, block):
         """Return the tuple of tokens of the specified block."""
         raise NotImplementedError()
-
+    
+    def runner(self, block, at_end=False):
+        """Return a Runner for iterating over the tokens of this document."""
+        r = Runner(self)
+        r.move_to(block, at_end)
+        return r
+    
     def initial_state(self):
         """Return the state at the beginning of the document."""
         raise NotImplementedError()
@@ -268,8 +300,8 @@ class Document(DocumentBase):
     that auto-updates the tokens.
     
     """
-    def __init__(self):
-        super(Document, self).__init__(text='')
+    def __init__(self, text=''):
+        super(Document, self).__init__()
         self.setplaintext(text)
     
     def __len__(self):
@@ -357,7 +389,11 @@ class Document(DocumentBase):
 
 
 class Block(object):
-    """A line of text."""
+    """A line of text.
+    
+    This class is only used by the Document implementation.
+    
+    """
     
     position = sys.maxint  # prevent picking those blocks before updating pos
     state    = None
@@ -366,5 +402,108 @@ class Block(object):
     def __init__(self, text="", index=-1):
         self.text = text
         self.index = index
+
+
+class Runner(object):
+    """Iterates back and forth over tokens.
+    
+    A Runner can stop anywhere and remembers its current token.
+    
+    """
+    def __init__(self, doc):
+        self._doc = doc
+        
+    def move_to(self, block, at_end=False):
+        """Positions the token iterator at the start of the given QTextBlock.
+        
+        If at_end == True, the iterator is positioned past the end of the block.
+        
+        """
+        self.block = block
+        self._tokens = self._doc.tokens(block)
+        self._index = len(self._tokens) if at_end else -1
+    
+    def valid(self):
+        """Return whether the current block is valid."""
+        return self._doc.isvalid(self.block)
+    
+    def forward_line(self):
+        """Yields tokens in forward direction in the current block."""
+        while self._index + 1 < len(self._tokens):
+            self._index += 1
+            yield self._tokens[self._index]
+    
+    def forward(self):
+        """Yields tokens in forward direction across blocks."""
+        while self.valid():
+            for t in self.forward_line():
+                yield t
+            self.next_block()
+    
+    def backward_line(self):
+        """Yields tokens in backward direction in the current block."""
+        while self._index > 0:
+            self._index -= 1
+            yield self._tokens[self._index]
+    
+    def backward(self):
+        """Yields tokens in backward direction across blocks."""
+        while self.valid():
+            for t in self.backward_line():
+                yield t
+            self.previous_block()
+    
+    def at_block_start(self):
+        """Returns True if the iterator is at the start of the current block."""
+        return self._index <= 0
+    
+    def at_block_end(self):
+        """Returns True if the iterator is at the end of the current block."""
+        return self._index >= len(self._tokens) - 1
+        
+    def previous_block(self, at_end=True):
+        """Go to the previous block, positioning the cursor at the end by default.
+        
+        Returns False if there was no previous block, else True.
+        
+        """
+        valid = self.valid()
+        if valid:
+            self.move_to(self._doc.previous_block(self.block), at_end)
+        return valid
+    
+    def next_block(self, at_end=False):
+        """Go to the next block, positioning the cursor at the start by default.
+        
+        Returns False if there was no next block, else True.
+        
+        """
+        valid = self.block.isValid()
+        if valid:
+            self.move_to(self._doc.next_block(self.block), at_end)
+        return valid
+    
+    def token(self):
+        """Re-returns the last yielded token."""
+        return self._tokens[self._index]
+        
+    def slice(self, start=0, end=None):
+        """Returns a slice for the last token.
+        
+        If start is given the slice will start at position start in the token
+        (from the beginning of the token). Start defaults to 0.
+        If end is given, the slice will end at that position in the token (from
+        the beginning of the token). End defaults to the length of the token.
+        
+        """
+        return self._doc.slice(self.block, self._tokens[self._index], start, end)
+
+    def copy(self):
+        """Return a new Runner at the current position."""
+        obj = type(self)(self._doc)
+        obj.block = self.block
+        obj._tokens = self._tokens
+        obj._index = self._index
+        return obj
 
 
