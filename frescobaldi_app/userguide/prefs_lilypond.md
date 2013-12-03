@@ -18,7 +18,9 @@ You can also configure how LilyPond is run. See the tooltips of
 the settings for more information.
 
 Finally, you can specify a list of paths where the LilyPond `\include`
-command looks for files.
+command looks for files. You can change the order of the includes by
+dragging them inside the list. This influences the order in which LilyPond
+searches for files.
 
 #VARS
 link help prefs_lilypond_autoversion
