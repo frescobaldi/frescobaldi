@@ -397,6 +397,21 @@ class Block(object):
         self.index = index
 
 
+class Cursor(object):
+    """Defines a certain range (selection) in a Document.
+    
+    You may change the document, start and end attributes yourself.
+    
+    Many tools in the ly module use this object to describe (part of) a
+    document.
+    
+    """
+    def __init__(self, doc, start=0, end=None):
+        self.document = doc
+        self.start = start
+        self.end = end
+
+
 class TokenCursor(object):
     """Iterates back and forth over tokens.
     
@@ -410,8 +425,13 @@ class TokenCursor(object):
         """Return our Document."""
         return self._doc
     
-    def move_to_position(self, position):
-        """Positions the TokenCursor at the specified position."""
+    def set_position(self, position, after_token=False):
+        """Positions the TokenCursor at the specified position.
+        
+        Set after_token to True if you want to position the cursor after the
+        token, so that it gets yielded when you go backward.
+        
+        """
         block = self._doc.block(position)
         self.move_to_block(block)
         for t in self.forward_line():
@@ -419,6 +439,8 @@ class TokenCursor(object):
                 if self.position() == position:
                     self._index -= 1
                 break
+        if after_token and self._index <= len(self._tokens):
+            self._index += 1
         
     def move_to_block(self, block, at_end=False):
         """Positions the TokenCursor at the start of the given QTextBlock.
@@ -541,12 +563,10 @@ class TokenIterator(object):
     
     """
     
-    def __init__(self, document, state=None, start=0, end=None, partial=INSIDE):
+    def __init__(self, cursor, state=None, partial=INSIDE):
         """Initialize the iterator.
         
-        The document is a ly.document.DocumentBase instance.
-        start is the starting position (defaulting to 0).
-        end is the ending position (defaulting to None, the document end).
+        cursor is a Cursor instance, describing a Document and a selected range
         partial is either self.OUTSIDE, PARTIAL, or INSIDE:
             OUTSIDE: tokens that touch the selected range are also yielded
             PARTIAL: tokens that overlap the start or end positions are yielded
@@ -554,11 +574,11 @@ class TokenIterator(object):
         The partial argument only makes sense if start or end are specified. 
         
         """
-        self._doc = document
-        start_block = document.block(start)
+        self._doc = document = cursor.document
+        start_block = document.block(cursor.start)
         
         # start, end predicates
-        _predicates = {
+        start_pred, end_pred = {
             OUTSIDE: (
                 lambda t: t.end < start_pos,
                 lambda t: t.pos > end_pos,
@@ -571,8 +591,7 @@ class TokenIterator(object):
                 lambda t: t.pos < start_pos,
                 lambda t: t.end > end_pos,
             ),
-        }
-        start_pred, end_pred = _predicates[partial]
+        }[partial]
         
         # if a state is given, use it (True: pick state from doc)
         if state:
@@ -588,8 +607,8 @@ class TokenIterator(object):
         self.state = state
         
         # where to start
-        if start:
-            start_pos = start - document.position(start_block)
+        if cursor.start:
+            start_pos = cursor.start - document.position(start_block)
             # token source for first block
             def source_start(block):
                 source = token_source(block)
@@ -602,9 +621,9 @@ class TokenIterator(object):
             source_start = token_source
         
         # where to end
-        if end:
+        if cursor.end:
             end_block = document.block(end)
-            end_pos = end - document.position(end_block)
+            end_pos = cursor.end - document.position(end_block)
             def source_end(source):
                 for t in source:
                     if end_pred(t):
