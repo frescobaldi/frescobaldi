@@ -23,9 +23,9 @@ DocumentBase and Document
 
 Represents a lilypond source document (the text contents).
 
-The Document implementation keeps the document in a (unicode) text string,
-but you can inherit from the DocumentBase class to support other representations
-of the text content.
+The Document implementation keeps the document in a (unicode) text string, 
+but you can inherit from the DocumentBase class to support other 
+representations of the text content.
 
 Modifying is done inside a context (the with statement), e.g.:
 
@@ -47,8 +47,7 @@ refer to the same line of text in the source document.
 Runner
 ======
 
-A Runner is returned by the runner() method of DocumentBase, and allows
-iterating back and forth over the tokens of a document.
+A Runner allows iterating back and forth over the tokens of a document.
 
 
 
@@ -214,12 +213,6 @@ class DocumentBase(object):
     def tokens(self, block):
         """Return the tuple of tokens of the specified block."""
         raise NotImplementedError()
-    
-    def runner(self, block, at_end=False):
-        """Return a Runner for iterating over the tokens of this document."""
-        r = Runner(self)
-        r.move_to(block, at_end)
-        return r
     
     def initial_state(self):
         """Return the state at the beginning of the document."""
@@ -404,17 +397,31 @@ class Block(object):
         self.index = index
 
 
-class Runner(object):
+class TokenCursor(object):
     """Iterates back and forth over tokens.
     
-    A Runner can stop anywhere and remembers its current token.
+    A TokenCursor can stop anywhere and remembers its current token.
     
     """
     def __init__(self, doc):
         self._doc = doc
+    
+    def document(self):
+        """Return our Document."""
+        return self._doc
+    
+    def move_to_position(self, position):
+        """Positions the TokenCursor at the specified position."""
+        block = self._doc.block(position)
+        self.move_to_block(block)
+        for t in self.forward_line():
+            if self.position() + len(t) > position:
+                if self.position() == position:
+                    self._index -= 1
+                break
         
-    def move_to(self, block, at_end=False):
-        """Positions the token iterator at the start of the given QTextBlock.
+    def move_to_block(self, block, at_end=False):
+        """Positions the TokenCursor at the start of the given QTextBlock.
         
         If at_end == True, the iterator is positioned past the end of the block.
         
@@ -469,7 +476,7 @@ class Runner(object):
         """
         valid = self.valid()
         if valid:
-            self.move_to(self._doc.previous_block(self.block), at_end)
+            self.move_to_block(self._doc.previous_block(self.block), at_end)
         return valid
     
     def next_block(self, at_end=False):
@@ -480,13 +487,17 @@ class Runner(object):
         """
         valid = self.block.isValid()
         if valid:
-            self.move_to(self._doc.next_block(self.block), at_end)
+            self.move_to_block(self._doc.next_block(self.block), at_end)
         return valid
     
     def token(self):
         """Re-returns the last yielded token."""
         return self._tokens[self._index]
         
+    def position(self):
+        """Returns the position of the current token."""
+        return self._doc.position(self.block) + self._tokens[self._index].pos
+    
     def slice(self, start=0, end=None):
         """Returns a slice for the last token.
         
@@ -499,11 +510,170 @@ class Runner(object):
         return self._doc.slice(self.block, self._tokens[self._index], start, end)
 
     def copy(self):
-        """Return a new Runner at the current position."""
+        """Return a new TokenCursor at the current position."""
         obj = type(self)(self._doc)
         obj.block = self.block
         obj._tokens = self._tokens
         obj._index = self._index
         return obj
+
+
+OUTSIDE = -1
+PARTIAL = 0
+INSIDE  = 1
+
+
+class TokenIterator(object):
+    """Helper iterator.
+    
+    Iterates over the (block, tokens) tuples from a Document (or a part 
+    thereof). Stores the current block in the block attribute and the tokens 
+    (which also is a generator) in the tokens attribute.
+    
+    Iterating over the source object itself just yields the tokens, while the
+    block attribute contains the current block.
+    
+    You can also iterate over the tokens attribute, which will yield the
+    remaining tokens of the current block and then stop.
+    
+    If you specify a state, the tokens will update the state. If you specify
+    state = True, the state will be taken from the document.
+    
+    """
+    
+    def __init__(self, document, state=None, start=0, end=None, partial=INSIDE):
+        """Initialize the iterator.
+        
+        The document is a ly.document.DocumentBase instance.
+        start is the starting position (defaulting to 0).
+        end is the ending position (defaulting to None, the document end).
+        partial is either self.OUTSIDE, PARTIAL, or INSIDE:
+            OUTSIDE: tokens that touch the selected range are also yielded
+            PARTIAL: tokens that overlap the start or end positions are yielded
+            INSIDE:  (default) yield only tokens fully contained in the range
+        The partial argument only makes sense if start or end are specified. 
+        
+        """
+        self._doc = document
+        start_block = document.block(start)
+        
+        # start, end predicates
+        _predicates = {
+            OUTSIDE: (
+                lambda t: t.end < start_pos,
+                lambda t: t.pos > end_pos,
+            ),
+            PARTIAL: (
+                lambda t: t.end <= start_pos,
+                lambda t: t.pos >= end_pos,
+            ),
+            INSIDE: (
+                lambda t: t.pos < start_pos,
+                lambda t: t.end > end_pos,
+            ),
+        }
+        start_pred, end_pred = _predicates[partial]
+        
+        # if a state is given, use it (True: pick state from doc)
+        if state:
+            if state is True:
+                state = document.state(start_block)
+            def token_source(block):
+                for t in document.tokens(block):
+                    state.follow(t)
+                    yield t
+        else:
+            def token_source(block):
+                return iter(document.tokens(block))
+        self.state = state
+        
+        # where to start
+        if start:
+            start_pos = start - document.position(start_block)
+            # token source for first block
+            def source_start(block):
+                source = token_source(block)
+                for t in source:
+                    if not start_pred(t):
+                        yield t
+                        for t in source:
+                            yield t
+        else:
+            source_start = token_source
+        
+        # where to end
+        if end:
+            end_block = document.block(end)
+            end_pos = end - document.position(end_block)
+            def source_end(source):
+                for t in source:
+                    if end_pred(t):
+                        break
+                    yield t
+        
+        # generate the tokens
+        def generator():
+            source = source_start
+            block = start_block
+            if end:
+                while block != end_block:
+                    yield block, source(block)
+                    source = token_source
+                    block = document.next_block(block)
+                yield block, source_end(source(block))
+            else:
+                for block in document.blocks_forward(start_block):
+                    yield block, source(block)
+                    source = token_source
+        gen = generator()
+        
+        # initialize block and tokens
+        for self.block, self.tokens in gen:
+            break
+        # keep them going after the first line
+        def g():
+            for t in self.tokens:
+                yield t
+            for self.block, self.tokens in gen:
+                for t in self.tokens:
+                    yield t
+        self._gen = g()
+    
+    def __iter__(self):
+        return self._gen
+    
+    def __next__(self):
+        return self._gen.next()
+    
+    next = __next__
+    
+    def document(self):
+        """Return our Document."""
+        return self._doc
+    
+    def slice(self, token, start=0, end=None):
+        """Returns a slice for the token in the current block."""
+        return self._doc.slice(self.block, token, start, end)
+    
+    def position(self, token):
+        """Returns the position of the token in the current block."""
+        return self._doc.position(self.block) + token.pos
+    
+    def consume(self, iterable, position):
+        """Consumes iterable (supposed to be reading from us) until position.
+        
+        Returns the last token if that overlaps position.
+        
+        """
+        if self._doc.position(self.block) < position:
+            for t in iterable:
+                pos = self.position(t)
+                end = pos + len(t)
+                if end == position:
+                    return
+                elif end > position:
+                    if pos < position:
+                        return t
+                    return
 
 
