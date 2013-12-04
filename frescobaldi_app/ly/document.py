@@ -777,7 +777,13 @@ class TokenIterator(object):
         return self._doc
     
     def slice(self, token, start=0, end=None):
-        """Returns a slice for the token in the current block."""
+        """Returns a slice for the token in the current block.
+        
+        If the iterator was instantiated with tokens_with_position == True, 
+        the slice start position is the same as the token.pos attribute, and 
+        the current block does not matter.
+        
+        """
         start += token.pos
         if not self._wp:
             start += self._doc.position(self.block)
@@ -786,9 +792,16 @@ class TokenIterator(object):
 
     
     def position(self, token):
-        """Returns the position of the token in the current block."""
+        """Returns the position of the token in the current block.
+        
+        If the iterator was instantiated with tokens_with_position == True, 
+        this position is the same as the token.pos attribute, and the current
+        block does not matter. (In that case you'll probably not use this 
+        method.)
+        
+        """
         pos = token.pos
-        if self._wp:
+        if not self._wp:
             pos += self._doc.position(self.block)
         return pos
     
