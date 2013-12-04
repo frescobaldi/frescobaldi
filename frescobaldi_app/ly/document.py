@@ -44,11 +44,22 @@ source document. It is not expected to have any methods, except that the
 refer to the same line of text in the source document.
 
 
-Runner
+Cursor
 ======
 
-A Runner allows iterating back and forth over the tokens of a document.
+Defines a range or position in a Document.
 
+
+TokenCursor
+===========
+
+A TokenCursor allows iterating back and forth over the tokens of a document.
+
+
+TokenIterator
+=============
+
+Iterate over tokens in a (part of a) Document, with or without state.
 
 
 """
@@ -59,6 +70,7 @@ from __future__ import absolute_import
 import sys
 import operator
 import collections
+import weakref
 
 
 class DocumentBase(object):
@@ -94,6 +106,8 @@ class DocumentBase(object):
         """Constructor"""
         self._writing = 0
         self._changes = collections.defaultdict(list)
+        # to keep compatible with 2.6 (else we'd use a WeakSet)
+        self._cursors = weakref.WeakKeyDictionary()
     
     def __nonzero__(self):
         return True
@@ -188,12 +202,21 @@ class DocumentBase(object):
             self._changes.clear()
         elif self._writing == 1:
             if self._changes:
+                self.update_cursors()
                 self.apply_changes()
             self._writing = 0
             self._changes.clear()
         elif self._writing > 1:
             self._writing -= 1
     
+    def register_cursor(self, cursor):
+        """Make a weak reference to the cursor.
+        
+        The Cursor gets updated when the document is changed.
+        
+        """
+        self._cursors[cursor] = True
+        
     def check_changes(self):
         """Debugging method that checks for overlapping edits."""
         end = self.size()
@@ -205,7 +228,24 @@ class DocumentBase(object):
                         text = text[:10] + '...'
                     raise ValueError("overlapping edit: {0}-{1}: {2}".format(start, pos, text))
             end = start
-
+    
+    def update_cursors(self):
+        """Updates the position of the registered Cursor instances."""
+        for start, items in sorted(self._changes.items(), reverse=True):
+            for end, text in items:
+                removed = end - start
+                added = len(text)
+                for c in self._cursors:
+                    if start <= c.start <= end:
+                        c.start = start
+                    elif c.start > end:
+                        c.start += added - removed
+                    if c.end is not None:
+                        if end is None or start <= c.end <= end:
+                            c.end = start + added
+                        elif c.end > end:
+                            c.end += added - removed
+                        
     def apply_changes(self):
         """Apply the changes and update the tokens."""
         raise NotImplementedError()
@@ -400,7 +440,9 @@ class Block(object):
 class Cursor(object):
     """Defines a certain range (selection) in a Document.
     
-    You may change the document, start and end attributes yourself.
+    You may change the start and end attributes yourself. As long as you 
+    keep a reference to the Cursor, its positions are updated when the 
+    document changes.
     
     Many tools in the ly module use this object to describe (part of) a
     document.
@@ -410,6 +452,7 @@ class Cursor(object):
         self.document = doc
         self.start = start
         self.end = end
+        doc.register_cursor(self)
 
 
 class TokenCursor(object):
