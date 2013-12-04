@@ -251,7 +251,12 @@ class DocumentBase(object):
         raise NotImplementedError()
         
     def tokens(self, block):
-        """Return the tuple of tokens of the specified block."""
+        """Return the tuple of tokens of the specified block.
+        
+        The pos and end attributes of every token point to the position
+        of the token in the block. 
+        
+        """
         raise NotImplementedError()
     
     def tokens_with_position(self, block):
@@ -496,8 +501,16 @@ class TokenCursor(object):
     A TokenCursor can stop anywhere and remembers its current token.
     
     """
-    def __init__(self, doc):
+    def __init__(self, doc, tokens_with_position=False):
+        """Create and init with Document.
+        
+        If tokens_with_position is True, uses the tokens_with_position() 
+        method to get the tokens, else (by default), the tokens() method is 
+        used.
+        
+        """
         self._doc = doc
+        self._wp = tokens_with_position
     
     def document(self):
         """Return our Document."""
@@ -527,7 +540,8 @@ class TokenCursor(object):
         
         """
         self.block = block
-        self._tokens = self._doc.tokens(block)
+        method = self._doc.tokens_with_position if self._wp else self._doc.tokens
+        self._tokens = method(block)
         self._index = len(self._tokens) if at_end else -1
     
     def valid(self):
@@ -596,7 +610,10 @@ class TokenCursor(object):
         
     def position(self):
         """Returns the position of the current token."""
-        return self._doc.position(self.block) + self._tokens[self._index].pos
+        pos = self._tokens[self._index].pos
+        if not self._wp:
+            pos += self._doc.position(self.block)
+        return pos
     
     def slice(self, start=0, end=None):
         """Returns a slice for the last token.
@@ -607,11 +624,16 @@ class TokenCursor(object):
         the beginning of the token). End defaults to the length of the token.
         
         """
-        return self._doc.slice(self.block, self._tokens[self._index], start, end)
+        t = self._tokens[self._index]
+        start += t.pos
+        if not self._wp:
+            start += self._doc.position(self.block)
+        end = start + (len(t) if end is None else end)
+        return slice(start, end)
 
     def copy(self):
         """Return a new TokenCursor at the current position."""
-        obj = type(self)(self._doc)
+        obj = type(self)(self._doc, self._wp)
         obj.block = self.block
         obj._tokens = self._tokens
         obj._index = self._index
@@ -641,7 +663,7 @@ class TokenIterator(object):
     
     """
     
-    def __init__(self, cursor, state=None, partial=INSIDE):
+    def __init__(self, cursor, state=None, partial=INSIDE, tokens_with_position=False):
         """Initialize the iterator.
         
         cursor is a Cursor instance, describing a Document and a selected range
@@ -649,11 +671,16 @@ class TokenIterator(object):
             OUTSIDE: tokens that touch the selected range are also yielded
             PARTIAL: tokens that overlap the start or end positions are yielded
             INSIDE:  (default) yield only tokens fully contained in the range
-        The partial argument only makes sense if start or end are specified. 
+        The partial argument only makes sense if start or end are specified.
+        
+        If tokens_with_position is True, uses the tokens_with_position() 
+        method to get the tokens, else (by default), the tokens() method is 
+        used.
         
         """
         self._doc = document = cursor.document
         start_block = document.block(cursor.start)
+        tokens_method = document.tokens_with_position if tokens_with_position else document.tokens
         
         # start, end predicates
         start_pred, end_pred = {
@@ -676,12 +703,12 @@ class TokenIterator(object):
             if state is True:
                 state = document.state(start_block)
             def token_source(block):
-                for t in document.tokens(block):
+                for t in tokens_method(block):
                     state.follow(t)
                     yield t
         else:
             def token_source(block):
-                return iter(document.tokens(block))
+                return iter(tokens_method(block))
         self.state = state
         
         # where to start
