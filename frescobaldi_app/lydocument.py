@@ -41,6 +41,27 @@ import tokeniter
 import highlighter
 
 
+def cursor(cursor, select_all=True):
+    """Return a ly.document.Cursor for the specified QTextCursor.
+    
+    The ly Cursor is instantiated with a LyDocument proxying for the
+    original cursors document.
+    
+    So you can call all operations in the ly module and they will work on a
+    Frescobaldi document (which is a subclass of QTextDocument).
+    
+    If select_all is True (the default), the ly Cursor selects the whole 
+    document if the original cursor has no selection.
+    
+    """
+    doc = LyDocument(cursor.document())
+    if not select_all or cursor.hasSelection():
+        start, end = cursor.selectionStart(), cursor.selectionEnd()
+    else:
+        start, end = 0, None
+    return ly.document.Cursor(doc, start, end)
+    
+
 class LyDocument(ly.document.DocumentBase):
     def __init__(self, document):
         self._d = document
