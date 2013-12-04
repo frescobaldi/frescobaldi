@@ -454,6 +454,22 @@ class Cursor(object):
         self.end = end
         doc.register_cursor(self)
 
+    def start_block(self):
+        return self.document.block(self.start)
+    
+    def end_block(self):
+        if self.end is None:
+            return self.document[len(self.document)-1]
+        return self.document.block(self.end)
+    
+    def blocks(self):
+        """Iterate over the selected blocks."""
+        end = self.end_block()
+        for b in self.document.blocks_forward(self.start_block()):
+            yield b
+            if b == end:
+                break
+
 
 class TokenCursor(object):
     """Iterates back and forth over tokens.
@@ -610,7 +626,7 @@ class TokenIterator(object):
         """Initialize the iterator.
         
         cursor is a Cursor instance, describing a Document and a selected range
-        partial is either self.OUTSIDE, PARTIAL, or INSIDE:
+        partial is either OUTSIDE, PARTIAL, or INSIDE:
             OUTSIDE: tokens that touch the selected range are also yielded
             PARTIAL: tokens that overlap the start or end positions are yielded
             INSIDE:  (default) yield only tokens fully contained in the range
