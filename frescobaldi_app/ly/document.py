@@ -254,6 +254,18 @@ class DocumentBase(object):
         """Return the tuple of tokens of the specified block."""
         raise NotImplementedError()
     
+    def tokens_with_position(self, block):
+        """Return a tuple of tokens of the specified block.
+        
+        The pos and end attributes of every token point to the position
+        in the Document, instead of to the position in the current block.
+        
+        This makes it easier to iterate over tokens and change the document.
+        
+        """
+        pos = self.position(block)
+        return tuple(type(t)(t, pos + t.pos) for t in self.tokens(block))
+        
     def initial_state(self):
         """Return the state at the beginning of the document."""
         raise NotImplementedError()
@@ -269,18 +281,25 @@ class DocumentBase(object):
         """Return the state at the end of the specified block."""
         raise NotImplementedError()
     
-    def slice(self, block, token, start=0, end=None):
+    def slice(self, token, block=None, start=0, end=None):
         """Return a slice describing the position of the token in the text.
+        
+        If block is not given, the pos and end attributes of the token are
+        assumed to describe the position of the token in the full document.
         
         If start is given the slice will start at position start in the token
         (from the beginning of the token). Start defaults to 0.
+        
         If end is given, the cursor will end at that position in the token (from
         the beginning of the token). End defaults to the length of the token.
        
         """
-        pos = self.position(block) + token.pos
-        start = pos + start
-        end = pos + (len(token) if end is None else end)
+        if block:
+            start += self.position(block)
+        start += token.pos
+        if end is None:
+            end = len(token)
+        end += start
         return slice(start, end)
     
     ##
