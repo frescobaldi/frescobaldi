@@ -36,8 +36,8 @@ durations = ['\\maxima', '\\longa', '\\breve',
     '1', '2', '4', '8', '16', '32', '64', '128', '256', '512', '1024', '2048']
 
 
-def music_items(source, command=False, chord=False):
-    """Yields lists of (block, token) tuples describing rests, skips or pitches.
+def music_tokens(source, command=False, chord=False):
+    """Yields lists of tokens describing rests, skips or pitches.
     
     source is a ly.document.TokenIterator instance following the state.
     
@@ -56,14 +56,14 @@ def music_items(source, command=False, chord=False):
         if isinstance(source.state.parser(), skip_parsers):
             continue
         while isinstance(token, _start):
-            l = [(source.block, token)]
+            l = [token]
             for token in source:
                 if isinstance(token, ly.lex.Space):
                     continue
                 if not isinstance(token, _stay):
                     yield l
                     break
-                l.append((source.block, token))
+                l.append(token)
             else:
                 yield l
                 break
@@ -85,62 +85,64 @@ _stay = _start[4:]
 
 
 
-def duration_items(cursor, *classes):
-    """Yield lists of (block, token) tuples where tokens in list are instance of *classes."""
-    tokens = ly.document.TokenIterator(cursor, True)
-    for items in music_items(source):
-        yield [(block, token) for block, token in items if isinstance(token, classes)]
+def duration_tokens(cursor, *classes):
+    """Yield lists of tokens where tokens in list are instance of *classes."""
+    source = ly.document.TokenIterator(cursor, True, tokens_with_position=True)
+    for tokens in music_tokens(source):
+        yield [token for token in tokens if isinstance(token, classes)]
 
 def rhythm_double(cursor):
     with cursor.document as d:
-        for items in duration_items(cursor, ly.lex.lilypond.Length):
-            for block, token in items:
+        for tokens in duration_tokens(cursor, ly.lex.lilypond.Length):
+            for token in tokens:
                 try:
                     i = durations.index(token)
                 except ValueError:
                     continue
                 if i > 0:
-                    d[d.slice(block, token)] = durations[i - 1]
+                    d[token.pos:token.end] = durations[i - 1]
 
 def rhythm_halve(cursor):
     with cursor.document as d:
-        for items in duration_items(cursor, ly.lex.lilypond.Length):
-            for block, token in items:
+        for tokens in duration_tokens(cursor, ly.lex.lilypond.Length):
+            for block, token in tokens:
                 try:
                     i = durations.index(token)
                 except ValueError:
                     continue
                 if i < len(durations) - 1:
-                    d[d.slice(block, token)] = durations[i + 1]
+                    d[token.pos:token.end] = durations[i + 1]
 
 def rhythm_dot(cursor):
     with cursor.document as d:
-        for items in duration_items(cursor, ly.lex.lilypond.Length):
-            for block, token in items:
-                d[d.slice(block, token, end=0)] = "."
+        for tokens in duration_tokens(cursor, ly.lex.lilypond.Length):
+            for token in tokens:
+                d[token.end:token.end] = "."
 
 def rhythm_undot(cursor):
     with cursor.document as d:
-        for items in duration_items(cursor, ly.lex.lilypond.Dot):
-            if items:
-                block, token = items[0]
-                del d[d.slice(block, token)]
+        for tokens in duration_tokens(cursor, ly.lex.lilypond.Dot):
+            if tokens:
+                del d[tokens[0].pos:tokens[0].end]
 
 def rhythm_remove_scaling(cursor):
-    with cursortools.compress_undo(cursor):
-        for c in cursors(cursor, ly.lex.lilypond.Scaling):
-            c.removeSelectedText()
+    with cursor.document as d:
+        for tokens in duration_tokens(cursor, ly.lex.lilypond.Scaling):
+            for token in tokens:
+                del d[token.pos:token.end]
             
 def rhythm_remove_fraction_scaling(cursor):
-    with cursortools.compress_undo(cursor):
-        for c in cursors(cursor, ly.lex.lilypond.Scaling):
-            if '/' in c.selectedText(): 
-                c.removeSelectedText()            
+    with cursor.document as d:
+        for tokens in duration_tokens(cursor, ly.lex.lilypond.Scaling):
+            for token in tokens:
+                if '/' in token:
+                    del d[token.pos:token.end]
 
 def rhythm_remove(cursor):
-    with cursortools.compress_undo(cursor):
-        for c in cursors(cursor, ly.lex.lilypond.Duration):
-            c.removeSelectedText()
+    with cursor.document as d:
+        for tokens in duration_tokens(cursor, ly.lex.lilypond.Duration):
+            for token in tokens:
+                del d[token.pos:token.end]
 
 def rhythm_implicit(cursor):
     items = duration_cursor_items(cursor)
