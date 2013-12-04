@@ -680,6 +680,7 @@ class TokenIterator(object):
         """
         self._doc = document = cursor.document
         start_block = document.block(cursor.start)
+        self._wp = tokens_with_position
         tokens_method = document.tokens_with_position if tokens_with_position else document.tokens
         
         # start, end predicates
@@ -777,11 +778,19 @@ class TokenIterator(object):
     
     def slice(self, token, start=0, end=None):
         """Returns a slice for the token in the current block."""
-        return self._doc.slice(self.block, token, start, end)
+        start += token.pos
+        if not self._wp:
+            start += self._doc.position(self.block)
+        end = start + (len(t) if end is None else end)
+        return slice(start, end)
+
     
     def position(self, token):
         """Returns the position of the token in the current block."""
-        return self._doc.position(self.block) + token.pos
+        pos = token.pos
+        if self._wp:
+            pos += self._doc.position(self.block)
+        return pos
     
     def consume(self, iterable, position):
         """Consumes iterable (supposed to be reading from us) until position.
