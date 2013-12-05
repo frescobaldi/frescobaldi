@@ -82,5 +82,5 @@ def rhythm_copy(cursor):
     _clipboard[:] = ly.rhythm.rhythm_extract(lydocument.cursor(cursor))
 
 def rhythm_paste(cursor):
-    ly.rhythm_overwrite(lydocument.cursor(cursor), _clipboard)
+    ly.rhythm.rhythm_overwrite(lydocument.cursor(cursor), _clipboard)
 

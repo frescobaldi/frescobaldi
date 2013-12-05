@@ -218,7 +218,7 @@ def rhythm_implicit_per_line(cursor):
         break
     else:
         return
-    previous_block = cursor.start_block()
+    previous_block = source.block
     prev = tokens or preceding_duration(cursor)
     with cursor.document as d:
         for pos, tokens in dtokens:
