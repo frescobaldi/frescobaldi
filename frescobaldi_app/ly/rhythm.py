@@ -250,24 +250,23 @@ def rhythm_explicit(cursor):
                 d[pos:pos] = ''.join(prev)
 
 def rhythm_overwrite(cursor, durations):
-    """Apply a string of durations to the cursor's range.
+    """Apply a list of durations to the cursor's range.
     
-    The durations string looks like "4 8 8 16." etc.
+    The durations list looks like ["4", "8", "", "16.",] etc.
     
     """
-    durations_list = durations.split()
-    if not durations_list:
-        return
-    durations_source = remove_dups(itertools.cycle(durations_list))
+    durations_source = remove_dups(itertools.cycle(durations))
     source = ly.document.TokenIterator(cursor, True, tokens_with_position=True)
     with cursor.document as d:
         for pos, tokens in duration_tokens_pos(source, ly.lex.lilypond.Duration):
-            d[pos:tokens[-1].end if tokens else pos] = next(durations_source)
+            end = tokens[-1].end if tokens else pos
+            d[pos:end] = next(durations_source)
 
 def rhythm_extract(cursor):
-    """Return a string of the durations from the cursor's range."""
+    """Return a list of the durations from the cursor's range."""
     source = ly.document.TokenIterator(cursor, True)
-    return " ".join(
-        "".join(tokens)
-        for tokens in duration_tokens(source, ly.lex.lilypond.Duration))
+    durations = list(duration_tokens(source, ly.lex.lilypond.Duration))
+    if durations and not durations[0]:
+        durations[0] = preceding_duration(cursor) or ['4']
+    return ["".join(tokens) for tokens in durations]
 
