@@ -50,14 +50,14 @@ Cursor
 Defines a range or position in a Document.
 
 
-TokenCursor
-===========
+Runner
+======
 
-A TokenCursor allows iterating back and forth over the tokens of a document.
+A Runner allows iterating back and forth over the tokens of a document.
 
 
-TokenIterator
-=============
+Source
+======
 
 Iterate over tokens in a (part of a) Document, with or without state.
 
@@ -495,10 +495,10 @@ class Cursor(object):
                 break
 
 
-class TokenCursor(object):
+class Runner(object):
     """Iterates back and forth over tokens.
     
-    A TokenCursor can stop anywhere and remembers its current token.
+    A Runner can stop anywhere and remembers its current token.
     
     """
     def __init__(self, doc, tokens_with_position=False):
@@ -517,7 +517,7 @@ class TokenCursor(object):
         return self._doc
     
     def set_position(self, position, after_token=False):
-        """Positions the TokenCursor at the specified position.
+        """Positions the Runner at the specified position.
         
         Set after_token to True if you want to position the cursor after the
         token, so that it gets yielded when you go backward.
@@ -534,7 +534,7 @@ class TokenCursor(object):
             self._index += 1
         
     def move_to_block(self, block, at_end=False):
-        """Positions the TokenCursor at the start of the given QTextBlock.
+        """Positions the Runner at the start of the given QTextBlock.
         
         If at_end == True, the iterator is positioned past the end of the block.
         
@@ -632,7 +632,7 @@ class TokenCursor(object):
         return slice(start, end)
 
     def copy(self):
-        """Return a new TokenCursor at the current position."""
+        """Return a new Runner at the current position."""
         obj = type(self)(self._doc, self._wp)
         obj.block = self.block
         obj._tokens = self._tokens
@@ -645,7 +645,7 @@ PARTIAL = 0
 INSIDE  = 1
 
 
-class TokenIterator(object):
+class Source(object):
     """Helper iterator.
     
     Iterates over the (block, tokens) tuples from a Document (or a part 
