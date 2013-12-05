@@ -222,12 +222,13 @@ def rhythm_implicit_per_line(cursor):
     prev = tokens or preceding_duration(cursor)
     with cursor.document as d:
         for pos, tokens in dtokens:
-            if source.block != previous_block:
+            block = d.block(pos)
+            if block != previous_block:
                 if not tokens:
                     d[pos:pos] = ''.join(prev)
                 else:
                     prev = tokens
-                previous_block = source.block
+                previous_block = block
             elif tokens:
                 if tokens == prev:
                     del d[tokens[0].pos:tokens[-1].end]
