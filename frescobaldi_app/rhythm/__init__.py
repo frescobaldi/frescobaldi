@@ -42,6 +42,7 @@ class Rhythm(plugin.MainWindowPlugin):
         ac.rhythm_dot.triggered.connect(self.rhythm_dot)
         ac.rhythm_undot.triggered.connect(self.rhythm_undot)
         ac.rhythm_remove_scaling.triggered.connect(self.rhythm_remove_scaling)
+        ac.rhythm_remove_fraction_scaling.triggered.connect(self.rhythm_remove_fraction_scaling)
         ac.rhythm_remove.triggered.connect(self.rhythm_remove)
         ac.rhythm_implicit.triggered.connect(self.rhythm_implicit)
         ac.rhythm_implicit_per_line.triggered.connect(self.rhythm_implicit_per_line)
@@ -90,6 +91,11 @@ class Rhythm(plugin.MainWindowPlugin):
         from . import rhythm
         rhythm.rhythm_remove_scaling(cursor)
         
+    def rhythm_remove_fraction_scaling(self):
+        cursor = self.mainwindow().textCursor()
+        from . import rhythm
+        rhythm.rhythm_remove_fraction_scaling(cursor)
+        
     def rhythm_remove(self):
         cursor = self.mainwindow().textCursor()
         from . import rhythm
@@ -134,6 +140,7 @@ class Actions(actioncollection.ActionCollection):
         self.rhythm_dot = QAction(parent)
         self.rhythm_undot = QAction(parent)
         self.rhythm_remove_scaling = QAction(parent)
+        self.rhythm_remove_fraction_scaling = QAction(parent)
         self.rhythm_remove = QAction(parent)
         self.rhythm_implicit = QAction(parent)
         self.rhythm_implicit_per_line = QAction(parent)
@@ -157,7 +164,10 @@ class Actions(actioncollection.ActionCollection):
             "Remove one dot from all the durations in the selection."))
         self.rhythm_remove_scaling.setText(_("Remove &scaling"))
         self.rhythm_remove_scaling.setToolTip(_(
-            "Remove all scaling (*n/m) from the durations in the selection."))
+            "Remove all scaling (*n, *n/m) from the durations in the selection."))
+        self.rhythm_remove_fraction_scaling.setText(_("Remove scaling with &fractions"))
+        self.rhythm_remove_fraction_scaling.setToolTip(_(
+            "Remove only scaling containing fractions (*n/m) from the durations in the selection."))
         self.rhythm_remove.setText(_("&Remove durations"))
         self.rhythm_remove.setToolTip(_(
             "Remove all durations from the selection."))

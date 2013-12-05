@@ -184,7 +184,7 @@ class AClarinet(WoodWindPart):
     
     @staticmethod
     def short(_=__builtin__._):
-        return _("abbreviation for E-flat Clarinet", "Cl. in A")
+        return _("abbreviation for A Clarinet", "Cl. in A")
 
     midiInstrument = 'clarinet'
     transposition = (-1, 5, 0)
