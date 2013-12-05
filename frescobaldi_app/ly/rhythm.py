@@ -36,8 +36,16 @@ durations = ['\\maxima', '\\longa', '\\breve',
     '1', '2', '4', '8', '16', '32', '64', '128', '256', '512', '1024', '2048']
 
 
+def remove_dups(iterable):
+    """Change reoccurring strings to '' in iterable."""
+    old = None
+    for i in iterable:
+        yield '' if i == old else i
+        old = i
+
+
 def music_tokens(source, command=False, chord=False):
-    """Yields lists of tokens describing rests, skips or pitches.
+    """Yield lists of tokens describing rests, skips or pitches.
     
     source is a ly.document.TokenIterator instance following the state.
     
@@ -85,15 +93,45 @@ _stay = _start[4:]
 
 
 
-def duration_tokens(cursor, *classes):
+def duration_tokens(source, *classes):
     """Yield lists of tokens where tokens in list are instance of *classes."""
-    source = ly.document.TokenIterator(cursor, True, tokens_with_position=True)
     for tokens in music_tokens(source):
         yield [token for token in tokens if isinstance(token, classes)]
 
+def duration_tokens_pos(source, *classes):
+    """Yield tuples(pos, list of tokens) where tokens in list are instance of *classes.
+    
+    The list of tokens can be empty, the pos points to where a duration could be
+    inserted.
+    
+    """
+    for tokens in music_tokens(source):
+        dur_tokens = [token for token in tokens if isinstance(token, classes)]
+        pos = dur_tokens[0].pos if dur_tokens else tokens[-1].end
+        yield pos, dur_tokens
+
+def preceding_duration(cursor):
+    """Returns a preceding duration before the cursor, or an empty list."""
+    runner = ly.document.TokenCursor(cursor.document)
+    runner.set_position(cursor.position)
+    tokens = runner.backward()
+    for t in tokens:
+        if isinstance(t, ly.lex.lilypond.Duration):
+            l = [t]
+            for t in tokens:
+                if isinstance(t, ly.lex.lilypond.Duration):
+                    l.append(t)
+                elif not isinstance(t, ly.lex.Space):
+                    break
+            l.reverse()
+            return l
+    return []
+
 def rhythm_double(cursor):
+    """Doubles all duration values."""
+    source = ly.document.TokenIterator(cursor, True, tokens_with_position=True)
     with cursor.document as d:
-        for tokens in duration_tokens(cursor, ly.lex.lilypond.Length):
+        for tokens in duration_tokens(source, ly.lex.lilypond.Length):
             for token in tokens:
                 try:
                     i = durations.index(token)
@@ -103,8 +141,10 @@ def rhythm_double(cursor):
                     d[token.pos:token.end] = durations[i - 1]
 
 def rhythm_halve(cursor):
+    """Halves all duration values."""
+    source = ly.document.TokenIterator(cursor, True, tokens_with_position=True)
     with cursor.document as d:
-        for tokens in duration_tokens(cursor, ly.lex.lilypond.Length):
+        for tokens in duration_tokens(source, ly.lex.lilypond.Length):
             for block, token in tokens:
                 try:
                     i = durations.index(token)
@@ -114,180 +154,120 @@ def rhythm_halve(cursor):
                     d[token.pos:token.end] = durations[i + 1]
 
 def rhythm_dot(cursor):
+    """Add a dot to all durations."""
+    source = ly.document.TokenIterator(cursor, True, tokens_with_position=True)
     with cursor.document as d:
-        for tokens in duration_tokens(cursor, ly.lex.lilypond.Length):
+        for tokens in duration_tokens(source, ly.lex.lilypond.Length):
             for token in tokens:
                 d[token.end:token.end] = "."
 
 def rhythm_undot(cursor):
+    """Remove one dot from all durations."""
+    source = ly.document.TokenIterator(cursor, True, tokens_with_position=True)
     with cursor.document as d:
-        for tokens in duration_tokens(cursor, ly.lex.lilypond.Dot):
+        for tokens in duration_tokens(source, ly.lex.lilypond.Dot):
             if tokens:
                 del d[tokens[0].pos:tokens[0].end]
 
 def rhythm_remove_scaling(cursor):
+    """Remove the scaling (*3, *1/3) from all durations."""
+    source = ly.document.TokenIterator(cursor, True, tokens_with_position=True)
     with cursor.document as d:
-        for tokens in duration_tokens(cursor, ly.lex.lilypond.Scaling):
+        for tokens in duration_tokens(source, ly.lex.lilypond.Scaling):
             for token in tokens:
                 del d[token.pos:token.end]
             
 def rhythm_remove_fraction_scaling(cursor):
+    """Remove the scaling containing fractions (*1/3) from all durations."""
+    source = ly.document.TokenIterator(cursor, True, tokens_with_position=True)
     with cursor.document as d:
-        for tokens in duration_tokens(cursor, ly.lex.lilypond.Scaling):
+        for tokens in duration_tokens(source, ly.lex.lilypond.Scaling):
             for token in tokens:
                 if '/' in token:
                     del d[token.pos:token.end]
 
 def rhythm_remove(cursor):
+    """Remove all durations."""
+    source = ly.document.TokenIterator(cursor, True, tokens_with_position=True)
     with cursor.document as d:
-        for tokens in duration_tokens(cursor, ly.lex.lilypond.Duration):
-            for token in tokens:
-                del d[token.pos:token.end]
+        for tokens in duration_tokens(source, ly.lex.lilypond.Duration):
+            if tokens:
+                del d[tokens[0].pos:tokens[-1].end]
 
 def rhythm_implicit(cursor):
-    items = duration_cursor_items(cursor)
-    for c, d in items:
+    """Remove reoccurring durations."""
+    source = ly.document.TokenIterator(cursor, True, tokens_with_position=True)
+    dtokens = duration_tokens(source, ly.lex.lilypond.Duration)
+    for tokens in dtokens:
         break
     else:
         return
-    prev = d or preceding(cursor)
-    with cursortools.Writer(cursor.document()) as w:
-        for c, d in items:
-            if d:
-                if d == prev:
-                    w.removeSelectedText(c)
-                prev = d
+    prev = tokens or preceding_duration(cursor)
+    with cursor.document as d:
+        for tokens in dtokens:
+            if tokens:
+                if tokens == prev:
+                    del d[tokens[0].pos:tokens[-1].end]
+                prev = tokens
 
 def rhythm_implicit_per_line(cursor):
-    items = duration_cursor_items(cursor)
-    for c, d in items:
+    """Remove reoccurring durations, but always write one on a new line."""
+    source = ly.document.TokenIterator(cursor, True, tokens_with_position=True)
+    dtokens = duration_tokens_pos(source, ly.lex.lilypond.Duration)
+    for pos, tokens in dtokens:
         break
     else:
         return
-    prevblock = c.block()
-    prev = d or preceding(cursor)
-    with cursortools.Writer(cursor.document()) as w:
-        for c, d in items:
-            if c.block() != prevblock:
-                if not d:
-                    w.insertText(c, ''.join(prev))
+    previous_block = cursor.start_block()
+    prev = tokens or preceding_duration(cursor)
+    with cursor.document as d:
+        for pos, tokens in dtokens:
+            if source.block != previous_block:
+                if not tokens:
+                    d[pos:pos] = ''.join(prev)
                 else:
-                    prev = d
-                prevblock = c.block()
-            elif d:
-                if d == prev:
-                    w.removeSelectedText(c)
-                prev = d
+                    prev = tokens
+                previous_block = source.block
+            elif tokens:
+                if tokens == prev:
+                    del d[tokens[0].pos:tokens[-1].end]
+                prev = tokens
 
 def rhythm_explicit(cursor):
-    items = duration_cursor_items(cursor)
-    for c, d in items:
+    """Make all durations explicit."""
+    source = ly.document.TokenIterator(cursor, True, tokens_with_position=True)
+    dtokens = duration_tokens_pos(source, ly.lex.lilypond.Duration)
+    for pos, tokens in dtokens:
         break
     else:
         return
-    prev = d or preceding(cursor)
-    with cursortools.Writer(cursor.document()) as w:
-        for c, d in items:
-            if d:
-                prev = d
+    prev = tokens or preceding_duration(cursor)
+    with cursor.document as d:
+        for pos, tokens in dtokens:
+            if tokens:
+                prev = tokens
             else:
-                w.insertText(c, ''.join(prev))
+                d[pos:pos] = ''.join(prev)
 
-def rhythm_apply(cursor, mainwindow):
-    durs = inputdialog.getText(mainwindow,
-        _("Apply Rhythm"), _("Enter a rhythm:"),
-        complete = sorted(_history),
-        regexp = r'([0-9./* ]|\\breve|\\longa|\\maxima)+',
-        help = "rhythm", icon = icons.get('tools-rhythm'))
-    if durs and durs.split():
-        _history.add(durs.strip())
-        duration_source = remove_dups(itertools.cycle(durs.split()))
-        with cursortools.Writer(cursor.document()) as w:
-            for c, d in duration_cursor_items(cursor):
-                w.insertText(c, next(duration_source))
-
-def rhythm_copy(cursor):
-    del _clipboard[:]
-    for b, d in duration_items(cursor, ly.lex.lilypond.Duration):
-        _clipboard.append(''.join(d))
-    if _clipboard and _clipboard[0] == '':
-        prec = preceding(cursor)
-        if prec:
-            _clipboard[0] = ''.join(prec)
-
-def rhythm_paste(cursor):
-    duration_source = itertools.cycle(_clipboard)
-    with cursortools.Writer(cursor.document()) as w:
-        for c, d in duration_cursor_items(cursor):
-            w.insertText(c, next(duration_source))
-
-def remove_dups(iterable):
-    old = None
-    for i in iterable:
-        yield '' if i == old else i
-        old = i
-
-def duration_items(cursor, *classes):
-    """Yields block, list where tokens in list are instance of *classes."""
-    source = tokeniter.Source.selection(cursor, True)
-    for m in music.music_items(source):
-        yield source.block, [token for token in m if isinstance(token, classes)]
-
-def duration_cursor_items(cursor):
-    """Yields two-tuples (cursor, list of duration tokens).
+def rhythm_overwrite(cursor, durations):
+    """Apply a string of durations to the cursor's range.
     
-    The list of duration tokens may be empty. This can be used to find
-    the places to insert or overwrite durations in the selected music.
+    The durations string looks like "4 8 8 16." etc.
     
     """
-    source = tokeniter.Source.selection(cursor, True)
-    for m in music.music_items(source):
-        i = iter(m)
-        c = QTextCursor(source.block)
-        for t in i:
-            if isinstance(t, ly.lex.lilypond.Duration):
-                l = [t]
-                c.setPosition(source.block.position() + t.pos)
-                for t in i:
-                    if isinstance(t, ly.lex.lilypond.Duration):
-                        l.append(t)
-                    elif not isinstance(t, ly.lex.Space):
-                        break
-                c.setPosition(source.block.position() + l[-1].end, c.KeepAnchor)
-                break
-        else:
-            c.setPosition(source.block.position() + t.end)
-            l = []
-        yield c, l
+    durations_list = durations.split()
+    if not durations_list:
+        return
+    durations_source = remove_dups(itertools.cycle(durations_list))
+    source = ly.document.TokenIterator(cursor, True, tokens_with_position=True)
+    with cursor.document as d:
+        for pos, tokens in duration_tokens_pos(source, ly.lex.lilypond.Duration):
+            d[pos:tokens[-1].end if tokens else pos] = next(durations_source)
 
-def cursors(cursor, *classes):
-    """Returns a list of cursors for the duration_items() with same args."""
-    return [tokeniter.cursor(b, t)
-        for b, d in duration_items(cursor, *classes) for t in d]
-
-def preceding(cursor):
-    """Returns a preceding duration before the cursor, or an empty list."""
-    c = QTextCursor(cursor)
-    c.setPosition(cursor.selectionStart())
-    for tokens in back(c):
-        for t in tokens:
-            if isinstance(t, ly.lex.lilypond.Duration):
-                l = [t]
-                for t in tokens:
-                    if isinstance(t, ly.lex.lilypond.Duration):
-                        l.append(t)
-                    elif not isinstance(t, ly.lex.Space):
-                        break
-                l.reverse()
-                return l
-    return []
-
-def back(cursor):
-    """Yields per-block token iters in backward direction from the cursor."""
-    yield reversed(tokeniter.partition(cursor).left)
-    block = cursor.block()
-    while block.previous().isValid():
-        block = block.previous()
-        yield reversed(tokeniter.tokens(block))
-
+def rhythm_extract(cursor):
+    """Return a string of the durations from the cursor's range."""
+    source = ly.document.TokenIterator(cursor, True)
+    return " ".join(
+        "".join(tokens)
+        for tokens in duration_tokens(source, ly.lex.lilypond.Duration))
 
