@@ -728,7 +728,7 @@ class TokenIterator(object):
         
         # where to end
         if cursor.end:
-            end_block = document.block(end)
+            end_block = cursor.end_block()
             end_pos = cursor.end - document.position(end_block)
             def source_end(source):
                 for t in source:
@@ -740,7 +740,7 @@ class TokenIterator(object):
         def generator():
             source = source_start
             block = start_block
-            if end:
+            if cursor.end:
                 while block != end_block:
                     yield block, source(block)
                     source = token_source

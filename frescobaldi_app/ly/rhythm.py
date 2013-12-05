@@ -145,7 +145,7 @@ def rhythm_halve(cursor):
     source = ly.document.TokenIterator(cursor, True, tokens_with_position=True)
     with cursor.document as d:
         for tokens in duration_tokens(source, ly.lex.lilypond.Length):
-            for block, token in tokens:
+            for token in tokens:
                 try:
                     i = durations.index(token)
                 except ValueError:
