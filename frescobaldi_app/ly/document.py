@@ -72,6 +72,8 @@ import operator
 import collections
 import weakref
 
+import ly.lex
+
 
 class DocumentBase(object):
     """Abstract base class for Document instances.
@@ -344,7 +346,9 @@ class DocumentBase(object):
         else:
             start = key
             end = start + 1
-        self._changes[start].append((end, text.replace('\r', '')))
+        text = text.replace('\r', '')
+        if text or start != end:
+            self._changes[start].append((end, text))
 
     def __delitem__(self, key):
         """Remove the range of text."""
@@ -357,8 +361,11 @@ class Document(DocumentBase):
     that auto-updates the tokens.
     
     """
-    def __init__(self, text=''):
+    def __init__(self, text='', mode=None):
         super(Document, self).__init__()
+        self._fridge = ly.lex.Fridge()
+        self._mode = mode
+        self._guessed_mode = None
         self.setplaintext(text)
     
     def __len__(self):
@@ -368,17 +375,57 @@ class Document(DocumentBase):
     def __getitem__(self, index):
         """Return the block at the specified index."""
         return self._blocks[index]
+    
+    def setmode(self, mode):
+        """Sets the mode to one of the ly.lex modes.
         
+        Use None to auto-determine the mode.
+        
+        """
+        if mode not in ly.lex.modes:
+            mode = None
+        if mode == self._mode:
+            return
+        self._mode, old_mode = mode, self._mode
+        if not mode:
+            self._guessed_mode = ly.lex.guessMode(self.plaintext())
+            if self._guessed_mode == old_mode:
+                return
+        elif not old_mode:
+            if mode == self._guessed_mode:
+                return
+        self._update_all_tokens()
+    
+    def mode(self):
+        """Return the mode (lilypond, html, etc). None means automatic mode."""
+        return self._mode
+    
     def setplaintext(self, text):
-        lines = text.replace('\r', '').split('\n')
+        text = text.replace('\r', '')
+        lines = text.split('\n')
         self._blocks = [Block(t, n) for n, t in enumerate(lines)]
         pos = 0
         for b in self._blocks:
             b.position = pos
             pos += len(b.text) + 1
+        if not self._mode:
+            self._guessed_mode = ly.lex.guessMode(text)
+        self._update_all_tokens()
+    
+    def _update_all_tokens(self):
+        state = self.initial_state()
+        for b in self._blocks:
+            b.tokens = tuple(state.tokens(b.text))
+            b.state = self._fridge.freeze(state)
+    
+    def initial_state(self):
+        """Return the state at the beginning of the document."""
+        return ly.lex.state(self._mode or self._guessed_mode)
         
-        # TODO update all tokens
-        
+    def state_end(self, block):
+        """Return the state at the end of the specified block."""
+        return self._fridge.thaw(block.state)
+    
     def block(self, position):
         """Return the text block at the specified character position."""
         if 0 <= position <= self._blocks[-1].position + len(self._blocks[-1].text):
@@ -433,7 +480,9 @@ class Document(DocumentBase):
                     lines[-1] += s.text[start - s.position:]
                     s.text = s.text[:start - s.position] + lines[0]
                     self._blocks[s.index+1:s.index+1] = map(Block, lines[1:])
-                
+            # make sure this line gets reparsed
+            s.tokens = None
+        
         # update the position of all the new blocks
         pos = s.position
         for i, b in enumerate(self._blocks[s.index:], s.index):
@@ -441,8 +490,25 @@ class Document(DocumentBase):
             b.position = pos
             pos += len(b.text) + 1
         
-        # TODO update the tokens from block s
-
+        # if the initial state has changed, reparse everything
+        if not self._mode:
+            mode = ly.lex.guessMode(self.plaintext())
+            if mode != self._guessed_mode:
+                self._guessed_mode = mode
+                self._update_all_tokens()
+                return
+        
+        # update the tokens starting at block s
+        state = self.state(s)
+        reparse = False
+        for block in self._blocks[s.index:]:
+            if reparse or block.tokens is None:
+                block.tokens = tuple(state.tokens(block.text))
+                frozen = self._fridge.freeze(state)
+                reparse = block.state != frozen
+                block.state = frozen
+            else:
+                state = self._fridge.thaw(block.state)
 
 
 class Block(object):
@@ -789,7 +855,6 @@ class Source(object):
             start += self._doc.position(self.block)
         end = start + (len(t) if end is None else end)
         return slice(start, end)
-
     
     def position(self, token):
         """Returns the position of the token in the current block.
