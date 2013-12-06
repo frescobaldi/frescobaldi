@@ -73,9 +73,11 @@ class View(QPlainTextEdit):
         app.viewCreated(self)
 
     def event(self, ev):
-        # avoid the line separator, makes no sense in plain text
         if ev in (
+                # avoid the line separator, makes no sense in plain text
                 QKeySequence.InsertLineSeparator,
+                # those can better be called via the menu actions, then they
+                # work better
                 QKeySequence.Undo,
                 QKeySequence.Redo,
             ):
