@@ -63,9 +63,47 @@ def cursor(cursor, select_all=True):
     
 
 class LyDocument(ly.document.DocumentBase):
+    """LyDocument proxies a loaded Frescobaldi document (QTextDocument).
+    
+    This is used to let the tools in the ly module operate on Frescobaldi
+    documents.
+    
+    Creating a LyDocument is very fast, you do not need to save it. When 
+    applying the changes, LyDocument starts an editblock, so that the 
+    operations appears as one undo-item.
+    
+    It is recommended to not nest calls to QTextCursor.beginEditBlock(), as 
+    the highlighter is not called to update the tokens until the last 
+    endEditBlock() is called.
+    
+    Therefore LyDocument provides a simple mechanism for combining several 
+    change operations via the combine_undo attribute.
+    
+    If combine_undo is None (the default), the first time changes are applied
+    QTextCursor.beginEditBlock() will be called, but subsequent times 
+    QTextCursor.joinPreviousEditBlock() will be used. So the highlighter 
+    updates the tokens between the operations, but they will appear as one 
+    undo-item.
+    
+    If you want to combine the very first operation already with an earlier 
+    change, set combine_undo to True before the changes are applied (e.g. 
+    before entering or exiting the context).
+    
+    If you do not want to combine operations into a single undo-item at all,
+    set combine_undo to False.
+    
+    (Of course you can nest calls to QTextCursor.beginEditBlock(), but in 
+    that case the tokens will not be updated between your operations. If 
+    your operations do not depend on the tokens, it is no problem 
+    whatsoever. The tokens *are* updated after the last call to 
+    QTextCursor.endEditBlock().)
+    
+    """
+    
     def __init__(self, document):
         self._d = document
         super(LyDocument, self).__init__()
+        self.combine_undo = None
     
     def __len__(self):
         """Return the number of blocks"""
@@ -125,7 +163,7 @@ class LyDocument(ly.document.DocumentBase):
     def apply_changes(self):
         """Apply the changes and update the tokens."""
         c = QTextCursor(self._d)
-        c.beginEditBlock()
+        c.joinPreviousEditBlock() if self.combine_undo else c.beginEditBlock()
         try:
             changes = sorted(self._changes.items(), reverse=True)
             for start, items in changes:
@@ -135,6 +173,8 @@ class LyDocument(ly.document.DocumentBase):
                     c.insertText(text)
         finally:
             c.endEditBlock()
+            if self.combine_undo is None:
+                self.combine_undo = True
         
     def tokens(self, block):
         """Return the tuple of tokens of the specified block."""
