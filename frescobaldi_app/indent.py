@@ -42,6 +42,15 @@ scheme_sync_args = (
 )
 
 
+def indenter(document):
+    """Return a ly.indent.Indenter, setup for the document."""
+    indent_vars = indent_variables(document)
+    import ly.indent
+    i = ly.indent.Indenter()
+    i.indent_width = indent_vars['indent-width']
+    i.indent_tabs = indent_vars['indent-tabs']
+    return i
+    
 def auto_indent_block(block):
     """Auto-indents the given block."""
     set_indent(block, compute_indent(block))
@@ -157,26 +166,16 @@ def increase_indent(cursor):
     just inserts a Tab (or spaces).
     
     """
-    import ly.indent
     import lydocument
-    indent_vars = indent_variables(cursor.document())
-    i = ly.indent.Indenter()
-    i.indent_width = indent_vars['indent-width']
-    i.indent_tabs = indent_vars['indent-tabs']
     c = lydocument.cursor(cursor, select_all=False)
-    i.increase_indent(c)
+    indenter(cursor.document()).increase_indent(c)
 
 
 def decrease_indent(cursor):
     """Decreases the indent of the line the cursor is at (or the selected lines)."""
-    import ly.indent
     import lydocument
-    indent_vars = indent_variables(cursor.document())
-    i = ly.indent.Indenter()
-    i.indent_width = indent_vars['indent-width']
-    i.indent_tabs = indent_vars['indent-tabs']
     c = lydocument.cursor(cursor, select_all=False)
-    i.decrease_indent(c)
+    indenter(cursor.document()).decrease_indent(c)
 
 
 def change_indent(cursor, direction):

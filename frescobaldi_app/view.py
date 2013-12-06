@@ -80,8 +80,20 @@ class View(QPlainTextEdit):
         if ev.type() == QEvent.KeyPress:
             modifiers = int(ev.modifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
             if ev.key() == Qt.Key_Tab and modifiers == 0:
+                # tab pressed, TODO, move this outside View
+                cursor = self.textCursor()
+                if not cursor.hasSelection():
+                    block = cursor.block()
+                    text = block.text()[:cursor.position() - block.position()]
+                    if text and not text.isspace():
+                        # TODO respect the users setting document-tabs
+                        cursor.insertText('\t')
+                        return True
                 import indent
                 indent.increase_indent(self.textCursor())
+                cursor.movePosition(QTextCursor.StartOfBlock)
+                cursor.movePosition(QTextCursor.NextWord)
+                self.setTextCursor(cursor)
                 return True
             elif ev.key() == Qt.Key_Backtab and modifiers & ~Qt.SHIFT == 0:
                 import indent
