@@ -211,9 +211,10 @@ class DocumentBase(object):
         elif self._writing > 1:
             self._writing -= 1
     
-    def register_cursor(self, cursor):
+    def _register_cursor(self, cursor):
         """Make a weak reference to the cursor.
         
+        This is called by the constructor of the Cursor.
         The Cursor gets updated when the document is changed.
         
         """
@@ -532,7 +533,15 @@ class Cursor(object):
     
     You may change the start and end attributes yourself. As long as you 
     keep a reference to the Cursor, its positions are updated when the 
-    document changes.
+    document changes. When text is inserted at the start position, it remains
+    the same. But when text is inserted at the end of a cursor, the end 
+    position moves along with the new text. E.g.:
+    
+    d = Document('hi there, folks!')
+    c = Cursor(d, 8, 8)
+    with d:
+        d[8:8] = 'new text'
+    c.start, c.end --> (8, 16)
     
     Many tools in the ly module use this object to describe (part of) a
     document.
@@ -542,7 +551,7 @@ class Cursor(object):
         self.document = doc
         self.start = start
         self.end = end
-        doc.register_cursor(self)
+        doc._register_cursor(self)
 
     def start_block(self):
         return self.document.block(self.start)
