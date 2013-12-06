@@ -157,22 +157,26 @@ def increase_indent(cursor):
     just inserts a Tab (or spaces).
     
     """
-    if not change_indent(cursor, 1):
-        # just insert a tab
-        indent_vars = indent_variables(cursor.document())
-        if indent_vars['document-tabs']:
-            cursor.insertText('\t')
-        else:
-            block = cursor.block()
-            tabwidth = indent_vars['tab-width']
-            pos = column_position(block.text(), cursor.position() - block.position(), tabwidth)
-            spaces = tabwidth - pos % tabwidth
-            cursor.insertText(' ' * spaces)
+    import ly.indent
+    import lydocument
+    indent_vars = indent_variables(cursor.document())
+    i = ly.indent.Indenter()
+    i.indent_width = indent_vars['indent-width']
+    i.indent_tabs = indent_vars['indent-tabs']
+    c = lydocument.cursor(cursor, select_all=False)
+    i.increase_indent(c)
 
 
 def decrease_indent(cursor):
     """Decreases the indent of the line the cursor is at (or the selected lines)."""
-    change_indent(cursor, -1)
+    import ly.indent
+    import lydocument
+    indent_vars = indent_variables(cursor.document())
+    i = ly.indent.Indenter()
+    i.indent_width = indent_vars['indent-width']
+    i.indent_tabs = indent_vars['indent-tabs']
+    c = lydocument.cursor(cursor, select_all=False)
+    i.decrease_indent(c)
 
 
 def change_indent(cursor, direction):
