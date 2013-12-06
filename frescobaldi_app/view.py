@@ -85,9 +85,9 @@ class View(QPlainTextEdit):
         # handle Tab and Backtab
         if ev.type() == QEvent.KeyPress:
             cursor = self.textCursor()
-            modifiers = int(ev.modifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
-            if ev.key() == Qt.Key_Tab and modifiers == 0:
-                # tab pressed
+            if ev.key() == Qt.Key_Tab and ev.modifiers() == Qt.NoModifier:
+                # tab pressed, insert a tab when no selection and in text,
+                # else increase the indent
                 if not cursor.hasSelection():
                     block = cursor.block()
                     text = block.text()[:cursor.position() - block.position()]
@@ -95,11 +95,10 @@ class View(QPlainTextEdit):
                         if variables.get(self.document(), 'document-tabs', True):
                             cursor.insertText('\t')
                         else:
-                            import indent
                             tabwidth = variables.get(self.document(), 'tab-width', 8)
-                            pos = indent.column_position(text, tabwidth=tabwidth)
-                            spaces = tabwidth - pos % tabwidth
+                            spaces = tabwidth - len(text.expandtabs(tabwidth)) % tabwidth
                             cursor.insertText(' ' * spaces)
+                        self.setTextCursor(cursor)
                         return True
                 import indent
                 indent.increase_indent(cursor)
@@ -107,7 +106,8 @@ class View(QPlainTextEdit):
                     cursortools.strip_indent(cursor)
                     self.setTextCursor(cursor)
                 return True
-            elif ev.key() == Qt.Key_Backtab and modifiers & ~Qt.SHIFT == 0:
+            elif ev.key() == Qt.Key_Backtab and ev.modifiers() == Qt.ShiftModifier:
+                # shift-tab pressed, decrease the indent
                 import indent
                 indent.decrease_indent(cursor)
                 if not cursor.hasSelection():
