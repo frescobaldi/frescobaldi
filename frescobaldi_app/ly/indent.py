@@ -179,3 +179,17 @@ class Indenter(object):
 
 
 
+class Line(object):
+    """Brings together all relevant information about a line (block)."""
+    def __init__(self, tokens):
+        """Initialize with tuple of tokens."""
+        # (current) indent
+        self.indent = ""
+        if tokens:
+            t = tokens[0]
+            if isinstance(t, ly.lex.Space):
+                self.indent = t
+            elif isinstance(t, ly.lex.String) and not isinstance(t, ly.lex.StringStart):
+                self.indent = None  # NOT indentable
+        
+            
