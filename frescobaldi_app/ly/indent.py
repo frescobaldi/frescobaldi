@@ -80,116 +80,96 @@ class Indenter(object):
     
     def compute_indent(self, document, block):
         """Return the indent the given block should have."""
-        # count the dedent tokens at the beginning of the block
-        indents = 0
-        for token in document.tokens(block):
-            # dont dedent scheme dedent tokens at beginning of lines (unusual)
-            if isinstance(token, ly.lex.Dedent) and not isinstance(token, ly.lex.scheme.CloseParen):
-                indents -= 1
-            elif not isinstance(token, ly.lex.Space):
-                break
+        line = Line(document.tokens(block))
         
-        # look backwards for the token that starts this indent
-        prev = document.previous_block(block)
-        while document.isvalid(prev):
-            
-            tokens = document.tokens(prev)
-            state = document.state(prev)
-            
-            # do not look at the indent of certain blocks
-            if not tokens or isinstance(state.parser(), (
-                    ly.lex.lilypond.ParseString,
-                    ly.lex.scheme.ParseString,
-                )):
-                prev = document.previous_block(prev)
-            
-            closers = 0
-            found = False
-            lasttokens = []
-            
-            token = None # in case of empty line
-            
-            # find the token that starts this indent level, also watching
-            # other tokens that might appear after it
-            for token in reversed(tokens):
-                if isinstance(token, ly.lex.Dedent):
-                    indents -= 1
-                    if isinstance(token, ly.lex.scheme.CloseParen):
-                        closers = 0 # scheme close parens are not moved
-                    else:
-                        closers += 1
-                elif isinstance(token, ly.lex.Indent):
-                    indents += 1
-                    closers = 0
-                    if not found:
-                        if indents == 1:
-                            found = token
-                        else:
-                            lasttokens.append(token)
-                elif not isinstance(token, ly.lex.Space):
-                    closers = 0
-                    if not found:
-                        lasttokens.append(token)
-            
-            if isinstance(token, ly.lex.Space):
-                old_indent = token
-            else:
-                old_indent = ""
-            
-            indent_add = False
-            align_pos = 0
-            
-            if found:
-                # the token that started the current indent has been found.
-                # if there are no tokens after the indent-opener, take indent 
-                # of current line and increase, else dont increase the indent
-                # but align to the token after the indent-opener.
-                if isinstance(found, ly.lex.scheme.OpenParen):
-                    # scheme
-                    align_pos = found.pos
-                    indent_add = True
-                    if lasttokens:
-                        if len(lasttokens) == 1 or isinstance(lasttokens[-1], ly.lex.Indent):
-                            align_pos = lasttokens[-1].pos
-                            indent_add = False
-                        elif lasttokens[-1] in scheme_sync_args:
-                            align_pos = lasttokens[-2].pos
-                            indent_add = False
-                else:
-                    # no scheme (lilypond)
-                    if lasttokens:
-                        align_pos = lasttokens[-1].pos
-                    else:
-                        # just use current indent + INDENT_WIDTH
-                        align_pos = token.end if isinstance(token, ly.lex.Space) else 0
-                        indent_add = True
-            elif indents + closers != 0:
-                prev = document.previous_block(prev)
-                continue
-            
-            # take over indent of current line
-            break
-            
-            # translate indent to real columns (expanding tabs)
-            
-            return column_position(prev.text(), indent_pos, indent_vars['tab-width']) + indent_add
-        # e.g. on first line
-        return 0
-            
-
 
 
 class Line(object):
     """Brings together all relevant information about a line (block)."""
     def __init__(self, tokens):
-        """Initialize with tuple of tokens."""
-        # (current) indent
+        """Initialize with tuple of tokens.
+        
+        After init, the following attributes are set:
+        
+        indent
+        
+        The indent the current line has. This is a string containing 
+        whitespace (i.e. spaces and/or tabs) which can be empty. A special 
+        case is False, which means the current line is not indentable, e.g. 
+        it is a multiline string and should never be automatically be 
+        re-indented.
+        
+        
+        dedenters_start
+        
+        The number of dedent tokens that should cause the indenter to go a 
+        level up.
+        
+        
+        dedenters_end
+        
+        The number of dedent tokens that should cause the next line to go a 
+        level up.
+        
+        
+        indenters
+        
+        A list of two-item lists. The first item is the token that start a 
+        new indent which is still open at the end of the line, the second 
+        item (if not None) is a token after the indent token, the next line 
+        could align to. This can cause the indenter not to start a new 
+        indent level, but rather align stuff to the specified token's 
+        position.
+        
+        
+        """
+        
+        # current indent
         self.indent = ""
         if tokens:
             t = tokens[0]
             if isinstance(t, ly.lex.Space):
                 self.indent = t
             elif isinstance(t, ly.lex.String) and not isinstance(t, ly.lex.StringStart):
-                self.indent = None  # NOT indentable
+                self.indent = False
+
+        find_dedenters = True
+        self.dedenters_start = 0
+        self.dedenters_end = 0
+        self.indenters = i = []
         
-            
+        def add_alignable(token):
+            if i and (i[-1][1] is None or self.is_alignable_scheme_keyword(i[-1][1])):
+                i[-1][1] = token
+        
+        for t in tokens:
+            if isinstance(t, ly.lex.Indent):
+                find_dedenters = False
+                add_alignable(t)
+                i.append([t, None])
+            elif isinstance(t, ly.lex.Dedent):
+                if find_dedenters and not isinstance(t, ly.lex.scheme.CloseParen):
+                    self.dedenters_start += 1
+                else:
+                    find_dedenters = False
+                    if i:
+                        i.pop()
+                    else:
+                        self.dedenters_end += 1
+            elif not isinstance(t, ly.lex.Space):
+                find_dedenters = False
+                add_alignable(t)
+    
+    def is_alignable_scheme_keyword(self, token):
+        """Return True if token is an alignable Scheme word like "if", etc."""
+        return isinstance(token, ly.lex.scheme.Word) and token in (
+
+            # Scheme commands that can have one argument on the same line and 
+            # then want the next arguments on the next lines at the same 
+            # position.
+            'if', 'and', 'or', 'set!',
+            '=', '<', '<=', '>', '>=',
+            'eq?', 'eqv?', 'equal?',
+            'filter',
+        )
+
