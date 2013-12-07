@@ -77,6 +77,105 @@ class Indenter(object):
                         del d[end - self.indent_width: end]
                     else:
                         del d[pos:end]
+    
+    def compute_indent(self, document, block):
+        """Return the indent the given block should have."""
+        # count the dedent tokens at the beginning of the block
+        indents = 0
+        for token in document.tokens(block):
+            # dont dedent scheme dedent tokens at beginning of lines (unusual)
+            if isinstance(token, ly.lex.Dedent) and not isinstance(token, ly.lex.scheme.CloseParen):
+                indents -= 1
+            elif not isinstance(token, ly.lex.Space):
+                break
+        
+        # look backwards for the token that starts this indent
+        prev = document.previous_block(block)
+        while document.isvalid(prev):
+            
+            tokens = document.tokens(prev)
+            state = document.state(prev)
+            
+            # do not look at the indent of certain blocks
+            if not tokens or isinstance(state.parser(), (
+                    ly.lex.lilypond.ParseString,
+                    ly.lex.scheme.ParseString,
+                )):
+                prev = document.previous_block(prev)
+            
+            closers = 0
+            found = False
+            lasttokens = []
+            
+            token = None # in case of empty line
+            
+            # find the token that starts this indent level, also watching
+            # other tokens that might appear after it
+            for token in reversed(tokens):
+                if isinstance(token, ly.lex.Dedent):
+                    indents -= 1
+                    if isinstance(token, ly.lex.scheme.CloseParen):
+                        closers = 0 # scheme close parens are not moved
+                    else:
+                        closers += 1
+                elif isinstance(token, ly.lex.Indent):
+                    indents += 1
+                    closers = 0
+                    if not found:
+                        if indents == 1:
+                            found = token
+                        else:
+                            lasttokens.append(token)
+                elif not isinstance(token, ly.lex.Space):
+                    closers = 0
+                    if not found:
+                        lasttokens.append(token)
+            
+            if isinstance(token, ly.lex.Space):
+                old_indent = token
+            else:
+                old_indent = ""
+            
+            indent_add = False
+            align_pos = 0
+            
+            if found:
+                # the token that started the current indent has been found.
+                # if there are no tokens after the indent-opener, take indent 
+                # of current line and increase, else dont increase the indent
+                # but align to the token after the indent-opener.
+                if isinstance(found, ly.lex.scheme.OpenParen):
+                    # scheme
+                    align_pos = found.pos
+                    indent_add = True
+                    if lasttokens:
+                        if len(lasttokens) == 1 or isinstance(lasttokens[-1], ly.lex.Indent):
+                            align_pos = lasttokens[-1].pos
+                            indent_add = False
+                        elif lasttokens[-1] in scheme_sync_args:
+                            align_pos = lasttokens[-2].pos
+                            indent_add = False
+                else:
+                    # no scheme (lilypond)
+                    if lasttokens:
+                        align_pos = lasttokens[-1].pos
+                    else:
+                        # just use current indent + INDENT_WIDTH
+                        align_pos = token.end if isinstance(token, ly.lex.Space) else 0
+                        indent_add = True
+            elif indents + closers != 0:
+                prev = document.previous_block(prev)
+                continue
+            
+            # take over indent of current line
+            break
+            
+            # translate indent to real columns (expanding tabs)
+            
+            return column_position(prev.text(), indent_pos, indent_vars['tab-width']) + indent_add
+        # e.g. on first line
+        return 0
+            
 
 
 
