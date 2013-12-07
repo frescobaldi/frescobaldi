@@ -80,14 +80,14 @@ class Indenter(object):
     
     def compute_indent(self, document, block):
         """Return the indent the given block should have."""
-        line = Line(document.tokens(block))
+        line = Line(document, block)
         
 
 
 class Line(object):
     """Brings together all relevant information about a line (block)."""
-    def __init__(self, tokens):
-        """Initialize with tuple of tokens.
+    def __init__(self, document, block):
+        """Initialize with a block (line) of the document.
         
         After init, the following attributes are set:
         
@@ -123,15 +123,19 @@ class Line(object):
         
         
         """
+        state = document.state(block)
+        tokens = document.tokens(block)
         
-        # current indent
-        self.indent = ""
-        if tokens:
-            t = tokens[0]
-            if isinstance(t, ly.lex.Space):
-                self.indent = t
-            elif isinstance(t, ly.lex.String) and not isinstance(t, ly.lex.StringStart):
-                self.indent = False
+        # are we in a multi-line string?
+        if isinstance(state.parser(), (
+            ly.lex.lilypond.ParseString,
+            ly.lex.scheme.ParseString,
+            )):
+            self.indent = False
+        elif tokens and isinstance(tokens[0], ly.lex.Space):
+            self.indent = tokens[0]
+        else:
+            self.indent = ""
 
         find_dedenters = True
         self.dedenters_start = 0
