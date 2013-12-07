@@ -42,7 +42,7 @@ import highlighter
 
 
 def cursor(cursor, select_all=True):
-    """Return a ly.document.Cursor for the specified QTextCursor.
+    """Return a LyCursor for the specified QTextCursor.
     
     The ly Cursor is instantiated with a LyDocument proxying for the
     original cursors document.
@@ -59,8 +59,18 @@ def cursor(cursor, select_all=True):
         start, end = cursor.selectionStart(), cursor.selectionEnd()
     else:
         start, end = 0, None
-    return ly.document.Cursor(doc, start, end)
+    return LyCursor(doc, start, end)
     
+
+class LyCursor(ly.document.Cursor):
+    """A ly.document.Cursor with an extra textCursor() method."""
+    def textCursor(self):
+        """Return a QTextCursor with the same selection."""
+        c = QTextCursor(self.document)
+        c.movePosition(QTextCursor.End) if self.end is None else c.setPosition(self.end)
+        c.setPosition(self.start, QTextCursor.KeepAnchor)
+        return c
+
 
 class LyDocument(ly.document.DocumentBase):
     """LyDocument proxies a loaded Frescobaldi document (QTextDocument).
