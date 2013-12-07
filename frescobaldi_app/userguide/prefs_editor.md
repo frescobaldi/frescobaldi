@@ -28,4 +28,4 @@ Tab while in the middle of a line of text. Also here you can choose to insert
 a real Tab by moving the number to zero.
 
 #VARS
-menu menu tools -> &Automatic Indent
+menu_autoindent menu tools -> &Automatic Indent
