@@ -172,13 +172,11 @@ class Line(object):
         
         indenters
         
-        A list of two-item lists. The first item is the token that start a 
-        new indent which is still open at the end of the line, the second 
-        item (if not None) is a token after the indent token, the next line 
-        could align to. This can cause the indenter not to start a new 
-        indent level, but rather align stuff to the specified token's 
-        position.
-        
+        A list of tuples (align, indent). Each item corresponds with an 
+        indent that starts on the line. The align value (integer) determines 
+        the position the next line should be padded to with spaces, 0 or 
+        None means no alignment. The indent value (bool) specifies if there 
+        should a new indent level be added (a tab or some amount of spaces).
         
         """
         state = document.state(block)
