@@ -196,6 +196,8 @@ class Line(object):
         self.dedenters_start = 0
         self.dedenters_end = 0
         
+        # quickly iter over the tokens, collecting the indent tokens and 
+        # possible stuff to align to after the indent tokens
         indenters = []
         for t in tokens:
             if isinstance(t, ly.lex.Indent):
@@ -217,6 +219,8 @@ class Line(object):
                 if indenters:
                     indenters[-1].append(t)
         
+        # now analyse the indent tokens that are not closed on the same line
+        # and determine how the next line should be indented
         self.indenters = []
         for indent in indenters:
             token, rest = indent[0], indent[1:]
