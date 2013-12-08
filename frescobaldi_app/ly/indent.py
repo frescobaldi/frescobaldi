@@ -30,15 +30,16 @@ import ly.lex.scheme
 class Indenter(object):
     
     # variables
-    indent_tabs = False
-    indent_width = 2
+    align = True            # align to possible text after indent-starting token
+    indent_tabs = False     # use tabs for indent
+    indent_width = 2        # amount of spaces if indent_tabs == False
     
     def __init__(self):
         pass
     
     def indent(self, cursor):
         """Indent all lines in the cursor's range."""
-        
+    
     def increase_indent(self, cursor):
         """Manually add indent to all lines of cursor."""
         indent = '\t' if self.indent_tabs else ' ' * self.indent_width
@@ -78,10 +79,68 @@ class Indenter(object):
                     else:
                         del d[pos:end]
     
-    def compute_indent(self, document, block):
-        """Return the indent the given block should have."""
-        line = Line(document, block)
+    def get_indent(self, document, block):
+        """Return the indent the block currently has.
         
+        Returns False if the block is not indentable, e.g. when it is part of
+        a multiline string.
+        
+        """
+        return Line(document, block).indent
+    
+    def compute_indent(self, document, block):
+        """Return the indent the specified block should have.
+        
+        Returns False if the block is not indentable, e.g. when it is part of
+        a multiline string.
+        
+        This method is used to determine the indent of one line, and just 
+        looks to previous lines, copying the indent of the line where the 
+        current indent depth starts, and/or adding a level of indent or 
+        alignment space.
+        
+        Use this method only for one line or the first of a group you're 
+        indenting.
+        
+        """
+        line = Line(document, block)
+        if line.indent is False:
+            return False
+        depth = line.dedenters_start
+        blocks = document.blocks_backward(document.previous_block(block))
+        align = False
+        for b in blocks:
+            line = Line(document, b)
+            indents = len(line.indenters)
+            if 0 <= depth < indents:
+                # we found the indent token
+                index = indents - depth - 1
+                align = line.indenters[index][1]
+                break
+            depth -= indents
+            depth += line.dedenters_end
+            if depth == 0:
+                # same indent as this line
+                break
+            depth += line.dedenters_start
+        else:
+            return ""
+        
+        # here we arrive after 'break'
+        indent = line.indent
+        if indent == False:
+            for b in blocks:
+                indent = Line(document, b).indent
+                if indent != False:
+                    break
+            else:
+                indent = ""
+        
+        if align and self.align:
+            indent += ' ' * (align.pos - len(indent))
+        elif align != False:
+            indent += '\t' if self.indent_tabs else ' ' * self.indent_width
+        return indent
 
 
 class Line(object):
