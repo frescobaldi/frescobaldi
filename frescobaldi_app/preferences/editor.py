@@ -51,6 +51,7 @@ class Editor(preferences.GroupsPage):
         scrollarea.setWidgetResizable(True)
         
         layout.addWidget(Highlighting(self))
+        layout.addWidget(Indenting(self))
         layout.addStretch()
 
 
@@ -107,3 +108,75 @@ class Highlighting(preferences.Group):
         s.beginGroup("editor_highlighting")
         for name, title, default in self.items():
             s.setValue(name, self.entries[name].value())
+
+
+class Indenting(preferences.Group):
+    def __init__(self, page):
+        super(Indenting, self).__init__(page)
+        
+        layout = QGridLayout(spacing=1)
+        self.setLayout(layout)
+        
+        self.tabwidthBox = QSpinBox(minimum=1, maximum=99)
+        self.tabwidthLabel = l = QLabel()
+        l.setBuddy(self.tabwidthBox)
+        
+        self.nspacesBox = QSpinBox(minimum=0, maximum=99)
+        self.nspacesLabel = l = QLabel()
+        l.setBuddy(self.nspacesBox)
+        
+        self.dspacesBox = QSpinBox(minimum=0, maximum=99)
+        self.dspacesLabel = l = QLabel()
+        l.setBuddy(self.dspacesBox)
+        
+        layout.addWidget(self.tabwidthLabel, 0, 0)
+        layout.addWidget(self.tabwidthBox, 0, 1)
+        layout.addWidget(self.nspacesLabel, 1, 0)
+        layout.addWidget(self.nspacesBox, 1, 1)
+        layout.addWidget(self.dspacesLabel, 2, 0)
+        layout.addWidget(self.dspacesBox, 2, 1)
+        
+        self.tabwidthBox.valueChanged.connect(page.changed)
+        self.nspacesBox.valueChanged.connect(page.changed)
+        self.dspacesBox.valueChanged.connect(page.changed)
+        self.translateUI()
+        
+    def translateUI(self):
+        self.setTitle(_("Indenting Preferences"))
+        self.tabwidthLabel.setText(_("Visible Tab Width:"))
+        self.tabwidthBox.setToolTip(_(
+            "The visible width of a Tab character in the editor."))
+        self.nspacesLabel.setText(_("Indent text with:"))
+        self.nspacesBox.setToolTip(_(
+            "How many spaces to use for indenting one level.\n"
+            "Move to zero to use a Tab character for indenting."))
+        self.nspacesBox.setSpecialValueText(_("Tab"))
+        self.dspacesLabel.setText(_("Tab ouside indent inserts:"))
+        self.dspacesBox.setToolTip(_(
+            "How many spaces to insert when Tab is pressed outside the indent, "
+            "elsewhere in the document.\n"
+            "Move to zero to insert a literal Tab character in this case."))
+        self.nspacesBox.setSpecialValueText(_("Tab"))
+        self.dspacesBox.setSpecialValueText(_("Tab"))
+        # L10N: abbreviation for "n spaces" in spinbox, n >= 1, no plural forms
+        prefix, suffix = _("{num} spaces").split("{num}")
+        self.nspacesBox.setPrefix(prefix)
+        self.nspacesBox.setSuffix(suffix)
+        self.dspacesBox.setPrefix(prefix)
+        self.dspacesBox.setSuffix(suffix)
+
+    def loadSettings(self):
+        s = QSettings()
+        s.beginGroup("indent")
+        self.tabwidthBox.setValue(s.value("tab_width", 8, int))
+        self.nspacesBox.setValue(s.value("indent_spaces", 2, int))
+        self.dspacesBox.setValue(s.value("document_spaces", 8, int))
+    
+    def saveSettings(self):
+        s = QSettings()
+        s.beginGroup("indent")
+        s.setValue("tab_width", self.tabwidthBox.value())
+        s.setValue("indent_spaces", self.nspacesBox.value())
+        s.setValue("document_spaces", self.dspacesBox.value())
+
+

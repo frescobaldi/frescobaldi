@@ -50,14 +50,14 @@ Cursor
 Defines a range or position in a Document.
 
 
-TokenCursor
-===========
+Runner
+======
 
-A TokenCursor allows iterating back and forth over the tokens of a document.
+A Runner allows iterating back and forth over the tokens of a document.
 
 
-TokenIterator
-=============
+Source
+======
 
 Iterate over tokens in a (part of a) Document, with or without state.
 
@@ -71,6 +71,8 @@ import sys
 import operator
 import collections
 import weakref
+
+import ly.lex
 
 
 class DocumentBase(object):
@@ -209,9 +211,10 @@ class DocumentBase(object):
         elif self._writing > 1:
             self._writing -= 1
     
-    def register_cursor(self, cursor):
+    def _register_cursor(self, cursor):
         """Make a weak reference to the cursor.
         
+        This is called by the constructor of the Cursor.
         The Cursor gets updated when the document is changed.
         
         """
@@ -344,7 +347,9 @@ class DocumentBase(object):
         else:
             start = key
             end = start + 1
-        self._changes[start].append((end, text.replace('\r', '')))
+        text = text.replace('\r', '')
+        if text or start != end:
+            self._changes[start].append((end, text))
 
     def __delitem__(self, key):
         """Remove the range of text."""
@@ -357,8 +362,11 @@ class Document(DocumentBase):
     that auto-updates the tokens.
     
     """
-    def __init__(self, text=''):
+    def __init__(self, text='', mode=None):
         super(Document, self).__init__()
+        self._fridge = ly.lex.Fridge()
+        self._mode = mode
+        self._guessed_mode = None
         self.setplaintext(text)
     
     def __len__(self):
@@ -368,17 +376,57 @@ class Document(DocumentBase):
     def __getitem__(self, index):
         """Return the block at the specified index."""
         return self._blocks[index]
+    
+    def setmode(self, mode):
+        """Sets the mode to one of the ly.lex modes.
         
+        Use None to auto-determine the mode.
+        
+        """
+        if mode not in ly.lex.modes:
+            mode = None
+        if mode == self._mode:
+            return
+        self._mode, old_mode = mode, self._mode
+        if not mode:
+            self._guessed_mode = ly.lex.guessMode(self.plaintext())
+            if self._guessed_mode == old_mode:
+                return
+        elif not old_mode:
+            if mode == self._guessed_mode:
+                return
+        self._update_all_tokens()
+    
+    def mode(self):
+        """Return the mode (lilypond, html, etc). None means automatic mode."""
+        return self._mode
+    
     def setplaintext(self, text):
-        lines = text.replace('\r', '').split('\n')
+        text = text.replace('\r', '')
+        lines = text.split('\n')
         self._blocks = [Block(t, n) for n, t in enumerate(lines)]
         pos = 0
         for b in self._blocks:
             b.position = pos
             pos += len(b.text) + 1
+        if not self._mode:
+            self._guessed_mode = ly.lex.guessMode(text)
+        self._update_all_tokens()
+    
+    def _update_all_tokens(self):
+        state = self.initial_state()
+        for b in self._blocks:
+            b.tokens = tuple(state.tokens(b.text))
+            b.state = self._fridge.freeze(state)
+    
+    def initial_state(self):
+        """Return the state at the beginning of the document."""
+        return ly.lex.state(self._mode or self._guessed_mode)
         
-        # TODO update all tokens
-        
+    def state_end(self, block):
+        """Return the state at the end of the specified block."""
+        return self._fridge.thaw(block.state)
+    
     def block(self, position):
         """Return the text block at the specified character position."""
         if 0 <= position <= self._blocks[-1].position + len(self._blocks[-1].text):
@@ -433,7 +481,9 @@ class Document(DocumentBase):
                     lines[-1] += s.text[start - s.position:]
                     s.text = s.text[:start - s.position] + lines[0]
                     self._blocks[s.index+1:s.index+1] = map(Block, lines[1:])
-                
+            # make sure this line gets reparsed
+            s.tokens = None
+        
         # update the position of all the new blocks
         pos = s.position
         for i, b in enumerate(self._blocks[s.index:], s.index):
@@ -441,8 +491,25 @@ class Document(DocumentBase):
             b.position = pos
             pos += len(b.text) + 1
         
-        # TODO update the tokens from block s
-
+        # if the initial state has changed, reparse everything
+        if not self._mode:
+            mode = ly.lex.guessMode(self.plaintext())
+            if mode != self._guessed_mode:
+                self._guessed_mode = mode
+                self._update_all_tokens()
+                return
+        
+        # update the tokens starting at block s
+        state = self.state(s)
+        reparse = False
+        for block in self._blocks[s.index:]:
+            if reparse or block.tokens is None:
+                block.tokens = tuple(state.tokens(block.text))
+                frozen = self._fridge.freeze(state)
+                reparse = block.state != frozen
+                block.state = frozen
+            else:
+                state = self._fridge.thaw(block.state)
 
 
 class Block(object):
@@ -466,7 +533,15 @@ class Cursor(object):
     
     You may change the start and end attributes yourself. As long as you 
     keep a reference to the Cursor, its positions are updated when the 
-    document changes.
+    document changes. When text is inserted at the start position, it remains
+    the same. But when text is inserted at the end of a cursor, the end 
+    position moves along with the new text. E.g.:
+    
+    d = Document('hi there, folks!')
+    c = Cursor(d, 8, 8)
+    with d:
+        d[8:8] = 'new text'
+    c.start, c.end --> (8, 16)
     
     Many tools in the ly module use this object to describe (part of) a
     document.
@@ -476,7 +551,7 @@ class Cursor(object):
         self.document = doc
         self.start = start
         self.end = end
-        doc.register_cursor(self)
+        doc._register_cursor(self)
 
     def start_block(self):
         return self.document.block(self.start)
@@ -495,10 +570,10 @@ class Cursor(object):
                 break
 
 
-class TokenCursor(object):
+class Runner(object):
     """Iterates back and forth over tokens.
     
-    A TokenCursor can stop anywhere and remembers its current token.
+    A Runner can stop anywhere and remembers its current token.
     
     """
     def __init__(self, doc, tokens_with_position=False):
@@ -517,7 +592,7 @@ class TokenCursor(object):
         return self._doc
     
     def set_position(self, position, after_token=False):
-        """Positions the TokenCursor at the specified position.
+        """Positions the Runner at the specified position.
         
         Set after_token to True if you want to position the cursor after the
         token, so that it gets yielded when you go backward.
@@ -534,7 +609,7 @@ class TokenCursor(object):
             self._index += 1
         
     def move_to_block(self, block, at_end=False):
-        """Positions the TokenCursor at the start of the given QTextBlock.
+        """Positions the Runner at the start of the given QTextBlock.
         
         If at_end == True, the iterator is positioned past the end of the block.
         
@@ -632,7 +707,7 @@ class TokenCursor(object):
         return slice(start, end)
 
     def copy(self):
-        """Return a new TokenCursor at the current position."""
+        """Return a new Runner at the current position."""
         obj = type(self)(self._doc, self._wp)
         obj.block = self.block
         obj._tokens = self._tokens
@@ -645,7 +720,7 @@ PARTIAL = 0
 INSIDE  = 1
 
 
-class TokenIterator(object):
+class Source(object):
     """Helper iterator.
     
     Iterates over the (block, tokens) tuples from a Document (or a part 
@@ -789,7 +864,6 @@ class TokenIterator(object):
             start += self._doc.position(self.block)
         end = start + (len(t) if end is None else end)
         return slice(start, end)
-
     
     def position(self, token):
         """Returns the position of the token in the current block.

@@ -73,19 +73,46 @@ class View(QPlainTextEdit):
         app.viewCreated(self)
 
     def event(self, ev):
-        # avoid the line separator, makes no sense in plain text
-        if ev == QKeySequence.InsertLineSeparator:
+        if ev in (
+                # avoid the line separator, makes no sense in plain text
+                QKeySequence.InsertLineSeparator,
+                # those can better be called via the menu actions, then they
+                # work better
+                QKeySequence.Undo,
+                QKeySequence.Redo,
+            ):
             return False
         # handle Tab and Backtab
         if ev.type() == QEvent.KeyPress:
-            modifiers = int(ev.modifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
-            if ev.key() == Qt.Key_Tab and modifiers == 0:
+            cursor = self.textCursor()
+            if ev.key() == Qt.Key_Tab and ev.modifiers() == Qt.NoModifier:
+                # tab pressed, insert a tab when no selection and in text,
+                # else increase the indent
+                if not cursor.hasSelection():
+                    block = cursor.block()
+                    text = block.text()[:cursor.position() - block.position()]
+                    if text and not text.isspace():
+                        if variables.get(self.document(), 'document-tabs', True):
+                            cursor.insertText('\t')
+                        else:
+                            tabwidth = variables.get(self.document(), 'tab-width', 8)
+                            spaces = tabwidth - len(text.expandtabs(tabwidth)) % tabwidth
+                            cursor.insertText(' ' * spaces)
+                        self.setTextCursor(cursor)
+                        return True
                 import indent
-                indent.increase_indent(self.textCursor())
+                indent.increase_indent(cursor)
+                if not cursor.hasSelection():
+                    cursortools.strip_indent(cursor)
+                    self.setTextCursor(cursor)
                 return True
-            elif ev.key() == Qt.Key_Backtab and modifiers & ~Qt.SHIFT == 0:
+            elif ev.key() == Qt.Key_Backtab and ev.modifiers() == Qt.ShiftModifier:
+                # shift-tab pressed, decrease the indent
                 import indent
-                indent.decrease_indent(self.textCursor())
+                indent.decrease_indent(cursor)
+                if not cursor.hasSelection():
+                    cursortools.strip_indent(cursor)
+                    self.setTextCursor(cursor)
                 return True
         return super(View, self).event(ev)
 

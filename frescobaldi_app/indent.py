@@ -23,6 +23,7 @@ Indent and auto-indent.
 
 from __future__ import unicode_literals
 
+from PyQt4.QtCore import QSettings
 from PyQt4.QtGui import QTextCursor
 
 import ly.lex
@@ -42,6 +43,30 @@ scheme_sync_args = (
 )
 
 
+def indent_variables(document):
+    """Return a dictionary with the indent variables for the document."""
+    s = QSettings()
+    s.beginGroup("indent")
+    nspaces = s.value("indent_spaces", 2, int)
+    tabwidth = s.value("tab_width", 8, int)
+    dspaces = s.value("document_spaces", 8, int)
+    return variables.update(document, {
+        'indent-tabs': nspaces == 0,
+        'indent-width': 2 if nspaces == 0 else nspaces,
+        'tab-width': tabwidth,
+        'document-tabs': dspaces == 0,
+        'document-tab-width': 8 if dspaces == 0 else dspaces,
+    })
+    
+def indenter(document):
+    """Return a ly.indent.Indenter, setup for the document."""
+    indent_vars = indent_variables(document)
+    import ly.indent
+    i = ly.indent.Indenter()
+    i.indent_width = indent_vars['indent-width']
+    i.indent_tabs = indent_vars['indent-tabs']
+    return i
+    
 def auto_indent_block(block):
     """Auto-indents the given block."""
     set_indent(block, compute_indent(block))
@@ -157,22 +182,16 @@ def increase_indent(cursor):
     just inserts a Tab (or spaces).
     
     """
-    if not change_indent(cursor, 1):
-        # just insert a tab
-        indent_vars = indent_variables(cursor.document())
-        if indent_vars['document-tabs']:
-            cursor.insertText('\t')
-        else:
-            block = cursor.block()
-            tabwidth = indent_vars['tab-width']
-            pos = column_position(block.text(), cursor.position() - block.position(), tabwidth)
-            spaces = tabwidth - pos % tabwidth
-            cursor.insertText(' ' * spaces)
+    import lydocument
+    c = lydocument.cursor(cursor, select_all=False)
+    indenter(cursor.document()).increase_indent(c)
 
 
 def decrease_indent(cursor):
     """Decreases the indent of the line the cursor is at (or the selected lines)."""
-    change_indent(cursor, -1)
+    import lydocument
+    c = lydocument.cursor(cursor, select_all=False)
+    indenter(cursor.document()).decrease_indent(c)
 
 
 def change_indent(cursor, direction):
@@ -255,16 +274,6 @@ def set_indent(block, indent):
     if changed:
         cursor.insertText(space)
     return changed
-
-
-def indent_variables(document):
-    """Returns a dictionary with some variables regarding document indenting."""
-    return variables.update(document, {
-        'indent-width': 2,
-        'tab-width': 8,
-        'indent-tabs': False,
-        'document-tabs': True,
-    })
 
 
 def column_position(text, position=None, tabwidth = 8):

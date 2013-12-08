@@ -74,9 +74,10 @@ def rhythm_apply(cursor, mainwindow):
         complete = sorted(_history),
         regexp = r'([0-9./* ]|\\breve|\\longa|\\maxima)+',
         help = "rhythm", icon = icons.get('tools-rhythm'))
-    if durs and durs.split():
+    durations = durs.split()
+    if durations:
         _history.add(durs.strip())
-    ly.rhythm.rhythm_overwrite(lydocument.cursor(cursor), durs)
+    ly.rhythm.rhythm_overwrite(lydocument.cursor(cursor), durations)
 
 def rhythm_copy(cursor):
     _clipboard[:] = ly.rhythm.rhythm_extract(lydocument.cursor(cursor))
