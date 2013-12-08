@@ -127,6 +127,8 @@ class View(QPlainTextEdit):
             cursor = self.textCursor()
             if ev.text() == '\r' or (ev.text() in ('}', '#', '>') and indent.indentable(cursor)):
                 indent.auto_indent_block(cursor.block())
+                # fix subsequent vertical moves
+                cursor.setPosition(cursor.position())
                 self.setTextCursor(cursor)
             
     def focusOutEvent(self, ev):
