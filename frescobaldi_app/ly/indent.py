@@ -108,14 +108,14 @@ class Indenter(object):
             return False
         depth = line.dedenters_start
         blocks = document.blocks_backward(document.previous_block(block))
-        align = False
+        align, indent = None, False
         for b in blocks:
             line = Line(document, b)
             indents = len(line.indenters)
             if 0 <= depth < indents:
                 # we found the indent token
                 index = indents - depth - 1
-                align = line.indenters[index][1]
+                align, indent = line.indenters[index]
                 break
             depth -= indents
             depth += line.dedenters_end
@@ -127,19 +127,19 @@ class Indenter(object):
             return ""
         
         # here we arrive after 'break'
-        indent = line.indent
-        if indent == False:
+        i = line.indent
+        if i == False:
             for b in blocks:
-                indent = Line(document, b).indent
-                if indent != False:
+                i = Line(document, b).indent
+                if i != False:
                     break
             else:
-                indent = ""
+                i = ""
         if align and self.align:
-            indent += ' ' * (align.pos - len(indent))
-        elif align is not False:
-            indent += '\t' if self.indent_tabs else ' ' * self.indent_width
-        return indent
+            i += ' ' * (align - len(i))
+        if indent:
+            i += '\t' if self.indent_tabs else ' ' * self.indent_width
+        return i
 
 
 class Line(object):
@@ -198,33 +198,43 @@ class Line(object):
         find_dedenters = True
         self.dedenters_start = 0
         self.dedenters_end = 0
-        self.indenters = i = []
         
-        def add_alignable(token):
-            if i:
-                if i[-1][1] is None or self.is_alignable_scheme_keyword(i[-1][1]):
-                    i[-1][1] = token
-                elif isinstance(i[-1][0], ly.lex.scheme.OpenParen):
-                    # dont align if there is more than one token after "("
-                    i[-1][1] = 0
-        
+        indenters = []
         for t in tokens:
             if isinstance(t, ly.lex.Indent):
                 find_dedenters = False
-                add_alignable(t)
-                i.append([t, None])
+                if indenters:
+                    indenters[-1].append(t)
+                indenters.append([t])
             elif isinstance(t, ly.lex.Dedent):
                 if find_dedenters and not isinstance(t, ly.lex.scheme.CloseParen):
                     self.dedenters_start += 1
                 else:
                     find_dedenters = False
-                    if i:
-                        i.pop()
+                    if indenters:
+                        indenters.pop()
                     else:
                         self.dedenters_end += 1
             elif not isinstance(t, ly.lex.Space):
                 find_dedenters = False
-                add_alignable(t)
+                if indenters:
+                    indenters[-1].append(t)
+        
+        self.indenters = []
+        for indent in indenters:
+            token, rest = indent[0], indent[1:]
+            if isinstance(token, ly.lex.scheme.OpenParen):
+                if len(rest) > 1 and self.is_alignable_scheme_keyword(rest[0]):
+                    align, indent = rest[1].pos, False
+                elif len(rest) == 1:
+                    align, indent = rest[0].pos, False
+                else:
+                    align, indent = token.pos, True
+            elif rest:
+                align, indent = rest[0].pos, False
+            else:
+                align, indent = None, True
+            self.indenters.append((align, indent))
     
     def is_alignable_scheme_keyword(self, token):
         """Return True if token is an alignable Scheme word like "if", etc."""
