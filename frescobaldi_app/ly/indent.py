@@ -30,7 +30,6 @@ import ly.lex.scheme
 class Indenter(object):
     
     # variables
-    align = True            # align to possible text after indent-starting token
     indent_tabs = False     # use tabs for indent
     indent_width = 2        # amount of spaces if indent_tabs == False
     
@@ -135,7 +134,7 @@ class Indenter(object):
                     break
             else:
                 i = ""
-        if align and self.align:
+        if align:
             i += ' ' * (align - len(i))
         if indent:
             i += '\t' if self.indent_tabs else ' ' * self.indent_width
