@@ -135,10 +135,9 @@ class Indenter(object):
                     break
             else:
                 indent = ""
-        
         if align and self.align:
             indent += ' ' * (align.pos - len(indent))
-        elif align != False:
+        elif align is not False:
             indent += '\t' if self.indent_tabs else ' ' * self.indent_width
         return indent
 
@@ -202,8 +201,12 @@ class Line(object):
         self.indenters = i = []
         
         def add_alignable(token):
-            if i and (i[-1][1] is None or self.is_alignable_scheme_keyword(i[-1][1])):
-                i[-1][1] = token
+            if i:
+                if i[-1][1] is None or self.is_alignable_scheme_keyword(i[-1][1]):
+                    i[-1][1] = token
+                elif isinstance(i[-1][0], ly.lex.scheme.OpenParen):
+                    # dont align if there is more than one token after "("
+                    i[-1][1] = 0
         
         for t in tokens:
             if isinstance(t, ly.lex.Indent):
