@@ -179,7 +179,7 @@ def indentable(cursor):
     for token in tokeniter.tokens(block):
         if token.end >= pos:
             return isinstance(token, ly.lex.Dedent)
-        elif not isinstance(token, ly.lex.Space):
+        elif not isinstance(token, (ly.lex.Space, ly.lex.Dedent)):
             return
 
 
