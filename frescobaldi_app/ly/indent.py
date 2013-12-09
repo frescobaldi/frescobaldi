@@ -69,7 +69,7 @@ class Indenter(object):
                 if line.indent is not False:
                     if not in_range:
                         indents[-1] = line.indent
-                    else:
+                    elif line.indent != indents[-1]:
                         d[d.position(b):d.position(b)+len(line.indent)] = indents[-1]
                 del indents[max(1, len(indents) - line.dedenters_end):]
                 
