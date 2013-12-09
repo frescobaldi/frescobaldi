@@ -38,6 +38,57 @@ class Indenter(object):
     
     def indent(self, cursor):
         """Indent all lines in the cursor's range."""
+        indents = ['']
+        start_block, end_block = cursor.start_block(), cursor.end_block()
+        in_range = False
+        depth = 0
+        pline = None
+        prev_indent = ''
+        with cursor.document as d:
+            for b in cursor.document:
+                if b == start_block:
+                    in_range = True
+                
+                line = Line(d, b)
+                
+                # handle indents of prev line
+                if pline:
+                    if pline.indent != False:
+                        prev_indent = pline.indent
+                    if pline.indenters:
+                        current_indent = indents[-1]
+                        for align, indent in pline.indenters:
+                            new_indent = current_indent
+                            if align:
+                                align = align - len(prev_indent) + len(current_indent)
+                                new_indent += ' ' * align
+                            if indent:
+                                new_indent += '\t' if self.indent_tabs else ' ' * self.indent_width
+                            indents.append(new_indent)
+                            depth += 1
+    
+                for i in range(line.dedenters_start):
+                    if len(indents) > 1:
+                        indents.pop()
+                    depth -= 1
+                
+                # if we may not change the indent just remember the current
+                if line.indent is not False:
+                    if not in_range:
+                        indents[-1] = line.indent
+                    else:
+                        d[d.position(b):d.position(b)+len(line.indent)] = indents[-1]
+                
+                for i in range(line.dedenters_end):
+                    if len(indents) > 1:
+                        indents.pop()
+                    depth -= 1
+                
+                if b == end_block:
+                    break
+                
+                pline = line
+    
     
     def increase_indent(self, cursor):
         """Manually add indent to all lines of cursor."""

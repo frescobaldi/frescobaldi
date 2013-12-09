@@ -234,19 +234,9 @@ def change_indent(cursor, direction):
 
 def re_indent(cursor):
     """Re-indents the selected region or the whole document."""
-    if cursor.hasSelection():
-        blocks = cursortools.blocks(cursor)
-    else:
-        blocks = cursortools.all_blocks(cursor.document())
-    with cursortools.compress_undo(cursor):
-        for block in blocks:
-            tokeniter.update(block)
-            if tokeniter.state(block).mode() in ('lilypond', 'scheme'):
-                indent = compute_indent(block)
-            else:
-                indent = get_indent(block)
-            if set_indent(block, indent):
-                tokeniter.update(block) # force token update if changed
+    import lydocument
+    c = lydocument.cursor(cursor)
+    indenter(cursor.document()).indent(c)
 
 
 def get_indent(block):
