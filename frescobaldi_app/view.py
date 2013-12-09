@@ -28,7 +28,7 @@ from __future__ import unicode_literals
 
 import weakref
 
-from PyQt4.QtCore import QEvent, Qt, QTimer, pyqtSignal
+from PyQt4.QtCore import QEvent, QSettings, Qt, QTimer, pyqtSignal
 from PyQt4.QtGui import (
     QApplication, QKeySequence, QPainter, QPlainTextEdit, QTextCursor)
 
@@ -194,7 +194,8 @@ class View(QPlainTextEdit):
 
     def setTabWidth(self):
         """(Internal) Reads the tab-width variable and the font settings to set the tabStopWidth."""
-        tabwidth = self.fontMetrics().width(" ") * variables.get(self.document(), 'tab-width', 8)
+        tabwidth = QSettings().value("indent/tab_width", 8, int)
+        tabwidth = self.fontMetrics().width(" ") * variables.get(self.document(), 'tab-width', tabwidth)
         self.setTabStopWidth(tabwidth)
 
 
