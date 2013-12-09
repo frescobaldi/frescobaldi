@@ -28,6 +28,7 @@ from PyQt4.QtGui import QTextCursor, QMessageBox
 
 import cursortools
 import tokeniter
+import indent
 
 from . import snippets
 from . import expand
@@ -61,8 +62,8 @@ def insert(name, view):
     if last != block and 'no' not in variables.get('indent', ''):
         c = QTextCursor(last)
         c.setPosition(block.position(), QTextCursor.KeepAnchor)
-        import indent
-        indent.re_indent(c, combine_undo=True)
+        with cursortools.compress_undo(c, True):
+            indent.re_indent(c)
     
     if not new and 'keep' in selection:
         end = cursor.position()

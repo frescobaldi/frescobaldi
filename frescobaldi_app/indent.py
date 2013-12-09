@@ -24,13 +24,13 @@ Indent and auto-indent.
 from __future__ import unicode_literals
 
 from PyQt4.QtCore import QSettings
-from PyQt4.QtGui import QTextCursor
 
 import ly.lex
-import ly.lex.scheme
+import ly.indent
 import cursortools
 import tokeniter
 import variables
+import lydocument
 
 
 def indent_variables(document):
@@ -51,7 +51,6 @@ def indent_variables(document):
 def indenter(document):
     """Return a ly.indent.Indenter, setup for the document."""
     indent_vars = indent_variables(document)
-    import ly.indent
     i = ly.indent.Indenter()
     i.indent_width = indent_vars['indent-width']
     i.indent_tabs = indent_vars['indent-tabs']
@@ -59,7 +58,6 @@ def indenter(document):
     
 def auto_indent_block(block):
     """Auto-indents the given block."""
-    import lydocument
     i = indenter(block.document())
     d = lydocument.LyDocument(block.document())
     current_indent = i.get_indent(d, block)
@@ -87,38 +85,16 @@ def increase_indent(cursor):
     just inserts a Tab (or spaces).
     
     """
-    import lydocument
     c = lydocument.cursor(cursor, select_all=False)
     indenter(cursor.document()).increase_indent(c)
 
 def decrease_indent(cursor):
     """Decreases the indent of the line the cursor is at (or the selected lines)."""
-    import lydocument
     c = lydocument.cursor(cursor, select_all=False)
     indenter(cursor.document()).decrease_indent(c)
 
-def re_indent(cursor, combine_undo=False):
-    """Re-indents the selected region or the whole document.
-    
-    If combine_undo is True, joins the action with the previous undo-able 
-    action.
-    
-    """
-    import lydocument
+def re_indent(cursor):
+    """Re-indents the selected region or the whole document."""
     c = lydocument.cursor(cursor)
-    if combine_undo:
-        c.document.combine_undo = True
-    indenter(cursor.document()).indent(c)
-
-def insert_text(cursor, text):
-    """Inserts text and indents it if there are newlines in it."""
-    if '\n' not in text:
-        cursor.insertText(text)
-        return
-    import lydocument
-    c = lydocument.cursor(cursor, select_all=False)
-    with c.document as d:
-        d.combine_undo = True
-        d[c.start:c.end] = text
     indenter(cursor.document()).indent(c)
 

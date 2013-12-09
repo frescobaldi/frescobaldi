@@ -140,11 +140,13 @@ class ButtonGroup(QGroupBox):
         cursor = self.mainwindow().textCursor()
         if blankline and not cursor.hasSelection() and not cursortools.isblank_before(cursor):
             text = '\n' + text
+        pos = cursor.selectionStart()
+        cursor.insertText(text)
         if indent and '\n' in text:
+            cursor.setPosition(pos, cursor.KeepAnchor)
             import indent
-            indent.insert_text(cursor, text)
-        else:
-            cursor.insertText(text)
+            with cursortools.compress_undo(cursor, True):
+                indent.re_indent(cursor)
 
 
 class Button(QToolButton):

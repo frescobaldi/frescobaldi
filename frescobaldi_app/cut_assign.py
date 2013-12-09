@@ -84,11 +84,13 @@ def cut_assign(cursor):
     text = cursor.selection().toPlainText()
     space = '\n' if '\n' in text else ' '
     text = ''.join((name, ' =', mode, ' {', space, text, space, '}\n\n'))
-    cursor.insertText('\\' + name)
+    with cursortools.compress_undo(cursor):
+        cursor.insertText('\\' + name)
+        pos = insert.selectionStart()
+        insert.insertText(text)
     if metainfo.info(cursor.document()).auto_indent:
-        indent.insert_text(insert, text)
-    else:
+        insert.setPosition(pos, QTextCursor.KeepAnchor)
         with cursortools.compress_undo(insert, True):
-            insert.insertText(text)
+            indent.re_indent(insert)
 
 
