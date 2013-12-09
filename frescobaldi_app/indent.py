@@ -232,10 +232,17 @@ def change_indent(cursor, direction):
         return True
 
 
-def re_indent(cursor):
-    """Re-indents the selected region or the whole document."""
+def re_indent(cursor, combine_undo=False):
+    """Re-indents the selected region or the whole document.
+    
+    If combine_undo is True, joins the action with the previous undo-able 
+    action.
+    
+    """
     import lydocument
     c = lydocument.cursor(cursor)
+    if combine_undo:
+        c.document.combine_undo = True
     indenter(cursor.document()).indent(c)
 
 

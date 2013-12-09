@@ -27,7 +27,6 @@ from PyQt4.QtCore import QSettings
 from PyQt4.QtGui import QTextCursor, QMessageBox
 
 import cursortools
-import indent
 import tokeniter
 
 from . import snippets
@@ -46,7 +45,6 @@ def insert(name, view):
         cursortools.strip_selection(cursor)
     
     pos = cursor.selectionStart()
-    line = cursor.document().findBlock(pos).blockNumber()
     with cursortools.compress_undo(cursor):
         
         # insert the snippet, might return a new cursor
@@ -55,19 +53,16 @@ def insert(name, view):
         else:
             new = insert_snippet(text, cursor, variables)
         
-        # QTextBlocks the snippet starts and ends
-        block = cursor.document().findBlockByNumber(line)
-        last = cursor.block()
-        
-        # re-indent if not explicitly suppressed by a 'indent: no' variable
-        if last != block and 'no' not in variables.get('indent', ''):
-            tokeniter.update(block) # tokenize inserted lines
-            while True:
-                block = block.next()
-                if indent.set_indent(block, indent.compute_indent(block)):
-                    tokeniter.update(block)
-                if block == last:
-                    break
+    # QTextBlocks the snippet starts and ends
+    block = cursor.document().findBlock(pos)
+    last = cursor.block()
+    
+    # re-indent if not explicitly suppressed by a 'indent: no' variable
+    if last != block and 'no' not in variables.get('indent', ''):
+        c = QTextCursor(last)
+        c.setPosition(block.position(), QTextCursor.KeepAnchor)
+        import indent
+        indent.re_indent(c, combine_undo=True)
     
     if not new and 'keep' in selection:
         end = cursor.position()
