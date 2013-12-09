@@ -41,7 +41,6 @@ class Indenter(object):
         indents = ['']
         start_block, end_block = cursor.start_block(), cursor.end_block()
         in_range = False
-        depth = 0
         pline = None
         prev_indent = ''
         with cursor.document as d:
@@ -60,17 +59,11 @@ class Indenter(object):
                         for align, indent in pline.indenters:
                             new_indent = current_indent
                             if align:
-                                align = align - len(prev_indent) + len(current_indent)
-                                new_indent += ' ' * align
+                                new_indent += ' ' * (align - len(prev_indent))
                             if indent:
                                 new_indent += '\t' if self.indent_tabs else ' ' * self.indent_width
                             indents.append(new_indent)
-                            depth += 1
-    
-                for i in range(line.dedenters_start):
-                    if len(indents) > 1:
-                        indents.pop()
-                    depth -= 1
+                del indents[max(1, len(indents) - line.dedenters_start):]
                 
                 # if we may not change the indent just remember the current
                 if line.indent is not False:
@@ -78,17 +71,12 @@ class Indenter(object):
                         indents[-1] = line.indent
                     else:
                         d[d.position(b):d.position(b)+len(line.indent)] = indents[-1]
-                
-                for i in range(line.dedenters_end):
-                    if len(indents) > 1:
-                        indents.pop()
-                    depth -= 1
+                del indents[max(1, len(indents) - line.dedenters_end):]
                 
                 if b == end_block:
                     break
                 
                 pline = line
-    
     
     def increase_indent(self, cursor):
         """Manually add indent to all lines of cursor."""
