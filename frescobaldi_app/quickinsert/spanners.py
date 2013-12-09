@@ -116,8 +116,8 @@ class ArpeggioGroup(buttongroup.ButtonGroup):
                 c.insertText('\\arpeggio')
                 if name != lastused:
                     cursortools.strip_indent(c)
-                    import indent
-                    indent.insert_text(c, name + '\n')
+                    indent = c.block().text()[:c.position()-c.block().position()]
+                    c.insertText(name + '\n' + indent)
                 # just pick the first place
                 return
         

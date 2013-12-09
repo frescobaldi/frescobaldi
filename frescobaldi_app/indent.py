@@ -303,15 +303,9 @@ def insert_text(cursor, text):
     if '\n' not in text:
         cursor.insertText(text)
         return
-    line = cursor.document().findBlock(cursor.selectionStart()).blockNumber()
-    with cursortools.compress_undo(cursor):
-        cursor.insertText(text)
-        block = cursor.document().findBlockByNumber(line)
-        last = cursor.block()
-        tokeniter.update(block) # tokenize inserted lines
-        while last != block:
-            block = block.next()
-            if set_indent(block, compute_indent(block)):
-                tokeniter.update(block)
-
-
+    import lydocument
+    c = lydocument.cursor(cursor, select_all=False)
+    with c.document as d:
+        d.combine_undo = True
+        d[c.start:c.end] = text
+    indenter(cursor.document()).indent(c)

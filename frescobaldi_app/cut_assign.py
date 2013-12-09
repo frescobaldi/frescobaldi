@@ -84,11 +84,11 @@ def cut_assign(cursor):
     text = cursor.selection().toPlainText()
     space = '\n' if '\n' in text else ' '
     text = ''.join((name, ' =', mode, ' {', space, text, space, '}\n\n'))
-    with cursortools.compress_undo(cursor):
-        cursor.insertText('\\' + name)
-        if metainfo.info(cursor.document()).auto_indent:
-            indent.insert_text(insert, text)
-        else:
+    cursor.insertText('\\' + name)
+    if metainfo.info(cursor.document()).auto_indent:
+        indent.insert_text(insert, text)
+    else:
+        with cursortools.compress_undo(insert, True):
             insert.insertText(text)
 
 
