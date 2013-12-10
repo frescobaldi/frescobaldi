@@ -69,6 +69,8 @@ class Indenter(object):
                 if line.indent is not False:
                     if not in_range:
                         indents[-1] = line.indent
+                    elif line.isblank and indents[-1].startswith(line.indent):
+                        pass # don't make shorter indents longer on blank lines
                     elif line.indent != indents[-1]:
                         d[d.position(b):d.position(b)+len(line.indent)] = indents[-1]
                 del indents[max(1, len(indents) - line.dedenters_end):]
@@ -196,6 +198,13 @@ class Line(object):
         re-indented.
         
         
+        isblank
+        
+        True if the line is empty or white-space only. It is False when the 
+        indent attribute is also False (e.g. when the line is part of a 
+        multiline string).
+        
+        
         dedenters_start
         
         The number of dedent tokens that should cause the indenter to go a 
@@ -226,10 +235,13 @@ class Line(object):
             ly.lex.scheme.ParseString,
             )):
             self.indent = False
+            self.isblank = False
         elif tokens and isinstance(tokens[0], ly.lex.Space):
             self.indent = tokens[0]
+            self.isblank = len(tokens) == 1
         else:
             self.indent = ""
+            self.isblank = not tokens
 
         find_dedenters = True
         self.dedenters_start = 0
