@@ -48,7 +48,6 @@ def reformat(cursor):
     """Reformat the selection or the whole document."""
     i = indent.indenter(cursor.document())
     c = lydocument.cursor(cursor)
-    c.document.combine_undo = True
     ly.reformat.reformat(c, i)
 
 
