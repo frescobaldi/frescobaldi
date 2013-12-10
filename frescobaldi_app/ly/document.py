@@ -289,48 +289,6 @@ class DocumentBase(object):
         """Return the state at the end of the specified block."""
         raise NotImplementedError()
     
-    def slice(self, token, block=None, start=0, end=None):
-        """Return a slice describing the position of the token in the text.
-        
-        If block is not given, the pos and end attributes of the token are
-        assumed to describe the position of the token in the full document.
-        
-        If start is given the slice will start at position start in the token
-        (from the beginning of the token). Start defaults to 0.
-        
-        If end is given, the cursor will end at that position in the token (from
-        the beginning of the token). End defaults to the length of the token.
-       
-        """
-        if block:
-            start += self.position(block)
-        start += token.pos
-        if end is None:
-            end = len(token)
-        end += start
-        return slice(start, end)
-    
-    ##
-    # text modifying methods
-    ##
-    
-    def append(self, text):
-        """Append text to the end of the document."""
-        end = self.size()
-        self[end:end] = text
-    
-    def insert(self, pos, text):
-        """Insert text at position."""
-        self[pos:pos] = text
-    
-    def remove(self, s):
-        """Remove text at slice."""
-        del self[s]
-    
-    def replace(self, s, text):
-        """Replace text at slice."""
-        self[s] = text
-    
     def __setitem__(self, key, text):
         """Change the text pointed to in key (integer or slice).
         
@@ -690,22 +648,6 @@ class Runner(object):
             pos += self._doc.position(self.block)
         return pos
     
-    def slice(self, start=0, end=None):
-        """Returns a slice for the last token.
-        
-        If start is given the slice will start at position start in the token
-        (from the beginning of the token). Start defaults to 0.
-        If end is given, the slice will end at that position in the token (from
-        the beginning of the token). End defaults to the length of the token.
-        
-        """
-        t = self._tokens[self._index]
-        start += t.pos
-        if not self._wp:
-            start += self._doc.position(self.block)
-        end = start + (len(t) if end is None else end)
-        return slice(start, end)
-
     def copy(self):
         """Return a new Runner at the current position."""
         obj = type(self)(self._doc, self._wp)
@@ -850,20 +792,6 @@ class Source(object):
     def document(self):
         """Return our Document."""
         return self._doc
-    
-    def slice(self, token, start=0, end=None):
-        """Returns a slice for the token in the current block.
-        
-        If the iterator was instantiated with tokens_with_position == True, 
-        the slice start position is the same as the token.pos attribute, and 
-        the current block does not matter.
-        
-        """
-        start += token.pos
-        if not self._wp:
-            start += self._doc.position(self.block)
-        end = start + (len(t) if end is None else end)
-        return slice(start, end)
     
     def position(self, token):
         """Returns the position of the token in the current block.
