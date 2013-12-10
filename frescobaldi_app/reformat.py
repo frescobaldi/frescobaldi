@@ -72,6 +72,7 @@ def reformat(cursor):
     
     with cursortools.compress_undo(cursor):
         indent.re_indent(cursor)
+    with cursortools.compress_undo(cursor, True):
         with cursortools.Writer(cursor.document()) as d:
             for block in get_blocks(cursor):
                 
@@ -95,8 +96,10 @@ def reformat(cursor):
                     
                 # TODO: wrap long lines
         
+    with cursortools.compress_undo(cursor, True):
         indent.re_indent(cursor)
         
+    with cursortools.compress_undo(cursor, True):
         # move commented lines with more than 2 comment characters
         # to column 0
         with cursortools.Writer(cursor.document()) as d:
@@ -111,6 +114,7 @@ def reformat(cursor):
                     and len(set(tokens[1][:3])) == 1):
                     del d[block.position():block.position() + tokens[1].pos]
         
+    with cursortools.compress_undo(cursor, True):
         remove_trailing_whitespace(cursor)
 
 
