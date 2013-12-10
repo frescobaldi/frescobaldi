@@ -38,6 +38,8 @@ def indent_variables(document=None):
     
     If a document (a Frescobaldi/QTextDocument) is specified, the document 
     variables are also read.
+    
+    For the variables and their default variables, see userguide/docvars.md.
 
     """
     s = QSettings()

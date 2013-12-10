@@ -7,6 +7,8 @@ the lines for variable definitions like `name: value;`.
 
 The following variables are recognized:
 
+= General variables:
+
 !`mode: _(mode)_;`
 : Force mode to be one of lilypond, html, texinfo, latex,
   docbook or scheme. Default: automatic mode recognition.
@@ -25,17 +27,25 @@ The following variables are recognized:
 !`version: _(version)_;`
 : Set the LilyPond version to use, can be used for non-LilyPond documents.
 
+= Indentation variables:
+
 !`tab-width: _(number)_;`
-: The width of a tab character, by default 8.
+: The visible width of a tab character in the editor, by default 8.
 
 !`indent-tabs: yes/no;`
 : Whether to use tabs in indent, by default {no}.
 
-!`document-tabs: yes/no;`
-: Whether to use tabs elsewhere in the document, by default {yes}.
-
 !`indent-width: _(number)_;`
 : The number of spaces each indent level uses, by default 2.
+  This value is ignored when `indent-tabs` is set to {yes}.
+
+!`document-tabs: yes/no;`
+: Whether to use tabs elsewhere in the document, by default {no}.
+
+!`document-tab-width: _(number)_;`
+: How many spaces to insert when Tab is pressed in the middle of text,
+  by default 8. This value is ignored when `document-tabs` is set to {yes}.
+
 
 
 #SUBDOCS
