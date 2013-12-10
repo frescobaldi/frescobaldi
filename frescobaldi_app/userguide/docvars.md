@@ -7,7 +7,7 @@ the lines for variable definitions like `name: value;`.
 
 The following variables are recognized:
 
-= General variables:
+= General variables =
 
 !`mode: _(mode)_;`
 : Force mode to be one of lilypond, html, texinfo, latex,
@@ -27,7 +27,7 @@ The following variables are recognized:
 !`version: _(version)_;`
 : Set the LilyPond version to use, can be used for non-LilyPond documents.
 
-= Indentation variables:
+= Indentation variables =
 
 !`tab-width: _(number)_;`
 : The visible width of a tab character in the editor, by default 8.

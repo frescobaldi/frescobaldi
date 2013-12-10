@@ -27,5 +27,11 @@ The entry *Tab outside indent inserts* specifies what happens when you press
 Tab while in the middle of a line of text. Also here you can choose to insert
 a real Tab by moving the number to zero.
 
+You can also set indentation preferences per-document, see
+{document_variables}.
+
+
 #VARS
 menu_autoindent menu tools -> &Automatic Indent
+document_variables help docvars
+
