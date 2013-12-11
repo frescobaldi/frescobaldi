@@ -439,7 +439,7 @@ class MarkupList(Markup):
 
 
 class MarkupCommand(Markup):
-    rx = r"\\[A-Za-z]+(-[A-Za-z]+)*(?![A-Za-z])"
+    rx = r"\\[^\W\d_]+(-[^\W\d_]+)*(?![A-Za-z])"
     def update_state(self, state):
         import ly.words
         command = self[1:]
@@ -634,7 +634,7 @@ class FigureMode(InputMode):
 
 
 class UserCommand(_token.Token):
-    rx = r"\\[A-Za-z]+(?![A-Za-z])"
+    rx = r"\\[^\W\d_]+(?![^\W\d_])"
     
     
 class SchemeStart(_token.Item):
@@ -720,7 +720,7 @@ class ErrorInChord(Error):
 
 class Name(UserVariable):
     """A variable name without \\ prefix."""
-    rx = r"[a-zA-Z]+(?![a-zA-Z])"
+    rx = r"[^\W\d_]+(?![^\W\d_])"
     
 
 class NameLower(Name):

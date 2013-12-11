@@ -120,7 +120,7 @@ __all__ = [
 
 
 class Parser(slexer.Parser):
-    re_flags = re.M
+    re_flags = re.MULTILINE | re.UNICODE
     argcount = 0
     default = Unparsed
     mode = None
