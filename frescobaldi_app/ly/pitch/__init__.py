@@ -26,6 +26,8 @@ from __future__ import unicode_literals
 import re
 from fractions import Fraction
 
+import ly.lex
+
 
 pitchInfo = {
     'nederlands': (
@@ -212,5 +214,56 @@ def pitchWriter(language):
     except KeyError:
         res = _pitchWriters[language] = PitchWriter(*pitchInfo[language])
         return res
+
+
+class PitchIterator(object):
+    """Iterate over notes or pitches in a source."""
+    
+    def __init__(self, source):
+        """Initialize with a ly.document.Source.
+        
+        The language is set to "nederlands".
+        
+        """
+        self.source = source
+        self.setLanguage("nederlands")
+    
+    def setLanguage(self, lang):
+        """Changes the pitch name language to use.
+        
+        Called internally when \language or \include tokens are encoutered
+        with a valid language name/file.
+        
+        Sets the language attribute to the language name and the read attribute
+        to an instance of ly.pitch.PitchReader.
+        
+        """
+        if lang in pitchInfo.keys():
+            self.language = lang
+            return True
+    
+    def tokens(self):
+        """Yield all the tokens from the source, following the language."""
+        import ly.lex.lilypond
+        for t in self.source:
+            yield t
+            if isinstance(t, ly.lex.lilypond.Keyword):
+                if t in ("\\include", "\\language"):
+                    for t in self.source:
+                        if not isinstance(t, ly.lex.Space) and t != '"':
+                            lang = t[:-3] if t.endswith('.ly') else t[:]
+                            if self.setLanguage(lang):
+                                yield LanguageName(lang, t.pos)
+                            break
+                        yield t
+    
+    def read(self, token):
+        """Reads the token and returns (note, alter) or None."""
+        return ly.pitch.pitchReader(self.language)(token)
+    
+
+class LanguageName(ly.lex.Token):
+    """A Token that denotes a language name."""
+    pass
 
 
