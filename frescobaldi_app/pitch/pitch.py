@@ -32,7 +32,7 @@ from fractions import Fraction
 import app
 import userguide
 import icons
-import ly.pitch
+import ly.pitch.transpose
 import ly.lex.lilypond
 import cursortools
 import qutil
@@ -407,7 +407,7 @@ def getTransposer(document, mainwindow):
         help = "transpose", validate = validate)
     
     if text:
-        return ly.pitch.Transposer(*readpitches(text))
+        return ly.pitch.transpose.Transposer(*readpitches(text))
 
 
 def getModalTransposer(document, mainwindow):
@@ -434,7 +434,7 @@ def getModalTransposer(document, mainwindow):
             return False
         try:
             steps = int(words[0])
-            keyIndex = ly.pitch.ModalTransposer.getKeyIndex(words[1])
+            keyIndex = ly.pitch.transpose.ModalTransposer.getKeyIndex(words[1])
             return True
         except ValueError:
             return False
@@ -445,7 +445,7 @@ def getModalTransposer(document, mainwindow):
         help = "modal_transpose", validate = validate)
     if text:
         words = text.split()
-        return ly.pitch.ModalTransposer(int(words[0]), ly.pitch.ModalTransposer.getKeyIndex(words[1]))
+        return ly.pitch.transpose.ModalTransposer(int(words[0]), ly.pitch.transpose.ModalTransposer.getKeyIndex(words[1]))
 
     
 def transpose(cursor, transposer, mainwindow=None):
