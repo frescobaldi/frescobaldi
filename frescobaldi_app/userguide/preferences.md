@@ -11,7 +11,7 @@ prefs_helpers
 prefs_paths
 prefs_lilydoc
 prefs_shortcuts
-prefs_fontscolors
 prefs_editor
+prefs_fontscolors
 prefs_tools
 

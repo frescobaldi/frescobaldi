@@ -33,20 +33,28 @@ import variables
 import lydocument
 
 
-def indent_variables(document):
-    """Return a dictionary with the indent variables for the document."""
+def indent_variables(document=None):
+    """Return a dictionary with indentation preferences.
+    
+    If a document (a Frescobaldi/QTextDocument) is specified, the document 
+    variables are also read.
+    
+    For the variables and their default variables, see userguide/docvars.md.
+
+    """
     s = QSettings()
     s.beginGroup("indent")
     nspaces = s.value("indent_spaces", 2, int)
     tabwidth = s.value("tab_width", 8, int)
     dspaces = s.value("document_spaces", 8, int)
-    return variables.update(document, {
+    prefs = {
         'indent-tabs': nspaces == 0,
         'indent-width': 2 if nspaces == 0 else nspaces,
         'tab-width': tabwidth,
         'document-tabs': dspaces == 0,
         'document-tab-width': 8 if dspaces == 0 else dspaces,
-    })
+    }
+    return variables.update(document, prefs) if document else prefs
     
 def indenter(document):
     """Return a ly.indent.Indenter, setup for the document."""

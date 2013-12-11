@@ -32,10 +32,12 @@ from fractions import Fraction
 import app
 import userguide
 import icons
-import ly.pitch
+import ly.pitch.translate
+import ly.pitch.transpose
 import ly.lex.lilypond
 import cursortools
 import qutil
+import lydocument
 import tokeniter
 import documentinfo
 import lilypondinfo
@@ -44,53 +46,24 @@ import inputdialog
 
 def changeLanguage(cursor, language):
     """Changes the language of the pitch names."""
-    selection = cursor.hasSelection()
-    if selection:
-        start = cursor.selectionStart()
-        cursor.setPosition(cursor.selectionEnd())
-        cursor.setPosition(0, QTextCursor.KeepAnchor)
-        source = tokeniter.Source.selection(cursor)
-    else:
-        source = tokeniter.Source.document(cursor)
-    
-    pitches = PitchIterator(source)
-    tokens = pitches.tokens()
-    writer = ly.pitch.pitchWriter(language)
-    
-    if selection:
-        # consume tokens before the selection, following the language
-        source.consume(tokens, start)
-    
-    changed = False # track change of \language or \include language command
-    with cursortools.compress_undo(cursor):
-        try:
-            with qutil.busyCursor():
-                with cursortools.Writer(cursor.document()) as w:
-                    for t in tokens:
-                        if isinstance(t, ly.lex.lilypond.Note):
-                            # translate the pitch name
-                            p = pitches.read(t)
-                            if p:
-                                n = writer(*p)
-                                if n != t:
-                                    w.insertText(source.cursor(t), n)
-                        elif isinstance(t, LanguageName) and t != language:
-                            # change the language name in a command
-                            w.insertText(source.cursor(t), language)
-                            changed = True
-        except ly.pitch.PitchNameNotAvailable:
-            QMessageBox.critical(None, app.caption(_("Pitch Name Language")), _(
-                "Can't perform the requested translation.\n\n"
-                "The music contains quarter-tone alterations, but "
-                "those are not available in the pitch language \"{name}\"."
-                ).format(name=language))
-            return
-        if changed:
-            return
-        if not selection:
-            # there was no selection and no language command, so insert one
-            insertLanguage(cursor.document(), language)
-            return
+    c = lydocument.cursor(cursor)
+    try:
+        changed = ly.pitch.translate.translate(c, language)
+    except ly.pitch.PitchNameNotAvailable:
+        QMessageBox.critical(None, app.caption(_("Pitch Name Language")), _(
+            "Can't perform the requested translation.\n\n"
+            "The music contains quarter-tone alterations, but "
+            "those are not available in the pitch language \"{name}\"."
+            ).format(name=language))
+        return
+    if changed:
+        return
+    if not cursor.hasSelection():
+        # there was no selection and no language command, so insert one
+        version = (documentinfo.info(cursor.document()).version()
+                   or lilypondinfo.preferred().version())
+        ly.pitch.translate.insert_language(c.document, language, version)
+        return
     # there was a selection but no command, user must insert manually.
     QMessageBox.information(None, app.caption(_("Pitch Name Language")),
         '<p>{0}</p>'
@@ -102,31 +75,6 @@ def changeLanguage(cursor, language):
             language,
             _("(for LilyPond below 2.14), or"),
             _("(for LilyPond 2.14 and higher.)")))
-
-
-def insertLanguage(document, language):
-    """Inserts a language command in the document.
-    
-    The command is inserted at the top or just below the version line.
-    If the document uses LilyPond < 2.13.38, the \\include command is used,
-    otherwise the newer \\language command.
-    
-    """
-    version = (documentinfo.info(document).version()
-               or lilypondinfo.preferred().version())
-    if version and version < (2, 13, 38):
-        text = '\\include "{0}.ly"'
-    else:
-        text = '\\language "{0}"'
-    # insert language command on top of file, but below version
-    block = document.firstBlock()
-    c = QTextCursor(block)
-    if '\\version' in tokeniter.tokens(block):
-        c.movePosition(QTextCursor.EndOfBlock)
-        text = '\n' + text
-    else:
-        text += '\n'
-    c.insertText(text.format(language))
 
 
 def rel2abs(cursor):
@@ -407,7 +355,7 @@ def getTransposer(document, mainwindow):
         help = "transpose", validate = validate)
     
     if text:
-        return ly.pitch.Transposer(*readpitches(text))
+        return ly.pitch.transpose.Transposer(*readpitches(text))
 
 
 def getModalTransposer(document, mainwindow):
@@ -434,7 +382,7 @@ def getModalTransposer(document, mainwindow):
             return False
         try:
             steps = int(words[0])
-            keyIndex = ly.pitch.ModalTransposer.getKeyIndex(words[1])
+            keyIndex = ly.pitch.transpose.ModalTransposer.getKeyIndex(words[1])
             return True
         except ValueError:
             return False
@@ -445,7 +393,7 @@ def getModalTransposer(document, mainwindow):
         help = "modal_transpose", validate = validate)
     if text:
         words = text.split()
-        return ly.pitch.ModalTransposer(int(words[0]), ly.pitch.ModalTransposer.getKeyIndex(words[1]))
+        return ly.pitch.transpose.ModalTransposer(int(words[0]), ly.pitch.transpose.ModalTransposer.getKeyIndex(words[1]))
 
     
 def transpose(cursor, transposer, mainwindow=None):
