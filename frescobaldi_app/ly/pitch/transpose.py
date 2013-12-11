@@ -23,6 +23,8 @@ Transposing music.
 
 from __future__ import unicode_literals
 
+from fractions import Fraction
+
 
 class Transposer(object):
     """Transpose pitches.
