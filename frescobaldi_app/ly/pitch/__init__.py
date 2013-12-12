@@ -248,7 +248,6 @@ class PitchIterator(object):
     
     def tokens(self):
         """Yield all the tokens from the source, following the language."""
-        import ly.lex.lilypond
         for t in self.source:
             yield t
             if isinstance(t, ly.lex.lilypond.Keyword):
@@ -308,12 +307,16 @@ class PitchIterator(object):
     def position(self, t):
         """Returns the cursor position for the given token or Pitch."""
         if isinstance(t, Pitch):
-            return t.noteToken.pos
-        else:
-            return t.pos
+            t = t.noteToken
+        return self.source.position(t)
     
     def write(self, pitch, document, language=None):
-        """Output a changed Pitch to the ly.document.Document."""
+        """Output a changed Pitch to the ly.document.Document.
+        
+        To use this method reliably, you must instantiate the PitchIterator
+        with a ly.document.Source that has tokens_with_position set to True.
+        
+        """
         pwriter = pitchWriter(language or self.language)
         note = pwriter(pitch.note, pitch.alter)
         if note != pitch.noteToken:
