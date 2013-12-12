@@ -177,7 +177,7 @@ class LyDocument(ly.document.DocumentBase):
         try:
             changes = sorted(self._changes.items(), reverse=True)
             for start, items in changes:
-                for end, text in items:
+                for end, text in reversed(items):
                     c.movePosition(QTextCursor.End) if end is None else c.setPosition(end)
                     c.setPosition(start, QTextCursor.KeepAnchor)
                     c.insertText(text)

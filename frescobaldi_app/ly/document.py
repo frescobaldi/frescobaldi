@@ -235,7 +235,7 @@ class DocumentBase(object):
     def update_cursors(self):
         """Updates the position of the registered Cursor instances."""
         for start, items in sorted(self._changes.items(), reverse=True):
-            for end, text in items:
+            for end, text in reversed(items):
                 removed = end - start
                 added = len(text)
                 for c in self._cursors:
@@ -422,7 +422,7 @@ class Document(DocumentBase):
         changes = sorted(self._changes.items(), reverse=True)
         for start, items in changes:
             s = self.block(start)
-            for end, text in items:
+            for end, text in reversed(items):
                 # first remove the old contents
                 if end is None:
                     # all text to the end should be removed
