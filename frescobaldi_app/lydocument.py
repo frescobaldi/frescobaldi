@@ -175,12 +175,10 @@ class LyDocument(ly.document.DocumentBase):
         c = QTextCursor(self._d)
         c.joinPreviousEditBlock() if self.combine_undo else c.beginEditBlock()
         try:
-            changes = sorted(self._changes.items(), reverse=True)
-            for start, items in changes:
-                for end, text in reversed(items):
-                    c.movePosition(QTextCursor.End) if end is None else c.setPosition(end)
-                    c.setPosition(start, QTextCursor.KeepAnchor)
-                    c.insertText(text)
+            for start, end, text in self._changes_list:
+                c.movePosition(QTextCursor.End) if end is None else c.setPosition(end)
+                c.setPosition(start, QTextCursor.KeepAnchor)
+                c.insertText(text)
         finally:
             c.endEditBlock()
             if self.combine_undo is None:

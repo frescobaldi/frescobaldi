@@ -204,10 +204,14 @@ class DocumentBase(object):
             self._changes.clear()
         elif self._writing == 1:
             if self._changes:
+                self._changes_list = [(start, end, text)
+                    for start, items in sorted(self._changes.items(), reverse=True)
+                    for end, text in reversed(items)]
+                self._changes.clear()
                 self.update_cursors()
                 self.apply_changes()
+                del self._changes_list
             self._writing = 0
-            self._changes.clear()
         elif self._writing > 1:
             self._writing -= 1
     
@@ -222,32 +226,29 @@ class DocumentBase(object):
         
     def check_changes(self):
         """Debugging method that checks for overlapping edits."""
-        end = self.size()
-        changes = sorted(self._changes.items(), reverse=True)
-        for start, items in changes:
-            for pos, text in items:
-                if pos > end:
-                    if len(text) > 12:
-                        text = text[:10] + '...'
-                    raise ValueError("overlapping edit: {0}-{1}: {2}".format(start, pos, text))
-            end = start
+        pos = self.size()
+        for start, end, text in self._changes_list:
+            if end > pos:
+                if len(text) > 12:
+                    text = text[:10] + '...'
+                raise ValueError("overlapping edit: {0}-{1}: {2}".format(start, end, text))
+            pos = start
     
     def update_cursors(self):
         """Updates the position of the registered Cursor instances."""
-        for start, items in sorted(self._changes.items(), reverse=True):
-            for end, text in reversed(items):
-                removed = end - start
-                added = len(text)
-                for c in self._cursors:
-                    if start <= c.start <= end:
-                        c.start = start
-                    elif c.start > end:
-                        c.start += added - removed
-                    if c.end is not None:
-                        if end is None or start <= c.end <= end:
-                            c.end = start + added
-                        elif c.end > end:
-                            c.end += added - removed
+        for start, end, text in self._changes_list:
+            removed = end - start
+            added = len(text)
+            for c in self._cursors:
+                if start <= c.start <= end:
+                    c.start = start
+                elif c.start > end:
+                    c.start += added - removed
+                if c.end is not None:
+                    if end is None or start <= c.end <= end:
+                        c.end = start + added
+                    elif c.end > end:
+                        c.end += added - removed
                         
     def apply_changes(self):
         """Apply the changes and update the tokens."""
@@ -419,26 +420,24 @@ class Document(DocumentBase):
         return block.tokens
     
     def apply_changes(self):
-        changes = sorted(self._changes.items(), reverse=True)
-        for start, items in changes:
+        for start, end, text in self._changes_list:
             s = self.block(start)
-            for end, text in reversed(items):
-                # first remove the old contents
-                if end is None:
-                    # all text to the end should be removed
-                    s.text = s.text[:start - s.position]
-                    del self._blocks[s.index+1:]
-                else:
-                    # remove til end position
-                    e = self.block(end)
-                    s.text = s.text[:start - s.position] + e.text[end - e.position:]
-                    del self._blocks[s.index+1:e.index+1]
-                # now insert the new stuff
-                if text:
-                    lines = text.split('\n')
-                    lines[-1] += s.text[start - s.position:]
-                    s.text = s.text[:start - s.position] + lines[0]
-                    self._blocks[s.index+1:s.index+1] = map(Block, lines[1:])
+            # first remove the old contents
+            if end is None:
+                # all text to the end should be removed
+                s.text = s.text[:start - s.position]
+                del self._blocks[s.index+1:]
+            else:
+                # remove til end position
+                e = self.block(end)
+                s.text = s.text[:start - s.position] + e.text[end - e.position:]
+                del self._blocks[s.index+1:e.index+1]
+            # now insert the new stuff
+            if text:
+                lines = text.split('\n')
+                lines[-1] += s.text[start - s.position:]
+                s.text = s.text[:start - s.position] + lines[0]
+                self._blocks[s.index+1:s.index+1] = map(Block, lines[1:])
             # make sure this line gets reparsed
             s.tokens = None
         
