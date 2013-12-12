@@ -280,23 +280,24 @@ class PitchIterator(object):
                 p = Pitch(*p)
                 
                 p.noteToken = t
-                p.octave = 0
-                p.origOctave = 0
-                p.octaveSlice = slice(t.end, t.end)
+                p.octaveToken = None
+                p.accidental = None
+                p.accidentalToken = None
                 p.octaveCheck = None
-                p.origOctaveCheck = None
-                p.octaveCheckSlice = None
+                p.octaveCheckToken = None
                 
                 t = None # prevent hang in this loop
                 for t in tokens:
                     if isinstance(t, ly.lex.lilypond.Octave):
-                        p.octave = p.origOctave = octaveToNum(t)
-                        p.octaveSlice = slice(t.pos, t.end)
+                        p.octaveToken = t
+                        p.octave = octaveToNum(t)
+                    elif isinstance(t, ly.lex.lilypond.Accidental):
+                        p.accidentalToken = p.accidental = t
                     elif isinstance(t, ly.lex.lilypond.OctaveCheck):
-                        p.octaveCheck = p.origOctaveCheck = octaveToNum(t)
-                        p.octaveCheckSlice = slice(t.pos, t.end)
+                        p.octaveCheckToken = t
+                        p.octaveCheck = octaveToNum(t)
                         break
-                    elif not isinstance(t, (ly.lex.Space, ly.lex.lilypond.Accidental)):
+                    elif not isinstance(t, ly.lex.Space):
                         break
                 yield p
                 if t is None:
@@ -322,16 +323,32 @@ class PitchIterator(object):
         document = self.source.document()
         pwriter = pitchWriter(language or self.language)
         note = pwriter(pitch.note, pitch.alter)
+        end = pitch.noteToken.end
         if note != pitch.noteToken:
-            document[pitch.noteToken.pos:pitch.noteToken.end] = note
-        if pitch.octave != pitch.origOctave:
-            document[pitch.octaveSlice] = octaveToString(pitch.octave)
-        if pitch.origOctaveCheck is not None:
-            if pitch.octaveCheck is None:
-                del document[pitch.octaveCheckSlice]
+            document[pitch.noteToken.pos:end] = note
+        octave = octaveToString(pitch.octave)
+        if octave != pitch.octaveToken:
+            if pitch.octaveToken is None:
+                document[end:end] = octave
             else:
-                octaveCheck = '=' + octaveToString(pitch.octaveCheck)
-                document[pitch.octaveCheckSlice] = octaveCheck
+                end = pitch.octaveToken.end
+                document[pitch.octaveToken.pos:end] = octave
+        if pitch.accidental:
+            if pitch.accidentalToken is None:
+                document[end:end] = pitch.accidental
+            elif pitch.accidental != pitch.accidentalToken:
+                end = pitch.accidentalToken.end
+                document[pitch.accidentalToken.pos:end] = pitch.accidental
+        elif pitch.accidentalToken:
+            del document[pitch.accidentalToken.pos:pitch.accidentalToken.end]
+        if pitch.octaveCheck is not None:
+            octaveCheck = '=' + octaveToString(pitch.octaveCheck)
+            if pitch.octaveCheckToken is None:
+                document[end:end] = octaveCheck
+            elif octaveCheck != pitch.octaveCheckToken:
+                document[pitch.octaveCheckToken.pos:pitch.octaveCheckToken.end] = octaveCheck
+        elif pitch.octaveCheckToken:
+            del document[pitch.octaveCheckToken.pos:pitch.octaveCheckToken.end]
 
 
 class LanguageName(ly.lex.Token):
