@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 import re
 from fractions import Fraction
 
-import ly.lex
+import ly.lex.lilypond
 
 
 pitchInfo = {
@@ -78,7 +78,9 @@ class PitchNameNotAvailable(Exception):
     does not have quarter-tone names.
     
     """
-    pass
+    def __init__(self, language):
+        super(PitchNameNotAvailable, self).__init__()
+        self.language = language
 
 
 class Pitch(object):
@@ -126,6 +128,7 @@ class Pitch(object):
 
 
 class PitchWriter(object):
+    language = "unknown"
     def __init__(self, names, accs, replacements=()):
         self.names = names
         self.accs = accs
@@ -141,7 +144,7 @@ class PitchWriter(object):
         if alter:
             acc = self.accs[int(alter * 4 + 4)]
             if not acc:
-                raise PitchNameNotAvailable()
+                raise PitchNameNotAvailable(self.language)
             pitch += acc
         for s, r in self.replacements:
             if pitch.startswith(s):
@@ -213,6 +216,7 @@ def pitchWriter(language):
         return _pitchWriters[language]
     except KeyError:
         res = _pitchWriters[language] = PitchWriter(*pitchInfo[language])
+        res.language = language
         return res
 
 
@@ -259,8 +263,70 @@ class PitchIterator(object):
     
     def read(self, token):
         """Reads the token and returns (note, alter) or None."""
-        return ly.pitch.pitchReader(self.language)(token)
+        return pitchReader(self.language)(token)
     
+    def pitches(self):
+        """Yields all tokens, but collects Note and Octave tokens.
+        
+        When a Note is encoutered, also reads octave and octave check and then
+        a Pitch is yielded instead of the tokens.
+        
+        """
+        tokens = self.tokens()
+        for t in tokens:
+            while isinstance(t, ly.lex.lilypond.Note):
+                p = self.read(t)
+                if not p:
+                    break
+                p = Pitch(*p)
+                
+                p.noteToken = t
+                p.octave = 0
+                p.origOctave = 0
+                p.octaveSlice = slice(t.end, t.end)
+                p.octaveCheck = None
+                p.origOctaveCheck = None
+                p.octaveCheckSlice = None
+                
+                t = None # prevent hang in this loop
+                for t in tokens:
+                    if isinstance(t, ly.lex.lilypond.Octave):
+                        p.octave = p.origOctave = octaveToNum(t)
+                        p.octaveSlice = slice(t.pos, t.end)
+                    elif isinstance(t, ly.lex.lilypond.OctaveCheck):
+                        p.octaveCheck = p.origOctaveCheck = octaveToNum(t)
+                        p.octaveCheckSlice = slice(t.pos, t.end)
+                        break
+                    elif not isinstance(t, (ly.lex.Space, ly.lex.lilypond.Accidental)):
+                        break
+                yield p
+                if t is None:
+                    break
+            else:
+                yield t
+        
+    def position(self, t):
+        """Returns the cursor position for the given token or Pitch."""
+        if isinstance(t, Pitch):
+            return t.noteToken.pos
+        else:
+            return t.pos
+    
+    def write(self, pitch, document, language=None):
+        """Output a changed Pitch to the ly.document.Document."""
+        pwriter = pitchWriter(language or self.language)
+        note = pwriter(pitch.note, pitch.alter)
+        if note != pitch.noteToken:
+            document[pitch.noteToken.pos:pitch.noteToken.end] = note
+        if pitch.octave != pitch.origOctave:
+            document[pitch.octaveSlice] = octaveToString(pitch.octave)
+        if pitch.origOctaveCheck is not None:
+            if pitch.octaveCheck is None:
+                del document[pitch.octaveCheckSlice]
+            else:
+                octaveCheck = '=' + octaveToString(pitch.octaveCheck)
+                document[pitch.octaveCheckSlice] = octaveCheck
+
 
 class LanguageName(ly.lex.Token):
     """A Token that denotes a language name."""

@@ -25,6 +25,8 @@ from __future__ import unicode_literals
 
 from fractions import Fraction
 
+import ly.lex.lilypond
+
 
 class Transposer(object):
     """Transpose pitches.
@@ -101,4 +103,177 @@ class ModalTransposer(object):
         pitch.alter = self.alter[toScaleDeg] + accidental
         pitch.octave += toOctaveMod
 
+
+def transpose(cursor, transposer):
+    """Transpose pitches using the specified transposer."""
+    start = cursor.start
+    cursor.start = 0
+    
+    source = ly.document.Source(cursor, True, tokens_with_position=True)
+
+    pitches = ly.pitch.PitchIterator(source)
+    psource = pitches.pitches()
+
+    class gen(object):
+        def __iter__(self):
+            return self
+        
+        def __next__(self):
+            while True:
+                t = next(psource)
+                if isinstance(t, (ly.lex.Space, ly.lex.Comment)):
+                    continue
+                # Handle stuff that's the same in relative and absolute here
+                if t == "\\relative":
+                    relative()
+                elif isinstance(t, ly.lex.lilypond.MarkupScore):
+                    absolute(context())
+                elif isinstance(t, ly.lex.lilypond.ChordMode):
+                    chordmode()
+                elif isinstance(t, ly.lex.lilypond.PitchCommand):
+                    if t == "\\transposition":
+                        next(psource) # skip pitch
+                    elif t == "\\transpose":
+                        for p in getpitches(context()):
+                            transpose(p)
+                    elif t == "\\key":
+                        for p in getpitches(context()):
+                            transpose(p, 0)
+                    else:
+                        return t
+                else:
+                    return t
+        
+        next = __next__
+    
+    tsource = gen()
+    
+    def in_selection(p):
+        """Return True if the pitch or token p may be replaced, i.e. was selected."""
+        return start == 0 or pitches.position(p) >= start
+    
+    def getpitches(iterable):
+        """Consumes iterable but only yields Pitch instances."""
+        for p in iterable:
+            if isinstance(p, ly.pitch.Pitch):
+                yield p
+
+    def context():
+        """Consume tokens till the level drops (we exit a construct)."""
+        depth = source.state.depth()
+        for t in tsource:
+            yield t
+            if source.state.depth() < depth:
+                return
+    
+    def consume():
+        """Consume tokens from context() returning the last token, if any."""
+        t = None
+        for t in context():
+            pass
+        return t
+        
+    def transpose(p, resetOctave = None):
+        """Transpose absolute pitch, using octave if given."""
+        transposer.transpose(p)
+        if resetOctave is not None:
+            p.octave = resetOctave
+        if in_selection(p):
+            pitches.write(p, document)
+
+    def chordmode():
+        """Called inside \\chordmode or \\chords."""
+        for p in getpitches(context()):
+            transpose(p, 0)
+            
+    def absolute(tokens):
+        """Called when outside a possible \\relative environment."""
+        for p in getpitches(tokens):
+            transpose(p)
+    
+    def relative():
+        """Called when \\relative is encountered."""
+        def transposeRelative(p, lastPitch):
+            """Transposes a relative pitch; returns the pitch in absolute form."""
+            # absolute pitch determined from untransposed pitch of lastPitch
+            p.makeAbsolute(lastPitch)
+            if not in_selection(p):
+                return p
+            # we may change this pitch. Make it relative against the
+            # transposed lastPitch.
+            try:
+                last = lastPitch.transposed
+            except AttributeError:
+                last = lastPitch
+            # transpose a copy and store that in the transposed
+            # attribute of lastPitch. Next time that is used for
+            # making the next pitch relative correctly.
+            newLastPitch = p.copy()
+            transposer.transpose(p)
+            newLastPitch.transposed = p.copy()
+            if p.octaveCheck is not None:
+                p.octaveCheck = p.octave
+            p.makeRelative(last)
+            if relPitch:
+                # we are allowed to change the pitch after the
+                # \relative command. lastPitch contains this pitch.
+                lastPitch.octave += p.octave
+                p.octave = 0
+                pitches.write(lastPitch, document)
+                del relPitch[:]
+            pitches.write(p, document)
+            return newLastPitch
+
+        lastPitch = None
+        relPitch = [] # we use a list so it can be changed from inside functions
+        
+        # find the pitch after the \relative command
+        t = next(tsource)
+        if isinstance(t, ly.pitch.Pitch):
+            lastPitch = t
+            if in_selection(t):
+                relPitch.append(lastPitch)
+            t = next(tsource)
+        else:
+            lastPitch = ly.pitch.Pitch.c1()
+        
+        while True:
+            # eat stuff like \new Staff == "bla" \new Voice \notes etc.
+            if isinstance(source.state.parser(), ly.lex.lilypond.ParseTranslator):
+                t = consume()
+            elif isinstance(t, ly.lex.lilypond.NoteMode):
+                t = next(tsource)
+            else:
+                break
+        
+        # now transpose the relative expression
+        if t in ('{', '<<'):
+            # Handle full music expression { ... } or << ... >>
+            for t in context():
+                if t == '\\octaveCheck':
+                    for p in getpitches(context()):
+                        lastPitch = p.copy()
+                        del relPitch[:]
+                        if in_selection(p):
+                            transposer.transpose(p)
+                            lastPitch.transposed = p
+                            pitches.write(p, document)
+                elif isinstance(t, ly.lex.lilypond.ChordStart):
+                    chord = [lastPitch]
+                    for p in getpitches(context()):
+                        chord.append(transposeRelative(p, chord[-1]))
+                    lastPitch = chord[:2][-1] # same or first
+                elif isinstance(t, ly.pitch.Pitch):
+                    lastPitch = transposeRelative(t, lastPitch)
+        elif isinstance(t, ly.lex.lilypond.ChordStart):
+            # Handle just one chord
+            for p in getpitches(context()):
+                lastPitch = transposeRelative(p, lastPitch)
+        elif isinstance(t, ly.pitch.Pitch):
+            # Handle just one pitch
+            transposeRelative(token, lastPitch)
+
+    # Do it!
+    with cursor.document as document:
+        absolute(tsource)
 
