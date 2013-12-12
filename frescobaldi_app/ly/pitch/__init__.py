@@ -89,20 +89,27 @@ class Pitch(object):
     Attributes may be manipulated directly.
     
     """
-    def __init__(self, note=0, alter=0, octave=0):
-        self.note = note        # base note (c, d, e, f, g, a, b)
-                                # as integer (0 to 6)
-        self.alter = alter      # # = .5; b = -.5; natural = 0
-        self.octave = octave    # '' = 2; ,, = -2
+    def __init__(self, note=0, alter=0, octave=0, accidental="", octavecheck=None):
+        self.note = note                # base note (c, d, e, f, g, a, b)
+                                        # as integer (0 to 6)
+        self.alter = alter              # # = .5; b = -.5; natural = 0
+        self.octave = octave            # '' = 2; ,, = -2
+        self.accidental = accidental    # "", "?" or "!"
+        self.octavecheck = octavecheck  # a number is an octave check
     
     def __repr__(self):
         return '<Pitch {0}>'.format(self.output())
     
     def output(self, language="nederlands"):
         """Returns our string representation."""
-        return (
-            pitchWriter(language)(self.note, self.alter) +
-            octaveToString(self.octave))
+        res = []
+        res.append(pitchWriter(language)(self.note, self.alter))
+        res.append(octaveToString(self.octave))
+        res.append(self.accidental)
+        if self.octavecheck is not None:
+            res.append('=')
+            res.append(octaveToString(self.octavecheck))
+        return ''.join(res)
         
     @classmethod
     def c1(cls):
@@ -279,23 +286,21 @@ class PitchIterator(object):
                     break
                 p = Pitch(*p)
                 
-                p.noteToken = t
-                p.octaveToken = None
-                p.accidental = None
-                p.accidentalToken = None
-                p.octaveCheck = None
-                p.octaveCheckToken = None
+                p.note_token = t
+                p.octave_token = None
+                p.accidental_token = None
+                p.octavecheck_token = None
                 
                 t = None # prevent hang in this loop
                 for t in tokens:
                     if isinstance(t, ly.lex.lilypond.Octave):
-                        p.octaveToken = t
                         p.octave = octaveToNum(t)
+                        p.octave_token = t
                     elif isinstance(t, ly.lex.lilypond.Accidental):
-                        p.accidentalToken = p.accidental = t
+                        p.accidental_token = p.accidental = t
                     elif isinstance(t, ly.lex.lilypond.OctaveCheck):
-                        p.octaveCheckToken = t
-                        p.octaveCheck = octaveToNum(t)
+                        p.octavecheck = octaveToNum(t)
+                        p.octavecheck_token = t
                         break
                     elif not isinstance(t, ly.lex.Space):
                         break
@@ -308,7 +313,7 @@ class PitchIterator(object):
     def position(self, t):
         """Returns the cursor position for the given token or Pitch."""
         if isinstance(t, Pitch):
-            t = t.noteToken
+            t = t.note_token
         return self.source.position(t)
     
     def write(self, pitch, language=None):
@@ -323,32 +328,32 @@ class PitchIterator(object):
         document = self.source.document()
         pwriter = pitchWriter(language or self.language)
         note = pwriter(pitch.note, pitch.alter)
-        end = pitch.noteToken.end
-        if note != pitch.noteToken:
-            document[pitch.noteToken.pos:end] = note
+        end = pitch.note_token.end
+        if note != pitch.note_token:
+            document[pitch.note_token.pos:end] = note
         octave = octaveToString(pitch.octave)
-        if octave != pitch.octaveToken:
-            if pitch.octaveToken is None:
+        if octave != pitch.octave_token:
+            if pitch.octave_token is None:
                 document[end:end] = octave
             else:
-                end = pitch.octaveToken.end
-                document[pitch.octaveToken.pos:end] = octave
+                end = pitch.octave_token.end
+                document[pitch.octave_token.pos:end] = octave
         if pitch.accidental:
-            if pitch.accidentalToken is None:
+            if pitch.accidental_token is None:
                 document[end:end] = pitch.accidental
-            elif pitch.accidental != pitch.accidentalToken:
-                end = pitch.accidentalToken.end
-                document[pitch.accidentalToken.pos:end] = pitch.accidental
-        elif pitch.accidentalToken:
-            del document[pitch.accidentalToken.pos:pitch.accidentalToken.end]
-        if pitch.octaveCheck is not None:
-            octaveCheck = '=' + octaveToString(pitch.octaveCheck)
-            if pitch.octaveCheckToken is None:
-                document[end:end] = octaveCheck
-            elif octaveCheck != pitch.octaveCheckToken:
-                document[pitch.octaveCheckToken.pos:pitch.octaveCheckToken.end] = octaveCheck
-        elif pitch.octaveCheckToken:
-            del document[pitch.octaveCheckToken.pos:pitch.octaveCheckToken.end]
+            elif pitch.accidental != pitch.accidental_token:
+                end = pitch.accidental_token.end
+                document[pitch.accidental_token.pos:end] = pitch.accidental
+        elif pitch.accidental_token:
+            del document[pitch.accidental_token.pos:pitch.accidental_token.end]
+        if pitch.octavecheck is not None:
+            octavecheck = '=' + octaveToString(pitch.octavecheck)
+            if pitch.octavecheck_token is None:
+                document[end:end] = octavecheck
+            elif octavecheck != pitch.octavecheck_token:
+                document[pitch.octavecheck_token.pos:pitch.octavecheck_token.end] = octavecheck
+        elif pitch.octavecheck_token:
+            del document[pitch.octavecheck_token.pos:pitch.octavecheck_token.end]
 
 
 class LanguageName(ly.lex.Token):
