@@ -179,7 +179,7 @@ def transpose(cursor, transposer):
         if resetOctave is not None:
             p.octave = resetOctave
         if in_selection(p):
-            pitches.write(p, document)
+            pitches.write(p)
 
     def chordmode():
         """Called inside \\chordmode or \\chords."""
@@ -219,9 +219,9 @@ def transpose(cursor, transposer):
                 # \relative command. lastPitch contains this pitch.
                 lastPitch.octave += p.octave
                 p.octave = 0
-                pitches.write(lastPitch, document)
+                pitches.write(lastPitch)
                 del relPitch[:]
-            pitches.write(p, document)
+            pitches.write(p)
             return newLastPitch
 
         lastPitch = None
@@ -257,7 +257,7 @@ def transpose(cursor, transposer):
                         if in_selection(p):
                             transposer.transpose(p)
                             lastPitch.transposed = p
-                            pitches.write(p, document)
+                            pitches.write(p)
                 elif isinstance(t, ly.lex.lilypond.ChordStart):
                     chord = [lastPitch]
                     for p in getpitches(context()):

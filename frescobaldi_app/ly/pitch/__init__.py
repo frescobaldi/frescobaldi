@@ -310,13 +310,16 @@ class PitchIterator(object):
             t = t.noteToken
         return self.source.position(t)
     
-    def write(self, pitch, document, language=None):
-        """Output a changed Pitch to the ly.document.Document.
+    def write(self, pitch, language=None):
+        """Output a changed Pitch.
+        
+        The Pitch is written in the Source's document.
         
         To use this method reliably, you must instantiate the PitchIterator
         with a ly.document.Source that has tokens_with_position set to True.
         
         """
+        document = self.source.document()
         pwriter = pitchWriter(language or self.language)
         note = pwriter(pitch.note, pitch.alter)
         if note != pitch.noteToken:
