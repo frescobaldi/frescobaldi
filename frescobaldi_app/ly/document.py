@@ -244,12 +244,11 @@ class DocumentBase(object):
                         c.start = start
                     else:
                         c.start += start + len(text) - end
-                if c.end is not None:
-                    if c.end >= start:
-                        if end is None or end >= c.end:
-                            c.end = start + len(text)
-                        else:
-                            c.end += start + len(text) - end
+                if c.end is not None and c.end >= start:
+                    if end is None or end >= c.end:
+                        c.end = start + len(text)
+                    else:
+                        c.end += start + len(text) - end
     
     def apply_changes(self):
         """Apply the changes and update the tokens."""
