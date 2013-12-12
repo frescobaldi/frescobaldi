@@ -34,6 +34,7 @@ import userguide
 import icons
 import ly.pitch.translate
 import ly.pitch.transpose
+import ly.pitch.rel2abs
 import ly.lex.lilypond
 import cursortools
 import qutil
@@ -79,134 +80,9 @@ def changeLanguage(cursor, language):
 
 def rel2abs(cursor):
     """Converts pitches from relative to absolute."""
-    selection = cursor.hasSelection()
-    if selection:
-        start = cursor.selectionStart()
-        cursor.setPosition(cursor.selectionEnd())
-        cursor.setPosition(0, QTextCursor.KeepAnchor)
-        source = tokeniter.Source.selection(cursor, True)
-    else:
-        source = tokeniter.Source.document(cursor, True)
-    
-    pitches = PitchIterator(source)
-    psource = pitches.pitches()
-    if selection:
-        # consume tokens before the selection, following the language
-        t = source.consume(pitches.tokens(), start)
-        if t:
-            psource = itertools.chain((t,), psource)
-    
-    # this class dispatches the tokens. we can't use a generator function
-    # as that doesn't like to be called again while there is already a body
-    # running.
-    class gen(object):
-        def __iter__(self):
-            return self
-        
-        def __next__(self):
-            t = next(psource)
-            while isinstance(t, (ly.lex.Space, ly.lex.Comment)):
-                t = next(psource)
-            if t == '\\relative' and isinstance(t, ly.lex.lilypond.Command):
-                relative(t)
-                t = next(psource)
-            elif isinstance(t, ly.lex.lilypond.MarkupScore):
-                consume()
-                t = next(psource)
-            return t
-        
-        next = __next__
-            
-    tsource = gen()
-    
-    def makeAbsolute(p, lastPitch):
-        """Makes pitch absolute (honoring and removing possible octaveCheck)."""
-        if p.octaveCheck is not None:
-            p.octave = p.octaveCheck
-            p.octaveCheck = None
-        else:
-            p.makeAbsolute(lastPitch)
-        pitches.write(p, writer)
-    
-    def context():
-        """Consume tokens till the level drops (we exit a construct)."""
-        depth = source.state.depth()
-        for t in tsource:
-            yield t
-            if source.state.depth() < depth:
-                return
-    
-    def consume():
-        """Consume tokens from context() returning the last token, if any."""
-        t = None
-        for t in context():
-            pass
-        return t
-    
-    def relative(t):
-        c = source.cursor(t)
-        lastPitch = None
-        
-        t = next(tsource)
-        if isinstance(t, Pitch):
-            lastPitch = t
-            t = next(tsource)
-        else:
-            lastPitch = Pitch.c1()
-        
-        # remove the \relative <pitch> tokens
-        c.setPosition(source.position(t), c.KeepAnchor)
-        writer.removeSelectedText(c)
-        
-        while True:
-            # eat stuff like \new Staff == "bla" \new Voice \notes etc.
-            if isinstance(source.state.parser(), ly.lex.lilypond.ParseTranslator):
-                t = consume()
-            elif isinstance(t, (ly.lex.lilypond.ChordMode, ly.lex.lilypond.NoteMode)):
-                t = next(tsource)
-            else:
-                break
-        
-        # now convert the relative expression to absolute
-        if t in ('{', '<<'):
-            # Handle full music expression { ... } or << ... >>
-            for t in context():
-                # skip commands with pitches that do not count
-                if isinstance(t, ly.lex.lilypond.PitchCommand):
-                    if t == '\\octaveCheck':
-                        c = source.cursor(t)
-                        for p in getpitches(context()):
-                            # remove the \octaveCheck
-                            lastPitch = p
-                            c.setPosition((p.octaveCursor or p.noteCursor).selectionEnd(), c.KeepAnchor)
-                            writer.removeSelectedText(c)
-                            break
-                    else:
-                        consume()
-                elif isinstance(t, ly.lex.lilypond.ChordStart):
-                    # handle chord
-                    chord = [lastPitch]
-                    for p in getpitches(context()):
-                        makeAbsolute(p, chord[-1])
-                        chord.append(p)
-                    lastPitch = chord[:2][-1] # same or first
-                elif isinstance(t, Pitch):
-                    makeAbsolute(t, lastPitch)
-                    lastPitch = t
-        elif isinstance(t, ly.lex.lilypond.ChordStart):
-            # Handle just one chord
-            for p in getpitches(context()):
-                makeAbsolute(p, lastPitch)
-                lastPitch = p
-        elif isinstance(t, Pitch):
-            # Handle just one pitch
-            makeAbsolute(t, lastPitch)
-    
-    # Do it!
     with qutil.busyCursor():
-        with cursortools.Writer(cursor.document()) as writer:
-            for t in tsource:
-                pass
+        c = lydocument.cursor(cursor)
+        ly.pitch.rel2abs.rel2abs(c)
 
 
 def abs2rel(cursor):
