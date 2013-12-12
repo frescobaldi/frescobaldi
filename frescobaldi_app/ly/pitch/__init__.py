@@ -121,6 +121,11 @@ class Pitch(object):
         """Returns a pitch c."""
         return cls()
 
+    @classmethod
+    def f0(cls):
+        """Return a pitch f."""
+        return cls(3)
+
     def copy(self):
         """Returns a new instance with our attributes."""
         return self.__class__(self.note, self.alter, self.octave)
