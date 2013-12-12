@@ -206,7 +206,8 @@ class DocumentBase(object):
             if self._changes:
                 self._changes_list = [(start, end, text)
                     for start, items in sorted(self._changes.items(), reverse=True)
-                    for end, text in reversed(items)]
+                    for end, text in reversed(sorted(items,
+                        key=lambda i: (i[0] is None, i[0])))]
                 self._changes.clear()
                 self.update_cursors()
                 self.apply_changes()
