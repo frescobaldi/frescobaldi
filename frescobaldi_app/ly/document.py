@@ -238,19 +238,19 @@ class DocumentBase(object):
     def update_cursors(self):
         """Updates the position of the registered Cursor instances."""
         for start, end, text in self._changes_list:
-            removed = end - start
-            added = len(text)
             for c in self._cursors:
-                if start <= c.start <= end:
-                    c.start = start
-                elif c.start > end:
-                    c.start += added - removed
+                if c.start > start:
+                    if end is None or end >= c.start:
+                        c.start = start
+                    else:
+                        c.start += start + len(text) - end
                 if c.end is not None:
-                    if end is None or start <= c.end <= end:
-                        c.end = start + added
-                    elif c.end > end:
-                        c.end += added - removed
-                        
+                    if c.end >= start:
+                        if end is None or end >= c.end:
+                            c.end = start + len(text)
+                        else:
+                            c.end += start + len(text) - end
+    
     def apply_changes(self):
         """Apply the changes and update the tokens."""
         raise NotImplementedError()
