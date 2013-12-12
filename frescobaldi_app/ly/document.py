@@ -731,7 +731,9 @@ class Source(object):
         
         # where to start
         if cursor.start:
-            start_pos = cursor.start - document.position(start_block)
+            start_pos = cursor.start
+            if not tokens_with_position:
+                start_pos -= document.position(start_block)
             # token source for first block
             def source_start(block):
                 source = token_source(block)
@@ -744,9 +746,11 @@ class Source(object):
             source_start = token_source
         
         # where to end
-        if cursor.end:
+        if cursor.end is not None:
             end_block = cursor.end_block()
-            end_pos = cursor.end - document.position(end_block)
+            end_pos = cursor.end 
+            if not tokens_with_position:
+                end_pos -= document.position(end_block)
             def source_end(source):
                 for t in source:
                     if end_pred(t):
@@ -757,7 +761,7 @@ class Source(object):
         def generator():
             source = source_start
             block = start_block
-            if cursor.end:
+            if cursor.end is not None:
                 while block != end_block:
                     yield block, source(block)
                     source = token_source
