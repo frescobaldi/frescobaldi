@@ -566,7 +566,7 @@ class Runner(object):
             self._index += 1
         
     def move_to_block(self, block, at_end=False):
-        """Positions the Runner at the start of the given QTextBlock.
+        """Positions the Runner at the start of the given text block.
         
         If at_end == True, the iterator is positioned past the end of the block.
         
