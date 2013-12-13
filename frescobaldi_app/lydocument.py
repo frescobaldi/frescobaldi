@@ -54,12 +54,11 @@ def cursor(cursor, select_all=True):
     document if the original cursor has no selection.
     
     """
-    doc = Document(cursor.document())
     if not select_all or cursor.hasSelection():
         start, end = cursor.selectionStart(), cursor.selectionEnd()
     else:
         start, end = 0, None
-    return LyCursor(doc, start, end)
+    return Cursor(Document(cursor.document()), start, end)
     
 
 class Cursor(ly.document.Cursor):
