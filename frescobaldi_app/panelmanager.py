@@ -47,6 +47,7 @@ class PanelManager(plugin.MainWindowPlugin):
         # add the the panel stubs here
         self.loadPanel("quickinsert.QuickInsertPanel")
         self.loadPanel("musicview.MusicViewPanel")
+        self.loadPanel("svgview.SvgViewPanel")
         self.loadPanel("logtool.LogTool")
         self.loadPanel("docbrowser.HelpBrowser")
         self.loadPanel("snippet.tool.SnippetTool")
