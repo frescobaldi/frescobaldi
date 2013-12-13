@@ -67,7 +67,7 @@ def indenter(document):
 def auto_indent_block(block):
     """Auto-indents the given block."""
     i = indenter(block.document())
-    d = lydocument.LyDocument(block.document())
+    d = lydocument.Document(block.document())
     current_indent = i.get_indent(d, block)
     if current_indent is False:
         return

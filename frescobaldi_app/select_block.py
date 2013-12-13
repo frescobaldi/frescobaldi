@@ -54,7 +54,7 @@ def select_block(cursor):
     # search backwards to the first indent token
     first_block = doc.findBlock(start)
     column = start - first_block.position()
-    tokens = ly.document.Runner(lydocument.LyDocument(doc))
+    tokens = ly.document.Runner(lydocument.Document(doc))
     tokens.move_to_block(first_block)
     
     # go to the cursor position 
