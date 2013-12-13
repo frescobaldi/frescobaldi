@@ -24,8 +24,9 @@ Select Block.
 from __future__ import unicode_literals
 
 
-import tokeniter
+import ly.document
 import ly.lex
+import lydocument
 
 
 def find(i):
@@ -53,9 +54,9 @@ def select_block(cursor):
     # search backwards to the first indent token
     first_block = doc.findBlock(start)
     column = start - first_block.position()
-    tokens = tokeniter.Runner(first_block)
+    tokens = ly.document.Runner(lydocument.LyDocument(doc))
+    tokens.move_to_block(first_block)
     
-    c1, c2 = None, None
     # go to the cursor position 
     for token in tokens.forward_line():
         if token.pos <= column <= token.end:
@@ -67,20 +68,20 @@ def select_block(cursor):
                         break
                 else:
                     return
-            c1 = tokens.cursor()
+            pos1 = tokens.position()
             startpoint = tokens.copy()
             # now look forward
             for token, isindent, nest in find(tokens.forward()):
                 if not isindent and nest < 0 and  tokens.block.position() + token.end >= end:
                     # we found the endpoint
-                    c2 = tokens.cursor()
+                    pos2 = tokens.position() + len(token)
                     if nest < -1:
                         threshold = 1 - nest
                         for token, isindent, nest in find(startpoint.backward()):
                             if isindent and nest == threshold:
-                                c1 = tokens.cursor()
+                                pos1 = tokens.position()
                                 break
-                    cursor.setPosition(c2.selectionEnd())
-                    cursor.setPosition(c1.selectionStart(), cursor.KeepAnchor)
+                    cursor.setPosition(pos2)
+                    cursor.setPosition(pos1, cursor.KeepAnchor)
                     return True
 
