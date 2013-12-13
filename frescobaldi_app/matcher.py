@@ -30,7 +30,7 @@ from PyQt4.QtGui import QAction
 import app
 import plugin
 import ly.lex
-import tokeniter
+import lydocument
 import viewhighlighter
 import actioncollection
 import actioncollectionmanager
@@ -146,7 +146,8 @@ def matches(cursor, view=None):
     """
     block = cursor.block()
     column = cursor.position() - block.position()
-    tokens = tokeniter.Runner(block)
+    tokens = lydocument.Runner(cursor.document())
+    tokens.move_to_block(block)
     
     if view is not None:
         first_block = view.firstVisibleBlock()
