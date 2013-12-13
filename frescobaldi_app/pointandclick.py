@@ -33,7 +33,8 @@ import app
 import util
 import scratchdir
 import ly.lex
-import tokeniter
+import ly.document
+import lydocument
 
 
 class Links(object):
@@ -213,7 +214,8 @@ class BoundLinks(object):
                 prevcol = cur2.position() - cur2.block().position()
             col = cursor.position() - cursor.block().position()
             found = False
-            tokens = tokeniter.Runner(cursor.block(), True)
+            tokens = ly.document.Runner(lydocument.LyDocument(cursor.document()))
+            tokens.move_to_block(cursor.block(), True)
             for token in tokens.backward_line():
                 if token.pos <= prevcol:
                     break
