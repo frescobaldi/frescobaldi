@@ -37,19 +37,19 @@ import ly.lex.lilypond
 def remove(func):
     """Decorator turning a function yielding ranges into removing the ranges.
     
-    The function should accept a ly.document.Cursor, but the returned decorator
-    accepts a QTextCursor, which is converted to a ly.document.Cursor by this
-    remove function.
+    Note that you should call the function with a QTextCursor as the first 
+    argument. The returned decorator converts the QTextCursor to a 
+    ly.document.Cursor, calls the function and removes the ranges returned 
+    by the function.
     
     """
     @functools.wraps(func)
     def decorator(cursor, *args):
         c = lydocument.cursor(cursor)
-        remove = list(func(c, *args))
-        if remove:
-            with c.document as d:
-                for start, end in remove:
-                    del d[start:end]
+        remove = func(c, *args)
+        with c.document as d:
+            for start, end in remove:
+                del d[start:end]
     return decorator
 
 
