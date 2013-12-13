@@ -183,6 +183,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
                     self.searchEntry.setText(word)
                 self.slotSearchChanged()
             else:
+                self.searchEntry.selectAll()
                 self.highlightingOn()
         self.searchEntry.setFocus()
         
