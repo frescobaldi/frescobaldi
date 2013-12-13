@@ -211,8 +211,8 @@ def transpose(cursor, transposer):
             newLastPitch = p.copy()
             transposer.transpose(p)
             newLastPitch.transposed = p.copy()
-            if p.octaveCheck is not None:
-                p.octaveCheck = p.octave
+            if p.octavecheck is not None:
+                p.octavecheck = p.octave
             p.makeRelative(last)
             if relPitch:
                 # we are allowed to change the pitch after the
