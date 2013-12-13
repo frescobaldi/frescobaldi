@@ -823,8 +823,6 @@ class Source(object):
                 if end == position:
                     return
                 elif end > position:
-                    if pos < position:
-                        return t
-                    return
+                    return t
 
 
