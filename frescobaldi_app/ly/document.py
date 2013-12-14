@@ -488,11 +488,12 @@ class Block(object):
 class Cursor(object):
     """Defines a certain range (selection) in a Document.
     
-    You may change the start and end attributes yourself. As long as you 
-    keep a reference to the Cursor, its positions are updated when the 
-    document changes. When text is inserted at the start position, it remains
-    the same. But when text is inserted at the end of a cursor, the end 
-    position moves along with the new text. E.g.:
+    You may change the start and end attributes yourself.
+    
+    As long as you keep a reference to the Cursor, its positions are updated 
+    when the document changes. When text is inserted at the start position, 
+    it remains the same. But when text is inserted at the end of a cursor, 
+    the end position moves along with the new text. E.g.:
     
     d = Document('hi there, folks!')
     c = Cursor(d, 8, 8)
@@ -511,9 +512,11 @@ class Cursor(object):
         doc._register_cursor(self)
 
     def start_block(self):
+        """Return the block the start attribute points at."""
         return self.document.block(self.start)
     
     def end_block(self):
+        """Return the block the end attribute points at."""
         if self.end is None:
             return self.document[len(self.document)-1]
         return self.document.block(self.end)
@@ -525,6 +528,10 @@ class Cursor(object):
             yield b
             if b == end:
                 break
+    
+    def text(self):
+        """Convenience method to return the selected text."""
+        return self.document.plaintext()[self.start:self.end]
 
 
 class Runner(object):
