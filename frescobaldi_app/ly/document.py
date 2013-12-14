@@ -529,14 +529,17 @@ class Cursor(object):
     def blocks(self):
         """Iterate over the selected blocks.
         
-        If the cursor ends on the first position of a block, that block is 
-        not included.
+        If there are multiple blocks and the cursor ends on the first 
+        position of the last selected block, that block is not included.
         
         """
-        for b in self._d.blocks_forward(self.start_block()):
-            if self.end is not None and self._d.position(b) >= self.end:
-                break
-            yield b
+        if self.end == self.start:
+            yield self.start_block()
+        else:
+            for b in self._d.blocks_forward(self.start_block()):
+                if self.end is not None and self._d.position(b) >= self.end:
+                    break
+                yield b
     
     def text(self):
         """Convenience method to return the selected text."""
