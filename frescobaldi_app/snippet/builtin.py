@@ -507,7 +507,7 @@ notestart = None
 relative = False
 found = False
 
-c = lydocument.cursor(cursor, select_all=False)
+c = lydocument.cursor(cursor)
 runner = lydocument.Runner(c.document)
 runner.set_position(c.start, True)
 

@@ -94,7 +94,7 @@ class Group(buttongroup.ButtonGroup):
             left = tokeniter.partition(cursor).left
             if not left or not isinstance(left[-1], ly.lex.lilypond.Dynamic):
                 # no, find the first pitch
-                c = lydocument.cursor(cursor, select_all=False)
+                c = lydocument.cursor(cursor)
                 c.end = None
                 source = lydocument.Source(c, True, ly.document.OUTSIDE)
                 for p in music.music_items(source):

@@ -210,7 +210,7 @@ def articulation_positions(cursor):
     If the cursor has a selection, all positions in the selection are returned.
     
     """
-    c = lydocument.cursor(cursor, select_all=False)
+    c = lydocument.cursor(cursor)
     if not cursor.hasSelection():
         # just select til the end of the current line
         block = c.end_block()

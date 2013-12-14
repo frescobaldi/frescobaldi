@@ -45,7 +45,7 @@ import ly.pitch.abs2rel
 
 def changeLanguage(cursor, language):
     """Changes the language of the pitch names."""
-    c = lydocument.cursor(cursor)
+    c = lydocument.cursor(cursor, select_all=True)
     try:
         with qutil.busyCursor():
             changed = ly.pitch.translate.translate(c, language)
@@ -80,14 +80,14 @@ def changeLanguage(cursor, language):
 def rel2abs(cursor):
     """Converts pitches from relative to absolute."""
     with qutil.busyCursor():
-        c = lydocument.cursor(cursor)
+        c = lydocument.cursor(cursor, select_all=True)
         ly.pitch.rel2abs.rel2abs(c)
 
 
 def abs2rel(cursor):
     """Converts pitches from absolute to relative."""
     with qutil.busyCursor():
-        c = lydocument.cursor(cursor)
+        c = lydocument.cursor(cursor, select_all=True)
         ly.pitch.abs2rel.abs2rel(c)
 
 
@@ -162,7 +162,7 @@ def getModalTransposer(document, mainwindow):
     
 def transpose(cursor, transposer, mainwindow=None):
     """Transpose pitches using the specified transposer."""
-    c = lydocument.cursor(cursor)
+    c = lydocument.cursor(cursor, select_all=True)
     try:
         with qutil.busyCursor():
             ly.pitch.transpose.transpose(c, transposer)

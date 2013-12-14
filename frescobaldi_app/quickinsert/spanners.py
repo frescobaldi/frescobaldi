@@ -111,7 +111,7 @@ class ArpeggioGroup(buttongroup.ButtonGroup):
                 break
             block = block.previous()
         # where to insert
-        c = lydocument.cursor(cursor, select_all=False)
+        c = lydocument.cursor(cursor)
         block = c.end_block()
         c.end = block.position() + len(block.text()) + 1
         source = lydocument.Source(c, True, ly.document.OUTSIDE)
@@ -147,7 +147,7 @@ class GlissandoGroup(buttongroup.ButtonGroup):
     def actionTriggered(self, name):
         cursor = self.mainwindow().textCursor()
         style = _glissandoStyles[name]
-        c = lydocument.cursor(cursor, select_all=False)
+        c = lydocument.cursor(cursor)
         block = c.end_block()
         c.end = block.position() + len(block.text()) + 1
         source = lydocument.Source(c, True, ly.document.OUTSIDE)
@@ -249,7 +249,7 @@ class GraceGroup(buttongroup.ButtonGroup):
                 if single:
                     cursor.insertText(single)
                 else:
-                    c = lydocument.cursor(cursor, select_all=False)
+                    c = lydocument.cursor(cursor)
                     c.end = None
                     source = lydocument.Source(c, True, ly.document.OUTSIDE)
                     music_list = list(music.music_items(source))
@@ -270,7 +270,7 @@ def spanner_positions(cursor):
     second an ending item.
     
     """   
-    c = lydocument.cursor(cursor, select_all=False)
+    c = lydocument.cursor(cursor)
     if cursor.hasSelection():
         partial = ly.document.INSIDE
     else:

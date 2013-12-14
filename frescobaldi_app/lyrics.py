@@ -63,7 +63,7 @@ class Lyrics(plugin.MainWindowPlugin):
         view = self.mainwindow().currentView()
         cursor = view.textCursor()
         found = []
-        c = lydocument.cursor(cursor)
+        c = lydocument.cursor(cursor, select_all=True)
         # find text to hyphenate
         source = lydocument.Source(c)
         for token in source:

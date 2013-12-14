@@ -93,16 +93,16 @@ def increase_indent(cursor):
     just inserts a Tab (or spaces).
     
     """
-    c = lydocument.cursor(cursor, select_all=False)
+    c = lydocument.cursor(cursor)
     indenter(cursor.document()).increase_indent(c)
 
 def decrease_indent(cursor):
     """Decreases the indent of the line the cursor is at (or the selected lines)."""
-    c = lydocument.cursor(cursor, select_all=False)
+    c = lydocument.cursor(cursor)
     indenter(cursor.document()).decrease_indent(c)
 
 def re_indent(cursor):
     """Re-indents the selected region or the whole document."""
-    c = lydocument.cursor(cursor)
+    c = lydocument.cursor(cursor, select_all=True)
     indenter(cursor.document()).indent(c)
 

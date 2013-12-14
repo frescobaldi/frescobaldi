@@ -47,7 +47,7 @@ import ly.reformat
 def reformat(cursor):
     """Reformat the selection or the whole document."""
     i = indent.indenter(cursor.document())
-    c = lydocument.cursor(cursor)
+    c = lydocument.cursor(cursor, select_all=True)
     ly.reformat.reformat(c, i)
 
 
@@ -57,6 +57,6 @@ def remove_trailing_whitespace(cursor):
     If there is no selection, the whole document is used.
     
     """
-    ly.reformat.remove_trailing_whitespace(lydocument.cursor(cursor))
+    ly.reformat.remove_trailing_whitespace(lydocument.cursor(cursor, select_all=True))
 
 

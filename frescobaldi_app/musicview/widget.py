@@ -180,7 +180,7 @@ class MusicView(QWidget):
             return
         
         # highlight token(s) at this cursor
-        c = lydocument.cursor(cursor, select_all=False)
+        c = lydocument.cursor(cursor)
         c.end = None
         source = lydocument.Source(c, True)
         for token in source.tokens:
