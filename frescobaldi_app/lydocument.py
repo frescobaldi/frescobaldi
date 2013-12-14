@@ -223,7 +223,7 @@ class Runner(ly.document.Runner):
         return c
 
 
-class Source(object):
+class Source(ly.document.Source):
     """A Source that adds a cursor() method, returning a QTextCursor."""
     def cursor(self, token, start=0, end=None):
         """Returns a QTextCursor for the specified token.
