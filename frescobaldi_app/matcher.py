@@ -146,7 +146,7 @@ def matches(cursor, view=None):
     """
     block = cursor.block()
     column = cursor.position() - block.position()
-    tokens = lydocument.Runner(cursor.document())
+    tokens = lydocument.Runner(lydocument.Document(cursor.document()))
     tokens.move_to_block(block)
     
     if view is not None:

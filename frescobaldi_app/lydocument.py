@@ -205,10 +205,7 @@ class Document(ly.document.DocumentBase):
 
 
 class Runner(ly.document.Runner):
-    """A Runner that adds a cursor method, returning a QTextCursor."""
-    def __init__(self, doc, tokens_with_position=False):
-        super(Runner, self).__init__(Document(doc), tokens_with_position)
-        
+    """A Runner that adds a cursor() method, returning a QTextCursor."""
     def cursor(self, start=0, end=None):
         """Returns a QTextCursor for the last token.
         
@@ -223,6 +220,26 @@ class Runner(ly.document.Runner):
         c = QTextCursor(self.document().document())
         c.setPosition(self.position() + start)
         c.setPosition(self.position() + end, QTextCursor.KeepAnchor)
+        return c
+
+
+class Source(object):
+    """A Source that adds a cursor() method, returning a QTextCursor."""
+    def cursor(self, token, start=0, end=None):
+        """Returns a QTextCursor for the specified token.
+        
+        If start is given the cursor will start at position start in the token
+        (from the beginning of the token). Start defaults to 0.
+        If end is given, the cursor will end at that position in the token (from
+        the beginning of the token). End defaults to the length of the token.
+        
+        """
+        if end is None:
+            end = len(token)
+        c = QTextCursor(self.document().document())
+        pos = self.position(token)
+        c.setPosition(pos + start)
+        c.setPosition(pos + end, QTextCursor.KeepAnchor)
         return c
 
 
