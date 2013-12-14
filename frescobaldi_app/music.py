@@ -31,7 +31,7 @@ import ly.lex.lilypond
 def music_items(source, command=False, chord=False, tokens=None):
     """Yields lists of tokens describing rests, skips or pitches.
     
-    source is a tokeniter.Source instance.
+    source is a ly.document.Source instance.
     
     The following keyword arguments can be used:
     
@@ -39,9 +39,9 @@ def music_items(source, command=False, chord=False, tokens=None):
     chord: whether to allow pitches inside chords.
     tokens: if given, it is used as main iterator instead of the source object.
     
-    Each list is a contiguous group of tokens (at least one).
-    All tokens in a list are on the same line (QTextBlock). The current block
-    can be found in the block attribute of the used tokeniter.Source instance.
+    Each list is a contiguous group of tokens (at least one). All tokens in 
+    a list are on the same line (QTextBlock). The current block can be found 
+    in the block attribute of the used ly.document.Source instance.
     
     This is a small limitation compared to LilyPond, which allows a pitch on
     one line and its duration on the next, but it makes it easier to iterate
