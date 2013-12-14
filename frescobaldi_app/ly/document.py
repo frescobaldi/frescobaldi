@@ -363,7 +363,7 @@ class Document(DocumentBase):
     def setplaintext(self, text):
         text = text.replace('\r', '')
         lines = text.split('\n')
-        self._blocks = [Block(t, n) for n, t in enumerate(lines)]
+        self._blocks = [_Block(t, n) for n, t in enumerate(lines)]
         pos = 0
         for b in self._blocks:
             b.position = pos
@@ -437,7 +437,7 @@ class Document(DocumentBase):
                 lines = text.split('\n')
                 lines[-1] += s.text[start - s.position:]
                 s.text = s.text[:start - s.position] + lines[0]
-                self._blocks[s.index+1:s.index+1] = map(Block, lines[1:])
+                self._blocks[s.index+1:s.index+1] = map(_Block, lines[1:])
             # make sure this line gets reparsed
             s.tokens = None
         
@@ -469,7 +469,7 @@ class Document(DocumentBase):
                 state = self._fridge.thaw(block.state)
 
 
-class Block(object):
+class _Block(object):
     """A line of text.
     
     This class is only used by the Document implementation.
@@ -488,7 +488,8 @@ class Block(object):
 class Cursor(object):
     """Defines a certain range (selection) in a Document.
     
-    You may change the start and end attributes yourself.
+    You may change the start and end attributes yourself. Both must be an 
+    integer, end may also be None, denoting the end of the document.
     
     As long as you keep a reference to the Cursor, its positions are updated 
     when the document changes. When text is inserted at the start position, 
@@ -506,32 +507,91 @@ class Cursor(object):
     
     """
     def __init__(self, doc, start=0, end=None):
-        self.document = doc
+        self._d = doc
         self.start = start
         self.end = end
         doc._register_cursor(self)
-
+    
+    @property
+    def document(self):
+        return self._d
+    
     def start_block(self):
         """Return the block the start attribute points at."""
-        return self.document.block(self.start)
+        return self._d.block(self.start)
     
     def end_block(self):
         """Return the block the end attribute points at."""
         if self.end is None:
-            return self.document[len(self.document)-1]
-        return self.document.block(self.end)
+            return self._d[len(self._d)-1]
+        return self._d.block(self.end)
     
     def blocks(self):
         """Iterate over the selected blocks."""
         end = self.end_block()
-        for b in self.document.blocks_forward(self.start_block()):
+        for b in self._d.blocks_forward(self.start_block()):
             yield b
             if b == end:
                 break
     
     def text(self):
         """Convenience method to return the selected text."""
-        return self.document.plaintext()[self.start:self.end]
+        return self._d.plaintext()[self.start:self.end]
+    
+    def text_before(self):
+        """Return text before the cursor in it's start block."""
+        b = self.start_block()
+        pos = self.start - self._d.position(b)
+        return self._d.text(b)[:pos]
+        
+    def text_after(self):
+        """Return text after the cursor in it's end block."""
+        if self.end is None:
+            return ""
+        b = self.end_block()
+        pos = self.end - self._d.position(b)
+        return self._d.text(b)[pos:]
+        
+    def has_selection(self):
+        """Return True when there is some text selected."""
+        return self.start != self.end
+    
+    def select_all(self):
+        """Select all text."""
+        self.start, self.end = 0, None
+    
+    def select_end_of_block(self):
+        """Move end to the end of the block."""
+        if self.end is not None:
+            end = self.end_block()
+            self.end = self._d.position(end) + len(self._d.text(end))
+    
+    def select_start_of_block(self):
+        """Move start to the start of the block."""
+        start = self.start_block()
+        self.start = self._d.position(start)
+    
+    def lstrip(self, chars=None):
+        """Move start to the right, like Python's lstrip() string method."""
+        if self.start == self.end:
+            return
+        text = self.text()
+        self.start += len(text) - len(text.lstrip(chars))
+    
+    def rstrip(self, chars=None):
+        """Move end to the left, like Python's lstrip() string method."""
+        if self.start == self.end:
+            return
+        text = self.text()
+        end = self._d.size() if self.end is None else self.end
+        end -= len(text) - len(text.rstrip(chars))
+        if end < self._d.size():
+            self.end = end
+    
+    def strip(self, chars=None):
+        """Strip chars from the selection, like Python's strip() method."""
+        self.rstrip(chars)
+        self.lstrip(chars)
 
 
 class Runner(object):
@@ -551,6 +611,7 @@ class Runner(object):
         self._doc = doc
         self._wp = tokens_with_position
     
+    @property
     def document(self):
         """Return our Document."""
         return self._doc
@@ -799,6 +860,7 @@ class Source(object):
     
     next = __next__
     
+    @property
     def document(self):
         """Return our Document."""
         return self._doc

@@ -112,8 +112,7 @@ class ArpeggioGroup(buttongroup.ButtonGroup):
             block = block.previous()
         # where to insert
         c = lydocument.cursor(cursor)
-        block = c.end_block()
-        c.end = block.position() + len(block.text()) + 1
+        c.select_end_of_block()
         source = lydocument.Source(c, True, ly.document.OUTSIDE)
         with cursortools.compress_undo(cursor):
             for p in music.music_items(source):
@@ -148,8 +147,7 @@ class GlissandoGroup(buttongroup.ButtonGroup):
         cursor = self.mainwindow().textCursor()
         style = _glissandoStyles[name]
         c = lydocument.cursor(cursor)
-        block = c.end_block()
-        c.end = block.position() + len(block.text()) + 1
+        c.select_end_of_block()
         source = lydocument.Source(c, True, ly.document.OUTSIDE)
         for p in music.music_items(source):
             c = source.cursor(p[-1], start=len(p[-1]))
@@ -275,8 +273,7 @@ def spanner_positions(cursor):
         partial = ly.document.INSIDE
     else:
         # just select til the end of the current line
-        block = c.end_block()
-        c.end = block.position() + len(block.text()) + 1
+        c.select_end_of_block()
         partial = ly.document.OUTSIDE
     source = lydocument.Source(c, True, partial)
       

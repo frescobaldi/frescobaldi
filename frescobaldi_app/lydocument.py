@@ -122,6 +122,7 @@ class Document(ly.document.DocumentBase):
         """Return the block at the specified index."""
         return self._d.findBlockByNumber(index)
         
+    @property
     def document(self):
         """Return the QTextDocument we were instantiated with."""
         return self._d
@@ -217,7 +218,7 @@ class Runner(ly.document.Runner):
         """
         if end is None:
             end = len(self.token())
-        c = QTextCursor(self.document().document())
+        c = QTextCursor(self.document.document)
         c.setPosition(self.position() + start)
         c.setPosition(self.position() + end, QTextCursor.KeepAnchor)
         return c
@@ -236,7 +237,7 @@ class Source(ly.document.Source):
         """
         if end is None:
             end = len(token)
-        c = QTextCursor(self.document().document())
+        c = QTextCursor(self.document.document)
         pos = self.position(token)
         c.setPosition(pos + start)
         c.setPosition(pos + end, QTextCursor.KeepAnchor)
