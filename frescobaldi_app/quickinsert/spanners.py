@@ -29,9 +29,11 @@ import app
 import icons
 import cursortools
 import tokeniter
+import lydocument
 import music
 import documentactions
 import symbols
+import ly.document
 
 from . import tool
 from . import buttongroup
@@ -109,9 +111,12 @@ class ArpeggioGroup(buttongroup.ButtonGroup):
                 break
             block = block.previous()
         # where to insert
-        source = tokeniter.Source.from_cursor(cursor, True, -1)
+        c = lydocument.cursor(cursor, select_all=False)
+        block = c.end_block()
+        c.end = block.position() + len(block.text()) + 1
+        source = lydocument.Source(c, True, ly.document.OUTSIDE)
         with cursortools.compress_undo(cursor):
-            for p in music.music_items(source, tokens=source.tokens):
+            for p in music.music_items(source):
                 c = source.cursor(p[-1], start=len(p[-1]))
                 c.insertText('\\arpeggio')
                 if name != lastused:
@@ -142,8 +147,11 @@ class GlissandoGroup(buttongroup.ButtonGroup):
     def actionTriggered(self, name):
         cursor = self.mainwindow().textCursor()
         style = _glissandoStyles[name]
-        source = tokeniter.Source.from_cursor(cursor, True, -1)
-        for p in music.music_items(source, tokens=source.tokens):
+        c = lydocument.cursor(cursor, select_all=False)
+        block = c.end_block()
+        c.end = block.position() + len(block.text()) + 1
+        source = lydocument.Source(c, True, ly.document.OUTSIDE)
+        for p in music.music_items(source):
             c = source.cursor(p[-1], start=len(p[-1]))
             if style:
                 text = "-\\tweak #'style #'{0} \\glissando".format(style)
@@ -200,7 +208,7 @@ class GraceGroup(buttongroup.ButtonGroup):
         yield 'grace_appog', _("Appoggiatura")
         yield 'grace_slash', _("Slashed no slur")
         yield 'grace_after', _("After grace")
-  		
+        
     def actionTriggered(self, name):
         d = ['_', '', '^'][self.direction()+1]
         single = ''
@@ -224,36 +232,37 @@ class GraceGroup(buttongroup.ButtonGroup):
             outer = '\\slashedGrace { ', ' }'
         elif name == "grace_after":
             inner = d + '{ '
-            outer = '\\afterGrace ', ' }'        		
+            outer = '\\afterGrace ', ' }'               
 
         cursor = self.mainwindow().textCursor()
         with cursortools.compress_undo(cursor):
             if inner:     
-            	for i, ci in zip(inner, spanner_positions(cursor)):
-                	ci.insertText(i)
+                for i, ci in zip(inner, spanner_positions(cursor)):
+                    ci.insertText(i)
             if cursor.hasSelection():
-            	ins = self.mainwindow().textCursor()      
-            	ins.setPosition(cursor.selectionStart())
-            	ins.insertText(outer[0])
-            	ins.setPosition(cursor.selectionEnd())
-            	ins.insertText(outer[1])
+                ins = self.mainwindow().textCursor()      
+                ins.setPosition(cursor.selectionStart())
+                ins.insertText(outer[0])
+                ins.setPosition(cursor.selectionEnd())
+                ins.insertText(outer[1])
             else:
-            	if single:
-            		cursor.insertText(single)
-            	else:
-            		source = tokeniter.Source.from_cursor(cursor, True, -1)
-            		music_list = list(music.music_items(source, tokens=source.tokens))
-            		try:
-            			m = music_list[2][0]
-            			after = source.cursor(m, 1)
-            		except IndexError:            			
-            			after = self.mainwindow().textCursor()
-            			after.movePosition(cursor.EndOfLine)   		
-            		after.insertText(outer[1])
-            		cursor.insertText(outer[0])
-        
-        
-                
+                if single:
+                    cursor.insertText(single)
+                else:
+                    c = lydocument.cursor(cursor, select_all=False)
+                    c.end = None
+                    source = lydocument.Source(c, True, ly.document.OUTSIDE)
+                    music_list = list(music.music_items(source))
+                    try:
+                        m = music_list[2][0]
+                        after = source.cursor(m, 1)
+                    except IndexError:                      
+                        after = self.mainwindow().textCursor()
+                        after.movePosition(cursor.EndOfLine)        
+                    after.insertText(outer[1])
+                    cursor.insertText(outer[0])
+
+
 def spanner_positions(cursor):
     """Return a list with 0 to 2 QTextCursor instances.
     
@@ -261,24 +270,26 @@ def spanner_positions(cursor):
     second an ending item.
     
     """   
-    
+    c = lydocument.cursor(cursor, select_all=False)
     if cursor.hasSelection():
-        source = tokeniter.Source.selection(cursor, True)
-        tokens = None
+        partial = ly.document.INSIDE
     else:
-        source = tokeniter.Source.from_cursor(cursor, True, -1)
-        tokens = source.tokens # only current line
-	  
+        # just select til the end of the current line
+        block = c.end_block()
+        c.end = block.position() + len(block.text()) + 1
+        partial = ly.document.OUTSIDE
+    source = lydocument.Source(c, True, partial)
+      
     positions = [source.cursor(p[-1], start=len(p[-1]))
-        for p in music.music_items(source, tokens=tokens)]
+        for p in music.music_items(source)]
     
     if cursor.hasSelection():
         del positions[1:-1]
     else:
         del positions[2:]
     return positions
-     	
- 	
+        
+    
 
 
 _arpeggioTypes = {

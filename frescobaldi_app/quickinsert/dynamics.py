@@ -31,6 +31,8 @@ import symbols
 import cursortools
 import tokeniter
 import music
+import lydocument
+import ly.document
 import ly.lex.lilypond
 import documentactions
 
@@ -92,14 +94,17 @@ class Group(buttongroup.ButtonGroup):
             left = tokeniter.partition(cursor).left
             if not left or not isinstance(left[-1], ly.lex.lilypond.Dynamic):
                 # no, find the first pitch
-                source = tokeniter.Source.from_cursor(cursor, True, -1)
+                c = lydocument.cursor(cursor, select_all=False)
+                c.end = None
+                source = lydocument.Source(c, True, ly.document.OUTSIDE)
                 for p in music.music_items(source):
                     cursor = source.cursor(p[-1], start=len(p[-1]))
                     break
             cursor.insertText(direction + dynamic)
             self.mainwindow().currentView().setTextCursor(cursor)
         else:
-            source = tokeniter.Source.selection(cursor, True)
+            c = lydocument.cursor(cursor)
+            source = lydocument.Source(c, True)
             cursors = [source.cursor(p[-1], start=len(p[-1]))
                 for p in music.music_items(source)]
             if not cursors:
