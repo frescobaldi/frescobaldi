@@ -657,13 +657,16 @@ class Runner(object):
         """
         block = self._doc.block(position)
         self.move_to_block(block)
-        for t in self.forward_line():
-            if self.position() + len(t) > position:
-                if self.position() >= position:
+        if after_token:
+            for t in self.forward_line():
+                if self.position() + len(t) >= position:
+                    self._index += 1
+                    break
+        else:
+            for t in self.forward_line():
+                if self.position() + len(t) > position:
                     self._index -= 1
-                break
-        if after_token and self._index <= len(self._tokens):
-            self._index += 1
+                    break
         
     def move_to_block(self, block, at_end=False):
         """Positions the Runner at the start of the given text block.
