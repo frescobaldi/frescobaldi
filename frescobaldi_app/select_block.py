@@ -24,7 +24,6 @@ Select Block.
 from __future__ import unicode_literals
 
 
-import ly.document
 import ly.lex
 import lydocument
 
@@ -48,31 +47,17 @@ def select_block(cursor):
     Returns True if the cursor's selection has changed.
     
     """
-    doc = cursor.document()
-    start, end = cursor.selectionStart(), cursor.selectionEnd()
-    
-    # search backwards to the first indent token
-    first_block = doc.findBlock(start)
-    column = start - first_block.position()
-    tokens = ly.document.Runner(lydocument.Document(doc))
-    tokens.move_to_block(first_block)
-    
-    # go to the cursor position 
-    for token in tokens.forward_line():
-        if token.pos <= column <= token.end:
-            # we are at the cursor position
-            if not isinstance(token, ly.lex.Indent):
-                # search backwards to the first indenting token
-                for token, isindent, nest in find(tokens.backward()):
-                    if isindent and nest == 1:
-                        break
-                else:
-                    return
+    c = lydocument.cursor(cursor)
+    end = c.end if c.end is not None else c.document.size()
+    tokens = lydocument.Runner.at(c, after_token=True)
+    # search backwards to the first indenting token
+    for token, isindent, nest in find(tokens.backward()):
+        if isindent and nest == 1:
             pos1 = tokens.position()
             startpoint = tokens.copy()
-            # now look forward
+            # found, now look forward
             for token, isindent, nest in find(tokens.forward()):
-                if not isindent and nest < 0 and  tokens.block.position() + token.end >= end:
+                if not isindent and nest < 0 and tokens.position() + len(token) >= end:
                     # we found the endpoint
                     pos2 = tokens.position() + len(token)
                     if nest < -1:
@@ -84,4 +69,5 @@ def select_block(cursor):
                     cursor.setPosition(pos2)
                     cursor.setPosition(pos1, cursor.KeepAnchor)
                     return True
+            return
 

@@ -112,9 +112,7 @@ def duration_tokens_pos(source, *classes):
 
 def preceding_duration(cursor):
     """Return a preceding duration before the cursor, or an empty list."""
-    runner = ly.document.Runner(cursor.document)
-    runner.set_position(cursor.position)
-    tokens = runner.backward()
+    tokens = ly.document.Runner.at(cursor).backward()
     for t in tokens:
         if isinstance(t, ly.lex.lilypond.Duration):
             l = [t]
