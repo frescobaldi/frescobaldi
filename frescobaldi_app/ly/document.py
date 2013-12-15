@@ -616,11 +616,32 @@ class Runner(object):
         used.
         
         After construction, you must call either set_position() or 
-        move_to_block() before you can start using the iteration methods.
+        move_to_block() before you can start using the iteration methods. 
+        Alternatively, you can use the 'at' classmethod to construct a Runner
+        at a specific cursor position.
         
         """
         self._doc = doc
         self._wp = tokens_with_position
+    
+    @classmethod
+    def at(cls, cursor, after_token=False, tokens_with_position=False):
+        """Create and init from a Cursor.
+        
+        The Runner is positioned so that yielding forward starts with the
+        first complete token after the cursor's start position.
+        
+        Set after_token to True if you want to position the cursor after the
+        token, so that it gets yielded when you go backward.
+        
+        If tokens_with_position is True, uses the tokens_with_position() 
+        method to get the tokens, else (by default), the tokens() method is 
+        used.
+        
+        """
+        runner = cls(cursor.document, tokens_with_position)
+        runner.set_position(cursor.start, after_token)
+        return runner
     
     @property
     def document(self):
