@@ -583,20 +583,18 @@ class Cursor(object):
     
     def lstrip(self, chars=None):
         """Move start to the right, like Python's lstrip() string method."""
-        if self.start == self.end:
-            return
-        text = self.text()
-        self.start += len(text) - len(text.lstrip(chars))
+        if self.has_selection():
+            text = self.text()
+            self.start += len(text) - len(text.lstrip(chars))
     
     def rstrip(self, chars=None):
         """Move end to the left, like Python's lstrip() string method."""
-        if self.start == self.end:
-            return
-        text = self.text()
-        end = self._d.size() if self.end is None else self.end
-        end -= len(text) - len(text.rstrip(chars))
-        if end < self._d.size():
-            self.end = end
+        if self.has_selection():
+            text = self.text()
+            end = self._d.size() if self.end is None else self.end
+            end -= len(text) - len(text.rstrip(chars))
+            if end < self._d.size():
+                self.end = end
     
     def strip(self, chars=None):
         """Strip chars from the selection, like Python's strip() method."""
