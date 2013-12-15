@@ -508,8 +508,7 @@ relative = False
 found = False
 
 c = lydocument.cursor(cursor)
-runner = lydocument.Runner(c.document)
-runner.set_position(c.start, True)
+runner = lydocument.Runner.at(c, True)
 
 for t in runner.backward():
     if t == '\\relative':
