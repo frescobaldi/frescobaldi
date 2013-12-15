@@ -561,7 +561,10 @@ class Cursor(object):
         
     def has_selection(self):
         """Return True when there is some text selected."""
-        return self.start != self.end
+        end = self.end
+        if end is None:
+            end = self._d.size()
+        return self.start != end
     
     def select_all(self):
         """Select all text."""
@@ -650,8 +653,11 @@ class Runner(object):
         
         """
         self.block = block
-        method = self._doc.tokens_with_position if self._wp else self._doc.tokens
-        self._tokens = method(block)
+        if self._doc.isvalid(block):
+            method = self._doc.tokens_with_position if self._wp else self._doc.tokens
+            self._tokens = method(block)
+        else:
+            self._tokens = ()
         self._index = len(self._tokens) if at_end else -1
     
     def valid(self):
@@ -709,7 +715,7 @@ class Runner(object):
         Returns False if there was no next block, else True.
         
         """
-        valid = self.block.isValid()
+        valid = self.valid()
         if valid:
             self.move_to_block(self._doc.next_block(self.block), at_end)
         return valid
