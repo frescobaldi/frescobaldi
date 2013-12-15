@@ -614,6 +614,9 @@ class Runner(object):
         method to get the tokens, else (by default), the tokens() method is 
         used.
         
+        After construction, you must call either set_position() or 
+        move_to_block() before you can start using the iteration methods.
+        
         """
         self._doc = doc
         self._wp = tokens_with_position
@@ -634,7 +637,7 @@ class Runner(object):
         self.move_to_block(block)
         for t in self.forward_line():
             if self.position() + len(t) > position:
-                if self.position() == position:
+                if self.position() >= position:
                     self._index -= 1
                 break
         if after_token and self._index <= len(self._tokens):
