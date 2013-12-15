@@ -164,19 +164,21 @@ def matches(cursor, view=None):
             if isinstance(token, ly.lex.MatchStart):
                 match, other = ly.lex.MatchStart, ly.lex.MatchEnd
                 def source_gen():
-                    while tokens.valid() and pred_forward():
+                    while pred_forward():
                         for t in tokens.forward_line():
                             yield t
-                        tokens.next_block()
+                        if not tokens.next_block():
+                            break
                 source = source_gen()
                 break
             elif isinstance(token, ly.lex.MatchEnd):
                 match, other = ly.lex.MatchEnd, ly.lex.MatchStart
                 def source_gen():
-                    while tokens.valid() and pred_backward():
+                    while pred_backward():
                         for t in tokens.backward_line():
                             yield t
-                        tokens.previous_block()
+                        if not tokens.previous_block():
+                            break
                 source = source_gen()
                 break
         elif token.pos > column:

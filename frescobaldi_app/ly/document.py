@@ -615,14 +615,14 @@ class Runner(object):
         method to get the tokens, else (by default), the tokens() method is 
         used.
         
-        After construction, you must call either set_position() or 
-        move_to_block() before you can start using the iteration methods. 
-        Alternatively, you can use the 'at' classmethod to construct a Runner
-        at a specific cursor position.
+        The Runner is initialized at position 0. Alternatively, you can use 
+        the 'at' classmethod to construct a Runner at a specific cursor 
+        position.
         
         """
         self._doc = doc
         self._wp = tokens_with_position
+        self.move_to_block(doc[0])
     
     @classmethod
     def at(cls, cursor, after_token=False, tokens_with_position=False):
@@ -671,62 +671,55 @@ class Runner(object):
         If at_end == True, the iterator is positioned past the end of the block.
         
         """
-        self.block = block
         if self._doc.isvalid(block):
+            self.block = block
             method = self._doc.tokens_with_position if self._wp else self._doc.tokens
             self._tokens = method(block)
-        else:
-            self._tokens = ()
-        self._index = len(self._tokens) if at_end else -1
-    
-    def valid(self):
-        """Return whether the current block is valid."""
-        return self._doc.isvalid(self.block)
+            self._index = len(self._tokens) if at_end else -1
+            return True
     
     def forward_line(self):
         """Yields tokens in forward direction in the current block."""
-        while self._index + 1 < len(self._tokens):
-            self._index += 1
-            yield self._tokens[self._index]
+        end = len(self._tokens)
+        if self._index < end:
+            while True:
+                self._index += 1
+                if self._index == end:
+                    break
+                yield self._tokens[self._index]
     
     def forward(self):
         """Yields tokens in forward direction across blocks."""
-        while self.valid():
+        while True:
             for t in self.forward_line():
                 yield t
-            self.next_block()
+            if not self.next_block():
+                break
     
     def backward_line(self):
         """Yields tokens in backward direction in the current block."""
-        while self._index > 0:
-            self._index -= 1
-            yield self._tokens[self._index]
+        if self._index >= 0:
+            while True:
+                self._index -= 1
+                if self._index == -1:
+                    break
+                yield self._tokens[self._index]
     
     def backward(self):
         """Yields tokens in backward direction across blocks."""
-        while self.valid():
+        while True:
             for t in self.backward_line():
                 yield t
-            self.previous_block()
+            if not self.previous_block():
+                break
     
-    def at_block_start(self):
-        """Returns True if the iterator is at the start of the current block."""
-        return self._index <= 0
-    
-    def at_block_end(self):
-        """Returns True if the iterator is at the end of the current block."""
-        return self._index >= len(self._tokens) - 1
-        
     def previous_block(self, at_end=True):
         """Go to the previous block, positioning the cursor at the end by default.
         
         Returns False if there was no previous block, else True.
         
         """
-        valid = self.valid()
-        if valid:
-            self.move_to_block(self._doc.previous_block(self.block), at_end)
-        return valid
+        return self.move_to_block(self._doc.previous_block(self.block), at_end)
     
     def next_block(self, at_end=False):
         """Go to the next block, positioning the cursor at the start by default.
@@ -734,21 +727,27 @@ class Runner(object):
         Returns False if there was no next block, else True.
         
         """
-        valid = self.valid()
-        if valid:
-            self.move_to_block(self._doc.next_block(self.block), at_end)
-        return valid
+        return self.move_to_block(self._doc.next_block(self.block), at_end)
     
     def token(self):
         """Re-returns the last yielded token."""
-        return self._tokens[self._index]
+        if self._tokens:
+            index = self._index
+            if index < 0:
+                index = 0
+            elif index >= len(self._tokens):
+                index = len(self._tokens) - 1
+            return self._tokens[index]
         
     def position(self):
         """Returns the position of the current token."""
-        pos = self._tokens[self._index].pos
-        if not self._wp:
-            pos += self._doc.position(self.block)
-        return pos
+        if self._tokens:
+            pos = self.token().pos
+            if not self._wp:
+                pos += self._doc.position(self.block)
+            return pos
+        else:
+            return self._d.position(self.block)
     
     def copy(self):
         """Return a new Runner at the current position."""
