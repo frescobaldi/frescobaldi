@@ -101,8 +101,14 @@ def decrease_indent(cursor):
     c = lydocument.cursor(cursor)
     indenter(cursor.document()).decrease_indent(c)
 
-def re_indent(cursor):
-    """Re-indents the selected region or the whole document."""
+def re_indent(cursor, indent_blank_lines=False):
+    """Re-indents the selected region or the whole document.
+    
+    If indent_blank_lines is True, the indent of blank lines is made larger 
+    if necessary. If False (the default), the indent of blank lines if not 
+    changed if it is shorter than it should be.
+    
+    """
     c = lydocument.cursor(cursor, select_all=True)
-    indenter(cursor.document()).indent(c)
+    indenter(cursor.document()).indent(c, indent_blank_lines)
 

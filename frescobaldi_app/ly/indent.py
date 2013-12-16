@@ -36,8 +36,14 @@ class Indenter(object):
     def __init__(self):
         pass
     
-    def indent(self, cursor):
-        """Indent all lines in the cursor's range."""
+    def indent(self, cursor, indent_blank_lines=False):
+        """Indent all lines in the cursor's range.
+        
+        If indent_blank_lines is True, the indent of blank lines is made 
+        larger if necessary. If False (the default), the indent of blank 
+        lines if not changed if it is shorter than it should be.
+        
+        """
         indents = ['']
         start_block, end_block = cursor.start_block(), cursor.end_block()
         in_range = False
@@ -69,7 +75,7 @@ class Indenter(object):
                 if line.indent is not False:
                     if not in_range:
                         indents[-1] = line.indent
-                    elif line.isblank and indents[-1].startswith(line.indent):
+                    elif not indent_blank_lines and line.isblank and indents[-1].startswith(line.indent):
                         pass # don't make shorter indents longer on blank lines
                     elif line.indent != indents[-1]:
                         d[d.position(b):d.position(b)+len(line.indent)] = indents[-1]
