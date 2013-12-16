@@ -29,6 +29,7 @@ import collections
 import itertools
 
 import ly.lex.lilypond
+import ly.pitch
 
 
 class DocInfo(object):
@@ -37,6 +38,13 @@ class DocInfo(object):
     All tokens are saved in the tokens attribute as a tuple.
     All corresponding classes are in the classes attribute as a tuple.
     This makes quick search and access possible.
+    
+    The tokens are requested from the document using the 
+    tokens_with_position() method, so you can always locate them back in the 
+    original document using their pos attribute.
+    
+    DocInfo does not update when the document changes, you should just 
+    instantiate a new one.
     
     """
     def __init__(self, doc):
@@ -57,7 +65,7 @@ class DocInfo(object):
         """Return the index of the first specified token after pos.
         
         If cls is given, the token should be an instance of the specified 
-        class. If endpos is given, never searches after endpos. Returns -1 
+        class. If endpos is given, never searches beyond endpos. Returns -1 
         if the token is not found.
         
         """
@@ -74,7 +82,7 @@ class DocInfo(object):
         """Yield all indices of the first specified token after pos.
         
         If cls is given, the token should be an instance of the specified 
-        class. If endpos is given, never searches after endpos. Returns -1 
+        class. If endpos is given, never searches beyond endpos. Returns -1 
         if the token is not found.
         
         """
@@ -113,6 +121,22 @@ class DocInfo(object):
                         yield ''.join(itertools.takewhile(lambda t: t != '"', tokens))
                     break
 
+    def language(self):
+        """The pitch language, None if not set in the document."""
+        languages = ly.pitch.pitchInfo.keys()
+        for i in self.find_all("\\language", ly.lex.lilypond.Keyword):
+            for t in self.tokens[i+1:i+10]:
+                if isinstance(t, ly.lex.Space):
+                    continue
+                elif t == '"':
+                    continue
+                if t in languages:
+                    return t
+        for n in self.include_args():
+            lang = t.rsplit('.', 1)[0]
+            if lang in languages:
+                return lang
+    
     def count_tokens(self, cls):
         """Return the number of tokens that are a subclass of the specified class."""
         return sum(map(lambda c: issubclass(c, cls), self.classes), False)
