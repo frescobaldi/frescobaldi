@@ -26,10 +26,26 @@ from __future__ import unicode_literals
 from __future__ import absolute_import
 
 import collections
+import functools
 import itertools
 
 import ly.lex.lilypond
 import ly.pitch
+
+
+def _cache(func):
+    """Simple decorator caching the return value of a function."""
+    @functools.wraps(func)
+    def wrapper(self):
+        try:
+            return self._cache_[func]
+        except AttributeError:
+            self._cache_ = {}
+        except KeyError:
+            pass
+        result = self._cache_[func] = func(self)
+        return result
+    return wrapper
 
 
 class DocInfo(object):
@@ -57,6 +73,7 @@ class DocInfo(object):
     def document(self):
         return self._d
     
+    @_cache
     def mode(self):
         """Return the mode, e.g. "lilypond"."""
         return self._d.initial_state().mode()
@@ -93,6 +110,7 @@ class DocInfo(object):
             yield i
             pos = i + 1
     
+    @_cache
     def version_string(self):
         """Return the version as a string, e.g. "2.19.8".
         
@@ -111,16 +129,33 @@ class DocInfo(object):
                         pred = lambda t: not isinstance(t, (ly.lex.Space, ly.lex.Comment))
                     return ''.join(itertools.takewhile(pred, tokens))
 
+    @_cache
     def include_args(self):
-        """Yield the arguments of \\include commands in the token stream."""
+        """The list of \\include command arguments."""
+        result = []
         for i in self.find_all("\\include", ly.lex.lilypond.Keyword):
             tokens = iter(self.tokens[i+1:i+10])
             for token in tokens:
                 if not isinstance(token, (ly.lex.Space, ly.lex.Comment)):
                     if token == '"':
-                        yield ''.join(itertools.takewhile(lambda t: t != '"', tokens))
+                        result.append(''.join(itertools.takewhile(lambda t: t != '"', tokens)))
                     break
-
+        return result
+    
+    @_cache
+    def scheme_load_args(self):
+        """The list of scheme (load) command arguments."""
+        result = []
+        for i in self.find_all("load", ly.lex.scheme.Keyword):
+            tokens = iter(self.tokens[i+1:i+10])
+            for token in tokens:
+                if not isinstance(token, (ly.lex.Space, ly.lex.Comment)):
+                    if token == '"':
+                        result.append(''.join(itertools.takewhile(lambda t: t != '"', tokens)))
+                    break
+        return result
+    
+    @_cache
     def language(self):
         """The pitch language, None if not set in the document."""
         languages = ly.pitch.pitchInfo.keys()
