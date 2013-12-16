@@ -65,7 +65,7 @@ class Cursor(ly.document.Cursor):
     """A ly.document.Cursor with an extra cursor() method."""
     def cursor(self):
         """Return a QTextCursor with the same selection."""
-        c = QTextCursor(self.document)
+        c = QTextCursor(self.document.document)
         c.movePosition(QTextCursor.End) if self.end is None else c.setPosition(self.end)
         c.setPosition(self.start, QTextCursor.KeepAnchor)
         return c
