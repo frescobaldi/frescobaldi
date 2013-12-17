@@ -25,6 +25,7 @@ Harvest information from a ly.document.DocumentBase instance.
 from __future__ import unicode_literals
 from __future__ import absolute_import
 
+import re
 import collections
 import functools
 import itertools
@@ -147,6 +148,14 @@ class DocInfo(object):
                     else:
                         pred = lambda t: not isinstance(t, (ly.lex.Space, ly.lex.Comment))
                     return ''.join(itertools.takewhile(pred, tokens))
+
+    @_cache
+    def version_tuple(self):
+        """Return the version_string() converted to a tuple of ints."""
+        version = self.version_string()
+        if version:
+            return tuple(map(int, re.findall(r"\d+", version)))
+        return ()
 
     @_cache
     def include_args(self):
