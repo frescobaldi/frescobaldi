@@ -82,7 +82,7 @@ class Pitch(plugin.MainWindowPlugin):
         """Called when the menu is shown; selects the correct language."""
         import documentinfo
         doc = self.mainwindow().currentDocument()
-        lang = documentinfo.info(doc).pitchLanguage() or 'nederlands'
+        lang = documentinfo.docinfo(doc).language() or 'nederlands'
         for a in self.language_group.actions():
             if a.objectName() == lang:
                 a.setChecked(True)
