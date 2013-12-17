@@ -84,29 +84,42 @@ class DocInfo(object):
         """Return the mode, e.g. "lilypond"."""
         return self._d.initial_state().mode()
     
-    def find(self, token, cls=None, pos=0, endpos=-1):
-        """Return the index of the first specified token after pos.
+    def find(self, token=None, cls=None, pos=0, endpos=-1):
+        """Return the index of the first specified token and/or class after pos.
         
-        If cls is given, the token should be an instance of the specified 
-        class. If endpos is given, never searches beyond endpos. Returns -1 
-        if the token is not found.
+        If token is None, the cls should be specified. If cls is given, the 
+        token should be an instance of the specified class. If endpos is 
+        given, never searches beyond endpos. Returns -1 if the token is not 
+        found.
         
         """
-        while True:
+        if token is None:
             try:
-                i = self.tokens.index(token, pos, endpos)
+                return self.classes.index(cls, pos, endpos)
             except ValueError:
                 return -1
-            if not cls or issubclass(self.classes[i], cls):
-                return i
-            pos = i + 1
-            
-    def find_all(self, token, cls=None, pos=0, endpos=-1):
-        """Yield all indices of the first specified token after pos.
+        elif cls is None:
+            try:
+                return self.tokens.index(token, pos, endpos)
+            except ValueError:
+                return -1
+        else:
+            while True:
+                try:
+                    i = self.tokens.index(token, pos, endpos)
+                except ValueError:
+                    return -1
+                if issubclass(self.classes[i], cls):
+                    return i
+                pos = i + 1
+    
+    def find_all(self, token=None, cls=None, pos=0, endpos=-1):
+        """Yield all indices of the first specified token and/or class after pos.
         
-        If cls is given, the token should be an instance of the specified 
-        class. If endpos is given, never searches beyond endpos. Returns -1 
-        if the token is not found.
+        If token is None, the cls should be specified. If cls is given, the 
+        token should be an instance of the specified class. If endpos is 
+        given, never searches beyond endpos. Returns -1 if the token is not 
+        found.
         
         """
         while True:
@@ -161,6 +174,36 @@ class DocInfo(object):
                     break
         return result
     
+    @_cache
+    def definitions(self):
+        """The list of LilyPond identifiers the document defines."""
+        result = []
+        for i in self.find_all(None, ly.lex.lilypond.Name):
+            if i == 0 or self.tokens[i-1] == '\n':
+                result.append(self.tokens[i])
+        return result
+    
+    @_cache
+    def markup_definitions(self):
+        """The list of markup command definitions in the document."""
+        result = []
+        # find bla = \markup { .. }
+        for i in self.find_all(None, ly.lex.lilypond.Name):
+            if i == 0 or self.tokens[i-1] == '\n':
+                for t in self.tokens[i+1:i+6]:
+                    if t == "\\markup":
+                        result.append(self.tokens[i])
+                    elif t == "=" or t.isspace():
+                        continue
+                    break
+        # find #(define-markup-command construction
+        for i in self.find_all('define-markup-command', ly.lex.scheme.Word):
+            for t in self.tokens[i+1:i+6]:
+                if isinstance(t, ly.lex.scheme.Word):
+                    result.append(t)
+                    break
+        return result
+
     @_cache
     def language(self):
         """The pitch language, None if not set in the document."""
