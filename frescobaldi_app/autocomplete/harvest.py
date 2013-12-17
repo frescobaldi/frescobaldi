@@ -29,6 +29,7 @@ import re
 import documentinfo
 import fileinfo
 import tokeniter
+import ly.parse
 import ly.lex.lilypond
 import ly.lex.scheme
 
