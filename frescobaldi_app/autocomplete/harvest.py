@@ -29,35 +29,24 @@ import re
 import documentinfo
 import fileinfo
 import tokeniter
-import ly.parse
 import ly.lex.lilypond
 import ly.lex.scheme
 
 
-def tokens(cursor):
-    """Yield the tokens tuple for every block from the beginning of the document until the cursor."""
-    end = cursor.block()
-    block = cursor.document().firstBlock()
-    while block < end:
-        yield tokeniter.tokens(block)
-        block = block.next()
+def get_docinfo(cursor):
+    """Return a ly DocInfo instance for the cursor's document upto its position."""
+    dinfo = documentinfo.info(cursor.document())
+    return dinfo.lydocinfo().range(0, cursor.position())
 
 
 def names(cursor):
     """Harvests names from assignments until the cursor."""
-    end = cursor.block()
-    block = cursor.document().firstBlock()
-    while block.isValid() and block != end:
-        for t in tokeniter.tokens(block)[:2]:
-            if type(t) is ly.lex.lilypond.Name:
-                yield t
-                break
-        block = block.next()
+    return get_docinfo(cursor).definitions()
 
 
 def markup_commands(cursor):
     """Harvest markup command definitions until the cursor."""
-    return ly.parse.markup_commands(itertools.chain.from_iterable(tokens(cursor)))
+    return get_docinfo(cursor).markup_definitions()
 
     
 def schemewords(document):
@@ -69,9 +58,9 @@ def schemewords(document):
 
 def include_identifiers(cursor):
     """Harvests identifier definitions from included files."""
-    includeargs = ly.parse.includeargs(itertools.chain.from_iterable(tokens(cursor)))
-    dinfo = documentinfo.info(cursor.document())
     fname = cursor.document().url().toLocalFile()
+    includeargs = get_docinfo(cursor).include_args()
+    dinfo = documentinfo.info(cursor.document())
     files = fileinfo.includefiles(fname, dinfo.includepath(), includeargs)
     return itertools.chain.from_iterable(fileinfo.FileInfo.info(f).names()
                                          for f in files)
@@ -79,9 +68,9 @@ def include_identifiers(cursor):
 
 def include_markup_commands(cursor):
     """Harvest markup command definitions from included files."""
-    includeargs = ly.parse.includeargs(itertools.chain.from_iterable(tokens(cursor)))
-    dinfo = documentinfo.info(cursor.document())
     fname = cursor.document().url().toLocalFile()
+    includeargs = get_docinfo(cursor).include_args()
+    dinfo = documentinfo.info(cursor.document())
     files = fileinfo.includefiles(fname, dinfo.includepath(), includeargs)
     return itertools.chain.from_iterable(fileinfo.FileInfo.info(f).markup_commands()
                                          for f in files)
