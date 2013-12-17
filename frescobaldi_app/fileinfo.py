@@ -23,18 +23,22 @@ Computes and caches various information about files.
 
 from __future__ import unicode_literals
 
-import functools
 import itertools
 import os
-import re
 
 import ly.document
 import ly.docinfo
+import lydocinfo
 import ly.lex
 import filecache
 import cachedproperty
 import util
 import variables
+
+
+class _LyDocInfo(lydocinfo.DocInfoBase):
+    def variables(self):
+        return self._variables
 
 
 class FileInfo(object):
@@ -58,9 +62,10 @@ class FileInfo(object):
         """Load our contents."""
         with open(self.filename) as f:
             text = util.decode(f.read())
-        v = self._variables = variables.variables(text)
+        v = variables.variables(text)
         self._doc = ly.document.Document(text, v.get("mode"))
-        self._docinfo = ly.docinfo.DocInfo(self._doc)
+        self._docinfo = _LyDocInfo(self._doc)
+        self._docinfo._variables = v
         
     @cachedproperty.cachedproperty
     def text(self):
@@ -70,7 +75,7 @@ class FileInfo(object):
     @cachedproperty.cachedproperty(depends=text)
     def variables(self):
         """A dictionary with variables defined in the text."""
-        return self._variables
+        return self._docinfo._variables
     
     @cachedproperty.cachedproperty(depends=variables)
     def mode(self):
@@ -91,18 +96,7 @@ class FileInfo(object):
         \\version command string, possibly embedded in a comment.
         
         """
-        mkver = lambda strings: tuple(map(int, strings))
-        version = self._docinfo.version_string()
-        if version:
-            return mkver(re.findall(r"\d+", version))
-        # look at document variables
-        version = self.variables().get("version")
-        if version:
-            return mkver(re.findall(r"\d+", version))
-        # parse whole document for non-lilypond comments
-        m = re.search(r'\\version\s*"(\d+\.\d+(\.\d+)*)"', self.text())
-        if m:
-            return mkver(m.group(1).split('.'))
+        return self._docinfo.version_tuple()
 
     @cachedproperty.cachedproperty(depends=mode)
     def includeargs(self):
