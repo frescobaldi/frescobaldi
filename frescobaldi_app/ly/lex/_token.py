@@ -81,7 +81,7 @@ class Space(Token):
     rx = r'\s+'
 
 
-class Newline(Token):
+class Newline(Space):
     """A token that is a single newline."""
     rx = r'\n'
 
