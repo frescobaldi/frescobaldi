@@ -66,7 +66,13 @@ class DocInfo(object):
     def __init__(self, doc):
         """Initialize with ly.document.DocumentBase instance."""
         self._d = doc
-        self.tokens = sum(map(doc.tokens_with_position, doc), ())
+        blocks = iter(doc)
+        for b in blocks:
+            tokens = doc.tokens_with_position(b)
+            self.tokens = sum(map(
+                lambda b: ((ly.lex.Newline('\n', doc.position(b) - 1),) +
+                           doc.tokens_with_position(b)),
+                blocks), tokens)
         self.classes = tuple(map(type, self.tokens))
     
     @property
