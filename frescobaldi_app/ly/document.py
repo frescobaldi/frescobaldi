@@ -114,6 +114,10 @@ class DocumentBase(object):
     def __nonzero__(self):
         return True
     
+    def __iter__(self):
+        """Iter over all blocks."""
+        return self.blocks_forward(self[0])
+    
     def __len__(self):
         """Return the number of blocks"""
         raise NotImplementedError()
