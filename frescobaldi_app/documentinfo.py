@@ -31,9 +31,9 @@ import weakref
 
 from PyQt4.QtCore import QSettings, QUrl
 
-import ly.lex.lilypond
-import ly.parse
-import ly.pitch
+import ly.lex
+import lydocinfo
+import lydocument
 import app
 import fileinfo
 import cursortools
@@ -55,31 +55,27 @@ def mode(document, guess=True):
     return info(document).mode(guess)
 
 
-def resetoncontentschanged(func):
-    """Caches a value until the document emits the contentsChanged signal.
-    
-    Use this to decorate methods of the DocumentInfo class.
-    
-    """
-    _cache = weakref.WeakKeyDictionary()
-    @functools.wraps(func)
-    def wrapper(self):
-        try:
-            return _cache[self]
-        except KeyError:
-            def reset(selfref=weakref.ref(self)):
-                self = selfref()
-                if self:
-                    del _cache[self]
-                    self.document().contentsChanged.disconnect(reset)
-            result = _cache[self] = func(self)
-            self.document().contentsChanged.connect(reset)
-            return result
-    return wrapper
+class _LyDocInfo(lydocinfo.DocInfoBase):
+    def variables(self):
+        return variables.get(self.document.document)
 
-
+    
 class DocumentInfo(plugin.DocumentPlugin):
     """Computes and caches various information about a Document."""
+    def _reset(self):
+        """Called when the document is changed."""
+        del self._lydocinfo
+        self.document().contentsChanged.disconnect(self._reset)
+    
+    def lydocinfo(self):
+        """Return the lydocinfo instance for our document."""
+        try:
+            return self._lydocinfo
+        except AttributeError:
+            info = self._lydocinfo = _LyDocInfo(lydocument.Document(self.document()))
+            self.document().contentsChanged.connect(self._reset)
+            return info
+    
     def mode(self, guess=True):
         """Returns the type of document ('lilypond, 'html', etc.).
         
@@ -96,9 +92,8 @@ class DocumentInfo(plugin.DocumentPlugin):
         if mode in ly.lex.modes:
             return mode
         if guess:
-            return ly.lex.guessMode(self.document().toPlainText())
+            return self.lydocinfo().mode()
     
-    @resetoncontentschanged
     def version(self):
         """Returns the LilyPond version if set in the document, as a tuple of ints.
         
@@ -110,64 +105,21 @@ class DocumentInfo(plugin.DocumentPlugin):
         The version is cached until the documents contents change.
         
         """
-        mkver = lambda strings: tuple(map(int, strings))
-        
-        version = ly.parse.version(tokeniter.all_tokens(self.document()))
-        if version:
-            return mkver(re.findall(r"\d+", version))
-        # look at document variables
-        version = variables.get(self.document(), "version")
-        if version:
-            return mkver(re.findall(r"\d+", version))
-        # parse whole document for non-lilypond documents
-        if self.mode() != "lilypond":
-            m = re.search(r'\\version\s*"(\d+\.\d+(\.\d+)*)"', self.document().toPlainText())
-            if m:
-                return mkver(m.group(1).split('.'))
+        return self.lydocinfo().version_tuple()
     
     def versionString(self):
         """Returns the version of the document as a string, or an empty string."""
-        return '.'.join(map(str, self.version() or ()))
+        return self.lydocinfo().version_string() or ""
     
-    @resetoncontentschanged
     def pitchLanguage(self):
         """Returns the pitchname language used in the document, if defined."""
-        languages = ly.pitch.pitchInfo.keys()
-        for block in cursortools.all_blocks(self.document()):
-            tokens = tokeniter.tokens(block)
-            try:
-                i = tokens.index('\\language')
-            except ValueError:
-                try:
-                    i = tokens.index('\\include')
-                except ValueError:
-                    continue
-            if isinstance(tokens[i], ly.lex.lilypond.Keyword):
-                for t in tokens[i+1:]:
-                    if isinstance(t, ly.lex.Space):
-                        continue
-                    elif t == '"':
-                        continue
-                    lang = t[:-3] if t.endswith('.ly') else t[:]
-                    if lang in languages:
-                        return lang
+        return self.lydocinfo().language()
     
-    @resetoncontentschanged
     def globalStaffSize(self, default=20):
         """Returns the global staff size, if set, else the default value."""
-        for block in cursortools.all_blocks(self.document()):
-            tokens = tokeniter.tokens(block)
-            try:
-                i = tokens.index('set-global-staff-size')
-            except ValueError:
-                continue
-            try:
-                return int(tokens[i+2], 10)
-            except (IndexError, ValueError):
-                pass
-        return default
+        s = self.lydocinfo().global_staff_size()
+        return default if s is None else s
     
-    @resetoncontentschanged
     def looksComplete(self):
         """Return True when the document looks couplete and could be valid.
         
@@ -233,14 +185,9 @@ class DocumentInfo(plugin.DocumentPlugin):
         
         return filename, mode_, includepath
     
-    @resetoncontentschanged
     def includeargs(self):
-        """Returns a list of \\include arguments in our document.
-        
-        See ly.parse.includeargs().
-        
-        """
-        return list(ly.parse.includeargs(tokeniter.all_tokens(self.document())))
+        """Returns a list of \\include arguments in our document."""
+        return self.lydocinfo().include_args()
 
     def includefiles(self):
         """Returns a set of filenames that are included by the given document.
@@ -277,14 +224,9 @@ class DocumentInfo(plugin.DocumentPlugin):
             return ()
         return tuple(url.resolved(QUrl(arg)) for arg in self.includeargs())
         
-    @resetoncontentschanged
     def outputargs(self):
-        """Returns a list of output arguments in our document.
-        
-        See ly.parse.outputargs().
-        
-        """
-        return list(ly.parse.outputargs(tokeniter.all_tokens(self.document())))
+        """Returns a list of output arguments in our document."""
+        return self.lydocinfo().output_args()
         
     def basenames(self):
         """Returns a list of basenames that our document is expected to create.
