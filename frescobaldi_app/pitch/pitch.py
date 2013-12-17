@@ -60,7 +60,7 @@ def changeLanguage(cursor, language):
         return
     if not cursor.hasSelection():
         # there was no selection and no language command, so insert one
-        version = (documentinfo.info(cursor.document()).version()
+        version = (documentinfo.docinfo(cursor.document()).version()
                    or lilypondinfo.preferred().version())
         ly.pitch.translate.insert_language(c.document, language, version)
         return
@@ -97,7 +97,7 @@ def getTransposer(document, mainwindow):
     Returns None if the dialog was cancelled.
     
     """
-    language = documentinfo.info(document).pitchLanguage() or 'nederlands'
+    language = documentinfo.docinfo(document).language() or 'nederlands'
     
     def readpitches(text):
         """Reads pitches from text."""
@@ -128,7 +128,7 @@ def getModalTransposer(document, mainwindow):
     Returns None if the dialog was cancelled.
     
     """
-    language = documentinfo.info(document).pitchLanguage() or 'nederlands'
+    language = documentinfo.docinfo(document).language() or 'nederlands'
     
     def readpitches(text):
         """Reads pitches from text."""

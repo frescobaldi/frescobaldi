@@ -96,7 +96,7 @@ class FileInfo(object):
         \\version command string, possibly embedded in a comment.
         
         """
-        return self._docinfo.version_tuple()
+        return self._docinfo.version()
 
     @cachedproperty.cachedproperty(depends=mode)
     def includeargs(self):

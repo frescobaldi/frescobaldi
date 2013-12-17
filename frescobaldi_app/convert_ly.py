@@ -161,7 +161,7 @@ class Dialog(QDialog):
         return self._convertedtext or ''
     
     def setDocument(self, doc):
-        v = documentinfo.info(doc).versionString()
+        v = documentinfo.docinfo(doc).version_string()
         if v:
             self.fromVersion.setText(v)
             self.reason.setText(_("(set in document)"))

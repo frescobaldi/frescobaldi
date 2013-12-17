@@ -50,6 +50,11 @@ def info(document):
     return DocumentInfo.instance(document)
 
 
+def docinfo(document):
+    """Return a LyDocInfo instance for the document."""
+    return info(document).lydocinfo()
+
+
 def mode(document, guess=True):
     """Returns the type of the given document. See DocumentInfo.mode()."""
     return info(document).mode(guess)
@@ -93,41 +98,6 @@ class DocumentInfo(plugin.DocumentPlugin):
             return mode
         if guess:
             return self.lydocinfo().mode()
-    
-    def version(self):
-        """Returns the LilyPond version if set in the document, as a tuple of ints.
-        
-        First the functions searches inside LilyPond syntax.
-        Then it looks at the 'version' document variable.
-        Then, if the document is not a LilyPond document, it simply searches for a
-        \\version command string, possibly embedded in a comment.
-        
-        The version is cached until the documents contents change.
-        
-        """
-        return self.lydocinfo().version_tuple()
-    
-    def versionString(self):
-        """Returns the version of the document as a string, or an empty string."""
-        return self.lydocinfo().version_string() or ""
-    
-    def pitchLanguage(self):
-        """Returns the pitchname language used in the document, if defined."""
-        return self.lydocinfo().language()
-    
-    def globalStaffSize(self, default=20):
-        """Returns the global staff size, if set, else the default value."""
-        s = self.lydocinfo().global_staff_size()
-        return default if s is None else s
-    
-    def looksComplete(self):
-        """Return True when the document looks couplete and could be valid.
-        
-        This is determined by looking at the depth of the state at the end of
-        the last line: if it is 1 it could be a valid document.
-        
-        """
-        return tokeniter.state_end(self.document().lastBlock()).depth() == 1
     
     def master(self):
         """Returns the master filename for the document, if it exists."""
@@ -177,7 +147,7 @@ class DocumentInfo(plugin.DocumentPlugin):
                 scratch = scratchdir.scratchdir(self.document())
                 if create:
                     scratch.saveDocument()
-                    if filename and self.includeargs():
+                    if filename and self.lydocinfo().include_args():
                         includepath.append(os.path.dirname(filename))
                     filename = scratch.path()
                 elif scratch.path() and os.path.exists(scratch.path()):
@@ -185,10 +155,6 @@ class DocumentInfo(plugin.DocumentPlugin):
         
         return filename, mode_, includepath
     
-    def includeargs(self):
-        """Returns a list of \\include arguments in our document."""
-        return self.lydocinfo().include_args()
-
     def includefiles(self):
         """Returns a set of filenames that are included by the given document.
         
@@ -207,7 +173,7 @@ class DocumentInfo(plugin.DocumentPlugin):
             filename = self.document().url().toLocalFile()
             if not filename:
                 return set()
-            includeargs = self.includeargs()
+            includeargs = self.lydocinfo().include_args()
         files = fileinfo.includefiles(filename, self.includepath(), includeargs)
         return files
 
@@ -222,11 +188,7 @@ class DocumentInfo(plugin.DocumentPlugin):
         url = self.document().url()
         if url.isEmpty():
             return ()
-        return tuple(url.resolved(QUrl(arg)) for arg in self.includeargs())
-        
-    def outputargs(self):
-        """Returns a list of output arguments in our document."""
-        return self.lydocinfo().output_args()
+        return tuple(url.resolved(QUrl(arg)) for arg in self.lydocinfo().include_args())
         
     def basenames(self):
         """Returns a list of basenames that our document is expected to create.
@@ -251,7 +213,7 @@ class DocumentInfo(plugin.DocumentPlugin):
                     for name in output.split(',')]
         
         if mode == "lilypond":
-            return fileinfo.basenames(filename, self.includefiles(), self.outputargs())
+            return fileinfo.basenames(filename, self.includefiles(), self.lydocinfo().output_args())
         
         elif mode == "html":
             pass

@@ -187,8 +187,8 @@ class DocInfo(object):
                     return ''.join(itertools.takewhile(pred, tokens))
 
     @_cache
-    def version_tuple(self):
-        """Return the version_string() converted to a tuple of ints."""
+    def version(self):
+        """Return the version_string() as a tuple of ints, e.g. (2, 16, 2)."""
         version = self.version_string()
         if version:
             return tuple(map(int, re.findall(r"\d+", version)))
@@ -308,6 +308,11 @@ class DocInfo(object):
                 return int(self.tokens[i+2])
             except (IndexError, ValueError):
                 pass
+    
+    @_cache
+    def complete(self):
+        """Return whether the document is probably complete and could be compilable."""
+        return self._d.state_end(self._d[len(self._d)-1]).depth() == 1
     
     def count_tokens(self, cls):
         """Return the number of tokens that are (a subclass) of the specified class.

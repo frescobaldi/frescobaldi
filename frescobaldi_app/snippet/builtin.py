@@ -473,7 +473,7 @@ fonts = #(make-pango-font-tree
 
 import documentinfo
 import globalfontdialog
-size = documentinfo.info(cursor.document()).globalStaffSize()
+size = documentinfo.docinfo(cursor.document()).global_staff_size()
 dlg = globalfontdialog.GlobalFontDialog(view)
 dlg.setStaffSize(size)
 if dlg.exec_():

@@ -30,12 +30,11 @@ from PyQt4.QtCore import QSettings
 import job
 import documentinfo
 import lilypondinfo
-import layoutcontrol
 
 
 def info(document):
     """Returns a LilyPondInfo instance that should be used by default to engrave the document."""
-    version = documentinfo.info(document).version()
+    version = documentinfo.docinfo(document).version()
     if version and QSettings().value("lilypond_settings/autoversion", False, bool):
         return lilypondinfo.suitable(version)
     return lilypondinfo.preferred()
