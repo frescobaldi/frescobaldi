@@ -80,6 +80,43 @@ class DocInfo(object):
     def document(self):
         return self._d
     
+    def range(self, start=0, end=None):
+        """Return a new instance of the DocInfo class for the selected range.
+        
+        Only the tokens completely contained within the range start..end are 
+        added to the new instance. This can be used to perform fast searches 
+        on a subset of a document.
+        
+        """
+        if start == 0 and end is None:
+            return self
+        
+        lo = 0
+        hi = len(self.tokens)
+        while lo < hi:
+            mid = (lo + hi) // 2
+            if start > self.tokens[mid].pos:
+                lo = mid + 1
+            else:
+                hi = mid
+        start = lo
+        if end is not None:
+            lo = 0
+            hi = len(self.tokens)
+            while lo < hi:
+                mid = (lo + hi) // 2
+                if end < self.tokens[mid].pos:
+                    hi = mid
+                else:
+                    lo = mid + 1
+            end = lo - 1            
+        s = slice(start, end)
+        n = type(self).__new__(type(self))
+        n._d = self._d
+        n.tokens = self.tokens[s]
+        n.classes = self.classes[s]
+        return n
+    
     @_cache
     def mode(self):
         """Return the mode, e.g. "lilypond"."""
