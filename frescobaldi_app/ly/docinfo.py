@@ -51,9 +51,9 @@ def _cache(func):
 class DocInfo(object):
     """Harvest information from a ly.document.DocumentBase instance.
     
-    All tokens are saved in the tokens attribute as a tuple.
-    All corresponding classes are in the classes attribute as a tuple.
-    This makes quick search and access possible.
+    All tokens are saved in the tokens attribute as a tuple. Newline tokens 
+    are added between all lines. All corresponding classes are in the 
+    classes attribute as a tuple. This makes quick search and access possible.
     
     The tokens are requested from the document using the 
     tokens_with_position() method, so you can always locate them back in the 
@@ -109,7 +109,7 @@ class DocInfo(object):
                     i = self.tokens.index(token, pos, endpos)
                 except ValueError:
                     return -1
-                if issubclass(self.classes[i], cls):
+                if cls == self.classes[i]:
                     return i
                 pos = i + 1
     
@@ -175,6 +175,37 @@ class DocInfo(object):
         return result
     
     @_cache
+    def output_args(self):
+        """The list of arguments of constructs defining the name of output documents.
+        
+        This looks at the \\bookOutputName, \\bookOutputSuffix and define 
+        output-suffix commands.
+        
+        Every argument is a two tuple(type, argument) where type is either 
+        "suffix" or "name".
+        
+        """
+        result = []
+        for arg_type, cmd, cls in (
+                ("suffix", "output-suffix", ly.lex.scheme.Word),
+                ("suffix", "\\bookOutputSuffix", ly.lex.lilypond.Command),
+                ("name", "\\bookOutputName", ly.lex.lilypond.Command),
+                ):
+            for i in self.find_all(cmd, cls):
+                tokens = iter(self.tokens[i+1:i+6])
+                for t in tokens:
+                    if t == '"':
+                        arg = ''.join(itertools.takewhile(lambda t: t != '"', tokens))
+                        result.append((arg_type, arg))
+                        break
+                    elif isinstance(t, (ly.lex.lilypond.SchemeStart,
+                                            ly.lex.Space,
+                                            ly.lex.Comment)):
+                        continue
+                    break
+        return result
+    
+    @_cache
     def definitions(self):
         """The list of LilyPond identifiers the document defines."""
         result = []
@@ -202,6 +233,7 @@ class DocInfo(object):
                 if isinstance(t, ly.lex.scheme.Word):
                     result.append(t)
                     break
+        result.sort(key=lambda t: t.pos)
         return result
 
     @_cache
@@ -222,7 +254,13 @@ class DocInfo(object):
                 return lang
     
     def count_tokens(self, cls):
-        """Return the number of tokens that are a subclass of the specified class."""
+        """Return the number of tokens that are (a subclass) of the specified class.
+        
+        If you only want the number of instances of the exact class (not a 
+        subclass of) you can use info.classes.count(cls), where info is a 
+        DocInfo instance.
+        
+        """
         return sum(map(lambda c: issubclass(c, cls), self.classes), False)
 
     def counted_tokens(self):
