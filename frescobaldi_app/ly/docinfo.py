@@ -253,6 +253,16 @@ class DocInfo(object):
             if lang in languages:
                 return lang
     
+    @_cache
+    def global_staff_size(self):
+        """The global-staff-size, if set, else None."""
+        i = self.find('set-global-staff-size', ly.lex.scheme.Function)
+        if i != -1:
+            try:
+                return int(self.tokens[i+2])
+            except (IndexError, ValueError):
+                pass
+    
     def count_tokens(self, cls):
         """Return the number of tokens that are (a subclass) of the specified class.
         
