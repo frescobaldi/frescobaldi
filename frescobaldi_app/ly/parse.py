@@ -67,20 +67,6 @@ def outputargs(tokens):
                 yield found, ''.join(itertools.takewhile(lambda t: t != '"', tokens))
 
 
-def version(tokens):
-    """Returns the argument of \\version, if found in this token stream."""
-    for token in tokens:
-        if isinstance(token, lex.lilypond.Keyword) and token == "\\version":
-            for token in tokens:
-                if not isinstance(token, (lex.Space, lex.Comment)):
-                    break
-            if token == '"':
-                pred = lambda t: t != '"'
-            else:
-                pred = lambda t: not isinstance(t, (lex.Space, lex.Comment))
-            return ''.join(itertools.takewhile(pred, tokens))
-
-
 def markup_commands(tokens):
     """Yield markup command definition names."""
     for t in tokens:
