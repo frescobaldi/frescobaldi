@@ -28,7 +28,8 @@ import itertools
 import os
 import re
 
-import ly.parse
+import ly.document
+import ly.docinfo
 import ly.lex
 import filecache
 import cachedproperty
@@ -51,50 +52,34 @@ class FileInfo(object):
     
     def __init__(self, filename):
         self.filename = filename
-        self._tokens = []
-        self._tokensource = None
+        self.load()
     
+    def load(self):
+        """Load our contents."""
+        with open(self.filename) as f:
+            text = util.decode(f.read())
+        v = self._variables = variables.variables(text)
+        self._doc = ly.document.Document(text, v.get("mode"))
+        self._docinfo = ly.docinfo.DocInfo(self._doc)
+        
     @cachedproperty.cachedproperty
     def text(self):
         """The text of the file (as unicode string)."""
-        with open(self.filename) as f:
-            return util.decode(f.read())
+        return self._doc.plaintext()
     
     @cachedproperty.cachedproperty(depends=text)
     def variables(self):
         """A dictionary with variables defined in the text."""
-        return variables.variables(self.text())
+        return self._variables
     
     @cachedproperty.cachedproperty(depends=variables)
     def mode(self):
         """The mode of the text (e.g. 'lilypond', 'html', etc)."""
-        mode = self.variables().get("mode")
-        if mode in ly.lex.modes:
-            return mode
-        return ly.lex.guessMode(self.text())
+        return self._docinfo.mode()
         
     def tokens(self):
         """Generator, yielding the token stream from the file."""
-        if self._tokensource is False:
-            return iter(self._tokens)
-        elif self._tokensource is None:
-            self._tokensource = ly.lex.state(self.mode()).tokens(self.text())
-        return self._token_iterator()
-    
-    def _token_iterator(self):
-        """(Internal) the caching iterator self.tokens() uses."""
-        for i in itertools.count():
-            try:
-                yield self._tokens[i]
-            except IndexError:
-                if self._tokensource is False:
-                    return
-                try:
-                    token = next(self._tokensource)
-                    self._tokens.append(token)
-                    yield token
-                except StopIteration:
-                    self._tokensource = False
+        return iter(self._docinfo.tokens)
     
     @cachedproperty.cachedproperty(depends=variables)
     def version(self):
@@ -107,7 +92,7 @@ class FileInfo(object):
         
         """
         mkver = lambda strings: tuple(map(int, strings))
-        version = ly.parse.version(self.tokens())
+        version = self._docinfo.version_string()
         if version:
             return mkver(re.findall(r"\d+", version))
         # look at document variables
@@ -122,33 +107,22 @@ class FileInfo(object):
     @cachedproperty.cachedproperty(depends=mode)
     def includeargs(self):
         """The list of arguments of \\include commands in the given file."""
-        return list(ly.parse.includeargs(self.tokens()))
+        return self._docinfo.include_args()
 
     @cachedproperty.cachedproperty(depends=mode)
     def outputargs(self):
         """The list of arguments of \\bookOutputName, \\bookOutputSuffix etc."""
-        return list(ly.parse.outputargs(self.tokens()))
+        return self._docinfo.output_args()
 
     @cachedproperty.cachedproperty(depends=mode)
     def names(self):
         """The list of LilyPond identifiers that the file defines."""
-        maybe_name = True
-        result = []
-        for t in self.tokens():
-            if maybe_name and isinstance(t, ly.lex.lilypond.Name):
-                result.append(t)
-                maybe_name = False
-            elif t.isspace():
-                if '\n' in t:
-                    maybe_name = True
-            else:
-                maybe_name = False
-        return result
+        return self._docinfo.definitions()
     
     @cachedproperty.cachedproperty(depends=mode)
     def markup_commands(self):
         """The list of markup commands the file defines."""
-        return list(ly.parse.markup_commands(self.tokens()))
+        return self._docinfo.markup_definitions()
 
 
 def textmode(text, guess=True):
