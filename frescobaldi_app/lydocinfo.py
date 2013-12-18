@@ -19,8 +19,12 @@
 
 """
 Harvest information from a ly.document.DocumentBase instance.
-This extends the ly.docinfo module with some behaviour specific to Frescobaldi,
-such as variables.
+
+This extends the ly.docinfo.DocInfo class with some behaviour specific to 
+Frescobaldi, such as variables.
+
+With this module, information extracted from tokenized LilyPond source is 
+available to both text documents on disk and loaded Frescobaldi documents.
 
 """
 
