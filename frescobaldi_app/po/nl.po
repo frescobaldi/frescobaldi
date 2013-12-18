@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2013-12-01 00:33+0100\n"
-"PO-Revision-Date: 2013-12-18 23:13+0100\n"
+"PO-Revision-Date: 2013-12-18 23:17+0100\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -7470,17 +7470,20 @@ msgid ""
 "appending `*N/M` this scaling is removed. (This can be useful to prevent "
 "unwanted scaling to emerge from ill-formatted musicXML-files.)"
 msgstr ""
+"als losse noten, rusten of akkoorden zijn vermenigvuldigd met een fractie "
+"`*N/M` dan wordt deze fractie verwijderd. Dit kan handig zijn bij ongewenste "
+"schaling door slecht gevormde MusicXML-bestanden."
 
 #: ../userguide/musicxml_import.md:56
-#, fuzzy
 msgid "Engrave directly:"
-msgstr "Basismap:"
+msgstr "Direct graveren:"
 
 #: ../userguide/musicxml_import.md:57
 msgid ""
 "LilyPond runs directly. (This is identical to running LilyPond -> Engrave "
 "(preview).)"
 msgstr ""
+"LilyPond wordt gelijk gestart (Gelijk aan LilyPond->Graveren (vooruitblik).)"
 
 #: ../userguide/import.md:1
 msgid "Importing files"
@@ -8172,9 +8175,8 @@ msgid "Not Found"
 msgstr "Niet gevonden"
 
 #: ../userguide/404.md:3
-#, fuzzy
 msgid "Cannot load the requested userguide resource {userguide_page}."
-msgstr "Kan de gevraagde bron niet weergeven."
+msgstr "Kan de gevraagde bron {userguide_page} niet weergeven."
 
 #: ../userguide/sessions.md:1
 msgid "Sessions"
