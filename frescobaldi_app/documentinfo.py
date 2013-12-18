@@ -59,11 +59,6 @@ def mode(document, guess=True):
     """Returns the type of the given document. See DocumentInfo.mode()."""
     return info(document).mode(guess)
 
-
-class _LyDocInfo(lydocinfo.DocInfoBase):
-    def variables(self):
-        return variables.get(self.document.document)
-
     
 class DocumentInfo(plugin.DocumentPlugin):
     """Computes and caches various information about a Document."""
@@ -77,7 +72,9 @@ class DocumentInfo(plugin.DocumentPlugin):
         try:
             return self._lydocinfo
         except AttributeError:
-            info = self._lydocinfo = _LyDocInfo(lydocument.Document(self.document()))
+            doc = lydocument.Document(self.document())
+            v = variables.manager(self.document()).variables()
+            info = self._lydocinfo = lydocinfo.DocInfo(doc, v)
             self.document().contentsChanged.connect(self._reset)
             return info
     

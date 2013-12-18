@@ -36,18 +36,13 @@ import re
 import ly.docinfo
 
 
-class DocInfoBase(ly.docinfo.DocInfo):
+class DocInfo(ly.docinfo.DocInfo):
     """Add Frescobaldi-specific stuff to ly.docinfo.DocInfo."""
     
-    @ly.docinfo._cache
-    def variables(self):
-        """Return the variables dictionary for this document.
-        
-        Re-implement this method for either a Frescobaldi document or a 
-        (cached) fileinfo document.
-        
-        """
-        pass
+    def __init__(self, doc, variables):
+        """Initialize with ly.document instance and variables dictionary."""
+        super(DocInfo, self).__init__(doc)
+        self.variables = variables
     
     @ly.docinfo._cache
     def version_string(self):
@@ -55,11 +50,11 @@ class DocInfoBase(ly.docinfo.DocInfo):
         version = super(DocInfoBase, self).version_string()
         if version:
             return version
-        version = self.variables().get("version")
+        version = self.variables.get("version")
         if version:
             return version
         # parse whole document for non-lilypond comments
         m = re.search(r'\\version\s*"(\d+\.\d+(\.\d+)*)"', self.document.plaintext())
         if m:
             return m.group(1)
-    
+

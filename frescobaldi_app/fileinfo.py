@@ -48,14 +48,8 @@ def docinfo(filename):
         text = util.decode(f.read())
     v = variables.variables(text)
     doc = ly.document.Document(text, v.get("mode"))
-    info = _docinfo_cache[filename] = _LyDocInfo(doc)
-    info._variables = v
+    info = _docinfo_cache[filename] = lydocinfo.DocInfo(doc, v)
     return info
-
-
-class _LyDocInfo(lydocinfo.DocInfoBase):
-    def variables(self):
-        return self._variables
 
 
 def textmode(text, guess=True):
