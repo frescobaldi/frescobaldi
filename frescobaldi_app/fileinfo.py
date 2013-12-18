@@ -31,92 +31,32 @@ import ly.docinfo
 import lydocinfo
 import ly.lex
 import filecache
-import cachedproperty
 import util
 import variables
+
+
+_docinfo_cache = filecache.FileCache()
+
+
+def docinfo(filename):
+    """Return a (cached) LyDocInfo instance for the specified file."""
+    filename = os.path.realpath(filename)
+    try:
+        return _docinfo_cache[filename]
+    except KeyError:
+        pass
+    with open(filename) as f:
+        text = util.decode(f.read())
+    v = variables.variables(text)
+    doc = ly.document.Document(text, v.get("mode"))
+    info = _docinfo_cache[filename] = _LyDocInfo(doc)
+    info._variables = v
+    return info
 
 
 class _LyDocInfo(lydocinfo.DocInfoBase):
     def variables(self):
         return self._variables
-
-
-class FileInfo(object):
-    """Caches information about files."""
-    _cache = filecache.FileCache()
-    
-    @classmethod
-    def info(cls, filename):
-        filename = os.path.realpath(filename)
-        try:
-            info = cls._cache[filename]
-        except KeyError:
-            info = cls._cache[filename] = cls(filename)
-        return info
-    
-    def __init__(self, filename):
-        self.filename = filename
-        self.load()
-    
-    def load(self):
-        """Load our contents."""
-        with open(self.filename) as f:
-            text = util.decode(f.read())
-        v = variables.variables(text)
-        self._doc = ly.document.Document(text, v.get("mode"))
-        self._docinfo = _LyDocInfo(self._doc)
-        self._docinfo._variables = v
-        
-    @cachedproperty.cachedproperty
-    def text(self):
-        """The text of the file (as unicode string)."""
-        return self._doc.plaintext()
-    
-    @cachedproperty.cachedproperty(depends=text)
-    def variables(self):
-        """A dictionary with variables defined in the text."""
-        return self._docinfo._variables
-    
-    @cachedproperty.cachedproperty(depends=variables)
-    def mode(self):
-        """The mode of the text (e.g. 'lilypond', 'html', etc)."""
-        return self._docinfo.mode()
-        
-    def tokens(self):
-        """Generator, yielding the token stream from the file."""
-        return iter(self._docinfo.tokens)
-    
-    @cachedproperty.cachedproperty(depends=variables)
-    def version(self):
-        """Returns the LilyPond version if set in the file, as a tuple of ints.
-        
-        First the function searches inside LilyPond syntax.
-        Then it looks at the 'version' document variable.
-        Then, if the document is not a LilyPond document, it simply searches for a
-        \\version command string, possibly embedded in a comment.
-        
-        """
-        return self._docinfo.version()
-
-    @cachedproperty.cachedproperty(depends=mode)
-    def includeargs(self):
-        """The list of arguments of \\include commands in the given file."""
-        return self._docinfo.include_args()
-
-    @cachedproperty.cachedproperty(depends=mode)
-    def outputargs(self):
-        """The list of arguments of \\bookOutputName, \\bookOutputSuffix etc."""
-        return self._docinfo.output_args()
-
-    @cachedproperty.cachedproperty(depends=mode)
-    def names(self):
-        """The list of LilyPond identifiers that the file defines."""
-        return self._docinfo.definitions()
-    
-    @cachedproperty.cachedproperty(depends=mode)
-    def markup_commands(self):
-        """The list of markup commands the file defines."""
-        return self._docinfo.markup_definitions()
 
 
 def textmode(text, guess=True):
@@ -152,7 +92,7 @@ def includefiles(filename, include_path=[], initial_args=None):
         path = os.path.realpath(os.path.join(directory, arg))
         if path not in files and os.path.isfile(path):
             files.add(path)
-            args = FileInfo.info(path).includeargs()
+            args = docinfo(path).include_args()
             find(args, os.path.dirname(path))
             return True
             
@@ -169,7 +109,7 @@ def includefiles(filename, include_path=[], initial_args=None):
     
     basedir = os.path.dirname(filename) if filename else None
     if initial_args is None:
-        initial_args = FileInfo.info(filename).includeargs() if filename else ()
+        initial_args = docinfo(filename).include_args() if filename else ()
     find(initial_args, basedir)
     return files
 
@@ -192,12 +132,12 @@ def basenames(filename, includefiles = None, initial_outputargs = None):
     includes = set(includefiles) if includefiles else set()
     
     if initial_outputargs is None:
-        initial_outputargs = FileInfo.info(filename).outputargs()
+        initial_outputargs = docinfo(filename).output_args()
     
     def args():
         yield initial_outputargs
         for filename in includes:
-            yield FileInfo.info(filename).outputargs()
+            yield docinfo(filename).output_args()
                 
     for type, arg in itertools.chain.from_iterable(args()):
         if type == "suffix":

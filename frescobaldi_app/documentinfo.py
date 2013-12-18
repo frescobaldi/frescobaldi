@@ -136,7 +136,7 @@ class DocumentInfo(plugin.DocumentPlugin):
         includepath = []
         filename = self.master()
         if filename:
-            mode_ = fileinfo.FileInfo.info(filename).mode()
+            mode_ = fileinfo.docinfo(filename).mode()
         else:
             filename = self.document().url().toLocalFile()
             mode_ = self.mode()
@@ -201,7 +201,7 @@ class DocumentInfo(plugin.DocumentPlugin):
         # if the file defines an 'output' variable, it is used instead
         filename = self.master()
         if filename:
-            output = fileinfo.FileInfo.info(filename).variables().get('output')
+            output = fileinfo.docinfo(filename).variables().get('output')
         else:
             output = variables.get(self.document(), 'output')
         

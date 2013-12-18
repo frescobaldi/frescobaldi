@@ -62,7 +62,7 @@ def include_identifiers(cursor):
     includeargs = get_docinfo(cursor).include_args()
     dinfo = documentinfo.info(cursor.document())
     files = fileinfo.includefiles(fname, dinfo.includepath(), includeargs)
-    return itertools.chain.from_iterable(fileinfo.FileInfo.info(f).names()
+    return itertools.chain.from_iterable(fileinfo.docinfo(f).definitions()
                                          for f in files)
 
 
@@ -72,7 +72,7 @@ def include_markup_commands(cursor):
     includeargs = get_docinfo(cursor).include_args()
     dinfo = documentinfo.info(cursor.document())
     files = fileinfo.includefiles(fname, dinfo.includepath(), includeargs)
-    return itertools.chain.from_iterable(fileinfo.FileInfo.info(f).markup_commands()
+    return itertools.chain.from_iterable(fileinfo.docinfo(f).markup_definitions()
                                          for f in files)
     
 
