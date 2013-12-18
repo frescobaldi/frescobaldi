@@ -33,6 +33,7 @@ import ly.docinfo
 
 
 class DocInfoBase(ly.docinfo.DocInfo):
+    """Add Frescobaldi-specific stuff to ly.docinfo.DocInfo."""
     
     @ly.docinfo._cache
     def variables(self):
