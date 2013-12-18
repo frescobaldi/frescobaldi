@@ -47,7 +47,7 @@ class DocInfo(ly.docinfo.DocInfo):
     @ly.docinfo._cache
     def version_string(self):
         """Return the version, but also looks in the variables and comments."""
-        version = super(DocInfoBase, self).version_string()
+        version = super(DocInfo, self).version_string()
         if version:
             return version
         version = self.variables.get("version")
