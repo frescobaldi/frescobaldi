@@ -31,9 +31,9 @@ import app
 import symbols
 import cursortools
 import lydocument
-import music
 import ly.document
 import ly.lex.lilypond
+import ly.rhythm
 import icons
 import documentactions
 
@@ -219,10 +219,10 @@ def articulation_positions(cursor):
     else:
         rests = False
         partial = ly.document.INSIDE
-    source = lydocument.Source(c, True, partial)
+    source = lydocument.Source(c, True, partial, True)
     
     positions = []
-    for p in music.music_items(source):
+    for p in ly.rhythm.music_tokens(source):
         if not rests and isinstance(p[0], ly.lex.lilypond.Rest):
             continue
         positions.append(source.cursor(p[-1], start=len(p[-1])))

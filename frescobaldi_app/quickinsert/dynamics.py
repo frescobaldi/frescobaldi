@@ -30,10 +30,10 @@ import icons
 import symbols
 import cursortools
 import tokeniter
-import music
 import lydocument
 import ly.document
 import ly.lex.lilypond
+import ly.rhythm
 import documentactions
 
 from . import tool
@@ -96,17 +96,17 @@ class Group(buttongroup.ButtonGroup):
                 # no, find the first pitch
                 c = lydocument.cursor(cursor)
                 c.end = None
-                source = lydocument.Source(c, True, ly.document.OUTSIDE)
-                for p in music.music_items(source):
+                source = lydocument.Source(c, True, ly.document.OUTSIDE, True)
+                for p in ly.rhythm.music_tokens(source):
                     cursor = source.cursor(p[-1], start=len(p[-1]))
                     break
             cursor.insertText(direction + dynamic)
             self.mainwindow().currentView().setTextCursor(cursor)
         else:
             c = lydocument.cursor(cursor)
-            source = lydocument.Source(c, True)
+            source = lydocument.Source(c, True, tokens_with_position=True)
             cursors = [source.cursor(p[-1], start=len(p[-1]))
-                for p in music.music_items(source)]
+                for p in ly.rhythm.music_tokens(source)]
             if not cursors:
                 return
             c1, c2 = cursors[0], cursors[-1]

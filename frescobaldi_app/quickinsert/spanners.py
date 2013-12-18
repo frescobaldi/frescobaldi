@@ -30,10 +30,10 @@ import icons
 import cursortools
 import tokeniter
 import lydocument
-import music
 import documentactions
 import symbols
 import ly.document
+import ly.rhythm
 
 from . import tool
 from . import buttongroup
@@ -113,9 +113,9 @@ class ArpeggioGroup(buttongroup.ButtonGroup):
         # where to insert
         c = lydocument.cursor(cursor)
         c.select_end_of_block()
-        source = lydocument.Source(c, True, ly.document.OUTSIDE)
+        source = lydocument.Source(c, True, ly.document.OUTSIDE, True)
         with cursortools.compress_undo(cursor):
-            for p in music.music_items(source):
+            for p in ly.rhythm.music_tokens(source):
                 c = source.cursor(p[-1], start=len(p[-1]))
                 c.insertText('\\arpeggio')
                 if name != lastused:
@@ -148,8 +148,8 @@ class GlissandoGroup(buttongroup.ButtonGroup):
         style = _glissandoStyles[name]
         c = lydocument.cursor(cursor)
         c.select_end_of_block()
-        source = lydocument.Source(c, True, ly.document.OUTSIDE)
-        for p in music.music_items(source):
+        source = lydocument.Source(c, True, ly.document.OUTSIDE, True)
+        for p in ly.rhythm.music_tokens(source):
             c = source.cursor(p[-1], start=len(p[-1]))
             if style:
                 text = "-\\tweak #'style #'{0} \\glissando".format(style)
@@ -249,8 +249,8 @@ class GraceGroup(buttongroup.ButtonGroup):
                 else:
                     c = lydocument.cursor(cursor)
                     c.end = None
-                    source = lydocument.Source(c, True, ly.document.OUTSIDE)
-                    music_list = list(music.music_items(source))
+                    source = lydocument.Source(c, True, ly.document.OUTSIDE, True)
+                    music_list = list(ly.rhythm.music_tokens(source))
                     try:
                         m = music_list[2][0]
                         after = source.cursor(m, 1)
@@ -275,10 +275,10 @@ def spanner_positions(cursor):
         # just select til the end of the current line
         c.select_end_of_block()
         partial = ly.document.OUTSIDE
-    source = lydocument.Source(c, True, partial)
+    source = lydocument.Source(c, True, partial, True)
       
     positions = [source.cursor(p[-1], start=len(p[-1]))
-        for p in music.music_items(source)]
+        for p in ly.rhythm.music_tokens(source)]
     
     if cursor.hasSelection():
         del positions[1:-1]
