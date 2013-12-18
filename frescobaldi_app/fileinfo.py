@@ -27,7 +27,6 @@ import itertools
 import os
 
 import ly.document
-import ly.docinfo
 import lydocinfo
 import ly.lex
 import filecache
