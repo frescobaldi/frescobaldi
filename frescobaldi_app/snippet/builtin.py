@@ -475,7 +475,7 @@ import documentinfo
 import globalfontdialog
 size = documentinfo.docinfo(cursor.document()).global_staff_size()
 dlg = globalfontdialog.GlobalFontDialog(view)
-dlg.setStaffSize(size)
+dlg.setStaffSize(size or 20)
 if dlg.exec_():
     text = snippet.format(
         staffsize = dlg.staffSize(),
@@ -483,7 +483,10 @@ if dlg.exec_():
         sans = dlg.sansFont(),
         typewriter = dlg.typewriterFont())
     if state[-1] != "paper":
-       text = "\\paper{\n%s}\n" % text
+        text = "\\paper {{\n{0}}}\n".format(text)
+        if size is None and dlg.staffSize() != 20:
+            staffsize = "#(set-global-staff-size {0})".format(dlg.staffSize())
+            text = staffsize + "\n\n" + text
 
 """),
 
