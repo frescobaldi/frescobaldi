@@ -66,20 +66,20 @@ def textmode(text, guess=True):
         return ly.lex.guessMode(text)
 
 
-def includefiles(filename, include_path=[], initial_args=None):
-    """Returns a set of filenames that are included by the given pathname.
+def includefiles(dinfo, include_path=()):
+    """Returns a set of filenames that are included by the DocInfo's document.
         
-    The specified include path is used to find files.
-    The filename is NOT itself added to the set.
-    Included files are checked recursively, relative to our (master) file,
-    relative to the including file, and if that still yields no file, relative
-    to the directories in the include_path.
+    The specified include path is used to find files. The own filename 
+    is NOT added to the set. Included files are checked recursively, 
+    relative to our file, relative to the including file, and if that 
+    still yields no file, relative to the directories in the include_path.
     
-    If initial_args is given, the filename itself is not scanned for include_args.
-    
-    If the filename is None, only the include_path is searched for files.
+    If the document has no local filename, only the include_path is 
+    searched for files.
     
     """
+    filename = dinfo.document.filename
+    basedir = os.path.dirname(filename) if filename else None
     files = set()
     
     def tryarg(directory, arg):
@@ -101,10 +101,7 @@ def includefiles(filename, include_path=[], initial_args=None):
                         if tryarg(p, arg):
                             break
     
-    basedir = os.path.dirname(filename) if filename else None
-    if initial_args is None:
-        initial_args = docinfo(filename).include_args() if filename else ()
-    find(initial_args, basedir)
+    find(dinfo.include_args(), basedir)
     return files
 
 

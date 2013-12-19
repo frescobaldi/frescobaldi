@@ -165,14 +165,8 @@ class DocumentInfo(plugin.DocumentPlugin):
         
         """
         filename = self.master()
-        includeargs = None
-        if not filename:
-            filename = self.document().url().toLocalFile()
-            if not filename:
-                return set()
-            includeargs = self.lydocinfo().include_args()
-        files = fileinfo.includefiles(filename, self.includepath(), includeargs)
-        return files
+        dinfo = fileinfo.docinfo(filename) if filename else self.lydocinfo()
+        return fileinfo.includefiles(dinfo, self.includepath())
 
     def child_urls(self):
         """Return a tuple of urls included by the Document.
