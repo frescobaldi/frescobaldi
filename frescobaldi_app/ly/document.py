@@ -102,7 +102,16 @@ class DocumentBase(object):
     blocks_backward
     state
     
+    You may use the following attributes:
+    
+    filename (None)   # can represent the filename of the document on disk
+    encoding (None)   # can represent the encoding of the document when reading/writing to disk
+    
     """
+    
+    filename = None
+    encoding = None
+    
     
     def __init__(self):
         """Constructor"""

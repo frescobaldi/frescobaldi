@@ -127,6 +127,11 @@ class Document(ly.document.DocumentBase):
         """Return the QTextDocument we were instantiated with."""
         return self._d
     
+    @property
+    def filename(self):
+        """Return the document's local filename, if any."""
+        return self.document.url().toLocalFile()
+    
     def plaintext(self):
         """The document contents as a plain text string."""
         return self._d.toPlainText()

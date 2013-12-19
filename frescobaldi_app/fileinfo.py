@@ -48,6 +48,7 @@ def docinfo(filename):
         text = util.decode(f.read())
     v = variables.variables(text)
     doc = ly.document.Document(text, v.get("mode"))
+    doc.filename = filename
     info = _docinfo_cache[filename] = lydocinfo.DocInfo(doc, v)
     return info
 
