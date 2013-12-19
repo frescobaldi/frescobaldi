@@ -43,7 +43,7 @@ def open_file_at_cursor(cursor, mainwin):
     if not fnames and cursor.hasSelection():
         fnames = [cursor.selection().toPlainText()]
     
-    # detemine search path: doc dir and other include path names
+    # determine search path: doc dir and other include path names
     filename = cursor.document().url().toLocalFile()
     if filename:
         path = [os.path.dirname(filename)]
