@@ -203,8 +203,12 @@ class DocumentInfo(plugin.DocumentPlugin):
             return [os.path.join(dirname, name.strip())
                     for name in output.split(',')]
         
+        dinfo = self.lydocinfo()
+        if filename != dinfo.document.filename:
+            dinfo = fileinfo.docinfo(filename)
+        
         if mode == "lilypond":
-            return fileinfo.basenames(filename, self.includefiles(), self.lydocinfo().output_args())
+            return fileinfo.basenames(dinfo, self.includefiles())
         
         elif mode == "html":
             pass

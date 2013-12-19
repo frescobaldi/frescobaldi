@@ -105,7 +105,7 @@ def includefiles(dinfo, include_path=()):
     return files
 
 
-def basenames(filename, includefiles = None, initial_outputargs = None):
+def basenames(dinfo, includefiles=()):
     """Returns the list of basenames a document is expected to create.
     
     The list is created based on includefiles and the define output-suffix and
@@ -114,20 +114,15 @@ def basenames(filename, includefiles = None, initial_outputargs = None):
     
     """
     basenames = []
-    basepath = os.path.splitext(filename)[0]
+    basepath = os.path.splitext(dinfo.document.filename)[0]
     dirname, basename = os.path.split(basepath)
 
     if basepath:
         basenames.append(basepath)
     
-    includes = set(includefiles) if includefiles else set()
-    
-    if initial_outputargs is None:
-        initial_outputargs = docinfo(filename).output_args()
-    
     def args():
-        yield initial_outputargs
-        for filename in includes:
+        yield dinfo.output_args()
+        for filename in includefiles:
             yield docinfo(filename).output_args()
                 
     for type, arg in itertools.chain.from_iterable(args()):
