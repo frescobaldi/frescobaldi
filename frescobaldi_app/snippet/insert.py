@@ -63,7 +63,7 @@ def insert(name, view):
         c = QTextCursor(last)
         c.setPosition(block.position(), QTextCursor.KeepAnchor)
         with cursortools.compress_undo(c, True):
-            indent.re_indent(c)
+            indent.re_indent(c, True)
     
     if not new and 'keep' in selection:
         end = cursor.position()

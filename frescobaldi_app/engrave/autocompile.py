@@ -25,7 +25,7 @@ This is a (mainwindow) global action that can be enabled.
 It runs LilyPond in preview mode, always using a temporary file.
 When a document is modified after the last run, LilyPond is run again after
 a certain time, if the document looks complete
-(documentinfo.info(doc).looksComplete()).
+(documentinfo.docinfo(doc).complete()).
 
 The log is not displayed.
 

@@ -31,8 +31,8 @@ import shutil
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-import ly.parse
-import ly.lex
+import ly.document
+import ly.docinfo
 
 import app
 import icons
@@ -56,7 +56,7 @@ class MusicPreviewJob(job.Job):
             
         info = lilypondinfo.preferred()
         if QSettings().value("lilypond_settings/autoversion", True, bool):
-            version = ly.parse.version(ly.lex.state('lilypond').tokens(text))
+            version = ly.docinfo.DocInfo(ly.document.Document(text, 'lilypond')).version_tuple()
             if version:
                 info = lilypondinfo.suitable(version)
         

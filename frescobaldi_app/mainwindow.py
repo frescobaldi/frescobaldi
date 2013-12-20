@@ -696,10 +696,11 @@ class MainWindow(QMainWindow):
         self.currentView().selectAll()
         
     def selectBlock(self):
-        import select_block
-        cursor = self.currentView().textCursor()
-        if select_block.select_block(cursor):
-            self.currentView().setTextCursor(cursor)
+        import lydocument
+        import ly.cursortools
+        cursor = lydocument.cursor(self.textCursor())
+        if ly.cursortools.select_block(cursor):
+            self.currentView().setTextCursor(cursor.cursor())
         
     def find(self):
         import search

@@ -31,9 +31,9 @@ import weakref
 
 from PyQt4.QtCore import QSettings, QUrl
 
-import ly.lex.lilypond
-import ly.parse
-import ly.pitch
+import ly.lex
+import lydocinfo
+import lydocument
 import app
 import fileinfo
 import cursortools
@@ -50,36 +50,34 @@ def info(document):
     return DocumentInfo.instance(document)
 
 
+def docinfo(document):
+    """Return a LyDocInfo instance for the document."""
+    return info(document).lydocinfo()
+
+
 def mode(document, guess=True):
     """Returns the type of the given document. See DocumentInfo.mode()."""
     return info(document).mode(guess)
 
-
-def resetoncontentschanged(func):
-    """Caches a value until the document emits the contentsChanged signal.
     
-    Use this to decorate methods of the DocumentInfo class.
-    
-    """
-    _cache = weakref.WeakKeyDictionary()
-    @functools.wraps(func)
-    def wrapper(self):
-        try:
-            return _cache[self]
-        except KeyError:
-            def reset(selfref=weakref.ref(self)):
-                self = selfref()
-                if self:
-                    del _cache[self]
-                    self.document().contentsChanged.disconnect(reset)
-            result = _cache[self] = func(self)
-            self.document().contentsChanged.connect(reset)
-            return result
-    return wrapper
-
-
 class DocumentInfo(plugin.DocumentPlugin):
     """Computes and caches various information about a Document."""
+    def _reset(self):
+        """Called when the document is changed."""
+        del self._lydocinfo
+        self.document().contentsChanged.disconnect(self._reset)
+    
+    def lydocinfo(self):
+        """Return the lydocinfo instance for our document."""
+        try:
+            return self._lydocinfo
+        except AttributeError:
+            doc = lydocument.Document(self.document())
+            v = variables.manager(self.document()).variables()
+            info = self._lydocinfo = lydocinfo.DocInfo(doc, v)
+            self.document().contentsChanged.connect(self._reset)
+            return info
+    
     def mode(self, guess=True):
         """Returns the type of document ('lilypond, 'html', etc.).
         
@@ -96,96 +94,8 @@ class DocumentInfo(plugin.DocumentPlugin):
         if mode in ly.lex.modes:
             return mode
         if guess:
-            return ly.lex.guessMode(self.document().toPlainText())
+            return self.lydocinfo().mode()
     
-    @resetoncontentschanged
-    def version(self):
-        """Returns the LilyPond version if set in the document, as a tuple of ints.
-        
-        First the functions searches inside LilyPond syntax.
-        Then it looks at the 'version' document variable.
-        Then, if the document is not a LilyPond document, it simply searches for a
-        \\version command string, possibly embedded in a comment.
-        
-        The version is cached until the documents contents change.
-        
-        """
-        mkver = lambda strings: tuple(map(int, strings))
-        
-        version = ly.parse.version(tokeniter.all_tokens(self.document()))
-        if version:
-            return mkver(re.findall(r"\d+", version))
-        # look at document variables
-        version = variables.get(self.document(), "version")
-        if version:
-            return mkver(re.findall(r"\d+", version))
-        # parse whole document for non-lilypond documents
-        if self.mode() != "lilypond":
-            m = re.search(r'\\version\s*"(\d+\.\d+(\.\d+)*)"', self.document().toPlainText())
-            if m:
-                return mkver(m.group(1).split('.'))
-    
-    def versionString(self):
-        """Returns the version of the document as a string, or an empty string."""
-        return '.'.join(map(str, self.version() or ()))
-    
-    @resetoncontentschanged
-    def pitchLanguage(self):
-        """Returns the pitchname language used in the document, if defined."""
-        languages = ly.pitch.pitchInfo.keys()
-        for block in cursortools.all_blocks(self.document()):
-            tokens = tokeniter.tokens(block)
-            try:
-                i = tokens.index('\\language')
-            except ValueError:
-                try:
-                    i = tokens.index('\\include')
-                except ValueError:
-                    continue
-            if isinstance(tokens[i], ly.lex.lilypond.Keyword):
-                for t in tokens[i+1:]:
-                    if isinstance(t, ly.lex.Space):
-                        continue
-                    elif t == '"':
-                        continue
-                    lang = t[:-3] if t.endswith('.ly') else t[:]
-                    if lang in languages:
-                        return lang
-    
-    @resetoncontentschanged
-    def globalStaffSize(self, default=20):
-        """Returns the global staff size, if set, else the default value."""
-        for block in cursortools.all_blocks(self.document()):
-            tokens = tokeniter.tokens(block)
-            try:
-                i = tokens.index('set-global-staff-size')
-            except ValueError:
-                continue
-            try:
-                return int(tokens[i+2], 10)
-            except (IndexError, ValueError):
-                pass
-        return default
-    
-    @resetoncontentschanged
-    def looksComplete(self):
-        """Return True when the document looks couplete and could be valid.
-        
-        This is determined by looking at the depth of the state at the end of
-        the last line: if it is 1 it could be a valid document.
-        
-        """
-        return tokeniter.state_end(self.document().lastBlock()).depth() == 1
-    
-    def master(self):
-        """Returns the master filename for the document, if it exists."""
-        filename = self.document().url().toLocalFile()
-        redir = variables.get(self.document(), "master")
-        if filename and redir:
-            path = os.path.normpath(os.path.join(os.path.dirname(filename), redir))
-            if os.path.exists(path) and path != filename:
-                return path
-
     def includepath(self):
         """Returns the configured include path. Currently the document does not matter."""
         try:
@@ -195,74 +105,49 @@ class DocumentInfo(plugin.DocumentPlugin):
         return include_path
         
     def jobinfo(self, create=False):
-        """Returns a three tuple(filename, mode, includepath) based on the given document.
+        """Returns a two-tuple(filename, includepath).
         
-        If the document is a local file, its contents is checked for the 'master' variable
-        to run the engraver on a different file instead. The mode is then also chosen
-        based on the contents of that other file.
+        The filename is the file LilyPond shall be run on. This can be the 
+        original filename of the document (if it has a filename and is not 
+        modified), but also the filename of a temporarily saved copy of the 
+        document.
         
-        If no redirecting variables are found and the document is modified, its text
-        is saved to a temporary area and that filename is returned. If the 'create'
-        argument is False (the default), no temporary file is created, and in that
-        case, the existing filename (may be empty) is returned.
-        
-        If a scratch area is used but the document has a local filename and includes
-        other files, the original directory is given in the includepath list.
+        The includepath is the same as self.includepath(), but with the 
+        directory of the original file prepended, only if a temporary 
+        'scratchdir'-area is used and the document does include other files 
+        (and therefore the original folder should be given in the include 
+        path to LilyPond).
         
         """
+        includepath = self.includepath()
+        filename = self.document().url().toLocalFile()
+        
         # Determine the filename to run the engraving job on
-        includepath = []
-        filename = self.master()
-        if filename:
-            mode_ = fileinfo.FileInfo.info(filename).mode()
-        else:
-            filename = self.document().url().toLocalFile()
-            mode_ = self.mode()
-        
-            if not filename or self.document().isModified():
-                # We need to use a scratchdir to save our contents to
-                import scratchdir
-                scratch = scratchdir.scratchdir(self.document())
-                if create:
-                    scratch.saveDocument()
-                    if filename and self.includeargs():
-                        includepath.append(os.path.dirname(filename))
-                    filename = scratch.path()
-                elif scratch.path() and os.path.exists(scratch.path()):
-                    filename = scratch.path()
-        
-        return filename, mode_, includepath
+        if not filename or self.document().isModified():
+            # We need to use a scratchdir to save our contents to
+            import scratchdir
+            scratch = scratchdir.scratchdir(self.document())
+            if create:
+                scratch.saveDocument()
+            if filename and self.lydocinfo().include_args():
+                includepath.insert(0, os.path.dirname(filename))
+            if create or (scratch.path() and os.path.exists(scratch.path())):
+                filename = scratch.path()
+        return filename, includepath
     
-    @resetoncontentschanged
-    def includeargs(self):
-        """Returns a list of \\include arguments in our document.
-        
-        See ly.parse.includeargs().
-        
-        """
-        return list(ly.parse.includeargs(tokeniter.all_tokens(self.document())))
-
     def includefiles(self):
-        """Returns a set of filenames that are included by the given document.
+        """Returns a set of filenames that are included by this document.
         
         The document's own filename is not added to the set.
         The configured include path is used to find files.
-        Included files are checked recursively, relative to our (master) file,
+        Included files are checked recursively, relative to our file,
         relative to the including file, and if that still yields no file, relative
         to the directories in the includepath().
         
         This method uses caching for both the document contents and the other files.
         
         """
-        filename = self.master()
-        includeargs = None
-        if not filename:
-            filename = self.document().url().toLocalFile()
-            if not filename:
-                return set()
-            includeargs = self.includeargs()
-        files = fileinfo.includefiles(filename, self.includepath(), includeargs)
-        return files
+        return fileinfo.includefiles(self.lydocinfo(), self.includepath())
 
     def child_urls(self):
         """Return a tuple of urls included by the Document.
@@ -275,16 +160,7 @@ class DocumentInfo(plugin.DocumentPlugin):
         url = self.document().url()
         if url.isEmpty():
             return ()
-        return tuple(url.resolved(QUrl(arg)) for arg in self.includeargs())
-        
-    @resetoncontentschanged
-    def outputargs(self):
-        """Returns a list of output arguments in our document.
-        
-        See ly.parse.outputargs().
-        
-        """
-        return list(ly.parse.outputargs(tokeniter.all_tokens(self.document())))
+        return tuple(url.resolved(QUrl(arg)) for arg in self.lydocinfo().include_args())
         
     def basenames(self):
         """Returns a list of basenames that our document is expected to create.
@@ -295,21 +171,17 @@ class DocumentInfo(plugin.DocumentPlugin):
         
         """
         # if the file defines an 'output' variable, it is used instead
-        filename = self.master()
-        if filename:
-            output = fileinfo.FileInfo.info(filename).variables().get('output')
-        else:
-            output = variables.get(self.document(), 'output')
-        
-        filename, mode = self.jobinfo()[:2]
-        
+        output = variables.get(self.document(), 'output')
+        filename = self.jobinfo()[0]
         if output:
             dirname = os.path.dirname(filename)
             return [os.path.join(dirname, name.strip())
                     for name in output.split(',')]
         
+        mode = self.mode()
+        
         if mode == "lilypond":
-            return fileinfo.basenames(filename, self.includefiles(), self.outputargs())
+            return fileinfo.basenames(self.lydocinfo(), self.includefiles(), filename)
         
         elif mode == "html":
             pass

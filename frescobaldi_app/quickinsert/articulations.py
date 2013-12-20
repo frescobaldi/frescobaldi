@@ -30,9 +30,10 @@ from PyQt4.QtGui import QCheckBox, QHBoxLayout, QToolButton
 import app
 import symbols
 import cursortools
-import tokeniter
-import music
+import lydocument
+import ly.document
 import ly.lex.lilypond
+import ly.rhythm
 import icons
 import documentactions
 
@@ -209,17 +210,19 @@ def articulation_positions(cursor):
     If the cursor has a selection, all positions in the selection are returned.
     
     """
-    if cursor.hasSelection():
-        source = tokeniter.Source.selection(cursor, True)
-        tokens = None
-        rests = False
-    else:
-        source = tokeniter.Source.from_cursor(cursor, True, -1)
-        tokens = source.tokens # only current line
+    c = lydocument.cursor(cursor)
+    if not cursor.hasSelection():
+        # just select til the end of the current line
+        c.select_end_of_block()
         rests = True
+        partial = ly.document.OUTSIDE
+    else:
+        rests = False
+        partial = ly.document.INSIDE
+    source = lydocument.Source(c, True, partial, True)
     
     positions = []
-    for p in music.music_items(source, tokens=tokens):
+    for p in ly.rhythm.music_tokens(source):
         if not rests and isinstance(p[0], ly.lex.lilypond.Rest):
             continue
         positions.append(source.cursor(p[-1], start=len(p[-1])))

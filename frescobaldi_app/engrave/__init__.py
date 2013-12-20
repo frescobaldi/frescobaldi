@@ -119,8 +119,8 @@ class Engraver(plugin.MainWindowPlugin):
     def engrave(self, mode='preview', document=None, may_save=True):
         """Starts an engraving job.
         
-        The mode can be 'preview', 'publish', or 'debug'. The last one uses
-        the settings in the Layout Control Options panel. The
+        The mode can be 'preview', 'publish', or 'layout-control'. The last 
+        one uses the settings in the Layout Control Options panel. The 
         default mode is 'preview'.
         
         If document is not specified, it is either the sticky or current

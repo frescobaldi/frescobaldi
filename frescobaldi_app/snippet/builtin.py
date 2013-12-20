@@ -473,9 +473,9 @@ fonts = #(make-pango-font-tree
 
 import documentinfo
 import globalfontdialog
-size = documentinfo.info(cursor.document()).globalStaffSize()
+size = documentinfo.docinfo(cursor.document()).global_staff_size()
 dlg = globalfontdialog.GlobalFontDialog(view)
-dlg.setStaffSize(size)
+dlg.setStaffSize(size or 20)
 if dlg.exec_():
     text = snippet.format(
         staffsize = dlg.staffSize(),
@@ -483,7 +483,10 @@ if dlg.exec_():
         sans = dlg.sansFont(),
         typewriter = dlg.typewriterFont())
     if state[-1] != "paper":
-       text = "\\paper{\n%s}\n" % text
+        text = "\\paper {{\n{0}}}\n".format(text)
+        if size is None and dlg.staffSize() != 20:
+            staffsize = "#(set-global-staff-size {0})".format(dlg.staffSize())
+            text = staffsize + "\n\n" + text
 
 """),
 
@@ -494,16 +497,11 @@ r"""-*- python; menu: music; symbol: note_4d;
 # inserts it again. It removes the octave mark from a note of the first
 # note of a chord if the music is in relative mode.
 
-from PyQt4.QtGui import QTextCursor
-import cursortools
-import tokeniter
+import lydocument
 import ly.lex.lilypond as lp
 
-# look back
-block = cursortools.block(cursor)
-tokens = tokeniter.partition(cursor).left
-
 # space needed before cursor?
+block = cursor.document().findBlock(cursor.selectionStart())
 beforecursor = block.text()[:cursor.selectionStart()-block.position()]
 spaceneeded = bool(beforecursor and beforecursor[-1] not in "\t ")
 
@@ -512,40 +510,34 @@ notestart = None
 relative = False
 found = False
 
-while True:
-    pos = block.position()
-    for t in tokens[::-1]:
-        if t == '\\relative':
-            relative = True
-            break
-        elif isinstance(t, (lp.Score, lp.Book, lp.BookPart, lp.Name)):
-            break
-        if found:
-            continue
-        if chordend is not None:
-            if isinstance(t, lp.ChordStart):
-                chordstart = pos + t.pos
-                found = True
-            continue
-        if isinstance(t, lp.ChordEnd):
-            chordend = pos + t.pos + len(t)
-        elif isinstance(t, lp.Note) and t not in ('R' ,'q', 's', 'r'):
-            notestart = pos + t.pos
-            found = True
-    block = block.previous()
-    if block.isValid():
-        tokens = tokeniter.tokens(block)
+c = lydocument.cursor(cursor)
+runner = lydocument.Runner.at(c, True)
+
+for t in runner.backward():
+    if t == '\\relative':
+        relative = True
+        break
+    elif isinstance(t, (lp.Score, lp.Book, lp.BookPart, lp.Name)):
+        break
+    if found:
         continue
-    break
+    if chordend is not None:
+        if isinstance(t, lp.ChordStart):
+            chordstart = runner.position()
+            found = True
+        continue
+    if isinstance(t, lp.ChordEnd):
+        chordend = runner.position() + len(t)
+    elif isinstance(t, lp.Note) and t not in ('R' ,'q', 's', 'r'):
+        notestart = runner.position()
+        found = True
 
 if found:
-    c = QTextCursor(block)
     if chordstart is not None:
         text = []
         removeOctave = 1 if relative else 0
-        c.setPosition(chordstart)
-        c.setPosition(chordend, c.KeepAnchor)
-        for t in tokeniter.Source.selection(c):
+        c.start, c.end = chordstart, chordend
+        for t in lydocument.Source(c):
             # remove octave from first pitch in relative
             if isinstance(t, lp.Note):
                 removeOctave -= 1
@@ -555,8 +547,8 @@ if found:
         text = ''.join(text)
     elif notestart is not None:
         text = []
-        c.setPosition(notestart)
-        for t in tokeniter.Source.from_cursor(c):
+        c.start, c.end = notestart, None
+        for t in lydocument.Source(c):
             if isinstance(t, lp.Note):
                 text.append(t)
             elif not relative and isinstance(t, lp.Octave):

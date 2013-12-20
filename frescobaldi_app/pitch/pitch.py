@@ -45,7 +45,7 @@ import ly.pitch.abs2rel
 
 def changeLanguage(cursor, language):
     """Changes the language of the pitch names."""
-    c = lydocument.cursor(cursor)
+    c = lydocument.cursor(cursor, select_all=True)
     try:
         with qutil.busyCursor():
             changed = ly.pitch.translate.translate(c, language)
@@ -60,7 +60,7 @@ def changeLanguage(cursor, language):
         return
     if not cursor.hasSelection():
         # there was no selection and no language command, so insert one
-        version = (documentinfo.info(cursor.document()).version()
+        version = (documentinfo.docinfo(cursor.document()).version()
                    or lilypondinfo.preferred().version())
         ly.pitch.translate.insert_language(c.document, language, version)
         return
@@ -80,14 +80,14 @@ def changeLanguage(cursor, language):
 def rel2abs(cursor):
     """Converts pitches from relative to absolute."""
     with qutil.busyCursor():
-        c = lydocument.cursor(cursor)
+        c = lydocument.cursor(cursor, select_all=True)
         ly.pitch.rel2abs.rel2abs(c)
 
 
 def abs2rel(cursor):
     """Converts pitches from absolute to relative."""
     with qutil.busyCursor():
-        c = lydocument.cursor(cursor)
+        c = lydocument.cursor(cursor, select_all=True)
         ly.pitch.abs2rel.abs2rel(c)
 
 
@@ -97,7 +97,7 @@ def getTransposer(document, mainwindow):
     Returns None if the dialog was cancelled.
     
     """
-    language = documentinfo.info(document).pitchLanguage() or 'nederlands'
+    language = documentinfo.docinfo(document).language() or 'nederlands'
     
     def readpitches(text):
         """Reads pitches from text."""
@@ -128,7 +128,7 @@ def getModalTransposer(document, mainwindow):
     Returns None if the dialog was cancelled.
     
     """
-    language = documentinfo.info(document).pitchLanguage() or 'nederlands'
+    language = documentinfo.docinfo(document).language() or 'nederlands'
     
     def readpitches(text):
         """Reads pitches from text."""
@@ -162,7 +162,7 @@ def getModalTransposer(document, mainwindow):
     
 def transpose(cursor, transposer, mainwindow=None):
     """Transpose pitches using the specified transposer."""
-    c = lydocument.cursor(cursor)
+    c = lydocument.cursor(cursor, select_all=True)
     try:
         with qutil.busyCursor():
             ly.pitch.transpose.transpose(c, transposer)

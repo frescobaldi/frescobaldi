@@ -330,7 +330,7 @@ class PitchIterator(object):
         with a ly.document.Source that has tokens_with_position set to True.
         
         """
-        document = self.source.document()
+        document = self.source.document
         pwriter = pitchWriter(language or self.language)
         note = pwriter(pitch.note, pitch.alter)
         end = pitch.note_token.end

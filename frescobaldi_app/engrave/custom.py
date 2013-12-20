@@ -193,8 +193,7 @@ class Dialog(QDialog):
     
     def getJob(self, document):
         """Returns a Job to start."""
-        filename, mode, includepath = documentinfo.info(document).jobinfo(True)
-        includepath.extend(documentinfo.info(document).includepath())
+        filename, includepath = documentinfo.info(document).jobinfo(True)
         i = self._infos[self.versionCombo.currentIndex()]
         cmd = []
         for t in self.commandLine.toPlainText().split():

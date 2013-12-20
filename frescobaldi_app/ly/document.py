@@ -102,7 +102,16 @@ class DocumentBase(object):
     blocks_backward
     state
     
+    You may use the following attributes:
+    
+    filename (None)   # can represent the filename of the document on disk
+    encoding (None)   # can represent the encoding of the document when reading/writing to disk
+    
     """
+    
+    filename = None
+    encoding = None
+    
     
     def __init__(self):
         """Constructor"""
@@ -113,6 +122,10 @@ class DocumentBase(object):
     
     def __nonzero__(self):
         return True
+    
+    def __iter__(self):
+        """Iter over all blocks."""
+        return self.blocks_forward(self[0])
     
     def __len__(self):
         """Return the number of blocks"""
@@ -363,7 +376,7 @@ class Document(DocumentBase):
     def setplaintext(self, text):
         text = text.replace('\r', '')
         lines = text.split('\n')
-        self._blocks = [Block(t, n) for n, t in enumerate(lines)]
+        self._blocks = [_Block(t, n) for n, t in enumerate(lines)]
         pos = 0
         for b in self._blocks:
             b.position = pos
@@ -437,7 +450,7 @@ class Document(DocumentBase):
                 lines = text.split('\n')
                 lines[-1] += s.text[start - s.position:]
                 s.text = s.text[:start - s.position] + lines[0]
-                self._blocks[s.index+1:s.index+1] = map(Block, lines[1:])
+                self._blocks[s.index+1:s.index+1] = map(_Block, lines[1:])
             # make sure this line gets reparsed
             s.tokens = None
         
@@ -469,7 +482,7 @@ class Document(DocumentBase):
                 state = self._fridge.thaw(block.state)
 
 
-class Block(object):
+class _Block(object):
     """A line of text.
     
     This class is only used by the Document implementation.
@@ -488,11 +501,13 @@ class Block(object):
 class Cursor(object):
     """Defines a certain range (selection) in a Document.
     
-    You may change the start and end attributes yourself. As long as you 
-    keep a reference to the Cursor, its positions are updated when the 
-    document changes. When text is inserted at the start position, it remains
-    the same. But when text is inserted at the end of a cursor, the end 
-    position moves along with the new text. E.g.:
+    You may change the start and end attributes yourself. Both must be an 
+    integer, end may also be None, denoting the end of the document.
+    
+    As long as you keep a reference to the Cursor, its positions are updated 
+    when the document changes. When text is inserted at the start position, 
+    it remains the same. But when text is inserted at the end of a cursor, 
+    the end position moves along with the new text. E.g.:
     
     d = Document('hi there, folks!')
     c = Cursor(d, 8, 8)
@@ -505,26 +520,99 @@ class Cursor(object):
     
     """
     def __init__(self, doc, start=0, end=None):
-        self.document = doc
+        self._d = doc
         self.start = start
         self.end = end
         doc._register_cursor(self)
-
+    
+    @property
+    def document(self):
+        return self._d
+    
     def start_block(self):
-        return self.document.block(self.start)
+        """Return the block the start attribute points at."""
+        return self._d.block(self.start)
     
     def end_block(self):
+        """Return the block the end attribute points at."""
         if self.end is None:
-            return self.document[len(self.document)-1]
-        return self.document.block(self.end)
+            return self._d[len(self._d)-1]
+        return self._d.block(self.end)
     
     def blocks(self):
-        """Iterate over the selected blocks."""
-        end = self.end_block()
-        for b in self.document.blocks_forward(self.start_block()):
-            yield b
-            if b == end:
-                break
+        """Iterate over the selected blocks.
+        
+        If there are multiple blocks and the cursor ends on the first 
+        position of the last selected block, that block is not included.
+        
+        """
+        if self.end == self.start:
+            yield self.start_block()
+        else:
+            for b in self._d.blocks_forward(self.start_block()):
+                if self.end is not None and self._d.position(b) >= self.end:
+                    break
+                yield b
+    
+    def text(self):
+        """Convenience method to return the selected text."""
+        return self._d.plaintext()[self.start:self.end]
+    
+    def text_before(self):
+        """Return text before the cursor in it's start block."""
+        b = self.start_block()
+        pos = self.start - self._d.position(b)
+        return self._d.text(b)[:pos]
+        
+    def text_after(self):
+        """Return text after the cursor in it's end block."""
+        if self.end is None:
+            return ""
+        b = self.end_block()
+        pos = self.end - self._d.position(b)
+        return self._d.text(b)[pos:]
+        
+    def has_selection(self):
+        """Return True when there is some text selected."""
+        end = self.end
+        if end is None:
+            end = self._d.size()
+        return self.start != end
+    
+    def select_all(self):
+        """Select all text."""
+        self.start, self.end = 0, None
+    
+    def select_end_of_block(self):
+        """Move end to the end of the block."""
+        if self.end is not None:
+            end = self.end_block()
+            self.end = self._d.position(end) + len(self._d.text(end))
+    
+    def select_start_of_block(self):
+        """Move start to the start of the block."""
+        start = self.start_block()
+        self.start = self._d.position(start)
+    
+    def lstrip(self, chars=None):
+        """Move start to the right, like Python's lstrip() string method."""
+        if self.has_selection():
+            text = self.text()
+            self.start += len(text) - len(text.lstrip(chars))
+    
+    def rstrip(self, chars=None):
+        """Move end to the left, like Python's lstrip() string method."""
+        if self.has_selection():
+            text = self.text()
+            end = self._d.size() if self.end is None else self.end
+            end -= len(text) - len(text.rstrip(chars))
+            if end < self._d.size():
+                self.end = end
+    
+    def strip(self, chars=None):
+        """Strip chars from the selection, like Python's strip() method."""
+        self.rstrip(chars)
+        self.lstrip(chars)
 
 
 class Runner(object):
@@ -540,10 +628,35 @@ class Runner(object):
         method to get the tokens, else (by default), the tokens() method is 
         used.
         
+        The Runner is initialized at position 0. Alternatively, you can use 
+        the 'at' classmethod to construct a Runner at a specific cursor 
+        position.
+        
         """
         self._doc = doc
         self._wp = tokens_with_position
+        self.move_to_block(doc[0])
     
+    @classmethod
+    def at(cls, cursor, after_token=False, tokens_with_position=False):
+        """Create and init from a Cursor.
+        
+        The Runner is positioned so that yielding forward starts with the
+        first complete token after the cursor's start position.
+        
+        Set after_token to True if you want to position the cursor after the
+        token, so that it gets yielded when you go backward.
+        
+        If tokens_with_position is True, uses the tokens_with_position() 
+        method to get the tokens, else (by default), the tokens() method is 
+        used.
+        
+        """
+        runner = cls(cursor.document, tokens_with_position)
+        runner.set_position(cursor.start, after_token)
+        return runner
+    
+    @property
     def document(self):
         """Return our Document."""
         return self._doc
@@ -557,13 +670,16 @@ class Runner(object):
         """
         block = self._doc.block(position)
         self.move_to_block(block)
-        for t in self.forward_line():
-            if self.position() + len(t) > position:
-                if self.position() == position:
+        if after_token:
+            for t in self.forward_line():
+                if self.position() + len(t) >= position:
+                    self._index += 1
+                    break
+        else:
+            for t in self.forward_line():
+                if self.position() + len(t) > position:
                     self._index -= 1
-                break
-        if after_token and self._index <= len(self._tokens):
-            self._index += 1
+                    break
         
     def move_to_block(self, block, at_end=False):
         """Positions the Runner at the start of the given text block.
@@ -571,59 +687,55 @@ class Runner(object):
         If at_end == True, the iterator is positioned past the end of the block.
         
         """
-        self.block = block
-        method = self._doc.tokens_with_position if self._wp else self._doc.tokens
-        self._tokens = method(block)
-        self._index = len(self._tokens) if at_end else -1
-    
-    def valid(self):
-        """Return whether the current block is valid."""
-        return self._doc.isvalid(self.block)
+        if self._doc.isvalid(block):
+            self.block = block
+            method = self._doc.tokens_with_position if self._wp else self._doc.tokens
+            self._tokens = method(block)
+            self._index = len(self._tokens) if at_end else -1
+            return True
     
     def forward_line(self):
         """Yields tokens in forward direction in the current block."""
-        while self._index + 1 < len(self._tokens):
-            self._index += 1
-            yield self._tokens[self._index]
+        end = len(self._tokens)
+        if self._index < end:
+            while True:
+                self._index += 1
+                if self._index == end:
+                    break
+                yield self._tokens[self._index]
     
     def forward(self):
         """Yields tokens in forward direction across blocks."""
-        while self.valid():
+        while True:
             for t in self.forward_line():
                 yield t
-            self.next_block()
+            if not self.next_block():
+                break
     
     def backward_line(self):
         """Yields tokens in backward direction in the current block."""
-        while self._index > 0:
-            self._index -= 1
-            yield self._tokens[self._index]
+        if self._index >= 0:
+            while True:
+                self._index -= 1
+                if self._index == -1:
+                    break
+                yield self._tokens[self._index]
     
     def backward(self):
         """Yields tokens in backward direction across blocks."""
-        while self.valid():
+        while True:
             for t in self.backward_line():
                 yield t
-            self.previous_block()
+            if not self.previous_block():
+                break
     
-    def at_block_start(self):
-        """Returns True if the iterator is at the start of the current block."""
-        return self._index <= 0
-    
-    def at_block_end(self):
-        """Returns True if the iterator is at the end of the current block."""
-        return self._index >= len(self._tokens) - 1
-        
     def previous_block(self, at_end=True):
         """Go to the previous block, positioning the cursor at the end by default.
         
         Returns False if there was no previous block, else True.
         
         """
-        valid = self.valid()
-        if valid:
-            self.move_to_block(self._doc.previous_block(self.block), at_end)
-        return valid
+        return self.move_to_block(self._doc.previous_block(self.block), at_end)
     
     def next_block(self, at_end=False):
         """Go to the next block, positioning the cursor at the start by default.
@@ -631,21 +743,27 @@ class Runner(object):
         Returns False if there was no next block, else True.
         
         """
-        valid = self.block.isValid()
-        if valid:
-            self.move_to_block(self._doc.next_block(self.block), at_end)
-        return valid
+        return self.move_to_block(self._doc.next_block(self.block), at_end)
     
     def token(self):
         """Re-returns the last yielded token."""
-        return self._tokens[self._index]
+        if self._tokens:
+            index = self._index
+            if index < 0:
+                index = 0
+            elif index >= len(self._tokens):
+                index = len(self._tokens) - 1
+            return self._tokens[index]
         
     def position(self):
         """Returns the position of the current token."""
-        pos = self._tokens[self._index].pos
-        if not self._wp:
-            pos += self._doc.position(self.block)
-        return pos
+        if self._tokens:
+            pos = self.token().pos
+            if not self._wp:
+                pos += self._doc.position(self.block)
+            return pos
+        else:
+            return self._d.position(self.block)
     
     def copy(self):
         """Return a new Runner at the current position."""
@@ -792,6 +910,7 @@ class Source(object):
     
     next = __next__
     
+    @property
     def document(self):
         """Return our Document."""
         return self._doc

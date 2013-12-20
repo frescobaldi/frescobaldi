@@ -43,7 +43,7 @@ import icons
 import helpers
 import textedit
 import textformats
-import tokeniter
+import lydocument
 import viewhighlighter
 import ly.lex.lilypond
 
@@ -180,7 +180,9 @@ class MusicView(QWidget):
             return
         
         # highlight token(s) at this cursor
-        source = tokeniter.Source.from_cursor(cursor, True)
+        c = lydocument.cursor(cursor)
+        c.end = None
+        source = lydocument.Source(c, True)
         for token in source.tokens:
             break
         else:

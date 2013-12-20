@@ -27,27 +27,29 @@ import os
 
 from PyQt4.QtCore import QUrl
 
-import app
 import documentinfo
-import ly
-import tokeniter
 
 
 def open_file_at_cursor(cursor, mainwin):
     """Opens the filename mentioned at the text cursor."""
-    # take either the selection or the include-args found by ly.parse
-    if cursor.hasSelection():
+    # take either the selection or the include-args found by lydocinfo
+    start = cursor.document().findBlock(cursor.selectionStart()).position()
+    end = cursor.selectionEnd()
+    if not cursor.hasSelection():
+        end = start + len(cursor.block().text()) + 1
+    dinfo = documentinfo.info(cursor.document())
+    i = dinfo.lydocinfo().range(start, end)
+    fnames = i.include_args() or i.scheme_load_args()
+    if not fnames and cursor.hasSelection():
         fnames = [cursor.selection().toPlainText()]
-    else:
-        fnames = list(ly.parse.includeargs(iter(tokeniter.tokens(cursor.block()))))
     
-    # detemine search path: doc dir and other include path names
+    # determine search path: doc dir and other include path names
     filename = cursor.document().url().toLocalFile()
     if filename:
         path = [os.path.dirname(filename)]
     else:
         path = []
-    path.extend(documentinfo.info(cursor.document()).includepath())
+    path.extend(dinfo.includepath())
     
     # load all docs, trying all include paths
     d = None

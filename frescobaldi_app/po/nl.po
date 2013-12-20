@@ -1,14 +1,14 @@
 # translation of nl.po to Nederlands
-#
 # Wilbert Berendsen <wbsoft@xs4all.nl>, 2008, 2009, 2010, 2011, 2012, 2013.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2013-12-01 00:33+0100\n"
-"PO-Revision-Date: 2013-12-01 00:34+0100\n"
-"Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
-"Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2013-12-18 23:17+0100\n"
+"Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
+"Language-Team: Nederlands <>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -225,7 +225,7 @@ msgstr "&Formatteren"
 
 #: ../documentactions.py:188
 msgid "Remove Trailing &Whitespace"
-msgstr ""
+msgstr "&Witruimte aan regeleinden verwijderen"
 
 #: ../documentactions.py:189
 msgid "&Update with convert-ly..."
@@ -1365,32 +1365,28 @@ msgid "Import Music XML"
 msgstr "MusicXML importeren"
 
 #: ../file_import/musicxml.py:157 ../userguide/musicxml_import.md:16
-#, fuzzy
 msgid "Import articulation directions"
-msgstr "Geen expliciete richting voor articulaties"
+msgstr "Richting voor articulaties importeren"
 
 #: ../file_import/musicxml.py:158 ../userguide/musicxml_import.md:17
-#, fuzzy
 msgid "Import rest positions"
-msgstr "Geen expliciete positie voor rusten"
+msgstr "Positie voor rusten importeren"
 
 #: ../file_import/musicxml.py:159 ../userguide/musicxml_import.md:18
-#, fuzzy
 msgid "Import page layout"
-msgstr "Geen pagina-layout"
+msgstr "Pagina-layout importeren"
 
 #: ../file_import/musicxml.py:160 ../userguide/musicxml_import.md:19
-#, fuzzy
 msgid "Import beaming"
-msgstr "Automatische waardestrepen"
+msgstr "Waardestrepen importeren"
 
 #: ../file_import/musicxml.py:161 ../userguide/musicxml_import.md:20
 msgid "Pitches in absolute mode"
-msgstr ""
+msgstr "Toonhoogtes in absolute modus"
 
 #: ../file_import/musicxml.py:164 ../userguide/musicxml_import.md:21
 msgid "Language for pitch names"
-msgstr ""
+msgstr "Taal voor nootnamen"
 
 #: ../file_import/musicxml.py:165 ../preferences/documentation.py:128
 #: ../preferences/general.py:133 ../preferences/tools.py:296
@@ -1402,22 +1398,19 @@ msgstr "Standaard"
 
 #: ../file_import/musicxml.py:166
 msgid "Reformat source"
-msgstr ""
+msgstr "Broncode herformatteren"
 
 #: ../file_import/musicxml.py:167
-#, fuzzy
 msgid "Trim durations (Make implicit per line)"
-msgstr "Imp&liciet maken (per regel)"
+msgstr "Tijdsduren impliciet maken (per regel)"
 
 #: ../file_import/musicxml.py:168
-#, fuzzy
 msgid "Remove fraction duration scaling"
-msgstr "Tijdsduu&r verwijderen"
+msgstr "Fracties van tijdsduur-schaling verwijderen"
 
 #: ../file_import/musicxml.py:169
-#, fuzzy
 msgid "Engrave directly"
-msgstr "Aangepast graveren"
+msgstr "Direct graveren"
 
 #: ../file_import/musicxml.py:171
 msgid "Run musicxml2ly"
@@ -2861,11 +2854,11 @@ msgstr "standaard"
 
 #: ../preferences/lilypond.py:247
 msgid "Label:"
-msgstr ""
+msgstr "Label:"
 
 #: ../preferences/lilypond.py:248
 msgid "How this version of LilyPond will be displayed."
-msgstr ""
+msgstr "Hoe deze versie van LilyPond wordt afgebeeld."
 
 #: ../preferences/lilypond.py:249
 msgid "LilyPond Command:"
@@ -6223,6 +6216,9 @@ msgid ""
 "You may enter a custom label to easily recognize a specific LilyPond "
 "instance. I you do not enter a label, \"LilyPond\" is used."
 msgstr ""
+"U kunt een eigen label invoeren om een bepaalde versie van LilyPond "
+"gemakkelijk te herkennen. Als u geen label invoert, wordt \"LilyPond\" "
+"gebruikt."
 
 #: ../userguide/prefs_lilypond.md:17
 msgid ""
@@ -7371,29 +7367,28 @@ msgstr ""
 "gereedschap `musicxml2ly` uit het LilyPond pakket."
 
 #: ../userguide/musicxml_import.md:6
-#, fuzzy
 msgid ""
 "In this dialog there are two tabs. In the first you can set some parameters "
 "for the musicxml2ly import. In the second you can set some actions on the "
 "imported LilyPond source code."
 msgstr ""
-"In deze dialoog kunt u enige parameters voor de musicxml2ly-import "
-"instellen. Momenteel kunnen vier parameters ingesteld worden:"
+"In deze dialoog zijn twee tabs. In de eerste kunt u enige parameters voor de "
+"musicxml2ly-import instellen. In de tweede kunnen acties worden aangegeven "
+"om te doen met de geïmporteerde LilyPond-tekst."
 
 #: ../userguide/musicxml_import.md:10
 msgid ""
 "Your settings in both tabs are remembered until the next time you use this "
 "dialog."
-msgstr ""
+msgstr "De instellingen in beide tabs worden bewaard."
 
 #: ../userguide/musicxml_import.md:12
-#, fuzzy
 msgid "The musicxml2ly tab"
-msgstr "Het musicxml2ly-programma"
+msgstr "De musicxml2ly-tab"
 
 #: ../userguide/musicxml_import.md:14
 msgid "In this tab you have the following options:"
-msgstr ""
+msgstr "In deze tab heeft u de volgende opties:"
 
 #: ../userguide/musicxml_import.md:23
 msgid ""
@@ -7401,6 +7396,9 @@ msgid ""
 "file if they are present and if you prefer not to use LilyPond's automatic "
 "handling of these elements."
 msgstr ""
+"De eerste vier opties zijn partituur-elementen die uit het MusicXML-bestand "
+"kunnen worden verkregen als zijn aanwezig zijn, en als u niet LilyPond's "
+"automatische behandeling van deze elementen wilt gebruiken."
 
 #: ../userguide/musicxml_import.md:27
 msgid ""
@@ -7408,6 +7406,9 @@ msgid ""
 "absolute mode or if you prefer a different pitch name language than the "
 "default."
 msgstr ""
+"De volgende twee opties kunnen worden gebruikt als u de muzieknoten absoluut "
+"wilt in plaats van relatief, of als u een andere taal voor nootnamen wilt "
+"gebruiken dan de standaardtaal."
 
 #. NOTE: markdown formatting
 #: ../userguide/musicxml_import.md:31
@@ -7417,11 +7418,14 @@ msgid ""
 "and musicxml2ly in particular you can edit this text directly, otherwise you "
 "can just ignore this."
 msgstr ""
+"Onderaan is een tekstvak dat de commandoregel laat zien waarmee "
+"`musicxml2ly` wordt gestart. U kunt deze tekst rechtstreeks aanpassen als u "
+"wilt."
 
 #. NOTE: markdown formatting
 #: ../userguide/musicxml_import.md:37
 msgid "The *after import* tab"
-msgstr ""
+msgstr "De tab *Na het importeren*"
 
 #. NOTE: markdown formatting
 #: ../userguide/musicxml_import.md:39
@@ -7429,31 +7433,35 @@ msgid ""
 "After `musicxml2ly` is run and the new ly-file is created you can set "
 "Frescobaldi to automatically do some adjustments on the new file."
 msgstr ""
+"Nadat `musicxml2ly` heeft gedraaid en het nieuwe ly-bestand is aangemaakt "
+"kan Frescobaldi nog enige aanpassingen aan het bestand doen."
 
 #: ../userguide/musicxml_import.md:42
 msgid "Reformat source:"
-msgstr ""
+msgstr "Bron herformatteren:"
 
 #: ../userguide/musicxml_import.md:43
 msgid ""
 "the code is reformatted. (This is identical to running Tools -> Format.)"
 msgstr ""
+"de broncode wordt opnieuw geformatteerd (Gelijk aan Gereedschap-"
+">Herformatteren)"
 
 #: ../userguide/musicxml_import.md:46
-#, fuzzy
 msgid "Trim durations (Make implicit per line):"
-msgstr "Imp&liciet maken (per regel)"
+msgstr "Tijdsduren impliciet maken (per regel):"
 
 #: ../userguide/musicxml_import.md:47
 msgid ""
 "repeated time duration on the same line are deleted. (This is identical to "
 "running Tools -> Rhythm -> Make implicit per line.)"
 msgstr ""
+"herhaalde tijdsduren op dezelfde regel worden weggelaten (Gelijk aan "
+"Gereedschap->Ritme->Impliciet maken (per regel)."
 
 #: ../userguide/musicxml_import.md:50
-#, fuzzy
 msgid "Remove fraction duration scaling:"
-msgstr "Tijdsduu&r verwijderen"
+msgstr "Fracties van tijdsduur-schaling verwijderen:"
 
 #. NOTE: markdown formatting
 #: ../userguide/musicxml_import.md:51
@@ -7462,17 +7470,20 @@ msgid ""
 "appending `*N/M` this scaling is removed. (This can be useful to prevent "
 "unwanted scaling to emerge from ill-formatted musicXML-files.)"
 msgstr ""
+"als losse noten, rusten of akkoorden zijn vermenigvuldigd met een fractie "
+"`*N/M` dan wordt deze fractie verwijderd. Dit kan handig zijn bij ongewenste "
+"schaling door slecht gevormde MusicXML-bestanden."
 
 #: ../userguide/musicxml_import.md:56
-#, fuzzy
 msgid "Engrave directly:"
-msgstr "Basismap:"
+msgstr "Direct graveren:"
 
 #: ../userguide/musicxml_import.md:57
 msgid ""
 "LilyPond runs directly. (This is identical to running LilyPond -> Engrave "
 "(preview).)"
 msgstr ""
+"LilyPond wordt gelijk gestart (Gelijk aan LilyPond->Graveren (vooruitblik).)"
 
 #: ../userguide/import.md:1
 msgid "Importing files"
@@ -8164,9 +8175,8 @@ msgid "Not Found"
 msgstr "Niet gevonden"
 
 #: ../userguide/404.md:3
-#, fuzzy
 msgid "Cannot load the requested userguide resource {userguide_page}."
-msgstr "Kan de gevraagde bron niet weergeven."
+msgstr "Kan de gevraagde bron {userguide_page} niet weergeven."
 
 #: ../userguide/sessions.md:1
 msgid "Sessions"
