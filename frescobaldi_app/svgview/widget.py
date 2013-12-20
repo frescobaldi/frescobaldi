@@ -48,13 +48,17 @@ class SvgView(QWidget):
         
         app.jobFinished.connect(self.initSvg)
         
+    def mainwindow(self):
+        return self.parent().mainwindow()       
         
     def initSvg(self, doc):
         """Opens first page of score after compilation"""
+        self.scene.setDoc(doc, self.mainwindow())
         svg_pages = resultfiles.results(doc).files('.svg')
-        svg = QtCore.QUrl(svg_pages[0])
-        self.scene.webview.load(svg)
-        self._currentFiles = svg_pages
+        if svg_pages:
+			svg = QtCore.QUrl(svg_pages[0])
+			self.scene.webview.load(svg)       
+			self._currentFiles = svg_pages
         
     def changePage(self, page_index):
         """change page of score"""
