@@ -105,35 +105,35 @@ class DocumentInfo(plugin.DocumentPlugin):
         return include_path
         
     def jobinfo(self, create=False):
-        """Returns a three tuple(filename, mode, includepath) based on the given document.
+        """Returns a two-tuple(filename, includepath).
         
-        If the document is modified, its text is saved to a temporary area 
-        and that filename is returned. If the 'create' argument is False 
-        (the default), no temporary file is created, and in that case, the 
-        existing filename (may be empty) is returned.
+        The filename is the file LilyPond shall be run on. This can be the 
+        original filename of the document (if it has a filename and is not 
+        modified), but also the filename of a temporarily saved copy of the 
+        document.
         
-        If a scratch area is used but the document has a local filename and includes
-        other files, the original directory is given in the includepath list.
+        The includepath is the same as self.includepath(), but with the 
+        directory of the original file prepended, only if a temporary 
+        'scratchdir'-area is used and the document does include other files 
+        (and therefore the original folder should be given in the include 
+        path to LilyPond).
         
         """
-        # Determine the filename to run the engraving job on
-        includepath = []
+        includepath = self.includepath()
         filename = self.document().url().toLocalFile()
-        mode_ = self.mode()
         
+        # Determine the filename to run the engraving job on
         if not filename or self.document().isModified():
             # We need to use a scratchdir to save our contents to
             import scratchdir
             scratch = scratchdir.scratchdir(self.document())
             if create:
                 scratch.saveDocument()
-                if filename and self.lydocinfo().include_args():
-                    includepath.append(os.path.dirname(filename))
+            if filename and self.lydocinfo().include_args():
+                includepath.insert(0, os.path.dirname(filename))
+            if create or (scratch.path() and os.path.exists(scratch.path())):
                 filename = scratch.path()
-            elif scratch.path() and os.path.exists(scratch.path()):
-                filename = scratch.path()
-        
-        return filename, mode_, includepath
+        return filename, includepath
     
     def includefiles(self):
         """Returns a set of filenames that are included by this document.
@@ -172,20 +172,16 @@ class DocumentInfo(plugin.DocumentPlugin):
         """
         # if the file defines an 'output' variable, it is used instead
         output = variables.get(self.document(), 'output')
-        
-        filename, mode = self.jobinfo()[:2]
-        
+        filename = self.jobinfo()[0]
         if output:
             dirname = os.path.dirname(filename)
             return [os.path.join(dirname, name.strip())
                     for name in output.split(',')]
         
-        dinfo = self.lydocinfo()
-        if filename != dinfo.document.filename:
-            dinfo = fileinfo.docinfo(filename)
+        mode = self.mode()
         
         if mode == "lilypond":
-            return fileinfo.basenames(dinfo, self.includefiles())
+            return fileinfo.basenames(self.lydocinfo(), self.includefiles(), filename)
         
         elif mode == "html":
             pass

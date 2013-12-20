@@ -105,16 +105,19 @@ def includefiles(dinfo, include_path=()):
     return files
 
 
-def basenames(dinfo, includefiles=()):
+def basenames(dinfo, includefiles=(), filename=None):
     """Returns the list of basenames a document is expected to create.
     
     The list is created based on includefiles and the define output-suffix and
     \bookOutputName and \bookOutputSuffix commands.
     You should add '.ext' and/or '-[0-9]+.ext' to find created files.
     
+    If filename is given, it is regarded as the filename LilyPond is run on. 
+    Otherwise, the filename of the info's document is read.
+    
     """
     basenames = []
-    basepath = os.path.splitext(dinfo.document.filename)[0]
+    basepath = os.path.splitext(filename or dinfo.document.filename)[0]
     dirname, basename = os.path.split(basepath)
 
     if basepath:

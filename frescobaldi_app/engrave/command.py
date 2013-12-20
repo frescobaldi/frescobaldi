@@ -50,8 +50,8 @@ def defaultJob(document, args=None):
     with point and click turned off.
     
     """
-    filename, mode, includepath = documentinfo.info(document).jobinfo(True)
-    includepath.extend(documentinfo.info(document).includepath())
+    filename, includepath = documentinfo.info(document).jobinfo(True)
+    
     i = info(document)
     j = job.Job()
     
