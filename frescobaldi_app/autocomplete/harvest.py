@@ -58,20 +58,16 @@ def schemewords(document):
 
 def include_identifiers(cursor):
     """Harvests identifier definitions from included files."""
-    fname = cursor.document().url().toLocalFile()
-    includeargs = get_docinfo(cursor).include_args()
     dinfo = documentinfo.info(cursor.document())
-    files = fileinfo.includefiles(fname, dinfo.includepath(), includeargs)
+    files = fileinfo.includefiles(get_docinfo(cursor), dinfo.includepath())
     return itertools.chain.from_iterable(fileinfo.docinfo(f).definitions()
                                          for f in files)
 
 
 def include_markup_commands(cursor):
     """Harvest markup command definitions from included files."""
-    fname = cursor.document().url().toLocalFile()
-    includeargs = get_docinfo(cursor).include_args()
     dinfo = documentinfo.info(cursor.document())
-    files = fileinfo.includefiles(fname, dinfo.includepath(), includeargs)
+    files = fileinfo.includefiles(get_docinfo(cursor), dinfo.includepath())
     return itertools.chain.from_iterable(fileinfo.docinfo(f).markup_definitions()
                                          for f in files)
     
