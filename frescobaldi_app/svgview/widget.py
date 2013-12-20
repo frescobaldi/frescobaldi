@@ -39,14 +39,21 @@ class SvgView(QWidget):
         self._currentFiles = None
         
         self.scene = svgscene.SvgScene()
+        
+        self.pageLabel = QLabel()
+        self.pageLabel.setText(_("Page:"))
+        self.pageCombo = QComboBox()
 		
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
+        layout.addWidget(self.pageLabel)
+        layout.addWidget(self.pageCombo)
         layout.addWidget(self.scene.view)
         self.scene.view.show()
         
         app.jobFinished.connect(self.initSvg)
+        self.pageCombo.currentIndexChanged.connect(self.changePage)
         
     def mainwindow(self):
         return self.parent().mainwindow()       
@@ -56,9 +63,15 @@ class SvgView(QWidget):
         self.scene.setDoc(doc, self.mainwindow())
         svg_pages = resultfiles.results(doc).files('.svg')
         if svg_pages:
-			svg = QtCore.QUrl(svg_pages[0])
-			self.scene.webview.load(svg)       
-			self._currentFiles = svg_pages
+            svg = QtCore.QUrl(svg_pages[0])
+            self.scene.webview.load(svg)       
+            self._currentFiles = svg_pages
+            self.setPageCombo()
+			
+    def setPageCombo(self):
+        """Fill combobox with page numbers"""
+        for p in range (1, len(self._currentFiles)+1):
+            self.pageCombo.addItem(str(p))			
         
     def changePage(self, page_index):
         """change page of score"""
