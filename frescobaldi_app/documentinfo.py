@@ -96,15 +96,6 @@ class DocumentInfo(plugin.DocumentPlugin):
         if guess:
             return self.lydocinfo().mode()
     
-    def master(self):
-        """Returns the master filename for the document, if it exists."""
-        filename = self.document().url().toLocalFile()
-        redir = variables.get(self.document(), "master")
-        if filename and redir:
-            path = os.path.normpath(os.path.join(os.path.dirname(filename), redir))
-            if os.path.exists(path) and path != filename:
-                return path
-
     def includepath(self):
         """Returns the configured include path. Currently the document does not matter."""
         try:
@@ -116,14 +107,10 @@ class DocumentInfo(plugin.DocumentPlugin):
     def jobinfo(self, create=False):
         """Returns a three tuple(filename, mode, includepath) based on the given document.
         
-        If the document is a local file, its contents is checked for the 'master' variable
-        to run the engraver on a different file instead. The mode is then also chosen
-        based on the contents of that other file.
-        
-        If no redirecting variables are found and the document is modified, its text
-        is saved to a temporary area and that filename is returned. If the 'create'
-        argument is False (the default), no temporary file is created, and in that
-        case, the existing filename (may be empty) is returned.
+        If the document is modified, its text is saved to a temporary area 
+        and that filename is returned. If the 'create' argument is False 
+        (the default), no temporary file is created, and in that case, the 
+        existing filename (may be empty) is returned.
         
         If a scratch area is used but the document has a local filename and includes
         other files, the original directory is given in the includepath list.
@@ -131,42 +118,36 @@ class DocumentInfo(plugin.DocumentPlugin):
         """
         # Determine the filename to run the engraving job on
         includepath = []
-        filename = self.master()
-        if filename:
-            mode_ = fileinfo.docinfo(filename).mode()
-        else:
-            filename = self.document().url().toLocalFile()
-            mode_ = self.mode()
+        filename = self.document().url().toLocalFile()
+        mode_ = self.mode()
         
-            if not filename or self.document().isModified():
-                # We need to use a scratchdir to save our contents to
-                import scratchdir
-                scratch = scratchdir.scratchdir(self.document())
-                if create:
-                    scratch.saveDocument()
-                    if filename and self.lydocinfo().include_args():
-                        includepath.append(os.path.dirname(filename))
-                    filename = scratch.path()
-                elif scratch.path() and os.path.exists(scratch.path()):
-                    filename = scratch.path()
+        if not filename or self.document().isModified():
+            # We need to use a scratchdir to save our contents to
+            import scratchdir
+            scratch = scratchdir.scratchdir(self.document())
+            if create:
+                scratch.saveDocument()
+                if filename and self.lydocinfo().include_args():
+                    includepath.append(os.path.dirname(filename))
+                filename = scratch.path()
+            elif scratch.path() and os.path.exists(scratch.path()):
+                filename = scratch.path()
         
         return filename, mode_, includepath
     
     def includefiles(self):
-        """Returns a set of filenames that are included by the given document.
+        """Returns a set of filenames that are included by this document.
         
         The document's own filename is not added to the set.
         The configured include path is used to find files.
-        Included files are checked recursively, relative to our (master) file,
+        Included files are checked recursively, relative to our file,
         relative to the including file, and if that still yields no file, relative
         to the directories in the includepath().
         
         This method uses caching for both the document contents and the other files.
         
         """
-        filename = self.master()
-        dinfo = fileinfo.docinfo(filename) if filename else self.lydocinfo()
-        return fileinfo.includefiles(dinfo, self.includepath())
+        return fileinfo.includefiles(self.lydocinfo(), self.includepath())
 
     def child_urls(self):
         """Return a tuple of urls included by the Document.
@@ -190,11 +171,7 @@ class DocumentInfo(plugin.DocumentPlugin):
         
         """
         # if the file defines an 'output' variable, it is used instead
-        filename = self.master()
-        if filename:
-            output = fileinfo.docinfo(filename).variables().get('output')
-        else:
-            output = variables.get(self.document(), 'output')
+        output = variables.get(self.document(), 'output')
         
         filename, mode = self.jobinfo()[:2]
         

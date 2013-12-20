@@ -22,6 +22,9 @@ Changes in 2.0.12 --
 * Bug fixes:
   - Music View: horizontal scrolling using trackpad now works with kinetic mode
     enabled. Fixes #248.
+* Removed feature:
+  - The 'master' variable is no longer supported, it's goal has been superseded
+    by the 'Always Engrave' option, which is also saved in the session.
 
 
 Changes in 2.0.11 -- October 16th, 2013
