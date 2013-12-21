@@ -28,6 +28,7 @@ from PyQt4 import QtCore
 from PyQt4 import QtGui
 from PyQt4.QtWebKit import QGraphicsWebView
 
+import app
 import textedit
 
 
@@ -87,18 +88,14 @@ class JSLink(QtCore.QObject):
     
     @QtCore.pyqtSlot(str)
     def setCursor(self, url):
-	    """set cursor in source by clicked textedit link""" 
-	    t = textedit.link(url)
-	    filename = self.doc.url().toLocalFile()
-	    if t and t.filename == filename:
-		    if not self.doc is self.mainwindow.currentDocument():
-			    self.mainwindow.setCurrentDocument(self.doc)			
-		    b = self.doc.findBlockByNumber(t.line - 1)
-		    p = b.position() + t.column
-		    cursor = self.mainwindow.textCursor()
-		    cursor.clearSelection()
-		    cursor.setPosition(p)
-		    self.mainwindow.setTextCursor(cursor)		    
+        """set cursor in source by clicked textedit link""" 
+        t = textedit.link(url)
+        doc = app.openUrl(QtCore.QUrl.fromLocalFile(t.filename))
+        cursor = QtGui.QTextCursor(doc)
+        b = doc.findBlockByNumber(t.line - 1)
+        p = b.position() + t.column
+        cursor.setPosition(p)
+        self.mainwindow.setTextCursor(cursor)
 	
     @QtCore.pyqtSlot(str)	    
     def hover(self, url):
