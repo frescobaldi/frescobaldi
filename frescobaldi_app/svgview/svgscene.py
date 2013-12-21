@@ -44,10 +44,8 @@ def getJsScript(filename):
 
 
 class SvgScene(QtGui.QGraphicsScene):
-    def __init__(self):
-        super(QtGui.QGraphicsScene, self).__init__()
-        self._doc = None
-        self._mainwindow = None
+    def __init__(self, parent):
+        super(QtGui.QGraphicsScene, self).__init__(parent)
         self.view = QtGui.QGraphicsView(self)
         self.webview = QGraphicsWebView()
         self.webview.setFlags(QtGui.QGraphicsItem.ItemClipsToShape)
@@ -56,23 +54,19 @@ class SvgScene(QtGui.QGraphicsScene):
 
         self.webview.loadFinished.connect(self.svgLoaded)
         
-    def setDoc(self, doc, mainwindow):
-		self._doc = doc
-		self._mainwindow = mainwindow
-
     def svgLoaded(self):
         frame = self.webview.page().mainFrame()
         fsize = frame.contentsSize()
         self.webview.resize(QtCore.QSizeF(fsize))
         self.view.resize(fsize.width() + 10, fsize.height() + 10)
 
-        self.links = JSLink()
-        self.links.setDocument(self._doc, self._mainwindow)
+        self.links = JSLink(self.parent().mainwindow())
         frame.addToJavaScriptWindowObject("pyLinks", self.links)
         frame.evaluateJavaScript(getJsScript('pointandclick.js'))
         
     def toolTipText(self, txt):
 		self.webview.setToolTip(txt)
+
 
 class JSLink(QtCore.QObject):
     """functions to be called from JavaScript
@@ -80,12 +74,10 @@ class JSLink(QtCore.QObject):
     using addToJavaScriptWindowObject
     
     """
-    
-    def setDocument(self, doc, mainwindow):
-	    """set document and mainwindow"""
-	    self.doc = doc
-	    self.mainwindow = mainwindow    
-    
+    def __init__(self, mainwindow):
+        self.mainwindow = mainwindow
+        super(JSLink, self).__init__()
+        
     @QtCore.pyqtSlot(str)
     def setCursor(self, url):
         """set cursor in source by clicked textedit link""" 

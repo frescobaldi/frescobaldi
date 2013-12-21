@@ -41,7 +41,7 @@ class SvgView(QWidget):
         
         self._currentFiles = None
         
-        self.scene = svgscene.SvgScene()
+        self.scene = svgscene.SvgScene(self)
         
         self.pageLabel = QLabel()
         self.pageCombo = QComboBox(sizeAdjustPolicy=QComboBox.AdjustToContents)
@@ -74,7 +74,6 @@ class SvgView(QWidget):
         
     def initSvg(self, doc):
         """Opens first page of score after compilation"""
-        self.scene.setDoc(doc, self.mainwindow())
         svg_pages = resultfiles.results(doc).files('.svg')
         if svg_pages:
             svg = QtCore.QUrl(svg_pages[0])
