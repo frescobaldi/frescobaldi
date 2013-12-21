@@ -59,6 +59,10 @@ class SvgView(QWidget):
         
         app.jobFinished.connect(self.initSvg)
         self.pageCombo.currentIndexChanged.connect(self.changePage)
+        dockwidget.mainwindow().currentDocumentChanged.connect(self.initSvg)
+        doc = dockwidget.mainwindow().currentDocument()
+        if doc:
+            self.initSvg(doc)
         app.translateUI(self)
     
     def translateUI(self):
