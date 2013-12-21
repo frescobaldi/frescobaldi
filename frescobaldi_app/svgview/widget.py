@@ -70,6 +70,7 @@ class SvgView(QWidget):
 			
     def setPageCombo(self):
         """Fill combobox with page numbers"""
+        self.pageCombo.clear()
         for p in range (1, len(self._currentFiles)+1):
             self.pageCombo.addItem(str(p))			
         
