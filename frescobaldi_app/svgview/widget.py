@@ -23,7 +23,9 @@ The SVG preview panel widget.
 
 from __future__ import unicode_literals
 
+import os
 import sys
+
 from PyQt4 import QtCore
 from PyQt4.QtGui import *
 
@@ -31,6 +33,7 @@ import app
 import resultfiles
 
 from . import svgscene
+
 
 class SvgView(QWidget):
     def __init__(self, dockwidget):
@@ -41,19 +44,26 @@ class SvgView(QWidget):
         self.scene = svgscene.SvgScene()
         
         self.pageLabel = QLabel()
-        self.pageLabel.setText(_("Page:"))
-        self.pageCombo = QComboBox()
+        self.pageCombo = QComboBox(sizeAdjustPolicy=QComboBox.AdjustToContents)
 		
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
-        layout.addWidget(self.pageLabel)
-        layout.addWidget(self.pageCombo)
+        hbox = QHBoxLayout(margin=0)
+        hbox.addWidget(self.pageLabel)
+        hbox.addWidget(self.pageCombo)
+        hbox.addStretch(1)
+        layout.addLayout(hbox)
         layout.addWidget(self.scene.view)
         self.scene.view.show()
         
         app.jobFinished.connect(self.initSvg)
         self.pageCombo.currentIndexChanged.connect(self.changePage)
+        app.translateUI(self)
+    
+    def translateUI(self):
+        self.pageLabel.setText(_("Page:"))
+
         
     def mainwindow(self):
         return self.parent().mainwindow()       
@@ -71,8 +81,7 @@ class SvgView(QWidget):
     def setPageCombo(self):
         """Fill combobox with page numbers"""
         self.pageCombo.clear()
-        for p in range (1, len(self._currentFiles)+1):
-            self.pageCombo.addItem(str(p))			
+        self.pageCombo.addItems(map(os.path.basename, self._currentFiles))
         
     def changePage(self, page_index):
         """change page of score"""
