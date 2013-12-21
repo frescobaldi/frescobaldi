@@ -32,6 +32,7 @@ import symbols
 import cursortools
 import lydocument
 import ly.document
+import documentinfo
 import ly.lex.lilypond
 import ly.rhythm
 import icons
@@ -46,7 +47,7 @@ shorthands = {
     'marcato': '^',
     'stopped': '+',
     'tenuto': '-',
-    'staccatissimo': '|',
+    'staccatissimo': '|', # in Lily >= 2.17.25 this changed to '!', handled below
     'accent': '>',
     'staccato': '.',
     'portato': '_',
@@ -118,7 +119,13 @@ class Group(buttongroup.ButtonGroup):
 
     def actionTriggered(self, name):
         if self.tool().shorthands.isChecked() and name in shorthands:
-            text = '_-^'[self.direction()+1] + shorthands[name]
+            short = shorthands[name]
+            # LilyPond >= 2.17.25 changed -| to -!
+            if name == 'staccatissimo':
+                version = documentinfo.docinfo(self.mainwindow().currentDocument()).version()
+                if version >= (2, 17, 25):
+                    short = '!'
+            text = '_-^'[self.direction()+1] + short
         else:
             text = ('_', '', '^')[self.direction()+1] + '\\' + name
         cursor = self.mainwindow().textCursor()
