@@ -21,19 +21,26 @@
 The GraphicsScene for the SVG view.
 """
 
+import os
 import sys
+
 from PyQt4 import QtCore
 from PyQt4 import QtGui
 from PyQt4.QtWebKit import QGraphicsWebView
 
 import textedit
 
+
+from . import __path__
+
+
 def getJsScript(filename):
-	"""fetch the js file"""
-	fileObject = open('frescobaldi_app/svgview/'+filename,'r')
-	jsValue = fileObject.read()
-	fileObject.close
+    """fetch the js file"""
+    directory = __path__[0]
+    with open(os.path.join(directory, filename), 'r') as fileObject:
+        jsValue = fileObject.read()
 	return jsValue
+
 
 class SvgScene(QtGui.QGraphicsScene):
     def __init__(self):
