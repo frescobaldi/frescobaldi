@@ -40,7 +40,7 @@ class SvgViewPanel(panel.Panel):
     def __init__(self, mainwindow):
         super(SvgViewPanel, self).__init__(mainwindow)
         self.hide()
-        self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+S"))
+        self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+G"))
         mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
         
         ac = self.actionCollection = Actions(self)
@@ -48,7 +48,7 @@ class SvgViewPanel(panel.Panel):
 		
     def translateUI(self):
         self.setWindowTitle(_("window title", "SVG View"))
-        self.toggleViewAction().setText(_("&SVG View"))
+        self.toggleViewAction().setText(_("SV&G View"))
         
     def createWidget(self):
         import widget
